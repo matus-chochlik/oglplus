@@ -1,0 +1,35 @@
+/**
+ *  @file oglplus/all.hpp
+ *  @brief All-in-one inclusion of everything in OpenGL++
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#ifndef OGLPLUS_ALL_1107121519_HPP
+#define OGLPLUS_ALL_1107121519_HPP
+
+#include <oglplus/fwd.hpp>
+#include <oglplus/error.hpp>
+
+#include <oglplus/array.hpp>
+
+#include <oglplus/context.hpp>
+
+#include <oglplus/buffer_object.hpp>
+#include <oglplus/vertex_array.hpp>
+#include <oglplus/vertex_array_object.hpp>
+#include <oglplus/texture.hpp>
+#include <oglplus/sampler.hpp>
+#include <oglplus/framebuffer.hpp>
+#include <oglplus/renderbuffer.hpp>
+#include <oglplus/transform_feedback.hpp>
+#include <oglplus/program_pipeline.hpp>
+#include <oglplus/query.hpp>
+
+#include <oglplus/shader.hpp>
+
+#endif // include guard
