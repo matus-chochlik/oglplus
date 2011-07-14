@@ -43,13 +43,16 @@ public:
 	inline Object(void)
 	{
 		_do_init(1, this->_name);
+		assert(this->_name != 0);
 	}
 
 	Object(const Object&) = delete;
 
 	inline Object(Object&& temp)
 	 : ObjectOps(temp._release())
-	{ }
+	{
+		assert(this->_name != 0);
+	}
 
 	inline ~Object(void)
 	{

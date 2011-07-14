@@ -14,6 +14,8 @@
 
 namespace oglplus {
 
+#define nullptr 0
+
 } // namespace oglplus
 
 #endif // include guard

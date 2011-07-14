@@ -23,6 +23,7 @@
 #include <oglplus/primitive_type.hpp>
 
 #include <oglplus/buffer.hpp>
+#include <oglplus/vertex_attrib.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/sampler.hpp>

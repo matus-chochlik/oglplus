@@ -48,11 +48,13 @@ public:
 	void Begin(Target target) const
 	{
 		::glBeginQuery(GLenum(target), _name);
+		AssertNoError();
 	}
 
 	void End(Target target) const
 	{
 		::glEndQuery(GLenum(target));
+		AssertNoError();
 	}
 };
 

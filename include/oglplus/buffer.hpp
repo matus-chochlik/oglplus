@@ -79,8 +79,24 @@ public:
 
 	static void Data(
 		Target target,
+		GLfloat* data,
+		GLsizei count,
+		Usage usage = Usage::StaticDraw
+	)
+	{
+		::glBufferData(
+			GLenum(target),
+			count * sizeof(GLfloat),
+			data,
+			GLenum(usage)
+		);
+		ThrowOnError();
+	}
+
+	static void Data(
+		Target target,
 		const std::vector<GLfloat>& data,
-		Usage usage
+		Usage usage = Usage::StaticDraw
 	)
 	{
 		::glBufferData(

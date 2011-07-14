@@ -14,6 +14,7 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/shader.hpp>
+#include <oglplus/friend_of.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 
 #include <vector>
@@ -35,6 +36,8 @@ class Program
 {
 protected:
 	GLuint _name;
+
+	friend class FriendOf<Program>;
 public:
 
 	Program(void)
@@ -90,6 +93,7 @@ public:
 
 	void Use(void)
 	{
+		assert(IsLinked());
 		::glUseProgram(_name);
 		AssertNoError();
 	}

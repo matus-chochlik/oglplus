@@ -83,7 +83,9 @@ public:
 	inline Array(GLsizei c)
 	 : _count(c)
 	{
+		assert(_count != 0);
 		object::_do_init(_count, _base);
+		assert(_base != 0);
 	}
 
 	Array(const Array&) = delete;
@@ -91,7 +93,9 @@ public:
 	inline Array(Array&& temp)
 	 : _count(temp._count)
 	 , _base(temp._release())
-	{ }
+	{
+		assert(_base != 0);
+	}
 
 	inline ~Array(void)
 	{

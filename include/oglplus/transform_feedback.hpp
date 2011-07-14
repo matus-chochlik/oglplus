@@ -50,7 +50,7 @@ public:
 		AssertNoError();
 	}
 
-	static void Bind(Target target = Target::Default)
+	static void Unbind(Target target = Target::Default)
 	{
 		::glBindTransformFeedback(GLenum(target), 0);
 		AssertNoError();
