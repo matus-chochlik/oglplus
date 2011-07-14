@@ -13,7 +13,8 @@
 #define OGLPLUS_SHADER_1107121519_HPP
 
 #include <oglplus/error.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
+#include <oglplus/auxiliary/info_log.hpp>
 
 #include <vector>
 #include <string>
@@ -49,19 +50,12 @@ public:
 	{ }
 };
 
-class LinkError
- : public CompileOrLinkError
-{
-public:
-	LinkError(const std::string& _msg)
-	 : CompileOrLinkError("OpenGL shader language linking error", _msg)
-	{ }
-};
-
 class Shader
 {
 protected:
 	GLuint _name;
+
+	friend class FriendOf<Shader>;
 public:
 	enum class Kind {
 		Vertex = GL_VERTEX_SHADER,
@@ -75,6 +69,14 @@ public:
 	 : _name(::glCreateShader(GLenum(kind)))
 	{
 		ThrowOnError();
+	}
+
+	Shader(const Shader&) = delete;
+
+	Shader(Shader&& temp)
+	 : _name(temp._name)
+	{
+		temp._name = 0;
 	}
 
 	~Shader(void)
@@ -122,23 +124,7 @@ public:
 
 	std::string GetInfoLog(void) const
 	{
-		int length = 0;
-		::glGetShaderiv(_name, GL_INFO_LOG_LENGTH, &length);
-		ThrowOnError();
-		if(length > 0)
-		{
-			GLsizei real_length = 0;
-			std::vector<GLchar> buffer(length);
-			::glGetShaderInfoLog(
-				_name,
-				buffer.size(),
-				&real_length,
-				buffer.data()
-			);
-			ThrowOnError();
-			return std::string(buffer.data(), buffer.size());
-		}
-		else return std::string();
+		return aux::GetInfoLog(_name, ::glGetShaderiv, ::glGetShaderInfoLog);
 	}
 
 	void Compile(void) const
@@ -147,6 +133,51 @@ public:
 		ThrowOnError();
 		if(!IsCompiled()) throw CompileError(GetInfoLog());
 	}
+};
+
+class VertexShader
+ : public Shader
+{
+public:
+	VertexShader(void)
+	 : Shader(Shader::Kind::Vertex)
+	{ }
+};
+
+class GeometryShader
+ : public Shader
+{
+public:
+	GeometryShader(void)
+	 : Shader(Shader::Kind::Geometry)
+	{ }
+};
+
+class FragmentShader
+ : public Shader
+{
+public:
+	FragmentShader(void)
+	 : Shader(Shader::Kind::Fragment)
+	{ }
+};
+
+class TessControlShader
+ : public Shader
+{
+public:
+	TessControlShader(void)
+	 : Shader(Shader::Kind::TessControl)
+	{ }
+};
+
+class TessEvaluationShader
+ : public Shader
+{
+public:
+	TessEvaluationShader(void)
+	 : Shader(Shader::Kind::TessEvaluation)
+	{ }
 };
 
 } // namespace oglplus

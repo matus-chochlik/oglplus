@@ -15,10 +15,54 @@
 #include <oglplus/object.hpp>
 #include <oglplus/auxiliary/base_iter.hpp>
 
+#include <vector>
+
 namespace oglplus {
 
 template <class Object>
-class Array;
+class Array
+{
+private:
+	std::vector<Object> _storage;
+public:
+	Array(GLsizei c)
+	 : _storage(c)
+	{ }
+
+	Array(const Array&) = delete;
+
+	bool empty(void) const
+	{
+		return _storage.empty();
+	}
+
+	GLsizei size(void) const
+	{
+		return _storage.size();
+	}
+
+	const Object& at(GLuint index) const
+	{
+		return _storage[index];
+	}
+
+	const Object& operator[](GLuint index) const
+	{
+		return _storage[index];
+	}
+
+	typedef typename std::vector<Object>::const_iterator iterator;
+
+	iterator begin(void) const
+	{
+		return _storage.begin();
+	}
+
+	iterator end(void) const
+	{
+		return _storage.end();
+	}
+};
 
 template <class ObjectOps>
 class Array<Object<ObjectOps> >
@@ -53,6 +97,11 @@ public:
 	{
 		if(_count && _base)
 			object::_do_cleanup(_count, _base);
+	}
+
+	bool empty(void) const
+	{
+		return _count == 0;
 	}
 
 	GLsizei size(void) const

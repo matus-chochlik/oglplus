@@ -31,5 +31,6 @@
 #include <oglplus/query.hpp>
 
 #include <oglplus/shader.hpp>
+#include <oglplus/program.hpp>
 
 #endif // include guard
