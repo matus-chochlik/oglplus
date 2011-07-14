@@ -40,17 +40,17 @@ public:
 	 : _name(_n)
 	{ }
 
-	enum class Kind {
+	enum class Target {
 		SamplesPassed = GL_SAMPLES_PASSED,
 		AnySamplesPassed = GL_ANY_SAMPLES_PASSED
 	};
 
-	void Begin(Kind target) const
+	void Begin(Target target) const
 	{
 		::glBeginQuery(GLenum(target), _name);
 	}
 
-	void End(Kind target) const
+	void End(Target target) const
 	{
 		::glEndQuery(GLenum(target));
 	}

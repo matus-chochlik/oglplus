@@ -43,6 +43,13 @@ public:
 	void Bind(GLuint unit) const
 	{
 		::glBindSampler(unit, _name);
+		AssertNoError();
+	}
+
+	static void Unbind(GLuint unit)
+	{
+		::glBindSampler(unit, 0);
+		AssertNoError();
 	}
 };
 

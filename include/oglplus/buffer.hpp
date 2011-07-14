@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/buffer_object.hpp
- *  @brief Buffer object wrappers
+ *  @file oglplus/buffer.hpp
+ *  @brief Buffer wrappers
  *
  *  @author Matus Chochlik
  *
@@ -9,8 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef OGLPLUS_BUFFER_OBJECT_1107121519_HPP
-#define OGLPLUS_BUFFER_OBJECT_1107121519_HPP
+#ifndef OGLPLUS_BUFFER_1107121519_HPP
+#define OGLPLUS_BUFFER_1107121519_HPP
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
@@ -40,7 +40,7 @@ public:
 	 : _name(_n)
 	{ }
 
-	enum class Kind {
+	enum class Target {
 		Array = GL_ARRAY_BUFFER,
 		CopyRead = GL_COPY_READ_BUFFER,
 		CopyWrite = GL_COPY_WRITE_BUFFER,
@@ -53,9 +53,43 @@ public:
 		Uniform = GL_UNIFORM_BUFFER
 	};
 
-	void Bind(Kind target) const
+	enum class Usage {
+		StreamDraw = GL_STREAM_DRAW,
+		StreamRead = GL_STREAM_READ,
+		StreamCopy = GL_STREAM_COPY,
+		StaticDraw = GL_STATIC_DRAW,
+		StaticRead = GL_STATIC_READ,
+		StaticCopy = GL_STATIC_COPY,
+		DynamicDraw = GL_DYNAMIC_DRAW,
+		DynamicRead = GL_DYNAMIC_READ,
+		DynamicCopy = GL_DYNAMIC_COPY
+	};
+
+	void Bind(Target target) const
 	{
 		::glBindBuffer(GLenum(target), _name);
+		AssertNoError();
+	}
+
+	static void Unbind(Target target)
+	{
+		::glBindBuffer(GLenum(target), 0);
+		AssertNoError();
+	}
+
+	static void Data(
+		Target target,
+		const std::vector<GLfloat>& data,
+		Usage usage
+	)
+	{
+		::glBufferData(
+			GLenum(target),
+			data.size() * sizeof(GLfloat),
+			data.data(),
+			GLenum(usage)
+		);
+		ThrowOnError();
 	}
 };
 

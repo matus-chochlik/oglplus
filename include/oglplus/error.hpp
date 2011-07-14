@@ -73,6 +73,12 @@ inline void ThrowOnError(void)
 	}
 }
 
+inline void AssertNoError(void)
+{
+	//TODO make this compile-time configurable
+	ThrowOnError();
+}
+
 } // namespace oglplus
 
 #endif // include guard

@@ -43,6 +43,7 @@ public:
 	void Bind(GLuint pipeline) const
 	{
 		::glBindProgramPipeline(pipeline);
+		AssertNoError();
 	}
 };
 

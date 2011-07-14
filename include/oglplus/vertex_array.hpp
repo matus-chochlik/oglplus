@@ -43,6 +43,13 @@ public:
 	void Bind(void) const
 	{
 		::glBindVertexArray(_name);
+		AssertNoError();
+	}
+
+	static void Unbind(void)
+	{
+		::glBindVertexArray(0);
+		AssertNoError();
 	}
 };
 

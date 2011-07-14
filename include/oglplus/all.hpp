@@ -19,9 +19,11 @@
 
 #include <oglplus/context.hpp>
 
-#include <oglplus/buffer_object.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/primitive_type.hpp>
+
+#include <oglplus/buffer.hpp>
 #include <oglplus/vertex_array.hpp>
-#include <oglplus/vertex_array_object.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/sampler.hpp>
 #include <oglplus/framebuffer.hpp>

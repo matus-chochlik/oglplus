@@ -40,13 +40,20 @@ public:
 	 : _name(_n)
 	{ }
 
-	enum class Kind {
+	enum class Target {
 		Default = GL_RENDERBUFFER
 	};
 
-	void Bind(Kind target = Kind::Default) const
+	void Bind(Target target = Target::Default) const
 	{
 		::glBindRenderbuffer(GLenum(target), _name);
+		AssertNoError();
+	}
+
+	static void Unbind(Target target = Target::Default)
+	{
+		::glBindRenderbuffer(GLenum(target), 0);
+		AssertNoError();
 	}
 };
 

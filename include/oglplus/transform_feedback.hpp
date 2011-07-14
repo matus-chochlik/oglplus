@@ -40,13 +40,20 @@ public:
 	 : _name(_n)
 	{ }
 
-	enum class Kind {
+	enum class Target {
 		Default = GL_TRANSFORM_FEEDBACK
 	};
 
-	void Bind(Kind target = Kind::Default) const
+	void Bind(Target target = Target::Default) const
 	{
 		::glBindTransformFeedback(GLenum(target), _name);
+		AssertNoError();
+	}
+
+	static void Bind(Target target = Target::Default)
+	{
+		::glBindTransformFeedback(GLenum(target), 0);
+		AssertNoError();
 	}
 };
 

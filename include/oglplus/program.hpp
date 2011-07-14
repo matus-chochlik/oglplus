@@ -91,9 +91,7 @@ public:
 	void Use(void)
 	{
 		::glUseProgram(_name);
-		// TODO: this should probably be done only in "debug" mode
-		// since Use will be called fairly often
-		ThrowOnError();
+		AssertNoError();
 	}
 };
 

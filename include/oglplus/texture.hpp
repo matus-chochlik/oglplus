@@ -40,7 +40,7 @@ public:
 	 : _name(_n)
 	{ }
 
-	enum class Kind {
+	enum class Target {
 		_1D = GL_TEXTURE_1D,
 		_2D = GL_TEXTURE_2D,
 		_3D = GL_TEXTURE_3D,
@@ -54,9 +54,16 @@ public:
 		_2DMultisampleArray = GL_TEXTURE_2D_MULTISAMPLE_ARRAY
 	};
 
-	void Bind(Kind target) const
+	void Bind(Target target) const
 	{
 		::glBindTexture(GLenum(target), _name);
+		AssertNoError();
+	}
+
+	static void Unbind(Target target)
+	{
+		::glBindTexture(GLenum(target), 0);
+		AssertNoError();
 	}
 };
 

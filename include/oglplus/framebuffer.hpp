@@ -40,14 +40,21 @@ public:
 	 : _name(_n)
 	{ }
 
-	enum class Kind {
+	enum class Target {
 		Draw = GL_DRAW_FRAMEBUFFER,
 		Read = GL_READ_FRAMEBUFFER
 	};
 
-	void Bind(Kind target)
+	void Bind(Target target) const
 	{
 		::glBindFramebuffer(GLenum(target), _name);
+		AssertNoError();
+	}
+
+	static void Unbind(Target target)
+	{
+		::glBindFramebuffer(GLenum(target), 0);
+		AssertNoError();
 	}
 };
 
