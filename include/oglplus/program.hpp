@@ -26,8 +26,12 @@ class LinkError
  : public CompileOrLinkError
 {
 public:
-	LinkError(const std::string& _msg)
-	 : CompileOrLinkError("OpenGL shader language linking error", _msg)
+	LinkError(const std::string& log, const ErrorInfo& info)
+	 : CompileOrLinkError(
+		"OpenGL shading language link error",
+		log,
+		info
+	)
 	{ }
 };
 
@@ -43,7 +47,7 @@ public:
 	Program(void)
 	 : _name(::glCreateProgram())
 	{
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	Program(const Program&) = delete;
@@ -62,20 +66,20 @@ public:
 	void AttachShader(const Shader& shader)
 	{
 		::glAttachShader(_name, FriendOf<Shader>::GetName(shader));
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	void DetachShader(const Shader& shader)
 	{
 		::glDetachShader(_name, FriendOf<Shader>::GetName(shader));
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	bool IsLinked(void) const
 	{
 		int status;
 		::glGetProgramiv(_name, GL_LINK_STATUS, &status);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 		return status == GL_TRUE;
 	}
 
@@ -87,15 +91,16 @@ public:
 	void Link(void)
 	{
 		::glLinkProgram(_name);
-		ThrowOnError();
-		if(!IsLinked()) throw LinkError(GetInfoLog());
+		ThrowOnError(OGLPLUS_ERROR_INFO());
+		if(!IsLinked())
+			throw LinkError(GetInfoLog(),OGLPLUS_ERROR_INFO());
 	}
 
 	void Use(void)
 	{
 		assert(IsLinked());
 		::glUseProgram(_name);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };
 

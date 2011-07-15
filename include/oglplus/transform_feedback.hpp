@@ -28,7 +28,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenTransformFeedbacks(count, &_name);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -52,13 +52,13 @@ public:
 	void Bind(Target target = Target::Default) const
 	{
 		::glBindTransformFeedback(GLenum(target), _name);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Unbind(Target target = Target::Default)
 	{
 		::glBindTransformFeedback(GLenum(target), 0);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };
 

@@ -29,7 +29,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenVertexArrays(count, &_name);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -49,19 +49,19 @@ public:
 	void Bind(void) const
 	{
 		::glBindVertexArray(_name);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Unbind(void)
 	{
 		::glBindVertexArray(0);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Draw(PrimitiveType mode, GLint first, GLsizei count)
 	{
 		::glDrawArrays(GLenum(mode), first, count);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };
 

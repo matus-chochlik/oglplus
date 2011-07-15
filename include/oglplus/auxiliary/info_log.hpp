@@ -27,7 +27,7 @@ std::string GetInfoLog(
 {
 	int length = 0;
 	GetObjectiv(object_name, GL_INFO_LOG_LENGTH, &length);
-	ThrowOnError();
+	ThrowOnError(OGLPLUS_ERROR_INFO());
 	if(length > 0)
 	{
 		GLsizei real_length = 0;
@@ -38,7 +38,7 @@ std::string GetInfoLog(
 			&real_length,
 			buffer.data()
 		);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 		return std::string(buffer.data(), buffer.size());
 	}
 	else return std::string();

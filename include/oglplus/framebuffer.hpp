@@ -28,7 +28,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenFramebuffers(count, &_name);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -53,13 +53,13 @@ public:
 	void Bind(Target target) const
 	{
 		::glBindFramebuffer(GLenum(target), _name);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Unbind(Target target)
 	{
 		::glBindFramebuffer(GLenum(target), 0);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };
 

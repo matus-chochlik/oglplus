@@ -25,11 +25,14 @@ class CompileOrLinkError
  : public Error
 {
 private:
-	std::string msg;
+	std::string _log;
 public:
-	CompileOrLinkError(const char* _what, const std::string& _msg)
-	 : Error(0, _what)
-	 , msg(_msg)
+	CompileOrLinkError(
+		const char* what,
+		const std::string& log,
+		const ErrorInfo& info
+	): Error(0, what, info)
+	 , _log(log)
 	{ }
 
 	~CompileOrLinkError(void) throw()
@@ -37,7 +40,7 @@ public:
 
 	const std::string& Log(void) const
 	{
-		return msg;
+		return _log;
 	}
 };
 
@@ -45,8 +48,12 @@ class CompileError
  : public CompileOrLinkError
 {
 public:
-	CompileError(const std::string& _msg)
-	 : CompileOrLinkError("OpenGL shader language compilation error", _msg)
+	CompileError(const std::string& log, const ErrorInfo& info)
+	 : CompileOrLinkError(
+		"OpenGL shading language compilation error",
+		log,
+		info
+	)
 	{ }
 };
 
@@ -68,7 +75,7 @@ public:
 	Shader(Kind kind)
 	 : _name(::glCreateShader(GLenum(kind)))
 	{
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	Shader(const Shader&) = delete;
@@ -118,7 +125,7 @@ public:
 	{
 		int status;
 		::glGetShaderiv(_name, GL_COMPILE_STATUS, &status);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 		return status == GL_TRUE;
 	}
 
@@ -130,8 +137,9 @@ public:
 	void Compile(void) const
 	{
 		::glCompileShader(_name);
-		ThrowOnError();
-		if(!IsCompiled()) throw CompileError(GetInfoLog());
+		ThrowOnError(OGLPLUS_ERROR_INFO());
+		if(!IsCompiled())
+			throw CompileError(GetInfoLog(), OGLPLUS_ERROR_INFO());
 	}
 };
 

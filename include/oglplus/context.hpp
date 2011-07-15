@@ -24,19 +24,19 @@ public:
 	static void ClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		::glClearColor(r, g, b, a);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void ClearDepth(GLclampd d)
 	{
 		::glClearDepth(d);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void ClearStencil(GLint s)
 	{
 		::glClearStencil(s);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static aux::ClrBits Clear(void)
@@ -47,13 +47,13 @@ public:
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)
 	{
 		::glViewport(x, y, w, h);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Viewport(GLsizei w, GLsizei h)
 	{
 		::glViewport(0, 0, w, h);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 };
 

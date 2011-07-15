@@ -28,7 +28,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenSamplers(count, &_name);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -48,13 +48,13 @@ public:
 	void Bind(GLuint unit) const
 	{
 		::glBindSampler(unit, _name);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Unbind(GLuint unit)
 	{
 		::glBindSampler(unit, 0);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };
 

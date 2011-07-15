@@ -20,11 +20,41 @@
 
 namespace oglplus {
 
-class VertexAttrib
+class VertexAttribOps
  : public FriendOf<Program>
 {
-private:
+protected:
 	GLuint _index;
+
+	VertexAttribOps(GLuint i)
+	 : _index(i)
+	{ }
+
+	VertexAttribOps(const Program& program, const GLchar* identifier)
+	 : _index(
+		::glGetAttribLocation(
+			FriendOf<Program>::GetName(program),
+			identifier
+		)
+	)
+	{
+		ThrowOnError(OGLPLUS_ERROR_INFO());
+	}
+public:
+	void BindLocation(const Program& program, const GLchar* identifier) const
+	{
+		::glBindAttribLocation(
+			FriendOf<Program>::GetName(program),
+			_index,
+			identifier
+		);
+	}
+};
+
+class VertexAttrib
+ : public VertexAttribOps
+{
+private:
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, d, t, GLdouble)
@@ -41,19 +71,12 @@ private:
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, v, GLuint)
 public:
 	VertexAttrib(GLuint i)
-	 : _index(i)
+	 : VertexAttribOps(i)
 	{ }
 
-	VertexAttrib(const Program& program, const GLchar* name)
-	 : _index(
-		::glGetAttribLocation(
-			FriendOf<Program>::GetName(program),
-			name
-		)
-	)
-	{
-		ThrowOnError();
-	}
+	VertexAttrib(const Program& program, const GLchar* identifier)
+	 : VertexAttribOps(program, identifier)
+	{ }
 
 	template <typename ... T>
 	void Set(T ... v) const
@@ -63,7 +86,7 @@ public:
 			"Set requires 1, 2, 3 or 4 arguments"
 		);
 		std::get<sizeof...(T) - 1>(_fns_t(&v...))(_index, v...);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	template <size_t N, typename T>
@@ -74,30 +97,21 @@ public:
 			"Set requires 1, 2, 3 or 4 elements"
 		);
 		std::get<N - 1>(_fns_v(v))(_index, v);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };
 
 class VertexAttribArray
- : public FriendOf<Program>
+ : public VertexAttribOps
 {
-private:
-	GLuint _index;
 public:
 	VertexAttribArray(GLuint i)
-	 : _index(i)
+	 : VertexAttribOps(i)
 	{ }
 
-	VertexAttribArray(const Program& program, const GLchar* name)
-	 : _index(
-		::glGetAttribLocation(
-			FriendOf<Program>::GetName(program),
-			name
-		)
-	)
-	{
-		ThrowOnError();
-	}
+	VertexAttribArray(const Program& program, const GLchar* identifier)
+	 : VertexAttribOps(program, identifier)
+	{ }
 
 	void Setup(
 		GLint values_per_vertex,
@@ -115,19 +129,19 @@ public:
 			stride,
 			pointer
 		);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	void Enable(void) const
 	{
 		::glEnableVertexAttribArray(_index);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	void Disable(void) const
 	{
 		::glDisableVertexAttribArray(_index);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };
 

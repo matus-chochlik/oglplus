@@ -28,7 +28,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenBuffers(count, &_name);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -73,13 +73,13 @@ public:
 	void Bind(Target target) const
 	{
 		::glBindBuffer(GLenum(target), _name);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Unbind(Target target)
 	{
 		::glBindBuffer(GLenum(target), 0);
-		AssertNoError();
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Data(
@@ -95,7 +95,7 @@ public:
 			data,
 			GLenum(usage)
 		);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Data(
@@ -110,7 +110,7 @@ public:
 			data.data(),
 			GLenum(usage)
 		);
-		ThrowOnError();
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 };
 
