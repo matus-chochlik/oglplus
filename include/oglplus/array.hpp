@@ -86,6 +86,7 @@ public:
 		assert(_count != 0);
 		object::_do_init(_count, _base);
 		assert(_base != 0);
+		assert(object::_type_ok(_base));
 	}
 
 	Array(const Array&) = delete;
@@ -95,12 +96,16 @@ public:
 	 , _base(temp._release())
 	{
 		assert(_base != 0);
+		assert(object::_type_ok(_base));
 	}
 
 	inline ~Array(void)
 	{
 		if(_count && _base)
+		{
+			assert(object::_type_ok());
 			object::_do_cleanup(_count, _base);
+		}
 	}
 
 	bool empty(void) const

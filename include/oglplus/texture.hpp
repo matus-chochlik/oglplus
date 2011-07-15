@@ -35,6 +35,11 @@ protected:
 	{
 		::glDeleteTextures(count, &_name);
 	}
+
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsTexture(_name);
+	}
 public:
 	TextureOps(GLuint _n)
 	 : _name(_n)

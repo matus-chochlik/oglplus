@@ -35,6 +35,11 @@ protected:
 	{
 		::glDeleteBuffers(count, &_name);
 	}
+
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsBuffer(_name);
+	}
 public:
 	BufferOps(GLuint _n)
 	 : _name(_n)

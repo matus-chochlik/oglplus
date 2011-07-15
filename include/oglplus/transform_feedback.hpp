@@ -35,6 +35,11 @@ protected:
 	{
 		::glDeleteTransformFeedbacks(count, &_name);
 	}
+
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsTransformFeedback(_name);
+	}
 public:
 	TransformFeedbackOps(GLuint _n)
 	 : _name(_n)

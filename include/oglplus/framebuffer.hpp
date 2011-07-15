@@ -35,6 +35,11 @@ protected:
 	{
 		::glDeleteFramebuffers(count, &_name);
 	}
+
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsFramebuffer(_name);
+	}
 public:
 	FramebufferOps(GLuint _n)
 	 : _name(_n)

@@ -36,6 +36,11 @@ protected:
 	{
 		::glDeleteVertexArrays(count, &_name);
 	}
+
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsVertexArray(_name);
+	}
 public:
 	VertexArrayOps(GLuint _n)
 	 : _name(_n)

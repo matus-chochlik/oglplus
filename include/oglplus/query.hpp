@@ -35,6 +35,11 @@ protected:
 	{
 		::glDeleteQueries(count, &_name);
 	}
+
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsQuery(_name);
+	}
 public:
 	QueryOps(GLuint _n)
 	 : _name(_n)

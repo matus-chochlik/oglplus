@@ -38,12 +38,18 @@ private:
 		ObjectOps::_cleanup(_c, _n);
 	}
 
+	static inline bool _type_ok(GLuint _name)
+	{
+		return ObjectOps::_is_x(_name) == GL_TRUE;
+	}
+
 	friend class Array<Object>;
 public:
 	inline Object(void)
 	{
 		_do_init(1, this->_name);
 		assert(this->_name != 0);
+		assert(_type_ok(this->_name));
 	}
 
 	Object(const Object&) = delete;
@@ -52,11 +58,16 @@ public:
 	 : ObjectOps(temp._release())
 	{
 		assert(this->_name != 0);
+		assert(_type_ok(this->_name));
 	}
 
 	inline ~Object(void)
 	{
-		_do_cleanup(1, this->_name);
+		if(this->_name != 0)
+		{
+			assert(_type_ok(this->_name));
+			_do_cleanup(1, this->_name);
+		}
 	}
 };
 

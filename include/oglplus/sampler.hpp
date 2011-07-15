@@ -35,6 +35,11 @@ protected:
 	{
 		::glDeleteSamplers(count, &_name);
 	}
+
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsSampler(_name);
+	}
 public:
 	SamplerOps(GLuint _n)
 	 : _name(_n)

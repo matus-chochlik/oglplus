@@ -35,6 +35,11 @@ protected:
 	{
 		::glDeleteRenderbuffers(count, &_name);
 	}
+
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsRenderbuffer(_name);
+	}
 public:
 	RenderbufferOps(GLuint _n)
 	 : _name(_n)
