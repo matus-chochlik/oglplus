@@ -1,6 +1,7 @@
 /**
  *  .file devel/test01.cpp
- *  Devel/Testing file
+ *  This source file is here for development/testing purposes
+ *  and its contents may change without any prior notice.
  *
  *  @author Matus Chochlik
  *
@@ -8,6 +9,8 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+
+#ifdef NOT_DEFINED // TODO: remove this
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -554,3 +557,6 @@ int main (int argc, char ** argv)
 	}
 	return 0;
 }
+#else
+int main(void){return 0;}
+#endif
