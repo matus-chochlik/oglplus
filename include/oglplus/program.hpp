@@ -22,6 +22,8 @@
 
 namespace oglplus {
 
+class VertexAttribOps;
+
 class LinkError
  : public CompileOrLinkError
 {
@@ -37,6 +39,7 @@ public:
 
 class Program
  : public FriendOf<Shader>
+ , public FriendOf<VertexAttribOps>
 {
 protected:
 	GLuint _name;
@@ -85,7 +88,10 @@ public:
 
 	std::string GetInfoLog(void) const
 	{
-		return aux::GetInfoLog(_name, ::glGetProgramiv, ::glGetProgramInfoLog);
+		return aux::GetInfoLog(
+			_name, ::glGetProgramiv,
+			::glGetProgramInfoLog
+		);
 	}
 
 	void Link(void)
@@ -102,6 +108,12 @@ public:
 		::glUseProgram(_name);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
+
+	// Implemented in vertex_attrib.hpp
+	inline void BindLocation(
+		const VertexAttribOps& vertex_attrib,
+		const GLchar* identifier
+	) const;
 };
 
 } // namespace oglplus

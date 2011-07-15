@@ -18,6 +18,13 @@
 
 namespace oglplus {
 
+enum class ClearBit
+{
+	ColorBuffer = GL_COLOR_BUFFER_BIT,
+	DepthBuffer = GL_DEPTH_BUFFER_BIT,
+	StencilBuffer = GL_STENCIL_BUFFER_BIT
+};
+
 class Context
 {
 public:
@@ -42,6 +49,15 @@ public:
 	static aux::ClrBits Clear(void)
 	{
 		return aux::ClrBits(0);
+	}
+
+	static void Clear(const std::initializer_list<ClearBit>& bits)
+	{
+		GLbitfield buffers = 0;
+		for(auto i=bits.begin(),e=bits.end();i!=e;++i)
+			buffers |= GLbitfield(*i);
+		::glClear(buffers);
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)

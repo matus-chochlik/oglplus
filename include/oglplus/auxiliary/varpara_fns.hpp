@@ -12,9 +12,7 @@
 #ifndef OGLPLUS_AUX_VARPARA_FNS_1107121519_HPP
 #define OGLPLUS_AUX_VARPARA_FNS_1107121519_HPP
 
-#include <oglplus/error.hpp>
-#include <string>
-#include <vector>
+#include <tuple>
 
 namespace oglplus {
 

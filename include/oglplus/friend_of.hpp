@@ -22,6 +22,11 @@ protected:
 	{
 		return object._name;
 	}
+
+	static GLuint GetIndex(const Object& object)
+	{
+		return object._index;
+	}
 };
 
 } // namespace oglplus

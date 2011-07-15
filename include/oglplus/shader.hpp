@@ -131,7 +131,10 @@ public:
 
 	std::string GetInfoLog(void) const
 	{
-		return aux::GetInfoLog(_name, ::glGetShaderiv, ::glGetShaderInfoLog);
+		return aux::GetInfoLog(
+			_name, ::glGetShaderiv,
+			::glGetShaderInfoLog
+		);
 	}
 
 	void Compile(void) const

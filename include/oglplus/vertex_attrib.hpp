@@ -13,10 +13,11 @@
 #define OGLPLUS_VERTEX_ATTRIB_1107121519_HPP
 
 #include <oglplus/error.hpp>
+#include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/auxiliary/varpara_fns.hpp>
 
-#include <tuple>
+#include <string>
 
 namespace oglplus {
 
@@ -25,6 +26,8 @@ class VertexAttribOps
 {
 protected:
 	GLuint _index;
+
+	friend class FriendOf<VertexAttribOps>;
 
 	VertexAttribOps(GLuint i)
 	 : _index(i)
@@ -48,8 +51,36 @@ public:
 			_index,
 			identifier
 		);
+		ThrowOnError(OGLPLUS_ERROR_INFO());
+	}
+
+	void BindLocation(
+		const Program& program,
+		const std::string& identifier
+	) const
+	{
+		::glBindAttribLocation(
+			FriendOf<Program>::GetName(program),
+			_index,
+			identifier.c_str()
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 };
+
+// Things from to Program related to vertex attributes
+void Program::BindLocation(
+	const VertexAttribOps& vertex_attrib,
+	const GLchar* identifier
+) const
+{
+	::glBindAttribLocation(
+		_name,
+		FriendOf<VertexAttribOps>::GetIndex(vertex_attrib),
+		identifier
+	);
+	ThrowOnError(OGLPLUS_ERROR_INFO());
+}
 
 class VertexAttrib
  : public VertexAttribOps
