@@ -15,6 +15,12 @@ OGLPLUS_LDFLAGS = \
 	-std=c++0x \
 	$(LDFLAGS)
 
+ifeq ($$(findstring g++,$$(CXX)),g++)
+OGLPLUS_MDFLAGS = -E -MM
+else
+OGLPLUS_MDFLAGS = -E -M
+endif
+
 # final output directory
 OUTDIR = out
 # intermediate output directory
@@ -30,7 +36,6 @@ EXECUTABLES = $(DEVEL_TESTS)
 OUTSUBDIRS = $(addprefix $(OUTDIR)/, $(sort $(dir $(EXECUTABLES))))
 BLDSUBDIRS = $(addprefix $(BLDDIR)/, $(sort $(dir $(EXECUTABLES))))
 
-# build all executables in the output directory
 all: $(addprefix $(OUTDIR)/, $(EXECUTABLES));
 
 # build only the development/testing files in the output directory
@@ -51,7 +56,7 @@ endef
 # function defining the rules for building header dependency makefiles
 define BUILD_DEP
 $(BLDDIR)/$(1).d: $(1).cpp | $(dir $(BLDDIR)/$(1))
-	$(CXX) $(OGLPLUS_CXXFLAGS) -o $$@ -E -MM $$<
+	$(CXX) $(OGLPLUS_CXXFLAGS) -o $$@ $(OGLPLUS_MDFLAGS) $$<
 	sed --in-place 's|^\([^:]\+\).o:|$(dir $(BLDDIR)/$(1))\1.o $(dir $(BLDDIR)/$(1))\1.d:|' $$@
 endef
 
@@ -70,8 +75,11 @@ $(OUTDIR) $(BLDDIR):
 $(OUTSUBDIRS): $(OUTDIR); mkdir -p $@
 $(BLDSUBDIRS): $(BLDDIR); mkdir -p $@
 
-# TODO: don't do this on cleanup
+# if we are not doing cleanup
+ifneq ($(MAKECMDGOALS),clean)
+# include the header dependency rules
 include $(addsuffix .d,$(addprefix $(BLDDIR)/,$(EXECUTABLES)))
+endif
 
 # cleanup
 .PHONY: clean
