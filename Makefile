@@ -13,13 +13,8 @@ OGLPLUS_CXXFLAGS = \
 
 OGLPLUS_LDFLAGS = \
 	-std=c++0x \
+	-lGL \
 	$(LDFLAGS)
-
-ifeq ($$(findstring g++,$$(CXX)),g++)
-OGLPLUS_MDFLAGS = -E -MM
-else
-OGLPLUS_MDFLAGS = -E -M
-endif
 
 # final output directory
 OUTDIR = out
@@ -41,23 +36,34 @@ all: $(addprefix $(OUTDIR)/, $(EXECUTABLES));
 # build only the development/testing files in the output directory
 devel_tests: $(addprefix $(OUTDIR)/, $(DEVEL_TESTS));
 
+
+# helper function returning the third argument if the second argument
+# is found at least once in the dependency file specified by the first parameter
+OPT_ADD_HDRDEP = $$(shell grep -c -e"$(2)" $(1).d | sed -n "s|[1-9][0-9]*|$(3)|p")
+
 # function defining the rules for linking final executables
 define BUILD_EXE
 $(OUTDIR)/$(1): $(BLDDIR)/$(1).o | $(dir $(OUTDIR)/$(1))
-	$(CXX) $(OGLPLUS_LDFLAGS) -o $$@ $$^
+	$(eval OGLPLUS_TGT_LDFLAGS := $(OGLPLUS_LDFLAGS))
+	$(eval OGLPLUS_TGT_LDFLAGS += $$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),X11/Xlib.h,-lX11)) 
+	$(CXX) $(OGLPLUS_TGT_LDFLAGS) -o $$@ $$^
 endef
 
 # function defining the rules for compiling intermediate objects
 define BUILD_OBJ
 $(BLDDIR)/$(1).o: $(1).cpp | $(dir $(BLDDIR)/$(1))
-	$(CXX) $(OGLPLUS_CXXFLAGS) -o $$@ -c $$<
+	$(eval OGLPLUS_TGT_CXXFLAGS := $(OGLPLUS_CXXFLAGS))
+	$(CXX) $(OGLPLUS_TGT_CXXFLAGS) -o $$@ -c $$<
 endef
+
+# helper sed script used in the BUILD_DEP function
+OGLPLUS_MAKEDEP_SED = 's|^\([^:]\+\).o:|$(dir $(BLDDIR)/$(1))\1.o $(dir $(BLDDIR)/$(1))\1.d:|'
 
 # function defining the rules for building header dependency makefiles
 define BUILD_DEP
 $(BLDDIR)/$(1).d: $(1).cpp | $(dir $(BLDDIR)/$(1))
-	$(CXX) $(OGLPLUS_CXXFLAGS) -o $$@ $(OGLPLUS_MDFLAGS) $$<
-	sed --in-place 's|^\([^:]\+\).o:|$(dir $(BLDDIR)/$(1))\1.o $(dir $(BLDDIR)/$(1))\1.d:|' $$@
+	@$(CXX) $(OGLPLUS_CXXFLAGS) -o $$@ -E -M $$<
+	@sed --in-place $(OGLPLUS_MAKEDEP_SED) $$@
 endef
 
 # use the functions defined above to make the rules

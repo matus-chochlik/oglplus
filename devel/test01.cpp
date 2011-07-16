@@ -10,8 +10,6 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifdef NOT_DEFINED // TODO: remove this
-
 #include <stdlib.h>
 #include <unistd.h>
 #include <X11/Xlib.h>
@@ -24,15 +22,10 @@
 #include <iostream>
 #include <cassert>
 
-#define GLX_CONTEXT_MAJOR_VERSION_ARB       0x2091
-#define GLX_CONTEXT_MINOR_VERSION_ARB       0x2092
-
-typedef GLXContext (*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);
-
-namespace x11 {
+namespace oglplus {
 
 template <typename Object>
-class FriendOf
+class FriendlyTo
 {
 protected:
 	static auto GetHandle(const Object& object) ->
@@ -42,14 +35,6 @@ protected:
 	}
 };
 
-} // namespace x11
-
-namespace glx {
-
-using x11::FriendOf;
-
-} // namespace glx
-
 namespace x11 {
 
 class Display
@@ -57,7 +42,7 @@ class Display
 private:
 	::Display* _handle;
 
-	friend class FriendOf<Display>;
+	friend class FriendlyTo<Display>;
 public:
 	Display(const char* name = 0)
 	 : _handle(::XOpenDisplay(name))
@@ -95,7 +80,7 @@ private:
 	{ }
 
 	friend class FBConfigs;
-	friend class FriendOf<FBConfig>;
+	friend class FriendlyTo<FBConfig>;
 public:
 };
 
@@ -104,19 +89,19 @@ public:
 namespace x11 {
 
 class VisualInfo
- : public FriendOf<x11::Display>
- , public FriendOf<glx::FBConfig>
+ : public FriendlyTo<x11::Display>
+ , public FriendlyTo<glx::FBConfig>
 {
 private:
 	::XVisualInfo* _handle;
 
-	friend class FriendOf<VisualInfo>;
+	friend class FriendlyTo<VisualInfo>;
 public:
 	VisualInfo(const Display& display, const glx::FBConfig& fbc)
 	 : _handle(
 		::glXGetVisualFromFBConfig(
-			FriendOf<Display>::GetHandle(display),
-			FriendOf<glx::FBConfig>::GetHandle(fbc)
+			FriendlyTo<Display>::GetHandle(display),
+			FriendlyTo<glx::FBConfig>::GetHandle(fbc)
 		)
 	)
 	{
@@ -142,25 +127,25 @@ public:
 };
 
 class ColorMap
- : public FriendOf<Display>
- , public FriendOf<VisualInfo>
+ : public FriendlyTo<Display>
+ , public FriendlyTo<VisualInfo>
 {
 private:
 	const Display& _display;
 	::Colormap _handle;
 
-	friend class FriendOf<ColorMap>;
+	friend class FriendlyTo<ColorMap>;
 public:
 	ColorMap(const Display& display, const VisualInfo& vi)
 	 : _display(display)
 	 , _handle(
 		::XCreateColormap(
-			FriendOf<Display>::GetHandle(_display),
+			FriendlyTo<Display>::GetHandle(_display),
 			RootWindow(
-				FriendOf<Display>::GetHandle(_display),
-				FriendOf<VisualInfo>::GetHandle(vi)->screen
+				FriendlyTo<Display>::GetHandle(_display),
+				FriendlyTo<VisualInfo>::GetHandle(vi)->screen
 			),
-			FriendOf<VisualInfo>::GetHandle(vi)->visual,
+			FriendlyTo<VisualInfo>::GetHandle(vi)->visual,
 			AllocNone
 		)
 	)
@@ -187,7 +172,7 @@ public:
 		if(_handle)
 		{
 			::XFreeColormap(
-				FriendOf<Display>::GetHandle(_display),
+				FriendlyTo<Display>::GetHandle(_display),
 				_handle
 			);
 		}
@@ -196,9 +181,9 @@ public:
 };
 
 class Window
- : public FriendOf<Display>
- , public FriendOf<VisualInfo>
- , public FriendOf<ColorMap>
+ : public FriendlyTo<Display>
+ , public FriendlyTo<VisualInfo>
+ , public FriendlyTo<ColorMap>
 {
 private:
 	const Display& _display;
@@ -212,28 +197,28 @@ private:
 	)
 	{
 		::XSetWindowAttributes swa;
-		swa.colormap = FriendOf<ColorMap>::GetHandle(cmap);
+		swa.colormap = FriendlyTo<ColorMap>::GetHandle(cmap);
 		swa.background_pixmap = None;
 		swa.border_pixel = 0;
 		swa.event_mask = StructureNotifyMask;
 		//
 		return ::XCreateWindow(
-			FriendOf<Display>::GetHandle(display),
+			FriendlyTo<Display>::GetHandle(display),
 			RootWindow(
-				FriendOf<Display>::GetHandle(display),
-				FriendOf<VisualInfo>::GetHandle(vi)->screen
+				FriendlyTo<Display>::GetHandle(display),
+				FriendlyTo<VisualInfo>::GetHandle(vi)->screen
 			),
 			0, 0, 800, 600,
 			0,
-			FriendOf<VisualInfo>::GetHandle(vi)->depth,
+			FriendlyTo<VisualInfo>::GetHandle(vi)->depth,
 			InputOutput,
-			FriendOf<VisualInfo>::GetHandle(vi)->visual,
+			FriendlyTo<VisualInfo>::GetHandle(vi)->visual,
 			CWBorderPixel | CWColormap | CWEventMask,
 			&swa
 		);
 	}
 
-	friend class FriendOf<Window>;
+	friend class FriendlyTo<Window>;
 public:
 	Window(
 		const Display& display,
@@ -251,12 +236,12 @@ public:
 			);
 		}
 		::XStoreName(
-			FriendOf<Display>::GetHandle(_display),
+			FriendlyTo<Display>::GetHandle(_display),
 			_handle,
 			title
 		);
 		::XMapWindow(
-			FriendOf<Display>::GetHandle(_display),
+			FriendlyTo<Display>::GetHandle(_display),
 			_handle
 		);
 	}
@@ -276,7 +261,7 @@ public:
 		if(_handle)
 		{
 			::XDestroyWindow(
-				FriendOf<Display>::GetHandle(_display),
+				FriendlyTo<Display>::GetHandle(_display),
 				_handle
 			);
 		}
@@ -288,7 +273,7 @@ public:
 namespace glx {
 
 class Version
- : public FriendOf<x11::Display>
+ : public FriendlyTo<x11::Display>
 {
 private:
 	int _major;
@@ -323,8 +308,8 @@ public:
 };
 
 class FBConfigs
- : public FriendOf<x11::Display>
- , public FriendOf<x11::VisualInfo>
+ : public FriendlyTo<x11::Display>
+ , public FriendlyTo<x11::VisualInfo>
 {
 private:
 	int _count;
@@ -334,8 +319,8 @@ public:
 	 : _count(0)
 	 , _handle(
 		::glXChooseFBConfig(
-			FriendOf<x11::Display>::GetHandle(display),
-			DefaultScreen(FriendOf<x11::Display>::GetHandle(display)),
+			FriendlyTo<x11::Display>::GetHandle(display),
+			DefaultScreen(FriendlyTo<x11::Display>::GetHandle(display)),
 			visual_attribs,
 			&_count
 		)
@@ -373,13 +358,13 @@ public:
 			int sample_buf, samples;
 
 			::glXGetFBConfigAttrib(
-				FriendOf<x11::Display>::GetHandle(display),
+				FriendlyTo<x11::Display>::GetHandle(display),
 				_handle[i],
 				GLX_SAMPLE_BUFFERS,
 				&sample_buf
 			);
 			::glXGetFBConfigAttrib(
-				FriendOf<x11::Display>::GetHandle(display),
+				FriendlyTo<x11::Display>::GetHandle(display),
 				_handle[i],
 				GLX_SAMPLES,
 				&samples
@@ -397,9 +382,9 @@ public:
 };
 
 class Context
- : public FriendOf<x11::Display>
- , public FriendOf<x11::Window>
- , public FriendOf<FBConfig>
+ : public FriendlyTo<x11::Display>
+ , public FriendlyTo<x11::Window>
+ , public FriendlyTo<FBConfig>
 {
 private:
 	const x11::Display& _display;
@@ -412,23 +397,33 @@ private:
 		int version_minor
 	)
 	{
+		typedef GLXContext (*glXCreateContextAttribsARBProc)(
+			::Display*,
+			::GLXFBConfig,
+			::GLXContext,
+			Bool,
+			 const int*
+		);
+
 		glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
 		glXCreateContextAttribsARB = (glXCreateContextAttribsARBProc) \
 		glXGetProcAddressARB((const GLubyte *)"glXCreateContextAttribsARB");
 
+		const int CONTEXT_MAJOR_VERSION_ARB = 0x2091;
+		const int CONTEXT_MINOR_VERSION_ARB = 0x2092;
 		int context_attribs[] =
 		{
-			GLX_CONTEXT_MAJOR_VERSION_ARB, version_major,
-			GLX_CONTEXT_MINOR_VERSION_ARB, version_minor,
+			CONTEXT_MAJOR_VERSION_ARB, version_major,
+			CONTEXT_MINOR_VERSION_ARB, version_minor,
 			None
 		};
 		::GLXContext res = glXCreateContextAttribsARB(
-			FriendOf<x11::Display>::GetHandle(display),
-			FriendOf<FBConfig>::GetHandle(fbc),
+			FriendlyTo<x11::Display>::GetHandle(display),
+			FriendlyTo<FBConfig>::GetHandle(fbc),
 			0, True, context_attribs
 		);
 		::XSync(
-			FriendOf<x11::Display>::GetHandle(display),
+			FriendlyTo<x11::Display>::GetHandle(display),
 			False
 		);
 		return res;
@@ -464,7 +459,7 @@ public:
 		if(_handle)
 		{
 			::glXDestroyContext(
-				FriendOf<x11::Display>::GetHandle(_display),
+				FriendlyTo<x11::Display>::GetHandle(_display),
 				_handle
 			);
 		}
@@ -473,8 +468,8 @@ public:
 	void MakeCurrent(const x11::Window& window) const
 	{
 		::glXMakeCurrent(
-			FriendOf<x11::Display>::GetHandle(_display),
-			FriendOf<x11::Window>::GetHandle(window),
+			FriendlyTo<x11::Display>::GetHandle(_display),
+			FriendlyTo<x11::Window>::GetHandle(window),
 			_handle
 		);
 	}
@@ -482,7 +477,7 @@ public:
 	static void Release(const x11::Display& display)
 	{
 		::glXMakeCurrent(
-			FriendOf<x11::Display>::GetHandle(display),
+			FriendlyTo<x11::Display>::GetHandle(display),
 			0, 0
 		);
 	}
@@ -490,8 +485,8 @@ public:
 	void SwapBuffers(const x11::Window& window) const
 	{
 		::glXSwapBuffers(
-			FriendOf<x11::Display>::GetHandle(_display),
-			FriendOf<x11::Window>::GetHandle(window)
+			FriendlyTo<x11::Display>::GetHandle(_display),
+			FriendlyTo<x11::Window>::GetHandle(window)
 		);
 	}
 };
@@ -539,15 +534,17 @@ void run(const x11::Display& display)
 	glClear( GL_COLOR_BUFFER_BIT );
 	ctx.SwapBuffers(win);
 
-	::sleep(1);
+	::sleep(2);
 	ctx.Release(display);
 }
+
+} // namespace oglplus
 
 int main (int argc, char ** argv)
 {
 	try
 	{
-		run(x11::Display());
+		oglplus::run(oglplus::x11::Display());
 		std::cout << "Done" << std::endl;
 	}
 	catch(std::runtime_error& rte)
@@ -557,6 +554,4 @@ int main (int argc, char ** argv)
 	}
 	return 0;
 }
-#else
-int main(void){return 0;}
-#endif
+
