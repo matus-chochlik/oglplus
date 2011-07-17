@@ -10,13 +10,18 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <GL/gl.h>
+//
+#define GL3_PROTOTYPES
+#define GL_VERSION_4_0
+#include <GL3/gl3.h>
+#define __gl_h__
+#define __glext_h__
 #include <GL/glx.h>
-
+//
+#include <oglplus/all.hpp>
+//
 #include <string>
 #include <stdexcept>
 #include <iostream>
@@ -532,6 +537,25 @@ void run(const x11::Display& display)
 
 	glClearColor ( 0, 0.5, 1, 1 );
 	glClear( GL_COLOR_BUFFER_BIT );
+	//
+	{
+		using namespace oglplus;
+		Buffer buf;
+		buf.Bind(Buffer::Target::Array);
+		//
+		VertexShader vs;
+		vs.Source("#version 120\nvoid main(void){gl_Position = gl_Vertex;}");
+		vs.Compile();
+		FragmentShader fs;
+		fs.Source("#version 330\nout vec4 fragColor; void main(void){fragColor = vec4(0.5, 0.5, 0.2, 1.0);}");
+		fs.Compile();
+		Program prog;
+		prog.AttachShader(vs);
+		prog.AttachShader(fs);
+		prog.Link();
+		prog.Use();
+	}
+	//
 	ctx.SwapBuffers(win);
 
 	::sleep(2);
@@ -546,6 +570,10 @@ int main (int argc, char ** argv)
 	{
 		oglplus::run(oglplus::x11::Display());
 		std::cout << "Done" << std::endl;
+	}
+	catch(oglplus::CompileOrLinkError& cle)
+	{
+		std::cerr << cle.what() << ": " << cle.Log() << std::endl;
 	}
 	catch(std::runtime_error& rte)
 	{

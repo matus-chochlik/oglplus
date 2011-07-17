@@ -14,17 +14,14 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 
 namespace oglplus {
 
 class RenderbufferOps
+ : public Named
 {
 protected:
-	GLuint _name;
-
-	RenderbufferOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenRenderbuffers(count, &_name);
@@ -40,11 +37,9 @@ protected:
 	{
 		return ::glIsRenderbuffer(_name);
 	}
-public:
-	RenderbufferOps(GLuint _n)
-	 : _name(_n)
-	{ }
 
+	friend class FriendOf<RenderbufferOps>;
+public:
 	enum class Target {
 		Default = GL_RENDERBUFFER
 	};
@@ -62,7 +57,7 @@ public:
 	}
 };
 
-typedef Object<RenderbufferOps> Renderbuffer;
+typedef Object<RenderbufferOps, true> Renderbuffer;
 
 } // namespace oglplus
 

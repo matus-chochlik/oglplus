@@ -14,17 +14,14 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 
 namespace oglplus {
 
 class BufferOps
+ : public Named
 {
 protected:
-	GLuint _name;
-
-	BufferOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenBuffers(count, &_name);
@@ -40,11 +37,9 @@ protected:
 	{
 		return ::glIsBuffer(_name);
 	}
-public:
-	BufferOps(GLuint _n)
-	 : _name(_n)
-	{ }
 
+	friend class FriendOf<BufferOps>;
+public:
 	enum class Target {
 		Array = GL_ARRAY_BUFFER,
 		CopyRead = GL_COPY_READ_BUFFER,
@@ -114,7 +109,7 @@ public:
 	}
 };
 
-typedef Object<BufferOps> Buffer;
+typedef Object<BufferOps, true> Buffer;
 
 } // namespace oglplus
 

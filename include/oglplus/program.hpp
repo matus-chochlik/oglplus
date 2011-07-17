@@ -37,35 +37,30 @@ public:
 	{ }
 };
 
-class Program
- : public FriendOf<Shader>
+class ProgramOps
+ : public Named
+ , public FriendOf<Shader>
  , public FriendOf<VertexAttribOps>
 {
 protected:
-	GLuint _name;
-
-	friend class FriendOf<Program>;
-public:
-
-	Program(void)
-	 : _name(::glCreateProgram())
+	static void _init(GLsizei, GLuint& _name)
 	{
+		_name = ::glCreateProgram();
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
-	Program(const Program&) = delete;
-
-	Program(Program&& temp)
-	 : _name(temp._name)
-	{
-		temp._name = 0;
-	}
-
-	~Program(void)
+	static void _cleanup(GLsizei, GLuint& _name)
 	{
 		::glDeleteProgram(_name);
 	}
 
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsProgram(_name);
+	}
+
+	friend class FriendOf<ProgramOps>;
+public:
 	void AttachShader(const Shader& shader)
 	{
 		::glAttachShader(_name, FriendOf<Shader>::GetName(shader));
@@ -115,6 +110,8 @@ public:
 		const GLchar* identifier
 	) const;
 };
+
+typedef Object<ProgramOps, false> Program;
 
 } // namespace oglplus
 

@@ -13,6 +13,7 @@
 #define OGLPLUS_SHADER_1107121519_HPP
 
 #include <oglplus/error.hpp>
+#include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 
@@ -57,12 +58,9 @@ public:
 	{ }
 };
 
-class Shader
+class ShaderOps
+ : public Named
 {
-protected:
-	GLuint _name;
-
-	friend class FriendOf<Shader>;
 public:
 	enum class Kind {
 		Vertex = GL_VERTEX_SHADER,
@@ -71,30 +69,29 @@ public:
 		TessControl = GL_TESS_CONTROL_SHADER,
 		TessEvaluation = GL_TESS_EVALUATION_SHADER
 	};
-
-	Shader(Kind kind)
-	 : _name(::glCreateShader(GLenum(kind)))
+protected:
+	static void _init(GLsizei, GLuint& _name, Kind kind)
 	{
+		_name = ::glCreateShader(GLenum(kind));
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
-	Shader(const Shader&) = delete;
-
-	Shader(Shader&& temp)
-	 : _name(temp._name)
-	{
-		temp._name = 0;
-	}
-
-	~Shader(void)
+	static void _cleanup(GLsizei, GLuint& _name)
 	{
 		::glDeleteShader(_name);
 	}
 
+	static GLboolean _is_x(GLuint _name)
+	{
+		return ::glIsShader(_name);
+	}
+
+	friend class FriendOf<ShaderOps>;
+public:
 	void Source(const std::string& source) const
 	{
 		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[] = {source.size()};
+		GLint lens[] = {GLint(source.size())};
 		::glShaderSource(_name, 1, srcs, lens);
 	}
 
@@ -145,6 +142,8 @@ public:
 			throw CompileError(GetInfoLog(), OGLPLUS_ERROR_INFO());
 	}
 };
+
+typedef Object<ShaderOps, false> Shader;
 
 class VertexShader
  : public Shader

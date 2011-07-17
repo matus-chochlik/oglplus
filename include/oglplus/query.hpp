@@ -14,17 +14,14 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 
 namespace oglplus {
 
 class QueryOps
+ : public Named
 {
 protected:
-	GLuint _name;
-
-	QueryOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenQueries(count, &_name);
@@ -41,10 +38,6 @@ protected:
 		return ::glIsQuery(_name);
 	}
 public:
-	QueryOps(GLuint _n)
-	 : _name(_n)
-	{ }
-
 	enum class Target {
 		SamplesPassed = GL_SAMPLES_PASSED,
 		AnySamplesPassed = GL_ANY_SAMPLES_PASSED
@@ -63,7 +56,7 @@ public:
 	}
 };
 
-typedef Object<QueryOps> Query;
+typedef Object<QueryOps, true> Query;
 
 } // namespace oglplus
 

@@ -14,17 +14,14 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 
 namespace oglplus {
 
 class TextureOps
+ : public Named
 {
 protected:
-	GLuint _name;
-
-	TextureOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenTextures(count, &_name);
@@ -40,11 +37,9 @@ protected:
 	{
 		return ::glIsTexture(_name);
 	}
-public:
-	TextureOps(GLuint _n)
-	 : _name(_n)
-	{ }
 
+	friend class FriendOf<TextureOps>;
+public:
 	enum class Target {
 		_1D = GL_TEXTURE_1D,
 		_2D = GL_TEXTURE_2D,
@@ -72,7 +67,7 @@ public:
 	}
 };
 
-typedef Object<TextureOps> Texture;
+typedef Object<TextureOps, true> Texture;
 
 } // namespace oglplus
 

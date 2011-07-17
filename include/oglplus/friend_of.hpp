@@ -12,15 +12,31 @@
 #ifndef OGLPLUS_FRIEND_OF_1107121519_HPP
 #define OGLPLUS_FRIEND_OF_1107121519_HPP
 
+#include <oglplus/auxiliary/named.hpp>
+
 namespace oglplus {
 
 template <class Object>
+class FriendOf;
+
+template <>
+class FriendOf<Named>
+{
+protected:
+	static GLuint GetName(const Named& object)
+	{
+		return object._name;
+	}
+};
+
+template <class Object>
 class FriendOf
+ : public FriendOf<Named>
 {
 protected:
 	static GLuint GetName(const Object& object)
 	{
-		return object._name;
+		return FriendOf<Named>::GetName(object);
 	}
 
 	static GLuint GetIndex(const Object& object)

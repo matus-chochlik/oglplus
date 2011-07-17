@@ -14,17 +14,14 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 
 namespace oglplus {
 
 class SamplerOps
+ : public Named
 {
 protected:
-	GLuint _name;
-
-	SamplerOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenSamplers(count, &_name);
@@ -40,11 +37,9 @@ protected:
 	{
 		return ::glIsSampler(_name);
 	}
-public:
-	SamplerOps(GLuint _n)
-	 : _name(_n)
-	{ }
 
+	friend class FriendOf<SamplerOps>;
+public:
 	void Bind(GLuint unit) const
 	{
 		::glBindSampler(unit, _name);
@@ -58,7 +53,7 @@ public:
 	}
 };
 
-typedef Object<SamplerOps> Sampler;
+typedef Object<SamplerOps, true> Sampler;
 
 } // namespace oglplus
 

@@ -65,7 +65,7 @@ public:
 };
 
 template <class ObjectOps>
-class Array<Object<ObjectOps> >
+class Array<Object<ObjectOps, true> >
 {
 private:
 	GLsizei _count;
@@ -78,13 +78,14 @@ private:
 		_base = 0;
 		return res;
 	}
-	typedef Object<ObjectOps> object;
+	typedef Object<ObjectOps, true> object;
 public:
 	inline Array(GLsizei c)
 	 : _count(c)
+	 , _base(0)
 	{
 		assert(_count != 0);
-		object::_do_init(_count, _base);
+		object::_do_init_m(_count, _base);
 		assert(_base != 0);
 		assert(object::_type_ok(_base));
 	}

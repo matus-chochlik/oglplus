@@ -14,17 +14,14 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 
 namespace oglplus {
 
 class TransformFeedbackOps
+ : public Named
 {
 protected:
-	GLuint _name;
-
-	TransformFeedbackOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenTransformFeedbacks(count, &_name);
@@ -40,11 +37,9 @@ protected:
 	{
 		return ::glIsTransformFeedback(_name);
 	}
-public:
-	TransformFeedbackOps(GLuint _n)
-	 : _name(_n)
-	{ }
 
+	friend class FriendOf<TransformFeedbackOps>;
+public:
 	enum class Target {
 		Default = GL_TRANSFORM_FEEDBACK
 	};
@@ -62,7 +57,7 @@ public:
 	}
 };
 
-typedef Object<TransformFeedbackOps> TransformFeedback;
+typedef Object<TransformFeedbackOps, true> TransformFeedback;
 
 } // namespace oglplus
 

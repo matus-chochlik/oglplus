@@ -14,17 +14,14 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 
 namespace oglplus {
 
 class FramebufferOps
+ : public Named
 {
 protected:
-	GLuint _name;
-
-	FramebufferOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenFramebuffers(count, &_name);
@@ -40,11 +37,9 @@ protected:
 	{
 		return ::glIsFramebuffer(_name);
 	}
-public:
-	FramebufferOps(GLuint _n)
-	 : _name(_n)
-	{ }
 
+	friend class FriendOf<FramebufferOps>;
+public:
 	enum class Target {
 		Draw = GL_DRAW_FRAMEBUFFER,
 		Read = GL_READ_FRAMEBUFFER
@@ -63,7 +58,7 @@ public:
 	}
 };
 
-typedef Object<FramebufferOps> Framebuffer;
+typedef Object<FramebufferOps, true> Framebuffer;
 
 } // namespace oglplus
 

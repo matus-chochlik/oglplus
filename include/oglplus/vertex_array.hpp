@@ -14,18 +14,15 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 #include <oglplus/primitive_type.hpp>
 
 namespace oglplus {
 
 class VertexArrayOps
+ : public Named
 {
 protected:
-	GLuint _name;
-
-	VertexArrayOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenVertexArrays(count, &_name);
@@ -41,11 +38,9 @@ protected:
 	{
 		return ::glIsVertexArray(_name);
 	}
-public:
-	VertexArrayOps(GLuint _n)
-	 : _name(_n)
-	{ }
 
+	friend class FriendOf<VertexArrayOps>;
+public:
 	void Bind(void) const
 	{
 		::glBindVertexArray(_name);
@@ -65,7 +60,7 @@ public:
 	}
 };
 
-typedef Object<VertexArrayOps> VertexArray;
+typedef Object<VertexArrayOps, true> VertexArray;
 
 } // namespace oglplus
 

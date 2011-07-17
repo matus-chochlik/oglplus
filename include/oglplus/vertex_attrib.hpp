@@ -69,7 +69,7 @@ public:
 };
 
 // Things from to Program related to vertex attributes
-void Program::BindLocation(
+void ProgramOps::BindLocation(
 	const VertexAttribOps& vertex_attrib,
 	const GLchar* identifier
 ) const

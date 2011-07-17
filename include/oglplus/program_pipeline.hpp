@@ -14,17 +14,13 @@
 
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/friend_of.hpp>
 
 namespace oglplus {
 
 class ProgramPipelineOps
 {
 protected:
-	GLuint _name;
-
-	ProgramPipelineOps(void)
-	{ }
-
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenProgramPipelines(count, &_name);
@@ -40,11 +36,9 @@ protected:
 	{
 		return ::glIsProgramPipeline(_name);
 	}
-public:
-	ProgramPipelineOps(GLuint _n)
-	 : _name(_n)
-	{ }
 
+	friend class FriendOf<ProgramPipelineOps>;
+public:
 	void Bind(GLuint pipeline) const
 	{
 		::glBindProgramPipeline(pipeline);
@@ -52,7 +46,7 @@ public:
 	}
 };
 
-typedef Object<ProgramPipelineOps> ProgramPipeline;
+typedef Object<ProgramPipelineOps, true> ProgramPipeline;
 
 } // namespace oglplus
 

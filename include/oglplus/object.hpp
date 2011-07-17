@@ -12,12 +12,15 @@
 #ifndef OGLPLUS_OBJECT_1107121519_HPP
 #define OGLPLUS_OBJECT_1107121519_HPP
 
+#include <oglplus/auxiliary/named.hpp>
+#include <cassert>
+
 namespace oglplus {
 
 template <class Object>
 class Array;
 
-template <class ObjectOps>
+template <class ObjectOps, bool MultiObject>
 class Object : public ObjectOps
 {
 private:
@@ -30,22 +33,40 @@ private:
 
 	static inline void _do_init(GLsizei _c, GLuint& _n)
 	{
+		assert(_c != 0);
+		assert(_n == 0);
+		assert(MultiObject || (_c == 1));
 		ObjectOps::_init(_c, _n);
+		assert(_n != 0);
+	}
+
+	template <typename Kind>
+	static inline void _do_init(GLsizei _c, GLuint& _n, Kind _k)
+	{
+		assert(_n == 0);
+		assert(!MultiObject);
+		ObjectOps::_init(_c, _n, _k);
+		assert(_n != 0);
 	}
 
 	static inline void _do_cleanup(GLsizei _c, GLuint& _n)
 	{
+		assert(_c != 0);
+		assert(_n != 0);
+		assert(MultiObject || (_c == 1));
 		ObjectOps::_cleanup(_c, _n);
+		assert((_n = 0) == 0);
 	}
 
 	static inline bool _type_ok(GLuint _name)
 	{
+		assert(_name != 0);
 		return ObjectOps::_is_x(_name) == GL_TRUE;
 	}
 
 	friend class Array<Object>;
 public:
-	inline Object(void)
+	Object(void)
 	{
 		_do_init(1, this->_name);
 		assert(this->_name != 0);
@@ -54,14 +75,24 @@ public:
 
 	Object(const Object&) = delete;
 
-	inline Object(Object&& temp)
-	 : ObjectOps(temp._release())
+	Object(Object&& temp)
 	{
+		assert(this->_name == 0);
+		this->_name = temp._release();
+		assert(this->_name != 0);
+		assert(temp._name == 0);
+		assert(_type_ok(this->_name));
+	}
+
+	template <typename Kind>
+	Object(Kind kind)
+	{
+		_do_init(1, this->_name, kind);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 	}
 
-	inline ~Object(void)
+	~Object(void)
 	{
 		if(this->_name != 0)
 		{
