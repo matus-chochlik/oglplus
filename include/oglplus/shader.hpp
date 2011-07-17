@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <string>
+#include <cassert>
 
 namespace oglplus {
 
@@ -78,11 +79,13 @@ protected:
 
 	static void _cleanup(GLsizei, GLuint& _name)
 	{
+		assert(_name != 0);
 		::glDeleteShader(_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
+		assert(_name != 0);
 		return ::glIsShader(_name);
 	}
 
@@ -90,6 +93,7 @@ protected:
 public:
 	void Source(const std::string& source) const
 	{
+		assert(_name != 0);
 		const GLchar* srcs[1] = {source.c_str()};
 		GLint lens[] = {GLint(source.size())};
 		::glShaderSource(_name, 1, srcs, lens);
@@ -97,12 +101,14 @@ public:
 
 	void Source(const GLchar* source) const
 	{
+		assert(_name != 0);
 		const GLchar* srcs[1] = {source};
 		::glShaderSource(_name, 1, srcs, 0);
 	}
 
 	void Source(const GLchar* source, int length) const
 	{
+		assert(_name != 0);
 		const GLchar* srcs[1] = {source};
 		int lens[] = {length};
 		::glShaderSource(_name, 1, srcs, lens);
@@ -110,6 +116,7 @@ public:
 
 	void Source(const std::vector<const GLchar*>& srcs) const
 	{
+		assert(_name != 0);
 		::glShaderSource(
 			_name,
 			srcs.size(),
@@ -120,6 +127,7 @@ public:
 
 	bool IsCompiled(void) const
 	{
+		assert(_name != 0);
 		int status;
 		::glGetShaderiv(_name, GL_COMPILE_STATUS, &status);
 		ThrowOnError(OGLPLUS_ERROR_INFO());
@@ -128,6 +136,7 @@ public:
 
 	std::string GetInfoLog(void) const
 	{
+		assert(_name != 0);
 		return aux::GetInfoLog(
 			_name, ::glGetShaderiv,
 			::glGetShaderInfoLog
@@ -136,6 +145,7 @@ public:
 
 	void Compile(void) const
 	{
+		assert(_name != 0);
 		::glCompileShader(_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 		if(!IsCompiled())

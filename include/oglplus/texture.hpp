@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <cassert>
 
 namespace oglplus {
 
@@ -30,11 +31,13 @@ protected:
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
+		assert(_name != 0);
 		::glDeleteTextures(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
+		assert(_name != 0);
 		return ::glIsTexture(_name);
 	}
 
@@ -56,6 +59,7 @@ public:
 
 	void Bind(Target target) const
 	{
+		assert(_name != 0);
 		::glBindTexture(GLenum(target), _name);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}

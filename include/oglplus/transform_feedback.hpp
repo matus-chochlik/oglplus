@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <cassert>
 
 namespace oglplus {
 
@@ -30,11 +31,13 @@ protected:
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
+		assert(_name != 0);
 		::glDeleteTransformFeedbacks(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
+		assert(_name != 0);
 		return ::glIsTransformFeedback(_name);
 	}
 
@@ -46,6 +49,7 @@ public:
 
 	void Bind(Target target = Target::Default) const
 	{
+		assert(_name != 0);
 		::glBindTransformFeedback(GLenum(target), _name);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}

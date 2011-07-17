@@ -16,6 +16,7 @@
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/primitive_type.hpp>
+#include <cassert>
 
 namespace oglplus {
 
@@ -31,11 +32,13 @@ protected:
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
+		assert(_name != 0);
 		::glDeleteVertexArrays(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
+		assert(_name != 0);
 		return ::glIsVertexArray(_name);
 	}
 
@@ -43,6 +46,7 @@ protected:
 public:
 	void Bind(void) const
 	{
+		assert(_name != 0);
 		::glBindVertexArray(_name);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}

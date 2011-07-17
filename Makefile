@@ -9,6 +9,7 @@ OGLPLUS_CXXFLAGS = \
 	-pedantic-errors \
 	-std=c++0x \
 	-I include \
+	-I utils \
 	$(CXXFLAGS)
 
 OGLPLUS_LDFLAGS = \

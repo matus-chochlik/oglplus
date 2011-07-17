@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <string>
+#include <cassert>
 
 namespace oglplus {
 
@@ -51,11 +52,13 @@ protected:
 
 	static void _cleanup(GLsizei, GLuint& _name)
 	{
+		assert(_name != 0);
 		::glDeleteProgram(_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
+		assert(_name != 0);
 		return ::glIsProgram(_name);
 	}
 
@@ -63,12 +66,14 @@ protected:
 public:
 	void AttachShader(const Shader& shader)
 	{
+		assert(_name != 0);
 		::glAttachShader(_name, FriendOf<Shader>::GetName(shader));
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	void DetachShader(const Shader& shader)
 	{
+		assert(_name != 0);
 		::glDetachShader(_name, FriendOf<Shader>::GetName(shader));
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
@@ -83,6 +88,7 @@ public:
 
 	std::string GetInfoLog(void) const
 	{
+		assert(_name != 0);
 		return aux::GetInfoLog(
 			_name, ::glGetProgramiv,
 			::glGetProgramInfoLog
@@ -91,6 +97,7 @@ public:
 
 	void Link(void)
 	{
+		assert(_name != 0);
 		::glLinkProgram(_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 		if(!IsLinked())
@@ -99,6 +106,7 @@ public:
 
 	void Use(void)
 	{
+		assert(_name != 0);
 		assert(IsLinked());
 		::glUseProgram(_name);
 		AssertNoError(OGLPLUS_ERROR_INFO());

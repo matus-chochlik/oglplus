@@ -16,6 +16,7 @@
 #include <oglplus/auxiliary/base_iter.hpp>
 
 #include <vector>
+#include <cassert>
 
 namespace oglplus {
 

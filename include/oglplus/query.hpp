@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <cassert>
 
 namespace oglplus {
 
@@ -30,11 +31,13 @@ protected:
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
+		assert(_name != 0);
 		::glDeleteQueries(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
+		assert(_name != 0);
 		return ::glIsQuery(_name);
 	}
 public:
@@ -45,12 +48,14 @@ public:
 
 	void Begin(Target target) const
 	{
+		assert(_name != 0);
 		::glBeginQuery(GLenum(target), _name);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	void End(Target target) const
 	{
+		assert(_name != 0);
 		::glEndQuery(GLenum(target));
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
