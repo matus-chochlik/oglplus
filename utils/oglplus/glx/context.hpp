@@ -18,6 +18,7 @@
 #include <oglplus/glx/fb_config.hpp>
 
 #include <X11/Xlib.h>
+#include <GL/glx.h>
 #include <stdexcept>
 
 

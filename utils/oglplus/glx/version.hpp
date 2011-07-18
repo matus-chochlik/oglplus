@@ -14,6 +14,8 @@
 
 #include <oglplus/friendly_to.hpp>
 #include <oglplus/x11/display.hpp>
+
+#include <GL/glx.h>
 #include <stdexcept>
 
 namespace oglplus {

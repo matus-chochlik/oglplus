@@ -13,6 +13,7 @@
 #define UTILS_OGLPLUS_GLX_FB_CONFIG_1107121519_HPP
 
 #include <oglplus/friendly_to.hpp>
+#include <GL/glx.h>
 #include <stdexcept>
 
 namespace oglplus {

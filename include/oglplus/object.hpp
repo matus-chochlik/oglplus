@@ -55,6 +55,7 @@ private:
 		assert(_n != 0);
 		assert(MultiObject || (_c == 1));
 		ObjectOps::_cleanup(_c, _n);
+		assert(::glGetError() == GL_NO_ERROR);
 		assert((_n = 0) == 0);
 	}
 

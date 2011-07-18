@@ -10,13 +10,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#define GL3_PROTOTYPES
-#define GL_VERSION_4_0
-#include <GL3/gl3.h>
-#define __gl_h__
-#define __glext_h__
-#include <GL/glx.h>
-//
+#include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 //
 #include <oglplus/glx/context.hpp>
@@ -72,30 +66,63 @@ void run(const x11::Display& display)
 	glx::Context ctx(display, fbc, 3, 0);
 	ctx.MakeCurrent(win);
 
-	glClearColor ( 0, 0.5, 1, 1 );
-	glClear( GL_COLOR_BUFFER_BIT );
 	//
 	{
 		using namespace oglplus;
+		Context gl;
+		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+		gl.ClearDepth(1.0f);
+		//
 		Buffer buf;
 		buf.Bind(Buffer::Target::Array);
 		//
 		VertexShader vs;
-		vs.Source("#version 120\nvoid main(void){gl_Position = gl_Vertex;}");
+		vs.Source(" \
+			#version 330\n \
+			in vec3 vertex; \
+			void main(void) \
+			{ \
+				gl_Position = vec4(vertex, 1.0); \
+			} \
+		");
 		vs.Compile();
 		FragmentShader fs;
-		fs.Source("#version 330\nout vec4 fragColor; void main(void){fragColor = vec4(0.5, 0.5, 0.2, 1.0);}");
+		fs.Source(" \
+			#version 330\n \
+			out vec4 fragColor; \
+			void main(void) \
+			{ \
+				fragColor = vec4(0.5, 0.5, 0.2, 1.0); \
+			} \
+		");
 		fs.Compile();
 		Program prog;
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
 		prog.Link();
 		prog.Use();
+		//
+		VertexArray vao;
+		vao.Bind();
+		//
+		GLfloat triangle_data[9] = {
+			0.0f, 0.0f, 0.0f,
+			1.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f
+		};
+		Buffer vbo;
+		vbo.Bind(Buffer::Target::Array);
+		Buffer::Data(Buffer::Target::Array, triangle_data, 9);
+		VertexAttribArray vaa(prog, "vertex");
+		vaa.Setup(3, DataType::Float);
+		vaa.Enable();
+		//
+		gl.Clear().ColorBuffer().DepthBuffer();
+		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);
+		ctx.SwapBuffers(win);
+		::sleep(2);
 	}
 	//
-	ctx.SwapBuffers(win);
-
-	::sleep(2);
 	ctx.Release(display);
 }
 

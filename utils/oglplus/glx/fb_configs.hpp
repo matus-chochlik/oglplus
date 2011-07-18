@@ -17,6 +17,7 @@
 #include <oglplus/x11/display.hpp>
 #include <oglplus/x11/visual_info.hpp>
 
+#include <GL/glx.h>
 #include <stdexcept>
 
 namespace oglplus {
