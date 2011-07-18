@@ -43,7 +43,7 @@ protected:
 
 	friend class FriendOf<BufferOps>;
 public:
-	enum class Target {
+	enum class Target : GLenum {
 		Array = GL_ARRAY_BUFFER,
 		CopyRead = GL_COPY_READ_BUFFER,
 		CopyWrite = GL_COPY_WRITE_BUFFER,
@@ -56,7 +56,7 @@ public:
 		Uniform = GL_UNIFORM_BUFFER
 	};
 
-	enum class Usage {
+	enum class Usage : GLenum {
 		StreamDraw = GL_STREAM_DRAW,
 		StreamRead = GL_STREAM_READ,
 		StreamCopy = GL_STREAM_COPY,

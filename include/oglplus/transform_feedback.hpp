@@ -43,7 +43,7 @@ protected:
 
 	friend class FriendOf<TransformFeedbackOps>;
 public:
-	enum class Target {
+	enum class Target : GLenum {
 		Default = GL_TRANSFORM_FEEDBACK
 	};
 

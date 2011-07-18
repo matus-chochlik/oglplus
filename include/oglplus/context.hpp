@@ -15,10 +15,11 @@
 #include <oglplus/error.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
+#include <oglplus/auxiliary/bitfield.hpp>
 
 namespace oglplus {
 
-enum class ClearBit
+enum class ClearBit : GLbitfield
 {
 	ColorBuffer = GL_COLOR_BUFFER_BIT,
 	DepthBuffer = GL_DEPTH_BUFFER_BIT,
@@ -53,10 +54,7 @@ public:
 
 	static void Clear(const std::initializer_list<ClearBit>& bits)
 	{
-		GLbitfield buffers = 0;
-		for(auto i=bits.begin(),e=bits.end();i!=e;++i)
-			buffers |= GLbitfield(*i);
-		::glClear(buffers);
+		::glClear(aux::MakeBitfield(bits));
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 

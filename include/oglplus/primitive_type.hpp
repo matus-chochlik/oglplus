@@ -12,11 +12,9 @@
 #ifndef OGLPLUS_PRIMITIVE_TYPE_1107121519_HPP
 #define OGLPLUS_PRIMITIVE_TYPE_1107121519_HPP
 
-#include <oglplus/error.hpp>
-
 namespace oglplus {
 
-enum class PrimitiveType
+enum class PrimitiveType : GLenum
 {
 	Points = GL_POINTS,
 	LineStrip = GL_LINE_STRIP,

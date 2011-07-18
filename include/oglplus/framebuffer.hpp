@@ -43,7 +43,7 @@ protected:
 
 	friend class FriendOf<FramebufferOps>;
 public:
-	enum class Target {
+	enum class Target : GLenum {
 		Draw = GL_DRAW_FRAMEBUFFER,
 		Read = GL_READ_FRAMEBUFFER
 	};

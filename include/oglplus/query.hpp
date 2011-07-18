@@ -41,7 +41,7 @@ protected:
 		return ::glIsQuery(_name);
 	}
 public:
-	enum class Target {
+	enum class Target : GLenum {
 		SamplesPassed = GL_SAMPLES_PASSED,
 		AnySamplesPassed = GL_ANY_SAMPLES_PASSED
 	};

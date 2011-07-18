@@ -96,7 +96,7 @@ public:
 		);
 	}
 
-	void Link(void)
+	void Link(void) const
 	{
 		assert(_name != 0);
 		::glLinkProgram(_name);
@@ -105,12 +105,71 @@ public:
 			throw LinkError(GetInfoLog(),OGLPLUS_ERROR_INFO());
 	}
 
-	void Use(void)
+	void Use(void) const
 	{
 		assert(_name != 0);
 		assert(IsLinked());
 		::glUseProgram(_name);
 		AssertNoError(OGLPLUS_ERROR_INFO());
+	}
+
+	void MakeSeparable(bool para = true) const
+	{
+		assert(_name != 0);
+		glProgramParameteri(
+			_name,
+			GL_PROGRAM_SEPARABLE,
+			para ? GL_TRUE : GL_FALSE
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO());
+	}
+
+	void MakeRetrievable(bool para = true) const
+	{
+		assert(_name != 0);
+		glProgramParameteri(
+			_name,
+			GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
+			para ? GL_TRUE : GL_FALSE
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO());
+	}
+
+	void GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
+	{
+		assert(_name != 0);
+		GLint size = 0;
+		::glGetProgramiv(
+			_name,
+			GL_PROGRAM_BINARY_LENGTH,
+			&size
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO());
+		if(size > 0)
+		{
+			GLsizei len = 0;
+			binary.resize(size);
+			::glGetProgramBinary(
+				_name,
+				size,
+				&len,
+				&format,
+				binary.data()
+			);
+			ThrowOnError(OGLPLUS_ERROR_INFO());
+		}
+	}
+
+	void Binary(const std::vector<GLubyte>& binary, GLenum format) const
+	{
+		assert(_name != 0);
+		::glProgramBinary(
+			_name,
+			format,
+			binary.data(),
+			binary.size()
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
 	// Implemented in vertex_attrib.hpp

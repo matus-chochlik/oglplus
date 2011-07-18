@@ -43,7 +43,7 @@ protected:
 
 	friend class FriendOf<TextureOps>;
 public:
-	enum class Target {
+	enum class Target : GLenum {
 		_1D = GL_TEXTURE_1D,
 		_2D = GL_TEXTURE_2D,
 		_3D = GL_TEXTURE_3D,

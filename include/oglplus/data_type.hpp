@@ -12,11 +12,9 @@
 #ifndef OGLPLUS_DATA_TYPE_1107121519_HPP
 #define OGLPLUS_DATA_TYPE_1107121519_HPP
 
-#include <oglplus/error.hpp>
-
 namespace oglplus {
 
-enum class DataType
+enum class DataType : GLenum
 {
 	Byte = GL_BYTE,
 	Short = GL_SHORT,

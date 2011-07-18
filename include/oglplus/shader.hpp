@@ -66,7 +66,7 @@ class ShaderOps
  : public Named
 {
 public:
-	enum class Kind {
+	enum class Kind : GLenum {
 		Vertex = GL_VERTEX_SHADER,
 		Geometry = GL_GEOMETRY_SHADER,
 		Fragment = GL_FRAGMENT_SHADER,

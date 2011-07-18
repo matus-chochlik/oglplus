@@ -12,11 +12,9 @@
 #ifndef OGLPLUS_CMP_FUNC_1107121519_HPP
 #define OGLPLUS_CMP_FUNC_1107121519_HPP
 
-#include <oglplus/error.hpp>
-
 namespace oglplus {
 
-enum class CompareFunc
+enum class CompareFunc : GLenum
 {
 	LEqual = GL_LEQUAL,
 	GEqual = GL_GEQUAL,

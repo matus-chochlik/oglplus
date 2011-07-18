@@ -80,19 +80,22 @@ void run(const x11::Display& display)
 		vs.Source(" \
 			#version 330\n \
 			in vec3 vertex; \
+			out vec4 color; \
 			void main(void) \
 			{ \
 				gl_Position = vec4(vertex, 1.0); \
+				color = vec4(vertex, 1.0); \
 			} \
 		");
 		vs.Compile();
 		FragmentShader fs;
 		fs.Source(" \
 			#version 330\n \
+			in vec4 color; \
 			out vec4 fragColor; \
 			void main(void) \
 			{ \
-				fragColor = vec4(0.5, 0.5, 0.2, 1.0); \
+				fragColor = color; \
 			} \
 		");
 		fs.Compile();
@@ -101,6 +104,13 @@ void run(const x11::Display& display)
 		prog.AttachShader(fs);
 		prog.Link();
 		prog.Use();
+		//
+		/*
+		std::vector<GLubyte> bin;
+		GLenum format;
+		prog.GetBinary(bin, format);
+		prog.Binary(bin, format);
+		*/
 		//
 		VertexArray vao;
 		vao.Bind();

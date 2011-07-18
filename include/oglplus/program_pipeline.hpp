@@ -13,13 +13,17 @@
 #define OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 
 #include <oglplus/error.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/program.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/auxiliary/bitfield.hpp>
+
 #include <cassert>
 
 namespace oglplus {
 
 class ProgramPipelineOps
+ : public Named
+ , public FriendOf<Program>
 {
 protected:
 	static void _init(GLsizei count, GLuint& _name)
@@ -42,10 +46,45 @@ protected:
 
 	friend class FriendOf<ProgramPipelineOps>;
 public:
-	void Bind(GLuint pipeline) const
+	void Bind(void) const
 	{
-		::glBindProgramPipeline(pipeline);
+		assert(_name != 0);
+		::glBindProgramPipeline(_name);
 		AssertNoError(OGLPLUS_ERROR_INFO());
+	}
+
+	enum class Stage : GLbitfield {
+		VertexShader = GL_VERTEX_SHADER_BIT,
+		GeometryShader = GL_GEOMETRY_SHADER_BIT,
+		FragmentShader = GL_FRAGMENT_SHADER_BIT,
+		TessControlShader = GL_TESS_CONTROL_SHADER_BIT,
+		TessEvaluationShader = GL_TESS_EVALUATION_SHADER_BIT,
+		All = GL_ALL_SHADER_BITS
+	};
+
+	void UseStages(
+		const std::initializer_list<Stage>& stages,
+		const Program& prog
+	) const
+	{
+		assert(_name != 0);
+		::glUseProgramStages(
+			_name,
+			aux::MakeBitfield(stages),
+			FriendOf<Program>::GetName(prog)
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO());
+	}
+
+	void UseAllStages(const Program& prog) const
+	{
+		assert(_name != 0);
+		::glUseProgramStages(
+			_name,
+			GL_ALL_SHADER_BITS,
+			FriendOf<Program>::GetName(prog)
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 };
 
