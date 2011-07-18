@@ -1,0 +1,19 @@
+#  Copyright 2009-2011 Matus Chochlik. Distributed under the Boost
+#  Software License, Version 1.0. (See accompanying file
+#  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+#---------------------------------------------------------------------------
+# Project related configuration options
+#---------------------------------------------------------------------------
+@INCLUDE = ./Doxyfile.common
+
+PROJECT_NAME           = "OGL+"
+
+OUTPUT_DIRECTORY       = ../../out/doc/doxygen/oglplus
+
+INPUT = \
+	../../include/oglplus
+
+EXAMPLE_PATH           = ../../example/oglplus
+
+GENERATE_TAGFILE = ../../bld/doc/doxygen/oglplus.doxygen.tags

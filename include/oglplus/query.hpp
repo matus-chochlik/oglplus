@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/texture.hpp
+ *  @file oglplus/query.hpp
  *  @brief Query object wrappers
  *
  *  @author Matus Chochlik

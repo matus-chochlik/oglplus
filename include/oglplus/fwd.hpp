@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_FWD_1107121519_HPP
 #define OGLPLUS_FWD_1107121519_HPP
 
+/// All definitions of OGL+ are nested in the oglplus namespace
 namespace oglplus {
 
 #define nullptr 0

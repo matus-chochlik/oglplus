@@ -28,15 +28,28 @@ DEVEL_TESTS = $(basename $(wildcard devel/*.cpp))
 # the paths of all executables to be built
 EXECUTABLES = $(DEVEL_TESTS)
 #
+LIBRARIES = oglplus
+#
+# the list of doxygen-generated html documents
+HTML_DOCS = $(addsuffix /html/index.html,$(addprefix doc/doxygen/,$(LIBRARIES)))
+#
 # the list of final and intermediate output subdirectories
-OUTSUBDIRS = $(addprefix $(OUTDIR)/, $(sort $(dir $(EXECUTABLES))))
-BLDSUBDIRS = $(addprefix $(BLDDIR)/, $(sort $(dir $(EXECUTABLES))))
+OUTSUBDIRS = \
+	$(addprefix $(OUTDIR)/, $(sort $(dir $(EXECUTABLES)))) \
+	$(addprefix $(OUTDIR)/, $(sort $(dir $(HTML_DOCS))))
 
-all: $(addprefix $(OUTDIR)/, $(EXECUTABLES));
+BLDSUBDIRS = \
+	$(addprefix $(BLDDIR)/, $(sort $(dir $(EXECUTABLES)))) \
+	$(addprefix $(BLDDIR)/, $(sort $(dir $(HTML_DOCS))))
+
+# the main goal
+all: $(addprefix $(OUTDIR)/, $(EXECUTABLES))
 
 # build only the development/testing files in the output directory
 devel_tests: $(addprefix $(OUTDIR)/, $(DEVEL_TESTS));
 
+docs: html_docs;
+html_docs: $(addprefix $(OUTDIR)/, $(HTML_DOCS));
 
 # helper function returning the third argument if the second argument
 # is found at least once in the dependency file specified by the first parameter
@@ -46,7 +59,7 @@ OPT_ADD_HDRDEP = $$(shell grep -c -e"$(2)" $(1).d | sed -n "s|[1-9][0-9]*|$(3)|p
 define BUILD_EXE
 $(OUTDIR)/$(1): $(BLDDIR)/$(1).o | $(dir $(OUTDIR)/$(1))
 	$(eval OGLPLUS_TGT_LDFLAGS := $(OGLPLUS_LDFLAGS))
-	$(eval OGLPLUS_TGT_LDFLAGS += $$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),X11/Xlib.h,-lX11)) 
+	$(eval OGLPLUS_TGT_LDFLAGS += $$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),X11/Xlib.h,-lX11))
 	$(CXX) $(OGLPLUS_TGT_LDFLAGS) -o $$@ $$^
 endef
 
@@ -74,6 +87,17 @@ $(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_EXE,$(exe))))
 $(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_OBJ,$(exe))))
 $(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_DEP,$(exe))))
 
+# build dependencies for doxygen HTML documentation
+$(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTDIR)/doc/doxygen/%/html
+	@echo "$(OUTDIR)/doc/doxygen/$*/html/index.html $@: \\" > $@
+	@find include/$* example/$* -type f -name '*.[ch]pp' 2> /dev/null |\
+	sed 's|\(^.*$$\)|	\1|' |\
+	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
+
+#build the doxygen html documentation
+$(OUTDIR)/doc/doxygen/%/html/index.html:
+	cd doc/doxygen && (cat Doxyfile.$* && echo "QUIET=YES") | doxygen -
+
 # rules to make the final and itermediate output directories
 $(OUTDIR) $(BLDDIR):
 	mkdir -p $(shell readlink $@ || echo $@)
@@ -86,10 +110,11 @@ $(BLDSUBDIRS): $(BLDDIR); mkdir -p $@
 ifneq ($(MAKECMDGOALS),clean)
 # include the header dependency rules
 include $(addsuffix .d,$(addprefix $(BLDDIR)/,$(EXECUTABLES)))
+include $(addsuffix .d,$(addprefix $(BLDDIR)/,$(HTML_DOCS)))
 endif
 
 # cleanup
 .PHONY: clean
-clean: 
+clean:
 	rm -rf $(shell readlink $(OUTDIR) || echo $(OUTDIR))
 	rm -rf $(shell readlink $(BLDDIR) || echo $(BLDDIR))
