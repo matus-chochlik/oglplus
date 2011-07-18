@@ -25,6 +25,7 @@ namespace oglplus {
 
 class VertexAttribOps;
 
+/// Exception class for OpenGL shading language program link error
 class LinkError
  : public CompileOrLinkError
 {

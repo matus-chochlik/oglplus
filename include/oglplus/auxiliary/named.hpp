@@ -1,6 +1,6 @@
 /**
- *  .file oglplus/auxiliary/named.hpp
- *  .brief Base class for OpenGL "named" objects
+ *  @file oglplus/auxiliary/named.hpp
+ *  @brief Base class for OpenGL "named" objects
  *
  *  @author Matus Chochlik
  *
@@ -19,6 +19,14 @@ namespace oglplus {
 template <class Object>
 class FriendOf;
 
+/// A common base class for "named" OpenGL objects like textures, buffers, etc.
+/** This is a common base class for all OpenGL object wrappers which are
+ *  identified by a (GLuint typed) name, i.e. object like Textures, Buffer, VAOs,
+ *  Queries, etc. but also Shaders, Programs, and so on.
+ *
+ *  @note Do not use this class directly, it is used by the OpenGL object wrappers
+ *  for basic initialization, error checking and access restriction.
+ */
 class Named
 {
 protected:

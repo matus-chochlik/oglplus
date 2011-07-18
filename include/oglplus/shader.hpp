@@ -23,6 +23,7 @@
 
 namespace oglplus {
 
+/// Base class for SL compilation or linking errors
 class CompileOrLinkError
  : public Error
 {
@@ -40,12 +41,14 @@ public:
 	~CompileOrLinkError(void) throw()
 	{ }
 
+	/// Returns the compiler error output
 	const std::string& Log(void) const
 	{
 		return _log;
 	}
 };
 
+/// Exception class for OpenGL shading language compilation error
 class CompileError
  : public CompileOrLinkError
 {

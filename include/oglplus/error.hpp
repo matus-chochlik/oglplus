@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/error.hpp
- *  @brief Declaration of OpenGL++'s exceptions
+ *  @brief Declaration of OpenGL+'s exceptions
  *
  *  @author Matus Chochlik
  *
@@ -19,13 +19,25 @@
 
 namespace oglplus {
 
+/// Basic information about exception's throw site and propagation trace points
 struct ErrorInfo
 {
+	/// The source file name
 	const char* file;
+	/// The function pretty name
 	const char* func;
+	/// The source file line
 	const unsigned line;
 };
 
+/// Exception class for general OpenGL errors
+/** Instances of this exception class are throws whenever an error is detected
+ *  during the execution of OpenGL API calls in the OGL+ code. There are several
+ *  other classes derived for more specific error types, like GL shading language
+ *  compilation and linking errors, out-of-memory errors, etc.
+ *  This class is derived from the standard runtime_error exception and thus
+ *  the basic error message can be obtained by calling its @c what() member function.
+ */
 class Error
  : public std::runtime_error
 {
@@ -42,26 +54,63 @@ protected:
 
 	friend void ThrowOnError(const ErrorInfo& info);
 public:
+	/// Returns the OpenGL error code
+	/** This is basically the value of error code returned by the glGetError
+	 *  functions.
+	 *
+	 *  @see ThrowInfo
+	 *  @see File
+	 *  @see Func
+	 *  @see Line
+	 */
 	GLenum Code(void) const
 	{
 		return _code;
 	}
 
+	/// Returns information about the throw site of the exception
+	/**
+	 *  @see Code
+	 *  @see File
+	 *  @see Func
+	 *  @see Line
+	 */
 	const ErrorInfo& ThrowInfo(void) const
 	{
 		return _info;
 	}
 
+	/// Returns the path of the source file where the exception originated
+	/**
+	 *  @see ThrowInfo
+	 *  @see Code
+	 *  @see Func
+	 *  @see Line
+	 */
 	const char* File(void) const
 	{
 		return _info.file;
 	}
 
+	/// Returns the name of the function where the exception originated
+	/**
+	 *  @see ThrowInfo
+	 *  @see Code
+	 *  @see Name
+	 *  @see Line
+	 */
 	const char* Func(void) const
 	{
 		return _info.func;
 	}
 
+	/// Returns the line in the source file where the exception originated
+	/**
+	 *  @see ThrowInfo
+	 *  @see Code
+	 *  @see Name
+	 *  @see Func
+	 */
 	unsigned Line(void) const
 	{
 		return _info.line;
@@ -81,6 +130,10 @@ public:
 	}
 };
 
+/// Exception class for out-of-memory OpenGL errors
+/** Out-of-memory is a very serious error and applications generally should not
+ *  try to recover from such errors, but terminate gracefully if possible.
+ */
 class OutOfMemory
  : public Error
 {

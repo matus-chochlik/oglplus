@@ -36,4 +36,11 @@
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 
+/** @mainpage OGL+ - a C++ wrapper for OpenGL version 3 and higher.
+ *
+ *  The OGL+ (@c oglplus) library implements an object-oriented facade over
+ *  the basic OpenGL 3 C-language API. It provides wrappers which automate
+ *  the resource and OpenGL object management and make the use of OpenGL
+ *  in C++ much easier.
+ */
 #endif // include guard
