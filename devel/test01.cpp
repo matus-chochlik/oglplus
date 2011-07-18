@@ -9,6 +9,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#include <iostream>
 
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -24,7 +25,6 @@
 //
 #include <string>
 #include <stdexcept>
-#include <iostream>
 #include <cassert>
 
 namespace oglplus {
@@ -80,22 +80,23 @@ void run(const x11::Display& display)
 		vs.Source(" \
 			#version 330\n \
 			in vec3 vertex; \
-			out vec4 color; \
+			in vec3 inColor; \
+			out vec4 outColor; \
 			void main(void) \
 			{ \
 				gl_Position = vec4(vertex, 1.0); \
-				color = vec4(vertex, 1.0); \
+				outColor = vec4(inColor, 1.0); \
 			} \
 		");
 		vs.Compile();
 		FragmentShader fs;
 		fs.Source(" \
 			#version 330\n \
-			in vec4 color; \
+			in vec4 outColor; \
 			out vec4 fragColor; \
 			void main(void) \
 			{ \
-				fragColor = color; \
+				fragColor = outColor; \
 			} \
 		");
 		fs.Compile();
@@ -105,27 +106,52 @@ void run(const x11::Display& display)
 		prog.Link();
 		prog.Use();
 		//
-		/*
-		std::vector<GLubyte> bin;
-		GLenum format;
-		prog.GetBinary(bin, format);
-		prog.Binary(bin, format);
-		*/
 		//
 		VertexArray vao;
 		vao.Bind();
+		Array<Buffer> vbo(2);
 		//
 		GLfloat triangle_data[9] = {
 			0.0f, 0.0f, 0.0f,
 			1.0f, 0.0f, 0.0f,
 			0.0f, 1.0f, 0.0f
 		};
-		Buffer vbo;
-		vbo.Bind(Buffer::Target::Array);
+		vbo[0].Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, triangle_data, 9);
-		VertexAttribArray vaa(prog, "vertex");
-		vaa.Setup(3, DataType::Float);
-		vaa.Enable();
+		VertexAttribArray vaa1(prog, "vertex");
+		vaa1.Setup(3, DataType::Float);
+		vaa1.Enable();
+		//
+		GLfloat triangle_color[9] = {
+			1.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 1.0f
+		};
+		vbo[1].Bind(Buffer::Target::Array);
+		Buffer::Data(Buffer::Target::Array, triangle_color, 9);
+		VertexAttribArray vaa2(prog, "inColor");
+		vaa2.Setup(3, DataType::Float);
+		vaa2.Enable();
+		//
+		{
+			auto map = Buffer::Map(Buffer::Target::Array, Buffer::Map::Access::Read);
+			for(int i=0;i!=9;++i)
+				assert(map.At<GLfloat>(i) == triangle_color[i]);
+		}
+		//
+/*
+		GLfloat matrix[16] = {
+			1.0, 0.0, 0.0, 0.0,
+			0.0, 1.0, 0.0, 0.0,
+			0.0, 0.0, 1.0, 0.0,
+			1.0, 1.0, 1.0, 1.0
+		};
+		vbo[2].Bind(Buffer::Target::Array);
+		Buffer::Data(Buffer::Target::Array, triangle_data, 9);
+		VertexAttribArray vaa3(prog, "inColor2");
+		vaa3.Setup(3, DataType::Float);
+		vaa3.Enable();
+*/
 		//
 		gl.Clear().ColorBuffer().DepthBuffer();
 		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);
@@ -148,6 +174,10 @@ int main (int argc, char ** argv)
 	catch(oglplus::CompileOrLinkError& cle)
 	{
 		std::cerr << cle.what() << ": " << cle.Log() << std::endl;
+	}
+	catch(oglplus::Error& e)
+	{
+		std::cerr << e.what() << " [" << e.File() << ":" << e.Line() << "]" << std::endl;
 	}
 	catch(std::runtime_error& rte)
 	{

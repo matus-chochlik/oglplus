@@ -19,10 +19,18 @@ namespace oglplus {
 template <class Object>
 class FriendOf;
 
+template <class ObjectOps>
+class Managed;
+
 template <>
 class FriendOf<Named>
 {
 protected:
+	static void SetName(Named& object, GLuint name)
+	{
+		object._name = name;
+	}
+
 	static GLuint GetName(const Named& object)
 	{
 		return object._name;
@@ -34,6 +42,11 @@ class FriendOf
  : public FriendOf<Named>
 {
 protected:
+	static void SetName(Object& object, GLuint name)
+	{
+		FriendOf<Named>::SetName(object, name);
+	}
+
 	static GLuint GetName(const Object& object)
 	{
 		return FriendOf<Named>::GetName(object);

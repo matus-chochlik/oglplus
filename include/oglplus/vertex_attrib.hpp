@@ -18,6 +18,7 @@
 #include <oglplus/auxiliary/varpara_fns.hpp>
 
 #include <string>
+#include <type_traits>
 
 namespace oglplus {
 
@@ -100,6 +101,27 @@ private:
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, v, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, v, GLuint)
+
+	template <size_t N>
+	static std::integral_constant<bool,  (N > 4)> _carry(void)
+	{
+		return std::integral_constant<bool,  (N > 4)>();
+	}
+
+	template <size_t N, typename T>
+	static void _do_set(GLuint index, const T* v, std::true_type gt4)
+	{
+		::std::get<3>(_fns_v(v))(index, v);
+		AssertNoError(OGLPLUS_ERROR_INFO());
+		_do_set<N - 4, T>(index+1, v+4, _carry<N - 4>());
+	}
+
+	template <size_t N, typename T>
+	static void _do_set(GLuint index, const T* v, std::false_type gt4)
+	{
+		::std::get<N-1>(_fns_v(v))(index, v);
+		AssertNoError(OGLPLUS_ERROR_INFO());
+	}
 public:
 	VertexAttrib(GLuint i)
 	 : VertexAttribOps(i)
@@ -123,12 +145,7 @@ public:
 	template <size_t N, typename T>
 	void Set(const T* v) const
 	{
-		static_assert(
-			(N > 0) && (N <= 4),
-			"Set requires 1, 2, 3 or 4 elements"
-		);
-		std::get<N - 1>(_fns_v(v))(_index, v);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		_do_set<N, T>(_index, v, _carry<N>());
 	}
 };
 

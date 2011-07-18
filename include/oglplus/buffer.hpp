@@ -68,6 +68,100 @@ public:
 		DynamicCopy = GL_DYNAMIC_COPY
 	};
 
+	class Map
+	{
+	public:
+		enum class Access : GLbitfield {
+			Read = GL_MAP_READ_BIT,
+			Write = GL_MAP_WRITE_BIT,
+			ReadWrite = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT
+		};
+	private:
+		const GLintptr _offset;
+		GLsizeiptr _size;
+		GLvoid* _ptr;
+		const Target _target;
+
+		static GLsizeiptr _get_size(Target target)
+		{
+			GLint value = 0;
+			::glGetBufferParameteriv(
+				GLenum(target),
+				GL_BUFFER_SIZE,
+				&value
+			);
+			ThrowOnError(OGLPLUS_ERROR_INFO());
+			return GLsizeiptr(value);
+		}
+
+		static GLenum _translate(Access access)
+		{
+			switch(access)
+			{
+				case Access::Read: return GL_READ_ONLY;
+				case Access::Write: return GL_WRITE_ONLY;
+				case Access::ReadWrite: return GL_READ_WRITE;
+			}
+		}
+	public:
+		Map(Target target, GLintptr offset, GLsizeiptr size, Access access)
+		 : _offset(offset)
+		 , _size(size)
+		 , _ptr(
+			::glMapBufferRange(
+				GLenum(target),
+				offset,
+				size,
+				GLbitfield(access)
+			)
+		), _target(target)
+		{
+			ThrowOnError(OGLPLUS_ERROR_INFO());
+		}
+
+		Map(Target target, Access access)
+		 : _offset(0)
+		 , _size(_get_size(target))
+		 , _ptr(::glMapBuffer(GLenum(target), _translate(access)))
+		 , _target(target)
+		{
+			ThrowOnError(OGLPLUS_ERROR_INFO());
+		}
+
+		Map(const Map&) = delete;
+		Map(Map&& temp)
+		 : _offset(temp._offset)
+		 , _size(temp._size)
+		 , _ptr(temp._ptr)
+		 , _target(temp._target)
+		{
+			temp._ptr = nullptr;
+		}
+
+		~Map(void)
+		{
+			if(_ptr != nullptr) ::glUnmapBuffer(GLenum(_target));
+		}
+
+		GLsizeiptr Size(void) const
+		{
+			return _size;
+		}
+
+		void* Data(void) const
+		{
+			return _ptr;
+		}
+
+		template <typename T>
+		T& At(GLuint index) const
+		{
+			assert(_ptr != nullptr);
+			assert(((index + 1) * sizeof(T)) <= _size);
+			return ((T*)_ptr)[index];
+		}
+	};
+
 	void Bind(Target target) const
 	{
 		assert(_name != 0);

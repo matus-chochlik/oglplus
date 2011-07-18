@@ -66,6 +66,23 @@ public:
 };
 
 template <class ObjectOps>
+class Managed
+ : public ObjectOps
+ , public FriendOf<ObjectOps>
+{
+public:
+	Managed(GLuint _name)
+	{
+		FriendOf<ObjectOps>::SetName(*this, _name);
+	}
+
+	~Managed(void)
+	{
+		FriendOf<ObjectOps>::SetName(*this, 0);
+	}
+};
+
+template <class ObjectOps>
 class Array<Object<ObjectOps, true> >
 {
 private:
@@ -86,7 +103,7 @@ public:
 	 , _base(0)
 	{
 		assert(_count != 0);
-		object::_do_init_m(_count, _base);
+		object::_do_init(_count, _base);
 		assert(_base != 0);
 		assert(object::_type_ok(_base));
 	}
@@ -105,7 +122,7 @@ public:
 	{
 		if(_count && _base)
 		{
-			assert(object::_type_ok());
+			assert(object::_type_ok(_base));
 			object::_do_cleanup(_count, _base);
 		}
 	}
@@ -121,13 +138,13 @@ public:
 	}
 
 
-	ObjectOps at(GLuint index) const
+	Managed<ObjectOps> at(GLuint index) const
 	{
 		assert(index < size());
-		return ObjectOps(index + _base);
+		return Managed<ObjectOps>(index + _base);
 	}
 
-	ObjectOps operator [](GLuint index) const
+	Managed<ObjectOps> operator [](GLuint index) const
 	{
 		return at(index);
 	}
