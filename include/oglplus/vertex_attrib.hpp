@@ -102,24 +102,51 @@ private:
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, v, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, v, GLuint)
 
+	typedef std::false_type _set_done;
+	typedef std::true_type  _set_cont;
+
 	template <size_t N>
-	static std::integral_constant<bool,  (N > 4)> _carry(void)
+	static std::integral_constant<bool,  (N > 4)> _set_mode(void)
 	{
-		return std::integral_constant<bool,  (N > 4)>();
+		return std::integral_constant<bool, (N > 4)>();
 	}
 
 	template <size_t N, typename T>
-	static void _do_set(GLuint index, const T* v, std::true_type gt4)
+	static void _do_set_v(_set_cont, GLuint index, const T* v)
 	{
 		::std::get<3>(_fns_v(v))(index, v);
 		AssertNoError(OGLPLUS_ERROR_INFO());
-		_do_set<N - 4, T>(index+1, v+4, _carry<N - 4>());
+		_do_set_v<N - 4, T>(_set_mode<N - 4>(), index+1, v+4);
 	}
 
 	template <size_t N, typename T>
-	static void _do_set(GLuint index, const T* v, std::false_type gt4)
+	static void _do_set_v(_set_done, GLuint index, const T* v)
 	{
 		::std::get<N-1>(_fns_v(v))(index, v);
+		AssertNoError(OGLPLUS_ERROR_INFO());
+	}
+
+	template <typename S, typename ... T>
+	static void _do_set_t(
+		_set_cont,
+		GLuint index,
+		 S v0, S v1, S v2, S v3,
+		T ... v
+	)
+	{
+		std::get<3>(_fns_t(&v0))(index, v0, v1, v2, v3);
+		AssertNoError(OGLPLUS_ERROR_INFO());
+		_do_set_t(_set_mode<sizeof...(T)>(), index+1, v...);
+	}
+
+	template <typename ... T>
+	static void _do_set_t(
+		_set_done,
+		GLuint index,
+		T ... v
+	)
+	{
+		std::get<sizeof...(T) - 1>(_fns_t(&v...))(index, v...);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 public:
@@ -135,17 +162,25 @@ public:
 	void Set(T ... v) const
 	{
 		static_assert(
-			(sizeof...(T) > 0) && (sizeof...(T)<=4),
-			"Set requires 1, 2, 3 or 4 arguments"
+			(sizeof...(T) > 0) && (sizeof...(T) <= 16),
+			"Set requires 1 to 16 arguments"
 		);
-		std::get<sizeof...(T) - 1>(_fns_t(&v...))(_index, v...);
+		_do_set_t(
+			_set_mode<sizeof...(T)>(),
+			_index,
+			v...
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
 	template <size_t N, typename T>
 	void Set(const T* v) const
 	{
-		_do_set<N, T>(_index, v, _carry<N>());
+		static_assert(
+			(N > 0) && (N <= 16),
+			"The number of elements must be between 1 and 16"
+		);
+		_do_set_v<N, T>(_set_mode<N>(), _index, v);
 	}
 };
 

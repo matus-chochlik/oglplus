@@ -81,10 +81,11 @@ void run(const x11::Display& display)
 			#version 330\n \
 			in vec3 vertex; \
 			in vec3 inColor; \
+			in mat4 tmpMatrix; \
 			out vec4 outColor; \
 			void main(void) \
 			{ \
-				gl_Position = vec4(vertex, 1.0); \
+				gl_Position = vec4(vertex, 1.0) * tmpMatrix; \
 				outColor = vec4(inColor, 1.0); \
 			} \
 		");
@@ -139,19 +140,15 @@ void run(const x11::Display& display)
 				assert(map.At<GLfloat>(i) == triangle_color[i]);
 		}
 		//
-/*
 		GLfloat matrix[16] = {
-			1.0, 0.0, 0.0, 0.0,
-			0.0, 1.0, 0.0, 0.0,
-			0.0, 0.0, 1.0, 0.0,
-			1.0, 1.0, 1.0, 1.0
 		};
-		vbo[2].Bind(Buffer::Target::Array);
-		Buffer::Data(Buffer::Target::Array, triangle_data, 9);
-		VertexAttribArray vaa3(prog, "inColor2");
-		vaa3.Setup(3, DataType::Float);
-		vaa3.Enable();
-*/
+		VertexAttrib va3(prog, "tmpMatrix");
+		va3.Set(
+			2.0f, 0.0f, 0.0f, -1.0f,
+			0.0f, 2.0f, 0.0f, -1.0f,
+			0.0f, 0.0f, 2.0f,  0.0f,
+			0.0f, 0.0f, 0.0f,  1.0f
+		);
 		//
 		gl.Clear().ColorBuffer().DepthBuffer();
 		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);
