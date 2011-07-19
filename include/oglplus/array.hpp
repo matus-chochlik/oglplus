@@ -65,17 +65,24 @@ public:
 	}
 };
 
+
 template <class ObjectOps>
 class Managed
  : public ObjectOps
  , public FriendOf<ObjectOps>
 {
-public:
+private:
+	Managed(void)
+	{ }
+
 	Managed(GLuint _name)
 	{
 		FriendOf<ObjectOps>::SetName(*this, _name);
 	}
 
+	friend class Array<Object<ObjectOps, true> >;
+	friend class aux::BaseIter<Managed>;
+public:
 	~Managed(void)
 	{
 		FriendOf<ObjectOps>::SetName(*this, 0);
@@ -86,62 +93,63 @@ template <class ObjectOps>
 class Array<Object<ObjectOps, true> >
 {
 private:
-	GLsizei _count;
-	GLuint _base;
+	std::vector<GLuint> _names;
 
-	GLuint _release(void)
+	bool _names_ok(void) const
 	{
-		GLuint res = _base;
-		_count = 0;
-		_base = 0;
-		return res;
+		for(auto i=_names.begin(), e=_names.end(); i!=e; ++i)
+		{
+			if(*i == 0) return false;
+			if(!object::_type_ok(*i)) return false;
+		}
+		return true;
 	}
+
 	typedef Object<ObjectOps, true> object;
 public:
 	inline Array(GLsizei c)
-	 : _count(c)
-	 , _base(0)
+	 : _names(c, 0)
 	{
-		assert(_count != 0);
-		object::_do_init(_count, _base);
-		assert(_base != 0);
-		assert(object::_type_ok(_base));
+		if(!_names.empty())
+		{
+			object::_do_init(_names.size(), *_names.data());
+			assert(_names_ok());
+		}
 	}
 
 	Array(const Array&) = delete;
 
 	inline Array(Array&& temp)
-	 : _count(temp._count)
-	 , _base(temp._release())
+	 : _names(std::move(temp._names))
 	{
-		assert(_base != 0);
-		assert(object::_type_ok(_base));
+		assert(_names_ok());
+		assert(temp._names.empty());
 	}
 
 	inline ~Array(void)
 	{
-		if(_count && _base)
+		if(!_names.empty())
 		{
-			assert(object::_type_ok(_base));
-			object::_do_cleanup(_count, _base);
+			assert(_names_ok());
+			object::_do_cleanup(_names.size(), *_names.data());
 		}
 	}
 
 	bool empty(void) const
 	{
-		return _count == 0;
+		return _names.empty();
 	}
 
 	GLsizei size(void) const
 	{
-		return _count;
+		return _names.size();
 	}
 
 
 	Managed<ObjectOps> at(GLuint index) const
 	{
 		assert(index < size());
-		return Managed<ObjectOps>(index + _base);
+		return Managed<ObjectOps>(_names[index]);
 	}
 
 	Managed<ObjectOps> operator [](GLuint index) const
@@ -149,16 +157,16 @@ public:
 		return at(index);
 	}
 
-	typedef aux::BaseIter<ObjectOps> iterator;
+	typedef aux::BaseIter<Managed<ObjectOps> > iterator;
 
 	iterator begin(void) const
 	{
-		return iterator(0, _base);
+		return iterator(_names.begin(), _names.end());
 	}
 
 	iterator end(void) const
 	{
-		return iterator(_count, _base);
+		return iterator(_names.end());
 	}
 };
 

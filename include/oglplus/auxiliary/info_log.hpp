@@ -19,7 +19,7 @@
 namespace oglplus {
 namespace aux {
 
-std::string GetInfoLog(
+inline std::string GetInfoLog(
 	GLuint object_name,
 	void (&GetObjectiv)(GLuint, GLenum, GLint*),
 	void (&GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*)

@@ -25,8 +25,17 @@ BLDDIR = bld
 # the paths of the development/testing files without the .cpp suffix
 DEVEL_TESTS = $(basename $(wildcard devel/*.cpp))
 
+# the paths to the example files without the .cpp suffix
+EXAMPLES = $(basename $(wildcard example/oglplus/[0-9][0-9][0-9]_*.cpp))
+
+# specifies which of the example main function implementations should be used
+EXAMPLE_HARNESS = glx
+
 # the paths of all executables to be built
-EXECUTABLES = $(DEVEL_TESTS)
+EXECUTABLES = $(DEVEL_TESTS) $(EXAMPLES)
+# the paths to the objects that need to be built
+OBJECT_SRCS = $(EXECUTABLES) \
+	example/oglplus/$(EXAMPLE_HARNESS)_main
 #
 LIBRARIES = oglplus
 #
@@ -39,11 +48,11 @@ OUTSUBDIRS = \
 	$(addprefix $(OUTDIR)/, $(sort $(dir $(HTML_DOCS))))
 
 BLDSUBDIRS = \
-	$(addprefix $(BLDDIR)/, $(sort $(dir $(EXECUTABLES)))) \
+	$(addprefix $(BLDDIR)/, $(sort $(dir $(OBJECT_SRCS)))) \
 	$(addprefix $(BLDDIR)/, $(sort $(dir $(HTML_DOCS))))
 
 # the main goal
-all: $(addprefix $(OUTDIR)/, $(EXECUTABLES))
+all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS))
 
 # build only the development/testing files in the output directory
 devel_tests: $(addprefix $(OUTDIR)/, $(DEVEL_TESTS));
@@ -55,9 +64,15 @@ html_docs: $(addprefix $(OUTDIR)/, $(HTML_DOCS));
 # is found at least once in the dependency file specified by the first parameter
 OPT_ADD_HDRDEP = $$(shell grep -c -e"$(2)" $(1).d | sed -n "s|[1-9][0-9]*|$(3)|p")
 
+# helper function adding the object file implementing the main function
+# for an example if necessary
+# it uses the presence of the @example tag in the documentation comment
+# as an indicator whether the example should be linked
+OPT_ADD_EXAMPLE_MAIN = $$(shell grep -c -e"@example" $(1).cpp | sed -n "s|1|$(BLDDIR)/$(dir $(1))$(EXAMPLE_HARNESS)_main.o|p")
+
 # function defining the rules for linking final executables
 define BUILD_EXE
-$(OUTDIR)/$(1): $(BLDDIR)/$(1).o | $(dir $(OUTDIR)/$(1))
+$(OUTDIR)/$(1): $(BLDDIR)/$(1).o $(call OPT_ADD_EXAMPLE_MAIN,$(1)) | $(dir $(OUTDIR)/$(1))
 	$(eval OGLPLUS_TGT_LDFLAGS := $(OGLPLUS_LDFLAGS))
 	$(eval OGLPLUS_TGT_LDFLAGS += $$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),X11/Xlib.h,-lX11))
 	$(CXX) $(OGLPLUS_TGT_LDFLAGS) -o $$@ $$^
@@ -67,6 +82,7 @@ endef
 define BUILD_OBJ
 $(BLDDIR)/$(1).o: $(1).cpp | $(dir $(BLDDIR)/$(1))
 	$(eval OGLPLUS_TGT_CXXFLAGS := $(OGLPLUS_CXXFLAGS))
+	$(eval OGLPLUS_TGT_CXXFLAGS += $$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),oglplus/example.h,-Iexample/oglplus))
 	$(CXX) $(OGLPLUS_TGT_CXXFLAGS) -o $$@ -c $$<
 endef
 
@@ -84,8 +100,8 @@ endef
 # for building header dependency makefiles,
 # compiling and linking of all executables
 $(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_EXE,$(exe))))
-$(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_OBJ,$(exe))))
-$(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_DEP,$(exe))))
+$(foreach exe,$(OBJECT_SRCS),$(eval $(call BUILD_OBJ,$(exe))))
+$(foreach exe,$(OBJECT_SRCS),$(eval $(call BUILD_DEP,$(exe))))
 
 # build dependencies for doxygen HTML documentation
 $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTDIR)/doc/doxygen/%/html

@@ -19,6 +19,7 @@
 
 #include <GL/glx.h>
 #include <stdexcept>
+#include <cassert>
 
 namespace oglplus {
 namespace glx {

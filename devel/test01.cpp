@@ -22,7 +22,6 @@
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
 //
-//
 #include <string>
 #include <stdexcept>
 #include <cassert>
@@ -69,13 +68,7 @@ void run(const x11::Display& display)
 	//
 	{
 		using namespace oglplus;
-		Context gl;
-		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-		gl.ClearDepth(1.0f);
-		//
-		Buffer buf;
-		buf.Bind(Buffer::Target::Array);
-		//
+
 		VertexShader vs;
 		vs.Source(" \
 			#version 330\n \
@@ -150,7 +143,11 @@ void run(const x11::Display& display)
 			-1.0f, -1.0f,  0.0f,  1.0f
 		);
 		//
+		Context gl;
+		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+		gl.ClearDepth(1.0f);
 		gl.Clear().ColorBuffer().DepthBuffer();
+		//
 		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);
 		ctx.SwapBuffers(win);
 		::sleep(2);

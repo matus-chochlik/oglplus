@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_AUX_BASE_ITER_1107121519_HPP
 #define OGLPLUS_AUX_BASE_ITER_1107121519_HPP
 
+#include <vector>
 #include <cassert>
 
 namespace oglplus {
@@ -21,31 +22,28 @@ template <typename Element>
 class BaseIter
 {
 private:
-	GLsizei _index;
-	GLuint _base;
+	typedef std::vector<GLuint>::const_iterator iterator;
+	iterator _pos;
 
 	Element _elem;
 
-	void init_elem(void)
-	{
-	}
-
 	static bool equal(const BaseIter& a, const BaseIter& b)
 	{
-		assert(a._base == b._base);
-		return a._index == b._index;
+		return a._pos == b._pos;
 	}
 
 	static bool less(const BaseIter& a, const BaseIter& b)
 	{
-		assert(a._base == b._base);
-		return a._index < b._index;
+		return a._pos < b._pos;
 	}
 public:
-	BaseIter(GLsizei _i, GLuint _h)
-	 : _index(_i)
-	 , _base(_h)
-	 , _elem(_index + _base)
+	BaseIter(iterator i)
+	 : _pos(i)
+	{ }
+
+	BaseIter(iterator i, iterator e)
+	 : _pos(i)
+	 , _elem(i == e ? 0 : *i)
 	{ }
 
 	friend bool operator == (const BaseIter& a, const BaseIter& b)
@@ -100,15 +98,15 @@ public:
 
 	BaseIter& operator ++(void)
 	{
-		++_index;
-		_elem = Element(_index + _base);
+		_elem = Element(*++_pos);
 		return *this;
 	}
 
 	BaseIter operator ++(int)
 	{
-		GLuint tmp = _index++;
-		return BaseIter(tmp + _base);
+		iterator tmp = _pos;
+		_elem = Element(*++_pos);
+		return BaseIter(*tmp);
 	}
 };
 
