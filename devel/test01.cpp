@@ -81,11 +81,11 @@ void run(const x11::Display& display)
 			#version 330\n \
 			in vec3 vertex; \
 			in vec3 inColor; \
-			in mat4 tmpMatrix; \
+			uniform mat4 tmpMatrix; \
 			out vec4 outColor; \
 			void main(void) \
 			{ \
-				gl_Position = vec4(vertex, 1.0) * tmpMatrix; \
+				gl_Position = tmpMatrix * vec4(vertex, 1.0); \
 				outColor = vec4(inColor, 1.0); \
 			} \
 		");
@@ -142,12 +142,12 @@ void run(const x11::Display& display)
 		//
 		GLfloat matrix[16] = {
 		};
-		VertexAttrib va3(prog, "tmpMatrix");
-		va3.Set(
-			2.0f, 0.0f, 0.0f, -1.0f,
-			0.0f, 2.0f, 0.0f, -1.0f,
-			0.0f, 0.0f, 2.0f,  0.0f,
-			0.0f, 0.0f, 0.0f,  1.0f
+		Uniform u1(prog, "tmpMatrix");
+		u1.SetMatrix<4>(
+			 2.0f,  0.0f,  0.0f,  0.0f,
+			 0.0f,  2.0f,  0.0f,  0.0f,
+			 0.0f,  0.0f,  2.0f,  0.0f,
+			-1.0f, -1.0f,  0.0f,  1.0f
 		);
 		//
 		gl.Clear().ColorBuffer().DepthBuffer();

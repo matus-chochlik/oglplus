@@ -33,6 +33,47 @@ namespace oglplus {
 			::gl ## PREFIX ## 4 ## SUFFIX  \
 		); \
 	}
+
+#define OGLPLUS_AUX_VARPARA_MAT_FNS(PREFIX, SUFFIX, SELECTOR, TYPE) \
+	static decltype( \
+		std::make_tuple( \
+			std::make_tuple( \
+				::gl ## PREFIX ## 2 ## SUFFIX, \
+				::gl ## PREFIX ## 2x3 ## SUFFIX,  \
+				::gl ## PREFIX ## 2x4 ## SUFFIX  \
+			), \
+			std::make_tuple( \
+				::gl ## PREFIX ## 3x2 ## SUFFIX,  \
+				::gl ## PREFIX ## 3 ## SUFFIX, \
+				::gl ## PREFIX ## 3x4 ## SUFFIX  \
+			), \
+			std::make_tuple( \
+				::gl ## PREFIX ## 4x2 ## SUFFIX, \
+				::gl ## PREFIX ## 4x3 ## SUFFIX, \
+				::gl ## PREFIX ## 4 ## SUFFIX  \
+			) \
+		) \
+	) _fns_ ## SELECTOR(const TYPE*, ...) \
+	{ \
+		return std::make_tuple( \
+			std::make_tuple( \
+				::gl ## PREFIX ## 2 ## SUFFIX, \
+				::gl ## PREFIX ## 2x3 ## SUFFIX,  \
+				::gl ## PREFIX ## 2x4 ## SUFFIX  \
+			), \
+			std::make_tuple( \
+				::gl ## PREFIX ## 3x2 ## SUFFIX,  \
+				::gl ## PREFIX ## 3 ## SUFFIX, \
+				::gl ## PREFIX ## 3x4 ## SUFFIX  \
+			), \
+			std::make_tuple( \
+				::gl ## PREFIX ## 4x2 ## SUFFIX, \
+				::gl ## PREFIX ## 4x3 ## SUFFIX, \
+				::gl ## PREFIX ## 4 ## SUFFIX  \
+			) \
+		);\
+	}
+
 } // namespace oglplus
 
 #endif // include guard

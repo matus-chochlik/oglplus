@@ -41,12 +41,14 @@ template <class Object>
 class FriendOf
  : public FriendOf<Named>
 {
-protected:
+private:
 	static void SetName(Object& object, GLuint name)
 	{
 		FriendOf<Named>::SetName(object, name);
 	}
 
+	friend class Managed<Object>;
+protected:
 	static GLuint GetName(const Object& object)
 	{
 		return FriendOf<Named>::GetName(object);
@@ -55,6 +57,20 @@ protected:
 	static GLuint GetIndex(const Object& object)
 	{
 		return object._index;
+	}
+};
+
+template <class ObjectOps, bool MultiObject>
+class Object;
+
+template <class ObjectOps, bool MultiObject>
+class FriendOf<Object<ObjectOps, MultiObject> >
+ : public FriendOf<ObjectOps>
+{
+protected:
+	static GLuint GetName(const Object<ObjectOps, MultiObject>& object)
+	{
+		return FriendOf<ObjectOps>::GetName(object);
 	}
 };
 

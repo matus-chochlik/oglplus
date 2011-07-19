@@ -15,10 +15,9 @@
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
-#include <oglplus/auxiliary/varpara_fns.hpp>
+#include <oglplus/auxiliary/shader_data.hpp>
 
 #include <string>
-#include <type_traits>
 
 namespace oglplus {
 
@@ -26,7 +25,7 @@ class VertexAttribOps
  : public FriendOf<Program>
 {
 protected:
-	GLuint _index;
+	GLint _index;
 
 	friend class FriendOf<VertexAttribOps>;
 
@@ -43,6 +42,7 @@ protected:
 	)
 	{
 		ThrowOnError(OGLPLUS_ERROR_INFO());
+		assert(_index != GLint(-1));
 	}
 public:
 	void BindLocation(const Program& program, const GLchar* identifier) const
@@ -83,11 +83,10 @@ void ProgramOps::BindLocation(
 	ThrowOnError(OGLPLUS_ERROR_INFO());
 }
 
-class VertexAttrib
- : public VertexAttribOps
+namespace aux {
+class VertexAttribSetters
 {
-private:
-
+protected:
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, d, t, GLdouble)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, s, t, GLshort)
@@ -101,54 +100,15 @@ private:
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, v, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, v, GLuint)
+};
 
-	typedef std::false_type _set_done;
-	typedef std::true_type  _set_cont;
+} // namespace aux
 
-	template <size_t N>
-	static std::integral_constant<bool,  (N > 4)> _set_mode(void)
-	{
-		return std::integral_constant<bool, (N > 4)>();
-	}
-
-	template <size_t N, typename T>
-	static void _do_set_v(_set_cont, GLuint index, const T* v)
-	{
-		::std::get<3>(_fns_v(v))(index, v);
-		AssertNoError(OGLPLUS_ERROR_INFO());
-		_do_set_v<N - 4, T>(_set_mode<N - 4>(), index+1, v+4);
-	}
-
-	template <size_t N, typename T>
-	static void _do_set_v(_set_done, GLuint index, const T* v)
-	{
-		::std::get<N-1>(_fns_v(v))(index, v);
-		AssertNoError(OGLPLUS_ERROR_INFO());
-	}
-
-	template <typename S, typename ... T>
-	static void _do_set_t(
-		_set_cont,
-		GLuint index,
-		 S v0, S v1, S v2, S v3,
-		T ... v
-	)
-	{
-		std::get<3>(_fns_t(&v0))(index, v0, v1, v2, v3);
-		AssertNoError(OGLPLUS_ERROR_INFO());
-		_do_set_t(_set_mode<sizeof...(T)>(), index+1, v...);
-	}
-
-	template <typename ... T>
-	static void _do_set_t(
-		_set_done,
-		GLuint index,
-		T ... v
-	)
-	{
-		std::get<sizeof...(T) - 1>(_fns_t(&v...))(index, v...);
-		AssertNoError(OGLPLUS_ERROR_INFO());
-	}
+class VertexAttrib
+ : public VertexAttribOps
+ , public aux::ShaderDataSetOps<aux::VertexAttribSetters, 16>
+{
+private:
 public:
 	VertexAttrib(GLuint i)
 	 : VertexAttribOps(i)
@@ -161,26 +121,13 @@ public:
 	template <typename ... T>
 	void Set(T ... v) const
 	{
-		static_assert(
-			(sizeof...(T) > 0) && (sizeof...(T) <= 16),
-			"Set requires 1 to 16 arguments"
-		);
-		_do_set_t(
-			_set_mode<sizeof...(T)>(),
-			_index,
-			v...
-		);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		this->_do_set(_index, v...);
 	}
 
 	template <size_t N, typename T>
 	void Set(const T* v) const
 	{
-		static_assert(
-			(N > 0) && (N <= 16),
-			"The number of elements must be between 1 and 16"
-		);
-		_do_set_v<N, T>(_set_mode<N>(), _index, v);
+		this->_do_set<N>(_index, v);
 	}
 };
 
