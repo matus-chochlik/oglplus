@@ -1,4 +1,4 @@
-/**
+/*
  *  .file example/glx_main.cpp
  *  Implements GLX-based program main function for running examples
  *

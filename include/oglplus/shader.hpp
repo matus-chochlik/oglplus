@@ -62,10 +62,17 @@ public:
 	{ }
 };
 
+/// Shader operations wrapper helper class
+/**
+ *  @note Do not use this class directly, use Shader instead.
+ *
+ *  @see Shader
+ */
 class ShaderOps
  : public Named
 {
 public:
+	/// The kind of the shader
 	enum class Kind : GLenum {
 		Vertex = GL_VERTEX_SHADER,
 		Geometry = GL_GEOMETRY_SHADER,
@@ -94,6 +101,7 @@ protected:
 
 	friend class FriendOf<ShaderOps>;
 public:
+	/// Set the source code of the shader
 	void Source(const std::string& source) const
 	{
 		assert(_name != 0);
@@ -102,6 +110,7 @@ public:
 		::glShaderSource(_name, 1, srcs, lens);
 	}
 
+	/// Set the source code of the shader
 	void Source(const GLchar* source) const
 	{
 		assert(_name != 0);
@@ -109,6 +118,7 @@ public:
 		::glShaderSource(_name, 1, srcs, 0);
 	}
 
+	/// Set the source code of the shader
 	void Source(const GLchar* source, int length) const
 	{
 		assert(_name != 0);
@@ -117,6 +127,7 @@ public:
 		::glShaderSource(_name, 1, srcs, lens);
 	}
 
+	/// Set the source code of the shader
 	void Source(const std::vector<const GLchar*>& srcs) const
 	{
 		assert(_name != 0);
@@ -128,6 +139,10 @@ public:
 		);
 	}
 
+	/// Returns true if the shader is already compile, returns false otherwise
+	/**
+	 *  @see Compile
+	 */
 	bool IsCompiled(void) const
 	{
 		assert(_name != 0);
@@ -137,6 +152,11 @@ public:
 		return status == GL_TRUE;
 	}
 
+	/// Returns the compiler output if the program is compiled
+	/**
+	 *  @see IsCompiled
+	 *  @see Compile
+	 */
 	std::string GetInfoLog(void) const
 	{
 		assert(_name != 0);
@@ -146,6 +166,11 @@ public:
 		);
 	}
 
+	/// Compiles the shader
+	/**
+	 *  @throws Error CompileError
+	 *  @see IsCompiled
+	 */
 	void Compile(void) const
 	{
 		assert(_name != 0);
@@ -156,8 +181,29 @@ public:
 	}
 };
 
-typedef Object<ShaderOps, false> Shader;
+/// Encasulates the shading language shader-related functionality
+/**
+ *  @see Program
+ *  @see VertexShader
+ *  @see GeometryShader
+ *  @see FragmentShader
+ *  @see TessControlShader
+ *  @see TessEvaluationShader
+ */
+class Shader
+ : public Object<ShaderOps, false>
+{
+public:
+	Shader(ShaderOps::Kind kind)
+	 : Object<ShaderOps, false>(kind)
+	{ }
+};
 
+/// Vertex shader wrapper
+/**
+ *  @see Shader
+ *  @see Program
+ */
 class VertexShader
  : public Shader
 {
@@ -167,6 +213,11 @@ public:
 	{ }
 };
 
+/// Geometry shader wrapper
+/**
+ *  @see Shader
+ *  @see Program
+ */
 class GeometryShader
  : public Shader
 {
@@ -176,6 +227,11 @@ public:
 	{ }
 };
 
+/// Fragment shader wrapper
+/**
+ *  @see Shader
+ *  @see Program
+ */
 class FragmentShader
  : public Shader
 {
@@ -185,6 +241,11 @@ public:
 	{ }
 };
 
+/// Tesselation control shader wrapper
+/**
+ *  @see Shader
+ *  @see Program
+ */
 class TessControlShader
  : public Shader
 {
@@ -194,6 +255,11 @@ public:
 	{ }
 };
 
+/// Tesselation evaluation shader wrapper
+/**
+ *  @see Shader
+ *  @see Program
+ */
 class TessEvaluationShader
  : public Shader
 {

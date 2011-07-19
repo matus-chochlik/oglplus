@@ -39,6 +39,12 @@ public:
 	{ }
 };
 
+/// Program operations wrapper helper class
+/** This class implements OpenGL shading language program operations.
+ *  @note Do not use this class directly, use @c Program instead.
+ *
+ *  @see Program
+ */
 class ProgramOps
  : public Named
  , public FriendOf<Shader>
@@ -65,6 +71,7 @@ protected:
 
 	friend class FriendOf<ProgramOps>;
 public:
+	/// Attaches the shader to this program
 	void AttachShader(const Shader& shader)
 	{
 		assert(_name != 0);
@@ -72,6 +79,8 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
+
+	/// Detaches the shader to this program
 	void DetachShader(const Shader& shader)
 	{
 		assert(_name != 0);
@@ -79,6 +88,10 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
+	/// Returns true if the program is already linked,, false otherwise
+	/**
+	 *  @see Link
+	 */
 	bool IsLinked(void) const
 	{
 		int status;
@@ -87,6 +100,11 @@ public:
 		return status == GL_TRUE;
 	}
 
+	/// Returns the linker output if the program is linked
+	/**
+	 *  @see IsLinked
+	 *  @see Link
+	 */
 	std::string GetInfoLog(void) const
 	{
 		assert(_name != 0);
@@ -96,6 +114,11 @@ public:
 		);
 	}
 
+	/// Links this shading language program
+	/**
+	 *  @throws Error LinkError
+	 *  @see Link
+	 */
 	void Link(void) const
 	{
 		assert(_name != 0);
@@ -105,6 +128,13 @@ public:
 			throw LinkError(GetInfoLog(),OGLPLUS_ERROR_INFO());
 	}
 
+	/// Uses this shading language program
+	/**
+	 *  @note The program must be linked before it is used.
+	 *
+	 *  @see IsLinked
+	 *  @see Link
+	 */
 	void Use(void) const
 	{
 		assert(_name != 0);
@@ -173,13 +203,21 @@ public:
 	}
 
 	// Implemented in vertex_attrib.hpp
+	/// Binds the location of a SL variable to the vertex_attrib
+	/** This function binds the location of the vertex attribute
+	 *  @c vertex_attrib to the shader variable identified by
+	 *  @c identifier.
+	 */
 	inline void BindLocation(
 		const VertexAttribOps& vertex_attrib,
 		const GLchar* identifier
 	) const;
 };
 
-typedef Object<ProgramOps, false> Program;
+/// Encapsulates OpenGL shading language-related program functionality
+class Program
+ : public Object<ProgramOps, false>
+{ };
 
 } // namespace oglplus
 

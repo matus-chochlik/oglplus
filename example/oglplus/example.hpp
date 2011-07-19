@@ -1,4 +1,4 @@
-/**
+/*
  *  .file example/example.hpp
  *  Declares a common base class for examples
  *
