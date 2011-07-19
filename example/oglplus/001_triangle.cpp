@@ -2,6 +2,7 @@
  *  @example oglplus/001_triangle.cpp
  *  @brief Shows the basic usage of OGL+ by drawing a simple red triangle.
  *
+ *  @image html 001_triangle.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

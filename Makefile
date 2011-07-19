@@ -58,7 +58,9 @@ all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS))
 devel_tests: $(addprefix $(OUTDIR)/, $(DEVEL_TESTS));
 
 docs: html_docs;
-html_docs: $(addprefix $(OUTDIR)/, $(HTML_DOCS));
+html_docs: example_screenshots $(addprefix $(OUTDIR)/, $(HTML_DOCS));
+
+example_screenshots: $(addsuffix .png,$(addprefix $(BLDDIR)/, $(EXAMPLES)))
 
 # helper function returning the third argument if the second argument
 # is found at least once in the dependency file specified by the first parameter
@@ -69,6 +71,16 @@ OPT_ADD_HDRDEP = $$(shell grep -c -e"$(2)" $(1).d | sed -n "s|[1-9][0-9]*|$(3)|p
 # it uses the presence of the @example tag in the documentation comment
 # as an indicator whether the example should be linked
 OPT_ADD_EXAMPLE_MAIN = $$(shell grep -c -e"@example" $(1).cpp | sed -n "s|1|$(BLDDIR)/$(dir $(1))$(EXAMPLE_HARNESS)_main.o|p")
+
+# rule for making raw xwd screenshots of an example application
+$(BLDDIR)/%.xwd: $(OUTDIR)/% | $(dir $(BLDDIR)/%.xwd)
+	./tools/make_screenshot.sh $< $@
+
+# function defining the rules for making the example application window screenshots
+define BUILD_PNG
+$(BLDDIR)/$(1).png: $(BLDDIR)/$(1).xwd | $(dir $(BLDDIR)/$(1))
+	convert -adaptive-resize 400x300 $$< $$@
+endef
 
 # function defining the rules for linking final executables
 define BUILD_EXE
@@ -99,9 +111,10 @@ endef
 # use the functions defined above to make the rules
 # for building header dependency makefiles,
 # compiling and linking of all executables
+$(foreach exe,$(EXAMPLES),   $(eval $(call BUILD_PNG,$(exe))))
 $(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_EXE,$(exe))))
-$(foreach exe,$(OBJECT_SRCS),$(eval $(call BUILD_OBJ,$(exe))))
-$(foreach exe,$(OBJECT_SRCS),$(eval $(call BUILD_DEP,$(exe))))
+$(foreach src,$(OBJECT_SRCS),$(eval $(call BUILD_OBJ,$(src))))
+$(foreach src,$(OBJECT_SRCS),$(eval $(call BUILD_DEP,$(src))))
 
 # build dependencies for doxygen HTML documentation
 $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTDIR)/doc/doxygen/%/html
