@@ -116,12 +116,13 @@ public:
 		);
 
 		VertexArray::Unbind();
+		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+		gl.ClearDepth(1.0f);
 	}
 
 	void Render(void)
 	{
-		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-		gl.ClearDepth(1.0f);
+		gl.Clear().ColorBuffer().DepthBuffer();
 
 		triangle.Bind();
 		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);

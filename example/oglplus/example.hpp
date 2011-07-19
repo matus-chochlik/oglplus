@@ -23,7 +23,7 @@ struct Example
 	// the result of this function
 	virtual bool Continue(unsigned duration)
 	{
-		return duration < 2; // [seconds]
+		return duration < 3; // [seconds]
 	}
 
 	virtual void Render(void) = 0;

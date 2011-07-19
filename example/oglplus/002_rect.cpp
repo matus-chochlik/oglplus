@@ -1,6 +1,6 @@
 /**
- *  @example oglplus/002_triangle.cpp
- *  @brief Shows the basic usage of OGL+ by drawing a simple triangle.
+ *  @example oglplus/002_rect.cpp
+ *  @brief Shows how to draw a shaded rectangle
  *
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
@@ -14,7 +14,7 @@
 
 namespace oglplus {
 
-class TriangleExample : public Example
+class RectangleExample : public Example
 {
 private:
 	// wrapper around the current OpenGL context
@@ -29,25 +29,25 @@ private:
 	// Program
 	Program prog;
 
-	// A vertex array object for the rendered triangle
-	VertexArray triangle;
+	// A vertex array object for the rendered rectangle
+	VertexArray rectangle;
 
-	// VBOs for the triangle's vertices and colors
+	// VBOs for the rectangle's vertices and colors
 	Buffer verts;
 	Buffer colors;
 public:
-	TriangleExample(void)
+	RectangleExample(void)
 	{
 		// Set the vertex shader source
 		vs.Source(" \
 			#version 330\n \
-			in vec3 vertex; \
+			in vec2 vertex; \
 			in vec3 color; \
-			out vec4 outColor; \
+			out vec3 vertColor; \
 			void main(void) \
 			{ \
-				gl_Position = vec4(vertex, 1.0); \
-				outColor = vec4(color, 1.0); \
+				vertColor = color; \
+				gl_Position = vec4(vertex, 0.0, 1.0); \
 			} \
 		");
 		// compile it
@@ -56,11 +56,11 @@ public:
 		// set the fragment shader source
 		fs.Source(" \
 			#version 330\n \
-			in vec4 outColor; \
+			in vec3 vertColor; \
 			out vec4 fragColor; \
 			void main(void) \
 			{ \
-				fragColor = outColor; \
+				fragColor = vec4(vertColor, 1.0); \
 			} \
 		");
 		// compile it
@@ -73,40 +73,41 @@ public:
 		prog.Link();
 		prog.Use();
 
-		// bind the VAO for the triangle
-		triangle.Bind();
+		// bind the VAO for the rectangle
+		rectangle.Bind();
 
-		GLfloat triangle_verts[9] = {
-			0.0f, 0.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f
+		GLfloat rectangle_verts[8] = {
+			-1.0f, -1.0f,
+			-1.0f,  1.0f,
+			 1.0f, -1.0f,
+			 1.0f,  1.0f
 		};
-		// bind the VBO for the triangle vertices
+		// bind the VBO for the rectangle vertices
 		verts.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, triangle_verts, 9);
+		Buffer::Data(Buffer::Target::Array, rectangle_verts, 8);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "vertex");
-		vert_attr.Setup(3, DataType::Float);
+		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
-		//
 
-		GLfloat triangle_colors[9] = {
+		GLfloat rectangle_colors[12] = {
+			1.0f, 1.0f, 1.0f,
 			1.0f, 0.0f, 0.0f,
 			0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 1.0f
+			0.0f, 0.0f, 1.0f,
 		};
-		// bind the VBO for the triangle colors
+		// bind the VBO for the rectangle vertices
 		colors.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, triangle_colors, 9);
-		// setup the vertex attribs array
+		Buffer::Data(Buffer::Target::Array, rectangle_colors, 12);
+		// setup the vertex attribs array for the vertices
 		VertexAttribArray color_attr(prog, "color");
 		color_attr.Setup(3, DataType::Float);
 		color_attr.Enable();
+		//
 
 		VertexArray::Unbind();
-		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearDepth(1.0f);
 	}
 
@@ -114,14 +115,14 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		triangle.Bind();
-		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);
+		rectangle.Bind();
+		VertexArray::Draw(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };
 
 std::unique_ptr<Example> makeExample(void)
 {
-	return std::unique_ptr<Example>(new TriangleExample);
+	return std::unique_ptr<Example>(new RectangleExample);
 }
 
 } // namespace oglplus
