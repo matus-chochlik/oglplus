@@ -27,6 +27,109 @@
 #include <cassert>
 
 namespace oglplus {
+namespace slplus {
+
+class Type
+{
+private:
+	std::string _name;
+protected:
+	template <typename ConcreteType>
+	Type(const std::string& name)
+	 : _name(name)
+	{ }
+
+	const std::string& Name(void)
+	{
+		return _name;
+	}
+};
+
+template <size_t N>
+class VecType
+ : public Type
+{
+
+
+};
+
+class Symbols
+{
+protected:
+	VecType<2> vec2;
+	VecType<3> vec3;
+	VecType<4> vec4;
+};
+
+class Shader;
+
+class Variable
+{
+public:
+	enum class Kind {
+		Uniform,
+		Input,
+		Output,
+		InOut
+	};
+private:
+	Kind _kind;
+	//Type& _type;
+	std::string _identifier;
+
+	void RegisterWith(Shader& Shader) const;
+public:
+	Variable(
+		Shader& shader,
+		Kind kind,
+		const std::string& id
+	): _kind(kind)
+	 , _identifier(id)
+	{
+		RegisterWith(shader);
+	}
+
+	std::string Declaration(void) const
+	{
+		std::string result;
+		//TODO
+		return result;
+	}
+};
+
+class Uniform
+ : public Variable
+{
+public:
+	Uniform(Shader& shader, const std::string& id)
+	 : Variable(
+		shader,
+		Variable::Kind::Uniform,
+		id
+	)
+	{ }
+};
+
+class Shader
+{
+private:
+	std::vector<const Variable*> _reg_vars;
+
+	friend class Variable;
+protected:
+	void Register(const Variable& var)
+	{
+		_reg_vars.push_back(&var);
+	}
+public:
+};
+
+inline void Variable::RegisterWith(Shader& shader) const
+{
+	shader.Register(*this);
+}
+
+} // namespace slplus
 
 void run(const x11::Display& display)
 {
@@ -133,8 +236,6 @@ void run(const x11::Display& display)
 				assert(map.At<GLfloat>(i) == triangle_color[i]);
 		}
 		//
-		GLfloat matrix[16] = {
-		};
 		Uniform u1(prog, "tmpMatrix");
 		u1.SetMatrix<4>(
 			 2.0f,  0.0f,  0.0f,  0.0f,

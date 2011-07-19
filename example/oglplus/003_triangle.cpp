@@ -1,6 +1,7 @@
 /**
  *  @example oglplus/003_triangle.cpp
- *  @brief Shows the basic usage of OGL+ by drawing a simple transformed triangle
+ *  @brief Shows the basic usage of OGL+ by drawing a simple transformed triangle.
+ *
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -42,10 +43,11 @@ public:
 			#version 330\n \
 			in vec3 vertex; \
 			in vec3 color; \
+			uniform mat4 matrix; \
 			out vec4 outColor; \
 			void main(void) \
 			{ \
-				gl_Position = vec4(vertex, 1.0); \
+				gl_Position = matrix * vec4(vertex, 1.0); \
 				outColor = vec4(color, 1.0); \
 			} \
 		");
@@ -103,6 +105,15 @@ public:
 		VertexAttribArray color_attr(prog, "color");
 		color_attr.Setup(3, DataType::Float);
 		color_attr.Enable();
+
+		// set the transformation matrix
+		Uniform u1(prog, "matrix");
+		u1.SetMatrix<4>(
+			 2.0f,  0.0f,  0.0f,  0.0f,
+			 0.0f,  2.0f,  0.0f,  0.0f,
+			 0.0f,  0.0f,  2.0f,  0.0f,
+			-1.0f, -1.0f,  0.0f,  1.0f
+		);
 
 		VertexArray::Unbind();
 	}

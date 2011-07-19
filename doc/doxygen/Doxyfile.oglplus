@@ -12,7 +12,8 @@ PROJECT_NAME           = "OGL+"
 OUTPUT_DIRECTORY       = ../../out/doc/doxygen/oglplus
 
 INPUT = \
-	../../include/oglplus
+	../../include/oglplus \
+	../../example/oglplus
 
 EXAMPLE_PATH           = ../../example/oglplus
 

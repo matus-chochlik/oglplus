@@ -111,7 +111,7 @@ $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTD
 	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
 
 #build the doxygen html documentation
-$(OUTDIR)/doc/doxygen/%/html/index.html:
+$(OUTDIR)/doc/doxygen/%/html/index.html: $(wildcard doc/doxygen/Doxyfile.*)
 	cd doc/doxygen && (cat Doxyfile.$* && echo "QUIET=YES") | doxygen -
 
 # rules to make the final and itermediate output directories

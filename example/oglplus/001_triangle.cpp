@@ -1,6 +1,7 @@
 /**
  *  @example oglplus/001_triangle.cpp
- *  @brief Shows the basic usage of OGL+ by drawing a simple red triangle
+ *  @brief Shows the basic usage of OGL+ by drawing a simple red triangle.
+ *
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
