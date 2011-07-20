@@ -181,6 +181,7 @@ public:
 	}
 };
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// Encasulates the shading language shader-related functionality
 /**
  *  @see Program
@@ -191,13 +192,14 @@ public:
  *  @see TessEvaluationShader
  */
 class Shader
- : public Object<ShaderOps, false>
+ : public ShaderOps
 {
 public:
-	Shader(ShaderOps::Kind kind)
-	 : Object<ShaderOps, false>(kind)
-	{ }
+	Shader(ShaderOps::Kind kind);
 };
+#else
+typedef Object<ShaderOps, false> Shader;
+#endif
 
 /// Vertex shader wrapper
 /**

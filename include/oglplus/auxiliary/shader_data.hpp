@@ -68,6 +68,13 @@ private:
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
+	template <size_t N, typename T>
+	static void _do_set_n(_set_done, GLuint index, GLsizei n, const T* v)
+	{
+		::std::get<N-1>(Setters::_fns_v(v))(index, n, v);
+		AssertNoError(OGLPLUS_ERROR_INFO());
+	}
+
 	template <typename S, typename ... T>
 	static void _do_set_t(
 		_set_cont,
@@ -107,14 +114,24 @@ protected:
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
-	template <size_t N, typename T>
+	template <size_t Cols, typename T>
 	static void _do_set(GLuint index, const T* v)
 	{
 		static_assert(
-			(N > 0) && (N <= SetMax),
+			(Cols > 0) && (Cols <= SetMax),
 			"The number of elements must be between 1 and SetMax"
 		);
-		_do_set_v<N, T>(_set_mode<N>(), index, v);
+		_do_set_v<Cols, T>(_set_mode<Cols>(), index, v);
+	}
+
+	template <size_t Cols, typename T>
+	static void _do_set_many(GLuint index, GLsizei n, const T*v)
+	{
+		static_assert(
+			(Cols > 0) && (Cols <= SetMax),
+			"The number of elements must be between 1 and SetMax"
+		);
+		_do_set_n<Cols, T>(_set_mode<Cols>(), index, n, v);
 	}
 };
 

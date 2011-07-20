@@ -48,6 +48,8 @@ namespace aux {
 class UniformSetters
 {
 protected:
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, d, t, GLdouble)
 
@@ -80,10 +82,16 @@ public:
 		this->_do_set(_index, v...);
 	}
 
-	template <size_t N, typename T>
+	template <size_t Cols, typename T>
 	void Set(const T* v) const
 	{
-		this->_do_set<N>(_index, v);
+		this->_do_set<Cols>(_index, v);
+	}
+
+	template <size_t Cols, typename T>
+	void Set(GLsizei count, const T* v) const
+	{
+		this->_do_set_many<Cols>(_index, count, v);
 	}
 
 	template <size_t Cols, typename ... T>

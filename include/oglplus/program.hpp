@@ -214,10 +214,14 @@ public:
 	) const;
 };
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// Encapsulates OpenGL shading language-related program functionality
 class Program
- : public Object<ProgramOps, false>
+ : public ProgramOps
 { };
+#else
+typedef Object<ProgramOps, false> Program;
+#endif
 
 } // namespace oglplus
 
