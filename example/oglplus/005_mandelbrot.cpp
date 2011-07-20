@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/004_mandelbrot.cpp
+ *  @example oglplus/005_mandelbrot.cpp
  *  @brief Shows how to draw a rectangle with the mandelbrot set
  *
- *  @image html 004_mandelbrot.png
+ *  @image html 005_mandelbrot.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -80,9 +80,7 @@ public:
 					{ \
 						float m = (a - clrs[i].a) / (clrs[i+1].a - clrs[i].a); \
 						fragColor = vec4( \
-							mix(clrs[i].r, clrs[i+1].r, m), \
-							mix(clrs[i].g, clrs[i+1].g, m), \
-							mix(clrs[i].b, clrs[i+1].b, m), \
+							mix(clrs[i].rgb, clrs[i+1].rgb, m), \
 							1.0 \
 						); \
 						break; \
