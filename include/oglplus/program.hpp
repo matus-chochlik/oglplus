@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/link_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 
 #include <vector>
@@ -24,20 +25,6 @@
 namespace oglplus {
 
 class VertexAttribOps;
-
-/// Exception class for OpenGL shading language program link error
-class LinkError
- : public CompileOrLinkError
-{
-public:
-	LinkError(const std::string& log, const ErrorInfo& info)
-	 : CompileOrLinkError(
-		"OpenGL shading language link error",
-		log,
-		info
-	)
-	{ }
-};
 
 /// Program operations wrapper helper class
 /** This class implements OpenGL shading language program operations.

@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/compile_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 
 #include <vector>
@@ -22,45 +23,6 @@
 #include <cassert>
 
 namespace oglplus {
-
-/// Base class for SL compilation or linking errors
-class CompileOrLinkError
- : public Error
-{
-private:
-	std::string _log;
-public:
-	CompileOrLinkError(
-		const char* what,
-		const std::string& log,
-		const ErrorInfo& info
-	): Error(0, what, info)
-	 , _log(log)
-	{ }
-
-	~CompileOrLinkError(void) throw()
-	{ }
-
-	/// Returns the compiler error output
-	const std::string& Log(void) const
-	{
-		return _log;
-	}
-};
-
-/// Exception class for OpenGL shading language compilation error
-class CompileError
- : public CompileOrLinkError
-{
-public:
-	CompileError(const std::string& log, const ErrorInfo& info)
-	 : CompileOrLinkError(
-		"OpenGL shading language compilation error",
-		log,
-		info
-	)
-	{ }
-};
 
 /// Shader operations wrapper helper class
 /**

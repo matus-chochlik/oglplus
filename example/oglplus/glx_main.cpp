@@ -7,6 +7,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/gl.hpp>
+
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
 #include <oglplus/glx/version.hpp>
@@ -15,7 +17,7 @@
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
 
-#include <oglplus/shader.hpp>
+#include <oglplus/compile_error.hpp>
 
 #include <stdexcept>
 #include <iostream>

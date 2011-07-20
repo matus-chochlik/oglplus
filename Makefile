@@ -83,19 +83,30 @@ $(BLDDIR)/$(1).png: $(BLDDIR)/$(1).xwd | $(dir $(BLDDIR)/$(1))
 endef
 
 # function defining the rules for linking final executables
+	#$(eval OGLPLUS_TGT_LDFLAGS += $$(shell cat $$(addsuffix .ldf,$$(addprefix $(BLDDIR)/,$$(basename $$^)))))
 define BUILD_EXE
 $(OUTDIR)/$(1): $(BLDDIR)/$(1).o $(call OPT_ADD_EXAMPLE_MAIN,$(1)) | $(dir $(OUTDIR)/$(1))
-	$(eval OGLPLUS_TGT_LDFLAGS := $(OGLPLUS_LDFLAGS))
-	$(eval OGLPLUS_TGT_LDFLAGS += $$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),X11/Xlib.h,-lX11))
-	$(CXX) $(OGLPLUS_TGT_LDFLAGS) -o $$@ $$^
+	$(CXX) $$(shell cat $$(addsuffix .ldf,$$(basename $$^))) $(OGLPLUS_LDFLAGS) -o $$@ $$^
 endef
 
 # function defining the rules for compiling intermediate objects
 define BUILD_OBJ
-$(BLDDIR)/$(1).o: $(1).cpp | $(dir $(BLDDIR)/$(1))
+$(BLDDIR)/$(1).o: $(1).cpp $(BLDDIR)/$(1).ldf | $(dir $(BLDDIR)/$(1))
 	$(eval OGLPLUS_TGT_CXXFLAGS := $(OGLPLUS_CXXFLAGS))
 	$(eval OGLPLUS_TGT_CXXFLAGS += $$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),oglplus/example.h,-Iexample/oglplus))
 	$(CXX) $(OGLPLUS_TGT_CXXFLAGS) -o $$@ -c $$<
+endef
+
+# function defining the rules for making the files containing
+# necessary additional LDFLAGS based on the included headers
+# of a source file
+# these files are used when linking the final executable
+# to supply the additional LDFLAGS
+define BUILD_LDF
+$(BLDDIR)/$(1).ldf: $(BLDDIR)/$(1).d | $(dir $(BLDDIR)/$(1))
+	$(eval OGLPLUS_TMP_LDFLAGS :=)
+	$(eval OGLPLUS_TMP_LDFLAGS +=$$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),X11/Xlib.h,-lX11))
+	echo "$(OGLPLUS_TMP_LDFLAGS)" > $$@
 endef
 
 # helper sed script used in the BUILD_DEP function
@@ -113,6 +124,7 @@ endef
 # compiling and linking of all executables
 $(foreach exe,$(EXAMPLES),   $(eval $(call BUILD_PNG,$(exe))))
 $(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_EXE,$(exe))))
+$(foreach src,$(OBJECT_SRCS),$(eval $(call BUILD_LDF,$(src))))
 $(foreach src,$(OBJECT_SRCS),$(eval $(call BUILD_OBJ,$(src))))
 $(foreach src,$(OBJECT_SRCS),$(eval $(call BUILD_DEP,$(src))))
 
