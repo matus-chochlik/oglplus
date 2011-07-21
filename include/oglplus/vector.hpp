@@ -164,19 +164,29 @@ public:
 			_elem[i] = 0;
 	}
 
+	/// Copy constructor
+	Vector(const Vector&) = default;
+
+	template <typename U>
+	Vector(const Vector<U, N>& vector)
+	{
+		for(size_t i=0; i!=N; ++i)
+			_elem[i] = T(vector.At(i));
+	}
+
 	/// Initializes the vector with the given values
 	/** Constructs a new N-dimensional vector from the values
 	 *  passed as arguments. The number of arguments for this
 	 *  constructor must match the vectors dimension.
 	 */
 	template <typename ... P>
-	Vector(P ... p)
+	Vector(T v, P ... p)
 	{
 		static_assert(
-			sizeof...(P) == N,
+			sizeof...(P) + 1 == N,
 			"Invalid number of values for this vector type"
 		);
-		_init<0>(p...);
+		this->_elem = {v, T(p)...};
 	}
 
 	/// Initializes the vector from a sub-vector and additional coordinates
@@ -417,7 +427,7 @@ public:
 	friend Vector Normalized(const Vector& a)
 	{
 		T l = Length(a);
-		if(l == T(0)) return a;
+		if(l == T(0) || l == T(1)) return a;
 		else return Multiply(a, T(1) / l);
 	}
 

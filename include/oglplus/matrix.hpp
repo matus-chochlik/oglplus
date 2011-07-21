@@ -30,11 +30,12 @@ class Matrix
 private:
 	static const Matrix& _that(void);
 
+protected:
 	union {
 		T _data[Rows * Cols];
 		T _elem[Rows][Cols];
 	} _m;
-
+private:
 	static_assert(
 		sizeof(_that()._m) == sizeof(_that()._m._data) &&
 		sizeof(_that()._m) == sizeof(_that()._m._elem),
@@ -95,30 +96,7 @@ private:
 		}
 	};
 
-	struct _op_translate
-	{
-		void operator()(Matrix& t, const Matrix& a, const T* dv)
-		{
-			if(&t != &a) t = a;
-			for(size_t i=0; i!=(Rows-1); ++i)
-				t._m._elem[i][Cols-1] =
-					a._m._elem[i][Cols-1] + dv[i];
-		}
-	};
-
-	struct _op_scale
-	{
-		void operator()(Matrix& t, const Matrix& a, const T* dv)
-		{
-			if(&t != &a) t = a;
-			for(size_t i=0; i!=(Rows-1) && i!=(Cols-1); ++i)
-				t._m._elem[i][i] =
-					a._m._elem[i][i] * dv[i];
-		}
-	};
-
-	struct _op_multiply
-	{ };
+	struct _op_multiply { };
 
 	template <typename Op>
 	inline Matrix(const Matrix& a, Op init)
@@ -173,32 +151,37 @@ private:
 			_m._data[k] = data[k];
 	}
 
-	template <size_t I, size_t J>
-	inline void _init(T v)
-	{
-		static_assert(
-			Rows * Cols == (I + 1) * (J + 1),
-			"Implementation error"
-		);
-		_m._elem[I][J] = v;
-	}
-
-	template <size_t I, size_t J, typename ... P>
-	inline void _init(T v, P ... p)
-	{
-		_m._elem[I][J] = v;
-		_init<I + (J + 1) / Cols, (J + 1) % Cols>(p...);
-	}
-
 	friend class Vector<T, Rows>;
 	friend class Vector<T, Cols>;
 public:
+	struct NoInit { };
+
+	/// Constructs an uninitialized matrix
+	Matrix(NoInit)
+	{ }
+
+	struct Zero { };
+
+	/// Constructs zero a matrix
+	Matrix(Zero)
+	{
+		this->_m._data = {
+			T(0), T(0), T(0), T(0), 
+			T(0), T(0), T(0), T(0), 
+			T(0), T(0), T(0), T(0), 
+			T(0), T(0), T(0), T(0)
+		};
+	}
+
 	/// Constructs a identity matrix
 	Matrix(void)
 	{
-		for(size_t i=0; i!=Rows; ++i)
-		for(size_t j=0; j!=Cols; ++j)
-			_m._elem[i][j] = (i == j ? 1 : 0);
+		this->_m._data = {
+			T(1), T(0), T(0), T(0), 
+			T(0), T(1), T(0), T(0), 
+			T(0), T(0), T(1), T(0), 
+			T(0), T(0), T(0), T(1)
+		};
 	}
 
 	/// Initializing constructor
@@ -212,7 +195,7 @@ public:
 			Rows * Cols == sizeof...(P) + 1,
 			"Invalid number of elements for this matrix type"
 		);
-		_init<0, 0>(v, p...);
+		this->_m._data = {v, T(p)...};
 	}
 
 	/// Equality comparison function
@@ -343,30 +326,6 @@ public:
 		return Matrix(a, _op_transpose());
 	}
 
-	template <typename ... P>
-	friend Matrix Translation(const Matrix& a, P ... p)
-	{
-		static_assert(
-			sizeof...(P) == Rows - 1 &&
-			sizeof...(P) == Cols - 1,
-			"Invalid number of values for translation"
-		);
-		T v[Rows-1] = {T(p)...};
-		return Matrix(a, v, _op_translate());
-	}
-
-	template <typename ... P>
-	friend Matrix Scale(const Matrix& a, P ... p)
-	{
-		static_assert(
-			sizeof...(P) == Rows - 1 &&
-			sizeof...(P) == Cols - 1,
-			"Invalid number of values for scale"
-		);
-		T v[Rows-1] = {T(p)...};
-		return Matrix(a, v, _op_scale());
-	}
-
 	/// Returns a vector containing the matrix elements in row major order
 	friend const T* Data(const Matrix& matrix)
 	{
@@ -387,10 +346,160 @@ public:
 	}
 };
 
+template <typename T>
+class Matrix4x4
+ : public Matrix<T, 4, 4>
+{
+private:
+	typedef Matrix<T, 4, 4> Base;
+public:
+	/// Constructs an identity matrix
+	Matrix4x4(void)
+	 : Base()
+	{ }
+
+	/// Initializing constructor
+	template <typename ... P>
+	Matrix4x4(T v, P ... p)
+	 : Base(v, T(p)...)
+	{
+		static_assert(
+			sizeof...(P) + 1 == 4*4,
+			"Invalid number of values for 4x4 matrix initialation"
+		);
+	}
+
+	struct _Translation { };
+
+	Matrix4x4(_Translation, T dx, T dy, T dz)
+	 : Base(typename Base::NoInit())
+	{
+		this->_m._data = {
+			T(1), T(0), T(0),   dx, 
+			T(0), T(1), T(0),   dy, 
+			T(0), T(0), T(1),   dz, 
+			T(0), T(0), T(0), T(1)
+		};
+	}
+
+	/// Constructs a translation matrix
+	static inline Matrix4x4 Translation(T dx, T dy, T dz)
+	{
+		return Matrix4x4(_Translation(), dx, dy, dz);
+	}
+
+	struct _Scale { };
+
+	Matrix4x4(_Scale, T sx, T sy, T sz)
+	 : Base(typename Base::NoInit())
+	{
+		this->_m._data = {
+			  sx, T(0), T(0), T(0), 
+			T(0),   sy, T(0), T(0), 
+			T(0), T(0),   sz, T(0), 
+			T(0), T(0), T(0), T(1)
+		};
+	}
+
+	/// Constructs a scale matrix
+	static inline Matrix4x4 Scale(T sx, T sy, T sz)
+	{
+		return Matrix4x4(_Scale(), sx, sy, sz);
+	}
+
+	struct _RotationX { };
+
+	Matrix4x4(_RotationX, T angle_rad)
+	 : Base(typename Base::NoInit())
+	{
+		const T cosx = std::cos(angle_rad);
+		const T sinx = std::sin(angle_rad);
+		this->_m._data = {
+			 T(1),  T(0),  T(0),  T(0),
+			 T(0),  cosx, -sinx,  T(0),
+			 T(0),  sinx,  cosx,  T(0),
+			 T(0),  T(0),  T(0),  T(1)
+		};
+	} 
+
+	/// Constructs a X-axis rotation matrix
+	static inline Matrix4x4 RotationX(T angle_rad)
+	{
+		return Matrix4x4(_RotationX(), angle_rad);
+	}
+
+	struct _RotationY { };
+
+	Matrix4x4(_RotationY, T angle_rad)
+	 : Base(typename Base::NoInit())
+	{
+		const T cosx = std::cos(angle_rad);
+		const T sinx = std::sin(angle_rad);
+		this->_m._data = {
+			 cosx,  T(0),  sinx,  T(0),
+			 T(0),  T(1),  T(0),  T(0),
+			-sinx,  T(0),  cosx,  T(0),
+			 T(0),  T(0),  T(0),  T(1)
+		};
+	} 
+
+	/// Constructs a Y-axis rotation matrix
+	static inline Matrix4x4 RotationY(T angle_rad)
+	{
+		return Matrix4x4(_RotationY(), angle_rad);
+	}
+
+	struct _RotationZ { };
+
+	Matrix4x4(_RotationZ, T angle_rad)
+	 : Base(typename Base::NoInit())
+	{
+		const T cosx = std::cos(angle_rad);
+		const T sinx = std::sin(angle_rad);
+		this->_m._data = {
+			 cosx, -sinx,  T(0),  T(0),
+			 sinx,  cosx,  T(0),  T(0),
+			 T(0),  T(0),  T(1),  T(0),
+			 T(0),  T(0),  T(0),  T(1)
+		};
+	} 
+
+	/// Constructs a Z-axis rotation matrix
+	static inline Matrix4x4 RotationZ(T angle_rad)
+	{
+		return Matrix4x4(_RotationZ(), angle_rad);
+	}
+
+	struct _RotationA { };
+
+	Matrix4x4(_RotationA, const Vector<T,3>& axis, T angle_rad)
+	 : Base(typename Base::NoInit())
+	{
+		const Vector<T, 3> a = Normalized(axis);
+		const T sf = std::sin(angle_rad);
+		const T cf = std::cos(angle_rad);
+		const T _cf = T(1) - cf;
+		const T x = a.At(0), y = a.At(1), z = a.At(2);
+		const T xx= x*x, xy= x*y, xz= x*z, yy= y*y, yz= y*z, zz= z*z;
+		this->_m._data = {
+			cf + xx*_cf,    xy*_cf - z*sf,  xz*_cf + y*sf,  T(0),
+			xy*_cf + z*sf,  cf + yy*_cf,    yz*_cf - x*sf,  T(0),
+			xz*_cf - y*sf,  yz*_cf + x*sf,  cf + zz*_cf,    T(0), 
+			T(0),           T(0),           T(0),           T(1)
+		};
+	} 
+
+	/// Constructs a rotation matrix from a vector and angle
+	static inline Matrix4x4 RotationA(const Vector<T,3>& axis, T angle_rad)
+	{
+		return Matrix4x4(_RotationA(), axis, angle_rad);
+	}
+};
+
 /// 4x4 float matrix
-typedef Matrix<GLfloat, 4, 4> TransformMatrix;
-/// 4x4 double-precision matrix
-typedef Matrix<GLdouble, 4, 4> TransformMatrixd;
+typedef Matrix4x4<GLfloat> Matrix4f;
+/// 4x4 double precision matrix
+typedef Matrix4x4<GLdouble> Matrix4d;
 
 
 // implementation of Vector's constructors, conversions and operations

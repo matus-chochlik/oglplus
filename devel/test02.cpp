@@ -185,20 +185,20 @@ void run(const x11::Display& display)
 			assert(e - e  == 0.0*e);
 			//
 			(
-				Translation(
-					TransformMatrix(),
-					-1.0, -1.0, 0.0
-				) * Scale(
-					TransformMatrix(),
-					2.0, 2.0, 1.0
-				) * Vec4(1.0, 0.0, 0.0, 1.0)
-			)._print(std::cout);
+				//Matrix4d::Translation(-1.0, -1.0, 0.0) *
+				//Matrix4d::Scale(2.0, 2.0, 1.0) *
+				//Matrix4d::RotationZ(M_PI*0.5) *
+				//Matrix4d::RotationY(M_PI*0.5) *
+				Matrix4d::RotationA(Vec3d(0.0, 1.0, 1.0), M_PI*0.5) *
+				Vec4d(1.0, 0.0, 0.0, 1.0)
+			).xyz()._print(std::cout);
 		}
 		//
-		TransformMatrix identity;
 		Uniform(prog, "tmpMatrix").SetMatrix(
-			Translation(identity, -1.0, -1.0, 0.0) *
-			Scale(identity, 2.0, 2.0, 1.0)
+			Matrix4f::RotationZ(M_PI*0.5) *
+			Matrix4f::Translation(-1.0, -1.0, 0.0) *
+			Matrix4f::Scale(2.0, 2.0, 1.0) *
+			Matrix4f()
 		);
 		//
 		Context gl;
