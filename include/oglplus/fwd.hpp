@@ -15,7 +15,9 @@
 /// All definitions of OGL+ are nested in the oglplus namespace
 namespace oglplus {
 
+//TODO: detect support by compiler and define only if necessary
 #define nullptr 0
+#define constexpr const
 
 } // namespace oglplus
 

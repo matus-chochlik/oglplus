@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
+#include <oglplus/matrix.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
 
 #include <string>
@@ -94,6 +95,12 @@ public:
 		this->_do_set_many<Cols>(_index, count, v);
 	}
 
+	template <typename T, size_t N>
+	void Set(const Vector<T, N>& vector) const
+	{
+		this->_do_set<N>(_index, Data(vector));
+	}
+
 	template <size_t Cols, typename ... T>
 	void SetMatrix(T ... v) const
 	{
@@ -103,7 +110,13 @@ public:
 	template <size_t Cols, size_t Rows, typename T>
 	void SetMatrix(size_t count, const T* v) const
 	{
-		this->_do_set_mat<Cols, Rows>(_index, false, count, v);
+		this->_do_set_mat<Cols, Rows>(_index, count, false, v);
+	}
+
+	template <typename T, size_t Rows, size_t Cols>
+	void SetMatrix(const Matrix<T, Rows, Cols>& matrix) const
+	{
+		this->_do_set_mat<Cols, Rows>(_index, 1, true, Data(matrix));
 	}
 };
 
