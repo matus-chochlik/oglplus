@@ -13,6 +13,7 @@
 #define OGLPLUS_MATRIX_1107121519_HPP
 
 #include <oglplus/vector.hpp>
+#include <oglplus/angle.hpp>
 #include <cassert>
 #include <cmath>
 
@@ -198,6 +199,12 @@ public:
 		this->_m._data = {v, T(p)...};
 	}
 
+	/// Returns a vector containing the matrix elements in row major order
+	friend const T* Data(const Matrix& matrix)
+	{
+		return matrix._m._data;
+	}
+
 	/// Equality comparison function
 	friend bool Equal(const Matrix& a, const Matrix& b)
 	{
@@ -326,12 +333,6 @@ public:
 		return Matrix(a, _op_transpose());
 	}
 
-	/// Returns a vector containing the matrix elements in row major order
-	friend const T* Data(const Matrix& matrix)
-	{
-		return matrix._m._data;
-	}
-
 	// TODO:
 	template <typename Out>
 	void _print(Out& out) const
@@ -409,11 +410,11 @@ public:
 
 	struct _RotationX { };
 
-	Matrix4x4(_RotationX, T angle_rad)
+	Matrix4x4(_RotationX, Angle<T> angle)
 	 : Base(typename Base::NoInit())
 	{
-		const T cosx = std::cos(angle_rad);
-		const T sinx = std::sin(angle_rad);
+		const T cosx = Cos(angle);
+		const T sinx = Sin(angle);
 		this->_m._data = {
 			 T(1),  T(0),  T(0),  T(0),
 			 T(0),  cosx, -sinx,  T(0),
@@ -423,18 +424,18 @@ public:
 	} 
 
 	/// Constructs a X-axis rotation matrix
-	static inline Matrix4x4 RotationX(T angle_rad)
+	static inline Matrix4x4 RotationX(Angle<T> angle)
 	{
-		return Matrix4x4(_RotationX(), angle_rad);
+		return Matrix4x4(_RotationX(), angle);
 	}
 
 	struct _RotationY { };
 
-	Matrix4x4(_RotationY, T angle_rad)
+	Matrix4x4(_RotationY, Angle<T> angle)
 	 : Base(typename Base::NoInit())
 	{
-		const T cosx = std::cos(angle_rad);
-		const T sinx = std::sin(angle_rad);
+		const T cosx = Cos(angle);
+		const T sinx = Sin(angle);
 		this->_m._data = {
 			 cosx,  T(0),  sinx,  T(0),
 			 T(0),  T(1),  T(0),  T(0),
@@ -444,18 +445,18 @@ public:
 	} 
 
 	/// Constructs a Y-axis rotation matrix
-	static inline Matrix4x4 RotationY(T angle_rad)
+	static inline Matrix4x4 RotationY(Angle<T> angle)
 	{
-		return Matrix4x4(_RotationY(), angle_rad);
+		return Matrix4x4(_RotationY(), angle);
 	}
 
 	struct _RotationZ { };
 
-	Matrix4x4(_RotationZ, T angle_rad)
+	Matrix4x4(_RotationZ, Angle<T> angle)
 	 : Base(typename Base::NoInit())
 	{
-		const T cosx = std::cos(angle_rad);
-		const T sinx = std::sin(angle_rad);
+		const T cosx = Cos(angle);
+		const T sinx = Sin(angle);
 		this->_m._data = {
 			 cosx, -sinx,  T(0),  T(0),
 			 sinx,  cosx,  T(0),  T(0),
@@ -465,19 +466,19 @@ public:
 	} 
 
 	/// Constructs a Z-axis rotation matrix
-	static inline Matrix4x4 RotationZ(T angle_rad)
+	static inline Matrix4x4 RotationZ(Angle<T> angle)
 	{
-		return Matrix4x4(_RotationZ(), angle_rad);
+		return Matrix4x4(_RotationZ(), angle);
 	}
 
 	struct _RotationA { };
 
-	Matrix4x4(_RotationA, const Vector<T,3>& axis, T angle_rad)
+	Matrix4x4(_RotationA, const Vector<T,3>& axis, Angle<T> angle)
 	 : Base(typename Base::NoInit())
 	{
 		const Vector<T, 3> a = Normalized(axis);
-		const T sf = std::sin(angle_rad);
-		const T cf = std::cos(angle_rad);
+		const T sf = Sin(angle);
+		const T cf = Cos(angle);
 		const T _cf = T(1) - cf;
 		const T x = a.At(0), y = a.At(1), z = a.At(2);
 		const T xx= x*x, xy= x*y, xz= x*z, yy= y*y, yz= y*z, zz= z*z;
@@ -490,9 +491,86 @@ public:
 	} 
 
 	/// Constructs a rotation matrix from a vector and angle
-	static inline Matrix4x4 RotationA(const Vector<T,3>& axis, T angle_rad)
+	static inline Matrix4x4 RotationA(
+		const Vector<T,3>& axis,
+		Angle<T> angle
+	)
 	{
-		return Matrix4x4(_RotationA(), axis, angle_rad);
+		return Matrix4x4(_RotationA(), axis, angle);
+	}
+
+
+	struct _Perspective { };
+
+	Matrix4x4(_Perspective, Angle<T> fov, T aspect, T z_near, T z_far)
+	 : Base(typename Base::NoInit())
+	{
+		assert(aspect > 0);
+		assert(fov > Radians(T(0)));
+		T height = T(1) / Tan(fov);
+		T neg_depth = z_near - z_far;
+		assert(neg_depth < 0.0);
+		this->_m._data = {
+			height / aspect, T(0), T(0), T(0),
+			T(0), height, T(0), T(0),
+			T(0), T(0), (z_far+z_near)/neg_depth, T(0),
+			T(0), T(0), T(2)*z_near*z_far/neg_depth, T(1)
+		};
+	}
+
+	/// Constructs a perspective prohection matrix from a vector and angle
+	static inline Matrix4x4 Perspective(
+		Angle<T> fov,
+		T aspect,
+		T z_near,
+		T z_far
+	)
+	{
+		return Matrix4x4(_Perspective(), fov, aspect, z_near, z_far);
+	}
+
+	struct _LookAt { };
+
+	Matrix4x4(
+		_LookAt,
+		const Vector<T, 3>& eye,
+		const Vector<T, 3>& target
+	): Base(typename Base::NoInit())
+	{
+		Vector<T, 3> z = Normalized(eye - target);
+		Vector<T, 3> x(
+			z.template At<2>(),
+			T(0),
+			-z.template At<0>()
+		);
+		Vector<T, 3> y = Cross(z, x);
+		this->_m._data = {
+			x.template At<0>(),
+			x.template At<1>(),
+			x.template At<2>(),
+			Dot(-eye, x),
+
+			y.template At<0>(),
+			y.template At<1>(),
+			y.template At<2>(),
+			Dot(-eye, y),
+
+			z.template At<0>(),
+			z.template At<1>(),
+			z.template At<2>(),
+			Dot(-eye, z),
+
+			T(0), T(0), T(0), T(1)
+		};
+	}
+
+	/// Constructs a 'look-at' matrix
+	static inline Matrix4x4 LookAt(
+		const Vector<T, 3>& eye,
+		const Vector<T, 3>& target
+	)
+	{
+		return Matrix4x4(_LookAt(), eye, target);
 	}
 };
 

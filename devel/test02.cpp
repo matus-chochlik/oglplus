@@ -186,8 +186,6 @@ void run(const x11::Display& display)
 		GLX_DEPTH_SIZE      , 24,
 		GLX_STENCIL_SIZE    , 8,
 		GLX_DOUBLEBUFFER    , True,
-		//GLX_SAMPLE_BUFFERS  , 1,
-		//GLX_SAMPLES         , 4,
 		None
 	};
 	glx::Version version(display);
@@ -223,7 +221,7 @@ void run(const x11::Display& display)
 			void main(void) \
 			{ \
 				gl_Position = projectionMatrix * cameraMatrix * vertex; \
-				outColor = vec4(abs(normal), 1.0); \
+				outColor = vec4(abs(normal)/2 + vertex.rgb, 1.0); \
 			} \
 		");
 		vs.Compile();
@@ -278,27 +276,29 @@ void run(const x11::Display& display)
 		}
 		//
 		Uniform(prog, "projectionMatrix").SetMatrix(
-			Matrix4f(
-				1.5, 0.0, 0.0, 0.0,
-				0.0, 2.0, 0.0, 0.0,
-				0.0, 0.0, 0.1,-1.0,
-				0.0, 0.0, 0.0, 1.0
+			Matrix4f::Perspective(
+				Degrees(24),
+				800.0/600.0,
+				1, 100
 			)
 		);
 		Uniform(prog, "cameraMatrix").SetMatrix(
-			Matrix4f::RotationZ(M_PI*0.1)*
-			Matrix4f::RotationY(M_PI*0.1)*
-			Matrix4f::RotationX(M_PI*0.1)
+			Matrix4f::LookAt(
+				Vec3f(1.0f, 1.0f, 1.0f),
+				Vec3f()
+			)
 		);
 		//
 		Context gl;
+		glEnable(GL_DEPTH_TEST);
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
+		//
 		gl.DrawElements(PrimitiveType::Triangles, nindices, DataType::UnsignedInt);
 		ctx.SwapBuffers(win);
-		::sleep(2);
+		::sleep(3);
 	}
 	//
 	ctx.Release(display);

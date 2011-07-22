@@ -406,9 +406,9 @@ public:
 
 	/// Cross product
 	template <size_t ... M>
-	friend Vector Cross(const Vector<T, M>&... p)
+	friend Vector Cross(const Vector& v, const Vector<T, M>&... p)
 	{
-		return Vector(p..., _op_perpend());
+		return Vector(v, p..., _op_perpend());
 	}
 
 	/// Returns the length of a vector
@@ -513,15 +513,15 @@ public:
 };
 
 /// 2D float vector
-typedef Vector<GLfloat, 2> Vec2;
+typedef Vector<GLfloat, 2> Vec2f;
 /// 2D double-precision vector
 typedef Vector<GLdouble, 2> Vec2d;
 /// 3D float vector
-typedef Vector<GLfloat, 3> Vec3;
+typedef Vector<GLfloat, 3> Vec3f;
 /// 3D double-precision vector
 typedef Vector<GLdouble, 3> Vec3d;
 /// 4D float vector
-typedef Vector<GLfloat, 4> Vec4;
+typedef Vector<GLfloat, 4> Vec4f;
 /// 4D double-precision vector
 typedef Vector<GLdouble, 4> Vec4d;
 
