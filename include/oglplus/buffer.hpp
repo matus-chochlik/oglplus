@@ -175,31 +175,33 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
+	template <typename GLtype>
 	static void Data(
 		Target target,
-		GLfloat* data,
+		GLtype* data,
 		GLsizei count,
 		Usage usage = Usage::StaticDraw
 	)
 	{
 		::glBufferData(
 			GLenum(target),
-			count * sizeof(GLfloat),
+			count * sizeof(GLtype),
 			data,
 			GLenum(usage)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
+	template <typename GLtype>
 	static void Data(
 		Target target,
-		const std::vector<GLfloat>& data,
+		const std::vector<GLtype>& data,
 		Usage usage = Usage::StaticDraw
 	)
 	{
 		::glBufferData(
 			GLenum(target),
-			data.size() * sizeof(GLfloat),
+			data.size() * sizeof(GLtype),
 			data.data(),
 			GLenum(usage)
 		);

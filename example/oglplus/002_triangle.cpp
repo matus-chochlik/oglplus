@@ -116,7 +116,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		triangle.Bind();
-		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);
+		gl.DrawArrays(PrimitiveType::Triangles, 0, 3);
 	}
 };
 

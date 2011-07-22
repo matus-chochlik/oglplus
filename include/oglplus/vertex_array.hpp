@@ -15,7 +15,6 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
-#include <oglplus/primitive_type.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -54,12 +53,6 @@ public:
 	static void Unbind(void)
 	{
 		::glBindVertexArray(0);
-		AssertNoError(OGLPLUS_ERROR_INFO());
-	}
-
-	static void Draw(PrimitiveType mode, GLint first, GLsizei count)
-	{
-		::glDrawArrays(GLenum(mode), first, count);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };

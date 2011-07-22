@@ -32,8 +32,141 @@ namespace build {
 
 class Cube
 {
-private:
 public:
+	template <typename T>
+	static GLsizei Vertices(
+		std::vector<T>& dest,
+		T x = T(1), 
+		T y = T(1), 
+		T z = T(1)
+	)
+	{
+		const T c[8][3] = {
+			{-T(x)/T(2), -T(y)/T(2), +T(z)/T(2)},
+			{-T(x)/T(2), -T(y)/T(2), -T(z)/T(2)},
+			{-T(x)/T(2), +T(y)/T(2), -T(z)/T(2)},
+			{-T(x)/T(2), +T(y)/T(2), +T(z)/T(2)},
+			{+T(x)/T(2), -T(y)/T(2), +T(z)/T(2)},
+			{+T(x)/T(2), -T(y)/T(2), -T(z)/T(2)},
+			{+T(x)/T(2), +T(y)/T(2), -T(z)/T(2)},
+			{+T(x)/T(2), +T(y)/T(2), +T(z)/T(2)}
+		};
+		dest = {
+			c[0][0], c[0][1], c[0][2],
+			c[2][0], c[2][1], c[2][2],
+			c[1][0], c[1][1], c[1][2],
+			c[0][0], c[0][1], c[0][2],
+			c[3][0], c[3][1], c[3][2],
+			c[2][0], c[2][1], c[2][2],
+
+			c[0][0], c[0][1], c[0][2],
+			c[1][0], c[1][1], c[1][2],
+			c[4][0], c[4][1], c[4][2],
+			c[1][0], c[1][1], c[1][2],
+			c[5][0], c[5][1], c[5][2],
+			c[4][0], c[4][1], c[4][2],
+
+			c[1][0], c[1][1], c[1][2],
+			c[2][0], c[2][1], c[2][2],
+			c[5][0], c[5][1], c[5][2],
+			c[2][0], c[2][1], c[2][2],
+			c[6][0], c[6][1], c[6][2],
+			c[5][0], c[5][1], c[5][2],
+
+			c[4][0], c[4][1], c[4][2],
+			c[5][0], c[5][1], c[5][2],
+			c[6][0], c[6][1], c[6][2],
+			c[4][0], c[4][1], c[4][2],
+			c[6][0], c[6][1], c[6][2],
+			c[7][0], c[7][1], c[7][2],
+
+			c[2][0], c[2][1], c[2][2],
+			c[3][0], c[3][1], c[3][2],
+			c[7][0], c[7][1], c[7][2],
+			c[2][0], c[2][1], c[2][2],
+			c[7][0], c[7][1], c[7][2],
+			c[6][0], c[6][1], c[6][2],
+
+			c[0][0], c[0][1], c[0][2],
+			c[4][0], c[4][1], c[4][2],
+			c[3][0], c[3][1], c[3][2],
+			c[3][0], c[3][1], c[3][2],
+			c[4][0], c[4][1], c[4][2],
+			c[7][0], c[7][1], c[7][2]
+		};
+		return 3;
+	}
+
+	template <typename T>
+	static GLsizei Normals(std::vector<T>& dest)
+	{
+		const T n[6][3] = {
+			{-T(1),  T(0),  T(0)},
+			{ T(0), -T(1),  T(0)},
+			{ T(0),  T(0), -T(1)},
+			{+T(1),  T(0),  T(0)},
+			{ T(0), +T(1),  T(0)},
+			{ T(0),  T(0),  +(1)}
+		};
+		dest = {
+			n[0][0], n[0][1], n[0][2],
+			n[0][0], n[0][1], n[0][2],
+			n[0][0], n[0][1], n[0][2],
+			n[0][0], n[0][1], n[0][2],
+			n[0][0], n[0][1], n[0][2],
+			n[0][0], n[0][1], n[0][2],
+
+			n[1][0], n[1][1], n[1][2],
+			n[1][0], n[1][1], n[1][2],
+			n[1][0], n[1][1], n[1][2],
+			n[1][0], n[1][1], n[1][2],
+			n[1][0], n[1][1], n[1][2],
+			n[1][0], n[1][1], n[1][2],
+
+			n[2][0], n[2][1], n[2][2],
+			n[2][0], n[2][1], n[2][2],
+			n[2][0], n[2][1], n[2][2],
+			n[2][0], n[2][1], n[2][2],
+			n[2][0], n[2][1], n[2][2],
+			n[2][0], n[2][1], n[2][2],
+
+			n[3][0], n[3][1], n[3][2],
+			n[3][0], n[3][1], n[3][2],
+			n[3][0], n[3][1], n[3][2],
+			n[3][0], n[3][1], n[3][2],
+			n[3][0], n[3][1], n[3][2],
+			n[3][0], n[3][1], n[3][2],
+
+			n[4][0], n[4][1], n[4][2],
+			n[4][0], n[4][1], n[4][2],
+			n[4][0], n[4][1], n[4][2],
+			n[4][0], n[4][1], n[4][2],
+			n[4][0], n[4][1], n[4][2],
+			n[4][0], n[4][1], n[4][2],
+
+			n[5][0], n[5][1], n[5][2],
+			n[5][0], n[5][1], n[5][2],
+			n[5][0], n[5][1], n[5][2],
+			n[5][0], n[5][1], n[5][2],
+			n[5][0], n[5][1], n[5][2],
+			n[5][0], n[5][1], n[5][2]
+		};
+		return 3;
+	}
+
+	template <typename T>
+	static GLsizei Indices(std::vector<T>& dest)
+	{
+		dest = {
+		 	 T(0),  T(1),  T(2),  T(3),  T(4),  T(5),
+		 	 T(6),  T(7),  T(8),  T(9), T(10), T(11),
+		 	T(12), T(13), T(14), T(15), T(16), T(17),
+			T(18), T(19), T(20), T(21), T(22), T(23),
+			T(24), T(25), T(26), T(27), T(28), T(29),
+			T(30), T(31), T(32), T(33), T(34), T(35)
+		};
+		return 6 * 2 * 3;
+	}
 };
 
 } // namespace build
@@ -82,14 +215,15 @@ void run(const x11::Display& display)
 		VertexShader vs;
 		vs.Source(" \
 			#version 330\n \
-			in vec3 vertex; \
-			in vec3 inColor; \
-			uniform mat4 tmpMatrix; \
+			in vec4 vertex; \
+			in vec3 normal; \
+			uniform mat4 projectionMatrix; \
+			uniform mat4 cameraMatrix; \
 			out vec4 outColor; \
 			void main(void) \
 			{ \
-				gl_Position = tmpMatrix * vec4(vertex, 1.0); \
-				outColor = vec4(inColor, 1.0); \
+				gl_Position = projectionMatrix * cameraMatrix * vertex; \
+				outColor = vec4(abs(normal), 1.0); \
 			} \
 		");
 		vs.Compile();
@@ -113,92 +247,48 @@ void run(const x11::Display& display)
 		//
 		VertexArray vao;
 		vao.Bind();
-		Array<Buffer> vbo(2);
 		//
-		GLfloat triangle_data[9] = {
-			0.0f, 0.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f
-		};
-		vbo[0].Bind(Buffer::Target::Array);
-		Buffer::Data(Buffer::Target::Array, triangle_data, 9);
-		VertexAttribArray vaa1(prog, "vertex");
-		vaa1.Setup(3, DataType::Float);
-		vaa1.Enable();
-		//
-		GLfloat triangle_color[9] = {
-			1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 1.0f
-		};
-		vbo[1].Bind(Buffer::Target::Array);
-		Buffer::Data(Buffer::Target::Array, triangle_color, 9);
-		VertexAttribArray vaa2(prog, "inColor");
-		vaa2.Setup(3, DataType::Float);
-		vaa2.Enable();
-		//
+		Buffer vertices;
+		vertices.Bind(Buffer::Target::Array);
 		{
-			auto map = Buffer::Map(Buffer::Target::Array, Buffer::Map::Access::Read);
-			for(int i=0;i!=9;++i)
-				assert(map.At<GLfloat>(i) == triangle_color[i]);
+			std::vector<GLfloat> data;
+			GLsizei n_per_vertex = build::Cube::Vertices(data);
+			Buffer::Data(Buffer::Target::Array, data);
+			VertexAttribArray vaa(prog, "vertex");
+			vaa.Setup(n_per_vertex, DataType::Float);
+			vaa.Enable();
+		}
+		Buffer normals;
+		normals.Bind(Buffer::Target::Array);
+		{
+			std::vector<GLfloat> data;
+			GLsizei n_per_vertex = build::Cube::Normals(data);
+			Buffer::Data(Buffer::Target::Array, data);
+			VertexAttribArray vaa(prog, "normal");
+			vaa.Setup(n_per_vertex, DataType::Float);
+			vaa.Enable();
+		}
+		Buffer indices;
+		GLsizei nindices;
+		indices.Bind(Buffer::Target::ElementArray);
+		{
+			std::vector<GLuint> data;
+			nindices = build::Cube::Indices(data);
+			Buffer::Data(Buffer::Target::ElementArray, data);
 		}
 		//
-		{
-			Vec3 i(1, 0, 0);
-			Vec3 j(0, 1, 0);
-			Vec3 k(0, 0, 1);
-			//
-			assert(Cross(i, j) == k);
-			assert(Cross(j, k) == i);
-			assert(Cross(k, i) == j);
-			//
-			Vec4 x(i, 1);
-			Vec4 y(j, 1);
-			Vec4 z(k, 1);
-			//
-			assert(x.xyz() == i);
-			assert(y.xyz() == j);
-			assert(z.xyz() == k);
-
-			assert(i + j + k == (x + y + z).xyz());
-			assert(Vec4(i + j + k, 3) == (x + y + z));
-			//
-			assert(i.xxx() == j.yyy());
-			assert(i.xxx() == k.zzz());
-			assert((i+j+k).x__() == i);
-			assert((i+j+k)._x_() == j);
-			assert((i+j+k).__x() == k);
-			assert((i+j+k).y__() == i);
-			assert((i+j+k)._y_() == j);
-			assert((i+j+k).__y() == k);
-			assert((i+j+k).z__() == i);
-			assert((i+j+k)._z_() == j);
-			assert((i+j+k).__z() == k);
-
-			Matrix<GLfloat, 4, 4> e;
-			assert(e == e);
-			assert(e * e == e);
-			assert(e + e == e*2);
-			assert(e + e + e  == 3.0*e);
-			assert(e + e  == 3.0*e - e);
-			assert(-e - e == -2.0*e);
-			assert(e - e  == 0.0*e);
-			//
-			(
-				//Matrix4d::Translation(-1.0, -1.0, 0.0) *
-				//Matrix4d::Scale(2.0, 2.0, 1.0) *
-				//Matrix4d::RotationZ(M_PI*0.5) *
-				//Matrix4d::RotationY(M_PI*0.5) *
-				Matrix4d::RotationA(Vec3d(0.0, 1.0, 1.0), M_PI*0.5) *
-				Vec4d(1.0, 0.0, 0.0, 1.0)
-			).xyz()._print(std::cout);
-		}
-		//
-		Uniform(prog, "tmpMatrix").SetMatrix(
-			Matrix4f::RotationZ(M_PI*0.5) *
-			Matrix4f::Translation(-1.0, -1.0, 0.0) *
-			Matrix4f::Scale(2.0, 2.0, 1.0) *
-			Matrix4f()
+		Uniform(prog, "projectionMatrix").SetMatrix(
+			Matrix4f(
+				1.5, 0.0, 0.0, 0.0,
+				0.0, 2.0, 0.0, 0.0,
+				0.0, 0.0, 0.1,-1.0,
+				0.0, 0.0, 0.0, 1.0
+			)
+		);
+		Uniform(prog, "cameraMatrix").SetMatrix(
+			Matrix4f::RotationZ(M_PI*0.1)*
+			Matrix4f::RotationY(M_PI*0.1)*
+			Matrix4f::RotationX(M_PI*0.1)
 		);
 		//
 		Context gl;
@@ -206,7 +296,7 @@ void run(const x11::Display& display)
 		gl.ClearDepth(1.0f);
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);
+		gl.DrawElements(PrimitiveType::Triangles, nindices, DataType::UnsignedInt);
 		ctx.SwapBuffers(win);
 		::sleep(2);
 	}

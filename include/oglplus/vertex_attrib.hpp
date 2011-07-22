@@ -42,7 +42,14 @@ protected:
 	)
 	{
 		ThrowOnError(OGLPLUS_ERROR_INFO());
-		assert(_index != GLint(-1));
+		if(_index == GLint(-1))
+		{
+			ThrowOnError(
+				GL_INVALID_OPERATION,
+				"Getting the location of inactive vertex attrib",
+				OGLPLUS_ERROR_INFO()
+			);
+		}
 	}
 public:
 	void BindLocation(const Program& program, const GLchar* identifier) const

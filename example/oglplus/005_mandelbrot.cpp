@@ -151,7 +151,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		rectangle.Bind();
-		VertexArray::Draw(PrimitiveType::TriangleStrip, 0, 4);
+		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };
 

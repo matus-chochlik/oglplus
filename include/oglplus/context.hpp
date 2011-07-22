@@ -13,6 +13,8 @@
 #define OGLPLUS_CONTEXT_1107121317_HPP
 
 #include <oglplus/error.hpp>
+#include <oglplus/primitive_type.hpp>
+#include <oglplus/data_type.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
 #include <oglplus/auxiliary/bitfield.hpp>
@@ -68,6 +70,22 @@ public:
 	{
 		::glViewport(0, 0, w, h);
 		ThrowOnError(OGLPLUS_ERROR_INFO());
+	}
+
+	static void DrawArrays(PrimitiveType mode, GLint first, GLsizei count)
+	{
+		::glDrawArrays(GLenum(mode), first, count);
+		AssertNoError(OGLPLUS_ERROR_INFO());
+	}
+
+	static void DrawElements(
+		PrimitiveType mode,
+		GLsizei count,
+		DataType data_type
+	)
+	{
+		::glDrawElements(GLenum(mode), count, GLenum(data_type), 0);
+		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 };
 

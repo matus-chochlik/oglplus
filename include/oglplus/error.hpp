@@ -52,6 +52,11 @@ protected:
 	 , _info(info)
 	{ }
 
+	friend void ThrowOnError(
+		GLenum code,
+		const GLchar* msg,
+		const ErrorInfo& info
+	);
 	friend void ThrowOnError(const ErrorInfo& info);
 public:
 	/// Returns the OpenGL error code
@@ -143,12 +148,17 @@ public:
 	{ }
 };
 
+inline void ThrowOnError(GLenum code, const GLchar* msg, const ErrorInfo& info)
+{
+	throw Error(code, msg, info);
+}
+
 inline void ThrowOnError(const ErrorInfo& info)
 {
 	GLenum code = ::glGetError();
 	if(code != GL_NO_ERROR)
 	{
-		const char* msg = "Unknown error";
+		const GLchar* msg = "Unknown error";
 		switch(code)
 		{
 			case GL_OUT_OF_MEMORY:
@@ -160,8 +170,12 @@ inline void ThrowOnError(const ErrorInfo& info)
 			case GL_INVALID_VALUE:
 				msg = "OpenGL numeric argument out of range";
 				break;
+			case GL_INVALID_OPERATION:
+				msg = "Invalid OpenGL operation";
+				break;
 			case GL_INVALID_FRAMEBUFFER_OPERATION:
 				msg = "Invalid OpenGL framebuffer operation";
+				break;
 		}
 		throw Error(code, msg, info);
 	}

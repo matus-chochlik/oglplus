@@ -249,7 +249,7 @@ void run(const x11::Display& display)
 		gl.ClearDepth(1.0f);
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		VertexArray::Draw(PrimitiveType::Triangles, 0, 3);
+		gl.DrawArrays(PrimitiveType::Triangles, 0, 3);
 		ctx.SwapBuffers(win);
 		::sleep(2);
 	}

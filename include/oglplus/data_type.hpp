@@ -28,6 +28,26 @@ enum class DataType : GLenum
 	UnsignedInt = GL_UNSIGNED_INT
 };
 
+DataType GetDataType(GLint*)
+{
+	return DataType::Int;
+}
+
+DataType GetDataType(GLuint*)
+{
+	return DataType::UnsignedInt;
+}
+
+DataType GetDataType(GLfloat*)
+{
+	return DataType::Float;
+}
+
+DataType GetDataType(GLdouble*)
+{
+	return DataType::Double;
+}
+
 } // namespace oglplus
 
 #endif // include guard
