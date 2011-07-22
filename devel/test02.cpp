@@ -266,6 +266,7 @@ void run(const x11::Display& display)
 			vaa.Setup(n_per_vertex, DataType::Float);
 			vaa.Enable();
 		}
+/*
 		Buffer indices;
 		GLsizei nindices;
 		indices.Bind(Buffer::Target::ElementArray);
@@ -274,6 +275,7 @@ void run(const x11::Display& display)
 			nindices = build::Cube::Indices(data);
 			Buffer::Data(Buffer::Target::ElementArray, data);
 		}
+*/
 		//
 		Uniform(prog, "projectionMatrix").SetMatrix(
 			Matrix4f::Perspective(
@@ -283,7 +285,7 @@ void run(const x11::Display& display)
 			)
 		);
 		Uniform(prog, "cameraMatrix").SetMatrix(
-			Matrix4f::LookAt(
+			Matrix4f::LookingAt(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				Vec3f()
 			)
@@ -296,7 +298,8 @@ void run(const x11::Display& display)
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		//
-		gl.DrawElements(PrimitiveType::Triangles, nindices, DataType::UnsignedInt);
+		gl.DrawArrays(PrimitiveType::Triangles, 0, 36);
+		//gl.DrawElements(PrimitiveType::Triangles, nindices, DataType::UnsignedInt);
 		ctx.SwapBuffers(win);
 		::sleep(3);
 	}

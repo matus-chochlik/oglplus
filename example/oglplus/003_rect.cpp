@@ -100,7 +100,7 @@ public:
 		gl.ClearDepth(1.0f);
 	}
 
-	void Render(void)
+	void Render(double)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 

@@ -98,7 +98,7 @@ public:
 			0.0f, 1.0f, 0.0f,
 			0.0f, 0.0f, 1.0f,
 		};
-		// bind the VBO for the rectangle vertices
+		// bind the VBO for the rectangle colors
 		colors.Bind(Buffer::Target::Array);
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, rectangle_colors, 12);
@@ -112,7 +112,7 @@ public:
 		gl.ClearDepth(1.0f);
 	}
 
-	void Render(void)
+	void Render(double)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 

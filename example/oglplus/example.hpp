@@ -21,12 +21,12 @@ struct Example
 	// Hint for the main function whether to continue rendering
 	// Implementations of the main function may choose to ignore
 	// the result of this function
-	virtual bool Continue(unsigned duration)
+	virtual bool Continue(double duration)
 	{
-		return duration < 3; // [seconds]
+		return duration < 3.0; // [seconds]
 	}
 
-	virtual void Render(void) = 0;
+	virtual void Render(double time) = 0;
 };
 
 std::unique_ptr<Example> makeExample(void);

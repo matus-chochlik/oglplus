@@ -392,7 +392,7 @@ public:
 	/// Operator for multiplication by a scalar value
 	friend Vector operator * (T v, const Vector& a)
 	{
-		return Multiply(v, a);
+		return Multiply(a, v);
 	}
 
 	/// Dot product of two vectors

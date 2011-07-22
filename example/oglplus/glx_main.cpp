@@ -66,10 +66,12 @@ void run(const x11::Display& display)
 	ctx.MakeCurrent(win);
 	{
 		std::unique_ptr<Example> example(makeExample());
-		std::time_t start = std::time(0);
-		while(example->Continue(std::time(0) - start))
+		std::clock_t start = std::clock();
+		while(1)
 		{
-			example->Render();
+			double t = double(std::clock() - start)/CLOCKS_PER_SEC;
+			if(!example->Continue(t)) break;
+			example->Render(t);
 			ctx.SwapBuffers(win);
 		}
 	}

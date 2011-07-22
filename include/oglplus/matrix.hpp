@@ -529,14 +529,15 @@ public:
 		return Matrix4x4(_Perspective(), fov, aspect, z_near, z_far);
 	}
 
-	struct _LookAt { };
+	struct _LookingAt { };
 
 	Matrix4x4(
-		_LookAt,
+		_LookingAt,
 		const Vector<T, 3>& eye,
 		const Vector<T, 3>& target
 	): Base(typename Base::NoInit())
 	{
+		assert(eye != target);
 		Vector<T, 3> z = Normalized(eye - target);
 		Vector<T, 3> x(
 			z.template At<2>(),
@@ -548,29 +549,89 @@ public:
 			x.template At<0>(),
 			x.template At<1>(),
 			x.template At<2>(),
-			Dot(-eye, x),
+			-Dot(eye, x),
 
 			y.template At<0>(),
 			y.template At<1>(),
 			y.template At<2>(),
-			Dot(-eye, y),
+			-Dot(eye, y),
 
 			z.template At<0>(),
 			z.template At<1>(),
 			z.template At<2>(),
-			Dot(-eye, z),
+			-Dot(eye, z),
 
 			T(0), T(0), T(0), T(1)
 		};
 	}
 
-	/// Constructs a 'look-at' matrix
-	static inline Matrix4x4 LookAt(
+	/// Constructs a 'look-at' matrix from eye and target positions
+	static inline Matrix4x4 LookingAt(
 		const Vector<T, 3>& eye,
 		const Vector<T, 3>& target
 	)
 	{
-		return Matrix4x4(_LookAt(), eye, target);
+		return Matrix4x4(_LookingAt(), eye, target);
+	}
+
+	struct _Orbiting { };
+
+	Matrix4x4(
+		_Orbiting,
+		const Vector<T, 3>& target,
+		T radius,
+		Angle<T> azimuth,
+		Angle<T> inclination
+	)
+	{
+		Vector<T, 3> z(
+			Cos(inclination) * Cos(azimuth),
+			Sin(inclination),
+			Cos(inclination) * Sin(azimuth)
+		);
+		Vector<T, 3> x(
+			-Sin(azimuth),
+			T(0),
+			Cos(azimuth)
+		);
+		Vector<T, 3> y = Cross(x, z);
+
+		this->_m._data = {
+			x.template At<0>(),
+			x.template At<1>(),
+			x.template At<2>(),
+			Dot(x, z) * -radius - Dot(x, target),
+
+			y.template At<0>(),
+			y.template At<1>(),
+			y.template At<2>(),
+			Dot(y, z) * -radius - Dot(y, target),
+
+			z.template At<0>(),
+			z.template At<1>(),
+			z.template At<2>(),
+			Dot(z, z) * -radius - Dot(z, target),
+
+			T(0), T(0), T(0), T(1)
+		};
+
+	}
+
+	/// Constructs a matrix from target, radius, azimuth and inclination
+	static inline Matrix4x4 Orbiting(
+		const Vector<T, 3>& target,
+		T radius,
+		Angle<T> azimuth,
+		Angle<T> inclination
+	)
+	{
+		return Matrix4x4(
+			_Orbiting(),
+			target,
+			radius,
+			azimuth,
+			inclination
+		);
 	}
 };
 
