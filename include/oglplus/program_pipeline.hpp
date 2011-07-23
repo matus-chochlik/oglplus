@@ -29,7 +29,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenProgramPipelines(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GenProgramPipelines));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -50,7 +50,7 @@ public:
 	{
 		assert(_name != 0);
 		::glBindProgramPipeline(_name);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
 	enum class Stage : GLbitfield {
@@ -73,7 +73,7 @@ public:
 			aux::MakeBitfield(stages),
 			FriendOf<Program>::GetName(prog)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 
 	void UseAllStages(const Program& prog) const
@@ -84,7 +84,7 @@ public:
 			GL_ALL_SHADER_BITS,
 			FriendOf<Program>::GetName(prog)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 };
 

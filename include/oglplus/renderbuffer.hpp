@@ -26,7 +26,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenRenderbuffers(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GenRenderbuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -51,13 +51,13 @@ public:
 	{
 		assert(_name != 0);
 		::glBindRenderbuffer(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
 	static void Unbind(Target target = Target::Default)
 	{
 		::glBindRenderbuffer(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 };
 

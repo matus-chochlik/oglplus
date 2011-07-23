@@ -24,6 +24,7 @@ class ShaderDataSetOps
  : public Setters
 {
 private:
+	using Setters::_errinf_ctxt;
 	typedef std::false_type _set_done;
 	typedef std::true_type  _set_cont;
 
@@ -57,7 +58,7 @@ private:
 	static void _do_set_v(_set_cont, GLuint index, const T* v)
 	{
 		_call_set_v(index, v, ::std::get<3>(Setters::_fns_v(v)));
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 		_do_set_v<N - 4, T>(_set_mode<N - 4>(), index+1, v+4);
 	}
 
@@ -65,14 +66,14 @@ private:
 	static void _do_set_v(_set_done, GLuint index, const T* v)
 	{
 		_call_set_v(index, v, ::std::get<N-1>(Setters::_fns_v(v)));
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 	}
 
 	template <size_t N, typename T>
 	static void _do_set_n(_set_done, GLuint index, GLsizei n, const T* v)
 	{
 		::std::get<N-1>(Setters::_fns_v(v))(index, n, v);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 	}
 
 	template <typename S, typename ... T>
@@ -84,7 +85,7 @@ private:
 	)
 	{
 		std::get<3>(Setters::_fns_t(&v0))(index, v0, v1, v2, v3);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 		_do_set_t(_set_mode<sizeof...(T)>(), index+1, v...);
 	}
 
@@ -96,7 +97,7 @@ private:
 	)
 	{
 		std::get<sizeof...(T) - 1>(Setters::_fns_t(&v...))(index, v...);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 	}
 protected:
 	template <typename ... T>
@@ -111,7 +112,7 @@ protected:
 			index,
 			v...
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 	}
 
 	template <size_t Cols, typename T>

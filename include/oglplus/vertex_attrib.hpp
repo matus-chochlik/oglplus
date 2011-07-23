@@ -41,13 +41,13 @@ protected:
 		)
 	)
 	{
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetAttribLocation));
 		if(_index == GLint(-1))
 		{
 			ThrowOnError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive vertex attrib",
-				OGLPLUS_ERROR_INFO()
+				OGLPLUS_ERROR_INFO(GetAttribLocation)
 			);
 		}
 	}
@@ -59,7 +59,7 @@ public:
 			_index,
 			identifier
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(BindAttribLocation));
 	}
 
 	void BindLocation(
@@ -72,7 +72,7 @@ public:
 			_index,
 			identifier.c_str()
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(BindAttribLocation));
 	}
 };
 
@@ -87,13 +87,15 @@ void ProgramOps::BindLocation(
 		FriendOf<VertexAttribOps>::GetIndex(vertex_attrib),
 		identifier
 	);
-	ThrowOnError(OGLPLUS_ERROR_INFO());
+	ThrowOnError(OGLPLUS_ERROR_INFO(BindAttribLocation));
 }
 
 namespace aux {
 class VertexAttribSetters
 {
 protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(VertexAttrib)
+
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, d, t, GLdouble)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, s, t, GLshort)
@@ -166,19 +168,19 @@ public:
 			stride,
 			pointer
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 	}
 
 	void Enable(void) const
 	{
 		::glEnableVertexAttribArray(_index);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(EnableVertexAttribArray));
 	}
 
 	void Disable(void) const
 	{
 		::glDisableVertexAttribArray(_index);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(DisableVertexAttribArray));
 	}
 };
 

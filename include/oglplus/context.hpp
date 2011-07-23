@@ -39,7 +39,7 @@ public:
 	static void ClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		::glClearColor(r, g, b, a);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(ClearColor));
 	}
 
 	/// Sets the clear depth
@@ -49,7 +49,7 @@ public:
 	static void ClearDepth(GLclampd d)
 	{
 		::glClearDepth(d);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(ClearDepth));
 	}
 
 	/// Sets the clear stencil buffer value
@@ -59,7 +59,7 @@ public:
 	static void ClearStencil(GLint s)
 	{
 		::glClearStencil(s);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(ClearStencil));
 	}
 
 	/// Clears buffers specified by calling functions of the returned object
@@ -107,7 +107,7 @@ public:
 	static void Clear(const std::initializer_list<ClearBit>& bits)
 	{
 		::glClear(aux::MakeBitfield(bits));
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(Clear));
 	}
 
 	/// Sets the current viewport
@@ -117,7 +117,7 @@ public:
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)
 	{
 		::glViewport(x, y, w, h);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
 	/// Sets the current viewport starting at (0,0)
@@ -127,7 +127,7 @@ public:
 	static void Viewport(GLsizei w, GLsizei h)
 	{
 		::glViewport(0, 0, w, h);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
 	/// Draws the @a count of primitives from the bound array buffers
@@ -141,7 +141,7 @@ public:
 	)
 	{
 		::glDrawArrays(GLenum(primitive), first, count);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
 
@@ -156,7 +156,7 @@ public:
 	)
 	{
 		::glDrawElements(GLenum(primitive), count, GLenum(data_type),0);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(DrawElements));
 	}
 };
 

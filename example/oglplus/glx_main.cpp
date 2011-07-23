@@ -89,11 +89,19 @@ int main (int argc, char ** argv)
 	}
 	catch(oglplus::CompileOrLinkError& cle)
 	{
-		std::cerr << cle.what() << ": " << cle.Log() << std::endl;
+		std::cerr <<
+			"Error [in gl" << cle.GLFunc() << "]: " <<
+			cle.what() << ": " <<
+			cle.Log() <<
+			std::endl;
 	}
 	catch(oglplus::Error& e)
 	{
-		std::cerr << e.what() << " [" << e.File() << ":" << e.Line() << "]" << std::endl;
+		std::cerr <<
+			"Error [in gl" << e.GLFunc() << "]: " <<
+			e.what() <<
+			" [" << e.File() << ":" << e.Line() << "]" <<
+			std::endl;
 	}
 	catch(std::exception& se)
 	{

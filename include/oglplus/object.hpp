@@ -22,7 +22,7 @@ class Array;
 
 // Helper base class for OpenGL object wrappers
 /*
- *  @note Do not use this class directly, use the derived classes instead.
+ *  .note Do not use this class directly, use the derived classes instead.
  */
 template <class ObjectOps, bool MultiObject>
 class Object : public ObjectOps

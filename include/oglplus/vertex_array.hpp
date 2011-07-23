@@ -26,7 +26,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenVertexArrays(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GenVertexArrays));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -47,13 +47,13 @@ public:
 	{
 		assert(_name != 0);
 		::glBindVertexArray(_name);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindVertexArray));
 	}
 
 	static void Unbind(void)
 	{
 		::glBindVertexArray(0);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindVertexArray));
 	}
 };
 

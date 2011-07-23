@@ -41,7 +41,7 @@ protected:
 	static void _init(GLsizei, GLuint& _name)
 	{
 		_name = ::glCreateProgram();
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(CreateProgram));
 	}
 
 	static void _cleanup(GLsizei, GLuint& _name)
@@ -63,7 +63,7 @@ public:
 	{
 		assert(_name != 0);
 		::glAttachShader(_name, FriendOf<Shader>::GetName(shader));
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(AttachShader));
 	}
 
 
@@ -72,7 +72,7 @@ public:
 	{
 		assert(_name != 0);
 		::glDetachShader(_name, FriendOf<Shader>::GetName(shader));
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(DetachShader));
 	}
 
 	/// Returns true if the program is already linked,, false otherwise
@@ -83,7 +83,7 @@ public:
 	{
 		int status;
 		::glGetProgramiv(_name, GL_LINK_STATUS, &status);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
 		return status == GL_TRUE;
 	}
 
@@ -97,7 +97,9 @@ public:
 		assert(_name != 0);
 		return aux::GetInfoLog(
 			_name, ::glGetProgramiv,
-			::glGetProgramInfoLog
+			::glGetProgramInfoLog,
+			"GetProgramiv",
+			"GetProgramInfoLog"
 		);
 	}
 
@@ -110,9 +112,12 @@ public:
 	{
 		assert(_name != 0);
 		::glLinkProgram(_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(LinkProgram));
 		if(!IsLinked())
-			throw LinkError(GetInfoLog(),OGLPLUS_ERROR_INFO());
+			throw LinkError(
+				GetInfoLog(),
+				OGLPLUS_ERROR_INFO(LinkProgram)
+			);
 	}
 
 	/// Uses this shading language program
@@ -127,7 +132,7 @@ public:
 		assert(_name != 0);
 		assert(IsLinked());
 		::glUseProgram(_name);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(UseProgram));
 	}
 
 	void MakeSeparable(bool para = true) const
@@ -138,7 +143,7 @@ public:
 			GL_PROGRAM_SEPARABLE,
 			para ? GL_TRUE : GL_FALSE
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(ProgramParameteri));
 	}
 
 	void MakeRetrievable(bool para = true) const
@@ -149,7 +154,7 @@ public:
 			GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
 			para ? GL_TRUE : GL_FALSE
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(ProgramParameteri));
 	}
 
 	void GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
@@ -161,7 +166,7 @@ public:
 			GL_PROGRAM_BINARY_LENGTH,
 			&size
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
 		if(size > 0)
 		{
 			GLsizei len = 0;
@@ -173,7 +178,7 @@ public:
 				&format,
 				binary.data()
 			);
-			ThrowOnError(OGLPLUS_ERROR_INFO());
+			ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramBinary));
 		}
 	}
 
@@ -186,7 +191,7 @@ public:
 			binary.data(),
 			binary.size()
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(ProgramBinary));
 	}
 
 	// Implemented in vertex_attrib.hpp

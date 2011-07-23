@@ -26,7 +26,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenTextures(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GenTextures));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -61,13 +61,13 @@ public:
 	{
 		assert(_name != 0);
 		::glBindTexture(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindTexture));
 	}
 
 	static void Unbind(Target target)
 	{
 		::glBindTexture(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindTexture));
 	}
 };
 

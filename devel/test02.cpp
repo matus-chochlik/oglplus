@@ -30,6 +30,62 @@
 namespace oglplus {
 namespace build {
 
+/// Structure containing information about how to draw a part of a object
+struct DrawOperation
+{
+	/// Enumeration of drawing methods
+	enum class Method {
+		DrawArrays,
+		DrawElements
+		// TODO
+	};
+
+	/// The method to be used to draw
+	const Method method;
+	/// The primitive type to be used to draw
+	const PrimitiveType mode;
+
+	/// The first element
+	const GLint first;
+
+	/// Count of elements
+	const GLsizei count;
+
+	// TODO
+
+	void Draw(void) const
+	{
+		switch(method)
+		{
+			case Method::DrawArrays:
+				return _DrawArrays();
+			case Method::DrawElements:
+				return _DrawElements();
+		}
+	}
+
+	void _DrawArrays(void) const
+	{
+		::glDrawArrays(GLenum(mode), first, count);
+		ThrowOnError(OGLPLUS_ERROR_INFO(DrawArrays));
+	}
+
+	void _DrawElements(void) const
+	{
+		::glDrawElements(
+			GLenum(mode),
+			count,
+			GL_UNSIGNED_INT, // TODO
+			nullptr
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(DrawElements));
+	}
+};
+
+class DrawInstructions
+{
+};
+
 class Cube
 {
 public:

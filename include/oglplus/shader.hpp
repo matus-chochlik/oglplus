@@ -46,7 +46,7 @@ protected:
 	static void _init(GLsizei, GLuint& _name, Kind kind)
 	{
 		_name = ::glCreateShader(GLenum(kind));
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(CreateShader));
 	}
 
 	static void _cleanup(GLsizei, GLuint& _name)
@@ -110,7 +110,7 @@ public:
 		assert(_name != 0);
 		int status;
 		::glGetShaderiv(_name, GL_COMPILE_STATUS, &status);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetShaderiv));
 		return status == GL_TRUE;
 	}
 
@@ -124,7 +124,9 @@ public:
 		assert(_name != 0);
 		return aux::GetInfoLog(
 			_name, ::glGetShaderiv,
-			::glGetShaderInfoLog
+			::glGetShaderInfoLog,
+			"GetShaderiv",
+			"GetShaderInfoLog"
 		);
 	}
 
@@ -137,9 +139,12 @@ public:
 	{
 		assert(_name != 0);
 		::glCompileShader(_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(CompileShader));
 		if(!IsCompiled())
-			throw CompileError(GetInfoLog(), OGLPLUS_ERROR_INFO());
+			throw CompileError(
+				GetInfoLog(),
+				OGLPLUS_ERROR_INFO(CompileShader)
+			);
 	}
 };
 

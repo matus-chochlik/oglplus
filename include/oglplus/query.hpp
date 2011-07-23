@@ -26,7 +26,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenQueries(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GenQueries));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -50,14 +50,14 @@ public:
 	{
 		assert(_name != 0);
 		::glBeginQuery(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BeginQuery));
 	}
 
 	void End(Target target) const
 	{
 		assert(_name != 0);
 		::glEndQuery(GLenum(target));
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(EndQuery));
 	}
 };
 

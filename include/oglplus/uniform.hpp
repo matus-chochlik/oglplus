@@ -38,13 +38,13 @@ protected:
 		)
 	)
 	{
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetUniformLocation));
 		if(_index == GLint(-1))
 		{
 			ThrowOnError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
-				OGLPLUS_ERROR_INFO()
+				OGLPLUS_ERROR_INFO(GetUniformLocation)
 			);
 		}
 	}
@@ -56,6 +56,8 @@ namespace aux {
 class UniformSetters
 {
 protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(Uniform)
+
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, f, t, GLfloat)

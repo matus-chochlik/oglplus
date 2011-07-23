@@ -15,19 +15,51 @@
 #include <stdexcept>
 #include <list>
 
-#define OGLPLUS_ERROR_INFO() {__FILE__, __FUNCTION__, __LINE__}
+#define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT) \
+	static const char* _errinf_ctxt(void) \
+	{ \
+		return #CONTEXT; \
+	}
+
+#ifdef _NDEBUG
+#define OGLPLUS_ERROR_INFO(CONTEXT) \
+	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__}
+
+#define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
+	{errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__}
+
+#define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
+	{CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__}
+
+#else
+#define OGLPLUS_ERROR_INFO(CTXT) \
+	{#CTXT, __FILE__, __FUNCTION__, __LINE__, sizeof(decltype(&gl ## CTXT))}
+
+#define OGLPLUS_ERROR_INFO_AUTO_CTXT(CONTEXT_STR) \
+	{_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, 0}
+
+#define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
+	{CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0}
+
+#endif
+
 
 namespace oglplus {
 
 /// Basic information about exception's throw site and propagation trace points
 struct ErrorInfo
 {
+	/// The opengl function name (without the gl prefix)
+	 const char* glfn;
 	/// The source file name
 	const char* file;
 	/// The function pretty name
 	const char* func;
 	/// The source file line
 	const unsigned line;
+#ifndef _NDEBUG
+	const size_t _dummy;
+#endif
 };
 
 /// Exception class for general OpenGL errors
@@ -75,6 +107,7 @@ public:
 
 	/// Returns information about the throw site of the exception
 	/**
+	 *  @see GLFunc
 	 *  @see Code
 	 *  @see File
 	 *  @see Func
@@ -85,9 +118,23 @@ public:
 		return _info;
 	}
 
+	/// Returns the name of the failed OpenGL function without the gl prefix
+	/**
+	 *  @see ThrowInfo
+	 *  @see Code
+	 *  @see Func
+	 *  @see File
+	 *  @see Line
+	 */
+	const char* GLFunc(void) const
+	{
+		return _info.glfn;
+	}
+
 	/// Returns the path of the source file where the exception originated
 	/**
 	 *  @see ThrowInfo
+	 *  @see GLFunc
 	 *  @see Code
 	 *  @see Func
 	 *  @see Line
@@ -100,6 +147,7 @@ public:
 	/// Returns the name of the function where the exception originated
 	/**
 	 *  @see ThrowInfo
+	 *  @see GLFunc
 	 *  @see Code
 	 *  @see Name
 	 *  @see Line
@@ -112,6 +160,7 @@ public:
 	/// Returns the line in the source file where the exception originated
 	/**
 	 *  @see ThrowInfo
+	 *  @see GLFunc
 	 *  @see Code
 	 *  @see Name
 	 *  @see Func

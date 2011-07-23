@@ -32,7 +32,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenFramebuffers(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GenFramebuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -63,7 +63,7 @@ public:
 	{
 		assert(_name != 0);
 		::glBindFramebuffer(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindFramebuffer));
 	}
 
 	/// Unbinds the currently bound framebuffer from the specified target
@@ -73,7 +73,7 @@ public:
 	static void Unbind(Target target)
 	{
 		::glBindFramebuffer(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindFramebuffer));
 	}
 };
 

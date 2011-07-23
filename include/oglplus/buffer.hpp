@@ -32,7 +32,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		::glGenBuffers(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(GenBuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -100,7 +100,7 @@ public:
 				GL_BUFFER_SIZE,
 				&value
 			);
-			ThrowOnError(OGLPLUS_ERROR_INFO());
+			ThrowOnError(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
 			return GLsizeiptr(value);
 		}
 
@@ -126,7 +126,7 @@ public:
 			)
 		), _target(target)
 		{
-			ThrowOnError(OGLPLUS_ERROR_INFO());
+			ThrowOnError(OGLPLUS_ERROR_INFO(MapBufferRange));
 		}
 
 		Map(Target target, Access access)
@@ -135,7 +135,7 @@ public:
 		 , _ptr(::glMapBuffer(GLenum(target), _translate(access)))
 		 , _target(target)
 		{
-			ThrowOnError(OGLPLUS_ERROR_INFO());
+			ThrowOnError(OGLPLUS_ERROR_INFO(MapBuffer));
 		}
 
 		Map(const Map&) = delete;
@@ -182,7 +182,7 @@ public:
 	{
 		assert(_name != 0);
 		::glBindBuffer(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindBuffer));
 	}
 
 	/// Unbind the current buffer from the specified target
@@ -192,7 +192,7 @@ public:
 	static void Unbind(Target target)
 	{
 		::glBindBuffer(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO());
+		AssertNoError(OGLPLUS_ERROR_INFO(BindBuffer));
 	}
 
 	/// Uploads (sets) the buffer data
@@ -213,7 +213,7 @@ public:
 			data,
 			GLenum(usage)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(BufferData));
 	}
 
 	/// Uploads (sets) the buffer data
@@ -233,7 +233,7 @@ public:
 			data.data(),
 			GLenum(usage)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO(BufferData));
 	}
 };
 

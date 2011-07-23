@@ -22,12 +22,14 @@ namespace aux {
 inline std::string GetInfoLog(
 	GLuint object_name,
 	void (&GetObjectiv)(GLuint, GLenum, GLint*),
-	void (&GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*)
+	void (&GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
+	const char* name_GetObjectiv,
+	const char* name_GetObjectInfoLog
 )
 {
 	int length = 0;
 	GetObjectiv(object_name, GL_INFO_LOG_LENGTH, &length);
-	ThrowOnError(OGLPLUS_ERROR_INFO());
+	ThrowOnError(OGLPLUS_ERROR_INFO_STR(name_GetObjectiv));
 	if(length > 0)
 	{
 		GLsizei real_length = 0;
@@ -38,7 +40,7 @@ inline std::string GetInfoLog(
 			&real_length,
 			buffer.data()
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO());
+		ThrowOnError(OGLPLUS_ERROR_INFO_STR(name_GetObjectInfoLog));
 		return std::string(buffer.data(), buffer.size());
 	}
 	else return std::string();
