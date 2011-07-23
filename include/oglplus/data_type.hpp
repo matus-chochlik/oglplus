@@ -14,6 +14,7 @@
 
 namespace oglplus {
 
+/// OpenGL data type enumeration
 enum class DataType : GLenum
 {
 	Byte = GL_BYTE,

@@ -112,22 +112,92 @@ public:
 		return ::std::cos(a._val_rad);
 	}
 
-	/// Returns the tangens of the angle
+	/// Returns the tangent of the angle
 	friend inline T Tan(const Angle& a)
 	{
 		return ::std::tan(a._val_rad);
 	}
-
-	/// TODO: arcsin, ...
 };
 
 /// Creates a new angle from a value in radians
+/**
+ *  @param val_rad a value in radians
+ *
+ *  @see Degrees
+ *  @see ArcSin
+ *  @see ArcCos
+ *  @see ArcTan
+ */
 inline Angle<GLfloat> Radians(GLfloat val_rad)
 {
 	return Angle<GLfloat>::Radians(val_rad);
 }
 
+/// Creates a new angle using the arc sine function
+/**
+ *  @param x the value must be between -1.0 and 1.0
+ *
+ *  @see Radians
+ *  @see Degrees
+ *  @see ArcCos
+ *  @see ArcTan
+ */
+inline Angle<GLfloat> ArcSin(GLfloat x)
+{
+	assert(-1.0f <= x && x <= 1.0f);
+	return Angle<GLfloat>::Radians(::std::asin(x));
+}
+
+/// Creates a new angle using the arc cosine function
+/**
+ *  @param x the value must be between -1.0 and 1.0
+ *
+ *  @see Radians
+ *  @see Degrees
+ *  @see ArcSin
+ *  @see ArcTan
+ */
+inline Angle<GLfloat> ArcCos(GLfloat x)
+{
+	assert(-1.0f <= x && x <= 1.0f);
+	return Angle<GLfloat>::Radians(::std::acos(x));
+}
+
+/// Creates a new angle using the arc tangent function
+/**
+ *
+ *  @see Radians
+ *  @see Degrees
+ *  @see ArcSin
+ *  @see ArcTan
+ */
+inline Angle<GLfloat> ArcTan(GLfloat x)
+{
+	return Angle<GLfloat>::Radians(::std::atan(x));
+}
+
+/// Creates a new angle using the arc tangent function with 2 parameters
+/**
+ *
+ *  @see Radians
+ *  @see Degrees
+ *  @see ArcSin
+ *  @see ArcTan
+ */
+inline Angle<GLfloat> ArcTan(GLfloat y, GLfloat x)
+{
+	return Angle<GLfloat>::Radians(::std::atan2(y, x));
+}
+
 /// Creates a new angle from a value in degrees
+/**
+ *  @param val_deg a value in degrees
+ *
+ *  @see Radians
+ *  @see ArcSin
+ *  @see ArcCos
+ *  @see ArcTan
+ */
 inline Angle<GLfloat> Degrees(GLfloat val_deg)
 {
 	return Angle<GLfloat>::Degrees(val_deg);

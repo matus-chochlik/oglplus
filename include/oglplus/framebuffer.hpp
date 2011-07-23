@@ -19,6 +19,12 @@
 
 namespace oglplus {
 
+/// Wrapper for OpenGL framebuffer operations
+/**
+ *  @note Do not use this class directly, use FrameBuffer instead
+ *
+ *  @see FrameBuffer
+ */
 class FramebufferOps
  : public Named
 {
@@ -43,11 +49,16 @@ protected:
 
 	friend class FriendOf<FramebufferOps>;
 public:
+	/// Framebuffer bind targets
 	enum class Target : GLenum {
 		Draw = GL_DRAW_FRAMEBUFFER,
 		Read = GL_READ_FRAMEBUFFER
 	};
 
+	/// Bind this framebuffer to the specified target
+	/**
+	 *  @throws Error
+	 */
 	void Bind(Target target) const
 	{
 		assert(_name != 0);
@@ -55,6 +66,10 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
+	/// Unbinds the currently bound framebuffer from the specified target
+	/**
+	 *  @throws Error
+	 */
 	static void Unbind(Target target)
 	{
 		::glBindFramebuffer(GLenum(target), 0);
@@ -62,7 +77,14 @@ public:
 	}
 };
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Encapsulates the OpenGL framebuffer-related functionality
+class Framebuffer
+ : public FramebufferOps
+{ };
+#else
 typedef Object<FramebufferOps, true> Framebuffer;
+#endif
 
 } // namespace oglplus
 

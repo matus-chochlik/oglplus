@@ -213,7 +213,7 @@ public:
 			Matrix4f::Orbiting(
 				Vec3f(),
 				1.5,
-				Degrees(time * 90),
+				Degrees(time * 135),
 				Degrees(std::sin(time * 0.3) * 90)
 			)
 		);

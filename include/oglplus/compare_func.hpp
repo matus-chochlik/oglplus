@@ -14,15 +14,24 @@
 
 namespace oglplus {
 
+/// Comparison function type enumeration
 enum class CompareFunc : GLenum
 {
+	/// Less-than or equal
 	LEqual = GL_LEQUAL,
+	/// Greater-than or equal
 	GEqual = GL_GEQUAL,
+	/// Less-than
 	Less  = GL_LESS,
+	/// Greater-than
 	Greater = GL_GREATER,
+	/// Equal
 	Equal = GL_EQUAL,
+	/// Not equal
 	NotEqual = GL_NOTEQUAL,
+	/// Always true
 	Always = GL_ALWAYS,
+	/// Always false
 	Never = GL_NEVER
 };
 

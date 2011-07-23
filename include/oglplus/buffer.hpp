@@ -19,6 +19,12 @@
 
 namespace oglplus {
 
+/// Wrapper for OpenGL buffer operations
+/**
+ *  @note Do not use this class directly, use Buffer instead
+ *
+ *  @see Buffer
+ */
 class BufferOps
  : public Named
 {
@@ -43,6 +49,7 @@ protected:
 
 	friend class FriendOf<BufferOps>;
 public:
+	/// Buffer bind targets
 	enum class Target : GLenum {
 		Array = GL_ARRAY_BUFFER,
 		CopyRead = GL_COPY_READ_BUFFER,
@@ -56,6 +63,7 @@ public:
 		Uniform = GL_UNIFORM_BUFFER
 	};
 
+	/// Buffer usage
 	enum class Usage : GLenum {
 		StreamDraw = GL_STREAM_DRAW,
 		StreamRead = GL_STREAM_READ,
@@ -68,9 +76,11 @@ public:
 		DynamicCopy = GL_DYNAMIC_COPY
 	};
 
+	/// Mapping of the buffer to the client address space
 	class Map
 	{
 	public:
+		/// Mapped data access types
 		enum class Access : GLbitfield {
 			Read = GL_MAP_READ_BIT,
 			Write = GL_MAP_WRITE_BIT,
@@ -143,11 +153,13 @@ public:
 			if(_ptr != nullptr) ::glUnmapBuffer(GLenum(_target));
 		}
 
+		/// Returns the size in bytes of the mapped buffer
 		GLsizeiptr Size(void) const
 		{
 			return _size;
 		}
 
+		/// Returns the pointer to the mapped data
 		void* Data(void) const
 		{
 			return _ptr;
@@ -162,6 +174,10 @@ public:
 		}
 	};
 
+	/// Bind this buffer to the specified target
+	/**
+	 *  @throws Error
+	 */
 	void Bind(Target target) const
 	{
 		assert(_name != 0);
@@ -169,12 +185,20 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
+	/// Unbind the current buffer from the specified target
+	/**
+	 *  @throws Error
+	 */
 	static void Unbind(Target target)
 	{
 		::glBindBuffer(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO());
 	}
 
+	/// Uploads (sets) the buffer data
+	/**
+	 *  @throws Error
+	 */
 	template <typename GLtype>
 	static void Data(
 		Target target,
@@ -192,6 +216,10 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO());
 	}
 
+	/// Uploads (sets) the buffer data
+	/**
+	 *  @throws Error
+	 */
 	template <typename GLtype>
 	static void Data(
 		Target target,
@@ -209,7 +237,14 @@ public:
 	}
 };
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Encapsulates the OpenGL buffer-related functionality
+class Buffer
+ : public BufferOps
+{ };
+#else
 typedef Object<BufferOps, true> Buffer;
+#endif
 
 } // namespace oglplus
 
