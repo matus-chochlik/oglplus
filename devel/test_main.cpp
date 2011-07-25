@@ -24,7 +24,7 @@
 #include <ctime>
 #include <cassert>
 
-#include "example.hpp"
+#include "test.hpp"
 
 namespace oglplus {
 
@@ -58,12 +58,12 @@ void run(const x11::Display& display)
 		display,
 		vi,
 		x11::ColorMap(display, vi),
-		"oglplus example window"
+		"oglplus test window"
 	);
 	glx::Context ctx(display, fbc, 3, 0);
 	ctx.MakeCurrent(win);
 	{
-		std::unique_ptr<Example> example(makeExample());
+		std::unique_ptr<Test> example(makeTest());
 		std::clock_t start = std::clock();
 		while(1)
 		{

@@ -36,7 +36,7 @@ public:
 	{ }
 
 	template <typename T>
-	GLsizei Vertices(std::vector<T>& dest) const
+	GLuint Vertices(std::vector<T>& dest) const
 	{
 		const T c[8][3] = {
 			{-T(_x)/T(2), -T(_y)/T(2), +T(_z)/T(2)},
@@ -95,7 +95,7 @@ public:
 	}
 
 	template <typename T>
-	GLsizei Normals(std::vector<T>& dest) const
+	GLuint Normals(std::vector<T>& dest) const
 	{
 		const T n[6][3] = {
 			{-T(1),  T(0),  T(0)},
@@ -149,6 +149,11 @@ public:
 			n[5][0], n[5][1], n[5][2]
 		};
 		return 3;
+	}
+
+	std::vector<GLubyte> Indices(void) const
+	{
+		return std::vector<GLubyte>();
 	}
 
 	DrawingInstructions Instructions(void) const

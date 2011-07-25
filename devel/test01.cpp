@@ -1,284 +1,160 @@
 /**
  *  .file devel/test01.cpp
- *  This source file is here for development/testing purposes
- *  and its contents may change without any prior notice.
+ *  Development / testing file.
+ *  NOTE. this file is here for feature development / testing purposes only
+ *  and its source code, input, output can change witout prior notice.
  *
- *  @author Matus Chochlik
- *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-#include <iostream>
-
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-//
-#include <oglplus/glx/context.hpp>
-#include <oglplus/glx/fb_configs.hpp>
-#include <oglplus/glx/version.hpp>
-#include <oglplus/x11/window.hpp>
-#include <oglplus/x11/color_map.hpp>
-#include <oglplus/x11/visual_info.hpp>
-#include <oglplus/x11/display.hpp>
-//
-#include <string>
-#include <stdexcept>
-#include <cassert>
+#include <oglplus/shapes/cube.hpp>
+#include <oglplus/shapes/sphere.hpp>
+
+#include <cmath>
+
+#include "test.hpp"
 
 namespace oglplus {
-namespace slplus {
 
-class Type
+class Test01 : public Test
 {
 private:
-	std::string _name;
-protected:
-	template <typename ConcreteType>
-	Type(const std::string& name)
-	 : _name(name)
-	{ }
+	//typedef shapes::Cube Shape;
+	typedef shapes::Sphere Shape;
+	Shape shape;
 
-	const std::string& Name(void)
-	{
-		return _name;
-	}
-};
+	// wrapper around the current OpenGL context
+	Context gl;
 
-template <size_t N>
-class VecType
- : public Type
-{
+	// Vertex shader
+	VertexShader vs;
 
+	// Fragment shader
+	FragmentShader fs;
 
-};
+	// Program
+	Program prog;
 
-class Symbols
-{
-protected:
-	VecType<2> vec2;
-	VecType<3> vec3;
-	VecType<4> vec4;
-};
+	// A vertex array object for the rendered shape
+	VertexArray vao;
 
-class Shader;
-
-class Variable
-{
+	// VBOs for the shape's vertices and normals
+	Buffer verts;
+	Buffer normals;
 public:
-	enum class Kind {
-		Uniform,
-		Input,
-		Output,
-		InOut
-	};
-private:
-	Kind _kind;
-	//Type& _type;
-	std::string _identifier;
-
-	void RegisterWith(Shader& Shader) const;
-public:
-	Variable(
-		Shader& shader,
-		Kind kind,
-		const std::string& id
-	): _kind(kind)
-	 , _identifier(id)
+	Test01(void)
 	{
-		RegisterWith(shader);
-	}
-
-	std::string Declaration(void) const
-	{
-		std::string result;
-		//TODO
-		return result;
-	}
-};
-
-class Uniform
- : public Variable
-{
-public:
-	Uniform(Shader& shader, const std::string& id)
-	 : Variable(
-		shader,
-		Variable::Kind::Uniform,
-		id
-	)
-	{ }
-};
-
-class Shader
-{
-private:
-	std::vector<const Variable*> _reg_vars;
-
-	friend class Variable;
-protected:
-	void Register(const Variable& var)
-	{
-		_reg_vars.push_back(&var);
-	}
-public:
-};
-
-inline void Variable::RegisterWith(Shader& shader) const
-{
-	shader.Register(*this);
-}
-
-} // namespace slplus
-
-void run(const x11::Display& display)
-{
-	static int visual_attribs[] =
-	{
-		GLX_X_RENDERABLE    , True,
-		GLX_DRAWABLE_TYPE   , GLX_WINDOW_BIT,
-		GLX_RENDER_TYPE     , GLX_RGBA_BIT,
-		GLX_X_VISUAL_TYPE   , GLX_TRUE_COLOR,
-		GLX_RED_SIZE        , 8,
-		GLX_GREEN_SIZE      , 8,
-		GLX_BLUE_SIZE       , 8,
-		GLX_ALPHA_SIZE      , 8,
-		GLX_DEPTH_SIZE      , 24,
-		GLX_STENCIL_SIZE    , 8,
-		GLX_DOUBLEBUFFER    , True,
-		//GLX_SAMPLE_BUFFERS  , 1,
-		//GLX_SAMPLES         , 4,
-		None
-	};
-	glx::Version version(display);
-	version.AssertAtLeast(1, 3);
-
-	glx::FBConfig fbc = glx::FBConfigs(
-		display,
-		visual_attribs
-	).FindBest(display);
-
-	x11::VisualInfo vi(display, fbc);
-	x11::Window win(
-		display,
-		vi,
-		x11::ColorMap(display, vi),
-		"OpenGL 3.0 window"
-	);
-	glx::Context ctx(display, fbc, 3, 0);
-	ctx.MakeCurrent(win);
-
-	//
-	{
-		using namespace oglplus;
-
-		VertexShader vs;
-		vs.Source(" \
-			#version 330\n \
-			in vec3 vertex; \
-			in vec3 inColor; \
-			uniform mat4 tmpMatrix; \
-			out vec4 outColor; \
-			void main(void) \
-			{ \
-				gl_Position = tmpMatrix * vec4(vertex, 1.0); \
-				outColor = vec4(inColor, 1.0); \
-			} \
-		");
+		// Set the vertex shader source
+		vs.Source(
+			"#version 330\n"
+			"uniform mat4 projectionMatrix, cameraMatrix;"
+			"in vec4 vertex;"
+			"in vec3 normal;"
+			"out vec3 fragNormal;"
+			"void main(void)"
+			"{"
+			"	fragNormal = normal;"
+			"	gl_Position = "
+			"		projectionMatrix *"
+			"		cameraMatrix *"
+			"		vertex;"
+			"}"
+		);
+		// compile it
 		vs.Compile();
-		FragmentShader fs;
-		fs.Source(" \
-			#version 330\n \
-			in vec4 outColor; \
-			out vec4 fragColor; \
-			void main(void) \
-			{ \
-				fragColor = outColor; \
-			} \
-		");
+
+		// set the fragment shader source
+		// (uses the absolute value of normal as color)
+		fs.Source(
+			"#version 330\n"
+			"in vec3 fragNormal;"
+			"out vec4 fragColor;"
+			"void main(void)"
+			"{"
+			"	fragColor = vec4(abs(fragNormal), 1.0);"
+			"}"
+		);
+		// compile it
 		fs.Compile();
-		Program prog;
+
+		// attach the shaders to the program
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
+		// link and use it
 		prog.Link();
 		prog.Use();
-		//
-		//
-		VertexArray vao;
+
+		// bind the VAO for the shape
 		vao.Bind();
-		Array<Buffer> vbo(2);
-		//
-		GLfloat triangle_data[9] = {
-			0.0f, 0.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f
-		};
-		vbo[0].Bind(Buffer::Target::Array);
-		Buffer::Data(Buffer::Target::Array, triangle_data, 9);
-		VertexAttribArray vaa1(prog, "vertex");
-		vaa1.Setup(3, DataType::Float);
-		vaa1.Enable();
-		//
-		GLfloat triangle_color[9] = {
-			1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 1.0f
-		};
-		vbo[1].Bind(Buffer::Target::Array);
-		Buffer::Data(Buffer::Target::Array, triangle_color, 9);
-		VertexAttribArray vaa2(prog, "inColor");
-		vaa2.Setup(3, DataType::Float);
-		vaa2.Enable();
-		//
+
+		// bind the VBO for the shape vertices
+		verts.Bind(Buffer::Target::Array);
 		{
-			auto map = Buffer::Map(Buffer::Target::Array, Buffer::Map::Access::Read);
-			for(int i=0;i!=9;++i)
-				assert(map.At<GLfloat>(i) == triangle_color[i]);
+			std::vector<GLfloat> vertices;
+			GLuint n_per_vertex = shape.Vertices(vertices);
+			// upload the data
+			Buffer::Data(Buffer::Target::Array, vertices);
+			// setup the vertex attribs array for the vertices
+			VertexAttribArray attr(prog, "vertex");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
 		}
-		//
-		Uniform u1(prog, "tmpMatrix");
-		u1.SetMatrix<4>(
-			 2.0f,  0.0f,  0.0f,  0.0f,
-			 0.0f,  2.0f,  0.0f,  0.0f,
-			 0.0f,  0.0f,  2.0f,  0.0f,
-			-1.0f, -1.0f,  0.0f,  1.0f
+
+		// bind the VBO for the shape normals
+		normals.Bind(Buffer::Target::Array);
+		{
+			std::vector<GLfloat> normals;
+			GLuint n_per_vertex = shape.Normals(normals);
+			// upload the data
+			Buffer::Data(Buffer::Target::Array, normals);
+			// setup the vertex attribs array for the normals
+			VertexAttribArray attr(prog, "normal");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
+		}
+
+		// set the projection matrix fov = 24 deg. aspect = 1.25
+		Uniform(prog, "projectionMatrix").SetMatrix(
+			Matrix4f::Perspective(Degrees(24), 1.25, 1, 100)
 		);
 		//
-		Context gl;
-		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+		VertexArray::Unbind();
+		gl.ClearColor(0.03f, 0.03f, 0.03f, 0.0f);
 		gl.ClearDepth(1.0f);
+		glEnable(GL_DEPTH_TEST);
+	}
+
+	void Render(double time)
+	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		gl.DrawArrays(PrimitiveType::Triangles, 0, 3);
-		ctx.SwapBuffers(win);
-		::sleep(2);
+		// set the matrix for camera orbiting the origin
+		Uniform(prog, "cameraMatrix").SetMatrix(
+			Matrix4f::Orbiting(
+				Vec3f(),
+				1.5,
+				Degrees(time * 135),
+				Degrees(std::sin(time * 0.3) * 90)
+			)
+		);
+
+		vao.Bind();
+		// This is not very effective
+		shape.Instructions().Draw(shape.Indices());
 	}
-	//
-	ctx.Release(display);
+
+	bool Continue(double time)
+	{
+		return time < 30.0;
+	}
+};
+
+std::unique_ptr<Test> makeTest(void)
+{
+	return std::unique_ptr<Test>(new Test01);
 }
 
 } // namespace oglplus
-
-int main (int argc, char ** argv)
-{
-	try
-	{
-		oglplus::run(oglplus::x11::Display());
-		std::cout << "Done" << std::endl;
-	}
-	catch(oglplus::CompileOrLinkError& cle)
-	{
-		std::cerr << cle.what() << ": " << cle.Log() << std::endl;
-	}
-	catch(oglplus::Error& e)
-	{
-		std::cerr << e.what() << " [" << e.File() << ":" << e.Line() << "]" << std::endl;
-	}
-	catch(std::runtime_error& rte)
-	{
-		std::cerr << "Error: " << rte.what() << std::endl;
-		return 1;
-	}
-	return 0;
-}
-

@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_DATA_TYPE_1107121519_HPP
 #define OGLPLUS_DATA_TYPE_1107121519_HPP
 
+#include <oglplus/config.hpp>
+
 namespace oglplus {
 
 /// OpenGL data type enumeration
@@ -29,9 +31,29 @@ enum class DataType : GLenum
 	UnsignedInt = GL_UNSIGNED_INT
 };
 
+DataType GetDataType(GLbyte*)
+{
+	return DataType::Byte;
+}
+
+DataType GetDataType(GLshort*)
+{
+	return DataType::Short;
+}
+
 DataType GetDataType(GLint*)
 {
 	return DataType::Int;
+}
+
+DataType GetDataType(GLubyte*)
+{
+	return DataType::UnsignedByte;
+}
+
+DataType GetDataType(GLushort*)
+{
+	return DataType::UnsignedShort;
 }
 
 DataType GetDataType(GLuint*)
@@ -47,6 +69,12 @@ DataType GetDataType(GLfloat*)
 DataType GetDataType(GLdouble*)
 {
 	return DataType::Double;
+}
+
+template <typename T>
+DataType GetDataType(void)
+{
+	return GetDataType((T*)nullptr);
 }
 
 } // namespace oglplus

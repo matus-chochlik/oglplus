@@ -167,9 +167,9 @@ public:
 	Matrix(Zero)
 	{
 		this->_m._data = {
-			T(0), T(0), T(0), T(0), 
-			T(0), T(0), T(0), T(0), 
-			T(0), T(0), T(0), T(0), 
+			T(0), T(0), T(0), T(0),
+			T(0), T(0), T(0), T(0),
+			T(0), T(0), T(0), T(0),
 			T(0), T(0), T(0), T(0)
 		};
 	}
@@ -178,9 +178,9 @@ public:
 	Matrix(void)
 	{
 		this->_m._data = {
-			T(1), T(0), T(0), T(0), 
-			T(0), T(1), T(0), T(0), 
-			T(0), T(0), T(1), T(0), 
+			T(1), T(0), T(0), T(0),
+			T(0), T(1), T(0), T(0),
+			T(0), T(0), T(1), T(0),
 			T(0), T(0), T(0), T(1)
 		};
 	}
@@ -241,7 +241,7 @@ public:
 
 	/// Returns the value of the element at position I,J
 	template <size_t I, size_t J>
-	T At(void) const 
+	T At(void) const
 	{
 		return At(*this);
 	}
@@ -376,9 +376,9 @@ public:
 	 : Base(typename Base::NoInit())
 	{
 		this->_m._data = {
-			T(1), T(0), T(0),   dx, 
-			T(0), T(1), T(0),   dy, 
-			T(0), T(0), T(1),   dz, 
+			T(1), T(0), T(0),   dx,
+			T(0), T(1), T(0),   dy,
+			T(0), T(0), T(1),   dz,
 			T(0), T(0), T(0), T(1)
 		};
 	}
@@ -395,9 +395,9 @@ public:
 	 : Base(typename Base::NoInit())
 	{
 		this->_m._data = {
-			  sx, T(0), T(0), T(0), 
-			T(0),   sy, T(0), T(0), 
-			T(0), T(0),   sz, T(0), 
+			  sx, T(0), T(0), T(0),
+			T(0),   sy, T(0), T(0),
+			T(0), T(0),   sz, T(0),
 			T(0), T(0), T(0), T(1)
 		};
 	}
@@ -421,7 +421,7 @@ public:
 			 T(0),  sinx,  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
 		};
-	} 
+	}
 
 	/// Constructs a X-axis rotation matrix
 	static inline Matrix4x4 RotationX(Angle<T> angle)
@@ -442,7 +442,7 @@ public:
 			-sinx,  T(0),  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
 		};
-	} 
+	}
 
 	/// Constructs a Y-axis rotation matrix
 	static inline Matrix4x4 RotationY(Angle<T> angle)
@@ -463,7 +463,7 @@ public:
 			 T(0),  T(0),  T(1),  T(0),
 			 T(0),  T(0),  T(0),  T(1)
 		};
-	} 
+	}
 
 	/// Constructs a Z-axis rotation matrix
 	static inline Matrix4x4 RotationZ(Angle<T> angle)
@@ -485,10 +485,10 @@ public:
 		this->_m._data = {
 			cf + xx*_cf,    xy*_cf - z*sf,  xz*_cf + y*sf,  T(0),
 			xy*_cf + z*sf,  cf + yy*_cf,    yz*_cf - x*sf,  T(0),
-			xz*_cf - y*sf,  yz*_cf + x*sf,  cf + zz*_cf,    T(0), 
+			xz*_cf - y*sf,  yz*_cf + x*sf,  cf + zz*_cf,    T(0),
 			T(0),           T(0),           T(0),           T(1)
 		};
-	} 
+	}
 
 	/// Constructs a rotation matrix from a vector and angle
 	static inline Matrix4x4 RotationA(
@@ -581,13 +581,13 @@ public:
 		const Vector<T, 3>& target,
 		T radius,
 		Angle<T> azimuth,
-		Angle<T> inclination
+		Angle<T> elevation
 	)
 	{
 		Vector<T, 3> z(
-			Cos(inclination) * Cos(azimuth),
-			Sin(inclination),
-			Cos(inclination) * Sin(azimuth)
+			Cos(elevation) * Cos(azimuth),
+			Sin(elevation),
+			Cos(elevation) * Sin(azimuth)
 		);
 		Vector<T, 3> x(
 			-Sin(azimuth),
@@ -617,12 +617,12 @@ public:
 
 	}
 
-	/// Constructs a matrix from target, radius, azimuth and inclination
+	/// Constructs a matrix from target, radius, azimuth and elevation
 	static inline Matrix4x4 Orbiting(
 		const Vector<T, 3>& target,
 		T radius,
 		Angle<T> azimuth,
-		Angle<T> inclination
+		Angle<T> elevation
 	)
 	{
 		return Matrix4x4(
@@ -630,7 +630,7 @@ public:
 			target,
 			radius,
 			azimuth,
-			inclination
+			elevation
 		);
 	}
 };

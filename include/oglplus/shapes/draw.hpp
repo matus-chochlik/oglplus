@@ -30,20 +30,22 @@ struct DrawOperation
 	};
 
 	/// The method to be used to draw
-	const Method method;
+	Method method;
 	/// The primitive type to be used to draw
-	const PrimitiveType mode;
+	PrimitiveType mode;
 
 	/// The first element
-	const GLuint first;
+	GLuint first;
 
 	/// Count of elements
-	const GLuint count;
-
-	// TODO
+	GLuint count;
 
 	/// Draw the part of a shape
-	void Draw(GLuint inst_count = 1) const
+	template <typename IT>
+	void Draw(
+		const std::vector<IT>& indices,
+		GLuint inst_count = 1
+	) const
 	{
 		// TODO: drawing multiple instances
 		assert(inst_count == 1);
@@ -52,7 +54,7 @@ struct DrawOperation
 			case Method::DrawArrays:
 				return _DrawArrays();
 			case Method::DrawElements:
-				return _DrawElements();
+				return _DrawElements(indices);
 		}
 	}
 private:
@@ -62,13 +64,14 @@ private:
 		ThrowOnError(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
-	void _DrawElements(void) const
+	template <typename IT>
+	void _DrawElements(const std::vector<IT>& indices) const
 	{
 		::glDrawElements(
 			GLenum(mode),
 			count,
-			GL_UNSIGNED_INT, // TODO
-			nullptr
+			GLenum(GetDataType<IT>()),
+			(void*)(indices.data() + first)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(DrawElements));
 	}
@@ -94,6 +97,9 @@ private:
 	typedef std::vector<DrawOperation> DrawOperationSeq;
 	DrawOperationSeq _ops;
 
+	DrawingInstructions(void)
+	{ }
+
 	DrawingInstructions(DrawOperationSeq&& ops)
 	 : _ops(std::move(ops))
 	{ }
@@ -108,12 +114,12 @@ public:
 	 : _ops(other._ops)
 	{ }
 
-	// TODO: drawing multiple instances
-	/// Draw the shape from data in currently bound VBO's
-	void Draw(GLuint inst_count = 1) const
+	/// Draw the shape from data in currently bound VBOs indexed by indices
+	template <typename IT>
+	void Draw(const std::vector<IT>& indices, GLuint inst_count = 1) const
 	{
 		for(auto i=_ops.begin(),e=_ops.end();i!=e;++i)
-			i->Draw(inst_count);
+			i->Draw(indices, inst_count);
 	}
 };
 
@@ -121,11 +127,24 @@ public:
 class DrawingInstructionWriter
 {
 private:
-	typedef DrawingInstructions::DrawOperationSeq Ops;
+	typedef DrawingInstructions::DrawOperationSeq Operations;
 protected:
-	static DrawingInstructions MakeInstructions(Ops&& ops)
+	static DrawingInstructions MakeInstructions(void)
 	{
-		return DrawingInstructions(std::forward<Ops>(ops));
+		return DrawingInstructions();
+	}
+
+	static void AddInstruction(
+		DrawingInstructions& instr,
+		const DrawOperation& operation
+	)
+	{
+		instr._ops.push_back(operation);
+	}
+
+	static DrawingInstructions MakeInstructions(Operations&& ops)
+	{
+		return DrawingInstructions(std::forward<Operations>(ops));
 	}
 };
 
