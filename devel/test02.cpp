@@ -15,6 +15,8 @@
 #include <oglplus/matrix.hpp>
 #include <oglplus/all.hpp>
 //
+#include <oglplus/shapes/cube.hpp>
+//
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
 #include <oglplus/glx/version.hpp>
@@ -28,204 +30,6 @@
 #include <cassert>
 
 namespace oglplus {
-namespace build {
-
-/// Structure containing information about how to draw a part of a object
-struct DrawOperation
-{
-	/// Enumeration of drawing methods
-	enum class Method {
-		DrawArrays,
-		DrawElements
-		// TODO
-	};
-
-	/// The method to be used to draw
-	const Method method;
-	/// The primitive type to be used to draw
-	const PrimitiveType mode;
-
-	/// The first element
-	const GLint first;
-
-	/// Count of elements
-	const GLsizei count;
-
-	// TODO
-
-	void Draw(void) const
-	{
-		switch(method)
-		{
-			case Method::DrawArrays:
-				return _DrawArrays();
-			case Method::DrawElements:
-				return _DrawElements();
-		}
-	}
-
-	void _DrawArrays(void) const
-	{
-		::glDrawArrays(GLenum(mode), first, count);
-		ThrowOnError(OGLPLUS_ERROR_INFO(DrawArrays));
-	}
-
-	void _DrawElements(void) const
-	{
-		::glDrawElements(
-			GLenum(mode),
-			count,
-			GL_UNSIGNED_INT, // TODO
-			nullptr
-		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(DrawElements));
-	}
-};
-
-class DrawInstructions
-{
-};
-
-class Cube
-{
-public:
-	template <typename T>
-	static GLsizei Vertices(
-		std::vector<T>& dest,
-		T x = T(1), 
-		T y = T(1), 
-		T z = T(1)
-	)
-	{
-		const T c[8][3] = {
-			{-T(x)/T(2), -T(y)/T(2), +T(z)/T(2)},
-			{-T(x)/T(2), -T(y)/T(2), -T(z)/T(2)},
-			{-T(x)/T(2), +T(y)/T(2), -T(z)/T(2)},
-			{-T(x)/T(2), +T(y)/T(2), +T(z)/T(2)},
-			{+T(x)/T(2), -T(y)/T(2), +T(z)/T(2)},
-			{+T(x)/T(2), -T(y)/T(2), -T(z)/T(2)},
-			{+T(x)/T(2), +T(y)/T(2), -T(z)/T(2)},
-			{+T(x)/T(2), +T(y)/T(2), +T(z)/T(2)}
-		};
-		dest = {
-			c[0][0], c[0][1], c[0][2],
-			c[2][0], c[2][1], c[2][2],
-			c[1][0], c[1][1], c[1][2],
-			c[0][0], c[0][1], c[0][2],
-			c[3][0], c[3][1], c[3][2],
-			c[2][0], c[2][1], c[2][2],
-
-			c[0][0], c[0][1], c[0][2],
-			c[1][0], c[1][1], c[1][2],
-			c[4][0], c[4][1], c[4][2],
-			c[1][0], c[1][1], c[1][2],
-			c[5][0], c[5][1], c[5][2],
-			c[4][0], c[4][1], c[4][2],
-
-			c[1][0], c[1][1], c[1][2],
-			c[2][0], c[2][1], c[2][2],
-			c[5][0], c[5][1], c[5][2],
-			c[2][0], c[2][1], c[2][2],
-			c[6][0], c[6][1], c[6][2],
-			c[5][0], c[5][1], c[5][2],
-
-			c[4][0], c[4][1], c[4][2],
-			c[5][0], c[5][1], c[5][2],
-			c[6][0], c[6][1], c[6][2],
-			c[4][0], c[4][1], c[4][2],
-			c[6][0], c[6][1], c[6][2],
-			c[7][0], c[7][1], c[7][2],
-
-			c[2][0], c[2][1], c[2][2],
-			c[3][0], c[3][1], c[3][2],
-			c[7][0], c[7][1], c[7][2],
-			c[2][0], c[2][1], c[2][2],
-			c[7][0], c[7][1], c[7][2],
-			c[6][0], c[6][1], c[6][2],
-
-			c[0][0], c[0][1], c[0][2],
-			c[4][0], c[4][1], c[4][2],
-			c[3][0], c[3][1], c[3][2],
-			c[3][0], c[3][1], c[3][2],
-			c[4][0], c[4][1], c[4][2],
-			c[7][0], c[7][1], c[7][2]
-		};
-		return 3;
-	}
-
-	template <typename T>
-	static GLsizei Normals(std::vector<T>& dest)
-	{
-		const T n[6][3] = {
-			{-T(1),  T(0),  T(0)},
-			{ T(0), -T(1),  T(0)},
-			{ T(0),  T(0), -T(1)},
-			{+T(1),  T(0),  T(0)},
-			{ T(0), +T(1),  T(0)},
-			{ T(0),  T(0),  +(1)}
-		};
-		dest = {
-			n[0][0], n[0][1], n[0][2],
-			n[0][0], n[0][1], n[0][2],
-			n[0][0], n[0][1], n[0][2],
-			n[0][0], n[0][1], n[0][2],
-			n[0][0], n[0][1], n[0][2],
-			n[0][0], n[0][1], n[0][2],
-
-			n[1][0], n[1][1], n[1][2],
-			n[1][0], n[1][1], n[1][2],
-			n[1][0], n[1][1], n[1][2],
-			n[1][0], n[1][1], n[1][2],
-			n[1][0], n[1][1], n[1][2],
-			n[1][0], n[1][1], n[1][2],
-
-			n[2][0], n[2][1], n[2][2],
-			n[2][0], n[2][1], n[2][2],
-			n[2][0], n[2][1], n[2][2],
-			n[2][0], n[2][1], n[2][2],
-			n[2][0], n[2][1], n[2][2],
-			n[2][0], n[2][1], n[2][2],
-
-			n[3][0], n[3][1], n[3][2],
-			n[3][0], n[3][1], n[3][2],
-			n[3][0], n[3][1], n[3][2],
-			n[3][0], n[3][1], n[3][2],
-			n[3][0], n[3][1], n[3][2],
-			n[3][0], n[3][1], n[3][2],
-
-			n[4][0], n[4][1], n[4][2],
-			n[4][0], n[4][1], n[4][2],
-			n[4][0], n[4][1], n[4][2],
-			n[4][0], n[4][1], n[4][2],
-			n[4][0], n[4][1], n[4][2],
-			n[4][0], n[4][1], n[4][2],
-
-			n[5][0], n[5][1], n[5][2],
-			n[5][0], n[5][1], n[5][2],
-			n[5][0], n[5][1], n[5][2],
-			n[5][0], n[5][1], n[5][2],
-			n[5][0], n[5][1], n[5][2],
-			n[5][0], n[5][1], n[5][2]
-		};
-		return 3;
-	}
-
-	template <typename T>
-	static GLsizei Indices(std::vector<T>& dest)
-	{
-		dest = {
-		 	 T(0),  T(1),  T(2),  T(3),  T(4),  T(5),
-		 	 T(6),  T(7),  T(8),  T(9), T(10), T(11),
-		 	T(12), T(13), T(14), T(15), T(16), T(17),
-			T(18), T(19), T(20), T(21), T(22), T(23),
-			T(24), T(25), T(26), T(27), T(28), T(29),
-			T(30), T(31), T(32), T(33), T(34), T(35)
-		};
-		return 6 * 2 * 3;
-	}
-};
-
-} // namespace build
 
 void run(const x11::Display& display)
 {
@@ -302,11 +106,13 @@ void run(const x11::Display& display)
 		VertexArray vao;
 		vao.Bind();
 		//
+		shapes::Cube cube;
+		//
 		Buffer vertices;
 		vertices.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLsizei n_per_vertex = build::Cube::Vertices(data);
+			GLsizei n_per_vertex = cube.Vertices(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray vaa(prog, "vertex");
 			vaa.Setup(n_per_vertex, DataType::Float);
@@ -316,22 +122,13 @@ void run(const x11::Display& display)
 		normals.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLsizei n_per_vertex = build::Cube::Normals(data);
+			GLsizei n_per_vertex = cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray vaa(prog, "normal");
 			vaa.Setup(n_per_vertex, DataType::Float);
 			vaa.Enable();
 		}
-/*
-		Buffer indices;
-		GLsizei nindices;
-		indices.Bind(Buffer::Target::ElementArray);
-		{
-			std::vector<GLuint> data;
-			nindices = build::Cube::Indices(data);
-			Buffer::Data(Buffer::Target::ElementArray, data);
-		}
-*/
+		//
 		//
 		Uniform(prog, "projectionMatrix").SetMatrix(
 			Matrix4f::Perspective(
@@ -353,9 +150,8 @@ void run(const x11::Display& display)
 		gl.ClearDepth(1.0f);
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
+		cube.Instructions().Draw();
 		//
-		gl.DrawArrays(PrimitiveType::Triangles, 0, 36);
-		//gl.DrawElements(PrimitiveType::Triangles, nindices, DataType::UnsignedInt);
 		ctx.SwapBuffers(win);
 		::sleep(3);
 	}
