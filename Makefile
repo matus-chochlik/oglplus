@@ -59,7 +59,7 @@ all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS))
 devel_tests: $(addprefix $(OUTDIR)/, $(DEVEL_TESTS));
 
 docs: html_docs;
-html_docs: example_screenshots $(addprefix $(OUTDIR)/, $(HTML_DOCS));
+html_docs: $(addprefix $(OUTDIR)/, $(HTML_DOCS));
 
 example_screenshots: $(addsuffix .png,$(addprefix $(BLDDIR)/, $(EXAMPLES)))
 
@@ -144,7 +144,7 @@ $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTD
 	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
 
 #build the doxygen html documentation
-$(OUTDIR)/doc/doxygen/%/html/index.html: $(wildcard doc/doxygen/Doxyfile.*)
+$(OUTDIR)/doc/doxygen/%/html/index.html: $(wildcard doc/doxygen/Doxyfile.*) example_screenshots
 	cd doc/doxygen && (cat Doxyfile.$* && echo "QUIET=YES") | doxygen -
 
 # rules to make the final and itermediate output directories
