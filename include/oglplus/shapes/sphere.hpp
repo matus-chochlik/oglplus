@@ -28,8 +28,8 @@ private:
 public:
 	Sphere(void)
 	 : _radius(1.0)
-	 , _sections(12)
-	 , _rings(10)
+	 , _sections(18)
+	 , _rings(12)
 	{ }
 
 	template <typename T>
@@ -82,7 +82,7 @@ public:
 		// 1 fan at the south pole
 		const size_t n =
 			2 * (1 + _sections + 1) +  // 2 fans at the poles
-			(_rings - 1)*(2 * (_sections + 1)); // the strips between
+			2 * (_rings - 1)*(_sections + 1); // the strips between
 		//
 		std::vector<GLushort> indices(n);
 		size_t k = 0;
@@ -93,7 +93,7 @@ public:
 		indices[k++] = 1;
 		assert(k == _sections + 2);
 		//
-		size_t offs = 1 + _sections;
+		size_t offs = 1;
 		// the triangle strips
 		for(size_t r=0; r!=(_rings-1); ++r)
 		{
@@ -107,10 +107,10 @@ public:
 			offs += _sections;
 		}
 		// the south pole fan
-		indices[k++] = n-1;
-		for(size_t s=0; s!=_sections; ++s)
-			indices[k++] = offs + s;
+		indices[k++] = 1 + (_rings * _sections);
 		indices[k++] = offs;
+		for(size_t s=0; s!=_sections; ++s)
+			indices[k++] = offs + (_sections - s - 1);
 		//
 		// return the indices
 		return std::move(indices);
@@ -127,6 +127,19 @@ public:
 				0, _sections + 2
 			}
 		);
+		for(size_t r=0; r!=(_rings-1); ++r)
+		{
+			this->AddInstruction(
+				instructions,
+				{
+					DrawOperation::Method::DrawElements,
+					PrimitiveType::TriangleStrip,
+					(_sections + 2) +
+					r * (_sections + 1) * 2,
+					(_sections + 1) * 2
+				}
+			);
+		}
 		this->AddInstruction(
 			instructions,
 			{

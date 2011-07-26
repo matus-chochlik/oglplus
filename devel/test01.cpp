@@ -22,8 +22,8 @@ namespace oglplus {
 class Test01 : public Test
 {
 private:
-	//typedef shapes::Cube Shape;
-	typedef shapes::Sphere Shape;
+	typedef shapes::Cube Shape;
+	//typedef shapes::Sphere Shape;
 	Shape shape;
 
 	// wrapper around the current OpenGL context
@@ -125,6 +125,10 @@ public:
 		gl.ClearColor(0.03f, 0.03f, 0.03f, 0.0f);
 		gl.ClearDepth(1.0f);
 		glEnable(GL_DEPTH_TEST);
+		//
+		glFrontFace(GL_CCW);
+		glCullFace(GL_BACK);
+		glEnable(GL_CULL_FACE);
 	}
 
 	void Render(double time)
