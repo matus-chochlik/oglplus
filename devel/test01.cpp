@@ -12,6 +12,7 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/sphere.hpp>
+#include <oglplus/shapes/torus.hpp>
 
 #include <cmath>
 
@@ -22,8 +23,10 @@ namespace oglplus {
 class Test01 : public Test
 {
 private:
-	typedef shapes::Cube Shape;
+	//typedef shapes::Cube Shape;
 	//typedef shapes::Sphere Shape;
+	typedef shapes::Torus Shape;
+	//
 	Shape shape;
 
 	// wrapper around the current OpenGL context
@@ -79,7 +82,7 @@ public:
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	int c = (1 + int(fragUV.x*8)%2 + int(fragUV.y*8)%2)%2;"
+			"	int c = (1 + int(fragUV.x*18)%2 + int(fragUV.y*12)%2)%2;"
 			"	fragColor = vec4(abs(fragNormal), 1)*(1.0+c)/2.0;"
 			"}"
 		);

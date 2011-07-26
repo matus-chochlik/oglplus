@@ -103,7 +103,7 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
-		assert((1<<(sizeof(GLushort)*8)) - 1 >= (2+_rings*_sections));
+		assert((1<<(sizeof(GLushort)*8))-1>=((_rings+2)*(_sections+1)));
 		//
 		const size_t n =
 			2 * (_rings + 1)*(_sections + 1);
