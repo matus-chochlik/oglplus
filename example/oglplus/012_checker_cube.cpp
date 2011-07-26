@@ -71,7 +71,6 @@ public:
 		vs.Compile();
 
 		// set the fragment shader source
-		// (uses the absolute value of normal as color)
 		fs.Source(
 			"#version 330\n"
 			"in vec2 uv;"
