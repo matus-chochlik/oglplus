@@ -1,8 +1,8 @@
 /**
- *  .file devel/test01.cpp
- *  Development / testing file.
- *  NOTE. this file is here for feature development / testing purposes only
- *  and its source code, input, output can change witout prior notice.
+ *  @example oglplus/012_checker_cube.cpp
+ *  @brief Shows how to draw a checkered cube using the Cube builder
+ *
+ *  @image html 012_checker_cube.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,20 +11,22 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
-#include <oglplus/shapes/sphere.hpp>
 
 #include <cmath>
 
-#include "test.hpp"
+#include "example.hpp"
 
 namespace oglplus {
 
-class Test01 : public Test
+class CubeExample : public Example
 {
 private:
-	typedef shapes::Cube Shape;
-	//typedef shapes::Sphere Shape;
-	Shape shape;
+	// helper object building cube vertex attributes
+	shapes::Cube make_cube;
+	// helper object encapsulating cube drawing instructions
+	shapes::DrawingInstructions cube_instr;
+	// indices pointing to cube primitive elements
+	shapes::Cube::IndexArray cube_indices;
 
 	// wrapper around the current OpenGL context
 	Context gl;
@@ -38,29 +40,27 @@ private:
 	// Program
 	Program prog;
 
-	// A vertex array object for the rendered shape
-	VertexArray vao;
+	// A vertex array object for the rendered cube
+	VertexArray cube;
 
-	// VBOs for the shape's vertices and normals
+	// VBOs for the cube's vertices and uv-coordinates
 	Buffer verts;
-	Buffer normals;
 	Buffer uvcoords;
 public:
-	Test01(void)
+	CubeExample(void)
+	 : cube_instr(make_cube.Instructions())
+	 , cube_indices(make_cube.Indices())
 	{
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 projectionMatrix, cameraMatrix;"
 			"in vec4 vertex;"
-			"in vec3 normal;"
 			"in vec2 uvcoord;"
-			"out vec3 fragNormal;"
-			"out vec2 fragUV;"
+			"out vec2 uv;"
 			"void main(void)"
 			"{"
-			"	fragNormal = normal;"
-			"	fragUV = uvcoord;"
+			"	uv = uvcoord;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
@@ -74,13 +74,12 @@ public:
 		// (uses the absolute value of normal as color)
 		fs.Source(
 			"#version 330\n"
-			"in vec3 fragNormal;"
-			"in vec2 fragUV;"
+			"in vec2 uv;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	int c = (1 + int(fragUV.x*8)%2 + int(fragUV.y*8)%2)%2;"
-			"	fragColor = vec4(abs(fragNormal), 1)*(1.0+c)/2.0;"
+			"	float i = (1+ int(uv.x*8)%2 + int(uv.y*8)%2)%2;"
+			"	fragColor = vec4(i, i, i, 1.0);"
 			"}"
 		);
 		// compile it
@@ -93,60 +92,44 @@ public:
 		prog.Link();
 		prog.Use();
 
-		// bind the VAO for the shape
-		vao.Bind();
+		// bind the VAO for the cube
+		cube.Bind();
 
-		// bind the VBO for the shape vertices
+		// bind the VBO for the cube vertices
 		verts.Bind(Buffer::Target::Array);
 		{
-			std::vector<GLfloat> vertices;
-			GLuint n_per_vertex = shape.Vertices(vertices);
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = make_cube.Vertices(data);
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, vertices);
+			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "vertex");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
 
-		// bind the VBO for the shape normals
-		normals.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> normals;
-			GLuint n_per_vertex = shape.Normals(normals);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, normals);
-			// setup the vertex attribs array for the normals
-			VertexAttribArray attr(prog, "normal");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
-
-		// bind the VBO for the shape uv-coords
+		// bind the VBO for the cube UV-coordinates
 		uvcoords.Bind(Buffer::Target::Array);
 		{
-			std::vector<GLfloat> uv;
-			GLuint n_per_vertex = shape.UVCoordinates(uv);
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = make_cube.UVCoordinates(data);
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, uv);
+			Buffer::Data(Buffer::Target::Array, data);
+			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "uvcoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
-
+		//
 		// set the projection matrix fov = 24 deg. aspect = 1.25
 		Uniform(prog, "projectionMatrix").SetMatrix(
 			Matrix4f::Perspective(Degrees(24), 1.25, 1, 100)
 		);
 		//
 		VertexArray::Unbind();
-		gl.ClearColor(0.03f, 0.03f, 0.03f, 0.0f);
+		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
 		glEnable(GL_DEPTH_TEST);
-		//
-		glFrontFace(GL_CCW);
-		glCullFace(GL_BACK);
-		glEnable(GL_CULL_FACE);
 	}
 
 	void Render(double time)
@@ -163,9 +146,8 @@ public:
 			)
 		);
 
-		vao.Bind();
-		// This is not very effective
-		shape.Instructions().Draw(shape.Indices());
+		cube.Bind();
+		cube_instr.Draw(cube_indices);
 	}
 
 	bool Continue(double time)
@@ -174,9 +156,9 @@ public:
 	}
 };
 
-std::unique_ptr<Test> makeTest(void)
+std::unique_ptr<Example> makeExample(void)
 {
-	return std::unique_ptr<Test>(new Test01);
+	return std::unique_ptr<Example>(new CubeExample);
 }
 
 } // namespace oglplus

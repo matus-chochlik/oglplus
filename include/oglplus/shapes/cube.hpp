@@ -17,24 +17,28 @@
 namespace oglplus {
 namespace shapes {
 
+/// Class providing vertex attributes and instructions for rendering of a cube
 class Cube
  : public DrawingInstructionWriter
 {
 private:
 	GLdouble _x, _y, _z;
 public:
+	/// Constructs a unit cube centered at the origin
 	Cube(void)
 	 : _x(1.0)
 	 , _y(1.0)
 	 , _z(1.0)
 	{ }
 
-	Cube(GLdouble x, GLdouble y, GLdouble z)
-	 : _x(x)
-	 , _y(y)
-	 , _z(z)
+	/// Constructs a cube with width, height, depth
+	Cube(GLdouble w, GLdouble h, GLdouble d)
+	 : _x(w)
+	 , _y(h)
+	 , _z(d)
 	{ }
 
+	/// Makes the vertices and returns the number of values per vertex
 	template <typename T>
 	GLuint Vertices(std::vector<T>& dest) const
 	{
@@ -50,9 +54,9 @@ public:
 		};
 		dest = {
 			c[0][0], c[0][1], c[0][2],
-			c[2][0], c[2][1], c[2][2],
+			c[3][0], c[3][1], c[3][2],
 			c[1][0], c[1][1], c[1][2],
-			c[0][0], c[0][1], c[0][2],
+			c[1][0], c[1][1], c[1][2],
 			c[3][0], c[3][1], c[3][2],
 			c[2][0], c[2][1], c[2][2],
 
@@ -94,6 +98,7 @@ public:
 		return 3;
 	}
 
+	/// Makes the normals and returns the number of values per vertex
 	template <typename T>
 	GLuint Normals(std::vector<T>& dest) const
 	{
@@ -151,11 +156,66 @@ public:
 		return 3;
 	}
 
-	std::vector<GLubyte> Indices(void) const
+	/// Makes the UV-coordinates and returns the number of values per vertex
+	template <typename T>
+	GLuint UVCoordinates(std::vector<T>& dest) const
 	{
-		return std::vector<GLubyte>();
+		dest = {
+			T(1), T(1),
+			T(1), T(0),
+			T(0), T(1),
+			T(0), T(1),
+			T(1), T(0),
+			T(0), T(0),
+
+			T(1), T(1),
+			T(1), T(0),
+			T(0), T(1),
+			T(1), T(0),
+			T(0), T(0),
+			T(0), T(1),
+
+			T(1), T(1),
+			T(1), T(0),
+			T(0), T(1),
+			T(1), T(0),
+			T(0), T(0),
+			T(0), T(1),
+
+			T(0), T(1),
+			T(1), T(1),
+			T(1), T(0),
+			T(0), T(1),
+			T(1), T(0),
+			T(0), T(0),
+
+			T(1), T(1),
+			T(1), T(0),
+			T(0), T(0),
+			T(1), T(1),
+			T(0), T(0),
+			T(0), T(1),
+
+			T(0), T(1),
+			T(1), T(1),
+			T(0), T(0),
+			T(0), T(0),
+			T(1), T(1),
+			T(1), T(0)
+		};
+		return 2;
 	}
 
+	/// The type of the index container returned by Indices()
+	typedef std::vector<GLubyte> IndexArray;
+
+	/// Returns element indices that are used with the drawing instructions
+	IndexArray Indices(void) const
+	{
+		return IndexArray();
+	}
+
+	/// Returns the instructions for rendering
 	DrawingInstructions Instructions(void) const
 	{
 		return this->MakeInstructions({

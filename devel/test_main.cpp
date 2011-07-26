@@ -63,6 +63,7 @@ void run(const x11::Display& display)
 	glx::Context ctx(display, fbc, 3, 0);
 	ctx.MakeCurrent(win);
 	{
+		size_t frames = 0;
 		std::unique_ptr<Test> example(makeTest());
 		std::clock_t start = std::clock();
 		while(1)
@@ -71,7 +72,15 @@ void run(const x11::Display& display)
 			if(!example->Continue(t)) break;
 			example->Render(t);
 			ctx.SwapBuffers(win);
+			++frames;
 		}
+		std::clock_t end = std::clock();
+		double seconds = ((end - start)/CLOCKS_PER_SEC);
+		std::cout <<
+			frames << " frames rendered in " <<
+			seconds <<" seconds = " <<
+			frames / seconds << " fps." <<
+			std::endl;
 	}
 	ctx.Release(display);
 }
@@ -83,7 +92,6 @@ int main (int argc, char ** argv)
 	try
 	{
 		oglplus::run(oglplus::x11::Display());
-		std::cout << "Done" << std::endl;
 	}
 	catch(oglplus::CompileOrLinkError& cle)
 	{
