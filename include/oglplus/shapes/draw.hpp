@@ -47,14 +47,28 @@ struct DrawOperation
 		GLuint inst_count = 1
 	) const
 	{
-		// TODO: drawing multiple instances
-		assert(inst_count == 1);
-		switch(method)
+		if(inst_count == 1)
 		{
-			case Method::DrawArrays:
-				return _DrawArrays();
-			case Method::DrawElements:
-				return _DrawElements(indices);
+			switch(method)
+			{
+				case Method::DrawArrays:
+					return _DrawArrays();
+				case Method::DrawElements:
+					return _DrawElements(indices);
+			}
+		}
+		else
+		{
+			switch(method)
+			{
+				case Method::DrawArrays:
+					return _DrawArrays(inst_count);
+				case Method::DrawElements:
+					return _DrawElements(
+						indices,
+						inst_count
+					);
+			}
 		}
 	}
 private:
@@ -62,6 +76,17 @@ private:
 	{
 		::glDrawArrays(GLenum(mode), first, count);
 		ThrowOnError(OGLPLUS_ERROR_INFO(DrawArrays));
+	}
+
+	void _DrawArrays(GLuint inst_count) const
+	{
+		::glDrawArraysInstanced(
+			GLenum(mode),
+			first,
+			count,
+			inst_count
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
 	}
 
 	template <typename IT>
@@ -74,6 +99,22 @@ private:
 			(void*)(indices.data() + first)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(DrawElements));
+	}
+
+	template <typename IT>
+	void _DrawElements(
+		const std::vector<IT>& indices,
+		GLuint inst_count
+	) const
+	{
+		::glDrawElementsInstanced(
+			GLenum(mode),
+			count,
+			GLenum(GetDataType<IT>()),
+			(void*)(indices.data() + first),
+			inst_count
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(DrawElementsInstanced));
 	}
 };
 

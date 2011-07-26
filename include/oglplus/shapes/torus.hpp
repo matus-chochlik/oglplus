@@ -31,8 +31,16 @@ public:
 	Torus(void)
 	 : _radius_out(1.0)
 	 , _radius_in(0.5)
-	 , _sections(18)
-	 , _rings(12)
+	 , _sections(36)
+	 , _rings(24)
+	{ }
+
+	/// Creates a torus with unit radius centered at the origin
+	Torus(GLdouble rad_out, GLdouble rad_in, size_t sects, size_t rings)
+	 : _radius_out(rad_out)
+	 , _radius_in(rad_in)
+	 , _sections(sects)
+	 , _rings(rings)
 	{ }
 
 	/// Makes vertex coordinates and returns number of values per vertex

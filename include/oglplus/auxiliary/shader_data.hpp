@@ -34,21 +34,21 @@ private:
 		return std::integral_constant<bool, (N > 4)>();
 	}
 
-	template <size_t N, typename T>
+	template <typename T, typename UI>
 	static void _call_set_v(
 		GLuint index,
 		const T* v,
-		void(&_fn)(GLuint, const T*)
+		void(*_fn)(UI, const T*)
 	)
 	{
 		_fn(index, v);
 	}
 
-	template <size_t N, typename T>
+	template <typename T, typename UI, typename SI>
 	static void _call_set_v(
 		GLuint index,
 		const T* v,
-		void(&_fn)(GLuint, GLsizei, const T*)
+		void(*_fn)(UI, SI, const T*)
 	)
 	{
 		_fn(index, 1, v);
