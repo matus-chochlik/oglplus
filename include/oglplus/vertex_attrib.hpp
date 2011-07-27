@@ -47,7 +47,10 @@ protected:
 			ThrowOnError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive vertex attrib",
-				OGLPLUS_ERROR_INFO(GetAttribLocation)
+				OGLPLUS_ERROR_INFO(GetAttribLocation),
+				Error::PropertyMap({
+					{"identifier", identifier}
+				})
 			);
 		}
 	}

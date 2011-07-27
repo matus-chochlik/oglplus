@@ -15,7 +15,7 @@
 namespace oglplus {
 
 /// Comparison function type enumeration
-enum class CompareFunc : GLenum
+enum class CompareFunction : GLenum
 {
 	/// Less-than or equal
 	LEqual = GL_LEQUAL,
@@ -34,6 +34,8 @@ enum class CompareFunc : GLenum
 	/// Always false
 	Never = GL_NEVER
 };
+
+typedef CompareFunction CompareFn;
 
 } // namespace oglplus
 

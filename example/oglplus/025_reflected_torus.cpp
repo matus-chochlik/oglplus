@@ -1,8 +1,8 @@
 /**
- *  .file devel/test02.cpp
- *  Development / testing file.
- *  NOTE. this file is here for feature development / testing purposes only
- *  and its source code, input, output can change witout prior notice.
+ *  @example oglplus/025_reflected_torus.cpp
+ *  @brief Shows how to draw a torus reflected in a horizontal plane
+ *
+ *  @image html 025_reflected_torus.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -10,33 +10,32 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/torus.hpp>
 
 #include <cmath>
 
-#include "test.hpp"
+#include "example.hpp"
 
 namespace oglplus {
 
-class Test02 : public Test
+class ReflectionExample : public Example
 {
 private:
-	typedef shapes::Torus Shape;
-	//
-	Shape make_shape;
-	Shape::IndexArray shape_indices;
-	shapes::DrawingInstructions shape_instr;
+	// the torus vertex attribute builder
+	shapes::Torus make_torus;
+	// here will be stored the indices used by the drawing instructions
+	shapes::Torus::IndexArray torus_indices;
+	// the instructions for drawing the torus
+	shapes::DrawingInstructions torus_instr;
 
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shaders
+	// Vertex shaders for the normally rendered and the reflected objects
 	VertexShader vs_norm;
 	VertexShader vs_refl;
 
-	// Geometry shader
-	GeometryShader gs_norm;
+	// Geometry shader for the reflected objects
 	GeometryShader gs_refl;
 
 	// Fragment shader
@@ -46,19 +45,19 @@ private:
 	Program prog_norm;
 	Program prog_refl;
 
-	// A vertex array object for the rendered shape
-	VertexArray shape;
+	// A vertex array object for the torus
+	VertexArray torus;
 	// A vertex array object for the reflective plane
 	VertexArray plane;
 
-	// VBOs for the shape's vertices and normals
-	Buffer shape_verts, shape_normals;
+	// VBOs for the torus' vertices and normals
+	Buffer torus_verts, torus_normals;
 	// VBOs for the plane's vertices and normals
 	Buffer plane_verts, plane_normals;
 public:
-	Test02(void)
-	 : shape_indices(make_shape.Indices())
-	 , shape_instr(make_shape.Instructions())
+	ReflectionExample(void)
+	 : torus_instr(make_torus.Instructions())
+	 , torus_indices(make_torus.Indices())
 	{
 		// Set the normal object vertex shader source
 		vs_norm.Source(
@@ -87,6 +86,7 @@ public:
 		vs_norm.Compile();
 
 		// Set the reflected object vertex shader source
+		// which just passes data to the geometry shader
 		vs_refl.Source(
 			"#version 330\n"
 			"in vec4 vertex;"
@@ -102,26 +102,33 @@ public:
 		vs_refl.Compile();
 
 		// Set the reflected object geometry shader source
+		// This shader creates a reflection matrix that
+		// relies on the fact that the reflection is going
+		// to be done by the y-plane
 		gs_refl.Source(
 			"#version 330\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
+
 			"in vec3 geomNormal[];"
+
 			"uniform mat4 projectionMatrix;"
 			"uniform mat4 cameraMatrix;"
 			"uniform mat4 modelMatrix;"
+
 			"out vec3 vertNormal;"
 			"out vec3 fragNormal;"
 			"out vec3 fragLight;"
 			"uniform vec3 lightPos;"
+
+			"mat4 reflectionMatrix = mat4("
+			"	1.0, 0.0, 0.0, 0.0,"
+			"	0.0,-1.0, 0.0, 0.0,"
+			"	0.0, 0.0, 1.0, 0.0,"
+			"	0.0, 0.0, 0.0, 1.0 "
+			");"
 			"void main(void)"
 			"{"
-			"	mat4 reflectionMatrix = mat4("
-			"		1.0, 0.0, 0.0, 0.0,"
-			"		0.0,-1.0, 0.0, 0.0,"
-			"		0.0, 0.0, 1.0, 0.0,"
-			"		0.0, 0.0, 0.0, 1.0 "
-			"	);"
 			"	for(int v=0; v!=gl_in.length(); ++v)"
 			"	{"
 			"		vec4 vertex = gl_in[v].gl_Position;"
@@ -151,7 +158,6 @@ public:
 		);
 		// compile it
 		gs_refl.Compile();
-
 
 		// set the fragment shader source
 		fs.Source(
@@ -185,14 +191,14 @@ public:
 		// link it
 		prog_refl.Link();
 
-		// bind the VAO for the shape
-		shape.Bind();
+		// bind the VAO for the torus
+		torus.Bind();
 
-		// bind the VBO for the shape vertices
-		shape_verts.Bind(Buffer::Target::Array);
+		// bind the VBO for the torus vertices
+		torus_verts.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Vertices(data);
+			GLuint n_per_vertex = make_torus.Vertices(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
@@ -207,14 +213,14 @@ public:
 			attr_r.Enable();
 		}
 
-		// bind the VBO for the shape normals
-		shape_normals.Bind(Buffer::Target::Array);
+		// bind the VBO for the torus normals
+		torus_normals.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Normals(data);
+			GLuint n_per_vertex = make_torus.Normals(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
-			// setup the vertex attribs array for the vertices
+			// setup the vertex attribs array for the normals
 			prog_norm.Use();
 			VertexAttribArray attr_n(prog_norm, "normal");
 			attr_n.Setup(n_per_vertex, DataType::Float);
@@ -226,7 +232,6 @@ public:
 			attr_r.Enable();
 		}
 
-		VertexArray::Unbind();
 		// bind the VAO for the plane
 		plane.Bind();
 
@@ -248,7 +253,7 @@ public:
 			attr.Enable();
 		}
 
-		// bind the VBO for the shape normals
+		// bind the VBO for the torus normals
 		plane_normals.Bind(Buffer::Target::Array);
 		{
 			GLfloat data[4*3] = {
@@ -259,7 +264,7 @@ public:
 			};
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data, 4*3);
-			// setup the vertex attribs array for the vertices
+			// setup the vertex attribs array for the normals
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "normal");
 			attr.Setup(3, DataType::Float);
@@ -272,6 +277,8 @@ public:
 			Matrix4f::Perspective(Degrees(24), 1.25, 1, 100);
 		Vec3f lightPos(2.0, 2.0, 3.0);
 
+		// Pass the projection matrix and the light position
+		// to both programs
 		prog_norm.Use();
 		Uniform(prog_norm, "projectionMatrix").SetMatrix(projMatrix);
 		Uniform(prog_norm, "lightPos").Set(lightPos);
@@ -279,19 +286,15 @@ public:
 		Uniform(prog_refl, "projectionMatrix").SetMatrix(projMatrix);
 		Uniform(prog_refl, "lightPos").Set(lightPos);
 		//
-		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
-		//
-		//glFrontFace(GL_CCW);
-		//glCullFace(GL_BACK);
-		//gl.Enable(Capability::CullFace);
 	}
 
 	void Render(double time)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
-		// make the camera matrix
+		// make the camera matrix orbiting around the origin
+		// at radius of 3.5 with elevation between 15 and 90 degrees
 		Matrix4f camera = Matrix4f::Orbiting(
 			Vec3f(),
 			3.5,
@@ -319,19 +322,19 @@ public:
 		gl.StencilFunc(CompareFunction::Equal, 1, 1);
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Keep);
 
-		// draw the shape using the reflection program
+		// draw the torus using the reflection program
 		prog_refl.Use();
 		Uniform(prog_refl, "cameraMatrix").SetMatrix(camera);
 		Uniform(prog_refl, "modelMatrix").SetMatrix(model);
-		shape.Bind();
-		shape_instr.Draw(shape_indices);
+		torus.Bind();
+		torus_instr.Draw(torus_indices);
 
 		gl.Disable(Capability::StencilTest);
 
 		prog_norm.Use();
-		// draw the shape
+		// draw the torus using the normal object program
 		Uniform(prog_norm, "modelviewMatrix").SetMatrix(camera * model);
-		shape_instr.Draw(shape_indices);
+		torus_instr.Draw(torus_indices);
 
 		// blend-in the plane
 		gl.Enable(Capability::Blend);
@@ -347,9 +350,9 @@ public:
 	}
 };
 
-std::unique_ptr<Test> makeTest(void)
+std::unique_ptr<Example> makeExample(void)
 {
-	return std::unique_ptr<Test>(new Test02);
+	return std::unique_ptr<Example>(new ReflectionExample);
 }
 
 } // namespace oglplus

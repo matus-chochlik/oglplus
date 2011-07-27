@@ -13,8 +13,13 @@
 #define OGLPLUS_CONTEXT_1107121317_HPP
 
 #include <oglplus/error.hpp>
+#include <oglplus/capability.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/face_mode.hpp>
+#include <oglplus/blend_func.hpp>
+#include <oglplus/compare_func.hpp>
+#include <oglplus/stencil_op.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
 #include <oglplus/auxiliary/bitfield.hpp>
@@ -32,6 +37,20 @@ enum class ClearBit : GLbitfield
 class Context
 {
 public:
+	/// Enable capability
+	static void Enable(Capability cap)
+	{
+		::glEnable(GLenum(cap));
+		AssertNoError(OGLPLUS_ERROR_INFO(Enable));
+	}
+
+	/// Disable capability
+	static void Disable(Capability cap)
+	{
+		::glDisable(GLenum(cap));
+		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
+	}
+
 	/// Sets the clear color
 	/**
 	 *  @throws Error
@@ -108,6 +127,145 @@ public:
 	{
 		::glClear(aux::MakeBitfield(bits));
 		AssertNoError(OGLPLUS_ERROR_INFO(Clear));
+	}
+
+	/// Sets the stencil function
+	static void StencilFunc(CompareFunction func, GLint ref, GLuint mask)
+	{
+		::glStencilFunc(GLenum(func), ref, mask);
+		AssertNoError(OGLPLUS_ERROR_INFO(StencilFunc));
+	}
+
+	/// Sets the stencil function separately for front and back faces
+	static void StencilFuncSeparate(
+		Face face,
+		CompareFunction func,
+		GLint ref,
+		GLuint mask
+	)
+	{
+		::glStencilFuncSeparate(GLenum(face), GLenum(func), ref, mask);
+		AssertNoError(OGLPLUS_ERROR_INFO(StencilFuncSeparate));
+	}
+
+	/// Sets the stencil operation
+	static void StencilOp(
+		StencilOperation sfail,
+		StencilOperation dfail,
+		StencilOperation dpass
+	)
+	{
+		::glStencilOp(GLenum(sfail), GLenum(dfail), GLenum(dpass));
+		AssertNoError(OGLPLUS_ERROR_INFO(StencilOp));
+	}
+
+	/// Sets the stencil operation separately for front and back faces
+	static void StencilOpSeparate(
+		Face face,
+		StencilOperation sfail,
+		StencilOperation dfail,
+		StencilOperation dpass
+	)
+	{
+		::glStencilOpSeparate(
+			GLenum(face),
+			GLenum(sfail),
+			GLenum(dfail),
+			GLenum(dpass)
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(StencilOpSeparate));
+	}
+
+	/// Sets the blend equation
+	static void BlendEquation(oglplus::BlendEquation eq)
+	{
+		::glBlendEquation(GLenum(eq));
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquation));
+	}
+
+	/// Sets the blend equation separate for RGB and alpha
+	static void BlendEquationSeparate(
+		oglplus::BlendEquation eq_rgb,
+		oglplus::BlendEquation eq_alpha
+	)
+	{
+		::glBlendEquationSeparate(GLenum(eq_rgb), GLenum(eq_alpha));
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationSeparate));
+	}
+
+	/// Sets the blend function
+	static void BlendFunc(BlendFunction src, BlendFunction dst)
+	{
+		::glBlendFunc(GLenum(src), GLenum(dst));
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendFunc));
+	}
+
+	/// Sets the blend function separate for RGB and alpha
+	static void BlendFuncSeparate(
+		BlendFunction src_rgb,
+		BlendFunction dst_rgb,
+		BlendFunction src_alpha,
+		BlendFunction dst_alpha
+	)
+	{
+		::glBlendFuncSeparate(
+			GLenum(src_rgb),
+			GLenum(dst_rgb),
+			GLenum(src_alpha),
+			GLenum(dst_alpha)
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendFuncSeparate));
+	}
+
+/*TODO
+	/// Sets the blend function for a particular buffer
+	static void BlendFunci(
+		GLuint buf,
+		BlendFunction src,
+		BlendFunction dst
+	)
+	{
+		::glBlendFunci(buf, GLenum(src), GLenum(dst));
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendFunci));
+	}
+
+	/// Sets the blend function separate for RGB and alpha for a buffer
+	static void BlendFuncSeparatei(
+		GLuint buf,
+		BlendFunction src_rgb,
+		BlendFunction dst_rgb,
+		BlendFunction src_alpha,
+		BlendFunction dst_alpha
+	)
+	{
+		::glBlendFuncSeparatei(
+			buf,
+			GLenum(src_rgb),
+			GLenum(dst_rgb),
+			GLenum(src_alpha),
+			GLenum(dst_alpha)
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendFuncSeparatei));
+	}
+*/
+
+	/// Sets the blend color
+	static void BlendColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
+	{
+		::glBlendColor(r, g, b, a);
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendColor));
+	}
+
+	/// Sets the color mask
+	static void ColorMask(bool r, bool g, bool b, bool a)
+	{
+		::glColorMask(
+			r ? GL_TRUE : GL_FALSE,
+			g ? GL_TRUE : GL_FALSE,
+			b ? GL_TRUE : GL_FALSE,
+			a ? GL_TRUE : GL_FALSE
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(ColorMask));
 	}
 
 	/// Sets the current viewport

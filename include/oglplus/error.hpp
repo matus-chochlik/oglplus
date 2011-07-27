@@ -14,6 +14,7 @@
 
 #include <stdexcept>
 #include <list>
+#include <map>
 
 #define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT) \
 	static const char* _errinf_ctxt(void) \
@@ -73,10 +74,14 @@ struct ErrorInfo
 class Error
  : public std::runtime_error
 {
+public:
+	typedef std::map<std::string, std::string> PropertyMap;
+	typedef std::list<ErrorInfo> PropagationInfoList;
 private:
 	GLenum _code;
 	ErrorInfo _info;
-	std::list<ErrorInfo> _prop_info;
+	PropertyMap _properties;
+	PropagationInfoList  _propagation;
 protected:
 	Error(GLenum code, const char* desc, const ErrorInfo& info)
 	 : std::runtime_error(desc)
@@ -84,10 +89,22 @@ protected:
 	 , _info(info)
 	{ }
 
+	Error(
+		GLenum code,
+		const char* desc,
+		const ErrorInfo& info,
+		PropertyMap&& properties
+	): std::runtime_error(desc)
+	 , _code(code)
+	 , _info(info)
+	 , _properties(std::move(properties))
+	{ }
+
 	friend void ThrowOnError(
 		GLenum code,
 		const GLchar* msg,
-		const ErrorInfo& info
+		const ErrorInfo& info,
+		PropertyMap&& properties
 	);
 	friend void ThrowOnError(const ErrorInfo& info);
 public:
@@ -170,16 +187,26 @@ public:
 		return _info.line;
 	}
 
-	typedef std::list<ErrorInfo> propagation_info_list;
-
-	const propagation_info_list& PropagationInfo(void) const
+	/// Returns the properties of the exception
+	const PropertyMap& Properties(void) const
 	{
-		return _prop_info;
+		return _properties;
+	}
+
+	/// Set a property key/value to the exception
+	void SetPropertyValue(const std::string& key, const std::string& value)
+	{
+		_properties[key] = value;
+	}
+
+	const PropagationInfoList& PropagationInfo(void) const
+	{
+		return _propagation;
 	}
 
 	Error& Trace(const ErrorInfo& info)
 	{
-		_prop_info.push_back(info);
+		_propagation.push_back(info);
 		throw;
 	}
 };
@@ -197,9 +224,19 @@ public:
 	{ }
 };
 
-inline void ThrowOnError(GLenum code, const GLchar* msg, const ErrorInfo& info)
+inline void ThrowOnError(
+	GLenum code,
+	const GLchar* msg,
+	const ErrorInfo& info,
+	Error::PropertyMap&& properties
+)
 {
-	throw Error(code, msg, info);
+	throw Error(
+		code,
+		msg,
+		info,
+		std::forward<Error::PropertyMap>(properties)
+	);
 }
 
 inline void ThrowOnError(const ErrorInfo& info)

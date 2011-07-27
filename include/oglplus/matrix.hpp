@@ -359,6 +359,10 @@ public:
 	 : Base()
 	{ }
 
+	Matrix4x4(const Matrix<T, 4, 4>& mat)
+	 : Matrix<T, 4, 4>(mat)
+	{ }
+
 	/// Initializing constructor
 	template <typename ... P>
 	Matrix4x4(T v, P ... p)

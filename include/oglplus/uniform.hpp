@@ -44,7 +44,10 @@ protected:
 			ThrowOnError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
-				OGLPLUS_ERROR_INFO(GetUniformLocation)
+				OGLPLUS_ERROR_INFO(GetUniformLocation),
+				Error::PropertyMap({
+					{"identifier", identifier}
+				})
 			);
 		}
 	}
