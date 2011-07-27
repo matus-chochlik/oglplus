@@ -67,19 +67,24 @@ public:
 			"out vec3 vertNormal;"
 			"out vec3 fragNormal;"
 			"out vec3 fragLight;"
-			"uniform mat4 projectionMatrix, modelviewMatrix;"
+			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
 			"uniform vec3 lightPos;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
 			"		projectionMatrix *"
-			"		modelviewMatrix *"
+			"		cameraMatrix *"
+			"		modelMatrix *"
 			"		vertex;"
 			"	vertNormal = normal;"
-			"	fragNormal = (modelviewMatrix *"
-			"		vec4(normal, 0.0)).xyz;"
-			"	fragLight = (modelviewMatrix *"
-			"		vec4(lightPos-vertex.xyz, 0.0)).xyz;"
+			"	fragNormal = ("
+			"		modelMatrix *"
+			"		vec4(normal, 0.0)"
+			"	).xyz;"
+			"	fragLight = ("
+			"		vec4(lightPos, 0.0)-"
+			"		modelMatrix*vertex"
+			"	).xyz;"
 			"}"
 		);
 		// compile it
@@ -140,16 +145,12 @@ public:
 			"			vertex;"
 			"		vertNormal = geomNormal[v];"
 			"		fragNormal = ("
-			"			cameraMatrix *"
-			"			reflectionMatrix *"
 			"			modelMatrix *"
 			"			vec4(vertNormal, 0.0)"
 			"		).xyz;"
 			"		fragLight = ("
-			"			cameraMatrix *"
-			"			reflectionMatrix *"
-			"			modelMatrix *"
-			"			vec4(lightPos-vertex.xyz, 0.0)"
+			"			vec4(lightPos, 0.0)-"
+			"			modelMatrix * vertex"
 			"		).xyz;"
 			"		EmitVertex();"
 			"	}"
@@ -288,6 +289,7 @@ public:
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
+		gl.ClearStencil(0);
 	}
 
 	void Render(double time)
@@ -302,7 +304,12 @@ public:
 			Degrees(15 + (-std::cos(time * 0.5)+1.0)* 0.5 * 75)
 		);
 		Matrix4f model = Matrix4f::Translation(0.0f, 1.5f, 0.0);
+		Matrix4f identity;
 		//
+		prog_norm.Use();
+		Uniform(prog_norm, "cameraMatrix").SetMatrix(camera);
+		prog_refl.Use();
+		Uniform(prog_refl, "cameraMatrix").SetMatrix(camera);
 		// draw the plane into the stencil buffer
 		prog_norm.Use();
 
@@ -313,8 +320,8 @@ public:
 		gl.StencilFunc(CompareFunction::Always, 1, 1);
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Replace);
 
+		Uniform(prog_norm, "modelMatrix").SetMatrix(identity);
 		plane.Bind();
-		Uniform(prog_norm, "modelviewMatrix").SetMatrix(camera);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
 		gl.ColorMask(true, true, true, true);
@@ -324,7 +331,6 @@ public:
 
 		// draw the torus using the reflection program
 		prog_refl.Use();
-		Uniform(prog_refl, "cameraMatrix").SetMatrix(camera);
 		Uniform(prog_refl, "modelMatrix").SetMatrix(model);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
@@ -333,14 +339,14 @@ public:
 
 		prog_norm.Use();
 		// draw the torus using the normal object program
-		Uniform(prog_norm, "modelviewMatrix").SetMatrix(camera * model);
+		Uniform(prog_norm, "modelMatrix").SetMatrix(model);
 		torus_instr.Draw(torus_indices);
 
 		// blend-in the plane
 		gl.Enable(Capability::Blend);
 		gl.BlendEquation(BlendEquation::Max);
+		Uniform(prog_norm, "modelMatrix").SetMatrix(identity);
 		plane.Bind();
-		Uniform(prog_norm, "modelviewMatrix").SetMatrix(camera);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 

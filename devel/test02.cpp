@@ -22,7 +22,7 @@ namespace oglplus {
 class Test02 : public Test
 {
 private:
-	typedef shapes::Torus Shape;
+	typedef shapes::Cube Shape;
 	//
 	Shape make_shape;
 	Shape::IndexArray shape_indices;
