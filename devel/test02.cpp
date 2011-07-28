@@ -268,8 +268,8 @@ public:
 		VertexArray::Unbind();
 
 		// set the projection matrix fov = 24 deg. aspect = 1.25
-		Matrix4f projMatrix =
-			Matrix4f::Perspective(Degrees(24), 1.25, 1, 100);
+		CamMatrixf projMatrix =
+			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100);
 		Vec3f lightPos(2.0, 2.0, 3.0);
 
 		prog_norm.Use();
@@ -292,13 +292,13 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 		// make the camera matrix
-		Matrix4f camera = Matrix4f::Orbiting(
+		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
 			3.5,
 			Degrees(time * 135),
 			Degrees(15 + (-std::cos(time * 0.5)+1.0)* 0.5 * 75)
 		);
-		Matrix4f model = Matrix4f::Translation(0.0f, 1.5f, 0.0);
+		ModelMatrixf model = ModelMatrixf::Translation(0.0f, 1.5f, 0.0);
 		//
 		// draw the plane into the stencil buffer
 		prog_norm.Use();

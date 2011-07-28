@@ -347,25 +347,29 @@ public:
 	}
 };
 
+/// Class implementing model transformation matrix named constructors
+/** The static member functions of this class can be used to construct
+ *  various model transformation matrices.
+ */
 template <typename T>
-class Matrix4x4
+class ModelMatrix
  : public Matrix<T, 4, 4>
 {
 private:
 	typedef Matrix<T, 4, 4> Base;
 public:
 	/// Constructs an identity matrix
-	Matrix4x4(void)
+	ModelMatrix(void)
 	 : Base()
 	{ }
 
-	Matrix4x4(const Matrix<T, 4, 4>& mat)
-	 : Matrix<T, 4, 4>(mat)
+	ModelMatrix(const Base& base)
+	 : Base(base)
 	{ }
 
 	/// Initializing constructor
 	template <typename ... P>
-	Matrix4x4(T v, P ... p)
+	ModelMatrix(T v, P ... p)
 	 : Base(v, T(p)...)
 	{
 		static_assert(
@@ -376,7 +380,7 @@ public:
 
 	struct _Translation { };
 
-	Matrix4x4(_Translation, T dx, T dy, T dz)
+	ModelMatrix(_Translation, T dx, T dy, T dz)
 	 : Base(typename Base::NoInit())
 	{
 		this->_m._data = {
@@ -388,14 +392,14 @@ public:
 	}
 
 	/// Constructs a translation matrix
-	static inline Matrix4x4 Translation(T dx, T dy, T dz)
+	static inline ModelMatrix Translation(T dx, T dy, T dz)
 	{
-		return Matrix4x4(_Translation(), dx, dy, dz);
+		return ModelMatrix(_Translation(), dx, dy, dz);
 	}
 
 	struct _Scale { };
 
-	Matrix4x4(_Scale, T sx, T sy, T sz)
+	ModelMatrix(_Scale, T sx, T sy, T sz)
 	 : Base(typename Base::NoInit())
 	{
 		this->_m._data = {
@@ -407,14 +411,14 @@ public:
 	}
 
 	/// Constructs a scale matrix
-	static inline Matrix4x4 Scale(T sx, T sy, T sz)
+	static inline ModelMatrix Scale(T sx, T sy, T sz)
 	{
-		return Matrix4x4(_Scale(), sx, sy, sz);
+		return ModelMatrix(_Scale(), sx, sy, sz);
 	}
 
 	struct _RotationX { };
 
-	Matrix4x4(_RotationX, Angle<T> angle)
+	ModelMatrix(_RotationX, Angle<T> angle)
 	 : Base(typename Base::NoInit())
 	{
 		const T cosx = Cos(angle);
@@ -428,14 +432,14 @@ public:
 	}
 
 	/// Constructs a X-axis rotation matrix
-	static inline Matrix4x4 RotationX(Angle<T> angle)
+	static inline ModelMatrix RotationX(Angle<T> angle)
 	{
-		return Matrix4x4(_RotationX(), angle);
+		return ModelMatrix(_RotationX(), angle);
 	}
 
 	struct _RotationY { };
 
-	Matrix4x4(_RotationY, Angle<T> angle)
+	ModelMatrix(_RotationY, Angle<T> angle)
 	 : Base(typename Base::NoInit())
 	{
 		const T cosx = Cos(angle);
@@ -449,14 +453,14 @@ public:
 	}
 
 	/// Constructs a Y-axis rotation matrix
-	static inline Matrix4x4 RotationY(Angle<T> angle)
+	static inline ModelMatrix RotationY(Angle<T> angle)
 	{
-		return Matrix4x4(_RotationY(), angle);
+		return ModelMatrix(_RotationY(), angle);
 	}
 
 	struct _RotationZ { };
 
-	Matrix4x4(_RotationZ, Angle<T> angle)
+	ModelMatrix(_RotationZ, Angle<T> angle)
 	 : Base(typename Base::NoInit())
 	{
 		const T cosx = Cos(angle);
@@ -470,14 +474,14 @@ public:
 	}
 
 	/// Constructs a Z-axis rotation matrix
-	static inline Matrix4x4 RotationZ(Angle<T> angle)
+	static inline ModelMatrix RotationZ(Angle<T> angle)
 	{
-		return Matrix4x4(_RotationZ(), angle);
+		return ModelMatrix(_RotationZ(), angle);
 	}
 
 	struct _RotationA { };
 
-	Matrix4x4(_RotationA, const Vector<T,3>& axis, Angle<T> angle)
+	ModelMatrix(_RotationA, const Vector<T,3>& axis, Angle<T> angle)
 	 : Base(typename Base::NoInit())
 	{
 		const Vector<T, 3> a = Normalized(axis);
@@ -495,18 +499,42 @@ public:
 	}
 
 	/// Constructs a rotation matrix from a vector and angle
-	static inline Matrix4x4 RotationA(
+	static inline ModelMatrix RotationA(
 		const Vector<T,3>& axis,
 		Angle<T> angle
 	)
 	{
-		return Matrix4x4(_RotationA(), axis, angle);
+		return ModelMatrix(_RotationA(), axis, angle);
 	}
 
+};
+
+/// 4x4 float matrix
+typedef ModelMatrix<GLfloat> ModelMatrixf;
+/// 4x4 double precision matrix
+typedef ModelMatrix<GLdouble> ModelMatrixd;
+
+/// Class implementing camera matrix named constructors
+/** The static methods of this class can be used for the construction
+ *  of various camera matrices.
+ */
+template <typename T>
+class CameraMatrix
+ : public Matrix<T, 4, 4>
+{
+private:
+	typedef Matrix<T, 4, 4> Base;
+public:
+	/// Constructs an identity matrix
+	CameraMatrix(void) = default;
+
+	CameraMatrix(const Base& base)
+	 : Base(base)
+	{ }
 
 	struct _Perspective { };
 
-	Matrix4x4(_Perspective, Angle<T> fov, T aspect, T z_near, T z_far)
+	CameraMatrix(_Perspective, Angle<T> fov, T aspect, T z_near, T z_far)
 	 : Base(typename Base::NoInit())
 	{
 		assert(aspect > 0);
@@ -523,19 +551,19 @@ public:
 	}
 
 	/// Constructs a perspective prohection matrix from a vector and angle
-	static inline Matrix4x4 Perspective(
+	static inline CameraMatrix Perspective(
 		Angle<T> fov,
 		T aspect,
 		T z_near,
 		T z_far
 	)
 	{
-		return Matrix4x4(_Perspective(), fov, aspect, z_near, z_far);
+		return CameraMatrix(_Perspective(), fov, aspect, z_near, z_far);
 	}
 
 	struct _LookingAt { };
 
-	Matrix4x4(
+	CameraMatrix(
 		_LookingAt,
 		const Vector<T, 3>& eye,
 		const Vector<T, 3>& target
@@ -570,17 +598,17 @@ public:
 	}
 
 	/// Constructs a 'look-at' matrix from eye and target positions
-	static inline Matrix4x4 LookingAt(
+	static inline CameraMatrix LookingAt(
 		const Vector<T, 3>& eye,
 		const Vector<T, 3>& target
 	)
 	{
-		return Matrix4x4(_LookingAt(), eye, target);
+		return CameraMatrix(_LookingAt(), eye, target);
 	}
 
 	struct _Orbiting { };
 
-	Matrix4x4(
+	CameraMatrix(
 		_Orbiting,
 		const Vector<T, 3>& target,
 		T radius,
@@ -622,14 +650,14 @@ public:
 	}
 
 	/// Constructs a matrix from target, radius, azimuth and elevation
-	static inline Matrix4x4 Orbiting(
+	static inline CameraMatrix Orbiting(
 		const Vector<T, 3>& target,
 		T radius,
 		Angle<T> azimuth,
 		Angle<T> elevation
 	)
 	{
-		return Matrix4x4(
+		return CameraMatrix(
 			_Orbiting(),
 			target,
 			radius,
@@ -637,13 +665,90 @@ public:
 			elevation
 		);
 	}
+
+	struct _Pitch { };
+
+	CameraMatrix(_Pitch, Angle<T> angle)
+	 : Base(typename Base::NoInit())
+	{
+		const T cosx = Cos(-angle);
+		const T sinx = Sin(-angle);
+		this->_m._data = {
+			 T(1),  T(0),  T(0),  T(0),
+			 T(0),  cosx, -sinx,  T(0),
+			 T(0),  sinx,  cosx,  T(0),
+			 T(0),  T(0),  T(0),  T(1)
+		};
+	}
+
+	/// Constructs a X-axis rotation (Pitch/Elevation) matrix
+	/** The initial heading is the negative Z-axix, top is the Y-axis,
+	 *  right is X-axis.
+	 *  Positive angle values do counter-clockwise rotation (looking up),
+	 *  negative angles cause clockwise changes in pitch (looking down).
+	 */
+	static inline CameraMatrix Pitch(Angle<T> angle)
+	{
+		return CameraMatrix(_Pitch(), angle);
+	}
+
+	struct _Yaw { };
+
+	CameraMatrix(_Yaw, Angle<T> angle)
+	 : Base(typename Base::NoInit())
+	{
+		const T cosx = Cos(-angle);
+		const T sinx = Sin(-angle);
+		this->_m._data = {
+			 cosx,  T(0),  sinx,  T(0),
+			 T(0),  T(1),  T(0),  T(0),
+			-sinx,  T(0),  cosx,  T(0),
+			 T(0),  T(0),  T(0),  T(1)
+		};
+	}
+
+	/// Constructs a Y-axis rotation (Heading/Yaw) matrix
+	/** The initial heading is the negative Z-axix, top is the Y-axis,
+	 *  right is X-axis.
+	 *  Positive angle values do counter-clockwise rotation, negative
+	 *  angles cause clockwise changes in heading.
+	 */
+	static inline CameraMatrix Yaw(Angle<T> angle)
+	{
+		return CameraMatrix(_Yaw(), angle);
+	}
+
+	struct _Roll { };
+
+	CameraMatrix(_Roll, Angle<T> angle)
+	 : Base(typename Base::NoInit())
+	{
+		const T cosx = Cos(-angle);
+		const T sinx = Sin(-angle);
+		this->_m._data = {
+			 cosx, -sinx,  T(0),  T(0),
+			 sinx,  cosx,  T(0),  T(0),
+			 T(0),  T(0),  T(1),  T(0),
+			 T(0),  T(0),  T(0),  T(1)
+		};
+	}
+
+	/// Constructs a Z-axis rotation (Bank/Roll) matrix
+	/** The initial position is that top is the Y-axis,
+	 *  heading in the negative Z-axis direction, right is X-axis.
+	 *  Positive angle values do counter-clockwise banking, negative
+	 *  angles to clockwise banking.
+	 */
+	static inline CameraMatrix Roll(Angle<T> angle)
+	{
+		return CameraMatrix(_Roll(), angle);
+	}
 };
 
-/// 4x4 float matrix
-typedef Matrix4x4<GLfloat> Matrix4f;
-/// 4x4 double precision matrix
-typedef Matrix4x4<GLdouble> Matrix4d;
-
+/// Camera matrix using float numbers
+typedef CameraMatrix<GLfloat> CamMatrixf;
+/// Camera matrix using double precition numbers
+typedef CameraMatrix<GLdouble> CamMatrixd;
 
 // implementation of Vector's constructors, conversions and operations
 template <typename T, size_t N>

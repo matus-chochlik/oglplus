@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/012_checker_sphere.cpp
- *  @brief Shows how to draw a checkered sphere using the Sphere builder
+ *  @example oglplus/013_striped_cubes.cpp
+ *  @brief Shows how to draw rotating striped cubes using the Cube builder
  *
- *  @image html 012_checker_sphere.png
+ *  @image html 013_striped_cubes.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -10,7 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/sphere.hpp>
+#include <oglplus/shapes/cube.hpp>
 
 #include <cmath>
 
@@ -18,15 +18,15 @@
 
 namespace oglplus {
 
-class SphereExample : public Example
+class CubeExample : public Example
 {
 private:
-	// helper object building sphere vertex attributes
-	shapes::Sphere make_sphere;
-	// helper object encapsulating sphere drawing instructions
-	shapes::DrawingInstructions sphere_instr;
-	// indices pointing to sphere primitive elements
-	shapes::Sphere::IndexArray sphere_indices;
+	// helper object building cube vertex attributes
+	shapes::Cube make_cube;
+	// helper object encapsulating cube drawing instructions
+	shapes::DrawingInstructions cube_instr;
+	// indices pointing to cube primitive elements
+	shapes::Cube::IndexArray cube_indices;
 
 	// wrapper around the current OpenGL context
 	Context gl;
@@ -40,21 +40,21 @@ private:
 	// Program
 	Program prog;
 
-	// A vertex array object for the rendered sphere
-	VertexArray sphere;
+	// A vertex array object for the rendered cube
+	VertexArray cube;
 
-	// VBOs for the sphere's vertices and uv-coordinates
+	// VBOs for the cube's vertices and uv-coordinates
 	Buffer verts;
 	Buffer uvcoords;
 public:
-	SphereExample(void)
-	 : sphere_instr(make_sphere.Instructions())
-	 , sphere_indices(make_sphere.Indices())
+	CubeExample(void)
+	 : cube_instr(make_cube.Instructions())
+	 , cube_indices(make_cube.Indices())
 	{
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
+			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
 			"in vec4 vertex;"
 			"in vec2 uvcoord;"
 			"out vec2 uv;"
@@ -64,6 +64,7 @@ public:
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
+			"		modelMatrix *"
 			"		vertex;"
 			"}"
 		);
@@ -77,8 +78,12 @@ public:
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float i = (int(uv.x*18)%2 + int(uv.y*14)%2)%2;"
-			"	fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
+			"	float i = int((uv.x+uv.y)*8) % 2;"
+			"	fragColor = mix("
+			"		vec4(0, 0, 0, 1),"
+			"		vec4(1, 1, 0, 1),"
+			"		i"
+			"	);"
 			"}"
 		);
 		// compile it
@@ -91,14 +96,14 @@ public:
 		prog.Link();
 		prog.Use();
 
-		// bind the VAO for the sphere
-		sphere.Bind();
+		// bind the VAO for the cube
+		cube.Bind();
 
-		// bind the VBO for the sphere vertices
+		// bind the VBO for the cube vertices
 		verts.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_sphere.Vertices(data);
+			GLuint n_per_vertex = make_cube.Vertices(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
@@ -107,11 +112,11 @@ public:
 			attr.Enable();
 		}
 
-		// bind the VBO for the sphere UV-coordinates
+		// bind the VBO for the cube UV-coordinates
 		uvcoords.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_sphere.UVCoordinates(data);
+			GLuint n_per_vertex = make_cube.UVCoordinates(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
@@ -139,14 +144,22 @@ public:
 		Uniform(prog, "cameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.5,
-				Degrees(time * 135),
-				Degrees(std::sin(time * 0.3) * 90)
+				2.5,
+				Degrees(time * 15),
+				Degrees(std::sin(time) * 45)
 			)
 		);
-
-		sphere.Bind();
-		sphere_instr.Draw(sphere_indices);
+		cube.Bind();
+		Uniform(prog, "modelMatrix").SetMatrix(
+			ModelMatrixf::Translation(-1.0, 0.0, 0.0) *
+			ModelMatrixf::RotationZ(Degrees(time * 180))
+		);
+		cube_instr.Draw(cube_indices);
+		Uniform(prog, "modelMatrix").SetMatrix(
+			ModelMatrixf::Translation(+1.0, 0.0, 0.0) *
+			ModelMatrixf::RotationY(Degrees(time * 90))
+		);
+		cube_instr.Draw(cube_indices);
 	}
 
 	bool Continue(double time)
@@ -157,7 +170,7 @@ public:
 
 std::unique_ptr<Example> makeExample(void)
 {
-	return std::unique_ptr<Example>(new SphereExample);
+	return std::unique_ptr<Example>(new CubeExample);
 }
 
 } // namespace oglplus

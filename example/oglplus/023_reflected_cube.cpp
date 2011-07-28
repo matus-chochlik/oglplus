@@ -181,8 +181,8 @@ public:
 		VertexArray::Unbind();
 
 		// set the projection matrix fov = 24 deg. aspect = 1.25
-		Matrix4f projMatrix =
-			Matrix4f::Perspective(Degrees(24), 1.25, 1, 100);
+		auto projMatrix =
+			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100);
 		Vec3f lightPos(1.5, 2.0, 2.5);
 
 		// Pass the projection matrix and the light position
@@ -201,23 +201,23 @@ public:
 		// make the camera matrix orbiting around the origin
 		// at radius of 3.5 with elevation between 15 and 90 degrees
 		Uniform(prog, "cameraMatrix").SetMatrix(
-			Matrix4f::Orbiting(
+			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.5,
 				Degrees(time * 10),
 				Degrees(15 + (-std::cos(time * 0.5)+1.0)*0.5*75)
 			)
 		);
-		Matrix4f identity;
+		ModelMatrixf identity;
 		// make the model transformation matrix
-		Matrix4f model =
-			Matrix4f::Translation(0.0f, 1.5f, 0.0) *
-			Matrix4f::RotationA(
+		ModelMatrixf model =
+			ModelMatrixf::Translation(0.0f, 1.5f, 0.0) *
+			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				Degrees(time * 90)
 			);
 		// make the reflection matrix
-		Matrix4f reflection(
+		ModelMatrixf reflection(
 			1.0, 0.0, 0.0, 0.0,
 			0.0,-1.0, 0.0, 0.0,
 			0.0, 0.0, 1.0, 0.0,

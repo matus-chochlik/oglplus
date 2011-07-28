@@ -174,12 +174,12 @@ public:
 		//
 		// set the projection matrix fov = 24 deg. aspect = 1.25
 		Uniform(prog, "projectionMatrix").SetMatrix(
-			Matrix4f::Perspective(Degrees(24), 1.25, 1, 100)
+			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)
 		);
 		//
 		// set the matrix for camera at (1,1,1) looking at origin
 		Uniform(prog, "cameraMatrix").SetMatrix(
-			Matrix4f::LookingAt(
+			CamMatrixf::LookingAt(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				Vec3f()
 			)

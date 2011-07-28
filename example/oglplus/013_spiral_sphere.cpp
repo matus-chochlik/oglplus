@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/012_checker_sphere.cpp
- *  @brief Shows how to draw a checkered sphere using the Sphere builder
+ *  @example oglplus/013_spiral_sphere.cpp
+ *  @brief Shows how to draw a jumping and rotating sphere
  *
- *  @image html 012_checker_sphere.png
+ *  @image html 013_spiral_sphere.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -54,7 +54,7 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
+			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
 			"in vec4 vertex;"
 			"in vec2 uvcoord;"
 			"out vec2 uv;"
@@ -64,6 +64,7 @@ public:
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
+			"		modelMatrix *"
 			"		vertex;"
 			"}"
 		);
@@ -77,8 +78,12 @@ public:
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float i = (int(uv.x*18)%2 + int(uv.y*14)%2)%2;"
-			"	fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
+			"	float i = int((uv.x+uv.y)*16) % 2;"
+			"	fragColor = mix("
+			"		vec4(0.9, 0.9, 0.9, 1.0),"
+			"		vec4(1.0, 0.3, 0.4, 1.0),"
+			"		i"
+			"	);"
 			"}"
 		);
 		// compile it
@@ -137,12 +142,19 @@ public:
 		//
 		// set the matrix for camera orbiting the origin
 		Uniform(prog, "cameraMatrix").SetMatrix(
-			CamMatrixf::Orbiting(
-				Vec3f(),
-				1.5,
-				Degrees(time * 135),
-				Degrees(std::sin(time * 0.3) * 90)
+			CamMatrixf::LookingAt(
+				Vec3f(1.0, 2.0, 1.0),
+				Vec3f()
 			)
+		);
+
+		Uniform(prog, "modelMatrix").SetMatrix(
+			ModelMatrixf::Translation(
+				0.0f,
+				sqrt(1.0f+std::sin(time * 3.1415)),
+				0.0f
+			) *
+			ModelMatrixf::RotationY(Degrees(time * 180))
 		);
 
 		sphere.Bind();

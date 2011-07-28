@@ -100,6 +100,42 @@ public:
 		return a._val_rad >=  b._val_rad;
 	}
 
+	/// Negation
+	friend Angle Negated(const Angle& angle)
+	{
+		return Angle(-angle._val_rad, _Radians());
+	}
+
+	/// Negation operator
+	friend Angle operator - (const Angle& angle)
+	{
+		return Negated(angle);
+	}
+
+	/// Addition
+	friend Angle Add(const Angle& a, const Angle& b)
+	{
+		return Angle(a._val_rad + b._val_rad, _Radians());
+	}
+
+	/// Addition operator
+	friend Angle operator + (const Angle& a, const Angle& b)
+	{
+		return Add(a, b);
+	}
+
+	/// Subtraction
+	friend Angle Subtract(const Angle& a, const Angle& b)
+	{
+		return Angle(a._val_rad - b._val_rad, _Radians());
+	}
+
+	/// Subtraction operator
+	friend Angle operator - (const Angle& a, const Angle& b)
+	{
+		return Subtract(a, b);
+	}
+
 	/// Returns the sine of the angle
 	friend inline T Sin(const Angle& a)
 	{
