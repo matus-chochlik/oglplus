@@ -20,22 +20,22 @@
 
 namespace oglplus {
 
-// Renderable geometric shape built by the ShapeBuider class
-template <class ShapeBuilder>
+// Renderable geometric shape built by the ShapeMaker class
+template <class ShapeMaker>
 class Shape
 {
 private:
 	// helper object building shape's vertex attributes
-	ShapeBuilder make_shape;
+	ShapeMaker make_shape;
 	// helper object encapsulating the drawing instructions
 	shapes::DrawingInstructions shape_instr;
 	// indices pointing to the shape's primitive elements
-	typename ShapeBuilder::IndexArray shape_indices;
+	typename ShapeMaker::IndexArray shape_indices;
 
 	// Fragment shader is owned by each individual shape
 	FragmentShader fs;
 
-	// Program
+	// Shading program
 	Program prog;
 
 	// A vertex array object for the rendered shape
@@ -62,43 +62,30 @@ public:
 		// bind the VAO for the shape
 		shape.Bind();
 
-		//ShapeBuilder::*MakeProc(std::vector<GLfloat>&) = 0;
+		const size_t n_attr = 3;
+		// pointers to the vertex attribute data build functions
+		typedef GLuint (ShapeMaker::*Func)(std::vector<GLfloat>&) const;
+		Func func[n_attr] = {
+			&ShapeMaker::Vertices,
+			&ShapeMaker::Normals,
+			&ShapeMaker::UVCoordinates
+		};
+		// managed references to the VBOs
+		Managed<Buffer> vbo[n_attr] = {verts, normals, uvcoords};
+		// vertex attribute identifiers from the shaders
+		const GLchar* ident[n_attr] = {"vertex", "normal", "uvcoord"};
 
-		// bind the VBO for the shape's vertices
-		verts.Bind(Buffer::Target::Array);
+		for(size_t i=0; i!=n_attr; ++i)
 		{
+			// bind the VBO
+			vbo[i].Bind(Buffer::Target::Array);
+			// make the data
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Vertices(data);
+			GLuint n_per_vertex = (make_shape.*func[i])(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
-			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
-
-		// bind the VBO for the shape's normals
-		normals.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Normals(data);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
-			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "normal");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
-
-		// bind the VBO for the shape's UV-coordinates
-		uvcoords.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.UVCoordinates(data);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
-			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "uvcoord");
+			// setup the vertex attrib
+			VertexAttribArray attr(prog, ident[i]);
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -201,7 +188,7 @@ private:
 	static const GLchar* fs_epilogue(void)
 	{
 		return
-		"	fragColor = color * intensity;"
+		"	fragColor = vec4(color, 1.0) * intensity;"
 		"}";
 	}
 
@@ -210,7 +197,7 @@ private:
 	{
 		return
 		"	float c = (1+ int(fragUV.x*8)%2 + int(fragUV.y*8)%2)%2;"
-		"	vec4 color = vec4(c, c, c, 1);";
+		"	vec3 color = vec3(c, c, c);";
 	}
 
 	// The part calculating the color for the yellow/black strips shader
@@ -218,9 +205,9 @@ private:
 	{
 		return
 		"	float m = int((fragUV.x+fragUV.y)*16) % 2;"
-		"	vec4 color = mix("
-		"		vec4(0.0, 0.0, 0.0, 1.0),"
-		"		vec4(1.0, 1.0, 0.0, 1.0),"
+		"	vec3 color = mix("
+		"		vec3(0.0, 0.0, 0.0),"
+		"		vec3(1.0, 1.0, 0.0),"
 		"		m"
 		"	);";
 	}
@@ -230,9 +217,9 @@ private:
 	{
 		return
 		"	float m = int(fragUV.y*8) % 2;"
-		"	vec4 color = mix("
-		"		vec4(1.0, 0.6, 0.1, 1.0),"
-		"		vec4(1.0, 0.9, 0.8, 1.0),"
+		"	vec3 color = mix("
+		"		vec3(1.0, 0.6, 0.1),"
+		"		vec3(1.0, 0.9, 0.8),"
 		"		m"
 		"	);";
 	}
@@ -243,9 +230,9 @@ private:
 		return
 		"	vec2  center = fragUV - vec2(0.5, 0.5);"
 		"	float m = int(sqrt(length(center))*16) % 2;"
-		"	vec4 color = mix("
-		"		vec4(1.0, 0.0, 0.0, 1.0),"
-		"		vec4(0.0, 0.0, 1.0, 1.0),"
+		"	vec3 color = mix("
+		"		vec3(1.0, 0.0, 0.0),"
+		"		vec3(0.0, 0.0, 1.0),"
 		"		m"
 		"	);";
 	}
@@ -258,9 +245,9 @@ private:
 		"	float l = length(center);"
 		"	float t = atan(center.y, center.x)/(2.0*asin(1.0));"
 		"	float m = int(l+t) % 2;"
-		"	vec4 color = mix("
-		"		vec4(0.0, 1.0, 0.0, 1.0),"
-		"		vec4(1.0, 1.0, 1.0, 1.0),"
+		"	vec3 color = mix("
+		"		vec3(0.0, 1.0, 0.0),"
+		"		vec3(1.0, 1.0, 1.0),"
 		"		m"
 		"	);";
 	}

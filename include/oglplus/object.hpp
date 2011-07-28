@@ -108,6 +108,28 @@ public:
 	}
 };
 
+template <class Object>
+class Managed;
+
+template <class ObjectOps, bool MultiObject>
+class Managed<Object<ObjectOps, MultiObject> >
+ : public ObjectOps
+ , public FriendOf<ObjectOps>
+{
+private:
+	Managed(void)
+	{ }
+public:
+	Managed(const ObjectOps& obj)
+	 : ObjectOps(obj)
+	{ }
+
+	~Managed(void)
+	{
+		FriendOf<ObjectOps>::SetName(*this, 0);
+	}
+};
+
 } // namespace oglplus
 
 #endif // include guard

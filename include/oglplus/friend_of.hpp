@@ -37,24 +37,26 @@ protected:
 	}
 };
 
-template <class Object>
+template <class ObjectOps>
 class FriendOf
  : public FriendOf<Named>
 {
 private:
-	static void SetName(Object& object, GLuint name)
+	static void SetName(ObjectOps& object, GLuint name)
 	{
 		FriendOf<Named>::SetName(object, name);
 	}
 
-	friend class Managed<Object>;
+	friend class Managed<ObjectOps>;
+	friend class Managed<Object<ObjectOps, true> >;
+	friend class Managed<Object<ObjectOps, false> >;
 protected:
-	static GLuint GetName(const Object& object)
+	static GLuint GetName(const ObjectOps& object)
 	{
 		return FriendOf<Named>::GetName(object);
 	}
 
-	static GLuint GetIndex(const Object& object)
+	static GLuint GetIndex(const ObjectOps& object)
 	{
 		return object._index;
 	}
