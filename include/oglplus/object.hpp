@@ -83,9 +83,10 @@ public:
 	Object(Object&& temp)
 	{
 		assert(this->_name == 0);
+		assert(temp._name  != 0);
 		this->_name = temp._release();
 		assert(this->_name != 0);
-		assert(temp._name == 0);
+		assert(temp._name  == 0);
 		assert(_type_ok(this->_name));
 	}
 

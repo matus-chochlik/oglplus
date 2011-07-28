@@ -347,6 +347,11 @@ public:
 	}
 };
 
+/// 4x4 float matrix
+typedef Matrix<GLfloat, 4, 4> Matrix4f;
+/// 4x4 double precision matrix
+typedef Matrix<GLdouble, 4, 4> Matrix4d;
+
 /// Class implementing model transformation matrix named constructors
 /** The static member functions of this class can be used to construct
  *  various model transformation matrices.
@@ -509,9 +514,9 @@ public:
 
 };
 
-/// 4x4 float matrix
+/// Model transformation float matrix
 typedef ModelMatrix<GLfloat> ModelMatrixf;
-/// 4x4 double precision matrix
+/// Model transformation double precision matrix
 typedef ModelMatrix<GLdouble> ModelMatrixd;
 
 /// Class implementing camera matrix named constructors

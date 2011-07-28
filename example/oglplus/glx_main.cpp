@@ -93,13 +93,19 @@ int main (int argc, char ** argv)
 			cle.Log() <<
 			std::endl;
 	}
-	catch(oglplus::Error& e)
+	catch(oglplus::Error& err)
 	{
 		std::cerr <<
-			"Error [in gl" << e.GLFunc() << "]: " <<
-			e.what() <<
-			" [" << e.File() << ":" << e.Line() << "]" <<
-			std::endl;
+			"Error (in gl" << err.GLFunc() << "): " <<
+			err.what() <<
+			" [" << err.File() << ":" << err.Line() << "] ";
+		auto i = err.Properties().begin(), e = err.Properties().end();
+		while(i != e)
+		{
+			std::cerr << "<" << i->first << "=" << i->second << ">";
+			++i;
+		}
+		std::cerr <<std::endl;
 	}
 	catch(std::exception& se)
 	{

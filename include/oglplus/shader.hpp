@@ -90,6 +90,13 @@ public:
 	}
 
 	/// Set the source code of the shader
+	void Source(const GLchar** srcs, int count) const
+	{
+		assert(_name != 0);
+		::glShaderSource(_name, count, srcs, 0);
+	}
+
+	/// Set the source code of the shader
 	void Source(const std::vector<const GLchar*>& srcs) const
 	{
 		assert(_name != 0);
@@ -168,6 +175,23 @@ public:
 typedef Object<ShaderOps, false> Shader;
 #endif
 
+template <Shader::Kind kind>
+class SpecializedShader
+ : public Shader
+{
+public:
+	SpecializedShader(void)
+	 : Shader(kind)
+	{ }
+
+	SpecializedShader(const SpecializedShader&) = delete;
+
+	SpecializedShader(SpecializedShader&& tmp)
+	 : Shader(std::forward<Shader>(tmp))
+	{ }
+};
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// Vertex shader wrapper
 /**
  *  @see Shader
@@ -175,13 +199,12 @@ typedef Object<ShaderOps, false> Shader;
  */
 class VertexShader
  : public Shader
-{
-public:
-	VertexShader(void)
-	 : Shader(Shader::Kind::Vertex)
-	{ }
-};
+{ };
+#else
+typedef SpecializedShader<Shader::Kind::Vertex> VertexShader;
+#endif
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// Geometry shader wrapper
 /**
  *  @see Shader
@@ -189,13 +212,12 @@ public:
  */
 class GeometryShader
  : public Shader
-{
-public:
-	GeometryShader(void)
-	 : Shader(Shader::Kind::Geometry)
-	{ }
-};
+{ };
+#else
+typedef SpecializedShader<Shader::Kind::Geometry> GeometryShader;
+#endif
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// Fragment shader wrapper
 /**
  *  @see Shader
@@ -203,13 +225,12 @@ public:
  */
 class FragmentShader
  : public Shader
-{
-public:
-	FragmentShader(void)
-	 : Shader(Shader::Kind::Fragment)
-	{ }
-};
+{ };
+#else
+typedef SpecializedShader<Shader::Kind::Fragment> FragmentShader;
+#endif
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// Tesselation control shader wrapper
 /**
  *  @see Shader
@@ -217,13 +238,12 @@ public:
  */
 class TessControlShader
  : public Shader
-{
-public:
-	TessControlShader(void)
-	 : Shader(Shader::Kind::TessControl)
-	{ }
-};
+{ };
+#else
+typedef SpecializedShader<Shader::Kind::TessControl> TessControlShader;
+#endif
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// Tesselation evaluation shader wrapper
 /**
  *  @see Shader
@@ -231,12 +251,10 @@ public:
  */
 class TessEvaluationShader
  : public Shader
-{
-public:
-	TessEvaluationShader(void)
-	 : Shader(Shader::Kind::TessEvaluation)
-	{ }
-};
+{ };
+#else
+typedef SpecializedShader<Shader::Kind::TessEvaluation> TessEvaluationShader;
+#endif
 
 } // namespace oglplus
 
