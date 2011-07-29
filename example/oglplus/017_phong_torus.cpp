@@ -147,15 +147,23 @@ public:
 		Uniform(prog, "lightPos[1]").Set(Vec3f(0.0f, 3.0f, 0.0f));
 		Uniform(prog, "lightPos[2]").Set(Vec3f(0.0f,-1.0f, 4.0f));
 		//
-		// set the projection matrix fov = 24 deg. aspect = 1.25
-		Uniform(prog, "projectionMatrix").SetMatrix(
-			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)
-		);
-		//
 		VertexArray::Unbind();
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
-		glEnable(GL_DEPTH_TEST);
+		gl.Enable(Capability::DepthTest);
+	}
+
+	void Reshape(size_t width, size_t height)
+	{
+		gl.Viewport(width, height);
+		prog.Use();
+		Uniform(prog, "projectionMatrix").SetMatrix(
+			CamMatrixf::Perspective(
+				Degrees(24),
+				double(width)/height,
+				1, 100
+			)
+		);
 	}
 
 	void Render(double time)

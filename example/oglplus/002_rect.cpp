@@ -112,6 +112,11 @@ public:
 		gl.ClearDepth(1.0f);
 	}
 
+	void Reshape(size_t width, size_t height)
+	{
+		gl.Viewport(width, height);
+	}
+
 	void Render(double)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();

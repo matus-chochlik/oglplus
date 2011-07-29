@@ -26,6 +26,8 @@ struct Example
 		return duration < 3.0; // [seconds]
 	}
 
+	virtual void Reshape(size_t width, size_t height) = 0;
+
 	virtual void Render(double time) = 0;
 };
 

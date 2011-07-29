@@ -36,7 +36,9 @@ private:
 	static ::Window make_window(
 		const Display& display,
 		const VisualInfo& vi,
-		const ColorMap& cmap
+		const ColorMap& cmap,
+		size_t width,
+		size_t height
 	)
 	{
 		::XSetWindowAttributes swa;
@@ -51,7 +53,7 @@ private:
 				FriendlyTo<Display>::GetHandle(display),
 				FriendlyTo<VisualInfo>::GetHandle(vi)->screen
 			),
-			0, 0, 800, 600,
+			0, 0, width, height,
 			0,
 			FriendlyTo<VisualInfo>::GetHandle(vi)->depth,
 			InputOutput,
@@ -67,10 +69,12 @@ public:
 		const Display& display,
 		const VisualInfo& vi,
 		ColorMap&& cmap,
-		const char* title
+		const char* title,
+		size_t width,
+		size_t height
 	): _display(display)
 	 , _cmap(std::move(cmap))
-	 , _handle(make_window(_display, vi, _cmap))
+	 , _handle(make_window(_display, vi, _cmap, width, height))
 	{
 		if(!_handle)
 		{

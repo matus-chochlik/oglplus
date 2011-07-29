@@ -44,11 +44,8 @@ private:
 	// VBOs for the shape's vertices, normals and uv-coordinates
 	Buffer verts, normals, uvcoords;
 public:
-	Shape(
-		const Matrix4f& projection,
-		const VertexShader& vs,
-		FragmentShader&& frag
-	): shape_instr(make_shape.Instructions())
+	Shape(const VertexShader& vs, FragmentShader&& frag)
+	 : shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
 	 , fs(std::forward<FragmentShader>(frag))
 	{
@@ -89,8 +86,11 @@ public:
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
+	}
 
-		// set the projection matrix
+	void SetProjection(const Matrix4f& projection)
+	{
+		prog.Use();
 		Uniform(prog, "projectionMatrix").SetMatrix(projection);
 	}
 
@@ -119,9 +119,6 @@ class ShapeExample : public Example
 private:
 	// wrapper around the current OpenGL context
 	Context gl;
-
-	// The projection matrix
-	Matrix4f projection;
 
 	// The vertex shader is shader by the shapes
 	VertexShader vs;
@@ -271,17 +268,31 @@ private:
 	Shape<shapes::Torus> torus;
 public:
 	ShapeExample(void)
-	 : projection(CamMatrixf::Perspective(Degrees(24), 1.25f, 1.0f, 100.0f))
-	 , vs(make_vs())
-	 , sphere(projection, vs, make_fs(fs_yb_strips()))
-	 , cubeX(projection, vs, make_fs(fs_bw_checker()))
-	 , cubeY(projection, vs, make_fs(fs_br_circles()))
-	 , cubeZ(projection, vs, make_fs(fs_wg_spirals()))
-	 , torus(projection, vs, make_fs(fs_wo_vstrips()))
+	 : vs(make_vs())
+	 , sphere(vs,make_fs(fs_yb_strips()))
+	 , cubeX(vs, make_fs(fs_bw_checker()))
+	 , cubeY(vs, make_fs(fs_br_circles()))
+	 , cubeZ(vs, make_fs(fs_wg_spirals()))
+	 , torus(vs, make_fs(fs_wo_vstrips()))
 	{
 		gl.ClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
+	}
+
+	void Reshape(size_t width, size_t height)
+	{
+		gl.Viewport(width, height);
+		auto projection = CamMatrixf::Perspective(
+			Degrees(24),
+			double(width)/height,
+			1, 100
+		);
+		sphere.SetProjection(projection);
+		cubeX.SetProjection(projection);
+		cubeY.SetProjection(projection);
+		cubeZ.SetProjection(projection);
+		torus.SetProjection(projection);
 	}
 
 	void Render(double time)

@@ -273,23 +273,29 @@ public:
 		}
 		VertexArray::Unbind();
 
-		// set the projection matrix fov = 24 deg. aspect = 1.25
-		auto projMatrix =
-			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100);
-		Vec3f lightPos(2.0, 2.0, 3.0);
-
-		// Pass the projection matrix and the light position
-		// to both programs
+		Vec3f lightPos(2.0f, 2.0f, 3.0f);
 		prog_norm.Use();
-		Uniform(prog_norm, "projectionMatrix").SetMatrix(projMatrix);
 		Uniform(prog_norm, "lightPos").Set(lightPos);
 		prog_refl.Use();
-		Uniform(prog_refl, "projectionMatrix").SetMatrix(projMatrix);
 		Uniform(prog_refl, "lightPos").Set(lightPos);
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.ClearStencil(0);
+	}
+
+	void Reshape(size_t width, size_t height)
+	{
+		gl.Viewport(width, height);
+		auto projection = CamMatrixf::Perspective(
+			Degrees(24),
+			double(width)/height,
+			1, 100
+		);
+		prog_norm.Use();
+		Uniform(prog_norm, "projectionMatrix").SetMatrix(projection);
+		prog_refl.Use();
+		Uniform(prog_refl, "projectionMatrix").SetMatrix(projection);
 	}
 
 	void Render(double time)

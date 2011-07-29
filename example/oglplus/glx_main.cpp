@@ -58,12 +58,14 @@ void run(const x11::Display& display)
 		display,
 		vi,
 		x11::ColorMap(display, vi),
-		"oglplus example window"
+		"oglplus example window",
+		800, 600
 	);
 	glx::Context ctx(display, fbc, 3, 0);
 	ctx.MakeCurrent(win);
 	{
 		std::unique_ptr<Example> example(makeExample());
+		example->Reshape(800, 600);
 		std::clock_t start = std::clock();
 		while(1)
 		{

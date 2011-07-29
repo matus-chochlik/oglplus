@@ -256,6 +256,20 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendColor));
 	}
 
+	/// Sets the polygon facing mode
+	static void FrontFace(FaceOrientation orientation)
+	{
+		::glFrontFace(GLenum(orientation));
+		AssertNoError(OGLPLUS_ERROR_INFO(FrontFace));
+	}
+
+	/// Sets the face culling mode
+	static void CullFace(Face mode)
+	{
+		::glCullFace(GLenum(mode));
+		AssertNoError(OGLPLUS_ERROR_INFO(CullFace));
+	}
+
 	/// Sets the color mask
 	static void ColorMask(bool r, bool g, bool b, bool a)
 	{

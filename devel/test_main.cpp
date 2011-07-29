@@ -58,7 +58,8 @@ void run(const x11::Display& display)
 		display,
 		vi,
 		x11::ColorMap(display, vi),
-		"oglplus test window"
+		"oglplus test window",
+		800, 600
 	);
 	glx::Context ctx(display, fbc, 3, 0);
 	ctx.MakeCurrent(win);

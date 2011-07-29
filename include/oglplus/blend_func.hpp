@@ -24,7 +24,7 @@ enum class BlendFunction : GLenum
 	DstColor = GL_DST_COLOR,
 	OneMinusDstColor = GL_ONE_MINUS_DST_COLOR,
 	SrcAlpha = GL_SRC_ALPHA,
-	OneMinutSrcAlpha = GL_ONE_MINUS_SRC_ALPHA,
+	OneMinusSrcAlpha = GL_ONE_MINUS_SRC_ALPHA,
 	DstAlpha = GL_DST_ALPHA,
 	OneMinusDstAlpha = GL_ONE_MINUS_DST_ALPHA,
 	ConstantColor = GL_CONSTANT_COLOR,

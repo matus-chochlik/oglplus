@@ -192,15 +192,23 @@ public:
 		normal_attr.Setup(3, DataType::Float);
 		normal_attr.Enable();
 		//
-		// set the projection matrix fov = 24 deg. aspect = 1.25
-		Uniform(prog, "projectionMatrix").SetMatrix(
-			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)
-		);
-		//
 		VertexArray::Unbind();
 		gl.ClearColor(0.03f, 0.03f, 0.03f, 0.0f);
 		gl.ClearDepth(1.0f);
-		glEnable(GL_DEPTH_TEST);
+		gl.Enable(Capability::DepthTest);
+	}
+
+	void Reshape(size_t width, size_t height)
+	{
+		gl.Viewport(width, height);
+		prog.Use();
+		Uniform(prog, "projectionMatrix").SetMatrix(
+			CamMatrixf::Perspective(
+				Degrees(24),
+				double(width)/height,
+				1, 100
+			)
+		);
 	}
 
 	void Render(double time)
