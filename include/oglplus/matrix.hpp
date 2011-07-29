@@ -627,11 +627,11 @@ public:
 			Cos(elevation) * Sin(azimuth)
 		);
 		Vector<T, 3> x(
-			-Sin(azimuth),
+			Sin(azimuth),
 			T(0),
-			Cos(azimuth)
+			-Cos(azimuth)
 		);
-		Vector<T, 3> y = Cross(x, z);
+		Vector<T, 3> y = Cross(z, x);
 
 		this->_m._data = {
 			x.template At<0>(),
