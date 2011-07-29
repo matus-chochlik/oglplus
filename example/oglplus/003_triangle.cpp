@@ -1,6 +1,6 @@
 /**
  *  @example oglplus/003_triangle.cpp
- *  @brief Shows the basic usage of OGL+ by drawing a simple transformed triangle.
+ *  @brief Shows the basic usage of OGLplus by drawing a simple transformed triangle.
  *
  *  @image html 003_triangle.png
  *

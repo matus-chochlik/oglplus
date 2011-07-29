@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/error.hpp
- *  @brief Declaration of OpenGL+'s exceptions
+ *  @brief Declaration of OGLplus' exceptions
  *
  *  @author Matus Chochlik
  *
@@ -65,7 +65,7 @@ struct ErrorInfo
 
 /// Exception class for general OpenGL errors
 /** Instances of this exception class are throws whenever an error is detected
- *  during the execution of OpenGL API calls in the OGL+ code. There are several
+ *  during the execution of OpenGL API calls in the OGLplus code. There are several
  *  other classes derived for more specific error types, like GL shading language
  *  compilation and linking errors, out-of-memory errors, etc.
  *  This class is derived from the standard runtime_error exception and thus

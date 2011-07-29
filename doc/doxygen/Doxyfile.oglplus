@@ -7,7 +7,7 @@
 #---------------------------------------------------------------------------
 @INCLUDE = ./Doxyfile.common
 
-PROJECT_NAME           = "OGL+"
+PROJECT_NAME           = "OGLplus"
 
 OUTPUT_DIRECTORY       = ../../out/doc/doxygen/oglplus
 
