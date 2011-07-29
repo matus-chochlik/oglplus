@@ -13,6 +13,7 @@
 #define OGLPLUS_SHAPES_SPHERE_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
+#include <oglplus/face_mode.hpp>
 
 #include <cmath>
 
@@ -33,6 +34,12 @@ public:
 	 , _sections(18)
 	 , _rings(12)
 	{ }
+
+	/// Returns the winding direction of faces
+	FaceOrientation FaceWinding(void) const
+	{
+		return FaceOrientation::CW;
+	}
 
 	/// Makes vertex normals and returns number of values per vertex
 	template <typename T>

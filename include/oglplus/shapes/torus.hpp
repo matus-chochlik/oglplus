@@ -13,6 +13,7 @@
 #define OGLPLUS_SHAPES_TORUS_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
+#include <oglplus/face_mode.hpp>
 
 #include <cmath>
 
@@ -42,6 +43,12 @@ public:
 	 , _sections(sects)
 	 , _rings(rings)
 	{ }
+
+	/// Returns the winding direction of faces
+	FaceOrientation FaceWinding(void) const
+	{
+		return FaceOrientation::CW;
+	}
 
 	/// Makes vertex coordinates and returns number of values per vertex
 	template <typename T>

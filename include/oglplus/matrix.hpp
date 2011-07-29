@@ -624,10 +624,10 @@ public:
 		Vector<T, 3> z(
 			Cos(elevation) * Cos(azimuth),
 			Sin(elevation),
-			Cos(elevation) * Sin(azimuth)
+			Cos(elevation) *-Sin(azimuth)
 		);
 		Vector<T, 3> x(
-			Sin(azimuth),
+			-Sin(azimuth),
 			T(0),
 			-Cos(azimuth)
 		);

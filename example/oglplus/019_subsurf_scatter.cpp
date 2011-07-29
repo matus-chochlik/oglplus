@@ -191,7 +191,7 @@ public:
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::CullFace);
-		gl.FrontFace(FaceOrientation::CW);
+		gl.FrontFace(make_cube.FaceWinding());
 		gl.Enable(Capability::Blend);
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::OneMinusSrcAlpha);
 	}
@@ -217,13 +217,13 @@ public:
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				1.5f,
-				Degrees(time * 70),
-				Degrees(std::sin(time * 0.5f) * 80)
+				Degrees(time * 50),
+				Degrees(std::sin(time * 0.4f) * 80)
 			)
 		);
 		// the model matrix
 		Uniform(prog, "modelMatrix").SetMatrix(
-			ModelMatrixf::RotationY(Degrees(-time * 25))
+			ModelMatrixf::RotationY(Degrees(time * 25))
 		);
 		// draw 36 instances of the cube
 		cube.Bind();

@@ -13,6 +13,7 @@
 #define OGLPLUS_SHAPES_CUBE_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
+#include <oglplus/face_mode.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -37,6 +38,14 @@ public:
 	 , _y(h)
 	 , _z(d)
 	{ }
+
+	/// Returns the winding direction of faces
+	FaceOrientation FaceWinding(void) const
+	{
+		return FaceOrientation::CW;
+	}
+
+	typedef GLuint (Cube::*VertexAttribFunc)(std::vector<GLfloat>&) const;
 
 	/// Makes the vertices and returns the number of values per vertex
 	template <typename T>
