@@ -131,7 +131,11 @@ public:
 	}
 
 	/// Sets the stencil function
-	static void StencilFunc(CompareFunction func, GLint ref, GLuint mask)
+	static void StencilFunc(
+		CompareFunction func,
+		GLint ref = GLint(0),
+		GLuint mask = ~GLuint(0)
+	)
 	{
 		::glStencilFunc(GLenum(func), ref, mask);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilFunc));
@@ -141,8 +145,8 @@ public:
 	static void StencilFuncSeparate(
 		Face face,
 		CompareFunction func,
-		GLint ref,
-		GLuint mask
+		GLint ref = GLint(0),
+		GLuint mask = ~GLuint(0)
 	)
 	{
 		::glStencilFuncSeparate(GLenum(face), GLenum(func), ref, mask);
@@ -175,6 +179,13 @@ public:
 			GLenum(dpass)
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilOpSeparate));
+	}
+
+	/// Sets the depth comparison function
+	static void DepthFunc(CompareFunction func)
+	{
+		::glDepthFunc(GLenum(func));
+		AssertNoError(OGLPLUS_ERROR_INFO(DepthFunc));
 	}
 
 	/// Sets the blend equation
@@ -281,6 +292,27 @@ public:
 			a ? GL_TRUE : GL_FALSE
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(ColorMask));
+	}
+
+	/// Sets the depth mask
+	static void DepthMask(bool mask)
+	{
+		::glDepthMask(mask ? GL_TRUE : GL_FALSE);
+		AssertNoError(OGLPLUS_ERROR_INFO(DepthMask));
+	}
+
+	/// Sets the stencil mask
+	static void StencilMask(GLuint mask)
+	{
+		::glStencilMask(mask);
+		AssertNoError(OGLPLUS_ERROR_INFO(StencilMask));
+	}
+
+	/// Sets the stencil mask separately for front and back faces
+	static void StencilMaskSeparate(Face face, GLuint mask)
+	{
+		::glStencilMaskSeparate(GLenum(face), mask);
+		AssertNoError(OGLPLUS_ERROR_INFO(StencilMaskSeparate));
 	}
 
 	/// Sets the polygon rasterization mode

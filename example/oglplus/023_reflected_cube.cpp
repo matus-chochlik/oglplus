@@ -121,9 +121,9 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr_n(prog, "vertex");
-			attr_n.Setup(n_per_vertex, DataType::Float);
-			attr_n.Enable();
+			VertexAttribArray attr(prog, "vertex");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
 		}
 
 		// bind the VBO for the cube normals
@@ -134,10 +134,9 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the normals
-			prog.Use();
-			VertexAttribArray attr_n(prog, "normal");
-			attr_n.Setup(n_per_vertex, DataType::Float);
-			attr_n.Enable();
+			VertexAttribArray attr(prog, "normal");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
 		}
 
 		// bind the VAO for the plane
