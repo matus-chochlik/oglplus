@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/017_phong_torus.cpp
- *  @brief Shows how to draw a "phong"-like shaded torus
+ *  @example oglplus/016_cartoon_torus.cpp
+ *  @brief Shows how to draw a cartoon-like cel shaded torus
  *
- *  @image html 017_phong_torus.png
+ *  @image html 016_cartoon_torus.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -54,18 +54,19 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
+			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
 			"in vec4 vertex;"
 			"in vec3 normal;"
 			"out vec3 fragNormal;"
 			"out vec3 viewDir;"
 			"void main(void)"
 			"{"
-			"	fragNormal = normal;"
+			"	fragNormal = (modelMatrix * vec4(normal, 0.0)).xyz;"
 			"	viewDir = (vec4(0.0, 0.0, 1.0, 1.0)*cameraMatrix).xyz;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
+			"		modelMatrix *"
 			"		vertex;"
 			"}"
 		);
@@ -78,29 +79,22 @@ public:
 			"in vec3 fragNormal;"
 			"in vec3 viewDir;"
 			"out vec4 fragColor;"
-			"uniform vec3 lightPos[3];"
+			"uniform vec3 lightPos;"
 			"void main(void)"
 			"{"
-			"	float amb = 0.2;"
-			"	float diff = 0.0;"
-			"	float spec = 0.0;"
-			"	for(int i=0;i!=3;++i)"
-			"	{"
-			"		diff += max("
-			"			dot(fragNormal,  lightPos[i])/"
-			"			dot(lightPos[i], lightPos[i]),"
-			"			0.0"
-			"		);"
-			"		float k = dot(fragNormal, lightPos[i]);"
-			"		vec3 r = 2.0*k*fragNormal - lightPos[i];"
-			"		spec += pow(max("
-			"			dot(normalize(r), viewDir),"
-			"			0.0"
-			"		), 32.0 * dot(r, r));"
-			"	}"
-			"	fragColor = "
-			"		vec4(1.0, 0.1, 0.3, 1.0)*(amb+diff)+"
-			"		vec4(1.0, 1.0, 1.0, 1.0)*spec;"
+			"	float intensity = 2.0 * max("
+			"		dot(fragNormal,  lightPos)/"
+			"		length(lightPos),"
+			"		0.0"
+			"	);"
+			"	if(!gl_FrontFacing)"
+			"		fragColor = vec4(0.0, 0.0, 0.0, 1.0);"
+			"	else if(intensity > 0.9)"
+			"		fragColor = vec4(1.0, 0.9, 0.8, 1.0);"
+			"	else if(intensity > 0.1)"
+			"		fragColor = vec4(0.7, 0.6, 0.4, 1.0);"
+			"	else"
+			"		fragColor = vec4(0.3, 0.2, 0.1, 1.0);"
 			"}"
 		);
 		// compile it
@@ -141,19 +135,19 @@ public:
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
-
-		// set the light positions
-		Uniform(prog, "lightPos[0]").Set(Vec3f(2.0f,-1.0f, 0.0f));
-		Uniform(prog, "lightPos[1]").Set(Vec3f(0.0f, 3.0f, 0.0f));
-		Uniform(prog, "lightPos[2]").Set(Vec3f(0.0f,-1.0f, 4.0f));
 		//
 		VertexArray::Unbind();
+		// set the light position
+		Uniform(prog, "lightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_torus.FaceWinding());
 		gl.CullFace(Face::Back);
+		gl.PolygonMode(Face::Front, PolygonMode::Fill);
+		gl.PolygonMode(Face::Back, PolygonMode::Line);
+		glLineWidth(4.0f);
 	}
 
 	void Reshape(size_t width, size_t height)
@@ -177,13 +171,22 @@ public:
 		Uniform(prog, "cameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.5,
-				Degrees(time * 135),
-				Degrees(std::sin(time * 0.3) * 90)
+				2.5,
+				Degrees(time * 35),
+				Degrees(std::sin(time * 0.3) * 60)
 			)
+		);
+		// set the model matrix
+		Uniform(prog, "modelMatrix").SetMatrix(
+			ModelMatrixf::RotationY(FullCircles(time * 0.25)) *
+			ModelMatrixf::RotationX(FullCircles(0.25))
 		);
 
 		torus.Bind();
+		gl.CullFace(Face::Front);
+		torus_instr.Draw(torus_indices);
+		//
+		gl.CullFace(Face::Back);
 		torus_instr.Draw(torus_indices);
 	}
 

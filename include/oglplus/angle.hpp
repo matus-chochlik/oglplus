@@ -169,6 +169,32 @@ inline Angle<GLfloat> Radians(GLfloat val_rad)
 	return Angle<GLfloat>::Radians(val_rad);
 }
 
+/// Creates a new angle from a value in "full circles"
+/** This function creates a new angle from a value specifying the fraction
+ *  of a full 360 degree (2 pi radians) angle. For example the following
+ *  is true:
+ *  @code
+ *  FullCircles(0.125) == Degrees(45);
+ *  FullCircles(0.25) == Degrees(90);
+ *  FullCircles(0.25) == Degrees(PI / 2);
+ *  FullCircles(0.5) == Degrees(180);
+ *  FullCircles(0.5) == Degrees(PI);
+ *  FullCircles(0.9) == Degrees(2 * PI * 0.9);
+ *  @endcode
+ *
+ *  @param value a value in radians
+ *
+ *  @see Radians
+ *  @see Degrees
+ *  @see ArcSin
+ *  @see ArcCos
+ *  @see ArcTan
+ */
+inline Angle<GLfloat> FullCircles(GLfloat value)
+{
+	return Angle<GLfloat>::Radians(value * M_PI * 2.0);
+}
+
 /// Creates a new angle using the arc sine function
 /**
  *  @param x the value must be between -1.0 and 1.0

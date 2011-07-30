@@ -17,6 +17,7 @@
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/face_mode.hpp>
+#include <oglplus/polygon_mode.hpp>
 #include <oglplus/blend_func.hpp>
 #include <oglplus/compare_func.hpp>
 #include <oglplus/stencil_op.hpp>
@@ -280,6 +281,34 @@ public:
 			a ? GL_TRUE : GL_FALSE
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(ColorMask));
+	}
+
+	/// Sets the polygon rasterization mode
+	static void PolygonMode(Face face, oglplus::PolygonMode mode)
+	{
+		::glPolygonMode(GLenum(face), GLenum(mode));
+		AssertNoError(OGLPLUS_ERROR_INFO(PolygonMode));
+	}
+
+	/// Sets the polygon depth offset
+	static void PolygonOffset(GLfloat factor, GLfloat units)
+	{
+		::glPolygonOffset(factor, units);
+		AssertNoError(OGLPLUS_ERROR_INFO(PolygonOffset));
+	}
+
+	/// Sets the line width
+	static void LineWidth(GLfloat width)
+	{
+		::glLineWidth(width);
+		AssertNoError(OGLPLUS_ERROR_INFO(LineWidth));
+	}
+
+	/// Sets the point size
+	static void PointSize(GLfloat size)
+	{
+		::glPointSize(size);
+		AssertNoError(OGLPLUS_ERROR_INFO(PointSize));
 	}
 
 	/// Sets the current viewport

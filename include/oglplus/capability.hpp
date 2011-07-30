@@ -22,6 +22,10 @@ enum class Capability: GLenum
 
 	CullFace = GL_CULL_FACE,
 
+	PolygonOffsetPoint = GL_POLYGON_OFFSET_POINT,
+	PolygonOffsetLine = GL_POLYGON_OFFSET_LINE,
+	PolygonOffsetFill = GL_POLYGON_OFFSET_FILL,
+
 	Blend = GL_BLEND
 };
 
