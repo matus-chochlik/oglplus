@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/016_cartoon_torus.cpp
- *  @brief Shows how to draw a cartoon-like cel shaded torus
+ *  @example oglplus/016_metallic_torus.cpp
+ *  @brief Shows how to draw a metallic-looking torus
  *
- *  @image html 016_cartoon_torus.png
+ *  @image html 016_metallic_torus.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -60,7 +60,11 @@ public:
 			"out vec3 fragNormal;"
 			"void main(void)"
 			"{"
-			"	fragNormal = (modelMatrix * vec4(normal, 0.0)).xyz;"
+			"	fragNormal = ("
+			"		cameraMatrix *"
+			"		modelMatrix *"
+			"		vec4(normal, 0.0)"
+			"	).xyz;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
@@ -74,24 +78,39 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
+			"uniform int colorCount;"
+			"uniform vec4 color[8];"
 			"in vec3 fragNormal;"
+			"vec3 viewDir = vec3(0.0, 0.0, 1.0);"
+			"vec3 topDir = vec3(0.0, 1.0, 0.0);"
 			"out vec4 fragColor;"
-			"uniform vec3 lightPos;"
 			"void main(void)"
 			"{"
-			"	float intensity = 2.0 * max("
-			"		dot(fragNormal,  lightPos)/"
-			"		length(lightPos),"
-			"		0.0"
+			"	float k = dot(fragNormal, viewDir);"
+			"	vec3 reflDir = 2.0*k*fragNormal - viewDir;"
+			"	float a = dot(reflDir, topDir);"
+			"	vec3 reflColor;"
+			"	for(int i = 0; i != (colorCount - 1); ++i)"
+			"	{"
+			"		if(a<color[i].a && a>=color[i+1].a)"
+			"		{"
+			"			float m = "
+			"				(a - color[i].a)/"
+			"				(color[i+1].a-color[i].a);"
+			"			reflColor = mix("
+			"				color[i].rgb,"
+			"				color[i+1].rgb,"
+			"				m"
+			"			);"
+			"			break;"
+			"		}"
+			"	}"
+			"	float i = max(dot(fragNormal, topDir), 0.0);"
+			"	vec3 diffColor = vec3(i, i, i);"
+			"	fragColor = vec4("
+			"		mix(reflColor, diffColor, 0.3 + i*0.7),"
+			"		1.0"
 			"	);"
-			"	if(!gl_FrontFacing)"
-			"		fragColor = vec4(0.0, 0.0, 0.0, 1.0);"
-			"	else if(intensity > 0.9)"
-			"		fragColor = vec4(1.0, 0.9, 0.8, 1.0);"
-			"	else if(intensity > 0.1)"
-			"		fragColor = vec4(0.7, 0.6, 0.4, 1.0);"
-			"	else"
-			"		fragColor = vec4(0.3, 0.2, 0.1, 1.0);"
 			"}"
 		);
 		// compile it
@@ -134,17 +153,24 @@ public:
 		}
 		//
 		VertexArray::Unbind();
-		// set the light position
-		Uniform(prog, "lightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
-		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
+
+		// setup the color gradient
+		Uniform(prog, "colorCount").Set(8);
+		Uniform(prog, "color[0]").Set(Vec4f(1.0f, 1.0f, 0.9f, 1.00f));
+		Uniform(prog, "color[1]").Set(Vec4f(1.0f, 0.9f, 0.8f, 0.97f));
+		Uniform(prog, "color[2]").Set(Vec4f(0.9f, 0.7f, 0.5f, 0.95f));
+		Uniform(prog, "color[3]").Set(Vec4f(0.5f, 0.5f, 1.0f, 0.95f));
+		Uniform(prog, "color[4]").Set(Vec4f(0.2f, 0.2f, 0.7f, 0.00f));
+		Uniform(prog, "color[5]").Set(Vec4f(0.1f, 0.1f, 0.1f, 0.00f));
+		Uniform(prog, "color[6]").Set(Vec4f(0.2f, 0.2f, 0.2f,-0.10f));
+		Uniform(prog, "color[7]").Set(Vec4f(0.5f, 0.5f, 0.5f,-1.00f));
+
+		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_torus.FaceWinding());
 		gl.CullFace(Face::Back);
-		gl.PolygonMode(Face::Front, PolygonMode::Fill);
-		gl.PolygonMode(Face::Back, PolygonMode::Line);
-		glLineWidth(4.0f);
 	}
 
 	void Reshape(size_t width, size_t height)
@@ -170,20 +196,15 @@ public:
 				Vec3f(),
 				2.5,
 				Degrees(time * 35),
-				Degrees(std::sin(time * 0.3) * 60)
+				Degrees(std::sin(time * 0.1) * 80)
 			)
 		);
 		// set the model matrix
 		Uniform(prog, "modelMatrix").SetMatrix(
-			ModelMatrixf::RotationY(FullCircles(time * 0.25)) *
-			ModelMatrixf::RotationX(FullCircles(0.25))
+			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 
 		torus.Bind();
-		gl.CullFace(Face::Front);
-		torus_instr.Draw(torus_indices);
-		//
-		gl.CullFace(Face::Back);
 		torus_instr.Draw(torus_indices);
 	}
 
