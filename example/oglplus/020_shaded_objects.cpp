@@ -185,7 +185,7 @@ private:
 	static const GLchar* fs_epilogue(void)
 	{
 		return
-		"	fragColor = vec4(color, 1.0) * intensity;"
+		"	fragColor = vec4(color * intensity, 1.0);"
 		"}";
 	}
 
