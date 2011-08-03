@@ -63,6 +63,12 @@ public:
 		Uniform = GL_UNIFORM_BUFFER
 	};
 
+	/// Buffer indexed bind targets
+	enum class IndexedTarget : GLenum {
+		TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
+		Uniform = GL_UNIFORM_BUFFER
+	};
+
 	/// Buffer usage
 	enum class Usage : GLenum {
 		StreamDraw = GL_STREAM_DRAW,
@@ -193,6 +199,43 @@ public:
 	{
 		::glBindBuffer(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindBuffer));
+	}
+
+	/// Bind this buffer to the specified indexed target
+	/**
+	 *  @throws Error
+	 */
+	void BindBase(IndexedTarget target, GLuint index) const
+	{
+		assert(_name != 0);
+		::glBindBufferBase(GLenum(target), index, _name);
+		AssertNoError(OGLPLUS_ERROR_INFO(BindBufferBase));
+	}
+
+	/// Unbind the current buffer from the specified indexed target
+	/**
+	 *  @throws Error
+	 */
+	static void UnbindBase(IndexedTarget target, GLuint index)
+	{
+		::glBindBufferBase(GLenum(target), index, 0);
+		AssertNoError(OGLPLUS_ERROR_INFO(BindBufferBase));
+	}
+
+	/// Bind a range in this buffer to the specified indexed target
+	/**
+	 *  @throws Error
+	 */
+	void BindRange(
+		IndexedTarget target,
+		GLuint index,
+		GLintptr offset,
+		GLsizeiptr size
+	) const
+	{
+		assert(_name != 0);
+		::glBindBufferRange(GLenum(target), index, _name, offset, size);
+		AssertNoError(OGLPLUS_ERROR_INFO(BindBufferRange));
 	}
 
 	/// Uploads (sets) the buffer data
