@@ -175,6 +175,7 @@ public:
 	class ActiveVariableInfo
 	{
 	private:
+		GLuint _index;
 		GLint _size;
 		GLenum _type;
 		std::string _name;
@@ -191,7 +192,8 @@ public:
 				GLenum* /*type*/,
 				GLchar* /*name*/
 			)
-		): _size(0)
+		): _index(index)
+		 , _size(0)
 		{
 			GLsizei strlen = 0;
 			GetActiveVariable(
@@ -206,16 +208,25 @@ public:
 			_name = std::string(context.Buffer().data(), strlen);
 		}
 	public:
-		/// Returns the name (identifier) of the vertex attribute
+		/// Returns the index of the attribute or uniform
+		GLuint Index(void) const
+		{
+			return _index;
+		}
+
+		/// Returns the name (identifier) of the attribute or uniform
 		const std::string& Name(void) const
 		{
 			return _name;
 		}
 
+		/// Returns the size in units of Type
 		const GLint Size(void) const
 		{
 			return _size;
 		}
+
+		// TODO: Type()
 	};
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
@@ -297,6 +308,100 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
 
 		return ActiveUniformRange(
+			aux::_ProgramVarInfoContext(_name, length),
+			0, count
+		);
+	}
+
+	/// Information about a active uniform block
+	/** Do not instantiate this class directly, instances are returned
+	 *  by the ActiveUniformBlocks() function.
+	 *
+	 *  @see ActiveUniformBlocks
+	 */
+	class ActiveUniformBlockInfo
+	{
+	private:
+		GLuint _index;
+		std::string _name;
+	public:
+		ActiveUniformBlockInfo(
+			aux::_ProgramVarInfoContext& context,
+			GLuint index
+		): _index(0)
+		{
+			GLint length = 0;
+			::glGetProgramiv(
+				context.Program(),
+				GL_UNIFORM_BLOCK_NAME_LENGTH,
+				&length
+			);
+			if(context.Buffer().size() < size_t(length))
+				context.Buffer().resize(length);
+			ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+			GLsizei strlen = 0;
+			::glGetActiveUniformBlockName(
+				context.Program(),
+				index,
+				context.Buffer().size(),
+				&strlen,
+				context.Buffer().data()
+			);
+			ThrowOnError(
+				OGLPLUS_ERROR_INFO(GetActiveUniformBlockName)
+			);
+			_name = std::string(context.Buffer().data(), strlen);
+		}
+
+		/// Returns the index of the attribute or uniform
+		GLuint Index(void) const
+		{
+			return _index;
+		}
+
+		/// Returns the name (identifier) of the named uniform block
+		const std::string& Name(void) const
+		{
+			return _name;
+		}
+
+		// TODO: active uniform indices, etc.
+	};
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+	/// The type of the range for traversing active uniform blocks
+	typedef BaseRange<ActiveUniformBlockInfo> ActiveUniformRange;
+#else
+	typedef aux::BaseRange<
+		aux::_ProgramVarInfoContext,
+		ActiveUniformBlockInfo
+	> ActiveUniformBlockRange;
+#endif
+
+	/// Returns a range allowing to do the traversal of active attributes
+	/** This instance of Program must be kept alive during the whole
+	 *  lifetime of the returned range, i.e. the returned range must not
+	 *  be used after the Program goes out of scope and is destroyed.
+	 *
+	 *  @throws Error
+	 */
+	ActiveUniformBlockRange ActiveUniformBlocks(void) const
+	{
+		GLint count = 0, length = 0;
+		// get the count of active uniform blocks
+		::glGetProgramiv(_name, GL_ACTIVE_UNIFORM_BLOCKS, &count);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		if(count != 0)
+		{
+			// get the string length of the first identifier
+			::glGetProgramiv(
+				_name,
+				GL_UNIFORM_BLOCK_NAME_LENGTH,
+				&length
+			);
+			ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		}
+		return ActiveUniformBlockRange(
 			aux::_ProgramVarInfoContext(_name, length),
 			0, count
 		);
