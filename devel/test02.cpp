@@ -179,7 +179,7 @@ public:
 		// link it
 		prog_norm.Link();
 
-		std::cout << UniformBlock::MaxIn(Shader::Kind::Vertex) << std::endl;
+		//std::cout << UniformBlock::MaxIn(Shader::Kind::Vertex) << std::endl;
 		//
 		prog_norm.Use();
 		for(auto r=prog_norm.ActiveAttribs();!r.Empty();r.Next())

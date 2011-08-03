@@ -13,6 +13,7 @@
 #define OGLPLUS_PROGRAM_1107121519_HPP
 
 #include <oglplus/error.hpp>
+#include <oglplus/data_type.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
@@ -226,7 +227,10 @@ public:
 			return _size;
 		}
 
-		// TODO: Type()
+		const SLDataType Type(void) const
+		{
+			return SLDataType(_type);
+		}
 	};
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
