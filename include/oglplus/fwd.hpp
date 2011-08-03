@@ -12,7 +12,6 @@
 #ifndef OGLPLUS_FWD_1107121519_HPP
 #define OGLPLUS_FWD_1107121519_HPP
 
-/// All definitions of OGLplus are nested in the oglplus namespace
 namespace oglplus {
 
 } // namespace oglplus

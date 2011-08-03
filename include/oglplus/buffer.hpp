@@ -197,13 +197,15 @@ public:
 
 	/// Uploads (sets) the buffer data
 	/**
+	 *  @see SubData
+	 *  @see CopySubData
 	 *  @throws Error
 	 */
 	template <typename GLtype>
 	static void Data(
 		Target target,
-		GLtype* data,
 		GLsizei count,
+		GLtype* data,
 		Usage usage = Usage::StaticDraw
 	)
 	{
@@ -218,6 +220,8 @@ public:
 
 	/// Uploads (sets) the buffer data
 	/**
+	 *  @see SubData
+	 *  @see CopySubData
 	 *  @throws Error
 	 */
 	template <typename GLtype>
@@ -234,6 +238,75 @@ public:
 			GLenum(usage)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(BufferData));
+	}
+
+	/// Uploads (sets) a subrange of the buffer data
+	/**
+	 *  @see Data
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	template <typename GLtype>
+	static void SubData(
+		Target target,
+		GLintptr offset,
+		GLsizei count,
+		GLtype* data
+	)
+	{
+		::glBufferData(
+			GLenum(target),
+			offset,
+			count * sizeof(GLtype),
+			data
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(BufferSubData));
+	}
+
+	/// Uploads (sets) a subrange of the buffer data
+	/**
+	 *  @see Data
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	template <typename GLtype>
+	static void SubData(
+		Target target,
+		GLintptr offset,
+		const std::vector<GLtype>& data
+	)
+	{
+		::glBufferData(
+			GLenum(target),
+			offset,
+			data.size() * sizeof(GLtype),
+			data.data()
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(BufferSubData));
+	}
+
+	/// Copy data between buffers
+	/**
+	 *  @see Data
+	 *  @see SubData
+	 *  @throws Error
+	 */
+	friend void CopySubData(
+		const BufferOps& readtarget,
+		const BufferOps& writetarget,
+		GLintptr readoffset,
+		GLintptr writeoffset,
+		GLsizeiptr size
+	)
+	{
+		::glCopyBufferSubData(
+			readtarget._name,
+			writetarget._name,
+			readoffset,
+			writeoffset,
+			size
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(CopyBufferSubData));
 	}
 };
 

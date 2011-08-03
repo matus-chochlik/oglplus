@@ -60,7 +60,7 @@ public:
 			{
 				dest[k++] = r_rad * std::cos(s * s_step);
 				dest[k++] = r_lat;
-				dest[k++] = r_rad * std::sin(s * s_step);
+				dest[k++] = r_rad * -std::sin(s * s_step);
 			}
 		}
 		//

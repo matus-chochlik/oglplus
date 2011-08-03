@@ -246,7 +246,7 @@ public:
 				 2.0f, 0.0f, -2.0f
 			};
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data, 4*3);
+			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "vertex");
@@ -264,7 +264,7 @@ public:
 				 0.1f, 1.0f, -0.1f
 			};
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data, 4*3);
+			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "normal");

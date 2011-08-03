@@ -86,7 +86,7 @@ public:
 		// bind the VBO for the rectangle vertices
 		verts.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, rectangle_verts, 8);
+		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "vertex");
 		vert_attr.Setup(2, DataType::Float);
@@ -101,7 +101,7 @@ public:
 		// bind the VBO for the rectangle colors
 		colors.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, rectangle_colors, 12);
+		Buffer::Data(Buffer::Target::Array, 12, rectangle_colors);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray color_attr(prog, "color");
 		color_attr.Setup(3, DataType::Float);

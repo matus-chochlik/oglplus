@@ -17,12 +17,48 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
+#include <oglplus/auxiliary/base_range.hpp>
 
 #include <vector>
 #include <string>
 #include <cassert>
 
 namespace oglplus {
+namespace aux {
+
+// helper class used to store
+class _ProgramVarInfoContext
+{
+private:
+	GLuint _name;
+	GLuint _size;
+	std::vector<GLchar> _buffer;
+public:
+	_ProgramVarInfoContext(GLuint name, GLuint size)
+	 : _name(name)
+	 , _size(size)
+	{ }
+
+	_ProgramVarInfoContext(_ProgramVarInfoContext&& tmp)
+	 : _name(tmp._name)
+	 , _size(tmp._size)
+	 , _buffer(std::move(tmp._buffer))
+	{ }
+
+	GLuint Program(void) const
+	{
+		return _name;
+	}
+
+	std::vector<GLchar>& Buffer(void)
+	{
+		if(_size && _buffer.empty())
+			_buffer.resize(_size);
+		return _buffer;
+	}
+};
+
+} // namespace aux
 
 class VertexAttribOps;
 
@@ -133,6 +169,137 @@ public:
 		assert(IsLinked());
 		::glUseProgram(_name);
 		AssertNoError(OGLPLUS_ERROR_INFO(UseProgram));
+	}
+
+	/// Information about a single active vertex attribute or uniform
+	class ActiveVariableInfo
+	{
+	private:
+		GLint _size;
+		GLenum _type;
+		std::string _name;
+	protected:
+		ActiveVariableInfo(
+			aux::_ProgramVarInfoContext& context,
+			GLuint index,
+			void (*GetActiveVariable)(
+				GLuint /*program*/,
+				GLuint /*index*/,
+				GLsizei /*bufsize*/,
+				GLsizei* /*length*/,
+				GLint* /*size*/,
+				GLenum* /*type*/,
+				GLchar* /*name*/
+			)
+		): _size(0)
+		{
+			GLsizei strlen = 0;
+			GetActiveVariable(
+				context.Program(),
+				index,
+				context.Buffer().size(),
+				&strlen,
+				&_size,
+				&_type,
+				context.Buffer().data()
+			);
+			_name = std::string(context.Buffer().data(), strlen);
+		}
+	public:
+		/// Returns the name (identifier) of the vertex attribute
+		const std::string& Name(void) const
+		{
+			return _name;
+		}
+
+		const GLint Size(void) const
+		{
+			return _size;
+		}
+	};
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+	/// The type of the range for traversing active vertex attributes
+	typedef BaseRange<ActiveVariableInfo> ActiveAttribRange;
+	/// The type of the range for traversing active uniforms
+	typedef BaseRange<ActiveVariableInfo> ActiveUniformRange;
+#else
+
+	struct ActiveAttribInfo : ActiveVariableInfo
+	{
+		ActiveAttribInfo(
+			aux::_ProgramVarInfoContext& context,
+			GLuint index
+		): ActiveVariableInfo(context, index, &::glGetActiveAttrib)
+		{
+			ThrowOnError(OGLPLUS_ERROR_INFO(GetActiveAttrib));
+		}
+	};
+	typedef aux::BaseRange<
+		aux::_ProgramVarInfoContext,
+		ActiveAttribInfo
+	> ActiveAttribRange;
+
+	struct ActiveUniformInfo : ActiveVariableInfo
+	{
+		ActiveUniformInfo(
+			aux::_ProgramVarInfoContext& context,
+			GLuint index
+		): ActiveVariableInfo(context, index, &::glGetActiveUniform)
+		{
+			ThrowOnError(OGLPLUS_ERROR_INFO(GetActiveUniform));
+		}
+	};
+	typedef aux::BaseRange<
+		aux::_ProgramVarInfoContext,
+		ActiveUniformInfo
+	> ActiveUniformRange;
+#endif
+
+	/// Returns a range allowing to do the traversal of active attributes
+	/** This instance of Program must be kept alive during the whole
+	 *  lifetime of the returned range, i.e. the returned range must not
+	 *  be used after the Program goes out of scope and is destroyed.
+	 *
+	 *  @throws Error
+	 */
+	ActiveAttribRange ActiveAttribs(void) const
+	{
+		GLint count = 0, length = 0;
+		// get the count of active attributes
+		::glGetProgramiv(_name, GL_ACTIVE_ATTRIBUTES, &count);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		// get the maximum string length of the longest identifier
+		::glGetProgramiv(_name, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &length);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+
+		return ActiveAttribRange(
+			aux::_ProgramVarInfoContext(_name, length),
+			0, count
+		);
+	}
+
+	/// Returns a range allowing to do the traversal of active uniforms
+	/** This instance of Program must be kept alive during the whole
+	 *  lifetime of the returned range, i.e. the returned range must not
+	 *  be used after the Program goes out of scope and is destroyed.
+	 *
+	 *  @throws Error
+	 */
+	ActiveUniformRange ActiveUniforms(void) const
+	{
+		GLint count = 0, length = 0;
+		// get the count of active uniforms
+		::glGetProgramiv(_name, GL_ACTIVE_UNIFORMS, &count);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		// get the maximum string length of the longest identifier
+		::glGetProgramiv(_name, GL_ACTIVE_UNIFORM_MAX_LENGTH, &length);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+
+		return ActiveUniformRange(
+			aux::_ProgramVarInfoContext(_name, length),
+			0, count
+		);
 	}
 
 	void MakeSeparable(bool para = true) const

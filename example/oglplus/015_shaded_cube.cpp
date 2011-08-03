@@ -158,8 +158,8 @@ public:
 		// upload the data
 		Buffer::Data(
 			Buffer::Target::Array,
-			cube_vertices,
-			vertex_count * 3
+			vertex_count * 3,
+			cube_vertices
 		);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "vertex");
@@ -184,8 +184,8 @@ public:
 		// upload the data
 		Buffer::Data(
 			Buffer::Target::Array,
-			cube_normals,
-			vertex_count * 3
+			vertex_count * 3,
+			cube_normals
 		);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray normal_attr(prog, "normal");

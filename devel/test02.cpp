@@ -14,6 +14,7 @@
 #include <oglplus/shapes/torus.hpp>
 
 #include <cmath>
+#include <iostream>
 
 #include "test.hpp"
 
@@ -178,12 +179,22 @@ public:
 		// link it
 		prog_norm.Link();
 
+		prog_norm.Use();
+		for(auto r=prog_norm.ActiveAttribs();!r.Empty();r.Next())
+			std::cout << r.Front().Name() << std::endl;
+		for(auto r=prog_norm.ActiveUniforms();!r.Empty();r.Next())
+			std::cout << r.Front().Name() << std::endl;
+
 		// attach the shaders to the reflection rendering program
 		prog_refl.AttachShader(vs_refl);
 		prog_refl.AttachShader(gs_refl);
 		prog_refl.AttachShader(fs);
 		// link it
 		prog_refl.Link();
+
+		prog_refl.Use();
+		for(auto r=prog_refl.ActiveAttribs();!r.Empty();r.Next())
+			std::cout << r.Front().Name() << std::endl;
 
 		// bind the VAO for the shape
 		shape.Bind();
@@ -240,7 +251,7 @@ public:
 				 2.0f, 0.0f, -2.0f
 			};
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data, 4*3);
+			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "vertex");
@@ -258,7 +269,7 @@ public:
 				 0.1f, 1.0f, -0.1f
 			};
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data, 4*3);
+			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "normal");

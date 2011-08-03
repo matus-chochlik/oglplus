@@ -86,7 +86,7 @@ public:
 		// bind the VBO for the triangle vertices
 		buffs[0].Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, triangle_verts, 9);
+		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "vertex");
 		vert_attr.Setup(3, DataType::Float);
@@ -101,7 +101,7 @@ public:
 		// bind the VBO for the triangle colors
 		buffs[1].Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, triangle_colors, 9);
+		Buffer::Data(Buffer::Target::Array, 9, triangle_colors);
 		// setup the vertex attribs array
 		VertexAttribArray color_attr(prog, "color");
 		color_attr.Setup(3, DataType::Float);

@@ -79,7 +79,7 @@ public:
 		// bind the VBO for the triangle vertices
 		verts.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, triangle_verts, 9);
+		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "vertex");
 		vert_attr.Setup(3, DataType::Float);
