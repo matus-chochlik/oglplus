@@ -17,15 +17,15 @@
 /// All definitions of OGLplus are nested in the oglplus namespace
 namespace oglplus {
 
-/// Base class for all ranges that can be used for Element traversal
+/// Wrapper class for all ranges that can be used for Element traversal
 /** This class cannot be instantiated and used directly in end-user
  *  code. It is here for documentation purposes only.
  */
-class BaseRange
+class Range
 {
 public:
 	/// Copy constructor
-	BaseRange(const BaseRange&);
+	Range(const Range&);
 
 	/// Returns true if the range is empty
 	bool Empty(void) const;
@@ -60,7 +60,7 @@ public:
 	 *  @see Next
 	 *  @see StepFront
 	 */
-	Element Front(void);
+	const Element Front(void);
 };
 
 } // namespace oglplus

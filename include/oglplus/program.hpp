@@ -235,9 +235,9 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 	/// The type of the range for traversing active vertex attributes
-	typedef BaseRange<ActiveVariableInfo> ActiveAttribRange;
+	typedef Range<ActiveVariableInfo> ActiveAttribRange;
 	/// The type of the range for traversing active uniforms
-	typedef BaseRange<ActiveVariableInfo> ActiveUniformRange;
+	typedef Range<ActiveVariableInfo> ActiveUniformRange;
 #else
 
 	struct ActiveAttribInfo : ActiveVariableInfo
@@ -374,7 +374,7 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 	/// The type of the range for traversing active uniform blocks
-	typedef BaseRange<ActiveUniformBlockInfo> ActiveUniformRange;
+	typedef Range<ActiveUniformBlockInfo> ActiveUniformRange;
 #else
 	typedef aux::BaseRange<
 		aux::_ProgramVarInfoContext,

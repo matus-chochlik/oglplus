@@ -14,6 +14,7 @@
 
 #include <oglplus/object.hpp>
 #include <oglplus/auxiliary/base_iter.hpp>
+#include <oglplus/auxiliary/base_range.hpp>
 
 #include <vector>
 #include <cassert>
@@ -63,6 +64,15 @@ public:
 	{
 		return _storage.end();
 	}
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+	Range<Object> all(void) const;
+#else
+	aux::IterRange<iterator> all(void) const
+	{
+		return aux::IterRange<iterator>(begin(), end());
+	}
+#endif
 };
 
 
@@ -168,6 +178,15 @@ public:
 	{
 		return iterator(_names.end());
 	}
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+	Range<Object> all(void) const;
+#else
+	aux::ArrayRange<Managed<ObjectOps> > all(void) const
+	{
+		return aux::ArrayRange<Managed<ObjectOps> >(begin(), end());
+	}
+#endif
 };
 
 } // namespace oglplus

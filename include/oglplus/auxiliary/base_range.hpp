@@ -13,6 +13,7 @@
 #define OGLPLUS_AUX_BASE_RANGE_1107121519_HPP
 
 #include <cassert>
+#include <iterator>
 
 namespace oglplus {
 namespace aux {
@@ -63,6 +64,86 @@ public:
 	{
 		assert(!Empty());
 		return Element(_context, _current);
+	}
+};
+
+template <typename Iterator>
+class IterRange
+{
+private:
+	Iterator _pos, _end;
+public:
+	IterRange(Iterator begin, Iterator end)
+	 : _pos(begin)
+	 , _end(end)
+	{ }
+
+	bool Empty(void) const
+	{
+		return _pos == _end;
+	}
+
+	GLuint Size(void) const
+	{
+		return _end - _pos;
+	}
+
+	void Next(void)
+	{
+		assert(!Empty());
+		++_pos;
+	}
+
+	void StepFront(void)
+	{
+		Next();
+	}
+
+	typename std::iterator_traits<Iterator>::reference Front(void)
+	{
+		assert(!Empty());
+		return *_pos;
+	}
+};
+
+template <typename Element>
+class ArrayRange
+{
+private:
+	typedef std::vector<GLuint>::const_iterator iterator;
+	iterator _pos;
+	iterator _end;
+public:
+	ArrayRange(iterator i, iterator e)
+	 : _pos(i)
+	 , _end(e)
+	{ }
+
+	bool Empty(void) const
+	{
+		return _pos == _end;
+	}
+
+	GLuint Size(void) const
+	{
+		return _end - _pos;
+	}
+
+	void Next(void)
+	{
+		assert(!Empty());
+		++_pos;
+	}
+
+	void StepFront(void)
+	{
+		Next();
+	}
+
+	Element Front(void)
+	{
+		assert(!Empty());
+		return Element(*_pos);
 	}
 };
 
