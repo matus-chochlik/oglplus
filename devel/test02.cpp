@@ -199,6 +199,9 @@ public:
 			std::cout << r.Front().Name() << std::endl;
 		std::cout << "--------------------------------" << std::endl;
 
+
+		VertexAttribSlot ble(4);
+		TextureUnitSelector bla(40);
 		// attach the shaders to the reflection rendering program
 		prog_refl.AttachShader(vs_refl);
 		prog_refl.AttachShader(gs_refl);

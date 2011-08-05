@@ -97,15 +97,23 @@ int main (int argc, char ** argv)
 	catch(oglplus::ProgramBuildError& pbe)
 	{
 		std::cerr <<
-			"Error [in gl" << pbe.GLFunc() << "]: " <<
+			"Error [in gl" << pbe.GLSymbol() << "]: " <<
 			pbe.what() << ": " <<
 			pbe.Log() <<
+			std::endl;
+	}
+	catch(oglplus::LimitError& le)
+	{
+		std::cerr <<
+			"Limit error: ("<< le.Value() << ") exceeds (" <<
+			le.GLSymbol() << " == " << le.Limit() << ") " <<
+			" [" << le.File() << ":" << le.Line() << "] " <<
 			std::endl;
 	}
 	catch(oglplus::Error& err)
 	{
 		std::cerr <<
-			"Error (in gl" << err.GLFunc() << "): " <<
+			"Error (in gl" << err.GLSymbol() << "): " <<
 			err.what() <<
 			" [" << err.File() << ":" << err.Line() << "] ";
 		auto i = err.Properties().begin(), e = err.Properties().end();

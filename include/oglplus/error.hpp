@@ -26,6 +26,9 @@
 #define OGLPLUS_ERROR_INFO(CONTEXT) \
 	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__}
 
+#define OGLPLUS_LIMIT_ERROR_INFO(CONTEXT) \
+	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__}
+
 #define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
 	{errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__}
 
@@ -35,6 +38,9 @@
 #else
 #define OGLPLUS_ERROR_INFO(CTXT) \
 	{#CTXT, __FILE__, __FUNCTION__, __LINE__, sizeof(decltype(&gl ## CTXT))}
+
+#define OGLPLUS_LIMIT_ERROR_INFO(CTXT) \
+	{#CTXT, __FILE__, __FUNCTION__, __LINE__, sizeof(decltype(GL_ ## CTXT))}
 
 #define OGLPLUS_ERROR_INFO_AUTO_CTXT(CONTEXT_STR) \
 	{_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, 0}
@@ -50,8 +56,8 @@ namespace oglplus {
 /// Basic information about exception's throw site and propagation trace points
 struct ErrorInfo
 {
-	/// The opengl function name (without the gl prefix)
-	 const char* glfn;
+	/// The opengl function or constant name (without the gl/GL_ prefix)
+	 const char* glsym;
 	/// The source file name
 	const char* file;
 	/// The function pretty name
@@ -124,7 +130,7 @@ public:
 
 	/// Returns information about the throw site of the exception
 	/**
-	 *  @see GLFunc
+	 *  @see GLSymbol
 	 *  @see Code
 	 *  @see File
 	 *  @see Func
@@ -135,23 +141,27 @@ public:
 		return _info;
 	}
 
-	/// Returns the name of the failed OpenGL function without the gl prefix
-	/**
+	/// Returns the name of the symbol or constant related to the error
+	/** This function returns the name of the failed OpenGL function
+	 *  without the gl prefix in case of a function error or the name
+	 *  of the OpenGL constant (usually a implementation-dependent) limit
+	 *  which are related to the error.
+	 *
 	 *  @see ThrowInfo
 	 *  @see Code
 	 *  @see Func
 	 *  @see File
 	 *  @see Line
 	 */
-	const char* GLFunc(void) const
+	const char* GLSymbol(void) const
 	{
-		return _info.glfn;
+		return _info.glsym;
 	}
 
 	/// Returns the path of the source file where the exception originated
 	/**
 	 *  @see ThrowInfo
-	 *  @see GLFunc
+	 *  @see GLSymbol
 	 *  @see Code
 	 *  @see Func
 	 *  @see Line
@@ -164,7 +174,7 @@ public:
 	/// Returns the name of the function where the exception originated
 	/**
 	 *  @see ThrowInfo
-	 *  @see GLFunc
+	 *  @see GLSymbol
 	 *  @see Code
 	 *  @see Name
 	 *  @see Line
@@ -177,7 +187,7 @@ public:
 	/// Returns the line in the source file where the exception originated
 	/**
 	 *  @see ThrowInfo
-	 *  @see GLFunc
+	 *  @see GLSymbol
 	 *  @see Code
 	 *  @see Name
 	 *  @see Func
@@ -272,6 +282,35 @@ inline void AssertNoError(const ErrorInfo& info)
 	//TODO make this compile-time configurable
 	ThrowOnError(info);
 }
+
+
+// Exception for exceeding implementation-defined limits
+class LimitError
+ : public Error
+{
+private:
+	GLuint _value;
+	GLuint _limit;
+public:
+	LimitError(const ErrorInfo& info, GLuint value, GLuint limit)
+	 : Error(
+		GL_INVALID_VALUE,
+		"OpenGL limited value out of range",
+		info
+	), _value(value)
+	 , _limit(limit)
+	{ }
+
+	GLuint Value(void) const
+	{
+		return _value;
+	}
+
+	GLuint Limit(void) const
+	{
+		return _limit;
+	}
+};
 
 } // namespace oglplus
 

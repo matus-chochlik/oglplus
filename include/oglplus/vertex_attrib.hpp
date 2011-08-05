@@ -15,11 +15,27 @@
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
+#include <oglplus/limited_value.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
 
 #include <string>
 
 namespace oglplus {
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Type for the vertex attribute slot (implementation-dependent limited) number
+class VertexAttribSlot
+ : public LimitedCount
+{
+public:
+	VertexAttribSlot(GLuint count);
+};
+#else
+OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
+	VertexAttribSlot,
+	MAX_VERTEX_ATTRIBS
+)
+#endif
 
 class VertexAttribOps
  : public FriendOf<Program>
@@ -29,8 +45,8 @@ protected:
 
 	friend class FriendOf<VertexAttribOps>;
 
-	VertexAttribOps(GLuint i)
-	 : _index(i)
+	VertexAttribOps(VertexAttribSlot i)
+	 : _index(GLint(i))
 	{ }
 
 	VertexAttribOps(const Program& program, const GLchar* identifier)
@@ -122,7 +138,7 @@ class VertexAttrib
 {
 private:
 public:
-	VertexAttrib(GLuint i)
+	VertexAttrib(VertexAttribSlot i)
 	 : VertexAttribOps(i)
 	{ }
 
@@ -147,7 +163,7 @@ class VertexAttribArray
  : public VertexAttribOps
 {
 public:
-	VertexAttribArray(GLuint i)
+	VertexAttribArray(VertexAttribSlot i)
 	 : VertexAttribOps(i)
 	{ }
 
