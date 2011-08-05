@@ -172,6 +172,11 @@ public:
 		// compile it
 		fs.Compile();
 
+		prog_norm.TransformFeedbackVaryings(
+			{"vertNormal", "fragNormal", "fragLight"},
+			Program::TransformFeedbackMode::InterleavedAttribs
+		);
+
 		// attach the shaders to the normal rendering program
 		prog_norm.AttachShader(vs_norm);
 		//prog_norm.AttachShader(gs);
@@ -183,10 +188,16 @@ public:
 		//std::cout << UniformBlock::MaxIn(Shader::Kind::Vertex) << std::endl;
 		//
 		prog_norm.Use();
+		std::cout << "--------------------------------" << std::endl;
 		for(auto r=prog_norm.ActiveAttribs();!r.Empty();r.Next())
 			std::cout << r.Front().Name() << std::endl;
+		std::cout << "--------------------------------" << std::endl;
 		for(auto r=prog_norm.ActiveUniforms();!r.Empty();r.Next())
 			std::cout << r.Front().Name() << std::endl;
+		std::cout << "--------------------------------" << std::endl;
+		for(auto r=prog_norm.TransformFeedbackVaryings();!r.Empty();r.Next())
+			std::cout << r.Front().Name() << std::endl;
+		std::cout << "--------------------------------" << std::endl;
 
 		// attach the shaders to the reflection rendering program
 		prog_refl.AttachShader(vs_refl);

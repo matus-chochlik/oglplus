@@ -158,7 +158,8 @@ enum class SLDataType : GLenum
 	UnsignedIntSampler2dMultisample = GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE,
 	UnsignedIntSampler2dMultisampleArray = GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY,
 	UnsignedIntSamplerBuffer = GL_UNSIGNED_INT_SAMPLER_BUFFER,
-	UnsignedIntSampler2dRect = GL_UNSIGNED_INT_SAMPLER_2D_RECT
+	UnsignedIntSampler2dRect = GL_UNSIGNED_INT_SAMPLER_2D_RECT,
+	None = GL_NONE
 };
 
 } // namespace oglplus
