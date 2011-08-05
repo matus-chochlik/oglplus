@@ -112,9 +112,10 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(DetachShader));
 	}
 
-	/// Returns true if the program is already linked,, false otherwise
+	/// Returns true if the program is already linked, false otherwise
 	/**
 	 *  @see Link
+	 *  @see Validate
 	 */
 	bool IsLinked(void) const
 	{
@@ -143,7 +144,7 @@ public:
 	/// Links this shading language program
 	/**
 	 *  @throws Error LinkError
-	 *  @see Link
+	 *  @see IsLinked
 	 */
 	void Link(void) const
 	{
@@ -154,6 +155,35 @@ public:
 			throw LinkError(
 				GetInfoLog(),
 				OGLPLUS_ERROR_INFO(LinkProgram)
+			);
+	}
+
+	/// Returns true if the program is validated, false otherwise
+	/**
+	 *  @see Validate
+	 */
+	bool IsValid(void) const
+	{
+		int status;
+		::glGetProgramiv(_name, GL_VALIDATE_STATUS, &status);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		return status == GL_TRUE;
+	}
+
+	/// Validates this shading language program
+	/**
+	 *  @throws Error ValidationError
+	 *  @see Link
+	 */
+	void Validate(void) const
+	{
+		assert(_name != 0);
+		::glValidateProgram(_name);
+		ThrowOnError(OGLPLUS_ERROR_INFO(ValidateProgram));
+		if(!IsValid())
+			throw ValidationError(
+				GetInfoLog(),
+				OGLPLUS_ERROR_INFO(ValidateProgram)
 			);
 	}
 

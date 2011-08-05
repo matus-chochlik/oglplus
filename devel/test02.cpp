@@ -176,8 +176,9 @@ public:
 		prog_norm.AttachShader(vs_norm);
 		//prog_norm.AttachShader(gs);
 		prog_norm.AttachShader(fs);
-		// link it
+		// link and validate it
 		prog_norm.Link();
+		prog_norm.Validate();
 
 		//std::cout << UniformBlock::MaxIn(Shader::Kind::Vertex) << std::endl;
 		//

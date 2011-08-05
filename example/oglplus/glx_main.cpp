@@ -87,12 +87,12 @@ int main (int argc, char ** argv)
 		oglplus::run(oglplus::x11::Display());
 		std::cout << "Done" << std::endl;
 	}
-	catch(oglplus::CompileOrLinkError& cle)
+	catch(oglplus::ProgramBuildError& pbe)
 	{
 		std::cerr <<
-			"Error [in gl" << cle.GLFunc() << "]: " <<
-			cle.what() << ": " <<
-			cle.Log() <<
+			"Error [in gl" << pbe.GLFunc() << "]: " <<
+			pbe.what() << ": " <<
+			pbe.Log() <<
 			std::endl;
 	}
 	catch(oglplus::Error& err)
