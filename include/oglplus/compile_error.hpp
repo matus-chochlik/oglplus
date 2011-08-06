@@ -20,13 +20,13 @@
 namespace oglplus {
 
 /// Base class for SL compilation or linking errors
-class CompileOrLinkError
+class ProgramBuildError
  : public Error
 {
 private:
 	std::string _log;
 public:
-	CompileOrLinkError(
+	ProgramBuildError(
 		const char* what,
 		const std::string& log,
 		const ErrorInfo& info
@@ -34,7 +34,7 @@ public:
 	 , _log(log)
 	{ }
 
-	~CompileOrLinkError(void) throw()
+	~ProgramBuildError(void) throw()
 	{ }
 
 	/// Returns the compiler error output
@@ -46,11 +46,11 @@ public:
 
 /// Exception class for OpenGL shading language compilation error
 class CompileError
- : public CompileOrLinkError
+ : public ProgramBuildError
 {
 public:
 	CompileError(const std::string& log, const ErrorInfo& info)
-	 : CompileOrLinkError(
+	 : ProgramBuildError(
 		"OpenGL shading language compilation error",
 		log,
 		info

@@ -33,9 +33,9 @@ enum class BlendFunction : GLenum
 	OneMinusConstantAlpha = GL_ONE_MINUS_CONSTANT_ALPHA,
 	SrcAlphaSaturate = GL_SRC_ALPHA_SATURATE,
 	Src1Color = GL_SRC1_COLOR,
-	OneMinusSrc1Color = GL_ONE_MINUS_SRC1_COLOR//,
+	OneMinusSrc1Color = GL_ONE_MINUS_SRC1_COLOR,
 	//Src1Alpha = GL_SRC1_ALPHA,
-	//OneMinusSrc1Alpha = GL_ONE_MINUS_SRC1_ALPHA
+	OneMinusSrc1Alpha = GL_ONE_MINUS_SRC1_ALPHA
 };
 
 typedef BlendFunction BlendFn;

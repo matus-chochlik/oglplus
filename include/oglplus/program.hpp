@@ -15,11 +15,11 @@
 #include <oglplus/error.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/shader.hpp>
+#include <oglplus/transform_feedback.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
-
 #include <vector>
 #include <string>
 #include <cassert>
@@ -112,9 +112,10 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(DetachShader));
 	}
 
-	/// Returns true if the program is already linked,, false otherwise
+	/// Returns true if the program is already linked, false otherwise
 	/**
 	 *  @see Link
+	 *  @see Validate
 	 */
 	bool IsLinked(void) const
 	{
@@ -143,7 +144,7 @@ public:
 	/// Links this shading language program
 	/**
 	 *  @throws Error LinkError
-	 *  @see Link
+	 *  @see IsLinked
 	 */
 	void Link(void) const
 	{
@@ -154,6 +155,35 @@ public:
 			throw LinkError(
 				GetInfoLog(),
 				OGLPLUS_ERROR_INFO(LinkProgram)
+			);
+	}
+
+	/// Returns true if the program is validated, false otherwise
+	/**
+	 *  @see Validate
+	 */
+	bool IsValid(void) const
+	{
+		int status;
+		::glGetProgramiv(_name, GL_VALIDATE_STATUS, &status);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		return status == GL_TRUE;
+	}
+
+	/// Validates this shading language program
+	/**
+	 *  @throws Error ValidationError
+	 *  @see Link
+	 */
+	void Validate(void) const
+	{
+		assert(_name != 0);
+		::glValidateProgram(_name);
+		ThrowOnError(OGLPLUS_ERROR_INFO(ValidateProgram));
+		if(!IsValid())
+			throw ValidationError(
+				GetInfoLog(),
+				OGLPLUS_ERROR_INFO(ValidateProgram)
 			);
 	}
 
@@ -238,6 +268,8 @@ public:
 	typedef Range<ActiveVariableInfo> ActiveAttribRange;
 	/// The type of the range for traversing active uniforms
 	typedef Range<ActiveVariableInfo> ActiveUniformRange;
+	/// The type of the range for traversing transform feedback varyings
+	typedef Range<ActiveVariableInfo> TransformFeedbackVaryingRange;
 #else
 
 	struct ActiveAttribInfo : ActiveVariableInfo
@@ -269,6 +301,27 @@ public:
 		aux::_ProgramVarInfoContext,
 		ActiveUniformInfo
 	> ActiveUniformRange;
+
+	struct TransformFeedbackVaryingInfo : ActiveVariableInfo
+	{
+		TransformFeedbackVaryingInfo(
+			aux::_ProgramVarInfoContext& context,
+			GLuint index
+		): ActiveVariableInfo(
+			context,
+			index,
+			&::glGetTransformFeedbackVarying
+		)
+		{
+			ThrowOnError(
+				OGLPLUS_ERROR_INFO(GetTransformFeedbackVarying)
+			);
+		}
+	};
+	typedef aux::BaseRange<
+		aux::_ProgramVarInfoContext,
+		TransformFeedbackVaryingInfo
+	> TransformFeedbackVaryingRange;
 #endif
 
 	/// Returns a range allowing to do the traversal of active attributes
@@ -315,6 +368,79 @@ public:
 			aux::_ProgramVarInfoContext(_name, length),
 			0, count
 		);
+	}
+
+	/// Returns a range allowing to do the traversal of feedback varyings
+	/** This instance of Program must be kept alive during the whole
+	 *  lifetime of the returned range, i.e. the returned range must not
+	 *  be used after the Program goes out of scope and is destroyed.
+	 *
+	 *  @throws Error
+	 */
+	TransformFeedbackVaryingRange TransformFeedbackVaryings(void) const
+	{
+		GLint count = 0, length = 0;
+		// get the count of transform feedback varyings
+		::glGetProgramiv(_name, GL_TRANSFORM_FEEDBACK_VARYINGS, &count);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		::glGetProgramiv(
+			_name,
+			GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH,
+			&length
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+
+		return TransformFeedbackVaryingRange(
+			aux::_ProgramVarInfoContext(_name, length),
+			0, count
+		);
+	}
+
+	/// Sets the variables that will be captured during transform feedback
+	/**
+	 *  @throws Error
+	 */
+	void TransformFeedbackVaryings(
+		GLsizei count,
+		const GLchar** varyings,
+		TransformFeedbackMode mode
+	) const
+	{
+		::glTransformFeedbackVaryings(
+			_name,
+			count,
+			varyings,
+			GLenum(mode)
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(TransformFeedbackVaryings));
+	}
+
+	/// Sets the variables that will be captured during transform feedback
+	/**
+	 *  @throws Error
+	 */
+	void TransformFeedbackVaryings(
+		const std::vector<std::string>& varyings,
+		TransformFeedbackMode mode
+	) const
+	{
+		std::vector<const GLchar*> tmp(varyings.size());
+		auto i = varyings.begin(), e = varyings.end();
+		auto t = tmp.begin();
+		while(i != e)
+		{
+			assert(t != tmp.end());
+			*t = i->c_str();
+			++i;
+			++t;
+		}
+		::glTransformFeedbackVaryings(
+			_name,
+			GLsizei(tmp.size()),
+			tmp.data(),
+			GLenum(mode)
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(TransformFeedbackVaryings));
 	}
 
 	/// Information about a active uniform block

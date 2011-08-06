@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/texture.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -43,16 +44,16 @@ protected:
 
 	friend class FriendOf<SamplerOps>;
 public:
-	void Bind(GLuint unit) const
+	void Bind(TextureUnitSelector unit) const
 	{
 		assert(_name != 0);
-		::glBindSampler(unit, _name);
+		::glBindSampler(GLuint(unit), _name);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindSampler));
 	}
 
-	static void Unbind(GLuint unit)
+	static void Unbind(TextureUnitSelector unit)
 	{
-		::glBindSampler(unit, 0);
+		::glBindSampler(GLuint(unit), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindSampler));
 	}
 };

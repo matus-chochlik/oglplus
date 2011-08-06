@@ -127,13 +127,13 @@ enum class SLDataType : GLenum
 	Sampler2dShadow = GL_SAMPLER_2D_SHADOW,
 	Sampler1dArray = GL_SAMPLER_1D_ARRAY,
 	Sampler2dArray = GL_SAMPLER_2D_ARRAY,
-	//SamplerCubeMapArray = GL_SAMPLER_CUBE_MAP_ARRAY,
+	SamplerCubeMapArray = GL_SAMPLER_CUBE_MAP_ARRAY,
 	Sampler1dArrayShadow = GL_SAMPLER_1D_ARRAY_SHADOW,
 	Sampler2dArrayShadow = GL_SAMPLER_2D_ARRAY_SHADOW,
 	Sampler2dMultisample = GL_SAMPLER_2D_MULTISAMPLE,
 	Sampler2dMultisampleArray = GL_SAMPLER_2D_MULTISAMPLE_ARRAY,
 	SamplerCubeShadow = GL_SAMPLER_CUBE_SHADOW,
-	//SamplerCubeMapArrayShadow = GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW,
+	SamplerCubeMapArrayShadow = GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW,
 	SamplerBuffer = GL_SAMPLER_BUFFER,
 	Sampler2dRect = GL_SAMPLER_2D_RECT,
 	Sampler2dRectShadow = GL_SAMPLER_2D_RECT_SHADOW,
@@ -143,7 +143,7 @@ enum class SLDataType : GLenum
 	IntSamplerCube = GL_INT_SAMPLER_CUBE,
 	IntSampler1dArray = GL_INT_SAMPLER_1D_ARRAY,
 	IntSampler2dArray = GL_INT_SAMPLER_2D_ARRAY,
-	//IntSamplerCubeMapArray = GL_INT_SAMPLER_CUBE_MAP_ARRAY,
+	IntSamplerCubeMapArray = GL_INT_SAMPLER_CUBE_MAP_ARRAY,
 	IntSampler2dMultisample = GL_INT_SAMPLER_2D_MULTISAMPLE,
 	IntSampler2dMultisampleArray = GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY,
 	IntSamplerBuffer = GL_INT_SAMPLER_BUFFER,
@@ -154,11 +154,12 @@ enum class SLDataType : GLenum
 	UnsignedIntSamplerCube = GL_UNSIGNED_INT_SAMPLER_CUBE,
 	UnsignedIntSampler1dArray = GL_UNSIGNED_INT_SAMPLER_1D_ARRAY,
 	UnsignedIntSampler2dArray = GL_UNSIGNED_INT_SAMPLER_2D_ARRAY,
-	//UnsignedIntSamplerCubeMapArray = GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY,
+	UnsignedIntSamplerCubeMapArray = GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY,
 	UnsignedIntSampler2dMultisample = GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE,
 	UnsignedIntSampler2dMultisampleArray = GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY,
 	UnsignedIntSamplerBuffer = GL_UNSIGNED_INT_SAMPLER_BUFFER,
-	UnsignedIntSampler2dRect = GL_UNSIGNED_INT_SAMPLER_2D_RECT
+	UnsignedIntSampler2dRect = GL_UNSIGNED_INT_SAMPLER_2D_RECT,
+	None = GL_NONE
 };
 
 } // namespace oglplus

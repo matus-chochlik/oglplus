@@ -82,16 +82,17 @@ public:
 		DynamicCopy = GL_DYNAMIC_COPY
 	};
 
-	/// Mapping of the buffer to the client address space
-	class Map
+	/// Mapped data access types
+	enum class MapAccess : GLbitfield {
+		Read = GL_MAP_READ_BIT,
+		Write = GL_MAP_WRITE_BIT,
+		ReadWrite = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT
+	};
+
+	/// Typed mapping of the buffer to the client address space
+	template <typename Type>
+	class TypedMap
 	{
-	public:
-		/// Mapped data access types
-		enum class Access : GLbitfield {
-			Read = GL_MAP_READ_BIT,
-			Write = GL_MAP_WRITE_BIT,
-			ReadWrite = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT
-		};
 	private:
 		const GLintptr _offset;
 		GLsizeiptr _size;
@@ -110,19 +111,32 @@ public:
 			return GLsizeiptr(value);
 		}
 
-		static GLenum _translate(Access access)
+		static GLenum _translate(MapAccess access)
 		{
 			switch(access)
 			{
-				case Access::Read: return GL_READ_ONLY;
-				case Access::Write: return GL_WRITE_ONLY;
-				case Access::ReadWrite: return GL_READ_WRITE;
+				case MapAccess::Read: return GL_READ_ONLY;
+				case MapAccess::Write: return GL_WRITE_ONLY;
+				case MapAccess::ReadWrite: return GL_READ_WRITE;
 			}
 		}
 	public:
-		Map(Target target, GLintptr offset, GLsizeiptr size, Access access)
-		 : _offset(offset)
-		 , _size(size)
+		/// Maps a range of the buffer
+		/**
+		 *  @param target use the buffer bound to the target specified
+		 *  @param offset map offset in units of Type
+		 *  @param size map size in units of Type
+		 *  @param access the access specifier for the buffer mapping
+		 *
+		 *  @throws Error
+		 */
+		TypedMap(
+			Target target,
+			GLintptr offset,
+			GLsizeiptr size,
+			MapAccess access
+		): _offset(offset * sizeof(Type))
+		 , _size(size * sizeof(Type))
 		 , _ptr(
 			::glMapBufferRange(
 				GLenum(target),
@@ -135,7 +149,14 @@ public:
 			ThrowOnError(OGLPLUS_ERROR_INFO(MapBufferRange));
 		}
 
-		Map(Target target, Access access)
+		/// Maps the whole buffer
+		/**
+		 *  @param target use the buffer bound to the target specified
+		 *  @param access the access specifier for the buffer mapping
+		 *
+		 *  @throws Error
+		 */
+		TypedMap(Target target, MapAccess access)
 		 : _offset(0)
 		 , _size(_get_size(target))
 		 , _ptr(::glMapBuffer(GLenum(target), _translate(access)))
@@ -144,8 +165,11 @@ public:
 			ThrowOnError(OGLPLUS_ERROR_INFO(MapBuffer));
 		}
 
-		Map(const Map&) = delete;
-		Map(Map&& temp)
+		/// Copying is disabled
+		TypedMap(const TypedMap&) = delete;
+
+		/// Move construction is enabled
+		TypedMap(TypedMap&& temp)
 		 : _offset(temp._offset)
 		 , _size(temp._size)
 		 , _ptr(temp._ptr)
@@ -154,31 +178,41 @@ public:
 			temp._ptr = nullptr;
 		}
 
-		~Map(void)
+		~TypedMap(void)
 		{
 			if(_ptr != nullptr) ::glUnmapBuffer(GLenum(_target));
 		}
 
-		/// Returns the size in bytes of the mapped buffer
+		/// Returns the size (in bytes) of the mapped buffer
 		GLsizeiptr Size(void) const
 		{
 			return _size;
 		}
 
-		/// Returns the pointer to the mapped data
-		void* Data(void) const
+		/// Returns the count of elements of Type in the mapped buffer
+		GLsizeiptr Count(void) const
 		{
-			return _ptr;
+			assert(_size % sizeof(Type) == 0);
+			return _size / sizeof(Type);
 		}
 
-		template <typename T>
-		T& At(GLuint index) const
+		/// Returns the pointer to the mapped data
+		Type* Data(void) const
+		{
+			return (Type*)_ptr;
+		}
+
+		/// Returns the element at the specified index
+		Type& At(GLuint index) const
 		{
 			assert(_ptr != nullptr);
-			assert(((index + 1) * sizeof(T)) <= _size);
-			return ((T*)_ptr)[index];
+			assert(((index + 1) * sizeof(Type)) <= _size);
+			return ((Type*)_ptr)[index];
 		}
 	};
+
+	/// Mapping of the buffer to the client address space
+	typedef TypedMap<GLubyte> Map;
 
 	/// Bind this buffer to the specified target
 	/**

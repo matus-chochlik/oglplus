@@ -19,6 +19,13 @@
 
 namespace oglplus {
 
+/// The mode used to capture the varying variables in TF
+enum class TransformFeedbackMode : GLenum
+{
+	InterleavedAttribs = GL_INTERLEAVED_ATTRIBS,
+	SeparateAttribs = GL_SEPARATE_ATTRIBS
+};
+
 class TransformFeedbackOps
  : public Named
 {
@@ -43,10 +50,19 @@ protected:
 
 	friend class FriendOf<TransformFeedbackOps>;
 public:
+	/// Transform feedback bind targets
 	enum class Target : GLenum {
 		Default = GL_TRANSFORM_FEEDBACK
 	};
 
+	/// Transform feedback primitive modes
+	enum class PrimitiveType : GLenum {
+		Triangles = GL_TRIANGLES,
+		Lines = GL_LINES,
+		Points = GL_POINTS
+	};
+
+	/// Bind this transform feedback object
 	void Bind(Target target = Target::Default) const
 	{
 		assert(_name != 0);
@@ -54,11 +70,134 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTransformFeedback));
 	}
 
-	static void Unbind(Target target = Target::Default)
+	/// Bind the default transform feedback object
+	static void BindDefault(Target target = Target::Default)
 	{
 		::glBindTransformFeedback(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTransformFeedback));
 	}
+
+	/// Begin the transform feedback mode
+	/** Consider using an instance of Activator class for more robustness.
+	 *  @throws Error
+	 *
+	 *  @see Activator
+	 *  @see End
+	 */
+	static void Begin(PrimitiveType mode)
+	{
+		::glBeginTransformFeedback(GLenum(mode));
+		AssertNoError(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
+	}
+
+	/// End the transform feedback mode
+	/** Consider using an instance of Activator class for more robustness.
+	 *  @throws Error
+	 *
+	 *  @see Activator
+	 *  @see Begin
+	 */
+	static void End(void)
+	{
+		::glEndTransformFeedback();
+		AssertNoError(OGLPLUS_ERROR_INFO(EndTransformFeedback));
+	}
+
+	/// Pause the transform feedback mode
+	/** Consider using an instance of Pauser class for more robustness.
+	 *  @throws Error
+	 *
+	 *  @see Pauser
+	 *  @see Resume
+	 */
+	static void Pause(void)
+	{
+		::glPauseTransformFeedback();
+		AssertNoError(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
+	}
+
+	/// Resume the transform feedback mode
+	/** Consider using an instance of Pauser class for more robustness.
+	 *  @throws Error
+	 *
+	 *  @see Pauser
+	 *  @see Pause
+	 */
+	static void Resume(void)
+	{
+		::glResumeTransformFeedback();
+		AssertNoError(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
+	}
+
+	/// Class lifetime of which controls the (de)activation of TFB
+	/** This class activates transform feedback mode when it is
+	 *  constructed and deactivates it in destructor. It is a more
+	 *  robust and preferred mode of transform feedback activation
+	 *  and deactivation.
+	 */
+	class Activator
+	{
+	private:
+		bool _active;
+	public:
+		/// Begins transform feedback
+		Activator(PrimitiveType mode)
+		 : _active(true)
+		{
+			::glBeginTransformFeedback(GLenum(mode));
+			AssertNoError(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
+		}
+
+		/// Copying is disabled
+		Activator(const Activator&) = delete;
+
+		Activator(Activator&& tmp)
+		 : _active(tmp._active)
+		{
+			tmp._active = false;
+		}
+
+		/// Ends transform feedback
+		~Activator(void)
+		{
+			if(_active) ::glEndTransformFeedback();
+		}
+	};
+
+	/// Class lifetime of which controls the pausing/resuming of TFB
+	/** This class pauses active transform feedback when it is
+	 *  constructed and resumes it in destructor. It is a more
+	 *  robust and preferred mode of transform feedback activation
+	 *  and deactivation.
+	 */
+	class Pauser
+	{
+	private:
+		bool _paused;
+	public:
+		/// Pauses transform feedback
+		Pauser(void)
+		 : _paused(true)
+		{
+			::glPauseTransformFeedback();
+			AssertNoError(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
+		}
+
+		/// Copying is disabled
+		Pauser(const Pauser&) = delete;
+
+		Pauser(Pauser&& tmp)
+		 : _paused(tmp._paused)
+		{
+			tmp._paused = false;
+		}
+
+		/// Resumes transform feedback
+		~Pauser(void)
+		{
+			if(_paused) ::glResumeTransformFeedback();
+		}
+	};
 };
 
 typedef Object<TransformFeedbackOps, true> TransformFeedback;
