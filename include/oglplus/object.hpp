@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_OBJECT_1107121519_HPP
 #define OGLPLUS_OBJECT_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/auxiliary/named.hpp>
 #include <cassert>
 
@@ -66,7 +67,11 @@ private:
 	static inline bool _type_ok(GLuint _name)
 	{
 		assert(_name != 0);
+#if OGLPLUS_DONT_TEST_OBJECT_TYPE
+		return true;
+#else
 		return ObjectOps::_is_x(_name) == GL_TRUE;
+#endif
 	}
 
 	friend class Array<Object>;

@@ -18,6 +18,10 @@ namespace oglplus {
 #define nullptr 0
 #define constexpr const
 
+#ifndef OGLPLUS_DONT_TEST_OBJECT_TYPE
+#define OGLPLUS_DONT_TEST_OBJECT_TYPE 0
+#endif
+
 } // namespace oglplus
 
 #endif // include guard

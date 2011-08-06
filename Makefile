@@ -5,17 +5,17 @@
 CXX ?= g++
 
 OGLPLUS_CXXFLAGS = \
+	$(CXXFLAGS) \
 	-pedantic \
 	-pedantic-errors \
-	-std=c++0x \
 	-I include \
 	-I utils \
-	$(CXXFLAGS)
+	-std=c++0x
 
 OGLPLUS_LDFLAGS = \
-	-std=c++0x \
+	$(LDFLAGS) \
 	-lGL \
-	$(LDFLAGS)
+	-std=c++0x
 
 # final output directory
 OUTDIR = out
@@ -93,7 +93,7 @@ endef
 # function defining the rules for linking final executables
 define BUILD_EXE
 $(OUTDIR)/$(1): $(BLDDIR)/$(1).o $(call OPT_ADD_EXE_MAIN,$(1)) | $(dir $(OUTDIR)/$(1))
-	$(CXX) $$(shell cat $$(addsuffix .ldf,$$(basename $$^))) $(OGLPLUS_LDFLAGS) -o $$@ $$^
+	$(CXX) $(OGLPLUS_LDFLAGS) $$(shell cat $$(addsuffix .ldf,$$(basename $$^))) -o $$@ $$^
 endef
 
 # function defining the rules for compiling intermediate objects
