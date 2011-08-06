@@ -15,11 +15,11 @@
 #include <oglplus/error.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/shader.hpp>
+#include <oglplus/transform_feedback.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
-
 #include <vector>
 #include <string>
 #include <cassert>
@@ -395,13 +395,6 @@ public:
 			0, count
 		);
 	}
-
-	/// The mode used to capture the varying variables in TF
-	enum class TransformFeedbackMode : GLenum
-	{
-		InterleavedAttribs = GL_INTERLEAVED_ATTRIBS,
-		SeparateAttribs = GL_SEPARATE_ATTRIBS
-	};
 
 	/// Sets the variables that will be captured during transform feedback
 	/**

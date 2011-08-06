@@ -19,6 +19,7 @@
 #include <oglplus/auxiliary/shader_data.hpp>
 
 #include <string>
+#include <vector>
 
 namespace oglplus {
 
@@ -105,6 +106,12 @@ public:
 	void Set(GLsizei count, const T* v) const
 	{
 		this->_do_set_many<Cols>(_index, count, v);
+	}
+
+	template <size_t Cols, typename T>
+	void Set(const std::vector<T>& v) const
+	{
+		this->_do_set_many<Cols>(_index, v.size(), v.data());
 	}
 
 	template <typename T, size_t N>

@@ -174,7 +174,7 @@ public:
 
 		prog_norm.TransformFeedbackVaryings(
 			{"vertNormal", "fragNormal", "fragLight"},
-			Program::TransformFeedbackMode::InterleavedAttribs
+			TransformFeedbackMode::InterleavedAttribs
 		);
 
 		// attach the shaders to the normal rendering program

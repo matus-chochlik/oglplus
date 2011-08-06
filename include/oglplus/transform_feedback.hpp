@@ -19,6 +19,13 @@
 
 namespace oglplus {
 
+/// The mode used to capture the varying variables in TF
+enum class TransformFeedbackMode : GLenum
+{
+	InterleavedAttribs = GL_INTERLEAVED_ATTRIBS,
+	SeparateAttribs = GL_SEPARATE_ATTRIBS
+};
+
 class TransformFeedbackOps
  : public Named
 {
