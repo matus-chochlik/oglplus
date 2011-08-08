@@ -224,7 +224,7 @@ public:
 			"	vec3 finalNormal = "
 			"		length(fragDiff) > diameter?"
 			"		fragNormal:"
-			"		normalize(fragDiff) * 0.3;"
+			"		normalize(fragDiff+fragNormal*diameter);"
 			"	float i = (l > 0)?"
 			"		dot(finalNormal, fragLight)/l:"
 			"		0.0;"

@@ -228,6 +228,7 @@ public:
 	/// Returns the value of the I-th coordinate of the vector
 	/**
 	 *  @tparam I the index of the coordinate to be retrieved
+	 *  @param a the vector from which the coordinate is retrieved
 	 */
 	template <size_t I>
 	static T At(const Vector& a)
@@ -238,10 +239,11 @@ public:
 
 	/// Returns the value of the I-th coordinate of the vector with fallback
 	/** This function returns either the value of the I-th cooordinate of
-	 *  the vector if I is between 0 and N-1 or the fallback @c value 
+	 *  the vector if I is between 0 and N-1 or the fallback @c value
 	 *  otherwise.
 	 *
 	 *  @tparam I the index of the coordinate to be retrieved
+	 *  @param a the vector from which the coordinate is retrieved
 	 *  @param value the fallback value if I is not between 0 and N-1
 	 */
 	template <size_t I>
