@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/pixel_data.hpp>
 #include <oglplus/limited_value.hpp>
 #include <cassert>
 
@@ -77,6 +78,27 @@ public:
 		_2DMultisampleArray = GL_TEXTURE_2D_MULTISAMPLE_ARRAY
 	};
 
+	/// Texture image specification targets
+	enum class ImageTarget : GLenum {
+		_1D = GL_TEXTURE_1D,
+		_2D = GL_TEXTURE_2D,
+		_3D = GL_TEXTURE_3D,
+		_1DArray = GL_TEXTURE_1D_ARRAY,
+		_2DArray = GL_TEXTURE_2D_ARRAY,
+		Rectangle = GL_TEXTURE_RECTANGLE,
+		Buffer = GL_TEXTURE_BUFFER,
+		CubeMap = GL_TEXTURE_CUBE_MAP,
+		CubeMapArray = GL_TEXTURE_CUBE_MAP_ARRAY,
+		_2DMultisample = GL_TEXTURE_2D_MULTISAMPLE,
+		_2DMultisampleArray = GL_TEXTURE_2D_MULTISAMPLE_ARRAY,
+		CubeMapPositiveX = GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+		CubeMapNegativeX = GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+		CubeMapPositiveY = GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+		CubeMapNegativeY = GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
+		CubeMapPositiveZ = GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+		CubeMapNegativeZ = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+	};
+
 	/// Specify active texture unit for subsequent commands
 	/**
 	 *  @throws Error
@@ -114,6 +136,87 @@ public:
 	{
 		::glBindTexture(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTexture));
+	}
+
+	/// Specifies a three dimensional texture image
+	static void Image3D(
+		ImageTarget target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		GLint border,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexImage3D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			height,
+			depth,
+			border,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(TexImage3D));
+	}
+
+	/// Specifies a two dimensional texture image
+	static void Image2D(
+		ImageTarget target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexImage2D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			height,
+			border,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(TexImage2D));
+	}
+
+	/// Specifies a one dimensional texture image
+	static void Image1D(
+		ImageTarget target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLint border,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexImage1D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			border,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(TexImage1D));
 	}
 };
 
