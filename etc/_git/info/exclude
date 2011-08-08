@@ -6,4 +6,5 @@
 # *~
 /out
 /bld
+/auto_header
 .*.swp

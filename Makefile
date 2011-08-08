@@ -4,11 +4,19 @@
 
 CXX ?= g++
 
+# final output directory
+OUTDIR = out
+# intermediate output directory
+BLDDIR = bld
+# auto-generated header output directory
+HDRDIR = auto_header
+
 OGLPLUS_CXXFLAGS = \
 	$(CXXFLAGS) \
 	-pedantic \
 	-pedantic-errors \
 	-I include \
+	-I $(HDRDIR)/include \
 	-I utils \
 	-std=c++0x
 
@@ -16,11 +24,6 @@ OGLPLUS_LDFLAGS = \
 	$(LDFLAGS) \
 	-lGL \
 	-std=c++0x
-
-# final output directory
-OUTDIR = out
-# intermediate output directory
-BLDDIR = bld
 
 # the paths of the development/testing files without the .cpp suffix
 DEVEL_TESTS = $(basename $(wildcard devel/test[0-9][0-9].cpp))
@@ -39,7 +42,13 @@ OBJECT_SRCS = $(EXECUTABLES) \
 	devel/test_main
 #
 LIBRARIES = oglplus
-#
+
+# list of bindable objects
+BINDABLE_OBJECTS = buffer texture
+
+# list of automatically generated headers
+AUTO_HEADERS = $(addsuffix .hpp, $(addprefix include/oglplus/bound/, $(BINDABLE_OBJECTS)))
+
 # the list of doxygen-generated html documents
 HTML_DOCS = $(addsuffix /html/index.html,$(addprefix doc/doxygen/,$(LIBRARIES)))
 #
@@ -51,6 +60,9 @@ OUTSUBDIRS = \
 BLDSUBDIRS = \
 	$(addprefix $(BLDDIR)/, $(sort $(dir $(OBJECT_SRCS)))) \
 	$(addprefix $(BLDDIR)/, $(sort $(dir $(HTML_DOCS))))
+
+HDRSUBDIRS = \
+	$(addprefix $(HDRDIR)/, $(sort $(dir $(AUTO_HEADERS))))
 
 # the main goal
 all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS))
@@ -122,19 +134,32 @@ OGLPLUS_MAKEDEP_SED = 's|^\([^:]\+\).o:|$(dir $(BLDDIR)/$(1))\1.o $(dir $(BLDDIR
 
 # function defining the rules for building header dependency makefiles
 define BUILD_DEP
-$(BLDDIR)/$(1).d: $(1).cpp Makefile | $(dir $(BLDDIR)/$(1))
+$(BLDDIR)/$(1).d: $(1).cpp $(addprefix $(HDRDIR)/,$(AUTO_HEADERS)) Makefile | $(dir $(BLDDIR)/$(1))
 	@$(CXX) $(OGLPLUS_CXXFLAGS) -o $$@ -E -M $$<
 	@sed --in-place $(OGLPLUS_MAKEDEP_SED) $$@
 endef
 
+# TODO: re-implement this if other header types are built
+CHOOSE_HDR_XSLT = xslt/bound_hpp.xsl
+
+GET_HPP_OBJECT = $(notdir $(basename $(1)))
+
+# function defining the rules for automatically building some headers
+define BUILD_HDR
+$(HDRDIR)/$(1): $(BLDDIR)/xml/oglplus.xml | $(dir $(HDRDIR)/$(1))
+	xsltproc --stringparam object "$(call GET_HPP_OBJECT,$(1))" $(call CHOOSE_HDR_XSLT,$(1)) $$< > $$@
+endef
+
+
 # use the functions defined above to make the rules
-# for building header dependency makefiles,
+# for building headers, header dependency makefiles,
 # compiling and linking of all executables
-$(foreach exe,$(EXAMPLES),   $(eval $(call BUILD_PNG,$(exe))))
-$(foreach exe,$(EXECUTABLES),$(eval $(call BUILD_EXE,$(exe))))
-$(foreach src,$(OBJECT_SRCS),$(eval $(call BUILD_LDF,$(src))))
-$(foreach src,$(OBJECT_SRCS),$(eval $(call BUILD_OBJ,$(src))))
-$(foreach src,$(OBJECT_SRCS),$(eval $(call BUILD_DEP,$(src))))
+$(foreach exe,$(EXAMPLES),    $(eval $(call BUILD_PNG,$(exe))))
+$(foreach exe,$(EXECUTABLES), $(eval $(call BUILD_EXE,$(exe))))
+$(foreach src,$(OBJECT_SRCS), $(eval $(call BUILD_LDF,$(src))))
+$(foreach src,$(OBJECT_SRCS), $(eval $(call BUILD_OBJ,$(src))))
+$(foreach src,$(OBJECT_SRCS), $(eval $(call BUILD_DEP,$(src))))
+$(foreach hdr,$(AUTO_HEADERS),$(eval $(call BUILD_HDR,$(hdr))))
 
 # build dependencies for doxygen HTML documentation
 $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTDIR)/doc/doxygen/%/html
@@ -145,7 +170,23 @@ $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTD
 
 #build the doxygen html documentation
 $(OUTDIR)/doc/doxygen/%/html/index.html: $(wildcard doc/doxygen/Doxyfile.*) example_screenshots
-	cd doc/doxygen && (cat Doxyfile.$* && echo "QUIET=YES") | doxygen -
+	cd doc/doxygen && (cat Doxyfile.oglplus && echo "QUIET=YES") | doxygen -
+
+# build dependencies for doxygen XML output
+$(BLDDIR)/xml/index.xml.d: | $(BLDDIR)/xml
+	@echo "$(BLDDIR)/xml/index.xml $@: \\" > $@
+	@find include/$* example/$* -type f -name '*.[ch]pp' 2> /dev/null |\
+	sed 's|\(^.*$$\)|	\1|' |\
+	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
+
+#build the doxygen XML output
+$(BLDDIR)/xml/index.xml: $(wildcard doc/doxygen/Doxyfile.*)
+	cd doc/doxygen && (cat Doxyfile.autohdr && echo "QUIET=YES") | doxygen -
+
+#combine the doxygen XML output
+$(BLDDIR)/xml/oglplus.xml: $(BLDDIR)/xml/index.xml
+	xsltproc $(BLDDIR)/xml/combine.xslt $< > $@
+
 
 # rules to make the final and itermediate output directories
 $(OUTDIR) $(BLDDIR):
@@ -154,6 +195,7 @@ $(OUTDIR) $(BLDDIR):
 # rules to make the final and itermediate output sub-directories
 $(OUTSUBDIRS): $(OUTDIR); mkdir -p $@
 $(BLDSUBDIRS): $(BLDDIR); mkdir -p $@
+$(HDRSUBDIRS): $(BLDDIR); mkdir -p $@
 
 # if we are not doing cleanup
 ifneq ($(MAKECMDGOALS),clean)
@@ -167,3 +209,4 @@ endif
 clean:
 	rm -rf $(shell readlink $(OUTDIR) || echo $(OUTDIR))
 	rm -rf $(shell readlink $(BLDDIR) || echo $(BLDDIR))
+	rm -rf $(shell readlink $(HDRDIR) || echo $(HDRDIR))

@@ -209,9 +209,65 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(TexImage3D));
 	}
 
+	/// Specifies a three dimensional texture image
+	static void Image3D(
+		Target target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		GLint border,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexImage3D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			height,
+			depth,
+			border,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(TexImage3D));
+	}
+
 	/// Specifies a two dimensional texture image
 	static void Image2D(
 		ImageTarget target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexImage2D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			height,
+			border,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(TexImage2D));
+	}
+
+	/// Specifies a two dimensional texture image
+	static void Image2D(
+		Target target,
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -242,6 +298,32 @@ public:
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
+		GLint border,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexImage1D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			border,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(TexImage1D));
+	}
+
+	/// Specifies a two dimensional texture image
+	static void Image1D(
+		Target target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
 		PixelDataType type,
@@ -466,7 +548,14 @@ public:
 	}
 };
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Encapsulates the OpenGL texture-related functionality
+class Texture
+ : public TextureOps
+{ };
+#else
 typedef Object<TextureOps, true> Texture;
+#endif
 
 } // namespace oglplus
 

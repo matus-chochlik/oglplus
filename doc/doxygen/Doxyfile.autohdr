@@ -9,15 +9,19 @@
 
 PROJECT_NAME           = "OGLplus"
 
-OUTPUT_DIRECTORY       = ../../out/doc/doxygen/oglplus
+OUTPUT_DIRECTORY       = ../../bld/
 
-INPUT = \
-	../../include/oglplus \
-	../../include/oglplus/shapes \
-	../../example/oglplus
+INPUT = ../../include/oglplus
 
-EXAMPLE_PATH           = ../../example/oglplus
+GENERATE_HTML = NO
+GENERATE_XML = YES
 
-GENERATE_HTML = YES
-GENERATE_XML = NO
-GENERATE_TAGFILE = ../../bld/doc/doxygen/oglplus.doxygen.tags
+HIDE_UNDOC_CLASSES     = NO
+HIDE_UNDOC_RELATIONS   = NO
+
+CALL_GRAPH = NO
+CALLER_GRAPH = NO
+CLASS_GRAPH = NO
+INCLUDE_GRAPH = NO
+INCLUDED_BY_GRAPH = NO
+DIRECTORY_GRAPH = NO

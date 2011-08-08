@@ -13,6 +13,8 @@
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/sphere.hpp>
 #include <oglplus/shapes/torus.hpp>
+#include <oglplus/bound/buffer.hpp>
+#include <oglplus/bound/texture.hpp>
 
 #include <cmath>
 
@@ -109,26 +111,20 @@ public:
 		// bind the VAO for the shape
 		vao.Bind();
 
-		// bind the VBO for the shape vertices
-		verts.Bind(Buffer::Target::Array);
 		{
-			std::vector<GLfloat> vertices;
-			GLuint n_per_vertex = shape.Vertices(vertices);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, vertices);
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = shape.Vertices(data);
+			Bind(verts, Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "vertex");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
 
-		// bind the VBO for the shape normals
-		normals.Bind(Buffer::Target::Array);
 		{
-			std::vector<GLfloat> normals;
-			GLuint n_per_vertex = shape.Normals(normals);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, normals);
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = shape.Normals(data);
+			Bind(normals, Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the normals
 			VertexAttribArray attr(prog, "normal");
 			attr.Setup(n_per_vertex, DataType::Float);
@@ -136,27 +132,25 @@ public:
 		}
 
 		// bind the VBO for the shape uv-coords
-		uvcoords.Bind(Buffer::Target::Array);
 		{
-			std::vector<GLfloat> uv;
-			GLuint n_per_vertex = shape.UVCoordinates(uv);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, uv);
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = shape.UVCoordinates(data);
+			Bind(uvcoords, Buffer::Target::Array).Data(data);
+			//
 			VertexAttribArray attr(prog, "uvcoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
 
 		// setup the texture
-		tex.Bind(Texture::Target::_2D);
 		{
+			auto bound_tex = Bind(tex, Texture::Target::_2D);
 			size_t s = 256;
 			std::vector<GLubyte> tex_data(s*s);
 			for(size_t v=0;v!=s;++v)
 				for(size_t u=0;u!=s;++u)
 					tex_data[v*s+u] = rand() % 0x100;
-			Texture::Image2D(
-				Texture::ImageTarget::_2D,
+			bound_tex.Image2D(
 				0,
 				PixelDataInternalFormat::Red,
 				s, s,
@@ -165,22 +159,10 @@ public:
 				PixelDataType::UnsignedByte,
 				tex_data.data()
 			);
-			Texture::MinFilter(
-				Texture::Target::_2D,
-				TextureMinFilter::Linear
-			);
-			Texture::MagFilter(
-				Texture::Target::_2D,
-				TextureMagFilter::Linear
-			);
-			Texture::WrapS(
-				Texture::Target::_2D,
-				TextureWrap::Repeat
-			);
-			Texture::WrapT(
-				Texture::Target::_2D,
-				TextureWrap::Repeat
-			);
+			bound_tex.MinFilter(TextureMinFilter::Linear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
 		}
 
 		Uniform(prog, "tex").Set(0);
