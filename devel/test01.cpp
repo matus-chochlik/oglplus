@@ -95,7 +95,8 @@ public:
 			"	float l = length(lightPos);"
 			"	float d = l > 0? dot(fragNormal, lightPos)/l: 0;"
 			"	float i = clamp(0.2 + 2.0*d, 0.0, 1.0);"
-			"	fragColor = texture2D(tex, fragUV)*i;"
+			"	float c = texture2D(tex, fragUV).r*i;"
+			"	fragColor = vec4(c, c, c, 1);"
 			"}"
 		);
 		// compile it
