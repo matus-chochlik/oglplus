@@ -48,6 +48,9 @@ private:
 	Buffer verts;
 	Buffer normals;
 	Buffer uvcoords;
+
+	// texture for the shape
+	Texture tex;
 public:
 	Test01(void)
 	{
@@ -62,7 +65,10 @@ public:
 			"out vec2 fragUV;"
 			"void main(void)"
 			"{"
-			"	fragNormal = normal;"
+			"	fragNormal = ("
+			"		cameraMatrix *"
+			"		vec4(normal, 0.0)"
+			"	).xyz;"
 			"	fragUV = uvcoord;"
 			"	gl_Position = "
 			"		projectionMatrix *"
@@ -77,13 +83,17 @@ public:
 		// (uses the absolute value of normal as color)
 		fs.Source(
 			"#version 330\n"
+			"uniform sampler2D tex;"
 			"in vec3 fragNormal;"
 			"in vec2 fragUV;"
 			"out vec4 fragColor;"
+			"const vec3 lightPos = vec3(1.0, 1.0, 1.0);"
 			"void main(void)"
 			"{"
-			"	int c = (1 + int(fragUV.x*18)%2 + int(fragUV.y*12)%2)%2;"
-			"	fragColor = vec4(abs(fragNormal), 1)*(1.0+c)/2.0;"
+			"	float l = length(lightPos);"
+			"	float d = l > 0? dot(fragNormal, lightPos)/l: 0;"
+			"	float i = clamp(0.2 + 2.0*d, 0.0, 1.0);"
+			"	fragColor = texture2D(tex, fragUV)*i;"
 			"}"
 		);
 		// compile it
@@ -137,6 +147,43 @@ public:
 			attr.Enable();
 		}
 
+		// setup the texture
+		tex.Bind(Texture::Target::_2D);
+		{
+			size_t s = 256;
+			std::vector<GLubyte> tex_data(s*s);
+			for(size_t v=0;v!=s;++v)
+				for(size_t u=0;u!=s;++u)
+					tex_data[v*s+u] = rand() % 0x100;
+			Texture::Image2D(
+				Texture::ImageTarget::_2D,
+				0,
+				PixelDataInternalFormat::Red,
+				s, s,
+				0,
+				PixelDataFormat::Red,
+				PixelDataType::UnsignedByte,
+				tex_data.data()
+			);
+			Texture::MinFilter(
+				Texture::Target::_2D,
+				TextureMinFilter::Linear
+			);
+			Texture::MagFilter(
+				Texture::Target::_2D,
+				TextureMagFilter::Linear
+			);
+			Texture::WrapS(
+				Texture::Target::_2D,
+				TextureWrap::Repeat
+			);
+			Texture::WrapT(
+				Texture::Target::_2D,
+				TextureWrap::Repeat
+			);
+		}
+
+		Uniform(prog, "tex").Set(0);
 		// set the projection matrix fov = 24 deg. aspect = 1.25
 		Uniform(prog, "projectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)
@@ -145,11 +192,11 @@ public:
 		VertexArray::Unbind();
 		gl.ClearColor(0.03f, 0.03f, 0.03f, 0.0f);
 		gl.ClearDepth(1.0f);
-		glEnable(GL_DEPTH_TEST);
+		gl.Enable(Capability::DepthTest);
 		//
-		glFrontFace(GL_CCW);
-		glCullFace(GL_BACK);
-		glEnable(GL_CULL_FACE);
+		gl.FrontFace(shape.FaceWinding());
+		gl.CullFace(Face::Back);
+		gl.Enable(Capability::CullFace);
 	}
 
 	void Render(double time)
