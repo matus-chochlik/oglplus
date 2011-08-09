@@ -41,8 +41,8 @@ private:
 	// A vertex array object for the rendered shape
 	VertexArray shape;
 
-	// VBOs for the shape's vertices, normals and uv-coordinates
-	Buffer verts, normals, uvcoords;
+	// VBOs for the shape's vertices, normals and tex-coordinates
+	Buffer verts, normals, texcoords;
 public:
 	Shape(const VertexShader& vs, FragmentShader&& frag)
 	 : shape_instr(make_shape.Instructions())
@@ -65,12 +65,12 @@ public:
 		Func func[n_attr] = {
 			&ShapeMaker::Vertices,
 			&ShapeMaker::Normals,
-			&ShapeMaker::UVCoordinates
+			&ShapeMaker::TexCoordinates
 		};
 		// managed references to the VBOs
-		Managed<Buffer> vbo[n_attr] = {verts, normals, uvcoords};
+		Managed<Buffer> vbo[n_attr] = {verts, normals, texcoords};
 		// vertex attribute identifiers from the shaders
-		const GLchar* ident[n_attr] = {"vertex", "normal", "uvcoord"};
+		const GLchar* ident[n_attr] = {"vertex", "normal", "texcoord"};
 
 		for(size_t i=0; i!=n_attr; ++i)
 		{
@@ -133,14 +133,14 @@ private:
 			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
 			"in vec4 vertex;"
 			"in vec3 normal;"
-			"in vec2 uvcoord;"
-			"out vec2 fragUV;"
+			"in vec2 texcoord;"
+			"out vec2 fragTexCoord;"
 			"out vec3 fragNormal;"
 			"out vec3 fragLight;"
 			"uniform vec3 lightPos;"
 			"void main(void)"
 			"{"
-			"	fragUV = uvcoord;"
+			"	fragTexCoord = texcoord;"
 			"	fragNormal = ("
 			"		modelMatrix *"
 			"		vec4(normal, 0.0)"
@@ -166,7 +166,7 @@ private:
 	{
 		return
 		"#version 330\n"
-		"in vec2 fragUV;"
+		"in vec2 fragTexCoord;"
 		"in vec3 fragNormal;"
 		"in vec3 fragLight;"
 		"out vec4 fragColor;"
@@ -193,7 +193,11 @@ private:
 	static const GLchar* fs_bw_checker(void)
 	{
 		return
-		"	float c = (1+ int(fragUV.x*8)%2 + int(fragUV.y*8)%2)%2;"
+		"	float c = ("
+		"		1 +"
+		"		int(fragTexCoord.x*8) % 2+"
+		"		int(fragTexCoord.y*8) % 2"
+		"	) % 2;"
 		"	vec3 color = vec3(c, c, c);";
 	}
 
@@ -201,7 +205,7 @@ private:
 	static const GLchar* fs_yb_strips(void)
 	{
 		return
-		"	float m = int((fragUV.x+fragUV.y)*16) % 2;"
+		"	float m = int((fragTexCoord.x+fragTexCoord.y)*16) % 2;"
 		"	vec3 color = mix("
 		"		vec3(0.0, 0.0, 0.0),"
 		"		vec3(1.0, 1.0, 0.0),"
@@ -213,7 +217,7 @@ private:
 	static const GLchar* fs_wo_vstrips(void)
 	{
 		return
-		"	float m = int(fragUV.y*8) % 2;"
+		"	float m = int(fragTexCoord.y*8) % 2;"
 		"	vec3 color = mix("
 		"		vec3(1.0, 0.6, 0.1),"
 		"		vec3(1.0, 0.9, 0.8),"
@@ -225,7 +229,7 @@ private:
 	static const GLchar* fs_br_circles(void)
 	{
 		return
-		"	vec2  center = fragUV - vec2(0.5, 0.5);"
+		"	vec2  center = fragTexCoord - vec2(0.5, 0.5);"
 		"	float m = int(sqrt(length(center))*16) % 2;"
 		"	vec3 color = mix("
 		"		vec3(1.0, 0.0, 0.0),"
@@ -238,7 +242,7 @@ private:
 	static const GLchar* fs_wg_spirals(void)
 	{
 		return
-		"	vec2  center = (fragUV - vec2(0.5, 0.5)) * 16.0;"
+		"	vec2  center = (fragTexCoord - vec2(0.5, 0.5)) * 16.0;"
 		"	float l = length(center);"
 		"	float t = atan(center.y, center.x)/(2.0*asin(1.0));"
 		"	float m = int(l+t) % 2;"

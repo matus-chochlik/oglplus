@@ -22,27 +22,36 @@ namespace oglplus {
  *  implementation-dependent range of allowed valued and throws
  *  an @c LimitError exception if it is not.
  */
+template <GLenum Query>
 class LimitedCount
 {
 private:
 	GLuint _value;
+
+	static GLuint _query_limit(void)
+	{
+		GLint limit = -1;
+		::glGetIntegerv(Query, &limit);
+		ThrowOnError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		assert(limit >= 0);
+		return GLuint(limit);
+	}
+
+	static GLuint _limit(void)
+	{
+		static GLuint limit = _query_limit();
+		return limit;
+	}
 protected:
 	/**
 	 *  @throws Error
 	 *  @throws LimitError
 	 */
-	LimitedCount(
-		GLuint value,
-		GLuint query,
-		const ErrorInfo& info
-	): _value(value)
+	LimitedCount(GLuint value, const ErrorInfo& info)
+	 : _value(value)
 	{
-		GLint limit = -1;
-		::glGetIntegerv(query, &limit);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetIntegerv));
-		assert(limit >= 0);
-		if(_value >= GLuint(limit))
-			throw LimitError(info, value, limit);
+		if(_value >= _limit())
+			throw LimitError(info, value, _limit());
 	}
 public:
 	/// Returns the value
@@ -51,15 +60,23 @@ public:
 	{
 		return Type(_value);
 	}
+
+	friend GLuint Max(const LimitedCount& count)
+	{
+		return _limit();
+	}
 };
 
 #define OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(NAME, QUERY) \
 class NAME \
- : public LimitedCount \
+ : public LimitedCount<GL_ ## QUERY> \
 { \
 public: \
 	NAME(GLuint value) \
-	 : LimitedCount(value, GL_##QUERY, OGLPLUS_LIMIT_ERROR_INFO(QUERY)) \
+	 : LimitedCount<GL_ ## QUERY>( \
+		value, \
+		OGLPLUS_LIMIT_ERROR_INFO(QUERY) \
+	) \
 	{ } \
 };
 

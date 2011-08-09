@@ -165,9 +165,9 @@ public:
 		return 3;
 	}
 
-	/// Makes the UV-coordinates and returns the number of values per vertex
+	/// Makes the texture coordinates and returns the number of values per vertex
 	template <typename T>
-	GLuint UVCoordinates(std::vector<T>& dest) const
+	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
 		dest = {
 			T(1), T(1),

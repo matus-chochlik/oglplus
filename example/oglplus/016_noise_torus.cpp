@@ -63,7 +63,7 @@ public:
 			"in vec2 texcoord;"
 			"out vec3 fragNormal;"
 			"out vec3 fragLight;"
-			"out vec2 fragUV;"
+			"out vec2 fragTex;"
 			"uniform vec3 lightPos;"
 			"void main(void)"
 			"{"
@@ -75,7 +75,7 @@ public:
 			"		vec4(lightPos, 0.0)-"
 			"		modelMatrix*vertex"
 			"	).xyz;"
-			"	fragUV = texcoord;"
+			"	fragTex = texcoord;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
@@ -92,14 +92,14 @@ public:
 			"uniform sampler2D tex;"
 			"in vec3 fragNormal;"
 			"in vec3 fragLight;"
-			"in vec2 fragUV;"
+			"in vec2 fragTex;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
 			"	float l = length(fragLight);"
 			"	float d = l > 0? dot(fragNormal, fragLight)/l: 0;"
 			"	float i = clamp(0.2 + 1.5*d, 0.0, 1.0);"
-			"	float c = texture2D(tex, fragUV).r*i;"
+			"	float c = texture2D(tex, fragTex).r*i;"
 			"	fragColor = vec4(c, c, c, 1);"
 			"}"
 		);
@@ -146,7 +146,7 @@ public:
 		texcoords.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_torus.UVCoordinates(data);
+			GLuint n_per_vertex = make_torus.TexCoordinates(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices

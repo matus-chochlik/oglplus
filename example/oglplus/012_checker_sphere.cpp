@@ -43,9 +43,9 @@ private:
 	// A vertex array object for the rendered sphere
 	VertexArray sphere;
 
-	// VBOs for the sphere's vertices and uv-coordinates
+	// VBOs for the sphere's vertices and tex-coordinates
 	Buffer verts;
-	Buffer uvcoords;
+	Buffer texcoords;
 public:
 	SphereExample(void)
 	 : sphere_instr(make_sphere.Instructions())
@@ -56,11 +56,11 @@ public:
 			"#version 330\n"
 			"uniform mat4 projectionMatrix, cameraMatrix;"
 			"in vec4 vertex;"
-			"in vec2 uvcoord;"
-			"out vec2 uv;"
+			"in vec2 texcoord;"
+			"out vec2 fragTex;"
 			"void main(void)"
 			"{"
-			"	uv = uvcoord;"
+			"	fragTex = texcoord;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
@@ -73,11 +73,14 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec2 uv;"
+			"in vec2 fragTex;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float i = (int(uv.x*18)%2 + int(uv.y*14)%2)%2;"
+			"	float i = ("
+			"		int(fragTex.x*18) % 2+"
+			"		int(fragTex.y*14) % 2"
+			"	) % 2;"
 			"	fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
 			"}"
 		);
@@ -108,14 +111,14 @@ public:
 		}
 
 		// bind the VBO for the sphere UV-coordinates
-		uvcoords.Bind(Buffer::Target::Array);
+		texcoords.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_sphere.UVCoordinates(data);
+			GLuint n_per_vertex = make_sphere.TexCoordinates(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "uvcoord");
+			VertexAttribArray attr(prog, "texcoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}

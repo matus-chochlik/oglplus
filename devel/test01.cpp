@@ -49,7 +49,7 @@ private:
 	// VBOs for the shape's vertices and normals
 	Buffer verts;
 	Buffer normals;
-	Buffer uvcoords;
+	Buffer texcoords;
 
 	// texture for the shape
 	Texture tex;
@@ -62,16 +62,16 @@ public:
 			"uniform mat4 projectionMatrix, cameraMatrix;"
 			"in vec4 vertex;"
 			"in vec3 normal;"
-			"in vec2 uvcoord;"
+			"in vec2 texcoord;"
 			"out vec3 fragNormal;"
-			"out vec2 fragUV;"
+			"out vec2 fragTexCoord;"
 			"void main(void)"
 			"{"
 			"	fragNormal = ("
 			"		cameraMatrix *"
 			"		vec4(normal, 0.0)"
 			"	).xyz;"
-			"	fragUV = uvcoord;"
+			"	fragTexCoord = texcoord;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
@@ -87,7 +87,7 @@ public:
 			"#version 330\n"
 			"uniform sampler2D tex;"
 			"in vec3 fragNormal;"
-			"in vec2 fragUV;"
+			"in vec2 fragTexCoord;"
 			"out vec4 fragColor;"
 			"const vec3 lightPos = vec3(1.0, 1.0, 1.0);"
 			"void main(void)"
@@ -95,7 +95,7 @@ public:
 			"	float l = length(lightPos);"
 			"	float d = l > 0? dot(fragNormal, lightPos)/l: 0;"
 			"	float i = clamp(0.2 + 2.0*d, 0.0, 1.0);"
-			"	float c = texture2D(tex, fragUV).r*i;"
+			"	float c = texture2D(tex, fragTexCoord).r*i;"
 			"	fragColor = vec4(c, c, c, 1);"
 			"}"
 		);
@@ -132,13 +132,13 @@ public:
 			attr.Enable();
 		}
 
-		// bind the VBO for the shape uv-coords
+		// bind the VBO for the shape tex-coords
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = shape.UVCoordinates(data);
-			Bind(uvcoords, Buffer::Target::Array).Data(data);
+			GLuint n_per_vertex = shape.TexCoordinates(data);
+			Bind(texcoords, Buffer::Target::Array).Data(data);
 			//
-			VertexAttribArray attr(prog, "uvcoord");
+			VertexAttribArray attr(prog, "texcoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -160,7 +160,8 @@ public:
 				PixelDataType::UnsignedByte,
 				tex_data.data()
 			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
+			bound_tex.GenerateMipmap();
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::Repeat);
 			bound_tex.WrapT(TextureWrap::Repeat);
@@ -190,7 +191,7 @@ public:
 		Uniform(prog, "cameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.5,
+				4.5 + std::sin(time)*2.0,
 				Degrees(time * 135),
 				Degrees(std::sin(time * 0.3) * 90)
 			)

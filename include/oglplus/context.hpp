@@ -52,6 +52,14 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
 	}
 
+	/// Check if capability is enabled
+	static bool IsEnabled(Capability cap)
+	{
+		GLboolean result = ::glIsEnabled(GLenum(cap));
+		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabled));
+		return result == GL_TRUE;
+	}
+
 	/// Sets the clear color
 	/**
 	 *  @throws Error

@@ -60,6 +60,15 @@ enum class TextureMinFilter : GLenum {
 	LinearMipmapLinear = GL_LINEAR_MIPMAP_LINEAR
 };
 
+/// Texture swizzle parameter coordinate enumeration
+enum class TextureSwizzleCoord : GLenum {
+	R = GL_TEXTURE_SWIZZLE_R,
+	G = GL_TEXTURE_SWIZZLE_G,
+	B = GL_TEXTURE_SWIZZLE_B,
+	A = GL_TEXTURE_SWIZZLE_A,
+	RGBA = GL_TEXTURE_SWIZZLE_RGBA
+};
+
 /// Texture swizzle enumeration
 enum class TextureSwizzle : GLenum {
 	Red = GL_RED,
@@ -68,6 +77,13 @@ enum class TextureSwizzle : GLenum {
 	Alpha = GL_ALPHA,
 	Zero = GL_ZERO,
 	One = GL_ONE
+};
+
+/// Texture wrap parameter coordinate enumeration
+enum class TextureWrapCoord : GLenum {
+	S = GL_TEXTURE_WRAP_S,
+	T = GL_TEXTURE_WRAP_T,
+	R = GL_TEXTURE_WRAP_R
 };
 
 /// Texture wrap enumeration
@@ -453,19 +469,21 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameterf));
 	}
 
-	/// Swizzle parameter coordinate enumeration
-	enum class SwizzleCoord : GLenum {
-		R = GL_TEXTURE_SWIZZLE_R,
-		G = GL_TEXTURE_SWIZZLE_G,
-		B = GL_TEXTURE_SWIZZLE_B,
-		A = GL_TEXTURE_SWIZZLE_A,
-		RGBA = GL_TEXTURE_SWIZZLE_RGBA
-	};
+	/// Sets maximal LOD value (TEXTURE_MAX_LOD)
+	static void MaxLOD(Target target, GLfloat value)
+	{
+		::glTexParameterf(
+			GLenum(target),
+			GL_TEXTURE_MAX_LOD,
+			value
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameterf));
+	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_*)
 	static void Swizzle(
 		Target target,
-		SwizzleCoord coord,
+		TextureSwizzleCoord coord,
 		TextureSwizzle mode
 	)
 	{
@@ -480,44 +498,37 @@ public:
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_R)
 	static void SwizzleR(Target target, TextureSwizzle mode)
 	{
-		Swizzle(target, SwizzleCoord::R, mode);
+		Swizzle(target, TextureSwizzleCoord::R, mode);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_G)
 	static void SwizzleG(Target target, TextureSwizzle mode)
 	{
-		Swizzle(target, SwizzleCoord::G, mode);
+		Swizzle(target, TextureSwizzleCoord::G, mode);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_B)
 	static void SwizzleB(Target target, TextureSwizzle mode)
 	{
-		Swizzle(target, SwizzleCoord::B, mode);
+		Swizzle(target, TextureSwizzleCoord::B, mode);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_A)
 	static void SwizzleA(Target target, TextureSwizzle mode)
 	{
-		Swizzle(target, SwizzleCoord::A, mode);
+		Swizzle(target, TextureSwizzleCoord::A, mode);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
 	static void SwizzleRGBA(Target target, TextureSwizzle mode)
 	{
-		Swizzle(target, SwizzleCoord::RGBA, mode);
+		Swizzle(target, TextureSwizzleCoord::RGBA, mode);
 	}
-
-	/// Wrap parameter coordinate enumeration
-	enum class WrapCoord : GLenum {
-		S = GL_TEXTURE_WRAP_S,
-		T = GL_TEXTURE_WRAP_T,
-		R = GL_TEXTURE_WRAP_R
-	};
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_*)
 	static void Wrap(
 		Target target,
-		WrapCoord coord,
+		TextureWrapCoord coord,
 		TextureWrap mode
 	)
 	{
@@ -532,19 +543,26 @@ public:
 	/// Sets the wrap parameter (TEXTURE_WRAP_S)
 	static void WrapS(Target target, TextureWrap mode)
 	{
-		Wrap(target, WrapCoord::S, mode);
+		Wrap(target, TextureWrapCoord::S, mode);
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_T)
 	static void WrapT(Target target, TextureWrap mode)
 	{
-		Wrap(target, WrapCoord::T, mode);
+		Wrap(target, TextureWrapCoord::T, mode);
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_R)
 	static void WrapR(Target target, TextureWrap mode)
 	{
-		Wrap(target, WrapCoord::R, mode);
+		Wrap(target, TextureWrapCoord::R, mode);
+	}
+
+	/// Generate mipmap for the texture bound to the specified target
+	static void GenerateMipmap(Target target)
+	{
+		::glGenerateMipmap(GLenum(target));
+		ThrowOnError(OGLPLUS_ERROR_INFO(GenerateMipmap));
 	}
 };
 

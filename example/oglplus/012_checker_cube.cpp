@@ -43,9 +43,9 @@ private:
 	// A vertex array object for the rendered cube
 	VertexArray cube;
 
-	// VBOs for the cube's vertices and uv-coordinates
+	// VBOs for the cube's vertices and tex-coordinates
 	Buffer verts;
-	Buffer uvcoords;
+	Buffer texcoords;
 public:
 	CubeExample(void)
 	 : cube_instr(make_cube.Instructions())
@@ -56,11 +56,11 @@ public:
 			"#version 330\n"
 			"uniform mat4 projectionMatrix, cameraMatrix;"
 			"in vec4 vertex;"
-			"in vec2 uvcoord;"
-			"out vec2 uv;"
+			"in vec2 texcoord;"
+			"out vec2 fragTexCoord;"
 			"void main(void)"
 			"{"
-			"	uv = uvcoord;"
+			"	fragTexCoord = texcoord;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
@@ -73,11 +73,15 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec2 uv;"
+			"in vec2 fragTexCoord;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float i = (1+ int(uv.x*8)%2 + int(uv.y*8)%2)%2;"
+			"	float i = ("
+			"		1 +"
+			"		int(fragTexCoord.x*8) % 2+"
+			"		int(fragTexCoord.y*8) % 2"
+			"	) % 2;"
 			"	fragColor = vec4(i, i, i, 1.0);"
 			"}"
 		);
@@ -107,15 +111,15 @@ public:
 			attr.Enable();
 		}
 
-		// bind the VBO for the cube UV-coordinates
-		uvcoords.Bind(Buffer::Target::Array);
+		// bind the VBO for the cube texture-coordinates
+		texcoords.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_cube.UVCoordinates(data);
+			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "uvcoord");
+			VertexAttribArray attr(prog, "texcoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}

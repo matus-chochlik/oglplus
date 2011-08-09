@@ -80,9 +80,9 @@ public:
 		return n;
 	}
 
-	/// Makes UV-coorinates and returns number of values per vertex
+	/// Makes texture-coorinates and returns number of values per vertex
 	template <typename T>
-	GLuint UVCoordinates(std::vector<T>& dest) const
+	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
 		dest.resize(((_rings + 2) * (_sections + 1)) * 2);
 		size_t k = 0;
