@@ -14,6 +14,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <type_traits>
 
 namespace oglplus {
 
@@ -203,9 +204,17 @@ public:
 	}
 
 	/// Construction from to Matrix-1xN
-	explicit inline Vector(const Matrix<T, 1, N>& matrix);
+	template <size_t M>
+	explicit inline Vector(
+		const Matrix<T, 1, M>& matrix,
+		typename ::std::enable_if<(M == N && N > 1)>::type* = 0
+	);
 	/// Construction from to Matrix-Nx1
-	explicit inline Vector(const Matrix<T, N, 1>& matrix);
+	template <size_t M>
+	explicit inline Vector(
+		const Matrix<T, M, 1>& matrix,
+		typename ::std::enable_if<(M == N && N > 1)>::type* = 0
+	);
 
 	/// Returns the dimension of the vector
 	friend size_t Size(const Vector& a)
@@ -503,6 +512,21 @@ public:
 // include the subvector extraction functions
 #include <oglplus/auxiliary/vector_extr.ipp>
 
+	T x(void) const
+	{
+		return At<0>(*this);
+	}
+
+	T y(void) const
+	{
+		return At<1>(*this);
+	}
+
+	T z(void) const
+	{
+		return At<2>(*this);
+	}
+
 	// TODO:
 	template <typename Out>
 	void _print(Out& out) const
@@ -514,6 +538,10 @@ public:
 	}
 };
 
+/// 1D float vector
+typedef Vector<GLfloat, 1> Vec1f;
+/// 1D double-precision vector
+typedef Vector<GLdouble, 1> Vec1d;
 /// 2D float vector
 typedef Vector<GLfloat, 2> Vec2f;
 /// 2D double-precision vector

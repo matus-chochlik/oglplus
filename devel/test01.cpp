@@ -17,6 +17,7 @@
 #include <oglplus/bound/texture.hpp>
 
 #include <oglplus/images/random.hpp>
+#include <oglplus/images/newton.hpp>
 
 #include <cmath>
 
@@ -98,7 +99,7 @@ public:
 			"	float l = length(lightPos);"
 			"	float d = l > 0? dot(fragNormal, lightPos)/l: 0;"
 			"	float i = clamp(0.2 + 2.0*d, 0.0, 1.0);"
-			"	fragColor = texture2D(tex, fragTexCoord)*i;"
+			"	fragColor = texture2D(tex, fragTexCoord)*(i+1.0);"
 			"}"
 		);
 		// compile it
@@ -148,14 +149,14 @@ public:
 		// setup the texture
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::RandomRGBUByte(256, 256));
+			bound_tex.Image2D(images::NewtonFractal(512, 512));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::Repeat);
 			bound_tex.WrapT(TextureWrap::Repeat);
-			//bound_tex.SwizzleG(TextureSwizzle::Red);
-			//bound_tex.SwizzleB(TextureSwizzle::Red);
+			bound_tex.SwizzleG(TextureSwizzle::Red);
+			bound_tex.SwizzleB(TextureSwizzle::Red);
 		}
 
 		Uniform(prog, "tex").Set(0);
@@ -182,7 +183,7 @@ public:
 		Uniform(prog, "cameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				4.5 + std::sin(time)*2.0,
+				4.5 + std::sin(time)*3.0,
 				Degrees(time * 135),
 				Degrees(std::sin(time * 0.3) * 90)
 			)

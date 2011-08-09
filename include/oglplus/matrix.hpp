@@ -757,14 +757,22 @@ typedef CameraMatrix<GLdouble> CamMatrixd;
 
 // implementation of Vector's constructors, conversions and operations
 template <typename T, size_t N>
-Vector<T, N>::Vector(const Matrix<T, 1, N>& matrix)
+template <size_t M>
+Vector<T, N>::Vector(
+	const Matrix<T, 1, M>& matrix,
+	typename ::std::enable_if<(M == N && N > 1) >::type*
+)
 {
 	for(size_t i=0; i!=N; ++i)
 		_elem[i] = matrix._m._elem[0][i];
 }
 
 template <typename T, size_t N>
-Vector<T, N>::Vector(const Matrix<T, N, 1>& matrix)
+template <size_t M>
+Vector<T, N>::Vector(
+	const Matrix<T, M, 1>& matrix,
+	typename ::std::enable_if<(M == N && N > 1)>::type*
+)
 {
 	for(size_t i=0; i!=N; ++i)
 		_elem[i] = matrix._m._elem[i][0];
