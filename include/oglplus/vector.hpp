@@ -526,16 +526,6 @@ public:
 	{
 		return At<2>(*this);
 	}
-
-	// TODO:
-	template <typename Out>
-	void _print(Out& out) const
-	{
-		out << "[" << _elem[0];
-		for(size_t i=1; i!= N; ++i)
-			out << ", " << _elem[i];
-		out << "]\n";
-	}
 };
 
 /// 1D float vector

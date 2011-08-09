@@ -126,6 +126,7 @@ define BUILD_LDF
 $(BLDDIR)/$(1).ldf: $(BLDDIR)/$(1).d | $(dir $(BLDDIR)/$(1))
 	$(eval OGLPLUS_TMP_LDFLAGS :=)
 	$(eval OGLPLUS_TMP_LDFLAGS +=$$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),X11/Xlib.h,-lX11))
+	$(eval OGLPLUS_TMP_LDFLAGS +=$$(call OPT_ADD_HDRDEP,$(BLDDIR)/$(1),png.h,-lpng))
 	@echo "$(OGLPLUS_TMP_LDFLAGS)" > $$@
 endef
 

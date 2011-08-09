@@ -16,6 +16,9 @@
 
 namespace oglplus {
 
+template <typename T>
+class ImageInitializer;
+
 /// Wrapper for image data
 /** @note Do not use this class directly, use the derived
  *  classes instead.
@@ -29,6 +32,8 @@ protected:
 	PixelDataType _type;
 	PixelDataFormat _format;
 	PixelDataInternalFormat _internal;
+
+	friend class ImageInitializer<T>;
 
 	Image(void)
 	 : _width(1)
@@ -100,6 +105,31 @@ public:
 	size_t DataSize(void) const
 	{
 		return _data.size() * sizeof(T);
+	}
+};
+
+template <typename T>
+class ImageInitializer
+{
+protected:
+	void InitImage(
+		Image<T>& image,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		std::vector<T>&& data,
+		PixelDataType type,
+		PixelDataFormat format,
+		PixelDataInternalFormat internal
+	)
+	{
+		image._width = width;
+		image._height = height;
+		image._depth = depth;
+		image._data = ::std::move(data);
+		image._type = type;
+		image._format = format;
+		image._internal = internal;
 	}
 };
 

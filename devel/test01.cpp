@@ -16,8 +16,10 @@
 #include <oglplus/bound/buffer.hpp>
 #include <oglplus/bound/texture.hpp>
 
-#include <oglplus/images/random.hpp>
+#include <iostream>
+
 #include <oglplus/images/newton.hpp>
+#include <oglplus/images/png.hpp>
 
 #include <cmath>
 
@@ -29,9 +31,9 @@ namespace oglplus {
 class Test01 : public Test
 {
 private:
-	//typedef shapes::Cube Shape;
+	typedef shapes::Cube Shape;
 	//typedef shapes::Sphere Shape;
-	typedef shapes::Torus Shape;
+	//typedef shapes::Torus Shape;
 	//
 	Shape shape;
 
@@ -99,7 +101,7 @@ public:
 			"	float l = length(lightPos);"
 			"	float d = l > 0? dot(fragNormal, lightPos)/l: 0;"
 			"	float i = clamp(0.2 + 2.0*d, 0.0, 1.0);"
-			"	fragColor = texture2D(tex, fragTexCoord)*(i+1.0);"
+			"	fragColor = texture2D(tex, fragTexCoord)*i;"
 			"}"
 		);
 		// compile it
@@ -149,14 +151,12 @@ public:
 		// setup the texture
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::NewtonFractal(512, 512));
+			bound_tex.Image2D(images::PNG("/home/chochlik/Documents/Basketball.png"));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::Repeat);
 			bound_tex.WrapT(TextureWrap::Repeat);
-			bound_tex.SwizzleG(TextureSwizzle::Red);
-			bound_tex.SwizzleB(TextureSwizzle::Red);
 		}
 
 		Uniform(prog, "tex").Set(0);
@@ -166,7 +166,7 @@ public:
 		);
 		//
 		VertexArray::Unbind();
-		gl.ClearColor(0.03f, 0.03f, 0.03f, 0.0f);
+		gl.ClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 		//
