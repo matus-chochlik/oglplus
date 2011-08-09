@@ -147,7 +147,7 @@ GET_HPP_OBJECT = $(notdir $(basename $(1)))
 # function defining the rules for automatically building some headers
 define BUILD_HDR
 $(HDRDIR)/$(1): $(BLDDIR)/xml/oglplus.xml | $(dir $(HDRDIR)/$(1))
-	xsltproc --stringparam object "$(call GET_HPP_OBJECT,$(1))" $(call CHOOSE_HDR_XSLT,$(1)) $$< > $$@
+	xsltproc --output $$@ --stringparam object "$(call GET_HPP_OBJECT,$(1))" $(call CHOOSE_HDR_XSLT,$(1)) $$<
 endef
 
 
@@ -185,7 +185,7 @@ $(BLDDIR)/xml/index.xml: $(wildcard doc/doxygen/Doxyfile.*)
 
 #combine the doxygen XML output
 $(BLDDIR)/xml/oglplus.xml: $(BLDDIR)/xml/index.xml
-	xsltproc $(BLDDIR)/xml/combine.xslt $< > $@
+	xsltproc --output $@ $(BLDDIR)/xml/combine.xslt $<
 
 
 # rules to make the final and itermediate output directories

@@ -67,8 +67,9 @@
 		
 		<xsl:for-each select="param">
 			<xsl:variable name="Type">
-				<xsl:value-of select="type/ref/text()"/>
-				<xsl:value-of select="type/text()"/>
+				<xsl:for-each select="type/descendant-or-self::text()">
+					<xsl:value-of select="."/>
+				</xsl:for-each>
 			</xsl:variable>
 			<xsl:variable name="TypePrefix">
 				<xsl:variable name="RefId" select="type/ref/@refid"/>

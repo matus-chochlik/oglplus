@@ -99,8 +99,7 @@ public:
 			"	float l = length(fragLight);"
 			"	float d = l > 0? dot(fragNormal, fragLight)/l: 0;"
 			"	float i = clamp(0.2 + 1.5*d, 0.0, 1.0);"
-			"	float c = texture2D(tex, fragTex).r*i;"
-			"	fragColor = vec4(c, c, c, 1);"
+			"	fragColor = texture2D(tex, fragTex)*i;"
 			"}"
 		);
 		// compile it
@@ -178,6 +177,8 @@ public:
 			Texture::MagFilter(tex_tgt, TextureMagFilter::Linear);
 			Texture::WrapS(tex_tgt, TextureWrap::Repeat);
 			Texture::WrapT(tex_tgt, TextureWrap::Repeat);
+			Texture::SwizzleG(tex_tgt, TextureSwizzle::Red);
+			Texture::SwizzleB(tex_tgt, TextureSwizzle::Red);
 		}
 		//
 		Uniform(prog, "tex").Set(0);

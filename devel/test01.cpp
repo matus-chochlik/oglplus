@@ -16,11 +16,14 @@
 #include <oglplus/bound/buffer.hpp>
 #include <oglplus/bound/texture.hpp>
 
+#include <oglplus/images/random.hpp>
+
 #include <cmath>
 
 #include "test.hpp"
 
 namespace oglplus {
+
 
 class Test01 : public Test
 {
@@ -95,8 +98,7 @@ public:
 			"	float l = length(lightPos);"
 			"	float d = l > 0? dot(fragNormal, lightPos)/l: 0;"
 			"	float i = clamp(0.2 + 2.0*d, 0.0, 1.0);"
-			"	float c = texture2D(tex, fragTexCoord).r*i;"
-			"	fragColor = vec4(c, c, c, 1);"
+			"	fragColor = texture2D(tex, fragTexCoord)*i;"
 			"}"
 		);
 		// compile it
@@ -146,25 +148,14 @@ public:
 		// setup the texture
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			size_t s = 256;
-			std::vector<GLubyte> tex_data(s*s);
-			for(size_t v=0;v!=s;++v)
-				for(size_t u=0;u!=s;++u)
-					tex_data[v*s+u] = rand() % 0x100;
-			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::Red,
-				s, s,
-				0,
-				PixelDataFormat::Red,
-				PixelDataType::UnsignedByte,
-				tex_data.data()
-			);
+			bound_tex.Image2D(images::RandomRGBUByte(256, 256));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::Repeat);
 			bound_tex.WrapT(TextureWrap::Repeat);
+			//bound_tex.SwizzleG(TextureSwizzle::Red);
+			//bound_tex.SwizzleB(TextureSwizzle::Red);
 		}
 
 		Uniform(prog, "tex").Set(0);
