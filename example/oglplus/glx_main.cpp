@@ -18,6 +18,7 @@
 #include <oglplus/x11/display.hpp>
 
 #include <oglplus/compile_error.hpp>
+#include <oglplus/application.hpp>
 
 #include <stdexcept>
 #include <iostream>
@@ -84,6 +85,7 @@ int main (int argc, char ** argv)
 {
 	try
 	{
+		oglplus::Application::ParseCommandLineOptions(argc, argv);
 		oglplus::run(oglplus::x11::Display());
 		std::cout << "Done" << std::endl;
 	}

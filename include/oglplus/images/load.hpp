@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_IMAGES_LOAD_1107121519_HPP
 #define OGLPLUS_IMAGES_LOAD_1107121519_HPP
 
+#include <oglplus/application.hpp>
 #include <oglplus/image.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/images/png.hpp>
@@ -50,14 +51,15 @@ bool FindImage(
 	const std::string dirsep("/");
 	const std::string pardir(".." + dirsep);
 	const std::string path = dirname+dirsep+name;
+	const std::string apppath = Application::RelativePath();
 	std::string prefix;
 	for(size_t i=0; i!=3; ++i)
 	{
-		if(FindImageWithExts(file, prefix+path, exts, nexts))
+		if(FindImageWithExts(file, apppath+prefix+path, exts, nexts))
 			return true;
 		prefix = pardir + prefix;
 	}
-	if(FindImageWithExts(file, name, exts, nexts))
+	if(FindImageWithExts(file, apppath+name, exts, nexts))
 		return true;
 	return false;
 }
