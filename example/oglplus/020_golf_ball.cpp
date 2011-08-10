@@ -180,7 +180,6 @@ public:
 			"void main(void)"
 			"{"
 			"	fragNormal = ("
-			"		cameraMatrix *"
 			"		modelMatrix *"
 			"		vec4(normal, 0.0)"
 			"	).xyz;"

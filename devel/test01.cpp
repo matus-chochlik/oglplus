@@ -18,6 +18,7 @@
 
 #include <iostream>
 
+#include <oglplus/images/random.hpp>
 #include <oglplus/images/newton.hpp>
 #include <oglplus/images/load.hpp>
 
@@ -26,6 +27,186 @@
 #include "test.hpp"
 
 namespace oglplus {
+namespace images {
+
+template <typename T, size_t EPP>
+class FilteredImage
+ : public Image<T>
+{
+private:
+	static_assert(
+		EPP > 0 && EPP <= 4,
+		"Number of Elements Per Pixel must be between 1 and 4"
+	);
+protected:
+	template <typename IT>
+	struct _sampler
+	{
+	private:
+		size_t _width, _height, _iepp, _n;
+		const IT* _data;
+	public:
+		_sampler(
+			size_t width,
+			size_t height,
+			size_t iepp,
+			size_t n,
+			const IT* data
+		): _width(width)
+		 , _height(height)
+		 , _iepp(iepp)
+		 , _n(n)
+		 , _data(data)
+		{
+			assert(_iepp > 0 && _iepp <= 4);
+		}
+
+		template <int Xoffs, int Yoffs>
+		Vector<IT, 4> get(void) const
+		{
+			assert(Xoffs > int(-_width));
+			assert(Yoffs > int(-_height));
+			assert(Xoffs < int( _width));
+			assert(Yoffs < int( _height));
+
+			size_t xoffs = (Xoffs < 0)?
+				(Xoffs+_width) % _width :
+				Xoffs;
+			size_t yoffs = (Yoffs < 0)?
+				(Yoffs+_height) % _height:
+				Yoffs;
+			size_t offs = _n + yoffs*_width + xoffs;
+			const IT* p = _data + _iepp*offs;
+			return Vector<IT, 4>(
+				*p,
+				(_iepp > 1) ? *(p+1) : T(0),
+				(_iepp > 2) ? *(p+2) : T(0),
+				(_iepp > 3) ? *(p+3) : T(0)
+			);
+		}
+	};
+private:
+	template <typename IT, typename Filter, typename Extractor>
+	void _calculate(
+		const Image<IT>& input,
+		Filter filter,
+		Extractor extractor,
+		T one,
+		IT ione
+	)
+	{
+		size_t iepp = input.ElementsPerPixel();
+		auto p = this->_data.begin(), e = this->_data.end();
+		size_t n = 0;
+		for(size_t k=0,d=input.Depth();  k!=d; ++k)
+		for(size_t j=0,h=input.Height(); j!=h; ++j)
+		for(size_t i=0,w=input.Width();  i!=w; ++i)
+		{
+			_sampler<IT> sampler(w,h,iepp,n++,input.Data());
+			Vector<T, EPP> outv = filter(
+				extractor,
+				sampler,
+				one,
+				ione
+			);
+			for(size_t c=0; c!= EPP; ++c)
+			{
+				assert(p != e);
+				*p = outv.At(c);
+				++p;
+			}
+		}
+		assert(p == e);
+	}
+
+	static GLubyte _one(GLubyte*)
+	{
+		return 0xFF;
+	}
+
+	static GLfloat _one(GLfloat*)
+	{
+		return 1.0f;
+	}
+
+	template <typename IT>
+	static IT _one(void)
+	{
+		return _one((IT*)0);
+	}
+public:
+
+	template <size_t I>
+	struct FromComponentI
+	{
+		template <typename IT>
+		IT operator()(const Vector<IT, 4>& v) const
+		{
+			return v.template At<I>();
+		}
+	};
+
+	typedef FromComponentI<0> FromRed;
+	typedef FromComponentI<1> FromGreen;
+	typedef FromComponentI<2> FromBlue;
+	typedef FromComponentI<3> FromAlpha;
+
+	template <typename IT, typename Filter, typename Extractor>
+	FilteredImage(
+		const Image<IT>& input,
+		Filter filter,
+		Extractor extractor
+	): Image<T>(input.Width(), input.Height(), input.Depth())
+	{
+		this->_data.resize(
+			input.Width()*
+			input.Height()*
+			input.Depth()*
+			EPP
+		);
+		assert(this->ElementsPerPixel() == EPP);
+		_calculate(input, filter, extractor, _one<T>(), _one<IT>());
+
+		this->_type = PixelDataType(oglplus::GetDataType((T*)0));
+	}
+};
+
+template <typename T>
+class NormalMap
+ : public FilteredImage<T, 3>
+{
+private:
+	typedef FilteredImage<T, 3> Base;
+
+	struct _filter
+	{
+		template <typename Extractor, typename Sampler, typename IT>
+		Vector<T, 3> operator()(
+			const Extractor& extractor,
+			const Sampler& sampler,
+			T one,
+			IT ione
+		) const
+		{
+			float sc = extractor(sampler.template get< 0,  0>());
+			float sx = extractor(sampler.template get< 1,  0>());
+			float sy = extractor(sampler.template get< 0,  1>());
+			Vector<float, 3> vx(0.5f, 0, (sx-sc)/ione);
+			Vector<float, 3> vy(0, 0.5f, (sy-sc)/ione);
+			return Normalized(Cross(vx, vy)) * one;
+		}
+	};
+public:
+	template <typename IT>
+	NormalMap(const Image<IT>& input)
+	 : Base(input, _filter(), typename Base::FromRed())
+	{
+		this->_format = PixelDataFormat::RGB;
+		this->_internal = PixelDataInternalFormat::RGB;
+	}
+};
+
+} // namespace images
 
 
 class Test01 : public Test
@@ -55,6 +236,7 @@ private:
 	// VBOs for the shape's vertices and normals
 	Buffer verts;
 	Buffer normals;
+	Buffer tangents;
 	Buffer texcoords;
 
 	// texture for the shape
@@ -65,22 +247,38 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
+			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
 			"in vec4 vertex;"
 			"in vec3 normal;"
+			"in vec3 tangent;"
 			"in vec2 texcoord;"
 			"out vec3 fragNormal;"
+			"out vec3 fragLight;"
 			"out vec2 fragTexCoord;"
+			"out mat3 normalMatrix;"
+			"const vec4 lightPos = vec4(3.0, 4.0, 5.0, 1.0);"
 			"void main(void)"
 			"{"
+			"	vec3 fragTangent = ("
+			"		modelMatrix *"
+			"		vec4(tangent, 0.0)"
+			"	).xyz;"
 			"	fragNormal = ("
-			"		cameraMatrix *"
+			"		modelMatrix *"
 			"		vec4(normal, 0.0)"
 			"	).xyz;"
+			"	fragLight = ("
+			"		lightPos-"
+			"		modelMatrix*vertex"
+			"	).xyz;"
 			"	fragTexCoord = texcoord;"
+			"	normalMatrix[0] = fragTangent;"
+			"	normalMatrix[1] = cross(fragNormal, fragTangent);"
+			"	normalMatrix[2] = fragNormal;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
+			"		modelMatrix *"
 			"		vertex;"
 			"}"
 		);
@@ -94,14 +292,22 @@ public:
 			"uniform sampler2D tex;"
 			"in vec3 fragNormal;"
 			"in vec2 fragTexCoord;"
+			"in vec3 fragLight;"
+			"in mat3 normalMatrix;"
 			"out vec4 fragColor;"
-			"const vec3 lightPos = vec3(1.0, 1.0, 1.0);"
 			"void main(void)"
 			"{"
-			"	float l = length(lightPos);"
-			"	float d = l > 0? dot(fragNormal, lightPos)/l: 0;"
-			"	float i = clamp(0.2 + 2.0*d, 0.0, 1.0);"
-			"	fragColor = texture2D(tex, fragTexCoord)*i;"
+			"	float l = dot(fragLight, fragLight);"
+			"	vec3 fragDiff = "
+			"		normalMatrix *"
+			"		texture2D(tex, fragTexCoord).rgb;"
+			"	vec3 finalNormal = "
+			"		normalize(fragDiff+fragNormal);"
+			"	float i = (l > 0)?"
+			"		dot(finalNormal, fragLight)/l:"
+			"		0.0;"
+			"	i = clamp(2.0*i + 0.1, 0.0, 1.0);"
+			"	fragColor = vec4(i, i, i, 1.0);"
 			"}"
 		);
 		// compile it
@@ -137,6 +343,15 @@ public:
 			attr.Enable();
 		}
 
+		{
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = shape.Tangents(data);
+			Bind(tangents, Buffer::Target::Array).Data(data);
+			VertexAttribArray attr(prog, "tangent");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
+		}
+
 		// bind the VBO for the shape tex-coords
 		{
 			std::vector<GLfloat> data;
@@ -151,7 +366,10 @@ public:
 		// setup the texture
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("flower_glass"));
+			//bound_tex.Image2D(images::LoadTexture("flower_glass"));
+			bound_tex.Image2D(
+				images::NormalMap<GLubyte>(images::LoadTexture("flower_glass"))
+			);
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
@@ -183,11 +401,14 @@ public:
 		Uniform(prog, "cameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				4.5 + std::sin(time)*3.0,
+				//4.5 + std::sin(time)*3.0,
+				1.5,
 				Degrees(time * 135),
-				Degrees(std::sin(time * 0.3) * 90)
+				Degrees(std::sin(time * 0.1) * 90)
 			)
 		);
+
+		Uniform(prog, "modelMatrix").SetMatrix(Matrix4f());
 
 		vao.Bind();
 		// This is not very effective

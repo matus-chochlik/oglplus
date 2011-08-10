@@ -13,6 +13,7 @@
 #define OGLPLUS_IMAGE_1107121519_HPP
 
 #include <vector>
+#include <cassert>
 
 namespace oglplus {
 
@@ -115,6 +116,20 @@ public:
 	size_t DataSize(void) const
 	{
 		return _data.size() * sizeof(T);
+	}
+
+	/// Returns the number of bytes per pixel
+	size_t BytesPerPixel(void) const
+	{
+		return sizeof(T);
+	}
+
+	/// Returns the number of elements per pixel in units of T
+	size_t ElementsPerPixel(void) const
+	{
+		if(_data.empty()) return 0;
+		assert(_data.size() % (_width * _height * _depth) == 0);
+		return _data.size() / (_width * _height * _depth);
 	}
 };
 

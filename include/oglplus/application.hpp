@@ -47,17 +47,22 @@ public:
 		assert(argv != 0);
 		assert(argv[0] != 0);
 		assert(argv[0] != 0);
+		// now find the last separator
 		const char* p = argv[0];
-		const char* s = p;
+		const char* s = 0;
 		while(*p)
 		{
 			if(*p == dirsep) s = p;
 			++p;
 		}
-		const char* e = p;
-		assert(s != e);
-		_app_rel_path() = std::string(argv[0], s+1);
-		_app_name() = std::string(s+1, e);
+		// if found
+		if(s != 0)
+		{
+			assert(s != p);
+			_app_rel_path() = ::std::string(argv[0], s+1);
+			_app_name() = ::std::string(s+1, p);
+		}
+		else _app_name() = ::std::string(argv[0], p);
 	}
 
 	static void ParseCommandLineOptions(int argc, char** argv)
