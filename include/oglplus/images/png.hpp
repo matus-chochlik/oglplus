@@ -15,6 +15,7 @@
 #include <oglplus/image.hpp>
 #include <oglplus/texture.hpp>
 
+#include <istream>
 #include <fstream>
 #include <stdexcept>
 #include <cassert>
@@ -28,8 +29,8 @@ class PNGLoader
  : public ImageInitializer<GLubyte>
 {
 private:
-	// file to read from
-	::std::fstream _file;
+	// reference to an input stream to read from
+	::std::istream& _input;
 
 	// PNG header validator
 	struct _hdr_validator
@@ -133,8 +134,8 @@ private:
 	// data read function
 	void _read_data(::png_bytep data, ::png_size_t size)
 	{
-		_file.read((char*)data, size);
-		if(!_file.good())
+		_input.read((char*)data, size);
+		if(!_input.good())
 		{
 			throw std::runtime_error(
 				"Unable to read PNG signature"
@@ -213,11 +214,9 @@ private:
 		return 0;
 	}
 public:
-	PNGLoader(
-		const char* file_path,
-		Image<GLubyte>& image
-	): _file(file_path, ::std::ios::in)
-	 , _validate_header(_file)
+	PNGLoader(std::istream& input, Image<GLubyte>& image)
+	 : _input(input)
+	 , _validate_header(_input)
 	 , _png(*this)
 	{
 		const size_t sig_size = 8;
@@ -300,7 +299,13 @@ class PNG
 public:
 	PNG(const char* file_path)
 	{
-		aux::PNGLoader(file_path, *this);
+		std::ifstream  file(file_path);
+		aux::PNGLoader(file, *this);
+	}
+
+	PNG(std::istream& input)
+	{
+		aux::PNGLoader(input, *this);
 	}
 };
 

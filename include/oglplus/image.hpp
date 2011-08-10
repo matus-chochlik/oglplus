@@ -47,6 +47,16 @@ protected:
 	 , _depth(depth)
 	{ }
 public:
+	Image(Image&& tmp)
+	 : _width(tmp._width)
+	 , _height(tmp._height)
+	 , _depth(tmp._depth)
+	 , _data(std::move(tmp._data))
+	 , _type(tmp._type)
+	 , _format(tmp._format)
+	 , _internal(tmp._internal)
+	{ }
+
 	/// Returns the width of the image
 	GLsizei Width(void) const
 	{

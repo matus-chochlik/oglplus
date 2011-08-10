@@ -19,7 +19,7 @@
 #include <iostream>
 
 #include <oglplus/images/newton.hpp>
-#include <oglplus/images/png.hpp>
+#include <oglplus/images/load.hpp>
 
 #include <cmath>
 
@@ -151,7 +151,7 @@ public:
 		// setup the texture
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::PNG("/home/chochlik/Documents/Basketball.png"));
+			bound_tex.Image2D(images::LoadTexture("flower_glass"));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);

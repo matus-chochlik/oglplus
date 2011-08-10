@@ -23,6 +23,8 @@
 #include <oglplus/data_type.hpp>
 #include <oglplus/primitive_type.hpp>
 
+#include <oglplus/exposed.hpp>
+
 #include <oglplus/buffer.hpp>
 #include <oglplus/uniform.hpp>
 #include <oglplus/uniform_block.hpp>

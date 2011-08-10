@@ -31,6 +31,9 @@ DEVEL_TESTS = $(basename $(wildcard devel/test[0-9][0-9].cpp))
 # the paths to the example files without the .cpp suffix
 EXAMPLES = $(basename $(wildcard example/oglplus/[0-9][0-9][0-9]_*.cpp))
 
+# the paths to the SVG texture source files without the suffix
+SVG_TEXTURES = $(addprefix textures/,$(notdir $(basename $(wildcard source/textures/*.svg))))
+
 # specifies which of the example main function implementations should be used
 EXAMPLE_HARNESS = glx
 
@@ -55,7 +58,8 @@ HTML_DOCS = $(addsuffix /html/index.html,$(addprefix doc/doxygen/,$(LIBRARIES)))
 # the list of final and intermediate output subdirectories
 OUTSUBDIRS = \
 	$(addprefix $(OUTDIR)/, $(sort $(dir $(EXECUTABLES)))) \
-	$(addprefix $(OUTDIR)/, $(sort $(dir $(HTML_DOCS))))
+	$(addprefix $(OUTDIR)/, $(sort $(dir $(HTML_DOCS)))) \
+	$(addprefix $(OUTDIR)/, $(sort $(dir $(SVG_TEXTURES))))
 
 BLDSUBDIRS = \
 	$(addprefix $(BLDDIR)/, $(sort $(dir $(OBJECT_SRCS)))) \
@@ -65,7 +69,8 @@ HDRSUBDIRS = \
 	$(addprefix $(HDRDIR)/, $(sort $(dir $(AUTO_HEADERS))))
 
 # the main goal
-all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS))
+all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS)) \
+	$(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
 
 # build only the development/testing files in the output directory
 devel_tests: $(addprefix $(OUTDIR)/, $(DEVEL_TESTS));
@@ -161,6 +166,14 @@ $(foreach src,$(OBJECT_SRCS), $(eval $(call BUILD_LDF,$(src))))
 $(foreach src,$(OBJECT_SRCS), $(eval $(call BUILD_OBJ,$(src))))
 $(foreach src,$(OBJECT_SRCS), $(eval $(call BUILD_DEP,$(src))))
 $(foreach hdr,$(AUTO_HEADERS),$(eval $(call BUILD_HDR,$(hdr))))
+
+# function for defining the rules to build PNG textures from SVG files
+define CONVERT_SVG2PNG
+$(OUTDIR)/$(1).png: source/$(1).svg Makefile | $(dir $(OUTDIR)/$(1))
+	inkscape --without-gui --file=$$< --export-png=$$@
+endef
+# use the function above to define the rules for svg textures
+$(foreach tex,$(SVG_TEXTURES),$(eval $(call CONVERT_SVG2PNG,$(tex))))
 
 # build dependencies for doxygen HTML documentation
 $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTDIR)/doc/doxygen/%/html

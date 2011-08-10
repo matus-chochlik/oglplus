@@ -24,6 +24,7 @@ struct Test
 	}
 
 	virtual void Render(double time) = 0;
+
 };
 
 std::unique_ptr<Test> makeTest(void);

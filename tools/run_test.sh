@@ -7,4 +7,4 @@ test_exe=out/devel/test${1}
 rm -f ${test_exe}
 clear
 make ${test_exe} &&
-${test_exe}
+(cd $(dirname ${test_exe}) && ./$(basename ${test_exe}))
