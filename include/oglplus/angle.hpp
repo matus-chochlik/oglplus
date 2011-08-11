@@ -136,6 +136,24 @@ public:
 		return Subtract(a, b);
 	}
 
+	/// Multiplication by constant
+	friend Angle Multiply(const Angle& a, T mult)
+	{
+		return Angle(a._val_rad * mult, _Radians());
+	}
+
+	/// Multiplication by constant operator
+	friend Angle operator * (const Angle& a, T mult)
+	{
+		return Multiply(a, mult);
+	}
+
+	/// Multiplication by constant operator
+	friend Angle operator * (T mult, const Angle& a)
+	{
+		return Multiply(a, mult);
+	}
+
 	/// Returns the sine of the angle
 	friend inline T Sin(const Angle& a)
 	{
@@ -169,20 +187,20 @@ inline Angle<GLfloat> Radians(GLfloat val_rad)
 	return Angle<GLfloat>::Radians(val_rad);
 }
 
-/// Creates a new angle from a value in "full circles"
+/// Creates a new angle from a value in "full circles" (i.e. 360 deg.)
 /** This function creates a new angle from a value specifying the fraction
  *  of a full 360 degree (2 pi radians) angle. For example the following
  *  is true:
  *  @code
  *  FullCircles(0.125) == Degrees(45);
  *  FullCircles(0.25) == Degrees(90);
- *  FullCircles(0.25) == Degrees(PI / 2);
+ *  FullCircles(0.25) == Radians(PI / 2);
  *  FullCircles(0.5) == Degrees(180);
- *  FullCircles(0.5) == Degrees(PI);
- *  FullCircles(0.9) == Degrees(2 * PI * 0.9);
+ *  FullCircles(0.5) == Radians(PI);
+ *  FullCircles(0.9) == Radians(2 * PI * 0.9);
  *  @endcode
  *
- *  @param value a value in radians
+ *  @param value a value in 360-degree units
  *
  *  @see Radians
  *  @see Degrees
@@ -193,6 +211,32 @@ inline Angle<GLfloat> Radians(GLfloat val_rad)
 inline Angle<GLfloat> FullCircles(GLfloat value)
 {
 	return Angle<GLfloat>::Radians(value * M_PI * 2.0);
+}
+
+/// Creates a new angle from a value in "right angles" (i.e. 90 deg.)
+/** This function creates a new angle from a value specifying the fraction
+ *  of a quarter 90 degree (pi/2 radians) angle. For example the following
+ *  is true:
+ *  @code
+ *  RightAngles(0.5) == Degrees(45);
+ *  RightAngles(1.0) == Degrees(90);
+ *  RightAngles(1.0) == Radians(PI / 2);
+ *  RightAngles(2.0) == Degrees(180);
+ *  RightAngles(2.0) == Radians(PI);
+ *  RightAngles(0.9) == Radians(0.9 * PI / 2);
+ *  @endcode
+ *
+ *  @param value a value in 90-degree units
+ *
+ *  @see Radians
+ *  @see Degrees
+ *  @see ArcSin
+ *  @see ArcCos
+ *  @see ArcTan
+ */
+inline Angle<GLfloat> RightAngles(GLfloat value)
+{
+	return Angle<GLfloat>::Radians(value * M_PI * 0.5);
 }
 
 /// Creates a new angle using the arc sine function

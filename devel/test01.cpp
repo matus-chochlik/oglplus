@@ -21,6 +21,7 @@
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/newton.hpp>
 #include <oglplus/images/load.hpp>
+#include <oglplus/images/normal_map.hpp>
 
 #include <cmath>
 
@@ -28,183 +29,6 @@
 
 namespace oglplus {
 namespace images {
-
-template <typename T, size_t EPP>
-class FilteredImage
- : public Image<T>
-{
-private:
-	static_assert(
-		EPP > 0 && EPP <= 4,
-		"Number of Elements Per Pixel must be between 1 and 4"
-	);
-protected:
-	template <typename IT>
-	struct _sampler
-	{
-	private:
-		size_t _width, _height, _iepp, _n;
-		const IT* _data;
-	public:
-		_sampler(
-			size_t width,
-			size_t height,
-			size_t iepp,
-			size_t n,
-			const IT* data
-		): _width(width)
-		 , _height(height)
-		 , _iepp(iepp)
-		 , _n(n)
-		 , _data(data)
-		{
-			assert(_iepp > 0 && _iepp <= 4);
-		}
-
-		template <int Xoffs, int Yoffs>
-		Vector<IT, 4> get(void) const
-		{
-			assert(Xoffs > int(-_width));
-			assert(Yoffs > int(-_height));
-			assert(Xoffs < int( _width));
-			assert(Yoffs < int( _height));
-
-			size_t xoffs = (Xoffs < 0)?
-				(Xoffs+_width) % _width :
-				Xoffs;
-			size_t yoffs = (Yoffs < 0)?
-				(Yoffs+_height) % _height:
-				Yoffs;
-			size_t offs = _n + yoffs*_width + xoffs;
-			const IT* p = _data + _iepp*offs;
-			return Vector<IT, 4>(
-				*p,
-				(_iepp > 1) ? *(p+1) : T(0),
-				(_iepp > 2) ? *(p+2) : T(0),
-				(_iepp > 3) ? *(p+3) : T(0)
-			);
-		}
-	};
-private:
-	template <typename IT, typename Filter, typename Extractor>
-	void _calculate(
-		const Image<IT>& input,
-		Filter filter,
-		Extractor extractor,
-		T one,
-		IT ione
-	)
-	{
-		size_t iepp = input.ElementsPerPixel();
-		auto p = this->_data.begin(), e = this->_data.end();
-		size_t n = 0;
-		for(size_t k=0,d=input.Depth();  k!=d; ++k)
-		for(size_t j=0,h=input.Height(); j!=h; ++j)
-		for(size_t i=0,w=input.Width();  i!=w; ++i)
-		{
-			_sampler<IT> sampler(w,h,iepp,n++,input.Data());
-			Vector<T, EPP> outv = filter(
-				extractor,
-				sampler,
-				one,
-				ione
-			);
-			for(size_t c=0; c!= EPP; ++c)
-			{
-				assert(p != e);
-				*p = outv.At(c);
-				++p;
-			}
-		}
-		assert(p == e);
-	}
-
-	static GLubyte _one(GLubyte*)
-	{
-		return 0xFF;
-	}
-
-	static GLfloat _one(GLfloat*)
-	{
-		return 1.0f;
-	}
-
-	template <typename IT>
-	static IT _one(void)
-	{
-		return _one((IT*)0);
-	}
-public:
-
-	template <size_t I>
-	struct FromComponentI
-	{
-		template <typename IT>
-		IT operator()(const Vector<IT, 4>& v) const
-		{
-			return v.template At<I>();
-		}
-	};
-
-	typedef FromComponentI<0> FromRed;
-	typedef FromComponentI<1> FromGreen;
-	typedef FromComponentI<2> FromBlue;
-	typedef FromComponentI<3> FromAlpha;
-
-	template <typename IT, typename Filter, typename Extractor>
-	FilteredImage(
-		const Image<IT>& input,
-		Filter filter,
-		Extractor extractor
-	): Image<T>(input.Width(), input.Height(), input.Depth())
-	{
-		this->_data.resize(
-			input.Width()*
-			input.Height()*
-			input.Depth()*
-			EPP
-		);
-		assert(this->ElementsPerPixel() == EPP);
-		_calculate(input, filter, extractor, _one<T>(), _one<IT>());
-
-		this->_type = PixelDataType(oglplus::GetDataType((T*)0));
-	}
-};
-
-template <typename T>
-class NormalMap
- : public FilteredImage<T, 3>
-{
-private:
-	typedef FilteredImage<T, 3> Base;
-
-	struct _filter
-	{
-		template <typename Extractor, typename Sampler, typename IT>
-		Vector<T, 3> operator()(
-			const Extractor& extractor,
-			const Sampler& sampler,
-			T one,
-			IT ione
-		) const
-		{
-			float sc = extractor(sampler.template get< 0,  0>());
-			float sx = extractor(sampler.template get< 1,  0>());
-			float sy = extractor(sampler.template get< 0,  1>());
-			Vector<float, 3> vx(0.5f, 0, (sc-sx)/ione);
-			Vector<float, 3> vy(0, 0.5f, (sc-sy)/ione);
-			return Normalized(Cross(vx, vy)) * one;
-		}
-	};
-public:
-	template <typename IT>
-	NormalMap(const Image<IT>& input)
-	 : Base(input, _filter(), typename Base::FromRed())
-	{
-		this->_format = PixelDataFormat::RGB;
-		this->_internal = PixelDataInternalFormat::RGB;
-	}
-};
 
 } // namespace images
 
@@ -255,6 +79,7 @@ public:
 			"out vec3 fragLight;"
 			"out vec2 fragTexCoord;"
 			"out mat3 normalMatrix;"
+			"out vec2 fragView;"
 			"const vec4 lightPos = vec4(1.0, 2.0, 3.0, 1.0);"
 			"void main(void)"
 			"{"
@@ -274,6 +99,7 @@ public:
 			"		modelMatrix*vertex"
 			"	).xyz;"
 			"	fragTexCoord = texcoord;"
+			"	fragView = mat3x2(normalMatrix[0], normalMatrix[1]) * -cameraMatrix[2].xyz;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
@@ -293,18 +119,35 @@ public:
 			"in vec2 fragTexCoord;"
 			"in vec3 fragLight;"
 			"in mat3 normalMatrix;"
+			"in vec2 fragView;"
 			"out vec4 fragColor;"
+			"const float holeDepth = 0.05;"
 			"void main(void)"
 			"{"
+			"	vec2 stOffs = fragView*holeDepth;"
+/*
+			"	if(texture2D(bumpTex, fragTexCoord+stOffs).w > 0.25)"
+			"		stOffs *= texture2D(bumpTex, fragTexCoord).w;"
+*/
+			"	vec2 stCoord = fragTexCoord + stOffs;"
+			"	vec3 finalNormal = normalMatrix * texture2D(bumpTex, stCoord).xyz;"
+			"	vec3 c = texture2D(colorTex, stCoord).rgb;"
 			"	float l = dot(fragLight, fragLight);"
-			"	vec3 finalNormal = "
-			"		normalMatrix *"
-			"		texture2D(bumpTex, fragTexCoord).rgb;"
 			"	float i = (l > 0)?"
 			"		dot(finalNormal, fragLight)/l:"
 			"		0.0;"
-			"	vec3 c = texture2D(colorTex, fragTexCoord).rgb;"
+			"	fragColor = vec4(c*i, 1.0);"
+/*
+			"	vec4 bmap = ;"
+			"	float l = dot(fragLight, fragLight);"
+			"	vec3 finalNormal = normalMatrix * bm.xyz;"
+			"	float i = (l > 0)?"
+			"		dot(finalNormal, fragLight)/l:"
+			"		0.0;"
+			"	vec2 st = fragTexCoord + ;"
+			"	vec3 c = texture2D(colorTex, st).rgb;"
 			"	fragColor = vec4(c*(3.0*i+0.2), 1.0);"
+*/
 			"}"
 		);
 		// compile it
@@ -411,8 +254,8 @@ public:
 				Vec3f(),
 				//4.5 + std::sin(time)*3.0,
 				1.5,
-				Degrees(time * 135),
-				Degrees(std::sin(time * 0.1) * 90)
+				Degrees(time * 90),
+				Degrees(std::sin(time * 0.1) * 70)
 			)
 		);
 
