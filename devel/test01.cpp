@@ -191,8 +191,8 @@ private:
 			float sc = extractor(sampler.template get< 0,  0>());
 			float sx = extractor(sampler.template get< 1,  0>());
 			float sy = extractor(sampler.template get< 0,  1>());
-			Vector<float, 3> vx(0.5f, 0, (sx-sc)/ione);
-			Vector<float, 3> vy(0, 0.5f, (sy-sc)/ione);
+			Vector<float, 3> vx(0.5f, 0, (sc-sx)/ione);
+			Vector<float, 3> vy(0, 0.5f, (sc-sy)/ione);
 			return Normalized(Cross(vx, vy)) * one;
 		}
 	};
@@ -239,8 +239,8 @@ private:
 	Buffer tangents;
 	Buffer texcoords;
 
-	// texture for the shape
-	Texture tex;
+	// textures for the shape
+	Texture color_tex, bump_tex;
 public:
 	Test01(void)
 	{
@@ -252,29 +252,28 @@ public:
 			"in vec3 normal;"
 			"in vec3 tangent;"
 			"in vec2 texcoord;"
-			"out vec3 fragNormal;"
 			"out vec3 fragLight;"
 			"out vec2 fragTexCoord;"
 			"out mat3 normalMatrix;"
-			"const vec4 lightPos = vec4(3.0, 4.0, 5.0, 1.0);"
+			"const vec4 lightPos = vec4(1.0, 2.0, 3.0, 1.0);"
 			"void main(void)"
 			"{"
 			"	vec3 fragTangent = ("
 			"		modelMatrix *"
 			"		vec4(tangent, 0.0)"
 			"	).xyz;"
-			"	fragNormal = ("
+			"	vec3 fragNormal = ("
 			"		modelMatrix *"
 			"		vec4(normal, 0.0)"
 			"	).xyz;"
+			"	normalMatrix[0] = fragTangent;"
+			"	normalMatrix[1] = cross(fragNormal, fragTangent);"
+			"	normalMatrix[2] = fragNormal;"
 			"	fragLight = ("
 			"		lightPos-"
 			"		modelMatrix*vertex"
 			"	).xyz;"
 			"	fragTexCoord = texcoord;"
-			"	normalMatrix[0] = fragTangent;"
-			"	normalMatrix[1] = cross(fragNormal, fragTangent);"
-			"	normalMatrix[2] = fragNormal;"
 			"	gl_Position = "
 			"		projectionMatrix *"
 			"		cameraMatrix *"
@@ -289,8 +288,8 @@ public:
 		// (uses the absolute value of normal as color)
 		fs.Source(
 			"#version 330\n"
-			"uniform sampler2D tex;"
-			"in vec3 fragNormal;"
+			"uniform sampler2D colorTex;"
+			"uniform sampler2D bumpTex;"
 			"in vec2 fragTexCoord;"
 			"in vec3 fragLight;"
 			"in mat3 normalMatrix;"
@@ -298,16 +297,14 @@ public:
 			"void main(void)"
 			"{"
 			"	float l = dot(fragLight, fragLight);"
-			"	vec3 fragDiff = "
-			"		normalMatrix *"
-			"		texture2D(tex, fragTexCoord).rgb;"
 			"	vec3 finalNormal = "
-			"		normalize(fragDiff+fragNormal);"
+			"		normalMatrix *"
+			"		texture2D(bumpTex, fragTexCoord).rgb;"
 			"	float i = (l > 0)?"
 			"		dot(finalNormal, fragLight)/l:"
 			"		0.0;"
-			"	i = clamp(2.0*i + 0.1, 0.0, 1.0);"
-			"	fragColor = vec4(i, i, i, 1.0);"
+			"	vec3 c = texture2D(colorTex, fragTexCoord).rgb;"
+			"	fragColor = vec4(c*(3.0*i+0.2), 1.0);"
 			"}"
 		);
 		// compile it
@@ -363,12 +360,24 @@ public:
 			attr.Enable();
 		}
 
-		// setup the texture
+		// setup the textures
 		{
-			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			//bound_tex.Image2D(images::LoadTexture("flower_glass"));
+			Texture::Active(0);
+			Uniform(prog, "colorTex").Set(0);
+			auto bound_tex = Bind(color_tex, Texture::Target::_2D);
+			bound_tex.Image2D(images::LoadTexture("wooden_crate"));
+			bound_tex.GenerateMipmap();
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
+		}
+		{
+			Texture::Active(1);
+			Uniform(prog, "bumpTex").Set(1);
+			auto bound_tex = Bind(bump_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
-				images::NormalMap<GLubyte>(images::LoadTexture("flower_glass"))
+				images::NormalMap<GLubyte>(images::LoadTexture("wooden_crate-hmap"))
 			);
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
@@ -377,7 +386,6 @@ public:
 			bound_tex.WrapT(TextureWrap::Repeat);
 		}
 
-		Uniform(prog, "tex").Set(0);
 		// set the projection matrix fov = 24 deg. aspect = 1.25
 		Uniform(prog, "projectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)

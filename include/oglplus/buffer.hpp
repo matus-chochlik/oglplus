@@ -15,9 +15,40 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/limited_value.hpp>
 #include <cassert>
 
 namespace oglplus {
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Type for the uniform buffer binding point index
+class UniformBufferBindingPoint
+ : public LimitedCount
+{
+public:
+	UniformBufferBindingPoint(GLuint count);
+};
+#else
+OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
+	UniformBufferBindingPoint,
+	MAX_UNIFORM_BUFFER_BINDINGS
+)
+#endif
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Type for the transform feedback buffer binding point index
+class TransformFeedbackBufferBindingPoint
+ : public LimitedCount
+{
+public:
+	TransformFeedbackBufferBindingPoint(GLuint count);
+};
+#else
+OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
+	TransformFeedbackBufferBindingPoint,
+	MAX_TRANSFORM_FEEDBACK_BUFFERS
+)
+#endif
 
 /// Wrapper for OpenGL buffer operations
 /**
@@ -244,6 +275,26 @@ public:
 		assert(_name != 0);
 		::glBindBufferBase(GLenum(target), index, _name);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindBufferBase));
+	}
+
+	/// Bind this buffer to the specified uniform buffer binding point
+	/**
+	 *  @throws Error
+	 */
+	void BindBaseUniform(UniformBufferBindingPoint index) const
+	{
+		BindBase(IndexedTarget::Uniform, GLuint(index));
+	}
+
+	/// Bind this buffer to the specified TFB buffer binding point
+	/**
+	 *  @throws Error
+	 */
+	void BindBaseTransformFeedback(
+		TransformFeedbackBufferBindingPoint index
+	) const
+	{
+		BindBase(IndexedTarget::TransformFeedback, GLuint(index));
 	}
 
 	/// Unbind the current buffer from the specified indexed target

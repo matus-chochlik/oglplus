@@ -19,6 +19,7 @@
 
 #include <string>
 #include <fstream>
+#include <stdexcept>
 
 namespace oglplus {
 namespace images {
@@ -77,6 +78,8 @@ inline Image<GLubyte> LoadByName(std::string dirname, std::string name)
 	size_t iext = nexts;
 	aux::FindImage(file, dirname, name, exts, iext, nexts);
 
+	if(!file.good())
+		throw std::runtime_error("Unable to open image: "+name);
 	// TODO switch on extension
 	assert(iext == 0);
 	return PNG(file);

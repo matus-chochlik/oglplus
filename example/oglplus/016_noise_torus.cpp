@@ -97,8 +97,8 @@ public:
 			"void main(void)"
 			"{"
 			"	float l = length(fragLight);"
-			"	float d = l > 0? dot(fragNormal, fragLight)/l: 0;"
-			"	float i = clamp(0.2 + 1.5*d, 0.0, 1.0);"
+			"	float d = l > 0? dot(fragNormal, fragLight)/l: 0.0;"
+			"	float i = 1.2*max(d, 0.0) + 0.2;"
 			"	fragColor = texture2D(tex, fragTex)*i;"
 			"}"
 		);

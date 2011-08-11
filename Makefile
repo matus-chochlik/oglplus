@@ -72,13 +72,13 @@ HDRSUBDIRS = \
 all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS)) \
 	$(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
 
-# build only the development/testing files in the output directory
-devel_tests: $(addprefix $(OUTDIR)/, $(DEVEL_TESTS));
+textures: $(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
 
 docs: html_docs;
 html_docs: $(addprefix $(OUTDIR)/, $(HTML_DOCS));
 
 example_screenshots: $(addsuffix .png,$(addprefix $(BLDDIR)/, $(EXAMPLES)))
+
 
 # helper function returning the third argument if the second argument
 # is found at least once in the dependency file specified by the first parameter

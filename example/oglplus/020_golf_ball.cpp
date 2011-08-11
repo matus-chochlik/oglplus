@@ -153,10 +153,7 @@ public:
 		hole_verts.Bind(Buffer::Target::Array);
 		// and the VBO for the transformed hole vertices captured by tfb
 		transf_hole_verts.Bind(Buffer::Target::TransformFeedback);
-		transf_hole_verts.BindBase(
-			Buffer::IndexedTarget::TransformFeedback,
-			0
-		);
+		transf_hole_verts.BindBaseTransformFeedback(0);
 		{
 			std::vector<GLfloat> data;
 			make_hole_data(data, hole_count);
@@ -226,9 +223,9 @@ public:
 			"		fragNormal:"
 			"		normalize(fragDiff+fragNormal*diameter);"
 			"	float i = (l > 0)?"
-			"		dot(finalNormal, fragLight)/l:"
+			"		max(dot(finalNormal, fragLight)/l, 0.0):"
 			"		0.0;"
-			"	i = clamp(i + 0.2, 0.0, 1.0);"
+			"	i = clamp(0.2+i, 0.0, 1.0);"
 			"	fragColor = vec4(i, i, i, 1.0);"
 			"}"
 		);

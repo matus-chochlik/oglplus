@@ -16,27 +16,12 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
-#include <oglplus/limited_value.hpp>
+#include <oglplus/buffer.hpp>
 
 #include <string>
 #include <cassert>
 
 namespace oglplus {
-
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the implementation-dependent number of uniform buffer binding points
-class UniformBufferBindingPoint
- : public LimitedCount
-{
-public:
-	UniformBufferBindingPoint(GLuint count);
-};
-#else
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	UniformBufferBindingPoint,
-	MAX_UNIFORM_BUFFER_BINDINGS
-)
-#endif
 
 class UniformBlock
  : public FriendOf<Program>

@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/018_stained_glass_cube.cpp
- *  @brief Shows how to draw a semi-transparent textured stained glass cube
+ *  @example oglplus/016_textured_cube.cpp
+ *  @brief Shows how to draw a simple textured cube
  *
- *  @image html 018_stained_glass_cube.png
+ *  @image html 016_textured_cube.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -98,11 +98,10 @@ public:
 			"void main(void)"
 			"{"
 			"	float l = length(fragLight);"
-			"	float d = l!=0? dot(fragNormal, fragLight)/l:0.0;"
-			"	float e = d < 0? -0.7*d: d;"
-			"	float i = clamp(0.1 + e, 0.0, 1.0);"
+			"	float d = l>0? dot(fragNormal, fragLight)/l:0.0;"
+			"	float i = 0.1 + 2.0*clamp(d, 0.0, 1.0);"
 			"	vec4 t  = texture2D(tex, fragTex);"
-			"	fragColor = vec4(t.rgb*i, t.a);"
+			"	fragColor = vec4(t.rgb*i, 1.0);"
 			"}"
 		);
 		// compile it
@@ -151,9 +150,8 @@ public:
 		// setup the texture
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("flower_glass"));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+			bound_tex.Image2D(images::LoadTexture("concrete_block"));
+			bound_tex.MinFilter(TextureMinFilter::Linear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::Repeat);
 			bound_tex.WrapT(TextureWrap::Repeat);
@@ -165,11 +163,6 @@ public:
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
-		gl.Enable(Capability::Blend);
-		gl.BlendFunc(
-			BlendFn::SrcAlpha,
-			BlendFn::OneMinusSrcAlpha
-		);
 
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_cube.FaceWinding());
@@ -209,8 +202,6 @@ public:
 		);
 
 		cube.Bind();
-		gl.CullFace(Face::Front);
-		cube_instr.Draw(cube_indices);
 		gl.CullFace(Face::Back);
 		cube_instr.Draw(cube_indices);
 	}

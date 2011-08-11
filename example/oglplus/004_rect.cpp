@@ -68,9 +68,9 @@ public:
 					distance(coord, blue_center) \
 				); \
 				fragColor = vec4( \
-					dist.r < radius ? 1 : (2*radius - dist.r) / radius, \
-					dist.g < radius ? 1 : (2*radius - dist.g) / radius, \
-					dist.b < radius ? 1 : (2*radius - dist.b) / radius, \
+					dist.r < radius ? 1.0 : (2*radius - dist.r) / radius, \
+					dist.g < radius ? 1.0 : (2*radius - dist.g) / radius, \
+					dist.b < radius ? 1.0 : (2*radius - dist.b) / radius, \
 					1.0 \
 				); \
 			} \
