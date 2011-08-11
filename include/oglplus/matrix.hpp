@@ -152,6 +152,27 @@ private:
 			_m._data[k] = data[k];
 	}
 
+	template <size_t Row>
+	inline void _init_row(const Vector<T, Cols>& row)
+	{
+		for(size_t c=0; c!=Cols; ++c)
+			this->_m._elem[Row][c] = row.At(c);
+	}
+
+	template <size_t Row>
+	inline void _init_rows(void) const
+	{ }
+
+	template <size_t Row, size_t ... C>
+	inline void _init_rows(
+		const Vector<T, Cols>& row,
+		const Vector<T, C>&... rows
+	)
+	{
+		_init_row<Row>(row);
+		_init_rows<Row+1>(rows...);
+	}
+
 	friend class Vector<T, Rows>;
 	friend class Vector<T, Cols>;
 public:
@@ -166,23 +187,17 @@ public:
 	/// Constructs zero a matrix
 	Matrix(Zero)
 	{
-		this->_m._data = {
-			T(0), T(0), T(0), T(0),
-			T(0), T(0), T(0), T(0),
-			T(0), T(0), T(0), T(0),
-			T(0), T(0), T(0), T(0)
-		};
+		for(size_t r=0; r!=Rows; ++r)
+			for(size_t c=0; c!=Cols; ++c)
+				this->_m._elem[r][c] = T(0);
 	}
 
 	/// Constructs a identity matrix
 	Matrix(void)
 	{
-		this->_m._data = {
-			T(1), T(0), T(0), T(0),
-			T(0), T(1), T(0), T(0),
-			T(0), T(0), T(1), T(0),
-			T(0), T(0), T(0), T(1)
-		};
+		for(size_t r=0; r!=Rows; ++r)
+			for(size_t c=0; c!=Cols; ++c)
+				this->_m._elem[r][c] = r == c ? T(1) : T(0);
 	}
 
 	/// Initializing constructor
@@ -197,6 +212,21 @@ public:
 			"Invalid number of elements for this matrix type"
 		);
 		this->_m._data = {v, T(p)...};
+	}
+
+	/// Initializing from row vectors
+	/** Allows to initialize all rows of the matrix from individual
+	 *  vectors. The number of vectors must be Rows and each vector
+	 *  must have exactly Cols elements.
+	 */
+	template <size_t ... C>
+	Matrix(const Vector<T, C>& ... rows)
+	{
+		static_assert(
+			sizeof...(C) == Rows,
+			"Invalid number of rows for this matrix type"
+		);
+		this->_init_rows<0>(rows...);
 	}
 
 	/// Returns a vector containing the matrix elements in row major order
