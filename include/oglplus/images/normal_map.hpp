@@ -17,42 +17,51 @@
 namespace oglplus {
 namespace images {
 
-template <typename T>
 class NormalMap
- : public FilteredImage<T, 4>
+ : public FilteredImage<GLfloat, 3>
 {
 private:
+	typedef GLfloat T;
 
 	struct _filter
 	{
 		template <typename Extractor, typename Sampler, typename IT>
-		Vector<T, 4> operator()(
+		Vector<T, 3> operator()(
 			const Extractor& extractor,
 			const Sampler& sampler,
 			T one,
 			IT ione
 		) const
 		{
-			float sc = extractor(sampler.template get< 0,  0>());
-			float sx = extractor(sampler.template get< 1,  0>());
-			float sy = extractor(sampler.template get< 0,  1>());
-			Vector<float, 3> vx(0.5f, 0, (sc-sx)/ione);
-			Vector<float, 3> vy(0, 0.5f, (sc-sy)/ione);
-			return Vector<float, 4>(
-				Normalized(Cross(vx, vy)) * one,
-				T((1.0f - sc/ione)*one)
-			);
+			typedef float number;
+			number s = 0.05;
+
+			number sc  = extractor(sampler.get( 0, 0));
+			number spx = extractor(sampler.get(+1, 0));
+			number spy = extractor(sampler.get( 0,+1));
+			number snx = extractor(sampler.get(-1, 0));
+			number sny = extractor(sampler.get( 0,-1));
+			Vector<number, 3> vpx(+s, 0, (spx-sc)/ione);
+			Vector<number, 3> vpy(0, +s, (spy-sc)/ione);
+			Vector<number, 3> vnx(-s, 0, (snx-sc)/ione);
+			Vector<number, 3> vny(0, -s, (sny-sc)/ione);
+			return Normalized(
+				Cross(vpx, vpy) +
+				Cross(vpy, vnx) +
+				Cross(vnx, vny) +
+				Cross(vny, vpx)
+			) * one;
 		}
 	};
 public:
-	typedef FilteredImage<T, 4> Filter;
+	typedef FilteredImage<T, 3> Filter;
 
 	template <typename IT,  typename Extractor = typename Filter::FromRed>
 	NormalMap(const Image<IT>& input, Extractor extractor = Extractor())
 	 : Filter(input, _filter(), extractor)
 	{
-		this->_format = PixelDataFormat::RGBA;
-		this->_internal = PixelDataInternalFormat::RGBA;
+		this->_format = PixelDataFormat::RGB;
+		this->_internal = PixelDataInternalFormat::RGB16F;
 	}
 };
 

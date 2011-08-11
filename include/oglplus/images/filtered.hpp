@@ -34,39 +34,44 @@ protected:
 	struct _sampler
 	{
 	private:
-		size_t _width, _height, _iepp, _n;
+		size_t _width, _height, _iepp, _x, _y, _n;
 		const IT* _data;
 	public:
 		_sampler(
 			size_t width,
 			size_t height,
 			size_t iepp,
-			size_t n,
+			size_t x,
+			size_t y,
+			size_t z,
 			const IT* data
 		): _width(width)
 		 , _height(height)
 		 , _iepp(iepp)
-		 , _n(n)
+		 , _x(x)
+		 , _y(y)
+		 , _n(z*width*height)
 		 , _data(data)
 		{
 			assert(_iepp > 0 && _iepp <= 4);
 		}
 
-		template <int Xoffs, int Yoffs>
-		Vector<IT, 4> get(void) const
+		Vector<IT, 4> get(int xoffs, int yoffs) const
 		{
-			assert(Xoffs > int(-_width));
-			assert(Yoffs > int(-_height));
-			assert(Xoffs < int( _width));
-			assert(Yoffs < int( _height));
+			assert(xoffs > int(-_width));
+			assert(yoffs > int(-_height));
+			assert(xoffs < int( _width));
+			assert(yoffs < int( _height));
 
-			size_t xoffs = (Xoffs < 0)?
-				(Xoffs+_width) % _width :
-				Xoffs;
-			size_t yoffs = (Yoffs < 0)?
-				(Yoffs+_height) % _height:
-				Yoffs;
-			size_t offs = _n + yoffs*_width + xoffs;
+			int xpos = _x + xoffs;
+			if(xpos >= _width) xpos %= _width;
+			if(xpos < 0) xpos = (xpos+_width)%_width;
+
+			int ypos = _y + yoffs;
+			if(ypos >= _height) ypos %= _height;
+			if(ypos < 0) ypos = (ypos+_height)%_height;
+
+			size_t offs = _n + ypos*_width + xpos;
 			const IT* p = _data + _iepp*offs;
 			return Vector<IT, 4>(
 				*p,
@@ -88,12 +93,13 @@ private:
 	{
 		size_t iepp = input.ElementsPerPixel();
 		auto p = this->_data.begin(), e = this->_data.end();
-		size_t n = 0;
-		for(size_t k=0,d=input.Depth();  k!=d; ++k)
-		for(size_t j=0,h=input.Height(); j!=h; ++j)
-		for(size_t i=0,w=input.Width();  i!=w; ++i)
+		size_t w = input.Width(), h = input.Height(), d = input.Depth();
+		const IT* data = input.Data();
+		for(size_t k=0; k!=d; ++k)
+		for(size_t j=0; j!=h; ++j)
+		for(size_t i=0; i!=w; ++i)
 		{
-			_sampler<IT> sampler(w,h,iepp,n++,input.Data());
+			_sampler<IT> sampler(w,h,iepp,i,j,k,data);
 			Vector<T, EPP> outv = filter(
 				extractor,
 				sampler,
@@ -120,10 +126,10 @@ private:
 		return 1.0f;
 	}
 
-	template <typename IT>
-	static IT _one(void)
+	template <typename _T>
+	static _T _one(void)
 	{
-		return _one((IT*)0);
+		return _one((_T*)0);
 	}
 public:
 	template <size_t I>

@@ -106,14 +106,13 @@ public:
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float l = dot(fragLight, fragLight);"
-			"	vec3 finalNormal = "
-			"		normalMatrix *"
-			"		texture2D(normalTex, fragTex).xyz;"
+			"	float l = length(fragLight);"
+			"	vec3 n = texture2D(normalTex, fragTex).xyz;"
+			"	vec3 finalNormal = normalMatrix * n;"
 			"	float d = (l != 0.0)?"
-			"		dot(finalNormal, fragLight)/l:"
+			"		dot(fragLight, finalNormal)/l:"
 			"		0.0;"
-			"	float i = 0.2 + 3.0*clamp(d, 0.0, 1.0);"
+			"	float i = 0.2 + 1.0*clamp(d, 0.0, 1.0);"
 			"	vec4 t  = texture2D(colorTex, fragTex);"
 			"	fragColor = vec4(t.rgb*i, 1.0);"
 			"}"
@@ -188,7 +187,7 @@ public:
 			Uniform(prog, "normalTex").Set(1);
 			auto bound_tex = Bind(normalTex, Texture::Target::_2D);
 			bound_tex.Image2D(
-				images::NormalMap<GLubyte>(
+				images::NormalMap(
 					images::LoadTexture("wooden_crate-hmap")
 				)
 			);
@@ -229,8 +228,8 @@ public:
 			Vec3f(
 				Cos(lightAzimuth),
 				1.0f,
-				-Sin(lightAzimuth)
-			) * 1.5f
+				Sin(lightAzimuth)
+			) * 2.0f
 		);
 		//
 		Uniform(prog, "cameraMatrix").SetMatrix(
@@ -244,7 +243,8 @@ public:
 
 		// set the model matrix
 		Uniform(prog, "modelMatrix").SetMatrix(
-			ModelMatrixf::RotationY(FullCircles(time * 0.05))
+			Matrix4f()
+			//ModelMatrixf::RotationY(FullCircles(time * 0.05))
 		);
 
 		cube.Bind();
