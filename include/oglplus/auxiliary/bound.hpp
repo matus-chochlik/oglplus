@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_AUX_BOUND_1107121519_HPP
 #define OGLPLUS_AUX_BOUND_1107121519_HPP
 
+#include <oglplus/object.hpp>
+
 namespace oglplus {
 
 // A common base class for Bound<>
@@ -21,7 +23,7 @@ class BoundBase
 private:
 	typename Bindable::Target _bind_target;
 protected:
-	BoundBase(Bindable& bindable, typename Bindable::Target target)
+	BoundBase(const Bindable& bindable, typename Bindable::Target target)
 	 : _bind_target(target)
 	{
 		bindable.Bind(target);
@@ -36,10 +38,22 @@ public:
 template <class Bindable>
 class Bound;
 
-template <class Bindable>
-inline Bound<Bindable> Bind(Bindable& bindable, typename Bindable::Target target)
+template <class ObjectOps, bool MultiObject>
+inline Bound<ObjectOps> Bind(
+	const Object<ObjectOps, MultiObject>& bindable,
+	typename ObjectOps::Target target
+)
 {
-	return Bound<Bindable>(bindable, target);
+	return Bound<ObjectOps>(bindable, target);
+}
+
+template <class ObjectOps>
+inline Bound<ObjectOps> Bind(
+	const Managed<ObjectOps>& bindable,
+	typename ObjectOps::Target target
+)
+{
+	return Bound<ObjectOps>(bindable, target);
 }
 
 } // namespace oglplus

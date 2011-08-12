@@ -18,7 +18,7 @@ namespace oglplus {
 namespace images {
 
 class NormalMap
- : public FilteredImage<GLfloat, 3>
+ : public FilteredImage<GLfloat, 4>
 {
 private:
 	typedef GLfloat T;
@@ -26,7 +26,7 @@ private:
 	struct _filter
 	{
 		template <typename Extractor, typename Sampler, typename IT>
-		Vector<T, 3> operator()(
+		Vector<T, 4> operator()(
 			const Extractor& extractor,
 			const Sampler& sampler,
 			T one,
@@ -45,23 +45,26 @@ private:
 			Vector<number, 3> vpy(0, +s, (spy-sc)/ione);
 			Vector<number, 3> vnx(-s, 0, (snx-sc)/ione);
 			Vector<number, 3> vny(0, -s, (sny-sc)/ione);
-			return Normalized(
-				Cross(vpx, vpy) +
-				Cross(vpy, vnx) +
-				Cross(vnx, vny) +
-				Cross(vny, vpx)
+			return Vector<number, 4>(
+				Normalized(
+					Cross(vpx, vpy) +
+					Cross(vpy, vnx) +
+					Cross(vnx, vny) +
+					Cross(vny, vpx)
+				),
+				(1.0 - sc/ione)
 			) * one;
 		}
 	};
 public:
-	typedef FilteredImage<T, 3> Filter;
+	typedef FilteredImage<T, 4> Filter;
 
 	template <typename IT,  typename Extractor = typename Filter::FromRed>
 	NormalMap(const Image<IT>& input, Extractor extractor = Extractor())
 	 : Filter(input, _filter(), extractor)
 	{
-		this->_format = PixelDataFormat::RGB;
-		this->_internal = PixelDataInternalFormat::RGB16F;
+		this->_format = PixelDataFormat::RGBA;
+		this->_internal = PixelDataInternalFormat::RGBA16F;
 	}
 };
 
