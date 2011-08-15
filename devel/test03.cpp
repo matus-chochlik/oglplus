@@ -118,14 +118,15 @@ public:
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
+			"	float s = 2.0;"
 			"	float l = length(fragLight);"
-			"	vec3 n = texture2D(normalTex, fragTex).xyz;"
+			"	vec3 n = texture2D(normalTex, fragTex*s).xyz;"
 			"	vec3 finalNormal = normalMatrix * n;"
 			"	float d = (l != 0.0)?"
 			"		dot(fragLight, finalNormal)/l:"
 			"		0.0;"
-			"	float i = 0.2 + 1.0*clamp(d, 0.0, 1.0);"
-			"	vec4 t  = texture2D(colorTex, fragTex);"
+			"	float i = 0.1 + 2.0*clamp(d, 0.0, 1.0);"
+			"	vec4 t  = texture2D(colorTex, fragTex*s);"
 			"	fragColor = vec4(t.rgb*i, 1.0);"
 			"}"
 		);
@@ -187,7 +188,7 @@ public:
 			Texture::Active(0);
 			Uniform(prog, "colorTex").Set(0);
 			auto bound_tex = Bind(color_tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("wooden_crate"));
+			bound_tex.Image2D(images::LoadTexture("stones"));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
@@ -199,7 +200,7 @@ public:
 			Uniform(prog, "normalTex").Set(1);
 			auto bound_tex = Bind(normal_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
-				images::NormalMap(images::LoadTexture("wooden_crate-hmap"))
+				images::NormalMap(images::LoadTexture("stones-hmap"))
 			);
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
@@ -230,8 +231,7 @@ public:
 		Uniform(prog, "cameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				//4.5 + std::sin(time)*3.0,
-				1.5,
+				3.0 + std::sin(time)*2.5,
 				FullCircles(time),
 				Degrees(std::sin(time * 0.1) * 70)
 			)
