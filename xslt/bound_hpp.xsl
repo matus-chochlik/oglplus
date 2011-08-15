@@ -103,7 +103,7 @@
 			<xsl:text>return </xsl:text>
 		</xsl:if>
 		<xsl:value-of select="$Object"/>
-		<xsl:text>::</xsl:text>
+		<xsl:text>Ops::</xsl:text>
 		<xsl:value-of select="name/text()"/>
 		<xsl:text>(</xsl:text>
 		<xsl:call-template name="Newline"/>
@@ -151,13 +151,13 @@
 namespace oglplus {
 
 template &lt;&gt;
-class Bound&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>&gt;
+class Bound&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
  : public BoundBase&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
 {
 public:
 	Bound(
-		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
-		</xsl:text><xsl:value-of select="$Object"/><xsl:text>::Target target
+		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
+		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
 	): BoundBase&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;(bindable, target)
 	{ }
 
