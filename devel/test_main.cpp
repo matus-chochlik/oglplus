@@ -22,7 +22,7 @@
 
 #include <stdexcept>
 #include <iostream>
-#include <ctime>
+#include <chrono>
 #include <cassert>
 
 #include "test.hpp"
@@ -67,17 +67,21 @@ void run(const x11::Display& display)
 	{
 		size_t frames = 0;
 		std::unique_ptr<Test> example(makeTest());
-		std::clock_t start = std::clock();
+		double period =
+			double(std::chrono::system_clock::period::num)/
+			double(std::chrono::system_clock::period::den);
+		auto start = std::chrono::system_clock::now();
 		while(1)
 		{
-			double t = double(std::clock() - start)/CLOCKS_PER_SEC;
+			auto now = std::chrono::system_clock::now();
+			double t = (now - start).count() * period;
 			if(!example->Continue(t)) break;
 			example->Render(t);
 			ctx.SwapBuffers(win);
 			++frames;
 		}
-		std::clock_t end = std::clock();
-		double seconds = ((end - start)/CLOCKS_PER_SEC);
+		auto end = std::chrono::system_clock::now();
+		double seconds = (end - start).count() * period;
 		std::cout <<
 			frames << " frames rendered in " <<
 			seconds <<" seconds = " <<

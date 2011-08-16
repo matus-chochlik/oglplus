@@ -192,7 +192,6 @@ public:
 		gl.CullFace(Face::Back);
 		gl.PolygonMode(Face::Front, PolygonMode::Fill);
 		gl.PolygonMode(Face::Back, PolygonMode::Line);
-		glLineWidth(4.0f);
 	}
 
 	void Reshape(size_t width, size_t height)

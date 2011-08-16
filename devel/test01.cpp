@@ -153,10 +153,12 @@ public:
 			"	vec2 offsTexC = fragTexC + viewOffs.xy;"
 			"	while(length(viewOffs) < maxOffs)"
 			"	{"
+/*
 			"		if(offsTexC.x <= 0.0 || offsTexC.x >= 1.0)"
-			"			break;"
+			"			discard;"
 			"		if(offsTexC.y <= 0.0 || offsTexC.y >= 1.0)"
-			"			break;"
+			"			discard;"
+*/
 			"		if(depth*depthMult*perp <= -viewOffs.z)"
 			"			break;"
 			"		viewOffs += sampleStep;"
@@ -219,6 +221,7 @@ public:
 			Uniform(prog, "colorTex").Set(0);
 			auto bound_tex = Bind(color_tex, Texture::Target::_2D);
 			//bound_tex.Image2D(images::SphereBumpMap(512, 512));
+			//bound_tex.Image2D(images::LoadTexture("stones"));
 			bound_tex.Image2D(images::LoadTexture("wooden_crate"));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
@@ -231,7 +234,8 @@ public:
 			Uniform(prog, "bumpTex").Set(1);
 			auto bound_tex = Bind(bump_tex, Texture::Target::_2D);
 			try {
-				//auto image = images::SphereBumpMap(512, 512, 3, 3);
+				//auto image = images::SphereBumpMap(512, 512, 7, 16);
+				//auto image = images::NormalMap(images::LoadTexture("stones-hmap"));
 				auto image = images::NormalMap(images::LoadTexture("wooden_crate-hmap"));
 				bound_tex.Image2D(image);
 				Uniform(prog, "bumpTexWidth").Set(image.Width());
@@ -268,7 +272,7 @@ public:
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				//4.5 + std::sin(time)*3.0,
-				1.5,
+				2.5,
 				FullCircles(-time * 0.2),
 				Degrees(std::sin(time * 0.2) * 70)
 			)

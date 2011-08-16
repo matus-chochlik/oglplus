@@ -106,6 +106,31 @@ public:
 		return 3;
 	}
 
+	/// Makes vertex tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Tangents(std::vector<T>& dest) const
+	{
+		dest.resize((_rings + 1) * (_sections + 1) * 3);
+		size_t k = 0;
+		//
+		GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
+		GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+
+		for(size_t r=0; r!=(_rings+1); ++r)
+		{
+			GLdouble vx = std::cos(r*r_step);
+			GLdouble vz = std::sin(r*r_step);
+			for(size_t s=0; s!=(_sections+1); ++s)
+			{
+				dest[k++] = +vz;
+				dest[k++] = 0.0;
+				dest[k++] = -vx;
+			}
+		}
+		assert(k == dest.size());
+		return 3;
+	}
+
 	/// Makes texture coorinates and returns number of values per vertex
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const

@@ -1,5 +1,5 @@
 /**
- *  .file devel/test01.cpp
+ *  .file devel/test03.cpp
  *  Development / testing file.
  *  NOTE. this file is here for feature development / testing purposes only
  *  and its source code, input, output can change witout prior notice.
@@ -22,6 +22,7 @@
 #include <oglplus/images/newton.hpp>
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/normal_map.hpp>
+#include <oglplus/images/sphere_bmap.hpp>
 
 #include <cmath>
 
@@ -36,9 +37,9 @@ namespace images {
 class Test01 : public Test
 {
 private:
-	typedef shapes::Cube Shape;
+	//typedef shapes::Cube Shape;
 	//typedef shapes::Sphere Shape;
-	//typedef shapes::Torus Shape;
+	typedef shapes::Torus Shape;
 	//
 	Shape shape;
 
@@ -118,14 +119,14 @@ public:
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float s = 2.0;"
+			"	float s = 5.0;"
 			"	float l = length(fragLight);"
 			"	vec3 n = texture2D(normalTex, fragTex*s).xyz;"
 			"	vec3 finalNormal = normalMatrix * n;"
 			"	float d = (l != 0.0)?"
 			"		dot(fragLight, finalNormal)/l:"
 			"		0.0;"
-			"	float i = 0.1 + 2.0*clamp(d, 0.0, 1.0);"
+			"	float i = 0.1 + 2.5*clamp(d, 0.0, 1.0);"
 			"	vec4 t  = texture2D(colorTex, fragTex*s);"
 			"	fragColor = vec4(t.rgb*i, 1.0);"
 			"}"
@@ -212,7 +213,6 @@ public:
 		Uniform(prog, "projectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)
 		);
-		Uniform(prog, "lightPos").Set(Vec3f(1.0f, 2.0f, 3.0f));
 		//
 		VertexArray::Unbind();
 		gl.ClearColor(0.3f, 0.3f, 0.3f, 0.0f);
@@ -231,18 +231,19 @@ public:
 		Uniform(prog, "cameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				3.0 + std::sin(time)*2.5,
-				FullCircles(time),
-				Degrees(std::sin(time * 0.1) * 70)
+				3.0 + std::sin(time)*1.5,
+				FullCircles(time * 0.5),
+				Degrees(std::sin(time * 0.5) * 70)
 			)
 		);
 
 		Uniform(prog, "modelMatrix").SetMatrix(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
-				FullCircles(time * 1.7)
+				FullCircles(time * 0.4)
 			)
 		);
+		Uniform(prog, "lightPos").Set(Vec3f(1.0f, 2.0f, 3.0f*std::sin(time * 2.9)));
 
 		vao.Bind();
 		// This is not very effective
