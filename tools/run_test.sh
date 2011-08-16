@@ -6,5 +6,15 @@
 test_exe=out/devel/test${1}
 rm -f ${test_exe}
 clear
-make ${test_exe} &&
-(cd $(dirname ${test_exe}) && ./$(basename ${test_exe}))
+pidfile=$(mktemp)
+make ${test_exe} || exit $?
+(
+	sleep 50
+	if [ -d /proc/$(< ${pidfile}) ]
+	then kill -TERM $(< ${pidfile})
+	fi
+	rm ${pidfile}
+) &
+nice -n 19 ./${test_exe} &
+echo $$ > ${pidfile}
+wait %nice

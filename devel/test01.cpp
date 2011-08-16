@@ -21,6 +21,7 @@
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/newton.hpp>
 #include <oglplus/images/load.hpp>
+#include <oglplus/images/sphere_bmap.hpp>
 #include <oglplus/images/normal_map.hpp>
 
 #include <cmath>
@@ -57,16 +58,15 @@ private:
 	// A vertex array object for the rendered shape
 	VertexArray vao;
 
+	static const size_t n_vert_array = 4;
 	// VBOs for the shape's vertices and normals
-	Buffer verts;
-	Buffer normals;
-	Buffer tangents;
-	Buffer texcoords;
+	Array<Buffer> vert_array;
 
 	// textures for the shape
 	Texture color_tex, bump_tex;
 public:
 	Test01(void)
+	 : vert_array(n_vert_array)
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -76,78 +76,103 @@ public:
 			"in vec3 normal;"
 			"in vec3 tangent;"
 			"in vec2 texcoord;"
+			"out vec3 fragEye;"
 			"out vec3 fragLight;"
-			"out vec2 fragTexCoord;"
+			"out vec3 fragNormal;"
+			"out vec2 fragTexC;"
+			"out vec3 viewTgt;"
 			"out mat3 normalMatrix;"
-			"out vec2 fragView;"
 			"const vec4 lightPos = vec4(1.0, 2.0, 3.0, 1.0);"
 			"void main(void)"
 			"{"
-			"	vec3 fragTangent = ("
-			"		modelMatrix *"
-			"		vec4(tangent, 0.0)"
-			"	).xyz;"
-			"	vec3 fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
-			"	).xyz;"
-			"	normalMatrix[0] = fragTangent;"
-			"	normalMatrix[1] = cross(fragNormal, fragTangent);"
-			"	normalMatrix[2] = fragNormal;"
-			"	fragLight = ("
-			"		lightPos-"
-			"		modelMatrix*vertex"
-			"	).xyz;"
-			"	fragTexCoord = texcoord;"
-			"	fragView = mat3x2(normalMatrix[0], normalMatrix[1]) * -cameraMatrix[2].xyz;"
-			"	gl_Position = "
-			"		projectionMatrix *"
+			"	vec4 vertEye = "
 			"		cameraMatrix *"
 			"		modelMatrix *"
 			"		vertex;"
+			"	fragEye = vertEye.xyz;"
+			"	vec3 fragTangent = ("
+			"		cameraMatrix *"
+			"		modelMatrix *"
+			"		vec4(tangent, 0.0)"
+			"	).xyz;"
+			"	fragNormal = ("
+			"		cameraMatrix *"
+			"		modelMatrix *"
+			"		vec4(normal, 0.0)"
+			"	).xyz;"
+			"	fragLight = ("
+			"		cameraMatrix *"
+			"		lightPos-"
+			"		vertEye"
+			"	).xyz;"
+			"	normalMatrix = mat3("
+			"		fragTangent,"
+			"		cross(fragNormal, fragTangent),"
+			"		fragNormal"
+			"	);"
+			"	viewTgt = vec3("
+			"		dot(normalMatrix[0], vertEye.xyz),"
+			"		dot(normalMatrix[1], vertEye.xyz),"
+			"		dot(normalMatrix[2], vertEye.xyz) "
+			"	);"
+			"	fragTexC = texcoord;"
+			"	gl_Position = projectionMatrix *"
+			"		vertEye;"
 			"}"
 		);
 		// compile it
 		vs.Compile();
 
 		// set the fragment shader source
-		// (uses the absolute value of normal as color)
 		fs.Source(
 			"#version 330\n"
 			"uniform sampler2D colorTex;"
 			"uniform sampler2D bumpTex;"
-			"in vec2 fragTexCoord;"
+			"uniform int bumpTexWidth;"
+			"uniform int bumpTexHeight;"
+			"float depthMult = 0.1;"
+			"in vec3 fragEye;"
 			"in vec3 fragLight;"
+			"in vec3 fragNormal;"
+			"in vec2 fragTexC;"
+			"in vec3 viewTgt;"
 			"in mat3 normalMatrix;"
-			"in vec2 fragView;"
 			"out vec4 fragColor;"
-			"const float holeDepth = 0.05;"
 			"void main(void)"
 			"{"
-			"	vec2 stOffs = fragView*holeDepth;"
-/*
-			"	if(texture2D(bumpTex, fragTexCoord+stOffs).w > 0.25)"
-			"		stOffs *= texture2D(bumpTex, fragTexCoord).w;"
-*/
-			"	vec2 stCoord = fragTexCoord + stOffs;"
-			"	vec3 finalNormal = normalMatrix * texture2D(bumpTex, stCoord).xyz;"
-			"	vec3 c = texture2D(colorTex, stCoord).rgb;"
-			"	float l = dot(fragLight, fragLight);"
-			"	float i = (l > 0)?"
-			"		dot(finalNormal, fragLight)/l:"
+			"	vec3 viewTgtN = normalize(viewTgt);"
+			"	float perp = -dot(normalize(fragEye), fragNormal);"
+			"	float sampleInterval = 1.0/length("
+			"		vec2(bumpTexWidth, bumpTexHeight)"
+			"	);"
+			"	vec3 sampleStep = viewTgtN*sampleInterval;"
+			"	float prevD = 0.0;"
+			"	float depth = texture2D(bumpTex, fragTexC).w;"
+			"	float maxOffs = min((depth*depthMult*perp)/(-viewTgtN.z), 1.0);"
+			"	vec3 viewOffs = vec3(0.0, 0.0, 0.0);"
+			"	vec2 offsTexC = fragTexC + viewOffs.xy;"
+			"	while(length(viewOffs) < maxOffs)"
+			"	{"
+			"		if(offsTexC.x <= 0.0 || offsTexC.x >= 1.0)"
+			"			break;"
+			"		if(offsTexC.y <= 0.0 || offsTexC.y >= 1.0)"
+			"			break;"
+			"		if(depth*depthMult*perp <= -viewOffs.z)"
+			"			break;"
+			"		viewOffs += sampleStep;"
+			"		offsTexC = fragTexC + viewOffs.xy;"
+			"		prevD = depth;"
+			"		depth = texture2D(bumpTex, offsTexC).w;"
+			"	}"
+			"	vec3 c = texture2D(colorTex, offsTexC).xyz;"
+			"	vec3 n = texture2D(bumpTex, offsTexC).xyz;"
+			"	vec3 finalNormal = normalMatrix * n;"
+			"	float l = length(fragLight);"
+			"	float d = (l != 0.0) ?"
+			"		dot(fragLight, finalNormal)/l:"
 			"		0.0;"
+			"	float i = 0.2 + 1.5*clamp(d, 0.0, 1.0);"
 			"	fragColor = vec4(c*i, 1.0);"
-/*
-			"	vec4 bmap = ;"
-			"	float l = dot(fragLight, fragLight);"
-			"	vec3 finalNormal = normalMatrix * bm.xyz;"
-			"	float i = (l > 0)?"
-			"		dot(finalNormal, fragLight)/l:"
-			"		0.0;"
-			"	vec2 st = fragTexCoord + ;"
-			"	vec3 c = texture2D(colorTex, st).rgb;"
-			"	fragColor = vec4(c*(3.0*i+0.2), 1.0);"
-*/
 			"}"
 		);
 		// compile it
@@ -163,71 +188,61 @@ public:
 		// bind the VAO for the shape
 		vao.Bind();
 
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = shape.Vertices(data);
-			Bind(verts, Buffer::Target::Array).Data(data);
-			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
+		typedef GLuint (Shape::*DataFunc)(std::vector<GLfloat>&) const;
+		DataFunc data_fn[n_vert_array] = {
+			&Shape::Vertices,
+			&Shape::Normals,
+			&Shape::Tangents,
+			&Shape::TexCoordinates
+		};
 
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = shape.Normals(data);
-			Bind(normals, Buffer::Target::Array).Data(data);
-			// setup the vertex attribs array for the normals
-			VertexAttribArray attr(prog, "normal");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
+		const char* attr_name[n_vert_array] = {
+			"vertex",
+			"normal",
+			"tangent",
+			"texcoord"
+		};
 
-		{
+		for(size_t a=0; a!=n_vert_array; ++a)
+		try {
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = shape.Tangents(data);
-			Bind(tangents, Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "tangent");
+			GLuint n_per_vertex = (shape.*data_fn[a])(data);
+			Bind(vert_array[a], Buffer::Target::Array).Data(data);
+			VertexAttribArray attr(prog, attr_name[a]);
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
-		}
-
-		// bind the VBO for the shape tex-coords
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = shape.TexCoordinates(data);
-			Bind(texcoords, Buffer::Target::Array).Data(data);
-			//
-			VertexAttribArray attr(prog, "texcoord");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
+		} catch(...) { }
 
 		// setup the textures
-		{
+		try {
 			Texture::Active(0);
 			Uniform(prog, "colorTex").Set(0);
 			auto bound_tex = Bind(color_tex, Texture::Target::_2D);
+			//bound_tex.Image2D(images::SphereBumpMap(512, 512));
 			bound_tex.Image2D(images::LoadTexture("wooden_crate"));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::Repeat);
 			bound_tex.WrapT(TextureWrap::Repeat);
-		}
-		{
+		} catch(...) { }
+		try {
 			Texture::Active(1);
 			Uniform(prog, "bumpTex").Set(1);
 			auto bound_tex = Bind(bump_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
-				images::NormalMap<GLubyte>(images::LoadTexture("wooden_crate-hmap"))
-			);
+			try {
+				//auto image = images::SphereBumpMap(512, 512, 3, 3);
+				auto image = images::NormalMap(images::LoadTexture("wooden_crate-hmap"));
+				bound_tex.Image2D(image);
+				Uniform(prog, "bumpTexWidth").Set(image.Width());
+				Uniform(prog, "bumpTexHeight").Set(image.Height());
+			} catch(...) { }
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::Repeat);
 			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		} catch(...) { }
 
 		// set the projection matrix fov = 24 deg. aspect = 1.25
 		Uniform(prog, "projectionMatrix").SetMatrix(
@@ -254,12 +269,17 @@ public:
 				Vec3f(),
 				//4.5 + std::sin(time)*3.0,
 				1.5,
-				Degrees(time * 90),
-				Degrees(std::sin(time * 0.1) * 70)
+				FullCircles(-time * 0.2),
+				Degrees(std::sin(time * 0.2) * 70)
 			)
 		);
 
-		Uniform(prog, "modelMatrix").SetMatrix(Matrix4f());
+		Uniform(prog, "modelMatrix").SetMatrix(
+			ModelMatrixf::RotationA(
+				Vec3f(1.0, 1.0, 1.0),
+				FullCircles(time * 0.2)
+			)
+		);
 
 		vao.Bind();
 		// This is not very effective

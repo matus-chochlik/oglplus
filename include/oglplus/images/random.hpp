@@ -30,9 +30,9 @@ public:
 	{
 		_data.resize(width*height*depth);
 		auto p = _data.begin(), e = _data.end();
-		for(GLsizei i=0; i!=width; ++i)
-		for(GLsizei j=0; j!=height; ++j)
 		for(GLsizei k=0; k!=depth; ++k)
+		for(GLsizei j=0; j!=height; ++j)
+		for(GLsizei i=0; i!=width; ++i)
 		{
 			assert(p != e);
 			*p = ::std::rand() % 0x100;
@@ -54,9 +54,9 @@ public:
 	{
 		_data.resize(width*height*depth*3);
 		auto p = _data.begin(), e = _data.end();
-		for(GLsizei i=0; i!=width; ++i)
-		for(GLsizei j=0; j!=height; ++j)
 		for(GLsizei k=0; k!=depth; ++k)
+		for(GLsizei j=0; j!=height; ++j)
+		for(GLsizei i=0; i!=width; ++i)
 		for(GLsizei c=0; c!=3; ++c)
 		{
 			assert(p != e);
