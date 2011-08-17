@@ -16,6 +16,7 @@
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/limited_value.hpp>
+#include <oglplus/vector.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -363,6 +364,29 @@ public:
 			GLenum(target),
 			data.size() * sizeof(GLtype),
 			data.data(),
+			GLenum(usage)
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(BufferData));
+	}
+
+	/// Uploads (sets) the buffer data
+	/**
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	template <typename GLtype, size_t N>
+	static void Data(
+		Target target,
+		const std::vector<Vector<GLtype, N> >& data,
+		Usage usage = Usage::StaticDraw
+	)
+	{
+		//TODO: is this a good idea ?
+		::glBufferData(
+			GLenum(target),
+			data.size() * sizeof(GLtype) * N,
+			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(BufferData));
