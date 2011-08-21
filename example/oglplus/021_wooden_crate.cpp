@@ -243,8 +243,7 @@ public:
 
 		// set the model matrix
 		Uniform(prog, "modelMatrix").SetMatrix(
-			Matrix4f()
-			//ModelMatrixf::RotationY(FullCircles(time * 0.05))
+			ModelMatrixf::RotationY(FullCircles(time * 0.05))
 		);
 
 		cube.Bind();
