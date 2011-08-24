@@ -336,6 +336,12 @@ public:
 		return Add(a, b);
 	}
 
+	Vector& operator += (const Vector& v)
+	{
+		*this = Add(*this, v);
+		return *this;
+	}
+
 	/// Vector subtration
 	friend Vector Subtract(const Vector& a, const Vector& b)
 	{
@@ -404,6 +410,12 @@ public:
 	friend Vector operator * (T v, const Vector& a)
 	{
 		return Multiply(a, v);
+	}
+
+	Vector& operator *= (T v)
+	{
+		*this = Multiply(*this, v);
+		return *this;
 	}
 
 	/// Dot product of two vectors
