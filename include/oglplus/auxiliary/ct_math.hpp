@@ -59,32 +59,112 @@ template <typename T, typename P, unsigned N>
 struct Bezier
 {
 private:
-	template <unsigned I>
-	static T _part(std::integral_constant<unsigned, I>, const T* v, P t)
+	template <unsigned M, unsigned I>
+	static P _bi(
+		std::integral_constant<unsigned, M>,
+		std::integral_constant<unsigned, I>,
+		P t
+	)
 	{
-		return Binomial<N, I>::value *
+		return Binomial<M, I>::value *
 			Pow(t, std::integral_constant<unsigned, I>()) *
-			Pow(P(1)-t, std::integral_constant<unsigned, N-I>())*
-			v[I];
+			Pow(P(1)-t, std::integral_constant<unsigned, M-I>());
 	}
 
-	static T _sum(std::integral_constant<unsigned, 0> i, const T* v, P t)
+	template <unsigned D>
+	static T _sum(
+		std::integral_constant<unsigned, D> d,
+		std::integral_constant<unsigned, 0> i,
+		const T* v,
+		P t
+	)
 	{
-		return _part(i, v, t);
+		return _f(d, i, v, t);
 	}
 
-	template <unsigned I>
-	static T _sum(std::integral_constant<unsigned, I> i, const T* v, P t)
+	template <unsigned D, unsigned I>
+	static T _sum(
+		std::integral_constant<unsigned, D> d,
+		std::integral_constant<unsigned, I> i,
+		const T* v,
+		P t
+	)
 	{
 		std::integral_constant<unsigned, I-1> i_1;
-		return _sum(i_1, v, t) + _part(i, v, t);
+		return _sum(d, i_1, v, t) + _f(d, i, v, t);
 	}
+
+	// f(t)
+	template <unsigned I>
+	static T _f(
+		std::integral_constant<unsigned, 0> d,
+		std::integral_constant<unsigned, I> i,
+		const T* v,
+		P t
+	)
+	{
+		std::integral_constant<unsigned, N> n;
+		return _bi(n, i, t) * v[I];
+	}
+
+
+	// f'(t)
+	template <unsigned I>
+	static T _f(
+		std::integral_constant<unsigned, 1> d,
+		std::integral_constant<unsigned, I> i,
+		const T* v,
+		P t
+	)
+	{
+		std::integral_constant<unsigned, N-1> n_1;
+		return _bi(n_1, i, t) * N * (v[I+1] - v[I]);
+	}
+
+
+	// f''(t)
+	template <unsigned I>
+	static T _f(
+		std::integral_constant<unsigned, 2> d,
+		std::integral_constant<unsigned, I> i,
+		const T* v,
+		P t
+	)
+	{
+		std::integral_constant<unsigned, N-2> n_2;
+		return _bi(n_2, i, t) * N*(N - 1) * (v[I+2] - 2*v[I+1] + v[I]);
+	}
+
 public:
-	static T Calc(const T* v, size_t s, P t)
+	template <unsigned D>
+	static T B(
+		std::integral_constant<unsigned, D> d,
+		const T* v,
+		size_t s,
+		P t
+	)
 	{
 		assert(s >= N);
-		std::integral_constant<unsigned, N> n;
-		return _sum(n, v, t);
+		std::integral_constant<unsigned, N-D> n_d;
+		return _sum(d, n_d, v, t);
+	}
+
+	static T Position(const T* v, size_t s, P t)
+	{
+		std::integral_constant<unsigned, 0> d;
+		return B(d, v, s, t);
+	}
+
+	static T Derivative1(const T* v, size_t s, P t)
+	{
+		std::integral_constant<unsigned, 1> d;
+		return B(d, v, s, t);
+	}
+
+	static T Derivative2(const T* v, size_t s, P t)
+	{
+		std::integral_constant<unsigned, 2> d;
+		return B(d, v, s, t);
 	}
 };
 

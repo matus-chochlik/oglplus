@@ -10,14 +10,9 @@ while ! mkdir ${lock} 2> /dev/null
 do sleep 1
 done
 # wait for any example windows to close
-while xwininfo -name "${title}" > /dev/null 2> /dev/null
+while $(xwininfo -name "${title}" 2> /dev/null | grep -c -e "${title}") -ne 0
 do sleep 1
 done
-#
-# if there still are some windows, then exit
-if xwininfo -name "${title}" 2> /dev/null
-then exit 1
-fi
 #
 # start the example on the background
 ${1} &

@@ -121,10 +121,11 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform(prog, "time").Set(time);
+		auto angle = FullCircles(time * 0.05f);
+		Uniform(prog, "time").Set(GLfloat(time));
 		Uniform(prog, "sunPos").Set(
-			-std::cos(time * M_PI * 0.1),
-			+std::sin(time * M_PI * 0.1)
+			-Cos(angle),
+			Sin(angle)
 		);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

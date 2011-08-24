@@ -78,22 +78,35 @@ public:
 		return _points;
 	}
 
-	/// Gets the point on the curve at position t [0.0, 1.0]
-	Type At(Parameter t) const
+	/// Wraps the parameter value to [0.0, 1.0]
+	static Parameter Wrap(Parameter t)
 	{
 		const Parameter zero(0);
 		const Parameter one(1);
 		if(t < zero) t += ::std::ceil(::std::fabs(t))+one;
 		else if(t > one) t -= ::std::ceil(t);
 		assert(t >= zero && t <= one);
+		return t;
+	}
+
+	/// Gets the point on the curve at position t (must be between 0.0, 1.0)
+	Type Position01(Parameter t) const
+	{
+		assert(t >= 0 && t <= 1);
 		size_t poffs = t*SegmentCount();
 		assert(poffs < _points.size() - Order);
 		Parameter t_sub = t * Order - ::std::ceil(t * Order);
-		return aux::Bezier<Type, Parameter, Order>::Calc(
+		return aux::Bezier<Type, Parameter, Order>::Position(
 			_points.data() + poffs,
 			_points.size() - poffs,
 			t_sub
 		);
+	}
+
+	/// Gets the point on the curve at position t wrapped to [0.0, 1.0]
+	Type Position(Parameter t) const
+	{
+		return Position01(Wrap(t));
 	}
 
 	/// Makes a sequence of points on the curve (n points per segment)
@@ -113,7 +126,7 @@ public:
 			for(size_t j=0; j!=n; ++j)
 			{
 				assert(p != e);
-				*p = b::Calc(data, size, t_sub);
+				*p = b::Position(data, size, t_sub);
 				++p;
 				t_sub += t_step;
 			}
