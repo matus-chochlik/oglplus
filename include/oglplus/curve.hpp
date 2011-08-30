@@ -83,8 +83,8 @@ public:
 	{
 		const Parameter zero(0);
 		const Parameter one(1);
-		if(t < zero) t += ::std::ceil(::std::fabs(t))+one;
-		else if(t > one) t -= ::std::ceil(t);
+		if(t < zero) t += ::std::floor(::std::fabs(t))+one;
+		else if(t > one) t -= ::std::floor(t);
 		assert(t >= zero && t <= one);
 		return t;
 	}
@@ -92,10 +92,13 @@ public:
 	/// Gets the point on the curve at position t (must be between 0.0, 1.0)
 	Type Position01(Parameter t) const
 	{
-		assert(t >= 0 && t <= 1);
-		size_t poffs = t*SegmentCount();
+		const Parameter zero(0);
+		const Parameter one(1);
+		assert(t >= zero && t <= one);
+		Parameter toffs = t*SegmentCount();
+		size_t poffs = size_t(toffs) * Order;
 		assert(poffs < _points.size() - Order);
-		Parameter t_sub = t * Order - ::std::ceil(t * Order);
+		Parameter t_sub = toffs - ::std::floor(toffs);
 		return aux::Bezier<Type, Parameter, Order>::Position(
 			_points.data() + poffs,
 			_points.size() - poffs,

@@ -175,6 +175,13 @@ public:
 			_elem[i] = T(vector.At(i));
 	}
 
+	Vector(const T* v, size_t n)
+	{
+		assert(n >= N);
+		for(size_t i=0; i!=N; ++i)
+			_elem[i] = v[i];
+	}
+
 	/// Initializes the vector with the given values
 	/** Constructs a new N-dimensional vector from the values
 	 *  passed as arguments. The number of arguments for this
@@ -537,6 +544,17 @@ public:
 	T z(void) const
 	{
 		return At<2>(*this);
+	}
+
+	// TODO:
+	template <typename Out>
+	void _print(Out& out) const
+	{
+		out << _elem[0];
+		for(size_t i=1; i!=N; ++i)
+		{
+			out << ", " << _elem[i];
+		}
 	}
 };
 

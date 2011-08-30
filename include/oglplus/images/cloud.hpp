@@ -21,8 +21,6 @@
 #include <cstdlib>
 #include <cmath>
 
-#include <iostream>
-
 namespace oglplus {
 namespace images {
 

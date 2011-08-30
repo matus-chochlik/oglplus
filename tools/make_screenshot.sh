@@ -25,7 +25,9 @@ ${1} &
 child=$!
 # wait for a while and make a screenshot
 case "$(basename ${1})" in
+	018_particle_system) sleep_period=5;;
 	021_cloud) sleep_period=3;;
+	026_clouds) sleep_period=10;;
 	*)sleep_period=1;;
 esac
 sleep ${sleep_period} && xwd -name "${title}" -out ${2}

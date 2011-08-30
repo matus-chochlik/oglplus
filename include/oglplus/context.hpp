@@ -371,7 +371,8 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
-	/// Draws the @a count of primitives from the bound array buffers
+
+	/// Draws @a count of primitives from the bound array buffers
 	/**
 	 *  @throws Error
 	 */
@@ -385,6 +386,25 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
+	/// Draws @a count of primitives from the bound array buffers
+	/**
+	 *  @throws Error
+	 */
+	static void DrawArraysInstanced(
+		PrimitiveType primitive,
+		GLint first,
+		GLsizei count,
+		GLsizei inst_count
+	)
+	{
+		::glDrawArraysInstanced(
+			GLenum(primitive),
+			first,
+			count,
+			inst_count
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
+	}
 
 	/// Draws a sequence of primitives from the bound element array buffers
 	/**

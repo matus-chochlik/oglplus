@@ -13,7 +13,6 @@
 #include <oglplus/shapes/sphere.hpp>
 
 #include <cmath>
-#include <iostream>
 
 #include "example.hpp"
 
