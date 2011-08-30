@@ -53,6 +53,10 @@
 			<xsl:text>	template &lt;</xsl:text>
 			<xsl:for-each select="param">
 				<xsl:value-of select="type/text()"/>
+				<xsl:if test="declname">
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="declname/text()"/>
+				</xsl:if>
 				<xsl:if test="position() != last()">, </xsl:if>
 			</xsl:for-each>
 			<xsl:text>&gt;</xsl:text>
