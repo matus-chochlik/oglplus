@@ -89,6 +89,7 @@ private:
 				Vec3f p(GLfloat(i)/w, GLfloat(j)/h, GLfloat(k)/d);
 				GLfloat nd = (r - Distance(c, p))/r;
 				if(nd < 0.0f) nd = 0.0f;
+				nd = std::sqrt(nd);
 				nd += cd;
 				if(nd > 1.0f) nd = 1.0f;
 				_data[n] = GLubyte(0xFF * nd);
@@ -140,8 +141,8 @@ public:
 		GLfloat init_radius = 0.7f
 	): Image<GLubyte>(width, height, depth)
 	 , _sub_scale(0.333f)
-	 , _sub_variance(0.3f)
-	 , _min_radius(0.05f)
+	 , _sub_variance(0.5f)
+	 , _min_radius(0.04f)
 	{
 		_data.resize(width*height*depth);
 		auto p = _data.begin(), e = _data.end();

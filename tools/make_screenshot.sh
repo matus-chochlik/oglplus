@@ -24,7 +24,11 @@ ${1} &
 # remember its PID
 child=$!
 # wait for a while and make a screenshot
-sleep 1 && xwd -name "${title}" -out ${2}
+case "$(basename ${1})" in
+	021_cloud) sleep_period=3;;
+	*)sleep_period=1;;
+esac
+sleep ${sleep_period} && xwd -name "${title}" -out ${2}
 # terminate the example process and wait for it
 kill -TERM ${child} 2> /dev/null && wait ${child}
 # remove the lock

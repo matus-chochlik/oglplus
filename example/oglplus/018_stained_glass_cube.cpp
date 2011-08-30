@@ -101,7 +101,7 @@ public:
 			"	float d = l!=0? dot(fragNormal, fragLight)/l:0.0;"
 			"	float e = d < 0? -0.7*d: d;"
 			"	float i = clamp(0.1 + e, 0.0, 1.0);"
-			"	vec4 t  = texture2D(tex, fragTex);"
+			"	vec4 t  = texture(tex, fragTex);"
 			"	fragColor = vec4(t.rgb*i, t.a);"
 			"}"
 		);

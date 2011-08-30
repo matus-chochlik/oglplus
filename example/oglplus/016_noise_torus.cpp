@@ -99,7 +99,7 @@ public:
 			"	float l = length(fragLight);"
 			"	float d = l > 0? dot(fragNormal, fragLight)/l: 0.0;"
 			"	float i = 1.2*max(d, 0.0) + 0.2;"
-			"	fragColor = texture2D(tex, fragTex)*i;"
+			"	fragColor = texture(tex, fragTex)*i;"
 			"}"
 		);
 		// compile it
