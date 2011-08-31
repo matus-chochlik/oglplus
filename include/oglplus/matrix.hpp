@@ -395,66 +395,85 @@ public:
 			m._m._elem[a][j] += m._m._elem[b][j] * k;
 	}
 
+	friend bool Gauss(Matrix& a, Matrix& b)
+	{
+		const T zero(0), one(1);
+		for(size_t i=0; i!=Rows; ++i)
+		{
+			T d = a._m._elem[i][i];
+			if(d == zero)
+			{
+				for(size_t k=i+1; k!=Rows; ++k)
+				{
+					if(a._m._elem[k][i] != zero)
+					{
+						RowSwap(a, i, k);
+						RowSwap(b, i, k);
+						break;
+					}
+				}
+				d = a._m._elem[i][i];
+			}
+			if(d == zero) return false;
+
+			RowMultiply(a, i, one / d);
+			RowMultiply(b, i, one / d);
+
+			for(size_t k=i+1; k!=Rows; ++k)
+			{
+				T c = a._m._elem[k][i];
+				if(c != zero)
+				{
+					RowAdd(a, k, i, -c);
+					RowAdd(b, k, i, -c);
+				}
+			}
+		}
+		return true;
+	}
+
+	friend bool GaussJordan(Matrix& a, Matrix& b)
+	{
+		if(!Gauss(a, b)) return false;
+		const T zero(0);
+		for(size_t i=Rows-1; i!=0; --i)
+		{
+			for(size_t k=0; k!=i; ++k)
+			{
+				T c = a._m._elem[k][i];
+				if(c != zero)
+				{
+					RowAdd(a, k, i, -c);
+					RowAdd(b, k, i, -c);
+				}
+			}
+		}
+		return true;
+	}
+
 	/// Finds inverse matrix if m is square matrix and T supports fractions
 	friend Matrix Inverse(
 		Matrix m,
 		typename ::std::enable_if<(Rows > 1)&&(Rows == Cols)>::type* = 0
 	)
 	{
-		const T zero(0), one(1);
-		Matrix r;
-		for(size_t i=0; i!=Rows; ++i)
-		{
-			T d = m._m._elem[i][i];
-			if(d == zero)
-			{
-				for(size_t k=i+1; k!=Rows; ++k)
-				{
-					if(m._m._elem[k][i] != zero)
-					{
-						RowSwap(m, i, k);
-						RowSwap(r, i, k);
-						break;
-					}
-				}
-				d = m._m._elem[i][i];
-			}
-			if(d == zero) return Matrix(Zero());
+		Matrix i;
+		if(GaussJordan(m, i)) return i;
+		else return Matrix(Zero());
+	}
 
-			RowMultiply(m, i, one / d);
-			RowMultiply(r, i, one / d);
-
-			for(size_t k=i+1; k!=Rows; ++k)
-			{
-				T c = m._m._elem[k][i];
-				if(c != zero)
-				{
-					RowAdd(m, k, i, -c);
-					RowAdd(r, k, i, -c);
-				}
-			}
-		}
-		for(size_t i=Rows-1; i!=0; --i)
-		{
-			for(size_t k=0; k!=i; ++k)
-			{
-				T c = m._m._elem[k][i];
-				if(c != zero)
-				{
-					RowAdd(m, k, i, -c);
-					RowAdd(r, k, i, -c);
-				}
-			}
-		}
-		return r;
+	template <size_t I>
+	Vector<T, Cols> Row(void) const
+	{
+		static_assert(I < Rows, "Invalid index for this matrix");
+		return Vector<T, Cols>(this->_m._elem[I], Cols);
 	}
 
 	/// Row vector getter
 	template <size_t I>
 	friend Vector<T, Cols> Row(const Matrix& m)
 	{
-		static_assert(I < Rows, "Invalid index for this matrix");
-		return Vector<T, Cols>(m._m._elem[I], Cols);
+		return m.template Row<I>();
 	}
 
 	// TODO:
@@ -663,8 +682,9 @@ public:
 
 	Vector<T, 3> Position(void) const
 	{
-		const Vector<T, 4> origin(T(0),T(0),T(0),T(1));
-		return (Inverse(*this) * origin).xyz();
+		Matrix<T, 4, 4> m(*this), i;
+		Gauss(m, i);
+		return i.template Row<3>().xyz();
 	}
 
 	struct _Perspective { };
