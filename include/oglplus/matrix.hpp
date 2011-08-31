@@ -178,6 +178,10 @@ private:
 
 	friend class Vector<T, Rows>;
 	friend class Vector<T, Cols>;
+
+	template <typename X>
+	static void _eat(const X&...)
+	{ }
 public:
 	struct NoInit { };
 
@@ -367,7 +371,7 @@ public:
 	}
 
 	/// Swaps two rows of the Matrix
-	friend void RowSwap(Matrix& m, size_t a, size_t b)
+	friend Matrix& RowSwap(Matrix& m, size_t a, size_t b)
 	{
 		assert(a < Rows);
 		assert(b < Rows);
@@ -376,26 +380,30 @@ public:
 			m._m._elem[a]+Cols,
 			m._m._elem[b]
 		);
+		return m;
 	}
 
 	/// Multiplies row @a i with coeficient @a k
-	friend void RowMultiply(Matrix& m, size_t i, T k)
+	friend Matrix& RowMultiply(Matrix& m, size_t i, T k)
 	{
 		assert(i < Rows);
 		for(size_t j=0; j!=Cols; ++j)
 			m._m._elem[i][j] *= k;
+		return m;
 	}
 
 	/// Adds row @a b multipled by coeficient @a k to row @a a
-	friend void RowAdd(Matrix& m, size_t a, size_t b, T k)
+	friend Matrix RowAdd(Matrix& m, size_t a, size_t b, T k)
 	{
 		assert(a < Rows);
 		assert(b < Rows);
 		for(size_t j=0; j!=Cols; ++j)
 			m._m._elem[a][j] += m._m._elem[b][j] * k;
+		return m;
 	}
 
-	friend bool Gauss(Matrix& a, Matrix& b)
+	template <size_t ... C>
+	friend bool Gauss(Matrix& a, Matrix<T, Rows, C>&... b)
 	{
 		const T zero(0), one(1);
 		for(size_t i=0; i!=Rows; ++i)
@@ -408,7 +416,7 @@ public:
 					if(a._m._elem[k][i] != zero)
 					{
 						RowSwap(a, i, k);
-						RowSwap(b, i, k);
+						_eat(RowSwap(b, i, k)...);
 						break;
 					}
 				}
@@ -417,7 +425,7 @@ public:
 			if(d == zero) return false;
 
 			RowMultiply(a, i, one / d);
-			RowMultiply(b, i, one / d);
+			_eat(RowMultiply(b, i, one / d)...);
 
 			for(size_t k=i+1; k!=Rows; ++k)
 			{
@@ -425,16 +433,17 @@ public:
 				if(c != zero)
 				{
 					RowAdd(a, k, i, -c);
-					RowAdd(b, k, i, -c);
+					_eat(RowAdd(b, k, i, -c)...);
 				}
 			}
 		}
 		return true;
 	}
 
-	friend bool GaussJordan(Matrix& a, Matrix& b)
+	template <size_t ... C>
+	friend bool GaussJordan(Matrix& a, Matrix<T, Rows, C>&... b)
 	{
-		if(!Gauss(a, b)) return false;
+		if(!Gauss(a, b...)) return false;
 		const T zero(0);
 		for(size_t i=Rows-1; i!=0; --i)
 		{
@@ -444,7 +453,7 @@ public:
 				if(c != zero)
 				{
 					RowAdd(a, k, i, -c);
-					RowAdd(b, k, i, -c);
+					_eat(RowAdd(b, k, i, -c)...);
 				}
 			}
 		}
