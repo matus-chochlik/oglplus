@@ -23,10 +23,10 @@ enum class PrimitiveType : GLenum
 	TriangleStrip = GL_TRIANGLE_STRIP,
 	TriangleFan = GL_TRIANGLE_FAN,
 	Triangles = GL_TRIANGLES,
-	LinesAdjcacency = GL_LINES_ADJACENCY,
-	LineStripAdjcacency = GL_LINE_STRIP_ADJACENCY,
-	TrianglesAdjcacency = GL_LINES_ADJACENCY,
-	TriangleStripAdjcacency = GL_LINE_STRIP_ADJACENCY,
+	LinesAdjacency = GL_LINES_ADJACENCY,
+	LineStripAdjacency = GL_LINE_STRIP_ADJACENCY,
+	TrianglesAdjacency = GL_TRIANGLES_ADJACENCY,
+	TriangleStripAdjacency = GL_TRIANGLE_STRIP_ADJACENCY,
 	Patches = GL_PATCHES
 };
 

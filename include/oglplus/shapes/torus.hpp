@@ -161,10 +161,8 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
-		assert((1<<(sizeof(GLushort)*8)) - 1 >= (_rings*(_sections+1)));
-		//
-		const size_t n =
-			2 * (_rings)*(_sections + 1);
+		const size_t n = 2 * (_rings)*(_sections + 1);
+		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 		//
 		IndexArray indices(n);
 		size_t k = 0;
@@ -177,6 +175,38 @@ public:
 				indices[k++] = offs + s;
 				indices[k++] = offs + s + (_sections+1);
 			}
+			offs += _sections + 1;
+		}
+		assert(k == indices.size());
+		//
+		// return the indices
+		return std::move(indices);
+	}
+
+	/// Returns element indices that are used with the drawing instructions
+	IndexArray IndicesWithAdjacency(void) const
+	{
+		const size_t m = (_rings)*(_sections + 1);
+		const size_t n = 4 * m;
+		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
+		//
+		IndexArray indices(n);
+		size_t k = 0;
+		size_t offs = 0;
+
+		for(size_t r=0; r!=(_rings); ++r)
+		{
+			indices[k++] = offs;
+			indices[k++] = offs + (2*_sections);
+			indices[k++] = offs + (_sections+1);
+			for(size_t s=0; s!=_sections; ++s)
+			{
+				indices[k++] = (offs + m-(_sections+1))%m + s+1;
+				indices[k++] = offs + s + 1;
+				indices[k++] = (offs + 2*(_sections+1)) % m + s;
+				indices[k++] = offs + (_sections+1) + s + 1;
+			}
+			indices[k++] = offs + 1;
 			offs += _sections + 1;
 		}
 		assert(k == indices.size());
@@ -198,6 +228,25 @@ public:
 					PrimitiveType::TriangleStrip,
 					GLuint(r * (_sections + 1) * 2),
 					GLuint((_sections + 1) * 2)
+				}
+			);
+		}
+		return std::move(instructions);
+	}
+
+	/// Returns the instructions for rendering
+	DrawingInstructions InstructionsWithAdjacency(void) const
+	{
+		auto instructions = this->MakeInstructions();
+		for(size_t r=0; r!=_rings; ++r)
+		{
+			this->AddInstruction(
+				instructions,
+				{
+					DrawOperation::Method::DrawElements,
+					PrimitiveType::TriangleStripAdjacency,
+					GLuint(r * (_sections + 1) * 4),
+					GLuint((_sections + 1) * 4)
 				}
 			);
 		}

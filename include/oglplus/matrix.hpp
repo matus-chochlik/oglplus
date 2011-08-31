@@ -155,25 +155,25 @@ private:
 			_m._data[k] = data[k];
 	}
 
-	template <size_t Row>
+	template <size_t R>
 	inline void _init_row(const Vector<T, Cols>& row)
 	{
 		for(size_t c=0; c!=Cols; ++c)
-			this->_m._elem[Row][c] = row.At(c);
+			this->_m._elem[R][c] = row.At(c);
 	}
 
-	template <size_t Row>
+	template <size_t R>
 	inline void _init_rows(void) const
 	{ }
 
-	template <size_t Row, size_t ... C>
+	template <size_t R, size_t ... C>
 	inline void _init_rows(
 		const Vector<T, Cols>& row,
 		const Vector<T, C>&... rows
 	)
 	{
-		_init_row<Row>(row);
-		_init_rows<Row+1>(rows...);
+		_init_row<R>(row);
+		_init_rows<R+1>(rows...);
 	}
 
 	friend class Vector<T, Rows>;
@@ -485,6 +485,23 @@ public:
 		return m.template Row<I>();
 	}
 
+	template <size_t J>
+	Vector<T, Rows> Col(void) const
+	{
+		static_assert(J < Cols, "Invalid index for this matrix");
+		T v[Rows];
+		for(size_t i=0; i!= Rows; ++i)
+			v[i] = this->_m._elem[i][J];
+		return Vector<T, Rows>(v, Rows);
+	}
+
+	/// Column vector getter
+	template <size_t J>
+	friend Vector<T, Rows> Col(const Matrix& m)
+	{
+		return m.template Col<J>();
+	}
+
 	// TODO:
 	template <typename Out>
 	void _print(Out& out) const
@@ -691,9 +708,7 @@ public:
 
 	Vector<T, 3> Position(void) const
 	{
-		Matrix<T, 4, 4> m(*this), i;
-		Gauss(m, i);
-		return i.template Row<3>().xyz();
+		return Inverse(*this).template Col<3>().xyz();
 	}
 
 	struct _Perspective { };
