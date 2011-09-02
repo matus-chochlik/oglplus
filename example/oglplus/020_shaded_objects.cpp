@@ -173,12 +173,11 @@ private:
 		"void main(void)"
 		"{"
 		"	float _len = dot(fragLight, fragLight);"
-		"	float _dot = max(dot(fragNormal, fragLight)/_len,0.0);"
-		"	float intensity = clamp("
-		"		0.2 + _dot * 2.0,"
-		"		0.0,"
-		"		1.0"
-		"	);";
+		"	float _dot = _len > 0.0 ? dot("
+		"		fragNormal, "
+		"		normalize(fragLight)"
+		"	) / _len : 0.0;"
+		"	float intensity = 0.2 + _dot * 4.0;";
 	}
 
 	// The common last part of all fragment shader sources

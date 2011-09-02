@@ -169,9 +169,12 @@ public:
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float l = dot(fragLight, fragLight);"
-			"	float d = max(dot(fragNormal, fragLight)/l,0.0);"
-			"	float i = clamp(0.2 + d * 2.0, 0.0, 1.0);"
+			"	float l = length(fragLight);"
+			"	float d = l > 0.0 ? dot("
+			"		fragNormal, "
+			"		normalize(fragLight)"
+			"	 ) / l : 0.0;"
+			"	float i = 0.2 + d * 2.0;"
 			"	fragColor = vec4(abs(vertNormal)*i, 1.0);"
 			"}"
 		);
@@ -180,7 +183,6 @@ public:
 
 		// attach the shaders to the normal rendering program
 		prog_norm.AttachShader(vs_norm);
-		//prog_norm.AttachShader(gs);
 		prog_norm.AttachShader(fs);
 		// link it
 		prog_norm.Link();

@@ -95,8 +95,11 @@ public:
 			"void main(void)"
 			"{"
 			"	float l = dot(fragLight, fragLight);"
-			"	float d = max(dot(fragNormal, fragLight)/l,0.0);"
-			"	float i = clamp(0.2 + d * 2.0, 0.0, 1.0);"
+			"	float d = l > 0.0 ? dot("
+			"		fragNormal, "
+			"		normalize(fragLight)"
+			"	) / l : 0.0;"
+			"	float i = clamp(0.2 + d * 2.2, 0.0, 1.0);"
 			"	fragColor = vec4(abs(vertNormal)*i, 1.0);"
 			"}"
 		);

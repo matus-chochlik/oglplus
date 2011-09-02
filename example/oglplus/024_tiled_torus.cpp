@@ -66,7 +66,7 @@ public:
 		line_gs.Source(
 			"#version 330\n"
 			"layout(triangles_adjacency) in;"
-			"layout(line_strip, max_vertices = 2) out;"
+			"layout(line_strip, max_vertices = 6) out;"
 			"uniform mat4 cameraMatrix, projectionMatrix;"
 			"in vec3 dir[];"
 			"void main(void)"
@@ -139,7 +139,7 @@ public:
 		fill_gs.Source(
 			"#version 330\n"
 			"layout(triangles_adjacency) in;"
-			"layout(triangle_strip, max_vertices = 3) out;"
+			"layout(triangle_strip, max_vertices = 9) out;"
 			"uniform mat4 projectionMatrix, cameraMatrix;"
 			"in vec3 lightDir[];"
 			"void main(void)"
