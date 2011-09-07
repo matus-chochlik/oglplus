@@ -11,6 +11,10 @@
 
 #include <memory>
 
+#ifndef _NDEBUG
+#include <iostream>
+#endif
+
 namespace oglplus {
 
 struct Example
@@ -27,6 +31,24 @@ struct Example
 	}
 
 	virtual void Reshape(size_t width, size_t height) = 0;
+
+	virtual bool UsesMouseMotion(void) const
+	{
+		return false;
+	}
+
+	virtual void MouseMoveNormalized(float x, float y, float aspect)
+	{
+	}
+
+	virtual void MouseMove(size_t x, size_t y, size_t width, size_t height)
+	{
+		return MouseMoveNormalized(
+			(float(x) - width * 0.5f) / (width * 0.5f),
+			(float(y) - height* 0.5f) / (height* 0.5f),
+			float(width)/height
+		);
+	}
 
 	virtual void Render(double time) = 0;
 };

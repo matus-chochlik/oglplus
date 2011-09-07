@@ -55,24 +55,52 @@ void run(const x11::Display& display)
 	).FindBest(display);
 
 	x11::VisualInfo vi(display, fbc);
+
+	const size_t width = 800, height = 600;
+
 	x11::Window win(
 		display,
 		vi,
 		x11::ColorMap(display, vi),
 		"oglplus example window",
-		800, 600
+		width, height
 	);
 	glx::Context ctx(display, fbc, 3, 0);
+
+
 	ctx.MakeCurrent(win);
 	{
 		std::unique_ptr<Example> example(makeExample());
-		example->Reshape(800, 600);
+
+		win.SelectInput(
+			example->UsesMouseMotion()?PointerMotionMask:0
+		);
+		XEvent event;
+
+		example->Reshape(width, height);
+		example->MouseMove(width/2, height/2, width, height);
 		double period =
 			double(std::chrono::system_clock::period::num)/
 			double(std::chrono::system_clock::period::den);
 		auto start = std::chrono::system_clock::now();
 		while(1)
 		{
+			while(display.NextEvent(event))
+			{
+				switch(event.type)
+				{
+					case MotionNotify:
+						example->MouseMove(
+							event.xmotion.x,
+							height-
+							event.xmotion.y,
+							width,
+							height
+						);
+						break;
+					default:;
+				}
+			}
 			auto now = std::chrono::system_clock::now();
 			double t = (now - start).count() * period;
 			if(!example->Continue(t)) break;

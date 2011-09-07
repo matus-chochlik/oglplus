@@ -19,6 +19,7 @@
 
 #include <X11/Xlib.h>
 #include <stdexcept>
+#include <cassert>
 
 namespace oglplus {
 namespace x11 {
@@ -112,6 +113,16 @@ public:
 				_handle
 			);
 		}
+	}
+
+	void SelectInput(long event_mask) const
+	{
+		assert(_handle);
+		::XSelectInput(
+			FriendlyTo<Display>::GetHandle(_display),
+			_handle,
+			event_mask
+		);
 	}
 };
 

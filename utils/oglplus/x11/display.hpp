@@ -26,6 +26,11 @@ private:
 	::Display* _handle;
 
 	friend class FriendlyTo<Display>;
+
+	static Bool _any_event(::Display*, ::XEvent*, ::XPointer)
+	{
+		return True;
+	}
 public:
 	Display(const char* name = 0)
 	 : _handle(::XOpenDisplay(name))
@@ -44,6 +49,16 @@ public:
 	~Display(void)
 	{
 		if(_handle) ::XCloseDisplay(_handle);
+	}
+
+	bool NextEvent(XEvent& event) const
+	{
+		return ::XCheckIfEvent(
+			_handle,
+			&event,
+			&_any_event,
+			::XPointer()
+		) == True;
 	}
 };
 
