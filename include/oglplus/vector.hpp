@@ -213,14 +213,18 @@ public:
 	/// Construction from to Matrix-1xN
 	template <size_t M>
 	explicit inline Vector(
-		const Matrix<T, 1, M>& matrix,
-		typename ::std::enable_if<(M == N && N > 1)>::type* = 0
+		const typename ::std::enable_if<
+			(M == N && N > 1),
+			Matrix<T, 1, M>
+		>::type& matrix
 	);
 	/// Construction from to Matrix-Nx1
 	template <size_t M>
 	explicit inline Vector(
-		const Matrix<T, M, 1>& matrix,
-		typename ::std::enable_if<(M == N && N > 1)>::type* = 0
+		const typename ::std::enable_if<
+			(M == N && N > 1),
+			Matrix<T, M, 1>
+		>::type& matrix
 	);
 
 	/// Returns the dimension of the vector

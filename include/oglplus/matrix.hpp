@@ -462,8 +462,10 @@ public:
 
 	/// Finds inverse matrix if m is square matrix and T supports fractions
 	friend Matrix Inverse(
-		Matrix m,
-		typename ::std::enable_if<(Rows > 1)&&(Rows == Cols)>::type* = 0
+		typename ::std::enable_if<
+			(Rows > 1)&&(Rows == Cols),
+			Matrix
+		>::type m
 	)
 	{
 		Matrix i;
@@ -933,8 +935,10 @@ typedef CameraMatrix<GLdouble> CamMatrixd;
 template <typename T, size_t N>
 template <size_t M>
 Vector<T, N>::Vector(
-	const Matrix<T, 1, M>& matrix,
-	typename ::std::enable_if<(M == N && N > 1) >::type*
+	const typename ::std::enable_if<
+		(M == N && N > 1),
+		Matrix<T, 1, M>
+	>::type& matrix
 )
 {
 	for(size_t i=0; i!=N; ++i)
@@ -944,8 +948,10 @@ Vector<T, N>::Vector(
 template <typename T, size_t N>
 template <size_t M>
 Vector<T, N>::Vector(
-	const Matrix<T, M, 1>& matrix,
-	typename ::std::enable_if<(M == N && N > 1)>::type*
+	const typename ::std::enable_if<
+		(M == N && N > 1),
+		Matrix<T, M, 1>
+	>::type& matrix
 )
 {
 	for(size_t i=0; i!=N; ++i)
