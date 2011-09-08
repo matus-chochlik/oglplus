@@ -47,7 +47,8 @@ protected:
 				"Getting the location of inactive uniform",
 				OGLPLUS_ERROR_INFO(GetUniformLocation),
 				Error::PropertyMap({
-					{"identifier", identifier}
+					{"identifier", identifier},
+					{"program", program.Description()}
 				})
 			);
 		}

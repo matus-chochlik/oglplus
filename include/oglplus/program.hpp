@@ -612,7 +612,11 @@ public:
 /// Encapsulates OpenGL shading language-related program functionality
 class Program
  : public ProgramOps
-{ };
+{
+public:
+	Program(void);
+	Program(std::string description);
+};
 #else
 typedef Object<ProgramOps, false> Program;
 #endif

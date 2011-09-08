@@ -22,6 +22,10 @@ namespace oglplus {
 #define OGLPLUS_DONT_TEST_OBJECT_TYPE 0
 #endif
 
+#ifndef OGLPLUS_NO_OBJECT_NAMES
+#define OGLPLUS_NO_OBJECT_NAMES 0
+#endif
+
 } // namespace oglplus
 
 #endif // include guard

@@ -146,7 +146,7 @@ int main (int argc, char ** argv)
 		auto i = err.Properties().begin(), e = err.Properties().end();
 		while(i != e)
 		{
-			std::cerr << "<" << i->first << "=" << i->second << ">";
+			std::cerr << "<" << i->first << "='" << i->second << "'>";
 			++i;
 		}
 		std::cerr <<std::endl;

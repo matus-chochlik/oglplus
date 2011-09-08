@@ -46,6 +46,7 @@ private:
 public:
 	Test04(void)
 	 : n(0)
+	 , prog("test_prog")
 	{
 		// Set the vertex shader source
 		vs.Source(

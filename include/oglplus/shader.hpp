@@ -170,6 +170,7 @@ class Shader
 {
 public:
 	Shader(ShaderOps::Kind kind);
+	Shader(ShaderOps::Kind kind, std::string description);
 };
 #else
 typedef Object<ShaderOps, false> Shader;
@@ -182,6 +183,10 @@ class SpecializedShader
 public:
 	SpecializedShader(void)
 	 : Shader(kind)
+	{ }
+
+	SpecializedShader(const ::std::string& desc)
+	 : Shader(kind, desc)
 	{ }
 
 	SpecializedShader(const SpecializedShader&) = delete;

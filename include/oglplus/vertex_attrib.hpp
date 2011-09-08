@@ -65,7 +65,8 @@ protected:
 				"Getting the location of inactive vertex attrib",
 				OGLPLUS_ERROR_INFO(GetAttribLocation),
 				Error::PropertyMap({
-					{"identifier", identifier}
+					{"identifier", identifier},
+					{"program", program.Description()}
 				})
 			);
 		}
