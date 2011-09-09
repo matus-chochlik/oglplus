@@ -117,7 +117,11 @@ public:
 		assert(_name != 0);
 		int status;
 		::glGetShaderiv(_name, GL_COMPILE_STATUS, &status);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetShaderiv));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetShaderiv,
+			Shader,
+			_name
+		));
 		return status == GL_TRUE;
 	}
 
@@ -146,11 +150,19 @@ public:
 	{
 		assert(_name != 0);
 		::glCompileShader(_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(CompileShader));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CompileShader,
+			Shader,
+			_name
+		));
 		if(!IsCompiled())
 			throw CompileError(
 				GetInfoLog(),
-				OGLPLUS_ERROR_INFO(CompileShader)
+				OGLPLUS_OBJECT_ERROR_INFO(
+					CompileShader,
+					Shader,
+					_name
+				)
 			);
 	}
 };
@@ -183,6 +195,10 @@ class SpecializedShader
 public:
 	SpecializedShader(void)
 	 : Shader(kind)
+	{ }
+
+	SpecializedShader(const char* desc)
+	 : Shader(kind, desc)
 	{ }
 
 	SpecializedShader(const ::std::string& desc)

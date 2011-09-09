@@ -41,6 +41,7 @@ protected:
 		return ::glIsQuery(_name);
 	}
 public:
+
 	enum class Target : GLenum {
 		TimeElapsed = GL_TIME_ELAPSED,
 		Timestamp = GL_TIMESTAMP,

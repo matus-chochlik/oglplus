@@ -124,10 +124,13 @@ int main (int argc, char ** argv)
 	catch(oglplus::ProgramBuildError& pbe)
 	{
 		std::cerr <<
-			"Error [in gl" << pbe.GLSymbol() << "]: " <<
+			"Error (in gl" << pbe.GLSymbol() << ", " <<
+			pbe.ClassName() << ": '" <<
+			pbe.ObjectDescription() << "'): " <<
 			pbe.what() << ": " <<
 			pbe.Log() <<
 			std::endl;
+		pbe.Cleanup();
 	}
 	catch(oglplus::LimitError& le)
 	{
@@ -136,11 +139,14 @@ int main (int argc, char ** argv)
 			le.GLSymbol() << " == " << le.Limit() << ") " <<
 			" [" << le.File() << ":" << le.Line() << "] " <<
 			std::endl;
+		le.Cleanup();
 	}
 	catch(oglplus::Error& err)
 	{
 		std::cerr <<
-			"Error (in gl" << err.GLSymbol() << "): " <<
+			"Error (in gl" << err.GLSymbol() << ", " <<
+			err.ClassName() << ": '" <<
+			err.ObjectDescription() << "'): " <<
 			err.what() <<
 			" [" << err.File() << ":" << err.Line() << "] ";
 		auto i = err.Properties().begin(), e = err.Properties().end();
@@ -150,6 +156,7 @@ int main (int argc, char ** argv)
 			++i;
 		}
 		std::cerr <<std::endl;
+		err.Cleanup();
 	}
 	catch(std::exception& se)
 	{

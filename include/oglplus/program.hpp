@@ -100,7 +100,11 @@ public:
 	{
 		assert(_name != 0);
 		::glAttachShader(_name, FriendOf<Shader>::GetName(shader));
-		ThrowOnError(OGLPLUS_ERROR_INFO(AttachShader));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			AttachShader,
+			Program,
+			_name
+		));
 	}
 
 
@@ -109,7 +113,11 @@ public:
 	{
 		assert(_name != 0);
 		::glDetachShader(_name, FriendOf<Shader>::GetName(shader));
-		ThrowOnError(OGLPLUS_ERROR_INFO(DetachShader));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			DetachShader,
+			Program,
+			_name
+		));
 	}
 
 	/// Returns true if the program is already linked, false otherwise
@@ -121,7 +129,11 @@ public:
 	{
 		int status;
 		::glGetProgramiv(_name, GL_LINK_STATUS, &status);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 		return status == GL_TRUE;
 	}
 
@@ -150,11 +162,19 @@ public:
 	{
 		assert(_name != 0);
 		::glLinkProgram(_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(LinkProgram));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			LinkProgram,
+			Program,
+			_name
+		));
 		if(!IsLinked())
 			throw LinkError(
 				GetInfoLog(),
-				OGLPLUS_ERROR_INFO(LinkProgram)
+				OGLPLUS_OBJECT_ERROR_INFO(
+					LinkProgram,
+					Program,
+					_name
+				)
 			);
 	}
 
@@ -166,7 +186,11 @@ public:
 	{
 		int status;
 		::glGetProgramiv(_name, GL_VALIDATE_STATUS, &status);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 		return status == GL_TRUE;
 	}
 
@@ -179,11 +203,19 @@ public:
 	{
 		assert(_name != 0);
 		::glValidateProgram(_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ValidateProgram));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			ValidateProgram,
+			Program,
+			_name
+		));
 		if(!IsValid())
 			throw ValidationError(
 				GetInfoLog(),
-				OGLPLUS_ERROR_INFO(ValidateProgram)
+				OGLPLUS_OBJECT_ERROR_INFO(
+					ValidateProgram,
+					Program,
+					_name
+				)
 			);
 	}
 
@@ -199,7 +231,11 @@ public:
 		assert(_name != 0);
 		assert(IsLinked());
 		::glUseProgram(_name);
-		AssertNoError(OGLPLUS_ERROR_INFO(UseProgram));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			UseProgram,
+			Program,
+			_name
+		));
 	}
 
 	/// Information about a single active vertex attribute or uniform
@@ -279,7 +315,11 @@ public:
 			GLuint index
 		): ActiveVariableInfo(context, index, &::glGetActiveAttrib)
 		{
-			ThrowOnError(OGLPLUS_ERROR_INFO(GetActiveAttrib));
+			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+				GetActiveAttrib,
+				Program,
+				context.Program()
+			));
 		}
 	};
 	typedef aux::BaseRange<
@@ -294,7 +334,11 @@ public:
 			GLuint index
 		): ActiveVariableInfo(context, index, &::glGetActiveUniform)
 		{
-			ThrowOnError(OGLPLUS_ERROR_INFO(GetActiveUniform));
+			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+				GetActiveUniform,
+				Program,
+				context.Program()
+			));
 		}
 	};
 	typedef aux::BaseRange<
@@ -313,9 +357,11 @@ public:
 			&::glGetTransformFeedbackVarying
 		)
 		{
-			ThrowOnError(
-				OGLPLUS_ERROR_INFO(GetTransformFeedbackVarying)
-			);
+			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+				GetTransformFeedbackVarying,
+				Program,
+				context.Program()
+			));
 		}
 	};
 	typedef aux::BaseRange<
@@ -336,10 +382,18 @@ public:
 		GLint count = 0, length = 0;
 		// get the count of active attributes
 		::glGetProgramiv(_name, GL_ACTIVE_ATTRIBUTES, &count);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 		// get the maximum string length of the longest identifier
 		::glGetProgramiv(_name, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &length);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 
 		return ActiveAttribRange(
 			aux::_ProgramVarInfoContext(_name, length),
@@ -359,10 +413,18 @@ public:
 		GLint count = 0, length = 0;
 		// get the count of active uniforms
 		::glGetProgramiv(_name, GL_ACTIVE_UNIFORMS, &count);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 		// get the maximum string length of the longest identifier
 		::glGetProgramiv(_name, GL_ACTIVE_UNIFORM_MAX_LENGTH, &length);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 
 		return ActiveUniformRange(
 			aux::_ProgramVarInfoContext(_name, length),
@@ -382,13 +444,21 @@ public:
 		GLint count = 0, length = 0;
 		// get the count of transform feedback varyings
 		::glGetProgramiv(_name, GL_TRANSFORM_FEEDBACK_VARYINGS, &count);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 		::glGetProgramiv(
 			_name,
 			GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH,
 			&length
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 
 		return TransformFeedbackVaryingRange(
 			aux::_ProgramVarInfoContext(_name, length),
@@ -412,7 +482,11 @@ public:
 			varyings,
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TransformFeedbackVaryings));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TransformFeedbackVaryings,
+			Program,
+			_name
+		));
 	}
 
 	/// Sets the variables that will be captured during transform feedback
@@ -440,7 +514,11 @@ public:
 			tmp.data(),
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TransformFeedbackVaryings));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TransformFeedbackVaryings,
+			Program,
+			_name
+		));
 	}
 
 	/// Information about a active uniform block
@@ -468,7 +546,11 @@ public:
 			);
 			if(context.Buffer().size() < size_t(length))
 				context.Buffer().resize(length);
-			ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+				GetProgramiv,
+				Program,
+				context.Program()
+			));
 			GLsizei strlen = 0;
 			::glGetActiveUniformBlockName(
 				context.Program(),
@@ -477,9 +559,11 @@ public:
 				&strlen,
 				context.Buffer().data()
 			);
-			ThrowOnError(
-				OGLPLUS_ERROR_INFO(GetActiveUniformBlockName)
-			);
+			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+				GetActiveUniformBlockName,
+				Program,
+				context.Program()
+			));
 			_name = std::string(context.Buffer().data(), strlen);
 		}
 
@@ -520,7 +604,11 @@ public:
 		GLint count = 0, length = 0;
 		// get the count of active uniform blocks
 		::glGetProgramiv(_name, GL_ACTIVE_UNIFORM_BLOCKS, &count);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 		if(count != 0)
 		{
 			// get the string length of the first identifier
@@ -529,7 +617,11 @@ public:
 				GL_UNIFORM_BLOCK_NAME_LENGTH,
 				&length
 			);
-			ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+				GetProgramiv,
+				Program,
+				_name
+			));
 		}
 		return ActiveUniformBlockRange(
 			aux::_ProgramVarInfoContext(_name, length),
@@ -545,7 +637,11 @@ public:
 			GL_PROGRAM_SEPARABLE,
 			para ? GL_TRUE : GL_FALSE
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ProgramParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			ProgramParameteri,
+			Program,
+			_name
+		));
 	}
 
 	void MakeRetrievable(bool para = true) const
@@ -556,7 +652,11 @@ public:
 			GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
 			para ? GL_TRUE : GL_FALSE
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ProgramParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			ProgramParameteri,
+			Program,
+			_name
+		));
 	}
 
 	void GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
@@ -568,7 +668,11 @@ public:
 			GL_PROGRAM_BINARY_LENGTH,
 			&size
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
 		if(size > 0)
 		{
 			GLsizei len = 0;
@@ -580,7 +684,11 @@ public:
 				&format,
 				binary.data()
 			);
-			ThrowOnError(OGLPLUS_ERROR_INFO(GetProgramBinary));
+			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+				GetProgramBinary,
+				Program,
+				_name
+			));
 		}
 	}
 
@@ -593,7 +701,11 @@ public:
 			binary.data(),
 			binary.size()
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ProgramBinary));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			ProgramBinary,
+			Program,
+			_name
+		));
 	}
 
 	// Implemented in vertex_attrib.hpp

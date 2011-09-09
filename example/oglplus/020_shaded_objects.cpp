@@ -253,9 +253,9 @@ private:
 	}
 
 	// makes a fragment shader from the prologe, custom part and epilogue
-	static FragmentShader make_fs(const char* color_fs)
+	static FragmentShader make_fs(const char* color_fs, const char* desc)
 	{
-		FragmentShader shader;
+		FragmentShader shader(desc);
 		const GLchar* src[3] = {fs_prologue(), color_fs, fs_epilogue()};
 		shader.Source(src, 3);
 		shader.Compile();
@@ -272,11 +272,11 @@ private:
 public:
 	ShapeExample(void)
 	 : vs(make_vs())
-	 , sphere(vs,make_fs(fs_yb_strips()))
-	 , cubeX(vs, make_fs(fs_bw_checker()))
-	 , cubeY(vs, make_fs(fs_br_circles()))
-	 , cubeZ(vs, make_fs(fs_wg_spirals()))
-	 , torus(vs, make_fs(fs_wo_vstrips()))
+	 , sphere(vs,make_fs(fs_yb_strips(), "Y/B strips"))
+	 , cubeX(vs, make_fs(fs_bw_checker(), "B/W checker"))
+	 , cubeY(vs, make_fs(fs_br_circles(), "B/R circles"))
+	 , cubeZ(vs, make_fs(fs_wg_spirals(), "W/G spirals"))
+	 , torus(vs, make_fs(fs_wo_vstrips(), "W/O vstrips"))
 	{
 		gl.ClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		gl.ClearDepth(1.0f);

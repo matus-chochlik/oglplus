@@ -14,56 +14,10 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/auxiliary/named.hpp>
+#include <oglplus/auxiliary/strings.hpp>
 #include <cassert>
 
-#if OGLPLUS_NO_OBJECT_NAMES == 0
-#include <map>
-#endif
-
 namespace oglplus {
-
-template <class ObjectOps>
-class ObjectDescRegistry
-{
-private:
-#if OGLPLUS_NO_OBJECT_NAMES == 0
-	typedef ::std::map<GLuint, ::std::string> _desc_map;
-	static _desc_map& _storage(void)
-	{
-		static _desc_map _store;
-		return _store;
-	}
-#endif
-protected:
-	static void _register_desc(GLuint name, const std::string& desc)
-	{
-#if OGLPLUS_NO_OBJECT_NAMES == 0
-		assert(name != 0);
-		assert(_storage().find(name) == _storage().end());
-		_storage().insert(typename _desc_map::value_type(name, desc));
-#endif
-	}
-
-	static void _unregister_desc(GLuint name)
-	{
-#if OGLPLUS_NO_OBJECT_NAMES == 0
-		assert(name != 0);
-		_storage().erase(name);
-#endif
-	}
-
-	static const ::std::string& _get_desc(GLuint name)
-	{
-		static ::std::string nodesc;
-#if OGLPLUS_NO_OBJECT_NAMES == 0
-		assert(name != 0);
-		auto pos = _storage().find(name);
-		if(pos != _storage().end()) return pos->second;
-#endif
-		return nodesc;
-	}
-};
-
 
 template <class Object>
 class Array;
@@ -78,7 +32,7 @@ class Managed;
 template <class ObjectOps, bool MultiObject>
 class Object
  : public ObjectOps
- , public ObjectDescRegistry<ObjectOps>
+ , public aux::ObjectDescRegistry<ObjectOps>
 {
 private:
 	GLuint _release(void)
@@ -135,6 +89,14 @@ public:
 		assert(_type_ok(this->_name));
 	}
 
+	Object(const char* desc)
+	{
+		_do_init(1, this->_name);
+		assert(this->_name != 0);
+		assert(_type_ok(this->_name));
+		this->_register_desc(this->_name, desc);
+	}
+
 	Object(const ::std::string& desc)
 	{
 		_do_init(1, this->_name);
@@ -161,6 +123,18 @@ public:
 		_do_init(1, this->_name, kind);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
+	}
+
+	template <typename _Object = Object>
+	Object(
+		typename _Object::Kind kind,
+		const char* desc
+	)
+	{
+		_do_init(1, this->_name, kind);
+		assert(this->_name != 0);
+		assert(_type_ok(this->_name));
+		this->_register_desc(this->_name, desc);
 	}
 
 	template <typename _Object = Object>
