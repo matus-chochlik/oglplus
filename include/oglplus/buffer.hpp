@@ -17,6 +17,7 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/limited_value.hpp>
 #include <oglplus/vector.hpp>
+#include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -94,6 +95,32 @@ public:
 		TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
 		Uniform = GL_UNIFORM_BUFFER
 	};
+
+protected:
+	static GLenum _binding_query(Target target)
+	{
+		switch(GLenum(target))
+		{
+			case GL_ARRAY_BUFFER:
+				return GL_ARRAY_BUFFER_BINDING;
+			case GL_DRAW_INDIRECT_BUFFER:
+				return GL_DRAW_INDIRECT_BUFFER_BINDING;
+			case GL_ELEMENT_ARRAY_BUFFER:
+				return GL_ELEMENT_ARRAY_BUFFER_BINDING;
+			case GL_PIXEL_PACK_BUFFER:
+				return GL_PIXEL_PACK_BUFFER_BINDING;
+			case GL_PIXEL_UNPACK_BUFFER:
+				return GL_PIXEL_UNPACK_BUFFER_BINDING;
+			case GL_TRANSFORM_FEEDBACK_BUFFER:
+				return GL_TRANSFORM_FEEDBACK_BUFFER_BINDING;
+			case GL_UNIFORM_BUFFER:
+				return GL_UNIFORM_BUFFER_BINDING;
+			default:;
+		}
+		return 0;
+	}
+	friend class BindingQuery<BufferOps>;
+public:
 
 	/// Buffer indexed bind targets
 	enum class IndexedTarget : GLenum {
@@ -254,7 +281,11 @@ public:
 	{
 		assert(_name != 0);
 		::glBindBuffer(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindBuffer));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffer,
+			Buffer,
+			_name
+		));
 	}
 
 	/// Unbind the current buffer from the specified target
@@ -264,7 +295,11 @@ public:
 	static void Unbind(Target target)
 	{
 		::glBindBuffer(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindBuffer));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffer,
+			Buffer,
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
 	}
 
 	/// Bind this buffer to the specified indexed target
@@ -275,7 +310,11 @@ public:
 	{
 		assert(_name != 0);
 		::glBindBufferBase(GLenum(target), index, _name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindBufferBase));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBufferBase,
+			Buffer,
+			_name
+		));
 	}
 
 	/// Bind this buffer to the specified uniform buffer binding point
@@ -321,7 +360,11 @@ public:
 	{
 		assert(_name != 0);
 		::glBindBufferRange(GLenum(target), index, _name, offset, size);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindBufferRange));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBufferRange,
+			Buffer,
+			_name
+		));
 	}
 
 	/// Uploads (sets) the buffer data
@@ -344,7 +387,11 @@ public:
 			data,
 			GLenum(usage)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(BufferData));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			BufferData,
+			Buffer,
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
 	}
 
 	/// Uploads (sets) the buffer data
@@ -366,7 +413,11 @@ public:
 			data.data(),
 			GLenum(usage)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(BufferData));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			BufferData,
+			Buffer,
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
 	}
 
 	/// Uploads (sets) the buffer data
@@ -389,7 +440,11 @@ public:
 			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(BufferData));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			BufferData,
+			Buffer,
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
 	}
 
 	/// Uploads (sets) a subrange of the buffer data
@@ -412,7 +467,11 @@ public:
 			count * sizeof(GLtype),
 			data
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(BufferSubData));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			BufferSubData,
+			Buffer,
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
 	}
 
 	/// Uploads (sets) a subrange of the buffer data
@@ -434,7 +493,11 @@ public:
 			data.size() * sizeof(GLtype),
 			data.data()
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(BufferSubData));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			BufferSubData,
+			Buffer,
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
 	}
 
 	/// Copy data between buffers

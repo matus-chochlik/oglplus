@@ -19,6 +19,7 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/limited_value.hpp>
 #include <oglplus/image.hpp>
+#include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -147,6 +148,52 @@ public:
 		CubeMapNegativeZ = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
 	};
 
+protected:
+	static GLenum _binding_query(Target target)
+	{
+		switch(GLenum(target))
+		{
+			case GL_TEXTURE_1D:
+				return GL_TEXTURE_BINDING_1D;
+			case GL_TEXTURE_2D:
+				return GL_TEXTURE_BINDING_2D;
+			case GL_TEXTURE_3D:
+				return GL_TEXTURE_BINDING_3D;
+			case GL_TEXTURE_1D_ARRAY:
+				return GL_TEXTURE_BINDING_1D_ARRAY;
+			case GL_TEXTURE_2D_ARRAY:
+				return GL_TEXTURE_BINDING_2D_ARRAY;
+			case GL_TEXTURE_RECTANGLE:
+				return GL_TEXTURE_BINDING_RECTANGLE;
+			case GL_TEXTURE_BUFFER:
+				return GL_TEXTURE_BINDING_BUFFER;
+			case GL_TEXTURE_CUBE_MAP:
+				return GL_TEXTURE_BINDING_CUBE_MAP;
+			case GL_TEXTURE_CUBE_MAP_ARRAY:
+				return GL_TEXTURE_BINDING_CUBE_MAP_ARRAY;
+			case GL_TEXTURE_2D_MULTISAMPLE:
+				return GL_TEXTURE_BINDING_2D_MULTISAMPLE;
+			case GL_TEXTURE_2D_MULTISAMPLE_ARRAY:
+				return GL_TEXTURE_BINDING_2D_MULTISAMPLE_ARRAY;
+			case GL_TEXTURE_CUBE_MAP_POSITIVE_X:
+				return GL_TEXTURE_BINDING_CUBE_MAP;
+			case GL_TEXTURE_CUBE_MAP_NEGATIVE_X:
+				return GL_TEXTURE_BINDING_CUBE_MAP;
+			case GL_TEXTURE_CUBE_MAP_POSITIVE_Y:
+				return GL_TEXTURE_BINDING_CUBE_MAP;
+			case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y:
+				return GL_TEXTURE_BINDING_CUBE_MAP;
+			case GL_TEXTURE_CUBE_MAP_POSITIVE_Z:
+				return GL_TEXTURE_BINDING_CUBE_MAP;
+			case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z:
+				return GL_TEXTURE_BINDING_CUBE_MAP;
+			default:;
+		}
+		return 0;
+	}
+	friend class BindingQuery<TextureOps>;
+public:
+
 	/// Specify active texture unit for subsequent commands
 	/**
 	 *  @throws Error
@@ -170,7 +217,11 @@ public:
 	{
 		assert(_name != 0);
 		::glBindTexture(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindTexture));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			BindTexture,
+			Texture,
+			_name
+		));
 	}
 
 	/// Unbinds the current texture from the target on the Active unit
@@ -212,7 +263,11 @@ public:
 			GLenum(type),
 			data
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(TexImage3D));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage3D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Specifies a three dimensional texture image
@@ -236,7 +291,11 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(TexImage3D));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage3D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Specifies a two dimensional texture image
@@ -263,7 +322,11 @@ public:
 			GLenum(type),
 			data
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(TexImage2D));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage2D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Specifies a two dimensional texture image
@@ -286,7 +349,11 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(TexImage2D));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage2D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Specifies a one dimensional texture image
@@ -312,7 +379,11 @@ public:
 			GLenum(type),
 			data
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(TexImage1D));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Specifies a one dimensional texture image
@@ -334,7 +405,11 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(TexImage1D));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the texture base level (TEXTURE_BASE_LEVEL)
@@ -345,7 +420,11 @@ public:
 			GL_TEXTURE_BASE_LEVEL,
 			level
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -356,7 +435,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameterfv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterfv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -367,7 +450,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameterIiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterIiv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -378,7 +465,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameterIuiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterIuiv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the compare mode (TEXTURE_COMPARE_MODE)
@@ -389,7 +480,11 @@ public:
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
@@ -400,7 +495,11 @@ public:
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
@@ -411,7 +510,11 @@ public:
 			GL_TEXTURE_LOD_BIAS,
 			value
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameterf));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterf,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the magnification filter (TEXTURE_MAG_FILTER)
@@ -422,7 +525,11 @@ public:
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the minnification filter (TEXTURE_MAG_FILTER)
@@ -433,7 +540,11 @@ public:
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets minimal LOD value (TEXTURE_MIN_LOD)
@@ -444,7 +555,11 @@ public:
 			GL_TEXTURE_MIN_LOD,
 			value
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameterf));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterf,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets maximal LOD value (TEXTURE_MAX_LOD)
@@ -455,7 +570,11 @@ public:
 			GL_TEXTURE_MAX_LOD,
 			value
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameterf));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterf,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_*)
@@ -470,7 +589,11 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_R)
@@ -515,7 +638,11 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(TexParameteri));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_S)
@@ -540,7 +667,11 @@ public:
 	static void GenerateMipmap(Target target)
 	{
 		::glGenerateMipmap(GLenum(target));
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenerateMipmap));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GenerateMipmap,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 };
 

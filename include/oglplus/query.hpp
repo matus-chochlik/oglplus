@@ -56,14 +56,22 @@ public:
 	{
 		assert(_name != 0);
 		::glBeginQuery(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BeginQuery));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			BeginQuery,
+			Query,
+			_name
+		));
 	}
 
 	void End(Target target) const
 	{
 		assert(_name != 0);
 		::glEndQuery(GLenum(target));
-		AssertNoError(OGLPLUS_ERROR_INFO(EndQuery));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			EndQuery,
+			Query,
+			_name
+		));
 	}
 
 	bool ResultAvailable(void) const
@@ -75,7 +83,11 @@ public:
 			GL_QUERY_RESULT_AVAILABLE,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetQueryObjectuiv));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetQueryObjectuiv,
+			Query,
+			_name
+		));
 		return result == GL_TRUE;
 	}
 
@@ -87,7 +99,11 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetQueryObjectiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetQueryObjectiv,
+			Query,
+			_name
+		));
 	}
 
 	void Result(GLuint& result) const
@@ -98,7 +114,11 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetQueryObjectuiv));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetQueryObjectuiv,
+			Query,
+			_name
+		));
 	}
 
 	void Result(GLint64& result) const
@@ -109,7 +129,11 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetQueryObjecti64v));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetQueryObjecti64v,
+			Query,
+			_name
+		));
 	}
 
 	void Result(GLuint64& result) const
@@ -120,7 +144,11 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetQueryObjectui64v));
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetQueryObjectui64v,
+			Query,
+			_name
+		));
 	}
 
 	template <typename ResultType>

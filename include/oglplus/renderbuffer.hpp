@@ -46,6 +46,18 @@ public:
 	enum class Target : GLenum {
 		Default = GL_RENDERBUFFER
 	};
+protected:
+	static GLenum _binding_query(Target target)
+	{
+		switch(GLenum(target))
+		{
+			case GL_RENDERBUFFER:
+				return GL_RENDERBUFFER_BINDING;
+			default:;
+		}
+		return 0;
+	}
+public:
 
 	void Bind(Target target = Target::Default) const
 	{

@@ -23,7 +23,7 @@ namespace oglplus {
 /**
  *  @note Do not use this class directly, use FrameBuffer instead
  *
- *  @see FrameBuffer
+ *  @see Framebuffer
  */
 class FramebufferOps
  : public Named
@@ -63,7 +63,11 @@ public:
 	{
 		assert(_name != 0);
 		::glBindFramebuffer(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindFramebuffer));
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			BindFramebuffer,
+			Framebuffer,
+			_name
+		));
 	}
 
 	/// Unbinds the currently bound framebuffer from the specified target
