@@ -21,51 +21,62 @@
 
 namespace oglplus {
 
+/// Allows to allocate and manage several instances of Object at once
 template <class Object>
 class Array
 {
 private:
 	std::vector<Object> _storage;
 public:
+	/// Constructor specifying the number of instance in the array
 	Array(GLsizei c)
 	 : _storage(c)
 	{ }
 
+	/// Array is not copy constructible
 	Array(const Array&) = delete;
 
+	/// Returns true if the array is empty
 	bool empty(void) const
 	{
 		return _storage.empty();
 	}
 
+	/// Returns the number of instances in the array
 	GLsizei size(void) const
 	{
 		return _storage.size();
 	}
 
+	/// Returns a reference to the i-th instance in the array
 	const Object& at(GLuint index) const
 	{
 		return _storage[index];
 	}
 
+	/// Returns a reference to the i-th instance in the array
 	const Object& operator[](GLuint index) const
 	{
 		return _storage[index];
 	}
 
+	/// Iterator type
 	typedef typename std::vector<Object>::const_iterator iterator;
 
+	/// Returns an iterator pointing to the first element
 	iterator begin(void) const
 	{
 		return _storage.begin();
 	}
 
+	/// Returns an iterator pointing after the last element
 	iterator end(void) const
 	{
 		return _storage.end();
 	}
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
+	/// Returns a range allowing to traverse the instances in the array
 	Range<Object> all(void) const;
 #else
 	aux::IterRange<iterator> all(void) const

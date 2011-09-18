@@ -73,7 +73,6 @@ namespace oglplus {
 /// Basic information about exception's throw site and propagation trace points
 /**
  *  @see ErrorGLSymbol
- *  @see ErrorCode
  *  @see ErrorFunc
  *  @see ErrorFile
  *  @see ErrorLine
@@ -105,7 +104,6 @@ struct ErrorInfo
  *  which are related to the error.
  *
  *  @see ErrorInfo
- *  @see ErrorCode
  *  @see ErrorFunc
  *  @see ErrorFile
  *  @see ErrorLine
@@ -121,7 +119,6 @@ inline const char* ErrorGLSymbol(const ErrorInfo& info)
 /**
  *  @see ErrorInfo
  *  @see ErrorGLSymbol
- *  @see ErrorCode
  *  @see ErrorFunc
  *  @see ErrorLine
  *  @see ErrorClassName
@@ -136,7 +133,6 @@ inline const char* ErrorFile(const ErrorInfo& info)
 /**
  *  @see ErrorInfo
  *  @see ErrorGLSymbol
- *  @see ErrorCode
  *  @see ErrorName
  *  @see ErrorLine
  *  @see ErrorClassName
@@ -151,7 +147,6 @@ inline const char* ErrorFunc(const ErrorInfo& info)
 /**
  *  @see ErrorInfo
  *  @see ErrorGLSymbol
- *  @see ErrorCode
  *  @see ErrorName
  *  @see ErrorFunc
  *  @see ErrorClassName
@@ -166,7 +161,6 @@ inline unsigned ErrorLine(const ErrorInfo& info)
 /**
  *  @see ErrorInfo
  *  @see ErrorGLSymbol
- *  @see ErrorCode
  *  @see ErrorName
  *  @see ErrorFunc
  *  @see ErrorLine
@@ -181,7 +175,6 @@ inline const char* ErrorClassName(const ErrorInfo& info)
 /**
  *  @see ErrorInfo
  *  @see ErrorGLSymbol
- *  @see ErrorCode
  *  @see ErrorName
  *  @see ErrorFunc
  *  @see ErrorLine
@@ -247,6 +240,8 @@ public:
 	 *  @see File
 	 *  @see Func
 	 *  @see Line
+	 *  @see ClassName
+	 *  @see ObjectDescription
 	 */
 	GLenum Code(void) const
 	{
@@ -260,6 +255,8 @@ public:
 	 *  @see File
 	 *  @see Func
 	 *  @see Line
+	 *  @see ClassName
+	 *  @see ObjectDescription
 	 */
 	const ErrorInfo& ThrowInfo(void) const
 	{
@@ -277,6 +274,8 @@ public:
 	 *  @see Func
 	 *  @see File
 	 *  @see Line
+	 *  @see ClassName
+	 *  @see ObjectDescription
 	 */
 	const char* GLSymbol(void) const
 	{
@@ -290,6 +289,8 @@ public:
 	 *  @see Code
 	 *  @see Func
 	 *  @see Line
+	 *  @see ClassName
+	 *  @see ObjectDescription
 	 */
 	const char* File(void) const
 	{
@@ -301,8 +302,10 @@ public:
 	 *  @see ThrowInfo
 	 *  @see GLSymbol
 	 *  @see Code
-	 *  @see Name
+	 *  @see File
 	 *  @see Line
+	 *  @see ClassName
+	 *  @see ObjectDescription
 	 */
 	const char* Func(void) const
 	{
@@ -314,8 +317,10 @@ public:
 	 *  @see ThrowInfo
 	 *  @see GLSymbol
 	 *  @see Code
-	 *  @see Name
+	 *  @see File
 	 *  @see Func
+	 *  @see ClassName
+	 *  @see ObjectDescription
 	 */
 	unsigned Line(void) const
 	{

@@ -72,6 +72,8 @@ HDRSUBDIRS = \
 all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS)) \
 	$(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
 
+.PHONY: clean;
+
 textures: $(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
 
 docs: html_docs;
@@ -219,7 +221,6 @@ include $(addsuffix .d,$(addprefix $(BLDDIR)/,$(HTML_DOCS)))
 endif
 
 # cleanup
-.PHONY: clean
 clean:
 	rm -rf $(shell readlink $(OUTDIR) || echo $(OUTDIR))
 	rm -rf $(shell readlink $(BLDDIR) || echo $(BLDDIR))

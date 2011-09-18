@@ -16,7 +16,22 @@
 
 namespace oglplus {
 
-/// Class implementing angle-related functionality
+/// Class implementing planar angle-related functionality
+/** @c Angle is a lightweight class allowing more natural construction and
+ *  usage of planar angle values. The storage requirements are the same
+ *  as for the template parameter type @c T and the @c Angle template gives
+ *  the @c T type special meaning and implements a set of angle-related member
+ *  functions. There are also several associated free functions for creating
+ *  new instances of @c Angle.
+ *
+ *  @see oglplus::Radians
+ *  @see oglplus::Degrees
+ *  @see oglplus::FullCircles
+ *  @see oglplus::RightAngles
+ *  @see oglplus::ArcSin
+ *  @see oglplus::ArcCos
+ *  @see oglplus::ArcTan
+ */
 template <typename T>
 class Angle
 {
@@ -39,14 +54,16 @@ public:
 	 : _val_rad(T(0))
 	{ }
 
+	/// Angle is copy constructible
 	Angle(const Angle&) = default;
 
+	/// Copy construction from angles using different representation type
 	template <typename U>
 	Angle(const Angle<U>& other)
 	 : _val_rad(T(other.Value()))
 	{ }
 
-	/// Constructs a new angle from value in degrees
+	/// Constructs a new angle from value in radians
 	static inline Angle Radians(T val_rad)
 	{
 		return Angle(val_rad, _Radians());
@@ -174,10 +191,14 @@ public:
 };
 
 /// Creates a new angle from a value in radians
-/**
+/** This function creates a new instance of @c Angle<GLfloat>
+ *  from a floating-point value in radians.
+ *
  *  @param val_rad a value in radians
  *
  *  @see Degrees
+ *  @see FullCircles
+ *  @see RightAngles
  *  @see ArcSin
  *  @see ArcCos
  *  @see ArcTan
@@ -185,6 +206,31 @@ public:
 inline Angle<GLfloat> Radians(GLfloat val_rad)
 {
 	return Angle<GLfloat>::Radians(val_rad);
+}
+
+/// Creates a new angle from a value in degrees
+/** This function creates a new instance of @c Angle<GLfloat>
+ *  from a floating-point value in degrees.
+ *  Examples:
+ *  @code
+ *  // create a 30 degree angle
+ *  Degrees(30);
+ *  // create a right angle
+ *  Degrees(90);
+ *  @endcode
+ *
+ *  @param val_deg a value in degrees
+ *
+ *  @see Radians
+ *  @see FullCircles
+ *  @see RightAngles
+ *  @see ArcSin
+ *  @see ArcCos
+ *  @see ArcTan
+ */
+inline Angle<GLfloat> Degrees(GLfloat val_deg)
+{
+	return Angle<GLfloat>::Degrees(val_deg);
 }
 
 /// Creates a new angle from a value in "full circles" (i.e. 360 deg.)
@@ -245,6 +291,8 @@ inline Angle<GLfloat> RightAngles(GLfloat value)
  *
  *  @see Radians
  *  @see Degrees
+ *  @see FullCircles
+ *  @see RightAngles
  *  @see ArcCos
  *  @see ArcTan
  */
@@ -260,6 +308,8 @@ inline Angle<GLfloat> ArcSin(GLfloat x)
  *
  *  @see Radians
  *  @see Degrees
+ *  @see FullCircles
+ *  @see RightAngles
  *  @see ArcSin
  *  @see ArcTan
  */
@@ -274,6 +324,8 @@ inline Angle<GLfloat> ArcCos(GLfloat x)
  *
  *  @see Radians
  *  @see Degrees
+ *  @see FullCircles
+ *  @see RightAngles
  *  @see ArcSin
  *  @see ArcTan
  */
@@ -287,26 +339,14 @@ inline Angle<GLfloat> ArcTan(GLfloat x)
  *
  *  @see Radians
  *  @see Degrees
+ *  @see FullCircles
+ *  @see RightAngles
  *  @see ArcSin
  *  @see ArcTan
  */
 inline Angle<GLfloat> ArcTan(GLfloat y, GLfloat x)
 {
 	return Angle<GLfloat>::Radians(::std::atan2(y, x));
-}
-
-/// Creates a new angle from a value in degrees
-/**
- *  @param val_deg a value in degrees
- *
- *  @see Radians
- *  @see ArcSin
- *  @see ArcCos
- *  @see ArcTan
- */
-inline Angle<GLfloat> Degrees(GLfloat val_deg)
-{
-	return Angle<GLfloat>::Degrees(val_deg);
 }
 
 } // namespace oglplus

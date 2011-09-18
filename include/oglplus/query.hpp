@@ -19,6 +19,9 @@
 
 namespace oglplus {
 
+/// Wrapper for asynchronous query functions
+/** @note Do not use this class directly, use Query instead.
+ */
 class QueryOps
  : public Named
 {
@@ -209,7 +212,15 @@ public:
 	}
 };
 
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Encapsulates the OpenGL asynchronous query functionality
+class Query
+ : public QueryOps
+{ };
+#else
 typedef Object<QueryOps, true> Query;
+#endif
 
 } // namespace oglplus
 

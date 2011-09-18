@@ -19,6 +19,9 @@
 
 namespace oglplus {
 
+/// Class wrapping renderbuffer-related functionality
+/** @note Do not use this class directly, use Renderbuffer instead.
+ */
 class RenderbufferOps
  : public Named
 {
@@ -73,7 +76,15 @@ public:
 	}
 };
 
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Encapsulates the OpenGL renderbuffer-related functionality
+class Renderbuffer
+ : public RenderbufferOps
+{ };
+#else
 typedef Object<RenderbufferOps, true> Renderbuffer;
+#endif
 
 } // namespace oglplus
 
