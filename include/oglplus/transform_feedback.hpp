@@ -22,7 +22,9 @@ namespace oglplus {
 /// The mode used to capture the varying variables in TF
 enum class TransformFeedbackMode : GLenum
 {
+	/// INTERLEAVED_ATTRIBS
 	InterleavedAttribs = GL_INTERLEAVED_ATTRIBS,
+	/// SEPARATE_ATTRIBS
 	SeparateAttribs = GL_SEPARATE_ATTRIBS
 };
 
@@ -52,13 +54,17 @@ protected:
 public:
 	/// Transform feedback bind targets
 	enum class Target : GLenum {
+		/// The default target (TRANSFORM_FEEDBACK)
 		Default = GL_TRANSFORM_FEEDBACK
 	};
 
 	/// Transform feedback primitive modes
 	enum class PrimitiveType : GLenum {
+		/// TRIANGLES
 		Triangles = GL_TRIANGLES,
+		/// LINES
 		Lines = GL_LINES,
+		/// POINTS
 		Points = GL_POINTS
 	};
 
@@ -200,7 +206,15 @@ public:
 	};
 };
 
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// An @ref oglplus_object encapsulating the OpenGL transform feedback functionality
+class TransformFeedback
+ : public TransformFeedbackOps
+{ };
+#else
 typedef Object<TransformFeedbackOps, true> TransformFeedback;
+#endif
 
 } // namespace oglplus
 

@@ -186,7 +186,12 @@ $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTD
 
 #build the doxygen html documentation
 $(OUTDIR)/doc/doxygen/%/html/index.html: $(wildcard doc/doxygen/Doxyfile.*) example_screenshots
-	cd doc/doxygen && (cat Doxyfile.oglplus && echo "QUIET=YES") | doxygen -
+	@cd doc/doxygen && (\
+		cat Doxyfile.oglplus && \
+		echo "QUIET=YES" && \
+		echo -n "PROJECT_NUMBER = " && \
+		cat ../../VERSION \
+	) | doxygen -
 
 # build dependencies for doxygen XML output
 $(BLDDIR)/xml/index.xml.d: | $(BLDDIR)/xml

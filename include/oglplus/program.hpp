@@ -721,14 +721,10 @@ public:
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Encapsulates OpenGL shading language-related program functionality
+/// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
 class Program
  : public ProgramOps
-{
-public:
-	Program(void);
-	Program(std::string description);
-};
+{ };
 #else
 typedef Object<ProgramOps, false> Program;
 #endif

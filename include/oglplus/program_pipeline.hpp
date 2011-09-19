@@ -21,6 +21,12 @@
 
 namespace oglplus {
 
+/// ProgramPipeline operations wrapper class
+/** This class implements OpenGL program pipeline operations.
+ *  @note Do not use this class directly, use @c ProgramPipeline instead.
+ *
+ *  @see ProgramPipeline
+ */
 class ProgramPipelineOps
  : public Named
  , public FriendOf<Program>
@@ -46,6 +52,7 @@ protected:
 
 	friend class FriendOf<ProgramPipelineOps>;
 public:
+	/// Bind this program pipeline
 	void Bind(void) const
 	{
 		assert(_name != 0);
@@ -53,42 +60,58 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
+	/// Program pipeline stage enumeration
 	enum class Stage : GLbitfield {
+		/// VERTEX_SHADER_BIT
 		VertexShader = GL_VERTEX_SHADER_BIT,
+		/// GEOMETRY_SHADER_BIT
 		GeometryShader = GL_GEOMETRY_SHADER_BIT,
+		/// FRAGMENT_SHADER_BIT
 		FragmentShader = GL_FRAGMENT_SHADER_BIT,
+		/// TESS_CONTROL_SHADER_BIT
 		TessControlShader = GL_TESS_CONTROL_SHADER_BIT,
+		/// TESS_EVALUATION_SHADER_BIT
 		TessEvaluationShader = GL_TESS_EVALUATION_SHADER_BIT,
+		/// ALL_SHADER_BITS
 		All = GL_ALL_SHADER_BITS
 	};
 
+	/// Use the specified @p stages of the @p program
 	void UseStages(
 		const std::initializer_list<Stage>& stages,
-		const Program& prog
+		const Program& program
 	) const
 	{
 		assert(_name != 0);
 		::glUseProgramStages(
 			_name,
 			aux::MakeBitfield(stages),
-			FriendOf<Program>::GetName(prog)
+			FriendOf<Program>::GetName(program)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 
-	void UseAllStages(const Program& prog) const
+	/// Use all stages of the @p program
+	void UseAllStages(const Program& program) const
 	{
 		assert(_name != 0);
 		::glUseProgramStages(
 			_name,
 			GL_ALL_SHADER_BITS,
-			FriendOf<Program>::GetName(prog)
+			FriendOf<Program>::GetName(program)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 };
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
+class ProgramPipeline
+ : public ProgramPipelineOps
+{ };
+#else
 typedef Object<ProgramPipelineOps, true> ProgramPipeline;
+#endif
 
 } // namespace oglplus
 

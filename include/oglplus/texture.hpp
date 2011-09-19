@@ -42,57 +42,85 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 
 /// Texture compare mode enumeration
 enum class TextureCompareMode : GLenum {
+	/// NONE
 	None = GL_NONE,
+	/// COMPARE_REF_TO_TEXTURE
 	CompareRefToTexture = GL_COMPARE_REF_TO_TEXTURE
 };
 
 /// Texture magnification filter enumeration
 enum class TextureMagFilter : GLenum {
+	/// NEAREST
 	Nearest = GL_NEAREST,
+	/// LINEAR
 	Linear = GL_LINEAR
 };
 
 /// Texture minification filter enumeration
 enum class TextureMinFilter : GLenum {
+	/// NEAREST
 	Nearest = GL_NEAREST,
+	/// LINEAR
 	Linear = GL_LINEAR,
+	/// NEAREST_MIPMAP_NEAREST
 	NearestMipmapNearest = GL_NEAREST_MIPMAP_NEAREST,
+	/// NEAREST_MIPMAP_LINEAR
 	NearestMipmapLinear = GL_NEAREST_MIPMAP_LINEAR,
+	/// LINEAR_MIPMAP_NEAREST
 	LinearMipmapNearest = GL_LINEAR_MIPMAP_NEAREST,
+	/// LINEAR_MIPMAP_LINEAR
 	LinearMipmapLinear = GL_LINEAR_MIPMAP_LINEAR
 };
 
 /// Texture swizzle parameter coordinate enumeration
 enum class TextureSwizzleCoord : GLenum {
+	/// TEXTURE_SWIZZLE_R
 	R = GL_TEXTURE_SWIZZLE_R,
+	/// TEXTURE_SWIZZLE_G
 	G = GL_TEXTURE_SWIZZLE_G,
+	/// TEXTURE_SWIZZLE_B
 	B = GL_TEXTURE_SWIZZLE_B,
+	/// TEXTURE_SWIZZLE_A
 	A = GL_TEXTURE_SWIZZLE_A,
+	/// TEXTURE_SWIZZLE_RGBA
 	RGBA = GL_TEXTURE_SWIZZLE_RGBA
 };
 
 /// Texture swizzle enumeration
 enum class TextureSwizzle : GLenum {
+	/// RED
 	Red = GL_RED,
+	/// GREEN
 	Green = GL_GREEN,
+	/// BLUE
 	Blue = GL_BLUE,
+	/// ALPHA
 	Alpha = GL_ALPHA,
+	/// ZERO
 	Zero = GL_ZERO,
+	/// ONE
 	One = GL_ONE
 };
 
 /// Texture wrap parameter coordinate enumeration
 enum class TextureWrapCoord : GLenum {
+	/// TEXTURE_WRAP_S
 	S = GL_TEXTURE_WRAP_S,
+	/// TEXTURE_WRAP_T
 	T = GL_TEXTURE_WRAP_T,
+	/// TEXTURE_WRAP_R
 	R = GL_TEXTURE_WRAP_R
 };
 
 /// Texture wrap enumeration
 enum class TextureWrap : GLenum {
+	/// CLAMP_TO_EDGE
 	ClampToEdge = GL_CLAMP_TO_EDGE,
+	/// REPEAT
 	Repeat = GL_REPEAT,
+	/// CLAMP_TO_BORDER
 	ClampToBorder = GL_CLAMP_TO_BORDER,
+	/// MIRRORED_REPEAT
 	MirroredRepeat = GL_MIRRORED_REPEAT
 };
 
@@ -129,22 +157,39 @@ public:
 	 *  targets.
 	 */
 	enum class Target : GLenum {
+		/// TEXTURE_1D
 		_1D = GL_TEXTURE_1D,
+		/// TEXTURE_2D
 		_2D = GL_TEXTURE_2D,
+		/// TEXTURE_3D
 		_3D = GL_TEXTURE_3D,
+		/// TEXTURE_1D_ARRAY
 		_1DArray = GL_TEXTURE_1D_ARRAY,
+		/// TEXTURE_2D_ARRAY
 		_2DArray = GL_TEXTURE_2D_ARRAY,
+		/// TEXTURE_RECTANGLE
 		Rectangle = GL_TEXTURE_RECTANGLE,
+		/// TEXTURE_BUFFER
 		Buffer = GL_TEXTURE_BUFFER,
+		/// TEXTURE_CUBE_MAP
 		CubeMap = GL_TEXTURE_CUBE_MAP,
+		/// TEXTURE_CUBE_MAP_ARRAY
 		CubeMapArray = GL_TEXTURE_CUBE_MAP_ARRAY,
+		/// TEXTURE_2D_MULTISAMPLE
 		_2DMultisample = GL_TEXTURE_2D_MULTISAMPLE,
+		/// TEXTURE_2D_MULTISAMPLE_ARRAY
 		_2DMultisampleArray = GL_TEXTURE_2D_MULTISAMPLE_ARRAY,
+		/// TEXTURE_CUBE_MAP_POSITIVE_X
 		CubeMapPositiveX = GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+		/// TEXTURE_CUBE_MAP_NEGATIVE_X
 		CubeMapNegativeX = GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+		/// TEXTURE_CUBE_MAP_POSITIVE_Y
 		CubeMapPositiveY = GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+		/// TEXTURE_CUBE_MAP_NEGATIVE_Y
 		CubeMapNegativeY = GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
+		/// TEXTURE_CUBE_MAP_POSITIVE_Z
 		CubeMapPositiveZ = GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+		/// TEXTURE_CUBE_MAP_NEGATIVE_Z
 		CubeMapNegativeZ = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
 	};
 
@@ -676,7 +721,7 @@ public:
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Encapsulates the OpenGL texture-related functionality
+/// An @ref oglplus_object encapsulating the OpenGL texture functionality
 class Texture
  : public TextureOps
 { };

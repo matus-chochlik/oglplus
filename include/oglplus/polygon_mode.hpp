@@ -17,8 +17,11 @@ namespace oglplus {
 /// Polygon rasterization mode enumeration
 enum class PolygonMode : GLenum
 {
+	/// POINT
 	Point = GL_POINT,
+	/// LINE
 	Line = GL_LINE,
+	/// FILL
 	Fill = GL_FILL
 };
 

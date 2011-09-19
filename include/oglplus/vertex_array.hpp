@@ -19,6 +19,10 @@
 
 namespace oglplus {
 
+/// Encapsulates vertex array-related functions
+/** @note Do not use this class directly, use VertexArray instead.
+ *  @see VertexArray
+ */
 class VertexArrayOps
  : public Named
 {
@@ -43,6 +47,7 @@ protected:
 
 	friend class FriendOf<VertexArrayOps>;
 public:
+	/// Bind this vertex array
 	void Bind(void) const
 	{
 		assert(_name != 0);
@@ -50,6 +55,7 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BindVertexArray));
 	}
 
+	/// Bind the name 0
 	static void Unbind(void)
 	{
 		::glBindVertexArray(0);
@@ -57,7 +63,14 @@ public:
 	}
 };
 
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
+class VertexArray
+ : public VertexArrayOps
+{ };
+#else
 typedef Object<VertexArrayOps, true> VertexArray;
+#endif
 
 } // namespace oglplus
 

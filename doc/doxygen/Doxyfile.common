@@ -8,8 +8,6 @@
 
 DOXYFILE_ENCODING      = UTF-8
 
-PROJECT_NUMBER         = 0.0.1
-
 # If the CREATE_SUBDIRS tag is set to YES, then doxygen will create
 # 4096 sub-directories (in 2 levels) under the output directory of each output
 # format and will distribute the generated files over these directories.
@@ -955,7 +953,6 @@ INCLUDE_FILE_PATTERNS  =
 # instead of the = operator.
 
 PREDEFINED             = "OGLPLUS_DOCUMENTATION_ONLY=1"
-
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

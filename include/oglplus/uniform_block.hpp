@@ -23,6 +23,7 @@
 
 namespace oglplus {
 
+/// Encapsulates shader uniform block operations
 class UniformBlock
  : public FriendOf<Program>
 {
@@ -68,11 +69,13 @@ protected:
 		return 0;
 	}
 public:
+	/// Reference a uniform block at @p index in the @p program
 	UniformBlock(const Program& program, GLint index)
 	 : _program(FriendOf<Program>::GetName(program))
 	 , _index(index)
 	{ }
 
+	/// Reference a uniform block @p identifier in the @p program
 	UniformBlock(const Program& program, const GLchar* identifier)
 	 : _program(FriendOf<Program>::GetName(program))
 	 , _index(::glGetUniformBlockIndex(_program, identifier))
@@ -91,6 +94,7 @@ public:
 		}
 	}
 
+	/// Return the maximum number of uniform blocks for a @p shader_kind
 	static GLuint MaxIn(Shader::Kind shader_kind)
 	{
 		GLint result;
@@ -100,6 +104,7 @@ public:
 		return GLuint(result);
 	}
 
+	/// Returns true if this uniform block is referenced by @p shader_kind
 	bool ReferencedBy(Shader::Kind shader_kind) const
 	{
 		GLint result;
@@ -113,6 +118,7 @@ public:
 		return result == GL_TRUE;
 	}
 
+	/// Returns the size of the uniform block
 	GLuint DataSize(void) const
 	{
 		GLint result;

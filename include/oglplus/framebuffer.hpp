@@ -51,7 +51,9 @@ protected:
 public:
 	/// Framebuffer bind targets
 	enum class Target : GLenum {
+		/// DRAW_FRAMEBUFFER
 		Draw = GL_DRAW_FRAMEBUFFER,
+		/// READ_FRAMEBUFFER
 		Read = GL_READ_FRAMEBUFFER
 	};
 
@@ -82,7 +84,7 @@ public:
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Encapsulates the OpenGL framebuffer-related functionality
+/// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 class Framebuffer
  : public FramebufferOps
 { };

@@ -23,6 +23,7 @@
 
 namespace oglplus {
 
+// Helper class for Uniform
 class UniformOps
  : public FriendOf<Program>
 {
@@ -81,58 +82,68 @@ protected:
 
 } // namespace aux
 
+/// Encapsulates uniform shader variable functionality
 class Uniform
  : public UniformOps
  , public aux::ShaderDataSetOps<aux::UniformSetters, 4>
  , public aux::ShaderMatrixSetOps<aux::UniformMatrixSetters>
 {
 public:
+	/// Reference a uniform identified by @p identifier in the @p program
 	Uniform(const Program& program, const GLchar* identifier)
 	 : UniformOps(program, identifier)
 	{ }
 
+	/// Set the value(s) of the uniform
 	template <typename ... T>
 	void Set(T ... v) const
 	{
 		this->_do_set(_index, v...);
 	}
 
+	/// Set the value(s) of the uniform
 	template <size_t Cols, typename T>
 	void Set(const T* v) const
 	{
 		this->_do_set<Cols>(_index, v);
 	}
 
+	/// Set the value(s) of the uniform
 	template <size_t Cols, typename T>
 	void Set(GLsizei count, const T* v) const
 	{
 		this->_do_set_many<Cols>(_index, count, v);
 	}
 
+	/// Set the value(s) of the uniform
 	template <size_t Cols, typename T>
 	void Set(const std::vector<T>& v) const
 	{
 		this->_do_set_many<Cols>(_index, v.size(), v.data());
 	}
 
+	/// Set the value(s) of the uniform
 	template <typename T, size_t N>
 	void Set(const Vector<T, N>& vector) const
 	{
 		this->_do_set<N>(_index, Data(vector));
 	}
 
+	/// Set the matrix components of the uniform
 	template <size_t Cols, typename ... T>
 	void SetMatrix(T ... v) const
 	{
 		this->_do_set_mat<Cols>(_index, false, v...);
 	}
 
+	/// Set the matrix components of the uniform
 	template <size_t Cols, size_t Rows, typename T>
 	void SetMatrix(size_t count, const T* v) const
 	{
 		this->_do_set_mat<Cols, Rows>(_index, count, false, v);
 	}
 
+	/// Set the matrix components of the uniform
 	template <typename T, size_t Rows, size_t Cols>
 	void SetMatrix(const Matrix<T, Rows, Cols>& matrix) const
 	{

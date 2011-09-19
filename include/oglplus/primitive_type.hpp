@@ -16,17 +16,29 @@ namespace oglplus {
 
 enum class PrimitiveType : GLenum
 {
+	/// POINTS
 	Points = GL_POINTS,
+	/// LINE_STRIP
 	LineStrip = GL_LINE_STRIP,
+	/// LINE_LOOP
 	LineLoop = GL_LINE_LOOP,
+	/// LINES
 	Lines = GL_LINES,
+	/// TRIANGLE_STRIP
 	TriangleStrip = GL_TRIANGLE_STRIP,
+	/// TRIANGLE_FAN
 	TriangleFan = GL_TRIANGLE_FAN,
+	/// TRIANGLES
 	Triangles = GL_TRIANGLES,
+	/// LINES_ADJACENCY
 	LinesAdjacency = GL_LINES_ADJACENCY,
+	/// LINE_STRIP_ADJACENCY
 	LineStripAdjacency = GL_LINE_STRIP_ADJACENCY,
+	/// TRIANGLES_ADJACENCY
 	TrianglesAdjacency = GL_TRIANGLES_ADJACENCY,
+	/// TRIANGLE_STRIP_ADJACENCY
 	TriangleStripAdjacency = GL_TRIANGLE_STRIP_ADJACENCY,
+	/// PATCHES
 	Patches = GL_PATCHES
 };
 

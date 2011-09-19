@@ -36,7 +36,10 @@ private:
 		return str;
 	}
 public:
+	/// Default constructor
 	Application(void) = default;
+
+	/// No copy construction
 	Application(const Application&) = delete;
 
 	static void ParseCommandLineOptions(int argc, const char** argv)

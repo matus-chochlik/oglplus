@@ -46,7 +46,9 @@ protected:
 
 	friend class FriendOf<RenderbufferOps>;
 public:
+	/// Renderbuffer bind targets
 	enum class Target : GLenum {
+		/// The default target (RENDERBUFFER)
 		Default = GL_RENDERBUFFER
 	};
 protected:
@@ -62,6 +64,7 @@ protected:
 	}
 public:
 
+	/// Binds this renderbuffer to the @p target
 	void Bind(Target target = Target::Default) const
 	{
 		assert(_name != 0);
@@ -69,6 +72,7 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
+	/// Bind the name 0 to the @p target
 	static void Unbind(Target target = Target::Default)
 	{
 		::glBindRenderbuffer(GLenum(target), 0);
@@ -76,9 +80,8 @@ public:
 	}
 };
 
-
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Encapsulates the OpenGL renderbuffer-related functionality
+/// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
 class Renderbuffer
  : public RenderbufferOps
 { };

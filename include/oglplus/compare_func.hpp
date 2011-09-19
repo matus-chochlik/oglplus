@@ -17,24 +17,25 @@ namespace oglplus {
 /// Comparison function type enumeration
 enum class CompareFunction : GLenum
 {
-	/// Less-than or equal
+	/// Less-than or equal (LEQUAL)
 	LEqual = GL_LEQUAL,
-	/// Greater-than or equal
+	/// Greater-than or equal (GEQUAL)
 	GEqual = GL_GEQUAL,
-	/// Less-than
+	/// Less-than (LESS)
 	Less  = GL_LESS,
-	/// Greater-than
+	/// Greater-than (GREATER)
 	Greater = GL_GREATER,
-	/// Equal
+	/// Equal (EQUAL)
 	Equal = GL_EQUAL,
-	/// Not equal
+	/// Not equal (NOTEQUAL)
 	NotEqual = GL_NOTEQUAL,
-	/// Always true
+	/// Always true (ALWAYS)
 	Always = GL_ALWAYS,
-	/// Always false
+	/// Always false (NEVER)
 	Never = GL_NEVER
 };
 
+/// Alternate name for the CompareFunction enumeration
 typedef CompareFunction CompareFn;
 
 } // namespace oglplus

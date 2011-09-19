@@ -27,10 +27,14 @@
 
 namespace oglplus {
 
+/// Draw buffer clear bit enumeration
 enum class ClearBit : GLbitfield
 {
+	/// Clear the color buffer (COLOR_BUFFER_BIT)
 	ColorBuffer = GL_COLOR_BUFFER_BIT,
+	/// Clear the depth buffer (DEPTH_BUFFER_BIT)
 	DepthBuffer = GL_DEPTH_BUFFER_BIT,
+	/// Clear the stencil buffer (STENCIL_BUFFER_BIT)
 	StencilBuffer = GL_STENCIL_BUFFER_BIT
 };
 

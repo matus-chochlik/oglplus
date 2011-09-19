@@ -129,7 +129,7 @@
  *
  *  @section oglplus_what_it_is_not What OGLplus isn't
  *
- *  Like the OpenGL C API, OGLplus does not implement any functionality
+ *  Like the OpenGL C API, OGLplus does not officially provide nor force you to use code
  *  related to creating of the default framebuffer. There are already
  *  several other libraries and frameworks which do it in both platform
  *  dependent and platform independent ways.
@@ -139,9 +139,40 @@
  *  application to do so. There are several ways how to do it, see
  *  @ref oglplus_getting_it_going for some suggestions.
  *
+ *  @section oglplus_getting_started Getting started, tutorials, examples
+ *
+ *  One of the best ways how to get yourself acquainted with the library is to
+ *  look at the examples and to browse through the reference. Many of the examples
+ *  are thoroughly commented and in the future step-by-step tutorials will be added.
+ *
  *  @section oglplus_getting_it_going Getting it going
  *
- *  TODO
+ *  OGLplus currently uses the GNU Make build system, which may by replaced or supplemented
+ *  in the future with CMake, Boost.Build or something similar.
+ *
+ *  One important thing that an application using OGLplus needs to take care of
+ *  is to make sure that the OpenGL 3 (or higher) function prototypes, typedefs,
+ *  preprocessor symbols, etc. are defined before including any OGLplus header.
+ *
+ *  There are several different ways how to do this; one of the most convenient
+ *  is to download the @c gl3.h header file from
+ *  <A HREF="www.opengl.org/registry/api/gl3.h">www.opengl.org/registry/api/gl3.h</A>
+ *  and place it to a directory implicitly searched by the compiler or to add the
+ *  @c -I/path/to/include directive to your @c CXXFLAGS. If the OpengGL dynamic library
+ *  or shader object is located in a nonstandard location also update the @c LDFLAGS.
+ *
+ *  On Linux and similar systems using Bash as shell you can for example put
+ *  the following to your ~/.bashrc file:
+ *
+ *  @code
+ *  # if GL3/gl3.h is in $HOME/include
+ *  export CXXFLAGS="$CXXFLAGS -I$HOME/include"
+ *  # if libGL.so is in $HOME/lib
+ *  export LDFLAGS="$LDFLAGS -L$HOME/lib"
+ *  @endcode
+ *
+ *  Some other alternatives include using GLEW or a similar library or framework
+ *  which includes gl3.h or defines the necessary symbols itself.
  *
  *  @section oglplus_supported_compilers Supported compilers
  *
@@ -155,11 +186,33 @@
  *
  *  @section oglplus_example_rationale Example rationale
  *
- *  TODO
+ *  As already said above, OGLplus does not officially provide means for creating of the
+ *  default framebuffer nor any code related to window-system or user-input.
+ *  The example code is usually encapsulated in a class derived from the @c Example
+ *  class and the build system selects and builds and links the piece of code doing
+ *  the initial setup, cleanup and handling of events to the example code
+ *  automatically.
+ *  This way the examples are not too cluttered by things which are not directly
+ *  related to OpenGL and OGLplus usage.
  *
  *  @section oglplus_object_description Optional object description
  *
- *  TODO
+ *  Objects with OpenGL names (unsigned integers) can optionally have a textual
+ *  description. This is useful for diagnostic purposes, for example in an application
+ *  with lots of different shaders it is easier to track the source of compilation,
+ *  linking or validation errors when the individual shader or program objects
+ *  have a human-readable description which is attached to the exception raised
+ *  by the error.
+ *
+ *  The classes like @ref oglplus::Shader "Shader", @ref oglplus::Program "Program",
+ *  @ref oglplus::Texture "Texture", @ref oglplus::Query "Query" and many others
+ *  have one or more constructors allowing to assign a description to the object
+ *  during construction.
+ *
+ *  If the overhead caused by the descriptions is unacceptable for release builds
+ *  of an application and they are intended for debugging purposes only, it can be compiled-away
+ *  by setting the value of the @c #OGLPLUS_NO_OBJECT_DESCS preprocessor symbol to
+ *  a nonzero integer value.
  *
  */
 #endif // include guard

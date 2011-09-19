@@ -36,10 +36,15 @@ class ShaderOps
 public:
 	/// The kind of the shader
 	enum class Kind : GLenum {
+		/// VERTEX_SHADER
 		Vertex = GL_VERTEX_SHADER,
+		/// GEOMETRY_SHADER
 		Geometry = GL_GEOMETRY_SHADER,
+		/// FRAGMENT_SHADER
 		Fragment = GL_FRAGMENT_SHADER,
+		/// TESS_CONTROL_SHADER
 		TessControl = GL_TESS_CONTROL_SHADER,
+		/// TESS_EVALUATION_SHADER
 		TessEvaluation = GL_TESS_EVALUATION_SHADER
 	};
 protected:
@@ -168,7 +173,7 @@ public:
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Encasulates the shading language shader-related functionality
+/// An object encasulating the shading language shader functionality
 /**
  *  @see Program
  *  @see VertexShader
