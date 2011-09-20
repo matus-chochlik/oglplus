@@ -47,14 +47,29 @@
 
 /** @mainpage OGLplus - a C++ wrapper for OpenGL version 3 and higher.
  *
- *  The OGLplus (@c oglplus) library implements an object-oriented facade over
- *  the basic OpenGL 3 C-language API. It provides wrappers which automate
- *  the resource and OpenGL object management and make the use of OpenGL
+ *  OGLplus (@c oglplus) is a header only library which implements
+ *  a thin object-oriented facade over the OpenGL (version 3 and higher)
+ *  C-language API. It provides wrappers which automate
+ *  the resource and object management and make the use of OpenGL
  *  in C++ much easier.
+ *
+ *  - @ref oglplus_features
+ *    - @ref feat_auto_resource_management
+ *    - @ref feat_type_safety
+ *    - @ref feat_error_handling
+ *    - @ref feat_interoperability_with_opengl
+ *    - @ref feat_related_classes
+ *  - @ref oglplus_what_it_is_not
+ *  - @ref oglplus_download
+ *  - @ref oglplus_getting_started
+ *  - @ref oglplus_getting_it_going
+ *  - @ref oglplus_supported_compilers
+ *  - @ref oglplus_example_rationale
+ *  - @ref oglplus_object_description
  *
  *  @section oglplus_features Features
  *
- *  OGLplus adds the following functionality to the basic OpenGL C API.
+ *  OGLplus adds the following functionality to the "basic" OpenGL C API.
  *
  *  @subsection feat_auto_resource_management Automatic resource management
  *
@@ -139,6 +154,17 @@
  *  application to do so. There are several ways how to do it, see
  *  @ref oglplus_getting_it_going for some suggestions.
  *
+ *  @section oglplus_download Source download and repository
+ *
+ *  The source code can be downloaded from SourceForge at the following URL:
+ *  <A HREF="http://sourceforge.net/projects/oglplus/files/">http://sourceforge.net/projects/oglplus/files/</A>.
+ *
+ *  Git users can get anonymous read-only access to the source repository
+ *  by using the following command:
+ *  @code
+ *  git clone git://oglplus.git.sourceforge.net/gitroot/oglplus/oglplus
+ *  @endcode
+ *
  *  @section oglplus_getting_started Getting started, tutorials, examples
  *
  *  One of the best ways how to get yourself acquainted with the library is to
@@ -147,8 +173,12 @@
  *
  *  @section oglplus_getting_it_going Getting it going
  *
- *  OGLplus currently uses the GNU Make build system, which may by replaced or supplemented
+ *  OGLplus currently uses the GNU Make build system, to build the examples
+ *  which may by replaced or supplemented
  *  in the future with CMake, Boost.Build or something similar.
+ *  The library itself is however header-only, i.e. all an application using it
+ *  has to do is to include the necessary header files. It does not need to be
+ *  built nor linked to.
  *
  *  One important thing that an application using OGLplus needs to take care of
  *  is to make sure that the OpenGL 3 (or higher) function prototypes, typedefs,

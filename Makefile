@@ -81,6 +81,7 @@ html_docs: $(addprefix $(OUTDIR)/, $(HTML_DOCS));
 
 example_screenshots: $(addsuffix .png,$(addprefix $(BLDDIR)/, $(EXAMPLES)))
 
+auto_headers: $(addprefix $(HDRDIR)/,$(AUTO_HEADERS))
 
 # helper function returning the third argument if the second argument
 # is found at least once in the dependency file specified by the first parameter
@@ -184,7 +185,7 @@ $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTD
 	sed 's|\(^.*$$\)|	\1|' |\
 	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
 
-#build the doxygen html documentation
+# build the doxygen html documentation
 $(OUTDIR)/doc/doxygen/%/html/index.html: $(wildcard doc/doxygen/Doxyfile.*) example_screenshots
 	@cd doc/doxygen && (\
 		cat Doxyfile.oglplus && \
@@ -200,11 +201,11 @@ $(BLDDIR)/xml/index.xml.d: | $(BLDDIR)/xml
 	sed 's|\(^.*$$\)|	\1|' |\
 	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
 
-#build the doxygen XML output
+# build the doxygen XML output
 $(BLDDIR)/xml/index.xml: $(wildcard doc/doxygen/Doxyfile.*)
 	cd doc/doxygen && (cat Doxyfile.autohdr && echo "QUIET=YES") | doxygen -
 
-#combine the doxygen XML output
+# combine the doxygen XML output
 $(BLDDIR)/xml/oglplus.xml: $(BLDDIR)/xml/index.xml
 	xsltproc --output $@ $(BLDDIR)/xml/combine.xslt $<
 
