@@ -74,6 +74,8 @@ all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS)) \
 
 .PHONY: clean;
 
+examples: $(addprefix $(OUTDIR)/, $(EXAMPLES))
+
 textures: $(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
 
 docs: html_docs;
@@ -112,7 +114,11 @@ endef
 
 # function defining the rules for linking final executables
 define BUILD_EXE
-$(OUTDIR)/$(1): $(BLDDIR)/$(1).o $(call OPT_ADD_EXE_MAIN,$(1)) | $(dir $(OUTDIR)/$(1))
+$(OUTDIR)/$(1): \
+	$(BLDDIR)/$(1).o \
+	$(call OPT_ADD_EXE_MAIN,$(1)) |\
+	$(dir $(OUTDIR)/$(1)) \
+	textures
 	$(CXX) $(OGLPLUS_LDFLAGS) $$(shell cat $$(addsuffix .ldf,$$(basename $$^))) -o $$@ $$^
 endef
 
@@ -179,14 +185,18 @@ endef
 $(foreach tex,$(SVG_TEXTURES),$(eval $(call CONVERT_SVG2PNG,$(tex))))
 
 # build dependencies for doxygen HTML documentation
-$(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTDIR)/doc/doxygen/%/html
+$(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html
 	@echo "$(OUTDIR)/doc/doxygen/$*/html/index.html $@: \\" > $@
 	@find include/$* example/$* -type f -name '*.[ch]pp' 2> /dev/null |\
 	sed 's|\(^.*$$\)|	\1|' |\
 	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
 
 # build the doxygen html documentation
-$(OUTDIR)/doc/doxygen/%/html/index.html: $(wildcard doc/doxygen/Doxyfile.*) example_screenshots
+$(OUTDIR)/doc/doxygen/%/html/index.html: \
+	$(BLDDIR)/doc/doxygen/%/html/index.html.d \
+	$(wildcard doc/doxygen/Doxyfile.*) \
+	example_screenshots |\
+	$(OUTDIR)/doc/doxygen/%/html
 	@cd doc/doxygen && (\
 		cat Doxyfile.oglplus && \
 		echo "QUIET=YES" && \

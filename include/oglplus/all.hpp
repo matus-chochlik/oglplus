@@ -176,9 +176,27 @@
  *  OGLplus currently uses the GNU Make build system, to build the examples
  *  which may by replaced or supplemented
  *  in the future with CMake, Boost.Build or something similar.
+ *
+ *  To build the examples type @c make in the root of the source directory.
+ *
  *  The library itself is however header-only, i.e. all an application using it
- *  has to do is to include the necessary header files. It does not need to be
+ *  has to do is to include the necessary header files. The library does not need to be
  *  built nor linked to.
+ *
+ *  To install the headers to @c /usr/local/include you can use the install script
+ *  located in the main directory of the source tree.
+ *  @code
+ *  ./install.sh
+ *  @endcode
+ *
+ *  To install to another location you can specify the prefix to the install script:
+ *  @code
+ *  ./install.sh --prefix=~/opt
+ *  @endcode
+ *
+ *  which will install the headers in the @c ~/opt/include directory. In this
+ *  case it is necessary to tell the compiler to search this directory for
+ *  header files (usually with the @c -I directive).
  *
  *  One important thing that an application using OGLplus needs to take care of
  *  is to make sure that the OpenGL 3 (or higher) function prototypes, typedefs,
