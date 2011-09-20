@@ -177,7 +177,18 @@
  *  which may by replaced or supplemented
  *  in the future with CMake, Boost.Build or something similar.
  *
- *  To build the examples type @c make in the root of the source directory.
+ *  To build the examples type
+ *  @code
+ *  make
+ *  @endcode
+ *  in the root of the source directory. If you downloaded the source package
+ *  the textures and automatically generated header files used by the examples
+ *  are pre-built and building the examples requires only a C++ compiler.
+ *  If you use the plain sources (for example from the repository) you'll
+ *  need the following:
+ *  - @c doxygen (to parse the sources into a XML file)
+ *  - @c xsltproc (to transform the parsed XML to the auto-generated headers)
+ *  - @c inkscape (to convert the texture SVG "sources" to PNG bitmap images)
  *
  *  The library itself is however header-only, i.e. all an application using it
  *  has to do is to include the necessary header files. The library does not need to be

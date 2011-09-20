@@ -68,11 +68,13 @@ BLDSUBDIRS = \
 HDRSUBDIRS = \
 	$(addprefix $(HDRDIR)/, $(sort $(dir $(AUTO_HEADERS))))
 
+.INTERMEDIATE: \
+	$(BLDDIR)/xml/index.xml \
+	$(BLDDIR)/xml/oglplus.xml
+
 # the main goal
 all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS)) \
 	$(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
-
-.PHONY: clean;
 
 examples: $(addprefix $(OUTDIR)/, $(EXAMPLES))
 
@@ -237,6 +239,8 @@ include $(addsuffix .d,$(addprefix $(BLDDIR)/,$(HTML_DOCS)))
 endif
 
 # cleanup
+.PHONY: clean;
+
 clean:
 	rm -rf $(shell readlink $(OUTDIR) || echo $(OUTDIR))
 	rm -rf $(shell readlink $(BLDDIR) || echo $(BLDDIR))
