@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -62,6 +63,7 @@ protected:
 		}
 		return 0;
 	}
+	friend class BindingQuery<RenderbufferOps>;
 public:
 
 	/// Binds this renderbuffer to the @p target

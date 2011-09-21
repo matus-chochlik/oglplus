@@ -33,7 +33,10 @@ enum class Capability: GLenum
 	PolygonOffsetFill = GL_POLYGON_OFFSET_FILL,
 
 	/// BLEND
-	Blend = GL_BLEND
+	Blend = GL_BLEND,
+
+	/// COLOR_LOGIC_OP
+	ColorLogicOp = GL_COLOR_LOGIC_OP
 };
 
 } // namespace oglplus

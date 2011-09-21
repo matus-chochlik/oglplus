@@ -21,6 +21,7 @@
 #include <oglplus/blend_func.hpp>
 #include <oglplus/compare_func.hpp>
 #include <oglplus/stencil_op.hpp>
+#include <oglplus/color_log_op.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
 #include <oglplus/auxiliary/bitfield.hpp>
@@ -278,6 +279,13 @@ public:
 	{
 		::glBlendColor(r, g, b, a);
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendColor));
+	}
+
+	/// Sets the color logical operation
+	static void LogicOp(ColorLogicOperation op)
+	{
+		::glLogicOp(GLenum(op));
+		AssertNoError(OGLPLUS_ERROR_INFO(LogicOp));
 	}
 
 	/// Sets the polygon facing mode

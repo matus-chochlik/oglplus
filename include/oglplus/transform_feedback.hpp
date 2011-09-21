@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -57,6 +58,19 @@ public:
 		/// The default target (TRANSFORM_FEEDBACK)
 		Default = GL_TRANSFORM_FEEDBACK
 	};
+protected:
+	static GLenum _binding_query(Target target)
+	{
+		switch(GLenum(target))
+		{
+			case GL_TRANSFORM_FEEDBACK:
+				return GL_TRANSFORM_FEEDBACK_BINDING;
+			default:;
+		}
+		return 0;
+	}
+	friend class BindingQuery<TransformFeedbackOps>;
+public:
 
 	/// Transform feedback primitive modes
 	enum class PrimitiveType : GLenum {
