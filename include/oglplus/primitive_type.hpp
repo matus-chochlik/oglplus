@@ -14,6 +14,10 @@
 
 namespace oglplus {
 
+/// Primitive type enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class PrimitiveType : GLenum
 {
 	/// POINTS

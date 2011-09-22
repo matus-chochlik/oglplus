@@ -17,6 +17,9 @@
 namespace oglplus {
 
 /// OpenGL data type enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class DataType : GLenum
 {
 	/// BYTE
@@ -90,6 +93,9 @@ DataType GetDataType(void)
 
 
 /// OpenGL Shading Language data type enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class SLDataType : GLenum
 {
 	/// FLOAT,

@@ -222,6 +222,7 @@ public:
 /**
  *  @see Shader
  *  @see Program
+ *  @ingroup objects
  */
 class VertexShader
  : public Shader
@@ -235,6 +236,7 @@ typedef SpecializedShader<Shader::Kind::Vertex> VertexShader;
 /**
  *  @see Shader
  *  @see Program
+ *  @ingroup objects
  */
 class GeometryShader
  : public Shader
@@ -248,6 +250,7 @@ typedef SpecializedShader<Shader::Kind::Geometry> GeometryShader;
 /**
  *  @see Shader
  *  @see Program
+ *  @ingroup objects
  */
 class FragmentShader
  : public Shader
@@ -261,6 +264,7 @@ typedef SpecializedShader<Shader::Kind::Fragment> FragmentShader;
 /**
  *  @see Shader
  *  @see Program
+ *  @ingroup objects
  */
 class TessControlShader
  : public Shader
@@ -274,6 +278,7 @@ typedef SpecializedShader<Shader::Kind::TessControl> TessControlShader;
 /**
  *  @see Shader
  *  @see Program
+ *  @ingroup objects
  */
 class TessEvaluationShader
  : public Shader

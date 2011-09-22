@@ -83,6 +83,9 @@ protected:
 } // namespace aux
 
 /// Encapsulates uniform shader variable functionality
+/**
+ *  @ingroup shader_variables
+ */
 class Uniform
  : public UniformOps
  , public aux::ShaderDataSetOps<aux::UniformSetters, 4>

@@ -560,6 +560,9 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality
+/**
+ *  @ingroup objects
+ */
 class Buffer
  : public BufferOps
 { };

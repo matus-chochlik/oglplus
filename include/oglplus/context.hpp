@@ -29,6 +29,9 @@
 namespace oglplus {
 
 /// Draw buffer clear bit enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class ClearBit : GLbitfield
 {
 	/// Clear the color buffer (COLOR_BUFFER_BIT)
@@ -39,7 +42,19 @@ enum class ClearBit : GLbitfield
 	StencilBuffer = GL_STENCIL_BUFFER_BIT
 };
 
+/** @defgroup ogl_context Current OpenGL context operations
+ *
+ *  Here are listed classes and functions wrapping operations on the current
+ *  OpenGL context, which are not related to any explicitly allocated
+ *  object or resource, i.e. operations like enabling and disabling
+ *  various OpenGL oglplus::Capability "capabilities" and changing the state
+ *  values of the current context.
+ */
+
 /// Wrapper for the current OpenGL context operations
+/**
+ *  @ingroup ogl_context
+ */
 class Context
 {
 public:

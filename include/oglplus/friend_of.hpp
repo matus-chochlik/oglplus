@@ -22,6 +22,7 @@ class FriendOf;
 template <class ObjectOps>
 class Managed;
 
+#if !OGLPLUS_DOCUMENTATION_ONLY
 template <>
 class FriendOf<Named>
 {
@@ -75,6 +76,7 @@ protected:
 		return FriendOf<ObjectOps>::GetName(object);
 	}
 };
+#endif
 
 } // namespace oglplus
 

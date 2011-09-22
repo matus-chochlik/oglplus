@@ -134,6 +134,9 @@ protected:
 } // namespace aux
 
 /// Encapsulates vertex attribute functionality
+/**
+ *  @ingroup shader_variables
+ */
 class VertexAttrib
  : public VertexAttribOps
  , public aux::ShaderDataSetOps<aux::VertexAttribSetters, 16>
@@ -166,6 +169,9 @@ public:
 };
 
 /// Encapsulates vertex attribute array functionality
+/**
+ *  @ingroup shader_variables
+ */
 class VertexAttribArray
  : public VertexAttribOps
 {

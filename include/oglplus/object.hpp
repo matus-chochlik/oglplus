@@ -19,6 +19,16 @@
 
 namespace oglplus {
 
+/** @defgroup objects OGLplus objects
+ *
+ *  An @ref oglplus_object is a class wrapping around OpenGL objects
+ *  like shaders, programs, textures, etc. Its using the RAII technique
+ *  to provide automated resource management for these OpenGL resources.
+ *  They also wrap operations related to these objects and provide
+ *  additional type safety and more robust error handling. Look
+ *  @ref oglplus_object here for more details.
+ */
+
 /** @page oglplus_object OGLplus object
  *
  *  OGLplus defines classes like @ref oglplus::Buffer "Buffer",
@@ -66,7 +76,9 @@ class Managed;
 
 // Helper base class for OpenGL object wrappers
 /*
- *  .note Do not use this class directly, use the derived classes instead.
+ *  @note Do not use this class directly, use the derived classes instead.
+ *
+ *  @ingroup objects
  */
 template <class ObjectOps, bool MultiObject>
 class Object

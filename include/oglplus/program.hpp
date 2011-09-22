@@ -722,6 +722,9 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
+/**
+ *  @ingroup objects
+ */
 class Program
  : public ProgramOps
 { };

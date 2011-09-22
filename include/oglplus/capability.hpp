@@ -15,6 +15,9 @@
 namespace oglplus {
 
 /// Capability enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class Capability: GLenum
 {
 	/// DEPTH_TEST

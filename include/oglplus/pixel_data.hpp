@@ -17,6 +17,9 @@
 namespace oglplus {
 
 /// OpenGL pixel data type enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class PixelDataType : GLenum
 {
 	/// UNSIGNED_BYTE
@@ -70,6 +73,9 @@ enum class PixelDataType : GLenum
 };
 
 /// OpenGL pixel data format enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class PixelDataFormat : GLenum
 {
 	/// STENCIL_INDEX
@@ -113,6 +119,9 @@ enum class PixelDataFormat : GLenum
 };
 
 /// OpenGL pixel data internal format enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class PixelDataInternalFormat : GLenum
 {
 	/// DEPTH_COMPONENT

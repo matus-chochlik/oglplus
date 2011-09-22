@@ -30,7 +30,9 @@ namespace oglplus {
  *  points. The curves pass through the begin and end and are influenced
  *  by the other control points.
  *
- *  @see CubicBezierSpline
+ *  @see CubicBezierLoop
+ *
+ *  @ingroup math_utils
  */
 template <typename Type, typename Parameter, size_t Order>
 class BezierCurves
@@ -154,6 +156,8 @@ public:
  *  at the curve connection points. The control points between the begin
  *  and end points of each segment are calculated automatically to make
  *  the transition between the individual segments smooth.
+ *
+ *  @ingroup math_utils
  */
 template <typename Type, typename Parameter>
 class CubicBezierLoop

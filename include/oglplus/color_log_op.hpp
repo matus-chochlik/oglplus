@@ -15,6 +15,9 @@
 namespace oglplus {
 
 /// Color logic operation enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class ColorLogicOperation : GLenum
 {
 	/// CLEAR

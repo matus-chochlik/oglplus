@@ -20,6 +20,9 @@
 namespace oglplus {
 
 /// Exception class for OpenGL shading language program link error
+/**
+ *  @ingroup error_handling
+ */
 class LinkError
  : public ProgramBuildError
 {
@@ -34,6 +37,9 @@ public:
 };
 
 /// Exception class for OpenGL shading language program validation error
+/**
+ *  @ingroup error_handling
+ */
 class ValidationError
  : public ProgramBuildError
 {

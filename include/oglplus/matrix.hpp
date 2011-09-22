@@ -27,6 +27,8 @@ namespace oglplus {
  *  @tparam T the matrix element value type
  *  @tparam Rows the number of rows of the matrix
  *  @tparam Cols the number of columns of the matrix
+ *
+ *  @ingroup math_utils
  */
 template <typename T, size_t Rows, size_t Cols>
 class Matrix
@@ -519,13 +521,22 @@ public:
 };
 
 /// 4x4 float matrix
+/**
+ *  @ingroup math_utils
+ */
 typedef Matrix<GLfloat, 4, 4> Matrix4f;
+
 /// 4x4 double precision matrix
+/**
+ *  @ingroup math_utils
+ */
 typedef Matrix<GLdouble, 4, 4> Matrix4d;
 
 /// Class implementing model transformation matrix named constructors
 /** The static member functions of this class can be used to construct
  *  various model transformation matrices.
+ *
+ *  @ingroup math_utils
  */
 template <typename T>
 class ModelMatrix
@@ -686,13 +697,22 @@ public:
 };
 
 /// Model transformation float matrix
+/**
+ *  @ingroup math_utils
+ */
 typedef ModelMatrix<GLfloat> ModelMatrixf;
+
 /// Model transformation double precision matrix
+/**
+ *  @ingroup math_utils
+ */
 typedef ModelMatrix<GLdouble> ModelMatrixd;
 
 /// Class implementing camera matrix named constructors
 /** The static methods of this class can be used for the construction
  *  of various camera matrices.
+ *
+ *  @ingroup math_utils
  */
 template <typename T>
 class CameraMatrix
@@ -927,8 +947,15 @@ public:
 };
 
 /// Camera matrix using float numbers
+/**
+ *  @ingroup math_utils
+ */
 typedef CameraMatrix<GLfloat> CamMatrixf;
+
 /// Camera matrix using double precition numbers
+/**
+ *  @ingroup math_utils
+ */
 typedef CameraMatrix<GLdouble> CamMatrixd;
 
 // implementation of Vector's constructors, conversions and operations

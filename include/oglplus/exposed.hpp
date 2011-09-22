@@ -27,6 +27,8 @@ namespace oglplus {
  *
  *  @see Managed
  *  @see Expose
+ *
+ *  @ingroup utility_classes
  */
 template <class Object>
 class Exposed
@@ -70,6 +72,8 @@ public:
  *  glProgramParameteri(Expose(program).Name(), GL_PROGRAM_SEPARABLE, GL_TRUE);
  *  @endcode
  *  @see Exposed
+ *
+ *  @ingroup utility_classes
  */
 template <class Object>
 inline Exposed<Object> Expose(const Object& object)

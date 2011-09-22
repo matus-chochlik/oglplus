@@ -17,6 +17,13 @@
 #include <list>
 #include <map>
 
+/** @defgroup error_handling Error handling
+ *
+ *  The exception classes listed below provide information about errors
+ *  that occur during the excecution of the OpenGL function calls in the
+ *  OGLplus wrappers.
+ */
+
 #define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT) \
 	static const char* _errinf_ctxt(void) \
 	{ \
@@ -77,6 +84,8 @@ namespace oglplus {
  *  @see ErrorFile
  *  @see ErrorLine
  *  @see ErrorObjectDescription
+ *
+ *  @ingroup error_handling
  */
 struct ErrorInfo
 {
@@ -109,6 +118,8 @@ struct ErrorInfo
  *  @see ErrorLine
  *  @see ErrorClassName
  *  @see ErrorObjectDescription
+ *
+ *  @ingroup error_handling
  */
 inline const char* ErrorGLSymbol(const ErrorInfo& info)
 {
@@ -123,6 +134,8 @@ inline const char* ErrorGLSymbol(const ErrorInfo& info)
  *  @see ErrorLine
  *  @see ErrorClassName
  *  @see ErrorObjectDescription
+ *
+ *  @ingroup error_handling
  */
 inline const char* ErrorFile(const ErrorInfo& info)
 {
@@ -137,6 +150,8 @@ inline const char* ErrorFile(const ErrorInfo& info)
  *  @see ErrorLine
  *  @see ErrorClassName
  *  @see ErrorObjectDescription
+ *
+ *  @ingroup error_handling
  */
 inline const char* ErrorFunc(const ErrorInfo& info)
 {
@@ -151,6 +166,8 @@ inline const char* ErrorFunc(const ErrorInfo& info)
  *  @see ErrorFunc
  *  @see ErrorClassName
  *  @see ErrorObjectDescription
+ *
+ *  @ingroup error_handling
  */
 inline unsigned ErrorLine(const ErrorInfo& info)
 {
@@ -165,6 +182,8 @@ inline unsigned ErrorLine(const ErrorInfo& info)
  *  @see ErrorFunc
  *  @see ErrorLine
  *  @see ErrorObjectDescription
+ *
+ *  @ingroup error_handling
  */
 inline const char* ErrorClassName(const ErrorInfo& info)
 {
@@ -179,6 +198,8 @@ inline const char* ErrorClassName(const ErrorInfo& info)
  *  @see ErrorFunc
  *  @see ErrorLine
  *  @see ErrorClassName
+ *
+ *  @ingroup error_handling
  */
 inline const std::string& ErrorObjectDescription(const ErrorInfo& info)
 {
@@ -194,6 +215,8 @@ inline const std::string& ErrorObjectDescription(const ErrorInfo& info)
  *  compilation and linking errors, out-of-memory errors, etc.
  *  This class is derived from the standard runtime_error exception and thus
  *  the basic error message can be obtained by calling its @c what() member function.
+ *
+ *  @ingroup error_handling
  */
 class Error
  : public std::runtime_error
@@ -377,6 +400,8 @@ public:
 /// Exception class for out-of-memory OpenGL errors
 /** Out-of-memory is a very serious error and applications generally should not
  *  try to recover from such errors, but terminate gracefully if possible.
+ *
+ *  @ingroup error_handling
  */
 class OutOfMemory
  : public Error
@@ -437,7 +462,15 @@ inline void AssertNoError(const ErrorInfo& info)
 }
 
 
-// Exception for exceeding implementation-defined limits
+/// Exception for exceeding implementation-defined limits
+/** Instances of this class are thrown if an instance of a (usually unsigned
+ *  integer) type is assigned a value that it is outside of a implementation
+ *  dependent range. This includes things like limits on the number of texture
+ *  units of the GPU, the maximum texture dimensions, maximum number of draw
+ *  buffers, vertex attributes, etc.
+ *
+ *  @ingroup error_handling
+ */
 class LimitError
  : public Error
 {
@@ -454,11 +487,13 @@ public:
 	 , _limit(limit)
 	{ }
 
+	/// The value assigned to the limited-type variable
 	GLuint Value(void) const
 	{
 		return _value;
 	}
 
+	/// The allowed limit of the limited-type
 	GLuint Limit(void) const
 	{
 		return _limit;

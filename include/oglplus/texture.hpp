@@ -41,6 +41,9 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 
 
 /// Texture compare mode enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class TextureCompareMode : GLenum {
 	/// NONE
 	None = GL_NONE,
@@ -49,6 +52,9 @@ enum class TextureCompareMode : GLenum {
 };
 
 /// Texture magnification filter enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class TextureMagFilter : GLenum {
 	/// NEAREST
 	Nearest = GL_NEAREST,
@@ -57,6 +63,9 @@ enum class TextureMagFilter : GLenum {
 };
 
 /// Texture minification filter enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class TextureMinFilter : GLenum {
 	/// NEAREST
 	Nearest = GL_NEAREST,
@@ -73,6 +82,9 @@ enum class TextureMinFilter : GLenum {
 };
 
 /// Texture swizzle parameter coordinate enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class TextureSwizzleCoord : GLenum {
 	/// TEXTURE_SWIZZLE_R
 	R = GL_TEXTURE_SWIZZLE_R,
@@ -87,6 +99,9 @@ enum class TextureSwizzleCoord : GLenum {
 };
 
 /// Texture swizzle enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class TextureSwizzle : GLenum {
 	/// RED
 	Red = GL_RED,
@@ -103,6 +118,9 @@ enum class TextureSwizzle : GLenum {
 };
 
 /// Texture wrap parameter coordinate enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class TextureWrapCoord : GLenum {
 	/// TEXTURE_WRAP_S
 	S = GL_TEXTURE_WRAP_S,
@@ -113,6 +131,9 @@ enum class TextureWrapCoord : GLenum {
 };
 
 /// Texture wrap enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class TextureWrap : GLenum {
 	/// CLAMP_TO_EDGE
 	ClampToEdge = GL_CLAMP_TO_EDGE,
@@ -722,6 +743,9 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL texture functionality
+/**
+ *  @ingroup objects
+ */
 class Texture
  : public TextureOps
 { };

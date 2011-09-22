@@ -51,7 +51,7 @@
  *  a thin object-oriented facade over the OpenGL (version 3 and higher)
  *  C-language API. It provides wrappers which automate
  *  the resource and object management and make the use of OpenGL
- *  in C++ much easier.
+ *  in C++ safer and easier.
  *
  *  - @ref oglplus_features
  *    - @ref feat_auto_resource_management
@@ -218,7 +218,7 @@
  *  <A HREF="www.opengl.org/registry/api/gl3.h">www.opengl.org/registry/api/gl3.h</A>
  *  and place it to a directory implicitly searched by the compiler or to add the
  *  @c -I/path/to/include directive to your @c CXXFLAGS. If the OpengGL dynamic library
- *  or shader object is located in a nonstandard location also update the @c LDFLAGS.
+ *  or shared object is located in a nonstandard location also update the @c LDFLAGS.
  *
  *  On Linux and similar systems using Bash as shell you can for example put
  *  the following to your ~/.bashrc file:
@@ -274,4 +274,32 @@
  *  a nonzero integer value.
  *
  */
+
+/** @defgroup math_utils GC-related math utilities
+ *
+ *  This group contains classes and functions which do not directly deal with
+ *  OpenGL, but are related to computer graphics, like angles, vectors, matrices,
+ *  etc. The OGLplus example make use these classes, but the library does not
+ *  force you to use them if you don't want to.
+ */
+
+/** @defgroup shader_variables Shader variable access
+ *
+ *  Classes in this group are used for access to the format and values of
+ *  shading language program variables, like uniforms and vertex attributes or
+ *  vertex attribute arrays.
+ */
+
+/** @defgroup enumerations Strongly typed enumerations
+ *
+ *  These enumerations tie the OpenGL constants (defined as preprocessor
+ *  symbols) into logical groups and are then used as parameter types
+ *  in OpenGL function call wrappers instead of just plain @c GLenum
+ *  or @c GLbitfield. This brings additional type safety and robustness
+ *  to the application code and helps avoid subtle hard to track errors.
+ */
+
+/** @defgroup utility_classes Utility classes
+ */
+
 #endif // include guard

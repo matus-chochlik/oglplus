@@ -15,6 +15,9 @@
 namespace oglplus {
 
 /// Comparison function type enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class CompareFunction : GLenum
 {
 	/// Less-than or equal (LEQUAL)

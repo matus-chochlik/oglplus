@@ -65,6 +65,9 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
+/**
+ *  @ingroup objects
+ */
 class VertexArray
  : public VertexArrayOps
 { };

@@ -101,6 +101,9 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
+/**
+ *  @ingroup objects
+ */
 class Framebuffer
  : public FramebufferOps
 { };

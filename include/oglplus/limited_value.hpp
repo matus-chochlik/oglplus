@@ -21,6 +21,11 @@ namespace oglplus {
 /** This class checks if the given unsigned int value is in the
  *  implementation-dependent range of allowed valued and throws
  *  an @c LimitError exception if it is not.
+ *
+ *  @note Do not use this templates directly, use the derived types
+ *  or the typedefs of instantiations instead.
+ *
+ *  @ingroup utility_classes
  */
 template <GLenum Query>
 class LimitedCount

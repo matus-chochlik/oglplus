@@ -21,6 +21,9 @@
 namespace oglplus {
 
 /// The mode used to capture the varying variables in TF
+/**
+ *  @ingroup enumerations
+ */
 enum class TransformFeedbackMode : GLenum
 {
 	/// INTERLEAVED_ATTRIBS
@@ -223,6 +226,9 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL transform feedback functionality
+/**
+ *  @ingroup objects
+ */
 class TransformFeedback
  : public TransformFeedbackOps
 { };

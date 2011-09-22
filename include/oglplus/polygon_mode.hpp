@@ -15,6 +15,9 @@
 namespace oglplus {
 
 /// Polygon rasterization mode enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class PolygonMode : GLenum
 {
 	/// POINT

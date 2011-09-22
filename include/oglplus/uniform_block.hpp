@@ -24,6 +24,9 @@
 namespace oglplus {
 
 /// Encapsulates shader uniform block operations
+/**
+ *  @ingroup shader_variables
+ */
 class UniformBlock
  : public FriendOf<Program>
 {

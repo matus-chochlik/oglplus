@@ -15,6 +15,9 @@
 namespace oglplus {
 
 /// Stencil operation type enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class StencilOperation : GLenum
 {
 	/// KEEP

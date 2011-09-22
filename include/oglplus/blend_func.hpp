@@ -15,6 +15,9 @@
 namespace oglplus {
 
 /// Blend function type enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class BlendFunction : GLenum
 {
 	/// ZERO
@@ -61,6 +64,9 @@ enum class BlendFunction : GLenum
 typedef BlendFunction BlendFn;
 
 /// Blend equation enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class BlendEquation : GLenum
 {
 	/// FUNC_ADD

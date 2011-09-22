@@ -84,6 +84,9 @@ public:
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
+/**
+ *  @ingroup objects
+ */
 class Renderbuffer
  : public RenderbufferOps
 { };

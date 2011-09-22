@@ -15,6 +15,9 @@
 namespace oglplus {
 
 /// Polygon facing enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class Face : GLenum
 {
 	/// FRONT
@@ -26,6 +29,9 @@ enum class Face : GLenum
 };
 
 /// Face orientation enumeration
+/**
+ *  @ingroup enumerations
+ */
 enum class FaceOrientation : GLenum
 {
 	/// Clockwise (CW)

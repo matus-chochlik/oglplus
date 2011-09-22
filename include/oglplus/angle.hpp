@@ -31,6 +31,8 @@ namespace oglplus {
  *  @see oglplus::ArcSin
  *  @see oglplus::ArcCos
  *  @see oglplus::ArcTan
+ *
+ *  @ingroup math_utils
  */
 template <typename T>
 class Angle
@@ -202,6 +204,8 @@ public:
  *  @see ArcSin
  *  @see ArcCos
  *  @see ArcTan
+ *
+ *  @ingroup math_utils
  */
 inline Angle<GLfloat> Radians(GLfloat val_rad)
 {
@@ -227,6 +231,8 @@ inline Angle<GLfloat> Radians(GLfloat val_rad)
  *  @see ArcSin
  *  @see ArcCos
  *  @see ArcTan
+ *
+ *  @ingroup math_utils
  */
 inline Angle<GLfloat> Degrees(GLfloat val_deg)
 {
@@ -253,6 +259,8 @@ inline Angle<GLfloat> Degrees(GLfloat val_deg)
  *  @see ArcSin
  *  @see ArcCos
  *  @see ArcTan
+ *
+ *  @ingroup math_utils
  */
 inline Angle<GLfloat> FullCircles(GLfloat value)
 {
@@ -279,6 +287,8 @@ inline Angle<GLfloat> FullCircles(GLfloat value)
  *  @see ArcSin
  *  @see ArcCos
  *  @see ArcTan
+ *
+ *  @ingroup math_utils
  */
 inline Angle<GLfloat> RightAngles(GLfloat value)
 {
@@ -295,6 +305,8 @@ inline Angle<GLfloat> RightAngles(GLfloat value)
  *  @see RightAngles
  *  @see ArcCos
  *  @see ArcTan
+ *
+ *  @ingroup math_utils
  */
 inline Angle<GLfloat> ArcSin(GLfloat x)
 {
@@ -312,6 +324,8 @@ inline Angle<GLfloat> ArcSin(GLfloat x)
  *  @see RightAngles
  *  @see ArcSin
  *  @see ArcTan
+ *
+ *  @ingroup math_utils
  */
 inline Angle<GLfloat> ArcCos(GLfloat x)
 {
@@ -328,6 +342,8 @@ inline Angle<GLfloat> ArcCos(GLfloat x)
  *  @see RightAngles
  *  @see ArcSin
  *  @see ArcTan
+ *
+ *  @ingroup math_utils
  */
 inline Angle<GLfloat> ArcTan(GLfloat x)
 {
@@ -343,6 +359,8 @@ inline Angle<GLfloat> ArcTan(GLfloat x)
  *  @see RightAngles
  *  @see ArcSin
  *  @see ArcTan
+ *
+ *  @ingroup math_utils
  */
 inline Angle<GLfloat> ArcTan(GLfloat y, GLfloat x)
 {

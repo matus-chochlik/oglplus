@@ -20,6 +20,8 @@ namespace oglplus {
 
 /// A monostate class wrapping application and startup options-related things
 /** @note This class is used mostly by internal library code.
+ *
+ *  @ingroup utility_classes
  */
 class Application
 {

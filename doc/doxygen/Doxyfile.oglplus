@@ -14,6 +14,7 @@ OUTPUT_DIRECTORY       = ../../out/doc/doxygen/oglplus
 INPUT = \
 	../../include/oglplus \
 	../../include/oglplus/shapes \
+	../../include/oglplus/images \
 	../../example/oglplus
 
 EXAMPLE_PATH           = ../../example/oglplus

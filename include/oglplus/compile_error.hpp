@@ -20,6 +20,9 @@
 namespace oglplus {
 
 /// Base class for SL compilation or linking errors
+/**
+ *  @ingroup error_handling
+ */
 class ProgramBuildError
  : public Error
 {
@@ -45,6 +48,9 @@ public:
 };
 
 /// Exception class for OpenGL shading language compilation error
+/**
+ *  @ingroup error_handling
+ */
 class CompileError
  : public ProgramBuildError
 {

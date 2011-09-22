@@ -27,6 +27,8 @@ class Matrix;
  *  @tparam N the dimension of the Vector
  *
  *  @see Matrix
+ *
+ *  @ingroup math_utils
  */
 template <typename T, size_t N>
 class Vector
@@ -563,20 +565,51 @@ public:
 };
 
 /// 1D float vector
+/**
+ *  @ingroup math_utils
+ */
 typedef Vector<GLfloat, 1> Vec1f;
+
 /// 1D double-precision vector
+/**
+ *  @ingroup math_utils
+ */
 typedef Vector<GLdouble, 1> Vec1d;
+
 /// 2D float vector
+/**
+ *  @ingroup math_utils
+ */
 typedef Vector<GLfloat, 2> Vec2f;
+
 /// 2D double-precision vector
+/**
+ *  @ingroup math_utils
+ */
 typedef Vector<GLdouble, 2> Vec2d;
+
 /// 3D float vector
+/**
+ *  @ingroup math_utils
+ */
 typedef Vector<GLfloat, 3> Vec3f;
+
 /// 3D double-precision vector
+/**
+ *  @ingroup math_utils
+ */
 typedef Vector<GLdouble, 3> Vec3d;
+
 /// 4D float vector
+/**
+ *  @ingroup math_utils
+ */
 typedef Vector<GLfloat, 4> Vec4f;
+
 /// 4D double-precision vector
+/**
+ *  @ingroup math_utils
+ */
 typedef Vector<GLdouble, 4> Vec4d;
 
 } // namespace oglplus
