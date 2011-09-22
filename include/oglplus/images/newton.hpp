@@ -21,6 +21,27 @@
 namespace oglplus {
 namespace images {
 
+/// A generator of Newton fractal 2D images
+/** This class generates two dimensional RGB images of rendering of the newton
+ *  polynomial root finding numeric method of a specified function (X^3-1 by
+ *  default). You can also specify two colors for the gradient used for the
+ *  coloring of the fractal.
+ *
+ *  The polynomials to be used are specified by a class wrapping two static
+ *  functions @c f and @c df. @c f is returns the value of the polynomial
+ *  for a specified complex value and @c df returns the value of the first
+ *  derivative of the polynomial for a specified complex value as shown
+ *  in the following code example:
+ *  @code
+ *  struct MyPoly
+ *  {
+ *    static Vec2f f(Vec2f x);
+ *    static Vec2f df(Vec2f x);
+ *  };
+ *  @endcode
+ *
+ *  @ingroup image_load_gen
+ */
 class NewtonFractal
  : public Image<GLfloat>
 {
@@ -105,6 +126,21 @@ public:
 	};
 
 	/// Creates a RGB texture using c1 and c2 for colorizing of the fractal
+	/**
+	 *  @param width the width of the image in pixels
+	 *  @param height the height of the image in pixels
+	 *  @param c1 the "low" end (minimal number of iterations) of the
+	 *    gradient used for colorizing of the fractal
+	 *  @param c2 the "high" end (maximal number of iterations) of the
+	 *    gradient used for colorizing of the fractal
+	 *  @param lb the left bottom coordinate of the viewport in the complex
+	 *    space to be rendered.
+	 *  @param rt the right top coordinate of the viewport in the complex
+	 *    space to be rendered.
+	 *  @param func the object wrapping the functions calculating the value
+	 *    of the polynomial and its first derivative (see the class
+	 *    documentation).
+	 */
 	template <typename Function = X3Minus1>
 	NewtonFractal(
 		GLsizei width,
@@ -123,6 +159,13 @@ public:
 	}
 
 	/// Creates a Red texture colorized from black to red
+	/**
+	 *  @param width the width of the image in pixels
+	 *  @param height the height of the image in pixels
+	 *  @param func the object wrapping the functions calculating the value
+	 *    of the polynomial and its first derivative (see the class
+	 *    documentation).
+	 */
 	template <typename Function = X3Minus1>
 	NewtonFractal(
 		GLsizei width,

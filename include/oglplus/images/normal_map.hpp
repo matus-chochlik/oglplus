@@ -17,6 +17,10 @@
 namespace oglplus {
 namespace images {
 
+/// A filter creating a normal-map/height-map from a height map image
+/**
+ *  @ingroup image_load_gen
+ */
 class NormalMap
  : public FilteredImage<GLfloat, 4>
 {
@@ -59,6 +63,13 @@ private:
 public:
 	typedef FilteredImage<T, 4> Filter;
 
+	/// Created a normal-map from the @p input height-map image
+	/**
+	 *  @param input the height-map image to be filtered
+	 *  @param extractor the height map color component extractor (by
+	 *    default the RED component of the image is used as the height-map
+	 *    value used in normal-map calculation).
+	 */
 	template <typename IT,  typename Extractor = typename Filter::FromRed>
 	NormalMap(const Image<IT>& input, Extractor extractor = Extractor())
 	 : Filter(input, _filter(), extractor)

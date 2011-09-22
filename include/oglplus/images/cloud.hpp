@@ -24,6 +24,12 @@
 namespace oglplus {
 namespace images {
 
+/// A simple generator of 3D textures which can be used to render cloud effects
+/** This class generates alpha (or RED, i.e. one component per pixel) textures
+ *  which represent the density of a vapor cloud or smoke in 3D space.
+ *
+ *  @ingroup image_load_gen
+ */
 class Cloud
  : public Image<GLubyte>
 {
@@ -131,6 +137,7 @@ private:
 		}
 	}
 public:
+	/// Creates a cloud image of given @p width, @p height and @p depth
 	Cloud(
 		GLsizei width,
 		GLsizei height,

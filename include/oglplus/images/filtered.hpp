@@ -20,6 +20,11 @@
 namespace oglplus {
 namespace images {
 
+/// Base class for various image filters
+/**
+ *  @note Do not use this class directly, use the derived filters instead.
+ *  @ingroup image_load_gen
+ */
 template <typename T, size_t EPP>
 class FilteredImage
  : public Image<T>
@@ -132,6 +137,7 @@ private:
 		return _one((_T*)0);
 	}
 public:
+	/// Extractor that allows to specify which component to use as input
 	template <size_t I>
 	struct FromComponentI
 	{
@@ -142,9 +148,13 @@ public:
 		}
 	};
 
+	/// Extractor selecting the Red component of the input image
 	typedef FromComponentI<0> FromRed;
+	/// Extractor selecting the Green component of the input image
 	typedef FromComponentI<1> FromGreen;
+	/// Extractor selecting the Blue component of the input image
 	typedef FromComponentI<2> FromBlue;
+	/// Extractor selecting the Alpha component of the input image
 	typedef FromComponentI<3> FromAlpha;
 
 	template <typename IT, typename Filter, typename Extractor>

@@ -21,6 +21,10 @@
 namespace oglplus {
 namespace images {
 
+/// Creates a RED (one component per pixel) white noise image
+/** 
+ *  @ingroup image_load_gen
+ */
 class RandomRedUByte
  : public Image<GLubyte>
 {
@@ -45,6 +49,11 @@ public:
 	}
 };
 
+
+/// Creates a RGB (three components per pixel) white noise image
+/** 
+ *  @ingroup image_load_gen
+ */
 class RandomRGBUByte
  : public Image<GLubyte>
 {

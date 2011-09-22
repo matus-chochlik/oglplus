@@ -293,16 +293,22 @@ public:
 
 } // namespace aux
 
+/// Loader of images in the PNG (Portable network graphics) format
+/**
+ *  @ingroup image_load_gen
+ */
 class PNG
  : public Image<GLubyte>
 {
 public:
+	/// Load the image from a file with the specified @p file_path
 	PNG(const char* file_path)
 	{
 		std::ifstream  file(file_path);
 		aux::PNGLoader(file, *this);
 	}
 
+	/// Load the image from the specified @p input stream
 	PNG(std::istream& input)
 	{
 		aux::PNGLoader(input, *this);

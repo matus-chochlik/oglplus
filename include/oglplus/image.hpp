@@ -20,9 +20,22 @@ namespace oglplus {
 template <typename T>
 class ImageInitializer;
 
-/// Wrapper for image data
+/** @defgroup image_load_gen Image loaders and generators
+ *
+ *  Classes in this group serve for loading or generating one, two or three
+ *  dimensional images in various data formats, that can be used for example
+ *  as data source for textures.
+ *
+ *  The @ref oglplus::Texture "Texture" class can take instances of @c Image
+ *  directly in its image loading member functions which makes initializing
+ *  textures more convenient.
+ */
+
+/// Wrapper for (texture) image data
 /** @note Do not use this class directly, use the derived
  *  classes instead.
+ *
+ *  @ingroup image_load_gen
  */
 template <typename T>
 class Image
