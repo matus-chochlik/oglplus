@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -51,9 +52,26 @@ protected:
 public:
 	/// Framebuffer bind targets
 	enum class Target : GLenum {
+		/// DRAW_FRAMEBUFFER
 		Draw = GL_DRAW_FRAMEBUFFER,
+		/// READ_FRAMEBUFFER
 		Read = GL_READ_FRAMEBUFFER
 	};
+protected:
+	static GLenum _binding_query(Target target)
+	{
+		switch(GLenum(target))
+		{
+			case GL_DRAW_FRAMEBUFFER:
+				return GL_DRAW_FRAMEBUFFER_BINDING;
+			case GL_READ_FRAMEBUFFER:
+				return GL_READ_FRAMEBUFFER_BINDING;
+			default:;
+		}
+		return 0;
+	}
+	friend class BindingQuery<FramebufferOps>;
+public:
 
 	/// Bind this framebuffer to the specified target
 	/**
@@ -82,7 +100,7 @@ public:
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Encapsulates the OpenGL framebuffer-related functionality
+/// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 class Framebuffer
  : public FramebufferOps
 { };

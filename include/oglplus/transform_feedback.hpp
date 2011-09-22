@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -22,7 +23,9 @@ namespace oglplus {
 /// The mode used to capture the varying variables in TF
 enum class TransformFeedbackMode : GLenum
 {
+	/// INTERLEAVED_ATTRIBS
 	InterleavedAttribs = GL_INTERLEAVED_ATTRIBS,
+	/// SEPARATE_ATTRIBS
 	SeparateAttribs = GL_SEPARATE_ATTRIBS
 };
 
@@ -52,13 +55,30 @@ protected:
 public:
 	/// Transform feedback bind targets
 	enum class Target : GLenum {
+		/// The default target (TRANSFORM_FEEDBACK)
 		Default = GL_TRANSFORM_FEEDBACK
 	};
+protected:
+	static GLenum _binding_query(Target target)
+	{
+		switch(GLenum(target))
+		{
+			case GL_TRANSFORM_FEEDBACK:
+				return GL_TRANSFORM_FEEDBACK_BINDING;
+			default:;
+		}
+		return 0;
+	}
+	friend class BindingQuery<TransformFeedbackOps>;
+public:
 
 	/// Transform feedback primitive modes
 	enum class PrimitiveType : GLenum {
+		/// TRIANGLES
 		Triangles = GL_TRIANGLES,
+		/// LINES
 		Lines = GL_LINES,
+		/// POINTS
 		Points = GL_POINTS
 	};
 
@@ -200,7 +220,15 @@ public:
 	};
 };
 
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// An @ref oglplus_object encapsulating the OpenGL transform feedback functionality
+class TransformFeedback
+ : public TransformFeedbackOps
+{ };
+#else
 typedef Object<TransformFeedbackOps, true> TransformFeedback;
+#endif
 
 } // namespace oglplus
 

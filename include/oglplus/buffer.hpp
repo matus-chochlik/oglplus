@@ -28,6 +28,7 @@ class UniformBufferBindingPoint
  : public LimitedCount
 {
 public:
+	/// Construction from a @c GLuint
 	UniformBufferBindingPoint(GLuint count);
 };
 #else
@@ -43,6 +44,7 @@ class TransformFeedbackBufferBindingPoint
  : public LimitedCount
 {
 public:
+	/// Construction from a @c GLuint
 	TransformFeedbackBufferBindingPoint(GLuint count);
 };
 #else
@@ -84,15 +86,25 @@ protected:
 public:
 	/// Buffer bind targets
 	enum class Target : GLenum {
+		/// ARRAY_BUFFER
 		Array = GL_ARRAY_BUFFER,
+		/// COPY_READ_BUFFER
 		CopyRead = GL_COPY_READ_BUFFER,
+		/// COPY_WRITE_BUFFER
 		CopyWrite = GL_COPY_WRITE_BUFFER,
+		/// DRAW_INDIRECT_BUFFER
 		DrawIndirect = GL_DRAW_INDIRECT_BUFFER,
+		/// ELEMENT_ARRAY_BUFFER
 		ElementArray = GL_ELEMENT_ARRAY_BUFFER,
+		/// PIXEL_PACK_BUFFER
 		PixelPack = GL_PIXEL_PACK_BUFFER,
+		/// PIXEL_UNPACK_BUFFER
 		PixelUnpack = GL_PIXEL_UNPACK_BUFFER,
+		/// TEXTURE_BUFFER
 		TextureBuffer = GL_TEXTURE_BUFFER,
+		/// TRANSFORM_FEEDBACK_BUFFER
 		TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
+		/// UNIFORM_BUFFER
 		Uniform = GL_UNIFORM_BUFFER
 	};
 
@@ -124,27 +136,41 @@ public:
 
 	/// Buffer indexed bind targets
 	enum class IndexedTarget : GLenum {
+		/// TRANSFORM_FEEDBACK_BUFFER
 		TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
+		/// UNIFORM_BUFFER
 		Uniform = GL_UNIFORM_BUFFER
 	};
 
 	/// Buffer usage
 	enum class Usage : GLenum {
+		/// STREAM_DRAW
 		StreamDraw = GL_STREAM_DRAW,
+		/// STREAM_READ
 		StreamRead = GL_STREAM_READ,
+		/// STREAM_COPY
 		StreamCopy = GL_STREAM_COPY,
+		/// STATIC_DRAW
 		StaticDraw = GL_STATIC_DRAW,
+		/// STATIC_READ
 		StaticRead = GL_STATIC_READ,
+		/// STATIC_COPY
 		StaticCopy = GL_STATIC_COPY,
+		/// DYNAMIC_DRAW
 		DynamicDraw = GL_DYNAMIC_DRAW,
+		/// DYNAMIC_READ
 		DynamicRead = GL_DYNAMIC_READ,
+		/// DYNAMIC_COPY
 		DynamicCopy = GL_DYNAMIC_COPY
 	};
 
 	/// Mapped data access types
 	enum class MapAccess : GLbitfield {
+		/// MAP_READ_BIT
 		Read = GL_MAP_READ_BIT,
+		/// MAP_WRITE_BIT
 		Write = GL_MAP_WRITE_BIT,
+		/// MAP_READ_BIT | MAP_WRITE_BIT
 		ReadWrite = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT
 	};
 
@@ -289,7 +315,8 @@ public:
 	}
 
 	/// Unbind the current buffer from the specified target
-	/**
+	/** This function binds the name 0 to the specified @p target.
+	 *
 	 *  @throws Error
 	 */
 	static void Unbind(Target target)
@@ -368,7 +395,10 @@ public:
 	}
 
 	/// Uploads (sets) the buffer data
-	/**
+	/** This member function uploads @p count units of @c sizeof(GLtype)
+	 *  from the location pointed to by @p data to the buffer bound
+	 *  to the specified @p target using the @p usage as hint.
+	 *
 	 *  @see SubData
 	 *  @see CopySubData
 	 *  @throws Error
@@ -395,7 +425,10 @@ public:
 	}
 
 	/// Uploads (sets) the buffer data
-	/**
+	/** This member function uploads @p data.size() units of @c sizeof(GLtype)
+	 *  from the location pointed to by @p data.data() to the buffer bound
+	 *  to the specified @p target using the @p usage as hint.
+	 *
 	 *  @see SubData
 	 *  @see CopySubData
 	 *  @throws Error
@@ -526,7 +559,7 @@ public:
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Encapsulates the OpenGL buffer-related functionality
+/// An @ref oglplus_object encapsulating the OpenGL buffer functionality
 class Buffer
  : public BufferOps
 { };

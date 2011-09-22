@@ -19,6 +19,9 @@
 
 namespace oglplus {
 
+/// Wrapper for asynchronous query functions
+/** @note Do not use this class directly, use Query instead.
+ */
 class QueryOps
  : public Named
 {
@@ -42,16 +45,24 @@ protected:
 	}
 public:
 
+	/// Query bint target
 	enum class Target : GLenum {
+		/// Time elapsed query (TIME_ELAPSED)
 		TimeElapsed = GL_TIME_ELAPSED,
+		/// Timestamp query (TIMESTAMP)
 		Timestamp = GL_TIMESTAMP,
+		/// Number of samples passed query (SAMPLES_PASSED)
 		SamplesPassed = GL_SAMPLES_PASSED,
+		/// (ANY_SAMPLES_PASSED)
 		AnySamplesPassed = GL_ANY_SAMPLES_PASSED,
+		/// Number of primitives generated (PRIMITIVED_GENERATED)
 		PrimitivesGenerated = GL_PRIMITIVES_GENERATED,
+		/// TFB primitives written (TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN)
 		TransformFeedbackPrimitivesWritten =
 			GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN
 	};
 
+	/// Begin the query on the specified @p target
 	void Begin(Target target) const
 	{
 		assert(_name != 0);
@@ -63,6 +74,7 @@ public:
 		));
 	}
 
+	/// End the query on the specified @p target
 	void End(Target target) const
 	{
 		assert(_name != 0);
@@ -74,6 +86,7 @@ public:
 		));
 	}
 
+	/// Returns true if the query result is available
 	bool ResultAvailable(void) const
 	{
 		assert(_name != 0);
@@ -91,6 +104,7 @@ public:
 		return result == GL_TRUE;
 	}
 
+	/// Get the query result
 	void Result(GLint& result) const
 	{
 		assert(_name != 0);
@@ -106,6 +120,7 @@ public:
 		));
 	}
 
+	/// Get the query result
 	void Result(GLuint& result) const
 	{
 		assert(_name != 0);
@@ -121,6 +136,7 @@ public:
 		));
 	}
 
+	/// Get the query result
 	void Result(GLint64& result) const
 	{
 		assert(_name != 0);
@@ -136,6 +152,7 @@ public:
 		));
 	}
 
+	/// Get the query result
 	void Result(GLuint64& result) const
 	{
 		assert(_name != 0);
@@ -151,6 +168,7 @@ public:
 		));
 	}
 
+	/// Waits for and queries the result
 	template <typename ResultType>
 	void WaitForResult(ResultType& result) const
 	{
@@ -159,6 +177,14 @@ public:
 		Result(result);
 	}
 
+	/// A helper class automatically executing a query
+	/** Instances of this class begin the query in the constructor
+	 *  and end the query in the destructor. It is more convenient
+	 *  not to use this class directly, use the Execute() function
+	 *  instead.
+	 *
+	 *  @see Execute
+	 */
 	template <typename ResultType>
 	class Execution
 	{
@@ -202,6 +228,11 @@ public:
 		}
 	};
 
+	/// Executes the query on the specified @p target and gets the @p result
+	/** This function creates an instance of the Execution class which
+	 *  begins a query on the specified @p target when it is constructed
+	 *  and ends this query and gets its @p result when it is destroyed.
+	 */
 	template <typename ResultType>
 	Execution<ResultType> Execute(Target target, ResultType& result) const
 	{
@@ -209,7 +240,15 @@ public:
 	}
 };
 
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// An @ref oglplus_object encapsulating the OpenGL asynchronous query functionality
+class Query
+ : public QueryOps
+{ };
+#else
 typedef Object<QueryOps, true> Query;
+#endif
 
 } // namespace oglplus
 

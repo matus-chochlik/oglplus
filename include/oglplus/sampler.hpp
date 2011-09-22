@@ -22,6 +22,7 @@ namespace oglplus {
 
 /// Encapsulates sampler-related functions
 /** @note Do not use this class directly, use Sampler instead.
+ *  @see Sampler
  */
 class SamplerOps
  : public Named
@@ -203,7 +204,7 @@ public:
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
-/// Encapsulates the OpenGL sampler-related functionality
+/// An @ref oglplus_object encapsulating the OpenGL sampler functionality
 class Sampler
  : public SamplerOps
 { };

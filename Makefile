@@ -68,9 +68,15 @@ BLDSUBDIRS = \
 HDRSUBDIRS = \
 	$(addprefix $(HDRDIR)/, $(sort $(dir $(AUTO_HEADERS))))
 
+.INTERMEDIATE: \
+	$(BLDDIR)/xml/index.xml \
+	$(BLDDIR)/xml/oglplus.xml
+
 # the main goal
 all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS)) \
 	$(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
+
+examples: $(addprefix $(OUTDIR)/, $(EXAMPLES))
 
 textures: $(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
 
@@ -79,6 +85,7 @@ html_docs: $(addprefix $(OUTDIR)/, $(HTML_DOCS));
 
 example_screenshots: $(addsuffix .png,$(addprefix $(BLDDIR)/, $(EXAMPLES)))
 
+auto_headers: $(addprefix $(HDRDIR)/,$(AUTO_HEADERS))
 
 # helper function returning the third argument if the second argument
 # is found at least once in the dependency file specified by the first parameter
@@ -109,7 +116,11 @@ endef
 
 # function defining the rules for linking final executables
 define BUILD_EXE
-$(OUTDIR)/$(1): $(BLDDIR)/$(1).o $(call OPT_ADD_EXE_MAIN,$(1)) | $(dir $(OUTDIR)/$(1))
+$(OUTDIR)/$(1): \
+	$(BLDDIR)/$(1).o \
+	$(call OPT_ADD_EXE_MAIN,$(1)) |\
+	$(dir $(OUTDIR)/$(1)) \
+	textures
 	$(CXX) $(OGLPLUS_LDFLAGS) $$(shell cat $$(addsuffix .ldf,$$(basename $$^))) -o $$@ $$^
 endef
 
@@ -176,15 +187,24 @@ endef
 $(foreach tex,$(SVG_TEXTURES),$(eval $(call CONVERT_SVG2PNG,$(tex))))
 
 # build dependencies for doxygen HTML documentation
-$(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html $(OUTDIR)/doc/doxygen/%/html
+$(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html
 	@echo "$(OUTDIR)/doc/doxygen/$*/html/index.html $@: \\" > $@
 	@find include/$* example/$* -type f -name '*.[ch]pp' 2> /dev/null |\
 	sed 's|\(^.*$$\)|	\1|' |\
 	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
 
-#build the doxygen html documentation
-$(OUTDIR)/doc/doxygen/%/html/index.html: $(wildcard doc/doxygen/Doxyfile.*) example_screenshots
-	cd doc/doxygen && (cat Doxyfile.oglplus && echo "QUIET=YES") | doxygen -
+# build the doxygen html documentation
+$(OUTDIR)/doc/doxygen/%/html/index.html: \
+	$(BLDDIR)/doc/doxygen/%/html/index.html.d \
+	$(wildcard doc/doxygen/Doxyfile.*) \
+	example_screenshots |\
+	$(OUTDIR)/doc/doxygen/%/html
+	@cd doc/doxygen && (\
+		cat Doxyfile.oglplus && \
+		echo "QUIET=YES" && \
+		echo -n "PROJECT_NUMBER = " && \
+		cat ../../VERSION \
+	) | doxygen -
 
 # build dependencies for doxygen XML output
 $(BLDDIR)/xml/index.xml.d: | $(BLDDIR)/xml
@@ -193,11 +213,11 @@ $(BLDDIR)/xml/index.xml.d: | $(BLDDIR)/xml
 	sed 's|\(^.*$$\)|	\1|' |\
 	sed '$$!s|\(^.*$$\)|\1 \\|' >> $@
 
-#build the doxygen XML output
+# build the doxygen XML output
 $(BLDDIR)/xml/index.xml: $(wildcard doc/doxygen/Doxyfile.*)
 	cd doc/doxygen && (cat Doxyfile.autohdr && echo "QUIET=YES") | doxygen -
 
-#combine the doxygen XML output
+# combine the doxygen XML output
 $(BLDDIR)/xml/oglplus.xml: $(BLDDIR)/xml/index.xml
 	xsltproc --output $@ $(BLDDIR)/xml/combine.xslt $<
 
@@ -219,7 +239,8 @@ include $(addsuffix .d,$(addprefix $(BLDDIR)/,$(HTML_DOCS)))
 endif
 
 # cleanup
-.PHONY: clean
+.PHONY: clean;
+
 clean:
 	rm -rf $(shell readlink $(OUTDIR) || echo $(OUTDIR))
 	rm -rf $(shell readlink $(BLDDIR) || echo $(BLDDIR))

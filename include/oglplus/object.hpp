@@ -19,6 +19,45 @@
 
 namespace oglplus {
 
+/** @page oglplus_object OGLplus object
+ *
+ *  OGLplus defines classes like @ref oglplus::Buffer "Buffer",
+ *  @ref oglplus::Program "Program", @ref oglplus::Texture "Texture",
+ *  @ref oglplus::Query "Query" and many others, wrapping around OpenGL
+ *  "objects". Such classes have, besides the object-type-specific functions,
+ *  several common constuctors and members as shown by the following pseudo
+ *  code. (The @c Object class does not actually exist, the following declaration
+ *  is just a sort of template).
+ *
+ *  @code
+ *  class Object
+ *  {
+ *  public:
+ *    // Objects are default constructible
+ *    Object(void);
+ *
+ *    // Objects are not copy constructible
+ *    Object(const Object&) = delete;
+ *
+ *    // Objects are move constructible
+ *    Object(Object&&);
+ *
+ *    // If object has a Kind typedef, construct with kind specification
+ *    Object(Object::Kind kind);
+ *
+ *    // Construction with a textual description
+ *    Object(std::string description);
+ *
+ *    // Construct with kind specification and textual description
+ *    Object(Object::Kind kind, std::string description);
+ *
+ *    // Returns the textual description (if any) of the Object
+ *    const std::string Description(void) const;
+ *
+ *  };
+ *  @endcode
+ */
+
 template <class Object>
 class Array;
 

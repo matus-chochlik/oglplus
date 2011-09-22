@@ -21,16 +21,21 @@
 #include <oglplus/blend_func.hpp>
 #include <oglplus/compare_func.hpp>
 #include <oglplus/stencil_op.hpp>
+#include <oglplus/color_log_op.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
 #include <oglplus/auxiliary/bitfield.hpp>
 
 namespace oglplus {
 
+/// Draw buffer clear bit enumeration
 enum class ClearBit : GLbitfield
 {
+	/// Clear the color buffer (COLOR_BUFFER_BIT)
 	ColorBuffer = GL_COLOR_BUFFER_BIT,
+	/// Clear the depth buffer (DEPTH_BUFFER_BIT)
 	DepthBuffer = GL_DEPTH_BUFFER_BIT,
+	/// Clear the stencil buffer (STENCIL_BUFFER_BIT)
 	StencilBuffer = GL_STENCIL_BUFFER_BIT
 };
 
@@ -274,6 +279,13 @@ public:
 	{
 		::glBlendColor(r, g, b, a);
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendColor));
+	}
+
+	/// Sets the color logical operation
+	static void LogicOp(ColorLogicOperation op)
+	{
+		::glLogicOp(GLenum(op));
+		AssertNoError(OGLPLUS_ERROR_INFO(LogicOp));
 	}
 
 	/// Sets the polygon facing mode

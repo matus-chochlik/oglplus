@@ -133,26 +133,31 @@ protected:
 
 } // namespace aux
 
+/// Encapsulates vertex attribute functionality
 class VertexAttrib
  : public VertexAttribOps
  , public aux::ShaderDataSetOps<aux::VertexAttribSetters, 16>
 {
 private:
 public:
+	/// References the vertex attribute array at @p index
 	VertexAttrib(VertexAttribSlot i)
 	 : VertexAttribOps(i)
 	{ }
 
+	/// References the vertex attribute @p identifier of the @p program
 	VertexAttrib(const Program& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
+	/// Set the value(s) of the vertex attribute
 	template <typename ... T>
 	void Set(T ... v) const
 	{
 		this->_do_set(_index, v...);
 	}
 
+	/// Set the value(s) of the vertex attribute
 	template <size_t N, typename T>
 	void Set(const T* v) const
 	{
@@ -160,18 +165,22 @@ public:
 	}
 };
 
+/// Encapsulates vertex attribute array functionality
 class VertexAttribArray
  : public VertexAttribOps
 {
 public:
-	VertexAttribArray(VertexAttribSlot i)
-	 : VertexAttribOps(i)
+	/// References the vertex attribute array at @p index
+	VertexAttribArray(VertexAttribSlot index)
+	 : VertexAttribOps(index)
 	{ }
 
+	/// References the vertex attrib array @p identifier of the @p program
 	VertexAttribArray(const Program& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
+	/// Setup the properties of this vertex attribute array
 	void Setup(
 		GLint values_per_vertex,
 		DataType data_type,
@@ -191,12 +200,14 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 	}
 
+	/// Enables this vertex attribute array
 	void Enable(void) const
 	{
 		::glEnableVertexAttribArray(_index);
 		AssertNoError(OGLPLUS_ERROR_INFO(EnableVertexAttribArray));
 	}
 
+	/// Disables this vertex attribute array
 	void Disable(void) const
 	{
 		::glDisableVertexAttribArray(_index);

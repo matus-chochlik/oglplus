@@ -14,18 +14,23 @@
 
 namespace oglplus {
 
-/// Facing enumeration
+/// Polygon facing enumeration
 enum class Face : GLenum
 {
+	/// FRONT
 	Front = GL_FRONT,
+	/// BACK
 	Back = GL_BACK,
+	/// FRONT_AND_BACK
 	FrontAndBack = GL_FRONT_AND_BACK
 };
 
 /// Face orientation enumeration
 enum class FaceOrientation : GLenum
 {
+	/// Clockwise (CW)
 	CW = GL_CW,
+	/// Counter clockwise (CCW)
 	CCW = GL_CCW
 };
 
