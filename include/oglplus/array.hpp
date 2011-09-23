@@ -22,6 +22,9 @@
 namespace oglplus {
 
 /// Allows to allocate and manage several instances of Object at once
+/**
+ *  @ingroup modifier_classes
+ */
 template <class Object>
 class Array
 {

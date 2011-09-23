@@ -17,13 +17,6 @@
 #include <list>
 #include <map>
 
-/** @defgroup error_handling Error handling
- *
- *  The exception classes listed below provide information about errors
- *  that occur during the excecution of the OpenGL function calls in the
- *  OGLplus wrappers.
- */
-
 #define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT) \
 	static const char* _errinf_ctxt(void) \
 	{ \
@@ -76,6 +69,13 @@
 
 
 namespace oglplus {
+
+/** @defgroup error_handling Error handling
+ *
+ *  The exception classes listed below provide information about errors
+ *  that occur during the excecution of the OpenGL function calls in the
+ *  OGLplus wrappers.
+ */
 
 /// Basic information about exception's throw site and propagation trace points
 /**

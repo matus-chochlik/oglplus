@@ -275,31 +275,4 @@
  *
  */
 
-/** @defgroup math_utils GC-related math utilities
- *
- *  This group contains classes and functions which do not directly deal with
- *  OpenGL, but are related to computer graphics, like angles, vectors, matrices,
- *  etc. The OGLplus example make use these classes, but the library does not
- *  force you to use them if you don't want to.
- */
-
-/** @defgroup shader_variables Shader variable access
- *
- *  Classes in this group are used for access to the format and values of
- *  shading language program variables, like uniforms and vertex attributes or
- *  vertex attribute arrays.
- */
-
-/** @defgroup enumerations Strongly typed enumerations
- *
- *  These enumerations tie the OpenGL constants (defined as preprocessor
- *  symbols) into logical groups and are then used as parameter types
- *  in OpenGL function call wrappers instead of just plain @c GLenum
- *  or @c GLbitfield. This brings additional type safety and robustness
- *  to the application code and helps avoid subtle hard to track errors.
- */
-
-/** @defgroup utility_classes Utility classes
- */
-
 #endif // include guard

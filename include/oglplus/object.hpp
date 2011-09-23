@@ -71,8 +71,29 @@ namespace oglplus {
 template <class Object>
 class Array;
 
+/// Allows to make managed copies of instances of Object
+/** For obvious reasons @ref oglplus_object "objects" are not copyable,
+ *  only movable. There may however be situations where a temporary copy
+ *  of the "master" object (with the knowledge that the original will
+ *  be kept alive during the whole lifetime of the copy) is needed.
+ *  The Managed template class allows to do such temporary copies
+ *  which have the same members and friend functions as the original
+ *  object, and can be use in the same way, provided that to original
+ *  instance is not destroyed before the managed copy.
+ *
+ *  Managed instances are may for be example created when accessing or iterating
+ *  through the elements of an @ref oglplus::Array "Array".
+ *
+ *  @ingroup modifier_classes
+ */
 template <class Object>
+#if OGLPLUS_DOCUMENTATION_ONLY
+class Managed
+ : public Object
+{ };
+#else
 class Managed;
+#endif
 
 // Helper base class for OpenGL object wrappers
 /*
