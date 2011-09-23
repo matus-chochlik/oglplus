@@ -16,9 +16,25 @@
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
+#include <oglplus/renderbuffer.hpp>
 #include <cassert>
 
 namespace oglplus {
+
+#ifdef OGLPLUS_DOCUMENTATION_ONLY
+/// Type for the framebuffer color attachment (implementation-dependent) number
+class FramebufferColorAttachment
+ : public LimitedCount
+{
+public:
+	FramebufferColorAttachment(GLuint count);
+};
+#else
+OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
+	FramebufferColorAttachment,
+	MAX_COLOR_ATTACHMENTS
+)
+#endif
 
 /// Wrapper for OpenGL framebuffer operations
 /**
@@ -28,6 +44,7 @@ namespace oglplus {
  */
 class FramebufferOps
  : public Named
+ , public FriendOf<Renderbuffer>
 {
 protected:
 	static void _init(GLsizei count, GLuint& _name)
@@ -50,6 +67,48 @@ protected:
 
 	friend class FriendOf<FramebufferOps>;
 public:
+	/// Framebuffer renderbuffer attachment points
+	enum class Attachment : GLenum {
+		/// COLOR_ATTACHMENT0
+		Color = GL_COLOR_ATTACHMENT0,
+		/// COLOR_ATTACHMENT1
+		Color1 = GL_COLOR_ATTACHMENT1,
+		/// COLOR_ATTACHMENT2
+		Color2 = GL_COLOR_ATTACHMENT2,
+		/// COLOR_ATTACHMENT3
+		Color3 = GL_COLOR_ATTACHMENT3,
+		/// COLOR_ATTACHMENT4
+		Color4 = GL_COLOR_ATTACHMENT4,
+		/// COLOR_ATTACHMENT5
+		Color5 = GL_COLOR_ATTACHMENT5,
+		/// COLOR_ATTACHMENT6
+		Color6 = GL_COLOR_ATTACHMENT6,
+		/// COLOR_ATTACHMENT7
+		Color7 = GL_COLOR_ATTACHMENT7,
+		/// COLOR_ATTACHMENT8
+		Color8 = GL_COLOR_ATTACHMENT8,
+		/// COLOR_ATTACHMENT9
+		Color9 = GL_COLOR_ATTACHMENT9,
+		/// COLOR_ATTACHMENT10
+		Color10 = GL_COLOR_ATTACHMENT10,
+		/// COLOR_ATTACHMENT11
+		Color11 = GL_COLOR_ATTACHMENT11,
+		/// COLOR_ATTACHMENT12
+		Color12 = GL_COLOR_ATTACHMENT12,
+		/// COLOR_ATTACHMENT13
+		Color13 = GL_COLOR_ATTACHMENT13,
+		/// COLOR_ATTACHMENT14
+		Color14 = GL_COLOR_ATTACHMENT14,
+		/// COLOR_ATTACHMENT15
+		Color15 = GL_COLOR_ATTACHMENT15,
+		/// DEPTH_ATTACHMENT
+		Depth = GL_DEPTH_ATTACHMENT,
+		/// STENCIL_ATTACHMENT
+		Stencil = GL_STENCIL_ATTACHMENT,
+		/// DEPTH_STENCIL_ATTACHMENT
+		DepthStencil = GL_DEPTH_STENCIL_ATTACHMENT
+	};
+
 	/// Framebuffer bind targets
 	enum class Target : GLenum {
 		/// DRAW_FRAMEBUFFER
@@ -97,6 +156,47 @@ public:
 		::glBindFramebuffer(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindFramebuffer));
 	}
+
+	/// Attach a @p renderbuffer to the @p attachment point of @p target
+	static void AttachRenderbuffer(
+		Target target,
+		Attachment attachment,
+		const Renderbuffer& renderbuffer
+	)
+	{
+		::glFramebufferRenderbuffer(
+			GLenum(target),
+			GLenum(attachment),
+			GL_RENDERBUFFER,
+			FriendOf<Renderbuffer>::GetName(renderbuffer)
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			FramebufferRenderbuffer,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Attach a @p renderbuffer to the color @p attachment of @p target
+	static void AttachColorRenderbuffer(
+		Target target,
+		FramebufferColorAttachment attachment,
+		const Renderbuffer& renderbuffer
+	)
+	{
+		::glFramebufferRenderbuffer(
+			GLenum(target),
+			GL_COLOR_ATTACHMENT0 + GLuint(attachment),
+			GL_RENDERBUFFER,
+			FriendOf<Renderbuffer>::GetName(renderbuffer)
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			FramebufferRenderbuffer,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY

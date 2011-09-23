@@ -59,7 +59,7 @@ public:
 	/// Transform feedback bind targets
 	enum class Target : GLenum {
 		/// The default target (TRANSFORM_FEEDBACK)
-		Default = GL_TRANSFORM_FEEDBACK
+		TransformFeedback = GL_TRANSFORM_FEEDBACK
 	};
 protected:
 	static GLenum _binding_query(Target target)
@@ -86,7 +86,7 @@ public:
 	};
 
 	/// Bind this transform feedback object
-	void Bind(Target target = Target::Default) const
+	void Bind(Target target = Target::TransformFeedback) const
 	{
 		assert(_name != 0);
 		::glBindTransformFeedback(GLenum(target), _name);
@@ -94,7 +94,7 @@ public:
 	}
 
 	/// Bind the default transform feedback object
-	static void BindDefault(Target target = Target::Default)
+	static void BindDefault(Target target = Target::TransformFeedback)
 	{
 		::glBindTransformFeedback(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTransformFeedback));

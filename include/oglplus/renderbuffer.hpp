@@ -15,6 +15,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/pixel_data.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
@@ -50,7 +51,7 @@ public:
 	/// Renderbuffer bind targets
 	enum class Target : GLenum {
 		/// The default target (RENDERBUFFER)
-		Default = GL_RENDERBUFFER
+		Renderbuffer = GL_RENDERBUFFER
 	};
 protected:
 	static GLenum _binding_query(Target target)
@@ -67,7 +68,7 @@ protected:
 public:
 
 	/// Binds this renderbuffer to the @p target
-	void Bind(Target target = Target::Default) const
+	void Bind(Target target = Target::Renderbuffer) const
 	{
 		assert(_name != 0);
 		::glBindRenderbuffer(GLenum(target), _name);
@@ -75,10 +76,54 @@ public:
 	}
 
 	/// Bind the name 0 to the @p target
-	static void Unbind(Target target = Target::Default)
+	static void Unbind(Target target = Target::Renderbuffer)
 	{
 		::glBindRenderbuffer(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindRenderbuffer));
+	}
+
+	/// Set the renderbuffer storage parameters
+	static void Storage(
+		Target target,
+		PixelDataInternalFormat internalformat,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		::glRenderbufferStorage(
+			GLenum(target),
+			GLenum(internalformat),
+			width,
+			height
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			RenderbufferStorage,
+			Renderbuffer,
+			BindingQuery<RenderbufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Set the renderbuffer multisample storage parameters
+	static void StorageMultisample(
+		Target target,
+		GLsizei samples,
+		PixelDataInternalFormat internalformat,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		::glRenderbufferStorageMultisample(
+			GLenum(target),
+			samples,
+			GLenum(internalformat),
+			width,
+			height
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			RenderbufferStorageMultisample,
+			Renderbuffer,
+			BindingQuery<RenderbufferOps>::QueryBinding(target)
+		));
 	}
 };
 

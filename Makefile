@@ -47,7 +47,7 @@ OBJECT_SRCS = $(EXECUTABLES) \
 LIBRARIES = oglplus
 
 # list of bindable objects
-BINDABLE_OBJECTS = buffer texture
+BINDABLE_OBJECTS = buffer texture renderbuffer framebuffer
 
 # list of automatically generated headers
 AUTO_HEADERS = $(addsuffix .hpp, $(addprefix include/oglplus/bound/, $(BINDABLE_OBJECTS)))
