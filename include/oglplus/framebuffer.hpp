@@ -17,6 +17,7 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <oglplus/renderbuffer.hpp>
+#include <oglplus/texture.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -45,6 +46,7 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 class FramebufferOps
  : public Named
  , public FriendOf<Renderbuffer>
+ , public FriendOf<Texture>
 {
 protected:
 	static void _init(GLsizei count, GLuint& _name)
@@ -197,6 +199,141 @@ public:
 		));
 	}
 
+	/// Attach a @p texture to the @p attachment point of @p target
+	static void AttachTexture(
+		Target target,
+		Attachment attachment,
+		const Texture& texture,
+		GLint level
+	)
+	{
+		::glFramebufferTexture(
+			GLenum(target),
+			GLenum(attachment),
+			FriendOf<Texture>::GetName(texture),
+			level
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			FramebufferTexture,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Attach a @p texture to the color @p attachment point of @p target
+	static void AttachColorTexture(
+		Target target,
+		FramebufferColorAttachment attachment,
+		const Texture& texture,
+		GLint level
+	)
+	{
+		::glFramebufferTexture(
+			GLenum(target),
+			GL_COLOR_ATTACHMENT0 + GLenum(attachment),
+			FriendOf<Texture>::GetName(texture),
+			level
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			FramebufferTexture,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Attach a 1D @p texture to the @p attachment point of @p target
+	static void AttachTexture1D(
+		Target target,
+		Attachment attachment,
+		Texture::Target textarget,
+		const Texture& texture,
+		GLint level
+	)
+	{
+		::glFramebufferTexture1D(
+			GLenum(target),
+			GLenum(attachment),
+			GLenum(textarget),
+			FriendOf<Texture>::GetName(texture),
+			level
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			FramebufferTexture1D,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Attach a 2D @p texture to the @p attachment point of @p target
+	static void AttachTexture2D(
+		Target target,
+		Attachment attachment,
+		Texture::Target textarget,
+		const Texture& texture,
+		GLint level
+	)
+	{
+		::glFramebufferTexture2D(
+			GLenum(target),
+			GLenum(attachment),
+			GLenum(textarget),
+			FriendOf<Texture>::GetName(texture),
+			level
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			FramebufferTexture2D,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Attach a 3D @p texture to the @p attachment point of @p target
+	static void AttachTexture3D(
+		Target target,
+		Attachment attachment,
+		Texture::Target textarget,
+		const Texture& texture,
+		GLint level,
+		GLint layer
+	)
+	{
+		::glFramebufferTexture3D(
+			GLenum(target),
+			GLenum(attachment),
+			GLenum(textarget),
+			FriendOf<Texture>::GetName(texture),
+			level,
+			layer
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			FramebufferTexture3D,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Attach a @p texture layer to the @p attachment point of @p target
+	static void AttachTextureLayer(
+		Target target,
+		Attachment attachment,
+		const Texture& texture,
+		GLint level,
+		GLint layer
+	)
+	{
+		::glFramebufferTextureLayer(
+			GLenum(target),
+			GLenum(attachment),
+			FriendOf<Texture>::GetName(texture),
+			level,
+			layer
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			FramebufferTextureLayer,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
