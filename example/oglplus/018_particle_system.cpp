@@ -57,17 +57,17 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
-			"in float age;"
-			"out float partAge;"
-			"uniform mat4 modelMatrix, cameraMatrix;"
+			"uniform mat4 ModelMatrix, CameraMatrix;"
+			"in vec4 Position;"
+			"in float Age;"
+			"out float vertAge;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
-			"	partAge = age;"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
+			"	vertAge = Age;"
 			"}"
 		);
 		// compile it
@@ -78,9 +78,9 @@ public:
 			"#version 330\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
-			"uniform mat4 projectionMatrix;"
-			"in float partAge[];"
-			"out float fragAge;"
+			"uniform mat4 ProjectionMatrix;"
+			"in float vertAge[];"
+			"out float geomAge;"
 			"void main(void)"
 			"{"
 			"	float s = 0.5;"
@@ -89,15 +89,15 @@ public:
 			"	for(int j=0;j!=2;++j)"
 			"	for(int i=0;i!=2;++i)"
 			"	{"
-			"		float xoffs = xo[i]*(1.0+partAge[0])*s;"
-			"		float yoffs = yo[j]*(1.0+partAge[0])*s;"
-			"		gl_Position = projectionMatrix * vec4("
+			"		float xoffs = xo[i]*(1.0+vertAge[0])*s;"
+			"		float yoffs = yo[j]*(1.0+vertAge[0])*s;"
+			"		gl_Position = ProjectionMatrix * vec4("
 			"			gl_in[0].gl_Position.x-xoffs,"
 			"			gl_in[0].gl_Position.y-yoffs,"
 			"			gl_in[0].gl_Position.z,"
 			"			1.0"
 			"		);"
-			"		fragAge = partAge[0];"
+			"		geomAge = vertAge[0];"
 			"		EmitVertex();"
 			"	}"
 			"	EndPrimitive();"
@@ -109,15 +109,15 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in float fragAge;"
+			"in float geomAge;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	vec3 c1 = vec3(1.0, 0.5, 0.5);"
-			"	vec3 c2 = vec3(0.3, 0.1, 0.1);"
+			"	vec3 Color1 = vec3(1.0, 0.5, 0.5);"
+			"	vec3 Color2 = vec3(0.3, 0.1, 0.1);"
 			"	fragColor = vec4("
-			"		mix(c1, c2, fragAge),"
-			"		1.0-fragAge"
+			"		mix(Color1, Color2, geomAge),"
+			"		1.0 - geomAge"
 			"	);"
 			"}"
 		);
@@ -139,7 +139,7 @@ public:
 		pos_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
@@ -150,13 +150,13 @@ public:
 		age_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, ages);
-			VertexAttribArray attr(prog, "age");
+			VertexAttribArray attr(prog, "Age");
 			attr.Setup(1, DataType::Float);
 			attr.Enable();
 		}
 		ages.reserve(particle_count);
 
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::Translation(0.0f, -10.0f, 0.0f)
 		);
 		//
@@ -171,7 +171,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -239,7 +239,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				12.0f,

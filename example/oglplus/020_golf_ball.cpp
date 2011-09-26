@@ -119,16 +119,16 @@ public:
 		// the same way the sphere is transformed
 		vs_tfb.Source(
 			"#version 330\n"
-			"uniform mat4 cameraMatrix, modelMatrix;"
-			"uniform float diameter;"
-			"in vec3 hole;"
-			"out vec3 transf_hole;"
+			"uniform mat4 CameraMatrix, ModelMatrix;"
+			"uniform float Diameter;"
+			"in vec3 Hole;"
+			"out vec3 vertTransfHole;"
 			"void main(void)"
 			"{"
-			"	transf_hole = ("
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vec4(hole * (1.0 + 0.5*diameter), 0.0)"
+			"	vertTransfHole = ("
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		vec4(Hole * (1.0 + 0.5 * Diameter), 0.0)"
 			"	).xyz;"
 			"}"
 		);
@@ -137,13 +137,13 @@ public:
 		vs_tfb.Compile();
 		prog_tfb.AttachShader(vs_tfb);
 		prog_tfb.TransformFeedbackVaryings(
-			{"transf_hole"},
+			{"vertTransfHole"},
 			TransformFeedbackMode::InterleavedAttribs
 		);
 		prog_tfb.Link();
 		prog_tfb.Use();
 
-		Uniform(prog_tfb, "diameter").Set(hole_diameter);
+		Uniform(prog_tfb, "Diameter").Set(hole_diameter);
 
 		// bind the VAO for the holes
 		holes.Bind();
@@ -161,7 +161,7 @@ public:
 			make_hole_data(data, hole_count);
 			Buffer::Data(Buffer::Target::TransformFeedback, data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog_tfb, "hole");
+			VertexAttribArray attr(prog_tfb, "Hole");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
@@ -170,27 +170,27 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
-			"const vec4 lightPos = vec4(2.0, 3.0, 3.0, 1.0);"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 vertNormal;"
+			"out vec3 vertLight;"
+			"const vec4 LightPos = vec4(2.0, 3.0, 3.0, 1.0);"
 			"void main(void)"
 			"{"
-			"	fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"	vertNormal = ("
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		lightPos-"
-			"		modelMatrix*vertex"
+			"	vertLight = ("
+			"		LightPos-"
+			"		ModelMatrix * Position"
 			"	).xyz;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -199,34 +199,34 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec3 fragNormal;"
-			"in vec3 fragLight;"
+			"in vec3 vertNormal;"
+			"in vec3 vertLight;"
 			"out vec4 fragColor;"
-			"const int n_holes = 50;"
-			"uniform vec3 thole[50];"
-			"uniform float diameter;"
+			"const int HoleCount = 50;"
+			"uniform vec3 TransfHole[50];"
+			"uniform float Diameter;"
 			"void main(void)"
 			"{"
 			"	int imax = 0;"
 			"	float dmax = -1.0;"
-			"	for(int i=0; i!=n_holes; ++i)"
+			"	for(int i=0; i!=HoleCount; ++i)"
 			"	{"
-			"		float d = dot(fragNormal, thole[i]);"
+			"		float d = dot(vertNormal, TransfHole[i]);"
 			"		if(dmax < d)"
 			"		{"
 			"			dmax = d;"
 			"			imax = i;"
 			"		}"
 			"	}"
-			"	float l = length(fragLight);"
-			"	vec3 fragDiff = thole[imax] - fragNormal;"
-			"	vec3 finalNormal = "
-			"		length(fragDiff) > diameter?"
-			"		fragNormal:"
-			"		normalize(fragDiff+fragNormal*diameter);"
+			"	float l = length(vertLight);"
+			"	vec3 FragDiff = TransfHole[imax] - vertNormal;"
+			"	vec3 FinalNormal = "
+			"		length(FragDiff) > Diameter?"
+			"		vertNormal:"
+			"		normalize(FragDiff+vertNormal*Diameter);"
 			"	float i = (l > 0.0) ? dot("
-			"		finalNormal, "
-			"		normalize(fragLight)"
+			"		FinalNormal, "
+			"		normalize(vertLight)"
 			"	) / l : 0.0;"
 			"	i = clamp(0.2+i*2.5, 0.0, 1.0);"
 			"	fragColor = vec4(i, i, i, 1.0);"
@@ -242,7 +242,7 @@ public:
 		prog.Link();
 		prog.Use();
 
-		Uniform(prog, "diameter").Set(hole_diameter);
+		Uniform(prog, "Diameter").Set(hole_diameter);
 
 		// bind the VAO for the sphere
 		sphere.Bind();
@@ -255,7 +255,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -268,7 +268,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -282,7 +282,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -313,8 +313,8 @@ public:
 		//
 		// use transform feedback to get transformed hole vertices
 		prog_tfb.Use();
-		Uniform(prog_tfb, "cameraMatrix").SetMatrix(camera);
-		Uniform(prog_tfb, "modelMatrix").SetMatrix(model);
+		Uniform(prog_tfb, "CameraMatrix").SetMatrix(camera);
+		Uniform(prog_tfb, "ModelMatrix").SetMatrix(model);
 		holes.Bind();
 		{
 			TransformFeedback::Activator activates_tfb(
@@ -324,8 +324,8 @@ public:
 		}
 		prog.Use();
 		//
-		Uniform(prog, "cameraMatrix").SetMatrix(camera);
-		Uniform(prog, "modelMatrix").SetMatrix(model);
+		Uniform(prog, "CameraMatrix").SetMatrix(camera);
+		Uniform(prog, "ModelMatrix").SetMatrix(model);
 
 		// map the transform feedback buffer
 		Buffer::TypedMap<GLfloat> transf_hole_verts_map(
@@ -335,7 +335,7 @@ public:
 		// use the values stored in the buffer as the input
 		// for the fragment shader, that will use them to
 		// calculate the bump map
-		Uniform(prog, "thole").Set<3>(
+		Uniform(prog, "TransfHole").Set<3>(
 			transf_hole_verts_map.Count(),
 			transf_hole_verts_map.Data()
 		);

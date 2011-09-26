@@ -54,22 +54,22 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"out vec3 fragNormal;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 vertNormal;"
 			"void main(void)"
 			"{"
-			"	fragNormal = ("
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"	vertNormal = ("
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -78,34 +78,34 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"uniform int colorCount;"
-			"uniform vec4 color[8];"
-			"in vec3 fragNormal;"
-			"vec3 viewDir = vec3(0.0, 0.0, 1.0);"
-			"vec3 topDir = vec3(0.0, 1.0, 0.0);"
+			"uniform int ColorCount;"
+			"uniform vec4 Color[8];"
+			"in vec3 vertNormal;"
+			"vec3 ViewDir = vec3(0.0, 0.0, 1.0);"
+			"vec3 TopDir = vec3(0.0, 1.0, 0.0);"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float k = dot(fragNormal, viewDir);"
-			"	vec3 reflDir = 2.0*k*fragNormal - viewDir;"
-			"	float a = dot(reflDir, topDir);"
+			"	float k = dot(vertNormal, ViewDir);"
+			"	vec3 reflDir = 2.0*k*vertNormal - ViewDir;"
+			"	float a = dot(reflDir, TopDir);"
 			"	vec3 reflColor;"
-			"	for(int i = 0; i != (colorCount - 1); ++i)"
+			"	for(int i = 0; i != (ColorCount - 1); ++i)"
 			"	{"
-			"		if(a<color[i].a && a>=color[i+1].a)"
+			"		if(a<Color[i].a && a>=Color[i+1].a)"
 			"		{"
 			"			float m = "
-			"				(a - color[i].a)/"
-			"				(color[i+1].a-color[i].a);"
+			"				(a - Color[i].a)/"
+			"				(Color[i+1].a-Color[i].a);"
 			"			reflColor = mix("
-			"				color[i].rgb,"
-			"				color[i+1].rgb,"
+			"				Color[i].rgb,"
+			"				Color[i+1].rgb,"
 			"				m"
 			"			);"
 			"			break;"
 			"		}"
 			"	}"
-			"	float i = max(dot(fragNormal, topDir), 0.0);"
+			"	float i = max(dot(vertNormal, TopDir), 0.0);"
 			"	vec3 diffColor = vec3(i, i, i);"
 			"	fragColor = vec4("
 			"		mix(reflColor, diffColor, 0.3 + i*0.7),"
@@ -134,7 +134,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -147,7 +147,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -155,15 +155,15 @@ public:
 		VertexArray::Unbind();
 
 		// setup the color gradient
-		Uniform(prog, "colorCount").Set(8);
-		Uniform(prog, "color[0]").Set(Vec4f(1.0f, 1.0f, 0.9f, 1.00f));
-		Uniform(prog, "color[1]").Set(Vec4f(1.0f, 0.9f, 0.8f, 0.97f));
-		Uniform(prog, "color[2]").Set(Vec4f(0.9f, 0.7f, 0.5f, 0.95f));
-		Uniform(prog, "color[3]").Set(Vec4f(0.5f, 0.5f, 1.0f, 0.95f));
-		Uniform(prog, "color[4]").Set(Vec4f(0.2f, 0.2f, 0.7f, 0.00f));
-		Uniform(prog, "color[5]").Set(Vec4f(0.1f, 0.1f, 0.1f, 0.00f));
-		Uniform(prog, "color[6]").Set(Vec4f(0.2f, 0.2f, 0.2f,-0.10f));
-		Uniform(prog, "color[7]").Set(Vec4f(0.5f, 0.5f, 0.5f,-1.00f));
+		Uniform(prog, "ColorCount").Set(8);
+		Uniform(prog, "Color[0]").Set(Vec4f(1.0f, 1.0f, 0.9f, 1.00f));
+		Uniform(prog, "Color[1]").Set(Vec4f(1.0f, 0.9f, 0.8f, 0.97f));
+		Uniform(prog, "Color[2]").Set(Vec4f(0.9f, 0.7f, 0.5f, 0.95f));
+		Uniform(prog, "Color[3]").Set(Vec4f(0.5f, 0.5f, 1.0f, 0.95f));
+		Uniform(prog, "Color[4]").Set(Vec4f(0.2f, 0.2f, 0.7f, 0.00f));
+		Uniform(prog, "Color[5]").Set(Vec4f(0.1f, 0.1f, 0.1f, 0.00f));
+		Uniform(prog, "Color[6]").Set(Vec4f(0.2f, 0.2f, 0.2f,-0.10f));
+		Uniform(prog, "Color[7]").Set(Vec4f(0.5f, 0.5f, 0.5f,-1.00f));
 
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -177,7 +177,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -191,7 +191,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.5,
@@ -200,7 +200,7 @@ public:
 			)
 		);
 		// set the model matrix
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 

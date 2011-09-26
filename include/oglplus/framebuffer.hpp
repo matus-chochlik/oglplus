@@ -149,11 +149,11 @@ public:
 		));
 	}
 
-	/// Unbinds the currently bound framebuffer from the specified target
+	/// Binds the default framebuffer to the specified target
 	/**
 	 *  @throws Error
 	 */
-	static void Unbind(Target target)
+	static void BindDefault(Target target)
 	{
 		::glBindFramebuffer(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindFramebuffer));

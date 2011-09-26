@@ -41,12 +41,12 @@ public:
 		// Set the vertex shader source
 		vs.Source(" \
 			#version 330\n \
-			in vec2 vertex; \
-			out vec2 c; \
+			in vec2 Position; \
+			out vec2 vertCoord; \
 			void main(void) \
 			{ \
-				c = vertex; \
-				gl_Position = vec4(vertex, 0.0, 1.0); \
+				vertCoord = Position; \
+				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
 		");
 		// compile it
@@ -55,8 +55,8 @@ public:
 		// set the fragment shader source
 		fs.Source(" \
 			#version 330\n \
-			in vec2 c; \
-			uniform vec3 c1, c2; \
+			in vec2 vertCoord; \
+			uniform vec3 Color1, Color2; \
 			out vec4 fragColor; \
 			\
 			vec2 f(vec2 n) \
@@ -86,7 +86,7 @@ public:
 			} \
 			void main(void) \
 			{ \
-				vec2 z = c; \
+				vec2 z = vertCoord; \
 				int i, max = 128; \
 				for(i = 0; i != max; ++i) \
 				{ \
@@ -95,7 +95,11 @@ public:
 					z = zn; \
 				} \
 				fragColor = vec4( \
-					mix(c1.rgb, c2.rgb, float(i) / float(max)), \
+					mix( \
+						Color1.rgb, \
+						Color2.rgb, \
+						float(i) / float(max) \
+					), \
 					1.0 \
 				); \
 			} \
@@ -124,12 +128,12 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform(prog, "c1").Set(0.2f, 0.02f, 0.05f);
-		Uniform(prog, "c2").Set(1.0f, 0.95f, 0.98f);
+		Uniform(prog, "Color1").Set(0.2f, 0.02f, 0.05f);
+		Uniform(prog, "Color2").Set(1.0f, 0.95f, 0.98f);
 		//
 		VertexArray::Unbind();
 		gl.ClearDepth(1.0f);

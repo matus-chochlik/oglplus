@@ -44,26 +44,26 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 vertColor;"
 			"out vec3 vertNormal;"
-			"out vec3 fragNormal;"
 			"void main(void)"
 			"{"
-			"	fragNormal = ("
-			"		cameraMatrix * vec4("
+			"	vertNormal = ("
+			"		CameraMatrix * vec4("
 			"			normalize("
-			"				vertex.xyz -"
-			"				0.01 * normal"
+			"				Position.xyz -"
+			"				0.01 * Normal"
 			"			), 0.0"
 			"		)"
 			"	).xyz;"
-			"	vertNormal = normal;"
+			"	vertColor = Normal;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -72,18 +72,18 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
+			"in vec3 vertColor;"
 			"in vec3 vertNormal;"
-			"in vec3 fragNormal;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
 			"	float intensity = pow("
 			"		dot("
-			"			fragNormal,"
+			"			vertNormal,"
 			"			vec3(0.0, 0.0, 1.0)"
 			"		), 3.0"
 			"	);"
-			"	fragColor = vec4(abs(vertNormal),1.0)*intensity;"
+			"	fragColor = vec4(abs(vertColor),1.0)*intensity;"
 			"}"
 		);
 		// compile it
@@ -162,7 +162,7 @@ public:
 			cube_vertices
 		);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(3, DataType::Float);
 		vert_attr.Enable();
 
@@ -188,7 +188,7 @@ public:
 			cube_normals
 		);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray normal_attr(prog, "normal");
+		VertexAttribArray normal_attr(prog, "Normal");
 		normal_attr.Setup(3, DataType::Float);
 		normal_attr.Enable();
 		//
@@ -202,7 +202,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -216,7 +216,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				1.5,

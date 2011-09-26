@@ -46,13 +46,13 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
-			"uniform mat4 cameraMatrix;"
+			"in vec4 Position;"
+			"uniform mat4 CameraMatrix;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
-			"		cameraMatrix *"
-			"		vertex;"
+			"		CameraMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -65,29 +65,29 @@ public:
 			"layout(triangle_strip, max_vertices = 100) out;"
 			"const int p = 25;"
 			"const float hp = (p-1)*0.5;"
-			"uniform vec3 lightPos;"
-			"uniform mat4 cameraMatrix, projectionMatrix;"
-			"out vec3 fragTexCoord;"
-			"out vec3 lightDir;"
+			"uniform vec3 LightPos;"
+			"uniform mat4 CameraMatrix, ProjectionMatrix;"
+			"out vec3 geomTexCoord;"
+			"out vec3 geomLightDir;"
 			"void main(void)"
 			"{"
 			"	float s = 0.6;"
 			"	float yo[2] = float[2](-1.0, 1.0);"
 			"	float xo[2] = float[2](-1.0, 1.0);"
 			"	vec3 cx = vec3("
-			"		cameraMatrix[0][0],"
-			"		cameraMatrix[1][0],"
-			"		cameraMatrix[2][0] "
+			"		CameraMatrix[0][0],"
+			"		CameraMatrix[1][0],"
+			"		CameraMatrix[2][0] "
 			"	);"
 			"	vec3 cy = vec3("
-			"		cameraMatrix[0][1],"
-			"		cameraMatrix[1][1],"
-			"		cameraMatrix[2][1] "
+			"		CameraMatrix[0][1],"
+			"		CameraMatrix[1][1],"
+			"		CameraMatrix[2][1] "
 			"	);"
 			"	vec3 cz = vec3("
-			"		cameraMatrix[0][2],"
-			"		cameraMatrix[1][2],"
-			"		cameraMatrix[2][2] "
+			"		CameraMatrix[0][2],"
+			"		CameraMatrix[1][2],"
+			"		CameraMatrix[2][2] "
 			"	);"
 			"	for(int k=0;k!=p;++k)"
 			"	{"
@@ -104,9 +104,9 @@ public:
 			"				gl_in[0].gl_Position.z+zoffs,"
 			"				1.0"
 			"			);"
-			"			gl_Position = projectionMatrix * v;"
-			"			lightDir = lightPos - v.xyz;"
-			"			fragTexCoord = "
+			"			gl_Position = ProjectionMatrix * v;"
+			"			geomLightDir = LightPos - v.xyz;"
+			"			geomTexCoord = "
 			"				vec3(0.5, 0.5, 0.5)+"
 			"				cx*(xo[i])*0.707+"
 			"				cy*(yo[j])*0.707+"
@@ -124,17 +124,17 @@ public:
 		fs.Source(
 			"#version 330\n"
 			"uniform sampler3D cloudTex;"
-			"in vec3 fragTexCoord;"
-			"in vec3 lightDir;"
+			"in vec3 geomTexCoord;"
+			"in vec3 geomLightDir;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float d = texture(cloudTex, fragTexCoord).r;"
+			"	float d = texture(cloudTex, geomTexCoord).r;"
 			"	float o = 1.0;"
 			"	float s = 2.0/128.0;"
 			"	float r = s * 8.0;"
-			"	vec3 sampleOffs = normalize(lightDir) * s;"
-			"	vec3 samplePos = fragTexCoord;"
+			"	vec3 sampleOffs = normalize(geomLightDir) * s;"
+			"	vec3 samplePos = geomTexCoord;"
 			"	if(d > 0.01) while(o > 0.0)"
 			"	{"
 			"		if(samplePos.x<0.0 || samplePos.x>1.0)"
@@ -170,7 +170,7 @@ public:
 		{
 			GLfloat positions[3] = {0.5f, 0.1f, 0.2f};
 			Buffer::Data(Buffer::Target::Array, 3, positions);
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
@@ -189,7 +189,7 @@ public:
 			bound_tex.WrapR(TextureWrap::ClampToBorder);
 		}
 
-		Uniform(prog, "lightPos").Set(Vec3f(10.0f, 1.0f, 5.0f));
+		Uniform(prog, "LightPos").Set(Vec3f(10.0f, 1.0f, 5.0f));
 
 		gl.ClearColor(0.2f, 0.3f, 0.4f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -202,7 +202,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -215,7 +215,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				1.5 + std::sin(time)*0.5,

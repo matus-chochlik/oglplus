@@ -62,34 +62,37 @@ public:
 	PickingExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
+	 , vs("Vertex")
+	 , gs("Geometry")
+	 , fs("Fragment")
 	{
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
-			"in vec4 vertex;"
-			"out vec3 color;"
-			"flat out int inst;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix;"
+			"in vec4 Position;"
+			"out vec3 vertColor;"
+			"flat out int vertInstanceID;"
 			"void main(void)"
 			"{"
 			"	float x = gl_InstanceID % 6 - 2.5;"
 			"	float y = gl_InstanceID / 6 - 2.5;"
-			"	mat4 modelMatrix = mat4("
+			"	mat4 ModelMatrix = mat4("
 			"		 1.0, 0.0, 0.0, 0.0,"
 			"		 0.0, 1.0, 0.0, 0.0,"
 			"		 0.0, 0.0, 1.0, 0.0,"
 			"		 2*x, 2*y, 0.0, 1.0 "
 			"	);"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
-			"	color = vec3("
-			"		abs(normalize((modelMatrix*vertex).xy)),"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
+			"	vertColor = vec3("
+			"		abs(normalize((ModelMatrix*Position).xy)),"
 			"		0.1"
 			"	);"
-			"	inst = gl_InstanceID;"
+			"	vertInstanceID = gl_InstanceID;"
 			"}"
 		);
 		vs.Compile();
@@ -100,11 +103,11 @@ public:
 			"layout(triangles) in;"
 			"layout(points, max_vertices = 1) out;"
 
-			"flat in int inst[];"
-			"uniform vec2 mousePos;"
+			"flat in int vertInstanceID[];"
+			"uniform vec2 MousePos;"
 
-			"out int instance;"
-			"out float depth;"
+			"out int geomInstanceID;"
+			"out float geomDepth;"
 
 			"vec2 barycentric_coords(vec4 a, vec4 b, vec4 c)"
 			"{"
@@ -115,7 +118,7 @@ public:
 			"	vec2 cd = vec2(c.x/c.w, c.y/c.w);"
 			"	vec2 u = cd - ad;"
 			"	vec2 v = bd - ad;"
-			"	vec2 r = mousePos - ad;"
+			"	vec2 r = MousePos - ad;"
 			"	float d00 = dot(u, u);"
 			"	float d01 = dot(u, v);"
 			"	float d02 = dot(u, r);"
@@ -156,8 +159,8 @@ public:
 			"			gl_in[2].gl_Position.xyz,"
 			"			bc"
 			"		), 1.0);"
-			"		depth = gl_Position.z;"
-			"		instance = inst[0];"
+			"		geomDepth = gl_Position.z;"
+			"		geomInstanceID = vertInstanceID[0];"
 			"		EmitVertex();"
 			"		EndPrimitive();"
 			"	}"
@@ -168,15 +171,15 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"flat in int inst;"
-			"in vec3 color;"
-			"uniform int picked;"
+			"flat in int vertInstanceID;"
+			"in vec3 vertColor;"
+			"uniform int Picked;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	if(inst == picked)"
+			"	if(vertInstanceID == Picked)"
 			"		fragColor = vec4(1.0, 1.0, 1.0, 1.0);"
-			"	else fragColor = vec4(color, 1.0);"
+			"	else fragColor = vec4(vertColor, 1.0);"
 			"}"
 		);
 		fs.Compile();
@@ -185,7 +188,7 @@ public:
 		pick_prog.AttachShader(vs);
 		pick_prog.AttachShader(gs);
 		pick_prog.TransformFeedbackVaryings(
-			{"depth", "instance"},
+			{"geomDepth", "geomInstanceID"},
 			TransformFeedbackMode::InterleavedAttribs
 		);
 		pick_prog.Link();
@@ -219,12 +222,12 @@ public:
 
 			// setup the vertex attribs array for the vertices
 			draw_prog.Use();
-			VertexAttribArray draw_attr(draw_prog, "vertex");
+			VertexAttribArray draw_attr(draw_prog, "Position");
 			draw_attr.Setup(n_per_vertex, DataType::Float);
 			draw_attr.Enable();
 
 			pick_prog.Use();
-			VertexAttribArray pick_attr(pick_prog, "vertex");
+			VertexAttribArray pick_attr(pick_prog, "Position");
 			pick_attr.Setup(n_per_vertex, DataType::Float);
 			pick_attr.Enable();
 		}
@@ -247,9 +250,9 @@ public:
 			1, 100
 		);
 		draw_prog.Use();
-		Uniform(draw_prog, "projectionMatrix").SetMatrix(perspective);
+		Uniform(draw_prog, "ProjectionMatrix").SetMatrix(perspective);
 		pick_prog.Use();
-		Uniform(pick_prog, "projectionMatrix").SetMatrix(perspective);
+		Uniform(pick_prog, "ProjectionMatrix").SetMatrix(perspective);
 	}
 
 	// we want to get mouse motion notifications
@@ -262,7 +265,7 @@ public:
 	void MouseMoveNormalized(float x, float y, float aspect)
 	{
 		pick_prog.Use();
-		Uniform(pick_prog, "mousePos").Set(Vec2f(x*aspect, y));
+		Uniform(pick_prog, "MousePos").Set(Vec2f(x*aspect, y));
 	}
 
 	void Render(double time)
@@ -278,7 +281,7 @@ public:
 
 		// use the picking program
 		pick_prog.Use();
-		Uniform(pick_prog, "cameraMatrix").SetMatrix(camera);
+		Uniform(pick_prog, "CameraMatrix").SetMatrix(camera);
 
 		// query the number of values written to the feedabck buffer
 		GLuint picked_count = 0;
@@ -313,9 +316,9 @@ public:
 		draw_prog.Use();
 
 		if(picked.empty())
-			Uniform(draw_prog, "picked").Set(-1);
-		else Uniform(draw_prog, "picked").Set(picked.begin()->second);
-		Uniform(draw_prog, "cameraMatrix").SetMatrix(camera);
+			Uniform(draw_prog, "Picked").Set(-1);
+		else Uniform(draw_prog, "Picked").Set(picked.begin()->second);
+		Uniform(draw_prog, "CameraMatrix").SetMatrix(camera);
 
 		// draw 36 instances of the cube
 		// the vertex shader will take care of their placement

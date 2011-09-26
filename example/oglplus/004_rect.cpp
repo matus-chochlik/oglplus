@@ -41,12 +41,12 @@ public:
 		// Set the vertex shader source
 		vs.Source(" \
 			#version 330\n \
-			in vec2 vertex; \
-			out vec2 coord; \
+			in vec2 Position; \
+			out vec2 vertCoord; \
 			void main(void) \
 			{ \
-				coord = vertex; \
-				gl_Position = vec4(vertex, 0.0, 1.0); \
+				vertCoord = Position; \
+				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
 		");
 		// compile it
@@ -56,16 +56,16 @@ public:
 		fs.Source(" \
 			#version 330\n \
 			const uniform float radius = 0.4; \
-			uniform vec2 red_center, green_center, blue_center; \
+			uniform vec2 RedCenter, GreenCenter, BlueCenter; \
 			vec3 dist; \
-			in vec2 coord; \
+			in vec2 vertCoord; \
 			out vec4 fragColor; \
 			void main(void) \
 			{ \
 				dist = vec3( \
-					distance(coord, red_center), \
-					distance(coord, green_center), \
-					distance(coord, blue_center) \
+					distance(vertCoord, RedCenter), \
+					distance(vertCoord, GreenCenter), \
+					distance(vertCoord, BlueCenter) \
 				); \
 				fragColor = vec4( \
 					dist.r < radius ? 1.0 : (2*radius - dist.r) / radius, \
@@ -99,13 +99,13 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform(prog, "red_center").Set(-0.141f, 0.141f);
-		Uniform(prog, "green_center").Set(0.141f, 0.141f);
-		Uniform(prog, "blue_center").Set(0.0f, -0.2f);
+		Uniform(prog, "RedCenter").Set(-0.141f, 0.141f);
+		Uniform(prog, "GreenCenter").Set(0.141f, 0.141f);
+		Uniform(prog, "BlueCenter").Set(0.0f, -0.2f);
 
 		VertexArray::Unbind();
 		gl.ClearDepth(1.0f);

@@ -54,19 +54,22 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"out vec3 fragNormal;"
-			"out vec3 viewDir;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 vertNormal;"
+			"out vec3 vertViewDir;"
 			"void main(void)"
 			"{"
-			"	fragNormal = normal;"
-			"	viewDir = (vec4(0.0, 0.0, 1.0, 1.0)*cameraMatrix).xyz;"
+			"	vertNormal = Normal;"
+			"	vertViewDir = ("
+			"		vec4(0.0, 0.0, 1.0, 1.0)*"
+			"		CameraMatrix"
+			"	).xyz;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -75,10 +78,10 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec3 fragNormal;"
-			"in vec3 viewDir;"
+			"in vec3 vertNormal;"
+			"in vec3 vertViewDir;"
 			"out vec4 fragColor;"
-			"uniform vec3 lightPos[3];"
+			"uniform vec3 LightPos[3];"
 			"void main(void)"
 			"{"
 			"	float amb = 0.2;"
@@ -87,14 +90,14 @@ public:
 			"	for(int i=0;i!=3;++i)"
 			"	{"
 			"		diff += max("
-			"			dot(fragNormal,  lightPos[i])/"
-			"			dot(lightPos[i], lightPos[i]),"
+			"			dot(vertNormal,  LightPos[i])/"
+			"			dot(LightPos[i], LightPos[i]),"
 			"			0.0"
 			"		);"
-			"		float k = dot(fragNormal, lightPos[i]);"
-			"		vec3 r = 2.0*k*fragNormal - lightPos[i];"
+			"		float k = dot(vertNormal, LightPos[i]);"
+			"		vec3 r = 2.0*k*vertNormal - LightPos[i];"
 			"		spec += pow(max("
-			"			dot(normalize(r), viewDir),"
+			"			dot(normalize(r), vertViewDir),"
 			"			0.0"
 			"		), 32.0 * dot(r, r));"
 			"	}"
@@ -124,7 +127,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -137,15 +140,15 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
 
 		// set the light positions
-		Uniform(prog, "lightPos[0]").Set(Vec3f(2.0f,-1.0f, 0.0f));
-		Uniform(prog, "lightPos[1]").Set(Vec3f(0.0f, 3.0f, 0.0f));
-		Uniform(prog, "lightPos[2]").Set(Vec3f(0.0f,-1.0f, 4.0f));
+		Uniform(prog, "LightPos[0]").Set(Vec3f(2.0f,-1.0f, 0.0f));
+		Uniform(prog, "LightPos[1]").Set(Vec3f(0.0f, 3.0f, 0.0f));
+		Uniform(prog, "LightPos[2]").Set(Vec3f(0.0f,-1.0f, 4.0f));
 		//
 		VertexArray::Unbind();
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
@@ -160,7 +163,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -174,7 +177,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				1.5,

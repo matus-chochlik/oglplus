@@ -42,14 +42,14 @@ public:
 		// Set the vertex shader source
 		vs.Source(" \
 			#version 330\n \
-			in vec3 vertex; \
-			in vec3 color; \
-			uniform mat4 matrix; \
-			out vec4 outColor; \
+			in vec3 Position; \
+			in vec3 Color; \
+			uniform mat4 Matrix; \
+			out vec4 vertColor; \
 			void main(void) \
 			{ \
-				gl_Position = matrix * vec4(vertex, 1.0); \
-				outColor = vec4(color, 1.0); \
+				gl_Position = Matrix * vec4(Position, 1.0); \
+				vertColor = vec4(Color, 1.0); \
 			} \
 		");
 		// compile it
@@ -58,11 +58,11 @@ public:
 		// set the fragment shader source
 		fs.Source(" \
 			#version 330\n \
-			in vec4 outColor; \
+			in vec4 vertColor; \
 			out vec4 fragColor; \
 			void main(void) \
 			{ \
-				fragColor = outColor; \
+				fragColor = vertColor; \
 			} \
 		");
 		// compile it
@@ -88,7 +88,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(3, DataType::Float);
 		vert_attr.Enable();
 		//
@@ -103,12 +103,12 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 9, triangle_colors);
 		// setup the vertex attribs array
-		VertexAttribArray color_attr(prog, "color");
+		VertexAttribArray color_attr(prog, "Color");
 		color_attr.Setup(3, DataType::Float);
 		color_attr.Enable();
 
 		// set the transformation matrix
-		Uniform u1(prog, "matrix");
+		Uniform u1(prog, "Matrix");
 		u1.SetMatrix<4>(
 			 2.0f,  0.0f,  0.0f,  0.0f,
 			 0.0f,  2.0f,  0.0f,  0.0f,

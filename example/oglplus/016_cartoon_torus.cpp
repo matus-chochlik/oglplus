@@ -54,18 +54,18 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"out vec3 fragNormal;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 vertNormal;"
 			"void main(void)"
 			"{"
-			"	fragNormal = (modelMatrix * vec4(normal, 0.0)).xyz;"
+			"	vertNormal = (ModelMatrix * vec4(Normal, 0.0)).xyz;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -74,14 +74,14 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec3 fragNormal;"
+			"in vec3 vertNormal;"
 			"out vec4 fragColor;"
-			"uniform vec3 lightPos;"
+			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
 			"	float intensity = 2.0 * max("
-			"		dot(fragNormal,  lightPos)/"
-			"		length(lightPos),"
+			"		dot(vertNormal,  LightPos)/"
+			"		length(LightPos),"
 			"		0.0"
 			"	);"
 			"	if(!gl_FrontFacing)"
@@ -115,7 +115,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -128,14 +128,14 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
 		//
 		VertexArray::Unbind();
 		// set the light position
-		Uniform(prog, "lightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
+		Uniform(prog, "LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -151,7 +151,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -165,7 +165,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.5,
@@ -174,7 +174,7 @@ public:
 			)
 		);
 		// set the model matrix
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::RotationY(FullCircles(time * 0.25)) *
 			ModelMatrixf::RotationX(FullCircles(0.25))
 		);

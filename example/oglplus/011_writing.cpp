@@ -43,10 +43,10 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
+			"in vec4 Position;"
 			"void main(void)"
 			"{"
-			"	gl_Position = vertex;"
+			"	gl_Position = Position;"
 			"}"
 		);
 		// compile it
@@ -136,7 +136,7 @@ public:
 			auto data = bezier.Approximate(25);
 			curve_n = data.size();
 			Bind(curve_verts, Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(2, DataType::Float);
 			attr.Enable();
 		}

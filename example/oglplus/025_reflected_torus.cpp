@@ -58,32 +58,36 @@ public:
 	ReflectionExample(void)
 	 : torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
+	 , vs_norm("Vertex-Normal")
+	 , vs_refl("Vertex-Reflection")
+	 , gs_refl("Geometry-Reflection")
+	 , fs("Fragment")
 	{
 		// Set the normal object vertex shader source
 		vs_norm.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"out vec3 vertNormal;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"uniform vec3 lightPos;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 geomColor;"
+			"out vec3 geomNormal;"
+			"out vec3 geomLight;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
-			"	vertNormal = normal;"
-			"	fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
+			"	geomColor = Normal;"
+			"	geomNormal = ("
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		vec4(lightPos, 0.0)-"
-			"		modelMatrix*vertex"
+			"	geomLight = ("
+			"		vec4(LightPos, 0.0)-"
+			"		ModelMatrix * Position"
 			"	).xyz;"
 			"}"
 		);
@@ -94,13 +98,13 @@ public:
 		// which just passes data to the geometry shader
 		vs_refl.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"out vec3 geomNormal;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 vertNormal;"
 			"void main(void)"
 			"{"
-			"	gl_Position = vertex;"
-			"	geomNormal = normal;"
+			"	gl_Position = Position;"
+			"	vertNormal = Normal;"
 			"}"
 		);
 		// compile it
@@ -115,18 +119,18 @@ public:
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 6) out;"
 
-			"in vec3 geomNormal[];"
+			"in vec3 vertNormal[];"
 
-			"uniform mat4 projectionMatrix;"
-			"uniform mat4 cameraMatrix;"
-			"uniform mat4 modelMatrix;"
+			"uniform mat4 ProjectionMatrix;"
+			"uniform mat4 CameraMatrix;"
+			"uniform mat4 ModelMatrix;"
 
-			"out vec3 vertNormal;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
-			"uniform vec3 lightPos;"
+			"out vec3 geomColor;"
+			"out vec3 geomNormal;"
+			"out vec3 geomLight;"
+			"uniform vec3 LightPos;"
 
-			"mat4 reflectionMatrix = mat4("
+			"mat4 ReflectionMatrix = mat4("
 			"	1.0, 0.0, 0.0, 0.0,"
 			"	0.0,-1.0, 0.0, 0.0,"
 			"	0.0, 0.0, 1.0, 0.0,"
@@ -136,21 +140,21 @@ public:
 			"{"
 			"	for(int v=0; v!=gl_in.length(); ++v)"
 			"	{"
-			"		vec4 vertex = gl_in[v].gl_Position;"
+			"		vec4 Position = gl_in[v].gl_Position;"
 			"		gl_Position = "
-			"			projectionMatrix *"
-			"			cameraMatrix *"
-			"			reflectionMatrix *"
-			"			modelMatrix *"
-			"			vertex;"
-			"		vertNormal = geomNormal[v];"
-			"		fragNormal = ("
-			"			modelMatrix *"
-			"			vec4(vertNormal, 0.0)"
+			"			ProjectionMatrix *"
+			"			CameraMatrix *"
+			"			ReflectionMatrix *"
+			"			ModelMatrix *"
+			"			Position;"
+			"		geomColor = vertNormal[v];"
+			"		geomNormal = ("
+			"			ModelMatrix *"
+			"			vec4(vertNormal[v], 0.0)"
 			"		).xyz;"
-			"		fragLight = ("
-			"			vec4(lightPos, 0.0)-"
-			"			modelMatrix * vertex"
+			"		geomLight = ("
+			"			vec4(LightPos, 0.0)-"
+			"			ModelMatrix * Position"
 			"		).xyz;"
 			"		EmitVertex();"
 			"	}"
@@ -163,19 +167,19 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec3 vertNormal;"
-			"in vec3 fragNormal;"
-			"in vec3 fragLight;"
+			"in vec3 geomColor;"
+			"in vec3 geomNormal;"
+			"in vec3 geomLight;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float l = length(fragLight);"
+			"	float l = length(geomLight);"
 			"	float d = l > 0.0 ? dot("
-			"		fragNormal, "
-			"		normalize(fragLight)"
+			"		geomNormal, "
+			"		normalize(geomLight)"
 			"	 ) / l : 0.0;"
 			"	float i = 0.2 + d * 2.0;"
-			"	fragColor = vec4(abs(vertNormal)*i, 1.0);"
+			"	fragColor = vec4(abs(geomNormal)*i, 1.0);"
 			"}"
 		);
 		// compile it
@@ -206,12 +210,12 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
-			VertexAttribArray attr_n(prog_norm, "vertex");
+			VertexAttribArray attr_n(prog_norm, "Position");
 			attr_n.Setup(n_per_vertex, DataType::Float);
 			attr_n.Enable();
 			//
 			prog_refl.Use();
-			VertexAttribArray attr_r(prog_refl, "vertex");
+			VertexAttribArray attr_r(prog_refl, "Position");
 			attr_r.Setup(n_per_vertex, DataType::Float);
 			attr_r.Enable();
 		}
@@ -225,12 +229,12 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
-			VertexAttribArray attr_n(prog_norm, "normal");
+			VertexAttribArray attr_n(prog_norm, "Normal");
 			attr_n.Setup(n_per_vertex, DataType::Float);
 			attr_n.Enable();
 			//
 			prog_refl.Use();
-			VertexAttribArray attr_r(prog_refl, "normal");
+			VertexAttribArray attr_r(prog_refl, "Normal");
 			attr_r.Setup(n_per_vertex, DataType::Float);
 			attr_r.Enable();
 		}
@@ -251,7 +255,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
-			VertexAttribArray attr(prog_norm, "vertex");
+			VertexAttribArray attr(prog_norm, "Position");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
@@ -269,7 +273,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
-			VertexAttribArray attr(prog_norm, "normal");
+			VertexAttribArray attr(prog_norm, "Normal");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
@@ -277,9 +281,9 @@ public:
 
 		Vec3f lightPos(2.0f, 2.0f, 3.0f);
 		prog_norm.Use();
-		Uniform(prog_norm, "lightPos").Set(lightPos);
+		Uniform(prog_norm, "LightPos").Set(lightPos);
 		prog_refl.Use();
-		Uniform(prog_refl, "lightPos").Set(lightPos);
+		Uniform(prog_refl, "LightPos").Set(lightPos);
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -295,9 +299,9 @@ public:
 			1, 100
 		);
 		prog_norm.Use();
-		Uniform(prog_norm, "projectionMatrix").SetMatrix(projection);
+		Uniform(prog_norm, "ProjectionMatrix").SetMatrix(projection);
 		prog_refl.Use();
-		Uniform(prog_refl, "projectionMatrix").SetMatrix(projection);
+		Uniform(prog_refl, "ProjectionMatrix").SetMatrix(projection);
 	}
 
 	void Render(double time)
@@ -315,9 +319,9 @@ public:
 		ModelMatrixf identity;
 		//
 		prog_norm.Use();
-		Uniform(prog_norm, "cameraMatrix").SetMatrix(camera);
+		Uniform(prog_norm, "CameraMatrix").SetMatrix(camera);
 		prog_refl.Use();
-		Uniform(prog_refl, "cameraMatrix").SetMatrix(camera);
+		Uniform(prog_refl, "CameraMatrix").SetMatrix(camera);
 		// draw the plane into the stencil buffer
 		prog_norm.Use();
 
@@ -328,7 +332,7 @@ public:
 		gl.StencilFunc(CompareFunction::Always, 1, 1);
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Replace);
 
-		Uniform(prog_norm, "modelMatrix").SetMatrix(identity);
+		Uniform(prog_norm, "ModelMatrix").SetMatrix(identity);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
@@ -339,7 +343,7 @@ public:
 
 		// draw the torus using the reflection program
 		prog_refl.Use();
-		Uniform(prog_refl, "modelMatrix").SetMatrix(model);
+		Uniform(prog_refl, "ModelMatrix").SetMatrix(model);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 
@@ -347,13 +351,13 @@ public:
 
 		prog_norm.Use();
 		// draw the torus using the normal object program
-		Uniform(prog_norm, "modelMatrix").SetMatrix(model);
+		Uniform(prog_norm, "ModelMatrix").SetMatrix(model);
 		torus_instr.Draw(torus_indices);
 
 		// blend-in the plane
 		gl.Enable(Capability::Blend);
 		gl.BlendEquation(BlendEquation::Max);
-		Uniform(prog_norm, "modelMatrix").SetMatrix(identity);
+		Uniform(prog_norm, "ModelMatrix").SetMatrix(identity);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

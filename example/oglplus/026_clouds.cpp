@@ -81,16 +81,16 @@ public:
 
 		light_vs.Source(
 			"#version 330\n"
-			"in vec3 vertex;"
-			"uniform vec3 lightPos;"
-			"uniform mat4 cameraMatrix, projectionMatrix;"
+			"in vec3 Position;"
+			"uniform vec3 LightPos;"
+			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"void main(void)"
 			"{"
 			"	float s = 0.1;"
 			"	gl_Position = "
-			"		projectionMatrix*"
-			"		cameraMatrix*"
-			"		vec4(vertex*s + lightPos, 1.0);"
+			"		ProjectionMatrix*"
+			"		CameraMatrix*"
+			"		vec4(Position*s + LightPos, 1.0);"
 			"}"
 		);
 		light_vs.Compile();
@@ -117,28 +117,28 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_sphere.Vertices(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(light_prog, "vertex");
+			VertexAttribArray attr(light_prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
 
 		cloud_vs.Source(
 			"#version 330\n"
-			"in vec4 position;"
-			"in float size;"
-			"uniform int n_samples;"
-			"uniform mat4 cameraMatrix;"
-			"uniform vec3 viewZ;"
-			"out float zo;"
-			"out float s;"
+			"in vec4 Position;"
+			"in float Size;"
+			"uniform int SampleCount;"
+			"uniform mat4 CameraMatrix;"
+			"uniform vec3 ViewZ;"
+			"out float vertZOffs;"
+			"out float vertSize;"
 			"void main(void)"
 			"{"
-			"	float hp = (n_samples-1) * 0.5;"
-			"	zo = (gl_InstanceID - hp)/hp;"
-			"	s = size;"
+			"	float hp = (SampleCount-1) * 0.5;"
+			"	vertZOffs = (gl_InstanceID - hp)/hp;"
+			"	vertSize = Size;"
 			"	gl_Position = vec4("
-			"		position.xyz +"
-			"		viewZ*zo*size*0.5,"
+			"		Position.xyz +"
+			"		ViewZ*vertZOffs*Size*0.5,"
 			"		1.0"
 			"	);"
 			"}"
@@ -149,15 +149,17 @@ public:
 			"#version 330\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
-			"in float zo[];"
-			"in float s[];"
-			"uniform vec3 lightPos;"
-			"uniform mat4 cameraMatrix, projectionMatrix;"
-			"uniform vec3 viewX, viewY, viewZ;"
-			"out vec3 fragTexCoord;"
-			"out vec3 lightDir;"
+			"in float vertZOffs[];"
+			"in float vertSize[];"
+			"uniform vec3 LightPos;"
+			"uniform mat4 CameraMatrix, ProjectionMatrix;"
+			"uniform vec3 ViewX, ViewY, ViewZ;"
+			"out vec3 geomTexCoord;"
+			"out vec3 geomLightDir;"
 			"void main(void)"
 			"{"
+			"	float zo = vertZOffs[0];"
+			"	float s = vertSize[0];"
 			"	float yo[2] = float[2](-1.0, 1.0);"
 			"	float xo[2] = float[2](-1.0, 1.0);"
 			"	for(int j=0;j!=2;++j)"
@@ -165,17 +167,17 @@ public:
 			"	{"
 			"		vec4 v = vec4("
 			"			gl_in[0].gl_Position.xyz+"
-			"			viewX * xo[i] * s[0] * 0.5+"
-			"			viewY * yo[j] * s[0] * 0.5,"
+			"			ViewX * xo[i] * s * 0.5+"
+			"			ViewY * yo[j] * s * 0.5,"
 			"			1.0"
 			"		);"
-			"		gl_Position = projectionMatrix * cameraMatrix * v;"
-			"		lightDir = lightPos - v.xyz;"
-			"		fragTexCoord = "
+			"		gl_Position = ProjectionMatrix * CameraMatrix * v;"
+			"		geomLightDir = LightPos - v.xyz;"
+			"		geomTexCoord = "
 			"			vec3(0.5, 0.5, 0.5)+"
-			"			viewX*(xo[i])*0.707+"
-			"			viewY*(yo[j])*0.707+"
-			"			viewZ*(zo[0])*0.707;"
+			"			ViewX*(xo[i])*0.707+"
+			"			ViewY*(yo[j])*0.707+"
+			"			ViewZ*(zo   )*0.707;"
 			"		EmitVertex();"
 			"	}"
 			"	EndPrimitive();"
@@ -185,18 +187,18 @@ public:
 
 		cloud_fs.Source(
 			"#version 330\n"
-			"uniform sampler3D cloudTex;"
-			"in vec3 fragTexCoord;"
-			"in vec3 lightDir;"
+			"uniform sampler3D CloudTex;"
+			"in vec3 geomTexCoord;"
+			"in vec3 geomLightDir;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float d = texture(cloudTex, fragTexCoord).r;"
+			"	float d = texture(CloudTex, geomTexCoord).r;"
 			"	float o = 1.0;"
 			"	float s = 2.0/128.0;"
 			"	float r = s * 8.0;"
-			"	vec3 sampleOffs = normalize(lightDir) * s;"
-			"	vec3 samplePos = fragTexCoord;"
+			"	vec3 sampleOffs = normalize(geomLightDir) * s;"
+			"	vec3 samplePos = geomTexCoord;"
 			"	if(d > 0.01) while(o > 0.0)"
 			"	{"
 			"		if(samplePos.x<0.0 || samplePos.x>1.0)"
@@ -205,7 +207,7 @@ public:
 			"			break;"
 			"		if(samplePos.z<0.0 || samplePos.z>1.0)"
 			"			break;"
-			"		o -= texture(cloudTex, samplePos).r*r;"
+			"		o -= texture(CloudTex, samplePos).r*r;"
 			"		samplePos += sampleOffs;"
 			"	}"
 			"	float a = 0.4 * d;"
@@ -228,7 +230,7 @@ public:
 		pos_buffer.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
-			VertexAttribArray attr(cloud_prog, "position");
+			VertexAttribArray attr(cloud_prog, "Position");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
@@ -237,16 +239,16 @@ public:
 		size_buffer.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, sizes);
-			VertexAttribArray attr(cloud_prog, "size");
+			VertexAttribArray attr(cloud_prog, "Size");
 			attr.Setup(1, DataType::Float);
 			attr.Enable();
 		}
 
 		// set the number of samples
-		Uniform(cloud_prog, "n_samples").Set(int(samples));
+		Uniform(cloud_prog, "SampleCount").Set(int(samples));
 
 		Texture::Active(0);
-		Uniform(cloud_prog, "cloudTex").Set(0);
+		Uniform(cloud_prog, "CloudTex").Set(0);
 		for(size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			auto bound_tex = Bind(cloud_tex[i], Texture::Target::_3D);
@@ -282,9 +284,9 @@ public:
 			1, 100
 		);
 		cloud_prog.Use();
-		Uniform(cloud_prog, "projectionMatrix").SetMatrix(perspective);
+		Uniform(cloud_prog, "ProjectionMatrix").SetMatrix(perspective);
 		light_prog.Use();
-		Uniform(light_prog, "projectionMatrix").SetMatrix(perspective);
+		Uniform(light_prog, "ProjectionMatrix").SetMatrix(perspective);
 	}
 
 	void Render(double time)
@@ -302,16 +304,16 @@ public:
 		light.Bind();
 		light_prog.Use();
 
-		Uniform(light_prog, "lightPos").Set(lightPos);
-		Uniform(light_prog, "cameraMatrix").SetMatrix(cameraMatrix);
+		Uniform(light_prog, "LightPos").Set(lightPos);
+		Uniform(light_prog, "CameraMatrix").SetMatrix(cameraMatrix);
 
 		sphere_instr.Draw(sphere_indices);
 
 		clouds.Bind();
 		cloud_prog.Use();
 
-		Uniform(cloud_prog, "lightPos").Set(lightPos);
-		Uniform(cloud_prog, "cameraMatrix").SetMatrix(cameraMatrix);
+		Uniform(cloud_prog, "LightPos").Set(lightPos);
+		Uniform(cloud_prog, "CameraMatrix").SetMatrix(cameraMatrix);
 		auto cameraPosition = cameraMatrix.Position();
 		for(size_t i=0, n=positions.size(); i!=n; ++i)
 		{
@@ -319,13 +321,13 @@ public:
 				cameraPosition,
 				positions[i]
 			);
-			Uniform(cloud_prog, "viewX").Set(
+			Uniform(cloud_prog, "ViewX").Set(
 				Row<0>(cameraMatrix).xyz()
 			);
-			Uniform(cloud_prog, "viewY").Set(
+			Uniform(cloud_prog, "ViewY").Set(
 				Row<1>(cameraMatrix).xyz()
 			);
-			Uniform(cloud_prog, "viewZ").Set(
+			Uniform(cloud_prog, "ViewZ").Set(
 				Row<2>(cameraMatrix).xyz()
 			);
 			cloud_tex[i].Bind(Texture::Target::_3D);

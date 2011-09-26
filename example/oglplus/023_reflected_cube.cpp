@@ -53,32 +53,34 @@ public:
 	ReflectionExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
+	 , vs("Vertex")
+	 , fs("Fragment")
 	{
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
-			"in vec3 normal;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 vertColor;"
 			"out vec3 vertNormal;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"uniform vec3 lightPos;"
+			"out vec3 vertLight;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
-			"	vertNormal = normal;"
-			"	fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
+			"	vertColor = Normal;"
+			"	vertNormal = ("
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		vec4(lightPos, 0.0)-"
-			"		modelMatrix*vertex"
+			"	vertLight = ("
+			"		vec4(LightPos, 0.0)-"
+			"		ModelMatrix * Position"
 			"	).xyz;"
 			"}"
 		);
@@ -88,19 +90,19 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
+			"in vec3 vertColor;"
 			"in vec3 vertNormal;"
-			"in vec3 fragNormal;"
-			"in vec3 fragLight;"
+			"in vec3 vertLight;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float l = dot(fragLight, fragLight);"
+			"	float l = dot(vertLight, vertLight);"
 			"	float d = l > 0.0 ? dot("
-			"		fragNormal, "
-			"		normalize(fragLight)"
+			"		vertNormal, "
+			"		normalize(vertLight)"
 			"	) / l : 0.0;"
 			"	float i = clamp(0.2 + d * 2.2, 0.0, 1.0);"
-			"	fragColor = vec4(abs(vertNormal)*i, 1.0);"
+			"	fragColor = vec4(abs(vertColor)*i, 1.0);"
 			"}"
 		);
 		// compile it
@@ -124,7 +126,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -137,7 +139,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the normals
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -158,7 +160,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog.Use();
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
@@ -176,13 +178,13 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the normals
 			prog.Use();
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
 		VertexArray::Unbind();
 
-		Uniform(prog, "lightPos").Set(Vec3f(1.5, 2.0, 2.5));
+		Uniform(prog, "LightPos").Set(Vec3f(1.5, 2.0, 2.5));
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -193,7 +195,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -207,7 +209,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 		// make the camera matrix orbiting around the origin
 		// at radius of 3.5 with elevation between 15 and 90 degrees
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.5,
@@ -239,7 +241,7 @@ public:
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Replace);
 
 		plane.Bind();
-		Uniform(prog, "modelMatrix").SetMatrix(identity);
+		Uniform(prog, "ModelMatrix").SetMatrix(identity);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
 		gl.ColorMask(true, true, true, true);
@@ -248,21 +250,21 @@ public:
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Keep);
 
 		// draw the cube using the reflection program
-		Uniform(prog, "modelMatrix").SetMatrix(reflection * model);
+		Uniform(prog, "ModelMatrix").SetMatrix(reflection * model);
 		cube.Bind();
 		cube_instr.Draw(cube_indices);
 
 		gl.Disable(Capability::StencilTest);
 
 		// draw the cube using the normal object program
-		Uniform(prog, "modelMatrix").SetMatrix(model);
+		Uniform(prog, "ModelMatrix").SetMatrix(model);
 		cube_instr.Draw(cube_indices);
 
 		// blend-in the plane
 		gl.Enable(Capability::Blend);
 		gl.BlendEquation(BlendEquation::Max);
 		plane.Bind();
-		Uniform(prog, "modelMatrix").SetMatrix(identity);
+		Uniform(prog, "ModelMatrix").SetMatrix(identity);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 

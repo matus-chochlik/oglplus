@@ -55,57 +55,58 @@ public:
 	CubeExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
+	 , vs("Vertex")
+	 , fs("Fragment")
 	{
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"uniform vec3 lightPos;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"in vec3 tangent;"
-			"in vec2 texcoord;"
-			"out vec3 fragEye;"
-			"out vec3 fragLight;"
-			"out vec3 fragNormal;"
-			"out vec2 fragTexC;"
-			"out vec3 viewTgt;"
-			"out mat3 normalMatrix;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"uniform vec3 LightPos;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"in vec3 Tangent;"
+			"in vec2 TexCoord;"
+			"out vec3 vertEye;"
+			"out vec3 vertLight;"
+			"out vec3 vertNormal;"
+			"out vec2 vertTexCoord;"
+			"out vec3 vertViewTangent;"
+			"out mat3 NormalMatrix;"
 			"void main(void)"
 			"{"
-			"	vec4 vertEye = "
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
-			"	fragEye = vertEye.xyz;"
+			"	vec4 EyePos = "
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
+			"	vertEye = EyePos.xyz;"
 			"	vec3 fragTangent = ("
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vec4(tangent, 0.0)"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		vec4(Tangent, 0.0)"
 			"	).xyz;"
-			"	fragNormal = ("
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"	vertNormal = ("
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		cameraMatrix *"
-			"		vec4(lightPos, 1.0)-"
-			"		vertEye"
+			"	vertLight = ("
+			"		CameraMatrix *"
+			"		vec4(LightPos-vertEye, 1.0)"
 			"	).xyz;"
-			"	normalMatrix = mat3("
+			"	NormalMatrix = mat3("
 			"		fragTangent,"
-			"		cross(fragNormal, fragTangent),"
-			"		fragNormal"
+			"		cross(vertNormal, fragTangent),"
+			"		vertNormal"
 			"	);"
-			"	viewTgt = vec3("
-			"		dot(normalMatrix[0], vertEye.xyz),"
-			"		dot(normalMatrix[1], vertEye.xyz),"
-			"		dot(normalMatrix[2], vertEye.xyz) "
+			"	vertViewTangent = vec3("
+			"		dot(NormalMatrix[0], vertEye),"
+			"		dot(NormalMatrix[1], vertEye),"
+			"		dot(NormalMatrix[2], vertEye) "
 			"	);"
-			"	fragTexC = texcoord;"
-			"	gl_Position = projectionMatrix *"
-			"		vertEye;"
+			"	vertTexCoord = TexCoord;"
+			"	gl_Position = ProjectionMatrix *"
+			"		EyePos;"
 			"}"
 		);
 		// compile it
@@ -114,42 +115,42 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"uniform sampler2D bumpTex;"
-			"uniform int bumpTexWidth;"
-			"uniform int bumpTexHeight;"
-			"float depthMult = 0.1;"
-			"in vec3 fragEye;"
-			"in vec3 fragLight;"
-			"in vec3 fragNormal;"
-			"in vec2 fragTexC;"
-			"in vec3 viewTgt;"
-			"in mat3 normalMatrix;"
+			"uniform sampler2D BumpTex;"
+			"uniform int BumpTexWidth;"
+			"uniform int BumpTexHeight;"
+			"float DepthMult = 0.1;"
+			"in vec3 vertEye;"
+			"in vec3 vertLight;"
+			"in vec3 vertNormal;"
+			"in vec2 vertTexCoord;"
+			"in vec3 vertViewTangent;"
+			"in mat3 NormalMatrix;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	vec3 viewTgtN = normalize(viewTgt);"
-			"	float perp = -dot(normalize(fragEye), fragNormal);"
+			"	vec3 ViewTangent = normalize(vertViewTangent);"
+			"	float perp = -dot(normalize(vertEye), vertNormal);"
 			"	float sampleInterval = 1.0/length("
-			"		vec2(bumpTexWidth, bumpTexHeight)"
+			"		vec2(BumpTexWidth, BumpTexHeight)"
 			"	);"
-			"	vec3 sampleStep = viewTgtN*sampleInterval;"
+			"	vec3 sampleStep = ViewTangent*sampleInterval;"
 			"	float prevD = 0.0;"
-			"	float depth = texture(bumpTex, fragTexC).w;"
-			"	float maxOffs = min((depth*depthMult)/(-viewTgtN.z), 1.0);"
+			"	float depth = texture(BumpTex, vertTexCoord).w;"
+			"	float maxOffs = min((depth*DepthMult)/(-ViewTangent.z), 1.0);"
 			"	vec3 viewOffs = vec3(0.0, 0.0, 0.0);"
-			"	vec2 offsTexC = fragTexC + viewOffs.xy;"
+			"	vec2 offsTexC = vertTexCoord + viewOffs.xy;"
 			"	while(length(viewOffs) < maxOffs)"
 			"	{"
 			"		if(offsTexC.x <= 0.0 || offsTexC.x >= 1.0)"
 			"			break;"
 			"		if(offsTexC.y <= 0.0 || offsTexC.y >= 1.0)"
 			"			break;"
-			"		if(depth*depthMult*perp <= -viewOffs.z)"
+			"		if(depth*DepthMult*perp <= -viewOffs.z)"
 			"			break;"
 			"		viewOffs += sampleStep;"
-			"		offsTexC = fragTexC + viewOffs.xy;"
+			"		offsTexC = vertTexCoord + viewOffs.xy;"
 			"		prevD = depth;"
-			"		depth = texture(bumpTex, offsTexC).w;"
+			"		depth = texture(BumpTex, offsTexC).w;"
 			"	}"
 			"	offsTexC = vec2("
 			"		clamp(offsTexC.x, 0.0, 1.0),"
@@ -161,11 +162,11 @@ public:
 			"		int(offsTexC.y*16) % 2"
 			"	) % 2;"
 			"	vec3 c = vec3(b, b, b);"
-			"	vec3 n = texture(bumpTex, offsTexC).xyz;"
-			"	vec3 finalNormal = normalMatrix * n;"
-			"	float l = length(fragLight);"
+			"	vec3 n = texture(BumpTex, offsTexC).xyz;"
+			"	vec3 finalNormal = NormalMatrix * n;"
+			"	float l = length(vertLight);"
 			"	float d = (l > 0.0) ? dot("
-			"		normalize(fragLight), "
+			"		normalize(vertLight), "
 			"		finalNormal"
 			"	) / l : 0.0;"
 			"	float i = 0.1 + 2.5*d;"
@@ -190,7 +191,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Vertices(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -200,7 +201,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -210,7 +211,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Tangents(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "tangent");
+			VertexAttribArray attr(prog, "Tangent");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -220,20 +221,20 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "texcoord");
+			VertexAttribArray attr(prog, "TexCoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
 
 		{
 			Texture::Active(0);
-			Uniform(prog, "bumpTex").Set(0);
+			Uniform(prog, "BumpTex").Set(0);
 			auto bound_tex = Bind(bumpTex, Texture::Target::_2D);
 			{
 				auto img = images::SphereBumpMap(512, 512, 2, 2);
 				bound_tex.Image2D(img);
-				Uniform(prog, "bumpTexWidth").Set(img.Width());
-				Uniform(prog, "bumpTexHeight").Set(img.Height());
+				Uniform(prog, "BumpTexWidth").Set(img.Width());
+				Uniform(prog, "BumpTexHeight").Set(img.Height());
 			}
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
@@ -254,7 +255,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -268,7 +269,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		auto lightAzimuth = FullCircles(time * -0.5);
-		Uniform(prog, "lightPos").Set(
+		Uniform(prog, "LightPos").Set(
 			Vec3f(
 				-Cos(lightAzimuth),
 				1.0f,
@@ -276,7 +277,7 @@ public:
 			) * 2.0f
 		);
 		//
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				1.5f,
@@ -286,7 +287,7 @@ public:
 		);
 
 		// set the model matrix
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(-time * 0.05)

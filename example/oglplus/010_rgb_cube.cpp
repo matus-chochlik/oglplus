@@ -42,14 +42,16 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
 			"out vec3 vertNormal;"
 			"void main(void)"
 			"{"
-			"	vertNormal = normal;"
-			"	gl_Position = projectionMatrix * cameraMatrix * vertex;"
+			"	vertNormal = Normal;"
+			"	gl_Position = ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -142,7 +144,7 @@ public:
 			cube_vertices
 		);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(3, DataType::Float);
 		vert_attr.Enable();
 
@@ -168,12 +170,12 @@ public:
 			cube_normals
 		);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray normal_attr(prog, "normal");
+		VertexAttribArray normal_attr(prog, "Normal");
 		normal_attr.Setup(3, DataType::Float);
 		normal_attr.Enable();
 		//
 		// set the matrix for camera at (1,1,1) looking at origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::LookingAt(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				Vec3f()
@@ -191,7 +193,7 @@ public:
 		gl.Viewport(width, height);
 		// set the projection matrix fov = 24 deg. aspect = width/height
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,

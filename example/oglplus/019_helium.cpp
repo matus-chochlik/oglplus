@@ -65,7 +65,7 @@ public:
 		// managed references to the VBOs
 		Managed<Buffer> vbo[n_attr] = {verts, normals};
 		// vertex attribute identifiers from the shaders
-		const GLchar* ident[n_attr] = {"vertex", "normal"};
+		const GLchar* ident[n_attr] = {"Position", "Normal"};
 
 		for(size_t i=0; i!=n_attr; ++i)
 		{
@@ -86,7 +86,7 @@ public:
 	void SetProjection(const Matrix4f& projection)
 	{
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(projection);
+		Uniform(prog, "ProjectionMatrix").SetMatrix(projection);
 	}
 
 	void SetLightAndCamera(const Vec3f& light, const Matrix4f& camera)
@@ -94,14 +94,14 @@ public:
 		// use the shading program
 		prog.Use();
 		// set the uniforms
-		Uniform(prog, "lightPos").Set(light);
-		Uniform(prog, "cameraMatrix").SetMatrix(camera);
+		Uniform(prog, "LightPos").Set(light);
+		Uniform(prog, "CameraMatrix").SetMatrix(camera);
 	}
 
 	void Render(const Matrix4f& model)
 	{
 		prog.Use();
-		Uniform(prog, "modelMatrix").SetMatrix(model);
+		Uniform(prog, "ModelMatrix").SetMatrix(model);
 		// bind the VAO
 		sphere.Bind();
 		// use the instructions to draw the sphere
@@ -126,33 +126,33 @@ private:
 
 		shader.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
-			"out vec3 viewNormal;"
-			"uniform vec3 lightPos;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out vec3 vertNormal;"
+			"out vec3 vertLight;"
+			"out vec3 vertViewNormal;"
+			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"	vertNormal = ("
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	viewNormal = ("
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"	vertViewNormal = ("
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		vec4(lightPos, 0.0)-"
-			"		modelMatrix*vertex"
+			"	vertLight = ("
+			"		vec4(LightPos, 0.0)-"
+			"		ModelMatrix * Position"
 			"	).xyz;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
 			"}"
 		);
 
@@ -165,18 +165,18 @@ private:
 	{
 		return
 		"#version 330\n"
-		"in vec3 fragNormal;"
-		"in vec3 fragLight;"
-		"in vec3 viewNormal;"
+		"in vec3 vertNormal;"
+		"in vec3 vertLight;"
+		"in vec3 vertViewNormal;"
 		"out vec4 fragColor;"
 		"void main(void)"
 		"{"
-		"	float _dot = dot("
-		"		fragNormal, "
-		"		normalize(fragLight)"
+		"	float lighting = dot("
+		"		vertNormal, "
+		"		normalize(vertLight)"
 		"	);"
 		"	float intensity = clamp("
-		"		0.4 + _dot * 1.0,"
+		"		0.4 + lighting * 1.0,"
 		"		0.0,"
 		"		1.0"
 		"	);";
@@ -197,11 +197,11 @@ private:
 	{
 		return
 		"	bool sig = ("
-		"		abs(viewNormal.x) < 0.5 &&"
-		"		abs(viewNormal.y) < 0.2 "
+		"		abs(vertViewNormal.x) < 0.5 &&"
+		"		abs(vertViewNormal.y) < 0.2 "
 		"	) || ("
-		"		abs(viewNormal.y) < 0.5 &&"
-		"		abs(viewNormal.x) < 0.2 "
+		"		abs(vertViewNormal.y) < 0.5 &&"
+		"		abs(vertViewNormal.x) < 0.2 "
 		"	);"
 		"	vec3 color = vec3(1.0, 0.0, 0.0);";
 	}
@@ -219,8 +219,8 @@ private:
 	{
 		return
 		"	bool sig = ("
-		"		abs(viewNormal.x) < 0.5 &&"
-		"		abs(viewNormal.y) < 0.2"
+		"		abs(vertViewNormal.x) < 0.5 &&"
+		"		abs(vertViewNormal.y) < 0.2"
 		"	);"
 		"	vec3 color = vec3(0.0, 0.0, 1.0);";
 	}

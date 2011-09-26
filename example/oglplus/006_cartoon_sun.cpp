@@ -43,12 +43,12 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"in vec2 vertex;"
-			"out vec2 fragPos;"
+			"in vec2 Position;"
+			"out vec2 vertPos;"
 			"void main(void)"
 			"{"
-			"	gl_Position = vec4(vertex, 0.0, 1.0);"
-			"	fragPos = gl_Position.xy;"
+			"	gl_Position = vec4(Position, 0.0, 1.0);"
+			"	vertPos = gl_Position.xy;"
 			"}"
 		);
 		// compile it
@@ -57,23 +57,22 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec2 c;"
-			"uniform float time;"
-			"uniform vec2 sunPos;"
-			"uniform vec3 sun1, sun2, sky1, sky2;"
-			"in vec2 fragPos;"
+			"uniform float Time;"
+			"uniform vec2 SunPos;"
+			"uniform vec3 Sun1, Sun2, Sky1, Sky2;"
+			"in vec2 vertPos;"
 			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
-			"	vec2 v = fragPos - sunPos;"
+			"	vec2 v = vertPos - SunPos;"
 			"	float l = length(v);"
 			"	float a = atan(v.y, v.x)/3.1415;"
 			"	if(l < 0.1)"
-			"		fragColor = sun1;"
-			"	else if(int(18*(time*0.1 + 1.0 + a)) % 2 == 0)"
-			"		fragColor = mix(sun1, sun2, l);"
+			"		fragColor = Sun1;"
+			"	else if(int(18*(Time*0.1 + 1.0 + a)) % 2 == 0)"
+			"		fragColor = mix(Sun1, Sun2, l);"
 			"	else"
-			"		fragColor = mix(sky1, sky2, l);"
+			"		fragColor = mix(Sky1, Sky2, l);"
 			"}"
 		);
 		// compile it
@@ -100,14 +99,14 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform(prog, "sun1").Set(0.95f, 0.85f, 0.60f);
-		Uniform(prog, "sun2").Set(0.90f, 0.80f, 0.20f);
-		Uniform(prog, "sky1").Set(0.90f, 0.80f, 0.50f);
-		Uniform(prog, "sky2").Set(0.80f, 0.60f, 0.40f);
+		Uniform(prog, "Sun1").Set(0.95f, 0.85f, 0.60f);
+		Uniform(prog, "Sun2").Set(0.90f, 0.80f, 0.20f);
+		Uniform(prog, "Sky1").Set(0.90f, 0.80f, 0.50f);
+		Uniform(prog, "Sky2").Set(0.80f, 0.60f, 0.40f);
 		//
 		gl.ClearDepth(1.0f);
 	}
@@ -122,8 +121,8 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		auto angle = FullCircles(time * 0.05f);
-		Uniform(prog, "time").Set(GLfloat(time));
-		Uniform(prog, "sunPos").Set(
+		Uniform(prog, "Time").Set(GLfloat(time));
+		Uniform(prog, "SunPos").Set(
 			-Cos(angle),
 			Sin(angle)
 		);

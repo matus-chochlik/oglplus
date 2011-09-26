@@ -51,10 +51,10 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
+			"in vec4 Position;"
 			"void main(void)"
 			"{"
-			"	gl_Position = vertex;"
+			"	gl_Position = Position;"
 			"}"
 		);
 		// compile it
@@ -64,10 +64,10 @@ public:
 		fs.Source(
 			"#version 330\n"
 			"out vec4 fragColor;"
-			"uniform vec3 color;"
+			"uniform vec3 Color;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec4(color, 1.0);"
+			"	fragColor = vec4(Color, 1.0);"
 			"}"
 		);
 		// compile it
@@ -102,7 +102,7 @@ public:
 			auto data = bezier.Approximate(25);
 			curve_n = data.size();
 			Bind(curve_verts, Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(2, DataType::Float);
 			attr.Enable();
 		}
@@ -112,7 +112,7 @@ public:
 			auto data = bezier.ControlPoints();
 			ctrl_n = data.size();
 			Bind(ctrl_verts, Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(2, DataType::Float);
 			attr.Enable();
 		}
@@ -128,15 +128,15 @@ public:
 	{
 		gl.Clear().ColorBuffer();
 		// draw the lines between control points
-		Uniform(prog, "color").Set(Vec3f(0.9f, 0.9f, 0.2f));
+		Uniform(prog, "Color").Set(Vec3f(0.9f, 0.9f, 0.2f));
 		control.Bind();
 		gl.DrawArrays(PrimitiveType::LineStrip, 0, ctrl_n);
 		// draw the curve
-		Uniform(prog, "color").Set(Vec3f(0.1f, 0.1f, 0.1f));
+		Uniform(prog, "Color").Set(Vec3f(0.1f, 0.1f, 0.1f));
 		curve.Bind();
 		gl.DrawArrays(PrimitiveType::LineStrip, 0, curve_n);
 		// draw the control points
-		Uniform(prog, "color").Set(Vec3f(0.9f, 0.0f, 0.0f));
+		Uniform(prog, "Color").Set(Vec3f(0.9f, 0.0f, 0.0f));
 		control.Bind();
 		gl.PointSize(8.0);
 		gl.DrawArrays(PrimitiveType::Points, 0, ctrl_n);

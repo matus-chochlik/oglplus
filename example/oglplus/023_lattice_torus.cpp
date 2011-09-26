@@ -46,12 +46,12 @@ public:
 	{
 		vs.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
-			"uniform mat4 modelMatrix, cameraMatrix;"
+			"uniform mat4 ModelMatrix, CameraMatrix;"
+			"in vec4 Position;"
 			"void main(void)"
 			"{"
-			"	gl_Position = cameraMatrix *"
-			"		modelMatrix * vertex;"
+			"	gl_Position = CameraMatrix *"
+			"		ModelMatrix * Position;"
 			"}"
 		);
 		vs.Compile();
@@ -60,10 +60,10 @@ public:
 			"#version 330\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 8) out;"
-			"uniform mat4 projectionMatrix;"
-			"uniform vec4 lightPosCam;"
-			"out vec3 lightDir;"
-			"out float opacity;"
+			"uniform mat4 ProjectionMatrix;"
+			"uniform vec4 LightPosCam;"
+			"out vec3 geomLightDir;"
+			"out float geomOpacity;"
 			"void main(void)"
 			"{"
 			"	vec4 c = vec4(("
@@ -74,17 +74,17 @@ public:
 			"	for(int v = 0; v != 4; ++v)"
 			"	{"
 			"		vec4 a = gl_in[v%3].gl_Position;"
-			"		gl_Position = projectionMatrix * a;"
-			"		lightDir = (lightPosCam - a).xyz;"
-			"		opacity = 1.0;"
+			"		gl_Position = ProjectionMatrix * a;"
+			"		geomLightDir = (LightPosCam - a).xyz;"
+			"		geomOpacity = 1.0;"
 			"		EmitVertex();"
 			"		vec4 b = vec4("
 			"			a.xyz + (c.xyz - a.xyz)*0.3,"
 			"			1.0"
 			"		);"
-			"		gl_Position = projectionMatrix * b;"
-			"		lightDir = (lightPosCam - b).xyz;"
-			"		opacity = 0.0;"
+			"		gl_Position = ProjectionMatrix * b;"
+			"		geomLightDir = (LightPosCam - b).xyz;"
+			"		geomOpacity = 0.0;"
 			"		EmitVertex();"
 			"	}"
 			"	EndPrimitive();"
@@ -94,17 +94,17 @@ public:
 
 		fs.Source(
 			"#version 330\n"
-			"in vec3 lightDir;"
-			"in float opacity;"
-			"uniform vec3 frontColor, backColor;"
+			"in vec3 geomLightDir;"
+			"in float geomOpacity;"
+			"uniform vec3 FrontColor, BackColor;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float l = length(lightDir);"
+			"	float l = length(geomLightDir);"
 			"	vec3 color = gl_FrontFacing?"
-			"		frontColor:"
-			"		backColor;"
-			"	fragColor = vec4(color*(4.0/l), opacity);"
+			"		FrontColor:"
+			"		BackColor;"
+			"	fragColor = vec4(color*(4.0/l), geomOpacity);"
 			"}"
 		);
 		fs.Compile();
@@ -122,7 +122,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			prog.Use();
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -143,7 +143,7 @@ public:
 			1, 100
 		);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(projection);
+		Uniform(prog, "ProjectionMatrix").SetMatrix(projection);
 	}
 
 	void Render(double time)
@@ -164,18 +164,18 @@ public:
 		Vec4f lightPos(4.0f, 4.0f, -8.0f, 1.0f);
 
 		prog.Use();
-		Uniform(prog, "cameraMatrix").SetMatrix(camera);
-		Uniform(prog, "modelMatrix").SetMatrix(model);
-		Uniform(prog, "lightPosCam").Set(camera * lightPos);
+		Uniform(prog, "CameraMatrix").SetMatrix(camera);
+		Uniform(prog, "ModelMatrix").SetMatrix(model);
+		Uniform(prog, "LightPosCam").Set(camera * lightPos);
 
-		Uniform(prog, "frontColor").Set(Vec3f(0.3, 0.2, 0.0));
-		Uniform(prog, "backColor").Set(Vec3f(0.2, 0.1, 0.0));
+		Uniform(prog, "FrontColor").Set(Vec3f(0.3, 0.2, 0.0));
+		Uniform(prog, "BackColor").Set(Vec3f(0.2, 0.1, 0.0));
 		gl.PolygonMode(Face::Front, PolygonMode::Line);
 		gl.PolygonMode(Face::Back, PolygonMode::Line);
 		torus_instr.Draw(torus_indices);
 
-		Uniform(prog, "frontColor").Set(Vec3f(0.9, 0.8, 0.1));
-		Uniform(prog, "backColor").Set(Vec3f(0.7, 0.6, 0.2));
+		Uniform(prog, "FrontColor").Set(Vec3f(0.9, 0.8, 0.1));
+		Uniform(prog, "BackColor").Set(Vec3f(0.7, 0.6, 0.2));
 		gl.PolygonMode(Face::Front, PolygonMode::Fill);
 		gl.PolygonMode(Face::Back, PolygonMode::Fill);
 		torus_instr.Draw(torus_indices);

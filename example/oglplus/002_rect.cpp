@@ -42,13 +42,13 @@ public:
 		// Set the vertex shader source
 		vs.Source(" \
 			#version 330\n \
-			in vec2 vertex; \
-			in vec3 color; \
+			in vec2 Position; \
+			in vec3 Color; \
 			out vec3 vertColor; \
 			void main(void) \
 			{ \
-				vertColor = color; \
-				gl_Position = vec4(vertex, 0.0, 1.0); \
+				vertColor = Color; \
+				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
 		");
 		// compile it
@@ -88,7 +88,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 
@@ -103,7 +103,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 12, rectangle_colors);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray color_attr(prog, "color");
+		VertexAttribArray color_attr(prog, "Color");
 		color_attr.Setup(3, DataType::Float);
 		color_attr.Enable();
 		//

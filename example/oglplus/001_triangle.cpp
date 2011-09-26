@@ -40,10 +40,10 @@ public:
 		// Set the vertex shader source
 		vs.Source(" \
 			#version 330\n \
-			in vec3 vertex; \
+			in vec3 Position; \
 			void main(void) \
 			{ \
-				gl_Position = vec4(vertex, 1.0); \
+				gl_Position = vec4(Position, 1.0); \
 			} \
 		");
 		// compile it
@@ -81,7 +81,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(3, DataType::Float);
 		vert_attr.Enable();
 

@@ -57,30 +57,30 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"in vec2 texcoord;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
-			"out vec2 fragTex;"
-			"uniform vec3 lightPos;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"in vec2 TexCoord;"
+			"out vec3 vertNormal;"
+			"out vec3 vertLight;"
+			"out vec2 vertTexCoord;"
+			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"	vertNormal = ("
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		vec4(lightPos, 0.0)-"
-			"		modelMatrix*vertex"
+			"	vertLight = ("
+			"		vec4(LightPos, 0.0)-"
+			"		ModelMatrix * Position"
 			"	).xyz;"
-			"	fragTex = texcoord;"
+			"	vertTexCoord = TexCoord;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -89,20 +89,20 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"uniform sampler2D tex;"
-			"in vec3 fragNormal;"
-			"in vec3 fragLight;"
-			"in vec2 fragTex;"
+			"uniform sampler2D TexUnit;"
+			"in vec3 vertNormal;"
+			"in vec3 vertLight;"
+			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float l = sqrt(length(fragLight));"
+			"	float l = sqrt(length(vertLight));"
 			"	float d = l > 0? dot("
-			"		fragNormal, "
-			"		normalize(fragLight)"
+			"		vertNormal, "
+			"		normalize(vertLight)"
 			"	) / l : 0.0;"
 			"	float i = 0.2 + 3.2*d;"
-			"	fragColor = texture(tex, fragTex)*i;"
+			"	fragColor = texture(TexUnit, vertTexCoord)*i;"
 			"}"
 		);
 		// compile it
@@ -126,7 +126,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -139,7 +139,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -152,7 +152,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "texcoord");
+			VertexAttribArray attr(prog, "TexCoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -184,8 +184,8 @@ public:
 			Texture::SwizzleB(tex_tgt, TextureSwizzle::Red);
 		}
 		//
-		Uniform(prog, "tex").Set(0);
-		Uniform(prog, "lightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
+		Uniform(prog, "TexUnit").Set(0);
+		Uniform(prog, "LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
 
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -201,7 +201,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -215,7 +215,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.5,
@@ -224,7 +224,7 @@ public:
 			)
 		);
 		// set the model matrix
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 

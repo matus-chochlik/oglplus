@@ -53,15 +53,15 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix;"
-			"in vec4 vertex;"
-			"out vec3 color;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix;"
+			"in vec4 Position;"
+			"out vec3 vertColor;"
 			"void main(void)"
 			"{"
 			"	float angle = gl_InstanceID * 10 * 2 * 3.14159 / 360.0;"
 			"	float cx = cos(angle);"
 			"	float sx = sin(angle);"
-			"	mat4 modelMatrix = mat4("
+			"	mat4 ModelMatrix = mat4("
 			"		 cx, 0.0,  sx, 0.0,"
 			"		0.0, 1.0, 0.0, 0.0,"
 			"		-sx, 0.0,  cx, 0.0,"
@@ -73,11 +73,11 @@ public:
 			"		12.0, 0.0, 0.0, 1.0 "
 			"	);"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
-			"	color = abs(normalize((modelMatrix*vertex).xyz));"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
+			"	vertColor = abs(normalize((ModelMatrix*Position).xyz));"
 			"}"
 		);
 		// compile it
@@ -86,11 +86,11 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec3 color;"
+			"in vec3 vertColor;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec4(color, 1.0);"
+			"	fragColor = vec4(vertColor, 1.0);"
 			"}"
 		);
 		// compile it
@@ -114,7 +114,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -130,7 +130,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -144,7 +144,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				14.5,

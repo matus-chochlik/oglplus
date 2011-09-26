@@ -54,18 +54,18 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"in vec4 vertex;"
-			"in vec2 texcoord;"
-			"out vec2 fragTex;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"in vec4 Position;"
+			"in vec2 TexCoord;"
+			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
-			"	fragTex = texcoord;"
+			"	vertTexCoord = TexCoord;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
 			"}"
 		);
 		// compile it
@@ -74,11 +74,14 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in vec2 fragTex;"
+			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float i = int((fragTex.x+fragTex.y)*8) % 2;"
+			"	float i = int(("
+			"		vertTexCoord.x+"
+			"		vertTexCoord.y "
+			"	)*8) % 2;"
 			"	fragColor = mix("
 			"		vec4(0, 0, 0, 1),"
 			"		vec4(1, 1, 0, 1),"
@@ -107,7 +110,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -120,7 +123,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "texcoord");
+			VertexAttribArray attr(prog, "TexCoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -135,7 +138,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -149,7 +152,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.5,
@@ -158,12 +161,12 @@ public:
 			)
 		);
 		cube.Bind();
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::Translation(-1.0, 0.0, 0.0) *
 			ModelMatrixf::RotationZ(Degrees(time * 180))
 		);
 		cube_instr.Draw(cube_indices);
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::Translation(+1.0, 0.0, 0.0) *
 			ModelMatrixf::RotationY(Degrees(time * 90))
 		);

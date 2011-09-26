@@ -41,12 +41,15 @@ public:
 		// Set the vertex shader source
 		vs.Source(" \
 			#version 330\n \
-			in vec2 vertex; \
-			out vec2 coord; \
+			in vec2 Position; \
+			out vec2 vertCoord; \
 			void main(void) \
 			{ \
-				gl_Position = vec4(vertex, 0.0, 1.0); \
-				coord = vec2((vertex.x + 1.0)/2.0, (vertex.y + 1.0)/2.0); \
+				gl_Position = vec4(Position, 0.0, 1.0); \
+				vertCoord = vec2( \
+					(Position.x + 1.0)/2.0, \
+					(Position.y + 1.0)/2.0  \
+				); \
 			} \
 		");
 		// compile it
@@ -55,14 +58,14 @@ public:
 		// set the fragment shader source
 		fs.Source(" \
 			#version 330\n \
-			in vec2 coord; \
+			in vec2 vertCoord; \
 			out vec4 fragColor; \
 			void main(void) \
 			{ \
 				fragColor = vec4( \
-					coord.x - coord.x * coord.y, \
-					coord.y - coord.x * coord.y, \
-					coord.x * coord.y, \
+					vertCoord.x - vertCoord.x * vertCoord.y,\
+					vertCoord.y - vertCoord.x * vertCoord.y,\
+					vertCoord.x * vertCoord.y, \
 					1.0 \
 				); \
 			} \
@@ -91,7 +94,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "vertex");
+		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//

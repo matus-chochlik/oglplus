@@ -59,26 +59,26 @@ public:
 	{
 		vs_object.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"uniform vec3 lightPos;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"uniform vec3 LightPos;"
+			"out vec3 vertNormal;"
+			"out vec3 vertLight;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
-			"	fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
+			"	vertNormal = ("
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		vec4(lightPos, 0.0)-"
-			"		modelMatrix*vertex"
+			"	vertLight = ("
+			"		vec4(LightPos, 0.0)-"
+			"		ModelMatrix * Position"
 			"	).xyz;"
 			"}"
 		);
@@ -86,18 +86,18 @@ public:
 
 		fs_object.Source(
 			"#version 330\n"
-			"in vec3 fragNormal;"
-			"in vec3 fragLight;"
+			"in vec3 vertNormal;"
+			"in vec3 vertLight;"
 			"uniform vec3 color;"
 			"uniform float lightMult;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float l = sqrt(length(fragLight));"
+			"	float l = sqrt(length(vertLight));"
 			"	float d = l > 0.0 ?"
 			"		dot("
-			"			fragNormal,"
-			"			normalize(fragLight)"
+			"			vertNormal,"
+			"			normalize(vertLight)"
 			"		) / l : 0.0;"
 			"	float i = 0.3 + d * lightMult;"
 			"	fragColor = vec4(color*i, 1.0);"
@@ -111,22 +111,22 @@ public:
 
 		vs_shadow.Source(
 			"#version 330\n"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"uniform mat4 modelMatrix;"
-			"uniform vec3 lightPos;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"uniform mat4 ModelMatrix;"
+			"uniform vec3 LightPos;"
 			"out float ld;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
-			"		modelMatrix *"
-			"		vertex;"
+			"		ModelMatrix *"
+			"		Position;"
 			"	vec3 geomNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
 			"	vec3 lightDir = ("
-			"		vec4(lightPos, 0.0)-"
+			"		vec4(LightPos, 0.0)-"
 			"		gl_Position"
 			"	).xyz;"
 			"	ld = dot(geomNormal, normalize(lightDir));"
@@ -141,8 +141,8 @@ public:
 
 			"in float ld[];"
 
-			"uniform mat4 cameraMatrix, projectionMatrix;"
-			"uniform vec3 lightPos;"
+			"uniform mat4 CameraMatrix, ProjectionMatrix;"
+			"uniform vec3 LightPos;"
 
 			"void main(void)"
 			"{"
@@ -175,21 +175,21 @@ public:
 			"			}"
 			"		}"
 			"		else continue;"
-			"		vec3 vx = px.xyz - lightPos;"
-			"		vec3 vy = py.xyz - lightPos;"
+			"		vec3 vx = px.xyz - LightPos;"
+			"		vec3 vy = py.xyz - LightPos;"
 			"		vec4 sx = vec4(px.xyz + vx*10.0, 1.0);"
 			"		vec4 sy = vec4(py.xyz + vy*10.0, 1.0);"
-			"		vec4 cpx = cameraMatrix * px;"
-			"		vec4 cpy = cameraMatrix * py;"
-			"		vec4 csx = cameraMatrix * sx;"
-			"		vec4 csy = cameraMatrix * sy;"
-			"		gl_Position = projectionMatrix * cpy;"
+			"		vec4 cpx = CameraMatrix * px;"
+			"		vec4 cpy = CameraMatrix * py;"
+			"		vec4 csx = CameraMatrix * sx;"
+			"		vec4 csy = CameraMatrix * sy;"
+			"		gl_Position = ProjectionMatrix * cpy;"
 			"		EmitVertex();"
-			"		gl_Position = projectionMatrix * cpx;"
+			"		gl_Position = ProjectionMatrix * cpx;"
 			"		EmitVertex();"
-			"		gl_Position = projectionMatrix * csy;"
+			"		gl_Position = ProjectionMatrix * csy;"
 			"		EmitVertex();"
-			"		gl_Position = projectionMatrix * csx;"
+			"		gl_Position = ProjectionMatrix * csx;"
 			"		EmitVertex();"
 			"		EndPrimitive();"
 			"		break;"
@@ -224,12 +224,12 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			object_prog.Use();
-			VertexAttribArray attr_o(object_prog, "vertex");
+			VertexAttribArray attr_o(object_prog, "Position");
 			attr_o.Setup(n_per_vertex, DataType::Float);
 			attr_o.Enable();
 
 			shadow_prog.Use();
-			VertexAttribArray attr_s(shadow_prog, "vertex");
+			VertexAttribArray attr_s(shadow_prog, "Position");
 			attr_s.Setup(n_per_vertex, DataType::Float);
 			attr_s.Enable();
 		}
@@ -242,7 +242,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			object_prog.Use();
-			VertexAttribArray attr_o(object_prog, "normal");
+			VertexAttribArray attr_o(object_prog, "Normal");
 			attr_o.Setup(n_per_vertex, DataType::Float);
 			attr_o.Enable();
 		}
@@ -260,7 +260,7 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();
-			VertexAttribArray attr(object_prog, "vertex");
+			VertexAttribArray attr(object_prog, "Position");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
@@ -276,16 +276,16 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();
-			VertexAttribArray attr(object_prog, "normal");
+			VertexAttribArray attr(object_prog, "Normal");
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
 
 		Vec3f lightPos(2.0f, 9.0f, 3.0f);
 		object_prog.Use();
-		Uniform(object_prog, "lightPos").Set(lightPos);
+		Uniform(object_prog, "LightPos").Set(lightPos);
 		shadow_prog.Use();
-		Uniform(shadow_prog, "lightPos").Set(lightPos);
+		Uniform(shadow_prog, "LightPos").Set(lightPos);
 
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -305,9 +305,9 @@ public:
 			1, 100
 		);
 		object_prog.Use();
-		Uniform(object_prog, "projectionMatrix").SetMatrix(projection);
+		Uniform(object_prog, "ProjectionMatrix").SetMatrix(projection);
 		shadow_prog.Use();
-		Uniform(shadow_prog, "projectionMatrix").SetMatrix(projection);
+		Uniform(shadow_prog, "ProjectionMatrix").SetMatrix(projection);
 	}
 
 	void Render(double time)
@@ -334,14 +334,14 @@ public:
 		gl.Disable(Capability::StencilTest);
 
 		object_prog.Use();
-		Uniform(object_prog, "cameraMatrix").SetMatrix(camera);
+		Uniform(object_prog, "CameraMatrix").SetMatrix(camera);
 		Uniform(object_prog, "lightMult").Set(0.2f);
 
-		Uniform(object_prog, "modelMatrix").SetMatrix(identity);
+		Uniform(object_prog, "ModelMatrix").SetMatrix(identity);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
-		Uniform(object_prog, "modelMatrix").SetMatrix(model);
+		Uniform(object_prog, "ModelMatrix").SetMatrix(model);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 
@@ -363,8 +363,8 @@ public:
 		);
 
 		shadow_prog.Use();
-		Uniform(shadow_prog, "cameraMatrix").SetMatrix(camera);
-		Uniform(shadow_prog, "modelMatrix").SetMatrix(model);
+		Uniform(shadow_prog, "CameraMatrix").SetMatrix(camera);
+		Uniform(shadow_prog, "ModelMatrix").SetMatrix(model);
 
 		gl.CullFace(Face::Back);
 		torus_instr.Draw(torus_indices);
@@ -381,12 +381,12 @@ public:
 		object_prog.Use();
 		Uniform(object_prog, "lightMult").Set(2.5f);
 
-		Uniform(object_prog, "modelMatrix").SetMatrix(identity);
+		Uniform(object_prog, "ModelMatrix").SetMatrix(identity);
 		Uniform(object_prog, "color").Set(Vec3f(0.8f, 0.7f, 0.4f));
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
-		Uniform(object_prog, "modelMatrix").SetMatrix(model);
+		Uniform(object_prog, "ModelMatrix").SetMatrix(model);
 		Uniform(object_prog, "color").Set(Vec3f(0.9f, 0.8f, 0.1f));
 		torus.Bind();
 		torus_instr.Draw(torus_indices);

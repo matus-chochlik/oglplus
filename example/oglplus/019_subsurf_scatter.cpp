@@ -57,55 +57,55 @@ public:
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"uniform vec3 lightPos;"
-			"uniform int instCount;"
-			"uniform int frontFacing;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"out float mult;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"uniform vec3 LightPos;"
+			"uniform int InstCount;"
+			"uniform int FrontFacing;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
+			"out float vertMult;"
+			"out vec3 vertColor;"
+			"out vec3 vertWrapNormal;"
 			"out vec3 vertNormal;"
-			"out vec3 wrapNormal;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
+			"out vec3 vertLight;"
 			"void main(void)"
 			"{"
-			"	int inst = (frontFacing != 0) ? "
-			"		(instCount - gl_InstanceID - 1):"
+			"	int inst = (FrontFacing != 0) ? "
+			"		(InstCount - gl_InstanceID - 1):"
 			"		gl_InstanceID;"
-			"	mult = float(inst) / float(instCount-1);"
-			"	float sca = 1.0 - 0.3 * pow(mult, 2);"
-			"	mat4 scaleMatrix = mat4("
+			"	vertMult = float(inst) / float(InstCount-1);"
+			"	float sca = 1.0 - 0.3 * pow(vertMult, 2);"
+			"	mat4 ScaleMatrix = mat4("
 			"		sca, 0.0, 0.0, 0.0,"
 			"		0.0, sca, 0.0, 0.0,"
 			"		0.0, 0.0, sca, 0.0,"
 			"		0.0, 0.0, 0.0, 1.0 "
 			"	);"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		scaleMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
-			"	vertNormal = normal;"
-			"	vec3 wrap = vertex.xyz - normal;"
-			"	wrapNormal = ("
-			"		modelMatrix * vec4("
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ScaleMatrix *"
+			"		ModelMatrix *"
+			"		Position;"
+			"	vertColor = Normal;"
+			"	vec3 wrap = Position.xyz - Normal;"
+			"	vertWrapNormal = ("
+			"		ModelMatrix * vec4("
 			"			normalize(mix("
-			"				normal,"
+			"				Normal,"
 			"				wrap,"
-			"				mix(0.5, 1.0, mult)"
+			"				mix(0.5, 1.0, vertMult)"
 			"			)),"
 			"			0.0"
 			"		)"
 			"	).xyz;"
-			"	fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"	vertNormal = ("
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		vec4(lightPos, 0.0)-"
-			"		modelMatrix*vertex"
+			"	vertLight = ("
+			"		vec4(LightPos, 0.0)-"
+			"		ModelMatrix*Position"
 			"	).xyz;"
 			"}"
 		);
@@ -115,22 +115,22 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
-			"in float mult;"
+			"in float vertMult;"
+			"in vec3 vertColor;"
+			"in vec3 vertWrapNormal;"
 			"in vec3 vertNormal;"
-			"in vec3 wrapNormal;"
-			"in vec3 fragNormal;"
-			"in vec3 fragLight;"
+			"in vec3 vertLight;"
 			"out vec4 fragColor;"
-			"uniform int instCount;"
+			"uniform int InstCount;"
 			"void main(void)"
 			"{"
-			"	float l = dot(fragLight, fragLight);"
+			"	float l = dot(vertLight, vertLight);"
 			"	float d = l > 0.0 ? dot("
-			"		fragNormal, "
-			"		normalize(fragLight)"
+			"		vertNormal, "
+			"		normalize(vertLight)"
 			"	) / l : 0.0;"
 			"	float s = max("
-			"		dot(wrapNormal, fragLight)/l,"
+			"		dot(vertWrapNormal, vertLight)/l,"
 			"		0.0"
 			"	);"
 			"	float intensity = clamp("
@@ -139,8 +139,8 @@ public:
 			"		1.0"
 			"	);"
 			"	fragColor = vec4("
-			"		abs(vertNormal) * intensity,"
-			"		(2.5 + 1.5*d + 1.5*s) / instCount"
+			"		abs(vertColor) * intensity,"
+			"		(2.5 + 1.5*d + 1.5*s) / InstCount"
 			"	);"
 			"}"
 		);
@@ -165,7 +165,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "vertex");
+			VertexAttribArray attr(prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
@@ -177,14 +177,14 @@ public:
 			GLuint n_per_vertex = make_cube.Normals(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "normal");
+			VertexAttribArray attr(prog, "Normal");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
 		// the light position
-		Uniform(prog, "lightPos").Set(Vec3f(-3.0f, -2.0f, -3.0f));
+		Uniform(prog, "LightPos").Set(Vec3f(-3.0f, -2.0f, -3.0f));
 		// and the instance count
-		Uniform(prog, "instCount").Set(inst_count);
+		Uniform(prog, "InstCount").Set(inst_count);
 		//
 		VertexArray::Unbind();
 		gl.ClearColor(0.5f, 0.6f, 0.5f, 0.0f);
@@ -200,7 +200,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(24),
 				double(width)/height,
@@ -213,7 +213,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				1.5f,
@@ -222,18 +222,18 @@ public:
 			)
 		);
 		// the model matrix
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::RotationY(Degrees(time * 25))
 		);
 		// draw 36 instances of the cube
 		cube.Bind();
 		// first the back faces
 		gl.CullFace(Face::Front);
-		Uniform(prog, "frontFacing").Set(0);
+		Uniform(prog, "FrontFacing").Set(0);
 		cube_instr.Draw(cube_indices, inst_count);
 		// then the front faces
 		gl.CullFace(Face::Back);
-		Uniform(prog, "frontFacing").Set(1);
+		Uniform(prog, "FrontFacing").Set(1);
 		cube_instr.Draw(cube_indices, inst_count);
 	}
 

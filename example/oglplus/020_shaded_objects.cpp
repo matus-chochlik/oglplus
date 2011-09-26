@@ -70,7 +70,7 @@ public:
 		// managed references to the VBOs
 		Managed<Buffer> vbo[n_attr] = {verts, normals, texcoords};
 		// vertex attribute identifiers from the shaders
-		const GLchar* ident[n_attr] = {"vertex", "normal", "texcoord"};
+		const GLchar* ident[n_attr] = {"Vertex", "Normal", "TexCoord"};
 
 		for(size_t i=0; i!=n_attr; ++i)
 		{
@@ -91,7 +91,7 @@ public:
 	void SetProjection(const Matrix4f& projection)
 	{
 		prog.Use();
-		Uniform(prog, "projectionMatrix").SetMatrix(projection);
+		Uniform(prog, "ProjectionMatrix").SetMatrix(projection);
 	}
 
 	void Render(
@@ -103,9 +103,9 @@ public:
 		// use the shading program
 		prog.Use();
 		// set the uniforms
-		Uniform(prog, "lightPos").Set(light);
-		Uniform(prog, "cameraMatrix").SetMatrix(camera);
-		Uniform(prog, "modelMatrix").SetMatrix(model);
+		Uniform(prog, "LightPos").Set(light);
+		Uniform(prog, "CameraMatrix").SetMatrix(camera);
+		Uniform(prog, "ModelMatrix").SetMatrix(model);
 		// bind the VAO
 		shape.Bind();
 		// use the instructions to draw the shape
@@ -130,30 +130,30 @@ private:
 
 		shader.Source(
 			"#version 330\n"
-			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"in vec4 vertex;"
-			"in vec3 normal;"
-			"in vec2 texcoord;"
-			"out vec2 fragTexCoord;"
-			"out vec3 fragNormal;"
-			"out vec3 fragLight;"
-			"uniform vec3 lightPos;"
+			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"in vec4 Vertex;"
+			"in vec3 Normal;"
+			"in vec2 TexCoord;"
+			"out vec2 vertTexCoord;"
+			"out vec3 vertNormal;"
+			"out vec3 vertLight;"
+			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	fragTexCoord = texcoord;"
-			"	fragNormal = ("
-			"		modelMatrix *"
-			"		vec4(normal, 0.0)"
+			"	vertTexCoord = TexCoord;"
+			"	vertNormal = ("
+			"		ModelMatrix *"
+			"		vec4(Normal, 0.0)"
 			"	).xyz;"
-			"	fragLight = ("
-			"		vec4(lightPos, 0.0)-"
-			"		modelMatrix*vertex"
+			"	vertLight = ("
+			"		vec4(LightPos, 0.0)-"
+			"		ModelMatrix * Vertex"
 			"	).xyz;"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		modelMatrix *"
-			"		vertex;"
+			"		ProjectionMatrix *"
+			"		CameraMatrix *"
+			"		ModelMatrix *"
+			"		Vertex;"
 			"}"
 		);
 
@@ -166,25 +166,25 @@ private:
 	{
 		return
 		"#version 330\n"
-		"in vec2 fragTexCoord;"
-		"in vec3 fragNormal;"
-		"in vec3 fragLight;"
+		"in vec2 vertTexCoord;"
+		"in vec3 vertNormal;"
+		"in vec3 vertLight;"
 		"out vec4 fragColor;"
 		"void main(void)"
 		"{"
-		"	float _len = dot(fragLight, fragLight);"
-		"	float _dot = _len > 0.0 ? dot("
-		"		fragNormal, "
-		"		normalize(fragLight)"
-		"	) / _len : 0.0;"
-		"	float intensity = 0.2 + _dot * 4.0;";
+		"	float Len = dot(vertLight, vertLight);"
+		"	float Dot = Len > 0.0 ? dot("
+		"		vertNormal, "
+		"		normalize(vertLight)"
+		"	) / Len : 0.0;"
+		"	float Intensity = 0.2 + Dot * 4.0;";
 	}
 
 	// The common last part of all fragment shader sources
 	static const GLchar* fs_epilogue(void)
 	{
 		return
-		"	fragColor = vec4(color * intensity, 1.0);"
+		"	fragColor = vec4(Color * Intensity, 1.0);"
 		"}";
 	}
 
@@ -194,18 +194,18 @@ private:
 		return
 		"	float c = ("
 		"		1 +"
-		"		int(fragTexCoord.x*8) % 2+"
-		"		int(fragTexCoord.y*8) % 2"
+		"		int(vertTexCoord.x*8) % 2+"
+		"		int(vertTexCoord.y*8) % 2"
 		"	) % 2;"
-		"	vec3 color = vec3(c, c, c);";
+		"	vec3 Color = vec3(c, c, c);";
 	}
 
 	// The part calculating the color for the yellow/black strips shader
 	static const GLchar* fs_yb_strips(void)
 	{
 		return
-		"	float m = int((fragTexCoord.x+fragTexCoord.y)*16) % 2;"
-		"	vec3 color = mix("
+		"	float m = int((vertTexCoord.x+vertTexCoord.y)*16) % 2;"
+		"	vec3 Color = mix("
 		"		vec3(0.0, 0.0, 0.0),"
 		"		vec3(1.0, 1.0, 0.0),"
 		"		m"
@@ -216,8 +216,8 @@ private:
 	static const GLchar* fs_wo_vstrips(void)
 	{
 		return
-		"	float m = int(fragTexCoord.y*8) % 2;"
-		"	vec3 color = mix("
+		"	float m = int(vertTexCoord.y*8) % 2;"
+		"	vec3 Color = mix("
 		"		vec3(1.0, 0.6, 0.1),"
 		"		vec3(1.0, 0.9, 0.8),"
 		"		m"
@@ -228,9 +228,9 @@ private:
 	static const GLchar* fs_br_circles(void)
 	{
 		return
-		"	vec2  center = fragTexCoord - vec2(0.5, 0.5);"
+		"	vec2  center = vertTexCoord - vec2(0.5, 0.5);"
 		"	float m = int(sqrt(length(center))*16) % 2;"
-		"	vec3 color = mix("
+		"	vec3 Color = mix("
 		"		vec3(1.0, 0.0, 0.0),"
 		"		vec3(0.0, 0.0, 1.0),"
 		"		m"
@@ -241,11 +241,11 @@ private:
 	static const GLchar* fs_wg_spirals(void)
 	{
 		return
-		"	vec2  center = (fragTexCoord - vec2(0.5, 0.5)) * 16.0;"
+		"	vec2  center = (vertTexCoord - vec2(0.5, 0.5)) * 16.0;"
 		"	float l = length(center);"
 		"	float t = atan(center.y, center.x)/(2.0*asin(1.0));"
 		"	float m = int(l+t) % 2;"
-		"	vec3 color = mix("
+		"	vec3 Color = mix("
 		"		vec3(0.0, 1.0, 0.0),"
 		"		vec3(1.0, 1.0, 1.0),"
 		"		m"
