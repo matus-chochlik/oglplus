@@ -446,6 +446,22 @@ public:
 		::glDrawElements(GLenum(primitive), count, GLenum(data_type),0);
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawElements));
 	}
+
+	/// Draws a sequence of primitives from the bound element array buffers
+	/**
+	 *  @throws Error
+	 */
+	template <typename T>
+	static void DrawElements(
+		PrimitiveType primitive,
+		GLsizei count,
+		DataType data_type,
+		T* p
+	)
+	{
+		::glDrawElements(GLenum(primitive), count, GLenum(data_type),p);
+		AssertNoError(OGLPLUS_ERROR_INFO(DrawElements));
+	}
 };
 
 } // namespace oglplus
