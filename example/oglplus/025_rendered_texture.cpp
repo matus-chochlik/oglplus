@@ -52,7 +52,7 @@ private:
 
 	// VBOs for the shape vertex attributes
 	Buffer cube_verts, cube_normals, cube_texcoords;
-	Buffer torus_verts, torus_texcoords;
+	Buffer torus_verts, torus_normals, torus_texcoords;
 
 	/// The FBO and RBO for offscreen rendering
 	Framebuffer fbo;
@@ -170,15 +170,22 @@ public:
 
 		torus_fs.Source(
 			"#version 330\n"
+			"in vec3 vertNormal;"
+			"in vec3 vertLight;"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
+			"	float d = dot("
+			"		vertNormal, "
+			"		normalize(vertLight)"
+			"	);"
 			"	float i = ("
 			"		int(vertTexCoord.x*18) % 2+"
 			"		int(vertTexCoord.y*14) % 2"
 			"	) % 2;"
-			"	fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
+			"	float c = (0.4 + d)*(1-i/2);"
+			"	fragColor = vec4(c, c, c, 1.0);"
 			"}"
 		);
 		torus_fs.Compile();
@@ -200,6 +207,16 @@ public:
 			attr.Enable();
 		}
 
+		torus_normals.Bind(Buffer::Target::Array);
+		{
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = make_torus.Normals(data);
+			Buffer::Data(Buffer::Target::Array, data);
+			VertexAttribArray attr(torus_prog, "Normal");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
+		}
+
 		torus_texcoords.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
@@ -209,6 +226,8 @@ public:
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
+
+		Uniform(torus_prog, "LightPos").Set(Vec3f(2.0f, 3.0f, 4.0f));
 
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
