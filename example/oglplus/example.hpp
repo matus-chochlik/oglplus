@@ -1,5 +1,5 @@
 /*
- *  .file example/example.hpp
+ *  @file example/example.hpp
  *  Declares a common base class for examples
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost

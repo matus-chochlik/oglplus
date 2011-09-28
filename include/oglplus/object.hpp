@@ -26,7 +26,7 @@ namespace oglplus {
  *  to provide automated resource management for these OpenGL resources.
  *  They also wrap operations related to these objects and provide
  *  additional type safety and more robust error handling. Look
- *  @ref oglplus_object here for more details.
+ *  @ref oglplus_object "here" for more details.
  */
 
 /** @page oglplus_object OGLplus object

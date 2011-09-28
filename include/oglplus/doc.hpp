@@ -47,7 +47,7 @@ namespace oglplus {
 /** @defgroup modifier_classes Modifier classes
  *
  *  Class templates in this group modify the usage or behavior of other
- *  classes, mostly @ref oglplus_object "objects. They for example
+ *  classes, mostly @ref oglplus_object "objects". They for example
  *  allow to make temporary copies of objects which are only movable
  *  or to allocate and cleanup several instances of the same type
  *  at the same time.
@@ -103,8 +103,10 @@ public:
  *
  *  Bound objects make the usage of @ref oglplus_object "objects" that
  *  can be bound to a OpenGL binding point or "target" easier.
- *  This includes objects like @ref oglplus::Buffer "Buffer" or
- *  @ref oglplus::Texture "Texture" which have a target to which individual
+ *  This includes objects like @ref oglplus::Buffer "Buffer,"
+ *  @ref oglplus::Texture "Texture", @ref oglplus::Renderbuffer "Renderbuffer"
+ *  or @ref oglplus::Framebuffer "Framebuffer"
+ *  which have a target to which individual
  *  instances can be bound and operated on through the binding point.
  *  Generally @c Bound<Object> classes re-implement those functions of @c Object
  *  which have a @c target parameter of the @c Object::Target type. These
