@@ -144,6 +144,22 @@ public:
 		assert(_data.size() % (_width * _height * _depth) == 0);
 		return _data.size() / (_width * _height * _depth);
 	}
+
+	/// Returns the component of the pixel at the specified coordinates
+	T Component(
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		GLsizei component
+	) const
+	{
+		assert(width < Width());
+		assert(height < Height());
+		assert(depth < Depth());
+		assert(component < ElementsPerPixel());
+		GLsizei offs = depth*Height()*Width()+height*Width()+width;
+		return *(Data()+offs*ElementsPerPixel()+component);
+	}
 };
 
 template <typename T>

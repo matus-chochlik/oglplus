@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/024_smoke_trails.cpp
- *  @brief Shows how to draw multpile properly sorted particle systems
+ *  @example oglplus/027_smoke_trails.cpp
+ *  @brief Shows how to draw multpile lighted smoke trails
  *
- *  @image html 024_smoke_trails.png
+ *  @image html 027_smoke_trails.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,6 +11,8 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/curve.hpp>
+#include <oglplus/bound/texture.hpp>
+#include <oglplus/images/cloud.hpp>
 
 #include <vector>
 #include <algorithm>
@@ -34,15 +36,22 @@ private:
 	std::vector<Vec3f> positions;
 	std::vector<Vec3f> directions;
 	std::vector<float> ages;
+	std::vector<int> ids;
 
 	// creates a directional vector for a new particle
 	static Vec3f NewDirection(void)
 	{
-		float disp = 0.4f;
+		float disp = 0.6f;
 		float dx = (0.5f - (float(std::rand())/RAND_MAX))*disp;
 		float dy = (0.5f - (float(std::rand())/RAND_MAX))*disp;
 		float dz = (0.5f - (float(std::rand())/RAND_MAX))*disp;
 		return Vec3f(dx, dy, dz);
+	}
+
+	// return a new particle identifier
+	static int NewID(void)
+	{
+		return rand();
 	}
 
 	// Spawn a new particle if the time is right
@@ -50,7 +59,8 @@ private:
 		double time,
 		Vec3f& position,
 		Vec3f& direction,
-		float& age
+		float& age,
+		int& id
 	)
 	{
 		float new_age = time - spawn_time - spawn_interval;
@@ -61,6 +71,7 @@ private:
 			Vec3f emitter_pos = path.Position(spawn_time/cycle_time);
 			position = emitter_pos + direction;
 			age = new_age;
+			id = NewID();
 			return true;
 		}
 		return false;
@@ -86,6 +97,7 @@ public:
 	{
 		assert(positions.size() == directions.size());
 		assert(positions.size() == ages.size());
+		assert(positions.size() == ids.size());
 
 		double time_diff = time - prev_time;
 		double drag = 0.1 * time_diff;
@@ -104,7 +116,8 @@ public:
 					time,
 					positions[i],
 					directions[i],
-					ages[i]
+					ages[i],
+					ids[i]
 				);
 			}
 			else
@@ -117,19 +130,26 @@ public:
 		Vec3f position;
 		Vec3f direction;
 		float age;
+		int id;
 		// spawn new particles if necessary
-		while(SpawnParticle(time, position, direction, age))
+		while(SpawnParticle(time, position, direction, age, id))
 		{
 			positions.push_back(position);
 			directions.push_back(direction);
 			ages.push_back(age);
+			ids.push_back(id);
 		}
 	}
 
-	void Upload(std::vector<Vec3f>& pos, std::vector<float>& age)
+	void Upload(
+		std::vector<Vec3f>& pos,
+		std::vector<float>& age,
+		std::vector<int>& id
+	)
 	{
 		pos.insert(pos.end(), positions.begin(), positions.end());
 		age.insert(age.end(), ages.begin(), ages.end());
+		id.insert(id.end(), ids.begin(), ids.end());
 	}
 };
 
@@ -157,11 +177,15 @@ private:
 	// A vertex array object for the particles
 	VertexArray particles;
 
-	// VBOs for the particle positions and ages
-	Buffer pos_buf, age_buf;
+	// VBOs for the particle positions, ages and identifiers
+	Buffer pos_buf, age_buf, id_buf;
+
+	// The smoke texture for the particles
+	Texture smoke_tex;
 
 	std::vector<Vec3f> positions;
 	std::vector<float> ages;
+	std::vector<int> ids;
 	double prev_time;
 public:
 	SmokeExample(void)
@@ -173,26 +197,21 @@ public:
 					{ 20.0f,   0.0f, -20.0f},
 					{ 20.0f,  10.0f,  20.0f},
 					{-20.0f,   0.0f, -10.0f}
-				}, 5.0, 200.0
+				}, 15.0, 200.0
 			},
 			{
 				{
-					{ 30.0f,   0.0f,   0.0f},
-					{-30.0f,   0.0f,   0.0f},
-					{-20.0f,  20.0f,   0.0f},
-					{ 20.0f, -10.0f,   0.0f}
-				}, 3.0, 200.0
+					{ 30.0f,   0.0f,   5.0f},
+					{-30.0f,   0.0f,  -5.0f},
+					{-20.0f,  20.0f,   5.0f},
+					{ 20.0f, -10.0f,  -5.0f}
+				}, 17.0, 200.0
 			},
-			{
-				{
-					{  5.0f,  20.0f,  20.0f},
-					{ -5.0f,  20.0f, -20.0f},
-					{  5.0f, -20.0f, -20.0f},
-					{ -5.0f, -20.0f,  20.0f}
-				}, 20.0, 100.0
-			}
 		}
-	), prev_time(0.0)
+	), vs("Vertex")
+	 , gs("Geometry")
+	 , fs("Fragment")
+	 , prev_time(0.0)
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -200,11 +219,14 @@ public:
 			"uniform mat4 CameraMatrix;"
 			"in vec4 Position;"
 			"in float Age;"
+			"in int Id;"
 			"out float vertAge;"
+			"out int vertId;"
 			"void main(void)"
 			"{"
 			"	gl_Position = CameraMatrix * Position;"
 			"	vertAge = Age;"
+			"	vertId = Id;"
 			"}"
 		);
 		// compile it
@@ -215,27 +237,44 @@ public:
 			"#version 330\n"
 			"layout(points) in;"
 			"layout(triangle_strip, max_vertices = 4) out;"
+			"uniform vec3 LightCamPos;"
 			"uniform mat4 ProjectionMatrix;"
 			"in float vertAge[];"
+			"in int vertId[];"
+			"out vec2 geomTexCoord;"
 			"out float geomAge;"
+			"out float geomLightVal;"
+			"out float geomLightBias;"
 			"void main(void)"
 			"{"
 			"	if(vertAge[0] > 1.0) return;"
-			"	float s = 0.5;"
+			"	vec3 pos = gl_in[0].gl_Position.xyz;"
+			"	vec3 lightDir = normalize(LightCamPos - pos);"
+			"	float s = 0.8, g = 3.0;"
 			"	float yo[2] = float[2](-1.0, 1.0);"
 			"	float xo[2] = float[2](-1.0, 1.0);"
+			"	float angle = vertId[0];"
+			"	float cx = cos(angle), sx = sin(angle);"
+			"	mat2 rot = mat2(cx, sx, -sx, cx);"
 			"	for(int j=0;j!=2;++j)"
 			"	for(int i=0;i!=2;++i)"
 			"	{"
-			"		float xoffs = xo[i]*(1.0+vertAge[0])*s;"
-			"		float yoffs = yo[j]*(1.0+vertAge[0])*s;"
+			"		float xoffs = xo[i]*(1.0+vertAge[0]*g)*s;"
+			"		float yoffs = yo[j]*(1.0+vertAge[0]*g)*s;"
+			"		vec2 offs = rot*vec2(xoffs, yoffs);"
 			"		gl_Position = ProjectionMatrix * vec4("
-			"			gl_in[0].gl_Position.x-xoffs,"
-			"			gl_in[0].gl_Position.y-yoffs,"
-			"			gl_in[0].gl_Position.z,"
+			"			pos.x-offs.x,"
+			"			pos.y-offs.y,"
+			"			pos.z,"
 			"			1.0"
 			"		);"
+			"		geomTexCoord = vec2(float(i), float(j));"
 			"		geomAge = vertAge[0];"
+			"		geomLightVal = lightDir.z;"
+			"		geomLightBias = -dot("
+			"			normalize(vec3(offs, 0.0)),"
+			"			lightDir"
+			"		);"
 			"		EmitVertex();"
 			"	}"
 			"	EndPrimitive();"
@@ -247,15 +286,36 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
+			"uniform sampler2D SmokeTex;"
+			"in vec2 geomTexCoord;"
 			"in float geomAge;"
+			"in float geomLightVal;"
+			"in float geomLightBias;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	vec3 Color1 = vec3(1.0, 0.5, 0.5);"
-			"	vec3 Color2 = vec3(0.3, 0.1, 0.1);"
+			"	vec3 c = texture(SmokeTex, geomTexCoord).rgb;"
+			"	float depth = c.g - c.r;"
+			"	if(depth == 0.0) discard;"
+			"	float density = min(depth * c.b * 2.0, 1.0);"
+			"	float intensity = min("
+			"		max("
+			"			geomLightVal+"
+			"			geomLightBias,"
+			"			0.0"
+			"		)+max("
+			"			-geomLightVal*"
+			"			(1.0 - density)*"
+			"			geomLightBias * 5.0,"
+			"			0.0"
+			"		),"
+			"		1.0"
+			"	) + 0.1;"
 			"	fragColor = vec4("
-			"		mix(Color1, Color2, geomAge),"
-			"		1.0 - geomAge"
+			"		intensity,"
+			"		intensity,"
+			"		intensity,"
+			"		(1.0 - geomAge)*density"
 			"	);"
 			"}"
 		);
@@ -290,8 +350,38 @@ public:
 			attr.Setup(1, DataType::Float);
 			attr.Enable();
 		}
+
+		// bind the VBO for the particle identifiers
+		id_buf.Bind(Buffer::Target::Array);
+		{
+			Buffer::Data(Buffer::Target::Array, ids);
+			VertexAttribArray attr(prog, "Id");
+			attr.Setup(1, DataType::Int);
+			attr.Enable();
+		}
+
+		Texture::Active(0);
+		Uniform(prog, "SmokeTex").Set(0);
+		{
+			auto bound_tex = Bind(smoke_tex, Texture::Target::_2D);
+			bound_tex.Image2D(
+				images::Cloud2D(
+					images::Cloud(
+						128, 128, 128,
+						Vec3f(0.1f, -0.5f, 0.3f),
+						0.5f
+					)
+				)
+			);
+			bound_tex.GenerateMipmap();
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f));
+			bound_tex.WrapS(TextureWrap::ClampToBorder);
+			bound_tex.WrapT(TextureWrap::ClampToBorder);
+		}
 		//
-		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
+		gl.ClearColor(0.0f, 0.1f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::Blend);
@@ -315,19 +405,21 @@ public:
 	{
 		positions.clear();
 		ages.clear();
+		ids.clear();
 
 		// update the emitters and get the particle data
 		for(auto i=emitters.begin(), e=emitters.end(); i!=e; ++i)
 		{
 			i->Update(time, prev_time);
-			i->Upload(positions, ages);
+			i->Upload(positions, ages, ids);
 		}
 		assert(positions.size() == ages.size());
+		assert(positions.size() == ids.size());
 
 		// make a camera matrix
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			35.0 - std::sin(time) * 15.0,
+			35.0 - std::sin(time) * 10.0,
 			FullCircles(time * 0.1),
 			Degrees(std::sin(time * 0.3) * 60)
 		);
@@ -357,8 +449,14 @@ public:
 		// upload the particle ages
 		age_buf.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, ages);
+		// upload the particle identifiers
+		id_buf.Bind(Buffer::Target::Array);
+		Buffer::Data(Buffer::Target::Array, ids);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
+		Uniform(prog, "LightCamPos").Set(
+			(cameraMatrix*Vec4f(30.0f, 30.0f, 30.0f, 1.0f)).xyz()
+		);
 		Uniform(prog, "CameraMatrix").SetMatrix(cameraMatrix);
 		// use the indices to draw the particles
 		gl.DrawElements(

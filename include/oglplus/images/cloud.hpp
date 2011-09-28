@@ -167,6 +167,57 @@ public:
 	}
 };
 
+class Cloud2D
+ : public Image<GLubyte>
+{
+private:
+public:
+	Cloud2D(const Cloud& cloud)
+	 : Image<GLubyte>(cloud.Width(), cloud.Height(), 1)
+	{
+		_data.resize(Width()*Height()*3);
+		auto p = _data.begin(), e = _data.end();
+		GLsizei w = Width(), h = Height(), d = cloud.Depth();
+		for(GLsizei j=0; j!=h; ++j)
+		for(GLsizei i=0; i!=w; ++i)
+		{
+			GLubyte depth_near = 0;
+			GLubyte depth_far = 0;
+			GLuint total_density = 0;
+			for(GLsizei k=0; k!=d; ++k)
+			{
+				GLubyte c = cloud.Component(i, j, k, 0);
+				if(depth_near == 0)
+				{
+					if(c != 0)
+					{
+						depth_near = (256*k)/d;
+						depth_far = depth_near;
+					}
+				}
+				else if(depth_far == depth_near)
+				{
+					if(c == 0) depth_far = (256*k)/d;
+				}
+				total_density += c;
+			}
+			assert(depth_far >= depth_near);
+			GLuint avg_density =
+				((depth_far-depth_near) > 0)?
+				total_density/(depth_far-depth_near):0;
+			assert(p != e);
+			*p = depth_near; ++p;
+			assert(p != e);
+			*p = depth_far; ++p;
+			assert(p != e);
+			*p = GLubyte(avg_density); ++p;
+		}
+		assert(p == e);
+		_type = PixelDataType::UnsignedByte;
+		_format = PixelDataFormat::RGB;
+		_internal = PixelDataInternalFormat::RGB;
+	}
+};
 
 } // images
 } // oglplus
