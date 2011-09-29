@@ -193,9 +193,9 @@ public:
 		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				3.5 - std::sin(time) * 2.5,
+				3.5 - SineWave(time / 6.0) * 2.5,
 				FullCircles(time * 0.7),
-				Degrees(std::sin(time * 0.2) * 90)
+				Degrees(SineWave(time / 30.0) * 90)
 			)
 		);
 

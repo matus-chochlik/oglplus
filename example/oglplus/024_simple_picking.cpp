@@ -276,7 +276,7 @@ public:
 			Vec3f(),
 			10.0,
 			FullCircles(time * 0.1),
-			Degrees(std::sin(time * 0.3) * 30)
+			Degrees(SineWave(time / 20.0) * 30)
 		);
 
 		// use the picking program

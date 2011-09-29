@@ -318,7 +318,7 @@ public:
 			Vec3f(),
 			5.5,
 			FullCircles(time * 0.1),
-			Degrees(15 + (-std::cos(time * 0.5)+1.0)* 0.5 * 75)
+			Degrees(15 + (-SineWave(0.25+time/12.5)+1.0)* 0.5 * 75)
 		);
 		ModelMatrixf identity;
 		ModelMatrixf model =

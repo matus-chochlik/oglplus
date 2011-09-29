@@ -327,9 +327,9 @@ public:
 		// make a camera matrix
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			35.0 - std::sin(time) * 15.0,
+			35.0 - SineWave(time / 6.0) * 15.0,
 			FullCircles(time * 0.1),
-			Degrees(std::sin(time * 0.3) * 60)
+			Degrees(SineWave(time / 20.0) * 60)
 		);
 
 		std::vector<float> depths(positions.size());

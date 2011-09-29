@@ -300,13 +300,13 @@ public:
 			Vec3f(),
 			3.5f,
 			Degrees(time * 50),
-			Degrees(std::sin(time * 0.4f) * 70)
+			Degrees(SineWave(time / 15.0) * 70)
 		);
 		// model matrix
 		auto model =
 			ModelMatrixf::Translation(
 				0.0f,
-				sqrt(1.0f+std::sin(time * 3.1415)),
+				sqrt(1.0f+SineWave(time / 2.0)),
 				0.0f
 			) *
 			ModelMatrixf::RotationX(FullCircles(time));

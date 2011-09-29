@@ -157,7 +157,7 @@ public:
 				Vec3f(),
 				2.5,
 				Degrees(time * 15),
-				Degrees(std::sin(time) * 45)
+				Degrees(SineWave(time / 6.3) * 45)
 			)
 		);
 		cube.Bind();

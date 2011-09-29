@@ -298,7 +298,7 @@ public:
 			Vec3f(),
 			2.5f,
 			Degrees(0),
-			Degrees(std::sin(time * 0.3) * 80)
+			Degrees(SineWave(time / 20.0) * 80)
 		);
 
 		light.Bind();

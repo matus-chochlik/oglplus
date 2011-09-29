@@ -218,7 +218,7 @@ public:
 				Vec3f(),
 				1.5f,
 				Degrees(time * 50),
-				Degrees(std::sin(time * 0.4f) * 80)
+				Degrees(SineWave(time / 16.0) * 80)
 			)
 		);
 		// the model matrix

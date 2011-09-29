@@ -162,7 +162,7 @@ public:
 		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::Translation(
 				0.0f,
-				sqrt(1.0f+std::sin(time * 3.1415)),
+				sqrt(1.0f+SineWave(time / 2.0)),
 				0.0f
 			) *
 			ModelMatrixf::RotationY(Degrees(time * 180))

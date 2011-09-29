@@ -214,7 +214,7 @@ public:
 				Vec3f(),
 				3.5,
 				Degrees(time * 10),
-				Degrees(15 + (-std::cos(time * 0.5)+1.0)*0.5*75)
+				Degrees(15 + (-SineWave(0.25+time/12.5)+1.0)*0.5*75)
 			)
 		);
 		ModelMatrixf identity;

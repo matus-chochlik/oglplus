@@ -149,7 +149,7 @@ public:
 				Vec3f(),
 				14.5,
 				Degrees(time * 135),
-				Degrees(std::sin(time * 0.3) * 30)
+				Degrees(SineWave(time / 20.0) * 30)
 			)
 		);
 

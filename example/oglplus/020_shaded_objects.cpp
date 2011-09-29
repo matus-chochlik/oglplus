@@ -309,7 +309,7 @@ public:
 			Vec3f(),
 			3.5,
 			Degrees(time * 15),
-			Degrees(std::sin(time) * 45)
+			Degrees(SineWave(time / 6.0) * 45)
 		);
 		// render the shapes
 		sphere.Render(light, camera, Matrix4f());

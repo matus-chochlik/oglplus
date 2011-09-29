@@ -218,9 +218,9 @@ public:
 		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.5 + std::sin(time)*0.5,
+				1.5 + SineWave(time / 6.0)*0.5,
 				FullCircles(time * 0.2),
-				Degrees(std::sin(time * 0.3) * 80)
+				Degrees(SineWave(time / 20.0) * 80)
 			)
 		);
 		gl.DrawArrays(PrimitiveType::Points, 0, 1);

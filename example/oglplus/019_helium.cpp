@@ -274,7 +274,7 @@ public:
 			Vec3f(),
 			15.0,
 			Degrees(time * 15),
-			Degrees(std::sin(time) * 45)
+			Degrees(SineWave(time*0.15) * 45)
 		);
 		auto nucl = ModelMatrixf::RotationA(
 			Vec3f(1.0f, 1.0f, 1.0f),

@@ -367,6 +367,30 @@ inline Angle<GLfloat> ArcTan(GLfloat y, GLfloat x)
 	return Angle<GLfloat>::Radians(::std::atan2(y, x));
 }
 
+/// Returns a value on a sine wave at the specified point
+/** This function returns the value of sin(2.PI.@p t), i.e.
+ *  integer values of @p t are the ends of the previous full
+ *  sine wave and the beginning of the next "iteration".
+ *  The following is true:
+ *  @code
+ *  SineWave(t) == sin(2.0*PI*t);
+ *  SineWave(0.00) ==  0.0;
+ *  SineWave(0.25) ==  1.0;
+ *  SineWave(0.50) ==  0.0;
+ *  SineWave(0.75) == -1.0;
+ *  SineWave(1.00) ==  0.0;
+ *  @endcode
+ *
+ *  @param t the point for which to calculate the value on the wave.
+ *
+ *  @ingroup math_utils
+ */
+template <typename T>
+inline T SineWave(T t)
+{
+	return ::std::sin(T(2.0 * M_PI * t));
+}
+
 } // namespace oglplus
 
 #endif // include guard
