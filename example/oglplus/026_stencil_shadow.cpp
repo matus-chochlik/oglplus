@@ -88,7 +88,7 @@ public:
 			"#version 330\n"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
-			"uniform vec3 color;"
+			"uniform vec3 Color;"
 			"uniform float lightMult;"
 			"out vec4 fragColor;"
 			"void main(void)"
@@ -100,7 +100,7 @@ public:
 			"			normalize(vertLight)"
 			"		) / l : 0.0;"
 			"	float i = 0.3 + d * lightMult;"
-			"	fragColor = vec4(color*i, 1.0);"
+			"	fragColor = vec4(Color*i, 1.0);"
 			"}"
 		);
 		fs_object.Compile();
@@ -382,19 +382,19 @@ public:
 		Uniform(object_prog, "lightMult").Set(2.5f);
 
 		Uniform(object_prog, "ModelMatrix").SetMatrix(identity);
-		Uniform(object_prog, "color").Set(Vec3f(0.8f, 0.7f, 0.4f));
+		Uniform(object_prog, "Color").Set(Vec3f(0.8f, 0.7f, 0.4f));
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
 		Uniform(object_prog, "ModelMatrix").SetMatrix(model);
-		Uniform(object_prog, "color").Set(Vec3f(0.9f, 0.8f, 0.1f));
+		Uniform(object_prog, "Color").Set(Vec3f(0.9f, 0.8f, 0.1f));
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 	}
 
 	bool Continue(double time)
 	{
-		return time < 30.0;
+		return time < 60.0;
 	}
 };
 

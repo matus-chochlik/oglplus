@@ -30,6 +30,7 @@ case "$(basename ${1})" in
 	021_wooden_crate) sleep_period=2;;
 	024_particle_trails) sleep_period=5;;
 	026_clouds) sleep_period=5;;
+	026_torus_halo) sleep_period=2;;
 	027_smoke_trails) sleep_period=5;;
 	*)sleep_period=1;;
 esac
