@@ -17,6 +17,7 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/compare_func.hpp>
 #include <oglplus/pixel_data.hpp>
+#include <oglplus/buffer.hpp>
 #include <oglplus/limited_value.hpp>
 #include <oglplus/image.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
@@ -150,6 +151,7 @@ enum class TextureWrap : GLenum {
  */
 class TextureOps
  : public Named
+ , public FriendOf<Buffer>
 {
 protected:
 	static void _init(GLsizei count, GLuint& _name)
@@ -364,6 +366,72 @@ public:
 		));
 	}
 
+	/// Specifies a three dimensional texture sub image
+	static void SubImage3D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexSubImage3D(
+			GLenum(target),
+			level,
+			xoffs,
+			yoffs,
+			zoffs,
+			width,
+			height,
+			depth,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexSubImage3D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a three dimensional texture sub image
+	template <typename T>
+	static void SubImage3D(
+		Target target,
+		const Image<T>& image,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLint level = 0
+	)
+	{
+		::glTexSubImage3D(
+			GLenum(target),
+			level,
+			xoffs,
+			yoffs,
+			zoffs,
+			image.Width(),
+			image.Height(),
+			image.Depth(),
+			GLenum(image.Format()),
+			GLenum(image.Type()),
+			image.RawData()
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexSubImage3D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
 	/// Specifies a two dimensional texture image
 	static void Image2D(
 		Target target,
@@ -422,6 +490,65 @@ public:
 		));
 	}
 
+	/// Specifies a two dimensional texture sub image
+	static void SubImage2D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLsizei width,
+		GLsizei height,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexSubImage2D(
+			GLenum(target),
+			level,
+			xoffs,
+			yoffs,
+			width,
+			height,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexSubImage2D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a two dimensional texture sub image
+	template <typename T>
+	static void SubImage2D(
+		Target target,
+		const Image<T>& image,
+		GLint xoffs,
+		GLint yoffs,
+		GLint level = 0
+	)
+	{
+		::glTexSubImage2D(
+			GLenum(target),
+			level,
+			xoffs,
+			yoffs,
+			image.Width(),
+			image.Height(),
+			GLenum(image.Format()),
+			GLenum(image.Type()),
+			image.RawData()
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexSubImage2D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
 	/// Specifies a one dimensional texture image
 	static void Image1D(
 		Target target,
@@ -473,6 +600,450 @@ public:
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a one dimensional texture sub image
+	static void SubImage1D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLsizei width,
+		PixelDataFormat format,
+		PixelDataType type,
+		const void* data
+	)
+	{
+		::glTexSubImage1D(
+			GLenum(target),
+			level,
+			xoffs,
+			width,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexSubImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a two dimensional texture sub image
+	template <typename T>
+	static void SubImage1D(
+		Target target,
+		const Image<T>& image,
+		GLint xoffs,
+		GLint level = 0
+	)
+	{
+		::glTexSubImage1D(
+			GLenum(target),
+			level,
+			xoffs,
+			image.Width(),
+			GLenum(image.Format()),
+			GLenum(image.Type()),
+			image.RawData()
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexSubImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Copies a two dimensional texture image from the framebuffer
+	static void CopyImage2D(
+		Target target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height,
+		GLint border
+	)
+	{
+		::glCopyTexImage2D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			x,
+			y,
+			width,
+			height,
+			border
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CopyTexImage2D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Copies a one dimensional texture image from the framebuffer
+	static void CopyImage1D(
+		Target target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLint border
+	)
+	{
+		::glCopyTexImage1D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			x,
+			y,
+			width,
+			border
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CopyTexImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Copies a three dimensional texture sub image from the framebuffer
+	static void CopySubImage3D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		::glCopyTexSubImage3D(
+			GLenum(target),
+			level,
+			xoffs,
+			yoffs,
+			zoffs,
+			x,
+			y,
+			width,
+			height
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CopyTexSubImage3D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Copies a two dimensional texture sub image from the framebuffer
+	static void CopySubImage2D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		::glCopyTexSubImage2D(
+			GLenum(target),
+			level,
+			xoffs,
+			yoffs,
+			x,
+			y,
+			width,
+			height
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CopyTexSubImage2D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Copies a one dimensional texture sub image from the framebuffer
+	static void CopySubImage1D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLint x,
+		GLint y,
+		GLsizei width
+	)
+	{
+		::glCopyTexSubImage1D(
+			GLenum(target),
+			level,
+			xoffs,
+			x,
+			y,
+			width
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CopyTexSubImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a three dimensional compressed texture image
+	static void CompressedImage3D(
+		Target target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	)
+	{
+		::glCompressedTexImage3D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			height,
+			depth,
+			border,
+			image_size,
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CompressedTexImage3D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a two dimensional compressed texture image
+	static void CompressedImage2D(
+		Target target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	)
+	{
+		::glCompressedTexImage2D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			height,
+			border,
+			image_size,
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CompressedTexImage2D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a one dimensional compressed texture image
+	static void CompressedImage1D(
+		Target target,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLint border,
+		GLsizei image_size,
+		const void* data
+	)
+	{
+		::glCompressedTexImage1D(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			border,
+			image_size,
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CompressedTexImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a three dimensional compressed texture sub image
+	static void CompressedSubImage3D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	)
+	{
+		::glCompressedTexSubImage3D(
+			GLenum(target),
+			level,
+			xoffs,
+			yoffs,
+			zoffs,
+			width,
+			height,
+			depth,
+			GLint(format),
+			image_size,
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CompressedTexSubImage3D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a two dimensional compressed texture sub image
+	static void CompressedSubImage2D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLint yoffs,
+		GLsizei width,
+		GLsizei height,
+		PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	)
+	{
+		::glCompressedTexSubImage2D(
+			GLenum(target),
+			level,
+			xoffs,
+			yoffs,
+			width,
+			height,
+			GLint(format),
+			image_size,
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CompressedTexSubImage2D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies a one dimensional compressed texture sub image
+	static void CompressedSubImage1D(
+		Target target,
+		GLint level,
+		GLint xoffs,
+		GLsizei width,
+		PixelDataFormat format,
+		GLsizei image_size,
+		const void* data
+	)
+	{
+		::glCompressedTexSubImage1D(
+			GLenum(target),
+			level,
+			xoffs,
+			width,
+			GLint(format),
+			image_size,
+			data
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CompressedTexSubImage1D,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Sets-up a three dimensional multisample texture
+	static void Image3DMultisample(
+		Target target,
+		GLsizei samples,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		bool fixed_sample_locations
+	)
+	{
+		::glTexImage3DMultisample(
+			GLenum(target),
+			samples,
+			GLint(internal_format),
+			width,
+			height,
+			depth,
+			fixed_sample_locations ? GL_TRUE : GL_FALSE
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage3DMultisample,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Sets-up a two dimensional multisample texture
+	static void Image2DMultisample(
+		Target target,
+		GLsizei samples,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		bool fixed_sample_locations
+	)
+	{
+		::glTexImage2DMultisample(
+			GLenum(target),
+			samples,
+			GLint(internal_format),
+			width,
+			height,
+			fixed_sample_locations ? GL_TRUE : GL_FALSE
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage2DMultisample,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Assigns a buffer storing the texel data to the texture
+	static void SetBuffer(
+		Target target,
+		PixelDataInternalFormat internal_format,
+		const Buffer& buffer
+	)
+	{
+		::glTexBuffer(
+			GLenum(target),
+			GLenum(internal_format),
+			FriendOf<Buffer>::GetName(buffer)
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexBuffer,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
