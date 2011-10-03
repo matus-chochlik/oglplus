@@ -17,8 +17,8 @@
 #include <oglplus/program.hpp>
 #include <oglplus/matrix.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
+#include <oglplus/string.hpp>
 
-#include <string>
 #include <vector>
 
 namespace oglplus {
@@ -95,6 +95,11 @@ public:
 	/// Reference a uniform identified by @p identifier in the @p program
 	Uniform(const Program& program, const GLchar* identifier)
 	 : UniformOps(program, identifier)
+	{ }
+
+	/// Reference a uniform identified by @p identifier in the @p program
+	Uniform(const Program& program, const String& identifier)
+	 : UniformOps(program, identifier.c_str())
 	{ }
 
 	/// Set the value(s) of the uniform

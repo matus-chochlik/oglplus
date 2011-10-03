@@ -13,8 +13,8 @@
 #define OGLPLUS_LINK_ERROR_1107121519_HPP
 
 #include <oglplus/compile_error.hpp>
+#include <oglplus/string.hpp>
 
-#include <string>
 #include <cassert>
 
 namespace oglplus {
@@ -27,7 +27,7 @@ class LinkError
  : public ProgramBuildError
 {
 public:
-	LinkError(const std::string& log, const ErrorInfo& info)
+	LinkError(const String& log, const ErrorInfo& info)
 	 : ProgramBuildError(
 		"OpenGL shading language program link error",
 		log,
@@ -44,7 +44,7 @@ class ValidationError
  : public ProgramBuildError
 {
 public:
-	ValidationError(const std::string& log, const ErrorInfo& info)
+	ValidationError(const String& log, const ErrorInfo& info)
 	 : ProgramBuildError(
 		"OpenGL shading language program validation error",
 		log,

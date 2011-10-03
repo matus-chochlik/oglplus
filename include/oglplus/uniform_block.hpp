@@ -17,8 +17,8 @@
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/buffer.hpp>
+#include <oglplus/string.hpp>
 
-#include <string>
 #include <cassert>
 
 namespace oglplus {
@@ -71,17 +71,8 @@ protected:
 		}
 		return 0;
 	}
-public:
-	/// Reference a uniform block at @p index in the @p program
-	UniformBlock(const Program& program, GLint index)
-	 : _program(FriendOf<Program>::GetName(program))
-	 , _index(index)
-	{ }
 
-	/// Reference a uniform block @p identifier in the @p program
-	UniformBlock(const Program& program, const GLchar* identifier)
-	 : _program(FriendOf<Program>::GetName(program))
-	 , _index(::glGetUniformBlockIndex(_program, identifier))
+	void _check(const GLchar* identifier) const
 	{
 		ThrowOnError(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
 		if(_index == GLint(-1))
@@ -95,6 +86,28 @@ public:
 				})
 			);
 		}
+	}
+public:
+	/// Reference a uniform block at @p index in the @p program
+	UniformBlock(const Program& program, GLint index)
+	 : _program(FriendOf<Program>::GetName(program))
+	 , _index(index)
+	{ }
+
+	/// Reference a uniform block @p identifier in the @p program
+	UniformBlock(const Program& program, const GLchar* identifier)
+	 : _program(FriendOf<Program>::GetName(program))
+	 , _index(::glGetUniformBlockIndex(_program, identifier))
+	{
+		_check(identifier);
+	}
+
+	/// Reference a uniform block @p identifier in the @p program
+	UniformBlock(const Program& program, const String& identifier)
+	 : _program(FriendOf<Program>::GetName(program))
+	 , _index(::glGetUniformBlockIndex(_program, identifier.c_str()))
+	{
+		_check(identifier.c_str());
 	}
 
 	/// Return the maximum number of uniform blocks for a @p shader_kind

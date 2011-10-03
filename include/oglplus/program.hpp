@@ -20,8 +20,9 @@
 #include <oglplus/link_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
+#include <oglplus/string.hpp>
+
 #include <vector>
-#include <string>
 #include <cassert>
 
 namespace oglplus {
@@ -62,6 +63,9 @@ public:
 } // namespace aux
 
 class VertexAttribOps;
+class VertexAttribArray;
+class Uniform;
+class UniformBlock;
 
 /// Program operations wrapper helper class
 /** This class implements OpenGL shading language program operations.
@@ -142,7 +146,7 @@ public:
 	 *  @see IsLinked
 	 *  @see Link
 	 */
-	std::string GetInfoLog(void) const
+	String GetInfoLog(void) const
 	{
 		assert(_name != 0);
 		return aux::GetInfoLog(
@@ -245,7 +249,7 @@ public:
 		GLuint _index;
 		GLint _size;
 		GLenum _type;
-		std::string _name;
+		String _name;
 	protected:
 		ActiveVariableInfo(
 			aux::_ProgramVarInfoContext& context,
@@ -272,7 +276,7 @@ public:
 				&_type,
 				context.Buffer().data()
 			);
-			_name = std::string(context.Buffer().data(), strlen);
+			_name = String(context.Buffer().data(), strlen);
 		}
 	public:
 		/// Returns the index of the attribute or uniform
@@ -282,7 +286,7 @@ public:
 		}
 
 		/// Returns the name (identifier) of the attribute or uniform
-		const std::string& Name(void) const
+		const String& Name(void) const
 		{
 			return _name;
 		}
@@ -494,7 +498,7 @@ public:
 	 *  @throws Error
 	 */
 	void TransformFeedbackVaryings(
-		const std::vector<std::string>& varyings,
+		const std::vector<String>& varyings,
 		TransformFeedbackMode mode
 	) const
 	{
@@ -531,7 +535,7 @@ public:
 	{
 	private:
 		GLuint _index;
-		std::string _name;
+		String _name;
 	public:
 		ActiveUniformBlockInfo(
 			aux::_ProgramVarInfoContext& context,
@@ -564,7 +568,7 @@ public:
 				Program,
 				context.Program()
 			));
-			_name = std::string(context.Buffer().data(), strlen);
+			_name = String(context.Buffer().data(), strlen);
 		}
 
 		/// Returns the index of the attribute or uniform
@@ -574,7 +578,7 @@ public:
 		}
 
 		/// Returns the name (identifier) of the named uniform block
-		const std::string& Name(void) const
+		const String& Name(void) const
 		{
 			return _name;
 		}
@@ -718,6 +722,7 @@ public:
 		const VertexAttribOps& vertex_attrib,
 		const GLchar* identifier
 	) const;
+
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY

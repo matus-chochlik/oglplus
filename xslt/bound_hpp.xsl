@@ -63,7 +63,9 @@
 			<xsl:call-template name="Newline"/>
 		</xsl:for-each>
 		<xsl:text>	</xsl:text>
-		<xsl:value-of select="type/text()"/>
+		<xsl:for-each select="type/descendant-or-self::text()">
+			<xsl:value-of select="."/>
+		</xsl:for-each>
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="name/text()"/>
 		<xsl:text>(</xsl:text>

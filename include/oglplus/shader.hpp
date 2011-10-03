@@ -17,9 +17,9 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/compile_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
+#include <oglplus/string.hpp>
 
 #include <vector>
-#include <string>
 #include <cassert>
 
 namespace oglplus {
@@ -69,7 +69,7 @@ protected:
 	friend class FriendOf<ShaderOps>;
 public:
 	/// Set the source code of the shader
-	void Source(const std::string& source) const
+	void Source(const String& source) const
 	{
 		assert(_name != 0);
 		const GLchar* srcs[1] = {source.c_str()};
@@ -135,7 +135,7 @@ public:
 	 *  @see IsCompiled
 	 *  @see Compile
 	 */
-	std::string GetInfoLog(void) const
+	String GetInfoLog(void) const
 	{
 		assert(_name != 0);
 		return aux::GetInfoLog(
@@ -187,7 +187,7 @@ class Shader
 {
 public:
 	Shader(ShaderOps::Kind kind);
-	Shader(ShaderOps::Kind kind, std::string description);
+	Shader(ShaderOps::Kind kind, String description);
 };
 #else
 typedef Object<ShaderOps, false> Shader;
@@ -206,7 +206,7 @@ public:
 	 : Shader(kind, desc)
 	{ }
 
-	SpecializedShader(const ::std::string& desc)
+	SpecializedShader(const String& desc)
 	 : Shader(kind, desc)
 	{ }
 

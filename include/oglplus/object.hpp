@@ -56,13 +56,13 @@ namespace oglplus {
  *    Object(Object::Kind kind);
  *
  *    // Construction with a textual description
- *    Object(std::string description);
+ *    Object(String description);
  *
  *    // Construct with kind specification and textual description
- *    Object(Object::Kind kind, std::string description);
+ *    Object(Object::Kind kind, String description);
  *
  *    // Returns the textual description (if any) of the Object
- *    const std::string Description(void) const;
+ *    const String Description(void) const;
  *
  *  };
  *  @endcode
@@ -169,7 +169,7 @@ public:
 		this->_register_desc(this->_name, desc);
 	}
 
-	Object(const ::std::string& desc)
+	Object(const String& desc)
 	{
 		_do_init(1, this->_name);
 		assert(this->_name != 0);
@@ -212,7 +212,7 @@ public:
 	template <typename _Object = Object>
 	Object(
 		typename _Object::Kind kind,
-		const ::std::string& desc
+		const String& desc
 	)
 	{
 		_do_init(1, this->_name, kind);
@@ -231,7 +231,7 @@ public:
 		}
 	}
 
-	const ::std::string& Description(void) const
+	const String& Description(void) const
 	{
 		return this->_get_desc(this->_name);
 	}

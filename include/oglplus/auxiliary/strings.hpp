@@ -13,7 +13,7 @@
 #define OGLPLUS_AUX_STRINGS_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <string>
+#include <oglplus/string.hpp>
 
 #if OGLPLUS_NO_OBJECT_DESCS == 0
 #include <cassert>
@@ -23,9 +23,9 @@
 namespace oglplus {
 namespace aux {
 
-inline const ::std::string& EmptyString(void)
+inline const String& EmptyString(void)
 {
-	static ::std::string empty;
+	static String empty;
 	return empty;
 }
 
@@ -34,7 +34,7 @@ class ObjectDescRegistry
 {
 private:
 #if OGLPLUS_NO_OBJECT_DESCS == 0
-	typedef ::std::map<GLuint, ::std::string> _desc_map;
+	typedef ::std::map<GLuint, String> _desc_map;
 	static _desc_map& _storage(void)
 	{
 		static _desc_map _store;
@@ -58,7 +58,7 @@ protected:
 #endif
 	}
 
-	static void _register_desc(GLuint name, const std::string& desc)
+	static void _register_desc(GLuint name, const String& desc)
 	{
 #if OGLPLUS_NO_OBJECT_DESCS == 0
 		assert(name != 0);
@@ -91,7 +91,7 @@ public:
 	}
 
 	// internal implementation detail. do not use directly
-	static const ::std::string& _get_desc(GLuint name)
+	static const String& _get_desc(GLuint name)
 	{
 #if OGLPLUS_NO_OBJECT_DESCS == 0
 		assert(name != 0);

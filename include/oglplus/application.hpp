@@ -12,7 +12,8 @@
 #ifndef OGLPLUS_APPLICATION_1107121519_HPP
 #define OGLPLUS_APPLICATION_1107121519_HPP
 
-#include <string>
+#include <oglplus/string.hpp>
+
 #include <cassert>
 #include <iostream>
 
@@ -26,15 +27,15 @@ namespace oglplus {
 class Application
 {
 private:
-	static ::std::string& _app_rel_path(void)
+	static String& _app_rel_path(void)
 	{
-		static ::std::string str;
+		static String str;
 		return str;
 	}
 
-	static ::std::string& _app_name(void)
+	static String& _app_name(void)
 	{
-		static ::std::string str;
+		static String str;
 		return str;
 	}
 public:
@@ -64,10 +65,10 @@ public:
 		if(s != 0)
 		{
 			assert(s != p);
-			_app_rel_path() = ::std::string(argv[0], s+1);
-			_app_name() = ::std::string(s+1, p);
+			_app_rel_path() = String(argv[0], s+1);
+			_app_name() = String(s+1, p);
 		}
-		else _app_name() = ::std::string(argv[0], p);
+		else _app_name() = String(argv[0], p);
 	}
 
 	static void ParseCommandLineOptions(int argc, char** argv)
@@ -80,13 +81,13 @@ public:
 	 *  relative to the current working directory, including the trailing
 	 *  path separator.
 	 */
-	static const ::std::string& RelativePath(void)
+	static const String& RelativePath(void)
 	{
 		return _app_rel_path();
 	}
 
 	/// Returns the application executable base name
-	static const ::std::string& Name(void)
+	static const String& Name(void)
 	{
 		return _app_name();
 	}

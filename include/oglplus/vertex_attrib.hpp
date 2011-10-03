@@ -17,8 +17,8 @@
 #include <oglplus/program.hpp>
 #include <oglplus/limited_value.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
+#include <oglplus/string.hpp>
 
-#include <string>
 
 namespace oglplus {
 
@@ -84,7 +84,7 @@ public:
 
 	void BindLocation(
 		const Program& program,
-		const std::string& identifier
+		const String& identifier
 	) const
 	{
 		::glBindAttribLocation(
@@ -153,6 +153,11 @@ public:
 	 : VertexAttribOps(program, identifier)
 	{ }
 
+	/// References the vertex attribute @p identifier of the @p program
+	VertexAttrib(const Program& program, const String& identifier)
+	 : VertexAttribOps(program, identifier.c_str())
+	{ }
+
 	/// Set the value(s) of the vertex attribute
 	template <typename ... T>
 	void Set(T ... v) const
@@ -184,6 +189,11 @@ public:
 	/// References the vertex attrib array @p identifier of the @p program
 	VertexAttribArray(const Program& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
+	{ }
+
+	/// References the vertex attrib array @p identifier of the @p program
+	VertexAttribArray(const Program& program, const String& identifier)
+	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
 	/// Setup the properties of this vertex attribute array

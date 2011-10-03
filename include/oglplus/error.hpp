@@ -98,7 +98,7 @@ struct ErrorInfo
 	const unsigned line;
 
 	const char* _cls_name;
-	const std::string& (*_get_obj_desc)(GLuint);
+	const String& (*_get_obj_desc)(GLuint);
 	void (*_purge_archive)(void);
 	GLuint _obj_name;
 #ifndef _NDEBUG
@@ -201,7 +201,7 @@ inline const char* ErrorClassName(const ErrorInfo& info)
  *
  *  @ingroup error_handling
  */
-inline const std::string& ErrorObjectDescription(const ErrorInfo& info)
+inline const String& ErrorObjectDescription(const ErrorInfo& info)
 {
 	if((info._get_obj_desc != 0) && (info._obj_name != 0))
 		return info._get_obj_desc(info._obj_name);
@@ -222,7 +222,7 @@ class Error
  : public std::runtime_error
 {
 public:
-	typedef std::map<std::string, std::string> PropertyMap;
+	typedef std::map<String, String> PropertyMap;
 	typedef std::list<ErrorInfo> PropagationInfoList;
 private:
 	GLenum _code;
@@ -357,7 +357,7 @@ public:
 	}
 
 	/// Returns the description of the object that caused the exception
-	const std::string& ObjectDescription(void) const
+	const String& ObjectDescription(void) const
 	{
 		return ::oglplus::ErrorObjectDescription(_info);
 	}
@@ -369,7 +369,7 @@ public:
 	}
 
 	/// Set a property key/value to the exception
-	void SetPropertyValue(const std::string& key, const std::string& value)
+	void SetPropertyValue(const String& key, const String& value)
 	{
 		_properties[key] = value;
 	}

@@ -13,13 +13,14 @@
 #define OGLPLUS_AUX_INFO_LOG_1107121519_HPP
 
 #include <oglplus/error.hpp>
-#include <string>
+#include <oglplus/string.hpp>
+
 #include <vector>
 
 namespace oglplus {
 namespace aux {
 
-inline std::string GetInfoLog(
+inline String GetInfoLog(
 	GLuint object_name,
 	void (&GetObjectiv)(GLuint, GLenum, GLint*),
 	void (&GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
@@ -41,9 +42,9 @@ inline std::string GetInfoLog(
 			buffer.data()
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO_STR(name_GetObjectInfoLog));
-		return std::string(buffer.data(), buffer.size());
+		return String(buffer.data(), buffer.size());
 	}
-	else return std::string();
+	else return String();
 }
 
 } // namespace aux

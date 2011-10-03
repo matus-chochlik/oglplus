@@ -305,6 +305,195 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTexture));
 	}
 
+	static GLint GetIntParam(Target target, GLint level, GLenum query)
+	{
+		GLint result = 0;
+		::glGetTexLevelParameteriv(
+			GLenum(target),
+			level,
+			query,
+			&result
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexLevelParameteriv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		return result;
+	}
+
+	/// Returns the width of the texture as it was specified by *Image*D
+	/**
+	 *  @see Height
+	 *  @see Depth
+	 */
+	static GLsizei Width(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(target, level, GL_TEXTURE_WIDTH));
+	}
+
+	/// Returns the height of the texture as it was specified by *Image*D
+	/**
+	 *  @see Width
+	 *  @see Depth
+	 */
+	static GLsizei Height(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(target, level, GL_TEXTURE_HEIGHT));
+	}
+
+	/// Returns the depth of the texture as it was specified by *Image*D
+	/**
+	 *  @see Width
+	 *  @see Height
+	 */
+	static GLsizei Depth(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(target, level, GL_TEXTURE_DEPTH));
+	}
+
+	/// Returns the data type used to store the RED component
+	static PixelDataType RedType(Target target, GLint level = 0)
+	{
+		return PixelDataType(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_RED_TYPE
+		));
+	}
+
+	/// Returns the data type used to store the GREEN component
+	static PixelDataType GreenType(Target target, GLint level = 0)
+	{
+		return PixelDataType(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_GREEN_TYPE
+		));
+	}
+
+	/// Returns the data type used to store the BLUE component
+	static PixelDataType BlueType(Target target, GLint level = 0)
+	{
+		return PixelDataType(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_BLUE_TYPE
+		));
+	}
+
+	/// Returns the data type used to store the ALPHA component
+	static PixelDataType AlphaType(Target target, GLint level = 0)
+	{
+		return PixelDataType(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_ALPHA_TYPE
+		));
+	}
+
+	/// Returns the data type used to store the DEPTH component
+	static PixelDataType DepthType(Target target, GLint level = 0)
+	{
+		return PixelDataType(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_DEPTH_TYPE
+		));
+	}
+
+	/// Returns the actual resolution of the RED component
+	static GLsizei RedSize(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_RED_SIZE
+		));
+	}
+
+	/// Returns the actual resolution of the GREEN component
+	static GLsizei GreenSize(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_GREEN_SIZE
+		));
+	}
+
+	/// Returns the actual resolution of the BLUE component
+	static GLsizei BlueSize(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_BLUE_SIZE
+		));
+	}
+
+	/// Returns the actual resolution of the ALPHA component
+	static GLsizei AlphaSize(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_ALPHA_SIZE
+		));
+	}
+
+	/// Returns the actual resolution of the DEPTH component
+	static GLsizei DepthSize(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_DEPTH_SIZE
+		));
+	}
+
+	/// Returns the actual resolution of the STENCIL component
+	static GLsizei StencilSize(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_STENCIL_SIZE
+		));
+	}
+
+	static GLsizei SharedSize(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_SHARED_SIZE
+		));
+	}
+
+	/// Returns the size (in bytes) of the image array if it is compressed
+	static GLsizei CompressedImageSize(Target target, GLint level = 0)
+	{
+		return GLsizei(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_COMPRESSED_IMAGE_SIZE
+		));
+	}
+
+	/// Returns the internal data format of the image array
+	static PixelDataInternalFormat InternalFormat(
+		Target target,
+		GLint level = 0
+	)
+	{
+		return PixelDataInternalFormat(GetIntParam(
+			target,
+			level,
+			GL_TEXTURE_INTERNAL_FORMAT
+		));
+	}
+
 	/// Specifies a three dimensional texture image
 	static void Image3D(
 		Target target,

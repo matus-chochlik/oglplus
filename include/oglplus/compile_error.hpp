@@ -13,8 +13,8 @@
 #define OGLPLUS_COMPILE_ERROR_1107121519_HPP
 
 #include <oglplus/error.hpp>
+#include <oglplus/string.hpp>
 
-#include <string>
 #include <cassert>
 
 namespace oglplus {
@@ -27,11 +27,11 @@ class ProgramBuildError
  : public Error
 {
 private:
-	std::string _log;
+	String _log;
 public:
 	ProgramBuildError(
 		const char* what,
-		const std::string& log,
+		const String& log,
 		const ErrorInfo& info
 	): Error(0, what, info)
 	 , _log(log)
@@ -41,7 +41,7 @@ public:
 	{ }
 
 	/// Returns the compiler error output
-	const std::string& Log(void) const
+	const String& Log(void) const
 	{
 		return _log;
 	}
@@ -55,7 +55,7 @@ class CompileError
  : public ProgramBuildError
 {
 public:
-	CompileError(const std::string& log, const ErrorInfo& info)
+	CompileError(const String& log, const ErrorInfo& info)
 	 : ProgramBuildError(
 		"OpenGL shading language compilation error",
 		log,
