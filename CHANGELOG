@@ -1,5 +1,18 @@
 Version 0.2.0
 
+- Function for texture parameter queries were added
+- Function for texture image specification and query were added
+- The SineWave function was added
+- The Default Target in renderbuffer was renamed to Renderbuffer and
+  in transform feedback wrapper to TransformFeedback
+- Few new wrapper functions were added to Renderbuffer and Framebuffer
+- The Attachments enumeration was aded to framebuffer
+- Renderbuffer and Framebuffer were added to the set of "Bindable" objects
+- Major documentation updates were made
+- Several minor bugs and typos in the documentation were fixed
+- New examples were added
+- Several other minor updates were made
+
 Version 0.1.0
 First released version, wrapping the basic OpenGL functionality
 
