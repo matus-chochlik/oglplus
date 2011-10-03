@@ -26,9 +26,13 @@ make auto_headers
 
 file_basename="oglplus-$(< VERSION)"
 
+fixlnpath_sed='s|\./||;s|[^/]\+/|../|g'
+
 mkdir -p ${file_basename}
 for item in ${oglplus_archive_items}
-do ln -s ../${item} ${file_basename}/${item}
+do
+	mkdir -p $(dirname ${file_basename}/${item})
+	ln -s ../$(echo "`dirname ${item}`/" | sed "${fixlnpath_sed}")${item} ${file_basename}/${item}
 done
 tar -hcf ${file_basename}.tar ${file_basename}
 gzip -9 ${file_basename}.tar

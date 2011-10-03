@@ -1,7 +1,7 @@
 Version 0.2.0
 
-- Function for texture parameter queries were added
-- Function for texture image specification and query were added
+- Functions for texture parameter queries were added
+- Functions for texture image specification and query were added
 - The SineWave function was added
 - The Default Target in renderbuffer was renamed to Renderbuffer and
   in transform feedback wrapper to TransformFeedback
