@@ -89,7 +89,15 @@
 				<xsl:value-of select="$TypePrefix"/>
 				<xsl:value-of select="$Type"/>
 				<xsl:text> </xsl:text>
-				<xsl:value-of select="declname/text()"/>
+				<xsl:choose>
+					<xsl:when test="declname/text()">
+						<xsl:value-of select="declname/text()"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>_auto_param_</xsl:text>
+						<xsl:value-of select="position()"/>
+					</xsl:otherwise>
+				</xsl:choose>
 				<xsl:if test="defval">
 					<xsl:text> = </xsl:text>
 					<xsl:value-of select="$TypePrefix"/>
@@ -120,7 +128,15 @@
 				<xsl:value-of select="type/text()"/>
 			</xsl:variable>
 			<xsl:if test="$Type != 'Target'">
-				<xsl:value-of select="declname/text()"/>
+				<xsl:choose>
+					<xsl:when test="declname/text()">
+						<xsl:value-of select="declname/text()"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>_auto_param_</xsl:text>
+						<xsl:value-of select="position()"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:if>
 			<xsl:if test="$Type='Target'">
 				<xsl:text>this-&gt;BindTarget()</xsl:text>

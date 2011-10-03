@@ -16,6 +16,7 @@
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/compare_func.hpp>
+#include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/limited_value.hpp>
@@ -305,6 +306,30 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTexture));
 	}
 
+	static GLint GetIntParam(Target target, GLenum query)
+	{
+		GLint result = 0;
+		::glGetTexParameteriv(GLenum(target), query, &result);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameteriv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		return result;
+	}
+
+	static GLfloat GetFloatParam(Target target, GLenum query)
+	{
+		GLfloat result = 0;
+		::glGetTexParameterfv(GLenum(target), query, &result);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameterfv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		return result;
+	}
+
 	static GLint GetIntParam(Target target, GLint level, GLenum query)
 	{
 		GLint result = 0;
@@ -316,6 +341,23 @@ public:
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameteriv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		return result;
+	}
+
+	static GLfloat GetFloatParam(Target target, GLint level, GLenum query)
+	{
+		GLfloat result = 0;
+		::glGetTexLevelParameterfv(
+			GLenum(target),
+			level,
+			query,
+			&result
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexLevelParameterfv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
@@ -491,6 +533,52 @@ public:
 			target,
 			level,
 			GL_TEXTURE_INTERNAL_FORMAT
+		));
+	}
+
+/*
+	template <typename T>
+	static void GetImage(
+		Target target,
+		GLint level,
+		PixelDataFormat format,
+		std::vector<T>& dest
+	)
+	{
+		dest.resize(...); TODO (see ReadPixel &co.)
+		::glGetTexImage(
+			GLenum(target),
+			level,
+			GLenum(format),
+			GLenum(GetDataType<T>()),
+			dest.data()
+		);
+	}
+*/
+
+	/// Allows to obtain the texture image in compressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in compressed form into the @p dest buffer.
+	 *  This function automatically resizes the buffer so that
+	 *  it can accomodate the texture data.
+	 */
+	static void GetCompressedImage(
+		Target target,
+		GLint level,
+		std::vector<GLubyte>& dest
+	)
+	{
+		dest.resize(CompressedImageSize(target, level));
+		::glGetCompressedTexImage(
+			GLenum(target),
+			level,
+			dest.data()
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetCompressedTexImage,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
 
@@ -1238,6 +1326,12 @@ public:
 		));
 	}
 
+	/// Returns the texture base level (TEXTURE_BASE_LEVEL)
+	static GLuint BaseLevel(Target target)
+	{
+		return GetIntParam(target, GL_TEXTURE_BASE_LEVEL);
+	}
+
 	/// Sets the texture base level (TEXTURE_BASE_LEVEL)
 	static void BaseLevel(Target target, GLuint level)
 	{
@@ -1251,6 +1345,23 @@ public:
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
+	}
+
+	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	static Vector<GLfloat, 4> BorderColor(Target target, TypeTag<GLfloat>)
+	{
+		GLfloat result[4];
+		::glGetTexParameterfv(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			result
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameterfv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		return Vector<GLfloat, 4>(result, 4);
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
@@ -1268,6 +1379,23 @@ public:
 		));
 	}
 
+	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	static Vector<GLint, 4> BorderColor(Target target, TypeTag<GLint>)
+	{
+		GLint result[4];
+		::glGetTexParameterIiv(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			result
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameterIiv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		return Vector<GLint, 4>(result, 4);
+	}
+
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
 	static void BorderColor(Target target, Vector<GLint, 4> color)
 	{
@@ -1283,6 +1411,23 @@ public:
 		));
 	}
 
+	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	static Vector<GLuint, 4> BorderColor(Target target, TypeTag<GLuint>)
+	{
+		GLuint result[4];
+		::glGetTexParameterIuiv(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			result
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameterIuiv,
+			Texture,
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		return Vector<GLuint, 4>(result, 4);
+	}
+
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
 	static void BorderColor(Target target, Vector<GLuint, 4> color)
 	{
@@ -1295,6 +1440,15 @@ public:
 			TexParameterIuiv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Gets the compare mode (TEXTURE_COMPARE_MODE)
+	static TextureCompareMode CompareMode(Target target)
+	{
+		return TextureCompareMode(GetIntParam(
+			target,
+			GL_TEXTURE_COMPARE_MODE
 		));
 	}
 
@@ -1314,6 +1468,15 @@ public:
 	}
 
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
+	static CompareFunction CompareFunc(Target target)
+	{
+		return CompareFunction(GetIntParam(
+			target,
+			GL_TEXTURE_COMPARE_FUNC
+		));
+	}
+
+	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
 	static void CompareFunc(Target target, CompareFunction func)
 	{
 		::glTexParameteri(
@@ -1329,6 +1492,12 @@ public:
 	}
 
 	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
+	static GLfloat LODBiad(Target target)
+	{
+		return GetFloatParam(target, GL_TEXTURE_LOD_BIAS);
+	}
+
+	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
 	static void LODBias(Target target, GLfloat value)
 	{
 		::glTexParameterf(
@@ -1340,6 +1509,15 @@ public:
 			TexParameterf,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
+	static TextureMagFilter MagFilter(Target target)
+	{
+		return TextureMagFilter(GetIntParam(
+			target,
+			GL_TEXTURE_MAG_FILTER
 		));
 	}
 
@@ -1358,6 +1536,15 @@ public:
 		));
 	}
 
+	/// Gets the minnification filter (TEXTURE_MAG_FILTER)
+	static TextureMinFilter MinFilter(Target target)
+	{
+		return TextureMinFilter(GetIntParam(
+			target,
+			GL_TEXTURE_MIN_FILTER
+		));
+	}
+
 	/// Sets the minnification filter (TEXTURE_MAG_FILTER)
 	static void MinFilter(Target target, TextureMinFilter filter)
 	{
@@ -1371,6 +1558,12 @@ public:
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
+	}
+
+	/// Gets minimal LOD value (TEXTURE_MIN_LOD)
+	static GLfloat MinLOD(Target target)
+	{
+		return GetFloatParam(target, GL_TEXTURE_MIN_LOD);
 	}
 
 	/// Sets minimal LOD value (TEXTURE_MIN_LOD)
@@ -1388,6 +1581,12 @@ public:
 		));
 	}
 
+	/// Gets maximal LOD value (TEXTURE_MAX_LOD)
+	static GLfloat MaxLOD(Target target)
+	{
+		return GetFloatParam(target, GL_TEXTURE_MAX_LOD);
+	}
+
 	/// Sets maximal LOD value (TEXTURE_MAX_LOD)
 	static void MaxLOD(Target target, GLfloat value)
 	{
@@ -1400,6 +1599,15 @@ public:
 			TexParameterf,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_*)
+	static TextureSwizzle Swizzle(Target target, TextureSwizzleCoord coord)
+	{
+		return TextureSwizzle(GetIntParam(
+			target,
+			GLenum(coord)
 		));
 	}
 
@@ -1422,10 +1630,22 @@ public:
 		));
 	}
 
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_R)
+	static TextureSwizzle SwizzleR(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::R);
+	}
+
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_R)
 	static void SwizzleR(Target target, TextureSwizzle mode)
 	{
 		Swizzle(target, TextureSwizzleCoord::R, mode);
+	}
+
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_G)
+	static TextureSwizzle SwizzleG(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::G);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_G)
@@ -1434,10 +1654,22 @@ public:
 		Swizzle(target, TextureSwizzleCoord::G, mode);
 	}
 
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_B)
+	static TextureSwizzle SwizzleB(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::B);
+	}
+
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_B)
 	static void SwizzleB(Target target, TextureSwizzle mode)
 	{
 		Swizzle(target, TextureSwizzleCoord::B, mode);
+	}
+
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_A)
+	static TextureSwizzle SwizzleA(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::A);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_A)
@@ -1446,10 +1678,25 @@ public:
 		Swizzle(target, TextureSwizzleCoord::A, mode);
 	}
 
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
+	static TextureSwizzle SwizzleRGBA(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::RGBA);
+	}
+
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
 	static void SwizzleRGBA(Target target, TextureSwizzle mode)
 	{
 		Swizzle(target, TextureSwizzleCoord::RGBA, mode);
+	}
+
+	/// Gets the wrap parameter (TEXTURE_WRAP_*)
+	static TextureWrap Wrap(Target target, TextureWrapCoord coord)
+	{
+		return TextureWrap(GetIntParam(
+			target,
+			GLenum(coord)
+		));
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_*)
@@ -1471,16 +1718,34 @@ public:
 		));
 	}
 
+	/// Gets the wrap parameter (TEXTURE_WRAP_S)
+	static TextureWrap WrapS(Target target)
+	{
+		return Wrap(target, TextureWrapCoord::S);
+	}
+
 	/// Sets the wrap parameter (TEXTURE_WRAP_S)
 	static void WrapS(Target target, TextureWrap mode)
 	{
 		Wrap(target, TextureWrapCoord::S, mode);
 	}
 
+	/// Gets the wrap parameter (TEXTURE_WRAP_T)
+	static TextureWrap WrapT(Target target)
+	{
+		return Wrap(target, TextureWrapCoord::T);
+	}
+
 	/// Sets the wrap parameter (TEXTURE_WRAP_T)
 	static void WrapT(Target target, TextureWrap mode)
 	{
 		Wrap(target, TextureWrapCoord::T, mode);
+	}
+
+	/// Gets the wrap parameter (TEXTURE_WRAP_R)
+	static TextureWrap WrapR(Target target)
+	{
+		return Wrap(target, TextureWrapCoord::R);
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_R)

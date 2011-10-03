@@ -68,6 +68,23 @@ protected:
 
 	friend class FriendOf<ShaderOps>;
 public:
+	/// Get the type of the shader
+	Kind Type(void) const
+	{
+		GLint result = 0;
+		::glGetShaderiv(
+			_name,
+			GL_SHADER_TYPE,
+			&result
+		);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CreateShader,
+			Shader,
+			_name
+		));
+		return Kind(result);
+	}
+
 	/// Set the source code of the shader
 	void Source(const String& source) const
 	{

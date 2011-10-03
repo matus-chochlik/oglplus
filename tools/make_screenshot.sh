@@ -28,10 +28,10 @@ case "$(basename ${1})" in
 	018_particle_system) sleep_period=5;;
 	021_cloud) sleep_period=3;;
 	021_wooden_crate) sleep_period=2;;
-	024_particle_trails) sleep_period=5;;
+	024_particle_trails) sleep_period=4;;
 	026_clouds) sleep_period=5;;
 	026_torus_halo) sleep_period=2;;
-	027_smoke_trails) sleep_period=5;;
+	027_smoke_trails) sleep_period=7;;
 	*)sleep_period=1;;
 esac
 sleep ${sleep_period} && xwd -name "${title}" -out ${2}

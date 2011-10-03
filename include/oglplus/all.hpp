@@ -90,7 +90,7 @@
  *  class.
  *
  *  When several instances of the same resource type should be created
- *  and freed at once, the @ref oglplus::Array "Array" template provides
+ *  and freed at the same time, the @ref oglplus::Array "Array" template provides
  *  efficient means for doing so.
  *
  *  @subsection feat_type_safety Type safety

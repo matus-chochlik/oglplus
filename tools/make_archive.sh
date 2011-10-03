@@ -9,6 +9,7 @@ oglplus_archive_items="
 	example
 	include
 	source
+	tools/make_screenshot.sh
 	utils
 	xslt
 	out

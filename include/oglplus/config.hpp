@@ -20,7 +20,7 @@ namespace oglplus {
 
 #ifndef OGLPLUS_DONT_TEST_OBJECT_TYPE
 /// Compile-time switch disabling the texting of object type on construction
-#define OGLPLUS_DONT_TEST_OBJECT_TYPE 0
+#define OGLPLUS_DONT_TEST_OBJECT_TYPE 1
 #endif
 
 #ifndef OGLPLUS_NO_OBJECT_DESCS

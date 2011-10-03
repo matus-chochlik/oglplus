@@ -16,6 +16,11 @@
 
 namespace oglplus {
 
+/// A tag template used mainly for data-type-based function overload dispatching
+template <typename GLtype>
+struct TypeTag
+{ };
+
 /// OpenGL data type enumeration
 /**
  *  @ingroup enumerations
