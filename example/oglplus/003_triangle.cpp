@@ -116,7 +116,6 @@ public:
 			-1.0f, -1.0f,  0.0f,  1.0f
 		);
 
-		VertexArray::Unbind();
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearDepth(1.0f);
 	}
@@ -130,7 +129,6 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		triangle.Bind();
 		gl.DrawArrays(PrimitiveType::Triangles, 0, 3);
 	}
 };

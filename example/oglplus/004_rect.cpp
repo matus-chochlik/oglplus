@@ -107,7 +107,6 @@ public:
 		Uniform(prog, "GreenCenter").Set(0.141f, 0.141f);
 		Uniform(prog, "BlueCenter").Set(0.0f, -0.2f);
 
-		VertexArray::Unbind();
 		gl.ClearDepth(1.0f);
 	}
 
@@ -120,7 +119,6 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		rectangle.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };

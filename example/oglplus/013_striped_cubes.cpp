@@ -128,7 +128,6 @@ public:
 			attr.Enable();
 		}
 		//
-		VertexArray::Unbind();
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -160,7 +159,6 @@ public:
 				Degrees(SineWave(time / 6.3) * 45)
 			)
 		);
-		cube.Bind();
 		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::Translation(-1.0, 0.0, 0.0) *
 			ModelMatrixf::RotationZ(Degrees(time * 180))

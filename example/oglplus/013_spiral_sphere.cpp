@@ -128,7 +128,6 @@ public:
 			attr.Enable();
 		}
 		//
-		VertexArray::Unbind();
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -168,7 +167,6 @@ public:
 			ModelMatrixf::RotationY(Degrees(time * 180))
 		);
 
-		sphere.Bind();
 		sphere_instr.Draw(sphere_indices);
 	}
 

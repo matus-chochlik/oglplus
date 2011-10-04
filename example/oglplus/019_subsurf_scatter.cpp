@@ -186,7 +186,6 @@ public:
 		// and the instance count
 		Uniform(prog, "InstCount").Set(inst_count);
 		//
-		VertexArray::Unbind();
 		gl.ClearColor(0.5f, 0.6f, 0.5f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -226,7 +225,6 @@ public:
 			ModelMatrixf::RotationY(Degrees(time * 25))
 		);
 		// draw 36 instances of the cube
-		cube.Bind();
 		// first the back faces
 		gl.CullFace(Face::Front);
 		Uniform(prog, "FrontFacing").Set(0);

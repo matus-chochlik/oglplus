@@ -13,5 +13,5 @@ doc_src="$(dirname $0)/../out/doc/doxygen/oglplus/html"
 # remove the old files
 ssh ${doc_user}@${doc_host} "rm -rf ${doc_base}/*"
 # tar stream and untar the new files
-(cd ${doc_src} && tar -c . | ssh ${doc_user}@${doc_host} "mkdir -p ${doc_base} && cd ${doc_base} && tar -x")
+(cd ${doc_src} && tar -c . | ssh ${doc_user}@${doc_host} "mkdir -p ${doc_base} && cd ${doc_base} && tar -x && echo 'AddCharset UTF-8 .html' > .htaccess")
 

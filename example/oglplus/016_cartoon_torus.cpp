@@ -133,7 +133,6 @@ public:
 			attr.Enable();
 		}
 		//
-		VertexArray::Unbind();
 		// set the light position
 		Uniform(prog, "LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
@@ -179,7 +178,6 @@ public:
 			ModelMatrixf::RotationX(FullCircles(0.25))
 		);
 
-		torus.Bind();
 		gl.CullFace(Face::Front);
 		torus_instr.Draw(torus_indices);
 		//

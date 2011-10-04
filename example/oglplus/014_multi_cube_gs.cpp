@@ -145,8 +145,6 @@ public:
 			attr.Enable();
 		}
 
-		//
-		VertexArray::Unbind();
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -179,7 +177,6 @@ public:
 			)
 		);
 
-		cube.Bind();
 		// draw 1 instance of the cube
 		// the geometry shader will spawn 36 copies
 		// and take care of their placement

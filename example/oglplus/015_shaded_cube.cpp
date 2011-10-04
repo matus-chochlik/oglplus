@@ -192,7 +192,6 @@ public:
 		normal_attr.Setup(3, DataType::Float);
 		normal_attr.Enable();
 		//
-		VertexArray::Unbind();
 		gl.ClearColor(0.03f, 0.03f, 0.03f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -225,7 +224,6 @@ public:
 			)
 		);
 
-		cube.Bind();
 		gl.DrawArrays(PrimitiveType::Triangles, 0, 6 * 2 * 3);
 	}
 

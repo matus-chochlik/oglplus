@@ -151,8 +151,6 @@ public:
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
-		//
-		VertexArray::Unbind();
 
 		// setup the color gradient
 		Uniform(prog, "ColorCount").Set(8);
@@ -204,7 +202,6 @@ public:
 			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 
-		torus.Bind();
 		torus_instr.Draw(torus_indices);
 	}
 

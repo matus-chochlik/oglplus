@@ -1,6 +1,6 @@
 /**
  *  @example oglplus/006_newton_zoom.cpp
- *  @brief Shows how to draw the zooming animation of the Newton fractal.
+ *  @brief Shows how to do a zooming animation of the Newton fractal.
  *
  *  @image html 006_newton_zoom.png
  *
@@ -136,7 +136,6 @@ public:
 		Uniform(prog, "Color1").Set(0.2f, 0.02f, 0.05f);
 		Uniform(prog, "Color2").Set(1.0f, 0.95f, 0.98f);
 		//
-		VertexArray::Unbind();
 		gl.ClearDepth(1.0f);
 	}
 
@@ -158,7 +157,6 @@ public:
 			Matrix<GLfloat, 2, 2>(x*scale,  y* scale)
 		);
 
-		rectangle.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };

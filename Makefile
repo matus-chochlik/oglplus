@@ -199,6 +199,7 @@ $(OUTDIR)/doc/doxygen/%/html/index.html: \
 	$(wildcard doc/doxygen/Doxyfile.*) \
 	example_screenshots |\
 	$(OUTDIR)/doc/doxygen/%/html
+	@cp -R doc/logo $(OUTDIR)/doc/doxygen/%/html
 	@cd doc/doxygen && (\
 		cat Doxyfile.oglplus && \
 		echo "QUIET=YES" && \

@@ -120,7 +120,6 @@ public:
 		}
 
 		//
-		VertexArray::Unbind();
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -153,7 +152,6 @@ public:
 			)
 		);
 
-		cube.Bind();
 		// draw 36 instances of the cube
 		// the vertex shader will take care of their placement
 		cube_instr.Draw(cube_indices, 36);

@@ -45,10 +45,10 @@
 #include <oglplus/vector.hpp>
 #include <oglplus/matrix.hpp>
 
-/** @mainpage OGLplus - a C++ wrapper for OpenGL version 3 and higher.
+/** @mainpage OGLplus - a C++ wrapper for OpenGL® version 3 and higher.
  *
- *  OGLplus (@c oglplus) is a header only library which implements
- *  a thin object-oriented facade over the OpenGL (version 3 and higher)
+ *  OGLplus is a header-only library which implements
+ *  a thin object-oriented facade over the OpenGL® (version 3 and higher)
  *  C-language API. It provides wrappers which automate
  *  the resource and object management and make the use of OpenGL
  *  in C++ safer and easier.
@@ -69,11 +69,11 @@
  *
  *  @section oglplus_features Features
  *
- *  OGLplus adds the following functionality to the "basic" OpenGL C API.
+ *  OGLplus adds the following functionality to the OpenGL® C API.
  *
  *  @subsection feat_auto_resource_management Automatic resource management
  *
- *  Applications using the OpenGL library typically allocate and use, during their
+ *  Applications using the OpenGL® library typically allocate and use, during their
  *  run-time, resources like buffers, queries, textures, shaders, programs,
  *  etc. from this library.
  *  OGLplus uses the RAII idiom to automatically manage the lifetime
@@ -86,7 +86,7 @@
  *  for the wrapped object when an instance is constructed and it is freed
  *  when the instance is destroyed. Besides this basic functionality,
  *  the individual classes also implement member functions wrapping those
- *  OpenGL calls which are related to the resource managed by the particular
+ *  calls which are related to the resource managed by the particular
  *  class.
  *
  *  When several instances of the same resource type should be created
@@ -109,7 +109,7 @@
  *  type and are prone to the same kind of error. You can pass an incompatible
  *  enumerated value to a API function call. OGLplus again allows to avoid these
  *  errors by separating the values into strongly typed enums and wrapping the
- *  basic OpenGL API calls by functions accepting only parameters with matching
+ *  basic OpenGL® API calls by functions accepting only parameters with matching
  *  enumerated types.
  *
  *  @subsection feat_error_handling Error handling and diagnostic
@@ -119,14 +119,14 @@
  *  the calls to OpenGL and throws an exception if an error occurs.
  *  All exceptions are derived from the @ref oglplus::Error "Error" class
  *  which provides information about the throw site of the exception
- *  (source file, line, OGLplus function name, the OpenGL C API call,
+ *  (source file, line, OGLplus function name, the OpenGL® C API call,
  *  etc. where the error occured) and optionally also some properties
  *  (string key and value) attached at the throw site or during the propagation
  *  of the exception. If the error is related to a
  *  @ref oglplus_object_description "described" object, then the object description
  *  can also be obtained for a more precise diagnostic.
  *
- *  @subsection feat_interoperability_with_opengl Interoperability with "basic" OpenGL
+ *  @subsection feat_interoperability_with_opengl Interoperability with OpenGL® C API
  *
  *  As said above, OGLplus by default encapsulates and hides the OpenGL names
  *  assigned to various objects (resources allocated at the OpenGL server).
@@ -144,12 +144,12 @@
  *
  *  @section oglplus_what_it_is_not What OGLplus isn't
  *
- *  Like the OpenGL C API, OGLplus does not officially provide nor force you to use code
+ *  Like the OpenGL® C API, OGLplus does not officially provide nor force you to use code
  *  related to creating of the default framebuffer. There are already
  *  several other libraries and frameworks which do it in both platform
  *  dependent and platform independent ways.
  *
- *  OGLplus also does not include header file(s) declaring the OpenGL 3 (or higher)
+ *  OGLplus also does not include header file(s) declaring the OpenGL® 3 (or higher)
  *  function prototypes and enumerated values. It is the responsibility of the
  *  application to do so. There are several ways how to do it, see
  *  @ref oglplus_getting_it_going for some suggestions.
@@ -210,7 +210,7 @@
  *  header files (usually with the @c -I directive).
  *
  *  One important thing that an application using OGLplus needs to take care of
- *  is to make sure that the OpenGL 3 (or higher) function prototypes, typedefs,
+ *  is to make sure that the OpenGL® 3 (or higher) function prototypes, typedefs,
  *  preprocessor symbols, etc. are defined before including any OGLplus header.
  *
  *  There are several different ways how to do this; one of the most convenient
@@ -252,7 +252,8 @@
  *  the initial setup, cleanup and handling of events to the example code
  *  automatically.
  *  This way the examples are not too cluttered by things which are not directly
- *  related to OpenGL and OGLplus usage.
+ *  related to OpenGL® and OGLplus usage. The examples are numbered and ordered
+ *  roughly by their "difficulty", from the easiest to the most complex.
  *
  *  @section oglplus_object_description Optional object description
  *
@@ -269,7 +270,7 @@
  *  during construction.
  *
  *  If the overhead caused by the descriptions is unacceptable for release builds
- *  of an application and they are intended for debugging purposes only, it can be compiled-away
+ *  of an application and they are intended for debugging purposes only, they can be compiled away
  *  by setting the value of the @c #OGLPLUS_NO_OBJECT_DESCS preprocessor symbol to
  *  a nonzero integer value.
  *

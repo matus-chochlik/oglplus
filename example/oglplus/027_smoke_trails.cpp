@@ -38,7 +38,7 @@ private:
 	std::vector<float> ages;
 	std::vector<int> ids;
 
-	// creates a directional vector for a new particle
+	// Creates a directional vector for a new particle
 	static Vec3f NewDirection(void)
 	{
 		float disp = 0.6f;
@@ -48,13 +48,13 @@ private:
 		return Vec3f(dx, dy, dz);
 	}
 
-	// return a new particle identifier
+	// Returns a new particle identifier
 	static int NewID(void)
 	{
 		return rand();
 	}
 
-	// Spawn a new particle if the time is right
+	// Spawns a new particle if the time is right
 	bool SpawnParticle(
 		double time,
 		Vec3f& position,
@@ -92,7 +92,6 @@ public:
 
 	// Updates the emitter
 	// Changes its position, emits new particles
-	// return the number of particles that are currently "alive"
 	void Update(double time, double prev_time)
 	{
 		assert(positions.size() == directions.size());

@@ -108,7 +108,6 @@ public:
 		color_attr.Enable();
 		//
 
-		VertexArray::Unbind();
 		gl.ClearDepth(1.0f);
 	}
 
@@ -121,7 +120,6 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		rectangle.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };

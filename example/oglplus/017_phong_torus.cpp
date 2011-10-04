@@ -150,7 +150,6 @@ public:
 		Uniform(prog, "LightPos[1]").Set(Vec3f(0.0f, 3.0f, 0.0f));
 		Uniform(prog, "LightPos[2]").Set(Vec3f(0.0f,-1.0f, 4.0f));
 		//
-		VertexArray::Unbind();
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -186,7 +185,6 @@ public:
 			)
 		);
 
-		torus.Bind();
 		torus_instr.Draw(torus_indices);
 	}
 

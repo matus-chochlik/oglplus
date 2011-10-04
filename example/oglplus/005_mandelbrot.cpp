@@ -144,7 +144,6 @@ public:
 		};
 		Uniform(prog, "clrs").Set<4>(nclr, colormap);
 		//
-		VertexArray::Unbind();
 		gl.ClearDepth(1.0f);
 	}
 
@@ -157,7 +156,6 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		rectangle.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };

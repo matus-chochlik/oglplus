@@ -135,7 +135,6 @@ public:
 		Uniform(prog, "Color1").Set(0.2f, 0.02f, 0.05f);
 		Uniform(prog, "Color2").Set(1.0f, 0.95f, 0.98f);
 		//
-		VertexArray::Unbind();
 		gl.ClearDepth(1.0f);
 	}
 
@@ -148,7 +147,6 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		rectangle.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };

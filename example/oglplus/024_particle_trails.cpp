@@ -35,7 +35,7 @@ private:
 	std::vector<Vec3f> directions;
 	std::vector<float> ages;
 
-	// creates a directional vector for a new particle
+	// Creates a directional vector for a new particle
 	static Vec3f NewDirection(void)
 	{
 		float disp = 0.4f;
@@ -45,7 +45,7 @@ private:
 		return Vec3f(dx, dy, dz);
 	}
 
-	// Spawn a new particle if the time is right
+	// Spawns a new particle if the time is right
 	bool SpawnParticle(
 		double time,
 		Vec3f& position,
@@ -81,7 +81,6 @@ public:
 
 	// Updates the emitter
 	// Changes its position, emits new particles
-	// return the number of particles that are currently "alive"
 	void Update(double time, double prev_time)
 	{
 		assert(positions.size() == directions.size());

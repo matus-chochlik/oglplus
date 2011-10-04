@@ -85,7 +85,6 @@ public:
 		vert_attr.Setup(3, DataType::Float);
 		vert_attr.Enable();
 
-		VertexArray::Unbind();
 		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		gl.ClearDepth(1.0f);
 	}
@@ -99,7 +98,6 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		triangle.Bind();
 		gl.DrawArrays(PrimitiveType::Triangles, 0, 3);
 	}
 };
