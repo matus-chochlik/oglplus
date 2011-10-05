@@ -10,7 +10,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/curve.hpp>
 #include <oglplus/bound/buffer.hpp>
 
 #include "example.hpp"

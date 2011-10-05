@@ -44,6 +44,7 @@
 #include <oglplus/angle.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/matrix.hpp>
+#include <oglplus/curve.hpp>
 
 /** @mainpage OGLplus - a C++ wrapper for OpenGL® version 3 and higher.
  *

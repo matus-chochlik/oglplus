@@ -137,6 +137,20 @@ public:
 		this->_do_set<N>(_index, Data(vector));
 	}
 
+	/// Set the value(s) of the shader variable
+	template <typename T, size_t N>
+	void Set(const std::vector<Vector<T, N> >& v) const
+	{
+		// TODO: this could be optimized in situations
+		// when the alignment is right and could work
+		// without the temporary copy
+		std::vector<T> t;
+		t.reserve(v.size()*N);
+		for(auto i=v.begin(), e=v.end(); i!=e; ++i)
+			t.insert(t.end(), Data(*i), Data(*i)+N);
+		this->_do_set_many<N>(this->_index, t.size(), t.data());
+	}
+
 	/// Set the matrix components of the uniform
 	template <size_t Cols, typename ... T>
 	void SetMatrix(T ... v) const

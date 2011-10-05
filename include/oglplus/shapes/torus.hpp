@@ -123,7 +123,7 @@ public:
 			for(size_t s=0; s!=(_sections+1); ++s)
 			{
 				dest[k++] = +vz;
-				dest[k++] = 0.0;
+				dest[k++] = T(0);
 				dest[k++] = -vx;
 			}
 		}

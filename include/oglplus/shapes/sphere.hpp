@@ -35,10 +35,17 @@ public:
 	 , _rings(12)
 	{ }
 
+	/// Creates a sphere with unit radius centered at the origin
+	Sphere(GLdouble radius, size_t sections, size_t rings)
+	 : _radius(radius)
+	 , _sections(sections)
+	 , _rings(rings)
+	{ }
+
 	/// Returns the winding direction of faces
 	FaceOrientation FaceWinding(void) const
 	{
-		return FaceOrientation::CW;
+		return FaceOrientation::CCW;
 	}
 
 	/// Makes vertex normals and returns number of values per vertex
@@ -61,6 +68,33 @@ public:
 				dest[k++] = r_rad * std::cos(s * s_step);
 				dest[k++] = r_lat;
 				dest[k++] = r_rad * -std::sin(s * s_step);
+			}
+		}
+		//
+		assert(k == dest.size());
+		// 3 values per vertex
+		return 3;
+	}
+
+	/// Makes vertex tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Tangents(std::vector<T>& dest) const
+	{
+		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
+		size_t k = 0;
+		//
+		GLdouble r_step = (1.0 * M_PI) / GLdouble(_rings + 1);
+		GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+
+		for(size_t r=0; r!=(_rings+2);++r)
+		{
+			for(size_t s=0; s!=(_sections+1);++s)
+			{
+				GLdouble vx = std::cos(s*s_step);
+				GLdouble vz = std::sin(s*s_step);
+				dest[k++] = +vz;
+				dest[k++] = T(0);
+				dest[k++] = -vx;
 			}
 		}
 		//
