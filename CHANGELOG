@@ -1,3 +1,17 @@
+Version 0.3.0
+
+- The CameraMatrix::Perspective function has been reimplemented
+- The camera and projection matrices in the examples were fixed
+  accordingly
+- Several bugs in the example shaders (mostly related to lighting)
+  were fixed and some of the examples were slightly optimized
+- Added Tangentials to the Sphere shape generator
+- Added an example showing single-pass dynamic cube map rendering
+  and environment mapping
+- Added a new setter function to Uniform
+- The documentation was updated
+- Several other minor updates were made
+
 Version 0.2.0
 
 - Functions for texture parameter queries were added
