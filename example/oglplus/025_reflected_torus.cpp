@@ -178,7 +178,7 @@ public:
 			"		geomNormal, "
 			"		normalize(geomLight)"
 			"	 ) / l : 0.0;"
-			"	float i = 0.2 + d * 2.0;"
+			"	float i = 0.2 + max(d, 0.0) * 2.0;"
 			"	fragColor = vec4(abs(geomNormal)*i, 1.0);"
 			"}"
 		);
@@ -294,7 +294,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::Perspective(
-			Degrees(24),
+			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
@@ -311,7 +311,7 @@ public:
 		// at radius of 3.5 with elevation between 15 and 90 degrees
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5,
+			4.5,
 			Degrees(time * 135),
 			Degrees(15 + (-SineWave(0.25+time/12.5)+1.0)*0.5*75)
 		);

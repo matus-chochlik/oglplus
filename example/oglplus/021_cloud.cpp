@@ -204,7 +204,7 @@ public:
 		prog.Use();
 		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
-				Degrees(24),
+				Degrees(48),
 				double(width)/height,
 				1, 100
 			)

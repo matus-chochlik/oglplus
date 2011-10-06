@@ -738,16 +738,30 @@ public:
 	CameraMatrix(_Perspective, Angle<T> fov, T aspect, T z_near, T z_far)
 	 : Base(typename Base::NoInit())
 	{
-		assert(aspect > 0);
+		assert(aspect > T(0));
 		assert(fov > Radians(T(0)));
-		T height = T(1) / Tan(fov);
-		T neg_depth = z_near - z_far;
-		assert(neg_depth < 0.0);
+
+		T xmax = z_near * Tan(fov * T(0.5));
+		T xmin = -xmax;
+
+		T ymin = xmin / aspect;
+		T ymax = xmax / aspect;
+
+		T m00 = (T(2) * z_near) / (xmax - xmin);
+		T m11 = (T(2) * z_near) / (ymax - ymin);
+		T m22 = -(z_far + z_near) / (z_far - z_near);
+
+		T m20 = (xmax + xmin) / (xmax - xmin);
+		T m21 = (ymax + ymin) / (ymax - ymin);
+		T m23 = -T(1);
+
+		T m32 = -(T(2) * z_far * z_near) / (z_far - z_near);
+
 		this->_m._data = {
-			height / aspect, T(0), T(0), T(0),
-			T(0), height, T(0), T(0),
-			T(0), T(0), (z_far+z_near)/neg_depth, T(0),
-			T(0), T(0), T(2)*z_near*z_far/neg_depth, T(1)
+			 m00, T(0), T(0), T(0),
+			T(0),  m11, T(0), T(0),
+			 m20,  m21,  m22,  m32,
+			T(0), T(0),  m32, T(0),
 		};
 	}
 

@@ -122,7 +122,7 @@ public:
 			"		vertNormal, "
 			"		normalize(vertLight)"
 			"	) / l : 0.0;"
-			"	float i = 0.6 + d;"
+			"	float i = 0.6 + max(d, 0.0);"
 			"	fragColor = texture(TexUnit, vertTexCoord)*i;"
 			"}"
 		);
@@ -184,7 +184,7 @@ public:
 			"		int(vertTexCoord.x*18) % 2+"
 			"		int(vertTexCoord.y*14) % 2"
 			"	) % 2;"
-			"	float c = (0.4 + d)*(1-i/2);"
+			"	float c = (0.4 + max(d, 0.0))*(1-i/2);"
 			"	fragColor = vec4(c, c, c, 1.0);"
 			"}"
 		);
@@ -293,13 +293,13 @@ public:
 		torus_prog.Use();
 
 		Uniform(torus_prog, "ProjectionMatrix").SetMatrix(
-			CamMatrixf::Perspective(Degrees(24), 1.0, 1, 100)
+			CamMatrixf::Perspective(Degrees(48), 1.0, 1, 100)
 		);
 
 		Uniform(torus_prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				2.0,
+				2.5,
 				Degrees(time * 25),
 				Degrees(SineWave(time / 30.0) * 90)
 			)
@@ -326,7 +326,7 @@ public:
 
 		Uniform(cube_prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
-				Degrees(24),
+				Degrees(54),
 				double(width)/height,
 				1, 100
 			)
@@ -335,7 +335,7 @@ public:
 		Uniform(cube_prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.5,
+				2.0,
 				Degrees(time * 35),
 				Degrees(SineWave(time / 20.0) * 60)
 			)

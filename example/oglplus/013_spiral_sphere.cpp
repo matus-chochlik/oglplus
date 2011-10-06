@@ -139,7 +139,7 @@ public:
 		prog.Use();
 		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
-				Degrees(24),
+				Degrees(52),
 				double(width)/height,
 				1, 100
 			)
@@ -153,7 +153,7 @@ public:
 		// set the matrix for camera orbiting the origin
 		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::LookingAt(
-				Vec3f(1.0, 2.0, 1.0),
+				Vec3f(1.5, 2.5, 1.5),
 				Vec3f()
 			)
 		);

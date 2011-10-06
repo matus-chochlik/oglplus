@@ -228,7 +228,7 @@ public:
 			"		FinalNormal, "
 			"		normalize(vertLight)"
 			"	) / l : 0.0;"
-			"	i = clamp(0.2+i*2.5, 0.0, 1.0);"
+			"	i = 0.2+max(i*2.5, 0.0);"
 			"	fragColor = vec4(i, i, i, 1.0);"
 			"}"
 		);
@@ -284,7 +284,7 @@ public:
 		prog.Use();
 		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
-				Degrees(24),
+				Degrees(60),
 				double(width)/height,
 				1, 100
 			)

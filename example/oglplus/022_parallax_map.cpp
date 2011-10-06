@@ -169,7 +169,7 @@ public:
 			"		normalize(vertLight), "
 			"		finalNormal"
 			"	) / l : 0.0;"
-			"	float i = 0.1 + 2.5*d;"
+			"	float i = 0.1 + 2.5*max(d, 0.0);"
 			"	fragColor = vec4(c*i, 1.0);"
 			"}"
 		);
@@ -257,7 +257,7 @@ public:
 		prog.Use();
 		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
-				Degrees(24),
+				Degrees(54),
 				double(width)/height,
 				1, 100
 			)
@@ -280,7 +280,7 @@ public:
 		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.5f,
+				2.0f,
 				Degrees(-45),
 				Degrees(SineWave(time / 30.0) * 70)
 			)

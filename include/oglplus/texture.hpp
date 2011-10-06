@@ -1764,6 +1764,26 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+
+	// Utility functions:
+
+	/// Returns the target for the i-th cube map @p face (0-5)
+	/** This functions returns one of the values for cube map faces
+	 *  from the Target enumeration. The value of @p face must
+	 *  be between 0 and 5 with the following meaning:
+	 *  0 = Target::CubeMapPositiveX,
+	 *  1 = Target::CubeMapNegativeX,
+	 *  2 = Target::CubeMapPositiveY,
+	 *  3 = Target::CubeMapNegativeY,
+	 *  4 = Target::CubeMapPositiveZ,
+	 *  5 = Target::CubeMapNegativeZ.
+	 */
+	static Target CubeMapFace(GLuint face)
+	{
+		assert(face >= 0);
+		assert(face <= 5);
+		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
+	}
 };
 
 #ifdef OGLPLUS_DOCUMENTATION_ONLY

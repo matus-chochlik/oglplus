@@ -12,7 +12,7 @@
 #ifndef OGLPLUS_AUX_CLR_BITS_1107121519_HPP
 #define OGLPLUS_AUX_CLR_BITS_1107121519_HPP
 
-#include <cassert>
+#include <oglplus/error.hpp>
 
 namespace oglplus {
 
@@ -69,7 +69,7 @@ public:
 		if(bits)
 		{
 			::glClear(bits);
-			assert(::glGetError() == GL_NO_ERROR);
+			AssertNoError(OGLPLUS_ERROR_INFO(Clear));
 		}
 	}
 };

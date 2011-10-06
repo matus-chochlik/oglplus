@@ -177,7 +177,7 @@ private:
 		"		vertNormal, "
 		"		normalize(vertLight)"
 		"	) / Len : 0.0;"
-		"	float Intensity = 0.2 + Dot * 4.0;";
+		"	float Intensity = 0.2 + max(Dot, 0.0) * 4.0;";
 	}
 
 	// The common last part of all fragment shader sources
@@ -287,7 +287,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::Perspective(
-			Degrees(24),
+			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
@@ -307,7 +307,7 @@ public:
 		// make the matrix for camera orbiting the origin
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5,
+			4.5,
 			Degrees(time * 15),
 			Degrees(SineWave(time / 6.0) * 45)
 		);

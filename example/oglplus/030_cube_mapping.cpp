@@ -12,6 +12,9 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/sphere.hpp>
 #include <oglplus/shapes/cube.hpp>
+#include <oglplus/bound/texture.hpp>
+#include <oglplus/bound/framebuffer.hpp>
+#include <oglplus/bound/renderbuffer.hpp>
 
 #include <cmath>
 
@@ -19,7 +22,6 @@
 
 namespace oglplus {
 
-// NOTE: this example is still work in progress and incomplete
 class CubeMapExample : public Example
 {
 private:
@@ -130,8 +132,20 @@ private:
 	Buffer sphere_verts, sphere_normals, sphere_tangents, sphere_texcoords;
 	Buffer cube_verts, cube_normals;
 
+
+	// The resolution of the texture (side x side)
+	size_t tex_side;
+
+	// The cube map color and depth textures
+	Texture ctex, dtex;
+
+	// The framebuffer used for rendering into the texture
+	Framebuffer fbo;
+
 	// Path of the light
 	CubicBezierLoop<Vec3f, double> light_path;
+
+	size_t width, height;
 public:
 	CubeMapExample(void)
 	 : make_sphere(1.0, 72, 48)
@@ -139,7 +153,7 @@ public:
 	 , sphere_indices(make_sphere.Indices())
 	 , cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
-	 , cube_offsets(MakeCubeOffsets(2.0f, 10))
+	 , cube_offsets(MakeCubeOffsets(2.5f, 6))
 	 , sphere_vs("Sphere Vertex")
 	 , cube_vs("Cube Vertex")
 	 , cmap_vs("Cube map Vertex")
@@ -149,6 +163,7 @@ public:
 	 , sphere_prog("Sphere")
 	 , cube_prog("Cube")
 	 , cmap_prog("Cube map")
+	 , tex_side(512)
 	 , light_path({
 		{ 0.0f,  7.0f,  0.0f},
 		{-4.0f, -5.0f,  4.0f},
@@ -167,10 +182,11 @@ public:
 			"in vec2 TexCoord;"
 			"out vec3 vertNormal;"
 			"out vec3 vertLight;"
+			"out vec3 vertRefl;"
 			"void main(void)"
 			"{"
-			"	float amps = 0.02, ampt = 0.05;"
-			"	float pers = 6.0, pert = 4.0+Time*0.1;"
+			"	float amps = 0.02, ampt = 0.05/(1.0+Time*0.1);"
+			"	float pers = 6.0, pert = 3.0+Time*0.1;"
 			"	float vels = 4.0, velt = 3.0;"
 			"	float as = (TexCoord.s + Time/vels)*3.1415*2.0;"
 			"	float at = (TexCoord.t + Time/velt)*3.1415*2.0;"
@@ -190,6 +206,14 @@ public:
 			"		), 1.0"
 			"	);"
 			"	vertLight = LightPos.xyz - gl_Position.xyz;"
+			"	vertRefl = reflect("
+			"			-vec3("
+			"				CameraMatrix[0][2],"
+			"				CameraMatrix[1][2],"
+			"				CameraMatrix[2][2] "
+			"			),"
+			"			normalize(vertNormal)"
+			"	);"
 			"	gl_Position ="
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
@@ -202,18 +226,32 @@ public:
 		// set the fragment shader source
 		sphere_fs.Source(
 			"#version 330\n"
+			"uniform mat4 CameraMatrix;"
+			"uniform samplerCube CubeTex;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
+			"in vec3 vertRefl;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
 			"	float l = length(vertLight);"
-			"	float d = l > 0? dot("
+			"	float d = l != 0? dot("
 			"		normalize(vertNormal),"
 			"		normalize(vertLight)"
 			"	) / l : 0.0;"
-			"	float i = 0.1 + 4.2*d;"
-			"	fragColor = vec4(i, i, i, 1.0);"
+			"	float e = pow(dot("
+			"		normalize(vertRefl),"
+			"		normalize(vertLight)"
+			"	), 11.0);"
+			"	vec3 color = texture("
+			"		CubeTex,"
+			"		normalize(vertRefl)"
+			"	).rgb;"
+			"	fragColor = vec4("
+			"		(0.3  + max(d,0.0)*0.5) * color +"
+			"		(0.05 + max(e,0.0))*vec3(1.0, 1.0, 1.0),"
+			"		1.0"
+			"	);"
 			"}"
 		);
 		// compile it
@@ -317,11 +355,11 @@ public:
 			"void main(void)"
 			"{"
 			"	float l = length(vertLight);"
-			"	float d = l > 0? dot("
+			"	float d = l != 0? dot("
 			"		normalize(vertNormal), "
 			"		normalize(vertLight)"
 			"	) / l : 0.0;"
-			"	float i = 0.1 + 4.2*d;"
+			"	float i = 0.1 + 4.2*max(d, 0.0);"
 			"	fragColor = vec4(vertColor*i, 1.0);"
 			"}"
 		);
@@ -338,35 +376,104 @@ public:
 		// Set the vertex shader source
 		cmap_vs.Source(
 			"#version 330\n"
-			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform vec4 LightPos;"
 			"uniform vec3 Offset;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
-			"out vec3 vertColor;"
-			"out vec3 vertNormal;"
-			"out vec3 vertLight;"
+			"out vec3 tempColor;"
+			"out vec3 tempNormal;"
+			"out vec3 tempLight;"
 			"void main(void)"
 			"{"
 			"	gl_Position = vec4(Position.xyz+Offset, 1.0);"
-			"	vertColor = normalize(vec3(1.0, 1.0, 1.0) - Normal);"
-			"	vertNormal = Normal;"
-			"	vertLight = LightPos.xyz - gl_Position.xyz;"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		gl_Position;"
+			"	tempColor = normalize(vec3(1.0, 1.0, 1.0) - Normal);"
+			"	tempNormal = Normal;"
+			"	tempLight = LightPos.xyz - gl_Position.xyz;"
 			"}"
 		);
 		// compile it
 		cmap_vs.Compile();
 
+		// Set the geometry shader source
+		cmap_gs.Source(
+			"#version 330\n"
+			"layout(triangles) in;"
+			"layout(triangle_strip, max_vertices = 18) out;"
+			"uniform mat4 ProjectionMatrix;"
+
+			"const mat4 CubeFaceMatrix[6] = mat4[6]("
+			"	mat4("
+			"		 0.0,  0.0, -1.0,  0.0,"
+			"		 0.0,  1.0,  0.0,  0.0,"
+			"		 1.0,  0.0,  0.0,  0.0,"
+			"		 0.0,  0.0,  0.0,  1.0 "
+			"	), mat4("
+			"		 0.0,  0.0,  1.0,  0.0,"
+			"		 0.0,  1.0,  0.0,  0.0,"
+			"		-1.0,  0.0,  0.0,  0.0,"
+			"		 0.0,  0.0,  0.0,  1.0 "
+			"	), mat4("
+			"		 1.0,  0.0,  0.0,  0.0,"
+			"		 0.0,  0.0,  1.0,  0.0,"
+			"		 0.0, -1.0,  0.0,  0.0,"
+			"		 0.0,  0.0,  0.0,  1.0 "
+			"	), mat4("
+			"		 1.0,  0.0,  0.0,  0.0,"
+			"		 0.0,  0.0, -1.0,  0.0,"
+			"		 0.0,  1.0,  0.0,  0.0,"
+			"		 0.0,  0.0,  0.0,  1.0 "
+			"	), mat4("
+			"		-1.0,  0.0,  0.0,  0.0,"
+			"		 0.0,  1.0,  0.0,  0.0,"
+			"		 0.0,  0.0, -1.0,  0.0,"
+			"		 0.0,  0.0,  0.0,  1.0 "
+			"	), mat4("
+			"		 1.0,  0.0,  0.0,  0.0,"
+			"		 0.0,  1.0,  0.0,  0.0,"
+			"		 0.0,  0.0,  1.0,  0.0,"
+			"		 0.0,  0.0,  0.0,  1.0 "
+			"	)"
+			");"
+
+			"in vec3 tempColor[];"
+			"in vec3 tempNormal[];"
+			"in vec3 tempLight[];"
+			"out vec3 vertColor;"
+			"out vec3 vertNormal;"
+			"out vec3 vertLight;"
+			"void main(void)"
+			"{"
+			"	for(gl_Layer=0; gl_Layer!=6; ++gl_Layer)"
+			"	{"
+			"		for(int i=0; i!=3; ++i)"
+			"		{"
+			"			gl_Position = "
+			"				ProjectionMatrix *"
+			"				CubeFaceMatrix[gl_Layer]*"
+			"				gl_in[i].gl_Position;"
+			"			vertColor = tempColor[i];"
+			"			vertNormal = tempNormal[i];"
+			"			vertLight = tempLight[i];"
+			"			EmitVertex();"
+			"		}"
+			"		EndPrimitive();"
+			"	}"
+			"}"
+		);
+		// compile it
+		cmap_gs.Compile();
+
 		// attach the shaders to the program
 		cmap_prog.AttachShader(cmap_vs);
+		cmap_prog.AttachShader(cmap_gs);
 		cmap_prog.AttachShader(cube_fs);
 		// link and use it
 		cmap_prog.Link();
 		cmap_prog.Use();
+
+		Uniform(cmap_prog, "ProjectionMatrix").SetMatrix(
+			CamMatrixf::Perspective(Degrees(90), 1.0, 1, 100)
+		);
 
 		// bind the VAO for the cube
 		cube.Bind();
@@ -409,56 +516,156 @@ public:
 			cmap_attr.Enable();
 		}
 
+
+		Texture::Active(0);
+		sphere_prog.Use();
+		Uniform(sphere_prog, "CubeTex").Set(0);
+		{
+			auto bound_tex = Bind(ctex, Texture::Target::CubeMap);
+			bound_tex.MinFilter(TextureMinFilter::Linear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::ClampToEdge);
+			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.WrapR(TextureWrap::ClampToEdge);
+
+			for(int i=0; i!=6; ++i)
+			{
+				Texture::Image2D(
+					Texture::CubeMapFace(i),
+					0,
+					PixelDataInternalFormat::RGB,
+					tex_side, tex_side,
+					0,
+					PixelDataFormat::RGB,
+					PixelDataType::UnsignedByte,
+					nullptr
+				);
+			}
+		}
+		{
+			auto bound_tex = Bind(dtex, Texture::Target::CubeMap);
+			bound_tex.MinFilter(TextureMinFilter::Nearest);
+			bound_tex.MagFilter(TextureMagFilter::Nearest);
+			bound_tex.WrapS(TextureWrap::ClampToEdge);
+			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.WrapR(TextureWrap::ClampToEdge);
+
+			for(int i=0; i!=6; ++i)
+			{
+				Texture::Image2D(
+					Texture::CubeMapFace(i),
+					0,
+					PixelDataInternalFormat::DepthComponent32F,
+					tex_side, tex_side,
+					0,
+					PixelDataFormat::DepthComponent,
+					PixelDataType::Float,
+					nullptr
+				);
+			}
+		}
+		ctex.Bind(Texture::Target::CubeMap);
+
+		{
+			auto bound_fbo = Bind(
+				fbo,
+				Framebuffer::Target::Draw
+			);
+			bound_fbo.AttachTexture(
+				Framebuffer::Attachment::Color,
+				ctex,
+				0
+			);
+			bound_fbo.AttachTexture(
+				Framebuffer::Attachment::Depth,
+				dtex,
+				0
+			);
+		}
+
 		//
-		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
-		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::CullFace);
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(size_t vp_width, size_t vp_height)
 	{
-		gl.Viewport(width, height);
-		auto persp = CamMatrixf::Perspective(
-			Degrees(25),
-			double(width)/height,
-			1, 100
-		);
-		cube_prog.Use();
-		Uniform(cube_prog, "ProjectionMatrix").SetMatrix(persp);
-		sphere_prog.Use();
-		Uniform(sphere_prog, "ProjectionMatrix").SetMatrix(persp);
+		width = vp_width;
+		height = vp_height;
 	}
 
 	void Render(double time)
 	{
+		// Calculate the light position on the path
+		Vec4f lightPos(Vec4f(light_path.Position(time / 10.0), 1.0));
+
+		// First we are going to render the cubes into the cube map
+		gl.FrontFace(make_cube.FaceWinding());
+		cube.Bind();
+
+		// Bind the off-screen FBO
+		fbo.Bind(Framebuffer::Target::Draw);
+		// Set the viewport
+		gl.Viewport(tex_side, tex_side);
+		// Clear it
+		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		gl.ClearDepth(1.0f);
+		gl.Clear().ColorBuffer().DepthBuffer();
+
+		// Use the cube map rendering program
+		cmap_prog.Use();
+		Uniform(cmap_prog, "LightPos").Set(lightPos);
+		{
+			auto object_offs = Uniform(cmap_prog, "Offset");
+
+			auto b=cube_offsets.begin(), e = cube_offsets.end();
+			for(auto i=b; i!=e; ++i)
+			{
+				object_offs.Set(*i);
+				cube_instr.Draw(cube_indices);
+			}
+		}
+
+		// Now we're going to draw into the default framebuffer
+		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+
+		// Set the viewport and perspective matrix
+		gl.Viewport(width, height);
+		auto persp = CamMatrixf::Perspective(
+			Degrees(50),
+			double(width)/height,
+			1, 100
+		);
+		// clear it
+		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		gl.ClearDepth(1.0f);
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
 			3.0,
 			FullCircles(time / 8.0),
 			Degrees(SineWave(time / 20.0) * 30)
 		);
-		Vec4f lightPos(Vec4f(light_path.Position(time / 10.0), 1.0));
 
 		cube_prog.Use();
+		Uniform(cube_prog, "ProjectionMatrix").SetMatrix(persp);
 		Uniform(cube_prog, "CameraMatrix").SetMatrix(cameraMatrix);
 		Uniform(cube_prog, "LightPos").Set(lightPos);
-		auto object_offs = Uniform(cube_prog, "Offset");
-
-		gl.FrontFace(make_cube.FaceWinding());
-		cube.Bind();
-		auto b=cube_offsets.begin(), e = cube_offsets.end();
-		for(auto i=b; i!=e; ++i)
 		{
-			object_offs.Set(*i);
-			cube_instr.Draw(cube_indices);
+			auto object_offs = Uniform(cube_prog, "Offset");
+
+			auto b=cube_offsets.begin(), e = cube_offsets.end();
+			for(auto i=b; i!=e; ++i)
+			{
+				object_offs.Set(*i);
+				cube_instr.Draw(cube_indices);
+			}
 		}
 
 		sphere_prog.Use();
+		Uniform(sphere_prog, "ProjectionMatrix").SetMatrix(persp);
 		Uniform(sphere_prog, "CameraMatrix").SetMatrix(cameraMatrix);
 		Uniform(sphere_prog, "LightPos").Set(lightPos);
 		Uniform(sphere_prog, "Time").Set(GLfloat(time));

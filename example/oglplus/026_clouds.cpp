@@ -278,7 +278,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		auto perspective = CamMatrixf::Perspective(
-			Degrees(24),
+			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
@@ -295,7 +295,7 @@ public:
 		auto lightPos = lightPath.Position(time * 0.05);
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			2.5f,
+			3.5f,
 			Degrees(0),
 			Degrees(SineWave(time / 20.0) * 80)
 		);

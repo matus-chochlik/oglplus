@@ -203,7 +203,7 @@ public:
 		prog.Use();
 		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
-				Degrees(24),
+				Degrees(60),
 				double(width)/height,
 				1, 100
 			)
@@ -218,7 +218,7 @@ public:
 		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				2.5 - SineWave(time / 6.0) * 1.5,
+				3.0 - SineWave(time / 6.0) * 1.5,
 				FullCircles(time * 0.4),
 				Degrees(SineWave(time / 30.0) * 90)
 			)

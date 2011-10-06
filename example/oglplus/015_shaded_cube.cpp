@@ -54,12 +54,12 @@ public:
 			"	vertNormal = ("
 			"		CameraMatrix * vec4("
 			"			normalize("
-			"				Position.xyz -"
-			"				0.01 * Normal"
+			"				Normal + "
+			"				Position.xyz*0.5"
 			"			), 0.0"
 			"		)"
 			"	).xyz;"
-			"	vertColor = Normal;"
+			"	vertColor = abs(Normal);"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
@@ -83,7 +83,7 @@ public:
 			"			vec3(0.0, 0.0, 1.0)"
 			"		), 3.0"
 			"	);"
-			"	fragColor = vec4(abs(vertColor),1.0)*intensity;"
+			"	fragColor = vec4(vertColor,1.0)*intensity;"
 			"}"
 		);
 		// compile it
@@ -203,7 +203,7 @@ public:
 		prog.Use();
 		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
-				Degrees(24),
+				Degrees(48),
 				double(width)/height,
 				1, 100
 			)
@@ -218,7 +218,7 @@ public:
 		Uniform(prog, "CameraMatrix").SetMatrix(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.5,
+				2.0,
 				Degrees(time * 135),
 				Degrees(SineWave(time / 20.0) * 90)
 			)

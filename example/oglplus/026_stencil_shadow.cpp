@@ -99,7 +99,7 @@ public:
 			"			vertNormal,"
 			"			normalize(vertLight)"
 			"		) / l : 0.0;"
-			"	float i = 0.3 + d * lightMult;"
+			"	float i = 0.3 + max(d, 0.0) * lightMult;"
 			"	fragColor = vec4(Color*i, 1.0);"
 			"}"
 		);
@@ -300,7 +300,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::Perspective(
-			Degrees(24),
+			Degrees(54),
 			double(width)/height,
 			1, 100
 		);
@@ -316,7 +316,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			5.5,
+			6.5,
 			FullCircles(time * 0.1),
 			Degrees(15 + (-SineWave(0.25+time/12.5)+1.0)* 0.5 * 75)
 		);
