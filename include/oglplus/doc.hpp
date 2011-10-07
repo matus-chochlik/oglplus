@@ -152,6 +152,18 @@ public:
  *    bound_tex.SwizzleB(TextureSwizzle::Red);
  *  }
  *  @endcode
+ *
+ *  The source code for the specializations of the @ref oglplus::Bound "Bound"
+ *  template class is not included automatically by including oglplus/all.hpp.
+ *  In order to be able to use @c Bound objects it is necessary to include
+ *  the appropriate header:
+ *
+ *  @code
+ *  #include <oglplus/bound/texture.hpp> // Bound<Texture>
+ *  #include <oglplus/bound/buffer.hpp> // Bound<Buffer>
+ *  #include <oglplus/bound/framebuffer.hpp> // Bound<Framebuffer>
+ *  #include <oglplus/bound/renderbuffer.hpp> // Bound<Renderbuffer>
+ *  @endcode
  */
 
 /// Allows to handle objects which are used through a binding point conveniently

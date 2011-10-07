@@ -16,6 +16,7 @@
 #include <oglplus/program.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/auxiliary/bitfield.hpp>
+#include <oglplus/auxiliary/prog_pl_stages.hpp>
 
 #include <cassert>
 
@@ -60,6 +61,13 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
+	/// Unbinds the current program pipeline object (if any)
+	static void Unbind(void)
+	{
+		::glBindProgramPipeline(0);
+		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
+	}
+
 	/// Program pipeline stage enumeration
 	enum class Stage : GLbitfield {
 		/// VERTEX_SHADER_BIT
@@ -75,6 +83,37 @@ public:
 		/// ALL_SHADER_BITS
 		All = GL_ALL_SHADER_BITS
 	};
+
+	/// Specifies program stages by calling functions of the returned object
+	/** This function returns an object that allows to specify which stages
+	 *  of @p program should by used when this pipeline is active by calling
+	 *  the Vertex(), TessControl(), TessEvaluation(), Geometry(), Fragment()
+	 *  and All() member functions of the object returned by UseStages.
+	 *
+	 *  example:
+	 *  @code
+	 *  Program prog;
+	 *  ProgramPipeline pp;
+	 *  ...
+	 *  pp.UseStages(prog).Vertex();
+	 *  pp.UseStages(prog).Vertex().Geometry();
+	 *  pp.UseStages(prog).Vertex().TessControl().TessEvaluation().Geometry();
+	 *  pp.UseStages(prog).Vertex().Geometry().Fragment();
+	 *  pp.UseStages(prog).Geometry();
+	 *  pp.UseStages(prog).All();
+	 *  @endcode
+	 *
+	 *  @throws Error
+	 */
+	aux::ProgPLUseStages UseStages(const Program& program) const
+	{
+		assert(_name != 0);
+		return aux::ProgPLUseStages(
+			_name,
+			FriendOf<Program>::GetName(program),
+			0
+		);
+	}
 
 	/// Use the specified @p stages of the @p program
 	void UseStages(
@@ -101,6 +140,17 @@ public:
 			FriendOf<Program>::GetName(program)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
+	}
+
+	/// Make the @p program active for this program pipeline
+	void ActiveShaderProgram(const Program& program) const
+	{
+		assert(_name != 0);
+		::glActiveShaderProgram(
+			_name,
+			FriendOf<Program>::GetName(program)
+		);
+		ThrowOnError(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
 	}
 };
 

@@ -23,12 +23,12 @@ namespace aux {
 class ClrBits
 {
 private:
-	GLbitfield bits;
+	GLbitfield _bits;
 
 	GLbitfield _forward(void)
 	{
-		GLbitfield res = bits;
-		bits = 0;
+		GLbitfield res = _bits;
+		_bits = 0;
 		return res;
 	}
 
@@ -37,7 +37,7 @@ private:
 	ClrBits(void) = delete;
 	ClrBits(const ClrBits&) = delete;
 	ClrBits(GLbitfield bit)
-	 : bits(bit)
+	 : _bits(bit)
 	{ }
 
 	inline ClrBits _make(GLbitfield bit)
@@ -61,14 +61,14 @@ public:
 	}
 
 	inline ClrBits(ClrBits&& temp)
-	 : bits(temp._forward())
+	 : _bits(temp._forward())
 	{ }
 
 	inline ~ClrBits(void)
 	{
-		if(bits)
+		if(_bits)
 		{
-			::glClear(bits);
+			::glClear(_bits);
 			AssertNoError(OGLPLUS_ERROR_INFO(Clear));
 		}
 	}

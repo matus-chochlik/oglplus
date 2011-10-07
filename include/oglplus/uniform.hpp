@@ -28,12 +28,14 @@ class UniformOps
  : public FriendOf<Program>
 {
 protected:
+	GLuint _program;
 	GLint _index;
 
 	friend class FriendOf<UniformOps>;
 
 	UniformOps(const Program& program, const GLchar* identifier)
-	 : _index(
+	 : _program(FriendOf<Program>::GetName(program))
+	 , _index(
 		::glGetUniformLocation(
 			FriendOf<Program>::GetName(program),
 			identifier
@@ -76,6 +78,8 @@ protected:
 class UniformMatrixSetters
 {
 protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(Uniform)
+
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, dv, v, GLdouble)
 };
@@ -88,8 +92,14 @@ protected:
  */
 class Uniform
  : public UniformOps
- , public aux::ShaderDataSetOps<aux::UniformSetters, 4>
- , public aux::ShaderMatrixSetOps<aux::UniformMatrixSetters>
+ , public aux::ShaderDataSetOps<
+	aux::UniformSetters,
+	aux::ActiveProgramCallOps,
+	4
+>, public aux::ShaderMatrixSetOps<
+	aux::UniformMatrixSetters,
+	aux::ActiveProgramCallOps
+>
 {
 public:
 	/// Reference a uniform identified by @p identifier in the @p program
@@ -106,35 +116,57 @@ public:
 	template <typename ... T>
 	void Set(T ... v) const
 	{
-		this->_do_set(_index, v...);
+		this->_do_set(
+			this->_program,
+			this->_index,
+			v...
+		);
 	}
 
 	/// Set the value(s) of the uniform
 	template <size_t Cols, typename T>
 	void Set(const T* v) const
 	{
-		this->_do_set<Cols>(_index, v);
+		this->_do_set<Cols>(
+			this->_program,
+			this->_index,
+			v
+		);
 	}
 
 	/// Set the value(s) of the uniform
 	template <size_t Cols, typename T>
 	void Set(GLsizei count, const T* v) const
 	{
-		this->_do_set_many<Cols>(_index, count, v);
+		this->_do_set_many<Cols>(
+			this->_program,
+			this->_index,
+			count,
+			v
+		);
 	}
 
 	/// Set the value(s) of the uniform
 	template <size_t Cols, typename T>
 	void Set(const std::vector<T>& v) const
 	{
-		this->_do_set_many<Cols>(_index, v.size(), v.data());
+		this->_do_set_many<Cols>(
+			this->_program,
+			this->_index,
+			v.size(),
+			v.data()
+		);
 	}
 
 	/// Set the value(s) of the uniform
 	template <typename T, size_t N>
 	void Set(const Vector<T, N>& vector) const
 	{
-		this->_do_set<N>(_index, Data(vector));
+		this->_do_set<N>(
+			this->_program,
+			this->_index,
+			Data(vector)
+		);
 	}
 
 	/// Set the value(s) of the shader variable
@@ -148,28 +180,50 @@ public:
 		t.reserve(v.size()*N);
 		for(auto i=v.begin(), e=v.end(); i!=e; ++i)
 			t.insert(t.end(), Data(*i), Data(*i)+N);
-		this->_do_set_many<N>(this->_index, t.size(), t.data());
+		this->_do_set_many<N>(
+			this->_program,
+			this->_index,
+			t.size(),
+			t.data()
+		);
 	}
 
 	/// Set the matrix components of the uniform
 	template <size_t Cols, typename ... T>
 	void SetMatrix(T ... v) const
 	{
-		this->_do_set_mat<Cols>(_index, false, v...);
+		this->_do_set_mat<Cols>(
+			this->_program,
+			this->_index,
+			false,
+			v...
+		);
 	}
 
 	/// Set the matrix components of the uniform
 	template <size_t Cols, size_t Rows, typename T>
 	void SetMatrix(size_t count, const T* v) const
 	{
-		this->_do_set_mat<Cols, Rows>(_index, count, false, v);
+		this->_do_set_mat<Cols, Rows>(
+			this->_program,
+			this->_index,
+			count,
+			false,
+			v
+		);
 	}
 
 	/// Set the matrix components of the uniform
 	template <typename T, size_t Rows, size_t Cols>
 	void SetMatrix(const Matrix<T, Rows, Cols>& matrix) const
 	{
-		this->_do_set_mat<Cols, Rows>(_index, 1, true, Data(matrix));
+		this->_do_set_mat<Cols, Rows>(
+			this->_program,
+			this->_index,
+			1,
+			true,
+			Data(matrix)
+		);
 	}
 };
 

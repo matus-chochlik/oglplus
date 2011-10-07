@@ -19,9 +19,72 @@
 namespace oglplus {
 namespace aux {
 
-template <class Setters, size_t SetMax>
+class ActiveProgramCallOps
+{
+protected:
+	template <typename T, typename UI>
+	static void _call_set_v(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(UI, const T*),
+		const T* v
+	)
+	{
+		_fn(index, v);
+	}
+
+	template <typename T, typename UI, typename SI>
+	static void _call_set_v(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(UI, SI, const T*),
+		const T* v
+	)
+	{
+		_fn(index, 1, v);
+	}
+
+	template <typename T, typename UI, typename SI>
+	static void _call_set_vn(
+		GLuint program,
+		GLuint index,
+		GLsizei n,
+		void(*_fn)(UI, SI, const T*),
+		const T* v
+	)
+	{
+		_fn(index, n, v);
+	}
+
+	template <typename ... T, typename UI>
+	static void _call_set_t(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(UI, T...),
+		T ... v
+	)
+	{
+		_fn(index, v...);
+	}
+
+	template <typename T, typename ID, typename CT, typename TP>
+	static void _call_set_m(
+		GLuint program,
+		GLuint index,
+		GLsizei count,
+		GLboolean transpose,
+		void(*_fn)(ID, CT, TP, const T*),
+		const T* v
+	)
+	{
+		_fn(index, count, transpose, v);
+	}
+};
+
+template <class Setters, class Callers, size_t SetMax>
 class ShaderDataSetOps
  : public Setters
+ , public Callers
 {
 private:
 	using Setters::_errinf_ctxt;
@@ -34,74 +97,103 @@ private:
 		return std::integral_constant<bool, (N > 4)>();
 	}
 
-	template <typename T, typename UI>
-	static void _call_set_v(
+	template <size_t N, typename T>
+	static void _do_set_v(
+		_set_cont,
+		GLuint program,
 		GLuint index,
-		const T* v,
-		void(*_fn)(UI, const T*)
+		const T* v
 	)
 	{
-		_fn(index, v);
+		Callers::_call_set_v(
+			program,
+			index,
+			::std::get<3>(Setters::_fns_v(v)),
+			v
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
+		_do_set_v<N - 4, T>(
+			_set_mode<N - 4>(),
+			program,
+			index+1,
+			v+4
+		);
 	}
 
-	template <typename T, typename UI, typename SI>
-	static void _call_set_v(
+	template <size_t N, typename T>
+	static void _do_set_v(
+		_set_done,
+		GLuint program,
 		GLuint index,
-		const T* v,
-		void(*_fn)(UI, SI, const T*)
+		const T* v
 	)
 	{
-		_fn(index, 1, v);
-	}
-
-	template <size_t N, typename T>
-	static void _do_set_v(_set_cont, GLuint index, const T* v)
-	{
-		_call_set_v(index, v, ::std::get<3>(Setters::_fns_v(v)));
-		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
-		_do_set_v<N - 4, T>(_set_mode<N - 4>(), index+1, v+4);
-	}
-
-	template <size_t N, typename T>
-	static void _do_set_v(_set_done, GLuint index, const T* v)
-	{
-		_call_set_v(index, v, ::std::get<N-1>(Setters::_fns_v(v)));
+		Callers::_call_set_v(
+			program,
+			index,
+			::std::get<N-1>(Setters::_fns_v(v)),
+			v
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 	}
 
 	template <size_t N, typename T>
-	static void _do_set_n(_set_done, GLuint index, GLsizei n, const T* v)
+	static void _do_set_n(
+		_set_done,
+		GLuint program,
+		GLuint index,
+		GLsizei n,
+		const T* v
+	)
 	{
-		::std::get<N-1>(Setters::_fns_v(v))(index, n, v);
+		Callers::_call_set_vn(
+			program,
+			index,
+			n,
+			::std::get<N-1>(Setters::_fns_v(v)),
+			v
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 	}
 
 	template <typename S, typename ... T>
 	static void _do_set_t(
 		_set_cont,
+		GLuint program,
 		GLuint index,
 		 S v0, S v1, S v2, S v3,
 		T ... v
 	)
 	{
-		std::get<3>(Setters::_fns_t(&v0))(index, v0, v1, v2, v3);
+		Callers::_call_set_t(
+			program,
+			index,
+			std::get<3>(Setters::_fns_t(&v0)),
+			v0, v1, v2, v3
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
-		_do_set_t(_set_mode<sizeof...(T)>(), index+1, v...);
+		_do_set_t(_set_mode<sizeof...(T)>(), program, index+1, v...);
 	}
 
 	template <typename ... T>
 	static void _do_set_t(
 		_set_done,
+		GLuint program,
 		GLuint index,
 		T ... v
 	)
 	{
-		std::get<sizeof...(T) - 1>(Setters::_fns_t(&v...))(index, v...);
+		Callers::_call_set_t(
+			program,
+			index,
+			std::get<sizeof...(T) - 1>(Setters::_fns_t(&v...)),
+			v...
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 	}
 protected:
 	template <typename ... T>
-	static void _do_set(GLuint index, T ... v)
+	static void _do_set(GLuint program, GLuint index, T ... v)
 	{
 		static_assert(
 			(sizeof...(T) > 0) && (sizeof...(T) <= SetMax),
@@ -109,6 +201,7 @@ protected:
 		);
 		_do_set_t(
 			_set_mode<sizeof...(T)>(),
+			program,
 			index,
 			v...
 		);
@@ -116,33 +209,37 @@ protected:
 	}
 
 	template <size_t Cols, typename T>
-	static void _do_set(GLuint index, const T* v)
+	static void _do_set(GLuint program, GLuint index, const T* v)
 	{
 		static_assert(
 			(Cols > 0) && (Cols <= SetMax),
 			"The number of elements must be between 1 and SetMax"
 		);
-		_do_set_v<Cols, T>(_set_mode<Cols>(), index, v);
+		_do_set_v<Cols, T>(_set_mode<Cols>(), program, index, v);
 	}
 
 	template <size_t Cols, typename T>
-	static void _do_set_many(GLuint index, GLsizei n, const T*v)
+	static void _do_set_many(GLuint prog, GLuint index, GLsizei n, const T*v)
 	{
 		static_assert(
 			(Cols > 0) && (Cols <= SetMax),
 			"The number of elements must be between 1 and SetMax"
 		);
-		_do_set_n<Cols, T>(_set_mode<Cols>(), index, n, v);
+		_do_set_n<Cols, T>(_set_mode<Cols>(), prog, index, n, v);
 	}
 };
 
-template <typename Setters>
+template <typename Setters, typename Callers>
 class ShaderMatrixSetOps
  : public Setters
+ , public Callers
 {
+private:
+	using Setters::_errinf_ctxt;
 protected:
 	template <size_t Cols, size_t Rows, typename T>
 	static void _do_set_mat(
+		GLuint program,
 		GLuint index,
 		GLsizei count,
 		bool transpose,
@@ -157,15 +254,29 @@ protected:
 			(Rows > 0) && (Rows <= 4),
 			"The number of rows must be between 1 and 4"
 		);
-		std::get<Cols - 2>(
-			std::get<Rows - 2>(
-				Setters::_fns_v(v)
-			)
-		)(index, count, transpose ? GL_TRUE : GL_FALSE, v);
+		Callers::_call_set_m(
+			program,
+			index,
+			count,
+			transpose ? GL_TRUE : GL_FALSE,
+			std::get<Cols - 2>(
+				std::get<Rows - 2>(
+					Setters::_fns_v(v)
+				)
+			),
+			v
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
 	}
 
 	template <size_t Cols, typename T, typename ... P>
-	static void _do_set_mat(GLuint index, bool transpose, T v, P ... p)
+	static void _do_set_mat(
+		GLuint program,
+		GLuint index,
+		bool transpose,
+		T v,
+		P ... p
+	)
 	{
 		static_assert(
 			(Cols > 0) && (Cols <= 4),
@@ -177,6 +288,7 @@ protected:
 		);
 		T values[] = {v, T(p)...};
 		_do_set_mat<Cols, (sizeof...(P) + 1) / Cols, T>(
+			program,
 			index,
 			1,
 			transpose,

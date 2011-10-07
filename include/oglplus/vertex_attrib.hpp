@@ -139,7 +139,11 @@ protected:
  */
 class VertexAttrib
  : public VertexAttribOps
- , public aux::ShaderDataSetOps<aux::VertexAttribSetters, 16>
+ , public aux::ShaderDataSetOps<
+	aux::VertexAttribSetters,
+	aux::ActiveProgramCallOps,
+	16
+>
 {
 private:
 public:
@@ -162,14 +166,14 @@ public:
 	template <typename ... T>
 	void Set(T ... v) const
 	{
-		this->_do_set(_index, v...);
+		this->_do_set(0, _index, v...);
 	}
 
 	/// Set the value(s) of the vertex attribute
 	template <size_t N, typename T>
 	void Set(const T* v) const
 	{
-		this->_do_set<N>(_index, v);
+		this->_do_set<N>(0, _index, v);
 	}
 };
 
