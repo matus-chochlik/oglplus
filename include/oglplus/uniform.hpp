@@ -78,37 +78,56 @@ protected:
 class UniformMatrixSetters
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(Uniform)
+	OGLPLUS_ERROR_INFO_CONTEXT(UniformMatrix)
 
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, dv, v, GLdouble)
 };
 
+class ProgramUniformSetters
+{
+protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniform)
+
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, ui, t, GLuint)
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, i, t, GLint)
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, f, t, GLfloat)
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, d, t, GLdouble)
+
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, fv, v, GLfloat)
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, dv, v, GLdouble)
+};
+
+class ProgramUniformMatrixSetters
+{
+protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniformMatrix)
+
+	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, fv, v, GLfloat)
+	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, dv, v, GLdouble)
+};
+
 } // namespace aux
 
-/// Encapsulates uniform shader variable functionality
+/// Base template for Uniform and ProgramUniform
 /**
- *  @ingroup shader_variables
+ *  @note Do not use this class directly use Uniform or ProgramUniform
+ *  instead.
  */
-class Uniform
+template <class SetOps, class MatrixSetOps>
+class UniformBase
  : public UniformOps
- , public aux::ShaderDataSetOps<
-	aux::UniformSetters,
-	aux::ActiveProgramCallOps,
-	4
->, public aux::ShaderMatrixSetOps<
-	aux::UniformMatrixSetters,
-	aux::ActiveProgramCallOps
->
+ , public SetOps
+ , public MatrixSetOps
 {
 public:
 	/// Reference a uniform identified by @p identifier in the @p program
-	Uniform(const Program& program, const GLchar* identifier)
+	UniformBase(const Program& program, const GLchar* identifier)
 	 : UniformOps(program, identifier)
 	{ }
 
 	/// Reference a uniform identified by @p identifier in the @p program
-	Uniform(const Program& program, const String& identifier)
+	UniformBase(const Program& program, const String& identifier)
 	 : UniformOps(program, identifier.c_str())
 	{ }
 
@@ -127,7 +146,7 @@ public:
 	template <size_t Cols, typename T>
 	void Set(const T* v) const
 	{
-		this->_do_set<Cols>(
+		this->template _do_set<Cols>(
 			this->_program,
 			this->_index,
 			v
@@ -138,7 +157,7 @@ public:
 	template <size_t Cols, typename T>
 	void Set(GLsizei count, const T* v) const
 	{
-		this->_do_set_many<Cols>(
+		this->template _do_set_many<Cols>(
 			this->_program,
 			this->_index,
 			count,
@@ -150,7 +169,7 @@ public:
 	template <size_t Cols, typename T>
 	void Set(const std::vector<T>& v) const
 	{
-		this->_do_set_many<Cols>(
+		this->template _do_set_many<Cols>(
 			this->_program,
 			this->_index,
 			v.size(),
@@ -162,7 +181,7 @@ public:
 	template <typename T, size_t N>
 	void Set(const Vector<T, N>& vector) const
 	{
-		this->_do_set<N>(
+		this->template _do_set<N>(
 			this->_program,
 			this->_index,
 			Data(vector)
@@ -180,7 +199,7 @@ public:
 		t.reserve(v.size()*N);
 		for(auto i=v.begin(), e=v.end(); i!=e; ++i)
 			t.insert(t.end(), Data(*i), Data(*i)+N);
-		this->_do_set_many<N>(
+		this->template _do_set_many<N>(
 			this->_program,
 			this->_index,
 			t.size(),
@@ -189,22 +208,10 @@ public:
 	}
 
 	/// Set the matrix components of the uniform
-	template <size_t Cols, typename ... T>
-	void SetMatrix(T ... v) const
-	{
-		this->_do_set_mat<Cols>(
-			this->_program,
-			this->_index,
-			false,
-			v...
-		);
-	}
-
-	/// Set the matrix components of the uniform
 	template <size_t Cols, size_t Rows, typename T>
 	void SetMatrix(size_t count, const T* v) const
 	{
-		this->_do_set_mat<Cols, Rows>(
+		this->template _do_set_mat<Cols, Rows>(
 			this->_program,
 			this->_index,
 			count,
@@ -217,7 +224,7 @@ public:
 	template <typename T, size_t Rows, size_t Cols>
 	void SetMatrix(const Matrix<T, Rows, Cols>& matrix) const
 	{
-		this->_do_set_mat<Cols, Rows>(
+		this->template _do_set_mat<Cols, Rows>(
 			this->_program,
 			this->_index,
 			1,
@@ -225,7 +232,51 @@ public:
 			Data(matrix)
 		);
 	}
+
+	/// Set the matrix components of the uniform
+	template <size_t Cols, typename ... T>
+	void SetMatrix(T ... v) const
+	{
+		this->template _do_set_mat_p<Cols>(
+			this->_program,
+			this->_index,
+			false,
+			v...
+		);
+	}
 };
+
+/// Class encapsulating Uniform shader variable functionality
+/**
+ *  @ingroup shader_variables
+ */
+typedef UniformBase<
+	aux::ShaderDataSetOps<
+		aux::UniformSetters,
+		aux::ActiveProgramCallOps,
+		4
+	>,
+	aux::ShaderMatrixSetOps<
+		aux::UniformMatrixSetters,
+		aux::ActiveProgramCallOps
+	>
+> Uniform;
+
+/// Class encapsulating ProgramUniform shader variable functionality
+/**
+ *  @ingroup shader_variables
+ */
+typedef UniformBase<
+	aux::ShaderDataSetOps<
+		aux::ProgramUniformSetters,
+		aux::SpecificProgramCallOps,
+		4
+	>,
+	aux::ShaderMatrixSetOps<
+		aux::ProgramUniformMatrixSetters,
+		aux::SpecificProgramCallOps
+	>
+> ProgramUniform;
 
 } // namespace oglplus
 

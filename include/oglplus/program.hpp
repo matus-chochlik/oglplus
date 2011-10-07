@@ -63,9 +63,6 @@ public:
 } // namespace aux
 
 class VertexAttribOps;
-class VertexAttribArray;
-class Uniform;
-class UniformBlock;
 
 /// Program operations wrapper helper class
 /** This class implements OpenGL shading language program operations.
@@ -240,6 +237,13 @@ public:
 			Program,
 			_name
 		));
+	}
+
+	/// Deactivates the currently active/used program (if any)
+	static void UseNone(void)
+	{
+		::glUseProgram(0);
+		AssertNoError(OGLPLUS_ERROR_INFO(UseProgram));
 	}
 
 	/// Information about a single active vertex attribute or uniform

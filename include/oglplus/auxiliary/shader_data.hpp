@@ -24,7 +24,7 @@ class ActiveProgramCallOps
 protected:
 	template <typename T, typename UI>
 	static void _call_set_v(
-		GLuint program,
+		GLuint /*program*/,
 		GLuint index,
 		void(*_fn)(UI, const T*),
 		const T* v
@@ -35,7 +35,7 @@ protected:
 
 	template <typename T, typename UI, typename SI>
 	static void _call_set_v(
-		GLuint program,
+		GLuint /*program*/,
 		GLuint index,
 		void(*_fn)(UI, SI, const T*),
 		const T* v
@@ -46,7 +46,7 @@ protected:
 
 	template <typename T, typename UI, typename SI>
 	static void _call_set_vn(
-		GLuint program,
+		GLuint /*program*/,
 		GLuint index,
 		GLsizei n,
 		void(*_fn)(UI, SI, const T*),
@@ -58,7 +58,7 @@ protected:
 
 	template <typename ... T, typename UI>
 	static void _call_set_t(
-		GLuint program,
+		GLuint /*program*/,
 		GLuint index,
 		void(*_fn)(UI, T...),
 		T ... v
@@ -69,7 +69,7 @@ protected:
 
 	template <typename T, typename ID, typename CT, typename TP>
 	static void _call_set_m(
-		GLuint program,
+		GLuint /*program*/,
 		GLuint index,
 		GLsizei count,
 		GLboolean transpose,
@@ -78,6 +78,68 @@ protected:
 	)
 	{
 		_fn(index, count, transpose, v);
+	}
+};
+
+class SpecificProgramCallOps
+{
+protected:
+	template <typename T, typename UI>
+	static void _call_set_v(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(GLuint, UI, const T*),
+		const T* v
+	)
+	{
+		_fn(program, index, v);
+	}
+
+	template <typename T, typename UI, typename SI>
+	static void _call_set_v(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(GLuint, UI, SI, const T*),
+		const T* v
+	)
+	{
+		_fn(program, index, 1, v);
+	}
+
+	template <typename T, typename UI, typename SI>
+	static void _call_set_vn(
+		GLuint program,
+		GLuint index,
+		GLsizei n,
+		void(*_fn)(GLuint, UI, SI, const T*),
+		const T* v
+	)
+	{
+		_fn(program, index, n, v);
+	}
+
+	template <typename ... T, typename UI>
+	static void _call_set_t(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(GLuint, UI, T...),
+		T ... v
+	)
+	{
+		_fn(program, index, v...);
+	}
+
+	template <typename T, typename ID, typename CT, typename TP>
+	static void _call_set_m(
+		GLuint program,
+		GLuint index,
+		GLsizei count,
+		GLboolean transpose,
+		void(*_fn)(GLuint, ID, CT, TP, const T*),
+		const T* v
+	)
+	{
+		_fn(program, index, count, transpose, v);
 	}
 };
 
@@ -270,7 +332,7 @@ protected:
 	}
 
 	template <size_t Cols, typename T, typename ... P>
-	static void _do_set_mat(
+	static void _do_set_mat_p(
 		GLuint program,
 		GLuint index,
 		bool transpose,
