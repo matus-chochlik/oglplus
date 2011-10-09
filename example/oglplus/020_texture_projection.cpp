@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/018_stained_glass_cube.cpp
- *  @brief Shows how to draw a semi-transparent textured stained glass cube
+ *  @example oglplus/020_texture_projection.cpp
+ *  @brief Shows how to project a texture on a cube
  *
- *  @image html 018_stained_glass_cube.png
+ *  @image html 020_texture_projection.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -46,7 +46,7 @@ private:
 	VertexArray cube;
 
 	// VBOs for the cube's vertex attributes
-	Buffer verts, normals, texcoords;
+	Buffer verts, normals;
 
 	// The stained glass texture
 	Texture tex;
@@ -59,9 +59,9 @@ public:
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+			"uniform mat4 TexProjectionMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
-			"in vec2 TexCoord;"
 			"out vec3 vertNormal;"
 			"out vec3 vertLight;"
 			"out vec2 vertTexCoord;"
@@ -70,13 +70,18 @@ public:
 			"{"
 			"	vertNormal = ("
 			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
+			"		vec4(-Normal, 0.0)"
 			"	).xyz;"
 			"	vertLight = ("
 			"		vec4(LightPos, 0.0)-"
 			"		ModelMatrix * Position"
 			"	).xyz;"
-			"	vertTexCoord = TexCoord;"
+			"	vec4 coord = ("
+			"		TexProjectionMatrix *"
+			"		ModelMatrix *"
+			"		Position"
+			"	);"
+			"	vertTexCoord = (coord.st / coord.w)*0.5 + 0.5;"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
@@ -102,10 +107,9 @@ public:
 			"		vertNormal, "
 			"		normalize(vertLight)"
 			"	) / l : 0.0;"
-			"	float e = (d < 0? -0.7*d: d) * 3.0;"
-			"	float i = 0.1 + e;"
+			"	float i = 0.1 + 4.2*max(d, 0.0);"
 			"	vec4 t  = texture(TexUnit, vertTexCoord);"
-			"	fragColor = vec4(t.rgb*i, t.a);"
+			"	fragColor = vec4(t.rgb*i*sqrt(1.0-t.a), 1.0);"
 			"}"
 		);
 		// compile it
@@ -141,39 +145,26 @@ public:
 			attr.Enable();
 		}
 
-		texcoords.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_cube.TexCoordinates(data);
-			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
-
 		// setup the texture
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
 			bound_tex.Image2D(images::LoadTexture("flower_glass"));
 			bound_tex.GenerateMipmap();
+			bound_tex.BorderColor(Vec4f(1.0f, 1.0f, 1.0f, 0.0f));
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			bound_tex.WrapS(TextureWrap::ClampToBorder);
+			bound_tex.WrapT(TextureWrap::ClampToBorder);
 		}
 		//
 		Uniform(prog, "TexUnit").Set(0);
-		Uniform(prog, "LightPos").Set(Vec3f(1.0f, 2.0f, 3.0f));
+		Uniform(prog, "CameraMatrix").SetMatrix(
+			CamMatrixf::LookingAt(Vec3f(0.0f, 1.0f, 2.0f), Vec3f())
+		);
 		//
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
-		gl.Enable(Capability::Blend);
-		gl.BlendFunc(
-			BlendFn::SrcAlpha,
-			BlendFn::OneMinusSrcAlpha
-		);
-
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_cube.FaceWinding());
 	}
@@ -195,25 +186,21 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		// set the matrix for camera orbiting the origin
-		Uniform(prog, "CameraMatrix").SetMatrix(
-			CamMatrixf::Orbiting(
-				Vec3f(),
-				4.0 - SineWave(time / 6.0) * 2.5,
-				FullCircles(time * 0.7),
-				Degrees(SineWave(time / 30.0) * 90)
-			)
+		Vec3f lightPos(-1.0f, 2.0f, 2.0f);
+		lightPos *= (1.0f - SineWave(time/5.0f)*0.4f);
+		Uniform(prog, "LightPos").Set(lightPos);
+		Uniform(prog, "TexProjectionMatrix").SetMatrix(
+			CamMatrixf::Perspective(Degrees(10), 1.0, 1, 100) *
+			CamMatrixf::LookingAt(lightPos, Vec3f())
 		);
 
 		// set the model matrix
 		Uniform(prog, "ModelMatrix").SetMatrix(
-			ModelMatrixf::RotationX(FullCircles(time * 0.1))
+			ModelMatrixf::RotationY(FullCircles(time * 0.1))
 		);
 
 		cube.Bind();
 		gl.CullFace(Face::Front);
-		cube_instr.Draw(cube_indices);
-		gl.CullFace(Face::Back);
 		cube_instr.Draw(cube_indices);
 	}
 

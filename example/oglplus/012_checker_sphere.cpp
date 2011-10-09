@@ -131,7 +131,6 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		// set the projection matrix fov = 24 deg. aspect = width/height
 		prog.Use();
 		Uniform(prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
