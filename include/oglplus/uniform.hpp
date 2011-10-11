@@ -25,7 +25,7 @@ namespace oglplus {
 
 // Helper class for Uniform
 class UniformOps
- : public FriendOf<Program>
+ : public FriendOf<ProgramOps>
 {
 protected:
 	GLuint _program;
@@ -33,11 +33,11 @@ protected:
 
 	friend class FriendOf<UniformOps>;
 
-	UniformOps(const Program& program, const GLchar* identifier)
-	 : _program(FriendOf<Program>::GetName(program))
+	UniformOps(const ProgramOps& program, const GLchar* identifier)
+	 : _program(FriendOf<ProgramOps>::GetName(program))
 	 , _index(
 		::glGetUniformLocation(
-			FriendOf<Program>::GetName(program),
+			FriendOf<ProgramOps>::GetName(program),
 			identifier
 		)
 	)
@@ -51,7 +51,7 @@ protected:
 				OGLPLUS_ERROR_INFO(GetUniformLocation),
 				Error::PropertyMap({
 					{"identifier", identifier},
-					{"program", program.Description()}
+					{"program", ObjectDescription(program)}
 				})
 			);
 		}
@@ -230,6 +230,26 @@ public:
 			1,
 			true,
 			Data(matrix)
+		);
+	}
+
+	/// Set the matrix components of the uniform
+	template <typename T, size_t Rows, size_t Cols>
+	void SetMatrix(const std::vector<Matrix<T, Rows, Cols> >& m) const
+	{
+		// TODO: this could be optimized in situations
+		// when the alignment is right and could work
+		// without the temporary copy
+		std::vector<T> t;
+		t.reserve(m.size() * Rows * Cols);
+		for(auto i=m.begin(), e=m.end(); i!=e; ++i)
+			t.insert(t.end(), Data(*i), Data(*i)+Rows*Cols);
+		this->template _do_set_mat<Cols, Rows>(
+			this->_program,
+			this->_index,
+			m.size(),
+			true,
+			t.data()
 		);
 	}
 

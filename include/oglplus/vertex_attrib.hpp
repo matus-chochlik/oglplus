@@ -38,7 +38,7 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 #endif
 
 class VertexAttribOps
- : public FriendOf<Program>
+ : public FriendOf<ProgramOps>
 {
 protected:
 	GLint _index;
@@ -49,10 +49,10 @@ protected:
 	 : _index(GLint(i))
 	{ }
 
-	VertexAttribOps(const Program& program, const GLchar* identifier)
+	VertexAttribOps(const ProgramOps& program, const GLchar* identifier)
 	 : _index(
 		::glGetAttribLocation(
-			FriendOf<Program>::GetName(program),
+			FriendOf<ProgramOps>::GetName(program),
 			identifier
 		)
 	)
@@ -66,16 +66,19 @@ protected:
 				OGLPLUS_ERROR_INFO(GetAttribLocation),
 				Error::PropertyMap({
 					{"identifier", identifier},
-					{"program", program.Description()}
+					{"program", ObjectDescription(program)}
 				})
 			);
 		}
 	}
 public:
-	void BindLocation(const Program& program, const GLchar* identifier) const
+	void BindLocation(
+		const ProgramOps& program,
+		const GLchar* identifier
+	) const
 	{
 		::glBindAttribLocation(
-			FriendOf<Program>::GetName(program),
+			FriendOf<ProgramOps>::GetName(program),
 			_index,
 			identifier
 		);
@@ -83,12 +86,12 @@ public:
 	}
 
 	void BindLocation(
-		const Program& program,
+		const ProgramOps& program,
 		const String& identifier
 	) const
 	{
 		::glBindAttribLocation(
-			FriendOf<Program>::GetName(program),
+			FriendOf<ProgramOps>::GetName(program),
 			_index,
 			identifier.c_str()
 		);

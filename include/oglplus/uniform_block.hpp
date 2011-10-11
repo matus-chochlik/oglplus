@@ -28,7 +28,7 @@ namespace oglplus {
  *  @ingroup shader_variables
  */
 class UniformBlock
- : public FriendOf<Program>
+ : public FriendOf<ProgramOps>
 {
 protected:
 	GLuint _program;
@@ -89,22 +89,22 @@ protected:
 	}
 public:
 	/// Reference a uniform block at @p index in the @p program
-	UniformBlock(const Program& program, GLint index)
-	 : _program(FriendOf<Program>::GetName(program))
+	UniformBlock(const ProgramOps& program, GLint index)
+	 : _program(FriendOf<ProgramOps>::GetName(program))
 	 , _index(index)
 	{ }
 
 	/// Reference a uniform block @p identifier in the @p program
-	UniformBlock(const Program& program, const GLchar* identifier)
-	 : _program(FriendOf<Program>::GetName(program))
+	UniformBlock(const ProgramOps& program, const GLchar* identifier)
+	 : _program(FriendOf<ProgramOps>::GetName(program))
 	 , _index(::glGetUniformBlockIndex(_program, identifier))
 	{
 		_check(identifier);
 	}
 
 	/// Reference a uniform block @p identifier in the @p program
-	UniformBlock(const Program& program, const String& identifier)
-	 : _program(FriendOf<Program>::GetName(program))
+	UniformBlock(const ProgramOps& program, const String& identifier)
+	 : _program(FriendOf<ProgramOps>::GetName(program))
 	 , _index(::glGetUniformBlockIndex(_program, identifier.c_str()))
 	{
 		_check(identifier.c_str());

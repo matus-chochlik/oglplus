@@ -91,29 +91,6 @@ public:
 
 
 template <class ObjectOps>
-class Managed
- : public ObjectOps
- , public FriendOf<ObjectOps>
-{
-private:
-	Managed(void)
-	{ }
-
-	Managed(GLuint _name)
-	{
-		FriendOf<ObjectOps>::SetName(*this, _name);
-	}
-
-	friend class Array<Object<ObjectOps, true> >;
-	friend class aux::BaseIter<Managed>;
-public:
-	~Managed(void)
-	{
-		FriendOf<ObjectOps>::SetName(*this, 0);
-	}
-};
-
-template <class ObjectOps>
 class Array<Object<ObjectOps, true> >
 {
 private:

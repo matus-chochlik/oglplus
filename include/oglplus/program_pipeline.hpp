@@ -30,7 +30,7 @@ namespace oglplus {
  */
 class ProgramPipelineOps
  : public Named
- , public FriendOf<Program>
+ , public FriendOf<ProgramOps>
 {
 protected:
 	static void _init(GLsizei count, GLuint& _name)
@@ -105,12 +105,12 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	aux::ProgPLUseStages UseStages(const Program& program) const
+	aux::ProgPLUseStages UseStages(const ProgramOps& program) const
 	{
 		assert(_name != 0);
 		return aux::ProgPLUseStages(
 			_name,
-			FriendOf<Program>::GetName(program),
+			FriendOf<ProgramOps>::GetName(program),
 			0
 		);
 	}
@@ -118,37 +118,37 @@ public:
 	/// Use the specified @p stages of the @p program
 	void UseStages(
 		const std::initializer_list<Stage>& stages,
-		const Program& program
+		const ProgramOps& program
 	) const
 	{
 		assert(_name != 0);
 		::glUseProgramStages(
 			_name,
 			aux::MakeBitfield(stages),
-			FriendOf<Program>::GetName(program)
+			FriendOf<ProgramOps>::GetName(program)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 
 	/// Use all stages of the @p program
-	void UseAllStages(const Program& program) const
+	void UseAllStages(const ProgramOps& program) const
 	{
 		assert(_name != 0);
 		::glUseProgramStages(
 			_name,
 			GL_ALL_SHADER_BITS,
-			FriendOf<Program>::GetName(program)
+			FriendOf<ProgramOps>::GetName(program)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 
 	/// Make the @p program active for this program pipeline
-	void ActiveShaderProgram(const Program& program) const
+	void ActiveShaderProgram(const ProgramOps& program) const
 	{
 		assert(_name != 0);
 		::glActiveShaderProgram(
 			_name,
-			FriendOf<Program>::GetName(program)
+			FriendOf<ProgramOps>::GetName(program)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
 	}

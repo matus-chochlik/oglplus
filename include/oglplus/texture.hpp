@@ -152,7 +152,7 @@ enum class TextureWrap : GLenum {
  */
 class TextureOps
  : public Named
- , public FriendOf<Buffer>
+ , public FriendOf<BufferOps>
 {
 protected:
 	static void _init(GLsizei count, GLuint& _name)
@@ -1311,13 +1311,13 @@ public:
 	static void SetBuffer(
 		Target target,
 		PixelDataInternalFormat internal_format,
-		const Buffer& buffer
+		const BufferOps& buffer
 	)
 	{
 		::glTexBuffer(
 			GLenum(target),
 			GLenum(internal_format),
-			FriendOf<Buffer>::GetName(buffer)
+			FriendOf<BufferOps>::GetName(buffer)
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexBuffer,

@@ -14,7 +14,6 @@
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
-#include <oglplus/bound/renderbuffer.hpp>
 
 #include <cmath>
 

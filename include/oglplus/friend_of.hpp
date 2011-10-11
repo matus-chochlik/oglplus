@@ -13,6 +13,7 @@
 #define OGLPLUS_FRIEND_OF_1107121519_HPP
 
 #include <oglplus/auxiliary/named.hpp>
+#include <oglplus/auxiliary/strings.hpp>
 
 namespace oglplus {
 
@@ -42,16 +43,12 @@ template <class ObjectOps>
 class FriendOf
  : public FriendOf<Named>
 {
-private:
+protected:
 	static void SetName(ObjectOps& object, GLuint name)
 	{
 		FriendOf<Named>::SetName(object, name);
 	}
 
-	friend class Managed<ObjectOps>;
-	friend class Managed<Object<ObjectOps, true> >;
-	friend class Managed<Object<ObjectOps, false> >;
-protected:
 	static GLuint GetName(const ObjectOps& object)
 	{
 		return FriendOf<Named>::GetName(object);
@@ -61,19 +58,12 @@ protected:
 	{
 		return object._index;
 	}
-};
-
-template <class ObjectOps, bool MultiObject>
-class Object;
-
-template <class ObjectOps, bool MultiObject>
-class FriendOf<Object<ObjectOps, MultiObject> >
- : public FriendOf<ObjectOps>
-{
-protected:
-	static GLuint GetName(const Object<ObjectOps, MultiObject>& object)
+public:
+	static const String& GetDescription(const ObjectOps& object)
 	{
-		return FriendOf<ObjectOps>::GetName(object);
+		return aux::ObjectDescRegistry<ObjectOps>::_get_desc(
+			GetName(object)
+		);
 	}
 };
 #endif

@@ -72,7 +72,7 @@ class VertexAttribOps;
  */
 class ProgramOps
  : public Named
- , public FriendOf<Shader>
+ , public FriendOf<ShaderOps>
  , public FriendOf<VertexAttribOps>
 {
 protected:
@@ -97,10 +97,10 @@ protected:
 	friend class FriendOf<ProgramOps>;
 public:
 	/// Attaches the shader to this program
-	void AttachShader(const Shader& shader)
+	void AttachShader(const ShaderOps& shader)
 	{
 		assert(_name != 0);
-		::glAttachShader(_name, FriendOf<Shader>::GetName(shader));
+		::glAttachShader(_name, FriendOf<ShaderOps>::GetName(shader));
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			AttachShader,
 			Program,
@@ -110,10 +110,10 @@ public:
 
 
 	/// Detaches the shader to this program
-	void DetachShader(const Shader& shader)
+	void DetachShader(const ShaderOps& shader)
 	{
 		assert(_name != 0);
-		::glDetachShader(_name, FriendOf<Shader>::GetName(shader));
+		::glDetachShader(_name, FriendOf<ShaderOps>::GetName(shader));
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			DetachShader,
 			Program,

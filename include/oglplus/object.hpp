@@ -62,7 +62,7 @@ namespace oglplus {
  *    Object(Object::Kind kind, String description);
  *
  *    // Returns the textual description (if any) of the Object
- *    const String Description(void) const;
+ *    friend const String Description(Object);
  *
  *  };
  *  @endcode
@@ -70,6 +70,12 @@ namespace oglplus {
 
 template <class Object>
 class Array;
+
+template <class ObjectOps>
+struct BaseOps
+{
+	typedef ObjectOps Type;
+};
 
 /// Allows to make managed copies of instances of Object
 /** For obvious reasons @ref oglplus_object "objects" are not copyable,
@@ -238,11 +244,19 @@ public:
 };
 
 template <class ObjectOps, bool MultiObject>
-class Managed<Object<ObjectOps, MultiObject> >
- : public ObjectOps
- , public FriendOf<ObjectOps>
+struct BaseOps<Object<ObjectOps, MultiObject> >
+{
+	typedef ObjectOps Type;
+};
+
+template <class _Object>
+class Managed
+ : public BaseOps<_Object>::Type
+ , public FriendOf<typename BaseOps<_Object>::Type>
 {
 private:
+	typedef typename BaseOps<_Object>::Type ObjectOps;
+
 	Managed(void)
 	{ }
 public:
@@ -250,11 +264,30 @@ public:
 	 : ObjectOps(obj)
 	{ }
 
+	Managed(GLuint _name)
+	{
+		FriendOf<ObjectOps>::SetName(*this, _name);
+	}
+
 	~Managed(void)
 	{
 		FriendOf<ObjectOps>::SetName(*this, 0);
 	}
 };
+
+template <class _Object>
+struct BaseOps<Managed<_Object> >
+{
+	typedef typename BaseOps<_Object>::Type Type;
+};
+
+template <class _Object>
+static const String& ObjectDescription(const _Object& object)
+{
+	return FriendOf<
+		typename BaseOps<_Object>::Type
+	>::GetDescription(object);
+}
 
 } // namespace oglplus
 

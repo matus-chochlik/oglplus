@@ -45,8 +45,8 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
  */
 class FramebufferOps
  : public Named
- , public FriendOf<Renderbuffer>
- , public FriendOf<Texture>
+ , public FriendOf<RenderbufferOps>
+ , public FriendOf<TextureOps>
 {
 protected:
 	static void _init(GLsizei count, GLuint& _name)
@@ -163,14 +163,14 @@ public:
 	static void AttachRenderbuffer(
 		Target target,
 		Attachment attachment,
-		const Renderbuffer& renderbuffer
+		const RenderbufferOps& renderbuffer
 	)
 	{
 		::glFramebufferRenderbuffer(
 			GLenum(target),
 			GLenum(attachment),
 			GL_RENDERBUFFER,
-			FriendOf<Renderbuffer>::GetName(renderbuffer)
+			FriendOf<RenderbufferOps>::GetName(renderbuffer)
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferRenderbuffer,
@@ -183,14 +183,14 @@ public:
 	static void AttachColorRenderbuffer(
 		Target target,
 		FramebufferColorAttachment attachment,
-		const Renderbuffer& renderbuffer
+		const RenderbufferOps& renderbuffer
 	)
 	{
 		::glFramebufferRenderbuffer(
 			GLenum(target),
 			GL_COLOR_ATTACHMENT0 + GLuint(attachment),
 			GL_RENDERBUFFER,
-			FriendOf<Renderbuffer>::GetName(renderbuffer)
+			FriendOf<RenderbufferOps>::GetName(renderbuffer)
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferRenderbuffer,
@@ -203,14 +203,14 @@ public:
 	static void AttachTexture(
 		Target target,
 		Attachment attachment,
-		const Texture& texture,
+		const TextureOps& texture,
 		GLint level
 	)
 	{
 		::glFramebufferTexture(
 			GLenum(target),
 			GLenum(attachment),
-			FriendOf<Texture>::GetName(texture),
+			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
@@ -224,14 +224,14 @@ public:
 	static void AttachColorTexture(
 		Target target,
 		FramebufferColorAttachment attachment,
-		const Texture& texture,
+		const TextureOps& texture,
 		GLint level
 	)
 	{
 		::glFramebufferTexture(
 			GLenum(target),
 			GL_COLOR_ATTACHMENT0 + GLenum(attachment),
-			FriendOf<Texture>::GetName(texture),
+			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
@@ -246,7 +246,7 @@ public:
 		Target target,
 		Attachment attachment,
 		Texture::Target textarget,
-		const Texture& texture,
+		const TextureOps& texture,
 		GLint level
 	)
 	{
@@ -254,7 +254,7 @@ public:
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<Texture>::GetName(texture),
+			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
@@ -269,7 +269,7 @@ public:
 		Target target,
 		Attachment attachment,
 		Texture::Target textarget,
-		const Texture& texture,
+		const TextureOps& texture,
 		GLint level
 	)
 	{
@@ -277,7 +277,7 @@ public:
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<Texture>::GetName(texture),
+			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
@@ -292,7 +292,7 @@ public:
 		Target target,
 		Attachment attachment,
 		Texture::Target textarget,
-		const Texture& texture,
+		const TextureOps& texture,
 		GLint level,
 		GLint layer
 	)
@@ -301,7 +301,7 @@ public:
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<Texture>::GetName(texture),
+			FriendOf<TextureOps>::GetName(texture),
 			level,
 			layer
 		);
@@ -316,7 +316,7 @@ public:
 	static void AttachTextureLayer(
 		Target target,
 		Attachment attachment,
-		const Texture& texture,
+		const TextureOps& texture,
 		GLint level,
 		GLint layer
 	)
@@ -324,7 +324,7 @@ public:
 		::glFramebufferTextureLayer(
 			GLenum(target),
 			GLenum(attachment),
-			FriendOf<Texture>::GetName(texture),
+			FriendOf<TextureOps>::GetName(texture),
 			level,
 			layer
 		);
