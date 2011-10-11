@@ -68,7 +68,6 @@ do
 	shift
 done
 
-echo "${oglplus_prefix}"; exit
 #
 # check for prerequisities
 #
