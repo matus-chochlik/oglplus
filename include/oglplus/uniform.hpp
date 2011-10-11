@@ -71,6 +71,7 @@ protected:
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, d, t, GLdouble)
 
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, iv, v, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, dv, v, GLdouble)
 };
@@ -94,6 +95,7 @@ protected:
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, d, t, GLdouble)
 
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, iv, v, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, dv, v, GLdouble)
 };
