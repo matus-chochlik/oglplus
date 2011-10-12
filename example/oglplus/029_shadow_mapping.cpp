@@ -424,7 +424,7 @@ public:
 		shadow_pp.Bind();
 
 		const auto light_persp_matrix = CamMatrixf::Perspective(
-			Degrees(90),
+			Degrees(45),
 			1.0, 1.0, 20.0
 		);
 		ProgramUniform(vert_prog, "LightCount").Set(0);

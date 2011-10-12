@@ -1,3 +1,13 @@
+Version 0.4.0
+
+- A bug in the install script which caused it to exit before
+  installing anything was fixed
+- New member functions were added to ProgramPipeline
+- Wrapper class ProgramUniform* functionality was added
+- New Uniform setter functions were added
+- New examples were added
+- The documentation was updated
+
 Version 0.3.0
 
 - The CameraMatrix::Perspective function has been reimplemented

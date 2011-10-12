@@ -243,6 +243,7 @@ public:
 	}
 };
 
+#if !OGLPLUS_DOCUMENTATION_ONLY
 template <class ObjectOps, bool MultiObject>
 struct BaseOps<Object<ObjectOps, MultiObject> >
 {
@@ -288,6 +289,7 @@ static const String& ObjectDescription(const _Object& object)
 		typename BaseOps<_Object>::Type
 	>::GetDescription(object);
 }
+#endif
 
 } // namespace oglplus
 
