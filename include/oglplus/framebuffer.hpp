@@ -118,6 +118,25 @@ public:
 		/// READ_FRAMEBUFFER
 		Read = GL_READ_FRAMEBUFFER
 	};
+
+	/// Framebuffer status enumeration
+	enum class Status : GLenum {
+		/// FRAMEBUFFER_COMPLETE
+		Complete = GL_FRAMEBUFFER_COMPLETE,
+		/// FRAMEBUFFER_UNDEFINED
+		Undefined = GL_FRAMEBUFFER_UNDEFINED,
+		/// FRAMEBUFFER_INCOMPLETE_ATTACHMENT
+		IncompleteAttachment = GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT,
+		/// FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
+		IncompleteMissingAttachment =
+			GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT,
+		/// FRAMEBUFFER_UNSUPPORTED
+		Unsupported = GL_FRAMEBUFFER_UNSUPPORTED,
+		/// FRAMEBUFFER_INCOMPLETE_MULTISAMPLE
+		IncompleteMultisample = GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE,
+		/// FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
+		IncompleteLayerTargets = GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
+	};
 protected:
 	static GLenum _binding_query(Target target)
 	{
@@ -157,6 +176,33 @@ public:
 	{
 		::glBindFramebuffer(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindFramebuffer));
+	}
+
+	/// Checks the status of the framebuffer
+	/** Returns one of the values in the @c Status enumeration. For complete
+	 *  framebuffers this member function returns Status::Complete.
+	 *
+	 *  @see IsComplete
+	 */
+	static Status CheckStatus(Target target)
+	{
+		GLenum result = ::glCheckFramebufferStatus(GLenum(target));
+		if(result == 0) ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			CheckFramebufferStatus,
+			Framebuffer,
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+		return Status(result);
+	}
+
+	/// Returns true if the framebuffer is complete
+	/**
+	 *  @see Status
+	 *  @see CheckStatus
+	 */
+	static bool IsComplete(Target target)
+	{
+		return CheckStatus(target) == Status::Complete;
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of @p target
