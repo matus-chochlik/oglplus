@@ -22,6 +22,7 @@
 #include <oglplus/compare_func.hpp>
 #include <oglplus/stencil_op.hpp>
 #include <oglplus/color_log_op.hpp>
+#include <oglplus/color_buffer.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
 #include <oglplus/auxiliary/bitfield.hpp>
@@ -376,6 +377,13 @@ public:
 	{
 		::glPointSize(size);
 		AssertNoError(OGLPLUS_ERROR_INFO(PointSize));
+	}
+
+	/// Sets the destination color buffer
+	static void DrawBuffer(ColorBuffer buffer)
+	{
+		::glDrawBuffer(GLenum(buffer));
+		AssertNoError(OGLPLUS_ERROR_INFO(DrawBuffer));
 	}
 
 	/// Sets the current viewport
