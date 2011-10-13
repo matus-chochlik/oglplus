@@ -735,27 +735,27 @@ public:
 
 	struct _Perspective { };
 
-	CameraMatrix(_Perspective, Angle<T> fov, T aspect, T z_near, T z_far)
+	CameraMatrix(_Perspective, Angle<T> fov, T aspect, T near, T far)
 	 : Base(typename Base::NoInit())
 	{
 		assert(aspect > T(0));
 		assert(fov > Radians(T(0)));
 
-		T xmax = z_near * Tan(fov * T(0.5));
-		T xmin = -xmax;
+		T right = near * Tan(fov * T(0.5));
+		T left = -right;
 
-		T ymin = xmin / aspect;
-		T ymax = xmax / aspect;
+		T bottom = left / aspect;
+		T top = right / aspect;
 
-		T m00 = (T(2) * z_near) / (xmax - xmin);
-		T m11 = (T(2) * z_near) / (ymax - ymin);
-		T m22 = -(z_far + z_near) / (z_far - z_near);
+		T m00 = (T(2) * near) / (right - left);
+		T m11 = (T(2) * near) / (top - bottom);
+		T m22 = -(far + near) / (far - near);
 
-		T m20 = (xmax + xmin) / (xmax - xmin);
-		T m21 = (ymax + ymin) / (ymax - ymin);
+		T m20 = (right + left) / (right - left);
+		T m21 = (top + bottom) / (top - bottom);
 		T m23 = -T(1);
 
-		T m32 = -(T(2) * z_far * z_near) / (z_far - z_near);
+		T m32 = -(T(2) * far * near) / (far - near);
 
 		this->_m._data = {
 			 m00, T(0), T(0), T(0),
@@ -765,15 +765,62 @@ public:
 		};
 	}
 
-	/// Constructs a perspective prohection matrix from a vector and angle
+	/// Constructs a perspective projection matrix
+	/** Creates a new perspective matrix from x-axis @p fov angle,
+	 *  @p aspect and z-axis @p near and @p far planes
+	 */
 	static inline CameraMatrix Perspective(
 		Angle<T> fov,
 		T aspect,
-		T z_near,
-		T z_far
+		T near,
+		T far
 	)
 	{
-		return CameraMatrix(_Perspective(), fov, aspect, z_near, z_far);
+		return CameraMatrix(_Perspective(), fov, aspect, near, far);
+	}
+
+	struct _Ortho { };
+
+	CameraMatrix(_Ortho, T width, T aspect, T near, T far)
+	 : Base(typename Base::NoInit())
+	{
+		assert(aspect > T(0));
+		assert(width > T(0));
+
+		T right = width / T(2);
+		T left = -right;
+
+		T bottom = left / aspect;
+		T top = right / aspect;
+
+		T m00 =  T(2) / (right - left);
+		T m11 =  T(2) / (top - bottom);
+		T m22 = -T(2) / (far - near);
+
+		T m30 = -(right + left) / (right - left);
+		T m31 = -(top + bottom) / (top - bottom);
+		T m32 = -(far + near)   / (far - near);
+
+		this->_m._data = {
+			 m00, T(0), T(0),  m30,
+			T(0),  m11, T(0),  m31,
+			T(0), T(0),  m22,  m32,
+			T(0), T(0), T(0), T(1),
+		};
+	}
+
+	/// Constructs a orthographic projection matrix
+	/** Creates a new orthographic matrix from x-axis @p width,
+	 *  @p aspect and z-axis @p near and @p far planes
+	 */
+	static inline CameraMatrix Ortho(
+		T width,
+		T aspect,
+		T near,
+		T far
+	)
+	{
+		return CameraMatrix(_Ortho(), width, aspect, near, far);
 	}
 
 	struct _LookingAt { };

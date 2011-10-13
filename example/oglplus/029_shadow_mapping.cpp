@@ -484,6 +484,7 @@ public:
 		ProgramUniform(vert_prog, "LightCount").Set(
 			int(light_positions.size())
 		);
+
 		ProgramUniform(vert_prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(
 				Degrees(50),
