@@ -12,7 +12,10 @@
 #ifndef OGLPLUS_AUX_SHADER_DATA_1107121519_HPP
 #define OGLPLUS_AUX_SHADER_DATA_1107121519_HPP
 
+#include <oglplus/error.hpp>
+#include <oglplus/string.hpp>
 #include <oglplus/auxiliary/varpara_fns.hpp>
+#include <oglplus/auxiliary/strings.hpp>
 
 #include <type_traits>
 
@@ -143,13 +146,55 @@ protected:
 	}
 };
 
-template <class Setters, class Callers, size_t SetMax>
+class ShaderDataSetUtils
+{
+protected:
+	static void _do_report_if_error(
+		const oglplus::ErrorInfo& error_info,
+		GLuint program,
+		GLuint index,
+		String (*_get_name)(GLuint, GLuint)
+	)
+	{
+		GLenum result = ::glGetError();
+		if(result != GL_NO_ERROR) ThrowOnError(
+			result,
+			"Error setting shading program variable value",
+			error_info,
+			oglplus::Error::PropertyMap({
+				{
+					"program",
+					ObjectDescRegistry<ProgramOps>::
+					_get_desc(program)
+				},
+				{
+					"identifier",
+					_get_name(program, index)
+				}
+			})
+		);
+	}
+};
+
+template <class Queries, class Setters, class Callers, size_t SetMax>
 class ShaderDataSetOps
- : public Setters
+ : public Queries
+ , public Setters
  , public Callers
+ , public ShaderDataSetUtils
 {
 private:
-	using Setters::_errinf_ctxt;
+	static void _report_if_error(GLuint program, GLuint base_index)
+	{
+		ShaderDataSetUtils::_do_report_if_error(
+			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
+			program,
+			base_index,
+			&Queries::_query_name
+		);
+	}
+
+	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
 	typedef std::false_type _set_done;
 	typedef std::true_type  _set_cont;
 
@@ -163,6 +208,7 @@ private:
 	static void _do_set_v(
 		_set_cont,
 		GLuint program,
+		GLuint base_index,
 		GLuint index,
 		const T* v
 	)
@@ -173,10 +219,11 @@ private:
 			::std::get<3>(Setters::_fns_v(v)),
 			v
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
+		_report_if_error(program, base_index);
 		_do_set_v<N - 4, T>(
 			_set_mode<N - 4>(),
 			program,
+			base_index,
 			index+1,
 			v+4
 		);
@@ -186,6 +233,7 @@ private:
 	static void _do_set_v(
 		_set_done,
 		GLuint program,
+		GLuint base_index,
 		GLuint index,
 		const T* v
 	)
@@ -196,13 +244,14 @@ private:
 			::std::get<N-1>(Setters::_fns_v(v)),
 			v
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
+		_report_if_error(program, base_index);
 	}
 
 	template <size_t N, typename T>
 	static void _do_set_n(
 		_set_done,
 		GLuint program,
+		GLuint base_index,
 		GLuint index,
 		GLsizei n,
 		const T* v
@@ -215,15 +264,16 @@ private:
 			::std::get<N-1>(Setters::_fns_v(v)),
 			v
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
+		_report_if_error(program, base_index);
 	}
 
 	template <typename S, typename ... T>
 	static void _do_set_t(
 		_set_cont,
 		GLuint program,
+		GLuint base_index,
 		GLuint index,
-		 S v0, S v1, S v2, S v3,
+		S v0, S v1, S v2, S v3,
 		T ... v
 	)
 	{
@@ -233,14 +283,21 @@ private:
 			std::get<3>(Setters::_fns_t(&v0)),
 			v0, v1, v2, v3
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
-		_do_set_t(_set_mode<sizeof...(T)>(), program, index+1, v...);
+		_report_if_error(program, base_index);
+		_do_set_t(
+			_set_mode<sizeof...(T)>(),
+			program,
+			base_index,
+			index+1,
+			v...
+		);
 	}
 
 	template <typename ... T>
 	static void _do_set_t(
 		_set_done,
 		GLuint program,
+		GLuint base_index,
 		GLuint index,
 		T ... v
 	)
@@ -251,7 +308,7 @@ private:
 			std::get<sizeof...(T) - 1>(Setters::_fns_t(&v...)),
 			v...
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
+		_report_if_error(program, base_index);
 	}
 protected:
 	template <typename ... T>
@@ -265,9 +322,10 @@ protected:
 			_set_mode<sizeof...(T)>(),
 			program,
 			index,
+			index,
 			v...
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
+		_report_if_error(program, index);
 	}
 
 	template <size_t Cols, typename T>
@@ -277,7 +335,13 @@ protected:
 			(Cols > 0) && (Cols <= SetMax),
 			"The number of elements must be between 1 and SetMax"
 		);
-		_do_set_v<Cols, T>(_set_mode<Cols>(), program, index, v);
+		_do_set_v<Cols, T>(
+			_set_mode<Cols>(),
+			program,
+			index,
+			index,
+			v
+		);
 	}
 
 	template <size_t Cols, typename T>
@@ -287,17 +351,36 @@ protected:
 			(Cols > 0) && (Cols <= SetMax),
 			"The number of elements must be between 1 and SetMax"
 		);
-		_do_set_n<Cols, T>(_set_mode<Cols>(), prog, index, n, v);
+		_do_set_n<Cols, T>(
+			_set_mode<Cols>(),
+			prog,
+			index,
+			index,
+			n,
+			v
+		);
 	}
 };
 
-template <typename Setters, typename Callers>
+template <typename Queries, typename Setters, typename Callers>
 class ShaderMatrixSetOps
- : public Setters
+ : public Queries
+ , public Setters
  , public Callers
+ , public ShaderDataSetUtils
 {
 private:
-	using Setters::_errinf_ctxt;
+	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
+
+	static void _report_if_error(GLuint program, GLuint base_index)
+	{
+		ShaderDataSetUtils::_do_report_if_error(
+			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
+			program,
+			base_index,
+			&Queries::_query_name
+		);
+	}
 protected:
 	template <size_t Cols, size_t Rows, typename T>
 	static void _do_set_mat(
@@ -328,7 +411,7 @@ protected:
 			),
 			v
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO_AUTO_CTXT());
+		_report_if_error(program, index);
 	}
 
 	template <size_t Cols, typename T, typename ... P>

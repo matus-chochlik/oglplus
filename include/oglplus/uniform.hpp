@@ -61,10 +61,28 @@ public:
 
 namespace aux {
 
+class UniformQueries
+{
+protected:
+	static String _query_name(GLuint program, GLuint index)
+	{
+		GLsizei max_length = 255, real_length;
+		GLchar buffer[256] = {GLchar(0)};
+		::glGetActiveUniformName(
+			program,
+			index,
+			max_length,
+			&real_length,
+			buffer
+		);
+		return String(buffer, real_length);
+	}
+};
+
 class UniformSetters
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(Uniform)
+	OGLPLUS_ERROR_INFO_CONTEXT(Uniform, Uniform)
 
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
@@ -79,7 +97,7 @@ protected:
 class UniformMatrixSetters
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(UniformMatrix)
+	OGLPLUS_ERROR_INFO_CONTEXT(UniformMatrix, Uniform)
 
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, dv, v, GLdouble)
@@ -88,7 +106,7 @@ protected:
 class ProgramUniformSetters
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniform)
+	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniform, ProgramUniform)
 
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, i, t, GLint)
@@ -103,7 +121,7 @@ protected:
 class ProgramUniformMatrixSetters
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniformMatrix)
+	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniformMatrix, ProgramUniform)
 
 	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, dv, v, GLdouble)
@@ -274,11 +292,13 @@ public:
  */
 typedef UniformBase<
 	aux::ShaderDataSetOps<
+		aux::UniformQueries,
 		aux::UniformSetters,
 		aux::ActiveProgramCallOps,
 		4
 	>,
 	aux::ShaderMatrixSetOps<
+		aux::UniformQueries,
 		aux::UniformMatrixSetters,
 		aux::ActiveProgramCallOps
 	>
@@ -290,11 +310,13 @@ typedef UniformBase<
  */
 typedef UniformBase<
 	aux::ShaderDataSetOps<
+		aux::UniformQueries,
 		aux::ProgramUniformSetters,
 		aux::SpecificProgramCallOps,
 		4
 	>,
 	aux::ShaderMatrixSetOps<
+		aux::UniformQueries,
 		aux::ProgramUniformMatrixSetters,
 		aux::SpecificProgramCallOps
 	>

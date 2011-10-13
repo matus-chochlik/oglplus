@@ -114,10 +114,33 @@ void ProgramOps::BindLocation(
 }
 
 namespace aux {
+
+class VertexAttribQueries
+{
+protected:
+	static String _query_name(GLuint program, GLuint index)
+	{
+		GLsizei max_length = 255, real_length;
+		GLchar buffer[256] = {GLchar(0)};
+		GLint size;
+		GLenum type;
+		::glGetActiveAttrib(
+			program,
+			index,
+			max_length,
+			&real_length,
+			&size,
+			&type,
+			buffer
+		);
+		return String(buffer, real_length);
+	}
+};
+
 class VertexAttribSetters
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(VertexAttrib)
+	OGLPLUS_ERROR_INFO_CONTEXT(VertexAttrib, VertexAttrib)
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, d, t, GLdouble)
@@ -143,6 +166,7 @@ protected:
 class VertexAttrib
  : public VertexAttribOps
  , public aux::ShaderDataSetOps<
+	aux::VertexAttribQueries,
 	aux::VertexAttribSetters,
 	aux::ActiveProgramCallOps,
 	16

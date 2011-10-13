@@ -17,11 +17,19 @@
 #include <list>
 #include <map>
 
-#define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT) \
+#define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT, OBJECT) \
 	static const char* _errinf_ctxt(void) \
 	{ \
 		return #CONTEXT; \
+	} \
+	static const char* _errinf_obj(void) \
+	{ \
+		return #OBJECT; \
 	}
+
+#define OGLPLUS_ERROR_INFO_REUSE_CONTEXT(SOURCE) \
+	using SOURCE::_errinf_ctxt; \
+	using SOURCE::_errinf_obj;
 
 #ifdef _NDEBUG
 #define OGLPLUS_ERROR_INFO(CONTEXT) \
@@ -31,7 +39,8 @@
 	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0}
 
 #define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
-	{errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0}
+	{_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, \
+	_errinf_obj(), 0, 0, 0}
 
 #define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
 	{CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0}
@@ -52,8 +61,9 @@
 	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, \
 	sizeof(decltype(GL_ ## CONTEXT))}
 
-#define OGLPLUS_ERROR_INFO_AUTO_CTXT(CONTEXT_STR) \
-	{_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0}
+#define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
+	{_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, \
+	_errinf_obj(), 0, 0, 0, 0}
 
 #define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
 	{CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0}

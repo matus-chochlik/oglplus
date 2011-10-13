@@ -227,7 +227,7 @@ public:
 		}
 
 		Texture::Active(0);
-		Uniform(volume_prog, "LightTex").Set(0);
+		ProgramUniform(volume_prog, "LightTex").Set(0);
 		{
 			auto bound_tex = Bind(light_tex, Texture::Target::_2D);
 			bound_tex.Image2D(images::LoadTexture("flower_glass"));
