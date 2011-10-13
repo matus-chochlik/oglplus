@@ -313,22 +313,17 @@ public:
 
 		Uniform(cloud_prog, "LightPos").Set(lightPos);
 		Uniform(cloud_prog, "CameraMatrix").SetMatrix(cameraMatrix);
-		auto cameraPosition = cameraMatrix.Position();
+		Uniform(cloud_prog, "ViewX").Set(
+			Row<0>(cameraMatrix).xyz()
+		);
+		Uniform(cloud_prog, "ViewY").Set(
+			Row<1>(cameraMatrix).xyz()
+		);
+		Uniform(cloud_prog, "ViewZ").Set(
+			Row<2>(cameraMatrix).xyz()
+		);
 		for(size_t i=0, n=positions.size(); i!=n; ++i)
 		{
-			auto viewMatrix = CamMatrixf::LookingAt(
-				cameraPosition,
-				positions[i]
-			);
-			Uniform(cloud_prog, "ViewX").Set(
-				Row<0>(cameraMatrix).xyz()
-			);
-			Uniform(cloud_prog, "ViewY").Set(
-				Row<1>(cameraMatrix).xyz()
-			);
-			Uniform(cloud_prog, "ViewZ").Set(
-				Row<2>(cameraMatrix).xyz()
-			);
 			cloud_tex[i].Bind(Texture::Target::_3D);
 			gl.DrawArraysInstanced(
 				PrimitiveType::Points,

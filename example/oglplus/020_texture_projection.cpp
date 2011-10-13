@@ -106,7 +106,7 @@ public:
 			"		normalize(vertLight)"
 			"	) / l : 0.0;"
 			"	float i = 0.1 + 4.2*max(d, 0.0);"
-			"	vec2 coord = vertTexCoord.st/vertTexCoord.w;"
+			"	vec2 coord = vertTexCoord.st/vertTexCoord.q;"
 			"	vec4 t  = texture(TexUnit, coord*0.5 + 0.5);"
 			"	fragColor = vec4(t.rgb*i*sqrt(1.0-t.a), 1.0);"
 			"}"
