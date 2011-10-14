@@ -41,6 +41,8 @@
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 
+#include <oglplus/sync.hpp>
+
 #include <oglplus/angle.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/matrix.hpp>
