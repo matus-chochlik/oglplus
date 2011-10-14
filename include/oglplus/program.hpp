@@ -28,20 +28,19 @@
 namespace oglplus {
 namespace aux {
 
-// helper class used to store
-class _ProgramVarInfoContext
+class ProgramPartInfoContext
 {
 private:
 	GLuint _name;
 	GLuint _size;
 	std::vector<GLchar> _buffer;
 public:
-	_ProgramVarInfoContext(GLuint name, GLuint size)
+	ProgramPartInfoContext(GLuint name, GLuint size)
 	 : _name(name)
 	 , _size(size)
 	{ }
 
-	_ProgramVarInfoContext(_ProgramVarInfoContext&& tmp)
+	ProgramPartInfoContext(ProgramPartInfoContext&& tmp)
 	 : _name(tmp._name)
 	 , _size(tmp._size)
 	 , _buffer(std::move(tmp._buffer))
@@ -96,6 +95,18 @@ protected:
 
 	friend class FriendOf<ProgramOps>;
 public:
+	GLint GetIntParam(GLenum query) const
+	{
+		GLint result;
+		::glGetProgramiv(_name, query, &result);
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramiv,
+			Program,
+			_name
+		));
+		return result;
+	}
+
 	/// Attaches the shader to this program
 	void AttachShader(const ShaderOps& shader)
 	{
@@ -128,14 +139,7 @@ public:
 	 */
 	bool IsLinked(void) const
 	{
-		int status;
-		::glGetProgramiv(_name, GL_LINK_STATUS, &status);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
-		return status == GL_TRUE;
+		return GetIntParam(GL_LINK_STATUS) == GL_TRUE;
 	}
 
 	/// Returns the linker output if the program is linked
@@ -185,14 +189,7 @@ public:
 	 */
 	bool IsValid(void) const
 	{
-		int status;
-		::glGetProgramiv(_name, GL_VALIDATE_STATUS, &status);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
-		return status == GL_TRUE;
+		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
 	}
 
 	/// Validates this shading language program
@@ -256,7 +253,7 @@ public:
 		String _name;
 	protected:
 		ActiveVariableInfo(
-			aux::_ProgramVarInfoContext& context,
+			aux::ProgramPartInfoContext& context,
 			GLuint index,
 			void (*GetActiveVariable)(
 				GLuint /*program*/,
@@ -314,12 +311,14 @@ public:
 	typedef Range<ActiveVariableInfo> ActiveUniformRange;
 	/// The type of the range for traversing transform feedback varyings
 	typedef Range<ActiveVariableInfo> TransformFeedbackVaryingRange;
+	/// The type of the range for traversing program's shaders
+	typedef Range<Managed<Shader> > ShaderRange;
 #else
 
 	struct ActiveAttribInfo : ActiveVariableInfo
 	{
 		ActiveAttribInfo(
-			aux::_ProgramVarInfoContext& context,
+			aux::ProgramPartInfoContext& context,
 			GLuint index
 		): ActiveVariableInfo(context, index, &::glGetActiveAttrib)
 		{
@@ -331,14 +330,14 @@ public:
 		}
 	};
 	typedef aux::BaseRange<
-		aux::_ProgramVarInfoContext,
+		aux::ProgramPartInfoContext,
 		ActiveAttribInfo
 	> ActiveAttribRange;
 
 	struct ActiveUniformInfo : ActiveVariableInfo
 	{
 		ActiveUniformInfo(
-			aux::_ProgramVarInfoContext& context,
+			aux::ProgramPartInfoContext& context,
 			GLuint index
 		): ActiveVariableInfo(context, index, &::glGetActiveUniform)
 		{
@@ -350,14 +349,14 @@ public:
 		}
 	};
 	typedef aux::BaseRange<
-		aux::_ProgramVarInfoContext,
+		aux::ProgramPartInfoContext,
 		ActiveUniformInfo
 	> ActiveUniformRange;
 
 	struct TransformFeedbackVaryingInfo : ActiveVariableInfo
 	{
 		TransformFeedbackVaryingInfo(
-			aux::_ProgramVarInfoContext& context,
+			aux::ProgramPartInfoContext& context,
 			GLuint index
 		): ActiveVariableInfo(
 			context,
@@ -373,9 +372,50 @@ public:
 		}
 	};
 	typedef aux::BaseRange<
-		aux::_ProgramVarInfoContext,
+		aux::ProgramPartInfoContext,
 		TransformFeedbackVaryingInfo
 	> TransformFeedbackVaryingRange;
+
+	struct ShaderIterationContext
+	{
+		std::vector<GLuint> _shader_names;
+
+		ShaderIterationContext(GLuint name, GLuint count)
+		 : _shader_names(count)
+		{
+			::glGetAttachedShaders(
+				name,
+				_shader_names.size(),
+				nullptr,
+				_shader_names.data()
+			);
+			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+				GetAttachedShaders,
+				Program,
+				name
+			));
+		};
+
+		ShaderIterationContext(ShaderIterationContext&& temp)
+		 : _shader_names(std::move(temp._shader_names))
+		{ }
+	};
+
+	struct ManagedShader : Managed<ShaderOps>
+	{
+		typedef ShaderOps BaseOps;
+
+		ManagedShader(
+			const ShaderIterationContext& context,
+			GLuint index
+		): Managed<ShaderOps>(context._shader_names[index])
+		{ }
+	};
+
+	typedef aux::BaseRange<
+			ShaderIterationContext,
+			ManagedShader
+	> ShaderRange;
 #endif
 
 	/// Returns a range allowing to do the traversal of active attributes
@@ -387,24 +427,13 @@ public:
 	 */
 	ActiveAttribRange ActiveAttribs(void) const
 	{
-		GLint count = 0, length = 0;
 		// get the count of active attributes
-		::glGetProgramiv(_name, GL_ACTIVE_ATTRIBUTES, &count);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
+		GLint count = GetIntParam(GL_ACTIVE_ATTRIBUTES);
 		// get the maximum string length of the longest identifier
-		::glGetProgramiv(_name, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &length);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
+		GLint length = GetIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH);
 
 		return ActiveAttribRange(
-			aux::_ProgramVarInfoContext(_name, length),
+			aux::ProgramPartInfoContext(_name, length),
 			0, count
 		);
 	}
@@ -418,24 +447,13 @@ public:
 	 */
 	ActiveUniformRange ActiveUniforms(void) const
 	{
-		GLint count = 0, length = 0;
 		// get the count of active uniforms
-		::glGetProgramiv(_name, GL_ACTIVE_UNIFORMS, &count);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
+		GLint count  = GetIntParam(GL_ACTIVE_UNIFORMS);
 		// get the maximum string length of the longest identifier
-		::glGetProgramiv(_name, GL_ACTIVE_UNIFORM_MAX_LENGTH, &length);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
+		GLint length = GetIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH);
 
 		return ActiveUniformRange(
-			aux::_ProgramVarInfoContext(_name, length),
+			aux::ProgramPartInfoContext(_name, length),
 			0, count
 		);
 	}
@@ -449,27 +467,24 @@ public:
 	 */
 	TransformFeedbackVaryingRange TransformFeedbackVaryings(void) const
 	{
-		GLint count = 0, length = 0;
 		// get the count of transform feedback varyings
-		::glGetProgramiv(_name, GL_TRANSFORM_FEEDBACK_VARYINGS, &count);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
-		::glGetProgramiv(
-			_name,
-			GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH,
-			&length
+		GLint count = GetIntParam(GL_TRANSFORM_FEEDBACK_VARYINGS);
+		GLint length = GetIntParam(
+			GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
 
 		return TransformFeedbackVaryingRange(
-			aux::_ProgramVarInfoContext(_name, length),
+			aux::ProgramPartInfoContext(_name, length),
+			0, count
+		);
+	}
+
+	/// Returns a range allowing to traverse shaders attached to this program
+	ShaderRange AttachedShaders(void) const
+	{
+		GLint count = GetIntParam(GL_ATTACHED_SHADERS);
+		return ShaderRange(
+			ShaderIterationContext(_name, count),
 			0, count
 		);
 	}
@@ -542,7 +557,7 @@ public:
 		String _name;
 	public:
 		ActiveUniformBlockInfo(
-			aux::_ProgramVarInfoContext& context,
+			aux::ProgramPartInfoContext& context,
 			GLuint index
 		): _index(0)
 		{
@@ -595,7 +610,7 @@ public:
 	typedef Range<ActiveUniformBlockInfo> ActiveUniformRange;
 #else
 	typedef aux::BaseRange<
-		aux::_ProgramVarInfoContext,
+		aux::ProgramPartInfoContext,
 		ActiveUniformBlockInfo
 	> ActiveUniformBlockRange;
 #endif
@@ -609,34 +624,21 @@ public:
 	 */
 	ActiveUniformBlockRange ActiveUniformBlocks(void) const
 	{
-		GLint count = 0, length = 0;
 		// get the count of active uniform blocks
-		::glGetProgramiv(_name, GL_ACTIVE_UNIFORM_BLOCKS, &count);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
+		GLint count = GetIntParam(GL_ACTIVE_UNIFORM_BLOCKS);
+		GLint length = 0;
 		if(count != 0)
 		{
 			// get the string length of the first identifier
-			::glGetProgramiv(
-				_name,
-				GL_UNIFORM_BLOCK_NAME_LENGTH,
-				&length
-			);
-			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-				GetProgramiv,
-				Program,
-				_name
-			));
+			length = GetIntParam(GL_UNIFORM_BLOCK_NAME_LENGTH);
 		}
 		return ActiveUniformBlockRange(
-			aux::_ProgramVarInfoContext(_name, length),
+			aux::ProgramPartInfoContext(_name, length),
 			0, count
 		);
 	}
 
+	/// Makes this program separable
 	void MakeSeparable(bool para = true) const
 	{
 		assert(_name != 0);
@@ -652,6 +654,10 @@ public:
 		));
 	}
 
+	/// Makes this program retrievable in binary form
+	/**
+	 *  @see GetBinary
+	 */
 	void MakeRetrievable(bool para = true) const
 	{
 		assert(_name != 0);
@@ -667,20 +673,15 @@ public:
 		));
 	}
 
+	/// Returns this programs binary representation
+	/**
+	 *  @see MakeRetrievable
+	 *  @see Binary
+	 */
 	void GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 	{
 		assert(_name != 0);
-		GLint size = 0;
-		::glGetProgramiv(
-			_name,
-			GL_PROGRAM_BINARY_LENGTH,
-			&size
-		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			_name
-		));
+		GLint size = GetIntParam(GL_PROGRAM_BINARY_LENGTH);
 		if(size > 0)
 		{
 			GLsizei len = 0;
@@ -700,6 +701,11 @@ public:
 		}
 	}
 
+	/// Allows to specify to program code in binary form
+	/**
+	 *  @see MakeRetrievable
+	 *  @see GetBinary
+	 */
 	void Binary(const std::vector<GLubyte>& binary, GLenum format) const
 	{
 		assert(_name != 0);
@@ -714,6 +720,62 @@ public:
 			Program,
 			_name
 		));
+	}
+
+	/// Returns the transform feedback buffer mode
+	TransformFeedbackMode TransformFeedbackBufferMode(void) const
+	{
+		return TransformFeedbackMode(
+			GetIntParam(GL_TRANSFORM_FEEDBACK_BUFFER_MODE)
+		);
+	}
+
+	/// Returns the number of vertices that the geometry shader will output
+	GLint GeometryVerticesOut(void) const
+	{
+		return GetIntParam(GL_GEOMETRY_VERTICES_OUT);
+	}
+
+	/// Returns the number of invocations of geometry shader per primitive
+	GLint GeometryShaderInvocations(void) const
+	{
+		return GetIntParam(GL_GEOMETRY_SHADER_INVOCATIONS);
+	}
+
+	/// Returns the geometry shader input primitive type
+	PrimitiveType GeometryInputType(void) const
+	{
+		return PrimitiveType(GetIntParam(GL_GEOMETRY_INPUT_TYPE));
+	}
+
+	/// Returns the geometry shader output primitive type
+	PrimitiveType GeometryOutputType(void) const
+	{
+		return PrimitiveType(GetIntParam(GL_GEOMETRY_OUTPUT_TYPE));
+	}
+
+	/// Returns the vertex order in tesselation evaluation shader
+	FaceOrientation TessGenVertexOrder(void) const
+	{
+		return FaceOrientation(GetIntParam(GL_TESS_GEN_VERTEX_ORDER));
+	}
+
+	/// Returns the tesselation generator output primitive type
+	TessGenPrimitiveType TessGenMode(void) const
+	{
+		return TessGenPrimitiveType(GetIntParam(GL_TESS_GEN_MODE));
+	}
+
+	/// Returns the tesselation generator primitive spacing mode
+	TessGenPrimitiveSpacing TessGenSpacing(void) const
+	{
+		return TessGenPrimitiveSpacing(GetIntParam(GL_TESS_GEN_SPACING));
+	}
+
+	/// Returns true if point mode is enabled in tesslation eval. shader
+	bool TessGenPointMode(void) const
+	{
+		return GetIntParam(GL_TESS_GEN_POINT_MODE) == GL_TRUE;
 	}
 
 	// Implemented in vertex_attrib.hpp

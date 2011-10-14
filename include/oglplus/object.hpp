@@ -71,10 +71,14 @@ namespace oglplus {
 template <class Object>
 class Array;
 
-template <class ObjectOps>
+template <class T>
 struct BaseOps
 {
-	typedef ObjectOps Type;
+	template <typename X>
+	static typename X::BaseOps _get(X*, typename X::BaseOps* = nullptr);
+	static T _get(...);
+
+	typedef decltype(_get((T*)nullptr)) Type;
 };
 
 /// Allows to make managed copies of instances of Object

@@ -470,6 +470,7 @@ public:
 		cmap_prog.Link();
 		cmap_prog.Use();
 
+
 		Uniform(cmap_prog, "ProjectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(Degrees(90), 1.0, 1, 100)
 		);

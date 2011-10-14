@@ -379,11 +379,18 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(PointSize));
 	}
 
-	/// Sets the destination color buffer
+	/// Sets the destination color buffer for draw operations
 	static void DrawBuffer(ColorBuffer buffer)
 	{
 		::glDrawBuffer(GLenum(buffer));
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawBuffer));
+	}
+
+	/// Sets the source color buffer for read operations
+	static void ReadBuffer(ColorBuffer buffer)
+	{
+		::glReadBuffer(GLenum(buffer));
+		AssertNoError(OGLPLUS_ERROR_INFO(ReadBuffer));
 	}
 
 	/// Sets the current viewport

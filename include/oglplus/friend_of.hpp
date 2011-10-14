@@ -20,9 +20,6 @@ namespace oglplus {
 template <class Object>
 class FriendOf;
 
-template <class ObjectOps>
-class Managed;
-
 #if !OGLPLUS_DOCUMENTATION_ONLY
 template <>
 class FriendOf<Named>

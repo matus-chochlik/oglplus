@@ -53,6 +53,18 @@ protected:
 
 	friend class FriendOf<ProgramPipelineOps>;
 public:
+	GLint GetIntParam(GLenum query) const
+	{
+		GLint result;
+		::glGetProgramPipelineiv(_name, query, &result);
+		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramPipelineiv,
+			ProgramPipeline,
+			_name
+		));
+		return result;
+	}
+
 	/// Bind this program pipeline
 	void Bind(void) const
 	{
@@ -142,6 +154,20 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 
+	/// Returns the validation process output
+	/**
+	 */
+	String GetInfoLog(void) const
+	{
+		assert(_name != 0);
+		return aux::GetInfoLog(
+			_name, ::glGetProgramPipelineiv,
+			::glGetProgramPipelineInfoLog,
+			"GetProgramPipelineiv",
+			"GetProgramPipelineInfoLog"
+		);
+	}
+
 	/// Make the @p program active for this program pipeline
 	void ActiveShaderProgram(const ProgramOps& program) const
 	{
@@ -151,6 +177,24 @@ public:
 			FriendOf<ProgramOps>::GetName(program)
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
+	}
+
+	/// Returns the current active shader program
+	Managed<ProgramOps> ActiveShaderProgram(void) const
+	{
+		return Managed<ProgramOps>(GetIntParam(GL_ACTIVE_PROGRAM));
+	}
+
+	/// Returns true if this pipeline contains a shader of a particular kind
+	bool HasShader(Shader::Kind shader_kind) const
+	{
+		return GetIntParam(GLenum(shader_kind)) != 0;
+	}
+
+	/// Returns the program from which the @p shader_kind is used
+	Managed<ProgramOps> ShaderProgram(Shader::Kind shader_kind) const
+	{
+		return Managed<ProgramOps>(GetIntParam(GLenum(shader_kind)));
 	}
 };
 

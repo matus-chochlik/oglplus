@@ -46,6 +46,34 @@ enum class PrimitiveType : GLenum
 	Patches = GL_PATCHES
 };
 
+/// Tesselation generation stage primitive type
+/**
+ * @ingroup enumerations
+ */
+enum class TessGenPrimitiveType : GLenum
+{
+	/// QUADS
+	//TODO: Quads = GL_QUADS,
+	/// TRIANGLES
+	Triangles = GL_TRIANGLES,
+	/// ISOLINES
+	Isolines = GL_ISOLINES
+};
+
+/// Tesselation primitive spacing
+/**
+ * @ingroup enumerations
+ */
+enum class TessGenPrimitiveSpacing : GLenum
+{
+	/// FRACTIONAL_EVEN
+	FractionalEven = GL_FRACTIONAL_EVEN,
+	/// FRACTIONAL_ODD
+	FractionalOdd = GL_FRACTIONAL_ODD,
+	/// EQUAL
+	Equal = GL_EQUAL
+};
+
 } // namespace oglplus
 
 #endif // include guard

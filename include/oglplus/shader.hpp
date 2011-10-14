@@ -234,6 +234,12 @@ public:
 	{ }
 };
 
+template <Shader::Kind kind>
+struct BaseOps<SpecializedShader<kind> >
+{
+	typedef typename BaseOps<Shader>::Type Type;
+};
+
 #ifdef OGLPLUS_DOCUMENTATION_ONLY
 /// Vertex shader wrapper
 /**
