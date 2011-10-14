@@ -63,6 +63,11 @@
 			<xsl:call-template name="Newline"/>
 		</xsl:for-each>
 		<xsl:text>	</xsl:text>
+		<xsl:variable name="RVRefId" select="type/ref/@refid"/>
+		<xsl:if test="../../sectiondef/memberdef[@id = $RVRefId]">
+			<xsl:value-of select="$Object"/>
+			<xsl:text>Ops::</xsl:text>
+		</xsl:if>
 		<xsl:for-each select="type/descendant-or-self::text()">
 			<xsl:value-of select="."/>
 		</xsl:for-each>
