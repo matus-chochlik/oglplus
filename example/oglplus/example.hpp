@@ -1,6 +1,6 @@
-/*
+/**
  *  @file example/example.hpp
- *  Declares a common base class for examples
+ *  @brief Declares a common base class for examples
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
