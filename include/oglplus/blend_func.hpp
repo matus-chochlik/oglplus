@@ -55,7 +55,7 @@ enum class BlendFunction : GLenum
 	/// ONE_MINUS_SRC1_COLOR
 	OneMinusSrc1Color = GL_ONE_MINUS_SRC1_COLOR,
 	// SRC1_ALPHA
-	//Src1Alpha = GL_SRC1_ALPHA,
+	//Src1Alpha = _GL_SRC1_ALPHA,
 	/// ONE_MINUS_SRC1_ALPHA
 	OneMinusSrc1Alpha = GL_ONE_MINUS_SRC1_ALPHA
 };

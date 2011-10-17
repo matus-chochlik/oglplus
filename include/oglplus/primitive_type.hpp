@@ -53,7 +53,7 @@ enum class PrimitiveType : GLenum
 enum class TessGenPrimitiveType : GLenum
 {
 	/// QUADS
-	//TODO: Quads = GL_QUADS,
+	//TODO: Quads = _GL_QUADS,
 	/// TRIANGLES
 	Triangles = GL_TRIANGLES,
 	/// ISOLINES

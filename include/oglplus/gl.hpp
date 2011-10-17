@@ -13,7 +13,6 @@
 #define OGLPLUS_GL_1107121519_HPP
 
 #define GL3_PROTOTYPES
-#define GL_VERSION_4_2
 #include <GL3/gl3.h>
 #define __gl_h__
 #define __glext_h__
