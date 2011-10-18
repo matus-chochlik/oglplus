@@ -50,16 +50,14 @@ protected:
 public:
 	/// Renderbuffer bind targets
 	enum class Target : GLenum {
-		/// The default target (RENDERBUFFER)
-		Renderbuffer = GL_RENDERBUFFER
+#include <oglplus/enums/renderbuffer_target.ipp>
 	};
 protected:
 	static GLenum _binding_query(Target target)
 	{
 		switch(GLenum(target))
 		{
-			case GL_RENDERBUFFER:
-				return GL_RENDERBUFFER_BINDING;
+#include <oglplus/enums/renderbuffer_target_bq.ipp>
 			default:;
 		}
 		return 0;

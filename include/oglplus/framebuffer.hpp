@@ -71,81 +71,24 @@ protected:
 public:
 	/// Framebuffer renderbuffer attachment points
 	enum class Attachment : GLenum {
-		/// COLOR_ATTACHMENT0
-		Color = GL_COLOR_ATTACHMENT0,
-		/// COLOR_ATTACHMENT1
-		Color1 = GL_COLOR_ATTACHMENT1,
-		/// COLOR_ATTACHMENT2
-		Color2 = GL_COLOR_ATTACHMENT2,
-		/// COLOR_ATTACHMENT3
-		Color3 = GL_COLOR_ATTACHMENT3,
-		/// COLOR_ATTACHMENT4
-		Color4 = GL_COLOR_ATTACHMENT4,
-		/// COLOR_ATTACHMENT5
-		Color5 = GL_COLOR_ATTACHMENT5,
-		/// COLOR_ATTACHMENT6
-		Color6 = GL_COLOR_ATTACHMENT6,
-		/// COLOR_ATTACHMENT7
-		Color7 = GL_COLOR_ATTACHMENT7,
-		/// COLOR_ATTACHMENT8
-		Color8 = GL_COLOR_ATTACHMENT8,
-		/// COLOR_ATTACHMENT9
-		Color9 = GL_COLOR_ATTACHMENT9,
-		/// COLOR_ATTACHMENT10
-		Color10 = GL_COLOR_ATTACHMENT10,
-		/// COLOR_ATTACHMENT11
-		Color11 = GL_COLOR_ATTACHMENT11,
-		/// COLOR_ATTACHMENT12
-		Color12 = GL_COLOR_ATTACHMENT12,
-		/// COLOR_ATTACHMENT13
-		Color13 = GL_COLOR_ATTACHMENT13,
-		/// COLOR_ATTACHMENT14
-		Color14 = GL_COLOR_ATTACHMENT14,
-		/// COLOR_ATTACHMENT15
-		Color15 = GL_COLOR_ATTACHMENT15,
-		/// DEPTH_ATTACHMENT
-		Depth = GL_DEPTH_ATTACHMENT,
-		/// STENCIL_ATTACHMENT
-		Stencil = GL_STENCIL_ATTACHMENT,
-		/// DEPTH_STENCIL_ATTACHMENT
-		DepthStencil = GL_DEPTH_STENCIL_ATTACHMENT
+#include <oglplus/enums/framebuffer_attachment.ipp>
 	};
 
 	/// Framebuffer bind targets
 	enum class Target : GLenum {
-		/// DRAW_FRAMEBUFFER
-		Draw = GL_DRAW_FRAMEBUFFER,
-		/// READ_FRAMEBUFFER
-		Read = GL_READ_FRAMEBUFFER
+#include <oglplus/enums/framebuffer_target.ipp>
 	};
 
 	/// Framebuffer status enumeration
 	enum class Status : GLenum {
-		/// FRAMEBUFFER_COMPLETE
-		Complete = GL_FRAMEBUFFER_COMPLETE,
-		/// FRAMEBUFFER_UNDEFINED
-		Undefined = GL_FRAMEBUFFER_UNDEFINED,
-		/// FRAMEBUFFER_INCOMPLETE_ATTACHMENT
-		IncompleteAttachment = GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT,
-		/// FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
-		IncompleteMissingAttachment =
-			GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT,
-		/// FRAMEBUFFER_UNSUPPORTED
-		Unsupported = GL_FRAMEBUFFER_UNSUPPORTED,
-		/// FRAMEBUFFER_INCOMPLETE_MULTISAMPLE
-		IncompleteMultisample = GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE,
-		/// FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
-		IncompleteLayerTargets = GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
+#include <oglplus/enums/framebuffer_status.ipp>
 	};
 protected:
 	static GLenum _binding_query(Target target)
 	{
 		switch(GLenum(target))
 		{
-			case GL_DRAW_FRAMEBUFFER:
-				return GL_DRAW_FRAMEBUFFER_BINDING;
-			case GL_READ_FRAMEBUFFER:
-				return GL_READ_FRAMEBUFFER_BINDING;
+#include <oglplus/enums/framebuffer_target_bq.ipp>
 			default:;
 		}
 		return 0;

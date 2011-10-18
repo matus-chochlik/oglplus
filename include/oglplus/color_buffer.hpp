@@ -20,26 +20,7 @@ namespace oglplus {
  */
 enum class ColorBuffer : GLenum
 {
-	/// NONE
-	None = GL_NONE,
-	/// FRONT_LEFT
-	FrontLeft = GL_FRONT_LEFT,
-	/// FRONT_RIGHT
-	FrontRight = GL_FRONT_RIGHT,
-	/// BACK_LEFT
-	BackLeft = GL_BACK_LEFT,
-	/// BACK_RIGHT
-	BackRight = GL_BACK_RIGHT,
-	/// FRONT
-	Front = GL_FRONT,
-	/// BACK
-	Back = GL_BACK,
-	/// LEFT
-	Left = GL_LEFT,
-	/// RIGHT
-	Right = GL_RIGHT,
-	/// FRONT_AND_BACK
-	FrontAndBack = GL_FRONT_AND_BACK
+#include <oglplus/enums/color_buffer.ipp>
 };
 
 } // namespace oglplus

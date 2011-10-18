@@ -47,10 +47,7 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
  *  @ingroup enumerations
  */
 enum class TextureCompareMode : GLenum {
-	/// NONE
-	None = GL_NONE,
-	/// COMPARE_REF_TO_TEXTURE
-	CompareRefToTexture = GL_COMPARE_REF_TO_TEXTURE
+#include <oglplus/enums/texture_compare_mode.ipp>
 };
 
 /// Texture magnification filter enumeration
@@ -58,10 +55,7 @@ enum class TextureCompareMode : GLenum {
  *  @ingroup enumerations
  */
 enum class TextureMagFilter : GLenum {
-	/// NEAREST
-	Nearest = GL_NEAREST,
-	/// LINEAR
-	Linear = GL_LINEAR
+#include <oglplus/enums/texture_mag_filter.ipp>
 };
 
 /// Texture minification filter enumeration
@@ -69,18 +63,7 @@ enum class TextureMagFilter : GLenum {
  *  @ingroup enumerations
  */
 enum class TextureMinFilter : GLenum {
-	/// NEAREST
-	Nearest = GL_NEAREST,
-	/// LINEAR
-	Linear = GL_LINEAR,
-	/// NEAREST_MIPMAP_NEAREST
-	NearestMipmapNearest = GL_NEAREST_MIPMAP_NEAREST,
-	/// NEAREST_MIPMAP_LINEAR
-	NearestMipmapLinear = GL_NEAREST_MIPMAP_LINEAR,
-	/// LINEAR_MIPMAP_NEAREST
-	LinearMipmapNearest = GL_LINEAR_MIPMAP_NEAREST,
-	/// LINEAR_MIPMAP_LINEAR
-	LinearMipmapLinear = GL_LINEAR_MIPMAP_LINEAR
+#include <oglplus/enums/texture_min_filter.ipp>
 };
 
 /// Texture swizzle parameter coordinate enumeration
@@ -88,16 +71,7 @@ enum class TextureMinFilter : GLenum {
  *  @ingroup enumerations
  */
 enum class TextureSwizzleCoord : GLenum {
-	/// TEXTURE_SWIZZLE_R
-	R = GL_TEXTURE_SWIZZLE_R,
-	/// TEXTURE_SWIZZLE_G
-	G = GL_TEXTURE_SWIZZLE_G,
-	/// TEXTURE_SWIZZLE_B
-	B = GL_TEXTURE_SWIZZLE_B,
-	/// TEXTURE_SWIZZLE_A
-	A = GL_TEXTURE_SWIZZLE_A,
-	/// TEXTURE_SWIZZLE_RGBA
-	RGBA = GL_TEXTURE_SWIZZLE_RGBA
+#include <oglplus/enums/texture_swizzle_coord.ipp>
 };
 
 /// Texture swizzle enumeration
@@ -105,18 +79,7 @@ enum class TextureSwizzleCoord : GLenum {
  *  @ingroup enumerations
  */
 enum class TextureSwizzle : GLenum {
-	/// RED
-	Red = GL_RED,
-	/// GREEN
-	Green = GL_GREEN,
-	/// BLUE
-	Blue = GL_BLUE,
-	/// ALPHA
-	Alpha = GL_ALPHA,
-	/// ZERO
-	Zero = GL_ZERO,
-	/// ONE
-	One = GL_ONE
+#include <oglplus/enums/texture_swizzle.ipp>
 };
 
 /// Texture wrap parameter coordinate enumeration
@@ -124,12 +87,7 @@ enum class TextureSwizzle : GLenum {
  *  @ingroup enumerations
  */
 enum class TextureWrapCoord : GLenum {
-	/// TEXTURE_WRAP_S
-	S = GL_TEXTURE_WRAP_S,
-	/// TEXTURE_WRAP_T
-	T = GL_TEXTURE_WRAP_T,
-	/// TEXTURE_WRAP_R
-	R = GL_TEXTURE_WRAP_R
+#include <oglplus/enums/texture_wrap_coord.ipp>
 };
 
 /// Texture wrap enumeration
@@ -137,14 +95,7 @@ enum class TextureWrapCoord : GLenum {
  *  @ingroup enumerations
  */
 enum class TextureWrap : GLenum {
-	/// CLAMP_TO_EDGE
-	ClampToEdge = GL_CLAMP_TO_EDGE,
-	/// REPEAT
-	Repeat = GL_REPEAT,
-	/// CLAMP_TO_BORDER
-	ClampToBorder = GL_CLAMP_TO_BORDER,
-	/// MIRRORED_REPEAT
-	MirroredRepeat = GL_MIRRORED_REPEAT
+#include <oglplus/enums/texture_wrap.ipp>
 };
 
 /// Wrapper for texture and texture unit-related operations

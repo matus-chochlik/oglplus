@@ -20,38 +20,7 @@ namespace oglplus {
  */
 enum class ColorLogicOperation : GLenum
 {
-	/// CLEAR
-	Clear = GL_CLEAR,
-	/// AND
-	And = GL_AND,
-	/// AND_REVERSE
-	AndReverse = GL_AND_REVERSE,
-	/// COPY
-	Copy = GL_COPY,
-	/// AND_INVERTED
-	AndInverted = GL_AND_INVERTED,
-	/// NOOP
-	NoOp = GL_NOOP,
-	/// XOR
-	Xor = GL_XOR,
-	/// OR
-	Or = GL_OR,
-	/// NOR
-	Nor = GL_NOR,
-	/// EQUIV
-	Equiv = GL_EQUIV,
-	/// INVERT
-	Invert = GL_INVERT,
-	/// OR_REVERSE
-	OrReverse = GL_OR_REVERSE,
-	/// COPY_INVERTED
-	CopyInverted = GL_COPY_INVERTED,
-	/// OR_INVERTED
-	OrInverted = GL_OR_INVERTED,
-	/// NAND
-	Nand = GL_NAND,
-	/// SET
-	Set = GL_SET
+#include <oglplus/enums/color_logic_operation.ipp>
 };
 
 /// Alternate name for the ColorLogicOperation enumeration

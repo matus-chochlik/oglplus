@@ -27,7 +27,7 @@ do
 	unset Comma
 	echo "#if OGLPLUS_DOCUMENTATION_ONLY"
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF OGLPLUS_DEF X Y DOCUMENTATION
+	while read GL_DEF OGLPLUS_DEF AQ DOCUMENTATION BQ QN
 	do
 		if [ "${OGLPLUS_DEF}" == "" ]
 		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
@@ -96,10 +96,12 @@ do
 	#
 	IFS=:
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF X Y BINDING_QUERY_DEF
+	while read GL_DEF OGL_DEF AQ DOC BINDING_QUERY_DEF X
 	do
+		echo "#if defined GL_${GL_DEF} && defined GL_${BINDING_QUERY_DEF}"
 		echo "case GL_${GL_DEF}:"
 		echo "	return GL_${BINDING_QUERY_DEF};"
+		echo "#endif"
 	done
 	echo
 	)

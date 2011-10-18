@@ -82,18 +82,7 @@ public:
 
 	/// Program pipeline stage enumeration
 	enum class Stage : GLbitfield {
-		/// VERTEX_SHADER_BIT
-		VertexShader = GL_VERTEX_SHADER_BIT,
-		/// GEOMETRY_SHADER_BIT
-		GeometryShader = GL_GEOMETRY_SHADER_BIT,
-		/// FRAGMENT_SHADER_BIT
-		FragmentShader = GL_FRAGMENT_SHADER_BIT,
-		/// TESS_CONTROL_SHADER_BIT
-		TessControlShader = GL_TESS_CONTROL_SHADER_BIT,
-		/// TESS_EVALUATION_SHADER_BIT
-		TessEvaluationShader = GL_TESS_EVALUATION_SHADER_BIT,
-		/// ALL_SHADER_BITS
-		All = GL_ALL_SHADER_BITS
+#include <oglplus/enums/program_pipeline_stage.ipp>
 	};
 
 	/// Specifies program stages by calling functions of the returned object
@@ -142,6 +131,7 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 
+#if defined GL_ALL_SHADER_BITS
 	/// Use all stages of the @p program
 	void UseAllStages(const ProgramOps& program) const
 	{
@@ -153,6 +143,7 @@ public:
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
+#endif
 
 	/// Returns the validation process output
 	/**

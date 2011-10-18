@@ -47,19 +47,7 @@ public:
 
 	/// Query bint target
 	enum class Target : GLenum {
-		/// Time elapsed query (TIME_ELAPSED)
-		TimeElapsed = GL_TIME_ELAPSED,
-		/// Timestamp query (TIMESTAMP)
-		Timestamp = GL_TIMESTAMP,
-		/// Number of samples passed query (SAMPLES_PASSED)
-		SamplesPassed = GL_SAMPLES_PASSED,
-		/// (ANY_SAMPLES_PASSED)
-		AnySamplesPassed = GL_ANY_SAMPLES_PASSED,
-		/// Number of primitives generated (PRIMITIVED_GENERATED)
-		PrimitivesGenerated = GL_PRIMITIVES_GENERATED,
-		/// TFB primitives written (TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN)
-		TransformFeedbackPrimitivesWritten =
-			GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN
+#include <oglplus/enums/query_target.ipp>
 	};
 
 	/// Begin the query on the specified @p target

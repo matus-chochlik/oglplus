@@ -25,19 +25,12 @@ private:
 public:
 	/// The synchronization condition enumeration
 	enum class Condition : GLenum {
-		GPUCommandsComplete = GL_SYNC_GPU_COMMANDS_COMPLETE
+#include <oglplus/enums/sync_condition.ipp>
 	};
 
 	/// The wait result enumeration
 	enum class WaitResult : GLenum {
-		/// CONDITION_SATISFIED
-		ConditionSatisfied = GL_CONDITION_SATISFIED,
-		/// ALREADY_SIGNALED
-		AlreadySignaled = GL_ALREADY_SIGNALED,
-		/// TIMEOUT_EXPIRED
-		TimeoutExpired = GL_TIMEOUT_EXPIRED,
-		/// WAIT_FAILED
-		WaitFailed = GL_WAIT_FAILED
+#include <oglplus/enums/sync_wait_result.ipp>
 	};
 
 	/// Creates a new sync object for the specified @p condition

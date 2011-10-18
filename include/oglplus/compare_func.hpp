@@ -20,22 +20,7 @@ namespace oglplus {
  */
 enum class CompareFunction : GLenum
 {
-	/// Less-than or equal (LEQUAL)
-	LEqual = GL_LEQUAL,
-	/// Greater-than or equal (GEQUAL)
-	GEqual = GL_GEQUAL,
-	/// Less-than (LESS)
-	Less  = GL_LESS,
-	/// Greater-than (GREATER)
-	Greater = GL_GREATER,
-	/// Equal (EQUAL)
-	Equal = GL_EQUAL,
-	/// Not equal (NOTEQUAL)
-	NotEqual = GL_NOTEQUAL,
-	/// Always true (ALWAYS)
-	Always = GL_ALWAYS,
-	/// Always false (NEVER)
-	Never = GL_NEVER
+#include <oglplus/enums/compare_function.ipp>
 };
 
 /// Alternate name for the CompareFunction enumeration

@@ -36,16 +36,7 @@ class ShaderOps
 public:
 	/// The kind of the shader
 	enum class Kind : GLenum {
-		/// VERTEX_SHADER
-		Vertex = GL_VERTEX_SHADER,
-		/// GEOMETRY_SHADER
-		Geometry = GL_GEOMETRY_SHADER,
-		/// FRAGMENT_SHADER
-		Fragment = GL_FRAGMENT_SHADER,
-		/// TESS_CONTROL_SHADER
-		TessControl = GL_TESS_CONTROL_SHADER,
-		/// TESS_EVALUATION_SHADER
-		TessEvaluation = GL_TESS_EVALUATION_SHADER
+#include <oglplus/enums/shader_kind.ipp>
 	};
 protected:
 	static void _init(GLsizei, GLuint& _name, Kind kind)
@@ -250,7 +241,7 @@ struct BaseOps<SpecializedShader<kind> >
 class VertexShader
  : public Shader
 { };
-#else
+#elif defined GL_VERTEX_SHADER
 typedef SpecializedShader<Shader::Kind::Vertex> VertexShader;
 #endif
 
@@ -264,7 +255,7 @@ typedef SpecializedShader<Shader::Kind::Vertex> VertexShader;
 class GeometryShader
  : public Shader
 { };
-#else
+#elif defined GL_GEOMETRY_SHADER
 typedef SpecializedShader<Shader::Kind::Geometry> GeometryShader;
 #endif
 
@@ -278,7 +269,7 @@ typedef SpecializedShader<Shader::Kind::Geometry> GeometryShader;
 class FragmentShader
  : public Shader
 { };
-#else
+#elif GL_FRAGMENT_SHADER
 typedef SpecializedShader<Shader::Kind::Fragment> FragmentShader;
 #endif
 
@@ -292,7 +283,7 @@ typedef SpecializedShader<Shader::Kind::Fragment> FragmentShader;
 class TessControlShader
  : public Shader
 { };
-#else
+#elif GL_TESS_CONTROL_SHADER
 typedef SpecializedShader<Shader::Kind::TessControl> TessControlShader;
 #endif
 
@@ -306,7 +297,7 @@ typedef SpecializedShader<Shader::Kind::TessControl> TessControlShader;
 class TessEvaluationShader
  : public Shader
 { };
-#else
+#elif GL_TESS_EVALUATION_SHADER
 typedef SpecializedShader<Shader::Kind::TessEvaluation> TessEvaluationShader;
 #endif
 

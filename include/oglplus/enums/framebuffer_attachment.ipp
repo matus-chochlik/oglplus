@@ -1,0 +1,235 @@
+/*
+ *  .file oglplus/enums/framebuffer_attachment.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/framebuffer_attachment.txt' instead.
+ *
+ *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+
+/// COLOR_ATTACHMENT0
+Color,
+/// COLOR_ATTACHMENT1
+Color1,
+/// COLOR_ATTACHMENT2
+Color2,
+/// COLOR_ATTACHMENT3
+Color3,
+/// COLOR_ATTACHMENT4
+Color4,
+/// COLOR_ATTACHMENT5
+Color5,
+/// COLOR_ATTACHMENT6
+Color6,
+/// COLOR_ATTACHMENT7
+Color7,
+/// COLOR_ATTACHMENT8
+Color8,
+/// COLOR_ATTACHMENT9
+Color9,
+/// COLOR_ATTACHMENT10
+Color10,
+/// COLOR_ATTACHMENT11
+Color11,
+/// COLOR_ATTACHMENT12
+Color12,
+/// COLOR_ATTACHMENT13
+Color13,
+/// COLOR_ATTACHMENT14
+Color14,
+/// COLOR_ATTACHMENT15
+Color15,
+/// DEPTH_ATTACHMENT
+Depth,
+/// STENCIL_ATTACHMENT
+Stencil,
+/// DEPTH_STENCIL_ATTACHMENT
+DepthStencil
+
+#else // OGLPLUS_DOCUMENTATION_ONLY
+
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#if defined GL_COLOR_ATTACHMENT0
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color = GL_COLOR_ATTACHMENT0
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT1
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color1 = GL_COLOR_ATTACHMENT1
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color2 = GL_COLOR_ATTACHMENT2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color3 = GL_COLOR_ATTACHMENT3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color4 = GL_COLOR_ATTACHMENT4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT5
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color5 = GL_COLOR_ATTACHMENT5
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT6
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color6 = GL_COLOR_ATTACHMENT6
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT7
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color7 = GL_COLOR_ATTACHMENT7
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT8
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color8 = GL_COLOR_ATTACHMENT8
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT9
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color9 = GL_COLOR_ATTACHMENT9
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT10
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color10 = GL_COLOR_ATTACHMENT10
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT11
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color11 = GL_COLOR_ATTACHMENT11
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT12
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color12 = GL_COLOR_ATTACHMENT12
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT13
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color13 = GL_COLOR_ATTACHMENT13
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT14
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color14 = GL_COLOR_ATTACHMENT14
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR_ATTACHMENT15
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Color15 = GL_COLOR_ATTACHMENT15
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DEPTH_ATTACHMENT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Depth = GL_DEPTH_ATTACHMENT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_STENCIL_ATTACHMENT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Stencil = GL_STENCIL_ATTACHMENT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DEPTH_STENCIL_ATTACHMENT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DepthStencil = GL_DEPTH_STENCIL_ATTACHMENT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#endif // OGLPLUS_DOCUMENTATION_ONLY
+

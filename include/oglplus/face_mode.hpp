@@ -20,12 +20,7 @@ namespace oglplus {
  */
 enum class Face : GLenum
 {
-	/// FRONT
-	Front = GL_FRONT,
-	/// BACK
-	Back = GL_BACK,
-	/// FRONT_AND_BACK
-	FrontAndBack = GL_FRONT_AND_BACK
+#include <oglplus/enums/face.ipp>
 };
 
 /// Face orientation enumeration
@@ -34,10 +29,7 @@ enum class Face : GLenum
  */
 enum class FaceOrientation : GLenum
 {
-	/// Clockwise (CW)
-	CW = GL_CW,
-	/// Counter clockwise (CCW)
-	CCW = GL_CCW
+#include <oglplus/enums/face_orientation.ipp>
 };
 
 } // namespace oglplus

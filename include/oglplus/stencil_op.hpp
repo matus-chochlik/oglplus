@@ -20,22 +20,7 @@ namespace oglplus {
  */
 enum class StencilOperation : GLenum
 {
-	/// KEEP
-	Keep = GL_KEEP,
-	/// ZERO
-	Zero = GL_ZERO,
-	/// REPLACE
-	Replace = GL_REPLACE,
-	/// INCR
-	Incr = GL_INCR,
-	/// DECR
-	Decr = GL_DECR,
-	/// INVERT
-	Invert = GL_INVERT,
-	/// INCR_WRAP
-	IncrWrap = GL_INCR_WRAP,
-	/// DECR_WRAP
-	DercWrap = GL_DECR_WRAP
+#include <oglplus/enums/stencil_operation.ipp>
 };
 
 /// Alternate name for the StencilOperation enumeration

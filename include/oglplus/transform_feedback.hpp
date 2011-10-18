@@ -26,10 +26,7 @@ namespace oglplus {
  */
 enum class TransformFeedbackMode : GLenum
 {
-	/// INTERLEAVED_ATTRIBS
-	InterleavedAttribs = GL_INTERLEAVED_ATTRIBS,
-	/// SEPARATE_ATTRIBS
-	SeparateAttribs = GL_SEPARATE_ATTRIBS
+#include <oglplus/enums/transform_feedback_mode.ipp>
 };
 
 class TransformFeedbackOps
@@ -58,16 +55,14 @@ protected:
 public:
 	/// Transform feedback bind targets
 	enum class Target : GLenum {
-		/// The default target (TRANSFORM_FEEDBACK)
-		TransformFeedback = GL_TRANSFORM_FEEDBACK
+#include <oglplus/enums/transform_feedback_target.ipp>
 	};
 protected:
 	static GLenum _binding_query(Target target)
 	{
 		switch(GLenum(target))
 		{
-			case GL_TRANSFORM_FEEDBACK:
-				return GL_TRANSFORM_FEEDBACK_BINDING;
+#include <oglplus/enums/transform_feedback_target_bq.ipp>
 			default:;
 		}
 		return 0;
@@ -77,12 +72,7 @@ public:
 
 	/// Transform feedback primitive modes
 	enum class PrimitiveType : GLenum {
-		/// TRIANGLES
-		Triangles = GL_TRIANGLES,
-		/// LINES
-		Lines = GL_LINES,
-		/// POINTS
-		Points = GL_POINTS
+#include <oglplus/enums/transform_feedback_primitive_type.ipp>
 	};
 
 	/// Bind this transform feedback object

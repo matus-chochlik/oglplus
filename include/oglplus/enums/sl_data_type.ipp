@@ -1,0 +1,895 @@
+/*
+ *  .file oglplus/enums/sl_data_type.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/sl_data_type.txt' instead.
+ *
+ *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+
+/// FLOAT
+Float,
+/// FLOAT_VEC2
+FloatVec2,
+/// FLOAT_VEC3
+FloatVec3,
+/// FLOAT_VEC4
+FloatVec4,
+/// DOUBLE
+Double,
+/// DOUBLE_VEC2
+DoubleVec2,
+/// DOUBLE_VEC3
+DoubleVec3,
+/// DOUBLE_VEC4
+DoubleVec4,
+/// INT
+Int,
+/// INT_VEC2
+IntVec2,
+/// INT_VEC3
+IntVec3,
+/// INT_VEC4
+IntVec4,
+/// UNSIGNED_INT
+UnsignedInt,
+/// UNSIGNED_INT_VEC2
+UnsignedIntVec2,
+/// UNSIGNED_INT_VEC3
+UnsignedIntVec3,
+/// UNSIGNED_INT_VEC4
+UnsignedIntVec4,
+/// BOOL
+Bool,
+/// BOOL_VEC2
+BoolVec2,
+/// BOOL_VEC3
+BoolVec3,
+/// BOOL_VEC4
+BoolVec4,
+/// FLOAT_MAT2
+FloatMat2,
+/// FLOAT_MAT3
+FloatMat3,
+/// FLOAT_MAT4
+FloatMat4,
+/// FLOAT_MAT2x3
+FloatMat2x3,
+/// FLOAT_MAT2x4
+FloatMat2x4,
+/// FLOAT_MAT3x2
+FloatMat3x2,
+/// FLOAT_MAT3x4
+FloatMat3x4,
+/// FLOAT_MAT4x2
+FloatMat4x2,
+/// FLOAT_MAT4x3
+FloatMat4x3,
+/// DOUBLE_MAT2
+DoubleMat2,
+/// DOUBLE_MAT3
+DoubleMat3,
+/// DOUBLE_MAT4
+DoubleMat4,
+/// DOUBLE_MAT2x3
+DoubleMat2x3,
+/// DOUBLE_MAT2x4
+DoubleMat2x4,
+/// DOUBLE_MAT3x2
+DoubleMat3x2,
+/// DOUBLE_MAT3x4
+DoubleMat3x4,
+/// DOUBLE_MAT4x2
+DoubleMat4x2,
+/// DOUBLE_MAT4x3
+DoubleMat4x3,
+/// SAMPLER_1D
+Sampler1D,
+/// SAMPLER_2D
+Sampler2D,
+/// SAMPLER_3D
+Sampler3D,
+/// SAMPLER_CUBE
+SamplerCube,
+/// SAMPLER_1D_SHADOW
+Sampler1DShadow,
+/// SAMPLER_2D_SHADOW
+Sampler2DShadow,
+/// SAMPLER_1D_ARRAY
+Sampler1DArray,
+/// SAMPLER_2D_ARRAY
+Sampler2DArray,
+/// SAMPLER_CUBE_MAP_ARRAY
+SamplerCubeMapArray,
+/// SAMPLER_1D_ARRAY_SHADOW
+Sampler1DArrayShadow,
+/// SAMPLER_2D_ARRAY_SHADOW
+Sampler2DArrayShadow,
+/// SAMPLER_2D_MULTISAMPLE
+Sampler2DMultisample,
+/// SAMPLER_2D_MULTISAMPLE_ARRAY
+Sampler2DMultisampleArray,
+/// SAMPLER_CUBE_SHADOW
+SamplerCubeShadow,
+/// SAMPLER_CUBE_MAP_ARRAY_SHADOW
+SamplerCubeMapArrayShadow,
+/// SAMPLER_BUFFER
+SamplerBuffer,
+/// SAMPLER_2D_RECT
+Sampler2DRect,
+/// SAMPLER_2D_RECT_SHADOW
+Sampler2DRectShadow,
+/// INT_SAMPLER_1D
+IntSampler1D,
+/// INT_SAMPLER_2D
+IntSampler2D,
+/// INT_SAMPLER_3D
+IntSampler3D,
+/// INT_SAMPLER_CUBE
+IntSamplerCube,
+/// INT_SAMPLER_1D_ARRAY
+IntSampler1DArray,
+/// INT_SAMPLER_2D_ARRAY
+IntSampler2DArray,
+/// INT_SAMPLER_CUBE_MAP_ARRAY
+IntSamplerCubeMapArray,
+/// INT_SAMPLER_2D_MULTISAMPLE
+IntSampler2DMultisample,
+/// INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+IntSampler2DMultisampleArray,
+/// INT_SAMPLER_BUFFER
+IntSamplerBuffer,
+/// INT_SAMPLER_2D_RECT
+IntSampler2DRect,
+/// UNSIGNED_INT_SAMPLER_1D
+UnsignedIntSampler1D,
+/// UNSIGNED_INT_SAMPLER_2D
+UnsignedIntSampler2D,
+/// UNSIGNED_INT_SAMPLER_3D
+UnsignedIntSampler3D,
+/// UNSIGNED_INT_SAMPLER_CUBE
+UnsignedIntSamplerCube,
+/// UNSIGNED_INT_SAMPLER_1D_ARRAY
+UnsignedIntSampler1DArray,
+/// UNSIGNED_INT_SAMPLER_2D_ARRAY
+UnsignedIntSampler2DArray,
+/// UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY
+UnsignedIntSamplerCubeMapArray,
+/// UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE
+UnsignedIntSampler2DMultisample,
+/// UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+UnsignedIntSampler2DMultisampleArray,
+/// UNSIGNED_INT_SAMPLER_BUFFER
+UnsignedIntSamplerBuffer,
+/// UNSIGNED_INT_SAMPLER_2D_RECT
+UnsignedIntSampler2DRect,
+/// NONE
+None
+
+#else // OGLPLUS_DOCUMENTATION_ONLY
+
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#if defined GL_FLOAT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Float = GL_FLOAT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_VEC2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatVec2 = GL_FLOAT_VEC2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_VEC3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatVec3 = GL_FLOAT_VEC3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_VEC4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatVec4 = GL_FLOAT_VEC4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Double = GL_DOUBLE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_VEC2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleVec2 = GL_DOUBLE_VEC2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_VEC3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleVec3 = GL_DOUBLE_VEC3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_VEC4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleVec4 = GL_DOUBLE_VEC4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Int = GL_INT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_VEC2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntVec2 = GL_INT_VEC2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_VEC3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntVec3 = GL_INT_VEC3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_VEC4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntVec4 = GL_INT_VEC4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedInt = GL_UNSIGNED_INT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_VEC2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntVec2 = GL_UNSIGNED_INT_VEC2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_VEC3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntVec3 = GL_UNSIGNED_INT_VEC3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_VEC4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntVec4 = GL_UNSIGNED_INT_VEC4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_BOOL
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Bool = GL_BOOL
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_BOOL_VEC2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+BoolVec2 = GL_BOOL_VEC2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_BOOL_VEC3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+BoolVec3 = GL_BOOL_VEC3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_BOOL_VEC4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+BoolVec4 = GL_BOOL_VEC4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat2 = GL_FLOAT_MAT2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat3 = GL_FLOAT_MAT3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat4 = GL_FLOAT_MAT4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT2x3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat2x3 = GL_FLOAT_MAT2x3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT2x4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat2x4 = GL_FLOAT_MAT2x4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT3x2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat3x2 = GL_FLOAT_MAT3x2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT3x4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat3x4 = GL_FLOAT_MAT3x4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT4x2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat4x2 = GL_FLOAT_MAT4x2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FLOAT_MAT4x3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+FloatMat4x3 = GL_FLOAT_MAT4x3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat2 = GL_DOUBLE_MAT2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat3 = GL_DOUBLE_MAT3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat4 = GL_DOUBLE_MAT4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT2x3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat2x3 = GL_DOUBLE_MAT2x3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT2x4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat2x4 = GL_DOUBLE_MAT2x4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT3x2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat3x2 = GL_DOUBLE_MAT3x2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT3x4
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat3x4 = GL_DOUBLE_MAT3x4
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT4x2
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat4x2 = GL_DOUBLE_MAT4x2
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DOUBLE_MAT4x3
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DoubleMat4x3 = GL_DOUBLE_MAT4x3
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_1D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler1D = GL_SAMPLER_1D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_2D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler2D = GL_SAMPLER_2D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_3D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler3D = GL_SAMPLER_3D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_CUBE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SamplerCube = GL_SAMPLER_CUBE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_1D_SHADOW
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler1DShadow = GL_SAMPLER_1D_SHADOW
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_2D_SHADOW
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler2DShadow = GL_SAMPLER_2D_SHADOW
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_1D_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler1DArray = GL_SAMPLER_1D_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_2D_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler2DArray = GL_SAMPLER_2D_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_CUBE_MAP_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SamplerCubeMapArray = GL_SAMPLER_CUBE_MAP_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_1D_ARRAY_SHADOW
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler1DArrayShadow = GL_SAMPLER_1D_ARRAY_SHADOW
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_2D_ARRAY_SHADOW
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler2DArrayShadow = GL_SAMPLER_2D_ARRAY_SHADOW
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_2D_MULTISAMPLE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler2DMultisample = GL_SAMPLER_2D_MULTISAMPLE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_2D_MULTISAMPLE_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler2DMultisampleArray = GL_SAMPLER_2D_MULTISAMPLE_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_CUBE_SHADOW
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SamplerCubeShadow = GL_SAMPLER_CUBE_SHADOW
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SamplerCubeMapArrayShadow = GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_BUFFER
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SamplerBuffer = GL_SAMPLER_BUFFER
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_2D_RECT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler2DRect = GL_SAMPLER_2D_RECT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SAMPLER_2D_RECT_SHADOW
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Sampler2DRectShadow = GL_SAMPLER_2D_RECT_SHADOW
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_1D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSampler1D = GL_INT_SAMPLER_1D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_2D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSampler2D = GL_INT_SAMPLER_2D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_3D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSampler3D = GL_INT_SAMPLER_3D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_CUBE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSamplerCube = GL_INT_SAMPLER_CUBE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_1D_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSampler1DArray = GL_INT_SAMPLER_1D_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_2D_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSampler2DArray = GL_INT_SAMPLER_2D_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_CUBE_MAP_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSamplerCubeMapArray = GL_INT_SAMPLER_CUBE_MAP_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_2D_MULTISAMPLE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSampler2DMultisample = GL_INT_SAMPLER_2D_MULTISAMPLE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSampler2DMultisampleArray = GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_BUFFER
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSamplerBuffer = GL_INT_SAMPLER_BUFFER
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_INT_SAMPLER_2D_RECT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+IntSampler2DRect = GL_INT_SAMPLER_2D_RECT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_1D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSampler1D = GL_UNSIGNED_INT_SAMPLER_1D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_2D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSampler2D = GL_UNSIGNED_INT_SAMPLER_2D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_3D
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSampler3D = GL_UNSIGNED_INT_SAMPLER_3D
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_CUBE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSamplerCube = GL_UNSIGNED_INT_SAMPLER_CUBE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_1D_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSampler1DArray = GL_UNSIGNED_INT_SAMPLER_1D_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_2D_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSampler2DArray = GL_UNSIGNED_INT_SAMPLER_2D_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSamplerCubeMapArray = GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSampler2DMultisample = GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSampler2DMultisampleArray = GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_BUFFER
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSamplerBuffer = GL_UNSIGNED_INT_SAMPLER_BUFFER
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_SAMPLER_2D_RECT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+UnsignedIntSampler2DRect = GL_UNSIGNED_INT_SAMPLER_2D_RECT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_NONE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+None = GL_NONE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#endif // OGLPLUS_DOCUMENTATION_ONLY
+

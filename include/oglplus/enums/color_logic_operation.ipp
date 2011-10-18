@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/color_log_op.ipp
+ *  .file oglplus/enums/color_logic_operation.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/color_log_op.txt' instead.
+ *  edit 'source/enums/color_logic_operation.txt' instead.
  *
  *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

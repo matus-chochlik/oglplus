@@ -86,26 +86,7 @@ protected:
 public:
 	/// Buffer bind targets
 	enum class Target : GLenum {
-		/// ARRAY_BUFFER
-		Array = GL_ARRAY_BUFFER,
-		/// COPY_READ_BUFFER
-		CopyRead = GL_COPY_READ_BUFFER,
-		/// COPY_WRITE_BUFFER
-		CopyWrite = GL_COPY_WRITE_BUFFER,
-		/// DRAW_INDIRECT_BUFFER
-		DrawIndirect = GL_DRAW_INDIRECT_BUFFER,
-		/// ELEMENT_ARRAY_BUFFER
-		ElementArray = GL_ELEMENT_ARRAY_BUFFER,
-		/// PIXEL_PACK_BUFFER
-		PixelPack = GL_PIXEL_PACK_BUFFER,
-		/// PIXEL_UNPACK_BUFFER
-		PixelUnpack = GL_PIXEL_UNPACK_BUFFER,
-		/// TEXTURE_BUFFER
-		TextureBuffer = GL_TEXTURE_BUFFER,
-		/// TRANSFORM_FEEDBACK_BUFFER
-		TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
-		/// UNIFORM_BUFFER
-		Uniform = GL_UNIFORM_BUFFER
+#include <oglplus/enums/buffer_target.ipp>
 	};
 
 protected:
@@ -113,20 +94,7 @@ protected:
 	{
 		switch(GLenum(target))
 		{
-			case GL_ARRAY_BUFFER:
-				return GL_ARRAY_BUFFER_BINDING;
-			case GL_DRAW_INDIRECT_BUFFER:
-				return GL_DRAW_INDIRECT_BUFFER_BINDING;
-			case GL_ELEMENT_ARRAY_BUFFER:
-				return GL_ELEMENT_ARRAY_BUFFER_BINDING;
-			case GL_PIXEL_PACK_BUFFER:
-				return GL_PIXEL_PACK_BUFFER_BINDING;
-			case GL_PIXEL_UNPACK_BUFFER:
-				return GL_PIXEL_UNPACK_BUFFER_BINDING;
-			case GL_TRANSFORM_FEEDBACK_BUFFER:
-				return GL_TRANSFORM_FEEDBACK_BUFFER_BINDING;
-			case GL_UNIFORM_BUFFER:
-				return GL_UNIFORM_BUFFER_BINDING;
+#include <oglplus/enums/buffer_target_bq.ipp>
 			default:;
 		}
 		return 0;
@@ -136,34 +104,15 @@ public:
 
 	/// Buffer indexed bind targets
 	enum class IndexedTarget : GLenum {
-		/// TRANSFORM_FEEDBACK_BUFFER
-		TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
-		/// UNIFORM_BUFFER
-		Uniform = GL_UNIFORM_BUFFER
+#include <oglplus/enums/buffer_indexed_target.ipp>
 	};
 
 	/// Buffer usage
 	enum class Usage : GLenum {
-		/// STREAM_DRAW
-		StreamDraw = GL_STREAM_DRAW,
-		/// STREAM_READ
-		StreamRead = GL_STREAM_READ,
-		/// STREAM_COPY
-		StreamCopy = GL_STREAM_COPY,
-		/// STATIC_DRAW
-		StaticDraw = GL_STATIC_DRAW,
-		/// STATIC_READ
-		StaticRead = GL_STATIC_READ,
-		/// STATIC_COPY
-		StaticCopy = GL_STATIC_COPY,
-		/// DYNAMIC_DRAW
-		DynamicDraw = GL_DYNAMIC_DRAW,
-		/// DYNAMIC_READ
-		DynamicRead = GL_DYNAMIC_READ,
-		/// DYNAMIC_COPY
-		DynamicCopy = GL_DYNAMIC_COPY
+#include <oglplus/enums/buffer_usage.ipp>
 	};
 
+	// TODO
 	/// Mapped data access types
 	enum class MapAccess : GLbitfield {
 		/// MAP_READ_BIT
@@ -200,6 +149,7 @@ public:
 		{
 			switch(access)
 			{
+				// TODO
 				case MapAccess::Read: return GL_READ_ONLY;
 				case MapAccess::Write: return GL_WRITE_ONLY;
 				case MapAccess::ReadWrite: return GL_READ_WRITE;

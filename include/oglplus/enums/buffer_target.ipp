@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/compare_func.ipp
+ *  .file oglplus/enums/buffer_target.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/compare_func.txt' instead.
+ *  edit 'source/enums/buffer_target.txt' instead.
  *
  *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,22 +11,26 @@
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
-/// LEQUAL: Less-than or equal
-LEqual,
-/// GEQUAL: Greater-than or equal
-GEqual,
-/// LESS: Less-than
-Less,
-/// GREATER: Greater-than
-Greater,
-/// EQUAL: Equality
-Equal,
-/// NOTEQUAL: Nonequality
-NotEqual,
-/// ALWAYS: Always true
-Always,
-/// NEVER: Always false
-Never
+/// ARRAY_BUFFER
+Array,
+/// COPY_READ_BUFFER
+CopyRead,
+/// COPY_WRITE_BUFFER
+CopyWrite,
+/// DRAW_INDIRECT_BUFFER
+DrawIndirect,
+/// ELEMENT_ARRAY_BUFFER
+ElementArray,
+/// PIXEL_PACK_BUFFER
+PixelPack,
+/// PIXEL_UNPACK_BUFFER
+PixelUnpack,
+/// TEXTURE_BUFFER
+TextureBuffer,
+/// TRANSFORM_FEEDBACK_BUFFER
+TransformFeedback,
+/// UNIFORM_BUFFER
+Uniform
 
 #else // OGLPLUS_DOCUMENTATION_ONLY
 
@@ -34,74 +38,92 @@ Never
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
 
-#if defined GL_LEQUAL
+#if defined GL_ARRAY_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-LEqual = GL_LEQUAL
+Array = GL_ARRAY_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GEQUAL
+#if defined GL_COPY_READ_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GEqual = GL_GEQUAL
+CopyRead = GL_COPY_READ_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_LESS
+#if defined GL_COPY_WRITE_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Less = GL_LESS
+CopyWrite = GL_COPY_WRITE_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GREATER
+#if defined GL_DRAW_INDIRECT_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Greater = GL_GREATER
+DrawIndirect = GL_DRAW_INDIRECT_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_EQUAL
+#if defined GL_ELEMENT_ARRAY_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Equal = GL_EQUAL
+ElementArray = GL_ELEMENT_ARRAY_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_NOTEQUAL
+#if defined GL_PIXEL_PACK_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-NotEqual = GL_NOTEQUAL
+PixelPack = GL_PIXEL_PACK_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_ALWAYS
+#if defined GL_PIXEL_UNPACK_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Always = GL_ALWAYS
+PixelUnpack = GL_PIXEL_UNPACK_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_NEVER
+#if defined GL_TEXTURE_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Never = GL_NEVER
+TextureBuffer = GL_TEXTURE_BUFFER
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_BUFFER
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNIFORM_BUFFER
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Uniform = GL_UNIFORM_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
