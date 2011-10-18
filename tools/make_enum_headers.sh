@@ -5,23 +5,29 @@
 #
 RootDir=${1:-${PWD}}
 InputFiles="${RootDir}/source/enums/*.txt"
-for InputFile in ${InputFiles}
-do
-	OutputFile="oglplus/enums/$(basename ${InputFile} .txt).ipp"
-	[[ ${InputFile} -nt ${OutputFile} ]] || continue
-	(
-	exec > ${RootDir}/include/${OutputFile}
+
+function PrintFileHeader()
+{
 	echo "/*"
-	echo " *  .file ${OutputFile}"
+	echo " *  .file ${2}"
 	echo " *"
 	echo " *  Automatically generated header file. DO NOT modify manually,"
-	echo " *  edit '${InputFile##${RootDir}/}' instead."
+	echo " *  edit '${1##${RootDir}/}' instead."
 	echo " *"
 	echo " *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost"
 	echo " *  Software License, Version 1.0. (See accompanying file"
 	echo " *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)"
 	echo " */"
 	echo
+}
+
+for InputFile in ${InputFiles}
+do
+	OutputFile="oglplus/enums/$(basename ${InputFile} .txt).ipp"
+	[[ ${InputFile} -nt ${OutputFile} ]] || continue
+	(
+	exec > ${RootDir}/include/${OutputFile}
+	PrintFileHeader ${InputFile} ${OutputFile}
 	#
 	IFS=':'
 	unset Comma
@@ -73,7 +79,8 @@ do
 	)
 done
 
-grep -c -e '^[^:]*:[^:]*:[^:]*:[^:]\+' ${InputFiles} |
+# the mapping of target def. to binding query def.
+grep -c -e '^\([^:]*:\)\{4\}[^:]\+' ${InputFiles} |
 grep -v -e ':0$' |
 cut -d':' -f1 |
 while read InputFile
@@ -82,17 +89,7 @@ do
 	[[ ${InputFile} -nt ${OutputFile} ]] || continue
 	(
 	exec > ${RootDir}/include/${OutputFile}
-	echo "/*"
-	echo " *  .file ${OutputFile}"
-	echo " *"
-	echo " *  Automatically generated header file. DO NOT modify manually,"
-	echo " *  edit '${InputFile##${RootDir}/}' instead."
-	echo " *"
-	echo " *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost"
-	echo " *  Software License, Version 1.0. (See accompanying file"
-	echo " *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)"
-	echo " */"
-	echo
+	PrintFileHeader ${InputFile} ${OutputFile}
 	#
 	IFS=:
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
