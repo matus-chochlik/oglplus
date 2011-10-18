@@ -34,6 +34,7 @@ namespace oglplus {
  *    - @ref feat_interoperability_with_opengl
  *    - @ref feat_related_classes
  *  - @ref oglplus_what_it_is_not
+ *  - @ref oglplus_screenshot_gallery
  *  - @ref oglplus_download
  *  - @ref oglplus_getting_started
  *  - @ref oglplus_getting_it_going
@@ -331,6 +332,11 @@ public:
 	 */
 	const Element Front(void);
 };
+
+/** @page oglplus_screenshot_gallery Screenshot gallery
+ *
+ *  @htmlinclude gallery.html
+ */
 
 /** @page bound_objects Bound objects
  *

@@ -24,33 +24,33 @@
     <linearGradient
        id="linearGradient4274">
       <stop
-         style="stop-color:#00ff00;stop-opacity:1;"
+         style="stop-color:#1f79ff;stop-opacity:1;"
          offset="0"
          id="stop4276" />
       <stop
-         style="stop-color:#00ff66;stop-opacity:1;"
+         style="stop-color:#3b30ef;stop-opacity:1;"
          offset="1"
          id="stop4278" />
     </linearGradient>
     <linearGradient
        id="linearGradient4266">
       <stop
-         style="stop-color:#ffce00;stop-opacity:1;"
+         style="stop-color:#96b5ee;stop-opacity:1;"
          offset="0"
          id="stop4268" />
       <stop
-         style="stop-color:#e4ff00;stop-opacity:1;"
+         style="stop-color:#00a1ff;stop-opacity:1;"
          offset="1"
          id="stop4270" />
     </linearGradient>
     <linearGradient
        id="linearGradient4258">
       <stop
-         style="stop-color:#ff5a00;stop-opacity:1;"
+         style="stop-color:#7a90ff;stop-opacity:1;"
          offset="0"
          id="stop4260" />
       <stop
-         style="stop-color:#ff2a00;stop-opacity:1;"
+         style="stop-color:#3f45ff;stop-opacity:1;"
          offset="1"
          id="stop4262" />
     </linearGradient>
@@ -182,8 +182,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.313708"
-     inkscape:cx="36.162947"
-     inkscape:cy="28.361741"
+     inkscape:cx="20.032073"
+     inkscape:cy="31.897275"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -241,7 +241,7 @@
        x="0"
        y="32" />
     <rect
-       style="fill:#c4d61a;fill-opacity:1;stroke:none"
+       style="fill:#1667da;fill-opacity:1;stroke:none"
        id="rect4125"
        width="16"
        height="15.999996"
@@ -253,7 +253,7 @@
        height="15.999996"
        width="16"
        id="rect4207"
-       style="fill:#d6311a;fill-opacity:1;stroke:none" />
+       style="fill:#5654df;fill-opacity:1;stroke:none" />
     <rect
        style="fill:#351ad6;fill-opacity:1;stroke:none"
        id="rect4209"
@@ -267,7 +267,7 @@
        height="15.999996"
        width="16"
        id="rect4211"
-       style="fill:#1ad681;fill-opacity:1;stroke:none" />
+       style="fill:#4d4ae9;fill-opacity:1;stroke:none" />
   </g>
   <g
      inkscape:groupmode="layer"

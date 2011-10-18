@@ -196,6 +196,7 @@ $(BLDDIR)/doc/doxygen/%/html/index.html.d: | $(BLDDIR)/doc/doxygen/%/html
 # build the doxygen html documentation
 $(OUTDIR)/doc/doxygen/%/html/index.html: \
 	$(BLDDIR)/doc/doxygen/%/html/index.html.d \
+	$(BLDDIR)/doc/gallery.html \
 	$(wildcard doc/doxygen/Doxyfile.*) \
 	example_screenshots |\
 	$(OUTDIR)/doc/doxygen/%/html
@@ -206,6 +207,10 @@ $(OUTDIR)/doc/doxygen/%/html/index.html: \
 		echo -n "PROJECT_NUMBER = " && \
 		cat ../../VERSION \
 	) | doxygen -
+
+# make the gallery.html file fragment
+$(BLDDIR)/doc/gallery.html: $(addsuffix .png,$(addprefix $(BLDDIR)/, $(EXAMPLES)))
+	./tools/make_gallery_html.sh $^ > $@
 
 # build dependencies for doxygen XML output
 $(BLDDIR)/xml/index.xml.d: | $(BLDDIR)/xml
