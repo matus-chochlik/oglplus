@@ -17,7 +17,7 @@ INPUT = \
 	../../include/oglplus/images \
 	../../example/oglplus
 
-EXAMPLE_PATH           = ../../example/oglplus ../../bld/doc
+EXAMPLE_PATH = ../../example ../../bld/doc
 
 GENERATE_HTML = YES
 GENERATE_XML = NO

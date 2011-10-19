@@ -208,7 +208,8 @@ namespace oglplus {
  *  @endcode
  *
  *  Some other alternatives include using GLEW or a similar library or framework
- *  which includes gl3.h or defines the necessary symbols itself.
+ *  which includes gl3.h or defines the necessary symbols itself. See the standalone
+ *  examples for working applications using these alternative libraries.
  *
  *  @section oglplus_supported_compilers Supported compilers
  *
@@ -224,6 +225,7 @@ namespace oglplus {
  *
  *  As already said above, OGLplus does not officially provide means for creating of the
  *  default framebuffer nor any code related to window-system or user-input.
+ *
  *  The example code is usually encapsulated in a class derived from the @c Example
  *  class and the build system selects and builds and links the piece of code doing
  *  the initial setup, cleanup and handling of events to the example code
@@ -231,6 +233,10 @@ namespace oglplus {
  *  This way the examples are not too cluttered by things which are not directly
  *  related to OpenGL® and OGLplus usage. The examples are numbered and ordered
  *  roughly by their "difficulty", from the easiest to the most complex.
+ *
+ *  In the example directory there are however also several standalone examples,
+ *  showing complete applications which also contain the initialization and cleanup
+ *  code, using various libraries like GLUT, GLEW, etc.
  *
  *  @section oglplus_object_description Optional object description
  *
