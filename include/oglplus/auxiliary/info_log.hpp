@@ -22,8 +22,8 @@ namespace aux {
 
 inline String GetInfoLog(
 	GLuint object_name,
-	void (&GetObjectiv)(GLuint, GLenum, GLint*),
-	void (&GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
+	void (*GetObjectiv)(GLuint, GLenum, GLint*),
+	void (*GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
 	const char* name_GetObjectiv,
 	const char* name_GetObjectInfoLog
 )

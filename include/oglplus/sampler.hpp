@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_SAMPLER_1107121519_HPP
 #define OGLPLUS_SAMPLER_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -19,6 +20,9 @@
 #include <cassert>
 
 namespace oglplus {
+
+// if samplers are available
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_sampler_objects
 
 /// Encapsulates sampler-related functions
 /** @note Do not use this class directly, use Sampler instead.
@@ -203,7 +207,7 @@ public:
 	}
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL sampler functionality
 /**
  *  @ingroup objects
@@ -214,6 +218,8 @@ class Sampler
 #else
 typedef Object<SamplerOps, true> Sampler;
 #endif
+
+#endif // sampler object
 
 } // namespace oglplus
 

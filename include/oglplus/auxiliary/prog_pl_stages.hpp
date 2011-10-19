@@ -12,9 +12,12 @@
 #ifndef OGLPLUS_AUX_PROG_PL_STAGES_1107121519_HPP
 #define OGLPLUS_AUX_PROG_PL_STAGES_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 
 namespace oglplus {
+
+#if GL_VERSION_4_1 || GL_ARB_separate_program_objects
 
 class ProgramPipelineOps;
 
@@ -97,6 +100,8 @@ public:
 };
 
 } // namespace aux
+
+#endif // program pipeline
 
 } // namespace oglplus
 

@@ -87,11 +87,15 @@ protected:
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, f, t, GLfloat)
+#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, d, t, GLdouble)
+#endif
 
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, iv, v, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, fv, v, GLfloat)
+#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, dv, v, GLdouble)
+#endif
 };
 
 class UniformMatrixSetters
@@ -100,8 +104,12 @@ protected:
 	OGLPLUS_ERROR_INFO_CONTEXT(UniformMatrix, Uniform)
 
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, fv, v, GLfloat)
+#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, dv, v, GLdouble)
+#endif
 };
+
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
 class ProgramUniformSetters
 {
@@ -126,6 +134,8 @@ protected:
 	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, dv, v, GLdouble)
 };
+
+#endif // separate shader objects
 
 } // namespace aux
 
@@ -304,6 +314,8 @@ typedef UniformBase<
 	>
 > Uniform;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+
 /// Class encapsulating ProgramUniform shader variable functionality
 /**
  *  @ingroup shader_variables
@@ -321,6 +333,8 @@ typedef UniformBase<
 		aux::SpecificProgramCallOps
 	>
 > ProgramUniform;
+
+#endif // separate shader objects
 
 } // namespace oglplus
 

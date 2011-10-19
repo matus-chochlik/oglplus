@@ -12,7 +12,9 @@
 #ifndef OGLPLUS_DOC_1107121519_HPP
 #define OGLPLUS_DOC_1107121519_HPP
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#include <oglplus/config.hpp>
+
+#if OGLPLUS_DOCUMENTATION_ONLY
 
 /// All definitions of OGLplus are nested in the oglplus namespace
 namespace oglplus {

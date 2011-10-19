@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_UNIFORM_BLOCK_1107121519_HPP
 #define OGLPLUS_UNIFORM_BLOCK_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/shader.hpp>
@@ -22,6 +23,8 @@
 #include <cassert>
 
 namespace oglplus {
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
 
 /// Encapsulates shader uniform block operations
 /**
@@ -42,10 +45,12 @@ protected:
 		{
 			case Shader::Kind::Vertex:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER;
+#if GL_VERSION_4_0 || GL_ARB_tessellation_shader
 			case Shader::Kind::TessControl:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER;
 			case Shader::Kind::TessEvaluation:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER;
+#endif // tessellation shader
 			case Shader::Kind::Geometry:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER;
 			case Shader::Kind::Fragment:
@@ -60,10 +65,12 @@ protected:
 		{
 			case Shader::Kind::Vertex:
 			return GL_MAX_VERTEX_UNIFORM_BLOCKS;
+#if GL_VERSION_4_0 || GL_ARB_tessellation_shader
 			case Shader::Kind::TessControl:
 			return GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS;
 			case Shader::Kind::TessEvaluation:
 			return GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS;
+#endif // tessellation shader
 			case Shader::Kind::Geometry:
 			return GL_MAX_GEOMETRY_UNIFORM_BLOCKS;
 			case Shader::Kind::Fragment:
@@ -159,6 +166,8 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(UniformBlockBinding));
 	}
 };
+
+#endif // uniform buffer object
 
 } // namespace oglplus
 

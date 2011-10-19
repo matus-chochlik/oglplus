@@ -12,12 +12,13 @@
 #ifndef OGLPLUS_EXPOSED_1107121519_HPP
 #define OGLPLUS_EXPOSED_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/object.hpp>
 
 namespace oglplus {
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// This template class can ba used to get the OpenGL name of the Object
 /** Exposing the object's name can be useful when calling an OpenGL function
  *  which is not wrapped by OGLplus and which requires the name of an object.

@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_VERTEX_ATTRIB_1107121519_HPP
 #define OGLPLUS_VERTEX_ATTRIB_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
@@ -22,7 +23,7 @@
 
 namespace oglplus {
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the vertex attribute slot (implementation-dependent limited) number
 class VertexAttribSlot
  : public LimitedCount

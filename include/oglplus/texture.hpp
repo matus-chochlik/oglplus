@@ -26,7 +26,7 @@
 
 namespace oglplus {
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the texture unit selector (implementation-dependent limited) number
 class TextureUnitSelector
  : public LimitedCount
@@ -66,6 +66,7 @@ enum class TextureMinFilter : GLenum {
 #include <oglplus/enums/texture_min_filter.ipp>
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 /// Texture swizzle parameter coordinate enumeration
 /**
  *  @ingroup enumerations
@@ -81,6 +82,7 @@ enum class TextureSwizzleCoord : GLenum {
 enum class TextureSwizzle : GLenum {
 #include <oglplus/enums/texture_swizzle.ipp>
 };
+#endif // texture swizzle
 
 /// Texture wrap parameter coordinate enumeration
 /**
@@ -1487,6 +1489,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_*)
 	static TextureSwizzle Swizzle(Target target, TextureSwizzleCoord coord)
 	{
@@ -1574,6 +1577,7 @@ public:
 	{
 		Swizzle(target, TextureSwizzleCoord::RGBA, mode);
 	}
+#endif // texture swizzle
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_*)
 	static TextureWrap Wrap(Target target, TextureWrapCoord coord)
@@ -1671,7 +1675,7 @@ public:
 	}
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL texture functionality
 /**
  *  @ingroup objects

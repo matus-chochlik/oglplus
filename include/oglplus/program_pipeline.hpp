@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 #define OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/friend_of.hpp>
@@ -21,6 +22,9 @@
 #include <cassert>
 
 namespace oglplus {
+
+// if program-pipeline is available
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_program_objects
 
 /// ProgramPipeline operations wrapper class
 /** This class implements OpenGL program pipeline operations.
@@ -189,7 +193,7 @@ public:
 	}
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
 /**
  *  @ingroup objects
@@ -200,6 +204,8 @@ class ProgramPipeline
 #else
 typedef Object<ProgramPipelineOps, true> ProgramPipeline;
 #endif
+
+#endif // program pipeline
 
 } // namespace oglplus
 

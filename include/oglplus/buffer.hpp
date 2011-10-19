@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_BUFFER_1107121519_HPP
 #define OGLPLUS_BUFFER_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -22,7 +23,7 @@
 
 namespace oglplus {
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the uniform buffer binding point index
 class UniformBufferBindingPoint
  : public LimitedCount
@@ -31,14 +32,16 @@ public:
 	/// Construction from a @c GLuint
 	UniformBufferBindingPoint(GLuint count);
 };
-#else
+#elif GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
 OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 	UniformBufferBindingPoint,
 	MAX_UNIFORM_BUFFER_BINDINGS
 )
+#else
+typedef GLuint UniformBufferBindingPoint;
 #endif
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the transform feedback buffer binding point index
 class TransformFeedbackBufferBindingPoint
  : public LimitedCount
@@ -47,11 +50,13 @@ public:
 	/// Construction from a @c GLuint
 	TransformFeedbackBufferBindingPoint(GLuint count);
 };
-#else
+#elif GL_VERSION_4_0 || GL_ARB_transform_feedback3
 OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 	TransformFeedbackBufferBindingPoint,
 	MAX_TRANSFORM_FEEDBACK_BUFFERS
 )
+#else
+typedef GLuint TransformFeedbackBufferBindingPoint;
 #endif
 
 /// Wrapper for OpenGL buffer operations
@@ -508,7 +513,7 @@ public:
 	}
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality
 /**
  *  @ingroup objects

@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_VERTEX_ARRAY_1107121519_HPP
 #define OGLPLUS_VERTEX_ARRAY_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -63,7 +64,7 @@ public:
 	}
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
 /**
  *  @ingroup objects

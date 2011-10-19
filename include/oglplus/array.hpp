@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_ARRAY_1107121519_HPP
 #define OGLPLUS_ARRAY_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/auxiliary/base_iter.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
@@ -78,7 +79,7 @@ public:
 		return _storage.end();
 	}
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns a range allowing to traverse the instances in the array
 	Range<Object> all(void) const;
 #else
@@ -170,7 +171,7 @@ public:
 		return iterator(_names.end());
 	}
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 	Range<Object> all(void) const;
 #else
 	aux::ArrayRange<Managed<ObjectOps> > all(void) const

@@ -18,6 +18,10 @@ namespace oglplus {
 #define nullptr 0
 #define constexpr const
 
+#ifndef OGLPLUS_DOCUMENTATION_ONLY
+#define OGLPLUS_DOCUMENTATION_ONLY 0
+#endif
+
 #ifndef OGLPLUS_DONT_TEST_OBJECT_TYPE
 /// Compile-time switch disabling the texting of object type on construction
 #define OGLPLUS_DONT_TEST_OBJECT_TYPE 1

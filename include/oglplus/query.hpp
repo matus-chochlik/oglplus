@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_QUERY_1107121519_HPP
 #define OGLPLUS_QUERY_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -124,6 +125,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
 	/// Get the query result
 	void Result(GLint64& result) const
 	{
@@ -155,6 +157,7 @@ public:
 			_name
 		));
 	}
+#endif // timer query
 
 	/// Waits for and queries the result
 	template <typename ResultType>
@@ -229,7 +232,7 @@ public:
 };
 
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL asynchronous query functionality
 /**
  *  @ingroup objects

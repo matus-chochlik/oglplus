@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_TRANSFORM_FEEDBACK_1107121519_HPP
 #define OGLPLUS_TRANSFORM_FEEDBACK_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -28,6 +29,8 @@ enum class TransformFeedbackMode : GLenum
 {
 #include <oglplus/enums/transform_feedback_mode.ipp>
 };
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 
 class TransformFeedbackOps
  : public Named
@@ -214,7 +217,7 @@ public:
 };
 
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL transform feedback functionality
 /**
  *  @ingroup objects
@@ -225,6 +228,8 @@ class TransformFeedback
 #else
 typedef Object<TransformFeedbackOps, true> TransformFeedback;
 #endif
+
+#endif // transform feedback 2
 
 } // namespace oglplus
 

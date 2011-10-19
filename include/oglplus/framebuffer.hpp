@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_FRAMEBUFFER_1107121519_HPP
 #define OGLPLUS_FRAMEBUFFER_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -22,7 +23,7 @@
 
 namespace oglplus {
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the framebuffer color attachment (implementation-dependent) number
 class FramebufferColorAttachment
  : public LimitedCount
@@ -325,7 +326,7 @@ public:
 	}
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 /**
  *  @ingroup objects

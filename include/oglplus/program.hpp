@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_PROGRAM_1107121519_HPP
 #define OGLPLUS_PROGRAM_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/shader.hpp>
@@ -279,6 +280,19 @@ public:
 			);
 			_name = String(context.Buffer().data(), strlen);
 		}
+
+		// TODO: this is here only because GLEW defines
+		// glGetTransformFeedbackVaryings this way
+		ActiveVariableInfo(
+			aux::ProgramPartInfoContext& context,
+			GLuint index,
+			void (*GetActiveVariable)(GLuint, GLuint, GLint*)
+		): _index(index)
+		 , _size(0)
+		 , _type(0)
+		 , _name(0)
+		{
+		}
 	public:
 		/// Returns the index of the attribute or uniform
 		GLuint Index(void) const
@@ -304,7 +318,7 @@ public:
 		}
 	};
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// The type of the range for traversing active vertex attributes
 	typedef Range<ActiveVariableInfo> ActiveAttribRange;
 	/// The type of the range for traversing active uniforms
@@ -320,7 +334,11 @@ public:
 		ActiveAttribInfo(
 			aux::ProgramPartInfoContext& context,
 			GLuint index
-		): ActiveVariableInfo(context, index, &::glGetActiveAttrib)
+		): ActiveVariableInfo(
+			context,
+			index,
+			::glGetActiveAttrib
+		)
 		{
 			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveAttrib,
@@ -339,7 +357,11 @@ public:
 		ActiveUniformInfo(
 			aux::ProgramPartInfoContext& context,
 			GLuint index
-		): ActiveVariableInfo(context, index, &::glGetActiveUniform)
+		): ActiveVariableInfo(
+			context,
+			index,
+			::glGetActiveUniform
+		)
 		{
 			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveUniform,
@@ -361,7 +383,7 @@ public:
 		): ActiveVariableInfo(
 			context,
 			index,
-			&::glGetTransformFeedbackVarying
+			::glGetTransformFeedbackVarying
 		)
 		{
 			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
@@ -605,7 +627,7 @@ public:
 		// TODO: active uniform indices, etc.
 	};
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// The type of the range for traversing active uniform blocks
 	typedef Range<ActiveUniformBlockInfo> ActiveUniformRange;
 #else
@@ -638,6 +660,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	/// Makes this program separable
 	void MakeSeparable(bool para = true) const
 	{
@@ -653,7 +676,9 @@ public:
 			_name
 		));
 	}
+#endif // separate shader objects
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_get_program_binary
 	/// Makes this program retrievable in binary form
 	/**
 	 *  @see GetBinary
@@ -721,6 +746,7 @@ public:
 			_name
 		));
 	}
+#endif // get program binary
 
 	/// Returns the transform feedback buffer mode
 	TransformFeedbackMode TransformFeedbackBufferMode(void) const
@@ -736,11 +762,16 @@ public:
 		return GetIntParam(GL_GEOMETRY_VERTICES_OUT);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_gpu_shader5
+
 	/// Returns the number of invocations of geometry shader per primitive
 	GLint GeometryShaderInvocations(void) const
 	{
 		return GetIntParam(GL_GEOMETRY_SHADER_INVOCATIONS);
 	}
+#endif // gpu shader 5
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 
 	/// Returns the geometry shader input primitive type
 	PrimitiveType GeometryInputType(void) const
@@ -753,6 +784,9 @@ public:
 	{
 		return PrimitiveType(GetIntParam(GL_GEOMETRY_OUTPUT_TYPE));
 	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_tessellation_shader
 
 	/// Returns the vertex order in tesselation evaluation shader
 	FaceOrientation TessGenVertexOrder(void) const
@@ -777,6 +811,7 @@ public:
 	{
 		return GetIntParam(GL_TESS_GEN_POINT_MODE) == GL_TRUE;
 	}
+#endif // tessellation shader
 
 	// Implemented in vertex_attrib.hpp
 	/// Binds the location of a SL variable to the vertex_attrib
@@ -791,7 +826,7 @@ public:
 
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
 /**
  *  @ingroup objects

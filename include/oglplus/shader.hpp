@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_SHADER_1107121519_HPP
 #define OGLPLUS_SHADER_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -180,7 +181,7 @@ public:
 	}
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// An object encasulating the shading language shader functionality
 /**
  *  @see Program
@@ -231,7 +232,7 @@ struct BaseOps<SpecializedShader<kind> >
 	typedef typename BaseOps<Shader>::Type Type;
 };
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Vertex shader wrapper
 /**
  *  @see Shader
@@ -245,7 +246,7 @@ class VertexShader
 typedef SpecializedShader<Shader::Kind::Vertex> VertexShader;
 #endif
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Geometry shader wrapper
 /**
  *  @see Shader
@@ -259,7 +260,7 @@ class GeometryShader
 typedef SpecializedShader<Shader::Kind::Geometry> GeometryShader;
 #endif
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Fragment shader wrapper
 /**
  *  @see Shader
@@ -273,7 +274,7 @@ class FragmentShader
 typedef SpecializedShader<Shader::Kind::Fragment> FragmentShader;
 #endif
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Tesselation control shader wrapper
 /**
  *  @see Shader
@@ -287,7 +288,7 @@ class TessControlShader
 typedef SpecializedShader<Shader::Kind::TessControl> TessControlShader;
 #endif
 
-#ifdef OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Tesselation evaluation shader wrapper
 /**
  *  @see Shader
