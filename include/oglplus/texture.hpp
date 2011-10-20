@@ -1142,6 +1142,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
 	/// Sets-up a three dimensional multisample texture
 	static void Image3DMultisample(
 		Target target,
@@ -1193,7 +1194,9 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif // texture multisample
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 	/// Assigns a buffer storing the texel data to the texture
 	static void SetBuffer(
 		Target target,
@@ -1212,6 +1215,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif
 
 	/// Returns the texture base level (TEXTURE_BASE_LEVEL)
 	static GLuint BaseLevel(Target target)

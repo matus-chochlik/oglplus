@@ -189,6 +189,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Attach a @p texture to the @p attachment point of @p target
 	static void AttachTexture(
 		Target target,
@@ -209,6 +210,7 @@ public:
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
+#endif
 
 	/// Attach a @p texture to the color @p attachment point of @p target
 	static void AttachColorTexture(

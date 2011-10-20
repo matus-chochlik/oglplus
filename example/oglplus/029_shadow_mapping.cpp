@@ -285,9 +285,6 @@ public:
 			max_lights_def.str().c_str(),
 			"uniform vec3 LightColors[MaxLights];"
 			"uniform sampler2DShadow ShadowTexs[MaxLights];"
-			"in gl_PerVertex {"
-			"	vec4 gl_Position;"
-			"};"
 			"in vec3 vertNormal;"
 			"in vec3 vertLight[MaxLights];"
 			"in vec4 vertTexCoord[MaxLights];"

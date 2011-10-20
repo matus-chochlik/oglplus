@@ -488,6 +488,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_copy_buffer
 	/// Copy data between buffers
 	/**
 	 *  @see Data
@@ -511,6 +512,7 @@ public:
 		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(CopyBufferSubData));
 	}
+#endif // copy buffer
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY

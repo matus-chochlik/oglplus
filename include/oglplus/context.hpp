@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_CONTEXT_1107121317_HPP
 #define OGLPLUS_CONTEXT_1107121317_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/capability.hpp>
 #include <oglplus/primitive_type.hpp>
@@ -253,7 +254,7 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendFuncSeparate));
 	}
 
-/*TODO
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Sets the blend function for a particular buffer
 	static void BlendFunci(
 		GLuint buf,
@@ -283,7 +284,7 @@ public:
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendFuncSeparatei));
 	}
-*/
+#endif
 
 	/// Sets the blend color
 	static void BlendColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
@@ -423,6 +424,7 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 	/// Draws @a count of primitives from the bound array buffers
 	/**
 	 *  @throws Error
@@ -442,6 +444,7 @@ public:
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
 	}
+#endif
 
 	/// Draws a sequence of primitives from the bound element array buffers
 	/**

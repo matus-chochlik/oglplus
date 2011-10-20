@@ -413,6 +413,10 @@ public:
  *  @endcode
  */
 
+/** @page oglplus_dependencies Dependencies
+ *
+ */
+
 /// Allows to handle objects which are used through a binding point conveniently
 /** See @ref bound_object for more details.
  *

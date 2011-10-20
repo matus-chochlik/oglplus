@@ -66,6 +66,7 @@ class UniformQueries
 protected:
 	static String _query_name(GLuint program, GLuint index)
 	{
+#if GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
 		GLsizei max_length = 255, real_length;
 		GLchar buffer[256] = {GLchar(0)};
 		::glGetActiveUniformName(
@@ -76,6 +77,9 @@ protected:
 			buffer
 		);
 		return String(buffer, real_length);
+#else
+		return String();
+#endif
 	}
 };
 

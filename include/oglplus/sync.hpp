@@ -17,6 +17,8 @@
 
 namespace oglplus {
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_sync
+
 /// Encapsulates sync object and fence functionality
 class Sync
 {
@@ -70,6 +72,8 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(WaitSync));
 	}
 };
+
+#endif // sync
 
 } // namespace oglplus
 

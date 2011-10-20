@@ -24,7 +24,7 @@
 namespace oglplus {
 
 // if program-pipeline is available
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_program_objects
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
 /// ProgramPipeline operations wrapper class
 /** This class implements OpenGL program pipeline operations.
