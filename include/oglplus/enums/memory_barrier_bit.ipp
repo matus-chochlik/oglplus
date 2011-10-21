@@ -1,0 +1,169 @@
+/*
+ *  .file oglplus/enums/memory_barrier_bits.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/memory_barrier_bits.txt' instead.
+ *
+ *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+
+/// VERTEX_ATTRIB_ARRAY_BARRIER_BIT
+VertexAttribArray,
+/// ELEMENT_ARRAY_BARRIER_BIT
+ElementArray,
+/// UNIFORM_BARRIER_BIT
+Uniform,
+/// TEXTURE_FETCH_BARRIER_BIT
+TextureFetch,
+/// SHADER_IMAGE_ACCESS_BARRIER_BIT
+ShaderImageAccess,
+/// COMMAND_BARRIER_BIT
+Command,
+/// PIXEL_BUFFER_BARRIER_BIT
+PixelBuffer,
+/// TEXTURE_UPDATE_BARRIER_BIT
+TextureUpdate,
+/// BUFFER_UPDATE_BARRIER_BIT
+BufferUpdate,
+/// FRAMEBUFFER_BARRIER_BIT
+Framebuffer,
+/// TRANSFORM_FEEDBACK_BARRIER_BIT
+TransformFeedback,
+/// ATOMIC_COUNTER_BARRIER_BIT
+AtomicCounter,
+/// ALL_BARRIER_BITS
+All
+
+#else // OGLPLUS_DOCUMENTATION_ONLY
+
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#if defined GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+VertexAttribArray = GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ELEMENT_ARRAY_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+ElementArray = GL_ELEMENT_ARRAY_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_UNIFORM_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Uniform = GL_UNIFORM_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_TEXTURE_FETCH_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+TextureFetch = GL_TEXTURE_FETCH_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SHADER_IMAGE_ACCESS_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+ShaderImageAccess = GL_SHADER_IMAGE_ACCESS_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COMMAND_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Command = GL_COMMAND_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_PIXEL_BUFFER_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+PixelBuffer = GL_PIXEL_BUFFER_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_TEXTURE_UPDATE_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+TextureUpdate = GL_TEXTURE_UPDATE_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_BUFFER_UPDATE_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+BufferUpdate = GL_BUFFER_UPDATE_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FRAMEBUFFER_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Framebuffer = GL_FRAMEBUFFER_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+TransformFeedback = GL_TRANSFORM_FEEDBACK_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ATOMIC_COUNTER_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+AtomicCounter = GL_ATOMIC_COUNTER_BARRIER_BIT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ALL_BARRIER_BITS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+All = GL_ALL_BARRIER_BITS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#endif // OGLPLUS_DOCUMENTATION_ONLY
+

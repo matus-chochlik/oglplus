@@ -13,6 +13,8 @@
 
 /// ARRAY_BUFFER
 Array,
+/// ATOMIC_COUNTER_BUFFER
+iAtomicCounter,
 /// COPY_READ_BUFFER
 CopyRead,
 /// COPY_WRITE_BUFFER
@@ -43,6 +45,15 @@ Uniform
 ,
 # endif
 Array = GL_ARRAY_BUFFER
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ATOMIC_COUNTER_BUFFER
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+iAtomicCounter = GL_ATOMIC_COUNTER_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

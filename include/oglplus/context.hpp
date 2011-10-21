@@ -24,6 +24,7 @@
 #include <oglplus/stencil_op.hpp>
 #include <oglplus/color_log_op.hpp>
 #include <oglplus/color_buffer.hpp>
+#include <oglplus/memory_barrier.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
 #include <oglplus/auxiliary/bitfield.hpp>
@@ -534,6 +535,35 @@ public:
 		::glDrawElements(GLenum(primitive), count, GLenum(data_type),p);
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawElements));
 	}
+
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_shader_image_load_store
+	/// Defines a barrier for memory transactions
+	/**
+	 *  example:
+	 *  @code
+	 *  Context gl;
+	 *  gl.MemoryBarrier({MemoryBarrierBit::VertexAttribArray});
+	 *  gl.MemoryBarrier({
+	 *      MemoryBarrierBit::ElementArray,
+	 *      MemoryBarrierBit::UniformArray
+	 *  });
+	 *  gl.MemoryBarrier({
+	 *      MemoryBarrierBit::TextureFetch,
+	 *      MemoryBarrierBit::TextureUpdate
+	 *  });
+	 *  @endcode
+	 *
+	 *  @throws Error
+	 */
+	static void MemoryBarrier(
+		const std::initializer_list<MemoryBarrierBit>& bits
+	)
+	{
+		::glMemoryBarrier(aux::MakeBitfield(bits));
+		AssertNoError(OGLPLUS_ERROR_INFO(MemoryBarrier));
+	}
+#endif
 };
 
 } // namespace oglplus

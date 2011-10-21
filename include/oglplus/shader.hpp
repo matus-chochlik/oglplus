@@ -179,6 +179,14 @@ public:
 				)
 			);
 	}
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
+	/// Indicate that the resources associated with the compiler can be freed
+	static void ReleaseCompiler(void)
+	{
+		::glReleaseShaderCompiler();
+		ThrowOnError(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
+	}
+#endif
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY

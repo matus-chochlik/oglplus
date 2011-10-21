@@ -25,10 +25,12 @@ ${1} &
 child=$!
 # wait for a while and make a screenshot
 case "$(basename ${1})" in
+	005_mandelbrot) sleep_period=2;;
 	018_particle_system) sleep_period=5;;
 	021_cloud) sleep_period=3;;
 	021_wooden_crate) sleep_period=2;;
 	024_particle_trails) sleep_period=4;;
+	025_rendered_texture) sleep_period=2;;
 	026_clouds) sleep_period=5;;
 	026_torus_halo) sleep_period=2;;
 	027_smoke_trails) sleep_period=7;;

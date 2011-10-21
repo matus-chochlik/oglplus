@@ -163,6 +163,40 @@ public:
 		);
 	}
 
+	/// Returns true if the pipeline is validated, false otherwise
+	/**
+	 *  @see Validate
+	 */
+	bool IsValid(void) const
+	{
+		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
+	}
+
+	/// Validates this program pipeline
+	/**
+	 *  @throws Error ValidationError
+	 *  @see Link
+	 */
+	void Validate(void) const
+	{
+		assert(_name != 0);
+		::glValidateProgramPipeline(_name);
+		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			ValidateProgramPipeline,
+			ProgramPipeline,
+			_name
+		));
+		if(!IsValid())
+			throw ValidationError(
+				GetInfoLog(),
+				OGLPLUS_OBJECT_ERROR_INFO(
+					ValidateProgramPipeline,
+					ProgramPipeline,
+					_name
+				)
+			);
+	}
+
 	/// Make the @p program active for this program pipeline
 	void ActiveShaderProgram(const ProgramOps& program) const
 	{
