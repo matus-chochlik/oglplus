@@ -15,6 +15,7 @@ INPUT = \
 	../../include/oglplus \
 	../../include/oglplus/shapes \
 	../../include/oglplus/images \
+	../../example/standalone \
 	../../example/oglplus
 
 EXAMPLE_PATH = ../../example ../../bld/doc

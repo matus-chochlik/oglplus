@@ -77,6 +77,28 @@ public:
 		return result == GL_TRUE;
 	}
 
+	/// Enable capability for indexed target
+	static void Enable(Capability cap, GLuint index)
+	{
+		::glEnablei(GLenum(cap), index);
+		AssertNoError(OGLPLUS_ERROR_INFO(Enablei));
+	}
+
+	/// Disable capability for indexed target
+	static void Disable(Capability cap, GLuint index)
+	{
+		::glDisablei(GLenum(cap), index);
+		AssertNoError(OGLPLUS_ERROR_INFO(Disablei));
+	}
+
+	/// Check if capability is enabled for indexed target
+	static bool IsEnabled(Capability cap, GLuint index)
+	{
+		GLboolean result = ::glIsEnabledi(GLenum(cap), index);
+		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabledi));
+		return result == GL_TRUE;
+	}
+
 	/// Sets the clear color
 	/**
 	 *  @throws Error
@@ -230,6 +252,30 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationSeparate));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
+	/// Sets the blend equation for a particular draw @p buffer
+	static void BlendEquation(GLuint buffer, oglplus::BlendEquation eq)
+	{
+		::glBlendEquationi(buffer, GLenum(eq));
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationi));
+	}
+
+	/// Sets the blend equation separate for RGB and alpha for a @p buffer
+	static void BlendEquationSeparate(
+		GLuint buffer,
+		oglplus::BlendEquation eq_rgb,
+		oglplus::BlendEquation eq_alpha
+	)
+	{
+		::glBlendEquationSeparatei(
+			buffer,
+			GLenum(eq_rgb),
+			GLenum(eq_alpha)
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationSeparatei));
+	}
+#endif
+
 	/// Sets the blend function
 	static void BlendFunc(BlendFunction src, BlendFunction dst)
 	{
@@ -255,20 +301,20 @@ public:
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
-	/// Sets the blend function for a particular buffer
+	/// Sets the blend function for a particular @p buffer
 	static void BlendFunci(
-		GLuint buf,
+		GLuint buffer,
 		BlendFunction src,
 		BlendFunction dst
 	)
 	{
-		::glBlendFunci(buf, GLenum(src), GLenum(dst));
+		::glBlendFunci(buffer, GLenum(src), GLenum(dst));
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendFunci));
 	}
 
-	/// Sets the blend function separate for RGB and alpha for a buffer
+	/// Sets the blend function separate for RGB and alpha for a @p buffer
 	static void BlendFuncSeparatei(
-		GLuint buf,
+		GLuint buffer,
 		BlendFunction src_rgb,
 		BlendFunction dst_rgb,
 		BlendFunction src_alpha,
@@ -276,7 +322,7 @@ public:
 	)
 	{
 		::glBlendFuncSeparatei(
-			buf,
+			buffer,
 			GLenum(src_rgb),
 			GLenum(dst_rgb),
 			GLenum(src_alpha),
@@ -326,14 +372,27 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(ColorMask));
 	}
 
-	/// Sets the depth mask
+	/// Sets the color mask for a particular @p buffer
+	static void ColorMask(GLuint buffer, bool r, bool g, bool b, bool a)
+	{
+		::glColorMaski(
+			buffer,
+			r ? GL_TRUE : GL_FALSE,
+			g ? GL_TRUE : GL_FALSE,
+			b ? GL_TRUE : GL_FALSE,
+			a ? GL_TRUE : GL_FALSE
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(ColorMaski));
+	}
+
+	/// Sets the depth @p mask
 	static void DepthMask(bool mask)
 	{
 		::glDepthMask(mask ? GL_TRUE : GL_FALSE);
 		AssertNoError(OGLPLUS_ERROR_INFO(DepthMask));
 	}
 
-	/// Sets the stencil mask
+	/// Sets the stencil @p mask
 	static void StencilMask(GLuint mask)
 	{
 		::glStencilMask(mask);

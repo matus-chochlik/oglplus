@@ -10,6 +10,8 @@ oglplus_archive_items="
 	include
 	source
 	tools/make_screenshot.sh
+	tools/make_gallery.sh
+	tools/make_enum_headers.sh
 	utils
 	xslt
 	out
