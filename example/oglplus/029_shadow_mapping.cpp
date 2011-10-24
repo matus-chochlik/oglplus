@@ -117,7 +117,7 @@ public:
 	 , shadow_prog("Shadow")
 	 , draw_pp("Draw")
 	 , shadow_pp("Shadow")
-	 , tex_side(256)
+	 , tex_side(512)
 	 , light_paths(
 		{
 			CubicBezierLoop<Vec3f, double>({
@@ -312,15 +312,10 @@ public:
 			"			coord.z <= 1.0"
 			"		)"
 			"		{"
-			"			float s = texture("
+			"			e = texture("
 			"				ShadowTexs[i], "
 			"				coord"
 			"			);"
-			"			float f = sqrt(coord.z-s)*16.0;"
-			"			if(s < coord.z)"
-			"			{"
-			"				e = max(1.0-f, 0.0);"
-			"			}"
 			"		}"
 			"		color += LightColors[i] *"
 			"			3.2 * max(e * d, 0.0);"
@@ -379,6 +374,9 @@ public:
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::ClampToEdge);
 			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.CompareMode(
+				TextureCompareMode::CompareRefToTexture
+			);
 			bound_tex.Image2D(
 				0,
 				PixelDataInternalFormat::DepthComponent32F,
@@ -421,7 +419,7 @@ public:
 		shadow_pp.Bind();
 
 		const auto light_persp_matrix = CamMatrixf::Perspective(
-			Degrees(45),
+			Degrees(48),
 			1.0, 1.0, 20.0
 		);
 		ProgramUniform(vert_prog, "LightCount").Set(0);
@@ -436,14 +434,14 @@ public:
 			light_positions[i] =
 				light_paths[i].Position((i+1)*time/12.0);
 
-			const auto camera_matrix = CamMatrixf::LookingAt(
+			const auto light_matrix = CamMatrixf::LookingAt(
 				light_positions[i],
 				Vec3f()
 			);
 
 			light_proj_matrices[i] =
 				light_persp_matrix *
-				camera_matrix;
+				light_matrix;
 
 			// Bind the off-screen FBO
 			fbo[i].Bind(Framebuffer::Target::Draw);
@@ -453,7 +451,7 @@ public:
 			gl.Clear().DepthBuffer();
 
 			ProgramUniform(vert_prog, "CameraMatrix").SetMatrix(
-				camera_matrix
+				light_matrix
 			);
 
 			gl.FrontFace(make_cube.FaceWinding());
