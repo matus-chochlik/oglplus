@@ -1,3 +1,24 @@
+Version 0.5.0
+
+- Compile-time checks for available OpenGL enumerations and functions were added
+- New Buffer Target was added
+- New function wrappers were added to Context
+- New capabilities were added to the Capability enumeration
+- Wrapper class for sync objects was added
+- Memory barrier-related enumerations and function wrappers were added
+- Support for iteration over program shaders was added
+- Additional query functions for program parameters were added
+- Query functions for program pipeline parameters were added
+- The TessGenPrimitiveType and TessGenPrimitiveSpacing enumerations were added
+- Vertex attribute and uniform setters have now better diagnostic
+- Framebuffer status enumeration and completeness query functions were added
+- Color buffer-related enumerations and function wrappers were added
+- Ortho Matrix construction was added
+- Several bugs in the examples were fixed
+- New examples were added including two standalone examples
+- The documentation was updated
+- The build system was updated
+
 Version 0.4.0
 
 - A bug in the install script which caused it to exit before
