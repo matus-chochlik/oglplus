@@ -69,6 +69,11 @@ class VertexAttribOps;
  *  @note Do not use this class directly, use @c Program instead.
  *
  *  @see Program
+ *
+ *  @glsymbols
+ *  @glfunref{CreateProgram}
+ *  @glfunref{DeleteProgram}
+ *  @glfunref{IsProgram}
  */
 class ProgramOps
  : public Named
@@ -109,6 +114,10 @@ public:
 	}
 
 	/// Attaches the shader to this program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{AttachShader}
+	 */
 	void AttachShader(const ShaderOps& shader)
 	{
 		assert(_name != 0);
@@ -122,6 +131,10 @@ public:
 
 
 	/// Detaches the shader to this program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{DetachShader}
+	 */
 	void DetachShader(const ShaderOps& shader)
 	{
 		assert(_name != 0);
@@ -137,6 +150,9 @@ public:
 	/**
 	 *  @see Link
 	 *  @see Validate
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetProgramiv}
 	 */
 	bool IsLinked(void) const
 	{
@@ -147,6 +163,10 @@ public:
 	/**
 	 *  @see IsLinked
 	 *  @see Link
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgramInfoLog}
 	 */
 	String GetInfoLog(void) const
 	{
@@ -163,6 +183,11 @@ public:
 	/**
 	 *  @throws Error LinkError
 	 *  @see IsLinked
+	 *
+	 *  @glsymbols
+	 *  @glfunref{LinkProgram}
+	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgramInfoLog}
 	 */
 	void Link(void) const
 	{
@@ -187,6 +212,9 @@ public:
 	/// Returns true if the program is validated, false otherwise
 	/**
 	 *  @see Validate
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetProgramiv}
 	 */
 	bool IsValid(void) const
 	{
@@ -197,6 +225,11 @@ public:
 	/**
 	 *  @throws Error ValidationError
 	 *  @see Link
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ValidateProgram}
+	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgramInfoLog}
 	 */
 	void Validate(void) const
 	{
@@ -224,6 +257,9 @@ public:
 	 *
 	 *  @see IsLinked
 	 *  @see Link
+	 *
+	 *  @glsymbols
+	 *  @glfunref{UseProgram}
 	 */
 	void Use(void) const
 	{
@@ -238,6 +274,10 @@ public:
 	}
 
 	/// Deactivates the currently active/used program (if any)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UseProgram}
+	 */
 	static void UseNone(void)
 	{
 		::glUseProgram(0);
@@ -514,6 +554,9 @@ public:
 	/// Sets the variables that will be captured during transform feedback
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TransformFeedbackVaryings}
 	 */
 	void TransformFeedbackVaryings(
 		GLsizei count,
@@ -537,6 +580,9 @@ public:
 	/// Sets the variables that will be captured during transform feedback
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TransformFeedbackVaryings}
 	 */
 	void TransformFeedbackVaryings(
 		const std::vector<String>& varyings,
@@ -662,6 +708,10 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	/// Makes this program separable
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ProgramParameteri}
+	 */
 	void MakeSeparable(bool para = true) const
 	{
 		assert(_name != 0);
@@ -682,6 +732,9 @@ public:
 	/// Makes this program retrievable in binary form
 	/**
 	 *  @see GetBinary
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ProgramParameteri}
 	 */
 	void MakeRetrievable(bool para = true) const
 	{
@@ -702,6 +755,10 @@ public:
 	/**
 	 *  @see MakeRetrievable
 	 *  @see Binary
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgramBinary}
 	 */
 	void GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 	{
@@ -730,6 +787,9 @@ public:
 	/**
 	 *  @see MakeRetrievable
 	 *  @see GetBinary
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ProgramBinary}
 	 */
 	void Binary(const std::vector<GLubyte>& binary, GLenum format) const
 	{

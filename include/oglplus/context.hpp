@@ -715,7 +715,7 @@ public:
 	 *  gl.MemoryBarrier({MemoryBarrierBit::VertexAttribArray});
 	 *  gl.MemoryBarrier({
 	 *      MemoryBarrierBit::ElementArray,
-	 *      MemoryBarrierBit::UniformArray
+	 *      MemoryBarrierBit::Uniform
 	 *  });
 	 *  gl.MemoryBarrier({
 	 *      MemoryBarrierBit::TextureFetch,

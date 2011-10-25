@@ -38,6 +38,7 @@ namespace oglplus {
  *  - @ref oglplus_what_it_is_not
  *  - @ref oglplus_screenshot_gallery
  *  - @ref oglplus_download
+ *    - <A HREF="http://sourceforge.net/projects/oglplus/files/">Download page</A>
  *  - @ref oglplus_getting_started
  *  - @ref oglplus_getting_it_going
  *  - @ref oglplus_supported_compilers
@@ -214,7 +215,7 @@ namespace oglplus {
  *  @section oglplus_supported_compilers Supported compilers
  *
  *  OGLplus is known to work with the following compilers:
- *  - GCC (version 4.5.1)
+ *  - GCC (versions 4.5.1, 4.6.0, 4.6.1)
  *
  *  Currently the limiting factor seems to be the support for C++11 features
  *  by the various compilers. Since C++11 is now an official standard
