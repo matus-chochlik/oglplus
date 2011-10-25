@@ -19,7 +19,7 @@ namespace aux {
 
 template <typename Bit>
 inline GLbitfield MakeBitfield(
-	const std::initializer_list<Bit>& bits,
+	std::initializer_list<Bit> bits,
 	GLbitfield bf = GLbitfield(0)
 )
 {

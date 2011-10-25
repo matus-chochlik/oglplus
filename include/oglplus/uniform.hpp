@@ -45,14 +45,14 @@ protected:
 		ThrowOnError(OGLPLUS_ERROR_INFO(GetUniformLocation));
 		if(_index == GLint(-1))
 		{
+			Error::PropertyMap props;
+			props["identifier"] = identifier;
+			props["program"] = ObjectDescription(program);
 			ThrowOnError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
 				OGLPLUS_ERROR_INFO(GetUniformLocation),
-				Error::PropertyMap({
-					{"identifier", identifier},
-					{"program", ObjectDescription(program)}
-				})
+				std::move(props)
 			);
 		}
 	}

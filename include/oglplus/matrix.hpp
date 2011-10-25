@@ -15,6 +15,7 @@
 #include <oglplus/vector.hpp>
 #include <oglplus/angle.hpp>
 
+#include <initializer_list>
 #include <algorithm>
 
 #include <cassert>
@@ -184,6 +185,12 @@ private:
 	template <typename X>
 	static void _eat(const X&...)
 	{ }
+
+protected:
+	void _init_data(std::initializer_list<T> data)
+	{
+		std::copy(data.begin(), data.end(), this->_m._data);
+	}
 public:
 	struct NoInit { };
 
@@ -220,7 +227,7 @@ public:
 			Rows * Cols == sizeof...(P) + 1,
 			"Invalid number of elements for this matrix type"
 		);
-		this->_m._data = {v, T(p)...};
+		this->_init_data({v, T(p)...});
 	}
 
 	/// Initializing from row vectors
@@ -570,12 +577,12 @@ public:
 	ModelMatrix(_Translation, T dx, T dy, T dz)
 	 : Base(typename Base::NoInit())
 	{
-		this->_m._data = {
+		this->_init_data({
 			T(1), T(0), T(0),   dx,
 			T(0), T(1), T(0),   dy,
 			T(0), T(0), T(1),   dz,
 			T(0), T(0), T(0), T(1)
-		};
+		});
 	}
 
 	/// Constructs a translation matrix
@@ -589,12 +596,12 @@ public:
 	ModelMatrix(_Scale, T sx, T sy, T sz)
 	 : Base(typename Base::NoInit())
 	{
-		this->_m._data = {
+		this->_init_data({
 			  sx, T(0), T(0), T(0),
 			T(0),   sy, T(0), T(0),
 			T(0), T(0),   sz, T(0),
 			T(0), T(0), T(0), T(1)
-		};
+		});
 	}
 
 	/// Constructs a scale matrix
@@ -610,12 +617,12 @@ public:
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		this->_m._data = {
+		this->_init_data({
 			 T(1),  T(0),  T(0),  T(0),
 			 T(0),  cosx, -sinx,  T(0),
 			 T(0),  sinx,  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		};
+		});
 	}
 
 	/// Constructs a X-axis rotation matrix
@@ -631,12 +638,12 @@ public:
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		this->_m._data = {
+		this->_init_data({
 			 cosx,  T(0),  sinx,  T(0),
 			 T(0),  T(1),  T(0),  T(0),
 			-sinx,  T(0),  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		};
+		});
 	}
 
 	/// Constructs a Y-axis rotation matrix
@@ -652,12 +659,12 @@ public:
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		this->_m._data = {
+		this->_init_data({
 			 cosx, -sinx,  T(0),  T(0),
 			 sinx,  cosx,  T(0),  T(0),
 			 T(0),  T(0),  T(1),  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		};
+		});
 	}
 
 	/// Constructs a Z-axis rotation matrix
@@ -677,12 +684,12 @@ public:
 		const T _cf = T(1) - cf;
 		const T x = a.At(0), y = a.At(1), z = a.At(2);
 		const T xx= x*x, xy= x*y, xz= x*z, yy= y*y, yz= y*z, zz= z*z;
-		this->_m._data = {
+		this->_init_data({
 			cf + xx*_cf,    xy*_cf - z*sf,  xz*_cf + y*sf,  T(0),
 			xy*_cf + z*sf,  cf + yy*_cf,    yz*_cf - x*sf,  T(0),
 			xz*_cf - y*sf,  yz*_cf + x*sf,  cf + zz*_cf,    T(0),
 			T(0),           T(0),           T(0),           T(1)
-		};
+		});
 	}
 
 	/// Constructs a rotation matrix from a vector and angle
@@ -757,12 +764,12 @@ public:
 
 		T m32 = -(T(2) * far * near) / (far - near);
 
-		this->_m._data = {
+		this->_init_data({
 			 m00, T(0), T(0), T(0),
 			T(0),  m11, T(0), T(0),
 			 m20,  m21,  m22,  m32,
 			T(0), T(0),  m32, T(0),
-		};
+		});
 	}
 
 	/// Constructs a perspective projection matrix
@@ -801,12 +808,12 @@ public:
 		T m31 = -(top + bottom) / (top - bottom);
 		T m32 = -(far + near)   / (far - near);
 
-		this->_m._data = {
+		this->_init_data({
 			 m00, T(0), T(0),  m30,
 			T(0),  m11, T(0),  m31,
 			T(0), T(0),  m22,  m32,
 			T(0), T(0), T(0), T(1),
-		};
+		});
 	}
 
 	/// Constructs a orthographic projection matrix
@@ -839,7 +846,8 @@ public:
 			-z.template At<0>()
 		);
 		Vector<T, 3> y = Cross(z, x);
-		this->_m._data = {
+
+		this->_init_data({
 			x.template At<0>(),
 			x.template At<1>(),
 			x.template At<2>(),
@@ -856,7 +864,7 @@ public:
 			-Dot(eye, z),
 
 			T(0), T(0), T(0), T(1)
-		};
+		});
 	}
 
 	/// Constructs a 'look-at' matrix from eye and target positions
@@ -890,7 +898,7 @@ public:
 		);
 		Vector<T, 3> y = Cross(z, x);
 
-		this->_m._data = {
+		this->_init_data({
 			x.template At<0>(),
 			x.template At<1>(),
 			x.template At<2>(),
@@ -907,7 +915,7 @@ public:
 			Dot(z, z) * -radius - Dot(z, target),
 
 			T(0), T(0), T(0), T(1)
-		};
+		});
 
 	}
 
@@ -935,12 +943,12 @@ public:
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		this->_m._data = {
+		this->_init_data({
 			 T(1),  T(0),  T(0),  T(0),
 			 T(0),  cosx, -sinx,  T(0),
 			 T(0),  sinx,  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		};
+		});
 	}
 
 	/// Constructs a X-axis rotation (Pitch/Elevation) matrix
@@ -961,12 +969,12 @@ public:
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		this->_m._data = {
+		this->_init_data({
 			 cosx,  T(0),  sinx,  T(0),
 			 T(0),  T(1),  T(0),  T(0),
 			-sinx,  T(0),  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		};
+		});
 	}
 
 	/// Constructs a Y-axis rotation (Heading/Yaw) matrix
@@ -987,12 +995,12 @@ public:
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		this->_m._data = {
+		this->_init_data({
 			 cosx, -sinx,  T(0),  T(0),
 			 sinx,  cosx,  T(0),  T(0),
 			 T(0),  T(0),  T(1),  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		};
+		});
 	}
 
 	/// Constructs a Z-axis rotation (Bank/Roll) matrix

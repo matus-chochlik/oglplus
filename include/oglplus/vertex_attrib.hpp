@@ -61,14 +61,14 @@ protected:
 		ThrowOnError(OGLPLUS_ERROR_INFO(GetAttribLocation));
 		if(_index == GLint(-1))
 		{
+			Error::PropertyMap props;
+			props["identifier"] = identifier;
+			props["program"] = ObjectDescription(program);
 			ThrowOnError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive vertex attrib",
 				OGLPLUS_ERROR_INFO(GetAttribLocation),
-				Error::PropertyMap({
-					{"identifier", identifier},
-					{"program", ObjectDescription(program)}
-				})
+				std::move(props)
 			);
 		}
 	}

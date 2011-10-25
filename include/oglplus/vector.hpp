@@ -191,12 +191,12 @@ public:
 	 */
 	template <typename ... P>
 	Vector(T v, P ... p)
+	 : _elem({v, T(p)...})
 	{
 		static_assert(
 			sizeof...(P) + 1 == N,
 			"Invalid number of values for this vector type"
 		);
-		this->_elem = {v, T(p)...};
 	}
 
 	/// Initializes the vector from a sub-vector and additional coordinates
@@ -494,7 +494,7 @@ public:
 	 *  @endcode
 	 */
 	template <size_t ... Dims>
-	static Vector<T, sizeof...(Dims)> Extract(const Vector& a)
+	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a)
 	{
 		return Vector<T, sizeof...(Dims)>(At<Dims>(a)...);
 	}
@@ -529,7 +529,7 @@ public:
 	 *  @endcode
 	 */
 	template <size_t ... Dims>
-	static Vector<T, sizeof...(Dims)> Extract(const Vector& a, T v)
+	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a, T v)
 	{
 		return Vector<T, sizeof...(Dims)>(At<Dims>(a, v)...);
 	}

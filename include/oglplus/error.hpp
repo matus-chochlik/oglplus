@@ -33,47 +33,67 @@
 
 #ifdef _NDEBUG
 #define OGLPLUS_ERROR_INFO(CONTEXT) \
-	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0}
+	oglplus::ErrorInfo(\
+		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0\
+	)
 
 #define OGLPLUS_LIMIT_ERROR_INFO(CONTEXT) \
-	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0}
+	oglplus::ErrorInfo(\
+		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0 \
+	)
 
 #define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
-	{_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, \
-	_errinf_obj(), 0, 0, 0}
+	oglplus::ErrorInfo(\
+		_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, \
+		_errinf_obj(), 0, 0, 0, 0 \
+	)
 
 #define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
-	{CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0}
+	oglplus::ErrorInfo(\
+		CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0\
+	)
 
 #define OGLPLUS_OBJECT_ERROR_INFO(CONTEXT, OBJECT, NAME) \
-	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__, \
-	#OBJECT, \
-	&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_get_desc, \
-	&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_purge_archive, \
-	NAME }
+	oglplus::ErrorInfo(\
+		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, \
+		#OBJECT, \
+		&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_get_desc, \
+		&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_purge_archive,\
+		NAME, 0 \
+	)
 
 #else
 #define OGLPLUS_ERROR_INFO(CONTEXT) \
-	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, \
-	sizeof(decltype(&gl ## CONTEXT))}
+	oglplus::ErrorInfo(\
+		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, \
+		sizeof(decltype(&gl ## CONTEXT)) \
+	)
 
 #define OGLPLUS_LIMIT_ERROR_INFO(CONTEXT) \
-	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, \
-	sizeof(decltype(GL_ ## CONTEXT))}
+	oglplus::ErrorInfo(\
+		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, \
+		sizeof(decltype(GL_ ## CONTEXT)) \
+	)
 
 #define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
-	{_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, \
-	_errinf_obj(), 0, 0, 0, 0}
+	oglplus::ErrorInfo(\
+		_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, \
+		_errinf_obj(), 0, 0, 0, 0 \
+	)
 
 #define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
-	{CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0}
+	oglplus::ErrorInfo(\
+		CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0 \
+	)
 
 #define OGLPLUS_OBJECT_ERROR_INFO(CONTEXT, OBJECT, NAME) \
-	{#CONTEXT, __FILE__, __FUNCTION__, __LINE__, \
-	#OBJECT, \
-	&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_get_desc, \
-	&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_purge_archive, \
-	NAME, sizeof(decltype(&gl ## CONTEXT)) }
+	oglplus::ErrorInfo(\
+		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, \
+		#OBJECT, \
+		&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_get_desc, \
+		&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_purge_archive,\
+		NAME, sizeof(decltype(&gl ## CONTEXT)) \
+	)
 
 #endif
 
@@ -102,18 +122,37 @@ struct ErrorInfo
 	// the data members of this structure are internal
 	// implementation details which are subject to change
 	// without any prior notice. Do not use directly.
-	const char* glsym;
-	const char* file;
-	const char* func;
-	const unsigned line;
+	const char* _glsym;
+	const char* _file;
+	const char* _func;
+	const unsigned _line;
 
 	const char* _cls_name;
 	const String& (*_get_obj_desc)(GLuint);
 	void (*_purge_archive)(void);
 	GLuint _obj_name;
-#ifndef _NDEBUG
 	const size_t _dummy;
-#endif
+
+	inline ErrorInfo(
+		const char* glsym,
+		const char* file,
+		const char* func,
+		const unsigned line,
+		const char* cls_name,
+		const String& (*get_obj_desc)(GLuint),
+		void (*purge_archive)(void),
+		GLuint obj_name,
+		const size_t dummy
+	): _glsym(glsym)
+	 , _file(file)
+	 , _func(func)
+	 , _line(line)
+	 , _cls_name(cls_name)
+	 , _get_obj_desc(get_obj_desc)
+	 , _purge_archive(purge_archive)
+	 , _obj_name(obj_name)
+	 , _dummy(dummy)
+	{ }
 };
 
 /// Returns the name of the symbol or constant related to the error
@@ -133,7 +172,7 @@ struct ErrorInfo
  */
 inline const char* ErrorGLSymbol(const ErrorInfo& info)
 {
-	return info.glsym;
+	return info._glsym;
 }
 
 /// Returns the path of the source file where the exception originated
@@ -149,7 +188,7 @@ inline const char* ErrorGLSymbol(const ErrorInfo& info)
  */
 inline const char* ErrorFile(const ErrorInfo& info)
 {
-	return info.file;
+	return info._file;
 }
 
 /// Returns the name of the function where the exception originated
@@ -165,7 +204,7 @@ inline const char* ErrorFile(const ErrorInfo& info)
  */
 inline const char* ErrorFunc(const ErrorInfo& info)
 {
-	return info.func;
+	return info._func;
 }
 
 /// Returns the line in the source file where the exception originated
@@ -181,7 +220,7 @@ inline const char* ErrorFunc(const ErrorInfo& info)
  */
 inline unsigned ErrorLine(const ErrorInfo& info)
 {
-	return info.line;
+	return info._line;
 }
 
 /// Returns the name of the class of the object where the exception originated
@@ -265,6 +304,9 @@ protected:
 	);
 	friend void ThrowOnError(const ErrorInfo& info);
 public:
+	inline ~Error(void) throw()
+	{ }
+
 	/// Returns the OpenGL error code
 	/** This is basically the value of error code returned by the glGetError
 	 *  functions.

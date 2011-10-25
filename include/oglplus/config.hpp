@@ -16,7 +16,6 @@ namespace oglplus {
 
 //TODO: detect support by compiler and define only if necessary
 #define nullptr 0
-#define constexpr const
 
 #ifndef OGLPLUS_DOCUMENTATION_ONLY
 #define OGLPLUS_DOCUMENTATION_ONLY 0

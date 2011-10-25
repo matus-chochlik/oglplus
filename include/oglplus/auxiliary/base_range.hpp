@@ -25,8 +25,8 @@ private:
 	Context _context;
 	GLuint _current, _count;
 public:
-	BaseRange(Context context, GLuint current, GLuint count)
-	 : _context(context)
+	BaseRange(Context&& context, GLuint current, GLuint count)
+	 : _context(std::move(context))
 	 , _current(current)
 	 , _count(count)
 	{

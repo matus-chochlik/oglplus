@@ -84,13 +84,13 @@ protected:
 		ThrowOnError(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
 		if(_index == GLint(-1))
 		{
+			Error::PropertyMap props;
+			props["identifer"] = identifier;
 			ThrowOnError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform block",
 				OGLPLUS_ERROR_INFO(GetUniformBlockIndex),
-				Error::PropertyMap({
-					{"identifier", identifier}
-				})
+				std::move(props)
 			);
 		}
 	}

@@ -122,7 +122,7 @@ public:
 
 	/// Use the specified @p stages of the @p program
 	void UseStages(
-		const std::initializer_list<Stage>& stages,
+		std::initializer_list<Stage> stages,
 		const ProgramOps& program
 	) const
 	{

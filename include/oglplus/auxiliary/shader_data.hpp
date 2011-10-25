@@ -162,15 +162,15 @@ protected:
 			"Error setting shading program variable value",
 			error_info,
 			oglplus::Error::PropertyMap({
-				{
+				oglplus::Error::PropertyMap::value_type(
 					"program",
 					ObjectDescRegistry<ProgramOps>::
 					_get_desc(program)
-				},
-				{
+				),
+				oglplus::Error::PropertyMap::value_type(
 					"identifier",
 					_get_name(program, index)
-				}
+				)
 			})
 		);
 	}

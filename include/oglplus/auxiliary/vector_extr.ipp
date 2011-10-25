@@ -9,17 +9,19 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-private:
-	enum class _spatial_dims : size_t {_x = 0, _y = 1, _z = 2, __ = 3};
-public:
+#define OGLPLUS_IMPL_VEC_EXTR_DIM_x 0
+#define OGLPLUS_IMPL_VEC_EXTR_DIM_y 1
+#define OGLPLUS_IMPL_VEC_EXTR_DIM_z 2
+#define OGLPLUS_IMPL_VEC_EXTR_DIM_w 3
+#define OGLPLUS_IMPL_VEC_EXTR_DIM__ 3
 
 #define OGLPLUS_IMPL_VEC_EXTR_3(A,B,C) \
 	Vector<T, 3> A ## B ## C (T v = T(0)) const \
 	{ \
-		return Extract< \
-			_spatial_dims::_ ## A, \
-			_spatial_dims::_ ## B, \
-			_spatial_dims::_ ## C  \
+		return Vector<T, N>::template Extract< \
+			OGLPLUS_IMPL_VEC_EXTR_DIM_ ## A, \
+			OGLPLUS_IMPL_VEC_EXTR_DIM_ ## B, \
+			OGLPLUS_IMPL_VEC_EXTR_DIM_ ## C  \
 		>(*this, v); \
 	}
 	OGLPLUS_IMPL_VEC_EXTR_3(x,x,x);
@@ -94,9 +96,9 @@ public:
 #define OGLPLUS_IMPL_VEC_EXTR_2(A,B) \
 	Vector<T, 2> A ## B (T v = T(0)) const \
 	{ \
-		return Extract< \
-			_spatial_dims::_ ## A, \
-			_spatial_dims::_ ## B  \
+		return Vector<T, N>::template Extract< \
+			OGLPLUS_IMPL_VEC_EXTR_DIM_ ## A, \
+			OGLPLUS_IMPL_VEC_EXTR_DIM_ ## B  \
 		>(*this, v); \
 	}
 
@@ -117,4 +119,10 @@ public:
 	OGLPLUS_IMPL_VEC_EXTR_2(_,z);
 
 #undef OGLPLUS_IMPL_VEC_EXTR_2
+
+#undef OGLPLUS_IMPL_VEC_EXTR_DIM_x
+#undef OGLPLUS_IMPL_VEC_EXTR_DIM_y
+#undef OGLPLUS_IMPL_VEC_EXTR_DIM_z
+#undef OGLPLUS_IMPL_VEC_EXTR_DIM_w
+#undef OGLPLUS_IMPL_VEC_EXTR_DIM__
 

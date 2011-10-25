@@ -56,46 +56,70 @@ enum class ClearBit : GLbitfield
 class Context
 {
 public:
-	/// Enable capability
-	static void Enable(Capability cap)
+	/// Enable a @p capability
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Enable}
+	 */
+	static void Enable(Capability capability)
 	{
-		::glEnable(GLenum(cap));
+		::glEnable(GLenum(capability));
 		AssertNoError(OGLPLUS_ERROR_INFO(Enable));
 	}
 
-	/// Disable capability
-	static void Disable(Capability cap)
+	/// Disable a @p capability
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Disable}
+	 */
+	static void Disable(Capability capability)
 	{
-		::glDisable(GLenum(cap));
+		::glDisable(GLenum(capability));
 		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
 	}
 
-	/// Check if capability is enabled
-	static bool IsEnabled(Capability cap)
+	/// Checks if a @p capability is enabled
+	/**
+	 *  @glsymbols
+	 *  @glfunref{IsEnabled}
+	 */
+	static bool IsEnabled(Capability capability)
 	{
-		GLboolean result = ::glIsEnabled(GLenum(cap));
+		GLboolean result = ::glIsEnabled(GLenum(capability));
 		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabled));
 		return result == GL_TRUE;
 	}
 
-	/// Enable capability for indexed target
-	static void Enable(Capability cap, GLuint index)
+	/// Enable a @p capability for an indexed target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Enablei}
+	 */
+	static void Enable(Capability capability, GLuint index)
 	{
-		::glEnablei(GLenum(cap), index);
+		::glEnablei(GLenum(capability), index);
 		AssertNoError(OGLPLUS_ERROR_INFO(Enablei));
 	}
 
-	/// Disable capability for indexed target
-	static void Disable(Capability cap, GLuint index)
+	/// Disable a @p capability for an indexed target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Disablei}
+	 */
+	static void Disable(Capability capability, GLuint index)
 	{
-		::glDisablei(GLenum(cap), index);
+		::glDisablei(GLenum(capability), index);
 		AssertNoError(OGLPLUS_ERROR_INFO(Disablei));
 	}
 
-	/// Check if capability is enabled for indexed target
-	static bool IsEnabled(Capability cap, GLuint index)
+	/// Check if a @p capability is enabled for indexed target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{IsEnabledi}
+	 */
+	static bool IsEnabled(Capability capability, GLuint index)
 	{
-		GLboolean result = ::glIsEnabledi(GLenum(cap), index);
+		GLboolean result = ::glIsEnabledi(GLenum(capability), index);
 		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabledi));
 		return result == GL_TRUE;
 	}
@@ -103,6 +127,9 @@ public:
 	/// Sets the clear color
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearColor}
 	 */
 	static void ClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
@@ -113,6 +140,9 @@ public:
 	/// Sets the clear depth
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearDepth}
 	 */
 	static void ClearDepth(GLclampd d)
 	{
@@ -123,6 +153,9 @@ public:
 	/// Sets the clear stencil buffer value
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearStencil}
 	 */
 	static void ClearStencil(GLint s)
 	{
@@ -149,6 +182,9 @@ public:
 	 *  @see ClearColor
 	 *  @see ClearDepth
 	 *  @see ClearStencil
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Clear}
 	 */
 	static aux::ClrBits Clear(void)
 	{
@@ -171,14 +207,21 @@ public:
 	 *  @see ClearColor
 	 *  @see ClearDepth
 	 *  @see ClearStencil
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Clear}
 	 */
-	static void Clear(const std::initializer_list<ClearBit>& bits)
+	static void Clear(std::initializer_list<ClearBit> bits)
 	{
 		::glClear(aux::MakeBitfield(bits));
 		AssertNoError(OGLPLUS_ERROR_INFO(Clear));
 	}
 
 	/// Sets the stencil function
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilFunc}
+	 */
 	static void StencilFunc(
 		CompareFunction func,
 		GLint ref = GLint(0),
@@ -190,6 +233,10 @@ public:
 	}
 
 	/// Sets the stencil function separately for front and back faces
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilFuncSeparate}
+	 */
 	static void StencilFuncSeparate(
 		Face face,
 		CompareFunction func,
@@ -202,6 +249,10 @@ public:
 	}
 
 	/// Sets the stencil operation
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilOp}
+	 */
 	static void StencilOp(
 		StencilOperation sfail,
 		StencilOperation dfail,
@@ -213,6 +264,10 @@ public:
 	}
 
 	/// Sets the stencil operation separately for front and back faces
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilOpSeparate}
+	 */
 	static void StencilOpSeparate(
 		Face face,
 		StencilOperation sfail,
@@ -229,14 +284,22 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilOpSeparate));
 	}
 
-	/// Sets the depth comparison function
-	static void DepthFunc(CompareFunction func)
+	/// Sets the depth comparison @p function
+	/**
+	 *  @glsymbols
+	 *  @glfunref{DepthFunc}
+	 */
+	static void DepthFunc(CompareFunction function)
 	{
-		::glDepthFunc(GLenum(func));
+		::glDepthFunc(GLenum(function));
 		AssertNoError(OGLPLUS_ERROR_INFO(DepthFunc));
 	}
 
 	/// Sets the blend equation
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendEquation}
+	 */
 	static void BlendEquation(oglplus::BlendEquation eq)
 	{
 		::glBlendEquation(GLenum(eq));
@@ -244,6 +307,10 @@ public:
 	}
 
 	/// Sets the blend equation separate for RGB and alpha
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendEquationSeparate}
+	 */
 	static void BlendEquationSeparate(
 		oglplus::BlendEquation eq_rgb,
 		oglplus::BlendEquation eq_alpha
@@ -255,6 +322,10 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Sets the blend equation for a particular draw @p buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendEquationi}
+	 */
 	static void BlendEquation(GLuint buffer, oglplus::BlendEquation eq)
 	{
 		::glBlendEquationi(buffer, GLenum(eq));
@@ -262,6 +333,10 @@ public:
 	}
 
 	/// Sets the blend equation separate for RGB and alpha for a @p buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendEquationSeparatei}
+	 */
 	static void BlendEquationSeparate(
 		GLuint buffer,
 		oglplus::BlendEquation eq_rgb,
@@ -278,6 +353,10 @@ public:
 #endif
 
 	/// Sets the blend function
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendFunc}
+	 */
 	static void BlendFunc(BlendFunction src, BlendFunction dst)
 	{
 		::glBlendFunc(GLenum(src), GLenum(dst));
@@ -285,6 +364,10 @@ public:
 	}
 
 	/// Sets the blend function separate for RGB and alpha
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendFuncSeparate}
+	 */
 	static void BlendFuncSeparate(
 		BlendFunction src_rgb,
 		BlendFunction dst_rgb,
@@ -303,6 +386,10 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Sets the blend function for a particular @p buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendFunci}
+	 */
 	static void BlendFunci(
 		GLuint buffer,
 		BlendFunction src,
@@ -314,6 +401,10 @@ public:
 	}
 
 	/// Sets the blend function separate for RGB and alpha for a @p buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendFuncSeparatei}
+	 */
 	static void BlendFuncSeparatei(
 		GLuint buffer,
 		BlendFunction src_rgb,
@@ -334,6 +425,10 @@ public:
 #endif
 
 	/// Sets the blend color
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BlendColor}
+	 */
 	static void BlendColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		::glBlendColor(r, g, b, a);
@@ -341,6 +436,10 @@ public:
 	}
 
 	/// Sets the color logical operation
+	/**
+	 *  @glsymbols
+	 *  @glfunref{LogicOp}
+	 */
 	static void LogicOp(ColorLogicOperation op)
 	{
 		::glLogicOp(GLenum(op));
@@ -348,6 +447,10 @@ public:
 	}
 
 	/// Sets the polygon facing mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FrontFace}
+	 */
 	static void FrontFace(FaceOrientation orientation)
 	{
 		::glFrontFace(GLenum(orientation));
@@ -355,6 +458,10 @@ public:
 	}
 
 	/// Sets the face culling mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CullFace}
+	 */
 	static void CullFace(Face mode)
 	{
 		::glCullFace(GLenum(mode));
@@ -362,6 +469,10 @@ public:
 	}
 
 	/// Sets the color mask
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ColorMask}
+	 */
 	static void ColorMask(bool r, bool g, bool b, bool a)
 	{
 		::glColorMask(
@@ -374,6 +485,10 @@ public:
 	}
 
 	/// Sets the color mask for a particular @p buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ColorMaski}
+	 */
 	static void ColorMask(GLuint buffer, bool r, bool g, bool b, bool a)
 	{
 		::glColorMaski(
@@ -387,6 +502,10 @@ public:
 	}
 
 	/// Sets the depth @p mask
+	/**
+	 *  @glsymbols
+	 *  @glfunref{DepthMask}
+	 */
 	static void DepthMask(bool mask)
 	{
 		::glDepthMask(mask ? GL_TRUE : GL_FALSE);
@@ -394,6 +513,10 @@ public:
 	}
 
 	/// Sets the stencil @p mask
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilMask}
+	 */
 	static void StencilMask(GLuint mask)
 	{
 		::glStencilMask(mask);
@@ -401,6 +524,10 @@ public:
 	}
 
 	/// Sets the stencil mask separately for front and back faces
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilMaskSeparate}
+	 */
 	static void StencilMaskSeparate(Face face, GLuint mask)
 	{
 		::glStencilMaskSeparate(GLenum(face), mask);
@@ -408,6 +535,10 @@ public:
 	}
 
 	/// Sets the polygon rasterization mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PolygonMode}
+	 */
 	static void PolygonMode(Face face, oglplus::PolygonMode mode)
 	{
 		::glPolygonMode(GLenum(face), GLenum(mode));
@@ -415,6 +546,10 @@ public:
 	}
 
 	/// Sets the polygon depth offset
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PolygonOffset}
+	 */
 	static void PolygonOffset(GLfloat factor, GLfloat units)
 	{
 		::glPolygonOffset(factor, units);
@@ -422,6 +557,10 @@ public:
 	}
 
 	/// Sets the line width
+	/**
+	 *  @glsymbols
+	 *  @glfunref{LineWidth}
+	 */
 	static void LineWidth(GLfloat width)
 	{
 		::glLineWidth(width);
@@ -429,6 +568,10 @@ public:
 	}
 
 	/// Sets the point size
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PointSize}
+	 */
 	static void PointSize(GLfloat size)
 	{
 		::glPointSize(size);
@@ -436,6 +579,10 @@ public:
 	}
 
 	/// Sets the destination color buffer for draw operations
+	/**
+	 *  @glsymbols
+	 *  @glfunref{DrawBuffer}
+	 */
 	static void DrawBuffer(ColorBuffer buffer)
 	{
 		::glDrawBuffer(GLenum(buffer));
@@ -443,6 +590,10 @@ public:
 	}
 
 	/// Sets the source color buffer for read operations
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ReadBuffer}
+	 */
 	static void ReadBuffer(ColorBuffer buffer)
 	{
 		::glReadBuffer(GLenum(buffer));
@@ -452,6 +603,9 @@ public:
 	/// Sets the current viewport
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Viewport}
 	 */
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)
 	{
@@ -462,6 +616,9 @@ public:
 	/// Sets the current viewport starting at (0,0)
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Viewport}
 	 */
 	static void Viewport(GLsizei w, GLsizei h)
 	{
@@ -473,6 +630,9 @@ public:
 	/// Draws @a count of primitives from the bound array buffers
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{DrawArrays}
 	 */
 	static void DrawArrays(
 		PrimitiveType primitive,
@@ -488,6 +648,9 @@ public:
 	/// Draws @a count of primitives from the bound array buffers
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{DrawArraysInstanced}
 	 */
 	static void DrawArraysInstanced(
 		PrimitiveType primitive,
@@ -509,6 +672,9 @@ public:
 	/// Draws a sequence of primitives from the bound element array buffers
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{DrawElements}
 	 */
 	static void DrawElements(
 		PrimitiveType primitive,
@@ -523,6 +689,9 @@ public:
 	/// Draws a sequence of primitives from the bound element array buffers
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{DrawElements}
 	 */
 	template <typename T>
 	static void DrawElements(
@@ -555,10 +724,11 @@ public:
 	 *  @endcode
 	 *
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{MemoryBarrier}
 	 */
-	static void MemoryBarrier(
-		const std::initializer_list<MemoryBarrierBit>& bits
-	)
+	static void MemoryBarrier(std::initializer_list<MemoryBarrierBit> bits)
 	{
 		::glMemoryBarrier(aux::MakeBitfield(bits));
 		AssertNoError(OGLPLUS_ERROR_INFO(MemoryBarrier));
