@@ -176,11 +176,19 @@ class VertexAttrib
 private:
 public:
 	/// References the vertex attribute array at @p index
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
 	VertexAttrib(VertexAttribSlot i)
 	 : VertexAttribOps(i)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
 	VertexAttrib(const Program& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
@@ -191,6 +199,10 @@ public:
 	{ }
 
 	/// Set the value(s) of the vertex attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttrib}
+	 */
 	template <typename ... T>
 	void Set(T ... v) const
 	{
@@ -198,6 +210,10 @@ public:
 	}
 
 	/// Set the value(s) of the vertex attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttrib}
+	 */
 	template <size_t N, typename T>
 	void Set(const T* v) const
 	{
@@ -214,21 +230,37 @@ class VertexAttribArray
 {
 public:
 	/// References the vertex attribute array at @p index
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
 	VertexAttribArray(VertexAttribSlot index)
 	 : VertexAttribOps(index)
 	{ }
 
 	/// References the vertex attrib array @p identifier of the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
 	VertexAttribArray(const Program& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
 	/// References the vertex attrib array @p identifier of the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
 	VertexAttribArray(const Program& program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
 	/// Setup the properties of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribPointer}
+	 */
 	void Setup(
 		GLint values_per_vertex,
 		DataType data_type,
@@ -249,6 +281,10 @@ public:
 	}
 
 	/// Enables this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{EnableVertexAttribArray}
+	 */
 	void Enable(void) const
 	{
 		::glEnableVertexAttribArray(_index);
@@ -256,6 +292,10 @@ public:
 	}
 
 	/// Disables this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{DisableVertexAttribArray}
+	 */
 	void Disable(void) const
 	{
 		::glDisableVertexAttribArray(_index);

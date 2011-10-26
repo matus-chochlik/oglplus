@@ -102,6 +102,10 @@ public:
 	{ }
 
 	/// Reference a uniform block @p identifier in the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetUniformBlockIndex}
+	 */
 	UniformBlock(const ProgramOps& program, const GLchar* identifier)
 	 : _program(FriendOf<ProgramOps>::GetName(program))
 	 , _index(::glGetUniformBlockIndex(_program, identifier))
@@ -110,6 +114,10 @@ public:
 	}
 
 	/// Reference a uniform block @p identifier in the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetUniformBlockIndex}
+	 */
 	UniformBlock(const ProgramOps& program, const String& identifier)
 	 : _program(FriendOf<ProgramOps>::GetName(program))
 	 , _index(::glGetUniformBlockIndex(_program, identifier.c_str()))
@@ -128,6 +136,10 @@ public:
 	}
 
 	/// Returns true if this uniform block is referenced by @p shader_kind
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetActiveUniformBlock}
+	 */
 	bool ReferencedBy(Shader::Kind shader_kind) const
 	{
 		GLint result;
@@ -142,6 +154,10 @@ public:
 	}
 
 	/// Returns the size of the uniform block
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetActiveUniformBlock}
+	 */
 	GLuint DataSize(void) const
 	{
 		GLint result;

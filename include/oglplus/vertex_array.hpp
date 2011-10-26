@@ -23,6 +23,11 @@ namespace oglplus {
 /// Encapsulates vertex array-related functions
 /** @note Do not use this class directly, use VertexArray instead.
  *  @see VertexArray
+ *
+ *  @glsymbols
+ *  @glfunref{GenVertexArrays}
+ *  @glfunref{DeleteVertexArrays}
+ *  @glfunref{IsVertexArray}
  */
 class VertexArrayOps
  : public Named
@@ -49,6 +54,10 @@ protected:
 	friend class FriendOf<VertexArrayOps>;
 public:
 	/// Bind this vertex array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindVertexArray}
+	 */
 	void Bind(void) const
 	{
 		assert(_name != 0);
@@ -57,6 +66,10 @@ public:
 	}
 
 	/// Bind the name 0
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindVertexArray}
+	 */
 	static void Unbind(void)
 	{
 		::glBindVertexArray(0);

@@ -156,11 +156,19 @@ class UniformBase
 {
 public:
 	/// Reference a uniform identified by @p identifier in the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetUniformLocation}
+	 */
 	UniformBase(const Program& program, const GLchar* identifier)
 	 : UniformOps(program, identifier)
 	{ }
 
 	/// Reference a uniform identified by @p identifier in the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetUniformLocation}
+	 */
 	UniformBase(const Program& program, const String& identifier)
 	 : UniformOps(program, identifier.c_str())
 	{ }
@@ -177,6 +185,11 @@ public:
 	}
 
 	/// Set the value(s) of the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Uniform}
+	 *  @glfunref{ProgramUniform}
+	 */
 	template <size_t Cols, typename T>
 	void Set(const T* v) const
 	{
@@ -188,6 +201,11 @@ public:
 	}
 
 	/// Set the value(s) of the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Uniform}
+	 *  @glfunref{ProgramUniform}
+	 */
 	template <size_t Cols, typename T>
 	void Set(GLsizei count, const T* v) const
 	{
@@ -200,6 +218,11 @@ public:
 	}
 
 	/// Set the value(s) of the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Uniform}
+	 *  @glfunref{ProgramUniform}
+	 */
 	template <size_t Cols, typename T>
 	void Set(const std::vector<T>& v) const
 	{
@@ -212,6 +235,11 @@ public:
 	}
 
 	/// Set the value(s) of the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Uniform}
+	 *  @glfunref{ProgramUniform}
+	 */
 	template <typename T, size_t N>
 	void Set(const Vector<T, N>& vector) const
 	{
@@ -223,6 +251,11 @@ public:
 	}
 
 	/// Set the value(s) of the shader variable
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Uniform}
+	 *  @glfunref{ProgramUniform}
+	 */
 	template <typename T, size_t N>
 	void Set(const std::vector<Vector<T, N> >& v) const
 	{
@@ -242,6 +275,11 @@ public:
 	}
 
 	/// Set the matrix components of the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UniformMatrix}
+	 *  @glfunref{ProgramUniformMatrix}
+	 */
 	template <size_t Cols, size_t Rows, typename T>
 	void SetMatrix(size_t count, const T* v) const
 	{
@@ -255,6 +293,11 @@ public:
 	}
 
 	/// Set the matrix components of the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UniformMatrix}
+	 *  @glfunref{ProgramUniformMatrix}
+	 */
 	template <typename T, size_t Rows, size_t Cols>
 	void SetMatrix(const Matrix<T, Rows, Cols>& matrix) const
 	{
@@ -268,6 +311,11 @@ public:
 	}
 
 	/// Set the matrix components of the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UniformMatrix}
+	 *  @glfunref{ProgramUniformMatrix}
+	 */
 	template <typename T, size_t Rows, size_t Cols>
 	void SetMatrix(const std::vector<Matrix<T, Rows, Cols> >& m) const
 	{
@@ -288,6 +336,11 @@ public:
 	}
 
 	/// Set the matrix components of the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UniformMatrix}
+	 *  @glfunref{ProgramUniformMatrix}
+	 */
 	template <size_t Cols, typename ... T>
 	void SetMatrix(T ... v) const
 	{

@@ -22,7 +22,7 @@
 
 namespace oglplus {
 
-/// Allows to allocate and manage several instances of Object at once
+/// Allows to allocate and manage several instances of Object at the same time
 /**
  *  @ingroup modifier_classes
  */
