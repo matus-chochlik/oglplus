@@ -27,6 +27,11 @@ namespace oglplus {
 /// Encapsulates sampler-related functions
 /** @note Do not use this class directly, use Sampler instead.
  *  @see Sampler
+ *
+ *  @glsymbols
+ *  @glfunref{GenSamplers}
+ *  @glfunref{DeleteSamplers}
+ *  @glfunref{IsSampler}
  */
 class SamplerOps
  : public Named
@@ -53,6 +58,10 @@ protected:
 	friend class FriendOf<SamplerOps>;
 public:
 	/// Bind this sampler to the specified texture unit
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindSampler}
+	 */
 	void Bind(TextureUnitSelector unit) const
 	{
 		assert(_name != 0);
@@ -61,13 +70,22 @@ public:
 	}
 
 	/// Unbind the current sampler from the specified texture unit
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindSampler}
+	 */
 	static void Unbind(TextureUnitSelector unit)
 	{
 		::glBindSampler(GLuint(unit), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindSampler));
 	}
 
-	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/// Sets the texture border color
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	void BorderColor(Vector<GLfloat, 4> color) const
 	{
 		::glSamplerParameterfv(
@@ -78,7 +96,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterfv));
 	}
 
-	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/// Sets the texture border color
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	void BorderColor(Vector<GLint, 4> color) const
 	{
 		::glSamplerParameterIiv(
@@ -89,7 +112,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterIiv));
 	}
 
-	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/// Sets the texture border color
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	void BorderColor(Vector<GLuint, 4> color) const
 	{
 		::glSamplerParameterIuiv(
@@ -100,7 +128,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterIuiv));
 	}
 
-	/// Sets the compare mode (TEXTURE_COMPARE_MODE)
+	/// Sets the compare mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_COMPARE_MODE}
+	 */
 	void CompareMode(TextureCompareMode mode) const
 	{
 		::glSamplerParameteri(
@@ -111,7 +144,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
-	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
+	/// Sets the compare function
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_COMPARE_FUNC}
+	 */
 	void CompareFunc(CompareFunction func) const
 	{
 		::glSamplerParameteri(
@@ -122,7 +160,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
-	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
+	/// Sets the LOD bias value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_LOD_BIAS}
+	 */
 	void LODBias(GLfloat value) const
 	{
 		::glSamplerParameterf(
@@ -133,7 +176,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterf));
 	}
 
-	/// Sets the magnification filter (TEXTURE_MAG_FILTER)
+	/// Sets the magnification filter
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
 	void MagFilter(TextureMagFilter filter) const
 	{
 		::glSamplerParameteri(
@@ -144,7 +192,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
-	/// Sets the minnification filter (TEXTURE_MAG_FILTER)
+	/// Sets the minification filter
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 */
 	void MinFilter(TextureMinFilter filter) const
 	{
 		::glSamplerParameteri(
@@ -155,7 +208,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
-	/// Sets minimal LOD value (TEXTURE_MIN_LOD)
+	/// Sets minimal LOD value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_MIN_LOD}
+	 */
 	void MinLOD(GLfloat value) const
 	{
 		::glSamplerParameterf(
@@ -166,7 +224,12 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterf));
 	}
 
-	/// Sets maximal LOD value (TEXTURE_MAX_LOD)
+	/// Sets maximal LOD value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_MAX_LOD}
+	 */
 	void MaxLOD(GLfloat value) const
 	{
 		::glSamplerParameterf(
@@ -178,6 +241,10 @@ public:
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 */
 	void Wrap(TextureWrapCoord coord, TextureWrap mode) const
 	{
 		::glSamplerParameteri(
@@ -188,19 +255,34 @@ public:
 		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
-	/// Sets the wrap parameter (TEXTURE_WRAP_S)
+	/// Sets the wrap parameter for the S coordinate
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_WRAP_S}
+	 */
 	void WrapS(TextureWrap mode) const
 	{
 		Wrap(TextureWrapCoord::S, mode);
 	}
 
-	/// Sets the wrap parameter (TEXTURE_WRAP_T)
+	/// Sets the wrap parameter for the T coordinate
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_WRAP_T}
+	 */
 	void WrapT(TextureWrap mode) const
 	{
 		Wrap(TextureWrapCoord::T, mode);
 	}
 
-	/// Sets the wrap parameter (TEXTURE_WRAP_R)
+	/// Sets the wrap parameter for the R coordinate
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_WRAP_R}
+	 */
 	void WrapR(TextureWrap mode) const
 	{
 		Wrap(TextureWrapCoord::R, mode);

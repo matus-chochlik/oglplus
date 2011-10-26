@@ -24,6 +24,11 @@ namespace oglplus {
 
 /// Class wrapping renderbuffer-related functionality
 /** @note Do not use this class directly, use Renderbuffer instead.
+ *
+ *  @glsymbols
+ *  @glfunref{GenRenderbuffers}
+ *  @glfunref{DeleteRenderbuffers}
+ *  @glfunref{IsRenderbuffer}
  */
 class RenderbufferOps
  : public Named
@@ -67,6 +72,10 @@ protected:
 public:
 
 	/// Binds this renderbuffer to the @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindRenderbuffer}
+	 */
 	void Bind(Target target = Target::Renderbuffer) const
 	{
 		assert(_name != 0);
@@ -75,6 +84,10 @@ public:
 	}
 
 	/// Bind the name 0 to the @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindRenderbuffer}
+	 */
 	static void Unbind(Target target = Target::Renderbuffer)
 	{
 		::glBindRenderbuffer(GLenum(target), 0);
@@ -82,6 +95,10 @@ public:
 	}
 
 	/// Set the renderbuffer storage parameters
+	/**
+	 *  @glsymbols
+	 *  @glfunref{RenderbufferStorage}
+	 */
 	static void Storage(
 		Target target,
 		PixelDataInternalFormat internalformat,
@@ -103,6 +120,10 @@ public:
 	}
 
 	/// Set the renderbuffer multisample storage parameters
+	/**
+	 *  @glsymbols
+	 *  @glfunref{RenderbufferStorageMultisample}
+	 */
 	static void StorageMultisample(
 		Target target,
 		GLsizei samples,

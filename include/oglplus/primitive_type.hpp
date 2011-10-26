@@ -17,6 +17,11 @@ namespace oglplus {
 /// Primitive type enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{DrawArrays}
+ *  @glfunref{DrawArraysInstanced}
+ *  @glfunref{DrawElements}
  */
 enum class PrimitiveType : GLenum
 {

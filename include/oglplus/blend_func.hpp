@@ -17,6 +17,9 @@ namespace oglplus {
 /// Blend function type enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{BlendFunc}
  */
 enum class BlendFunction : GLenum
 {
@@ -29,6 +32,9 @@ typedef BlendFunction BlendFn;
 /// Blend equation enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{BlendEquation}
  */
 enum class BlendEquation : GLenum
 {

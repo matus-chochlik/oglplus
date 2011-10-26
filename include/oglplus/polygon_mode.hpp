@@ -17,6 +17,9 @@ namespace oglplus {
 /// Polygon rasterization mode enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{PolygonMode}
  */
 enum class PolygonMode : GLenum
 {

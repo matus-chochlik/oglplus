@@ -36,6 +36,10 @@ public:
 	};
 
 	/// Creates a new sync object for the specified @p condition
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FenceSync}
+	 */
 	Sync(Condition condition = Condition::GPUCommandsComplete)
 	 : _sync(::glFenceSync(GLenum(condition), 0))
 	{
@@ -58,6 +62,10 @@ public:
 	}
 
 	/// Wait for the condition to be satisfied
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ClientWaitSync}
+	 */
 	WaitResult ClientWait(GLuint64 timeout) const
 	{
 		GLenum result = ::glClientWaitSync(_sync, 0, timeout);
@@ -66,6 +74,10 @@ public:
 	}
 
 	/// Wait for the condition to be satisfied
+	/**
+	 *  @glsymbols
+	 *  @glfunref{WaitSync}
+	 */
 	void Wait(GLuint64 timeout) const
 	{
 		::glWaitSync(_sync, 0, timeout);

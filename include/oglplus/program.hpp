@@ -152,7 +152,8 @@ public:
 	 *  @see Validate
 	 *
 	 *  @glsymbols
-	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{LINK_STATUS}
 	 */
 	bool IsLinked(void) const
 	{
@@ -165,7 +166,7 @@ public:
 	 *  @see Link
 	 *
 	 *  @glsymbols
-	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
 	String GetInfoLog(void) const
@@ -186,7 +187,7 @@ public:
 	 *
 	 *  @glsymbols
 	 *  @glfunref{LinkProgram}
-	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
 	void Link(void) const
@@ -214,7 +215,8 @@ public:
 	 *  @see Validate
 	 *
 	 *  @glsymbols
-	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{VALIDATE_STATUS}
 	 */
 	bool IsValid(void) const
 	{
@@ -228,7 +230,7 @@ public:
 	 *
 	 *  @glsymbols
 	 *  @glfunref{ValidateProgram}
-	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
 	void Validate(void) const
@@ -710,7 +712,7 @@ public:
 	/// Makes this program separable
 	/**
 	 *  @glsymbols
-	 *  @glfunref{ProgramParameteri}
+	 *  @glfunref{ProgramParameter}
 	 */
 	void MakeSeparable(bool para = true) const
 	{
@@ -734,7 +736,7 @@ public:
 	 *  @see GetBinary
 	 *
 	 *  @glsymbols
-	 *  @glfunref{ProgramParameteri}
+	 *  @glfunref{ProgramParameter}
 	 */
 	void MakeRetrievable(bool para = true) const
 	{
@@ -757,8 +759,9 @@ public:
 	 *  @see Binary
 	 *
 	 *  @glsymbols
-	 *  @glfunref{GetProgramiv}
+	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramBinary}
+	 *  @gldefref{PROGRAM_BINARY_LENGTH}
 	 */
 	void GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 	{
@@ -809,6 +812,11 @@ public:
 #endif // get program binary
 
 	/// Returns the transform feedback buffer mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{TRANSFORM_FEEDBACK_BUFFER_MODE}
+	 */
 	TransformFeedbackMode TransformFeedbackBufferMode(void) const
 	{
 		return TransformFeedbackMode(
@@ -817,6 +825,11 @@ public:
 	}
 
 	/// Returns the number of vertices that the geometry shader will output
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{GEOMETRY_VERTICES_OUT}
+	 */
 	GLint GeometryVerticesOut(void) const
 	{
 		return GetIntParam(GL_GEOMETRY_VERTICES_OUT);
@@ -825,6 +838,11 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_gpu_shader5
 
 	/// Returns the number of invocations of geometry shader per primitive
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{GEOMETRY_SHADER_INVOCATIONS}
+	 */
 	GLint GeometryShaderInvocations(void) const
 	{
 		return GetIntParam(GL_GEOMETRY_SHADER_INVOCATIONS);
@@ -834,12 +852,22 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 
 	/// Returns the geometry shader input primitive type
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{GEOMETRY_INPUT_TYPE}
+	 */
 	PrimitiveType GeometryInputType(void) const
 	{
 		return PrimitiveType(GetIntParam(GL_GEOMETRY_INPUT_TYPE));
 	}
 
 	/// Returns the geometry shader output primitive type
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{GEOMETRY_OUTPUT_TYPE}
+	 */
 	PrimitiveType GeometryOutputType(void) const
 	{
 		return PrimitiveType(GetIntParam(GL_GEOMETRY_OUTPUT_TYPE));
@@ -849,24 +877,44 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_tessellation_shader
 
 	/// Returns the vertex order in tesselation evaluation shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{TESS_GEN_VERTEX_ORDER}
+	 */
 	FaceOrientation TessGenVertexOrder(void) const
 	{
 		return FaceOrientation(GetIntParam(GL_TESS_GEN_VERTEX_ORDER));
 	}
 
 	/// Returns the tesselation generator output primitive type
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{TESS_GEN_MODE}
+	 */
 	TessGenPrimitiveType TessGenMode(void) const
 	{
 		return TessGenPrimitiveType(GetIntParam(GL_TESS_GEN_MODE));
 	}
 
 	/// Returns the tesselation generator primitive spacing mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{TESS_GEN_SPACING}
+	 */
 	TessGenPrimitiveSpacing TessGenSpacing(void) const
 	{
 		return TessGenPrimitiveSpacing(GetIntParam(GL_TESS_GEN_SPACING));
 	}
 
 	/// Returns true if point mode is enabled in tesslation eval. shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgram}
+	 *  @gldefref{TESS_GEN_POINT_MODE}
+	 */
 	bool TessGenPointMode(void) const
 	{
 		return GetIntParam(GL_TESS_GEN_POINT_MODE) == GL_TRUE;

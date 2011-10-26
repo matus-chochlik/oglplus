@@ -17,6 +17,10 @@ namespace oglplus {
 /// Enumeration of color buffers for read/write operations
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{ReadBuffer}
+ *  @glfunref{DrawBuffer}
  */
 enum class ColorBuffer : GLenum
 {

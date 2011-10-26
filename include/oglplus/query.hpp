@@ -22,6 +22,11 @@ namespace oglplus {
 
 /// Wrapper for asynchronous query functions
 /** @note Do not use this class directly, use Query instead.
+ *
+ *  @glsymbols
+ *  @glfunref{GenQueries}
+ *  @glfunref{DeleteQueries}
+ *  @glfunref{IsQuery}
  */
 class QueryOps
  : public Named
@@ -52,6 +57,10 @@ public:
 	};
 
 	/// Begin the query on the specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BeginQuery}
+	 */
 	void Begin(Target target) const
 	{
 		assert(_name != 0);
@@ -64,6 +73,10 @@ public:
 	}
 
 	/// End the query on the specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{EndQuery}
+	 */
 	void End(Target target) const
 	{
 		assert(_name != 0);
@@ -76,6 +89,11 @@ public:
 	}
 
 	/// Returns true if the query result is available
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetQueryObject}
+	 *  @gldefref{QUERY_RESULT_AVAILABLE}
+	 */
 	bool ResultAvailable(void) const
 	{
 		assert(_name != 0);
@@ -94,6 +112,11 @@ public:
 	}
 
 	/// Get the query result
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetQueryObject}
+	 *  @gldefref{QUERY_RESULT}
+	 */
 	void Result(GLint& result) const
 	{
 		assert(_name != 0);
@@ -110,6 +133,11 @@ public:
 	}
 
 	/// Get the query result
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetQueryObject}
+	 *  @gldefref{QUERY_RESULT}
+	 */
 	void Result(GLuint& result) const
 	{
 		assert(_name != 0);
@@ -127,6 +155,11 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
 	/// Get the query result
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetQueryObject}
+	 *  @gldefref{QUERY_RESULT}
+	 */
 	void Result(GLint64& result) const
 	{
 		assert(_name != 0);
@@ -143,6 +176,11 @@ public:
 	}
 
 	/// Get the query result
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetQueryObject}
+	 *  @gldefref{QUERY_RESULT}
+	 */
 	void Result(GLuint64& result) const
 	{
 		assert(_name != 0);

@@ -17,6 +17,9 @@ namespace oglplus {
 /// Stencil operation type enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{StencilOp}
  */
 enum class StencilOperation : GLenum
 {

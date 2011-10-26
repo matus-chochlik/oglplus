@@ -17,6 +17,12 @@ namespace oglplus {
 /// Polygon facing enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{CullFace}
+ *  @glfunref{PolygonMode}
+ *  @glfunref{StencilFuncSeparate}
+ *  @glfunref{StencilMaskSeparate}
  */
 enum class Face : GLenum
 {
@@ -26,6 +32,9 @@ enum class Face : GLenum
 /// Face orientation enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{FrontFace}
  */
 enum class FaceOrientation : GLenum
 {

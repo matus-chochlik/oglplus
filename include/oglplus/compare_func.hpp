@@ -17,6 +17,12 @@ namespace oglplus {
 /// Comparison function type enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{DepthFunc}
+ *  @glfunref{StencilFunc}
+ *  @glfunref{TexParameter}
+ *  @glfunref{SamplerParameter}
  */
 enum class CompareFunction : GLenum
 {

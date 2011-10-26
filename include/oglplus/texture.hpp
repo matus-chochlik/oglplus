@@ -45,6 +45,11 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 /// Texture compare mode enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexParameter}
+ *  @glfunref{GetTexParameter}
+ *  @gldefref{TEXTURE_COMPARE_MODE}
  */
 enum class TextureCompareMode : GLenum {
 #include <oglplus/enums/texture_compare_mode.ipp>
@@ -53,6 +58,11 @@ enum class TextureCompareMode : GLenum {
 /// Texture magnification filter enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexParameter}
+ *  @glfunref{GetTexParameter}
+ *  @gldefref{TEXTURE_MAG_FILTER}
  */
 enum class TextureMagFilter : GLenum {
 #include <oglplus/enums/texture_mag_filter.ipp>
@@ -61,6 +71,11 @@ enum class TextureMagFilter : GLenum {
 /// Texture minification filter enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexParameter}
+ *  @glfunref{GetTexParameter}
+ *  @gldefref{TEXTURE_MIN_FILTER}
  */
 enum class TextureMinFilter : GLenum {
 #include <oglplus/enums/texture_min_filter.ipp>
@@ -70,6 +85,10 @@ enum class TextureMinFilter : GLenum {
 /// Texture swizzle parameter coordinate enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexParameter}
+ *  @glfunref{GetTexParameter}
  */
 enum class TextureSwizzleCoord : GLenum {
 #include <oglplus/enums/texture_swizzle_coord.ipp>
@@ -78,6 +97,13 @@ enum class TextureSwizzleCoord : GLenum {
 /// Texture swizzle enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexParameter}
+ *  @glfunref{GetTexParameter}
+ *  @gldefref{TEXTURE_SWIZZLE_S}
+ *  @gldefref{TEXTURE_SWIZZLE_T}
+ *  @gldefref{TEXTURE_SWIZZLE_R}
  */
 enum class TextureSwizzle : GLenum {
 #include <oglplus/enums/texture_swizzle.ipp>
@@ -87,6 +113,10 @@ enum class TextureSwizzle : GLenum {
 /// Texture wrap parameter coordinate enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexParameter}
+ *  @glfunref{GetTexParameter}
  */
 enum class TextureWrapCoord : GLenum {
 #include <oglplus/enums/texture_wrap_coord.ipp>
@@ -95,6 +125,13 @@ enum class TextureWrapCoord : GLenum {
 /// Texture wrap enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexParameter}
+ *  @glfunref{GetTexParameter}
+ *  @gldefref{TEXTURE_WRAP_S}
+ *  @gldefref{TEXTURE_WRAP_T}
+ *  @gldefref{TEXTURE_WRAP_R}
  */
 enum class TextureWrap : GLenum {
 #include <oglplus/enums/texture_wrap.ipp>
@@ -102,6 +139,11 @@ enum class TextureWrap : GLenum {
 
 /// Wrapper for texture and texture unit-related operations
 /** @note Do not use this class directly, use Texture instead.
+ *
+ *  @glsymbols
+ *  @glfunref{GenTextures}
+ *  @glfunref{DeleteTextures}
+ *  @glfunref{IsTexture}
  */
 class TextureOps
  : public Named
@@ -155,6 +197,9 @@ public:
 	 *  @throws Error
 	 *
 	 *  @see Bind
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ActiveTexture}
 	 */
 	static void Active(TextureUnitSelector index)
 	{
@@ -168,6 +213,9 @@ public:
 	 *
 	 *  @see Active
 	 *  @see Unbind
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindTexture}
 	 */
 	void Bind(Target target) const
 	{
@@ -186,6 +234,9 @@ public:
 	 *
 	 *  @see Active
 	 *  @see Bind
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindTexture}
 	 */
 	static void Unbind(Target target)
 	{
@@ -255,6 +306,10 @@ public:
 	/**
 	 *  @see Height
 	 *  @see Depth
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_WIDTH}
 	 */
 	static GLsizei Width(Target target, GLint level = 0)
 	{
@@ -265,6 +320,10 @@ public:
 	/**
 	 *  @see Width
 	 *  @see Depth
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_HEIGHT}
 	 */
 	static GLsizei Height(Target target, GLint level = 0)
 	{
@@ -275,6 +334,10 @@ public:
 	/**
 	 *  @see Width
 	 *  @see Height
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_DEPTH}
 	 */
 	static GLsizei Depth(Target target, GLint level = 0)
 	{
@@ -282,6 +345,16 @@ public:
 	}
 
 	/// Returns the data type used to store the RED component
+	/**
+	 *  @see GreenType
+	 *  @see BlueType
+	 *  @see AlphaType
+	 *  @see DepthType
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_RED_TYPE}
+	 */
 	static PixelDataType RedType(Target target, GLint level = 0)
 	{
 		return PixelDataType(GetIntParam(
@@ -292,6 +365,16 @@ public:
 	}
 
 	/// Returns the data type used to store the GREEN component
+	/**
+	 *  @see RedType
+	 *  @see BlueType
+	 *  @see AlphaType
+	 *  @see DepthType
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_GREEN_TYPE}
+	 */
 	static PixelDataType GreenType(Target target, GLint level = 0)
 	{
 		return PixelDataType(GetIntParam(
@@ -302,6 +385,16 @@ public:
 	}
 
 	/// Returns the data type used to store the BLUE component
+	/**
+	 *  @see RedType
+	 *  @see GreenType
+	 *  @see AlphaType
+	 *  @see DepthType
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_BLUE_TYPE}
+	 */
 	static PixelDataType BlueType(Target target, GLint level = 0)
 	{
 		return PixelDataType(GetIntParam(
@@ -312,6 +405,16 @@ public:
 	}
 
 	/// Returns the data type used to store the ALPHA component
+	/**
+	 *  @see RedType
+	 *  @see GreenType
+	 *  @see BlueType
+	 *  @see DepthType
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_ALPHA_TYPE}
+	 */
 	static PixelDataType AlphaType(Target target, GLint level = 0)
 	{
 		return PixelDataType(GetIntParam(
@@ -322,6 +425,16 @@ public:
 	}
 
 	/// Returns the data type used to store the DEPTH component
+	/**
+	 *  @see RedType
+	 *  @see GreenType
+	 *  @see BlueType
+	 *  @see AlphaType
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_DEPTH_TYPE}
+	 */
 	static PixelDataType DepthType(Target target, GLint level = 0)
 	{
 		return PixelDataType(GetIntParam(
@@ -332,6 +445,17 @@ public:
 	}
 
 	/// Returns the actual resolution of the RED component
+	/**
+	 *  @see GreenSize
+	 *  @see BlueSize
+	 *  @see AlphaSize
+	 *  @see DepthSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_RED_SIZE}
+	 */
 	static GLsizei RedSize(Target target, GLint level = 0)
 	{
 		return GLsizei(GetIntParam(
@@ -342,6 +466,17 @@ public:
 	}
 
 	/// Returns the actual resolution of the GREEN component
+	/**
+	 *  @see RedSize
+	 *  @see BlueSize
+	 *  @see AlphaSize
+	 *  @see DepthSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_GREEN_SIZE}
+	 */
 	static GLsizei GreenSize(Target target, GLint level = 0)
 	{
 		return GLsizei(GetIntParam(
@@ -352,6 +487,17 @@ public:
 	}
 
 	/// Returns the actual resolution of the BLUE component
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see AlphaSize
+	 *  @see DepthSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_BLUE_SIZE}
+	 */
 	static GLsizei BlueSize(Target target, GLint level = 0)
 	{
 		return GLsizei(GetIntParam(
@@ -362,6 +508,17 @@ public:
 	}
 
 	/// Returns the actual resolution of the ALPHA component
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see BlueSize
+	 *  @see DepthSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_ALPHA_SIZE}
+	 */
 	static GLsizei AlphaSize(Target target, GLint level = 0)
 	{
 		return GLsizei(GetIntParam(
@@ -372,6 +529,17 @@ public:
 	}
 
 	/// Returns the actual resolution of the DEPTH component
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see BlueSize
+	 *  @see AlphaSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_DEPTH_SIZE}
+	 */
 	static GLsizei DepthSize(Target target, GLint level = 0)
 	{
 		return GLsizei(GetIntParam(
@@ -382,6 +550,17 @@ public:
 	}
 
 	/// Returns the actual resolution of the STENCIL component
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see BlueSize
+	 *  @see AlphaSize
+	 *  @see DepthSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_STENCIL_SIZE}
+	 */
 	static GLsizei StencilSize(Target target, GLint level = 0)
 	{
 		return GLsizei(GetIntParam(
@@ -391,6 +570,19 @@ public:
 		));
 	}
 
+	/// Returns the size of all texture components
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see BlueSize
+	 *  @see AlphaSize
+	 *  @see DepthSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_SHARED_SIZE}
+	 */
 	static GLsizei SharedSize(Target target, GLint level = 0)
 	{
 		return GLsizei(GetIntParam(
@@ -401,6 +593,11 @@ public:
 	}
 
 	/// Returns the size (in bytes) of the image array if it is compressed
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_COMPRESSED_IMAGE_SIZE}
+	 */
 	static GLsizei CompressedImageSize(Target target, GLint level = 0)
 	{
 		return GLsizei(GetIntParam(
@@ -411,6 +608,11 @@ public:
 	}
 
 	/// Returns the internal data format of the image array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexLevelParameter}
+	 *  @gldefref{TEXTURE_INTERNAL_FORMAT}
+	 */
 	static PixelDataInternalFormat InternalFormat(
 		Target target,
 		GLint level = 0
@@ -449,6 +651,9 @@ public:
 	 *  of detail in compressed form into the @p dest buffer.
 	 *  This function automatically resizes the buffer so that
 	 *  it can accomodate the texture data.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetCompressedTexImage}
 	 */
 	static void GetCompressedImage(
 		Target target,
@@ -470,6 +675,10 @@ public:
 	}
 
 	/// Specifies a three dimensional texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 */
 	static void Image3D(
 		Target target,
 		GLint level,
@@ -503,6 +712,10 @@ public:
 	}
 
 	/// Specifies a three dimensional texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 */
 	template <typename T>
 	static void Image3D(
 		Target target,
@@ -531,6 +744,10 @@ public:
 	}
 
 	/// Specifies a three dimensional texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexSubImage3D}
+	 */
 	static void SubImage3D(
 		Target target,
 		GLint level,
@@ -566,6 +783,10 @@ public:
 	}
 
 	/// Specifies a three dimensional texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexSubImage3D}
+	 */
 	template <typename T>
 	static void SubImage3D(
 		Target target,
@@ -597,6 +818,10 @@ public:
 	}
 
 	/// Specifies a two dimensional texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage2D}
+	 */
 	static void Image2D(
 		Target target,
 		GLint level,
@@ -628,6 +853,10 @@ public:
 	}
 
 	/// Specifies a two dimensional texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage2D}
+	 */
 	template <typename T>
 	static void Image2D(
 		Target target,
@@ -655,6 +884,10 @@ public:
 	}
 
 	/// Specifies a two dimensional texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexSubImage2D}
+	 */
 	static void SubImage2D(
 		Target target,
 		GLint level,
@@ -686,6 +919,10 @@ public:
 	}
 
 	/// Specifies a two dimensional texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexSubImage2D}
+	 */
 	template <typename T>
 	static void SubImage2D(
 		Target target,
@@ -714,6 +951,10 @@ public:
 	}
 
 	/// Specifies a one dimensional texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage1D}
+	 */
 	static void Image1D(
 		Target target,
 		GLint level,
@@ -744,6 +985,10 @@ public:
 	}
 
 	/// Specifies a one dimensional texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage1D}
+	 */
 	template <typename T>
 	static void Image1D(
 		Target target,
@@ -770,6 +1015,10 @@ public:
 	}
 
 	/// Specifies a one dimensional texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexSubImage1D}
+	 */
 	static void SubImage1D(
 		Target target,
 		GLint level,
@@ -797,6 +1046,10 @@ public:
 	}
 
 	/// Specifies a two dimensional texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexSubImage1D}
+	 */
 	template <typename T>
 	static void SubImage1D(
 		Target target,
@@ -822,6 +1075,10 @@ public:
 	}
 
 	/// Copies a two dimensional texture image from the framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CopyTexImage2D}
+	 */
 	static void CopyImage2D(
 		Target target,
 		GLint level,
@@ -851,6 +1108,10 @@ public:
 	}
 
 	/// Copies a one dimensional texture image from the framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CopyTexImage1D}
+	 */
 	static void CopyImage1D(
 		Target target,
 		GLint level,
@@ -878,6 +1139,10 @@ public:
 	}
 
 	/// Copies a three dimensional texture sub image from the framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CopyTexSubImage3D}
+	 */
 	static void CopySubImage3D(
 		Target target,
 		GLint level,
@@ -909,6 +1174,10 @@ public:
 	}
 
 	/// Copies a two dimensional texture sub image from the framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CopyTexSubImage2D}
+	 */
 	static void CopySubImage2D(
 		Target target,
 		GLint level,
@@ -938,6 +1207,10 @@ public:
 	}
 
 	/// Copies a one dimensional texture sub image from the framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CopyTexSubImage1D}
+	 */
 	static void CopySubImage1D(
 		Target target,
 		GLint level,
@@ -963,6 +1236,10 @@ public:
 	}
 
 	/// Specifies a three dimensional compressed texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CompressedTexImage3D}
+	 */
 	static void CompressedImage3D(
 		Target target,
 		GLint level,
@@ -994,6 +1271,10 @@ public:
 	}
 
 	/// Specifies a two dimensional compressed texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CompressedTexImage2D}
+	 */
 	static void CompressedImage2D(
 		Target target,
 		GLint level,
@@ -1023,6 +1304,10 @@ public:
 	}
 
 	/// Specifies a one dimensional compressed texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CompressedTexImage1D}
+	 */
 	static void CompressedImage1D(
 		Target target,
 		GLint level,
@@ -1050,6 +1335,10 @@ public:
 	}
 
 	/// Specifies a three dimensional compressed texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CompressedTexSubImage3D}
+	 */
 	static void CompressedSubImage3D(
 		Target target,
 		GLint level,
@@ -1085,6 +1374,10 @@ public:
 	}
 
 	/// Specifies a two dimensional compressed texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CompressedTexSubImage2D}
+	 */
 	static void CompressedSubImage2D(
 		Target target,
 		GLint level,
@@ -1116,6 +1409,10 @@ public:
 	}
 
 	/// Specifies a one dimensional compressed texture sub image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CompressedTexSubImage1D}
+	 */
 	static void CompressedSubImage1D(
 		Target target,
 		GLint level,
@@ -1144,6 +1441,10 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
 	/// Sets-up a three dimensional multisample texture
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3DMultisample}
+	 */
 	static void Image3DMultisample(
 		Target target,
 		GLsizei samples,
@@ -1171,6 +1472,10 @@ public:
 	}
 
 	/// Sets-up a two dimensional multisample texture
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage2DMultisample}
+	 */
 	static void Image2DMultisample(
 		Target target,
 		GLsizei samples,
@@ -1198,6 +1503,10 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 	/// Assigns a buffer storing the texel data to the texture
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexBuffer}
+	 */
 	static void SetBuffer(
 		Target target,
 		PixelDataInternalFormat internal_format,
@@ -1218,12 +1527,22 @@ public:
 #endif
 
 	/// Returns the texture base level (TEXTURE_BASE_LEVEL)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_BASE_LEVEL}
+	 */
 	static GLuint BaseLevel(Target target)
 	{
 		return GetIntParam(target, GL_TEXTURE_BASE_LEVEL);
 	}
 
 	/// Sets the texture base level (TEXTURE_BASE_LEVEL)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_BASE_LEVEL}
+	 */
 	static void BaseLevel(Target target, GLuint level)
 	{
 		::glTexParameteri(
@@ -1239,6 +1558,11 @@ public:
 	}
 
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	static Vector<GLfloat, 4> BorderColor(Target target, TypeTag<GLfloat>)
 	{
 		GLfloat result[4];
@@ -1256,6 +1580,11 @@ public:
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	static void BorderColor(Target target, Vector<GLfloat, 4> color)
 	{
 		::glTexParameterfv(
@@ -1271,6 +1600,11 @@ public:
 	}
 
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	static Vector<GLint, 4> BorderColor(Target target, TypeTag<GLint>)
 	{
 		GLint result[4];
@@ -1288,6 +1622,11 @@ public:
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	static void BorderColor(Target target, Vector<GLint, 4> color)
 	{
 		::glTexParameterIiv(
@@ -1303,6 +1642,11 @@ public:
 	}
 
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	static Vector<GLuint, 4> BorderColor(Target target, TypeTag<GLuint>)
 	{
 		GLuint result[4];
@@ -1320,6 +1664,11 @@ public:
 	}
 
 	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
 	static void BorderColor(Target target, Vector<GLuint, 4> color)
 	{
 		::glTexParameterIuiv(
@@ -1335,6 +1684,11 @@ public:
 	}
 
 	/// Gets the compare mode (TEXTURE_COMPARE_MODE)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_COMPARE_MODE}
+	 */
 	static TextureCompareMode CompareMode(Target target)
 	{
 		return TextureCompareMode(GetIntParam(
@@ -1344,6 +1698,11 @@ public:
 	}
 
 	/// Sets the compare mode (TEXTURE_COMPARE_MODE)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_COMPARE_MODE}
+	 */
 	static void CompareMode(Target target, TextureCompareMode mode)
 	{
 		::glTexParameteri(
@@ -1359,6 +1718,11 @@ public:
 	}
 
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_COMPARE_FUNC}
+	 */
 	static CompareFunction CompareFunc(Target target)
 	{
 		return CompareFunction(GetIntParam(
@@ -1368,6 +1732,11 @@ public:
 	}
 
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_COMPARE_FUNC}
+	 */
 	static void CompareFunc(Target target, CompareFunction func)
 	{
 		::glTexParameteri(
@@ -1382,13 +1751,23 @@ public:
 		));
 	}
 
-	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
+	/// Gets the LOD bias value (TEXTURE_LOD_BIAS)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_LOD_BIAS}
+	 */
 	static GLfloat LODBiad(Target target)
 	{
 		return GetFloatParam(target, GL_TEXTURE_LOD_BIAS);
 	}
 
 	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_LOD_BIAS}
+	 */
 	static void LODBias(Target target, GLfloat value)
 	{
 		::glTexParameterf(
@@ -1404,6 +1783,11 @@ public:
 	}
 
 	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
 	static TextureMagFilter MagFilter(Target target)
 	{
 		return TextureMagFilter(GetIntParam(
@@ -1413,6 +1797,11 @@ public:
 	}
 
 	/// Sets the magnification filter (TEXTURE_MAG_FILTER)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
 	static void MagFilter(Target target, TextureMagFilter filter)
 	{
 		::glTexParameteri(
@@ -1427,7 +1816,12 @@ public:
 		));
 	}
 
-	/// Gets the minnification filter (TEXTURE_MAG_FILTER)
+	/// Gets the minification filter (TEXTURE_MIN_FILTER)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 */
 	static TextureMinFilter MinFilter(Target target)
 	{
 		return TextureMinFilter(GetIntParam(
@@ -1436,7 +1830,12 @@ public:
 		));
 	}
 
-	/// Sets the minnification filter (TEXTURE_MAG_FILTER)
+	/// Sets the minification filter (TEXTURE_MIN_FILTER)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 */
 	static void MinFilter(Target target, TextureMinFilter filter)
 	{
 		::glTexParameteri(
@@ -1452,12 +1851,22 @@ public:
 	}
 
 	/// Gets minimal LOD value (TEXTURE_MIN_LOD)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MIN_LOD}
+	 */
 	static GLfloat MinLOD(Target target)
 	{
 		return GetFloatParam(target, GL_TEXTURE_MIN_LOD);
 	}
 
 	/// Sets minimal LOD value (TEXTURE_MIN_LOD)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MIN_LOD}
+	 */
 	static void MinLOD(Target target, GLfloat value)
 	{
 		::glTexParameterf(
@@ -1473,12 +1882,22 @@ public:
 	}
 
 	/// Gets maximal LOD value (TEXTURE_MAX_LOD)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAX_LOD}
+	 */
 	static GLfloat MaxLOD(Target target)
 	{
 		return GetFloatParam(target, GL_TEXTURE_MAX_LOD);
 	}
 
 	/// Sets maximal LOD value (TEXTURE_MAX_LOD)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAX_LOD}
+	 */
 	static void MaxLOD(Target target, GLfloat value)
 	{
 		::glTexParameterf(
@@ -1495,6 +1914,10 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 */
 	static TextureSwizzle Swizzle(Target target, TextureSwizzleCoord coord)
 	{
 		return TextureSwizzle(GetIntParam(
@@ -1504,6 +1927,10 @@ public:
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 */
 	static void Swizzle(
 		Target target,
 		TextureSwizzleCoord coord,
@@ -1523,60 +1950,110 @@ public:
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_R)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_R}
+	 */
 	static TextureSwizzle SwizzleR(Target target)
 	{
 		return Swizzle(target, TextureSwizzleCoord::R);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_R)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_R}
+	 */
 	static void SwizzleR(Target target, TextureSwizzle mode)
 	{
 		Swizzle(target, TextureSwizzleCoord::R, mode);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_G)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_G}
+	 */
 	static TextureSwizzle SwizzleG(Target target)
 	{
 		return Swizzle(target, TextureSwizzleCoord::G);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_G)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_G}
+	 */
 	static void SwizzleG(Target target, TextureSwizzle mode)
 	{
 		Swizzle(target, TextureSwizzleCoord::G, mode);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_B)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_B}
+	 */
 	static TextureSwizzle SwizzleB(Target target)
 	{
 		return Swizzle(target, TextureSwizzleCoord::B);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_B)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_B}
+	 */
 	static void SwizzleB(Target target, TextureSwizzle mode)
 	{
 		Swizzle(target, TextureSwizzleCoord::B, mode);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_A)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_A}
+	 */
 	static TextureSwizzle SwizzleA(Target target)
 	{
 		return Swizzle(target, TextureSwizzleCoord::A);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_A)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_A}
+	 */
 	static void SwizzleA(Target target, TextureSwizzle mode)
 	{
 		Swizzle(target, TextureSwizzleCoord::A, mode);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_RGBA}
+	 */
 	static TextureSwizzle SwizzleRGBA(Target target)
 	{
 		return Swizzle(target, TextureSwizzleCoord::RGBA);
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLER_RGBA}
+	 */
 	static void SwizzleRGBA(Target target, TextureSwizzle mode)
 	{
 		Swizzle(target, TextureSwizzleCoord::RGBA, mode);
@@ -1584,6 +2061,10 @@ public:
 #endif // texture swizzle
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 */
 	static TextureWrap Wrap(Target target, TextureWrapCoord coord)
 	{
 		return TextureWrap(GetIntParam(
@@ -1593,6 +2074,10 @@ public:
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 */
 	static void Wrap(
 		Target target,
 		TextureWrapCoord coord,
@@ -1612,42 +2097,76 @@ public:
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_S)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_WRAP_S}
+	 */
 	static TextureWrap WrapS(Target target)
 	{
 		return Wrap(target, TextureWrapCoord::S);
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_S)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_WRAP_S}
+	 */
 	static void WrapS(Target target, TextureWrap mode)
 	{
 		Wrap(target, TextureWrapCoord::S, mode);
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_T)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_WRAP_T}
+	 */
 	static TextureWrap WrapT(Target target)
 	{
 		return Wrap(target, TextureWrapCoord::T);
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_T)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_WRAP_T}
+	 */
 	static void WrapT(Target target, TextureWrap mode)
 	{
 		Wrap(target, TextureWrapCoord::T, mode);
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_R)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_WRAP_R}
+	 */
 	static TextureWrap WrapR(Target target)
 	{
 		return Wrap(target, TextureWrapCoord::R);
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_R)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_WRAP_R}
+	 */
 	static void WrapR(Target target, TextureWrap mode)
 	{
 		Wrap(target, TextureWrapCoord::R, mode);
 	}
 
 	/// Generate mipmap for the texture bound to the specified target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GenerateMipmap}
+	 */
 	static void GenerateMipmap(Target target)
 	{
 		::glGenerateMipmap(GLenum(target));

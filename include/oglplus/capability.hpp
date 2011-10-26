@@ -17,6 +17,11 @@ namespace oglplus {
 /// Capability enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{Enable}
+ *  @glfunref{Disable}
+ *  @glfunref{IsEnabled}
  */
 enum class Capability: GLenum
 {

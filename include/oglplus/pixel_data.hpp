@@ -19,6 +19,11 @@ namespace oglplus {
 /// OpenGL pixel data type enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexImage1D}
+ *  @glfunref{TexImage2D}
+ *  @glfunref{TexImage3D}
  */
 enum class PixelDataType : GLenum
 {
@@ -28,6 +33,11 @@ enum class PixelDataType : GLenum
 /// OpenGL pixel data format enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexImage1D}
+ *  @glfunref{TexImage2D}
+ *  @glfunref{TexImage3D}
  */
 enum class PixelDataFormat : GLenum
 {
@@ -37,6 +47,13 @@ enum class PixelDataFormat : GLenum
 /// OpenGL pixel data internal format enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{TexImage1D}
+ *  @glfunref{TexImage2D}
+ *  @glfunref{TexImage3D}
+ *  @glfunref{RenderbufferStorage}
+ *  @glfunref{RenderbufferStorageMultisample}
  */
 enum class PixelDataInternalFormat : GLenum
 {

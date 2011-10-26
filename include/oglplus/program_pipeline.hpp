@@ -31,6 +31,11 @@ namespace oglplus {
  *  @note Do not use this class directly, use @c ProgramPipeline instead.
  *
  *  @see ProgramPipeline
+ *
+ *  @glsymbols
+ *  @glfunref{GenProgramPipelines}
+ *  @glfunref{DeleteProgramPipelines}
+ *  @glfunref{IsProgramPipeline}
  */
 class ProgramPipelineOps
  : public Named
@@ -70,6 +75,10 @@ public:
 	}
 
 	/// Bind this program pipeline
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindProgramPipeline}
+	 */
 	void Bind(void) const
 	{
 		assert(_name != 0);
@@ -78,6 +87,10 @@ public:
 	}
 
 	/// Unbinds the current program pipeline object (if any)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindProgramPipeline}
+	 */
 	static void Unbind(void)
 	{
 		::glBindProgramPipeline(0);
@@ -109,6 +122,9 @@ public:
 	 *  @endcode
 	 *
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{UseProgramStages}
 	 */
 	aux::ProgPLUseStages UseStages(const ProgramOps& program) const
 	{
@@ -121,6 +137,10 @@ public:
 	}
 
 	/// Use the specified @p stages of the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UseProgramStages}
+	 */
 	void UseStages(
 		std::initializer_list<Stage> stages,
 		const ProgramOps& program
@@ -137,6 +157,10 @@ public:
 
 #if defined GL_ALL_SHADER_BITS
 	/// Use all stages of the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UseProgramStages}
+	 */
 	void UseAllStages(const ProgramOps& program) const
 	{
 		assert(_name != 0);
@@ -151,6 +175,9 @@ public:
 
 	/// Returns the validation process output
 	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramPipeline}
+	 *  @glfunref{GetProgramPipelineInfoLog}
 	 */
 	String GetInfoLog(void) const
 	{
@@ -166,6 +193,9 @@ public:
 	/// Returns true if the pipeline is validated, false otherwise
 	/**
 	 *  @see Validate
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetProgramPipeline}
 	 */
 	bool IsValid(void) const
 	{
@@ -176,6 +206,9 @@ public:
 	/**
 	 *  @throws Error ValidationError
 	 *  @see Link
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ValidateProgramPipeline}
 	 */
 	void Validate(void) const
 	{
@@ -198,6 +231,10 @@ public:
 	}
 
 	/// Make the @p program active for this program pipeline
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ActiveShaderProgram}
+	 */
 	void ActiveShaderProgram(const ProgramOps& program) const
 	{
 		assert(_name != 0);
@@ -209,18 +246,31 @@ public:
 	}
 
 	/// Returns the current active shader program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramPipeline}
+	 *  @gldefref{ACTIVE_PROGRAM}
+	 */
 	Managed<ProgramOps> ActiveShaderProgram(void) const
 	{
 		return Managed<ProgramOps>(GetIntParam(GL_ACTIVE_PROGRAM));
 	}
 
 	/// Returns true if this pipeline contains a shader of a particular kind
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramPipeline}
+	 */
 	bool HasShader(Shader::Kind shader_kind) const
 	{
 		return GetIntParam(GLenum(shader_kind)) != 0;
 	}
 
 	/// Returns the program from which the @p shader_kind is used
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramPipeline}
+	 */
 	Managed<ProgramOps> ShaderProgram(Shader::Kind shader_kind) const
 	{
 		return Managed<ProgramOps>(GetIntParam(GLenum(shader_kind)));

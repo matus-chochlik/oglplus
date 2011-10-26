@@ -24,6 +24,10 @@ struct TypeTag
 /// OpenGL data type enumeration
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{DrawElements}
+ *  @glfunref{VertexAttribPointer}
  */
 enum class DataType : GLenum
 {

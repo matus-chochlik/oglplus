@@ -32,6 +32,15 @@ enum class TransformFeedbackMode : GLenum
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 
+
+/// Wrapper for fransform feedback operations
+/** @note Do not use this class directly, use TransformFeedback instead.
+ *
+ *  @glsymbols
+ *  @glfunref{GenTransformFeedbacks}
+ *  @glfunref{DeleteTransformFeedbacks}
+ *  @glfunref{IsTransformFeedback}
+ */
 class TransformFeedbackOps
  : public Named
 {
@@ -79,6 +88,10 @@ public:
 	};
 
 	/// Bind this transform feedback object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindTransformFeedback}
+	 */
 	void Bind(Target target = Target::TransformFeedback) const
 	{
 		assert(_name != 0);
@@ -87,6 +100,10 @@ public:
 	}
 
 	/// Bind the default transform feedback object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindTransformFeedback}
+	 */
 	static void BindDefault(Target target = Target::TransformFeedback)
 	{
 		::glBindTransformFeedback(GLenum(target), 0);
@@ -99,6 +116,9 @@ public:
 	 *
 	 *  @see Activator
 	 *  @see End
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BeginTransformFeedback}
 	 */
 	static void Begin(PrimitiveType mode)
 	{
@@ -112,6 +132,9 @@ public:
 	 *
 	 *  @see Activator
 	 *  @see Begin
+	 *
+	 *  @glsymbols
+	 *  @glfunref{EndTransformFeedback}
 	 */
 	static void End(void)
 	{
@@ -125,6 +148,9 @@ public:
 	 *
 	 *  @see Pauser
 	 *  @see Resume
+	 *
+	 *  @glsymbols
+	 *  @glfunref{PauseTransformFeedback}
 	 */
 	static void Pause(void)
 	{
@@ -138,6 +164,9 @@ public:
 	 *
 	 *  @see Pauser
 	 *  @see Pause
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ResumeTransformFeedback}
 	 */
 	static void Resume(void)
 	{
@@ -150,6 +179,10 @@ public:
 	 *  constructed and deactivates it in destructor. It is a more
 	 *  robust and preferred mode of transform feedback activation
 	 *  and deactivation.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BeginTransformFeedback}
+	 *  @glfunref{EndTransformFeedback}
 	 */
 	class Activator
 	{
@@ -157,6 +190,10 @@ public:
 		bool _active;
 	public:
 		/// Begins transform feedback
+		/**
+		 *  @glsymbols
+		 *  @glfunref{BeginTransformFeedback}
+		 */
 		Activator(PrimitiveType mode)
 		 : _active(true)
 		{
@@ -174,6 +211,10 @@ public:
 		}
 
 		/// Ends transform feedback
+		/**
+		 *  @glsymbols
+		 *  @glfunref{EndTransformFeedback}
+		 */
 		~Activator(void)
 		{
 			if(_active) ::glEndTransformFeedback();
@@ -185,6 +226,10 @@ public:
 	 *  constructed and resumes it in destructor. It is a more
 	 *  robust and preferred mode of transform feedback activation
 	 *  and deactivation.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{PauseTransformFeedback}
+	 *  @glfunref{ResumeTransformFeedback}
 	 */
 	class Pauser
 	{
@@ -192,6 +237,10 @@ public:
 		bool _paused;
 	public:
 		/// Pauses transform feedback
+		/**
+		 *  @glsymbols
+		 *  @glfunref{PauseTransformFeedback}
+		 */
 		Pauser(void)
 		 : _paused(true)
 		{
@@ -209,6 +258,10 @@ public:
 		}
 
 		/// Resumes transform feedback
+		/**
+		 *  @glsymbols
+		 *  @glfunref{ResumeTransformFeedback}
+		 */
 		~Pauser(void)
 		{
 			if(_paused) ::glResumeTransformFeedback();

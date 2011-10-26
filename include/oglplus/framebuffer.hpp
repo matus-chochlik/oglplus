@@ -43,6 +43,11 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
  *  @note Do not use this class directly, use FrameBuffer instead
  *
  *  @see Framebuffer
+ *
+ *  @glsymbols
+ *  @glfunref{GenFramebuffers}
+ *  @glfunref{DeleteFramebuffers}
+ *  @glfunref{IsFramebuffer}
  */
 class FramebufferOps
  : public Named
@@ -100,6 +105,9 @@ public:
 	/// Bind this framebuffer to the specified target
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindFramebuffer}
 	 */
 	void Bind(Target target) const
 	{
@@ -115,6 +123,9 @@ public:
 	/// Binds the default framebuffer to the specified target
 	/**
 	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindFramebuffer}
 	 */
 	static void BindDefault(Target target)
 	{
@@ -127,6 +138,9 @@ public:
 	 *  framebuffers this member function returns Status::Complete.
 	 *
 	 *  @see IsComplete
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CheckFramebufferStatus}
 	 */
 	static Status CheckStatus(Target target)
 	{
@@ -143,6 +157,9 @@ public:
 	/**
 	 *  @see Status
 	 *  @see CheckStatus
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CheckFramebufferStatus}
 	 */
 	static bool IsComplete(Target target)
 	{
@@ -150,6 +167,18 @@ public:
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of @p target
+	/**
+	 *  @see AttachColorRenderbuffer
+	 *  @see AttachTexture
+	 *  @see AttachTextureLayer
+	 *  @see AttachTexture1D
+	 *  @see AttachTexture2D
+	 *  @see AttachTexture3D
+	 *  @see AttachColorTexture
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferRenderbuffer}
+	 */
 	static void AttachRenderbuffer(
 		Target target,
 		Attachment attachment,
@@ -170,6 +199,18 @@ public:
 	}
 
 	/// Attach a @p renderbuffer to the color @p attachment of @p target
+	/**
+	 *  @see AttachRenderbuffer
+	 *  @see AttachTexture
+	 *  @see AttachTextureLayer
+	 *  @see AttachTexture1D
+	 *  @see AttachTexture2D
+	 *  @see AttachTexture3D
+	 *  @see AttachColorTexture
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferRenderbuffer}
+	 */
 	static void AttachColorRenderbuffer(
 		Target target,
 		FramebufferColorAttachment attachment,
@@ -191,6 +232,18 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Attach a @p texture to the @p attachment point of @p target
+	/**
+	 *  @see AttachRenderbuffer
+	 *  @see AttachColorRenderbuffer
+	 *  @see AttachTextureLayer
+	 *  @see AttachTexture1D
+	 *  @see AttachTexture2D
+	 *  @see AttachTexture3D
+	 *  @see AttachColorTexture
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture}
+	 */
 	static void AttachTexture(
 		Target target,
 		Attachment attachment,
@@ -210,9 +263,20 @@ public:
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
-#endif
 
 	/// Attach a @p texture to the color @p attachment point of @p target
+	/**
+	 *  @see AttachRenderbuffer
+	 *  @see AttachColorRenderbuffer
+	 *  @see AttachTexture1D
+	 *  @see AttachTexture2D
+	 *  @see AttachTexture3D
+	 *  @see AttachTexture
+	 *  @see AttachTextureLayer
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture}
+	 */
 	static void AttachColorTexture(
 		Target target,
 		FramebufferColorAttachment attachment,
@@ -232,8 +296,21 @@ public:
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
+#endif
 
 	/// Attach a 1D @p texture to the @p attachment point of @p target
+	/**
+	 *  @see AttachRenderbuffer
+	 *  @see AttachColorRenderbuffer
+	 *  @see AttachTexture2D
+	 *  @see AttachTexture3D
+	 *  @see AttachColorTexture
+	 *  @see AttachTexture
+	 *  @see AttachTextureLayer
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture}
+	 */
 	static void AttachTexture1D(
 		Target target,
 		Attachment attachment,
@@ -257,6 +334,18 @@ public:
 	}
 
 	/// Attach a 2D @p texture to the @p attachment point of @p target
+	/**
+	 *  @see AttachRenderbuffer
+	 *  @see AttachColorRenderbuffer
+	 *  @see AttachTexture1D
+	 *  @see AttachTexture3D
+	 *  @see AttachColorTexture
+	 *  @see AttachTexture
+	 *  @see AttachTextureLayer
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture}
+	 */
 	static void AttachTexture2D(
 		Target target,
 		Attachment attachment,
@@ -280,6 +369,18 @@ public:
 	}
 
 	/// Attach a 3D @p texture to the @p attachment point of @p target
+	/**
+	 *  @see AttachRenderbuffer
+	 *  @see AttachColorRenderbuffer
+	 *  @see AttachTexture1D
+	 *  @see AttachTexture2D
+	 *  @see AttachColorTexture
+	 *  @see AttachTexture
+	 *  @see AttachTextureLayer
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTexture}
+	 */
 	static void AttachTexture3D(
 		Target target,
 		Attachment attachment,
@@ -305,6 +406,18 @@ public:
 	}
 
 	/// Attach a @p texture layer to the @p attachment point of @p target
+	/**
+	 *  @see AttachRenderbuffer
+	 *  @see AttachColorRenderbuffer
+	 *  @see AttachTexture1D
+	 *  @see AttachTexture2D
+	 *  @see AttachTexture3D
+	 *  @see AttachColorTexture
+	 *  @see AttachTexture
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FramebufferTextureLayer}
+	 */
 	static void AttachTextureLayer(
 		Target target,
 		Attachment attachment,

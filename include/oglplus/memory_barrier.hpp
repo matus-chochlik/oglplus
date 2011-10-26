@@ -17,6 +17,9 @@ namespace oglplus {
 /// Enumeration of memory barrier bits
 /**
  *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{MemoryBarrier}
  */
 enum class MemoryBarrierBit : GLbitfield
 {

@@ -30,6 +30,11 @@ namespace oglplus {
  *  @note Do not use this class directly, use Shader instead.
  *
  *  @see Shader
+ *
+ *  @glsymbols
+ *  @glfunref{CreateShader}
+ *  @glfunref{DeleteShader}
+ *  @glfunref{IsShader}
  */
 class ShaderOps
  : public Named
@@ -61,6 +66,11 @@ protected:
 	friend class FriendOf<ShaderOps>;
 public:
 	/// Get the type of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetShader}
+	 *  @gldefref{SHADER_TYPE}
+	 */
 	Kind Type(void) const
 	{
 		GLint result = 0;
@@ -78,6 +88,10 @@ public:
 	}
 
 	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
 	void Source(const String& source) const
 	{
 		assert(_name != 0);
@@ -87,6 +101,10 @@ public:
 	}
 
 	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
 	void Source(const GLchar* source) const
 	{
 		assert(_name != 0);
@@ -95,6 +113,10 @@ public:
 	}
 
 	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
 	void Source(const GLchar* source, int length) const
 	{
 		assert(_name != 0);
@@ -104,6 +126,10 @@ public:
 	}
 
 	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
 	void Source(const GLchar** srcs, int count) const
 	{
 		assert(_name != 0);
@@ -111,6 +137,10 @@ public:
 	}
 
 	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
 	void Source(const std::vector<const GLchar*>& srcs) const
 	{
 		assert(_name != 0);
@@ -125,6 +155,10 @@ public:
 	/// Returns true if the shader is already compile, returns false otherwise
 	/**
 	 *  @see Compile
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetShader}
+	 *  @gldefref{COMPILE_STATUS}
 	 */
 	bool IsCompiled(void) const
 	{
@@ -143,6 +177,10 @@ public:
 	/**
 	 *  @see IsCompiled
 	 *  @see Compile
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetShader}
+	 *  @glfunref{GetShaderInfoLog}
 	 */
 	String GetInfoLog(void) const
 	{
@@ -159,6 +197,9 @@ public:
 	/**
 	 *  @throws Error CompileError
 	 *  @see IsCompiled
+	 *
+	 *  @glsymbols
+	 *  @glfunref{CompileShader}
 	 */
 	void Compile(void) const
 	{
@@ -181,6 +222,10 @@ public:
 	}
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
 	/// Indicate that the resources associated with the compiler can be freed
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ReleaseShaderCompiler}
+	 */
 	static void ReleaseCompiler(void)
 	{
 		::glReleaseShaderCompiler();
