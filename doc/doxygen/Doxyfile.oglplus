@@ -12,13 +12,14 @@ PROJECT_NAME           = "OGLplus"
 OUTPUT_DIRECTORY       = ../../out/doc/doxygen/oglplus
 
 INPUT = \
+	../tutorial \
 	../../include/oglplus \
 	../../include/oglplus/shapes \
 	../../include/oglplus/images \
 	../../example/standalone \
 	../../example/oglplus
 
-EXAMPLE_PATH = ../../example ../../bld/doc
+EXAMPLE_PATH = ../tutorial ../../example ../../bld/doc
 
 GENERATE_HTML = YES
 GENERATE_XML = NO

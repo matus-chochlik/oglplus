@@ -21,18 +21,14 @@ class Example
 private:
 	oglplus::Context gl;
 
-	// Vertex shader
 	oglplus::VertexShader vs;
 
-	// Fragment shader
 	oglplus::FragmentShader fs;
 
-	// Program
 	oglplus::Program prog;
 
-	// A vertex array object for the rendered triangle
 	oglplus::VertexArray triangle;
-	// VBO for the triangle's vertices
+
 	oglplus::Buffer verts;
 public:
 	Example(void)
@@ -81,7 +77,11 @@ public:
 		// bind the VBO for the triangle vertices
 		verts.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
+		Buffer::Data(
+			Buffer::Target::Array,
+			9,
+			triangle_verts
+		);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(3, DataType::Float);
@@ -127,6 +127,7 @@ public:
 
 	static void Display(void)
 	{
+		assert(SingleInstance());
 		SingleInstance()->Display();
 		glutSwapBuffers();
 	}
@@ -135,7 +136,7 @@ public:
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowSize(800, 600);
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("OGLplus+GLUT+GLEW");
