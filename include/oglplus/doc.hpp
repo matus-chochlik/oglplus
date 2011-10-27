@@ -23,7 +23,7 @@ namespace oglplus {
  *
  *  @image html oglplus.png
  *
- *  OGLplus is a header-only library which implements
+ *  @OGLplus is a header-only library which implements
  *  a thin object-oriented facade over the OpenGL® (version 3 and higher)
  *  C-language API. It provides wrappers which automate
  *  the resource and object management and make the use of OpenGL
@@ -40,6 +40,7 @@ namespace oglplus {
  *  - @ref oglplus_download
  *    - <A HREF="http://sourceforge.net/projects/oglplus/files/">Download page</A>
  *  - @ref oglplus_getting_started
+ *    - @ref oglplus_tutorials
  *  - @ref oglplus_getting_it_going
  *  - @ref oglplus_supported_compilers
  *  - @ref oglplus_example_rationale
@@ -47,14 +48,14 @@ namespace oglplus {
  *
  *  @section oglplus_features Features
  *
- *  OGLplus adds the following functionality to the OpenGL® C API.
+ *  @OGLplus adds the following functionality to the OpenGL® C API.
  *
  *  @subsection feat_auto_resource_management Automatic resource management
  *
  *  Applications using the OpenGL® library typically allocate and use, during their
  *  run-time, resources like buffers, queries, textures, shaders, programs,
  *  etc. from this library.
- *  OGLplus uses the RAII idiom to automatically manage the lifetime
+ *  @OGLplus uses the RAII idiom to automatically manage the lifetime
  *  of these resources. Classes like @ref oglplus::Buffer "Buffer",
  *  @ref oglplus::Texture "Texture", @ref oglplus::Query "Query",
  *  @ref oglplus::Shader "Shader", @ref oglplus::Program "Program",
@@ -79,13 +80,13 @@ namespace oglplus {
  *  as a parameter for a call expecting for example a name of a occlusion query,
  *  and such errors will not be caught by the compiler.
  *
- *  By implementing the wrapper classes OGLplus gives a special meaning
+ *  By implementing the wrapper classes @OGLplus gives a special meaning
  *  to the unsigned integer names and by their encapsulating and hiding
  *  from the library client it allows to avoid such errors.
  *
  *  Similarly the various enumerations are again basically values of the @c GLenum
  *  type and are prone to the same kind of error. You can pass an incompatible
- *  enumerated value to a API function call. OGLplus again allows to avoid these
+ *  enumerated value to a API function call. @OGLplus again allows to avoid these
  *  errors by separating the values into strongly typed enums and wrapping the
  *  basic OpenGL® API calls by functions accepting only parameters with matching
  *  enumerated types.
@@ -93,11 +94,11 @@ namespace oglplus {
  *  @subsection feat_error_handling Error handling and diagnostic
  *
  *  In cases where errors cannot be caught at compile-time by using
- *  the type system or by other means, OGLplus checks for errors after
+ *  the type system or by other means, @OGLplus checks for errors after
  *  the calls to OpenGL and throws an exception if an error occurs.
  *  All exceptions are derived from the @ref oglplus::Error "Error" class
  *  which provides information about the throw site of the exception
- *  (source file, line, OGLplus function name, the OpenGL® C API call,
+ *  (source file, line, @OGLplus function name, the OpenGL® C API call,
  *  etc. where the error occured) and optionally also some properties
  *  (string key and value) attached at the throw site or during the propagation
  *  of the exception. If the error is related to a
@@ -106,7 +107,7 @@ namespace oglplus {
  *
  *  @subsection feat_interoperability_with_opengl Interoperability with OpenGL® C API
  *
- *  As said above, OGLplus by default encapsulates and hides the OpenGL names
+ *  As said above, @OGLplus by default encapsulates and hides the OpenGL names
  *  assigned to various objects (resources allocated at the OpenGL server).
  *  There are however situations where it might be necessary to get this
  *  "raw" resource handle. This can be done via the @ref oglplus::Expose() "Expose"
@@ -114,7 +115,7 @@ namespace oglplus {
  *
  *  @subsection feat_related_classes Additional CG related classes
  *
- *  Besides the classes wrapping OpenGL functionality OGLplus also provides
+ *  Besides the classes wrapping OpenGL functionality @OGLplus also provides
  *  several classes which are related to computer graphics and indirectly
  *  to OpenGL, like @ref oglplus::Angle "Angle", @ref oglplus::Vector "Vector",
  *  @ref oglplus::Matrix "Matrix", @ref oglplus::BezierCurves "BezierCurves",
@@ -122,12 +123,12 @@ namespace oglplus {
  *
  *  @section oglplus_what_it_is_not What OGLplus isn't
  *
- *  Like the OpenGL® C API, OGLplus does not officially provide nor force you to use code
+ *  Like the OpenGL® C API, @OGLplus does not officially provide nor force you to use code
  *  related to creating of the default framebuffer. There are already
  *  several other libraries and frameworks which do it in both platform
  *  dependent and platform independent ways.
  *
- *  OGLplus also does not include header file(s) declaring the OpenGL® 3 (or higher)
+ *  @OGLplus also does not include header file(s) declaring the OpenGL® 3 (or higher)
  *  function prototypes and enumerated values. It is the responsibility of the
  *  application to do so. There are several ways how to do it, see
  *  @ref oglplus_getting_it_going for some suggestions.
@@ -143,15 +144,16 @@ namespace oglplus {
  *  git clone git://oglplus.git.sourceforge.net/gitroot/oglplus/oglplus
  *  @endcode
  *
- *  @section oglplus_getting_started Getting started, tutorials, examples
+ *  @section oglplus_getting_started Getting started
  *
  *  One of the best ways how to get yourself acquainted with the library is to
  *  look at the examples and to browse through the reference. Many of the examples
- *  are thoroughly commented and in the future step-by-step tutorials will be added.
+ *  are thoroughly commented and for some of them step-by-step
+ *  @ref oglplus_tutorials "tutorials" are being added.
  *
  *  @section oglplus_getting_it_going Getting it going
  *
- *  OGLplus currently uses the GNU Make build system, to build the examples
+ *  @OGLplus currently uses the GNU Make build system, to build the examples
  *  which may by replaced or supplemented
  *  in the future with CMake, Boost.Build or something similar.
  *
@@ -187,9 +189,9 @@ namespace oglplus {
  *  case it is necessary to tell the compiler to search this directory for
  *  header files (usually with the @c -I directive).
  *
- *  One important thing that an application using OGLplus needs to take care of
+ *  One important thing that an application using @OGLplus needs to take care of
  *  is to make sure that the OpenGL® 3 (or higher) function prototypes, typedefs,
- *  preprocessor symbols, etc. are defined before including any OGLplus header.
+ *  preprocessor symbols, etc. are defined before including any @OGLplus header.
  *
  *  There are several different ways how to do this; one of the most convenient
  *  is to download the @c gl3.h header file from
@@ -214,7 +216,7 @@ namespace oglplus {
  *
  *  @section oglplus_supported_compilers Supported compilers
  *
- *  OGLplus is known to work with the following compilers:
+ *  @OGLplus is known to work with the following compilers:
  *  - GCC (versions 4.5.1, 4.6.0, 4.6.1)
  *
  *  Currently the limiting factor seems to be the support for C++11 features
@@ -224,7 +226,7 @@ namespace oglplus {
  *
  *  @section oglplus_example_rationale Example rationale
  *
- *  As already said above, OGLplus does not officially provide means for creating of the
+ *  As already said above, @OGLplus does not officially provide means for creating of the
  *  default framebuffer nor any code related to window-system or user-input.
  *
  *  The example code is usually encapsulated in a class derived from the @c Example
@@ -232,7 +234,7 @@ namespace oglplus {
  *  the initial setup, cleanup and handling of events to the example code
  *  automatically.
  *  This way the examples are not too cluttered by things which are not directly
- *  related to OpenGL® and OGLplus usage. The examples are numbered and ordered
+ *  related to OpenGL® and @OGLplus usage. The examples are numbered and ordered
  *  roughly by their "difficulty", from the easiest to the most complex.
  *
  *  In the example directory there are however also several standalone examples,
@@ -264,7 +266,7 @@ namespace oglplus {
  *
  *  This group contains classes and functions which do not directly deal with
  *  OpenGL, but are related to computer graphics, like angles, vectors, matrices,
- *  etc. The OGLplus example make use these classes, but the library does not
+ *  etc. The @OGLplus example make use these classes, but the library does not
  *  force you to use them if you don't want to.
  */
 

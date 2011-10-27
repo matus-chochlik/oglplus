@@ -31,7 +31,7 @@ namespace oglplus {
 
 /** @page oglplus_object OGLplus object
  *
- *  OGLplus defines classes like @ref oglplus::Buffer "Buffer",
+ *  @OGLplus defines classes like @ref oglplus::Buffer "Buffer",
  *  @ref oglplus::Program "Program", @ref oglplus::Texture "Texture",
  *  @ref oglplus::Query "Query" and many others, wrapping around OpenGL
  *  "objects". Such classes have, besides the object-type-specific functions,

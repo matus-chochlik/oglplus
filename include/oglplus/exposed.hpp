@@ -21,7 +21,7 @@ namespace oglplus {
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// This template class can ba used to get the OpenGL name of the Object
 /** Exposing the object's name can be useful when calling an OpenGL function
- *  which is not wrapped by OGLplus and which requires the name of an object.
+ *  which is not wrapped by @OGLplus and which requires the name of an object.
  *
  *  @note The instance of Object from which the instance of Exposed<Object>
  *  was created must be kept alive at least as long as the instance of Exposed.

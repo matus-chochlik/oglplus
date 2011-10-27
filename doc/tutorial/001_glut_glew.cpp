@@ -12,7 +12,7 @@
 
 /** @page oglplus_tut_001_glut_glew Basic usage with GLUT and GLEW
  *
- *  This tutorial shows a simple OGLplus application that is using the GLUT
+ *  This tutorial shows a simple @OGLplus application that is using the GLUT
  *  (GL Utility Toolkit) library to initialize OpenGL, create a window,
  *  the default rendering context and the default framebuffer and the GLEW
  *  (GL Extension Wrangler) library which allows to use
@@ -37,13 +37,13 @@
  *  for GL initialization, window creation, user input and event handling, etc.
  *  @until #include <GL/glut.h>
  *
- *  Finally let's include the OGLplus's main header file. Note that before this
+ *  Finally let's include the @OGLplus's main header file. Note that before this
  *  file is included the OpenGL 3 function prototypes and other symbols must
  *  already be declared. As said above, we use the GLEW library to achieve
  *  it in this tutorial, there are however also other ways of doing it.
  *  @until #include <oglplus/all.hpp>
  *
- *  The OGLplus-related code which does the actual rendering is encapsulated
+ *  The @OGLplus -related code which does the actual rendering is encapsulated
  *  in the @c Example class. It contains objects which store the shading
  *  program and its individual shaders, objects storing and managing the
  *  vertex data and a wrapper around the current OpenGL context.
@@ -325,14 +325,15 @@
  *  If everything goes OK we exit the program with code 0.
  *  @until return 0;
  *
- *  If the initialization of the GLEW library failed for some reason or
- *  during the initialization or rendering an exception was thrown
+ *  If during the initialization or rendering an exception was thrown
  *  by @c oglplus, it will be caught here and some diagnostic info
  *  will be printed to error output and the application will
- *  exit with code 1,
+ *  exit with code 1.
+ *  We end up here also if the initialization of the GLEW library failed
+ *  for some reason.
  *  @until return 1;
  *
- *  which also concludes this example's souce code:
+ *  This concludes the @c main function and our example's souce code:
  *  @until }
  *
  */

@@ -130,6 +130,7 @@ TAB_SIZE               = 4
 # will result in a user-defined paragraph with heading "Side Effects:".
 # You can put \n's in the value part of an alias to insert newlines.
 
+ALIASES                += OGLplus="@em OGLplus"
 ALIASES                += glsymbols="@par Related OpenGL symbols:"
 ALIASES                += glfunref{1}=" <a href='http://www.opengl.org/sdk/docs/man4/xhtml/gl\1.xml'>gl\1</a>"
 ALIASES                += gldefref{1}=" @c GL_\1"

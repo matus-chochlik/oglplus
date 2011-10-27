@@ -85,7 +85,7 @@ inline Image<GLubyte> LoadByName(std::string dirname, std::string name)
 	return PNG(file);
 }
 
-/// Helper function for loading textures that come with OGLplus in the examples
+/// Helper function for loading textures that come with @OGLplus in the examples
 inline Image<GLubyte> LoadTexture(std::string name)
 {
 	return LoadByName("textures", name);
