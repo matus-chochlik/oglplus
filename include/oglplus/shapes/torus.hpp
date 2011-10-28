@@ -52,7 +52,7 @@ public:
 
 	/// Makes vertex coordinates and returns number of values per vertex
 	template <typename T>
-	GLuint Vertices(std::vector<T>& dest) const
+	GLuint Positions(std::vector<T>& dest) const
 	{
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
 		size_t k = 0;

@@ -59,7 +59,7 @@ public:
 		// pointers to the vertex attribute data build functions
 		typedef GLuint (shapes::Sphere::*Func)(std::vector<GLfloat>&) const;
 		Func func[n_attr] = {
-			&shapes::Sphere::Vertices,
+			&shapes::Sphere::Positions,
 			&shapes::Sphere::Normals,
 		};
 		// managed references to the VBOs

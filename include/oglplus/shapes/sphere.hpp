@@ -105,7 +105,7 @@ public:
 
 	/// Makes vertex coordinates and returns number of values per vertex
 	template <typename T>
-	GLuint Vertices(std::vector<T>& dest) const
+	GLuint Positions(std::vector<T>& dest) const
 	{
 		GLuint n = Normals(dest);
 		if(_radius != 1.0)

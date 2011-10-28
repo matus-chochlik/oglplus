@@ -114,7 +114,7 @@ public:
 		buffer.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_sphere.Vertices(data);
+			GLuint n_per_vertex = make_sphere.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(light_prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
