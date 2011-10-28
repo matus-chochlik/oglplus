@@ -217,7 +217,7 @@ public:
 		{
 			// make and upload the vertex data
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_cube.Vertices(data);
+			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
 			// setup the vertex attribs array for the vertices

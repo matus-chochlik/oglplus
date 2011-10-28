@@ -49,7 +49,7 @@ public:
 
 	/// Makes the vertices and returns the number of values per vertex
 	template <typename T>
-	GLuint Vertices(std::vector<T>& dest) const
+	GLuint Positions(std::vector<T>& dest) const
 	{
 		const T c[8][3] = {
 			{+T(_x)/T(2), +T(_y)/T(2), -T(_z)/T(2)},

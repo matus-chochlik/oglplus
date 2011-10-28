@@ -138,7 +138,7 @@ public:
 		cube_verts.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_cube.Vertices(data);
+			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(cube_prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);
@@ -200,7 +200,7 @@ public:
 		torus_verts.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_torus.Vertices(data);
+			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(torus_prog, "Position");
 			attr.Setup(n_per_vertex, DataType::Float);

@@ -220,7 +220,7 @@ public:
 		torus_verts.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_torus.Vertices(data);
+			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
 			object_prog.Use();

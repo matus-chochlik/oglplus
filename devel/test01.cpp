@@ -200,7 +200,7 @@ public:
 
 		typedef GLuint (Shape::*DataFunc)(std::vector<GLfloat>&) const;
 		DataFunc data_fn[n_vert_array] = {
-			&Shape::Vertices,
+			&Shape::Positions,
 			&Shape::Normals,
 			&Shape::Tangents,
 			&Shape::TexCoordinates

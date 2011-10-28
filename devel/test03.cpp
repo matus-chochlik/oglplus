@@ -146,7 +146,7 @@ public:
 
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = shape.Vertices(data);
+			GLuint n_per_vertex = shape.Positions(data);
 			Bind(verts, Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "vertex");
