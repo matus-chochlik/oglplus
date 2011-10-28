@@ -30,6 +30,7 @@
  *  rendering pipeline, which were explained in the earlier tutorials.
  *
  *  - @subpage oglplus_tut_001_glut_glew
+ *  - @subpage oglplus_tut_002_rgb_triangle
  */
 
 #endif // OGLPLUS_DOCUMENTATION_ONLY

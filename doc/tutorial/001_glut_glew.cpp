@@ -1,8 +1,8 @@
 /*
- *  .file doc/tutorial/index.cpp
+ *  .file doc/tutorial/001_glut_glew.cpp
  *
  *  .author Matus Chochlik
-*
+ *
  *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -20,14 +20,14 @@
  *  The application creates a single window and renders into it a red triangle
  *  on a black background. It involves only the very basic things necessary
  *  to draw something.
- *  For a full listing of the code see the @c standalone/001_triangle_glut_glew.cpp
+ *  For a full working code see the @c standalone/001_triangle_glut_glew.cpp
  *  file in the example directory.
  *
  *  @dontinclude standalone/001_triangle_glut_glew.cpp
  *
  *  First we include two headers from the C++ standard library; we are going
  *  to use C assertions and C++ input/output streams.
- *  @until #include <iostream>
+ *  @skipline #include <iostream>
  *
  *  Next we'll include the main header of the GLEW library which declares the
  *  OpenGL 3 function prototypes, typedefs, enumerations, etc.
@@ -335,7 +335,6 @@
  *
  *  This concludes the @c main function and our example's souce code:
  *  @until }
- *
  */
 
 #endif // OGLPLUS_DOCUMENTATION_ONLY
