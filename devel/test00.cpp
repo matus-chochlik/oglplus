@@ -90,7 +90,7 @@ public:
 			"	float re = gl_FrontFacing ? 1.0 : 0.5;"
 			"	float ir = gl_FrontFacing ? 0.0 : 0.3;"
 			"	float d = dot(si*normalize(vertNormal), LightDir);"
-			"	float i = max(d*re, 0.0) + ir + 0.1;"
+			"	float i = max(d*re, 0.0) + ir + 0.3;"
 			"	fragColor = vec4(i, i, i, 1.0);"
 			"}"
 		);

@@ -80,9 +80,11 @@ private:
 	void _make_side_verts(std::vector<T>& dest, size_t& k) const
 	{
 		GLdouble b_leap = (M_PI) / GLdouble(_bands);
+		GLdouble b_slip = b_leap * _thickness * 0.5;
 		GLdouble s_step = (M_PI) / GLdouble(_segments);
 
 		GLdouble m = _radius + _thickness * 0.5;
+		GLdouble g = -1.0;
 
 		for(size_t b=0; b!=_bands*2; ++b)
 		{
@@ -90,7 +92,7 @@ private:
 			for(size_t s=0; s!=(_segments+1); ++s)
 			{
 				GLdouble b_angle =
-					b*b_leap + b_offs;
+					b*b_leap + b_offs + g*b_slip;
 				GLdouble cb = std::cos(b_angle);
 				GLdouble sb = std::sin(b_angle);
 
@@ -103,6 +105,7 @@ private:
 				dest[k++] = m* ss * -sb;
 				b_offs += ss * s_step;
 			}
+			g *= -1.0;
 		}
 	}
 
@@ -127,7 +130,6 @@ private:
 				GLdouble cs = std::cos(s_angle);
 				GLdouble ss = std::sin(s_angle);
 
-				// TODO
 				dest[k++] = m* -sb;
 				dest[k++] = m* 0.0;
 				dest[k++] = m* cb;
