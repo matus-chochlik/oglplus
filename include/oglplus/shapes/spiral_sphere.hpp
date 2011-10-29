@@ -144,8 +144,8 @@ public:
 	 : _radius(1.0)
 	 , _thickness(0.2)
 	 , _bands(4)
-	 , _divisions(6)
-	 , _segments(36)
+	 , _divisions(8)
+	 , _segments(48)
 	{ }
 
 	/// Returns the winding direction of faces

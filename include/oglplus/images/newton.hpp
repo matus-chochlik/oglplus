@@ -125,6 +125,31 @@ public:
 		}
 	};
 
+	/// The X^4-1 function and its derivation
+	struct X4Minus1
+	{
+		static Vec2f f(Vec2f n)
+		{
+			return Vec2f(
+				n.x()*n.x()*n.x()*n.x() +
+				n.y()*n.y()*n.y()*n.y() -
+				6.f*n.x()*n.x()*n.y()*n.y() - 1.f,
+				4.f*n.x()*n.x()*n.x()*n.y() -
+				4.f*n.x()*n.y()*n.y()*n.y()
+			);
+		}
+
+		static Vec2f df(Vec2f n)
+		{
+			return 4.0f * Vec2f(
+				n.x()*n.x()*n.x() - 3.f*n.x()*n.y()*n.y(),
+				-n.y()*n.y()*n.y() + 3.f*n.x()*n.x()*n.y()
+			);
+		}
+	};
+
+	typedef X3Minus1 DefaultFunction;
+
 	/// Creates a RGB texture using c1 and c2 for colorizing of the fractal
 	/**
 	 *  @param width the width of the image in pixels
@@ -141,7 +166,7 @@ public:
 	 *    of the polynomial and its first derivative (see the class
 	 *    documentation).
 	 */
-	template <typename Function = X3Minus1>
+	template <typename Function = DefaultFunction>
 	NewtonFractal(
 		GLsizei width,
 		GLsizei height,
@@ -166,7 +191,7 @@ public:
 	 *    of the polynomial and its first derivative (see the class
 	 *    documentation).
 	 */
-	template <typename Function = X3Minus1>
+	template <typename Function = DefaultFunction>
 	NewtonFractal(
 		GLsizei width,
 		GLsizei height,
