@@ -35,6 +35,7 @@ namespace oglplus {
  *    - @ref feat_error_handling
  *    - @ref feat_interoperability_with_opengl
  *    - @ref feat_related_classes
+ *    - @ref oglplus_object_description
  *  - @ref oglplus_what_it_is_not
  *  - @ref oglplus_screenshot_gallery
  *  - @ref oglplus_download
@@ -44,7 +45,6 @@ namespace oglplus {
  *  - @ref oglplus_getting_it_going
  *  - @ref oglplus_supported_compilers
  *  - @ref oglplus_example_rationale
- *  - @ref oglplus_object_description
  *
  *  @section oglplus_features Features
  *
@@ -121,6 +121,26 @@ namespace oglplus {
  *  @ref oglplus::Matrix "Matrix", @ref oglplus::BezierCurves "BezierCurves",
  *  and several others, but does not force you to use them if you don't want to.
  *
+ *  @subsection oglplus_object_description Optional object description
+ *
+ *  Objects with OpenGL names (unsigned integers) can optionally have a textual
+ *  description. This is useful for diagnostic purposes, for example in an application
+ *  with lots of different shaders it is easier to track the source of compilation,
+ *  linking or validation errors when the individual shader or program objects
+ *  have a human-readable description which is attached to the exception raised
+ *  by the error.
+ *
+ *  The classes like @ref oglplus::Shader "Shader", @ref oglplus::Program "Program",
+ *  @ref oglplus::Texture "Texture", @ref oglplus::Query "Query" and many others
+ *  have one or more constructors allowing to assign a description to the object
+ *  during construction.
+ *
+ *  If the overhead caused by the descriptions is unacceptable for release builds
+ *  of an application and they are intended for debugging purposes only, they can be compiled away
+ *  by setting the value of the @c #OGLPLUS_NO_OBJECT_DESCS preprocessor symbol to
+ *  a nonzero integer value.
+ *
+ *
  *  @section oglplus_what_it_is_not What OGLplus isn't
  *
  *  Like the OpenGL® C API, @OGLplus does not officially provide nor force you to use code
@@ -133,7 +153,16 @@ namespace oglplus {
  *  application to do so. There are several ways how to do it, see
  *  @ref oglplus_getting_it_going for some suggestions.
  *
- *  @section oglplus_download Source download and repository
+ *   @section oglplus_getting_started Getting started
+ *
+ *  One of the best ways how to get yourself acquainted with the library is to
+ *  look at the examples and to browse through the reference. Many of the examples
+ *  are thoroughly commented and for some of them step-by-step
+ *  @ref oglplus_tutorials "tutorials" are being added. Also see @ref oglplus_getting_it_going
+ *  for a detailed help on building the examples and your own applications.
+ */
+
+/** @page oglplus_download Source download and repository
  *
  *  The source code can be downloaded from SourceForge at the following URL:
  *  <A HREF="http://sourceforge.net/projects/oglplus/files/">http://sourceforge.net/projects/oglplus/files/</A>.
@@ -143,16 +172,11 @@ namespace oglplus {
  *  @code
  *  git clone git://oglplus.git.sourceforge.net/gitroot/oglplus/oglplus
  *  @endcode
+ */
+
+/** @page oglplus_getting_it_going Getting it going
  *
- *  @section oglplus_getting_started Getting started
- *
- *  One of the best ways how to get yourself acquainted with the library is to
- *  look at the examples and to browse through the reference. Many of the examples
- *  are thoroughly commented and for some of them step-by-step
- *  @ref oglplus_tutorials "tutorials" are being added.
- *
- *  @section oglplus_getting_it_going Getting it going
- *
+ *  @section oglplus_building_examples Building the examples
  *  @OGLplus currently uses the GNU Make build system, to build the examples
  *  which may by replaced or supplemented
  *  in the future with CMake, Boost.Build or something similar.
@@ -170,7 +194,21 @@ namespace oglplus {
  *  - @c xsltproc (to transform the parsed XML to the auto-generated headers)
  *  - @c inkscape (to convert the texture SVG "sources" to PNG bitmap images)
  *
- *  The library itself is however header-only, i.e. all an application using it
+ *  If the command above fails because you are not using GNU @c make
+ *  (your make fails to build header and html documentation dependency files, etc.)
+ *  you can try to build just the examples by running:
+ *  @code
+ *  make examples_only
+ *  @endcode
+ *
+ *  This also makes the build much faster but it requires you to have the textures,
+ *  and automatically generated headers pre-built, i.e. you need the source
+ *  <A HREF="http://sourceforge.net/projects/oglplus/files/">package</A>.
+ *  It will not work with plain sources from the repository.
+ *
+ *  @section oglplus_building_own_apps Building your own applications
+ *
+ *  The library itself is header-only, i.e. all an application using it
  *  has to do is to include the necessary header files. The library does not need to be
  *  built nor linked to.
  *
@@ -223,8 +261,9 @@ namespace oglplus {
  *  by the various compilers. Since C++11 is now an official standard
  *  we expect that the compiler vendors will implement these new features
  *  soon.
- *
- *  @section oglplus_example_rationale Example rationale
+ */
+
+/** @page oglplus_example_rationale Example rationale
  *
  *  As already said above, @OGLplus does not officially provide means for creating of the
  *  default framebuffer nor any code related to window-system or user-input.
@@ -240,26 +279,6 @@ namespace oglplus {
  *  In the example directory there are however also several standalone examples,
  *  showing complete applications which also contain the initialization and cleanup
  *  code, using various libraries like GLUT, GLEW, etc.
- *
- *  @section oglplus_object_description Optional object description
- *
- *  Objects with OpenGL names (unsigned integers) can optionally have a textual
- *  description. This is useful for diagnostic purposes, for example in an application
- *  with lots of different shaders it is easier to track the source of compilation,
- *  linking or validation errors when the individual shader or program objects
- *  have a human-readable description which is attached to the exception raised
- *  by the error.
- *
- *  The classes like @ref oglplus::Shader "Shader", @ref oglplus::Program "Program",
- *  @ref oglplus::Texture "Texture", @ref oglplus::Query "Query" and many others
- *  have one or more constructors allowing to assign a description to the object
- *  during construction.
- *
- *  If the overhead caused by the descriptions is unacceptable for release builds
- *  of an application and they are intended for debugging purposes only, they can be compiled away
- *  by setting the value of the @c #OGLPLUS_NO_OBJECT_DESCS preprocessor symbol to
- *  a nonzero integer value.
- *
  */
 
 /** @defgroup math_utils GC-related math utilities

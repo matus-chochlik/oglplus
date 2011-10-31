@@ -22,7 +22,7 @@ oglplus_archive_items="
 	VERSION
 "
 
-make clean
+make full_clean
 make textures
 make auto_headers
 
