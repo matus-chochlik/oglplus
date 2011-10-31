@@ -1,3 +1,13 @@
+Version 0.6.0
+
+- Added the first two tutorials, reorganized and updated the documentation
+- Added a new shape builder
+- Added new examples
+
+Version 0.5.1
+
+- Fixed bugs that caused compilation failures in g++ 4.6.x
+
 Version 0.5.0
 
 - Compile-time checks for available OpenGL enumerations and functions were added

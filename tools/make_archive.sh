@@ -17,6 +17,7 @@ oglplus_archive_items="
 	out
 	install.sh
 	Makefile
+	Makefile.full
 	CHANGELOG
 	LICENSE_1_0.txt
 	VERSION
