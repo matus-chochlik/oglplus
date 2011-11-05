@@ -7,7 +7,7 @@ test_exe=out/devel/test${1}
 rm -f ${test_exe}
 clear
 pidfile=$(mktemp)
-make ${test_exe} || exit $?
+make -f Makefile.full ${test_exe} || exit $?
 (
 	sleep 50
 	if [ -d /proc/$(< ${pidfile}) ]

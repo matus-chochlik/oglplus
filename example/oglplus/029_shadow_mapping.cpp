@@ -382,7 +382,7 @@ public:
 			);
 			bound_tex.Image2D(
 				0,
-				PixelDataInternalFormat::DepthComponent32F,
+				PixelDataInternalFormat::DepthComponent32,
 				tex_side, tex_side,
 				0,
 				PixelDataFormat::DepthComponent,

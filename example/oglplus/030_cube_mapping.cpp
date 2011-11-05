@@ -555,7 +555,7 @@ public:
 				Texture::Image2D(
 					Texture::CubeMapFace(i),
 					0,
-					PixelDataInternalFormat::DepthComponent32F,
+					PixelDataInternalFormat::DepthComponent,
 					tex_side, tex_side,
 					0,
 					PixelDataFormat::DepthComponent,

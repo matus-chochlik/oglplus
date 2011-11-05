@@ -142,7 +142,7 @@ public:
 	/// Creates a default spiral sphere
 	SpiralSphere(void)
 	 : _radius(1.0)
-	 , _thickness(0.2)
+	 , _thickness(0.1)
 	 , _bands(4)
 	 , _divisions(8)
 	 , _segments(48)

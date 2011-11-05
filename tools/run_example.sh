@@ -14,4 +14,4 @@ fi
 example_src="$(echo ${example_wc})"
 example="out/${example_src%.cpp}"
 clear
-make ${example} && ${example}
+make -f Makefile.full ${example} && ${example}
