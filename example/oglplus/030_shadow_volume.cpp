@@ -14,8 +14,6 @@
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
 
-#include <cmath>
-
 #include "example.hpp"
 
 namespace oglplus {
@@ -56,7 +54,7 @@ private:
 	Framebuffer depth_fbo;
 
 	// The dimension of the texture
-	size_t tex_side;
+	const size_t tex_side;
 
 	// The number of samples
 	const size_t sample_count;
@@ -168,13 +166,14 @@ public:
 			"void main(void)"
 			"{"
 			"	gl_Position = "
+			"		mat4("
+			"			1.0, 0.0, 0.0, -LightPos.x,"
+			"			0.0, 1.0, 0.0, -LightPos.y,"
+			"			0.0, 0.0, 1.0, -LightPos.z,"
+			"			0.0, 0.0, 0.0,  1.0"
+			"		)*"
 			"		ModelMatrix *"
 			"		Position;"
-			"	gl_Position = vec4("
-			"		gl_Position.xyz -"
-			"		LightPos, "
-			"		0.0"
-			"	);"
 			"}"
 		);
 		depth_vs.Compile();
@@ -183,6 +182,7 @@ public:
 			"#version 330\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 18) out;"
+
 			"uniform mat4 ProjectionMatrix;"
 
 			"const mat4 CubeFaceMatrix[6] = mat4[6]("
@@ -239,10 +239,9 @@ public:
 
 		depth_fs.Source(
 			"#version 330\n"
-			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	fragColor = vec4(0.0, 0.0, 0.0, 1.0);"
+			"	gl_FragDepth = gl_FragCoord.z;"
 			"}"
 		);
 		depth_fs.Compile();
@@ -254,7 +253,12 @@ public:
 		depth_prog.Use();
 
 		Uniform(depth_prog, "ProjectionMatrix").SetMatrix(
-			CamMatrixf::Perspective(Degrees(90), 1.0, 0.1, 4.0)
+			CamMatrixf::Perspective(
+				RightAngles(1.0),
+				1.0,
+				1.0,
+				100.0
+			)
 		);
 
 		// bind the VAO for the shape
@@ -381,10 +385,10 @@ public:
 
 		Uniform(light_prog, "SampleCount").Set(GLint(sample_count));
 		Uniform(light_prog, "LightVolSize").Set(GLfloat(4.0));
+		Uniform(light_prog, "ShadowMap").Set(0);
 
 		// Setup the texture and the offscreen FBO
 		Texture::Active(0);
-		Uniform(light_prog, "ShadowMap").Set(0);
 		{
 			auto bound_tex = Bind(depth_tex, Texture::Target::CubeMap);
 			bound_tex.MinFilter(TextureMinFilter::Linear);
@@ -423,7 +427,7 @@ public:
 		}
 		//
 		gl.ClearColor(0.2f, 0.05f, 0.1f, 0.0f);
-		gl.ClearDepth(4.0f);
+		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 
 		gl.Enable(Capability::CullFace);
@@ -477,6 +481,7 @@ public:
 
 		// render the shadow map
 		depth_fbo.Bind(Framebuffer::Target::Draw);
+		gl.DrawBuffer(ColorBuffer::None);
 
 		gl.Viewport(tex_side, tex_side);
 		gl.Clear().DepthBuffer();
@@ -487,9 +492,11 @@ public:
 
 		// render the output frame
 		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		gl.DrawBuffer(ColorBuffer::Back);
 
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
+
 
 		shape_prog.Use();
 		shape.Bind();

@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/memory_barrier_bits.ipp
+ *  .file oglplus/enums/memory_barrier_bit.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/memory_barrier_bits.txt' instead.
+ *  edit 'source/enums/memory_barrier_bit.txt' instead.
  *
  *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

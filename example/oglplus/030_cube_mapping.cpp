@@ -517,31 +517,7 @@ public:
 		}
 
 
-		Texture::Active(0);
-		sphere_prog.Use();
-		Uniform(sphere_prog, "CubeTex").Set(0);
-		{
-			auto bound_tex = Bind(ctex, Texture::Target::CubeMap);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
-
-			for(int i=0; i!=6; ++i)
-			{
-				Texture::Image2D(
-					Texture::CubeMapFace(i),
-					0,
-					PixelDataInternalFormat::RGB,
-					tex_side, tex_side,
-					0,
-					PixelDataFormat::RGB,
-					PixelDataType::UnsignedByte,
-					nullptr
-				);
-			}
-		}
+		Texture::Active(1);
 		{
 			auto bound_tex = Bind(dtex, Texture::Target::CubeMap);
 			bound_tex.MinFilter(TextureMinFilter::Nearest);
@@ -564,7 +540,31 @@ public:
 				);
 			}
 		}
-		ctex.Bind(Texture::Target::CubeMap);
+		Texture::Active(0);
+		{
+			auto bound_tex = Bind(ctex, Texture::Target::CubeMap);
+			bound_tex.MinFilter(TextureMinFilter::Linear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::ClampToEdge);
+			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.WrapR(TextureWrap::ClampToEdge);
+
+			for(int i=0; i!=6; ++i)
+			{
+				Texture::Image2D(
+					Texture::CubeMapFace(i),
+					0,
+					PixelDataInternalFormat::RGB,
+					tex_side, tex_side,
+					0,
+					PixelDataFormat::RGB,
+					PixelDataType::UnsignedByte,
+					nullptr
+				);
+			}
+		}
+		sphere_prog.Use();
+		Uniform(sphere_prog, "CubeTex").Set(0);
 
 		{
 			auto bound_fbo = Bind(

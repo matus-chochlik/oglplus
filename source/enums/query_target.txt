@@ -5,5 +5,5 @@ TIME_ELAPSED:::Time elapsed query
 TIMESTAMP:::Current timestamp query
 SAMPLES_PASSED:::Number of samples passed query
 ANY_SAMPLES_PASSED
-PRIMITIVED_GENERATED:::Number of primitives generated
+PRIMITIVES_GENERATED:::Number of primitives generated
 TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN:::TFB primitives written

@@ -19,8 +19,8 @@ Timestamp,
 SamplesPassed,
 /// ANY_SAMPLES_PASSED
 AnySamplesPassed,
-/// PRIMITIVED_GENERATED: Number of primitives generated
-PrimitivedGenerated,
+/// PRIMITIVES_GENERATED: Number of primitives generated
+PrimitivesGenerated,
 /// TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN: TFB primitives written
 TransformFeedbackPrimitivesWritten
 
@@ -66,11 +66,11 @@ AnySamplesPassed = GL_ANY_SAMPLES_PASSED
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_PRIMITIVED_GENERATED
+#if defined GL_PRIMITIVES_GENERATED
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-PrimitivedGenerated = GL_PRIMITIVED_GENERATED
+PrimitivesGenerated = GL_PRIMITIVES_GENERATED
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
