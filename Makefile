@@ -96,7 +96,6 @@ clean:
 	rm -rf $(BLDDIR)
 	rm -rf $(OUTDIR)/example
 
-all docs examples example_screenshots textures full_clean out/%: force
+all docs examples example_screenshots textures full_clean:
 	@$(MAKE) -f Makefile.full $@
 
-force: ;
