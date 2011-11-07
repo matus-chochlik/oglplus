@@ -238,7 +238,7 @@ public:
 				break;
 			case PNG_COLOR_TYPE_GRAY:
 				if(bitdepth < 8)
-					::png_set_gray_1_2_4_to_8(_png._read);
+					::png_set_expand_gray_1_2_4_to_8(_png._read);
 				bitdepth = 8;
 				break;
 			// TODO: other conversions
