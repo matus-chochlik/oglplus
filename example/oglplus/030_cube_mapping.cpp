@@ -162,12 +162,12 @@ public:
 	 , sphere_prog("Sphere")
 	 , cube_prog("Cube")
 	 , cmap_prog("Cube map")
-	 , tex_side(512)
+	 , tex_side(128)
 	 , light_path({
-		{ 0.0f,  7.0f,  0.0f},
-		{-4.0f, -5.0f,  4.0f},
-		{ 0.0f, -4.0f, -5.0f},
-		{ 4.0f, -5.0f,  4.0f}
+		{ 0.0f,  6.0f,  0.0f},
+		{-3.0f, -4.0f,  3.5f},
+		{ 0.0f, -3.0f, -4.0f},
+		{ 3.5f, -4.0f,  3.0f}
 	})
 	{
 		// Set the vertex shader source
@@ -241,7 +241,7 @@ public:
 			"	float e = pow(dot("
 			"		normalize(vertRefl),"
 			"		normalize(vertLight)"
-			"	), 11.0);"
+			"	), 32.0);"
 			"	vec3 color = texture("
 			"		CubeTex,"
 			"		normalize(vertRefl)"
@@ -332,7 +332,10 @@ public:
 			"void main(void)"
 			"{"
 			"	gl_Position = vec4(Position.xyz+Offset, 1.0);"
-			"	vertColor = normalize(vec3(1.0, 1.0, 1.0) - Normal);"
+			"	vertColor = normalize("
+			"		vec3(1.0, 1.0, 1.0) -"
+			"		normalize(Normal + Offset)"
+			"	);"
 			"	vertNormal = Normal;"
 			"	vertLight = LightPos.xyz - gl_Position.xyz;"
 			"	gl_Position = "
@@ -385,7 +388,10 @@ public:
 			"void main(void)"
 			"{"
 			"	gl_Position = vec4(Position.xyz+Offset, 1.0);"
-			"	tempColor = normalize(vec3(1.0, 1.0, 1.0) - Normal);"
+			"	tempColor = normalize("
+			"		vec3(1.0, 1.0, 1.0) -"
+			"		normalize(Normal + Offset)"
+			"	);"
 			"	tempNormal = Normal;"
 			"	tempLight = LightPos.xyz - gl_Position.xyz;"
 			"}"
@@ -403,13 +409,18 @@ public:
 			"const mat4 CubeFaceMatrix[6] = mat4[6]("
 			"	mat4("
 			"		 0.0,  0.0, -1.0,  0.0,"
-			"		 0.0,  1.0,  0.0,  0.0,"
-			"		 1.0,  0.0,  0.0,  0.0,"
+			"		 0.0, -1.0,  0.0,  0.0,"
+			"		-1.0,  0.0,  0.0,  0.0,"
 			"		 0.0,  0.0,  0.0,  1.0 "
 			"	), mat4("
 			"		 0.0,  0.0,  1.0,  0.0,"
+			"		 0.0, -1.0,  0.0,  0.0,"
+			"		 1.0,  0.0,  0.0,  0.0,"
+			"		 0.0,  0.0,  0.0,  1.0 "
+			"	), mat4("
+			"		 1.0,  0.0,  0.0,  0.0,"
+			"		 0.0,  0.0, -1.0,  0.0,"
 			"		 0.0,  1.0,  0.0,  0.0,"
-			"		-1.0,  0.0,  0.0,  0.0,"
 			"		 0.0,  0.0,  0.0,  1.0 "
 			"	), mat4("
 			"		 1.0,  0.0,  0.0,  0.0,"
@@ -418,17 +429,12 @@ public:
 			"		 0.0,  0.0,  0.0,  1.0 "
 			"	), mat4("
 			"		 1.0,  0.0,  0.0,  0.0,"
+			"		 0.0, -1.0,  0.0,  0.0,"
 			"		 0.0,  0.0, -1.0,  0.0,"
-			"		 0.0,  1.0,  0.0,  0.0,"
 			"		 0.0,  0.0,  0.0,  1.0 "
 			"	), mat4("
 			"		-1.0,  0.0,  0.0,  0.0,"
-			"		 0.0,  1.0,  0.0,  0.0,"
-			"		 0.0,  0.0, -1.0,  0.0,"
-			"		 0.0,  0.0,  0.0,  1.0 "
-			"	), mat4("
-			"		 1.0,  0.0,  0.0,  0.0,"
-			"		 0.0,  1.0,  0.0,  0.0,"
+			"		 0.0, -1.0,  0.0,  0.0,"
 			"		 0.0,  0.0,  1.0,  0.0,"
 			"		 0.0,  0.0,  0.0,  1.0 "
 			"	)"
@@ -472,7 +478,7 @@ public:
 
 
 		Uniform(cmap_prog, "ProjectionMatrix").SetMatrix(
-			CamMatrixf::Perspective(Degrees(90), 1.0, 1, 100)
+			CamMatrixf::Perspective(Degrees(90), 1.0, 1, 10)
 		);
 
 		// bind the VAO for the cube
@@ -586,6 +592,7 @@ public:
 		//
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::CullFace);
+		//gl.Enable(Capability::TextureCubeMapSeamless);
 		gl.CullFace(Face::Back);
 	}
 
@@ -635,7 +642,7 @@ public:
 		auto persp = CamMatrixf::Perspective(
 			Degrees(50),
 			double(width)/height,
-			1, 100
+			1, 10
 		);
 		// clear it
 		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -645,7 +652,7 @@ public:
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
 			3.0,
-			FullCircles(time / 8.0),
+			FullCircles(time / 16.0),
 			Degrees(SineWave(time / 20.0) * 30)
 		);
 
