@@ -65,7 +65,7 @@ $(OUTDIR)/$(1): \
 	$(BLDDIR)/$(1).o \
 	$(BLDDIR)/$(dir $(1))$(EXAMPLE_HARNESS)_main.o |\
 	$(dir $(OUTDIR)/$(1))
-	$(CXX) $(OGLPLUS_LDFLAGS) -o $$@ $$^
+	$(CXX) -o $$@ $$^ $(OGLPLUS_LDFLAGS)
 endef
 
 # function defining the rules for compiling intermediate objects
