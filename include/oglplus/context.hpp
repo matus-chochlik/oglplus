@@ -67,6 +67,17 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(Enable));
 	}
 
+	/// Enable a @p functionality
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Enable}
+	 */
+	static void Enable(Functionality functionality, GLuint offset)
+	{
+		::glEnable(GLenum(functionality)+offset);
+		AssertNoError(OGLPLUS_ERROR_INFO(Enable));
+	}
+
 	/// Disable a @p capability
 	/**
 	 *  @glsymbols
@@ -78,6 +89,17 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
 	}
 
+	/// Disable a @p functionality
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Disable}
+	 */
+	static void Disable(Functionality functionality, GLuint offset)
+	{
+		::glDisable(GLenum(functionality)+offset);
+		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
+	}
+
 	/// Checks if a @p capability is enabled
 	/**
 	 *  @glsymbols
@@ -86,6 +108,18 @@ public:
 	static bool IsEnabled(Capability capability)
 	{
 		GLboolean result = ::glIsEnabled(GLenum(capability));
+		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabled));
+		return result == GL_TRUE;
+	}
+
+	/// Checks if a @p functionality is enabled
+	/**
+	 *  @glsymbols
+	 *  @glfunref{IsEnabled}
+	 */
+	static bool IsEnabled(Functionality functionality, GLuint offset)
+	{
+		GLboolean result = ::glIsEnabled(GLenum(functionality)+offset);
 		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabled));
 		return result == GL_TRUE;
 	}
@@ -390,7 +424,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BlendFunci}
 	 */
-	static void BlendFunci(
+	static void BlendFunc(
 		GLuint buffer,
 		BlendFunction src,
 		BlendFunction dst
@@ -405,7 +439,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BlendFuncSeparatei}
 	 */
-	static void BlendFuncSeparatei(
+	static void BlendFuncSeparate(
 		GLuint buffer,
 		BlendFunction src_rgb,
 		BlendFunction dst_rgb,
@@ -732,6 +766,47 @@ public:
 	{
 		::glMemoryBarrier(aux::MakeBitfield(bits));
 		AssertNoError(OGLPLUS_ERROR_INFO(MemoryBarrier));
+	}
+#endif
+
+	/// Defines the scissor rectangle for the first viewport
+	static void Scissor(
+		GLint left,
+		GLint bottom,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		::glScissor(left, bottom, width, height);
+		AssertNoError(OGLPLUS_ERROR_INFO(Scissor));
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
+	/// Defines the scissor rectangle for the specified viewport
+	static void ScissorIndexed(
+		GLuint index,
+		GLint left,
+		GLint bottom,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		::glScissorIndexed(index, left, bottom, width, height);
+		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorIndexed));
+	}
+
+	/// Defines the scissor rectangle for the specified viewport
+	static void ScissorIndexedv(GLuint index, GLint* v)
+	{
+		::glScissorIndexedv(index, v);
+		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorIndexedv));
+	}
+
+	/// Defines the scissor rectangle for multiple viewports
+	static void ScissorArrayv(GLuint first, GLsizei count, GLint* v)
+	{
+		::glScissorArrayv(first, count, v);
+		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorArrayv));
 	}
 #endif
 };

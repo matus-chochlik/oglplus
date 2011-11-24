@@ -28,6 +28,20 @@ enum class Capability: GLenum
 #include <oglplus/enums/capability.ipp>
 };
 
+/// Functionality enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{Enable}
+ *  @glfunref{Disable}
+ *  @glfunref{IsEnabled}
+ */
+enum class Functionality : GLenum
+{
+#include <oglplus/enums/functionality.ipp>
+};
+
 } // namespace oglplus
 
 #endif // include guard
