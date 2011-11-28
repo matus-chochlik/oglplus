@@ -77,6 +77,31 @@ private:
 	}
 
 	template <typename T>
+	void _make_uv_coords(std::vector<T>& dest, size_t& k) const
+	{
+		GLdouble b_leap = 0.5 / GLdouble(_bands);
+		GLdouble b_step = b_leap / GLdouble(_divisions);
+		GLdouble s_step = 1.0 / GLdouble(_segments);
+
+		GLdouble u = 0.0;
+		for(size_t b=0; b!=_bands; ++b)
+		{
+			for(size_t d=0; d!=(_divisions+1); ++d)
+			{
+				GLdouble v = 1.0;
+				for(size_t s=0; s!=(_segments+1); ++s)
+				{
+					dest[k++] = u;
+					dest[k++] = v;
+					v -= s_step;
+				}
+				u += b_step;
+			}
+			u += b_leap;
+		}
+	}
+
+	template <typename T>
 	void _make_side_verts(std::vector<T>& dest, size_t& k) const
 	{
 		GLdouble b_leap = (M_PI) / GLdouble(_bands);
@@ -138,6 +163,29 @@ private:
 			m *= -1.0;
 		}
 	}
+
+	template <typename T>
+	void _make_side_uvs(std::vector<T>& dest, size_t& k) const
+	{
+		GLdouble b_leap = 0.5 / GLdouble(_bands);
+		GLdouble b_slip = b_leap * _thickness * 0.5;
+		GLdouble s_step = 1.0 / GLdouble(_segments);
+
+		GLdouble g = -1.0;
+
+		for(size_t b=0; b!=_bands*2; ++b)
+		{
+			GLdouble b_offs = 0.0;
+			GLdouble v = 1.0;
+			for(size_t s=0; s!=(_segments+1); ++s)
+			{
+				dest[k++] = b*b_leap + b_offs + g*b_slip;
+				dest[k++] = v;
+				v -= s_step;
+			}
+			g *= -1.0;
+		}
+	}
 public:
 	/// Creates a default spiral sphere
 	SpiralSphere(void)
@@ -197,8 +245,16 @@ public:
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
-		// TODO
-		return 0;
+		dest.resize(_vertex_count() * 2);
+		size_t k = 0;
+		//
+		_make_uv_coords(dest, k);
+		_make_uv_coords(dest, k);
+		_make_side_uvs(dest, k);
+		//
+		assert(k == dest.size());
+		// 2 values per vertex
+		return 2;
 	}
 
 	/// The type of index container returned by Indices()

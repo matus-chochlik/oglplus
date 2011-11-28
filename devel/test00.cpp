@@ -10,7 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/plane.hpp>
+#include <oglplus/shapes/spiral_sphere.hpp>
 #include <oglplus/bound/buffer.hpp>
 #include <oglplus/bound/texture.hpp>
 
@@ -29,7 +29,7 @@ namespace images {
 class Test00 : public Test
 {
 private:
-	typedef shapes::Plane Shape;
+	typedef shapes::SpiralSphere Shape;
 	//
 	Shape shape;
 	shapes::DrawingInstructions shape_instr;
@@ -49,6 +49,7 @@ private:
 
 	Buffer verts;
 	Buffer normals;
+	Buffer texcoords;
 
 	// textures for the shape
 	Texture color_tex, normal_tex;
@@ -63,7 +64,9 @@ public:
 			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
+			"in vec2 TexCoord;"
 			"out vec3 vertNormal;"
+			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
@@ -75,6 +78,7 @@ public:
 			"		modelMatrix *"
 			"		vec4(Normal, 0.0)"
 			"	).xyz;"
+			"	vertTexCoord = TexCoord;"
 			"}"
 		);
 		vs.Compile();
@@ -83,6 +87,7 @@ public:
 			"#version 330\n"
 			"uniform vec3 LightDir;"
 			"in vec3 vertNormal;"
+			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
@@ -91,7 +96,12 @@ public:
 			"	float ir = gl_FrontFacing ? 0.0 : 0.3;"
 			"	float d = dot(si*normalize(vertNormal), LightDir);"
 			"	float i = max(d*re, 0.0) + ir + 0.3;"
-			"	fragColor = vec4(i, i, i, 1.0);"
+			"	float c = ("
+			"		int(vertTexCoord.x*50) % 2+"
+			"		int(vertTexCoord.y*36) % 2"
+			"	) % 2;"
+			"	float v = i*(1.0-c/2.0);"
+			"	fragColor = vec4(v, v, v, 1.0);"
 			"}"
 		);
 		fs.Compile();
@@ -122,6 +132,16 @@ public:
 			Bind(normals, Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the normals
 			VertexAttribArray attr(prog, "Normal");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
+		}
+
+		{
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = shape.TexCoordinates(data);
+			Bind(texcoords, Buffer::Target::Array).Data(data);
+			// setup the vertex attribs array for the normals
+			VertexAttribArray attr(prog, "TexCoord");
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
