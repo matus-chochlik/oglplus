@@ -10,7 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/spiral_sphere.hpp>
+#include <oglplus/shapes/plane.hpp>
 #include <oglplus/bound/buffer.hpp>
 #include <oglplus/bound/texture.hpp>
 
@@ -29,7 +29,7 @@ namespace images {
 class Test00 : public Test
 {
 private:
-	typedef shapes::SpiralSphere Shape;
+	typedef shapes::Plane Shape;
 	//
 	Shape shape;
 	shapes::DrawingInstructions shape_instr;
@@ -139,8 +139,9 @@ public:
 		gl.Enable(Capability::DepthTest);
 		//
 		gl.FrontFace(shape.FaceWinding());
-		gl.CullFace(Face::Back);
-		gl.Enable(Capability::CullFace);
+		//gl.CullFace(Face::Back);
+		//gl.Enable(Capability::CullFace);
+		gl.PolygonMode(Face::Back, PolygonMode::Line);
 	}
 
 	void Render(double time)

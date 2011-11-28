@@ -84,8 +84,8 @@ public:
 			"void main(void)"
 			"{"
 			"	float i = ("
-			"		int(vertTexCoord.x*36) % 2+"
-			"		int(vertTexCoord.y*24) % 2"
+			"		int(vertTexCoord.x*24) % 2+"
+			"		int(vertTexCoord.y*36) % 2"
 			"	) % 2;"
 			"	if(gl_FrontFacing)"
 			"		fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
@@ -101,6 +101,8 @@ public:
 		// link and use it
 		prog.Link();
 		prog.Use();
+
+		Uniform(prog, "ClipPlane").Set(Vec4f(0.0, 0.0, 1.0, 0.0));
 
 		// bind the VAO for the torus
 		torus.Bind();
@@ -167,7 +169,6 @@ public:
 		Uniform(prog, "ModelMatrix").SetMatrix(
 			ModelMatrixf::RotationX(FullCircles(time / 12.0))
 		);
-		Uniform(prog, "ClipPlane").Set(Vec4f(0.0, 0.0, 1.0, 0.0));
 
 		torus_instr.Draw(torus_indices);
 	}
