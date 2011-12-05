@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/026_torus_halo.cpp
- *  @brief Shows how to render a halo around a torus
+ *  @example oglplus/026_shape_halo.cpp
+ *  @brief Shows how to render a halo around a shape
  *
- *  @image html 026_torus_halo.png
+ *  @image html 026_shape_halo.png
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -10,7 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/torus.hpp>
+#include <oglplus/shapes/spiral_sphere.hpp>
 
 #include <cmath>
 
@@ -21,20 +21,20 @@ namespace oglplus {
 class HaloExample : public Example
 {
 private:
-	// the torus vertex attribute builder
-	shapes::Torus make_torus;
+	// the shape vertex attribute builder
+	shapes::SpiralSphere make_shape;
 	// here will be stored the indices used by the drawing instructions
-	shapes::Torus::IndexArray torus_indices;
-	// the instructions for drawing the torus
-	shapes::DrawingInstructions torus_instr;
+	shapes::SpiralSphere::IndexArray shape_indices;
+	// the instructions for drawing the shape
+	shapes::DrawingInstructions shape_instr;
 
 	// wrapper around the current OpenGL context
 	Context gl;
 
 	// Shaders and programs for rendering of the object
-	VertexShader vs_torus, vs_plane;
-	FragmentShader fs_torus, fs_plane;
-	Program torus_prog, plane_prog;
+	VertexShader vs_shape, vs_plane;
+	FragmentShader fs_shape, fs_plane;
+	Program shape_prog, plane_prog;
 
 	// Shaders and program for rendering of the halo effect
 	VertexShader vs_halo;
@@ -42,10 +42,10 @@ private:
 	FragmentShader fs_halo;
 	Program halo_prog;
 
-	// A vertex array object for the torus
-	VertexArray torus;
-	// VBOs for the torus' vertices and normals
-	Buffer torus_verts, torus_normals;
+	// A vertex array object for the shape
+	VertexArray shape;
+	// VBOs for the shape' vertices and normals
+	Buffer shape_verts, shape_normals;
 
 	// A vertex array object for the plane
 	VertexArray plane;
@@ -53,18 +53,18 @@ private:
 	Buffer plane_verts, plane_normals;
 public:
 	HaloExample(void)
-	 : make_torus(1.0, 0.7, 72, 48)
-	 , torus_instr(make_torus.Instructions())
-	 , torus_indices(make_torus.Indices())
-	 , vs_torus("Torus VS")
+	 : make_shape()
+	 , shape_instr(make_shape.Instructions())
+	 , shape_indices(make_shape.Indices())
+	 , vs_shape("Shape VS")
 	 , vs_plane("Plane VS")
-	 , fs_torus("Torus FS")
+	 , fs_shape("Shape FS")
 	 , fs_plane("Plane FS")
 	 , vs_halo("Halo VS")
 	 , gs_halo("Halo GS")
 	 , fs_halo("Halo FS")
 	{
-		vs_torus.Source(
+		vs_shape.Source(
 			"#version 330\n"
 			"in vec4 Position;"
 			"in vec3 Normal;"
@@ -94,9 +94,9 @@ public:
 			"	).xyz;"
 			"}"
 		);
-		vs_torus.Compile();
+		vs_shape.Compile();
 
-		fs_torus.Source(
+		fs_shape.Source(
 			"#version 330\n"
 			"in vec3 vertNormal;"
 			"in vec3 vertViewNormal;"
@@ -133,11 +133,11 @@ public:
 			"	);"
 			"}"
 		);
-		fs_torus.Compile();
+		fs_shape.Compile();
 
-		torus_prog.AttachShader(vs_torus);
-		torus_prog.AttachShader(fs_torus);
-		torus_prog.Link();
+		shape_prog.AttachShader(vs_shape);
+		shape_prog.AttachShader(fs_shape);
+		shape_prog.Link();
 
 		vs_plane.Source(
 			"#version 330\n"
@@ -300,18 +300,18 @@ public:
 		halo_prog.AttachShader(fs_halo);
 		halo_prog.Link();
 
-		// bind the VAO for the torus
-		torus.Bind();
+		// bind the VAO for the shape
+		shape.Bind();
 
-		// bind the VBO for the torus vertices
-		torus_verts.Bind(Buffer::Target::Array);
+		// bind the VBO for the shape vertices
+		shape_verts.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_torus.Positions(data);
+			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			torus_prog.Use();
-			VertexAttribArray attr_o(torus_prog, "Position");
+			shape_prog.Use();
+			VertexAttribArray attr_o(shape_prog, "Position");
 			attr_o.Setup(n_per_vertex, DataType::Float);
 			attr_o.Enable();
 
@@ -321,15 +321,15 @@ public:
 			attr_s.Enable();
 		}
 
-		// bind the VBO for the torus normals
-		torus_normals.Bind(Buffer::Target::Array);
+		// bind the VBO for the shape normals
+		shape_normals.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_torus.Normals(data);
+			GLuint n_per_vertex = make_shape.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			torus_prog.Use();
-			VertexAttribArray attr_o(torus_prog, "Normal");
+			shape_prog.Use();
+			VertexAttribArray attr_o(shape_prog, "Normal");
 			attr_o.Setup(n_per_vertex, DataType::Float);
 			attr_o.Enable();
 		}
@@ -370,8 +370,8 @@ public:
 		}
 
 		Vec3f lightPos(2.0f, 2.5f, 9.0f);
-		torus_prog.Use();
-		Uniform(torus_prog, "LightPos").Set(lightPos);
+		shape_prog.Use();
+		Uniform(shape_prog, "LightPos").Set(lightPos);
 		plane_prog.Use();
 		Uniform(plane_prog, "LightPos").Set(lightPos);
 
@@ -391,8 +391,8 @@ public:
 			double(width)/height,
 			1, 100
 		);
-		torus_prog.Use();
-		Uniform(torus_prog, "ProjectionMatrix").SetMatrix(projection);
+		shape_prog.Use();
+		Uniform(shape_prog, "ProjectionMatrix").SetMatrix(projection);
 		plane_prog.Use();
 		Uniform(plane_prog, "ProjectionMatrix").SetMatrix(projection);
 		halo_prog.Use();
@@ -422,12 +422,12 @@ public:
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
-		torus_prog.Use();
-		Uniform(torus_prog, "CameraMatrix").SetMatrix(camera);
+		shape_prog.Use();
+		Uniform(shape_prog, "CameraMatrix").SetMatrix(camera);
 
-		Uniform(torus_prog, "ModelMatrix").SetMatrix(model);
-		torus.Bind();
-		torus_instr.Draw(torus_indices);
+		Uniform(shape_prog, "ModelMatrix").SetMatrix(model);
+		shape.Bind();
+		shape_instr.Draw(shape_indices);
 
 		halo_prog.Use();
 		Uniform(halo_prog, "CameraMatrix").SetMatrix(camera);
@@ -435,7 +435,7 @@ public:
 
 		gl.DepthMask(false);
 		gl.Enable(Capability::Blend);
-		torus_instr.Draw(torus_indices);
+		shape_instr.Draw(shape_indices);
 		gl.Disable(Capability::Blend);
 		gl.DepthMask(true);
 	}
