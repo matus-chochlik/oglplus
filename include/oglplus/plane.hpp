@@ -86,6 +86,17 @@ public:
 		);
 	}
 
+	struct _FromNormal { };
+
+	Plane(_FromNormal, const Vector<T, 3>& normal)
+	 : _equation(normal, T(0))
+	{ }
+
+	static inline Plane FromNormal(const Vector<T, 3>& normal)
+	{
+		return Plane(_FromNormal(), normal);
+	}
+
 	const Vector<T, 4>& Equation(void) const
 	{
 		return _equation;
