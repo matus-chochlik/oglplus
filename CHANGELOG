@@ -1,3 +1,14 @@
+Version 0.7.0
+
+- Several problems in the Makefile were fixed
+- A 2D-plane math utility was added
+- A new Plane shape builder was added
+- The SpiralSphere shape builder was updated
+- Clip distance-related functionality was added
+- Scissor-test related function wrappers were added
+- Several new examples were added and some of the existing were updated
+- Documentation updates and typo fixes
+
 Version 0.6.0
 
 - Added the first two tutorials, reorganized and updated the documentation
