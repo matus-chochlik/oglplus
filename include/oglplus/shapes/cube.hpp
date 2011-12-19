@@ -51,58 +51,73 @@ public:
 	template <typename T>
 	GLuint Positions(std::vector<T>& dest) const
 	{
+		/*
+		 *   (E)-----(A)
+		 *   /|      /|
+		 *  / |     / |
+		 *(F)-----(B) |
+		 * | (H)---|-(D)
+		 * | /     | /
+		 * |/      |/
+		 *(G)-----(C)
+		 *
+		 */
+		const T half_x = T(_x)/T(2);
+		const T half_y = T(_y)/T(2);
+		const T half_z = T(_z)/T(2);
 		const T c[8][3] = {
-			{+T(_x)/T(2), +T(_y)/T(2), -T(_z)/T(2)},
-			{+T(_x)/T(2), +T(_y)/T(2), +T(_z)/T(2)},
-			{+T(_x)/T(2), -T(_y)/T(2), +T(_z)/T(2)},
-			{+T(_x)/T(2), -T(_y)/T(2), -T(_z)/T(2)},
-			{-T(_x)/T(2), +T(_y)/T(2), -T(_z)/T(2)},
-			{-T(_x)/T(2), +T(_y)/T(2), +T(_z)/T(2)},
-			{-T(_x)/T(2), -T(_y)/T(2), +T(_z)/T(2)},
-			{-T(_x)/T(2), -T(_y)/T(2), -T(_z)/T(2)}
+			{+half_x, +half_y, -half_z}, //(A)
+			{+half_x, +half_y, +half_z}, //(B)
+			{+half_x, -half_y, +half_z}, //(C)
+			{+half_x, -half_y, -half_z}, //(D)
+			{-half_x, +half_y, -half_z}, //(E)
+			{-half_x, +half_y, +half_z}, //(F)
+			{-half_x, -half_y, +half_z}, //(G)
+			{-half_x, -half_y, -half_z}  //(H)
 		};
+		const size_t A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7;
 		dest = {
-			c[0][0], c[0][1], c[0][2],
-			c[3][0], c[3][1], c[3][2],
-			c[1][0], c[1][1], c[1][2],
-			c[1][0], c[1][1], c[1][2],
-			c[3][0], c[3][1], c[3][2],
-			c[2][0], c[2][1], c[2][2],
+			c[A][0], c[A][1], c[A][2],
+			c[D][0], c[D][1], c[D][2],
+			c[B][0], c[B][1], c[B][2],
+			c[B][0], c[B][1], c[B][2],
+			c[D][0], c[D][1], c[D][2],
+			c[C][0], c[C][1], c[C][2],
 
-			c[0][0], c[0][1], c[0][2],
-			c[1][0], c[1][1], c[1][2],
-			c[4][0], c[4][1], c[4][2],
-			c[1][0], c[1][1], c[1][2],
-			c[5][0], c[5][1], c[5][2],
-			c[4][0], c[4][1], c[4][2],
+			c[A][0], c[A][1], c[A][2],
+			c[B][0], c[B][1], c[B][2],
+			c[E][0], c[E][1], c[E][2],
+			c[B][0], c[B][1], c[B][2],
+			c[F][0], c[F][1], c[F][2],
+			c[E][0], c[E][1], c[E][2],
 
-			c[1][0], c[1][1], c[1][2],
-			c[2][0], c[2][1], c[2][2],
-			c[5][0], c[5][1], c[5][2],
-			c[2][0], c[2][1], c[2][2],
-			c[6][0], c[6][1], c[6][2],
-			c[5][0], c[5][1], c[5][2],
+			c[B][0], c[B][1], c[B][2],
+			c[C][0], c[C][1], c[C][2],
+			c[F][0], c[F][1], c[F][2],
+			c[C][0], c[C][1], c[C][2],
+			c[G][0], c[G][1], c[G][2],
+			c[F][0], c[F][1], c[F][2],
 
-			c[4][0], c[4][1], c[4][2],
-			c[5][0], c[5][1], c[5][2],
-			c[6][0], c[6][1], c[6][2],
-			c[4][0], c[4][1], c[4][2],
-			c[6][0], c[6][1], c[6][2],
-			c[7][0], c[7][1], c[7][2],
+			c[E][0], c[E][1], c[E][2],
+			c[F][0], c[F][1], c[F][2],
+			c[G][0], c[G][1], c[G][2],
+			c[E][0], c[E][1], c[E][2],
+			c[G][0], c[G][1], c[G][2],
+			c[H][0], c[H][1], c[H][2],
 
-			c[2][0], c[2][1], c[2][2],
-			c[3][0], c[3][1], c[3][2],
-			c[7][0], c[7][1], c[7][2],
-			c[2][0], c[2][1], c[2][2],
-			c[7][0], c[7][1], c[7][2],
-			c[6][0], c[6][1], c[6][2],
+			c[C][0], c[C][1], c[C][2],
+			c[D][0], c[D][1], c[D][2],
+			c[H][0], c[H][1], c[H][2],
+			c[C][0], c[C][1], c[C][2],
+			c[H][0], c[H][1], c[H][2],
+			c[G][0], c[G][1], c[G][2],
 
-			c[0][0], c[0][1], c[0][2],
-			c[4][0], c[4][1], c[4][2],
-			c[3][0], c[3][1], c[3][2],
-			c[3][0], c[3][1], c[3][2],
-			c[4][0], c[4][1], c[4][2],
-			c[7][0], c[7][1], c[7][2]
+			c[A][0], c[A][1], c[A][2],
+			c[E][0], c[E][1], c[E][2],
+			c[D][0], c[D][1], c[D][2],
+			c[D][0], c[D][1], c[D][2],
+			c[E][0], c[E][1], c[E][2],
+			c[H][0], c[H][1], c[H][2]
 		};
 		return 3;
 	}
@@ -282,7 +297,7 @@ public:
 		return IndexArray();
 	}
 
-	/// Returns the instructions for rendering
+	/// Returns the instructions for rendering of faces
 	DrawingInstructions Instructions(void) const
 	{
 		return this->MakeInstructions({
@@ -292,6 +307,94 @@ public:
 				0, 36
 			}
 		});
+	}
+
+	/// Returns element indices for the Cube's edges
+	IndexArray EdgeIndices(void) const
+	{
+		/*
+		 *   (E)-----(A)
+		 *   /|      /|
+		 *  / |     / |
+		 *(F)-----(B) |
+		 * | (H)---|-(D)
+		 * | /     | /
+		 * |/      |/
+		 *(G)-----(C)
+		 *
+		 */
+		IndexArray indices({
+			 0,  1,  5,  2, //+x
+			19, 22, 23, 18, //-x
+			 6,  7, 10, 11, //+y
+			26, 29, 24, 25, //-y
+			12, 13, 16, 17, //+z
+			31, 35, 32, 30  //-z
+		});
+/*
+		dest = {
+			c[A][0], c[A][1], c[A][2], // 00
+			c[D][0], c[D][1], c[D][2], // 01
+			c[B][0], c[B][1], c[B][2], // 02
+			c[B][0], c[B][1], c[B][2], // 03
+			c[D][0], c[D][1], c[D][2], // 04
+			c[C][0], c[C][1], c[C][2], // 05
+
+			c[A][0], c[A][1], c[A][2], // 06
+			c[B][0], c[B][1], c[B][2], // 07
+			c[E][0], c[E][1], c[E][2], // 08
+			c[B][0], c[B][1], c[B][2], // 09
+			c[F][0], c[F][1], c[F][2], // 10
+			c[E][0], c[E][1], c[E][2], // 11
+
+			c[B][0], c[B][1], c[B][2], // 12
+			c[C][0], c[C][1], c[C][2], // 13
+			c[F][0], c[F][1], c[F][2], // 14
+			c[C][0], c[C][1], c[C][2], // 15
+			c[G][0], c[G][1], c[G][2], // 16
+			c[F][0], c[F][1], c[F][2], // 17
+
+			c[E][0], c[E][1], c[E][2], // 18
+			c[F][0], c[F][1], c[F][2], // 19
+			c[G][0], c[G][1], c[G][2], // 20
+			c[E][0], c[E][1], c[E][2], // 21
+			c[G][0], c[G][1], c[G][2], // 22
+			c[H][0], c[H][1], c[H][2], // 23
+
+			c[C][0], c[C][1], c[C][2], // 24
+			c[D][0], c[D][1], c[D][2], // 25
+			c[H][0], c[H][1], c[H][2], // 26
+			c[C][0], c[C][1], c[C][2], // 27
+			c[H][0], c[H][1], c[H][2], // 28
+			c[G][0], c[G][1], c[G][2], // 29
+
+			c[A][0], c[A][1], c[A][2], // 30
+			c[E][0], c[E][1], c[E][2], // 31
+			c[D][0], c[D][1], c[D][2], // 32
+			c[D][0], c[D][1], c[D][2], // 33
+			c[E][0], c[E][1], c[E][2], // 34
+			c[H][0], c[H][1], c[H][2]  // 35
+		};
+*/
+		return std::move(indices);
+	}
+
+	/// Returns the instructions for rendering of edges
+	DrawingInstructions EdgeInstructions(void) const
+	{
+		auto instructions = this->MakeInstructions();
+		for(size_t r=0; r!=6; ++r)
+		{
+			this->AddInstruction(
+				instructions,
+				{
+					DrawOperation::Method::DrawElements,
+					PrimitiveType::LineLoop,
+					r*4, 4
+				}
+			);
+		}
+		return std::move(instructions);
 	}
 };
 

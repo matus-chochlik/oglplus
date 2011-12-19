@@ -591,6 +591,12 @@ public:
 		return ModelMatrix(_Translation(), dx, dy, dz);
 	}
 
+	/// Constructs a translation matrix
+	static inline ModelMatrix Translation(const Vector<T, 3>& dp)
+	{
+		return ModelMatrix(_Translation(), dp.x(), dp.y(), dp.z());
+	}
+
 	struct _Scale { };
 
 	ModelMatrix(_Scale, T sx, T sy, T sz)
