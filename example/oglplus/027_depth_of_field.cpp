@@ -97,6 +97,8 @@ public:
 	 , face_indices(make_cube.Indices())
 	 , edge_indices(make_cube.EdgeIndices())
 	 , cube_matrices(MakeCubeMatrices(100, 10.0))
+	 , width(800)
+	 , height(600)
 	{
 		main_vs.Source(
 			"#version 330\n"
@@ -262,6 +264,15 @@ public:
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::ClampToEdge);
 			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.Image2D(
+				0,
+				PixelDataInternalFormat::RGB,
+				width, height,
+				0,
+				PixelDataFormat::RGB,
+				PixelDataType::UnsignedByte,
+				nullptr
+			);
 		}
 
 		Texture::Active(1);
@@ -272,6 +283,15 @@ public:
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::ClampToEdge);
 			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.Image2D(
+				0,
+				PixelDataInternalFormat::DepthComponent,
+				width, height,
+				0,
+				PixelDataFormat::DepthComponent,
+				PixelDataType::Float,
+				nullptr
+			);
 		}
 
 		{

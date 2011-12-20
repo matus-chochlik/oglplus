@@ -390,7 +390,7 @@ public:
 				{
 					DrawOperation::Method::DrawElements,
 					PrimitiveType::LineLoop,
-					r*4, 4
+					GLuint(r*4), GLuint(4)
 				}
 			);
 		}
