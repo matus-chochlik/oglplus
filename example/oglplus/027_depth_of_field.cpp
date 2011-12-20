@@ -16,7 +16,6 @@
 #include <oglplus/bound/framebuffer.hpp>
 
 #include <cmath>
-#include <ctime>
 
 #include "example.hpp"
 
@@ -37,7 +36,7 @@ private:
 	// Returns a vector of cube offsets
 	static std::vector<Matrix4f> MakeCubeMatrices(size_t count, float max_dist)
 	{
-		std::srand(std::time(0));
+		std::srand(59039);
 		std::vector<Matrix4f> offsets(count);
 		for(size_t i=0; i!=count; ++i)
 		{
@@ -210,23 +209,25 @@ public:
 			"uniform float FocusDepth;"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
-			"const float strength = 16.0;"
+			"const float strength = 32.0;"
 			"void main(void)"
 			"{"
 			"	float fragDepth = texture(DepthTex, vertTexCoord).r;"
 			"	vec3 color = texture(ColorTex, vertTexCoord).rgb;"
 			"	float of = abs(fragDepth - FocusDepth);"
 			"	int nsam = int(of*128);"
-			"	float astep = (3.14151*2.0)/nsam;"
+			"	float inv_nsam = 1.0 / (1.0 + nsam);"
+			"	float astep = (3.14151*4.0)/nsam;"
 			"	for(int i=0; i!=nsam; ++i)"
 			"	{"
 			"		float a = i*astep;"
-			"		float sx = cos(a)*of*strength;"
-			"		float sy = sin(a)*of*strength;"
+			"		float d = sqrt(i*inv_nsam);"
+			"		float sx = cos(a)*of*strength*d;"
+			"		float sy = sin(a)*of*strength*d;"
 			"		vec2 samTexCoord = vertTexCoord + vec2(sx, sy) + noise2(vec2(sx, sy));"
 			"		color += texture(ColorTex, samTexCoord).rgb;"
 			"	}"
-			"	fragColor = vec4(color / (1.0 + nsam), 1.0);"
+			"	fragColor = vec4(color * inv_nsam , 1.0);"
 			"}"
 		);
 		dof_fs.Compile();
@@ -375,7 +376,7 @@ public:
 		screen.Bind();
 
 		Uniform(dof_prog, "FocusDepth").Set(
-			float(0.7f + SineWave(time / 9.0)*0.3f)
+			float(0.6f + SineWave(time / 9.0)*0.3f)
 		);
 
 		gl.Enable(Capability::Blend);
