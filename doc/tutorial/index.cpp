@@ -31,6 +31,7 @@
  *
  *  - @subpage oglplus_tut_001_glut_glew
  *  - @subpage oglplus_tut_002_rgb_triangle
+ *  - @subpage oglplus_tut_004_newton_fractal
  */
 
 #endif // OGLPLUS_DOCUMENTATION_ONLY

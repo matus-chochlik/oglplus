@@ -26,7 +26,7 @@ namespace oglplus {
  *  @OGLplus is a header-only library which implements
  *  a thin object-oriented facade over the OpenGL® (version 3 and higher)
  *  C-language API. It provides wrappers which automate
- *  the resource and object management and make the use of OpenGL
+ *  resource and object management and make the use of OpenGL
  *  in C++ safer and easier.
  *
  *  - @ref oglplus_features
@@ -84,7 +84,7 @@ namespace oglplus {
  *  to the unsigned integer names and by their encapsulating and hiding
  *  from the library client it allows to avoid such errors.
  *
- *  Similarly the various enumerations are again basically values of the @c GLenum
+ *  Similarly the various enumerations are basically values of the @c GLenum
  *  type and are prone to the same kind of error. You can pass an incompatible
  *  enumerated value to a API function call. @OGLplus again allows to avoid these
  *  errors by separating the values into strongly typed enums and wrapping the
@@ -265,7 +265,7 @@ namespace oglplus {
 
 /** @page oglplus_example_rationale Example rationale
  *
- *  As already said above, @OGLplus does not officially provide means for creating of the
+ *  @OGLplus does not officially provide means for creating of the
  *  default framebuffer nor any code related to window-system or user-input.
  *
  *  The example code is usually encapsulated in a class derived from the @c Example

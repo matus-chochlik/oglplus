@@ -145,7 +145,7 @@ public:
 
 	void Render(double)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.Clear().DepthBuffer();
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

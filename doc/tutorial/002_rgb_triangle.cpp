@@ -13,7 +13,7 @@
 /** @page oglplus_tut_002_rgb_triangle RGB triangle
  *
  *  This tutorial is an extension of the @ref oglplus_tut_001_glut_glew
- *  tutorial, but it does not go through the code responsible window
+ *  tutorial, but it does not go through the code responsible for window
  *  initialization, OpenGL initialization and event handling.
  *
  *  For a full working code see the @c example/002_triangle.cpp
@@ -22,7 +22,10 @@
  *  @dontinclude oglplus/002_triangle.cpp
  *
  *  First we include a helper header from OGLplus that in turn includes
- *  @c GL3/gl3.h.
+ *  @c GL3/gl3.h. This is convenient if you have the @c GL3/gl3.h header
+ *  file installed on your computer. It is however not required and if
+ *  you wish you can use other means of defining the necessary OpenGL 3
+ *  functions, constants, etc.
  *  @skipline #include <oglplus/gl.hpp>
  *
  *  The next line includes everything from @OGLplus, except the image loaders
@@ -44,7 +47,7 @@
  *  to use fully qualified names or apply the @c using directive only in local
  *  scopes.
  *
- *  As before, the rendering code is encapsulated in the @c TringleExample
+ *  As before, the rendering code is encapsulated in the @c TriangleExample
  *  class which is derived from @c oglplus::Example.
  *  @until {
  *

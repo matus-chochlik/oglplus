@@ -278,7 +278,7 @@ public:
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
-/// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
+/// An @ref oglplus_object encapsulating  OpenGL program pipeline functionality
 /**
  *  @ingroup objects
  */
