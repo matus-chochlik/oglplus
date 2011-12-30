@@ -91,9 +91,19 @@ public:
 		return _v;
 	}
 
-	Vec3f Normal(void) const
+	inline Vec3f Normal(void) const
 	{
 		return Normalized(Cross(_u, _v));
+	}
+
+	inline Vec3f Tangential(void) const
+	{
+		return Normalized(_u);
+	}
+
+	inline Vec3f Binormal(void) const
+	{
+		return Normalized(_v);
 	}
 
 	Vec4f Equation(void) const

@@ -157,6 +157,15 @@ public:
 	/// Extractor selecting the Alpha component of the input image
 	typedef FromComponentI<3> FromAlpha;
 
+	struct FromRGB
+	{
+		template <typename IT>
+		Vector<IT, 3> operator()(const Vector<IT, 4>& v) const
+		{
+			return v.xyz();
+		}
+	};
+
 	template <typename IT, typename Filter, typename Extractor>
 	FilteredImage(
 		const Image<IT>& input,

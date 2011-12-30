@@ -1,10 +1,10 @@
 /**
- *  @example oglplus/027_reflected_shape.cpp
- *  @brief Show a how to do texture-based blurry reflection
+ *  @example oglplus/030_pool_tiles.cpp
+ *  @brief Shows a multitextured bump/parallax-mapped reflective plane
  *
- *  @image html 027_reflected_shape.png
+ *  @image html 030_pool_tiles.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,13 +17,18 @@
 #include <oglplus/bound/framebuffer.hpp>
 #include <oglplus/bound/renderbuffer.hpp>
 
+#include <oglplus/images/load.hpp>
+#include <oglplus/images/random.hpp>
+#include <oglplus/images/normal_map.hpp>
+#include <oglplus/images/transformed.hpp>
+
 #include <cmath>
 
 #include "example.hpp"
 
 namespace oglplus {
 
-class ReflectionExample : public Example
+class PoolTilesExample : public Example
 {
 private:
 	// helper object building and storing plane drawing instructions
@@ -51,21 +56,24 @@ private:
 	Buffer plane_verts, plane_texcoords;
 	Buffer shape_verts, shape_normals;
 
+	// plane textures
+	Texture rand_tex, pict_tex, tile_tex, norm_tex;
 	// Texture user for the simulation of reflection
 	Texture reflect_tex;
 
 	Framebuffer fbo;
 	Renderbuffer rbo;
 
-	size_t width, height, tex_side;
+	size_t width, height, refl_tex_side, tile_tex_side;
+
 public:
-	ReflectionExample(void)
+	PoolTilesExample(void)
 	 : make_plane(
 		Vec3f(),
-		Vec3f(3.0f, 0.0f, 0.0f),
-		Vec3f(0.0f, 0.0f, -3.0f),
-		15,
-		15
+		Vec3f(7.0f, 0.0f, 0.0f),
+		Vec3f(0.0f, 0.0f,-7.0f),
+		48,
+		48
 	), plane_instr(make_plane.Instructions())
 	 , plane_indices(make_plane.Indices())
 	 , make_shape()
@@ -77,15 +85,20 @@ public:
 	 , shape_fs("Shape fragment")
 	 , width(800)
 	 , height(600)
-	 , tex_side(width > height ? height : width)
+	 , refl_tex_side(width > height ? height : width)
+	 , tile_tex_side(64)
 	{
 		plane_vs.Source(
 			"#version 330\n"
 			"uniform vec3 LightPosition;"
+			"uniform vec3 CameraPosition;"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
+			"in vec2 TexCoord;"
 			"out vec3 vertLightDir;"
-			"out vec4 vertTexCoord;"
+			"out vec3 vertViewDir;"
+			"out vec4 vertReflTexCoord;"
+			"out vec2 vertTileTexCoord;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
@@ -94,46 +107,83 @@ public:
 			"	vertLightDir = normalize("
 			"		LightPosition - gl_Position.xyz"
 			"	);"
+			"	vertViewDir = normalize("
+			"		CameraPosition - gl_Position.xyz"
+			"	);"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
 			"		gl_Position;"
-			"	vertTexCoord = gl_Position;"
+			"	vertReflTexCoord = gl_Position;"
+			"	vertTileTexCoord = TexCoord;"
 			"}"
 		);
 		plane_vs.Compile();
 
 		plane_fs.Source(
 			"#version 330\n"
+			"uniform sampler2D RandTex, PictTex, TileTex, NormTex;"
 			"uniform sampler2D ReflectTex;"
-			"uniform vec3 Normal;"
+			"uniform uint TileCount;"
 			"uniform float Aspect;"
 			"in vec3 vertLightDir;"
-			"in vec4 vertTexCoord;"
+			"in vec3 vertViewDir;"
+			"in vec4 vertReflTexCoord;"
+			"in vec2 vertTileTexCoord;"
 			"out vec4 fragColor;"
-			"const int n = 5;"
-			"const int ns = (n*n);"
-			"const float blur = 0.15/n;"
 			"void main(void)"
 			"{"
-			"	float d = dot("
+			"	vec3 Normal = texture("
+			"		NormTex, "
+			"		vertTileTexCoord * TileCount"
+			"	).rgb;"
+			"	vec3 LightRefl = reflect("
+			"		-normalize(vertLightDir),"
+			"		normalize(Normal)"
+			"	);"
+			"	float Diffuse = max(dot("
 			"		Normal, "
 			"		vertLightDir"
+			"	), 0.0);"
+			"	float Specular = max(dot("
+			"		LightRefl,"
+			"		vertViewDir"
+			"	), 0.0);"
+			"	float PlasterLight = 0.3 + max(Diffuse, 0.0);"
+			"	float TileLight = 0.3 + pow(Diffuse, 2.0)*0.9 + pow(Specular, 4.0)*2.5;"
+			"	vec2 ReflCoord = vertReflTexCoord.xy;"
+			"	ReflCoord /= vertReflTexCoord.w;"
+			"	ReflCoord *= 0.5;"
+			"	ReflCoord += vec2(Aspect*0.5, 0.5);"
+			"	ReflCoord += vec2(Normal.x, Normal.z)*0.5;"
+			"	vec3 ReflColor = texture("
+			"		ReflectTex, "
+			"		ReflCoord"
+			"	).rgb;"
+			"	vec3 TileProps = texture("
+			"		TileTex, "
+			"		vertTileTexCoord * TileCount"
+			"	).rgb;"
+			"	float Pict = texture(PictTex, vertTileTexCoord).r;"
+			"	float Rand = texture(RandTex, vertTileTexCoord).r;"
+			"	float LightVsDark = "
+			"		mix( 0.1, 0.9, Pict)+"
+			"		mix(-0.1, 0.1, Rand);"
+			"	vec3 TileColor = mix("
+			"		vec3(0.1, 0.1, 0.5),"
+			"		vec3(0.4, 0.4, 0.9),"
+			"		LightVsDark "
 			"	);"
-			"	float intensity = 0.5 + pow(1.4*d, 2.0);"
-			"	vec3 color = vec3(0.0, 0.0, 0.0);"
-			"	int n = 2;"
-			"	for(int y=-n; y!=(n+1); ++y)"
-			"	for(int x=-n; x!=(n+1); ++x)"
-			"	{"
-			"		vec2 coord = vertTexCoord.xy;"
-			"		coord += vec2(blur*x, blur*y);"
-			"		coord /= vertTexCoord.w;"
-			"		coord *= 0.5;"
-			"		coord += vec2(Aspect*0.5, 0.5);"
-			"		color += texture(ReflectTex, coord).rgb/ns;"
-			"	}"
-			"	fragColor = vec4(color*intensity, 1.0);"
+			"	vec3 PlasterColor = vec3(0.9, 0.9, 0.9);"
+			"	fragColor = vec4("
+			"		mix("
+			"			PlasterColor * PlasterLight,"
+			"			TileColor * TileLight, "
+			"			TileProps.b"
+			"		) +"
+			"		ReflColor * TileProps.g * 0.6,"
+			"		1.0"
+			"	);"
 			"}"
 		);
 		plane_fs.Compile();
@@ -143,9 +193,12 @@ public:
 		plane_prog.Link();
 		plane_prog.Use();
 
-		Vec3f lightPos(3.0f, 0.5f, 2.0f);
+		Vec3f lightPos(3.0f, 2.5f, 2.0f);
 		Uniform(plane_prog, "LightPosition").Set(lightPos);
-		Uniform(plane_prog, "Normal").Set(make_plane.Normal());
+		Uniform(plane_prog, "TileCount").Set(tile_tex_side);
+		Uniform(plane_prog, "ModelMatrix").SetMatrix(
+			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f)
+		);
 
 		plane.Bind();
 
@@ -158,15 +211,87 @@ public:
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
+
+		plane_texcoords.Bind(Buffer::Target::Array);
+		{
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = make_plane.TexCoordinates(data);
+			Buffer::Data(Buffer::Target::Array, data);
+			VertexAttribArray attr(plane_prog, "TexCoord");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
+		}
 		//
 		Texture::Active(0);
-		Uniform(plane_prog, "ReflectTex").Set(0);
+		Uniform(plane_prog, "RandTex").Set(0);
+		{
+			auto bound_tex = Bind(rand_tex, Texture::Target::_2D);
+			bound_tex.Image2D(
+				images::RandomRedUByte(
+					tile_tex_side,
+					tile_tex_side
+				)
+			);
+			bound_tex.MinFilter(TextureMinFilter::Nearest);
+			bound_tex.MagFilter(TextureMagFilter::Nearest);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
+		}
+		//
+		Texture::Active(1);
+		Uniform(plane_prog, "PictTex").Set(1);
+		{
+			auto bound_tex = Bind(pict_tex, Texture::Target::_2D);
+			bound_tex.Image2D(images::LoadTexture("pool_pictogram"));
+			bound_tex.MinFilter(TextureMinFilter::Linear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
+		}
+		//
+		auto tileImage = images::LoadTexture("small_tile");
+		Texture::Active(2);
+		Uniform(plane_prog, "TileTex").Set(2);
+		{
+			auto bound_tex = Bind(tile_tex, Texture::Target::_2D);
+			bound_tex.Image2D(tileImage);
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
+			bound_tex.GenerateMipmap();
+		}
+		//
+		Texture::Active(3);
+		Uniform(plane_prog, "NormTex").Set(3);
+		{
+			auto bound_tex = Bind(norm_tex, Texture::Target::_2D);
+			bound_tex.Image2D(
+				images::Transformed<GLfloat>(
+					images::NormalMap(tileImage),
+					Matrix4f(
+						1.0, 0.0, 0.0, 0.0,
+						0.0, 0.0, 1.0, 0.0,
+						0.0,-1.0, 0.0, 0.0,
+						0.0, 0.0, 0.0, 1.0
+					)
+				)
+			);
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
+			bound_tex.GenerateMipmap();
+		}
+		//
+		Texture::Active(4);
+		Uniform(plane_prog, "ReflectTex").Set(4);
 		{
 			auto bound_tex = Bind(reflect_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
 				0,
 				PixelDataInternalFormat::RGB,
-				tex_side, tex_side,
+				refl_tex_side, refl_tex_side,
 				0,
 				PixelDataFormat::RGB,
 				PixelDataType::UnsignedByte,
@@ -188,8 +313,8 @@ public:
 			);
 			bound_rbo.Storage(
 				PixelDataInternalFormat::DepthComponent,
-				tex_side,
-				tex_side
+				refl_tex_side,
+				refl_tex_side
 			);
 			bound_fbo.AttachTexture(
 				Framebuffer::Attachment::Color,
@@ -212,6 +337,7 @@ public:
 			"out vec3 vertLightDir;"
 			"out vec3 vertLightRefl;"
 			"out vec3 vertViewDir;"
+			"out vec3 vertViewRefl;"
 			"out vec3 vertColor;"
 			"void main(void)"
 			"{"
@@ -231,7 +357,11 @@ public:
 			"		vec4(0.0, 0.0, 1.0, 1.0)*"
 			"		CameraMatrix"
 			"	).xyz;"
-			"	vertColor = vec3(1, 1, 1) - vertNormal;"
+			"	vertViewRefl = reflect("
+			"		-normalize(vertViewDir),"
+			"		normalize(vertNormal)"
+			"	);"
+			"	vertColor = vec3(0.3, 0.3, 0.7);"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
@@ -242,30 +372,57 @@ public:
 
 		shape_fs.Source(
 			"#version 330\n"
-			"uniform sampler2D ReflectTex;"
+			"uniform sampler2D PictTex, TileTex;"
+			"uniform uint TileCount;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLightDir;"
 			"in vec3 vertLightRefl;"
 			"in vec3 vertViewDir;"
+			"in vec3 vertViewRefl;"
 			"in vec3 vertColor;"
 			"out vec4 fragColor;"
 
 			"void main(void)"
 			"{"
-			"	float l = length(vertLightDir);"
-			"	float d = dot("
+			"	float LtDist = length(vertLightDir);"
+			"	float Diffuse = dot("
 			"		normalize(vertNormal), "
 			"		normalize(vertLightDir)"
-			"	) / l;"
-			"	float s = dot("
+			"	) / LtDist;"
+			"	float Specular = dot("
 			"		normalize(vertLightRefl),"
 			"		normalize(vertViewDir)"
 			"	);"
-			"	vec3 lt = vec3(1.0, 1.0, 1.0);"
+			"	vec3 LightColor = vec3(1.0, 1.0, 1.0);"
+			"	vec2 ReflTexCoord = -vec2("
+			"		vertViewRefl.x,"
+			"		vertViewRefl.z "
+			"	);"
+			"	ReflTexCoord *= 0.25;"
+			"	ReflTexCoord += vec2(0.5, 0.5);"
+			"	float Pict = texture(PictTex, ReflTexCoord).r;"
+			"	float LightVsDark = mix( 0.1, 0.9, Pict);"
+			"	vec3 TileColor = mix("
+			"		vec3(0.2, 0.2, 0.6),"
+			"		vec3(0.5, 0.5, 0.9),"
+			"		LightVsDark"
+			"	);"
+			"	vec3 PlasterColor = vec3(0.7, 0.7, 0.7);"
+			"	vec3 FloorColor = mix("
+			"		PlasterColor, "
+			"		TileColor, "
+			"		texture(TileTex, ReflTexCoord*TileCount).b"
+			"	);"
+			"	vec3 ReflColor = mix("
+			"		vec3(0.5, 0.5, 0.4), "
+			"		FloorColor, "
+			"		pow(max((-vertViewRefl.y-0.5)*2.0, 0.0), 2.0)"
+			"	);"
 			"	fragColor = vec4("
 			"		vertColor * 0.4 + "
-			"		(lt + vertColor)*pow(max(2.5*d, 0.0), 3) + "
-			"		lt * pow(max(s, 0.0), 64), "
+			"		ReflColor * 0.3 + "
+			"		(LightColor + vertColor)*pow(max(2.5*Diffuse, 0.0), 3) + "
+			"		LightColor * pow(max(Specular, 0.0), 64), "
 			"		1.0"
 			"	);"
 			"}"
@@ -278,6 +435,12 @@ public:
 		shape_prog.Use();
 
 		Uniform(shape_prog, "LightPosition").Set(lightPos);
+		Uniform(shape_prog, "ModelMatrix").SetMatrix(
+			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f)
+		);
+		Uniform(shape_prog, "PictTex").Set(1);
+		Uniform(shape_prog, "TileTex").Set(1);
+		Uniform(shape_prog, "TileCount").Set(tile_tex_side);
 
 		shape.Bind();
 
@@ -310,13 +473,13 @@ public:
 	{
 		width = vp_width;
 		height = vp_height;
-		tex_side = width > height ? height : width;
+		refl_tex_side = width > height ? height : width;
 
 		auto bound_tex = Bind(reflect_tex, Texture::Target::_2D);
 		bound_tex.Image2D(
 			0,
 			PixelDataInternalFormat::RGB,
-			tex_side, tex_side,
+			refl_tex_side, refl_tex_side,
 			0,
 			PixelDataFormat::RGB,
 			PixelDataType::UnsignedByte,
@@ -325,8 +488,24 @@ public:
 		auto bound_rbo = Bind(rbo, Renderbuffer::Target::Renderbuffer);
 		bound_rbo.Storage(
 			PixelDataInternalFormat::DepthComponent,
-			tex_side, tex_side
+			refl_tex_side, refl_tex_side
 		);
+
+		float aspect = float(width)/height;
+		ProgramUniform(plane_prog, "Aspect").Set(aspect);
+
+		auto projection = CamMatrixf::Perspective(
+			Degrees(48), aspect, 1, 100
+		);
+		ProgramUniform(
+			plane_prog,
+			"ProjectionMatrix"
+		).SetMatrix(projection);
+
+		ProgramUniform(
+			shape_prog,
+			"ProjectionMatrix"
+		).SetMatrix(projection);
 	}
 
 	void Render(double time)
@@ -338,15 +517,9 @@ public:
 			 0.0, 0.0, 0.0, 1.0
 		);
 
-		float aspect = float(width)/height;
-
-		auto projection = CamMatrixf::Perspective(
-			Degrees(48), aspect, 1, 100
-		);
-
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5,
+			6.0 + SineWave(time / 12.0)*2.5,
 			FullCircles(time / 10.0),
 			Degrees(45.0 - SineWave(time / 7.0)*35.0)
 		);
@@ -354,21 +527,15 @@ public:
 		shape_prog.Use();
 		shape.Bind();
 
-		Uniform(shape_prog, "ModelMatrix").SetMatrix(
-			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f) *
-			ModelMatrixf::RotationX(FullCircles(time / 12.0))
-		);
-		Uniform(shape_prog, "ProjectionMatrix").SetMatrix(projection);
-
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_shape.FaceWinding());
 
 		// render into the off-screen framebuffer
 		fbo.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(
-			(width - tex_side) / 2,
-			(height - tex_side) / 2,
-			tex_side, tex_side
+			(width - refl_tex_side) / 2,
+			(height - refl_tex_side) / 2,
+			refl_tex_side, refl_tex_side
 		);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
@@ -396,12 +563,8 @@ public:
 		plane_prog.Use();
 		plane.Bind();
 
-		Uniform(plane_prog, "ProjectionMatrix").SetMatrix(projection);
 		Uniform(plane_prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(plane_prog, "ModelMatrix").SetMatrix(
-			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f)
-		);
-		Uniform(plane_prog, "Aspect").Set(aspect);
+		Uniform(plane_prog, "CameraPosition").Set(camera.Position());
 
 		plane_instr.Draw(plane_indices);
 
@@ -415,7 +578,7 @@ public:
 
 std::unique_ptr<Example> makeExample(void)
 {
-	return std::unique_ptr<Example>(new ReflectionExample);
+	return std::unique_ptr<Example>(new PoolTilesExample);
 }
 
 } // namespace oglplus

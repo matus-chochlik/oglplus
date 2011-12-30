@@ -63,7 +63,7 @@ private:
 public:
 	typedef FilteredImage<T, 4> Filter;
 
-	/// Created a normal-map from the @p input height-map image
+	/// Creates a normal-map from the @p input height-map image
 	/**
 	 *  @param input the height-map image to be filtered
 	 *  @param extractor the height map color component extractor (by
