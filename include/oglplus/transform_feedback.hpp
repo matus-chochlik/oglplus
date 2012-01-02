@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_TRANSFORM_FEEDBACK_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -47,20 +48,20 @@ class TransformFeedbackOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenTransformFeedbacks(count, &_name);
+		OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteTransformFeedbacks(count, &_name);
+		OGLPLUS_GLFUNC(DeleteTransformFeedbacks)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsTransformFeedback(_name);
+		return OGLPLUS_GLFUNC(IsTransformFeedback)(_name);
 	}
 
 	friend class FriendOf<TransformFeedbackOps>;
@@ -95,7 +96,7 @@ public:
 	void Bind(Target target = Target::TransformFeedback) const
 	{
 		assert(_name != 0);
-		::glBindTransformFeedback(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), _name);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTransformFeedback));
 	}
 
@@ -106,7 +107,7 @@ public:
 	 */
 	static void BindDefault(Target target = Target::TransformFeedback)
 	{
-		::glBindTransformFeedback(GLenum(target), 0);
+		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTransformFeedback));
 	}
 
@@ -122,7 +123,7 @@ public:
 	 */
 	static void Begin(PrimitiveType mode)
 	{
-		::glBeginTransformFeedback(GLenum(mode));
+		OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
 		AssertNoError(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
 	}
 
@@ -138,7 +139,7 @@ public:
 	 */
 	static void End(void)
 	{
-		::glEndTransformFeedback();
+		OGLPLUS_GLFUNC(EndTransformFeedback)();
 		AssertNoError(OGLPLUS_ERROR_INFO(EndTransformFeedback));
 	}
 
@@ -154,7 +155,7 @@ public:
 	 */
 	static void Pause(void)
 	{
-		::glPauseTransformFeedback();
+		OGLPLUS_GLFUNC(PauseTransformFeedback)();
 		AssertNoError(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
 	}
 
@@ -170,7 +171,7 @@ public:
 	 */
 	static void Resume(void)
 	{
-		::glResumeTransformFeedback();
+		OGLPLUS_GLFUNC(ResumeTransformFeedback)();
 		AssertNoError(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
 	}
 
@@ -197,7 +198,7 @@ public:
 		Activator(PrimitiveType mode)
 		 : _active(true)
 		{
-			::glBeginTransformFeedback(GLenum(mode));
+			OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
 			AssertNoError(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
 		}
 
@@ -217,7 +218,7 @@ public:
 		 */
 		~Activator(void)
 		{
-			if(_active) ::glEndTransformFeedback();
+			if(_active) OGLPLUS_GLFUNC(EndTransformFeedback)();
 		}
 	};
 
@@ -244,7 +245,7 @@ public:
 		Pauser(void)
 		 : _paused(true)
 		{
-			::glPauseTransformFeedback();
+			OGLPLUS_GLFUNC(PauseTransformFeedback)();
 			AssertNoError(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
 		}
 
@@ -264,7 +265,7 @@ public:
 		 */
 		~Pauser(void)
 		{
-			if(_paused) ::glResumeTransformFeedback();
+			if(_paused) OGLPLUS_GLFUNC(ResumeTransformFeedback)();
 		}
 	};
 };

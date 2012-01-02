@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_SAMPLER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -39,20 +40,20 @@ class SamplerOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenSamplers(count, &_name);
+		OGLPLUS_GLFUNC(GenSamplers)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenSamplers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteSamplers(count, &_name);
+		OGLPLUS_GLFUNC(DeleteSamplers)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsSampler(_name);
+		return OGLPLUS_GLFUNC(IsSampler)(_name);
 	}
 
 	friend class FriendOf<SamplerOps>;
@@ -65,7 +66,7 @@ public:
 	void Bind(TextureUnitSelector unit) const
 	{
 		assert(_name != 0);
-		::glBindSampler(GLuint(unit), _name);
+		OGLPLUS_GLFUNC(BindSampler)(GLuint(unit), _name);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindSampler));
 	}
 
@@ -76,7 +77,7 @@ public:
 	 */
 	static void Unbind(TextureUnitSelector unit)
 	{
-		::glBindSampler(GLuint(unit), 0);
+		OGLPLUS_GLFUNC(BindSampler)(GLuint(unit), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindSampler));
 	}
 
@@ -88,7 +89,7 @@ public:
 	 */
 	void BorderColor(Vector<GLfloat, 4> color) const
 	{
-		::glSamplerParameterfv(
+		OGLPLUS_GLFUNC(SamplerParameterfv)(
 			_name,
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -104,7 +105,7 @@ public:
 	 */
 	void BorderColor(Vector<GLint, 4> color) const
 	{
-		::glSamplerParameterIiv(
+		OGLPLUS_GLFUNC(SamplerParameterIiv)(
 			_name,
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -120,7 +121,7 @@ public:
 	 */
 	void BorderColor(Vector<GLuint, 4> color) const
 	{
-		::glSamplerParameterIuiv(
+		OGLPLUS_GLFUNC(SamplerParameterIuiv)(
 			_name,
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -136,7 +137,7 @@ public:
 	 */
 	void CompareMode(TextureCompareMode mode) const
 	{
-		::glSamplerParameteri(
+		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
@@ -152,7 +153,7 @@ public:
 	 */
 	void CompareFunc(CompareFunction func) const
 	{
-		::glSamplerParameteri(
+		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
@@ -168,7 +169,7 @@ public:
 	 */
 	void LODBias(GLfloat value) const
 	{
-		::glSamplerParameterf(
+		OGLPLUS_GLFUNC(SamplerParameterf)(
 			_name,
 			GL_TEXTURE_LOD_BIAS,
 			value
@@ -184,7 +185,7 @@ public:
 	 */
 	void MagFilter(TextureMagFilter filter) const
 	{
-		::glSamplerParameteri(
+		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
@@ -200,7 +201,7 @@ public:
 	 */
 	void MinFilter(TextureMinFilter filter) const
 	{
-		::glSamplerParameteri(
+		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
@@ -216,7 +217,7 @@ public:
 	 */
 	void MinLOD(GLfloat value) const
 	{
-		::glSamplerParameterf(
+		OGLPLUS_GLFUNC(SamplerParameterf)(
 			_name,
 			GL_TEXTURE_MIN_LOD,
 			value
@@ -232,7 +233,7 @@ public:
 	 */
 	void MaxLOD(GLfloat value) const
 	{
-		::glSamplerParameterf(
+		OGLPLUS_GLFUNC(SamplerParameterf)(
 			_name,
 			GL_TEXTURE_MAX_LOD,
 			value
@@ -247,7 +248,7 @@ public:
 	 */
 	void Wrap(TextureWrapCoord coord, TextureWrap mode) const
 	{
-		::glSamplerParameteri(
+		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
 			GLenum(coord),
 			GLenum(mode)

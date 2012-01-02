@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_AUX_PROG_PL_STAGES_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 
 namespace oglplus {
@@ -93,7 +94,11 @@ public:
 		{
 			assert(_pipeline);
 			assert(_program);
-			::glUseProgramStages(_pipeline, _bits, _program);
+			OGLPLUS_GLFUNC(UseProgramStages)(
+				_pipeline,
+				_bits,
+				_program
+			);
 			AssertNoError(OGLPLUS_ERROR_INFO(UseProgramStages));
 		}
 	}

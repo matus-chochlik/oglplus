@@ -4,13 +4,15 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #ifndef OGLPLUS_SHAPES_DRAW_1107121519_HPP
 #define OGLPLUS_SHAPES_DRAW_1107121519_HPP
+
+#include <oglplus/glfunc.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -74,13 +76,13 @@ struct DrawOperation
 private:
 	void _DrawArrays(void) const
 	{
-		::glDrawArrays(GLenum(mode), first, count);
+		OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
 		ThrowOnError(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
 	void _DrawArrays(GLuint inst_count) const
 	{
-		::glDrawArraysInstanced(
+		OGLPLUS_GLFUNC(DrawArraysInstanced)(
 			GLenum(mode),
 			first,
 			count,
@@ -92,7 +94,7 @@ private:
 	template <typename IT>
 	void _DrawElements(const std::vector<IT>& indices) const
 	{
-		::glDrawElements(
+		OGLPLUS_GLFUNC(DrawElements)(
 			GLenum(mode),
 			count,
 			GLenum(GetDataType<IT>()),
@@ -107,7 +109,7 @@ private:
 		GLuint inst_count
 	) const
 	{
-		::glDrawElementsInstanced(
+		OGLPLUS_GLFUNC(DrawElementsInstanced)(
 			GLenum(mode),
 			count,
 			GLenum(GetDataType<IT>()),

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,12 @@
 #define OGLPLUS_CONFIG_1107121519_HPP
 
 namespace oglplus {
+
+/** @defgroup compile_time_config Compile-time configuration
+ *
+ *  This section describes compile-time preprocessor symbols that
+ *  can be used to configure several aspects of @oglplus.
+ */
 
 //TODO: detect support by compiler and define only if necessary
 #define nullptr 0
@@ -23,11 +29,17 @@ namespace oglplus {
 
 #ifndef OGLPLUS_DONT_TEST_OBJECT_TYPE
 /// Compile-time switch disabling the texting of object type on construction
+/**
+ *  @ingroup compile_time_config
+ */
 #define OGLPLUS_DONT_TEST_OBJECT_TYPE 1
 #endif
 
 #ifndef OGLPLUS_NO_OBJECT_DESCS
 /// Compile-time switch disabling textual object descriptions
+/**
+ *  @ingroup compile_time_config
+ */
 #define OGLPLUS_NO_OBJECT_DESCS 0
 #endif
 

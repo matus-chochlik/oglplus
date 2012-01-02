@@ -13,6 +13,7 @@
 #define OGLPLUS_OBJECT_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/auxiliary/named.hpp>
 #include <oglplus/auxiliary/strings.hpp>
 #include <cassert>
@@ -148,7 +149,7 @@ private:
 		assert(_n != 0);
 		assert(MultiObject || (_c == 1));
 		ObjectOps::_cleanup(_c, _n);
-		assert(::glGetError() == GL_NO_ERROR);
+		assert((OGLPLUS_GLFUNC(GetError)()) == GL_NO_ERROR);
 		assert((_n = 0) == 0);
 	}
 

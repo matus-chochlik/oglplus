@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_QUERY_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -34,20 +35,20 @@ class QueryOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenQueries(count, &_name);
+		OGLPLUS_GLFUNC(GenQueries)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenQueries));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteQueries(count, &_name);
+		OGLPLUS_GLFUNC(DeleteQueries)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsQuery(_name);
+		return OGLPLUS_GLFUNC(IsQuery)(_name);
 	}
 public:
 
@@ -64,7 +65,7 @@ public:
 	void Begin(Target target) const
 	{
 		assert(_name != 0);
-		::glBeginQuery(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BeginQuery)(GLenum(target), _name);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BeginQuery,
 			Query,
@@ -80,7 +81,7 @@ public:
 	void End(Target target) const
 	{
 		assert(_name != 0);
-		::glEndQuery(GLenum(target));
+		OGLPLUS_GLFUNC(EndQuery)(GLenum(target));
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			EndQuery,
 			Query,
@@ -98,7 +99,7 @@ public:
 	{
 		assert(_name != 0);
 		GLuint result = GL_FALSE;
-		::glGetQueryObjectuiv(
+		OGLPLUS_GLFUNC(GetQueryObjectuiv)(
 			_name,
 			GL_QUERY_RESULT_AVAILABLE,
 			&result
@@ -120,7 +121,7 @@ public:
 	void Result(GLint& result) const
 	{
 		assert(_name != 0);
-		::glGetQueryObjectiv(
+		OGLPLUS_GLFUNC(GetQueryObjectiv)(
 			_name,
 			GL_QUERY_RESULT,
 			&result
@@ -141,7 +142,7 @@ public:
 	void Result(GLuint& result) const
 	{
 		assert(_name != 0);
-		::glGetQueryObjectuiv(
+		OGLPLUS_GLFUNC(GetQueryObjectuiv)(
 			_name,
 			GL_QUERY_RESULT,
 			&result
@@ -163,7 +164,7 @@ public:
 	void Result(GLint64& result) const
 	{
 		assert(_name != 0);
-		::glGetQueryObjecti64v(
+		OGLPLUS_GLFUNC(GetQueryObjecti64v)(
 			_name,
 			GL_QUERY_RESULT,
 			&result
@@ -184,7 +185,7 @@ public:
 	void Result(GLuint64& result) const
 	{
 		assert(_name != 0);
-		::glGetQueryObjectui64v(
+		OGLPLUS_GLFUNC(GetQueryObjectui64v)(
 			_name,
 			GL_QUERY_RESULT,
 			&result
@@ -202,7 +203,7 @@ public:
 	void WaitForResult(ResultType& result) const
 	{
 		while(!ResultAvailable())
-			glFinish();
+			OGLPLUS_GLFUNC(Finish)();
 		Result(result);
 	}
 

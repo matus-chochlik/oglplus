@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_FRAMEBUFFER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -57,20 +58,20 @@ class FramebufferOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenFramebuffers(count, &_name);
+		OGLPLUS_GLFUNC(GenFramebuffers)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenFramebuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteFramebuffers(count, &_name);
+		OGLPLUS_GLFUNC(DeleteFramebuffers)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsFramebuffer(_name);
+		return OGLPLUS_GLFUNC(IsFramebuffer)(_name);
 	}
 
 	friend class FriendOf<FramebufferOps>;
@@ -112,7 +113,7 @@ public:
 	void Bind(Target target) const
 	{
 		assert(_name != 0);
-		::glBindFramebuffer(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), _name);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindFramebuffer,
 			Framebuffer,
@@ -129,7 +130,7 @@ public:
 	 */
 	static void BindDefault(Target target)
 	{
-		::glBindFramebuffer(GLenum(target), 0);
+		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindFramebuffer));
 	}
 
@@ -144,7 +145,9 @@ public:
 	 */
 	static Status CheckStatus(Target target)
 	{
-		GLenum result = ::glCheckFramebufferStatus(GLenum(target));
+		GLenum result = OGLPLUS_GLFUNC(CheckFramebufferStatus)(
+			GLenum(target)
+		);
 		if(result == 0) ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			CheckFramebufferStatus,
 			Framebuffer,
@@ -185,7 +188,7 @@ public:
 		const RenderbufferOps& renderbuffer
 	)
 	{
-		::glFramebufferRenderbuffer(
+		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
 			GLenum(target),
 			GLenum(attachment),
 			GL_RENDERBUFFER,
@@ -217,7 +220,7 @@ public:
 		const RenderbufferOps& renderbuffer
 	)
 	{
-		::glFramebufferRenderbuffer(
+		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
 			GLenum(target),
 			GL_COLOR_ATTACHMENT0 + GLuint(attachment),
 			GL_RENDERBUFFER,
@@ -251,7 +254,7 @@ public:
 		GLint level
 	)
 	{
-		::glFramebufferTexture(
+		OGLPLUS_GLFUNC(FramebufferTexture)(
 			GLenum(target),
 			GLenum(attachment),
 			FriendOf<TextureOps>::GetName(texture),
@@ -284,7 +287,7 @@ public:
 		GLint level
 	)
 	{
-		::glFramebufferTexture(
+		OGLPLUS_GLFUNC(FramebufferTexture)(
 			GLenum(target),
 			GL_COLOR_ATTACHMENT0 + GLenum(attachment),
 			FriendOf<TextureOps>::GetName(texture),
@@ -319,7 +322,7 @@ public:
 		GLint level
 	)
 	{
-		::glFramebufferTexture1D(
+		OGLPLUS_GLFUNC(FramebufferTexture1D)(
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
@@ -354,7 +357,7 @@ public:
 		GLint level
 	)
 	{
-		::glFramebufferTexture2D(
+		OGLPLUS_GLFUNC(FramebufferTexture2D)(
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
@@ -390,7 +393,7 @@ public:
 		GLint layer
 	)
 	{
-		::glFramebufferTexture3D(
+		OGLPLUS_GLFUNC(FramebufferTexture3D)(
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
@@ -426,7 +429,7 @@ public:
 		GLint layer
 	)
 	{
-		::glFramebufferTextureLayer(
+		OGLPLUS_GLFUNC(FramebufferTextureLayer)(
 			GLenum(target),
 			GLenum(attachment),
 			FriendOf<TextureOps>::GetName(texture),

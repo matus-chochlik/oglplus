@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_ERROR_1107121317_HPP
 
 #include <oglplus/auxiliary/strings.hpp>
+#include <oglplus/glfunc.hpp>
 #include <stdexcept>
 #include <list>
 #include <map>
@@ -481,7 +482,7 @@ inline void ThrowOnError(
 
 inline void ThrowOnError(const ErrorInfo& info)
 {
-	GLenum code = ::glGetError();
+	GLenum code = OGLPLUS_GLFUNC(GetError)();
 	if(code != GL_NO_ERROR)
 	{
 		const GLchar* msg = "Unknown error";

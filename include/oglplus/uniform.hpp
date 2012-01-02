@@ -36,7 +36,7 @@ protected:
 	UniformOps(const ProgramOps& program, const GLchar* identifier)
 	 : _program(FriendOf<ProgramOps>::GetName(program))
 	 , _index(
-		::glGetUniformLocation(
+		OGLPLUS_GLFUNC(GetUniformLocation)(
 			FriendOf<ProgramOps>::GetName(program),
 			identifier
 		)
@@ -69,7 +69,7 @@ protected:
 #if GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
 		GLsizei max_length = 255, real_length;
 		GLchar buffer[256] = {GLchar(0)};
-		::glGetActiveUniformName(
+		OGLPLUS_GLFUNC(GetActiveUniformName)(
 			program,
 			index,
 			max_length,

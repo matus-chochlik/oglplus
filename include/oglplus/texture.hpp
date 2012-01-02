@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_TEXTURE_1107121519_HPP
 
 #include <oglplus/error.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/compare_func.hpp>
@@ -152,20 +153,20 @@ class TextureOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenTextures(count, &_name);
+		OGLPLUS_GLFUNC(GenTextures)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenTextures));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteTextures(count, &_name);
+		OGLPLUS_GLFUNC(DeleteTextures)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsTexture(_name);
+		return OGLPLUS_GLFUNC(IsTexture)(_name);
 	}
 
 	friend class FriendOf<TextureOps>;
@@ -203,7 +204,9 @@ public:
 	 */
 	static void Active(TextureUnitSelector index)
 	{
-		::glActiveTexture(GLenum(GL_TEXTURE0 + GLuint(index)));
+		OGLPLUS_GLFUNC(ActiveTexture)(
+			GLenum(GL_TEXTURE0 + GLuint(index))
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(ActiveTexture));
 	}
 
@@ -220,7 +223,7 @@ public:
 	void Bind(Target target) const
 	{
 		assert(_name != 0);
-		::glBindTexture(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), _name);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindTexture,
 			Texture,
@@ -240,14 +243,18 @@ public:
 	 */
 	static void Unbind(Target target)
 	{
-		::glBindTexture(GLenum(target), 0);
+		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindTexture));
 	}
 
 	static GLint GetIntParam(Target target, GLenum query)
 	{
 		GLint result = 0;
-		::glGetTexParameteriv(GLenum(target), query, &result);
+		OGLPLUS_GLFUNC(GetTexParameteriv)(
+			GLenum(target),
+			query,
+			&result
+		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameteriv,
 			Texture,
@@ -259,7 +266,11 @@ public:
 	static GLfloat GetFloatParam(Target target, GLenum query)
 	{
 		GLfloat result = 0;
-		::glGetTexParameterfv(GLenum(target), query, &result);
+		OGLPLUS_GLFUNC(GetTexParameterfv)(
+			GLenum(target),
+			query,
+			&result
+		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
@@ -271,7 +282,7 @@ public:
 	static GLint GetIntParam(Target target, GLint level, GLenum query)
 	{
 		GLint result = 0;
-		::glGetTexLevelParameteriv(
+		OGLPLUS_GLFUNC(GetTexLevelParameteriv)(
 			GLenum(target),
 			level,
 			query,
@@ -288,7 +299,7 @@ public:
 	static GLfloat GetFloatParam(Target target, GLint level, GLenum query)
 	{
 		GLfloat result = 0;
-		::glGetTexLevelParameterfv(
+		OGLPLUS_GLFUNC(GetTexLevelParameterfv)(
 			GLenum(target),
 			level,
 			query,
@@ -635,7 +646,7 @@ public:
 	)
 	{
 		dest.resize(...); TODO (see ReadPixel &co.)
-		::glGetTexImage(
+		OGLPLUS_GLFUNC(GetTexImage)(
 			GLenum(target),
 			level,
 			GLenum(format),
@@ -662,7 +673,7 @@ public:
 	)
 	{
 		dest.resize(CompressedImageSize(target, level));
-		::glGetCompressedTexImage(
+		OGLPLUS_GLFUNC(GetCompressedTexImage)(
 			GLenum(target),
 			level,
 			dest.data()
@@ -692,7 +703,7 @@ public:
 		const void* data
 	)
 	{
-		::glTexImage3D(
+		OGLPLUS_GLFUNC(TexImage3D)(
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -724,7 +735,7 @@ public:
 		GLint border = 0
 	)
 	{
-		::glTexImage3D(
+		OGLPLUS_GLFUNC(TexImage3D)(
 			GLenum(target),
 			level,
 			GLint(image.InternalFormat()),
@@ -762,7 +773,7 @@ public:
 		const void* data
 	)
 	{
-		::glTexSubImage3D(
+		OGLPLUS_GLFUNC(TexSubImage3D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -797,7 +808,7 @@ public:
 		GLint level = 0
 	)
 	{
-		::glTexSubImage3D(
+		OGLPLUS_GLFUNC(TexSubImage3D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -834,7 +845,7 @@ public:
 		const void* data
 	)
 	{
-		::glTexImage2D(
+		OGLPLUS_GLFUNC(TexImage2D)(
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -865,7 +876,7 @@ public:
 		GLint border = 0
 	)
 	{
-		::glTexImage2D(
+		OGLPLUS_GLFUNC(TexImage2D)(
 			GLenum(target),
 			level,
 			GLint(image.InternalFormat()),
@@ -900,7 +911,7 @@ public:
 		const void* data
 	)
 	{
-		::glTexSubImage2D(
+		OGLPLUS_GLFUNC(TexSubImage2D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -932,7 +943,7 @@ public:
 		GLint level = 0
 	)
 	{
-		::glTexSubImage2D(
+		OGLPLUS_GLFUNC(TexSubImage2D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -967,7 +978,7 @@ public:
 		const void* data
 	)
 	{
-		::glTexImage1D(
+		OGLPLUS_GLFUNC(TexImage1D)(
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -997,7 +1008,7 @@ public:
 		GLint border = 0
 	)
 	{
-		::glTexImage1D(
+		OGLPLUS_GLFUNC(TexImage1D)(
 			GLenum(target),
 			level,
 			GLint(image.InternalFormat()),
@@ -1029,7 +1040,7 @@ public:
 		const void* data
 	)
 	{
-		::glTexSubImage1D(
+		OGLPLUS_GLFUNC(TexSubImage1D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -1058,7 +1069,7 @@ public:
 		GLint level = 0
 	)
 	{
-		::glTexSubImage1D(
+		OGLPLUS_GLFUNC(TexSubImage1D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -1090,7 +1101,7 @@ public:
 		GLint border
 	)
 	{
-		::glCopyTexImage2D(
+		OGLPLUS_GLFUNC(CopyTexImage2D)(
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1122,7 +1133,7 @@ public:
 		GLint border
 	)
 	{
-		::glCopyTexImage1D(
+		OGLPLUS_GLFUNC(CopyTexImage1D)(
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1155,7 +1166,7 @@ public:
 		GLsizei height
 	)
 	{
-		::glCopyTexSubImage3D(
+		OGLPLUS_GLFUNC(CopyTexSubImage3D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -1189,7 +1200,7 @@ public:
 		GLsizei height
 	)
 	{
-		::glCopyTexSubImage2D(
+		OGLPLUS_GLFUNC(CopyTexSubImage2D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -1220,7 +1231,7 @@ public:
 		GLsizei width
 	)
 	{
-		::glCopyTexSubImage1D(
+		OGLPLUS_GLFUNC(CopyTexSubImage1D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -1252,7 +1263,7 @@ public:
 		const void* data
 	)
 	{
-		::glCompressedTexImage3D(
+		OGLPLUS_GLFUNC(CompressedTexImage3D)(
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1286,7 +1297,7 @@ public:
 		const void* data
 	)
 	{
-		::glCompressedTexImage2D(
+		OGLPLUS_GLFUNC(CompressedTexImage2D)(
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1318,7 +1329,7 @@ public:
 		const void* data
 	)
 	{
-		::glCompressedTexImage1D(
+		OGLPLUS_GLFUNC(CompressedTexImage1D)(
 			GLenum(target),
 			level,
 			GLint(internal_format),
@@ -1353,7 +1364,7 @@ public:
 		const void* data
 	)
 	{
-		::glCompressedTexSubImage3D(
+		OGLPLUS_GLFUNC(CompressedTexSubImage3D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -1390,7 +1401,7 @@ public:
 		const void* data
 	)
 	{
-		::glCompressedTexSubImage2D(
+		OGLPLUS_GLFUNC(CompressedTexSubImage2D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -1423,7 +1434,7 @@ public:
 		const void* data
 	)
 	{
-		::glCompressedTexSubImage1D(
+		OGLPLUS_GLFUNC(CompressedTexSubImage1D)(
 			GLenum(target),
 			level,
 			xoffs,
@@ -1455,7 +1466,7 @@ public:
 		bool fixed_sample_locations
 	)
 	{
-		::glTexImage3DMultisample(
+		OGLPLUS_GLFUNC(TexImage3DMultisample)(
 			GLenum(target),
 			samples,
 			GLint(internal_format),
@@ -1485,7 +1496,7 @@ public:
 		bool fixed_sample_locations
 	)
 	{
-		::glTexImage2DMultisample(
+		OGLPLUS_GLFUNC(TexImage2DMultisample)(
 			GLenum(target),
 			samples,
 			GLint(internal_format),
@@ -1513,7 +1524,7 @@ public:
 		const BufferOps& buffer
 	)
 	{
-		::glTexBuffer(
+		OGLPLUS_GLFUNC(TexBuffer)(
 			GLenum(target),
 			GLenum(internal_format),
 			FriendOf<BufferOps>::GetName(buffer)
@@ -1545,7 +1556,7 @@ public:
 	 */
 	static void BaseLevel(Target target, GLuint level)
 	{
-		::glTexParameteri(
+		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_BASE_LEVEL,
 			level
@@ -1566,7 +1577,7 @@ public:
 	static Vector<GLfloat, 4> BorderColor(Target target, TypeTag<GLfloat>)
 	{
 		GLfloat result[4];
-		::glGetTexParameterfv(
+		OGLPLUS_GLFUNC(GetTexParameterfv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			result
@@ -1587,7 +1598,7 @@ public:
 	 */
 	static void BorderColor(Target target, Vector<GLfloat, 4> color)
 	{
-		::glTexParameterfv(
+		OGLPLUS_GLFUNC(TexParameterfv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -1608,7 +1619,7 @@ public:
 	static Vector<GLint, 4> BorderColor(Target target, TypeTag<GLint>)
 	{
 		GLint result[4];
-		::glGetTexParameterIiv(
+		OGLPLUS_GLFUNC(GetTexParameterIiv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			result
@@ -1629,7 +1640,7 @@ public:
 	 */
 	static void BorderColor(Target target, Vector<GLint, 4> color)
 	{
-		::glTexParameterIiv(
+		OGLPLUS_GLFUNC(TexParameterIiv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -1650,7 +1661,7 @@ public:
 	static Vector<GLuint, 4> BorderColor(Target target, TypeTag<GLuint>)
 	{
 		GLuint result[4];
-		::glGetTexParameterIuiv(
+		OGLPLUS_GLFUNC(GetTexParameterIuiv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			result
@@ -1671,7 +1682,7 @@ public:
 	 */
 	static void BorderColor(Target target, Vector<GLuint, 4> color)
 	{
-		::glTexParameterIuiv(
+		OGLPLUS_GLFUNC(TexParameterIuiv)(
 			GLenum(target),
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
@@ -1705,7 +1716,7 @@ public:
 	 */
 	static void CompareMode(Target target, TextureCompareMode mode)
 	{
-		::glTexParameteri(
+		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
@@ -1739,7 +1750,7 @@ public:
 	 */
 	static void CompareFunc(Target target, CompareFunction func)
 	{
-		::glTexParameteri(
+		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
@@ -1770,7 +1781,7 @@ public:
 	 */
 	static void LODBias(Target target, GLfloat value)
 	{
-		::glTexParameterf(
+		OGLPLUS_GLFUNC(TexParameterf)(
 			GLenum(target),
 			GL_TEXTURE_LOD_BIAS,
 			value
@@ -1804,7 +1815,7 @@ public:
 	 */
 	static void MagFilter(Target target, TextureMagFilter filter)
 	{
-		::glTexParameteri(
+		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
@@ -1838,7 +1849,7 @@ public:
 	 */
 	static void MinFilter(Target target, TextureMinFilter filter)
 	{
-		::glTexParameteri(
+		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
@@ -1869,7 +1880,7 @@ public:
 	 */
 	static void MinLOD(Target target, GLfloat value)
 	{
-		::glTexParameterf(
+		OGLPLUS_GLFUNC(TexParameterf)(
 			GLenum(target),
 			GL_TEXTURE_MIN_LOD,
 			value
@@ -1900,7 +1911,7 @@ public:
 	 */
 	static void MaxLOD(Target target, GLfloat value)
 	{
-		::glTexParameterf(
+		OGLPLUS_GLFUNC(TexParameterf)(
 			GLenum(target),
 			GL_TEXTURE_MAX_LOD,
 			value
@@ -1937,7 +1948,7 @@ public:
 		TextureSwizzle mode
 	)
 	{
-		::glTexParameteri(
+		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GLenum(coord),
 			GLenum(mode)
@@ -2084,7 +2095,7 @@ public:
 		TextureWrap mode
 	)
 	{
-		::glTexParameteri(
+		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GLenum(coord),
 			GLenum(mode)
@@ -2169,7 +2180,7 @@ public:
 	 */
 	static void GenerateMipmap(Target target)
 	{
-		::glGenerateMipmap(GLenum(target));
+		OGLPLUS_GLFUNC(GenerateMipmap)(GLenum(target));
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			GenerateMipmap,
 			Texture,

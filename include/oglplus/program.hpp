@@ -83,20 +83,20 @@ class ProgramOps
 protected:
 	static void _init(GLsizei, GLuint& _name)
 	{
-		_name = ::glCreateProgram();
+		_name = OGLPLUS_GLFUNC(CreateProgram)();
 		ThrowOnError(OGLPLUS_ERROR_INFO(CreateProgram));
 	}
 
 	static void _cleanup(GLsizei, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteProgram(_name);
+		OGLPLUS_GLFUNC(DeleteProgram)(_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsProgram(_name);
+		return OGLPLUS_GLFUNC(IsProgram)(_name);
 	}
 
 	friend class FriendOf<ProgramOps>;
@@ -104,7 +104,7 @@ public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
-		::glGetProgramiv(_name, query, &result);
+		OGLPLUS_GLFUNC(GetProgramiv)(_name, query, &result);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetProgramiv,
 			Program,
@@ -121,7 +121,10 @@ public:
 	void AttachShader(const ShaderOps& shader)
 	{
 		assert(_name != 0);
-		::glAttachShader(_name, FriendOf<ShaderOps>::GetName(shader));
+		OGLPLUS_GLFUNC(AttachShader)(
+			_name,
+			FriendOf<ShaderOps>::GetName(shader)
+		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			AttachShader,
 			Program,
@@ -138,7 +141,10 @@ public:
 	void DetachShader(const ShaderOps& shader)
 	{
 		assert(_name != 0);
-		::glDetachShader(_name, FriendOf<ShaderOps>::GetName(shader));
+		OGLPLUS_GLFUNC(DetachShader)(
+			_name,
+			FriendOf<ShaderOps>::GetName(shader)
+		);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			DetachShader,
 			Program,
@@ -173,8 +179,8 @@ public:
 	{
 		assert(_name != 0);
 		return aux::GetInfoLog(
-			_name, ::glGetProgramiv,
-			::glGetProgramInfoLog,
+			_name, OGLPLUS_GLFUNC(GetProgramiv),
+			OGLPLUS_GLFUNC(GetProgramInfoLog),
 			"GetProgramiv",
 			"GetProgramInfoLog"
 		);
@@ -193,7 +199,7 @@ public:
 	void Link(void) const
 	{
 		assert(_name != 0);
-		::glLinkProgram(_name);
+		OGLPLUS_GLFUNC(LinkProgram)(_name);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			LinkProgram,
 			Program,
@@ -236,7 +242,7 @@ public:
 	void Validate(void) const
 	{
 		assert(_name != 0);
-		::glValidateProgram(_name);
+		OGLPLUS_GLFUNC(ValidateProgram)(_name);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgram,
 			Program,
@@ -267,7 +273,7 @@ public:
 	{
 		assert(_name != 0);
 		assert(IsLinked());
-		::glUseProgram(_name);
+		OGLPLUS_GLFUNC(UseProgram)(_name);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			UseProgram,
 			Program,
@@ -282,7 +288,7 @@ public:
 	 */
 	static void UseNone(void)
 	{
-		::glUseProgram(0);
+		OGLPLUS_GLFUNC(UseProgram)(0);
 		AssertNoError(OGLPLUS_ERROR_INFO(UseProgram));
 	}
 
@@ -379,7 +385,7 @@ public:
 		): ActiveVariableInfo(
 			context,
 			index,
-			::glGetActiveAttrib
+			OGLPLUS_GLFUNC(GetActiveAttrib)
 		)
 		{
 			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
@@ -402,7 +408,7 @@ public:
 		): ActiveVariableInfo(
 			context,
 			index,
-			::glGetActiveUniform
+			OGLPLUS_GLFUNC(GetActiveUniform)
 		)
 		{
 			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
@@ -425,7 +431,7 @@ public:
 		): ActiveVariableInfo(
 			context,
 			index,
-			::glGetTransformFeedbackVarying
+			OGLPLUS_GLFUNC(GetTransformFeedbackVarying)
 		)
 		{
 			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
@@ -447,7 +453,7 @@ public:
 		ShaderIterationContext(GLuint name, GLuint count)
 		 : _shader_names(count)
 		{
-			::glGetAttachedShaders(
+			OGLPLUS_GLFUNC(GetAttachedShaders)(
 				name,
 				_shader_names.size(),
 				nullptr,
@@ -566,7 +572,7 @@ public:
 		TransformFeedbackMode mode
 	) const
 	{
-		::glTransformFeedbackVaryings(
+		OGLPLUS_GLFUNC(TransformFeedbackVaryings)(
 			_name,
 			count,
 			varyings,
@@ -601,7 +607,7 @@ public:
 			++i;
 			++t;
 		}
-		::glTransformFeedbackVaryings(
+		OGLPLUS_GLFUNC(TransformFeedbackVaryings)(
 			_name,
 			GLsizei(tmp.size()),
 			tmp.data(),
@@ -632,7 +638,7 @@ public:
 		): _index(0)
 		{
 			GLint length = 0;
-			::glGetProgramiv(
+			OGLPLUS_GLFUNC(GetProgramiv)(
 				context.Program(),
 				GL_UNIFORM_BLOCK_NAME_LENGTH,
 				&length
@@ -645,7 +651,7 @@ public:
 				context.Program()
 			));
 			GLsizei strlen = 0;
-			::glGetActiveUniformBlockName(
+			OGLPLUS_GLFUNC(GetActiveUniformBlockName)(
 				context.Program(),
 				index,
 				context.Buffer().size(),
@@ -717,7 +723,7 @@ public:
 	void MakeSeparable(bool para = true) const
 	{
 		assert(_name != 0);
-		glProgramParameteri(
+		OGLPLUS_GLFUNC(ProgramParameteri)(
 			_name,
 			GL_PROGRAM_SEPARABLE,
 			para ? GL_TRUE : GL_FALSE
@@ -741,7 +747,7 @@ public:
 	void MakeRetrievable(bool para = true) const
 	{
 		assert(_name != 0);
-		glProgramParameteri(
+		OGLPLUS_GLFUNC(ProgramParameteri)(
 			_name,
 			GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
 			para ? GL_TRUE : GL_FALSE
@@ -771,7 +777,7 @@ public:
 		{
 			GLsizei len = 0;
 			binary.resize(size);
-			::glGetProgramBinary(
+			OGLPLUS_GLFUNC(GetProgramBinary)(
 				_name,
 				size,
 				&len,
@@ -797,7 +803,7 @@ public:
 	void Binary(const std::vector<GLubyte>& binary, GLenum format) const
 	{
 		assert(_name != 0);
-		::glProgramBinary(
+		OGLPLUS_GLFUNC(ProgramBinary)(
 			_name,
 			format,
 			binary.data(),

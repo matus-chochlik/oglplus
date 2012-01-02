@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_VERTEX_ARRAY_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -35,20 +36,20 @@ class VertexArrayOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenVertexArrays(count, &_name);
+		OGLPLUS_GLFUNC(GenVertexArrays)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenVertexArrays));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteVertexArrays(count, &_name);
+		OGLPLUS_GLFUNC(DeleteVertexArrays)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsVertexArray(_name);
+		return OGLPLUS_GLFUNC(IsVertexArray)(_name);
 	}
 
 	friend class FriendOf<VertexArrayOps>;
@@ -61,7 +62,7 @@ public:
 	void Bind(void) const
 	{
 		assert(_name != 0);
-		::glBindVertexArray(_name);
+		OGLPLUS_GLFUNC(BindVertexArray)(_name);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindVertexArray));
 	}
 
@@ -72,7 +73,7 @@ public:
 	 */
 	static void Unbind(void)
 	{
-		::glBindVertexArray(0);
+		OGLPLUS_GLFUNC(BindVertexArray)(0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindVertexArray));
 	}
 };

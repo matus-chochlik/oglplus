@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_CONTEXT_1107121317_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/capability.hpp>
 #include <oglplus/primitive_type.hpp>
@@ -63,7 +64,7 @@ public:
 	 */
 	static void Enable(Capability capability)
 	{
-		::glEnable(GLenum(capability));
+		OGLPLUS_GLFUNC(Enable)(GLenum(capability));
 		AssertNoError(OGLPLUS_ERROR_INFO(Enable));
 	}
 
@@ -74,7 +75,7 @@ public:
 	 */
 	static void Enable(Functionality functionality, GLuint offset)
 	{
-		::glEnable(GLenum(functionality)+offset);
+		OGLPLUS_GLFUNC(Enable)(GLenum(functionality)+offset);
 		AssertNoError(OGLPLUS_ERROR_INFO(Enable));
 	}
 
@@ -85,7 +86,7 @@ public:
 	 */
 	static void Disable(Capability capability)
 	{
-		::glDisable(GLenum(capability));
+		OGLPLUS_GLFUNC(Disable)(GLenum(capability));
 		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
 	}
 
@@ -96,7 +97,7 @@ public:
 	 */
 	static void Disable(Functionality functionality, GLuint offset)
 	{
-		::glDisable(GLenum(functionality)+offset);
+		OGLPLUS_GLFUNC(Disable)(GLenum(functionality)+offset);
 		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
 	}
 
@@ -107,7 +108,7 @@ public:
 	 */
 	static bool IsEnabled(Capability capability)
 	{
-		GLboolean result = ::glIsEnabled(GLenum(capability));
+		GLboolean result = OGLPLUS_GLFUNC(IsEnabled)(GLenum(capability));
 		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabled));
 		return result == GL_TRUE;
 	}
@@ -119,7 +120,10 @@ public:
 	 */
 	static bool IsEnabled(Functionality functionality, GLuint offset)
 	{
-		GLboolean result = ::glIsEnabled(GLenum(functionality)+offset);
+		GLboolean result = OGLPLUS_GLFUNC(IsEnabled)(
+			GLenum(functionality)+
+			offset
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabled));
 		return result == GL_TRUE;
 	}
@@ -131,7 +135,7 @@ public:
 	 */
 	static void Enable(Capability capability, GLuint index)
 	{
-		::glEnablei(GLenum(capability), index);
+		OGLPLUS_GLFUNC(Enablei)(GLenum(capability), index);
 		AssertNoError(OGLPLUS_ERROR_INFO(Enablei));
 	}
 
@@ -142,7 +146,7 @@ public:
 	 */
 	static void Disable(Capability capability, GLuint index)
 	{
-		::glDisablei(GLenum(capability), index);
+		OGLPLUS_GLFUNC(Disablei)(GLenum(capability), index);
 		AssertNoError(OGLPLUS_ERROR_INFO(Disablei));
 	}
 
@@ -153,7 +157,10 @@ public:
 	 */
 	static bool IsEnabled(Capability capability, GLuint index)
 	{
-		GLboolean result = ::glIsEnabledi(GLenum(capability), index);
+		GLboolean result = OGLPLUS_GLFUNC(IsEnabledi)(
+			GLenum(capability),
+			index
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabledi));
 		return result == GL_TRUE;
 	}
@@ -167,7 +174,7 @@ public:
 	 */
 	static void ClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
-		::glClearColor(r, g, b, a);
+		OGLPLUS_GLFUNC(ClearColor)(r, g, b, a);
 		ThrowOnError(OGLPLUS_ERROR_INFO(ClearColor));
 	}
 
@@ -180,7 +187,7 @@ public:
 	 */
 	static void ClearDepth(GLclampd d)
 	{
-		::glClearDepth(d);
+		OGLPLUS_GLFUNC(ClearDepth)(d);
 		ThrowOnError(OGLPLUS_ERROR_INFO(ClearDepth));
 	}
 
@@ -193,7 +200,7 @@ public:
 	 */
 	static void ClearStencil(GLint s)
 	{
-		::glClearStencil(s);
+		OGLPLUS_GLFUNC(ClearStencil)(s);
 		ThrowOnError(OGLPLUS_ERROR_INFO(ClearStencil));
 	}
 
@@ -247,7 +254,7 @@ public:
 	 */
 	static void Clear(std::initializer_list<ClearBit> bits)
 	{
-		::glClear(aux::MakeBitfield(bits));
+		OGLPLUS_GLFUNC(Clear)(aux::MakeBitfield(bits));
 		AssertNoError(OGLPLUS_ERROR_INFO(Clear));
 	}
 
@@ -262,7 +269,7 @@ public:
 		GLuint mask = ~GLuint(0)
 	)
 	{
-		::glStencilFunc(GLenum(func), ref, mask);
+		OGLPLUS_GLFUNC(StencilFunc)(GLenum(func), ref, mask);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilFunc));
 	}
 
@@ -278,7 +285,12 @@ public:
 		GLuint mask = ~GLuint(0)
 	)
 	{
-		::glStencilFuncSeparate(GLenum(face), GLenum(func), ref, mask);
+		OGLPLUS_GLFUNC(StencilFuncSeparate)(
+			GLenum(face),
+			GLenum(func),
+			ref,
+			mask
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilFuncSeparate));
 	}
 
@@ -293,7 +305,11 @@ public:
 		StencilOperation dpass
 	)
 	{
-		::glStencilOp(GLenum(sfail), GLenum(dfail), GLenum(dpass));
+		OGLPLUS_GLFUNC(StencilOp)(
+			GLenum(sfail),
+			GLenum(dfail),
+			GLenum(dpass)
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilOp));
 	}
 
@@ -309,7 +325,7 @@ public:
 		StencilOperation dpass
 	)
 	{
-		::glStencilOpSeparate(
+		OGLPLUS_GLFUNC(StencilOpSeparate)(
 			GLenum(face),
 			GLenum(sfail),
 			GLenum(dfail),
@@ -325,7 +341,7 @@ public:
 	 */
 	static void DepthFunc(CompareFunction function)
 	{
-		::glDepthFunc(GLenum(function));
+		OGLPLUS_GLFUNC(DepthFunc)(GLenum(function));
 		AssertNoError(OGLPLUS_ERROR_INFO(DepthFunc));
 	}
 
@@ -336,7 +352,7 @@ public:
 	 */
 	static void BlendEquation(oglplus::BlendEquation eq)
 	{
-		::glBlendEquation(GLenum(eq));
+		OGLPLUS_GLFUNC(BlendEquation)(GLenum(eq));
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquation));
 	}
 
@@ -350,7 +366,10 @@ public:
 		oglplus::BlendEquation eq_alpha
 	)
 	{
-		::glBlendEquationSeparate(GLenum(eq_rgb), GLenum(eq_alpha));
+		OGLPLUS_GLFUNC(BlendEquationSeparate)(
+			GLenum(eq_rgb),
+			GLenum(eq_alpha)
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationSeparate));
 	}
 
@@ -362,7 +381,7 @@ public:
 	 */
 	static void BlendEquation(GLuint buffer, oglplus::BlendEquation eq)
 	{
-		::glBlendEquationi(buffer, GLenum(eq));
+		OGLPLUS_GLFUNC(BlendEquationi)(buffer, GLenum(eq));
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationi));
 	}
 
@@ -377,7 +396,7 @@ public:
 		oglplus::BlendEquation eq_alpha
 	)
 	{
-		::glBlendEquationSeparatei(
+		OGLPLUS_GLFUNC(BlendEquationSeparatei)(
 			buffer,
 			GLenum(eq_rgb),
 			GLenum(eq_alpha)
@@ -393,7 +412,7 @@ public:
 	 */
 	static void BlendFunc(BlendFunction src, BlendFunction dst)
 	{
-		::glBlendFunc(GLenum(src), GLenum(dst));
+		OGLPLUS_GLFUNC(BlendFunc)(GLenum(src), GLenum(dst));
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendFunc));
 	}
 
@@ -409,7 +428,7 @@ public:
 		BlendFunction dst_alpha
 	)
 	{
-		::glBlendFuncSeparate(
+		OGLPLUS_GLFUNC(BlendFuncSeparate)(
 			GLenum(src_rgb),
 			GLenum(dst_rgb),
 			GLenum(src_alpha),
@@ -430,7 +449,7 @@ public:
 		BlendFunction dst
 	)
 	{
-		::glBlendFunci(buffer, GLenum(src), GLenum(dst));
+		OGLPLUS_GLFUNC(BlendFunci)(buffer, GLenum(src), GLenum(dst));
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendFunci));
 	}
 
@@ -447,7 +466,7 @@ public:
 		BlendFunction dst_alpha
 	)
 	{
-		::glBlendFuncSeparatei(
+		OGLPLUS_GLFUNC(BlendFuncSeparatei)(
 			buffer,
 			GLenum(src_rgb),
 			GLenum(dst_rgb),
@@ -465,7 +484,7 @@ public:
 	 */
 	static void BlendColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
-		::glBlendColor(r, g, b, a);
+		OGLPLUS_GLFUNC(BlendColor)(r, g, b, a);
 		AssertNoError(OGLPLUS_ERROR_INFO(BlendColor));
 	}
 
@@ -476,7 +495,7 @@ public:
 	 */
 	static void LogicOp(ColorLogicOperation op)
 	{
-		::glLogicOp(GLenum(op));
+		OGLPLUS_GLFUNC(LogicOp)(GLenum(op));
 		AssertNoError(OGLPLUS_ERROR_INFO(LogicOp));
 	}
 
@@ -487,7 +506,7 @@ public:
 	 */
 	static void FrontFace(FaceOrientation orientation)
 	{
-		::glFrontFace(GLenum(orientation));
+		OGLPLUS_GLFUNC(FrontFace)(GLenum(orientation));
 		AssertNoError(OGLPLUS_ERROR_INFO(FrontFace));
 	}
 
@@ -498,7 +517,7 @@ public:
 	 */
 	static void CullFace(Face mode)
 	{
-		::glCullFace(GLenum(mode));
+		OGLPLUS_GLFUNC(CullFace)(GLenum(mode));
 		AssertNoError(OGLPLUS_ERROR_INFO(CullFace));
 	}
 
@@ -509,7 +528,7 @@ public:
 	 */
 	static void ColorMask(bool r, bool g, bool b, bool a)
 	{
-		::glColorMask(
+		OGLPLUS_GLFUNC(ColorMask)(
 			r ? GL_TRUE : GL_FALSE,
 			g ? GL_TRUE : GL_FALSE,
 			b ? GL_TRUE : GL_FALSE,
@@ -525,7 +544,7 @@ public:
 	 */
 	static void ColorMask(GLuint buffer, bool r, bool g, bool b, bool a)
 	{
-		::glColorMaski(
+		OGLPLUS_GLFUNC(ColorMaski)(
 			buffer,
 			r ? GL_TRUE : GL_FALSE,
 			g ? GL_TRUE : GL_FALSE,
@@ -542,7 +561,7 @@ public:
 	 */
 	static void DepthMask(bool mask)
 	{
-		::glDepthMask(mask ? GL_TRUE : GL_FALSE);
+		OGLPLUS_GLFUNC(DepthMask)(mask ? GL_TRUE : GL_FALSE);
 		AssertNoError(OGLPLUS_ERROR_INFO(DepthMask));
 	}
 
@@ -553,7 +572,7 @@ public:
 	 */
 	static void StencilMask(GLuint mask)
 	{
-		::glStencilMask(mask);
+		OGLPLUS_GLFUNC(StencilMask)(mask);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilMask));
 	}
 
@@ -564,7 +583,7 @@ public:
 	 */
 	static void StencilMaskSeparate(Face face, GLuint mask)
 	{
-		::glStencilMaskSeparate(GLenum(face), mask);
+		OGLPLUS_GLFUNC(StencilMaskSeparate)(GLenum(face), mask);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilMaskSeparate));
 	}
 
@@ -575,7 +594,7 @@ public:
 	 */
 	static void PolygonMode(Face face, oglplus::PolygonMode mode)
 	{
-		::glPolygonMode(GLenum(face), GLenum(mode));
+		OGLPLUS_GLFUNC(PolygonMode)(GLenum(face), GLenum(mode));
 		AssertNoError(OGLPLUS_ERROR_INFO(PolygonMode));
 	}
 
@@ -586,7 +605,7 @@ public:
 	 */
 	static void PolygonOffset(GLfloat factor, GLfloat units)
 	{
-		::glPolygonOffset(factor, units);
+		OGLPLUS_GLFUNC(PolygonOffset)(factor, units);
 		AssertNoError(OGLPLUS_ERROR_INFO(PolygonOffset));
 	}
 
@@ -597,7 +616,7 @@ public:
 	 */
 	static void LineWidth(GLfloat width)
 	{
-		::glLineWidth(width);
+		OGLPLUS_GLFUNC(LineWidth)(width);
 		AssertNoError(OGLPLUS_ERROR_INFO(LineWidth));
 	}
 
@@ -608,7 +627,7 @@ public:
 	 */
 	static void PointSize(GLfloat size)
 	{
-		::glPointSize(size);
+		OGLPLUS_GLFUNC(PointSize)(size);
 		AssertNoError(OGLPLUS_ERROR_INFO(PointSize));
 	}
 
@@ -619,7 +638,7 @@ public:
 	 */
 	static void DrawBuffer(ColorBuffer buffer)
 	{
-		::glDrawBuffer(GLenum(buffer));
+		OGLPLUS_GLFUNC(DrawBuffer)(GLenum(buffer));
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawBuffer));
 	}
 
@@ -630,7 +649,7 @@ public:
 	 */
 	static void ReadBuffer(ColorBuffer buffer)
 	{
-		::glReadBuffer(GLenum(buffer));
+		OGLPLUS_GLFUNC(ReadBuffer)(GLenum(buffer));
 		AssertNoError(OGLPLUS_ERROR_INFO(ReadBuffer));
 	}
 
@@ -643,7 +662,7 @@ public:
 	 */
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)
 	{
-		::glViewport(x, y, w, h);
+		OGLPLUS_GLFUNC(Viewport)(x, y, w, h);
 		ThrowOnError(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
@@ -656,7 +675,7 @@ public:
 	 */
 	static void Viewport(GLsizei w, GLsizei h)
 	{
-		::glViewport(0, 0, w, h);
+		OGLPLUS_GLFUNC(Viewport)(0, 0, w, h);
 		ThrowOnError(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
@@ -674,7 +693,7 @@ public:
 		GLsizei count
 	)
 	{
-		::glDrawArrays(GLenum(primitive), first, count);
+		OGLPLUS_GLFUNC(DrawArrays)(GLenum(primitive), first, count);
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
@@ -693,7 +712,7 @@ public:
 		GLsizei inst_count
 	)
 	{
-		::glDrawArraysInstanced(
+		OGLPLUS_GLFUNC(DrawArraysInstanced)(
 			GLenum(primitive),
 			first,
 			count,
@@ -716,7 +735,12 @@ public:
 		DataType data_type
 	)
 	{
-		::glDrawElements(GLenum(primitive), count, GLenum(data_type),0);
+		OGLPLUS_GLFUNC(DrawElements)(
+			GLenum(primitive),
+			count,
+			GLenum(data_type),
+			0
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawElements));
 	}
 
@@ -735,7 +759,12 @@ public:
 		T* p
 	)
 	{
-		::glDrawElements(GLenum(primitive), count, GLenum(data_type),p);
+		OGLPLUS_GLFUNC(DrawElements)(
+			GLenum(primitive),
+			count,
+			GLenum(data_type),
+			p
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(DrawElements));
 	}
 
@@ -764,7 +793,7 @@ public:
 	 */
 	static void MemoryBarrier(std::initializer_list<MemoryBarrierBit> bits)
 	{
-		::glMemoryBarrier(aux::MakeBitfield(bits));
+		OGLPLUS_GLFUNC(MemoryBarrier)(aux::MakeBitfield(bits));
 		AssertNoError(OGLPLUS_ERROR_INFO(MemoryBarrier));
 	}
 #endif
@@ -777,7 +806,7 @@ public:
 		GLsizei height
 	)
 	{
-		::glScissor(left, bottom, width, height);
+		OGLPLUS_GLFUNC(Scissor)(left, bottom, width, height);
 		AssertNoError(OGLPLUS_ERROR_INFO(Scissor));
 	}
 
@@ -791,21 +820,27 @@ public:
 		GLsizei height
 	)
 	{
-		::glScissorIndexed(index, left, bottom, width, height);
+		OGLPLUS_GLFUNC(ScissorIndexed)(
+			index,
+			left,
+			bottom,
+			width,
+			height
+		);
 		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorIndexed));
 	}
 
 	/// Defines the scissor rectangle for the specified viewport
 	static void ScissorIndexedv(GLuint index, GLint* v)
 	{
-		::glScissorIndexedv(index, v);
+		OGLPLUS_GLFUNC(ScissorIndexedv)(index, v);
 		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorIndexedv));
 	}
 
 	/// Defines the scissor rectangle for multiple viewports
 	static void ScissorArrayv(GLuint first, GLsizei count, GLint* v)
 	{
-		::glScissorArrayv(first, count, v);
+		OGLPLUS_GLFUNC(ScissorArrayv)(first, count, v);
 		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorArrayv));
 	}
 #endif

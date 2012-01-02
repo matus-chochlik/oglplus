@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_LIMITED_VALUE_1107121519_HPP
 #define OGLPLUS_LIMITED_VALUE_1107121519_HPP
 
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <cassert>
 
@@ -36,7 +37,7 @@ private:
 	static GLuint _query_limit(void)
 	{
 		GLint limit = -1;
-		::glGetIntegerv(Query, &limit);
+		OGLPLUS_GLFUNC(GetIntegerv)(Query, &limit);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GetIntegerv));
 		assert(limit >= 0);
 		return GLuint(limit);

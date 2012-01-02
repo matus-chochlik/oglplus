@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/friend_of.hpp>
@@ -44,20 +45,20 @@ class ProgramPipelineOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenProgramPipelines(count, &_name);
+		OGLPLUS_GLFUNC(GenProgramPipelines)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenProgramPipelines));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteProgramPipelines(count, &_name);
+		OGLPLUS_GLFUNC(DeleteProgramPipelines)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsProgramPipeline(_name);
+		return OGLPLUS_GLFUNC(IsProgramPipeline)(_name);
 	}
 
 	friend class FriendOf<ProgramPipelineOps>;
@@ -65,7 +66,7 @@ public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
-		::glGetProgramPipelineiv(_name, query, &result);
+		OGLPLUS_GLFUNC(GetProgramPipelineiv)(_name, query, &result);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetProgramPipelineiv,
 			ProgramPipeline,
@@ -82,7 +83,7 @@ public:
 	void Bind(void) const
 	{
 		assert(_name != 0);
-		::glBindProgramPipeline(_name);
+		OGLPLUS_GLFUNC(BindProgramPipeline)(_name);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
@@ -93,7 +94,7 @@ public:
 	 */
 	static void Unbind(void)
 	{
-		::glBindProgramPipeline(0);
+		OGLPLUS_GLFUNC(BindProgramPipeline)(0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
@@ -147,7 +148,7 @@ public:
 	) const
 	{
 		assert(_name != 0);
-		::glUseProgramStages(
+		OGLPLUS_GLFUNC(UseProgramStages)(
 			_name,
 			aux::MakeBitfield(stages),
 			FriendOf<ProgramOps>::GetName(program)
@@ -164,7 +165,7 @@ public:
 	void UseAllStages(const ProgramOps& program) const
 	{
 		assert(_name != 0);
-		::glUseProgramStages(
+		OGLPLUS_GLFUNC(UseProgramStages)(
 			_name,
 			GL_ALL_SHADER_BITS,
 			FriendOf<ProgramOps>::GetName(program)
@@ -183,8 +184,8 @@ public:
 	{
 		assert(_name != 0);
 		return aux::GetInfoLog(
-			_name, ::glGetProgramPipelineiv,
-			::glGetProgramPipelineInfoLog,
+			_name, OGLPLUS_GLFUNC(GetProgramPipelineiv),
+			OGLPLUS_GLFUNC(GetProgramPipelineInfoLog),
 			"GetProgramPipelineiv",
 			"GetProgramPipelineInfoLog"
 		);
@@ -213,7 +214,7 @@ public:
 	void Validate(void) const
 	{
 		assert(_name != 0);
-		::glValidateProgramPipeline(_name);
+		OGLPLUS_GLFUNC(ValidateProgramPipeline)(_name);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgramPipeline,
 			ProgramPipeline,
@@ -238,7 +239,7 @@ public:
 	void ActiveShaderProgram(const ProgramOps& program) const
 	{
 		assert(_name != 0);
-		::glActiveShaderProgram(
+		OGLPLUS_GLFUNC(ActiveShaderProgram)(
 			_name,
 			FriendOf<ProgramOps>::GetName(program)
 		);

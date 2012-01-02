@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_SHADER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -47,20 +48,20 @@ public:
 protected:
 	static void _init(GLsizei, GLuint& _name, Kind kind)
 	{
-		_name = ::glCreateShader(GLenum(kind));
+		_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(kind));
 		ThrowOnError(OGLPLUS_ERROR_INFO(CreateShader));
 	}
 
 	static void _cleanup(GLsizei, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteShader(_name);
+		OGLPLUS_GLFUNC(DeleteShader)(_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsShader(_name);
+		return OGLPLUS_GLFUNC(IsShader)(_name);
 	}
 
 	friend class FriendOf<ShaderOps>;
@@ -74,7 +75,7 @@ public:
 	Kind Type(void) const
 	{
 		GLint result = 0;
-		::glGetShaderiv(
+		OGLPLUS_GLFUNC(GetShaderiv)(
 			_name,
 			GL_SHADER_TYPE,
 			&result
@@ -97,7 +98,7 @@ public:
 		assert(_name != 0);
 		const GLchar* srcs[1] = {source.c_str()};
 		GLint lens[] = {GLint(source.size())};
-		::glShaderSource(_name, 1, srcs, lens);
+		OGLPLUS_GLFUNC(ShaderSource)(_name, 1, srcs, lens);
 	}
 
 	/// Set the source code of the shader
@@ -109,7 +110,7 @@ public:
 	{
 		assert(_name != 0);
 		const GLchar* srcs[1] = {source};
-		::glShaderSource(_name, 1, srcs, 0);
+		OGLPLUS_GLFUNC(ShaderSource)(_name, 1, srcs, 0);
 	}
 
 	/// Set the source code of the shader
@@ -122,7 +123,7 @@ public:
 		assert(_name != 0);
 		const GLchar* srcs[1] = {source};
 		int lens[] = {length};
-		::glShaderSource(_name, 1, srcs, lens);
+		OGLPLUS_GLFUNC(ShaderSource)(_name, 1, srcs, lens);
 	}
 
 	/// Set the source code of the shader
@@ -133,7 +134,7 @@ public:
 	void Source(const GLchar** srcs, int count) const
 	{
 		assert(_name != 0);
-		::glShaderSource(_name, count, srcs, 0);
+		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, 0);
 	}
 
 	/// Set the source code of the shader
@@ -144,7 +145,7 @@ public:
 	void Source(const std::vector<const GLchar*>& srcs) const
 	{
 		assert(_name != 0);
-		::glShaderSource(
+		OGLPLUS_GLFUNC(ShaderSource)(
 			_name,
 			srcs.size(),
 			const_cast<const GLchar**>(srcs.data()),
@@ -164,7 +165,7 @@ public:
 	{
 		assert(_name != 0);
 		int status;
-		::glGetShaderiv(_name, GL_COMPILE_STATUS, &status);
+		OGLPLUS_GLFUNC(GetShaderiv)(_name, GL_COMPILE_STATUS, &status);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetShaderiv,
 			Shader,
@@ -186,8 +187,8 @@ public:
 	{
 		assert(_name != 0);
 		return aux::GetInfoLog(
-			_name, ::glGetShaderiv,
-			::glGetShaderInfoLog,
+			_name, OGLPLUS_GLFUNC(GetShaderiv),
+			OGLPLUS_GLFUNC(GetShaderInfoLog),
 			"GetShaderiv",
 			"GetShaderInfoLog"
 		);
@@ -204,7 +205,7 @@ public:
 	void Compile(void) const
 	{
 		assert(_name != 0);
-		::glCompileShader(_name);
+		OGLPLUS_GLFUNC(CompileShader)(_name);
 		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompileShader,
 			Shader,
@@ -228,7 +229,7 @@ public:
 	 */
 	static void ReleaseCompiler(void)
 	{
-		::glReleaseShaderCompiler();
+		OGLPLUS_GLFUNC(ReleaseShaderCompiler)();
 		ThrowOnError(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
 	}
 #endif

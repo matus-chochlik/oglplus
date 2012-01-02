@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_RENDERBUFFER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -36,20 +37,20 @@ class RenderbufferOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenRenderbuffers(count, &_name);
+		OGLPLUS_GLFUNC(GenRenderbuffers)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenRenderbuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteRenderbuffers(count, &_name);
+		OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsRenderbuffer(_name);
+		return OGLPLUS_GLFUNC(IsRenderbuffer)(_name);
 	}
 
 	friend class FriendOf<RenderbufferOps>;
@@ -79,7 +80,7 @@ public:
 	void Bind(Target target = Target::Renderbuffer) const
 	{
 		assert(_name != 0);
-		::glBindRenderbuffer(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), _name);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
@@ -90,7 +91,7 @@ public:
 	 */
 	static void Unbind(Target target = Target::Renderbuffer)
 	{
-		::glBindRenderbuffer(GLenum(target), 0);
+		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
@@ -106,7 +107,7 @@ public:
 		GLsizei height
 	)
 	{
-		::glRenderbufferStorage(
+		OGLPLUS_GLFUNC(RenderbufferStorage)(
 			GLenum(target),
 			GLenum(internalformat),
 			width,
@@ -132,7 +133,7 @@ public:
 		GLsizei height
 	)
 	{
-		::glRenderbufferStorageMultisample(
+		OGLPLUS_GLFUNC(RenderbufferStorageMultisample)(
 			GLenum(target),
 			samples,
 			GLenum(internalformat),

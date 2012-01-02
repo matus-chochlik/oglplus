@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_VERTEX_ATTRIB_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
@@ -52,7 +53,7 @@ protected:
 
 	VertexAttribOps(const ProgramOps& program, const GLchar* identifier)
 	 : _index(
-		::glGetAttribLocation(
+		OGLPLUS_GLFUNC(GetAttribLocation)(
 			FriendOf<ProgramOps>::GetName(program),
 			identifier
 		)
@@ -78,7 +79,7 @@ public:
 		const GLchar* identifier
 	) const
 	{
-		::glBindAttribLocation(
+		OGLPLUS_GLFUNC(BindAttribLocation)(
 			FriendOf<ProgramOps>::GetName(program),
 			_index,
 			identifier
@@ -91,7 +92,7 @@ public:
 		const String& identifier
 	) const
 	{
-		::glBindAttribLocation(
+		OGLPLUS_GLFUNC(BindAttribLocation)(
 			FriendOf<ProgramOps>::GetName(program),
 			_index,
 			identifier.c_str()
@@ -106,7 +107,7 @@ void ProgramOps::BindLocation(
 	const GLchar* identifier
 ) const
 {
-	::glBindAttribLocation(
+	OGLPLUS_GLFUNC(BindAttribLocation)(
 		_name,
 		FriendOf<VertexAttribOps>::GetIndex(vertex_attrib),
 		identifier
@@ -125,7 +126,7 @@ protected:
 		GLchar buffer[256] = {GLchar(0)};
 		GLint size;
 		GLenum type;
-		::glGetActiveAttrib(
+		OGLPLUS_GLFUNC(GetActiveAttrib)(
 			program,
 			index,
 			max_length,
@@ -269,7 +270,7 @@ public:
 		void* pointer = nullptr
 	) const
 	{
-		::glVertexAttribPointer(
+		OGLPLUS_GLFUNC(VertexAttribPointer)(
 			_index,
 			values_per_vertex,
 			GLenum(data_type),
@@ -287,7 +288,7 @@ public:
 	 */
 	void Enable(void) const
 	{
-		::glEnableVertexAttribArray(_index);
+		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_index);
 		AssertNoError(OGLPLUS_ERROR_INFO(EnableVertexAttribArray));
 	}
 
@@ -298,7 +299,7 @@ public:
 	 */
 	void Disable(void) const
 	{
-		::glDisableVertexAttribArray(_index);
+		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_index);
 		AssertNoError(OGLPLUS_ERROR_INFO(DisableVertexAttribArray));
 	}
 };

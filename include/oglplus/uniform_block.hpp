@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_UNIFORM_BLOCK_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/shader.hpp>
@@ -108,7 +109,7 @@ public:
 	 */
 	UniformBlock(const ProgramOps& program, const GLchar* identifier)
 	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _index(::glGetUniformBlockIndex(_program, identifier))
+	 , _index(OGLPLUS_GLFUNC(GetUniformBlockIndex)(_program, identifier))
 	{
 		_check(identifier);
 	}
@@ -120,7 +121,12 @@ public:
 	 */
 	UniformBlock(const ProgramOps& program, const String& identifier)
 	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _index(::glGetUniformBlockIndex(_program, identifier.c_str()))
+	 , _index(
+		OGLPLUS_GLFUNC(GetUniformBlockIndex)(
+			_program,
+			identifier.c_str()
+		)
+	)
 	{
 		_check(identifier.c_str());
 	}
@@ -129,7 +135,10 @@ public:
 	static GLuint MaxIn(Shader::Kind shader_kind)
 	{
 		GLint result;
-		::glGetIntegerv(_translate_max(shader_kind), &result);
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			_translate_max(shader_kind),
+			&result
+		);
 		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
 		assert(result >= 0);
 		return GLuint(result);
@@ -143,7 +152,7 @@ public:
 	bool ReferencedBy(Shader::Kind shader_kind) const
 	{
 		GLint result;
-		::glGetActiveUniformBlockiv(
+		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			_program,
 			_index,
 			_translate_ref(shader_kind),
@@ -161,7 +170,7 @@ public:
 	GLuint DataSize(void) const
 	{
 		GLint result;
-		::glGetActiveUniformBlockiv(
+		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			_program,
 			_index,
 			GL_UNIFORM_BLOCK_DATA_SIZE,
@@ -174,7 +183,7 @@ public:
 
 	void Binding(UniformBufferBindingPoint binding) const
 	{
-		::glUniformBlockBinding(
+		OGLPLUS_GLFUNC(UniformBlockBinding)(
 			_program,
 			_index,
 			GLuint(binding)

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #define OGLPLUS_BUFFER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
@@ -71,20 +72,20 @@ class BufferOps
 protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
-		::glGenBuffers(count, &_name);
+		OGLPLUS_GLFUNC(GenBuffers)(count, &_name);
 		ThrowOnError(OGLPLUS_ERROR_INFO(GenBuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
 	{
 		assert(_name != 0);
-		::glDeleteBuffers(count, &_name);
+		OGLPLUS_GLFUNC(DeleteBuffers)(count, &_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)
 	{
 		assert(_name != 0);
-		return ::glIsBuffer(_name);
+		return OGLPLUS_GLFUNC(IsBuffer)(_name);
 	}
 
 	friend class FriendOf<BufferOps>;
@@ -141,7 +142,7 @@ public:
 		static GLsizeiptr _get_size(Target target)
 		{
 			GLint value = 0;
-			::glGetBufferParameteriv(
+			OGLPLUS_GLFUNC(GetBufferParameteriv)(
 				GLenum(target),
 				GL_BUFFER_SIZE,
 				&value
@@ -178,7 +179,7 @@ public:
 		): _offset(offset * sizeof(Type))
 		 , _size(size * sizeof(Type))
 		 , _ptr(
-			::glMapBufferRange(
+			OGLPLUS_GLFUNC(MapBufferRange)(
 				GLenum(target),
 				offset,
 				size,
@@ -199,8 +200,12 @@ public:
 		TypedMap(Target target, MapAccess access)
 		 : _offset(0)
 		 , _size(_get_size(target))
-		 , _ptr(::glMapBuffer(GLenum(target), _translate(access)))
-		 , _target(target)
+		 , _ptr(
+			OGLPLUS_GLFUNC(MapBuffer)(
+				GLenum(target),
+				_translate(access)
+			)
+		), _target(target)
 		{
 			ThrowOnError(OGLPLUS_ERROR_INFO(MapBuffer));
 		}
@@ -220,7 +225,8 @@ public:
 
 		~TypedMap(void)
 		{
-			if(_ptr != nullptr) ::glUnmapBuffer(GLenum(_target));
+			if(_ptr != nullptr)
+				OGLPLUS_GLFUNC(UnmapBuffer)(GLenum(_target));
 		}
 
 		/// Returns the size (in bytes) of the mapped buffer
@@ -261,7 +267,7 @@ public:
 	void Bind(Target target) const
 	{
 		assert(_name != 0);
-		::glBindBuffer(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
@@ -276,7 +282,7 @@ public:
 	 */
 	static void Unbind(Target target)
 	{
-		::glBindBuffer(GLenum(target), 0);
+		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), 0);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
@@ -291,7 +297,7 @@ public:
 	void BindBase(IndexedTarget target, GLuint index) const
 	{
 		assert(_name != 0);
-		::glBindBufferBase(GLenum(target), index, _name);
+		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, _name);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferBase,
 			Buffer,
@@ -325,7 +331,7 @@ public:
 	 */
 	static void UnbindBase(IndexedTarget target, GLuint index)
 	{
-		::glBindBufferBase(GLenum(target), index, 0);
+		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, 0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindBufferBase));
 	}
 
@@ -341,7 +347,13 @@ public:
 	) const
 	{
 		assert(_name != 0);
-		::glBindBufferRange(GLenum(target), index, _name, offset, size);
+		OGLPLUS_GLFUNC(BindBufferRange)(
+			GLenum(target),
+			index,
+			_name,
+			offset,
+			size
+		);
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferRange,
 			Buffer,
@@ -366,7 +378,7 @@ public:
 		Usage usage = Usage::StaticDraw
 	)
 	{
-		::glBufferData(
+		OGLPLUS_GLFUNC(BufferData)(
 			GLenum(target),
 			count * sizeof(GLtype),
 			data,
@@ -395,7 +407,7 @@ public:
 		Usage usage = Usage::StaticDraw
 	)
 	{
-		::glBufferData(
+		OGLPLUS_GLFUNC(BufferData)(
 			GLenum(target),
 			data.size() * sizeof(GLtype),
 			data.data(),
@@ -422,7 +434,7 @@ public:
 	)
 	{
 		//TODO: is this a good idea ?
-		::glBufferData(
+		OGLPLUS_GLFUNC(BufferData)(
 			GLenum(target),
 			data.size() * sizeof(GLtype) * N,
 			reinterpret_cast<const GLtype*>(data.data()),
@@ -449,7 +461,7 @@ public:
 		GLtype* data
 	)
 	{
-		::glBufferData(
+		OGLPLUS_GLFUNC(BufferData)(
 			GLenum(target),
 			offset,
 			count * sizeof(GLtype),
@@ -475,7 +487,7 @@ public:
 		const std::vector<GLtype>& data
 	)
 	{
-		::glBufferData(
+		OGLPLUS_GLFUNC(BufferData)(
 			GLenum(target),
 			offset,
 			data.size() * sizeof(GLtype),
@@ -503,7 +515,7 @@ public:
 		GLsizeiptr size
 	)
 	{
-		::glCopyBufferSubData(
+		OGLPLUS_GLFUNC(CopyBufferSubData)(
 			readtarget._name,
 			writetarget._name,
 			readoffset,
