@@ -64,7 +64,7 @@ private:
 	Framebuffer fbo;
 	Renderbuffer rbo;
 
-	size_t width, height, refl_tex_side, tile_tex_side;
+	GLuint width, height, refl_tex_side, tile_tex_side;
 
 public:
 	PoolTilesExample(void)
