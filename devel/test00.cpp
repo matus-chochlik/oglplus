@@ -4,10 +4,12 @@
  *  NOTE. this file is here for feature development / testing purposes only
  *  and its source code, input, output can change witout prior notice.
  *
- *  Copyright 2008-2001 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#define OGLPLUS_CUSTOM_ERROR_HANDLING 1
+
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/spiral_sphere.hpp>
@@ -116,7 +118,15 @@ public:
 		// bind the VAO for the shape
 		vao.Bind();
 
+		auto error_handler_func = [](const ErrorData& ed) -> bool
 		{
+			std::cerr << ed.Message() << std::endl;
+			return true;
+		};
+
+		{
+			LocalErrorHandler eh(error_handler_func);
+
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = shape.Positions(data);
 			Bind(verts, Buffer::Target::Array).Data(data);
@@ -127,6 +137,8 @@ public:
 		}
 
 		{
+			LocalErrorHandler eh(error_handler_func);
+
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = shape.Normals(data);
 			Bind(normals, Buffer::Target::Array).Data(data);
@@ -137,6 +149,8 @@ public:
 		}
 
 		{
+			LocalErrorHandler eh(error_handler_func);
+
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = shape.TexCoordinates(data);
 			Bind(texcoords, Buffer::Target::Array).Data(data);

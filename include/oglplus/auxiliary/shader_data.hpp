@@ -158,7 +158,7 @@ protected:
 	)
 	{
 		GLenum result = OGLPLUS_GLFUNC(GetError)();
-		if(result != GL_NO_ERROR) ThrowOnError(
+		if(result != GL_NO_ERROR) HandleError(
 			result,
 			"Error setting shading program variable value",
 			error_info,

@@ -49,7 +49,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)

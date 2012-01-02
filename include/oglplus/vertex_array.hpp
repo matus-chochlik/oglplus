@@ -37,7 +37,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenVertexArrays)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenVertexArrays));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenVertexArrays));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)

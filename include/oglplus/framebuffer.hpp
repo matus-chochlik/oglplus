@@ -59,7 +59,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenFramebuffers)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenFramebuffers));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenFramebuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -148,7 +148,7 @@ public:
 		GLenum result = OGLPLUS_GLFUNC(CheckFramebufferStatus)(
 			GLenum(target)
 		);
-		if(result == 0) ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		if(result == 0) HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CheckFramebufferStatus,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)
@@ -194,7 +194,7 @@ public:
 			GL_RENDERBUFFER,
 			FriendOf<RenderbufferOps>::GetName(renderbuffer)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferRenderbuffer,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)
@@ -226,7 +226,7 @@ public:
 			GL_RENDERBUFFER,
 			FriendOf<RenderbufferOps>::GetName(renderbuffer)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferRenderbuffer,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)
@@ -260,7 +260,7 @@ public:
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)
@@ -293,7 +293,7 @@ public:
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)
@@ -329,7 +329,7 @@ public:
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture1D,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)
@@ -364,7 +364,7 @@ public:
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture2D,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)
@@ -401,7 +401,7 @@ public:
 			level,
 			layer
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture3D,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)
@@ -436,7 +436,7 @@ public:
 			level,
 			layer
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTextureLayer,
 			Framebuffer,
 			BindingQuery<FramebufferOps>::QueryBinding(target)

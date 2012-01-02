@@ -13,10 +13,17 @@
 #define OGLPLUS_ERROR_1107121317_HPP
 
 #include <oglplus/auxiliary/strings.hpp>
+#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <stdexcept>
+#include <cassert>
 #include <list>
 #include <map>
+
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+#include <stack>
+#include <functional>
+#endif
 
 #define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT, OBJECT) \
 	static const char* _errinf_ctxt(void) \
@@ -279,7 +286,7 @@ private:
 	ErrorInfo _info;
 	PropertyMap _properties;
 	PropagationInfoList  _propagation;
-protected:
+public:
 	Error(GLenum code, const char* desc, const ErrorInfo& info)
 	 : std::runtime_error(desc)
 	 , _code(code)
@@ -297,14 +304,6 @@ protected:
 	 , _properties(std::move(properties))
 	{ }
 
-	friend void ThrowOnError(
-		GLenum code,
-		const GLchar* msg,
-		const ErrorInfo& info,
-		PropertyMap&& properties
-	);
-	friend void ThrowOnError(const ErrorInfo& info);
-public:
 	inline ~Error(void) throw()
 	{ }
 
@@ -465,56 +464,6 @@ public:
 	{ }
 };
 
-inline void ThrowOnError(
-	GLenum code,
-	const GLchar* msg,
-	const ErrorInfo& info,
-	Error::PropertyMap&& properties
-)
-{
-	throw Error(
-		code,
-		msg,
-		info,
-		std::forward<Error::PropertyMap>(properties)
-	);
-}
-
-inline void ThrowOnError(const ErrorInfo& info)
-{
-	GLenum code = OGLPLUS_GLFUNC(GetError)();
-	if(code != GL_NO_ERROR)
-	{
-		const GLchar* msg = "Unknown error";
-		switch(code)
-		{
-			case GL_OUT_OF_MEMORY:
-				msg = "OpenGL out of memory";
-				throw OutOfMemory(code, msg, info);
-			case GL_INVALID_ENUM:
-				msg = "Invalid OpenGL enum argument";
-				break;
-			case GL_INVALID_VALUE:
-				msg = "OpenGL numeric argument out of range";
-				break;
-			case GL_INVALID_OPERATION:
-				msg = "Invalid OpenGL operation";
-				break;
-			case GL_INVALID_FRAMEBUFFER_OPERATION:
-				msg = "Invalid OpenGL framebuffer operation";
-				break;
-		}
-		throw Error(code, msg, info);
-	}
-}
-
-inline void AssertNoError(const ErrorInfo& info)
-{
-	//TODO make this compile-time configurable
-	ThrowOnError(info);
-}
-
-
 /// Exception for exceeding implementation-defined limits
 /** Instances of this class are thrown if an instance of a (usually unsigned
  *  integer) type is assigned a value that it is outside of a implementation
@@ -531,7 +480,7 @@ private:
 	GLuint _value;
 	GLuint _limit;
 public:
-	LimitError(const ErrorInfo& info, GLuint value, GLuint limit)
+	LimitError(GLuint value, GLuint limit, const ErrorInfo& info)
 	 : Error(
 		GL_INVALID_VALUE,
 		"OpenGL limited value out of range",
@@ -552,6 +501,308 @@ public:
 		return _limit;
 	}
 };
+
+#if OGLPLUS_DOCUMENTATION_ONLY || OGLPLUS_CUSTOM_ERROR_HANDLING
+
+/// Structure containing all error-related data; Used in custom error handlers
+/**
+ *  Available only if the #OGLPLUS_CUSTOM_ERROR_HANDLING compile-time switch
+ *  is set to a nonzero value.
+ *
+ *  @ingroup error_handling
+ */
+struct ErrorData
+{
+private:
+	GLenum _error_code;
+	GLuint _value;
+	GLuint _limit;
+	const char* _message;
+	ErrorInfo _info;
+	Error::PropertyMap _properties;
+	bool _assertion;
+	bool _fatal_error;
+	bool _build_error;
+	bool _limit_error;
+public:
+	/// The OpenGL error code
+	inline GLenum ErrorCode(void) const
+	{
+		return _error_code;
+	}
+
+	/// The invalid value that caused a limit error
+	inline GLuint Value(void) const
+	{
+		return _value;
+	}
+
+	/// The limited value limit
+	inline GLuint Limit(void) const
+	{
+		return _limit;
+	}
+
+	/// The error message
+	/** The returned pointer should not be used when its ErrorData instance
+	 *  goes out of scope. If this is necessary the string should be copied.
+	 */
+	inline const char* Message(void) const
+	{
+		return _message;
+	}
+
+	/// Additional error info
+	inline const ErrorInfo& Info(void) const
+	{
+		return _info;
+	}
+
+	/// Additional error property (key/values)
+	inline const Error::PropertyMap& Properties(void) const
+	{
+		return _properties;
+	}
+
+	/// Indicates that an assertion has failed
+	inline bool Assertion(void) const
+	{
+		return _assertion;
+	}
+
+	/// Indicates a fatal (very severe) error like (out of memory)
+	inline bool FatalError(void) const
+	{
+		return _fatal_error;
+	}
+
+	/// Indicates a build error
+	inline bool BuildError(void) const
+	{
+		return _build_error;
+	}
+
+	/// Indicates a limited value error
+	inline bool LimitError(void) const
+	{
+		return _limit_error;
+	}
+
+	inline ErrorData(
+		GLenum error_code,
+		GLuint value,
+		GLuint limit,
+		const char* message,
+		const ErrorInfo& info,
+		Error::PropertyMap&& properties,
+		bool assertion,
+		bool fatal_error,
+		bool build_error,
+		bool limit_error
+	): _error_code(error_code)
+	 , _value(value)
+	 , _limit(limit)
+	 , _message(message)
+	 , _info(info)
+	 , _properties(properties)
+	 , _assertion(assertion)
+	 , _fatal_error(fatal_error)
+	 , _build_error(build_error)
+	 , _limit_error(limit_error)
+	{ }
+};
+
+/// Type of installable custom error handler functor
+/**
+ *  Available only if the #OGLPLUS_CUSTOM_ERROR_HANDLING compile-time switch
+ *  is set to a nonzero value.
+ *
+ *  @ingroup error_handling
+ */
+typedef std::function<bool (const ErrorData&)> ErrorHandlerFunc;
+
+namespace aux {
+
+inline std::stack<ErrorHandlerFunc>& _error_handlers(void)
+{
+	static std::stack<ErrorHandlerFunc> _handlers;
+	return _handlers;
+}
+
+inline bool _has_error_handler(void)
+{
+	return !_error_handlers().empty();
+}
+
+inline ErrorHandlerFunc& _get_error_handler(void)
+{
+	assert(!_error_handlers().empty());
+	return _error_handlers().top();
+}
+
+} // namespace aux
+
+/// A RAII class installing a temporary custom error handler
+/**
+ *  Available only if the #OGLPLUS_CUSTOM_ERROR_HANDLING compile-time switch
+ *  is set to a nonzero value.
+ *
+ *  @ingroup error_handling
+ */
+class LocalErrorHandler
+{
+private:
+	size_t _installed;
+public:
+	/// Installs the specified error @p handler
+	LocalErrorHandler(ErrorHandlerFunc handler)
+	{
+		aux::_error_handlers().push(handler);
+		_installed = aux::_error_handlers().size();
+	}
+
+	/// This class is non-copyable
+	LocalErrorHandler(const LocalErrorHandler&) = delete;
+
+	/// Uninstalls the previously installed handler
+	~LocalErrorHandler(void)
+	{
+		if(_installed)
+		{
+			assert(aux::_error_handlers().size() == _installed);
+			aux::_error_handlers().pop();
+		}
+	}
+};
+
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+
+template <class Exception>
+inline void HandleBuildError(const String& msg, const ErrorInfo& info)
+{
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			GL_INVALID_OPERATION,
+			0, 0,
+			msg.c_str(),
+			info,
+			Error::PropertyMap(),
+			false,
+			false,
+			true,
+			false
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw Exception(msg, info);
+}
+
+template <class Exception>
+inline void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
+{
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			GL_INVALID_VALUE,
+			value, limit,
+			"OpenGL limited value out of range",
+			info,
+			Error::PropertyMap(),
+			false,
+			false,
+			false,
+			true
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw Exception(value, limit, info);
+}
+
+inline void HandleError(
+	GLenum code,
+	const GLchar* msg,
+	const ErrorInfo& info,
+	Error::PropertyMap&& properties
+)
+{
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			GL_INVALID_OPERATION,
+			0, 0,
+			msg,
+			info,
+			std::forward<Error::PropertyMap>(properties),
+			false,
+			code == GL_OUT_OF_MEMORY,
+			false,
+			false
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw Error(
+		code,
+		msg,
+		info,
+		std::forward<Error::PropertyMap>(properties)
+	);
+}
+
+inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
+{
+	const GLchar* msg = "Unknown error";
+	switch(code)
+	{
+		case GL_OUT_OF_MEMORY:
+			msg = "OpenGL out of memory";
+			break;
+		case GL_INVALID_ENUM:
+			msg = "Invalid OpenGL enum argument";
+			break;
+		case GL_INVALID_VALUE:
+			msg = "OpenGL numeric argument out of range";
+			break;
+		case GL_INVALID_OPERATION:
+			msg = "Invalid OpenGL operation";
+			break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:
+			msg = "Invalid OpenGL framebuffer operation";
+			break;
+	}
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			GL_INVALID_OPERATION,
+			0, 0,
+			msg,
+			info,
+			Error::PropertyMap(),
+			assertion,
+			code == GL_OUT_OF_MEMORY,
+			false,
+			false
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw Error(code, msg, info);
+}
+
+inline void HandleIfError(const ErrorInfo& info)
+{
+	GLenum code = OGLPLUS_GLFUNC(GetError)();
+	if(code != GL_NO_ERROR)
+		HandleError(code, info, false);
+}
+
+inline void AssertNoError(const ErrorInfo& info)
+{
+	//TODO make this compile-time configurable
+	GLenum code = OGLPLUS_GLFUNC(GetError)();
+	if(code != GL_NO_ERROR)
+		HandleError(code, info, true);
+}
+
 
 } // namespace oglplus
 

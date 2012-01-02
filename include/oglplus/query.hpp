@@ -36,7 +36,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenQueries)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenQueries));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenQueries));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -126,7 +126,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectiv,
 			Query,
 			_name
@@ -147,7 +147,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectuiv,
 			Query,
 			_name
@@ -169,7 +169,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjecti64v,
 			Query,
 			_name
@@ -190,7 +190,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectui64v,
 			Query,
 			_name

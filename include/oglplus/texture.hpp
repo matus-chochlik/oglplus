@@ -154,7 +154,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenTextures)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenTextures));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenTextures));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -255,7 +255,7 @@ public:
 			query,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameteriv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -271,7 +271,7 @@ public:
 			query,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -288,7 +288,7 @@ public:
 			query,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameteriv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -305,7 +305,7 @@ public:
 			query,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameterfv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -678,7 +678,7 @@ public:
 			level,
 			dest.data()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetCompressedTexImage,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -715,7 +715,7 @@ public:
 			GLenum(type),
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -747,7 +747,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -786,7 +786,7 @@ public:
 			GLenum(type),
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage3D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -821,7 +821,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage3D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -856,7 +856,7 @@ public:
 			GLenum(type),
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -887,7 +887,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -922,7 +922,7 @@ public:
 			GLenum(type),
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage2D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -954,7 +954,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage2D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -988,7 +988,7 @@ public:
 			GLenum(type),
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1018,7 +1018,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1049,7 +1049,7 @@ public:
 			GLenum(type),
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage1D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1078,7 +1078,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage1D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1111,7 +1111,7 @@ public:
 			height,
 			border
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexImage2D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1142,7 +1142,7 @@ public:
 			width,
 			border
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexImage1D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1177,7 +1177,7 @@ public:
 			width,
 			height
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage3D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1210,7 +1210,7 @@ public:
 			width,
 			height
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage2D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1239,7 +1239,7 @@ public:
 			y,
 			width
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage1D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1274,7 +1274,7 @@ public:
 			image_size,
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage3D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1307,7 +1307,7 @@ public:
 			image_size,
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage2D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1338,7 +1338,7 @@ public:
 			image_size,
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage1D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1377,7 +1377,7 @@ public:
 			image_size,
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage3D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1412,7 +1412,7 @@ public:
 			image_size,
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage2D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1443,7 +1443,7 @@ public:
 			image_size,
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage1D,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1475,7 +1475,7 @@ public:
 			depth,
 			fixed_sample_locations ? GL_TRUE : GL_FALSE
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3DMultisample,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1504,7 +1504,7 @@ public:
 			height,
 			fixed_sample_locations ? GL_TRUE : GL_FALSE
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2DMultisample,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1529,7 +1529,7 @@ public:
 			GLenum(internal_format),
 			FriendOf<BufferOps>::GetName(buffer)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexBuffer,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1561,7 +1561,7 @@ public:
 			GL_TEXTURE_BASE_LEVEL,
 			level
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1582,7 +1582,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1603,7 +1603,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterfv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1624,7 +1624,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterIiv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1645,7 +1645,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterIiv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1666,7 +1666,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterIuiv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1687,7 +1687,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterIuiv,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1721,7 +1721,7 @@ public:
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1755,7 +1755,7 @@ public:
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1786,7 +1786,7 @@ public:
 			GL_TEXTURE_LOD_BIAS,
 			value
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1820,7 +1820,7 @@ public:
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1854,7 +1854,7 @@ public:
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1885,7 +1885,7 @@ public:
 			GL_TEXTURE_MIN_LOD,
 			value
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1916,7 +1916,7 @@ public:
 			GL_TEXTURE_MAX_LOD,
 			value
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -1953,7 +1953,7 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -2100,7 +2100,7 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)
@@ -2181,7 +2181,7 @@ public:
 	static void GenerateMipmap(Target target)
 	{
 		OGLPLUS_GLFUNC(GenerateMipmap)(GLenum(target));
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GenerateMipmap,
 			Texture,
 			BindingQuery<TextureOps>::QueryBinding(target)

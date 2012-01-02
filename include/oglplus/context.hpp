@@ -175,7 +175,7 @@ public:
 	static void ClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		OGLPLUS_GLFUNC(ClearColor)(r, g, b, a);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ClearColor));
+		HandleIfError(OGLPLUS_ERROR_INFO(ClearColor));
 	}
 
 	/// Sets the clear depth
@@ -188,7 +188,7 @@ public:
 	static void ClearDepth(GLclampd d)
 	{
 		OGLPLUS_GLFUNC(ClearDepth)(d);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ClearDepth));
+		HandleIfError(OGLPLUS_ERROR_INFO(ClearDepth));
 	}
 
 	/// Sets the clear stencil buffer value
@@ -201,7 +201,7 @@ public:
 	static void ClearStencil(GLint s)
 	{
 		OGLPLUS_GLFUNC(ClearStencil)(s);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ClearStencil));
+		HandleIfError(OGLPLUS_ERROR_INFO(ClearStencil));
 	}
 
 	/// Clears buffers specified by calling functions of the returned object
@@ -663,7 +663,7 @@ public:
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(x, y, w, h);
-		ThrowOnError(OGLPLUS_ERROR_INFO(Viewport));
+		HandleIfError(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
 	/// Sets the current viewport starting at (0,0)
@@ -676,7 +676,7 @@ public:
 	static void Viewport(GLsizei w, GLsizei h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(0, 0, w, h);
-		ThrowOnError(OGLPLUS_ERROR_INFO(Viewport));
+		HandleIfError(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
 
@@ -827,21 +827,21 @@ public:
 			width,
 			height
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorIndexed));
+		HandleIfError(OGLPLUS_ERROR_INFO(ScissorIndexed));
 	}
 
 	/// Defines the scissor rectangle for the specified viewport
 	static void ScissorIndexedv(GLuint index, GLint* v)
 	{
 		OGLPLUS_GLFUNC(ScissorIndexedv)(index, v);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorIndexedv));
+		HandleIfError(OGLPLUS_ERROR_INFO(ScissorIndexedv));
 	}
 
 	/// Defines the scissor rectangle for multiple viewports
 	static void ScissorArrayv(GLuint first, GLsizei count, GLint* v)
 	{
 		OGLPLUS_GLFUNC(ScissorArrayv)(first, count, v);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ScissorArrayv));
+		HandleIfError(OGLPLUS_ERROR_INFO(ScissorArrayv));
 	}
 #endif
 };

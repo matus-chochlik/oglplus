@@ -73,7 +73,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenBuffers)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenBuffers));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenBuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -147,7 +147,7 @@ public:
 				GL_BUFFER_SIZE,
 				&value
 			);
-			ThrowOnError(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+			HandleIfError(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
 			return GLsizeiptr(value);
 		}
 
@@ -187,7 +187,7 @@ public:
 			)
 		), _target(target)
 		{
-			ThrowOnError(OGLPLUS_ERROR_INFO(MapBufferRange));
+			HandleIfError(OGLPLUS_ERROR_INFO(MapBufferRange));
 		}
 
 		/// Maps the whole buffer
@@ -207,7 +207,7 @@ public:
 			)
 		), _target(target)
 		{
-			ThrowOnError(OGLPLUS_ERROR_INFO(MapBuffer));
+			HandleIfError(OGLPLUS_ERROR_INFO(MapBuffer));
 		}
 
 		/// Copying is disabled
@@ -384,7 +384,7 @@ public:
 			data,
 			GLenum(usage)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
 			BindingQuery<BufferOps>::QueryBinding(target)
@@ -413,7 +413,7 @@ public:
 			data.data(),
 			GLenum(usage)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
 			BindingQuery<BufferOps>::QueryBinding(target)
@@ -440,7 +440,7 @@ public:
 			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
 			BindingQuery<BufferOps>::QueryBinding(target)
@@ -467,7 +467,7 @@ public:
 			count * sizeof(GLtype),
 			data
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferSubData,
 			Buffer,
 			BindingQuery<BufferOps>::QueryBinding(target)
@@ -493,7 +493,7 @@ public:
 			data.size() * sizeof(GLtype),
 			data.data()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferSubData,
 			Buffer,
 			BindingQuery<BufferOps>::QueryBinding(target)
@@ -522,7 +522,7 @@ public:
 			writeoffset,
 			size
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(CopyBufferSubData));
+		HandleIfError(OGLPLUS_ERROR_INFO(CopyBufferSubData));
 	}
 #endif // copy buffer
 };

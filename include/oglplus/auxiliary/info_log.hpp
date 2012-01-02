@@ -30,7 +30,7 @@ inline String GetInfoLog(
 {
 	int length = 0;
 	GetObjectiv(object_name, GL_INFO_LOG_LENGTH, &length);
-	ThrowOnError(OGLPLUS_ERROR_INFO_STR(name_GetObjectiv));
+	HandleIfError(OGLPLUS_ERROR_INFO_STR(name_GetObjectiv));
 	if(length > 0)
 	{
 		GLsizei real_length = 0;
@@ -41,7 +41,7 @@ inline String GetInfoLog(
 			&real_length,
 			buffer.data()
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO_STR(name_GetObjectInfoLog));
+		HandleIfError(OGLPLUS_ERROR_INFO_STR(name_GetObjectInfoLog));
 		return String(buffer.data(), buffer.size());
 	}
 	else return String();

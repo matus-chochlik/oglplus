@@ -46,7 +46,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenProgramPipelines)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenProgramPipelines));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenProgramPipelines));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -153,7 +153,7 @@ public:
 			aux::MakeBitfield(stages),
 			FriendOf<ProgramOps>::GetName(program)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
+		HandleIfError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 
 #if defined GL_ALL_SHADER_BITS
@@ -170,7 +170,7 @@ public:
 			GL_ALL_SHADER_BITS,
 			FriendOf<ProgramOps>::GetName(program)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(UseProgramStages));
+		HandleIfError(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 #endif
 
@@ -215,13 +215,13 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ValidateProgramPipeline)(_name);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgramPipeline,
 			ProgramPipeline,
 			_name
 		));
 		if(!IsValid())
-			throw ValidationError(
+			HandleBuildError<ValidationError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
 					ValidateProgramPipeline,
@@ -243,7 +243,7 @@ public:
 			_name,
 			FriendOf<ProgramOps>::GetName(program)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
+		HandleIfError(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
 	}
 
 	/// Returns the current active shader program

@@ -42,13 +42,13 @@ protected:
 		)
 	)
 	{
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetUniformLocation));
+		HandleIfError(OGLPLUS_ERROR_INFO(GetUniformLocation));
 		if(_index == GLint(-1))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
 			props["program"] = ObjectDescription(program);
-			ThrowOnError(
+			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
 				OGLPLUS_ERROR_INFO(GetUniformLocation),

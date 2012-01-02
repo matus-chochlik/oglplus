@@ -38,7 +38,7 @@ private:
 	{
 		GLint limit = -1;
 		OGLPLUS_GLFUNC(GetIntegerv)(Query, &limit);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegerv));
 		assert(limit >= 0);
 		return GLuint(limit);
 	}
@@ -57,7 +57,7 @@ protected:
 	 : _value(value)
 	{
 		if(_value >= _limit())
-			throw LimitError(info, value, _limit());
+			HandleLimitError<LimitError>(value, _limit(), info);
 	}
 public:
 	/// Returns the value

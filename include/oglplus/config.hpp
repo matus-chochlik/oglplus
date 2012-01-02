@@ -43,6 +43,14 @@ namespace oglplus {
 #define OGLPLUS_NO_OBJECT_DESCS 0
 #endif
 
+#ifndef OGLPLUS_CUSTOM_ERROR_HANDLING
+/// Compile-time switch enabling customized @ref error_handling
+/**
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_CUSTOM_ERROR_HANDLING 0
+#endif
+
 } // namespace oglplus
 
 #endif // include guard

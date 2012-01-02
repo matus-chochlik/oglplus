@@ -59,13 +59,13 @@ protected:
 		)
 	)
 	{
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetAttribLocation));
+		HandleIfError(OGLPLUS_ERROR_INFO(GetAttribLocation));
 		if(_index == GLint(-1))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
 			props["program"] = ObjectDescription(program);
-			ThrowOnError(
+			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive vertex attrib",
 				OGLPLUS_ERROR_INFO(GetAttribLocation),
@@ -84,7 +84,7 @@ public:
 			_index,
 			identifier
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(BindAttribLocation));
+		HandleIfError(OGLPLUS_ERROR_INFO(BindAttribLocation));
 	}
 
 	void BindLocation(
@@ -97,7 +97,7 @@ public:
 			_index,
 			identifier.c_str()
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(BindAttribLocation));
+		HandleIfError(OGLPLUS_ERROR_INFO(BindAttribLocation));
 	}
 };
 
@@ -112,7 +112,7 @@ void ProgramOps::BindLocation(
 		FriendOf<VertexAttribOps>::GetIndex(vertex_attrib),
 		identifier
 	);
-	ThrowOnError(OGLPLUS_ERROR_INFO(BindAttribLocation));
+	HandleIfError(OGLPLUS_ERROR_INFO(BindAttribLocation));
 }
 
 namespace aux {
@@ -278,7 +278,7 @@ public:
 			stride,
 			pointer
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+		HandleIfError(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 	}
 
 	/// Enables this vertex attribute array

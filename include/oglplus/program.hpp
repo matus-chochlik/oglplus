@@ -84,7 +84,7 @@ protected:
 	static void _init(GLsizei, GLuint& _name)
 	{
 		_name = OGLPLUS_GLFUNC(CreateProgram)();
-		ThrowOnError(OGLPLUS_ERROR_INFO(CreateProgram));
+		HandleIfError(OGLPLUS_ERROR_INFO(CreateProgram));
 	}
 
 	static void _cleanup(GLsizei, GLuint& _name)
@@ -125,7 +125,7 @@ public:
 			_name,
 			FriendOf<ShaderOps>::GetName(shader)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			AttachShader,
 			Program,
 			_name
@@ -145,7 +145,7 @@ public:
 			_name,
 			FriendOf<ShaderOps>::GetName(shader)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			DetachShader,
 			Program,
 			_name
@@ -200,13 +200,13 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(LinkProgram)(_name);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			LinkProgram,
 			Program,
 			_name
 		));
 		if(!IsLinked())
-			throw LinkError(
+			HandleBuildError<LinkError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
 					LinkProgram,
@@ -243,13 +243,13 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ValidateProgram)(_name);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgram,
 			Program,
 			_name
 		));
 		if(!IsValid())
-			throw ValidationError(
+			HandleBuildError<ValidationError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
 					ValidateProgram,
@@ -388,7 +388,7 @@ public:
 			OGLPLUS_GLFUNC(GetActiveAttrib)
 		)
 		{
-			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveAttrib,
 				Program,
 				context.Program()
@@ -411,7 +411,7 @@ public:
 			OGLPLUS_GLFUNC(GetActiveUniform)
 		)
 		{
-			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveUniform,
 				Program,
 				context.Program()
@@ -434,7 +434,7 @@ public:
 			OGLPLUS_GLFUNC(GetTransformFeedbackVarying)
 		)
 		{
-			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetTransformFeedbackVarying,
 				Program,
 				context.Program()
@@ -459,7 +459,7 @@ public:
 				nullptr,
 				_shader_names.data()
 			);
-			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetAttachedShaders,
 				Program,
 				name
@@ -578,7 +578,7 @@ public:
 			varyings,
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TransformFeedbackVaryings,
 			Program,
 			_name
@@ -613,7 +613,7 @@ public:
 			tmp.data(),
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TransformFeedbackVaryings,
 			Program,
 			_name
@@ -645,7 +645,7 @@ public:
 			);
 			if(context.Buffer().size() < size_t(length))
 				context.Buffer().resize(length);
-			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetProgramiv,
 				Program,
 				context.Program()
@@ -658,7 +658,7 @@ public:
 				&strlen,
 				context.Buffer().data()
 			);
-			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveUniformBlockName,
 				Program,
 				context.Program()
@@ -728,7 +728,7 @@ public:
 			GL_PROGRAM_SEPARABLE,
 			para ? GL_TRUE : GL_FALSE
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramParameteri,
 			Program,
 			_name
@@ -752,7 +752,7 @@ public:
 			GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
 			para ? GL_TRUE : GL_FALSE
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramParameteri,
 			Program,
 			_name
@@ -784,7 +784,7 @@ public:
 				&format,
 				binary.data()
 			);
-			ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetProgramBinary,
 				Program,
 				_name
@@ -809,7 +809,7 @@ public:
 			binary.data(),
 			binary.size()
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramBinary,
 			Program,
 			_name

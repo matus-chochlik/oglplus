@@ -82,12 +82,12 @@ protected:
 
 	void _check(const GLchar* identifier) const
 	{
-		ThrowOnError(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
+		HandleIfError(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
 		if(_index == GLint(-1))
 		{
 			Error::PropertyMap props;
 			props["identifer"] = identifier;
-			ThrowOnError(
+			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform block",
 				OGLPLUS_ERROR_INFO(GetUniformBlockIndex),
@@ -188,7 +188,7 @@ public:
 			_index,
 			GLuint(binding)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(UniformBlockBinding));
+		HandleIfError(OGLPLUS_ERROR_INFO(UniformBlockBinding));
 	}
 };
 

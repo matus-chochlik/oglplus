@@ -49,7 +49,7 @@ protected:
 	static void _init(GLsizei, GLuint& _name, Kind kind)
 	{
 		_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(kind));
-		ThrowOnError(OGLPLUS_ERROR_INFO(CreateShader));
+		HandleIfError(OGLPLUS_ERROR_INFO(CreateShader));
 	}
 
 	static void _cleanup(GLsizei, GLuint& _name)
@@ -80,7 +80,7 @@ public:
 			GL_SHADER_TYPE,
 			&result
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CreateShader,
 			Shader,
 			_name
@@ -206,13 +206,13 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(CompileShader)(_name);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompileShader,
 			Shader,
 			_name
 		));
 		if(!IsCompiled())
-			throw CompileError(
+			HandleBuildError<CompileError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
 					CompileShader,
@@ -230,7 +230,7 @@ public:
 	static void ReleaseCompiler(void)
 	{
 		OGLPLUS_GLFUNC(ReleaseShaderCompiler)();
-		ThrowOnError(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
+		HandleIfError(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
 	}
 #endif
 };

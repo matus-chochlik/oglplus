@@ -38,7 +38,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenRenderbuffers)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenRenderbuffers));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenRenderbuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -113,7 +113,7 @@ public:
 			width,
 			height
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			RenderbufferStorage,
 			Renderbuffer,
 			BindingQuery<RenderbufferOps>::QueryBinding(target)
@@ -140,7 +140,7 @@ public:
 			width,
 			height
 		);
-		ThrowOnError(OGLPLUS_OBJECT_ERROR_INFO(
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			RenderbufferStorageMultisample,
 			Renderbuffer,
 			BindingQuery<RenderbufferOps>::QueryBinding(target)

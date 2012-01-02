@@ -41,7 +41,7 @@ protected:
 	static void _init(GLsizei count, GLuint& _name)
 	{
 		OGLPLUS_GLFUNC(GenSamplers)(count, &_name);
-		ThrowOnError(OGLPLUS_ERROR_INFO(GenSamplers));
+		HandleIfError(OGLPLUS_ERROR_INFO(GenSamplers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint& _name)
@@ -94,7 +94,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterfv));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameterfv));
 	}
 
 	/// Sets the texture border color
@@ -110,7 +110,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterIiv));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameterIiv));
 	}
 
 	/// Sets the texture border color
@@ -126,7 +126,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterIuiv));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameterIuiv));
 	}
 
 	/// Sets the compare mode
@@ -142,7 +142,7 @@ public:
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
 	/// Sets the compare function
@@ -158,7 +158,7 @@ public:
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
 	/// Sets the LOD bias value
@@ -174,7 +174,7 @@ public:
 			GL_TEXTURE_LOD_BIAS,
 			value
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterf));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameterf));
 	}
 
 	/// Sets the magnification filter
@@ -190,7 +190,7 @@ public:
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
 	/// Sets the minification filter
@@ -206,7 +206,7 @@ public:
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
 	/// Sets minimal LOD value
@@ -222,7 +222,7 @@ public:
 			GL_TEXTURE_MIN_LOD,
 			value
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterf));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameterf));
 	}
 
 	/// Sets maximal LOD value
@@ -238,7 +238,7 @@ public:
 			GL_TEXTURE_MAX_LOD,
 			value
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameterf));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameterf));
 	}
 
 	/// Sets the wrap parameter (TEXTURE_WRAP_*)
@@ -253,7 +253,7 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		ThrowOnError(OGLPLUS_ERROR_INFO(SamplerParameteri));
+		HandleIfError(OGLPLUS_ERROR_INFO(SamplerParameteri));
 	}
 
 	/// Sets the wrap parameter for the S coordinate
