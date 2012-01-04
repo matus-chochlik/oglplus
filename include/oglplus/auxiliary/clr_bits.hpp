@@ -16,8 +16,11 @@
 #include <oglplus/error.hpp>
 
 namespace oglplus {
+namespace context {
 
-class Context;
+class ClearBuffers;
+
+} // namespace context
 
 namespace aux {
 
@@ -33,7 +36,7 @@ private:
 		return res;
 	}
 
-	friend class oglplus::Context;
+	friend class oglplus::context::ClearBuffers;
 
 	ClrBits(void) = delete;
 	ClrBits(const ClrBits&) = delete;

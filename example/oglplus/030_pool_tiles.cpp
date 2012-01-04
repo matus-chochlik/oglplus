@@ -1,6 +1,6 @@
 /**
  *  @example oglplus/030_pool_tiles.cpp
- *  @brief Shows a multitextured bump/parallax-mapped reflective plane
+ *  @brief Shows a multitextured bump-mapped reflective plane
  *
  *  @image html 030_pool_tiles.png
  *

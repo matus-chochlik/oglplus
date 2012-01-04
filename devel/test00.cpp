@@ -12,7 +12,7 @@
 
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/spiral_sphere.hpp>
+#include <oglplus/shapes/wicker_torus.hpp>
 #include <oglplus/bound/buffer.hpp>
 #include <oglplus/bound/texture.hpp>
 
@@ -31,7 +31,7 @@ namespace images {
 class Test00 : public Test
 {
 private:
-	typedef shapes::SpiralSphere Shape;
+	typedef shapes::WickerTorus Shape;
 	//
 	Shape shape;
 	shapes::DrawingInstructions shape_instr;
