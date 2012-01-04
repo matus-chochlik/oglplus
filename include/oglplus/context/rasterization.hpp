@@ -17,6 +17,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/polygon_mode.hpp>
+#include <oglplus/provoke_mode.hpp>
 
 namespace oglplus {
 namespace context {
@@ -93,6 +94,19 @@ public:
 		OGLPLUS_GLFUNC(PointSize)(size);
 		AssertNoError(OGLPLUS_ERROR_INFO(PointSize));
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_provoking_vertex
+	/// Sets the provoking vertex selection mode for flatshading
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ProvokingVertex}
+	 */
+	static void ProvokingVertex(ProvokeMode mode)
+	{
+		OGLPLUS_GLFUNC(ProvokingVertex)(GLenum(mode));
+		AssertNoError(OGLPLUS_ERROR_INFO(ProvokingVertex));
+	}
+#endif
 };
 
 } // namespace context

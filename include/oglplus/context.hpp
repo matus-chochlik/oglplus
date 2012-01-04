@@ -33,6 +33,9 @@
 
 namespace oglplus {
 
+/// Namespace containing definitions of GL context-related operation wrappers
+namespace context { }
+
 /** @defgroup ogl_context Current OpenGL context operations
  *
  *  Here are listed classes and functions wrapping operations on the current

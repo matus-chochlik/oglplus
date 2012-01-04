@@ -74,6 +74,11 @@ protected:
 		}
 	}
 public:
+	/// Bind the vertex attribute location
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindAttribLocation}
+	 */
 	void BindLocation(
 		const ProgramOps& program,
 		const GLchar* identifier
@@ -87,6 +92,11 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(BindAttribLocation));
 	}
 
+	/// Bind the vertex attribute location
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindAttribLocation}
+	 */
 	void BindLocation(
 		const ProgramOps& program,
 		const String& identifier
@@ -99,6 +109,22 @@ public:
 		);
 		HandleIfError(OGLPLUS_ERROR_INFO(BindAttribLocation));
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3
+	/// Set the vertex attrib divisor
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribDivisor}
+	 */
+	void Divisor(GLuint divisor) const
+	{
+		OGLPLUS_GLFUNC(VertexAttribDivisor)(
+			_index,
+			divisor
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(VertexAttribDivisor));
+	}
+#endif
 };
 
 // Things from to Program related to vertex attributes
