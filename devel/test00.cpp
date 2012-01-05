@@ -100,7 +100,7 @@ public:
 			"	float i = max(d*re, 0.0) + ir + 0.3;"
 			"	float c = ("
 			"		int(vertTexCoord.x*24) % 2+"
-			"		int(vertTexCoord.y*36) % 2"
+			"		int(vertTexCoord.y*32) % 2"
 			"	) % 2;"
 			"	float v = i*(1.0-c/2.0);"
 			"	fragColor = vec4(v, v, v, 1.0);"
@@ -173,8 +173,8 @@ public:
 		gl.Enable(Capability::DepthTest);
 		//
 		gl.FrontFace(shape.FaceWinding());
-		//gl.CullFace(Face::Back);
-		//gl.Enable(Capability::CullFace);
+		gl.CullFace(Face::Back);
+		gl.Enable(Capability::CullFace);
 		gl.PolygonMode(Face::Back, PolygonMode::Line);
 	}
 
@@ -184,7 +184,7 @@ public:
 		//
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			5.0 + std::sin(time)*1.0,
+			5.0 - std::sin(time / 5.0)*2.5,
 			FullCircles(time * 0.2),
 			Degrees(std::sin(time * 0.2) * 70)
 		);
