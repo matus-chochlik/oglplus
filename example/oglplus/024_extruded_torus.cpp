@@ -103,8 +103,8 @@ public:
 			"		vertTexCoord[1]+"
 			"		vertTexCoord[2] "
 			"	);"
-			"	float Offs = (sin((FaceCoord.t + Time/10.0)* 3.14 * 2.0 * 10)*0.5 + 0.5)*0.4;"
-			"	Offs *= cos(FaceCoord.s * 3.1415 * 2.0)*0.5 + 0.51;"
+			"	float Offs = (sin((FaceCoord.s + Time/10.0)* 3.14 * 2.0 * 10)*0.5 + 0.5)*0.4;"
+			"	Offs *= cos(FaceCoord.t * 3.1415 * 2.0)*0.5 + 0.51;"
 
 			"	vec3 pos[3], norm[3];"
 			"	for(int i=0; i!=3; ++i)"

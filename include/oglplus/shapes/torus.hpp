@@ -143,10 +143,10 @@ public:
 
 		for(size_t r=0; r!=(_rings+1); ++r)
 		{
-			GLdouble v = r*r_step;
+			GLdouble u = r*r_step;
 			for(size_t s=0; s!=(_sections+1); ++s)
 			{
-				GLdouble u = s*s_step;
+				GLdouble v = s*s_step;
 				dest[k++] = u;
 				dest[k++] = v;
 			}

@@ -99,7 +99,7 @@ public:
 			"	float d = dot(si*normalize(vertNormal), LightDir);"
 			"	float i = max(d*re, 0.0) + ir + 0.3;"
 			"	float c = ("
-			"		int(vertTexCoord.x*50) % 2+"
+			"		int(vertTexCoord.x*24) % 2+"
 			"		int(vertTexCoord.y*36) % 2"
 			"	) % 2;"
 			"	float v = i*(1.0-c/2.0);"
@@ -202,7 +202,7 @@ public:
 
 	bool Continue(double time)
 	{
-		return time < 30.0;
+		return time < 90.0;
 	}
 };
 
