@@ -3,8 +3,9 @@
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
+test_obj=bld/devel/test${1}.o
 test_exe=out/devel/test${1}
-rm -f ${test_exe}
+rm -f ${test_exe} ${test_obj}
 clear
 pidfile=$(mktemp)
 make -f Makefile.full ${test_exe} || exit $?

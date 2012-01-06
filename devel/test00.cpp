@@ -51,6 +51,7 @@ private:
 
 	Buffer verts;
 	Buffer normals;
+	Buffer tangents;
 	Buffer texcoords;
 
 	// textures for the shape
@@ -64,21 +65,32 @@ public:
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
+			"uniform vec3 LightPos;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
+			"in vec3 Tangent;"
 			"in vec2 TexCoord;"
 			"out vec3 vertNormal;"
+			"out vec3 vertTangent;"
+			"out vec3 vertLightDir;"
 			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
 			"		modelMatrix *"
 			"		Position;"
+			"	vertLightDir = LightPos - gl_Position.xyz;"
+			"	gl_Position = "
+			"		projectionMatrix *"
+			"		cameraMatrix *"
+			"		gl_Position;"
 			"	vertNormal = ("
 			"		modelMatrix *"
 			"		vec4(Normal, 0.0)"
+			"	).xyz;"
+			"	vertTangent = ("
+			"		modelMatrix *"
+			"		vec4(Tangent, 0.0)"
 			"	).xyz;"
 			"	vertTexCoord = TexCoord;"
 			"}"
@@ -87,8 +99,9 @@ public:
 
 		fs.Source(
 			"#version 330\n"
-			"uniform vec3 LightDir;"
 			"in vec3 vertNormal;"
+			"in vec3 vertTangent;"
+			"in vec3 vertLightDir;"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
 			"void main(void)"
@@ -96,14 +109,15 @@ public:
 			"	float si = gl_FrontFacing ? 1.0 : -1.0;"
 			"	float re = gl_FrontFacing ? 1.0 : 0.5;"
 			"	float ir = gl_FrontFacing ? 0.0 : 0.3;"
-			"	float d = dot(si*normalize(vertNormal), LightDir);"
+			"	float d = dot(si*normalize(vertNormal), normalize(vertLightDir));"
 			"	float i = max(d*re, 0.0) + ir + 0.3;"
 			"	float c = ("
 			"		int(vertTexCoord.x*24) % 2+"
-			"		int(vertTexCoord.y*32) % 2"
+			"		int(vertTexCoord.y*24) % 2"
 			"	) % 2;"
-			"	float v = i*(1.0-c/2.0);"
-			"	fragColor = vec4(v, v, v, 1.0);"
+			"	float v = (1.0-c/4.0);"
+			"	fragColor = vec4(vec3(1,1,1)*v*i, 1.0);"
+			//"	fragColor = vec4(vertTangent, i);"
 			"}"
 		);
 		fs.Compile();
@@ -124,9 +138,8 @@ public:
 			return true;
 		};
 
+		try
 		{
-			LocalErrorHandler eh(error_handler_func);
-
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = shape.Positions(data);
 			Bind(verts, Buffer::Target::Array).Data(data);
@@ -135,10 +148,10 @@ public:
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
+		catch(...){ }
 
+		try
 		{
-			LocalErrorHandler eh(error_handler_func);
-
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = shape.Normals(data);
 			Bind(normals, Buffer::Target::Array).Data(data);
@@ -147,10 +160,22 @@ public:
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
+		catch(...){ }
 
+		try
 		{
-			LocalErrorHandler eh(error_handler_func);
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = shape.Tangents(data);
+			Bind(tangents, Buffer::Target::Array).Data(data);
+			// setup the vertex attribs array for the normals
+			VertexAttribArray attr(prog, "Tangent");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
+		}
+		catch(...){ }
 
+		try
+		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = shape.TexCoordinates(data);
 			Bind(texcoords, Buffer::Target::Array).Data(data);
@@ -159,13 +184,12 @@ public:
 			attr.Setup(n_per_vertex, DataType::Float);
 			attr.Enable();
 		}
+		catch(...){ }
 
 		Uniform(prog, "projectionMatrix").SetMatrix(
 			CamMatrixf::Perspective(Degrees(48), 1.25, 1, 100)
 		);
-		Uniform(prog, "LightDir").Set(
-			Normalized(Vec3f(4.0f, 10.0f, 4.0f))
-		);
+		Uniform(prog, "LightPos").Set(Vec3f(5.0f, 9.0f, 4.0f));
 
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
@@ -184,17 +208,20 @@ public:
 		//
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			5.0 - std::sin(time / 5.0)*2.5,
-			FullCircles(time * 0.2),
-			Degrees(std::sin(time * 0.2) * 70)
+			4.0 - SineWave(time / 20.0)*1.5,
+			FullCircles(time / 25.0),
+			Degrees(SineWave(time / 30.0) * 80)
 		);
 		Uniform(prog, "cameraMatrix").SetMatrix(cameraMatrix);
 
 		Uniform(prog, "modelMatrix").SetMatrix(
+			ModelMatrixf()
+/*
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(time * 0.1)
 			)
+*/
 		);
 
 		shape_instr.Draw(shape_indices);
