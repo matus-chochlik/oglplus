@@ -373,6 +373,7 @@ public:
 		auto primitive_type = PrimitiveType::TriangleStrip;
 
 		GLuint offs = 0;
+		GLuint phase = 0;
 		for(size_t n=0; n!=2; ++n)
 		{
 			for(size_t b=0; b!=_bands; ++b)
@@ -385,12 +386,14 @@ public:
 							method,
 							primitive_type,
 							offs,
-							GLuint(edge * 2)
+							GLuint(edge * 2),
+							phase
 						}
 					);
 					offs += edge * 2;
 				}
 			}
+			++phase;
 		}
 		for(size_t n=0; n!=4; ++n)
 		{
@@ -402,7 +405,8 @@ public:
 						method,
 						primitive_type,
 						offs,
-						GLuint(edge * 2)
+						GLuint(edge * 2),
+						phase
 					}
 				);
 				offs += edge * 2;

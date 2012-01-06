@@ -227,7 +227,8 @@ public:
 					DrawOperation::Method::DrawElements,
 					PrimitiveType::TriangleStrip,
 					GLuint(r * (_sections + 1) * 2),
-					GLuint((_sections + 1) * 2)
+					GLuint((_sections + 1) * 2),
+					0
 				}
 			);
 		}
@@ -246,7 +247,8 @@ public:
 					DrawOperation::Method::DrawElements,
 					PrimitiveType::TriangleStripAdjacency,
 					GLuint(r * (_sections + 1) * 4),
-					GLuint((_sections + 1) * 4)
+					GLuint((_sections + 1) * 4),
+					0
 				}
 			);
 		}

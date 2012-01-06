@@ -180,7 +180,8 @@ public:
 					DrawOperation::Method::DrawElements,
 					PrimitiveType::TriangleStrip,
 					GLuint(r * (_sections + 1) * 2),
-					GLuint((_sections + 1) * 2)
+					GLuint((_sections + 1) * 2),
+					0
 				}
 			);
 		}

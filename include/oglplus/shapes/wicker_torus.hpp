@@ -77,7 +77,7 @@ public:
 		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
 		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * 0.25;
-		const GLdouble s_slip = s_step * 0.25;
+		const GLdouble s_slip = s_step * 0.40;
 		const GLdouble r1 = _radius_in;
 		const GLdouble r2 = _radius_out - _radius_in;
 
@@ -198,7 +198,7 @@ public:
 		for(size_t f=0; f!=2; ++f)
 		{
 			const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-			const GLdouble fdt = t*f_sign*0.5;
+			const GLdouble fdt = t*f_sign*0.95;
 			for(size_t s=0; s!=_sections; ++s)
 			{
 				const GLdouble s_angle = s_step*0.5 + s*s_step;
@@ -268,7 +268,7 @@ public:
 						for(size_t f=0; f!=2; ++f)
 						{
 							const GLdouble f_sign = (f == 0)? 1.0: -1.0;
-							const GLdouble fdt = -t*d_sign*f_sign*0.5;
+							const GLdouble fdt = -t*d_sign*f_sign*0.95;
 
 							dest[k++] = vx*(r1 + r2*(1.0 + vr) + fdt*vr);
 							dest[k++] = vy*(r2 + fdt);
@@ -308,7 +308,7 @@ public:
 		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
 		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * 0.25;
-		const GLdouble s_slip = s_step * 0.25;
+		const GLdouble s_slip = s_step * 0.40;
 		const GLdouble s_slop = (1.0 * M_PI) / 4.0;
 
 		for(size_t f=0; f!=2; ++f)
@@ -482,7 +482,7 @@ public:
 		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
 		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * 0.25;
-		const GLdouble s_slip = s_step * 0.25;
+		const GLdouble s_slip = s_step * 0.40;
 		const GLdouble s_slop = (1.0 * M_PI) / 4.0;
 
 		for(size_t f=0; f!=2; ++f)
@@ -710,7 +710,7 @@ public:
 			}
 		}
 
-		s_slip = s_step * 0.25;
+		s_slip = s_step * 0.40;
 
 		for(size_t f=0; f!=2; ++f)
 		{
@@ -809,6 +809,7 @@ public:
 		size_t strip = 2*(_sections*3 + 1);
 		size_t offs = 0;
 
+		GLuint phase = 0;
 		for(size_t f=0; f!=4; ++f)
 		{
 			for(size_t r=0; r!=_rings; ++r)
@@ -819,11 +820,13 @@ public:
 						DrawOperation::Method::DrawArrays,
 						PrimitiveType::TriangleStrip,
 						GLuint(offs),
-						GLuint(strip)
+						GLuint(strip),
+						phase
 					}
 				);
 				offs += strip;
 			}
+			++phase;
 		}
 
 		strip = 2*(_rings*2 + 1);
@@ -838,11 +841,13 @@ public:
 						DrawOperation::Method::DrawArrays,
 						PrimitiveType::TriangleStrip,
 						GLuint(offs),
-						GLuint(strip)
+						GLuint(strip),
+						phase
 					}
 				);
 				offs += strip;
 			}
+			++phase;
 		}
 		return std::move(instructions);
 	}

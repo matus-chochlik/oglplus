@@ -42,6 +42,15 @@ struct DrawOperation
 	/// Count of elements
 	GLuint count;
 
+	/// The phase of the drawing process
+	/** The phase is a shape-builder-specific value that indicates
+	 *  which part of the shape is being rendered. Together with a
+	 *  "driver" function it can be used to change the shading
+	 *  program parameters (like the values of uniform variables)
+	 *  to switch the whole program or change GL state.
+	 */
+	GLuint phase;
+
 	/// Draw the part of a shape
 	template <typename IT>
 	void Draw(
@@ -157,12 +166,46 @@ public:
 	 : _ops(other._ops)
 	{ }
 
-	/// Draw the shape from data in currently bound VBOs indexed by indices
-	template <typename IT>
-	void Draw(const std::vector<IT>& indices, GLuint inst_count = 1) const
+	struct DefaultDriver
 	{
-		for(auto i=_ops.begin(),e=_ops.end();i!=e;++i)
-			i->Draw(indices, inst_count);
+		inline bool operator()(GLuint phase) const
+		{
+			return true;
+		}
+	};
+
+	/// Draw the shape from data in currently bound VBOs indexed by indices
+	template <typename IT, typename Driver = DefaultDriver>
+	void Draw(
+		const std::vector<IT>& indices,
+		GLuint inst_count = 1,
+		Driver driver = Driver()
+	) const
+	{
+		auto i=_ops.begin(),e=_ops.end();
+		if(i != e)
+		{
+			bool do_draw;
+			if(driver(i->phase))
+			{
+				do_draw = true;
+				i->Draw(indices, inst_count);
+			}
+			else do_draw = false;
+			GLuint prev_phase = i->phase;
+			++i;
+
+			while(i!=e)
+			{
+				if(prev_phase != i->phase)
+				{
+					do_draw = driver(i->phase);
+					prev_phase = i->phase;
+				}
+				if(do_draw) i->Draw(indices, inst_count);
+				++i;
+			}
+		}
 	}
 };
 

@@ -99,6 +99,7 @@ public:
 
 		fs.Source(
 			"#version 330\n"
+			"uniform vec3 Color1, Color2;"
 			"in vec3 vertNormal;"
 			"in vec3 vertTangent;"
 			"in vec3 vertLightDir;"
@@ -115,8 +116,8 @@ public:
 			"		int(vertTexCoord.x*24) % 2+"
 			"		int(vertTexCoord.y*24) % 2"
 			"	) % 2;"
-			"	float v = (1.0-c/4.0);"
-			"	fragColor = vec4(vec3(1,1,1)*v*i, 1.0);"
+			"	float v = (1.0-c/2.0);"
+			"	fragColor = vec4(mix(Color1, Color2, v)*i, 1.0);"
 			//"	fragColor = vec4(vertTangent, i);"
 			"}"
 		);
@@ -223,8 +224,32 @@ public:
 			)
 */
 		);
+		Uniform color1(prog, "Color1");
+		Uniform color2(prog, "Color2");
 
-		shape_instr.Draw(shape_indices);
+		shape_instr.Draw(
+			shape_indices,
+			1,
+			[&color1, &color2](GLuint phase) -> bool
+			{
+				if(phase < 2)
+				{
+					color1.Set(Vec3f(0.8, 0.8, 0.8));
+					color2.Set(Vec3f(0.8, 0.8, 0.8));
+				}
+				else if(phase < 4)
+				{
+					color1.Set(Vec3f(0.1, 0.1, 0.1));
+					color2.Set(Vec3f(0.1, 0.1, 0.1));
+				}
+				else
+				{
+					color1.Set(Vec3f(1.0, 0.8, 0.4));
+					color2.Set(Vec3f(0.6, 0.4, 0.1));
+				}
+				return true;
+			}
+		);
 	}
 
 	bool Continue(double time)

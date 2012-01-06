@@ -255,7 +255,8 @@ public:
 					DrawOperation::Method::DrawElements,
 					PrimitiveType::TriangleStrip,
 					GLuint(j * (_udiv + 1) * 2),
-					GLuint((_udiv + 1) * 2)
+					GLuint((_udiv + 1) * 2),
+					0
 				}
 			);
 		}
