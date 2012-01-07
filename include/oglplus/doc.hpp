@@ -29,6 +29,10 @@ namespace oglplus {
  *  resource and object management and make the use of OpenGL
  *  in C++ safer and easier.
  *
+ *  @warning Major breaking change in the 0.9.0 release: The Uniform, ProgramUniform,
+ *  VertexAttrib and other shader-data-related classes were turned to class templates
+ *  and the setting of uniform variables and vertex attribute values was changed.
+ *
  *  - @ref oglplus_features
  *    - @ref feat_auto_resource_management
  *    - @ref feat_type_safety

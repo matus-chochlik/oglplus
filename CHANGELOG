@@ -1,3 +1,27 @@
+Version 0.8.0
+
+- New constructors were added to the shader classes allowing
+  to specify the source and compile the shader during construction
+- The QuickProgram class, which allows to specify shaders and link
+  the program during construction was added
+- The current OpenGL context function wrappers were reorganized
+  to several classes
+- Wrappers for draw commands were added
+- The ProvokeMode enumeration was added
+- Wrappers for VertexAttribDivisor and PrimitiveRestartIndex were added
+- Several new compile-time configuration options were added
+- Update of the error handling, support for customized handling of
+  errors was added
+- Several new examples were added some problems in the existing examples were fixed
+- Two new textures were added
+- A new tutorial was written
+- Other documentation updates and fixes
+- A new shape builder was added (the WickerTorus)
+- The Cube and Plane shape builders were updated
+- The ST texture coordinates were switched in the Torus shape builder
+- A new image filter, which allows to transform the image pixel components
+  by a matrix was added
+
 Version 0.7.0
 
 - Several problems in the Makefile were fixed
