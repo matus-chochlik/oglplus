@@ -17,7 +17,7 @@ namespace oglplus {
 /** @defgroup compile_time_config Compile-time configuration
  *
  *  This section describes compile-time preprocessor symbols that
- *  can be used to configure several aspects of @oglplus.
+ *  can be used to configure several aspects of @OGLplus.
  */
 
 //TODO: detect support by compiler and define only if necessary
