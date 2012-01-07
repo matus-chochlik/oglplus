@@ -952,6 +952,53 @@ class Program
 typedef Object<ProgramOps, false> Program;
 #endif
 
+// TODO: docs
+class QuickProgram
+ : public Program
+{
+private:
+	void _attach(const Shader& shader)
+	{
+		this->AttachShader(shader);
+	}
+
+	template <typename ... Shaders>
+	void _attach(const Shader& shader, const Shaders& ... shaders)
+	{
+		this->AttachShader(shader);
+		_attach(shaders...);
+	}
+
+	template <typename ... Shaders>
+	void _initialize(const Shaders& ... shaders)
+	{
+		_attach(shaders...);
+		Link();
+		Use();
+	}
+public:
+	template <typename ... Shaders>
+	QuickProgram(const Shaders& ... shaders)
+	 : Program()
+	{
+		_initialize(shaders...);
+	}
+
+	template <typename ... Shaders>
+	QuickProgram(const GLchar* description, const Shaders& ... shaders)
+	 : Program(description)
+	{
+		_initialize(shaders...);
+	}
+
+	template <typename ... Shaders>
+	QuickProgram(const String& description, const Shaders& ... shaders)
+	 : Program(description)
+	{
+		_initialize(shaders...);
+	}
+};
+
 } // namespace oglplus
 
 #endif // include guard

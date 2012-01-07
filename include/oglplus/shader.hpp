@@ -260,18 +260,36 @@ template <Shader::Kind kind>
 class SpecializedShader
  : public Shader
 {
+private:
+	void _initialize(const GLchar* source)
+	{
+		this->Source(source);
+		this->Compile();
+	}
 public:
 	SpecializedShader(void)
 	 : Shader(kind)
 	{ }
 
-	SpecializedShader(const char* desc)
+	SpecializedShader(const GLchar* desc)
 	 : Shader(kind, desc)
 	{ }
 
 	SpecializedShader(const String& desc)
 	 : Shader(kind, desc)
 	{ }
+
+	SpecializedShader(const GLchar* desc, const GLchar* source)
+	 : Shader(kind, desc)
+	{
+		_initialize(source);
+	}
+
+	SpecializedShader(const String& desc, const GLchar* source)
+	 : Shader(kind, desc)
+	{
+		_initialize(source);
+	}
 
 	SpecializedShader(const SpecializedShader&) = delete;
 

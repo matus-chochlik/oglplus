@@ -172,7 +172,7 @@ public:
 		assert(_type_ok(this->_name));
 	}
 
-	Object(const char* desc)
+	Object(const GLchar* desc)
 	{
 		_do_init(1, this->_name);
 		assert(this->_name != 0);
@@ -211,7 +211,7 @@ public:
 	template <typename _Object = Object>
 	Object(
 		typename _Object::Kind kind,
-		const char* desc
+		const GLchar* desc
 	)
 	{
 		_do_init(1, this->_name, kind);
