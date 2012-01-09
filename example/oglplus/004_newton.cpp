@@ -135,7 +135,7 @@ public:
 		Uniform<GLfloat>(prog, "Color1").SetVector(0.2f, 0.02f, 0.05f);
 		Uniform<GLfloat>(prog, "Color2").SetVector(1.0f, 0.95f, 0.98f);
 		//
-		gl.ClearDepth(1.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Reshape(size_t width, size_t height)
@@ -145,8 +145,6 @@ public:
 
 	void Render(double)
 	{
-		gl.Clear().DepthBuffer();
-
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };

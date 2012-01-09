@@ -160,14 +160,28 @@
  *  @until vert_attr.Enable
  *
  *  That's it for the vertex data specification. Now we specify the values of
- *  the two uniform variables referenced by the fragment shader:
- *  @skipline Uniform(prog, "Color1")
- *  @until Uniform(prog, "Color2")
+ *  the two uniform variables referenced by the fragment shader. The uniforms
+ *  were both declared as @c vec3 in the shader code (i.e. a vector of three float
+ *  values). The classes that @OGLplus provides for manipulation of shader
+ *  input variables are templated and allow to set only values of the specified
+ *  type. This provides additional compile-time type checking and allows to avoid
+ *  type mismatches between the C++ program and the GLSL shader code which result
+ *  in runtime errors. There are several ways how to set the value of a uniform
+ *  variable. The @c Uniform specializations for simple types like @c float, @c int,
+ *  @c uint, etc. (besides setting values of the specified scalar types)
+ *  also allow to set the values of vectors and arrays of the same type.
+ *  There are also specializations for the @c Vector and @c Matrix classes
+ *  that can be used to specify only the values of vectors, matrices and arrays
+ *  thereof and they are more generic.
+ *  This tutorial uses a specialization of @c Uniform for @c GLfloat and its
+ *  @c SetVector member function to set the value of the 3D float vectors that
+ *  store the color values.
+ *  @skipline Uniform<GLfloat>(prog, "Color1")
+ *  @until Uniform<GLfloat>(prog, "Color2")
  *
- *  As the last step of initialization we specify the clear value for the depth buffer.
- *  We do not clear the color buffer since it is always completely overwritten
- *  by our rectangle.
- *  @skipline gl.ClearDepth
+ *  As the last step of initialization we disable depth testing since
+ *  we do not need it in this example:
+ *  @skipline gl.Disable(Capability::DepthTest)
  *  @until }
  *
  *  The @c Reshape function get called when the window is created and everytime
@@ -177,8 +191,9 @@
  *  @until }
  *
  *  This function redraws our scene and is basically the same as in the previous
- *  tutorials; we clear the depth buffer and we tell the GL to draw
- *  rectangle from the vertex data stored in the buffer objects tied to the currently
+ *  tutorials; (we don't clear any buffers here since it is not necessary) so
+ *  we just tell the GL to draw a rectangle
+ *  from the vertex data stored in the buffer objects tied to the currently
  *  bound VAO, which is still @c rectangle, because we didn't bind any other VAO since
  *  initialization. More preciselly we draw the rectangle composed from 4 vertices
  *  starting at index 0 in the buffers.
