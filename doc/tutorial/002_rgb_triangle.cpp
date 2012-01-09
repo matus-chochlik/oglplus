@@ -16,7 +16,7 @@
  *  tutorial, but it does not go through the code responsible for window
  *  initialization, OpenGL initialization and event handling.
  *
- *  For a full working code see the @c example/002_triangle.cpp
+ *  For a full working code see the @oglplus_example{oglplus,002_triangle}
  *  file in the example directory.
  *
  *  @dontinclude oglplus/002_triangle.cpp

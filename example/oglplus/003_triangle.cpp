@@ -110,10 +110,10 @@ public:
 		// set the transformation matrix
 		Uniform<Mat4f> u1(prog, "Matrix");
 		u1.Set(Mat4f(
-			 2.0f,  0.0f,  0.0f,  0.0f,
-			 0.0f,  2.0f,  0.0f,  0.0f,
+			 2.0f,  0.0f,  0.0f, -1.0f,
+			 0.0f,  2.0f,  0.0f, -1.0f,
 			 0.0f,  0.0f,  2.0f,  0.0f,
-			-1.0f, -1.0f,  0.0f,  1.0f
+			 0.0f,  0.0f,  0.0f,  1.0f
 		));
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);

@@ -24,7 +24,8 @@
  *  - More complex fragment shader
  *  - Uniform variables
  *
- *  For a full working code see the @c example/004_newton.cpp
+ *
+ *  For a full working code see the @oglplus_example{oglplus,004_newton}
  *  file in the example directory.
  *
  *  @dontinclude oglplus/004_newton.cpp

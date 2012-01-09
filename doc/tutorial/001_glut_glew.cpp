@@ -20,7 +20,7 @@
  *  The application creates a single window and renders into it a red triangle
  *  on a black background. It involves only the very basic things necessary
  *  to draw something.
- *  For a full working code see the @c standalone/001_triangle_glut_glew.cpp
+ *  For a full working code see the @oglplus_example{standalone,001_triangle_glut_glew}
  *  file in the example directory.
  *
  *  @dontinclude standalone/001_triangle_glut_glew.cpp
@@ -241,7 +241,26 @@
  *  example since we are drawing a single primitive and thus we do not require
  *  a z-buffer, its here just to bring us up to speed and show how to clear
  *  multiple buffers at once.
+ *
  *  @skipline gl.Clear().ColorBuffer().DepthBuffer();
+ *
+ *  @note Those who are concerned that the line above translates into
+ *  something (rather inefficient) like,
+ *  @code
+ *  glClear(GL_COLOR_BUFFER_BIT);
+ *  glClear(GL_DEPTH_BUFFER_BIT);
+ *  @endcode
+ *  don't worry. It in fact translates into something like this:
+ *  @code
+ *  GLenum bits = 0;
+ *  bits |= GL_COLOR_BUFFER_BIT;
+ *  bits |= GL_DEPTH_BUFFER_BIT;
+ *  glClear(bits);
+ *  @endcode
+ *  which a good compiler can very easily optimize into:
+ *  @code
+ *  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+ *  @endcode
  *
  *  Now we use the @c DrawArrays command to draw some @c Triangles from the
  *  vertex data managed by the currently bound VAO (which is still @c triangle
