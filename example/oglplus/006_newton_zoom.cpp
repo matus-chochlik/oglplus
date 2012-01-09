@@ -4,7 +4,7 @@
  *
  *  @image html 006_newton_zoom.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -133,8 +133,8 @@ public:
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform(prog, "Color1").Set(0.2f, 0.02f, 0.05f);
-		Uniform(prog, "Color2").Set(1.0f, 0.95f, 0.98f);
+		Uniform<Vec3f>(prog, "Color1").Set(0.2f, 0.02f, 0.05f);
+		Uniform<Vec3f>(prog, "Color2").Set(1.0f, 0.95f, 0.98f);
 		//
 		gl.ClearDepth(1.0f);
 	}
@@ -150,12 +150,10 @@ public:
 
 		GLfloat scale = 1.0f / (3.0 * time + 1.0f);
 		Angle<GLfloat> angle = FullCircles(time * 0.1);
-		Vector<GLfloat, 2> x(Cos(angle), Sin(angle));
-		Vector<GLfloat, 2> y = Cross(x);
+		Vec2f x(Cos(angle), Sin(angle));
+		Vec2f y = Cross(x);
 
-		Uniform(prog, "ZoomMatrix").SetMatrix(
-			Matrix<GLfloat, 2, 2>(x*scale,  y* scale)
-		);
+		SetUniform(prog, "ZoomMatrix", Mat2f(x*scale,  y* scale));
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

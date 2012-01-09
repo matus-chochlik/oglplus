@@ -4,7 +4,7 @@
  *
  *  @image html 007_cubic_bezier.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -126,16 +126,17 @@ public:
 	void Render(double time)
 	{
 		gl.Clear().ColorBuffer();
+		Uniform<Vec3f> color(prog, "Color");
 		// draw the lines between control points
-		Uniform(prog, "Color").Set(Vec3f(0.9f, 0.9f, 0.2f));
+		color = Vec3f(0.9f, 0.9f, 0.2f);
 		control.Bind();
 		gl.DrawArrays(PrimitiveType::LineStrip, 0, ctrl_n);
 		// draw the curve
-		Uniform(prog, "Color").Set(Vec3f(0.1f, 0.1f, 0.1f));
+		color = Vec3f(0.1f, 0.1f, 0.1f);
 		curve.Bind();
 		gl.DrawArrays(PrimitiveType::LineStrip, 0, curve_n);
 		// draw the control points
-		Uniform(prog, "Color").Set(Vec3f(0.9f, 0.0f, 0.0f));
+		color = Vec3f(0.9f, 0.0f, 0.0f);
 		control.Bind();
 		gl.PointSize(8.0);
 		gl.DrawArrays(PrimitiveType::Points, 0, ctrl_n);

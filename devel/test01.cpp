@@ -4,7 +4,7 @@
  *  NOTE. this file is here for feature development / testing purposes only
  *  and its source code, input, output can change witout prior notice.
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -226,7 +226,7 @@ public:
 		// setup the textures
 		try {
 			Texture::Active(0);
-			Uniform(prog, "colorTex").Set(0);
+			UniformSampler(prog, "colorTex").Set(0);
 			auto bound_tex = Bind(color_tex, Texture::Target::_2D);
 			//bound_tex.Image2D(images::SphereBumpMap(512, 512));
 			bound_tex.Image2D(images::LoadTexture("stones"));
@@ -239,15 +239,15 @@ public:
 		} catch(...) { }
 		try {
 			Texture::Active(1);
-			Uniform(prog, "bumpTex").Set(1);
+			UniformSampler(prog, "bumpTex").Set(1);
 			auto bound_tex = Bind(bump_tex, Texture::Target::_2D);
 			try {
 				auto image = images::SphereBumpMap(512, 512, 2, 2);
 				//auto image = images::NormalMap(images::LoadTexture("stones-hmap"));
 				//auto image = images::NormalMap(images::LoadTexture("wooden_crate-hmap"));
 				bound_tex.Image2D(image);
-				Uniform(prog, "bumpTexWidth").Set(image.Width());
-				Uniform(prog, "bumpTexHeight").Set(image.Height());
+				Uniform<GLint>(prog, "bumpTexWidth").Set(image.Width());
+				Uniform<GLint>(prog, "bumpTexHeight").Set(image.Height());
 			} catch(...) { }
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
@@ -257,7 +257,7 @@ public:
 		} catch(...) { }
 
 		// set the projection matrix fov = 24 deg. aspect = 1.25
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "projectionMatrix").Set(
 			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)
 		);
 		//
@@ -276,17 +276,16 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "cameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				//4.5 + std::sin(time)*3.0,
-				1.5,
+				4.5 + std::sin(time)*3.0,
 				FullCircles(-time * 0.2),
 				Degrees(std::sin(time * 0.2) * 70)
 			)
 		);
 
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "modelMatrix").Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0, 1.0, 1.0),
 				FullCircles(time * 0.2)

@@ -4,7 +4,7 @@
  *
  *  @image html 020_shaded_objects.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -88,24 +88,24 @@ public:
 		}
 	}
 
-	void SetProjection(const Matrix4f& projection)
+	void SetProjection(const Mat4f& projection)
 	{
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(projection);
+		SetUniform(prog, "ProjectionMatrix", projection);
 	}
 
 	void Render(
 		const Vec3f& light,
-		const Matrix4f& camera,
-		const Matrix4f& model
+		const Mat4f& camera,
+		const Mat4f& model
 	)
 	{
 		// use the shading program
 		prog.Use();
 		// set the uniforms
-		Uniform(prog, "LightPos").Set(light);
-		Uniform(prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(prog, "ModelMatrix").SetMatrix(model);
+		SetUniform(prog, "LightPos", light);
+		SetUniform(prog, "CameraMatrix", camera);
+		SetUniform(prog, "ModelMatrix", model);
 		// bind the VAO
 		shape.Bind();
 		// use the instructions to draw the shape
@@ -216,7 +216,7 @@ private:
 	static const GLchar* fs_wo_vstrips(void)
 	{
 		return
-		"	float m = int(vertTexCoord.y*8) % 2;"
+		"	float m = int(vertTexCoord.x*8) % 2;"
 		"	vec3 Color = mix("
 		"		vec3(1.0, 0.6, 0.1),"
 		"		vec3(1.0, 0.9, 0.8),"
@@ -312,7 +312,7 @@ public:
 			Degrees(SineWave(time / 6.0) * 45)
 		);
 		// render the shapes
-		sphere.Render(light, camera, Matrix4f());
+		sphere.Render(light, camera, Mat4f());
 		cubeX.Render(
 			light,
 			camera,

@@ -4,7 +4,7 @@
  *
  *  @image html 019_helium.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -83,25 +83,25 @@ public:
 		}
 	}
 
-	void SetProjection(const Matrix4f& projection)
+	void SetProjection(const Mat4f& projection)
 	{
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(projection);
+		SetUniform(prog, "ProjectionMatrix", projection);
 	}
 
-	void SetLightAndCamera(const Vec3f& light, const Matrix4f& camera)
+	void SetLightAndCamera(const Vec3f& light, const Mat4f& camera)
 	{
 		// use the shading program
 		prog.Use();
 		// set the uniforms
-		Uniform(prog, "LightPos").Set(light);
-		Uniform(prog, "CameraMatrix").SetMatrix(camera);
+		SetUniform(prog, "LightPos", light);
+		SetUniform(prog, "CameraMatrix", camera);
 	}
 
-	void Render(const Matrix4f& model)
+	void Render(const Mat4f& model)
 	{
 		prog.Use();
-		Uniform(prog, "ModelMatrix").SetMatrix(model);
+		SetUniform(prog, "ModelMatrix", model);
 		// bind the VAO
 		sphere.Bind();
 		// use the instructions to draw the sphere

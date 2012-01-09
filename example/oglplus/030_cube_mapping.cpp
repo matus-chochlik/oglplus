@@ -4,7 +4,7 @@
  *
  *  @image html 030_cube_mapping.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -477,7 +477,7 @@ public:
 		cmap_prog.Use();
 
 
-		Uniform(cmap_prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(cmap_prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(Degrees(90), 1.0, 1, 10)
 		);
 
@@ -570,7 +570,7 @@ public:
 			}
 		}
 		sphere_prog.Use();
-		Uniform(sphere_prog, "CubeTex").Set(0);
+		UniformSampler(sphere_prog, "CubeTex").Set(0);
 
 		{
 			auto bound_fbo = Bind(
@@ -622,9 +622,9 @@ public:
 
 		// Use the cube map rendering program
 		cmap_prog.Use();
-		Uniform(cmap_prog, "LightPos").Set(lightPos);
+		Uniform<Vec4f>(cmap_prog, "LightPos").Set(lightPos);
 		{
-			auto object_offs = Uniform(cmap_prog, "Offset");
+			Uniform<Vec3f> object_offs(cmap_prog, "Offset");
 
 			auto b=cube_offsets.begin(), e = cube_offsets.end();
 			for(auto i=b; i!=e; ++i)
@@ -657,11 +657,11 @@ public:
 		);
 
 		cube_prog.Use();
-		Uniform(cube_prog, "ProjectionMatrix").SetMatrix(persp);
-		Uniform(cube_prog, "CameraMatrix").SetMatrix(cameraMatrix);
-		Uniform(cube_prog, "LightPos").Set(lightPos);
+		Uniform<Mat4f>(cube_prog, "ProjectionMatrix").Set(persp);
+		Uniform<Mat4f>(cube_prog, "CameraMatrix").Set(cameraMatrix);
+		Uniform<Vec4f>(cube_prog, "LightPos").Set(lightPos);
 		{
-			auto object_offs = Uniform(cube_prog, "Offset");
+			Uniform<Vec3f> object_offs(cube_prog, "Offset");
 
 			auto b=cube_offsets.begin(), e = cube_offsets.end();
 			for(auto i=b; i!=e; ++i)
@@ -672,10 +672,10 @@ public:
 		}
 
 		sphere_prog.Use();
-		Uniform(sphere_prog, "ProjectionMatrix").SetMatrix(persp);
-		Uniform(sphere_prog, "CameraMatrix").SetMatrix(cameraMatrix);
-		Uniform(sphere_prog, "LightPos").Set(lightPos);
-		Uniform(sphere_prog, "Time").Set(GLfloat(time));
+		Uniform<Mat4f>(sphere_prog, "ProjectionMatrix").Set(persp);
+		Uniform<Mat4f>(sphere_prog, "CameraMatrix").Set(cameraMatrix);
+		Uniform<Vec4f>(sphere_prog, "LightPos").Set(lightPos);
+		Uniform<GLfloat>(sphere_prog, "Time").Set(time);
 
 		gl.FrontFace(make_sphere.FaceWinding());
 		sphere.Bind();

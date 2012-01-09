@@ -141,7 +141,7 @@ public:
 			attr.Enable();
 		}
 
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "projectionMatrix").Set(
 			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)
 		);
 		//
@@ -164,10 +164,10 @@ public:
 			FullCircles(time * 0.2),
 			Degrees(std::sin(time * 0.2) * 70)
 		);
-		Uniform(prog, "cameraPos").Set(cameraMatrix.Position());
-		Uniform(prog, "cameraMatrix").SetMatrix(cameraMatrix);
+		Uniform<Vec3f>(prog, "cameraPos").Set(cameraMatrix.Position());
+		Uniform<Mat4f>(prog, "cameraMatrix").Set(cameraMatrix);
 
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "modelMatrix").Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(time * 0.1)

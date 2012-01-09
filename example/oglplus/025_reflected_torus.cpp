@@ -4,7 +4,7 @@
  *
  *  @image html 025_reflected_torus.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -281,9 +281,9 @@ public:
 
 		Vec3f lightPos(2.0f, 2.0f, 3.0f);
 		prog_norm.Use();
-		Uniform(prog_norm, "LightPos").Set(lightPos);
+		SetUniform(prog_norm, "LightPos", lightPos);
 		prog_refl.Use();
-		Uniform(prog_refl, "LightPos").Set(lightPos);
+		SetUniform(prog_refl, "LightPos", lightPos);
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -293,15 +293,13 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		auto projection = CamMatrixf::Perspective(
+		Mat4f projection = CamMatrixf::Perspective(
 			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
-		prog_norm.Use();
-		Uniform(prog_norm, "ProjectionMatrix").SetMatrix(projection);
-		prog_refl.Use();
-		Uniform(prog_refl, "ProjectionMatrix").SetMatrix(projection);
+		SetProgramUniform(prog_norm, "ProjectionMatrix", projection);
+		SetProgramUniform(prog_refl, "ProjectionMatrix", projection);
 	}
 
 	void Render(double time)
@@ -309,7 +307,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 		// make the camera matrix orbiting around the origin
 		// at radius of 3.5 with elevation between 15 and 90 degrees
-		auto camera = CamMatrixf::Orbiting(
+		Mat4f camera = CamMatrixf::Orbiting(
 			Vec3f(),
 			4.5,
 			Degrees(time * 135),
@@ -318,10 +316,8 @@ public:
 		ModelMatrixf model = ModelMatrixf::Translation(0.0f, 1.5f, 0.0);
 		ModelMatrixf identity;
 		//
-		prog_norm.Use();
-		Uniform(prog_norm, "CameraMatrix").SetMatrix(camera);
-		prog_refl.Use();
-		Uniform(prog_refl, "CameraMatrix").SetMatrix(camera);
+		SetProgramUniform(prog_norm, "CameraMatrix", camera);
+		SetProgramUniform(prog_refl, "CameraMatrix", camera);
 		// draw the plane into the stencil buffer
 		prog_norm.Use();
 
@@ -332,7 +328,8 @@ public:
 		gl.StencilFunc(CompareFunction::Always, 1, 1);
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Replace);
 
-		Uniform(prog_norm, "ModelMatrix").SetMatrix(identity);
+		Uniform<Mat4f> model_matrix_norm(prog_norm, "ModelMatrix");
+		model_matrix_norm.Set(identity);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
@@ -343,7 +340,7 @@ public:
 
 		// draw the torus using the reflection program
 		prog_refl.Use();
-		Uniform(prog_refl, "ModelMatrix").SetMatrix(model);
+		Uniform<Mat4f>(prog_refl, "ModelMatrix").Set(model);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 
@@ -351,13 +348,13 @@ public:
 
 		prog_norm.Use();
 		// draw the torus using the normal object program
-		Uniform(prog_norm, "ModelMatrix").SetMatrix(model);
+		model_matrix_norm.Set(model);
 		torus_instr.Draw(torus_indices);
 
 		// blend-in the plane
 		gl.Enable(Capability::Blend);
 		gl.BlendEquation(BlendEquation::Max);
-		Uniform(prog_norm, "ModelMatrix").SetMatrix(identity);
+		model_matrix_norm.Set(identity);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

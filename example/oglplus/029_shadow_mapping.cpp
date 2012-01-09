@@ -4,7 +4,7 @@
  *
  *  @image html 029_shadow_mapping.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -91,7 +91,7 @@ private:
 	// Here the current positions of lights will be stored
 	std::vector<Vec3f> light_positions;
 	// Here the shadow texture projection matrices will be stored
-	std::vector<Matrix4f> light_proj_matrices;
+	std::vector<Mat4f> light_proj_matrices;
 
 	// The colors of the lights
 	const std::vector<Vec3f> light_colors;
@@ -205,7 +205,7 @@ public:
 		vert_prog.Link();
 		vert_prog.Use();
 
-		Uniform(vert_prog, "Offsets").Set(cube_offsets);
+		Uniform<Vec3f>(vert_prog, "Offsets").Set(cube_offsets);
 
 		// bind the VAO for the plane
 		plane.Bind();
@@ -333,7 +333,7 @@ public:
 		draw_prog.MakeSeparable();
 		draw_prog.Link();
 
-		ProgramUniform(draw_prog, "LightColors").Set(light_colors);
+		ProgramUniform<Vec3f>(draw_prog, "LightColors").Set(light_colors);
 
 		draw_pp.Bind();
 		draw_prog.Use();
@@ -400,7 +400,7 @@ public:
 				0
 			);
 		}
-		ProgramUniform(draw_prog, "ShadowTexs").Set<1>(tex_units);
+		ProgramUniformSampler(draw_prog, "ShadowTexs").Set(tex_units);
 
 		//
 		gl.Enable(Capability::DepthTest);
@@ -425,13 +425,15 @@ public:
 			Degrees(48),
 			1.0, 1.0, 20.0
 		);
-		ProgramUniform(vert_prog, "LightCount").Set(0);
-		ProgramUniform(vert_prog, "ProjectionMatrix").SetMatrix(
-			light_persp_matrix
-		);
+		ProgramUniform<GLint>(vert_prog, "LightCount").Set(0);
+
+		ProgramUniform<Mat4f> projection_matrix(vert_prog, "ProjectionMatrix");
+		projection_matrix.Set(light_persp_matrix);
 
 		gl.Enable(Capability::PolygonOffsetFill);
 
+		ProgramUniform<Mat4f> camera_matrix(vert_prog, "CameraMatrix");
+		ProgramUniform<GLint> use_offset(vert_prog, "UseOffset");
 		for(GLint i=0, n=light_positions.size(); i!=n; ++i)
 		{
 			light_positions[i] =
@@ -453,17 +455,15 @@ public:
 			gl.ClearDepth(1.0f);
 			gl.Clear().DepthBuffer();
 
-			ProgramUniform(vert_prog, "CameraMatrix").SetMatrix(
-				light_matrix
-			);
+			camera_matrix.Set(light_matrix);
 
 			gl.FrontFace(make_cube.FaceWinding());
-			ProgramUniform(vert_prog, "UseOffset").Set(1);
+			use_offset.Set(1);
 			cube.Bind();
 			cube_instr.Draw(cube_indices, cube_offsets.size());
 
 			gl.FrontFace(FaceOrientation::CW);
-			ProgramUniform(vert_prog, "UseOffset").Set(0);
+			use_offset.Set(0);
 			plane.Bind();
 			gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 		}
@@ -473,24 +473,29 @@ public:
 		// Now we're going to draw into the default framebuffer
 		Framebuffer::BindDefault(Framebuffer::Target::Draw);
 
-		ProgramUniform(vert_prog, "LightPositions").Set(light_positions);
+		ProgramUniform<Vec3f>(
+			vert_prog,
+			"LightPositions"
+		).Set(light_positions);
 
-		ProgramUniform(vert_prog, "TexProjectionMatrices").SetMatrix(
-			light_proj_matrices
-		);
+		ProgramUniform<Mat4f>(
+			vert_prog,
+			"TexProjectionMatrices"
+		).Set(light_proj_matrices);
 
-		ProgramUniform(vert_prog, "LightCount").Set(
-			int(light_positions.size())
-		);
+		ProgramUniform<GLint>(
+			vert_prog,
+			"LightCount"
+		).Set(light_positions.size());
 
-		ProgramUniform(vert_prog, "ProjectionMatrix").SetMatrix(
+		projection_matrix.Set(
 			CamMatrixf::Perspective(
 				Degrees(50),
 				double(width)/height,
 				1, 100
 			)
 		);
-		ProgramUniform(vert_prog, "CameraMatrix").SetMatrix(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				25.0 + SineWave(time / 20.0) * 10.0,
@@ -508,7 +513,7 @@ public:
 
 		gl.PolygonMode(Face::Front, PolygonMode::Line);
 		gl.FrontFace(make_cube.FaceWinding());
-		ProgramUniform(vert_prog, "UseOffset").Set(1);
+		use_offset.Set(1);
 		cube.Bind();
 		cube_instr.Draw(cube_indices, cube_offsets.size());
 
@@ -516,12 +521,12 @@ public:
 
 		gl.PolygonMode(Face::Front, PolygonMode::Fill);
 		gl.FrontFace(make_cube.FaceWinding());
-		ProgramUniform(vert_prog, "UseOffset").Set(1);
+		use_offset.Set(1);
 		cube.Bind();
 		cube_instr.Draw(cube_indices, cube_offsets.size());
 
 		gl.FrontFace(FaceOrientation::CW);
-		ProgramUniform(vert_prog, "UseOffset").Set(0);
+		use_offset.Set(0);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

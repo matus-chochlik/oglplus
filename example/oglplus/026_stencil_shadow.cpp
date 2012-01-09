@@ -4,7 +4,7 @@
  *
  *  @image html 026_stencil_shadow.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -282,10 +282,8 @@ public:
 		}
 
 		Vec3f lightPos(2.0f, 9.0f, 3.0f);
-		object_prog.Use();
-		Uniform(object_prog, "LightPos").Set(lightPos);
-		shadow_prog.Use();
-		Uniform(shadow_prog, "LightPos").Set(lightPos);
+		SetProgramUniform(object_prog, "LightPos", lightPos);
+		SetProgramUniform(shadow_prog, "LightPos", lightPos);
 
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -299,15 +297,13 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		auto projection = CamMatrixf::Perspective(
+		Mat4f projection = CamMatrixf::Perspective(
 			Degrees(54),
 			double(width)/height,
 			1, 100
 		);
-		object_prog.Use();
-		Uniform(object_prog, "ProjectionMatrix").SetMatrix(projection);
-		shadow_prog.Use();
-		Uniform(shadow_prog, "ProjectionMatrix").SetMatrix(projection);
+		SetProgramUniform(object_prog, "ProjectionMatrix", projection);
+		SetProgramUniform(shadow_prog, "ProjectionMatrix", projection);
 	}
 
 	void Render(double time)
@@ -334,14 +330,14 @@ public:
 		gl.Disable(Capability::StencilTest);
 
 		object_prog.Use();
-		Uniform(object_prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(object_prog, "lightMult").Set(0.2f);
+		Uniform<Mat4f>(object_prog, "CameraMatrix").Set(camera);
+		Uniform<GLfloat>(object_prog, "lightMult").Set(0.2);
 
-		Uniform(object_prog, "ModelMatrix").SetMatrix(identity);
+		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(identity);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
-		Uniform(object_prog, "ModelMatrix").SetMatrix(model);
+		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(model);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 
@@ -363,8 +359,8 @@ public:
 		);
 
 		shadow_prog.Use();
-		Uniform(shadow_prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(shadow_prog, "ModelMatrix").SetMatrix(model);
+		Uniform<Mat4f>(shadow_prog, "CameraMatrix").Set(camera);
+		Uniform<Mat4f>(shadow_prog, "ModelMatrix").Set(model);
 
 		gl.CullFace(Face::Back);
 		torus_instr.Draw(torus_indices);
@@ -379,15 +375,15 @@ public:
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Keep);
 
 		object_prog.Use();
-		Uniform(object_prog, "lightMult").Set(2.5f);
+		Uniform<GLfloat>(object_prog, "lightMult").Set(2.5);
 
-		Uniform(object_prog, "ModelMatrix").SetMatrix(identity);
-		Uniform(object_prog, "Color").Set(Vec3f(0.8f, 0.7f, 0.4f));
+		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(identity);
+		Uniform<Vec3f>(object_prog, "Color").Set(0.8f, 0.7f, 0.4f);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
-		Uniform(object_prog, "ModelMatrix").SetMatrix(model);
-		Uniform(object_prog, "Color").Set(Vec3f(0.9f, 0.8f, 0.1f));
+		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(model);
+		Uniform<Vec3f>(object_prog, "Color").Set(0.9f, 0.8f, 0.1f);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 	}

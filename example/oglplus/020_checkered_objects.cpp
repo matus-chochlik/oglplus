@@ -70,6 +70,7 @@ protected:
 		"#version 330\n"
 		"uniform int SRepeat, TRepeat;"
 		"uniform vec3 Color1, Color2;"
+		"uniform float Refl1, Refl2;"
 		"in vec3 vertNormal;"
 		"in vec3 vertLightDir;"
 		"in vec3 vertLightRefl;"
@@ -97,7 +98,7 @@ protected:
 		"	fragColor = vec4("
 		"		chkr * 0.3 + "
 		"		(lt + chkr) * 1.5 * max(d, 0.0) + "
-		"		lt * pow(max(s, 0.0), 64), "
+		"		lt * pow(max(s, 0.0), mix(Refl1, Refl2, c)), "
 		"		1.0"
 		"	);"
 		"}"
@@ -112,10 +113,11 @@ class CheckerProgram
 private:
 	Program& prog(void) {return *this;}
 public:
-	Uniform light_position;
-	Uniform projection_matrix, camera_matrix, model_matrix;
-	Uniform s_repeat, t_repeat;
-	Uniform color_1, color_2;
+	Uniform<Vec3f> light_position;
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	Uniform<GLint> s_repeat, t_repeat;
+	Uniform<Vec3f> color_1, color_2;
+	Uniform<GLfloat> refl_1, refl_2;
 
 	CheckerProgram(void)
 	 : CheckerShaders()
@@ -128,6 +130,8 @@ public:
 	 , t_repeat(prog(), "TRepeat")
 	 , color_1(prog(), "Color1")
 	 , color_2(prog(), "Color2")
+	 , refl_1(prog(), "Refl1")
+	 , refl_2(prog(), "Refl2")
 	{ }
 };
 
@@ -242,7 +246,7 @@ public:
 	{
 		gl.Viewport(width, height);
 
-		prog.projection_matrix.SetMatrix(
+		prog.projection_matrix.Set(
 			CamMatrixf::Perspective(
 				Degrees(48),
 				double(width)/height,
@@ -255,7 +259,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		prog.camera_matrix.SetMatrix(
+		prog.camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				8.0,
@@ -265,42 +269,50 @@ public:
 		);
 
 		// Render the plane
-		prog.model_matrix.SetMatrix(ModelMatrixf());
-		prog.s_repeat.Set(24);
-		prog.t_repeat.Set(24);
-		prog.color_1.Set(Vec3f(1.0, 1.0, 0.9));
-		prog.color_2.Set(Vec3f(1.0, 0.9, 0.8));
+		prog.model_matrix = ModelMatrixf();
+		prog.s_repeat = 24;
+		prog.t_repeat = 24;
+		prog.color_1 = Vec3f(1.0, 1.0, 0.9);
+		prog.color_2 = Vec3f(1.0, 0.9, 0.8);
+		prog.refl_1 = 64;
+		prog.refl_2 = 8;
 		plane.Draw();
 
 		// Render the sphere
-		prog.model_matrix.SetMatrix(
+		prog.model_matrix.Set(
 			ModelMatrixf::Translation(0.0, 1.5, 0.0) *
 			ModelMatrixf::RotationX(FullCircles(time / 9.0))
 		);
-		prog.s_repeat.Set(36);
-		prog.t_repeat.Set(24);
-		prog.color_1.Set(Vec3f(0.5, 0.6, 1.0));
-		prog.color_2.Set(Vec3f(0.2, 0.3, 0.7));
+		prog.s_repeat = 36;
+		prog.t_repeat = 24;
+		prog.color_1 = Vec3f(0.5, 0.6, 1.0);
+		prog.color_2 = Vec3f(0.2, 0.3, 0.7);
+		prog.refl_1 = 64;
+		prog.refl_2 = 32;
 		sphere.Draw();
 
 		// Render the torus
-		prog.model_matrix.SetMatrix(
+		prog.model_matrix.Set(
 			ModelMatrixf::Translation(3.0, 1.5, 0.0) *
 			ModelMatrixf::RotationZ(FullCircles(time / 8.0))
 		);
-		prog.color_1.Set(Vec3f(0.5, 1.0, 0.6));
-		prog.color_2.Set(Vec3f(0.2, 0.7, 0.3));
+		prog.color_1 = Vec3f(0.5, 1.0, 0.6);
+		prog.color_2 = Vec3f(0.2, 0.7, 0.3);
+		prog.refl_1 = 64;
+		prog.refl_2 = 64;
 		torus.Draw();
 
 		// Render the cube
-		prog.model_matrix.SetMatrix(
+		prog.model_matrix.Set(
 			ModelMatrixf::Translation(-2.0, 1.5, 0.0) *
 			ModelMatrixf::RotationA(Vec3f(1,1,1), FullCircles(time / 7.0))
 		);
-		prog.s_repeat.Set(8);
-		prog.t_repeat.Set(8);
-		prog.color_1.Set(Vec3f(1.0, 0.6, 0.5));
-		prog.color_2.Set(Vec3f(0.7, 0.3, 0.2));
+		prog.s_repeat = 8;
+		prog.t_repeat = 8;
+		prog.color_1 = Vec3f(1.0, 0.6, 0.5);
+		prog.color_2 = Vec3f(0.7, 0.3, 0.2);
+		prog.refl_1 = 64;
+		prog.refl_2 = 8;
 		cube.Draw();
 	}
 

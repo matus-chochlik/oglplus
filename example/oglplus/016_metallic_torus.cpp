@@ -4,7 +4,7 @@
  *
  *  @image html 016_metallic_torus.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -153,15 +153,15 @@ public:
 		}
 
 		// setup the color gradient
-		Uniform(prog, "ColorCount").Set(8);
-		Uniform(prog, "Color[0]").Set(Vec4f(1.0f, 1.0f, 0.9f, 1.00f));
-		Uniform(prog, "Color[1]").Set(Vec4f(1.0f, 0.9f, 0.8f, 0.97f));
-		Uniform(prog, "Color[2]").Set(Vec4f(0.9f, 0.7f, 0.5f, 0.95f));
-		Uniform(prog, "Color[3]").Set(Vec4f(0.5f, 0.5f, 1.0f, 0.95f));
-		Uniform(prog, "Color[4]").Set(Vec4f(0.2f, 0.2f, 0.7f, 0.00f));
-		Uniform(prog, "Color[5]").Set(Vec4f(0.1f, 0.1f, 0.1f, 0.00f));
-		Uniform(prog, "Color[6]").Set(Vec4f(0.2f, 0.2f, 0.2f,-0.10f));
-		Uniform(prog, "Color[7]").Set(Vec4f(0.5f, 0.5f, 0.5f,-1.00f));
+		Uniform<GLint>(prog, "ColorCount").Set(8);
+		Uniform<Vec4f>(prog, "Color[0]").Set(1.0f, 1.0f, 0.9f, 1.00f);
+		Uniform<Vec4f>(prog, "Color[1]").Set(1.0f, 0.9f, 0.8f, 0.97f);
+		Uniform<Vec4f>(prog, "Color[2]").Set(0.9f, 0.7f, 0.5f, 0.95f);
+		Uniform<Vec4f>(prog, "Color[3]").Set(0.5f, 0.5f, 1.0f, 0.95f);
+		Uniform<Vec4f>(prog, "Color[4]").Set(0.2f, 0.2f, 0.7f, 0.00f);
+		Uniform<Vec4f>(prog, "Color[5]").Set(0.1f, 0.1f, 0.1f, 0.00f);
+		Uniform<Vec4f>(prog, "Color[6]").Set(0.2f, 0.2f, 0.2f,-0.10f);
+		Uniform<Vec4f>(prog, "Color[7]").Set(0.5f, 0.5f, 0.5f,-1.00f);
 
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -175,7 +175,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(60),
 				double(width)/height,
@@ -189,7 +189,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.5,
@@ -198,7 +198,7 @@ public:
 			)
 		);
 		// set the model matrix
-		Uniform(prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 

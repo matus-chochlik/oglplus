@@ -4,7 +4,7 @@
  *
  *  @image html 026_shape_halo.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -370,10 +370,8 @@ public:
 		}
 
 		Vec3f lightPos(2.0f, 2.5f, 9.0f);
-		shape_prog.Use();
-		Uniform(shape_prog, "LightPos").Set(lightPos);
-		plane_prog.Use();
-		Uniform(plane_prog, "LightPos").Set(lightPos);
+		SetProgramUniform(shape_prog, "LightPos", lightPos);
+		SetProgramUniform(plane_prog, "LightPos", lightPos);
 
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -386,17 +384,14 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		auto projection = CamMatrixf::Perspective(
+		Mat4f projection = CamMatrixf::Perspective(
 			Degrees(54),
 			double(width)/height,
 			1, 100
 		);
-		shape_prog.Use();
-		Uniform(shape_prog, "ProjectionMatrix").SetMatrix(projection);
-		plane_prog.Use();
-		Uniform(plane_prog, "ProjectionMatrix").SetMatrix(projection);
-		halo_prog.Use();
-		Uniform(halo_prog, "ProjectionMatrix").SetMatrix(projection);
+		SetProgramUniform(shape_prog, "ProjectionMatrix", projection);
+		SetProgramUniform(plane_prog, "ProjectionMatrix", projection);
+		SetProgramUniform(halo_prog,  "ProjectionMatrix", projection);
 	}
 
 	void Render(double time)
@@ -417,21 +412,21 @@ public:
 			);
 
 		plane_prog.Use();
-		Uniform(plane_prog, "CameraMatrix").SetMatrix(camera);
+		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
 
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
 		shape_prog.Use();
-		Uniform(shape_prog, "CameraMatrix").SetMatrix(camera);
+		Uniform<Mat4f>(shape_prog, "CameraMatrix").Set(camera);
 
-		Uniform(shape_prog, "ModelMatrix").SetMatrix(model);
+		Uniform<Mat4f>(shape_prog, "ModelMatrix").Set(model);
 		shape.Bind();
 		shape_instr.Draw(shape_indices);
 
 		halo_prog.Use();
-		Uniform(halo_prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(halo_prog, "ModelMatrix").SetMatrix(model);
+		Uniform<Mat4f>(halo_prog, "CameraMatrix").Set(camera);
+		Uniform<Mat4f>(halo_prog, "ModelMatrix").Set(model);
 
 		gl.DepthMask(false);
 		gl.Enable(Capability::Blend);

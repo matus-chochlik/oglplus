@@ -4,7 +4,7 @@
  *
  *  @image html 004_rect.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -103,9 +103,9 @@ public:
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform(prog, "RedCenter").Set(-0.141f, 0.141f);
-		Uniform(prog, "GreenCenter").Set(0.141f, 0.141f);
-		Uniform(prog, "BlueCenter").Set(0.0f, -0.2f);
+		Uniform<Vec2f>(prog, "RedCenter").Set(-0.141f, 0.141f);
+		Uniform<Vec2f>(prog, "GreenCenter").Set(0.141f, 0.141f);
+		Uniform<Vec2f>(prog, "BlueCenter").Set(0.0f, -0.2f);
 
 		gl.ClearDepth(1.0f);
 	}

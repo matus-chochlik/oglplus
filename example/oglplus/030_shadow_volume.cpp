@@ -4,7 +4,7 @@
  *
  *  @image html 030_shadow_volume.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -258,7 +258,7 @@ public:
 		depth_prog.Link();
 		depth_prog.Use();
 
-		Uniform(depth_prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(depth_prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				RightAngles(1.0),
 				1.0,
@@ -389,9 +389,9 @@ public:
 			attr.Enable();
 		}
 
-		Uniform(light_prog, "SampleCount").Set(GLint(sample_count));
-		Uniform(light_prog, "LightVolSize").Set(GLfloat(4.0));
-		Uniform(light_prog, "ShadowMap").Set(0);
+		Uniform<GLint>(light_prog, "SampleCount").Set(sample_count);
+		Uniform<GLfloat>(light_prog, "LightVolSize").Set(4);
+		UniformSampler(light_prog, "ShadowMap").Set(0);
 
 		// Setup the texture and the offscreen FBO
 		Texture::Active(0);
@@ -447,20 +447,20 @@ public:
 	{
 		width = vp_width;
 		height = vp_height;
-		auto proj = CamMatrixf::Perspective(
+		Mat4f proj = CamMatrixf::Perspective(
 			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
-		ProgramUniform(shape_prog, "ProjectionMatrix").SetMatrix(proj);
-		ProgramUniform(light_prog, "ProjectionMatrix").SetMatrix(proj);
+		SetProgramUniform(shape_prog, "ProjectionMatrix", proj);
+		SetProgramUniform(light_prog, "ProjectionMatrix", proj);
 	}
 
 	void Render(double time)
 	{
 		//
 		// the camera matrix
-		auto camera = CamMatrixf::Orbiting(
+		Mat4f camera = CamMatrixf::Orbiting(
 			Vec3f(),
 			5.5 + SineWave(time / 16.0) * 1.5,
 			FullCircles(time / 12.0),
@@ -468,22 +468,22 @@ public:
 		);
 		//
 		// the model matrix
-		auto model = ModelMatrixf::RotationA(
+		Mat4f model = ModelMatrixf::RotationA(
 			Vec3f(1.0f, 1.0f, 1.0f),
 			FullCircles(time / 10.0)
 		);
 		// the light position
 		Vec3f lightPos(0.0f, SineWave(time / 7.0) * 0.5, 0.0f);
 		//
-		ProgramUniform(shape_prog, "LightPos").Set(lightPos);
-		ProgramUniform(depth_prog, "LightPos").Set(lightPos);
-		ProgramUniform(light_prog, "LightPos").Set(lightPos);
+		SetProgramUniform(shape_prog, "LightPos", lightPos);
+		SetProgramUniform(depth_prog, "LightPos", lightPos);
+		SetProgramUniform(light_prog, "LightPos", lightPos);
 		//
-		ProgramUniform(shape_prog, "CameraMatrix").SetMatrix(camera);
-		ProgramUniform(light_prog, "CameraMatrix").SetMatrix(camera);
+		SetProgramUniform(shape_prog, "CameraMatrix", camera);
+		SetProgramUniform(light_prog, "CameraMatrix", camera);
 
-		ProgramUniform(shape_prog, "ModelMatrix").SetMatrix(model);
-		ProgramUniform(depth_prog, "ModelMatrix").SetMatrix(model);
+		SetProgramUniform(shape_prog, "ModelMatrix", model);
+		SetProgramUniform(depth_prog, "ModelMatrix", model);
 
 		// render the shadow map
 		depth_fbo.Bind(Framebuffer::Target::Draw);
@@ -511,9 +511,9 @@ public:
 		gl.Enable(Capability::Blend);
 
 		light_prog.Use();
-		Uniform(light_prog, "ViewX").Set(Row<0>(camera).xyz());
-		Uniform(light_prog, "ViewY").Set(Row<1>(camera).xyz());
-		Uniform(light_prog, "ViewZ").Set(Row<2>(camera).xyz());
+		SetUniform(light_prog, "ViewX", Row<0>(camera).xyz());
+		SetUniform(light_prog, "ViewY", Row<1>(camera).xyz());
+		SetUniform(light_prog, "ViewZ", Row<2>(camera).xyz());
 
 		light.Bind();
 		gl.DrawArraysInstanced(

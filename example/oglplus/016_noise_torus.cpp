@@ -4,7 +4,7 @@
  *
  *  @image html 016_noise_torus.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -184,8 +184,8 @@ public:
 			Texture::SwizzleB(tex_tgt, TextureSwizzle::Red);
 		}
 		//
-		Uniform(prog, "TexUnit").Set(0);
-		Uniform(prog, "LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
+		Uniform<GLint>(prog, "TexUnit").Set(0);
+		Uniform<Vec3f>(prog, "LightPos").Set(4.0f, 4.0f, -8.0f);
 
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -201,7 +201,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(48),
 				double(width)/height,
@@ -215,7 +215,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.5,
@@ -224,7 +224,7 @@ public:
 			)
 		);
 		// set the model matrix
-		Uniform(prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 

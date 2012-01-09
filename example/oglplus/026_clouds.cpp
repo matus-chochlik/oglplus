@@ -4,7 +4,7 @@
  *
  *  @image html 026_clouds.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -244,10 +244,10 @@ public:
 		}
 
 		// set the number of samples
-		Uniform(cloud_prog, "SampleCount").Set(int(samples));
+		Uniform<GLint>(cloud_prog, "SampleCount").Set(samples);
 
 		Texture::Active(0);
-		Uniform(cloud_prog, "CloudTex").Set(0);
+		UniformSampler(cloud_prog, "CloudTex").Set(0);
 		for(size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			auto bound_tex = Bind(cloud_tex[i], Texture::Target::_3D);
@@ -277,15 +277,13 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		auto perspective = CamMatrixf::Perspective(
+		Mat4f perspective = CamMatrixf::Perspective(
 			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
-		cloud_prog.Use();
-		Uniform(cloud_prog, "ProjectionMatrix").SetMatrix(perspective);
-		light_prog.Use();
-		Uniform(light_prog, "ProjectionMatrix").SetMatrix(perspective);
+		SetProgramUniform(cloud_prog, "ProjectionMatrix", perspective);
+		SetProgramUniform(light_prog, "ProjectionMatrix", perspective);
 	}
 
 	void Render(double time)
@@ -303,23 +301,23 @@ public:
 		light.Bind();
 		light_prog.Use();
 
-		Uniform(light_prog, "LightPos").Set(lightPos);
-		Uniform(light_prog, "CameraMatrix").SetMatrix(cameraMatrix);
+		Uniform<Vec3f>(light_prog, "LightPos").Set(lightPos);
+		Uniform<Mat4f>(light_prog, "CameraMatrix").Set(cameraMatrix);
 
 		sphere_instr.Draw(sphere_indices);
 
 		clouds.Bind();
 		cloud_prog.Use();
 
-		Uniform(cloud_prog, "LightPos").Set(lightPos);
-		Uniform(cloud_prog, "CameraMatrix").SetMatrix(cameraMatrix);
-		Uniform(cloud_prog, "ViewX").Set(
+		Uniform<Vec3f>(cloud_prog, "LightPos").Set(lightPos);
+		Uniform<Mat4f>(cloud_prog, "CameraMatrix").Set(cameraMatrix);
+		Uniform<Vec3f>(cloud_prog, "ViewX").Set(
 			Row<0>(cameraMatrix).xyz()
 		);
-		Uniform(cloud_prog, "ViewY").Set(
+		Uniform<Vec3f>(cloud_prog, "ViewY").Set(
 			Row<1>(cameraMatrix).xyz()
 		);
-		Uniform(cloud_prog, "ViewZ").Set(
+		Uniform<Vec3f>(cloud_prog, "ViewZ").Set(
 			Row<2>(cameraMatrix).xyz()
 		);
 		for(size_t i=0, n=positions.size(); i!=n; ++i)

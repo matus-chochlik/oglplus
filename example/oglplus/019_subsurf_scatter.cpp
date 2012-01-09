@@ -4,7 +4,7 @@
  *
  *  @image html 019_subsurf_scatter.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -182,9 +182,9 @@ public:
 			attr.Enable();
 		}
 		// the light position
-		Uniform(prog, "LightPos").Set(Vec3f(-3.0f, -2.0f, -3.0f));
+		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(-3.0f, -2.0f, -3.0f));
 		// and the instance count
-		Uniform(prog, "InstCount").Set(inst_count);
+		Uniform<GLint>(prog, "InstCount").Set(inst_count);
 		//
 		gl.ClearColor(0.5f, 0.6f, 0.5f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -199,7 +199,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(54),
 				double(width)/height,
@@ -212,7 +212,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0f,
@@ -221,17 +221,18 @@ public:
 			)
 		);
 		// the model matrix
-		Uniform(prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationY(Degrees(time * 25))
 		);
+		Uniform<GLint> front_facing(prog, "FrontFacing");
 		// draw 36 instances of the cube
 		// first the back faces
 		gl.CullFace(Face::Front);
-		Uniform(prog, "FrontFacing").Set(0);
+		front_facing.Set(0);
 		cube_instr.Draw(cube_indices, inst_count);
 		// then the front faces
 		gl.CullFace(Face::Back);
-		Uniform(prog, "FrontFacing").Set(1);
+		front_facing.Set(1);
 		cube_instr.Draw(cube_indices, inst_count);
 	}
 

@@ -29,9 +29,9 @@ class Transformed
 private:
 	struct _filter
 	{
-		Matrix4f _matrix;
+		Mat4f _matrix;
 
-		_filter(const Matrix4f& matrix)
+		_filter(const Mat4f& matrix)
 		 : _matrix(matrix)
 		{ }
 
@@ -57,7 +57,7 @@ public:
 	/**
 	 */
 	template <typename IT>
-	Transformed(const Image<IT>& input, const Matrix4f& matrix)
+	Transformed(const Image<IT>& input, const Mat4f& matrix)
 	 : Filter(input, _filter(matrix), typename Filter::FromRGB())
 	{
 		this->_format = PixelDataFormat::RGB;

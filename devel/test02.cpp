@@ -4,7 +4,7 @@
  *  NOTE. this file is here for feature development / testing purposes only
  *  and its source code, input, output can change witout prior notice.
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -301,11 +301,11 @@ public:
 		Vec3f lightPos(2.0, 2.0, 3.0);
 
 		prog_norm.Use();
-		Uniform(prog_norm, "projectionMatrix").SetMatrix(projMatrix);
-		Uniform(prog_norm, "lightPos").Set(lightPos);
+		Uniform<Mat4f>(prog_norm, "projectionMatrix").Set(projMatrix);
+		Uniform<Vec3f>(prog_norm, "lightPos").Set(lightPos);
 		prog_refl.Use();
-		Uniform(prog_refl, "projectionMatrix").SetMatrix(projMatrix);
-		Uniform(prog_refl, "lightPos").Set(lightPos);
+		Uniform<Mat4f>(prog_refl, "projectionMatrix").Set(projMatrix);
+		Uniform<Vec3f>(prog_refl, "lightPos").Set(lightPos);
 		//
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
@@ -322,7 +322,7 @@ public:
 		// make the camera matrix
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5,
+			5.5,
 			Degrees(time * 135),
 			Degrees(15 + (-std::cos(time * 0.5)+1.0)* 0.5 * 75)
 		);
@@ -339,7 +339,7 @@ public:
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Replace);
 
 		plane.Bind();
-		Uniform(prog_norm, "modelviewMatrix").SetMatrix(camera);
+		Uniform<Mat4f>(prog_norm, "modelviewMatrix").Set(camera);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
 		gl.ColorMask(true, true, true, true);
@@ -349,8 +349,8 @@ public:
 
 		// draw the shape using the reflection program
 		prog_refl.Use();
-		Uniform(prog_refl, "cameraMatrix").SetMatrix(camera);
-		Uniform(prog_refl, "modelMatrix").SetMatrix(model);
+		Uniform<Mat4f>(prog_refl, "cameraMatrix").Set(camera);
+		Uniform<Mat4f>(prog_refl, "modelMatrix").Set(model);
 		shape.Bind();
 		shape_instr.Draw(shape_indices);
 
@@ -358,14 +358,14 @@ public:
 
 		prog_norm.Use();
 		// draw the shape
-		Uniform(prog_norm, "modelviewMatrix").SetMatrix(camera * model);
+		Uniform<Mat4f>(prog_norm, "modelviewMatrix").Set(camera * model);
 		shape_instr.Draw(shape_indices);
 
 		// blend-in the plane
 		gl.Enable(Capability::Blend);
 		gl.BlendEquation(BlendEquation::Max);
 		plane.Bind();
-		Uniform(prog_norm, "modelviewMatrix").SetMatrix(camera);
+		Uniform<Mat4f>(prog_norm, "modelviewMatrix").Set(camera);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 

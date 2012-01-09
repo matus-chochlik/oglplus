@@ -4,7 +4,7 @@
  *
  *  @image html 022_parallax_map.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -228,13 +228,13 @@ public:
 
 		{
 			Texture::Active(0);
-			Uniform(prog, "BumpTex").Set(0);
+			UniformSampler(prog, "BumpTex").Set(0);
 			auto bound_tex = Bind(bumpTex, Texture::Target::_2D);
 			{
 				auto img = images::SphereBumpMap(512, 512, 2, 2);
 				bound_tex.Image2D(img);
-				Uniform(prog, "BumpTexWidth").Set(img.Width());
-				Uniform(prog, "BumpTexHeight").Set(img.Height());
+				Uniform<GLint>(prog, "BumpTexWidth").Set(img.Width());
+				Uniform<GLint>(prog, "BumpTexHeight").Set(img.Height());
 			}
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
@@ -255,7 +255,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(54),
 				double(width)/height,
@@ -269,7 +269,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		auto lightAzimuth = FullCircles(time * -0.5);
-		Uniform(prog, "LightPos").Set(
+		Uniform<Vec3f>(prog, "LightPos").Set(
 			Vec3f(
 				-Cos(lightAzimuth),
 				1.0f,
@@ -277,7 +277,7 @@ public:
 			) * 2.0f
 		);
 		//
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0f,
@@ -287,7 +287,7 @@ public:
 		);
 
 		// set the model matrix
-		Uniform(prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(-time * 0.05)

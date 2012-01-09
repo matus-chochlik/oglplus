@@ -4,7 +4,7 @@
  *
  *  @image html 021_wooden_crate.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -174,7 +174,7 @@ public:
 		// setup the textures
 		{
 			Texture::Active(0);
-			Uniform(prog, "ColorTex").Set(0);
+			UniformSampler(prog, "ColorTex").Set(0);
 			auto bound_tex = Bind(colorTex, Texture::Target::_2D);
 			bound_tex.Image2D(images::LoadTexture("wooden_crate"));
 			bound_tex.GenerateMipmap();
@@ -185,7 +185,7 @@ public:
 		}
 		{
 			Texture::Active(1);
-			Uniform(prog, "NormalTex").Set(1);
+			UniformSampler(prog, "NormalTex").Set(1);
 			auto bound_tex = Bind(normalTex, Texture::Target::_2D);
 			bound_tex.Image2D(
 				images::NormalMap(
@@ -211,7 +211,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(52),
 				double(width)/height,
@@ -225,7 +225,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		auto lightAzimuth = FullCircles(time * -0.5);
-		Uniform(prog, "lightPos").Set(
+		Uniform<Vec3f>(prog, "lightPos").Set(
 			Vec3f(
 				Cos(lightAzimuth),
 				1.0f,
@@ -233,7 +233,7 @@ public:
 			) * 2.0f
 		);
 		//
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0f,
@@ -243,7 +243,7 @@ public:
 		);
 
 		// set the model matrix
-		Uniform(prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationY(FullCircles(time * 0.05))
 		);
 

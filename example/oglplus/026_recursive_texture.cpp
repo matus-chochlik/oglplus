@@ -4,7 +4,7 @@
  *
  *  @image html 026_recursive_texture.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -160,7 +160,7 @@ public:
 			attr.Enable();
 		}
 
-		Uniform(prog, "LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
+		Uniform<Vec3f>(prog, "LightPos").Set(4.0f, 4.0f, -8.0f);
 
 		for(GLuint i=0; i!=2; ++i)
 		{
@@ -225,9 +225,14 @@ public:
 		current_tex = back;
 
 		// render into the texture
-		Uniform(prog, "TexUnit").Set(front);
+		UniformSampler(prog, "TexUnit").Set(front);
 
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f> camera_matrix(prog, "CameraMatrix");
+		Uniform<Mat4f> model_matrix(prog, "ModelMatrix");
+		Uniform<Mat4f> projection_matrix(prog, "ProjectionMatrix");
+
+
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0,
@@ -236,11 +241,9 @@ public:
 			)
 		);
 
-		Uniform(prog, "ModelMatrix").SetMatrix(
-			ModelMatrixf::RotationX(FullCircles(time * 0.25))
-		);
+		model_matrix.Set(ModelMatrixf::RotationX(FullCircles(time * 0.25)));
 
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		projection_matrix.Set(
 			CamMatrixf::Perspective(Degrees(28), 1.0, 1, 100)
 		);
 
@@ -256,7 +259,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		time += 0.3;
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0,
@@ -265,7 +268,7 @@ public:
 			)
 		);
 
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		projection_matrix.Set(
 			CamMatrixf::Perspective(
 				Degrees(54),
 				double(width)/height,

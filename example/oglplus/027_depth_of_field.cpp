@@ -4,7 +4,7 @@
  *
  *  @image html 027_depth_of_field.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,13 +31,13 @@ private:
 	// indices pointing to cube primitive elements
 	shapes::Cube::IndexArray face_indices, edge_indices;
 
-	std::vector<Matrix4f> cube_matrices;
+	std::vector<Mat4f> cube_matrices;
 
 	// Returns a vector of cube offsets
-	static std::vector<Matrix4f> MakeCubeMatrices(size_t count, float max_dist)
+	static std::vector<Mat4f> MakeCubeMatrices(size_t count, float max_dist)
 	{
 		std::srand(59039);
-		std::vector<Matrix4f> offsets(count);
+		std::vector<Mat4f> offsets(count);
 		for(size_t i=0; i!=count; ++i)
 		{
 			float x = float(std::rand())/RAND_MAX;
@@ -187,7 +187,7 @@ public:
 			attr.Enable();
 		}
 
-		Uniform(main_prog, "LightPos").Set(Vec3f(30.0, 50.0, 20.0));
+		Uniform<Vec3f>(main_prog, "LightPos").Set(30.0, 50.0, 20.0);
 
 		dof_vs.Source(
 			"#version 330\n"
@@ -257,7 +257,7 @@ public:
 		}
 
 		Texture::Active(0);
-		Uniform(dof_prog, "ColorTex").Set(0);
+		UniformSampler(dof_prog, "ColorTex").Set(0);
 		{
 			auto bound_tex = Bind(color_tex, Texture::Target::Rectangle);
 			bound_tex.MinFilter(TextureMinFilter::Linear);
@@ -276,7 +276,7 @@ public:
 		}
 
 		Texture::Active(1);
-		Uniform(dof_prog, "DepthTex").Set(1);
+		UniformSampler(dof_prog, "DepthTex").Set(1);
 		{
 			auto bound_tex = Bind(depth_tex, Texture::Target::Rectangle);
 			bound_tex.MinFilter(TextureMinFilter::Linear);
@@ -325,7 +325,7 @@ public:
 		width = vp_width;
 		height = vp_height;
 
-		ProgramUniform(main_prog, "ProjectionMatrix").SetMatrix(
+		ProgramUniform<Mat4f>(main_prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(30),
 				double(width)/height,
@@ -364,7 +364,7 @@ public:
 		main_prog.Use();
 		cube.Bind();
 
-		Uniform(main_prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(main_prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				18.5,
@@ -376,13 +376,13 @@ public:
 		auto i = cube_matrices.begin(), e = cube_matrices.end();
 		while(i != e)
 		{
-			Uniform(main_prog, "ModelMatrix").SetMatrix(*i);
-			Uniform(main_prog, "AmbientColor").Set(Vec3f(0.7f, 0.6f, 0.2f));
-			Uniform(main_prog, "DiffuseColor").Set(Vec3f(1.0f, 0.8f, 0.3f));
+			Uniform<Mat4f>(main_prog, "ModelMatrix").Set(*i);
+			Uniform<Vec3f>(main_prog, "AmbientColor").Set(0.7f, 0.6f, 0.2f);
+			Uniform<Vec3f>(main_prog, "DiffuseColor").Set(1.0f, 0.8f, 0.3f);
 			face_instr.Draw(face_indices);
 
-			Uniform(main_prog, "AmbientColor").Set(Vec3f(0.1f, 0.1f, 0.1f));
-			Uniform(main_prog, "DiffuseColor").Set(Vec3f(0.3f, 0.3f, 0.3f));
+			Uniform<Vec3f>(main_prog, "AmbientColor").Set(0.1f, 0.1f, 0.1f);
+			Uniform<Vec3f>(main_prog, "DiffuseColor").Set(0.3f, 0.3f, 0.3f);
 			edge_instr.Draw(edge_indices);
 			++i;
 		}
@@ -395,8 +395,8 @@ public:
 		dof_prog.Use();
 		screen.Bind();
 
-		Uniform(dof_prog, "FocusDepth").Set(
-			float(0.6f + SineWave(time / 9.0)*0.3f)
+		Uniform<GLfloat>(dof_prog, "FocusDepth").Set(
+			0.6 + SineWave(time / 9.0)*0.3
 		);
 
 		gl.Enable(Capability::Blend);

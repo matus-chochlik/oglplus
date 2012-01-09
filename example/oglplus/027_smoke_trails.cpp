@@ -4,7 +4,7 @@
  *
  *  @image html 027_smoke_trails.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -359,7 +359,7 @@ public:
 		}
 
 		Texture::Active(0);
-		Uniform(prog, "SmokeTex").Set(0);
+		UniformSampler(prog, "SmokeTex").Set(0);
 		{
 			auto bound_tex = Bind(smoke_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
@@ -390,7 +390,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(60),
 				double(width)/height,
@@ -452,10 +452,10 @@ public:
 		Buffer::Data(Buffer::Target::Array, ids);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
-		Uniform(prog, "LightCamPos").Set(
+		Uniform<Vec3f>(prog, "LightCamPos").Set(
 			(cameraMatrix*Vec4f(30.0f, 30.0f, 30.0f, 1.0f)).xyz()
 		);
-		Uniform(prog, "CameraMatrix").SetMatrix(cameraMatrix);
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(cameraMatrix);
 		// use the indices to draw the particles
 		gl.DrawElements(
 			PrimitiveType::Points,

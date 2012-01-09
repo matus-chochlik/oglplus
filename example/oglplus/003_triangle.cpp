@@ -4,7 +4,7 @@
  *
  *  @image html 003_triangle.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -108,13 +108,13 @@ public:
 		color_attr.Enable();
 
 		// set the transformation matrix
-		Uniform u1(prog, "Matrix");
-		u1.SetMatrix<4>(
+		Uniform<Mat4f> u1(prog, "Matrix");
+		u1.Set(Mat4f(
 			 2.0f,  0.0f,  0.0f,  0.0f,
 			 0.0f,  2.0f,  0.0f,  0.0f,
 			 0.0f,  0.0f,  2.0f,  0.0f,
 			-1.0f, -1.0f,  0.0f,  1.0f
-		);
+		));
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearDepth(1.0f);

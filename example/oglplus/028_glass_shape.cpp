@@ -4,7 +4,7 @@
  *
  *  @image html 028_glass_shape.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -127,8 +127,8 @@ public:
 		plane_prog.Use();
 
 		Vec3f lightPos(3.0f, 3.0f, 3.0f);
-		Uniform(plane_prog, "LightPosition").Set(lightPos);
-		Uniform(plane_prog, "Normal").Set(make_plane.Normal());
+		Uniform<Vec3f>(plane_prog, "LightPosition").Set(lightPos);
+		Uniform<Vec3f>(plane_prog, "Normal").Set(make_plane.Normal());
 
 		plane.Bind();
 
@@ -245,7 +245,7 @@ public:
 		shape_prog.Link();
 		shape_prog.Use();
 
-		Uniform(shape_prog, "LightPosition").Set(lightPos);
+		Uniform<Vec3f>(shape_prog, "LightPosition").Set(lightPos);
 
 		shape.Bind();
 
@@ -270,7 +270,7 @@ public:
 		}
 		//
 		Texture::Active(0);
-		Uniform(shape_prog, "RefractTex").Set(0);
+		UniformSampler(shape_prog, "RefractTex").Set(0);
 		{
 			auto bound_tex = Bind(refract_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
@@ -301,19 +301,13 @@ public:
 
 		gl.Viewport(width, height);
 
-		auto projection = CamMatrixf::Perspective(
+		Mat4f projection = CamMatrixf::Perspective(
 			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
-		ProgramUniform(
-			plane_prog,
-			"ProjectionMatrix"
-		).SetMatrix(projection);
-		ProgramUniform(
-			shape_prog,
-			"ProjectionMatrix"
-		).SetMatrix(projection);
+		SetProgramUniform(plane_prog, "ProjectionMatrix", projection);
+		SetProgramUniform(shape_prog, "ProjectionMatrix", projection);
 	}
 
 	void Render(double time)
@@ -329,9 +323,9 @@ public:
 
 		// Render the plane
 		plane_prog.Use();
-		Uniform(plane_prog, "CameraMatrix").SetMatrix(camera);
+		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
 
-		Uniform(plane_prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(plane_prog, "ModelMatrix").Set(
 			ModelMatrixf::Translation(0.0f, -1.1f, 0.0f)
 		);
 
@@ -344,11 +338,11 @@ public:
 
 		auto clip_plane = Planef::FromNormal(Row<2>(camera).xyz());
 
-		Uniform(shape_prog, "ClipPlane").Set(clip_plane.Equation());
+		Uniform<Vec4f>(shape_prog, "ClipPlane").Set(clip_plane.Equation());
 
-		Uniform(shape_prog, "CameraMatrix").SetMatrix(camera);
+		Uniform<Mat4f>(shape_prog, "CameraMatrix").Set(camera);
 
-		Uniform(shape_prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(shape_prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationX(FullCircles(time / 12.0))
 		);
 
@@ -362,9 +356,10 @@ public:
 		GLfloat clip_dirs[2] = {-1.0f, 1.0f};
 		Face facing_dirs[2] = {Face::Front, Face::Back};
 
+		Uniform<GLfloat> clip_direction(shape_prog, "ClipDirection");
 		for(int c=0; c!=2; ++c)
 		{
-			Uniform(shape_prog, "ClipDirection").Set(clip_dirs[c]);
+			clip_direction.Set(clip_dirs[c]);
 			for(int f=0; f!=2; ++f)
 			{
 				Texture::CopyImage2D(

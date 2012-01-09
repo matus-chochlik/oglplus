@@ -4,7 +4,7 @@
  *  NOTE. this file is here for feature development / testing purposes only
  *  and its source code, input, output can change witout prior notice.
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -187,7 +187,7 @@ public:
 		// setup the textures
 		{
 			Texture::Active(0);
-			Uniform(prog, "colorTex").Set(0);
+			UniformSampler(prog, "colorTex").Set(0);
 			auto bound_tex = Bind(color_tex, Texture::Target::_2D);
 			bound_tex.Image2D(images::LoadTexture("stones"));
 			bound_tex.GenerateMipmap();
@@ -198,7 +198,7 @@ public:
 		}
 		{
 			Texture::Active(1);
-			Uniform(prog, "normalTex").Set(1);
+			UniformSampler(prog, "normalTex").Set(1);
 			auto bound_tex = Bind(normal_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
 				images::NormalMap(images::LoadTexture("stones-hmap"))
@@ -210,7 +210,7 @@ public:
 			bound_tex.WrapT(TextureWrap::Repeat);
 		}
 
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "projectionMatrix").Set(
 			CamMatrixf::Perspective(Degrees(24), 1.25, 1, 100)
 		);
 		//
@@ -228,7 +228,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		Uniform(prog, "cameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "cameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.0 + std::sin(time)*1.5,
@@ -237,13 +237,13 @@ public:
 			)
 		);
 
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "modelMatrix").Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(time * 0.4)
 			)
 		);
-		Uniform(prog, "lightPos").Set(Vec3f(1.0f, 2.0f, 3.0f*std::sin(time * 2.9)));
+		Uniform<Vec3f>(prog, "lightPos").Set(Vec3f(1.0f, 2.0f, 3.0f*std::sin(time * 2.9)));
 
 		vao.Bind();
 		// This is not very effective

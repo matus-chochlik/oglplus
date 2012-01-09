@@ -4,7 +4,7 @@
  *
  *  @image html 020_texture_projection.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -156,8 +156,8 @@ public:
 			bound_tex.WrapT(TextureWrap::ClampToBorder);
 		}
 		//
-		Uniform(prog, "TexUnit").Set(0);
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		UniformSampler(prog, "TexUnit").Set(0);
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::LookingAt(Vec3f(0.0f, 1.0f, 2.0f), Vec3f())
 		);
 		//
@@ -172,7 +172,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(48),
 				double(width)/height,
@@ -187,14 +187,15 @@ public:
 		//
 		Vec3f lightPos(-1.0f, 2.0f, 2.0f);
 		lightPos *= (1.0f - SineWave(time/5.0f)*0.4f);
-		Uniform(prog, "LightPos").Set(lightPos);
-		Uniform(prog, "TexProjectionMatrix").SetMatrix(
+		SetUniform(prog, "LightPos", lightPos);
+
+		Uniform<Mat4f>(prog, "TexProjectionMatrix").Set(
 			CamMatrixf::Perspective(Degrees(10), 1.0, 1, 100) *
 			CamMatrixf::LookingAt(lightPos, Vec3f())
 		);
 
 		// set the model matrix
-		Uniform(prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationY(FullCircles(time * 0.1))
 		);
 

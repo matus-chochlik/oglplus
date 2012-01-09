@@ -4,7 +4,7 @@
  *
  *  @image html 025_rendered_texture.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -165,8 +165,8 @@ public:
 			attr.Enable();
 		}
 
-		Uniform(cube_prog, "TexUnit").Set(0);
-		Uniform(cube_prog, "LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
+		UniformSampler(cube_prog, "TexUnit").Set(0);
+		Uniform<Vec3f>(cube_prog, "LightPos").Set(4.0f, 4.0f, -8.0f);
 
 		torus_fs.Source(
 			"#version 330\n"
@@ -227,7 +227,7 @@ public:
 			attr.Enable();
 		}
 
-		Uniform(torus_prog, "LightPos").Set(Vec3f(2.0f, 3.0f, 4.0f));
+		Uniform<Vec3f>(torus_prog, "LightPos").Set(2.0f, 3.0f, 4.0f);
 
 		{
 			auto bound_tex = Bind(tex, Texture::Target::_2D);
@@ -292,11 +292,11 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		torus_prog.Use();
 
-		Uniform(torus_prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(torus_prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(Degrees(48), 1.0, 1, 100)
 		);
 
-		Uniform(torus_prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(torus_prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.5,
@@ -305,7 +305,7 @@ public:
 			)
 		);
 
-		Uniform(torus_prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(torus_prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(time * 0.5)
@@ -324,7 +324,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		cube_prog.Use();
 
-		Uniform(cube_prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(cube_prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(54),
 				double(width)/height,
@@ -332,7 +332,7 @@ public:
 			)
 		);
 
-		Uniform(cube_prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(cube_prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0,
@@ -341,7 +341,7 @@ public:
 			)
 		);
 
-		Uniform(cube_prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(cube_prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 

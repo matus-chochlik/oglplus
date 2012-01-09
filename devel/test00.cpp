@@ -187,10 +187,10 @@ public:
 		}
 		catch(...){ }
 
-		Uniform(prog, "projectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "projectionMatrix").Set(
 			CamMatrixf::Perspective(Degrees(48), 1.25, 1, 100)
 		);
-		Uniform(prog, "LightPos").Set(Vec3f(5.0f, 9.0f, 4.0f));
+		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(5.0f, 9.0f, 4.0f));
 
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
@@ -213,9 +213,9 @@ public:
 			FullCircles(time / 25.0),
 			Degrees(SineWave(time / 30.0) * 80)
 		);
-		Uniform(prog, "cameraMatrix").SetMatrix(cameraMatrix);
+		Uniform<Mat4f>(prog, "cameraMatrix").Set(cameraMatrix);
 
-		Uniform(prog, "modelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "modelMatrix").Set(
 			ModelMatrixf()
 /*
 			ModelMatrixf::RotationA(
@@ -224,8 +224,8 @@ public:
 			)
 */
 		);
-		Uniform color1(prog, "Color1");
-		Uniform color2(prog, "Color2");
+		Uniform<Vec3f> color1(prog, "Color1");
+		Uniform<Vec3f> color2(prog, "Color2");
 
 		shape_instr.Draw(
 			shape_indices,

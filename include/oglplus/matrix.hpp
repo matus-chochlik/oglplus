@@ -527,17 +527,114 @@ public:
 	}
 };
 
+/// 2x2 float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLfloat, 2, 2> Mat2f;
+
+/// 2x3 float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLfloat, 2, 3> Mat2x3f;
+
+/// 2x4 float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLfloat, 2, 4> Mat2x4f;
+
+/// 3x2 float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLfloat, 3, 2> Mat3x2f;
+
+/// 3x3 float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLfloat, 3, 3> Mat3f;
+
+/// 3x4 float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLfloat, 3, 4> Mat3x4f;
+
+/// 4x2 float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLfloat, 4, 2> Mat4x2f;
+
+/// 4x3 float matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLfloat, 4, 3> Mat4x3f;
+
 /// 4x4 float matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLfloat, 4, 4> Matrix4f;
+typedef Matrix<GLfloat, 4, 4> Mat4f;
 
-/// 4x4 double precision matrix
+
+/// 2x2 double-precision matrix
 /**
  *  @ingroup math_utils
  */
-typedef Matrix<GLdouble, 4, 4> Matrix4d;
+typedef Matrix<GLdouble, 2, 2> Mat2d;
+
+/// 2x3 double-precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLdouble, 2, 3> Mat2x3d;
+
+/// 2x4 double-precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLdouble, 2, 4> Mat2x4d;
+
+/// 3x2 double-precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLdouble, 3, 2> Mat3x2d;
+
+/// 3x3 double-precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLdouble, 3, 3> Mat3d;
+
+/// 3x4 double-precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLdouble, 3, 4> Mat3x4d;
+
+/// 4x2 double-precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLdouble, 4, 2> Mat4x2d;
+
+/// 4x3 double-precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLdouble, 4, 3> Mat4x3d;
+
+/// 4x4 double-precision matrix
+/**
+ *  @ingroup math_utils
+ */
+typedef Matrix<GLdouble, 4, 4> Mat4d;
 
 /// Class implementing model transformation matrix named constructors
 /** The static member functions of this class can be used to construct

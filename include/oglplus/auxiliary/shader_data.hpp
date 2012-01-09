@@ -23,10 +23,11 @@
 namespace oglplus {
 namespace aux {
 
+template <typename T>
 class ActiveProgramCallOps
 {
 protected:
-	template <typename T, typename UI>
+	template <typename UI>
 	static void _call_set_v(
 		GLuint /*program*/,
 		GLuint index,
@@ -37,7 +38,7 @@ protected:
 		_fn(index, v);
 	}
 
-	template <typename T, typename UI, typename SI>
+	template <typename UI, typename SI>
 	static void _call_set_v(
 		GLuint /*program*/,
 		GLuint index,
@@ -48,7 +49,7 @@ protected:
 		_fn(index, 1, v);
 	}
 
-	template <typename T, typename UI, typename SI>
+	template <typename UI, typename SI>
 	static void _call_set_vn(
 		GLuint /*program*/,
 		GLuint index,
@@ -60,18 +61,18 @@ protected:
 		_fn(index, n, v);
 	}
 
-	template <typename ... T, typename UI>
+	template <typename ... P, typename UI>
 	static void _call_set_t(
 		GLuint /*program*/,
 		GLuint index,
-		void(*_fn)(UI, T...),
-		T ... v
+		void(*_fn)(UI, P...),
+		P ... v
 	)
 	{
 		_fn(index, v...);
 	}
 
-	template <typename T, typename ID, typename CT, typename TP>
+	template <typename ID, typename CT, typename TP>
 	static void _call_set_m(
 		GLuint /*program*/,
 		GLuint index,
@@ -85,10 +86,11 @@ protected:
 	}
 };
 
+template <typename T>
 class SpecificProgramCallOps
 {
 protected:
-	template <typename T, typename UI>
+	template <typename UI>
 	static void _call_set_v(
 		GLuint program,
 		GLuint index,
@@ -99,7 +101,7 @@ protected:
 		_fn(program, index, v);
 	}
 
-	template <typename T, typename UI, typename SI>
+	template <typename UI, typename SI>
 	static void _call_set_v(
 		GLuint program,
 		GLuint index,
@@ -110,7 +112,7 @@ protected:
 		_fn(program, index, 1, v);
 	}
 
-	template <typename T, typename UI, typename SI>
+	template <typename UI, typename SI>
 	static void _call_set_vn(
 		GLuint program,
 		GLuint index,
@@ -122,18 +124,18 @@ protected:
 		_fn(program, index, n, v);
 	}
 
-	template <typename ... T, typename UI>
+	template <typename ... P, typename UI>
 	static void _call_set_t(
 		GLuint program,
 		GLuint index,
-		void(*_fn)(GLuint, UI, T...),
-		T ... v
+		void(*_fn)(GLuint, UI, P...),
+		P ... v
 	)
 	{
 		_fn(program, index, v...);
 	}
 
-	template <typename T, typename ID, typename CT, typename TP>
+	template <typename ID, typename CT, typename TP>
 	static void _call_set_m(
 		GLuint program,
 		GLuint index,
@@ -150,7 +152,7 @@ protected:
 class ShaderDataSetUtils
 {
 protected:
-	static void _do_report_if_error(
+	static void _do_handle_if_error(
 		const oglplus::ErrorInfo& error_info,
 		GLuint program,
 		GLuint index,
@@ -177,7 +179,7 @@ protected:
 	}
 };
 
-template <class Queries, class Setters, class Callers, size_t SetMax>
+template <class Queries, class Setters, class Callers, size_t MaxCount>
 class ShaderDataSetOps
  : public Queries
  , public Setters
@@ -187,7 +189,7 @@ class ShaderDataSetOps
 private:
 	static void _report_if_error(GLuint program, GLuint base_index)
 	{
-		ShaderDataSetUtils::_do_report_if_error(
+		ShaderDataSetUtils::_do_handle_if_error(
 			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
 			program,
 			base_index,
@@ -316,8 +318,8 @@ protected:
 	static void _do_set(GLuint program, GLuint index, T ... v)
 	{
 		static_assert(
-			(sizeof...(T) > 0) && (sizeof...(T) <= SetMax),
-			"Set requires 1 to SetMax arguments"
+			(sizeof...(T) > 0) && (sizeof...(T) <= MaxCount),
+			"Set requires 1 to MaxCount arguments"
 		);
 		_do_set_t(
 			_set_mode<sizeof...(T)>(),
@@ -333,8 +335,8 @@ protected:
 	static void _do_set(GLuint program, GLuint index, const T* v)
 	{
 		static_assert(
-			(Cols > 0) && (Cols <= SetMax),
-			"The number of elements must be between 1 and SetMax"
+			(Cols > 0) && (Cols <= MaxCount),
+			"The number of elements must be between 1 and MaxCount"
 		);
 		_do_set_v<Cols, T>(
 			_set_mode<Cols>(),
@@ -349,8 +351,8 @@ protected:
 	static void _do_set_many(GLuint prog, GLuint index, GLsizei n, const T*v)
 	{
 		static_assert(
-			(Cols > 0) && (Cols <= SetMax),
-			"The number of elements must be between 1 and SetMax"
+			(Cols > 0) && (Cols <= MaxCount),
+			"The number of elements must be between 1 and MaxCount"
 		);
 		_do_set_n<Cols, T>(
 			_set_mode<Cols>(),
@@ -375,7 +377,7 @@ private:
 
 	static void _report_if_error(GLuint program, GLuint base_index)
 	{
-		ShaderDataSetUtils::_do_report_if_error(
+		ShaderDataSetUtils::_do_handle_if_error(
 			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
 			program,
 			base_index,

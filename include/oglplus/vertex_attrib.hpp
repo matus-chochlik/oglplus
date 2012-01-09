@@ -17,6 +17,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
+#include <oglplus/data_type.hpp>
 #include <oglplus/limited_value.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
 #include <oglplus/string.hpp>
@@ -191,16 +192,16 @@ protected:
 /**
  *  @ingroup shader_variables
  */
+template <typename T>
 class VertexAttrib
  : public VertexAttribOps
  , public aux::ShaderDataSetOps<
 	aux::VertexAttribQueries,
 	aux::VertexAttribSetters,
-	aux::ActiveProgramCallOps,
+	aux::ActiveProgramCallOps<T>,
 	16
 >
 {
-private:
 public:
 	/// References the vertex attribute array at @p index
 	/**
@@ -225,26 +226,134 @@ public:
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
-	/// Set the value(s) of the vertex attribute
+	/// Set the value of the vertex attribute
 	/**
 	 *  @glsymbols
 	 *  @glfunref{VertexAttrib}
 	 */
-	template <typename ... T>
-	void Set(T ... v) const
+	void Set(T value) const
 	{
-		this->_do_set(0, _index, v...);
+		this->_do_set(0, _index, value);
 	}
 
-	/// Set the value(s) of the vertex attribute
+	/// Set the value of the vertex attribute
 	/**
 	 *  @glsymbols
 	 *  @glfunref{VertexAttrib}
 	 */
-	template <size_t N, typename T>
-	void Set(const T* v) const
+	inline void operator = (T value) const
 	{
-		this->_do_set<N>(0, _index, v);
+		Set(value);
+	}
+};
+
+template <typename T, size_t N>
+class VertexAttrib<Vector<T, N> >
+ : public VertexAttribOps
+ , public aux::ShaderDataSetOps<
+	aux::VertexAttribQueries,
+	aux::VertexAttribSetters,
+	aux::ActiveProgramCallOps<T>,
+	4
+>
+{
+public:
+	/// References the vertex attribute array at @p index
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	VertexAttrib(VertexAttribSlot i)
+	 : VertexAttribOps(i)
+	{ }
+
+	/// References the vertex attribute @p identifier of the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	VertexAttrib(const Program& program, const GLchar* identifier)
+	 : VertexAttribOps(program, identifier)
+	{ }
+
+	/// References the vertex attribute @p identifier of the @p program
+	VertexAttrib(const Program& program, const String& identifier)
+	 : VertexAttribOps(program, identifier.c_str())
+	{ }
+
+	/// Set the vector value of the vertex attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttrib}
+	 */
+	void Set(const Vector<T, N>& value) const
+	{
+		this->_do_set<N>(0, _index, Data(value));
+	}
+
+	/// Set the vector value of the vertex attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttrib}
+	 */
+	inline void operator = (const Vector<T, N>& value) const
+	{
+		Set(value);
+	}
+};
+
+template <typename T, size_t Rows, size_t Cols>
+class VertexAttrib<Matrix<T, Rows, Cols> >
+ : public VertexAttribOps
+ , public aux::ShaderDataSetOps<
+	aux::VertexAttribQueries,
+	aux::VertexAttribSetters,
+	aux::ActiveProgramCallOps<T>,
+	16
+>
+{
+public:
+	/// References the vertex attribute array at @p index
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	VertexAttrib(VertexAttribSlot i)
+	 : VertexAttribOps(i)
+	{ }
+
+	/// References the vertex attribute @p identifier of the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	VertexAttrib(const Program& program, const GLchar* identifier)
+	 : VertexAttribOps(program, identifier)
+	{ }
+
+	/// References the vertex attribute @p identifier of the @p program
+	VertexAttrib(const Program& program, const String& identifier)
+	 : VertexAttribOps(program, identifier.c_str())
+	{ }
+
+	/// Set the matrix value of the vertex attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttrib}
+	 */
+	void Set(const Matrix<T, Rows, Cols>& value) const
+	{
+		this->_do_set<Rows*Cols>(0, _index, Data(value));
+	}
+
+	/// Set the matrix value of the vertex attribute
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttrib}
+	 */
+	inline void operator = (const Matrix<T, Rows, Cols>& value) const
+	{
+		Set(value);
 	}
 };
 
@@ -255,6 +364,44 @@ public:
 class VertexAttribArray
  : public VertexAttribOps
 {
+private:
+	// Functions for autodetection of values-per-vertex
+	template <typename T>
+	static GLint _get_values_per_vertex(T*)
+	{
+		return 1;
+	}
+
+	template <typename T, size_t N>
+	static GLint _get_values_per_vertex(Vector<T, N>*)
+	{
+		return N;
+	}
+
+	template <typename T, size_t Rows, size_t Cols>
+	static GLint _get_values_per_vertex(Matrix<T, Rows, Cols>*)
+	{
+		return Rows*Cols;
+	}
+
+	// Functions for autodetection of data type
+	template <typename T>
+	static DataType _get_data_type(T* p)
+	{
+		return ::oglplus::GetDataType(p);
+	}
+
+	template <typename T, size_t N>
+	static DataType _get_data_type(Vector<T, N>*)
+	{
+		return ::oglplus::GetDataType((T*)nullptr);
+	}
+
+	template <typename T, size_t Rows, size_t Cols>
+	static DataType _get_data_type(Matrix<T, Rows, Cols>*)
+	{
+		return ::oglplus::GetDataType((T*)nullptr);
+	}
 public:
 	/// References the vertex attribute array at @p index
 	/**
@@ -306,6 +453,30 @@ public:
 		);
 		HandleIfError(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 	}
+
+	/// Setup the properties of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribPointer}
+	 */
+	template <typename T>
+	void Setup(
+		bool normalized = false,
+		GLsizei stride = 0,
+		void* pointer = nullptr
+	) const
+	{
+		OGLPLUS_GLFUNC(VertexAttribPointer)(
+			_index,
+			_get_values_per_vertex((T*)nullptr),
+			GLenum(_get_data_type((T*)nullptr)),
+			normalized ? GL_TRUE : GL_FALSE,
+			stride,
+			pointer
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+	}
+
 
 	/// Enables this vertex attribute array
 	/**

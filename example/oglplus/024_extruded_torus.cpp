@@ -4,7 +4,7 @@
  *
  *  @image html 024_extruded_torus.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -164,7 +164,7 @@ public:
 		transf_prog.Link();
 		transf_prog.Use();
 
-		ProgramUniform(transf_prog, "LightPos").Set(Vec3f(4, 4, -8));
+		ProgramUniform<Vec3f>(transf_prog, "LightPos").Set(4, 4, -8);
 
 		torus.Bind();
 		verts.Bind(Buffer::Target::Array);
@@ -236,8 +236,8 @@ public:
 		face_prog.MakeSeparable();
 		face_prog.Link();
 
-		ProgramUniform(face_prog, "TopColor").Set(Vec3f(0.2, 0.2, 0.2));
-		ProgramUniform(face_prog, "SideColor").Set(Vec3f(0.9, 0.9, 0.2));
+		ProgramUniform<Vec3f>(face_prog, "TopColor").Set(0.2, 0.2, 0.2);
+		ProgramUniform<Vec3f>(face_prog, "SideColor").Set(0.9, 0.9, 0.2);
 
 		face_pp.Bind();
 		face_prog.Use();
@@ -282,7 +282,10 @@ public:
 			double(width)/height,
 			1, 100
 		);
-		ProgramUniform(transf_prog, "ProjectionMatrix").SetMatrix(projection);
+		ProgramUniform<Mat4f>(
+			transf_prog,
+			"ProjectionMatrix"
+		).Set(projection);
 	}
 
 	void Render(double time)
@@ -300,9 +303,9 @@ public:
 			ModelMatrixf::RotationY(FullCircles(time * 0.25)) *
 			ModelMatrixf::RotationX(FullCircles(time * 0.33));
 
-		ProgramUniform(transf_prog, "CameraMatrix").SetMatrix(camera);
-		ProgramUniform(transf_prog, "ModelMatrix").SetMatrix(model);
-		ProgramUniform(transf_prog, "Time").Set(GLfloat(time));
+		ProgramUniform<Mat4f>(transf_prog, "CameraMatrix").Set(camera);
+		ProgramUniform<Mat4f>(transf_prog, "ModelMatrix").Set(model);
+		ProgramUniform<GLfloat>(transf_prog, "Time").Set(time);
 
 		face_pp.Bind();
 		gl.PolygonMode(Face::Front, PolygonMode::Fill);

@@ -4,7 +4,7 @@
  *
  *  @image html 024_tiled_torus.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -221,9 +221,9 @@ public:
 			1, 100
 		);
 		line_prog.Use();
-		Uniform(line_prog, "projectionMatrix").SetMatrix(projection);
+		Uniform<Mat4f>(line_prog, "projectionMatrix").Set(projection);
 		fill_prog.Use();
-		Uniform(fill_prog, "projectionMatrix").SetMatrix(projection);
+		Uniform<Mat4f>(fill_prog, "projectionMatrix").Set(projection);
 	}
 
 	void Render(double time)
@@ -244,17 +244,17 @@ public:
 		Vec3f lightPos(4.0f, 4.0f, -8.0f);
 
 		fill_prog.Use();
-		Uniform(fill_prog, "cameraMatrix").SetMatrix(camera);
-		Uniform(fill_prog, "modelMatrix").SetMatrix(model);
-		Uniform(fill_prog, "lightPos").Set(lightPos);
+		Uniform<Mat4f>(fill_prog, "cameraMatrix").Set(camera);
+		Uniform<Mat4f>(fill_prog, "modelMatrix").Set(model);
+		Uniform<Vec3f>(fill_prog, "lightPos").Set(lightPos);
 		torus_instr.Draw(torus_indices);
 
 		line_prog.Use();
-		Uniform(line_prog, "cameraMatrix").SetMatrix(camera);
-		Uniform(line_prog, "modelMatrix").SetMatrix(model);
-		Uniform(line_prog, "position").Set(camera.Position());
+		Uniform<Mat4f>(line_prog, "cameraMatrix").Set(camera);
+		Uniform<Mat4f>(line_prog, "modelMatrix").Set(model);
+		Uniform<Vec3f>(line_prog, "position").Set(camera.Position());
 		torus_instr.Draw(torus_indices);
-		Uniform(line_prog, "position").Set(lightPos);
+		Uniform<Vec3f>(line_prog, "position").Set(lightPos);
 		torus_instr.Draw(torus_indices);
 	}
 

@@ -4,7 +4,7 @@
  *
  *  @image html 022_xyz_planes.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -52,8 +52,8 @@ private:
 	Array<Buffer> plane_positions;
 
 	// Uniform references
-	std::vector<ProgramUniform> torus_clip_sign;
-	std::vector<ProgramUniform> plane_clip_sign;
+	std::vector<ProgramUniform<GLfloat>> torus_clip_sign;
+	std::vector<ProgramUniform<GLfloat>> plane_clip_sign;
 public:
 	TorusExample(void)
 	 : make_torus(1.0, 0.5, 36, 24)
@@ -221,17 +221,23 @@ public:
 				auto eq = make_plane[p].Equation();
 				std::stringstream uni_name;
 				uni_name << "ClipPlane[" << p << "]";
-				ProgramUniform(torus_prog, uni_name.str()).Set(eq);
-				ProgramUniform(plane_prog, uni_name.str()).Set(eq);
+				ProgramUniform<Vec4f>(
+					torus_prog,
+					uni_name.str()
+				).Set(eq);
+				ProgramUniform<Vec4f>(
+					plane_prog,
+					uni_name.str()
+				).Set(eq);
 			}
 			{
 				std::stringstream uni_name;
 				uni_name << "ClipSign[" << p << "]";
-				torus_clip_sign.push_back(ProgramUniform(
+				torus_clip_sign.push_back(ProgramUniform<GLfloat>(
 					torus_prog,
 					uni_name.str())
 				);
-				plane_clip_sign.push_back(ProgramUniform(
+				plane_clip_sign.push_back(ProgramUniform<GLfloat>(
 					plane_prog,
 					uni_name.str())
 				);
@@ -254,8 +260,8 @@ public:
 			double(width)/height,
 			1, 100
 		);
-		ProgramUniform(torus_prog, "ProjectionMatrix").SetMatrix(proj);
-		ProgramUniform(plane_prog, "ProjectionMatrix").SetMatrix(proj);
+		ProgramUniform<Mat4f>(torus_prog, "ProjectionMatrix").Set(proj);
+		ProgramUniform<Mat4f>(plane_prog, "ProjectionMatrix").Set(proj);
 	}
 
 	void RenderTorus(void)
@@ -269,13 +275,13 @@ public:
 	{
 		gl.Enable(Capability::Blend);
 		plane_prog.Use();
-		Uniform(plane_prog, "Normal").Set(make_plane[p].Normal());
+		Uniform<Vec3f>(plane_prog, "Normal").Set(make_plane[p].Normal());
 		plane[p].Bind();
 		plane_instr.Draw(plane_indices);
 		gl.Disable(Capability::Blend);
 	}
 
-	void BSP(const Matrix4f& camera, size_t p)
+	void BSP(const Mat4f& camera, size_t p)
 	{
 		assert(p < plane.size());
 		// the normal vector of the plane
@@ -314,9 +320,9 @@ public:
 		);
 		auto model = ModelMatrixf::RotationX(FullCircles(time / 12.0));
 
-		ProgramUniform(plane_prog, "CameraMatrix").SetMatrix(camera);
-		ProgramUniform(torus_prog, "CameraMatrix").SetMatrix(camera);
-		ProgramUniform(torus_prog, "ModelMatrix").SetMatrix(model);
+		ProgramUniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
+		ProgramUniform<Mat4f>(torus_prog, "CameraMatrix").Set(camera);
+		ProgramUniform<Mat4f>(torus_prog, "ModelMatrix").Set(model);
 
 		BSP(camera, 0);
 	}

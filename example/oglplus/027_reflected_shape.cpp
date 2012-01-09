@@ -4,7 +4,7 @@
  *
  *  @image html 027_reflected_shape.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -144,8 +144,8 @@ public:
 		plane_prog.Use();
 
 		Vec3f lightPos(3.0f, 0.5f, 2.0f);
-		Uniform(plane_prog, "LightPosition").Set(lightPos);
-		Uniform(plane_prog, "Normal").Set(make_plane.Normal());
+		Uniform<Vec3f>(plane_prog, "LightPosition").Set(lightPos);
+		Uniform<Vec3f>(plane_prog, "Normal").Set(make_plane.Normal());
 
 		plane.Bind();
 
@@ -160,7 +160,7 @@ public:
 		}
 		//
 		Texture::Active(0);
-		Uniform(plane_prog, "ReflectTex").Set(0);
+		UniformSampler(plane_prog, "ReflectTex").Set(0);
 		{
 			auto bound_tex = Bind(reflect_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
@@ -277,7 +277,7 @@ public:
 		shape_prog.Link();
 		shape_prog.Use();
 
-		Uniform(shape_prog, "LightPosition").Set(lightPos);
+		Uniform<Vec3f>(shape_prog, "LightPosition").Set(lightPos);
 
 		shape.Bind();
 
@@ -354,11 +354,11 @@ public:
 		shape_prog.Use();
 		shape.Bind();
 
-		Uniform(shape_prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(shape_prog, "ModelMatrix").Set(
 			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f) *
 			ModelMatrixf::RotationX(FullCircles(time / 12.0))
 		);
-		Uniform(shape_prog, "ProjectionMatrix").SetMatrix(projection);
+		Uniform<Mat4f>(shape_prog, "ProjectionMatrix").Set(projection);
 
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_shape.FaceWinding());
@@ -372,7 +372,7 @@ public:
 		);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform(shape_prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(shape_prog, "CameraMatrix").Set(
 			camera *
 			ModelMatrixf::Translation(0.0f, -1.0f, 0.0f) *
 			reflection
@@ -385,7 +385,7 @@ public:
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform(shape_prog, "CameraMatrix").SetMatrix(camera);
+		Uniform<Mat4f>(shape_prog, "CameraMatrix").Set(camera);
 
 		gl.CullFace(Face::Back);
 		shape_instr.Draw(shape_indices);
@@ -396,12 +396,12 @@ public:
 		plane_prog.Use();
 		plane.Bind();
 
-		Uniform(plane_prog, "ProjectionMatrix").SetMatrix(projection);
-		Uniform(plane_prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(plane_prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(plane_prog, "ProjectionMatrix").Set(projection);
+		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
+		Uniform<Mat4f>(plane_prog, "ModelMatrix").Set(
 			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f)
 		);
-		Uniform(plane_prog, "Aspect").Set(aspect);
+		Uniform<GLfloat>(plane_prog, "Aspect").Set(aspect);
 
 		plane_instr.Draw(plane_indices);
 

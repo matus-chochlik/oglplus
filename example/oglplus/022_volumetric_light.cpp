@@ -4,7 +4,7 @@
  *
  *  @image html 022_volumetric_light.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -150,9 +150,9 @@ public:
 			CamMatrixf::Perspective(Degrees(60), 1.0, 0.1, 10.0) *
 			CamMatrixf::LookingAt(lightPos, Vec3f(0, 0, 0));
 
-		Uniform(volume_prog, "SampleCount").Set(GLint(samples));
-		Uniform(volume_prog, "Size").Set(Length(lightPos));
-		Uniform(volume_prog, "TexProjectionMatrix").SetMatrix(texProjMat);
+		Uniform<GLint>(volume_prog, "SampleCount").Set(samples);
+		Uniform<GLfloat>(volume_prog, "Size").Set(Length(lightPos));
+		Uniform<Mat4f>(volume_prog, "TexProjectionMatrix").Set(texProjMat);
 
 		plane_vs.Source(
 			"#version 330\n"
@@ -207,7 +207,7 @@ public:
 		plane_prog.Link();
 		plane_prog.Use();
 
-		Uniform(plane_prog, "TexProjectionMatrix").SetMatrix(texProjMat);
+		Uniform<Mat4f>(plane_prog, "TexProjectionMatrix").Set(texProjMat);
 
 		plane.Bind();
 
@@ -228,7 +228,7 @@ public:
 		}
 
 		Texture::Active(0);
-		ProgramUniform(volume_prog, "LightTex").Set(0);
+		ProgramUniformSampler(volume_prog, "LightTex").Set(0);
 		{
 			auto bound_tex = Bind(light_tex, Texture::Target::_2D);
 			bound_tex.Image2D(images::LoadTexture("flower_glass"));
@@ -253,14 +253,14 @@ public:
 			double(width)/height,
 			1, 100
 		);
-		ProgramUniform(
+		ProgramUniform<Mat4f>(
 			plane_prog,
 			"ProjectionMatrix"
-		).SetMatrix(perspective);
-		ProgramUniform(
+		).Set(perspective);
+		ProgramUniform<Mat4f>(
 			volume_prog,
 			"ProjectionMatrix"
-		).SetMatrix(perspective);
+		).Set(perspective);
 	}
 
 	void Render(double time)
@@ -276,7 +276,7 @@ public:
 
 		plane.Bind();
 		plane_prog.Use();
-		Uniform(plane_prog, "CameraMatrix").SetMatrix(cameraMatrix);
+		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(cameraMatrix);
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
@@ -284,14 +284,14 @@ public:
 
 		volume.Bind();
 		volume_prog.Use();
-		Uniform(volume_prog, "CameraMatrix").SetMatrix(cameraMatrix);
-		Uniform(volume_prog, "ViewX").Set(
+		Uniform<Mat4f>(volume_prog, "CameraMatrix").Set(cameraMatrix);
+		Uniform<Vec3f>(volume_prog, "ViewX").Set(
 			Row<0>(cameraMatrix).xyz()
 		);
-		Uniform(volume_prog, "ViewY").Set(
+		Uniform<Vec3f>(volume_prog, "ViewY").Set(
 			Row<1>(cameraMatrix).xyz()
 		);
-		Uniform(volume_prog, "ViewZ").Set(
+		Uniform<Vec3f>(volume_prog, "ViewZ").Set(
 			Row<2>(cameraMatrix).xyz()
 		);
 		gl.DrawArraysInstanced(

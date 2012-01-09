@@ -250,9 +250,9 @@ public:
 			1, 100
 		);
 		draw_prog.Use();
-		Uniform(draw_prog, "ProjectionMatrix").SetMatrix(perspective);
+		Uniform<Mat4f>(draw_prog, "ProjectionMatrix").Set(perspective);
 		pick_prog.Use();
-		Uniform(pick_prog, "ProjectionMatrix").SetMatrix(perspective);
+		Uniform<Mat4f>(pick_prog, "ProjectionMatrix").Set(perspective);
 	}
 
 	// we want to get mouse motion notifications
@@ -265,7 +265,7 @@ public:
 	void MouseMoveNormalized(float x, float y, float aspect)
 	{
 		pick_prog.Use();
-		Uniform(pick_prog, "MousePos").Set(Vec2f(x*aspect, y));
+		Uniform<Vec2f>(pick_prog, "MousePos").Set(x*aspect, y);
 	}
 
 	void Render(double time)
@@ -281,7 +281,7 @@ public:
 
 		// use the picking program
 		pick_prog.Use();
-		Uniform(pick_prog, "CameraMatrix").SetMatrix(camera);
+		Uniform<Mat4f>(pick_prog, "CameraMatrix").Set(camera);
 
 		// query the number of values written to the feedabck buffer
 		GLuint picked_count = 0;
@@ -300,14 +300,14 @@ public:
 			cube_instr.Draw(cube_indices, 36);
 		}
 
-		std::map<GLfloat, GLint> picked;
+		std::map<GLfloat, GLint> picked_objs;
 		{
 			picked_instances.Bind(Buffer::Target::TransformFeedback);
 			Buffer::TypedMap<DepthAndID> picked_instances_map(
 				Buffer::Target::TransformFeedback,
 				Buffer::MapAccess::Read
 			);
-			picked.insert(
+			picked_objs.insert(
 				picked_instances_map.Data(),
 				picked_instances_map.Data()+picked_count
 			);
@@ -315,10 +315,10 @@ public:
 
 		draw_prog.Use();
 
-		if(picked.empty())
-			Uniform(draw_prog, "Picked").Set(-1);
-		else Uniform(draw_prog, "Picked").Set(picked.begin()->second);
-		Uniform(draw_prog, "CameraMatrix").SetMatrix(camera);
+		Uniform<GLint> picked(draw_prog, "Picked");
+		if(picked_objs.empty()) picked = -1;
+		else picked = picked_objs.begin()->second;
+		Uniform<Mat4f>(draw_prog, "CameraMatrix").Set(camera);
 
 		// draw 36 instances of the cube
 		// the vertex shader will take care of their placement

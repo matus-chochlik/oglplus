@@ -4,7 +4,7 @@
  *
  *  @image html 020_golf_ball.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -143,7 +143,8 @@ public:
 		prog_tfb.Link();
 		prog_tfb.Use();
 
-		Uniform(prog_tfb, "Diameter").Set(hole_diameter);
+		Uniform<GLfloat> diameter(prog_tfb, "Diameter");
+		diameter.Set(hole_diameter);
 
 		// bind the VAO for the holes
 		holes.Bind();
@@ -242,7 +243,7 @@ public:
 		prog.Link();
 		prog.Use();
 
-		Uniform(prog, "Diameter").Set(hole_diameter);
+		diameter.Set(hole_diameter);
 
 		// bind the VAO for the sphere
 		sphere.Bind();
@@ -282,7 +283,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(60),
 				double(width)/height,
@@ -313,8 +314,8 @@ public:
 		//
 		// use transform feedback to get transformed hole vertices
 		prog_tfb.Use();
-		Uniform(prog_tfb, "CameraMatrix").SetMatrix(camera);
-		Uniform(prog_tfb, "ModelMatrix").SetMatrix(model);
+		Uniform<Mat4f>(prog_tfb, "CameraMatrix").Set(camera);
+		Uniform<Mat4f>(prog_tfb, "ModelMatrix").Set(model);
 		holes.Bind();
 		{
 			TransformFeedback::Activator activates_tfb(
@@ -324,8 +325,8 @@ public:
 		}
 		prog.Use();
 		//
-		Uniform(prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(prog, "ModelMatrix").SetMatrix(model);
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(camera);
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(model);
 
 		// map the transform feedback buffer
 		Buffer::TypedMap<GLfloat> transf_hole_verts_map(
@@ -335,7 +336,7 @@ public:
 		// use the values stored in the buffer as the input
 		// for the fragment shader, that will use them to
 		// calculate the bump map
-		Uniform(prog, "TransfHole").Set<3>(
+		Uniform<GLfloat>(prog, "TransfHole").SetVectors<3>(
 			transf_hole_verts_map.Count(),
 			transf_hole_verts_map.Data()
 		);

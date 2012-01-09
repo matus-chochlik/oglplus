@@ -4,7 +4,7 @@
  *
  *  @image html 004_newton.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -132,8 +132,8 @@ public:
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform(prog, "Color1").Set(0.2f, 0.02f, 0.05f);
-		Uniform(prog, "Color2").Set(1.0f, 0.95f, 0.98f);
+		Uniform<GLfloat>(prog, "Color1").SetVector(0.2f, 0.02f, 0.05f);
+		Uniform<GLfloat>(prog, "Color2").SetVector(1.0f, 0.95f, 0.98f);
 		//
 		gl.ClearDepth(1.0f);
 	}

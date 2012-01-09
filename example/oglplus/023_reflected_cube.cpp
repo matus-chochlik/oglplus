@@ -4,7 +4,7 @@
  *
  *  @image html 023_reflected_cube.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -184,7 +184,7 @@ public:
 		}
 		VertexArray::Unbind();
 
-		Uniform(prog, "LightPos").Set(Vec3f(1.5, 2.0, 2.5));
+		Uniform<Vec3f>(prog, "LightPos").Set(1.5, 2.0, 2.5);
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -195,7 +195,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(48),
 				double(width)/height,
@@ -209,7 +209,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 		// make the camera matrix orbiting around the origin
 		// at radius of 3.5 with elevation between 15 and 90 degrees
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.5,
@@ -233,6 +233,8 @@ public:
 			0.0, 0.0, 0.0, 1.0
 		);
 		//
+		Uniform<Mat4f> model_matrix(prog, "ModelMatrix");
+		//
 		gl.Disable(Capability::Blend);
 		gl.Disable(Capability::DepthTest);
 		gl.Enable(Capability::StencilTest);
@@ -241,7 +243,7 @@ public:
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Replace);
 
 		plane.Bind();
-		Uniform(prog, "ModelMatrix").SetMatrix(identity);
+		model_matrix.Set(identity);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
 		gl.ColorMask(true, true, true, true);
@@ -250,21 +252,21 @@ public:
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Keep);
 
 		// draw the cube using the reflection program
-		Uniform(prog, "ModelMatrix").SetMatrix(reflection * model);
+		model_matrix.Set(reflection * model);
 		cube.Bind();
 		cube_instr.Draw(cube_indices);
 
 		gl.Disable(Capability::StencilTest);
 
 		// draw the cube using the normal object program
-		Uniform(prog, "ModelMatrix").SetMatrix(model);
+		model_matrix.Set(model);
 		cube_instr.Draw(cube_indices);
 
 		// blend-in the plane
 		gl.Enable(Capability::Blend);
 		gl.BlendEquation(BlendEquation::Max);
 		plane.Bind();
-		Uniform(prog, "ModelMatrix").SetMatrix(identity);
+		model_matrix.Set(identity);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 

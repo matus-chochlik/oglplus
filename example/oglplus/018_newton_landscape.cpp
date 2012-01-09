@@ -4,7 +4,7 @@
  *
  *  @image html 018_newton_landscape.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -196,7 +196,7 @@ public:
 			Texture::WrapT(tex_tgt, TextureWrap::MirroredRepeat);
 		}
 		//
-		Uniform(prog, "TexUnit").Set(0);
+		UniformSampler(prog, "TexUnit").Set(0);
 
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -210,7 +210,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(48),
 				double(width)/height,
@@ -224,7 +224,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(0.0f, 0.5f, 0.0f),
 				4.5,
@@ -232,7 +232,7 @@ public:
 				Degrees(55 - SineWave(time / 20.0) * 30)
 			)
 		);
-		Uniform(prog, "LightPos").Set(light_path.Position(time / 10.0));
+		Uniform<Vec3f>(prog, "LightPos").Set(light_path.Position(time / 10.0));
 
 		plane.Bind();
 		plane_instr.Draw(plane_indices);

@@ -4,7 +4,7 @@
  *
  *  @image html 021_cube_mapping.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -186,8 +186,8 @@ public:
 				Texture::Image2D(Texture::CubeMapFace(i), image);
 		}
 		//
-		Uniform(prog, "TexUnit").Set(0);
-		Uniform(prog, "LightPos").Set(Vec3f(3.0f, 5.0f, 4.0f));
+		UniformSampler(prog, "TexUnit").Set(0);
+		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(3.0f, 5.0f, 4.0f));
 		//
 		gl.ClearColor(0.2f, 0.05f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -201,7 +201,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(48),
 				double(width)/height,
@@ -215,7 +215,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.5 - SineWave(time / 16.0) * 1.5,
@@ -225,7 +225,7 @@ public:
 		);
 
 		// set the model matrix
-		Uniform(prog, "ModelMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(time / 10.0)

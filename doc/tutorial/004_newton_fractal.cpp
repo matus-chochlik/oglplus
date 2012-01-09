@@ -117,7 +117,7 @@
  *  rendering. There are various methods for the colorization of the final image
  *  but the basic algorithm is usually the same:
  *  -# Assign a complex-value coordinate @c Z to every pixel on a 2d surface
- *  -# For every coordinate @z calculate a sequence of numbers such that
+ *  -# For every coordinate @c z calculate a sequence of numbers such that
  *    - Z0 = Z
  *    - Zi+1 = Zi - f(Zi)/f'(Zi)
  *  -# Stop when

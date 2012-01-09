@@ -4,7 +4,7 @@
  *
  *  @image html 006_cartoon_sun.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -103,10 +103,10 @@ public:
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform(prog, "Sun1").Set(0.95f, 0.85f, 0.60f);
-		Uniform(prog, "Sun2").Set(0.90f, 0.80f, 0.20f);
-		Uniform(prog, "Sky1").Set(0.90f, 0.80f, 0.50f);
-		Uniform(prog, "Sky2").Set(0.80f, 0.60f, 0.40f);
+		Uniform<Vec3f>(prog, "Sun1").Set({0.95f, 0.85f, 0.60f});
+		Uniform<Vec3f>(prog, "Sun2").Set({0.90f, 0.80f, 0.20f});
+		Uniform<Vec3f>(prog, "Sky1").Set({0.90f, 0.80f, 0.50f});
+		Uniform<Vec3f>(prog, "Sky2").Set({0.80f, 0.60f, 0.40f});
 		//
 		gl.ClearDepth(1.0f);
 	}
@@ -121,11 +121,11 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		auto angle = FullCircles(time * 0.05f);
-		Uniform(prog, "Time").Set(GLfloat(time));
-		Uniform(prog, "SunPos").Set(
+		Uniform<GLfloat>(prog, "Time").Set(time);
+		Uniform<Vec2f>(prog, "SunPos").Set({
 			-Cos(angle),
 			Sin(angle)
-		);
+		});
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 

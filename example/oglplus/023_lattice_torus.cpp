@@ -4,7 +4,7 @@
  *
  *  @image html 023_lattice_torus.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -143,7 +143,7 @@ public:
 			1, 100
 		);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(projection);
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(projection);
 	}
 
 	void Render(double time)
@@ -164,18 +164,18 @@ public:
 		Vec4f lightPos(4.0f, 4.0f, -8.0f, 1.0f);
 
 		prog.Use();
-		Uniform(prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(prog, "ModelMatrix").SetMatrix(model);
-		Uniform(prog, "LightPosCam").Set(camera * lightPos);
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(camera);
+		Uniform<Mat4f>(prog, "ModelMatrix").Set(model);
+		Uniform<Vec4f>(prog, "LightPosCam").Set(camera * lightPos);
 
-		Uniform(prog, "FrontColor").Set(Vec3f(0.3, 0.2, 0.0));
-		Uniform(prog, "BackColor").Set(Vec3f(0.2, 0.1, 0.0));
+		Uniform<Vec3f>(prog, "FrontColor").Set(Vec3f(0.3, 0.2, 0.0));
+		Uniform<Vec3f>(prog, "BackColor").Set(Vec3f(0.2, 0.1, 0.0));
 		gl.PolygonMode(Face::Front, PolygonMode::Line);
 		gl.PolygonMode(Face::Back, PolygonMode::Line);
 		torus_instr.Draw(torus_indices);
 
-		Uniform(prog, "FrontColor").Set(Vec3f(0.9, 0.8, 0.1));
-		Uniform(prog, "BackColor").Set(Vec3f(0.7, 0.6, 0.2));
+		Uniform<Vec3f>(prog, "FrontColor").Set(Vec3f(0.9, 0.8, 0.1));
+		Uniform<Vec3f>(prog, "BackColor").Set(Vec3f(0.7, 0.6, 0.2));
 		gl.PolygonMode(Face::Front, PolygonMode::Fill);
 		gl.PolygonMode(Face::Back, PolygonMode::Fill);
 		torus_instr.Draw(torus_indices);

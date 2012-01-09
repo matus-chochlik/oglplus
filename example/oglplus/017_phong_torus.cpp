@@ -4,7 +4,7 @@
  *
  *  @image html 017_phong_torus.png
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -146,9 +146,9 @@ public:
 		}
 
 		// set the light positions
-		Uniform(prog, "LightPos[0]").Set(Vec3f(2.0f,-1.0f, 0.0f));
-		Uniform(prog, "LightPos[1]").Set(Vec3f(0.0f, 3.0f, 0.0f));
-		Uniform(prog, "LightPos[2]").Set(Vec3f(0.0f,-1.0f, 4.0f));
+		Uniform<Vec3f>(prog, "LightPos[0]").Set(Vec3f(2.0f,-1.0f, 0.0f));
+		Uniform<Vec3f>(prog, "LightPos[1]").Set(Vec3f(0.0f, 3.0f, 0.0f));
+		Uniform<Vec3f>(prog, "LightPos[2]").Set(Vec3f(0.0f,-1.0f, 4.0f));
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -162,7 +162,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform(prog, "ProjectionMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::Perspective(
 				Degrees(48),
 				double(width)/height,
@@ -176,7 +176,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform(prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.0,

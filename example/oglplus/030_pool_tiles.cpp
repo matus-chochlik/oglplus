@@ -194,9 +194,9 @@ public:
 		plane_prog.Use();
 
 		Vec3f lightPos(3.0f, 2.5f, 2.0f);
-		Uniform(plane_prog, "LightPosition").Set(lightPos);
-		Uniform(plane_prog, "TileCount").Set(tile_tex_side);
-		Uniform(plane_prog, "ModelMatrix").SetMatrix(
+		Uniform<Vec3f>(plane_prog, "LightPosition").Set(lightPos);
+		Uniform<GLuint>(plane_prog, "TileCount").Set(tile_tex_side);
+		Uniform<Mat4f>(plane_prog, "ModelMatrix").Set(
 			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f)
 		);
 
@@ -223,7 +223,7 @@ public:
 		}
 		//
 		Texture::Active(0);
-		Uniform(plane_prog, "RandTex").Set(0);
+		UniformSampler(plane_prog, "RandTex").Set(0);
 		{
 			auto bound_tex = Bind(rand_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
@@ -239,7 +239,7 @@ public:
 		}
 		//
 		Texture::Active(1);
-		Uniform(plane_prog, "PictTex").Set(1);
+		UniformSampler(plane_prog, "PictTex").Set(1);
 		{
 			auto bound_tex = Bind(pict_tex, Texture::Target::_2D);
 			bound_tex.Image2D(images::LoadTexture("pool_pictogram"));
@@ -251,7 +251,7 @@ public:
 		//
 		auto tileImage = images::LoadTexture("small_tile");
 		Texture::Active(2);
-		Uniform(plane_prog, "TileTex").Set(2);
+		UniformSampler(plane_prog, "TileTex").Set(2);
 		{
 			auto bound_tex = Bind(tile_tex, Texture::Target::_2D);
 			bound_tex.Image2D(tileImage);
@@ -263,13 +263,13 @@ public:
 		}
 		//
 		Texture::Active(3);
-		Uniform(plane_prog, "NormTex").Set(3);
+		UniformSampler(plane_prog, "NormTex").Set(3);
 		{
 			auto bound_tex = Bind(norm_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
 				images::Transformed<GLfloat>(
 					images::NormalMap(tileImage),
-					Matrix4f(
+					Mat4f(
 						1.0, 0.0, 0.0, 0.0,
 						0.0, 0.0, 1.0, 0.0,
 						0.0,-1.0, 0.0, 0.0,
@@ -285,7 +285,7 @@ public:
 		}
 		//
 		Texture::Active(4);
-		Uniform(plane_prog, "ReflectTex").Set(4);
+		UniformSampler(plane_prog, "ReflectTex").Set(4);
 		{
 			auto bound_tex = Bind(reflect_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
@@ -434,13 +434,13 @@ public:
 		shape_prog.Link();
 		shape_prog.Use();
 
-		Uniform(shape_prog, "LightPosition").Set(lightPos);
-		Uniform(shape_prog, "ModelMatrix").SetMatrix(
+		Uniform<Vec3f>(shape_prog, "LightPosition").Set(lightPos);
+		Uniform<Mat4f>(shape_prog, "ModelMatrix").Set(
 			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f)
 		);
-		Uniform(shape_prog, "PictTex").Set(1);
-		Uniform(shape_prog, "TileTex").Set(1);
-		Uniform(shape_prog, "TileCount").Set(tile_tex_side);
+		UniformSampler(shape_prog, "PictTex").Set(0);
+		UniformSampler(shape_prog, "TileTex").Set(1);
+		Uniform<GLuint>(shape_prog, "TileCount").Set(tile_tex_side);
 
 		shape.Bind();
 
@@ -492,20 +492,20 @@ public:
 		);
 
 		float aspect = float(width)/height;
-		ProgramUniform(plane_prog, "Aspect").Set(aspect);
+		ProgramUniform<GLfloat>(plane_prog, "Aspect").Set(aspect);
 
 		auto projection = CamMatrixf::Perspective(
 			Degrees(48), aspect, 1, 100
 		);
-		ProgramUniform(
+		ProgramUniform<Mat4f>(
 			plane_prog,
 			"ProjectionMatrix"
-		).SetMatrix(projection);
+		).Set(projection);
 
-		ProgramUniform(
+		ProgramUniform<Mat4f>(
 			shape_prog,
 			"ProjectionMatrix"
-		).SetMatrix(projection);
+		).Set(projection);
 	}
 
 	void Render(double time)
@@ -539,7 +539,8 @@ public:
 		);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform(shape_prog, "CameraMatrix").SetMatrix(
+		Uniform<Mat4f> camera_matrix(shape_prog, "CameraMatrix");
+		camera_matrix.Set(
 			camera *
 			ModelMatrixf::Translation(0.0f, -1.0f, 0.0f) *
 			reflection
@@ -552,7 +553,7 @@ public:
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform(shape_prog, "CameraMatrix").SetMatrix(camera);
+		camera_matrix.Set(camera);
 
 		gl.CullFace(Face::Back);
 		shape_instr.Draw(shape_indices);
@@ -563,8 +564,8 @@ public:
 		plane_prog.Use();
 		plane.Bind();
 
-		Uniform(plane_prog, "CameraMatrix").SetMatrix(camera);
-		Uniform(plane_prog, "CameraPosition").Set(camera.Position());
+		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
+		Uniform<Vec3f>(plane_prog, "CameraPosition").Set(camera.Position());
 
 		plane_instr.Draw(plane_indices);
 
