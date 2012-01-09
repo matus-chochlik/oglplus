@@ -237,7 +237,7 @@ namespace oglplus {
  *
  *  There are several different ways how to do this; one of the most convenient
  *  is to download the @c gl3.h header file from
- *  <A HREF="www.opengl.org/registry/api/gl3.h">www.opengl.org/registry/api/gl3.h</A>
+ *  <A HREF="http://www.opengl.org/registry/api/gl3.h">www.opengl.org/registry/api/gl3.h</A>
  *  and place it to a directory implicitly searched by the compiler or to add the
  *  @c -I/path/to/include directive to your @c CXXFLAGS. If the OpengGL dynamic library
  *  or shared object is located in a nonstandard location also update the @c LDFLAGS.
