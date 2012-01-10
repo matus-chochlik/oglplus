@@ -25,14 +25,17 @@ class WickerTorus
  : public DrawingInstructionWriter
 {
 private:
-	GLdouble _radius_out, _radius_in, _thickness;
-	size_t _sections, _rings;
+	const GLdouble _radius_out, _radius_in, _thickness;
+	const GLdouble _r_slip_coef, _s_slip_coef;
+	const size_t _sections, _rings;
 public:
 	/// Creates a torus with unit radius centered at the origin
 	WickerTorus(void)
 	 : _radius_out(1.0)
 	 , _radius_in(0.5)
 	 , _thickness(0.005)
+	 , _r_slip_coef(0.25)
+	 , _s_slip_coef(0.40)
 	 , _sections(24)
 	 , _rings(24)
 	{ }
@@ -47,6 +50,8 @@ public:
 	): _radius_out(rad_out)
 	 , _radius_in(rad_in)
 	 , _thickness(thickness)
+	 , _r_slip_coef(0.25)
+	 , _s_slip_coef(0.40)
 	 , _sections(sects)
 	 , _rings(rings)
 	{
@@ -76,8 +81,8 @@ public:
 		const GLdouble t = _thickness / _radius_in;
 		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
 		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
-		const GLdouble r_slip = r_step * 0.25;
-		const GLdouble s_slip = s_step * 0.40;
+		const GLdouble r_slip = r_step * _r_slip_coef;
+		const GLdouble s_slip = s_step * _s_slip_coef;
 		const GLdouble r1 = _radius_in;
 		const GLdouble r2 = _radius_out - _radius_in;
 
@@ -96,7 +101,7 @@ public:
 					const GLdouble sa[3] = {
 						s*s_step,
 						(s + t)*s_step,
-						(s + 1.0 - 2*t)*s_step
+						(s + 1.0 - 2.0*t)*s_step
 					};
 					const GLdouble rd[3] = {
 						fdt,
@@ -307,8 +312,8 @@ public:
 		//
 		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
 		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
-		const GLdouble r_slip = r_step * 0.25;
-		const GLdouble s_slip = s_step * 0.40;
+		const GLdouble r_slip = r_step * _r_slip_coef;
+		const GLdouble s_slip = s_step * _s_slip_coef;
 		const GLdouble s_slop = (1.0 * M_PI) / 4.0;
 
 		for(size_t f=0; f!=2; ++f)
@@ -481,8 +486,8 @@ public:
 		//
 		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
 		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
-		const GLdouble r_slip = r_step * 0.25;
-		const GLdouble s_slip = s_step * 0.40;
+		const GLdouble r_slip = r_step * _r_slip_coef;
+		const GLdouble s_slip = s_step * _s_slip_coef;
 		const GLdouble s_slop = (1.0 * M_PI) / 4.0;
 
 		for(size_t f=0; f!=2; ++f)
@@ -643,7 +648,7 @@ public:
 		GLdouble t = _thickness / _radius_in;
 		GLdouble r_step = 0.5 / GLdouble(_rings);
 		GLdouble s_step = 1.0 / GLdouble(_sections);
-		GLdouble r_slip = r_step * 0.25;
+		GLdouble r_slip = r_step * _r_slip_coef;
 		GLdouble s_slip = s_step * t;
 
 		for(size_t f=0; f!=2; ++f)
@@ -710,7 +715,7 @@ public:
 			}
 		}
 
-		s_slip = s_step * 0.40;
+		s_slip = s_step * _s_slip_coef;
 
 		for(size_t f=0; f!=2; ++f)
 		{

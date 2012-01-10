@@ -15,6 +15,7 @@
 #include <oglplus/shapes/wicker_torus.hpp>
 #include <oglplus/bound/buffer.hpp>
 #include <oglplus/bound/texture.hpp>
+#include <oglplus/images/brushed_metal.hpp>
 
 #include <iostream>
 
@@ -54,25 +55,27 @@ private:
 	Buffer tangents;
 	Buffer texcoords;
 
-	// textures for the shape
-	Texture color_tex, normal_tex;
+	Texture texture;
 public:
 	Test00(void)
 	 : shape()
 	 , shape_instr(shape.Instructions())
 	 , shape_indices(shape.Indices())
 	{
+		std::srand(time(0));
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 projectionMatrix, cameraMatrix, modelMatrix;"
-			"uniform vec3 LightPos;"
+			"uniform vec3 CameraPosition, LightPos;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 			"in vec3 Tangent;"
 			"in vec2 TexCoord;"
 			"out vec3 vertNormal;"
 			"out vec3 vertTangent;"
+			"out vec3 vertBinormal;"
 			"out vec3 vertLightDir;"
+			"out vec3 vertViewDir;"
 			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
@@ -80,10 +83,6 @@ public:
 			"		modelMatrix *"
 			"		Position;"
 			"	vertLightDir = LightPos - gl_Position.xyz;"
-			"	gl_Position = "
-			"		projectionMatrix *"
-			"		cameraMatrix *"
-			"		gl_Position;"
 			"	vertNormal = ("
 			"		modelMatrix *"
 			"		vec4(Normal, 0.0)"
@@ -92,7 +91,15 @@ public:
 			"		modelMatrix *"
 			"		vec4(Tangent, 0.0)"
 			"	).xyz;"
+			"	vertBinormal = cross(vertNormal, vertTangent);"
+			"	vertViewDir = normalize("
+			"		CameraPosition - gl_Position.xyz"
+			"	);"
 			"	vertTexCoord = TexCoord;"
+			"	gl_Position = "
+			"		projectionMatrix *"
+			"		cameraMatrix *"
+			"		gl_Position;"
 			"}"
 		);
 		vs.Compile();
@@ -100,25 +107,43 @@ public:
 		fs.Source(
 			"#version 330\n"
 			"uniform vec3 Color1, Color2;"
+			"uniform sampler2D Texture;"
 			"in vec3 vertNormal;"
 			"in vec3 vertTangent;"
+			"in vec3 vertBinormal;"
 			"in vec3 vertLightDir;"
+			"in vec3 vertViewDir;"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
-			"	float si = gl_FrontFacing ? 1.0 : -1.0;"
-			"	float re = gl_FrontFacing ? 1.0 : 0.5;"
-			"	float ir = gl_FrontFacing ? 0.0 : 0.3;"
-			"	float d = dot(si*normalize(vertNormal), normalize(vertLightDir));"
-			"	float i = max(d*re, 0.0) + ir + 0.3;"
+			"	vec2 TexCoord = vec2(vertTexCoord.s*16, vertTexCoord.t*4);"
+			"	vec3 t = texture(Texture, TexCoord).rgb;"
+
+			"	float Diffuse = max(dot("
+			"		normalize(vertNormal), "
+			"		normalize(vertLightDir)"
+			"	), 0.0) + 0.4;"
+
+			"	vec3 Normal = normalize(2*vertNormal + (t.r - 0.5)*vertTangent + (t.g - 0.5)*vertBinormal);"
+
+			"	vec3 LightRefl = reflect("
+			"		-normalize(vertLightDir),"
+			"		Normal"
+			"	);"
+			"	float Specular = pow(max(dot("
+			"		normalize(LightRefl),"
+			"		normalize(vertViewDir)"
+			"	), 0.0), 16+t.b*48);"
+
 			"	float c = ("
 			"		int(vertTexCoord.x*24) % 2+"
 			"		int(vertTexCoord.y*24) % 2"
 			"	) % 2;"
 			"	float v = (1.0-c/2.0);"
-			"	fragColor = vec4(mix(Color1, Color2, v)*i, 1.0);"
-			//"	fragColor = vec4(vertTangent, i);"
+			"	vec3 LtColor = vec3(1, 1, 1);"
+			"	vec3 Color = mix(mix(Color1, Color2, v), LtColor, t.b);"
+			"	fragColor = vec4(Color*Diffuse + LtColor*Specular*pow(0.6+t.b*0.4, 4.0), 1.0);"
 			"}"
 		);
 		fs.Compile();
@@ -187,6 +212,20 @@ public:
 		}
 		catch(...){ }
 
+		try
+		{
+			Texture::Active(0);
+			UniformSampler(prog, "Texture").Set(0);
+			auto bound_tex = Bind(texture, Texture::Target::_2D);
+			bound_tex.Image2D(images::BrushedMetalUByte(512, 512, 5120, -2, 2, 32, 128));
+			bound_tex.GenerateMipmap();
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
+		}
+		catch(...){ }
+
 		Uniform<Mat4f>(prog, "projectionMatrix").Set(
 			CamMatrixf::Perspective(Degrees(48), 1.25, 1, 100)
 		);
@@ -207,22 +246,23 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		auto cameraMatrix = CamMatrixf::Orbiting(
+		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
 			4.0 - SineWave(time / 20.0)*1.5,
 			FullCircles(time / 25.0),
 			Degrees(SineWave(time / 30.0) * 80)
 		);
-		Uniform<Mat4f>(prog, "cameraMatrix").Set(cameraMatrix);
+		Uniform<Mat4f>(prog, "cameraMatrix").Set(camera);
+		Uniform<Vec3f>(prog, "CameraPosition").Set(camera.Position());
 
 		Uniform<Mat4f>(prog, "modelMatrix").Set(
-			ModelMatrixf()
-/*
+//			ModelMatrixf()
+/**/
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(time * 0.1)
 			)
-*/
+/**/
 		);
 		Uniform<Vec3f> color1(prog, "Color1");
 		Uniform<Vec3f> color2(prog, "Color2");
@@ -235,7 +275,7 @@ public:
 				if(phase < 2)
 				{
 					color1.Set(Vec3f(0.8, 0.8, 0.8));
-					color2.Set(Vec3f(0.8, 0.8, 0.8));
+					color2.Set(Vec3f(0.4, 0.4, 0.4));
 				}
 				else if(phase < 4)
 				{
