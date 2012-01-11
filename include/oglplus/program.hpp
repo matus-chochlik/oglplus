@@ -952,7 +952,13 @@ class Program
 typedef Object<ProgramOps, false> Program;
 #endif
 
-// TODO: docs
+/// A Program that allows to attach shaders and links itself during construction
+/** This specialization of Program allows to build a whole shading language
+ *  program (i.e. to attach its shaders, optionally make the program separable,
+ *  link and use it during construction.
+ *
+ *  @see Program
+ */
 class QuickProgram
  : public Program
 {
@@ -970,33 +976,111 @@ private:
 	}
 
 	template <typename ... Shaders>
-	void _initialize(const Shaders& ... shaders)
+	void _initialize(bool separable, const Shaders& ... shaders)
 	{
 		_attach(shaders...);
+		if(separable) MakeSeparable();
 		Link();
 		Use();
 	}
 public:
+	/// Build a program using the specified @c shaders
 	template <typename ... Shaders>
 	QuickProgram(const Shaders& ... shaders)
 	 : Program()
 	{
-		_initialize(shaders...);
+		_initialize(false, shaders...);
 	}
 
+	/// Build a program with @c description using the specified @c shaders
 	template <typename ... Shaders>
 	QuickProgram(const GLchar* description, const Shaders& ... shaders)
 	 : Program(description)
 	{
-		_initialize(shaders...);
+		_initialize(false, shaders...);
 	}
 
+	/// Build a program with @c description using the specified @c shaders
 	template <typename ... Shaders>
 	QuickProgram(const String& description, const Shaders& ... shaders)
 	 : Program(description)
 	{
-		_initialize(shaders...);
+		_initialize(false, shaders...);
 	}
+
+	/// Build a optionally separable program using the specified @c shaders
+	template <typename ... Shaders>
+	QuickProgram(bool separable, const Shaders& ... shaders)
+	 : Program()
+	{
+		_initialize(separable, shaders...);
+	}
+
+	/// Build a program with @c description using the specified @c shaders
+	template <typename ... Shaders>
+	QuickProgram(
+		const GLchar* description,
+		bool separable,
+		const Shaders& ... shaders
+	): Program(description)
+	{
+		_initialize(separable, shaders...);
+	}
+
+	/// Build a program with @c description using the specified @c shaders
+	template <typename ... Shaders>
+	QuickProgram(
+		const String& description,
+		bool separable,
+		const Shaders& ... shaders
+	): Program(description)
+	{
+		_initialize(separable, shaders...);
+	}
+};
+
+/// A Program that has its shaders statically hardcoded
+template <class ... Shaders>
+class HardwiredProgram
+ : protected Shaders ...
+ , public QuickProgram
+{
+private:
+	template <class SingleShader>
+	const Shader& _single_shader(SingleShader*) const
+	{
+		return *((SingleShader*)this);
+	}
+public:
+	/// Create an instance of the hardwired program
+	HardwiredProgram(void)
+	 : QuickProgram(_single_shader((Shaders*)0)...)
+	{ }
+
+	/// Create an instance of the hardwired program with a @c description
+	HardwiredProgram(const GLchar* description)
+	 : QuickProgram(description, _single_shader((Shaders*)0)...)
+	{ }
+
+	/// Create an instance of the hardwired program with a @c description
+	HardwiredProgram(const String& description)
+	 : QuickProgram(description, _single_shader((Shaders*)0)...)
+	{ }
+
+	/// Create an instance of the hardwired program, possibly @c separable
+	HardwiredProgram(bool separable)
+	 : QuickProgram(separable, _single_shader((Shaders*)0)...)
+	{ }
+
+	/// Create an instance of the hardwired program with a @c description
+	HardwiredProgram(const GLchar* description, bool separable)
+	 : QuickProgram(description, separable, _single_shader((Shaders*)0)...)
+	{ }
+
+	/// Create an instance of the hardwired program with a @c description
+	HardwiredProgram(const String& description, bool separable)
+	 : QuickProgram(description, separable, _single_shader((Shaders*)0)...)
+	{ }
 };
 
 } // namespace oglplus
