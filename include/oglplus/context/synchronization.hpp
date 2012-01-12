@@ -58,6 +58,20 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(MemoryBarrier));
 	}
 #endif
+
+	/// Indicate that all previous GL commands must finish in finite time
+	static void Flush(void)
+	{
+		OGLPLUS_GLFUNC(Flush)();
+		AssertNoError(OGLPLUS_ERROR_INFO(Flush));
+	}
+
+	/// Force all previous GL commands to complete before returning
+	static void Finish(void)
+	{
+		OGLPLUS_GLFUNC(Finish)();
+		AssertNoError(OGLPLUS_ERROR_INFO(Finish));
+	}
 };
 
 } // namespace context

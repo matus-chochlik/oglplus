@@ -35,6 +35,7 @@ case "$(basename ${1})" in
 	026_torus_halo) sleep_period=2;;
 	027_depth_of_field) sleep_period=5;;
 	027_smoke_trails) sleep_period=7;;
+	033_metal_and_glass) sleep_period=7;;
 	*)sleep_period=1;;
 esac
 sleep ${sleep_period} && xwd -name "${title}" -out ${2}

@@ -149,7 +149,11 @@ public:
 
 		"void main(void)"
 		"{"
-		"	fragColor = vec4(Color, 0.3);"
+		"	float Opacity = 1.0 - abs(dot("
+		"		normalize(vertNormal),"
+		"		normalize(vertViewDir)"
+		"	));"
+		"	fragColor = vec4(Color, 0.4 + sqrt(Opacity)*0.6);"
 		"}"
 	)
 	{ }
@@ -192,7 +196,6 @@ public:
 		"{"
 		"	vec3 LightColor = vec3(1.0, 1.0, 1.0);"
 
-		"	float LightMult = 1.0;"
 		"	vec3 LightProjCoord = ("
 		"		vertLightTexCoord.xyz /"
 		"		vertLightTexCoord.w"
@@ -218,7 +221,7 @@ public:
 		"				vec3(cos(a)*o*r, sin(a)*o*r, 0.0)"
 		"			);"
 		"		}"
-		"		LightMult *= Shadow / sn;"
+		"		LightColor *= Shadow / sn;"
 		"	}"
 
 		"	vec3 LightRefl = reflect("
@@ -226,12 +229,12 @@ public:
 		"		normalize(vertNormal)"
 		"	);"
 
-		"	float Specular = LightMult * pow(max(dot("
+		"	float Specular = pow(max(dot("
 		"		normalize(LightRefl),"
 		"		normalize(vertViewDir)"
 		"	)+0.05, 0.0), 128);"
 
-		"	float Diffuse = LightMult * pow(pow(dot("
+		"	float Diffuse = pow(pow(dot("
 		"		normalize(vertNormal), "
 		"		normalize(vertLightDir)"
 		"	)+0.3, 2.0), 2.0);"
@@ -239,7 +242,8 @@ public:
 		"	float Ambient = 0.3;"
 
 		"	fragColor = vec4("
-		"		LightColor * Color * (Ambient + Diffuse) + "
+		"		Color * Ambient +"
+		"		LightColor * Color * Diffuse + "
 		"		LightColor * Specular, "
 		"		0.4 + min(Specular, 1.0)*0.3"
 		"	);"
@@ -512,10 +516,8 @@ private:
 	Framebuffer frame_shadow_fbo;
 
 	// The glass light filter texture and its framebuffer
-	// and helper renderbuffer
 	Texture glass_shadow_tex;
 	Framebuffer glass_shadow_fbo;
-	Renderbuffer glass_shadow_rbo;
 
 public:
 	GlassAndMetalExample(void)
@@ -534,7 +536,7 @@ public:
 
 		light_pp.Bind();
 		light_pp.UseStages(transf_prog).Vertex();
-		light_pp.UseStages(shadow_prog).Fragment();
+		light_pp.UseStages(light_prog).Fragment();
 
 		glass_pp.Bind();
 		glass_pp.UseStages(transf_prog).Vertex();
@@ -582,7 +584,9 @@ public:
 				PixelDataType::Float,
 				nullptr
 			);
+		}
 
+		{
 			auto bound_fbo = Bind(
 				frame_shadow_fbo,
 				Framebuffer::Target::Draw
@@ -611,7 +615,9 @@ public:
 				PixelDataType::UnsignedByte,
 				nullptr
 			);
+		}
 
+		{
 			auto bound_fbo = Bind(
 				glass_shadow_fbo,
 				Framebuffer::Target::Draw
@@ -621,26 +627,11 @@ public:
 				glass_shadow_tex,
 				0
 			);
-
-			auto bound_rbo = Bind(
-				glass_shadow_rbo,
-				Renderbuffer::Target::Renderbuffer
-			);
-			bound_rbo.Storage(
-				PixelDataInternalFormat::DepthComponent,
-				shadow_tex_side,
-				shadow_tex_side
-			);
-			bound_fbo.AttachRenderbuffer(
-				Framebuffer::Attachment::Depth,
-				glass_shadow_rbo
-			);
 		}
 
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::CullFace);
-		gl.CullFace(Face::Back);
 
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::OneMinusSrcAlpha);
 
@@ -671,6 +662,8 @@ public:
 
 		transf_prog.camera_matrix.Set(light_proj_matrix);
 		transf_prog.camera_position.Set(light_position);
+		transf_prog.light_proj_matrix.Set(light_proj_matrix);
+		transf_prog.light_position.Set(light_position);
 
 		// Render the torus' frame
 		transf_prog.model_matrix.Set(torus_matrix);
@@ -682,7 +675,6 @@ public:
 		);
 		transf_prog.clip_plane.Set(clip_plane.Equation());
 
-		// now the glass part
 		light_pp.Bind();
 
 		light_prog.color = Vec3f(0.6, 0.4, 0.1);
@@ -697,7 +689,6 @@ public:
 
 			for(int p=3; p>=0; --p)
 			{
-/*
 				if(p % 2 == 0) gl.CullFace(Face::Front);
 				else gl.CullFace(Face::Back);
 				torus.Draw(
@@ -708,7 +699,6 @@ public:
 						else return (phase > 4);
 					}
 				);
-*/
 			}
 		}
 		gl.Disable(Capability::Blend);
@@ -728,6 +718,7 @@ public:
 
 		gl.Viewport(shadow_tex_side, shadow_tex_side);
 		gl.Clear().DepthBuffer();
+		gl.CullFace(Face::Back);
 
 		transf_prog.camera_matrix.Set(light_proj_matrix);
 		transf_prog.camera_position.Set(light_position);
@@ -761,6 +752,7 @@ public:
 		gl.ClearColor(0.6f, 0.6f, 0.5f, 0.0f);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.CullFace(Face::Back);
 		//
 		transf_prog.light_proj_matrix.Set(light_proj_matrix);
 
