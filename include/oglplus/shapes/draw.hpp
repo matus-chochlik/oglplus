@@ -13,6 +13,7 @@
 #define OGLPLUS_SHAPES_DRAW_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/string.hpp>
 
 namespace oglplus {
 namespace shapes {

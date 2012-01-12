@@ -13,6 +13,7 @@
 #define OGLPLUS_SHAPES_TORUS_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
+#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/face_mode.hpp>
 
 #include <cmath>
@@ -154,6 +155,26 @@ public:
 		assert(k == dest.size());
 		return 2;
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Vertex attribute information for this shape builder
+	/** Torus provides build functions for the following named
+	 *  vertex attributes:
+	 *  - "Position" the vertex positions (Positions)
+	 *  - "Normal" the vertex normal vectors (Normals)
+	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
+	 */
+	typedef VertexAttribsInfo<Torus> VertexAttribs;
+#else
+	typedef VertexAttribsInfo<
+		Torus,
+		VertexPositionsTag,
+		VertexNormalsTag,
+		VertexTangentsTag,
+		VertexTexCoordinatesTag
+	> VertexAttribs;
+#endif
 
 	/// The type of index container returned by Indices()
 	typedef std::vector<GLushort> IndexArray;

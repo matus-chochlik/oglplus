@@ -13,6 +13,7 @@
 #define OGLPLUS_SHAPES_PLANE_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
+#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/face_mode.hpp>
 
@@ -217,6 +218,26 @@ public:
 		// 2 values per vertex
 		return 2;
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Vertex attribute information for this shape builder
+	/** Plane provides build functions for the following named
+	 *  vertex attributes:
+	 *  - "Position" the vertex positions (Positions)
+	 *  - "Normal" the vertex normal vectors (Normals)
+	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
+	 */
+	typedef VertexAttribsInfo<Plane> VertexAttribs;
+#else
+	typedef VertexAttribsInfo<
+		Plane,
+		VertexPositionsTag,
+		VertexNormalsTag,
+		VertexTangentsTag,
+		VertexTexCoordinatesTag
+	> VertexAttribs;
+#endif
 
 	/// The type of index container returned by Indices()
 	typedef std::vector<GLuint> IndexArray;

@@ -120,21 +120,22 @@ public:
 			"	vec2 TexCoord = vec2(vertTexCoord.s*16, vertTexCoord.t*4);"
 			"	vec3 t = texture(Texture, TexCoord).rgb;"
 
-			"	float Diffuse = max(dot("
-			"		normalize(vertNormal), "
-			"		normalize(vertLightDir)"
-			"	), 0.0) + 0.4;"
-
 			"	vec3 Normal = normalize(2*vertNormal + (t.r - 0.5)*vertTangent + (t.g - 0.5)*vertBinormal);"
 
 			"	vec3 LightRefl = reflect("
 			"		-normalize(vertLightDir),"
 			"		Normal"
 			"	);"
+
+			"	float Diffuse = max(dot("
+			"		normalize(Normal), "
+			"		normalize(vertLightDir)"
+			"	), 0.0);"
+
 			"	float Specular = pow(max(dot("
 			"		normalize(LightRefl),"
 			"		normalize(vertViewDir)"
-			"	), 0.0), 16+t.b*48);"
+			"	)+0.1, 0.0), 16+t.b*48);"
 
 			"	float c = ("
 			"		int(vertTexCoord.x*24) % 2+"
@@ -143,7 +144,7 @@ public:
 			"	float v = (1.0-c/2.0);"
 			"	vec3 LtColor = vec3(1, 1, 1);"
 			"	vec3 Color = mix(mix(Color1, Color2, v), LtColor, t.b);"
-			"	fragColor = vec4(Color*Diffuse + LtColor*Specular*pow(0.6+t.b*0.4, 4.0), 1.0);"
+			"	fragColor = vec4(Color*(Diffuse+0.4) + LtColor*Specular*pow(0.6+t.b*0.8, 4.0), 1.0);"
 			"}"
 		);
 		fs.Compile();
@@ -217,7 +218,7 @@ public:
 			Texture::Active(0);
 			UniformSampler(prog, "Texture").Set(0);
 			auto bound_tex = Bind(texture, Texture::Target::_2D);
-			bound_tex.Image2D(images::BrushedMetalUByte(512, 512, 5120, -2, 2, 32, 128));
+			bound_tex.Image2D(images::BrushedMetalUByte(512, 512, 5120, -32, 32, 16, 32));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);

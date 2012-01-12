@@ -13,6 +13,7 @@
 #define OGLPLUS_SHAPES_CUBE_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
+#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/face_mode.hpp>
 
 namespace oglplus {
@@ -287,6 +288,26 @@ public:
 		};
 		return 2;
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Vertex attribute information for this shape builder
+	/** Cube provides build functions for the following named
+	 *  vertex attributes:
+	 *  - "Position" the vertex positions (Positions)
+	 *  - "Normal" the vertex normal vectors (Normals)
+	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
+	 */
+	typedef VertexAttribsInfo<Cube> VertexAttribs;
+#else
+	typedef VertexAttribsInfo<
+		Cube,
+		VertexPositionsTag,
+		VertexNormalsTag,
+		VertexTangentsTag,
+		VertexTexCoordinatesTag
+	> VertexAttribs;
+#endif
 
 	/// The type of the index container returned by Indices()
 	typedef std::vector<GLubyte> IndexArray;

@@ -415,67 +415,43 @@ protected:
 	VertexArray vao;
 
 	// VBOs for the shape's vertex attributes
-	Buffer positions, normals, tangents, tex_coords;
+	Array<Buffer> vbos;
 
 public:
 	Shape(const Program& prog, const ShapeBuilder& builder)
 	 : make_shape(builder)
 	 , shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
+	 , vbos(4)
 	{
 		// bind the VAO for the shape
 		vao.Bind();
 
-		// bind the VBO for the shape vertex positions
-		positions.Bind(Buffer::Target::Array);
+		typename ShapeBuilder::VertexAttribs vert_attr_info;
+		const size_t nva = 4;
+		const GLchar* vert_attr_name[nva] = {
+			"Position",
+			"Normal",
+			"Tangent",
+			"TexCoord"
+		};
+		for(int va=0; va!=nva; ++va)
 		{
+			const GLchar* name = vert_attr_name[va];
 			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Positions(data);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
-			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
-
-		// bind the VBO for the shape normals
-		normals.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Normals(data);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
-			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
-
-		// bind the VBO for the shape tangents
-		tangents.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Tangents(data);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
-			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Tangent");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
-		}
-
-		// bind the VBO for the shape texture coords
-		tex_coords.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.TexCoordinates(data);
-			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
-			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			auto getter = vert_attr_info.VertexAttribGetter(data, name);
+			if(getter != nullptr)
+			{
+				// bind the VBO for the vertex attribute
+				vbos[va].Bind(Buffer::Target::Array);
+				GLuint n_per_vertex = getter(make_shape, data);
+				// upload the data
+				Buffer::Data(Buffer::Target::Array, data);
+				// setup the vertex attribs array
+				VertexAttribArray attr(prog, name);
+				attr.Setup(n_per_vertex, DataType::Float);
+				attr.Enable();
+			}
 		}
 	}
 
