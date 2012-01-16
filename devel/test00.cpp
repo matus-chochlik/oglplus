@@ -58,7 +58,7 @@ private:
 	Texture texture;
 public:
 	Test00(void)
-	 : shape()
+	 : shape(1.5, 1.0, 0.01, 48, 96)
 	 , shape_instr(shape.Instructions())
 	 , shape_indices(shape.Indices())
 	{
@@ -249,7 +249,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			4.0 - SineWave(time / 20.0)*1.5,
+			4.5 - SineWave(time / 20.0)*1.5,
 			FullCircles(time / 25.0),
 			Degrees(SineWave(time / 30.0) * 80)
 		);
