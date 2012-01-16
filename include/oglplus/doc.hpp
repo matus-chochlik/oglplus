@@ -23,7 +23,7 @@ namespace oglplus {
  *
  *  @image html oglplus.png
  *
- *  @OGLplus is a header-only library which implements
+ *  <A HREF="../index.html">OGLplus</A> is a header-only library which implements
  *  a thin object-oriented facade over the OpenGL® (version 3 and higher)
  *  C-language API. It provides wrappers which automate
  *  resource and object management and make the use of OpenGL
@@ -40,6 +40,7 @@ namespace oglplus {
  *    - @ref feat_interoperability_with_opengl
  *    - @ref feat_related_classes
  *    - @ref oglplus_object_description
+ *  - <A HREF="../index.html">Home page</A>
  *  - @ref oglplus_what_it_is_not
  *  - @ref oglplus_screenshot_gallery
  *  - @ref oglplus_download

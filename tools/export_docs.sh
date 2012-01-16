@@ -6,12 +6,16 @@
 # the remote documentation host computer data
 doc_user=${USER}
 doc_host="kifri.fri.uniza.sk"
-doc_base="./public_html/oglplus/html"
+doc_home="./public_html/oglplus"
+doc_base="${doc_home}/html"
 # local path to docs
 doc_src="$(dirname $0)/../out/doc/doxygen/oglplus/html"
+doc_web="$(dirname $0)/../web"
 #
 # remove the old files
 ssh ${doc_user}@${doc_host} "rm -rf ${doc_base}/*"
 # tar stream and untar the new files
 (cd ${doc_src} && tar -c . | ssh ${doc_user}@${doc_host} "mkdir -p ${doc_base} && cd ${doc_base} && tar -x && echo 'AddCharset UTF-8 .html' > .htaccess")
+#
+scp ${doc_web}/* ${doc_user}@${doc_host}:${doc_home}/
 
