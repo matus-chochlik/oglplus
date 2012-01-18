@@ -1,7 +1,6 @@
 /**
  *  @example oglplus/034_billiard_balls.cpp
- *  @brief Shows rendering into a cube map and simple raytracing
- *  @note Still work-in-progress
+ *  @brief Shows rendering into multiple cube maps and simple shadow raytracing
  *
  *  @image html 034_billiard_balls.png
  *
@@ -20,14 +19,19 @@
 
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
-#include <oglplus/bound/renderbuffer.hpp>
 
 #include <cmath>
 
 #include "example.hpp"
 
+// numeric count of rendered pool bals
+#define OGLPLUS_EXAMPLE_034BB_BALL_COUNT 15
+// textual representation of the count
+#define OGLPLUS_EXAMPLE_034BB_BALL_COUNT_TXT "15"
+
 namespace oglplus {
 
+// the common vertex shader used in most of the rendering pipelines
 class CommonVertShader
  : public VertexShader
 {
@@ -36,13 +40,16 @@ public:
 	 : VertexShader(
 		"Common vertex shader",
 		"#version 330\n"
-		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
+		"uniform mat4 ModelMatrix;"
 		"uniform mat3 TextureMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
 		"in vec4 Position;"
 		"in vec3 Normal;"
 		"in vec3 Tangent;"
 		"in vec2 TexCoord;"
+		"out gl_PerVertex {"
+		"	vec4 gl_Position;"
+		"};"
 		"out vec3 vertNormal;"
 		"out vec3 vertTangent;"
 		"out vec3 vertBinormal;"
@@ -60,30 +67,202 @@ public:
 		"	vertBinormal = cross(vertNormal, vertTangent);"
 		"	vertTexCoord = (TextureMatrix * vec3(TexCoord,1.0)).xy;"
 		"	vertSTCoord = TexCoord;"
-		"	gl_Position = ProjectionMatrix*CameraMatrix * gl_Position;"
 		"}"
 	)
 	{ }
 };
 
-class TransformProgram
+class DefaultGeomShader
+ : public GeometryShader
+{
+public:
+	DefaultGeomShader(void)
+	 : GeometryShader(
+		"Default geometry shader",
+		"#version 330\n"
+		"layout(triangles) in;"
+		"layout(triangle_strip, max_vertices = 3) out;"
+		"uniform mat4 CameraMatrix, ProjectionMatrix;"
+
+		"in gl_PerVertex {"
+		"	vec4 gl_Position;"
+		"} gl_in[3];"
+		"in vec3 vertNormal[3];"
+		"in vec3 vertTangent[3];"
+		"in vec3 vertBinormal[3];"
+		"in vec3 vertLightDir[3];"
+		"in vec3 vertViewDir[3];"
+		"in vec2 vertTexCoord[3];"
+		"in vec2 vertSTCoord[3];"
+
+		"out gl_PerVertex {"
+		"	vec4 gl_Position;"
+		"};"
+		"out vec3 geomNormal;"
+		"out vec3 geomTangent;"
+		"out vec3 geomBinormal;"
+		"out vec3 geomLightDir;"
+		"out vec3 geomViewDir;"
+		"out vec2 geomTexCoord;"
+		"out vec2 geomSTCoord;"
+
+		"void main(void)"
+		"{"
+		"	for(int i=0; i!=3; ++i)"
+		"	{"
+		"		gl_Position = "
+		"			ProjectionMatrix *"
+		"			CameraMatrix *"
+		"			gl_in[i].gl_Position;"
+		"		geomNormal = vertNormal[i];"
+		"		geomTangent = vertTangent[i];"
+		"		geomBinormal = vertBinormal[i];"
+		"		geomLightDir = vertLightDir[i];"
+		"		geomViewDir = vertViewDir[i];"
+		"		geomTexCoord = vertTexCoord[i];"
+		"		geomSTCoord = vertSTCoord[i];"
+		"		EmitVertex();"
+		"	}"
+		"	EndPrimitive();"
+		"}"
+	)
+	{ }
+};
+
+class CubemapGeomShader
+ : public GeometryShader
+{
+public:
+	CubemapGeomShader(void)
+	 : GeometryShader(
+		"Cubemap geometry shader",
+		"#version 330\n"
+		"layout(triangles) in;"
+		"layout(triangle_strip, max_vertices = 18) out;"
+		"uniform mat4 ProjectionMatrix, CameraMatrix;"
+
+		"in gl_PerVertex {"
+		"	vec4 gl_Position;"
+		"} gl_in[3];"
+		"in vec3 vertNormal[3];"
+		"in vec3 vertTangent[3];"
+		"in vec3 vertBinormal[3];"
+		"in vec3 vertLightDir[3];"
+		"in vec3 vertViewDir[3];"
+		"in vec2 vertTexCoord[3];"
+		"in vec2 vertSTCoord[3];"
+
+		"out gl_PerVertex {"
+		"	vec4 gl_Position;"
+		"};"
+		"out vec3 geomNormal;"
+		"out vec3 geomTangent;"
+		"out vec3 geomBinormal;"
+		"out vec3 geomLightDir;"
+		"out vec3 geomViewDir;"
+		"out vec2 geomTexCoord;"
+		"out vec2 geomSTCoord;"
+
+		"const mat4 CubeFaceMatrix[6] = mat4[6]("
+		"	mat4("
+		"		 0.0,  0.0, -1.0,  0.0,"
+		"		 0.0, -1.0,  0.0,  0.0,"
+		"		-1.0,  0.0,  0.0,  0.0,"
+		"		 0.0,  0.0,  0.0,  1.0 "
+		"	), mat4("
+		"		 0.0,  0.0,  1.0,  0.0,"
+		"		 0.0, -1.0,  0.0,  0.0,"
+		"		 1.0,  0.0,  0.0,  0.0,"
+		"		 0.0,  0.0,  0.0,  1.0 "
+		"	), mat4("
+		"		 1.0,  0.0,  0.0,  0.0,"
+		"		 0.0,  0.0, -1.0,  0.0,"
+		"		 0.0,  1.0,  0.0,  0.0,"
+		"		 0.0,  0.0,  0.0,  1.0 "
+		"	), mat4("
+		"		 1.0,  0.0,  0.0,  0.0,"
+		"		 0.0,  0.0,  1.0,  0.0,"
+		"		 0.0, -1.0,  0.0,  0.0,"
+		"		 0.0,  0.0,  0.0,  1.0 "
+		"	), mat4("
+		"		 1.0,  0.0,  0.0,  0.0,"
+		"		 0.0, -1.0,  0.0,  0.0,"
+		"		 0.0,  0.0, -1.0,  0.0,"
+		"		 0.0,  0.0,  0.0,  1.0 "
+		"	), mat4("
+		"		-1.0,  0.0,  0.0,  0.0,"
+		"		 0.0, -1.0,  0.0,  0.0,"
+		"		 0.0,  0.0,  1.0,  0.0,"
+		"		 0.0,  0.0,  0.0,  1.0 "
+		"	)"
+		");"
+
+		"void main(void)"
+		"{"
+		"	for(gl_Layer=0; gl_Layer!=6; ++gl_Layer)"
+		"	{"
+		"		mat4 TransformMatrix = "
+		"			mat4("
+		"				 2.0, 0.0, 0.0, 0.0,"
+		"				 0.0, 2.0, 0.0, 0.0,"
+		"				 0.0, 0.0, 2.0, 0.0,"
+		"				 0.0, 0.0, 0.0, 1.0 "
+		"			) *"
+		"			ProjectionMatrix *"
+		"			CubeFaceMatrix[gl_Layer] *"
+		"			CameraMatrix;"
+		"		for(int i=0; i!=3; ++i)"
+		"		{"
+		"			gl_Position = "
+		"				TransformMatrix *"
+		"				gl_in[i].gl_Position;"
+		"			geomNormal = vertNormal[i];"
+		"			geomTangent = vertTangent[i];"
+		"			geomBinormal = vertBinormal[i];"
+		"			geomLightDir = vertLightDir[i];"
+		"			geomViewDir = vertViewDir[i];"
+		"			geomTexCoord = vertTexCoord[i];"
+		"			geomSTCoord = vertSTCoord[i];"
+		"			EmitVertex();"
+		"		}"
+		"		EndPrimitive();"
+		"	}"
+		"}"
+	)
+	{ }
+};
+
+class VertexProgram
  : public HardwiredProgram<CommonVertShader>
 {
 private:
 	const Program& prog(void) const { return *this; }
 public:
-	ProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	ProgramUniform<Mat4f> model_matrix;
 	ProgramUniform<Mat3f> texture_matrix;
 	ProgramUniform<Vec3f> camera_position, light_position;
 
-	TransformProgram(void)
-	 : HardwiredProgram<CommonVertShader>("Transform", true)
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , camera_matrix(prog(), "CameraMatrix")
+	VertexProgram(void)
+	 : HardwiredProgram<CommonVertShader>("Vertex", true)
 	 , model_matrix(prog(), "ModelMatrix")
 	 , texture_matrix(prog(), "TextureMatrix")
 	 , camera_position(prog(), "CameraPosition")
 	 , light_position(prog(), "LightPosition")
+	{ }
+};
+
+class GeometryProgram
+ : public QuickProgram
+{
+private:
+	const Program& prog(void) const { return *this; }
+public:
+	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
+
+	GeometryProgram(const GeometryShader& shader)
+	 : QuickProgram("Geometry", true, shader)
+	 , projection_matrix(prog(), "ProjectionMatrix")
+	 , camera_matrix(prog(), "CameraMatrix")
 	{ }
 };
 
@@ -97,37 +276,37 @@ public:
 		"#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2D ClothTex, LightMap;"
-		"in vec3 vertNormal;"
-		"in vec3 vertTangent;"
-		"in vec3 vertBinormal;"
-		"in vec3 vertLightDir;"
-		"in vec3 vertViewDir;"
-		"in vec2 vertTexCoord;"
-		"in vec2 vertSTCoord;"
+		"in vec3 geomNormal;"
+		"in vec3 geomTangent;"
+		"in vec3 geomBinormal;"
+		"in vec3 geomLightDir;"
+		"in vec3 geomViewDir;"
+		"in vec2 geomTexCoord;"
+		"in vec2 geomSTCoord;"
 		"out vec4 fragColor;"
 
 		"void main(void)"
 		"{"
-		"	vec3 LightColor = texture(LightMap, vertSTCoord).rgb;"
+		"	vec3 LightColor = texture(LightMap, geomSTCoord).rgb;"
 		"	vec3 Sample = 0.5*("
-		"		0.5*texture(ClothTex, vertTexCoord*0.5).rgb+"
-		"		1.0*texture(ClothTex, vertTexCoord*1.0).rgb+"
-		"		0.5*texture(ClothTex, vertTexCoord*2.0).rgb "
+		"		0.5*texture(ClothTex, geomTexCoord*0.5).rgb+"
+		"		1.0*texture(ClothTex, geomTexCoord*1.0).rgb+"
+		"		0.5*texture(ClothTex, geomTexCoord*2.0).rgb "
 		"	);"
 
 		"	vec3 Normal = normalize("
-		"		2.0*vertNormal + "
-		"		(Sample.r - 0.5)*vertTangent + "
-		"		(Sample.g - 0.5)*vertBinormal"
+		"		2.0*geomNormal + "
+		"		(Sample.r - 0.5)*geomTangent + "
+		"		(Sample.g - 0.5)*geomBinormal"
 		"	);"
-		"	vec3 LightDir = normalize(vertLightDir);"
+		"	vec3 LightDir = normalize(geomLightDir);"
 		"	vec3 LightRefl = reflect(-LightDir, Normal);"
 
 		"	float Amount = pow(Sample.b, 2.0);"
 
 		"	float Specular = pow(clamp(dot("
 		"		LightRefl,"
-		"		normalize(vertViewDir)"
+		"		normalize(geomViewDir)"
 		"	)+0.1, 0.0, 1.0)*0.9, 16.0+16.0*Amount)*(0.2+2.0*Amount);"
 
 		"	float Diffuse = clamp(2.0*(dot("
@@ -179,41 +358,44 @@ public:
 		"#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2DArray NumberTex;"
-		"uniform int NumberIdx;"
-		"in vec3 vertNormal;"
-		"in vec3 vertTangent;"
-		"in vec3 vertBinormal;"
-		"in vec3 vertLightDir;"
-		"in vec3 vertViewDir;"
-		"in vec2 vertTexCoord;"
-		"in vec2 vertSTCoord;"
+		"uniform samplerCube ReflectTex;"
+		"uniform int BallIdx;"
+		"in vec3 geomNormal;"
+		"in vec3 geomTangent;"
+		"in vec3 geomBinormal;"
+		"in vec3 geomLightDir;"
+		"in vec3 geomViewDir;"
+		"in vec2 geomTexCoord;"
+		"in vec2 geomSTCoord;"
 		"out vec4 fragColor;"
 
 		"void main(void)"
 		"{"
-		"	vec3 TexCoord = vec3(vertTexCoord, float(NumberIdx));"
+		"	vec3 TexCoord = vec3(geomTexCoord, float(BallIdx));"
 		"	vec4 Sample = texture(NumberTex, TexCoord);"
 		"	vec3 LightColor = vec3(1.0, 1.0, 1.0);"
 
-		"	vec3 Normal = normalize(vertNormal);"
-		"	vec3 LightDir = normalize(vertLightDir);"
+		"	vec3 Normal = normalize(geomNormal);"
+		"	vec3 LightDir = normalize(geomLightDir);"
+		"	vec3 ViewDir = normalize(geomViewDir);"
 		"	vec3 LightRefl = reflect(-LightDir, Normal);"
+		"	vec3 ViewRefl = reflect(-ViewDir, Normal);"
+
+		"	vec3 ReflSample = texture(ReflectTex, ViewRefl).rgb;"
 
 		"	float Specular = pow(max(dot("
 		"		LightRefl,"
-		"		normalize(vertViewDir)"
+		"		normalize(geomViewDir)"
 		"	)+0.1, 0.0), 64.0)*(0.5 - Sample.a*(1.0-Sample.r)*0.4);"
 
-		"	float Diffuse = max(dot("
-		"		Normal, "
-		"		LightDir"
-		"	)+0.1, 0.0);"
+		"	float Diffuse = max(dot(Normal, LightDir)+0.1, 0.0);"
 
-		"	float Ambient = 0.2;"
+		"	const float Reflectivity = 0.2;"
+		"	const float Ambient = 0.2;"
 
 		"	float ColorSwitch = ("
-		"		vertSTCoord.t < 0.25 ||"
-		"		vertSTCoord.t > 0.75"
+		"		geomSTCoord.t < 0.25 ||"
+		"		geomSTCoord.t > 0.75"
 		"	)? 0.0 : 1.0;"
 		"	vec3 Color = mix("
 		"		mix(Color1, Color2, ColorSwitch),"
@@ -222,8 +404,9 @@ public:
 		"	);"
 
 		"	fragColor = vec4("
+		"		ReflSample * Reflectivity +"
 		"		Color * Ambient +"
-		"		LightColor * Color * Diffuse + "
+		"		LightColor * Color * Diffuse +"
 		"		LightColor * Specular, "
 		"		1.0"
 		"	);"
@@ -239,15 +422,16 @@ private:
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Vec3f> color_1, color_2;
-	ProgramUniformSampler number_tex;
-	ProgramUniform<GLint> number_idx;
+	ProgramUniformSampler number_tex, reflect_tex;
+	ProgramUniform<GLint> ball_idx;
 
 	BallProgram(void)
 	 : HardwiredProgram<BallFragmentShader>("Ball", true)
 	 , color_1(prog(), "Color1")
 	 , color_2(prog(), "Color2")
 	 , number_tex(prog(), "NumberTex")
-	 , number_idx(prog(), "NumberIdx")
+	 , reflect_tex(prog(), "ReflectTex")
+	 , ball_idx(prog(), "BallIdx")
 	{ }
 };
 
@@ -281,7 +465,7 @@ public:
 		"Lightmap fragment shader",
 		"#version 330\n"
 		"uniform vec3 LightPosition;"
-		"uniform vec3 BallPositions[15];"
+		"uniform vec3 BallPositions[" OGLPLUS_EXAMPLE_034BB_BALL_COUNT_TXT "];"
 		"in vec3 vertPosition;"
 		"out vec4 fragColor;"
 		"void main(void)"
@@ -289,7 +473,7 @@ public:
 		"	float d_max = 0.0;"
 		"	vec3 L = LightPosition;"
 		"	vec3 R = normalize(vertPosition - LightPosition);"
-		"	for(int i=0; i!=15; ++i)"
+		"	for(int i=0; i!=" OGLPLUS_EXAMPLE_034BB_BALL_COUNT_TXT  "; ++i)"
 		"	{"
 		"		vec3 S = BallPositions[i];"
 		"		float a = dot(R, R);"
@@ -406,7 +590,9 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	TransformProgram transf_prog;
+	VertexProgram vert_prog;
+	DefaultGeomShader default_geom_shader;
+	GeometryProgram geom_prog;
 	ClothProgram cloth_prog;
 	BallProgram ball_prog;
 
@@ -416,26 +602,31 @@ private:
 	Shape<shapes::Plane> plane;
 	Shape<shapes::Sphere> sphere;
 
+	const int ball_count;
+
 	std::vector<Vec3f> ball_colors;
 	std::vector<Vec3f> ball_offsets;
 	std::vector<Vec3f> ball_rotations;
 
+	// The table light map and the associated framebuffer
+	Texture table_light_map;
+
+	// The array texture storing the ball number decals
+	Texture numbers_texture;
+
 	// The texture used to render the cloth
 	Texture cloth_texture;
 
-	// An array texture storing the ball number decals
-	Texture numbers_texture;
-
-	// The table light map and the associated framebuffer
-	Texture table_light_map;
+	// The array of cube-maps storing the environment maps of the balls
+	Array<Texture> reflect_textures;
 public:
 	BilliardExample(void)
-	 : transf_prog()
-	 , cloth_prog()
+	 : geom_prog(default_geom_shader)
 	 , plane_u(16, 0, 0)
 	 , plane_v(0, 0,-16)
-	 , plane(transf_prog, shapes::Plane(plane_u, plane_v))
-	 , sphere(transf_prog, shapes::Sphere(1.0, 72, 48))
+	 , plane(vert_prog, shapes::Plane(plane_u, plane_v))
+	 , sphere(vert_prog, shapes::Sphere(1.0, 36, 24))
+	 , ball_count(OGLPLUS_EXAMPLE_034BB_BALL_COUNT)
 	 , ball_colors(
 		{
 			{0.8f, 0.5f, 0.2f},
@@ -483,20 +674,26 @@ public:
 			{ 0.3f, 0.3f,-0.2f},
 			{-0.2f,-0.2f, 0.4f}
 		}
-	)
+	), reflect_textures(ball_count)
 	{
+		assert(ball_offsets.size() == ball_count);
+		assert(ball_rotations.size() == ball_count);
 
 		Program::UseNone();
 
 		cloth_pp.Bind();
-		cloth_pp.UseStages(transf_prog).Vertex();
+		cloth_pp.UseStages(vert_prog).Vertex();
+		cloth_pp.UseStages(geom_prog).Geometry();
 		cloth_pp.UseStages(cloth_prog).Fragment();
 
 		ball_pp.Bind();
-		ball_pp.UseStages(transf_prog).Vertex();
+		ball_pp.UseStages(vert_prog).Vertex();
+		ball_pp.UseStages(geom_prog).Geometry();
 		ball_pp.UseStages(ball_prog).Fragment();
 
 		const Vec3f light_position(0.0, 20.0, -2.0);
+
+		vert_prog.light_position.Set(light_position);
 
 		cloth_prog.color_1.Set(Vec3f(0.1, 0.3, 0.1));
 		cloth_prog.color_2.Set(Vec3f(0.3, 0.4, 0.3));
@@ -523,29 +720,15 @@ public:
 
 			PrerenderLightmap(light_position, light_map_side);
 		}
-		transf_prog.light_position.Set(light_position);
+
+		gl.ClearColor(0.12f, 0.13f, 0.11f, 0.0f);
+		gl.ClearDepth(1.0f);
+		gl.Enable(Capability::DepthTest);
+		gl.Enable(Capability::CullFace);
+		gl.CullFace(Face::Back);
 
 		Texture::Active(1);
-		cloth_prog.cloth_tex.Set(1);
-		{
-			auto bound_tex = Bind(cloth_texture, Texture::Target::_2D);
-			bound_tex.Image2D(
-				images::BrushedMetalUByte(
-					512, 512,
-					10240,
-					-16, +16,
-					8, 32
-				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
-
-		Texture::Active(2);
-		ball_prog.number_tex.Set(2);
+		ball_prog.number_tex.Set(1);
 		{
 			auto bound_tex = Bind(numbers_texture, Texture::Target::_2DArray);
 			bound_tex.BorderColor(Vec4f(0,0,0,0));
@@ -554,7 +737,7 @@ public:
 			bound_tex.WrapS(TextureWrap::ClampToBorder);
 			bound_tex.WrapT(TextureWrap::ClampToBorder);
 			bound_tex.WrapR(TextureWrap::ClampToBorder);
-			const char* tex_names[15] = {
+			const char* tex_names[OGLPLUS_EXAMPLE_034BB_BALL_COUNT] = {
 				"pool_ball_1",
 				"pool_ball_2",
 				"pool_ball_3",
@@ -571,7 +754,7 @@ public:
 				"pool_ball14",
 				"pool_ball15",
 			};
-			for(int i=0; i!=15; ++i)
+			for(int i=0; i!=ball_count; ++i)
 			{
 				auto image = images::LoadTexture(tex_names[i]);
 				if(i == 0)
@@ -602,11 +785,68 @@ public:
 			bound_tex.GenerateMipmap();
 		}
 
-		gl.ClearColor(0.12f, 0.13f, 0.11f, 0.0f);
-		gl.ClearDepth(1.0f);
-		gl.Enable(Capability::DepthTest);
-		gl.Enable(Capability::CullFace);
-		gl.CullFace(Face::Back);
+		Texture::Active(2);
+		cloth_prog.cloth_tex.Set(2);
+		{
+			auto bound_tex = Bind(cloth_texture, Texture::Target::_2D);
+			bound_tex.Image2D(
+				images::BrushedMetalUByte(
+					512, 512,
+					10240,
+					-16, +16,
+					8, 32
+				)
+			);
+			bound_tex.GenerateMipmap();
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
+		}
+
+		Texture::Active(3);
+		ball_prog.reflect_tex.Set(3);
+
+		size_t cubemap_side = 128;
+
+		Array<Texture> temp_cubemaps(ball_count);
+
+		InitializeCubemaps(reflect_textures, cubemap_side);
+		InitializeCubemaps(temp_cubemaps, cubemap_side);
+
+		// prerender the cubemaps
+		PrerenderCubemaps(temp_cubemaps, reflect_textures, cubemap_side);
+
+		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+	}
+
+	void InitializeCubemaps(Array<Texture>& cubemaps, size_t cubemap_side)
+	{
+		std::vector<GLubyte> black(cubemap_side*cubemap_side*3, 0x00);
+
+		for(int b=0; b!=ball_count; ++b)
+		{
+			auto bound_tex = Bind(cubemaps[b], Texture::Target::CubeMap);
+			bound_tex.MinFilter(TextureMinFilter::Linear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::ClampToEdge);
+			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.WrapR(TextureWrap::ClampToEdge);
+
+			for(int f=0; f!=6; ++f)
+			{
+				Texture::Image2D(
+					Texture::CubeMapFace(f),
+					0,
+					PixelDataInternalFormat::RGB,
+					cubemap_side, cubemap_side,
+					0,
+					PixelDataFormat::RGB,
+					PixelDataType::UnsignedByte,
+					black.data()
+				);
+			}
+		}
 	}
 
 	void PrerenderLightmap(const Vec3f& light_position, size_t tex_side)
@@ -653,27 +893,144 @@ public:
 		gl.Enable(Capability::DepthTest);
 
 		Program::UseNone();
-
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void PrerenderCubemaps(
+		Array<Texture>& src_texs,
+		Array<Texture>& dst_texs,
+		size_t tex_side
+	)
 	{
-		gl.Viewport(width, height);
+		Texture z_buffer;
+		Texture::Active(4);
+		{
+			auto bound_tex = Bind(z_buffer, Texture::Target::CubeMap);
+			bound_tex.MinFilter(TextureMinFilter::Nearest);
+			bound_tex.MagFilter(TextureMagFilter::Nearest);
+			bound_tex.WrapS(TextureWrap::ClampToEdge);
+			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.WrapR(TextureWrap::ClampToEdge);
 
-		transf_prog.projection_matrix.Set(
-			CamMatrixf::Perspective(
-				Degrees(48),
-				double(width)/height,
-				1, 100
-			)
+			for(int i=0; i!=6; ++i)
+			{
+				Texture::Image2D(
+					Texture::CubeMapFace(i),
+					0,
+					PixelDataInternalFormat::DepthComponent,
+					tex_side, tex_side,
+					0,
+					PixelDataFormat::DepthComponent,
+					PixelDataType::Float,
+					nullptr
+				);
+			}
+		}
+		Texture::Active(3);
+
+		Framebuffer fbo;
+
+		auto bound_fbo = Bind(fbo, Framebuffer::Target::Draw);
+
+		bound_fbo.AttachTexture(
+			Framebuffer::Attachment::Depth,
+			z_buffer,
+			0
 		);
+
+		CubemapGeomShader cmap_geom_shader;
+		GeometryProgram cmap_geom_prog(cmap_geom_shader);
+
+		ProgramPipeline cmap_cloth_pp, cmap_ball_pp;
+
+		Program::UseNone();
+
+		cmap_cloth_pp.Bind();
+		cmap_cloth_pp.UseStages(vert_prog).Vertex();
+		cmap_cloth_pp.UseStages(cmap_geom_prog).Geometry();
+		cmap_cloth_pp.UseStages(cloth_prog).Fragment();
+
+		cmap_ball_pp.Bind();
+		cmap_ball_pp.UseStages(vert_prog).Vertex();
+		cmap_ball_pp.UseStages(cmap_geom_prog).Geometry();
+		cmap_ball_pp.UseStages(ball_prog).Fragment();
+
+		cmap_geom_prog.projection_matrix.Set(
+			CamMatrixf::Perspective(Degrees(90), 1.0, 1, 100)
+		);
+		gl.Viewport(tex_side, tex_side);
+
+		for(int b=0; b!=ball_count; ++b)
+		{
+			bound_fbo.AttachTexture(
+				Framebuffer::Attachment::Color,
+				dst_texs[b],
+				0
+			);
+
+			vert_prog.camera_position.Set(ball_offsets[b]);
+			cmap_geom_prog.camera_matrix.Set(
+				ModelMatrixf::Translation(-ball_offsets[b])
+			);
+
+			RenderScene(src_texs, cmap_cloth_pp, cmap_ball_pp, b);
+		}
+	}
+
+	void RenderScene(
+		Array<Texture>& cubemaps,
+		const ProgramPipeline& cloth_prog_pipeline,
+		const ProgramPipeline& ball_prog_pipeline,
+		int skipped = -1
+	)
+	{
+		gl.Clear().ColorBuffer().DepthBuffer();
+
+		// Render the plane
+		cloth_prog_pipeline.Bind();
+
+		vert_prog.model_matrix = ModelMatrixf();
+		vert_prog.texture_matrix.Set(Mat3f(
+			16.0,  0.0,  0.0,
+			 0.0, 16.0,  0.0,
+			 0.0,  0.0,  1.0
+		));
+
+		plane.Draw();
+
+		// Render the balls
+		ball_prog_pipeline.Bind();
+
+		vert_prog.texture_matrix.Set(Mat3f(
+			6.0, 0.0, 0.0,
+			0.0, 3.0,-1.0,
+			0.0, 0.0, 1.0
+		));
+		for(int i=0; i!=ball_count; ++i)
+		{
+			if(i == skipped) continue;
+			Vec3f rot = ball_rotations[i];
+			int ci = ((i / 4) % 2 == 0)?i : ((i/4)+2)*4-i-1;
+			ci %= 8;
+			Vec3f col = ball_colors[ci];
+			vert_prog.model_matrix = ModelMatrixf(
+				ModelMatrixf::Translation(ball_offsets[i]) *
+				ModelMatrixf::RotationZ(FullCircles(rot.z())) *
+				ModelMatrixf::RotationY(FullCircles(rot.y())) *
+				ModelMatrixf::RotationX(FullCircles(rot.x()))
+			);
+			if(i > 7) ball_prog.color_1 = Vec3f(1.0, 0.9, 0.8);
+			else ball_prog.color_1 = col;
+			ball_prog.color_2 = col;
+			ball_prog.ball_idx = i;
+
+			cubemaps[i].Bind(Texture::Target::CubeMap);
+
+			sphere.Draw();
+		}
 	}
 
 	void Render(double time)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
-
 		// setup the camera
 		Vec3f camera_target(0.0, 2.2, 5.0);
 		auto camera = CamMatrixf::Orbiting(
@@ -684,48 +1041,23 @@ public:
 		);
 
 		Vec3f camera_position = camera.Position();
-		transf_prog.camera_matrix.Set(camera);
-		transf_prog.camera_position.Set(camera_position);
+		vert_prog.camera_position.Set(camera_position);
+		geom_prog.camera_matrix.Set(camera);
 
-		// Render the plane
-		cloth_pp.Bind();
+		RenderScene(reflect_textures, cloth_pp, ball_pp);
+	}
 
-		transf_prog.model_matrix = ModelMatrixf();
-		transf_prog.texture_matrix.Set(Mat3f(
-			16.0,  0.0,  0.0,
-			 0.0, 16.0,  0.0,
-			 0.0,  0.0,  1.0
-		));
+	void Reshape(size_t width, size_t height)
+	{
+		gl.Viewport(width, height);
 
-		plane.Draw();
-
-		// Render the balls
-		ball_pp.Bind();
-
-		transf_prog.texture_matrix.Set(Mat3f(
-			6.0, 0.0, 0.0,
-			0.0, 3.0,-1.0,
-			0.0, 0.0, 1.0
-		));
-		for(int i=0; i!=15; ++i)
-		{
-			Vec3f rot = ball_rotations[i];
-			int ci = ((i / 4) % 2 == 0)?i : ((i/4)+2)*4-i-1;
-			ci %= 8;
-			Vec3f col = ball_colors[ci];
-			transf_prog.model_matrix = ModelMatrixf(
-				ModelMatrixf::Translation(ball_offsets[i]) *
-				ModelMatrixf::RotationZ(FullCircles(rot.z())) *
-				ModelMatrixf::RotationY(FullCircles(rot.y())) *
-				ModelMatrixf::RotationX(FullCircles(rot.x()))
-			);
-			if(i > 7) ball_prog.color_1 = Vec3f(1.0, 0.9, 0.8);
-			else ball_prog.color_1 = col;
-			ball_prog.color_2 = col;
-			ball_prog.number_idx = i;
-
-			sphere.Draw();
-		}
+		geom_prog.projection_matrix.Set(
+			CamMatrixf::Perspective(
+				Degrees(48),
+				double(width)/height,
+				1, 100
+			)
+		);
 	}
 
 	bool Continue(double time)
