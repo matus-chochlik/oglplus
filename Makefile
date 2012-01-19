@@ -96,6 +96,6 @@ clean:
 	rm -rf $(BLDDIR)
 	rm -rf $(OUTDIR)/example
 
-all docs examples example_screenshots textures full_clean:
+all docs examples example_screenshots textures full_clean auto_headers:
 	@$(MAKE) -f Makefile.full $@
 

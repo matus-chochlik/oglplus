@@ -1,3 +1,21 @@
+Version 0.9.0
+
+- The AutoBind class template was added
+- The HardwiredProgram template was added
+- New constructors to the QuickProgram class were added
+- Wrappers for Flush and Finish functions were added
+- The former Uniform and ProgramUniform classes were turned
+  to class templates
+- The way uniform matrices are set was changes
+- The VertexAttrib and the VertexAttribArray classes were updated
+- The examples were updated accordingly and two new were added
+- The Matrix4f and Matrix4d typedefs were renamed to Mat4f and Mat4d
+- New matrix typedefs Mat[234]x[234][fd] and Mat[234][fd] were added
+- Several new texture images were added
+- The shape builders were updated
+- Documentation was updated
+
+
 Version 0.8.0
 
 - New constructors were added to the shader classes allowing
