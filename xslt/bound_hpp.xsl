@@ -1,5 +1,5 @@
 <!--
-   - Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+   - Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
    - Software License, Version 1.0. (See accompanying file
    - LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
    -
@@ -159,11 +159,11 @@
 <xsl:text>
 /**
  *  @file oglplus/bound/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp
- *  @brief Bound </xsl:text><xsl:value-of select="$Object"/><xsl:text> wrapper
+ *  @brief BoundTemplate </xsl:text><xsl:value-of select="$Object"/><xsl:text> wrapper
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -173,19 +173,19 @@
 #define OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 
 #include &lt;oglplus/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp&gt;
-#include &lt;oglplus/auxiliary/bound.hpp&gt;
+#include &lt;oglplus/bound.hpp&gt;
 
 namespace oglplus {
 
-template &lt;&gt;
-class Bound&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
- : public BoundBase&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
+template &lt;template &lt;class&gt; class Base&gt;
+class BoundTemplate&lt;Base, </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
+ : public Base&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
 {
 public:
-	Bound(
+	BoundTemplate(
 		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
-	): BoundBase&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;(bindable, target)
+	): Base&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;(bindable, target)
 	{ }
 
 </xsl:text>
@@ -202,7 +202,7 @@ public:
 	</xsl:for-each>
 
 <xsl:text>
-}; // class Bound
+}; // class BoundTemplate
 
 } // namespace oglplus
 
