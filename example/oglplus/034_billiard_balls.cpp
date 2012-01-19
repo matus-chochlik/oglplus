@@ -851,12 +851,9 @@ public:
 
 	void PrerenderLightmap(const Vec3f& light_position, size_t tex_side)
 	{
-		Framebuffer table_light_fbo;
+		AutoBind<Framebuffer> table_light_fbo(Framebuffer::Target::Draw);
 
-		table_light_fbo.Bind(Framebuffer::Target::Draw);
-
-		Framebuffer::AttachTexture(
-			Framebuffer::Target::Draw,
+		table_light_fbo.AttachTexture(
 			Framebuffer::Attachment::Color,
 			table_light_map,
 			0
@@ -901,37 +898,34 @@ public:
 		size_t tex_side
 	)
 	{
-		Texture z_buffer;
 		Texture::Active(4);
-		{
-			auto bound_tex = Bind(z_buffer, Texture::Target::CubeMap);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
 
-			for(int i=0; i!=6; ++i)
-			{
-				Texture::Image2D(
-					Texture::CubeMapFace(i),
-					0,
-					PixelDataInternalFormat::DepthComponent,
-					tex_side, tex_side,
-					0,
-					PixelDataFormat::DepthComponent,
-					PixelDataType::Float,
-					nullptr
-				);
-			}
+		AutoBind<Texture> z_buffer(Texture::Target::CubeMap);
+		z_buffer.MinFilter(TextureMinFilter::Nearest);
+		z_buffer.MagFilter(TextureMagFilter::Nearest);
+		z_buffer.WrapS(TextureWrap::ClampToEdge);
+		z_buffer.WrapT(TextureWrap::ClampToEdge);
+		z_buffer.WrapR(TextureWrap::ClampToEdge);
+
+		for(int i=0; i!=6; ++i)
+		{
+			Texture::Image2D(
+				Texture::CubeMapFace(i),
+				0,
+				PixelDataInternalFormat::DepthComponent,
+				tex_side, tex_side,
+				0,
+				PixelDataFormat::DepthComponent,
+				PixelDataType::Float,
+				nullptr
+			);
 		}
+
 		Texture::Active(3);
 
-		Framebuffer fbo;
+		AutoBind<Framebuffer> fbo(Framebuffer::Target::Draw);
 
-		auto bound_fbo = Bind(fbo, Framebuffer::Target::Draw);
-
-		bound_fbo.AttachTexture(
+		fbo.AttachTexture(
 			Framebuffer::Attachment::Depth,
 			z_buffer,
 			0
@@ -961,7 +955,7 @@ public:
 
 		for(int b=0; b!=ball_count; ++b)
 		{
-			bound_fbo.AttachTexture(
+			fbo.AttachTexture(
 				Framebuffer::Attachment::Color,
 				dst_texs[b],
 				0

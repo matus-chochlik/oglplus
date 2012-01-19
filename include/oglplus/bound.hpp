@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/bound.hpp
- *  @brief Base class for OpenGL "bound" objects
+ *  @brief OGLplus bound objects
  *
  *  @author Matus Chochlik
  *
@@ -35,7 +35,7 @@ public:
 	}
 };
 
-template <template <class> class Base, class Bindable>
+template <template <class> class Base, class BaseParam, class Bindable>
 class BoundTemplate;
 
 /// A wraper that binds @ref oglplus_object "objects" to a specified target
@@ -59,7 +59,7 @@ class BoundTemplate;
  */
 template <class Bindable>
 class Bound
- : public BoundTemplate<BoundBase, Bindable>
+ : public BoundTemplate<BoundBase, Bindable, Bindable>
 {
 public:
 	/// Creates a new object bound to @p target from a @p bindable object
@@ -69,7 +69,7 @@ public:
 	Bound(
 		const Bindable& bindable,
 		typename Bindable::Target target
-	): BoundTemplate<BoundBase, Bindable>(bindable, target)
+	): BoundTemplate<BoundBase, Bindable, Bindable>(bindable, target)
 	{ }
 };
 

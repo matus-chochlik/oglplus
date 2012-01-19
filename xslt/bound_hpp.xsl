@@ -174,18 +174,25 @@
 
 #include &lt;oglplus/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp&gt;
 #include &lt;oglplus/bound.hpp&gt;
+#include &lt;oglplus/auto_bind.hpp&gt;
+#include &lt;utility&gt;
 
 namespace oglplus {
 
-template &lt;template &lt;class&gt; class Base&gt;
-class BoundTemplate&lt;Base, </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
- : public Base&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
+template &lt;template &lt;class&gt; class Base, class BaseParam&gt;
+class BoundTemplate&lt;Base, BaseParam, </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
+ : public Base&lt;BaseParam&gt;
 {
 public:
 	BoundTemplate(
 		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
 	): Base&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;(bindable, target)
+	{ }
+
+	BoundTemplate(
+		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
+	): Base&lt;BaseParam&gt;(target)
 	{ }
 
 </xsl:text>
