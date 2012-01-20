@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/buffer_target.txt' instead.
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,7 +14,7 @@
 /// ARRAY_BUFFER
 Array,
 /// ATOMIC_COUNTER_BUFFER
-iAtomicCounter,
+AtomicCounter,
 /// COPY_READ_BUFFER
 CopyRead,
 /// COPY_WRITE_BUFFER
@@ -53,7 +53,7 @@ Array = GL_ARRAY_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-iAtomicCounter = GL_ATOMIC_COUNTER_BUFFER
+AtomicCounter = GL_ATOMIC_COUNTER_BUFFER
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

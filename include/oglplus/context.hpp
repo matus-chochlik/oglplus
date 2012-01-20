@@ -26,6 +26,7 @@
 #include <oglplus/context/blending.hpp>
 #include <oglplus/context/logical_ops.hpp>
 #include <oglplus/context/scissor_test.hpp>
+#include <oglplus/context/pixel_ops.hpp>
 
 #include <oglplus/face_mode.hpp>
 #include <oglplus/compare_func.hpp>
@@ -61,6 +62,7 @@ class Context
  , public context::StencilTest
  , public context::ScissorTest
  , public context::LogicalOps
+ , public context::PixelOps
  , public context::Blending
  , public context::Synchronization
 {

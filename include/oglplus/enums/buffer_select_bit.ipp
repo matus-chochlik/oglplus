@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/sync_wait_result.ipp
+ *  .file oglplus/enums/buffer_select_bit.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/sync_wait_result.txt' instead.
+ *  edit 'source/enums/buffer_select_bit.txt' instead.
  *
  *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,14 +11,12 @@
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
-/// CONDITION_SATISFIED
-ConditionSatisfied,
-/// ALREADY_SIGNALED
-AlreadySignaled,
-/// TIMEOUT_EXPIRED
-TimeoutExpired,
-/// WAIT_FAILED
-WaitFailed
+/// COLOR_BUFFER_BIT: Clear the color buffer
+ColorBuffer,
+/// DEPTH_BUFFER_BIT: Clear the depth buffer
+DepthBuffer,
+/// STENCIL_BUFFER_BIT: Clear the stencil buffer
+StencilBuffer
 
 #else // OGLPLUS_DOCUMENTATION_ONLY
 
@@ -26,38 +24,29 @@ WaitFailed
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
 
-#if defined GL_CONDITION_SATISFIED
+#if defined GL_COLOR_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-ConditionSatisfied = GL_CONDITION_SATISFIED
+ColorBuffer = GL_COLOR_BUFFER_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_ALREADY_SIGNALED
+#if defined GL_DEPTH_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-AlreadySignaled = GL_ALREADY_SIGNALED
+DepthBuffer = GL_DEPTH_BUFFER_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_TIMEOUT_EXPIRED
+#if defined GL_STENCIL_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-TimeoutExpired = GL_TIMEOUT_EXPIRED
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_WAIT_FAILED
-# if OGLPLUS_LIST_NEEDS_COMMA
-,
-# endif
-WaitFailed = GL_WAIT_FAILED
+StencilBuffer = GL_STENCIL_BUFFER_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

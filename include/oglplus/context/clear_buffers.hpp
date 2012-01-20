@@ -15,6 +15,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
+#include <oglplus/buffer_select_bit.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
 #include <oglplus/auxiliary/bitfield.hpp>
@@ -25,10 +26,7 @@ namespace oglplus {
 /**
  *  @ingroup enumerations
  */
-enum class ClearBit : GLbitfield
-{
-#include <oglplus/enums/clear_bit.ipp>
-};
+typedef BufferSelectBit ClearBit;
 
 namespace context {
 

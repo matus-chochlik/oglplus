@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/pixel_data_type.ipp
+ *  .file oglplus/enums/pixel_storage_mode.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/pixel_data_type.txt' instead.
+ *  edit 'source/enums/pixel_storage_mode.txt' instead.
  *
  *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,54 +11,54 @@
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
-/// UNSIGNED_BYTE
-UnsignedByte,
-/// BYTE
-Byte,
-/// UNSIGNED_SHORT
-UnsignedShort,
-/// SHORT
-Short,
-/// UNSIGNED_INT
-UnsignedInt,
-/// INT
-Int,
-/// HALF_FLOAT
-HalfFloat,
-/// FLOAT
-Float,
-/// UNSIGNED_BYTE_3_3_2
-UnsignedByte_3_3_2,
-/// UNSIGNED_BYTE_2_3_3_REV
-UnsignedByte_2_3_3_Rev,
-/// UNSIGNED_SHORT_5_6_5
-UnsignedShort_5_6_5,
-/// UNSIGNED_SHORT_5_6_5_REV
-UnsignedShort_5_6_5_Rev,
-/// UNSIGNED_SHORT_4_4_4_4
-UnsignedShort_4_4_4_4,
-/// UNSIGNED_SHORT_4_4_4_4_REV
-UnsignedShort_4_4_4_4_Rev,
-/// UNSIGNED_SHORT_5_5_5_1
-UnsignedShort_5_5_5_1,
-/// UNSIGNED_SHORT_1_5_5_5_REV
-UnsignedShort_1_5_5_5_Rev,
-/// UNSIGNED_INT_8_8_8_8
-UnsignedInt_8_8_8_8,
-/// UNSIGNED_INT_8_8_8_8_REV
-UnsignedInt_8_8_8_8_Rev,
-/// UNSIGNED_INT_10_10_10_2
-UnsignedInt_10_10_10_2,
-/// UNSIGNED_INT_2_10_10_10_REV
-UnsignedInt_2_10_10_10_Rev,
-/// UNSIGNED_INT_24_8
-UnsignedInt_24_8,
-/// UNSIGNED_INT_10F_11F_11F_REV
-UnsignedInt_10f_11f_11f_Rev,
-/// UNSIGNED_INT_5_9_9_9_REV
-UnsignedInt_5_9_9_9_Rev,
-/// FLOAT_32_UNSIGNED_INT_24_8_REV
-Float_32UnsignedInt_24_8_Rev
+/// PACK_SWAP_BYTES
+PackSwapBytes,
+/// PACK_LSB_FIRST
+PackLsbFirst,
+/// PACK_ROW_LENGTH
+PackRowLength,
+/// PACK_SKIP_ROWS
+PackSkipRows,
+/// PACK_SKIP_PIXELS
+PackSkipPixels,
+/// PACK_ALIGNMENT
+PackAlignment,
+/// PACK_IMAGE_HEIGHT
+PackImageHeight,
+/// PACK_SKIP_IMAGES
+PackSkipImages,
+/// PACK_COMPRESSED_BLOCK_WIDTH
+PackCompressedBlockWidth,
+/// PACK_COMPRESSED_BLOCK_HEIGHT
+PackCompressedBlockHeight,
+/// PACK_COMPRESSED_BLOCK_DEPTH
+PackCompressedBlockDepth,
+/// PACK_COMPRESSED_BLOCK_SIZE
+PackCompressedBlockSize,
+/// UNPACK_SWAP_BYTES
+UnpackSwapBytes,
+/// UNPACK_LSB_FIRST
+UnpackLsbFirst,
+/// UNPACK_ROW_LENGTH
+UnpackRowLength,
+/// UNPACK_SKIP_ROWS
+UnpackSkipRows,
+/// UNPACK_SKIP_PIXELS
+UnpackSkipPixels,
+/// UNPACK_ALIGNMENT
+UnpackAlignment,
+/// UNPACK_IMAGE_HEIGHT
+UnpackImageHeight,
+/// UNPACK_SKIP_IMAGES
+UnpackSkipImages,
+/// UNPACK_COMPRESSED_BLOCK_WIDTH
+UnpackCompressedBlockWidth,
+/// UNPACK_COMPRESSED_BLOCK_HEIGHT
+UnpackCompressedBlockHeight,
+/// UNPACK_COMPRESSED_BLOCK_DEPTH
+UnpackCompressedBlockDepth,
+/// UNPACK_COMPRESSED_BLOCK_SIZE
+UnpackCompressedBlockSize
 
 #else // OGLPLUS_DOCUMENTATION_ONLY
 
@@ -66,218 +66,218 @@ Float_32UnsignedInt_24_8_Rev
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
 
-#if defined GL_UNSIGNED_BYTE
+#if defined GL_PACK_SWAP_BYTES
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedByte = GL_UNSIGNED_BYTE
+PackSwapBytes = GL_PACK_SWAP_BYTES
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_BYTE
+#if defined GL_PACK_LSB_FIRST
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Byte = GL_BYTE
+PackLsbFirst = GL_PACK_LSB_FIRST
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_SHORT
+#if defined GL_PACK_ROW_LENGTH
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedShort = GL_UNSIGNED_SHORT
+PackRowLength = GL_PACK_ROW_LENGTH
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_SHORT
+#if defined GL_PACK_SKIP_ROWS
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Short = GL_SHORT
+PackSkipRows = GL_PACK_SKIP_ROWS
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_INT
+#if defined GL_PACK_SKIP_PIXELS
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedInt = GL_UNSIGNED_INT
+PackSkipPixels = GL_PACK_SKIP_PIXELS
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_INT
+#if defined GL_PACK_ALIGNMENT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Int = GL_INT
+PackAlignment = GL_PACK_ALIGNMENT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_HALF_FLOAT
+#if defined GL_PACK_IMAGE_HEIGHT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-HalfFloat = GL_HALF_FLOAT
+PackImageHeight = GL_PACK_IMAGE_HEIGHT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FLOAT
+#if defined GL_PACK_SKIP_IMAGES
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Float = GL_FLOAT
+PackSkipImages = GL_PACK_SKIP_IMAGES
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_BYTE_3_3_2
+#if defined GL_PACK_COMPRESSED_BLOCK_WIDTH
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedByte_3_3_2 = GL_UNSIGNED_BYTE_3_3_2
+PackCompressedBlockWidth = GL_PACK_COMPRESSED_BLOCK_WIDTH
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_BYTE_2_3_3_REV
+#if defined GL_PACK_COMPRESSED_BLOCK_HEIGHT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedByte_2_3_3_Rev = GL_UNSIGNED_BYTE_2_3_3_REV
+PackCompressedBlockHeight = GL_PACK_COMPRESSED_BLOCK_HEIGHT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_SHORT_5_6_5
+#if defined GL_PACK_COMPRESSED_BLOCK_DEPTH
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedShort_5_6_5 = GL_UNSIGNED_SHORT_5_6_5
+PackCompressedBlockDepth = GL_PACK_COMPRESSED_BLOCK_DEPTH
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_SHORT_5_6_5_REV
+#if defined GL_PACK_COMPRESSED_BLOCK_SIZE
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedShort_5_6_5_Rev = GL_UNSIGNED_SHORT_5_6_5_REV
+PackCompressedBlockSize = GL_PACK_COMPRESSED_BLOCK_SIZE
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_SHORT_4_4_4_4
+#if defined GL_UNPACK_SWAP_BYTES
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedShort_4_4_4_4 = GL_UNSIGNED_SHORT_4_4_4_4
+UnpackSwapBytes = GL_UNPACK_SWAP_BYTES
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_SHORT_4_4_4_4_REV
+#if defined GL_UNPACK_LSB_FIRST
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedShort_4_4_4_4_Rev = GL_UNSIGNED_SHORT_4_4_4_4_REV
+UnpackLsbFirst = GL_UNPACK_LSB_FIRST
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_SHORT_5_5_5_1
+#if defined GL_UNPACK_ROW_LENGTH
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedShort_5_5_5_1 = GL_UNSIGNED_SHORT_5_5_5_1
+UnpackRowLength = GL_UNPACK_ROW_LENGTH
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_SHORT_1_5_5_5_REV
+#if defined GL_UNPACK_SKIP_ROWS
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedShort_1_5_5_5_Rev = GL_UNSIGNED_SHORT_1_5_5_5_REV
+UnpackSkipRows = GL_UNPACK_SKIP_ROWS
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_INT_8_8_8_8
+#if defined GL_UNPACK_SKIP_PIXELS
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedInt_8_8_8_8 = GL_UNSIGNED_INT_8_8_8_8
+UnpackSkipPixels = GL_UNPACK_SKIP_PIXELS
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_INT_8_8_8_8_REV
+#if defined GL_UNPACK_ALIGNMENT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedInt_8_8_8_8_Rev = GL_UNSIGNED_INT_8_8_8_8_REV
+UnpackAlignment = GL_UNPACK_ALIGNMENT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_INT_10_10_10_2
+#if defined GL_UNPACK_IMAGE_HEIGHT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedInt_10_10_10_2 = GL_UNSIGNED_INT_10_10_10_2
+UnpackImageHeight = GL_UNPACK_IMAGE_HEIGHT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_INT_2_10_10_10_REV
+#if defined GL_UNPACK_SKIP_IMAGES
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedInt_2_10_10_10_Rev = GL_UNSIGNED_INT_2_10_10_10_REV
+UnpackSkipImages = GL_UNPACK_SKIP_IMAGES
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_INT_24_8
+#if defined GL_UNPACK_COMPRESSED_BLOCK_WIDTH
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedInt_24_8 = GL_UNSIGNED_INT_24_8
+UnpackCompressedBlockWidth = GL_UNPACK_COMPRESSED_BLOCK_WIDTH
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_INT_10F_11F_11F_REV
+#if defined GL_UNPACK_COMPRESSED_BLOCK_HEIGHT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedInt_10f_11f_11f_Rev = GL_UNSIGNED_INT_10F_11F_11F_REV
+UnpackCompressedBlockHeight = GL_UNPACK_COMPRESSED_BLOCK_HEIGHT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_UNSIGNED_INT_5_9_9_9_REV
+#if defined GL_UNPACK_COMPRESSED_BLOCK_DEPTH
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-UnsignedInt_5_9_9_9_Rev = GL_UNSIGNED_INT_5_9_9_9_REV
+UnpackCompressedBlockDepth = GL_UNPACK_COMPRESSED_BLOCK_DEPTH
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FLOAT_32_UNSIGNED_INT_24_8_REV
+#if defined GL_UNPACK_COMPRESSED_BLOCK_SIZE
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-Float_32UnsignedInt_24_8_Rev = GL_FLOAT_32_UNSIGNED_INT_24_8_REV
+UnpackCompressedBlockSize = GL_UNPACK_COMPRESSED_BLOCK_SIZE
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
