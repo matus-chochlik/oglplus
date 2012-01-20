@@ -121,7 +121,7 @@ $(OUTDIR)/$(1): \
 	$(call OPT_ADD_EXE_MAIN,$(1)) |\
 	$(dir $(OUTDIR)/$(1)) \
 	textures
-	$(CXX) $(OGLPLUS_LDFLAGS) $$(shell cat $$(addsuffix .ldf,$$(basename $$^))) -o $$@ $$^
+	$(CXX) -o $$@ $$^ $(OGLPLUS_LDFLAGS) $$(shell cat $$(addsuffix .ldf,$$(basename $$^)))
 endef
 
 # function defining the rules for compiling intermediate objects

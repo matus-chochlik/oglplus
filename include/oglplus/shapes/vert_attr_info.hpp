@@ -26,6 +26,7 @@ struct Vertex ## GETTER_NAME ## Tag { }; \
 template <class ShapeBuilder> \
 struct VertexAttribInfo<ShapeBuilder, Vertex ## GETTER_NAME ## Tag> \
 { \
+protected: \
 	static const GLchar* _name(void) \
 	{ \
 		return #ATTR_NAME; \
@@ -82,7 +83,7 @@ public:
 #else
 template <class ShapeBuilder, typename ... VertexAttribTags>
 class VertexAttribsInfo
- : protected VertexAttribInfo<ShapeBuilder, VertexAttribTags>...
+ : public VertexAttribInfo<ShapeBuilder, VertexAttribTags>...
 {
 private:
 
