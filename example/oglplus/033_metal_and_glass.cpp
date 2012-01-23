@@ -46,7 +46,7 @@ public:
 		"in vec2 TexCoord;"
 		"out gl_PerVertex {"
 		"	vec4 gl_Position;"
-		"	float gl_ClipDistance;"
+		"	float gl_ClipDistance[];"
 		"};"
 		"out vec3 vertNormal;"
 		"out vec3 vertTangent;"
