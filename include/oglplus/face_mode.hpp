@@ -41,6 +41,20 @@ enum class FaceOrientation : GLenum
 #include <oglplus/enums/face_orientation.ipp>
 };
 
+/// Inverts the face orientation (CW to CCW and CCW to CW)
+/**
+ *  @see FaceOrientation
+ *
+ *  @glsymbols
+ *  @glfunref{FrontFace}
+ */
+inline FaceOrientation Inverted(FaceOrientation winding)
+{
+	if(winding == FaceOrientation::CW)
+		return FaceOrientation::CCW;
+	else return FaceOrientation::CW;
+}
+
 } // namespace oglplus
 
 #endif // include guard

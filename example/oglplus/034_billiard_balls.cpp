@@ -530,9 +530,6 @@ protected:
 	// VBOs for the shape's vertex attributes
 	Array<Buffer> vbos;
 
-	// number of values per vertex for individual VAs
-	std::vector<GLuint> npvs;
-
 public:
 	Shape(const Program& prog, const ShapeBuilder& builder)
 	 : make_shape(builder)
@@ -540,7 +537,6 @@ public:
 	 , shape_indices(make_shape.Indices())
 	 , nva(4)
 	 , vbos(nva)
-	 , npvs(nva)
 	{
 		// bind the VAO for the shape
 		vao.Bind();
@@ -562,12 +558,12 @@ public:
 			{
 				// bind the VBO for the vertex attribute
 				vbos[va].Bind(Buffer::Target::Array);
-				npvs[va] = getter(make_shape, data);
+				GLuint npv = getter(make_shape, data);
 				// upload the data
 				Buffer::Data(Buffer::Target::Array, data);
 				// setup the vertex attribs array
 				VertexAttribArray attr(prog, name);
-				attr.Setup(npvs[va], DataType::Float);
+				attr.Setup(npv, DataType::Float);
 				attr.Enable();
 			}
 			catch(Error& error)
