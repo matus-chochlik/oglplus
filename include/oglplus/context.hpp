@@ -27,6 +27,7 @@
 #include <oglplus/context/logical_ops.hpp>
 #include <oglplus/context/scissor_test.hpp>
 #include <oglplus/context/pixel_ops.hpp>
+#include <oglplus/context/hints.hpp>
 
 #include <oglplus/face_mode.hpp>
 #include <oglplus/compare_func.hpp>
@@ -65,6 +66,7 @@ class Context
  , public context::PixelOps
  , public context::Blending
  , public context::Synchronization
+ , public context::Hints
 {
 public:
 };

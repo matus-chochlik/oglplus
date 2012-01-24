@@ -1,0 +1,62 @@
+/**
+ *  @file oglplus/context/hints.hpp
+ *  @brief Wrappers for hints
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#ifndef OGLPLUS_CONTEXT_HINTS_1201040722_HPP
+#define OGLPLUS_CONTEXT_HINTS_1201040722_HPP
+
+#include <oglplus/config.hpp>
+#include <oglplus/glfunc.hpp>
+#include <oglplus/error.hpp>
+#include <oglplus/hint.hpp>
+
+namespace oglplus {
+namespace context {
+
+/// Wrapper for the hint-related operations
+/**
+ *  @ingroup ogl_context
+ */
+class Hints
+{
+public:
+	/// Selects a hint @p option for a @p target
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Hint}
+	 */
+	static void Hint(HintTarget target, HintOption option)
+	{
+		OGLPLUS_GLFUNC(Hint)(GLenum(target), GLenum(option));
+		AssertNoError(OGLPLUS_ERROR_INFO(Hint));
+	}
+
+	/// Queries the current hint for a @p target
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Hint}
+	 */
+	static HintOption GetHint(HintTarget target)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(target), &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return HintOption(GLenum(result));
+	}
+};
+
+} // namespace context
+} // namespace oglplus
+
+#endif // include guard
