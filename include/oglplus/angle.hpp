@@ -370,7 +370,7 @@ inline Angle<GLfloat> ArcTan(GLfloat y, GLfloat x)
 /// Returns a value on a sine wave at the specified point
 /** This function returns the value of sin(2.PI.@p t), i.e.
  *  integer values of @p t are the ends of the previous full
- *  sine wave and the beginning of the next "iteration".
+ *  sine wave and the begining of the next "iteration".
  *  The following is true:
  *  @code
  *  SineWave(t) == sin(2.0*PI*t);
@@ -389,6 +389,30 @@ template <typename T>
 inline T SineWave(T t)
 {
 	return ::std::sin(T(2.0 * M_PI * t));
+}
+
+/// Returns a value on a cosine wave at the specified point
+/** This function returns the value of cos(2.PI.@p t), i.e.
+ *  integer values of @p t are the ends of the previous full
+ *  cosine wave and the begining of the next "iteration".
+ *  The following is true:
+ *  @code
+ *  CosineWave(t) == cos(2.0*PI*t);
+ *  CosineWave(0.00) ==  1.0;
+ *  CosineWave(0.25) ==  0.0;
+ *  CosineWave(0.50) == -1.0;
+ *  CosineWave(0.75) ==  0.0;
+ *  CosineWave(1.00) ==  1.0;
+ *  @endcode
+ *
+ *  @param t the point for which to calculate the value on the wave.
+ *
+ *  @ingroup math_utils
+ */
+template <typename T>
+inline T CosineWave(T t)
+{
+	return ::std::cos(T(2.0 * M_PI * t));
 }
 
 } // namespace oglplus

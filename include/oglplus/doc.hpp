@@ -21,8 +21,6 @@ namespace oglplus {
 
 /** @mainpage OGLplus - a C++ wrapper for OpenGL® version 3 and higher.
  *
- *  @image html oglplus.png
- *
  *  <A HREF="../index.html">OGLplus</A> is a header-only library which implements
  *  a thin object-oriented facade over the OpenGL® (version 3 and higher)
  *  C-language API. It provides wrappers which automate
