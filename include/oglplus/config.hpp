@@ -51,6 +51,77 @@ namespace oglplus {
 #define OGLPLUS_CUSTOM_ERROR_HANDLING 0
 #endif
 
+
+// Configuration options related to ErrorInfo
+
+
+#ifndef OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+/// Compile-time switch disabling the ErrorGLSymbol attribute of ErrorInfo
+/**
+ *  @see ErrorGLSymbol()
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_INFO_NO_GL_SYMBOL 0
+#endif
+
+#ifndef OGLPLUS_ERROR_INFO_NO_FILE
+/// Compile-time switch disabling the ErrorFile attribute of ErrorInfo
+/**
+ *  @see ErrorFile()
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_INFO_NO_FILE 0
+#endif
+
+#ifndef OGLPLUS_ERROR_INFO_NO_LINE
+/// Compile-time switch disabling the ErrorLine attribute of ErrorInfo
+/**
+ *  @see ErrorLine()
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_INFO_NO_LINE 0
+#endif
+
+#ifndef OGLPLUS_ERROR_INFO_NO_FUNC
+/// Compile-time switch disabling the ErrorFunc attribute of ErrorInfo
+/**
+ *  @see ErrorFunc()
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_INFO_NO_FUNC 0
+#endif
+
+#ifndef OGLPLUS_ERROR_INFO_NO_CLASS_NAME
+/// Compile-time switch disabling the ErrorClassName attribute of ErrorInfo
+/**
+ *  @see ErrorClassName()
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_INFO_NO_CLASS_NAME 0
+#endif
+
+#if OGLPLUS_NO_OBJECT_DESCS
+#ifdef OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
+#undef OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
+#endif
+#define OGLPLUS_ERROR_INFO_NO_OBJECT_DESC 1
+#endif
+
+#ifndef OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
+/// Compile-time switch disabling the ErrorObjectDescription attribute of ErrorInfo
+/**
+ *  @see ErrorObjectDescription()
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_INFO_NO_OBJECT_DESC 0
+#endif
+
 } // namespace oglplus
 
 #endif // include guard

@@ -25,86 +25,123 @@
 #include <functional>
 #endif
 
-#define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT, OBJECT) \
+#define OGLPLUS_ERROR_INFO_CONTEXT(CONTEXT, CLASS) \
 	static const char* _errinf_ctxt(void) \
 	{ \
 		return #CONTEXT; \
 	} \
-	static const char* _errinf_obj(void) \
+	static const char* _errinf_cls(void) \
 	{ \
-		return #OBJECT; \
+		return #CLASS; \
 	}
 
 #define OGLPLUS_ERROR_INFO_REUSE_CONTEXT(SOURCE) \
 	using SOURCE::_errinf_ctxt; \
-	using SOURCE::_errinf_obj;
+	using SOURCE::_errinf_cls;
 
-#ifdef _NDEBUG
-#define OGLPLUS_ERROR_INFO(CONTEXT) \
-	oglplus::ErrorInfo(\
-		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0\
-	)
 
-#define OGLPLUS_LIMIT_ERROR_INFO(CONTEXT) \
-	oglplus::ErrorInfo(\
-		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0 \
-	)
-
-#define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
-	oglplus::ErrorInfo(\
-		_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, \
-		_errinf_obj(), 0, 0, 0, 0 \
-	)
-
-#define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
-	oglplus::ErrorInfo(\
-		CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0\
-	)
-
-#define OGLPLUS_OBJECT_ERROR_INFO(CONTEXT, OBJECT, NAME) \
-	oglplus::ErrorInfo(\
-		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, \
-		#OBJECT, \
-		&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_get_desc, \
-		&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_purge_archive,\
-		NAME, 0 \
-	)
-
+// Define a macro that initializes the _glsym member of ErrorInfo
+#if OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#define OGLPLUS_ERROR_INFO_INIT_GLSYM(SYMBOL)
 #else
-#define OGLPLUS_ERROR_INFO(CONTEXT) \
-	oglplus::ErrorInfo(\
-		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, \
-		sizeof(decltype(&gl ## CONTEXT)) \
-	)
-
-#define OGLPLUS_LIMIT_ERROR_INFO(CONTEXT) \
-	oglplus::ErrorInfo(\
-		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, \
-		sizeof(decltype(GL_ ## CONTEXT)) \
-	)
-
-#define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
-	oglplus::ErrorInfo(\
-		_errinf_ctxt(), __FILE__, __FUNCTION__, __LINE__, \
-		_errinf_obj(), 0, 0, 0, 0 \
-	)
-
-#define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
-	oglplus::ErrorInfo(\
-		CONTEXT_STR, __FILE__, __FUNCTION__, __LINE__, 0, 0, 0, 0, 0 \
-	)
-
-#define OGLPLUS_OBJECT_ERROR_INFO(CONTEXT, OBJECT, NAME) \
-	oglplus::ErrorInfo(\
-		#CONTEXT, __FILE__, __FUNCTION__, __LINE__, \
-		#OBJECT, \
-		&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_get_desc, \
-		&oglplus::aux::ObjectDescRegistry<OBJECT##Ops>::_purge_archive,\
-		NAME, sizeof(decltype(&gl ## CONTEXT)) \
-	)
-
+#define OGLPLUS_ERROR_INFO_INIT_GLSYM(SYMBOL) , SYMBOL
 #endif
 
+// Define a macro that initializes the _file member of ErrorInfo
+#if OGLPLUS_ERROR_INFO_NO_FILE
+#define OGLPLUS_ERROR_INFO_INIT_FILE(FILEPATH)
+#else
+#define OGLPLUS_ERROR_INFO_INIT_FILE(FILEPATH) , FILEPATH
+#endif
+
+// Define a macro that initializes the _func member of ErrorInfo
+#if OGLPLUS_ERROR_INFO_NO_FUNC
+#define OGLPLUS_ERROR_INFO_INIT_FUNC(FUNC)
+#else
+#define OGLPLUS_ERROR_INFO_INIT_FUNC(FUNC) , FUNC
+#endif
+
+// Define a macro that initializes the _line member of ErrorInfo
+#if OGLPLUS_ERROR_INFO_NO_LINE
+#define OGLPLUS_ERROR_INFO_INIT_LINE(LINE)
+#else
+#define OGLPLUS_ERROR_INFO_INIT_LINE(LINE) , LINE
+#endif
+
+// Define a macro that initializes the _cls_name member of ErrorInfo
+#if OGLPLUS_ERROR_INFO_NO_CLASS_NAME
+#define OGLPLUS_ERROR_INFO_INIT_CLS_NAME(NAME)
+#else
+#define OGLPLUS_ERROR_INFO_INIT_CLS_NAME(NAME) , NAME
+#endif
+
+// Define a macro that initializes the description-related members of ErrorInfo
+#if OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
+#define OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(GET, PURGE, NAME)
+#else
+#define OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(GET, PURGE, NAME) \
+	, GET, PURGE, GLuint(NAME)
+#endif
+
+
+#define OGLPLUS_ERROR_INFO(CONTEXT) \
+oglplus::ErrorInfo(\
+	sizeof(decltype(&gl ## CONTEXT)) \
+	OGLPLUS_ERROR_INFO_INIT_GLSYM(#CONTEXT) \
+	OGLPLUS_ERROR_INFO_INIT_FILE(__FILE__) \
+	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
+	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
+	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
+	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
+)
+
+#define OGLPLUS_LIMIT_ERROR_INFO(CONTEXT) \
+oglplus::ErrorInfo(\
+	sizeof(decltype(GL_ ## CONTEXT)) \
+	OGLPLUS_ERROR_INFO_INIT_GLSYM(#CONTEXT) \
+	OGLPLUS_ERROR_INFO_INIT_FILE(__FILE__) \
+	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
+	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
+	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
+	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
+)
+
+#define OGLPLUS_ERROR_INFO_AUTO_CTXT() \
+oglplus::ErrorInfo(\
+	0 \
+	OGLPLUS_ERROR_INFO_INIT_GLSYM(_errinf_ctxt()) \
+	OGLPLUS_ERROR_INFO_INIT_FILE(__FILE__) \
+	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
+	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
+	OGLPLUS_ERROR_INFO_INIT_CLS_NAME(_errinf_cls())  \
+	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
+)
+
+#define OGLPLUS_ERROR_INFO_STR(CONTEXT_STR) \
+oglplus::ErrorInfo(\
+	0 \
+	OGLPLUS_ERROR_INFO_INIT_GLSYM(CONTEXT_STR) \
+	OGLPLUS_ERROR_INFO_INIT_FILE(__FILE__) \
+	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
+	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
+	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
+	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
+)
+
+#define OGLPLUS_OBJECT_ERROR_INFO(CONTEXT, CLASS, NAME) \
+oglplus::ErrorInfo(\
+	sizeof(decltype(&gl ## CONTEXT)) \
+	OGLPLUS_ERROR_INFO_INIT_GLSYM(#CONTEXT) \
+	OGLPLUS_ERROR_INFO_INIT_FILE(__FILE__) \
+	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
+	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
+	OGLPLUS_ERROR_INFO_INIT_CLS_NAME(#CLASS) \
+	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS( \
+		&oglplus::aux::ObjectDescRegistry<CLASS##Ops>::_get_desc, \
+		&oglplus::aux::ObjectDescRegistry<CLASS##Ops>::_purge_archive,\
+		NAME \
+	) \
+)
 
 namespace oglplus {
 
@@ -130,36 +167,89 @@ struct ErrorInfo
 	// the data members of this structure are internal
 	// implementation details which are subject to change
 	// without any prior notice. Do not use directly.
-	const char* _glsym;
-	const char* _file;
-	const char* _func;
-	const unsigned _line;
 
+	const size_t _dummy;
+
+#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+	const char* _glsym;
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_FILE
+	const char* _file;
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_FUNC
+	const char* _func;
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_LINE
+	const unsigned _line;
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
 	const char* _cls_name;
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	const String& (*_get_obj_desc)(GLuint);
 	void (*_purge_archive)(void);
 	GLuint _obj_name;
-	const size_t _dummy;
+#endif
 
 	inline ErrorInfo(
-		const char* glsym,
-		const char* file,
-		const char* func,
-		const unsigned line,
-		const char* cls_name,
-		const String& (*get_obj_desc)(GLuint),
-		void (*purge_archive)(void),
-		GLuint obj_name,
 		const size_t dummy
-	): _glsym(glsym)
+#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+		, const char* glsym
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_FILE
+		, const char* file
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_FUNC
+		, const char* func
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_LINE
+		, const unsigned line
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
+		, const char* cls_name
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
+		, const String& (*get_obj_desc)(GLuint)
+		, void (*purge_archive)(void)
+		, GLuint obj_name
+#endif
+	): _dummy(dummy)
+
+#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+	 , _glsym(glsym)
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_FILE
 	 , _file(file)
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_FUNC
 	 , _func(func)
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_LINE
 	 , _line(line)
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
 	 , _cls_name(cls_name)
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	 , _get_obj_desc(get_obj_desc)
 	 , _purge_archive(purge_archive)
 	 , _obj_name(obj_name)
-	 , _dummy(dummy)
+#endif
 	{ }
 };
 
@@ -169,99 +259,151 @@ struct ErrorInfo
  *  of the OpenGL constant (usually a implementation-dependent) limit
  *  which are related to the error.
  *
+ *  The result of this function is also influenced by the
+ *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+ *  If set to zero this function behaves as described above, otherwise it
+ *  returns an empty C string.
+ *
  *  @see ErrorInfo
- *  @see ErrorFunc
- *  @see ErrorFile
- *  @see ErrorLine
- *  @see ErrorClassName
- *  @see ErrorObjectDescription
+ *  @see ErrorFunc()
+ *  @see ErrorFile()
+ *  @see ErrorLine()
+ *  @see ErrorClassName()
+ *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
  */
 inline const char* ErrorGLSymbol(const ErrorInfo& info)
 {
+#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
 	return info._glsym;
+#else
+	return "";
+#endif
 }
 
 /// Returns the path of the source file where the exception originated
 /**
+ *  The result of this function is also influenced by the
+ *  #OGLPLUS_ERROR_INFO_NO_FILE preprocessor configuration option.
+ *  If set to zero this function behaves as described above, otherwise it
+ *  returns an empty C string.
+ *
  *  @see ErrorInfo
- *  @see ErrorGLSymbol
- *  @see ErrorFunc
- *  @see ErrorLine
- *  @see ErrorClassName
- *  @see ErrorObjectDescription
+ *  @see ErrorGLSymbol()
+ *  @see ErrorFunc()
+ *  @see ErrorLine()
+ *  @see ErrorClassName()
+ *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
  */
 inline const char* ErrorFile(const ErrorInfo& info)
 {
+#if !OGLPLUS_ERROR_INFO_NO_FILE
 	return info._file;
+#else
+	return "";
+#endif
 }
 
 /// Returns the name of the function where the exception originated
 /**
+ *  The result of this function is also influenced by the
+ *  #OGLPLUS_ERROR_INFO_NO_FUNC preprocessor configuration option.
+ *  If set to zero this function behaves as described above, otherwise it
+ *  returns an empty C string.
+ *
  *  @see ErrorInfo
- *  @see ErrorGLSymbol
- *  @see ErrorName
- *  @see ErrorLine
- *  @see ErrorClassName
- *  @see ErrorObjectDescription
+ *  @see ErrorGLSymbol()
+ *  @see ErrorFile()
+ *  @see ErrorLine()
+ *  @see ErrorClassName()
+ *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
  */
 inline const char* ErrorFunc(const ErrorInfo& info)
 {
+#if !OGLPLUS_ERROR_INFO_NO_FUNC
 	return info._func;
+#else
+	return "";
+#endif
 }
 
 /// Returns the line in the source file where the exception originated
 /**
+ *  The result of this function is also influenced by the
+ *  #OGLPLUS_ERROR_INFO_NO_LINE preprocessor configuration option.
+ *  If set to zero this function behaves as described above, otherwise it
+ *  returns zero.
+ *
  *  @see ErrorInfo
- *  @see ErrorGLSymbol
- *  @see ErrorName
- *  @see ErrorFunc
- *  @see ErrorClassName
- *  @see ErrorObjectDescription
+ *  @see ErrorGLSymbol()
+ *  @see ErrorFile()
+ *  @see ErrorFunc()
+ *  @see ErrorClassName()
+ *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
  */
 inline unsigned ErrorLine(const ErrorInfo& info)
 {
+#if !OGLPLUS_ERROR_INFO_NO_LINE
 	return info._line;
+#else
+	return 0;
+#endif
 }
 
 /// Returns the name of the class of the object where the exception originated
 /**
+ *  The result of this function is also influenced by the
+ *  #OGLPLUS_ERROR_INFO_NO_CLASS_NAME preprocessor configuration option.
+ *  If set to zero this function behaves as described above, otherwise it
+ *  returns the string "UnknownClass".
+ *
  *  @see ErrorInfo
- *  @see ErrorGLSymbol
- *  @see ErrorName
- *  @see ErrorFunc
- *  @see ErrorLine
- *  @see ErrorObjectDescription
+ *  @see ErrorGLSymbol()
+ *  @see ErrorFile()
+ *  @see ErrorFunc()
+ *  @see ErrorLine()
+ *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
  */
 inline const char* ErrorClassName(const ErrorInfo& info)
 {
+#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
 	return info._cls_name ? info._cls_name : "UnknownClass";
+#else
+	return "UnknownClass";
+#endif
 }
 
 /// Returns the optional description of the object related to the error
 /**
+ *  The result of this function is also influenced by the
+ *  #OGLPLUS_ERROR_INFO_NO_OBJECT_DESC preprocessor configuration option.
+ *  If set to zero this function behaves as described above, otherwise it
+ *  returns an empty string.
+ *
  *  @see ErrorInfo
- *  @see ErrorGLSymbol
- *  @see ErrorName
- *  @see ErrorFunc
- *  @see ErrorLine
- *  @see ErrorClassName
+ *  @see ErrorGLSymbol()
+ *  @see ErrorFile()
+ *  @see ErrorFunc()
+ *  @see ErrorLine()
+ *  @see ErrorClassName()
  *
  *  @ingroup error_handling
  */
 inline const String& ErrorObjectDescription(const ErrorInfo& info)
 {
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	if((info._get_obj_desc != 0) && (info._obj_name != 0))
 		return info._get_obj_desc(info._obj_name);
+#endif
 	return aux::EmptyString();
 }
 
@@ -439,6 +581,7 @@ public:
 
 	void Cleanup(void) const
 	{
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 		if(_info._purge_archive != 0)
 			_info._purge_archive();
 		for(auto i=_propagation.begin(),e=_propagation.end();i!=e;++i)
@@ -446,6 +589,7 @@ public:
 			if(i->_purge_archive != 0)
 				i->_purge_archive();
 		}
+#endif
 	}
 };
 
