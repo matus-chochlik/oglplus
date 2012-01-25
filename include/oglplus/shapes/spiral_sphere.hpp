@@ -78,6 +78,43 @@ private:
 	}
 
 	template <typename T>
+	void _make_tangents(
+		std::vector<T>& dest,
+		size_t& k,
+		GLdouble sign
+	) const
+	{
+		GLdouble b_leap = (M_PI) / GLdouble(_bands);
+		GLdouble b_step = b_leap / GLdouble(_divisions);
+		GLdouble s_step = (M_PI) / GLdouble(_segments);
+
+		GLdouble m = sign;
+
+		for(size_t b=0; b!=_bands; ++b)
+		{
+			for(size_t d=0; d!=(_divisions+1); ++d)
+			{
+				GLdouble b_offs = 0.0;
+				for(size_t s=0; s!=(_segments+1); ++s)
+				{
+					GLdouble b_angle =
+						2*b*b_leap + d*b_step + b_offs;
+					GLdouble cb = std::cos(b_angle);
+					GLdouble sb = std::sin(b_angle);
+
+					GLdouble s_angle = s*s_step;
+					GLdouble ss = std::sin(s_angle);
+
+					dest[k++] = m*-sb;
+					dest[k++] = T(0);
+					dest[k++] = m* cb;
+					b_offs += ss * s_step;
+				}
+			}
+		}
+	}
+
+	template <typename T>
 	void _make_uv_coords(std::vector<T>& dest, size_t& k) const
 	{
 		GLdouble b_leap = 0.5 / GLdouble(_bands);
@@ -153,12 +190,41 @@ private:
 				GLdouble sb = std::sin(b_angle);
 
 				GLdouble s_angle = s*s_step;
-				GLdouble cs = std::cos(s_angle);
 				GLdouble ss = std::sin(s_angle);
 
 				dest[k++] = m* -sb;
-				dest[k++] = m* 0.0;
+				dest[k++] = T(0);
 				dest[k++] = m* cb;
+				b_offs += ss * s_step;
+			}
+			m *= -1.0;
+		}
+	}
+
+	template <typename T>
+	void _make_side_tgts(std::vector<T>& dest, size_t& k) const
+	{
+		GLdouble b_leap = (M_PI) / GLdouble(_bands);
+		GLdouble s_step = (M_PI) / GLdouble(_segments);
+
+		GLfloat m = -1.0;
+		for(size_t b=0; b!=_bands*2; ++b)
+		{
+			GLdouble b_offs = 0.0;
+			for(size_t s=0; s!=(_segments+1); ++s)
+			{
+				GLdouble b_angle =
+					b*b_leap + b_offs;
+				GLdouble cb = std::cos(b_angle);
+				GLdouble sb = std::sin(b_angle);
+
+				GLdouble s_angle = s*s_step;
+				GLdouble cs = std::cos(s_angle);
+				GLdouble ss = std::sin(s_angle);
+
+				dest[k++] = m* ss * cb;
+				dest[k++] = m* cs;
+				dest[k++] = m* ss * -sb;
 				b_offs += ss * s_step;
 			}
 			m *= -1.0;
@@ -238,8 +304,16 @@ public:
 	template <typename T>
 	GLuint Tangents(std::vector<T>& dest) const
 	{
-		// TODO
-		return 0;
+		dest.resize(_vertex_count() * 3);
+		size_t k = 0;
+		//
+		_make_tangents(dest, k, -1.0);
+		_make_tangents(dest, k,  1.0);
+		_make_side_tgts(dest, k);
+		//
+		assert(k == dest.size());
+		// 3 values per vertex
+		return 3;
 	}
 
 	/// Makes texture-coorinates and returns number of values per vertex
@@ -264,7 +338,7 @@ public:
 	 *  vertex attributes:
 	 *  - "Position" the vertex positions (Positions)
 	 *  - "Normal" the vertex normal vectors (Normals)
-	 *  - "Tangent" the vertex tangent vector (Tangents) TODO
+	 *  - "Tangent" the vertex tangent vector (Tangents)
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<SpiralSphere> VertexAttribs;
