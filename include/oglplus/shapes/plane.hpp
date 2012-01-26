@@ -283,6 +283,45 @@ public:
 		}
 		return std::move(instructions);
 	}
+
+	/// Returns edge element indices that are used with the drawing instructions
+	IndexArray EdgeIndices(void) const
+	{
+		size_t k = 0;
+		size_t offs = 0, leap = _udiv + 1;
+		IndexArray indices(1 + 2*(_udiv+_vdiv));
+
+		for(size_t i=0; i!=leap; ++i)
+			indices[k++] = i;
+		for(size_t j=0; j!=_vdiv; ++j)
+			indices[k++] = (j + 2)*leap - 1;
+		for(size_t i=0; i!=_udiv; ++i)
+			indices[k++] = (leap*(_vdiv+1)) - 2 - i;
+		for(size_t j=0; j!=_vdiv; ++j)
+			indices[k++] = (_vdiv - j - 1)*leap;
+
+		assert(k == indices.size());
+		//
+		// return the indices
+		return std::move(indices);
+	}
+
+	/// Returns the instructions for rendering
+	DrawingInstructions EdgeInstructions(void) const
+	{
+		auto instructions = this->MakeInstructions();
+		this->AddInstruction(
+			instructions,
+			{
+				DrawOperation::Method::DrawElements,
+				PrimitiveType::LineStrip,
+				GLuint(0),
+				GLuint(1 + 2*(_udiv+_vdiv)),
+				0
+			}
+		);
+		return std::move(instructions);
+	}
 };
 
 } // shapes

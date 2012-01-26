@@ -75,7 +75,7 @@ public:
 	{
 		dest.resize(
 			2*2*2*_rings*(_sections*3 + 1)*3+
-			2*2*2*(_rings*2 + 1)*_sections*3
+			2*2*2*_sections*(_rings*2 + 1)*3
 		);
 		size_t k = 0;
 		//
@@ -307,7 +307,7 @@ public:
 	{
 		dest.resize(
 			2*2*2*_rings*(_sections*3 + 1)*3+
-			2*2*2*(_rings*2 + 1)*_sections*3
+			2*2*2*_sections*(_rings*2 + 1)*3
 		);
 		size_t k = 0;
 		//
@@ -481,7 +481,7 @@ public:
 	{
 		dest.resize(
 			2*2*2*_rings*(_sections*3 + 1)*3+
-			2*2*2*(_rings*2 + 1)*_sections*3
+			2*2*2*_sections*(_rings*2 + 1)*3
 		);
 		size_t k = 0;
 		//
@@ -642,7 +642,7 @@ public:
 	{
 		dest.resize(
 			2*2*2*_rings*(_sections*3 + 1)*2+
-			2*2*2*(_rings*2 + 1)*_sections*2
+			2*2*2*_sections*(_rings*2 + 1)*2
 		);
 		size_t k = 0;
 		//
@@ -878,6 +878,128 @@ public:
 		return std::move(instructions);
 	}
 
+	/// Returns element indices that are used with the drawing instructions
+	IndexArray EdgeIndices(void) const
+	{
+		const size_t leap_1 = 2*_rings*(_sections*3 + 1);
+		const size_t leap_2 = 2*_sections*(_rings*2 + 1);
+		IndexArray indices(2*leap_1+2*leap_2);
+		size_t k = 0;
+
+		for(size_t f=0; f!=2; ++f)
+		{
+			for(size_t d=0; d!=2; ++d)
+			{
+				size_t i = f*leap_1 + d;
+				for(size_t r=0; r!=_rings; ++r)
+				{
+					for(size_t s=0; s!=_sections; ++s)
+					{
+						for(size_t p=0; p!=3; ++p)
+							indices[k++] = i += 2;
+					}
+					indices[k++] = i += 2;
+				}
+			}
+		}
+
+		for(size_t f=0; f!=2; ++f)
+		{
+			for(size_t d=0; d!=2; ++d)
+			{
+				size_t i = 4*leap_1 + f*leap_2 + d;
+				for(size_t s=0; s!=_sections; ++s)
+				{
+					for(size_t r=0; r!=_rings; ++r)
+					{
+						for(size_t p=0; p!=2; ++p)
+							indices[k++] = i += 2;
+					}
+					indices[k++] = i += 2;
+				}
+			}
+		}
+
+		assert(k == indices.size());
+
+		return std::move(indices);
+	}
+
+	/// Returns the instructions for rendering of edges
+	DrawingInstructions EdgeInstructions(void) const
+	{
+		auto instructions = this->MakeInstructions();
+
+		GLuint phase = 0;
+		size_t edge = (_sections*3 + 1);
+		size_t offs = 0;
+
+		for(size_t f=0; f!=2; ++f)
+		{
+			for(size_t d=0; d!=2; ++d)
+			{
+				for(size_t r=0; r!=_rings; ++r)
+				{
+					this->AddInstruction(
+						instructions,
+						{
+							DrawOperation::Method::DrawElements,
+							PrimitiveType::LineLoop,
+							GLuint(offs),
+							GLuint(edge-1),
+							phase
+						}
+					);
+					offs += edge;
+				}
+			}
+		}
+
+		edge = (_rings*2 + 1);
+
+		for(size_t f=0; f!=2; ++f)
+		{
+			for(size_t d=0; d!=2; ++d)
+			{
+				for(size_t s=0; s!=_sections; ++s)
+				{
+					this->AddInstruction(
+						instructions,
+						{
+							DrawOperation::Method::DrawElements,
+							PrimitiveType::LineLoop,
+							GLuint(offs),
+							GLuint(edge-1),
+							phase
+						}
+					);
+					offs += edge;
+				}
+			}
+		}
+
+		offs = 0;
+
+		for(size_t f=0; f!=2; ++f)
+		{
+			for(size_t r=0; r!=_rings; ++r)
+			{
+				this->AddInstruction(
+					instructions,
+					{
+						DrawOperation::Method::DrawArrays,
+						PrimitiveType::Lines,
+						GLuint(offs),
+						GLuint(2*edge),
+						phase
+					}
+				);
+				offs += 2*edge;
+			}
+		}
+
+		return std::move(instructions);
+	}
 };
 
 } // shapes
