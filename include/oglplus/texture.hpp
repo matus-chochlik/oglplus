@@ -971,7 +971,6 @@ public:
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
-		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
 		PixelDataType type,
