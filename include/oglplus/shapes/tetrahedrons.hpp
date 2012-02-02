@@ -149,45 +149,45 @@ public:
 
 			indices[k++] = C;
 			indices[k++] = A;
-			indices[k++] = G;
-			indices[k++] = A;
 			indices[k++] = B;
+			indices[k++] = A;
+			indices[k++] = G;
 			indices[k++] = A;
 
 			indices[k++] = B;
 			indices[k++] = G;
-			indices[k++] = F;
-			indices[k++] = G;
 			indices[k++] = A;
+			indices[k++] = G;
+			indices[k++] = F;
 			indices[k++] = G;
 
-			indices[k++] = F;
-			indices[k++] = A;
-			indices[k++] = G;
-			indices[k++] = A;
 			indices[k++] = E;
+			indices[k++] = G;
+			indices[k++] = F;
+			indices[k++] = G;
 			indices[k++] = A;
+			indices[k++] = G;
 
+			indices[k++] = E;
+			indices[k++] = G;
+			indices[k++] = A;
+			indices[k++] = G;
 			indices[k++] = H;
-			indices[k++] = A;
-			indices[k++] = E;
+			indices[k++] = G;
+
 			indices[k++] = A;
 			indices[k++] = G;
-			indices[k++] = A;
+			indices[k++] = D;
+			indices[k++] = G;
+			indices[k++] = H;
+			indices[k++] = G;
 
 			indices[k++] = D;
-			indices[k++] = H;
 			indices[k++] = G;
-			indices[k++] = H;
 			indices[k++] = A;
-			indices[k++] = H;
-
+			indices[k++] = G;
 			indices[k++] = C;
-			indices[k++] = D;
 			indices[k++] = G;
-			indices[k++] = D;
-			indices[k++] = A;
-			indices[k++] = D;
 		}
 
 		assert(k == indices.size());
