@@ -1,20 +1,24 @@
 /**
- *  @example oglplus/031_liquid.cpp
+ *  @example oglplus/031_blob.cpp
  *  @brief Shows implicit surface polygonization
  *  @note Still work in progress
  *
- *  @image html 031_liquid.png
+ *  @image html 031_blob.png
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/gl.hpp>
+#include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/shapes/tetrahedrons.hpp>
-
 #include <oglplus/bound/texture.hpp>
+
+#include <oglplus/shapes/tetrahedrons.hpp>
+#include <oglplus/shapes/plane.hpp>
+
+#include <oglplus/images/brushed_metal.hpp>
 
 #include <cmath>
 
@@ -30,40 +34,36 @@ public:
 	 : VertexShader(
 		"Liquid vertex shader",
 		"#version 330\n"
-		"uniform mat4 CameraMatrix;"
-		"uniform mat4 LightProjMatrix;"
-		"uniform vec3 CameraPosition, LightPosition;"
 		"uniform vec3 GridOffset;"
 		"uniform sampler1D Metaballs;"
 
 		"in vec4 Position;"
 
-		"out vec3 vertNormal, vertLightDir, vertViewDir;"
-		"out vec4 vertLightTexCoord;"
+		"out vec3 vertCenter;"
 		"out float vertValue;"
+
 		"void main(void)"
 		"{"
 		"	gl_Position = Position + vec4(GridOffset, 0.0);"
 
+		"	float Sum = 0.0;"
 		"	vertValue = 0.0;"
-		"	vertNormal = vec3(0.0, 0.0, 0.0);"
+		"	vertCenter = vec3(0.0, 0.0, 0.0);"
 		"	int Ball = 0, BallCount = textureSize(Metaballs, 0);"
 		"	while(Ball != BallCount)"
 		"	{"
 		"		vec4 Metaball = texelFetch(Metaballs, Ball, 0);"
 		"		float Radius = Metaball.w;"
 		"		vec3 Vect = gl_Position.xyz - Metaball.xyz;"
-		"		float Tmp = pow(Radius,2.0)/dot(Vect, Vect) - 0.25;"
-		"		vertValue += Tmp;"
-		"		float Mul = max(Tmp, 0.0);"
-		"		vertNormal += Mul*Vect;"
+		"		float Tmp = pow(Radius,2.0)/dot(Vect, Vect);"
+		"		vertValue += Tmp - 0.25;"
+		"		float Mul = max(Tmp - 0.10, 0.0);"
+		"		vertCenter += Mul*Metaball.xyz;"
+		"		Sum += Mul;"
 		"		++Ball;"
 		"	}"
 
-		"	vertLightDir = LightPosition - gl_Position.xyz;"
-		"	vertViewDir = CameraPosition - gl_Position.xyz;"
-		"	vertLightTexCoord = LightProjMatrix* gl_Position;"
-		"	gl_Position = CameraMatrix * gl_Position;"
+		"	if(Sum > 0.0) vertCenter = vertCenter / Sum;"
 		"}"
 	)
 	{ }
@@ -80,14 +80,13 @@ public:
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
-		"uniform mat4 ProjectionMatrix;"
+		"uniform mat4 CameraMatrix;"
+		"uniform vec3 CameraPosition, LightPosition;"
 
-		"in vec3 vertNormal[], vertLightDir[], vertViewDir[];"
-		"in vec4 vertLightTexCoord[];"
+		"in vec3 vertCenter[];"
 		"in float vertValue[];"
 
 		"out vec3 geomNormal, geomLightDir, geomViewDir;"
-		"out vec4 geomLightTexCoord;"
 
 		"void do_nothing(void){ };"
 
@@ -101,31 +100,18 @@ public:
 		"void make_vertex(int i1, int i2)"
 		"{"
 		"	float t = find_t(i1, i2);"
-		"	gl_Position = ProjectionMatrix * mix("
+		"	gl_Position = mix("
 		"		gl_in[i1].gl_Position,"
 		"		gl_in[i2].gl_Position,"
 		"		t"
 		"	);"
-		"	geomNormal = mix("
-		"		vertNormal[i1],"
-		"		vertNormal[i2],"
-		"		t"
+		"	geomNormal = normalize("
+		"		gl_Position.xyz - "
+		"		mix(vertCenter[i1], vertCenter[i2], t)"
 		"	);"
-		"	geomLightDir = mix("
-		"		vertLightDir[i1],"
-		"		vertLightDir[i2],"
-		"		t"
-		"	);"
-		"	geomViewDir= mix("
-		"		vertViewDir[i1],"
-		"		vertViewDir[i2],"
-		"		t"
-		"	);"
-		"	geomLightTexCoord = mix("
-		"		vertLightTexCoord[i1],"
-		"		vertLightTexCoord[i2],"
-		"		t"
-		"	);"
+		"	geomLightDir = LightPosition - gl_Position.xyz;"
+		"	geomViewDir = CameraPosition - gl_Position.xyz;"
+		"	gl_Position = CameraMatrix * gl_Position;"
 		"	EmitVertex();"
 		"}"
 
@@ -234,38 +220,42 @@ public:
 		"#version 330\n"
 
 		"in vec3 geomNormal, geomLightDir, geomViewDir;"
-		"in vec4 geomLightTexCoord;"
 
 		"out vec4 fragColor;"
 
-		"const vec3 LightColor = vec3(1.0, 1.0, 1.0);"
+		"const vec3 LightColor = vec3(1.0, 1.0, 0.9);"
 
 		"void main(void)"
 		"{"
-		"	vec3 Color = normalize(geomNormal);"
+		"	vec3 Color = vec3(1.0, 1.0, 0.9);"
+		"	vec3 Normal = normalize(geomNormal);"
+		"	vec3 LightDir = normalize(geomLightDir);"
+		"	vec3 ViewDir = normalize(geomViewDir);"
 
-		"	vec3 LightRefl = reflect("
-		"		-normalize(geomLightDir),"
-		"		normalize(geomNormal)"
-		"	);"
+		"	vec3 LightRefl = reflect(-LightDir, Normal);"
 
 		"	float Specular = pow(max(dot("
-		"		normalize(LightRefl),"
-		"		normalize(geomViewDir)"
-		"	)+0.05, 0.0), 128);"
+		"		LightRefl,"
+		"		ViewDir"
+		"	), 0.0), 64);"
 
-		"	float Diffuse = pow(pow(dot("
-		"		normalize(geomNormal), "
-		"		normalize(geomLightDir)"
-		"	)+0.3, 2.0), 2.0);"
+		"	float LightHit = dot(Normal, LightDir);"
 
-		"	float Ambient = 0.3;"
+		"	float Diffuse = pow(1.05*max(LightHit-0.05, 0.0), 2.0);"
+
+		"	float ViewLight = max(0.3-dot(ViewDir, LightDir), 0.0);"
+		"	float Translucent = "
+		"		ViewLight*"
+		"		pow(0.4*exp(sin(-0.3-LightHit*(1.2+1.2*ViewLight))),3.0)*"
+		"		0.2;"
+
+		"	float Ambient = 0.5;"
 
 		"	fragColor = vec4("
 		"		Color * Ambient +"
-		"		LightColor * Color * Diffuse + "
+		"		LightColor * Color * (Diffuse + Translucent) + "
 		"		LightColor * Specular, "
-		"		0.4 + min(Specular, 1.0)*0.3+geomLightTexCoord.x*0.001"
+		"		1.0"
 		"	);"
 		"}"
 	)
@@ -278,7 +268,7 @@ class LiquidProgram
 private:
 	const Program& prog(void) const { return *this; }
 public:
-	ProgramUniform<Mat4f> camera_matrix, projection_matrix, light_proj_matrix;
+	ProgramUniform<Mat4f> camera_matrix;
 	ProgramUniform<Vec3f> grid_offset, camera_position, light_position;
 	ProgramUniformSampler metaballs;
 
@@ -286,15 +276,12 @@ public:
 	 : HardwiredProgram<LiquidVertShader,LiquidGeomShader,LiquidFragShader>(
 		"Liquid program"
 	), camera_matrix(prog(), "CameraMatrix")
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , light_proj_matrix(prog(), "LightProjMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
 	 , light_position(prog(), "LightPosition")
 	 , metaballs(prog(), "Metaballs")
 	{ }
 };
-
 
 class Grid
 {
@@ -343,6 +330,130 @@ public:
 	}
 };
 
+class MetalVertShader
+ : public VertexShader
+{
+public:
+	MetalVertShader(void)
+	 : VertexShader(
+		"Metal vertex shader",
+		"#version 330\n"
+		"uniform mat4 CameraMatrix;"
+		"uniform vec3 CameraPosition, LightPosition;"
+		"in vec4 Position;"
+		"in vec3 Normal, Tangent;"
+		"in vec2 TexCoord;"
+
+		"out vec3 vertNormal, vertTangent, vertBinormal;"
+		"out vec3 vertLightDir, vertViewDir;"
+		"out vec2 vertTexCoord;"
+		"void main(void)"
+		"{"
+		"	gl_Position = Position - vec4(0.0, 1.0, 0.0, 0.0);"
+		"	vertLightDir = LightPosition - gl_Position.xyz;"
+		"	vertViewDir = CameraPosition - gl_Position.xyz;"
+		"	vertNormal = Normal;"
+		"	vertTangent = Tangent;"
+		"	vertBinormal = cross(vertNormal, vertTangent);"
+		"	vertTexCoord = TexCoord * 9.0;"
+		"	gl_Position = CameraMatrix * gl_Position;"
+		"}"
+	)
+	{ }
+};
+
+class MetalFragShader
+ : public FragmentShader
+{
+public:
+	MetalFragShader(void)
+	 : FragmentShader(
+		"Metal fragment shader",
+		"#version 330\n"
+		"const vec3 Color1 = vec3(0.7, 0.6, 0.5);"
+		"const vec3 Color2 = vec3(0.9, 0.8, 0.7);"
+
+		"uniform sampler2D MetalTex;"
+
+		"in vec3 vertNormal, vertTangent, vertBinormal;"
+		"in vec3 vertLightDir, vertViewDir;"
+		"in vec2 vertTexCoord;"
+
+		"out vec3 fragColor;"
+
+		"void main(void)"
+		"{"
+		"	vec3 Sample = texture(MetalTex, vertTexCoord).rgb;"
+		"	vec3 LightColor = vec3(1.0, 1.0, 0.9);"
+
+		"	vec3 Normal = normalize("
+		"		2.0*vertNormal + "
+		"		(Sample.r - 0.5)*vertTangent + "
+		"		(Sample.g - 0.5)*vertBinormal"
+		"	);"
+
+		"	vec3 LightRefl = reflect("
+		"		-normalize(vertLightDir),"
+		"		Normal"
+		"	);"
+
+		"	float Specular = pow(max(dot("
+		"		normalize(LightRefl),"
+		"		normalize(vertViewDir)"
+		"	)+0.04, 0.0), 16+Sample.b*48)*pow(0.4+Sample.b*1.6, 4.0);"
+
+		"	Normal = normalize(vertNormal*3.0 + Normal);"
+
+		"	float Diffuse = pow(max(dot("
+		"		normalize(Normal), "
+		"		normalize(vertLightDir)"
+		"	), 0.0), 2.0);"
+
+		"	float Ambient = 0.5;"
+
+		"	vec3 Color = mix(Color1, Color2, Sample.b);"
+
+		"	fragColor = "
+		"		Color * Ambient +"
+		"		LightColor * Color * Diffuse + "
+		"		LightColor * Specular;"
+		"}"
+	)
+	{ }
+};
+
+class MetalProgram
+ : public HardwiredProgram<MetalVertShader, MetalFragShader>
+{
+private:
+	const Program& prog(void) const { return *this; }
+public:
+	ProgramUniform<Mat4f> camera_matrix;
+	ProgramUniform<Vec3f> camera_position, light_position;
+	ProgramUniformSampler metal_tex;
+
+	MetalProgram(void)
+	 : HardwiredProgram<MetalVertShader, MetalFragShader>("Metal program")
+	 , camera_matrix(prog(), "CameraMatrix")
+	 , camera_position(prog(), "CameraPosition")
+	 , light_position(prog(), "LightPosition")
+	 , metal_tex(prog(), "MetalTex")
+	{ }
+};
+
+class Plate
+ : public shapes::ShapeWrapper<shapes::Plane>
+{
+public:
+	Plate(const Program& program)
+	 : shapes::ShapeWrapper<shapes::Plane>(
+		{"Position", "Normal", "Tangent", "TexCoord"},
+		shapes::Plane(Vec3f(9, 0, 0), Vec3f(0, 0,-9)),
+		program
+	)
+	{ }
+};
+
 class LiquidExample : public Example
 {
 private:
@@ -351,8 +462,10 @@ private:
 	Context gl;
 
 	LiquidProgram liquid_prog;
+	MetalProgram metal_prog;
 
 	Grid grid;
+	Plate plane;
 
 	size_t width, height;
 
@@ -361,24 +474,30 @@ private:
 	// A 1D xyzw texture that contains metaball parameters
 	Texture metaballs_tex;
 
+	// A 2D metal texture
+	Texture metal_tex;
+
 	const size_t shadow_tex_side;
 public:
 	LiquidExample(void)
 	 : liquid_prog()
+	 , metal_prog()
 	 , grid(liquid_prog)
+	 , plane(metal_prog)
 	 , shadow_tex_side(1024)
 	{
+		std::srand(234);
 		for(size_t i=0; i!=32; ++i)
 		{
 			size_t j = 0, n = 3+std::rand()%3;
 			std::vector<Vec4f> points(n);
-			GLfloat ball_size = 0.2*std::rand()/GLdouble(RAND_MAX) + 0.2;
+			GLfloat ball_size = 0.15*std::rand()/GLdouble(RAND_MAX) + 0.25;
 			while(j != n)
 			{
 				points[j] = Vec4f(
-					1.4*std::rand()/GLdouble(RAND_MAX) - 0.7,
-					1.4*std::rand()/GLdouble(RAND_MAX) - 0.7,
-					1.4*std::rand()/GLdouble(RAND_MAX) - 0.7,
+					1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
+					1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
+					1.2*std::rand()/GLdouble(RAND_MAX) - 0.6,
 					ball_size
 				);
 				++j;
@@ -404,39 +523,29 @@ public:
 			bound_tex.MagFilter(TextureMagFilter::Nearest);
 			bound_tex.WrapS(TextureWrap::ClampToEdge);
 		}
-/*
+
 		Texture::Active(1);
-		sketch_prog.shadow_tex.Set(1);
+		metal_prog.metal_tex.Set(1);
 		{
-			auto bound_tex = Bind(shadow_tex, Texture::Target::_2D);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.CompareMode(TextureCompareMode::CompareRefToTexture);
+			auto bound_tex = Bind(metal_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::DepthComponent32,
-				shadow_tex_side, shadow_tex_side,
-				0,
-				PixelDataFormat::DepthComponent,
-				PixelDataType::Float,
-				nullptr
+				images::BrushedMetalUByte(
+					512, 512,
+					5120,
+					-3, +3,
+					32, 128
+				)
 			);
+			bound_tex.GenerateMipmap();
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.WrapS(TextureWrap::Repeat);
+			bound_tex.WrapT(TextureWrap::Repeat);
 		}
 
-		{
-			auto bound_fbo = Bind(
-				frame_shadow_fbo,
-				Framebuffer::Target::Draw
-			);
-			bound_fbo.AttachTexture(
-				Framebuffer::Attachment::Depth,
-				shadow_tex,
-				0
-			);
-		}
-*/
+		const Vec3f light_position(12.0, 1.0, 8.0);
+		liquid_prog.light_position.Set(light_position);
+		metal_prog.light_position.Set(light_position);
 
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
@@ -481,7 +590,7 @@ public:
 		// this is going into the on-screen framebuffer
 		Framebuffer::BindDefault(Framebuffer::Target::Draw);
 
-		gl.ClearColor(1.0f, 0.9f, 0.8f, 0.0f);
+		gl.ClearColor(0.8f, 0.7f, 0.6f, 0.0f);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
@@ -494,15 +603,22 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			4.0 - SineWave(time / 14.0),
+			3.0 - SineWave(time / 14.0),
 			FullCircles(time / 26.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);
 		Vec3f camera_position = camera.Position();
 
+		metal_prog.Use();
+		metal_prog.camera_position.Set(camera_position);
+		metal_prog.camera_matrix.Set(perspective*camera);
+
+		plane.Use();
+		plane.Draw();
+
+		liquid_prog.Use();
 		liquid_prog.camera_position.Set(camera_position);
-		liquid_prog.camera_matrix.Set(camera);
-		liquid_prog.projection_matrix.Set(perspective);
+		liquid_prog.camera_matrix.Set(perspective*camera);
 
 		grid.Use();
 
@@ -519,15 +635,6 @@ public:
 
 	void Render(double time)
 	{
-		const Vec3f light_position(16.0, 10.0, 9.0);
-
-		const Mat4f light_proj_matrix =
-			CamMatrixf::Perspective(Degrees(4), 1.0, 1, 100) *
-			CamMatrixf::LookingAt(light_position, Vec3f(0,0,0));
-
-		liquid_prog.light_position.Set(light_position);
-		liquid_prog.light_proj_matrix.Set(light_proj_matrix);
-
 		UpdateMetaballs(time);
 		RenderImage(time);
 	}

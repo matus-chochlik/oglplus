@@ -20,6 +20,8 @@
 #include <oglplus/limited_value.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
+
+#include <vector>
 #include <cassert>
 
 namespace oglplus {

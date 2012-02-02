@@ -20,6 +20,9 @@
 #include <oglplus/data_type.hpp>
 #include <oglplus/limited_value.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
+
+#include <oglplus/matrix.hpp>
+#include <oglplus/vector.hpp>
 #include <oglplus/string.hpp>
 
 

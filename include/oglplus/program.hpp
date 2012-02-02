@@ -21,6 +21,8 @@
 #include <oglplus/link_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
+#include <oglplus/primitive_type.hpp>
+#include <oglplus/face_mode.hpp>
 #include <oglplus/string.hpp>
 
 #include <vector>
