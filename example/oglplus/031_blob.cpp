@@ -1,7 +1,6 @@
 /**
  *  @example oglplus/031_blob.cpp
  *  @brief Shows implicit surface polygonization
- *  @note Still work in progress
  *
  *  @image html 031_blob.png
  *
@@ -549,9 +548,6 @@ public:
 
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
-		//gl.Enable(Capability::CullFace);
-		gl.FrontFace(FaceOrientation::CW);
-		gl.CullFace(Face::Back);
 	}
 
 	void Reshape(size_t vp_width, size_t vp_height)
