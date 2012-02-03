@@ -9,13 +9,13 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/gl.hpp>
-#include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/all.hpp>
 
 #include <oglplus/bound/texture.hpp>
 
 #include <oglplus/shapes/tetrahedrons.hpp>
 #include <oglplus/shapes/plane.hpp>
+#include <oglplus/shapes/wrapper.hpp>
 
 #include <oglplus/images/brushed_metal.hpp>
 
@@ -155,7 +155,7 @@ public:
 		"			if(vertValue[c] >= 0.0)"
 		"			{"
 		"				if(vertValue[d] >= 0.0)"
-		"					make_triangle(b,a, b,c, b,d);"
+		"					make_triangle(b,c, b,d, b,a);"
 		"				else make_quad(b,c, d,c, b,a, d,a);"
 		"			}"
 		"			else"
@@ -179,7 +179,7 @@ public:
 		"			else"
 		"			{"
 		"				if(vertValue[d] >= 0.0)"
-		"					make_quad(c,b, c,d, a,b, a,d);"
+		"					make_quad(a,b, a,d, c,b, c,d);"
 		"				else make_triangle(a,b, d,b, c,b);"
 		"			}"
 		"		}"
@@ -548,6 +548,10 @@ public:
 
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
+
+		gl.Enable(Capability::CullFace);
+		gl.FrontFace(FaceOrientation::CW);
+		gl.CullFace(Face::Back);
 	}
 
 	void Reshape(size_t vp_width, size_t vp_height)
