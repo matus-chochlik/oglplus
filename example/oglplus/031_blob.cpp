@@ -52,16 +52,19 @@ public:
 		"	while(Ball != BallCount)"
 		"	{"
 		"		vec4 Metaball = texelFetch(Metaballs, Ball, 0);"
+		"		vec3 Center = Metaball.xyz;"
 		"		float Radius = Metaball.w;"
-		"		vec3 Vect = gl_Position.xyz - Metaball.xyz;"
-		"		float Tmp = pow(Radius,2.0)/dot(Vect, Vect);"
+		"		vec3 Vect = gl_Position.xyz - Center;"
+		"		float Tmp = (Radius*Radius)/dot(Vect, Vect);"
 		"		vertValue += Tmp - 0.25;"
 		"		float Mul = max(Tmp - 0.10, 0.0);"
-		"		vertCenter += Mul*Metaball.xyz;"
-		"		Sum += Mul;"
+		"		if(Mul > 0.0)"
+		"		{"
+		"			vertCenter += Mul * Center;"
+		"			Sum += Mul;"
+		"		}"
 		"		++Ball;"
 		"	}"
-
 		"	if(Sum > 0.0) vertCenter = vertCenter / Sum;"
 		"}"
 	)
@@ -233,10 +236,7 @@ public:
 
 		"	vec3 LightRefl = reflect(-LightDir, Normal);"
 
-		"	float Specular = pow(max(dot("
-		"		LightRefl,"
-		"		ViewDir"
-		"	), 0.0), 64);"
+		"	float Specular = pow(max(dot(LightRefl,ViewDir), 0.0), 64);"
 
 		"	float LightHit = dot(Normal, LightDir);"
 
