@@ -25,13 +25,13 @@
 
 namespace oglplus {
 
-class LiquidVertShader
+class BlobVertShader
  : public VertexShader
 {
 public:
-	LiquidVertShader(void)
+	BlobVertShader(void)
 	 : VertexShader(
-		"Liquid vertex shader",
+		"Blob vertex shader",
 		"#version 330\n"
 		"uniform vec3 GridOffset;"
 		"uniform sampler1D Metaballs;"
@@ -71,13 +71,13 @@ public:
 	{ }
 };
 
-class LiquidGeomShader
+class BlobGeomShader
  : public GeometryShader
 {
 public:
-	LiquidGeomShader(void)
+	BlobGeomShader(void)
 	 : GeometryShader(
-		"Liquid geometry shader",
+		"Blob geometry shader",
 		"#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
@@ -212,13 +212,13 @@ public:
 	{ }
 };
 
-class LiquidFragShader
+class BlobFragShader
  : public FragmentShader
 {
 public:
-	LiquidFragShader(void)
+	BlobFragShader(void)
 	 : FragmentShader(
-		"Liquid fragment shader",
+		"Blob fragment shader",
 		"#version 330\n"
 
 		"in vec3 geomNormal, geomLightDir, geomViewDir;"
@@ -261,8 +261,8 @@ public:
 	{ }
 };
 
-class LiquidProgram
- : public HardwiredProgram<LiquidVertShader, LiquidGeomShader, LiquidFragShader>
+class BlobProgram
+ : public HardwiredProgram<BlobVertShader, BlobGeomShader, BlobFragShader>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -271,9 +271,9 @@ public:
 	ProgramUniform<Vec3f> grid_offset, camera_position, light_position;
 	ProgramUniformSampler metaballs;
 
-	LiquidProgram(void)
-	 : HardwiredProgram<LiquidVertShader,LiquidGeomShader,LiquidFragShader>(
-		"Liquid program"
+	BlobProgram(void)
+	 : HardwiredProgram<BlobVertShader,BlobGeomShader,BlobFragShader>(
+		"Blob program"
 	), camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
@@ -453,14 +453,14 @@ public:
 	{ }
 };
 
-class LiquidExample : public Example
+class BlobExample : public Example
 {
 private:
 
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	LiquidProgram liquid_prog;
+	BlobProgram blob_prog;
 	MetalProgram metal_prog;
 
 	Grid grid;
@@ -475,15 +475,12 @@ private:
 
 	// A 2D metal texture
 	Texture metal_tex;
-
-	const size_t shadow_tex_side;
 public:
-	LiquidExample(void)
-	 : liquid_prog()
+	BlobExample(void)
+	 : blob_prog()
 	 , metal_prog()
-	 , grid(liquid_prog)
+	 , grid(blob_prog)
 	 , plane(metal_prog)
-	 , shadow_tex_side(1024)
 	{
 		std::srand(234);
 		for(size_t i=0; i!=32; ++i)
@@ -506,7 +503,7 @@ public:
 		}
 		//
 		Texture::Active(0);
-		liquid_prog.metaballs.Set(0);
+		blob_prog.metaballs.Set(0);
 		{
 			auto bound_tex = Bind(metaballs_tex, Texture::Target::_1D);
 			bound_tex.Image1D(
@@ -543,7 +540,7 @@ public:
 		}
 
 		const Vec3f light_position(12.0, 1.0, 8.0);
-		liquid_prog.light_position.Set(light_position);
+		blob_prog.light_position.Set(light_position);
 		metal_prog.light_position.Set(light_position);
 
 		gl.ClearDepth(1.0f);
@@ -616,9 +613,9 @@ public:
 		plane.Use();
 		plane.Draw();
 
-		liquid_prog.Use();
-		liquid_prog.camera_position.Set(camera_position);
-		liquid_prog.camera_matrix.Set(perspective*camera);
+		blob_prog.Use();
+		blob_prog.camera_position.Set(camera_position);
+		blob_prog.camera_matrix.Set(perspective*camera);
 
 		grid.Use();
 
@@ -627,7 +624,7 @@ public:
 		for(int y=-side; y!=side+1; ++y)
 		for(int x=-side; x!=side+1; ++x)
 		{
-			liquid_prog.grid_offset.Set(x, y, z);
+			blob_prog.grid_offset.Set(x, y, z);
 			grid.Draw();
 		}
 
@@ -647,7 +644,7 @@ public:
 
 std::unique_ptr<Example> makeExample(void)
 {
-	return std::unique_ptr<Example>(new LiquidExample);
+	return std::unique_ptr<Example>(new BlobExample);
 }
 
 } // namespace oglplus
