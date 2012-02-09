@@ -65,7 +65,7 @@ void run(const x11::Display& display)
 		"oglplus example window",
 		width, height
 	);
-	glx::Context ctx(display, fbc, 3, 0);
+	glx::Context ctx(display, fbc, 3, 3);
 
 
 	ctx.MakeCurrent(win);

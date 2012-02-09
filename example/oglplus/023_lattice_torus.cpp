@@ -170,14 +170,12 @@ public:
 
 		Uniform<Vec3f>(prog, "FrontColor").Set(Vec3f(0.3, 0.2, 0.0));
 		Uniform<Vec3f>(prog, "BackColor").Set(Vec3f(0.2, 0.1, 0.0));
-		gl.PolygonMode(Face::Front, PolygonMode::Line);
-		gl.PolygonMode(Face::Back, PolygonMode::Line);
+		gl.PolygonMode(PolygonMode::Line);
 		torus_instr.Draw(torus_indices);
 
 		Uniform<Vec3f>(prog, "FrontColor").Set(Vec3f(0.9, 0.8, 0.1));
 		Uniform<Vec3f>(prog, "BackColor").Set(Vec3f(0.7, 0.6, 0.2));
-		gl.PolygonMode(Face::Front, PolygonMode::Fill);
-		gl.PolygonMode(Face::Back, PolygonMode::Fill);
+		gl.PolygonMode(PolygonMode::Fill);
 		torus_instr.Draw(torus_indices);
 	}
 

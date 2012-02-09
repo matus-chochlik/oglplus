@@ -1,0 +1,1181 @@
+/*
+ *  .file oglplus/enums/limit_query.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/limit_query.txt' instead.
+ *
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+
+/// MAX_3D_TEXTURE_SIZE
+Max3DTextureSize,
+/// MAX_ARRAY_TEXTURE_LAYERS
+MaxArrayTextureLayers,
+/// MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
+MaxAtomicCounterBufferBindings,
+/// MAX_ATOMIC_COUNTER_BUFFER_SIZE
+MaxAtomicCounterBufferSize,
+/// MAX_CLIP_DISTANCES
+MaxClipDistances,
+/// MAX_COLOR_ATTACHMENTS
+MaxColorAttachments,
+/// MAX_COLOR_TEXTURE_SAMPLES
+MaxColorTextureSamples,
+/// MAX_COMBINED_ATOMIC_COUNTER_BUFFERS
+MaxCombinedAtomicCounterBuffers,
+/// MAX_COMBINED_ATOMIC_COUNTERS
+MaxCombinedAtomicCounters,
+/// MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS
+MaxCombinedFragmentUniformComponents,
+/// MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS
+MaxCombinedGeometryUniformComponents,
+/// MAX_COMBINED_IMAGE_UNIFORMS
+MaxCombinedImageUniforms,
+/// MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS
+MaxCombinedImageUnitsAndFragmentOutputs,
+/// MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS
+MaxCombinedTessControlUniformComponents,
+/// MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS
+MaxCombinedTessEvaluationUniformComponents,
+/// MAX_COMBINED_TEXTURE_IMAGE_UNITS
+MaxCombinedTextureImageUnits,
+/// MAX_COMBINED_UNIFORM_BLOCKS
+MaxCombinedUniformBlocks,
+/// MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS
+MaxCombinedVertexUniformComponents,
+/// MAX_CUBE_MAP_TEXTURE_SIZE
+MaxCubeMapTextureSize,
+/// MAX_DEPTH_TEXTURE_SAMPLES
+MaxDepthTextureSamples,
+/// MAX_DRAW_BUFFERS
+MaxDrawBuffers,
+/// MAX_DUAL_SOURCE_DRAW_BUFFERS
+MaxDualSourceDrawBuffers,
+/// MAX_ELEMENTS_INDICES
+MaxElementsIndices,
+/// MAX_ELEMENTS_VERTICES
+MaxElementsVertices,
+/// MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS
+MaxFragmentAtomicCounterBuffers,
+/// MAX_FRAGMENT_ATOMIC_COUNTERS
+MaxFragmentAtomicCounters,
+/// MAX_FRAGMENT_IMAGE_UNIFORMS
+MaxFragmentImageUniforms,
+/// MAX_FRAGMENT_INPUT_COMPONENTS
+MaxFragmentInputComponents,
+/// MAX_FRAGMENT_INTERPOLATION_OFFSET
+MaxFragmentInterpolationOffset,
+/// MAX_FRAGMENT_UNIFORM_BLOCKS
+MaxFragmentUniformBlocks,
+/// MAX_FRAGMENT_UNIFORM_COMPONENTS
+MaxFragmentUniformComponents,
+/// MAX_FRAGMENT_UNIFORM_VECTORS
+MaxFragmentUniformVectors,
+/// MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS
+MaxGeometryAtomicCounterBuffers,
+/// MAX_GEOMETRY_ATOMIC_COUNTERS
+MaxGeometryAtomicCounters,
+/// MAX_GEOMETRY_IMAGE_UNIFORMS
+MaxGeometryImageUniforms,
+/// MAX_GEOMETRY_INPUT_COMPONENTS
+MaxGeometryInputComponents,
+/// MAX_GEOMETRY_OUTPUT_COMPONENTS
+MaxGeometryOutputComponents,
+/// MAX_GEOMETRY_OUTPUT_VERTICES
+MaxGeometryOutputVertices,
+/// MAX_GEOMETRY_SHADER_INVOCATIONS
+MaxGeometryShaderInvocations,
+/// MAX_GEOMETRY_TEXTURE_IMAGE_UNITS
+MaxGeometryTextureImageUnits,
+/// MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS
+MaxGeometryTotalOutputComponents,
+/// MAX_GEOMETRY_UNIFORM_BLOCKS
+MaxGeometryUniformBlocks,
+/// MAX_GEOMETRY_UNIFORM_COMPONENTS
+MaxGeometryUniformComponents,
+/// MAX_IMAGE_SAMPLES
+MaxImageSamples,
+/// MAX_IMAGE_UNITS
+MaxImageUnits,
+/// MAX_INTEGER_SAMPLES
+MaxIntegerSamples,
+/// MAX_PATCH_VERTICES
+MaxPatchVertices,
+/// MAX_PROGRAM_TEXEL_OFFSET
+MaxProgramTexelOffset,
+/// MAX_PROGRAM_TEXTURE_GATHER_OFFSET
+MaxProgramTextureGatherOffset,
+/// MAX_RECTANGLE_TEXTURE_SIZE
+MaxRectangleTextureSize,
+/// MAX_RENDERBUFFER_SIZE
+MaxRenderbufferSize,
+/// MAX_SAMPLE_MASK_WORDS
+MaxSampleMaskWords,
+/// MAX_SAMPLES
+MaxSamples,
+/// MAX_SERVER_WAIT_TIMEOUT
+MaxServerWaitTimeout,
+/// MAX_SUBROUTINES
+MaxSubroutines,
+/// MAX_SUBROUTINE_UNIFORM_LOCATIONS
+MaxSubroutineUniformLocations,
+/// MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS
+MaxTessControlAtomicCounterBuffers,
+/// MAX_TESS_CONTROL_ATOMIC_COUNTERS
+MaxTessControlAtomicCounters,
+/// MAX_TESS_CONTROL_IMAGE_UNIFORMS
+MaxTessControlImageUniforms,
+/// MAX_TESS_CONTROL_INPUT_COMPONENTS
+MaxTessControlInputComponents,
+/// MAX_TESS_CONTROL_OUTPUT_COMPONENTS
+MaxTessControlOutputComponents,
+/// MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS
+MaxTessControlTextureImageUnits,
+/// MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS
+MaxTessControlTotalOutputComponents,
+/// MAX_TESS_CONTROL_UNIFORM_BLOCKS
+MaxTessControlUniformBlocks,
+/// MAX_TESS_CONTROL_UNIFORM_COMPONENTS
+MaxTessControlUniformComponents,
+/// MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS
+MaxTessEvaluationAtomicCounterBuffers,
+/// MAX_TESS_EVALUATION_ATOMIC_COUNTERS
+MaxTessEvaluationAtomicCounters,
+/// MAX_TESS_EVALUATION_IMAGE_UNIFORMS
+MaxTessEvaluationImageUniforms,
+/// MAX_TESS_EVALUATION_INPUT_COMPONENTS
+MaxTessEvaluationInputComponents,
+/// MAX_TESS_EVALUATION_OUTPUT_COMPONENTS
+MaxTessEvaluationOutputComponents,
+/// MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS
+MaxTessEvaluationTextureImageUnits,
+/// MAX_TESS_EVALUATION_UNIFORM_BLOCKS
+MaxTessEvaluationUniformBlocks,
+/// MAX_TESS_EVALUATION_UNIFORM_COMPONENTS
+MaxTessEvaluationUniformComponents,
+/// MAX_TESS_GEN_LEVEL
+MaxTessGenLevel,
+/// MAX_TESS_PATCH_COMPONENTS
+MaxTessPatchComponents,
+/// MAX_TEXTURE_BUFFER_SIZE
+MaxTextureBufferSize,
+/// MAX_TEXTURE_IMAGE_UNITS
+MaxTextureImageUnits,
+/// MAX_TEXTURE_LOD_BIAS
+MaxTextureLodBias,
+/// MAX_TEXTURE_SIZE
+MaxTextureSize,
+/// MAX_TRANSFORM_FEEDBACK_BUFFERS
+MaxTransformFeedbackBuffers,
+/// MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS
+MaxTransformFeedbackInterleavedComponents,
+/// MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS
+MaxTransformFeedbackSeparateAttribs,
+/// MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS
+MaxTransformFeedbackSeparateComponents,
+/// MAX_UNIFORM_BLOCK_SIZE
+MaxUniformBlockSize,
+/// MAX_UNIFORM_BUFFER_BINDINGS
+MaxUniformBufferBindings,
+/// MAX_VARYING_COMPONENTS
+MaxVaryingComponents,
+/// MAX_VARYING_FLOATS
+MaxVaryingFloats,
+/// MAX_VARYING_VECTORS
+MaxVaryingVectors,
+/// MAX_VERTEX_ATOMIC_COUNTER_BUFFERS
+MaxVertexAtomicCounterBuffers,
+/// MAX_VERTEX_ATOMIC_COUNTERS
+MaxVertexAtomicCounters,
+/// MAX_VERTEX_ATTRIBS
+MaxVertexAttribs,
+/// MAX_VERTEX_IMAGE_UNIFORMS
+MaxVertexImageUniforms,
+/// MAX_VERTEX_OUTPUT_COMPONENTS
+MaxVertexOutputComponents,
+/// MAX_VERTEX_STREAMS
+MaxVertexStreams,
+/// MAX_VERTEX_TEXTURE_IMAGE_UNITS
+MaxVertexTextureImageUnits,
+/// MAX_VERTEX_UNIFORM_BLOCKS
+MaxVertexUniformBlocks,
+/// MAX_VERTEX_UNIFORM_COMPONENTS
+MaxVertexUniformComponents,
+/// MAX_VERTEX_UNIFORM_VECTORS
+MaxVertexUniformVectors,
+/// MAX_VIEWPORT_DIMS
+MaxViewportDims,
+/// MAX_VIEWPORTS
+MaxViewports,
+/// MIN_FRAGMENT_INTERPOLATION_OFFSET
+MinFragmentInterpolationOffset,
+/// MIN_MAP_BUFFER_ALIGNMENT
+MinMapBufferAlignment,
+/// MIN_PROGRAM_TEXEL_OFFSET
+MinProgramTexelOffset,
+/// MIN_PROGRAM_TEXTURE_GATHER_OFFSET
+MinProgramTextureGatherOffset,
+/// MIN_SAMPLE_SHADING_VALUE
+MinSampleShadingValue
+
+#else // OGLPLUS_DOCUMENTATION_ONLY
+
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#if defined GL_MAX_3D_TEXTURE_SIZE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Max3DTextureSize = GL_MAX_3D_TEXTURE_SIZE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_ARRAY_TEXTURE_LAYERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxArrayTextureLayers = GL_MAX_ARRAY_TEXTURE_LAYERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxAtomicCounterBufferBindings = GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxAtomicCounterBufferSize = GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_CLIP_DISTANCES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxClipDistances = GL_MAX_CLIP_DISTANCES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COLOR_ATTACHMENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxColorAttachments = GL_MAX_COLOR_ATTACHMENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COLOR_TEXTURE_SAMPLES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxColorTextureSamples = GL_MAX_COLOR_TEXTURE_SAMPLES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedAtomicCounterBuffers = GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_ATOMIC_COUNTERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedAtomicCounters = GL_MAX_COMBINED_ATOMIC_COUNTERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedFragmentUniformComponents = GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedGeometryUniformComponents = GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_IMAGE_UNIFORMS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedImageUniforms = GL_MAX_COMBINED_IMAGE_UNIFORMS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedImageUnitsAndFragmentOutputs = GL_MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedTessControlUniformComponents = GL_MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedTessEvaluationUniformComponents = GL_MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedTextureImageUnits = GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_UNIFORM_BLOCKS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedUniformBlocks = GL_MAX_COMBINED_UNIFORM_BLOCKS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCombinedVertexUniformComponents = GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_CUBE_MAP_TEXTURE_SIZE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxCubeMapTextureSize = GL_MAX_CUBE_MAP_TEXTURE_SIZE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_DEPTH_TEXTURE_SAMPLES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxDepthTextureSamples = GL_MAX_DEPTH_TEXTURE_SAMPLES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_DRAW_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxDrawBuffers = GL_MAX_DRAW_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_DUAL_SOURCE_DRAW_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxDualSourceDrawBuffers = GL_MAX_DUAL_SOURCE_DRAW_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_ELEMENTS_INDICES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxElementsIndices = GL_MAX_ELEMENTS_INDICES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_ELEMENTS_VERTICES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxElementsVertices = GL_MAX_ELEMENTS_VERTICES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxFragmentAtomicCounterBuffers = GL_MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_FRAGMENT_ATOMIC_COUNTERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxFragmentAtomicCounters = GL_MAX_FRAGMENT_ATOMIC_COUNTERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_FRAGMENT_IMAGE_UNIFORMS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxFragmentImageUniforms = GL_MAX_FRAGMENT_IMAGE_UNIFORMS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_FRAGMENT_INPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxFragmentInputComponents = GL_MAX_FRAGMENT_INPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_FRAGMENT_INTERPOLATION_OFFSET
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxFragmentInterpolationOffset = GL_MAX_FRAGMENT_INTERPOLATION_OFFSET
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_FRAGMENT_UNIFORM_BLOCKS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxFragmentUniformBlocks = GL_MAX_FRAGMENT_UNIFORM_BLOCKS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_FRAGMENT_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxFragmentUniformComponents = GL_MAX_FRAGMENT_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_FRAGMENT_UNIFORM_VECTORS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxFragmentUniformVectors = GL_MAX_FRAGMENT_UNIFORM_VECTORS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryAtomicCounterBuffers = GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_ATOMIC_COUNTERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryAtomicCounters = GL_MAX_GEOMETRY_ATOMIC_COUNTERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_IMAGE_UNIFORMS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryImageUniforms = GL_MAX_GEOMETRY_IMAGE_UNIFORMS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_INPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryInputComponents = GL_MAX_GEOMETRY_INPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_OUTPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryOutputComponents = GL_MAX_GEOMETRY_OUTPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_OUTPUT_VERTICES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryOutputVertices = GL_MAX_GEOMETRY_OUTPUT_VERTICES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_SHADER_INVOCATIONS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryShaderInvocations = GL_MAX_GEOMETRY_SHADER_INVOCATIONS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryTextureImageUnits = GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryTotalOutputComponents = GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_UNIFORM_BLOCKS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryUniformBlocks = GL_MAX_GEOMETRY_UNIFORM_BLOCKS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_GEOMETRY_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxGeometryUniformComponents = GL_MAX_GEOMETRY_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_IMAGE_SAMPLES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxImageSamples = GL_MAX_IMAGE_SAMPLES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_IMAGE_UNITS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxImageUnits = GL_MAX_IMAGE_UNITS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_INTEGER_SAMPLES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxIntegerSamples = GL_MAX_INTEGER_SAMPLES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_PATCH_VERTICES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxPatchVertices = GL_MAX_PATCH_VERTICES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_PROGRAM_TEXEL_OFFSET
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxProgramTexelOffset = GL_MAX_PROGRAM_TEXEL_OFFSET
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxProgramTextureGatherOffset = GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_RECTANGLE_TEXTURE_SIZE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxRectangleTextureSize = GL_MAX_RECTANGLE_TEXTURE_SIZE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_RENDERBUFFER_SIZE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxRenderbufferSize = GL_MAX_RENDERBUFFER_SIZE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_SAMPLE_MASK_WORDS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxSampleMaskWords = GL_MAX_SAMPLE_MASK_WORDS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_SAMPLES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxSamples = GL_MAX_SAMPLES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_SERVER_WAIT_TIMEOUT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxServerWaitTimeout = GL_MAX_SERVER_WAIT_TIMEOUT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_SUBROUTINES
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxSubroutines = GL_MAX_SUBROUTINES
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxSubroutineUniformLocations = GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlAtomicCounterBuffers = GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlAtomicCounters = GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlImageUniforms = GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_INPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlInputComponents = GL_MAX_TESS_CONTROL_INPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_OUTPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlOutputComponents = GL_MAX_TESS_CONTROL_OUTPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlTextureImageUnits = GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlTotalOutputComponents = GL_MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlUniformBlocks = GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessControlUniformComponents = GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessEvaluationAtomicCounterBuffers = GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessEvaluationAtomicCounters = GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessEvaluationImageUniforms = GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_EVALUATION_INPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessEvaluationInputComponents = GL_MAX_TESS_EVALUATION_INPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_EVALUATION_OUTPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessEvaluationOutputComponents = GL_MAX_TESS_EVALUATION_OUTPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessEvaluationTextureImageUnits = GL_MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessEvaluationUniformBlocks = GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessEvaluationUniformComponents = GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_GEN_LEVEL
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessGenLevel = GL_MAX_TESS_GEN_LEVEL
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TESS_PATCH_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTessPatchComponents = GL_MAX_TESS_PATCH_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TEXTURE_BUFFER_SIZE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTextureBufferSize = GL_MAX_TEXTURE_BUFFER_SIZE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TEXTURE_IMAGE_UNITS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTextureImageUnits = GL_MAX_TEXTURE_IMAGE_UNITS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TEXTURE_LOD_BIAS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTextureLodBias = GL_MAX_TEXTURE_LOD_BIAS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TEXTURE_SIZE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTextureSize = GL_MAX_TEXTURE_SIZE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TRANSFORM_FEEDBACK_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTransformFeedbackBuffers = GL_MAX_TRANSFORM_FEEDBACK_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTransformFeedbackInterleavedComponents = GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTransformFeedbackSeparateAttribs = GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxTransformFeedbackSeparateComponents = GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_UNIFORM_BLOCK_SIZE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxUniformBlockSize = GL_MAX_UNIFORM_BLOCK_SIZE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_UNIFORM_BUFFER_BINDINGS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxUniformBufferBindings = GL_MAX_UNIFORM_BUFFER_BINDINGS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VARYING_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVaryingComponents = GL_MAX_VARYING_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VARYING_FLOATS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVaryingFloats = GL_MAX_VARYING_FLOATS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VARYING_VECTORS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVaryingVectors = GL_MAX_VARYING_VECTORS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_ATOMIC_COUNTER_BUFFERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexAtomicCounterBuffers = GL_MAX_VERTEX_ATOMIC_COUNTER_BUFFERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_ATOMIC_COUNTERS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexAtomicCounters = GL_MAX_VERTEX_ATOMIC_COUNTERS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_ATTRIBS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexAttribs = GL_MAX_VERTEX_ATTRIBS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_IMAGE_UNIFORMS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexImageUniforms = GL_MAX_VERTEX_IMAGE_UNIFORMS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_OUTPUT_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexOutputComponents = GL_MAX_VERTEX_OUTPUT_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_STREAMS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexStreams = GL_MAX_VERTEX_STREAMS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexTextureImageUnits = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_UNIFORM_BLOCKS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexUniformBlocks = GL_MAX_VERTEX_UNIFORM_BLOCKS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_UNIFORM_COMPONENTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexUniformComponents = GL_MAX_VERTEX_UNIFORM_COMPONENTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VERTEX_UNIFORM_VECTORS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxVertexUniformVectors = GL_MAX_VERTEX_UNIFORM_VECTORS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VIEWPORT_DIMS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxViewportDims = GL_MAX_VIEWPORT_DIMS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MAX_VIEWPORTS
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MaxViewports = GL_MAX_VIEWPORTS
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MIN_FRAGMENT_INTERPOLATION_OFFSET
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MinFragmentInterpolationOffset = GL_MIN_FRAGMENT_INTERPOLATION_OFFSET
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MIN_MAP_BUFFER_ALIGNMENT
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MinMapBufferAlignment = GL_MIN_MAP_BUFFER_ALIGNMENT
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MIN_PROGRAM_TEXEL_OFFSET
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MinProgramTexelOffset = GL_MIN_PROGRAM_TEXEL_OFFSET
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MinProgramTextureGatherOffset = GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MIN_SAMPLE_SHADING_VALUE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MinSampleShadingValue = GL_MIN_SAMPLE_SHADING_VALUE
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#endif // OGLPLUS_DOCUMENTATION_ONLY
+

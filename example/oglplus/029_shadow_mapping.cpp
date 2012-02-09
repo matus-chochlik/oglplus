@@ -511,7 +511,7 @@ public:
 		gl.ClearDepth(1.0f);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		gl.PolygonMode(Face::Front, PolygonMode::Line);
+		gl.PolygonMode(PolygonMode::Line);
 		gl.FrontFace(make_cube.FaceWinding());
 		use_offset.Set(1);
 		cube.Bind();
@@ -519,7 +519,7 @@ public:
 
 		draw_pp.Bind();
 
-		gl.PolygonMode(Face::Front, PolygonMode::Fill);
+		gl.PolygonMode(PolygonMode::Fill);
 		gl.FrontFace(make_cube.FaceWinding());
 		use_offset.Set(1);
 		cube.Bind();

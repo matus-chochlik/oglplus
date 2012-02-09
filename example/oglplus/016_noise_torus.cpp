@@ -193,8 +193,6 @@ public:
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_torus.FaceWinding());
 		gl.CullFace(Face::Back);
-		gl.PolygonMode(Face::Front, PolygonMode::Fill);
-		gl.PolygonMode(Face::Back, PolygonMode::Line);
 	}
 
 	void Reshape(size_t width, size_t height)
@@ -229,9 +227,11 @@ public:
 		);
 
 		torus.Bind();
+		gl.PolygonMode(PolygonMode::Line);
 		gl.CullFace(Face::Front);
 		torus_instr.Draw(torus_indices);
 		//
+		gl.PolygonMode(PolygonMode::Fill);
 		gl.CullFace(Face::Back);
 		torus_instr.Draw(torus_indices);
 	}

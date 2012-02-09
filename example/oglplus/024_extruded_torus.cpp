@@ -308,13 +308,11 @@ public:
 		ProgramUniform<GLfloat>(transf_prog, "Time").Set(time);
 
 		face_pp.Bind();
-		gl.PolygonMode(Face::Front, PolygonMode::Fill);
-		gl.PolygonMode(Face::Back, PolygonMode::Fill);
+		gl.PolygonMode(PolygonMode::Fill);
 		torus_instr.Draw(torus_indices);
 
 		frame_pp.Bind();
-		gl.PolygonMode(Face::Front, PolygonMode::Line);
-		gl.PolygonMode(Face::Back, PolygonMode::Line);
+		gl.PolygonMode(PolygonMode::Line);
 		torus_instr.Draw(torus_indices);
 	}
 

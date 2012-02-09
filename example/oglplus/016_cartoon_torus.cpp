@@ -141,8 +141,6 @@ public:
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_torus.FaceWinding());
 		gl.CullFace(Face::Back);
-		gl.PolygonMode(Face::Front, PolygonMode::Fill);
-		gl.PolygonMode(Face::Back, PolygonMode::Line);
 		glLineWidth(4.0f);
 	}
 
@@ -178,9 +176,11 @@ public:
 			ModelMatrixf::RotationX(FullCircles(0.25))
 		);
 
+		gl.PolygonMode(PolygonMode::Line);
 		gl.CullFace(Face::Front);
 		torus_instr.Draw(torus_indices);
 		//
+		gl.PolygonMode(PolygonMode::Fill);
 		gl.CullFace(Face::Back);
 		torus_instr.Draw(torus_indices);
 	}

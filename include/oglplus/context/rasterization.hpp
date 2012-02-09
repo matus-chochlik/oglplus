@@ -62,6 +62,17 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(PolygonMode));
 	}
 
+	/// Sets the polygon rasterization mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PolygonMode}
+	 */
+	static void PolygonMode(oglplus::PolygonMode mode)
+	{
+		OGLPLUS_GLFUNC(PolygonMode)(GL_FRONT_AND_BACK, GLenum(mode));
+		AssertNoError(OGLPLUS_ERROR_INFO(PolygonMode));
+	}
+
 	/// Sets the polygon depth offset
 	/**
 	 *  @glsymbols
