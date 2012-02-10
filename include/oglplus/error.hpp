@@ -75,6 +75,13 @@
 #define OGLPLUS_ERROR_INFO_INIT_CLS_NAME(NAME) , NAME
 #endif
 
+// Define a macro that initializes the _bind_tgt member of ErrorInfo
+#if OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+#define OGLPLUS_ERROR_INFO_INIT_BIND_TGT(NAME)
+#else
+#define OGLPLUS_ERROR_INFO_INIT_BIND_TGT(NAME) , NAME
+#endif
+
 // Define a macro that initializes the description-related members of ErrorInfo
 #if OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 #define OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(GET, PURGE, NAME)
@@ -92,6 +99,7 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT("") \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
 )
 
@@ -103,6 +111,7 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT("") \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
 )
 
@@ -114,6 +123,7 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME(_errinf_cls())  \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT("") \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
 )
 
@@ -125,10 +135,11 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT("") \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
 )
 
-#define OGLPLUS_OBJECT_ERROR_INFO(CONTEXT, CLASS, NAME) \
+#define OGLPLUS_OBJECT_ERROR_INFO(CONTEXT, CLASS, TARGET_NAME, NAME) \
 oglplus::ErrorInfo(\
 	sizeof(decltype(&gl ## CONTEXT)) \
 	OGLPLUS_ERROR_INFO_INIT_GLSYM(#CONTEXT) \
@@ -136,6 +147,7 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME(#CLASS) \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT(TARGET_NAME) \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS( \
 		&oglplus::aux::ObjectDescRegistry<CLASS##Ops>::_get_desc, \
 		&oglplus::aux::ObjectDescRegistry<CLASS##Ops>::_purge_archive,\
@@ -190,6 +202,10 @@ struct ErrorInfo
 	const char* _cls_name;
 #endif
 
+#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+	const char* _bind_tgt;
+#endif
+
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	const String& (*_get_obj_desc)(GLuint);
 	void (*_purge_archive)(void);
@@ -216,6 +232,10 @@ struct ErrorInfo
 
 #if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
 		, const char* cls_name
+#endif
+
+#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+		, const char* bind_tgt
 #endif
 
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
@@ -245,6 +265,10 @@ struct ErrorInfo
 	 , _cls_name(cls_name)
 #endif
 
+#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+	 , _bind_tgt(bind_tgt)
+#endif
+
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	 , _get_obj_desc(get_obj_desc)
 	 , _purge_archive(purge_archive)
@@ -269,6 +293,7 @@ struct ErrorInfo
  *  @see ErrorFile()
  *  @see ErrorLine()
  *  @see ErrorClassName()
+ *  @see ErrorBindTarget()
  *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
@@ -294,6 +319,7 @@ inline const char* ErrorGLSymbol(const ErrorInfo& info)
  *  @see ErrorFunc()
  *  @see ErrorLine()
  *  @see ErrorClassName()
+ *  @see ErrorBindTarget()
  *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
@@ -319,6 +345,7 @@ inline const char* ErrorFile(const ErrorInfo& info)
  *  @see ErrorFile()
  *  @see ErrorLine()
  *  @see ErrorClassName()
+ *  @see ErrorBindTarget()
  *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
@@ -344,6 +371,7 @@ inline const char* ErrorFunc(const ErrorInfo& info)
  *  @see ErrorFile()
  *  @see ErrorFunc()
  *  @see ErrorClassName()
+ *  @see ErrorBindTarget()
  *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
@@ -369,6 +397,7 @@ inline unsigned ErrorLine(const ErrorInfo& info)
  *  @see ErrorFile()
  *  @see ErrorFunc()
  *  @see ErrorLine()
+ *  @see ErrorBindTarget()
  *  @see ErrorObjectDescription()
  *
  *  @ingroup error_handling
@@ -376,9 +405,39 @@ inline unsigned ErrorLine(const ErrorInfo& info)
 inline const char* ErrorClassName(const ErrorInfo& info)
 {
 #if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
-	return info._cls_name ? info._cls_name : "UnknownClass";
+	return (info._cls_name && *info._cls_name) ?
+		info._cls_name :
+		"UnknownClass";
 #else
 	return "UnknownClass";
+#endif
+}
+
+/// Returns the name of the binding point the object where the exception originated
+/**
+ *  The result of this function is also influenced by the
+ *  #OGLPLUS_ERROR_INFO_NO_BIND_TARGET preprocessor configuration option.
+ *  If set to zero this function behaves as described above, otherwise it
+ *  returns the string "UnknownTarget".
+ *
+ *  @see ErrorInfo
+ *  @see ErrorGLSymbol()
+ *  @see ErrorFile()
+ *  @see ErrorFunc()
+ *  @see ErrorLine()
+ *  @see ErrorClassName()
+ *  @see ErrorObjectDescription()
+ *
+ *  @ingroup error_handling
+ */
+inline const char* ErrorBindTarget(const ErrorInfo& info)
+{
+#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+	return (info._bind_tgt && *info._bind_tgt) ?
+		info._bind_tgt :
+		"UnknownTarget";
+#else
+	return "UnknownTarget";
 #endif
 }
 
@@ -395,6 +454,7 @@ inline const char* ErrorClassName(const ErrorInfo& info)
  *  @see ErrorFunc()
  *  @see ErrorLine()
  *  @see ErrorClassName()
+ *  @see ErrorBindTarget()
  *
  *  @ingroup error_handling
  */
@@ -548,6 +608,12 @@ public:
 	const char* ClassName(void) const
 	{
 		return ::oglplus::ErrorClassName(_info);
+	}
+
+	/// Returns the name of the binding point that caused the exception
+	const char* BindTarget(void) const
+	{
+		return ::oglplus::ErrorBindTarget(_info);
 	}
 
 	/// Returns the description of the object that caused the exception

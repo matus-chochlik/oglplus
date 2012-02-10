@@ -13,6 +13,7 @@
 #define OGLPLUS_BUFFER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
@@ -273,6 +274,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
+			EnumValueNameTpl(target),
 			_name
 		));
 	}
@@ -288,6 +290,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
+			EnumValueNameTpl(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -303,6 +306,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferBase,
 			Buffer,
+			EnumValueNameTpl(target),
 			_name
 		));
 	}
@@ -359,6 +363,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferRange,
 			Buffer,
+			EnumValueNameTpl(target),
 			_name
 		));
 	}
@@ -389,6 +394,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
+			EnumValueNameTpl(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -418,6 +424,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
+			EnumValueNameTpl(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -445,6 +452,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
+			EnumValueNameTpl(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -472,6 +480,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferSubData,
 			Buffer,
+			EnumValueNameTpl(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -498,6 +507,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferSubData,
 			Buffer,
+			EnumValueNameTpl(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}

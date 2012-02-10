@@ -43,6 +43,18 @@ namespace oglplus {
 #define OGLPLUS_NO_OBJECT_DESCS 0
 #endif
 
+#ifndef OGLPLUS_NO_ENUM_VALUE_NAMES
+/// Compile-time switch disabling the functions returning enumerated value names
+/** Setting this preprocessor symbol to a nonzero value causes that
+ *  the @c EnumValueName(Enum) functions always return an empty string.
+ *  When set to zero these functions return a textual name of an enumerated
+ *  value passed as argument.
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_NO_ENUM_VALUE_NAMES 0
+#endif
+
 #ifndef OGLPLUS_CUSTOM_ERROR_HANDLING
 /// Compile-time switch enabling customized @ref error_handling
 /**
@@ -105,6 +117,23 @@ namespace oglplus {
 #define OGLPLUS_ERROR_INFO_NO_CLASS_NAME 0
 #endif
 
+#if OGLPLUS_NO_ENUM_VALUE_NAMES
+#ifdef OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+#undef OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+#endif
+#define OGLPLUS_ERROR_INFO_NO_BIND_TARGET 1
+#endif
+
+#ifndef OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+/// Compile-time switch disabling the ErrorBindTarget attribute of ErrorInfo
+/**
+ *  @see ErrorBindTarget()
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_INFO_NO_BIND_TARGET 0
+#endif
+
 #if OGLPLUS_NO_OBJECT_DESCS
 #ifdef OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 #undef OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
@@ -120,19 +149,6 @@ namespace oglplus {
  *  @ingroup compile_time_config
  */
 #define OGLPLUS_ERROR_INFO_NO_OBJECT_DESC 0
-#endif
-
-
-#ifndef OGLPLUS_NO_ENUM_VALUE_NAMES
-/// Compile-time switch disabling the functions returning enumerated value names
-/** Setting this preprocessor symbol to a nonzero value causes that
- *  the @c EnumValueName(Enum) functions always return an empty string.
- *  When set to zero these functions return a textual name of an enumerated
- *  value passed as argument.
- *
- *  @ingroup compile_time_config
- */
-#define OGLPLUS_NO_ENUM_VALUE_NAMES 0
 #endif
 
 } // namespace oglplus

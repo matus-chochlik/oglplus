@@ -13,6 +13,7 @@
 #define OGLPLUS_RENDERBUFFER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
@@ -116,6 +117,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			RenderbufferStorage,
 			Renderbuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<RenderbufferOps>::QueryBinding(target)
 		));
 	}
@@ -143,6 +145,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			RenderbufferStorageMultisample,
 			Renderbuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<RenderbufferOps>::QueryBinding(target)
 		));
 	}

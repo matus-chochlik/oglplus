@@ -13,6 +13,7 @@
 #define OGLPLUS_SHADER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
@@ -83,6 +84,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CreateShader,
 			Shader,
+			EnumValueNameTpl(Kind(result)),
 			_name
 		));
 		return Kind(result);
@@ -169,6 +171,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetShaderiv,
 			Shader,
+			EnumValueNameTpl(Type()),
 			_name
 		));
 		return status == GL_TRUE;
@@ -209,6 +212,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompileShader,
 			Shader,
+			EnumValueNameTpl(Type()),
 			_name
 		));
 		if(!IsCompiled())
@@ -217,6 +221,7 @@ public:
 				OGLPLUS_OBJECT_ERROR_INFO(
 					CompileShader,
 					Shader,
+					EnumValueNameTpl(Type()),
 					_name
 				)
 			);

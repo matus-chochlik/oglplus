@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_TEXTURE_1107121519_HPP
 #define OGLPLUS_TEXTURE_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/object.hpp>
@@ -283,6 +284,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindTexture,
 			Texture,
+			EnumValueNameTpl(target),
 			_name
 		));
 	}
@@ -314,6 +316,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameteriv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return result;
@@ -330,6 +333,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return result;
@@ -347,6 +351,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameteriv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return result;
@@ -364,6 +369,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameterfv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return result;
@@ -737,6 +743,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetCompressedTexImage,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -774,6 +781,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -806,6 +814,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -845,6 +854,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage3D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -880,6 +890,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage3D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -915,6 +926,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -946,6 +958,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -981,6 +994,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage2D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1013,6 +1027,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage2D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1046,6 +1061,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1076,6 +1092,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1107,6 +1124,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage1D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1136,6 +1154,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage1D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1169,6 +1188,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexImage2D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1200,6 +1220,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexImage1D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1235,6 +1256,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage3D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1268,6 +1290,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage2D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1297,6 +1320,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage1D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1332,6 +1356,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage3D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1365,6 +1390,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage2D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1396,6 +1422,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage1D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1435,6 +1462,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage3D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1470,6 +1498,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage2D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1501,6 +1530,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage1D,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1533,6 +1563,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3DMultisample,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1562,6 +1593,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2DMultisample,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1587,6 +1619,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexBuffer,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1619,6 +1652,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1640,6 +1674,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return Vector<GLfloat, 4>(result, 4);
@@ -1661,6 +1696,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterfv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1682,6 +1718,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterIiv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return Vector<GLint, 4>(result, 4);
@@ -1703,6 +1740,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterIiv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1724,6 +1762,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterIuiv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return Vector<GLuint, 4>(result, 4);
@@ -1745,6 +1784,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterIuiv,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1779,6 +1819,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1813,6 +1854,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1844,6 +1886,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1878,6 +1921,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1912,6 +1956,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1943,6 +1988,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1974,6 +2020,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2011,6 +2058,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2158,6 +2206,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2239,6 +2288,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GenerateMipmap,
 			Texture,
+			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}

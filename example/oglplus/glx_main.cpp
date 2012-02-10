@@ -17,6 +17,7 @@
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
 
+#include <oglplus/config.hpp>
 #include <oglplus/compile_error.hpp>
 #include <oglplus/application.hpp>
 
@@ -146,7 +147,8 @@ int main (int argc, char ** argv)
 		std::cerr <<
 			"Error (in gl" << err.GLSymbol() << ", " <<
 			err.ClassName() << ": '" <<
-			err.ObjectDescription() << "'): " <<
+			err.ObjectDescription() << "' bound to '" <<
+			err.BindTarget() << "'): " <<
 			err.what() <<
 			" [" << err.File() << ":" << err.Line() << "] ";
 		auto i = err.Properties().begin(), e = err.Properties().end();

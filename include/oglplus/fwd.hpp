@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,7 +12,34 @@
 #ifndef OGLPLUS_FWD_1107121519_HPP
 #define OGLPLUS_FWD_1107121519_HPP
 
+#include <oglplus/config.hpp>
+
 namespace oglplus {
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+
+/// Returns the name of the GL enumerated value for an OGLplus enum value
+/** This function is overloaded for the enumerated types defined by @OGLplus
+ *  and returns the GL constant name (without the 'GL_' prefix) as a c-string.
+ *  @note The returned c-string is managed by the EnumValueName functions
+ *  and should NOT be freed by the caller.
+ *
+ *  The result of this function is influenced by the #OGLPLUS_NO_ENUM_VALUE_NAMES
+ *  preprocessor-symbol. If it is set to a nonzero value then EnumValueName(Enum)
+ *  returns an empty string.
+ *
+ *  @ingroup enumerations
+ *  @see OGLPLUS_NO_ENUM_VALUE_NAMES
+ */
+const GLchar* EnumValueName(Enum enum_value);
+
+#else
+template <typename EnumType>
+inline const GLchar* EnumValueNameTpl(EnumType enum_value)
+{
+	return EnumValueName(enum_value);
+}
+#endif
 
 } // namespace oglplus
 

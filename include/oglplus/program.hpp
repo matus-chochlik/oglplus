@@ -110,6 +110,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetProgramiv,
 			Program,
+			nullptr,
 			_name
 		));
 		return result;
@@ -130,6 +131,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			AttachShader,
 			Program,
+			nullptr,
 			_name
 		));
 	}
@@ -150,6 +152,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			DetachShader,
 			Program,
+			nullptr,
 			_name
 		));
 	}
@@ -205,6 +208,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			LinkProgram,
 			Program,
+			nullptr,
 			_name
 		));
 		if(!IsLinked())
@@ -213,6 +217,7 @@ public:
 				OGLPLUS_OBJECT_ERROR_INFO(
 					LinkProgram,
 					Program,
+					nullptr,
 					_name
 				)
 			);
@@ -248,6 +253,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgram,
 			Program,
+			nullptr,
 			_name
 		));
 		if(!IsValid())
@@ -256,6 +262,7 @@ public:
 				OGLPLUS_OBJECT_ERROR_INFO(
 					ValidateProgram,
 					Program,
+					nullptr,
 					_name
 				)
 			);
@@ -279,6 +286,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			UseProgram,
 			Program,
+			nullptr,
 			_name
 		));
 	}
@@ -393,6 +401,7 @@ public:
 			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveAttrib,
 				Program,
+				nullptr,
 				context.Program()
 			));
 		}
@@ -416,6 +425,7 @@ public:
 			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveUniform,
 				Program,
+				nullptr,
 				context.Program()
 			));
 		}
@@ -439,6 +449,7 @@ public:
 			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetTransformFeedbackVarying,
 				Program,
+				nullptr,
 				context.Program()
 			));
 		}
@@ -464,6 +475,7 @@ public:
 			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetAttachedShaders,
 				Program,
+				nullptr,
 				name
 			));
 		};
@@ -583,6 +595,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TransformFeedbackVaryings,
 			Program,
+			nullptr,
 			_name
 		));
 	}
@@ -618,6 +631,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			TransformFeedbackVaryings,
 			Program,
+			nullptr,
 			_name
 		));
 	}
@@ -650,6 +664,7 @@ public:
 			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetProgramiv,
 				Program,
+				nullptr,
 				context.Program()
 			));
 			GLsizei strlen = 0;
@@ -663,6 +678,7 @@ public:
 			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveUniformBlockName,
 				Program,
+				nullptr,
 				context.Program()
 			));
 			_name = String(context.Buffer().data(), strlen);
@@ -733,6 +749,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramParameteri,
 			Program,
+			nullptr,
 			_name
 		));
 	}
@@ -757,6 +774,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramParameteri,
 			Program,
+			nullptr,
 			_name
 		));
 	}
@@ -789,6 +807,7 @@ public:
 			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 				GetProgramBinary,
 				Program,
+				nullptr,
 				_name
 			));
 		}
@@ -814,6 +833,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramBinary,
 			Program,
+			nullptr,
 			_name
 		));
 	}

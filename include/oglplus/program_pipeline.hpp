@@ -13,6 +13,7 @@
 #define OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/program.hpp>
@@ -70,6 +71,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetProgramPipelineiv,
 			ProgramPipeline,
+			nullptr,
 			_name
 		));
 		return result;
@@ -218,6 +220,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgramPipeline,
 			ProgramPipeline,
+			nullptr,
 			_name
 		));
 		if(!IsValid())
@@ -226,6 +229,7 @@ public:
 				OGLPLUS_OBJECT_ERROR_INFO(
 					ValidateProgramPipeline,
 					ProgramPipeline,
+					nullptr,
 					_name
 				)
 			);

@@ -13,6 +13,7 @@
 #define OGLPLUS_FRAMEBUFFER_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
@@ -117,6 +118,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BindFramebuffer,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			_name
 		));
 	}
@@ -151,6 +153,7 @@ public:
 		if(result == 0) HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CheckFramebufferStatus,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 		return Status(result);
@@ -197,6 +200,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferRenderbuffer,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
@@ -229,6 +233,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferRenderbuffer,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
@@ -263,6 +268,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
@@ -296,6 +302,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
@@ -332,6 +339,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture1D,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
@@ -367,6 +375,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture2D,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
@@ -404,6 +413,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture3D,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
@@ -439,6 +449,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTextureLayer,
 			Framebuffer,
+			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}

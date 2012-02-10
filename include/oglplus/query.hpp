@@ -13,6 +13,7 @@
 #define OGLPLUS_QUERY_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
@@ -69,6 +70,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			BeginQuery,
 			Query,
+			EnumValueNameTpl(target),
 			_name
 		));
 	}
@@ -85,6 +87,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			EndQuery,
 			Query,
+			EnumValueNameTpl(target),
 			_name
 		));
 	}
@@ -107,6 +110,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectuiv,
 			Query,
+			nullptr,
 			_name
 		));
 		return result == GL_TRUE;
@@ -129,6 +133,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectiv,
 			Query,
+			nullptr,
 			_name
 		));
 	}
@@ -150,6 +155,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectuiv,
 			Query,
+			nullptr,
 			_name
 		));
 	}
@@ -172,6 +178,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjecti64v,
 			Query,
+			nullptr,
 			_name
 		));
 	}
@@ -193,6 +200,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectui64v,
 			Query,
+			nullptr,
 			_name
 		));
 	}
