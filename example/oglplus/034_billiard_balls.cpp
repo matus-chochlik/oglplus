@@ -675,6 +675,8 @@ public:
 		assert(ball_offsets.size() == ball_count);
 		assert(ball_rotations.size() == ball_count);
 
+		gl.RequireAtLeast(LimitQuery::MaxCombinedTextureImageUnits, 5);
+
 		Program::UseNone();
 
 		cloth_pp.Bind();

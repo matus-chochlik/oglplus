@@ -444,6 +444,30 @@ public:
 	}
 };
 
+inline const GLchar* EnumValueName(FramebufferOps::Attachment value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/framebuffer_attachment.ipp>
+#endif
+	return "";
+}
+
+inline const GLchar* EnumValueName(FramebufferOps::Target value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/framebuffer_target.ipp>
+#endif
+	return "";
+}
+
+inline const GLchar* EnumValueName(FramebufferOps::Status value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/framebuffer_status.ipp>
+#endif
+	return "";
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 /**

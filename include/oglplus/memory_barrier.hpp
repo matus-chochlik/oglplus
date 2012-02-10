@@ -26,6 +26,14 @@ enum class MemoryBarrierBit : GLbitfield
 #include <oglplus/enums/memory_barrier_bit.ipp>
 };
 
+inline const GLchar* EnumValueName(MemoryBarrierBit value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/memory_barrier_bit.ipp>
+#endif
+	return "";
+}
+
 } // namespace oglplus
 
 #endif // include guard

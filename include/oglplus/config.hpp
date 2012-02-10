@@ -122,6 +122,19 @@ namespace oglplus {
 #define OGLPLUS_ERROR_INFO_NO_OBJECT_DESC 0
 #endif
 
+
+#ifndef OGLPLUS_NO_ENUM_VALUE_NAMES
+/// Compile-time switch disabling the functions returning enumerated value names
+/** Setting this preprocessor symbol to a nonzero value causes that
+ *  the @c EnumValueName(Enum) functions always return an empty string.
+ *  When set to zero these functions return a textual name of an enumerated
+ *  value passed as argument.
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_NO_ENUM_VALUE_NAMES 0
+#endif
+
 } // namespace oglplus
 
 #endif // include guard

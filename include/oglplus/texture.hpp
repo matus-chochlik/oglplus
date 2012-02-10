@@ -56,6 +56,14 @@ enum class TextureCompareMode : GLenum {
 #include <oglplus/enums/texture_compare_mode.ipp>
 };
 
+inline const GLchar* EnumValueName(TextureCompareMode value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_compare_mode.ipp>
+#endif
+	return "";
+}
+
 /// Texture magnification filter enumeration
 /**
  *  @ingroup enumerations
@@ -68,6 +76,14 @@ enum class TextureCompareMode : GLenum {
 enum class TextureMagFilter : GLenum {
 #include <oglplus/enums/texture_mag_filter.ipp>
 };
+
+inline const GLchar* EnumValueName(TextureMagFilter value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_mag_filter.ipp>
+#endif
+	return "";
+}
 
 /// Texture minification filter enumeration
 /**
@@ -82,6 +98,14 @@ enum class TextureMinFilter : GLenum {
 #include <oglplus/enums/texture_min_filter.ipp>
 };
 
+inline const GLchar* EnumValueName(TextureMinFilter value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_min_filter.ipp>
+#endif
+	return "";
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 /// Texture swizzle parameter coordinate enumeration
 /**
@@ -94,6 +118,14 @@ enum class TextureMinFilter : GLenum {
 enum class TextureSwizzleCoord : GLenum {
 #include <oglplus/enums/texture_swizzle_coord.ipp>
 };
+
+inline const GLchar* EnumValueName(TextureSwizzleCoord value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_swizzle_coord.ipp>
+#endif
+	return "";
+}
 
 /// Texture swizzle enumeration
 /**
@@ -111,6 +143,14 @@ enum class TextureSwizzle : GLenum {
 };
 #endif // texture swizzle
 
+inline const GLchar* EnumValueName(TextureSwizzle value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_swizzle.ipp>
+#endif
+	return "";
+}
+
 /// Texture wrap parameter coordinate enumeration
 /**
  *  @ingroup enumerations
@@ -122,6 +162,14 @@ enum class TextureSwizzle : GLenum {
 enum class TextureWrapCoord : GLenum {
 #include <oglplus/enums/texture_wrap_coord.ipp>
 };
+
+inline const GLchar* EnumValueName(TextureWrapCoord value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_wrap_coord.ipp>
+#endif
+	return "";
+}
 
 /// Texture wrap enumeration
 /**
@@ -137,6 +185,14 @@ enum class TextureWrapCoord : GLenum {
 enum class TextureWrap : GLenum {
 #include <oglplus/enums/texture_wrap.ipp>
 };
+
+inline const GLchar* EnumValueName(TextureWrap value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_wrap.ipp>
+#endif
+	return "";
+}
 
 /// Wrapper for texture and texture unit-related operations
 /** @note Do not use this class directly, use Texture instead.
@@ -2207,6 +2263,14 @@ public:
 		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
 	}
 };
+
+inline const GLchar* EnumValueName(TextureOps::Target value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_target.ipp>
+#endif
+	return "";
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL texture functionality

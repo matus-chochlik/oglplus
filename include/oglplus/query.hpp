@@ -270,6 +270,13 @@ public:
 	}
 };
 
+inline const GLchar* EnumValueName(QueryOps::Target value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/query_target.ipp>
+#endif
+	return "";
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL asynchronous query functionality

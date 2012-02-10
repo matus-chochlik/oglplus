@@ -88,6 +88,8 @@ public:
 	 , refl_tex_side(width > height ? height : width)
 	 , tile_tex_side(64)
 	{
+		gl.RequireAtLeast(LimitQuery::MaxCombinedTextureImageUnits, 5);
+
 		plane_vs.Source(
 			"#version 330\n"
 			"uniform vec3 LightPosition;"

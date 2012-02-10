@@ -26,6 +26,14 @@ enum class BlitFilter : GLenum
 #include <oglplus/enums/blit_filter.ipp>
 };
 
+inline const GLchar* EnumValueName(BlitFilter value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/blit_filter.ipp>
+#endif
+	return "";
+}
+
 } // namespace oglplus
 
 #endif // include guard

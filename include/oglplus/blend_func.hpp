@@ -26,6 +26,14 @@ enum class BlendFunction : GLenum
 #include <oglplus/enums/blend_function.ipp>
 };
 
+inline const GLchar* EnumValueName(BlendFunction value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/blend_function.ipp>
+#endif
+	return "";
+}
+
 /// Alternative name for the BlendFunction enumeration
 typedef BlendFunction BlendFn;
 
@@ -40,6 +48,14 @@ enum class BlendEquation : GLenum
 {
 #include <oglplus/enums/blend_equation.ipp>
 };
+
+inline const GLchar* EnumValueName(BlendEquation value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/blend_equation.ipp>
+#endif
+	return "";
+}
 
 /// Alternative name for the BlendEquation enumeration
 typedef BlendEquation BlendEq;

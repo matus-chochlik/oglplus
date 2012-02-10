@@ -235,6 +235,14 @@ public:
 #endif
 };
 
+inline const GLchar* EnumValueName(ShaderOps::Kind value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/shader_kind.ipp>
+#endif
+	return "";
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An object encasulating the shading language shader functionality
 /**

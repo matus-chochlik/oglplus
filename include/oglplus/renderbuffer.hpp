@@ -148,6 +148,14 @@ public:
 	}
 };
 
+inline const GLchar* EnumValueName(RenderbufferOps::Target value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/renderbuffer_target.ipp>
+#endif
+	return "";
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
 /**

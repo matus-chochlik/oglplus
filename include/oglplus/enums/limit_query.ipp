@@ -183,8 +183,6 @@ MaxUniformBlockSize,
 MaxUniformBufferBindings,
 /// MAX_VARYING_COMPONENTS
 MaxVaryingComponents,
-/// MAX_VARYING_FLOATS
-MaxVaryingFloats,
 /// MAX_VARYING_VECTORS
 MaxVaryingVectors,
 /// MAX_VERTEX_ATOMIC_COUNTER_BUFFERS
@@ -222,7 +220,7 @@ MinProgramTextureGatherOffset,
 /// MIN_SAMPLE_SHADING_VALUE
 MinSampleShadingValue
 
-#else // OGLPLUS_DOCUMENTATION_ONLY
+#else // !OGLPLUS_DOCUMENTATION_ONLY
 
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
@@ -1002,15 +1000,6 @@ MaxVaryingComponents = GL_MAX_VARYING_COMPONENTS
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_MAX_VARYING_FLOATS
-# if OGLPLUS_LIST_NEEDS_COMMA
-,
-# endif
-MaxVaryingFloats = GL_MAX_VARYING_FLOATS
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
 #if defined GL_MAX_VARYING_VECTORS
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
@@ -1177,5 +1166,5 @@ MinSampleShadingValue = GL_MIN_SAMPLE_SHADING_VALUE
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
 
-#endif // OGLPLUS_DOCUMENTATION_ONLY
+#endif // !OGLPLUS_DOCUMENTATION_ONLY
 

@@ -30,14 +30,47 @@ public:
 	/// Gets the implementation-dependent limit value
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetInteger}
+	 *  @glfunref{Get}
 	 */
-	static GLint GetLimit(oglplus::LimitQuery query)
+	static GLint GetIntLimit(LimitQuery query)
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(query), &result);
 		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result;
+	}
+
+	/// Gets the implementation-dependent limit value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 */
+	static GLfloat GetFloatLimit(LimitQuery query)
+	{
+		GLfloat result = 0;
+		OGLPLUS_GLFUNC(GetFloatv)(GLenum(query), &result);
+		HandleIfError(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
+	}
+
+	/// Raises a LimitError if @p value is greater than the specified @p limit
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *
+	 *  @throws LimitError
+	 */
+	static void RequireAtLeast(LimitQuery limit, GLint value)
+	{
+		GLint max_limit = GetIntLimit(limit);
+		if(value > max_limit)
+		{
+			HandleLimitError<LimitError>(
+				value,
+				max_limit,
+				OGLPLUS_ERROR_INFO_STR(EnumValueName(limit))
+			);
+		}
 	}
 };
 

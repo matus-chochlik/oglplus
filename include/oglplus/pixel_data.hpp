@@ -30,6 +30,14 @@ enum class PixelDataType : GLenum
 #include <oglplus/enums/pixel_data_type.ipp>
 };
 
+inline const GLchar* EnumValueName(PixelDataType value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/pixel_data_type.ipp>
+#endif
+	return "";
+}
+
 /// OpenGL pixel data format enumeration
 /**
  *  @ingroup enumerations
@@ -43,6 +51,14 @@ enum class PixelDataFormat : GLenum
 {
 #include <oglplus/enums/pixel_data_format.ipp>
 };
+
+inline const GLchar* EnumValueName(PixelDataFormat value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/pixel_data_format.ipp>
+#endif
+	return "";
+}
 
 /// OpenGL pixel data internal format enumeration
 /**
@@ -59,6 +75,14 @@ enum class PixelDataInternalFormat : GLenum
 {
 #include <oglplus/enums/pixel_data_internal_format.ipp>
 };
+
+inline const GLchar* EnumValueName(PixelDataInternalFormat value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/pixel_data_internal_format.ipp>
+#endif
+	return "";
+}
 
 } // namespace oglplus
 

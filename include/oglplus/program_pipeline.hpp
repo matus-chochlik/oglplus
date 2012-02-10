@@ -278,6 +278,14 @@ public:
 	}
 };
 
+inline const GLchar* EnumValueName(ProgramPipelineOps::Stage value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/program_pipeline_stage.ipp>
+#endif
+	return "";
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL program pipeline functionality
 /**

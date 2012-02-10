@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_LIMIT_QUERY_1202091518_HPP
 #define OGLPLUS_LIMIT_QUERY_1202091518_HPP
 
+#include <oglplus/config.hpp>
+
 namespace oglplus {
 
 /// Enumeration of implementation-dependent limit queries
@@ -25,6 +27,14 @@ enum class LimitQuery : GLenum
 {
 #include <oglplus/enums/limit_query.ipp>
 };
+
+inline const GLchar* EnumValueName(LimitQuery value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/limit_query.ipp>
+#endif
+	return "";
+}
 
 /// Alternate name for the ColorLogicOperation enumeration
 typedef ColorLogicOperation ColorLogicOp;

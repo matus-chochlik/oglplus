@@ -27,6 +27,14 @@ enum class ColorBuffer : GLenum
 #include <oglplus/enums/color_buffer.ipp>
 };
 
+inline const GLchar* EnumValueName(ColorBuffer value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/color_buffer.ipp>
+#endif
+	return "";
+}
+
 } // namespace oglplus
 
 #endif // include guard

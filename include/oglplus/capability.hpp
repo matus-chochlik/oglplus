@@ -28,6 +28,14 @@ enum class Capability: GLenum
 #include <oglplus/enums/capability.ipp>
 };
 
+inline const GLchar* EnumValueName(Capability value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/capability.ipp>
+#endif
+	return "";
+}
+
 /// Functionality enumeration
 /**
  *  @ingroup enumerations
@@ -41,6 +49,14 @@ enum class Functionality : GLenum
 {
 #include <oglplus/enums/functionality.ipp>
 };
+
+inline const GLchar* EnumValueName(Functionality value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/functionality.ipp>
+#endif
+	return "";
+}
 
 } // namespace oglplus
 

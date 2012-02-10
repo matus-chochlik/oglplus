@@ -16,7 +16,7 @@ FirstVertexConvention,
 /// LAST_VERTEX_CONVENTION: Last vertex convention
 LastVertexConvention
 
-#else // OGLPLUS_DOCUMENTATION_ONLY
+#else // !OGLPLUS_DOCUMENTATION_ONLY
 
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
@@ -44,5 +44,5 @@ LastVertexConvention = GL_LAST_VERTEX_CONVENTION
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
 
-#endif // OGLPLUS_DOCUMENTATION_ONLY
+#endif // !OGLPLUS_DOCUMENTATION_ONLY
 

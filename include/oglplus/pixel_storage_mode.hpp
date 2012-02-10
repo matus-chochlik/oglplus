@@ -27,6 +27,14 @@ enum class PixelStorageMode : GLenum
 #include <oglplus/enums/pixel_storage_mode.ipp>
 };
 
+inline const GLchar* EnumValueName(PixelStorageMode value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/pixel_storage_mode.ipp>
+#endif
+	return "";
+}
+
 } // namespace oglplus
 
 #endif // include guard

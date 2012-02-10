@@ -529,6 +529,30 @@ public:
 #endif // copy buffer
 };
 
+inline const GLchar* EnumValueName(BufferOps::Target value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/buffer_target.ipp>
+#endif
+	return "";
+}
+
+inline const GLchar* EnumValueName(BufferOps::IndexedTarget value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/buffer_indexed_target.ipp>
+#endif
+	return "";
+}
+
+inline const GLchar* EnumValueName(BufferOps::Usage value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/buffer_usage.ipp>
+#endif
+	return "";
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality
 /**

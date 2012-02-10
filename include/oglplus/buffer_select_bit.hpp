@@ -27,6 +27,14 @@ enum class BufferSelectBit : GLenum
 #include <oglplus/enums/buffer_select_bit.ipp>
 };
 
+inline const GLchar* EnumValueName(BufferSelectBit value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/buffer_select_bit.ipp>
+#endif
+	return "";
+}
+
 } // namespace oglplus
 
 #endif // include guard

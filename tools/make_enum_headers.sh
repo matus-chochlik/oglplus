@@ -46,7 +46,7 @@ do
 	done
 	echo
 	echo
-	echo "#else // OGLPLUS_DOCUMENTATION_ONLY"
+	echo "#else // !OGLPLUS_DOCUMENTATION_ONLY"
 	echo
 	echo "#ifdef OGLPLUS_LIST_NEEDS_COMMA"
 	echo "# undef OGLPLUS_LIST_NEEDS_COMMA"
@@ -74,7 +74,29 @@ do
 	echo "# undef OGLPLUS_LIST_NEEDS_COMMA"
 	echo "#endif"
 	echo
-	echo "#endif // OGLPLUS_DOCUMENTATION_ONLY"
+	echo "#endif // !OGLPLUS_DOCUMENTATION_ONLY"
+	echo
+	)
+
+	OutputFile="oglplus/names/$(basename ${InputFile} .txt).ipp"
+	[[ ${InputFile} -nt ${OutputFile} ]] || continue
+	(
+	exec > ${RootDir}/include/${OutputFile}
+	PrintFileHeader ${InputFile} ${OutputFile}
+	#
+	IFS=':'
+	unset Comma
+	echo "switch(GLenum(value))"
+	echo "{"
+	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
+	while read GL_DEF X
+	do
+		echo "#if defined GL_${GL_DEF}"
+		echo "	case GL_${GL_DEF}: return \"${GL_DEF}\";"
+		echo "#endif"
+	done
+	echo "	default:;"
+	echo "}"
 	echo
 	)
 done

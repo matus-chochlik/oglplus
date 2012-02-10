@@ -90,6 +90,14 @@ public:
 	}
 };
 
+inline const GLchar* EnumValueName(Sync::Condition value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/sync_condition.ipp>
+#endif
+	return "";
+}
+
 #endif // sync
 
 } // namespace oglplus

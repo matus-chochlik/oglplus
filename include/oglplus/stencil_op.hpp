@@ -26,6 +26,14 @@ enum class StencilOperation : GLenum
 #include <oglplus/enums/stencil_operation.ipp>
 };
 
+inline const GLchar* EnumValueName(StencilOperation value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/stencil_operation.ipp>
+#endif
+	return "";
+}
+
 /// Alternate name for the StencilOperation enumeration
 typedef StencilOperation StencilOp;
 

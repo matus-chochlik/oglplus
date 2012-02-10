@@ -34,6 +34,14 @@ enum class DataType : GLenum
 #include <oglplus/enums/data_type.ipp>
 };
 
+inline const GLchar* EnumValueName(DataType value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/data_type.ipp>
+#endif
+	return "";
+}
+
 DataType GetDataType(GLbyte*)
 {
 	return DataType::Byte;
@@ -90,6 +98,14 @@ enum class SLDataType : GLenum
 {
 #include <oglplus/enums/sl_data_type.ipp>
 };
+
+inline const GLchar* EnumValueName(SLDataType value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/sl_data_type.ipp>
+#endif
+	return "";
+}
 
 } // namespace oglplus
 
