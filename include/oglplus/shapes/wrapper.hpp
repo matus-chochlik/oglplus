@@ -65,7 +65,7 @@ protected:
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
 		size_t i = 0;
 		std::vector<GLfloat> data;
-		while(name!=end)
+		while(name != end)
 		{
 			auto getter = vert_attr_info.VertexAttribGetter(
 				data,

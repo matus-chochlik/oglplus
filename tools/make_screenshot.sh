@@ -33,6 +33,7 @@ case "$(basename ${1})" in
 	025_rendered_texture) sleep_period=2;;
 	026_clouds) sleep_period=5;;
 	026_torus_halo) sleep_period=2;;
+	026_furry_torus) sleep_period=2;;
 	027_depth_of_field) sleep_period=5;;
 	027_smoke_trails) sleep_period=7;;
 	031_blob) sleep_period=9;;

@@ -1,3 +1,19 @@
+0.10.0
+
+- Enumerations and functions related to querying of implementation-dependent
+  limits were added
+- A new special shape builder that can be used for space division
+  and implicit surface polygonization was added
+- Edge drawing instructions were added to the Plane and WickerTorus
+  shape builders were added
+- The CosineWave function was added
+- The function for inverting of FaceOrientation was added
+- A bug in the interface of Texture was fixed
+- Several bugs in the examples were fixed
+- OpenGL hint-related functions and enums were added
+- Pixel storage and transfer-related functions and enums were added
+- Several new examples were added and the documentation was updated
+
 Version 0.9.0
 
 - The AutoBind class template was added
