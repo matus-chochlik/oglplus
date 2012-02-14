@@ -35,7 +35,7 @@ EXAMPLES = $(basename $(wildcard example/oglplus/[0-9][0-9][0-9]_*.cpp))
 SVG_TEXTURES = $(addprefix textures/,$(notdir $(basename $(wildcard source/textures/*.svg))))
 
 # specifies which of the example main function implementations should be used
-EXAMPLE_HARNESS = glx
+EXAMPLE_HARNESS ?= glx
 
 # the paths of all executables to be built
 EXECUTABLES = $(DEVEL_TESTS) $(EXAMPLES)

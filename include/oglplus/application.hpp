@@ -52,7 +52,7 @@ public:
 		assert(argc > 0);
 		assert(argv != 0);
 		assert(argv[0] != 0);
-		assert(argv[0] != 0);
+		assert(*argv[0] != 0);
 		// now find the last separator
 		const char* p = argv[0];
 		const char* s = 0;
