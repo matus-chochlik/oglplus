@@ -584,9 +584,6 @@ public:
 
 	void RenderImage(double time)
 	{
-		// this is going into the on-screen framebuffer
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
-
 		gl.ClearColor(0.8f, 0.7f, 0.6f, 0.0f);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();

@@ -33,6 +33,6 @@ for job in $(jobs -p)
 do wait ${job}
 done
 
-ffmpeg -f image2 -i "${prefix}-%06d.png" -r 25 -vcodec mpeg4 -b 1200k ${prefix}.avi
+ffmpeg -f image2 -i "${prefix}-%06d.png" -r 25 -vcodec mpeg4 -b 4000k ${prefix}.avi
 rm -f ${prefix}-*.png
 

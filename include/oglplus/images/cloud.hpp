@@ -143,11 +143,14 @@ public:
 		GLsizei height,
 		GLsizei depth,
 		const Vec3f& origin = Vec3f(0.0f, -0.3f, 0.0f),
-		GLfloat init_radius = 0.7f
+		GLfloat init_radius = 0.7f,
+		GLfloat sub_scale = 0.333f,
+		GLfloat sub_variance = 0.5f,
+		GLfloat min_radius = 0.04f
 	): Image<GLubyte>(width, height, depth)
-	 , _sub_scale(0.333f)
-	 , _sub_variance(0.5f)
-	 , _min_radius(0.04f)
+	 , _sub_scale(sub_scale)
+	 , _sub_variance(sub_variance)
+	 , _min_radius(min_radius)
 	{
 		_data.resize(width*height*depth);
 		auto p = _data.begin(), e = _data.end();
