@@ -36,6 +36,7 @@ case "$(basename ${1})" in
 	026_furry_torus) sleep_period=2;;
 	027_depth_of_field) sleep_period=5;;
 	027_smoke_trails) sleep_period=7;;
+	028_volume) sleep_period=3;;
 	031_blob) sleep_period=9;;
 	031_sketch) sleep_period=3;;
 	033_metal_and_glass) sleep_period=7;;

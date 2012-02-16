@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/028_volume.cpp
- *  @brief Shows volumetric data polygonization
+ *  @example oglplus/028_ripples.cpp
+ *  @brief Shows implicit surface polygonization
  *
- *  @image html 028_volume.png
+ *  @image html 028_ripples.png
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -13,11 +13,10 @@
 
 #include <oglplus/bound/texture.hpp>
 
-#include <oglplus/images/cloud.hpp>
-
 #include <oglplus/shapes/tetrahedrons.hpp>
-#include <oglplus/shapes/plane.hpp>
 #include <oglplus/shapes/wrapper.hpp>
+
+#include <oglplus/images/newton.hpp>
 
 #include <cmath>
 
@@ -25,58 +24,68 @@
 
 namespace oglplus {
 
-class VolumeVertShader
+class BlobVertShader
  : public VertexShader
 {
 public:
-	VolumeVertShader(void)
+	BlobVertShader(void)
 	 : VertexShader(
-		"Volume vertex shader",
+		"Blob vertex shader",
 		"#version 330\n"
-		"uniform sampler3D VolumeTex;"
-		"uniform float Threshold;"
-		"uniform float GridStep;"
+		"uniform vec3 GridOffset;"
+		"uniform float Time;"
 
 		"in vec4 Position;"
 
-		"out vec3 vertGradient;"
+		"out vec3 vertNormal;"
 		"out float vertValue;"
+		"const vec4 Source[4] = vec4[4]("
+		"	vec4( 0.2, 0.3, 0.1, 0.1),"
+		"	vec4(-0.5, 0.1,-0.1, 0.2),"
+		"	vec4(-0.1, 0.2,-0.5, 0.1),"
+		"	vec4(-0.2, 0.2,-0.4, 0.2) "
+		");"
 
 		"void main(void)"
 		"{"
-		"	gl_Position = Position;"
-		"	float Density = texture(VolumeTex, Position.xyz).r;"
-		"	vertValue = Density - Threshold;"
-		"	vertGradient = vec3(0.0, 0.0, 0.0);"
-		"	for(int z=-1; z!=2; ++z)"
-		"	for(int y=-1; y!=2; ++y)"
-		"	for(int x=-1; x!=2; ++x)"
+		"	gl_Position = Position + vec4(GridOffset, 0.0);"
+		"	vertValue = -gl_Position.y;"
+		"	vertNormal = vec3(0.0, 1.0, 0.0);"
+		"	for(int s=0; s!=4; ++s)"
 		"	{"
-		"		vec3 Offs = vec3(GridStep*x, GridStep*y, GridStep*z);"
-		"		vec3 Coord = Position.xyz + Offs;"
-		"		float Diff = Density - texture(VolumeTex, Coord).r;"
-		"		vertGradient += Diff * Offs;"
+		"		float x = gl_Position.x - Source[s].x;"
+		"		float z = gl_Position.z - Source[s].z;"
+
+		"		float a = Source[s].y;"
+		"		float w = Source[s].w*50.0;"
+		"		float r = x*x + z*z;"
+		"		float t = r + s - Time*(0.5 - 0.1*s);"
+		"		float g = w * t;"
+		"		float d = 2.0*a*exp(-r-1.0)*(w*cos(g)-sin(g));"
+
+		"		vertValue += sin(g)*exp(-r-1.0)*a;"
+		"		vertNormal += vec3(x*d, 0.0, z*d);"
 		"	}"
 		"}"
 	)
 	{ }
 };
 
-class VolumeGeomShader
+class BlobGeomShader
  : public GeometryShader
 {
 public:
-	VolumeGeomShader(void)
+	BlobGeomShader(void)
 	 : GeometryShader(
-		"Volume geometry shader",
+		"Blob geometry shader",
 		"#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
-		"uniform mat4 TransformMatrix;"
+		"uniform mat4 CameraMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
 
-		"in vec3 vertGradient[];"
+		"in vec3 vertNormal[];"
 		"in float vertValue[];"
 
 		"out vec3 geomNormal, geomLightDir, geomViewDir;"
@@ -99,13 +108,13 @@ public:
 		"		t"
 		"	);"
 		"	geomNormal = mix("
-		"		vertGradient[i1], "
-		"		vertGradient[i2], "
+		"		vertNormal[i1],"
+		"		vertNormal[i2],"
 		"		t"
 		"	);"
 		"	geomLightDir = LightPosition - gl_Position.xyz;"
 		"	geomViewDir = CameraPosition - gl_Position.xyz;"
-		"	gl_Position = TransformMatrix * gl_Position;"
+		"	gl_Position = CameraMatrix * gl_Position;"
 		"	EmitVertex();"
 		"}"
 
@@ -204,67 +213,73 @@ public:
 	{ }
 };
 
-class VolumeFragShader
+class BlobFragShader
  : public FragmentShader
 {
 public:
-	VolumeFragShader(void)
+	BlobFragShader(void)
 	 : FragmentShader(
-		"Volume fragment shader",
+		"Blob fragment shader",
 		"#version 330\n"
+
+		"uniform samplerCube EnvMap;"
 
 		"in vec3 geomNormal, geomLightDir, geomViewDir;"
 
-		"out vec4 fragColor;"
+		"out vec3 fragColor;"
 
 		"void main(void)"
 		"{"
 		"	vec3 Normal = normalize(geomNormal);"
 		"	vec3 LightDir = normalize(geomLightDir);"
 		"	vec3 ViewDir = normalize(geomViewDir);"
-		"	vec3 ViewRefl = reflect(-ViewDir, Normal);"
-		"	vec3 Color = abs(vec3(1.0, 1.0, 1.0) - Normal);"
 
-		"	float Ambient = 0.3;"
-		"	float Diffuse = max(dot(Normal, LightDir), 0.0);"
-		"	float Specular = pow(max(dot(ViewRefl, LightDir), 0.0), 16.0);"
-		"	fragColor = vec4("
-		"		Ambient * vec3(0.2, 0.1, 0.1)+"
-		"		Diffuse * Color +"
-		"		Specular* vec3(1.0, 1.0, 1.0),"
-		"		1.0"
-		"	);"
+		"	float LightRefl = dot(reflect(-LightDir, Normal), ViewDir);"
+		"	float LightHit = dot(Normal, LightDir);"
+
+		"	float Specular = pow(clamp(LightRefl+0.1, 0.0, 1.0), 32);"
+
+		"	float Diffuse1 = pow(max(LightHit*0.6+0.4, 0.0), 2.0);"
+		"	float Diffuse2 = sqrt(max(LightHit+0.2, 0.0));"
+		"	float Diffuse = Diffuse1 * 0.8 + Diffuse2 * 0.2;"
+
+		"	float ViewLight = max(0.3-dot(ViewDir, LightDir), 0.0);"
+
+		"	float Ambient = 0.9;"
+
+		"	vec3 Environ = texture(EnvMap, reflect(-ViewDir, Normal)).rgb;"
+		"	fragColor = "
+		"		Environ * Ambient +"
+		"		vec3(0.4, 0.8, 0.4) * Diffuse+"
+		"		vec3(0.2, 0.2, 0.2) * Specular;"
 		"}"
 	)
 	{ }
 };
 
-class VolumeProgram
- : public HardwiredProgram<VolumeVertShader, VolumeGeomShader, VolumeFragShader>
+class BlobProgram
+ : public HardwiredProgram<BlobVertShader, BlobGeomShader, BlobFragShader>
 {
 private:
 	const Program& prog(void) const { return *this; }
 public:
-	ProgramUniform<GLfloat> threshold, grid_step;
-	ProgramUniform<Mat4f> transform_matrix;
-	ProgramUniform<Vec3f> camera_position, light_position;
-	ProgramUniformSampler volume_tex;
+	ProgramUniform<Mat4f> camera_matrix;
+	ProgramUniform<Vec3f> grid_offset, camera_position, light_position;
+	ProgramUniform<GLfloat> time;
 
-	VolumeProgram(void)
-	 : HardwiredProgram<VolumeVertShader, VolumeGeomShader, VolumeFragShader>()
-	 , threshold(prog(), "Threshold")
-	 , grid_step(prog(), "GridStep")
-	 , transform_matrix(prog(), "TransformMatrix")
+	BlobProgram(void)
+	 : HardwiredProgram<BlobVertShader,BlobGeomShader,BlobFragShader>()
+	 , camera_matrix(prog(), "CameraMatrix")
+	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
 	 , light_position(prog(), "LightPosition")
-	 , volume_tex(prog(), "VolumeTex")
+	 , time(prog(), "Time")
 	{ }
 };
 
 class Grid
 {
 protected:
-	const size_t grid_div;
 	shapes::Tetrahedrons make_grid;
 	shapes::DrawingInstructions grid_instr;
 	typename shapes::Tetrahedrons::IndexArray grid_indices;
@@ -279,8 +294,7 @@ protected:
 
 public:
 	Grid(const Program& prog)
-	 : grid_div(64)
-	 , make_grid(1.0, grid_div)
+	 : make_grid(1.0, 32)
 	 , grid_instr(make_grid.InstructionsWithAdjacency())
 	 , grid_indices(make_grid.IndicesWithAdjacency())
 	{
@@ -299,11 +313,6 @@ public:
 		attr.Enable();
 	}
 
-	double Step(void) const
-	{
-		return 1.0 / grid_div;
-	}
-
 	void Use(void)
 	{
 		vao.Bind();
@@ -315,55 +324,51 @@ public:
 	}
 };
 
-class VolumeExample : public Example
+class BlobExample : public Example
 {
 private:
 
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	VolumeProgram volume_prog;
+	BlobProgram blob_prog;
 
 	Grid grid;
 
-	size_t width, height;
+	Mat4f perspective;
 
-	// A 3D texture containing density data
-	Texture volume_tex;
+	Texture env_map;
 public:
-	VolumeExample(void)
-	 : volume_prog()
-	 , grid(volume_prog)
+	BlobExample(void)
+	 : blob_prog()
+	 , grid(blob_prog)
 	{
-		volume_prog.grid_step = grid.Step();
-
-		std::srand(3456);
 		Texture::Active(0);
-		volume_prog.volume_tex = 0;
 		{
-			auto bound_tex = Bind(volume_tex, Texture::Target::_3D);
-			bound_tex.Image3D(
-				images::Cloud(
-					128, 128, 128,
-					Vec3f(0.0f, 0.0f, 0.0f),
-					0.5f, 0.5f, 0.5f, 0.1f
-				)
+			auto image = images::NewtonFractal(
+				256, 256,
+				Vec3f(0.1f, 0.1f, 0.1f),
+				Vec3f(1.0f, 1.0f, 1.0f),
+				Vec2f(-1.0f, -1.0f),
+				Vec2f( 1.0f,  1.0f),
+				images::NewtonFractal::X4Minus1()
 			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
+			auto bound_tex = Bind(env_map, Texture::Target::CubeMap);
+			for(int i=0; i!=6; ++i)
+				Texture::Image2D(Texture::CubeMapFace(i), image);
+			bound_tex.GenerateMipmap();
+			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f));
-			bound_tex.WrapS(TextureWrap::ClampToBorder);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
-			bound_tex.WrapR(TextureWrap::ClampToBorder);
+			bound_tex.WrapS(TextureWrap::ClampToEdge);
+			bound_tex.WrapT(TextureWrap::ClampToEdge);
+			bound_tex.WrapR(TextureWrap::ClampToEdge);
 		}
+		ProgramUniformSampler(blob_prog, "EnvMap").Set(0);
 
 		const Vec3f light_position(12.0, 1.0, 8.0);
-		volume_prog.light_position = light_position;
+		blob_prog.light_position.Set(light_position);
 
-		grid.Use();
-		volume_prog.Use();
-
-		gl.ClearColor(0.8f, 0.7f, 0.6f, 0.0f);
+		gl.ClearColor(0.7f, 0.65f, 0.55f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 
@@ -372,40 +377,42 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-
-	void Render(double time)
+	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		gl.Clear().ColorBuffer().DepthBuffer();
-		//
-
-		Mat4f perspective = CamMatrixf::Perspective(
+		perspective = CamMatrixf::Perspective(
 			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
+	}
+
+	void Render(double time)
+	{
+		gl.Clear().ColorBuffer().DepthBuffer();
+		//
+		blob_prog.time = time;
+
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			1.52 - SineWave(time / 14.0) * 0.1,
-			FullCircles(time / 19.0),
-			Degrees(45 + SineWave(time / 17.0) * 40)
+			3.0 - SineWave(time / 14.0),
+			FullCircles(time / 26.0),
+			Degrees(55 + SineWave(time / 14.0) * 30)
 		);
 		Vec3f camera_position = camera.Position();
 
-		auto model = ModelMatrixf::Translation(-0.5, -0.5, -0.5);
+		blob_prog.camera_position = camera_position;
+		blob_prog.camera_matrix = perspective*camera;
 
-		volume_prog.camera_position = camera_position;
-		volume_prog.transform_matrix = perspective*camera*model;
-		volume_prog.threshold = 0.5 + SineWave(time / 7.0) * 0.4;
+		int side = 2;
+		for(int z=-side; z!=side; ++z)
+		for(int x=-side; x!=side; ++x)
+		{
+			blob_prog.grid_offset.Set(x, -0.5, z);
+			grid.Draw();
+		}
 
-		grid.Draw();
-	}
-
-	void Reshape(size_t vp_width, size_t vp_height)
-	{
-		width = vp_width;
-		height = vp_height;
 	}
 
 	bool Continue(double time)
@@ -416,7 +423,7 @@ public:
 
 std::unique_ptr<Example> makeExample(void)
 {
-	return std::unique_ptr<Example>(new VolumeExample);
+	return std::unique_ptr<Example>(new BlobExample);
 }
 
 } // namespace oglplus

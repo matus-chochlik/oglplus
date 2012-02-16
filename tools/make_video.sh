@@ -26,13 +26,13 @@ function convert_single_frame()
 prefix="/tmp/oglplus-$(basename ${1})"
 out/${1} ${prefix}- |
 while read framepath
-do convert_single_frame "${framepath}" &
+do convert_single_frame "${framepath}"
 done
 
 for job in $(jobs -p)
 do wait ${job}
 done
 
-ffmpeg -f image2 -i "${prefix}-%06d.png" -r 25 -vcodec mpeg4 -b 4000k ${prefix}.avi
+ffmpeg -f image2 -i "${prefix}-%06d.png" -r 25 -vcodec mpeg4 -b 4000 ${prefix}.avi
 rm -f ${prefix}-*.png
 

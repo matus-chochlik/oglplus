@@ -543,6 +543,7 @@ public:
 		blob_prog.light_position.Set(light_position);
 		metal_prog.light_position.Set(light_position);
 
+		gl.ClearColor(0.8f, 0.7f, 0.6f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 
@@ -555,6 +556,7 @@ public:
 	{
 		width = vp_width;
 		height = vp_height;
+		gl.Viewport(width, height);
 	}
 
 	void UpdateMetaballs(double time)
@@ -584,8 +586,6 @@ public:
 
 	void RenderImage(double time)
 	{
-		gl.ClearColor(0.8f, 0.7f, 0.6f, 0.0f);
-		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 
@@ -617,9 +617,9 @@ public:
 		grid.Use();
 
 		int side = 1;
-		for(int z=-side; z!=side+1; ++z)
-		for(int y=-side; y!=side+1; ++y)
-		for(int x=-side; x!=side+1; ++x)
+		for(int z=-side; z!=side; ++z)
+		for(int y=-side; y!=side; ++y)
+		for(int x=-side; x!=side; ++x)
 		{
 			blob_prog.grid_offset.Set(x, y, z);
 			grid.Draw();
