@@ -21,15 +21,13 @@ namespace oglplus {
 
 /** @mainpage OGLplus - a C++ wrapper for OpenGL® version 3 and higher.
  *
+ *  @image html oglplus.png
+ *
  *  <A HREF="../index.html">OGLplus</A> is a header-only library which implements
  *  a thin object-oriented facade over the OpenGL® (version 3 and higher)
  *  C-language API. It provides wrappers which automate
  *  resource and object management and make the use of OpenGL
  *  in C++ safer and easier.
- *
- *  @warning Major breaking change in version 0.9.0: The Uniform, ProgramUniform,
- *  VertexAttrib and other shader-data-related classes were turned to class templates
- *  and the setting of uniform variables and vertex attribute values was changed.
  *
  *  - @ref oglplus_features
  *    - @ref feat_auto_resource_management
