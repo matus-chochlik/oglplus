@@ -306,7 +306,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(void)
+std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
 	return std::unique_ptr<Example>(new SphereExample);
 }

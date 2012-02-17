@@ -17,6 +17,17 @@
 
 namespace oglplus {
 
+/// Run-time parameters for example instances
+struct ExampleParams
+{
+	/// The quality of rendered image (0.0 = low, 0.5 = default, 1.0 = high)
+	float quality;
+
+	ExampleParams(void)
+	 : quality(0.5f)
+	{ }
+};
+
 /// Base class for OGLplus examples
 struct Example
 {
@@ -60,7 +71,7 @@ struct Example
 	virtual void Render(double time) = 0;
 };
 
-std::unique_ptr<Example> makeExample(void);
+std::unique_ptr<Example> makeExample(const ExampleParams& params);
 
 } // namespace oglplus
 

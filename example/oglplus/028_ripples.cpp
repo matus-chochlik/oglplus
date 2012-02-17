@@ -293,8 +293,8 @@ protected:
 	Buffer positions, indices;
 
 public:
-	Grid(const Program& prog)
-	 : make_grid(1.0, 32)
+	Grid(const Program& prog, float quality)
+	 : make_grid(1.0, 16 + quality*quality*64)
 	 , grid_instr(make_grid.InstructionsWithAdjacency())
 	 , grid_indices(make_grid.IndicesWithAdjacency())
 	{
@@ -345,10 +345,13 @@ private:
 	Mat4f perspective;
 
 	Texture env_map;
+
+	const int grid_repeat;
 public:
-	LiquidExample(void)
+	LiquidExample(const ExampleParams& params)
 	 : liquid_prog()
-	 , grid(liquid_prog)
+	 , grid(liquid_prog, params.quality)
+	 , grid_repeat(1 + params.quality*2)
 	{
 		Texture::Active(0);
 		{
@@ -412,9 +415,8 @@ public:
 		liquid_prog.camera_position = camera_position;
 		liquid_prog.camera_matrix = perspective*camera;
 
-		int side = 2;
-		for(int z=-side; z!=side; ++z)
-		for(int x=-side; x!=side; ++x)
+		for(int z=-grid_repeat; z!=grid_repeat; ++z)
+		for(int x=-grid_repeat; x!=grid_repeat; ++x)
 		{
 			liquid_prog.grid_offset.Set(x, -0.5, z);
 			grid.Draw();
@@ -428,9 +430,9 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(void)
+std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
-	return std::unique_ptr<Example>(new LiquidExample);
+	return std::unique_ptr<Example>(new LiquidExample(params));
 }
 
 } // namespace oglplus

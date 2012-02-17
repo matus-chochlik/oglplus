@@ -71,7 +71,8 @@ void run(const x11::Display& display)
 
 	ctx.MakeCurrent(win);
 	{
-		std::unique_ptr<Example> example(makeExample());
+		ExampleParams params;
+		std::unique_ptr<Example> example(makeExample(params));
 
 		win.SelectInput(
 			example->UsesMouseMotion()?PointerMotionMask:0

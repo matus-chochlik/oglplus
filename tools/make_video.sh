@@ -20,7 +20,7 @@ fi
 #
 function convert_single_frame()
 {
-	convert -depth 8 -size 852x480 ${1} -flip ${1%.rgba}.png && rm -f ${1}
+	convert -depth 8 -size 852x480 ${1} -flip -quality 95 ${1%.rgba}.jpeg && rm -f ${1}
 }
 # start the example
 prefix="/tmp/oglplus-$(basename ${1})"
@@ -33,6 +33,6 @@ for job in $(jobs -p)
 do wait ${job}
 done
 
-ffmpeg -f image2 -i "${prefix}-%06d.png" -r 25 -vcodec mpeg4 -b 4000 ${prefix}.avi
-rm -f ${prefix}-*.png
+ffmpeg -f image2 -i "${prefix}-%06d.jpeg" -r 25 -vcodec mpeg4 -b 4000k ${prefix}.avi
+rm -f ${prefix}-*.jpeg
 

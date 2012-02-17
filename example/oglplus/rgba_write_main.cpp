@@ -74,7 +74,9 @@ void run(const x11::Display& display, const char* prefix)
 
 	ctx.MakeCurrent(win);
 	{
-		std::unique_ptr<Example> example(makeExample());
+		ExampleParams params;
+		params.quality = 1.0f;
+		std::unique_ptr<Example> example(makeExample(params));
 
 		win.SelectInput(0);
 		XEvent event;
