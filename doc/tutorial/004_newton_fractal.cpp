@@ -30,9 +30,9 @@
  *
  *  @dontinclude oglplus/004_newton.cpp
  *
- *  First we include a helper header from OGLplus that in turn includes
- *  @c GL3/gl3.h.
- *  @skipline #include <oglplus/gl.hpp>
+ *  First we include a helper header that in turn includes
+ *  @c GL3/gl3.h or makes sure that the OpenGL symbols are defined.
+ *  @skipline #include "example_gl.hpp
  *
  *  The next line includes everything from @OGLplus, except the image loaders
  *  and generators and geometric shape data generators.

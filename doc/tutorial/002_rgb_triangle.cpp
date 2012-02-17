@@ -21,12 +21,12 @@
  *
  *  @dontinclude oglplus/002_triangle.cpp
  *
- *  First we include a helper header from OGLplus that in turn includes
- *  @c GL3/gl3.h. This is convenient if you have the @c GL3/gl3.h header
- *  file installed on your computer. It is however not required and if
+ *  First we include a locale helper header that in turn includes
+ *  @c GL3/gl3.h , GLEW or makes sure that the OpenGL symbols are defined.
+ *  It is however not required for your applications to do it this way and if
  *  you wish you can use other means of defining the necessary OpenGL 3
  *  functions, constants, etc.
- *  @skipline #include <oglplus/gl.hpp>
+ *  @skipline #include "example_gl.hpp"
  *
  *  The next line includes everything from @OGLplus, except the image loaders
  *  and generators and geometric shape data generators.
