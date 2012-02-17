@@ -275,7 +275,7 @@ protected:
 	VertexArray vao;
 
 	// VBO for the grids's vertex positions
-	Buffer vbo;
+	Buffer positions, indices;
 
 public:
 	Grid(const Program& prog)
@@ -288,8 +288,8 @@ public:
 		vao.Bind();
 
 		std::vector<GLfloat> data;
-		// bind the VBO for the vertex attribute
-		vbo.Bind(Buffer::Target::Array);
+		// bind the VBO for the grid vertex positions
+		positions.Bind(Buffer::Target::Array);
 		GLuint n_per_vertex = make_grid.Positions(data);
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, data);
@@ -297,6 +297,12 @@ public:
 		VertexAttribArray attr(prog, "Position");
 		attr.Setup(n_per_vertex, DataType::Float);
 		attr.Enable();
+
+		// bind the VBO for the tetrahedron indices
+		indices.Bind(Buffer::Target::ElementArray);
+		// upload them
+		Buffer::Data(Buffer::Target::ElementArray, grid_indices);
+		grid_indices.clear();
 	}
 
 	double Step(void) const

@@ -104,11 +104,12 @@ private:
 	template <typename IT>
 	void _DrawElements(const std::vector<IT>& indices) const
 	{
+		const IT* base = indices.empty() ? nullptr : indices.data();
 		OGLPLUS_GLFUNC(DrawElements)(
 			GLenum(mode),
 			count,
 			GLenum(GetDataType<IT>()),
-			(void*)(indices.data() + first)
+			(void*)(base + first)
 		);
 		HandleIfError(OGLPLUS_ERROR_INFO(DrawElements));
 	}
@@ -119,11 +120,12 @@ private:
 		GLuint inst_count
 	) const
 	{
+		const IT* base = indices.empty() ? nullptr : indices.data();
 		OGLPLUS_GLFUNC(DrawElementsInstanced)(
 			GLenum(mode),
 			count,
 			GLenum(GetDataType<IT>()),
-			(void*)(indices.data() + first),
+			(void*)(base + first),
 			inst_count
 		);
 		HandleIfError(OGLPLUS_ERROR_INFO(DrawElementsInstanced));
