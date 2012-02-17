@@ -26,7 +26,7 @@
  *  It is however not required for your applications to do it this way and if
  *  you wish you can use other means of defining the necessary OpenGL 3
  *  functions, constants, etc.
- *  @skipline #include "example_gl.hpp"
+ *  @skipline #include <oglplus/gl.hpp>
  *
  *  The next line includes everything from @OGLplus, except the image loaders
  *  and generators and geometric shape data generators.

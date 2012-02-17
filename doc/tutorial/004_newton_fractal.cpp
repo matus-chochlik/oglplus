@@ -32,7 +32,7 @@
  *
  *  First we include a helper header that in turn includes
  *  @c GL3/gl3.h or makes sure that the OpenGL symbols are defined.
- *  @skipline #include "example_gl.hpp
+ *  @skipline #include <oglplus/gl.hpp>
  *
  *  The next line includes everything from @OGLplus, except the image loaders
  *  and generators and geometric shape data generators.
