@@ -19,6 +19,49 @@
 namespace oglplus {
 namespace context {
 
+/// Helper structure storing the extents of a 2D scissor box
+struct ScissorBox
+{
+	// private implementation detail, do not use
+	GLint _v[4];
+
+	/// The x-coordinate
+	GLint X(void) const
+	{
+		return _v[0];
+	}
+
+	/// The y-coordinate
+	GLint Y(void) const
+	{
+		return _v[1];
+	}
+
+	/// The x-coordinate
+	GLint Left(void) const
+	{
+		return _v[0];
+	}
+
+	/// The y-coordinate
+	GLint Bottom(void) const
+	{
+		return _v[1];
+	}
+
+	/// The width of the viewport
+	GLint Width(void) const
+	{
+		return _v[2];
+	}
+
+	/// The height of the viewport
+	GLint Height(void) const
+	{
+		return _v[3];
+	}
+};
+
 /// Wrapper for the scissor-buffer-related operations
 /**
  *  @ingroup ogl_context
@@ -27,6 +70,12 @@ class ScissorTest
 {
 public:
 	/// Defines the scissor rectangle for the first viewport
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Scissor}
+	 */
 	static void Scissor(
 		GLint left,
 		GLint bottom,
@@ -39,9 +88,15 @@ public:
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
-	/// Defines the scissor rectangle for the specified viewport
-	static void ScissorIndexed(
-		GLuint index,
+	/// Defines the scissor rectangle for the specified @p viewport
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ScissorIndexed}
+	 */
+	static void Scissor(
+		GLuint viewport,
 		GLint left,
 		GLint bottom,
 		GLsizei width,
@@ -49,7 +104,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ScissorIndexed)(
-			index,
+			viewport,
 			left,
 			bottom,
 			width,
@@ -58,18 +113,39 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(ScissorIndexed));
 	}
 
-	/// Defines the scissor rectangle for the specified viewport
-	static void ScissorIndexedv(GLuint index, GLint* v)
+	/// Defines the scissor rectangle for the specified @p viewport
+	static void Scissor(GLuint viewport, GLint* v)
 	{
-		OGLPLUS_GLFUNC(ScissorIndexedv)(index, v);
+		OGLPLUS_GLFUNC(ScissorIndexedv)(viewport, v);
 		HandleIfError(OGLPLUS_ERROR_INFO(ScissorIndexedv));
 	}
 
-	/// Defines the scissor rectangle for multiple viewports
-	static void ScissorArrayv(GLuint first, GLsizei count, GLint* v)
+	/// Defines scissor boxes for viewports specified by @p first @p count
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ScissorArrayv}
+	 */
+	static void ScissorArray(GLuint first, GLsizei count, GLint* v)
 	{
 		OGLPLUS_GLFUNC(ScissorArrayv)(first, count, v);
 		HandleIfError(OGLPLUS_ERROR_INFO(ScissorArrayv));
+	}
+
+	/// Returns the extents of scissor box of the specified @p viewport
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{SCISSOR_BOX}
+	 */
+	static ScissorBox GetScissor(GLuint viewport)
+	{
+		ScissorBox result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(GL_SCISSOR_BOX, viewport,result._v);
+		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegeri_v));
 	}
 #endif
 };
