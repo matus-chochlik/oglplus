@@ -284,6 +284,7 @@ public:
 		ViewportExtents result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_VIEWPORT, viewport, result._v);
 		HandleIfError(OGLPLUS_ERROR_INFO(GetFloati_v));
+		return result;
 	}
 
 
@@ -330,6 +331,7 @@ public:
 		oglplus::context::DepthRange result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_DEPTH_RANGE, viewport,result._v);
 		HandleIfError(OGLPLUS_ERROR_INFO(GetFloati_v));
+		return result;
 	}
 #endif
 };

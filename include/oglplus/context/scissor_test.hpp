@@ -146,6 +146,7 @@ public:
 		ScissorBox result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(GL_SCISSOR_BOX, viewport,result._v);
 		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+		return result;
 	}
 #endif
 };
