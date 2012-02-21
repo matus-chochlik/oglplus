@@ -1625,6 +1625,92 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
+	/// Specifies all levels of 1D texture at the same time
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexStorage1D}
+	 */
+	static void TexStorage1D(
+		Target target,
+		GLsizei levels,
+		PixelDataInternalFormat internal_format,
+		GLsizei width
+	)
+	{
+		OGLPLUS_GLFUNC(TexStorage1D)(
+			GLenum(target),
+			levels,
+			GLenum(internal_format),
+			width
+		);
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexStorage1D,
+			Texture,
+			EnumValueNameTpl(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies all levels of 2D texture at the same time
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexStorage2D}
+	 */
+	static void TexStorage2D(
+		Target target,
+		GLsizei levels,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		OGLPLUS_GLFUNC(TexStorage2D)(
+			GLenum(target),
+			levels,
+			GLenum(internal_format),
+			width,
+			height
+		);
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexStorage2D,
+			Texture,
+			EnumValueNameTpl(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies all levels of 3D texture at the same time
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexStorage3D}
+	 */
+	static void TexStorage3D(
+		Target target,
+		GLsizei levels,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth
+	)
+	{
+		OGLPLUS_GLFUNC(TexStorage3D)(
+			GLenum(target),
+			levels,
+			GLenum(internal_format),
+			width,
+			height,
+			depth
+		);
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			TexStorage3D,
+			Texture,
+			EnumValueNameTpl(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+#endif
+
 	/// Returns the texture base level (TEXTURE_BASE_LEVEL)
 	/**
 	 *  @glsymbols
