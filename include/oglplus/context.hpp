@@ -29,6 +29,7 @@
 #include <oglplus/context/pixel_ops.hpp>
 #include <oglplus/context/hints.hpp>
 #include <oglplus/context/limit_queries.hpp>
+#include <oglplus/context/string_queries.hpp>
 
 #include <oglplus/face_mode.hpp>
 #include <oglplus/compare_func.hpp>
@@ -69,6 +70,7 @@ class Context
  , public context::Synchronization
  , public context::Hints
  , public context::LimitQueries
+ , public context::StringQueries
 {
 public:
 };
