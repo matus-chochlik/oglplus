@@ -63,11 +63,12 @@ private:
 		return a*(1.0f - coef) + b*coef;
 	}
 
-	template <typename Function, size_t N>
+	template <typename Function, typename Mixer, size_t N>
 	void _make(
 		GLsizei width,
 		GLsizei height,
 		Function,
+		Mixer mixer,
 		Vec2f lb,
 		Vec2f rt,
 		Vector<float, N> c1,
@@ -81,8 +82,8 @@ private:
 		for(GLsizei j=0; j!=height; ++j)
 		{
 			Vec2f z(
-				_mix(lb.x(), rt.x(), float(i)/float(width)),
-				_mix(lb.y(), rt.y(), float(j)/float(height))
+				_mix(lb.x(), rt.x(), float(i)/float(width-1)),
+				_mix(lb.y(), rt.y(), float(j)/float(height-1))
 			);
 			size_t n, max = 256;
 			for(n = 0; n != max; ++n)
@@ -94,7 +95,11 @@ private:
 				if(Distance(zn, z) < 0.00001f) break;
 				z = zn;
 			}
-			Vector<float, N> c = _mix(c1, c2, (float(n) / float(max)));
+			Vector<float, N> c = _mix(
+				c1,
+				c2,
+				mixer(float(n) / float(max-1))
+			);
 			for(n=0; n!=N; ++n)
 			{
 				assert(p != e);
@@ -150,6 +155,17 @@ public:
 
 	typedef X3Minus1 DefaultFunction;
 
+	struct NoopMixer
+	{
+		template <typename T>
+		T operator()(T value) const
+		{
+			return value;
+		}
+	};
+
+	typedef NoopMixer DefaultMixer;
+
 	/// Creates a RGB texture using c1 and c2 for colorizing of the fractal
 	/**
 	 *  @param width the width of the image in pixels
@@ -165,8 +181,12 @@ public:
 	 *  @param func the object wrapping the functions calculating the value
 	 *    of the polynomial and its first derivative (see the class
 	 *    documentation).
+	 *  @param mixer function controling the colorization
 	 */
-	template <typename Function = DefaultFunction>
+	template <
+		typename Function = DefaultFunction,
+		typename Mixer = DefaultMixer
+	>
 	NewtonFractal(
 		GLsizei width,
 		GLsizei height,
@@ -174,10 +194,11 @@ public:
 		Vec3f c2,
 		Vec2f lb = Vec2f(-1.0f, -1.0f),
 		Vec2f rt = Vec2f( 1.0f,  1.0f),
-		Function func = Function()
+		Function func = Function(),
+		Mixer mixer = Mixer()
 	): Image<GLfloat>(width, height, 1)
 	{
-		_make(width, height, func, lb, rt, c1, c2);
+		_make(width, height, func, mixer, lb, rt, c1, c2);
 		_type = PixelDataType::Float;
 		_format = PixelDataFormat::RGB;
 		_internal = PixelDataInternalFormat::RGB;
@@ -190,17 +211,23 @@ public:
 	 *  @param func the object wrapping the functions calculating the value
 	 *    of the polynomial and its first derivative (see the class
 	 *    documentation).
+	 *  @param mixer function controling the colorization
 	 */
-	template <typename Function = DefaultFunction>
+	template <
+		typename Function = DefaultFunction,
+		typename Mixer = DefaultMixer
+	>
 	NewtonFractal(
 		GLsizei width,
 		GLsizei height,
-		Function func = Function()
+		Function func = Function(),
+		Mixer mixer = Mixer()
 	): Image<GLfloat>(width, height, 1)
 	{
 		_make(
 			width, height,
 			func,
+			mixer,
 			Vec2f(-1.0f, -1.0f), Vec2f(1.0f, 1.0f),
 			Vec1f(0.0f), Vec1f(1.0f)
 		);

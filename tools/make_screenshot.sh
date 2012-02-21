@@ -30,6 +30,7 @@ case "$(basename ${1})" in
 	021_cloud) sleep_period=3;;
 	021_wooden_crate) sleep_period=2;;
 	024_particle_trails) sleep_period=4;;
+	025_multi_viewport) sleep_period=3;;
 	025_rendered_texture) sleep_period=2;;
 	026_clouds) sleep_period=5;;
 	026_torus_halo) sleep_period=2;;

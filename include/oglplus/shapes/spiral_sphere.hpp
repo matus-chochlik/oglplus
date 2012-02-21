@@ -263,6 +263,20 @@ public:
 	 , _segments(48)
 	{ }
 
+	/// Creates a custom spiral sphere
+	SpiralSphere(
+		GLdouble radius,
+		GLdouble thickness,
+		size_t bands,
+		size_t divisions,
+		size_t segments
+	): _radius(radius)
+	 , _thickness(thickness)
+	 , _bands(bands)
+	 , _divisions(divisions)
+	 , _segments(segments)
+	{ }
+
 	/// Returns the winding direction of faces
 	FaceOrientation FaceWinding(void) const
 	{
