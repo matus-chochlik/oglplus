@@ -27,6 +27,24 @@
 
 namespace oglplus {
 
+/// The kind of a Shader
+/**
+ *  @ingroup enumerations
+ *
+ *  @see Shader::Kind()
+ */
+enum class ShaderKind : GLenum {
+#include <oglplus/enums/shader_kind.ipp>
+};
+
+inline const GLchar* EnumValueName(ShaderKind value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/shader_kind.ipp>
+#endif
+	return "";
+}
+
 /// Shader operations wrapper helper class
 /**
  *  @note Do not use this class directly, use Shader instead.
@@ -41,13 +59,8 @@ namespace oglplus {
 class ShaderOps
  : public Named
 {
-public:
-	/// The kind of the shader
-	enum class Kind : GLenum {
-#include <oglplus/enums/shader_kind.ipp>
-	};
 protected:
-	static void _init(GLsizei, GLuint& _name, Kind kind)
+	static void _init(GLsizei, GLuint& _name, ShaderKind kind)
 	{
 		_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(kind));
 		HandleIfError(OGLPLUS_ERROR_INFO(CreateShader));
@@ -67,13 +80,20 @@ protected:
 
 	friend class FriendOf<ShaderOps>;
 public:
-	/// Get the type of the shader
+	/// Types related to Shader
+	struct Property
+	{
+		/// The kind of a Shader
+		typedef ShaderKind Kind;
+	};
+
+	/// Get the kind of the shader
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetShader}
 	 *  @gldefref{SHADER_TYPE}
 	 */
-	Kind Type(void) const
+	ShaderKind Kind(void) const
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetShaderiv)(
@@ -84,10 +104,10 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CreateShader,
 			Shader,
-			EnumValueNameTpl(Kind(result)),
+			EnumValueNameTpl(ShaderKind(result)),
 			_name
 		));
-		return Kind(result);
+		return ShaderKind(result);
 	}
 
 	/// Set the source code of the shader
@@ -171,7 +191,7 @@ public:
 		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
 			GetShaderiv,
 			Shader,
-			EnumValueNameTpl(Type()),
+			EnumValueNameTpl(Kind()),
 			_name
 		));
 		return status == GL_TRUE;
@@ -212,7 +232,7 @@ public:
 		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
 			CompileShader,
 			Shader,
-			EnumValueNameTpl(Type()),
+			EnumValueNameTpl(Kind()),
 			_name
 		));
 		if(!IsCompiled())
@@ -221,7 +241,7 @@ public:
 				OGLPLUS_OBJECT_ERROR_INFO(
 					CompileShader,
 					Shader,
-					EnumValueNameTpl(Type()),
+					EnumValueNameTpl(Kind()),
 					_name
 				)
 			);
@@ -240,14 +260,6 @@ public:
 #endif
 };
 
-inline const GLchar* EnumValueName(ShaderOps::Kind value)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/shader_kind.ipp>
-#endif
-	return "";
-}
-
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An object encasulating the shading language shader functionality
 /**
@@ -262,14 +274,14 @@ class Shader
  : public ShaderOps
 {
 public:
-	Shader(ShaderOps::Kind kind);
-	Shader(ShaderOps::Kind kind, String description);
+	Shader(ShaderKind kind);
+	Shader(ShaderKind kind, String description);
 };
 #else
 typedef Object<ShaderOps, false> Shader;
 #endif
 
-template <Shader::Kind kind>
+template <ShaderKind kind>
 class SpecializedShader
  : public Shader
 {
@@ -311,7 +323,7 @@ public:
 	{ }
 };
 
-template <Shader::Kind kind>
+template <ShaderKind kind>
 struct BaseOps<SpecializedShader<kind> >
 {
 	typedef typename BaseOps<Shader>::Type Type;
@@ -328,7 +340,7 @@ class VertexShader
  : public Shader
 { };
 #elif defined GL_VERTEX_SHADER
-typedef SpecializedShader<Shader::Kind::Vertex> VertexShader;
+typedef SpecializedShader<ShaderKind::Vertex> VertexShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -342,7 +354,7 @@ class GeometryShader
  : public Shader
 { };
 #elif defined GL_GEOMETRY_SHADER
-typedef SpecializedShader<Shader::Kind::Geometry> GeometryShader;
+typedef SpecializedShader<ShaderKind::Geometry> GeometryShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -356,7 +368,7 @@ class FragmentShader
  : public Shader
 { };
 #elif GL_FRAGMENT_SHADER
-typedef SpecializedShader<Shader::Kind::Fragment> FragmentShader;
+typedef SpecializedShader<ShaderKind::Fragment> FragmentShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -370,7 +382,7 @@ class TessControlShader
  : public Shader
 { };
 #elif GL_TESS_CONTROL_SHADER
-typedef SpecializedShader<Shader::Kind::TessControl> TessControlShader;
+typedef SpecializedShader<ShaderKind::TessControl> TessControlShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -384,7 +396,7 @@ class TessEvaluationShader
  : public Shader
 { };
 #elif GL_TESS_EVALUATION_SHADER
-typedef SpecializedShader<Shader::Kind::TessEvaluation> TessEvaluationShader;
+typedef SpecializedShader<ShaderKind::TessEvaluation> TessEvaluationShader;
 #endif
 
 } // namespace oglplus

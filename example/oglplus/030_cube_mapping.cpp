@@ -578,12 +578,12 @@ public:
 				Framebuffer::Target::Draw
 			);
 			bound_fbo.AttachTexture(
-				Framebuffer::Attachment::Color,
+				FramebufferAttachment::Color,
 				ctex,
 				0
 			);
 			bound_fbo.AttachTexture(
-				Framebuffer::Attachment::Depth,
+				FramebufferAttachment::Depth,
 				dtex,
 				0
 			);

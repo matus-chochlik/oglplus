@@ -194,12 +194,12 @@ public:
 				tex_side
 			);
 			bound_fbo.AttachTexture(
-				Framebuffer::Attachment::Color,
+				FramebufferAttachment::Color,
 				texs[i],
 				0
 			);
 			bound_fbo.AttachRenderbuffer(
-				Framebuffer::Attachment::Depth,
+				FramebufferAttachment::Depth,
 				rbos[i]
 			);
 		}

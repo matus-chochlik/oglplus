@@ -28,6 +28,22 @@ namespace oglplus {
 // if program-pipeline is available
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
+/// Program pipeline stage enumeration
+/**
+ *  @ingroup enumerations
+ */
+enum class ProgramPipelineStage : GLbitfield {
+#include <oglplus/enums/program_pipeline_stage.ipp>
+};
+
+inline const GLchar* EnumValueName(ProgramPipelineStage value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/program_pipeline_stage.ipp>
+#endif
+	return "";
+}
+
 /// ProgramPipeline operations wrapper class
 /** This class implements OpenGL program pipeline operations.
  *  @note Do not use this class directly, use @c ProgramPipeline instead.
@@ -64,6 +80,13 @@ protected:
 
 	friend class FriendOf<ProgramPipelineOps>;
 public:
+	/// Types related to ProgramPipeline
+	struct Properties
+	{
+		/// The stage of a ProgramPipeline
+		typedef ProgramPipelineStage Stage;
+	};
+
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
@@ -99,11 +122,6 @@ public:
 		OGLPLUS_GLFUNC(BindProgramPipeline)(0);
 		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
-
-	/// Program pipeline stage enumeration
-	enum class Stage : GLbitfield {
-#include <oglplus/enums/program_pipeline_stage.ipp>
-	};
 
 	/// Specifies program stages by calling functions of the returned object
 	/** This function returns an object that allows to specify which stages
@@ -145,7 +163,7 @@ public:
 	 *  @glfunref{UseProgramStages}
 	 */
 	void UseStages(
-		std::initializer_list<Stage> stages,
+		std::initializer_list<ProgramPipelineStage> stages,
 		const ProgramOps& program
 	) const
 	{
@@ -266,7 +284,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetProgramPipeline}
 	 */
-	bool HasShader(Shader::Kind shader_kind) const
+	bool HasShader(ShaderKind shader_kind) const
 	{
 		return GetIntParam(GLenum(shader_kind)) != 0;
 	}
@@ -276,19 +294,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetProgramPipeline}
 	 */
-	Managed<ProgramOps> ShaderProgram(Shader::Kind shader_kind) const
+	Managed<ProgramOps> ShaderProgram(ShaderKind shader_kind) const
 	{
 		return Managed<ProgramOps>(GetIntParam(GLenum(shader_kind)));
 	}
 };
-
-inline const GLchar* EnumValueName(ProgramPipelineOps::Stage value)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/program_pipeline_stage.ipp>
-#endif
-	return "";
-}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL program pipeline functionality

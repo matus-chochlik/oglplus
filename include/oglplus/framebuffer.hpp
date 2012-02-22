@@ -40,6 +40,32 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 )
 #endif
 
+/// Framebuffer renderbuffer attachment points
+enum class FramebufferAttachment : GLenum {
+#include <oglplus/enums/framebuffer_attachment.ipp>
+};
+
+inline const GLchar* EnumValueName(FramebufferAttachment value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/framebuffer_attachment.ipp>
+#endif
+	return "";
+}
+
+/// Framebuffer status enumeration
+enum class FramebufferStatus : GLenum {
+#include <oglplus/enums/framebuffer_status.ipp>
+};
+
+inline const GLchar* EnumValueName(FramebufferStatus value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/framebuffer_status.ipp>
+#endif
+	return "";
+}
+
 /// Wrapper for OpenGL framebuffer operations
 /**
  *  @note Do not use this class directly, use FrameBuffer instead
@@ -77,19 +103,9 @@ protected:
 
 	friend class FriendOf<FramebufferOps>;
 public:
-	/// Framebuffer renderbuffer attachment points
-	enum class Attachment : GLenum {
-#include <oglplus/enums/framebuffer_attachment.ipp>
-	};
-
 	/// Framebuffer bind targets
 	enum class Target : GLenum {
 #include <oglplus/enums/framebuffer_target.ipp>
-	};
-
-	/// Framebuffer status enumeration
-	enum class Status : GLenum {
-#include <oglplus/enums/framebuffer_status.ipp>
 	};
 protected:
 	static GLenum _binding_query(Target target)
@@ -103,6 +119,16 @@ protected:
 	}
 	friend class BindingQuery<FramebufferOps>;
 public:
+
+	/// Types related to Framebuffer
+	struct Property
+	{
+		/// Attachment of a Framebuffer
+		typedef FramebufferAttachment Attachment;
+
+		/// Status of a Framebuffer
+		typedef FramebufferStatus Status;
+	};
 
 	/// Bind this framebuffer to the specified target
 	/**
@@ -137,15 +163,16 @@ public:
 	}
 
 	/// Checks the status of the framebuffer
-	/** Returns one of the values in the @c Status enumeration. For complete
-	 *  framebuffers this member function returns Status::Complete.
+	/** Returns one of the values in the @c FramebufferStatus enumeration.
+	 *  For complete framebuffers this member function returns
+	 *  Status::Complete.
 	 *
 	 *  @see IsComplete
 	 *
 	 *  @glsymbols
 	 *  @glfunref{CheckFramebufferStatus}
 	 */
-	static Status CheckStatus(Target target)
+	static FramebufferStatus Status(Target target)
 	{
 		GLenum result = OGLPLUS_GLFUNC(CheckFramebufferStatus)(
 			GLenum(target)
@@ -156,20 +183,20 @@ public:
 			EnumValueNameTpl(target),
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
-		return Status(result);
+		return FramebufferStatus(result);
 	}
 
 	/// Returns true if the framebuffer is complete
 	/**
-	 *  @see Status
-	 *  @see CheckStatus
+	 *  @see FramebufferStatus
+	 *  @see Status()
 	 *
 	 *  @glsymbols
 	 *  @glfunref{CheckFramebufferStatus}
 	 */
 	static bool IsComplete(Target target)
 	{
-		return CheckStatus(target) == Status::Complete;
+		return Status(target) == FramebufferStatus::Complete;
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of @p target
@@ -187,7 +214,7 @@ public:
 	 */
 	static void AttachRenderbuffer(
 		Target target,
-		Attachment attachment,
+		FramebufferAttachment attachment,
 		const RenderbufferOps& renderbuffer
 	)
 	{
@@ -254,7 +281,7 @@ public:
 	 */
 	static void AttachTexture(
 		Target target,
-		Attachment attachment,
+		FramebufferAttachment attachment,
 		const TextureOps& texture,
 		GLint level
 	)
@@ -323,7 +350,7 @@ public:
 	 */
 	static void AttachTexture1D(
 		Target target,
-		Attachment attachment,
+		FramebufferAttachment attachment,
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level
@@ -359,7 +386,7 @@ public:
 	 */
 	static void AttachTexture2D(
 		Target target,
-		Attachment attachment,
+		FramebufferAttachment attachment,
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level
@@ -395,7 +422,7 @@ public:
 	 */
 	static void AttachTexture3D(
 		Target target,
-		Attachment attachment,
+		FramebufferAttachment attachment,
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level,
@@ -433,7 +460,7 @@ public:
 	 */
 	static void AttachTextureLayer(
 		Target target,
-		Attachment attachment,
+		FramebufferAttachment attachment,
 		const TextureOps& texture,
 		GLint level,
 		GLint layer
@@ -455,26 +482,10 @@ public:
 	}
 };
 
-inline const GLchar* EnumValueName(FramebufferOps::Attachment value)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/framebuffer_attachment.ipp>
-#endif
-	return "";
-}
-
 inline const GLchar* EnumValueName(FramebufferOps::Target value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_target.ipp>
-#endif
-	return "";
-}
-
-inline const GLchar* EnumValueName(FramebufferOps::Status value)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/framebuffer_status.ipp>
 #endif
 	return "";
 }

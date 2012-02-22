@@ -319,7 +319,7 @@ public:
 		holes.Bind();
 		{
 			TransformFeedback::Activator activates_tfb(
-				TransformFeedback::PrimitiveType::Points
+				TransformFeedbackPrimitiveType::Points
 			);
 			gl.DrawArrays(PrimitiveType::Points, 0, hole_count);
 		}
@@ -331,7 +331,7 @@ public:
 		// map the transform feedback buffer
 		Buffer::TypedMap<GLfloat> transf_hole_verts_map(
 			Buffer::Target::TransformFeedback,
-			Buffer::MapAccess::Read
+			BufferMapAccess::Read
 		);
 		// use the values stored in the buffer as the input
 		// for the fragment shader, that will use them to

@@ -40,41 +40,41 @@ protected:
 
 	friend class FriendOf<UniformOps>;
 
-	static GLenum _translate_ref(Shader::Kind shader_kind)
+	static GLenum _translate_ref(ShaderKind shader_kind)
 	{
 		switch(shader_kind)
 		{
-			case Shader::Kind::Vertex:
+			case ShaderKind::Vertex:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER;
 #if GL_VERSION_4_0 || GL_ARB_tessellation_shader
-			case Shader::Kind::TessControl:
+			case ShaderKind::TessControl:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER;
-			case Shader::Kind::TessEvaluation:
+			case ShaderKind::TessEvaluation:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER;
 #endif // tessellation shader
-			case Shader::Kind::Geometry:
+			case ShaderKind::Geometry:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER;
-			case Shader::Kind::Fragment:
+			case ShaderKind::Fragment:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER;
 		}
 		return 0;
 	}
 
-	static GLenum _translate_max(Shader::Kind shader_kind)
+	static GLenum _translate_max(ShaderKind shader_kind)
 	{
 		switch(shader_kind)
 		{
-			case Shader::Kind::Vertex:
+			case ShaderKind::Vertex:
 			return GL_MAX_VERTEX_UNIFORM_BLOCKS;
 #if GL_VERSION_4_0 || GL_ARB_tessellation_shader
-			case Shader::Kind::TessControl:
+			case ShaderKind::TessControl:
 			return GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS;
-			case Shader::Kind::TessEvaluation:
+			case ShaderKind::TessEvaluation:
 			return GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS;
 #endif // tessellation shader
-			case Shader::Kind::Geometry:
+			case ShaderKind::Geometry:
 			return GL_MAX_GEOMETRY_UNIFORM_BLOCKS;
-			case Shader::Kind::Fragment:
+			case ShaderKind::Fragment:
 			return GL_MAX_FRAGMENT_UNIFORM_BLOCKS;
 		}
 		return 0;
@@ -132,7 +132,7 @@ public:
 	}
 
 	/// Return the maximum number of uniform blocks for a @p shader_kind
-	static GLuint MaxIn(Shader::Kind shader_kind)
+	static GLuint MaxIn(ShaderKind shader_kind)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(
@@ -149,7 +149,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
 	 */
-	bool ReferencedBy(Shader::Kind shader_kind) const
+	bool ReferencedBy(ShaderKind shader_kind) const
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(

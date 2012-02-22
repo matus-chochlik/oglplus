@@ -53,14 +53,14 @@ namespace oglplus {
  *    // Objects are move constructible
  *    Object(Object&&);
  *
- *    // If object has a Kind typedef, construct with kind specification
- *    Object(Object::Kind kind);
+ *    // If object has a Property::Kind typedef, construct with kind specification
+ *    Object(Object::Property::Kind kind);
  *
  *    // Construction with a textual description
  *    Object(String description);
  *
  *    // Construct with kind specification and textual description
- *    Object(Object::Kind kind, String description);
+ *    Object(Object::Property::Kind kind, String description);
  *
  *    // Returns the textual description (if any) of the Object
  *    friend const String Description(Object);
@@ -89,7 +89,7 @@ struct BaseOps
  *  be kept alive during the whole lifetime of the copy) is needed.
  *  The Managed template class allows to do such temporary copies
  *  which have the same members and friend functions as the original
- *  object, and can be use in the same way, provided that to original
+ *  object, and can be use in the same way, provided that the original
  *  instance is not destroyed before the managed copy.
  *
  *  Managed instances are may for be example created when accessing or iterating
@@ -201,7 +201,7 @@ public:
 	}
 
 	template <typename _Object = Object>
-	Object(typename _Object::Kind kind)
+	Object(typename _Object::Property::Kind kind)
 	{
 		_do_init(1, this->_name, kind);
 		assert(this->_name != 0);
@@ -210,7 +210,7 @@ public:
 
 	template <typename _Object = Object>
 	Object(
-		typename _Object::Kind kind,
+		typename _Object::Property::Kind kind,
 		const GLchar* desc
 	)
 	{
@@ -222,7 +222,7 @@ public:
 
 	template <typename _Object = Object>
 	Object(
-		typename _Object::Kind kind,
+		typename _Object::Property::Kind kind,
 		const String& desc
 	)
 	{

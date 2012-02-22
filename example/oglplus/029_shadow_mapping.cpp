@@ -395,7 +395,7 @@ public:
 				Framebuffer::Target::Draw
 			);
 			bound_fbo.AttachTexture(
-				Framebuffer::Attachment::Depth,
+				FramebufferAttachment::Depth,
 				smap[i],
 				0
 			);

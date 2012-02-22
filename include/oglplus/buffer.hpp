@@ -63,6 +63,34 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 typedef GLuint TransformFeedbackBufferBindingPoint;
 #endif
 
+/// Buffer usage enumeration
+/**
+ *  @ingroup enumerations
+ */
+enum class BufferUsage : GLenum {
+#include <oglplus/enums/buffer_usage.ipp>
+};
+
+inline const GLchar* EnumValueName(BufferUsage value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/buffer_usage.ipp>
+#endif
+	return "";
+}
+
+// TODO
+/// Mapped buffer data access types
+enum class BufferMapAccess : GLbitfield {
+	/// MAP_READ_BIT
+	Read = GL_MAP_READ_BIT,
+	/// MAP_WRITE_BIT
+	Write = GL_MAP_WRITE_BIT,
+	/// MAP_READ_BIT | MAP_WRITE_BIT
+	ReadWrite = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT
+};
+
+
 /// Wrapper for OpenGL buffer operations
 /**
  *  @note Do not use this class directly, use Buffer instead
@@ -110,26 +138,19 @@ protected:
 	}
 	friend class BindingQuery<BufferOps>;
 public:
+	/// Types related to Buffer
+	struct Property
+	{
+		/// The Buffer usage mode
+		typedef BufferUsage Usage;
+
+		/// The buffer map access mode
+		typedef BufferMapAccess MapAccess;
+	};
 
 	/// Buffer indexed bind targets
 	enum class IndexedTarget : GLenum {
 #include <oglplus/enums/buffer_indexed_target.ipp>
-	};
-
-	/// Buffer usage
-	enum class Usage : GLenum {
-#include <oglplus/enums/buffer_usage.ipp>
-	};
-
-	// TODO
-	/// Mapped data access types
-	enum class MapAccess : GLbitfield {
-		/// MAP_READ_BIT
-		Read = GL_MAP_READ_BIT,
-		/// MAP_WRITE_BIT
-		Write = GL_MAP_WRITE_BIT,
-		/// MAP_READ_BIT | MAP_WRITE_BIT
-		ReadWrite = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT
 	};
 
 	/// Typed mapping of the buffer to the client address space
@@ -154,14 +175,17 @@ public:
 			return GLsizeiptr(value);
 		}
 
-		static GLenum _translate(MapAccess access)
+		static GLenum _translate(BufferMapAccess access)
 		{
 			switch(access)
 			{
 				// TODO
-				case MapAccess::Read: return GL_READ_ONLY;
-				case MapAccess::Write: return GL_WRITE_ONLY;
-				case MapAccess::ReadWrite: return GL_READ_WRITE;
+				case BufferMapAccess::Read:
+					return GL_READ_ONLY;
+				case BufferMapAccess::Write:
+					return GL_WRITE_ONLY;
+				case BufferMapAccess::ReadWrite:
+					return GL_READ_WRITE;
 			}
 		}
 	public:
@@ -178,7 +202,7 @@ public:
 			Target target,
 			GLintptr offset,
 			GLsizeiptr size,
-			MapAccess access
+			BufferMapAccess access
 		): _offset(offset * sizeof(Type))
 		 , _size(size * sizeof(Type))
 		 , _ptr(
@@ -200,7 +224,7 @@ public:
 		 *
 		 *  @throws Error
 		 */
-		TypedMap(Target target, MapAccess access)
+		TypedMap(Target target, BufferMapAccess access)
 		 : _offset(0)
 		 , _size(_get_size(target))
 		 , _ptr(
@@ -382,7 +406,7 @@ public:
 		Target target,
 		GLsizei count,
 		GLtype* data,
-		Usage usage = Usage::StaticDraw
+		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
 		OGLPLUS_GLFUNC(BufferData)(
@@ -412,7 +436,7 @@ public:
 	static void Data(
 		Target target,
 		const std::vector<GLtype>& data,
-		Usage usage = Usage::StaticDraw
+		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
 		OGLPLUS_GLFUNC(BufferData)(
@@ -439,7 +463,7 @@ public:
 	static void Data(
 		Target target,
 		const std::vector<Vector<GLtype, N> >& data,
-		Usage usage = Usage::StaticDraw
+		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
 		//TODO: is this a good idea ?
@@ -551,14 +575,6 @@ inline const GLchar* EnumValueName(BufferOps::IndexedTarget value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_indexed_target.ipp>
-#endif
-	return "";
-}
-
-inline const GLchar* EnumValueName(BufferOps::Usage value)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/buffer_usage.ipp>
 #endif
 	return "";
 }

@@ -426,7 +426,7 @@ public:
 				Framebuffer::Target::Draw
 			);
 			bound_fbo.AttachTexture(
-				Framebuffer::Attachment::Depth,
+				FramebufferAttachment::Depth,
 				depth_tex,
 				0
 			);

@@ -18,6 +18,76 @@
 
 namespace oglplus {
 
+/// The synchronization condition enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @see Sync::Condition()
+ */
+enum class SyncCondition : GLenum {
+#include <oglplus/enums/sync_condition.ipp>
+};
+
+inline const GLchar* EnumValueName(SyncCondition value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/sync_condition.ipp>
+#endif
+	return "";
+}
+
+
+/// The synchronization object type enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @see Sync::Type()
+ */
+enum class SyncType : GLenum {
+#include <oglplus/enums/sync_type.ipp>
+};
+
+inline const GLchar* EnumValueName(SyncType value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/sync_type.ipp>
+#endif
+	return "";
+}
+
+
+/// The synchronization object status enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @see Sync::Status()
+ */
+enum class SyncStatus : GLenum {
+#include <oglplus/enums/sync_status.ipp>
+};
+
+inline const GLchar* EnumValueName(SyncStatus value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/sync_status.ipp>
+#endif
+	return "";
+}
+
+
+/// The wait result enumeration
+enum class SyncWaitResult : GLenum {
+#include <oglplus/enums/sync_wait_result.ipp>
+};
+
+inline const GLchar* EnumValueName(SyncWaitResult value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/sync_wait_result.ipp>
+#endif
+	return "";
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_sync
 
 /// Encapsulates sync object and fence functionality
@@ -26,14 +96,20 @@ class Sync
 private:
 	GLsync _sync;
 public:
-	/// The synchronization condition enumeration
-	enum class Condition : GLenum {
-#include <oglplus/enums/sync_condition.ipp>
-	};
+	/// Types related to Sync
+	struct Property
+	{
+		/// The synchronization condition
+		typedef SyncCondition Condition;
 
-	/// The wait result enumeration
-	enum class WaitResult : GLenum {
-#include <oglplus/enums/sync_wait_result.ipp>
+		/// Synchronization object type
+		typedef SyncType Type;
+
+		/// Synchronization object status
+		typedef SyncStatus Status;
+
+		/// Synchronization wait result
+		typedef SyncWaitResult WaitResult;
 	};
 
 	/// Creates a new sync object for the specified @p condition
@@ -41,7 +117,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{FenceSync}
 	 */
-	Sync(Condition condition = Condition::GPUCommandsComplete)
+	Sync(SyncCondition condition = SyncCondition::GPUCommandsComplete)
 	 : _sync(OGLPLUS_GLFUNC(FenceSync)(GLenum(condition), 0))
 	{
 		HandleIfError(OGLPLUS_ERROR_INFO(FenceSync));
@@ -62,12 +138,89 @@ public:
 		if(_sync != 0) OGLPLUS_GLFUNC(DeleteSync)(_sync);
 	}
 
+	/// Returns true if this Sync object is in signaled status
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetSync}
+	 *  @gldefref{SYNC_STATUS}
+	 *  @gldefref{SIGNALED}
+	 */
+	bool Signaled(void) const
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetSynciv)(
+			_sync,
+			GL_SYNC_STATUS,
+			1,
+			nullptr,
+			&result
+		);
+		return result == GL_SIGNALED;
+	}
+
+	/// Returns the type of this Sync object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetSync}
+	 *  @gldefref{OBJECT_TYPE}
+	 */
+	SyncType Type(void) const
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetSynciv)(
+			_sync,
+			GL_OBJECT_TYPE,
+			1,
+			nullptr,
+			&result
+		);
+		return SyncType(result);
+	}
+
+	/// Returns the condition of this Sync object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetSync}
+	 *  @gldefref{SYNC_CONDITION}
+	 */
+	SyncCondition Condition(void) const
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetSynciv)(
+			_sync,
+			GL_SYNC_CONDITION,
+			1,
+			nullptr,
+			&result
+		);
+		return SyncCondition(result);
+	}
+
+	/// Returns the status of this Sync object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetSync}
+	 *  @gldefref{SYNC_STATUS}
+	 */
+	SyncStatus Status(void) const
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetSynciv)(
+			_sync,
+			GL_SYNC_STATUS,
+			1,
+			nullptr,
+			&result
+		);
+		return SyncStatus(result);
+	}
+
 	/// Wait for the condition to be satisfied
 	/**
 	 *  @glsymbols
 	 *  @glfunref{ClientWaitSync}
 	 */
-	WaitResult ClientWait(GLuint64 timeout) const
+	SyncWaitResult ClientWait(GLuint64 timeout) const
 	{
 		GLenum result = OGLPLUS_GLFUNC(ClientWaitSync)(
 			_sync,
@@ -75,7 +228,7 @@ public:
 			timeout
 		);
 		HandleIfError(OGLPLUS_ERROR_INFO(ClientWaitSync));
-		return WaitResult(result);
+		return SyncWaitResult(result);
 	}
 
 	/// Wait for the condition to be satisfied
@@ -89,14 +242,6 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(WaitSync));
 	}
 };
-
-inline const GLchar* EnumValueName(Sync::Condition value)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/sync_condition.ipp>
-#endif
-	return "";
-}
 
 #endif // sync
 

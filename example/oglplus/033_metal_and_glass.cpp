@@ -572,7 +572,7 @@ public:
 				Framebuffer::Target::Draw
 			);
 			bound_fbo.AttachTexture(
-				Framebuffer::Attachment::Depth,
+				FramebufferAttachment::Depth,
 				frame_shadow_tex,
 				0
 			);
@@ -603,7 +603,7 @@ public:
 				Framebuffer::Target::Draw
 			);
 			bound_fbo.AttachTexture(
-				Framebuffer::Attachment::Color,
+				FramebufferAttachment::Color,
 				glass_shadow_tex,
 				0
 			);

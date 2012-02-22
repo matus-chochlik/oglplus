@@ -57,6 +57,7 @@ enum class TextureCompareMode : GLenum {
 #include <oglplus/enums/texture_compare_mode.ipp>
 };
 
+
 inline const GLchar* EnumValueName(TextureCompareMode value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
@@ -249,6 +250,30 @@ protected:
 	}
 	friend class BindingQuery<TextureOps>;
 public:
+	/// Types related to Texture
+	struct Property
+	{
+		/// Depth texture comparison mode
+		typedef TextureCompareMode CompareMode;
+
+		/// Maginification filter
+		typedef TextureMagFilter MagFilter;
+
+		/// Minification filter
+		typedef TextureMinFilter MinFilter;
+
+		/// Texture swizzle coordinate
+		typedef TextureSwizzleCoord SwizzleCoord;
+
+		/// Texture swizzle value
+		typedef TextureSwizzle Swizzle;
+
+		/// Texture wrap mode for coordinate
+		typedef TextureWrapCoord WrapCoord;
+
+		/// Texture wrap mode value
+		typedef TextureWrap Wrap;
+	};
 
 	/// Specify active texture unit for subsequent commands
 	/**

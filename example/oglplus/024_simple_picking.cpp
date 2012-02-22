@@ -293,7 +293,7 @@ public:
 				picked_count
 			);
 			TransformFeedback::Activator activates_tfb(
-				TransformFeedback::PrimitiveType::Points
+				TransformFeedbackPrimitiveType::Points
 			);
 			// draw 36 instances of the cube
 			// the vertex shader will take care of their placement
@@ -305,7 +305,7 @@ public:
 			picked_instances.Bind(Buffer::Target::TransformFeedback);
 			Buffer::TypedMap<DepthAndID> picked_instances_map(
 				Buffer::Target::TransformFeedback,
-				Buffer::MapAccess::Read
+				BufferMapAccess::Read
 			);
 			picked_objs.insert(
 				picked_instances_map.Data(),

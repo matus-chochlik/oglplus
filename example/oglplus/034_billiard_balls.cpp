@@ -852,7 +852,7 @@ public:
 		AutoBind<Framebuffer> table_light_fbo(Framebuffer::Target::Draw);
 
 		table_light_fbo.AttachTexture(
-			Framebuffer::Attachment::Color,
+			FramebufferAttachment::Color,
 			table_light_map,
 			0
 		);
@@ -924,7 +924,7 @@ public:
 		AutoBind<Framebuffer> fbo(Framebuffer::Target::Draw);
 
 		fbo.AttachTexture(
-			Framebuffer::Attachment::Depth,
+			FramebufferAttachment::Depth,
 			z_buffer,
 			0
 		);
@@ -954,7 +954,7 @@ public:
 		for(int b=0; b!=ball_count; ++b)
 		{
 			fbo.AttachTexture(
-				Framebuffer::Attachment::Color,
+				FramebufferAttachment::Color,
 				dst_texs[b],
 				0
 			);
