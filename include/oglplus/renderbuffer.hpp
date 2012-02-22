@@ -71,6 +71,23 @@ protected:
 		return 0;
 	}
 	friend class BindingQuery<RenderbufferOps>;
+
+	static GLint GetIntParam(Target target, GLenum query)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetRenderbufferParameteriv)(
+			GLenum(target),
+			query,
+			&result
+		);
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			GetRenderbufferParameteriv,
+			Renderbuffer,
+			EnumValueNameTpl(target),
+			BindingQuery<RenderbufferOps>::QueryBinding(target)
+		));
+		return result;
+	}
 public:
 
 	/// Binds this renderbuffer to the @p target
@@ -148,6 +165,157 @@ public:
 			EnumValueNameTpl(target),
 			BindingQuery<RenderbufferOps>::QueryBinding(target)
 		));
+	}
+
+
+	/// Returns the width of the renderbuffer as it was specified by Storage*
+	/**
+	 *  @see Height
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_WIDTH}
+	 */
+	static GLsizei Width(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_WIDTH));
+	}
+
+	/// Returns the height of the renderbuffer as it was specified by Storage*
+	/**
+	 *  @see Width
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_HEIGHT}
+	 */
+	static GLsizei Height(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_HEIGHT));
+	}
+
+	/// Returns the size in bits of the renderbuffer's red component
+	/**
+	 *  @see Green
+	 *  @see Blue
+	 *  @see Alpha
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_RED_SIZE}
+	 */
+	static GLsizei RedSize(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_RED_SIZE));
+	}
+
+	/// Returns the size in bits of the renderbuffer's green component
+	/**
+	 *  @see RedSize
+	 *  @see BlueSize
+	 *  @see AlphaSize
+	 *  @see DepthSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_GREEN_SIZE}
+	 */
+	static GLsizei GreenSize(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_GREEN_SIZE));
+	}
+
+	/// Returns the size in bits of the renderbuffer's blue component
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see AlphaSize
+	 *  @see DepthSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_BLUE_SIZE}
+	 */
+	static GLsizei BlueSize(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_BLUE_SIZE));
+	}
+
+	/// Returns the size in bits of the renderbuffer's alpha component
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see BlueSize
+	 *  @see DepthSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_ALPHA_SIZE}
+	 */
+	static GLsizei AlphaSize(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_ALPHA_SIZE));
+	}
+
+	/// Returns the size in bits of the renderbuffer's depth component
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see BlueSize
+	 *  @see AlphaSize
+	 *  @see StencilSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_DEPTH_SIZE}
+	 */
+	static GLsizei DepthSize(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_RENDERBUFFER_DEPTH_SIZE));
+	}
+
+	/// Returns the size in bits of the renderbuffer's stencil component
+	/**
+	 *  @see RedSize
+	 *  @see GreenSize
+	 *  @see BlueSize
+	 *  @see AlphaSize
+	 *  @see DepthSize
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_STENCIL_SIZE}
+	 */
+	static GLsizei StencilSize(Target target)
+	{
+		return GLsizei(GetIntParam(target,GL_RENDERBUFFER_STENCIL_SIZE));
+	}
+
+	/// Returns the number of samples of the renderbuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_SAMPLES}
+	 */
+	static GLsizei Samples(Target target)
+	{
+		return GLsizei(GetIntParam(target,GL_RENDERBUFFER_SAMPLES));
+	}
+
+	/// Returns the internal format of the renderbuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetRenderbufferParameter}
+	 *  @gldefref{RENDERBUFFER_INTERNAL_FORMAT}
+	 */
+	static PixelDataInternalFormat InternalFormat(Target target)
+	{
+		return PixelDataInternalFormat(
+			GetIntParam(target, GL_RENDERBUFFER_INTERNAL_FORMAT)
+		);
 	}
 };
 
