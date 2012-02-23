@@ -279,7 +279,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{VIEWPORT}
 	 */
-	static ViewportExtents GetViewport(GLuint viewport)
+	static ViewportExtents Viewport(GLuint viewport)
 	{
 		ViewportExtents result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_VIEWPORT, viewport, result._v);
@@ -326,7 +326,7 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{DEPTH_RANGE}
 	 */
-	static oglplus::context::DepthRange GetDepthRange(GLuint viewport)
+	static oglplus::context::DepthRange DepthRange(GLuint viewport)
 	{
 		oglplus::context::DepthRange result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_DEPTH_RANGE, viewport,result._v);

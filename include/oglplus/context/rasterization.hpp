@@ -51,6 +51,20 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(CullFace));
 	}
 
+	/// Returns the face culling mode
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{CULL_FACE_MODE}
+	 */
+	static Face CullFaceMode(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_CULL_FACE_MODE, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return Face(result);
+	}
+
 	/// Sets the polygon rasterization mode
 	/**
 	 *  @glsymbols
@@ -73,6 +87,22 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(PolygonMode));
 	}
 
+	// Returns the face culling mode
+	/* TODO
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{POLYGON_MODE}
+	 */
+/*
+	static oglplus::PolygonMode PolygonMode(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return oglplus::PolygonMode(result);
+	}
+*/
+
 	/// Sets the polygon depth offset
 	/**
 	 *  @glsymbols
@@ -82,6 +112,34 @@ public:
 	{
 		OGLPLUS_GLFUNC(PolygonOffset)(factor, units);
 		AssertNoError(OGLPLUS_ERROR_INFO(PolygonOffset));
+	}
+
+	/// Returns the polygon offset factor
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{POLYGON_OFFSET_FACTOR}
+	 */
+	static GLfloat PolygonOffsetFactor(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_FACTOR, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
+	}
+
+	/// Returns the polygon offset units
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{POLYGON_OFFSET_UNITS}
+	 */
+	static GLfloat PolygonOffsetUnits(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_UNITS, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
 	}
 
 	/// Sets the line width
@@ -95,6 +153,20 @@ public:
 		AssertNoError(OGLPLUS_ERROR_INFO(LineWidth));
 	}
 
+	/// Returns the line width
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{LINE_WIDTH}
+	 */
+	static GLfloat LineWidth(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_LINE_WIDTH, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
+	}
+
 	/// Sets the point size
 	/**
 	 *  @glsymbols
@@ -104,6 +176,49 @@ public:
 	{
 		OGLPLUS_GLFUNC(PointSize)(size);
 		AssertNoError(OGLPLUS_ERROR_INFO(PointSize));
+	}
+
+	/// Returns the point size
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{POINT_SIZE}
+	 */
+	static GLfloat PointSize(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_SIZE, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
+	}
+
+	/// Sets the point fade threshold size
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PointParameter}
+	 *  @gldefref{POINT_FADE_THRESHOLD_SIZE}
+	 */
+	static void PointFadeThresholdSize(GLfloat size)
+	{
+		OGLPLUS_GLFUNC(PointParameterf)(
+			GL_POINT_FADE_THRESHOLD_SIZE,
+			size
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(PointParameterf));
+	}
+
+	/// Returns the point fade threshold size
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{POINT_FADE_THRESHOLD_SIZE}
+	 */
+	static GLfloat PointFadeThresholdSize(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_FADE_THRESHOLD_SIZE,&result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_provoking_vertex
@@ -116,6 +231,20 @@ public:
 	{
 		OGLPLUS_GLFUNC(ProvokingVertex)(GLenum(mode));
 		AssertNoError(OGLPLUS_ERROR_INFO(ProvokingVertex));
+	}
+
+	/// Returns the provoking vertex selection mode for flatshading
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{PROVOKING_VERTEX}
+	 */
+	static ProvokeMode ProvokingVertex(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_PROVOKING_VERTEX, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return ProvokeMode(result);
 	}
 #endif
 };

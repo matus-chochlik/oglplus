@@ -47,7 +47,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Hint}
 	 */
-	static HintOption GetHint(HintTarget target)
+	static HintOption Hint(HintTarget target)
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(target), &result);

@@ -19,8 +19,8 @@
 namespace oglplus {
 namespace context {
 
-/// Helper structure storing the extents of a 2D scissor box
-struct ScissorBox
+/// Helper structure storing the extents of a 2D scissor rectangle
+struct ScissorRectangle
 {
 	// private implementation detail, do not use
 	GLint _v[4];
@@ -141,9 +141,9 @@ public:
 	 *  @glfunref{Get}
 	 *  @gldefref{SCISSOR_BOX}
 	 */
-	static ScissorBox GetScissor(GLuint viewport)
+	static ScissorRectangle ScissorBox(GLuint viewport)
 	{
-		ScissorBox result;
+		ScissorRectangle result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(GL_SCISSOR_BOX, viewport,result._v);
 		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegeri_v));
 		return result;

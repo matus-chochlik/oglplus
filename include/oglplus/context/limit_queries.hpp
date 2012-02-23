@@ -32,7 +32,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 */
-	static GLint GetIntLimit(LimitQuery query)
+	static GLint IntLimit(LimitQuery query)
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(query), &result);
@@ -45,7 +45,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 */
-	static GLfloat GetFloatLimit(LimitQuery query)
+	static GLfloat FloatLimit(LimitQuery query)
 	{
 		GLfloat result = 0;
 		OGLPLUS_GLFUNC(GetFloatv)(GLenum(query), &result);
@@ -62,7 +62,7 @@ public:
 	 */
 	static void RequireAtLeast(LimitQuery limit, GLint value)
 	{
-		GLint max_limit = GetIntLimit(limit);
+		GLint max_limit = IntLimit(limit);
 		if(value > max_limit)
 		{
 			HandleLimitError<LimitError>(

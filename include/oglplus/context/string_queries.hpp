@@ -106,7 +106,7 @@ public:
 	 *  @glfunref{GetStringi}
 	 *  @gldefref{EXTENSIONS}
 	 */
-	static const GLubyte* GetExtension(GLuint index)
+	static const GLubyte* Extensions(GLuint index)
 	{
 		const GLubyte* result = OGLPLUS_GLFUNC(GetStringi)(
 			GL_EXTENSIONS,

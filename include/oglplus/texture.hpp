@@ -1976,7 +1976,7 @@ public:
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
-	static GLfloat LODBiad(Target target)
+	static GLfloat LODBias(Target target)
 	{
 		return GetFloatParam(target, GL_TEXTURE_LOD_BIAS);
 	}

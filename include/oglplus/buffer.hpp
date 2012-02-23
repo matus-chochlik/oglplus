@@ -120,6 +120,7 @@ protected:
 	}
 
 	friend class FriendOf<BufferOps>;
+
 public:
 	/// Buffer bind targets
 	enum class Target : GLenum {
@@ -137,6 +138,19 @@ protected:
 		return 0;
 	}
 	friend class BindingQuery<BufferOps>;
+
+	static GLint GetIntParam(Target target, GLenum query)
+	{
+			GLint value = 0;
+			OGLPLUS_GLFUNC(GetBufferParameteriv)(
+				GLenum(target),
+				query,
+				&value
+			);
+			AssertNoError(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+			return value;
+	}
+
 public:
 	/// Types related to Buffer
 	struct Property
@@ -286,6 +300,19 @@ public:
 
 	/// Mapping of the buffer to the client address space
 	typedef TypedMap<GLubyte> Map;
+
+	/// Returns true if the buffer is mapped
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetBufferParameter}
+	 *  @gldefref{BUFFER_MAPPED}
+	 *
+	 *  @throws Error
+	 */
+	static bool Mapped(Target target)
+	{
+		return bool(GetIntParam(target, GL_BUFFER_MAPPED));
+	}
 
 	/// Bind this buffer to the specified target
 	/**
@@ -561,6 +588,36 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(CopyBufferSubData));
 	}
 #endif // copy buffer
+
+	/// Returns the buffer usage
+	/**
+	 *  @see Access
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetBufferParameter}
+	 *  @gldefref{BUFFER_USAGE}
+	 *
+	 *  @throws Error
+	 */
+	static BufferUsage Usage(Target target)
+	{
+		return BufferUsage(GetIntParam(target, GL_BUFFER_USAGE));
+	}
+
+	/// Returns the buffer usage
+	/**
+	 *  @see Usage
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetBufferParameter}
+	 *  @gldefref{BUFFER_ACCESS}
+	 *
+	 *  @throws Error
+	 */
+	static BufferMapAccess Access(Target target)
+	{
+		return BufferMapAccess(GetIntParam(target, GL_BUFFER_ACCESS));
+	}
 };
 
 inline const GLchar* EnumValueName(BufferOps::Target value)
