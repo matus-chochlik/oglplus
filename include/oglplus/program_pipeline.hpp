@@ -279,24 +279,24 @@ public:
 		return Managed<ProgramOps>(GetIntParam(GL_ACTIVE_PROGRAM));
 	}
 
-	/// Returns true if this pipeline contains a shader of a particular kind
+	/// Returns true if this pipeline contains a shader of a particular type
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetProgramPipeline}
 	 */
-	bool HasShader(ShaderKind shader_kind) const
+	bool HasShader(ShaderType shader_type) const
 	{
-		return GetIntParam(GLenum(shader_kind)) != 0;
+		return GetIntParam(GLenum(shader_type)) != 0;
 	}
 
-	/// Returns the program from which the @p shader_kind is used
+	/// Returns the program from which the @p shader_type is used
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetProgramPipeline}
 	 */
-	Managed<ProgramOps> ShaderProgram(ShaderKind shader_kind) const
+	Managed<ProgramOps> ShaderProgram(ShaderType shader_type) const
 	{
-		return Managed<ProgramOps>(GetIntParam(GLenum(shader_kind)));
+		return Managed<ProgramOps>(GetIntParam(GLenum(shader_type)));
 	}
 };
 

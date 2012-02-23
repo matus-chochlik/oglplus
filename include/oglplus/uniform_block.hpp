@@ -40,41 +40,41 @@ protected:
 
 	friend class FriendOf<UniformOps>;
 
-	static GLenum _translate_ref(ShaderKind shader_kind)
+	static GLenum _translate_ref(ShaderType shader_type)
 	{
-		switch(shader_kind)
+		switch(shader_type)
 		{
-			case ShaderKind::Vertex:
+			case ShaderType::Vertex:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER;
 #if GL_VERSION_4_0 || GL_ARB_tessellation_shader
-			case ShaderKind::TessControl:
+			case ShaderType::TessControl:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER;
-			case ShaderKind::TessEvaluation:
+			case ShaderType::TessEvaluation:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER;
 #endif // tessellation shader
-			case ShaderKind::Geometry:
+			case ShaderType::Geometry:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER;
-			case ShaderKind::Fragment:
+			case ShaderType::Fragment:
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER;
 		}
 		return 0;
 	}
 
-	static GLenum _translate_max(ShaderKind shader_kind)
+	static GLenum _translate_max(ShaderType shader_type)
 	{
-		switch(shader_kind)
+		switch(shader_type)
 		{
-			case ShaderKind::Vertex:
+			case ShaderType::Vertex:
 			return GL_MAX_VERTEX_UNIFORM_BLOCKS;
 #if GL_VERSION_4_0 || GL_ARB_tessellation_shader
-			case ShaderKind::TessControl:
+			case ShaderType::TessControl:
 			return GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS;
-			case ShaderKind::TessEvaluation:
+			case ShaderType::TessEvaluation:
 			return GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS;
 #endif // tessellation shader
-			case ShaderKind::Geometry:
+			case ShaderType::Geometry:
 			return GL_MAX_GEOMETRY_UNIFORM_BLOCKS;
-			case ShaderKind::Fragment:
+			case ShaderType::Fragment:
 			return GL_MAX_FRAGMENT_UNIFORM_BLOCKS;
 		}
 		return 0;
@@ -131,12 +131,12 @@ public:
 		_check(identifier.c_str());
 	}
 
-	/// Return the maximum number of uniform blocks for a @p shader_kind
-	static GLuint MaxIn(ShaderKind shader_kind)
+	/// Return the maximum number of uniform blocks for a @p shader_type
+	static GLuint MaxIn(ShaderType shader_type)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(
-			_translate_max(shader_kind),
+			_translate_max(shader_type),
 			&result
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
@@ -144,18 +144,18 @@ public:
 		return GLuint(result);
 	}
 
-	/// Returns true if this uniform block is referenced by @p shader_kind
+	/// Returns true if this uniform block is referenced by @p shader_type
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
 	 */
-	bool ReferencedBy(ShaderKind shader_kind) const
+	bool ReferencedBy(ShaderType shader_type) const
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			_program,
 			_index,
-			_translate_ref(shader_kind),
+			_translate_ref(shader_type),
 			&result
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(GetActiveUniformBlockiv));

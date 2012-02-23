@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/names/shader_kind.ipp
+ *  .file oglplus/names/shader_type.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/shader_kind.txt' instead.
+ *  edit 'source/enums/shader_type.txt' instead.
  *
  *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

@@ -53,14 +53,14 @@ namespace oglplus {
  *    // Objects are move constructible
  *    Object(Object&&);
  *
- *    // If object has a Property::Kind typedef, construct with kind specification
- *    Object(Object::Property::Kind kind);
+ *    // If object has a Property::Type typedef, construct with type specification
+ *    Object(Object::Property::Type type);
  *
  *    // Construction with a textual description
  *    Object(String description);
  *
- *    // Construct with kind specification and textual description
- *    Object(Object::Property::Kind kind, String description);
+ *    // Construct with type specification and textual description
+ *    Object(Object::Property::Type type, String description);
  *
  *    // Returns the textual description (if any) of the Object
  *    friend const String Description(Object);
@@ -134,8 +134,8 @@ private:
 		assert(_n != 0);
 	}
 
-	template <typename Kind>
-	static inline void _do_init(GLsizei _c, GLuint& _n, Kind _k)
+	template <typename Type>
+	static inline void _do_init(GLsizei _c, GLuint& _n, Type _k)
 	{
 		assert(_n == 0);
 		assert(!MultiObject);
@@ -201,20 +201,20 @@ public:
 	}
 
 	template <typename _Object = Object>
-	Object(typename _Object::Property::Kind kind)
+	Object(typename _Object::Property::Type type)
 	{
-		_do_init(1, this->_name, kind);
+		_do_init(1, this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 	}
 
 	template <typename _Object = Object>
 	Object(
-		typename _Object::Property::Kind kind,
+		typename _Object::Property::Type type,
 		const GLchar* desc
 	)
 	{
-		_do_init(1, this->_name, kind);
+		_do_init(1, this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
@@ -222,11 +222,11 @@ public:
 
 	template <typename _Object = Object>
 	Object(
-		typename _Object::Property::Kind kind,
+		typename _Object::Property::Type type,
 		const String& desc
 	)
 	{
-		_do_init(1, this->_name, kind);
+		_do_init(1, this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);

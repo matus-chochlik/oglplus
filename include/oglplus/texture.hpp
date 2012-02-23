@@ -20,6 +20,7 @@
 #include <oglplus/compare_func.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
+#include <oglplus/access_specifier.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/limited_value.hpp>
 #include <oglplus/image.hpp>
@@ -40,6 +41,21 @@ public:
 OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 	TextureUnitSelector,
 	MAX_COMBINED_TEXTURE_IMAGE_UNITS
+)
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Type for the image unit selector (implementation-dependent limited) number
+class ImageUnitSelector
+ : public LimitedCount
+{
+public:
+	ImageUnitSelector(GLuint count);
+};
+#else
+OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
+	ImageUnitSelector,
+	MAX_IMAGE_UNITS
 )
 #endif
 
@@ -290,6 +306,22 @@ public:
 			GLenum(GL_TEXTURE0 + GLuint(index))
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(ActiveTexture));
+	}
+
+	/// Returns active texture unit
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{ACTIVE_TEXTURE}
+	 */
+	static GLint Active(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_ACTIVE_TEXTURE, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return GL_TEXTURE0 - result;
 	}
 
 	/// Bind the texture to the target on the Active unit
@@ -1656,7 +1688,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexStorage1D}
 	 */
-	static void TexStorage1D(
+	static void Storage1D(
 		Target target,
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
@@ -1682,7 +1714,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexStorage2D}
 	 */
-	static void TexStorage2D(
+	static void Storage2D(
 		Target target,
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
@@ -1710,7 +1742,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexStorage3D}
 	 */
-	static void TexStorage3D(
+	static void Storage3D(
 		Target target,
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
@@ -1732,6 +1764,39 @@ public:
 			Texture,
 			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_2 ||GL_ARB_shader_image_load_store
+	/// Binds a @p level of this texture to an image @p unit
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindImageTexture}
+	 */
+	void BindImage(
+		ImageUnitSelector unit,
+		GLint level,
+		bool layered,
+		GLint layer,
+		AccessSpecifier access,
+		ImageUnitFormat format
+	) const
+	{
+		OGLPLUS_GLFUNC(BindImageTexture)(
+			GLuint(unit),
+			_name,
+			level,
+			layered? GL_TRUE : GL_FALSE,
+			layer,
+			GLenum(access),
+			GLenum(format)
+		);
+		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			BindImageTexture,
+			Texture,
+			nullptr,
+			_name
 		));
 	}
 #endif

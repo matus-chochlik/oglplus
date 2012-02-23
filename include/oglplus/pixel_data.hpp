@@ -84,6 +84,26 @@ inline const GLchar* EnumValueName(PixelDataInternalFormat value)
 	return "";
 }
 
+/// OpenGL image unit format enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{BindImageTexture}
+ */
+enum class ImageUnitFormat : GLenum
+{
+#include <oglplus/enums/image_unit_format.ipp>
+};
+
+inline const GLchar* EnumValueName(ImageUnitFormat value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/image_unit_format.ipp>
+#endif
+	return "";
+}
+
 } // namespace oglplus
 
 #endif // include guard
