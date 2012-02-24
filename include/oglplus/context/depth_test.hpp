@@ -37,6 +37,20 @@ public:
 		OGLPLUS_GLFUNC(DepthFunc)(GLenum(function));
 		AssertNoError(OGLPLUS_ERROR_INFO(DepthFunc));
 	}
+
+	/// Returns the depth comparison function
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{DEPTH_FUNC}
+	 */
+	static CompareFunction DepthFunc(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_DEPTH_FUNC, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return CompareFunction(result);
+	}
 };
 
 } // namespace context

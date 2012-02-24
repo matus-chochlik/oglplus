@@ -37,6 +37,20 @@ public:
 		OGLPLUS_GLFUNC(LogicOp)(GLenum(op));
 		AssertNoError(OGLPLUS_ERROR_INFO(LogicOp));
 	}
+
+	/// Returns the color logical operation
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{COLOR_LOGIC_OP}
+	 */
+	static ColorLogicOperation LogicOpMode(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_LOGIC_OP_MODE, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return ColorLogicOperation(result);
+	}
 };
 
 } // namespace context

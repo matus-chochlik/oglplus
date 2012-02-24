@@ -104,6 +104,120 @@ public:
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilOpSeparate));
 	}
+
+	/// Returns the stencil function
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_FUNC}
+	 */
+	static CompareFunction StencilFunc(bool backface = false)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			backface?
+			GL_STENCIL_BACK_FUNC:
+			GL_STENCIL_FUNC,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return CompareFunction(result);
+	}
+
+	/// Returns the value of stencil mask
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_VALUE_MASK}
+	 */
+	static GLuint StencilMask(bool backface = false)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			backface?
+			GL_STENCIL_BACK_VALUE_MASK:
+			GL_STENCIL_VALUE_MASK,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return GLuint(result);
+	}
+
+	/// Returns the stencil reference value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_REF}
+	 */
+	static GLuint StencilRef(bool backface = false)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			backface?
+			GL_STENCIL_BACK_REF:
+			GL_STENCIL_REF,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return GLuint(result);
+	}
+
+	/// Returns the stencil-fail action
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_FAIL}
+	 */
+	static StencilOperation StencilFail(bool backface = false)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			backface?
+			GL_STENCIL_BACK_FAIL:
+			GL_STENCIL_FAIL,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return StencilOperation(result);
+	}
+
+	/// Returns the stencil-pass depth-fail action
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_PASS_DEPTH_FAIL}
+	 */
+	static StencilOperation StencilPassDepthFail(bool backface = false)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			backface?
+			GL_STENCIL_BACK_PASS_DEPTH_FAIL:
+			GL_STENCIL_PASS_DEPTH_FAIL,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return StencilOperation(result);
+	}
+
+	/// Returns the stencil-pass depth-pass action
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_PASS_DEPTH_PASS}
+	 */
+	static StencilOperation StencilPassDepthPass(bool backface = false)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			backface?
+			GL_STENCIL_BACK_PASS_DEPTH_PASS:
+			GL_STENCIL_PASS_DEPTH_PASS,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return StencilOperation(result);
+	}
 };
 
 } // namespace context
