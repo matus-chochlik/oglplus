@@ -20,6 +20,37 @@
 namespace oglplus {
 namespace context {
 
+/// Helper structure storing the clear color component mask
+struct RGBAMask
+{
+	// private implementation detail, do not use
+	GLint _v[4];
+
+	/// The red component mask
+	bool Red(void) const
+	{
+		return _v[0] == GL_TRUE;
+	}
+
+	/// The green component mask
+	bool Green(void) const
+	{
+		return _v[1] == GL_TRUE;
+	}
+
+	/// The blue component mask
+	bool Blue(void) const
+	{
+		return _v[2] == GL_TRUE;
+	}
+
+	/// The alpha component mask
+	bool Alpha(void) const
+	{
+		return _v[3] == GL_TRUE;
+	}
+};
+
 /// Wrappers for operations for fine control of buffer updates
 /**
  *  @ingroup ogl_context
@@ -91,6 +122,58 @@ public:
 	{
 		OGLPLUS_GLFUNC(StencilMaskSeparate)(GLenum(face), mask);
 		AssertNoError(OGLPLUS_ERROR_INFO(StencilMaskSeparate));
+	}
+
+	/// Returns the value of color buffer write mask
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{COLOR_WRITEMASK}
+	 */
+	static oglplus::context::RGBAMask ColorWriteMask(GLuint buffer = 0)
+	{
+		oglplus::context::RGBAMask result;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_COLOR_WRITEMASK,
+			buffer,
+			result._v
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+		return result;
+	}
+
+	/// Returns the value of depth buffer write mask
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{DEPTH_WRITEMASK}
+	 */
+	static bool DepthWriteMask(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_DEPTH_WRITEMASK, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return result == GL_TRUE;
+	}
+
+	/// Returns the value of stencil write mask
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_WRITEMASK}
+	 *  @gldefref{STENCIL_BACK_WRITEMASK}
+	 */
+	static GLuint StencilWriteMask(bool backface = false)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			backface?
+			GL_STENCIL_BACK_WRITEMASK:
+			GL_STENCIL_WRITEMASK,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return GLuint(result);
 	}
 };
 

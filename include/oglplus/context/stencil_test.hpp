@@ -110,6 +110,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{STENCIL_FUNC}
+	 *  @gldefref{STENCIL_BACK_FUNC}
 	 */
 	static CompareFunction StencilFunc(bool backface = false)
 	{
@@ -129,8 +130,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{STENCIL_VALUE_MASK}
+	 *  @gldefref{STENCIL_BACK_VALUE_MASK}
 	 */
-	static GLuint StencilMask(bool backface = false)
+	static GLuint StencilValueMask(bool backface = false)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(
@@ -148,6 +150,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{STENCIL_REF}
+	 *  @gldefref{STENCIL_BACK_REF}
 	 */
 	static GLuint StencilRef(bool backface = false)
 	{
@@ -167,6 +170,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{STENCIL_FAIL}
+	 *  @gldefref{STENCIL_BACK_FAIL}
 	 */
 	static StencilOperation StencilFail(bool backface = false)
 	{
@@ -186,6 +190,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{STENCIL_PASS_DEPTH_FAIL}
+	 *  @gldefref{STENCIL_BACK_PASS_DEPTH_FAIL}
 	 */
 	static StencilOperation StencilPassDepthFail(bool backface = false)
 	{
@@ -205,6 +210,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{STENCIL_PASS_DEPTH_PASS}
+	 *  @gldefref{STENCIL_BACK_PASS_DEPTH_PASS}
 	 */
 	static StencilOperation StencilPassDepthPass(bool backface = false)
 	{

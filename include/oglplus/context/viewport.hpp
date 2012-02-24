@@ -218,7 +218,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_MAX_VIEWPORTS, &result);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return GLuint(result);
 	}
 

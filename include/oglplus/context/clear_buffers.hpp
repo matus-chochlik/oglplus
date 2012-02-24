@@ -30,6 +30,37 @@ typedef BufferSelectBit ClearBit;
 
 namespace context {
 
+/// Helper structure storing the clear color components
+struct RGBAValue
+{
+	// private implementation detail, do not use
+	GLfloat _v[4];
+
+	/// The red component
+	GLfloat Red(void) const
+	{
+		return _v[0];
+	}
+
+	/// The green component
+	GLfloat Green(void) const
+	{
+		return _v[1];
+	}
+
+	/// The blue component
+	GLfloat Blue(void) const
+	{
+		return _v[2];
+	}
+
+	/// The alpha component
+	GLfloat Alpha(void) const
+	{
+		return _v[3];
+	}
+};
+
 /// Wrapper for the operations that are used to clear the draw buffers
 /**
  *  @ingroup ogl_context
@@ -132,6 +163,54 @@ public:
 	{
 		OGLPLUS_GLFUNC(Clear)(aux::MakeBitfield(bits));
 		AssertNoError(OGLPLUS_ERROR_INFO(Clear));
+	}
+
+	/// Returns the color value used for clearing of the color buffer
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{COLOR_CLEAR_VALUE}
+	 */
+	static oglplus::context::RGBAValue ColorClearValue(void)
+	{
+		oglplus::context::RGBAValue result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_COLOR_CLEAR_VALUE, result._v);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
+	}
+
+	/// Returns the depth value used for clearing of the depth buffer
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{DEPTH_CLEAR_VALUE}
+	 */
+	static GLfloat DepthClearValue(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_DEPTH_CLEAR_VALUE, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
+	}
+
+	/// Returns the value used for clearing of the stencil buffer
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{STENCIL_CLEAR_VALUE}
+	 */
+	static GLint ClearStencilValue(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_STENCIL_CLEAR_VALUE, &result);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return result;
 	}
 };
 
