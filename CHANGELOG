@@ -1,4 +1,20 @@
-0.10.0
+Version 0.11.0
+
+- Several typedefs that were members of Object(s) were moved to the
+  oglplus namespace and renamed for better interface consistency
+- Wrappers for many different GL-context value queries were added
+- Wrappers for viewport-array-related operations were added
+- Wrappers for Renderbuffer and Sync-related queries were added
+- Wrappers for TexStorage and BindImageTexture were added to Texture
+  and a typo in it's interface was fixed
+- Several new enumerations were added including access specifier, image
+  unit format and others
+- Some of the texture image generators were updated, including the
+  Newton fractal and Cloud
+- Several new examples were added and some of the existing were optimized
+- Few minor bugs were fixed and the documentation was updated
+
+Version 0.10.0
 
 - Enumerations and functions related to querying of implementation-dependent
   limits were added

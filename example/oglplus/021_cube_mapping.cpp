@@ -195,6 +195,7 @@ public:
 
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_shape.FaceWinding());
+		gl.CullFace(Face::Back);
 	}
 
 	void Reshape(size_t width, size_t height)
@@ -233,7 +234,6 @@ public:
 		);
 
 		shape.Bind();
-		gl.CullFace(Face::Back);
 		shape_instr.Draw(shape_indices);
 	}
 
