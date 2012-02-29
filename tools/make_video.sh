@@ -11,10 +11,10 @@ if [ ! -f ${1}.cpp ]
 then echo "Unable to find source for example '${1}'" && exit 1
 fi
 #
-# re-build the example with the rgba_write "harness"
+# re-build the example with the frame_dump "harness"
 (
 	rm -f out/${1}
-	export EXAMPLE_HARNESS=rgba_write
+	export EXAMPLE_HARNESS=frame_dump
 	make -f Makefile.full out/${1}
 )
 #

@@ -1,5 +1,5 @@
 /*
- *  .file example/rgba_write.cpp
+ *  .file example/frame_dump_main.cpp
  *  Implements GLX-based main function for saving rendered frames in raw RGBA
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost

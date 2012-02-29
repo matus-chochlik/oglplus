@@ -278,8 +278,8 @@ protected:
 	Buffer positions, indices;
 
 public:
-	Grid(const Program& prog)
-	 : grid_div(64)
+	Grid(const Program& prog, float quality)
+	 : grid_div(64 + (quality > 0.75 ? 64 : 0))
 	 , make_grid(1.0, grid_div)
 	 , grid_instr(make_grid.InstructionsWithAdjacency())
 	 , grid_indices(make_grid.IndicesWithAdjacency())
@@ -337,9 +337,9 @@ private:
 	// A 3D texture containing density data
 	Texture volume_tex;
 public:
-	VolumeExample(void)
+	VolumeExample(const ExampleParams& params)
 	 : volume_prog()
-	 , grid(volume_prog)
+	 , grid(volume_prog, params.quality)
 	{
 		volume_prog.grid_step = grid.Step();
 
@@ -422,7 +422,7 @@ public:
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
-	return std::unique_ptr<Example>(new VolumeExample);
+	return std::unique_ptr<Example>(new VolumeExample(params));
 }
 
 } // namespace oglplus
