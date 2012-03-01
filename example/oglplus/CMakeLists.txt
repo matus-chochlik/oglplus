@@ -12,6 +12,9 @@ if(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "frame_dump")
 )
+	# include the X11/GLX utility headers
+	include_directories(${PROJECT_SOURCE_DIR}/utils)
+
 	find_package(X11)
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS X11)
 endif()
@@ -22,6 +25,7 @@ add_definitions(-std=c++0x)
 
 # add a target for the examples
 add_custom_target(oglplus_examples ALL)
+add_dependencies(oglplus_examples oglplus_textures)
 
 # build the code common to all the examples into this library
 add_library(
@@ -37,11 +41,14 @@ file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][1-9]_*.cpp")
 foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 	get_filename_component(EXE_NAME "${EXAMPLE}" NAME_WE)
 	add_executable(${EXE_NAME} EXCLUDE_FROM_ALL ${EXAMPLE})
+	add_dependencies(${EXE_NAME} auto_generated_headers)
 	target_link_libraries(
 		${EXE_NAME}
 		oglplus_example_harness
 		${OGLPLUS_GL_LIB}
 		${OGLPLUS_EXAMPLE_HARNESS_LIBS}
+		# TODO detect and link only what is necessary
+		png
 	)
 	add_dependencies(oglplus_examples ${EXE_NAME})
 endforeach(EXAMPLE)

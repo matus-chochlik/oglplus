@@ -461,11 +461,6 @@ EXAMPLE_PATTERNS       = *.cpp
 
 EXAMPLE_RECURSIVE      = YES
 
-# The IMAGE_PATH tag can be used to specify one or more files or
-# directories that contain image that are included in the documentation (see
-# the \image command).
-
-IMAGE_PATH             = ../../bld/example/oglplus ../logo
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program

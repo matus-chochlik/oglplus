@@ -22,6 +22,8 @@ INPUT = \
 
 EXAMPLE_PATH = ../tutorial ../../example ../../bld/doc
 
+IMAGE_PATH             = ../../bld/example/oglplus ../logo
+
 GENERATE_HTML = YES
 GENERATE_XML = NO
 GENERATE_TAGFILE = ../../bld/doc/doxygen/oglplus.doxygen.tags

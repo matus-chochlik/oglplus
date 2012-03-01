@@ -21,7 +21,8 @@ endif()
 
 # if we have found GLEW
 if(EXISTS ${GL_GLEW_H_DIR})
-	set(OGLPLUS_USE_GLEW 1)
+	# TODO set to 1 when a glew-based harness is ready
+	set(OGLPLUS_USE_GLEW 0)
 endif()
 #if we have found gl3.h
 if(EXISTS ${GL3_GL3_H_DIR})
@@ -35,7 +36,6 @@ if(OGLPLUS_USE_GLEW)
 
 	include_directories(BEFORE SYSTEM ${GL_GLEW_H_DIR})
 	find_package(OpenGL)
-	find_package(GLEW)
 	set(OGLPLUS_GL_LIB GLEW)
 
 	message("Using GLEW")
@@ -58,16 +58,15 @@ configure_file(
 	${PROJECT_BINARY_DIR}/include/oglplus/site_config.hpp
 )
 
-# include the utility headers
-include_directories(${PROJECT_SOURCE_DIR}/utils)
+add_custom_target(auto_generated_headers ALL)
+
+add_subdirectory("doc/doxygen")
+add_subdirectory("xslt" "include/oglplus")
+add_subdirectory("source/textures" "textures")
+
 # include the oglplus headers
 include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
 include_directories(${PROJECT_BINARY_DIR}/include)
 
-# TODO add commands to build the auto headers
-#include_directories(${PROJECT_SOURCE_DIR}/auto_header/include)
-
-add_subdirectory("xslt" "include/oglplus")
-
-#add_subdirectory("example/oglplus")
+add_subdirectory("example/oglplus")

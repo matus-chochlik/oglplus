@@ -6,51 +6,42 @@ cmake_minimum_required(VERSION 2.6)
 
 set(OGLPLUS_BINDABLE_OBJECTS buffer texture renderbuffer framebuffer)
 
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
+set(OGLPLUS_SRC_XML ${PROJECT_BINARY_DIR}/doc/doxygen/xml/oglplus.xml)
+set(BOUND_HEADER_XSLT ${PROJECT_SOURCE_DIR}/xslt/bound_hpp.xsl)
 
-	set(DOXYFILE ${PROJECT_BINARY_DIR}/Doxyfile)
+add_custom_target(bound_object_headers)
+add_dependencies(auto_generated_headers bound_object_headers)
 
-	file(WRITE ${DOXYFILE} "@INCLUDE = ${PROJECT_SOURCE_DIR}/doc/doxygen/Doxyfile.autohdr\n")
-	file(APPEND ${DOXYFILE} "OUTPUT_DIRECTORY = ${PROJECT_BINARY_DIR}/\n")
-	file(APPEND ${DOXYFILE} "INPUT = ${PROJECT_SOURCE_DIR}/include/oglplus\n")
-	file(APPEND ${DOXYFILE} "QUIET = YES\n")
-
-	add_custom_command(
-		OUTPUT ${PROJECT_BINARY_DIR}/xml/index.xml
-		COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
-		WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc/doxygen
-	)
-endif()
-
-find_program(XSLTPROC_EXECUTABLE xsltproc)
-add_custom_command(
-	OUTPUT ${PROJECT_BINARY_DIR}/xml/oglplus.xml
-	COMMAND ${XSLTPROC_EXECUTABLE}
-		--output ${PROJECT_BINARY_DIR}/xml/oglplus.xml
-		${PROJECT_BINARY_DIR}/xml/combine.xslt
-		${PROJECT_BINARY_DIR}/xml/index.xml
-	MAIN_DEPENDENCY ${PROJECT_BINARY_DIR}/xml/index.xml
-)
-
-unset(BOUND_OBJECT_HEADERS)
 foreach(BINDABLE ${OGLPLUS_BINDABLE_OBJECTS})
 
+	set(PREBUILT_HEADER ${PROJECT_SOURCE_DIR}/prebuilt/include/bound/${BINDABLE}.hpp)
 	set(HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/bound/${BINDABLE}.hpp)
 
-	# TODO make this portable/usable with other processors
-	add_custom_command(
-		OUTPUT ${HEADER_FILE}
-		COMMAND ${XSLTPROC_EXECUTABLE}
-			--output bound/${BINDABLE}.hpp
-			--stringparam ${BINDABLE}
-			${PROJECT_SOURCE_DIR}/xslt/bound_hpp.xsl
-			${PROJECT_BINARY_DIR}/xml/oglplus.xml
-		MAIN_DEPENDENCY ${PROJECT_BINARY_DIR}/xml/oglplus.xml
-		DEPENDS ${PROJECT_SOURCE_DIR}/xslt/bound_hpp.xsl
-	)
-	set(BOUND_OBJECT_HEADERS ${BOUND_OBJECT_HEADERS} ${HEADER_FILE})
+	# if this header is pre-built
+	if(EXISTS ${PREBUILT_HEADER})
+		# just copy it
+		configure_file(${PREBUILT_HEADER} ${HEADER_FILE} COPYONLY)
+	else()
+		# otherwise do the whole Doxygen->XSLT->hpp dance
+
+		# TODO make this portable/usable with other XSLT processors
+		find_program(XSLTPROC_EXECUTABLE xsltproc)
+
+		add_custom_command(
+			OUTPUT ${HEADER_FILE}
+			COMMAND ${XSLTPROC_EXECUTABLE}
+				--output bound/${BINDABLE}.hpp
+				--stringparam object ${BINDABLE}
+				${BOUND_HEADER_XSLT}
+				${OGLPLUS_SRC_XML}
+			MAIN_DEPENDENCY ${OGLPLUS_SRC_XML}
+			DEPENDS ${BOUND_HEADER_XSLT}
+		)
+		set_source_files_properties(${OGLPLUS_SRC_XML} PROPERTIES GENERATED 1)
+		add_custom_target(bound_${BINDABLE}_hpp DEPENDS ${HEADER_FILE})
+		add_dependencies(bound_${BINDABLE}_hpp oglplus_xml_src)
+		add_dependencies(bound_object_headers bound_${BINDABLE}_hpp)
+	endif()
 endforeach(BINDABLE)
 
-add_custom_target(bound_object_headers ALL DEPENDS ${BOUND_OBJECT_HEADERS})
 

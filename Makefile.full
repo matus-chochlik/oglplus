@@ -18,6 +18,7 @@ OGLPLUS_CXXFLAGS = \
 	-I include \
 	-I $(HDRDIR)/include \
 	-I utils \
+	-DOGLPLUS_NO_SITE_CONFIG=1 \
 	-std=c++0x
 
 OGLPLUS_LDFLAGS = \
