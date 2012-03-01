@@ -6,8 +6,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(OGLplus)
 
-# TODO as command line option
-set(HEADER_SEARCH_PATHS /opt/inst/include $ENV{HOME}/include)
+option(OGLPLUS_WITHOUT_GLEW "Don't use GLEW even if available" Off)
 
 # try to find GL3/gl3.h
 find_path(GL3_GL3_H_DIR gl3.h PATH_SUFFIXES GL3 PATHS ${HEADER_SEARCH_PATHS})
@@ -28,9 +27,7 @@ if(EXISTS ${GL3_GL3_H_DIR})
 	set(OGLPLUS_USE_GL3H 1)
 endif()
 
-# TODO update OGLPLUS_USE_* on caller preferences
-
-if(OGLPLUS_USE_GLEW)
+if(OGLPLUS_USE_GLEW AND NOT OGLPLUS_WITHOUT_GLEW OR NOT OGLPLUS_USE_GL3H)
 	set(OGLPLUS_USE_GL3H 0)
 
 	include_directories(BEFORE SYSTEM ${GL_GLEW_H_DIR})
