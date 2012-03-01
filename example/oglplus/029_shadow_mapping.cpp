@@ -280,7 +280,7 @@ public:
 		VertexArray::Unbind();
 
 		// set the fragment shader source
-		draw_fs.Source({
+		const GLchar* draw_fs_source[3] = {
 			"#version 330\n",
 			max_lights_def.str().c_str(),
 			"uniform vec3 LightColors[MaxLights];"
@@ -325,7 +325,8 @@ public:
 			"	}"
 			"	fragColor = vec4(color, 1.0);"
 			"}"
-		});
+		};
+		draw_fs.Source(draw_fs_source, 3);
 		// compile it
 		draw_fs.Compile();
 

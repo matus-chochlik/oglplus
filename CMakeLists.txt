@@ -15,7 +15,7 @@ find_path(GL_GLEW_H_DIR glew.h PATH_SUFFIXES GL PATHS ${HEADER_SEARCH_PATHS})
 
 # no gl3.h nor glew.h => no OGLplus
 if(GL_GLEW_H_DIR-NOTFOUND AND GL3_GL3_H_DIR-NOTFOUND)
-	message("GL/glew.h or GL3/gl3.h required" FATAL_ERROR)
+	message(FATAL_ERROR "GL/glew.h or GL3/gl3.h required")
 endif()
 
 # if we have found GLEW
@@ -27,7 +27,7 @@ if(EXISTS ${GL3_GL3_H_DIR})
 	set(OGLPLUS_USE_GL3H 1)
 endif()
 
-if(OGLPLUS_USE_GLEW AND NOT OGLPLUS_WITHOUT_GLEW OR NOT OGLPLUS_USE_GL3H)
+if(OGLPLUS_USE_GLEW AND (NOT OGLPLUS_WITHOUT_GLEW OR NOT OGLPLUS_USE_GL3H))
 	set(OGLPLUS_USE_GL3H 0)
 
 	include_directories(BEFORE SYSTEM ${GL_GLEW_H_DIR})
@@ -45,7 +45,8 @@ elseif(OGLPLUS_USE_GL3H)
 	message("Using GL3")
 else()
 	# something went very wrong
-	message("Internal error" FATAL_ERROR)
+	message(FATAL_ERROR "GL3 or GLEW is required for OGLplus")
+	return()
 endif()
 
 # now create the site-configuration header

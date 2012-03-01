@@ -78,7 +78,8 @@ public:
 	{
 		std::stringstream plane_count_def;
 		plane_count_def <<"#define PlaneCount "<<plane.size()<<'\n';
-		torus_vs.Source({
+
+		const GLchar* torus_vs_source[3] = {
 			"#version 330\n",
 			plane_count_def.str().c_str(),
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
@@ -104,7 +105,8 @@ public:
 			"		CameraMatrix *"
 			"		gl_Position;"
 			"}"
-		});
+		};
+		torus_vs.Source(torus_vs_source, 3);
 		torus_vs.Compile();
 
 		torus_fs.Source(
@@ -156,7 +158,7 @@ public:
 			attr.Enable();
 		}
 
-		plane_vs.Source({
+		const GLchar* plane_vs_source[3] = {
 			"#version 330\n",
 			plane_count_def.str().c_str(),
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
@@ -183,7 +185,8 @@ public:
 			"		0.4*Position.xyz"
 			"	);"
 			"}"
-		});
+		};
+		plane_vs.Source(plane_vs_source, 3);
 		plane_vs.Compile();
 
 		plane_fs.Source(
