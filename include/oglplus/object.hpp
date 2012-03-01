@@ -248,7 +248,7 @@ public:
 	}
 };
 
-#if !OGLPLUS_DOCUMENTATION_ONLY
+#if !OGLPLUS_DOCUMENTATION_ONLY && !OGLPLUS_DOXYGEN_PARSE
 template <class ObjectOps, bool MultiObject>
 struct BaseOps<Object<ObjectOps, MultiObject> >
 {

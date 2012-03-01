@@ -22,6 +22,7 @@
 
 #if OGLPLUS_USE_GLEW
 
+#define GL3_PROTOTYPES
 #include <GL/glew.h>
 
 #else // using GL3/gl3.h is the fallback

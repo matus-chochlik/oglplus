@@ -2,7 +2,7 @@
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 project(OGLplus)
 
@@ -21,8 +21,7 @@ endif()
 
 # if we have found GLEW
 if(EXISTS ${GL_GLEW_H_DIR})
-	# TODO set to 1 when a glew-based harness is ready
-	set(OGLPLUS_USE_GLEW 0)
+	set(OGLPLUS_USE_GLEW 1)
 endif()
 #if we have found gl3.h
 if(EXISTS ${GL3_GL3_H_DIR})

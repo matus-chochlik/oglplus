@@ -117,8 +117,8 @@ public:
 	{
 		OGLPLUS_GLFUNC(MultiDrawArrays)(
 			GLenum(primitive),
-			first,
-			count,
+			const_cast<GLint*>(first), //TODO: cast because of GLEW
+			const_cast<GLsizei*>(count), // remove when GLEW fixed
 			primcount
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(MultiDrawArrays));

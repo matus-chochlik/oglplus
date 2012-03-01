@@ -141,6 +141,7 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
 	/// Returns the implementation-dependent viewport bounds range
 	/**
 	 *  @throws Error
@@ -159,6 +160,7 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
+#endif
 
 	/// Returns the implementation-dependent maximum viewport dimensions
 	/**
@@ -179,6 +181,8 @@ public:
 		return result;
 	}
 
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
 	/// Sets the @p near / @p far depth range of the default viewport
 	/**
 	 *  @throws Error
@@ -191,6 +195,7 @@ public:
 		OGLPLUS_GLFUNC(DepthRangef)(near, far);
 		HandleIfError(OGLPLUS_ERROR_INFO(DepthRangef));
 	}
+#endif
 
 	/// Sets the @p near / @p far depth range of the default viewport
 	/**

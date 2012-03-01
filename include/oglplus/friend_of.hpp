@@ -20,7 +20,7 @@ namespace oglplus {
 template <class Object>
 class FriendOf;
 
-#if !OGLPLUS_DOCUMENTATION_ONLY
+#if !OGLPLUS_DOXYGEN_PARSE
 template <>
 class FriendOf<Named>
 {

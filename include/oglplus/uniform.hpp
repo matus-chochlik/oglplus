@@ -113,13 +113,13 @@ protected:
 #endif
 };
 
-#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
 class ProgramUniformSetters
 {
 protected:
 	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniform, ProgramUniform)
 
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, i, t, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, f, t, GLfloat)
@@ -128,6 +128,14 @@ protected:
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, iv, v, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, dv, v, GLdouble)
+#elif GL_EXT_direct_state_access
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, ui, EXT, t, GLuint)
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, i, EXT, t, GLint)
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, f, EXT, t, GLfloat)
+
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, iv, EXT, v, GLint)
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, fv, EXT, v, GLfloat)
+#endif
 };
 
 class ProgramUniformMatrixSetters
@@ -135,11 +143,14 @@ class ProgramUniformMatrixSetters
 protected:
 	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniformMatrix, ProgramUniform)
 
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, dv, v, GLdouble)
+#elif GL_EXT_direct_state_access
+	OGLPLUS_AUX_VARPARA_MAT_FNS_EXT(ProgramUniformMatrix,fv,EXT, v, GLfloat)
+#endif
 };
 
-#endif // separate shader objects
 
 } // namespace aux
 
@@ -643,7 +654,7 @@ inline void SetUniform(
 	Uniform<T>(program, identifier).Set(value);
 }
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects || GL_EXT_direct_state_access
 
 /// Class encapsulating ProgramUniform shader variable functionality
 /**
@@ -717,7 +728,7 @@ inline void SetProgramUniform(
 	ProgramUniform<T>(program, identifier).Set(value);
 }
 
-#endif // separate shader objects
+#endif
 
 } // namespace oglplus
 

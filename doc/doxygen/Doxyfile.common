@@ -943,16 +943,6 @@ INCLUDE_PATH           = ../../include/ ../../example
 
 INCLUDE_FILE_PATTERNS  = *.hpp
 
-# The PREDEFINED tag can be used to specify one or more macro names that
-# are defined before the preprocessor is started (similar to the -D option of
-# gcc). The argument of the tag is a list of macros of the form: name
-# or name=definition (no spaces). If the definition and the = are
-# omitted =1 is assumed. To prevent a macro definition from being
-# undefined via #undef or recursively expanded use the := operator
-# instead of the = operator.
-
-PREDEFINED             = "OGLPLUS_DOCUMENTATION_ONLY=1"
-
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.
 # The macro definition that is found in the sources will be used.

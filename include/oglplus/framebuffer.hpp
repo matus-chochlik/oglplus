@@ -265,7 +265,6 @@ public:
 		));
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Attach a @p texture to the @p attachment point of @p target
 	/**
 	 *  @see AttachRenderbuffer
@@ -333,7 +332,6 @@ public:
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
-#endif
 
 	/// Attach a 1D @p texture to the @p attachment point of @p target
 	/**

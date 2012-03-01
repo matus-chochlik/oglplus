@@ -2,7 +2,7 @@
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 # get a list of all svg textures
 file(GLOB OGLPLUS_SVG_TEXTURES "./*.svg")
@@ -12,9 +12,11 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 	get_filename_component(TEXTURE_NAME ${SVG_FILE} NAME_WE)
 	set(PNG_FILE ${TEXTURE_NAME}.png)
 
-	if(EXISTS ${PROJECT_SOURCE_DIR}/prebuilt/texture/${PNG_FILE})
+	set(PREBUILT_PNG ${PROJECT_SOURCE_DIR}/prebuilt/textures/${PNG_FILE})
+
+	if(EXISTS ${PREBUILT_PNG})
 		configure_file(
-			${PROJECT_SOURCE_DIR}/prebuilt/texture/${PNG_FILE}
+			${PREBUILT_PNG}
 			${CMAKE_CURRENT_BINARY_DIR}/${PNG_FILE}
 			COPYONLY
 		)

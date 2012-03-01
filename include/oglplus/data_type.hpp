@@ -42,49 +42,49 @@ inline const GLchar* EnumValueName(DataType value)
 	return "";
 }
 
-DataType GetDataType(GLbyte*)
+inline DataType GetDataType(GLbyte*)
 {
 	return DataType::Byte;
 }
 
-DataType GetDataType(GLshort*)
+inline DataType GetDataType(GLshort*)
 {
 	return DataType::Short;
 }
 
-DataType GetDataType(GLint*)
+inline DataType GetDataType(GLint*)
 {
 	return DataType::Int;
 }
 
-DataType GetDataType(GLubyte*)
+inline DataType GetDataType(GLubyte*)
 {
 	return DataType::UnsignedByte;
 }
 
-DataType GetDataType(GLushort*)
+inline DataType GetDataType(GLushort*)
 {
 	return DataType::UnsignedShort;
 }
 
-DataType GetDataType(GLuint*)
+inline DataType GetDataType(GLuint*)
 {
 	return DataType::UnsignedInt;
 }
 
-DataType GetDataType(GLfloat*)
+inline DataType GetDataType(GLfloat*)
 {
 	return DataType::Float;
 }
 
-DataType GetDataType(GLdouble*)
+inline DataType GetDataType(GLdouble*)
 {
 	return DataType::Double;
 }
 
 /// Returns the DataType for the specified type @p T
 template <typename T>
-DataType GetDataType(void)
+inline DataType GetDataType(void)
 {
 	return GetDataType((T*)nullptr);
 }

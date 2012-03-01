@@ -2,7 +2,7 @@
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 set(OGLPLUS_BINDABLE_OBJECTS buffer texture renderbuffer framebuffer)
 
@@ -14,7 +14,7 @@ add_dependencies(auto_generated_headers bound_object_headers)
 
 foreach(BINDABLE ${OGLPLUS_BINDABLE_OBJECTS})
 
-	set(PREBUILT_HEADER ${PROJECT_SOURCE_DIR}/prebuilt/include/bound/${BINDABLE}.hpp)
+	set(PREBUILT_HEADER ${PROJECT_SOURCE_DIR}/prebuilt/include/oglplus/bound/${BINDABLE}.hpp)
 	set(HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/bound/${BINDABLE}.hpp)
 
 	# if this header is pre-built

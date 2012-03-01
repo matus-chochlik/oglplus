@@ -52,11 +52,13 @@ class ImageUnitSelector
 public:
 	ImageUnitSelector(GLuint count);
 };
-#else
+#elif GL_VERSION_4_2 || GL_ARB_shader_image_load_store
 OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 	ImageUnitSelector,
 	MAX_IMAGE_UNITS
 )
+#else
+typedef GLuint ImageUnitSelector;
 #endif
 
 
@@ -124,7 +126,6 @@ inline const GLchar* EnumValueName(TextureMinFilter value)
 	return "";
 }
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 /// Texture swizzle parameter coordinate enumeration
 /**
  *  @ingroup enumerations
@@ -159,7 +160,6 @@ inline const GLchar* EnumValueName(TextureSwizzleCoord value)
 enum class TextureSwizzle : GLenum {
 #include <oglplus/enums/texture_swizzle.ipp>
 };
-#endif // texture swizzle
 
 inline const GLchar* EnumValueName(TextureSwizzle value)
 {

@@ -34,6 +34,9 @@ namespace oglplus {
 		); \
 	}
 
+#define OGLPLUS_AUX_VARPARA_FNS_EXT(PREFIX, SUFFIX, EXT, SELECTOR, TYPE) \
+	OGLPLUS_AUX_VARPARA_FNS(PREFIX, SUFFIX##EXT, SELECTOR, TYPE)
+
 #define OGLPLUS_AUX_VARPARA_MAT_FNS(PREFIX, SUFFIX, SELECTOR, TYPE) \
 	static decltype( \
 		std::make_tuple( \
@@ -73,6 +76,9 @@ namespace oglplus {
 			) \
 		);\
 	}
+
+#define OGLPLUS_AUX_VARPARA_MAT_FNS_EXT(PREFIX, SUFFIX, EXT, SELECTOR, TYPE) \
+	OGLPLUS_AUX_VARPARA_MAT_FNS(PREFIX, SUFFIX##EXT, SELECTOR, TYPE)
 
 } // namespace oglplus
 

@@ -1001,7 +1001,9 @@ private:
 	void _initialize(bool separable, const Shaders& ... shaders)
 	{
 		_attach(shaders...);
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 		if(separable) MakeSeparable();
+#endif
 		Link();
 		Use();
 	}
