@@ -17,7 +17,7 @@ function normalize_path()
 	# make an absolute path
 	case "${normal_path}" in
 		/*);;
-		~*) normal_path="${HOME}${normal_path#~}";;
+		~*) normal_path="${HOME}${normal_path:1}";;
 		*)  normal_path="${PWD%/}/${normal_path}";;
 	esac
 	# translates '/./' -> '/'
@@ -250,10 +250,8 @@ then source ${command_file}
 else cat ${command_file}
 fi
 
-# remove the command file
 rm -f ${command_file}
 
-# if this was just a dry run then exit
 if [ "${dry_run}" != false ]
 then exit
 fi
@@ -261,13 +259,16 @@ fi
 echo
 if [ ${configure_result:-0} -eq 0 ]
 then
-	echo "Configuration completed successfully."
-	echo "To build OGLplus do the following:"
+	echo "# Configuration completed successfully."
+	echo "# To build OGLplus do the following:"
 	echo
 	echo "cd $(shortest_path_from_to "${PWD}" "${oglplus_build_dir}")"
 	echo "make"
+	echo "make install"
+	echo
+	echo "# NOTE: installing may require administrative privilegues"
 else
-	echo "Configuration failed with error code ${configure_result}."
+	echo "# Configuration failed with error code ${configure_result}."
 	exit ${configure_result}
 fi
 

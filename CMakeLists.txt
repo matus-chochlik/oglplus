@@ -55,7 +55,10 @@ configure_file(
 	${PROJECT_BINARY_DIR}/include/oglplus/site_config.hpp
 )
 
-add_custom_target(auto_generated_headers ALL)
+install(
+	FILES ${PROJECT_BINARY_DIR}/include/oglplus/site_config.hpp
+	DESTINATION include/oglplus
+)
 
 add_subdirectory("doc/doxygen")
 add_subdirectory("xslt" "include/oglplus")
@@ -67,3 +70,15 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)
 
 add_subdirectory("example/oglplus")
+
+# install the "regular" headers
+install(
+	DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+	DESTINATION include
+)
+
+# install the docs
+install(
+	DIRECTORY ${PROJECT_BINARY_DIR}/doc/doxygen/html
+	DESTINATION share/oglplus/doc
+)

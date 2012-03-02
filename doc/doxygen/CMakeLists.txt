@@ -35,7 +35,7 @@ if(DOXYGEN_FOUND)
 		COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
-	add_custom_target(doc DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
+	add_custom_target(doc ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
 	add_dependencies(doc auto_generated_headers)
 	unset(DOXYFILE)
 endif()
