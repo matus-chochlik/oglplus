@@ -30,7 +30,12 @@ endif()
 add_definitions(-std=c++0x)
 
 # add a target for the examples
+if(OGLPLUS_NO_EXAMPLES)
+add_custom_target(oglplus_examples)
+else()
 add_custom_target(oglplus_examples ALL)
+endif()
+
 add_dependencies(oglplus_examples oglplus_textures)
 
 # build the code common to all the examples into this library

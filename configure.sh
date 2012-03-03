@@ -6,6 +6,9 @@
 # defaults
 oglplus_default_build_dir=_build
 oglplus_without_glew=false
+oglplus_no_examples=false
+oglplus_no_docs=false
+
 dry_run=false
 from_scratch=false
 #
@@ -130,6 +133,9 @@ function print_help()
 	echo "                         in the system include directories or in directories"
 	echo "                         specified with --include-dir."
 	echo
+	echo "  --no-examples          Do not build the examples and the textures."
+	echo "  --no-docs              Do not build and install the documentation."
+	echo
 	return 0
 }
 #
@@ -184,6 +190,9 @@ do
 
 	--without-glew) oglplus_without_glew=true;;
 
+	--no-examples) oglplus_no_examples=true;;
+	--no-docs) oglplus_no_docs=true;;
+
 	--dry-run) dry_run=true;;
 	--from-scratch) from_scratch=true;;
 
@@ -213,6 +222,16 @@ done
 # the main cmake script
 if [ ! -f "${oglplus_src_root}/CMakeLists.txt" ]
 then echo "Missing the main cmake script" && exit 5
+fi
+
+# pass the no-examples option
+if [ "${oglplus_no_examples}" == "true" ]
+then oglplus_cmake_options="'-DOGLPLUS_NO_EXAMPLES=On' ${oglplus_cmake_options}"
+fi
+
+# pass the no-docs option
+if [ "${oglplus_no_docs}" == "true" ]
+then oglplus_cmake_options="'-DOGLPLUS_NO_DOCS=On' ${oglplus_cmake_options}"
 fi
 
 # pass the without-glew option to cmake

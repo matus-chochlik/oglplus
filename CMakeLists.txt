@@ -8,6 +8,9 @@ project(OGLplus)
 
 option(OGLPLUS_WITHOUT_GLEW "Don't use GLEW even if available" Off)
 
+option(OGLPLUS_NO_EXAMPLES"Don't build examples and textures" Off)
+option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
+
 # try to find GL3/gl3.h
 find_path(GL3_GL3_H_DIR gl3.h PATH_SUFFIXES GL3 PATHS ${HEADER_SEARCH_PATHS})
 # try to find GL/glew.h

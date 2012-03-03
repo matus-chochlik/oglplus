@@ -38,7 +38,7 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 	endif()
 endforeach(SVG_FILE)
 
-add_custom_target(oglplus_textures ALL DEPENDS ${PNG_TEXTURE_FILES})
+add_custom_target(oglplus_textures DEPENDS ${PNG_TEXTURE_FILES})
 
 unset(PNG_TEXTURE_FILES)
 
