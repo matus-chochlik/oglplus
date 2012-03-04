@@ -12,6 +12,14 @@
 #ifndef OGLPLUS_CONFIG_1107121519_HPP
 #define OGLPLUS_CONFIG_1107121519_HPP
 
+#ifndef OGLPLUS_NO_SITE_CONFIG
+#include <oglplus/site_config.hpp>
+#endif
+
+#ifndef OGLPLUS_USE_GLEW
+#define OGLPLUS_USE_GLEW 0
+#endif
+
 namespace oglplus {
 
 /** @defgroup compile_time_config Compile-time configuration

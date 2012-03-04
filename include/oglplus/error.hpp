@@ -978,6 +978,21 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 			break;
 		case GL_INVALID_FRAMEBUFFER_OPERATION:
 			msg = "Invalid OpenGL framebuffer operation";
+
+#ifdef GL_STACK_OVERFLOW
+		case GL_STACK_OVERFLOW:
+			msg = "Stack overflow";
+#endif
+
+#ifdef GL_STACK_UNDERFLOW
+		case GL_STACK_UNDERFLOW:
+			msg = "Stack underflow";
+#endif
+
+#ifdef GL_TABLE_TOO_LARGE
+		case GL_TABLE_TOO_LARGE:
+			msg = "Table too large";
+#endif
 			break;
 	}
 #if OGLPLUS_CUSTOM_ERROR_HANDLING
