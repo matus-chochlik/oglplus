@@ -11,7 +11,13 @@ oglplus_no_docs=false
 
 dry_run=false
 from_scratch=false
+quiet=false
+build_and_install=false
 #
+function echoerror()
+{
+	echo "$@" 1>&2
+}
 # function for filesystem path normalization
 function normalize_path()
 {
@@ -134,7 +140,16 @@ function print_help()
 	echo "                         specified with --include-dir."
 	echo
 	echo "  --no-examples          Do not build the examples and the textures."
+	echo
 	echo "  --no-docs              Do not build and install the documentation."
+	echo
+	echo "  --quiet                Do not print regular messages, errors are still"
+	echo "                         printed to stderr. Also any cmake output is still"
+	echo "                         printed."
+	echo
+	echo "  --build-and-install    If the configuration process is successful, also"
+	echo "                         run the commands to build and install OGLplus"
+	echo "                         automatically."
 	echo
 	return 0
 }
@@ -156,7 +171,7 @@ function parse_path_spec_option()
 	--${option_tag})
 		option_path="$(normalize_path "${next_option}")"
 		return 1;;
-	*) echo "Parse error" && exit 1
+	*) echoerror "Parse error" && exit 1
 	esac
 }
 
@@ -195,6 +210,8 @@ do
 
 	--dry-run) dry_run=true;;
 	--from-scratch) from_scratch=true;;
+	--quiet) quiet=true;;
+	--build-and-install) build_and_install=true;;
 
 	-h|--help) print_help && exit 0;;
 	*) print_short_help ${1} && exit 1;;
@@ -215,13 +232,45 @@ fi
 for oglplus_dir in "config" "doc" "include/oglplus" "example" "source" "utils" "xslt"
 do
 	if [ ! -d "${oglplus_src_root}/${oglplus_dir}" ]
-	then echo "Missing the header directory" && exit 4
+	then echoerror "Missing the header directory" && exit 4
 	fi
 done
 #
-# the main cmake script
+# the cmake executable
+if [ ! -x "$(which cmake)" ]
+then echoerror "cmake is required." && exit 5
+fi
+#
+# let cmake dump some system information into a temp file
+# in a form usable by bash
+cmake_info_file=$(mktemp)
+cmake ${oglplus_cmake_options} --system-information |
+grep -e "CMAKE_BUILD_TOOL" |
+tr ' ' '=' > ${cmake_info_file}
+#
+# use the system information
+source ${cmake_info_file} || exit $?
+# remove the system info file
+rm -f ${cmake_info_file}
+#
+#
+# check the main cmake script
 if [ ! -f "${oglplus_src_root}/CMakeLists.txt" ]
-then echo "Missing the main cmake script" && exit 5
+then echoerror "Missing the main cmake script." && exit 5
+fi
+#
+# check the build tool
+if [ "${CMAKE_BUILD_TOOL}" == "" ]
+then echoerror "No build tool usable by cmake found." && exit 5
+fi
+#
+if [ ! -x "${CMAKE_BUILD_TOOL}" ]
+then echoerror "${CMAKE_BUILD_TOOL} is required." && exit 5
+fi
+#
+# shorten the build tool command if possible
+if [ "$(which $(basename ${CMAKE_BUILD_TOOL}))" == "${CMAKE_BUILD_TOOL}" ]
+then CMAKE_BUILD_TOOL="$(basename ${CMAKE_BUILD_TOOL})"
 fi
 
 # pass the no-examples option
@@ -275,19 +324,29 @@ if [ "${dry_run}" != false ]
 then exit
 fi
 
-echo
 if [ ${configure_result:-0} -eq 0 ]
 then
-	echo "# Configuration completed successfully."
-	echo "# To build OGLplus do the following:"
-	echo
-	echo "cd $(shortest_path_from_to "${PWD}" "${oglplus_build_dir}")"
-	echo "make"
-	echo "make install"
-	echo
-	echo "# NOTE: installing may require administrative privilegues"
+	build_script=$(mktemp)
+	(
+		echo
+		echo "# Configuration completed successfully."
+		echo "# To build OGLplus do the following:"
+		echo
+		echo "cd $(shortest_path_from_to "${PWD}" "${oglplus_build_dir}")"
+		echo "${CMAKE_BUILD_TOOL}"
+		echo "${CMAKE_BUILD_TOOL} install"
+		echo
+		echo "# NOTE: installing may require administrative privilegues"
+	) > ${build_script}
+
+	if [ "${build_and_install}" == "true" ]
+	then (source ${build_script})
+	elif [ "${quiet}" != "true" ]
+	then cat ${build_script}
+	fi
+	rm -f "${build_script}"
 else
-	echo "# Configuration failed with error code ${configure_result}."
+	echoerror "# Configuration failed with error code ${configure_result}."
 	exit ${configure_result}
 fi
 
