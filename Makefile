@@ -9,14 +9,14 @@ OUTDIR = out
 # intermediate output directory
 BLDDIR = bld
 # auto-generated header output directory
-HDRDIR = auto_header
+PREBUILT = _prebuilt
 
 OGLPLUS_CXXFLAGS = \
 	$(CXXFLAGS) \
 	-pedantic \
 	-pedantic-errors \
 	-I include \
-	-I $(HDRDIR)/include \
+	-I $(PREBUILT)/include \
 	-I utils \
 	-DOGLPLUS_NO_SITE_CONFIG=1 \
 	-std=c++0x
@@ -66,8 +66,9 @@ BLDSUBDIRS = \
 	$(addprefix $(BLDDIR)/, $(sort $(dir $(OBJECT_SRCS)))) \
 	$(addprefix $(BLDDIR)/, $(sort $(dir $(HTML_DOCS))))
 
-HDRSUBDIRS = \
-	$(addprefix $(HDRDIR)/, $(sort $(dir $(AUTO_HEADERS))))
+PBDSUBDIRS = \
+	$(addprefix $(PREBUILT)/, $(sort $(dir $(AUTO_HEADERS)))) \
+	$(addprefix $(PREBUILT)/, $(sort $(dir $(SVG_TEXTURES))))
 
 .INTERMEDIATE: \
 	$(BLDDIR)/xml/index.xml \
@@ -80,13 +81,16 @@ all: $(addprefix $(OUTDIR)/, $(EXAMPLES) $(DEVEL_TESTS)) \
 examples: $(addprefix $(OUTDIR)/, $(EXAMPLES))
 
 textures: $(addsuffix .png,$(addprefix $(OUTDIR)/,$(SVG_TEXTURES)))
+prebuilt_textures: $(addsuffix .png,$(addprefix $(PREBUILT)/,$(SVG_TEXTURES)))
 
 docs: html_docs;
 html_docs: $(addprefix $(OUTDIR)/, $(HTML_DOCS));
 
 example_screenshots: $(addsuffix .png,$(addprefix $(BLDDIR)/, $(EXAMPLES)))
 
-auto_headers: $(addprefix $(HDRDIR)/,$(AUTO_HEADERS))
+auto_headers: $(addprefix $(PREBUILT)/,$(AUTO_HEADERS))
+
+prebuilt: auto_headers prebuilt_textures
 
 # helper function returning the third argument if the second argument
 # is found at least once in the dependency file specified by the first parameter
@@ -152,7 +156,7 @@ OGLPLUS_MAKEDEP_SED = 's|^\([^:]\+\).o:|$(dir $(BLDDIR)/$(1))\1.o $(dir $(BLDDIR
 
 # function defining the rules for building header dependency makefiles
 define BUILD_DEP
-$(BLDDIR)/$(1).d: $(1).cpp $(addprefix $(HDRDIR)/,$(AUTO_HEADERS)) Makefile | $(dir $(BLDDIR)/$(1))
+$(BLDDIR)/$(1).d: $(1).cpp $(addprefix $(PREBUILT)/,$(AUTO_HEADERS)) Makefile | $(dir $(BLDDIR)/$(1))
 	@$(CXX) $(OGLPLUS_CXXFLAGS) -o $$@ -E -M $$<
 	@sed --in-place $(OGLPLUS_MAKEDEP_SED) $$@
 endef
@@ -164,7 +168,7 @@ GET_HPP_OBJECT = $(notdir $(basename $(1)))
 
 # function defining the rules for automatically building some headers
 define BUILD_HDR
-$(HDRDIR)/$(1): $(BLDDIR)/xml/oglplus.xml | $(dir $(HDRDIR)/$(1))
+$(PREBUILT)/$(1): $(BLDDIR)/xml/oglplus.xml | $(dir $(PREBUILT)/$(1))
 	xsltproc --output $$@ --stringparam object "$(call GET_HPP_OBJECT,$(1))" $(call CHOOSE_HDR_XSLT,$(1)) $$<
 endef
 
@@ -183,6 +187,9 @@ $(foreach hdr,$(AUTO_HEADERS),$(eval $(call BUILD_HDR,$(hdr))))
 define CONVERT_SVG2PNG
 $(OUTDIR)/$(1).png: source/$(1).svg Makefile | $(dir $(OUTDIR)/$(1))
 	inkscape --without-gui --file=$$< --export-png=$$@
+
+$(PREBUILT)/$(1).png: $(OUTDIR)/$(1).png Makefile | $(dir $(PREBUILT)/$(1))
+	cp $$< $$@
 endef
 # use the function above to define the rules for svg textures
 $(foreach tex,$(SVG_TEXTURES),$(eval $(call CONVERT_SVG2PNG,$(tex))))
@@ -230,13 +237,13 @@ $(BLDDIR)/xml/oglplus.xml: $(BLDDIR)/xml/index.xml
 
 
 # rules to make the final and itermediate output directories
-$(OUTDIR) $(BLDDIR):
+$(OUTDIR) $(BLDDIR) $(PREBUILT):
 	mkdir -p $(shell readlink $@ || echo $@)
 
 # rules to make the final and itermediate output sub-directories
 $(OUTSUBDIRS): $(OUTDIR); mkdir -p $@
 $(BLDSUBDIRS): $(BLDDIR); mkdir -p $@
-$(HDRSUBDIRS): $(BLDDIR); mkdir -p $@
+$(PBDSUBDIRS): $(PREBUILT); mkdir -p $@
 
 # if we are not doing cleanup
 ifneq ($(MAKECMDGOALS),full_clean)
@@ -246,9 +253,9 @@ sinclude $(addsuffix .d,$(addprefix $(BLDDIR)/,$(HTML_DOCS)))
 endif
 
 # cleanup
-.PHONY: full_clean;
+.PHONY: clean;
 
-full_clean:
+clean:
 	rm -rf $(shell readlink $(OUTDIR) || echo $(OUTDIR))
 	rm -rf $(shell readlink $(BLDDIR) || echo $(BLDDIR))
-	rm -rf $(shell readlink $(HDRDIR) || echo $(HDRDIR))
+	rm -rf $(shell readlink $(PREBUILT) || echo $(PREBUILT))

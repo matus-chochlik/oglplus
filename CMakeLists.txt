@@ -80,8 +80,10 @@ install(
 	DESTINATION include
 )
 
-# install the docs
-install(
-	DIRECTORY ${PROJECT_BINARY_DIR}/doc/doxygen/html
-	DESTINATION share/oglplus/doc
-)
+if(NOT OGLPLUS_NO_DOCS)
+	# install the docs
+	install(
+		DIRECTORY ${PROJECT_BINARY_DIR}/doc/doxygen/html
+		DESTINATION share/oglplus/doc
+	)
+endif()

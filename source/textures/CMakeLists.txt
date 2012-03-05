@@ -12,7 +12,7 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 	get_filename_component(TEXTURE_NAME ${SVG_FILE} NAME_WE)
 	set(PNG_FILE ${TEXTURE_NAME}.png)
 
-	set(PREBUILT_PNG ${PROJECT_SOURCE_DIR}/prebuilt/textures/${PNG_FILE})
+	set(PREBUILT_PNG ${PROJECT_SOURCE_DIR}/_prebuilt/textures/${PNG_FILE})
 
 	if(EXISTS ${PREBUILT_PNG})
 		configure_file(

@@ -18,7 +18,7 @@ find_program(XSLTPROC_EXECUTABLE xsltproc)
 
 foreach(BINDABLE ${OGLPLUS_BINDABLE_OBJECTS})
 
-	set(PREBUILT_HEADER ${PROJECT_SOURCE_DIR}/prebuilt/include/oglplus/bound/${BINDABLE}.hpp)
+	set(PREBUILT_HEADER ${PROJECT_SOURCE_DIR}/_prebuilt/include/oglplus/bound/${BINDABLE}.hpp)
 	set(HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/bound/${BINDABLE}.hpp)
 
 	# if this header is pre-built

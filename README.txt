@@ -24,6 +24,11 @@ $> cd _build
 $> make
 $> make install
 
+ For the busy:
+ -------------
+
+# linux and similar *nix systems
+$> ./configure.sh [--prefix=/path/to/install] [--no-docs] --no-examples --build-and-install
 
  Overview
  --------

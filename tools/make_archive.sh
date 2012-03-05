@@ -1,31 +1,28 @@
 #!/bin/bash
-# Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+# Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 oglplus_archive_items="
-	auto_header
+	_prebuilt
+	config
 	doc
 	example
 	include
 	source
-	tools/make_screenshot.sh
-	tools/make_gallery_html.sh
-	tools/make_enum_headers.sh
 	utils
 	xslt
-	out
-	install.sh
-	Makefile
-	Makefile.full
-	CHANGELOG
 	LICENSE_1_0.txt
+	README.txt
+	CHANGELOG
 	VERSION
+	Makefile
+	CMakeLists.txt
+	configure.sh
 "
 
-make full_clean
-make textures
-make auto_headers
+make clean
+make prebuilt
 
 file_basename="oglplus-$(< VERSION)"
 
