@@ -16,21 +16,112 @@
 #include <oglplus/x11/color_map.hpp>
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
+#include <oglplus/os/semaphore.hpp>
 
 #include <oglplus/config.hpp>
 #include <oglplus/compile_error.hpp>
 #include <oglplus/application.hpp>
 
+#include <vector>
+#include <fstream>
 #include <stdexcept>
 #include <iostream>
 #include <chrono>
+#include <cstring>
 #include <cassert>
 
 #include "example.hpp"
 
 namespace oglplus {
 
-void run(const x11::Display& display)
+void run_loop(
+	const x11::Display& display,
+	const x11::Window& win,
+	const glx::Context& ctx,
+	std::unique_ptr<Example>& example,
+	size_t width,
+	size_t height
+)
+{
+	win.SelectInput(
+		example->UsesMouseMotion()?
+		PointerMotionMask:
+		0
+	);
+	XEvent event;
+	double period =
+		double(std::chrono::system_clock::period::num)/
+		double(std::chrono::system_clock::period::den);
+	auto start = std::chrono::system_clock::now();
+	while(1)
+	{
+		while(display.NextEvent(event))
+		{
+			switch(event.type)
+			{
+				case MotionNotify:
+					example->MouseMove(
+						event.xmotion.x,
+						height-
+						event.xmotion.y,
+						width,
+						height
+					);
+					break;
+				default:;
+			}
+		}
+		auto now = std::chrono::system_clock::now();
+		double t = (now - start).count() * period;
+		if(!example->Continue(t)) break;
+		example->Render(t);
+		ctx.SwapBuffers(win);
+	}
+}
+
+void make_screenshot(
+	const x11::Display& display,
+	const x11::Window& win,
+	const glx::Context& ctx,
+	std::unique_ptr<Example>& example,
+	size_t width,
+	size_t height,
+	const char* screenshot_path
+)
+{
+	XEvent event;
+
+	double t = example->ScreenshotTime();
+	double dt = 1.0 / 25.0;
+	int n = 10;
+
+	// heat-up
+	while(--n > 0)
+	{
+		while(display.NextEvent(event));
+		example->Render(t - dt*n);
+		ctx.SwapBuffers(win);
+	}
+	while(display.NextEvent(event));
+	// render the frame
+	example->Render(t);
+	glFinish();
+	//save it to a file
+	std::vector<char> pixels(width * height * 3);
+	glReadPixels(
+		0, 0,
+		width,
+		height,
+		GL_RGB,
+		GL_UNSIGNED_BYTE,
+		pixels.data()
+	);
+	std::ofstream output(screenshot_path);
+	output.write(pixels.data(), pixels.size());
+	ctx.SwapBuffers(win);
+}
+
+void run(const x11::Display& display, const char* screenshot_path)
 {
 	static int visual_attribs[] =
 	{
@@ -74,41 +165,20 @@ void run(const x11::Display& display)
 		ExampleParams params;
 		std::unique_ptr<Example> example(makeExample(params));
 
-		win.SelectInput(
-			example->UsesMouseMotion()?PointerMotionMask:0
-		);
-		XEvent event;
-
 		example->Reshape(width, height);
 		example->MouseMove(width/2, height/2, width, height);
-		double period =
-			double(std::chrono::system_clock::period::num)/
-			double(std::chrono::system_clock::period::den);
-		auto start = std::chrono::system_clock::now();
-		while(1)
-		{
-			while(display.NextEvent(event))
-			{
-				switch(event.type)
-				{
-					case MotionNotify:
-						example->MouseMove(
-							event.xmotion.x,
-							height-
-							event.xmotion.y,
-							width,
-							height
-						);
-						break;
-					default:;
-				}
-			}
-			auto now = std::chrono::system_clock::now();
-			double t = (now - start).count() * period;
-			if(!example->Continue(t)) break;
-			example->Render(t);
-			ctx.SwapBuffers(win);
-		}
+
+		if(screenshot_path)
+			make_screenshot(
+				display,
+				win,
+				ctx,
+				example,
+				width,
+				height,
+				screenshot_path
+			);
+		else run_loop(display, win, ctx, example, width, height);
 	}
 	ctx.Release(display);
 }
@@ -119,8 +189,12 @@ int main (int argc, char ** argv)
 {
 	try
 	{
+		oglplus::os::CriticalSection cs(0x091);
 		oglplus::Application::ParseCommandLineOptions(argc, argv);
-		oglplus::run(oglplus::x11::Display());
+		const char* screenshot_path = 0;
+		if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+			screenshot_path = argv[2];
+		oglplus::run(oglplus::x11::Display(), screenshot_path);
 		std::cout << "Done" << std::endl;
 	}
 	catch(oglplus::ProgramBuildError& pbe)

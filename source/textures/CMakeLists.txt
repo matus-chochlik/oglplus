@@ -7,7 +7,8 @@ cmake_minimum_required(VERSION 2.8)
 # get a list of all svg textures
 file(GLOB OGLPLUS_SVG_TEXTURES "./*.svg")
 
-unset(PNG_TEXTURE_FILES)
+add_custom_target(oglplus_textures)
+
 foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 	get_filename_component(TEXTURE_NAME ${SVG_FILE} NAME_WE)
 	set(PNG_FILE ${TEXTURE_NAME}.png)
@@ -15,10 +16,12 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 	set(PREBUILT_PNG ${PROJECT_SOURCE_DIR}/_prebuilt/textures/${PNG_FILE})
 
 	if(EXISTS ${PREBUILT_PNG})
-		configure_file(
-			${PREBUILT_PNG}
-			${CMAKE_CURRENT_BINARY_DIR}/${PNG_FILE}
-			COPYONLY
+		add_custom_command(
+			OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${PNG_FILE}
+			COMMAND ${CMAKE_COMMAND} copy
+				"${PREBUILT_PNG}"
+				"${CMAKE_CURRENT_BINARY_DIR}/${PNG_FILE}"
+			COMMENT "Copying pre-built texture ${TEXTURE_NAME}"
 		)
 	else()
 		find_program(INKSCAPE_EXECUTABLE inkscape)
@@ -29,16 +32,10 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 				--file="${SVG_FILE}"
 				--export-png="${PNG_FILE}"
 			MAIN_DEPENDENCY ${SVG_FILE}
+			COMMENT "Converting texture ${TEXTURE_NAME}"
 		)
-		set(
-			PNG_TEXTURE_FILES
-			${PNG_TEXTURE_FILES}
-			${CMAKE_CURRENT_BINARY_DIR}/${PNG_FILE}
-		)
+
+		add_custom_target(texture-${TEXTURE_NAME} DEPENDS ${PNG_FILE})
+		add_dependencies(oglplus_textures texture-${TEXTURE_NAME})
 	endif()
 endforeach(SVG_FILE)
-
-add_custom_target(oglplus_textures DEPENDS ${PNG_TEXTURE_FILES})
-
-unset(PNG_TEXTURE_FILES)
-

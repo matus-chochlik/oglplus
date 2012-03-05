@@ -36,7 +36,8 @@ else()
 add_custom_target(oglplus_examples ALL)
 endif()
 
-add_dependencies(oglplus_examples oglplus_textures)
+# add a target for the screenshots
+add_custom_target(oglplus_example_screenshots)
 
 # build the code common to all the examples into this library
 add_library(
@@ -46,13 +47,14 @@ add_library(
 )
 
 # get a list of all oglplus examples
-file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][1-9]_*.cpp")
+file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
 
 # make the instructions for compiling and linking of the examples
 foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 	get_filename_component(EXE_NAME "${EXAMPLE}" NAME_WE)
 	add_executable(${EXE_NAME} EXCLUDE_FROM_ALL ${EXAMPLE})
 	add_dependencies(${EXE_NAME} auto_generated_headers)
+	add_dependencies(${EXE_NAME} oglplus_textures)
 	target_link_libraries(
 		${EXE_NAME}
 		oglplus_example_harness
@@ -62,5 +64,35 @@ foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 		png
 	)
 	add_dependencies(oglplus_examples ${EXE_NAME})
-endforeach(EXAMPLE)
+
+	if(NOT OGLPLUS_NO_SCREENSHOTS)
+		add_custom_command(
+			OUTPUT ${EXE_NAME}.rgb
+			COMMAND ${EXE_NAME} --screenshot ${EXE_NAME}.rgb
+			DEPENDS ${EXE_NAME}
+		)
+
+		if(${ImageMagick_convert_FOUND})
+			add_custom_command(
+				OUTPUT ${EXE_NAME}.png
+				COMMAND ${ImageMagick_convert_EXECUTABLE}
+					-depth 8
+					-size 800x600
+					${EXE_NAME}.rgb
+					-flip
+					-adaptive-resize 400x300
+					${EXE_NAME}.png
+				DEPENDS ${EXE_NAME}.rgb
+			)
+
+			add_custom_target(${EXE_NAME}-screenshot DEPENDS ${EXE_NAME}.png)
+			add_dependencies(oglplus_example_screenshots ${EXE_NAME}-screenshot)
+		endif()
+
+	endif()
+endforeach()
+
+if(NOT OGLPLUS_NO_SCREENSHOTS)
+	add_dependencies(doc oglplus_example_screenshots)
+endif()
 

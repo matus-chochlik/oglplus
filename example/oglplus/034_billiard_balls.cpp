@@ -1056,6 +1056,11 @@ public:
 	{
 		return time < 90.0;
 	}
+
+	double ScreenshotTime(void) const
+	{
+		return 1.5;
+	}
 };
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)

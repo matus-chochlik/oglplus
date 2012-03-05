@@ -69,6 +69,12 @@ struct Example
 
 	/// Rendering procedure
 	virtual void Render(double time) = 0;
+
+	/// The time of the default screenshot
+	virtual double ScreenshotTime(void) const
+	{
+		return 1.0; // [s]
+	}
 };
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params);

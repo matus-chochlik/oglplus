@@ -10,6 +10,7 @@ set(OGLPLUS_SRC_XML ${PROJECT_BINARY_DIR}/doc/doxygen/xml/oglplus.xml)
 set(BOUND_HEADER_XSLT ${PROJECT_SOURCE_DIR}/xslt/bound_hpp.xsl)
 
 add_custom_target(auto_generated_headers ALL)
+add_dependencies(doc auto_generated_headers)
 
 add_custom_target(bound_object_headers)
 add_dependencies(auto_generated_headers bound_object_headers)
@@ -24,7 +25,12 @@ foreach(BINDABLE ${OGLPLUS_BINDABLE_OBJECTS})
 	# if this header is pre-built
 	if(EXISTS ${PREBUILT_HEADER})
 		# just copy it
-		configure_file(${PREBUILT_HEADER} ${HEADER_FILE} COPYONLY)
+		add_custom_command(
+			OUTPUT ${HEADER_FILE}
+			COMMAND ${CMAKE_COMMAND} copy "${PREBUILT_HEADER}" "${HEADER_FILE}"
+			COMMENT "Copying pre-generated header file bound/${BINDABLE}.hpp"
+		)
+		add_custom_target(bound_${BINDABLE}_hpp DEPENDS ${HEADER_FILE})
 	else()
 		# otherwise do the whole Doxygen->XSLT->hpp dance
 
@@ -39,13 +45,18 @@ foreach(BINDABLE ${OGLPLUS_BINDABLE_OBJECTS})
 				${OGLPLUS_SRC_XML}
 			MAIN_DEPENDENCY ${OGLPLUS_SRC_XML}
 			DEPENDS ${BOUND_HEADER_XSLT}
+			COMMENT "Generating header file bound/${BINDABLE}.hpp"
 		)
 		set_source_files_properties(${OGLPLUS_SRC_XML} PROPERTIES GENERATED 1)
+
 		add_custom_target(bound_${BINDABLE}_hpp DEPENDS ${HEADER_FILE})
 		add_dependencies(bound_${BINDABLE}_hpp oglplus_xml_src)
-		add_dependencies(bound_object_headers bound_${BINDABLE}_hpp)
-		install(FILES ${HEADER_FILE} DESTINATION include/oglplus/bound)
+
 	endif()
+
+	add_dependencies(bound_object_headers bound_${BINDABLE}_hpp)
+
+	install(FILES ${HEADER_FILE} DESTINATION include/oglplus/bound)
 endforeach(BINDABLE)
 
 

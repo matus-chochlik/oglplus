@@ -63,14 +63,14 @@ The build system handles several important tasks:
  * Doxygen + XSLTproc is required to generate additional header files.
    This is required only if the headers are not pre-built (typically
    when checked out from the repository, packaged releases are shipped with
-   pre-build headers)
+   pre-built headers)
 
  * Doxygen is also required to build the documentation.
 
  * Inkscape is required to convert textures used in examples from SVG to PNG.
    This is required only if the textures are not pre-built (typically
    when checked out from the repository, packaged releases are shipped with
-   pre-build textures). Building of the textures is optional, they are not
+   pre-built textures). Building of the textures is optional, they are not
    necessary when the building of examples is disabled.
 
  * The GL3/gl3.h header or GLEW. OGLplus does not define the OpenGL symbols

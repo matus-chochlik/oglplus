@@ -9,7 +9,7 @@
 
 PROJECT_NAME           = "OGLplus"
 
-OUTPUT_DIRECTORY       = ../../bld/
+OUTPUT_DIRECTORY       = ../../_build/
 
 INPUT = ../../include/oglplus
 

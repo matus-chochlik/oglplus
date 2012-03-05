@@ -8,8 +8,19 @@ project(OGLplus)
 
 option(OGLPLUS_WITHOUT_GLEW "Don't use GLEW even if available" Off)
 
-option(OGLPLUS_NO_EXAMPLES"Don't build examples and textures" Off)
+option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
+option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
 option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
+
+if(OGLPLUS_NO_EXAMPLES)
+	set(OGLPLUS_NO_SCREENSHOTS On)
+endif()
+
+include(FindOpenGL)
+
+if(NOT OGLPLUS_NO_SCREENSHOTS)
+	include(FindImageMagick)
+endif()
 
 # try to find GL3/gl3.h
 find_path(GL3_GL3_H_DIR gl3.h PATH_SUFFIXES GL3 PATHS ${HEADER_SEARCH_PATHS})
@@ -30,7 +41,7 @@ if(EXISTS ${GL3_GL3_H_DIR})
 	set(OGLPLUS_USE_GL3H 1)
 endif()
 
-if(OGLPLUS_USE_GLEW AND (NOT OGLPLUS_WITHOUT_GLEW OR NOT OGLPLUS_USE_GL3H))
+if(OGLPLUS_USE_GLEW AND (NOT OGLPLUS_WITHOUT_GLEW AND NOT OGLPLUS_USE_GL3H))
 	set(OGLPLUS_USE_GL3H 0)
 
 	include_directories(BEFORE SYSTEM ${GL_GLEW_H_DIR})
@@ -47,7 +58,6 @@ elseif(OGLPLUS_USE_GL3H)
 
 	message("Using GL3")
 else()
-	# something went very wrong
 	message(FATAL_ERROR "GL3 or GLEW is required for OGLplus")
 	return()
 endif()

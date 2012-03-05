@@ -9,7 +9,7 @@
 
 PROJECT_NAME           = "OGLplus"
 
-OUTPUT_DIRECTORY       = ../../out/doc/doxygen/oglplus
+OUTPUT_DIRECTORY       = ../../_build/doc/doxygen/oglplus
 
 INPUT = \
 	../tutorial \
@@ -20,12 +20,9 @@ INPUT = \
 	../../example/standalone \
 	../../example/oglplus
 
-EXAMPLE_PATH = ../tutorial ../../example ../../bld/doc
-
-IMAGE_PATH             = ../../bld/example/oglplus ../logo
+EXAMPLE_PATH = ../tutorial ../../example ../../_build
 
 PREDEFINED             = "OGLPLUS_DOXYGEN_PARSE=1" "OGLPLUS_DOCUMENTATION_ONLY=1"
 
 GENERATE_HTML = YES
 GENERATE_XML = NO
-GENERATE_TAGFILE = ../../bld/doc/doxygen/oglplus.doxygen.tags
