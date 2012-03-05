@@ -1,7 +1,10 @@
 Version 0.11.1
 
-- CMake build system was added
+- CMake configuration/build system was added
+- The old build system was removed
 - Headers and sources were updated for better compatibility with GLEW
+- Documentation was updated and a readme file was added
+- Added several new textures
 
 Version 0.11.0
 

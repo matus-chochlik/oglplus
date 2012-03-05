@@ -8,5 +8,10 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#ifndef OGLPLUS_SITE_CONFIG_120305_HPP
+#define OGLPLUS_SITE_CONFIG_120305_HPP
+
 #define OGLPLUS_USE_GLEW @OGLPLUS_USE_GLEW@
 #define OGLPLUS_USE_GL3H @OGLPLUS_USE_GL3H@
+
+#endif

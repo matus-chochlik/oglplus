@@ -27,7 +27,7 @@ foreach(BINDABLE ${OGLPLUS_BINDABLE_OBJECTS})
 		# just copy it
 		add_custom_command(
 			OUTPUT ${HEADER_FILE}
-			COMMAND ${CMAKE_COMMAND} copy "${PREBUILT_HEADER}" "${HEADER_FILE}"
+			COMMAND ${CMAKE_COMMAND} -E copy "${PREBUILT_HEADER}" "${HEADER_FILE}"
 			COMMENT "Copying pre-generated header file bound/${BINDABLE}.hpp"
 		)
 		add_custom_target(bound_${BINDABLE}_hpp DEPENDS ${HEADER_FILE})

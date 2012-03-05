@@ -17,10 +17,10 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 
 	if(EXISTS ${PREBUILT_PNG})
 		add_custom_command(
-			OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${PNG_FILE}
-			COMMAND ${CMAKE_COMMAND} copy
+			OUTPUT ${PNG_FILE}
+			COMMAND ${CMAKE_COMMAND} -E copy
 				"${PREBUILT_PNG}"
-				"${CMAKE_CURRENT_BINARY_DIR}/${PNG_FILE}"
+				"${PNG_FILE}"
 			COMMENT "Copying pre-built texture ${TEXTURE_NAME}"
 		)
 	else()
@@ -34,8 +34,8 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 			MAIN_DEPENDENCY ${SVG_FILE}
 			COMMENT "Converting texture ${TEXTURE_NAME}"
 		)
-
-		add_custom_target(texture-${TEXTURE_NAME} DEPENDS ${PNG_FILE})
-		add_dependencies(oglplus_textures texture-${TEXTURE_NAME})
 	endif()
+
+	add_custom_target(texture-${TEXTURE_NAME} DEPENDS ${PNG_FILE})
+	add_dependencies(oglplus_textures texture-${TEXTURE_NAME})
 endforeach(SVG_FILE)

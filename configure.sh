@@ -7,7 +7,7 @@
 oglplus_default_build_dir=_build
 oglplus_without_glew=false
 oglplus_no_examples=false
-oglplus_no_screenshots=false
+oglplus_no_screenshots=true
 oglplus_no_docs=false
 
 dry_run=false
@@ -142,7 +142,9 @@ function print_help()
 	echo
 	echo "  --no-examples          Do not build the examples and the textures."
 	echo
-	echo "  --no-screenshots       Do not make example screenshots for the documentation."
+	echo "  --screenshots          Also make example screenshots for the documentation."
+	echo "                         This is still experimental and currently works only"
+	echo "                         with GL3/gl3.h + GLX."
 	echo
 	echo "  --no-docs              Do not build and install the documentation."
 	echo
@@ -209,7 +211,7 @@ do
 	--without-glew) oglplus_without_glew=true;;
 
 	--no-examples) oglplus_no_examples=true;;
-	--no-screenshots) oglplus_no_screenshots=true;;
+	--screenshots) oglplus_no_screenshots=false;;
 	--no-docs) oglplus_no_docs=true;;
 
 	--dry-run) dry_run=true;;
