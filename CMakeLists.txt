@@ -21,25 +21,42 @@ if(NOT OGLPLUS_NO_SCREENSHOTS)
 endif()
 
 # try to find GL3/gl3.h
-find_path(GL3_GL3_H_DIR gl3.h PATH_SUFFIXES GL3 PATHS ${HEADER_SEARCH_PATHS})
+find_path(
+	GL3_GL3_H_DIR gl3.h
+	PATH_SUFFIXES GL3
+	PATHS ${HEADER_SEARCH_PATHS}
+	NO_DEFAULT_PATH
+)
 # try to find GL/glew.h
-find_path(GL_GLEW_H_DIR glew.h PATH_SUFFIXES GL PATHS ${HEADER_SEARCH_PATHS})
-
-# no gl3.h nor glew.h => no OGLplus
-if(GL_GLEW_H_DIR-NOTFOUND AND GL3_GL3_H_DIR-NOTFOUND)
-	message(FATAL_ERROR "GL/glew.h or GL3/gl3.h required")
+find_path(
+	GL_GLEW_H_DIR glew.h
+	PATH_SUFFIXES GL
+	PATHS ${HEADER_SEARCH_PATHS}
+	NO_DEFAULT_PATH
+)
+#
+# if that didn't work try the system directories
+if(NOT EXISTS ${GL3_GL3_H_DIR})
+	find_path(GL3_GL3_H_DIR gl3.h PATH_SUFFIXES GL3)
+endif()
+if(NOT EXISTS ${GL_GLEW_H_DIR})
+	find_path(GL_GLEW_H_DIR glew.h PATH_SUFFIXES GL)
 endif()
 
-# if we have found GLEW
-if(EXISTS ${GL_GLEW_H_DIR})
-	set(OGLPLUS_USE_GLEW 1)
-endif()
 #if we have found gl3.h
 if(EXISTS ${GL3_GL3_H_DIR})
 	set(OGLPLUS_USE_GL3H 1)
+else()
+	set(OGLPLUS_USE_GL3H 0)
+endif()
+# if we have found GLEW
+if(EXISTS ${GL_GLEW_H_DIR})
+	set(OGLPLUS_USE_GLEW 1)
+else()
+	set(OGLPLUS_USE_GLEW 0)
 endif()
 
-if(OGLPLUS_USE_GLEW AND (NOT OGLPLUS_WITHOUT_GLEW AND NOT OGLPLUS_USE_GL3H))
+if(${OGLPLUS_USE_GLEW} AND NOT ${OGLPLUS_WITHOUT_GLEW})
 	set(OGLPLUS_USE_GL3H 0)
 
 	include_directories(BEFORE SYSTEM ${GL_GLEW_H_DIR})
@@ -49,12 +66,12 @@ if(OGLPLUS_USE_GLEW AND (NOT OGLPLUS_WITHOUT_GLEW AND NOT OGLPLUS_USE_GL3H))
 	message("Using GLEW")
 
 	include(FindGLUT)
-	if(NOT GLUT_FOUND)
+	if(NOT ${GLUT_FOUND})
 		message(FATAL_ERROR "GLUT is also required")
 		return()
 	endif()
 	include_directories(${GLUT_INCLUDE_DIR})
-elseif(OGLPLUS_USE_GL3H)
+elseif(${OGLPLUS_USE_GL3H})
 	set(OGLPLUS_USE_GLEW 0)
 
 	include_directories(BEFORE SYSTEM ${GL3_GL3_H_DIR})

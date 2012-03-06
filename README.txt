@@ -130,10 +130,7 @@ See the --help option for the full description and detailed info on the usage
 of this script.
 
 
- GNU Make-based build system
- ---------------------------
+ ACKNOWLEDGEMENTS
+==================
 
-The early versions of OGLplus used a GNU Make build system to build the
-automatically generated headers, textures, examples, documentation, etc.
-
-This build system is DEPRECATED and is likely to be removed in later versions.
+Tolga Dalman for helping to get started with CMake.

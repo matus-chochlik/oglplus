@@ -17,6 +17,7 @@
 namespace oglplus {
 namespace ext {
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_compatibility
 /// Wrapper for the ARB_compatibility extension
 /**
  *  @glsymbols
@@ -29,6 +30,7 @@ class ARB_compatibility
 public:
 	OGLPLUS_EXTENSION_CLASS(ARB, compatibility)
 };
+#endif
 
 } // namespace ext
 } // namespace oglplus
