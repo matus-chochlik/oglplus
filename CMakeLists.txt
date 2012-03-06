@@ -16,8 +16,6 @@ if(OGLPLUS_NO_EXAMPLES)
 	set(OGLPLUS_NO_SCREENSHOTS On)
 endif()
 
-include(FindOpenGL)
-
 if(NOT OGLPLUS_NO_SCREENSHOTS)
 	include(FindImageMagick)
 endif()
@@ -45,10 +43,16 @@ if(OGLPLUS_USE_GLEW AND (NOT OGLPLUS_WITHOUT_GLEW AND NOT OGLPLUS_USE_GL3H))
 	set(OGLPLUS_USE_GL3H 0)
 
 	include_directories(BEFORE SYSTEM ${GL_GLEW_H_DIR})
-	find_package(OpenGL)
 	set(OGLPLUS_GL_LIB GLEW)
 
 	message("Using GLEW")
+
+	include(FindGLUT)
+	if(NOT GLUT_FOUND)
+		message(FATAL_ERROR "GLUT is also required")
+		return()
+	endif()
+	include_directories(${GLUT_INCLUDE_DIR})
 elseif(OGLPLUS_USE_GL3H)
 	set(OGLPLUS_USE_GLEW 0)
 

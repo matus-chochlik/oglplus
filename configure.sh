@@ -251,7 +251,7 @@ fi
 # in a form usable by bash
 cmake_info_file=$(mktemp)
 cmake ${oglplus_cmake_options} --system-information |
-grep -e "CMAKE_BUILD_TOOL" |
+grep -e "CMAKE_BUILD_TOOL" -e "CMAKE_INSTALL_PREFIX" |
 tr ' ' '=' > ${cmake_info_file}
 #
 # use the system information
@@ -343,8 +343,8 @@ then
 		echo "# Configuration completed successfully."
 		echo "# To build OGLplus do the following:"
 		echo
-		echo "cd $(shortest_path_from_to "${PWD}" "${oglplus_build_dir}")"
-		echo "${CMAKE_BUILD_TOOL}"
+		echo "cd $(shortest_path_from_to "${PWD}" "${oglplus_build_dir}") &&"
+		echo "${CMAKE_BUILD_TOOL} &&"
 		echo "${CMAKE_BUILD_TOOL} install"
 		echo
 		echo "# NOTE: installing may require administrative privilegues"
