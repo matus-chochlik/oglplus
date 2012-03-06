@@ -26,8 +26,8 @@ fi
 
 rm -rf ./_prebuilt ./_build
 
-./configure.sh --from-scratch --no-examples --no-docs
-(cd ./_build && make auto_generated_headers oglplus_textures)
+./configure.sh --from-scratch --no-examples --no-docs --quiet
+(cd ./_build && make auto_generated_headers oglplus_textures -j 4)
 
 #
 # move built files to the pre-built directory
