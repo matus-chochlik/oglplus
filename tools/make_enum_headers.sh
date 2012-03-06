@@ -4,7 +4,8 @@
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 RootDir=${1:-${PWD}}
-InputFiles="${RootDir}/source/enums/*.txt"
+InputDir="${RootDir}/source/enums"
+InputFiles="${InputDir}/*.txt ${InputDir}/ext/*.txt"
 
 function PrintFileHeader()
 {
@@ -23,10 +24,16 @@ function PrintFileHeader()
 
 for InputFile in ${InputFiles}
 do
-	OutputFile="oglplus/enums/$(basename ${InputFile} .txt).ipp"
-	[[ ${InputFile} -nt ${OutputFile} ]] || continue
+	InputName="${InputFile#${InputDir}/}"
+	InputName=${InputName%.txt}
+
+	OutputFile="oglplus/enums/${InputName}.ipp"
+	OutputPath="${RootDir}/include/${OutputFile}"
+	[[ ${InputFile} -nt ${OutputPath} ]] || continue
+	echo "${InputName}" 1>&2
 	(
-	exec > ${RootDir}/include/${OutputFile}
+	mkdir -p $(dirname ${OutputPath})
+	exec > ${OutputPath}
 	PrintFileHeader ${InputFile} ${OutputFile}
 	#
 	IFS=':'
@@ -78,10 +85,13 @@ do
 	echo
 	)
 
-	OutputFile="oglplus/names/$(basename ${InputFile} .txt).ipp"
-	[[ ${InputFile} -nt ${OutputFile} ]] || continue
+	OutputFile="oglplus/names/${InputName}.ipp"
+	OutputPath="${RootDir}/include/${OutputFile}"
+	[[ ${InputFile} -nt ${OutputPath} ]] || continue
+	echo "${InputName}" 1>&2
 	(
-	exec > ${RootDir}/include/${OutputFile}
+	mkdir -p $(dirname ${OutputPath})
+	exec > ${OutputPath}
 	PrintFileHeader ${InputFile} ${OutputFile}
 	#
 	IFS=':'
@@ -107,10 +117,16 @@ grep -v -e ':0$' |
 cut -d':' -f1 |
 while read InputFile
 do
-	OutputFile="oglplus/enums/$(basename ${InputFile} .txt)_bq.ipp"
-	[[ ${InputFile} -nt ${OutputFile} ]] || continue
+	InputName="${InputFile#${InputDir}/}"
+	InputName=${InputName%.txt}
+
+	OutputFile="oglplus/enums/${InputName}_bq.ipp"
+	OutputPath="${RootDir}/include/${OutputFile}"
+	[[ ${InputFile} -nt ${OutputPath} ]] || continue
+	echo "${InputName}" 1>&2
 	(
-	exec > ${RootDir}/include/${OutputFile}
+	mkdir -p $(dirname ${OutputPath})
+	exec > ${OutputPath}
 	PrintFileHeader ${InputFile} ${OutputFile}
 	#
 	IFS=:

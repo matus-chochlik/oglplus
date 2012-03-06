@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+# Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -12,6 +12,6 @@ then echo "Multiple examples match: [$(echo ${example_wc})]. Specify one." && ex
 fi
 
 example_src="$(echo ${example_wc})"
-example="out/${example_src%.cpp}"
+example="${example_src%.cpp}"
 clear
-make -f Makefile ${example} && ${example}
+(cd _build && make $(basename ${example}) && ${example})
