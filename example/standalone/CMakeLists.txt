@@ -22,8 +22,13 @@ include(FindGLUT)
 if(GLUT_FOUND AND GLEW_FOUND)
 	include_directories(${GLEW_INCLUDE_DIR})
 	include_directories(${GLUT_INCLUDE_DIR})
+
 	standalone_example_common(
 		001_triangle_glut_glew
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+	)
+	standalone_example_common(
+		002_triangle_compatibility
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
 endif()

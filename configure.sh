@@ -265,7 +265,7 @@ fi
 # let cmake dump some system information into a temp file
 # in a form usable by bash
 cmake_info_file=$(mktemp)
-cmake ${oglplus_cmake_options} --system-information |
+cmake --system-information ${oglplus_cmake_options} |
 grep -e "CMAKE_BUILD_TOOL" -e "CMAKE_INSTALL_PREFIX" |
 tr ' ' '=' > ${cmake_info_file}
 #
