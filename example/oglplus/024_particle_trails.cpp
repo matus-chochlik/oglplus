@@ -376,7 +376,12 @@ public:
 
 	double ScreenshotTime(void) const
 	{
-		return 3.0;
+		return 4.5;
+	}
+
+	double HeatUpTime(void) const
+	{
+		return 0.0;
 	}
 };
 

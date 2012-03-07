@@ -476,6 +476,11 @@ public:
 	{
 		return 5.0;
 	}
+
+	double HeatUpTime(void) const
+	{
+		return 0.0;
+	}
 };
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)

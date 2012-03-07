@@ -75,6 +75,24 @@ struct Example
 	{
 		return 1.0; // [s]
 	}
+
+	/// Single frame time in the screenshot capture sequence
+	virtual double FrameTime(void) const
+	{
+		return 1.0/25.0;
+	}
+
+	/// The number of heat-up sequence frames
+	virtual size_t HeatupFrames(void) const
+	{
+		return 5;
+	}
+
+	/// The screenshot capture heat-up sequence start time
+	virtual double HeatUpTime(void) const
+	{
+		return ScreenshotTime()-HeatupFrames()*FrameTime();
+	}
 };
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params);

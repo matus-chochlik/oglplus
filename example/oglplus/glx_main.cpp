@@ -91,15 +91,16 @@ void make_screenshot(
 {
 	XEvent event;
 
+	double s = example->HeatUpTime();
 	double t = example->ScreenshotTime();
-	double dt = 1.0 / 25.0;
-	int n = 10;
+	double dt = example->FrameTime();
 
 	// heat-up
-	while(--n > 0)
+	while(s < t)
 	{
 		while(display.NextEvent(event));
-		example->Render(t - dt*n);
+		example->Render(s);
+		s += dt;
 		ctx.SwapBuffers(win);
 	}
 	while(display.NextEvent(event));
