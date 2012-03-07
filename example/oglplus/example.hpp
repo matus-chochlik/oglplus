@@ -83,7 +83,7 @@ struct Example
 	}
 
 	/// The number of heat-up sequence frames
-	virtual size_t HeatupFrames(void) const
+	virtual size_t HeatUpFrames(void) const
 	{
 		return 5;
 	}
@@ -91,7 +91,7 @@ struct Example
 	/// The screenshot capture heat-up sequence start time
 	virtual double HeatUpTime(void) const
 	{
-		return ScreenshotTime()-HeatupFrames()*FrameTime();
+		return ScreenshotTime()-HeatUpFrames()*FrameTime();
 	}
 };
 

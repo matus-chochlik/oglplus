@@ -13,7 +13,7 @@ endif()
 
 # now setup the harness dependencies
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew")
-	set(OGLPLUS_EXAMPLE_HARNESS_LIBS glut)
+	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLUT_LIBRARIES})
 elseif(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "frame_dump")
@@ -24,10 +24,6 @@ elseif(
 	find_package(X11)
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS X11)
 endif()
-
-# we need C++11
-# TODO add support for various compilers
-add_definitions(-std=c++0x)
 
 # add a target for the examples
 if(OGLPLUS_NO_EXAMPLES)

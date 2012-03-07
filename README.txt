@@ -99,6 +99,10 @@ cmake (with the -D option. see cmake manual for details):
    to additional directories to search when looking for 3rd-party headers
    like GL/glew.h, GL3/gl3.h, etc.
 
+ * LIBRARY_SEARCH_PATHS [<empty>]: (semicolon-separated) list of paths
+   to additional directories to search when looking for 3rd-party compiled
+   libraries like GL, GLEW, glut, png, etc.
+
  * OGLPLUS_WITHOUT_GLEW [Off]: Do not use GLEW even if it is available,
    this requires GL3/gl3.h to be installed.
 
@@ -122,6 +126,10 @@ Some of the more important command-line options are described below:
 
  --include-dir PATH: This options allows to specify additional directiories
    to search when looking for header files. It may be used multiple times
+   to specify multiple directories.
+
+ --library-dir PATH: This options allows to specify additional directiories
+   to search when looking for compiled libraries. It may be used multiple times
    to specify multiple directories.
 
  --without-glew: Do not use GLEW even if it is available.

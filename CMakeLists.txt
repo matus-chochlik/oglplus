@@ -20,37 +20,19 @@ if(NOT OGLPLUS_NO_SCREENSHOTS)
 	include(FindImageMagick)
 endif()
 
-# try to find GL3/gl3.h
-find_path(
-	GL3_GL3_H_DIR gl3.h
-	PATH_SUFFIXES GL3
-	PATHS ${HEADER_SEARCH_PATHS}
-	NO_DEFAULT_PATH
-)
-# try to find GL/glew.h
-find_path(
-	GL_GLEW_H_DIR glew.h
-	PATH_SUFFIXES GL
-	PATHS ${HEADER_SEARCH_PATHS}
-	NO_DEFAULT_PATH
-)
-#
-# if that didn't work try the system directories
-if(NOT EXISTS ${GL3_GL3_H_DIR})
-	find_path(GL3_GL3_H_DIR gl3.h PATH_SUFFIXES GL3)
-endif()
-if(NOT EXISTS ${GL_GLEW_H_DIR})
-	find_path(GL_GLEW_H_DIR glew.h PATH_SUFFIXES GL)
-endif()
+include(config/FindOpenGL3.cmake)
+include(config/FindGLEW.cmake)
 
+#
 #if we have found gl3.h
-if(EXISTS ${GL3_GL3_H_DIR})
+if(OPENGL3_FOUND)
 	set(OGLPLUS_USE_GL3H 1)
 else()
 	set(OGLPLUS_USE_GL3H 0)
 endif()
+#
 # if we have found GLEW
-if(EXISTS ${GL_GLEW_H_DIR})
+if(GLEW_FOUND)
 	set(OGLPLUS_USE_GLEW 1)
 else()
 	set(OGLPLUS_USE_GLEW 0)
@@ -59,9 +41,8 @@ endif()
 if(${OGLPLUS_USE_GLEW} AND NOT ${OGLPLUS_WITHOUT_GLEW})
 	set(OGLPLUS_USE_GL3H 0)
 
-	include_directories(BEFORE SYSTEM ${GL_GLEW_H_DIR})
-	find_package(OpenGL)
-	set(OGLPLUS_GL_LIB GL GLEW)
+	include_directories(BEFORE SYSTEM ${GLEW_INCLUDE_DIR})
+	set(OGLPLUS_GL_LIB ${OPENGL3_LIBRARIES} ${GLEW_LIBRARIES})
 
 	message("Using GLEW")
 
@@ -74,9 +55,8 @@ if(${OGLPLUS_USE_GLEW} AND NOT ${OGLPLUS_WITHOUT_GLEW})
 elseif(${OGLPLUS_USE_GL3H})
 	set(OGLPLUS_USE_GLEW 0)
 
-	include_directories(BEFORE SYSTEM ${GL3_GL3_H_DIR})
-	find_package(OpenGL)
-	set(OGLPLUS_GL_LIB GL)
+	include_directories(BEFORE SYSTEM ${OPENGL3_INCLUDE_DIR})
+	set(OGLPLUS_GL_LIB ${OPENGL3_LIBRARIES})
 
 	message("Using GL3")
 else()
@@ -104,7 +84,12 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
 include_directories(${PROJECT_BINARY_DIR}/include)
 
+# we need C++11
+# TODO add support for various compilers
+add_definitions(-std=c++0x)
+
 add_subdirectory("example/oglplus")
+add_subdirectory("example/standalone")
 
 # install the "regular" headers
 install(

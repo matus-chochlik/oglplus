@@ -1,5 +1,9 @@
 Version 0.12.0
 
+Version 0.11.2
+
+- Update of the build system
+
 Version 0.11.1
 
 - CMake configuration/build system was added

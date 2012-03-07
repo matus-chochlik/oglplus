@@ -81,6 +81,7 @@ unset oglplus_prefix
 unset oglplus_build_dir
 unset oglplus_cmake_options
 unset header_search_paths
+unset library_search_paths
 #
 # prints a short help screen
 function print_short_help()
@@ -120,6 +121,15 @@ function print_help()
 	echo "  --include-dir PATH:    Specifies additional directory to search"
 	echo "                         when looking for external headers like"
 	echo "                         GL/glew.h or GL3/gl3.h.  The specified path"
+	echo "                         must be absolute or relative to the current"
+	echo "                         working directory from which configure is"
+	echo "                         invoked."
+	echo "                         This option may be specified multiple times"
+	echo "                         to add multiple directories to the search list."
+	echo
+	echo "  --library-dir PATH:    Specifies additional directory to search"
+	echo "                         when looking for compiled libraries like"
+	echo "                         GL, GLEW, glut, png, etc. The specified path"
 	echo "                         must be absolute or relative to the current"
 	echo "                         working directory from which configure is"
 	echo "                         invoked."
@@ -206,6 +216,11 @@ do
 	--include-dir*)
 		parse_path_spec_option include-dir "${1}" "${2}" || shift
 		header_search_paths="${header_search_paths}${option_path};"
+		unset option_path;;
+
+	--library-dir*)
+		parse_path_spec_option library-dir "${1}" "${2}" || shift
+		library_search_paths="${library_search_paths}${option_path};"
 		unset option_path;;
 
 	--without-glew) oglplus_without_glew=true;;
@@ -297,6 +312,11 @@ fi
 # pass the without-glew option to cmake
 if [ "${oglplus_without_glew}" == "true" ]
 then oglplus_cmake_options="'-DOGLPLUS_WITHOUT_GLEW=On' ${oglplus_cmake_options}"
+fi
+
+# pass the list of paths to search for libraries to cmake
+if [ "${library_search_paths}" != "" ]
+then oglplus_cmake_options="'-DLIBRARY_SEARCH_PATHS=${library_search_paths%;}' ${oglplus_cmake_options}"
 fi
 
 # pass the list of paths to search for headers to cmake
