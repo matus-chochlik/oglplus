@@ -1,0 +1,58 @@
+#  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+#  Software License, Version 1.0. (See accompanying file
+#  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# bash completion function for the parameters of the configure-oblplus
+# script that calls configure.sh
+function _configure_oglplus()
+{
+	COMPREPLY=()
+	local curr="${COMP_WORDS[COMP_CWORD]}"
+	local prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+	case "${prev}" in
+		--include-dir|--library-dir|--build-dir|--prefix)
+			COMPREPLY=($(compgen -f "${curr}"))
+			return 0;;
+		*)
+	esac
+	local opts_only_once=" \
+		--quiet \
+		--prefix \
+		--build-dir \
+		--dry-run \
+		--from-scratch \
+		--without-glew \
+		--no-examples \
+		--no-docs \
+		--screenshots \
+		--build-and-install \
+	"
+	local repeated_opts=" \
+		--include-dir \
+		--library-dir \
+	"
+
+	local opts="${repeated_opts}"
+
+	for opt in ${opts_only_once}
+	do
+		local opt_used=false
+		for pre in ${COMP_WORDS[@]}
+		do
+			if [ "${opt}" == "${pre}" ]
+			then opt_used=true && break
+			fi
+		done
+		if [ "${opt_used}" == "false" ]
+		then opts="${opts} ${opt}"
+		fi
+	done
+	if [ ${COMP_CWORD} -le 1 ]
+	then opts="--help ${opts}"
+	fi
+
+	COMPREPLY=($(compgen -W "${opts}" -- "${curr}"))
+}
+complete -F _configure_oglplus -o nospace ./configure-oglplus
+

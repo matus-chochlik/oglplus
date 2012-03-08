@@ -261,7 +261,7 @@ public:
 		return 5.0;
 	}
 
-	double HeatupTime(void) const
+	double HeatUpTime(void) const
 	{
 		return 0.0;
 	}
