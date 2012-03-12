@@ -17,8 +17,6 @@ function(standalone_example_common EXAMPLE_NAME)
 	target_link_libraries(standalone-${EXAMPLE_NAME} GL ${ARGN})
 endfunction()
 
-include(FindGLUT)
-
 if(GLUT_FOUND AND GLEW_FOUND)
 	include_directories(${GLEW_INCLUDE_DIR})
 	include_directories(${GLUT_INCLUDE_DIR})

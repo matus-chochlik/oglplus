@@ -22,6 +22,7 @@ endif()
 
 include(config/FindOpenGL3.cmake)
 include(config/FindGLEW.cmake)
+include(config/FindGLUT.cmake)
 
 #
 #if we have found gl3.h
@@ -46,7 +47,6 @@ if(${OGLPLUS_USE_GLEW} AND NOT ${OGLPLUS_WITHOUT_GLEW})
 
 	message("Using GLEW")
 
-	include(FindGLUT)
 	if(NOT ${GLUT_FOUND})
 		message(FATAL_ERROR "GLUT is also required")
 		return()
@@ -84,9 +84,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
 include_directories(${PROJECT_BINARY_DIR}/include)
 
-# we need C++11
-# TODO add support for various compilers
-add_definitions(-std=c++0x)
+include(config/CPP11.cmake)
 
 add_subdirectory("example/oglplus")
 add_subdirectory("example/standalone")
