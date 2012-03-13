@@ -25,6 +25,12 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		001_triangle_glut_glew
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
+
+	standalone_example_common(
+		001_ati_meminfo
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+	)
+
 	standalone_example_common(
 		002_triangle_compatibility
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
