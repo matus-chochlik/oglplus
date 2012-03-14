@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/ext/ARB/compatibility.hpp
+ *  @file oglplus/ext/ARB_compatibility.hpp
  *  @brief Wrapper for the ARB_compatibility extension
  *
  *  @author Matus Chochlik

@@ -87,12 +87,6 @@ div#top {
 	overflow: hidden;
 }
 
-div#top-ads {
-	position: absolute;
-	left: (@frame-width - @logo-width - 728px) / 2;
-	top: (@logo-height - 90px) / 2;
-}
-
 div#logo {
 	position: absolute;
 	top: 0px;
@@ -111,9 +105,6 @@ div#right {
 	background-color: #70A0FF;
 	.thick-border;
 	overflow: hidden;
-}
-
-div#right-ads {
 }
 
 div#main {
@@ -165,7 +156,7 @@ div#screenshot-gallery {
 	.item(#000000);
 	position: absolute;
 	left: @frame-width - @logo-width - 2 * @main-padding - 400px;
-	top: 100px;
+	top: 200px;
 	width: 400px;
 }
 
@@ -179,9 +170,9 @@ div#stats {
 div#social {
 	.item(#F0F0FF);
 	position: absolute;
-	left: 370px;
-	top: 560px;
-	width: 395px;
+	left: (@frame-width - @logo-width - 600px) * 0.618;
+	top: (@logo-height - 100px) / 2;
+	width: 600px;
 }
 
 div#footer {
