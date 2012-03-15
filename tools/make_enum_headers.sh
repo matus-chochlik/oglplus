@@ -133,10 +133,13 @@ do
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
 	while read GL_DEF OGL_DEF AQ DOC BINDING_QUERY_DEF X
 	do
-		echo "#if defined GL_${GL_DEF} && defined GL_${BINDING_QUERY_DEF}"
-		echo "case GL_${GL_DEF}:"
-		echo "	return GL_${BINDING_QUERY_DEF};"
-		echo "#endif"
+		if [ "${BINDING_QUERY_DEF}" != "" ]
+		then
+			echo "#if defined GL_${GL_DEF} && defined GL_${BINDING_QUERY_DEF}"
+			echo "case GL_${GL_DEF}:"
+			echo "	return GL_${BINDING_QUERY_DEF};"
+			echo "#endif"
+		fi
 	done
 	echo
 	)

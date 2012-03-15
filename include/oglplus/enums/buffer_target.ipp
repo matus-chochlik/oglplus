@@ -32,7 +32,9 @@ TextureBuffer,
 /// TRANSFORM_FEEDBACK_BUFFER
 TransformFeedback,
 /// UNIFORM_BUFFER
-Uniform
+Uniform,
+/// EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
+ExternalVirtualMemory
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
@@ -135,6 +137,15 @@ TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER
 ,
 # endif
 Uniform = GL_UNIFORM_BUFFER
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+ExternalVirtualMemory = GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
