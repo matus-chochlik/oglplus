@@ -22,6 +22,8 @@
 #include <oglplus/compile_error.hpp>
 #include <oglplus/application.hpp>
 
+#include <oglplus/ext/ARB_debug_output.hpp>
+
 #include <vector>
 #include <fstream>
 #include <stdexcept>
@@ -43,6 +45,33 @@ void run_loop(
 	size_t height
 )
 {
+#if GL_ARB_debug_output
+	ARB_debug_output dbg;
+	auto sink = dbg.Install(
+		[](
+			DebugOutputSource source,
+			DebugOutputType type,
+			GLuint id,
+			DebugOutputSeverity severity,
+			GLsizei length,
+			const GLchar* message
+		) -> void
+		{
+			std::cout <<
+				message <<
+				std::endl;
+		}
+	);
+
+	dbg.InsertMessage(
+		DebugOutputSource::Application,
+		DebugOutputType::Other,
+		0,
+		DebugOutputSeverity::Low,
+		"Starting main loop"
+	);
+#endif // GL_ARB_debug_output
+
 	win.SelectInput(
 		example->UsesMouseMotion()?
 		PointerMotionMask:
@@ -190,11 +219,15 @@ int main (int argc, char ** argv)
 {
 	try
 	{
+		// this won't let running multiple examples at the same time
 		oglplus::os::CriticalSection cs(0x091);
+		// look at the options and extract useful things
 		oglplus::Application::ParseCommandLineOptions(argc, argv);
+		// check if we want to do a screenshot
 		const char* screenshot_path = 0;
 		if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
 			screenshot_path = argv[2];
+		// run the main loop
 		oglplus::run(oglplus::x11::Display(), screenshot_path);
 		std::cout << "Done" << std::endl;
 	}

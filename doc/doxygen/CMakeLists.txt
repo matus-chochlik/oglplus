@@ -47,7 +47,7 @@ if(DOXYGEN_FOUND)
 	file(GLOB OGLPLUS_EXAMPLES "${PROJECT_SOURCE_DIR}/example/oglplus/[0-9][0-9][0-9]_*.cpp")
 	foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 		get_filename_component(EXE_NAME "${EXAMPLE}" NAME_WE)
-		file(APPEND ${GALLERY_HTML} "<img src='${EXE_NAME}' title='Example ${EXE_NAME}.cpp' longdesc='oglplus_2${EXE_NAME}_8cpp-example.html'/>\n")
+		file(APPEND ${GALLERY_HTML} "<img src='${EXE_NAME}.png' title='Example ${EXE_NAME}.cpp' longdesc='oglplus_2${EXE_NAME}_8cpp-example.html'/>\n")
 	endforeach()
 
 	file(APPEND ${GALLERY_HTML} "</div>\n")
