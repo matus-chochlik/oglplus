@@ -22,45 +22,12 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>
 #include <oglplus/buffer.hpp>
-#include <oglplus/limited_value.hpp>
+#include <oglplus/texture_unit.hpp>
 #include <oglplus/image.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the texture unit selector (implementation-dependent limited) number
-class TextureUnitSelector
- : public LimitedCount
-{
-public:
-	TextureUnitSelector(GLuint count);
-};
-#else
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	TextureUnitSelector,
-	MAX_COMBINED_TEXTURE_IMAGE_UNITS
-)
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the image unit selector (implementation-dependent limited) number
-class ImageUnitSelector
- : public LimitedCount
-{
-public:
-	ImageUnitSelector(GLuint count);
-};
-#elif GL_VERSION_4_2 || GL_ARB_shader_image_load_store
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	ImageUnitSelector,
-	MAX_IMAGE_UNITS
-)
-#else
-typedef GLuint ImageUnitSelector;
-#endif
-
 
 /// Texture compare mode enumeration
 /**

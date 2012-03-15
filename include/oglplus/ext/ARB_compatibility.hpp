@@ -13,6 +13,7 @@
 #define OGLPLUS_EXT_ARB_COMPATIBILITY_1203031902_HPP
 
 #include <oglplus/extension.hpp>
+#include <oglplus/texture_unit.hpp>
 
 namespace oglplus {
 
@@ -114,6 +115,7 @@ public:
 	static void LoadIdentity(void)
 	{
 		OGLPLUS_GLFUNC(LoadIdentity)();
+		AssertNoError(OGLPLUS_ERROR_INFO(MatrixMode));
 	}
 
 private:
@@ -196,6 +198,327 @@ public:
 	}
 
 private:
+	static void _TexCoord(GLint s)
+	{
+		OGLPLUS_GLFUNC(TexCoord1i)(s);
+	}
+
+	static void _TexCoord(GLint s, GLint t)
+	{
+		OGLPLUS_GLFUNC(TexCoord2i)(s, t);
+	}
+
+	static void _TexCoord(GLint s, GLint t, GLint r)
+	{
+		OGLPLUS_GLFUNC(TexCoord3i)(s, t, r);
+	}
+
+	static void _TexCoord(GLint s, GLint t, GLint r, GLint q)
+	{
+		OGLPLUS_GLFUNC(TexCoord4i)(s, t, r, q);
+	}
+
+	static void _TexCoord(GLfloat s)
+	{
+		OGLPLUS_GLFUNC(TexCoord1f)(s);
+	}
+
+	static void _TexCoord(GLfloat s, GLfloat t)
+	{
+		OGLPLUS_GLFUNC(TexCoord2f)(s, t);
+	}
+
+	static void _TexCoord(GLfloat s, GLfloat t, GLfloat r)
+	{
+		OGLPLUS_GLFUNC(TexCoord3f)(s, t, r);
+	}
+
+	static void _TexCoord(GLfloat s, GLfloat t, GLfloat r, GLfloat q)
+	{
+		OGLPLUS_GLFUNC(TexCoord4f)(s, t, r, q);
+	}
+
+	static void _TexCoord(GLdouble s)
+	{
+		OGLPLUS_GLFUNC(TexCoord1d)(s);
+	}
+
+	static void _TexCoord(GLdouble s, GLdouble t)
+	{
+		OGLPLUS_GLFUNC(TexCoord2d)(s, t);
+	}
+
+	static void _TexCoord(GLdouble s, GLdouble t, GLdouble r)
+	{
+		OGLPLUS_GLFUNC(TexCoord3d)(s, t, r);
+	}
+
+	static void _TexCoord(GLdouble s, GLdouble t, GLdouble r, GLdouble q)
+	{
+		OGLPLUS_GLFUNC(TexCoord4d)(s, t, r, q);
+	}
+public:
+	/// Specifies vertex position s coordinate
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexCoord}
+	 */
+	template <typename Type>
+	static void TexCoord(Type s)
+	{
+		_TexCoord(s);
+	}
+
+	/// Specifies vertex position s,t coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexCoord}
+	 */
+	template <typename Type>
+	static void TexCoord(Type s, Type t)
+	{
+		_TexCoord(s, t);
+	}
+
+	/// Specifies vertex position s,t,r coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexCoord}
+	 */
+	template <typename Type>
+	static void TexCoord(Type s, Type t, Type r)
+	{
+		_TexCoord(s, t, r);
+	}
+
+	/// Specifies vertex position s,t,r,q coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexCoord}
+	 */
+	template <typename Type>
+	static void TexCoord(Type s, Type t, Type r, Type q)
+	{
+		_TexCoord(s, t, r, q);
+	}
+
+private:
+	static void _MultiTexCoord(GLenum tex_unit, GLint s)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord1i)(tex_unit, s);
+	}
+
+	static void _MultiTexCoord(GLenum tex_unit, GLint s, GLint t)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord2i)(tex_unit, s, t);
+	}
+
+	static void _MultiTexCoord(
+		GLenum tex_unit,
+		GLint s,
+		GLint t,
+		GLint r
+	)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord3i)(tex_unit, s, t, r);
+	}
+
+	static void _MultiTexCoord(
+		GLenum tex_unit,
+		GLint s,
+		GLint t,
+		GLint r,
+		GLint q
+	)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord4i)(tex_unit, s, t, r, q);
+	}
+
+	static void _MultiTexCoord(GLenum tex_unit, GLfloat s)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord1f)(tex_unit, s);
+	}
+
+	static void _MultiTexCoord(GLenum tex_unit, GLfloat s, GLfloat t)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord2f)(tex_unit, s, t);
+	}
+
+	static void _MultiTexCoord(
+		GLenum tex_unit,
+		GLfloat s,
+		GLfloat t,
+		GLfloat r
+	)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord3f)(tex_unit, s, t, r);
+	}
+
+	static void _MultiTexCoord(
+		GLenum tex_unit,
+		GLfloat s,
+		GLfloat t,
+		GLfloat r,
+		GLfloat q
+	)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord4f)(tex_unit, s, t, r, q);
+	}
+
+	static void _MultiTexCoord(GLenum tex_unit, GLdouble s)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord1d)(tex_unit, s);
+	}
+
+	static void _MultiTexCoord(GLenum tex_unit, GLdouble s, GLdouble t)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord2d)(tex_unit, s, t);
+	}
+
+	static void _MultiTexCoord(
+		GLenum tex_unit,
+		GLdouble s,
+		GLdouble t,
+		GLdouble r
+	)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord3d)(tex_unit, s, t, r);
+	}
+
+	static void _MultiTexCoord(
+		GLenum tex_unit,
+		GLdouble s,
+		GLdouble t,
+		GLdouble r,
+		GLdouble q
+	)
+	{
+		OGLPLUS_GLFUNC(MultiTexCoord4d)(tex_unit, s, t, r, q);
+	}
+public:
+	/// Specifies vertex position s coordinate
+	/**
+	 *  @glsymbols
+	 *  @glfunref{MultiTexCoord}
+	 */
+	template <typename Type>
+	static void MultiTexCoord(
+		TextureUnitSelector tex_unit,
+		Type s
+	)
+	{
+		_MultiTexCoord(
+			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
+			s
+		);
+	}
+
+	/// Specifies vertex position s,t coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{MultiTexCoord}
+	 */
+	template <typename Type>
+	static void MultiTexCoord(
+		TextureUnitSelector tex_unit,
+		Type s,
+		Type t
+	)
+	{
+		_MultiTexCoord(
+			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
+			s, t
+		);
+	}
+
+	/// Specifies vertex position s,t,r coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{MultiTexCoord}
+	 */
+	template <typename Type>
+	static void MultiTexCoord(TextureUnitSelector tex_unit,
+		Type s,
+		Type t,
+		Type r
+	)
+	{
+		_MultiTexCoord(
+			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
+			s, t, r
+		);
+	}
+
+	/// Specifies vertex position s,t,r,q coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{MultiTexCoord}
+	 */
+	template <typename Type>
+	static void MultiTexCoord(
+		TextureUnitSelector tex_unit,
+		Type s,
+		Type t,
+		Type r,
+		Type q
+	)
+	{
+		_MultiTexCoord(
+			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
+			s, t, r, q
+		);
+	}
+
+private:
+	static void _Normal(GLint x, GLint y, GLint z)
+	{
+		OGLPLUS_GLFUNC(Normal3i)(x, y, z);
+	}
+
+	static void _Normal(GLfloat x, GLfloat y, GLfloat z)
+	{
+		OGLPLUS_GLFUNC(Normal3f)(x, y, z);
+	}
+
+	static void _Normal(GLdouble x, GLdouble y, GLdouble z)
+	{
+		OGLPLUS_GLFUNC(Normal3d)(x, y, z);
+	}
+public:
+	/// Specifies vertex x,y,z normal components
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Normal}
+	 */
+	template <typename Type>
+	static void Normal(Type x, Type y, Type z)
+	{
+		_Normal(x, y, z);
+	}
+
+private:
+	static void _FogCoord(GLfloat c)
+	{
+		OGLPLUS_GLFUNC(FogCoordf)(c);
+	}
+
+	static void _FogCoord(GLdouble c)
+	{
+		OGLPLUS_GLFUNC(FogCoordd)(c);
+	}
+public:
+	/// Specifies vertex coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FogCoord}
+	 */
+	template <typename Type>
+	static void FogCoord(Type c)
+	{
+		_FogCoord(c);
+	}
+
+private:
 	static void _Color(GLint r, GLint g, GLint b)
 	{
 		OGLPLUS_GLFUNC(Color3i)(r, g, b);
@@ -246,6 +569,33 @@ public:
 	static void Color(Type r, Type g, Type b, Type a)
 	{
 		_Color(r, g, b, a);
+	}
+
+private:
+	static void _Index(GLint i)
+	{
+		OGLPLUS_GLFUNC(Indexi)(i);
+	}
+
+	static void _Index(GLfloat i)
+	{
+		OGLPLUS_GLFUNC(Indexf)(i);
+	}
+
+	static void _Index(GLdouble i)
+	{
+		OGLPLUS_GLFUNC(Indexd)(i);
+	}
+public:
+	/// Specifies vertex coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Index}
+	 */
+	template <typename Type>
+	static void Index(Type i)
+	{
+		_Index(i);
 	}
 };
 #endif

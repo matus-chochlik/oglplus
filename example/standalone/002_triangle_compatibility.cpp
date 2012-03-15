@@ -42,11 +42,14 @@ public:
 			std::cout << "[" << id << "] '" <<
 				message << "'" << std::endl;
 			std::cout << "  [source]   '" <<
-				EnumValueName(source)  << "'" << std::endl;
+				oglplus::EnumValueName(source)  << "'" <<
+				std::endl;
 			std::cout << "  [type]     '" <<
-				EnumValueName(type)  << "'" << std::endl;
+				oglplus::EnumValueName(type)  << "'" <<
+				std::endl;
 			std::cout << "  [severity] '" <<
-				EnumValueName(severity)  << "'" << std::endl;
+				oglplus::EnumValueName(severity)  << "'" <<
+				std::endl;
 		}
 	)
 	{

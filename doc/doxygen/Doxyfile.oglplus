@@ -15,6 +15,7 @@ INPUT = \
 	../tutorial \
 	../../include/oglplus \
 	../../include/oglplus/context \
+	../../include/oglplus/ext \
 	../../include/oglplus/shapes \
 	../../include/oglplus/images \
 	../../example/standalone \
