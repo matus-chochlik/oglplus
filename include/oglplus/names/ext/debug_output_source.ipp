@@ -29,6 +29,9 @@ switch(GLenum(value))
 #if defined GL_DEBUG_SOURCE_OTHER_ARB
 	case GL_DEBUG_SOURCE_OTHER_ARB: return "DEBUG_SOURCE_OTHER_ARB";
 #endif
+#if defined GL_DONT_CARE
+	case GL_DONT_CARE: return "DONT_CARE";
+#endif
 	default:;
 }
 

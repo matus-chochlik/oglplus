@@ -20,6 +20,9 @@ switch(GLenum(value))
 #if defined GL_DEBUG_SEVERITY_LOW_ARB
 	case GL_DEBUG_SEVERITY_LOW_ARB: return "DEBUG_SEVERITY_LOW_ARB";
 #endif
+#if defined GL_DONT_CARE
+	case GL_DONT_CARE: return "DONT_CARE";
+#endif
 	default:;
 }
 

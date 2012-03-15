@@ -22,7 +22,9 @@ ThirdParty,
 /// DEBUG_SOURCE_APPLICATION_ARB
 Application,
 /// DEBUG_SOURCE_OTHER_ARB
-Other
+Other,
+/// DONT_CARE
+DontCare
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
@@ -80,6 +82,15 @@ Application = GL_DEBUG_SOURCE_APPLICATION_ARB
 ,
 # endif
 Other = GL_DEBUG_SOURCE_OTHER_ARB
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DONT_CARE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DontCare = GL_DONT_CARE
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

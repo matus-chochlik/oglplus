@@ -13,6 +13,7 @@
 #define OGLPLUS_EXT_ARB_DEBUG_OUTPUT_1203031902_HPP
 
 #include <oglplus/extension.hpp>
+#include <oglplus/string.hpp>
 
 #include <cassert>
 #include <stack>
@@ -105,6 +106,24 @@ class ARB_debug_output
 public:
 	OGLPLUS_EXTENSION_CLASS(ARB, debug_output)
 
+	/// Enables/disables messages with specific parameters
+	static void Control(
+		DebugOutputSource source,
+		DebugOutputType type,
+		DebugOutputSeverity severity,
+		bool enable
+	)
+	{
+		OGLPLUS_GLFUNC(DebugMessageControlARB)(
+			GLenum(source),
+			GLenum(type),
+			GLenum(severity),
+			0, nullptr,
+			enable ? GL_TRUE : GL_FALSE
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(DebugMessageControlARB));
+	}
+
 	/// Type of a callback functor processing debug output
 	typedef std::function<void (
 		DebugOutputSource source,
@@ -152,7 +171,6 @@ public:
 		Callback _callback;
 		GLDEBUGPROCARB _prev_callback;
 		void* _prev_context;
-		bool _initialized;
 	public:
 		/// Installs the @p callback and remembers the previous
 		LogSink(Callback callback)
@@ -184,42 +202,20 @@ public:
 			AssertNoError(
 				OGLPLUS_ERROR_INFO(DebugMessageCallbackARB)
 			);
-			_initialized = true;
 		}
 
 		/// LogSinks are not copyable
 		LogSink(const LogSink&) = delete;
 
-		/// LogSinks are movable
-		LogSink(LogSink&& temp)
-		 : _callback(temp._callback)
-		 , _prev_callback(temp._prev_callback)
-		 , _prev_context(temp._prev_context)
-		 , _initialized(temp._initialized)
-		{
-			temp._prev_callback = nullptr;
-			temp._prev_context  = nullptr;
-			temp._initialized = false;
-		}
-
 		/// Restores the previous callback and its context
 		~LogSink(void)
 		{
-			if(_initialized)
-			{
-				OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
-					_prev_callback,
-					_prev_context
-				);
-			}
+			OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
+				_prev_callback,
+				_prev_context
+			);
 		}
 	};
-
-	/// Installs a callback handling debug output
-	static LogSink Install(Callback callback)
-	{
-		return std::move(LogSink(callback));
-	}
 
 	/// Enables or disables synchronous debug output
 	static void Synchronous(bool enable)
@@ -257,6 +253,26 @@ public:
 			GLenum(severity),
 			length,
 			buffer
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
+	}
+
+	/// Inserts a new message into the debug output
+	static void InsertMessage(
+		DebugOutputSource source,
+		DebugOutputType type,
+		GLuint id,
+		DebugOutputSeverity severity,
+		const String& message
+	)
+	{
+		OGLPLUS_GLFUNC(DebugMessageInsertARB)(
+			GLenum(source),
+			GLenum(type),
+			id,
+			GLenum(severity),
+			message.size(),
+			message.c_str()
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
 	}

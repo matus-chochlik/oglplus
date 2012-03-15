@@ -47,7 +47,8 @@ void run_loop(
 {
 #if GL_ARB_debug_output
 	ARB_debug_output dbg;
-	auto sink = dbg.Install(
+	std::cout << "-+-[debug output begin]" << std::endl;
+	ARB_debug_output::LogSink sink(
 		[](
 			DebugOutputSource source,
 			DebugOutputType type,
@@ -57,10 +58,22 @@ void run_loop(
 			const GLchar* message
 		) -> void
 		{
-			std::cout <<
-				message <<
-				std::endl;
+			std::cout << " +-+-[" << id << "] '" <<
+				message << "'" << std::endl;
+			std::cout << " | +---[source]   '" <<
+				EnumValueName(source)  << "'" << std::endl;
+			std::cout << " | +---[type]     '" <<
+				EnumValueName(type)  << "'" << std::endl;
+			std::cout << " | `---[severity] '" <<
+				EnumValueName(severity)  << "'" << std::endl;
 		}
+	);
+
+	dbg.Control(
+		DebugOutputSource::DontCare,
+		DebugOutputType::DontCare,
+		DebugOutputSeverity::Low,
+		true
 	);
 
 	dbg.InsertMessage(
@@ -106,6 +119,9 @@ void run_loop(
 		example->Render(t);
 		ctx.SwapBuffers(win);
 	}
+#if GL_ARB_debug_output
+	std::cout << " `-[debug output end]" << std::endl;
+#endif // GL_ARB_debug_output
 }
 
 void make_screenshot(

@@ -16,7 +16,9 @@ High,
 /// DEBUG_SEVERITY_MEDIUM_ARB
 Medium,
 /// DEBUG_SEVERITY_LOW_ARB
-Low
+Low,
+/// DONT_CARE
+DontCare
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
@@ -47,6 +49,15 @@ Medium = GL_DEBUG_SEVERITY_MEDIUM_ARB
 ,
 # endif
 Low = GL_DEBUG_SEVERITY_LOW_ARB
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DONT_CARE
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DontCare = GL_DONT_CARE
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
