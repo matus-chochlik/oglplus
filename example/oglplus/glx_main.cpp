@@ -45,9 +45,9 @@ void run_loop(
 	size_t height
 )
 {
+	std::cout << "-+-[Begin]" << std::endl;
 #if GL_ARB_debug_output
 	ARB_debug_output dbg;
-	std::cout << "-+-[debug output begin]" << std::endl;
 	ARB_debug_output::LogSink sink(
 		[](
 			DebugOutputSource source,
@@ -58,6 +58,7 @@ void run_loop(
 			const GLchar* message
 		) -> void
 		{
+			std::cout << " |" << std::endl;
 			std::cout << " +-+-[" << id << "] '" <<
 				message << "'" << std::endl;
 			std::cout << " | +---[source]   '" <<
@@ -119,9 +120,7 @@ void run_loop(
 		example->Render(t);
 		ctx.SwapBuffers(win);
 	}
-#if GL_ARB_debug_output
-	std::cout << " `-[debug output end]" << std::endl;
-#endif // GL_ARB_debug_output
+	std::cout << " `-[Done]" << std::endl;
 }
 
 void make_screenshot(

@@ -94,6 +94,13 @@ inline const GLchar* EnumValueName(DebugOutputType value)
 }
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_debug_output
+
+// define APIENTRY if it is not defined
+#ifndef APIENTRY
+#define GLEW_APIENTRY_DEFINED
+#define APIENTRY GLAPIENTRY
+#endif
+
 /// Wrapper for the ARB_debug_output extension
 /**
  *  @glsymbols

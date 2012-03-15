@@ -8,13 +8,13 @@ add_custom_target(standalone_examples ALL)
 
 function(standalone_example_common EXAMPLE_NAME)
 	add_executable(
-		standalone-${EXAMPLE_NAME}
+		${EXAMPLE_NAME}
 		EXCLUDE_FROM_ALL
 		${EXAMPLE_NAME}.cpp
 	)
-	add_dependencies(standalone-${EXAMPLE_NAME} auto_generated_headers)
-	add_dependencies(standalone_examples standalone-${EXAMPLE_NAME})
-	target_link_libraries(standalone-${EXAMPLE_NAME} GL ${ARGN})
+	add_dependencies(${EXAMPLE_NAME} auto_generated_headers)
+	add_dependencies(standalone_examples ${EXAMPLE_NAME})
+	target_link_libraries(${EXAMPLE_NAME} GL ${ARGN})
 endfunction()
 
 if(GLUT_FOUND AND GLEW_FOUND)
