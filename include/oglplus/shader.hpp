@@ -60,16 +60,18 @@ class ShaderOps
  : public Named
 {
 protected:
-	static void _init(GLsizei, GLuint& _name, ShaderType type)
+	static void _init(GLsizei, GLuint* _name, ShaderType type)
 	{
-		_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));
+		assert(_name != nullptr);
+		*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));
 		HandleIfError(OGLPLUS_ERROR_INFO(CreateShader));
 	}
 
-	static void _cleanup(GLsizei, GLuint& _name)
+	static void _cleanup(GLsizei, GLuint* _name)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(DeleteShader)(_name);
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		OGLPLUS_GLFUNC(DeleteShader)(*_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)

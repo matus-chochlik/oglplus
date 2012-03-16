@@ -83,16 +83,18 @@ class FramebufferOps
  , public FriendOf<TextureOps>
 {
 protected:
-	static void _init(GLsizei count, GLuint& _name)
+	static void _init(GLsizei count, GLuint* _name)
 	{
-		OGLPLUS_GLFUNC(GenFramebuffers)(count, &_name);
+		assert(_name != nullptr);
+		OGLPLUS_GLFUNC(GenFramebuffers)(count, _name);
 		HandleIfError(OGLPLUS_ERROR_INFO(GenFramebuffers));
 	}
 
-	static void _cleanup(GLsizei count, GLuint& _name)
+	static void _cleanup(GLsizei count, GLuint* _name)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(DeleteFramebuffers)(count, &_name);
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		OGLPLUS_GLFUNC(DeleteFramebuffers)(count, _name);
 	}
 
 	static GLboolean _is_x(GLuint _name)

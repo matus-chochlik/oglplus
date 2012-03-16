@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
 	catch(oglplus::ProgramBuildError& pbe)
 	{
 		std::cerr <<
-			"Error (in gl" << pbe.GLSymbol() << ", " <<
+			"Error (in " << pbe.GLSymbol() << ", " <<
 			pbe.ClassName() << ": '" <<
 			pbe.ObjectDescription() << "'): " <<
 			pbe.what() << ": " <<
@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
 	catch(oglplus::Error& err)
 	{
 		std::cerr <<
-			"Error (in gl" << err.GLSymbol() << ", " <<
+			"Error (in " << err.GLSymbol() << ", " <<
 			err.ClassName() << ": '" <<
 			err.ObjectDescription() << "' bound to '" <<
 			err.BindTarget() << "'): " <<

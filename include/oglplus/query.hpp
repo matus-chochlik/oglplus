@@ -34,16 +34,18 @@ class QueryOps
  : public Named
 {
 protected:
-	static void _init(GLsizei count, GLuint& _name)
+	static void _init(GLsizei count, GLuint* _name)
 	{
-		OGLPLUS_GLFUNC(GenQueries)(count, &_name);
+		assert(_name != nullptr);
+		OGLPLUS_GLFUNC(GenQueries)(count, _name);
 		HandleIfError(OGLPLUS_ERROR_INFO(GenQueries));
 	}
 
-	static void _cleanup(GLsizei count, GLuint& _name)
+	static void _cleanup(GLsizei count, GLuint* _name)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(DeleteQueries)(count, &_name);
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		OGLPLUS_GLFUNC(DeleteQueries)(count, _name);
 	}
 
 	static GLboolean _is_x(GLuint _name)

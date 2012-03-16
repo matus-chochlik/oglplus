@@ -1,0 +1,400 @@
+/*
+ *  .file oglplus/enums/ext/nv_path_command.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/ext/nv_path_command.txt' instead.
+ *
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+
+/// CLOSE_PATH_NV
+Close,
+/// MOVE_TO_NV
+MoveTo,
+/// RELATIVE_MOVE_TO_NV
+RelativeMoveTo,
+/// LINE_TO_NV
+LineTo,
+/// RELATIVE_LINE_TO_NV
+RelativeLineTo,
+/// HORIZONTAL_LINE_TO_NV
+HorizontalLineTo,
+/// RELATIVE_HORIZONTAL_LINE_TO_NV
+RelativeHorizontalLineTo,
+/// VERTICAL_LINE_TO_NV
+VerticalLineTo,
+/// RELATIVE_VERTICAL_LINE_TO_NV
+RelativeVerticalLineTo,
+/// QUADRATIC_CURVE_TO_NV
+QuadraticCurveTo,
+/// RELATIVE_QUADRATIC_CURVE_TO_NV
+RelativeQuadraticCurveTo,
+/// CUBIC_CURVE_TO_NV
+CubicCurveTo,
+/// RELATIVE_CUBIC_CURVE_TO_NV
+RelativeCubicCurveTo,
+/// SMOOTH_QUADRATIC_CURVE_TO_NV
+SmoothQuadraticCurveTo,
+/// RELATIVE_SMOOTH_QUADRATIC_CURVE_TO_NV
+RelativeSmoothQuadraticCurveTo,
+/// SMOOTH_CUBIC_CURVE_TO_NV
+SmoothCubicCurveTo,
+/// RELATIVE_SMOOTH_CUBIC_CURVE_TO_NV
+RelativeSmoothCubicCurveTo,
+/// SMALL_CCW_ARC_TO_NV
+SmallCCWArcTo,
+/// RELATIVE_SMALL_CCW_ARC_TO_NV
+RelativeSmallCCWArcTo,
+/// SMALL_CW_ARC_TO_NV
+SmallCWArcTo,
+/// RELATIVE_SMALL_CW_ARC_TO_NV
+RelativeSmallCWArcTo,
+/// LARGE_CCW_ARC_TO_NV
+LargeCCWArcTo,
+/// RELATIVE_LARGE_CCW_ARC_TO_NV
+RelativeLargeCCWArcTo,
+/// LARGE_CW_ARC_TO_NV
+LargeCWArcTo,
+/// RELATIVE_LARGE_CW_ARC_TO_NV
+RelativeLargeCWArcTo,
+/// RESTART_PATH_NV
+RestartPath,
+/// DUP_FIRST_CUBIC_CURVE_TO_NV
+DupFirstCubicCurveTo,
+/// DUP_LAST_CUBIC_CURVE_TO_NV
+DupLastCubicCurveTo,
+/// RECT_NV
+Rect,
+/// CIRCULAR_CCW_ARC_TO_NV
+CircularCCWArcTo,
+/// CIRCULAR_CW_ARC_TO_NV
+CircularCWArcTo,
+/// CIRCULAR_TANGENT_ARC_TO_NV
+CircularTangentArcTo,
+/// ARC_TO_NV
+ArcTo,
+/// RELATIVE_ARC_TO_NV
+RelativeArcTo
+
+#else // !OGLPLUS_DOCUMENTATION_ONLY
+
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#if defined GL_CLOSE_PATH_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Close = GL_CLOSE_PATH_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_MOVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+MoveTo = GL_MOVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_MOVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeMoveTo = GL_RELATIVE_MOVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_LINE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+LineTo = GL_LINE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_LINE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeLineTo = GL_RELATIVE_LINE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_HORIZONTAL_LINE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+HorizontalLineTo = GL_HORIZONTAL_LINE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_HORIZONTAL_LINE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeHorizontalLineTo = GL_RELATIVE_HORIZONTAL_LINE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_VERTICAL_LINE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+VerticalLineTo = GL_VERTICAL_LINE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_VERTICAL_LINE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeVerticalLineTo = GL_RELATIVE_VERTICAL_LINE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_QUADRATIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+QuadraticCurveTo = GL_QUADRATIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_QUADRATIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeQuadraticCurveTo = GL_RELATIVE_QUADRATIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_CUBIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+CubicCurveTo = GL_CUBIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_CUBIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeCubicCurveTo = GL_RELATIVE_CUBIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SMOOTH_QUADRATIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SmoothQuadraticCurveTo = GL_SMOOTH_QUADRATIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_SMOOTH_QUADRATIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeSmoothQuadraticCurveTo = GL_RELATIVE_SMOOTH_QUADRATIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SMOOTH_CUBIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SmoothCubicCurveTo = GL_SMOOTH_CUBIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_SMOOTH_CUBIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeSmoothCubicCurveTo = GL_RELATIVE_SMOOTH_CUBIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SMALL_CCW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SmallCCWArcTo = GL_SMALL_CCW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_SMALL_CCW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeSmallCCWArcTo = GL_RELATIVE_SMALL_CCW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SMALL_CW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+SmallCWArcTo = GL_SMALL_CW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_SMALL_CW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeSmallCWArcTo = GL_RELATIVE_SMALL_CW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_LARGE_CCW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+LargeCCWArcTo = GL_LARGE_CCW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_LARGE_CCW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeLargeCCWArcTo = GL_RELATIVE_LARGE_CCW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_LARGE_CW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+LargeCWArcTo = GL_LARGE_CW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_LARGE_CW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeLargeCWArcTo = GL_RELATIVE_LARGE_CW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RESTART_PATH_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RestartPath = GL_RESTART_PATH_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DUP_FIRST_CUBIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DupFirstCubicCurveTo = GL_DUP_FIRST_CUBIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DUP_LAST_CUBIC_CURVE_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+DupLastCubicCurveTo = GL_DUP_LAST_CUBIC_CURVE_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RECT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+Rect = GL_RECT_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_CIRCULAR_CCW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+CircularCCWArcTo = GL_CIRCULAR_CCW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_CIRCULAR_CW_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+CircularCWArcTo = GL_CIRCULAR_CW_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_CIRCULAR_TANGENT_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+CircularTangentArcTo = GL_CIRCULAR_TANGENT_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+ArcTo = GL_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_RELATIVE_ARC_TO_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+,
+# endif
+RelativeArcTo = GL_RELATIVE_ARC_TO_NV
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#endif // !OGLPLUS_DOCUMENTATION_ONLY
+

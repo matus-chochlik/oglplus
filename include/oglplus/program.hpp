@@ -83,16 +83,18 @@ class ProgramOps
  , public FriendOf<VertexAttribOps>
 {
 protected:
-	static void _init(GLsizei, GLuint& _name)
+	static void _init(GLsizei, GLuint* _name)
 	{
-		_name = OGLPLUS_GLFUNC(CreateProgram)();
+		assert(_name != nullptr);
+		*_name = OGLPLUS_GLFUNC(CreateProgram)();
 		HandleIfError(OGLPLUS_ERROR_INFO(CreateProgram));
 	}
 
-	static void _cleanup(GLsizei, GLuint& _name)
+	static void _cleanup(GLsizei, GLuint* _name)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(DeleteProgram)(_name);
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		OGLPLUS_GLFUNC(DeleteProgram)(*_name);
 	}
 
 	static GLboolean _is_x(GLuint _name)

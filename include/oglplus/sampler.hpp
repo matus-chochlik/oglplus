@@ -38,16 +38,18 @@ class SamplerOps
  : public Named
 {
 protected:
-	static void _init(GLsizei count, GLuint& _name)
+	static void _init(GLsizei count, GLuint* _name)
 	{
-		OGLPLUS_GLFUNC(GenSamplers)(count, &_name);
+		assert(_name != nullptr);
+		OGLPLUS_GLFUNC(GenSamplers)(count, _name);
 		HandleIfError(OGLPLUS_ERROR_INFO(GenSamplers));
 	}
 
-	static void _cleanup(GLsizei count, GLuint& _name)
+	static void _cleanup(GLsizei count, GLuint* _name)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(DeleteSamplers)(count, &_name);
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		OGLPLUS_GLFUNC(DeleteSamplers)(count, _name);
 	}
 
 	static GLboolean _is_x(GLuint _name)

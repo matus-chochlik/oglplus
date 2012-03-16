@@ -36,16 +36,18 @@ class RenderbufferOps
  : public Named
 {
 protected:
-	static void _init(GLsizei count, GLuint& _name)
+	static void _init(GLsizei count, GLuint* _name)
 	{
-		OGLPLUS_GLFUNC(GenRenderbuffers)(count, &_name);
+		assert(_name != nullptr);
+		OGLPLUS_GLFUNC(GenRenderbuffers)(count, _name);
 		HandleIfError(OGLPLUS_ERROR_INFO(GenRenderbuffers));
 	}
 
-	static void _cleanup(GLsizei count, GLuint& _name)
+	static void _cleanup(GLsizei count, GLuint* _name)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, &_name);
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, _name);
 	}
 
 	static GLboolean _is_x(GLuint _name)

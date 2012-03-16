@@ -114,7 +114,7 @@ public:
 	{
 		if(!_names.empty())
 		{
-			object::_do_init(_names.size(), *_names.data());
+			object::_do_init(_names.size(), _names.data());
 			assert(_names_ok());
 		}
 	}
@@ -133,7 +133,7 @@ public:
 		if(!_names.empty())
 		{
 			assert(_names_ok());
-			object::_do_cleanup(_names.size(), *_names.data());
+			object::_do_cleanup(_names.size(), _names.data());
 		}
 	}
 

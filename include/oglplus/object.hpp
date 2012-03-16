@@ -125,32 +125,34 @@ private:
 		return res;
 	}
 
-	static inline void _do_init(GLsizei _c, GLuint& _n)
+	static inline void _do_init(GLsizei _c, GLuint* _n)
 	{
 		assert(_c != 0);
-		assert(_n == 0);
+		assert(_n != nullptr);
+		assert(*_n == 0);
 		assert(MultiObject || (_c == 1));
 		ObjectOps::_init(_c, _n);
-		assert(_n != 0);
+		assert(*_n != 0);
 	}
 
 	template <typename Type>
-	static inline void _do_init(GLsizei _c, GLuint& _n, Type _k)
+	static inline void _do_init(GLsizei _c, GLuint* _n, Type _k)
 	{
-		assert(_n == 0);
+		assert(_n != nullptr);
+		assert(*_n == 0);
 		assert(!MultiObject);
 		ObjectOps::_init(_c, _n, _k);
-		assert(_n != 0);
+		assert(*_n != 0);
 	}
 
-	static inline void _do_cleanup(GLsizei _c, GLuint& _n)
+	static inline void _do_cleanup(GLsizei _c, GLuint* _n)
 	{
 		assert(_c != 0);
-		assert(_n != 0);
+		assert(_n != nullptr);
 		assert(MultiObject || (_c == 1));
 		ObjectOps::_cleanup(_c, _n);
 		assert((OGLPLUS_GLFUNC(GetError)()) == GL_NO_ERROR);
-		assert((_n = 0) == 0);
+		assert((*_n = 0) == 0);
 	}
 
 	static inline bool _type_ok(GLuint _name)
@@ -167,14 +169,14 @@ private:
 public:
 	Object(void)
 	{
-		_do_init(1, this->_name);
+		_do_init(1, &this->_name);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 	}
 
 	Object(const GLchar* desc)
 	{
-		_do_init(1, this->_name);
+		_do_init(1, &this->_name);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
@@ -182,7 +184,7 @@ public:
 
 	Object(const String& desc)
 	{
-		_do_init(1, this->_name);
+		_do_init(1, &this->_name);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
@@ -203,7 +205,7 @@ public:
 	template <typename _Object = Object>
 	Object(typename _Object::Property::Type type)
 	{
-		_do_init(1, this->_name, type);
+		_do_init(1, &this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 	}
@@ -214,7 +216,7 @@ public:
 		const GLchar* desc
 	)
 	{
-		_do_init(1, this->_name, type);
+		_do_init(1, &this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
@@ -226,7 +228,7 @@ public:
 		const String& desc
 	)
 	{
-		_do_init(1, this->_name, type);
+		_do_init(1, &this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
@@ -238,7 +240,7 @@ public:
 		{
 			assert(_type_ok(this->_name));
 			this->_unregister_desc(this->_name);
-			_do_cleanup(1, this->_name);
+			_do_cleanup(1, &this->_name);
 		}
 	}
 

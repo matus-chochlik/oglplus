@@ -60,16 +60,18 @@ class ProgramPipelineOps
  , public FriendOf<ProgramOps>
 {
 protected:
-	static void _init(GLsizei count, GLuint& _name)
+	static void _init(GLsizei count, GLuint* _name)
 	{
-		OGLPLUS_GLFUNC(GenProgramPipelines)(count, &_name);
+		assert(_name != nullptr);
+		OGLPLUS_GLFUNC(GenProgramPipelines)(count, _name);
 		HandleIfError(OGLPLUS_ERROR_INFO(GenProgramPipelines));
 	}
 
-	static void _cleanup(GLsizei count, GLuint& _name)
+	static void _cleanup(GLsizei count, GLuint* _name)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(DeleteProgramPipelines)(count, &_name);
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		OGLPLUS_GLFUNC(DeleteProgramPipelines)(count, _name);
 	}
 
 	static GLboolean _is_x(GLuint _name)

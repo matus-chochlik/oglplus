@@ -35,4 +35,9 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		002_triangle_compatibility
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
+
+	standalone_example_common(
+		002_simple_path
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+	)
 endif()
