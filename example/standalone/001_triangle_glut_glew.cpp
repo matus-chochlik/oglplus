@@ -154,7 +154,7 @@ int main(int argc, char* argv[])
 	catch(oglplus::Error& err)
 	{
 		std::cerr <<
-			"Error (in gl" << err.GLSymbol() << ", " <<
+			"Error (in " << err.GLSymbol() << ", " <<
 			err.ClassName() << ": '" <<
 			err.ObjectDescription() << "'): " <<
 			err.what() <<
