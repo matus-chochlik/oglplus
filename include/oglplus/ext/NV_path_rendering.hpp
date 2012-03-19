@@ -312,6 +312,77 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(PathCommandsNV));
 	}
 
+	/// Specifies the path via a set of coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathCoordsNV}
+	 */
+	template <typename CoordType>
+	void Coords(
+		GLsizei num_coords,
+		const CoordType* coords
+	)
+	{
+		OGLPLUS_GLFUNC(PathCoordsNV)(
+			this->_name,
+			num_coords,
+			GLenum(GetDataType<CoordType>()),
+			static_cast<const void*>(coords)
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathCoordsNV));
+	}
+
+	/// Replaces a part of the the path with new commands and coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathSubCommandsNV}
+	 */
+	template <typename CoordType>
+	void SubCommands(
+		GLsizei command_start,
+		GLsizei commands_to_delete,
+		GLsizei num_commands,
+		const PathNVCommand* commands,
+		GLsizei num_coords,
+		const CoordType* coords
+	)
+	{
+		OGLPLUS_GLFUNC(PathSubCommandsNV)(
+			this->_name,
+			command_start,
+			commands_to_delete,
+			num_commands,
+			(const GLubyte*)(commands),
+			num_coords,
+			GLenum(GetDataType<CoordType>()),
+			static_cast<const void*>(coords)
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathSubCommandsNV));
+	}
+
+	/// Replaces some of the paths coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathSubCoordsNV}
+	 */
+	template <typename CoordType>
+	void SubCoords(
+		GLsizei coord_start,
+		GLsizei num_coords,
+		const CoordType* coords
+	)
+	{
+		OGLPLUS_GLFUNC(PathSubCoordsNV)(
+			this->_name,
+			coord_start,
+			num_coords,
+			GLenum(GetDataType<CoordType>()),
+			static_cast<const void*>(coords)
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathSubCoordsNV));
+	}
+
+
 	/// Specifies the path using a string
 	/**
 	 *  @glsymbols
