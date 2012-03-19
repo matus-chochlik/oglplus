@@ -16,6 +16,7 @@
 #include <oglplus/object.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/texture_unit.hpp>
 
 namespace oglplus {
 
@@ -181,6 +182,86 @@ inline const GLchar* EnumValueName(PathNVDashOffsetReset value)
 	return "";
 }
 
+/// Path color mode enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVColor : GLenum
+{
+#include <oglplus/enums/ext/nv_path_color.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVColor value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_color.ipp>
+#endif
+	return "";
+}
+
+/// Path color format enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVColorFormat : GLenum
+{
+#include <oglplus/enums/ext/nv_path_color_format.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVColorFormat value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_color_format.ipp>
+#endif
+	return "";
+}
+
+/// Path color and tex-coord generation mode enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVGenMode : GLenum
+{
+#include <oglplus/enums/ext/nv_path_gen_mode.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVGenMode value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_gen_mode.ipp>
+#endif
+	return "";
+}
+
+/// Path transform type enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVTransformType : GLenum
+{
+#include <oglplus/enums/ext/nv_path_transform_type.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVTransformType value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_transform_type.ipp>
+#endif
+	return "";
+}
+
 class PathNVOps
  : public Named
 {
@@ -251,6 +332,22 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(PathStringNV));
 	}
 
+	/// Specifies the path using a string
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathStringNV}
+	 */
+	void PathString(PathNVFormat format, const String& path_string)
+	{
+		OGLPLUS_GLFUNC(PathStringNV)(
+			this->_name,
+			GLenum(format),
+			path_string.size(),
+			static_cast<const void*>(path_string.c_str())
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathStringNV));
+	}
+
 	/// Sets the stroke width value
 	/**
 	 *  @glsymbols
@@ -313,40 +410,6 @@ public:
 		OGLPLUS_GLFUNC(GetPathParameterfvNV)(
 			this->_name,
 			GL_PATH_MITER_LIMIT_NV,
-			&result
-		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
-		return result;
-	}
-
-	/// Sets the dash offset
-	/**
-	 *  @glsymbols
-	 *  @glfunref{PathParameterNV}
-	 *  @gldefref{PATH_DASH_OFFSET_NV}
-	 */
-	void DashOffset(GLfloat width)
-	{
-		OGLPLUS_GLFUNC(PathParameterfNV)(
-			this->_name,
-			GL_PATH_DASH_OFFSET_NV,
-			width
-		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
-	}
-
-	/// Gets the dash offset value
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetPathParameterNV}
-	 *  @gldefref{PATH_DASH_OFFSET_NV}
-	 */
-	GLfloat DashOffset(void)
-	{
-		GLfloat result;
-		OGLPLUS_GLFUNC(GetPathParameterfvNV)(
-			this->_name,
-			GL_PATH_DASH_OFFSET_NV,
 			&result
 		);
 		AssertNoError(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
@@ -433,6 +496,40 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
+	/// Sets the dash offset
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathParameterNV}
+	 *  @gldefref{PATH_DASH_OFFSET_NV}
+	 */
+	void DashOffset(GLfloat width)
+	{
+		OGLPLUS_GLFUNC(PathParameterfNV)(
+			this->_name,
+			GL_PATH_DASH_OFFSET_NV,
+			width
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+	}
+
+	/// Gets the dash offset value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetPathParameterNV}
+	 *  @gldefref{PATH_DASH_OFFSET_NV}
+	 */
+	GLfloat DashOffset(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetPathParameterfvNV)(
+			this->_name,
+			GL_PATH_DASH_OFFSET_NV,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
+		return result;
+	}
+
 	/// Sets the dash reset mode
 	/**
 	 *  @glsymbols
@@ -449,21 +546,55 @@ public:
 		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
-	/// Specifies the path using a string
+	/// Sets the path dash array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{PathStringNV}
+	 *  @glfunref{PathDashArrayNV}
 	 */
-	void PathString(PathNVFormat format, const String& path_string)
+	void DashArray(GLsizei dash_count, const GLfloat* dash_array)
 	{
-		OGLPLUS_GLFUNC(PathStringNV)(
+		OGLPLUS_GLFUNC(PathDashArrayNV)(
 			this->_name,
-			GLenum(format),
-			path_string.size(),
-			static_cast<const void*>(path_string.c_str())
+			dash_count,
+			dash_array
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathStringNV));
+		HandleIfError(OGLPLUS_ERROR_INFO(PathDashArrayNV));
 	}
+
+	/// Sets the client length value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathParameterNV}
+	 *  @gldefref{PATH_CLIENT_LENGTH_NV}
+	 */
+	void ClientLength(GLfloat value)
+	{
+		OGLPLUS_GLFUNC(PathParameterfNV)(
+			this->_name,
+			GL_PATH_CLIENT_LENGTH_NV,
+			value
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+	}
+
+	/// Returns the client length value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetPathParameterNV}
+	 *  @gldefref{PATH_CLIENT_LENGTH_NV}
+	 */
+	GLfloat ClientLength(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetPathParameterfvNV)(
+			this->_name,
+			GL_PATH_CLIENT_LENGTH_NV,
+			&result
+		);
+		AssertNoError(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
+		return result;
+	}
+
 
 	/// Writes the path interior (fill) into the stencil buffer
 	/**
@@ -516,6 +647,27 @@ public:
 		OGLPLUS_GLFUNC(CoverStrokePathNV)(this->_name, GLenum(mode));
 		HandleIfError(OGLPLUS_ERROR_INFO(CoverStrokePathNV));
 	}
+
+	/// Transforms a path
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TransformPathNV}
+	 */
+	static void Transform(
+		PathNVOps& dest_path,
+		const PathNVOps& src_path,
+		PathNVTransformType transform_type,
+		const GLfloat* transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(TransformPathNV)(
+			dest_path._name,
+			src_path._name,
+			GLenum(transform_type),
+			transform_values
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(TransformPathNV));
+	}
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -542,6 +694,70 @@ class NV_path_rendering
 {
 public:
 	OGLPLUS_EXTENSION_CLASS(NV, path_rendering)
+
+	/// Sets the depth @p function to be used with path cover functions
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathCoverDepthFuncNV}
+	 */
+	static void CoverDepthFunc(CompareFunction function)
+	{
+		OGLPLUS_GLFUNC(PathCoverDepthFuncNV)(GLenum(function));
+		HandleIfError(OGLPLUS_ERROR_INFO(PathCoverDepthFuncNV));
+	}
+
+	/// Sets the depth offset for rendered paths
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathStencilDepthOffsetNV}
+	 */
+	static void DepthOffset(GLfloat factor, GLint units)
+	{
+		OGLPLUS_GLFUNC(PathStencilDepthOffsetNV)(factor, units);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathStencilDepthOffsetNV));
+	}
+
+	/// Sets how colors are computed for path covering fragment operations
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathColorGenNV}
+	 */
+	static void ColorGen(
+		PathNVColor color,
+		PathNVGenMode gen_mode,
+		PathNVColorFormat color_format,
+		const GLfloat* coeffs
+	)
+	{
+		OGLPLUS_GLFUNC(PathColorGenNV)(
+			GLenum(color),
+			GLenum(gen_mode),
+			GLenum(color_format),
+			coeffs
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathColorGenNV));
+	}
+
+	/// Sets how tex-coords are computed for path covering fragment operations
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathTexGenNV}
+	 */
+	static void TexGen(
+		TextureUnitSelector tex_unit,
+		PathNVGenMode gen_mode,
+		GLint components,
+		const GLfloat* coeffs
+	)
+	{
+		OGLPLUS_GLFUNC(PathTexGenNV)(
+			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
+			GLenum(gen_mode),
+			components,
+			coeffs
+		);
+		HandleIfError(OGLPLUS_ERROR_INFO(PathTexGenNV));
+	}
 };
 #endif
 

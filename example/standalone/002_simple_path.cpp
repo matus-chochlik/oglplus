@@ -54,6 +54,13 @@ public:
 		path.StrokeWidth(0.01);
 		path.JoinStyle(PathNVJoinStyle::Round);
 
+		GLfloat dash_array[] = {0.05, 0.02};
+
+		path.DashArray(
+			sizeof(dash_array)/sizeof(dash_array[0]),
+			dash_array
+		);
+
 		glc.MatrixMode(MatrixMode::Projection);
 		glc.LoadIdentity();
 		glc.MatrixMode(MatrixMode::Modelview);
