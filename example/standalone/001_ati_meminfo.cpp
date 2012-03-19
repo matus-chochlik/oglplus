@@ -28,7 +28,6 @@ int main(int argc, char* argv[])
 
 	if(glewInit() == GLEW_OK) try
 	{
-#if GL_ATI_meminfo
 		oglplus::ATI_meminfo ami;
 
 		oglplus::ATI_meminfo::AvailableMemory mem_info[3] = {
@@ -63,10 +62,6 @@ int main(int argc, char* argv[])
 		}
 
 		return 0;
-#else
-		std::cerr << "ATI_meminfo is required!" << std::endl;
-		return 1;
-#endif
 	}
 	catch(oglplus::Error& err)
 	{

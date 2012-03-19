@@ -26,18 +26,24 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
 
-	standalone_example_common(
-		001_ati_meminfo
-		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-	)
+	if(HAS_GLEW_ATI_meminfo)
+		standalone_example_common(
+			001_ati_meminfo
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
+	endif()
 
-	standalone_example_common(
-		002_triangle_compatibility
-		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-	)
+	if(HAS_GLEW_ARB_compatibility AND HAS_GLEW_ARB_debug_output)
+		standalone_example_common(
+			002_triangle_compatibility
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
+	endif()
 
-	standalone_example_common(
-		002_simple_path
-		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-	)
+	if(HAS_GLEW_ARB_compatibility AND HAS_GLEW_NV_path_rendering)
+		standalone_example_common(
+			002_simple_path
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
+	endif()
 endif()
