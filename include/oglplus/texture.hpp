@@ -196,7 +196,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenTextures)(count, _name);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenTextures));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTextures));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -274,7 +274,7 @@ public:
 		OGLPLUS_GLFUNC(ActiveTexture)(
 			GLenum(GL_TEXTURE0 + GLuint(index))
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(ActiveTexture));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ActiveTexture));
 	}
 
 	/// Returns active texture unit
@@ -289,7 +289,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_ACTIVE_TEXTURE, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return GL_TEXTURE0 - result;
 	}
 
@@ -307,7 +307,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), _name);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindTexture,
 			Texture,
 			EnumValueNameTpl(target),
@@ -328,7 +328,7 @@ public:
 	static void Unbind(Target target)
 	{
 		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindTexture));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
 	}
 
 	static GLint GetIntParam(Target target, GLenum query)
@@ -339,7 +339,7 @@ public:
 			query,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameteriv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -356,7 +356,7 @@ public:
 			query,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -374,7 +374,7 @@ public:
 			query,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameteriv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -392,7 +392,7 @@ public:
 			query,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameterfv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -766,7 +766,7 @@ public:
 			level,
 			dest.data()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetCompressedTexImage,
 			Texture,
 			EnumValueNameTpl(target),
@@ -804,7 +804,7 @@ public:
 			GLenum(type),
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -837,7 +837,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -877,7 +877,7 @@ public:
 			GLenum(type),
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage3D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -913,7 +913,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage3D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -949,7 +949,7 @@ public:
 			GLenum(type),
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -981,7 +981,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1017,7 +1017,7 @@ public:
 			GLenum(type),
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1050,7 +1050,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1084,7 +1084,7 @@ public:
 			GLenum(type),
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1115,7 +1115,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1147,7 +1147,7 @@ public:
 			GLenum(type),
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1177,7 +1177,7 @@ public:
 			GLenum(image.Type()),
 			image.RawData()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1211,7 +1211,7 @@ public:
 			height,
 			border
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexImage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1243,7 +1243,7 @@ public:
 			width,
 			border
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexImage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1279,7 +1279,7 @@ public:
 			width,
 			height
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage3D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1313,7 +1313,7 @@ public:
 			width,
 			height
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1343,7 +1343,7 @@ public:
 			y,
 			width
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1379,7 +1379,7 @@ public:
 			image_size,
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage3D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1413,7 +1413,7 @@ public:
 			image_size,
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1445,7 +1445,7 @@ public:
 			image_size,
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1485,7 +1485,7 @@ public:
 			image_size,
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage3D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1521,7 +1521,7 @@ public:
 			image_size,
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1553,7 +1553,7 @@ public:
 			image_size,
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1586,7 +1586,7 @@ public:
 			depth,
 			fixed_sample_locations ? GL_TRUE : GL_FALSE
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3DMultisample,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1616,7 +1616,7 @@ public:
 			height,
 			fixed_sample_locations ? GL_TRUE : GL_FALSE
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2DMultisample,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1642,7 +1642,7 @@ public:
 			GLenum(internal_format),
 			FriendOf<BufferOps>::GetName(buffer)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexBuffer,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1670,7 +1670,7 @@ public:
 			GLenum(internal_format),
 			width
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexStorage1D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1698,7 +1698,7 @@ public:
 			width,
 			height
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexStorage2D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1728,7 +1728,7 @@ public:
 			height,
 			depth
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexStorage3D,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1761,7 +1761,7 @@ public:
 			GLenum(access),
 			GLenum(format)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BindImageTexture,
 			Texture,
 			nullptr,
@@ -1794,7 +1794,7 @@ public:
 			GL_TEXTURE_BASE_LEVEL,
 			level
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1816,7 +1816,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1838,7 +1838,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterfv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1860,7 +1860,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterIiv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1882,7 +1882,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterIiv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1904,7 +1904,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterIuiv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1926,7 +1926,7 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterIuiv,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1961,7 +1961,7 @@ public:
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			EnumValueNameTpl(target),
@@ -1996,7 +1996,7 @@ public:
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			EnumValueNameTpl(target),
@@ -2028,7 +2028,7 @@ public:
 			GL_TEXTURE_LOD_BIAS,
 			value
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
 			EnumValueNameTpl(target),
@@ -2063,7 +2063,7 @@ public:
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			EnumValueNameTpl(target),
@@ -2098,7 +2098,7 @@ public:
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			EnumValueNameTpl(target),
@@ -2130,7 +2130,7 @@ public:
 			GL_TEXTURE_MIN_LOD,
 			value
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
 			EnumValueNameTpl(target),
@@ -2162,7 +2162,7 @@ public:
 			GL_TEXTURE_MAX_LOD,
 			value
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
 			EnumValueNameTpl(target),
@@ -2200,7 +2200,7 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			EnumValueNameTpl(target),
@@ -2348,7 +2348,7 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
 			EnumValueNameTpl(target),
@@ -2430,7 +2430,7 @@ public:
 	static void GenerateMipmap(Target target)
 	{
 		OGLPLUS_GLFUNC(GenerateMipmap)(GLenum(target));
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GenerateMipmap,
 			Texture,
 			EnumValueNameTpl(target),

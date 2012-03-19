@@ -64,7 +64,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));
-		HandleIfError(OGLPLUS_ERROR_INFO(CreateShader));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CreateShader));
 	}
 
 	static void _cleanup(GLsizei, GLuint* _name)
@@ -103,7 +103,7 @@ public:
 			GL_SHADER_TYPE,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CreateShader,
 			Shader,
 			EnumValueNameTpl(ShaderType(result)),
@@ -190,7 +190,7 @@ public:
 		assert(_name != 0);
 		int status;
 		OGLPLUS_GLFUNC(GetShaderiv)(_name, GL_COMPILE_STATUS, &status);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetShaderiv,
 			Shader,
 			EnumValueNameTpl(Type()),
@@ -231,7 +231,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(CompileShader)(_name);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompileShader,
 			Shader,
 			EnumValueNameTpl(Type()),
@@ -257,7 +257,7 @@ public:
 	static void ReleaseCompiler(void)
 	{
 		OGLPLUS_GLFUNC(ReleaseShaderCompiler)();
-		HandleIfError(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
 	}
 #endif
 };

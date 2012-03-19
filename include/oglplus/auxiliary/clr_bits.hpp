@@ -73,7 +73,7 @@ public:
 		if(_bits)
 		{
 			OGLPLUS_GLFUNC(Clear)(_bits);
-			AssertNoError(OGLPLUS_ERROR_INFO(Clear));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Clear));
 		}
 	}
 };

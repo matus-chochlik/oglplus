@@ -41,7 +41,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(StencilFunc)(GLenum(func), ref, mask);
-		AssertNoError(OGLPLUS_ERROR_INFO(StencilFunc));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilFunc));
 	}
 
 	/// Sets the stencil function separately for front and back faces
@@ -62,7 +62,7 @@ public:
 			ref,
 			mask
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(StencilFuncSeparate));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilFuncSeparate));
 	}
 
 	/// Sets the stencil operation
@@ -81,7 +81,7 @@ public:
 			GLenum(dfail),
 			GLenum(dpass)
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(StencilOp));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilOp));
 	}
 
 	/// Sets the stencil operation separately for front and back faces
@@ -102,7 +102,7 @@ public:
 			GLenum(dfail),
 			GLenum(dpass)
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(StencilOpSeparate));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilOpSeparate));
 	}
 
 	/// Returns the stencil function
@@ -121,7 +121,7 @@ public:
 			GL_STENCIL_FUNC,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return CompareFunction(result);
 	}
 
@@ -141,7 +141,7 @@ public:
 			GL_STENCIL_VALUE_MASK,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return GLuint(result);
 	}
 
@@ -161,7 +161,7 @@ public:
 			GL_STENCIL_REF,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return GLuint(result);
 	}
 
@@ -181,7 +181,7 @@ public:
 			GL_STENCIL_FAIL,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return StencilOperation(result);
 	}
 
@@ -201,7 +201,7 @@ public:
 			GL_STENCIL_PASS_DEPTH_FAIL,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return StencilOperation(result);
 	}
 
@@ -221,7 +221,7 @@ public:
 			GL_STENCIL_PASS_DEPTH_PASS,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return StencilOperation(result);
 	}
 };

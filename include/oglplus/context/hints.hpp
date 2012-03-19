@@ -37,7 +37,7 @@ public:
 	static void Hint(HintTarget target, HintOption option)
 	{
 		OGLPLUS_GLFUNC(Hint)(GLenum(target), GLenum(option));
-		AssertNoError(OGLPLUS_ERROR_INFO(Hint));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Hint));
 	}
 
 	/// Queries the current hint for a @p target
@@ -51,7 +51,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(target), &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return HintOption(GLenum(result));
 	}
 };

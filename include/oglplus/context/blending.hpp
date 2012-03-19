@@ -35,7 +35,7 @@ public:
 	static void BlendEquation(oglplus::BlendEquation eq)
 	{
 		OGLPLUS_GLFUNC(BlendEquation)(GLenum(eq));
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquation));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendEquation));
 	}
 
 	/// Sets the blend equation separate for RGB and alpha
@@ -52,7 +52,7 @@ public:
 			GLenum(eq_rgb),
 			GLenum(eq_alpha)
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationSeparate));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendEquationSeparate));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
@@ -64,7 +64,7 @@ public:
 	static void BlendEquation(GLuint buffer, oglplus::BlendEquation eq)
 	{
 		OGLPLUS_GLFUNC(BlendEquationi)(buffer, GLenum(eq));
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationi));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendEquationi));
 	}
 
 	/// Sets the blend equation separate for RGB and alpha for a @p buffer
@@ -83,7 +83,7 @@ public:
 			GLenum(eq_rgb),
 			GLenum(eq_alpha)
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendEquationSeparatei));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendEquationSeparatei));
 	}
 #endif
 
@@ -95,7 +95,7 @@ public:
 	static void BlendFunc(BlendFunction src, BlendFunction dst)
 	{
 		OGLPLUS_GLFUNC(BlendFunc)(GLenum(src), GLenum(dst));
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendFunc));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendFunc));
 	}
 
 	/// Sets the blend function separate for RGB and alpha
@@ -116,7 +116,7 @@ public:
 			GLenum(src_alpha),
 			GLenum(dst_alpha)
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendFuncSeparate));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendFuncSeparate));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
@@ -132,7 +132,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(BlendFunci)(buffer, GLenum(src), GLenum(dst));
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendFunci));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendFunci));
 	}
 
 	/// Sets the blend function separate for RGB and alpha for a @p buffer
@@ -155,7 +155,7 @@ public:
 			GLenum(src_alpha),
 			GLenum(dst_alpha)
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendFuncSeparatei));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendFuncSeparatei));
 	}
 #endif
 
@@ -167,7 +167,7 @@ public:
 	static void BlendColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		OGLPLUS_GLFUNC(BlendColor)(r, g, b, a);
-		AssertNoError(OGLPLUS_ERROR_INFO(BlendColor));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendColor));
 	}
 };
 

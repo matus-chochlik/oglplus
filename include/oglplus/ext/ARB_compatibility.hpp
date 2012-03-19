@@ -93,7 +93,7 @@ public:
 	static void End(void)
 	{
 		OGLPLUS_GLFUNC(End)();
-		AssertNoError(OGLPLUS_ERROR_INFO(End));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(End));
 	}
 
 	/// Sets the matrix mode for the subsequent commands
@@ -104,7 +104,7 @@ public:
 	static void MatrixMode(oglplus::MatrixMode mode)
 	{
 		OGLPLUS_GLFUNC(MatrixMode)(GLenum(mode));
-		AssertNoError(OGLPLUS_ERROR_INFO(MatrixMode));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMode));
 	}
 
 	/// Loads a identity matrix
@@ -115,7 +115,7 @@ public:
 	static void LoadIdentity(void)
 	{
 		OGLPLUS_GLFUNC(LoadIdentity)();
-		AssertNoError(OGLPLUS_ERROR_INFO(MatrixMode));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMode));
 	}
 
 private:

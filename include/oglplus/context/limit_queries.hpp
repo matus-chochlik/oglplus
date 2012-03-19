@@ -36,7 +36,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(query), &result);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result;
 	}
 
@@ -49,7 +49,7 @@ public:
 	{
 		GLfloat result = 0;
 		OGLPLUS_GLFUNC(GetFloatv)(GLenum(query), &result);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 

@@ -35,7 +35,7 @@ public:
 	static void DepthFunc(CompareFunction function)
 	{
 		OGLPLUS_GLFUNC(DepthFunc)(GLenum(function));
-		AssertNoError(OGLPLUS_ERROR_INFO(DepthFunc));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DepthFunc));
 	}
 
 	/// Returns the depth comparison function
@@ -48,7 +48,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_DEPTH_FUNC, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return CompareFunction(result);
 	}
 };

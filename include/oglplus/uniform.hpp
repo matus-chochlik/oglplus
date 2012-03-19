@@ -42,8 +42,8 @@ protected:
 		)
 	)
 	{
-		HandleIfError(OGLPLUS_ERROR_INFO(GetUniformLocation));
-		if(_index == GLint(-1))
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformLocation));
+		if(OGLPLUS_IS_ERROR(_index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;

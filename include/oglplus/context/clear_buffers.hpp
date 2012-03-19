@@ -78,7 +78,7 @@ public:
 	static void ClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		OGLPLUS_GLFUNC(ClearColor)(r, g, b, a);
-		HandleIfError(OGLPLUS_ERROR_INFO(ClearColor));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearColor));
 	}
 
 	/// Sets the clear depth
@@ -91,7 +91,7 @@ public:
 	static void ClearDepth(GLclampd d)
 	{
 		OGLPLUS_GLFUNC(ClearDepth)(d);
-		HandleIfError(OGLPLUS_ERROR_INFO(ClearDepth));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearDepth));
 	}
 
 	/// Sets the clear stencil buffer value
@@ -104,7 +104,7 @@ public:
 	static void ClearStencil(GLint s)
 	{
 		OGLPLUS_GLFUNC(ClearStencil)(s);
-		HandleIfError(OGLPLUS_ERROR_INFO(ClearStencil));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearStencil));
 	}
 
 	/// Clears buffers specified by calling functions of the returned object
@@ -162,7 +162,7 @@ public:
 	static void Clear(std::initializer_list<oglplus::ClearBit> bits)
 	{
 		OGLPLUS_GLFUNC(Clear)(aux::MakeBitfield(bits));
-		AssertNoError(OGLPLUS_ERROR_INFO(Clear));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Clear));
 	}
 
 	/// Returns the color value used for clearing of the color buffer
@@ -177,7 +177,7 @@ public:
 	{
 		oglplus::context::RGBAValue result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_COLOR_CLEAR_VALUE, result._v);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
@@ -193,7 +193,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_DEPTH_CLEAR_VALUE, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
@@ -209,7 +209,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_STENCIL_CLEAR_VALUE, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result;
 	}
 };

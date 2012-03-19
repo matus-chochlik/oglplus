@@ -55,7 +55,7 @@ public:
 	static void MemoryBarrier(std::initializer_list<MemoryBarrierBit> bits)
 	{
 		OGLPLUS_GLFUNC(MemoryBarrier)(aux::MakeBitfield(bits));
-		AssertNoError(OGLPLUS_ERROR_INFO(MemoryBarrier));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MemoryBarrier));
 	}
 #endif
 
@@ -63,14 +63,14 @@ public:
 	static void Flush(void)
 	{
 		OGLPLUS_GLFUNC(Flush)();
-		AssertNoError(OGLPLUS_ERROR_INFO(Flush));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Flush));
 	}
 
 	/// Force all previous GL commands to complete before returning
 	static void Finish(void)
 	{
 		OGLPLUS_GLFUNC(Finish)();
-		AssertNoError(OGLPLUS_ERROR_INFO(Finish));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Finish));
 	}
 };
 

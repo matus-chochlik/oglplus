@@ -40,7 +40,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenRenderbuffers)(count, _name);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenRenderbuffers));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenRenderbuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -82,7 +82,7 @@ protected:
 			query,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetRenderbufferParameteriv,
 			Renderbuffer,
 			EnumValueNameTpl(target),
@@ -101,7 +101,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindRenderbuffer));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
 	/// Bind the name 0 to the @p target
@@ -112,7 +112,7 @@ public:
 	static void Unbind(Target target = Target::Renderbuffer)
 	{
 		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindRenderbuffer));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
 	/// Set the renderbuffer storage parameters
@@ -133,7 +133,7 @@ public:
 			width,
 			height
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			RenderbufferStorage,
 			Renderbuffer,
 			EnumValueNameTpl(target),
@@ -161,7 +161,7 @@ public:
 			width,
 			height
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			RenderbufferStorageMultisample,
 			Renderbuffer,
 			EnumValueNameTpl(target),

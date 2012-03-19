@@ -125,7 +125,7 @@ public:
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(x, y, w, h);
-		HandleIfError(OGLPLUS_ERROR_INFO(Viewport));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
 	/// Sets the size of the current viewport starting at (0,0)
@@ -138,7 +138,7 @@ public:
 	static void Viewport(GLsizei w, GLsizei h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(0, 0, w, h);
-		HandleIfError(OGLPLUS_ERROR_INFO(Viewport));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(Viewport));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
@@ -157,7 +157,7 @@ public:
 			GL_VIEWPORT_BOUNDS_RANGE,
 			result._v
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 #endif
@@ -177,7 +177,7 @@ public:
 			GL_MAX_VIEWPORT_DIMS,
 			result._v
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
@@ -193,7 +193,7 @@ public:
 	static void DepthRange(GLclampf near, GLclampf far)
 	{
 		OGLPLUS_GLFUNC(DepthRangef)(near, far);
-		HandleIfError(OGLPLUS_ERROR_INFO(DepthRangef));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRangef));
 	}
 #endif
 
@@ -207,7 +207,7 @@ public:
 	static void DepthRange(GLclampd near, GLclampd far)
 	{
 		OGLPLUS_GLFUNC(DepthRange)(near, far);
-		HandleIfError(OGLPLUS_ERROR_INFO(DepthRange));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRange));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
@@ -223,7 +223,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_MAX_VIEWPORTS, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return GLuint(result);
 	}
 
@@ -243,7 +243,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ViewportIndexedf)(viewport, x, y, width, height);
-		HandleIfError(OGLPLUS_ERROR_INFO(ViewportIndexedf));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ViewportIndexedf));
 	}
 
 	/// Sets the @p extents of the specified @p viewport
@@ -256,7 +256,7 @@ public:
 	static void Viewport(GLuint viewport, const GLfloat* extents)
 	{
 		OGLPLUS_GLFUNC(ViewportIndexedfv)(viewport, extents);
-		HandleIfError(OGLPLUS_ERROR_INFO(ViewportIndexedfv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ViewportIndexedfv));
 	}
 
 	/// Sets @p extents of the viewports specified by @p first and @p count
@@ -273,7 +273,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ViewportArrayv)(first, count, extents);
-		HandleIfError(OGLPLUS_ERROR_INFO(ViewportArrayv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ViewportArrayv));
 	}
 
 	/// Returns the extents of the specified @p viewport
@@ -288,7 +288,7 @@ public:
 	{
 		ViewportExtents result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_VIEWPORT, viewport, result._v);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetFloati_v));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloati_v));
 		return result;
 	}
 
@@ -303,7 +303,7 @@ public:
 	static void DepthRange(GLuint viewport, GLclampd near, GLclampd far)
 	{
 		OGLPLUS_GLFUNC(DepthRangeIndexed)(viewport, near, far);
-		HandleIfError(OGLPLUS_ERROR_INFO(DepthRangeIndexed));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRangeIndexed));
 	}
 
 	/// Sets depth ranges of viewports specified by @p first and @p count
@@ -320,7 +320,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(DepthRangeArrayv)(first, count, v);
-		HandleIfError(OGLPLUS_ERROR_INFO(DepthRangeArrayv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRangeArrayv));
 	}
 
 	/// Returns the depth range of the specified @p viewport
@@ -335,7 +335,7 @@ public:
 	{
 		oglplus::context::DepthRange result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_DEPTH_RANGE, viewport,result._v);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetFloati_v));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloati_v));
 		return result;
 	}
 #endif

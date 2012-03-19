@@ -38,7 +38,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenQueries)(count, _name);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenQueries));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenQueries));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -69,7 +69,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BeginQuery)(GLenum(target), _name);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BeginQuery,
 			Query,
 			EnumValueNameTpl(target),
@@ -86,7 +86,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(EndQuery)(GLenum(target));
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			EndQuery,
 			Query,
 			EnumValueNameTpl(target),
@@ -109,7 +109,7 @@ public:
 			GL_QUERY_RESULT_AVAILABLE,
 			&result
 		);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectuiv,
 			Query,
 			nullptr,
@@ -132,7 +132,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectiv,
 			Query,
 			nullptr,
@@ -154,7 +154,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectuiv,
 			Query,
 			nullptr,
@@ -177,7 +177,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjecti64v,
 			Query,
 			nullptr,
@@ -199,7 +199,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectui64v,
 			Query,
 			nullptr,

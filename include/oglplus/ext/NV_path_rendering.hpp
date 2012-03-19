@@ -270,7 +270,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		*_name = OGLPLUS_GLFUNC(GenPathsNV)(count);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenTextures));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTextures));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -309,7 +309,7 @@ public:
 			GLenum(GetDataType<CoordType>()),
 			static_cast<const void*>(coords)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathCommandsNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCommandsNV));
 	}
 
 	/// Specifies the path via a set of coordinates
@@ -329,7 +329,7 @@ public:
 			GLenum(GetDataType<CoordType>()),
 			static_cast<const void*>(coords)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathCoordsNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCoordsNV));
 	}
 
 	/// Replaces a part of the the path with new commands and coordinates
@@ -357,7 +357,7 @@ public:
 			GLenum(GetDataType<CoordType>()),
 			static_cast<const void*>(coords)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathSubCommandsNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCommandsNV));
 	}
 
 	/// Replaces some of the paths coordinates
@@ -379,7 +379,7 @@ public:
 			GLenum(GetDataType<CoordType>()),
 			static_cast<const void*>(coords)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathSubCoordsNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCoordsNV));
 	}
 
 
@@ -400,7 +400,7 @@ public:
 			length,
 			static_cast<const void*>(path_string)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathStringNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStringNV));
 	}
 
 	/// Specifies the path using a string
@@ -416,7 +416,7 @@ public:
 			path_string.size(),
 			static_cast<const void*>(path_string.c_str())
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathStringNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStringNV));
 	}
 
 	/// Sets the stroke width value
@@ -432,7 +432,7 @@ public:
 			GL_PATH_STROKE_WIDTH_NV,
 			width
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Gets the stroke width value
@@ -449,7 +449,7 @@ public:
 			GL_PATH_STROKE_WIDTH_NV,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
 		return result;
 	}
 
@@ -466,7 +466,7 @@ public:
 			GL_PATH_MITER_LIMIT_NV,
 			width
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Gets the miter limit value
@@ -483,7 +483,7 @@ public:
 			GL_PATH_MITER_LIMIT_NV,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
 		return result;
 	}
 
@@ -500,7 +500,7 @@ public:
 			GL_PATH_JOIN_STYLE_NV,
 			GLenum(style)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Sets the initial end cap style
@@ -516,7 +516,7 @@ public:
 			GL_PATH_INITIAL_END_CAP_NV,
 			GLenum(style)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Sets the terminal end cap style
@@ -532,7 +532,7 @@ public:
 			GL_PATH_TERMINAL_END_CAP_NV,
 			GLenum(style)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Sets the initial dash cap style
@@ -548,7 +548,7 @@ public:
 			GL_PATH_INITIAL_DASH_CAP_NV,
 			GLenum(style)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Sets the terminal dash cap style
@@ -564,7 +564,7 @@ public:
 			GL_PATH_TERMINAL_DASH_CAP_NV,
 			GLenum(style)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Sets the dash offset
@@ -580,7 +580,7 @@ public:
 			GL_PATH_DASH_OFFSET_NV,
 			width
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Gets the dash offset value
@@ -597,7 +597,7 @@ public:
 			GL_PATH_DASH_OFFSET_NV,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
 		return result;
 	}
 
@@ -614,7 +614,7 @@ public:
 			GL_PATH_DASH_OFFSET_RESET_NV,
 			GLenum(mode)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Sets the path dash array
@@ -629,7 +629,7 @@ public:
 			dash_count,
 			dash_array
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathDashArrayNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathDashArrayNV));
 	}
 
 	/// Sets the client length value
@@ -645,7 +645,7 @@ public:
 			GL_PATH_CLIENT_LENGTH_NV,
 			value
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
 	}
 
 	/// Returns the client length value
@@ -662,7 +662,7 @@ public:
 			GL_PATH_CLIENT_LENGTH_NV,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPathParameterfvNV));
 		return result;
 	}
 
@@ -679,7 +679,7 @@ public:
 			GLenum(mode),
 			mask
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(StencilFillPathNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathNV));
 	}
 
 	/// Covers the stencilled path interior (fill)
@@ -690,7 +690,7 @@ public:
 	void CoverFill(PathNVFillCoverMode mode)
 	{
 		OGLPLUS_GLFUNC(CoverFillPathNV)(this->_name, GLenum(mode));
-		HandleIfError(OGLPLUS_ERROR_INFO(CoverFillPathNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathNV));
 	}
 
 	/// Writes the path stroke into the stencil buffer
@@ -705,7 +705,7 @@ public:
 			reference,
 			mask
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(StencilStrokePathNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathNV));
 	}
 
 	/// Covers the stencilled path stroke
@@ -716,7 +716,7 @@ public:
 	void CoverStroke(PathNVStrokeCoverMode mode)
 	{
 		OGLPLUS_GLFUNC(CoverStrokePathNV)(this->_name, GLenum(mode));
-		HandleIfError(OGLPLUS_ERROR_INFO(CoverStrokePathNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathNV));
 	}
 
 	/// Transforms a path
@@ -737,7 +737,7 @@ public:
 			GLenum(transform_type),
 			transform_values
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(TransformPathNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(TransformPathNV));
 	}
 };
 
@@ -774,7 +774,7 @@ public:
 	static void CoverDepthFunc(CompareFunction function)
 	{
 		OGLPLUS_GLFUNC(PathCoverDepthFuncNV)(GLenum(function));
-		HandleIfError(OGLPLUS_ERROR_INFO(PathCoverDepthFuncNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCoverDepthFuncNV));
 	}
 
 	/// Sets the depth offset for rendered paths
@@ -785,7 +785,7 @@ public:
 	static void DepthOffset(GLfloat factor, GLint units)
 	{
 		OGLPLUS_GLFUNC(PathStencilDepthOffsetNV)(factor, units);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathStencilDepthOffsetNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStencilDepthOffsetNV));
 	}
 
 	/// Sets how colors are computed for path covering fragment operations
@@ -806,7 +806,7 @@ public:
 			GLenum(color_format),
 			coeffs
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathColorGenNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathColorGenNV));
 	}
 
 	/// Sets how tex-coords are computed for path covering fragment operations
@@ -827,7 +827,7 @@ public:
 			components,
 			coeffs
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(PathTexGenNV));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathTexGenNV));
 	}
 };
 #endif

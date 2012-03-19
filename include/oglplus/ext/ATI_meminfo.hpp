@@ -73,7 +73,7 @@ public:
 			GL_VBO_FREE_MEMORY_ATI,
 			result._v
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result;
 	}
 
@@ -90,7 +90,7 @@ public:
 			GL_TEXTURE_FREE_MEMORY_ATI,
 			result._v
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result;
 	}
 
@@ -107,7 +107,7 @@ public:
 			GL_RENDERBUFFER_FREE_MEMORY_ATI,
 			result._v
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result;
 	}
 };

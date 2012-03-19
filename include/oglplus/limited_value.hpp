@@ -38,7 +38,7 @@ private:
 	{
 		GLint limit = -1;
 		OGLPLUS_GLFUNC(GetIntegerv)(Query, &limit);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetIntegerv));
 		assert(limit >= 0);
 		return GLuint(limit);
 	}

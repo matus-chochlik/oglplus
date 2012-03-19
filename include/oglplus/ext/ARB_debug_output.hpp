@@ -128,7 +128,7 @@ public:
 			0, nullptr,
 			enable ? GL_TRUE : GL_FALSE
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DebugMessageControlARB));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageControlARB));
 	}
 
 	/// Type of a callback functor processing debug output
@@ -191,7 +191,7 @@ public:
 				GL_DEBUG_CALLBACK_FUNCTION_ARB,
 				&_tmp_ptr
 			);
-			AssertNoError(OGLPLUS_ERROR_INFO(GetPointerv));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPointerv));
 			// TODO: this might be a problem
 			_prev_callback = reinterpret_cast<GLDEBUGPROCARB>(_tmp_ptr);
 
@@ -200,13 +200,13 @@ public:
 				GL_DEBUG_CALLBACK_USER_PARAM_ARB,
 				&_prev_context
 			);
-			AssertNoError(OGLPLUS_ERROR_INFO(GetPointerv));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPointerv));
 
 			OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
 				&LogSink::_gl_debug_proc,
 				static_cast<void*>(this)
 			);
-			AssertNoError(
+			OGLPLUS_VERIFY(
 				OGLPLUS_ERROR_INFO(DebugMessageCallbackARB)
 			);
 		}
@@ -232,14 +232,14 @@ public:
 			OGLPLUS_GLFUNC(Enable)(
 				GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB
 			);
-			AssertNoError(OGLPLUS_ERROR_INFO(Enable));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
 		}
 		else
 		{
 			OGLPLUS_GLFUNC(Disable)(
 				GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB
 			);
-			AssertNoError(OGLPLUS_ERROR_INFO(Disable));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
 		}
 	}
 
@@ -261,7 +261,7 @@ public:
 			length,
 			buffer
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
 	}
 
 	/// Inserts a new message into the debug output
@@ -281,7 +281,7 @@ public:
 			message.size(),
 			message.c_str()
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
 	}
 };
 #endif

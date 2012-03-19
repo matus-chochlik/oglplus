@@ -40,7 +40,7 @@ public:
 	static void PixelStore(PixelStorageMode parameter, GLfloat value)
 	{
 		OGLPLUS_GLFUNC(PixelStoref)(GLenum(parameter), value);
-		HandleIfError(OGLPLUS_ERROR_INFO(PixelStoref));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PixelStoref));
 	}
 
 	/// Sets the @p value of a pixel storage @p parameter
@@ -51,7 +51,7 @@ public:
 	static void PixelStore(PixelStorageMode parameter, GLint value)
 	{
 		OGLPLUS_GLFUNC(PixelStorei)(GLenum(parameter), value);
-		HandleIfError(OGLPLUS_ERROR_INFO(PixelStorei));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PixelStorei));
 	}
 
 	/// Sets the @p value of a pixel storage @p parameter
@@ -76,7 +76,7 @@ public:
 			GLenum(type),
 			data
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(ReadPixels));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ReadPixels));
 	}
 
 	/// Transfers a rectangle of pixels from the read buffer the draw buffer
@@ -109,7 +109,7 @@ public:
 			aux::MakeBitfield(mask),
 			GLenum(filter)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(BlitFramebuffer));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BlitFramebuffer));
 	}
 };
 

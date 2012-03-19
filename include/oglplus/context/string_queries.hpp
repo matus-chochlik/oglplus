@@ -37,7 +37,7 @@ public:
 	static const GLubyte* GetString(StringQuery query)
 	{
 		const GLubyte* result = OGLPLUS_GLFUNC(GetString)(GLenum(query));
-		AssertNoError(OGLPLUS_ERROR_INFO(GetString));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetString));
 		return result;
 	}
 
@@ -55,7 +55,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_MAJOR_VERSION, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result;
 	}
 
@@ -73,7 +73,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_MINOR_VERSION, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result;
 	}
 
@@ -91,7 +91,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_NUM_EXTENSIONS, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return GLuint(result);
 	}
 
@@ -112,7 +112,7 @@ public:
 			GL_EXTENSIONS,
 			index
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetStringi));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetStringi));
 		return result;
 	}
 };

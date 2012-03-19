@@ -38,7 +38,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenVertexArrays)(count, _name);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenVertexArrays));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenVertexArrays));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -65,7 +65,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindVertexArray)(_name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindVertexArray));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindVertexArray));
 	}
 
 	/// Bind the name 0
@@ -76,7 +76,7 @@ public:
 	static void Unbind(void)
 	{
 		OGLPLUS_GLFUNC(BindVertexArray)(0);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindVertexArray));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindVertexArray));
 	}
 };
 

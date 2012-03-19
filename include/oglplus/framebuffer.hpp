@@ -87,7 +87,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenFramebuffers)(count, _name);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenFramebuffers));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenFramebuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -143,7 +143,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), _name);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindFramebuffer,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -161,7 +161,7 @@ public:
 	static void BindDefault(Target target)
 	{
 		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindFramebuffer));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindFramebuffer));
 	}
 
 	/// Checks the status of the framebuffer
@@ -179,7 +179,7 @@ public:
 		GLenum result = OGLPLUS_GLFUNC(CheckFramebufferStatus)(
 			GLenum(target)
 		);
-		if(result == 0) HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		if(result == 0) OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CheckFramebufferStatus,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -226,7 +226,7 @@ public:
 			GL_RENDERBUFFER,
 			FriendOf<RenderbufferOps>::GetName(renderbuffer)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferRenderbuffer,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -259,7 +259,7 @@ public:
 			GL_RENDERBUFFER,
 			FriendOf<RenderbufferOps>::GetName(renderbuffer)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferRenderbuffer,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -293,7 +293,7 @@ public:
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -327,7 +327,7 @@ public:
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -363,7 +363,7 @@ public:
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture1D,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -399,7 +399,7 @@ public:
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture2D,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -437,7 +437,7 @@ public:
 			level,
 			layer
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTexture3D,
 			Framebuffer,
 			EnumValueNameTpl(target),
@@ -473,7 +473,7 @@ public:
 			level,
 			layer
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferTextureLayer,
 			Framebuffer,
 			EnumValueNameTpl(target),

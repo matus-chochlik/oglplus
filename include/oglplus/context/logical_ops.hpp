@@ -35,7 +35,7 @@ public:
 	static void LogicOp(ColorLogicOperation op)
 	{
 		OGLPLUS_GLFUNC(LogicOp)(GLenum(op));
-		AssertNoError(OGLPLUS_ERROR_INFO(LogicOp));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LogicOp));
 	}
 
 	/// Returns the color logical operation
@@ -48,7 +48,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_LOGIC_OP_MODE, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return ColorLogicOperation(result);
 	}
 };

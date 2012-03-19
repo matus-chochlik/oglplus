@@ -35,7 +35,7 @@ public:
 	static void Enable(Capability capability)
 	{
 		OGLPLUS_GLFUNC(Enable)(GLenum(capability));
-		AssertNoError(OGLPLUS_ERROR_INFO(Enable));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
 	}
 
 	/// Enable a @p functionality
@@ -46,7 +46,7 @@ public:
 	static void Enable(Functionality functionality, GLuint offset)
 	{
 		OGLPLUS_GLFUNC(Enable)(GLenum(functionality)+offset);
-		AssertNoError(OGLPLUS_ERROR_INFO(Enable));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
 	}
 
 	/// Disable a @p capability
@@ -57,7 +57,7 @@ public:
 	static void Disable(Capability capability)
 	{
 		OGLPLUS_GLFUNC(Disable)(GLenum(capability));
-		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
 	}
 
 	/// Disable a @p functionality
@@ -68,7 +68,7 @@ public:
 	static void Disable(Functionality functionality, GLuint offset)
 	{
 		OGLPLUS_GLFUNC(Disable)(GLenum(functionality)+offset);
-		AssertNoError(OGLPLUS_ERROR_INFO(Disable));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
 	}
 
 	/// Checks if a @p capability is enabled
@@ -79,7 +79,7 @@ public:
 	static bool IsEnabled(Capability capability)
 	{
 		GLboolean result = OGLPLUS_GLFUNC(IsEnabled)(GLenum(capability));
-		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabled));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsEnabled));
 		return result == GL_TRUE;
 	}
 
@@ -94,7 +94,7 @@ public:
 			GLenum(functionality)+
 			offset
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabled));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsEnabled));
 		return result == GL_TRUE;
 	}
 
@@ -106,7 +106,7 @@ public:
 	static void Enable(Capability capability, GLuint index)
 	{
 		OGLPLUS_GLFUNC(Enablei)(GLenum(capability), index);
-		AssertNoError(OGLPLUS_ERROR_INFO(Enablei));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enablei));
 	}
 
 	/// Disable a @p capability for an indexed target
@@ -117,7 +117,7 @@ public:
 	static void Disable(Capability capability, GLuint index)
 	{
 		OGLPLUS_GLFUNC(Disablei)(GLenum(capability), index);
-		AssertNoError(OGLPLUS_ERROR_INFO(Disablei));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disablei));
 	}
 
 	/// Check if a @p capability is enabled for indexed target
@@ -131,7 +131,7 @@ public:
 			GLenum(capability),
 			index
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(IsEnabledi));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsEnabledi));
 		return result == GL_TRUE;
 	}
 };

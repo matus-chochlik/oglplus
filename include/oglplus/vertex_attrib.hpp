@@ -63,8 +63,8 @@ protected:
 		)
 	)
 	{
-		HandleIfError(OGLPLUS_ERROR_INFO(GetAttribLocation));
-		if(_index == GLint(-1))
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
+		if(OGLPLUS_IS_ERROR(_index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
@@ -93,7 +93,7 @@ public:
 			_index,
 			identifier
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(BindAttribLocation));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
 	}
 
 	/// Bind the vertex attribute location
@@ -111,7 +111,7 @@ public:
 			_index,
 			identifier.c_str()
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(BindAttribLocation));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3
@@ -126,7 +126,7 @@ public:
 			_index,
 			divisor
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(VertexAttribDivisor));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribDivisor));
 	}
 #endif
 };
@@ -142,7 +142,7 @@ void ProgramOps::BindLocation(
 		FriendOf<VertexAttribOps>::GetIndex(vertex_attrib),
 		identifier
 	);
-	HandleIfError(OGLPLUS_ERROR_INFO(BindAttribLocation));
+	OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
 }
 
 namespace aux {
@@ -454,7 +454,7 @@ public:
 			stride,
 			pointer
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 	}
 
 	/// Setup the properties of this vertex attribute array
@@ -477,7 +477,7 @@ public:
 			stride,
 			pointer
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 	}
 
 
@@ -489,7 +489,7 @@ public:
 	void Enable(void) const
 	{
 		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_index);
-		AssertNoError(OGLPLUS_ERROR_INFO(EnableVertexAttribArray));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EnableVertexAttribArray));
 	}
 
 	/// Disables this vertex attribute array
@@ -500,7 +500,7 @@ public:
 	void Disable(void) const
 	{
 		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_index);
-		AssertNoError(OGLPLUS_ERROR_INFO(DisableVertexAttribArray));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DisableVertexAttribArray));
 	}
 };
 

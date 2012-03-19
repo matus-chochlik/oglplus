@@ -160,22 +160,19 @@ protected:
 	)
 	{
 		GLenum result = OGLPLUS_GLFUNC(GetError)();
-		if(result != GL_NO_ERROR) HandleError(
-			result,
-			"Error setting shading program variable value",
-			error_info,
-			oglplus::Error::PropertyMap({
-				oglplus::Error::PropertyMap::value_type(
-					"program",
-					ObjectDescRegistry<ProgramOps>::
-					_get_desc(program)
-				),
-				oglplus::Error::PropertyMap::value_type(
-					"identifier",
-					_get_name(program, index)
-				)
-			})
-		);
+		if(OGLPLUS_IS_ERROR(result != GL_NO_ERROR))
+		{
+			Error::PropertyMap props;
+			props["identifier"] = _get_name(program, index);
+			props["program"] = ObjectDescRegistry<ProgramOps>::
+					_get_desc(program);
+			HandleError(
+				result,
+				"Error setting shading program variable value",
+				error_info,
+				std::move(props)
+			);
+		}
 	}
 };
 

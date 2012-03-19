@@ -87,7 +87,7 @@ private:
 	void _DrawArrays(void) const
 	{
 		OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
-		HandleIfError(OGLPLUS_ERROR_INFO(DrawArrays));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
 	void _DrawArrays(GLuint inst_count) const
@@ -98,7 +98,7 @@ private:
 			count,
 			inst_count
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
 	}
 
 	template <typename IT>
@@ -111,7 +111,7 @@ private:
 			GLenum(GetDataType<IT>()),
 			(void*)(base + first)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(DrawElements));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawElements));
 	}
 
 	template <typename IT>
@@ -128,7 +128,7 @@ private:
 			(void*)(base + first),
 			inst_count
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(DrawElementsInstanced));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawElementsInstanced));
 	}
 };
 

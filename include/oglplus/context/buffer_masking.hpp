@@ -71,7 +71,7 @@ public:
 			b ? GL_TRUE : GL_FALSE,
 			a ? GL_TRUE : GL_FALSE
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(ColorMask));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ColorMask));
 	}
 
 	/// Sets the color mask for a particular @p buffer
@@ -88,7 +88,7 @@ public:
 			b ? GL_TRUE : GL_FALSE,
 			a ? GL_TRUE : GL_FALSE
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(ColorMaski));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ColorMaski));
 	}
 
 	/// Sets the depth @p mask
@@ -99,7 +99,7 @@ public:
 	static void DepthMask(bool mask)
 	{
 		OGLPLUS_GLFUNC(DepthMask)(mask ? GL_TRUE : GL_FALSE);
-		AssertNoError(OGLPLUS_ERROR_INFO(DepthMask));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DepthMask));
 	}
 
 	/// Sets the stencil @p mask
@@ -110,7 +110,7 @@ public:
 	static void StencilMask(GLuint mask)
 	{
 		OGLPLUS_GLFUNC(StencilMask)(mask);
-		AssertNoError(OGLPLUS_ERROR_INFO(StencilMask));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilMask));
 	}
 
 	/// Sets the stencil mask separately for front and back faces
@@ -121,7 +121,7 @@ public:
 	static void StencilMaskSeparate(Face face, GLuint mask)
 	{
 		OGLPLUS_GLFUNC(StencilMaskSeparate)(GLenum(face), mask);
-		AssertNoError(OGLPLUS_ERROR_INFO(StencilMaskSeparate));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilMaskSeparate));
 	}
 
 	/// Returns the value of color buffer write mask
@@ -138,7 +138,7 @@ public:
 			buffer,
 			result._v
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetIntegeri_v));
 		return result;
 	}
 
@@ -152,7 +152,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_DEPTH_WRITEMASK, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return result == GL_TRUE;
 	}
 
@@ -172,7 +172,7 @@ public:
 			GL_STENCIL_WRITEMASK,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return GLuint(result);
 	}
 };

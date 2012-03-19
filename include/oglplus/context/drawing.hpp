@@ -42,7 +42,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(DrawArrays)(GLenum(primitive), first, count);
-		AssertNoError(OGLPLUS_ERROR_INFO(DrawArrays));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
@@ -68,7 +68,7 @@ public:
 			prim_count,
 			base_instance
 		);
-		AssertNoError(
+		OGLPLUS_VERIFY(
 			OGLPLUS_ERROR_INFO(DrawArraysInstancedBaseInstance)
 		);
 	}
@@ -95,7 +95,7 @@ public:
 			count,
 			inst_count
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
 	}
 #endif
 
@@ -121,7 +121,7 @@ public:
 			const_cast<GLsizei*>(count), // remove when GLEW fixed
 			primcount
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(MultiDrawArrays));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MultiDrawArrays));
 	}
 
 	/// Draws a sequence of primitives from the bound element array buffers
@@ -143,7 +143,7 @@ public:
 			GLenum(data_type),
 			0
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DrawElements));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElements));
 	}
 
 	/// Draws a sequence of primitives from the bound element array buffers
@@ -167,7 +167,7 @@ public:
 			GLenum(data_type),
 			indices
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DrawElements));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElements));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
@@ -196,7 +196,7 @@ public:
 			prim_count,
 			base_instance
 		);
-		AssertNoError(
+		OGLPLUS_VERIFY(
 			OGLPLUS_ERROR_INFO(DrawElementsInstancedBaseInstance)
 		);
 	}
@@ -225,7 +225,7 @@ public:
 			indices,
 			prim_count
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(MultiDrawElements));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MultiDrawElements));
 	}
 
 	/// Draws a sequence of primitives from the bound element array buffers
@@ -253,7 +253,7 @@ public:
 			GLenum(data_type),
 			indices
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DrawRangeElements));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawRangeElements));
 	}
 
 
@@ -281,7 +281,7 @@ public:
 			indices,
 			base_vertex
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DrawElementsBaseVertex));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElementsBaseVertex));
 	}
 
 	/// Draws a sequence of primitives from the bound element array buffers
@@ -311,7 +311,7 @@ public:
 			indices,
 			base_vertex
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(DrawRangeElementsBaseVertex));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawRangeElementsBaseVertex));
 	}
 
 	/// Draws a sequence of primitives from the bound element array buffers
@@ -339,7 +339,7 @@ public:
 			prim_count,
 			base_vertex
 		);
-		AssertNoError(
+		OGLPLUS_VERIFY(
 			OGLPLUS_ERROR_INFO(DrawElementsInstancedBaseVertex)
 		);
 	}
@@ -369,7 +369,7 @@ public:
 			prim_count,
 			base_vertex
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(MultiDrawElementsBaseVertex));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MultiDrawElementsBaseVertex));
 	}
 #endif
 
@@ -401,7 +401,7 @@ public:
 			base_vertex,
 			base_instance
 		);
-		AssertNoError(
+		OGLPLUS_VERIFY(
 			OGLPLUS_ERROR_INFO(
 				DrawElementsInstancedBaseVertexBaseInstance
 			)
@@ -420,7 +420,7 @@ public:
 	void PrimitiveRestartIndex(GLuint index)
 	{
 		OGLPLUS_GLFUNC(PrimitiveRestartIndex)(index);
-		AssertNoError(OGLPLUS_ERROR_INFO(PrimitiveRestartIndex));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PrimitiveRestartIndex));
 	}
 #endif
 };

@@ -35,7 +35,7 @@ public:
 	static void DrawBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(DrawBuffer)(GLenum(buffer));
-		AssertNoError(OGLPLUS_ERROR_INFO(DrawBuffer));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawBuffer));
 	}
 
 	/// Sets the source color buffer for read operations
@@ -46,7 +46,7 @@ public:
 	static void ReadBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(ReadBuffer)(GLenum(buffer));
-		AssertNoError(OGLPLUS_ERROR_INFO(ReadBuffer));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ReadBuffer));
 	}
 };
 

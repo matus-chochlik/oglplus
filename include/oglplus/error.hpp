@@ -1013,12 +1013,26 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 	throw Error(code, msg, info);
 }
 
+/// This macro decides if error handling should be done
+/** The @p EXPRESSION parameter is a boolean expression
+ *  and true values indicate an error condition. If this
+ *  macro returns a false expression any error handling
+ *  is skipped.
+ */
+#define OGLPLUS_IS_ERROR(EXPRESSION) (EXPRESSION)
+
 inline void HandleIfError(const ErrorInfo& info)
 {
 	GLenum code = OGLPLUS_GLFUNC(GetError)();
 	if(code != GL_NO_ERROR)
 		HandleError(code, info, false);
 }
+
+/// Macro checking and possibly handling run-time errors in previous call to GL
+/** This macro is called immediatelly after calls to GL functions
+ *  that may fail due to invalid values of run-time parameters.
+ */
+#define OGLPLUS_CHECK(PARAM) HandleIfError(PARAM)
 
 inline void AssertNoError(const ErrorInfo& info)
 {
@@ -1028,6 +1042,12 @@ inline void AssertNoError(const ErrorInfo& info)
 		HandleError(code, info, true);
 }
 
+/// Macro asserting that no errors occured in prevous call to GL
+/** This macro is called immediatelly after calls to GL functions
+ *  that "should not" fail and if they do fail it indicates
+ *  a program logic error that is not dependent on run-time parameters.
+ */
+#define OGLPLUS_VERIFY(PARAM) AssertNoError(PARAM)
 
 } // namespace oglplus
 

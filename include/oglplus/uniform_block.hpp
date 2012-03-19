@@ -82,8 +82,8 @@ protected:
 
 	void _check(const GLchar* identifier) const
 	{
-		HandleIfError(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
-		if(_index == GLint(-1))
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
+		if(OGLPLUS_IS_ERROR(_index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifer"] = identifier;
@@ -139,7 +139,7 @@ public:
 			_translate_max(shader_type),
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		assert(result >= 0);
 		return GLuint(result);
 	}
@@ -158,7 +158,7 @@ public:
 			_translate_ref(shader_type),
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetActiveUniformBlockiv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniformBlockiv));
 		return result == GL_TRUE;
 	}
 
@@ -176,7 +176,7 @@ public:
 			GL_UNIFORM_BLOCK_DATA_SIZE,
 			&result
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetActiveUniformBlockiv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniformBlockiv));
 		assert(result >= 0);
 		return GLuint(result);
 	}
@@ -188,7 +188,7 @@ public:
 			_index,
 			GLuint(binding)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(UniformBlockBinding));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UniformBlockBinding));
 	}
 };
 

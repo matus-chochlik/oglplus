@@ -64,7 +64,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenProgramPipelines)(count, _name);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenProgramPipelines));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenProgramPipelines));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -93,7 +93,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramPipelineiv)(_name, query, &result);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetProgramPipelineiv,
 			ProgramPipeline,
 			nullptr,
@@ -111,7 +111,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindProgramPipeline)(_name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
 	/// Unbinds the current program pipeline object (if any)
@@ -122,7 +122,7 @@ public:
 	static void Unbind(void)
 	{
 		OGLPLUS_GLFUNC(BindProgramPipeline)(0);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindProgramPipeline));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
 	/// Specifies program stages by calling functions of the returned object
@@ -175,7 +175,7 @@ public:
 			aux::MakeBitfield(stages),
 			FriendOf<ProgramOps>::GetName(program)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(UseProgramStages));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 
 #if defined GL_ALL_SHADER_BITS
@@ -192,7 +192,7 @@ public:
 			GL_ALL_SHADER_BITS,
 			FriendOf<ProgramOps>::GetName(program)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(UseProgramStages));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 #endif
 
@@ -237,7 +237,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ValidateProgramPipeline)(_name);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgramPipeline,
 			ProgramPipeline,
 			nullptr,
@@ -267,7 +267,7 @@ public:
 			_name,
 			FriendOf<ProgramOps>::GetName(program)
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
 	}
 
 	/// Returns the current active shader program

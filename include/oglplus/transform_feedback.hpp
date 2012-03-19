@@ -75,7 +75,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, _name);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -119,7 +119,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), _name);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindTransformFeedback));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
 	}
 
 	/// Bind the default transform feedback object
@@ -130,7 +130,7 @@ public:
 	static void BindDefault(Target target = Target::TransformFeedback)
 	{
 		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), 0);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindTransformFeedback));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
 	}
 
 	/// Begin the transform feedback mode
@@ -146,7 +146,7 @@ public:
 	static void Begin(TransformFeedbackPrimitiveType mode)
 	{
 		OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
-		AssertNoError(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
 	}
 
 	/// End the transform feedback mode
@@ -162,7 +162,7 @@ public:
 	static void End(void)
 	{
 		OGLPLUS_GLFUNC(EndTransformFeedback)();
-		AssertNoError(OGLPLUS_ERROR_INFO(EndTransformFeedback));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EndTransformFeedback));
 	}
 
 	/// Pause the transform feedback mode
@@ -178,7 +178,7 @@ public:
 	static void Pause(void)
 	{
 		OGLPLUS_GLFUNC(PauseTransformFeedback)();
-		AssertNoError(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
 	}
 
 	/// Resume the transform feedback mode
@@ -194,7 +194,7 @@ public:
 	static void Resume(void)
 	{
 		OGLPLUS_GLFUNC(ResumeTransformFeedback)();
-		AssertNoError(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
 	}
 
 	/// Class lifetime of which controls the (de)activation of TFB
@@ -221,7 +221,7 @@ public:
 		 : _active(true)
 		{
 			OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
-			AssertNoError(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
 		}
 
 		/// Copying is disabled
@@ -268,7 +268,7 @@ public:
 		 : _paused(true)
 		{
 			OGLPLUS_GLFUNC(PauseTransformFeedback)();
-			AssertNoError(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
 		}
 
 		/// Copying is disabled

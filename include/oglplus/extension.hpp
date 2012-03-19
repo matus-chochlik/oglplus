@@ -19,7 +19,7 @@ namespace oglplus {
 
 inline void RequireExtension(const GLchar* name, bool available)
 {
-	if(!available)
+	if(OGLPLUS_IS_ERROR(!available))
 	{
 		oglplus::HandleError(
 			GL_INVALID_OPERATION,

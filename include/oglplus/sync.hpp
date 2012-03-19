@@ -120,7 +120,7 @@ public:
 	Sync(SyncCondition condition = SyncCondition::GPUCommandsComplete)
 	 : _sync(OGLPLUS_GLFUNC(FenceSync)(GLenum(condition), 0))
 	{
-		HandleIfError(OGLPLUS_ERROR_INFO(FenceSync));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(FenceSync));
 	}
 
 	/// Sync objects are non-copyable
@@ -227,7 +227,7 @@ public:
 			0,
 			timeout
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(ClientWaitSync));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClientWaitSync));
 		return SyncWaitResult(result);
 	}
 
@@ -239,7 +239,7 @@ public:
 	void Wait(GLuint64 timeout) const
 	{
 		OGLPLUS_GLFUNC(WaitSync)(_sync, 0, timeout);
-		HandleIfError(OGLPLUS_ERROR_INFO(WaitSync));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(WaitSync));
 	}
 };
 

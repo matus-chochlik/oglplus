@@ -84,7 +84,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(Scissor)(left, bottom, width, height);
-		AssertNoError(OGLPLUS_ERROR_INFO(Scissor));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Scissor));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
@@ -110,14 +110,14 @@ public:
 			width,
 			height
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(ScissorIndexed));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ScissorIndexed));
 	}
 
 	/// Defines the scissor rectangle for the specified @p viewport
 	static void Scissor(GLuint viewport, GLint* v)
 	{
 		OGLPLUS_GLFUNC(ScissorIndexedv)(viewport, v);
-		HandleIfError(OGLPLUS_ERROR_INFO(ScissorIndexedv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ScissorIndexedv));
 	}
 
 	/// Defines scissor boxes for viewports specified by @p first @p count
@@ -130,7 +130,7 @@ public:
 	static void ScissorArray(GLuint first, GLsizei count, GLint* v)
 	{
 		OGLPLUS_GLFUNC(ScissorArrayv)(first, count, v);
-		HandleIfError(OGLPLUS_ERROR_INFO(ScissorArrayv));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ScissorArrayv));
 	}
 
 	/// Returns the extents of scissor box of the specified @p viewport
@@ -145,7 +145,7 @@ public:
 	{
 		ScissorRectangle result;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(GL_SCISSOR_BOX, viewport,result._v);
-		HandleIfError(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetIntegeri_v));
 		return result;
 	}
 #endif

@@ -99,7 +99,7 @@ public:
 				_bits,
 				_program
 			);
-			AssertNoError(OGLPLUS_ERROR_INFO(UseProgramStages));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgramStages));
 		}
 	}
 };

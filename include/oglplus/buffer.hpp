@@ -105,7 +105,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenBuffers)(count, _name);
-		HandleIfError(OGLPLUS_ERROR_INFO(GenBuffers));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenBuffers));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
@@ -149,7 +149,7 @@ protected:
 				query,
 				&value
 			);
-			AssertNoError(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
 			return value;
 	}
 
@@ -187,7 +187,7 @@ public:
 				GL_BUFFER_SIZE,
 				&value
 			);
-			HandleIfError(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
 			return GLsizeiptr(value);
 		}
 
@@ -230,7 +230,7 @@ public:
 			)
 		), _target(target)
 		{
-			HandleIfError(OGLPLUS_ERROR_INFO(MapBufferRange));
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBufferRange));
 		}
 
 		/// Maps the whole buffer
@@ -250,7 +250,7 @@ public:
 			)
 		), _target(target)
 		{
-			HandleIfError(OGLPLUS_ERROR_INFO(MapBuffer));
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBuffer));
 		}
 
 		/// Copying is disabled
@@ -324,7 +324,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -340,7 +340,7 @@ public:
 	static void Unbind(Target target)
 	{
 		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), 0);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -356,7 +356,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, _name);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferBase,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -391,7 +391,7 @@ public:
 	static void UnbindBase(IndexedTarget target, GLuint index)
 	{
 		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, 0);
-		AssertNoError(OGLPLUS_ERROR_INFO(BindBufferBase));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindBufferBase));
 	}
 
 	/// Bind a range in this buffer to the specified indexed target
@@ -413,7 +413,7 @@ public:
 			offset,
 			size
 		);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferRange,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -444,7 +444,7 @@ public:
 			data,
 			GLenum(usage)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -474,7 +474,7 @@ public:
 			data.data(),
 			GLenum(usage)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -502,7 +502,7 @@ public:
 			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -530,7 +530,7 @@ public:
 			count * sizeof(GLtype),
 			data
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferSubData,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -557,7 +557,7 @@ public:
 			data.size() * sizeof(GLtype),
 			data.data()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferSubData,
 			Buffer,
 			EnumValueNameTpl(target),
@@ -587,7 +587,7 @@ public:
 			writeoffset,
 			size
 		);
-		HandleIfError(OGLPLUS_ERROR_INFO(CopyBufferSubData));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CopyBufferSubData));
 	}
 #endif // copy buffer
 

@@ -87,7 +87,7 @@ protected:
 	{
 		assert(_name != nullptr);
 		*_name = OGLPLUS_GLFUNC(CreateProgram)();
-		HandleIfError(OGLPLUS_ERROR_INFO(CreateProgram));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CreateProgram));
 	}
 
 	static void _cleanup(GLsizei, GLuint* _name)
@@ -109,7 +109,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramiv)(_name, query, &result);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetProgramiv,
 			Program,
 			nullptr,
@@ -130,7 +130,7 @@ public:
 			_name,
 			FriendOf<ShaderOps>::GetName(shader)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			AttachShader,
 			Program,
 			nullptr,
@@ -151,7 +151,7 @@ public:
 			_name,
 			FriendOf<ShaderOps>::GetName(shader)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			DetachShader,
 			Program,
 			nullptr,
@@ -207,7 +207,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(LinkProgram)(_name);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			LinkProgram,
 			Program,
 			nullptr,
@@ -252,7 +252,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ValidateProgram)(_name);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgram,
 			Program,
 			nullptr,
@@ -285,7 +285,7 @@ public:
 		assert(_name != 0);
 		assert(IsLinked());
 		OGLPLUS_GLFUNC(UseProgram)(_name);
-		AssertNoError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			UseProgram,
 			Program,
 			nullptr,
@@ -301,7 +301,7 @@ public:
 	static void UseNone(void)
 	{
 		OGLPLUS_GLFUNC(UseProgram)(0);
-		AssertNoError(OGLPLUS_ERROR_INFO(UseProgram));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgram));
 	}
 
 	/// Information about a single active vertex attribute or uniform
@@ -400,7 +400,7 @@ public:
 			OGLPLUS_GLFUNC(GetActiveAttrib)
 		)
 		{
-			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveAttrib,
 				Program,
 				nullptr,
@@ -424,7 +424,7 @@ public:
 			OGLPLUS_GLFUNC(GetActiveUniform)
 		)
 		{
-			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveUniform,
 				Program,
 				nullptr,
@@ -448,7 +448,7 @@ public:
 			OGLPLUS_GLFUNC(GetTransformFeedbackVarying)
 		)
 		{
-			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 				GetTransformFeedbackVarying,
 				Program,
 				nullptr,
@@ -474,7 +474,7 @@ public:
 				nullptr,
 				_shader_names.data()
 			);
-			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 				GetAttachedShaders,
 				Program,
 				nullptr,
@@ -594,7 +594,7 @@ public:
 			varyings,
 			GLenum(mode)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TransformFeedbackVaryings,
 			Program,
 			nullptr,
@@ -630,7 +630,7 @@ public:
 			tmp.data(),
 			GLenum(mode)
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TransformFeedbackVaryings,
 			Program,
 			nullptr,
@@ -663,7 +663,7 @@ public:
 			);
 			if(context.Buffer().size() < size_t(length))
 				context.Buffer().resize(length);
-			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 				GetProgramiv,
 				Program,
 				nullptr,
@@ -677,7 +677,7 @@ public:
 				&strlen,
 				context.Buffer().data()
 			);
-			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 				GetActiveUniformBlockName,
 				Program,
 				nullptr,
@@ -748,7 +748,7 @@ public:
 			GL_PROGRAM_SEPARABLE,
 			para ? GL_TRUE : GL_FALSE
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramParameteri,
 			Program,
 			nullptr,
@@ -773,7 +773,7 @@ public:
 			GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
 			para ? GL_TRUE : GL_FALSE
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramParameteri,
 			Program,
 			nullptr,
@@ -806,7 +806,7 @@ public:
 				&format,
 				binary.data()
 			);
-			HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 				GetProgramBinary,
 				Program,
 				nullptr,
@@ -832,7 +832,7 @@ public:
 			binary.data(),
 			binary.size()
 		);
-		HandleIfError(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			ProgramBinary,
 			Program,
 			nullptr,

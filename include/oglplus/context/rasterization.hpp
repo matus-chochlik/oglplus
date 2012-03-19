@@ -37,7 +37,7 @@ public:
 	static void FrontFace(FaceOrientation orientation)
 	{
 		OGLPLUS_GLFUNC(FrontFace)(GLenum(orientation));
-		AssertNoError(OGLPLUS_ERROR_INFO(FrontFace));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(FrontFace));
 	}
 
 	/// Sets the face culling mode
@@ -48,7 +48,7 @@ public:
 	static void CullFace(Face mode)
 	{
 		OGLPLUS_GLFUNC(CullFace)(GLenum(mode));
-		AssertNoError(OGLPLUS_ERROR_INFO(CullFace));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(CullFace));
 	}
 
 	/// Returns the face culling mode
@@ -61,7 +61,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CULL_FACE_MODE, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return Face(result);
 	}
 
@@ -73,7 +73,7 @@ public:
 	static void PolygonMode(Face face, oglplus::PolygonMode mode)
 	{
 		OGLPLUS_GLFUNC(PolygonMode)(GLenum(face), GLenum(mode));
-		AssertNoError(OGLPLUS_ERROR_INFO(PolygonMode));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PolygonMode));
 	}
 
 	/// Sets the polygon rasterization mode
@@ -84,7 +84,7 @@ public:
 	static void PolygonMode(oglplus::PolygonMode mode)
 	{
 		OGLPLUS_GLFUNC(PolygonMode)(GL_FRONT_AND_BACK, GLenum(mode));
-		AssertNoError(OGLPLUS_ERROR_INFO(PolygonMode));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PolygonMode));
 	}
 
 	// Returns the face culling mode
@@ -98,7 +98,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return oglplus::PolygonMode(result);
 	}
 */
@@ -111,7 +111,7 @@ public:
 	static void PolygonOffset(GLfloat factor, GLfloat units)
 	{
 		OGLPLUS_GLFUNC(PolygonOffset)(factor, units);
-		AssertNoError(OGLPLUS_ERROR_INFO(PolygonOffset));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PolygonOffset));
 	}
 
 	/// Returns the polygon offset factor
@@ -124,7 +124,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_FACTOR, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
@@ -138,7 +138,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_UNITS, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
@@ -150,7 +150,7 @@ public:
 	static void LineWidth(GLfloat width)
 	{
 		OGLPLUS_GLFUNC(LineWidth)(width);
-		AssertNoError(OGLPLUS_ERROR_INFO(LineWidth));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LineWidth));
 	}
 
 	/// Returns the line width
@@ -163,7 +163,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_LINE_WIDTH, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
@@ -175,7 +175,7 @@ public:
 	static void PointSize(GLfloat size)
 	{
 		OGLPLUS_GLFUNC(PointSize)(size);
-		AssertNoError(OGLPLUS_ERROR_INFO(PointSize));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PointSize));
 	}
 
 	/// Returns the point size
@@ -188,7 +188,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_SIZE, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
@@ -204,7 +204,7 @@ public:
 			GL_POINT_FADE_THRESHOLD_SIZE,
 			size
 		);
-		AssertNoError(OGLPLUS_ERROR_INFO(PointParameterf));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PointParameterf));
 	}
 
 	/// Returns the point fade threshold size
@@ -217,7 +217,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_FADE_THRESHOLD_SIZE,&result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
@@ -230,7 +230,7 @@ public:
 	static void ProvokingVertex(ProvokeMode mode)
 	{
 		OGLPLUS_GLFUNC(ProvokingVertex)(GLenum(mode));
-		AssertNoError(OGLPLUS_ERROR_INFO(ProvokingVertex));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ProvokingVertex));
 	}
 
 	/// Returns the provoking vertex selection mode for flatshading
@@ -243,7 +243,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_PROVOKING_VERTEX, &result);
-		AssertNoError(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return ProvokeMode(result);
 	}
 #endif
