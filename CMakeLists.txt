@@ -39,9 +39,12 @@ else()
 	set(OGLPLUS_USE_GLEW 0)
 endif()
 
+unset(OGLPLUS_GL_INCLUDE_DIR)
+
 if(${OGLPLUS_USE_GLEW} AND NOT ${OGLPLUS_WITHOUT_GLEW})
 	set(OGLPLUS_USE_GL3H 0)
 
+	set(OGLPLUS_GL_INCLUDE_DIR ${GLEW_INCLUDE_DIR})
 	include_directories(BEFORE SYSTEM ${GLEW_INCLUDE_DIR})
 	set(OGLPLUS_GL_LIB ${OPENGL3_LIBRARIES} ${GLEW_LIBRARIES})
 
@@ -55,6 +58,7 @@ if(${OGLPLUS_USE_GLEW} AND NOT ${OGLPLUS_WITHOUT_GLEW})
 elseif(${OGLPLUS_USE_GL3H})
 	set(OGLPLUS_USE_GLEW 0)
 
+	set(OGLPLUS_GL_INCLUDE_DIR ${OPENGL3_INCLUDE_DIR})
 	include_directories(BEFORE SYSTEM ${OPENGL3_INCLUDE_DIR})
 	set(OGLPLUS_GL_LIB ${OPENGL3_LIBRARIES})
 
@@ -84,7 +88,11 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
 include_directories(${PROJECT_BINARY_DIR}/include)
 
+# c++11-related compiler flags
 include(config/CPP11.cmake)
+
+# GL extension detection
+include(config/GLExt.cmake)
 
 add_subdirectory("example/oglplus")
 add_subdirectory("example/standalone")
