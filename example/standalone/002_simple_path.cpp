@@ -20,19 +20,73 @@ private:
 	oglplus::Context gl;
 	oglplus::ARB_compatibility glc;
 	oglplus::NV_path_rendering pr;
+
+	oglplus::PathNV path;
 public:
 	PathExample(int argc, const char* argv[])
 	{
 		using namespace oglplus;
 
+		PathNVCommand commands[] = {
+			PathNVCommand::MoveTo,
+			PathNVCommand::LineTo,
+			PathNVCommand::LineTo,
+			PathNVCommand::LineTo,
+			PathNVCommand::LineTo,
+			PathNVCommand::Close
+		};
+
+		GLfloat coords[] = {
+			 0.00, 0.85,
+			 0.65,-0.80,
+			-0.85, 0.30,
+			 0.85, 0.30,
+			-0.65,-0.80
+		};
+
+		path.Commands(
+			sizeof(commands)/sizeof(commands[0]),
+			commands,
+			sizeof(coords)/sizeof(coords[0]),
+			coords
+		);
+
+		path.StrokeWidth(0.01);
+		path.JoinStyle(PathNVJoinStyle::Round);
+
+		glc.MatrixMode(MatrixMode::Projection);
+		glc.LoadIdentity();
+		glc.MatrixMode(MatrixMode::Modelview);
+		glc.LoadIdentity();
+
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+		gl.ClearStencil(0);
+		gl.StencilMask(~0);
+		gl.StencilFunc(CompareFunction::NotEqual, 0, 0x1F);
+		gl.StencilOp(
+			StencilOperation::Keep,
+			StencilOperation::Keep,
+			StencilOperation::Zero
+		);
+
+		gl.Enable(Capability::StencilTest);
 	}
 
 	void Render(void)
 	{
 		using namespace oglplus;
 
-		gl.Clear().ColorBuffer();
+		gl.Clear().ColorBuffer().StencilBuffer();
+
+		glc.Color(0.2, 0.2, 1.0);
+
+		path.StencilFill(PathNVFillMode::CountUp, 0x1F);
+		path.CoverFill(PathNVFillCoverMode::BoundingBox);
+
+		glc.Color(0.1, 0.1, 0.1);
+
+		path.StencilStroke(1, ~0);
+		path.CoverStroke(PathNVStrokeCoverMode::ConvexHull);
 	}
 
 	void Reshape(void)

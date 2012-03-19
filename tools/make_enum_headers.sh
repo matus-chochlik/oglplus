@@ -85,6 +85,8 @@ do
 	echo
 	)
 
+	git add ${OutputPath}
+
 	OutputFile="oglplus/names/${InputName}.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 	[[ ${InputFile} -nt ${OutputPath} ]] || continue
@@ -109,6 +111,8 @@ do
 	echo "}"
 	echo
 	)
+
+	git add ${OutputPath}
 done
 
 # the mapping of target def. to binding query def.
@@ -143,4 +147,6 @@ do
 	done
 	echo
 	)
+
+	git add ${OutputPath}
 done
