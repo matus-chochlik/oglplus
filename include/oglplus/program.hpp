@@ -213,7 +213,7 @@ public:
 			nullptr,
 			_name
 		));
-		if(!IsLinked())
+		if(OGLPLUS_IS_ERROR(!IsLinked()))
 			HandleBuildError<LinkError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
@@ -252,13 +252,13 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ValidateProgram)(_name);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgram,
 			Program,
 			nullptr,
 			_name
 		));
-		if(!IsValid())
+		if(OGLPLUS_IS_ERROR(!IsValid()))
 			HandleBuildError<ValidationError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
@@ -663,7 +663,7 @@ public:
 			);
 			if(context.Buffer().size() < size_t(length))
 				context.Buffer().resize(length);
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 				GetProgramiv,
 				Program,
 				nullptr,

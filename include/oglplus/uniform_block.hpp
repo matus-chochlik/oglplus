@@ -188,7 +188,7 @@ public:
 			_index,
 			GLuint(binding)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UniformBlockBinding));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UniformBlockBinding));
 	}
 };
 

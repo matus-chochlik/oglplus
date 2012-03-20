@@ -192,7 +192,7 @@ public:
 			GL_ALL_SHADER_BITS,
 			FriendOf<ProgramOps>::GetName(program)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UseProgramStages));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
 #endif
 
@@ -237,13 +237,13 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ValidateProgramPipeline)(_name);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			ValidateProgramPipeline,
 			ProgramPipeline,
 			nullptr,
 			_name
 		));
-		if(!IsValid())
+		if(OGLPLUS_IS_ERROR(!IsValid()))
 			HandleBuildError<ValidationError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(

@@ -132,7 +132,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectiv,
 			Query,
 			nullptr,
@@ -154,7 +154,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectuiv,
 			Query,
 			nullptr,
@@ -177,7 +177,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjecti64v,
 			Query,
 			nullptr,
@@ -199,7 +199,7 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetQueryObjectui64v,
 			Query,
 			nullptr,

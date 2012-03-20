@@ -82,7 +82,7 @@ protected:
 			query,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetRenderbufferParameteriv,
 			Renderbuffer,
 			EnumValueNameTpl(target),

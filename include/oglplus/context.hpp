@@ -14,6 +14,7 @@
 
 #include <oglplus/context/synchronization.hpp>
 
+#include <oglplus/context/errors.hpp>
 #include <oglplus/context/capabilities.hpp>
 #include <oglplus/context/viewport.hpp>
 #include <oglplus/context/buffer_selection.hpp>
@@ -54,7 +55,8 @@ namespace context { }
  *  @ingroup ogl_context
  */
 class Context
- : public context::Capabilities
+ : public context::Errors
+ , public context::Capabilities
  , public context::ViewportOps
  , public context::BufferSelection
  , public context::BufferMasking

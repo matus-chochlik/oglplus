@@ -227,7 +227,7 @@ public:
 			0,
 			timeout
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClientWaitSync));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClientWaitSync));
 		return SyncWaitResult(result);
 	}
 
@@ -236,10 +236,10 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{WaitSync}
 	 */
-	void Wait(GLuint64 timeout) const
+	void Wait(GLuint64 timeout = GL_TIMEOUT_IGNORED) const
 	{
 		OGLPLUS_GLFUNC(WaitSync)(_sync, 0, timeout);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(WaitSync));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(WaitSync));
 	}
 };
 

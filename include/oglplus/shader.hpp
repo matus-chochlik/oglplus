@@ -103,7 +103,7 @@ public:
 			GL_SHADER_TYPE,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			CreateShader,
 			Shader,
 			EnumValueNameTpl(ShaderType(result)),
@@ -237,7 +237,7 @@ public:
 			EnumValueNameTpl(Type()),
 			_name
 		));
-		if(!IsCompiled())
+		if(OGLPLUS_IS_ERROR(!IsCompiled()))
 			HandleBuildError<CompileError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
@@ -257,7 +257,7 @@ public:
 	static void ReleaseCompiler(void)
 	{
 		OGLPLUS_GLFUNC(ReleaseShaderCompiler)();
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
 	}
 #endif
 };

@@ -36,10 +36,9 @@ private:
 
 	static GLuint _query_limit(void)
 	{
-		GLint limit = -1;
+		GLint limit = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(Query, &limit);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetIntegerv));
-		assert(limit >= 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return GLuint(limit);
 	}
 
@@ -56,7 +55,7 @@ protected:
 	LimitedCount(GLuint value, const ErrorInfo& info)
 	 : _value(value)
 	{
-		if(_value >= _limit())
+		if(OGLPLUS_IS_ERROR(_value >= _limit()))
 			HandleLimitError<LimitError>(value, _limit(), info);
 	}
 public:

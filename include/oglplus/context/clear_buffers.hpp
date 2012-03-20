@@ -78,7 +78,7 @@ public:
 	static void ClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		OGLPLUS_GLFUNC(ClearColor)(r, g, b, a);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearColor));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearColor));
 	}
 
 	/// Sets the clear depth
@@ -91,7 +91,7 @@ public:
 	static void ClearDepth(GLclampd d)
 	{
 		OGLPLUS_GLFUNC(ClearDepth)(d);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearDepth));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearDepth));
 	}
 
 	/// Sets the clear stencil buffer value
@@ -104,7 +104,7 @@ public:
 	static void ClearStencil(GLint s)
 	{
 		OGLPLUS_GLFUNC(ClearStencil)(s);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearStencil));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearStencil));
 	}
 
 	/// Clears buffers specified by calling functions of the returned object

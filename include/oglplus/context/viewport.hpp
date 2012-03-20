@@ -157,7 +157,7 @@ public:
 			GL_VIEWPORT_BOUNDS_RANGE,
 			result._v
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 #endif
@@ -177,7 +177,7 @@ public:
 			GL_MAX_VIEWPORT_DIMS,
 			result._v
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
 
