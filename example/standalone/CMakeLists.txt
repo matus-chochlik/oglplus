@@ -45,5 +45,10 @@ if(GLUT_FOUND AND GLEW_FOUND)
 			002_simple_path
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 		)
+
+		standalone_example_common(
+			003_simple_text
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
 	endif()
 endif()

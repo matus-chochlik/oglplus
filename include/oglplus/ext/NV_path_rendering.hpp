@@ -18,6 +18,10 @@
 #include <oglplus/string.hpp>
 #include <oglplus/texture_unit.hpp>
 
+#include <oglplus/auxiliary/bitfield.hpp>
+
+#include <vector>
+
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTNVON_ONLY || GL_NV_path_rendering
@@ -262,6 +266,94 @@ inline const GLchar* EnumValueName(PathNVTransformType value)
 	return "";
 }
 
+/// Path font target enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVFontTarget : GLenum
+{
+#include <oglplus/enums/ext/nv_path_font_target.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVFontTarget value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_font_target.ipp>
+#endif
+	return "";
+}
+
+/// Path missing glyph action mode enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVMissingGlyph : GLenum
+{
+#include <oglplus/enums/ext/nv_path_missing_glyph.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVMissingGlyph value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_missing_glyph.ipp>
+#endif
+	return "";
+}
+
+/// Path list mode enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVListMode : GLenum
+{
+#include <oglplus/enums/ext/nv_path_list_mode.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVListMode value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_list_mode.ipp>
+#endif
+	return "";
+}
+
+/// Path font style bits enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVFontStyle: GLenum
+{
+#include <oglplus/enums/ext/nv_path_font_style.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVFontStyle value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_font_style.ipp>
+#endif
+	return "";
+}
+
+/// Wrapper for NV_path_rendering-related operations
+/** @note Do not use this class directly, use Texture instead.
+ *
+ *  @glsymbols
+ *  @glfunref{GenPathsNV}
+ *  @glfunref{DeletePathsNV}
+ *  @glfunref{IsPathNV}
+ */
 class PathNVOps
  : public Named
 {
@@ -269,7 +361,9 @@ protected:
 	static void _init(GLsizei count, GLuint* _name)
 	{
 		assert(_name != nullptr);
-		*_name = OGLPLUS_GLFUNC(GenPathsNV)(count);
+		GLuint base = OGLPLUS_GLFUNC(GenPathsNV)(count);
+		for(GLsizei i=0; i!=count; ++i)
+			_name[i] = base+i;
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTextures));
 	}
 
@@ -288,7 +382,7 @@ protected:
 
 	friend class FriendOf<PathNVOps>;
 public:
-	/// Specifies the path via a set of commands and coordinates
+	/// Specifies the path via a sequence of commands and coordinates
 	/**
 	 *  @glsymbols
 	 *  @glfunref{PathCommandsNV}
@@ -304,30 +398,66 @@ public:
 		OGLPLUS_GLFUNC(PathCommandsNV)(
 			this->_name,
 			num_commands,
-			(const GLubyte*)(commands),
+			(const GLubyte*)commands,
 			num_coords,
 			GLenum(GetDataType<CoordType>()),
-			static_cast<const void*>(coords)
+			(const void*)coords
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCommandsNV));
 	}
 
-	/// Specifies the path via a set of coordinates
+	/// Specifies the path via a sequence of commands and coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathCommandsNV}
+	 */
+	template <typename CoordType>
+	void Commands(
+		const std::vector<PathNVCommand>& commands,
+		const std::vector<CoordType>& coords
+	)
+	{
+		OGLPLUS_GLFUNC(PathCommandsNV)(
+			this->_name,
+			GLsizei(commands.size()),
+			(const GLubyte*)commands.data(),
+			GLsizei(coords.size()),
+			GLenum(GetDataType<CoordType>()),
+			(const void*)coords.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCommandsNV));
+	}
+
+	/// Specifies the path via a sequence of coordinates
 	/**
 	 *  @glsymbols
 	 *  @glfunref{PathCoordsNV}
 	 */
 	template <typename CoordType>
-	void Coords(
-		GLsizei num_coords,
-		const CoordType* coords
-	)
+	void Coords(GLsizei num_coords, const CoordType* coords)
 	{
 		OGLPLUS_GLFUNC(PathCoordsNV)(
 			this->_name,
 			num_coords,
 			GLenum(GetDataType<CoordType>()),
 			static_cast<const void*>(coords)
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCoordsNV));
+	}
+
+	/// Specifies the path via a sequence of coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathCoordsNV}
+	 */
+	template <typename CoordType>
+	void Coords(const std::vector<CoordType>& coords)
+	{
+		OGLPLUS_GLFUNC(PathCoordsNV)(
+			this->_name,
+			GLsizei(coords.size()),
+			GLenum(GetDataType<CoordType>()),
+			(const void*)coords.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCoordsNV));
 	}
@@ -352,10 +482,36 @@ public:
 			command_start,
 			commands_to_delete,
 			num_commands,
-			(const GLubyte*)(commands),
+			(const GLubyte*)commands,
 			num_coords,
 			GLenum(GetDataType<CoordType>()),
-			static_cast<const void*>(coords)
+			(const void*)coords
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCommandsNV));
+	}
+
+	/// Replaces a part of the the path with new commands and coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathSubCommandsNV}
+	 */
+	template <typename CoordType>
+	void SubCommands(
+		GLsizei command_start,
+		GLsizei commands_to_delete,
+		const std::vector<PathNVCommand>& commands,
+		const std::vector<CoordType>& coords
+	)
+	{
+		OGLPLUS_GLFUNC(PathSubCommandsNV)(
+			this->_name,
+			command_start,
+			commands_to_delete,
+			GLsizei(commands.size()),
+			(const GLubyte*)commands.data(),
+			GLsizei(coords.size()),
+			GLenum(GetDataType<CoordType>()),
+			(const void*)coords.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCommandsNV));
 	}
@@ -378,6 +534,27 @@ public:
 			num_coords,
 			GLenum(GetDataType<CoordType>()),
 			static_cast<const void*>(coords)
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCoordsNV));
+	}
+
+	/// Replaces some of the paths coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathSubCoordsNV}
+	 */
+	template <typename CoordType>
+	void SubCoords(
+		GLsizei coord_start,
+		const std::vector<CoordType>& coords
+	)
+	{
+		OGLPLUS_GLFUNC(PathSubCoordsNV)(
+			this->_name,
+			coord_start,
+			GLsizei(coords.size()),
+			GLenum(GetDataType<CoordType>()),
+			(const void*)coords
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCoordsNV));
 	}
@@ -719,6 +896,38 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathNV));
 	}
 
+	/// Copy path
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CopyPathNV}
+	 */
+	static void Copy(PathNVOps& dest_path, const PathNVOps& src_path)
+	{
+		OGLPLUS_GLFUNC(CopyPathNV)(dest_path._name, src_path._name);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CopyPathNV));
+	}
+
+	/// Interpolates between two paths
+	/**
+	 *  @glsymbols
+	 *  @glfunref{InterpolatePathsNV}
+	 */
+	static void Interpolate(
+		PathNVOps& dest_path,
+		const PathNVOps& path_a,
+		const PathNVOps& path_b,
+		GLfloat weight
+	)
+	{
+		OGLPLUS_GLFUNC(InterpolatePathsNV)(
+			dest_path._name,
+			path_a._name,
+			path_b._name,
+			weight
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(InterpolatePathsNV));
+	}
+
 	/// Transforms a path
 	/**
 	 *  @glsymbols
@@ -750,9 +959,353 @@ class PathNV
  : public PathNVOps
 { };
 #else
-typedef Object<PathNVOps, false> PathNV;
+typedef Object<PathNVOps, true> PathNV;
 #endif
 
+/// Array of PathNV objects and related operations
+class PathArrayNV
+ : public Array<PathNV>
+{
+public:
+	/// Creates a sequence of @p count paths
+	PathArrayNV(GLsizei count)
+	 : Array<PathNV>(count)
+	{ }
+
+	/// Creates a range of paths from specified font for specified chars
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathGlyphsNV}
+	 */
+	void Glyphs(
+		PathNVFontTarget font_target,
+		const GLchar* font_name,
+		const std::initializer_list<PathNVFontStyle>& font_style,
+		GLsizei num_glyphs,
+		const GLchar* char_codes,
+		PathNVMissingGlyph handle_missing_glyphs,
+		GLuint parameter_template,
+		GLfloat em_scale
+	)
+	{
+		OGLPLUS_GLFUNC(PathGlyphsNV)(
+			this->_get_name(0),
+			GLenum(font_target),
+			(const void*)font_name,
+			aux::MakeBitfield(font_style),
+			num_glyphs,
+			GL_UNSIGNED_BYTE,
+			(const void*)char_codes,
+			GLenum(handle_missing_glyphs),
+			parameter_template,
+			em_scale
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+	}
+
+	/// Creates a range of paths from specified font for specified chars
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathGlyphsNV}
+	 */
+	void Glyphs(
+		PathNVFontTarget font_target,
+		const GLchar* font_name,
+		const std::initializer_list<PathNVFontStyle>& font_style,
+		const String& char_codes,
+		PathNVMissingGlyph handle_missing_glyphs,
+		GLuint parameter_template,
+		GLfloat em_scale
+	)
+	{
+		OGLPLUS_GLFUNC(PathGlyphsNV)(
+			this->_get_name(0),
+			GLenum(font_target),
+			(const void*)font_name,
+			aux::MakeBitfield(font_style),
+			char_codes.size(),
+			GL_UTF8_NV,
+			(const void*)char_codes.c_str(),
+			GLenum(handle_missing_glyphs),
+			parameter_template,
+			em_scale
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+	}
+
+	/// Queries the glyph spacing for paths in the array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void GetSpacing(
+		PathNVListMode list_mode,
+		GLsizei num_paths,
+		const IndexType* paths,
+		GLfloat advance_scale,
+		GLfloat kerning_scale,
+		PathNVTransformType transform_type,
+		GLfloat* returned_values
+	)
+	{
+		OGLPLUS_GLFUNC(GetPathSpacingNV)(
+			GLenum(list_mode),
+			num_paths,
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths,
+			this->_get_name(0),
+			advance_scale,
+			kerning_scale,
+			GLenum(transform_type),
+			returned_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+	}
+
+	/// Queries the glyph spacing for paths in the array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void GetSpacing(
+		PathNVListMode list_mode,
+		const std::vector<IndexType>& paths,
+		GLfloat advance_scale,
+		GLfloat kerning_scale,
+		PathNVTransformType transform_type,
+		std::vector<GLfloat>& returned_values
+	)
+	{
+		OGLPLUS_GLFUNC(GetPathSpacingNV)(
+			GLenum(list_mode),
+			GLsizei(paths.size()),
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths.data(),
+			this->_get_name(0),
+			advance_scale,
+			kerning_scale,
+			GLenum(transform_type),
+			returned_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+	}
+
+	/// Writes the path interiors (fill) into the stencil buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void StencilFillInstanced(
+		GLsizei num_paths,
+		const IndexType* paths,
+		PathNVFillMode mode,
+		GLuint mask,
+		PathNVTransformType transform_type,
+		const GLfloat* transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
+			num_paths,
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths,
+			this->_get_name(0),
+			GLenum(mode),
+			mask,
+			GLenum(transform_type),
+			transform_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
+	}
+
+	/// Writes the path interiors (fill) into the stencil buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void StencilFillInstanced(
+		const std::vector<IndexType>& paths,
+		PathNVFillMode mode,
+		GLuint mask,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		// TODO: check if enough transform values
+		// are provided for transform type
+		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
+			GLsizei(paths.size()),
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths.data(),
+			this->_get_name(0),
+			GLenum(mode),
+			mask,
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
+	}
+
+	/// Covers the path interiors (fill)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void CoverFillInstanced(
+		GLsizei num_paths,
+		const IndexType* paths,
+		PathNVFillCoverMode mode,
+		PathNVTransformType transform_type,
+		const GLfloat* transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(CoverFillPathInstancedNV)(
+			num_paths,
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths,
+			this->_get_name(0),
+			GLenum(mode),
+			GLenum(transform_type),
+			transform_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+	}
+
+	/// Covers the path interiors (fill)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void CoverFillInstanced(
+		const std::vector<IndexType>& paths,
+		PathNVFillCoverMode mode,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(CoverFillPathInstancedNV)(
+			GLsizei(paths.size()),
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths.data(),
+			this->_get_name(0),
+			GLenum(mode),
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+	}
+
+	/// Writes the path interiors strokes to the stencil buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilStrokePathInstancedNV}
+	 */
+	template <typename IndexType>
+	void StencilStrokeInstanced(
+		GLsizei num_paths,
+		const IndexType* paths,
+		GLint reference,
+		GLuint mask,
+		PathNVTransformType transform_type,
+		const GLfloat* transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(StencilStrokePathInstancedNV)(
+			num_paths,
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths,
+			this->_get_name(0),
+			reference,
+			mask,
+			GLenum(transform_type),
+			transform_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+	}
+
+	/// Writes the path interiors strokes to the stencil buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilStrokePathInstancedNV}
+	 */
+	template <typename IndexType>
+	void StencilStrokeInstanced(
+		const std::vector<IndexType>& paths,
+		GLint reference,
+		GLuint mask,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(StencilStrokePathInstancedNV)(
+			GLsizei(paths.size()),
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths.data(),
+			this->_get_name(0),
+			reference,
+			mask,
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+	}
+
+	/// Covers the path strokes
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void CoverStrokeInstanced(
+		GLsizei num_paths,
+		const IndexType* paths,
+		PathNVStrokeCoverMode mode,
+		PathNVTransformType transform_type,
+		const GLfloat* transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(CoverStrokePathInstancedNV)(
+			num_paths,
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths,
+			this->_get_name(0),
+			GLenum(mode),
+			GLenum(transform_type),
+			transform_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+	}
+
+	/// Covers the path strokes
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void CoverStrokeInstanced(
+		const std::vector<IndexType>& paths,
+		PathNVStrokeCoverMode mode,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(CoverStrokePathInstancedNV)(
+			GLsizei(paths.size()),
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths.data(),
+			this->_get_name(0),
+			GLenum(mode),
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+	}
+};
 
 /// Wrapper for the NV_path_rendering extension
 /**

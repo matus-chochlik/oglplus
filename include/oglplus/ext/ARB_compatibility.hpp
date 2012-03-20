@@ -15,6 +15,8 @@
 #include <oglplus/extension.hpp>
 #include <oglplus/texture_unit.hpp>
 
+#include <oglplus/matrix.hpp>
+
 namespace oglplus {
 
 /// Compatibility primitive type enumeration
@@ -115,7 +117,29 @@ public:
 	static void LoadIdentity(void)
 	{
 		OGLPLUS_GLFUNC(LoadIdentity)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMode));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LoadIdentity));
+	}
+
+	/// Loads the specified @p matrix
+	/**
+	 *  @glsymbols
+	 *  @glfunref{LoadMatrix}
+	 */
+	static void LoadMatrix(const Mat4f& matrix)
+	{
+		OGLPLUS_GLFUNC(LoadMatrixf)(Data(Transposed(matrix)));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LoadMatrixf));
+	}
+
+	/// Loads the specified @p matrix
+	/**
+	 *  @glsymbols
+	 *  @glfunref{LoadMatrix}
+	 */
+	static void LoadMatrix(const Mat4d& matrix)
+	{
+		OGLPLUS_GLFUNC(LoadMatrixd)(Data(Transposed(matrix)));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LoadMatrixd));
 	}
 
 private:

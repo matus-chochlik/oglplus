@@ -69,6 +69,7 @@ public:
 
 	size_t Width(void) const { return _width; }
 	size_t Height(void) const { return _height; }
+	double Aspect(void) const { return double(_width)/double(_height); }
 
 	size_t MouseX(void) const { return _curr_mouse_x; }
 	size_t MouseY(void) const { return _curr_mouse_y; }

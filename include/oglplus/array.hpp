@@ -108,6 +108,11 @@ private:
 	}
 
 	typedef Object<ObjectOps, true> object;
+protected:
+	GLuint _get_name(size_t index) const
+	{
+		return _names[index];
+	}
 public:
 	inline Array(GLsizei c)
 	 : _names(c, 0)
