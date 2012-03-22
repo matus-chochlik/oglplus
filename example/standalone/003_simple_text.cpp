@@ -63,13 +63,24 @@ public:
 		GLfloat text_left = glyph_spacings.front();
 		GLfloat text_right = glyph_spacings.back();
 
+		GLfloat font_min_max[2];
+
+		text_path.GetMetricRange(
+			{
+				PathNVMetricQuery::FontYMinBounds,
+				PathNVMetricQuery::FontYMaxBounds,
+			},
+			1, 0,
+			font_min_max
+		);
+
 		glc.MatrixMode(MatrixMode::Projection);
 		glc.LoadMatrix(
 			CamMatrixf::Ortho(
 				text_left -10,
 				text_right+10,
-				-100,
-				200,
+				font_min_max[0],
+				font_min_max[1],
 				-1.0,
 				1.0
 			)

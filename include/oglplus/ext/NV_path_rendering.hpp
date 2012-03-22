@@ -346,6 +346,26 @@ inline const GLchar* EnumValueName(PathNVFontStyle value)
 	return "";
 }
 
+/// Path metric query bits enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+enum class PathNVMetricQuery: GLenum
+{
+#include <oglplus/enums/ext/nv_path_metric_query.ipp>
+};
+
+inline const GLchar* EnumValueName(PathNVMetricQuery value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_metric_query.ipp>
+#endif
+	return "";
+}
+
 /// Wrapper for NV_path_rendering-related operations
 /** @note Do not use this class directly, use Texture instead.
  *
@@ -1112,7 +1132,7 @@ public:
 	/// Queries the glyph spacing for paths in the array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{CoverFillPathInstancedNV}
+	 *  @glfunref{GetPathSpacingNV}
 	 */
 	template <typename IndexType>
 	void GetSpacing(
@@ -1142,7 +1162,7 @@ public:
 	/// Queries the glyph spacing for paths in the array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{CoverFillPathInstancedNV}
+	 *  @glfunref{GetPathSpacingNV}
 	 */
 	template <typename IndexType>
 	void GetSpacing(
@@ -1171,7 +1191,7 @@ public:
 	/// Queries the glyph spacing for paths in the array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{CoverFillPathInstancedNV}
+	 *  @glfunref{GetPathSpacingNV}
 	 */
 	template <typename IndexType>
 	void GetSpacing(
@@ -1195,6 +1215,104 @@ public:
 			returned_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+	}
+
+	/// Queries the glyph metrics associated with a sequence of path objects
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetPathMetricsNV}
+	 */
+	template <typename IndexType>
+	void GetMetrics(
+		const std::initializer_list<PathNVMetricQuery>& query_mask,
+		GLsizei num_indices,
+		const IndexType* indices,
+		GLsizei stride,
+		GLfloat* returned_values
+	)
+	{
+		OGLPLUS_GLFUNC(GetPathMetricsNV)(
+			aux::MakeBitfield(query_mask),
+			num_indices,
+			GLenum(GetDataType<IndexType>()),
+			(const void*)indices,
+			this->_get_name(0),
+			stride,
+			returned_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+	}
+
+	/// Queries the glyph metrics associated with a sequence of path objects
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetPathMetricsNV}
+	 */
+	template <typename IndexType>
+	void GetMetrics(
+		const std::initializer_list<PathNVMetricQuery>& query_mask,
+		const std::vector<IndexType>& indices,
+		GLsizei stride,
+		GLfloat* returned_values
+	)
+	{
+		OGLPLUS_GLFUNC(GetPathMetricsNV)(
+			aux::MakeBitfield(query_mask),
+			GLsizei(indices.size()),
+			GLenum(GetDataType<IndexType>()),
+			(const void*)indices.data(),
+			this->_get_name(0),
+			stride,
+			returned_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+	}
+
+	/// Queries the glyph metrics associated with a sequence of path objects
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetPathMetricsNV}
+	 */
+	template <typename IndexType>
+	void GetMetrics(
+		const std::initializer_list<PathNVMetricQuery>& query_mask,
+		const String& indices,
+		GLsizei stride,
+		GLfloat* returned_values
+	)
+	{
+		OGLPLUS_GLFUNC(GetPathMetricsNV)(
+			aux::MakeBitfield(query_mask),
+			GLsizei(indices.size()+1),
+			GL_UTF8_NV,
+			(const void*)indices.c_str(),
+			this->_get_name(0),
+			stride,
+			returned_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+	}
+
+	/// Queries the glyph metrics associated with a range of path objects
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetPathMetricRangeNV}
+	 */
+	void GetMetricRange(
+		const std::initializer_list<PathNVMetricQuery>& query_mask,
+		GLsizei num_paths,
+		GLsizei stride,
+		GLfloat* returned_values
+	)
+	{
+		OGLPLUS_GLFUNC(GetPathMetricRangeNV)(
+			aux::MakeBitfield(query_mask),
+			this->_get_name(0),
+			num_paths,
+			stride,
+			returned_values
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricRangeNV));
 	}
 
 	/// Writes the path interiors (fill) into the stencil buffer
