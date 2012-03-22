@@ -18,6 +18,7 @@ oglplus_archive_items="
 	VERSION
 	CMakeLists.txt
 	configure.sh
+	configure-oglplus
 "
 
 if [ ! -f ./configure.sh ]

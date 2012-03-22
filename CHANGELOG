@@ -1,4 +1,17 @@
+Version 0.13.0
+
 Version 0.12.0
+
+- Wrappers for several GL extensions (including ARB_compatibility,
+  ARB_debug_output, NV_path_rendering, ATI_meminfo) were added
+  (some of them still work-in-progress).
+- The build system was updated and some problems were fixed.
+- The error checking/reporting subsystem was updated and now
+  can be partially compiled away if necessary.
+- New camera matrix constructors were added and some of the
+  existing were renamed.
+- The Object helper template was partially refactored.
+- Several new examples were added.
 
 Version 0.11.2
 
