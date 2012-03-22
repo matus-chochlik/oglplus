@@ -596,6 +596,82 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStringNV));
 	}
 
+	/// Checks if the specified point is in the path interior
+	/**
+	 *  @glsymbols
+	 *  @glfunref{IsPointInFillPathNV}
+	 */
+	bool IsPointInFill(GLuint mask, GLfloat x, GLfloat y) const
+	{
+		GLboolean result = OGLPLUS_GLFUNC(IsPointInFillPathNV)(
+			this->_name,
+			mask,
+			x, y
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsPointInFillPathNV));
+		return result == GL_TRUE;
+	}
+
+	/// Checks if the specified point is on the path outline
+	/**
+	 *  @glsymbols
+	 *  @glfunref{IsPointInStrokePathNV}
+	 */
+	bool IsPointInStroke(GLfloat x, GLfloat y) const
+	{
+		GLboolean result = OGLPLUS_GLFUNC(IsPointInStrokePathNV)(
+			this->_name,
+			x, y
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsPointInStrokePathNV));
+		return result == GL_TRUE;
+	}
+
+	/// Returns the approximation of the length of the path
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetPathLengthNV}
+	 */
+	GLfloat GetLength(GLsizei start_segment, GLsizei num_segments) const
+	{
+		GLfloat result = OGLPLUS_GLFUNC(GetPathLengthNV)(
+			this->_name,
+			start_segment,
+			num_segments
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathLengthNV));
+		return result;
+	}
+
+	/// Get a point along the specified segment of the path
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PointAlongPathNV}
+	 */
+	bool PointAlong(
+		GLsizei start_segment,
+		GLsizei num_segments,
+		GLfloat distance,
+		GLfloat& ref_x,
+		GLfloat& ref_y,
+		GLfloat& ref_tg_x,
+		GLfloat& ref_tg_y
+	) const
+	{
+		GLboolean result = OGLPLUS_GLFUNC(PointAlongPathNV)(
+			this->_name,
+			start_segment,
+			num_segments,
+			distance,
+			&ref_x,
+			&ref_y,
+			&ref_tg_x,
+			&ref_tg_y
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PointAlongPathNV));
+		return result;
+	}
+
 	/// Sets the stroke width value
 	/**
 	 *  @glsymbols
@@ -1041,8 +1117,8 @@ public:
 	template <typename IndexType>
 	void GetSpacing(
 		PathNVListMode list_mode,
-		GLsizei num_paths,
-		const IndexType* paths,
+		GLsizei num_indices,
+		const IndexType* indices,
 		GLfloat advance_scale,
 		GLfloat kerning_scale,
 		PathNVTransformType transform_type,
@@ -1051,9 +1127,9 @@ public:
 	{
 		OGLPLUS_GLFUNC(GetPathSpacingNV)(
 			GLenum(list_mode),
-			num_paths,
+			num_indices,
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths,
+			(const void*)indices,
 			this->_get_name(0),
 			advance_scale,
 			kerning_scale,
@@ -1071,7 +1147,7 @@ public:
 	template <typename IndexType>
 	void GetSpacing(
 		PathNVListMode list_mode,
-		const std::vector<IndexType>& paths,
+		const std::vector<IndexType>& indices,
 		GLfloat advance_scale,
 		GLfloat kerning_scale,
 		PathNVTransformType transform_type,
@@ -1080,9 +1156,38 @@ public:
 	{
 		OGLPLUS_GLFUNC(GetPathSpacingNV)(
 			GLenum(list_mode),
-			GLsizei(paths.size()),
+			GLsizei(indices.size()),
 			GLenum(GetDataType<IndexType>()),
-			(const void*)paths.data(),
+			(const void*)indices.data(),
+			this->_get_name(0),
+			advance_scale,
+			kerning_scale,
+			GLenum(transform_type),
+			returned_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+	}
+
+	/// Queries the glyph spacing for paths in the array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	template <typename IndexType>
+	void GetSpacing(
+		PathNVListMode list_mode,
+		const String& indices,
+		GLfloat advance_scale,
+		GLfloat kerning_scale,
+		PathNVTransformType transform_type,
+		std::vector<GLfloat>& returned_values
+	)
+	{
+		OGLPLUS_GLFUNC(GetPathSpacingNV)(
+			GLenum(list_mode),
+			GLsizei(indices.size()+1), //include null terminator
+			GL_UTF8_NV,
+			(const void*)indices.c_str(),
 			this->_get_name(0),
 			advance_scale,
 			kerning_scale,

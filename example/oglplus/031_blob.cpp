@@ -595,7 +595,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 
-		Mat4f perspective = CamMatrixf::Perspective(
+		Mat4f perspective = CamMatrixf::PerspectiveX(
 			Degrees(48),
 			double(width)/height,
 			1, 100

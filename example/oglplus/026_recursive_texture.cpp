@@ -244,7 +244,7 @@ public:
 		model_matrix.Set(ModelMatrixf::RotationX(FullCircles(time * 0.25)));
 
 		projection_matrix.Set(
-			CamMatrixf::Perspective(Degrees(28), 1.0, 1, 100)
+			CamMatrixf::PerspectiveX(Degrees(28), 1.0, 1, 100)
 		);
 
 		fbos[back].Bind(Framebuffer::Target::Draw);
@@ -269,7 +269,7 @@ public:
 		);
 
 		projection_matrix.Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				Degrees(54),
 				double(width)/height,
 				1, 100

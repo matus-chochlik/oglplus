@@ -293,7 +293,7 @@ public:
 		torus_prog.Use();
 
 		Uniform<Mat4f>(torus_prog, "ProjectionMatrix").Set(
-			CamMatrixf::Perspective(Degrees(48), 1.0, 1, 100)
+			CamMatrixf::PerspectiveX(Degrees(48), 1.0, 1, 100)
 		);
 
 		Uniform<Mat4f>(torus_prog, "CameraMatrix").Set(
@@ -325,7 +325,7 @@ public:
 		cube_prog.Use();
 
 		Uniform<Mat4f>(cube_prog, "ProjectionMatrix").Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				Degrees(54),
 				double(width)/height,
 				1, 100

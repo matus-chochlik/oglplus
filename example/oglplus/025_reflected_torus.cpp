@@ -293,7 +293,7 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		Mat4f projection = CamMatrixf::Perspective(
+		Mat4f projection = CamMatrixf::PerspectiveX(
 			Degrees(48),
 			double(width)/height,
 			1, 100

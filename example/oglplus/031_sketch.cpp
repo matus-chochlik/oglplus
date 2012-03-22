@@ -575,7 +575,7 @@ public:
 		//
 		transf_prog.light_proj_matrix.Set(light_proj_matrix);
 
-		Mat4f perspective = CamMatrixf::Perspective(
+		Mat4f perspective = CamMatrixf::PerspectiveX(
 			Degrees(48),
 			double(width)/height,
 			1, 100
@@ -651,7 +651,7 @@ public:
 			);
 
 		const Mat4f light_proj_matrix =
-			CamMatrixf::Perspective(Degrees(4), 1.0, 1, 100) *
+			CamMatrixf::PerspectiveX(Degrees(4), 1.0, 1, 100) *
 			CamMatrixf::LookingAt(light_position, torus_center);
 
 		transf_prog.light_position.Set(light_position);

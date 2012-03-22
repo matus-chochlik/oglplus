@@ -1,5 +1,5 @@
 /**
- *  @example standalone/002_simple_text.cpp
+ *  @example standalone/003_simple_text.cpp
  *  @brief Shows usage of the NV_path_rendering extension for rendering text
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
@@ -26,13 +26,13 @@ private:
 	const oglplus::String text;
 	oglplus::PathArrayNV text_path;
 	std::vector<GLubyte> glyph_indices;
-	std::vector<GLfloat> glyph_translate;
+	std::vector<GLfloat> glyph_spacings;
 public:
 	TextExample(int argc, const char* argv[])
 	 : text("OpenGL")
 	 , text_path(text.size())
-	 , glyph_indices({0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x05})
-	 , glyph_translate(glyph_indices.size())
+	 , glyph_indices({0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00})
+	 , glyph_spacings(glyph_indices.size())
 	{
 		using namespace oglplus;
 
@@ -53,10 +53,27 @@ public:
 			glyph_indices,
 			1.0f, 1.0f,
 			PathNVTransformType::TranslateX,
-			glyph_translate
+			glyph_spacings
 		);
+
+		glyph_spacings.insert(glyph_spacings.begin(), 0);
+		glyph_spacings.pop_back();
 		glyph_indices.pop_back();
 
+		GLfloat text_left = glyph_spacings.front();
+		GLfloat text_right = glyph_spacings.back();
+
+		glc.MatrixMode(MatrixMode::Projection);
+		glc.LoadMatrix(
+			CamMatrixf::Ortho(
+				text_left -10,
+				text_right+10,
+				-100,
+				200,
+				-1.0,
+				1.0
+			)
+		);
 		glc.MatrixMode(MatrixMode::Modelview);
 		glc.LoadIdentity();
 
@@ -73,6 +90,13 @@ public:
 		gl.Enable(Capability::StencilTest);
 	}
 
+	void Reshape(void)
+	{
+		using namespace oglplus;
+
+		gl.Viewport(Width(), Height());
+	}
+
 	void Render(void)
 	{
 		using namespace oglplus;
@@ -86,13 +110,13 @@ public:
 			PathNVFillMode::CountUp,
 			0xFF,
 			PathNVTransformType::TranslateX,
-			glyph_translate
+			glyph_spacings
 		);
 		text_path.CoverFillInstanced(
 			glyph_indices,
 			PathNVFillCoverMode::BoundingBoxOfBoundingBoxes,
 			PathNVTransformType::TranslateX,
-			glyph_translate
+			glyph_spacings
 		);
 
 		glc.Color(0.0, 0.0, 0.0);
@@ -101,25 +125,13 @@ public:
 			glyph_indices,
 			1, ~0,
 			PathNVTransformType::TranslateX,
-			glyph_translate
+			glyph_spacings
 		);
 		text_path.CoverStrokeInstanced(
 			glyph_indices,
 			PathNVStrokeCoverMode::ConvexHull,
 			PathNVTransformType::TranslateX,
-			glyph_translate
-		);
-	}
-
-	void Reshape(void)
-	{
-		using namespace oglplus;
-
-		gl.Viewport(Width(), Height());
-		glc.MatrixMode(MatrixMode::Projection);
-		glc.LoadMatrix(
-			CamMatrixf::Ortho(400, Aspect(), -1.0, 1.0) *
-			ModelMatrixf::Translation(-200, 0.0, 0.0)
+			glyph_spacings
 		);
 	}
 };

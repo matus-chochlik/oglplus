@@ -147,7 +147,7 @@ public:
 
 		Vec3f lightPos(2.0f, 4.0f, -3.0f);
 		auto texProjMat =
-			CamMatrixf::Perspective(Degrees(60), 1.0, 0.1, 10.0) *
+			CamMatrixf::PerspectiveX(Degrees(60), 1.0, 0.1, 10.0) *
 			CamMatrixf::LookingAt(lightPos, Vec3f(0, 0, 0));
 
 		Uniform<GLint>(volume_prog, "SampleCount").Set(samples);
@@ -248,7 +248,7 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		auto perspective = CamMatrixf::Perspective(
+		auto perspective = CamMatrixf::PerspectiveX(
 			Degrees(48),
 			double(width)/height,
 			1, 100

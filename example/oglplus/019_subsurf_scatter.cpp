@@ -200,7 +200,7 @@ public:
 		gl.Viewport(width, height);
 		prog.Use();
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				Degrees(54),
 				double(width)/height,
 				1, 100

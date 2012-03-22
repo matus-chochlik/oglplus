@@ -478,7 +478,7 @@ public:
 
 
 		Uniform<Mat4f>(cmap_prog, "ProjectionMatrix").Set(
-			CamMatrixf::Perspective(Degrees(90), 1.0, 1, 10)
+			CamMatrixf::PerspectiveX(Degrees(90), 1.0, 1, 10)
 		);
 
 		// bind the VAO for the cube
@@ -639,7 +639,7 @@ public:
 
 		// Set the viewport and perspective matrix
 		gl.Viewport(width, height);
-		auto persp = CamMatrixf::Perspective(
+		auto persp = CamMatrixf::PerspectiveX(
 			Degrees(50),
 			double(width)/height,
 			1, 10

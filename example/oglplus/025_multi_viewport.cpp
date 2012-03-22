@@ -269,7 +269,7 @@ public:
 		};
 		gl.ViewportArray(0, 4, viewports);
 
-		projection = CamMatrixf::Perspective(
+		projection = CamMatrixf::PerspectiveX(
 			Degrees(52),
 			double(width)/height,
 			1, 10

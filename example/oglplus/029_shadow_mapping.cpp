@@ -422,7 +422,7 @@ public:
 
 		shadow_pp.Bind();
 
-		const auto light_persp_matrix = CamMatrixf::Perspective(
+		const auto light_persp_matrix = CamMatrixf::PerspectiveX(
 			Degrees(48),
 			1.0, 1.0, 20.0
 		);
@@ -490,7 +490,7 @@ public:
 		).Set(light_positions.size());
 
 		projection_matrix.Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				Degrees(50),
 				double(width)/height,
 				1, 100

@@ -4,7 +4,7 @@
 #
 cmake_minimum_required(VERSION 2.8)
 
-add_custom_target(standalone_examples ALL)
+add_custom_target(standalone-examples ALL)
 
 function(standalone_example_common EXAMPLE_NAME)
 	add_executable(
@@ -13,7 +13,7 @@ function(standalone_example_common EXAMPLE_NAME)
 		${EXAMPLE_NAME}.cpp
 	)
 	add_dependencies(${EXAMPLE_NAME} auto_generated_headers)
-	add_dependencies(standalone_examples ${EXAMPLE_NAME})
+	add_dependencies(standalone-examples ${EXAMPLE_NAME})
 	target_link_libraries(${EXAMPLE_NAME} GL ${ARGN})
 endfunction()
 

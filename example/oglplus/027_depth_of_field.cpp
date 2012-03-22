@@ -326,7 +326,7 @@ public:
 		height = vp_height;
 
 		ProgramUniform<Mat4f>(main_prog, "ProjectionMatrix").Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				Degrees(30),
 				double(width)/height,
 				1.0, 5.0

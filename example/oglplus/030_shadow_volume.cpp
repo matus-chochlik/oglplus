@@ -259,7 +259,7 @@ public:
 		depth_prog.Use();
 
 		Uniform<Mat4f>(depth_prog, "ProjectionMatrix").Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				RightAngles(1.0),
 				1.0,
 				1.0,
@@ -447,7 +447,7 @@ public:
 	{
 		width = vp_width;
 		height = vp_height;
-		Mat4f proj = CamMatrixf::Perspective(
+		Mat4f proj = CamMatrixf::PerspectiveX(
 			Degrees(48),
 			double(width)/height,
 			1, 100

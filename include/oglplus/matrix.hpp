@@ -845,18 +845,16 @@ public:
 
 	struct _Perspective { };
 
-	CameraMatrix(_Perspective, Angle<T> fov, T aspect, T near, T far)
-	 : Base(typename Base::NoInit())
+	CameraMatrix(
+		_Perspective,
+		T left,
+		T right,
+		T bottom,
+		T top,
+		T near,
+		T far
+	): Base(typename Base::NoInit())
 	{
-		assert(aspect > T(0));
-		assert(fov > Radians(T(0)));
-
-		T right = near * Tan(fov * T(0.5));
-		T left = -right;
-
-		T bottom = left / aspect;
-		T top = right / aspect;
-
 		T m00 = (T(2) * near) / (right - left);
 		T m11 = (T(2) * near) / (top - bottom);
 		T m22 = -(far + near) / (far - near);
@@ -876,33 +874,79 @@ public:
 	}
 
 	/// Constructs a perspective projection matrix
-	/** Creates a new perspective matrix from x-axis @p fov angle,
-	 *  @p aspect and z-axis @p near and @p far planes
+	/** Creates a new perspective matrix from x-axis @p xfov angle,
+	 *  x/y @p aspect ratio and z-axis @p near and @p far planes
 	 */
-	static inline CameraMatrix Perspective(
-		Angle<T> fov,
+	static inline CameraMatrix PerspectiveX(
+		Angle<T> xfov,
 		T aspect,
 		T near,
 		T far
 	)
 	{
-		return CameraMatrix(_Perspective(), fov, aspect, near, far);
-	}
-
-	struct _Ortho { };
-
-	CameraMatrix(_Ortho, T width, T aspect, T near, T far)
-	 : Base(typename Base::NoInit())
-	{
 		assert(aspect > T(0));
-		assert(width > T(0));
+		assert(xfov > Radians(T(0)));
 
-		T right = width / T(2);
+		T right = near * Tan(xfov * T(0.5));
 		T left = -right;
 
 		T bottom = left / aspect;
 		T top = right / aspect;
 
+		return CameraMatrix(
+			_Perspective(),
+			left,
+			right,
+			bottom,
+			top,
+			near,
+			far
+		);
+	}
+
+	/// Constructs a perspective projection matrix
+	/** Creates a new perspective matrix from y-axis @p yfov angle,
+	 *  x/y @p aspect ratio and z-axis @p near and @p far planes
+	 */
+	static inline CameraMatrix PerspectiveY(
+		Angle<T> yfov,
+		T aspect,
+		T near,
+		T far
+	)
+	{
+		assert(aspect > T(0));
+		assert(yfov > Radians(T(0)));
+
+		T top = near * Tan(yfov * T(0.5));
+		T bottom = -top;
+
+		T left = bottom * aspect;
+		T right = top * aspect;
+
+		return CameraMatrix(
+			_Perspective(),
+			left,
+			right,
+			bottom,
+			top,
+			near,
+			far
+		);
+	}
+
+	struct _Ortho { };
+
+	CameraMatrix(
+		_Ortho,
+		T left,
+		T right,
+		T bottom,
+		T top,
+		T near,
+		T far
+	): Base(typename Base::NoInit())
+	{
 		T m00 =  T(2) / (right - left);
 		T m11 =  T(2) / (top - bottom);
 		T m22 = -T(2) / (far - near);
@@ -919,18 +963,90 @@ public:
 		});
 	}
 
-	/// Constructs a orthographic projection matrix
-	/** Creates a new orthographic matrix from x-axis @p width,
-	 *  @p aspect and z-axis @p near and @p far planes
+	/// Constructs an orthographic projection matrix
+	/** Creates a new orthographic matrix from the x-axis @p left, @p right,
+	 *  y-axis @p bottom, @p top and z-axis @p near and @p far values
 	 */
 	static inline CameraMatrix Ortho(
+		T left,
+		T right,
+		T bottom,
+		T top,
+		T near,
+		T far
+	)
+	{
+		return CameraMatrix(
+			_Ortho(),
+			left,
+			right,
+			bottom,
+			top,
+			near,
+			far
+		);
+	}
+
+	/// Constructs an orthographic projection matrix
+	/** Creates a new orthographic matrix from x-axis @p width,
+	 *  x/y @p aspect ratio and z-axis @p near and @p far planes
+	 */
+	static inline CameraMatrix OrthoX(
 		T width,
 		T aspect,
 		T near,
 		T far
 	)
 	{
-		return CameraMatrix(_Ortho(), width, aspect, near, far);
+		assert(aspect > T(0));
+		assert(width > T(0));
+
+		T right = width / T(2);
+		T left = -right;
+
+		T bottom = left / aspect;
+		T top = right / aspect;
+
+		return CameraMatrix(
+			_Ortho(),
+			left,
+			right,
+			bottom,
+			top,
+			near,
+			far
+		);
+	}
+
+	/// Constructs an orthographic projection matrix
+	/** Creates a new orthographic matrix from y-axis @p height,
+	 *  x/y @p aspect ratio and z-axis @p near and @p far planes
+	 */
+	static inline CameraMatrix OrthoY(
+		T height,
+		T aspect,
+		T near,
+		T far
+	)
+	{
+		assert(aspect > T(0));
+		assert(height > T(0));
+
+		T top = height / T(2);
+		T bottom = -top;
+
+		T left = bottom * aspect;
+		T right = top * aspect;
+
+		return CameraMatrix(
+			_Ortho(),
+			left,
+			right,
+			bottom,
+			top,
+			near,
+			far
+		);
 	}
 
 	struct _LookingAt { };

@@ -947,7 +947,7 @@ public:
 		cmap_ball_pp.UseStages(ball_prog).Fragment();
 
 		cmap_geom_prog.projection_matrix.Set(
-			CamMatrixf::Perspective(Degrees(90), 1.0, 1, 100)
+			CamMatrixf::PerspectiveX(Degrees(90), 1.0, 1, 100)
 		);
 		gl.Viewport(tex_side, tex_side);
 
@@ -1044,7 +1044,7 @@ public:
 		gl.Viewport(width, height);
 
 		geom_prog.projection_matrix.Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
 				1, 100

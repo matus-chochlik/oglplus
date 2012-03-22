@@ -496,7 +496,7 @@ public:
 		float aspect = float(width)/height;
 		ProgramUniform<GLfloat>(plane_prog, "Aspect").Set(aspect);
 
-		auto projection = CamMatrixf::Perspective(
+		auto projection = CamMatrixf::PerspectiveX(
 			Degrees(48), aspect, 1, 100
 		);
 		ProgramUniform<Mat4f>(

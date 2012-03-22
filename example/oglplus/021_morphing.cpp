@@ -222,7 +222,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		point_prog.projection_matrix.Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
 				1, 100

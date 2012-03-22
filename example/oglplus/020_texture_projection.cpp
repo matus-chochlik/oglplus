@@ -173,7 +173,7 @@ public:
 		gl.Viewport(width, height);
 		prog.Use();
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
-			CamMatrixf::Perspective(
+			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
 				1, 100
@@ -190,7 +190,7 @@ public:
 		SetUniform(prog, "LightPos", lightPos);
 
 		Uniform<Mat4f>(prog, "TexProjectionMatrix").Set(
-			CamMatrixf::Perspective(Degrees(10), 1.0, 1, 100) *
+			CamMatrixf::PerspectiveX(Degrees(10), 1.0, 1, 100) *
 			CamMatrixf::LookingAt(lightPos, Vec3f())
 		);
 

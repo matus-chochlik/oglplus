@@ -340,7 +340,7 @@ public:
 
 		float aspect = float(width)/height;
 
-		auto projection = CamMatrixf::Perspective(
+		auto projection = CamMatrixf::PerspectiveX(
 			Degrees(48), aspect, 1, 100
 		);
 
