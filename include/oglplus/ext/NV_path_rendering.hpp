@@ -24,7 +24,7 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTNVON_ONLY || GL_NV_path_rendering
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_path_rendering
 
 /// Path specification command enumeration
 /**

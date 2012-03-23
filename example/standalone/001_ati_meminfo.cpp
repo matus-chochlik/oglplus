@@ -2,9 +2,6 @@
  *  @example standalone/001_ati_meminfo.cpp
  *  @brief Shows simple usage of the ATI_meminfo extension
  *
- *  See the @ref oglplus_tut_001_glut_glew tutorial for a detailed explanation
- *  of the source code of this example.
- *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
