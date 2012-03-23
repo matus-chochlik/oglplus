@@ -83,6 +83,12 @@ public:
 		return _val_rad;
 	}
 
+	/// Returns the value of the angle in degrees
+	inline T ValueInDegrees(void) const
+	{
+		return _val_rad * T(180.0 / M_PI);
+	}
+
 	/// Equality comparison
 	friend bool operator == (const Angle& a, const Angle& b)
 	{

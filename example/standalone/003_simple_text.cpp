@@ -11,6 +11,7 @@
 
 #include <oglplus/all.hpp>
 #include <oglplus/ext/ARB_compatibility.hpp>
+#include <oglplus/ext/EXT_direct_state_access.hpp>
 #include <oglplus/ext/NV_path_rendering.hpp>
 
 #include <vector>
@@ -21,6 +22,7 @@ class TextExample
 private:
 	oglplus::Context gl;
 	oglplus::ARB_compatibility glc;
+	oglplus::EXT_direct_state_access dsa;
 	oglplus::NV_path_rendering pr;
 
 	const oglplus::String text;
@@ -74,19 +76,16 @@ public:
 			font_min_max
 		);
 
-		glc.MatrixMode(MatrixMode::Projection);
-		glc.LoadMatrix(
-			CamMatrixf::Ortho(
+		dsa.Matrix().Ortho(
+			MatrixMode::Projection,
 				text_left -10,
 				text_right+10,
 				font_min_max[0],
 				font_min_max[1],
 				-1.0,
 				1.0
-			)
 		);
-		glc.MatrixMode(MatrixMode::Modelview);
-		glc.LoadIdentity();
+		dsa.Matrix().LoadIdentity(MatrixMode::Modelview);
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearStencil(0);
