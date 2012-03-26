@@ -1073,12 +1073,13 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PathGlyphsNV}
 	 */
+	template <typename CharType>
 	void Glyphs(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
 		const std::initializer_list<PathNVFontStyle>& font_style,
 		GLsizei num_glyphs,
-		const GLchar* char_codes,
+		const CharType* char_codes,
 		PathNVMissingGlyph handle_missing_glyphs,
 		GLuint parameter_template,
 		GLfloat em_scale
@@ -1090,8 +1091,39 @@ public:
 			(const void*)font_name,
 			aux::MakeBitfield(font_style),
 			num_glyphs,
-			GL_UNSIGNED_BYTE,
+			GetDataType<CharType>(),
 			(const void*)char_codes,
+			GLenum(handle_missing_glyphs),
+			parameter_template,
+			em_scale
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+	}
+
+	/// Creates a range of paths from specified font for specified chars
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathGlyphsNV}
+	 */
+	template <typename CharType>
+	void Glyphs(
+		PathNVFontTarget font_target,
+		const GLchar* font_name,
+		const std::initializer_list<PathNVFontStyle>& font_style,
+		const std::vector<CharType>& char_codes,
+		PathNVMissingGlyph handle_missing_glyphs,
+		GLuint parameter_template,
+		GLfloat em_scale
+	)
+	{
+		OGLPLUS_GLFUNC(PathGlyphsNV)(
+			this->_get_name(0),
+			GLenum(font_target),
+			(const void*)font_name,
+			aux::MakeBitfield(font_style),
+			GLsizei(char_codes.size()),
+			GetDataType<CharType>(),
+			(const void*)char_codes.data(),
 			GLenum(handle_missing_glyphs),
 			parameter_template,
 			em_scale
@@ -1127,6 +1159,36 @@ public:
 			em_scale
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+	}
+
+	/// Creates a range of paths from specified font
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathGlyphRangeNV}
+	 */
+	void GlyphRange(
+		PathNVFontTarget font_target,
+		const GLchar* font_name,
+		const std::initializer_list<PathNVFontStyle>& font_style,
+		GLuint first_glyph,
+		GLsizei num_glyphs,
+		PathNVMissingGlyph handle_missing_glyphs,
+		GLuint parameter_template,
+		GLfloat em_scale
+	)
+	{
+		OGLPLUS_GLFUNC(PathGlyphRangeNV)(
+			this->_get_name(0),
+			GLenum(font_target),
+			(const void*)font_name,
+			aux::MakeBitfield(font_style),
+			first_glyph,
+			num_glyphs,
+			GLenum(handle_missing_glyphs),
+			parameter_template,
+			em_scale
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphRangeNV));
 	}
 
 	/// Queries the glyph spacing for paths in the array
@@ -1193,7 +1255,6 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetPathSpacingNV}
 	 */
-	template <typename IndexType>
 	void GetSpacing(
 		PathNVListMode list_mode,
 		const String& indices,
@@ -1273,7 +1334,6 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetPathMetricsNV}
 	 */
-	template <typename IndexType>
 	void GetMetrics(
 		const std::initializer_list<PathNVMetricQuery>& query_mask,
 		const String& indices,
@@ -1372,6 +1432,34 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
 	}
 
+	/// Writes the path interiors (fill) into the stencil buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilFillPathInstancedNV}
+	 */
+	void StencilFillInstanced(
+		const String& paths,
+		PathNVFillMode mode,
+		GLuint mask,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		// TODO: check if enough transform values
+		// are provided for transform type
+		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
+			GLsizei(paths.size()),
+			GL_UTF8_NV,
+			(const void*)paths.c_str(),
+			this->_get_name(0),
+			GLenum(mode),
+			mask,
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
+	}
+
 	/// Covers the path interiors (fill)
 	/**
 	 *  @glsymbols
@@ -1415,6 +1503,30 @@ public:
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths.data(),
+			this->_get_name(0),
+			GLenum(mode),
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+	}
+
+	/// Covers the path interiors (fill)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	void CoverFillInstanced(
+		const String& paths,
+		PathNVFillCoverMode mode,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(CoverFillPathInstancedNV)(
+			GLsizei(paths.size()),
+			GL_UTF8_NV,
+			(const void*)paths.c_str(),
 			this->_get_name(0),
 			GLenum(mode),
 			GLenum(transform_type),
@@ -1469,6 +1581,32 @@ public:
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths.data(),
+			this->_get_name(0),
+			reference,
+			mask,
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+	}
+
+	/// Writes the path interiors strokes to the stencil buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilStrokePathInstancedNV}
+	 */
+	void StencilStrokeInstanced(
+		const String& paths,
+		GLint reference,
+		GLuint mask,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(StencilStrokePathInstancedNV)(
+			GLsizei(paths.size()),
+			GL_UTF8_NV,
+			(const void*)paths.c_str(),
 			this->_get_name(0),
 			reference,
 			mask,
@@ -1521,6 +1659,30 @@ public:
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths.data(),
+			this->_get_name(0),
+			GLenum(mode),
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+	}
+
+	/// Covers the path strokes
+	/**
+	 *  @glsymbols
+	 *  @glfunref{CoverFillPathInstancedNV}
+	 */
+	void CoverStrokeInstanced(
+		const String& paths,
+		PathNVStrokeCoverMode mode,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		OGLPLUS_GLFUNC(CoverStrokePathInstancedNV)(
+			GLsizei(paths.size()),
+			GL_UTF8_NV,
+			(const void*)paths.c_str(),
 			this->_get_name(0),
 			GLenum(mode),
 			GLenum(transform_type),

@@ -46,9 +46,16 @@ if(GLUT_FOUND AND GLEW_FOUND)
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 		)
 
-		standalone_example_common(
-			003_simple_text
-			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-		)
+		if(HAS_GLEW_EXT_direct_state_access)
+			standalone_example_common(
+				003_simple_text
+				${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+			)
+
+			standalone_example_common(
+				004_text_rendering
+				${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+			)
+		endif()
 	endif()
 endif()

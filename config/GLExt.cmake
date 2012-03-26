@@ -30,7 +30,7 @@ function(glew_ext_detection EXTENSION_NAME)
 			${PROJECT_BINARY_DIR}/gl_ext/has_GLEW_${EXTENSION_NAME}.cpp
 		)
 		unset(OGLPLUS_CONFIG_QUERY_GL_EXT)
-	
+
 		try_compile(
 			HAS_GLEW_${EXTENSION_NAME}
 			${PROJECT_BINARY_DIR}/gl_ext
@@ -40,10 +40,14 @@ function(glew_ext_detection EXTENSION_NAME)
 				-I${PROJECT_SOURCE_DIR}/include
 				-I${PROJECT_BINARY_DIR}/include
 		)
+		if(HAS_GLEW_${EXTENSION_NAME})
+			message(STATUS "Found GLEW extension: ${EXTENSION_NAME}")
+		endif()
 	endif()
 endfunction()
 
 glew_ext_detection(ARB_compatibility)
+glew_ext_detection(EXT_direct_state_access)
 glew_ext_detection(ARB_debug_output)
 glew_ext_detection(ATI_meminfo)
 glew_ext_detection(NV_path_rendering)

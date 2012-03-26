@@ -48,7 +48,7 @@ if(${OGLPLUS_USE_GLEW} AND NOT ${OGLPLUS_WITHOUT_GLEW})
 	include_directories(BEFORE SYSTEM ${GLEW_INCLUDE_DIR})
 	set(OGLPLUS_GL_LIB ${OPENGL3_LIBRARIES} ${GLEW_LIBRARIES})
 
-	message("Using GLEW")
+	message(STATUS "Using GLEW")
 
 	if(NOT ${GLUT_FOUND})
 		message(FATAL_ERROR "GLUT is also required")
@@ -62,7 +62,7 @@ elseif(${OGLPLUS_USE_GL3H})
 	include_directories(BEFORE SYSTEM ${OPENGL3_INCLUDE_DIR})
 	set(OGLPLUS_GL_LIB ${OPENGL3_LIBRARIES})
 
-	message("Using GL3")
+	message(STATUS "Using GL3")
 else()
 	message(FATAL_ERROR "GL3 or GLEW is required for OGLplus")
 	return()

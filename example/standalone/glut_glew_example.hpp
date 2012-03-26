@@ -34,15 +34,19 @@ private:
 
 	std::chrono::time_point<std::chrono::system_clock> _start;
 	std::chrono::time_point<std::chrono::system_clock> _now;
-	double _frame_time;
+	double _frame_time, _frame_duration;
+	unsigned long _frame_number;
 
 	void _update(void)
 	{
 		static const double period =
 			double(std::chrono::system_clock::period::num)/
 			double(std::chrono::system_clock::period::den);
-		_now = std::chrono::system_clock::now();
+		auto now = std::chrono::system_clock::now();
+		_frame_duration = (now - _now).count() * period;
+		_now = now;
 		_frame_time = (_now - _start).count() * period;
+		++_frame_number;
 	}
 
 	size_t _width, _height;
@@ -66,6 +70,11 @@ private:
 
 public:
 	double FrameTime(void) const { return _frame_time; }
+	double FrameDuration(void) const { return _frame_duration; }
+	unsigned long FrameNumber(void) const { return _frame_number; }
+
+	double CurrentFPS(void) const { return 1.0 / _frame_duration; }
+	double AverageFPS(void) const { return _frame_number / _frame_time; }
 
 	size_t Width(void) const { return _width; }
 	size_t Height(void) const { return _height; }
@@ -130,6 +139,7 @@ public:
 		PassiveMotion();
 
 		_start = std::chrono::system_clock::now();
+		_frame_number = 0;
 		_update();
 	}
 

@@ -19,6 +19,8 @@
 
 namespace oglplus {
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+
 /// Wrapper around context direct state access operations
 /**
  *  @note Do not use this class directly use EXT_direct_state_access instead.
@@ -860,7 +862,6 @@ struct DSATextureEXT
  */
 };
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 /// Wrapper for the EXT_direct_state_access extension
 /**
  *  @glsymbols
