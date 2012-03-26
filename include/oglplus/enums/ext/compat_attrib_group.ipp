@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/ext/nv_path_metric_query.ipp
+ *  .file oglplus/enums/ext/compat_attrib_group.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/ext/nv_path_metric_query.txt' instead.
+ *  edit 'source/enums/ext/compat_attrib_group.txt' instead.
  *
  *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,50 +11,50 @@
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
-/// GLYPH_WIDTH_BIT_NV
-GlyphWidth,
-/// GLYPH_HEIGHT_BIT_NV
-GlyphHeight,
-/// GLYPH_HORIZONTAL_BEARING_X_BIT_NV
-GlyphHorizontalBearingX,
-/// GLYPH_HORIZONTAL_BEARING_Y_BIT_NV
-GlyphHorizontalBearingY,
-/// GLYPH_HORIZONTAL_BEARING_ADVANCE_BIT_NV
-GlyphHorizontalBearingAdvance,
-/// GLYPH_VERTICAL_BEARING_X_BIT_NV
-GlyphVerticalBearingX,
-/// GLYPH_VERTICAL_BEARING_Y_BIT_NV
-GlyphVerticalBearingY,
-/// GLYPH_VERTICAL_BEARING_ADVANCE_BIT_NV
-GlyphVerticalBearingAdvance,
-/// GLYPH_HAS_KERNING_NV
-GlyphHasKerning,
-/// FONT_X_MIN_BOUNDS_NV
-FontXMinBounds,
-/// FONT_Y_MIN_BOUNDS_NV
-FontYMinBounds,
-/// FONT_X_MAX_BOUNDS_NV
-FontXMaxBounds,
-/// FONT_Y_MAX_BOUNDS_NV
-FontYMaxBounds,
-/// FONT_UNITS_PER_EM_NV
-FontUnitsPerEm,
-/// FONT_ASCENDER_NV
-FontAscender,
-/// FONT_DESCENDER_NV
-FontDescender,
-/// FONT_HEIGHT_NV
-FontHeight,
-/// FONT_MAX_ADVANCE_WIDTH_NV
-FontMaxAdvanceWidth,
-/// FONT_MAX_ADVANCE_HEIGHT_NV
-FontMaxAdvanceHeight,
-/// FONT_UNDERLINE_POSITION_NV
-FontUnderlinePosition,
-/// FONT_UNDERLINE_THICKNESS_NV
-FontUnderlineThickness,
-/// FONT_HAS_KERNING_NV
-FontHasKerning
+/// ACCUM_BUFFER_BIT
+AccumBuffer,
+/// COLOR_BUFFER_BIT
+ColorBuffer,
+/// CURRENT_BIT
+Current,
+/// DEPTH_BUFFER_BIT
+DepthBuffer,
+/// ENABLE_BIT
+Enable,
+/// EVAL_BIT
+Eval,
+/// FOG_BIT
+Fog,
+/// HINT_BIT
+Hint,
+/// LIGHTING_BIT
+Lighting,
+/// LINE_BIT
+Line,
+/// LIST_BIT
+List,
+/// MULTISAMPLE_BIT
+Multisample,
+/// PIXEL_MODE_BIT
+PixelMode,
+/// POINT_BIT
+Point,
+/// POLYGON_BIT
+Polygon,
+/// POLYGON_STIPPLE_BIT
+PolygonStipple,
+/// SCISSOR_BIT
+Scissor,
+/// STENCIL_BUFFER_BIT
+StencilBuffer,
+/// TEXTURE_BIT
+Texture,
+/// TRANSFORM_BIT
+Transform,
+/// VIEWPORT_BIT
+Viewport,
+/// ALL_ATTRIB_BITS
+AllAttribs
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
@@ -62,200 +62,200 @@ FontHasKerning
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif
 
-#if defined GL_GLYPH_WIDTH_BIT_NV
+#if defined GL_ACCUM_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphWidth = GL_GLYPH_WIDTH_BIT_NV
+AccumBuffer = GL_ACCUM_BUFFER_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GLYPH_HEIGHT_BIT_NV
+#if defined GL_COLOR_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphHeight = GL_GLYPH_HEIGHT_BIT_NV
+ColorBuffer = GL_COLOR_BUFFER_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GLYPH_HORIZONTAL_BEARING_X_BIT_NV
+#if defined GL_CURRENT_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphHorizontalBearingX = GL_GLYPH_HORIZONTAL_BEARING_X_BIT_NV
+Current = GL_CURRENT_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GLYPH_HORIZONTAL_BEARING_Y_BIT_NV
+#if defined GL_DEPTH_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphHorizontalBearingY = GL_GLYPH_HORIZONTAL_BEARING_Y_BIT_NV
+DepthBuffer = GL_DEPTH_BUFFER_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GLYPH_HORIZONTAL_BEARING_ADVANCE_BIT_NV
+#if defined GL_ENABLE_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphHorizontalBearingAdvance = GL_GLYPH_HORIZONTAL_BEARING_ADVANCE_BIT_NV
+Enable = GL_ENABLE_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GLYPH_VERTICAL_BEARING_X_BIT_NV
+#if defined GL_EVAL_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphVerticalBearingX = GL_GLYPH_VERTICAL_BEARING_X_BIT_NV
+Eval = GL_EVAL_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GLYPH_VERTICAL_BEARING_Y_BIT_NV
+#if defined GL_FOG_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphVerticalBearingY = GL_GLYPH_VERTICAL_BEARING_Y_BIT_NV
+Fog = GL_FOG_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GLYPH_VERTICAL_BEARING_ADVANCE_BIT_NV
+#if defined GL_HINT_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphVerticalBearingAdvance = GL_GLYPH_VERTICAL_BEARING_ADVANCE_BIT_NV
+Hint = GL_HINT_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_GLYPH_HAS_KERNING_NV
+#if defined GL_LIGHTING_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-GlyphHasKerning = GL_GLYPH_HAS_KERNING_NV
+Lighting = GL_LIGHTING_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_X_MIN_BOUNDS_NV
+#if defined GL_LINE_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontXMinBounds = GL_FONT_X_MIN_BOUNDS_NV
+Line = GL_LINE_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_Y_MIN_BOUNDS_NV
+#if defined GL_LIST_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontYMinBounds = GL_FONT_Y_MIN_BOUNDS_NV
+List = GL_LIST_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_X_MAX_BOUNDS_NV
+#if defined GL_MULTISAMPLE_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontXMaxBounds = GL_FONT_X_MAX_BOUNDS_NV
+Multisample = GL_MULTISAMPLE_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_Y_MAX_BOUNDS_NV
+#if defined GL_PIXEL_MODE_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontYMaxBounds = GL_FONT_Y_MAX_BOUNDS_NV
+PixelMode = GL_PIXEL_MODE_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_UNITS_PER_EM_NV
+#if defined GL_POINT_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontUnitsPerEm = GL_FONT_UNITS_PER_EM_NV
+Point = GL_POINT_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_ASCENDER_NV
+#if defined GL_POLYGON_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontAscender = GL_FONT_ASCENDER_NV
+Polygon = GL_POLYGON_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_DESCENDER_NV
+#if defined GL_POLYGON_STIPPLE_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontDescender = GL_FONT_DESCENDER_NV
+PolygonStipple = GL_POLYGON_STIPPLE_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_HEIGHT_NV
+#if defined GL_SCISSOR_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontHeight = GL_FONT_HEIGHT_NV
+Scissor = GL_SCISSOR_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_MAX_ADVANCE_WIDTH_NV
+#if defined GL_STENCIL_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontMaxAdvanceWidth = GL_FONT_MAX_ADVANCE_WIDTH_NV
+StencilBuffer = GL_STENCIL_BUFFER_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_MAX_ADVANCE_HEIGHT_NV
+#if defined GL_TEXTURE_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontMaxAdvanceHeight = GL_FONT_MAX_ADVANCE_HEIGHT_NV
+Texture = GL_TEXTURE_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_UNDERLINE_POSITION_NV
+#if defined GL_TRANSFORM_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontUnderlinePosition = GL_FONT_UNDERLINE_POSITION_NV
+Transform = GL_TRANSFORM_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_UNDERLINE_THICKNESS_NV
+#if defined GL_VIEWPORT_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontUnderlineThickness = GL_FONT_UNDERLINE_THICKNESS_NV
+Viewport = GL_VIEWPORT_BIT
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_FONT_HAS_KERNING_NV
+#if defined GL_ALL_ATTRIB_BITS
 # if OGLPLUS_LIST_NEEDS_COMMA
 ,
 # endif
-FontHasKerning = GL_FONT_HAS_KERNING_NV
+AllAttribs = GL_ALL_ATTRIB_BITS
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

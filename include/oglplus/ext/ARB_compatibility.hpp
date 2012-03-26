@@ -15,6 +15,8 @@
 #include <oglplus/extension.hpp>
 #include <oglplus/texture_unit.hpp>
 
+#include <oglplus/auxiliary/bitfield.hpp>
+
 #include <oglplus/matrix.hpp>
 
 namespace oglplus {
@@ -64,6 +66,50 @@ inline const GLchar* EnumValueName(MatrixMode value)
 	return "";
 }
 
+/// Compatibility server context attribute bits enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{PushAttrib}
+ *  @glfunref{PopAttrib}
+ *  @glextref{ARB,compatibility}
+ */
+enum class CompatibilityAttributeGroup : GLenum
+{
+#include <oglplus/enums/ext/compat_attrib_group.ipp>
+};
+
+inline const GLchar* EnumValueName(CompatibilityAttributeGroup value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/compat_attrib_group.ipp>
+#endif
+	return "";
+}
+
+/// Compatibility client context attribute bits enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glfunref{PushClientAttrib}
+ *  @glfunref{PopClientAttrib}
+ *  @glextref{ARB,compatibility}
+ */
+enum class CompatibilityClientAttributeGroup : GLenum
+{
+#include <oglplus/enums/ext/compat_client_attrib_group.ipp>
+};
+
+inline const GLchar* EnumValueName(CompatibilityClientAttributeGroup value)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/compat_client_attrib_group.ipp>
+#endif
+	return "";
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_compatibility
 /// Wrapper for the ARB_compatibility extension
 /**
@@ -96,6 +142,60 @@ public:
 	{
 		OGLPLUS_GLFUNC(End)();
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(End));
+	}
+
+	/// Pushes specified server attribute group variables on the stack
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PushAttrib}
+	 */
+	static void PushAttrib(
+		const std::initializer_list<
+			CompatibilityAttributeGroup
+		>& attrib_groups
+	)
+	{
+		OGLPLUS_GLFUNC(PushAttrib)(aux::MakeBitfield(attrib_groups));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PushAttrib));
+	}
+
+	/// Pushes specified client attribute group variables on the stack
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PushClientAttrib}
+	 */
+	static void PushClientAttrib(
+		const std::initializer_list<
+			CompatibilityClientAttributeGroup
+		>& attrib_groups
+	)
+	{
+		OGLPLUS_GLFUNC(PushClientAttrib)(
+			aux::MakeBitfield(attrib_groups)
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PushClientAttrib));
+	}
+
+	/// Pop previously pushed server attribute group variables from the stack
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PopAttrib}
+	 */
+	static void PopAttrib(void)
+	{
+		OGLPLUS_GLFUNC(PopAttrib)();
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PopAttrib));
+	}
+
+	/// Pop previously pushed client attribute group variables from the stack
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PopClientAttrib}
+	 */
+	static void PopClientAttrib(void)
+	{
+		OGLPLUS_GLFUNC(PopClientAttrib)();
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PopClientAttrib));
 	}
 
 	/// Sets the matrix mode for the subsequent commands

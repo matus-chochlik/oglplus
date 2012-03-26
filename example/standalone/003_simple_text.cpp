@@ -43,7 +43,7 @@ public:
 		text_path.Glyphs(
 			PathNVFontTarget::Standard,
 			"Sans",
-			{PathNVFontStyle::BoldBit},
+			{PathNVFontStyle::Bold},
 			text,
 			PathNVMissingGlyph::Use,
 			~0,
@@ -76,7 +76,7 @@ public:
 			font_min_max
 		);
 
-		dsa.Matrix().Ortho(
+		dsa.MatrixOrtho(
 			MatrixMode::Projection,
 				text_left -10,
 				text_right+10,
@@ -85,7 +85,7 @@ public:
 				-1.0,
 				1.0
 		);
-		dsa.Matrix().LoadIdentity(MatrixMode::Modelview);
+		dsa.MatrixLoadIdentity(MatrixMode::Modelview);
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearStencil(0);
