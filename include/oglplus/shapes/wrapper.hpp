@@ -35,8 +35,7 @@ template <typename ShapeBuilder>
 class ShapeWrapper
 {
 protected:
-	// helper object building shape vertex attributes
-	ShapeBuilder make_shape;
+	FaceOrientation face_winding;
 	// helper object encapsulating shape drawing instructions
 	shapes::DrawingInstructions shape_instr;
 	// indices pointing to shape primitive elements
@@ -57,7 +56,7 @@ protected:
 	std::vector<String> names;
 
 	template <typename Iterator>
-	void _init(Iterator name, Iterator end)
+	void _init(const ShapeBuilder& builder, Iterator name, Iterator end)
 	{
 		// bind the VAO for the shape
 		vao.Bind();
@@ -75,7 +74,7 @@ protected:
 			{
 				// bind the VBO for the vertex attribute
 				vbos[i].Bind(Buffer::Target::Array);
-				npvs[i] = getter(make_shape, data);
+				npvs[i] = getter(builder, data);
 				names[i] = *name;
 				// upload the data
 				Buffer::Data(Buffer::Target::Array, data);
@@ -87,14 +86,14 @@ protected:
 public:
 	template <typename StdRange>
 	ShapeWrapper(const StdRange& names, const ShapeBuilder& builder)
-	 : make_shape(builder)
-	 , shape_instr(make_shape.Instructions())
-	 , shape_indices(make_shape.Indices())
+	 : face_winding(builder.FaceWinding())
+	 , shape_instr(builder.Instructions())
+	 , shape_indices(builder.Indices())
 	 , vbos(names.end() - names.begin())
 	 , npvs(names.end() - names.begin(), 0)
 	 , names(names.end() - names.begin())
 	{
-		_init(names.begin(), names.end());
+		_init(builder, names.begin(), names.end());
 	}
 
 	template <typename StdRange>
@@ -102,14 +101,14 @@ public:
 		const StdRange& names,
 		const ShapeBuilder& builder,
 		const Program& prog
-	): make_shape(builder)
-	 , shape_instr(make_shape.Instructions())
-	 , shape_indices(make_shape.Indices())
+	): face_winding(builder.FaceWinding())
+	 , shape_instr(builder.Instructions())
+	 , shape_indices(builder.Indices())
 	 , vbos(names.end() - names.begin())
 	 , npvs(names.end() - names.begin(), 0)
 	 , names(names.end() - names.begin())
 	{
-		_init(names.begin(), names.end());
+		_init(builder, names.begin(), names.end());
 		UseInProgram(prog);
 	}
 
@@ -117,14 +116,14 @@ public:
 		const std::initializer_list<const GLchar*>& names,
 		const ShapeBuilder& builder,
 		const Program& prog
-	): make_shape(builder)
-	 , shape_instr(make_shape.Instructions())
-	 , shape_indices(make_shape.Indices())
+	): face_winding(builder.FaceWinding())
+	 , shape_instr(builder.Instructions())
+	 , shape_indices(builder.Indices())
 	 , vbos(names.end() - names.begin())
 	 , npvs(names.end() - names.begin(), 0)
 	 , names(names.end() - names.begin())
 	{
-		_init(names.begin(), names.end());
+		_init(builder, names.begin(), names.end());
 		UseInProgram(prog);
 	}
 
@@ -150,13 +149,13 @@ public:
 
 	void Draw(void)
 	{
-		gl.FrontFace(make_shape.FaceWinding());
+		gl.FrontFace(face_winding);
 		shape_instr.Draw(shape_indices);
 	}
 
 	void Draw(const std::function<bool (GLuint)>& drawing_driver)
 	{
-		gl.FrontFace(make_shape.FaceWinding());
+		gl.FrontFace(face_winding);
 		shape_instr.Draw(shape_indices, 1, drawing_driver);
 	}
 };

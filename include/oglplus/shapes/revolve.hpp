@@ -30,39 +30,95 @@ class RevolveY
  : public DrawingInstructionWriter
 {
 private:
-	const std::vector<Vector<Type, 3>> _positions;
-	std::vector<Vector<Type, 3>> _normals;
-	std::vector<Vector<Type, 3>> _tex_coords;
-	const size_t _sections, _rings;
+	const std::vector<Type> _sections, _section_factors;
+	const size_t _rings;
 
-	void _calculate_normals(void)
+	const std::vector<Vector<Type, 3>> _positions_0, _positions_1;
+	const std::vector<Vector<Type, 3>> _normals_0, _normals_1;
+	const std::vector<Vector<Type, 3>> _tex_coords_0, _tex_coords_1;
+
+	static Vector<Type, 3> _mix(
+		const Vector<Type, 3>& a,
+		const Vector<Type, 3>& b,
+		Type factor
+	)
 	{
-		assert(_normals.empty());
-		_normals.resize(_positions.size());
-		const size_t n = _normals.size()-1;
-		const Vec3f tangent(0.0, 0.0, -1.0);
-		_normals[0] = Normalized(Cross(
-			tangent,
-			_positions[1] - _positions[0]
-		));
-		for(size_t i=1; i!=n; ++i)
-		{
-			_normals[i] = Normalized(Cross(
-				tangent,
-				_positions[i+1] - _positions[i-1]
-			));
-		}
-		_normals[n] = Normalized(Cross(
-			tangent,
-			_positions[n] - _positions[n-1]
-		));
+		if(factor < Type(0)) factor = Type(0);
+		if(factor > Type(1)) factor = Type(1);
+		return a * (Type(1) - factor) + b * factor;
 	}
 
-	void _check_and_init(void)
+	Vector<Type, 3> _get_position(size_t ring, size_t section) const
+	{
+		return _mix(
+			_positions_0[ring],
+			_positions_1[ring],
+			_section_factors[section]
+		);
+	}
+
+	Vector<Type, 3> _get_normal(size_t ring, size_t section) const
+	{
+		return _mix(
+			_normals_0[ring],
+			_normals_1[ring],
+			_section_factors[section]
+		);
+	}
+
+	Vector<Type, 3> _get_tex_coord(size_t ring, size_t section) const
+	{
+		return _mix(
+			_tex_coords_0[ring],
+			_tex_coords_1[ring],
+			_section_factors[section]
+		);
+	}
+
+	static std::vector<Type> _make_default_sections(size_t sections)
+	{
+		std::vector<Type> result(sections + 1);
+		const Type s_step = Type(1) / Type(sections);
+		Type s = Type(0);
+		for(auto i=result.begin(), e=result.end(); i!=e; ++i, s+=s_step)
+			*i = s;
+		return result;
+	}
+
+	static std::vector<Vector<Type, 3>> _calculate_normals(
+		const std::vector<Vector<Type, 3>>& pos,
+		const std::vector<Vector<Type, 3>>& nml
+	)
+	{
+		if(!nml.empty())
+		{
+			assert(pos.size() == nml.size());
+			return nml;
+		}
+		std::vector<Vector<Type, 3>> result(pos.size());
+
+		const size_t n = result.size()-1;
+		const Vec3f tgnt(0.0, 0.0, -1.0);
+
+		result[0] = Normalized(Cross(tgnt, pos[1] - pos[0]));
+		for(size_t i=1; i!=n; ++i)
+			result[i] = Normalized(Cross(tgnt, pos[i+1]-pos[i-1]));
+		result[n] = Normalized(Cross(tgnt, pos[n] - pos[n-1]));
+		return result;
+	}
+
+	void _check(void)
 	{
 		assert(_rings > 1);
-		assert(_sections > 2);
-		if(_normals.empty()) _calculate_normals();
+		assert(_sections.size() > 2);
+		assert(_sections.size() == _section_factors.size());
+
+		assert(_positions_0.size() == _rings);
+		assert(_positions_1.size() == _rings);
+		assert(_normals_0.size() == _rings);
+		assert(_normals_1.size() == _rings);
+		assert(_tex_coords_0.size() == _rings);
+		assert(_tex_coords_1.size() == _rings);
 	}
 public:
 	/// Creates a shape by revolving curve approximation around the y-axis
@@ -71,13 +127,17 @@ public:
 		const std::vector<Vector<Type, 3>>& positions,
 		const std::vector<Vector<Type, 3>>& normals,
 		const std::vector<Vector<Type, 3>>& tex_coords
-	): _positions(positions)
-	 , _normals(normals)
-	 , _tex_coords(tex_coords)
-	 , _sections(sections)
-	 , _rings(_positions.size())
+	): _sections(_make_default_sections(sections))
+	 , _section_factors(_sections.size(), Type(0))
+	 , _rings(positions.size())
+	 , _positions_0(positions)
+	 , _positions_1(_positions_0)
+	 , _normals_0(_calculate_normals(_positions_0, normals))
+	 , _normals_1(_normals_0)
+	 , _tex_coords_0(tex_coords)
+	 , _tex_coords_1(_tex_coords_0)
 	{
-		_check_and_init();
+		_check();
 	}
 
 	/// Returns the winding direction of faces
@@ -90,19 +150,17 @@ public:
 	template <typename T>
 	GLuint Positions(std::vector<T>& dest) const
 	{
-		dest.resize((_rings) * (_sections + 1) * 3);
+		dest.resize(_rings * _sections.size() * 3);
 		size_t k = 0;
 		//
-		const GLdouble s_step = (1.0) / GLdouble(_sections);
-
-		for(size_t s=0; s!=(_sections+1); ++s)
+		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
-			const auto angle = FullCircles(s*s_step);
+			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 
 			for(size_t r=0; r!=_rings; ++r)
 			{
-				const Vector<Type, 4> in(_positions[r], 1.0);
+				const Vector<Type, 4> in(_get_position(r, si), 1);
 				const Vector<Type, 4> out = mat * in;
 
 				dest[k++] = out.x();
@@ -118,19 +176,17 @@ public:
 	template <typename T>
 	GLuint Normals(std::vector<T>& dest) const
 	{
-		dest.resize((_rings) * (_sections + 1) * 3);
+		dest.resize(_rings * _sections.size() * 3);
 		size_t k = 0;
 		//
-		const GLdouble s_step = (1.0) / GLdouble(_sections);
-
-		for(size_t s=0; s!=(_sections+1); ++s)
+		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
-			const auto angle = FullCircles(s*s_step);
+			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 
 			for(size_t r=0; r!=_rings; ++r)
 			{
-				const Vector<Type, 4> in(_normals[r], 0.0);
+				const Vector<Type, 4> in(_get_normal(r, si), 0);
 				const Vector<Type, 4> out = mat * in;
 
 				dest[k++] = out.x();
@@ -146,16 +202,14 @@ public:
 	template <typename T>
 	GLuint Tangents(std::vector<T>& dest) const
 	{
-		dest.resize((_rings) * (_sections + 1) * 3);
+		dest.resize(_rings * _sections.size() * 3);
 		size_t k = 0;
-		//
-		GLdouble s_step = (1.0) / GLdouble(_sections);
 
 		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
 
-		for(size_t s=0; s!=(_sections+1); ++s)
+		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
-			const auto angle = FullCircles(s*s_step);
+			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 			const auto out = mat * in;
 
@@ -174,23 +228,22 @@ public:
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
-		dest.resize((_rings) * (_sections + 1) * 3);
+		dest.resize(_rings * _sections.size() * 3);
 		size_t k = 0;
 		//
-		GLdouble s_step = (1.0) / GLdouble(_sections);
-
 		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
 
-		for(size_t s=0; s!=(_sections+1); ++s)
+		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
-			const T u_mult = s*s_step;
+			const T u_mult = _sections[si];
 			const auto angle = FullCircles(u_mult);
 
 			for(size_t r=0; r!=_rings; ++r)
 			{
-				dest[k++] = _tex_coords[r].x()*u_mult;
-				dest[k++] = _tex_coords[r].y();
-				dest[k++] = _tex_coords[r].z();
+				auto tc = _get_tex_coord(r, si);
+				dest[k++] = tc.x()*u_mult;
+				dest[k++] = tc.y();
+				dest[k++] = tc.z();
 			}
 		}
 		assert(k == dest.size());
@@ -223,14 +276,15 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
-		const size_t n = 2 * (_rings)*(_sections);
+		const size_t sn = _sections.size() - 1;
+		const size_t n = 2 * _rings * sn;
 		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 		//
 		IndexArray indices(n);
 		size_t k = 0;
 		size_t offs = 0;
 		// the triangle strips
-		for(size_t s=0; s!=_sections; ++s)
+		for(size_t s=0; s!=sn; ++s)
 		{
 			for(size_t r=0; r!=_rings; ++r)
 			{
@@ -249,33 +303,6 @@ public:
 /* TODO
 	IndexArray IndicesWithAdjacency(void) const
 	{
-		const size_t m = (_rings)*(_sections + 1);
-		const size_t n = 4 * m;
-		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
-		//
-		IndexArray indices(n);
-		size_t k = 0;
-		size_t offs = 0;
-
-		for(size_t r=0; r!=(_rings); ++r)
-		{
-			indices[k++] = offs;
-			indices[k++] = offs + (2*_sections);
-			indices[k++] = offs + (_sections+1);
-			for(size_t s=0; s!=_sections; ++s)
-			{
-				indices[k++] = (offs + m-(_sections+1))%m + s+1;
-				indices[k++] = offs + s + 1;
-				indices[k++] = (offs + 2*(_sections+1)) % m + s;
-				indices[k++] = offs + (_sections+1) + s + 1;
-			}
-			indices[k++] = offs + 1;
-			offs += _sections + 1;
-		}
-		assert(k == indices.size());
-		//
-		// return the indices
-		return std::move(indices);
 	}
 */
 
@@ -283,8 +310,9 @@ public:
 	DrawingInstructions Instructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		size_t step = _rings * 2;
-		for(size_t s=0; s!=_sections; ++s)
+		const size_t sn = _sections.size() - 1;
+		const size_t step = _rings * 2;
+		for(size_t s=0; s!=sn; ++s)
 		{
 			this->AddInstruction(
 				instructions,
@@ -304,21 +332,6 @@ public:
 /* TODO
 	DrawingInstructions InstructionsWithAdjacency(void) const
 	{
-		auto instructions = this->MakeInstructions();
-		for(size_t r=0; r!=_rings; ++r)
-		{
-			this->AddInstruction(
-				instructions,
-				{
-					DrawOperation::Method::DrawElements,
-					PrimitiveType::TriangleStripAdjacency,
-					GLuint(r * (_sections + 1) * 4),
-					GLuint((_sections + 1) * 4),
-					0
-				}
-			);
-		}
-		return std::move(instructions);
 	}
 */
 };

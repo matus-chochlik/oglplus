@@ -194,7 +194,7 @@ public:
 					Vec3f( 0.25, 0.10, 0.00),
 					Vec3f( 0.00, 0.10, 0.00)
 				})
-			).Approximate(10),
+			).Approximate(8),
 			std::vector<Vec3f>(),
 			BezierCurves<Vec3f, GLfloat, 3>(
 				std::vector<Vec3f>({
@@ -248,7 +248,7 @@ public:
 					Vec3f( 5.00, 4.90, 0.20),
 					Vec3f( 5.00, 5.00, 0.30)
 				})
-			).Approximate(10)
+			).Approximate(8)
 		),
 		vase_prog
 	)
