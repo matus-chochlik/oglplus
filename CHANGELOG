@@ -1,5 +1,14 @@
 Version 0.13.0
 
+Version 0.12.1
+
+- Several problems and omissions in the NV_path_rendering extension
+  wrapper were fixed
+- The ARB_compatibility wrapper was updated
+- A wrapper for a subset of EXT_direct_state_access was added
+- A new example showing dynamic text rendering using NV_path_rendering
+  was added
+
 Version 0.12.0
 
 - Wrappers for several GL extensions (including ARB_compatibility,

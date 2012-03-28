@@ -27,9 +27,9 @@ endif()
 
 # add a target for the examples
 if(OGLPLUS_NO_EXAMPLES)
-add_custom_target(oglplus_examples)
+add_custom_target(oglplus-examples)
 else()
-add_custom_target(oglplus_examples ALL)
+add_custom_target(oglplus-examples ALL)
 endif()
 
 # add a target for the screenshots
@@ -59,7 +59,7 @@ foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 		# TODO detect and link only what is necessary
 		png
 	)
-	add_dependencies(oglplus_examples ${EXE_NAME})
+	add_dependencies(oglplus-examples ${EXE_NAME})
 
 	if(NOT OGLPLUS_NO_SCREENSHOTS)
 		add_custom_command(
