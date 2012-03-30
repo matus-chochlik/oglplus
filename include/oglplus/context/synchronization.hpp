@@ -16,8 +16,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/memory_barrier.hpp>
-
-#include <oglplus/auxiliary/bitfield.hpp>
+#include <oglplus/bitfield.hpp>
 
 namespace oglplus {
 namespace context {
@@ -52,9 +51,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MemoryBarrier}
 	 */
-	static void MemoryBarrier(std::initializer_list<MemoryBarrierBit> bits)
+	static void MemoryBarrier(Bitfield<MemoryBarrierBit> bits)
 	{
-		OGLPLUS_GLFUNC(MemoryBarrier)(aux::MakeBitfield(bits));
+		OGLPLUS_GLFUNC(MemoryBarrier)(GLbitfield(bits));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MemoryBarrier));
 	}
 #endif

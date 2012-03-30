@@ -16,9 +16,9 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/buffer_select_bit.hpp>
+#include <oglplus/bitfield.hpp>
 
 #include <oglplus/auxiliary/clr_bits.hpp>
-#include <oglplus/auxiliary/bitfield.hpp>
 
 namespace oglplus {
 
@@ -159,9 +159,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Clear}
 	 */
-	static void Clear(std::initializer_list<oglplus::ClearBit> bits)
+	static void Clear(Bitfield<oglplus::ClearBit> bits)
 	{
-		OGLPLUS_GLFUNC(Clear)(aux::MakeBitfield(bits));
+		OGLPLUS_GLFUNC(Clear)(GLbitfield(bits));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Clear));
 	}
 

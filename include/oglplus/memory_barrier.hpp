@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_MEMORY_BARRIER_1107121519_HPP
 #define OGLPLUS_MEMORY_BARRIER_1107121519_HPP
 
+#include <oglplus/bitfield.hpp>
+
 namespace oglplus {
 
 /// Enumeration of memory barrier bits
@@ -25,6 +27,8 @@ enum class MemoryBarrierBit : GLbitfield
 {
 #include <oglplus/enums/memory_barrier_bit.ipp>
 };
+
+OGLPLUS_MAKE_BITFIELD(MemoryBarrierBit)
 
 inline const GLchar* EnumValueName(MemoryBarrierBit value)
 {
