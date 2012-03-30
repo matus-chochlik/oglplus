@@ -18,7 +18,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/friend_of.hpp>
-#include <oglplus/auxiliary/bitfield.hpp>
+#include <oglplus/bitfield.hpp>
 #include <oglplus/auxiliary/prog_pl_stages.hpp>
 
 #include <cassert>
@@ -35,6 +35,8 @@ namespace oglplus {
 enum class ProgramPipelineStage : GLbitfield {
 #include <oglplus/enums/program_pipeline_stage.ipp>
 };
+
+OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
 
 inline const GLchar* EnumValueName(ProgramPipelineStage value)
 {
@@ -165,14 +167,14 @@ public:
 	 *  @glfunref{UseProgramStages}
 	 */
 	void UseStages(
-		std::initializer_list<ProgramPipelineStage> stages,
+		Bitfield<ProgramPipelineStage> stages,
 		const ProgramOps& program
 	) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(UseProgramStages)(
 			_name,
-			aux::MakeBitfield(stages),
+			GLbitfield(stages),
 			FriendOf<ProgramOps>::GetName(program)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UseProgramStages));

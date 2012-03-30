@@ -17,8 +17,7 @@
 #include <oglplus/data_type.hpp>
 #include <oglplus/string.hpp>
 #include <oglplus/texture_unit.hpp>
-
-#include <oglplus/auxiliary/bitfield.hpp>
+#include <oglplus/bitfield.hpp>
 
 #include <vector>
 
@@ -338,6 +337,8 @@ enum class PathNVFontStyle: GLenum
 #include <oglplus/enums/ext/nv_path_font_style.ipp>
 };
 
+OGLPLUS_MAKE_BITFIELD(PathNVFontStyle)
+
 inline const GLchar* EnumValueName(PathNVFontStyle value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
@@ -357,6 +358,8 @@ enum class PathNVMetricQuery: GLenum
 {
 #include <oglplus/enums/ext/nv_path_metric_query.ipp>
 };
+
+OGLPLUS_MAKE_BITFIELD(PathNVMetricQuery)
 
 inline const GLchar* EnumValueName(PathNVMetricQuery value)
 {
@@ -1077,7 +1080,7 @@ public:
 	void Glyphs(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
-		const std::initializer_list<PathNVFontStyle>& font_style,
+		Bitfield<PathNVFontStyle> font_style,
 		GLsizei num_glyphs,
 		const CharType* char_codes,
 		PathNVMissingGlyph handle_missing_glyphs,
@@ -1089,7 +1092,7 @@ public:
 			this->_get_name(0),
 			GLenum(font_target),
 			(const void*)font_name,
-			aux::MakeBitfield(font_style),
+			GLbitfield(font_style),
 			num_glyphs,
 			GetDataType<CharType>(),
 			(const void*)char_codes,
@@ -1109,7 +1112,7 @@ public:
 	void Glyphs(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
-		const std::initializer_list<PathNVFontStyle>& font_style,
+		Bitfield<PathNVFontStyle> font_style,
 		const std::vector<CharType>& char_codes,
 		PathNVMissingGlyph handle_missing_glyphs,
 		GLuint parameter_template,
@@ -1120,7 +1123,7 @@ public:
 			this->_get_name(0),
 			GLenum(font_target),
 			(const void*)font_name,
-			aux::MakeBitfield(font_style),
+			GLbitfield(font_style),
 			GLsizei(char_codes.size()),
 			GetDataType<CharType>(),
 			(const void*)char_codes.data(),
@@ -1139,7 +1142,7 @@ public:
 	void Glyphs(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
-		const std::initializer_list<PathNVFontStyle>& font_style,
+		Bitfield<PathNVFontStyle> font_style,
 		const String& char_codes,
 		PathNVMissingGlyph handle_missing_glyphs,
 		GLuint parameter_template,
@@ -1150,7 +1153,7 @@ public:
 			this->_get_name(0),
 			GLenum(font_target),
 			(const void*)font_name,
-			aux::MakeBitfield(font_style),
+			GLbitfield(font_style),
 			char_codes.size(),
 			GL_UTF8_NV,
 			(const void*)char_codes.c_str(),
@@ -1169,7 +1172,7 @@ public:
 	void GlyphRange(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
-		const std::initializer_list<PathNVFontStyle>& font_style,
+		Bitfield<PathNVFontStyle> font_style,
 		GLuint first_glyph,
 		GLsizei num_glyphs,
 		PathNVMissingGlyph handle_missing_glyphs,
@@ -1181,7 +1184,7 @@ public:
 			this->_get_name(0),
 			GLenum(font_target),
 			(const void*)font_name,
-			aux::MakeBitfield(font_style),
+			GLbitfield(font_style),
 			first_glyph,
 			num_glyphs,
 			GLenum(handle_missing_glyphs),
@@ -1285,7 +1288,7 @@ public:
 	 */
 	template <typename IndexType>
 	void GetMetrics(
-		const std::initializer_list<PathNVMetricQuery>& query_mask,
+		Bitfield<PathNVMetricQuery> query_mask,
 		GLsizei num_indices,
 		const IndexType* indices,
 		GLsizei stride,
@@ -1293,7 +1296,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(GetPathMetricsNV)(
-			aux::MakeBitfield(query_mask),
+			GLbitfield(query_mask),
 			num_indices,
 			GLenum(GetDataType<IndexType>()),
 			(const void*)indices,
@@ -1311,14 +1314,14 @@ public:
 	 */
 	template <typename IndexType>
 	void GetMetrics(
-		const std::initializer_list<PathNVMetricQuery>& query_mask,
+		Bitfield<PathNVMetricQuery> query_mask,
 		const std::vector<IndexType>& indices,
 		GLsizei stride,
 		GLfloat* returned_values
 	)
 	{
 		OGLPLUS_GLFUNC(GetPathMetricsNV)(
-			aux::MakeBitfield(query_mask),
+			GLbitfield(query_mask),
 			GLsizei(indices.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)indices.data(),
@@ -1335,14 +1338,14 @@ public:
 	 *  @glfunref{GetPathMetricsNV}
 	 */
 	void GetMetrics(
-		const std::initializer_list<PathNVMetricQuery>& query_mask,
+		Bitfield<PathNVMetricQuery> query_mask,
 		const String& indices,
 		GLsizei stride,
 		GLfloat* returned_values
 	)
 	{
 		OGLPLUS_GLFUNC(GetPathMetricsNV)(
-			aux::MakeBitfield(query_mask),
+			GLbitfield(query_mask),
 			GLsizei(indices.size()+1),
 			GL_UTF8_NV,
 			(const void*)indices.c_str(),
@@ -1359,14 +1362,14 @@ public:
 	 *  @glfunref{GetPathMetricRangeNV}
 	 */
 	void GetMetricRange(
-		const std::initializer_list<PathNVMetricQuery>& query_mask,
+		Bitfield<PathNVMetricQuery> query_mask,
 		GLsizei num_paths,
 		GLsizei stride,
 		GLfloat* returned_values
 	)
 	{
 		OGLPLUS_GLFUNC(GetPathMetricRangeNV)(
-			aux::MakeBitfield(query_mask),
+			GLbitfield(query_mask),
 			this->_get_name(0),
 			num_paths,
 			stride,
