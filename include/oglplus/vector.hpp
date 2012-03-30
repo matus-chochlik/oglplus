@@ -517,16 +517,21 @@ public:
 		return result;
 	}
 
+	template <size_t M>
+	friend typename ::std::enable_if<M==2 && N==2, Vector>::type
+	Perpendicular(const Vector<T, M>& a)
+	{
+		return Vector(a, _op_perpend());
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Cross product
 	friend Vector Cross(const Vector<T, 3>& a, const Vector<T, 3>& b);
 #endif
-	
+
 	template <size_t M>
-	friend Vector Cross(
-		const typename ::std::enable_if<M==3, Vector>::type& a,
-		const Vector<T, M>& b
-	)
+	friend typename ::std::enable_if<M==3 && N==3, Vector>::type
+	Cross(const Vector<T, M>& a, const Vector<T, M>& b)
 	{
 		return Vector(a, b, _op_perpend());
 	}
@@ -664,6 +669,18 @@ public:
 	}
 };
 
+
+/// 1D float vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLfloat, 1> Vec1f;
+
+/// 1D double-precision vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLdouble, 1> Vec1d;
 
 /// 2D float vector
 /**

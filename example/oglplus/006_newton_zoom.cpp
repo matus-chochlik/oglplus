@@ -151,7 +151,7 @@ public:
 		GLfloat scale = 1.0f / (3.0 * time + 1.0f);
 		Angle<GLfloat> angle = FullCircles(time * 0.1);
 		Vec2f x(Cos(angle), Sin(angle));
-		Vec2f y = Cross(x);
+		Vec2f y = Perpendicular(x);
 
 		SetUniform(prog, "ZoomMatrix", Mat2f(x*scale,  y* scale));
 
