@@ -36,13 +36,19 @@ public:
 	 : _bits(BF(0))
 	{
 		for(auto i=bits.begin(),e=bits.end(); i!=e; ++i)
-			bf |= BF(*i);
+			_bits |= BF(*i);
 	}
 
 	friend Bitfield operator | (Bitfield bf, Bit b)
 	{
 		bf._bits |= BF(b);
 		return bf;
+	}
+
+	Bitfield& operator |= (Bit b)
+	{
+		this->_bits |= BF(b);
+		return *this;
 	}
 
 	operator BF (void) const
