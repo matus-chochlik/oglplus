@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,10 +12,14 @@
 #ifndef OGLPLUS_MATRIX_1107121519_HPP
 #define OGLPLUS_MATRIX_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/angle.hpp>
 
+#if !OGLPLUS_NO_INITIALIZER_LISTS
 #include <initializer_list>
+#endif
+
 #include <algorithm>
 
 #include <cassert>
@@ -43,11 +47,6 @@ protected:
 		T _elem[Rows][Cols];
 	} _m;
 private:
-	static_assert(
-		sizeof(_that()._m) == sizeof(_that()._m._data) &&
-		sizeof(_that()._m) == sizeof(_that()._m._elem),
-		"Matrix implementation error"
-	);
 
 	struct _op_negate
 	{
@@ -169,6 +168,7 @@ private:
 	inline void _init_rows(void) const
 	{ }
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <size_t R, size_t ... C>
 	inline void _init_rows(
 		const Vector<T, Cols>& row,
@@ -178,19 +178,88 @@ private:
 		_init_row<R>(row);
 		_init_rows<R+1>(rows...);
 	}
+#else
+	inline void _init_rows(
+		const Vector<T, Cols>& row0,
+		const Vector<T, Cols>& row1
+	)
+	{
+		static_assert(
+			Rows == 2,
+			"Invalid number of rows for this matrix type"
+		);
+		_init_row<0>(row0);
+		_init_row<1>(row1);
+	}
+
+	inline void _init_rows(
+		const Vector<T, Cols>& row0,
+		const Vector<T, Cols>& row1,
+		const Vector<T, Cols>& row2
+	)
+	{
+		static_assert(
+			Rows == 3,
+			"Invalid number of rows for this matrix type"
+		);
+		_init_row<0>(row0);
+		_init_row<1>(row1);
+		_init_row<2>(row2);
+	}
+	
+	inline void _init_rows(
+		const Vector<T, Cols>& row0,
+		const Vector<T, Cols>& row1,
+		const Vector<T, Cols>& row2,
+		const Vector<T, Cols>& row3
+	)
+	{
+		static_assert(
+			Rows == 4,
+			"Invalid number of rows for this matrix type"
+		);
+		_init_row<0>(row0);
+		_init_row<1>(row1);
+		_init_row<2>(row2);
+		_init_row<3>(row3);
+	}
+#endif
 
 	friend class Vector<T, Rows>;
 	friend class Vector<T, Cols>;
 
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename X>
 	static void _eat(const X&...)
 	{ }
+#endif
 
 protected:
+
+
+#if !OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX && \
+	!OGLPLUS_NO_INITIALIZER_LISTS
 	void _init_data(std::initializer_list<T> data)
 	{
 		std::copy(data.begin(), data.end(), this->_m._data);
 	}
+#define OGLPLUS_AUX_MATRIX_INIT_DATA(...) \
+	this->_init_data(__VA_ARGS__);
+#else
+	void _init_data(const T* data, size_t size)
+	{
+		std::copy(data, data+size, this->_m._data);
+	}
+#define OGLPLUS_AUX_MATRIX_INIT_DATA(...) \
+	const T __LINE__ ## data[] = __VA_ARGS__; \
+	this->_init_data( \
+		__LINE__ ## data, \
+		sizeof(__LINE__ ## data)/  \
+		sizeof(__LINE__ ## data[0])\
+	);
+#endif
+
 public:
 	struct NoInit { };
 
@@ -216,10 +285,17 @@ public:
 				this->_m._elem[r][c] = r == c ? T(1) : T(0);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Initializing constructor
 	/** Allows to explicitly initialize all elements of the matrix.
 	 *  The number of parameters of this constructor must be Rows * Cols.
 	 */
+	template <typename ... P>
+	Matrix(T v, P ... p);
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES && \
+	!OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
 	template <typename ... P>
 	Matrix(T v, P ... p)
 	{
@@ -227,14 +303,21 @@ public:
 			Rows * Cols == sizeof...(P) + 1,
 			"Invalid number of elements for this matrix type"
 		);
-		this->_init_data({v, T(p)...});
+		OGLPLUS_AUX_MATRIX_INIT_DATA({v, T(p)...});
 	}
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Initializing from row vectors
 	/** Allows to initialize all rows of the matrix from individual
 	 *  vectors. The number of vectors must be Rows and each vector
 	 *  must have exactly Cols elements.
 	 */
+	template <size_t ... C>
+	Matrix(const Vector<T, C>& ... rows);
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <size_t ... C>
 	Matrix(const Vector<T, C>& ... rows)
 	{
@@ -244,6 +327,34 @@ public:
 		);
 		this->_init_rows<0>(rows...);
 	}
+#else
+	Matrix(
+		const Vector<T, Cols>& row0,
+		const Vector<T, Cols>& row1
+	)
+	{
+		this->_init_rows(row0, row1);
+	}
+
+	Matrix(
+		const Vector<T, Cols>& row0,
+		const Vector<T, Cols>& row1,
+		const Vector<T, Cols>& row2
+	)
+	{
+		this->_init_rows(row0, row1, row2);
+	}
+
+	Matrix(
+		const Vector<T, Cols>& row0,
+		const Vector<T, Cols>& row1,
+		const Vector<T, Cols>& row2,
+		const Vector<T, Cols>& row3
+	)
+	{
+		this->_init_rows(row0, row1, row2, row3);
+	}
+#endif
 
 	/// Returns a vector containing the matrix elements in row major order
 	friend const T* Data(const Matrix& matrix)
@@ -411,6 +522,7 @@ public:
 		return m;
 	}
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <size_t ... C>
 	friend bool Gauss(Matrix& a, Matrix<T, Rows, C>&... b)
 	{
@@ -448,7 +560,47 @@ public:
 		}
 		return true;
 	}
+#else
+	template <size_t C>
+	friend bool Gauss(Matrix& a, Matrix<T, Rows, C>& b)
+	{
+		const T zero(0), one(1);
+		for(size_t i=0; i!=Rows; ++i)
+		{
+			T d = a._m._elem[i][i];
+			if(d == zero)
+			{
+				for(size_t k=i+1; k!=Rows; ++k)
+				{
+					if(a._m._elem[k][i] != zero)
+					{
+						RowSwap(a, i, k);
+						RowSwap(b, i, k);
+						break;
+					}
+				}
+				d = a._m._elem[i][i];
+			}
+			if(d == zero) return false;
 
+			RowMultiply(a, i, one / d);
+			RowMultiply(b, i, one / d);
+
+			for(size_t k=i+1; k!=Rows; ++k)
+			{
+				T c = a._m._elem[k][i];
+				if(c != zero)
+				{
+					RowAdd(a, k, i, -c);
+					RowAdd(b, k, i, -c);
+				}
+			}
+		}
+		return true;
+	}
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <size_t ... C>
 	friend bool GaussJordan(Matrix& a, Matrix<T, Rows, C>&... b)
 	{
@@ -468,6 +620,27 @@ public:
 		}
 		return true;
 	}
+#else
+	template <size_t  C>
+	friend bool GaussJordan(Matrix& a, Matrix<T, Rows, C>& b)
+	{
+		if(!Gauss(a, b)) return false;
+		const T zero(0);
+		for(size_t i=Rows-1; i!=0; --i)
+		{
+			for(size_t k=0; k!=i; ++k)
+			{
+				T c = a._m._elem[k][i];
+				if(c != zero)
+				{
+					RowAdd(a, k, i, -c);
+					RowAdd(b, k, i, -c);
+				}
+			}
+		}
+		return true;
+	}
+#endif
 
 	/// Finds inverse matrix if m is square matrix and T supports fractions
 	friend Matrix Inverse(
@@ -658,6 +831,7 @@ public:
 	 : Base(base)
 	{ }
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Initializing constructor
 	template <typename ... P>
 	ModelMatrix(T v, P ... p)
@@ -668,13 +842,14 @@ public:
 			"Invalid number of values for 4x4 matrix initialation"
 		);
 	}
+#endif
 
 	struct _Translation { };
 
 	ModelMatrix(_Translation, T dx, T dy, T dz)
 	 : Base(typename Base::NoInit())
 	{
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			T(1), T(0), T(0),   dx,
 			T(0), T(1), T(0),   dy,
 			T(0), T(0), T(1),   dz,
@@ -699,7 +874,7 @@ public:
 	ModelMatrix(_Scale, T sx, T sy, T sz)
 	 : Base(typename Base::NoInit())
 	{
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			  sx, T(0), T(0), T(0),
 			T(0),   sy, T(0), T(0),
 			T(0), T(0),   sz, T(0),
@@ -720,7 +895,7 @@ public:
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 T(1),  T(0),  T(0),  T(0),
 			 T(0),  cosx, -sinx,  T(0),
 			 T(0),  sinx,  cosx,  T(0),
@@ -741,7 +916,7 @@ public:
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 cosx,  T(0),  sinx,  T(0),
 			 T(0),  T(1),  T(0),  T(0),
 			-sinx,  T(0),  cosx,  T(0),
@@ -762,7 +937,7 @@ public:
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 cosx, -sinx,  T(0),  T(0),
 			 sinx,  cosx,  T(0),  T(0),
 			 T(0),  T(0),  T(1),  T(0),
@@ -787,7 +962,7 @@ public:
 		const T _cf = T(1) - cf;
 		const T x = a.At(0), y = a.At(1), z = a.At(2);
 		const T xx= x*x, xy= x*y, xz= x*z, yy= y*y, yz= y*z, zz= z*z;
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			cf + xx*_cf,    xy*_cf - z*sf,  xz*_cf + y*sf,  T(0),
 			xy*_cf + z*sf,  cf + yy*_cf,    yz*_cf - x*sf,  T(0),
 			xz*_cf - y*sf,  yz*_cf + x*sf,  cf + zz*_cf,    T(0),
@@ -831,8 +1006,17 @@ class CameraMatrix
 private:
 	typedef Matrix<T, 4, 4> Base;
 public:
+
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Constructs an identity matrix
+	CameraMatrix(void);
+#endif
+
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	CameraMatrix(void) = default;
+#else
+	CameraMatrix(void){ }
+#endif
 
 	CameraMatrix(const Base& base)
 	 : Base(base)
@@ -865,7 +1049,7 @@ public:
 
 		T m32 = -(T(2) * far * near) / (far - near);
 
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 m00, T(0), T(0), T(0),
 			T(0),  m11, T(0), T(0),
 			 m20,  m21,  m22,  m32,
@@ -955,7 +1139,7 @@ public:
 		T m31 = -(top + bottom) / (top - bottom);
 		T m32 = -(far + near)   / (far - near);
 
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 m00, T(0), T(0),  m30,
 			T(0),  m11, T(0),  m31,
 			T(0), T(0),  m22,  m32,
@@ -1066,7 +1250,7 @@ public:
 		);
 		Vector<T, 3> y = Cross(z, x);
 
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			x.template At<0>(),
 			x.template At<1>(),
 			x.template At<2>(),
@@ -1117,7 +1301,7 @@ public:
 		);
 		Vector<T, 3> y = Cross(z, x);
 
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			x.template At<0>(),
 			x.template At<1>(),
 			x.template At<2>(),
@@ -1162,7 +1346,7 @@ public:
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 T(1),  T(0),  T(0),  T(0),
 			 T(0),  cosx, -sinx,  T(0),
 			 T(0),  sinx,  cosx,  T(0),
@@ -1188,7 +1372,7 @@ public:
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 cosx,  T(0),  sinx,  T(0),
 			 T(0),  T(1),  T(0),  T(0),
 			-sinx,  T(0),  cosx,  T(0),
@@ -1214,7 +1398,7 @@ public:
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		this->_init_data({
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 cosx, -sinx,  T(0),  T(0),
 			 sinx,  cosx,  T(0),  T(0),
 			 T(0),  T(0),  T(1),  T(0),

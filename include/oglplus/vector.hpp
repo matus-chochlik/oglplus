@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,6 +15,7 @@
 #include <cassert>
 #include <cmath>
 #include <type_traits>
+#include <oglplus/config.hpp>
 
 namespace oglplus {
 
@@ -77,20 +78,20 @@ private:
 
 	struct _op_perpend
 	{
-		static void _c(
+		void operator()(
 			Vector<T, 2>& t,
 			const Vector<T, 2>& a
-		)
+		) const
 		{
 			t._elem[0] = -a._elem[1];
 			t._elem[1] =  a._elem[0];
 		}
 
-		static void _c(
+		void operator()(
 			Vector<T, 3>& t,
 			const Vector<T, 3>& a,
 			const Vector<T, 3>& b
-		)
+		) const
 		{
 			t._elem[0] =
 				a._elem[1] * b._elem[2]-
@@ -101,12 +102,6 @@ private:
 			t._elem[2] =
 				a._elem[0] * b._elem[1]-
 				a._elem[1] * b._elem[0];
-		}
-
-		template <size_t ... M>
-		void operator()(Vector& t, const Vector<T, M>&... p)
-		{
-			_c(t, p...);
 		}
 	};
 
@@ -142,6 +137,7 @@ private:
 		_op_multiply
 	);
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <size_t I>
 	inline void _init(T v)
 	{
@@ -158,6 +154,7 @@ private:
 		_elem[I] = v;
 		_init<I + 1>(p...);
 	}
+#endif
 
 public:
 	/// Initializes the vector to [0, 0, ..., 0]
@@ -167,8 +164,10 @@ public:
 			_elem[i] = 0;
 	}
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	/// Copy constructor
 	Vector(const Vector&) = default;
+#endif
 
 	template <typename U>
 	Vector(const Vector<U, N>& vector)
@@ -184,11 +183,19 @@ public:
 			_elem[i] = v[i];
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Initializes the vector with the given values
 	/** Constructs a new N-dimensional vector from the values
 	 *  passed as arguments. The number of arguments for this
 	 *  constructor must match the vectors dimension.
 	 */
+	template <typename ... P>
+	Vector(T v, P ... p);
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES && \
+	!OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
+
 	template <typename ... P>
 	Vector(T v, P ... p)
 	 : _elem({v, T(p)...})
@@ -199,7 +206,40 @@ public:
 		);
 	}
 
+#else
+
+	Vector(T v0, T v1)
+	{
+		static_assert(N == 2, "Invalid number of values for this vector type");
+		_elem[0] = v0;
+		_elem[1] = v1;
+	}
+
+	Vector(T v0, T v1, T v2)
+	{
+		static_assert(N == 3, "Invalid number of values for this vector type");
+		_elem[0] = v0;
+		_elem[1] = v1;
+		_elem[2] = v2;
+	}
+
+	Vector(T v0, T v1, T v2, T v3)
+	{
+		static_assert(N == 4, "Invalid number of values for this vector type");
+		_elem[0] = v0;
+		_elem[1] = v1;
+		_elem[2] = v2;
+		_elem[3] = v3;
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Initializes the vector from a sub-vector and additional coordinates
+	template <size_t M, typename ... P>
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+
 	template <size_t M, typename ... P>
 	Vector(const Vector<T, M>& a, P ... p)
 	{
@@ -211,6 +251,43 @@ public:
 			_elem[i] = Data(a)[i];
 		_init<M>(p...);
 	}
+#else
+	Vector(const Vector<T, 2>& a, T v2)
+	{
+		static_assert(
+			N == 3,
+			"Invalid number of additional values for this vector type"
+		);
+		_elem[0] = Data(a)[0];
+		_elem[1] = Data(a)[1];
+		_elem[2] = v2;
+	}
+
+	template <typename T>
+	Vector(const Vector<T, 2>& a, T v2, T v3)
+	{
+		static_assert(
+			N == 4,
+			"Invalid number of additional values for this vector type"
+		);
+		_elem[0] = Data(a)[0];
+		_elem[1] = Data(a)[1];
+		_elem[2] = v2;
+		_elem[2] = v3;
+	}
+
+	Vector(const Vector<T, 3>& a, T v3)
+	{
+		static_assert(
+			N == 4,
+			"Invalid number of additional values for this vector type"
+		);
+		_elem[0] = Data(a)[0];
+		_elem[1] = Data(a)[1];
+		_elem[2] = Data(a)[2];
+		_elem[3] = v3;
+	}
+#endif
 
 	/// Construction from to Matrix-1xN
 	template <size_t M>
@@ -440,11 +517,18 @@ public:
 		return result;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Cross product
-	template <size_t ... M>
-	friend Vector Cross(const Vector& v, const Vector<T, M>&... p)
+	friend Vector Cross(const Vector<T, 3>& a, const Vector<T, 3>& b);
+#endif
+	
+	template <size_t M>
+	friend Vector Cross(
+		const typename ::std::enable_if<M==3, Vector>::type& a,
+		const Vector<T, M>& b
+	)
 	{
-		return Vector(v, p..., _op_perpend());
+		return Vector(a, b, _op_perpend());
 	}
 
 	/// Returns the length of a vector
@@ -467,6 +551,7 @@ public:
 		else return Multiply(a, T(1) / l);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns a vector composed from coordinates of this vector
 	/** This function return a vector of arbitrary dimension composed
 	 *  of the values of the coordinates of the vector passed as the
@@ -494,11 +579,18 @@ public:
 	 *  @endcode
 	 */
 	template <size_t ... Dims>
+	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a);
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+	template <size_t ... Dims>
 	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a)
 	{
 		return Vector<T, sizeof...(Dims)>(At<Dims>(a)...);
 	}
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns a vector composed from coordinates of this vector
 	/** This function return a vector of arbitrary dimension composed
 	 *  of the values of the coordinates of the vector passed as the
@@ -529,13 +621,21 @@ public:
 	 *  @endcode
 	 */
 	template <size_t ... Dims>
+	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a, T v);
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+	template <size_t ... Dims>
 	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a, T v)
 	{
 		return Vector<T, sizeof...(Dims)>(At<Dims>(a, v)...);
 	}
+#endif
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 // include the subvector extraction functions
 #include <oglplus/auxiliary/vector_extr.ipp>
+#endif
 
 	T x(void) const
 	{
@@ -564,17 +664,6 @@ public:
 	}
 };
 
-/// 1D float vector
-/**
- *  @ingroup math_utils
- */
-typedef Vector<GLfloat, 1> Vec1f;
-
-/// 1D double-precision vector
-/**
- *  @ingroup math_utils
- */
-typedef Vector<GLdouble, 1> Vec1d;
 
 /// 2D float vector
 /**

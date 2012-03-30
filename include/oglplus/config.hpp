@@ -20,7 +20,45 @@
 #define OGLPLUS_USE_GLEW 0
 #endif
 
-namespace oglplus {
+// ------- C++11 feature availability detection -------
+
+#ifndef OGLPLUS_NO_VARIADIC_TEMPLATES
+#ifdef BOOST_NO_VARIADIC_TEMPLATES
+#define OGLPLUS_NO_VARIADIC_TEMPLATES \
+	BOOST_NO_VARIADIC_TEMPLATES
+#else
+#define OGLPLUS_NO_VARIADIC_TEMPLATES 0
+#endif
+#endif
+
+#ifndef OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
+#ifdef BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX
+#define OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX \
+	BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX
+#else
+#define OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX 0
+#endif
+#endif
+
+#ifndef OGLPLUS_NO_INITIALIZER_LISTS
+#ifdef BOOST_NO_INITIALIZER_LISTS
+#define OGLPLUS_NO_INITIALIZER_LISTS \
+	BOOST_NO_INITIALIZER_LISTS
+#else
+#define OGLPLUS_NO_INITIALIZER_LISTS 0
+#endif
+#endif
+
+#ifndef OGLPLUS_NO_DEFAULTED_FUNCTIONS
+#ifdef BOOST_NO_DEFAULTED_FUNCTIONS
+#define OGLPLUS_NO_DEFAULTED_FUNCTIONS \
+	BOOST_NO_DEFAULTED_FUNCTIONS
+#else
+#define OGLPLUS_NO_DEFAULTED_FUNCTIONS 0
+#endif
+#endif
+
+// ------- C++11 feature availability detection -------
 
 /** @defgroup compile_time_config Compile-time configuration
  *
@@ -158,7 +196,5 @@ namespace oglplus {
  */
 #define OGLPLUS_ERROR_INFO_NO_OBJECT_DESC 0
 #endif
-
-} // namespace oglplus
 
 #endif // include guard

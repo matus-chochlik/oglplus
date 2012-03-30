@@ -12,7 +12,10 @@
 #ifndef OGLPLUS_ANGLE_1107121519_HPP
 #define OGLPLUS_ANGLE_1107121519_HPP
 
+#include <oglplus/config.hpp>
+
 #include <cmath>
+#include <cassert>
 
 namespace oglplus {
 
@@ -48,7 +51,7 @@ private:
 
 	struct _Degrees { };
 	Angle(T val_deg, _Degrees)
-	 : _val_rad(val_deg * (M_PI / 180.0))
+	 : _val_rad(T(val_deg * (M_PI / 180.0)))
 	{ }
 public:
 	/// Constructs a zero angle
@@ -56,8 +59,10 @@ public:
 	 : _val_rad(T(0))
 	{ }
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	/// Angle is copy constructible
 	Angle(const Angle&) = default;
+#endif
 
 	/// Copy construction from angles using different representation type
 	template <typename U>
@@ -270,7 +275,7 @@ inline Angle<GLfloat> Degrees(GLfloat val_deg)
  */
 inline Angle<GLfloat> FullCircles(GLfloat value)
 {
-	return Angle<GLfloat>::Radians(value * M_PI * 2.0);
+	return Angle<GLfloat>::Radians(GLfloat(value * M_PI * 2.0));
 }
 
 /// Creates a new angle from a value in "right angles" (i.e. 90 deg.)
@@ -298,7 +303,7 @@ inline Angle<GLfloat> FullCircles(GLfloat value)
  */
 inline Angle<GLfloat> RightAngles(GLfloat value)
 {
-	return Angle<GLfloat>::Radians(value * M_PI * 0.5);
+	return Angle<GLfloat>::Radians(GLfloat(value * M_PI * 0.5));
 }
 
 /// Creates a new angle using the arc sine function
