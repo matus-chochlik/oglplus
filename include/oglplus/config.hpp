@@ -58,7 +58,29 @@
 #endif
 #endif
 
+#ifndef OGLPLUS_NO_DELETED_FUNCTIONS
+#ifdef BOOST_NO_DELETED_FUNCTIONS
+#define OGLPLUS_NO_DELETED_FUNCTIONS \
+	BOOST_NO_DELETED_FUNCTIONS
+#else
+#define OGLPLUS_NO_DELETED_FUNCTIONS 0
+#endif
+#endif
+
+#ifndef OGLPLUS_NO_NULLPTR
+#ifdef BOOST_NO_NULLPTR
+#define OGLPLUS_NO_NULLPTR \
+	BOOST_NO_NULLPTR
+#else
+#define OGLPLUS_NO_NULLPTR 0
+#endif
+#endif
+
 // ------- C++11 feature availability detection -------
+
+#if OGLPLUS_NO_NULL_PTR
+#define nullptr 0
+#endif
 
 /** @defgroup compile_time_config Compile-time configuration
  *
@@ -66,8 +88,6 @@
  *  can be used to configure several aspects of @OGLplus.
  */
 
-//TODO: detect support by compiler and define only if necessary
-#define nullptr 0
 
 #ifndef OGLPLUS_DOCUMENTATION_ONLY
 #define OGLPLUS_DOCUMENTATION_ONLY 0

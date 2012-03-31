@@ -38,8 +38,14 @@ private:
 
 	friend class oglplus::context::ClearBuffers;
 
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	ClrBits(void) = delete;
 	ClrBits(const ClrBits&) = delete;
+#else
+	ClrBits(void);
+	ClrBits(const ClrBits&);
+#endif
+
 	ClrBits(GLbitfield bit)
 	 : _bits(bit)
 	{ }

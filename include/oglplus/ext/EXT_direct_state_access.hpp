@@ -330,8 +330,8 @@ struct DSAMatrixEXT
 		GLdouble right,
 		GLdouble bottom,
 		GLdouble top,
-		GLdouble near,
-		GLdouble far
+		GLdouble near_depth,
+		GLdouble far_depth
 	)
 	{
 		OGLPLUS_GLFUNC(MatrixOrthoEXT)(
@@ -340,8 +340,8 @@ struct DSAMatrixEXT
 			right,
 			bottom,
 			top,
-			near,
-			far
+			near_depth,
+			far_depth
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixOrthoEXT));
 	}
@@ -357,8 +357,8 @@ struct DSAMatrixEXT
 		GLdouble right,
 		GLdouble bottom,
 		GLdouble top,
-		GLdouble near,
-		GLdouble far
+		GLdouble near_depth,
+		GLdouble far_depth
 	)
 	{
 		OGLPLUS_GLFUNC(MatrixFrustumEXT)(
@@ -367,8 +367,8 @@ struct DSAMatrixEXT
 			right,
 			bottom,
 			top,
-			near,
-			far
+			near_depth,
+			far_depth
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixFrustumEXT));
 	}

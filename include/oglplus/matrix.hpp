@@ -1031,23 +1031,23 @@ public:
 
 	CameraMatrix(
 		_Perspective,
-		T left,
-		T right,
-		T bottom,
-		T top,
-		T near,
-		T far
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top,
+		T z_near,
+		T z_far
 	): Base(typename Base::NoInit())
 	{
-		T m00 = (T(2) * near) / (right - left);
-		T m11 = (T(2) * near) / (top - bottom);
-		T m22 = -(far + near) / (far - near);
+		T m00 = (T(2) * z_near) / (x_right - x_left);
+		T m11 = (T(2) * z_near) / (y_top - y_bottom);
+		T m22 = -(z_far + z_near) / (z_far - z_near);
 
-		T m20 = (right + left) / (right - left);
-		T m21 = (top + bottom) / (top - bottom);
+		T m20 = (x_right + x_left) / (x_right - x_left);
+		T m21 = (y_top + y_bottom) / (y_top - y_bottom);
 		T m23 = -T(1);
 
-		T m32 = -(T(2) * far * near) / (far - near);
+		T m32 = -(T(2) * z_far * z_near) / (z_far - z_near);
 
 		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 m00, T(0), T(0), T(0),
@@ -1059,63 +1059,63 @@ public:
 
 	/// Constructs a perspective projection matrix
 	/** Creates a new perspective matrix from x-axis @p xfov angle,
-	 *  x/y @p aspect ratio and z-axis @p near and @p far planes
+	 *  x/y @p aspect ratio and z-axis @p z_near and @p z_far planes
 	 */
 	static inline CameraMatrix PerspectiveX(
 		Angle<T> xfov,
 		T aspect,
-		T near,
-		T far
+		T z_near,
+		T z_far
 	)
 	{
 		assert(aspect > T(0));
 		assert(xfov > Radians(T(0)));
 
-		T right = near * Tan(xfov * T(0.5));
-		T left = -right;
+		T x_right = z_near * Tan(xfov * T(0.5));
+		T x_left = -x_right;
 
-		T bottom = left / aspect;
-		T top = right / aspect;
+		T y_bottom = x_left / aspect;
+		T y_top = x_right / aspect;
 
 		return CameraMatrix(
 			_Perspective(),
-			left,
-			right,
-			bottom,
-			top,
-			near,
-			far
+			x_left,
+			x_right,
+			y_bottom,
+			y_top,
+			z_near,
+			z_far
 		);
 	}
 
 	/// Constructs a perspective projection matrix
 	/** Creates a new perspective matrix from y-axis @p yfov angle,
-	 *  x/y @p aspect ratio and z-axis @p near and @p far planes
+	 *  x/y @p aspect ratio and z-axis @p z_near and @p z_far planes
 	 */
 	static inline CameraMatrix PerspectiveY(
 		Angle<T> yfov,
 		T aspect,
-		T near,
-		T far
+		T z_near,
+		T z_far
 	)
 	{
 		assert(aspect > T(0));
 		assert(yfov > Radians(T(0)));
 
-		T top = near * Tan(yfov * T(0.5));
-		T bottom = -top;
+		T y_top = z_near * Tan(yfov * T(0.5));
+		T y_bottom = -y_top;
 
-		T left = bottom * aspect;
-		T right = top * aspect;
+		T x_left = y_bottom * aspect;
+		T x_right = y_top * aspect;
 
 		return CameraMatrix(
 			_Perspective(),
-			left,
-			right,
-			bottom,
-			top,
-			near,
-			far
+			x_left,
+			x_right,
+			y_bottom,
+			y_top,
+			z_near,
+			z_far
 		);
 	}
 
@@ -1123,21 +1123,21 @@ public:
 
 	CameraMatrix(
 		_Ortho,
-		T left,
-		T right,
-		T bottom,
-		T top,
-		T near,
-		T far
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top,
+		T z_near,
+		T z_far
 	): Base(typename Base::NoInit())
 	{
-		T m00 =  T(2) / (right - left);
-		T m11 =  T(2) / (top - bottom);
-		T m22 = -T(2) / (far - near);
+		T m00 =  T(2) / (x_right - x_left);
+		T m11 =  T(2) / (y_top - y_bottom);
+		T m22 = -T(2) / (z_far - z_near);
 
-		T m30 = -(right + left) / (right - left);
-		T m31 = -(top + bottom) / (top - bottom);
-		T m32 = -(far + near)   / (far - near);
+		T m30 = -(x_right + x_left) / (x_right - x_left);
+		T m31 = -(y_top + y_bottom) / (y_top - y_bottom);
+		T m32 = -(z_far + z_near)   / (z_far - z_near);
 
 		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 m00, T(0), T(0),  m30,
@@ -1148,88 +1148,88 @@ public:
 	}
 
 	/// Constructs an orthographic projection matrix
-	/** Creates a new orthographic matrix from the x-axis @p left, @p right,
-	 *  y-axis @p bottom, @p top and z-axis @p near and @p far values
+	/** Creates a new orthographic matrix from the x-axis @p x_left, @p x_right,
+	 *  y-axis @p y_bottom, @p y_top and z-axis @p z_near and @p z_far values
 	 */
 	static inline CameraMatrix Ortho(
-		T left,
-		T right,
-		T bottom,
-		T top,
-		T near,
-		T far
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top,
+		T z_near,
+		T z_far
 	)
 	{
 		return CameraMatrix(
 			_Ortho(),
-			left,
-			right,
-			bottom,
-			top,
-			near,
-			far
+			x_left,
+			x_right,
+			y_bottom,
+			y_top,
+			z_near,
+			z_far
 		);
 	}
 
 	/// Constructs an orthographic projection matrix
 	/** Creates a new orthographic matrix from x-axis @p width,
-	 *  x/y @p aspect ratio and z-axis @p near and @p far planes
+	 *  x/y @p aspect ratio and z-axis @p z_near and @p z_far planes
 	 */
 	static inline CameraMatrix OrthoX(
 		T width,
 		T aspect,
-		T near,
-		T far
+		T z_near,
+		T z_far
 	)
 	{
 		assert(aspect > T(0));
 		assert(width > T(0));
 
-		T right = width / T(2);
-		T left = -right;
+		T x_right = width / T(2);
+		T x_left = -x_right;
 
-		T bottom = left / aspect;
-		T top = right / aspect;
+		T y_bottom = x_left / aspect;
+		T y_top = x_right / aspect;
 
 		return CameraMatrix(
 			_Ortho(),
-			left,
-			right,
-			bottom,
-			top,
-			near,
-			far
+			x_left,
+			x_right,
+			y_bottom,
+			y_top,
+			z_near,
+			z_far
 		);
 	}
 
 	/// Constructs an orthographic projection matrix
 	/** Creates a new orthographic matrix from y-axis @p height,
-	 *  x/y @p aspect ratio and z-axis @p near and @p far planes
+	 *  x/y @p aspect ratio and z-axis @p z_near and @p z_far planes
 	 */
 	static inline CameraMatrix OrthoY(
 		T height,
 		T aspect,
-		T near,
-		T far
+		T z_near,
+		T z_far
 	)
 	{
 		assert(aspect > T(0));
 		assert(height > T(0));
 
-		T top = height / T(2);
-		T bottom = -top;
+		T y_top = height / T(2);
+		T y_bottom = -y_top;
 
-		T left = bottom * aspect;
-		T right = top * aspect;
+		T x_left = y_bottom * aspect;
+		T x_right = y_top * aspect;
 
 		return CameraMatrix(
 			_Ortho(),
-			left,
-			right,
-			bottom,
-			top,
-			near,
-			far
+			x_left,
+			x_right,
+			y_bottom,
+			y_top,
+			z_near,
+			z_far
 		);
 	}
 
@@ -1355,8 +1355,8 @@ public:
 	}
 
 	/// Constructs a X-axis rotation (Pitch/Elevation) matrix
-	/** The initial heading is the negative Z-axix, top is the Y-axis,
-	 *  right is X-axis.
+	/** The initial heading is the negative Z-axix, y_top is the Y-axis,
+	 *  x_right is X-axis.
 	 *  Positive angle values do counter-clockwise rotation (looking up),
 	 *  negative angles cause clockwise changes in pitch (looking down).
 	 */
@@ -1381,8 +1381,8 @@ public:
 	}
 
 	/// Constructs a Y-axis rotation (Heading/Yaw) matrix
-	/** The initial heading is the negative Z-axix, top is the Y-axis,
-	 *  right is X-axis.
+	/** The initial heading is the negative Z-axix, y_top is the Y-axis,
+	 *  x_right is X-axis.
 	 *  Positive angle values do counter-clockwise rotation, negative
 	 *  angles cause clockwise changes in heading.
 	 */
@@ -1407,8 +1407,8 @@ public:
 	}
 
 	/// Constructs a Z-axis rotation (Bank/Roll) matrix
-	/** The initial position is that top is the Y-axis,
-	 *  heading in the negative Z-axis direction, right is X-axis.
+	/** The initial position is that y_top is the Y-axis,
+	 *  heading in the negative Z-axis direction, x_right is X-axis.
 	 *  Positive angle values do counter-clockwise banking, negative
 	 *  angles to clockwise banking.
 	 */

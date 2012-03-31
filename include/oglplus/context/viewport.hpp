@@ -89,7 +89,7 @@ struct ViewportExtents
 	}
 };
 
-/// Helper structure storing the newr/far depth range
+/// Helper structure storing the near/far depth range
 struct DepthRange
 {
 	// private implementation detail, do not use
@@ -183,30 +183,30 @@ public:
 
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
-	/// Sets the @p near / @p far depth range of the default viewport
+	/// Sets the @p near_val / @p far_val depth range of the default viewport
 	/**
 	 *  @throws Error
 	 *
 	 *  @glsymbols
 	 *  @glfunref{DepthRangef}
 	 */
-	static void DepthRange(GLclampf near, GLclampf far)
+	static void DepthRange(GLclampf near_val, GLclampf far_val)
 	{
-		OGLPLUS_GLFUNC(DepthRangef)(near, far);
+		OGLPLUS_GLFUNC(DepthRangef)(near_val, far_val);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRangef));
 	}
 #endif
 
-	/// Sets the @p near / @p far depth range of the default viewport
+	/// Sets the @p near_val / @p far_val depth range of the default viewport
 	/**
 	 *  @throws Error
 	 *
 	 *  @glsymbols
 	 *  @glfunref{DepthRangef}
 	 */
-	static void DepthRange(GLclampd near, GLclampd far)
+	static void DepthRange(GLclampd near_val, GLclampd far_val)
 	{
-		OGLPLUS_GLFUNC(DepthRange)(near, far);
+		OGLPLUS_GLFUNC(DepthRange)(near_val, far_val);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRange));
 	}
 
@@ -293,16 +293,16 @@ public:
 	}
 
 
-	/// Sets the @p near / @p far depth range of a @p viewport
+	/// Sets the @p near_val / @p far_val depth range of a @p viewport
 	/**
 	 *  @throws Error
 	 *
 	 *  @glsymbols
 	 *  @glfunref{DepthRangeIndexed}
 	 */
-	static void DepthRange(GLuint viewport, GLclampd near, GLclampd far)
+	static void DepthRange(GLuint viewport, GLclampd near_val, GLclampd far_val)
 	{
-		OGLPLUS_GLFUNC(DepthRangeIndexed)(viewport, near, far);
+		OGLPLUS_GLFUNC(DepthRangeIndexed)(viewport, near_val, far_val);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRangeIndexed));
 	}
 

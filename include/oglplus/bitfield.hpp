@@ -14,7 +14,9 @@
 
 #include <oglplus/config.hpp>
 
+#if !OGLPLUS_NO_INITIALIZER_LISTS
 #include <initializer_list>
+#endif
 
 namespace oglplus {
 
@@ -32,12 +34,14 @@ public:
 	 : _bits(BF(_bit_a) | BF(_bit_b))
 	{ }
 
+#if !OGLPLUS_NO_INITIALIZER_LISTS
 	Bitfield(const std::initializer_list<Bit>& bits)
 	 : _bits(BF(0))
 	{
 		for(auto i=bits.begin(),e=bits.end(); i!=e; ++i)
 			_bits |= BF(*i);
 	}
+#endif
 
 	friend Bitfield operator | (Bitfield bf, Bit b)
 	{
