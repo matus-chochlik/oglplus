@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_AUX_INFO_LOG_1107121519_HPP
 #define OGLPLUS_AUX_INFO_LOG_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/string.hpp>
 
@@ -22,8 +23,8 @@ namespace aux {
 
 inline String GetInfoLog(
 	GLuint object_name,
-	void (*GetObjectiv)(GLuint, GLenum, GLint*),
-	void (*GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
+	void (GLAPIENTRY *GetObjectiv)(GLuint, GLenum, GLint*),
+	void (GLAPIENTRY *GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
 	const char* name_GetObjectiv,
 	const char* name_GetObjectInfoLog
 )

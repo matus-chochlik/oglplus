@@ -95,11 +95,6 @@ inline const GLchar* EnumValueName(DebugOutputType value)
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_debug_output
 
-// define APIENTRY if it is not defined
-#ifndef APIENTRY
-#define GLEW_APIENTRY_DEFINED
-#define APIENTRY GLAPIENTRY
-#endif
 
 /// Wrapper for the ARB_debug_output extension
 /**
@@ -150,7 +145,7 @@ public:
 	class LogSink
 	{
 	private:
-		static void APIENTRY _gl_debug_proc(
+		static void GLAPIENTRY _gl_debug_proc(
 			GLenum source,
 			GLenum type,
 			GLuint id,

@@ -72,14 +72,32 @@ namespace oglplus {
 template <class Object>
 class Array;
 
-template <class T>
-struct BaseOps
+template <class Object>
+struct ObjectBaseOps
 {
 	template <typename X>
 	static typename X::BaseOps _get(X*, typename X::BaseOps* = nullptr);
-	static T _get(...);
+	static Object _get(...);
 
-	typedef decltype(_get((T*)nullptr)) Type;
+	typedef decltype(_get((Object*)nullptr)) Type;
+};
+
+// checks if the Object has Property::Type
+template <class Object>
+struct ObjectWithType
+{
+	template <typename X>
+	static std::true_type _has(X*, typename X::Property::Type* = nullptr);
+	static std::false_type _has(...);
+
+	typedef decltype(_has((Object*)nullptr)) HasType;
+
+	template <typename X>
+	static typename X::Property::Type
+		_get(X*, typename X::Property::Type* = nullptr);
+	static int _get(...);
+
+	typedef decltype(_get((Object*)nullptr)) Type;
 };
 
 /// Allows to make managed copies of instances of Object
@@ -190,7 +208,13 @@ public:
 		this->_register_desc(this->_name, desc);
 	}
 
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	Object(const Object&) = delete;
+#else
+private:
+	Object(const Object&);
+public:
+#endif
 
 	Object(Object&& temp)
 	{
@@ -202,17 +226,23 @@ public:
 		assert(_type_ok(this->_name));
 	}
 
-	template <typename _Object = Object>
-	Object(typename _Object::Property::Type type)
+	Object(
+		typename ::std::enable_if<
+			ObjectWithType<Object>::HasType::value,
+			typename ObjectWithType<Object>::Type
+		>::type type
+	)
 	{
 		_do_init(1, &this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 	}
 
-	template <typename _Object = Object>
 	Object(
-		typename _Object::Property::Type type,
+		typename ::std::enable_if<
+			ObjectWithType<Object>::HasType::value,
+			typename ObjectWithType<Object>::Type
+		>::type type,
 		const GLchar* desc
 	)
 	{
@@ -222,9 +252,11 @@ public:
 		this->_register_desc(this->_name, desc);
 	}
 
-	template <typename _Object = Object>
 	Object(
-		typename _Object::Property::Type type,
+		typename ::std::enable_if<
+			ObjectWithType<Object>::HasType::value,
+			typename ObjectWithType<Object>::Type
+		>::type type,
 		const String& desc
 	)
 	{
@@ -252,18 +284,18 @@ public:
 
 #if !OGLPLUS_DOCUMENTATION_ONLY && !OGLPLUS_DOXYGEN_PARSE
 template <class ObjectOps, bool MultiObject>
-struct BaseOps<Object<ObjectOps, MultiObject> >
+struct ObjectBaseOps<Object<ObjectOps, MultiObject> >
 {
 	typedef ObjectOps Type;
 };
 
 template <class _Object>
 class Managed
- : public BaseOps<_Object>::Type
- , public FriendOf<typename BaseOps<_Object>::Type>
+ : public ObjectBaseOps<_Object>::Type
+ , public FriendOf<typename ObjectBaseOps<_Object>::Type>
 {
 private:
-	typedef typename BaseOps<_Object>::Type ObjectOps;
+	typedef typename ObjectBaseOps<_Object>::Type ObjectOps;
 
 	Managed(void)
 	{ }
@@ -284,16 +316,16 @@ public:
 };
 
 template <class _Object>
-struct BaseOps<Managed<_Object> >
+struct ObjectBaseOps<Managed<_Object> >
 {
-	typedef typename BaseOps<_Object>::Type Type;
+	typedef typename ObjectBaseOps<_Object>::Type Type;
 };
 
 template <class _Object>
 static const String& ObjectDescription(const _Object& object)
 {
 	return FriendOf<
-		typename BaseOps<_Object>::Type
+		typename ObjectBaseOps<_Object>::Type
 	>::GetDescription(object);
 }
 #endif

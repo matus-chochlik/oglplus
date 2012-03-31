@@ -318,7 +318,13 @@ public:
 		_initialize(source);
 	}
 
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	SpecializedShader(const SpecializedShader&) = delete;
+#else
+private:
+	SpecializedShader(const SpecializedShader&);
+public:
+#endif
 
 	SpecializedShader(SpecializedShader&& tmp)
 	 : Shader(std::forward<Shader>(tmp))
@@ -326,9 +332,9 @@ public:
 };
 
 template <ShaderType type>
-struct BaseOps<SpecializedShader<type> >
+struct ObjectBaseOps<SpecializedShader<type> >
 {
-	typedef typename BaseOps<Shader>::Type Type;
+	typedef typename ObjectBaseOps<Shader>::Type Type;
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY

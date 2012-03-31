@@ -30,7 +30,7 @@ private:
 		Target target
 	)
 	{
-		typedef typename BaseOps<Bindable>::Type BindableOps;
+		typedef typename ObjectBaseOps<Bindable>::Type BindableOps;
 		auto name = FriendOf<Bindable>::GetName(bindable);
 		auto sname = BindingQuery<BindableOps>::QueryBinding(target);
 		return name == sname;

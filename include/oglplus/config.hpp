@@ -82,6 +82,21 @@
 #define nullptr 0
 #endif
 
+// define GLAPIENTRY
+#ifdef GLAPIENTRY
+#undef GLAPIENTRY
+#endif
+// borrowed from glew.h which does define GLAPIENTRY properly
+// at the beginning but undefs in at the end of the header
+#if defined(__MINGW32__) || defined(__CYGWIN__)
+#  define GLAPIENTRY __stdcall
+#elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
+#  define GLAPIENTRY __stdcall
+#else
+#  define GLAPIENTRY
+#endif
+
+
 /** @defgroup compile_time_config Compile-time configuration
  *
  *  This section describes compile-time preprocessor symbols that
