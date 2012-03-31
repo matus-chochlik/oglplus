@@ -68,6 +68,16 @@ else()
 	return()
 endif()
 
+# check if Boost.Config is available
+include(config/FindBoostConfig.cmake)
+if(${BoostConfig_FOUND})
+	include_directories(BEFORE SYSTEM BoostConfig_INCLUDE_DIRS)
+endif()
+
+# c++11-related compiler flags
+include(config/CPP11.cmake)
+message(blabla ${OGLPLUS_NO_NULLPTR})
+
 # now create the site-configuration header
 configure_file(
 	${PROJECT_SOURCE_DIR}/config/oglplus/site_config.hpp.in
@@ -87,9 +97,6 @@ add_subdirectory("source/textures" "textures")
 include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
 include_directories(${PROJECT_BINARY_DIR}/include)
-
-# c++11-related compiler flags
-include(config/CPP11.cmake)
 
 # GL extension detection
 include(config/GLExt.cmake)
