@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_BUFFER_SELECT_BIT_1201201052_HPP
 #define OGLPLUS_BUFFER_SELECT_BIT_1201201052_HPP
 
+#include <oglplus/bitfield.hpp>
+
 namespace oglplus {
 
 /// Polygon facing enumeration
@@ -26,6 +28,8 @@ enum class BufferSelectBit : GLenum
 {
 #include <oglplus/enums/buffer_select_bit.ipp>
 };
+
+OGLPLUS_MAKE_BITFIELD(BufferSelectBit)
 
 inline const GLchar* EnumValueName(BufferSelectBit value)
 {

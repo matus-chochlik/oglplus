@@ -19,8 +19,7 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/blit_filter.hpp>
 #include <oglplus/buffer_select_bit.hpp>
-
-#include <oglplus/auxiliary/bitfield.hpp>
+#include <oglplus/bitfield.hpp>
 
 namespace oglplus {
 namespace context {
@@ -93,7 +92,7 @@ public:
 		GLint dstY0,
 		GLint dstX1,
 		GLint dstY1,
-		std::initializer_list<oglplus::BufferSelectBit> mask,
+		Bitfield<oglplus::BufferSelectBit> mask,
 		BlitFilter filter
 	)
 	{
@@ -106,7 +105,7 @@ public:
 			dstY0,
 			dstX1,
 			dstY1,
-			aux::MakeBitfield(mask),
+			GLbitfield(mask),
 			GLenum(filter)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BlitFramebuffer));

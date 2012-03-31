@@ -14,8 +14,7 @@
 
 #include <oglplus/extension.hpp>
 #include <oglplus/texture_unit.hpp>
-
-#include <oglplus/auxiliary/bitfield.hpp>
+#include <oglplus/bitfield.hpp>
 
 #include <oglplus/matrix.hpp>
 
@@ -80,6 +79,8 @@ enum class CompatibilityAttributeGroup : GLenum
 #include <oglplus/enums/ext/compat_attrib_group.ipp>
 };
 
+OGLPLUS_MAKE_BITFIELD(CompatibilityAttributeGroup)
+
 inline const GLchar* EnumValueName(CompatibilityAttributeGroup value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
@@ -101,6 +102,8 @@ enum class CompatibilityClientAttributeGroup : GLenum
 {
 #include <oglplus/enums/ext/compat_client_attrib_group.ipp>
 };
+
+OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
 
 inline const GLchar* EnumValueName(CompatibilityClientAttributeGroup value)
 {
@@ -149,13 +152,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PushAttrib}
 	 */
-	static void PushAttrib(
-		const std::initializer_list<
-			CompatibilityAttributeGroup
-		>& attrib_groups
-	)
+	static void PushAttrib(Bitfield<CompatibilityAttributeGroup> attr_groups)
 	{
-		OGLPLUS_GLFUNC(PushAttrib)(aux::MakeBitfield(attrib_groups));
+		OGLPLUS_GLFUNC(PushAttrib)(GLbitfield(attr_groups));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PushAttrib));
 	}
 
@@ -165,14 +164,10 @@ public:
 	 *  @glfunref{PushClientAttrib}
 	 */
 	static void PushClientAttrib(
-		const std::initializer_list<
-			CompatibilityClientAttributeGroup
-		>& attrib_groups
+		Bitfield<CompatibilityClientAttributeGroup> attrib_groups
 	)
 	{
-		OGLPLUS_GLFUNC(PushClientAttrib)(
-			aux::MakeBitfield(attrib_groups)
-		);
+		OGLPLUS_GLFUNC(PushClientAttrib)(GLbitfield(attrib_groups));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PushClientAttrib));
 	}
 
