@@ -16,6 +16,7 @@
 #include <oglplus/ext/ARB_compatibility.hpp>
 #include <oglplus/angle.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/bitfield.hpp>
 
 namespace oglplus {
 
@@ -33,13 +34,11 @@ struct DSAContextEXT
 	 *  @glfunref{ClientAttribDefaultEXT}
 	 */
 	static void ClientAttribDefault(
-		const std::initializer_list<
-			CompatibilityClientAttributeGroup
-		>& attrib_groups
+		Bitfield<CompatibilityClientAttributeGroup> attrib_groups
 	)
 	{
 		OGLPLUS_GLFUNC(ClientAttribDefaultEXT)(
-			aux::MakeBitfield(attrib_groups)
+			GLbitfield(attrib_groups)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClientAttribDefaultEXT));
 	}
@@ -50,13 +49,11 @@ struct DSAContextEXT
 	 *  @glfunref{PushClientAttribDefaultEXT}
 	 */
 	static void PushClientAttribDefault(
-		const std::initializer_list<
-			CompatibilityClientAttributeGroup
-		>& attrib_groups
+		Bitfield<CompatibilityClientAttributeGroup> attrib_groups
 	)
 	{
 		OGLPLUS_GLFUNC(PushClientAttribDefaultEXT)(
-			aux::MakeBitfield(attrib_groups)
+			GLbitfield(attrib_groups)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PushClientAttribDefaultEXT));
 	}

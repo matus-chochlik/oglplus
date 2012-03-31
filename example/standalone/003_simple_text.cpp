@@ -43,7 +43,7 @@ public:
 		text_path.Glyphs(
 			PathNVFontTarget::Standard,
 			"Sans",
-			{PathNVFontStyle::Bold},
+			PathNVFontStyle::Bold,
 			text,
 			PathNVMissingGlyph::Use,
 			~0,
@@ -68,10 +68,8 @@ public:
 		GLfloat font_min_max[2];
 
 		text_path.GetMetricRange(
-			{
-				PathNVMetricQuery::FontYMinBounds,
-				PathNVMetricQuery::FontYMaxBounds,
-			},
+			PathNVMetricQuery::FontYMinBounds|
+			PathNVMetricQuery::FontYMaxBounds,
 			1, 0,
 			font_min_max
 		);

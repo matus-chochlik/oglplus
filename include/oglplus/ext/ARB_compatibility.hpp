@@ -103,6 +103,8 @@ enum class CompatibilityClientAttributeGroup : GLenum
 #include <oglplus/enums/ext/compat_client_attrib_group.ipp>
 };
 
+OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
+
 inline const GLchar* EnumValueName(CompatibilityClientAttributeGroup value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
