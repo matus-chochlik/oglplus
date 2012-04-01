@@ -76,7 +76,6 @@ endif()
 
 # c++11-related compiler flags
 include(config/CPP11.cmake)
-message(blabla ${OGLPLUS_NO_NULLPTR})
 
 # now create the site-configuration header
 configure_file(

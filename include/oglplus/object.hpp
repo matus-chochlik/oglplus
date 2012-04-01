@@ -226,40 +226,50 @@ public:
 		assert(_type_ok(this->_name));
 	}
 
-	Object(
-		typename ::std::enable_if<
-			ObjectWithType<Object>::HasType::value,
-			typename ObjectWithType<Object>::Type
-		>::type type
-	)
+	template <typename ObjectType>
+	Object(ObjectType type)
 	{
+		static_assert(
+			ObjectWithType<Object>::HasType::value &&
+			std::is_same<
+				typename ObjectWithType<Object>::Type,
+				ObjectType
+			>::value,
+			"Invalid ObjectType for this Object"
+		);
 		_do_init(1, &this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 	}
 
-	Object(
-		typename ::std::enable_if<
-			ObjectWithType<Object>::HasType::value,
-			typename ObjectWithType<Object>::Type
-		>::type type,
-		const GLchar* desc
-	)
+	template <typename ObjectType>
+	Object(ObjectType type, const GLchar* desc)
 	{
+		static_assert(
+			ObjectWithType<Object>::HasType::value &&
+			std::is_same<
+				typename ObjectWithType<Object>::Type,
+				ObjectType
+			>::value,
+			"Invalid ObjectType for this Object"
+		);
 		_do_init(1, &this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
 	}
 
-	Object(
-		typename ::std::enable_if<
-			ObjectWithType<Object>::HasType::value,
-			typename ObjectWithType<Object>::Type
-		>::type type,
-		const String& desc
-	)
+	template <typename ObjectType>
+	Object(ObjectType type, const String& desc)
 	{
+		static_assert(
+			ObjectWithType<Object>::HasType::value &&
+			std::is_same<
+				typename ObjectWithType<Object>::Type,
+				ObjectType
+			>::value,
+			"Invalid ObjectType for this Object"
+		);
 		_do_init(1, &this->_name, type);
 		assert(this->_name != 0);
 		assert(_type_ok(this->_name));

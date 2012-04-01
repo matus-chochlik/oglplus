@@ -5,7 +5,9 @@
 
 # we need C++11
 # TODO add support for various compilers
-add_definitions(-std=c++0x)
+set(CPP11_COMPILER_SWITCH -std=c++0x)
+
+add_definitions(${CPP11_COMPILER_SWITCH})
 
 function(cpp11_feature_detection FEATURE_NAME)
 	configure_file(
@@ -17,6 +19,7 @@ function(cpp11_feature_detection FEATURE_NAME)
 		OGLPLUS_HAS_${FEATURE_NAME}
 		${PROJECT_BINARY_DIR}/cpp11
 		${PROJECT_BINARY_DIR}/cpp11/has_${FEATURE_NAME}.cpp
+		COMPILE_DEFINITIONS ${CPP11_COMPILER_SWITCH}
 	)
 	message(STATUS "Detecting support for c++11 feature '${FEATURE_NAME}': ${OGLPLUS_HAS_${FEATURE_NAME}}")
 	if(OGLPLUS_HAS_${FEATURE_NAME})
@@ -27,4 +30,11 @@ function(cpp11_feature_detection FEATURE_NAME)
 	unset(OGLPLUS_HAS_${FEATURE_NAME})
 endfunction()
 
+cpp11_feature_detection(VARIADIC_TEMPLATES)
+cpp11_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)
+cpp11_feature_detection(INITIALIZER_LISTS)
+cpp11_feature_detection(DEFAULTED_FUNCTIONS)
+cpp11_feature_detection(DELETED_FUNCTIONS)
 cpp11_feature_detection(NULLPTR)
+
+unset(CPP11_COMPILER_SWITCH)
