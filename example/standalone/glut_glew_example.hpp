@@ -16,7 +16,6 @@
 #include <iostream>
 #include <chrono>
 
-#include <oglplus/site_config.hpp>
 #include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/compile_error.hpp>
@@ -113,7 +112,13 @@ public:
 		return double(2*MouseDiffY())/_height;
 	}
 
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	SingleExample(const SingleExample&) = delete;
+#else
+private:
+	SingleExample(const SingleExample&);
+public:
+#endif
 
 	SingleExample(void)
 	 : _width(800)

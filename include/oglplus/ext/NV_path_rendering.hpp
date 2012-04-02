@@ -692,7 +692,7 @@ public:
 			&ref_tg_y
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PointAlongPathNV));
-		return result;
+		return result == GL_TRUE;
 	}
 
 	/// Sets the stroke width value
