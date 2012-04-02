@@ -464,24 +464,31 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Set the vector value(s) of the shader variable
 	/**
 	 *  @glsymbols
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	template <typename ... P>
-	void Set(const std::vector<Vector<T, N>, P...>& data) const
+	template <typename Alloc>
+	void Set(const std::vector<Vector<T, N>, Alloc>& range) const
 	{
+		// TODO: this could be optimized in situations
+		// when the alignment is right and could work
+		// without the temporary copy
+		std::vector<T> temp;
+		temp.reserve(range.size()*N);
+		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
+			temp.insert(temp.end(), Data(*i), Data(*i)+N);
 		this->template _do_set_many<N>(
 			this->_program,
 			this->_index,
-			data.size(),
-			data.data()
+			temp.size(),
+			temp.data()
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Set the vector value(s) of the shader variable
 	/**
 	 *  @glsymbols
@@ -506,16 +513,6 @@ public:
 			this->_index,
 			temp.size(),
 			temp.data()
-		);
-	}
-#else
-	void Set(const std::vector<Vector<T, N> >& data) const
-	{
-		this->template _do_set_many<N>(
-			this->_program,
-			this->_index,
-			data.size(),
-			data.data()
 		);
 	}
 #endif
@@ -553,6 +550,32 @@ public:
 		);
 	}
 
+	/// Set the matrix components of the uniform variable
+	/**
+	 *
+	 *  @glsymbols
+	 *  @glfunref{UniformMatrix}
+	 *  @glfunref{ProgramUniformMatrix}
+	 */
+	template <typename Alloc>
+	void Set(const std::vector<Matrix<T, Rows, Cols>, Alloc>& range) const
+	{
+		// TODO: this could be optimized in situations
+		// when the alignment is right and could work
+		// without the temporary copy
+		std::vector<T> temp;
+		temp.reserve(range.size()*Rows*Cols);
+		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
+			temp.insert(temp.end(), Data(*i), Data(*i)+Rows*Cols);
+		this->template _do_set_mat<Cols, Rows>(
+			this->_program,
+			this->_index,
+			range.size(),
+			true,
+			temp.data()
+		);
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Set the matrix components of the uniform variable
 	/**
@@ -568,24 +591,10 @@ public:
 
 	/// Set the matrix components of the uniform variable
 	/**
-	 *  @glsymbols
-	 *  @glfunref{UniformMatrix}
-	 *  @glfunref{ProgramUniformMatrix}
-	 */
-	template <typename ... P>
-	void Set(const std::vector<Matrix<T, Rows, Cols>, P...>& data) const
-	{
-		this->template _do_set_mat<Cols, Rows>(
-			this->_program,
-			this->_index,
-			range.size(),
-			data.size(),
-			data.data()
-		);
-	}
-
-	/// Set the matrix components of the uniform variable
-	/**
+	 *
+	 *  The matrix elements are supposed to be listed in column-major
+	 *  order.
+	 *
 	 *  @glsymbols
 	 *  @glfunref{UniformMatrix}
 	 *  @glfunref{ProgramUniformMatrix}
@@ -607,19 +616,8 @@ public:
 			this->_program,
 			this->_index,
 			range.size(),
-			temp.size(),
+			true,
 			temp.data()
-		);
-	}
-#else
-	void Set(const std::vector<Matrix<T, Rows, Cols> >& data) const
-	{
-		this->template _do_set_mat<Cols, Rows>(
-			this->_program,
-			this->_index,
-			range.size(),
-			data.size(),
-			data.data()
 		);
 	}
 #endif
