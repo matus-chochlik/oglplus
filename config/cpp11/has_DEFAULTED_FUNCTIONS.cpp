@@ -11,7 +11,7 @@ public:
 	df(void) = default;
 };
 
-int main(int argv, const char* argc)
+int main(int argc, const char** argv)
 {
 	return 0;
 }

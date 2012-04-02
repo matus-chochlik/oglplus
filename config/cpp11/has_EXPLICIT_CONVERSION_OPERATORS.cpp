@@ -14,7 +14,7 @@ public:
 	}
 };
 
-int main(int argv, const char* argc)
+int main(int argc, const char** argv)
 {
 	eco x;
 	return int(x);

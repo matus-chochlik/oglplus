@@ -19,7 +19,7 @@ struct vt2
 	}
 };
 
-int main(int argv, const char* argc)
+int main(int argc, const char** argv)
 {
 	typedef vt1<int, 1, 2, 3, 4, 5, 6, 7> a;
 	vt2<short, int, long, float, double, a> b;

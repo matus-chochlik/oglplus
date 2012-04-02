@@ -6,7 +6,7 @@
  *  Checks for the nullptr keyword
  */
 
-int main(int argv, const char* argc)
+int main(int argc, const char** argv)
 {
-	return (argc == nullptr)?1:0;
+	return (argv == nullptr)?1:0;
 }

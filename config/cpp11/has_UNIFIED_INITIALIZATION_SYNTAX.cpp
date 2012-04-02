@@ -18,7 +18,7 @@ inline uis make_uis(void)
 	return {123, 456.789f, "0"};
 }
 
-int main(int argv, const char* argc)
+int main(int argc, const char** argv)
 {
 	uis x = make_uis();
 	return (x.i == 123)?0:1;

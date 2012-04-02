@@ -11,7 +11,7 @@ public:
 	df(const df&) = delete;
 };
 
-int main(int argv, const char* argc)
+int main(int argc, const char** argv)
 {
 	return 0;
 }
