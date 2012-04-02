@@ -238,6 +238,8 @@ public:
 		 *  @param target use the buffer bound to the target specified
 		 *  @param access the access specifier for the buffer mapping
 		 *
+		 * This class is non-copyable.
+		 *
 		 *  @throws Error
 		 */
 		TypedMap(Target target, BufferMapAccess access)
@@ -253,8 +255,13 @@ public:
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBuffer));
 		}
 
-		/// Copying is disabled
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 		TypedMap(const TypedMap&) = delete;
+#else
+	private:
+		TypedMap(const TypedMap&);
+	public:
+#endif
 
 		/// Move construction is enabled
 		TypedMap(TypedMap&& temp)
@@ -313,7 +320,7 @@ public:
 	 */
 	static bool Mapped(Target target)
 	{
-		return bool(GetIntParam(target, GL_BUFFER_MAPPED));
+		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
 	}
 
 	/// Bind this buffer to the specified target

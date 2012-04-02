@@ -221,12 +221,18 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Set the multiple value(s) of the uniform variable
 	/**
 	 *  @glsymbols
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
+	template <typename ... P>
+	void Set(T v, P ... p) const;
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename ... P>
 	void Set(T v, P ... p) const
 	{
@@ -238,7 +244,27 @@ public:
 			tmp
 		);
 	}
+#else
+	void Set(T v0, T v1) const
+	{
+		const T tmp[] = {v0, v1};
+		this->template _do_set_many<1>(this->_program,this->_index,	2, tmp);
+	}
 
+	void Set(T v0, T v1, T v2) const
+	{
+		const T tmp[] = {v0, v1, v2};
+		this->template _do_set_many<1>(this->_program,this->_index,	3, tmp);
+	}
+
+	void Set(T v0, T v1, T v2, T v3) const
+	{
+		const T tmp[] = {v0, v1, v2, v3};
+		this->template _do_set_many<1>(this->_program,this->_index,	4, tmp);
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Set the vector value of the uniform variable
 	/**
 	 *  @note Consider using @c Uniform<Vector<T,N>> instead
@@ -249,6 +275,11 @@ public:
 	 */
 	template <typename ... P>
 	void SetVector(T v, P ... p) const
+#endif
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+	template <typename ... P>
+	void SetVector(T v, P ... p) const
 	{
 		this->_do_set(
 			this->_program,
@@ -256,6 +287,25 @@ public:
 			v, p...
 		);
 	}
+#else
+	void SetVector(T v0, T v1) const
+	{
+		const T tmp[] = {v0, v1};
+		this->template _do_set<2>(this->_program, this->_index, tmp);
+	}
+
+	void SetVector(T v0, T v1, T v2) const
+	{
+		const T tmp[] = {v0, v1, v2};
+		this->template _do_set<3>(this->_program, this->_index, tmp);
+	}
+
+	void SetVector(T v0, T v1, T v2, T v3) const
+	{
+		const T tmp[] = {v0, v1, v2, v3};
+		this->template _do_set<4>(this->_program, this->_index, tmp);
+	}
+#endif
 
 	/// Set the vector value of the uniform variable
 	/**
@@ -333,6 +383,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Set the matrix components of the uniform variable
 	/**
 	 *  @note Consider using @c Uniform<Matrix<T,M,N>> instead
@@ -351,6 +402,7 @@ public:
 			v, p...
 		);
 	}
+#endif
 };
 
 /// Specialization of uniform operations for Vector types
@@ -383,6 +435,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Set the vector components of the uniform variable
 	/**
 	 *  @glsymbols
@@ -393,6 +446,40 @@ public:
 	inline void Set(T v, P ... p) const
 	{
 		this->Set(Vector<T, N>(v, p...));
+	}
+#else
+	inline void Set(T v0, T v1) const
+	{
+		this->Set(Vector<T, 2>(v0, v1));
+	}
+
+	inline void Set(T v0, T v1, T v2) const
+	{
+		this->Set(Vector<T, 3>(v0, v1, v2));
+	}
+
+	inline void Set(T v0, T v1, T v2, T v3) const
+	{
+		this->Set(Vector<T, 4>(v0, v1, v2, v3));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
+	/// Set the vector value(s) of the shader variable
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Uniform}
+	 *  @glfunref{ProgramUniform}
+	 */
+	template <typename ... P>
+	void Set(const std::vector<Vector<T, N>, P...>& data) const
+	{
+		this->template _do_set_many<N>(
+			this->_program,
+			this->_index,
+			data.size(),
+			data.data()
+		);
 	}
 
 	/// Set the vector value(s) of the shader variable
@@ -421,6 +508,17 @@ public:
 			temp.data()
 		);
 	}
+#else
+	void Set(const std::vector<Vector<T, N> >& data) const
+	{
+		this->template _do_set_many<N>(
+			this->_program,
+			this->_index,
+			data.size(),
+			data.data()
+		);
+	}
+#endif
 };
 
 /// Specialization of uniform operations for Matrix types
@@ -455,6 +553,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Set the matrix components of the uniform variable
 	/**
 	 *  @glsymbols
@@ -465,6 +564,24 @@ public:
 	inline void Set(T v, P ... p) const
 	{
 		this->Set(Matrix<T, Rows, Cols>(v, p...));
+	}
+
+	/// Set the matrix components of the uniform variable
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UniformMatrix}
+	 *  @glfunref{ProgramUniformMatrix}
+	 */
+	template <typename ... P>
+	void Set(const std::vector<Matrix<T, Rows, Cols>, P...>& data) const
+	{
+		this->template _do_set_mat<Cols, Rows>(
+			this->_program,
+			this->_index,
+			range.size(),
+			data.size(),
+			data.data()
+		);
 	}
 
 	/// Set the matrix components of the uniform variable
@@ -494,6 +611,18 @@ public:
 			temp.data()
 		);
 	}
+#else
+	void Set(const std::vector<Matrix<T, Rows, Cols> >& data) const
+	{
+		this->template _do_set_mat<Cols, Rows>(
+			this->_program,
+			this->_index,
+			range.size(),
+			data.size(),
+			data.data()
+		);
+	}
+#endif
 };
 
 namespace aux {

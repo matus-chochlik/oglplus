@@ -247,7 +247,13 @@ public:
 			_alive = true;
 		}
 
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 		Execution(const Execution&) = delete;
+#else
+	private:
+		Execution(const Execution&);
+	public:
+#endif
 
 		Execution(Execution&& temp)
 		 : _target(temp._target)

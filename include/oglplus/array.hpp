@@ -24,6 +24,9 @@ namespace oglplus {
 
 /// Allows to allocate and manage several instances of Object at the same time
 /**
+ *
+ * This class is non-copyable.
+ *
  *  @ingroup modifier_classes
  */
 template <class Object>
@@ -37,8 +40,13 @@ public:
 	 : _storage(c)
 	{ }
 
-	/// Array is not copy constructible
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	Array(const Array&) = delete;
+#else
+private:
+	Array(const Array&);
+public:
+#endif
 
 	/// Returns true if the array is empty
 	bool empty(void) const
@@ -124,7 +132,13 @@ public:
 		}
 	}
 
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	Array(const Array&) = delete;
+#else
+private:
+	Array(const Array&);
+public:
+#endif
 
 	inline Array(Array&& temp)
 	 : _names(std::move(temp._names))

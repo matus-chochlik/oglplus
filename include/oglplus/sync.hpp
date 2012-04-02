@@ -114,6 +114,9 @@ public:
 
 	/// Creates a new sync object for the specified @p condition
 	/**
+	 *
+	 * 	Sync objects are non-copyable
+	 *
 	 *  @glsymbols
 	 *  @glfunref{FenceSync}
 	 */
@@ -123,8 +126,13 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(FenceSync));
 	}
 
-	/// Sync objects are non-copyable
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	Sync(const Sync&) = delete;
+#else
+private:
+	Sync(const Sync&);
+public:
+#endif
 
 	/// Sync objects are moveable
 	Sync(Sync&& temp)

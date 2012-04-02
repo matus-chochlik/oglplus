@@ -112,8 +112,9 @@ private:
 		static Example* test = nullptr;
 		return test;
 	}
+
+	SingleExample(const SingleExample&);
 public:
-	SingleExample(const SingleExample&) = delete;
 
 	SingleExample(void)
 	{

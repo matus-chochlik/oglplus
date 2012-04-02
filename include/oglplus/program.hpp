@@ -316,7 +316,7 @@ public:
 		ActiveVariableInfo(
 			aux::ProgramPartInfoContext& context,
 			GLuint index,
-			void (*GetActiveVariable)(
+			void (GLAPIENTRY *GetActiveVariable)(
 				GLuint /*program*/,
 				GLuint /*index*/,
 				GLsizei /*bufsize*/,
@@ -346,7 +346,7 @@ public:
 		ActiveVariableInfo(
 			aux::ProgramPartInfoContext& context,
 			GLuint index,
-			void (*GetActiveVariable)(GLuint, GLuint, GLint*)
+			void (GLAPIENTRY *GetActiveVariable)(GLuint, GLuint, GLint*)
 		): _index(index)
 		 , _size(0)
 		 , _type(0)
@@ -976,6 +976,8 @@ class Program
 typedef Object<ProgramOps, false> Program;
 #endif
 
+
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 /// A Program that allows to attach shaders and links itself during construction
 /** This specialization of Program allows to build a whole shading language
  *  program (i.e. to attach its shaders, optionally make the program separable,
@@ -1065,6 +1067,9 @@ public:
 	}
 };
 
+#endif // NO_VARIADIC_TEMPLATES
+
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 /// A Program that has its shaders statically hardcoded
 template <class ... Shaders>
 class HardwiredProgram
@@ -1108,6 +1113,8 @@ public:
 	 : QuickProgram(description, separable, _single_shader((Shaders*)0)...)
 	{ }
 };
+
+#endif // NO_VARIADIC_TEMPLATES
 
 } // namespace oglplus
 

@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_AUX_SHADER_DATA_1107121519_HPP
 #define OGLPLUS_AUX_SHADER_DATA_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/string.hpp>
@@ -61,15 +62,48 @@ protected:
 		_fn(index, n, v);
 	}
 
-	template <typename ... P, typename UI>
+	template <typename UI, typename P>
 	static void _call_set_t(
 		GLuint /*program*/,
 		GLuint index,
-		void(*_fn)(UI, P...),
-		P ... v
+		void(*_fn)(UI, P),
+		P v0
 	)
 	{
-		_fn(index, v...);
+		_fn(index, v0);
+	}
+
+	template <typename UI, typename P>
+	static void _call_set_t(
+		GLuint /*program*/,
+		GLuint index,
+		void(*_fn)(UI, P, P),
+		P v0, P v1
+	)
+	{
+		_fn(index, v0, v1);
+	}
+
+	template <typename UI, typename P>
+	static void _call_set_t(
+		GLuint /*program*/,
+		GLuint index,
+		void(*_fn)(UI, P, P, P),
+		P v0, P v1, P v2
+	)
+	{
+		_fn(index, v0, v1, v2);
+	}
+
+	template <typename UI, typename P>
+	static void _call_set_t(
+		GLuint /*program*/,
+		GLuint index,
+		void(*_fn)(UI, P, P, P, P),
+		P v0, P v1, P v2, P v3
+	)
+	{
+		_fn(index, v0, v1, v2, v3);
 	}
 
 	template <typename ID, typename CT, typename TP>
@@ -124,15 +158,48 @@ protected:
 		_fn(program, index, n, v);
 	}
 
-	template <typename ... P, typename UI>
+	template <typename UI, typename P>
 	static void _call_set_t(
 		GLuint program,
 		GLuint index,
-		void(*_fn)(GLuint, UI, P...),
-		P ... v
+		void(*_fn)(GLuint, UI, P),
+		P v0
 	)
 	{
-		_fn(program, index, v...);
+		_fn(program, index, v0);
+	}
+
+	template <typename UI, typename P>
+	static void _call_set_t(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(GLuint, UI, P, P),
+		P v0, P v1
+	)
+	{
+		_fn(program, index, v0, v1);
+	}
+
+	template <typename UI, typename P>
+	static void _call_set_t(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(GLuint, UI, P, P, P),
+		P v0, P v1, P v2
+	)
+	{
+		_fn(program, index, v0, v1, v2);
+	}
+
+	template <typename UI, typename P>
+	static void _call_set_t(
+		GLuint program,
+		GLuint index,
+		void(*_fn)(GLuint, UI, P, P, P, P),
+		P v0, P v1, P v2, P v3
+	)
+	{
+		_fn(program, index, v0, v1, v2, v3);
 	}
 
 	template <typename ID, typename CT, typename TP>
@@ -267,6 +334,8 @@ private:
 		_report_if_error(program, base_index);
 	}
 
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename S, typename ... T>
 	static void _do_set_t(
 		_set_cont,
@@ -310,7 +379,11 @@ private:
 		);
 		_report_if_error(program, base_index);
 	}
+#endif //NO_VARIADIC_TEMPLATES
+
 protected:
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename ... T>
 	static void _do_set(GLuint program, GLuint index, T ... v)
 	{
@@ -327,6 +400,7 @@ protected:
 		);
 		_report_if_error(program, index);
 	}
+#endif //NO_VARIADIC_TEMPLATES
 
 	template <size_t Cols, typename T>
 	static void _do_set(GLuint program, GLuint index, const T* v)
@@ -414,6 +488,7 @@ protected:
 		_report_if_error(program, index);
 	}
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <size_t Cols, typename T, typename ... P>
 	static void _do_set_mat_p(
 		GLuint program,
@@ -440,6 +515,7 @@ protected:
 			values
 		);
 	}
+#endif //NO_VARIADIC_TEMPLATES
 };
 
 

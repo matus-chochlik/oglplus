@@ -39,8 +39,14 @@ private:
 
 	friend class oglplus::ProgramPipelineOps;
 
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 	ProgPLUseStages(void) = delete;
 	ProgPLUseStages(const ProgPLUseStages&) = delete;
+#else
+	ProgPLUseStages(void);
+	ProgPLUseStages(const ProgPLUseStages&);
+#endif
+
 	ProgPLUseStages(GLuint pipeline, GLuint program, GLbitfield bits)
 	 : _pipeline(pipeline)
 	 , _program(program)

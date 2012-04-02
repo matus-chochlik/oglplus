@@ -59,9 +59,19 @@ protected:
 			HandleLimitError<LimitError>(value, _limit(), info);
 	}
 public:
+
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the value
 	template <typename Type>
 	explicit operator Type(void) const
+#endif
+
+	template <typename Type>
+#if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATOR
+	explicit operator Type(void) const
+#else
+	operator Type(void) const
+#endif
 	{
 		return Type(_value);
 	}
