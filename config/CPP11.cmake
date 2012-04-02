@@ -35,6 +35,7 @@ cpp11_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)
 cpp11_feature_detection(INITIALIZER_LISTS)
 cpp11_feature_detection(DEFAULTED_FUNCTIONS)
 cpp11_feature_detection(DELETED_FUNCTIONS)
+cpp11_feature_detection(EXPLICIT_CONVERSION_OPERATORS)
 cpp11_feature_detection(NULLPTR)
 
 unset(CPP11_COMPILER_SWITCH)
