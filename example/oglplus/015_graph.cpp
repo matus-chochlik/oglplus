@@ -52,29 +52,38 @@ private:
 
 	CubicBezierLoop<Vec3f, double> cam_path;
 	CubicBezierLoop<Vec3f, double> tgt_path;
+
+	static std::vector<Vec3f> make_cam_path_cps(void)
+	{
+		const Vec3f _points[6] = {
+			Vec3f(-30.0f, -40.0f, -40.0f),
+			Vec3f( 30.0f,   0.0f, -50.0f),
+			Vec3f( 50.0f,  20.0f,  40.0f),
+			Vec3f(-10.0f,  40.0f,  45.0f),
+			Vec3f(-20.0f,  20.0f,   0.0f),
+			Vec3f(-50.0f,   3.0f, -20.0f)
+		};
+		return std::vector<Vec3f>(_points, _points+6);
+	}
+
+	static std::vector<Vec3f> make_tgt_path_cps(void)
+	{
+		const Vec3f _points[6] = {
+			Vec3f(-10.0f,   0.0f, -10.0f),
+			Vec3f( 10.0f,  10.0f, -10.0f),
+			Vec3f( 10.0f,   0.0f,  10.0f),
+			Vec3f(-10.0f, - 5.0f,  15.0f),
+			Vec3f(-10.0f, - 3.0f,   0.0f),
+			Vec3f(-10.0f,   0.0f, -10.0f)
+		};
+		return std::vector<Vec3f>(_points, _points+6);
+	}
 public:
 	GraphExample(void)
 	 : node_count(512)
 	 , edge_count(0)
-	 , cam_path(
-		{
-			{-30.0f, -40.0f, -40.0f},
-			{ 30.0f,   0.0f, -50.0f},
-			{ 50.0f,  20.0f,  40.0f},
-			{-10.0f,  40.0f,  45.0f},
-			{-20.0f,  20.0f,   0.0f},
-			{-50.0f,   3.0f, -20.0f}
-		}
-	), tgt_path(
-		{
-			{-10.0f,   0.0f, -10.0f},
-			{ 10.0f,  10.0f, -10.0f},
-			{ 10.0f,   0.0f,  10.0f},
-			{-10.0f, - 5.0f,  15.0f},
-			{-10.0f, - 3.0f,   0.0f},
-			{-10.0f,   0.0f, -10.0f}
-		}
-	)
+	 , cam_path(make_cam_path_cps())
+	 , tgt_path(make_tgt_path_cps())
 	{
 		std::srand(std::time(0));
 		// Set the vertex shader source

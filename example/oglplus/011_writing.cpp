@@ -93,7 +93,7 @@ public:
 		prog.Link();
 		prog.Use();
 
-		BezierCurves<Vec2f, double, 3> bezier({
+		const Vec2f points[] = {
 			Vec2f(-0.33f, +0.50f),
 			Vec2f(-0.45f, +0.70f),
 			Vec2f(-0.66f, +0.70f),
@@ -128,7 +128,13 @@ public:
 			Vec2f(+0.90f,  0.10f),
 			Vec2f(+0.70f,  0.10f),
 			Vec2f(+0.90f,  0.20f)
-		});
+		};
+		BezierCurves<Vec2f, double, 3> bezier(
+			std::vector<Vec2f>(
+				points,
+				points+sizeof(points)/sizeof(points[0])
+			)
+		);
 
 		writing.Bind();
 		{
