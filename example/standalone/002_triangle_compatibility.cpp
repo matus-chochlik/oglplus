@@ -30,25 +30,18 @@ private:
 public:
 	Example(size_t width, size_t height)
 	 : log_sink(
-		[](
-			oglplus::DebugOutputSource source,
-			oglplus::DebugOutputType type,
-			GLuint id,
-			oglplus::DebugOutputSeverity severity,
-			GLsizei length,
-			const GLchar* message
-		) -> void
+		[](const oglplus::ARB_debug_output::CallbackData& data) -> void
 		{
-			std::cout << "[" << id << "] '" <<
-				message << "'" << std::endl;
+			std::cout << "[" << data.id << "] '" <<
+				data.message << "'" << std::endl;
 			std::cout << "  [source]   '" <<
-				oglplus::EnumValueName(source)  << "'" <<
+				oglplus::EnumValueName(data.source)  << "'" <<
 				std::endl;
 			std::cout << "  [type]     '" <<
-				oglplus::EnumValueName(type)  << "'" <<
+				oglplus::EnumValueName(data.type)  << "'" <<
 				std::endl;
 			std::cout << "  [severity] '" <<
-				oglplus::EnumValueName(severity)  << "'" <<
+				oglplus::EnumValueName(data.severity)  << "'" <<
 				std::endl;
 		}
 	)
@@ -98,8 +91,9 @@ private:
 		static Example* test = nullptr;
 		return test;
 	}
+
+	SingleExample(const SingleExample&);
 public:
-	SingleExample(const SingleExample&) = delete;
 
 	SingleExample(size_t width, size_t height)
 	{

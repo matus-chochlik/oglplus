@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_EXT_ARB_DEBUG_OUTPUT_1203031902_HPP
 #define OGLPLUS_EXT_ARB_DEBUG_OUTPUT_1203031902_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
 #include <oglplus/string.hpp>
 
@@ -126,15 +127,19 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageControlARB));
 	}
 
+	/// Structure containing data passed to Callback functor
+	struct CallbackData
+	{
+		DebugOutputSource source;
+		DebugOutputType type;
+		GLuint id;
+		DebugOutputSeverity severity;
+		GLsizei length;
+		const GLchar* message;
+	};
+
 	/// Type of a callback functor processing debug output
-	typedef std::function<void (
-		DebugOutputSource source,
-		DebugOutputType type,
-		GLuint id,
-		DebugOutputSeverity severity,
-		GLsizei length,
-		const GLchar* message
-	)> Callback;
+	typedef std::function<void (const CallbackData&)> Callback;
 
 	/// Installs a custom callback processing the debug output
 	/**
@@ -159,14 +164,14 @@ public:
 			assert(self);
 			if(self->_callback)
 			{
-				self->_callback(
-					DebugOutputSource(source),
-					DebugOutputType(type),
-					id,
-					DebugOutputSeverity(severity),
-					length,
-					message
-				);
+				CallbackData data;
+				data.source = DebugOutputSource(source);
+				data.type = DebugOutputType(type);
+				data.id = id;
+				data.severity = DebugOutputSeverity(severity);
+				data.length = length;
+				data.message = message;
+				self->_callback(data);
 			}
 		}
 
@@ -206,8 +211,14 @@ public:
 			);
 		}
 
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
 		/// LogSinks are not copyable
 		LogSink(const LogSink&) = delete;
+#else
+	private:
+		LogSink(const LogSink&);
+	public:
+#endif
 
 		/// Restores the previous callback and its context
 		~LogSink(void)
