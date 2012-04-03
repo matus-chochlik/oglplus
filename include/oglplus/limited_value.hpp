@@ -67,7 +67,7 @@ public:
 #endif
 
 	template <typename Type>
-#if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATOR
+#if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
 	explicit operator Type(void) const
 #else
 	operator Type(void) const

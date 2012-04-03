@@ -9,3 +9,8 @@
 /out
 /bld
 .*.swp
+*.sdf
+*.filters
+*.user
+*.opensdf
+*.suo
