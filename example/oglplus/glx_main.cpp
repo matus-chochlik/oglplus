@@ -49,24 +49,17 @@ void run_loop(
 #if GL_ARB_debug_output
 	ARB_debug_output dbg;
 	ARB_debug_output::LogSink sink(
-		[](
-			DebugOutputSource source,
-			DebugOutputType type,
-			GLuint id,
-			DebugOutputSeverity severity,
-			GLsizei length,
-			const GLchar* message
-		) -> void
+		[](const ARB_debug_output::CallbackData& data) -> void
 		{
 			std::cout << " |" << std::endl;
-			std::cout << " +-+-[" << id << "] '" <<
-				message << "'" << std::endl;
+			std::cout << " +-+-[" << data.id << "] '" <<
+				data.message << "'" << std::endl;
 			std::cout << " | +---[source]   '" <<
-				EnumValueName(source)  << "'" << std::endl;
+				EnumValueName(data.source)  << "'" << std::endl;
 			std::cout << " | +---[type]     '" <<
-				EnumValueName(type)  << "'" << std::endl;
+				EnumValueName(data.type)  << "'" << std::endl;
 			std::cout << " | `---[severity] '" <<
-				EnumValueName(severity)  << "'" << std::endl;
+				EnumValueName(data.severity)  << "'" << std::endl;
 		}
 	);
 
