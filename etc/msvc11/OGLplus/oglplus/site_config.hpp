@@ -24,4 +24,6 @@
 #define OGLPLUS_NO_NULLPTR 0
 #endif
 
+#pragma warning(disable : 4244)
+
 #endif

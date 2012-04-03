@@ -400,6 +400,54 @@ protected:
 		);
 		_report_if_error(program, index);
 	}
+#else
+	template <typename T>
+	static void _do_set(GLuint program, GLuint index, T v0)
+	{
+		Callers::_call_set_t(
+			program,
+			index,
+			std::get<0>(Setters::_fns_t(&v0)),
+			v0
+		);
+		_report_if_error(program, index);
+	}
+
+	template <typename T>
+	static void _do_set(GLuint program, GLuint index, T v0, T v1)
+	{
+		Callers::_call_set_t(
+			program,
+			index,
+			std::get<1>(Setters::_fns_t(&v0)),
+			v0, v1
+		);
+		_report_if_error(program, index);
+	}
+
+	template <typename T>
+	static void _do_set(GLuint program, GLuint index, T v0, T v1, T v2)
+	{
+		Callers::_call_set_t(
+			program,
+			index,
+			std::get<2>(Setters::_fns_t(&v0)),
+			v0, v1, v2
+		);
+		_report_if_error(program, index);
+	}
+
+	template <typename T>
+	static void _do_set(GLuint program, GLuint index, T v0, T v1, T v2, T v3)
+	{
+		Callers::_call_set_t(
+			program,
+			index,
+			std::get<3>(Setters::_fns_t(&v0)),
+			v0, v1, v2, v3
+		);
+		_report_if_error(program, index);
+	}
 #endif //NO_VARIADIC_TEMPLATES
 
 	template <size_t Cols, typename T>

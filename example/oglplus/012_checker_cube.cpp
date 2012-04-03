@@ -150,7 +150,7 @@ public:
 		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.5,
+				1.7,
 				Degrees(time * 135),
 				Degrees(SineWave(time / 20.0) * 90)
 			)

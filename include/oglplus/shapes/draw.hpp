@@ -178,7 +178,7 @@ public:
 	};
 
 	/// Draw the shape from data in currently bound VBOs indexed by indices
-	template <typename IT, typename Driver = DefaultDriver>
+	template <typename IT, typename Driver>
 	void Draw(
 		const std::vector<IT>& indices,
 		GLuint inst_count = 1,
@@ -210,6 +210,13 @@ public:
 			}
 		}
 	}
+
+	template <typename IT>
+	void Draw(const std::vector<IT>& indices)
+	{
+		Draw(indices, 1, DefaultDriver());
+	}
+
 };
 
 // Helper base class for shape builder classes making the drawing instructions
@@ -229,6 +236,13 @@ protected:
 	)
 	{
 		instr._ops.push_back(operation);
+	}
+
+	static DrawingInstructions MakeInstructions(const DrawOperation& operation)
+	{
+		DrawingInstructions instr;
+		instr._ops.push_back(operation);
+		return instr;
 	}
 
 	static DrawingInstructions MakeInstructions(Operations&& ops)

@@ -194,7 +194,7 @@ public:
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
-				double(width)/height,
+				GLfloat(width)/height,
 				1, 100
 			)
 		);

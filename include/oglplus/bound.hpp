@@ -69,7 +69,7 @@ public:
 	Bound(
 		const Bindable& bindable,
 		typename Bindable::Target target
-	): BoundTemplate<BoundBase, Bindable, Bindable>(bindable, target)
+	): BoundTemplate<oglplus::BoundBase, Bindable, Bindable>(bindable, target)
 	{ }
 };
 

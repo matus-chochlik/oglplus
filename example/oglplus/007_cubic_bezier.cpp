@@ -80,7 +80,7 @@ public:
 		prog.Use();
 
 		// the series of cubic bezier curves
-		BezierCurves<Vec2f, double, 3> bezier({
+		Vec2f bezier_cps[] = {
 			Vec2f(-0.9f, -0.9f),
 			Vec2f(-0.9f, +0.9f),
 			Vec2f(+0.9f, +0.9f),
@@ -94,7 +94,13 @@ public:
 			Vec2f(-0.7f, -0.2f),
 			Vec2f(-0.8f, +0.8f),
 			Vec2f(+0.9f, +0.9f),
-		});
+		};
+		BezierCurves<Vec2f, double, 3> bezier(
+			std::vector<Vec2f>(
+				bezier_cps,
+				bezier_cps+sizeof(bezier_cps)/sizeof(bezier_cps[0])
+			)
+		);
 
 		curve.Bind();
 		{

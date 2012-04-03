@@ -12,9 +12,12 @@
 #ifndef OGLPLUS_SHAPES_CUBE_1107121519_HPP
 #define OGLPLUS_SHAPES_CUBE_1107121519_HPP
 
-#include <oglplus/shapes/draw.hpp>
-#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/face_mode.hpp>
+#include <oglplus/shapes/draw.hpp>
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+#include <oglplus/shapes/vert_attr_info.hpp>
+#endif
 
 namespace oglplus {
 namespace shapes {
@@ -77,7 +80,7 @@ public:
 			{-half_x, -half_y, -half_z}  //(H)
 		};
 		const size_t A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7;
-		dest = {
+		const T _positions[108] = {
 			c[A][0], c[A][1], c[A][2],
 			c[D][0], c[D][1], c[D][2],
 			c[B][0], c[B][1], c[B][2],
@@ -120,6 +123,7 @@ public:
 			c[E][0], c[E][1], c[E][2],
 			c[H][0], c[H][1], c[H][2]
 		};
+		dest.assign(_positions, _positions+108);
 		return 3;
 	}
 
@@ -135,7 +139,7 @@ public:
 			{ T(0), -T(1),  T(0)},
 			{ T(0),  T(0), -T(1)}
 		};
-		dest = {
+		const T _normals[108] = {
 			n[0][0], n[0][1], n[0][2],
 			n[0][0], n[0][1], n[0][2],
 			n[0][0], n[0][1], n[0][2],
@@ -178,6 +182,7 @@ public:
 			n[5][0], n[5][1], n[5][2],
 			n[5][0], n[5][1], n[5][2]
 		};
+		dest.assign(_normals, _normals+108);
 		return 3;
 	}
 
@@ -193,7 +198,7 @@ public:
 			{-T(1),  T(0),  T(0)},
 			{-T(1),  T(0),  T(0)}
 		};
-		dest = {
+		const T _tangents[108] = {
 			n[0][0], n[0][1], n[0][2],
 			n[0][0], n[0][1], n[0][2],
 			n[0][0], n[0][1], n[0][2],
@@ -236,6 +241,7 @@ public:
 			n[5][0], n[5][1], n[5][2],
 			n[5][0], n[5][1], n[5][2]
 		};
+		dest.assign(_tangents, _tangents+108);
 		return 3;
 	}
 
@@ -243,7 +249,7 @@ public:
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
-		dest = {
+		const T _tex_coords[108] = {
 			T(1), T(1), T(0),
 			T(1), T(0), T(0),
 			T(0), T(1), T(0),
@@ -286,6 +292,7 @@ public:
 			T(1), T(1), T(5),
 			T(1), T(0), T(5)
 		};
+		dest.assign(_tex_coords, _tex_coords+108);
 		return 3;
 	}
 
@@ -299,7 +306,7 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Cube> VertexAttribs;
-#else
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
 	typedef VertexAttribsInfo<
 		Cube,
 		VertexPositionsTag,
@@ -321,13 +328,14 @@ public:
 	/// Returns the instructions for rendering of faces
 	DrawingInstructions Instructions(void) const
 	{
-		return this->MakeInstructions({
-			{
-				DrawOperation::Method::DrawArrays,
-				PrimitiveType::Triangles,
-				0, 36
-			}
-		});
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawArrays;
+		operation.mode = PrimitiveType::Triangles;
+		operation.first = 0;
+		operation.count = 36;
+		operation.phase = 0;
+
+		return this->MakeInstructions(operation);
 	}
 
 	/// Returns element indices for the Cube's edges
@@ -344,14 +352,15 @@ public:
 		 *(G)-----(C)
 		 *
 		 */
-		IndexArray indices({
+		GLubyte _indices[24] = {
 			 0,  1,  5,  2, //+x
 			19, 22, 23, 18, //-x
 			 6,  7, 10, 11, //+y
 			26, 29, 24, 25, //-y
 			12, 13, 16, 17, //+z
 			31, 35, 32, 30  //-z
-		});
+		};
+		IndexArray indices(_indices, _indices+24);
 		return std::move(indices);
 	}
 
@@ -361,15 +370,14 @@ public:
 		auto instructions = this->MakeInstructions();
 		for(size_t r=0; r!=6; ++r)
 		{
-			this->AddInstruction(
-				instructions,
-				{
-					DrawOperation::Method::DrawElements,
-					PrimitiveType::LineLoop,
-					GLuint(r*4), GLuint(4),
-					0
-				}
-			);
+			DrawOperation operation;
+			operation.method = DrawOperation::Method::DrawElements;
+			operation.mode = PrimitiveType::LineLoop;
+			operation.first = GLuint(r*4);
+			operation.count = GLuint(4);
+			operation.phase = 0;
+
+			this->AddInstruction(instructions, operation);
 		}
 		return std::move(instructions);
 	}
