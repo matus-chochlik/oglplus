@@ -36,8 +36,9 @@ private:
 	size_t _width, _height;
 	ExampleParams _params;
 	std::unique_ptr<Example> _example;
+
+	SingleExample(const SingleExample&);
 public:
-	SingleExample(const SingleExample&) = delete;
 
 	Example* operator ->(void)
 	{

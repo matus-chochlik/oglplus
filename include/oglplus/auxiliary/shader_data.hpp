@@ -32,7 +32,7 @@ protected:
 	static void _call_set_v(
 		GLuint /*program*/,
 		GLuint index,
-		void(*_fn)(UI, const T*),
+		void(GLAPIENTRY *_fn)(UI, const T*),
 		const T* v
 	)
 	{
@@ -43,7 +43,7 @@ protected:
 	static void _call_set_v(
 		GLuint /*program*/,
 		GLuint index,
-		void(*_fn)(UI, SI, const T*),
+		void(GLAPIENTRY *_fn)(UI, SI, const T*),
 		const T* v
 	)
 	{
@@ -55,7 +55,7 @@ protected:
 		GLuint /*program*/,
 		GLuint index,
 		GLsizei n,
-		void(*_fn)(UI, SI, const T*),
+		void(GLAPIENTRY *_fn)(UI, SI, const T*),
 		const T* v
 	)
 	{
@@ -66,7 +66,7 @@ protected:
 	static void _call_set_t(
 		GLuint /*program*/,
 		GLuint index,
-		void(*_fn)(UI, P),
+		void(GLAPIENTRY *_fn)(UI, P),
 		P v0
 	)
 	{
@@ -77,7 +77,7 @@ protected:
 	static void _call_set_t(
 		GLuint /*program*/,
 		GLuint index,
-		void(*_fn)(UI, P, P),
+		void(GLAPIENTRY *_fn)(UI, P, P),
 		P v0, P v1
 	)
 	{
@@ -88,7 +88,7 @@ protected:
 	static void _call_set_t(
 		GLuint /*program*/,
 		GLuint index,
-		void(*_fn)(UI, P, P, P),
+		void(GLAPIENTRY *_fn)(UI, P, P, P),
 		P v0, P v1, P v2
 	)
 	{
@@ -99,7 +99,7 @@ protected:
 	static void _call_set_t(
 		GLuint /*program*/,
 		GLuint index,
-		void(*_fn)(UI, P, P, P, P),
+		void(GLAPIENTRY *_fn)(UI, P, P, P, P),
 		P v0, P v1, P v2, P v3
 	)
 	{
@@ -112,7 +112,7 @@ protected:
 		GLuint index,
 		GLsizei count,
 		GLboolean transpose,
-		void(*_fn)(ID, CT, TP, const T*),
+		void(GLAPIENTRY *_fn)(ID, CT, TP, const T*),
 		const T* v
 	)
 	{
@@ -128,7 +128,7 @@ protected:
 	static void _call_set_v(
 		GLuint program,
 		GLuint index,
-		void(*_fn)(GLuint, UI, const T*),
+		void(GLAPIENTRY *_fn)(GLuint, UI, const T*),
 		const T* v
 	)
 	{
@@ -139,7 +139,7 @@ protected:
 	static void _call_set_v(
 		GLuint program,
 		GLuint index,
-		void(*_fn)(GLuint, UI, SI, const T*),
+		void(GLAPIENTRY *_fn)(GLuint, UI, SI, const T*),
 		const T* v
 	)
 	{
@@ -151,7 +151,7 @@ protected:
 		GLuint program,
 		GLuint index,
 		GLsizei n,
-		void(*_fn)(GLuint, UI, SI, const T*),
+		void(GLAPIENTRY *_fn)(GLuint, UI, SI, const T*),
 		const T* v
 	)
 	{
@@ -162,7 +162,7 @@ protected:
 	static void _call_set_t(
 		GLuint program,
 		GLuint index,
-		void(*_fn)(GLuint, UI, P),
+		void(GLAPIENTRY *_fn)(GLuint, UI, P),
 		P v0
 	)
 	{
@@ -173,7 +173,7 @@ protected:
 	static void _call_set_t(
 		GLuint program,
 		GLuint index,
-		void(*_fn)(GLuint, UI, P, P),
+		void(GLAPIENTRY *_fn)(GLuint, UI, P, P),
 		P v0, P v1
 	)
 	{
@@ -184,7 +184,7 @@ protected:
 	static void _call_set_t(
 		GLuint program,
 		GLuint index,
-		void(*_fn)(GLuint, UI, P, P, P),
+		void(GLAPIENTRY *_fn)(GLuint, UI, P, P, P),
 		P v0, P v1, P v2
 	)
 	{
@@ -195,7 +195,7 @@ protected:
 	static void _call_set_t(
 		GLuint program,
 		GLuint index,
-		void(*_fn)(GLuint, UI, P, P, P, P),
+		void(GLAPIENTRY *_fn)(GLuint, UI, P, P, P, P),
 		P v0, P v1, P v2, P v3
 	)
 	{
@@ -208,7 +208,7 @@ protected:
 		GLuint index,
 		GLsizei count,
 		GLboolean transpose,
-		void(*_fn)(GLuint, ID, CT, TP, const T*),
+		void(GLAPIENTRY *_fn)(GLuint, ID, CT, TP, const T*),
 		const T* v
 	)
 	{
