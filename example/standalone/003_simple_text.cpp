@@ -28,12 +28,19 @@ private:
 	const oglplus::String text;
 	oglplus::PathArrayNV text_path;
 	std::vector<GLubyte> glyph_indices;
+
+	static std::vector<GLubyte> make_glyph_indices(void)
+	{
+		const GLubyte indices[7] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00};
+		return std::vector<GLubyte>(indices, indices+7);
+	}
+
 	std::vector<GLfloat> glyph_spacings;
 public:
 	TextExample(int argc, const char* argv[])
 	 : text("OpenGL")
 	 , text_path(text.size())
-	 , glyph_indices({0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00})
+	 , glyph_indices(make_glyph_indices())
 	 , glyph_spacings(glyph_indices.size())
 	{
 		using namespace oglplus;
