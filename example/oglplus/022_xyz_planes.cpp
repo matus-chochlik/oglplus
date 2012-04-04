@@ -34,6 +34,24 @@ private:
 	shapes::DrawingInstructions plane_instr;
 	shapes::Plane::IndexArray plane_indices;
 
+	static std::vector<shapes::Plane> make_plane_builders(void)
+	{
+		std::vector<shapes::Plane> result;
+		result.push_back(shapes::Plane(
+			Vec3f( 0.0f,  2.0f,  0.0f),
+			Vec3f( 0.0f,  0.0f,  2.0f)
+		));
+		result.push_back(shapes::Plane(
+			Vec3f( 2.0f,  0.0f,  0.0f),
+			Vec3f( 0.0f,  0.0f, -2.0f)
+		));
+		result.push_back(shapes::Plane(
+			Vec3f( 2.0f,  0.0f,  0.0f),
+			Vec3f( 0.0f,  2.0f,  0.0f)
+		));
+		return result;
+	}
+
 	// wrapper around the current OpenGL context
 	Context gl;
 
@@ -59,13 +77,8 @@ public:
 	 : make_torus(1.0, 0.5, 36, 24)
 	 , torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
-	 , make_plane(
-		{
-			{Vec3f( 0.0f,  2.0f,  0.0f), Vec3f( 0.0f,  0.0f,  2.0f)},
-			{Vec3f( 2.0f,  0.0f,  0.0f), Vec3f( 0.0f,  0.0f, -2.0f)},
-			{Vec3f( 2.0f,  0.0f,  0.0f), Vec3f( 0.0f,  2.0f,  0.0f)}
-		}
-	), plane_instr(make_plane[0].Instructions())
+	 , make_plane(make_plane_builders())
+	 , plane_instr(make_plane[0].Instructions())
 	 , plane_indices(make_plane[0].Indices())
 	 , torus_vs("Torus vertex")
 	 , plane_vs("Plane vertex")
@@ -286,7 +299,7 @@ public:
 
 	void BSP(const Mat4f& camera, size_t p)
 	{
-		assert(p < plane.size());
+		assert(p < size_t(plane.size()));
 		// the normal vector of the plane
 		Vec4f normal(make_plane[p].Normal(), 0.0);
 		// check if we are seeing the front or the back face

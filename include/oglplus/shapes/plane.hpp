@@ -13,9 +13,12 @@
 #define OGLPLUS_SHAPES_PLANE_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
-#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/face_mode.hpp>
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+#include <oglplus/shapes/vert_attr_info.hpp>
+#endif
 
 #include <cmath>
 #include <cassert>
@@ -229,7 +232,7 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Plane> VertexAttribs;
-#else
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
 	typedef VertexAttribsInfo<
 		Plane,
 		VertexPositionsTag,
@@ -270,16 +273,14 @@ public:
 		auto instructions = this->MakeInstructions();
 		for(size_t j=0; j!=_vdiv; ++j)
 		{
-			this->AddInstruction(
-				instructions,
-				{
-					DrawOperation::Method::DrawElements,
-					PrimitiveType::TriangleStrip,
-					GLuint(j * (_udiv + 1) * 2),
-					GLuint((_udiv + 1) * 2),
-					0
-				}
-			);
+			DrawOperation operation;
+			operation.method = DrawOperation::Method::DrawElements;
+			operation.mode = PrimitiveType::TriangleStrip;
+			operation.first = GLuint(j * (_udiv + 1) * 2);
+			operation.count = GLuint((_udiv + 1) * 2);
+			operation.phase = 0;
+
+			this->AddInstruction(instructions, operation);
 		}
 		return std::move(instructions);
 	}
@@ -310,16 +311,15 @@ public:
 	DrawingInstructions EdgeInstructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		this->AddInstruction(
-			instructions,
-			{
-				DrawOperation::Method::DrawElements,
-				PrimitiveType::LineStrip,
-				GLuint(0),
-				GLuint(1 + 2*(_udiv+_vdiv)),
-				0
-			}
-		);
+
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::LineStrip;
+		operation.first = 0;
+		operation.count = GLuint(1 + 2*(_udiv+_vdiv));
+		operation.phase = 0;
+
+		this->AddInstruction(instructions, operation);
 		return std::move(instructions);
 	}
 };

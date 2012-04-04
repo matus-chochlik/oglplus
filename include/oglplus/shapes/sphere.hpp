@@ -13,8 +13,11 @@
 #define OGLPLUS_SHAPES_SPHERE_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
-#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/face_mode.hpp>
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+#include <oglplus/shapes/vert_attr_info.hpp>
+#endif
 
 #include <cmath>
 
@@ -149,7 +152,7 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Sphere> VertexAttribs;
-#else
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
 	typedef VertexAttribsInfo<
 		Sphere,
 		VertexPositionsTag,
@@ -195,16 +198,13 @@ public:
 		auto instructions = this->MakeInstructions();
 		for(size_t r=0; r!=(_rings+1); ++r)
 		{
-			this->AddInstruction(
-				instructions,
-				{
-					DrawOperation::Method::DrawElements,
-					PrimitiveType::TriangleStrip,
-					GLuint(r * (_sections + 1) * 2),
-					GLuint((_sections + 1) * 2),
-					0
-				}
-			);
+			DrawOperation operation;
+			operation.method = DrawOperation::Method::DrawElements;
+			operation.mode = PrimitiveType::TriangleStrip;
+			operation.first =  GLuint(r * (_sections + 1) * 2);
+			operation.count = GLuint((_sections + 1) * 2);
+			operation.phase = 0;
+			this->AddInstruction(instructions, operation);
 		}
 		return std::move(instructions);
 	}

@@ -156,7 +156,7 @@ public:
 		assert(width < Width());
 		assert(height < Height());
 		assert(depth < Depth());
-		assert(component < ElementsPerPixel());
+		assert(component < GLsizei(ElementsPerPixel()));
 		GLsizei offs = depth*Height()*Width()+height*Width()+width;
 		return *(Data()+offs*ElementsPerPixel()+component);
 	}

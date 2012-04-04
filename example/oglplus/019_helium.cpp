@@ -26,7 +26,7 @@ private:
 	// helper object encapsulating the drawing instructions
 	shapes::DrawingInstructions sphere_instr;
 	// indices pointing to the sphere's primitive elements
-	typename shapes::Sphere::IndexArray sphere_indices;
+	shapes::Sphere::IndexArray sphere_indices;
 
 	// Fragment shader is owned by each individual sphere
 	FragmentShader fs;

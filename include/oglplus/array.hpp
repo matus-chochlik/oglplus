@@ -169,7 +169,7 @@ public:
 
 	Managed<ObjectOps> at(GLuint index) const
 	{
-		assert(index < size());
+		assert(index < GLuint(size()));
 		return Managed<ObjectOps>(_names[index]);
 	}
 

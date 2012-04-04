@@ -977,7 +977,6 @@ typedef Object<ProgramOps, false> Program;
 #endif
 
 
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 /// A Program that allows to attach shaders and links itself during construction
 /** This specialization of Program allows to build a whole shading language
  *  program (i.e. to attach its shaders, optionally make the program separable,
@@ -989,11 +988,21 @@ class QuickProgram
  : public Program
 {
 private:
+	void _do_initialize(bool separable)
+	{
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+		if(separable) MakeSeparable();
+#endif
+		Link();
+		Use();
+	}
+
 	void _attach(const Shader& shader)
 	{
 		this->AttachShader(shader);
 	}
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename ... Shaders>
 	void _attach(const Shader& shader, const Shaders& ... shaders)
 	{
@@ -1005,13 +1014,12 @@ private:
 	void _initialize(bool separable, const Shaders& ... shaders)
 	{
 		_attach(shaders...);
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-		if(separable) MakeSeparable();
-#endif
-		Link();
-		Use();
+		_do_initialize(separable);
 	}
+#endif
+
 public:
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Build a program using the specified @c shaders
 	template <typename ... Shaders>
 	QuickProgram(const Shaders& ... shaders)
@@ -1065,9 +1073,32 @@ public:
 	{
 		_initialize(separable, shaders...);
 	}
-};
+#else
+	QuickProgram(bool separable, const Shader& s0)
+	 : Program()
+	{
+		this->AttachShader(s0);
+		_do_initialize(separable);
+	}
 
+	QuickProgram(bool separable, const Shader& s0, const Shader& s1)
+	 : Program()
+	{
+		this->AttachShader(s0);
+		this->AttachShader(s1);
+		_do_initialize(separable);
+	}
+
+	QuickProgram(bool separable, const Shader& s0, const Shader& s1, const Shader& s2)
+	 : Program()
+	{
+		this->AttachShader(s0);
+		this->AttachShader(s1);
+		this->AttachShader(s2);
+		_do_initialize(separable);
+	}
 #endif // NO_VARIADIC_TEMPLATES
+};
 
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 /// A Program that has its shaders statically hardcoded
