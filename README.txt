@@ -170,6 +170,16 @@ directory) can be used. Either edit the file in a text editor or use MSVC's
 "Property Manager" and set the variables listed above as appropriate
 on your system.
 
+Also note that when building the examples via the MSVC 11 solution
+the $(OGLplusRoot)/_prebuilt/ directory is required. This directory
+contains automatically generated headers and other files that are
+not in the source repository. This directory is included in the release
+packages. If you are building from sources from the Git repository
+also download a recent package and copy the _prebuilt/ directory
+into to the directory where you have cloned the repo or use the cmake
+build system and build them that way.
+
+
 
  ACKNOWLEDGEMENTS
 ==================
