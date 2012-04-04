@@ -226,12 +226,7 @@ public:
 				Degrees(time * 90)
 			);
 		// make the reflection matrix
-		ModelMatrixf reflection(
-			1.0, 0.0, 0.0, 0.0,
-			0.0,-1.0, 0.0, 0.0,
-			0.0, 0.0, 1.0, 0.0,
-			0.0, 0.0, 0.0, 1.0
-		);
+		auto reflection = ModelMatrixf::Reflection(false, true, false);
 		//
 		Uniform<Mat4f> model_matrix(prog, "ModelMatrix");
 		//

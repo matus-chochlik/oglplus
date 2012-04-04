@@ -138,6 +138,39 @@ See the --help option for the full description and detailed info on the usage
 of this script.
 
 
+ Other build environments
+==========================
+
+ Microsoft Visual Studio 11
+ --------------------------
+
+OGLplus contains a solution file and a set of project files for building
+some of the examples in MSVC 11.
+The solution is located at the following path:
+
+$(OGLplusRoot)/etc/msvc11/OGLplus/OGLplus.sln
+
+To build properly, it requires GLEW (1.7 or higher) and FreeGLUT libraries
+to be installed and added to the list of header/library search paths
+in the solution. This can be achieved by setting the following variables
+visible to MSVC:
+
+ * OGLPLUS_DEP_INCLUDE_DIRS - list of (semicolon-separated) paths pointing
+   to the directories where GLUT's and GLEW's header files are located.
+
+ * OGLPLUS_DEP_LIBRARY_DIRS - list of (semicolon-separated) paths pointing
+   to the directories where GLUT's and GLEW's .lib files are located.
+
+ * OGLPLUS_DEP_LIBS - list of (semicolon-separated) .lib files to be linked
+   to the examples. Typically glew32.lib;freeglut_static.lib.
+
+These variables can be set either as system or user environment variables
+or the "OGLplus-site.props" property sheet file (located in the solution's
+directory) can be used. Either edit the file in a text editor or use MSVC's
+"Property Manager" and set the variables listed above as appropriate
+on your system.
+
+
  ACKNOWLEDGEMENTS
 ==================
 

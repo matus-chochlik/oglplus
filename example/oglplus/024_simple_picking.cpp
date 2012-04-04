@@ -187,8 +187,10 @@ public:
 		// attach the shaders to the picking program
 		pick_prog.AttachShader(vs);
 		pick_prog.AttachShader(gs);
+
+		const GLchar* var_names[2] = {"geomDepth", "geomInstanceID"};
 		pick_prog.TransformFeedbackVaryings(
-			{"geomDepth", "geomInstanceID"},
+			2, var_names,
 			TransformFeedbackMode::InterleavedAttribs
 		);
 		pick_prog.Link();
@@ -208,7 +210,7 @@ public:
 			0
 		);
 		{
-			std::vector<DepthAndID> data(36);
+			std::vector<DepthAndID> data(36, DepthAndID(0.0, 0));
 			Buffer::Data(Buffer::Target::TransformFeedback, data);
 		}
 

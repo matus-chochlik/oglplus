@@ -888,6 +888,28 @@ public:
 		return ModelMatrix(_Scale(), sx, sy, sz);
 	}
 
+	struct _Reflection { };
+
+	ModelMatrix(_Reflection, bool rx, bool ry, bool rz)
+	 : Base(typename Base::NoInit())
+	{
+		const T _rx = rx ?-T(1):T(1);
+		const T _ry = ry ?-T(1):T(1);
+		const T _rz = rz ?-T(1):T(1);
+		OGLPLUS_AUX_MATRIX_INIT_DATA({
+			 _rx, T(0), T(0), T(0),
+			T(0),  _ry, T(0), T(0),
+			T(0), T(0),  _rz, T(0),
+			T(0), T(0), T(0), T(1)
+		});
+	}
+
+	/// Constructs a reflection matrix
+	static inline ModelMatrix Reflection(bool rx, bool ry, bool rz)
+	{
+		return ModelMatrix(_Reflection(), rx, ry, rz);
+	}
+
 	struct _RotationX { };
 
 	ModelMatrix(_RotationX, Angle<T> angle)

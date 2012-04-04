@@ -46,34 +46,49 @@ private:
 	Buffer pos_buffer, size_buffer;
 
 	const size_t samples;
+
 	const std::vector<Vec3f> positions;
+	static std::vector<Vec3f> make_positions(void)
+	{
+		const Vec3f _positions[3] = {
+			Vec3f(-1.4f, -0.3f, -0.7f),
+			Vec3f(-1.6f, +0.4f, +0.7f),
+			Vec3f(+0.6f, -0.1f, +0.1f)
+		};
+		return std::vector<Vec3f>(_positions, _positions+3);
+	}
+
 	const std::vector<GLfloat> sizes;
+	static std::vector<GLfloat> make_sizes(void)
+	{
+		const GLfloat _sizes[3] = {1.0f, 1.2f, 1.5f};
+		return std::vector<GLfloat>(_sizes, _sizes+3);
+	}
+
 	Array<Texture> cloud_tex;
 
-	CubicBezierLoop<Vec3f, double> lightPath;
+	CubicBezierLoop<Vec3f, double> light_path;
+	static std::vector<Vec3f> make_light_path_cps(void)
+	{
+		const Vec3f _cps[6] = {
+			Vec3f(-3.0f, -3.0f, -3.0f),
+			Vec3f( 0.0f,  0.0f,  0.0f),
+			Vec3f( 3.0f,  3.0f,  3.0f),
+			Vec3f( 3.0f, -3.0f, -3.0f),
+			Vec3f( 0.0f,  0.0f,  0.0f),
+			Vec3f(-3.0f,  3.0f,  3.0f)
+		};
+		return std::vector<Vec3f>(_cps, _cps+6);
+	}
 public:
 	CloudExample(void)
 	 : sphere_instr(make_sphere.Instructions())
 	 , sphere_indices(make_sphere.Indices())
 	 , samples(50)
-	 , positions(
-		{
-			{-1.4f, -0.3f, -0.7f},
-			{-1.6f, +0.4f, +0.7f},
-			{+0.6f, -0.1f, +0.1f}
-		}
-	), sizes({1.0f, 1.2f, 1.5f})
+	 , positions(make_positions())
+	 , sizes(make_sizes())
 	 , cloud_tex(positions.size())
-	 , lightPath(
-		{
-			{-3.0f, -3.0f, -3.0f},
-			{ 0.0f,  0.0f,  0.0f},
-			{ 3.0f,  3.0f,  3.0f},
-			{ 3.0f, -3.0f, -3.0f},
-			{ 0.0f,  0.0f,  0.0f},
-			{-3.0f,  3.0f,  3.0f}
-		}
-	)
+	 , light_path(make_light_path_cps())
 	{
 		assert(positions.size() == sizes.size());
 		std::srand(123456);
@@ -127,7 +142,7 @@ public:
 			"in float Size;"
 			"uniform int SampleCount;"
 			"uniform mat4 CameraMatrix;"
-			"uniform vec3 ViewZ;"
+			"uniform vec4 ViewZ;"
 			"out float vertZOffs;"
 			"out float vertSize;"
 			"void main(void)"
@@ -137,7 +152,7 @@ public:
 			"	vertSize = Size;"
 			"	gl_Position = vec4("
 			"		Position.xyz +"
-			"		ViewZ*vertZOffs*Size*0.5,"
+			"		ViewZ.xyz*vertZOffs*Size*0.5,"
 			"		1.0"
 			"	);"
 			"}"
@@ -152,7 +167,7 @@ public:
 			"in float vertSize[];"
 			"uniform vec3 LightPos;"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
-			"uniform vec3 ViewX, ViewY, ViewZ;"
+			"uniform vec4 ViewX, ViewY, ViewZ;"
 			"out vec3 geomTexCoord;"
 			"out vec3 geomLightDir;"
 			"void main(void)"
@@ -166,17 +181,17 @@ public:
 			"	{"
 			"		vec4 v = vec4("
 			"			gl_in[0].gl_Position.xyz+"
-			"			ViewX * xo[i] * s * 0.5+"
-			"			ViewY * yo[j] * s * 0.5,"
+			"			ViewX.xyz * xo[i] * s * 0.5+"
+			"			ViewY.xyz * yo[j] * s * 0.5,"
 			"			1.0"
 			"		);"
 			"		gl_Position = ProjectionMatrix * CameraMatrix * v;"
 			"		geomLightDir = LightPos - v.xyz;"
 			"		geomTexCoord = "
 			"			vec3(0.5, 0.5, 0.5)+"
-			"			ViewX*(xo[i])*0.707+"
-			"			ViewY*(yo[j])*0.707+"
-			"			ViewZ*(zo   )*0.707;"
+			"			ViewX.xyz*(xo[i])*0.707+"
+			"			ViewY.xyz*(yo[j])*0.707+"
+			"			ViewZ.xyz*(zo   )*0.707;"
 			"		EmitVertex();"
 			"	}"
 			"	EndPrimitive();"
@@ -290,7 +305,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		auto lightPos = lightPath.Position(time * 0.05);
+		auto lightPos = light_path.Position(time * 0.05);
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
 			3.5f,
@@ -311,15 +326,9 @@ public:
 
 		Uniform<Vec3f>(cloud_prog, "LightPos").Set(lightPos);
 		Uniform<Mat4f>(cloud_prog, "CameraMatrix").Set(cameraMatrix);
-		Uniform<Vec3f>(cloud_prog, "ViewX").Set(
-			Row<0>(cameraMatrix).xyz()
-		);
-		Uniform<Vec3f>(cloud_prog, "ViewY").Set(
-			Row<1>(cameraMatrix).xyz()
-		);
-		Uniform<Vec3f>(cloud_prog, "ViewZ").Set(
-			Row<2>(cameraMatrix).xyz()
-		);
+		Uniform<Vec4f>(cloud_prog, "ViewX").Set(Row<0>(cameraMatrix));
+		Uniform<Vec4f>(cloud_prog, "ViewY").Set(Row<1>(cameraMatrix));
+		Uniform<Vec4f>(cloud_prog, "ViewZ").Set(Row<2>(cameraMatrix));
 		for(size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			cloud_tex[i].Bind(Texture::Target::_3D);
