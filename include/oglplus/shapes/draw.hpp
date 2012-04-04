@@ -181,8 +181,8 @@ public:
 	template <typename IT, typename Driver>
 	void Draw(
 		const std::vector<IT>& indices,
-		GLuint inst_count = 1,
-		Driver driver = Driver()
+		GLuint inst_count,
+		Driver driver
 	) const
 	{
 		auto i=_ops.begin(),e=_ops.end();
@@ -212,9 +212,9 @@ public:
 	}
 
 	template <typename IT>
-	void Draw(const std::vector<IT>& indices)
+	void Draw(const std::vector<IT>& indices, GLuint inst_count = 1)
 	{
-		Draw(indices, 1, DefaultDriver());
+		Draw(indices, inst_count, DefaultDriver());
 	}
 
 };
