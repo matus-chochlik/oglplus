@@ -10,6 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/smart_enums.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/images/load.hpp>
 #include <oglplus/bound/texture.hpp>
@@ -55,6 +56,7 @@ public:
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
 	{
+		namespace se = oglplus::smart_enums;
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
@@ -120,44 +122,44 @@ public:
 		// bind the VAO for the cube
 		cube.Bind();
 
-		verts.Bind(Buffer::Target::Array);
+		verts.Bind(se::Array());
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup(n_per_vertex, se::Float());
 			attr.Enable();
 		}
 
-		normals.Bind(Buffer::Target::Array);
+		normals.Bind(se::Array());
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup(n_per_vertex, se::Float());
 			attr.Enable();
 		}
 
-		texcoords.Bind(Buffer::Target::Array);
+		texcoords.Bind(se::Array());
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup(n_per_vertex, se::Float());
 			attr.Enable();
 		}
 
 		// setup the texture
 		{
-			auto bound_tex = Bind(tex, Texture::Target::_2D);
+			auto bound_tex = Bind(tex, se::_2D());
 			bound_tex.Image2D(images::LoadTexture("concrete_block"));
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			bound_tex.MinFilter(se::Linear());
+			bound_tex.MagFilter(se::Linear());
+			bound_tex.WrapS(se::Repeat());
+			bound_tex.WrapT(se::Repeat());
 		}
 		//
 		UniformSampler(prog, "TexUnit").Set(0);
@@ -165,9 +167,9 @@ public:
 		//
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
-		gl.Enable(Capability::DepthTest);
+		gl.Enable(se::DepthTest());
 
-		gl.Enable(Capability::CullFace);
+		gl.Enable(se::CullFace());
 		gl.FrontFace(make_cube.FaceWinding());
 	}
 
@@ -178,7 +180,7 @@ public:
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
-				double(width)/height,
+				GLfloat(width)/height,
 				1, 100
 			)
 		);

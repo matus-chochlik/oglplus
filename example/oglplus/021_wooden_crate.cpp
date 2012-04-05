@@ -10,6 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/smart_enums.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/normal_map.hpp>
@@ -56,6 +57,7 @@ public:
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
 	{
+		namespace se = oglplus::smart_enums;
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
@@ -135,9 +137,9 @@ public:
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup(n_per_vertex, se::Float());
 			attr.Enable();
 		}
 
@@ -145,9 +147,9 @@ public:
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup(n_per_vertex, se::Float());
 			attr.Enable();
 		}
 
@@ -155,9 +157,9 @@ public:
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Tangents(data);
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "Tangent");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup(n_per_vertex, se::Float());
 			attr.Enable();
 		}
 
@@ -165,9 +167,9 @@ public:
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup(n_per_vertex, se::Float());
 			attr.Enable();
 		}
 
@@ -175,35 +177,35 @@ public:
 		{
 			Texture::Active(0);
 			UniformSampler(prog, "ColorTex").Set(0);
-			auto bound_tex = Bind(colorTex, Texture::Target::_2D);
+			auto bound_tex = Bind(colorTex, se::_2D());
 			bound_tex.Image2D(images::LoadTexture("wooden_crate"));
 			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			bound_tex.MinFilter(se::LinearMipmapLinear());
+			bound_tex.MagFilter(se::Linear());
+			bound_tex.WrapS(se::Repeat());
+			bound_tex.WrapT(se::Repeat());
 		}
 		{
 			Texture::Active(1);
 			UniformSampler(prog, "NormalTex").Set(1);
-			auto bound_tex = Bind(normalTex, Texture::Target::_2D);
+			auto bound_tex = Bind(normalTex, se::_2D());
 			bound_tex.Image2D(
 				images::NormalMap(
 					images::LoadTexture("wooden_crate-hmap")
 				)
 			);
 			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			bound_tex.MinFilter(se::LinearMipmapLinear());
+			bound_tex.MagFilter(se::Linear());
+			bound_tex.WrapS(se::Repeat());
+			bound_tex.WrapT(se::Repeat());
 		}
 		//
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
-		gl.Enable(Capability::DepthTest);
+		gl.Enable(se::DepthTest());
 
-		gl.Enable(Capability::CullFace);
+		gl.Enable(se::CullFace());
 		gl.FrontFace(make_cube.FaceWinding());
 	}
 
