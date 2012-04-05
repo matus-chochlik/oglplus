@@ -22,6 +22,8 @@ function PrintFileHeader()
 	echo
 }
 
+ShortEnumTempDir=$(mktemp -d)
+
 for InputFile in ${InputFiles}
 do
 	InputName="${InputFile#${InputDir}/}"
@@ -29,9 +31,10 @@ do
 
 	OutputFile="oglplus/enums/${InputName}.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
-	[[ ${InputFile} -nt ${OutputPath} ]] || continue
-	echo "${InputName}" 1>&2
+
+	[[ ${InputFile} -ot ${OutputPath} ]] ||
 	(
+	echo "${InputName}" 1>&2
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
 	PrintFileHeader ${InputFile} ${OutputFile}
@@ -89,9 +92,10 @@ do
 
 	OutputFile="oglplus/names/${InputName}.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
-	[[ ${InputFile} -nt ${OutputPath} ]] || continue
-	echo "${InputName}" 1>&2
+
+	[[ ${InputFile} -ot ${OutputPath} ]] ||
 	(
+	echo "${InputName}" 1>&2
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
 	PrintFileHeader ${InputFile} ${OutputFile}
@@ -114,6 +118,59 @@ do
 
 	git add ${OutputPath}
 done
+
+for InputFile in ${InputFiles}
+do
+(
+	EnumClass=$(sed -n -e 's|^#\(\w\+\)#$|\1|p' < ${InputFile})
+
+	IFS=':'
+
+	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
+	while read GL_DEF OGLPLUS_DEF X
+	do
+		if [ "${OGLPLUS_DEF}" == "" ]
+		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
+		fi
+
+		mkdir -p ${ShortEnumTempDir}
+		echo "${GL_DEF}" >> ${ShortEnumTempDir}/${OGLPLUS_DEF}
+	done
+)
+done
+
+(
+	OutputFile="oglplus/auxiliary/enum_shorteners.ipp"
+	OutputPath="${RootDir}/include/${OutputFile}"
+
+	mkdir -p $(dirname ${OutputPath})
+	exec > ${OutputPath}
+	PrintFileHeader "${RootDir}/source/enums/*.txt" ${OutputFile}
+
+	# the enumeration name shorteners
+	find ${ShortEnumTempDir}/ -mindepth 1 -maxdepth 1 -type f |
+	sort |
+	while read InputFile
+	do
+		OGLPLUS_DEF=$(basename ${InputFile})
+
+		#echo -n "#if"
+		#for GL_DEF in $(cat ${InputFile} | sort | uniq)
+		#do echo -n " defined(GL_${GL_DEF}) ||"
+		#done
+		#echo " false"
+		echo -n "struct ${OGLPLUS_DEF} {"
+		echo -n "template <typename Enum> operator Enum (void) const"
+		echo -n "{ return Enum::${OGLPLUS_DEF}; }"
+		echo "};"
+		#echo "#endif"
+	done
+
+	git add ${OutputPath}
+)
+
+rm -rf ${ShortEnumTempDir}
+
 
 # the mapping of target def. to binding query def.
 grep -c -e '^\([^:]*:\)\{4\}[^:]\+' ${InputFiles} |
@@ -150,3 +207,4 @@ do
 
 	git add ${OutputPath}
 done
+
