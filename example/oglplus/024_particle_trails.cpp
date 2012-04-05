@@ -25,10 +25,10 @@ namespace oglplus {
 class ParticleSystem
 {
 private:
-	const CubicBezierLoop<Vec3f, double> path;
-	const double cycle_time;
-	const double lifetime;
-	const double spawn_interval;
+	CubicBezierLoop<Vec3f, double> path;
+	double cycle_time;
+	double lifetime;
+	double spawn_interval;
 	double spawn_time;
 
 	std::vector<Vec3f> positions;

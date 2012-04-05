@@ -55,6 +55,7 @@ private:
 	Framebuffer fbo;
 
 	size_t width, height;
+	const size_t tex_size_div;
 public:
 	ReflectionExample(void)
 	 : make_plane(
@@ -74,6 +75,7 @@ public:
 	 , shape_fs("Shape fragment")
 	 , width(800)
 	 , height(600)
+	 , tex_size_div(2)
 	{
 		plane_vs.Source(
 			"#version 330\n"
@@ -116,13 +118,15 @@ public:
 			"	float intensity = 0.5 + pow(1.4*d, 2.0);"
 			"	vec3 color = vec3(0.0, 0.0, 0.0);"
 			"	int n = 2;"
+			"	float pct = 0.5/vertTexCoord.w;"
 			"	for(int y=-n; y!=(n+1); ++y)"
 			"	for(int x=-n; x!=(n+1); ++x)"
 			"	{"
 			"		vec2 coord = vertTexCoord.xy;"
 			"		coord += vec2(blur*x, blur*y);"
-			"		coord *= 0.5/vertTexCoord.w;"
+			"		coord *= pct;"
 			"		coord += vec2(0.5, 0.5);"
+			"		coord *= textureSize(ReflectTex);"
 			"		color += texture(ReflectTex, coord).rgb/ns;"
 			"	}"
 			"	fragColor = color*intensity;"
@@ -154,8 +158,8 @@ public:
 		Texture::Active(1);
 		{
 			auto bound_tex = Bind(depth_tex, Texture::Target::Rectangle);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
+			bound_tex.MinFilter(TextureMinFilter::Linear);
+			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::ClampToEdge);
 			bound_tex.WrapT(TextureWrap::ClampToEdge);
 		}
@@ -286,6 +290,7 @@ public:
 		gl.ClearColor(0.5f, 0.5f, 0.4f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
+		gl.Enable(Capability::CullFace);
 	}
 
 	void Reshape(size_t vp_width, size_t vp_height)
@@ -295,7 +300,7 @@ public:
 
 		float aspect = float(width)/height;
 
-		auto projection = 
+		auto projection =
 			CamMatrixf::PerspectiveX(Degrees(48), aspect, 1, 100);
 
 		ProgramUniform<Mat4f>(shape_prog, "ProjectionMatrix").Set(projection);
@@ -304,7 +309,7 @@ public:
 		Bind(depth_tex, Texture::Target::Rectangle).Image2D(
 			0,
 			PixelDataInternalFormat::DepthComponent,
-			width/2, height/2,
+			width/tex_size_div, height/tex_size_div,
 			0,
 			PixelDataFormat::DepthComponent,
 			PixelDataType::Float,
@@ -313,7 +318,7 @@ public:
 		Bind(reflect_tex, Texture::Target::Rectangle).Image2D(
 			0,
 			PixelDataInternalFormat::RGB,
-			width/2, height/2,
+			width/tex_size_div, height/tex_size_div,
 			0,
 			PixelDataFormat::RGB,
 			PixelDataType::UnsignedByte,
@@ -323,7 +328,7 @@ public:
 
 	void Render(double time)
 	{
-		static const ModelMatrixf reflection = 
+		static const ModelMatrixf reflection =
 			ModelMatrixf::Translation(0.0f, -1.0f, 0.0f) *
 			ModelMatrixf::Reflection(false, true, false);
 
@@ -336,23 +341,21 @@ public:
 
 		shape_prog.Use();
 		shape.Bind();
-
-		Uniform<Mat4f>(shape_prog, "ModelMatrix").Set(
-			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f) *
-			ModelMatrixf::RotationX(FullCircles(time / 12.0))
-		);
-
-		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_shape.FaceWinding());
+
+		Uniform<Mat4f>(shape_prog, "ModelMatrix") =
+			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f) *
+			ModelMatrixf::RotationX(FullCircles(time / 12.0));
+
 
 		// render into the off-screen framebuffer
 		fbo.Bind(Framebuffer::Target::Draw);
-		gl.Viewport(width/2, height/2);
+		gl.Viewport(width/tex_size_div, height/tex_size_div);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		Uniform<Mat4f>(shape_prog, "CameraMatrix") = camera * reflection;
 
-		gl.CullFace(Face::Front);
+		gl.FrontFace(Inverted(make_shape.FaceWinding()));
 		shape_instr.Draw(shape_indices);
 
 		// render into the on-screen framebuffer
@@ -362,19 +365,17 @@ public:
 
 		Uniform<Mat4f>(shape_prog, "CameraMatrix") = camera;
 
-		gl.CullFace(Face::Back);
+		gl.FrontFace(make_shape.FaceWinding());
 		shape_instr.Draw(shape_indices);
-
-		gl.Disable(Capability::CullFace);
 
 		// Render the plane
 		plane_prog.Use();
 		plane.Bind();
+		gl.FrontFace(make_plane.FaceWinding());
 
-		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
-		Uniform<Mat4f>(plane_prog, "ModelMatrix").Set(
-			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f)
-		);
+		Uniform<Mat4f>(plane_prog, "CameraMatrix") = camera;
+		Uniform<Mat4f>(plane_prog, "ModelMatrix") =
+			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f);
 
 		plane_instr.Draw(plane_indices);
 	}
