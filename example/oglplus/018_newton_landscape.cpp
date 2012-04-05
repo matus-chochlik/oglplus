@@ -10,6 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/preprocessor.hpp>
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/images/newton.hpp>
 
@@ -59,14 +60,14 @@ public:
 		grid_side*3, grid_side*3
 	), plane_instr(make_plane.Instructions())
 	 , plane_indices(make_plane.Indices())
-	 , light_path({
-		{-3.0f,  2.0f, -3.5f},
-		{ 0.0f,  5.0f,  0.5f},
-		{ 3.0f,  3.0f,  3.0f},
-		{ 3.0f,  3.0f, -3.0f},
-		{ 0.0f,  5.0f,  0.5f},
-		{-3.2f,  2.0f,  3.0f}
-	})
+	 , light_path(OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+		Vec3f(-3.0f,  2.0f, -3.5f),
+		Vec3f( 0.0f,  5.0f,  0.5f),
+		Vec3f( 3.0f,  3.0f,  3.0f),
+		Vec3f( 3.0f,  3.0f, -3.0f),
+		Vec3f( 0.0f,  5.0f,  0.5f),
+		Vec3f(-3.2f,  2.0f,  3.0f)
+	}))
 	{
 		vs.Source(
 			"#version 330\n"
@@ -187,7 +188,8 @@ public:
 				Vec3f(1.0f, 0.8f, 0.9f),
 				Vec2f(-1.0f, -1.0f),
 				Vec2f( 1.0f,  1.0f),
-				images::NewtonFractal::X3Minus1()
+				images::NewtonFractal::X3Minus1(),
+				images::NewtonFractal::DefaultMixer()
 			);
 			Texture::Image2D(tex_tgt, image);
 			Texture::MinFilter(tex_tgt, TextureMinFilter::Linear);

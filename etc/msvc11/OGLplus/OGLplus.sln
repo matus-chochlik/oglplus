@@ -83,6 +83,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "017_phong_torus", "017_phon
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "018_particle_system", "018_particle_system\018_particle_system.vcxproj", "{E0265060-24A4-E760-F14C-B6D9244C20F1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "018_newton_landscape", "018_newton_landscape\018_newton_landscape.vcxproj", "{59D1EF12-6FB0-2559-36C1-615CD4FA73F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -129,6 +131,10 @@ Global
 		{59830F56-B54F-5D39-AF49-940F5CB43ECA}.Debug|Win32.Build.0 = Debug|Win32
 		{59830F56-B54F-5D39-AF49-940F5CB43ECA}.Release|Win32.ActiveCfg = Release|Win32
 		{59830F56-B54F-5D39-AF49-940F5CB43ECA}.Release|Win32.Build.0 = Release|Win32
+		{59D1EF12-6FB0-2559-36C1-615CD4FA73F5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{59D1EF12-6FB0-2559-36C1-615CD4FA73F5}.Debug|Win32.Build.0 = Debug|Win32
+		{59D1EF12-6FB0-2559-36C1-615CD4FA73F5}.Release|Win32.ActiveCfg = Release|Win32
+		{59D1EF12-6FB0-2559-36C1-615CD4FA73F5}.Release|Win32.Build.0 = Release|Win32
 		{5B0B53F1-EA44-E74A-DAD1-BF65D1F5C226}.Debug|Win32.ActiveCfg = Debug|Win32
 		{5B0B53F1-EA44-E74A-DAD1-BF65D1F5C226}.Debug|Win32.Build.0 = Debug|Win32
 		{5B0B53F1-EA44-E74A-DAD1-BF65D1F5C226}.Release|Win32.ActiveCfg = Release|Win32

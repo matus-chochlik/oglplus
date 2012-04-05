@@ -166,6 +166,7 @@ public:
 
 	typedef NoopMixer DefaultMixer;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
 	/// Creates a RGB texture using c1 and c2 for colorizing of the fractal
 	/**
 	 *  @param width the width of the image in pixels
@@ -235,6 +236,25 @@ public:
 		_format = PixelDataFormat::Red;
 		_internal = PixelDataInternalFormat::Red;
 	}
+#else
+	template <typename Function, typename Mixer>
+	NewtonFractal(
+		GLsizei width,
+		GLsizei height,
+		Vec3f c1,
+		Vec3f c2,
+		Vec2f lb,
+		Vec2f rt,
+		Function func,
+		Mixer mixer
+	): Image<GLfloat>(width, height, 1)
+	{
+		_make(width, height, func, mixer, lb, rt, c1, c2);
+		_type = PixelDataType::Float;
+		_format = PixelDataFormat::RGB;
+		_internal = PixelDataInternalFormat::RGB;
+	}
+#endif
 };
 
 } // images
