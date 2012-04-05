@@ -15,7 +15,6 @@
 
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
-#include <oglplus/bound/renderbuffer.hpp>
 
 #include <cmath>
 
@@ -51,13 +50,11 @@ private:
 	Buffer plane_verts, plane_texcoords;
 	Buffer shape_verts, shape_normals;
 
-	// Texture user for the simulation of reflection
-	Texture reflect_tex;
+	Texture reflect_tex, depth_tex;
 
 	Framebuffer fbo;
-	Renderbuffer rbo;
 
-	size_t width, height, tex_side;
+	size_t width, height;
 public:
 	ReflectionExample(void)
 	 : make_plane(
@@ -77,7 +74,6 @@ public:
 	 , shape_fs("Shape fragment")
 	 , width(800)
 	 , height(600)
-	 , tex_side(width > height ? height : width)
 	{
 		plane_vs.Source(
 			"#version 330\n"
@@ -91,9 +87,7 @@ public:
 			"	gl_Position = "
 			"		ModelMatrix* "
 			"		Position;"
-			"	vertLightDir = normalize("
-			"		LightPosition - gl_Position.xyz"
-			"	);"
+			"	vertLightDir = LightPosition - gl_Position.xyz;"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
@@ -105,12 +99,11 @@ public:
 
 		plane_fs.Source(
 			"#version 330\n"
-			"uniform sampler2D ReflectTex;"
+			"uniform sampler2DRect ReflectTex;"
 			"uniform vec3 Normal;"
-			"uniform float Aspect;"
 			"in vec3 vertLightDir;"
 			"in vec4 vertTexCoord;"
-			"out vec4 fragColor;"
+			"out vec3 fragColor;"
 			"const int n = 5;"
 			"const int ns = (n*n);"
 			"const float blur = 0.15/n;"
@@ -118,7 +111,7 @@ public:
 			"{"
 			"	float d = dot("
 			"		Normal, "
-			"		vertLightDir"
+			"		normalize(vertLightDir)"
 			"	);"
 			"	float intensity = 0.5 + pow(1.4*d, 2.0);"
 			"	vec3 color = vec3(0.0, 0.0, 0.0);"
@@ -128,12 +121,11 @@ public:
 			"	{"
 			"		vec2 coord = vertTexCoord.xy;"
 			"		coord += vec2(blur*x, blur*y);"
-			"		coord /= vertTexCoord.w;"
-			"		coord *= 0.5;"
-			"		coord += vec2(Aspect*0.5, 0.5);"
+			"		coord *= 0.5/vertTexCoord.w;"
+			"		coord += vec2(0.5, 0.5);"
 			"		color += texture(ReflectTex, coord).rgb/ns;"
 			"	}"
-			"	fragColor = vec4(color*intensity, 1.0);"
+			"	fragColor = color*intensity;"
 			"}"
 		);
 		plane_fs.Compile();
@@ -159,46 +151,39 @@ public:
 			attr.Enable();
 		}
 		//
-		Texture::Active(0);
-		UniformSampler(plane_prog, "ReflectTex").Set(0);
+		Texture::Active(1);
 		{
-			auto bound_tex = Bind(reflect_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::RGB,
-				tex_side, tex_side,
-				0,
-				PixelDataFormat::RGB,
-				PixelDataType::UnsignedByte,
-				nullptr
-			);
+			auto bound_tex = Bind(depth_tex, Texture::Target::Rectangle);
+			bound_tex.MinFilter(TextureMinFilter::Nearest);
+			bound_tex.MagFilter(TextureMagFilter::Nearest);
+			bound_tex.WrapS(TextureWrap::ClampToEdge);
+			bound_tex.WrapT(TextureWrap::ClampToEdge);
+		}
+
+		Texture::Active(0);
+		ProgramUniformSampler(plane_prog, "ReflectTex").Set(0);
+		{
+			auto bound_tex = Bind(reflect_tex, Texture::Target::Rectangle);
 			bound_tex.MinFilter(TextureMinFilter::Linear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
 			bound_tex.WrapS(TextureWrap::ClampToEdge);
 			bound_tex.WrapT(TextureWrap::ClampToEdge);
 		}
+
 		{
 			auto bound_fbo = Bind(
 				fbo,
 				Framebuffer::Target::Draw
-			);
-			auto bound_rbo = Bind(
-				rbo,
-				Renderbuffer::Target::Renderbuffer
-			);
-			bound_rbo.Storage(
-				PixelDataInternalFormat::DepthComponent,
-				tex_side,
-				tex_side
 			);
 			bound_fbo.AttachTexture(
 				FramebufferAttachment::Color,
 				reflect_tex,
 				0
 			);
-			bound_fbo.AttachRenderbuffer(
+			bound_fbo.AttachTexture(
 				FramebufferAttachment::Depth,
-				rbo
+				depth_tex,
+				0
 			);
 		}
 
@@ -242,13 +227,12 @@ public:
 
 		shape_fs.Source(
 			"#version 330\n"
-			"uniform sampler2D ReflectTex;"
 			"in vec3 vertNormal;"
 			"in vec3 vertLightDir;"
 			"in vec3 vertLightRefl;"
 			"in vec3 vertViewDir;"
 			"in vec3 vertColor;"
-			"out vec4 fragColor;"
+			"out vec3 fragColor;"
 
 			"void main(void)"
 			"{"
@@ -262,12 +246,10 @@ public:
 			"		normalize(vertViewDir)"
 			"	);"
 			"	vec3 lt = vec3(1.0, 1.0, 1.0);"
-			"	fragColor = vec4("
+			"	fragColor = "
 			"		vertColor * 0.4 + "
 			"		(lt + vertColor)*pow(max(2.5*d, 0.0), 3) + "
-			"		lt * pow(max(s, 0.0), 64), "
-			"		1.0"
-			"	);"
+			"		lt * pow(max(s, 0.0), 64);"
 			"}"
 		);
 		shape_fs.Compile();
@@ -310,39 +292,40 @@ public:
 	{
 		width = vp_width;
 		height = vp_height;
-		tex_side = width > height ? height : width;
 
-		auto bound_tex = Bind(reflect_tex, Texture::Target::_2D);
-		bound_tex.Image2D(
+		float aspect = float(width)/height;
+
+		auto projection = 
+			CamMatrixf::PerspectiveX(Degrees(48), aspect, 1, 100);
+
+		ProgramUniform<Mat4f>(shape_prog, "ProjectionMatrix").Set(projection);
+		ProgramUniform<Mat4f>(plane_prog, "ProjectionMatrix").Set(projection);
+
+		Bind(depth_tex, Texture::Target::Rectangle).Image2D(
+			0,
+			PixelDataInternalFormat::DepthComponent,
+			width/2, height/2,
+			0,
+			PixelDataFormat::DepthComponent,
+			PixelDataType::Float,
+			nullptr
+		);
+		Bind(reflect_tex, Texture::Target::Rectangle).Image2D(
 			0,
 			PixelDataInternalFormat::RGB,
-			tex_side, tex_side,
+			width/2, height/2,
 			0,
 			PixelDataFormat::RGB,
 			PixelDataType::UnsignedByte,
 			nullptr
 		);
-		auto bound_rbo = Bind(rbo, Renderbuffer::Target::Renderbuffer);
-		bound_rbo.Storage(
-			PixelDataInternalFormat::DepthComponent,
-			tex_side, tex_side
-		);
 	}
 
 	void Render(double time)
 	{
-		static const ModelMatrixf reflection(
-			 1.0, 0.0, 0.0, 0.0,
-			 0.0,-1.0, 0.0, 0.0,
-			 0.0, 0.0, 1.0, 0.0,
-			 0.0, 0.0, 0.0, 1.0
-		);
-
-		float aspect = float(width)/height;
-
-		auto projection = CamMatrixf::PerspectiveX(
-			Degrees(48), aspect, 1, 100
-		);
+		static const ModelMatrixf reflection = 
+			ModelMatrixf::Translation(0.0f, -1.0f, 0.0f) *
+			ModelMatrixf::Reflection(false, true, false);
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
@@ -358,34 +341,26 @@ public:
 			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f) *
 			ModelMatrixf::RotationX(FullCircles(time / 12.0))
 		);
-		Uniform<Mat4f>(shape_prog, "ProjectionMatrix").Set(projection);
 
 		gl.Enable(Capability::CullFace);
 		gl.FrontFace(make_shape.FaceWinding());
 
 		// render into the off-screen framebuffer
 		fbo.Bind(Framebuffer::Target::Draw);
-		gl.Viewport(
-			(width - tex_side) / 2,
-			(height - tex_side) / 2,
-			tex_side, tex_side
-		);
+		gl.Viewport(width/2, height/2);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform<Mat4f>(shape_prog, "CameraMatrix").Set(
-			camera *
-			ModelMatrixf::Translation(0.0f, -1.0f, 0.0f) *
-			reflection
-		);
+		Uniform<Mat4f>(shape_prog, "CameraMatrix") = camera * reflection;
 
 		gl.CullFace(Face::Front);
 		shape_instr.Draw(shape_indices);
 
+		// render into the on-screen framebuffer
 		Framebuffer::BindDefault(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform<Mat4f>(shape_prog, "CameraMatrix").Set(camera);
+		Uniform<Mat4f>(shape_prog, "CameraMatrix") = camera;
 
 		gl.CullFace(Face::Back);
 		shape_instr.Draw(shape_indices);
@@ -396,15 +371,12 @@ public:
 		plane_prog.Use();
 		plane.Bind();
 
-		Uniform<Mat4f>(plane_prog, "ProjectionMatrix").Set(projection);
 		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
 		Uniform<Mat4f>(plane_prog, "ModelMatrix").Set(
 			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f)
 		);
-		Uniform<GLfloat>(plane_prog, "Aspect").Set(aspect);
 
 		plane_instr.Draw(plane_indices);
-
 	}
 
 	bool Continue(double time)

@@ -10,6 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/preprocessor.hpp>
 
 #include <vector>
 #include <algorithm>
@@ -66,7 +67,7 @@ private:
 	}
 public:
 	ParticleSystem(
-		const std::initializer_list<Vec3f>& path_points,
+		const std::vector<Vec3f>& path_points,
 		double path_time,
 		double part_per_sec
 	): path(path_points)
@@ -163,35 +164,39 @@ private:
 	double prev_time;
 public:
 	SmokeExample(void)
-	 : emitters(
-		{
-			{
-				{
-					{-20.0f, -10.0f,  10.0f},
-					{ 20.0f,   0.0f, -20.0f},
-					{ 20.0f,  10.0f,  20.0f},
-					{-20.0f,   0.0f, -10.0f}
-				}, 5.0, 200.0
-			},
-			{
-				{
-					{ 30.0f,   0.0f,   0.0f},
-					{-30.0f,   0.0f,   0.0f},
-					{-20.0f,  20.0f,   0.0f},
-					{ 20.0f, -10.0f,   0.0f}
-				}, 3.0, 200.0
-			},
-			{
-				{
-					{  5.0f,  20.0f,  20.0f},
-					{ -5.0f,  20.0f, -20.0f},
-					{  5.0f, -20.0f, -20.0f},
-					{ -5.0f, -20.0f,  20.0f}
-				}, 20.0, 100.0
-			}
-		}
-	), prev_time(0.0)
+	 : emitters()
+	 , prev_time(0.0)
 	{
+		emitters.push_back(
+			ParticleSystem(
+				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+					Vec3f(-20.0f, -10.0f,  10.0f),
+					Vec3f( 20.0f,   0.0f, -20.0f),
+					Vec3f( 20.0f,  10.0f,  20.0f),
+					Vec3f(-20.0f,   0.0f, -10.0f)
+				}), 5.0, 200.0
+			)
+		);
+		emitters.push_back(
+			ParticleSystem(
+				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+					Vec3f( 30.0f,   0.0f,   0.0f),
+					Vec3f(-30.0f,   0.0f,   0.0f),
+					Vec3f(-20.0f,  20.0f,   0.0f),
+					Vec3f( 20.0f, -10.0f,   0.0f)
+				}), 3.0, 200.0
+			)
+		);
+		emitters.push_back(
+			ParticleSystem(
+				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+					Vec3f(  5.0f,  20.0f,  20.0f),
+					Vec3f( -5.0f,  20.0f, -20.0f),
+					Vec3f(  5.0f, -20.0f, -20.0f),
+					Vec3f( -5.0f, -20.0f,  20.0f)
+				}), 20.0, 100.0
+			)
+		);
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"

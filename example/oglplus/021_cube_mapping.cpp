@@ -173,7 +173,8 @@ public:
 				Vec3f(1.0f, 0.8f, 0.9f),
 				Vec2f(-1.0f, -1.0f),
 				Vec2f( 1.0f,  1.0f),
-				images::NewtonFractal::X4Minus1()
+				images::NewtonFractal::X4Minus1(),
+				images::NewtonFractal::DefaultMixer()
 			);
 			auto bound_tex = Bind(tex, Texture::Target::CubeMap);
 			bound_tex.MinFilter(TextureMinFilter::Linear);

@@ -13,8 +13,11 @@
 #define OGLPLUS_SHAPES_SPIRAL_SPHERE_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
-#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/face_mode.hpp>
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+#include <oglplus/shapes/vert_attr_info.hpp>
+#endif
 
 #include <cmath>
 
@@ -356,7 +359,7 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<SpiralSphere> VertexAttribs;
-#else
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
 	typedef VertexAttribsInfo<
 		SpiralSphere,
 		VertexPositionsTag,
@@ -489,16 +492,13 @@ public:
 			{
 				for(size_t d=0; d!=_divisions; ++d)
 				{
-					this->AddInstruction(
-						instructions,
-						{
-							method,
-							primitive_type,
-							offs,
-							GLuint(edge * 2),
-							phase
-						}
-					);
+					DrawOperation operation;
+					operation.method = method;
+					operation.mode = primitive_type;
+					operation.first = offs;
+					operation.count = GLuint(edge * 2);
+					operation.phase = phase;
+					this->AddInstruction(instructions, operation);
 					offs += edge * 2;
 				}
 			}
@@ -508,16 +508,13 @@ public:
 		{
 			for(size_t b=0; b!=_bands; ++b)
 			{
-				this->AddInstruction(
-					instructions,
-					{
-						method,
-						primitive_type,
-						offs,
-						GLuint(edge * 2),
-						phase
-					}
-				);
+				DrawOperation operation;
+				operation.method = method;
+				operation.mode = primitive_type;
+				operation.first = offs;
+				operation.count = GLuint(edge * 2);
+				operation.phase = phase;
+				this->AddInstruction(instructions, operation);
 				offs += edge * 2;
 			}
 		}
