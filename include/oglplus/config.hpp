@@ -30,6 +30,14 @@
 
 // ------- C++11 feature availability detection -------
 
+#ifndef OGLPLUS_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_VARIADIC_MACROS
+#define OGLPLUS_NO_VARIADIC_MACROS 1
+#else
+#define OGLPLUS_NO_VARIADIC_MACROS 0
+#endif
+#endif
+
 #ifndef OGLPLUS_NO_VARIADIC_TEMPLATES
 #ifdef BOOST_NO_VARIADIC_TEMPLATES
 #define OGLPLUS_NO_VARIADIC_TEMPLATES 1
@@ -75,6 +83,14 @@
 #define OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATOR 1
 #else
 #define OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATOR 0
+#endif
+#endif
+
+#ifndef OGLPLUS_NO_LAMBDAS
+#ifdef BOOST_NO_LAMBDAS
+#define OGLPLUS_NO_LAMBDAS 1
+#else
+#define OGLPLUS_NO_LAMBDAS 0
 #endif
 #endif
 
