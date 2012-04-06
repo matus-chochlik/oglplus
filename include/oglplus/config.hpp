@@ -94,6 +94,14 @@
 #endif
 #endif
 
+#ifndef OGLPLUS_NO_CONSTEXPR
+#ifdef BOOST_NO_CONSTEXPR
+#define OGLPLUS_NO_CONSTEXPR 1
+#else
+#define OGLPLUS_NO_CONSTEXPR 0
+#endif
+#endif
+
 #ifndef OGLPLUS_NO_LAMBDAS
 #ifdef BOOST_NO_LAMBDAS
 #define OGLPLUS_NO_LAMBDAS 1
@@ -114,6 +122,10 @@
 
 #if OGLPLUS_NO_NULLPTR
 #define nullptr 0
+#endif
+
+#if OGLPLUS_NO_CONSTEXPR
+#define constexpr const
 #endif
 
 // define GLAPIENTRY

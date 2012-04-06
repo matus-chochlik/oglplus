@@ -160,7 +160,7 @@ done
 		#done
 		#echo " false"
 		echo -n "struct ${OGLPLUS_DEF} {"
-		echo -n "template <typename Enum> operator Enum (void) const"
+		echo -n "template <typename Enum> constexpr operator Enum (void) const"
 		echo -n "{ return Enum::${OGLPLUS_DEF}; }"
 		echo "};"
 		#echo "#endif"

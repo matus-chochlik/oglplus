@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/names/ext/nv_path_font.ipp
+ *  .file oglplus/names/ext/nv_path_font_target.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/ext/nv_path_font.txt' instead.
+ *  edit 'source/enums/ext/nv_path_font_target.txt' instead.
  *
  *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

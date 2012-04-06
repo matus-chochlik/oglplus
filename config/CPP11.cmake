@@ -38,6 +38,7 @@ cpp11_feature_detection(DEFAULTED_FUNCTIONS)
 cpp11_feature_detection(DELETED_FUNCTIONS)
 cpp11_feature_detection(EXPLICIT_CONVERSION_OPERATORS)
 cpp11_feature_detection(FUNCTION_TEMPLATE_DEFAULT_ARGS)
+cpp11_feature_detection(CONSTEXPR)
 cpp11_feature_detection(LAMBDAS)
 cpp11_feature_detection(NULLPTR)
 

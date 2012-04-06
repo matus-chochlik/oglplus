@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_SMART_ENUMS_1204051600_HPP
 #define OGLPLUS_SMART_ENUMS_1204051600_HPP
 
+#include <oglplus/config.hpp>
+
 namespace oglplus {
 namespace smart_enums {
 
