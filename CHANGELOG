@@ -1,5 +1,17 @@
 Version 0.13.0
 
+- Detection of availability of several C++11 features was added
+  to the cmake-based build system.
+- Most parts of OGLplus now work with MSVC 11. Several minor interface
+  changes and updates were made in the process.
+- A MSVC solution/project files were added for building of examples.
+- The HardwiredTupleProgram template was added.
+- A new 'RevolveY' shape builder was added.
+- The "smart enum" classes which make the usage of strongly-typed enums
+  more convenient were added.
+- New examples were added and some of the existing were updated to show
+  the new features.
+
 Version 0.12.1
 
 - Several problems and omissions in the NV_path_rendering extension
