@@ -27,6 +27,7 @@
 
 #include <vector>
 #include <cassert>
+#include <tuple>
 
 namespace oglplus {
 namespace aux {
@@ -997,12 +998,45 @@ private:
 		Use();
 	}
 
+	template <typename Tuple, size_t N>
+	void _attach_tuple(
+		const Tuple& tuple,
+		std::integral_constant<size_t, N>,
+		std::integral_constant<size_t, N>
+	){ }
+
+	template <typename Tuple, size_t I, size_t N>
+	void _attach_tuple(
+		const Tuple& tuple,
+		std::integral_constant<size_t, I>,
+		std::integral_constant<size_t, N>
+	)
+	{
+		this->AttachShader(std::get<I>(tuple));
+		_attach_tuple(
+			tuple,
+			std::integral_constant<size_t, I+1>(),
+			std::integral_constant<size_t, N>()
+		);
+	}
+
+	template <typename Tuple>
+	void _initialize_tuple(bool separable, const Tuple& tuple)
+	{
+		_attach_tuple(
+			tuple,
+			std::integral_constant<size_t, 0>(),
+			std::tuple_size<Tuple>()
+		);
+		_do_initialize(separable);
+	}
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	void _attach(const Shader& shader)
 	{
 		this->AttachShader(shader);
 	}
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename ... Shaders>
 	void _attach(const Shader& shader, const Shaders& ... shaders)
 	{
@@ -1073,7 +1107,68 @@ public:
 	{
 		_initialize(separable, shaders...);
 	}
+
+	/// Build a optionally separable program using the specified @c shaders
+	template <typename ... Shaders>
+	QuickProgram(
+		bool separable,
+		const std::tuple<Shaders...>& shaders
+	): Program()
+	{
+		_initialize_tuple(separable, shaders);
+	}
+
+	/// Build a program with @c description using the specified @c shaders
+	template <typename ... Shaders>
+	QuickProgram(
+		const GLchar* description,
+		bool separable,
+		const std::tuple<Shaders...>& shaders
+	): Program(description)
+	{
+		_initialize_tuple(separable, shaders);
+	}
+
+	/// Build a program with @c description using the specified @c shaders
+	template <typename ... Shaders>
+	QuickProgram(
+		const String& description,
+		bool separable,
+		const std::tuple<Shaders...>& shaders
+	): Program(description)
+	{
+		_initialize_tuple(separable, shaders);
+	}
 #else
+	template <typename StdTuple>
+	QuickProgram(
+		bool separable,
+		const StdTuple& shaders
+	): Program()
+	{
+		_initialize_tuple(separable, shaders);
+	}
+
+	template <typename StdTuple>
+	QuickProgram(
+		const GLchar* description,
+		bool separable,
+		const StdTuple& shaders
+	): Program(description)
+	{
+		_initialize_tuple(separable, shaders);
+	}
+
+	template <typename StdTuple>
+	QuickProgram(
+		const String& description,
+		bool separable,
+		const StdTuple& shaders
+	): Program(description)
+	{
+		_initialize_tuple(separable, shaders);
+	}
+
 	QuickProgram(bool separable, const Shader& s0)
 	 : Program()
 	{
@@ -1146,6 +1241,47 @@ public:
 };
 
 #endif // NO_VARIADIC_TEMPLATES
+
+template <class StdTuple>
+class HardwiredTupleProgram;
+
+/// A Program that has its shaders statically hardcoded via a std::tuple
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+template <class ... Shaders>
+class HardwiredTupleProgram<std::tuple<Shaders...> >
+ : protected std::tuple<Shaders...>
+#else
+template <class StdTuple>
+class HardwiredTupleProgram
+ : protected StdTuple
+#endif
+ , public QuickProgram
+{
+private:
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+	typedef std::tuple<Shaders...> StdTuple;
+#endif
+	const StdTuple& _base_shaders(void) const
+	{
+		return *((StdTuple*)this);
+	}
+public:
+	/// Create an instance of the hardwired program, possibly @c separable
+	HardwiredTupleProgram(bool separable)
+	 : QuickProgram(separable, _base_shaders())
+	{ }
+
+	/// Create an instance of the hardwired program with a @c description
+	HardwiredTupleProgram(const GLchar* description, bool separable)
+	 : QuickProgram(description, separable, _base_shaders())
+	{ }
+
+	/// Create an instance of the hardwired program with a @c description
+	HardwiredTupleProgram(const String& description, bool separable)
+	 : QuickProgram(description, separable, _base_shaders())
+	{ }
+};
+
 
 } // namespace oglplus
 
