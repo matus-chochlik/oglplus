@@ -1023,11 +1023,9 @@ private:
 	template <typename Tuple>
 	void _initialize_tuple(bool separable, const Tuple& tuple)
 	{
-		_attach_tuple(
-			tuple,
-			std::integral_constant<size_t, 0>(),
-			std::tuple_size<Tuple>()
-		);
+		std::integral_constant<size_t, 0> i;
+		std::integral_constant<size_t, std::tuple_size<Tuple>::value> n;
+		_attach_tuple(tuple, i, n);
 		_do_initialize(separable);
 	}
 
@@ -1140,15 +1138,6 @@ public:
 		_initialize_tuple(separable, shaders);
 	}
 #else
-	template <typename StdTuple>
-	QuickProgram(
-		bool separable,
-		const StdTuple& shaders
-	): Program()
-	{
-		_initialize_tuple(separable, shaders);
-	}
-
 	template <typename StdTuple>
 	QuickProgram(
 		const GLchar* description,
@@ -1268,7 +1257,7 @@ private:
 public:
 	/// Create an instance of the hardwired program, possibly @c separable
 	HardwiredTupleProgram(bool separable)
-	 : QuickProgram(separable, _base_shaders())
+	 : QuickProgram("", separable, _base_shaders())
 	{ }
 
 	/// Create an instance of the hardwired program with a @c description

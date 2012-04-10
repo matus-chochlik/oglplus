@@ -102,9 +102,11 @@ public:
 };
 
 class VaseProgram
- : public HardwiredProgram<VaseVertShader, VaseFragShader>
+ : public HardwiredTupleProgram<std::tuple<VaseVertShader, VaseFragShader> >
 {
 private:
+	typedef HardwiredTupleProgram<std::tuple<VaseVertShader, VaseFragShader> >
+		_base_program;
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
@@ -112,7 +114,7 @@ public:
 	ProgramUniformSampler vase_tex;
 
 	VaseProgram(void)
-	 : HardwiredProgram<VaseVertShader, VaseFragShader>("Vase program")
+	 : _base_program("Vase program", false)
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
