@@ -14,7 +14,6 @@
 #include <oglplus/bound/texture.hpp>
 
 #include <oglplus/shapes/tetrahedrons.hpp>
-#include <oglplus/shapes/wrapper.hpp>
 
 #include <oglplus/images/newton.hpp>
 
@@ -258,9 +257,14 @@ public:
 };
 
 class LiquidProgram
- : public HardwiredProgram<LiquidVertShader, LiquidGeomShader, LiquidFragShader>
+ : public HardwiredTupleProgram<
+	std::tuple<LiquidVertShader, LiquidGeomShader, LiquidFragShader>
+>
 {
 private:
+	typedef HardwiredTupleProgram<
+		std::tuple<LiquidVertShader, LiquidGeomShader, LiquidFragShader>
+	> _base_program;
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix;
@@ -268,7 +272,7 @@ public:
 	ProgramUniform<GLfloat> time;
 
 	LiquidProgram(void)
-	 : HardwiredProgram<LiquidVertShader,LiquidGeomShader,LiquidFragShader>()
+	 : _base_program(false)
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
@@ -282,7 +286,7 @@ class Grid
 protected:
 	shapes::Tetrahedrons make_grid;
 	shapes::DrawingInstructions grid_instr;
-	typename shapes::Tetrahedrons::IndexArray grid_indices;
+	shapes::Tetrahedrons::IndexArray grid_indices;
 
 	Context gl;
 
@@ -361,7 +365,8 @@ public:
 				Vec3f(1.0f, 1.0f, 1.0f),
 				Vec2f(-1.0f, -1.0f),
 				Vec2f( 1.0f,  1.0f),
-				images::NewtonFractal::X4Minus1()
+				images::NewtonFractal::X4Minus1(),
+				images::NewtonFractal::DefaultMixer()
 			);
 			auto bound_tex = Bind(env_map, Texture::Target::CubeMap);
 			for(int i=0; i!=6; ++i)

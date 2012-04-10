@@ -13,8 +13,10 @@
 #define OGLPLUS_SHAPES_TETRAHEDRONS_1201311347_HPP
 
 #include <oglplus/shapes/draw.hpp>
-#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/face_mode.hpp>
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+#include <oglplus/shapes/vert_attr_info.hpp>
+#endif
 
 #include <cmath>
 #include <cassert>
@@ -101,7 +103,7 @@ public:
 	 *  - "TexCoord" the STR texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Tetrahedrons> VertexAttribs;
-#else
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
 	typedef VertexAttribsInfo<
 		Tetrahedrons,
 		VertexPositionsTag,
@@ -201,16 +203,13 @@ public:
 	{
 		const size_t n = _divisions;
 		auto instructions = this->MakeInstructions();
-		this->AddInstruction(
-			instructions,
-			{
-				DrawOperation::Method::DrawElements,
-				PrimitiveType::TrianglesAdjacency,
-				GLuint(0),
-				GLuint(n*n*n*6*6),
-				0
-			}
-		);
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::TrianglesAdjacency;
+		operation.first = GLuint(0);
+		operation.count = GLuint(n*n*n*6*6);
+		operation.phase = 0;
+		this->AddInstruction(instructions, operation);
 		return std::move(instructions);
 	}
 };

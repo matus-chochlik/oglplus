@@ -1046,7 +1046,7 @@ public:
 
 	Vector<T, 3> Position(void) const
 	{
-		return Inverse(*this).template Col<3>().xyz();
+		return Vector<T, 3>(Data(Inverse(*this).template Col<3>()),	3);
 	}
 
 	struct _Perspective { };

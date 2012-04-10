@@ -13,8 +13,10 @@
 #define OGLPLUS_SHAPES_WICKER_TORUS_1201021336_HPP
 
 #include <oglplus/shapes/draw.hpp>
-#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/face_mode.hpp>
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+#include <oglplus/face_mode.hpp>
+#endif
 
 #include <cmath>
 
@@ -809,7 +811,7 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<WickerTorus> VertexAttribs;
-#else
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
 	typedef VertexAttribsInfo<
 		WickerTorus,
 		VertexPositionsTag,
@@ -840,16 +842,13 @@ public:
 		{
 			for(size_t r=0; r!=_rings; ++r)
 			{
-				this->AddInstruction(
-					instructions,
-					{
-						DrawOperation::Method::DrawArrays,
-						PrimitiveType::TriangleStrip,
-						GLuint(offs),
-						GLuint(strip),
-						phase
-					}
-				);
+				DrawOperation operation;
+				operation.method = DrawOperation::Method::DrawArrays;
+				operation.mode = PrimitiveType::TriangleStrip;
+				operation.first = GLuint(offs);
+				operation.count = GLuint(strip);
+				operation.phase = phase;
+				this->AddInstruction(instructions, operation);
 				offs += strip;
 			}
 			++phase;
@@ -861,16 +860,13 @@ public:
 		{
 			for(size_t s=0; s!=_sections; ++s)
 			{
-				this->AddInstruction(
-					instructions,
-					{
-						DrawOperation::Method::DrawArrays,
-						PrimitiveType::TriangleStrip,
-						GLuint(offs),
-						GLuint(strip),
-						phase
-					}
-				);
+				DrawOperation operation;
+				operation.method = DrawOperation::Method::DrawArrays;
+				operation.mode = PrimitiveType::TriangleStrip;
+				operation.first = GLuint(offs);
+				operation.count = GLuint(strip);
+				operation.phase = phase;
+				this->AddInstruction(instructions, operation);
 				offs += strip;
 			}
 			++phase;
@@ -940,16 +936,13 @@ public:
 			{
 				for(size_t r=0; r!=_rings; ++r)
 				{
-					this->AddInstruction(
-						instructions,
-						{
-							DrawOperation::Method::DrawElements,
-							PrimitiveType::LineLoop,
-							GLuint(offs),
-							GLuint(edge-1),
-							phase
-						}
-					);
+					DrawOperation operation;
+					operation.method = DrawOperation::Method::DrawElements;
+					operation.mode = PrimitiveType::LineLoop;
+					operation.first = GLuint(offs);
+					operation.count = GLuint(edge-1);
+					operation.phase = phase;
+					this->AddInstruction(instructions, operation);
 					offs += edge;
 				}
 			}
@@ -963,16 +956,13 @@ public:
 			{
 				for(size_t s=0; s!=_sections; ++s)
 				{
-					this->AddInstruction(
-						instructions,
-						{
-							DrawOperation::Method::DrawElements,
-							PrimitiveType::LineLoop,
-							GLuint(offs),
-							GLuint(edge-1),
-							phase
-						}
-					);
+					DrawOperation operation;
+					operation.method = DrawOperation::Method::DrawElements;
+					operation.mode = PrimitiveType::LineLoop;
+					operation.first = GLuint(offs);
+					operation.count = GLuint(edge-1);
+					operation.phase = phase;
+					this->AddInstruction(instructions, operation);
 					offs += edge;
 				}
 			}
@@ -984,16 +974,13 @@ public:
 		{
 			for(size_t r=0; r!=_rings; ++r)
 			{
-				this->AddInstruction(
-					instructions,
-					{
-						DrawOperation::Method::DrawArrays,
-						PrimitiveType::Lines,
-						GLuint(offs),
-						GLuint(2*edge),
-						phase
-					}
-				);
+				DrawOperation operation;
+				operation.method = DrawOperation::Method::DrawArrays;
+				operation.mode = PrimitiveType::Lines;
+				operation.first = GLuint(offs);
+				operation.count = GLuint(2*edge);
+				operation.phase = phase;
+				this->AddInstruction(instructions, operation);
 				offs += 2*edge;
 			}
 		}

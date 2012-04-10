@@ -99,6 +99,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "027_reflected_shape", "027_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "028_glass_shape", "028_glass_shape\028_glass_shape.vcxproj", "{C791523A-358C-F562-4047-BEAA7DDE37EF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "021_morphing", "021_morphing\021_morphing.vcxproj", "{A83C7F37-9CD5-1BE3-A500-E68F59D743DA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "028_ripples", "028_ripples\028_ripples.vcxproj", "{7E64C78E-3B6D-6269-0A1E-30C07ECFB972}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -189,6 +193,10 @@ Global
 		{758C7CC8-3FFD-755B-3D7A-9DD57694B169}.Debug|Win32.Build.0 = Debug|Win32
 		{758C7CC8-3FFD-755B-3D7A-9DD57694B169}.Release|Win32.ActiveCfg = Release|Win32
 		{758C7CC8-3FFD-755B-3D7A-9DD57694B169}.Release|Win32.Build.0 = Release|Win32
+		{7E64C78E-3B6D-6269-0A1E-30C07ECFB972}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7E64C78E-3B6D-6269-0A1E-30C07ECFB972}.Debug|Win32.Build.0 = Debug|Win32
+		{7E64C78E-3B6D-6269-0A1E-30C07ECFB972}.Release|Win32.ActiveCfg = Release|Win32
+		{7E64C78E-3B6D-6269-0A1E-30C07ECFB972}.Release|Win32.Build.0 = Release|Win32
 		{85453F2E-AEE8-6B26-6C9F-FE62BDDCEB87}.Debug|Win32.ActiveCfg = Debug|Win32
 		{85453F2E-AEE8-6B26-6C9F-FE62BDDCEB87}.Debug|Win32.Build.0 = Debug|Win32
 		{85453F2E-AEE8-6B26-6C9F-FE62BDDCEB87}.Release|Win32.ActiveCfg = Release|Win32
@@ -205,6 +213,10 @@ Global
 		{9B6EE07F-7F0A-A984-80C4-62A8B9A0DFC7}.Debug|Win32.Build.0 = Debug|Win32
 		{9B6EE07F-7F0A-A984-80C4-62A8B9A0DFC7}.Release|Win32.ActiveCfg = Release|Win32
 		{9B6EE07F-7F0A-A984-80C4-62A8B9A0DFC7}.Release|Win32.Build.0 = Release|Win32
+		{A83C7F37-9CD5-1BE3-A500-E68F59D743DA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A83C7F37-9CD5-1BE3-A500-E68F59D743DA}.Debug|Win32.Build.0 = Debug|Win32
+		{A83C7F37-9CD5-1BE3-A500-E68F59D743DA}.Release|Win32.ActiveCfg = Release|Win32
+		{A83C7F37-9CD5-1BE3-A500-E68F59D743DA}.Release|Win32.Build.0 = Release|Win32
 		{A8FEF6F4-70D0-174D-975C-9A5D3D29331D}.Debug|Win32.ActiveCfg = Debug|Win32
 		{A8FEF6F4-70D0-174D-975C-9A5D3D29331D}.Debug|Win32.Build.0 = Debug|Win32
 		{A8FEF6F4-70D0-174D-975C-9A5D3D29331D}.Release|Win32.ActiveCfg = Release|Win32
