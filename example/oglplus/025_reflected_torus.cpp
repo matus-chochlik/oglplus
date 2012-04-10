@@ -10,6 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/smart_enums.hpp>
 #include <oglplus/shapes/torus.hpp>
 
 #include <cmath>
@@ -63,6 +64,7 @@ public:
 	 , gs_refl("Geometry-Reflection")
 	 , fs("Fragment")
 	{
+		namespace se = oglplus::smart_enums;
 		// Set the normal object vertex shader source
 		vs_norm.Source(
 			"#version 330\n"
@@ -202,40 +204,40 @@ public:
 		torus.Bind();
 
 		// bind the VBO for the torus vertices
-		torus_verts.Bind(Buffer::Target::Array);
+		torus_verts.Bind(se::Array());
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Positions(data);
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
 			VertexAttribArray attr_n(prog_norm, "Position");
-			attr_n.Setup(n_per_vertex, DataType::Float);
+			attr_n.Setup(n_per_vertex, se::Float());
 			attr_n.Enable();
 			//
 			prog_refl.Use();
 			VertexAttribArray attr_r(prog_refl, "Position");
-			attr_r.Setup(n_per_vertex, DataType::Float);
+			attr_r.Setup(n_per_vertex, se::Float());
 			attr_r.Enable();
 		}
 
 		// bind the VBO for the torus normals
-		torus_normals.Bind(Buffer::Target::Array);
+		torus_normals.Bind(se::Array());
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Normals(data);
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
+			Buffer::Data(se::Array(), data);
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
 			VertexAttribArray attr_n(prog_norm, "Normal");
-			attr_n.Setup(n_per_vertex, DataType::Float);
+			attr_n.Setup(n_per_vertex, se::Float());
 			attr_n.Enable();
 			//
 			prog_refl.Use();
 			VertexAttribArray attr_r(prog_refl, "Normal");
-			attr_r.Setup(n_per_vertex, DataType::Float);
+			attr_r.Setup(n_per_vertex, se::Float());
 			attr_r.Enable();
 		}
 
@@ -243,7 +245,7 @@ public:
 		plane.Bind();
 
 		// bind the VBO for the plane vertices
-		plane_verts.Bind(Buffer::Target::Array);
+		plane_verts.Bind(se::Array());
 		{
 			GLfloat data[4*3] = {
 				-2.0f, 0.0f,  2.0f,
@@ -252,16 +254,16 @@ public:
 				 2.0f, 0.0f, -2.0f
 			};
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, 4*3, data);
+			Buffer::Data(se::Array(), 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup(3, se::Float());
 			attr.Enable();
 		}
 
 		// bind the VBO for the torus normals
-		plane_normals.Bind(Buffer::Target::Array);
+		plane_normals.Bind(se::Array());
 		{
 			GLfloat data[4*3] = {
 				-0.1f, 1.0f,  0.1f,
@@ -270,11 +272,11 @@ public:
 				 0.1f, 1.0f, -0.1f
 			};
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, 4*3, data);
+			Buffer::Data(se::Array(), 4*3, data);
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "Normal");
-			attr.Setup(3, DataType::Float);
+			attr.Setup(3, se::Float());
 			attr.Enable();
 		}
 		VertexArray::Unbind();
@@ -304,6 +306,7 @@ public:
 
 	void Render(double time)
 	{
+		namespace se = oglplus::smart_enums;
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 		// make the camera matrix orbiting around the origin
 		// at radius of 3.5 with elevation between 15 and 90 degrees
@@ -321,22 +324,22 @@ public:
 		// draw the plane into the stencil buffer
 		prog_norm.Use();
 
-		gl.Disable(Capability::Blend);
-		gl.Disable(Capability::DepthTest);
-		gl.Enable(Capability::StencilTest);
+		gl.Disable(se::Blend());
+		gl.Disable(se::DepthTest());
+		gl.Enable(se::StencilTest());
 		gl.ColorMask(false, false, false, false);
-		gl.StencilFunc(CompareFunction::Always, 1, 1);
-		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Replace);
+		gl.StencilFunc(se::Always(), 1, 1);
+		gl.StencilOp(se::Keep(), se::Keep(), se::Replace());
 
 		Uniform<Mat4f> model_matrix_norm(prog_norm, "ModelMatrix");
 		model_matrix_norm.Set(identity);
 		plane.Bind();
-		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
+		gl.DrawArrays(se::TriangleStrip(), 0, 4);
 
 		gl.ColorMask(true, true, true, true);
-		gl.Enable(Capability::DepthTest);
-		gl.StencilFunc(CompareFunction::Equal, 1, 1);
-		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Keep);
+		gl.Enable(se::DepthTest());
+		gl.StencilFunc(se::Equal(), 1, 1);
+		gl.StencilOp(se::Keep(), se::Keep(), se::Keep());
 
 		// draw the torus using the reflection program
 		prog_refl.Use();
@@ -344,7 +347,7 @@ public:
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 
-		gl.Disable(Capability::StencilTest);
+		gl.Disable(se::StencilTest());
 
 		prog_norm.Use();
 		// draw the torus using the normal object program
@@ -352,11 +355,11 @@ public:
 		torus_instr.Draw(torus_indices);
 
 		// blend-in the plane
-		gl.Enable(Capability::Blend);
-		gl.BlendEquation(BlendEquation::Max);
+		gl.Enable(se::Blend());
+		gl.BlendEquation(se::Max());
 		model_matrix_norm.Set(identity);
 		plane.Bind();
-		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
+		gl.DrawArrays(se::TriangleStrip(), 0, 4);
 	}
 
 	bool Continue(double time)
