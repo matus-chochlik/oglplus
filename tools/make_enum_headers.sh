@@ -160,8 +160,16 @@ done
 		#done
 		#echo " false"
 		echo -n "struct ${OGLPLUS_DEF} {"
+		echo
 		echo -n "template <typename Enum> operator Enum (void) const"
 		echo -n "{ return Enum::${OGLPLUS_DEF}; }"
+		echo
+		echo -n "template <typename Enum> friend bool operator==(Enum value, ${OGLPLUS_DEF})"
+		echo -n "{ return value == Enum::${OGLPLUS_DEF}; }"
+		echo
+		echo -n "template <typename Enum> friend bool operator!=(Enum value, ${OGLPLUS_DEF})"
+		echo -n "{ return value != Enum::${OGLPLUS_DEF}; }"
+		echo
 		echo "};"
 		#echo "#endif"
 	done

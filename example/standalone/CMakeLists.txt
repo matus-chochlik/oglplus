@@ -33,6 +33,13 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		)
 	endif()
 
+	if(HAS_GLEW_AMD_performance_monitor)
+		standalone_example_common(
+			002_amd_perf_monitor
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
+	endif()
+
 	if(HAS_GLEW_ARB_compatibility AND HAS_GLEW_ARB_debug_output)
 		standalone_example_common(
 			002_triangle_compatibility

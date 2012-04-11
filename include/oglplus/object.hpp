@@ -136,6 +136,11 @@ class Object
  , public aux::ObjectDescRegistry<ObjectOps>
 {
 private:
+	static constexpr bool _can_be_zero(void)
+	{
+		return ObjectOps::_can_be_zero::value;
+	}
+
 	GLuint _release(void)
 	{
 		GLuint res = this->_name;
@@ -150,7 +155,7 @@ private:
 		assert(*_n == 0);
 		assert(MultiObject || (_c == 1));
 		ObjectOps::_init(_c, _n);
-		assert(*_n != 0);
+		assert(_can_be_zero() || *_n != 0);
 	}
 
 	template <typename Type>
@@ -160,7 +165,7 @@ private:
 		assert(*_n == 0);
 		assert(!MultiObject);
 		ObjectOps::_init(_c, _n, _k);
-		assert(*_n != 0);
+		assert(_can_be_zero() || *_n != 0);
 	}
 
 	static inline void _do_cleanup(GLsizei _c, GLuint* _n)
@@ -175,7 +180,7 @@ private:
 
 	static inline bool _type_ok(GLuint _name)
 	{
-		assert(_name != 0);
+		assert(_can_be_zero() || _name != 0);
 #if OGLPLUS_DONT_TEST_OBJECT_TYPE
 		return true;
 #else
@@ -188,14 +193,14 @@ public:
 	Object(void)
 	{
 		_do_init(1, &this->_name);
-		assert(this->_name != 0);
+		assert(_can_be_zero() || this->_name != 0);
 		assert(_type_ok(this->_name));
 	}
 
 	Object(const GLchar* desc)
 	{
 		_do_init(1, &this->_name);
-		assert(this->_name != 0);
+		assert(_can_be_zero() || this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
 	}
@@ -203,7 +208,7 @@ public:
 	Object(const String& desc)
 	{
 		_do_init(1, &this->_name);
-		assert(this->_name != 0);
+		assert(_can_be_zero() || this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
 	}
@@ -219,9 +224,9 @@ public:
 	Object(Object&& temp)
 	{
 		assert(this->_name == 0);
-		assert(temp._name  != 0);
+		assert(_can_be_zero() || temp._name  != 0);
 		this->_name = temp._release();
-		assert(this->_name != 0);
+		assert(_can_be_zero() || this->_name != 0);
 		assert(temp._name  == 0);
 		assert(_type_ok(this->_name));
 	}
@@ -238,7 +243,7 @@ public:
 			"Invalid ObjectType for this Object"
 		);
 		_do_init(1, &this->_name, type);
-		assert(this->_name != 0);
+		assert(_can_be_zero() || this->_name != 0);
 		assert(_type_ok(this->_name));
 	}
 
@@ -254,7 +259,7 @@ public:
 			"Invalid ObjectType for this Object"
 		);
 		_do_init(1, &this->_name, type);
-		assert(this->_name != 0);
+		assert(_can_be_zero() || this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
 	}
@@ -271,7 +276,7 @@ public:
 			"Invalid ObjectType for this Object"
 		);
 		_do_init(1, &this->_name, type);
-		assert(this->_name != 0);
+		assert(_can_be_zero() || this->_name != 0);
 		assert(_type_ok(this->_name));
 		this->_register_desc(this->_name, desc);
 	}

@@ -370,7 +370,7 @@ inline const GLchar* EnumValueName(PathNVMetricQuery value)
 }
 
 /// Wrapper for NV_path_rendering-related operations
-/** @note Do not use this class directly, use Texture instead.
+/** @note Do not use this class directly, use PathNV instead.
  *
  *  @glsymbols
  *  @glfunref{GenPathsNV}
@@ -387,7 +387,7 @@ protected:
 		GLuint base = OGLPLUS_GLFUNC(GenPathsNV)(count);
 		for(GLsizei i=0; i!=count; ++i)
 			_name[i] = base+i;
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTextures));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenPathsNV));
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)

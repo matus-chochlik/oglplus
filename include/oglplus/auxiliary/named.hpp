@@ -13,6 +13,7 @@
 #define OGLPLUS_AUX_NAMED_1107121519_HPP
 
 #include <cassert>
+#include <type_traits>
 
 namespace oglplus {
 
@@ -30,6 +31,8 @@ class FriendOf;
 class Named
 {
 protected:
+	typedef std::false_type _can_be_zero;
+
 	GLuint _name;
 
 	inline Named(void)
