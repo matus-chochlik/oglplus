@@ -136,7 +136,7 @@ class Object
  , public aux::ObjectDescRegistry<ObjectOps>
 {
 private:
-	static constexpr bool _can_be_zero(void)
+	static /*constexpr*/ bool _can_be_zero(void)
 	{
 		return ObjectOps::_can_be_zero::value;
 	}
