@@ -15,6 +15,60 @@
 #include <oglplus/config.hpp>
 
 namespace oglplus {
+
+
+/** @defgroup smart_enums Smart enumerations
+ *
+ *  The @ref enumerations bring additional type safety and robustness to
+ *  applications, but also have a potential downside that they require
+ *  lengthy specification.
+ *  Smart enumerations provide "syntactic sugar" for simpler specification
+ *  of strongly-typed enumeration values. See @ref oglplus_smart_enums
+ *  for more information.
+ */
+
+/** @page oglplus_smart_enums Smart enumerations
+ *
+ *  @OGLplus defines strongly-typed enumeration types like
+ *  @ref oglplus::DataType "DataType", @ref oglplus::ColorBuffer "ColorBuffer",
+ *  @ref oglplus::Capability "Capability", and @ref enumerations "many others",
+ *  which provide additional type safety and robustness to applications, but
+ *  require lenghty enumerated value name specification. This may be viewed
+ *  as a downside. The "smart enumerations" are special types that simplify
+ *  the usage of enumerations in certain situations without degrading
+ *  the type safety.
+ *
+ *  Instead of explicitly specifying the name of the type of the enumeration:
+ *
+ *  @code
+ *  Texture::MinFilter(TextureMinFilter::Linear);
+ *  Texture::MagFilter(TextureMagFilter::Linear);
+ *  @endcode
+ *
+ *  a smart enumeration type can be used like this:
+ *
+ *  @code
+ *  namespace se = oglplus::smart_enums;
+ *  ...
+ *  Texture::MinFilter(se::Linear());
+ *  Texture::MagFilter(se::Linear());
+ *  @endcode
+ *
+ *  or this:
+ *
+ *  @code
+ *  namespace se = oglplus::smart_enums;
+ *  se::Linear linear;
+ *  ...
+ *  Texture::MinFilter(linear);
+ *  Texture::MagFilter(linear);
+ *  @endcode
+ */
+
+/// @ref smart_enums are defined in this namespace
+/**
+ *  @ingroup smart_enums
+ */
 namespace smart_enums {
 
 #include <oglplus/auxiliary/enum_shorteners.ipp>

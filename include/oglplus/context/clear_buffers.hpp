@@ -145,6 +145,8 @@ public:
 	 *  example:
 	 *  @code
 	 *  Context gl;
+	 *  gl.Clear(ClearBit::ColorBuffer);
+	 *  gl.Clear(ClearBit::ColorBuffer|ClearBit::DepthBuffer);
 	 *  gl.Clear({ClearBit::ColorBuffer});
 	 *  gl.Clear({ClearBit::ColorBuffer, ClearBit::DepthBuffer});
 	 *  gl.Clear({ClearBit::ColorBuffer, ClearBit::StencilBuffer});
