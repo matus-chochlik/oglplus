@@ -638,6 +638,16 @@ public:
 	}
 
 private:
+	static void _Color(GLubyte r, GLubyte g, GLubyte b)
+	{
+		OGLPLUS_GLFUNC(Color3ub)(r, g, b);
+	}
+
+	static void _Color(GLubyte r, GLubyte g, GLubyte b, GLubyte a)
+	{
+		OGLPLUS_GLFUNC(Color4ub)(r, g, b, a);
+	}
+
 	static void _Color(GLint r, GLint g, GLint b)
 	{
 		OGLPLUS_GLFUNC(Color3i)(r, g, b);
@@ -688,6 +698,38 @@ public:
 	static void Color(Type r, Type g, Type b, Type a)
 	{
 		_Color(r, g, b, a);
+	}
+
+private:
+	static void _SColor(GLubyte r, GLubyte g, GLubyte b)
+	{
+		OGLPLUS_GLFUNC(SecondaryColor3ub)(r, g, b);
+	}
+
+	static void _SColor(GLint r, GLint g, GLint b)
+	{
+		OGLPLUS_GLFUNC(SecondaryColor3i)(r, g, b);
+	}
+
+	static void _SColor(GLfloat r, GLfloat g, GLfloat b)
+	{
+		OGLPLUS_GLFUNC(SecondaryColor3f)(r, g, b);
+	}
+
+	static void _SColor(GLdouble r, GLdouble g, GLdouble b)
+	{
+		OGLPLUS_GLFUNC(SecondaryColor3d)(r, g, b);
+	}
+public:
+	/// Specifies vertex r,g,b secondary color components
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SecondaryColor}
+	 */
+	template <typename Type>
+	static void SecondaryColor(Type r, Type g, Type b)
+	{
+		_SColor(r, g, b);
 	}
 
 private:
