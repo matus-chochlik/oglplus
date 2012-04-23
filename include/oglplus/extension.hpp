@@ -17,6 +17,11 @@
 
 namespace oglplus {
 
+/** @defgroup extensions Extension wrappers
+ *
+ * Classes in this group implement wrappers around OpenGL extensions.
+ */
+
 inline void RequireExtension(const GLchar* name, bool available)
 {
 	if(OGLPLUS_IS_ERROR(!available))

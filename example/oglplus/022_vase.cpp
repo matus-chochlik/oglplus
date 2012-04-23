@@ -272,7 +272,7 @@ public:
 			);
 			auto bound_tex = Bind(vase_tex, Texture::Target::_2D);
 
-			bound_tex.Image2D(image, 0, 0.0);
+			bound_tex.Image2D(image);
 			bound_tex.GenerateMipmap();
 			bound_tex.BorderColor(Vec4f(0.8f, 0.8f, 1.0f, 1.0f));
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);

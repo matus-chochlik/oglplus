@@ -734,6 +734,7 @@ public:
 	)
 	{
 		dest.resize(...); TODO (see ReadPixel &co.)
+		and/or ARB_robustness
 		OGLPLUS_GLFUNC(GetTexImage)(
 			GLenum(target),
 			level,
@@ -761,13 +762,26 @@ public:
 	)
 	{
 		dest.resize(CompressedImageSize(target, level));
+#if GL_ARB_robustness
+		OGLPLUS_GLFUNC(GetnCompressedTexImageARB)(
+			GLenum(target),
+			level,
+			dest.size()*sizeof(GLubyte),
+			dest.data()
+		);
+#else
 		OGLPLUS_GLFUNC(GetCompressedTexImage)(
 			GLenum(target),
 			level,
 			dest.data()
 		);
+#endif
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+#if GL_ARB_robustness
+			GetnCompressedTexImageARB,
+#else
 			GetCompressedTexImage,
+#endif
 			Texture,
 			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)

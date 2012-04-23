@@ -140,6 +140,28 @@ public:
 		_check();
 	}
 
+	/// Creates a shape by revolving curve approximation around the y-axis
+	RevolveY(
+		const std::vector<Type>& section_factors,
+		const std::vector<Vector<Type, 3>>& positions_0,
+		const std::vector<Vector<Type, 3>>& positions_1,
+		const std::vector<Vector<Type, 3>>& normals_0,
+		const std::vector<Vector<Type, 3>>& normals_1,
+		const std::vector<Vector<Type, 3>>& tex_coords_0,
+		const std::vector<Vector<Type, 3>>& tex_coords_1
+	): _sections(_make_default_sections(section_factors.size()-1))
+	 , _section_factors(section_factors)
+	 , _rings(positions_0.size())
+	 , _positions_0(positions_0)
+	 , _positions_1(positions_1)
+	 , _normals_0(_calculate_normals(_positions_0, normals_0))
+	 , _normals_1(_calculate_normals(_positions_1, normals_1))
+	 , _tex_coords_0(tex_coords_0)
+	 , _tex_coords_1(tex_coords_1)
+	{
+		_check();
+	}
+
 	/// Returns the winding direction of faces
 	FaceOrientation FaceWinding(void) const
 	{

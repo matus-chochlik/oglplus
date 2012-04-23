@@ -20,12 +20,30 @@
 
 namespace oglplus {
 
+/// This template serves as a wrapper for OpenGL bitfields
+/**
+ *  Applications rarely need to use this class directly. Instantiations of this
+ *  template are used as types for parameters in functions taking bitfields based
+ *  on strongly-type enumerations. When constructing a bitfield the application
+ *  simply passes the enumerated value or a combination of enumerated values using
+ *  the bitwise-or operator or initializer list. For example:
+ *
+ *  @code
+ *  Context gl;
+ *  gl.Clear(ClearBit::ColorBuffer);
+ *  gl.Clear(ClearBit::ColorBuffer|ClearBit::DepthBuffer|ClearBit::StencilBuffer);
+ *  gl.Clear({ClearBit::ColorBuffer});
+ *  gl.Clear({ClearBit::ColorBuffer, ClearBit::DepthBuffer});
+ *  gl.Clear({ClearBit::ColorBuffer, ClearBit::StencilBuffer});
+ *  @endcode
+ */
 template <typename Bit, typename BF = GLbitfield>
 class Bitfield
 {
 private:
 	BF _bits;
 public:
+	/// Construct a bitfield from a single strongly-typed enumeration value
 	Bitfield(Bit _bit)
 	 : _bits(BF(_bit))
 	{ }
@@ -34,7 +52,8 @@ public:
 	 : _bits(BF(_bit_a) | BF(_bit_b))
 	{ }
 
-#if !OGLPLUS_NO_INITIALIZER_LISTS
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_INITIALIZER_LISTS
+	/// Construct a bitfield from an initializer list of enumeration values
 	Bitfield(const std::initializer_list<Bit>& bits)
 	 : _bits(BF(0))
 	{
@@ -43,12 +62,14 @@ public:
 	}
 #endif
 
+	/// Bitwise or operator for combining enumeration values into a bitfield
 	friend Bitfield operator | (Bitfield bf, Bit b)
 	{
 		bf._bits |= BF(b);
 		return bf;
 	}
 
+	/// Bitwise or operator for combining enumeration values into a bitfield
 	Bitfield& operator |= (Bit b)
 	{
 		this->_bits |= BF(b);
