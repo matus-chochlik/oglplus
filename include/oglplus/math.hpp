@@ -14,7 +14,7 @@
 
 #include <oglplus/config.hpp>
 
-#ifndef _USE_MATH_DEFINES 
+#ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES 1
 #endif
 
@@ -30,7 +30,7 @@ inline decltype(M_PI) pi(void)
 	return M_PI;
 }
 #else
-constexpr pi(void)
+constexpr decltype(M_PI) pi(void)
 {
 	return M_PI;
 }
