@@ -15,7 +15,7 @@ endif()
 
 # try to find the GLEW library
 find_library(
-	GLEW_LIBRARIES GLEW
+	GLEW_LIBRARIES NAMES GLEW glew32
 	PATHS ${LIBRARY_SEARCH_PATHS}
 	NO_DEFAULT_PATH
 )

@@ -10,7 +10,9 @@ set(OGLPLUS_SRC_XML ${PROJECT_BINARY_DIR}/doc/doxygen/xml/oglplus.xml)
 set(BOUND_HEADER_XSLT ${PROJECT_SOURCE_DIR}/xslt/bound_hpp.xsl)
 
 add_custom_target(auto_generated_headers ALL)
-add_dependencies(doc auto_generated_headers)
+if(NOT OGLPLUS_NO_DOCS)
+	add_dependencies(doc auto_generated_headers)
+endif()
 
 add_custom_target(bound_object_headers)
 add_dependencies(auto_generated_headers bound_object_headers)

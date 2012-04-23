@@ -100,19 +100,21 @@ if(DOXYGEN_FOUND)
 	endif()
 
 	unset(DOC_DEPENDS)
+
+	# target building one big xml file from the xml "docs"
+	# which is used to generate additional headers
+	find_program(XSLTPROC_EXECUTABLE xsltproc)
+	add_custom_command(
+		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml
+		COMMAND ${XSLTPROC_EXECUTABLE}
+			--output ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml
+			${CMAKE_CURRENT_BINARY_DIR}/xml/combine.xslt
+			${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml
+		MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml
+	)
+
+	add_custom_target(oglplus_xml_src DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml)
+else()
+	set(OGLPLUS_NO_DOCS On)
 endif()
-
-# target building one big xml file from the xml "docs"
-# which is used to generate additional headers
-find_program(XSLTPROC_EXECUTABLE xsltproc)
-add_custom_command(
-	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml
-	COMMAND ${XSLTPROC_EXECUTABLE}
-		--output ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml
-		${CMAKE_CURRENT_BINARY_DIR}/xml/combine.xslt
-		${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml
-	MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml
-)
-
-add_custom_target(oglplus_xml_src DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml)
 

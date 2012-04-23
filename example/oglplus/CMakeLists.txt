@@ -88,7 +88,9 @@ foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 	endif()
 endforeach()
 
-if(NOT OGLPLUS_NO_SCREENSHOTS)
-	add_dependencies(doc oglplus_example_screenshots)
+if(NOT OGLPLUS_NO_DOCS)
+	if(NOT OGLPLUS_NO_SCREENSHOTS)
+		add_dependencies(doc oglplus_example_screenshots)
+	endif()
 endif()
 
