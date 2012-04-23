@@ -4,13 +4,12 @@
 #
 # try to find GL/glew.h
 find_path(
-	GLEW_INCLUDE_DIR glew.h
-	PATH_SUFFIXES GL
+	GLEW_INCLUDE_DIR GL/glew.h
 	PATHS ${HEADER_SEARCH_PATHS}
 	NO_DEFAULT_PATH
 )
 if(NOT EXISTS ${GLEW_INCLUDE_DIR})
-	find_path(GLEW_INCLUDE_DIR glew.h PATH_SUFFIXES GL)
+	find_path(GLEW_INCLUDE_DIR GL/glew.h)
 endif()
 
 # try to find the GLEW library

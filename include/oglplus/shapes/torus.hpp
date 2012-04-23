@@ -19,7 +19,7 @@
 #include <oglplus/shapes/vert_attr_info.hpp>
 #endif
 
-#include <cmath>
+#include <oglplus/math.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -61,8 +61,8 @@ public:
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
 		size_t k = 0;
 		//
-		GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
-		GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
+		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 		GLdouble r1 = _radius_in;
 		GLdouble r2 = _radius_out - _radius_in;
 
@@ -90,8 +90,8 @@ public:
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
 		size_t k = 0;
 		//
-		GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
-		GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
+		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 
 		for(size_t r=0; r!=(_rings+1); ++r)
 		{
@@ -117,8 +117,8 @@ public:
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
 		size_t k = 0;
 		//
-		GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
-		GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
+		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 
 		for(size_t r=0; r!=(_rings+1); ++r)
 		{

@@ -46,7 +46,7 @@ if(${OGLPLUS_USE_GLEW} AND NOT ${OGLPLUS_WITHOUT_GLEW})
 
 	set(OGLPLUS_GL_INCLUDE_DIR ${GLEW_INCLUDE_DIR})
 	include_directories(BEFORE SYSTEM ${GLEW_INCLUDE_DIR})
-	set(OGLPLUS_GL_LIB ${GLEW_LIBRARIES})
+	set(OGLPLUS_GL_LIB ${OPENGL3_LIBRARIES} ${GLEW_LIBRARIES})
 
 	message(STATUS "Using GLEW")
 
@@ -100,6 +100,8 @@ include_directories(${PROJECT_BINARY_DIR}/include)
 # GL extension detection
 include(config/GLExt.cmake)
 
+# add this to enable M_PI on some platforms
+add_definitions(-D_USE_MATH_DEFINES)
 add_subdirectory("example/oglplus")
 add_subdirectory("example/standalone")
 

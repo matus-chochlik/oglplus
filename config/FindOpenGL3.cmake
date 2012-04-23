@@ -4,15 +4,14 @@
 #
 # try to find GL3/gl3.h
 find_path(
-	OPENGL3_INCLUDE_DIR gl3.h
-	PATH_SUFFIXES GL3
+	OPENGL3_INCLUDE_DIR GL3/gl3.h
 	PATHS ${HEADER_SEARCH_PATHS}
 	NO_DEFAULT_PATH
 )
 #
 # if that didn't work try the system directories
 if(NOT EXISTS ${OPENGL3_INCLUDE_DIR})
-	find_path(OPENGL3_INCLUDE_DIR gl3.h PATH_SUFFIXES GL3)
+	find_path(OPENGL3_INCLUDE_DIR GL3/gl3.h)
 endif()
 
 # try to find the GL library

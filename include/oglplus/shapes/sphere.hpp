@@ -19,7 +19,7 @@
 #include <oglplus/shapes/vert_attr_info.hpp>
 #endif
 
-#include <cmath>
+#include <oglplus/math.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -59,8 +59,8 @@ public:
 		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
 		size_t k = 0;
 		//
-		GLdouble r_step = (1.0 * M_PI) / GLdouble(_rings + 1);
-		GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+		GLdouble r_step = (1.0 * math::pi()) / GLdouble(_rings + 1);
+		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 
 		for(size_t r=0; r!=(_rings+2);++r)
 		{
@@ -87,8 +87,8 @@ public:
 		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
 		size_t k = 0;
 		//
-		GLdouble r_step = (1.0 * M_PI) / GLdouble(_rings + 1);
-		GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+		GLdouble r_step = (1.0 * math::pi()) / GLdouble(_rings + 1);
+		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 
 		for(size_t r=0; r!=(_rings+2);++r)
 		{

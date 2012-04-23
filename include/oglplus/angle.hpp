@@ -13,8 +13,8 @@
 #define OGLPLUS_ANGLE_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/math.hpp>
 
-#include <cmath>
 #include <cassert>
 
 namespace oglplus {
@@ -51,7 +51,7 @@ private:
 
 	struct _Degrees { };
 	Angle(T val_deg, _Degrees)
-	 : _val_rad(T(val_deg * (M_PI / 180.0)))
+	 : _val_rad(T(val_deg * (math::pi() / 180.0)))
 	{ }
 public:
 	/// Constructs a zero angle
@@ -91,7 +91,7 @@ public:
 	/// Returns the value of the angle in degrees
 	inline T ValueInDegrees(void) const
 	{
-		return _val_rad * T(180.0 / M_PI);
+		return _val_rad * T(180.0 / math::pi());
 	}
 
 	/// Equality comparison
@@ -275,7 +275,9 @@ inline Angle<GLfloat> Degrees(GLfloat val_deg)
  */
 inline Angle<GLfloat> FullCircles(GLfloat value)
 {
-	return Angle<GLfloat>::Radians(GLfloat(value * M_PI * 2.0));
+	return Angle<GLfloat>::Radians(
+		GLfloat(value * math::pi() * 2.0)
+	);
 }
 
 /// Creates a new angle from a value in "right angles" (i.e. 90 deg.)
@@ -303,7 +305,7 @@ inline Angle<GLfloat> FullCircles(GLfloat value)
  */
 inline Angle<GLfloat> RightAngles(GLfloat value)
 {
-	return Angle<GLfloat>::Radians(GLfloat(value * M_PI * 0.5));
+	return Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 0.5));
 }
 
 /// Creates a new angle using the arc sine function
@@ -399,7 +401,7 @@ inline Angle<GLfloat> ArcTan(GLfloat y, GLfloat x)
 template <typename T>
 inline T SineWave(T t)
 {
-	return ::std::sin(T(2.0 * M_PI * t));
+	return ::std::sin(T(2.0 * math::pi() * t));
 }
 
 /// Returns a value on a cosine wave at the specified point
@@ -423,7 +425,7 @@ inline T SineWave(T t)
 template <typename T>
 inline T CosineWave(T t)
 {
-	return ::std::cos(T(2.0 * M_PI * t));
+	return ::std::cos(T(2.0 * math::pi() * t));
 }
 
 } // namespace oglplus

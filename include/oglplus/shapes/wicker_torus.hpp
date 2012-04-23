@@ -18,7 +18,7 @@
 #include <oglplus/face_mode.hpp>
 #endif
 
-#include <cmath>
+#include <oglplus/math.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -82,8 +82,8 @@ public:
 		size_t k = 0;
 		//
 		const GLdouble t = _thickness / _radius_in;
-		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
+		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
 		const GLdouble s_slip = s_step * _s_slip_coef;
 		const GLdouble r1 = _radius_in;
@@ -313,11 +313,11 @@ public:
 		);
 		size_t k = 0;
 		//
-		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
+		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
 		const GLdouble s_slip = s_step * _s_slip_coef;
-		const GLdouble s_slop = (1.0 * M_PI) / 4.0;
+		const GLdouble s_slop = (1.0 * math::pi()) / 4.0;
 
 		for(size_t f=0; f!=2; ++f)
 		{
@@ -487,11 +487,11 @@ public:
 		);
 		size_t k = 0;
 		//
-		const GLdouble r_step = (2.0 * M_PI) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * M_PI) / GLdouble(_sections);
+		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
+		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
 		const GLdouble s_slip = s_step * _s_slip_coef;
-		const GLdouble s_slop = (1.0 * M_PI) / 4.0;
+		const GLdouble s_slop = (1.0 * math::pi()) / 4.0;
 
 		for(size_t f=0; f!=2; ++f)
 		{
