@@ -124,10 +124,6 @@
 #define nullptr 0
 #endif
 
-#if OGLPLUS_NO_CONSTEXPR
-#define constexpr const
-#endif
-
 // define GLAPIENTRY
 #ifdef GLAPIENTRY
 #undef GLAPIENTRY

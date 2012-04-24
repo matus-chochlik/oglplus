@@ -19,7 +19,7 @@ find_library(
 	NO_DEFAULT_PATH
 )
 if("${GLEW_LIBRARIES}" STREQUAL "GLEW_LIBRARIES-NOTFOUND")
-	find_library(GLEW_LIBRARIES GLEW)
+	find_library(GLEW_LIBRARIES GLEW glew32)
 endif()
 
 if(EXISTS ${GLEW_INCLUDE_DIR})

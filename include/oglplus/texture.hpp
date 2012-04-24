@@ -777,11 +777,7 @@ public:
 		);
 #endif
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-#if GL_ARB_robustness
-			GetnCompressedTexImageARB,
-#else
 			GetCompressedTexImage,
-#endif
 			Texture,
 			EnumValueNameTpl(target),
 			BindingQuery<TextureOps>::QueryBinding(target)

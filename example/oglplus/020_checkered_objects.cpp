@@ -272,8 +272,8 @@ public:
 		prog.model_matrix = ModelMatrixf();
 		prog.s_repeat = 24;
 		prog.t_repeat = 24;
-		prog.color_1 = Vec3f(1.0, 1.0, 0.9);
-		prog.color_2 = Vec3f(1.0, 0.9, 0.8);
+		prog.color_1 = Vec3f(1.0f, 1.0f, 0.9f);
+		prog.color_2 = Vec3f(1.0f, 0.9f, 0.8f);
 		prog.refl_1 = 64;
 		prog.refl_2 = 8;
 		plane.Draw();
@@ -285,8 +285,8 @@ public:
 		);
 		prog.s_repeat = 36;
 		prog.t_repeat = 24;
-		prog.color_1 = Vec3f(0.5, 0.6, 1.0);
-		prog.color_2 = Vec3f(0.2, 0.3, 0.7);
+		prog.color_1 = Vec3f(0.5f, 0.6f, 1.0f);
+		prog.color_2 = Vec3f(0.2f, 0.3f, 0.7f);
 		prog.refl_1 = 64;
 		prog.refl_2 = 32;
 		sphere.Draw();
@@ -296,8 +296,8 @@ public:
 			ModelMatrixf::Translation(3.0, 1.5, 0.0) *
 			ModelMatrixf::RotationZ(FullCircles(time / 8.0))
 		);
-		prog.color_1 = Vec3f(0.5, 1.0, 0.6);
-		prog.color_2 = Vec3f(0.2, 0.7, 0.3);
+		prog.color_1 = Vec3f(0.5f, 1.0f, 0.6f);
+		prog.color_2 = Vec3f(0.2f, 0.7f, 0.3f);
 		prog.refl_1 = 64;
 		prog.refl_2 = 64;
 		torus.Draw();
@@ -309,8 +309,8 @@ public:
 		);
 		prog.s_repeat = 8;
 		prog.t_repeat = 8;
-		prog.color_1 = Vec3f(1.0, 0.6, 0.5);
-		prog.color_2 = Vec3f(0.7, 0.3, 0.2);
+		prog.color_1 = Vec3f(1.0f, 0.6f, 0.5f);
+		prog.color_2 = Vec3f(0.7f, 0.3f, 0.2f);
 		prog.refl_1 = 64;
 		prog.refl_2 = 8;
 		cube.Draw();

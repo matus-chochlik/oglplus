@@ -16,12 +16,12 @@ endif()
 
 # try to find the GL library
 find_library(
-	OPENGL3_LIBRARIES NAMES GL opengl32
+	OPENGL3_LIBRARIES NAMES GL OpenGL32
 	PATHS ${LIBRARY_SEARCH_PATHS}
 	NO_DEFAULT_PATH
 )
 if("${OPENGL3_LIBRARIES}" STREQUAL "OPENGL3_LIBRARIES-NOTFOUND")
-	find_library(OPENGL3_LIBRARIES NAMES GL opengl32)
+	find_library(OPENGL3_LIBRARIES NAMES GL OpenGL32)
 endif()
 
 #if we have found gl3.h
