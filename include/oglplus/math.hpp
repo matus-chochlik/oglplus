@@ -14,7 +14,7 @@
 
 #include <oglplus/config.hpp>
 
-#ifndef _USE_MATH_DEFINES 
+#ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES 1
 #endif
 
@@ -39,7 +39,8 @@ constexpr pi(void)
 #else
 inline decltype(std::atan(1.0)) pi(void)
 {
-	return std::atan(1.0)*4.0;
+	static auto _pi = std::atan(1.0)*4.0;
+	return _pi;
 }
 #endif
 

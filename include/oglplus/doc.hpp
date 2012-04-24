@@ -300,7 +300,9 @@ namespace oglplus {
  *  @section oglplus_supported_compilers Supported compilers
  *
  *  @OGLplus is known to work with the following compilers:
- *  - GCC (versions 4.5.1, 4.6.0, 4.6.1)
+ *  - GCC (versions 4.5.1, 4.6.0, 4.6.1).
+ *  - MSVC 11 Beta with some features (mostly related to variadic templates
+ *     and initializer lists) disabled.
  *
  *  Currently the limiting factor seems to be the support for C++11 features
  *  by the various compilers. Since C++11 is now an official standard
