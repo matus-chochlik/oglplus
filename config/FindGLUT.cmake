@@ -25,13 +25,13 @@ if(
 
 	# try to find the GLUT library
 	find_library(
-		GLUT_LIBRARIES NAMES freeglut freeglut_static glut
+		GLUT_LIBRARIES NAMES glut freeglut freeglut_static
 		PATHS ${LIBRARY_SEARCH_PATHS}
 		NO_DEFAULT_PATH
 	)
 
 	if("${GLUT_LIBRARIES}" STREQUAL "GLUT_LIBRARIES-NOTFOUND")
-		find_library(GLUT_LIBRARIES NAMES freeglut freeglut_static glut)
+		find_library(GLUT_LIBRARIES NAMES glut freeglut freeglut_static)
 	endif()
 
 	if(NOT EXISTS ${GLUT_INCLUDE_DIR})

@@ -54,8 +54,8 @@ foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 	target_link_libraries(
 		${EXE_NAME}
 		oglplus_example_harness
-		${OGLPLUS_GL_LIB}
 		${OGLPLUS_EXAMPLE_HARNESS_LIBS}
+		${OGLPLUS_GL_LIBS}
 		# TODO detect and link only what is necessary
 		png
 	)
