@@ -30,7 +30,7 @@ inline decltype(M_PI) pi(void)
 	return M_PI;
 }
 #else
-constexpr pi(void)
+constexpr decltype(M_PI) pi(void)
 {
 	return M_PI;
 }
