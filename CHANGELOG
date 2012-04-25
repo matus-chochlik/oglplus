@@ -1,6 +1,8 @@
 Version 0.14.0
 
 - A wrapper for the AMD_performance_monitor extension was added.
+- The build system was updated and some bugs were fixed
+- OGLplus now works with MinGW.
 - New examples were added.
 - The documentation was updated.
 
