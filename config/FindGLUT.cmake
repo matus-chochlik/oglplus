@@ -37,7 +37,7 @@ if(
 	if(NOT EXISTS ${GLUT_INCLUDE_DIR})
 		set(GLUT_FOUND false)
 		message(STATUS "GLUT header file not found")
-	elif(NOT EXISTS ${GLUT_LIBRARIES})
+	elseif(NOT EXISTS ${GLUT_LIBRARIES})
 		set(GLUT_FOUND false)
 		message(STATUS "GLUT library not found")
 	else()
