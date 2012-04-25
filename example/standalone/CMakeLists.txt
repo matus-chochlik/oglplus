@@ -14,7 +14,7 @@ function(standalone_example_common EXAMPLE_NAME)
 	)
 	add_dependencies(${EXAMPLE_NAME} auto_generated_headers)
 	add_dependencies(standalone-examples ${EXAMPLE_NAME})
-	target_link_libraries(${EXAMPLE_NAME} GL ${ARGN})
+	target_link_libraries(${EXAMPLE_NAME} ${OPENGL3_LIBRARIES} ${ARGN})
 endfunction()
 
 if(GLUT_FOUND AND GLEW_FOUND)
