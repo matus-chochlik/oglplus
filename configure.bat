@@ -222,7 +222,7 @@ GOTO :eof
 	ECHO.
 	ECHO:config-options:
 	ECHO.
-	ECHO:  --help | /h | /?:      Print this help screen.
+	ECHO:  --help ^| /h ^| /?:      Print this help screen.
 	ECHO.
 	ECHO:  --prefix PREFIX:       Specifies the installation prefix. The path
 	ECHO:                         must be absolute or relative to the current
@@ -247,8 +247,8 @@ GOTO :eof
 	ECHO:                         This option may be specified multiple times
 	ECHO:                         to add multiple directories to the search list.
 	ECHO.
-	ECHO:  --cmake | -:           Everything following this option will be
-	ECHO:                         passed to cmake verbatim.
+	ECHO:  --cmake [options]:     Everything following the --cmake option will
+	ECHO:                         be passed to cmake verbatim.
 	ECHO.
 	ECHO:  --from-scratch         Remove any previous cached and intermediate files
 	ECHO:                         and run the configuration process from scratch.
