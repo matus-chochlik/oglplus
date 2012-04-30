@@ -40,6 +40,7 @@ public:
 
 		"out vec3 vertCenter;"
 		"out float vertValue;"
+		"flat out int vertInside;"
 
 		"void main(void)"
 		"{"
@@ -58,14 +59,12 @@ public:
 		"		float Tmp = (Radius*Radius)/dot(Vect, Vect);"
 		"		vertValue += Tmp - 0.25;"
 		"		float Mul = max(Tmp - 0.10, 0.0);"
-		"		if(Mul > 0.0)"
-		"		{"
-		"			vertCenter += Mul * Center;"
-		"			Sum += Mul;"
-		"		}"
+		"		vertCenter += Mul * Center;"
+		"		Sum += Mul;"
 		"		++Ball;"
 		"	}"
 		"	if(Sum > 0.0) vertCenter = vertCenter / Sum;"
+		"	vertInside = (vertValue >= 0.0)?1:0;"
 		"}"
 	)
 	{ }
@@ -74,6 +73,8 @@ public:
 class BlobGeomShader
  : public GeometryShader
 {
+private:
+	Texture _configurations;
 public:
 	BlobGeomShader(void)
 	 : GeometryShader(
@@ -82,24 +83,23 @@ public:
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
+		"uniform isampler1D Configurations;"
 		"uniform mat4 CameraMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
 
 		"in vec3 vertCenter[];"
 		"in float vertValue[];"
+		"flat in int vertInside[];"
 
 		"out vec3 geomNormal, geomLightDir, geomViewDir;"
 
-		"void do_nothing(void){ };"
-
-		"float find_t(int i1, int i2)"
+		"float find_t(const int i1, const int i2)"
 		"{"
 		"	float d = vertValue[i2] - vertValue[i1];"
-		"	if(d <= 0.0) return 0.0;"
-		"	else return -vertValue[i1]/d;"
+		"	return -vertValue[i1]/d;"
 		"}"
 
-		"void make_vertex(int i1, int i2)"
+		"void make_vertex(const int i1, const int i2)"
 		"{"
 		"	float t = find_t(i1, i2);"
 		"	gl_Position = mix("
@@ -117,90 +117,39 @@ public:
 		"	EmitVertex();"
 		"}"
 
-		"void make_triangle(int a1, int a2, int b1, int b2, int c1, int c2)"
+		"void make_triangle(const ivec4 v1, const ivec4 v2)"
 		"{"
-		"	make_vertex(a1, a2);"
-		"	make_vertex(b1, b2);"
-		"	make_vertex(c1, c2);"
+		"	make_vertex(v1.x, v2.x);"
+		"	make_vertex(v1.y, v2.y);"
+		"	make_vertex(v1.z, v2.z);"
 		"	EndPrimitive();"
 		"}"
 
-		"void make_quad(int a1,int a2,int b1,int b2,int c1,int c2,int d1,int d2)"
+		"void make_quad(const ivec4 v1, const ivec4 v2)"
 		"{"
-		"	make_vertex(a1, a2);"
-		"	make_vertex(b1, b2);"
-		"	make_vertex(c1, c2);"
-		"	make_vertex(d1, d2);"
+		"	make_vertex(v1.x, v2.x);"
+		"	make_vertex(v1.y, v2.y);"
+		"	make_vertex(v1.z, v2.z);"
+		"	make_vertex(v1.w, v2.w);"
 		"	EndPrimitive();"
 		"}"
 
 		"void process_tetrahedron(int a, int b, int c, int d)"
 		"{"
-		"	if(vertValue[a] >= 0.0)"
+		"	ivec4 i = ivec4("
+		"		vertInside[a],"
+		"		vertInside[b],"
+		"		vertInside[c],"
+		"		vertInside[d] "
+		"	);"
+		"	int si = int(dot(i, ivec4(1, 1, 1, 1))) % 4;"
+		"	if(si != 0)"
 		"	{"
-		"		if(vertValue[b] >= 0.0)"
-		"		{"
-		"			if(vertValue[c] >= 0.0)"
-		"			{"
-		"				if(vertValue[d] >= 0.0)"
-		"					do_nothing();"
-		"				else make_triangle(d,a, d,b, d,c);"
-		"			}"
-		"			else"
-		"			{"
-		"				if(vertValue[d] >= 0.0)"
-		"					make_triangle(c,a, c,d, c,b);"
-		"				else make_quad(c,a, d,a, c,b, d,b);"
-		"			}"
-		"		}"
-		"		else"
-		"		{"
-		"			if(vertValue[c] >= 0.0)"
-		"			{"
-		"				if(vertValue[d] >= 0.0)"
-		"					make_triangle(b,c, b,d, b,a);"
-		"				else make_quad(b,c, d,c, b,a, d,a);"
-		"			}"
-		"			else"
-		"			{"
-		"				if(vertValue[d] >= 0.0)"
-		"					make_quad(c,a, c,d, b,a, b,d);"
-		"				else make_triangle(c,a, d,a, b,a);"
-		"			}"
-		"		}"
-		"	}"
-		"	else"
-		"	{"
-		"		if(vertValue[b] >= 0.0)"
-		"		{"
-		"			if(vertValue[c] >= 0.0)"
-		"			{"
-		"				if(vertValue[d] >= 0.0)"
-		"					make_triangle(a,b, a,d, a,c);"
-		"				else make_quad(a,c, a,b, d,c, d,b);"
-		"			}"
-		"			else"
-		"			{"
-		"				if(vertValue[d] >= 0.0)"
-		"					make_quad(a,b, a,d, c,b, c,d);"
-		"				else make_triangle(a,b, d,b, c,b);"
-		"			}"
-		"		}"
-		"		else"
-		"		{"
-		"			if(vertValue[c] >= 0.0)"
-		"			{"
-		"				if(vertValue[d] >= 0.0)"
-		"					make_quad(b,c, b,d, a,c, a,d);"
-		"				else make_triangle(b,c, d,c, a,c);"
-		"			}"
-		"			else"
-		"			{"
-		"				if(vertValue[d] >= 0.0)"
-		"					make_triangle(a,d, c,d, b,d);"
-		"				else do_nothing();"
-		"			}"
-		"		}"
+		"		int iv = int(dot(i, ivec4(16, 8, 4, 2)));"
+		"		ivec4 v1 = texelFetch(Configurations, iv+0, 0);"
+		"		ivec4 v2 = texelFetch(Configurations, iv+1, 0);"
+		"		if(si % 2 == 0) make_quad(v1, v2);"
+		"		else make_triangle(v1, v2);"
 		"	}"
 		"}"
 
@@ -209,7 +158,43 @@ public:
 		"	process_tetrahedron(0, 2, 4, 1);"
 		"}"
 	)
-	{ }
+	{
+		Texture::Active(0);
+		{
+			const GLubyte a = 0x0, b = 0x2, c = 0x4, d = 0x1, x = 0xFF;
+			const GLubyte  tex_data[] = {
+				x, x, x, x,   x, x, x, x,
+				a, c, b, x,   d, d, d, x,
+				b, d, a, x,   c, c, c, x,
+				b, b, a, a,   c, d, c, d,
+				a, d, c, x,   b, b, b, x,
+				a, a, c, c,   b, d, b, d,
+				a, a, d, d,   c, b, c, b,
+				a, a, a, x,   b, d, c, x,
+				c, d, b, x,   a, a, a, x,
+				c, c, b, b,   a, d, a, d,
+				b, d, b, d,   c, c, a, a,
+				b, b, b, x,   c, d, a, x,
+				c, d, c, d,   a, a, b, b,
+				c, c, c, x,   a, d, b, x,
+				d, d, d, x,   a, b, c, x,
+				x, x, x, x,   x, x, x, x
+			};
+			auto bound_tex = Bind(_configurations, Texture::Target::_1D);
+			bound_tex.Image1D(
+				0,
+				PixelDataInternalFormat::RGBA8UI,
+				sizeof(tex_data),
+				0,
+				PixelDataFormat::RGBAInteger,
+				PixelDataType::UnsignedByte,
+				tex_data
+			);
+			bound_tex.MinFilter(TextureMinFilter::Nearest);
+			bound_tex.MagFilter(TextureMagFilter::Nearest);
+			bound_tex.WrapS(TextureWrap::ClampToEdge);
+		}
+	}
 };
 
 class BlobFragShader
@@ -270,16 +255,19 @@ public:
 	ProgramUniform<Mat4f> camera_matrix;
 	ProgramUniform<Vec3f> grid_offset, camera_position, light_position;
 	ProgramUniformSampler metaballs;
+	ProgramUniformSampler configurations;
 
 	BlobProgram(void)
-	 : HardwiredProgram<BlobVertShader,BlobGeomShader,BlobFragShader>(
-		"Blob program"
-	), camera_matrix(prog(), "CameraMatrix")
+	 : HardwiredProgram<BlobVertShader,BlobGeomShader,BlobFragShader>("Blob")
+	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
 	 , light_position(prog(), "LightPosition")
 	 , metaballs(prog(), "Metaballs")
-	{ }
+	 , configurations(prog(), "Configurations")
+	{
+		configurations = 0;
+	}
 };
 
 class Grid
@@ -299,7 +287,7 @@ protected:
 
 public:
 	Grid(const Program& prog)
-	 : make_grid(1.0, 20)
+	 : make_grid(1.0, 24)
 	 , grid_instr(make_grid.InstructionsWithAdjacency())
 	 , grid_indices(make_grid.IndicesWithAdjacency())
 	{
@@ -489,7 +477,7 @@ public:
 	 , plane(metal_prog)
 	{
 		std::srand(234);
-		for(size_t i=0; i!=32; ++i)
+		for(size_t i=0; i!=48; ++i)
 		{
 			size_t j = 0, n = 3+std::rand()%3;
 			std::vector<Vec4f> points(n);
@@ -508,8 +496,8 @@ public:
 			++i;
 		}
 		//
-		Texture::Active(0);
-		blob_prog.metaballs.Set(0);
+		Texture::Active(1);
+		blob_prog.metaballs.Set(1);
 		{
 			auto bound_tex = Bind(metaballs_tex, Texture::Target::_1D);
 			bound_tex.Image1D(
@@ -526,8 +514,8 @@ public:
 			bound_tex.WrapS(TextureWrap::ClampToEdge);
 		}
 
-		Texture::Active(1);
-		metal_prog.metal_tex.Set(1);
+		Texture::Active(2);
+		metal_prog.metal_tex.Set(2);
 		{
 			auto bound_tex = Bind(metal_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
