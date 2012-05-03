@@ -103,6 +103,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "021_morphing", "021_morphin
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "028_ripples", "028_ripples\028_ripples.vcxproj", "{7E64C78E-3B6D-6269-0A1E-30C07ECFB972}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "029_waves", "029_waves\029_waves.vcxproj", "{18091163-7514-5B78-FD82-D6548CE96D90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -121,6 +123,10 @@ Global
 		{17356C11-E74D-EE4A-0EA7-F5212F42B635}.Debug|Win32.Build.0 = Debug|Win32
 		{17356C11-E74D-EE4A-0EA7-F5212F42B635}.Release|Win32.ActiveCfg = Release|Win32
 		{17356C11-E74D-EE4A-0EA7-F5212F42B635}.Release|Win32.Build.0 = Release|Win32
+		{18091163-7514-5B78-FD82-D6548CE96D90}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18091163-7514-5B78-FD82-D6548CE96D90}.Debug|Win32.Build.0 = Debug|Win32
+		{18091163-7514-5B78-FD82-D6548CE96D90}.Release|Win32.ActiveCfg = Release|Win32
+		{18091163-7514-5B78-FD82-D6548CE96D90}.Release|Win32.Build.0 = Release|Win32
 		{1B224F9F-0C05-1394-1643-51CD1F4C676D}.Debug|Win32.ActiveCfg = Debug|Win32
 		{1B224F9F-0C05-1394-1643-51CD1F4C676D}.Debug|Win32.Build.0 = Debug|Win32
 		{1B224F9F-0C05-1394-1643-51CD1F4C676D}.Release|Win32.ActiveCfg = Release|Win32
