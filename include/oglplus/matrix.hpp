@@ -356,6 +356,20 @@ public:
 	}
 #endif
 
+	template <size_t I, size_t J, size_t R, size_t C>
+	Matrix(
+		std::integral_constant<size_t, I>,
+		std::integral_constant<size_t, J>,
+		const Matrix<T, R, C>& source
+	)
+	{
+		static_assert(I+Rows <= R, "Invalid row for this matrix type");
+		static_assert(J+Cols <= C, "Invalid column for this matrix type");
+		for(size_t i=0; i!=Rows; ++i)
+			for(size_t j=0; j!=Cols; ++j)
+				this->_m._elem[i][j] = source.At(I+i, J+j);
+	}
+
 	/// Returns a vector containing the matrix elements in row major order
 	friend const T* Data(const Matrix& matrix)
 	{
@@ -411,7 +425,7 @@ public:
 	/// Returns the value of the element at position i,j
 	T At(size_t i, size_t j) const
 	{
-		assert(i < Rows && j < Cols);
+		assert((i < Rows) && (j < Cols));
 		return this->_m._elem[i][j];
 	}
 
@@ -648,12 +662,7 @@ public:
 #endif
 
 	/// Finds inverse matrix if m is square matrix and T supports fractions
-	friend Matrix Inverse(
-		typename ::std::enable_if<
-			(Rows > 1)&&(Rows == Cols),
-			Matrix
-		>::type m
-	)
+	friend Matrix Inverse(Matrix m)
 	{
 		Matrix i;
 		if(GaussJordan(m, i)) return i;
@@ -689,6 +698,41 @@ public:
 	friend Vector<T, Rows> Col(const Matrix& m)
 	{
 		return m.template Col<J>();
+	}
+
+	template <size_t I, size_t J, size_t R, size_t C>
+	Matrix<T, R, C> Submatrix(void) const
+	{
+		static_assert(I < Rows, "Invalid row for this matrix");
+		static_assert(J < Cols, "Invalid column for this matrix");
+		static_assert(I+R <= Rows, "Invalid number of rows");
+		static_assert(J+C <= Cols, "Invalid number of columns");
+
+		typedef Matrix<T, R, C> Result;
+		return Result(
+			std::integral_constant<size_t, I>(),
+			std::integral_constant<size_t, J>(),
+			*this
+		);
+	}
+
+	/// Submatrix getter
+	template <size_t I, size_t J, size_t R, size_t C>
+	friend Matrix<T, R, C> Submatrix(const Matrix& m)
+	{
+		return m.template Submatrix<I, J, R, C>();
+	}
+
+	/// Submatrix 2x2
+	friend Matrix<T, 2, 2> Sub2x2(const Matrix& m)
+	{
+		return m.template Submatrix<0, 0, 2, 2>();
+	}
+
+	/// Submatrix 3x3
+	friend Matrix<T, 3, 3> Sub3x3(const Matrix& m)
+	{
+		return m.template Submatrix<0, 0, 3, 3>();
 	}
 
 	// TODO:
