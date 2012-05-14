@@ -12,6 +12,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <iomanip>
 #include <chrono>
 
 #include <oglplus/site_config.hpp>
@@ -33,6 +34,8 @@ private:
 	}
 
 	std::chrono::time_point<std::chrono::system_clock> _start;
+	double _fps_time;
+	unsigned long _frame_no;
 	size_t _width, _height;
 	ExampleParams _params;
 	std::unique_ptr<Example> _example;
@@ -47,7 +50,9 @@ public:
 	}
 
 	SingleExample(size_t width, size_t height)
-	 : _width(width)
+	 : _fps_time(0.0)
+	 , _frame_no(0)
+	 , _width(width)
 	 , _height(height)
 	 , _params()
 	 , _example(makeExample(_params))
@@ -73,9 +78,24 @@ public:
 			double(std::chrono::system_clock::period::den);
 		auto now = std::chrono::system_clock::now();
 		double frame_time = (now - _start).count() * period;
+		_frame_no++;
 
 		_example->Render(frame_time);
 		glutSwapBuffers();
+
+		const double fps_interval = 10.0;
+		const double this_interval = frame_time - _fps_time;
+		if(this_interval >= fps_interval)
+		{
+			_fps_time = frame_time;
+			std::cout.width(5);
+			std::cout.precision(3);
+			std::cout << _frame_no << " frames in "
+				<< std::fixed << this_interval << " seconds = "
+				<< std::fixed << _frame_no/this_interval << " FPS"
+				<< std::endl;
+			_frame_no = 0;
+		}
 	}
 
 	static void DisplayFunc(void)

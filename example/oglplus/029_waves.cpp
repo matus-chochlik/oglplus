@@ -92,15 +92,9 @@ public:
 
 		"out vec3 geomNormal, geomLightDir, geomViewDir;"
 
-		"float find_t(int i1, int i2)"
-		"{"
-		"	float d = vertValue[i2] - vertValue[i1];"
-		"	return -vertValue[i1]/d;"
-		"}"
-
 		"void make_vertex(int i1, int i2)"
 		"{"
-		"	float t = find_t(i1, i2);"
+		"	float t = vertValue[i1]/(vertValue[i1] - vertValue[i2]);"
 		"	gl_Position = mix("
 		"		gl_in[i1].gl_Position,"
 		"		gl_in[i2].gl_Position,"
