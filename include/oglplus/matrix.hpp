@@ -206,7 +206,7 @@ private:
 		_init_row<1>(row1);
 		_init_row<2>(row2);
 	}
-	
+
 	inline void _init_rows(
 		const Vector<T, Cols>& row0,
 		const Vector<T, Cols>& row1,
@@ -386,7 +386,7 @@ public:
 
 	/// Returns the value of the element at position I,J
 	template <size_t I, size_t J>
-	friend T At(const Matrix& matrix)
+	friend T ElementAt(const Matrix& matrix)
 	{
 		static_assert(
 			I < Rows &&
@@ -400,14 +400,19 @@ public:
 	template <size_t I, size_t J>
 	T At(void) const
 	{
-		return At(*this);
+		static_assert(
+			I < Rows &&
+			J < Cols,
+			"Invalid value of I or J for this matrix type"
+		);
+		return this->_m._elem[I][J];
 	}
 
 	/// Returns the value of the element at position i,j
 	T At(size_t i, size_t j) const
 	{
 		assert(i < Rows && j < Cols);
-		return _m._elem[i][j];
+		return this->_m._elem[i][j];
 	}
 
 	/// Element negation function
