@@ -49,7 +49,6 @@ file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
 foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 	get_filename_component(EXE_NAME "${EXAMPLE}" NAME_WE)
 	add_executable(${EXE_NAME} EXCLUDE_FROM_ALL ${EXAMPLE})
-	add_dependencies(${EXE_NAME} auto_generated_headers)
 	add_dependencies(${EXE_NAME} oglplus_textures)
 	target_link_libraries(
 		${EXE_NAME}

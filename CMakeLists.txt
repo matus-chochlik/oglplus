@@ -89,8 +89,8 @@ install(
 )
 
 add_subdirectory("doc/doxygen")
-add_subdirectory("xslt" "include/oglplus")
 add_subdirectory("source/textures" "textures")
+
 
 # include the oglplus headers
 include_directories(${PROJECT_SOURCE_DIR}/include)

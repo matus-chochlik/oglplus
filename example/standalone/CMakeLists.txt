@@ -12,7 +12,6 @@ function(standalone_example_common EXAMPLE_NAME)
 		EXCLUDE_FROM_ALL
 		${EXAMPLE_NAME}.cpp
 	)
-	add_dependencies(${EXAMPLE_NAME} auto_generated_headers)
 	add_dependencies(standalone-examples ${EXAMPLE_NAME})
 	target_link_libraries(${EXAMPLE_NAME} ${OPENGL3_LIBRARIES} ${ARGN})
 endfunction()

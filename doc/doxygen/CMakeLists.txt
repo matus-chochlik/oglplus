@@ -10,24 +10,7 @@ if(DOXYGEN_FOUND)
 	# dowygen working directory
 	set(DOXYGEN_WD ${CMAKE_CURRENT_SOURCE_DIR})
 
-	# doxyfile for building xml docs
-	set(DOXYFILE ${PROJECT_BINARY_DIR}/Doxyfile.xml)
-
-	file(WRITE ${DOXYFILE} "@INCLUDE = ${DOXYGEN_WD}/Doxyfile.autohdr\n")
-	file(APPEND ${DOXYFILE} "OUTPUT_DIRECTORY = ${CMAKE_CURRENT_BINARY_DIR}\n")
-	file(APPEND ${DOXYFILE} "QUIET = YES\n")
-
-	add_custom_command(
-		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml
-		COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-		COMMENT "Generating XML representation"
-	)
-
-	unset(DOXYFILE)
-
 	# HTML documentation
-
 	# the OpenGL logo
 	configure_file(
 		${PROJECT_SOURCE_DIR}/doc/logo/ogl.jpg
@@ -69,7 +52,6 @@ if(DOXYGEN_FOUND)
 	set(DOXYFILE ${PROJECT_BINARY_DIR}/Doxyfile.html)
 	file(WRITE ${DOXYFILE} "@INCLUDE = ${DOXYGEN_WD}/Doxyfile.oglplus\n")
 	file(APPEND ${DOXYFILE} "IMAGE_PATH = ../logo/ ${PROJECT_BINARY_DIR}/example/oglplus \n")
-	file(APPEND ${DOXYFILE} "INPUT += ${PROJECT_BINARY_DIR}/include/oglplus/bound \n")
 	file(APPEND ${DOXYFILE} "OUTPUT_DIRECTORY = ${CMAKE_CURRENT_BINARY_DIR}\n")
 	file(APPEND ${DOXYFILE} "GENERATE_TAGFILE = ${CMAKE_CURRENT_BINARY_DIR}/oglplus.doxygen.tags\n")
 	file(APPEND ${DOXYFILE} "PROJECT_NUMBER = ${OGLPLUS_VERSION_STR}\n")
@@ -100,20 +82,6 @@ if(DOXYGEN_FOUND)
 	endif()
 
 	unset(DOC_DEPENDS)
-
-	# target building one big xml file from the xml "docs"
-	# which is used to generate additional headers
-	find_program(XSLTPROC_EXECUTABLE xsltproc)
-	add_custom_command(
-		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml
-		COMMAND ${XSLTPROC_EXECUTABLE}
-			--output ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml
-			${CMAKE_CURRENT_BINARY_DIR}/xml/combine.xslt
-			${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml
-		MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml
-	)
-
-	add_custom_target(oglplus_xml_src DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/xml/oglplus.xml)
 else()
 	set(OGLPLUS_NO_DOCS On)
 endif()

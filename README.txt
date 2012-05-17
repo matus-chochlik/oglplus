@@ -60,12 +60,7 @@ The build system handles several important tasks:
 
  * CMake.
 
- * Doxygen + XSLTproc is required to generate additional header files.
-   This is required only if the headers are not pre-built (typically
-   when checked out from the repository, packaged releases are shipped with
-   pre-built headers)
-
- * Doxygen is also required to build the documentation.
+ * Doxygen is required to build the documentation.
 
  * Inkscape is required to convert textures used in examples from SVG to PNG.
    This is required only if the textures are not pre-built (typically
@@ -172,7 +167,7 @@ on your system.
 
 Also note that when building the examples via the MSVC 11 solution
 the $(OGLplusRoot)/_prebuilt/ directory is required. This directory
-contains automatically generated headers and other files that are
+contains automatically generated textures and other files that are
 not in the source repository. This directory is included in the release
 packages. If you are building from sources from the Git repository
 also download a recent package and copy the _prebuilt/ directory
