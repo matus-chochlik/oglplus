@@ -17,23 +17,117 @@
 namespace oglplus {
 namespace aux {
 
+template <class TPVector>
+struct ThirdPartyVectorBase;
+
 template <class TPMatrix>
 struct ThirdPartyMatrixBase;
 
-template <class TPMatrix>
-class ThirdPartyMatrix
- : public ThirdPartyMatrixBase<TPMatrix>
+} // namespace aux
+
+template <typename T, size_t N>
+class ThirdPartyVector
 {
 private:
-	friend struct ThirdPartyMatrixBase<TPMatrix>;
-	const TPMatrix& _ref;
+	const T* _data;
 public:
-	ThirdPartyMatrix(const TPMatrix& ref)
-	 : _ref(ref)
-	{ }
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	ThirdPartyVector(void) = delete;
+	ThirdPartyVector(const ThirdPartyVector&) = delete;
+#else
+private:
+	ThirdPartyVector(void);
+	ThirdPartyVector(const ThirdPartyVector&);
+public:
+#endif
+
+	template <class TPVector>
+	ThirdPartyVector(const TPVector& ref)
+	 : _data(nullptr)
+	{
+		static_assert(
+			std::is_same<
+				T,
+				typename aux::ThirdPartyVectorBase<TPVector>::Type
+			>::value,
+			"Invalid vector  element type for this adaptor type"
+		);
+		static_assert(
+			aux::ThirdPartyVectorBase<TPVector>::N::value == N,
+			"Invalid vector element count for this adaptor type"
+		);
+		_data = aux::ThirdPartyVectorBase<TPVector>::Data(ref);
+		assert(_data != nullptr);
+	}
+
+	size_t Size(void) const
+	{
+		return N;
+	}
+
+	const T* Data(void) const
+	{
+		return _data;
+	}
 };
 
-} // namespace aux
+template <typename T, size_t Rows, size_t Cols>
+class ThirdPartyMatrix
+{
+private:
+	const T* _data;
+	const bool _row_major;
+public:
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	ThirdPartyMatrix(void) = delete;
+	ThirdPartyMatrix(const ThirdPartyMatrix&) = delete;
+#else
+private:
+	ThirdPartyMatrix(void);
+	ThirdPartyMatrix(const ThirdPartyMatrix&);
+public:
+#endif
+
+	template <class TPMatrix>
+	ThirdPartyMatrix(const TPMatrix& ref)
+	 : _data(nullptr)
+	 , _row_major(aux::ThirdPartyMatrixBase<TPMatrix>::IsRowMajor::value)
+	{
+		static_assert(
+			std::is_same<
+				T,
+				typename aux::ThirdPartyMatrixBase<TPMatrix>::Type
+			>::value,
+			"Invalid matrix element type for this adaptor type"
+		);
+		static_assert(
+			aux::ThirdPartyMatrixBase<TPMatrix>::Rows::value == Rows,
+			"Invalid matrix row count for this adaptor type"
+		);
+		static_assert(
+			aux::ThirdPartyMatrixBase<TPMatrix>::Cols::value == Cols,
+			"Invalid matrix column count for this adaptor type"
+		);
+		_data = aux::ThirdPartyMatrixBase<TPMatrix>::Data(ref);
+		assert(_data != nullptr);
+	}
+
+	size_t Size(void) const
+	{
+		return Rows*Cols;
+	}
+
+	const T* Data(void) const
+	{
+		return _data;
+	}
+
+	bool IsRowMajor(void) const
+	{
+		return _row_major;
+	}
+};
+
 } // namespace oglplus
 
 #endif // include guard

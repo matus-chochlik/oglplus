@@ -23,6 +23,7 @@ endif()
 include(config/FindOpenGL3.cmake)
 include(config/FindGLEW.cmake)
 include(config/FindGLUT.cmake)
+include(config/FindGLM.cmake)
 
 #
 #if we have found gl3.h

@@ -20,7 +20,6 @@
 #include <oglplus/auxiliary/tp_mat_vec.hpp>
 #include <oglplus/string.hpp>
 
-#include <type_traits>
 #include <vector>
 
 namespace oglplus {
@@ -437,6 +436,21 @@ public:
 		);
 	}
 
+	/// Set a third-party vector type value to the uniform variable
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Uniform}
+	 *  @glfunref{ProgramUniform}
+	 */
+	void Set(const ThirdPartyVector<T, N>& vector) const
+	{
+		this->template _do_set<N>(
+			this->_program,
+			this->_index,
+			vector.Data()
+		);
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Set the vector components of the uniform variable
 	/**
@@ -466,7 +480,7 @@ public:
 	}
 #endif
 
-	/// Set the vector value(s) of the shader variable
+	/// Set the vector value(s) of the uniform variable
 	/**
 	 *  @glsymbols
 	 *  @glfunref{Uniform}
@@ -482,6 +496,27 @@ public:
 		temp.reserve(range.size()*N);
 		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
 			temp.insert(temp.end(), Data(*i), Data(*i)+N);
+		this->template _do_set_many<N>(
+			this->_program,
+			this->_index,
+			temp.size(),
+			temp.data()
+		);
+	}
+
+	/// Set the third-party vector type value to the uniform
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Uniform}
+	 *  @glfunref{ProgramUniform}
+	 */
+	template <typename Alloc>
+	void Set(const std::vector<ThirdPartyVector<T, N>, Alloc>& range) const
+	{
+		std::vector<T> temp;
+		temp.reserve(range.size()*N);
+		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
+			temp.insert(temp.end(), i->Data(), i->Data()+N);
 		this->template _do_set_many<N>(
 			this->_program,
 			this->_index,
@@ -552,37 +587,22 @@ public:
 		);
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Set a third-party matrix type value to the uniform variable
 	/**
 	 *  @glsymbols
 	 *  @glfunref{UniformMatrix}
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
-	void Set(const ThirdPartyMatrix& matrix) const
-#else
-	template <class TPMatrix>
-	void Set(const aux::ThirdPartyMatrix<TPMatrix>& matrix) const
+	void Set(const ThirdPartyMatrix<T, Rows, Cols>& matrix) const
 	{
-		static_assert(
-			std::is_same<
-				T,
-				typename aux::ThirdPartyMatrix<TPMatrix>::Type
-			>::value,
-			"Invalid matrix element type for this uniform type"
-		);
-		this->template _do_set_mat<
-			aux::ThirdPartyMatrix<TPMatrix>::Cols::value,
-			aux::ThirdPartyMatrix<TPMatrix>::Rows::value
-		>(
+		this->template _do_set_mat<Cols, Rows>(
 			this->_program,
 			this->_index,
 			1,
-			aux::ThirdPartyMatrix<TPMatrix>::IsRowMajor::value,
-			aux::ThirdPartyMatrix<TPMatrix>::Data(matrix)
+			matrix.IsRowMajor(),
+			matrix.Data()
 		);
 	}
-#endif
 
 	/// Set the matrix components of the uniform variable
 	/**
@@ -610,7 +630,6 @@ public:
 		);
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Set a third-party matrix type values to the uniform variable
 	/**
 	 *
@@ -618,43 +637,35 @@ public:
 	 *  @glfunref{UniformMatrix}
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
-#else
-	template <class TPMatrix, typename Alloc>
+	template <typename Alloc>
 	void Set(
-		const std::vector<aux::ThirdPartyMatrix<TPMatrix>, Alloc>& range
+		const std::vector<ThirdPartyMatrix<T, Rows, Cols>, Alloc>& range
 	) const
 	{
-		static_assert(
-			std::is_same<
-				T,
-				typename aux::ThirdPartyMatrix<TPMatrix>::Type
-			>::value,
-			"Invalid matrix element type for this uniform type"
-		);
 		std::vector<T> temp;
 		temp.reserve(range.size()*Rows*Cols);
-		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
+		auto i=range.begin(), e=range.end();
+		if(i != e)
 		{
-			temp.insert(
-				temp.end(),
-				aux::ThirdPartyMatrix<TPMatrix>::Data(*i),
-				aux::ThirdPartyMatrix<TPMatrix>::Data(*i)+
-				aux::ThirdPartyMatrix<TPMatrix>::Cols::value*
-				aux::ThirdPartyMatrix<TPMatrix>::Rows::value
+			bool is_row_major = i->IsRowMajor();
+			while(i != e)
+			{
+				temp.insert(
+					temp.end(),
+					i->Data(),
+					i->Data()+i->Size()
+				);
+				++i;
+			}
+			this->template _do_set_mat<Cols, Rows>(
+				this->_program,
+				this->_index,
+				range.size(),
+				is_row_major,
+				temp.data()
 			);
 		}
-		this->template _do_set_mat<
-			aux::ThirdPartyMatrix<TPMatrix>::Cols::value,
-			aux::ThirdPartyMatrix<TPMatrix>::Rows::value
-		>(
-			this->_program,
-			this->_index,
-			range.size(),
-			aux::ThirdPartyMatrix<TPMatrix>::IsRowMajor::value,
-			temp.data()
-		);
 	}
-#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Set the matrix components of the uniform variable

@@ -12,29 +12,55 @@
 #ifndef OGLPLUS_INTEROP_GLM_1205181555_HPP
 #define OGLPLUS_INTEROP_GLM_1205181555_HPP
 
-#include <oglplus/aux/tp_mat_vec.hpp>
+#include <oglplus/auxiliary/tp_mat_vec.hpp>
+#include <glm/glm.hpp> //TODO: only pick what is necessary
+#include <glm/gtc/type_ptr.hpp>
 #include <type_traits>
 
 namespace oglplus {
 namespace aux {
 
+#define OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(DIM) \
+template <class T> \
+struct ThirdPartyVectorBase<glm::detail::tvec##DIM<T> > \
+{ \
+	typedef T Type; \
+	typedef std::integral_constant<size_t, DIM> N; \
+	static const T* Data(glm::detail::tvec##DIM<T> const & v)\
+	{ \
+		return glm::value_ptr(v); \
+	} \
+};
+
+OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(2)
+OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(3)
+OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(4)
+
+#undef OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER
+
 #define OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(ROWS, COLS) \
 template <class T> \
-struct ThirdPartyMatrixBase<glm::detail::tmat##COLS##x##ROWS##<T> > \
+struct ThirdPartyMatrixBase<glm::detail::tmat##COLS##x##ROWS<T> > \
 { \
 	typedef T Type; \
 	typedef std::integral_constant<size_t, ROWS> Rows; \
 	typedef std::integral_constant<size_t, COLS> Cols; \
-	typedef std::false_type IsRowMajor; \
-	static const T* Data(const ThirdPartyMatrix<glm::detail::tmat4x4<T>>&m)\
+	typedef std::integral_constant<bool, false> IsRowMajor; \
+	static const T* Data(glm::detail::tmat##COLS##x##ROWS<T> const & m)\
 	{ \
-		return glm::value_ptr(m._ref); \
+		return glm::value_ptr(m); \
 	} \
 };
 
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(4, 4)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(3, 3)
 OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(2, 2)
+OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(2, 3)
+OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(2, 4)
+OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(3, 2)
+OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(3, 3)
+OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(3, 4)
+OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(4, 2)
+OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(4, 3)
+OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(4, 4)
 
 #undef OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER
 

@@ -14,6 +14,10 @@
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/primitive_type.hpp>
+#include <oglplus/data_type.hpp>
+
+#include <vector>
 
 namespace oglplus {
 namespace shapes {

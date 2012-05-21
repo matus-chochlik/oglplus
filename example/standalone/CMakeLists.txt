@@ -64,4 +64,12 @@ if(GLUT_FOUND AND GLEW_FOUND)
 			)
 		endif()
 	endif()
+
+	if(GLM_FOUND)
+		include_directories(${GLM_INCLUDE_DIR})
+		standalone_example_common(
+			007_glm_boxes
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
+	endif()
 endif()
