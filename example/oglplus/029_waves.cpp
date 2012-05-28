@@ -38,6 +38,7 @@ public:
 
 		"out vec3 vertNormal;"
 		"out float vertValue;"
+		"flat out int vertSign;"
 		"const vec4 Source[4] = vec4[4]("
 		"	vec4(-3.3, 0.1, 1.9, 0.21),"
 		"	vec4(-3.9, 0.2,-2.1, 0.15),"
@@ -65,6 +66,7 @@ public:
 		"		vertValue += sin(g)*exp((-r-1.0)*0.17)*a;"
 		"		vertNormal += vec3(x*d, 0.0, z*d);"
 		"	}"
+		"	vertSign = vertValue < 0.0 ? 0 : 1;"
 		"}"
 	)
 	{ }
@@ -89,6 +91,7 @@ public:
 
 		"in vec3 vertNormal[];"
 		"in float vertValue[];"
+		"flat in int vertSign[];"
 
 		"out vec3 geomNormal, geomLightDir, geomViewDir;"
 
@@ -130,12 +133,7 @@ public:
 
 		"void process_tetrahedron(int a, int b, int c, int d)"
 		"{"
-		"	ivec4 i = ivec4("
-		"		vertValue[a] >= 0.0 ? 1:0,"
-		"		vertValue[b] >= 0.0 ? 1:0,"
-		"		vertValue[c] >= 0.0 ? 1:0,"
-		"		vertValue[d] >= 0.0 ? 1:0 "
-		"	);"
+		"	ivec4 i = ivec4(vertSign[a],vertSign[b],vertSign[c],vertSign[d]);"
 		"	int si = int(dot(i, ivec4(1, 1, 1, 1))) % 4;"
 		"	if(si != 0)"
 		"	{"
