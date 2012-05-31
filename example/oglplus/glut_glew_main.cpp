@@ -20,6 +20,8 @@
 #include <oglplus/error.hpp>
 #include <oglplus/compile_error.hpp>
 
+#include <oglplus/query.hpp>
+
 #include "example.hpp"
 
 namespace oglplus {
@@ -34,11 +36,13 @@ private:
 	}
 
 	std::chrono::time_point<std::chrono::system_clock> _start;
-	double _fps_time;
+	double _fps_time, _prim_count;
 	unsigned long _frame_no;
 	size_t _width, _height;
 	ExampleParams _params;
 	std::unique_ptr<Example> _example;
+
+	Query _primitive_query;
 
 	SingleExample(const SingleExample&);
 public:
@@ -51,6 +55,7 @@ public:
 
 	SingleExample(size_t width, size_t height)
 	 : _fps_time(0.0)
+	 , _prim_count(0.0)
 	 , _frame_no(0)
 	 , _width(width)
 	 , _height(height)
@@ -80,8 +85,16 @@ public:
 		double frame_time = (now - _start).count() * period;
 		_frame_no++;
 
-		_example->Render(frame_time);
-		glutSwapBuffers();
+		GLuint primitives_per_frame = 0;
+		{
+			auto query_exec = _primitive_query.Execute(
+				Query::Target::PrimitivesGenerated,
+				primitives_per_frame
+			);
+			_example->Render(frame_time);
+			glutSwapBuffers();
+		}
+		_prim_count += double(primitives_per_frame);
 
 		const double fps_interval = 10.0;
 		const double this_interval = frame_time - _fps_time;
@@ -92,9 +105,12 @@ public:
 			std::cout.precision(3);
 			std::cout << _frame_no << " frames in "
 				<< std::fixed << this_interval << " seconds = "
-				<< std::fixed << _frame_no/this_interval << " FPS"
+				<< std::fixed << _frame_no/this_interval << " FPS; "
+				<< std::scientific << _prim_count/this_interval << " PPS; "
+				<< std::scientific << _prim_count/_frame_no << " PPF; "
 				<< std::endl;
 			_frame_no = 0;
+			_prim_count = 0.0;
 		}
 	}
 

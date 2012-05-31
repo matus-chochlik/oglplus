@@ -288,13 +288,13 @@ public:
 		"	float MinDist = min(min(geomDist.x, geomDist.y), geomDist.z);"
 		"	float EdgeAlpha = exp2(-pow(MinDist, 2.0));"
 
-		"	float Ambient = 0.7;"
+		"	float Ambient = 0.8;"
 
 		"	vec3 Color = vec3("
 		"		1.0-geomValue*(gl_FrontFacing?1:0),"
 		"		1.0-geomValue*(gl_FrontFacing?0:1),"
 		"		1.0-geomValue"
-		"	)*0.7;"
+		"	);"
 		"	vec3 Fill = Color * (Ambient + geomDiffuse + geomSpecular);"
 		"	vec3 Line = vec3(0, 0, 0);"
 
