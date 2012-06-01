@@ -107,6 +107,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "029_waves", "029_waves\029_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "029_surface", "029_surface\029_surface.vcxproj", "{88744BA6-A7A8-ACF0-42EB-86E7FC5EF509}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "017_single_pass_edges", "017_single_pass_edges\017_single_pass_edges.vcxproj", "{165E90FD-9390-999A-8FFF-B00DA01DD0FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -121,6 +123,10 @@ Global
 		{10C0C6FA-668F-29A5-1045-30CDFD4E1250}.Debug|Win32.Build.0 = Debug|Win32
 		{10C0C6FA-668F-29A5-1045-30CDFD4E1250}.Release|Win32.ActiveCfg = Release|Win32
 		{10C0C6FA-668F-29A5-1045-30CDFD4E1250}.Release|Win32.Build.0 = Release|Win32
+		{165E90FD-9390-999A-8FFF-B00DA01DD0FA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{165E90FD-9390-999A-8FFF-B00DA01DD0FA}.Debug|Win32.Build.0 = Debug|Win32
+		{165E90FD-9390-999A-8FFF-B00DA01DD0FA}.Release|Win32.ActiveCfg = Release|Win32
+		{165E90FD-9390-999A-8FFF-B00DA01DD0FA}.Release|Win32.Build.0 = Release|Win32
 		{17356C11-E74D-EE4A-0EA7-F5212F42B635}.Debug|Win32.ActiveCfg = Debug|Win32
 		{17356C11-E74D-EE4A-0EA7-F5212F42B635}.Debug|Win32.Build.0 = Debug|Win32
 		{17356C11-E74D-EE4A-0EA7-F5212F42B635}.Release|Win32.ActiveCfg = Release|Win32
