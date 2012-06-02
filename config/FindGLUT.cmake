@@ -4,8 +4,6 @@
 #
 include(FindGLUT)
 
-set(GLUT_LIBRARIES ${GLUT_glut_LIBRARY})
-
 if(
 	"${GLUT_INCLUDE_DIR}" STREQUAL  "GLUT_INCLUDE_DIR-NOTFOUND" OR
 	"${GLUT_glut_LIBRARY}" STREQUAL "GLUT_glut_LIBRARY-NOTFOUND"
@@ -18,9 +16,7 @@ if(
 	)
 
 	if(NOT EXISTS ${GLUT_INCLUDE_DIR})
-		find_path(
-			GLUT_INCLUDE_DIR NAMES GL/freeglut.h GL/glut.h
-		)
+		find_path(GLUT_INCLUDE_DIR NAMES GL/freeglut.h GL/glut.h)
 	endif()
 
 	# try to find the GLUT library
@@ -43,16 +39,13 @@ if(
 	else()
 		set(GLUT_FOUND true)
 	endif()
-else()
-	if("${GLUT_Xi_LIBRARY}" STREQUAL "GLUT_Xi_LIBRARY-NOTFOUND")
-		unset(GLUT_Xi_LIBRARY)
-	else()
-		set(GLUT_LIBRARIES ${GLUT_LIBRARIES} ${GLUT_Xi_LIBRARY})
-	endif()
-
-	if("${GLUT_Xmu_LIBRARY}" STREQUAL "GLUT_Xmu_LIBRARY-NOTFOUND")
-		unset(GLUT_Xmu_LIBRARY)
-	else()
-		set(GLUT_LIBRARIES ${GLUT_LIBRARIES} ${GLUT_Xmu_LIBRARY})
-	endif()
 endif()
+
+set(TMP_GLUT_LIBRARIES ${GLUT_LIBRARIES})
+unset(GLUT_LIBRARIES)
+foreach(LIB ${TMP_GLUT_LIBRARIES})
+	if(EXISTS ${LIB})
+		list(APPEND GLUT_LIBRARIES ${LIB})
+	endif()
+endforeach()
+unset(TMP_GLUT_LIBRARIES)
