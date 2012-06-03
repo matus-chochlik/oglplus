@@ -104,11 +104,13 @@ public:
 	}
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(
+		PrimitiveType mode = PrimitiveType::Triangles
+	) const
 	{
 		DrawOperation operation;
 		operation.method = DrawOperation::Method::DrawElements;
-		operation.mode = PrimitiveType::Triangles;
+		operation.mode = mode;
 		operation.first = 0;
 		operation.count = 20*3;
 		operation.phase = 0;
