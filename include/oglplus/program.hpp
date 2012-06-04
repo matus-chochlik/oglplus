@@ -37,22 +37,30 @@ class ProgramPartInfoContext
 private:
 	GLuint _name;
 	GLuint _size;
+	GLenum _stage;
 	std::vector<GLchar> _buffer;
 public:
-	ProgramPartInfoContext(GLuint name, GLuint size)
+	ProgramPartInfoContext(GLuint name, GLuint size, GLenum stage = GL_NONE)
 	 : _name(name)
 	 , _size(size)
+	 , _stage(stage)
 	{ }
 
 	ProgramPartInfoContext(ProgramPartInfoContext&& tmp)
 	 : _name(tmp._name)
 	 , _size(tmp._size)
+	 , _stage(tmp._stage)
 	 , _buffer(std::move(tmp._buffer))
 	{ }
 
 	GLuint Program(void) const
 	{
 		return _name;
+	}
+
+	GLenum Stage(void) const
+	{
+		return _stage;
 	}
 
 	std::vector<GLchar>& Buffer(void)
@@ -105,7 +113,7 @@ protected:
 	}
 
 	friend class FriendOf<ProgramOps>;
-public:
+
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
@@ -119,6 +127,21 @@ public:
 		return result;
 	}
 
+#if GL_VERSION_4_0 || GL_ARB_shader_subroutine
+	GLint GetStageIntParam(GLenum stage, GLenum query) const
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetProgramStageiv)(_name, stage, query, &result);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			GetProgramStageiv,
+			Program,
+			nullptr,
+			_name
+		));
+		return result;
+	}
+#endif
+public:
 	/// Attaches the shader to this program
 	/**
 	 *  @glsymbols
@@ -373,10 +396,13 @@ public:
 			return _size;
 		}
 
+		/// Returns the data type of the variable
 		const SLDataType Type(void) const
 		{
 			return SLDataType(_type);
 		}
+
+		/// TODO: convert to Uniform (if possible)
 	};
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -384,6 +410,8 @@ public:
 	typedef Range<ActiveVariableInfo> ActiveAttribRange;
 	/// The type of the range for traversing active uniforms
 	typedef Range<ActiveVariableInfo> ActiveUniformRange;
+	/// The type of the range for traversing active subroutine uniforms
+	typedef Range<ActiveVariableInfo> ActiveSubroutineUniformRange;
 	/// The type of the range for traversing transform feedback varyings
 	typedef Range<ActiveVariableInfo> TransformFeedbackVaryingRange;
 	/// The type of the range for traversing program's shaders
@@ -437,6 +465,78 @@ public:
 		aux::ProgramPartInfoContext,
 		ActiveUniformInfo
 	> ActiveUniformRange;
+
+#if GL_VERSION_4_0 || GL_ARB_shader_subroutine
+	struct ActiveSubroutineUniformInfo
+	{
+	private:
+		GLuint _index;
+		GLint _size;
+		String _name;
+	public:
+		ActiveSubroutineUniformInfo(
+			aux::ProgramPartInfoContext& context,
+			GLuint index
+		): _index(index)
+		 , _size(0)
+		{
+			OGLPLUS_GLFUNC(GetActiveSubroutineUniformiv)(
+				context.Program(),
+				context.Stage(),
+				index,
+				GL_UNIFORM_SIZE,
+				&_size
+			);
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+				GetActiveSubroutineUniformiv,
+				Program,
+				nullptr,
+				context.Program()
+			));
+
+			GLsizei strlen = 0;
+			OGLPLUS_GLFUNC(GetActiveSubroutineUniformName)(
+				context.Program(),
+				context.Stage(),
+				index,
+				context.Buffer().size(),
+				&strlen,
+				context.Buffer().data()
+			);
+			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+				GetActiveSubroutineUniformName,
+				Program,
+				nullptr,
+				context.Program()
+			));
+			_name = String(context.Buffer().data(), strlen);
+		}
+
+		GLuint Index(void) const
+		{
+			return _index;
+		}
+
+		const String& Name(void) const
+		{
+			return _name;
+		}
+
+		const GLint Size(void) const
+		{
+			return _size;
+		}
+
+		const SLDataType Type(void) const
+		{
+			return SLDataType::None;
+		}
+	};
+	typedef aux::BaseRange<
+		aux::ProgramPartInfoContext,
+		ActiveSubroutineUniformInfo
+	> ActiveSubroutineUniformRange;
+#endif
 
 	struct TransformFeedbackVaryingInfo : ActiveVariableInfo
 	{
@@ -544,6 +644,38 @@ public:
 			0, count
 		);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
+	/// Returns a range allowing to do the traversal of subroutine uniforms
+	/** This instance of Program must be kept alive during the whole
+	 *  lifetime of the returned range, i.e. the returned range must not
+	 *  be used after the Program goes out of scope and is destroyed.
+	 *
+	 *  @throws Error
+	 */
+	ActiveUniformRange ActiveSubroutineUniforms(ShaderType stage) const
+	{
+		// get the count of active subroutine uniforms
+		GLint count = GetStageIntParam(
+			GLenum(stage),
+			GL_ACTIVE_SUBROUTINE_UNIFORMS
+		);
+		// get the maximum string length of the longest identifier
+		GLint length = GetStageIntParam(
+			GLenum(stage),
+			GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH
+		);
+
+		return ActiveUniformRange(
+			aux::ProgramPartInfoContext(
+				_name,
+				length,
+				GLenum(stage)
+			),
+			0, count
+		);
+	}
+#endif
 
 	/// Returns a range allowing to do the traversal of feedback varyings
 	/** This instance of Program must be kept alive during the whole
