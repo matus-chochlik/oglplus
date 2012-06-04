@@ -1,6 +1,6 @@
 /**
  *  @example oglplus/019_tessellation.cpp
- *  @brief Shows how render the faces and the wireframe in single pass
+ *  @brief Shows simple polyhedron tessellation
  *
  *  @image html 019_tessellation.png
  *
