@@ -154,6 +154,7 @@ public:
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
 
+			"uniform vec3 Offset;"
 			"uniform vec2 ViewportDimensions;"
 
 			"in vec3 teevNormal[], teevLightDir[];"
@@ -204,8 +205,9 @@ public:
 
 			"		gl_Position = gl_in[i].gl_Position;"
 			"		geomColor = normalize(abs("
-			"			vec3(1.0, 1.0, 1.0)-"
-			"			teevNormal[i]"
+			"			vec3(2.0, 2.0, 2.0)-"
+			"			teevNormal[i]-"
+			"			Offset"
 			"		));"
 			"		geomLightDir = teevLightDir[i];"
 			"		geomDist = EdgeMask[i] * DistVect;"
@@ -298,19 +300,37 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			10.0 - SineWave(time / 13)*8.0,
+			12.0 - SineWave(time / 13)*8.0,
 			Degrees(time * 33),
 			Degrees(SineWave(time / 21.0) * 31)
 		);
-		auto model = ModelMatrixf::RotationZ(Degrees(time * 37));
-		Uniform<Mat4f>(prog, "ModelMatrix") = model;
 		Uniform<Mat4f>(prog, "CameraMatrix") = camera;
-		Uniform<Vec3f>(prog, "ViewPosition") = (
-			Inverse(model)*
-			Vec4f(camera.Position(), 1)
-		).xyz();
 
-		shape_instr.Draw(shape_indices);
+		const Vec3f offsets[6] = {
+			Vec3f( 2, 0, 0),
+			Vec3f(-2, 0, 0),
+			Vec3f( 0, 2, 0),
+			Vec3f( 0,-2, 0),
+			Vec3f( 0, 0, 2),
+			Vec3f( 0, 0,-2)
+		};
+
+		for(int i=0; i!=6; ++i)
+		{
+			auto model =
+				ModelMatrixf::RotationX(Degrees(time * 11))*
+				ModelMatrixf::Translation(offsets[i])*
+				ModelMatrixf::RotationZ(Degrees(time * (37+9*i)));
+
+			Uniform<Mat4f>(prog, "ModelMatrix") = model;
+			Uniform<Vec3f>(prog, "Offset") = offsets[i];
+			Uniform<Vec3f>(prog, "ViewPosition") = (
+				Inverse(model)*
+				Vec4f(camera.Position(), 1)
+			).xyz();
+
+			shape_instr.Draw(shape_indices);
+		}
 	}
 
 	bool Continue(double time)
