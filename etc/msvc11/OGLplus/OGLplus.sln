@@ -109,6 +109,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "029_surface", "029_surface\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "017_single_pass_edges", "017_single_pass_edges\017_single_pass_edges.vcxproj", "{165E90FD-9390-999A-8FFF-B00DA01DD0FA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "019_gs_tessell", "019_gs_tessell\019_gs_tessell.vcxproj", "{AE9611EB-A519-F28D-57A3-E7138EE72829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -247,6 +249,10 @@ Global
 		{AC805D1E-CB49-1FA5-CE2E-ECE3461EBFA5}.Debug|Win32.Build.0 = Debug|Win32
 		{AC805D1E-CB49-1FA5-CE2E-ECE3461EBFA5}.Release|Win32.ActiveCfg = Release|Win32
 		{AC805D1E-CB49-1FA5-CE2E-ECE3461EBFA5}.Release|Win32.Build.0 = Release|Win32
+		{AE9611EB-A519-F28D-57A3-E7138EE72829}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AE9611EB-A519-F28D-57A3-E7138EE72829}.Debug|Win32.Build.0 = Debug|Win32
+		{AE9611EB-A519-F28D-57A3-E7138EE72829}.Release|Win32.ActiveCfg = Release|Win32
+		{AE9611EB-A519-F28D-57A3-E7138EE72829}.Release|Win32.Build.0 = Release|Win32
 		{BAD556AE-8C0D-82B6-4416-5DA472287520}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BAD556AE-8C0D-82B6-4416-5DA472287520}.Debug|Win32.Build.0 = Debug|Win32
 		{BAD556AE-8C0D-82B6-4416-5DA472287520}.Release|Win32.ActiveCfg = Release|Win32

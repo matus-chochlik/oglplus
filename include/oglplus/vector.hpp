@@ -593,6 +593,18 @@ public:
 	{
 		return Vector<T, sizeof...(Dims)>(At<Dims>(a)...);
 	}
+#else
+	template <size_t D0, size_t D1>
+	static Vector<T, 2> Extract(const Vector<T, N>& a)
+	{
+		return Vector<T, 2>(At<D0>(a), At<D1>(a));
+	}
+
+	template <size_t D0, size_t D1, size_t D2>
+	static Vector<T, 3> Extract(const Vector<T, N>& a)
+	{
+		return Vector<T, 3>(At<D0>(a), At<D1>(a), At<D2>(a));
+	}
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -635,12 +647,22 @@ public:
 	{
 		return Vector<T, sizeof...(Dims)>(At<Dims>(a, v)...);
 	}
+#else
+	template <size_t D0, size_t D1>
+	static Vector<T, 2> Extract(const Vector<T, N>& a, T v)
+	{
+		return Vector<T, 2>(At<D0>(a, v), At<D1>(a, v));
+	}
+
+	template <size_t D0, size_t D1, size_t D2>
+	static Vector<T, 3> Extract(const Vector<T, N>& a, T v)
+	{
+		return Vector<T, 3>(At<D0>(a, v), At<D1>(a, v), At<D2>(a, v));
+	}
 #endif
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 // include the subvector extraction functions
 #include <oglplus/auxiliary/vector_extr.ipp>
-#endif
 
 	T x(void) const
 	{
