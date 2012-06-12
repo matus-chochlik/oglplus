@@ -19,6 +19,7 @@
 #include <oglplus/transform_feedback.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
+#include <oglplus/auxiliary/program.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/primitive_type.hpp>
@@ -30,48 +31,6 @@
 #include <tuple>
 
 namespace oglplus {
-namespace aux {
-
-class ProgramPartInfoContext
-{
-private:
-	GLuint _name;
-	GLuint _size;
-	GLenum _stage;
-	std::vector<GLchar> _buffer;
-public:
-	ProgramPartInfoContext(GLuint name, GLuint size, GLenum stage = GL_NONE)
-	 : _name(name)
-	 , _size(size)
-	 , _stage(stage)
-	{ }
-
-	ProgramPartInfoContext(ProgramPartInfoContext&& tmp)
-	 : _name(tmp._name)
-	 , _size(tmp._size)
-	 , _stage(tmp._stage)
-	 , _buffer(std::move(tmp._buffer))
-	{ }
-
-	GLuint Program(void) const
-	{
-		return _name;
-	}
-
-	GLenum Stage(void) const
-	{
-		return _stage;
-	}
-
-	std::vector<GLchar>& Buffer(void)
-	{
-		if(_size && _buffer.empty())
-			_buffer.resize(_size);
-		return _buffer;
-	}
-};
-
-} // namespace aux
 
 class VertexAttribOps;
 
@@ -328,84 +287,24 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgram));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Information about a single active vertex attribute or uniform
 	class ActiveVariableInfo
 	{
-	private:
-		GLuint _index;
-		GLint _size;
-		GLenum _type;
-		String _name;
-	protected:
-		ActiveVariableInfo(
-			aux::ProgramPartInfoContext& context,
-			GLuint index,
-			void (GLAPIENTRY *GetActiveVariable)(
-				GLuint /*program*/,
-				GLuint /*index*/,
-				GLsizei /*bufsize*/,
-				GLsizei* /*length*/,
-				GLint* /*size*/,
-				GLenum* /*type*/,
-				GLchar* /*name*/
-			)
-		): _index(index)
-		 , _size(0)
-		{
-			GLsizei strlen = 0;
-			GetActiveVariable(
-				context.Program(),
-				index,
-				context.Buffer().size(),
-				&strlen,
-				&_size,
-				&_type,
-				context.Buffer().data()
-			);
-			_name = String(context.Buffer().data(), strlen);
-		}
-
-		// TODO: this is here only because GLEW defines
-		// glGetTransformFeedbackVaryings this way
-		ActiveVariableInfo(
-			aux::ProgramPartInfoContext& context,
-			GLuint index,
-			void (GLAPIENTRY *GetActiveVariable)(GLuint, GLuint, GLint*)
-		): _index(index)
-		 , _size(0)
-		 , _type(0)
-		 , _name(0)
-		{
-		}
 	public:
 		/// Returns the index of the attribute or uniform
-		GLuint Index(void) const
-		{
-			return _index;
-		}
+		GLuint Index(void) const;
 
 		/// Returns the name (identifier) of the attribute or uniform
-		const String& Name(void) const
-		{
-			return _name;
-		}
+		const String& Name(void) const;
 
 		/// Returns the size in units of Type
-		const GLint Size(void) const
-		{
-			return _size;
-		}
+		const GLint Size(void) const;
 
 		/// Returns the data type of the variable
-		const SLDataType Type(void) const
-		{
-			return SLDataType(_type);
-		}
-
-		/// TODO: convert to Uniform (if possible)
+		const SLDataType Type(void) const;
 	};
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// The type of the range for traversing active vertex attributes
 	typedef Range<ActiveVariableInfo> ActiveAttribRange;
 	/// The type of the range for traversing active uniforms
@@ -418,148 +317,30 @@ public:
 	typedef Range<Managed<Shader> > ShaderRange;
 #else
 
-	struct ActiveAttribInfo : ActiveVariableInfo
-	{
-		ActiveAttribInfo(
-			aux::ProgramPartInfoContext& context,
-			GLuint index
-		): ActiveVariableInfo(
-			context,
-			index,
-			OGLPLUS_GLFUNC(GetActiveAttrib)
-		)
-		{
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-				GetActiveAttrib,
-				Program,
-				nullptr,
-				context.Program()
-			));
-		}
-	};
 	typedef aux::BaseRange<
 		aux::ProgramPartInfoContext,
-		ActiveAttribInfo
+		aux::ActiveAttribInfo
 	> ActiveAttribRange;
 
-	struct ActiveUniformInfo : ActiveVariableInfo
-	{
-		ActiveUniformInfo(
-			aux::ProgramPartInfoContext& context,
-			GLuint index
-		): ActiveVariableInfo(
-			context,
-			index,
-			OGLPLUS_GLFUNC(GetActiveUniform)
-		)
-		{
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-				GetActiveUniform,
-				Program,
-				nullptr,
-				context.Program()
-			));
-		}
-	};
 	typedef aux::BaseRange<
 		aux::ProgramPartInfoContext,
-		ActiveUniformInfo
+		aux::ActiveUniformInfo
 	> ActiveUniformRange;
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
-	struct ActiveSubroutineUniformInfo
-	{
-	private:
-		GLuint _index;
-		GLint _size;
-		String _name;
-	public:
-		ActiveSubroutineUniformInfo(
-			aux::ProgramPartInfoContext& context,
-			GLuint index
-		): _index(index)
-		 , _size(0)
-		{
-			OGLPLUS_GLFUNC(GetActiveSubroutineUniformiv)(
-				context.Program(),
-				context.Stage(),
-				index,
-				GL_UNIFORM_SIZE,
-				&_size
-			);
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-				GetActiveSubroutineUniformiv,
-				Program,
-				nullptr,
-				context.Program()
-			));
-
-			GLsizei strlen = 0;
-			OGLPLUS_GLFUNC(GetActiveSubroutineUniformName)(
-				context.Program(),
-				context.Stage(),
-				index,
-				context.Buffer().size(),
-				&strlen,
-				context.Buffer().data()
-			);
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-				GetActiveSubroutineUniformName,
-				Program,
-				nullptr,
-				context.Program()
-			));
-			_name = String(context.Buffer().data(), strlen);
-		}
-
-		GLuint Index(void) const
-		{
-			return _index;
-		}
-
-		const String& Name(void) const
-		{
-			return _name;
-		}
-
-		const GLint Size(void) const
-		{
-			return _size;
-		}
-
-		const SLDataType Type(void) const
-		{
-			return SLDataType::None;
-		}
-	};
 	typedef aux::BaseRange<
 		aux::ProgramPartInfoContext,
-		ActiveSubroutineUniformInfo
+		aux::ActiveSubroutineInfo
+	> ActiveSubroutineRange;
+
+	typedef aux::BaseRange<
+		aux::ProgramPartInfoContext,
+		aux::ActiveSubroutineUniformInfo
 	> ActiveSubroutineUniformRange;
 #endif
-
-	struct TransformFeedbackVaryingInfo : ActiveVariableInfo
-	{
-		TransformFeedbackVaryingInfo(
-			aux::ProgramPartInfoContext& context,
-			GLuint index
-		): ActiveVariableInfo(
-			context,
-			index,
-			OGLPLUS_GLFUNC(GetTransformFeedbackVarying)
-		)
-		{
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-				GetTransformFeedbackVarying,
-				Program,
-				nullptr,
-				context.Program()
-			));
-		}
-	};
 	typedef aux::BaseRange<
 		aux::ProgramPartInfoContext,
-		TransformFeedbackVaryingInfo
+		aux::TransformFeedbackVaryingInfo
 	> TransformFeedbackVaryingRange;
 
 	struct ShaderIterationContext
@@ -646,6 +427,36 @@ public:
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
+	/// Returns a range allowing to do the traversal of subroutines
+	/** This instance of Program must be kept alive during the whole
+	 *  lifetime of the returned range, i.e. the returned range must not
+	 *  be used after the Program goes out of scope and is destroyed.
+	 *
+	 *  @throws Error
+	 */
+	ActiveSubroutineRange ActiveSubroutines(ShaderType stage) const
+	{
+		// get the count of active subroutine uniforms
+		GLint count = GetStageIntParam(
+			GLenum(stage),
+			GL_ACTIVE_SUBROUTINES
+		);
+		// get the maximum string length of the longest identifier
+		GLint length = GetStageIntParam(
+			GLenum(stage),
+			GL_ACTIVE_SUBROUTINE_MAX_LENGTH
+		);
+
+		return ActiveSubroutineRange(
+			aux::ProgramPartInfoContext(
+				_name,
+				length,
+				GLenum(stage)
+			),
+			0, count
+		);
+	}
+
 	/// Returns a range allowing to do the traversal of subroutine uniforms
 	/** This instance of Program must be kept alive during the whole
 	 *  lifetime of the returned range, i.e. the returned range must not
@@ -653,7 +464,7 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	ActiveUniformRange ActiveSubroutineUniforms(ShaderType stage) const
+	ActiveSubroutineUniformRange ActiveSubroutineUniforms(ShaderType stage) const
 	{
 		// get the count of active subroutine uniforms
 		GLint count = GetStageIntParam(
@@ -666,7 +477,7 @@ public:
 			GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH
 		);
 
-		return ActiveUniformRange(
+		return ActiveSubroutineUniformRange(
 			aux::ProgramPartInfoContext(
 				_name,
 				length,
@@ -771,6 +582,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Information about a active uniform block
 	/** Do not instantiate this class directly, instances are returned
 	 *  by the ActiveUniformBlocks() function.
@@ -779,68 +591,21 @@ public:
 	 */
 	class ActiveUniformBlockInfo
 	{
-	private:
-		GLuint _index;
-		String _name;
-	public:
-		ActiveUniformBlockInfo(
-			aux::ProgramPartInfoContext& context,
-			GLuint index
-		): _index(0)
-		{
-			GLint length = 0;
-			OGLPLUS_GLFUNC(GetProgramiv)(
-				context.Program(),
-				GL_UNIFORM_BLOCK_NAME_LENGTH,
-				&length
-			);
-			if(context.Buffer().size() < size_t(length))
-				context.Buffer().resize(length);
-			OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-				GetProgramiv,
-				Program,
-				nullptr,
-				context.Program()
-			));
-			GLsizei strlen = 0;
-			OGLPLUS_GLFUNC(GetActiveUniformBlockName)(
-				context.Program(),
-				index,
-				context.Buffer().size(),
-				&strlen,
-				context.Buffer().data()
-			);
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-				GetActiveUniformBlockName,
-				Program,
-				nullptr,
-				context.Program()
-			));
-			_name = String(context.Buffer().data(), strlen);
-		}
-
 		/// Returns the index of the attribute or uniform
-		GLuint Index(void) const
-		{
-			return _index;
-		}
+		GLuint Index(void) const;
 
 		/// Returns the name (identifier) of the named uniform block
-		const String& Name(void) const
-		{
-			return _name;
-		}
+		const String& Name(void) const;
 
 		// TODO: active uniform indices, etc.
 	};
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// The type of the range for traversing active uniform blocks
 	typedef Range<ActiveUniformBlockInfo> ActiveUniformRange;
 #else
 	typedef aux::BaseRange<
 		aux::ProgramPartInfoContext,
-		ActiveUniformBlockInfo
+		aux::ActiveUniformBlockInfo
 	> ActiveUniformBlockRange;
 #endif
 
