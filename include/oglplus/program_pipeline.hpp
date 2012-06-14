@@ -59,6 +59,7 @@ inline const GLchar* EnumValueName(ProgramPipelineStage value)
  */
 class ProgramPipelineOps
  : public Named
+ , public BaseObject<true>
  , public FriendOf<ProgramOps>
 {
 protected:
@@ -313,7 +314,7 @@ class ProgramPipeline
  : public ProgramPipelineOps
 { };
 #else
-typedef Object<ProgramPipelineOps, true> ProgramPipeline;
+typedef Object<ProgramPipelineOps> ProgramPipeline;
 #endif
 
 #endif // program pipeline

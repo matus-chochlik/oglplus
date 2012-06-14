@@ -91,13 +91,13 @@ public:
 	AutoBind(typename Bindable::Target target);
 };
 #else
-template <class Bindable, bool MultiObject>
-class AutoBind<Object<Bindable, MultiObject> >
- : public BoundTemplate<AutoBindBase, Object<Bindable, MultiObject>, Bindable>
+template <class Bindable>
+class AutoBind<Object<Bindable> >
+ : public BoundTemplate<AutoBindBase, Object<Bindable>, Bindable>
 {
 public:
 	AutoBind(typename Bindable::Target target)
-	 : BoundTemplate<AutoBindBase, Object<Bindable, MultiObject>, Bindable>(target)
+	 : BoundTemplate<AutoBindBase, Object<Bindable>, Bindable>(target)
 	{ }
 };
 #endif

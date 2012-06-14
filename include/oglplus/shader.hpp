@@ -58,6 +58,7 @@ inline const GLchar* EnumValueName(ShaderType value)
  */
 class ShaderOps
  : public Named
+ , public BaseObject<false>
 {
 protected:
 	static void _init(GLsizei, GLuint* _name, ShaderType type)
@@ -280,7 +281,7 @@ public:
 	Shader(ShaderType type, String description);
 };
 #else
-typedef Object<ShaderOps, false> Shader;
+typedef Object<ShaderOps> Shader;
 #endif
 
 template <ShaderType type>

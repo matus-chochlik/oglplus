@@ -279,6 +279,7 @@ public:
  */
 class PerfMonitorAMDOps
  : public Named
+ , public BaseObject<true>
 {
 protected:
 	typedef std::true_type _can_be_zero;
@@ -443,7 +444,7 @@ class PerfMonitorAMD
  : public PerfMonitorAMDOps
 { };
 #else
-typedef Object<PerfMonitorAMDOps, true> PerfMonitorAMD;
+typedef Object<PerfMonitorAMDOps> PerfMonitorAMD;
 #endif
 
 /// Wrapper for the AMD_performance_monitor extension

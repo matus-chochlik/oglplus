@@ -32,6 +32,7 @@ namespace oglplus {
  */
 class VertexArrayOps
  : public Named
+ , public BaseObject<true>
 {
 protected:
 	static void _init(GLsizei count, GLuint* _name)
@@ -89,7 +90,7 @@ class VertexArray
  : public VertexArrayOps
 { };
 #else
-typedef Object<VertexArrayOps, true> VertexArray;
+typedef Object<VertexArrayOps> VertexArray;
 #endif
 
 } // namespace oglplus

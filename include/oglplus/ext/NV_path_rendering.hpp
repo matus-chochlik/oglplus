@@ -379,6 +379,7 @@ inline const GLchar* EnumValueName(PathNVMetricQuery value)
  */
 class PathNVOps
  : public Named
+ , public BaseObject<true>
 {
 protected:
 	static void _init(GLsizei count, GLuint* _name)
@@ -1058,7 +1059,7 @@ class PathNV
  : public PathNVOps
 { };
 #else
-typedef Object<PathNVOps, true> PathNV;
+typedef Object<PathNVOps> PathNV;
 #endif
 
 /// Array of PathNV objects and related operations

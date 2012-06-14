@@ -189,6 +189,7 @@ inline const GLchar* EnumValueName(TextureWrap value)
  */
 class TextureOps
  : public Named
+ , public BaseObject<true>
  , public FriendOf<BufferOps>
 {
 protected:
@@ -2486,7 +2487,7 @@ class Texture
  : public TextureOps
 { };
 #else
-typedef Object<TextureOps, true> Texture;
+typedef Object<TextureOps> Texture;
 #endif
 
 } // namespace oglplus

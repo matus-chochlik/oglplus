@@ -73,9 +73,9 @@ public:
 	{ }
 };
 
-template <class ObjectOps, bool MultiObject>
+template <class ObjectOps>
 inline Bound<ObjectOps> Bind(
-	const Object<ObjectOps, MultiObject>& bindable,
+	const Object<ObjectOps>& bindable,
 	typename ObjectOps::Target target
 )
 {

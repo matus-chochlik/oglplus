@@ -32,6 +32,7 @@ namespace oglplus {
  */
 class QueryOps
  : public Named
+ , public BaseObject<true>
 {
 protected:
 	static void _init(GLsizei count, GLuint* _name)
@@ -54,7 +55,6 @@ protected:
 		return OGLPLUS_GLFUNC(IsQuery)(_name);
 	}
 public:
-
 	/// Query bint target
 	enum class Target : GLenum {
 #include <oglplus/enums/query_target.ipp>
@@ -303,7 +303,7 @@ class Query
  : public QueryOps
 { };
 #else
-typedef Object<QueryOps, true> Query;
+typedef Object<QueryOps> Query;
 #endif
 
 } // namespace oglplus

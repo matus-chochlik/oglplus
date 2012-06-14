@@ -79,6 +79,7 @@ inline const GLchar* EnumValueName(FramebufferStatus value)
  */
 class FramebufferOps
  : public Named
+ , public BaseObject<true>
  , public FriendOf<RenderbufferOps>
  , public FriendOf<TextureOps>
 {
@@ -499,7 +500,7 @@ class Framebuffer
  : public FramebufferOps
 { };
 #else
-typedef Object<FramebufferOps, true> Framebuffer;
+typedef Object<FramebufferOps> Framebuffer;
 #endif
 
 } // namespace oglplus

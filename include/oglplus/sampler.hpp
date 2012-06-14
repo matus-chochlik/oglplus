@@ -36,6 +36,7 @@ namespace oglplus {
  */
 class SamplerOps
  : public Named
+ , public BaseObject<true>
 {
 protected:
 	static void _init(GLsizei count, GLuint* _name)
@@ -301,7 +302,7 @@ class Sampler
  : public SamplerOps
 { };
 #else
-typedef Object<SamplerOps, true> Sampler;
+typedef Object<SamplerOps> Sampler;
 #endif
 
 #endif // sampler object

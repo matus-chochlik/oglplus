@@ -34,6 +34,7 @@ namespace oglplus {
  */
 class RenderbufferOps
  : public Named
+ , public BaseObject<true>
 {
 protected:
 	static void _init(GLsizei count, GLuint* _name)
@@ -338,7 +339,7 @@ class Renderbuffer
  : public RenderbufferOps
 { };
 #else
-typedef Object<RenderbufferOps, true> Renderbuffer;
+typedef Object<RenderbufferOps> Renderbuffer;
 #endif
 
 } // namespace oglplus

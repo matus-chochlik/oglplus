@@ -69,6 +69,7 @@ inline const GLchar* EnumValueName(TransformFeedbackPrimitiveType value)
  */
 class TransformFeedbackOps
  : public Named
+ , public BaseObject<true>
 {
 protected:
 	static void _init(GLsizei count, GLuint* _name)
@@ -325,7 +326,7 @@ class TransformFeedback
  : public TransformFeedbackOps
 { };
 #else
-typedef Object<TransformFeedbackOps, true> TransformFeedback;
+typedef Object<TransformFeedbackOps> TransformFeedback;
 #endif
 
 #endif // transform feedback 2

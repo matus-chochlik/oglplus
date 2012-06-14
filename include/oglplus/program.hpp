@@ -47,6 +47,7 @@ class VertexAttribOps;
  */
 class ProgramOps
  : public Named
+ , public BaseObject<false>
  , public FriendOf<ShaderOps>
  , public FriendOf<VertexAttribOps>
 {
@@ -871,7 +872,7 @@ class Program
  : public ProgramOps
 { };
 #else
-typedef Object<ProgramOps, false> Program;
+typedef Object<ProgramOps> Program;
 #endif
 
 

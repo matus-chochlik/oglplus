@@ -46,13 +46,13 @@ public:
 template <class Object>
 class Exposed;
 
-template <class ObjectOps, bool MultiObject>
-class Exposed<Object<ObjectOps, MultiObject> >
- : public Managed<Object<ObjectOps, MultiObject> >
+template <class ObjectOps>
+class Exposed<Object<ObjectOps> >
+ : public Managed<Object<ObjectOps> >
 {
 public:
-	Exposed(const Object<ObjectOps, MultiObject>& object)
-	 : Managed<Object<ObjectOps, MultiObject> >(object)
+	Exposed(const Object<ObjectOps>& object)
+	 : Managed<Object<ObjectOps> >(object)
 	{ }
 
 	GLuint Name(void) const

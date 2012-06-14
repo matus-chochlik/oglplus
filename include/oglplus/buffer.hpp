@@ -99,6 +99,7 @@ enum class BufferMapAccess : GLbitfield {
  */
 class BufferOps
  : public Named
+ , public BaseObject<true>
 {
 protected:
 	static void _init(GLsizei count, GLuint* _name)
@@ -654,7 +655,7 @@ class Buffer
  : public BufferOps
 { };
 #else
-typedef Object<BufferOps, true> Buffer;
+typedef Object<BufferOps> Buffer;
 #endif
 
 } // namespace oglplus

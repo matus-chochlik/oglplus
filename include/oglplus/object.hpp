@@ -16,6 +16,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/auxiliary/named.hpp>
 #include <oglplus/auxiliary/strings.hpp>
+#include <type_traits>
 #include <cassert>
 
 namespace oglplus {
@@ -124,13 +125,27 @@ class Managed
 class Managed;
 #endif
 
+template <class Object>
+class ObjectInitializer;
+
+// Base class for object operations
+template <bool MultiObject>
+class BaseObject
+{
+public:
+	typedef std::integral_constant<
+		bool,
+		MultiObject
+	> IsMultiObject;
+};
+
 // Helper base class for OpenGL object wrappers
 /*
  *  @note Do not use this class directly, use the derived classes instead.
  *
  *  @ingroup objects
  */
-template <class ObjectOps, bool MultiObject>
+template <class ObjectOps>
 class Object
  : public ObjectOps
  , public aux::ObjectDescRegistry<ObjectOps>
@@ -153,7 +168,7 @@ private:
 		assert(_c != 0);
 		assert(_n != nullptr);
 		assert(*_n == 0);
-		assert(MultiObject || (_c == 1));
+		assert(ObjectOps::IsMultiObject::value || (_c == 1));
 		ObjectOps::_init(_c, _n);
 		assert(_can_be_zero() || *_n != 0);
 	}
@@ -163,7 +178,7 @@ private:
 	{
 		assert(_n != nullptr);
 		assert(*_n == 0);
-		assert(!MultiObject);
+		assert(!ObjectOps::IsMultiObject::value);
 		ObjectOps::_init(_c, _n, _k);
 		assert(_can_be_zero() || *_n != 0);
 	}
@@ -172,7 +187,7 @@ private:
 	{
 		assert(_c != 0);
 		assert(_n != nullptr);
-		assert(MultiObject || (_c == 1));
+		assert(ObjectOps::IsMultiObject::value || (_c == 1));
 		ObjectOps::_cleanup(_c, _n);
 		assert((OGLPLUS_GLFUNC(GetError)()) == GL_NO_ERROR);
 		assert((*_n = 0) == 0);
@@ -188,7 +203,7 @@ private:
 #endif
 	}
 
-	friend class Array<Object>;
+	friend class ObjectInitializer<Object>;
 public:
 	Object(void)
 	{
@@ -297,9 +312,29 @@ public:
 	}
 };
 
+template <class ObjectOps>
+class ObjectInitializer<Object<ObjectOps> >
+{
+protected:
+	static inline void _init(GLsizei _c, GLuint* _n)
+	{
+		Object<ObjectOps>::_do_init(_c, _n);
+	}
+
+	static inline void _cleanup(GLsizei _c, GLuint* _n)
+	{
+		Object<ObjectOps>::_do_cleanup(_c, _n);
+	}
+
+	static inline bool _type_ok(GLuint _name)
+	{
+		return Object<ObjectOps>::_type_ok(_name);
+	}
+};
+
 #if !OGLPLUS_DOCUMENTATION_ONLY && !OGLPLUS_DOXYGEN_PARSE
-template <class ObjectOps, bool MultiObject>
-struct ObjectBaseOps<Object<ObjectOps, MultiObject> >
+template <class ObjectOps>
+struct ObjectBaseOps<Object<ObjectOps> >
 {
 	typedef ObjectOps Type;
 };
