@@ -132,6 +132,13 @@
 #define nullptr 0
 #endif
 
+#if !OGLPLUS_NO_CONSTEXPR
+#define OGLPLUS_CONSTEXPR constexpr
+#else
+#define OGLPLUS_CONSTEXPR const
+#endif
+
+
 #if !OGLPLUS_NO_NOEXCEPT
 #define OGLPLUS_NOEXCEPT(EXPR) noexcept(EXPR)
 #define OGLPLUS_NOEXCEPT_IF(EXPR) noexcept(noexcept(EXPR))
@@ -139,6 +146,8 @@
 #define OGLPLUS_NOEXCEPT(EXPR)
 #define OGLPLUS_NOEXCEPT_IF(EXPR)
 #endif
+
+// ------- C++11 feature availability detection -------
 
 // define GLAPIENTRY
 #ifdef GLAPIENTRY

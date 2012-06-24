@@ -26,11 +26,13 @@ class FriendOf<Named>
 {
 protected:
 	static void SetName(Named& object, GLuint name)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		object._name = name;
 	}
 
 	static GLuint GetName(const Named& object)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return object._name;
 	}
@@ -42,16 +44,19 @@ class FriendOf
 {
 protected:
 	static void SetName(ObjectOps& object, GLuint name)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		FriendOf<Named>::SetName(object, name);
 	}
 
 	static GLuint GetName(const ObjectOps& object)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return FriendOf<Named>::GetName(object);
 	}
 
 	static GLuint GetIndex(const ObjectOps& object)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return object._index;
 	}

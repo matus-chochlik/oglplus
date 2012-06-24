@@ -14,32 +14,22 @@
 
 #include <oglplus/config.hpp>
 
-#ifndef _USE_MATH_DEFINES
-#define _USE_MATH_DEFINES 1
-#endif
-
 #include <cmath>
 
 namespace oglplus {
 namespace math {
 
 #ifdef M_PI
-#if OGLPLUS_NO_CONSTEXPR
-inline decltype(M_PI) pi(void) OGLPLUS_NOEXCEPT(true)
+inline OGLPLUS_CONSTEXPR decltype(M_PI) pi(void)
+OGLPLUS_NOEXCEPT_IF(M_PI)
 {
 	return M_PI;
 }
 #else
-constexpr decltype(M_PI) pi(void) OGLPLUS_NOEXCEPT(true)
+inline decltype(std::atan(1.0) * 4.0) pi(void)
+OGLPLUS_NOEXCEPT_IF(std::atan(1.0) * 4.0)
 {
-	return M_PI;
-}
-#endif
-
-#else
-inline decltype(std::atan(1.0)) pi(void) OGLPLUS_NOEXCEPT_IF(std::atan(1.0))
-{
-	static auto _pi = std::atan(1.0)*4.0;
+	static auto _pi = std::atan(1.0) * 4.0;
 	return _pi;
 }
 #endif

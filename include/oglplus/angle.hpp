@@ -16,6 +16,7 @@
 #include <oglplus/math.hpp>
 
 #include <cassert>
+#include <type_traits>
 
 namespace oglplus {
 
@@ -46,12 +47,14 @@ private:
 
 	struct _Radians { };
 	Angle(T val_rad, _Radians)
+	OGLPLUS_NOEXCEPT_IF(T(val_rad))
 	 : _val_rad(val_rad)
 	{ }
 
 	struct _Degrees { };
 	Angle(T val_deg, _Degrees)
-	 : _val_rad(T(val_deg * (math::pi() / 180.0)))
+	OGLPLUS_NOEXCEPT_IF(T(val_deg * (math::pi() / T(180))))
+	 : _val_rad(T(val_deg * (math::pi() / T(180))))
 	{ }
 public:
 	/// Constructs a zero angle
@@ -62,74 +65,87 @@ public:
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	/// Angle is copy constructible
 	Angle(const Angle&) = default;
+
+	/// Angle is move constructible
+	Angle(Angle&&) = default;
 #endif
 
 	/// Copy construction from angles using different representation type
 	template <typename U>
-	Angle(const Angle<U>& other) OGLPLUS_NOEXCEPT_IF(T(other.Value()))
+	Angle(const Angle<U>& other)
+	OGLPLUS_NOEXCEPT_IF(T(T(other.Value())))
 	 : _val_rad(T(other.Value()))
 	{ }
 
 	/// Constructs a new angle from value in radians
 	static inline Angle Radians(T val_rad)
+	OGLPLUS_NOEXCEPT_IF(T(val_rad))
 	{
 		return Angle(val_rad, _Radians());
 	}
 
 	/// Constructs a new angle from value in degrees
 	static inline Angle Degrees(T val_deg)
+	OGLPLUS_NOEXCEPT(
+		OGLPLUS_NOEXCEPT(T(val_deg)) &&
+		OGLPLUS_NOEXCEPT(val_deg * (math::pi() / T(180)))
+	)
 	{
 		return Angle(val_deg, _Degrees());
 	}
 
 	/// Returns the value of the angle in radians
-	inline T Value(void) const OGLPLUS_NOEXCEPT(true)
+	inline T Value(void) const
+	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return _val_rad;
 	}
 
 	/// Returns the value of the angle in degrees
 	inline T ValueInDegrees(void) const
-	OGLPLUS_NOEXCEPT(
-		OGLPLUS_NOEXCEPT(T(1.0)) &&
-		OGLPLUS_NOEXCEPT(math::pi())
-	)
+	OGLPLUS_NOEXCEPT_IF(_val_rad * T(180 / math::pi()))
 	{
-		return _val_rad * T(180.0 / math::pi());
+		return _val_rad * T(180 / math::pi());
 	}
 
 	/// Equality comparison
 	friend bool operator == (const Angle& a, const Angle& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() == std::declval<T>())
 	{
 		return a._val_rad == b._val_rad;
 	}
 
 	/// Inequality comparison
 	friend bool operator != (const Angle& a, const Angle& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
 	{
 		return a._val_rad != b._val_rad;
 	}
 
 	/// Less than comparison
 	friend bool operator <  (const Angle& a, const Angle& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() <  std::declval<T>())
 	{
 		return a._val_rad <  b._val_rad;
 	}
 
 	/// Greater than comparison
 	friend bool operator >  (const Angle& a, const Angle& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() >  std::declval<T>())
 	{
 		return a._val_rad >  b._val_rad;
 	}
 
 	/// Less than/equal comparison
 	friend bool operator <= (const Angle& a, const Angle& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() <= std::declval<T>())
 	{
 		return a._val_rad <= b._val_rad;
 	}
 
 	/// Greater than/equal comparison
 	friend bool operator >= (const Angle& a, const Angle& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() >= std::declval<T>())
 	{
 		return a._val_rad >=  b._val_rad;
 	}
@@ -190,18 +206,21 @@ public:
 
 	/// Returns the sine of the angle
 	friend inline T Sin(const Angle& a)
+	OGLPLUS_NOEXCEPT_IF(T(std::sin(std::declval<T>())))
 	{
 		return ::std::sin(a._val_rad);
 	}
 
 	/// Returns the cosine of the angle
 	friend inline T Cos(const Angle& a)
+	OGLPLUS_NOEXCEPT_IF(T(std::cos(std::declval<T>())))
 	{
 		return ::std::cos(a._val_rad);
 	}
 
 	/// Returns the tangent of the angle
 	friend inline T Tan(const Angle& a)
+	OGLPLUS_NOEXCEPT_IF(T(std::tan(std::declval<T>())))
 	{
 		return ::std::tan(a._val_rad);
 	}
@@ -223,6 +242,7 @@ public:
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> Radians(GLfloat val_rad)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(val_rad))
 {
 	return Angle<GLfloat>::Radians(val_rad);
 }
@@ -250,11 +270,12 @@ inline Angle<GLfloat> Radians(GLfloat val_rad)
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> Degrees(GLfloat val_deg)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Degrees(val_deg))
 {
 	return Angle<GLfloat>::Degrees(val_deg);
 }
 
-/// Creates a new angle from a value in "full circles" (i.e. 360 deg.)
+/// Creates a new angle from a value in "full circles" (i.e. 360 degrees)
 /** This function creates a new angle from a value specifying the fraction
  *  of a full 360 degree (2 pi radians) angle. For example the following
  *  is true:
@@ -278,10 +299,9 @@ inline Angle<GLfloat> Degrees(GLfloat val_deg)
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> FullCircles(GLfloat value)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 2.0)))
 {
-	return Angle<GLfloat>::Radians(
-		GLfloat(value * math::pi() * 2.0)
-	);
+	return Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 2.0));
 }
 
 /// Creates a new angle from a value in "right angles" (i.e. 90 deg.)
@@ -308,6 +328,7 @@ inline Angle<GLfloat> FullCircles(GLfloat value)
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> RightAngles(GLfloat value)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 0.5)))
 {
 	return Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 0.5));
 }
@@ -326,6 +347,7 @@ inline Angle<GLfloat> RightAngles(GLfloat value)
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> ArcSin(GLfloat x)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(::std::asin(x)))
 {
 	assert(-1.0f <= x && x <= 1.0f);
 	return Angle<GLfloat>::Radians(::std::asin(x));
@@ -345,6 +367,7 @@ inline Angle<GLfloat> ArcSin(GLfloat x)
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> ArcCos(GLfloat x)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(::std::acos(x)))
 {
 	assert(-1.0f <= x && x <= 1.0f);
 	return Angle<GLfloat>::Radians(::std::acos(x));
@@ -363,6 +386,7 @@ inline Angle<GLfloat> ArcCos(GLfloat x)
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> ArcTan(GLfloat x)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(::std::atan(x)))
 {
 	return Angle<GLfloat>::Radians(::std::atan(x));
 }
@@ -380,6 +404,7 @@ inline Angle<GLfloat> ArcTan(GLfloat x)
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> ArcTan(GLfloat y, GLfloat x)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(::std::atan2(y, x)))
 {
 	return Angle<GLfloat>::Radians(::std::atan2(y, x));
 }

@@ -24,6 +24,7 @@ namespace oglplus {
 namespace aux {
 
 inline const String& EmptyString(void)
+OGLPLUS_NOEXCEPT(true)
 {
 	static String empty;
 	return empty;
@@ -33,7 +34,7 @@ template <class ObjectOps>
 class ObjectDescRegistry
 {
 private:
-#if OGLPLUS_NO_OBJECT_DESCS == 0
+#if !OGLPLUS_NO_OBJECT_DESCS
 	typedef ::std::map<GLuint, String> _desc_map;
 	static _desc_map& _storage(void)
 	{
@@ -49,8 +50,11 @@ private:
 #endif
 protected:
 	static void _register_desc(GLuint name, const char* desc)
+#if OGLPLUS_NO_OBJECT_DESCS
+	OGLPLUS_NOEXCEPT(true)
+#endif
 	{
-#if OGLPLUS_NO_OBJECT_DESCS == 0
+#if !OGLPLUS_NO_OBJECT_DESCS
 		assert(name != 0);
 		assert(desc != 0);
 		assert(_storage().find(name) == _storage().end());
@@ -59,8 +63,11 @@ protected:
 	}
 
 	static void _register_desc(GLuint name, const String& desc)
+#if OGLPLUS_NO_OBJECT_DESCS
+	OGLPLUS_NOEXCEPT(true)
+#endif
 	{
-#if OGLPLUS_NO_OBJECT_DESCS == 0
+#if !OGLPLUS_NO_OBJECT_DESCS
 		assert(name != 0);
 		assert(_storage().find(name) == _storage().end());
 		_storage().insert(typename _desc_map::value_type(name, desc));
@@ -68,8 +75,11 @@ protected:
 	}
 
 	static void _unregister_desc(GLuint name)
+#if OGLPLUS_NO_OBJECT_DESCS
+	OGLPLUS_NOEXCEPT(true)
+#endif
 	{
-#if OGLPLUS_NO_OBJECT_DESCS == 0
+#if !OGLPLUS_NO_OBJECT_DESCS
 		assert(name != 0);
 		auto pos = _storage().find(name);
 		if(pos != _storage().end())
@@ -84,16 +94,22 @@ protected:
 public:
 	// internal implementation detail. do not use directly
 	static void _purge_archive(void)
+#if OGLPLUS_NO_OBJECT_DESCS
+	OGLPLUS_NOEXCEPT(true)
+#endif
 	{
-#if OGLPLUS_NO_OBJECT_DESCS == 0
+#if !OGLPLUS_NO_OBJECT_DESCS
 		_archive().clear();
 #endif
 	}
 
 	// internal implementation detail. do not use directly
 	static const String& _get_desc(GLuint name)
+#if OGLPLUS_NO_OBJECT_DESCS
+	OGLPLUS_NOEXCEPT(true)
+#endif
 	{
-#if OGLPLUS_NO_OBJECT_DESCS == 0
+#if !OGLPLUS_NO_OBJECT_DESCS
 		assert(name != 0);
 		auto pos = _storage().find(name);
 		if(pos != _storage().end()) return pos->second;

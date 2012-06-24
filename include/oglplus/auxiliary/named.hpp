@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_AUX_NAMED_1107121519_HPP
 #define OGLPLUS_AUX_NAMED_1107121519_HPP
 
+#include <oglplus/config.hpp>
+
 #include <cassert>
 #include <type_traits>
 
@@ -35,11 +37,17 @@ protected:
 
 	GLuint _name;
 
-	inline Named(void)
+	inline Named(void) OGLPLUS_NOEXCEPT_IF(GLuint(0))
 	 : _name(GLuint(0))
 	{ }
 
-	inline ~Named(void)
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Named(const Named&) = default;
+
+	Named(Named&&) = default;
+#endif
+
+	inline ~Named(void) OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name == 0);
 	}
