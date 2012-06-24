@@ -31,6 +31,7 @@ enum class MemoryBarrierBit : GLbitfield
 OGLPLUS_MAKE_BITFIELD(MemoryBarrierBit)
 
 inline const GLchar* EnumValueName(MemoryBarrierBit value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/memory_barrier_bit.ipp>

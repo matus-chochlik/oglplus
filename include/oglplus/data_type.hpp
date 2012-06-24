@@ -35,6 +35,7 @@ enum class DataType : GLenum
 };
 
 inline const GLchar* EnumValueName(DataType value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/data_type.ipp>
@@ -100,6 +101,7 @@ enum class SLDataType : GLenum
 };
 
 inline const GLchar* EnumValueName(SLDataType value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/sl_data_type.ipp>

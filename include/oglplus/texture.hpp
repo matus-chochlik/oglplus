@@ -44,6 +44,7 @@ enum class TextureCompareMode : GLenum {
 
 
 inline const GLchar* EnumValueName(TextureCompareMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_compare_mode.ipp>
@@ -65,6 +66,7 @@ enum class TextureMagFilter : GLenum {
 };
 
 inline const GLchar* EnumValueName(TextureMagFilter value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_mag_filter.ipp>
@@ -86,6 +88,7 @@ enum class TextureMinFilter : GLenum {
 };
 
 inline const GLchar* EnumValueName(TextureMinFilter value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_min_filter.ipp>
@@ -106,6 +109,7 @@ enum class TextureSwizzleCoord : GLenum {
 };
 
 inline const GLchar* EnumValueName(TextureSwizzleCoord value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_swizzle_coord.ipp>
@@ -129,6 +133,7 @@ enum class TextureSwizzle : GLenum {
 };
 
 inline const GLchar* EnumValueName(TextureSwizzle value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_swizzle.ipp>
@@ -149,6 +154,7 @@ enum class TextureWrapCoord : GLenum {
 };
 
 inline const GLchar* EnumValueName(TextureWrapCoord value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_wrap_coord.ipp>
@@ -172,6 +178,7 @@ enum class TextureWrap : GLenum {
 };
 
 inline const GLchar* EnumValueName(TextureWrap value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_wrap.ipp>
@@ -2471,6 +2478,7 @@ public:
 };
 
 inline const GLchar* EnumValueName(TextureOps::Target value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_target.ipp>

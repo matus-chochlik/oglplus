@@ -32,6 +32,7 @@ enum class BufferSelectBit : GLenum
 OGLPLUS_MAKE_BITFIELD(BufferSelectBit)
 
 inline const GLchar* EnumValueName(BufferSelectBit value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_select_bit.ipp>

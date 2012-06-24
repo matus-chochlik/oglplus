@@ -27,6 +27,7 @@ enum class PolygonMode : GLenum
 };
 
 inline const GLchar* EnumValueName(PolygonMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/polygon_mode.ipp>

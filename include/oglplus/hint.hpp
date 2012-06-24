@@ -27,6 +27,7 @@ enum class HintTarget : GLenum
 };
 
 inline const GLchar* EnumValueName(HintTarget value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/hint_target.ipp>
@@ -47,6 +48,7 @@ enum class HintOption : GLenum
 };
 
 inline const GLchar* EnumValueName(HintOption value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/hint_option.ipp>

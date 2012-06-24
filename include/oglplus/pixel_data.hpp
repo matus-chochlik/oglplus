@@ -31,6 +31,7 @@ enum class PixelDataType : GLenum
 };
 
 inline const GLchar* EnumValueName(PixelDataType value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/pixel_data_type.ipp>
@@ -53,6 +54,7 @@ enum class PixelDataFormat : GLenum
 };
 
 inline const GLchar* EnumValueName(PixelDataFormat value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/pixel_data_format.ipp>
@@ -77,6 +79,7 @@ enum class PixelDataInternalFormat : GLenum
 };
 
 inline const GLchar* EnumValueName(PixelDataInternalFormat value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/pixel_data_internal_format.ipp>
@@ -97,6 +100,7 @@ enum class ImageUnitFormat : GLenum
 };
 
 inline const GLchar* EnumValueName(ImageUnitFormat value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/image_unit_format.ipp>

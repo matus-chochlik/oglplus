@@ -27,6 +27,7 @@ enum class ColorLogicOperation : GLenum
 };
 
 inline const GLchar* EnumValueName(ColorLogicOperation value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/color_logic_operation.ipp>

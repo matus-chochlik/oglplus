@@ -72,6 +72,7 @@ enum class BufferUsage : GLenum {
 };
 
 inline const GLchar* EnumValueName(BufferUsage value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_usage.ipp>
@@ -631,6 +632,7 @@ public:
 };
 
 inline const GLchar* EnumValueName(BufferOps::Target value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_target.ipp>
@@ -639,6 +641,7 @@ inline const GLchar* EnumValueName(BufferOps::Target value)
 }
 
 inline const GLchar* EnumValueName(BufferOps::IndexedTarget value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_indexed_target.ipp>

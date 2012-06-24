@@ -27,6 +27,7 @@ enum class StencilOperation : GLenum
 };
 
 inline const GLchar* EnumValueName(StencilOperation value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/stencil_operation.ipp>

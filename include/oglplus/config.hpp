@@ -102,6 +102,14 @@
 #endif
 #endif
 
+#ifndef OGLPLUS_NO_NOEXCEPT
+#ifdef BOOST_NO_NOEXCEPT
+#define OGLPLUS_NO_NOEXCEPT 1
+#else
+#define OGLPLUS_NO_NOEXCEPT 0
+#endif
+#endif
+
 #ifndef OGLPLUS_NO_LAMBDAS
 #ifdef BOOST_NO_LAMBDAS
 #define OGLPLUS_NO_LAMBDAS 1
@@ -122,6 +130,14 @@
 
 #if OGLPLUS_NO_NULLPTR
 #define nullptr 0
+#endif
+
+#if !OGLPLUS_NO_NOEXCEPT
+#define OGLPLUS_NOEXCEPT(EXPR) noexcept(EXPR)
+#define OGLPLUS_NOEXCEPT_IF(EXPR) noexcept(noexcept(EXPR))
+#else
+#define OGLPLUS_NOEXCEPT(EXPR)
+#define OGLPLUS_NOEXCEPT_IF(EXPR)
 #endif
 
 // define GLAPIENTRY

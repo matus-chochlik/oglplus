@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/uniform_subroutine.hpp
+ *  @file oglplus/uniform_subroutines.hpp
  *  @brief Wrapper for uniform subroutine operations
  *
  *  @author Matus Chochlik

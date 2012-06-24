@@ -37,6 +37,7 @@ enum class CompatibilityPrimitiveType : GLenum
 typedef CompatibilityPrimitiveType CompatPrimType;
 
 inline const GLchar* EnumValueName(CompatibilityPrimitiveType value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/compat_prim_type.ipp>
@@ -58,6 +59,7 @@ enum class MatrixMode : GLenum
 };
 
 inline const GLchar* EnumValueName(MatrixMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/compat_matrix_mode.ipp>
@@ -82,6 +84,7 @@ enum class CompatibilityAttributeGroup : GLenum
 OGLPLUS_MAKE_BITFIELD(CompatibilityAttributeGroup)
 
 inline const GLchar* EnumValueName(CompatibilityAttributeGroup value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/compat_attrib_group.ipp>
@@ -106,6 +109,7 @@ enum class CompatibilityClientAttributeGroup : GLenum
 OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
 
 inline const GLchar* EnumValueName(CompatibilityClientAttributeGroup value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/compat_client_attrib_group.ipp>

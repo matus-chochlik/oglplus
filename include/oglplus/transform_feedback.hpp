@@ -32,6 +32,7 @@ enum class TransformFeedbackMode : GLenum
 };
 
 inline const GLchar* EnumValueName(TransformFeedbackMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/transform_feedback_mode.ipp>
@@ -49,6 +50,7 @@ enum class TransformFeedbackPrimitiveType : GLenum {
 };
 
 inline const GLchar* EnumValueName(TransformFeedbackPrimitiveType value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/transform_feedback_primitive_type.ipp>
@@ -309,6 +311,7 @@ public:
 };
 
 inline const GLchar* EnumValueName(TransformFeedbackOps::Target value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/transform_feedback_target.ipp>

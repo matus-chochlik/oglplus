@@ -38,6 +38,7 @@ enum class ShaderType : GLenum {
 };
 
 inline const GLchar* EnumValueName(ShaderType value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/shader_type.ipp>

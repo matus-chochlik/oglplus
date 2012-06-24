@@ -151,7 +151,11 @@ class Object
  , public aux::ObjectDescRegistry<ObjectOps>
 {
 private:
-	static /*constexpr*/ bool _can_be_zero(void)
+#if !OGLPLUS_NO_CONSTEXPR
+	static constexpr bool _can_be_zero(void)
+#else
+	static const bool _can_be_zero(void)
+#endif
 	{
 		return ObjectOps::_can_be_zero::value;
 	}

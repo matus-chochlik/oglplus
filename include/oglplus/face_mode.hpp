@@ -30,6 +30,7 @@ enum class Face : GLenum
 };
 
 inline const GLchar* EnumValueName(Face value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/face.ipp>
@@ -50,6 +51,7 @@ enum class FaceOrientation : GLenum
 };
 
 inline const GLchar* EnumValueName(FaceOrientation value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/face_orientation.ipp>

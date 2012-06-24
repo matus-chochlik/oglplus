@@ -55,7 +55,7 @@ private:
 	{ }
 public:
 	/// Constructs a zero angle
-	Angle(void)
+	Angle(void) OGLPLUS_NOEXCEPT_IF(T(0))
 	 : _val_rad(T(0))
 	{ }
 
@@ -66,7 +66,7 @@ public:
 
 	/// Copy construction from angles using different representation type
 	template <typename U>
-	Angle(const Angle<U>& other)
+	Angle(const Angle<U>& other) OGLPLUS_NOEXCEPT_IF(T(other.Value()))
 	 : _val_rad(T(other.Value()))
 	{ }
 
@@ -83,13 +83,17 @@ public:
 	}
 
 	/// Returns the value of the angle in radians
-	inline T Value(void) const
+	inline T Value(void) const OGLPLUS_NOEXCEPT(true)
 	{
 		return _val_rad;
 	}
 
 	/// Returns the value of the angle in degrees
 	inline T ValueInDegrees(void) const
+	OGLPLUS_NOEXCEPT(
+		OGLPLUS_NOEXCEPT(T(1.0)) &&
+		OGLPLUS_NOEXCEPT(math::pi())
+	)
 	{
 		return _val_rad * T(180.0 / math::pi());
 	}

@@ -29,6 +29,7 @@ enum class Capability: GLenum
 };
 
 inline const GLchar* EnumValueName(Capability value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/capability.ipp>
@@ -51,6 +52,7 @@ enum class Functionality : GLenum
 };
 
 inline const GLchar* EnumValueName(Functionality value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/functionality.ipp>

@@ -27,6 +27,7 @@ enum class BlitFilter : GLenum
 };
 
 inline const GLchar* EnumValueName(BlitFilter value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/blit_filter.ipp>

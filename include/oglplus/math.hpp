@@ -25,19 +25,19 @@ namespace math {
 
 #ifdef M_PI
 #if OGLPLUS_NO_CONSTEXPR
-inline decltype(M_PI) pi(void)
+inline decltype(M_PI) pi(void) OGLPLUS_NOEXCEPT(true)
 {
 	return M_PI;
 }
 #else
-constexpr decltype(M_PI) pi(void)
+constexpr decltype(M_PI) pi(void) OGLPLUS_NOEXCEPT(true)
 {
 	return M_PI;
 }
 #endif
 
 #else
-inline decltype(std::atan(1.0)) pi(void)
+inline decltype(std::atan(1.0)) pi(void) OGLPLUS_NOEXCEPT_IF(std::atan(1.0))
 {
 	static auto _pi = std::atan(1.0)*4.0;
 	return _pi;

@@ -39,6 +39,7 @@ enum class ProgramPipelineStage : GLbitfield {
 OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
 
 inline const GLchar* EnumValueName(ProgramPipelineStage value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/program_pipeline_stage.ipp>

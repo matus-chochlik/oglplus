@@ -38,6 +38,7 @@ enum class PathNVCommand : GLubyte
 };
 
 inline const GLchar* EnumValueName(PathNVCommand value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_command.ipp>
@@ -58,6 +59,7 @@ enum class PathNVFormat : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVFormat value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_format.ipp>
@@ -78,6 +80,7 @@ enum class PathNVFillMode : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVFillMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_fill_mode.ipp>
@@ -98,6 +101,7 @@ enum class PathNVFillCoverMode : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVFillCoverMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_fill_cover_mode.ipp>
@@ -118,6 +122,7 @@ enum class PathNVStrokeCoverMode : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVStrokeCoverMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_stroke_cover_mode.ipp>
@@ -138,6 +143,7 @@ enum class PathNVJoinStyle : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVJoinStyle value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_join_style.ipp>
@@ -158,6 +164,7 @@ enum class PathNVCapStyle : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVCapStyle value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_cap_style.ipp>
@@ -178,6 +185,7 @@ enum class PathNVDashOffsetReset : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVDashOffsetReset value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_dash_offset_reset.ipp>
@@ -198,6 +206,7 @@ enum class PathNVColor : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVColor value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_color.ipp>
@@ -218,6 +227,7 @@ enum class PathNVColorFormat : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVColorFormat value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_color_format.ipp>
@@ -238,6 +248,7 @@ enum class PathNVGenMode : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVGenMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_gen_mode.ipp>
@@ -258,6 +269,7 @@ enum class PathNVTransformType : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVTransformType value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_transform_type.ipp>
@@ -278,6 +290,7 @@ enum class PathNVFontTarget : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVFontTarget value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_font_target.ipp>
@@ -298,6 +311,7 @@ enum class PathNVMissingGlyph : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVMissingGlyph value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_missing_glyph.ipp>
@@ -318,6 +332,7 @@ enum class PathNVListMode : GLenum
 };
 
 inline const GLchar* EnumValueName(PathNVListMode value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_list_mode.ipp>
@@ -340,6 +355,7 @@ enum class PathNVFontStyle: GLenum
 OGLPLUS_MAKE_BITFIELD(PathNVFontStyle)
 
 inline const GLchar* EnumValueName(PathNVFontStyle value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_font_style.ipp>
@@ -362,6 +378,7 @@ enum class PathNVMetricQuery: GLenum
 OGLPLUS_MAKE_BITFIELD(PathNVMetricQuery)
 
 inline const GLchar* EnumValueName(PathNVMetricQuery value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_metric_query.ipp>

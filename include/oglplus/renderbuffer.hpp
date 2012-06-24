@@ -323,6 +323,7 @@ public:
 };
 
 inline const GLchar* EnumValueName(RenderbufferOps::Target value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/renderbuffer_target.ipp>

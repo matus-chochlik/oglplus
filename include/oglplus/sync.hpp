@@ -29,6 +29,7 @@ enum class SyncCondition : GLenum {
 };
 
 inline const GLchar* EnumValueName(SyncCondition value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/sync_condition.ipp>
@@ -48,6 +49,7 @@ enum class SyncType : GLenum {
 };
 
 inline const GLchar* EnumValueName(SyncType value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/sync_type.ipp>
@@ -67,6 +69,7 @@ enum class SyncStatus : GLenum {
 };
 
 inline const GLchar* EnumValueName(SyncStatus value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/sync_status.ipp>
@@ -81,6 +84,7 @@ enum class SyncWaitResult : GLenum {
 };
 
 inline const GLchar* EnumValueName(SyncWaitResult value)
+OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/sync_wait_result.ipp>
