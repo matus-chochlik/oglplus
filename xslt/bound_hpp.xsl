@@ -74,7 +74,20 @@
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="name/text()"/>
 		<xsl:text>(</xsl:text>
-		<xsl:call-template name="Newline"/>
+
+		<xsl:variable
+			name="HasParams"
+			select="count(param[type/descendant-or-self::text() != 'Target']) != 0"
+		/>
+
+		<xsl:choose>
+			<xsl:when test="$HasParams">
+				<xsl:call-template name="Newline"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>void</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
 		
 		<xsl:for-each select="param">
 			<xsl:variable name="Type">
@@ -113,7 +126,10 @@
 			</xsl:if>
 		</xsl:for-each>
 
-		<xsl:text>	) const</xsl:text>
+		<xsl:if test="$HasParams">
+			<xsl:text>	</xsl:text>
+		</xsl:if>
+		<xsl:text>) const</xsl:text>
 		<xsl:call-template name="Newline"/>
 		<xsl:text>	{</xsl:text>
 		<xsl:call-template name="Newline"/>

@@ -747,8 +747,7 @@ public:
 		);
 	}
 
-	GLuint BaseLevel(
-	) const
+	GLuint BaseLevel(void) const
 	{
 		return TextureOps::BaseLevel(
 			this->BindTarget()
@@ -825,8 +824,7 @@ public:
 		);
 	}
 
-	TextureCompareMode CompareMode(
-	) const
+	TextureCompareMode CompareMode(void) const
 	{
 		return TextureOps::CompareMode(
 			this->BindTarget()
@@ -843,8 +841,7 @@ public:
 		);
 	}
 
-	CompareFunction CompareFunc(
-	) const
+	CompareFunction CompareFunc(void) const
 	{
 		return TextureOps::CompareFunc(
 			this->BindTarget()
@@ -861,8 +858,7 @@ public:
 		);
 	}
 
-	GLfloat LODBias(
-	) const
+	GLfloat LODBias(void) const
 	{
 		return TextureOps::LODBias(
 			this->BindTarget()
@@ -879,8 +875,7 @@ public:
 		);
 	}
 
-	TextureMagFilter MagFilter(
-	) const
+	TextureMagFilter MagFilter(void) const
 	{
 		return TextureOps::MagFilter(
 			this->BindTarget()
@@ -897,8 +892,7 @@ public:
 		);
 	}
 
-	TextureMinFilter MinFilter(
-	) const
+	TextureMinFilter MinFilter(void) const
 	{
 		return TextureOps::MinFilter(
 			this->BindTarget()
@@ -915,8 +909,7 @@ public:
 		);
 	}
 
-	GLfloat MinLOD(
-	) const
+	GLfloat MinLOD(void) const
 	{
 		return TextureOps::MinLOD(
 			this->BindTarget()
@@ -933,8 +926,7 @@ public:
 		);
 	}
 
-	GLfloat MaxLOD(
-	) const
+	GLfloat MaxLOD(void) const
 	{
 		return TextureOps::MaxLOD(
 			this->BindTarget()
@@ -973,8 +965,7 @@ public:
 		);
 	}
 
-	TextureWrap WrapS(
-	) const
+	TextureWrap WrapS(void) const
 	{
 		return TextureOps::WrapS(
 			this->BindTarget()
@@ -991,8 +982,7 @@ public:
 		);
 	}
 
-	TextureWrap WrapT(
-	) const
+	TextureWrap WrapT(void) const
 	{
 		return TextureOps::WrapT(
 			this->BindTarget()
@@ -1009,8 +999,7 @@ public:
 		);
 	}
 
-	TextureWrap WrapR(
-	) const
+	TextureWrap WrapR(void) const
 	{
 		return TextureOps::WrapR(
 			this->BindTarget()
@@ -1027,8 +1016,7 @@ public:
 		);
 	}
 
-	void GenerateMipmap(
-	) const
+	void GenerateMipmap(void) const
 	{
 		TextureOps::GenerateMipmap(
 			this->BindTarget()

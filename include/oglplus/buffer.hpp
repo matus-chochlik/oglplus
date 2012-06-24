@@ -144,14 +144,14 @@ protected:
 
 	static GLint GetIntParam(Target target, GLenum query)
 	{
-			GLint value = 0;
-			OGLPLUS_GLFUNC(GetBufferParameteriv)(
-				GLenum(target),
-				query,
-				&value
-			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
-			return value;
+		GLint value = 0;
+		OGLPLUS_GLFUNC(GetBufferParameteriv)(
+			GLenum(target),
+			query,
+			&value
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+		return value;
 	}
 
 public:

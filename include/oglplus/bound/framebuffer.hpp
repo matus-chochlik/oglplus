@@ -37,24 +37,21 @@ public:
 	): Base<BaseParam>(target)
 	{ }
 
-	void BindDefault(
-	) const
+	void BindDefault(void) const
 	{
 		FramebufferOps::BindDefault(
 			this->BindTarget()
 		);
 	}
 
-	FramebufferStatus Status(
-	) const
+	FramebufferStatus Status(void) const
 	{
 		return FramebufferOps::Status(
 			this->BindTarget()
 		);
 	}
 
-	bool IsComplete(
-	) const
+	bool IsComplete(void) const
 	{
 		return FramebufferOps::IsComplete(
 			this->BindTarget()

@@ -67,80 +67,70 @@ public:
 		);
 	}
 
-	GLsizei Width(
-	) const
+	GLsizei Width(void) const
 	{
 		return RenderbufferOps::Width(
 			this->BindTarget()
 		);
 	}
 
-	GLsizei Height(
-	) const
+	GLsizei Height(void) const
 	{
 		return RenderbufferOps::Height(
 			this->BindTarget()
 		);
 	}
 
-	GLsizei RedSize(
-	) const
+	GLsizei RedSize(void) const
 	{
 		return RenderbufferOps::RedSize(
 			this->BindTarget()
 		);
 	}
 
-	GLsizei GreenSize(
-	) const
+	GLsizei GreenSize(void) const
 	{
 		return RenderbufferOps::GreenSize(
 			this->BindTarget()
 		);
 	}
 
-	GLsizei BlueSize(
-	) const
+	GLsizei BlueSize(void) const
 	{
 		return RenderbufferOps::BlueSize(
 			this->BindTarget()
 		);
 	}
 
-	GLsizei AlphaSize(
-	) const
+	GLsizei AlphaSize(void) const
 	{
 		return RenderbufferOps::AlphaSize(
 			this->BindTarget()
 		);
 	}
 
-	GLsizei DepthSize(
-	) const
+	GLsizei DepthSize(void) const
 	{
 		return RenderbufferOps::DepthSize(
 			this->BindTarget()
 		);
 	}
 
-	GLsizei StencilSize(
-	) const
+	GLsizei StencilSize(void) const
 	{
 		return RenderbufferOps::StencilSize(
 			this->BindTarget()
 		);
 	}
 
-	GLsizei Samples(
-	) const
+	GLsizei Samples(void) const
 	{
 		return RenderbufferOps::Samples(
 			this->BindTarget()
 		);
 	}
 
-	PixelDataInternalFormat InternalFormat(
-	) const
+	PixelDataInternalFormat InternalFormat(void) const
 	{
 		return RenderbufferOps::InternalFormat(
 			this->BindTarget()

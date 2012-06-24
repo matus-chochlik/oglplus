@@ -37,8 +37,7 @@ public:
 	): Base<BaseParam>(target)
 	{ }
 
-	bool Mapped(
-	) const
+	bool Mapped(void) const
 	{
 		return BufferOps::Mapped(
 			this->BindTarget()
@@ -114,16 +113,14 @@ public:
 		);
 	}
 
-	BufferUsage Usage(
-	) const
+	BufferUsage Usage(void) const
 	{
 		return BufferOps::Usage(
 			this->BindTarget()
 		);
 	}
 
-	BufferMapAccess Access(
-	) const
+	BufferMapAccess Access(void) const
 	{
 		return BufferOps::Access(
 			this->BindTarget()
