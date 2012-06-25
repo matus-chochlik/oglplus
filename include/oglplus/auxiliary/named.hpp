@@ -41,18 +41,19 @@ protected:
 	 : _name(GLuint(0))
 	{ }
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	Named(const Named&) = default;
-
-	Named(Named&&) = default;
-#endif
-
 	inline ~Named(void) OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name == 0);
 	}
 
 	friend class FriendOf<Named>;
+
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+public:
+	Named(const Named&) = default;
+
+	Named(Named&&) = default;
+#endif
 };
 
 } // namespace oglplus
