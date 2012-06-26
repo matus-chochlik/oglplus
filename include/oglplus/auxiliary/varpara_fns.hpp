@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_AUX_VARPARA_FNS_1107121519_HPP
 #define OGLPLUS_AUX_VARPARA_FNS_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <tuple>
 
 namespace oglplus {
@@ -25,6 +26,7 @@ namespace oglplus {
 			::gl ## PREFIX ## 4 ## SUFFIX  \
 		) \
 	) _fns_ ## SELECTOR(const TYPE*, ...) \
+	OGLPLUS_NOEXCEPT(true) \
 	{ \
 		return std::make_tuple( \
 			::gl ## PREFIX ## 1 ## SUFFIX, \
@@ -57,6 +59,7 @@ namespace oglplus {
 			) \
 		) \
 	) _fns_ ## SELECTOR(const TYPE*, ...) \
+	OGLPLUS_NOEXCEPT(true) \
 	{ \
 		return std::make_tuple( \
 			std::make_tuple( \

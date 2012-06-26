@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_APPLICATION_1107121519_HPP
 #define OGLPLUS_APPLICATION_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/string.hpp>
 
 #include <cassert>
@@ -28,12 +29,14 @@ class Application
 {
 private:
 	static String& _app_rel_path(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		static String str;
 		return str;
 	}
 
 	static String& _app_name(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		static String str;
 		return str;
@@ -82,12 +85,14 @@ public:
 	 *  path separator.
 	 */
 	static const String& RelativePath(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _app_rel_path();
 	}
 
 	/// Returns the application executable base name
 	static const String& Name(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _app_name();
 	}

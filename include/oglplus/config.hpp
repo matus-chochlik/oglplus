@@ -140,11 +140,11 @@
 
 
 #if !OGLPLUS_NO_NOEXCEPT
-#define OGLPLUS_NOEXCEPT(EXPR) noexcept(EXPR)
-#define OGLPLUS_NOEXCEPT_IF(EXPR) noexcept(noexcept(EXPR))
+#define OGLPLUS_NOEXCEPT(...) noexcept(__VA_ARGS__)
+#define OGLPLUS_NOEXCEPT_IF(...) noexcept(noexcept(__VA_ARGS__))
 #else
-#define OGLPLUS_NOEXCEPT(EXPR)
-#define OGLPLUS_NOEXCEPT_IF(EXPR)
+#define OGLPLUS_NOEXCEPT(...)
+#define OGLPLUS_NOEXCEPT_IF(...)
 #endif
 
 // ------- C++11 feature availability detection -------
