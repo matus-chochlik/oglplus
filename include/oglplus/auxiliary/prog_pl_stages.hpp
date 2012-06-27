@@ -31,6 +31,7 @@ private:
 	GLbitfield _bits;
 
 	GLbitfield _forward(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		GLbitfield res = _bits;
 		_bits = 0;
@@ -48,53 +49,63 @@ private:
 #endif
 
 	ProgPLUseStages(GLuint pipeline, GLuint program, GLbitfield bits)
+	OGLPLUS_NOEXCEPT(true)
 	 : _pipeline(pipeline)
 	 , _program(program)
 	 , _bits(bits)
 	{ }
 
 	inline ProgPLUseStages _make(GLbitfield bit)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return ProgPLUseStages(_pipeline, _program, _forward() | bit);
 	}
 public:
 	inline ProgPLUseStages Vertex(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_VERTEX_SHADER_BIT);
 	}
 
 	inline ProgPLUseStages TessControl(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_TESS_CONTROL_SHADER_BIT);
 	}
 
 	inline ProgPLUseStages TessEvaluation(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_TESS_EVALUATION_SHADER_BIT);
 	}
 
 	inline ProgPLUseStages Geometry(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_GEOMETRY_SHADER_BIT);
 	}
 
 	inline ProgPLUseStages Fragment(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_FRAGMENT_SHADER_BIT);
 	}
 
 	inline ProgPLUseStages All(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_ALL_SHADER_BITS);
 	}
 
 	inline ProgPLUseStages(ProgPLUseStages&& temp)
+	OGLPLUS_NOEXCEPT(true)
 	 : _pipeline(temp._pipeline)
 	 , _program(temp._program)
 	 , _bits(temp._forward())
 	{ }
 
 	inline ~ProgPLUseStages(void)
+	OGLPLUS_NOEXCEPT(false)
 	{
 		if(_bits)
 		{

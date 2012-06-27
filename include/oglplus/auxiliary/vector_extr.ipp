@@ -17,6 +17,7 @@
 
 #define OGLPLUS_IMPL_VEC_EXTR_3(A,B,C) \
 	Vector<T, 3> A ## B ## C (T v = T(0)) const \
+	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>())) \
 	{ \
 		return Vector<T, N>::template Extract< \
 			OGLPLUS_IMPL_VEC_EXTR_DIM_ ## A, \
@@ -95,6 +96,7 @@
 
 #define OGLPLUS_IMPL_VEC_EXTR_2(A,B) \
 	Vector<T, 2> A ## B (T v = T(0)) const \
+	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>())) \
 	{ \
 		return Vector<T, N>::template Extract< \
 			OGLPLUS_IMPL_VEC_EXTR_DIM_ ## A, \

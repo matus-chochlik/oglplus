@@ -1509,7 +1509,7 @@ Vector<T, N>::Vector(
 		(M == N && N > 1),
 		Matrix<T, 1, M>
 	>::type& matrix
-)
+) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 {
 	for(size_t i=0; i!=N; ++i)
 		_elem[i] = matrix._m._elem[0][i];
@@ -1522,7 +1522,7 @@ Vector<T, N>::Vector(
 		(M == N && N > 1),
 		Matrix<T, M, 1>
 	>::type& matrix
-)
+) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 {
 	for(size_t i=0; i!=N; ++i)
 		_elem[i] = matrix._m._elem[i][0];
@@ -1534,6 +1534,10 @@ Vector<T, N>::Vector(
 	const Vector<T, Rows>& v,
 	const Matrix<T, Rows, N>& m,
 	_op_multiply
+) OGLPLUS_NOEXCEPT_IF(
+	std::declval<T&>() =
+	std::declval<T>()*
+	std::declval<T>()
 )
 {
 	for(size_t j=0; j!=N; ++j)
@@ -1550,6 +1554,10 @@ Vector<T, N>::Vector(
 	const Matrix<T, N, Cols>& m,
 	const Vector<T, Cols>& v,
 	_op_multiply
+) OGLPLUS_NOEXCEPT_IF(
+	std::declval<T&>() =
+	std::declval<T>()*
+	std::declval<T>()
 )
 {
 	for(size_t i=0; i!=N; ++i)

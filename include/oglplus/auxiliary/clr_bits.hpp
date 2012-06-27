@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_AUX_CLR_BITS_1107121519_HPP
 #define OGLPLUS_AUX_CLR_BITS_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 
@@ -30,6 +31,7 @@ private:
 	GLbitfield _bits;
 
 	GLbitfield _forward(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		GLbitfield res = _bits;
 		_bits = 0;
@@ -47,34 +49,41 @@ private:
 #endif
 
 	ClrBits(GLbitfield bit)
+	OGLPLUS_NOEXCEPT(true)
 	 : _bits(bit)
 	{ }
 
 	inline ClrBits _make(GLbitfield bit)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return ClrBits(_forward() | bit);
 	}
 public:
 	inline ClrBits ColorBuffer(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_COLOR_BUFFER_BIT);
 	}
 
 	inline ClrBits DepthBuffer(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_DEPTH_BUFFER_BIT);
 	}
 
 	inline ClrBits StencilBuffer(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _make(GL_STENCIL_BUFFER_BIT);
 	}
 
 	inline ClrBits(ClrBits&& temp)
+	OGLPLUS_NOEXCEPT(true)
 	 : _bits(temp._forward())
 	{ }
 
 	inline ~ClrBits(void)
+	OGLPLUS_NOEXCEPT(false)
 	{
 		if(_bits)
 		{
