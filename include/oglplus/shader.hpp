@@ -62,24 +62,49 @@ class ShaderOps
  , public BaseObject<false>
 {
 protected:
-	static void _init(GLsizei, GLuint* _name, ShaderType type)
+	static void _init(
+		GLsizei _count,
+		GLuint* _name,
+		ShaderType type,
+		std::true_type
+	) OGLPLUS_NOEXCEPT(true)
 	{
+		assert(_count == 1);
+		assert(_name != nullptr);
+		try{*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));}
+		catch(...){ }
+	}
+
+	static void _init(
+		GLsizei _count,
+		GLuint* _name,
+		ShaderType type,
+		std::false_type
+	)
+	{
+		assert(_count == 1);
 		assert(_name != nullptr);
 		*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CreateShader));
 	}
 
-	static void _cleanup(GLsizei, GLuint* _name)
+	static void _cleanup(GLsizei _count, GLuint* _name)
+	OGLPLUS_NOEXCEPT(true)
 	{
+		assert(_count == 1);
 		assert(_name != nullptr);
 		assert(*_name != 0);
-		OGLPLUS_GLFUNC(DeleteShader)(*_name);
+		try{OGLPLUS_GLFUNC(DeleteShader)(*_name);}
+		catch(...){ }
 	}
 
 	static GLboolean _is_x(GLuint _name)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != 0);
-		return OGLPLUS_GLFUNC(IsShader)(_name);
+		try{return OGLPLUS_GLFUNC(IsShader)(_name);}
+		catch(...){ }
+		return GL_FALSE;
 	}
 
 	friend class FriendOf<ShaderOps>;

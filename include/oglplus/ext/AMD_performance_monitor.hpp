@@ -285,7 +285,15 @@ class PerfMonitorAMDOps
 protected:
 	typedef std::true_type _can_be_zero;
 
-	static void _init(GLsizei count, GLuint* _name)
+	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_name != nullptr);
+		try{OGLPLUS_GLFUNC(GenPerfMonitorsAMD)(count, _name);}
+		catch(...){ }
+	}
+
+	static void _init(GLsizei count, GLuint* _name, std::false_type ne)
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenPerfMonitorsAMD)(count, _name);
@@ -293,16 +301,19 @@ protected:
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != nullptr);
 		assert(*_name != 0);
-		OGLPLUS_GLFUNC(DeletePerfMonitorsAMD)(count, _name);
+		try{OGLPLUS_GLFUNC(DeletePerfMonitorsAMD)(count, _name);}
+		catch(...){ }
 	}
 
 	static GLboolean _is_x(GLuint _name)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != 0);
-		return true;
+		return GL_TRUE;
 	}
 
 	friend class FriendOf<PerfMonitorAMDOps>;

@@ -35,7 +35,15 @@ class QueryOps
  , public BaseObject<true>
 {
 protected:
-	static void _init(GLsizei count, GLuint* _name)
+	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_name != nullptr);
+		try{OGLPLUS_GLFUNC(GenQueries)(count, _name);}
+		catch(...){ }
+	}
+
+	static void _init(GLsizei count, GLuint* _name, std::false_type ne)
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenQueries)(count, _name);
@@ -43,16 +51,21 @@ protected:
 	}
 
 	static void _cleanup(GLsizei count, GLuint* _name)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != nullptr);
 		assert(*_name != 0);
-		OGLPLUS_GLFUNC(DeleteQueries)(count, _name);
+		try{OGLPLUS_GLFUNC(DeleteQueries)(count, _name);}
+		catch(...){ }
 	}
 
 	static GLboolean _is_x(GLuint _name)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != 0);
-		return OGLPLUS_GLFUNC(IsQuery)(_name);
+		try{return OGLPLUS_GLFUNC(IsQuery)(_name);}
+		catch(...){ }
+		return GL_FALSE;
 	}
 public:
 	/// Query bint target

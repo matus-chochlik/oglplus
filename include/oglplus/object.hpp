@@ -132,6 +132,8 @@ class ObjectInitializer;
 template <bool MultiObject>
 class BaseObject
 {
+protected:
+	typedef std::false_type _noexcept_constructor;
 public:
 	typedef std::integral_constant<
 		bool,
@@ -157,6 +159,13 @@ private:
 		return ObjectOps::_can_be_zero::value;
 	}
 
+	static OGLPLUS_CONSTEXPR
+	typename ObjectOps::_noexcept_constructor _noexcept_constr(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return typename ObjectOps::_noexcept_constructor();
+	}
+
 	GLuint _release(void)
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -166,22 +175,24 @@ private:
 	}
 
 	static inline void _do_init(GLsizei _c, GLuint* _n)
+	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
 		assert(_c != 0);
 		assert(_n != nullptr);
 		assert(*_n == 0);
 		assert(ObjectOps::IsMultiObject::value || (_c == 1));
-		ObjectOps::_init(_c, _n);
+		ObjectOps::_init(_c, _n, _noexcept_constr());
 		assert(_can_be_zero() || *_n != 0);
 	}
 
 	template <typename Type>
 	static inline void _do_init(GLsizei _c, GLuint* _n, Type _k)
+	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
 		assert(_n != nullptr);
 		assert(*_n == 0);
 		assert(!ObjectOps::IsMultiObject::value);
-		ObjectOps::_init(_c, _n, _k);
+		ObjectOps::_init(_c, _n, _k, _noexcept_constr());
 		assert(_can_be_zero() || *_n != 0);
 	}
 
