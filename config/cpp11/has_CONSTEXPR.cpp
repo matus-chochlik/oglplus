@@ -5,12 +5,17 @@
  *
  *  Checks for the constexpr keyword
  */
-constexpr int get_one(void)
+template <int I>
+struct test
 {
-	return 1;
-}
+	friend constexpr int get_i(const test<I>&)
+	{
+		return I;
+	}
+};
 
 int main(int argc, const char** argv)
 {
-	return (argc == get_one())?0:1;
+	test<1> t;
+	return (argc == get_i(t))?0:1;
 }
