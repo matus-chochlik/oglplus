@@ -435,7 +435,7 @@ protected:
 	{
 		assert(_name != 0);
 		try{return OGLPLUS_GLFUNC(IsPathNV)(_name);}
-		catch(...}{ }
+		catch(...){ }
 		return GL_FALSE;
 	}
 
