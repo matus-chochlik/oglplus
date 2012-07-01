@@ -7,6 +7,8 @@ cmake_minimum_required(VERSION 2.8)
 #TODO auto-detect or allow the caller to set this
 if(OGLPLUS_USE_GLEW)
 	set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
+elseif(OGLPLUS_FRAMEDUMP)
+	set(OGLPLUS_EXAMPLE_HARNESS "frame_dump")
 else()
 	set(OGLPLUS_EXAMPLE_HARNESS "glx")
 endif()

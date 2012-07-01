@@ -3,20 +3,16 @@
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
+cd $(dirname $0)/../
+build_dir=_build
+
 if [ "${1}" == "" ]
 then echo "No example specified" && exit 1
 fi
 
-if [ ! -f ${1}.cpp ]
-then echo "Unable to find source for example '${1}'" && exit 1
+if [ ! -f "${build_dir}/${1}" ]
+then echo "Unable to find built example '${1}' in '${PWD}'" && exit 1
 fi
-#
-# re-build the example with the frame_dump "harness"
-(
-	rm -f out/${1}
-	export EXAMPLE_HARNESS=frame_dump
-	make -f Makefile.full out/${1}
-)
 #
 function convert_single_frame()
 {
@@ -24,7 +20,7 @@ function convert_single_frame()
 }
 # start the example
 prefix="/tmp/oglplus-$(basename ${1})"
-out/${1} ${prefix}- |
+${build_dir}/${1} ${prefix}- |
 while read framepath
 do convert_single_frame "${framepath}"
 done

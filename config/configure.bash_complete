@@ -26,7 +26,10 @@ function _configure_oglplus()
 		--no-examples \
 		--no-docs \
 		--screenshots \
+		--framedump \
 		--build-and-install \
+		--use-cxxflags \
+		--use-ldflags \
 	"
 	local repeated_opts=" \
 		--include-dir \

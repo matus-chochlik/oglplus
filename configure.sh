@@ -8,7 +8,10 @@ oglplus_default_build_dir=_build
 oglplus_without_glew=false
 oglplus_no_examples=false
 oglplus_no_screenshots=true
+oglplus_framedump=false
 oglplus_no_docs=false
+oglplus_use_cxxflags=false
+oglplus_use_ldflags=false
 
 dry_run=false
 from_scratch=false
@@ -156,6 +159,13 @@ function print_help()
 	echo "                         This is still experimental and currently works only"
 	echo "                         with GL3/gl3.h + GLX."
 	echo
+	echo "  --framedump            Build the examples in a mode where the individual"
+	echo "                         frames have fixed timing and are dumped into separate"
+	echo "                         files which can be later encoded into a video sequence."
+	echo "                         This is still experimental and currently works only"
+	echo "                         with GL3/gl3.h + GLX."
+
+	echo
 	echo "  --no-docs              Do not build and install the documentation."
 	echo
 	echo "  --quiet                Do not print regular messages, errors are still"
@@ -179,14 +189,19 @@ function parse_path_spec_option()
 	unset option_path
 
 	case "${option}" in
-	--${option_tag}=*)
-		option_path="$(normalize_path "${option#--${option_tag}=}")"
-		return 0;;
-
-	--${option_tag})
+	${option_tag})
 		option_path="$(normalize_path "${next_option}")"
 		return 1;;
-	*) echoerror "Parse error" && exit 1
+
+	${option_tag}=*)
+		option_path="$(normalize_path "${option#${option_tag}=}")"
+		return 0;;
+
+	${option_tag}*)
+		option_path="$(normalize_path "${option#${option_tag}}")"
+		return 0;;
+
+	*) echoerror "Parse error at ${option} ${next_option}" && exit 1
 	esac
 }
 
@@ -204,22 +219,22 @@ do
 		break;;
 
 	--prefix*)
-		parse_path_spec_option prefix "${1}" "${2}" || shift
+		parse_path_spec_option "--prefix" "${1}" "${2}" || shift
 		oglplus_prefix=${option_path}
 		unset option_path;;
 
 	--build-dir*)
-		parse_path_spec_option build-dir "${1}" "${2}" || shift
+		parse_path_spec_option "--build-dir" "${1}" "${2}" || shift
 		oglplus_build_dir=${option_path}
 		unset option_path;;
 
 	--include-dir*)
-		parse_path_spec_option include-dir "${1}" "${2}" || shift
+		parse_path_spec_option "--include-dir" "${1}" "${2}" || shift
 		header_search_paths="${header_search_paths}${option_path};"
 		unset option_path;;
 
 	--library-dir*)
-		parse_path_spec_option library-dir "${1}" "${2}" || shift
+		parse_path_spec_option "--library-dir" "${1}" "${2}" || shift
 		library_search_paths="${library_search_paths}${option_path};"
 		unset option_path;;
 
@@ -227,7 +242,11 @@ do
 
 	--no-examples) oglplus_no_examples=true;;
 	--screenshots) oglplus_no_screenshots=false;;
+	--framedump) oglplus_framedump=true;;
 	--no-docs) oglplus_no_docs=true;;
+
+	--use-cxxflags) oglplus_use_cxxflags=true;;
+	--use-ldflags) oglplus_use_ldflags=true;;
 
 	--dry-run) dry_run=true;;
 	--from-scratch) from_scratch=true;;
@@ -239,6 +258,40 @@ do
 	esac
 	shift
 done
+
+if [ "${oglplus_use_cxxflags}" == "true" ]
+then
+	set - ${CXXFLAGS}
+	while true
+	do
+		case "${1}" in
+		"") break;;
+		-I*)
+			parse_path_spec_option "-I" "${1}" "${2}" || shift
+			header_search_paths="${header_search_paths}${option_path};"
+			unset option_path;;
+		*);;
+		esac
+		shift
+	done
+fi
+
+if [ "${oglplus_use_ldflags}" == "true" ]
+then
+	set - ${LDFLAGS}
+	while true
+	do
+		case "${1}" in
+		"") break;;
+		-L*)
+			parse_path_spec_option "-L" "${1}" "${2}" || shift
+			library_search_paths="${library_search_paths}${option_path};"
+			unset option_path;;
+		*);;
+		esac
+		shift
+	done
+fi
 #
 # use the defaults for params that were not
 # set explicitly
@@ -299,9 +352,12 @@ if [ "${oglplus_no_examples}" == "true" ]
 then oglplus_cmake_options="'-DOGLPLUS_NO_EXAMPLES=On' ${oglplus_cmake_options}"
 fi
 
-# pass the no-screenshots option
 if [ "${oglplus_no_screenshots}" == "true" ]
 then oglplus_cmake_options="'-DOGLPLUS_NO_SCREENSHOTS=On' ${oglplus_cmake_options}"
+fi
+
+if [ "${oglplus_framedump}" == "true" ]
+then oglplus_cmake_options="'-DOGLPLUS_FRAMEDUMP=On' ${oglplus_cmake_options}"
 fi
 
 # pass the no-docs option

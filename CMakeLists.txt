@@ -20,6 +20,12 @@ if(NOT OGLPLUS_NO_SCREENSHOTS)
 	include(FindImageMagick)
 endif()
 
+if(OGLPLUS_FRAMEDUMP)
+	set(OGLPLUS_WITHOUT_GLEW On)
+	set(OGLPLUS_NO_SCREENSHOTS On)
+	set(OGLPLUS_NO_DOCS On)
+endif()
+
 include(config/FindOpenGL3.cmake)
 include(config/FindGLEW.cmake)
 include(config/FindGLUT.cmake)
