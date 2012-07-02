@@ -81,10 +81,10 @@ private:
 		return std::vector<Vec3f>(_cps, _cps+6);
 	}
 public:
-	CloudExample(void)
+	CloudExample(const ExampleParams& params)
 	 : sphere_instr(make_sphere.Instructions())
 	 , sphere_indices(make_sphere.Indices())
-	 , samples(50)
+	 , samples(25 + params.quality*params.quality*100)
 	 , positions(make_positions())
 	 , sizes(make_sizes())
 	 , cloud_tex(positions.size())
@@ -353,7 +353,7 @@ public:
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
-	return std::unique_ptr<Example>(new CloudExample);
+	return std::unique_ptr<Example>(new CloudExample(params));
 }
 
 } // namespace oglplus

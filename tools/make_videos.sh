@@ -12,5 +12,5 @@ build_dir=_build
 )
 
 for example
-do $(dirname $0)/make_video.sh ${example}
+do $(dirname $0)/make_video.sh ${example%.cpp}
 done

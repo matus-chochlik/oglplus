@@ -286,8 +286,8 @@ protected:
 	Buffer positions, indices;
 
 public:
-	Grid(const Program& prog)
-	 : make_grid(1.0, 24)
+	Grid(const Program& prog, float quality)
+	 : make_grid(1.0, 12 + quality*24)
 	 , grid_instr(make_grid.InstructionsWithAdjacency())
 	 , grid_indices(make_grid.IndicesWithAdjacency())
 	{
@@ -470,10 +470,10 @@ private:
 	// A 2D metal texture
 	Texture metal_tex;
 public:
-	BlobExample(void)
+	BlobExample(const ExampleParams& params)
 	 : blob_prog()
 	 , metal_prog()
-	 , grid(blob_prog)
+	 , grid(blob_prog, params.quality)
 	 , plane(metal_prog)
 	{
 		std::srand(234);
@@ -635,7 +635,7 @@ public:
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
-	return std::unique_ptr<Example>(new BlobExample);
+	return std::unique_ptr<Example>(new BlobExample(params));
 }
 
 } // namespace oglplus

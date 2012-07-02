@@ -27,6 +27,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstring>
 #include <cassert>
 
 #include "example.hpp"
@@ -35,6 +36,12 @@ namespace oglplus {
 
 void run(const x11::Display& display, const char* prefix)
 {
+	if(!prefix) prefix = "/tmp/oglplus-frame-";
+
+	std::vector<char> txtbuf(1024);
+	std::cin.getline(txtbuf.data(), txtbuf.size());
+	if(std::strcmp(prefix, txtbuf.data()) != 0) return;
+
 	static int visual_attribs[] =
 	{
 		GLX_X_RENDERABLE    , True,
@@ -87,7 +94,7 @@ void run(const x11::Display& display, const char* prefix)
 		double t = 0.0;
 		size_t frame_no = 0;
 		std::vector<char> pixels(width * height * 4);
-		if(!prefix) prefix = "/tmp/oglplus-frame-";
+
 		while(1)
 		{
 			if(!example->Continue(t)) break;
@@ -101,6 +108,7 @@ void run(const x11::Display& display, const char* prefix)
 				GL_UNSIGNED_BYTE,
 				pixels.data()
 			);
+			glFinish();
 			ctx.SwapBuffers(win);
 			std::stringstream filename;
 			filename <<
@@ -110,10 +118,20 @@ void run(const x11::Display& display, const char* prefix)
 			{
 				std::ofstream file(filename.str());
 				file.write(pixels.data(), pixels.size());
+				file.flush();
 			}
 			std::cout << filename.str() << std::endl;
 			t += period;
 			++frame_no;
+
+			txtbuf.resize(filename.str().size()+1);
+			std::cin.getline(txtbuf.data(), txtbuf.size());
+
+			if(std::strncmp(
+				filename.str().c_str(),
+				txtbuf.data(),
+				txtbuf.size()
+			) != 0) break;
 		}
 	}
 	ctx.Release(display);
