@@ -91,7 +91,7 @@ private:
 
 	size_t width, height;
 public:
-	DOFExample(void)
+	DOFExample(const ExampleParams& params)
 	 : face_instr(make_cube.Instructions())
 	 , edge_instr(make_cube.EdgeInstructions())
 	 , face_indices(make_cube.Indices())
@@ -191,14 +191,15 @@ public:
 
 		dof_vs.Source(
 			"#version 330\n"
+			"uniform uint Width, Height;"
 			"in vec4 Position;"
 			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	gl_Position = Position;"
 			"	vertTexCoord = vec2("
-			"		(Position.x*0.5 + 0.5)*800,"
-			"		(Position.y*0.5 + 0.5)*600 "
+			"		(Position.x*0.5 + 0.5)*Width,"
+			"		(Position.y*0.5 + 0.5)*Height"
 			"	);"
 			"}"
 		);
@@ -209,6 +210,7 @@ public:
 			"uniform sampler2DRect ColorTex;"
 			"uniform sampler2DRect DepthTex;"
 			"uniform float FocusDepth;"
+			"uniform uint SampleMult;"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
 			"const float strength = 32.0;"
@@ -217,7 +219,7 @@ public:
 			"	float fragDepth = texture(DepthTex, vertTexCoord).r;"
 			"	vec3 color = texture(ColorTex, vertTexCoord).rgb;"
 			"	float of = abs(fragDepth - FocusDepth);"
-			"	int nsam = int(of*128);"
+			"	int nsam = int(of*SampleMult);"
 			"	float inv_nsam = 1.0 / (1.0 + nsam);"
 			"	float astep = (3.14151*4.0)/nsam;"
 			"	for(int i=0; i!=nsam; ++i)"
@@ -238,6 +240,9 @@ public:
 		dof_prog.AttachShader(dof_fs);
 		dof_prog.Link();
 		dof_prog.Use();
+
+		float q2 = params.quality*params.quality;
+		Uniform<GLuint>(dof_prog, "SampleMult").Set(64 + q2*256);
 
 		// bind the VAO for the screen
 		screen.Bind();
@@ -325,6 +330,9 @@ public:
 		width = vp_width;
 		height = vp_height;
 
+		ProgramUniform<GLuint>(dof_prog, "Width").Set(width);
+		ProgramUniform<GLuint>(dof_prog, "Height").Set(height);
+
 		ProgramUniform<Mat4f>(main_prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(30),
@@ -352,13 +360,13 @@ public:
 			PixelDataType::Float,
 			nullptr
 		);
+		gl.Viewport(width, height);
 	}
 
 	void Render(double time)
 	{
 		fbo.Bind(Framebuffer::Target::Draw);
 
-		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		main_prog.Use();
@@ -389,7 +397,6 @@ public:
 
 		Framebuffer::BindDefault(Framebuffer::Target::Draw);
 
-		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		dof_prog.Use();
@@ -417,7 +424,7 @@ public:
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
-	return std::unique_ptr<Example>(new DOFExample);
+	return std::unique_ptr<Example>(new DOFExample(params));
 }
 
 } // namespace oglplus
