@@ -53,8 +53,8 @@ public:
 	ReflectionExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
-	 , vs("Vertex")
-	 , fs("Fragment")
+	 , vs(ObjectDesc("Vertex"))
+	 , fs(ObjectDesc("Fragment"))
 	{
 		// Set the vertex shader source
 		vs.Source(

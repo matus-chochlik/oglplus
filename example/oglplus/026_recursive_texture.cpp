@@ -32,11 +32,8 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
+	// Vertex and fragment shader
+	Shader vs, fs;
 
 	// Program
 	Program prog;
@@ -63,8 +60,8 @@ public:
 	 : make_cube()
 	 , cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
-	 , vs("Vertex")
-	 , fs("Fragment")
+	 , vs(ShaderType::Vertex, "Vertex")
+	 , fs(ShaderType::Fragment, "Fragment")
 	 , fbos(2)
 	 , rbos(2)
 	 , texs(2)

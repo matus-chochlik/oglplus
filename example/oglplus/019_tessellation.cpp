@@ -48,11 +48,11 @@ public:
 	TessellationExample(void)
 	 : shape_instr(make_shape.Instructions(PrimitiveType::Patches))
 	 , shape_indices(make_shape.Indices())
-	 , vs("Vertex")
-	 , cs("Tessellation Control")
-	 , es("Tessellation Evaluation")
-	 , gs("Geometry")
-	 , fs("Fragment")
+	 , vs(ObjectDesc("Vertex"))
+	 , cs(ObjectDesc("Tessellation Control"))
+	 , es(ObjectDesc("Tessellation Evaluation"))
+	 , gs(ObjectDesc("Geometry"))
+	 , fs(ObjectDesc("Fragment"))
 	{
 		vs.Source(
 			"#version 410\n"

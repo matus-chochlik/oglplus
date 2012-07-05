@@ -55,8 +55,8 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	VertexShader torus_vs, plane_vs;
-	FragmentShader torus_fs, plane_fs;
+	Shader torus_vs, plane_vs;
+	Shader torus_fs, plane_fs;
 
 	Program torus_prog, plane_prog;
 
@@ -80,10 +80,10 @@ public:
 	 , make_plane(make_plane_builders())
 	 , plane_instr(make_plane[0].Instructions())
 	 , plane_indices(make_plane[0].Indices())
-	 , torus_vs("Torus vertex")
-	 , plane_vs("Plane vertex")
-	 , torus_fs("Torus fragment")
-	 , plane_fs("Plane fragment")
+	 , torus_vs(ShaderType::Vertex, "Torus vertex")
+	 , plane_vs(ShaderType::Vertex, "Plane vertex")
+	 , torus_fs(ShaderType::Fragment, "Torus fragment")
+	 , plane_fs(ShaderType::Fragment, "Plane fragment")
 	 , torus_prog("Torus")
 	 , plane_prog("Plane")
 	 , plane(make_plane.size())

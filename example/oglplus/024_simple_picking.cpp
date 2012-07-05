@@ -32,14 +32,8 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Geometry shader
-	GeometryShader gs;
-
-	// Fragment shader
-	FragmentShader fs;
+	// Vertex, geometry and fragment shader
+	Shader vs, gs, fs;
 
 	// Drawing and picking programs
 	Program draw_prog, pick_prog;
@@ -62,9 +56,9 @@ public:
 	PickingExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
-	 , vs("Vertex")
-	 , gs("Geometry")
-	 , fs("Fragment")
+	 , vs(ShaderType::Vertex, "Vertex")
+	 , gs(ShaderType::Geometry, "Geometry")
+	 , fs(ShaderType::Fragment, "Fragment")
 	{
 		// Set the vertex shader source
 		vs.Source(

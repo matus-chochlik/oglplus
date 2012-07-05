@@ -21,11 +21,8 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
+	// Vertex and fragment shader
+	Shader vs, fs;
 
 	// Program
 	Program prog;
@@ -38,6 +35,8 @@ private:
 	Buffer colors;
 public:
 	RectangleExample(void)
+	 : vs(ShaderType::Vertex)
+	 , fs(ShaderType::Fragment)
 	{
 		// Set the vertex shader source
 		vs.Source(" \

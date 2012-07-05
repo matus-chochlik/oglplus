@@ -21,6 +21,7 @@
 #endif
 
 namespace oglplus {
+
 namespace aux {
 
 inline const String& EmptyString(void)
@@ -29,6 +30,62 @@ OGLPLUS_NOEXCEPT(true)
 	static String empty;
 	return empty;
 }
+
+} // namespace aux
+
+class ObjectDesc
+{
+private:
+#if !OGLPLUS_NO_OBJECT_DESCS
+	String _str;
+#endif
+public:
+	ObjectDesc(const GLchar* cstr)
+#if !OGLPLUS_NO_OBJECT_DESCS
+	 : _str(cstr)
+#endif
+	{ }
+
+	ObjectDesc(const String& str)
+#if !OGLPLUS_NO_OBJECT_DESCS
+	 : _str(str)
+#endif
+	{ }
+
+	ObjectDesc(String&& str)
+#if !OGLPLUS_NO_OBJECT_DESCS
+	 : _str(std::forward<String>(str))
+#endif
+	{ }
+
+	ObjectDesc(void){ }
+
+	ObjectDesc(ObjectDesc&& tmp)
+#if !OGLPLUS_NO_OBJECT_DESCS
+	 : _str(std::move(tmp._str))
+#endif
+	{ }
+
+	const String& Str(void)
+	{
+#if !OGLPLUS_NO_OBJECT_DESCS
+		return _str;
+#else
+		return aux::EmptyString();
+#endif
+	}
+
+	String&& Release(void)
+	{
+#if !OGLPLUS_NO_OBJECT_DESCS
+		return std::move(_str);
+#else
+		return std::move(String());
+#endif
+	}
+};
+
+namespace aux {
 
 template <class ObjectOps>
 class ObjectDescRegistry
@@ -49,20 +106,7 @@ private:
 	}
 #endif
 protected:
-	static void _register_desc(GLuint name, const char* desc)
-#if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true)
-#endif
-	{
-#if !OGLPLUS_NO_OBJECT_DESCS
-		assert(name != 0);
-		assert(desc != 0);
-		assert(_storage().find(name) == _storage().end());
-		_storage().insert(typename _desc_map::value_type(name, desc));
-#endif
-	}
-
-	static void _register_desc(GLuint name, const String& desc)
+	static void _register_desc(GLuint name, ObjectDesc&& desc)
 #if OGLPLUS_NO_OBJECT_DESCS
 	OGLPLUS_NOEXCEPT(true)
 #endif
@@ -70,7 +114,12 @@ protected:
 #if !OGLPLUS_NO_OBJECT_DESCS
 		assert(name != 0);
 		assert(_storage().find(name) == _storage().end());
-		_storage().insert(typename _desc_map::value_type(name, desc));
+		_storage().insert(
+			typename _desc_map::value_type(
+				name,
+				desc.Release()
+			)
+		);
 #endif
 	}
 

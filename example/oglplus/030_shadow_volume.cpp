@@ -32,11 +32,9 @@ private:
 	Context gl;
 
 	// Shaders
-	VertexShader shape_vs, depth_vs, light_vs;
-
-	GeometryShader depth_gs, light_gs;
-
-	FragmentShader shape_fs, depth_fs, light_fs;
+	Shader shape_vs, depth_vs, light_vs;
+	Shader depth_gs, light_gs;
+	Shader shape_fs, depth_fs, light_fs;
 
 	// Programs
 	Program shape_prog, depth_prog, light_prog;
@@ -65,17 +63,17 @@ public:
 	ShadowVolExample(void)
 	 : shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
-	 , shape_vs("Shape vertex")
-	 , depth_vs("Depth vertex")
-	 , light_vs("Light vertex")
-	 , depth_gs("Depth geometry")
-	 , light_gs("Light geometry")
-	 , shape_fs("Shape fragment")
-	 , depth_fs("Depthfragment")
-	 , light_fs("Light fragment")
+	 , shape_vs(ShaderType::Vertex, "Shape vertex")
+	 , depth_vs(ShaderType::Vertex, "Depth vertex")
+	 , light_vs(ShaderType::Vertex, "Light vertex")
+	 , depth_gs(ShaderType::Geometry, "Depth geometry")
+	 , light_gs(ShaderType::Geometry, "Light geometry")
+	 , shape_fs(ShaderType::Fragment, "Shape fragment")
+	 , depth_fs(ShaderType::Fragment, "Depthfragment")
+	 , light_fs(ShaderType::Fragment, "Light fragment")
 	 , shape_prog("Shape")
-	 , light_prog("Light")
 	 , depth_prog("Depth")
+	 , light_prog("Light")
 	 , tex_side(128)
 	 , sample_count(128)
 	{

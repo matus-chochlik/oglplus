@@ -56,13 +56,13 @@ public:
 	 : make_shape()
 	 , shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
-	 , vs_shape("Shape VS")
-	 , vs_plane("Plane VS")
-	 , fs_shape("Shape FS")
-	 , fs_plane("Plane FS")
-	 , vs_halo("Halo VS")
-	 , gs_halo("Halo GS")
-	 , fs_halo("Halo FS")
+	 , vs_shape(ObjectDesc("Shape VS"))
+	 , vs_plane(ObjectDesc("Plane VS"))
+	 , fs_shape(ObjectDesc("Shape FS"))
+	 , fs_plane(ObjectDesc("Plane FS"))
+	 , vs_halo(ObjectDesc("Halo VS"))
+	 , gs_halo(ObjectDesc("Halo GS"))
+	 , fs_halo(ObjectDesc("Halo FS"))
 	{
 		vs_shape.Source(
 			"#version 330\n"

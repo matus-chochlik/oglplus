@@ -46,9 +46,6 @@ public:
 	TessellationExample(void)
 	 : shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
-	 , vs("Vertex")
-	 , gs("Geometry")
-	 , fs("Fragment")
 	{
 		vs.Source(
 			"#version 330\n"

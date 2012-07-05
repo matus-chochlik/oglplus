@@ -27,6 +27,40 @@
 
 namespace oglplus {
 
+
+/// Class storing source code in GLSL
+class GLSLSource
+{
+private:
+	const GLchar* _source;
+	//TODO: add other implemenations
+public:
+	GLSLSource(const GLchar* source)
+	OGLPLUS_NOEXCEPT(true)
+	 : _source(source)
+	{ }
+
+	/// Count of buffers storing the individual parts of the source
+	GLsizei Count(void) const
+	{
+		if(_source) return 1;
+		return 0;
+	}
+
+	/// Pointers to the individual parts of the source
+	const GLchar** Parts(void) const
+	{
+		if(_source) return const_cast<const GLchar**>(&_source);
+		return nullptr;
+	}
+
+	/// Pointer to the lengths of the individual parts of the source
+	const GLint* Lengths(void) const
+	{
+		return nullptr;
+	}
+};
+
 /// The type of a Shader
 /**
  *  @ingroup enumerations
@@ -204,6 +238,22 @@ public:
 		);
 	}
 
+	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
+	void Source(const GLSLSource& glsl_source) const
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(ShaderSource)(
+			_name,
+			glsl_source.Count(),
+			glsl_source.Parts(),
+			glsl_source.Lengths()
+		);
+	}
+
 	/// Returns true if the shader is already compile, returns false otherwise
 	/**
 	 *  @see Compile
@@ -310,59 +360,25 @@ public:
 typedef Object<ShaderOps> Shader;
 #endif
 
-template <ShaderType type>
-class SpecializedShader
- : public Shader
+
+struct SpecializedShaderInitializer
 {
-private:
-	void _initialize(const GLchar* source)
+protected:
+	typedef const GLSLSource& ParameterType;
+
+	SpecializedShaderInitializer(void){ }
+
+	SpecializedShaderInitializer(
+		Shader& shader,
+		typename Shader::Property::Type,
+		const GLSLSource& source
+	)
 	{
-		this->Source(source);
-		this->Compile();
+		shader.Source(source);
+		shader.Compile();
 	}
-public:
-	SpecializedShader(void)
-	 : Shader(type)
-	{ }
-
-	SpecializedShader(const GLchar* desc)
-	 : Shader(type, desc)
-	{ }
-
-	SpecializedShader(const String& desc)
-	 : Shader(type, desc)
-	{ }
-
-	SpecializedShader(const GLchar* desc, const GLchar* source)
-	 : Shader(type, desc)
-	{
-		_initialize(source);
-	}
-
-	SpecializedShader(const String& desc, const GLchar* source)
-	 : Shader(type, desc)
-	{
-		_initialize(source);
-	}
-
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
-	SpecializedShader(const SpecializedShader&) = delete;
-#else
-private:
-	SpecializedShader(const SpecializedShader&);
-public:
-#endif
-
-	SpecializedShader(SpecializedShader&& tmp)
-	 : Shader(std::forward<Shader>(tmp))
-	{ }
 };
 
-template <ShaderType type>
-struct ObjectBaseOps<SpecializedShader<type> >
-{
-	typedef typename ObjectBaseOps<Shader>::Type Type;
-};
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Vertex shader wrapper
@@ -375,7 +391,11 @@ class VertexShader
  : public Shader
 { };
 #elif defined GL_VERTEX_SHADER
-typedef SpecializedShader<ShaderType::Vertex> VertexShader;
+typedef Specialized<
+	Shader,
+	ShaderType::Vertex,
+	SpecializedShaderInitializer
+> VertexShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -389,7 +409,11 @@ class GeometryShader
  : public Shader
 { };
 #elif defined GL_GEOMETRY_SHADER
-typedef SpecializedShader<ShaderType::Geometry> GeometryShader;
+typedef Specialized<
+	Shader,
+	ShaderType::Geometry,
+	SpecializedShaderInitializer
+> GeometryShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -403,7 +427,11 @@ class FragmentShader
  : public Shader
 { };
 #elif GL_FRAGMENT_SHADER
-typedef SpecializedShader<ShaderType::Fragment> FragmentShader;
+typedef Specialized<
+	Shader,
+	ShaderType::Fragment,
+	SpecializedShaderInitializer
+> FragmentShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -417,7 +445,11 @@ class TessControlShader
  : public Shader
 { };
 #elif GL_TESS_CONTROL_SHADER
-typedef SpecializedShader<ShaderType::TessControl> TessControlShader;
+typedef Specialized<
+	Shader,
+	ShaderType::TessControl,
+	SpecializedShaderInitializer
+> TessControlShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -431,7 +463,11 @@ class TessEvaluationShader
  : public Shader
 { };
 #elif GL_TESS_EVALUATION_SHADER
-typedef SpecializedShader<ShaderType::TessEvaluation> TessEvaluationShader;
+typedef Specialized<
+	Shader,
+	ShaderType::TessEvaluation,
+	SpecializedShaderInitializer
+> TessEvaluationShader;
 #endif
 
 } // namespace oglplus

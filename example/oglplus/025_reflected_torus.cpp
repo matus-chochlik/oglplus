@@ -59,10 +59,9 @@ public:
 	ReflectionExample(void)
 	 : torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
-	 , vs_norm("Vertex-Normal")
-	 , vs_refl("Vertex-Reflection")
-	 , gs_refl("Geometry-Reflection")
-	 , fs("Fragment")
+	 , vs_norm(ObjectDesc("Vertex-Normal"))
+	 , vs_refl(ObjectDesc("Vertex-Reflection"))
+	 , gs_refl(ObjectDesc("Geometry-Reflection"))
 	{
 		namespace se = oglplus::smart_enums;
 		// Set the normal object vertex shader source

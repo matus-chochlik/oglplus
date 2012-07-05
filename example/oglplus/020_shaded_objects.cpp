@@ -33,7 +33,7 @@ private:
 	typename ShapeMaker::IndexArray shape_indices;
 
 	// Fragment shader is owned by each individual shape
-	FragmentShader fs;
+	Shader fs;
 
 	// Shading program
 	Program prog;
@@ -44,10 +44,10 @@ private:
 	// VBOs for the shape's vertices, normals and tex-coordinates
 	Buffer verts, normals, texcoords;
 public:
-	Shape(const VertexShader& vs, FragmentShader&& frag)
+	Shape(const Shader& vs, Shader&& frag)
 	 : shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
-	 , fs(std::forward<FragmentShader>(frag))
+	 , fs(std::forward<Shader>(frag))
 	{
 		// attach the shaders to the program
 		prog.AttachShader(vs);
@@ -253,9 +253,9 @@ private:
 	}
 
 	// makes a fragment shader from the prologe, custom part and epilogue
-	static FragmentShader make_fs(const char* color_fs, const char* desc)
+	static Shader make_fs(const char* color_fs, const char* desc)
 	{
-		FragmentShader shader(desc);
+		Shader shader(ShaderType::Fragment, ObjectDesc(desc));
 		const GLchar* src[3] = {fs_prologue(), color_fs, fs_epilogue()};
 		shader.Source(src, 3);
 		shader.Compile();

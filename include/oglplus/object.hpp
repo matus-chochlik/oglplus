@@ -117,7 +117,17 @@ struct ObjectWithTarget
 		_get(X*, typename X::Target* = nullptr);
 	static None _get(...);
 
-	typedef decltype(_get((Object*)nullptr)) Type;
+	typedef decltype(_get((Object*)nullptr)) Target;
+};
+
+template <class Object>
+struct ObjectTypeOrTarget
+{
+	typedef typename std::conditional<
+		ObjectWithType<Object>::HasType::value,
+		typename ObjectWithType<Object>::Type,
+		typename ObjectWithTarget<Object>::Target
+	>::type Type;
 };
 
 /// Allows to make managed copies of instances of Object
@@ -210,13 +220,13 @@ private:
 	template <typename ObjectTarget>
 	static inline OGLPLUS_CONSTEXPR
 	typename std::is_same<
-		typename ObjectWithTarget<Object>::Type,
+		typename ObjectWithTarget<Object>::Target,
 		ObjectTarget
 	>::type _is_object_target(ObjectTarget)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return typename std::is_same<
-			typename ObjectWithTarget<Object>::Type,
+			typename ObjectWithTarget<Object>::Target,
 			ObjectTarget
 		>::type();
 	}
@@ -239,17 +249,12 @@ private:
 		assert(_type_ok(that->_name));
 	}
 
-	static inline void _describe(const Object* that, const GLchar* desc)
-	OGLPLUS_NOEXCEPT(true)
+	static inline void _describe(
+		const Object* that,
+		ObjectDesc&& description
+	) OGLPLUS_NOEXCEPT(true)
 	{
-		try{that->_register_desc(that->_name, desc);}
-		catch(...){ }
-	}
-
-	static inline void _describe(const Object* that, const String& desc)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		try{that->_register_desc(that->_name, desc);}
+		try{that->_register_desc(that->_name, std::move(description));}
 		catch(...){ }
 	}
 
@@ -344,20 +349,12 @@ public:
 		_verify(this);
 	}
 
-	Object(const GLchar* desc)
+	Object(ObjectDesc&& description)
 	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
 		_do_init(1, &this->_name);
 		_verify(this);
-		_describe(this, desc);
-	}
-
-	Object(const String& desc)
-	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
-	{
-		_do_init(1, &this->_name);
-		_verify(this);
-		_describe(this, desc);
+		_describe(this, std::move(description));
 	}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -378,27 +375,20 @@ public:
 		assert(temp._name  == 0);
 	}
 
-	template <typename ObjectTypeOrTarget>
-	Object(ObjectTypeOrTarget type_or_target)
+	Object(typename ObjectTypeOrTarget<ObjectOps>::Type type_or_target)
 	{
 		_do_init(1, &this->_name, type_or_target);
 		_verify(this);
 	}
 
-	template <typename ObjectTypeOrTarget>
-	Object(ObjectTypeOrTarget type_or_target, const GLchar* desc)
+	Object(
+		typename ObjectTypeOrTarget<ObjectOps>::Type type_or_target,
+		ObjectDesc&& description
+	)
 	{
 		_do_init(1, &this->_name, type_or_target);
 		_verify(this);
-		_describe(this, desc);
-	}
-
-	template <typename ObjectTypeOrTarget>
-	Object(ObjectTypeOrTarget type_or_target, const String& desc)
-	{
-		_do_init(1, &this->_name, type_or_target);
-		_verify(this);
-		_describe(this, desc);
+		_describe(this, std::move(description));
 	}
 
 	~Object(void) OGLPLUS_NOEXCEPT(true)
@@ -445,6 +435,90 @@ struct ObjectBaseOps<Object<ObjectOps> >
 {
 	typedef ObjectOps Type;
 };
+#endif
+
+struct NoOpSpecializedInitializer
+{
+protected:
+	typedef None ParameterType;
+
+	NoOpSpecializedInitializer(void)
+	{ }
+
+	template <class Object>
+	NoOpSpecializedInitializer(
+		Object& object,
+		typename ObjectTypeOrTarget<Object>::Type,
+		None
+	)
+	{ }
+};
+
+
+template <
+	class Object,
+	typename ObjectTypeOrTarget<Object>::Type TypeOrTarget,
+	typename Initializer = NoOpSpecializedInitializer
+> class Specialized;
+
+template <
+	class ObjectOps,
+	typename ObjectTypeOrTarget<Object<ObjectOps>>::Type TypeOrTarget,
+	typename Initializer
+>
+class Specialized<Object<ObjectOps>, TypeOrTarget, Initializer>
+ : public Object<ObjectOps>
+ , public Initializer
+{
+protected:
+	Object<ObjectOps>& _object(void)
+	{
+		return *this;
+	}
+public:
+	Specialized(void)
+	 : Object<ObjectOps>(TypeOrTarget)
+	{ }
+
+	Specialized(ObjectDesc&& description)
+	 : Object<ObjectOps>(TypeOrTarget, std::move(description))
+	{ }
+
+	Specialized(typename Initializer::ParameterType parameter)
+	 : Object<ObjectOps>(TypeOrTarget)
+	 , Initializer(_object(), TypeOrTarget, parameter)
+	{ }
+
+	Specialized(
+		ObjectDesc&& description,
+		typename Initializer::ParameterType parameter
+	): Object<ObjectOps>(TypeOrTarget, std::move(description))
+	 , Initializer(_object(), TypeOrTarget, parameter)
+	{ }
+
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	Specialized(const Specialized&) = delete;
+#else
+private:
+	Specialized(const Specialized&);
+public:
+#endif
+
+	Specialized(Specialized&& tmp)
+	 : Object<ObjectOps>(std::forward<Object<ObjectOps>>(tmp))
+	{ }
+};
+
+#if !OGLPLUS_DOCUMENTATION_ONLY && !OGLPLUS_DOXYGEN_PARSE
+template <
+	class ObjectOps,
+	typename ObjectTypeOrTarget<Object<ObjectOps>>::Type TypeOrTarget,
+	typename Initializer
+>
+struct ObjectBaseOps<Specialized<Object<ObjectOps>, TypeOrTarget, Initializer>>
+{
+	typedef ObjectOps Type;
+};
 
 template <class _Object>
 class Managed
@@ -485,7 +559,7 @@ struct ObjectBaseOps<Managed<_Object> >
 };
 
 template <class _Object>
-static const String& ObjectDescription(const _Object& object)
+static const String& DescriptionOf(const _Object& object)
 {
 	return FriendOf<
 		typename ObjectBaseOps<_Object>::Type

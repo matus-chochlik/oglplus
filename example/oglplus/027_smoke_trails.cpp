@@ -160,14 +160,8 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Geometry shader
-	GeometryShader gs;
-
-	// Fragment shader
-	FragmentShader fs;
+	// Vertex, geometry and fragment shader
+	Shader vs, gs, fs;
 
 	// Program
 	Program prog;
@@ -206,9 +200,9 @@ public:
 				}, 17.0, 200.0
 			},
 		}
-	), vs("Vertex")
-	 , gs("Geometry")
-	 , fs("Fragment")
+	), vs(ShaderType::Vertex, "Vertex")
+	 , gs(ShaderType::Geometry, "Geometry")
+	 , fs(ShaderType::Fragment, "Fragment")
 	 , prev_time(0.0)
 	{
 		// Set the vertex shader source

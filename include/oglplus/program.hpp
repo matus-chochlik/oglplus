@@ -15,6 +15,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/object.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/transform_feedback.hpp>
 #include <oglplus/friend_of.hpp>
@@ -966,58 +967,27 @@ private:
 
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
-	/// Build a program using the specified @c shaders
-	template <typename ... Shaders>
-	QuickProgram(const Shaders& ... shaders)
-	 : Program()
-	{
-		_initialize(false, shaders...);
-	}
-
-	/// Build a program with @c description using the specified @c shaders
-	template <typename ... Shaders>
-	QuickProgram(const GLchar* description, const Shaders& ... shaders)
-	 : Program(description)
-	{
-		_initialize(false, shaders...);
-	}
-
-	/// Build a program with @c description using the specified @c shaders
-	template <typename ... Shaders>
-	QuickProgram(const String& description, const Shaders& ... shaders)
-	 : Program(description)
-	{
-		_initialize(false, shaders...);
-	}
-
 	/// Build a optionally separable program using the specified @c shaders
 	template <typename ... Shaders>
-	QuickProgram(bool separable, const Shaders& ... shaders)
-	 : Program()
+	QuickProgram(
+		bool separable,
+		const Shader& shader,
+		const Shaders& ... shaders
+	): Program()
 	{
-		_initialize(separable, shaders...);
+		_initialize(separable, shader, shaders...);
 	}
 
 	/// Build a program with @c description using the specified @c shaders
 	template <typename ... Shaders>
 	QuickProgram(
-		const GLchar* description,
+		ObjectDesc&& description,
 		bool separable,
+		const Shader& shader,
 		const Shaders& ... shaders
-	): Program(description)
+	): Program(std::move(description))
 	{
-		_initialize(separable, shaders...);
-	}
-
-	/// Build a program with @c description using the specified @c shaders
-	template <typename ... Shaders>
-	QuickProgram(
-		const String& description,
-		bool separable,
-		const Shaders& ... shaders
-	): Program(description)
-	{
-		_initialize(separable, shaders...);
+		_initialize(separable, shader, shaders...);
 	}
 
 	/// Build a optionally separable program using the specified @c shaders
@@ -1033,41 +1003,20 @@ public:
 	/// Build a program with @c description using the specified @c shaders
 	template <typename ... Shaders>
 	QuickProgram(
-		const GLchar* description,
+		ObjectDesc&& description,
 		bool separable,
 		const std::tuple<Shaders...>& shaders
-	): Program(description)
-	{
-		_initialize_tuple(separable, shaders);
-	}
-
-	/// Build a program with @c description using the specified @c shaders
-	template <typename ... Shaders>
-	QuickProgram(
-		const String& description,
-		bool separable,
-		const std::tuple<Shaders...>& shaders
-	): Program(description)
+	): Program(std::move(description))
 	{
 		_initialize_tuple(separable, shaders);
 	}
 #else
 	template <typename StdTuple>
 	QuickProgram(
-		const GLchar* description,
+		ObjectDesc&& description,
 		bool separable,
 		const StdTuple& shaders
-	): Program(description)
-	{
-		_initialize_tuple(separable, shaders);
-	}
-
-	template <typename StdTuple>
-	QuickProgram(
-		const String& description,
-		bool separable,
-		const StdTuple& shaders
-	): Program(description)
+	): Program(std::move(description))
 	{
 		_initialize_tuple(separable, shaders);
 	}
@@ -1114,17 +1063,16 @@ private:
 public:
 	/// Create an instance of the hardwired program
 	HardwiredProgram(void)
-	 : QuickProgram(_single_shader((Shaders*)0)...)
+	 : QuickProgram(false, _single_shader((Shaders*)0)...)
 	{ }
 
 	/// Create an instance of the hardwired program with a @c description
-	HardwiredProgram(const GLchar* description)
-	 : QuickProgram(description, _single_shader((Shaders*)0)...)
-	{ }
-
-	/// Create an instance of the hardwired program with a @c description
-	HardwiredProgram(const String& description)
-	 : QuickProgram(description, _single_shader((Shaders*)0)...)
+	HardwiredProgram(ObjectDesc&& description)
+	 : QuickProgram(
+		std::move(description),
+		false,
+		_single_shader((Shaders*)0)...
+	)
 	{ }
 
 	/// Create an instance of the hardwired program, possibly @c separable
@@ -1133,13 +1081,12 @@ public:
 	{ }
 
 	/// Create an instance of the hardwired program with a @c description
-	HardwiredProgram(const GLchar* description, bool separable)
-	 : QuickProgram(description, separable, _single_shader((Shaders*)0)...)
-	{ }
-
-	/// Create an instance of the hardwired program with a @c description
-	HardwiredProgram(const String& description, bool separable)
-	 : QuickProgram(description, separable, _single_shader((Shaders*)0)...)
+	HardwiredProgram(ObjectDesc&& description, bool separable)
+	 : QuickProgram(
+		std::move(description),
+		separable,
+		_single_shader((Shaders*)0)...
+	)
 	{ }
 };
 
@@ -1171,17 +1118,14 @@ private:
 public:
 	/// Create an instance of the hardwired program, possibly @c separable
 	HardwiredTupleProgram(bool separable)
-	 : QuickProgram("", separable, _base_shaders())
+	 : QuickProgram(ObjectDesc(), separable, _base_shaders())
 	{ }
 
 	/// Create an instance of the hardwired program with a @c description
-	HardwiredTupleProgram(const GLchar* description, bool separable)
-	 : QuickProgram(description, separable, _base_shaders())
-	{ }
-
-	/// Create an instance of the hardwired program with a @c description
-	HardwiredTupleProgram(const String& description, bool separable)
-	 : QuickProgram(description, separable, _base_shaders())
+	HardwiredTupleProgram(
+		ObjectDesc&& description,
+		bool separable
+	): QuickProgram(std::move(description), separable, _base_shaders())
 	{ }
 };
 

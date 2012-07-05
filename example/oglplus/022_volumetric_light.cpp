@@ -24,9 +24,12 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	VertexShader volume_vs, plane_vs;
-	GeometryShader volume_gs;
-	FragmentShader volume_fs, plane_fs;
+	// Vertex shaders
+	Shader volume_vs, plane_vs;
+	// Gemoetry shader
+	Shader volume_gs;
+	// Fragment shaders
+	Shader volume_fs, plane_fs;
 
 	Program volume_prog, plane_prog;
 
@@ -38,11 +41,11 @@ private:
 	Texture light_tex;
 public:
 	VolLightExample(void)
-	 : volume_vs("Volume vertex")
-	 , plane_vs("Plane vertex")
-	 , volume_gs("Volume geometry")
-	 , volume_fs("Volume fragment")
-	 , plane_fs("Plane fragment")
+	 : volume_vs(ShaderType::Vertex, "Volume vertex")
+	 , plane_vs(ShaderType::Vertex, "Plane vertex")
+	 , volume_gs(ShaderType::Geometry, "Volume geometry")
+	 , volume_fs(ShaderType::Fragment, "Volume fragment")
+	 , plane_fs(ShaderType::Fragment, "Plane fragment")
 	 , volume_prog("Volume")
 	 , plane_prog("Plane")
 	 , samples(150)

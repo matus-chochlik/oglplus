@@ -52,7 +52,7 @@ private:
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
-			props["program"] = ObjectDescription(program);
+			props["program"] = DescriptionOf(program);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
@@ -105,7 +105,7 @@ private:
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
-			props["program"] = ObjectDescription(program);
+			props["program"] = DescriptionOf(program);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive subroutine",
