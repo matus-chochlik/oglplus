@@ -38,6 +38,8 @@ class SamplerOps
  : public Named
  , public BaseObject<true>
 {
+public:
+	typedef TextureUnitSelector Target;
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)
@@ -72,6 +74,13 @@ protected:
 		return GL_FALSE;
 	}
 
+	static void _bind(GLuint _name, TextureUnitSelector unit)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindSampler)(GLuint(unit), _name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindSampler));
+	}
+
 	friend class FriendOf<SamplerOps>;
 public:
 	/// Bind this sampler to the specified texture unit
@@ -81,9 +90,7 @@ public:
 	 */
 	void Bind(TextureUnitSelector unit) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindSampler)(GLuint(unit), _name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindSampler));
+		_bind(_name, unit);
 	}
 
 	/// Unbind the current sampler from the specified texture unit

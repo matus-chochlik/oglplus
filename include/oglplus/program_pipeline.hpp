@@ -63,6 +63,8 @@ class ProgramPipelineOps
  , public BaseObject<true>
  , public FriendOf<ProgramOps>
 {
+public:
+	typedef None Target;
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)
@@ -97,6 +99,13 @@ protected:
 		return GL_FALSE;
 	}
 
+	static void _bind(GLuint _name, None)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindProgramPipeline)(_name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
+	}
+
 	friend class FriendOf<ProgramPipelineOps>;
 public:
 	/// Types related to ProgramPipeline
@@ -126,9 +135,7 @@ public:
 	 */
 	void Bind(void) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindProgramPipeline)(_name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
+		_bind(_name, None());
 	}
 
 	/// Unbinds the current program pipeline object (if any)

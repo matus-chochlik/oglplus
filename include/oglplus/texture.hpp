@@ -199,6 +199,16 @@ class TextureOps
  , public BaseObject<true>
  , public FriendOf<BufferOps>
 {
+public:
+	/// Texture bind and image specification targets
+	/** @note Not all of the values enumerated here are valid
+	 *  bind targets. Some of them are just image specification
+	 *  targets.
+	 */
+	enum class Target : GLenum {
+#include <oglplus/enums/texture_target.ipp>
+	};
+
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)
@@ -233,18 +243,20 @@ protected:
 		return GL_FALSE;
 	}
 
-	friend class FriendOf<TextureOps>;
-public:
-	/// Texture bind and image specification targets
-	/** @note Not all of the values enumerated here are valid
-	 *  bind targets. Some of them are just image specification
-	 *  targets.
-	 */
-	enum class Target : GLenum {
-#include <oglplus/enums/texture_target.ipp>
-	};
+	static void _bind(GLuint _name, Target target)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), _name);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindTexture,
+			Texture,
+			EnumValueNameTpl(target),
+			_name
+		));
+	}
 
-protected:
+	friend class FriendOf<TextureOps>;
+
 	static GLenum _binding_query(Target target)
 	{
 		switch(GLenum(target))
@@ -326,14 +338,7 @@ public:
 	 */
 	void Bind(Target target) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindTexture,
-			Texture,
-			EnumValueNameTpl(target),
-			_name
-		));
+		_bind(_name, target);
 	}
 
 	/// Unbinds the current texture from the target on the Active unit

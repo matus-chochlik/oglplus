@@ -97,6 +97,8 @@ public:
 	 , face_indices(make_cube.Indices())
 	 , edge_indices(make_cube.EdgeIndices())
 	 , cube_matrices(MakeCubeMatrices(100, 10.0))
+	 , color_tex(Texture::Target::Rectangle)
+	 , depth_tex(Texture::Target::Rectangle)
 	 , width(800)
 	 , height(600)
 	{

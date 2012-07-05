@@ -73,6 +73,11 @@ class TransformFeedbackOps
  : public Named
  , public BaseObject<true>
 {
+public:
+	/// Transform feedback bind targets
+	enum class Target : GLenum {
+#include <oglplus/enums/transform_feedback_target.ipp>
+	};
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)
@@ -107,13 +112,15 @@ protected:
 		return GL_FALSE;
 	}
 
+	static void _bind(GLuint _name, Target target)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), _name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
+	}
+
 	friend class FriendOf<TransformFeedbackOps>;
-public:
-	/// Transform feedback bind targets
-	enum class Target : GLenum {
-#include <oglplus/enums/transform_feedback_target.ipp>
-	};
-protected:
+
 	static GLenum _binding_query(Target target)
 	{
 		switch(GLenum(target))
@@ -133,9 +140,7 @@ public:
 	 */
 	void Bind(Target target = Target::TransformFeedback) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
+		_bind(_name, target);
 	}
 
 	/// Bind the default transform feedback object

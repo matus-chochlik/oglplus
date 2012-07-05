@@ -36,6 +36,11 @@ class RenderbufferOps
  : public Named
  , public BaseObject<true>
 {
+public:
+	/// Renderbuffer bind targets
+	enum class Target : GLenum {
+#include <oglplus/enums/renderbuffer_target.ipp>
+	};
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)
@@ -70,13 +75,15 @@ protected:
 		return GL_FALSE;
 	}
 
+	static void _bind(GLuint _name, Target target)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), _name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
+	}
+
 	friend class FriendOf<RenderbufferOps>;
-public:
-	/// Renderbuffer bind targets
-	enum class Target : GLenum {
-#include <oglplus/enums/renderbuffer_target.ipp>
-	};
-protected:
+
 	static GLenum _binding_query(Target target)
 	{
 		switch(GLenum(target))
@@ -113,9 +120,7 @@ public:
 	 */
 	void Bind(Target target = Target::Renderbuffer) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
+		_bind(_name, target);
 	}
 
 	/// Bind the name 0 to the @p target

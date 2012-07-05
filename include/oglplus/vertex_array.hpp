@@ -34,6 +34,8 @@ class VertexArrayOps
  : public Named
  , public BaseObject<true>
 {
+public:
+	typedef None Target;
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)
@@ -68,6 +70,13 @@ protected:
 		return GL_FALSE;
 	}
 
+	static void _bind(GLuint _name, None)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindVertexArray)(_name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindVertexArray));
+	}
+
 	friend class FriendOf<VertexArrayOps>;
 public:
 	/// Bind this vertex array
@@ -77,9 +86,7 @@ public:
 	 */
 	void Bind(void) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindVertexArray)(_name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindVertexArray));
+		_bind(_name, None());
 	}
 
 	/// Bind the name 0

@@ -12,7 +12,7 @@
 #ifndef OGLPLUS_OBJECT_1107121519_HPP
 #define OGLPLUS_OBJECT_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/auxiliary/named.hpp>
 #include <oglplus/auxiliary/strings.hpp>
@@ -70,6 +70,7 @@ namespace oglplus {
  *  @endcode
  */
 
+
 template <class Object>
 class Array;
 
@@ -83,7 +84,7 @@ struct ObjectBaseOps
 	typedef decltype(_get((Object*)nullptr)) Type;
 };
 
-// checks if the Object has Property::Type
+// checks if an Object has the Property::Type typedef
 template <class Object>
 struct ObjectWithType
 {
@@ -96,7 +97,25 @@ struct ObjectWithType
 	template <typename X>
 	static typename X::Property::Type
 		_get(X*, typename X::Property::Type* = nullptr);
-	static int _get(...);
+	static None _get(...);
+
+	typedef decltype(_get((Object*)nullptr)) Type;
+};
+
+// checks if an Object has the Target typedef
+template <class Object>
+struct ObjectWithTarget
+{
+	template <typename X>
+	static std::true_type _has(X*, typename X::Target* = nullptr);
+	static std::false_type _has(...);
+
+	typedef decltype(_has((Object*)nullptr)) HasTarget;
+
+	template <typename X>
+	static typename X::Target
+		_get(X*, typename X::Target* = nullptr);
+	static None _get(...);
 
 	typedef decltype(_get((Object*)nullptr)) Type;
 };
@@ -174,6 +193,73 @@ private:
 		return res;
 	}
 
+	template <typename ObjectType>
+	static inline OGLPLUS_CONSTEXPR
+	typename std::is_same<
+		typename ObjectWithType<Object>::Type,
+		ObjectType
+	>::type _is_object_type(ObjectType)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return typename std::is_same<
+			typename ObjectWithType<Object>::Type,
+			ObjectType
+		>::type();
+	}
+
+	template <typename ObjectTarget>
+	static inline OGLPLUS_CONSTEXPR
+	typename std::is_same<
+		typename ObjectWithTarget<Object>::Type,
+		ObjectTarget
+	>::type _is_object_target(ObjectTarget)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return typename std::is_same<
+			typename ObjectWithTarget<Object>::Type,
+			ObjectTarget
+		>::type();
+	}
+
+	static inline bool _type_ok(GLuint _name)
+	OGLPLUS_NOEXCEPT(true)
+	{
+#if OGLPLUS_DONT_TEST_OBJECT_TYPE
+		return true;
+#else
+		try{return ObjectOps::_is_x(_name) == GL_TRUE;}
+		catch(...){return false;}
+#endif
+	}
+
+	static inline void _verify(const Object* that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_can_be_zero() || that->_name != 0);
+		assert(_type_ok(that->_name));
+	}
+
+	static inline void _describe(const Object* that, const GLchar* desc)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		try{that->_register_desc(that->_name, desc);}
+		catch(...){ }
+	}
+
+	static inline void _describe(const Object* that, const String& desc)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		try{that->_register_desc(that->_name, desc);}
+		catch(...){ }
+	}
+
+	static inline void _undescribe(const Object* that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		try{that->_unregister_desc(that->_name);}
+		catch(...){ }
+	}
+
 	static inline void _do_init(GLsizei _c, GLuint* _n)
 	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
@@ -186,14 +272,52 @@ private:
 	}
 
 	template <typename Type>
-	static inline void _do_init(GLsizei _c, GLuint* _n, Type _k)
+	static inline void _do_init(
+		GLsizei _c,
+		GLuint* _n,
+		Type _t,
+		std::true_type _t_is_type,
+		std::false_type _t_is_target
+	)
 	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
 		assert(_n != nullptr);
 		assert(*_n == 0);
-		assert(!ObjectOps::IsMultiObject::value);
-		ObjectOps::_init(_c, _n, _k, _noexcept_constr());
+		for(GLuint i=0; i!=_c; ++i)
+			ObjectOps::_init(1, _n+i, _t, _noexcept_constr());
 		assert(_can_be_zero() || *_n != 0);
+	}
+
+	template <typename Target>
+	static inline void _do_init(
+		GLsizei _c,
+		GLuint* _n,
+		Target _t,
+		std::false_type _t_is_type,
+		std::true_type _t_is_target
+	)
+	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
+	{
+		assert(_n != nullptr);
+		assert(*_n == 0);
+		ObjectOps::_init(_c, _n, _noexcept_constr());
+		assert(_can_be_zero() || *_n != 0);
+		try
+		{
+			for(GLuint i=0; i!=_c; ++i)
+				ObjectOps::_bind(_n[i], _t);
+		}
+		catch(...)
+		{
+			ObjectOps::_cleanup(_c, _n);
+			*_n = 0;
+		}
+	}
+
+	template <typename TypeOrTarget>
+	static inline void _do_init(GLsizei _c, GLuint* _n, TypeOrTarget _t)
+	{
+		_do_init(_c, _n, _t, _is_object_type(_t),_is_object_target(_t));
 	}
 
 	static inline void _do_cleanup(GLsizei _c, GLuint* _n)
@@ -211,41 +335,29 @@ private:
 		assert((*_n = 0) == 0);
 	}
 
-	static inline bool _type_ok(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_can_be_zero() || _name != 0);
-#if OGLPLUS_DONT_TEST_OBJECT_TYPE
-		return true;
-#else
-		try{return ObjectOps::_is_x(_name) == GL_TRUE;}
-		catch(...){return false;}
-#endif
-	}
-
 	friend class ObjectInitializer<Object>;
 public:
 	Object(void)
+	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
 		_do_init(1, &this->_name);
-		assert(_can_be_zero() || this->_name != 0);
-		assert(_type_ok(this->_name));
+		_verify(this);
 	}
 
 	Object(const GLchar* desc)
+	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
 		_do_init(1, &this->_name);
-		assert(_can_be_zero() || this->_name != 0);
-		assert(_type_ok(this->_name));
-		this->_register_desc(this->_name, desc);
+		_verify(this);
+		_describe(this, desc);
 	}
 
 	Object(const String& desc)
+	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
 		_do_init(1, &this->_name);
-		assert(_can_be_zero() || this->_name != 0);
-		assert(_type_ok(this->_name));
-		this->_register_desc(this->_name, desc);
+		_verify(this);
+		_describe(this, desc);
 	}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -260,70 +372,41 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(this->_name == 0);
-		assert(_can_be_zero() || temp._name  != 0);
+		_verify(&temp);
 		this->_name = temp._release();
-		assert(_can_be_zero() || this->_name != 0);
+		_verify(this);
 		assert(temp._name  == 0);
-		assert(_type_ok(this->_name));
 	}
 
-	template <typename ObjectType>
-	Object(ObjectType type)
+	template <typename ObjectTypeOrTarget>
+	Object(ObjectTypeOrTarget type_or_target)
 	{
-		static_assert(
-			ObjectWithType<Object>::HasType::value &&
-			std::is_same<
-				typename ObjectWithType<Object>::Type,
-				ObjectType
-			>::value,
-			"Invalid ObjectType for this Object"
-		);
-		_do_init(1, &this->_name, type);
-		assert(_can_be_zero() || this->_name != 0);
-		assert(_type_ok(this->_name));
+		_do_init(1, &this->_name, type_or_target);
+		_verify(this);
 	}
 
-	template <typename ObjectType>
-	Object(ObjectType type, const GLchar* desc)
+	template <typename ObjectTypeOrTarget>
+	Object(ObjectTypeOrTarget type_or_target, const GLchar* desc)
 	{
-		static_assert(
-			ObjectWithType<Object>::HasType::value &&
-			std::is_same<
-				typename ObjectWithType<Object>::Type,
-				ObjectType
-			>::value,
-			"Invalid ObjectType for this Object"
-		);
-		_do_init(1, &this->_name, type);
-		assert(_can_be_zero() || this->_name != 0);
-		assert(_type_ok(this->_name));
-		this->_register_desc(this->_name, desc);
+		_do_init(1, &this->_name, type_or_target);
+		_verify(this);
+		_describe(this, desc);
 	}
 
-	template <typename ObjectType>
-	Object(ObjectType type, const String& desc)
+	template <typename ObjectTypeOrTarget>
+	Object(ObjectTypeOrTarget type_or_target, const String& desc)
 	{
-		static_assert(
-			ObjectWithType<Object>::HasType::value &&
-			std::is_same<
-				typename ObjectWithType<Object>::Type,
-				ObjectType
-			>::value,
-			"Invalid ObjectType for this Object"
-		);
-		_do_init(1, &this->_name, type);
-		assert(_can_be_zero() || this->_name != 0);
-		assert(_type_ok(this->_name));
-		this->_register_desc(this->_name, desc);
+		_do_init(1, &this->_name, type_or_target);
+		_verify(this);
+		_describe(this, desc);
 	}
 
 	~Object(void) OGLPLUS_NOEXCEPT(true)
 	{
 		if(this->_name != 0)
 		{
-			assert(_type_ok(this->_name));
-			try{this->_unregister_desc(this->_name);}
-			catch(...){ }
+			_verify(this);
+			_undescribe(this);
 			_do_cleanup(1, &this->_name);
 		}
 	}
@@ -338,6 +421,12 @@ template <class ObjectOps>
 class ObjectInitializer<Object<ObjectOps> >
 {
 protected:
+	static inline bool _type_ok(GLuint _name)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return Object<ObjectOps>::_type_ok(_name);
+	}
+
 	static inline void _init(GLsizei _c, GLuint* _n)
 	{
 		Object<ObjectOps>::_do_init(_c, _n);
@@ -347,12 +436,6 @@ protected:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		Object<ObjectOps>::_do_cleanup(_c, _n);
-	}
-
-	static inline bool _type_ok(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return Object<ObjectOps>::_type_ok(_name);
 	}
 };
 
@@ -371,9 +454,15 @@ class Managed
 private:
 	typedef typename ObjectBaseOps<_Object>::Type ObjectOps;
 
+public:
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	Managed(void) = delete;
+#else
+private:
 	Managed(void)
 	{ }
 public:
+#endif
 	Managed(const ObjectOps& obj)
 	 : ObjectOps(obj)
 	{ }

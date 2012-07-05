@@ -102,6 +102,12 @@ class BufferOps
  : public Named
  , public BaseObject<true>
 {
+public:
+	/// Buffer bind targets
+	enum class Target : GLenum {
+#include <oglplus/enums/buffer_target.ipp>
+	};
+
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)
@@ -136,15 +142,20 @@ protected:
 		return GL_FALSE;
 	}
 
+	static void _bind(GLuint _name, Target target)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffer,
+			Buffer,
+			EnumValueNameTpl(target),
+			_name
+		));
+	}
+
 	friend class FriendOf<BufferOps>;
 
-public:
-	/// Buffer bind targets
-	enum class Target : GLenum {
-#include <oglplus/enums/buffer_target.ipp>
-	};
-
-protected:
 	static GLenum _binding_query(Target target)
 	{
 		switch(GLenum(target))
@@ -344,14 +355,7 @@ public:
 	 */
 	void Bind(Target target) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindBuffer,
-			Buffer,
-			EnumValueNameTpl(target),
-			_name
-		));
+		_bind(_name, target);
 	}
 
 	/// Unbind the current buffer from the specified target

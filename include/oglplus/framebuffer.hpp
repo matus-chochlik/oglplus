@@ -85,6 +85,11 @@ class FramebufferOps
  , public FriendOf<RenderbufferOps>
  , public FriendOf<TextureOps>
 {
+public:
+	/// Framebuffer bind targets
+	enum class Target : GLenum {
+#include <oglplus/enums/framebuffer_target.ipp>
+	};
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)
@@ -119,13 +124,20 @@ protected:
 		return GL_FALSE;
 	}
 
+	static void _bind(GLuint _name, Target target)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), _name);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindFramebuffer,
+			Framebuffer,
+			EnumValueNameTpl(target),
+			_name
+		));
+	}
+
 	friend class FriendOf<FramebufferOps>;
-public:
-	/// Framebuffer bind targets
-	enum class Target : GLenum {
-#include <oglplus/enums/framebuffer_target.ipp>
-	};
-protected:
+
 	static GLenum _binding_query(Target target)
 	{
 		switch(GLenum(target))
@@ -157,14 +169,7 @@ public:
 	 */
 	void Bind(Target target) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindFramebuffer,
-			Framebuffer,
-			EnumValueNameTpl(target),
-			_name
-		));
+		_bind(_name, target);
 	}
 
 	/// Binds the default framebuffer to the specified target

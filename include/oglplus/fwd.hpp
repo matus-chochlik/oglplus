@@ -16,6 +16,8 @@
 
 namespace oglplus {
 
+struct None { };
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 
 /// Returns the name of the GL enumerated value for an OGLplus enum value

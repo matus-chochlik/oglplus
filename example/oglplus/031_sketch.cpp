@@ -416,6 +416,7 @@ public:
 			9, 9
 		)
 	), torus(transf_prog, shapes::WickerTorus())
+	 , sketch_texture(Texture::Target::_3D)
 	 , sketch_tex_layers(8)
 	 , shadow_tex_side(1024)
 	{
