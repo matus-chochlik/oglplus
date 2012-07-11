@@ -12,16 +12,16 @@
 switch(GLenum(value))
 {
 #if defined GL_INVERT
-	case GL_INVERT: return "INVERT";
+	case GL_INVERT: return StrLit("INVERT");
 #endif
 #if defined GL_COUNT_UP_NV
-	case GL_COUNT_UP_NV: return "COUNT_UP_NV";
+	case GL_COUNT_UP_NV: return StrLit("COUNT_UP_NV");
 #endif
 #if defined GL_COUNT_DOWN_NV
-	case GL_COUNT_DOWN_NV: return "COUNT_DOWN_NV";
+	case GL_COUNT_DOWN_NV: return StrLit("COUNT_DOWN_NV");
 #endif
 #if defined GL_PATH_FILL_MODE_NV
-	case GL_PATH_FILL_MODE_NV: return "PATH_FILL_MODE_NV";
+	case GL_PATH_FILL_MODE_NV: return StrLit("PATH_FILL_MODE_NV");
 #endif
 	default:;
 }

@@ -12,13 +12,13 @@
 switch(GLenum(value))
 {
 #if defined GL_FASTEST
-	case GL_FASTEST: return "FASTEST";
+	case GL_FASTEST: return StrLit("FASTEST");
 #endif
 #if defined GL_NICEST
-	case GL_NICEST: return "NICEST";
+	case GL_NICEST: return StrLit("NICEST");
 #endif
 #if defined GL_DONT_CARE
-	case GL_DONT_CARE: return "DONT_CARE";
+	case GL_DONT_CARE: return StrLit("DONT_CARE");
 #endif
 	default:;
 }

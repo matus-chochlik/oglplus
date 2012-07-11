@@ -12,16 +12,16 @@
 switch(GLenum(value))
 {
 #if defined GL_NONE
-	case GL_NONE: return "NONE";
+	case GL_NONE: return StrLit("NONE");
 #endif
 #if defined GL_EYE_LINEAR
-	case GL_EYE_LINEAR: return "EYE_LINEAR";
+	case GL_EYE_LINEAR: return StrLit("EYE_LINEAR");
 #endif
 #if defined GL_OBJECT_LINEAR
-	case GL_OBJECT_LINEAR: return "OBJECT_LINEAR";
+	case GL_OBJECT_LINEAR: return StrLit("OBJECT_LINEAR");
 #endif
 #if defined GL_PATH_OBJECT_BOUNDING_BOX_NV
-	case GL_PATH_OBJECT_BOUNDING_BOX_NV: return "PATH_OBJECT_BOUNDING_BOX_NV";
+	case GL_PATH_OBJECT_BOUNDING_BOX_NV: return StrLit("PATH_OBJECT_BOUNDING_BOX_NV");
 #endif
 	default:;
 }

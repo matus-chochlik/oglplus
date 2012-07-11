@@ -124,7 +124,7 @@ private:
 	{
 		VertexShader shader;
 
-		shader.Source(
+		shader.Source(StrLit(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
@@ -154,16 +154,16 @@ private:
 			"		ModelMatrix *"
 			"		Position;"
 			"}"
-		);
+		));
 
 		shader.Compile();
 		return shader;
 	}
 
 	// The common first part of all fragment shader sources
-	static const GLchar* fs_prologue(void)
+	static StrLit fs_prologue(void)
 	{
-		return
+		return StrLit(
 		"#version 330\n"
 		"in vec3 vertNormal;"
 		"in vec3 vertLight;"
@@ -179,23 +179,23 @@ private:
 		"		0.4 + lighting * 1.0,"
 		"		0.0,"
 		"		1.0"
-		"	);";
+		"	);");
 	}
 
 	// The common last part of all fragment shader sources
-	static const GLchar* fs_epilogue(void)
+	static StrLit fs_epilogue(void)
 	{
-		return
+		return StrLit(
 		"	fragColor = sig?"
 		"		vec4(1.0, 1.0, 1.0, 1.0):"
 		"		vec4(color * intensity, 1.0);"
-		"}";
+		"}");
 	}
 
 	// The part calculating the color for the protons
-	static const GLchar* fs_proton(void)
+	static StrLit fs_proton(void)
 	{
-		return
+		return StrLit(
 		"	bool sig = ("
 		"		abs(vertViewNormal.x) < 0.5 &&"
 		"		abs(vertViewNormal.y) < 0.2 "
@@ -203,34 +203,34 @@ private:
 		"		abs(vertViewNormal.y) < 0.5 &&"
 		"		abs(vertViewNormal.x) < 0.2 "
 		"	);"
-		"	vec3 color = vec3(1.0, 0.0, 0.0);";
+		"	vec3 color = vec3(1.0, 0.0, 0.0);");
 	}
 
 	// The part calculating the color for the neutrons
-	static const GLchar* fs_neutron(void)
+	static StrLit fs_neutron(void)
 	{
-		return
+		return StrLit(
 		"	bool sig = false;"
-		"	vec3 color = vec3(0.5, 0.5, 0.5);";
+		"	vec3 color = vec3(0.5, 0.5, 0.5);");
 	}
 
 	// The part calculating the color for the electrons
-	static const GLchar* fs_electron(void)
+	static StrLit fs_electron(void)
 	{
-		return
+		return StrLit(
 		"	bool sig = ("
 		"		abs(vertViewNormal.x) < 0.5 &&"
 		"		abs(vertViewNormal.y) < 0.2"
 		"	);"
-		"	vec3 color = vec3(0.0, 0.0, 1.0);";
+		"	vec3 color = vec3(0.0, 0.0, 1.0);");
 	}
 
 	// makes a fragment shader from the prologe, custom part and epilogue
-	static FragmentShader make_fs(const char* color_fs)
+	static FragmentShader make_fs(StrLit color_fs)
 	{
 		FragmentShader shader;
-		const GLchar* src[3] = {fs_prologue(), color_fs, fs_epilogue()};
-		shader.Source(src, 3);
+		StrLit source[3] = {fs_prologue(), color_fs, fs_epilogue()};
+		shader.Source(source);
 		shader.Compile();
 		return shader;
 	}

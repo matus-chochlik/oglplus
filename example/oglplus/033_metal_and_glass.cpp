@@ -32,8 +32,8 @@ class CommonVertShader
 public:
 	CommonVertShader(void)
 	 : VertexShader(
-		"Common vertex shader",
-		"#version 330\n"
+		ObjectDesc("Common vertex shader"),
+		StrLit("#version 330\n"
 		"uniform mat4 CameraMatrix, ModelMatrix;"
 		"uniform mat4 LightProjMatrix;"
 		"uniform mat2 TextureMatrix;"
@@ -71,7 +71,7 @@ public:
 		"	vertTexCoord = TextureMatrix * TexCoord;"
 		"	vertLightTexCoord = LightProjMatrix* gl_Position;"
 		"	gl_Position = CameraMatrix * gl_Position;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -107,8 +107,8 @@ class ShadowFragmentShader
 public:
 	ShadowFragmentShader(void)
 	 : FragmentShader(
-		"Shadow fragment shader",
-		"#version 330\n"
+		ObjectDesc("Shadow fragment shader"),
+		StrLit("#version 330\n"
 		"in vec3 vertNormal;"
 		"in vec3 vertTangent;"
 		"in vec3 vertBinormal;"
@@ -119,7 +119,7 @@ public:
 
 		"void main(void)"
 		"{"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -139,8 +139,8 @@ class LightFragmentShader
 public:
 	LightFragmentShader(void)
 	 : FragmentShader(
-		"Shadow fragment shader",
-		"#version 330\n"
+		ObjectDesc("Shadow fragment shader"),
+		StrLit("#version 330\n"
 		"uniform vec3 Color;"
 		"in vec3 vertNormal;"
 		"in vec3 vertTangent;"
@@ -158,7 +158,7 @@ public:
 		"		normalize(vertViewDir)"
 		"	));"
 		"	fragColor = vec4(Color, 0.4 + sqrt(Opacity)*0.6);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -183,8 +183,8 @@ class GlassFragmentShader
 public:
 	GlassFragmentShader(void)
 	 : FragmentShader(
-		"Metal fragment shader",
-		"#version 330\n"
+		ObjectDesc("Metal fragment shader"),
+		StrLit("#version 330\n"
 		"uniform sampler2DShadow FrameShadowTex;"
 		"uniform vec3 Color;"
 		"in vec3 vertNormal;"
@@ -251,7 +251,7 @@ public:
 		"		LightColor * Specular, "
 		"		0.4 + min(Specular, 1.0)*0.3"
 		"	);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -278,8 +278,8 @@ class MetalFragmentShader
 public:
 	MetalFragmentShader(void)
 	 : FragmentShader(
-		"Metal fragment shader",
-		"#version 330\n"
+		ObjectDesc("Metal fragment shader"),
+		StrLit("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2D MetalTex;"
 		"uniform sampler2DShadow FrameShadowTex;"
@@ -375,7 +375,7 @@ public:
 		"		LightColor * Specular, "
 		"		1.0"
 		"	);"
-		"}"
+		"}")
 	)
 	{ }
 };

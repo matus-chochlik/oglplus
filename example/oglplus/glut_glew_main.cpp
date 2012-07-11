@@ -176,7 +176,8 @@ int main(int argc, char* argv[])
 	{
 		std::cerr <<
 			"Error (in " << pbe.GLSymbol() << ", " <<
-			pbe.ClassName() << ": '" <<
+			pbe.ClassName() << " (" <<
+			pbe.BindTarget() << "): '" <<
 			pbe.ObjectDescription() << "'): " <<
 			pbe.what() << ": " <<
 			pbe.Log() <<

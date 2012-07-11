@@ -12,13 +12,13 @@
 switch(GLenum(value))
 {
 #if defined GL_POINT
-	case GL_POINT: return "POINT";
+	case GL_POINT: return StrLit("POINT");
 #endif
 #if defined GL_LINE
-	case GL_LINE: return "LINE";
+	case GL_LINE: return StrLit("LINE");
 #endif
 #if defined GL_FILL
-	case GL_FILL: return "FILL";
+	case GL_FILL: return StrLit("FILL");
 #endif
 	default:;
 }

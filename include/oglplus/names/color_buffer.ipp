@@ -12,34 +12,34 @@
 switch(GLenum(value))
 {
 #if defined GL_NONE
-	case GL_NONE: return "NONE";
+	case GL_NONE: return StrLit("NONE");
 #endif
 #if defined GL_FRONT_LEFT
-	case GL_FRONT_LEFT: return "FRONT_LEFT";
+	case GL_FRONT_LEFT: return StrLit("FRONT_LEFT");
 #endif
 #if defined GL_FRONT_RIGHT
-	case GL_FRONT_RIGHT: return "FRONT_RIGHT";
+	case GL_FRONT_RIGHT: return StrLit("FRONT_RIGHT");
 #endif
 #if defined GL_BACK_LEFT
-	case GL_BACK_LEFT: return "BACK_LEFT";
+	case GL_BACK_LEFT: return StrLit("BACK_LEFT");
 #endif
 #if defined GL_BACK_RIGHT
-	case GL_BACK_RIGHT: return "BACK_RIGHT";
+	case GL_BACK_RIGHT: return StrLit("BACK_RIGHT");
 #endif
 #if defined GL_FRONT
-	case GL_FRONT: return "FRONT";
+	case GL_FRONT: return StrLit("FRONT");
 #endif
 #if defined GL_BACK
-	case GL_BACK: return "BACK";
+	case GL_BACK: return StrLit("BACK");
 #endif
 #if defined GL_LEFT
-	case GL_LEFT: return "LEFT";
+	case GL_LEFT: return StrLit("LEFT");
 #endif
 #if defined GL_RIGHT
-	case GL_RIGHT: return "RIGHT";
+	case GL_RIGHT: return StrLit("RIGHT");
 #endif
 #if defined GL_FRONT_AND_BACK
-	case GL_FRONT_AND_BACK: return "FRONT_AND_BACK";
+	case GL_FRONT_AND_BACK: return StrLit("FRONT_AND_BACK");
 #endif
 	default:;
 }

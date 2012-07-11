@@ -28,8 +28,8 @@ class CubeVertShader
 public:
 	CubeVertShader(void)
 	 : VertexShader(
-		"Cube vertex",
-		"#version 400\n"
+		ObjectDesc("Cube vertex"),
+		StrLit("#version 400\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 CameraPosition;"
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -55,7 +55,7 @@ public:
 		"		CameraMatrix *"
 		"		gl_Position;"
 		"	vertTexCoord = TexCoord.xy;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -66,8 +66,8 @@ class CubeFragShader
 public:
 	CubeFragShader(void)
 	 : FragmentShader(
-		"Cube fragment",
-		"#version 400\n"
+		ObjectDesc("Cube fragment"),
+		StrLit("#version 400\n"
 
 		"subroutine vec3 pixelColorFuncType(vec2 TexCoord);"
 
@@ -180,7 +180,7 @@ public:
 		"		Diffuse, "
 		"		Specular "
 		"	);"
-		"}"
+		"}")
 	)
 	{ }
 };

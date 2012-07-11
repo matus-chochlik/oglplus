@@ -26,13 +26,13 @@ enum class BlendFunction : GLenum
 #include <oglplus/enums/blend_function.ipp>
 };
 
-inline const GLchar* EnumValueName(BlendFunction value)
+inline StrLit EnumValueName(BlendFunction value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/blend_function.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Alternative name for the BlendFunction enumeration
@@ -50,13 +50,13 @@ enum class BlendEquation : GLenum
 #include <oglplus/enums/blend_equation.ipp>
 };
 
-inline const GLchar* EnumValueName(BlendEquation value)
+inline StrLit EnumValueName(BlendEquation value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/blend_equation.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Alternative name for the BlendEquation enumeration

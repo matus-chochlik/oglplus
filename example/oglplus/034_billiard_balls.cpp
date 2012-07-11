@@ -38,8 +38,8 @@ class CommonVertShader
 public:
 	CommonVertShader(void)
 	 : VertexShader(
-		"Common vertex shader",
-		"#version 330\n"
+		ObjectDesc("Common vertex shader"),
+		StrLit("#version 330\n"
 		"uniform mat4 ModelMatrix;"
 		"uniform mat3 TextureMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
@@ -67,7 +67,7 @@ public:
 		"	vertBinormal = cross(vertNormal, vertTangent);"
 		"	vertTexCoord = (TextureMatrix * vec3(TexCoord,1.0)).xy;"
 		"	vertSTCoord = TexCoord;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -78,8 +78,8 @@ class DefaultGeomShader
 public:
 	DefaultGeomShader(void)
 	 : GeometryShader(
-		"Default geometry shader",
-		"#version 330\n"
+		ObjectDesc("Default geometry shader"),
+		StrLit("#version 330\n"
 		"layout(triangles) in;"
 		"layout(triangle_strip, max_vertices = 3) out;"
 		"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -124,7 +124,7 @@ public:
 		"		EmitVertex();"
 		"	}"
 		"	EndPrimitive();"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -135,8 +135,8 @@ class CubemapGeomShader
 public:
 	CubemapGeomShader(void)
 	 : GeometryShader(
-		"Cubemap geometry shader",
-		"#version 330\n"
+		ObjectDesc("Cubemap geometry shader"),
+		StrLit("#version 330\n"
 		"layout(triangles) in;"
 		"layout(triangle_strip, max_vertices = 18) out;"
 		"uniform mat4 ProjectionMatrix, CameraMatrix;"
@@ -227,7 +227,7 @@ public:
 		"		}"
 		"		EndPrimitive();"
 		"	}"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -272,8 +272,8 @@ class ClothFragmentShader
 public:
 	ClothFragmentShader(void)
 	 : FragmentShader(
-		"Cloth fragment shader",
-		"#version 330\n"
+		ObjectDesc("Cloth fragment shader"),
+		StrLit("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2D ClothTex, LightMap;"
 		"in vec3 geomNormal;"
@@ -324,7 +324,7 @@ public:
 		"		LightColor * Specular, "
 		"		1.0"
 		"	);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -354,8 +354,8 @@ class BallFragmentShader
 public:
 	BallFragmentShader(void)
 	 : FragmentShader(
-		"Ball fragment shader",
-		"#version 330\n"
+		ObjectDesc("Ball fragment shader"),
+		StrLit("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2DArray NumberTex;"
 		"uniform samplerCube ReflectTex;"
@@ -410,7 +410,7 @@ public:
 		"		LightColor * Specular, "
 		"		1.0"
 		"	);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -442,8 +442,8 @@ class LightmapVertShader
 public:
 	LightmapVertShader(void)
 	 : VertexShader(
-		"Lightmap vertex shader",
-		"#version 330\n"
+		ObjectDesc("Lightmap vertex shader"),
+		StrLit("#version 330\n"
 		"uniform mat4 TransformMatrix;"
 		"in vec4 Position;"
 		"out vec3 vertPosition;"
@@ -451,7 +451,7 @@ public:
 		"{"
 		"	vertPosition = Position.xyz;"
 		"	gl_Position = TransformMatrix * Position;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -462,8 +462,8 @@ class LightmapFragShader
 public:
 	LightmapFragShader(void)
 	 : FragmentShader(
-		"Lightmap fragment shader",
-		"#version 330\n"
+		ObjectDesc("Lightmap fragment shader"),
+		StrLit("#version 330\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 BallPositions[" OGLPLUS_EXAMPLE_034BB_BALL_COUNT_TXT "];"
 		"in vec3 vertPosition;"
@@ -484,7 +484,7 @@ public:
 		"	}"
 		"	float lt = exp(-d_max*0.8);"
 		"	fragColor = vec4(lt, lt, lt, 1.0);"
-		"}"
+		"}")
 	)
 	{ }
 

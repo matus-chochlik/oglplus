@@ -12,28 +12,28 @@
 switch(GLenum(value))
 {
 #if defined GL_KEEP
-	case GL_KEEP: return "KEEP";
+	case GL_KEEP: return StrLit("KEEP");
 #endif
 #if defined GL_ZERO
-	case GL_ZERO: return "ZERO";
+	case GL_ZERO: return StrLit("ZERO");
 #endif
 #if defined GL_REPLACE
-	case GL_REPLACE: return "REPLACE";
+	case GL_REPLACE: return StrLit("REPLACE");
 #endif
 #if defined GL_INCR
-	case GL_INCR: return "INCR";
+	case GL_INCR: return StrLit("INCR");
 #endif
 #if defined GL_DECR
-	case GL_DECR: return "DECR";
+	case GL_DECR: return StrLit("DECR");
 #endif
 #if defined GL_INVERT
-	case GL_INVERT: return "INVERT";
+	case GL_INVERT: return StrLit("INVERT");
 #endif
 #if defined GL_INCR_WRAP
-	case GL_INCR_WRAP: return "INCR_WRAP";
+	case GL_INCR_WRAP: return StrLit("INCR_WRAP");
 #endif
 #if defined GL_DECR_WRAP
-	case GL_DECR_WRAP: return "DECR_WRAP";
+	case GL_DECR_WRAP: return StrLit("DECR_WRAP");
 #endif
 	default:;
 }

@@ -29,8 +29,8 @@ class LiquidVertShader
 public:
 	LiquidVertShader(void)
 	 : VertexShader(
-		"Liquid vertex shader",
-		"#version 330\n"
+		ObjectDesc("Liquid vertex shader"),
+		StrLit("#version 330\n"
 		"uniform vec3 GridOffset;"
 		"uniform float Time;"
 
@@ -65,7 +65,7 @@ public:
 		"		vertValue += sin(g)*exp(-r-1.0)*a;"
 		"		vertNormal += vec3(x*d, 0.0, z*d);"
 		"	}"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -76,8 +76,8 @@ class LiquidGeomShader
 public:
 	LiquidGeomShader(void)
 	 : GeometryShader(
-		"Liquid geometry shader",
-		"#version 330\n"
+		ObjectDesc("Liquid geometry shader"),
+		StrLit("#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
@@ -206,7 +206,7 @@ public:
 		"void main(void)"
 		"{"
 		"	process_tetrahedron(0, 2, 4, 1);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -217,8 +217,8 @@ class LiquidFragShader
 public:
 	LiquidFragShader(void)
 	 : FragmentShader(
-		"Liquid fragment shader",
-		"#version 330\n"
+		ObjectDesc("Liquid fragment shader"),
+		StrLit("#version 330\n"
 
 		"uniform samplerCube EnvMap;"
 
@@ -250,7 +250,7 @@ public:
 		"		Environ * Ambient +"
 		"		vec3(0.4, 0.8, 0.4) * Diffuse+"
 		"		vec3(0.2, 0.2, 0.2) * Specular;"
-		"}"
+		"}")
 	)
 	{ }
 };

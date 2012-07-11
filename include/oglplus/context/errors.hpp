@@ -29,13 +29,13 @@ enum class ErrorCode : GLenum
 #include <oglplus/enums/error_code.ipp>
 };
 
-inline const GLchar* EnumValueName(ErrorCode value)
+inline StrLit EnumValueName(ErrorCode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/error_code.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 namespace context {

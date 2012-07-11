@@ -12,16 +12,16 @@
 switch(GLenum(value))
 {
 #if defined GL_UNSIGNED_INT
-	case GL_UNSIGNED_INT: return "UNSIGNED_INT";
+	case GL_UNSIGNED_INT: return StrLit("UNSIGNED_INT");
 #endif
 #if defined GL_FLOAT
-	case GL_FLOAT: return "FLOAT";
+	case GL_FLOAT: return StrLit("FLOAT");
 #endif
 #if defined GL_UNSIGNED_INT64_AMD
-	case GL_UNSIGNED_INT64_AMD: return "UNSIGNED_INT64_AMD";
+	case GL_UNSIGNED_INT64_AMD: return StrLit("UNSIGNED_INT64_AMD");
 #endif
 #if defined GL_PERCENTAGE_AMD
-	case GL_PERCENTAGE_AMD: return "PERCENTAGE_AMD";
+	case GL_PERCENTAGE_AMD: return StrLit("PERCENTAGE_AMD");
 #endif
 	default:;
 }

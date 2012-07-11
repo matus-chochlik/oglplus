@@ -12,7 +12,7 @@
 switch(GLenum(value))
 {
 #if defined GL_SYNC_GPU_COMMANDS_COMPLETE
-	case GL_SYNC_GPU_COMMANDS_COMPLETE: return "SYNC_GPU_COMMANDS_COMPLETE";
+	case GL_SYNC_GPU_COMMANDS_COMPLETE: return StrLit("SYNC_GPU_COMMANDS_COMPLETE");
 #endif
 	default:;
 }

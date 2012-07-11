@@ -108,7 +108,7 @@ do
 	while read GL_DEF X
 	do
 		echo "#if defined GL_${GL_DEF}"
-		echo "	case GL_${GL_DEF}: return \"${GL_DEF}\";"
+		echo "	case GL_${GL_DEF}: return StrLit(\"${GL_DEF}\");"
 		echo "#endif"
 	done
 	echo "	default:;"

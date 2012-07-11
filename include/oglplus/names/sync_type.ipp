@@ -12,7 +12,7 @@
 switch(GLenum(value))
 {
 #if defined GL_SYNC_FENCE
-	case GL_SYNC_FENCE: return "SYNC_FENCE";
+	case GL_SYNC_FENCE: return StrLit("SYNC_FENCE");
 #endif
 	default:;
 }

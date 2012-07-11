@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_INTERLEAVED_ATTRIBS
-	case GL_INTERLEAVED_ATTRIBS: return "INTERLEAVED_ATTRIBS";
+	case GL_INTERLEAVED_ATTRIBS: return StrLit("INTERLEAVED_ATTRIBS");
 #endif
 #if defined GL_SEPARATE_ATTRIBS
-	case GL_SEPARATE_ATTRIBS: return "SEPARATE_ATTRIBS";
+	case GL_SEPARATE_ATTRIBS: return StrLit("SEPARATE_ATTRIBS");
 #endif
 	default:;
 }

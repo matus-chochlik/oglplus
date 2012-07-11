@@ -45,13 +45,13 @@ enum class FramebufferAttachment : GLenum {
 #include <oglplus/enums/framebuffer_attachment.ipp>
 };
 
-inline const GLchar* EnumValueName(FramebufferAttachment value)
+inline StrLit EnumValueName(FramebufferAttachment value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_attachment.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Framebuffer status enumeration
@@ -59,13 +59,13 @@ enum class FramebufferStatus : GLenum {
 #include <oglplus/enums/framebuffer_status.ipp>
 };
 
-inline const GLchar* EnumValueName(FramebufferStatus value)
+inline StrLit EnumValueName(FramebufferStatus value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_status.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Wrapper for OpenGL framebuffer operations
@@ -503,13 +503,13 @@ public:
 	}
 };
 
-inline const GLchar* EnumValueName(FramebufferOps::Target value)
+inline StrLit EnumValueName(FramebufferOps::Target value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_target.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 #if OGLPLUS_DOCUMENTATION_ONLY

@@ -28,13 +28,13 @@ enum class Capability: GLenum
 #include <oglplus/enums/capability.ipp>
 };
 
-inline const GLchar* EnumValueName(Capability value)
+inline StrLit EnumValueName(Capability value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/capability.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Functionality enumeration
@@ -51,13 +51,13 @@ enum class Functionality : GLenum
 #include <oglplus/enums/functionality.ipp>
 };
 
-inline const GLchar* EnumValueName(Functionality value)
+inline StrLit EnumValueName(Functionality value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/functionality.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 } // namespace oglplus

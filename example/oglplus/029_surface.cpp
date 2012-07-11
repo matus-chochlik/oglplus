@@ -23,8 +23,8 @@ class SurfaceVertShader
 public:
 	SurfaceVertShader(void)
 	 : VertexShader(
-		"Surface vertex shader",
-		"#version 330\n"
+		ObjectDesc("Surface vertex shader"),
+		StrLit("#version 330\n"
 		"uniform vec3 GridOffset;"
 		"uniform float Time;"
 
@@ -59,7 +59,7 @@ public:
 		"		vertValue += sin(g)*exp(-r-1.0)*a;"
 		"		vertNormal += vec3(x*d, 0.0, z*d);"
 		"	}"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -70,8 +70,8 @@ class SurfaceGeomShader
 public:
 	SurfaceGeomShader(void)
 	 : GeometryShader(
-		"Surface geometry shader",
-		"#version 330\n"
+		ObjectDesc("Surface geometry shader"),
+		StrLit("#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 6) out;"
 
@@ -263,7 +263,7 @@ public:
 		"void main(void)"
 		"{"
 		"	process_tetrahedron(0, 2, 4, 1);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -274,8 +274,8 @@ class SurfaceFragShader
 public:
 	SurfaceFragShader(void)
 	 : FragmentShader(
-		"Surface fragment shader",
-		"#version 330\n"
+		ObjectDesc("Surface fragment shader"),
+		StrLit("#version 330\n"
 
 		"noperspective in vec3 geomDist;"
 		"in float geomSpecular, geomDiffuse, geomValue;"
@@ -299,7 +299,7 @@ public:
 		"	vec3 Line = vec3(0, 0, 0);"
 
 		"	fragColor = mix(Fill, Line, EdgeAlpha);"
-		"}"
+		"}")
 	)
 	{ }
 };

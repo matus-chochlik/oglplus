@@ -12,40 +12,40 @@
 switch(GLenum(value))
 {
 #if defined GL_POINTS
-	case GL_POINTS: return "POINTS";
+	case GL_POINTS: return StrLit("POINTS");
 #endif
 #if defined GL_LINE_STRIP
-	case GL_LINE_STRIP: return "LINE_STRIP";
+	case GL_LINE_STRIP: return StrLit("LINE_STRIP");
 #endif
 #if defined GL_LINE_LOOP
-	case GL_LINE_LOOP: return "LINE_LOOP";
+	case GL_LINE_LOOP: return StrLit("LINE_LOOP");
 #endif
 #if defined GL_LINES
-	case GL_LINES: return "LINES";
+	case GL_LINES: return StrLit("LINES");
 #endif
 #if defined GL_TRIANGLE_STRIP
-	case GL_TRIANGLE_STRIP: return "TRIANGLE_STRIP";
+	case GL_TRIANGLE_STRIP: return StrLit("TRIANGLE_STRIP");
 #endif
 #if defined GL_TRIANGLE_FAN
-	case GL_TRIANGLE_FAN: return "TRIANGLE_FAN";
+	case GL_TRIANGLE_FAN: return StrLit("TRIANGLE_FAN");
 #endif
 #if defined GL_TRIANGLES
-	case GL_TRIANGLES: return "TRIANGLES";
+	case GL_TRIANGLES: return StrLit("TRIANGLES");
 #endif
 #if defined GL_LINES_ADJACENCY
-	case GL_LINES_ADJACENCY: return "LINES_ADJACENCY";
+	case GL_LINES_ADJACENCY: return StrLit("LINES_ADJACENCY");
 #endif
 #if defined GL_LINE_STRIP_ADJACENCY
-	case GL_LINE_STRIP_ADJACENCY: return "LINE_STRIP_ADJACENCY";
+	case GL_LINE_STRIP_ADJACENCY: return StrLit("LINE_STRIP_ADJACENCY");
 #endif
 #if defined GL_TRIANGLES_ADJACENCY
-	case GL_TRIANGLES_ADJACENCY: return "TRIANGLES_ADJACENCY";
+	case GL_TRIANGLES_ADJACENCY: return StrLit("TRIANGLES_ADJACENCY");
 #endif
 #if defined GL_TRIANGLE_STRIP_ADJACENCY
-	case GL_TRIANGLE_STRIP_ADJACENCY: return "TRIANGLE_STRIP_ADJACENCY";
+	case GL_TRIANGLE_STRIP_ADJACENCY: return StrLit("TRIANGLE_STRIP_ADJACENCY");
 #endif
 #if defined GL_PATCHES
-	case GL_PATCHES: return "PATCHES";
+	case GL_PATCHES: return StrLit("PATCHES");
 #endif
 	default:;
 }

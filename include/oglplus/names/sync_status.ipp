@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_SIGNALED
-	case GL_SIGNALED: return "SIGNALED";
+	case GL_SIGNALED: return StrLit("SIGNALED");
 #endif
 #if defined GL_UNSIGNALED
-	case GL_UNSIGNALED: return "UNSIGNALED";
+	case GL_UNSIGNALED: return StrLit("UNSIGNALED");
 #endif
 	default:;
 }

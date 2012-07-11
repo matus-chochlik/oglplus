@@ -12,16 +12,16 @@
 switch(GLenum(value))
 {
 #if defined GL_FLAT
-	case GL_FLAT: return "FLAT";
+	case GL_FLAT: return StrLit("FLAT");
 #endif
 #if defined GL_SQUARE_NV
-	case GL_SQUARE_NV: return "SQUARE_NV";
+	case GL_SQUARE_NV: return StrLit("SQUARE_NV");
 #endif
 #if defined GL_ROUND_NV
-	case GL_ROUND_NV: return "ROUND_NV";
+	case GL_ROUND_NV: return StrLit("ROUND_NV");
 #endif
 #if defined GL_TRIANGULAR_NV
-	case GL_TRIANGULAR_NV: return "TRIANGULAR_NV";
+	case GL_TRIANGULAR_NV: return StrLit("TRIANGULAR_NV");
 #endif
 	default:;
 }

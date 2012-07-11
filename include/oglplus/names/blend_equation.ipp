@@ -12,19 +12,19 @@
 switch(GLenum(value))
 {
 #if defined GL_FUNC_ADD
-	case GL_FUNC_ADD: return "FUNC_ADD";
+	case GL_FUNC_ADD: return StrLit("FUNC_ADD");
 #endif
 #if defined GL_FUNC_SUBTRACT
-	case GL_FUNC_SUBTRACT: return "FUNC_SUBTRACT";
+	case GL_FUNC_SUBTRACT: return StrLit("FUNC_SUBTRACT");
 #endif
 #if defined GL_FUNC_REVERSE_SUBTRACT
-	case GL_FUNC_REVERSE_SUBTRACT: return "FUNC_REVERSE_SUBTRACT";
+	case GL_FUNC_REVERSE_SUBTRACT: return StrLit("FUNC_REVERSE_SUBTRACT");
 #endif
 #if defined GL_MIN
-	case GL_MIN: return "MIN";
+	case GL_MIN: return StrLit("MIN");
 #endif
 #if defined GL_MAX
-	case GL_MAX: return "MAX";
+	case GL_MAX: return StrLit("MAX");
 #endif
 	default:;
 }

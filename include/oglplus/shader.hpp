@@ -21,45 +21,12 @@
 #include <oglplus/compile_error.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/glsl_source.hpp>
 
 #include <vector>
 #include <cassert>
 
 namespace oglplus {
-
-
-/// Class storing source code in GLSL
-class GLSLSource
-{
-private:
-	const GLchar* _source;
-	//TODO: add other implemenations
-public:
-	GLSLSource(const GLchar* source)
-	OGLPLUS_NOEXCEPT(true)
-	 : _source(source)
-	{ }
-
-	/// Count of buffers storing the individual parts of the source
-	GLsizei Count(void) const
-	{
-		if(_source) return 1;
-		return 0;
-	}
-
-	/// Pointers to the individual parts of the source
-	const GLchar** Parts(void) const
-	{
-		if(_source) return const_cast<const GLchar**>(&_source);
-		return nullptr;
-	}
-
-	/// Pointer to the lengths of the individual parts of the source
-	const GLint* Lengths(void) const
-	{
-		return nullptr;
-	}
-};
 
 /// The type of a Shader
 /**
@@ -71,13 +38,13 @@ enum class ShaderType : GLenum {
 #include <oglplus/enums/shader_type.ipp>
 };
 
-inline const GLchar* EnumValueName(ShaderType value)
+inline StrLit EnumValueName(ShaderType value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/shader_type.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Shader operations wrapper helper class
@@ -203,19 +170,6 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const GLchar* source, int length) const
-	{
-		assert(_name != 0);
-		const GLchar* srcs[1] = {source};
-		int lens[] = {length};
-		OGLPLUS_GLFUNC(ShaderSource)(_name, 1, srcs, lens);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
 	void Source(const GLchar** srcs, int count) const
 	{
 		assert(_name != 0);
@@ -254,7 +208,7 @@ public:
 		);
 	}
 
-	/// Returns true if the shader is already compile, returns false otherwise
+	/// Returns true if the shader is already compiled, returns false otherwise
 	/**
 	 *  @see Compile
 	 *

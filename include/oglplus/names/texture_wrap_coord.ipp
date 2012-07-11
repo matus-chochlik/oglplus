@@ -12,13 +12,13 @@
 switch(GLenum(value))
 {
 #if defined GL_TEXTURE_WRAP_S
-	case GL_TEXTURE_WRAP_S: return "TEXTURE_WRAP_S";
+	case GL_TEXTURE_WRAP_S: return StrLit("TEXTURE_WRAP_S");
 #endif
 #if defined GL_TEXTURE_WRAP_T
-	case GL_TEXTURE_WRAP_T: return "TEXTURE_WRAP_T";
+	case GL_TEXTURE_WRAP_T: return StrLit("TEXTURE_WRAP_T");
 #endif
 #if defined GL_TEXTURE_WRAP_R
-	case GL_TEXTURE_WRAP_R: return "TEXTURE_WRAP_R";
+	case GL_TEXTURE_WRAP_R: return StrLit("TEXTURE_WRAP_R");
 #endif
 	default:;
 }

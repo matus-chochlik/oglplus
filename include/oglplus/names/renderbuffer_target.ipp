@@ -12,7 +12,7 @@
 switch(GLenum(value))
 {
 #if defined GL_RENDERBUFFER
-	case GL_RENDERBUFFER: return "RENDERBUFFER";
+	case GL_RENDERBUFFER: return StrLit("RENDERBUFFER");
 #endif
 	default:;
 }

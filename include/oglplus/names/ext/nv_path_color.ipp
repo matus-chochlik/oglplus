@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_PRIMARY_COLOR_NV
-	case GL_PRIMARY_COLOR_NV: return "PRIMARY_COLOR_NV";
+	case GL_PRIMARY_COLOR_NV: return StrLit("PRIMARY_COLOR_NV");
 #endif
 #if defined GL_SECONDARY_COLOR_NV
-	case GL_SECONDARY_COLOR_NV: return "SECONDARY_COLOR_NV";
+	case GL_SECONDARY_COLOR_NV: return StrLit("SECONDARY_COLOR_NV");
 #endif
 	default:;
 }

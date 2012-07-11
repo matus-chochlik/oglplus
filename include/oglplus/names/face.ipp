@@ -12,13 +12,13 @@
 switch(GLenum(value))
 {
 #if defined GL_FRONT
-	case GL_FRONT: return "FRONT";
+	case GL_FRONT: return StrLit("FRONT");
 #endif
 #if defined GL_BACK
-	case GL_BACK: return "BACK";
+	case GL_BACK: return StrLit("BACK");
 #endif
 #if defined GL_FRONT_AND_BACK
-	case GL_FRONT_AND_BACK: return "FRONT_AND_BACK";
+	case GL_FRONT_AND_BACK: return StrLit("FRONT_AND_BACK");
 #endif
 	default:;
 }

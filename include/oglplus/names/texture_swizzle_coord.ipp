@@ -12,19 +12,19 @@
 switch(GLenum(value))
 {
 #if defined GL_TEXTURE_SWIZZLE_R
-	case GL_TEXTURE_SWIZZLE_R: return "TEXTURE_SWIZZLE_R";
+	case GL_TEXTURE_SWIZZLE_R: return StrLit("TEXTURE_SWIZZLE_R");
 #endif
 #if defined GL_TEXTURE_SWIZZLE_G
-	case GL_TEXTURE_SWIZZLE_G: return "TEXTURE_SWIZZLE_G";
+	case GL_TEXTURE_SWIZZLE_G: return StrLit("TEXTURE_SWIZZLE_G");
 #endif
 #if defined GL_TEXTURE_SWIZZLE_B
-	case GL_TEXTURE_SWIZZLE_B: return "TEXTURE_SWIZZLE_B";
+	case GL_TEXTURE_SWIZZLE_B: return StrLit("TEXTURE_SWIZZLE_B");
 #endif
 #if defined GL_TEXTURE_SWIZZLE_A
-	case GL_TEXTURE_SWIZZLE_A: return "TEXTURE_SWIZZLE_A";
+	case GL_TEXTURE_SWIZZLE_A: return StrLit("TEXTURE_SWIZZLE_A");
 #endif
 #if defined GL_TEXTURE_SWIZZLE_RGBA
-	case GL_TEXTURE_SWIZZLE_RGBA: return "TEXTURE_SWIZZLE_RGBA";
+	case GL_TEXTURE_SWIZZLE_RGBA: return StrLit("TEXTURE_SWIZZLE_RGBA");
 #endif
 	default:;
 }

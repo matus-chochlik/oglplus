@@ -12,16 +12,16 @@
 switch(GLenum(value))
 {
 #if defined GL_RENDERER
-	case GL_RENDERER: return "RENDERER";
+	case GL_RENDERER: return StrLit("RENDERER");
 #endif
 #if defined GL_VENDOR
-	case GL_VENDOR: return "VENDOR";
+	case GL_VENDOR: return StrLit("VENDOR");
 #endif
 #if defined GL_VERSION
-	case GL_VERSION: return "VERSION";
+	case GL_VERSION: return StrLit("VERSION");
 #endif
 #if defined GL_SHADING_LANGUAGE_VERSION
-	case GL_SHADING_LANGUAGE_VERSION: return "SHADING_LANGUAGE_VERSION";
+	case GL_SHADING_LANGUAGE_VERSION: return StrLit("SHADING_LANGUAGE_VERSION");
 #endif
 	default:;
 }

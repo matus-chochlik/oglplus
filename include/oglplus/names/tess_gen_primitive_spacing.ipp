@@ -12,13 +12,13 @@
 switch(GLenum(value))
 {
 #if defined GL_FRACTIONAL_EVEN
-	case GL_FRACTIONAL_EVEN: return "FRACTIONAL_EVEN";
+	case GL_FRACTIONAL_EVEN: return StrLit("FRACTIONAL_EVEN");
 #endif
 #if defined GL_FRACTIONAL_ODD
-	case GL_FRACTIONAL_ODD: return "FRACTIONAL_ODD";
+	case GL_FRACTIONAL_ODD: return StrLit("FRACTIONAL_ODD");
 #endif
 #if defined GL_EQUAL
-	case GL_EQUAL: return "EQUAL";
+	case GL_EQUAL: return StrLit("EQUAL");
 #endif
 	default:;
 }

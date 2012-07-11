@@ -26,13 +26,13 @@ enum class ProvokeMode : GLenum
 #include <oglplus/enums/provoke_mode.ipp>
 };
 
-inline const GLchar* EnumValueName(ProvokeMode value)
+inline StrLit EnumValueName(ProvokeMode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/provoke_mode.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 } // namespace oglplus

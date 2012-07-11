@@ -12,13 +12,13 @@
 switch(GLenum(value))
 {
 #if defined GL_QUADS
-	case GL_QUADS: return "QUADS";
+	case GL_QUADS: return StrLit("QUADS");
 #endif
 #if defined GL_TRIANGLES
-	case GL_TRIANGLES: return "TRIANGLES";
+	case GL_TRIANGLES: return StrLit("TRIANGLES");
 #endif
 #if defined GL_ISOLINES
-	case GL_ISOLINES: return "ISOLINES";
+	case GL_ISOLINES: return StrLit("ISOLINES");
 #endif
 	default:;
 }

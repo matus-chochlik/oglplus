@@ -54,7 +54,7 @@ public:
 	 , gs(ObjectDesc("Geometry"))
 	 , fs(ObjectDesc("Fragment"))
 	{
-		vs.Source(
+		vs.Source(StrLit(
 			"#version 330\n"
 
 			"const vec3 LightPosition = vec3(10.0, 10.0, 7.0);"
@@ -83,10 +83,10 @@ public:
 			"		CameraMatrix *"
 			"		gl_Position;"
 			"}"
-		);
+		));
 		vs.Compile();
 
-		gs.Source(
+		gs.Source(StrLit(
 			"#version 330\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
@@ -150,10 +150,10 @@ public:
 			"	}"
 			"	EndPrimitive();"
 			"}"
-		);
+		));
 		gs.Compile();
 
-		fs.Source(
+		fs.Source(StrLit(
 			"#version 330\n"
 
 			"uniform float EdgeWidth;"
@@ -181,7 +181,7 @@ public:
 
 			"	fragColor = mix(FaceColor, EdgeColor, EdgeAlpha);"
 			"}"
-		);
+		));
 		fs.Compile();
 
 		prog.AttachShader(vs);

@@ -486,14 +486,22 @@ public:
 
 	Specialized(typename Initializer::ParameterType parameter)
 	 : Object<ObjectOps>(TypeOrTarget)
-	 , Initializer(_object(), TypeOrTarget, parameter)
+	 , Initializer(
+		_object(),
+		TypeOrTarget,
+		static_cast<typename Initializer::ParameterType>(parameter)
+	)
 	{ }
 
 	Specialized(
 		ObjectDesc&& description,
 		typename Initializer::ParameterType parameter
 	): Object<ObjectOps>(TypeOrTarget, std::move(description))
-	 , Initializer(_object(), TypeOrTarget, parameter)
+	 , Initializer(
+		_object(),
+		TypeOrTarget,
+		static_cast<typename Initializer::ParameterType>(parameter)
+	)
 	{ }
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS

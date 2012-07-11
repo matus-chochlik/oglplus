@@ -1,0 +1,115 @@
+/**
+ *  @file oglplus/glsl_source.hpp
+ *  @brief Helper class storing source code in GLSL
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#ifndef OGLPLUS_GLSL_SOURCE_1207111232_HPP
+#define OGLPLUS_GLSL_SOURCE_1207111232_HPP
+
+#include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
+#include <oglplus/string.hpp>
+#include <oglplus/auxiliary/glsl_source.hpp>
+
+#include <cassert>
+
+namespace oglplus {
+
+/// Class storing source code in GLSL
+class GLSLSource
+{
+private:
+	aux::GLSLSourceWrapper* _impl;
+
+	template <typename Impl, typename ... P>
+	static aux::GLSLSourceWrapper* make_impl(P&& ... p)
+	{
+		return new Impl(std::forward<P>(p)...);
+	}
+public:
+	~GLSLSource(void)
+	{
+		assert(_impl);
+		delete _impl;
+	}
+
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	GLSLSource(const GLSLSource&) = delete;
+	GLSLSource(GLSLSource&&) = delete;
+#else
+private:
+	GLSLSource(const GLSLSource&);
+	GLSLSource(GLSLSource&&);
+public:
+#endif
+
+	GLSLSource(const StrLit& source)
+	 : _impl(make_impl<aux::LitGLSLSrcWrap>(source))
+	{ }
+
+	GLSLSource(const std::vector<StrLit>& lits)
+	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+		std::begin(lits),
+		std::end(lits)
+	))
+	{ }
+
+	template <size_t N>
+	GLSLSource(const StrLit (&lits)[N])
+	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+		std::begin(lits),
+		std::end(lits)
+	))
+	{ }
+
+#if !OGLPLUS_NO_INITIALIZER_LISTS
+	GLSLSource(std::initializer_list<StrLit> lits)
+	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
+		std::begin(lits),
+		std::end(lits)
+	))
+	{ }
+#endif
+
+	GLSLSource(const String& source)
+	 : _impl(make_impl<aux::StrGLSLSrcWrap>(source))
+	{ }
+
+	GLSLSource(String&& source)
+	 : _impl(make_impl<aux::StrGLSLSrcWrap>(std::move(source)))
+	{ }
+
+	/// Count of buffers storing the individual parts of the source
+	GLsizei Count(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_impl);
+		return _impl->Count();
+	}
+
+	/// Pointers to the individual parts of the source
+	const GLchar** Parts(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_impl);
+		return _impl->Parts();
+	}
+
+	/// Pointer to the lengths of the individual parts of the source
+	const GLint* Lengths(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_impl);
+		return _impl->Lengths();
+	}
+};
+
+} // namespace oglplus
+
+#endif // include guard

@@ -31,8 +31,8 @@ class VolumeVertShader
 public:
 	VolumeVertShader(void)
 	 : VertexShader(
-		"Volume vertex shader",
-		"#version 330\n"
+		ObjectDesc("Volume vertex shader"),
+		StrLit("#version 330\n"
 		"uniform sampler3D VolumeTex;"
 		"uniform float Threshold;"
 		"uniform float GridStep;"
@@ -57,7 +57,7 @@ public:
 		"		float Diff = Density - texture(VolumeTex, Coord).r;"
 		"		vertGradient += Diff * Offs;"
 		"	}"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -68,8 +68,8 @@ class VolumeGeomShader
 public:
 	VolumeGeomShader(void)
 	 : GeometryShader(
-		"Volume geometry shader",
-		"#version 330\n"
+		ObjectDesc("Volume geometry shader"),
+		StrLit("#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
@@ -198,7 +198,7 @@ public:
 		"void main(void)"
 		"{"
 		"	process_tetrahedron(0, 2, 4, 1);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -209,8 +209,8 @@ class VolumeFragShader
 public:
 	VolumeFragShader(void)
 	 : FragmentShader(
-		"Volume fragment shader",
-		"#version 330\n"
+		ObjectDesc("Volume fragment shader"),
+		StrLit("#version 330\n"
 
 		"in vec3 geomNormal, geomLightDir, geomViewDir;"
 
@@ -233,7 +233,7 @@ public:
 		"		Specular* vec3(1.0, 1.0, 1.0),"
 		"		1.0"
 		"	);"
-		"}"
+		"}")
 	)
 	{ }
 };

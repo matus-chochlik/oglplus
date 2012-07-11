@@ -53,7 +53,7 @@ public:
 	 , torus_indices(make_torus.Indices())
 	{
 		// Set the vertex shader source
-		vs.Source(
+		vs.Source(StrLit(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 			"uniform vec4 ClipPlane;"
@@ -72,12 +72,12 @@ public:
 			"		CameraMatrix *"
 			"		gl_Position;"
 			"}"
-		);
+		));
 		// compile it
 		vs.Compile();
 
 		// set the fragment shader source
-		fs.Source(
+		fs.Source(StrLit(
 			"#version 330\n"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
@@ -91,7 +91,7 @@ public:
 			"		fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
 			"	else fragColor = vec4(0+i/2, 0+i/2, 0+i/2, 1.0);"
 			"}"
-		);
+		));
 		// compile it
 		fs.Compile();
 

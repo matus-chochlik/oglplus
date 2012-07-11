@@ -12,13 +12,13 @@
 switch(GLenum(value))
 {
 #if defined GL_READ_ONLY
-	case GL_READ_ONLY: return "READ_ONLY";
+	case GL_READ_ONLY: return StrLit("READ_ONLY");
 #endif
 #if defined GL_WRITE_ONLY
-	case GL_WRITE_ONLY: return "WRITE_ONLY";
+	case GL_WRITE_ONLY: return StrLit("WRITE_ONLY");
 #endif
 #if defined GL_READ_WRITE
-	case GL_READ_WRITE: return "READ_WRITE";
+	case GL_READ_WRITE: return StrLit("READ_WRITE");
 #endif
 	default:;
 }

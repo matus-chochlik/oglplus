@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_NONE
-	case GL_NONE: return "NONE";
+	case GL_NONE: return StrLit("NONE");
 #endif
 #if defined GL_COMPARE_REF_TO_TEXTURE
-	case GL_COMPARE_REF_TO_TEXTURE: return "COMPARE_REF_TO_TEXTURE";
+	case GL_COMPARE_REF_TO_TEXTURE: return StrLit("COMPARE_REF_TO_TEXTURE");
 #endif
 	default:;
 }

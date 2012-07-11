@@ -12,31 +12,31 @@
 switch(GLenum(value))
 {
 #if defined GL_NONE
-	case GL_NONE: return "NONE";
+	case GL_NONE: return StrLit("NONE");
 #endif
 #if defined GL_TRANSLATE_X_NV
-	case GL_TRANSLATE_X_NV: return "TRANSLATE_X_NV";
+	case GL_TRANSLATE_X_NV: return StrLit("TRANSLATE_X_NV");
 #endif
 #if defined GL_TRANSLATE_Y_NV
-	case GL_TRANSLATE_Y_NV: return "TRANSLATE_Y_NV";
+	case GL_TRANSLATE_Y_NV: return StrLit("TRANSLATE_Y_NV");
 #endif
 #if defined GL_TRANSLATE_2D_NV
-	case GL_TRANSLATE_2D_NV: return "TRANSLATE_2D_NV";
+	case GL_TRANSLATE_2D_NV: return StrLit("TRANSLATE_2D_NV");
 #endif
 #if defined GL_TRANSLATE_3D_NV
-	case GL_TRANSLATE_3D_NV: return "TRANSLATE_3D_NV";
+	case GL_TRANSLATE_3D_NV: return StrLit("TRANSLATE_3D_NV");
 #endif
 #if defined GL_AFFINE_2D_NV
-	case GL_AFFINE_2D_NV: return "AFFINE_2D_NV";
+	case GL_AFFINE_2D_NV: return StrLit("AFFINE_2D_NV");
 #endif
 #if defined GL_AFFINE_3D_NV
-	case GL_AFFINE_3D_NV: return "AFFINE_3D_NV";
+	case GL_AFFINE_3D_NV: return StrLit("AFFINE_3D_NV");
 #endif
 #if defined GL_TRANSPOSE_AFFINE_2D_NV
-	case GL_TRANSPOSE_AFFINE_2D_NV: return "TRANSPOSE_AFFINE_2D_NV";
+	case GL_TRANSPOSE_AFFINE_2D_NV: return StrLit("TRANSPOSE_AFFINE_2D_NV");
 #endif
 #if defined GL_TRANSPOSE_AFFINE_3D_NV
-	case GL_TRANSPOSE_AFFINE_3D_NV: return "TRANSPOSE_AFFINE_3D_NV";
+	case GL_TRANSPOSE_AFFINE_3D_NV: return StrLit("TRANSPOSE_AFFINE_3D_NV");
 #endif
 	default:;
 }

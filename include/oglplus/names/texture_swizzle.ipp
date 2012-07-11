@@ -12,22 +12,22 @@
 switch(GLenum(value))
 {
 #if defined GL_RED
-	case GL_RED: return "RED";
+	case GL_RED: return StrLit("RED");
 #endif
 #if defined GL_GREEN
-	case GL_GREEN: return "GREEN";
+	case GL_GREEN: return StrLit("GREEN");
 #endif
 #if defined GL_BLUE
-	case GL_BLUE: return "BLUE";
+	case GL_BLUE: return StrLit("BLUE");
 #endif
 #if defined GL_ALPHA
-	case GL_ALPHA: return "ALPHA";
+	case GL_ALPHA: return StrLit("ALPHA");
 #endif
 #if defined GL_ZERO
-	case GL_ZERO: return "ZERO";
+	case GL_ZERO: return StrLit("ZERO");
 #endif
 #if defined GL_ONE
-	case GL_ONE: return "ONE";
+	case GL_ONE: return StrLit("ONE");
 #endif
 	default:;
 }

@@ -12,61 +12,61 @@
 switch(GLenum(value))
 {
 #if defined GL_ZERO
-	case GL_ZERO: return "ZERO";
+	case GL_ZERO: return StrLit("ZERO");
 #endif
 #if defined GL_ONE
-	case GL_ONE: return "ONE";
+	case GL_ONE: return StrLit("ONE");
 #endif
 #if defined GL_SRC_COLOR
-	case GL_SRC_COLOR: return "SRC_COLOR";
+	case GL_SRC_COLOR: return StrLit("SRC_COLOR");
 #endif
 #if defined GL_ONE_MINUS_SRC_COLOR
-	case GL_ONE_MINUS_SRC_COLOR: return "ONE_MINUS_SRC_COLOR";
+	case GL_ONE_MINUS_SRC_COLOR: return StrLit("ONE_MINUS_SRC_COLOR");
 #endif
 #if defined GL_DST_COLOR
-	case GL_DST_COLOR: return "DST_COLOR";
+	case GL_DST_COLOR: return StrLit("DST_COLOR");
 #endif
 #if defined GL_ONE_MINUS_DST_COLOR
-	case GL_ONE_MINUS_DST_COLOR: return "ONE_MINUS_DST_COLOR";
+	case GL_ONE_MINUS_DST_COLOR: return StrLit("ONE_MINUS_DST_COLOR");
 #endif
 #if defined GL_SRC_ALPHA
-	case GL_SRC_ALPHA: return "SRC_ALPHA";
+	case GL_SRC_ALPHA: return StrLit("SRC_ALPHA");
 #endif
 #if defined GL_ONE_MINUS_SRC_ALPHA
-	case GL_ONE_MINUS_SRC_ALPHA: return "ONE_MINUS_SRC_ALPHA";
+	case GL_ONE_MINUS_SRC_ALPHA: return StrLit("ONE_MINUS_SRC_ALPHA");
 #endif
 #if defined GL_DST_ALPHA
-	case GL_DST_ALPHA: return "DST_ALPHA";
+	case GL_DST_ALPHA: return StrLit("DST_ALPHA");
 #endif
 #if defined GL_ONE_MINUS_DST_ALPHA
-	case GL_ONE_MINUS_DST_ALPHA: return "ONE_MINUS_DST_ALPHA";
+	case GL_ONE_MINUS_DST_ALPHA: return StrLit("ONE_MINUS_DST_ALPHA");
 #endif
 #if defined GL_CONSTANT_COLOR
-	case GL_CONSTANT_COLOR: return "CONSTANT_COLOR";
+	case GL_CONSTANT_COLOR: return StrLit("CONSTANT_COLOR");
 #endif
 #if defined GL_ONE_MINUS_CONSTANT_COLOR
-	case GL_ONE_MINUS_CONSTANT_COLOR: return "ONE_MINUS_CONSTANT_COLOR";
+	case GL_ONE_MINUS_CONSTANT_COLOR: return StrLit("ONE_MINUS_CONSTANT_COLOR");
 #endif
 #if defined GL_CONSTANT_ALPHA
-	case GL_CONSTANT_ALPHA: return "CONSTANT_ALPHA";
+	case GL_CONSTANT_ALPHA: return StrLit("CONSTANT_ALPHA");
 #endif
 #if defined GL_ONE_MINUS_CONSTANT_ALPHA
-	case GL_ONE_MINUS_CONSTANT_ALPHA: return "ONE_MINUS_CONSTANT_ALPHA";
+	case GL_ONE_MINUS_CONSTANT_ALPHA: return StrLit("ONE_MINUS_CONSTANT_ALPHA");
 #endif
 #if defined GL_SRC_ALPHA_SATURATE
-	case GL_SRC_ALPHA_SATURATE: return "SRC_ALPHA_SATURATE";
+	case GL_SRC_ALPHA_SATURATE: return StrLit("SRC_ALPHA_SATURATE");
 #endif
 #if defined GL_SRC1_COLOR
-	case GL_SRC1_COLOR: return "SRC1_COLOR";
+	case GL_SRC1_COLOR: return StrLit("SRC1_COLOR");
 #endif
 #if defined GL_ONE_MINUS_SRC1_COLOR
-	case GL_ONE_MINUS_SRC1_COLOR: return "ONE_MINUS_SRC1_COLOR";
+	case GL_ONE_MINUS_SRC1_COLOR: return StrLit("ONE_MINUS_SRC1_COLOR");
 #endif
 #if defined GL_SRC1_ALPHA
-	case GL_SRC1_ALPHA: return "SRC1_ALPHA";
+	case GL_SRC1_ALPHA: return StrLit("SRC1_ALPHA");
 #endif
 #if defined GL_ONE_MINUS_SRC1_ALPHA
-	case GL_ONE_MINUS_SRC1_ALPHA: return "ONE_MINUS_SRC1_ALPHA";
+	case GL_ONE_MINUS_SRC1_ALPHA: return StrLit("ONE_MINUS_SRC1_ALPHA");
 #endif
 	default:;
 }

@@ -37,13 +37,13 @@ enum class PathNVCommand : GLubyte
 #include <oglplus/enums/ext/nv_path_command.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVCommand value)
+inline StrLit EnumValueName(PathNVCommand value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_command.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path specification string format enumeration
@@ -58,13 +58,13 @@ enum class PathNVFormat : GLenum
 #include <oglplus/enums/ext/nv_path_format.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVFormat value)
+inline StrLit EnumValueName(PathNVFormat value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_format.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path fill mode
@@ -79,13 +79,13 @@ enum class PathNVFillMode : GLenum
 #include <oglplus/enums/ext/nv_path_fill_mode.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVFillMode value)
+inline StrLit EnumValueName(PathNVFillMode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_fill_mode.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path fill covering mode
@@ -100,13 +100,13 @@ enum class PathNVFillCoverMode : GLenum
 #include <oglplus/enums/ext/nv_path_fill_cover_mode.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVFillCoverMode value)
+inline StrLit EnumValueName(PathNVFillCoverMode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_fill_cover_mode.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path stroke covering move
@@ -121,13 +121,13 @@ enum class PathNVStrokeCoverMode : GLenum
 #include <oglplus/enums/ext/nv_path_stroke_cover_mode.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVStrokeCoverMode value)
+inline StrLit EnumValueName(PathNVStrokeCoverMode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_stroke_cover_mode.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Stroke line join style enumeration
@@ -142,13 +142,13 @@ enum class PathNVJoinStyle : GLenum
 #include <oglplus/enums/ext/nv_path_join_style.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVJoinStyle value)
+inline StrLit EnumValueName(PathNVJoinStyle value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_join_style.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path cap mode enumeration
@@ -163,13 +163,13 @@ enum class PathNVCapStyle : GLenum
 #include <oglplus/enums/ext/nv_path_cap_style.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVCapStyle value)
+inline StrLit EnumValueName(PathNVCapStyle value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_cap_style.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path dash offset reset mode enumeration
@@ -184,13 +184,13 @@ enum class PathNVDashOffsetReset : GLenum
 #include <oglplus/enums/ext/nv_path_dash_offset_reset.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVDashOffsetReset value)
+inline StrLit EnumValueName(PathNVDashOffsetReset value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_dash_offset_reset.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path color mode enumeration
@@ -205,13 +205,13 @@ enum class PathNVColor : GLenum
 #include <oglplus/enums/ext/nv_path_color.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVColor value)
+inline StrLit EnumValueName(PathNVColor value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_color.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path color format enumeration
@@ -226,13 +226,13 @@ enum class PathNVColorFormat : GLenum
 #include <oglplus/enums/ext/nv_path_color_format.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVColorFormat value)
+inline StrLit EnumValueName(PathNVColorFormat value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_color_format.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path color and tex-coord generation mode enumeration
@@ -247,13 +247,13 @@ enum class PathNVGenMode : GLenum
 #include <oglplus/enums/ext/nv_path_gen_mode.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVGenMode value)
+inline StrLit EnumValueName(PathNVGenMode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_gen_mode.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path transform type enumeration
@@ -268,13 +268,13 @@ enum class PathNVTransformType : GLenum
 #include <oglplus/enums/ext/nv_path_transform_type.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVTransformType value)
+inline StrLit EnumValueName(PathNVTransformType value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_transform_type.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path font target enumeration
@@ -289,13 +289,13 @@ enum class PathNVFontTarget : GLenum
 #include <oglplus/enums/ext/nv_path_font_target.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVFontTarget value)
+inline StrLit EnumValueName(PathNVFontTarget value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_font_target.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path missing glyph action mode enumeration
@@ -310,13 +310,13 @@ enum class PathNVMissingGlyph : GLenum
 #include <oglplus/enums/ext/nv_path_missing_glyph.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVMissingGlyph value)
+inline StrLit EnumValueName(PathNVMissingGlyph value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_missing_glyph.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path list mode enumeration
@@ -331,13 +331,13 @@ enum class PathNVListMode : GLenum
 #include <oglplus/enums/ext/nv_path_list_mode.ipp>
 };
 
-inline const GLchar* EnumValueName(PathNVListMode value)
+inline StrLit EnumValueName(PathNVListMode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_list_mode.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path font style bits enumeration
@@ -354,13 +354,13 @@ enum class PathNVFontStyle: GLenum
 
 OGLPLUS_MAKE_BITFIELD(PathNVFontStyle)
 
-inline const GLchar* EnumValueName(PathNVFontStyle value)
+inline StrLit EnumValueName(PathNVFontStyle value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_font_style.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Path metric query bits enumeration
@@ -377,13 +377,13 @@ enum class PathNVMetricQuery: GLenum
 
 OGLPLUS_MAKE_BITFIELD(PathNVMetricQuery)
 
-inline const GLchar* EnumValueName(PathNVMetricQuery value)
+inline StrLit EnumValueName(PathNVMetricQuery value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_metric_query.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Wrapper for NV_path_rendering-related operations

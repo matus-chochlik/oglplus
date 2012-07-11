@@ -36,13 +36,13 @@ enum class PerfMonitorAMDType : GLenum
 #include <oglplus/enums/ext/amd_perf_monitor_type.ipp>
 };
 
-inline const GLchar* EnumValueName(PerfMonitorAMDType value)
+inline StrLit EnumValueName(PerfMonitorAMDType value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/amd_perf_monitor_type.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 class PerfMonitorAMDGroup;

@@ -299,13 +299,13 @@ public:
 	}
 };
 
-inline const GLchar* EnumValueName(QueryOps::Target value)
+inline StrLit EnumValueName(QueryOps::Target value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/query_target.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 #if OGLPLUS_DOCUMENTATION_ONLY

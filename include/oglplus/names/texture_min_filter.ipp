@@ -12,22 +12,22 @@
 switch(GLenum(value))
 {
 #if defined GL_NEAREST
-	case GL_NEAREST: return "NEAREST";
+	case GL_NEAREST: return StrLit("NEAREST");
 #endif
 #if defined GL_LINEAR
-	case GL_LINEAR: return "LINEAR";
+	case GL_LINEAR: return StrLit("LINEAR");
 #endif
 #if defined GL_NEAREST_MIPMAP_NEAREST
-	case GL_NEAREST_MIPMAP_NEAREST: return "NEAREST_MIPMAP_NEAREST";
+	case GL_NEAREST_MIPMAP_NEAREST: return StrLit("NEAREST_MIPMAP_NEAREST");
 #endif
 #if defined GL_NEAREST_MIPMAP_LINEAR
-	case GL_NEAREST_MIPMAP_LINEAR: return "NEAREST_MIPMAP_LINEAR";
+	case GL_NEAREST_MIPMAP_LINEAR: return StrLit("NEAREST_MIPMAP_LINEAR");
 #endif
 #if defined GL_LINEAR_MIPMAP_NEAREST
-	case GL_LINEAR_MIPMAP_NEAREST: return "LINEAR_MIPMAP_NEAREST";
+	case GL_LINEAR_MIPMAP_NEAREST: return StrLit("LINEAR_MIPMAP_NEAREST");
 #endif
 #if defined GL_LINEAR_MIPMAP_LINEAR
-	case GL_LINEAR_MIPMAP_LINEAR: return "LINEAR_MIPMAP_LINEAR";
+	case GL_LINEAR_MIPMAP_LINEAR: return StrLit("LINEAR_MIPMAP_LINEAR");
 #endif
 	default:;
 }

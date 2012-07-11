@@ -39,7 +39,7 @@ public:
 	 , fs(ShaderType::Fragment)
 	{
 		// Set the vertex shader source
-		vs.Source(" \
+		vs.Source(StrLit(" \
 			#version 330\n \
 			in vec2 Position; \
 			in vec3 Color; \
@@ -49,12 +49,12 @@ public:
 				vertColor = Color; \
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
-		");
+		"));
 		// compile it
 		vs.Compile();
 
 		// set the fragment shader source
-		fs.Source(" \
+		fs.Source(StrLit(" \
 			#version 330\n \
 			in vec3 vertColor; \
 			out vec4 fragColor; \
@@ -62,7 +62,7 @@ public:
 			{ \
 				fragColor = vec4(vertColor, 1.0); \
 			} \
-		");
+		"));
 		// compile it
 		fs.Compile();
 

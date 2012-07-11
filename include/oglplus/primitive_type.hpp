@@ -28,13 +28,13 @@ enum class PrimitiveType : GLenum
 #include <oglplus/enums/primitive_type.ipp>
 };
 
-inline const GLchar* EnumValueName(PrimitiveType value)
+inline StrLit EnumValueName(PrimitiveType value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/primitive_type.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Tesselation generation stage primitive type
@@ -46,13 +46,13 @@ enum class TessGenPrimitiveType : GLenum
 #include <oglplus/enums/tess_gen_primitive_type.ipp>
 };
 
-inline const GLchar* EnumValueName(TessGenPrimitiveType value)
+inline StrLit EnumValueName(TessGenPrimitiveType value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/tess_gen_primitive_type.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Tesselation primitive spacing
@@ -64,13 +64,13 @@ enum class TessGenPrimitiveSpacing : GLenum
 #include <oglplus/enums/tess_gen_primitive_spacing.ipp>
 };
 
-inline const GLchar* EnumValueName(TessGenPrimitiveSpacing value)
+inline StrLit EnumValueName(TessGenPrimitiveSpacing value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/tess_gen_primitive_spacing.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 } // namespace oglplus

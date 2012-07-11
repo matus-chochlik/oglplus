@@ -23,8 +23,8 @@ class PointVertShader
 public:
 	PointVertShader(void)
 	 : VertexShader(
-		"Vertex shader",
-		"#version 330\n"
+		ObjectDesc("Vertex shader"),
+		StrLit("#version 330\n"
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 		"uniform vec3 Color1, Color2;"
 		"uniform float Status;"
@@ -51,7 +51,7 @@ public:
 		"		(0.2 + Radiance2) * Color2,"
 		"		Status"
 		"	);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -62,8 +62,8 @@ class PointFragShader
 public:
 	PointFragShader(void)
 	 : FragmentShader(
-		"Fragment shader",
-		"#version 330\n"
+		ObjectDesc("Fragment shader"),
+		StrLit("#version 330\n"
 
 		"in vec3 vertColor;"
 		"out vec3 fragColor;"
@@ -71,7 +71,7 @@ public:
 		"void main(void)"
 		"{"
 		"	fragColor = vertColor;"
-		"}"
+		"}")
 	)
 	{ }
 };

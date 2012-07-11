@@ -26,13 +26,13 @@ enum class StringQuery : GLenum
 #include <oglplus/enums/string_query.ipp>
 };
 
-inline const GLchar* EnumValueName(StringQuery value)
+inline StrLit EnumValueName(StringQuery value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/string_query.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 } // namespace oglplus

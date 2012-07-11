@@ -31,8 +31,8 @@ class CommonVertShader
 public:
 	CommonVertShader(void)
 	 : VertexShader(
-		"Common vertex shader",
-		"#version 330\n"
+		ObjectDesc("Common vertex shader"),
+		StrLit("#version 330\n"
 		"uniform mat4 CameraMatrix, ModelMatrix;"
 		"uniform mat4 LightProjMatrix;"
 		"uniform mat2 TextureMatrix;"
@@ -61,7 +61,7 @@ public:
 		"	vertTexCoord = TextureMatrix * TexCoord;"
 		"	vertLightTexCoord = LightProjMatrix* gl_Position;"
 		"	gl_Position = CameraMatrix * gl_Position;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -93,15 +93,15 @@ class ShadowFragShader
 public:
 	ShadowFragShader(void)
 	 : FragmentShader(
-		"Shadow fragment shader",
-		"#version 330\n"
+		ObjectDesc("Shadow fragment shader"),
+		StrLit("#version 330\n"
 		"in float vertNoise;"
 		"in vec3 vertNormal;"
 		"in vec3 vertLightDir, vertViewDir;"
 		"in vec2 vertTexCoord;"
 		"in vec4 vertLightTexCoord;"
 
-		"void main(void){ }"
+		"void main(void){ }")
 	)
 	{ }
 };
@@ -121,8 +121,8 @@ class LineGeomShader
 public:
 	LineGeomShader(void)
 	 : GeometryShader(
-		"Line geometry shader",
-		"#version 330\n"
+		ObjectDesc("Line geometry shader"),
+		StrLit("#version 330\n"
 		"layout(lines) in;"
 		"layout(line_strip, max_vertices=4) out;"
 
@@ -170,7 +170,7 @@ public:
 		"	EmitVertex();"
 
 		"	EndPrimitive();"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -181,8 +181,8 @@ class LineFragShader
 public:
 	LineFragShader(void)
 	 : FragmentShader(
-		"Line fragment shader",
-		"#version 330\n"
+		ObjectDesc("Line fragment shader"),
+		StrLit("#version 330\n"
 		"in float geomOpacity;"
 
 		"out vec4 fragColor;"
@@ -190,7 +190,7 @@ public:
 		"void main(void)"
 		"{"
 		"	fragColor = vec4(0.0, 0.0, 0.0, 0.1+0.4*geomOpacity);"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -210,8 +210,8 @@ class SketchFragShader
 public:
 	SketchFragShader(void)
 	 : FragmentShader(
-		"Sketch fragment shader",
-		"#version 330\n"
+		ObjectDesc("Sketch fragment shader"),
+		StrLit("#version 330\n"
 		"uniform sampler3D SketchTex;"
 		"uniform sampler2DShadow ShadowTex;"
 
@@ -276,7 +276,7 @@ public:
 		"	vec3 Sample = texture(SketchTex, vec3(vertTexCoord, Shadow)).rgb;"
 
 		"	fragColor = vec4(0.0, 0.0, 0.0, pow(Sample.b*(0.5 + Shadow*0.5), 0.5));"
-		"}"
+		"}")
 	)
 	{ }
 };

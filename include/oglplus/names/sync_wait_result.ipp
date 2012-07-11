@@ -12,16 +12,16 @@
 switch(GLenum(value))
 {
 #if defined GL_CONDITION_SATISFIED
-	case GL_CONDITION_SATISFIED: return "CONDITION_SATISFIED";
+	case GL_CONDITION_SATISFIED: return StrLit("CONDITION_SATISFIED");
 #endif
 #if defined GL_ALREADY_SIGNALED
-	case GL_ALREADY_SIGNALED: return "ALREADY_SIGNALED";
+	case GL_ALREADY_SIGNALED: return StrLit("ALREADY_SIGNALED");
 #endif
 #if defined GL_TIMEOUT_EXPIRED
-	case GL_TIMEOUT_EXPIRED: return "TIMEOUT_EXPIRED";
+	case GL_TIMEOUT_EXPIRED: return StrLit("TIMEOUT_EXPIRED");
 #endif
 #if defined GL_WAIT_FAILED
-	case GL_WAIT_FAILED: return "WAIT_FAILED";
+	case GL_WAIT_FAILED: return StrLit("WAIT_FAILED");
 #endif
 	default:;
 }

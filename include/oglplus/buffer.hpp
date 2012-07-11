@@ -71,13 +71,13 @@ enum class BufferUsage : GLenum {
 #include <oglplus/enums/buffer_usage.ipp>
 };
 
-inline const GLchar* EnumValueName(BufferUsage value)
+inline StrLit EnumValueName(BufferUsage value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_usage.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 // TODO
@@ -648,22 +648,22 @@ public:
 	}
 };
 
-inline const GLchar* EnumValueName(BufferOps::Target value)
+inline StrLit EnumValueName(BufferOps::Target value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_target.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
-inline const GLchar* EnumValueName(BufferOps::IndexedTarget value)
+inline StrLit EnumValueName(BufferOps::IndexedTarget value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_indexed_target.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 #if OGLPLUS_DOCUMENTATION_ONLY

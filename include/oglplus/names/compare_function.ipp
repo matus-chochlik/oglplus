@@ -12,28 +12,28 @@
 switch(GLenum(value))
 {
 #if defined GL_LEQUAL
-	case GL_LEQUAL: return "LEQUAL";
+	case GL_LEQUAL: return StrLit("LEQUAL");
 #endif
 #if defined GL_GEQUAL
-	case GL_GEQUAL: return "GEQUAL";
+	case GL_GEQUAL: return StrLit("GEQUAL");
 #endif
 #if defined GL_LESS
-	case GL_LESS: return "LESS";
+	case GL_LESS: return StrLit("LESS");
 #endif
 #if defined GL_GREATER
-	case GL_GREATER: return "GREATER";
+	case GL_GREATER: return StrLit("GREATER");
 #endif
 #if defined GL_EQUAL
-	case GL_EQUAL: return "EQUAL";
+	case GL_EQUAL: return StrLit("EQUAL");
 #endif
 #if defined GL_NOTEQUAL
-	case GL_NOTEQUAL: return "NOTEQUAL";
+	case GL_NOTEQUAL: return StrLit("NOTEQUAL");
 #endif
 #if defined GL_ALWAYS
-	case GL_ALWAYS: return "ALWAYS";
+	case GL_ALWAYS: return StrLit("ALWAYS");
 #endif
 #if defined GL_NEVER
-	case GL_NEVER: return "NEVER";
+	case GL_NEVER: return StrLit("NEVER");
 #endif
 	default:;
 }

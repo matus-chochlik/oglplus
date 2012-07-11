@@ -28,13 +28,13 @@ enum class LimitQuery : GLenum
 #include <oglplus/enums/limit_query.ipp>
 };
 
-inline const GLchar* EnumValueName(LimitQuery value)
+inline StrLit EnumValueName(LimitQuery value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/limit_query.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Alternate name for the ColorLogicOperation enumeration

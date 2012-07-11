@@ -12,7 +12,7 @@
 switch(GLenum(value))
 {
 #if defined GL_TRANSFORM_FEEDBACK
-	case GL_TRANSFORM_FEEDBACK: return "TRANSFORM_FEEDBACK";
+	case GL_TRANSFORM_FEEDBACK: return StrLit("TRANSFORM_FEEDBACK");
 #endif
 	default:;
 }

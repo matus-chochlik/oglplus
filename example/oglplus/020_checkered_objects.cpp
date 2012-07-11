@@ -29,8 +29,8 @@ protected:
 
 	CheckerShaders(void)
 	 : vertex_shader(
-		"Vertex shader",
-		"#version 330\n"
+		ObjectDesc("Vertex shader"),
+		StrLit("#version 330\n"
 		"uniform vec3 LightPosition;"
 		"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 		"in vec4 Position;"
@@ -64,10 +64,10 @@ protected:
 		"		CameraMatrix *"
 		"		gl_Position;"
 		"	vertTexCoord = TexCoord;"
-		"}"
+		"}")
 	), fragment_shader(
-		"Fragment shader",
-		"#version 330\n"
+		ObjectDesc("Fragment shader"),
+		StrLit("#version 330\n"
 		"uniform int SRepeat, TRepeat;"
 		"uniform vec3 Color1, Color2;"
 		"uniform float Refl1, Refl2;"
@@ -101,7 +101,7 @@ protected:
 		"		lt * pow(max(s, 0.0), mix(Refl1, Refl2, c)), "
 		"		1.0"
 		"	);"
-		"}"
+		"}")
 	)
 	{ }
 };

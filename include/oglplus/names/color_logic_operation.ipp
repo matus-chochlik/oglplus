@@ -12,52 +12,52 @@
 switch(GLenum(value))
 {
 #if defined GL_CLEAR
-	case GL_CLEAR: return "CLEAR";
+	case GL_CLEAR: return StrLit("CLEAR");
 #endif
 #if defined GL_AND
-	case GL_AND: return "AND";
+	case GL_AND: return StrLit("AND");
 #endif
 #if defined GL_AND_REVERSE
-	case GL_AND_REVERSE: return "AND_REVERSE";
+	case GL_AND_REVERSE: return StrLit("AND_REVERSE");
 #endif
 #if defined GL_COPY
-	case GL_COPY: return "COPY";
+	case GL_COPY: return StrLit("COPY");
 #endif
 #if defined GL_AND_INVERTED
-	case GL_AND_INVERTED: return "AND_INVERTED";
+	case GL_AND_INVERTED: return StrLit("AND_INVERTED");
 #endif
 #if defined GL_NOOP
-	case GL_NOOP: return "NOOP";
+	case GL_NOOP: return StrLit("NOOP");
 #endif
 #if defined GL_XOR
-	case GL_XOR: return "XOR";
+	case GL_XOR: return StrLit("XOR");
 #endif
 #if defined GL_OR
-	case GL_OR: return "OR";
+	case GL_OR: return StrLit("OR");
 #endif
 #if defined GL_NOR
-	case GL_NOR: return "NOR";
+	case GL_NOR: return StrLit("NOR");
 #endif
 #if defined GL_EQUIV
-	case GL_EQUIV: return "EQUIV";
+	case GL_EQUIV: return StrLit("EQUIV");
 #endif
 #if defined GL_INVERT
-	case GL_INVERT: return "INVERT";
+	case GL_INVERT: return StrLit("INVERT");
 #endif
 #if defined GL_OR_REVERSE
-	case GL_OR_REVERSE: return "OR_REVERSE";
+	case GL_OR_REVERSE: return StrLit("OR_REVERSE");
 #endif
 #if defined GL_COPY_INVERTED
-	case GL_COPY_INVERTED: return "COPY_INVERTED";
+	case GL_COPY_INVERTED: return StrLit("COPY_INVERTED");
 #endif
 #if defined GL_OR_INVERTED
-	case GL_OR_INVERTED: return "OR_INVERTED";
+	case GL_OR_INVERTED: return StrLit("OR_INVERTED");
 #endif
 #if defined GL_NAND
-	case GL_NAND: return "NAND";
+	case GL_NAND: return StrLit("NAND");
 #endif
 #if defined GL_SET
-	case GL_SET: return "SET";
+	case GL_SET: return StrLit("SET");
 #endif
 	default:;
 }

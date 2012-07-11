@@ -30,8 +30,8 @@ class ShapeVertShader
 public:
 	ShapeVertShader(void)
 	 : VertexShader(
-		"Shape vertex shader",
-		"#version 330\n"
+		ObjectDesc("Shape vertex shader"),
+		StrLit("#version 330\n"
 
 		"const int LightCount = 8;"
 
@@ -63,7 +63,7 @@ public:
 		"		ProjectionMatrix * "
 		"		CameraMatrix * "
 		"		gl_Position;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -74,8 +74,8 @@ class ShapeFragShader
 public:
 	ShapeFragShader(void)
 	 : FragmentShader(
-		"Shape fragment shader",
-		"#version 330\n"
+		ObjectDesc("Shape fragment shader"),
+		StrLit("#version 330\n"
 
 		"const int LightCount = 8;"
 
@@ -130,7 +130,7 @@ public:
 		"		Color * Ambient +"
 		"		Color * Diffuse +"
 		"		LightColor * Specular;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -165,8 +165,8 @@ class LightVertShader
 public:
 	LightVertShader(void)
 	 : VertexShader(
-		"Light vertex shader",
-		"#version 330\n"
+		ObjectDesc("Light vertex shader"),
+		StrLit("#version 330\n"
 
 		"uniform mat4 ProjectionMatrix, CameraMatrix;"
 		"in vec4 Position;"
@@ -175,7 +175,7 @@ public:
 		"{"
 		"	gl_Position = ProjectionMatrix * CameraMatrix * Position;"
 		"	gl_PointSize = 6.0;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -186,15 +186,15 @@ class LightFragShader
 public:
 	LightFragShader(void)
 	 : FragmentShader(
-		"Light fragment shader",
-		"#version 330\n"
+		ObjectDesc("Light fragment shader"),
+		StrLit("#version 330\n"
 
 		"out vec3 fragColor;"
 
 		"void main(void)"
 		"{"
 		"	fragColor = vec3(1.0, 1.0, 1.0);"
-		"}"
+		"}")
 	)
 	{ }
 
@@ -221,8 +221,8 @@ class FlareVertShader
 public:
 	FlareVertShader(void)
 	 : VertexShader(
-		"Flare vertex shader",
-		"#version 330\n"
+		ObjectDesc("Flare vertex shader"),
+		StrLit("#version 330\n"
 
 		"uniform mat4 CameraMatrix;"
 		"in vec4 Position;"
@@ -231,7 +231,7 @@ public:
 		"{"
 		"	gl_Position = CameraMatrix * Position;"
 		"	gl_PointSize = 6.0;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -242,8 +242,8 @@ class FlareGeomShader
 public:
 	FlareGeomShader(void)
 	 : GeometryShader(
-		"Flare geometry shader",
-		"#version 330\n"
+		ObjectDesc("Flare geometry shader"),
+		StrLit("#version 330\n"
 		"layout(points) in;"
 		"layout(triangle_strip, max_vertices = 60) out;"
 
@@ -278,7 +278,7 @@ public:
 		"		}"
 		"		EndPrimitive();"
 		"	}"
-		"}"
+		"}")
 	)
 	{ }
 
@@ -290,8 +290,8 @@ class FlareFragShader
 public:
 	FlareFragShader(void)
 	 : FragmentShader(
-		"Flare fragment shader",
-		"#version 330\n"
+		ObjectDesc("Flare fragment shader"),
+		StrLit("#version 330\n"
 		"uniform sampler2D FlareTex;"
 
 		"in vec2 geomTexCoord;"
@@ -301,7 +301,7 @@ public:
 		"{"
 		"	vec4 Sample = texture(FlareTex, geomTexCoord);"
 		"	fragColor = vec4(Sample.rgb, Sample.a*0.4);"
-		"}"
+		"}")
 	)
 	{ }
 

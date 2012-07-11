@@ -68,7 +68,9 @@ public:
 			HandleLimitError<LimitError>(
 				value,
 				max_limit,
-				OGLPLUS_ERROR_INFO_STR(EnumValueName(limit))
+				OGLPLUS_ERROR_INFO_STR(
+					EnumValueName(limit).c_str()
+				)
 			);
 		}
 	}

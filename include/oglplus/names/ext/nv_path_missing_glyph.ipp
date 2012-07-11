@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_SKIP_MISSING_GLYPH_NV
-	case GL_SKIP_MISSING_GLYPH_NV: return "SKIP_MISSING_GLYPH_NV";
+	case GL_SKIP_MISSING_GLYPH_NV: return StrLit("SKIP_MISSING_GLYPH_NV");
 #endif
 #if defined GL_USE_MISSING_GLYPH_NV
-	case GL_USE_MISSING_GLYPH_NV: return "USE_MISSING_GLYPH_NV";
+	case GL_USE_MISSING_GLYPH_NV: return StrLit("USE_MISSING_GLYPH_NV");
 #endif
 	default:;
 }

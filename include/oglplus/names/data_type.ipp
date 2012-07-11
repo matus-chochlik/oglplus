@@ -12,34 +12,34 @@
 switch(GLenum(value))
 {
 #if defined GL_BYTE
-	case GL_BYTE: return "BYTE";
+	case GL_BYTE: return StrLit("BYTE");
 #endif
 #if defined GL_SHORT
-	case GL_SHORT: return "SHORT";
+	case GL_SHORT: return StrLit("SHORT");
 #endif
 #if defined GL_INT
-	case GL_INT: return "INT";
+	case GL_INT: return StrLit("INT");
 #endif
 #if defined GL_FIXED
-	case GL_FIXED: return "FIXED";
+	case GL_FIXED: return StrLit("FIXED");
 #endif
 #if defined GL_FLOAT
-	case GL_FLOAT: return "FLOAT";
+	case GL_FLOAT: return StrLit("FLOAT");
 #endif
 #if defined GL_HALF_FLOAT
-	case GL_HALF_FLOAT: return "HALF_FLOAT";
+	case GL_HALF_FLOAT: return StrLit("HALF_FLOAT");
 #endif
 #if defined GL_DOUBLE
-	case GL_DOUBLE: return "DOUBLE";
+	case GL_DOUBLE: return StrLit("DOUBLE");
 #endif
 #if defined GL_UNSIGNED_BYTE
-	case GL_UNSIGNED_BYTE: return "UNSIGNED_BYTE";
+	case GL_UNSIGNED_BYTE: return StrLit("UNSIGNED_BYTE");
 #endif
 #if defined GL_UNSIGNED_SHORT
-	case GL_UNSIGNED_SHORT: return "UNSIGNED_SHORT";
+	case GL_UNSIGNED_SHORT: return StrLit("UNSIGNED_SHORT");
 #endif
 #if defined GL_UNSIGNED_INT
-	case GL_UNSIGNED_INT: return "UNSIGNED_INT";
+	case GL_UNSIGNED_INT: return StrLit("UNSIGNED_INT");
 #endif
 	default:;
 }

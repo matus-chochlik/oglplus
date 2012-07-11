@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_PATH_FORMAT_SVG_NV
-	case GL_PATH_FORMAT_SVG_NV: return "PATH_FORMAT_SVG_NV";
+	case GL_PATH_FORMAT_SVG_NV: return StrLit("PATH_FORMAT_SVG_NV");
 #endif
 #if defined GL_PATH_FORMAT_PS_NV
-	case GL_PATH_FORMAT_PS_NV: return "PATH_FORMAT_PS_NV";
+	case GL_PATH_FORMAT_PS_NV: return StrLit("PATH_FORMAT_PS_NV");
 #endif
 	default:;
 }

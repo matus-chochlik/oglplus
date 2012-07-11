@@ -29,13 +29,13 @@ enum class Face : GLenum
 #include <oglplus/enums/face.ipp>
 };
 
-inline const GLchar* EnumValueName(Face value)
+inline StrLit EnumValueName(Face value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/face.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Face orientation enumeration
@@ -50,13 +50,13 @@ enum class FaceOrientation : GLenum
 #include <oglplus/enums/face_orientation.ipp>
 };
 
-inline const GLchar* EnumValueName(FaceOrientation value)
+inline StrLit EnumValueName(FaceOrientation value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/face_orientation.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Inverts the face orientation (CW to CCW and CCW to CW)

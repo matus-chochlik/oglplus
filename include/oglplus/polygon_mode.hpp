@@ -26,13 +26,13 @@ enum class PolygonMode : GLenum
 #include <oglplus/enums/polygon_mode.ipp>
 };
 
-inline const GLchar* EnumValueName(PolygonMode value)
+inline StrLit EnumValueName(PolygonMode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/polygon_mode.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 } // namespace oglplus

@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_MOVE_TO_RESET_NV
-	case GL_MOVE_TO_RESET_NV: return "MOVE_TO_RESET_NV";
+	case GL_MOVE_TO_RESET_NV: return StrLit("MOVE_TO_RESET_NV");
 #endif
 #if defined GL_MOVE_TO_CONTINUES_NV
-	case GL_MOVE_TO_CONTINUES_NV: return "MOVE_TO_CONTINUES_NV";
+	case GL_MOVE_TO_CONTINUES_NV: return StrLit("MOVE_TO_CONTINUES_NV");
 #endif
 	default:;
 }

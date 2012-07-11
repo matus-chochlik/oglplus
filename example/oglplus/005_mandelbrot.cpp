@@ -40,7 +40,7 @@ public:
 	RectangleExample(void)
 	{
 		// Set the vertex shader source
-		vs.Source(" \
+		vs.Source(StrLit(" \
 			#version 330\n \
 			in vec2 Position; \
 			in vec2 Coord; \
@@ -50,12 +50,12 @@ public:
 				vertCoord = Coord; \
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
-		");
+		"));
 		// compile it
 		vs.Compile();
 
 		// set the fragment shader source
-		fs.Source(" \
+		fs.Source(StrLit(" \
 			#version 330\n \
 			in vec2 vertCoord; \
 			out vec4 fragColor; \
@@ -89,7 +89,7 @@ public:
 					} \
 				} \
 			} \
-		");
+		"));
 		// compile it
 		fs.Compile();
 

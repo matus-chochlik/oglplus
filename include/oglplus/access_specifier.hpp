@@ -32,13 +32,13 @@ enum class AccessSpecifier : GLenum
  */
 typedef AccessSpecifier Access;
 
-inline const GLchar* EnumValueName(AccessSpecifier value)
+inline StrLit EnumValueName(AccessSpecifier value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/access_specifier.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 } // namespace oglplus

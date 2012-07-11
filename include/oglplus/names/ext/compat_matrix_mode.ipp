@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_PROJECTION
-	case GL_PROJECTION: return "PROJECTION";
+	case GL_PROJECTION: return StrLit("PROJECTION");
 #endif
 #if defined GL_MODELVIEW
-	case GL_MODELVIEW: return "MODELVIEW";
+	case GL_MODELVIEW: return StrLit("MODELVIEW");
 #endif
 	default:;
 }

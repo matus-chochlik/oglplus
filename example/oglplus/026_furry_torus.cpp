@@ -30,8 +30,8 @@ class FurVertShader
 public:
 	FurVertShader(void)
 	 : VertexShader(
-		"Fur vertex shader",
-		"#version 330\n"
+		ObjectDesc("Fur vertex shader"),
+		StrLit("#version 330\n"
 		"uniform mat4 NewModelMatrix, OldModelMatrix;"
 		"uniform sampler2D FurTex;"
 
@@ -58,7 +58,7 @@ public:
 		"		vec4(Normal, 0.0)"
 		"	).xyz;"
 		"	vertColor = texture(FurTex, TexCoord).rgb;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -69,8 +69,8 @@ class FurGeomShader
 public:
 	FurGeomShader(void)
 	 : GeometryShader(
-		"Fur geometry shader",
-		"#version 330\n"
+		ObjectDesc("Fur geometry shader"),
+		StrLit("#version 330\n"
 		"#define PointCount 4\n"
 		"layout(points) in;"
 		"layout(line_strip, max_vertices = PointCount) out;"
@@ -113,7 +113,7 @@ public:
 		"		VertPos += vec4(geomFurDir, 0.0) * SegLen;"
 		"	}"
 		"	EndPrimitive();"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -124,8 +124,8 @@ class FurFragShader
 public:
 	FurFragShader(void)
 	 : FragmentShader(
-		"Fur fragment shader",
-		"#version 330\n"
+		ObjectDesc("Fur fragment shader"),
+		StrLit("#version 330\n"
 
 		"in vec3 geomNormal;"
 		"in vec3 geomFurDir;"
@@ -146,7 +146,7 @@ public:
 		"	fragColor = "
 		"		Ambient * Color +"
 		"		sqrt(Diffuse) * geomFurPart * Color;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -260,8 +260,8 @@ class TorusVertShader
 public:
 	TorusVertShader(void)
 	 : VertexShader(
-		"Torus vertex shader",
-		"#version 330\n"
+		ObjectDesc("Torus vertex shader"),
+		StrLit("#version 330\n"
 		"uniform mat4 CameraMatrix, ModelMatrix;"
 
 		"in vec4 Position;"
@@ -269,7 +269,7 @@ public:
 		"void main(void)"
 		"{"
 		"	gl_Position = CameraMatrix * ModelMatrix * Position;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -280,15 +280,15 @@ class TorusFragShader
 public:
 	TorusFragShader(void)
 	 : FragmentShader(
-		"Torus fragment shader",
-		"#version 330\n"
+		ObjectDesc("Torus fragment shader"),
+		StrLit("#version 330\n"
 
 		"out vec3 fragColor;"
 
 		"void main(void)"
 		"{"
 		"	fragColor = vec3(0.05, 0.05, 0.01);"
-		"}"
+		"}")
 	)
 	{ }
 };

@@ -12,7 +12,7 @@
 switch(GLenum(value))
 {
 #if defined GL_CLIP_DISTANCE0
-	case GL_CLIP_DISTANCE0: return "CLIP_DISTANCE0";
+	case GL_CLIP_DISTANCE0: return StrLit("CLIP_DISTANCE0");
 #endif
 	default:;
 }

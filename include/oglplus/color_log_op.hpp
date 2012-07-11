@@ -26,13 +26,13 @@ enum class ColorLogicOperation : GLenum
 #include <oglplus/enums/color_logic_operation.ipp>
 };
 
-inline const GLchar* EnumValueName(ColorLogicOperation value)
+inline StrLit EnumValueName(ColorLogicOperation value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/color_logic_operation.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Alternate name for the ColorLogicOperation enumeration

@@ -38,13 +38,13 @@ enum class DebugOutputSeverity : GLenum
 /// A shorter name for DebugOutputSeverity
 typedef DebugOutputSeverity DebugSeverity;
 
-inline const GLchar* EnumValueName(DebugOutputSeverity value)
+inline StrLit EnumValueName(DebugOutputSeverity value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/debug_output_severity.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 
@@ -63,13 +63,13 @@ enum class DebugOutputSource : GLenum
 /// A shorter name for DebugOutputSource
 typedef DebugOutputSource DebugSource;
 
-inline const GLchar* EnumValueName(DebugOutputSource value)
+inline StrLit EnumValueName(DebugOutputSource value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/debug_output_source.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 
@@ -88,13 +88,13 @@ enum class DebugOutputType : GLenum
 /// A shorter name for DebugOutputType
 typedef DebugOutputType DebugType;
 
-inline const GLchar* EnumValueName(DebugOutputType value)
+inline StrLit EnumValueName(DebugOutputType value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/debug_output_type.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_debug_output

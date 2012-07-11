@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_DRAW_FRAMEBUFFER
-	case GL_DRAW_FRAMEBUFFER: return "DRAW_FRAMEBUFFER";
+	case GL_DRAW_FRAMEBUFFER: return StrLit("DRAW_FRAMEBUFFER");
 #endif
 #if defined GL_READ_FRAMEBUFFER
-	case GL_READ_FRAMEBUFFER: return "READ_FRAMEBUFFER";
+	case GL_READ_FRAMEBUFFER: return StrLit("READ_FRAMEBUFFER");
 #endif
 	default:;
 }

@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_CW
-	case GL_CW: return "CW";
+	case GL_CW: return StrLit("CW");
 #endif
 #if defined GL_CCW
-	case GL_CCW: return "CCW";
+	case GL_CCW: return StrLit("CCW");
 #endif
 	default:;
 }

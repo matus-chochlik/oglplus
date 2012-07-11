@@ -99,7 +99,7 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
-	OGLPLUS_ERROR_INFO_INIT_BIND_TGT("") \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT(StrLit()) \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
 )
 
@@ -111,7 +111,7 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
-	OGLPLUS_ERROR_INFO_INIT_BIND_TGT("") \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT(StrLit()) \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
 )
 
@@ -123,7 +123,7 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME(_errinf_cls())  \
-	OGLPLUS_ERROR_INFO_INIT_BIND_TGT("") \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT(StrLit()) \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
 )
 
@@ -135,7 +135,7 @@ oglplus::ErrorInfo(\
 	OGLPLUS_ERROR_INFO_INIT_FUNC(__FUNCTION__) \
 	OGLPLUS_ERROR_INFO_INIT_LINE(__LINE__) \
 	OGLPLUS_ERROR_INFO_INIT_CLS_NAME("") \
-	OGLPLUS_ERROR_INFO_INIT_BIND_TGT("") \
+	OGLPLUS_ERROR_INFO_INIT_BIND_TGT(StrLit()) \
 	OGLPLUS_ERROR_INFO_INIT_OBJ_DECS_FUNCS(nullptr, nullptr, 0) \
 )
 
@@ -203,7 +203,7 @@ struct ErrorInfo
 #endif
 
 #if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-	const char* _bind_tgt;
+	const StrLit _bind_tgt;
 #endif
 
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
@@ -235,7 +235,7 @@ struct ErrorInfo
 #endif
 
 #if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-		, const char* bind_tgt
+		, const StrLit& bind_tgt
 #endif
 
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
@@ -432,13 +432,12 @@ inline const char* ErrorClassName(const ErrorInfo& info)
  */
 inline const char* ErrorBindTarget(const ErrorInfo& info)
 {
+	return
 #if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-	return (info._bind_tgt && *info._bind_tgt) ?
-		info._bind_tgt :
-		"UnknownTarget";
-#else
-	return "UnknownTarget";
+	(info._bind_tgt) ?
+		info._bind_tgt.c_str() :
 #endif
+		"UnknownTarget";
 }
 
 /// Returns the optional description of the object related to the error

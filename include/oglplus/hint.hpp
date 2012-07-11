@@ -26,13 +26,13 @@ enum class HintTarget : GLenum
 #include <oglplus/enums/hint_target.ipp>
 };
 
-inline const GLchar* EnumValueName(HintTarget value)
+inline StrLit EnumValueName(HintTarget value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/hint_target.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Enumeration of hint options
@@ -47,13 +47,13 @@ enum class HintOption : GLenum
 #include <oglplus/enums/hint_option.ipp>
 };
 
-inline const GLchar* EnumValueName(HintOption value)
+inline StrLit EnumValueName(HintOption value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/hint_option.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 } // namespace oglplus

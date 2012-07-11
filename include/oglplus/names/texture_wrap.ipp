@@ -12,16 +12,16 @@
 switch(GLenum(value))
 {
 #if defined GL_CLAMP_TO_EDGE
-	case GL_CLAMP_TO_EDGE: return "CLAMP_TO_EDGE";
+	case GL_CLAMP_TO_EDGE: return StrLit("CLAMP_TO_EDGE");
 #endif
 #if defined GL_REPEAT
-	case GL_REPEAT: return "REPEAT";
+	case GL_REPEAT: return StrLit("REPEAT");
 #endif
 #if defined GL_CLAMP_TO_BORDER
-	case GL_CLAMP_TO_BORDER: return "CLAMP_TO_BORDER";
+	case GL_CLAMP_TO_BORDER: return StrLit("CLAMP_TO_BORDER");
 #endif
 #if defined GL_MIRRORED_REPEAT
-	case GL_MIRRORED_REPEAT: return "MIRRORED_REPEAT";
+	case GL_MIRRORED_REPEAT: return StrLit("MIRRORED_REPEAT");
 #endif
 	default:;
 }

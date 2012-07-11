@@ -12,13 +12,13 @@
 switch(GLenum(value))
 {
 #if defined GL_ACCUM_ADJACENT_PAIRS_NV
-	case GL_ACCUM_ADJACENT_PAIRS_NV: return "ACCUM_ADJACENT_PAIRS_NV";
+	case GL_ACCUM_ADJACENT_PAIRS_NV: return StrLit("ACCUM_ADJACENT_PAIRS_NV");
 #endif
 #if defined GL_ADJACENT_PAIRS_NV
-	case GL_ADJACENT_PAIRS_NV: return "ADJACENT_PAIRS_NV";
+	case GL_ADJACENT_PAIRS_NV: return StrLit("ADJACENT_PAIRS_NV");
 #endif
 #if defined GL_FIRST_TO_REST_NV
-	case GL_FIRST_TO_REST_NV: return "FIRST_TO_REST_NV";
+	case GL_FIRST_TO_REST_NV: return StrLit("FIRST_TO_REST_NV");
 #endif
 	default:;
 }

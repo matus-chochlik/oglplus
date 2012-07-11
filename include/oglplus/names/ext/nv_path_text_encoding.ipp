@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_UTF8_NV
-	case GL_UTF8_NV: return "UTF8_NV";
+	case GL_UTF8_NV: return StrLit("UTF8_NV");
 #endif
 #if defined GL_UTF16_NV
-	case GL_UTF16_NV: return "UTF16_NV";
+	case GL_UTF16_NV: return StrLit("UTF16_NV");
 #endif
 	default:;
 }

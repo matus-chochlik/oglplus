@@ -12,10 +12,10 @@
 switch(GLenum(value))
 {
 #if defined GL_NEAREST
-	case GL_NEAREST: return "NEAREST";
+	case GL_NEAREST: return StrLit("NEAREST");
 #endif
 #if defined GL_LINEAR
-	case GL_LINEAR: return "LINEAR";
+	case GL_LINEAR: return StrLit("LINEAR");
 #endif
 	default:;
 }

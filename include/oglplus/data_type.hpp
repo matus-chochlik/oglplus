@@ -34,13 +34,13 @@ enum class DataType : GLenum
 #include <oglplus/enums/data_type.ipp>
 };
 
-inline const GLchar* EnumValueName(DataType value)
+inline StrLit EnumValueName(DataType value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/data_type.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 inline DataType GetDataType(GLbyte*)
@@ -100,13 +100,13 @@ enum class SLDataType : GLenum
 #include <oglplus/enums/sl_data_type.ipp>
 };
 
-inline const GLchar* EnumValueName(SLDataType value)
+inline StrLit EnumValueName(SLDataType value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/sl_data_type.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 } // namespace oglplus

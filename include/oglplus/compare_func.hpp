@@ -29,13 +29,13 @@ enum class CompareFunction : GLenum
 #include <oglplus/enums/compare_function.ipp>
 };
 
-inline const GLchar* EnumValueName(CompareFunction value)
+inline StrLit EnumValueName(CompareFunction value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/compare_function.ipp>
 #endif
-	return "";
+	return StrLit();
 }
 
 /// Alternate name for the CompareFunction enumeration

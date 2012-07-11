@@ -13,6 +13,7 @@
 #define OGLPLUS_FWD_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/string.hpp>
 
 namespace oglplus {
 
@@ -33,11 +34,11 @@ struct None { };
  *  @ingroup enumerations
  *  @see OGLPLUS_NO_ENUM_VALUE_NAMES
  */
-const GLchar* EnumValueName(Enum enum_value);
+StrLit EnumValueName(Enum enum_value);
 
 #else
 template <typename EnumType>
-inline const GLchar* EnumValueNameTpl(EnumType enum_value)
+inline StrLit EnumValueNameTpl(EnumType enum_value)
 {
 	return EnumValueName(enum_value);
 }

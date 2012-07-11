@@ -28,8 +28,8 @@ class VaseVertShader
 public:
 	VaseVertShader(void)
 	 : VertexShader(
-		"Vase vertex",
-		"#version 330\n"
+		ObjectDesc("Vase vertex"),
+		StrLit("#version 330\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 CameraPosition;"
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -55,7 +55,7 @@ public:
 		"		gl_Position;"
 		"	vertTexCoord = TexCoord.xy;"
 		"	vertShadow = TexCoord.z;"
-		"}"
+		"}")
 	)
 	{ }
 };
@@ -66,8 +66,8 @@ class VaseFragShader
 public:
 	VaseFragShader(void)
 	 : FragmentShader(
-		"Vase fragment",
-		"#version 330\n"
+		ObjectDesc("Vase fragment"),
+		StrLit("#version 330\n"
 		"uniform sampler2D VaseTex;"
 		"in vec3 vertNormal;"
 		"in vec3 vertLightDir;"
@@ -96,7 +96,7 @@ public:
 		"	fragColor = "
 		"		(Ambient + Diffuse)*Texel +"
 		"		Specular * LightColor;"
-		"}"
+		"}")
 	)
 	{ }
 };
