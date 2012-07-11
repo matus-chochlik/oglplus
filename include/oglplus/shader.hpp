@@ -324,7 +324,7 @@ protected:
 
 	SpecializedShaderInitializer(
 		Shader& shader,
-		typename Shader::Property::Type,
+		Shader::Property::Type,
 		const GLSLSource& source
 	)
 	{
