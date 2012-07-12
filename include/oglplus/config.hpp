@@ -191,6 +191,14 @@
 #define OGLPLUS_NO_OBJECT_DESCS 0
 #endif
 
+#ifndef OGLPLUS_LAZY_STR_LIT
+/// Compile-time switch enabling lazy implementation of StrLit
+/**
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_LAZY_STR_LIT 0
+#endif
+
 #ifndef OGLPLUS_NO_ENUM_VALUE_NAMES
 /// Compile-time switch disabling the functions returning enumerated value names
 /** Setting this preprocessor symbol to a nonzero value causes that

@@ -158,6 +158,19 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
+	void Source(const StrLit& source) const
+	{
+		assert(_name != 0);
+		const GLchar* srcs[1] = {source.c_str()};
+		GLint lens[] = {GLint(source.size())};
+		OGLPLUS_GLFUNC(ShaderSource)(_name, 1, srcs, lens);
+	}
+
+	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
 	void Source(const GLchar* source) const
 	{
 		assert(_name != 0);
