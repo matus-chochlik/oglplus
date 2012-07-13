@@ -27,11 +27,28 @@ class GLSLSource
 private:
 	aux::GLSLSourceWrapper* _impl;
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename Impl, typename ... P>
 	static aux::GLSLSourceWrapper* make_impl(P&& ... p)
 	{
 		return new Impl(std::forward<P>(p)...);
 	}
+#else
+	template <typename Impl, typename P1>
+	static aux::GLSLSourceWrapper* make_impl(P1&& p1)
+	{
+		return new Impl(std::forward<P1>(p1));
+	}
+
+	template <typename Impl, typename P1, typename P2>
+	static aux::GLSLSourceWrapper* make_impl(P1&& p1, P2&& p2)
+	{
+		return new Impl(
+			std::forward<P1>(p1),
+			std::forward<P2>(p2),
+		);
+	}
+#endif
 public:
 	~GLSLSource(void)
 	{
