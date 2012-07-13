@@ -261,7 +261,7 @@ public:
 	void MouseMoveNormalized(float x, float y, float aspect)
 	{
 		pick_prog.Use();
-		Uniform<Vec2f>(pick_prog, "MousePos").Set(x*aspect, y);
+		Uniform<Vec2f>(pick_prog, "MousePos").Set(x, y);
 	}
 
 	void Render(double time)

@@ -122,6 +122,8 @@ public:
 
 	void Reshape(int width, int height)
 	{
+		_width = width;
+		_height= height;
 		_example->Reshape(width, height);
 	}
 
