@@ -163,12 +163,23 @@
 #  define GLAPIENTRY
 #endif
 
+// -------------------- Compile-time configuration ----------------------------
 
 /** @defgroup compile_time_config Compile-time configuration
  *
  *  This section describes compile-time preprocessor symbols that
  *  can be used to configure several aspects of @OGLplus.
  */
+
+/// Compile-time option enabling the low profile mode
+/** In the low profile mode some features (like, object descriptions,
+ *  enumeration value names, some file and line info atached to exceptions,
+ *  etc.) are disabled.
+ *  @ingroup compile_time_config
+ */
+#ifndef OGLPLUS_LOW_PROFILE
+#define OGLPLUS_LOW_PROFILE 0
+#endif
 
 
 #ifndef OGLPLUS_DOCUMENTATION_ONLY
@@ -188,7 +199,7 @@
 /**
  *  @ingroup compile_time_config
  */
-#define OGLPLUS_NO_OBJECT_DESCS 0
+#define OGLPLUS_NO_OBJECT_DESCS OGLPLUS_LOW_PROFILE
 #endif
 
 #ifndef OGLPLUS_LAZY_STR_LIT
@@ -196,7 +207,7 @@
 /**
  *  @ingroup compile_time_config
  */
-#define OGLPLUS_LAZY_STR_LIT 0
+#define OGLPLUS_LAZY_STR_LIT OGLPLUS_LOW_PROFILE
 #endif
 
 #ifndef OGLPLUS_NO_ENUM_VALUE_NAMES
@@ -208,7 +219,7 @@
  *
  *  @ingroup compile_time_config
  */
-#define OGLPLUS_NO_ENUM_VALUE_NAMES 0
+#define OGLPLUS_NO_ENUM_VALUE_NAMES OGLPLUS_LOW_PROFILE
 #endif
 
 #ifndef OGLPLUS_CUSTOM_ERROR_HANDLING
@@ -240,7 +251,7 @@
  *
  *  @ingroup compile_time_config
  */
-#define OGLPLUS_ERROR_INFO_NO_FILE 0
+#define OGLPLUS_ERROR_INFO_NO_FILE OGLPLUS_LOW_PROFILE
 #endif
 
 #ifndef OGLPLUS_ERROR_INFO_NO_LINE
@@ -250,7 +261,7 @@
  *
  *  @ingroup compile_time_config
  */
-#define OGLPLUS_ERROR_INFO_NO_LINE 0
+#define OGLPLUS_ERROR_INFO_NO_LINE OGLPLUS_LOW_PROFILE
 #endif
 
 #ifndef OGLPLUS_ERROR_INFO_NO_FUNC
@@ -304,7 +315,7 @@
  *
  *  @ingroup compile_time_config
  */
-#define OGLPLUS_ERROR_INFO_NO_OBJECT_DESC 0
+#define OGLPLUS_ERROR_INFO_NO_OBJECT_DESC OGLPLUS_LOW_PROFILE
 #endif
 
 #endif // include guard
