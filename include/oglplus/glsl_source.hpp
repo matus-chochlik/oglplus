@@ -45,7 +45,7 @@ private:
 	{
 		return new Impl(
 			std::forward<P1>(p1),
-			std::forward<P2>(p2),
+			std::forward<P2>(p2)
 		);
 	}
 #endif
