@@ -159,6 +159,10 @@ visible to MSVC:
  * OGLPLUS_DEP_LIBS - list of (semicolon-separated) .lib files to be linked
    to the examples. Typically glew32.lib;freeglut_static.lib.
 
+ * OGLPLUS_PP_DEFS - list of (semicolon-separated) preprocessor symbols
+   that should be defined. Typically GLEW_STATIC;FREEGLUT_STATIC for
+   static linking of GLEW and FreeGLUT.
+
 These variables can be set either as system or user environment variables
 or the "OGLplus-site.props" property sheet file (located in the solution's
 directory) can be used. Either edit the file in a text editor or use MSVC's
