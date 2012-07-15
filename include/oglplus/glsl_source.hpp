@@ -72,24 +72,24 @@ public:
 
 	GLSLSource(const std::vector<StrLit>& lits)
 	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
-		std::begin(lits),
-		std::end(lits)
+		lits.begin(),
+		lits.end()
 	))
 	{ }
 
 	template <size_t N>
 	GLSLSource(const StrLit (&lits)[N])
 	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
-		std::begin(lits),
-		std::end(lits)
+		lits,
+		lits+N
 	))
 	{ }
 
 #if !OGLPLUS_NO_INITIALIZER_LISTS
 	GLSLSource(std::initializer_list<StrLit> lits)
 	 : _impl(make_impl<aux::LitsGLSLSrcWrap>(
-		std::begin(lits),
-		std::end(lits)
+		lits.begin(),
+		lits.end()
 	))
 	{ }
 #endif

@@ -40,7 +40,11 @@ public:
 #endif
 	{ }
 
+#if !OGLPLUS_NO_NULLPTR
 	StrLit(std::nullptr_t)
+#else
+	StrLit(int)
+#endif
 	 : _lit("")
 #if !OGLPLUS_LAZY_STR_LIT
 	 , _size(0)
