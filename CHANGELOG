@@ -1,3 +1,39 @@
+Version 0.15.0
+
+- The OGLPLUS_LOW_PROFILE preprocessor option was added
+  for disabling non-essential features of OGLplus resulting
+  in smaller executable sized, better compilation and execution
+  times.
+- The GLSLSource wrapper/loader for source code strings
+  was added.
+- The StrLit wrapper for c-string literals was added.
+- Some optimizations were made on Angle, Vector, Object,
+  Array, and some other classes.
+- The Specialized<> modifier template was added.
+- Major refactoring of internal implementation of Objects
+  (Textures, Buffers, Shaders, Programs, etc.) and related
+  classes was made.
+- Added support for Subroutine uniforms.
+- The list of Buffer's indexed target values was updated.
+- The Icosahedron shape builder was added.
+- Support for vectors and matrices from the GLM library was
+  added.
+- The Submatrix*(...) functions for exatration of a submatrix
+  were added to Matrix.
+- The GLUT/GLEW example harness was updated to print framerates
+  and polygon count statistics to the standard output.
+- Several bugs in the cmake build system and the related
+  scripts were fixed.
+- The oglplus/bound/*.hpp headers were added to the repository
+  and are not build by the build system anymore (this removed
+  dependencies on doxygen and xsltproc).
+- The OGLPLUS_PP_DEFS symbol was added to the MSVC 11 solution.
+- Several new projects were added to the MSVC 11 solution.
+- Several examples showing the new features were added and some
+  of the previously existing examples were optimized.
+- The documentation content and stylesheets were updated.
+
+
 Version 0.14.0
 
 - A wrapper for the AMD_performance_monitor extension was added.

@@ -28,7 +28,7 @@ fi
 rm -rf ./_prebuilt ./_build
 
 ./configure.sh --from-scratch --no-examples --no-docs --quiet
-(cd ./_build && make auto_generated_headers oglplus_textures -j 4)
+(cd ./_build && make oglplus_textures -j 4)
 
 #
 # move built files to the pre-built directory
@@ -41,7 +41,6 @@ function move_files()
 	mv ${build_dir}/${1}/*.${2} ${prebuilt}/${1}/
 }
 #
-move_files include/oglplus/bound hpp
 move_files textures png
 #
 #
