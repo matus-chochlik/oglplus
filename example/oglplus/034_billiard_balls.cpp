@@ -38,7 +38,7 @@ class CommonVertShader
 public:
 	CommonVertShader(void)
 	 : VertexShader(
-		ObjectDesc("Common vertex shader"),
+		ObjectDesc(StrLit("Common vertex shader")),
 		StrLit("#version 330\n"
 		"uniform mat4 ModelMatrix;"
 		"uniform mat3 TextureMatrix;"
@@ -78,7 +78,7 @@ class DefaultGeomShader
 public:
 	DefaultGeomShader(void)
 	 : GeometryShader(
-		ObjectDesc("Default geometry shader"),
+		ObjectDesc(StrLit("Default geometry shader")),
 		StrLit("#version 330\n"
 		"layout(triangles) in;"
 		"layout(triangle_strip, max_vertices = 3) out;"
@@ -135,7 +135,7 @@ class CubemapGeomShader
 public:
 	CubemapGeomShader(void)
 	 : GeometryShader(
-		ObjectDesc("Cubemap geometry shader"),
+		ObjectDesc(StrLit("Cubemap geometry shader")),
 		StrLit("#version 330\n"
 		"layout(triangles) in;"
 		"layout(triangle_strip, max_vertices = 18) out;"
@@ -272,7 +272,7 @@ class ClothFragmentShader
 public:
 	ClothFragmentShader(void)
 	 : FragmentShader(
-		ObjectDesc("Cloth fragment shader"),
+		ObjectDesc(StrLit("Cloth fragment shader")),
 		StrLit("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2D ClothTex, LightMap;"
@@ -354,7 +354,7 @@ class BallFragmentShader
 public:
 	BallFragmentShader(void)
 	 : FragmentShader(
-		ObjectDesc("Ball fragment shader"),
+		ObjectDesc(StrLit("Ball fragment shader")),
 		StrLit("#version 330\n"
 		"uniform vec3 Color1, Color2;"
 		"uniform sampler2DArray NumberTex;"
@@ -442,7 +442,7 @@ class LightmapVertShader
 public:
 	LightmapVertShader(void)
 	 : VertexShader(
-		ObjectDesc("Lightmap vertex shader"),
+		ObjectDesc(StrLit("Lightmap vertex shader")),
 		StrLit("#version 330\n"
 		"uniform mat4 TransformMatrix;"
 		"in vec4 Position;"
@@ -462,7 +462,7 @@ class LightmapFragShader
 public:
 	LightmapFragShader(void)
 	 : FragmentShader(
-		ObjectDesc("Lightmap fragment shader"),
+		ObjectDesc(StrLit("Lightmap fragment shader")),
 		StrLit("#version 330\n"
 		"uniform vec3 LightPosition;"
 		"uniform vec3 BallPositions[" OGLPLUS_EXAMPLE_034BB_BALL_COUNT_TXT "];"

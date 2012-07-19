@@ -65,7 +65,7 @@ public:
 	{ }
 #endif
 
-	String&& str(void) const
+	String str(void) const
 	{
 #if !OGLPLUS_LAZY_STR_LIT
 		return std::move(String(_lit, _lit+_size));

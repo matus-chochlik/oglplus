@@ -23,7 +23,7 @@ class SurfaceVertShader
 public:
 	SurfaceVertShader(void)
 	 : VertexShader(
-		ObjectDesc("Surface vertex shader"),
+		ObjectDesc(StrLit("Surface vertex shader")),
 		StrLit("#version 330\n"
 		"uniform vec3 GridOffset;"
 		"uniform float Time;"
@@ -70,7 +70,7 @@ class SurfaceGeomShader
 public:
 	SurfaceGeomShader(void)
 	 : GeometryShader(
-		ObjectDesc("Surface geometry shader"),
+		ObjectDesc(StrLit("Surface geometry shader")),
 		StrLit("#version 330\n"
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 6) out;"
@@ -274,7 +274,7 @@ class SurfaceFragShader
 public:
 	SurfaceFragShader(void)
 	 : FragmentShader(
-		ObjectDesc("Surface fragment shader"),
+		ObjectDesc(StrLit("Surface fragment shader")),
 		StrLit("#version 330\n"
 
 		"noperspective in vec3 geomDist;"

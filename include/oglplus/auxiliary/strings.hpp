@@ -46,6 +46,12 @@ public:
 #endif
 	{ }
 
+	ObjectDesc(const StrLit& lit)
+#if !OGLPLUS_NO_OBJECT_DESCS
+	 : _str(lit.str())
+#endif
+	{ }
+
 	ObjectDesc(const String& str)
 #if !OGLPLUS_NO_OBJECT_DESCS
 	 : _str(str)
