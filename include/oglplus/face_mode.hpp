@@ -24,10 +24,9 @@ namespace oglplus {
  *  @glfunref{StencilFuncSeparate}
  *  @glfunref{StencilMaskSeparate}
  */
-enum class Face : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(Face, GLenum)
 #include <oglplus/enums/face.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(Face value)
 OGLPLUS_NOEXCEPT(true)
@@ -45,10 +44,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glfunref{FrontFace}
  */
-enum class FaceOrientation : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(FaceOrientation, GLenum)
 #include <oglplus/enums/face_orientation.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(FaceOrientation value)
 OGLPLUS_NOEXCEPT(true)

@@ -23,10 +23,9 @@ namespace oglplus {
  *  @glfunref{Disable}
  *  @glfunref{IsEnabled}
  */
-enum class Capability: GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(Capability, GLenum)
 #include <oglplus/enums/capability.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(Capability value)
 OGLPLUS_NOEXCEPT(true)
@@ -46,10 +45,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{Disable}
  *  @glfunref{IsEnabled}
  */
-enum class Functionality : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(Functionality, GLenum)
 #include <oglplus/enums/functionality.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(Functionality value)
 OGLPLUS_NOEXCEPT(true)

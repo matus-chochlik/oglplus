@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{Hint}
  */
-enum class HintTarget : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(HintTarget, GLenum)
 #include <oglplus/enums/hint_target.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(HintTarget value)
 OGLPLUS_NOEXCEPT(true)
@@ -42,10 +41,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glfunref{Hint}
  */
-enum class HintOption : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(HintOption, GLenum)
 #include <oglplus/enums/hint_option.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(HintOption value)
 OGLPLUS_NOEXCEPT(true)

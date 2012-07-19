@@ -38,9 +38,9 @@ class RenderbufferOps
 {
 public:
 	/// Renderbuffer bind targets
-	enum class Target : GLenum {
+	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
 #include <oglplus/enums/renderbuffer_target.ipp>
-	};
+	OGLPLUS_ENUM_CLASS_END
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)

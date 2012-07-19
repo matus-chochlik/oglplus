@@ -25,10 +25,9 @@ namespace oglplus {
  *  @glfunref{TexImage2D}
  *  @glfunref{TexImage3D}
  */
-enum class PixelDataType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PixelDataType, GLenum)
 #include <oglplus/enums/pixel_data_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PixelDataType value)
 OGLPLUS_NOEXCEPT(true)
@@ -48,10 +47,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{TexImage2D}
  *  @glfunref{TexImage3D}
  */
-enum class PixelDataFormat : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PixelDataFormat, GLenum)
 #include <oglplus/enums/pixel_data_format.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PixelDataFormat value)
 OGLPLUS_NOEXCEPT(true)
@@ -73,10 +71,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{RenderbufferStorage}
  *  @glfunref{RenderbufferStorageMultisample}
  */
-enum class PixelDataInternalFormat : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PixelDataInternalFormat, GLenum)
 #include <oglplus/enums/pixel_data_internal_format.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PixelDataInternalFormat value)
 OGLPLUS_NOEXCEPT(true)
@@ -94,10 +91,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glfunref{BindImageTexture}
  */
-enum class ImageUnitFormat : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(ImageUnitFormat, GLenum)
 #include <oglplus/enums/image_unit_format.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(ImageUnitFormat value)
 OGLPLUS_NOEXCEPT(true)

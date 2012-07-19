@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{GetString}
  */
-enum class StringQuery : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(StringQuery, GLenum)
 #include <oglplus/enums/string_query.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(StringQuery value)
 OGLPLUS_NOEXCEPT(true)

@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{LogicOp}
  */
-enum class ColorLogicOperation : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(ColorLogicOperation, GLenum)
 #include <oglplus/enums/color_logic_operation.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(ColorLogicOperation value)
 OGLPLUS_NOEXCEPT(true)

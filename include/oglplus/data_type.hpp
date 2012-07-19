@@ -29,10 +29,9 @@ struct TypeTag
  *  @glfunref{DrawElements}
  *  @glfunref{VertexAttribPointer}
  */
-enum class DataType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(DataType, GLenum)
 #include <oglplus/enums/data_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(DataType value)
 OGLPLUS_NOEXCEPT(true)
@@ -95,10 +94,9 @@ inline DataType GetDataType(void)
 /**
  *  @ingroup enumerations
  */
-enum class SLDataType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(SLDataType, GLenum)
 #include <oglplus/enums/sl_data_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(SLDataType value)
 OGLPLUS_NOEXCEPT(true)

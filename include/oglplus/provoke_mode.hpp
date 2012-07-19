@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{ProvokingVertex}
  */
-enum class ProvokeMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(ProvokeMode, GLenum)
 #include <oglplus/enums/provoke_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(ProvokeMode value)
 OGLPLUS_NOEXCEPT(true)

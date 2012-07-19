@@ -30,11 +30,12 @@ namespace shapes {
 struct DrawOperation
 {
 	/// Enumeration of drawing methods
-	enum class Method {
-		DrawArrays,
-		DrawElements
+	OGLPLUS_ENUM_CLASS_BEGIN(Method, GLuint)
+		OGLPLUS_ENUM_CLASS_VALUE(DrawArrays, 0)
+		OGLPLUS_ENUM_CLASS_COMMA
+		OGLPLUS_ENUM_CLASS_VALUE(DrawElements, 1)
 		// TODO
-	};
+	OGLPLUS_ENUM_CLASS_END
 
 	/// The method to be used to draw
 	Method method;
@@ -67,9 +68,9 @@ struct DrawOperation
 		{
 			switch(method)
 			{
-				case Method::DrawArrays:
+				case OGLPLUS_CONST_ENUM_VALUE(Method,DrawArrays):
 					return _DrawArrays();
-				case Method::DrawElements:
+				case OGLPLUS_CONST_ENUM_VALUE(Method,DrawElements):
 					return _DrawElements(indices);
 			}
 		}
@@ -77,9 +78,9 @@ struct DrawOperation
 		{
 			switch(method)
 			{
-				case Method::DrawArrays:
+				case OGLPLUS_CONST_ENUM_VALUE(Method,DrawArrays):
 					return _DrawArrays(inst_count);
-				case Method::DrawElements:
+				case OGLPLUS_CONST_ENUM_VALUE(Method,DrawElements):
 					return _DrawElements(
 						indices,
 						inst_count

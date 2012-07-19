@@ -30,6 +30,7 @@ function(cpp11_feature_detection FEATURE_NAME)
 	unset(OGLPLUS_HAS_${FEATURE_NAME})
 endfunction()
 
+cpp11_feature_detection(SCOPED_ENUMS)
 cpp11_feature_detection(VARIADIC_MACROS)
 cpp11_feature_detection(VARIADIC_TEMPLATES)
 cpp11_feature_detection(UNIFIED_INITIALIZATION_SYNTAX)

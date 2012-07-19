@@ -22,10 +22,9 @@ namespace oglplus {
  *  @glfunref{ReadBuffer}
  *  @glfunref{DrawBuffer}
  */
-enum class ColorBuffer : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(ColorBuffer, GLenum)
 #include <oglplus/enums/color_buffer.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(ColorBuffer value)
 OGLPLUS_NOEXCEPT(true)

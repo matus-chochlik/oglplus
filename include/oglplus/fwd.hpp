@@ -17,7 +17,7 @@
 
 namespace oglplus {
 
-struct None { };
+struct None { typedef int _value_type; };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 

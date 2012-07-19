@@ -32,10 +32,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVCommand : GLubyte
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVCommand, GLubyte)
 #include <oglplus/enums/ext/nv_path_command.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVCommand value)
 OGLPLUS_NOEXCEPT(true)
@@ -53,10 +52,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVFormat : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVFormat, GLenum)
 #include <oglplus/enums/ext/nv_path_format.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVFormat value)
 OGLPLUS_NOEXCEPT(true)
@@ -74,10 +72,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVFillMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVFillMode, GLenum)
 #include <oglplus/enums/ext/nv_path_fill_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVFillMode value)
 OGLPLUS_NOEXCEPT(true)
@@ -95,10 +92,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVFillCoverMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVFillCoverMode, GLenum)
 #include <oglplus/enums/ext/nv_path_fill_cover_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVFillCoverMode value)
 OGLPLUS_NOEXCEPT(true)
@@ -116,10 +112,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVStrokeCoverMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVStrokeCoverMode, GLenum)
 #include <oglplus/enums/ext/nv_path_stroke_cover_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVStrokeCoverMode value)
 OGLPLUS_NOEXCEPT(true)
@@ -137,10 +132,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVJoinStyle : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVJoinStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_join_style.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVJoinStyle value)
 OGLPLUS_NOEXCEPT(true)
@@ -158,10 +152,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVCapStyle : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVCapStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_cap_style.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVCapStyle value)
 OGLPLUS_NOEXCEPT(true)
@@ -179,10 +172,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVDashOffsetReset : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVDashOffsetReset, GLenum)
 #include <oglplus/enums/ext/nv_path_dash_offset_reset.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVDashOffsetReset value)
 OGLPLUS_NOEXCEPT(true)
@@ -200,10 +192,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVColor : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVColor, GLenum)
 #include <oglplus/enums/ext/nv_path_color.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVColor value)
 OGLPLUS_NOEXCEPT(true)
@@ -221,10 +212,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVColorFormat : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVColorFormat, GLenum)
 #include <oglplus/enums/ext/nv_path_color_format.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVColorFormat value)
 OGLPLUS_NOEXCEPT(true)
@@ -242,10 +232,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVGenMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVGenMode, GLenum)
 #include <oglplus/enums/ext/nv_path_gen_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVGenMode value)
 OGLPLUS_NOEXCEPT(true)
@@ -263,10 +252,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVTransformType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVTransformType, GLenum)
 #include <oglplus/enums/ext/nv_path_transform_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVTransformType value)
 OGLPLUS_NOEXCEPT(true)
@@ -284,10 +272,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVFontTarget : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVFontTarget, GLenum)
 #include <oglplus/enums/ext/nv_path_font_target.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVFontTarget value)
 OGLPLUS_NOEXCEPT(true)
@@ -305,10 +292,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVMissingGlyph : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVMissingGlyph, GLenum)
 #include <oglplus/enums/ext/nv_path_missing_glyph.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVMissingGlyph value)
 OGLPLUS_NOEXCEPT(true)
@@ -326,10 +312,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVListMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVListMode, GLenum)
 #include <oglplus/enums/ext/nv_path_list_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PathNVListMode value)
 OGLPLUS_NOEXCEPT(true)
@@ -347,10 +332,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVFontStyle: GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVFontStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_font_style.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(PathNVFontStyle)
 
@@ -370,10 +354,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-enum class PathNVMetricQuery: GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVMetricQuery, GLenum)
 #include <oglplus/enums/ext/nv_path_metric_query.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(PathNVMetricQuery)
 

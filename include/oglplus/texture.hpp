@@ -38,9 +38,9 @@ namespace oglplus {
  *  @glfunref{GetTexParameter}
  *  @gldefref{TEXTURE_COMPARE_MODE}
  */
-enum class TextureCompareMode : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(TextureCompareMode, GLenum)
 #include <oglplus/enums/texture_compare_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 
 inline StrLit EnumValueName(TextureCompareMode value)
@@ -61,9 +61,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{GetTexParameter}
  *  @gldefref{TEXTURE_MAG_FILTER}
  */
-enum class TextureMagFilter : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(TextureMagFilter, GLenum)
 #include <oglplus/enums/texture_mag_filter.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TextureMagFilter value)
 OGLPLUS_NOEXCEPT(true)
@@ -83,9 +83,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{GetTexParameter}
  *  @gldefref{TEXTURE_MIN_FILTER}
  */
-enum class TextureMinFilter : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(TextureMinFilter, GLenum)
 #include <oglplus/enums/texture_min_filter.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TextureMinFilter value)
 OGLPLUS_NOEXCEPT(true)
@@ -104,9 +104,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{TexParameter}
  *  @glfunref{GetTexParameter}
  */
-enum class TextureSwizzleCoord : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzleCoord, GLenum)
 #include <oglplus/enums/texture_swizzle_coord.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TextureSwizzleCoord value)
 OGLPLUS_NOEXCEPT(true)
@@ -128,9 +128,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @gldefref{TEXTURE_SWIZZLE_T}
  *  @gldefref{TEXTURE_SWIZZLE_R}
  */
-enum class TextureSwizzle : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzle, GLenum)
 #include <oglplus/enums/texture_swizzle.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TextureSwizzle value)
 OGLPLUS_NOEXCEPT(true)
@@ -149,9 +149,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{TexParameter}
  *  @glfunref{GetTexParameter}
  */
-enum class TextureWrapCoord : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(TextureWrapCoord, GLenum)
 #include <oglplus/enums/texture_wrap_coord.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TextureWrapCoord value)
 OGLPLUS_NOEXCEPT(true)
@@ -173,9 +173,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @gldefref{TEXTURE_WRAP_T}
  *  @gldefref{TEXTURE_WRAP_R}
  */
-enum class TextureWrap : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(TextureWrap, GLenum)
 #include <oglplus/enums/texture_wrap.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TextureWrap value)
 OGLPLUS_NOEXCEPT(true)
@@ -205,9 +205,9 @@ public:
 	 *  bind targets. Some of them are just image specification
 	 *  targets.
 	 */
-	enum class Target : GLenum {
+	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
 #include <oglplus/enums/texture_target.ipp>
-	};
+	OGLPLUS_ENUM_CLASS_END
 
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)

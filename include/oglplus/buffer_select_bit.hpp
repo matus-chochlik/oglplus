@@ -24,10 +24,9 @@ namespace oglplus {
  *  @glfunref{Clear}
  *  @glfunref{BlitFramebuffer}
  */
-enum class BufferSelectBit : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(BufferSelectBit, GLenum)
 #include <oglplus/enums/buffer_select_bit.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(BufferSelectBit)
 

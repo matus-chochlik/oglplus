@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{BlitFramebuffer}
  */
-enum class BlitFilter : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(BlitFilter, GLenum)
 #include <oglplus/enums/blit_filter.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(BlitFilter value)
 OGLPLUS_NOEXCEPT(true)

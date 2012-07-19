@@ -128,6 +128,8 @@ struct ObjectTypeOrTarget
 		typename ObjectWithType<Object>::Type,
 		typename ObjectWithTarget<Object>::Target
 	>::type Type;
+
+	typedef typename EnumValueType<Type>::Type ValueType;
 };
 
 /// Allows to make managed copies of instances of Object
@@ -457,13 +459,13 @@ protected:
 
 template <
 	class Object,
-	typename ObjectTypeOrTarget<Object>::Type TypeOrTarget,
+	typename ObjectTypeOrTarget<Object>::ValueType TypeOrTarget,
 	typename Initializer = NoOpSpecializedInitializer
 > class Specialized;
 
 template <
 	class ObjectOps,
-	typename ObjectTypeOrTarget<Object<ObjectOps>>::Type TypeOrTarget,
+	typename ObjectTypeOrTarget<Object<ObjectOps>>::ValueType TypeOrTarget,
 	typename Initializer
 >
 class Specialized<Object<ObjectOps>, TypeOrTarget, Initializer>
@@ -520,7 +522,7 @@ public:
 #if !OGLPLUS_DOCUMENTATION_ONLY && !OGLPLUS_DOXYGEN_PARSE
 template <
 	class ObjectOps,
-	typename ObjectTypeOrTarget<Object<ObjectOps>>::Type TypeOrTarget,
+	typename ObjectTypeOrTarget<Object<ObjectOps>>::ValueType TypeOrTarget,
 	typename Initializer
 >
 struct ObjectBaseOps<Specialized<Object<ObjectOps>, TypeOrTarget, Initializer>>

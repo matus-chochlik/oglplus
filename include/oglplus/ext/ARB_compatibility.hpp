@@ -28,10 +28,9 @@ namespace oglplus {
  *  @glfunref{Begin}
  *  @glextref{ARB,compatibility}
  */
-enum class CompatibilityPrimitiveType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityPrimitiveType, GLenum)
 #include <oglplus/enums/ext/compat_prim_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 /// Shorter name for CompatibilityPrimitiveType
 typedef CompatibilityPrimitiveType CompatPrimType;
@@ -53,10 +52,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{MatrixMode}
  *  @glextref{ARB,compatibility}
  */
-enum class MatrixMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(MatrixMode, GLenum)
 #include <oglplus/enums/ext/compat_matrix_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(MatrixMode value)
 OGLPLUS_NOEXCEPT(true)
@@ -76,10 +74,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{PopAttrib}
  *  @glextref{ARB,compatibility}
  */
-enum class CompatibilityAttributeGroup : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityAttributeGroup, GLenum)
 #include <oglplus/enums/ext/compat_attrib_group.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(CompatibilityAttributeGroup)
 
@@ -101,10 +98,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{PopClientAttrib}
  *  @glextref{ARB,compatibility}
  */
-enum class CompatibilityClientAttributeGroup : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityClientAttributeGroup, GLenum)
 #include <oglplus/enums/ext/compat_client_attrib_group.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
 

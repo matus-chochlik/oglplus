@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{PolygonMode}
  */
-enum class PolygonMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PolygonMode, GLenum)
 #include <oglplus/enums/polygon_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PolygonMode value)
 OGLPLUS_NOEXCEPT(true)

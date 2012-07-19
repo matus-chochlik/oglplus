@@ -32,9 +32,9 @@ namespace oglplus {
 /**
  *  @ingroup enumerations
  */
-enum class ProgramPipelineStage : GLbitfield {
+OGLPLUS_ENUM_CLASS_BEGIN(ProgramPipelineStage, GLbitfield)
 #include <oglplus/enums/program_pipeline_stage.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
 

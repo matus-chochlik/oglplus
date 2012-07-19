@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{BindImageTexture}
  */
-enum class AccessSpecifier : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(AccessSpecifier, GLenum)
 #include <oglplus/enums/access_specifier.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 /// Alternate name for AccessSpecifier
 /**

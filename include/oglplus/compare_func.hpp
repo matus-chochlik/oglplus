@@ -24,10 +24,9 @@ namespace oglplus {
  *  @glfunref{TexParameter}
  *  @glfunref{SamplerParameter}
  */
-enum class CompareFunction : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(CompareFunction value)
 OGLPLUS_NOEXCEPT(true)

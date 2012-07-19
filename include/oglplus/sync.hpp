@@ -24,9 +24,9 @@ namespace oglplus {
  *
  *  @see Sync::Condition()
  */
-enum class SyncCondition : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(SyncCondition, GLenum)
 #include <oglplus/enums/sync_condition.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(SyncCondition value)
 OGLPLUS_NOEXCEPT(true)
@@ -44,9 +44,9 @@ OGLPLUS_NOEXCEPT(true)
  *
  *  @see Sync::Type()
  */
-enum class SyncType : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(SyncType, GLenum)
 #include <oglplus/enums/sync_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(SyncType value)
 OGLPLUS_NOEXCEPT(true)
@@ -64,9 +64,9 @@ OGLPLUS_NOEXCEPT(true)
  *
  *  @see Sync::Status()
  */
-enum class SyncStatus : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(SyncStatus, GLenum)
 #include <oglplus/enums/sync_status.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(SyncStatus value)
 OGLPLUS_NOEXCEPT(true)
@@ -79,9 +79,9 @@ OGLPLUS_NOEXCEPT(true)
 
 
 /// The wait result enumeration
-enum class SyncWaitResult : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(SyncWaitResult, GLenum)
 #include <oglplus/enums/sync_wait_result.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(SyncWaitResult value)
 OGLPLUS_NOEXCEPT(true)

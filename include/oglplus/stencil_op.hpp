@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{StencilOp}
  */
-enum class StencilOperation : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(StencilOperation, GLenum)
 #include <oglplus/enums/stencil_operation.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(StencilOperation value)
 OGLPLUS_NOEXCEPT(true)

@@ -23,10 +23,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{MemoryBarrier}
  */
-enum class MemoryBarrierBit : GLbitfield
-{
+OGLPLUS_ENUM_CLASS_BEGIN(MemoryBarrierBit, GLbitfield)
 #include <oglplus/enums/memory_barrier_bit.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(MemoryBarrierBit)
 

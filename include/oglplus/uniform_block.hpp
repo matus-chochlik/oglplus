@@ -44,17 +44,17 @@ protected:
 	{
 		switch(shader_type)
 		{
-			case ShaderType::Vertex:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, Vertex):
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER;
 #if GL_VERSION_4_0 || GL_ARB_tessellation_shader
-			case ShaderType::TessControl:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, TessControl):
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER;
-			case ShaderType::TessEvaluation:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, TessEvaluation):
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER;
 #endif // tessellation shader
-			case ShaderType::Geometry:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, Geometry):
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER;
-			case ShaderType::Fragment:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, Fragment):
 			return GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER;
 		}
 		return 0;
@@ -64,17 +64,17 @@ protected:
 	{
 		switch(shader_type)
 		{
-			case ShaderType::Vertex:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, Vertex):
 			return GL_MAX_VERTEX_UNIFORM_BLOCKS;
 #if GL_VERSION_4_0 || GL_ARB_tessellation_shader
-			case ShaderType::TessControl:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, TessControl):
 			return GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS;
-			case ShaderType::TessEvaluation:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, TessEvaluation):
 			return GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS;
 #endif // tessellation shader
-			case ShaderType::Geometry:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, Geometry):
 			return GL_MAX_GEOMETRY_UNIFORM_BLOCKS;
-			case ShaderType::Fragment:
+			case OGLPLUS_CONST_ENUM_VALUE(ShaderType, Fragment):
 			return GL_MAX_FRAGMENT_UNIFORM_BLOCKS;
 		}
 		return 0;

@@ -30,10 +30,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glextref{ARB,debug_output}
  */
-enum class DebugOutputSeverity : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputSeverity, GLenum)
 #include <oglplus/enums/ext/debug_output_severity.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 /// A shorter name for DebugOutputSeverity
 typedef DebugOutputSeverity DebugSeverity;
@@ -55,10 +54,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{ARB,debug_output}
  */
-enum class DebugOutputSource : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputSource, GLenum)
 #include <oglplus/enums/ext/debug_output_source.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 /// A shorter name for DebugOutputSource
 typedef DebugOutputSource DebugSource;
@@ -80,10 +78,9 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{ARB,debug_output}
  */
-enum class DebugOutputType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputType, GLenum)
 #include <oglplus/enums/ext/debug_output_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 /// A shorter name for DebugOutputType
 typedef DebugOutputType DebugType;

@@ -26,10 +26,9 @@ namespace oglplus {
 /**
  *  @ingroup enumerations
  */
-enum class TransformFeedbackMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackMode, GLenum)
 #include <oglplus/enums/transform_feedback_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TransformFeedbackMode value)
 OGLPLUS_NOEXCEPT(true)
@@ -45,9 +44,9 @@ OGLPLUS_NOEXCEPT(true)
 /**
  *  @ingroup enumerations
  */
-enum class TransformFeedbackPrimitiveType : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackPrimitiveType, GLenum)
 #include <oglplus/enums/transform_feedback_primitive_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TransformFeedbackPrimitiveType value)
 OGLPLUS_NOEXCEPT(true)
@@ -75,9 +74,9 @@ class TransformFeedbackOps
 {
 public:
 	/// Transform feedback bind targets
-	enum class Target : GLenum {
+	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
 #include <oglplus/enums/transform_feedback_target.ipp>
-	};
+	OGLPLUS_ENUM_CLASS_END
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)

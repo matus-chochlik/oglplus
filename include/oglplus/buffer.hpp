@@ -67,9 +67,9 @@ typedef GLuint TransformFeedbackBufferBindingPoint;
 /**
  *  @ingroup enumerations
  */
-enum class BufferUsage : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(BufferUsage, GLenum)
 #include <oglplus/enums/buffer_usage.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(BufferUsage value)
 OGLPLUS_NOEXCEPT(true)
@@ -80,16 +80,23 @@ OGLPLUS_NOEXCEPT(true)
 	return StrLit();
 }
 
-// TODO
 /// Mapped buffer data access types
-enum class BufferMapAccess : GLbitfield {
+OGLPLUS_ENUM_CLASS_BEGIN(BufferMapAccess, GLbitfield)
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// MAP_READ_BIT
-	Read = GL_MAP_READ_BIT,
+	Read,
 	/// MAP_WRITE_BIT
-	Write = GL_MAP_WRITE_BIT,
+	Write,
 	/// MAP_READ_BIT | MAP_WRITE_BIT
-	ReadWrite = GL_MAP_READ_BIT | GL_MAP_WRITE_BIT
-};
+	ReadWrite
+#else
+	OGLPLUS_ENUM_CLASS_VALUE(Read, GL_MAP_READ_BIT)
+	OGLPLUS_ENUM_CLASS_COMMA
+	OGLPLUS_ENUM_CLASS_VALUE(Write, GL_MAP_WRITE_BIT)
+	OGLPLUS_ENUM_CLASS_COMMA
+	OGLPLUS_ENUM_CLASS_VALUE(ReadWrite, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT)
+#endif
+OGLPLUS_ENUM_CLASS_END
 
 
 /// Wrapper for OpenGL buffer operations
@@ -104,9 +111,9 @@ class BufferOps
 {
 public:
 	/// Buffer bind targets
-	enum class Target : GLenum {
+	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
 #include <oglplus/enums/buffer_target.ipp>
-	};
+	OGLPLUS_ENUM_CLASS_END
 
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
@@ -191,9 +198,9 @@ public:
 	};
 
 	/// Buffer indexed bind targets
-	enum class IndexedTarget : GLenum {
+	OGLPLUS_ENUM_CLASS_BEGIN(IndexedTarget, GLenum)
 #include <oglplus/enums/buffer_indexed_target.ipp>
-	};
+	OGLPLUS_ENUM_CLASS_END
 
 	/// Typed mapping of the buffer to the client address space
 	template <typename Type>
@@ -221,13 +228,18 @@ public:
 		{
 			switch(access)
 			{
-				// TODO
-				case BufferMapAccess::Read:
-					return GL_READ_ONLY;
-				case BufferMapAccess::Write:
-					return GL_WRITE_ONLY;
-				case BufferMapAccess::ReadWrite:
-					return GL_READ_WRITE;
+				case OGLPLUS_CONST_ENUM_VALUE(
+					BufferMapAccess,
+					Read
+				): return GL_READ_ONLY;
+				case OGLPLUS_CONST_ENUM_VALUE(
+					BufferMapAccess,
+					Write
+				): return GL_WRITE_ONLY;
+				case OGLPLUS_CONST_ENUM_VALUE(
+					BufferMapAccess,
+					ReadWrite
+				): return GL_READ_WRITE;
 			}
 		}
 	public:

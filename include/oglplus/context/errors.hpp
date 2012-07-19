@@ -24,10 +24,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{GetError}
  */
-enum class ErrorCode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(ErrorCode, GLenum)
 #include <oglplus/enums/error_code.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(ErrorCode value)
 OGLPLUS_NOEXCEPT(true)

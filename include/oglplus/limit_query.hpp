@@ -23,10 +23,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{LogicOp}
  */
-enum class LimitQuery : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(LimitQuery, GLenum)
 #include <oglplus/enums/limit_query.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(LimitQuery value)
 OGLPLUS_NOEXCEPT(true)

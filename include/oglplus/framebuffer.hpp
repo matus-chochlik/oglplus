@@ -41,9 +41,9 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 #endif
 
 /// Framebuffer renderbuffer attachment points
-enum class FramebufferAttachment : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(FramebufferAttachment, GLenum)
 #include <oglplus/enums/framebuffer_attachment.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(FramebufferAttachment value)
 OGLPLUS_NOEXCEPT(true)
@@ -55,9 +55,9 @@ OGLPLUS_NOEXCEPT(true)
 }
 
 /// Framebuffer status enumeration
-enum class FramebufferStatus : GLenum {
+OGLPLUS_ENUM_CLASS_BEGIN(FramebufferStatus, GLenum)
 #include <oglplus/enums/framebuffer_status.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(FramebufferStatus value)
 OGLPLUS_NOEXCEPT(true)
@@ -87,9 +87,9 @@ class FramebufferOps
 {
 public:
 	/// Framebuffer bind targets
-	enum class Target : GLenum {
+	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
 #include <oglplus/enums/framebuffer_target.ipp>
-	};
+	OGLPLUS_ENUM_CLASS_END
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
 	OGLPLUS_NOEXCEPT(true)

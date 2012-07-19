@@ -72,9 +72,9 @@ do
 
 		echo "#if defined GL_${GL_DEF}"
 		echo "# if OGLPLUS_LIST_NEEDS_COMMA"
-		echo ","
+		echo "OGLPLUS_ENUM_CLASS_COMMA"
 		echo "# endif"
-		echo "${OGLPLUS_DEF} = GL_${GL_DEF}"
+		echo "OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
 		echo "# ifndef OGLPLUS_LIST_NEEDS_COMMA"
 		echo "#  define OGLPLUS_LIST_NEEDS_COMMA 1"
 		echo "# endif"

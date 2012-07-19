@@ -30,6 +30,14 @@
 
 // ------- C++11 feature availability detection -------
 
+#ifndef OGLPLUS_NO_SCOPED_ENUMS
+#ifdef BOOST_NO_SCOPED_ENUMS
+#define OGLPLUS_NO_SCOPED_ENUMS 1
+#else
+#define OGLPLUS_NO_SCOPED_ENUMS 0
+#endif
+#endif
+
 #ifndef OGLPLUS_NO_VARIADIC_MACROS
 #ifdef BOOST_NO_VARIADIC_MACROS
 #define OGLPLUS_NO_VARIADIC_MACROS 1
@@ -317,5 +325,7 @@
  */
 #define OGLPLUS_ERROR_INFO_NO_OBJECT_DESC OGLPLUS_LOW_PROFILE
 #endif
+
+#include <oglplus/auxiliary/enum_class.hpp>
 
 #endif // include guard

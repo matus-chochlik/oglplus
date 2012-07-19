@@ -23,10 +23,9 @@ namespace oglplus {
  *  @glfunref{DrawArraysInstanced}
  *  @glfunref{DrawElements}
  */
-enum class PrimitiveType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PrimitiveType, GLenum)
 #include <oglplus/enums/primitive_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PrimitiveType value)
 OGLPLUS_NOEXCEPT(true)
@@ -41,10 +40,9 @@ OGLPLUS_NOEXCEPT(true)
 /**
  * @ingroup enumerations
  */
-enum class TessGenPrimitiveType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(TessGenPrimitiveType, GLenum)
 #include <oglplus/enums/tess_gen_primitive_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TessGenPrimitiveType value)
 OGLPLUS_NOEXCEPT(true)
@@ -59,10 +57,9 @@ OGLPLUS_NOEXCEPT(true)
 /**
  * @ingroup enumerations
  */
-enum class TessGenPrimitiveSpacing : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(TessGenPrimitiveSpacing, GLenum)
 #include <oglplus/enums/tess_gen_primitive_spacing.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(TessGenPrimitiveSpacing value)
 OGLPLUS_NOEXCEPT(true)

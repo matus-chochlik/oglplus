@@ -21,10 +21,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glfunref{BlendFunc}
  */
-enum class BlendFunction : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(BlendFunction, GLenum)
 #include <oglplus/enums/blend_function.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(BlendFunction value)
 OGLPLUS_NOEXCEPT(true)
@@ -45,10 +44,9 @@ typedef BlendFunction BlendFn;
  *  @glsymbols
  *  @glfunref{BlendEquation}
  */
-enum class BlendEquation : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(BlendEquation, GLenum)
 #include <oglplus/enums/blend_equation.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(BlendEquation value)
 OGLPLUS_NOEXCEPT(true)

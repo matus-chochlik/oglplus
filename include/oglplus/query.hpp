@@ -69,9 +69,9 @@ protected:
 	}
 public:
 	/// Query bint target
-	enum class Target : GLenum {
+	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
 #include <oglplus/enums/query_target.ipp>
-	};
+	OGLPLUS_ENUM_CLASS_END
 
 	/// Begin the query on the specified @p target
 	/**

@@ -22,10 +22,9 @@ namespace oglplus {
  *  @glfunref{PixelStore}
  *  @glfunref{ReadPixels}
  */
-enum class PixelStorageMode : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PixelStorageMode, GLenum)
 #include <oglplus/enums/pixel_storage_mode.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PixelStorageMode value)
 OGLPLUS_NOEXCEPT(true)

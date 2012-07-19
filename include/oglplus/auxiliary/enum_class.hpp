@@ -1,0 +1,77 @@
+/**
+ *  @file oglplus/auxiliary/enum_class.hpp
+ *  @brief Helper macros for declaring enumerations
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#ifndef OGLPLUS_AUX_ENUM_CLASS_1207191556_HPP
+#define OGLPLUS_AUX_ENUM_CLASS_1207191556_HPP
+
+// if we have native strongly typed enums
+#if !OGLPLUS_NO_SCOPED_ENUMS
+
+#define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
+enum class NAME : TYPE {
+
+#define OGLPLUS_ENUM_CLASS_VALUE(ITEM, VALUE) \
+	ITEM = VALUE
+
+#define OGLPLUS_CONST_ENUM_VALUE(ENUM, ITEM) \
+	ENUM::ITEM
+
+#define OGLPLUS_ENUM_CLASS_COMMA ,
+
+#define OGLPLUS_ENUM_CLASS_END };
+
+namespace oglplus {
+
+template <typename Enum>
+struct EnumValueType
+{
+	typedef Enum Type;
+};
+
+// no native strongly typed enums
+#else
+
+#define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
+class NAME { \
+private:TYPE _value; \
+	typedef NAME _self; \
+public: typedef TYPE _value_type; \
+	NAME(void):_value(0) { } \
+	NAME(void (*init)(NAME&)){init(*this);} \
+	NAME(TYPE value):_value(value){ } \
+	friend bool operator==(NAME a, NAME b){ return a._value==b._value; } \
+	friend bool operator!=(NAME a, NAME b){ return a._value!=b._value; } \
+	operator TYPE (void) const { return _value; }
+
+#define OGLPLUS_ENUM_CLASS_VALUE(ITEM, VALUE) \
+	enum { _##ITEM = VALUE }; \
+	static void ITEM(_self& inst){ inst._value = VALUE; }
+
+#define OGLPLUS_CONST_ENUM_VALUE(ENUM, ITEM) \
+	ENUM::_##ITEM
+
+#define OGLPLUS_ENUM_CLASS_COMMA
+
+#define OGLPLUS_ENUM_CLASS_END };
+
+namespace oglplus {
+
+template <typename Enum>
+struct EnumValueType
+{
+	typedef typename Enum::_value_type Type;
+};
+
+#endif
+
+} // namespace oglplus
+
+#endif // include guard

@@ -31,10 +31,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glextref{AMD,performance_monitor}
  */
-enum class PerfMonitorAMDType : GLenum
-{
+OGLPLUS_ENUM_CLASS_BEGIN(PerfMonitorAMDType, GLenum)
 #include <oglplus/enums/ext/amd_perf_monitor_type.ipp>
-};
+OGLPLUS_ENUM_CLASS_END
 
 inline StrLit EnumValueName(PerfMonitorAMDType value)
 OGLPLUS_NOEXCEPT(true)
