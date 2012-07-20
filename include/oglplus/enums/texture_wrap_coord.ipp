@@ -20,61 +20,12 @@ R
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_TEXTURE_WRAP_S
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(S)
-#  pragma push_macro("S")
-#  undef S
-   OGLPLUS_ENUM_CLASS_VALUE(S, GL_TEXTURE_WRAP_S)
-#  pragma pop_macro("S")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/texture_wrap_coord_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(S, GL_TEXTURE_WRAP_S)
+// emulated scoped enums
+# include <oglplus/enums/texture_wrap_coord_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_TEXTURE_WRAP_T
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(T)
-#  pragma push_macro("T")
-#  undef T
-   OGLPLUS_ENUM_CLASS_VALUE(T, GL_TEXTURE_WRAP_T)
-#  pragma pop_macro("T")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(T, GL_TEXTURE_WRAP_T)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_TEXTURE_WRAP_R
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(R)
-#  pragma push_macro("R")
-#  undef R
-   OGLPLUS_ENUM_CLASS_VALUE(R, GL_TEXTURE_WRAP_R)
-#  pragma pop_macro("R")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(R, GL_TEXTURE_WRAP_R)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

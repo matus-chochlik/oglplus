@@ -18,45 +18,12 @@ Use
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_SKIP_MISSING_GLYPH_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Skip)
-#  pragma push_macro("Skip")
-#  undef Skip
-   OGLPLUS_ENUM_CLASS_VALUE(Skip, GL_SKIP_MISSING_GLYPH_NV)
-#  pragma pop_macro("Skip")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/ext/nv_path_missing_glyph_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(Skip, GL_SKIP_MISSING_GLYPH_NV)
+// emulated scoped enums
+# include <oglplus/enums/ext/nv_path_missing_glyph_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_USE_MISSING_GLYPH_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Use)
-#  pragma push_macro("Use")
-#  undef Use
-   OGLPLUS_ENUM_CLASS_VALUE(Use, GL_USE_MISSING_GLYPH_NV)
-#  pragma pop_macro("Use")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(Use, GL_USE_MISSING_GLYPH_NV)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

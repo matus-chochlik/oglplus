@@ -18,45 +18,12 @@ MoveToContinues
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_MOVE_TO_RESET_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(MoveToReset)
-#  pragma push_macro("MoveToReset")
-#  undef MoveToReset
-   OGLPLUS_ENUM_CLASS_VALUE(MoveToReset, GL_MOVE_TO_RESET_NV)
-#  pragma pop_macro("MoveToReset")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/ext/nv_path_dash_offset_reset_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(MoveToReset, GL_MOVE_TO_RESET_NV)
+// emulated scoped enums
+# include <oglplus/enums/ext/nv_path_dash_offset_reset_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_MOVE_TO_CONTINUES_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(MoveToContinues)
-#  pragma push_macro("MoveToContinues")
-#  undef MoveToContinues
-   OGLPLUS_ENUM_CLASS_VALUE(MoveToContinues, GL_MOVE_TO_CONTINUES_NV)
-#  pragma pop_macro("MoveToContinues")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(MoveToContinues, GL_MOVE_TO_CONTINUES_NV)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

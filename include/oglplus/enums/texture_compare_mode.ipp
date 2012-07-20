@@ -18,45 +18,12 @@ CompareRefToTexture
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_NONE
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(None)
-#  pragma push_macro("None")
-#  undef None
-   OGLPLUS_ENUM_CLASS_VALUE(None, GL_NONE)
-#  pragma pop_macro("None")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/texture_compare_mode_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(None, GL_NONE)
+// emulated scoped enums
+# include <oglplus/enums/texture_compare_mode_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_COMPARE_REF_TO_TEXTURE
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(CompareRefToTexture)
-#  pragma push_macro("CompareRefToTexture")
-#  undef CompareRefToTexture
-   OGLPLUS_ENUM_CLASS_VALUE(CompareRefToTexture, GL_COMPARE_REF_TO_TEXTURE)
-#  pragma pop_macro("CompareRefToTexture")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(CompareRefToTexture, GL_COMPARE_REF_TO_TEXTURE)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

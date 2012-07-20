@@ -20,61 +20,12 @@ StencilBuffer
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_COLOR_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(ColorBuffer)
-#  pragma push_macro("ColorBuffer")
-#  undef ColorBuffer
-   OGLPLUS_ENUM_CLASS_VALUE(ColorBuffer, GL_COLOR_BUFFER_BIT)
-#  pragma pop_macro("ColorBuffer")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/buffer_select_bit_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(ColorBuffer, GL_COLOR_BUFFER_BIT)
+// emulated scoped enums
+# include <oglplus/enums/buffer_select_bit_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_DEPTH_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(DepthBuffer)
-#  pragma push_macro("DepthBuffer")
-#  undef DepthBuffer
-   OGLPLUS_ENUM_CLASS_VALUE(DepthBuffer, GL_DEPTH_BUFFER_BIT)
-#  pragma pop_macro("DepthBuffer")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(DepthBuffer, GL_DEPTH_BUFFER_BIT)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_STENCIL_BUFFER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(StencilBuffer)
-#  pragma push_macro("StencilBuffer")
-#  undef StencilBuffer
-   OGLPLUS_ENUM_CLASS_VALUE(StencilBuffer, GL_STENCIL_BUFFER_BIT)
-#  pragma pop_macro("StencilBuffer")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(StencilBuffer, GL_STENCIL_BUFFER_BIT)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

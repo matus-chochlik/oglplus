@@ -18,45 +18,12 @@ Italic
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_BOLD_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Bold)
-#  pragma push_macro("Bold")
-#  undef Bold
-   OGLPLUS_ENUM_CLASS_VALUE(Bold, GL_BOLD_BIT_NV)
-#  pragma pop_macro("Bold")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/ext/nv_path_font_style_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(Bold, GL_BOLD_BIT_NV)
+// emulated scoped enums
+# include <oglplus/enums/ext/nv_path_font_style_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_ITALIC_BIT_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Italic)
-#  pragma push_macro("Italic")
-#  undef Italic
-   OGLPLUS_ENUM_CLASS_VALUE(Italic, GL_ITALIC_BIT_NV)
-#  pragma pop_macro("Italic")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(Italic, GL_ITALIC_BIT_NV)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

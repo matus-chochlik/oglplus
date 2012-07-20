@@ -26,109 +26,12 @@ AllShaders
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/program_pipeline_stage_nse.ipp>
+# else
+// emulated scoped enums
+# include <oglplus/enums/program_pipeline_stage_ese.ipp>
+# endif
 
-#if defined GL_VERTEX_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(VertexShader)
-#  pragma push_macro("VertexShader")
-#  undef VertexShader
-   OGLPLUS_ENUM_CLASS_VALUE(VertexShader, GL_VERTEX_SHADER_BIT)
-#  pragma pop_macro("VertexShader")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(VertexShader, GL_VERTEX_SHADER_BIT)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
 #endif
-#if defined GL_TESS_CONTROL_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(TessControlShader)
-#  pragma push_macro("TessControlShader")
-#  undef TessControlShader
-   OGLPLUS_ENUM_CLASS_VALUE(TessControlShader, GL_TESS_CONTROL_SHADER_BIT)
-#  pragma pop_macro("TessControlShader")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(TessControlShader, GL_TESS_CONTROL_SHADER_BIT)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_TESS_EVALUATION_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(TessEvaluationShader)
-#  pragma push_macro("TessEvaluationShader")
-#  undef TessEvaluationShader
-   OGLPLUS_ENUM_CLASS_VALUE(TessEvaluationShader, GL_TESS_EVALUATION_SHADER_BIT)
-#  pragma pop_macro("TessEvaluationShader")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(TessEvaluationShader, GL_TESS_EVALUATION_SHADER_BIT)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_GEOMETRY_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(GeometryShader)
-#  pragma push_macro("GeometryShader")
-#  undef GeometryShader
-   OGLPLUS_ENUM_CLASS_VALUE(GeometryShader, GL_GEOMETRY_SHADER_BIT)
-#  pragma pop_macro("GeometryShader")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(GeometryShader, GL_GEOMETRY_SHADER_BIT)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_FRAGMENT_SHADER_BIT
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(FragmentShader)
-#  pragma push_macro("FragmentShader")
-#  undef FragmentShader
-   OGLPLUS_ENUM_CLASS_VALUE(FragmentShader, GL_FRAGMENT_SHADER_BIT)
-#  pragma pop_macro("FragmentShader")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(FragmentShader, GL_FRAGMENT_SHADER_BIT)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_ALL_SHADER_BITS
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(AllShaders)
-#  pragma push_macro("AllShaders")
-#  undef AllShaders
-   OGLPLUS_ENUM_CLASS_VALUE(AllShaders, GL_ALL_SHADER_BITS)
-#  pragma pop_macro("AllShaders")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(AllShaders, GL_ALL_SHADER_BITS)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-

@@ -38,7 +38,7 @@ do
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
 	PrintFileHeader ${InputFile} ${OutputFile}
-	#
+
 	IFS=':'
 	unset Comma
 	echo "#if OGLPLUS_DOCUMENTATION_ONLY"
@@ -58,11 +58,33 @@ do
 	echo
 	echo "#else // !OGLPLUS_DOCUMENTATION_ONLY"
 	echo
+	echo "# if !OGLPLUS_NO_SCOPED_ENUMS"
+	echo "// native scoped enums"
+	echo "# include <oglplus/enums/${InputName}_nse.ipp>"
+	echo "# else"
+	echo "// emulated scoped enums"
+	echo "# include <oglplus/enums/${InputName}_ese.ipp>"
+	echo "# endif"
+	echo
+	echo "#endif"
+	)
+	git add ${OutputPath}
+
+	#
+	OutputFile="oglplus/enums/${InputName}_nse.ipp"
+	OutputPath="${RootDir}/include/${OutputFile}"
+
+	[[ ${InputFile} -ot ${OutputPath} ]] ||
+	(
+	exec > ${OutputPath}
+	PrintFileHeader ${InputFile} ${OutputFile}
+
 	echo "#ifdef OGLPLUS_LIST_NEEDS_COMMA"
 	echo "# undef OGLPLUS_LIST_NEEDS_COMMA"
 	echo "#endif"
 	echo
 	#
+	IFS=':'
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
 	while read GL_DEF OGLPLUS_DEF X
 	do
@@ -72,16 +94,9 @@ do
 
 		echo "#if defined GL_${GL_DEF}"
 		echo "# if OGLPLUS_LIST_NEEDS_COMMA"
-		echo "    OGLPLUS_ENUM_CLASS_COMMA"
+		echo "   ,"
 		echo "# endif"
-		echo "# if OGLPLUS_NO_SCOPED_ENUMS && defined(${OGLPLUS_DEF})"
-		echo "#  pragma push_macro(\"${OGLPLUS_DEF}\")"
-		echo "#  undef ${OGLPLUS_DEF}"
-		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
-		echo "#  pragma pop_macro(\"${OGLPLUS_DEF}\")"
-		echo "# else"
-		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
-		echo "# endif"
+		echo "  OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
 		echo "# ifndef OGLPLUS_LIST_NEEDS_COMMA"
 		echo "#  define OGLPLUS_LIST_NEEDS_COMMA 1"
 		echo "# endif"
@@ -91,10 +106,39 @@ do
 	echo "# undef OGLPLUS_LIST_NEEDS_COMMA"
 	echo "#endif"
 	echo
-	echo "#endif // !OGLPLUS_DOCUMENTATION_ONLY"
-	echo
 	)
+	git add ${OutputPath}
 
+	#
+	OutputFile="oglplus/enums/${InputName}_ese.ipp"
+	OutputPath="${RootDir}/include/${OutputFile}"
+
+	[[ ${InputFile} -ot ${OutputPath} ]] ||
+	(
+	exec > ${OutputPath}
+	PrintFileHeader ${InputFile} ${OutputFile}
+
+	#
+	IFS=':'
+	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
+	while read GL_DEF OGLPLUS_DEF X
+	do
+		if [ "${OGLPLUS_DEF}" == "" ]
+		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
+		fi
+
+		echo "#if defined GL_${GL_DEF}"
+		echo "# if defined ${OGLPLUS_DEF}"
+		echo "#  pragma push_macro(\"${OGLPLUS_DEF}\")"
+		echo "#  undef ${OGLPLUS_DEF}"
+		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
+		echo "#  pragma pop_macro(\"${OGLPLUS_DEF}\")"
+		echo "# else"
+		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
+		echo "# endif"
+		echo "#endif"
+	done
+	)
 	git add ${OutputPath}
 
 	OutputFile="oglplus/names/${InputName}.ipp"

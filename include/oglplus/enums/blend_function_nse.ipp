@@ -1,0 +1,190 @@
+/*
+ *  .file oglplus/enums/blend_function_nse.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/blend_function.txt' instead.
+ *
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#if defined GL_ZERO
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(Zero, GL_ZERO)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(One, GL_ONE)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SRC_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(SrcColor, GL_SRC_COLOR)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE_MINUS_SRC_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(OneMinusSrcColor, GL_ONE_MINUS_SRC_COLOR)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DST_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(DstColor, GL_DST_COLOR)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE_MINUS_DST_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(OneMinusDstColor, GL_ONE_MINUS_DST_COLOR)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SRC_ALPHA
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(SrcAlpha, GL_SRC_ALPHA)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE_MINUS_SRC_ALPHA
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(OneMinusSrcAlpha, GL_ONE_MINUS_SRC_ALPHA)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_DST_ALPHA
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(DstAlpha, GL_DST_ALPHA)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE_MINUS_DST_ALPHA
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(OneMinusDstAlpha, GL_ONE_MINUS_DST_ALPHA)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_CONSTANT_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(ConstantColor, GL_CONSTANT_COLOR)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE_MINUS_CONSTANT_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(OneMinusConstantColor, GL_ONE_MINUS_CONSTANT_COLOR)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_CONSTANT_ALPHA
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(ConstantAlpha, GL_CONSTANT_ALPHA)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE_MINUS_CONSTANT_ALPHA
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(OneMinusConstantAlpha, GL_ONE_MINUS_CONSTANT_ALPHA)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SRC_ALPHA_SATURATE
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(SrcAlphaSaturate, GL_SRC_ALPHA_SATURATE)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SRC1_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(Src1Color, GL_SRC1_COLOR)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE_MINUS_SRC1_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(OneMinusSrc1Color, GL_ONE_MINUS_SRC1_COLOR)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_SRC1_ALPHA
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(Src1Alpha, GL_SRC1_ALPHA)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_ONE_MINUS_SRC1_ALPHA
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(OneMinusSrc1Alpha, GL_ONE_MINUS_SRC1_ALPHA)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+

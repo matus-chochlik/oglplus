@@ -16,29 +16,12 @@ Fence
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_SYNC_FENCE
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Fence)
-#  pragma push_macro("Fence")
-#  undef Fence
-   OGLPLUS_ENUM_CLASS_VALUE(Fence, GL_SYNC_FENCE)
-#  pragma pop_macro("Fence")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/sync_type_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(Fence, GL_SYNC_FENCE)
+// emulated scoped enums
+# include <oglplus/enums/sync_type_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

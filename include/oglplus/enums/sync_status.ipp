@@ -18,45 +18,12 @@ Unsignaled
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_SIGNALED
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Signaled)
-#  pragma push_macro("Signaled")
-#  undef Signaled
-   OGLPLUS_ENUM_CLASS_VALUE(Signaled, GL_SIGNALED)
-#  pragma pop_macro("Signaled")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/sync_status_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(Signaled, GL_SIGNALED)
+// emulated scoped enums
+# include <oglplus/enums/sync_status_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_UNSIGNALED
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Unsignaled)
-#  pragma push_macro("Unsignaled")
-#  undef Unsignaled
-   OGLPLUS_ENUM_CLASS_VALUE(Unsignaled, GL_UNSIGNALED)
-#  pragma pop_macro("Unsignaled")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(Unsignaled, GL_UNSIGNALED)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

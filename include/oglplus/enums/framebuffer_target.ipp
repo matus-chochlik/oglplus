@@ -18,45 +18,12 @@ Read
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_DRAW_FRAMEBUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Draw)
-#  pragma push_macro("Draw")
-#  undef Draw
-   OGLPLUS_ENUM_CLASS_VALUE(Draw, GL_DRAW_FRAMEBUFFER)
-#  pragma pop_macro("Draw")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/framebuffer_target_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(Draw, GL_DRAW_FRAMEBUFFER)
+// emulated scoped enums
+# include <oglplus/enums/framebuffer_target_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_READ_FRAMEBUFFER
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Read)
-#  pragma push_macro("Read")
-#  undef Read
-   OGLPLUS_ENUM_CLASS_VALUE(Read, GL_READ_FRAMEBUFFER)
-#  pragma pop_macro("Read")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(Read, GL_READ_FRAMEBUFFER)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

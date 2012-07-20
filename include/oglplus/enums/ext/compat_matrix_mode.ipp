@@ -18,45 +18,12 @@ Modelview
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_PROJECTION
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Projection)
-#  pragma push_macro("Projection")
-#  undef Projection
-   OGLPLUS_ENUM_CLASS_VALUE(Projection, GL_PROJECTION)
-#  pragma pop_macro("Projection")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/ext/compat_matrix_mode_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(Projection, GL_PROJECTION)
+// emulated scoped enums
+# include <oglplus/enums/ext/compat_matrix_mode_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_MODELVIEW
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(Modelview)
-#  pragma push_macro("Modelview")
-#  undef Modelview
-   OGLPLUS_ENUM_CLASS_VALUE(Modelview, GL_MODELVIEW)
-#  pragma pop_macro("Modelview")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(Modelview, GL_MODELVIEW)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

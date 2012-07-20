@@ -20,61 +20,12 @@ FirstToRest
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
-
-#if defined GL_ACCUM_ADJACENT_PAIRS_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(AccumAdjacentPairs)
-#  pragma push_macro("AccumAdjacentPairs")
-#  undef AccumAdjacentPairs
-   OGLPLUS_ENUM_CLASS_VALUE(AccumAdjacentPairs, GL_ACCUM_ADJACENT_PAIRS_NV)
-#  pragma pop_macro("AccumAdjacentPairs")
+# if !OGLPLUS_NO_SCOPED_ENUMS
+// native scoped enums
+# include <oglplus/enums/ext/nv_path_list_mode_nse.ipp>
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(AccumAdjacentPairs, GL_ACCUM_ADJACENT_PAIRS_NV)
+// emulated scoped enums
+# include <oglplus/enums/ext/nv_path_list_mode_ese.ipp>
 # endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_ADJACENT_PAIRS_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(AdjacentPairs)
-#  pragma push_macro("AdjacentPairs")
-#  undef AdjacentPairs
-   OGLPLUS_ENUM_CLASS_VALUE(AdjacentPairs, GL_ADJACENT_PAIRS_NV)
-#  pragma pop_macro("AdjacentPairs")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(AdjacentPairs, GL_ADJACENT_PAIRS_NV)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined GL_FIRST_TO_REST_NV
-# if OGLPLUS_LIST_NEEDS_COMMA
-    OGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if OGLPLUS_NO_SCOPED_ENUMS && defined(FirstToRest)
-#  pragma push_macro("FirstToRest")
-#  undef FirstToRest
-   OGLPLUS_ENUM_CLASS_VALUE(FirstToRest, GL_FIRST_TO_REST_NV)
-#  pragma pop_macro("FirstToRest")
-# else
-   OGLPLUS_ENUM_CLASS_VALUE(FirstToRest, GL_FIRST_TO_REST_NV)
-# endif
-# ifndef OGLPLUS_LIST_NEEDS_COMMA
-#  define OGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#ifdef OGLPLUS_LIST_NEEDS_COMMA
-# undef OGLPLUS_LIST_NEEDS_COMMA
-#endif
 
-#endif // !OGLPLUS_DOCUMENTATION_ONLY
-
+#endif

@@ -1,0 +1,217 @@
+/*
+ *  .file oglplus/enums/ext/nv_path_metric_query_nse.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/ext/nv_path_metric_query.txt' instead.
+ *
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
+#if defined GL_GLYPH_WIDTH_BIT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphWidth, GL_GLYPH_WIDTH_BIT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_GLYPH_HEIGHT_BIT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphHeight, GL_GLYPH_HEIGHT_BIT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_GLYPH_HORIZONTAL_BEARING_X_BIT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphHorizontalBearingX, GL_GLYPH_HORIZONTAL_BEARING_X_BIT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_GLYPH_HORIZONTAL_BEARING_Y_BIT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphHorizontalBearingY, GL_GLYPH_HORIZONTAL_BEARING_Y_BIT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_GLYPH_HORIZONTAL_BEARING_ADVANCE_BIT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphHorizontalBearingAdvance, GL_GLYPH_HORIZONTAL_BEARING_ADVANCE_BIT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_GLYPH_VERTICAL_BEARING_X_BIT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphVerticalBearingX, GL_GLYPH_VERTICAL_BEARING_X_BIT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_GLYPH_VERTICAL_BEARING_Y_BIT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphVerticalBearingY, GL_GLYPH_VERTICAL_BEARING_Y_BIT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_GLYPH_VERTICAL_BEARING_ADVANCE_BIT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphVerticalBearingAdvance, GL_GLYPH_VERTICAL_BEARING_ADVANCE_BIT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_GLYPH_HAS_KERNING_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(GlyphHasKerning, GL_GLYPH_HAS_KERNING_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_X_MIN_BOUNDS_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontXMinBounds, GL_FONT_X_MIN_BOUNDS_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_Y_MIN_BOUNDS_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontYMinBounds, GL_FONT_Y_MIN_BOUNDS_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_X_MAX_BOUNDS_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontXMaxBounds, GL_FONT_X_MAX_BOUNDS_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_Y_MAX_BOUNDS_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontYMaxBounds, GL_FONT_Y_MAX_BOUNDS_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_UNITS_PER_EM_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontUnitsPerEm, GL_FONT_UNITS_PER_EM_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_ASCENDER_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontAscender, GL_FONT_ASCENDER_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_DESCENDER_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontDescender, GL_FONT_DESCENDER_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_HEIGHT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontHeight, GL_FONT_HEIGHT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_MAX_ADVANCE_WIDTH_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceWidth, GL_FONT_MAX_ADVANCE_WIDTH_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_MAX_ADVANCE_HEIGHT_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceHeight, GL_FONT_MAX_ADVANCE_HEIGHT_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_UNDERLINE_POSITION_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontUnderlinePosition, GL_FONT_UNDERLINE_POSITION_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_UNDERLINE_THICKNESS_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontUnderlineThickness, GL_FONT_UNDERLINE_THICKNESS_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_FONT_HAS_KERNING_NV
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(FontHasKerning, GL_FONT_HAS_KERNING_NV)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#ifdef OGLPLUS_LIST_NEEDS_COMMA
+# undef OGLPLUS_LIST_NEEDS_COMMA
+#endif
+
