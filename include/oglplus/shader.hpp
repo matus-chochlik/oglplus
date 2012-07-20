@@ -360,7 +360,7 @@ class VertexShader
 #elif defined GL_VERTEX_SHADER
 typedef Specialized<
 	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType, Vertex),
+	OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex),
 	SpecializedShaderInitializer
 > VertexShader;
 #endif
@@ -378,7 +378,7 @@ class GeometryShader
 #elif defined GL_GEOMETRY_SHADER
 typedef Specialized<
 	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType, Geometry),
+	OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry),
 	SpecializedShaderInitializer
 > GeometryShader;
 #endif
@@ -396,7 +396,7 @@ class FragmentShader
 #elif GL_FRAGMENT_SHADER
 typedef Specialized<
 	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType, Fragment),
+	OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment),
 	SpecializedShaderInitializer
 > FragmentShader;
 #endif
@@ -414,7 +414,7 @@ class TessControlShader
 #elif GL_TESS_CONTROL_SHADER
 typedef Specialized<
 	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType, TessControl),
+	OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl),
 	SpecializedShaderInitializer
 > TessControlShader;
 #endif
@@ -432,7 +432,7 @@ class TessEvaluationShader
 #elif GL_TESS_EVALUATION_SHADER
 typedef Specialized<
 	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType, TessEvaluation),
+	OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation),
 	SpecializedShaderInitializer
 > TessEvaluationShader;
 #endif

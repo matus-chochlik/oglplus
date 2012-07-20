@@ -68,20 +68,26 @@ struct DrawOperation
 		{
 			switch(method)
 			{
-				case OGLPLUS_CONST_ENUM_VALUE(Method,DrawArrays):
-					return _DrawArrays();
-				case OGLPLUS_CONST_ENUM_VALUE(Method,DrawElements):
-					return _DrawElements(indices);
+				case OGLPLUS_CONST_ENUM_VALUE(
+					Method::DrawArrays
+				): return _DrawArrays();
+
+				case OGLPLUS_CONST_ENUM_VALUE(
+					Method::DrawElements
+				): return _DrawElements(indices);
 			}
 		}
 		else
 		{
 			switch(method)
 			{
-				case OGLPLUS_CONST_ENUM_VALUE(Method,DrawArrays):
-					return _DrawArrays(inst_count);
-				case OGLPLUS_CONST_ENUM_VALUE(Method,DrawElements):
-					return _DrawElements(
+				case OGLPLUS_CONST_ENUM_VALUE(
+					Method::DrawArrays
+				): return _DrawArrays(inst_count);
+
+				case OGLPLUS_CONST_ENUM_VALUE(
+					Method::DrawElements
+				): return _DrawElements(
 						indices,
 						inst_count
 					);

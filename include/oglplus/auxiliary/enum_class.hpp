@@ -21,8 +21,8 @@ enum class NAME : TYPE {
 #define OGLPLUS_ENUM_CLASS_VALUE(ITEM, VALUE) \
 	ITEM = VALUE
 
-#define OGLPLUS_CONST_ENUM_VALUE(ENUM, ITEM) \
-	ENUM::ITEM
+#define OGLPLUS_CONST_ENUM_VALUE(ENUM_ITEM) \
+	ENUM_ITEM
 
 #define OGLPLUS_ENUM_CLASS_COMMA ,
 
@@ -46,17 +46,17 @@ private:TYPE _value; \
 public: typedef TYPE _value_type; \
 	NAME(void):_value(0) { } \
 	NAME(void (*init)(NAME&)){init(*this);} \
-	NAME(TYPE value):_value(value){ } \
+	explicit NAME(TYPE value):_value(value){ } \
 	friend bool operator==(NAME a, NAME b){ return a._value==b._value; } \
 	friend bool operator!=(NAME a, NAME b){ return a._value!=b._value; } \
 	operator TYPE (void) const { return _value; }
 
 #define OGLPLUS_ENUM_CLASS_VALUE(ITEM, VALUE) \
-	enum { _##ITEM = VALUE }; \
+	enum { ITEM##_c = VALUE }; \
 	static void ITEM(_self& inst){ inst._value = VALUE; }
 
-#define OGLPLUS_CONST_ENUM_VALUE(ENUM, ITEM) \
-	ENUM::_##ITEM
+#define OGLPLUS_CONST_ENUM_VALUE(ENUM_ITEM) \
+	ENUM_ITEM##_c
 
 #define OGLPLUS_ENUM_CLASS_COMMA
 

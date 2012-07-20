@@ -229,16 +229,13 @@ public:
 			switch(access)
 			{
 				case OGLPLUS_CONST_ENUM_VALUE(
-					BufferMapAccess,
-					Read
+					BufferMapAccess::Read
 				): return GL_READ_ONLY;
 				case OGLPLUS_CONST_ENUM_VALUE(
-					BufferMapAccess,
-					Write
+					BufferMapAccess::Write
 				): return GL_WRITE_ONLY;
 				case OGLPLUS_CONST_ENUM_VALUE(
-					BufferMapAccess,
-					ReadWrite
+					BufferMapAccess::ReadWrite
 				): return GL_READ_WRITE;
 			}
 		}

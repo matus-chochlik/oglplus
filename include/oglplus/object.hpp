@@ -472,6 +472,12 @@ class Specialized<Object<ObjectOps>, TypeOrTarget, Initializer>
  : public Object<ObjectOps>
  , public Initializer
 {
+private:
+	typedef typename ObjectTypeOrTarget<Object<ObjectOps>>::Type _tot;
+	static _tot _type_or_target(void)
+	{
+		return _tot(TypeOrTarget);
+	}
 protected:
 	Object<ObjectOps>& _object(void)
 	{
@@ -479,18 +485,18 @@ protected:
 	}
 public:
 	Specialized(void)
-	 : Object<ObjectOps>(TypeOrTarget)
+	 : Object<ObjectOps>(_type_or_target())
 	{ }
 
 	Specialized(ObjectDesc&& description)
-	 : Object<ObjectOps>(TypeOrTarget, std::move(description))
+	 : Object<ObjectOps>(_type_or_target(), std::move(description))
 	{ }
 
 	Specialized(typename Initializer::ParameterType parameter)
-	 : Object<ObjectOps>(TypeOrTarget)
+	 : Object<ObjectOps>(_type_or_target())
 	 , Initializer(
 		_object(),
-		TypeOrTarget,
+		_type_or_target(),
 		static_cast<typename Initializer::ParameterType>(parameter)
 	)
 	{ }
@@ -498,10 +504,10 @@ public:
 	Specialized(
 		ObjectDesc&& description,
 		typename Initializer::ParameterType parameter
-	): Object<ObjectOps>(TypeOrTarget, std::move(description))
+	): Object<ObjectOps>(_type_or_target(), std::move(description))
 	 , Initializer(
 		_object(),
-		TypeOrTarget,
+		_type_or_target(),
 		static_cast<typename Initializer::ParameterType>(parameter)
 	)
 	{ }
