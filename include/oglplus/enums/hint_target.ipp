@@ -28,36 +28,64 @@ FragmentShaderDerivative
 
 #if defined GL_LINE_SMOOTH_HINT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(LineSmooth, GL_LINE_SMOOTH_HINT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(LineSmooth)
+#  pragma push_macro("LineSmooth")
+#  undef LineSmooth
+   OGLPLUS_ENUM_CLASS_VALUE(LineSmooth, GL_LINE_SMOOTH_HINT)
+#  pragma pop_macro("LineSmooth")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(LineSmooth, GL_LINE_SMOOTH_HINT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_POLYGON_SMOOTH_HINT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(PolygonSmooth, GL_POLYGON_SMOOTH_HINT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(PolygonSmooth)
+#  pragma push_macro("PolygonSmooth")
+#  undef PolygonSmooth
+   OGLPLUS_ENUM_CLASS_VALUE(PolygonSmooth, GL_POLYGON_SMOOTH_HINT)
+#  pragma pop_macro("PolygonSmooth")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(PolygonSmooth, GL_POLYGON_SMOOTH_HINT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_TEXTURE_COMPRESSION_HINT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(TextureCompression, GL_TEXTURE_COMPRESSION_HINT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(TextureCompression)
+#  pragma push_macro("TextureCompression")
+#  undef TextureCompression
+   OGLPLUS_ENUM_CLASS_VALUE(TextureCompression, GL_TEXTURE_COMPRESSION_HINT)
+#  pragma pop_macro("TextureCompression")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(TextureCompression, GL_TEXTURE_COMPRESSION_HINT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_FRAGMENT_SHADER_DERIVATIVE_HINT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(FragmentShaderDerivative, GL_FRAGMENT_SHADER_DERIVATIVE_HINT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(FragmentShaderDerivative)
+#  pragma push_macro("FragmentShaderDerivative")
+#  undef FragmentShaderDerivative
+   OGLPLUS_ENUM_CLASS_VALUE(FragmentShaderDerivative, GL_FRAGMENT_SHADER_DERIVATIVE_HINT)
+#  pragma pop_macro("FragmentShaderDerivative")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(FragmentShaderDerivative, GL_FRAGMENT_SHADER_DERIVATIVE_HINT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

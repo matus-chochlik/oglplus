@@ -26,27 +26,48 @@ Fill
 
 #if defined GL_POINT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Point, GL_POINT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Point)
+#  pragma push_macro("Point")
+#  undef Point
+   OGLPLUS_ENUM_CLASS_VALUE(Point, GL_POINT)
+#  pragma pop_macro("Point")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Point, GL_POINT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_LINE
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Line, GL_LINE)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Line)
+#  pragma push_macro("Line")
+#  undef Line
+   OGLPLUS_ENUM_CLASS_VALUE(Line, GL_LINE)
+#  pragma pop_macro("Line")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Line, GL_LINE)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_FILL
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Fill, GL_FILL)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Fill)
+#  pragma push_macro("Fill")
+#  undef Fill
+   OGLPLUS_ENUM_CLASS_VALUE(Fill, GL_FILL)
+#  pragma pop_macro("Fill")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Fill, GL_FILL)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

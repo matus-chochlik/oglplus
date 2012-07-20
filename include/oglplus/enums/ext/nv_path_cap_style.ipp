@@ -28,36 +28,64 @@ Triangular
 
 #if defined GL_FLAT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Flat, GL_FLAT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Flat)
+#  pragma push_macro("Flat")
+#  undef Flat
+   OGLPLUS_ENUM_CLASS_VALUE(Flat, GL_FLAT)
+#  pragma pop_macro("Flat")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Flat, GL_FLAT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_SQUARE_NV
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Square, GL_SQUARE_NV)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Square)
+#  pragma push_macro("Square")
+#  undef Square
+   OGLPLUS_ENUM_CLASS_VALUE(Square, GL_SQUARE_NV)
+#  pragma pop_macro("Square")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Square, GL_SQUARE_NV)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_ROUND_NV
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Round, GL_ROUND_NV)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Round)
+#  pragma push_macro("Round")
+#  undef Round
+   OGLPLUS_ENUM_CLASS_VALUE(Round, GL_ROUND_NV)
+#  pragma pop_macro("Round")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Round, GL_ROUND_NV)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_TRIANGULAR_NV
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Triangular, GL_TRIANGULAR_NV)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Triangular)
+#  pragma push_macro("Triangular")
+#  undef Triangular
+   OGLPLUS_ENUM_CLASS_VALUE(Triangular, GL_TRIANGULAR_NV)
+#  pragma pop_macro("Triangular")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Triangular, GL_TRIANGULAR_NV)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

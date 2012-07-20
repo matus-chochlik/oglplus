@@ -24,18 +24,32 @@ Linear
 
 #if defined GL_NEAREST
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Nearest, GL_NEAREST)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Nearest)
+#  pragma push_macro("Nearest")
+#  undef Nearest
+   OGLPLUS_ENUM_CLASS_VALUE(Nearest, GL_NEAREST)
+#  pragma pop_macro("Nearest")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Nearest, GL_NEAREST)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_LINEAR
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Linear, GL_LINEAR)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Linear)
+#  pragma push_macro("Linear")
+#  undef Linear
+   OGLPLUS_ENUM_CLASS_VALUE(Linear, GL_LINEAR)
+#  pragma pop_macro("Linear")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Linear, GL_LINEAR)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

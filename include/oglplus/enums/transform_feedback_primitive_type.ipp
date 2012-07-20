@@ -26,27 +26,48 @@ Points
 
 #if defined GL_TRIANGLES
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Triangles, GL_TRIANGLES)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Triangles)
+#  pragma push_macro("Triangles")
+#  undef Triangles
+   OGLPLUS_ENUM_CLASS_VALUE(Triangles, GL_TRIANGLES)
+#  pragma pop_macro("Triangles")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Triangles, GL_TRIANGLES)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_LINES
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Lines, GL_LINES)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Lines)
+#  pragma push_macro("Lines")
+#  undef Lines
+   OGLPLUS_ENUM_CLASS_VALUE(Lines, GL_LINES)
+#  pragma pop_macro("Lines")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Lines, GL_LINES)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_POINTS
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Points, GL_POINTS)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Points)
+#  pragma push_macro("Points")
+#  undef Points
+   OGLPLUS_ENUM_CLASS_VALUE(Points, GL_POINTS)
+#  pragma pop_macro("Points")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Points, GL_POINTS)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

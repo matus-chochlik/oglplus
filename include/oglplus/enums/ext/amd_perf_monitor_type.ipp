@@ -28,36 +28,64 @@ Percentage
 
 #if defined GL_UNSIGNED_INT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(UnsignedInt, GL_UNSIGNED_INT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(UnsignedInt)
+#  pragma push_macro("UnsignedInt")
+#  undef UnsignedInt
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedInt, GL_UNSIGNED_INT)
+#  pragma pop_macro("UnsignedInt")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedInt, GL_UNSIGNED_INT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_FLOAT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Float, GL_FLOAT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Float)
+#  pragma push_macro("Float")
+#  undef Float
+   OGLPLUS_ENUM_CLASS_VALUE(Float, GL_FLOAT)
+#  pragma pop_macro("Float")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Float, GL_FLOAT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_UNSIGNED_INT64_AMD
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(UnsignedInt64, GL_UNSIGNED_INT64_AMD)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(UnsignedInt64)
+#  pragma push_macro("UnsignedInt64")
+#  undef UnsignedInt64
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedInt64, GL_UNSIGNED_INT64_AMD)
+#  pragma pop_macro("UnsignedInt64")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedInt64, GL_UNSIGNED_INT64_AMD)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_PERCENTAGE_AMD
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Percentage, GL_PERCENTAGE_AMD)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Percentage)
+#  pragma push_macro("Percentage")
+#  undef Percentage
+   OGLPLUS_ENUM_CLASS_VALUE(Percentage, GL_PERCENTAGE_AMD)
+#  pragma pop_macro("Percentage")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Percentage, GL_PERCENTAGE_AMD)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

@@ -26,27 +26,48 @@ Uniform
 
 #if defined GL_ATOMIC_COUNTER_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(AtomicCounter, GL_ATOMIC_COUNTER_BUFFER)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(AtomicCounter)
+#  pragma push_macro("AtomicCounter")
+#  undef AtomicCounter
+   OGLPLUS_ENUM_CLASS_VALUE(AtomicCounter, GL_ATOMIC_COUNTER_BUFFER)
+#  pragma pop_macro("AtomicCounter")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(AtomicCounter, GL_ATOMIC_COUNTER_BUFFER)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_TRANSFORM_FEEDBACK_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(TransformFeedback, GL_TRANSFORM_FEEDBACK_BUFFER)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(TransformFeedback)
+#  pragma push_macro("TransformFeedback")
+#  undef TransformFeedback
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedback, GL_TRANSFORM_FEEDBACK_BUFFER)
+#  pragma pop_macro("TransformFeedback")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedback, GL_TRANSFORM_FEEDBACK_BUFFER)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_UNIFORM_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Uniform, GL_UNIFORM_BUFFER)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Uniform)
+#  pragma push_macro("Uniform")
+#  undef Uniform
+   OGLPLUS_ENUM_CLASS_VALUE(Uniform, GL_UNIFORM_BUFFER)
+#  pragma pop_macro("Uniform")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Uniform, GL_UNIFORM_BUFFER)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

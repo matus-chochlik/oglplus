@@ -24,18 +24,32 @@ Italic
 
 #if defined GL_BOLD_BIT_NV
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Bold, GL_BOLD_BIT_NV)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Bold)
+#  pragma push_macro("Bold")
+#  undef Bold
+   OGLPLUS_ENUM_CLASS_VALUE(Bold, GL_BOLD_BIT_NV)
+#  pragma pop_macro("Bold")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Bold, GL_BOLD_BIT_NV)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_ITALIC_BIT_NV
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Italic, GL_ITALIC_BIT_NV)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Italic)
+#  pragma push_macro("Italic")
+#  undef Italic
+   OGLPLUS_ENUM_CLASS_VALUE(Italic, GL_ITALIC_BIT_NV)
+#  pragma pop_macro("Italic")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Italic, GL_ITALIC_BIT_NV)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

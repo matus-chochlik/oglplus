@@ -22,9 +22,16 @@ Renderbuffer
 
 #if defined GL_RENDERBUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Renderbuffer, GL_RENDERBUFFER)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Renderbuffer)
+#  pragma push_macro("Renderbuffer")
+#  undef Renderbuffer
+   OGLPLUS_ENUM_CLASS_VALUE(Renderbuffer, GL_RENDERBUFFER)
+#  pragma pop_macro("Renderbuffer")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Renderbuffer, GL_RENDERBUFFER)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

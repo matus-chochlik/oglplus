@@ -22,9 +22,16 @@ TransformFeedback
 
 #if defined GL_TRANSFORM_FEEDBACK
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(TransformFeedback, GL_TRANSFORM_FEEDBACK)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(TransformFeedback)
+#  pragma push_macro("TransformFeedback")
+#  undef TransformFeedback
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedback, GL_TRANSFORM_FEEDBACK)
+#  pragma pop_macro("TransformFeedback")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedback, GL_TRANSFORM_FEEDBACK)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

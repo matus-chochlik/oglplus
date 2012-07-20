@@ -24,18 +24,32 @@ LastVertexConvention
 
 #if defined GL_FIRST_VERTEX_CONVENTION
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(FirstVertexConvention, GL_FIRST_VERTEX_CONVENTION)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(FirstVertexConvention)
+#  pragma push_macro("FirstVertexConvention")
+#  undef FirstVertexConvention
+   OGLPLUS_ENUM_CLASS_VALUE(FirstVertexConvention, GL_FIRST_VERTEX_CONVENTION)
+#  pragma pop_macro("FirstVertexConvention")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(FirstVertexConvention, GL_FIRST_VERTEX_CONVENTION)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_LAST_VERTEX_CONVENTION
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(LastVertexConvention, GL_LAST_VERTEX_CONVENTION)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(LastVertexConvention)
+#  pragma push_macro("LastVertexConvention")
+#  undef LastVertexConvention
+   OGLPLUS_ENUM_CLASS_VALUE(LastVertexConvention, GL_LAST_VERTEX_CONVENTION)
+#  pragma pop_macro("LastVertexConvention")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(LastVertexConvention, GL_LAST_VERTEX_CONVENTION)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

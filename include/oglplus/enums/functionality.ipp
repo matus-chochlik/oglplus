@@ -22,9 +22,16 @@ ClipDistance
 
 #if defined GL_CLIP_DISTANCE0
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(ClipDistance, GL_CLIP_DISTANCE0)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(ClipDistance)
+#  pragma push_macro("ClipDistance")
+#  undef ClipDistance
+   OGLPLUS_ENUM_CLASS_VALUE(ClipDistance, GL_CLIP_DISTANCE0)
+#  pragma pop_macro("ClipDistance")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ClipDistance, GL_CLIP_DISTANCE0)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

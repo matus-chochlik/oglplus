@@ -24,18 +24,32 @@ Modelview
 
 #if defined GL_PROJECTION
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Projection, GL_PROJECTION)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Projection)
+#  pragma push_macro("Projection")
+#  undef Projection
+   OGLPLUS_ENUM_CLASS_VALUE(Projection, GL_PROJECTION)
+#  pragma pop_macro("Projection")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Projection, GL_PROJECTION)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_MODELVIEW
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Modelview, GL_MODELVIEW)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Modelview)
+#  pragma push_macro("Modelview")
+#  undef Modelview
+   OGLPLUS_ENUM_CLASS_VALUE(Modelview, GL_MODELVIEW)
+#  pragma pop_macro("Modelview")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Modelview, GL_MODELVIEW)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

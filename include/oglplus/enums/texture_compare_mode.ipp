@@ -24,18 +24,32 @@ CompareRefToTexture
 
 #if defined GL_NONE
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(None, GL_NONE)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(None)
+#  pragma push_macro("None")
+#  undef None
+   OGLPLUS_ENUM_CLASS_VALUE(None, GL_NONE)
+#  pragma pop_macro("None")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(None, GL_NONE)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_COMPARE_REF_TO_TEXTURE
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(CompareRefToTexture, GL_COMPARE_REF_TO_TEXTURE)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(CompareRefToTexture)
+#  pragma push_macro("CompareRefToTexture")
+#  undef CompareRefToTexture
+   OGLPLUS_ENUM_CLASS_VALUE(CompareRefToTexture, GL_COMPARE_REF_TO_TEXTURE)
+#  pragma pop_macro("CompareRefToTexture")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompareRefToTexture, GL_COMPARE_REF_TO_TEXTURE)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

@@ -26,27 +26,48 @@ DontCare
 
 #if defined GL_FASTEST
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Fastest, GL_FASTEST)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Fastest)
+#  pragma push_macro("Fastest")
+#  undef Fastest
+   OGLPLUS_ENUM_CLASS_VALUE(Fastest, GL_FASTEST)
+#  pragma pop_macro("Fastest")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Fastest, GL_FASTEST)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_NICEST
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Nicest, GL_NICEST)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Nicest)
+#  pragma push_macro("Nicest")
+#  undef Nicest
+   OGLPLUS_ENUM_CLASS_VALUE(Nicest, GL_NICEST)
+#  pragma pop_macro("Nicest")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Nicest, GL_NICEST)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_DONT_CARE
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(DontCare, GL_DONT_CARE)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(DontCare)
+#  pragma push_macro("DontCare")
+#  undef DontCare
+   OGLPLUS_ENUM_CLASS_VALUE(DontCare, GL_DONT_CARE)
+#  pragma pop_macro("DontCare")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(DontCare, GL_DONT_CARE)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

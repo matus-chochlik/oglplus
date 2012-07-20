@@ -24,18 +24,32 @@ Unsignaled
 
 #if defined GL_SIGNALED
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Signaled, GL_SIGNALED)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Signaled)
+#  pragma push_macro("Signaled")
+#  undef Signaled
+   OGLPLUS_ENUM_CLASS_VALUE(Signaled, GL_SIGNALED)
+#  pragma pop_macro("Signaled")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Signaled, GL_SIGNALED)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_UNSIGNALED
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Unsignaled, GL_UNSIGNALED)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Unsignaled)
+#  pragma push_macro("Unsignaled")
+#  undef Unsignaled
+   OGLPLUS_ENUM_CLASS_VALUE(Unsignaled, GL_UNSIGNALED)
+#  pragma pop_macro("Unsignaled")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Unsignaled, GL_UNSIGNALED)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

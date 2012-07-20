@@ -26,27 +26,48 @@ StencilBuffer
 
 #if defined GL_COLOR_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(ColorBuffer, GL_COLOR_BUFFER_BIT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(ColorBuffer)
+#  pragma push_macro("ColorBuffer")
+#  undef ColorBuffer
+   OGLPLUS_ENUM_CLASS_VALUE(ColorBuffer, GL_COLOR_BUFFER_BIT)
+#  pragma pop_macro("ColorBuffer")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ColorBuffer, GL_COLOR_BUFFER_BIT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_DEPTH_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(DepthBuffer, GL_DEPTH_BUFFER_BIT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(DepthBuffer)
+#  pragma push_macro("DepthBuffer")
+#  undef DepthBuffer
+   OGLPLUS_ENUM_CLASS_VALUE(DepthBuffer, GL_DEPTH_BUFFER_BIT)
+#  pragma pop_macro("DepthBuffer")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(DepthBuffer, GL_DEPTH_BUFFER_BIT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_STENCIL_BUFFER_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(StencilBuffer, GL_STENCIL_BUFFER_BIT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(StencilBuffer)
+#  pragma push_macro("StencilBuffer")
+#  undef StencilBuffer
+   OGLPLUS_ENUM_CLASS_VALUE(StencilBuffer, GL_STENCIL_BUFFER_BIT)
+#  pragma pop_macro("StencilBuffer")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(StencilBuffer, GL_STENCIL_BUFFER_BIT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

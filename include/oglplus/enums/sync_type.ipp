@@ -22,9 +22,16 @@ Fence
 
 #if defined GL_SYNC_FENCE
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Fence, GL_SYNC_FENCE)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Fence)
+#  pragma push_macro("Fence")
+#  undef Fence
+   OGLPLUS_ENUM_CLASS_VALUE(Fence, GL_SYNC_FENCE)
+#  pragma pop_macro("Fence")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Fence, GL_SYNC_FENCE)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

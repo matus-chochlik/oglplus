@@ -22,9 +22,16 @@ GPUCommandsComplete
 
 #if defined GL_SYNC_GPU_COMMANDS_COMPLETE
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(GPUCommandsComplete, GL_SYNC_GPU_COMMANDS_COMPLETE)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(GPUCommandsComplete)
+#  pragma push_macro("GPUCommandsComplete")
+#  undef GPUCommandsComplete
+   OGLPLUS_ENUM_CLASS_VALUE(GPUCommandsComplete, GL_SYNC_GPU_COMMANDS_COMPLETE)
+#  pragma pop_macro("GPUCommandsComplete")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(GPUCommandsComplete, GL_SYNC_GPU_COMMANDS_COMPLETE)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

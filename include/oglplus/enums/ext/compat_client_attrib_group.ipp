@@ -26,27 +26,48 @@ AllAttribs
 
 #if defined GL_CLIENT_VERTEX_ARRAY_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(VertexArray, GL_CLIENT_VERTEX_ARRAY_BIT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(VertexArray)
+#  pragma push_macro("VertexArray")
+#  undef VertexArray
+   OGLPLUS_ENUM_CLASS_VALUE(VertexArray, GL_CLIENT_VERTEX_ARRAY_BIT)
+#  pragma pop_macro("VertexArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(VertexArray, GL_CLIENT_VERTEX_ARRAY_BIT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_CLIENT_PIXEL_STORE_BIT
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(PixelStore, GL_CLIENT_PIXEL_STORE_BIT)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(PixelStore)
+#  pragma push_macro("PixelStore")
+#  undef PixelStore
+   OGLPLUS_ENUM_CLASS_VALUE(PixelStore, GL_CLIENT_PIXEL_STORE_BIT)
+#  pragma pop_macro("PixelStore")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(PixelStore, GL_CLIENT_PIXEL_STORE_BIT)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_CLIENT_ALL_ATTRIB_BITS
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(AllAttribs, GL_CLIENT_ALL_ATTRIB_BITS)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(AllAttribs)
+#  pragma push_macro("AllAttribs")
+#  undef AllAttribs
+   OGLPLUS_ENUM_CLASS_VALUE(AllAttribs, GL_CLIENT_ALL_ATTRIB_BITS)
+#  pragma pop_macro("AllAttribs")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(AllAttribs, GL_CLIENT_ALL_ATTRIB_BITS)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

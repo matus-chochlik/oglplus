@@ -32,54 +32,96 @@ One
 
 #if defined GL_RED
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Red, GL_RED)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Red)
+#  pragma push_macro("Red")
+#  undef Red
+   OGLPLUS_ENUM_CLASS_VALUE(Red, GL_RED)
+#  pragma pop_macro("Red")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Red, GL_RED)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_GREEN
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Green, GL_GREEN)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Green)
+#  pragma push_macro("Green")
+#  undef Green
+   OGLPLUS_ENUM_CLASS_VALUE(Green, GL_GREEN)
+#  pragma pop_macro("Green")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Green, GL_GREEN)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_BLUE
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Blue, GL_BLUE)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Blue)
+#  pragma push_macro("Blue")
+#  undef Blue
+   OGLPLUS_ENUM_CLASS_VALUE(Blue, GL_BLUE)
+#  pragma pop_macro("Blue")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Blue, GL_BLUE)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_ALPHA
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Alpha, GL_ALPHA)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Alpha)
+#  pragma push_macro("Alpha")
+#  undef Alpha
+   OGLPLUS_ENUM_CLASS_VALUE(Alpha, GL_ALPHA)
+#  pragma pop_macro("Alpha")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Alpha, GL_ALPHA)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_ZERO
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Zero, GL_ZERO)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Zero)
+#  pragma push_macro("Zero")
+#  undef Zero
+   OGLPLUS_ENUM_CLASS_VALUE(Zero, GL_ZERO)
+#  pragma pop_macro("Zero")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Zero, GL_ZERO)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_ONE
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(One, GL_ONE)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(One)
+#  pragma push_macro("One")
+#  undef One
+   OGLPLUS_ENUM_CLASS_VALUE(One, GL_ONE)
+#  pragma pop_macro("One")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(One, GL_ONE)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif

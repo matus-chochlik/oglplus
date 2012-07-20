@@ -26,27 +26,48 @@ FileName
 
 #if defined GL_STANDARD_FONT_NAME_NV
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(Standard, GL_STANDARD_FONT_NAME_NV)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(Standard)
+#  pragma push_macro("Standard")
+#  undef Standard
+   OGLPLUS_ENUM_CLASS_VALUE(Standard, GL_STANDARD_FONT_NAME_NV)
+#  pragma pop_macro("Standard")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Standard, GL_STANDARD_FONT_NAME_NV)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_SYSTEM_FONT_NAME_NV
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(System, GL_SYSTEM_FONT_NAME_NV)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(System)
+#  pragma push_macro("System")
+#  undef System
+   OGLPLUS_ENUM_CLASS_VALUE(System, GL_SYSTEM_FONT_NAME_NV)
+#  pragma pop_macro("System")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(System, GL_SYSTEM_FONT_NAME_NV)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
 #if defined GL_FILE_NAME_NV
 # if OGLPLUS_LIST_NEEDS_COMMA
-OGLPLUS_ENUM_CLASS_COMMA
+    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-OGLPLUS_ENUM_CLASS_VALUE(FileName, GL_FILE_NAME_NV)
+# if OGLPLUS_NO_SCOPED_ENUMS && defined(FileName)
+#  pragma push_macro("FileName")
+#  undef FileName
+   OGLPLUS_ENUM_CLASS_VALUE(FileName, GL_FILE_NAME_NV)
+#  pragma pop_macro("FileName")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(FileName, GL_FILE_NAME_NV)
+# endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
