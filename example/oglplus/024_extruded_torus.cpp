@@ -48,9 +48,9 @@ public:
 	 , gs(ObjectDesc("Geometry"))
 	 , face_fs(ObjectDesc("Face fragment"))
 	 , frame_fs(ObjectDesc("Frame fragment"))
-	 , transf_prog("Transformation")
-	 , face_prog("Face")
-	 , frame_prog("Frame")
+	 , transf_prog(ObjectDesc("Transformation"))
+	 , face_prog(ObjectDesc("Face"))
+	 , frame_prog(ObjectDesc("Frame"))
 	{
 		vs.Source(
 			"#version 330\n"
