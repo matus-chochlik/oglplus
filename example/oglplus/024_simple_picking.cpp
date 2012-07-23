@@ -56,9 +56,9 @@ public:
 	PickingExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
-	 , vs(ShaderType::Vertex, "Vertex")
-	 , gs(ShaderType::Geometry, "Geometry")
-	 , fs(ShaderType::Fragment, "Fragment")
+	 , vs(ShaderType::Vertex, ObjectDesc("Vertex"))
+	 , gs(ShaderType::Geometry, ObjectDesc("Geometry"))
+	 , fs(ShaderType::Fragment, ObjectDesc("Fragment"))
 	{
 		// Set the vertex shader source
 		vs.Source(

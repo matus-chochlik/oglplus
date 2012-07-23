@@ -48,9 +48,9 @@ private:
 			float sz = std::rand()%2 ? 1.0f: -1.0f;
 			offsets[i] =
 				ModelMatrixf::Translation(
-					sx*(1.0f + std::pow(x, 0.9) * max_dist),
-					sy*(1.0f + std::pow(y, 1.5) * max_dist),
-					sz*(1.0f + std::pow(z, 0.7) * max_dist)
+					sx*(1.0f + std::pow(x, 0.9f) * max_dist),
+					sy*(1.0f + std::pow(y, 1.5f) * max_dist),
+					sz*(1.0f + std::pow(z, 0.7f) * max_dist)
 				) *
 				ModelMatrixf::RotationZ(
 					RightAngles(float(std::rand())/RAND_MAX)
