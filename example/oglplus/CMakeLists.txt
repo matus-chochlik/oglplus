@@ -45,7 +45,14 @@ add_library(
 )
 
 # get a list of all oglplus examples
-file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
+#
+# if it is one of the compilers that do not support everything
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	file(STRINGS "./examples-MSVC.txt" OGLPLUS_EXAMPLES)
+else()
+	# otherwise use all examples in the directory
+	file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
+endif()
 
 # make the instructions for compiling and linking of the examples
 foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
