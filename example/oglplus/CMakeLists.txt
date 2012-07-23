@@ -54,19 +54,27 @@ else()
 	file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
 endif()
 
+# list of examples that need libpng
+file(STRINGS "./examples-with-libpng.txt" OGLPLUS_EXAMPLES_WITH_LIBPNG)
+
 # make the instructions for compiling and linking of the examples
 foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 	get_filename_component(EXE_NAME "${EXAMPLE}" NAME_WE)
 	add_executable(${EXE_NAME} EXCLUDE_FROM_ALL ${EXAMPLE})
 	add_dependencies(${EXE_NAME} oglplus_textures)
-	target_link_libraries(
-		${EXE_NAME}
-		oglplus_example_harness
-		${OGLPLUS_EXAMPLE_HARNESS_LIBS}
-		${OGLPLUS_GL_LIBS}
-		# TODO detect and link only what is necessary
-		png
-	)
+
+	# make a list of libraries that we're going to link to
+	unset(EXE_LIBS)
+	set(EXE_LIBS ${OGLPLUS_EXAMPLE_HARNESS_LIBS} ${OGLPLUS_GL_LIBS})
+
+	# check if we need to link to libpng
+	list(FIND OGLPLUS_EXAMPLES_WITH_LIBPNG "${EXE_NAME}.cpp" EXE_NEEDS_LIBPNG)
+	if(NOT ${EXE_NEEDS_LIBPNG} LESS 0)
+		set(EXE_LIBS ${EXE_LIBS} png)
+	endif()
+
+	# set the link libraries
+	target_link_libraries(${EXE_NAME} oglplus_example_harness ${EXE_LIBS})
 	add_dependencies(oglplus-examples ${EXE_NAME})
 
 	if(NOT OGLPLUS_NO_SCREENSHOTS)
