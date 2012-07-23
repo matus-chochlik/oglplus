@@ -386,7 +386,9 @@ public:
 		>::type& matrix
 	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>());
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	Vector& operator = (const Vector& other) = default;
+#endif
 
 	/// Returns the dimension of the vector
 	friend OGLPLUS_CONSTEXPR size_t Size(const Vector& a)
