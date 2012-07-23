@@ -1,3 +1,9 @@
+Version 0.16.0
+
+- Backporting to MSVC 2010.
+- Several bugs were fixed.
+- Optimizations were made to the Matrix template
+
 Version 0.15.0
 
 - The OGLPLUS_LOW_PROFILE preprocessor option was added
