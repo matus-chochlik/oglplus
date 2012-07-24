@@ -210,8 +210,8 @@ public:
 	 , prev_time(0.0)
 	 , status(0.0)
 	{
-		point_prog.color_1 = Vec3f(1.0, 0.5, 0.4);
-		point_prog.color_2 = Vec3f(1.0, 0.8, 0.7);
+		point_prog.color_1 = Vec3f(1.0f, 0.5f, 0.4f);
+		point_prog.color_2 = Vec3f(1.0f, 0.8f, 0.7f);
 
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);

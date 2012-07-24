@@ -269,7 +269,7 @@ public:
 	template <typename ... P>
 	Vector(T v, P ... p)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
-	 : _elem({v, T(p)...})
+	 : _elem {v, T(p)...}
 	{
 		static_assert(
 			sizeof...(P) + 1 == N,
@@ -385,6 +385,10 @@ public:
 			Matrix<T, M, 1>
 		>::type& matrix
 	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>());
+
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Vector& operator = (const Vector& other) = default;
+#endif
 
 	/// Returns the dimension of the vector
 	friend OGLPLUS_CONSTEXPR size_t Size(const Vector& a)

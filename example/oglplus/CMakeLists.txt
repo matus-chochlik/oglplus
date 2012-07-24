@@ -45,47 +45,74 @@ add_library(
 )
 
 # get a list of all oglplus examples
-file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
+#
+# if it is one of the compilers that do not support everything
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	file(STRINGS "./examples-MSVC.txt" OGLPLUS_EXAMPLES)
+else()
+	# otherwise use all examples in the directory
+	file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
+endif()
+
+# list of examples that need libpng
+file(STRINGS "./examples-with-libpng.txt" OGLPLUS_EXAMPLES_WITH_LIBPNG)
 
 # make the instructions for compiling and linking of the examples
 foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
+	# example name
 	get_filename_component(EXE_NAME "${EXAMPLE}" NAME_WE)
-	add_executable(${EXE_NAME} EXCLUDE_FROM_ALL ${EXAMPLE})
-	add_dependencies(${EXE_NAME} oglplus_textures)
-	target_link_libraries(
-		${EXE_NAME}
-		oglplus_example_harness
-		${OGLPLUS_EXAMPLE_HARNESS_LIBS}
-		${OGLPLUS_GL_LIBS}
-		# TODO detect and link only what is necessary
-		png
+
+	# check if we need to link to libpng
+	list(FIND OGLPLUS_EXAMPLES_WITH_LIBPNG "${EXE_NAME}.cpp" EXE_NEEDS_LIBPNG)
+	set(EXE_NEEDS_LIBPNG NOT(${EXE_NEEDS_LIBPNG} LESS 0))
+
+	set(EXE_CAN_BE_BUILT
+		(${PNG_FOUND}) OR (NOT(${EXE_NEEDS_LIBPNG}))
 	)
-	add_dependencies(oglplus-examples ${EXE_NAME})
 
-	if(NOT OGLPLUS_NO_SCREENSHOTS)
-		add_custom_command(
-			OUTPUT ${EXE_NAME}.rgb
-			COMMAND ${EXE_NAME} --screenshot ${EXE_NAME}.rgb
-			DEPENDS ${EXE_NAME}
-		)
+	# if we have everything to build the executable
+	if(${EXE_CAN_BE_BUILT})
+		add_executable(${EXE_NAME} EXCLUDE_FROM_ALL ${EXAMPLE})
+		add_dependencies(${EXE_NAME} oglplus_textures)
 
-		if(${ImageMagick_convert_FOUND})
-			add_custom_command(
-				OUTPUT ${EXE_NAME}.png
-				COMMAND ${ImageMagick_convert_EXECUTABLE}
-					-depth 8
-					-size 800x600
-					${EXE_NAME}.rgb
-					-flip
-					-adaptive-resize 400x300
-					${EXE_NAME}.png
-				DEPENDS ${EXE_NAME}.rgb
-			)
+		# make a list of libraries that we're going to link to
+		unset(EXE_LIBS)
+		set(EXE_LIBS ${OGLPLUS_EXAMPLE_HARNESS_LIBS} ${OGLPLUS_GL_LIBS})
 
-			add_custom_target(${EXE_NAME}-screenshot DEPENDS ${EXE_NAME}.png)
-			add_dependencies(oglplus_example_screenshots ${EXE_NAME}-screenshot)
+		# if this example needs lib png
+		if(EXE_NEEDS_LIBPNG)
+			set(EXE_LIBS ${EXE_LIBS} png)
 		endif()
 
+
+		# set the link libraries
+		target_link_libraries(${EXE_NAME} oglplus_example_harness ${EXE_LIBS})
+		add_dependencies(oglplus-examples ${EXE_NAME})
+
+		if(NOT OGLPLUS_NO_SCREENSHOTS)
+			add_custom_command(
+				OUTPUT ${EXE_NAME}.rgb
+				COMMAND ${EXE_NAME} --screenshot ${EXE_NAME}.rgb
+				DEPENDS ${EXE_NAME}
+			)
+
+			if(${ImageMagick_convert_FOUND})
+				add_custom_command(
+					OUTPUT ${EXE_NAME}.png
+					COMMAND ${ImageMagick_convert_EXECUTABLE}
+						-depth 8
+						-size 800x600
+						${EXE_NAME}.rgb
+						-flip
+						-adaptive-resize 400x300
+						${EXE_NAME}.png
+					DEPENDS ${EXE_NAME}.rgb
+				)
+
+				add_custom_target(${EXE_NAME}-screenshot DEPENDS ${EXE_NAME}.png)
+				add_dependencies(oglplus_example_screenshots ${EXE_NAME}-screenshot)
+			endif()
+		endif()
 	endif()
 endforeach()
 

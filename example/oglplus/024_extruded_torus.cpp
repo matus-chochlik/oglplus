@@ -48,9 +48,9 @@ public:
 	 , gs(ObjectDesc("Geometry"))
 	 , face_fs(ObjectDesc("Face fragment"))
 	 , frame_fs(ObjectDesc("Frame fragment"))
-	 , transf_prog("Transformation")
-	 , face_prog("Face")
-	 , frame_prog("Frame")
+	 , transf_prog(ObjectDesc("Transformation"))
+	 , face_prog(ObjectDesc("Face"))
+	 , frame_prog(ObjectDesc("Frame"))
 	{
 		vs.Source(
 			"#version 330\n"
@@ -236,8 +236,8 @@ public:
 		face_prog.MakeSeparable();
 		face_prog.Link();
 
-		ProgramUniform<Vec3f>(face_prog, "TopColor").Set(0.2, 0.2, 0.2);
-		ProgramUniform<Vec3f>(face_prog, "SideColor").Set(0.9, 0.9, 0.2);
+		ProgramUniform<Vec3f>(face_prog, "TopColor").Set(0.2f, 0.2f, 0.2f);
+		ProgramUniform<Vec3f>(face_prog, "SideColor").Set(0.9f, 0.9f, 0.2f);
 
 		face_pp.Bind();
 		face_prog.Use();

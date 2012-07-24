@@ -4,8 +4,10 @@
 #
 
 # we need C++11
-# TODO add support for various compilers
-set(CPP11_COMPILER_SWITCH -std=c++0x)
+if(${CMAKE_COMPILER_IS_GNUCXX})
+	set(CPP11_COMPILER_SWITCH -std=c++0x)
+endif()
+# TODO add support for other compilers
 
 add_definitions(${CPP11_COMPILER_SWITCH})
 

@@ -331,7 +331,7 @@ public:
 
 		object_prog.Use();
 		Uniform<Mat4f>(object_prog, "CameraMatrix").Set(camera);
-		Uniform<GLfloat>(object_prog, "lightMult").Set(0.2);
+		Uniform<GLfloat>(object_prog, "lightMult").Set(0.2f);
 
 		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(identity);
 		plane.Bind();
@@ -344,7 +344,7 @@ public:
 		gl.ColorMask(false, false, false, false);
 		gl.DepthMask(false);
 		gl.Enable(Capability::StencilTest);
-		gl.StencilFunc(CompareFunction::Always);
+		gl.StencilFunc(CompareFunction::Always, 0);
 		gl.StencilOpSeparate(
 			Face::Front,
 			StencilOp::Keep,
