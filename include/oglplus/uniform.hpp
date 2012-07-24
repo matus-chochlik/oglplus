@@ -125,7 +125,10 @@ protected:
 	GLint _get_index(void)
 	{
 		if(!_index_initialized())
+		{
 			_index = this->_init_index(_identifier.c_str());
+			_identifier.clear();
+		}
 		return _index;
 	}
 
