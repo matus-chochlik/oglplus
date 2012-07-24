@@ -40,6 +40,11 @@ private:
 	// VBOs for the graph's vertices and edge element indices
 	Buffer verts, edges;
 
+	// Uniform variables
+	LazyUniform<Mat4f> projection_matrix;
+	LazyUniform<Mat4f> camera_matrix;
+
+
 	// The number of nodes in the graph
 	const size_t node_count;
 	// The number of edges in the graph
@@ -80,7 +85,10 @@ private:
 	}
 public:
 	GraphExample(void)
-	 : node_count(512)
+	 : prog()
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , node_count(512)
 	 , edge_count(0)
 	 , cam_path(make_cam_path_cps())
 	 , tgt_path(make_tgt_path_cps())
@@ -224,7 +232,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -238,7 +246,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::LookingAt(
 				cam_path.Position(time / 9.0),
 				tgt_path.Position(time / 7.0)

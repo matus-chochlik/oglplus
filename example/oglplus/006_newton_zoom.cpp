@@ -35,8 +35,12 @@ private:
 
 	// VBOs for the rectangle's vertices used also as the viewport coords
 	Buffer verts;
+
+	// Uniform referencing the "ZoomMatrix" variable of Program
+	LazyUniform<Mat2f> zoom_matrix;
 public:
 	RectangleExample(void)
+	 : zoom_matrix(prog, "ZoomMatrix")
 	{
 		// Set the vertex shader source
 		vs.Source(" \
@@ -153,7 +157,7 @@ public:
 		Vec2f x(Cos(angle), Sin(angle));
 		Vec2f y = Perpendicular(x);
 
-		SetUniform(prog, "ZoomMatrix", Mat2f(x*scale,  y* scale));
+		zoom_matrix = Mat2f(x*scale,  y* scale);
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
