@@ -62,7 +62,7 @@ public:
 		// set the fragment shader source
 		fs.Source(StrLit(" \
 			#version 330\n \
-			const uniform float radius = 0.4; \
+			const float radius = 0.4; \
 			uniform vec2 RedCenter, GreenCenter, BlueCenter; \
 			vec3 dist; \
 			in vec2 vertCoord; \
