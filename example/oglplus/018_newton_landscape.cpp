@@ -60,14 +60,14 @@ public:
 		grid_side*3, grid_side*3
 	), plane_instr(make_plane.Instructions())
 	 , plane_indices(make_plane.Indices())
-	 , light_path(OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+	 , light_path(OGLPLUS_STD_VECTOR_INIT(Vec3f,
 		Vec3f(-3.0f,  2.0f, -3.5f),
 		Vec3f( 0.0f,  5.0f,  0.5f),
 		Vec3f( 3.0f,  3.0f,  3.0f),
 		Vec3f( 3.0f,  3.0f, -3.0f),
 		Vec3f( 0.0f,  5.0f,  0.5f),
 		Vec3f(-3.2f,  2.0f,  3.0f)
-	}))
+	))
 	{
 		vs.Source(
 			"#version 330\n"

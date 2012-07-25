@@ -10,6 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/preprocessor.hpp>
 #include <oglplus/shapes/revolve.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/images/newton.hpp>
@@ -145,7 +146,7 @@ public:
 		shapes::RevolveY<GLfloat>(
 			36,
 			BezierCurves<Vec3f, GLfloat, 3>(
-				std::vector<Vec3f>({
+				OGLPLUS_STD_VECTOR_INIT(Vec3f,
 					Vec3f( 0.00, 0.00, 0.00),
 
 					Vec3f( 0.20, 0.00, 0.00),
@@ -195,11 +196,11 @@ public:
 					Vec3f( 0.40, 0.10, 0.00),
 					Vec3f( 0.25, 0.10, 0.00),
 					Vec3f( 0.00, 0.10, 0.00)
-				})
+				)
 			).Approximate(8),
 			std::vector<Vec3f>(),
 			BezierCurves<Vec3f, GLfloat, 3>(
-				std::vector<Vec3f>({
+				OGLPLUS_STD_VECTOR_INIT(Vec3f,
 					Vec3f( 5.00,-2.00, 1.00),
 
 					Vec3f( 5.00,-1.67, 1.00),
@@ -249,7 +250,7 @@ public:
 					Vec3f( 5.00, 4.70, 0.15),
 					Vec3f( 5.00, 4.90, 0.20),
 					Vec3f( 5.00, 5.00, 0.30)
-				})
+				)
 			).Approximate(8)
 		),
 		vase_prog

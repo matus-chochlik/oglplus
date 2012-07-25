@@ -6,7 +6,10 @@ cmake_minimum_required(VERSION 2.8)
 
 #TODO auto-detect or allow the caller to set this
 if(OGLPLUS_USE_GLEW)
-	if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	if(
+		("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC") OR
+		("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	)
 		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew_cxx03")
 	else()
 		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
@@ -18,7 +21,10 @@ else()
 endif()
 
 # now setup the harness dependencies
-if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew")
+if(
+	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew") OR
+	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew_cxx03")
+)
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLUT_LIBRARIES})
 elseif(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR

@@ -169,32 +169,32 @@ public:
 	{
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+				OGLPLUS_STD_VECTOR_INIT(Vec3f,
 					Vec3f(-20.0f, -10.0f,  10.0f),
 					Vec3f( 20.0f,   0.0f, -20.0f),
 					Vec3f( 20.0f,  10.0f,  20.0f),
 					Vec3f(-20.0f,   0.0f, -10.0f)
-				}), 5.0, 200.0
+				), 5.0, 200.0
 			)
 		);
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+				OGLPLUS_STD_VECTOR_INIT(Vec3f,
 					Vec3f( 30.0f,   0.0f,   0.0f),
 					Vec3f(-30.0f,   0.0f,   0.0f),
 					Vec3f(-20.0f,  20.0f,   0.0f),
 					Vec3f( 20.0f, -10.0f,   0.0f)
-				}), 3.0, 200.0
+				), 3.0, 200.0
 			)
 		);
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+				OGLPLUS_STD_VECTOR_INIT(Vec3f,
 					Vec3f(  5.0f,  20.0f,  20.0f),
 					Vec3f( -5.0f,  20.0f, -20.0f),
 					Vec3f(  5.0f, -20.0f, -20.0f),
 					Vec3f( -5.0f, -20.0f,  20.0f)
-				}), 20.0, 100.0
+				), 20.0, 100.0
 			)
 		);
 		// Set the vertex shader source

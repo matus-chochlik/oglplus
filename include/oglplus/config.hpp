@@ -146,7 +146,6 @@
 #define OGLPLUS_CONSTEXPR const
 #endif
 
-
 #if !OGLPLUS_NO_NOEXCEPT
 #define OGLPLUS_NOEXCEPT(...) noexcept(__VA_ARGS__)
 #define OGLPLUS_NOEXCEPT_IF(...) noexcept(noexcept(__VA_ARGS__))
