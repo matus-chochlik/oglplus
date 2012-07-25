@@ -59,7 +59,7 @@ public:
 			#version 330\n \
 			in vec2 vertCoord; \
 			out vec4 fragColor; \
-			const uniform int nclr = 5; \
+			const int nclr = 5; \
 			uniform vec4 clrs[5]; \
 			void main(void) \
 			{ \

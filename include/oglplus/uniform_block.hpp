@@ -38,8 +38,6 @@ protected:
 	GLuint _program;
 	GLint _index;
 
-	friend class FriendOf<UniformOps>;
-
 	static GLenum _translate_ref(ShaderType shader_type)
 	{
 		switch(shader_type)

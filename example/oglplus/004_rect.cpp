@@ -35,8 +35,15 @@ private:
 
 	// VBOs for the rectangle's vertices
 	Buffer verts;
+
+	// Variables referencing the program's uniforms
+	LazyUniform<Vec2f> red_center, green_center, blue_center;
 public:
 	RectangleExample(void)
+	 : prog()
+	 , red_center(prog, "RedCenter")
+	 , green_center(prog, "GreenCenter")
+	 , blue_center(prog, "BlueCenter")
 	{
 		// Set the vertex shader source
 		vs.Source(StrLit(" \
@@ -55,7 +62,7 @@ public:
 		// set the fragment shader source
 		fs.Source(StrLit(" \
 			#version 330\n \
-			const uniform float radius = 0.4; \
+			const float radius = 0.4; \
 			uniform vec2 RedCenter, GreenCenter, BlueCenter; \
 			vec3 dist; \
 			in vec2 vertCoord; \
@@ -103,9 +110,9 @@ public:
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform<Vec2f>(prog, "RedCenter").Set(-0.141f, 0.141f);
-		Uniform<Vec2f>(prog, "GreenCenter").Set(0.141f, 0.141f);
-		Uniform<Vec2f>(prog, "BlueCenter").Set(0.0f, -0.2f);
+		red_center.Set(-0.141f, 0.141f);
+		green_center.Set(0.141f, 0.141f);
+		blue_center.Set(0.0f, -0.2f);
 
 		gl.ClearDepth(1.0f);
 	}

@@ -83,6 +83,11 @@ private:
 	// VBOs for the cube's and screens vertex attribs
 	Buffer positions, normals, corners;
 
+	// Program uniform variables
+	LazyProgramUniform<GLuint> viewport_width;
+	LazyProgramUniform<GLuint> viewport_height;
+	LazyProgramUniform<Mat4f> projection_matrix;
+
 	// The framebuffer object of offscreen rendering
 	Framebuffer fbo;
 
@@ -99,6 +104,9 @@ public:
 	 , cube_matrices(MakeCubeMatrices(100, 10.0))
 	 , color_tex(Texture::Target::Rectangle)
 	 , depth_tex(Texture::Target::Rectangle)
+	 , viewport_width(dof_prog, "ViewportWidth")
+	 , viewport_height(dof_prog, "ViewportHeight")
+	 , projection_matrix(main_prog, "ProjectionMatrix")
 	 , width(800)
 	 , height(600)
 	{
@@ -193,15 +201,15 @@ public:
 
 		dof_vs.Source(
 			"#version 330\n"
-			"uniform uint Width, Height;"
+			"uniform uint ViewportWidth, ViewportHeight;"
 			"in vec4 Position;"
 			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	gl_Position = Position;"
 			"	vertTexCoord = vec2("
-			"		(Position.x*0.5 + 0.5)*Width,"
-			"		(Position.y*0.5 + 0.5)*Height"
+			"		(Position.x*0.5 + 0.5)*ViewportWidth,"
+			"		(Position.y*0.5 + 0.5)*ViewportHeight"
 			"	);"
 			"}"
 		);
@@ -332,10 +340,10 @@ public:
 		width = vp_width;
 		height = vp_height;
 
-		ProgramUniform<GLuint>(dof_prog, "Width").Set(width);
-		ProgramUniform<GLuint>(dof_prog, "Height").Set(height);
+		viewport_width.Set(width);
+		viewport_height.Set(height);
 
-		ProgramUniform<Mat4f>(main_prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(30),
 				double(width)/height,

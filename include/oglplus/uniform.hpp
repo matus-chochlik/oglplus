@@ -21,34 +21,44 @@
 #include <oglplus/string.hpp>
 
 #include <vector>
+#include <cassert>
 
 namespace oglplus {
+namespace aux {
 
-// Helper class for Uniform
-class UniformOps
+class UniformInitBase
  : public FriendOf<ProgramOps>
 {
-protected:
+private:
 	GLuint _program;
-	GLint _index;
-
-	friend class FriendOf<UniformOps>;
-
-	UniformOps(const ProgramOps& program, const GLchar* identifier)
+protected:
+	UniformInitBase(const ProgramOps& program)
 	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _index(
-		OGLPLUS_GLFUNC(GetUniformLocation)(
-			FriendOf<ProgramOps>::GetName(program),
-			identifier
-		)
-	)
+	{ }
+
+	GLuint _get_program(void) const
 	{
+		return _program;
+	}
+
+	GLint _do_init_index(const GLchar* identifier) const
+	{
+		return OGLPLUS_GLFUNC(GetUniformLocation)(
+			_program,
+			identifier
+		);
+	}
+
+	GLint _init_index(const GLchar* identifier) const
+	{
+		GLint index = _do_init_index(identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformLocation));
-		if(OGLPLUS_IS_ERROR(_index == GLint(-1)))
+		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
-			props["program"] = DescriptionOf(program);
+			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
+						_get_desc(_program);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
@@ -56,7 +66,103 @@ protected:
 				std::move(props)
 			);
 		}
+		return index;
 	}
+};
+
+class EagerUniformInit
+ : public UniformInitBase
+{
+private:
+	GLint _index;
+protected:
+	GLint _get_index(void) const
+	{
+		return _index;
+	}
+
+	bool _try_init_index(void) const
+	{
+		assert(_index != GLint(-1));
+		return true;
+	}
+
+	EagerUniformInit(const ProgramOps& program, const GLchar* identifier)
+	 : UniformInitBase(program)
+	 , _index(UniformInitBase::_init_index(identifier))
+	{ }
+
+	EagerUniformInit(const ProgramOps& program, const String& identifier)
+	 : UniformInitBase(program)
+	 , _index(UniformInitBase::_init_index(identifier.c_str()))
+	{ }
+
+	EagerUniformInit(const ProgramOps& program, String&& identifier)
+	 : UniformInitBase(program)
+	 , _index(UniformInitBase::_init_index(identifier.c_str()))
+	{ }
+};
+
+class LazyUniformInit
+ : public UniformInitBase
+{
+private:
+	String _identifier;
+	mutable GLint _index;
+protected:
+	bool _index_initialized(void) const
+	{
+		return _index != GLint(-1);
+	}
+
+	bool _try_init_index(void)
+	{
+		if(!_index_initialized())
+			 _index = this->_do_init_index(_identifier.c_str());
+		return _index_initialized();
+	}
+
+	GLint _get_index(void)
+	{
+		if(!_index_initialized())
+		{
+			_index = this->_init_index(_identifier.c_str());
+			_identifier.clear();
+		}
+		return _index;
+	}
+
+	LazyUniformInit(const ProgramOps& program, const GLchar* identifier)
+	 : UniformInitBase(program)
+	 , _identifier(identifier)
+	 , _index(GLint(-1))
+	{ }
+
+	LazyUniformInit(const ProgramOps& program, const String& identifier)
+	 : UniformInitBase(program)
+	 , _identifier(identifier)
+	 , _index(GLint(-1))
+	{ }
+
+	LazyUniformInit(const ProgramOps& program, String&& identifier)
+	 : UniformInitBase(program)
+	 , _identifier(std::move(identifier))
+	 , _index(GLint(-1))
+	{ }
+};
+
+} // namespace aux
+
+// Helper class for Uniform
+template <class Initializer>
+class UniformOps
+ : public Initializer
+{
+protected:
+	template <class _String>
+	UniformOps(const ProgramOps& program, _String&& identifier)
+	 : Initializer(program, std::forward<_String>(identifier))
+	{ }
 public:
 };
 
@@ -160,18 +266,15 @@ protected:
  *  @note Do not use this class directly use Uniform or ProgramUniform
  *  instead.
  */
-template <typename T, class SpecOpsWrapper>
+template <typename T, class IndexInit, class SpecOpsWrapper>
 class UniformBase
- : public UniformOps
+ : public UniformOps<IndexInit>
  , public SpecOpsWrapper::type
 {
 protected:
-	UniformBase(const Program& program, const GLchar* identifier)
-	 : UniformOps(program, identifier)
-	{ }
-
-	UniformBase(const Program& program, const String& identifier)
-	 : UniformOps(program, identifier.c_str())
+	template <class _String>
+	UniformBase(const Program& program, _String&& identifier)
+	 : UniformOps<IndexInit>(program, std::forward<_String>(identifier))
 	{ }
 public:
 
@@ -181,11 +284,11 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	void Set(T value) const
+	void Set(T value)
 	{
 		this->_do_set(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			value
 		);
 	}
@@ -196,11 +299,11 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	void Set(GLsizei count, const T* v) const
+	void Set(GLsizei count, const T* v)
 	{
 		this->template _do_set_many<1>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			count,
 			v
 		);
@@ -212,11 +315,11 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	void Set(const std::vector<T>& v) const
+	void Set(const std::vector<T>& v)
 	{
 		this->template _do_set_many<1>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			v.size(),
 			v.data()
 		);
@@ -230,38 +333,53 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <typename ... P>
-	void Set(T v, P ... p) const;
+	void Set(T v, P ... p);
 #endif
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename ... P>
-	void Set(T v, P ... p) const
+	void Set(T v, P ... p)
 	{
 		const T tmp[] = {v, p...};
 		this->template _do_set_many<1>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			sizeof(tmp)/sizeof(tmp[0]),
 			tmp
 		);
 	}
 #else
-	void Set(T v0, T v1) const
+	void Set(T v0, T v1)
 	{
 		const T tmp[] = {v0, v1};
-		this->template _do_set_many<1>(this->_program,this->_index,	2, tmp);
+		this->template _do_set_many<1>(
+			this->_get_program(),
+			this->_get_index(),
+			2,
+			tmp
+		);
 	}
 
-	void Set(T v0, T v1, T v2) const
+	void Set(T v0, T v1, T v2)
 	{
 		const T tmp[] = {v0, v1, v2};
-		this->template _do_set_many<1>(this->_program,this->_index,	3, tmp);
+		this->template _do_set_many<1>(
+			this->_get_program(),
+			this->_get_index(),
+			3,
+			tmp
+		);
 	}
 
-	void Set(T v0, T v1, T v2, T v3) const
+	void Set(T v0, T v1, T v2, T v3)
 	{
 		const T tmp[] = {v0, v1, v2, v3};
-		this->template _do_set_many<1>(this->_program,this->_index,	4, tmp);
+		this->template _do_set_many<1>(
+			this->_get_program(),
+			this->_get_index(),
+			4,
+			tmp
+		);
 	}
 #endif
 
@@ -275,36 +393,48 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <typename ... P>
-	void SetVector(T v, P ... p) const
+	void SetVector(T v, P ... p)
 #endif
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename ... P>
-	void SetVector(T v, P ... p) const
+	void SetVector(T v, P ... p)
 	{
 		this->_do_set(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			v, p...
 		);
 	}
 #else
-	void SetVector(T v0, T v1) const
+	void SetVector(T v0, T v1)
 	{
 		const T tmp[] = {v0, v1};
-		this->template _do_set<2>(this->_program, this->_index, tmp);
+		this->template _do_set<2>(
+			this->_get_program(),
+			this->_get_index(),
+			tmp
+		);
 	}
 
-	void SetVector(T v0, T v1, T v2) const
+	void SetVector(T v0, T v1, T v2)
 	{
 		const T tmp[] = {v0, v1, v2};
-		this->template _do_set<3>(this->_program, this->_index, tmp);
+		this->template _do_set<3>(
+			this->_get_program(),
+			this->_get_index(),
+			tmp
+		);
 	}
 
-	void SetVector(T v0, T v1, T v2, T v3) const
+	void SetVector(T v0, T v1, T v2, T v3)
 	{
 		const T tmp[] = {v0, v1, v2, v3};
-		this->template _do_set<4>(this->_program, this->_index, tmp);
+		this->template _do_set<4>(
+			this->_get_program(),
+			this->_get_index(),
+			tmp
+		);
 	}
 #endif
 
@@ -317,11 +447,11 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <size_t Cols>
-	void SetVector(const T* v) const
+	void SetVector(const T* v)
 	{
 		this->template _do_set<Cols>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			v
 		);
 	}
@@ -335,11 +465,11 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <size_t Cols>
-	void SetVectors(GLsizei count, const T* v) const
+	void SetVectors(GLsizei count, const T* v)
 	{
 		this->template _do_set_many<Cols>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			count,
 			v
 		);
@@ -354,11 +484,11 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <size_t Cols>
-	void SetVectors(const std::vector<T>& v) const
+	void SetVectors(const std::vector<T>& v)
 	{
 		this->template _do_set_many<Cols>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			v.size(),
 			v.data()
 		);
@@ -373,11 +503,11 @@ public:
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
 	template <size_t Cols, size_t Rows>
-	void SetMatrix(size_t count, const T* v) const
+	void SetMatrix(size_t count, const T* v)
 	{
 		this->template _do_set_mat<Cols, Rows>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			count,
 			false,
 			v
@@ -394,11 +524,11 @@ public:
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
 	template <size_t Cols, typename ... P>
-	void SetMatrix(T v, P ... p) const
+	void SetMatrix(T v, P ... p)
 	{
 		this->template _do_set_mat_p<Cols>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			false,
 			v, p...
 		);
@@ -407,18 +537,15 @@ public:
 };
 
 /// Specialization of uniform operations for Vector types
-template <typename T, size_t N, class SpecOpsWrapper>
-class UniformBase<Vector<T, N>, SpecOpsWrapper>
- : public UniformOps
+template <typename T, size_t N, class IndexInit, class SpecOpsWrapper>
+class UniformBase<Vector<T, N>, IndexInit, SpecOpsWrapper>
+ : public UniformOps<IndexInit>
  , public SpecOpsWrapper::type
 {
 protected:
-	UniformBase(const Program& program, const GLchar* identifier)
-	 : UniformOps(program, identifier)
-	{ }
-
-	UniformBase(const Program& program, const String& identifier)
-	 : UniformOps(program, identifier.c_str())
+	template <class _String>
+	UniformBase(const Program& program, _String&& identifier)
+	 : UniformOps<IndexInit>(program, std::forward<_String>(identifier))
 	{ }
 public:
 	/// Set the vector value of the uniform variable
@@ -427,11 +554,11 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	void Set(const Vector<T, N>& vector) const
+	void Set(const Vector<T, N>& vector)
 	{
 		this->template _do_set<N>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			Data(vector)
 		);
 	}
@@ -442,11 +569,11 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	void Set(const ThirdPartyVector<T, N>& vector) const
+	void Set(const ThirdPartyVector<T, N>& vector)
 	{
 		this->template _do_set<N>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			vector.Data()
 		);
 	}
@@ -459,22 +586,22 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <typename ... P>
-	inline void Set(T v, P ... p) const
+	inline void Set(T v, P ... p)
 	{
 		this->Set(Vector<T, N>(v, p...));
 	}
 #else
-	inline void Set(T v0, T v1) const
+	inline void Set(T v0, T v1)
 	{
 		this->Set(Vector<T, 2>(v0, v1));
 	}
 
-	inline void Set(T v0, T v1, T v2) const
+	inline void Set(T v0, T v1, T v2)
 	{
 		this->Set(Vector<T, 3>(v0, v1, v2));
 	}
 
-	inline void Set(T v0, T v1, T v2, T v3) const
+	inline void Set(T v0, T v1, T v2, T v3)
 	{
 		this->Set(Vector<T, 4>(v0, v1, v2, v3));
 	}
@@ -487,7 +614,7 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <typename Alloc>
-	void Set(const std::vector<Vector<T, N>, Alloc>& range) const
+	void Set(const std::vector<Vector<T, N>, Alloc>& range)
 	{
 		// TODO: this could be optimized in situations
 		// when the alignment is right and could work
@@ -497,8 +624,8 @@ public:
 		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
 			temp.insert(temp.end(), Data(*i), Data(*i)+N);
 		this->template _do_set_many<N>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			temp.size(),
 			temp.data()
 		);
@@ -511,15 +638,15 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <typename Alloc>
-	void Set(const std::vector<ThirdPartyVector<T, N>, Alloc>& range) const
+	void Set(const std::vector<ThirdPartyVector<T, N>, Alloc>& range)
 	{
 		std::vector<T> temp;
 		temp.reserve(range.size()*N);
 		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
 			temp.insert(temp.end(), i->Data(), i->Data()+N);
 		this->template _do_set_many<N>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			temp.size(),
 			temp.data()
 		);
@@ -536,7 +663,7 @@ public:
 		template <typename ... Params> class StdRange,
 		typename ... P
 	>
-	void Set(const StdRange<Vector<T, N>, P...>& range) const
+	void Set(const StdRange<Vector<T, N>, P...>& range)
 	{
 		// TODO: this could be optimized in situations
 		// when the alignment is right and could work
@@ -546,8 +673,8 @@ public:
 		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
 			temp.insert(temp.end(), Data(*i), Data(*i)+N);
 		this->template _do_set_many<N>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			temp.size(),
 			temp.data()
 		);
@@ -556,18 +683,21 @@ public:
 };
 
 /// Specialization of uniform operations for Matrix types
-template <typename T, size_t Rows, size_t Cols, class SpecOpsWrapper>
-class UniformBase<Matrix<T, Rows, Cols>, SpecOpsWrapper>
- : public UniformOps
+template <
+	typename T,
+	size_t Rows,
+	size_t Cols,
+	class IndexInit,
+	class SpecOpsWrapper
+>
+class UniformBase<Matrix<T, Rows, Cols>, IndexInit, SpecOpsWrapper>
+ : public UniformOps<IndexInit>
  , public SpecOpsWrapper::type
 {
 protected:
-	UniformBase(const Program& program, const GLchar* identifier)
-	 : UniformOps(program, identifier)
-	{ }
-
-	UniformBase(const Program& program, const String& identifier)
-	 : UniformOps(program, identifier.c_str())
+	template <class _String>
+	UniformBase(const Program& program, _String&& identifier)
+	 : UniformOps<IndexInit>(program, std::forward<_String>(identifier))
 	{ }
 public:
 	/// Set the matrix components of the uniform variable
@@ -576,11 +706,11 @@ public:
 	 *  @glfunref{UniformMatrix}
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
-	void Set(const Matrix<T, Rows, Cols>& matrix) const
+	void Set(const Matrix<T, Rows, Cols>& matrix)
 	{
 		this->template _do_set_mat<Cols, Rows>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			1,
 			true,
 			Data(matrix)
@@ -593,11 +723,11 @@ public:
 	 *  @glfunref{UniformMatrix}
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
-	void Set(const ThirdPartyMatrix<T, Rows, Cols>& matrix) const
+	void Set(const ThirdPartyMatrix<T, Rows, Cols>& matrix)
 	{
 		this->template _do_set_mat<Cols, Rows>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			1,
 			matrix.IsRowMajor(),
 			matrix.Data()
@@ -612,7 +742,7 @@ public:
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
 	template <typename Alloc>
-	void Set(const std::vector<Matrix<T, Rows, Cols>, Alloc>& range) const
+	void Set(const std::vector<Matrix<T, Rows, Cols>, Alloc>& range)
 	{
 		// TODO: this could be optimized in situations
 		// when the alignment is right and could work
@@ -622,8 +752,8 @@ public:
 		for(auto i=range.begin(), e=range.end(); i!=e; ++i)
 			temp.insert(temp.end(), Data(*i), Data(*i)+Rows*Cols);
 		this->template _do_set_mat<Cols, Rows>(
-			this->_program,
-			this->_index,
+			this->_get_program(),
+			this->_get_index(),
 			range.size(),
 			true,
 			temp.data()
@@ -638,9 +768,7 @@ public:
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
 	template <typename Alloc>
-	void Set(
-		const std::vector<ThirdPartyMatrix<T, Rows, Cols>, Alloc>& range
-	) const
+	void Set(const std::vector<ThirdPartyMatrix<T,Rows,Cols>, Alloc>& range)
 	{
 		std::vector<T> temp;
 		temp.reserve(range.size()*Rows*Cols);
@@ -658,8 +786,8 @@ public:
 				++i;
 			}
 			this->template _do_set_mat<Cols, Rows>(
-				this->_program,
-				this->_index,
+				this->_get_program(),
+				this->_get_index(),
 				range.size(),
 				is_row_major,
 				temp.data()
@@ -675,7 +803,7 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <typename ... P>
-	inline void Set(T v, P ... p) const
+	inline void Set(T v, P ... p)
 	{
 		this->Set(Matrix<T, Rows, Cols>(v, p...));
 	}
@@ -699,13 +827,13 @@ class UniformAllSetOps
 { };
 
 template <typename T>
-struct UniformOps
+struct UniformSetOps
 {
 	typedef UniformAllSetOps<T> type;
 };
 
 template <typename T, size_t N>
-struct UniformOps<Vector<T, N> >
+struct UniformSetOps<Vector<T, N> >
 {
 	typedef aux::ShaderDataSetOps<
 		aux::UniformQueries,
@@ -716,7 +844,7 @@ struct UniformOps<Vector<T, N> >
 };
 
 template <typename T, size_t Rows, size_t Cols>
-struct UniformOps<Matrix<T, Rows, Cols> >
+struct UniformSetOps<Matrix<T, Rows, Cols> >
 {
 	typedef aux::ShaderMatrixSetOps<
 		aux::UniformQueries,
@@ -740,13 +868,13 @@ class ProgramUniformAllSetOps
 { };
 
 template <typename T>
-struct ProgramUniformOps
+struct ProgramUniformSetOps
 {
 	typedef ProgramUniformAllSetOps<T> type;
 };
 
 template <typename T, size_t N>
-struct ProgramUniformOps<Vector<T, N> >
+struct ProgramUniformSetOps<Vector<T, N> >
 {
 	typedef aux::ShaderDataSetOps<
 		aux::UniformQueries,
@@ -757,7 +885,7 @@ struct ProgramUniformOps<Vector<T, N> >
 };
 
 template <typename T, size_t Rows, size_t Cols>
-struct ProgramUniformOps<Matrix<T, Rows, Cols> >
+struct ProgramUniformSetOps<Matrix<T, Rows, Cols> >
 {
 	typedef aux::ShaderMatrixSetOps<
 		aux::UniformQueries,
@@ -768,23 +896,25 @@ struct ProgramUniformOps<Matrix<T, Rows, Cols> >
 
 } // namespace aux
 
-/// Class encapsulating Uniform shader variable functionality
-/**
+/// Template for Uniform, ProgramUniform, LazyUniform and LazyProgramUniform
+/** @note Do not use directly, use Uniform, ProgramUniform, LazyUniform or
+ *  LazyProgramUniform instead.
+ *
  *  @ingroup shader_variables
  */
-template <typename T>
-class Uniform
- : public UniformBase<T, aux::UniformOps<T>>
+template <typename T, class IndexInit, class SetOps>
+class UniformTpl
+ : public UniformBase<T, IndexInit, SetOps>
 {
 private:
-	typedef UniformBase<T, aux::UniformOps<T>> _base;
+	typedef UniformBase<T, IndexInit, SetOps> _base;
 public:
 	/// Reference a uniform identified by @p identifier in the @p program
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetUniformLocation}
 	 */
-	Uniform(const Program& program, const GLchar* identifier)
+	UniformTpl(const Program& program, const GLchar* identifier)
 	 : _base(program, identifier)
 	{ }
 
@@ -793,8 +923,17 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetUniformLocation}
 	 */
-	Uniform(const Program& program, const String& identifier)
-	 : _base(program, identifier.c_str())
+	UniformTpl(const Program& program, const String& identifier)
+	 : _base(program, identifier)
+	{ }
+
+	/// Reference a uniform identified by @p identifier in the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetUniformLocation}
+	 */
+	UniformTpl(const Program& program, String&& identifier)
+	 : _base(program, std::move(identifier))
 	{ }
 
 	/// Set the value of the uniform variable
@@ -803,7 +942,111 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{UniformMatrix}
 	 */
-	inline void operator = (const T& value) const
+	void operator = (const T& value)
+	{
+		this->Set(value);
+	}
+
+	/// Tests if this Uniform is initialized and can be used
+	/**
+	 *  For Uniform and ProgramUniform this function always
+	 *  returns true as these cannot be in uninitialized state.
+	 *  For LazyUniform and LazyProgramUniform this function
+	 *  returns true if the uniform is active and can be referenced
+	 *  and used for subsequent value-setting operations.
+	 *  If this function returns false then trying to set a value
+	 *  or any other operation on the uniform besides destruction
+	 *  throws an exception.
+	 */
+	bool IsInitialized(void)
+	{
+		return this->_try_init_index();
+	}
+
+	/// Equivalent to IsInitialized()
+	/**
+	 *  @see IsInitialized
+	 */
+	operator bool (void)
+	{
+		return IsInitialized();
+	}
+
+	/// Equivalent to !IsInitialized()
+	/**
+	 *  @see IsInitialized
+	 */
+	bool operator ! (void)
+	{
+		return !IsInitialized();
+	}
+};
+
+/// Class encapsulating Uniform shader variable functionality
+/**
+ *  The difference between Uniform and LazyUniform is, that Uniform
+ *  tries to get the location (index) of the GLSL uniform variable
+ *  in a Program during construction and LazyUniform postpones this
+ *  initialization until the value is actually needed at the cost
+ *  of having to internally store the identifer in a String.
+ *
+ *  @see ProgramUniform
+ *  @see LazyUniform
+ *
+ *  @ingroup shader_variables
+ */
+template <typename T>
+class Uniform
+ : public UniformTpl<T, aux::EagerUniformInit, aux::UniformSetOps<T>>
+{
+protected:
+	typedef UniformTpl<
+		T,
+		aux::EagerUniformInit,
+		aux::UniformSetOps<T>
+	> _base;
+public:
+	template <typename _String>
+	Uniform(const Program& program, _String&& identifier)
+	 : _base(program, std::forward<_String>(identifier))
+	{ }
+
+	inline void operator = (const T& value)
+	{
+		this->Set(value);
+	}
+};
+
+/// Class encapsulating Uniform shader variable functionality
+/**
+ *  The difference between Uniform and LazyUniform is, that Uniform
+ *  tries to get the location (index) of the GLSL uniform variable
+ *  in a Program during construction and LazyUniform postpones this
+ *  initialization until the value is actually needed at the cost
+ *  of having to internally store the identifer in a String.
+ *
+ *  @see ProgramUniform
+ *  @see LazyUniform
+ *
+ *  @ingroup shader_variables
+ */
+template <typename T>
+class LazyUniform
+ : public UniformTpl<T, aux::LazyUniformInit, aux::UniformSetOps<T>>
+{
+protected:
+	typedef UniformTpl<
+		T,
+		aux::LazyUniformInit,
+		aux::UniformSetOps<T>
+	> _base;
+public:
+	template <typename _String>
+	LazyUniform(const Program& program, _String&& identifier)
+	 : _base(program, std::forward<_String>(identifier))
+	{ }
+
+	inline void operator = (const T& value)
 	{
 		this->Set(value);
 	}
@@ -844,40 +1087,69 @@ inline void SetUniform(
 
 /// Class encapsulating ProgramUniform shader variable functionality
 /**
+ *  The difference between ProgramUniform and LazyProgramUniform is, that
+ *  ProgramUniform tries to get the location (index) of the GLSL uniform variable
+ *  in a Program during construction and LazyProgramUniform postpones this
+ *  initialization until the value is actually needed at the cost
+ *  of having to internally store the identifer in a String.
+ *
+ *  @see Uniform
+ *  @see LazyProgramUniform
+ *
  *  @ingroup shader_variables
  */
 template <typename T>
 class ProgramUniform
- : public UniformBase<T, aux::ProgramUniformOps<T>>
+ : public UniformTpl<T, aux::EagerUniformInit, aux::ProgramUniformSetOps<T>>
 {
 private:
-	typedef UniformBase<T, aux::ProgramUniformOps<T>> _base;
+	typedef UniformTpl<
+		T,
+		aux::EagerUniformInit,
+		aux::ProgramUniformSetOps<T>>
+	_base;
 public:
-	/// Reference a uniform identified by @p identifier in the @p program
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetUniformLocation}
-	 */
-	ProgramUniform(const Program& program, const GLchar* identifier)
-	 : _base(program, identifier)
+	template <typename _String>
+	ProgramUniform(const Program& program, _String&& identifier)
+	 : _base(program, std::forward<_String>(identifier))
 	{ }
 
-	/// Reference a uniform identified by @p identifier in the @p program
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetUniformLocation}
-	 */
-	ProgramUniform(const Program& program, const String& identifier)
-	 : _base(program, identifier.c_str())
+	inline void operator = (const T& value)
+	{
+		this->Set(value);
+	}
+};
+
+/// Class encapsulating ProgramUniform shader variable functionality
+/**
+ *  The difference between ProgramUniform and LazyProgramUniform is, that
+ *  ProgramUniform tries to get the location (index) of the GLSL uniform variable
+ *  in a Program during construction and LazyProgramUniform postpones this
+ *  initialization until the value is actually needed at the cost
+ *  of having to internally store the identifer in a String.
+ *
+ *  @see Uniform
+ *  @see LazyProgramUniform
+ *
+ *  @ingroup shader_variables
+ */
+template <typename T>
+class LazyProgramUniform
+ : public UniformTpl<T, aux::LazyUniformInit, aux::ProgramUniformSetOps<T>>
+{
+private:
+	typedef UniformTpl<
+		T,
+		aux::LazyUniformInit,
+		aux::ProgramUniformSetOps<T>>
+	_base;
+public:
+	template <typename _String>
+	LazyProgramUniform(const Program& program, _String&& identifier)
+	 : _base(program, std::forward<_String>(identifier))
 	{ }
 
-	/// Set the value of the uniform variable
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ProgramUniform}
-	 *  @glfunref{ProgramUniformMatrix}
-	 */
-	inline void operator = (const T& value) const
+	inline void operator = (const T& value)
 	{
 		this->Set(value);
 	}
