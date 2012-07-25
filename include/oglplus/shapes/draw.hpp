@@ -182,7 +182,7 @@ public:
 
 	struct DefaultDriver
 	{
-		inline bool operator()(GLuint phase) const
+		inline bool operator()(GLuint /*phase*/) const
 		{
 			return true;
 		}

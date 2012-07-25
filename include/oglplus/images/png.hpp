@@ -65,13 +65,13 @@ private:
 	} _validate_header;
 
 	// Error handling function
-	static void _png_handle_error(::png_structp sp, const char* msg)
+	static void _png_handle_error(::png_structp /*sp*/, const char* msg)
 	{
 		throw ::std::runtime_error(msg);
 	}
 
 	// Warning handling function
-	static void _png_handle_warning(::png_structp sp, const char* msg)
+	static void _png_handle_warning(::png_structp/*sp*/, const char* /*msg*/)
 	{
 	}
 
@@ -80,7 +80,7 @@ private:
 	{
 		::png_structp _read;
 
-		_read_struct(PNGLoader& loader)
+		_read_struct(PNGLoader& /*loader*/)
 		 : _read(::png_create_read_struct(
 			PNG_LIBPNG_VER_STRING,
 			(::png_voidp)this,
@@ -153,7 +153,7 @@ private:
 		return ((PNGLoader*)p)->_read_user_chunk(chunk);
 	}
 
-	int _read_user_chunk(::png_unknown_chunkp chunk)
+	int _read_user_chunk(::png_unknown_chunkp /*chunk*/)
 	{
 		return 0;
 	}
@@ -195,7 +195,7 @@ private:
 		}
 	} _png;
 
-	static GLenum _translate_format(GLuint color_type, bool has_alpha)
+	static GLenum _translate_format(GLuint color_type, bool /*has_alpha*/)
 	{
 		switch(color_type)
 		{

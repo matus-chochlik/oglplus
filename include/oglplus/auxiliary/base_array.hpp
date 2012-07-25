@@ -45,7 +45,7 @@ public:
 		return _storage.empty();
 	}
 
-	GLsizei size(void) const
+	size_t size(void) const
 	{
 		return _storage.size();
 	}
@@ -132,7 +132,7 @@ public:
 		return _names.empty();
 	}
 
-	GLsizei size(void) const
+	size_t size(void) const
 	{
 		return _names.size();
 	}

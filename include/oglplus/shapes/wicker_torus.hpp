@@ -324,7 +324,6 @@ public:
 			const GLdouble f_sign = (f == 0)? 1.0: -1.0;
 			for(size_t r=0; r!=_rings; ++r)
 			{
-				GLdouble r_sign = r % 2 == 0 ? 1.0: -1.0;
 				GLdouble vx = std::cos(r*r_step);
 				GLdouble vz = std::sin(r*r_step);
 				const GLdouble rslp = s_slop*f_sign;
@@ -490,7 +489,6 @@ public:
 		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
 		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
-		const GLdouble s_slip = s_step * _s_slip_coef;
 		const GLdouble s_slop = (1.0 * math::pi()) / 4.0;
 
 		for(size_t f=0; f!=2; ++f)
@@ -563,7 +561,6 @@ public:
 			const GLdouble f_sign = (f == 0)? 1.0: -1.0;
 			for(size_t s=0; s!=_sections; ++s)
 			{
-				const GLdouble s_angle = s_step*0.5 + s*s_step;
 				for(size_t r=0; r!=_rings; ++r)
 				{
 					const GLdouble r_angle = r*r_step;
@@ -601,7 +598,6 @@ public:
 			const GLdouble d_sign = (d == 0)? 1.0: -1.0;
 			for(size_t s=0; s!=_sections; ++s)
 			{
-				const GLdouble s_angle = s_step*0.5 + s*s_step;
 				for(size_t r=0; r!=_rings; ++r)
 				{
 					const GLdouble r_angle = r*r_step;
@@ -748,8 +744,6 @@ public:
 						}
 					}
 				}
-				GLdouble vx = std::cos(r_slip);
-				GLdouble vz = std::sin(r_slip);
 
 				GLdouble u = 1.0 + r_slip;
 				for(size_t d=0; d!=2; ++d)
@@ -785,8 +779,6 @@ public:
 						}
 					}
 				}
-				GLdouble vx = std::cos(r_slip);
-				GLdouble vz = std::sin(r_slip);
 
 				GLdouble u = 1.0 + r_slip;
 				for(size_t f=0; f!=2; ++f)

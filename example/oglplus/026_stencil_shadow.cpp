@@ -54,8 +54,8 @@ private:
 public:
 	ShadowExample(void)
 	 : make_torus(1.0, 0.7, 72, 48)
-	 , torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
+	 , torus_instr(make_torus.Instructions())
 	{
 		vs_object.Source(
 			"#version 330\n"
@@ -394,7 +394,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new ShadowExample);
 }

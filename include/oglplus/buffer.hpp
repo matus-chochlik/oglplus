@@ -116,7 +116,7 @@ public:
 	OGLPLUS_ENUM_CLASS_END
 
 protected:
-	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
+	static void _init(GLsizei count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != nullptr);
@@ -124,7 +124,7 @@ protected:
 		catch(...){ }
 	}
 
-	static void _init(GLsizei count, GLuint* _name, std::false_type ne)
+	static void _init(GLsizei count, GLuint* _name, std::false_type)
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenBuffers)(count, _name);
@@ -238,6 +238,7 @@ public:
 					BufferMapAccess::ReadWrite
 				): return GL_READ_WRITE;
 			}
+			return GL_READ_ONLY;
 		}
 	public:
 		/// Maps a range of the buffer

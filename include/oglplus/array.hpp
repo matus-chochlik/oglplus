@@ -43,7 +43,7 @@ public:
 	bool empty(void) const;
 
 	/// Returns the number of instances in the array
-	GLsizei size(void) const;
+	size_t size(void) const;
 
 	/// Returns a reference to the i-th instance in the array
 	const Object& at(GLuint index) const;

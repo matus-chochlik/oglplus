@@ -60,7 +60,7 @@ private:
 	// The window width and height
 	size_t width, height;
 public:
-	ShadowVolExample(void)
+	ShadowVolExample(const ExampleParams& params)
 	 : shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
 	 , shape_vs(ShaderType::Vertex, "Shape vertex")
@@ -75,7 +75,7 @@ public:
 	 , depth_prog("Depth")
 	 , light_prog("Light")
 	 , tex_side(128)
-	 , sample_count(128)
+	 , sample_count(params.HighQuality()?1024:128)
 	{
 		shape_vs.Source(
 			"#version 330\n"
@@ -531,7 +531,7 @@ public:
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
-	return std::unique_ptr<Example>(new ShadowVolExample);
+	return std::unique_ptr<Example>(new ShadowVolExample(params));
 }
 
 } // namespace oglplus

@@ -131,7 +131,7 @@ public:
 			for(size_t j=0; j!=n; ++j)
 			{
 				assert(p != e);
-				*p = b::Position(data, size, t_sub);
+				*p = Type(b::Position(data, size, t_sub));
 				++p;
 				t_sub += t_step;
 			}
@@ -183,10 +183,10 @@ private:
 			*ir = points[b];
 			++ir;
 			assert(ir != er);
-			*ir = points[b] + (points[c] - points[a])*r;
+			*ir = Type(points[b] + (points[c] - points[a])*r);
 			++ir;
 			assert(ir != er);
-			*ir = points[c] + (points[b] - points[d])*r;
+			*ir = Type(points[c] + (points[b] - points[d])*r);
 			++ir;
 			++i;
 		}

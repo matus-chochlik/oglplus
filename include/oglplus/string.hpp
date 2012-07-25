@@ -80,7 +80,7 @@ public:
 		return _lit;
 	}
 
-	const size_t size(void) const
+	size_t size(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 #if !OGLPLUS_LAZY_STR_LIT
@@ -90,7 +90,7 @@ public:
 #endif
 	}
 
-	const bool empty(void) const
+	bool empty(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 #if !OGLPLUS_LAZY_STR_LIT

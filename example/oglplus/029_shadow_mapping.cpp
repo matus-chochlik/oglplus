@@ -105,7 +105,7 @@ private:
 	// The viewport width and height
 	size_t width, height;
 public:
-	ShadowMapExample(void)
+	ShadowMapExample(const ExampleParams& params)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
 	 , cube_offsets(MakeCubeOffsets(1.8f, 7))
@@ -117,7 +117,7 @@ public:
 	 , shadow_prog(ObjectDesc("Shadow"))
 	 , draw_pp(ObjectDesc("Draw"))
 	 , shadow_pp(ObjectDesc("Shadow"))
-	 , tex_side(512)
+	 , tex_side(params.HighQuality()?4096:512)
 	 , light_paths(
 		{
 			CubicBezierLoop<Vec3f, double>({
@@ -540,7 +540,7 @@ public:
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
-	return std::unique_ptr<Example>(new ShadowMapExample);
+	return std::unique_ptr<Example>(new ShadowMapExample(params));
 }
 
 } // namespace oglplus

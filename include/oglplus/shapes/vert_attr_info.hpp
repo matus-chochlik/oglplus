@@ -139,7 +139,7 @@ public:
 
 	template <typename T>
 	decltype(&VertexAttribsInfo::_getter_proc<T>) VertexAttribGetter(
-		const std::vector<T>& selector,
+		const std::vector<T>& /*selector*/,
 		const String& name
 	) const
 	{

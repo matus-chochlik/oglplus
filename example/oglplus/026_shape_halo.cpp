@@ -54,8 +54,8 @@ private:
 public:
 	HaloExample(void)
 	 : make_shape()
-	 , shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
+	 , shape_instr(make_shape.Instructions())
 	 , vs_shape(ObjectDesc("Shape VS"))
 	 , vs_plane(ObjectDesc("Plane VS"))
 	 , fs_shape(ObjectDesc("Shape FS"))
@@ -441,7 +441,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new HaloExample);
 }

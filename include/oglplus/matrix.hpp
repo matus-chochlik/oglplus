@@ -1302,7 +1302,7 @@ public:
 		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			 m00, T(0), T(0), T(0),
 			T(0),  m11, T(0), T(0),
-			 m20,  m21,  m22,  m32,
+			 m20,  m21,  m22,  m23,
 			T(0), T(0),  m32, T(0),
 		});
 	}

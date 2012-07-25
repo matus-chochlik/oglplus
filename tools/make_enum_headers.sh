@@ -196,7 +196,7 @@ done
 
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
-	PrintFileHeader "${RootDir}/source/enums/*.txt" ${OutputFile}
+	PrintFileHeader "${RootDir}/source/enums/.*.txt" ${OutputFile}
 
 	# the enumeration name shorteners
 	find ${ShortEnumTempDir}/ -mindepth 1 -maxdepth 1 -type f |

@@ -487,11 +487,17 @@ private:
 	ErrorInfo _info;
 	PropertyMap _properties;
 	PropagationInfoList  _propagation;
+	bool _assertion;
 public:
-	Error(GLenum code, const char* desc, const ErrorInfo& info)
-	 : std::runtime_error(desc)
+	Error(
+		GLenum code,
+		const char* desc,
+		const ErrorInfo& info,
+		bool assertion = false
+	): std::runtime_error(desc)
 	 , _code(code)
 	 , _info(info)
+	 , _assertion(assertion)
 	{ }
 
 	Error(
@@ -503,6 +509,7 @@ public:
 	 , _code(code)
 	 , _info(info)
 	 , _properties(std::move(properties))
+	 , _assertion(false)
 	{ }
 
 	inline ~Error(void) throw()
@@ -669,7 +676,7 @@ class OutOfMemory
 {
 public:
 	OutOfMemory(GLenum code, const char* desc, const ErrorInfo& info)
-	 : Error(code, desc, info)
+	 : Error(code, desc, info, true)
 	{ }
 };
 
@@ -1012,7 +1019,7 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 		)
 	)) return;
 #endif // OGLPLUS_CUSTOM_ERROR_HANDLING
-	throw Error(code, msg, info);
+	throw Error(code, msg, info, assertion);
 }
 
 #ifndef OGLPLUS_IS_ERROR

@@ -118,7 +118,6 @@ public:
 		size_t k = 0;
 		//
 		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 
 		for(size_t r=0; r!=(_rings+1); ++r)
 		{

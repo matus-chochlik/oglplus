@@ -32,7 +32,7 @@ private:
 
 	GLfloat font_y_min, font_y_max, font_height;
 public:
-	TextExample(int argc, const char* argv[])
+	TextExample(int /*argc*/, const char** /*argv*/)
 	 : text_glyphs(128)
 	{
 		using namespace oglplus;

@@ -420,7 +420,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new FurExample);
 }

@@ -154,7 +154,7 @@ public:
 		gl.Viewport(width, height);
 	}
 
-	void Render(double time)
+	void Render(double /*time*/)
 	{
 		gl.Clear().ColorBuffer();
 		// draw the curve
@@ -162,7 +162,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new WritingExample);
 }

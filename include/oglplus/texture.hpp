@@ -210,7 +210,7 @@ public:
 	OGLPLUS_ENUM_CLASS_END
 
 protected:
-	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
+	static void _init(GLsizei count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != nullptr);
@@ -218,7 +218,7 @@ protected:
 		catch(...){ }
 	}
 
-	static void _init(GLsizei count, GLuint* _name, std::false_type ne)
+	static void _init(GLsizei count, GLuint* _name, std::false_type)
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenTextures)(count, _name);
@@ -2489,7 +2489,6 @@ public:
 	 */
 	static Target CubeMapFace(GLuint face)
 	{
-		assert(face >= 0);
 		assert(face <= 5);
 		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
 	}

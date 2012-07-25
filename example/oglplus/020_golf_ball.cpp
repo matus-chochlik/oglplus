@@ -51,7 +51,6 @@ private:
 	// the sphere vertices
 	static void make_hole_data(std::vector<GLfloat>& data, size_t hole_count)
 	{
-		const float diam = 0.16f;
 		const size_t ne = 5;
 		const float el[ne] = {0.50f, 0.33f, 0.21f, 0.11f, 0.07f};
 		const size_t ea[ne] = {1, 6, 6, 6, 6};
@@ -353,7 +352,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new SphereExample);
 }

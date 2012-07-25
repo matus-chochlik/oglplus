@@ -32,6 +32,10 @@ include(config/FindGLUT.cmake)
 include(config/FindGLM.cmake)
 include(config/FindPNG.cmake)
 
+# enable warnings on gcc
+if(${CMAKE_COMPILER_IS_GNUCXX})
+	add_definitions(-pedantic -Wall -Wextra)
+endif()
 #
 #if we have found gl3.h
 if(OPENGL3_FOUND)
