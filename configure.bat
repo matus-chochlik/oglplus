@@ -8,7 +8,14 @@ CALL :reset_environment
 
 :: Path to the build directory
 SET OGLPLUS_BUILD_DIR=_build
-
+::
+:: Use the environment variables if they are set
+IF DEFINED OGLPLUS_DEP_INCLUDE_DIRS (
+	SET OGLPLUS_HEADER_SEARCH_PATHS=%OGLPLUS_DEP_INCLUDE_DIRS%
+)
+IF DEFINED OGLPLUS_DEP_LIBRARY_DIRS (
+	SET OGLPLUS_LIBRARY_SEARCH_PATHS=%OGLPLUS_DEP_LIBRARY_DIRS%
+)
 ::
 :: Parse the command line arguments
 ::
