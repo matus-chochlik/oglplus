@@ -25,7 +25,7 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 		)
 	else()
 		find_program(INKSCAPE_EXECUTABLE inkscape)
-		if(NOT INKSCAPE_EXECUTABLE)
+		if(INKSCAPE_EXECUTABLE)
 			add_custom_command(
 				OUTPUT ${PNG_FILE}
 				COMMAND ${INKSCAPE_EXECUTABLE}
