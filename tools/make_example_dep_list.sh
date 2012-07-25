@@ -6,7 +6,7 @@
 temp_file=$(mktemp)
 search_include=${1}
 dependency_name=${2}
-dependency_file=example/oglplus/examples-with-${dependency_name}.txt
+dependency_file=example/oglplus/requirements/${dependency_name}.txt
 #
 pushd ${PWD} > /dev/null
 cd $(dirname $0)/../
@@ -18,7 +18,7 @@ do
 	if [ $(grep -c -e "${search_include}\>" < ${temp_file}) -gt 0 ]
 	then echo $(basename ${example})
 	fi
-done > ${dependency_file}
+done | sort > ${dependency_file}
 git add ${dependency_file}
 #
 popd > /dev/null

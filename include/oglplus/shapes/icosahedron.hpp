@@ -68,7 +68,7 @@ public:
 #elif !OGLPLUS_NO_VARIADIC_TEMPLATES
 	typedef VertexAttribsInfo<
 		Icosahedron,
-		VertexPositionsTag,
+		VertexPositionsTag
 	> VertexAttribs;
 #endif
 

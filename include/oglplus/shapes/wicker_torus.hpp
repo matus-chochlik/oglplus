@@ -330,7 +330,7 @@ public:
 				for(size_t s=0; s!=_sections; ++s)
 				{
 					const GLdouble sa[3] = {
-						s*s_step+(s % 2 == 0)?-rslp:rslp,
+						s*s_step+((s % 2 == 0)?-rslp:rslp),
 						s*s_step,
 						s*s_step
 					};
@@ -531,7 +531,7 @@ public:
 				for(size_t s=0; s!=_sections; ++s)
 				{
 					const GLdouble sa[3] = {
-						s*s_step+(s % 2 == 0)?rslp:-rslp,
+						s*s_step+((s % 2 == 0)?rslp:-rslp),
 						s*s_step,
 						s*s_step
 					};
