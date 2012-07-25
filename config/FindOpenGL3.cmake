@@ -20,7 +20,7 @@ find_library(
 	PATHS ${LIBRARY_SEARCH_PATHS}
 	NO_DEFAULT_PATH
 )
-if("${OPENGL3_LIBRARIES}" STREQUAL "OPENGL3_LIBRARIES-NOTFOUND")
+if(NOT OPENGL3_LIBRARIES)
 	find_library(OPENGL3_LIBRARIES NAMES GL OpenGL32)
 endif()
 
@@ -29,4 +29,9 @@ if(EXISTS ${OPENGL3_INCLUDE_DIR})
 	set(OPENGL3_FOUND true)
 else()
 	set(OPENGL3_FOUND false)
+endif()
+
+#if we have not found the library
+if(NOT OPENGL3_LIBRARIES)
+	set(OPENGL3_LIBRARIES "")
 endif()
