@@ -1,5 +1,5 @@
 /*
- *  .file example/glut_glew_main.cpp
+ *  .file example/glut_glew_cxx03_main.cpp
  *  Implements GLUT/GLEW-based program main function for running examples
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost

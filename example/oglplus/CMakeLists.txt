@@ -6,7 +6,11 @@ cmake_minimum_required(VERSION 2.8)
 
 #TODO auto-detect or allow the caller to set this
 if(OGLPLUS_USE_GLEW)
-	set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
+	if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew_cxx03")
+	else()
+		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
+	endif()
 elseif(OGLPLUS_FRAMEDUMP)
 	set(OGLPLUS_EXAMPLE_HARNESS "frame_dump")
 else()
@@ -29,9 +33,9 @@ endif()
 
 # add a target for the examples
 if(OGLPLUS_NO_EXAMPLES)
-add_custom_target(oglplus-examples)
+	add_custom_target(oglplus-examples)
 else()
-add_custom_target(oglplus-examples ALL)
+	add_custom_target(oglplus-examples ALL)
 endif()
 
 # add a target for the screenshots
@@ -57,6 +61,11 @@ endif()
 # list of examples that need libpng
 file(STRINGS "./examples-with-libpng.txt" OGLPLUS_EXAMPLES_WITH_LIBPNG)
 
+if(${PNG_FOUND})
+	include_directories(${PNG_INCLUDE_DIR})
+	add_definitions(${PNG_DEFINITIONS})
+endif()
+
 # make the instructions for compiling and linking of the examples
 foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 	# example name
@@ -81,7 +90,7 @@ foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 
 		# if this example needs lib png
 		if(EXE_NEEDS_LIBPNG)
-			set(EXE_LIBS ${EXE_LIBS} png)
+			set(EXE_LIBS ${EXE_LIBS} ${PNG_LIBRARIES})
 		endif()
 
 

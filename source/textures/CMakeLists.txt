@@ -25,15 +25,17 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 		)
 	else()
 		find_program(INKSCAPE_EXECUTABLE inkscape)
-		add_custom_command(
-			OUTPUT ${PNG_FILE}
-			COMMAND ${INKSCAPE_EXECUTABLE}
-				--without-gui
-				--file="${SVG_FILE}"
-				--export-png="${PNG_FILE}"
-			MAIN_DEPENDENCY ${SVG_FILE}
-			COMMENT "Converting texture ${TEXTURE_NAME}"
-		)
+		if(NOT INKSCAPE_EXECUTABLE)
+			add_custom_command(
+				OUTPUT ${PNG_FILE}
+				COMMAND ${INKSCAPE_EXECUTABLE}
+					--without-gui
+					--file="${SVG_FILE}"
+					--export-png="${PNG_FILE}"
+				MAIN_DEPENDENCY ${SVG_FILE}
+				COMMENT "Converting texture ${TEXTURE_NAME}"
+			)
+		endif()
 	endif()
 
 	add_custom_target(texture-${TEXTURE_NAME} DEPENDS ${PNG_FILE})
