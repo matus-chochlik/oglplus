@@ -9,7 +9,7 @@
 011_writing.cpp
 012_checker_cube.cpp
 013_spiral_sphere.cpp
-013_stripped_cubes.cpp
+013_striped_cubes.cpp
 014_multi_cube_gs.cpp
 015_graph.cpp
 015_shaded_cube.cpp
