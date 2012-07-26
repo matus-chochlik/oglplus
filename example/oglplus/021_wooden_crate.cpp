@@ -191,7 +191,8 @@ public:
 			auto bound_tex = Bind(normalTex, se::_2D());
 			bound_tex.Image2D(
 				images::NormalMap(
-					images::LoadTexture("wooden_crate-hmap")
+					images::LoadTexture("wooden_crate-hmap"),
+					images::NormalMap::FromRed()
 				)
 			);
 			bound_tex.GenerateMipmap();

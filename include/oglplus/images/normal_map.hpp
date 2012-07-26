@@ -63,6 +63,7 @@ private:
 public:
 	typedef FilteredImage<T, 4> Filter;
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Creates a normal-map from the @p input height-map image
 	/**
 	 *  @param input the height-map image to be filtered
@@ -71,7 +72,16 @@ public:
 	 *    value used in normal-map calculation).
 	 */
 	template <typename IT,  typename Extractor = typename Filter::FromRed>
+	NormalMap(const Image<IT>& input, Extractor extractor = Extractor());
+#endif
+
+#if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+	template <typename IT,  typename Extractor = typename Filter::FromRed>
 	NormalMap(const Image<IT>& input, Extractor extractor = Extractor())
+#else
+	template <typename IT,  typename Extractor>
+	NormalMap(const Image<IT>& input, Extractor extractor)
+#endif
 	 : Filter(input, _filter(), extractor)
 	{
 		this->_format = PixelDataFormat::RGBA;
