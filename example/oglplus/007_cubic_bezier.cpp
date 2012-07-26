@@ -129,7 +129,7 @@ public:
 		gl.Viewport(width, height);
 	}
 
-	void Render(double time)
+	void Render(double /*time*/)
 	{
 		gl.Clear().ColorBuffer();
 		Uniform<Vec3f> color(prog, "Color");
