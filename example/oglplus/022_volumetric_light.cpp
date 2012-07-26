@@ -41,13 +41,13 @@ private:
 	Texture light_tex;
 public:
 	VolLightExample(void)
-	 : volume_vs(ShaderType::Vertex, "Volume vertex")
-	 , plane_vs(ShaderType::Vertex, "Plane vertex")
-	 , volume_gs(ShaderType::Geometry, "Volume geometry")
-	 , volume_fs(ShaderType::Fragment, "Volume fragment")
-	 , plane_fs(ShaderType::Fragment, "Plane fragment")
-	 , volume_prog("Volume")
-	 , plane_prog("Plane")
+	 : volume_vs(ShaderType::Vertex, ObjectDesc("Volume vertex"))
+	 , plane_vs(ShaderType::Vertex, ObjectDesc("Plane vertex"))
+	 , volume_gs(ShaderType::Geometry, ObjectDesc("Volume geometry"))
+	 , volume_fs(ShaderType::Fragment, ObjectDesc("Volume fragment"))
+	 , plane_fs(ShaderType::Fragment, ObjectDesc("Plane fragment"))
+	 , volume_prog(ObjectDesc("Volume"))
+	 , plane_prog(ObjectDesc("Plane"))
 	 , samples(150)
 	{
 		volume_vs.Source(

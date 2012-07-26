@@ -80,7 +80,7 @@ public:
 	ProgramUniform<Vec3f> camera_position, light_position;
 
 	TransformProgram(void)
-	 : HardwiredProgram<CommonVertShader>("Transform", true)
+	 : HardwiredProgram<CommonVertShader>(ObjectDesc("Transform"), true)
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , light_proj_matrix(prog(), "LightProjMatrix")
@@ -114,7 +114,7 @@ class ShadowProgram
 {
 public:
 	ShadowProgram(void)
-	 : HardwiredProgram<ShadowFragShader>("Shadow", true)
+	 : HardwiredProgram<ShadowFragShader>(ObjectDesc("Shadow"), true)
 	{ }
 };
 
@@ -203,7 +203,7 @@ class LineProgram
 {
 public:
 	LineProgram(void)
-	 : HardwiredProgram<LineGeomShader, LineFragShader>("Line", true)
+	 : HardwiredProgram<LineGeomShader, LineFragShader>(ObjectDesc("Line"), true)
 	{ }
 };
 
@@ -293,7 +293,7 @@ public:
 	ProgramUniformSampler sketch_tex, shadow_tex;
 
 	SketchProgram(void)
-	 : HardwiredProgram<SketchFragShader>("Sketch", true)
+	 : HardwiredProgram<SketchFragShader>(ObjectDesc("Sketch"), true)
 	 , sketch_tex(prog(), "SketchTex")
 	 , shadow_tex(prog(), "ShadowTex")
 	{ }

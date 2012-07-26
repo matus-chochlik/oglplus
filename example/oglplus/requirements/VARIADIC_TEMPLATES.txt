@@ -3,6 +3,7 @@
 026_furry_torus.cpp
 028_volume.cpp
 029_flares.cpp
+030_pool_tiles.cpp
 031_blob.cpp
 031_sketch.cpp
 033_metal_and_glass.cpp
