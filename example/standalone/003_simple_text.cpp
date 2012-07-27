@@ -37,7 +37,7 @@ private:
 
 	std::vector<GLfloat> glyph_spacings;
 public:
-	TextExample(int argc, const char* argv[])
+	TextExample(int /*argc*/, const char** /*argv*/)
 	 : text("OpenGL")
 	 , text_path(text.size())
 	 , glyph_indices(make_glyph_indices())

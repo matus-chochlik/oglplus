@@ -80,7 +80,7 @@ public:
 		return _lit;
 	}
 
-	const size_t size(void) const
+	size_t size(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 #if !OGLPLUS_LAZY_STR_LIT
@@ -90,7 +90,7 @@ public:
 #endif
 	}
 
-	const bool empty(void) const
+	bool empty(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 #if !OGLPLUS_LAZY_STR_LIT
@@ -110,6 +110,21 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return !empty();
+	}
+
+	friend String operator + (StrLit a, StrLit b)
+	{
+		String result;
+		result.reserve(a.size()+b.size()+1);
+		result.append(a.c_str(), a.size());
+		result.append(b.c_str(), b.size());
+		return std::move(result);
+	}
+
+	friend String operator + (String a, StrLit b)
+	{
+		a.append(b.c_str(), b.size());
+		return a;
 	}
 };
 

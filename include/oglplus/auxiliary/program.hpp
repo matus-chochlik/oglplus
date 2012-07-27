@@ -109,6 +109,8 @@ protected:
 	 , _type(0)
 	 , _name(0)
 	{
+		OGLPLUS_FAKE_USE(context);
+		OGLPLUS_FAKE_USE(GetActiveVariable);
 	}
 public:
 	GLuint Index(void) const
@@ -121,12 +123,12 @@ public:
 		return _name;
 	}
 
-	const GLint Size(void) const
+	GLint Size(void) const
 	{
 		return _size;
 	}
 
-	const SLDataType Type(void) const
+	SLDataType Type(void) const
 	{
 		return SLDataType(_type);
 	}
@@ -270,12 +272,12 @@ public:
 		return _name;
 	}
 
-	const GLint Size(void) const
+	GLint Size(void) const
 	{
 		return _size;
 	}
 
-	const SLDataType Type(void) const
+	SLDataType Type(void) const
 	{
 		return SLDataType::None;
 	}

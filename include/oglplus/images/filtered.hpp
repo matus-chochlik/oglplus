@@ -69,11 +69,11 @@ protected:
 			assert(yoffs < int( _height));
 
 			int xpos = _x + xoffs;
-			if(xpos >= _width) xpos %= _width;
+			if(xpos >= int(_width)) xpos %= _width;
 			if(xpos < 0) xpos = (xpos+_width)%_width;
 
 			int ypos = _y + yoffs;
-			if(ypos >= _height) ypos %= _height;
+			if(ypos >= int(_height)) ypos %= _height;
 			if(ypos < 0) ypos = (ypos+_height)%_height;
 
 			size_t offs = _n + ypos*_width + xpos;

@@ -326,9 +326,9 @@ public:
 
 		Uniform<Vec3f>(cloud_prog, "LightPos").Set(lightPos);
 		Uniform<Mat4f>(cloud_prog, "CameraMatrix").Set(cameraMatrix);
-		Uniform<Vec4f>(cloud_prog, "ViewX").Set(Row<0>(cameraMatrix));
-		Uniform<Vec4f>(cloud_prog, "ViewY").Set(Row<1>(cameraMatrix));
-		Uniform<Vec4f>(cloud_prog, "ViewZ").Set(Row<2>(cameraMatrix));
+		Uniform<Vec4f>(cloud_prog, "ViewX").Set(cameraMatrix.Row<0>());
+		Uniform<Vec4f>(cloud_prog, "ViewY").Set(cameraMatrix.Row<1>());
+		Uniform<Vec4f>(cloud_prog, "ViewZ").Set(cameraMatrix.Row<2>());
 		for(size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			cloud_tex[i].Bind(Texture::Target::_3D);

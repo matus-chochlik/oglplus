@@ -336,7 +336,7 @@ public:
 		// Render the shape
 		shape_prog.Use();
 
-		auto clip_plane = Planef::FromNormal(Vec3f(Data(Row<2>(camera)), 3));
+		auto clip_plane = Planef::FromNormal(Vec3f(Data(camera.Row<2>()), 3));
 
 		Uniform<Vec4f>(shape_prog, "ClipPlane").Set(clip_plane.Equation());
 
@@ -386,7 +386,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new GlassExample);
 }

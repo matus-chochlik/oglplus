@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7C5C3E4D-6254-4573-8DCA-A2AAF257D428}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My013_stripped_cubes</RootNamespace>
+    <RootNamespace>My013_striped_cubes</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

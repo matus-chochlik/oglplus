@@ -83,6 +83,6 @@ if(DOXYGEN_FOUND)
 
 	unset(DOC_DEPENDS)
 else()
-	set(OGLPLUS_NO_DOCS On)
+	set(OGLPLUS_NO_DOCS On PARENT_SCOPE)
 endif()
 

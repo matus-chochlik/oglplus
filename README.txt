@@ -1,37 +1,66 @@
+===================
+OGLplus README file
+===================
 
- INTRODUCTION TO OGLplus
-=========================
+:Author: Matúš Chochlík <chochlik@gmail.com>
 
-OGLplus is a open-source header-only library which implements a thin
-object-oriented facade over the OpenGL® (version 3 and higher) C-language API.
+.. :Note:: This is just a introductory readme file. For the full documentation
+   visit the OGLplus website at http://oglplus.org/.
+
+
+.. contents::
+
+.. _OpenGL: http://opengl.org/
+.. _OGLplus: http://oglplus.org/
+.. _CMake: http://www.cmake.org/
+.. _Doxygen: http://www.doxygen.org/
+.. _Inkscape: http://inkscape.org/
+.. _libPNG: http://www.libpng.org/
+.. _GLEW: http://glew.sourceforge.net/
+.. _FreeGLUT: http://freeglut.sourceforge.net/
+
+Introduction to OGLplus
+=======================
+
+`OGLplus`_ is a open-source header-only library which implements a thin
+object-oriented facade over the `OpenGL`_  (version 3 and higher) C-language API.
 It provides wrappers which automate resource and object management and make
 the use of OpenGL in C++ safer and easier.
 
 
 
- BUILDING AND INSTALLATION
-===========================
+Building and Installation
+=========================
 
- For the impatient:
- ------------------
+For the impatient:
+------------------
 
-# linux and similar *nix systems
-$> ./configure.sh
-# or
-$> ./configure.sh --prefix=/path/to/install
+::
 
-$> cd _build
-$> make
-$> make install
+ # linux and similar *nix systems
+ $> ./configure.sh
+ # or
+ $> ./configure.sh --prefix=/path/to/install
 
- For the busy:
- -------------
+ $> cd _build
+ $> make
+ $> make install
 
-# linux and similar *nix systems
-$> ./configure.sh [--prefix=/path/to/install] [--no-docs] --no-examples --build-and-install
+ # windows
+ $> .\configure.bat
+ # open the generated MSVC solution in the _build directory
+ # or use some variant of make if available
 
- Overview
- --------
+For the busy:
+-------------
+
+::
+
+ # linux and similar *nix systems
+ $> ./configure.sh [--prefix=/path/to/install] [--no-docs] --no-examples --build-and-install
+
+Overview
+--------
 
 OGLplus uses a CMake-based build/configuration system. The library itself
 is header only, which means that applications using it do not need to link
@@ -42,6 +71,8 @@ The build system handles several important tasks:
  * Detects if the necessary things are installed and makes a site-configuration
    header file
 
+ * Detects the support for several C++11 features and builds a config header
+
  * Builds several additional, automatically generated headers
 
  * Installs all header files to a directory specified by the install prefix
@@ -51,136 +82,172 @@ The build system handles several important tasks:
  * Builds and installs the documentation (optional)
 
 
- Requirements
- ------------
+Requirements
+------------
 
- * C++11 compatible compiler.
+ - Compiler supporting required C++11 features [#req_cxx11_feats]_.
    Currently supported compilers:
-   - g++ (at least version 4.5, 4.6 and higher is recommended)
 
- * CMake.
+   * ``g++`` (at least version 4.5, 4.6 and higher is recommended)
 
- * Doxygen is required to build the documentation.
+   * ``clang++`` (at least version 3.0) - possibly with some limitations
+     due to the lack of support for some C++11 features
 
- * Inkscape is required to convert textures used in examples from SVG to PNG.
+   * ``MSVC 2010`` - with some limitations due to the lack of support for
+     some C++11 features
+
+   * ``MSVC 11`` - with some limitations due to the lack of support for
+     some C++11 features
+
+
+ - `CMake`_
+
+ - `Doxygen`_ is required to build the documentation.
+
+ - `Inkscape`_ is required  to convert textures used in examples from SVG to PNG.
    This is required only if the textures are not pre-built (typically
    when checked out from the repository, packaged releases are shipped with
    pre-built textures). Building of the textures is optional, they are not
    necessary when the building of examples is disabled.
 
- * The GL3/gl3.h header or GLEW. OGLplus does not define the OpenGL symbols
+ - The ``GL3/gl3.h`` header or `GLEW`_. OGLplus does not define the OpenGL symbols
    (types, constants, functions, etc.) itself and therfore applications using
    it need to define them themselves (before including OGLplus). The examples
-   currently need GLEW (at least version 1.6) or the GL3/gl3.h header (available
-   for download from http://www.opengl.org/registry/api/gl3.h) and a GL binary
-   library exporting the OpenGL (3 or higher) functions.
-   The build system detects the presence of GLEW or gl3.h and configures
+   currently need GLEW (at least version 1.6) or the ``GL3/gl3.h`` header
+   (available for download from http://www.opengl.org/registry/api/gl3.h) and
+   a GL binary library exporting the OpenGL (3 or higher) functions.
+   The build system detects the presence of GLEW or ``GL3\gl3.h`` and configures
    compilation and linking of the examples accordingly. If both are installed
    and the user does not specify otherwise GLEW is used.
 
-*  libPNG. Some examples and some classes provided by OGLplus use libPNG to load
+ - `FreeGLUT`_ -- Necessary on platforms without X server and GLX.
+
+ - `libPNG`_ -- Some examples and some classes provided by OGLplus use libPNG to load
    PNG files. These are however not required for the general use of OGLplus,
-   applications may use other means to load binary image files.
+   applications may use other means to load binary image files. The build system
+   tries to detect the availability of libPNG and if not found the examples
+   using it are not built.
 
 
- CMake-based build configuration
- -------------------------------
+CMake-based build configuration
+-------------------------------
 
 The CMake script defines and uses several variables to modify the build
 configuration, which can be specified on the command-line when invoking
 cmake (with the -D option. see cmake manual for details):
 
- * HEADER_SEARCH_PATHS [<empty>]: (semicolon-separated) list of paths
+ * ``HEADER_SEARCH_PATHS`` *<empty>*: (semicolon-separated) list of paths
    to additional directories to search when looking for 3rd-party headers
    like GL/glew.h, GL3/gl3.h, etc.
 
- * LIBRARY_SEARCH_PATHS [<empty>]: (semicolon-separated) list of paths
+ * ``LIBRARY_SEARCH_PATHS`` *<empty>*: (semicolon-separated) list of paths
    to additional directories to search when looking for 3rd-party compiled
    libraries like GL, GLEW, glut, png, etc.
 
- * OGLPLUS_WITHOUT_GLEW [Off]: Do not use GLEW even if it is available,
+ * ``OGLPLUS_WITHOUT_GLEW`` *Off*: Do not use GLEW even if it is available,
    this requires GL3/gl3.h to be installed.
 
- * OGLPLUS_NO_EXAMPLES [Off]: Do not build the examples and the textures.
+ * ``OGLPLUS_NO_EXAMPLES`` *Off*: Do not build the examples and the textures.
 
- * OGLPLUS_NO_DOCS [Off]: Do not build and install the documentation.
+ * ``OGLPLUS_NO_DOCS`` *Off*: Do not build and install the documentation.
 
 
- User-friendly configuration script
- ----------------------------------
+User-friendly configuration script
+----------------------------------
 
-(Currently available only for platforms with bash - 'configure.sh')
-The 'configure' script is a more user-friendly way to invoke cmake and specify
+The configuration script comes in two flawors:
+
+1. ``configure.sh`` -- For platforms with bash.
+2. ``configure.bat`` -- For windows.
+
+The ``configure`` script is a more user-friendly way to invoke cmake and specify
 additional parameters for the configuration process.
 
 Some of the more important command-line options are described below:
 
- --prefix PATH: Specifies the installation prefix path for cmake (sets
-   the value of the CMAKE_INSTALL_PREFIX variable). If this option is not
-   specified, cmake's default prefix is used.
+--help  Display the help screen.
 
- --include-dir PATH: This options allows to specify additional directiories
-   to search when looking for header files. It may be used multiple times
-   to specify multiple directories.
+--prefix PATH  Specifies the installation prefix path for cmake (sets
+               the value of the CMAKE_INSTALL_PREFIX variable).
+               If this option is not specified, cmake's default prefix is used.
 
- --library-dir PATH: This options allows to specify additional directiories
-   to search when looking for compiled libraries. It may be used multiple times
-   to specify multiple directories.
+--include-dir PATH  This options allows to specify additional directiories
+                    to search when looking for header files. It may be used multiple
+                    times to specify multiple directories.
 
- --without-glew: Do not use GLEW even if it is available.
+--library-dir PATH  This options allows to specify additional directiories
+                    to search when looking for compiled libraries. It may be used
+                    multiple times to specify multiple directories.
 
-See the --help option for the full description and detailed info on the usage
+--without-glew  Do not use GLEW even if it is available.
+
+--no-docs  Do not build the documentation.
+
+See the ``--help`` option for the full description and detailed info on the usage
 of this script.
 
 
- Other build environments
-==========================
+Other build environments
+========================
 
- Microsoft Visual Studio 11
- --------------------------
+Microsoft Visual Studio 2010 and 11
+-----------------------------------
 
-OGLplus contains a solution file and a set of project files for building
-some of the examples in MSVC 11.
-The solution is located at the following path:
+OGLplus contains two solution files and a set of project files for building
+some of the examples in MSVC 2010 and 11.
+The solutions are located at the following paths:
 
-$(OGLplusRoot)/etc/msvc11/OGLplus/OGLplus.sln
+- ``$(OGLplusRoot)/etc/msvc10/OGLplus/OGLplus.sln``
+- ``$(OGLplusRoot)/etc/msvc11/OGLplus/OGLplus.sln``
 
 To build properly, it requires GLEW (1.7 or higher) and FreeGLUT libraries
 to be installed and added to the list of header/library search paths
 in the solution. This can be achieved by setting the following variables
 visible to MSVC:
 
- * OGLPLUS_DEP_INCLUDE_DIRS - list of (semicolon-separated) paths pointing
-   to the directories where GLUT's and GLEW's header files are located.
+* ``OGLPLUS_DEP_INCLUDE_DIRS`` - list of (semicolon-separated) paths pointing
+  to the directories where GLUT's and GLEW's header files are located.
 
- * OGLPLUS_DEP_LIBRARY_DIRS - list of (semicolon-separated) paths pointing
-   to the directories where GLUT's and GLEW's .lib files are located.
+* ``OGLPLUS_DEP_LIBRARY_DIRS`` - list of (semicolon-separated) paths pointing
+  to the directories where GLUT's and GLEW's .lib files are located.
 
- * OGLPLUS_DEP_LIBS - list of (semicolon-separated) .lib files to be linked
-   to the examples. Typically glew32.lib;freeglut_static.lib.
+* ``OGLPLUS_DEP_LIBS`` - list of (semicolon-separated) .lib files to be linked
+  to the examples. Typically ``glew32.lib;freeglut.lib`` for dynamic linking
+  or ``glew32s.lib;freeglut_static.lib`` for static linking.
 
- * OGLPLUS_PP_DEFS - list of (semicolon-separated) preprocessor symbols
-   that should be defined. Typically GLEW_STATIC;FREEGLUT_STATIC for
-   static linking of GLEW and FreeGLUT.
+* ``OGLPLUS_PP_DEFS`` - list of (semicolon-separated) preprocessor symbols
+  that should be defined. Typically ``GLEW_STATIC;FREEGLUT_STATIC`` are
+  required for static linking of GLEW and FreeGLUT.
 
 These variables can be set either as system or user environment variables
-or the "OGLplus-site.props" property sheet file (located in the solution's
+or the ``OGLplus-site.props`` property sheet file (located in the solution's
 directory) can be used. Either edit the file in a text editor or use MSVC's
-"Property Manager" and set the variables listed above as appropriate
+*Property Manager* and set the variables listed above as appropriate
 on your system.
 
-Also note that when building the examples via the MSVC 11 solution
-the $(OGLplusRoot)/_prebuilt/ directory is required. This directory
+Also note that when building the examples via the MSVC solutions
+the ``$(OGLplusRoot)/_prebuilt/`` directory is required. This directory
 contains automatically generated textures and other files that are
 not in the source repository. This directory is included in the release
 packages. If you are building from sources from the Git repository
-also download a recent package and copy the _prebuilt/ directory
+also download a recent package and copy the ``_prebuilt/`` directory
 into to the directory where you have cloned the repo or use the cmake
 build system and build them that way.
 
 
 
- ACKNOWLEDGEMENTS
-==================
+Acknowledgements
+================
 
-Tolga Dalman for helping to get started with CMake.
+- *Tolga Dalman* for helping to get started with CMake.
+
+
+.. [#req_cxx11_feats] OGLplus requires the following C++11 features:
+   The ``type_traits`` library, variadic preprocessor macros, r-value
+   references and move-constructors.
+   OGLplus also uses (but has workarounds for or disables certain components
+   and/or functions if the features are not available):
+   Strongly typed enumerations, variadic templates, initializer lists, lambdas,
+   defaulted and deleted functions, function template default arguments,
+   constexpr, noexcept, nullptr, explicit conversion operators.
+

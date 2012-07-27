@@ -7,6 +7,8 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ *
+ *  @oglplus_example_uses_cxx11{LAMBDAS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -169,32 +171,32 @@ public:
 	{
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+				OGLPLUS_STD_VECTOR_INIT(Vec3f,
 					Vec3f(-20.0f, -10.0f,  10.0f),
 					Vec3f( 20.0f,   0.0f, -20.0f),
 					Vec3f( 20.0f,  10.0f,  20.0f),
 					Vec3f(-20.0f,   0.0f, -10.0f)
-				}), 5.0, 200.0
+				), 5.0, 200.0
 			)
 		);
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+				OGLPLUS_STD_VECTOR_INIT(Vec3f,
 					Vec3f( 30.0f,   0.0f,   0.0f),
 					Vec3f(-30.0f,   0.0f,   0.0f),
 					Vec3f(-20.0f,  20.0f,   0.0f),
 					Vec3f( 20.0f, -10.0f,   0.0f)
-				}), 3.0, 200.0
+				), 3.0, 200.0
 			)
 		);
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+				OGLPLUS_STD_VECTOR_INIT(Vec3f,
 					Vec3f(  5.0f,  20.0f,  20.0f),
 					Vec3f( -5.0f,  20.0f, -20.0f),
 					Vec3f(  5.0f, -20.0f, -20.0f),
 					Vec3f( -5.0f, -20.0f,  20.0f)
-				}), 20.0, 100.0
+				), 20.0, 100.0
 			)
 		);
 		// Set the vertex shader source
@@ -390,7 +392,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new SmokeExample);
 }

@@ -4,6 +4,11 @@
 #
 cmake_minimum_required(VERSION 2.8)
 
+#TODO
+if(NOT(${CMAKE_COMPILER_IS_GNUCXX}))
+	return()
+endif()
+
 add_custom_target(standalone-examples ALL)
 
 function(standalone_example_common EXAMPLE_NAME)

@@ -228,7 +228,7 @@ private:
 		struct {
 			GLuint _lo;
 			GLuint _hi;
-		};
+		} _qw;
 	};
 
 	PerfMonitorAMDResult(
@@ -237,8 +237,8 @@ private:
 		GLuint hi
 	): _counter(counter)
 	{
-		_lo = lo;
-		_hi = hi;
+		_qw._lo = lo;
+		_qw._hi = hi;
 	}
 
 	friend class PerfMonitorAMDOps;
@@ -252,13 +252,13 @@ public:
 	/// Returns the low dword of the result
 	GLuint Low(void) const
 	{
-		return _lo;
+		return _qw._lo;
 	}
 
 	/// Returns the high dword of the result
 	GLuint High(void) const
 	{
-		return _lo;
+		return _qw._lo;
 	}
 
 	/// Returns the floating-point value of the result
@@ -284,7 +284,7 @@ class PerfMonitorAMDOps
 protected:
 	typedef std::true_type _can_be_zero;
 
-	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
+	static void _init(GLsizei count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != nullptr);
@@ -292,7 +292,7 @@ protected:
 		catch(...){ }
 	}
 
-	static void _init(GLsizei count, GLuint* _name, std::false_type ne)
+	static void _init(GLsizei count, GLuint* _name, std::false_type)
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenPerfMonitorsAMD)(count, _name);

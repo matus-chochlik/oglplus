@@ -23,7 +23,7 @@ private:
 
 	oglplus::PathNV path;
 public:
-	PathExample(int argc, const char* argv[])
+	PathExample(int, const char**)
 	{
 		using namespace oglplus;
 

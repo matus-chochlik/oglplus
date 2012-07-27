@@ -41,13 +41,13 @@ private:
 	Texture light_tex;
 public:
 	VolLightExample(void)
-	 : volume_vs(ShaderType::Vertex, "Volume vertex")
-	 , plane_vs(ShaderType::Vertex, "Plane vertex")
-	 , volume_gs(ShaderType::Geometry, "Volume geometry")
-	 , volume_fs(ShaderType::Fragment, "Volume fragment")
-	 , plane_fs(ShaderType::Fragment, "Plane fragment")
-	 , volume_prog("Volume")
-	 , plane_prog("Plane")
+	 : volume_vs(ShaderType::Vertex, ObjectDesc("Volume vertex"))
+	 , plane_vs(ShaderType::Vertex, ObjectDesc("Plane vertex"))
+	 , volume_gs(ShaderType::Geometry, ObjectDesc("Volume geometry"))
+	 , volume_fs(ShaderType::Fragment, ObjectDesc("Volume fragment"))
+	 , plane_fs(ShaderType::Fragment, ObjectDesc("Plane fragment"))
+	 , volume_prog(ObjectDesc("Volume"))
+	 , plane_prog(ObjectDesc("Plane"))
 	 , samples(150)
 	{
 		volume_vs.Source(
@@ -289,13 +289,13 @@ public:
 		volume_prog.Use();
 		Uniform<Mat4f>(volume_prog, "CameraMatrix").Set(cameraMatrix);
 		Uniform<Vec3f>(volume_prog, "ViewX").Set(
-			Row<0>(cameraMatrix).xyz()
+			cameraMatrix.Row<0>().xyz()
 		);
 		Uniform<Vec3f>(volume_prog, "ViewY").Set(
-			Row<1>(cameraMatrix).xyz()
+			cameraMatrix.Row<1>().xyz()
 		);
 		Uniform<Vec3f>(volume_prog, "ViewZ").Set(
-			Row<2>(cameraMatrix).xyz()
+			cameraMatrix.Row<2>().xyz()
 		);
 		gl.DrawArraysInstanced(
 			PrimitiveType::Points,
@@ -312,7 +312,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new VolLightExample);
 }

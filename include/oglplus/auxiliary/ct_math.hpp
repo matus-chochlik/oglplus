@@ -82,7 +82,7 @@ private:
 	// f(t)
 	template <unsigned I>
 	static T _f(
-		std::integral_constant<unsigned, 0> d,
+		std::integral_constant<unsigned, 0> /*derivation*/,
 		std::integral_constant<unsigned, I> i,
 		const T* v,
 		P t
@@ -98,7 +98,7 @@ private:
 	// f'(t)
 	template <unsigned I>
 	static T _f(
-		std::integral_constant<unsigned, 1> d,
+		std::integral_constant<unsigned, 1> /*derivation*/,
 		std::integral_constant<unsigned, I> i,
 		const T* v,
 		P t
@@ -115,7 +115,7 @@ private:
 	// f''(t)
 	template <unsigned I>
 	static T _f(
-		std::integral_constant<unsigned, 2> d,
+		std::integral_constant<unsigned, 2> /*derivation*/,
 		std::integral_constant<unsigned, I> i,
 		const T* v,
 		P t

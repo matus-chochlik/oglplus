@@ -7,6 +7,9 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ *
+ *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
+ *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -548,7 +551,7 @@ public:
 			"Tangent",
 			"TexCoord"
 		};
-		for(int va=0; va!=nva; ++va)
+		for(size_t va=0; va!=nva; ++va)
 		{
 			const GLchar* name = vert_attr_name[va];
 			std::vector<GLfloat> data;
@@ -598,7 +601,7 @@ private:
 	Shape<shapes::Plane> plane;
 	Shape<shapes::Sphere> sphere;
 
-	const int ball_count;
+	const size_t ball_count;
 
 	std::vector<Vec3f> ball_colors;
 	std::vector<Vec3f> ball_offsets;
@@ -752,7 +755,7 @@ public:
 				"pool_ball14",
 				"pool_ball15",
 			};
-			for(int i=0; i!=ball_count; ++i)
+			for(size_t i=0; i!=ball_count; ++i)
 			{
 				auto image = images::LoadTexture(tex_names[i]);
 				if(i == 0)
@@ -822,7 +825,7 @@ public:
 	{
 		std::vector<GLubyte> black(cubemap_side*cubemap_side*3, 0x00);
 
-		for(int b=0; b!=ball_count; ++b)
+		for(size_t b=0; b!=ball_count; ++b)
 		{
 			auto bound_tex = Bind(cubemaps[b], Texture::Target::CubeMap);
 			bound_tex.MinFilter(TextureMinFilter::Linear);
@@ -951,7 +954,7 @@ public:
 		);
 		gl.Viewport(tex_side, tex_side);
 
-		for(int b=0; b!=ball_count; ++b)
+		for(size_t b=0; b!=ball_count; ++b)
 		{
 			fbo.AttachTexture(
 				FramebufferAttachment::Color,
@@ -997,9 +1000,9 @@ public:
 			0.0, 3.0,-1.0,
 			0.0, 0.0, 1.0
 		));
-		for(int i=0; i!=ball_count; ++i)
+		for(size_t i=0; i!=ball_count; ++i)
 		{
-			if(i == skipped) continue;
+			if(int(i) == skipped) continue;
 			Vec3f rot = ball_rotations[i];
 			int ci = ((i / 4) % 2 == 0)?i : ((i/4)+2)*4-i-1;
 			ci %= 8;
@@ -1063,7 +1066,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new BilliardExample);
 }

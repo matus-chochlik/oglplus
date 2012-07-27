@@ -4,10 +4,7 @@
 #
 include(FindGLUT)
 
-if(
-	"${GLUT_INCLUDE_DIR}" STREQUAL  "GLUT_INCLUDE_DIR-NOTFOUND" OR
-	"${GLUT_glut_LIBRARY}" STREQUAL "GLUT_glut_LIBRARY-NOTFOUND"
-)
+if((NOT GLUT_INCLUDE_DIR) OR (NOT GLUT_glut_LIBRARY))
 
 	find_path(
 		GLUT_INCLUDE_DIR NAMES GL/freeglut.h GL/glut.h
@@ -26,7 +23,7 @@ if(
 		NO_DEFAULT_PATH
 	)
 
-	if("${GLUT_LIBRARIES}" STREQUAL "GLUT_LIBRARIES-NOTFOUND")
+	if(NOT GLUT_LIBRARIES)
 		find_library(GLUT_LIBRARIES NAMES glut freeglut freeglut_static)
 	endif()
 

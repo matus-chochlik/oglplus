@@ -146,7 +146,6 @@
 #define OGLPLUS_CONSTEXPR const
 #endif
 
-
 #if !OGLPLUS_NO_NOEXCEPT
 #define OGLPLUS_NOEXCEPT(...) noexcept(__VA_ARGS__)
 #define OGLPLUS_NOEXCEPT_IF(...) noexcept(noexcept(__VA_ARGS__))
@@ -193,6 +192,9 @@
 #ifndef OGLPLUS_DOCUMENTATION_ONLY
 #define OGLPLUS_DOCUMENTATION_ONLY 0
 #endif
+
+// marks unused parameters
+#define OGLPLUS_FAKE_USE(X) (void)X
 
 #ifndef OGLPLUS_DONT_TEST_OBJECT_TYPE
 /// Compile-time switch disabling the texting of object type on construction

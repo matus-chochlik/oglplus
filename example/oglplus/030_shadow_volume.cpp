@@ -60,22 +60,22 @@ private:
 	// The window width and height
 	size_t width, height;
 public:
-	ShadowVolExample(void)
+	ShadowVolExample(const ExampleParams& params)
 	 : shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
-	 , shape_vs(ShaderType::Vertex, "Shape vertex")
-	 , depth_vs(ShaderType::Vertex, "Depth vertex")
-	 , light_vs(ShaderType::Vertex, "Light vertex")
-	 , depth_gs(ShaderType::Geometry, "Depth geometry")
-	 , light_gs(ShaderType::Geometry, "Light geometry")
-	 , shape_fs(ShaderType::Fragment, "Shape fragment")
-	 , depth_fs(ShaderType::Fragment, "Depthfragment")
-	 , light_fs(ShaderType::Fragment, "Light fragment")
-	 , shape_prog("Shape")
-	 , depth_prog("Depth")
-	 , light_prog("Light")
+	 , shape_vs(ShaderType::Vertex, ObjectDesc("Shape vertex"))
+	 , depth_vs(ShaderType::Vertex, ObjectDesc("Depth vertex"))
+	 , light_vs(ShaderType::Vertex, ObjectDesc("Light vertex"))
+	 , depth_gs(ShaderType::Geometry, ObjectDesc("Depth geometry"))
+	 , light_gs(ShaderType::Geometry, ObjectDesc("Light geometry"))
+	 , shape_fs(ShaderType::Fragment, ObjectDesc("Shape fragment"))
+	 , depth_fs(ShaderType::Fragment, ObjectDesc("Depthfragment"))
+	 , light_fs(ShaderType::Fragment, ObjectDesc("Light fragment"))
+	 , shape_prog(ObjectDesc("Shape"))
+	 , depth_prog(ObjectDesc("Depth"))
+	 , light_prog(ObjectDesc("Light"))
 	 , tex_side(128)
-	 , sample_count(128)
+	 , sample_count(params.HighQuality()?1024:128)
 	{
 		shape_vs.Source(
 			"#version 330\n"
@@ -509,9 +509,9 @@ public:
 		gl.Enable(Capability::Blend);
 
 		light_prog.Use();
-		SetUniform(light_prog, "ViewX", Row<0>(camera).xyz());
-		SetUniform(light_prog, "ViewY", Row<1>(camera).xyz());
-		SetUniform(light_prog, "ViewZ", Row<2>(camera).xyz());
+		SetUniform(light_prog, "ViewX", camera.Row<0>().xyz());
+		SetUniform(light_prog, "ViewY", camera.Row<1>().xyz());
+		SetUniform(light_prog, "ViewZ", camera.Row<2>().xyz());
 
 		light.Bind();
 		gl.DrawArraysInstanced(
@@ -531,7 +531,7 @@ public:
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)
 {
-	return std::unique_ptr<Example>(new ShadowVolExample);
+	return std::unique_ptr<Example>(new ShadowVolExample(params));
 }
 
 } // namespace oglplus

@@ -258,7 +258,7 @@ public:
 	}
 
 	// called when the mouse pointer is moved; x and y are between -1 and 1
-	void MouseMoveNormalized(float x, float y, float aspect)
+	void MouseMoveNormalized(float x, float y, float /*aspect*/)
 	{
 		pick_prog.Use();
 		Uniform<Vec2f>(pick_prog, "MousePos").Set(x, y);
@@ -327,7 +327,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new PickingExample);
 }

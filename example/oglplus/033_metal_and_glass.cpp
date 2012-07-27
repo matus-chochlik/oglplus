@@ -7,6 +7,9 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ *
+ *  @oglplus_example_uses_cxx11{LAMBDAS}
+ *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -439,7 +442,7 @@ public:
 			"Tangent",
 			"TexCoord"
 		};
-		for(int va=0; va!=nva; ++va)
+		for(size_t va=0; va!=nva; ++va)
 		{
 			const GLchar* name = vert_attr_name[va];
 			std::vector<GLfloat> data;
@@ -627,7 +630,6 @@ public:
 
 
 	void RenderGlassShadowMap(
-		double time,
 		const Vec3f& light_position,
 		const Vec3f& torus_center,
 		const Mat4f& torus_matrix,
@@ -687,9 +689,7 @@ public:
 	}
 
 	void RenderFrameShadowMap(
-		double time,
 		const Vec3f& light_position,
-		const Vec3f& torus_center,
 		const Mat4f& torus_matrix,
 		const Mat4f& light_proj_matrix
 	)
@@ -712,7 +712,7 @@ public:
 		torus.Draw(
 			[](GLuint phase) -> bool
 			{
-				return (phase >= 0) && (phase <= 3);
+				return (phase <= 3);
 			}
 		);
 		gl.Disable(Capability::PolygonOffsetFill);
@@ -720,7 +720,6 @@ public:
 
 	void RenderImage(
 		double time,
-		const Vec3f& light_position,
 		const Vec3f& torus_center,
 		const Mat4f& torus_matrix,
 		const Mat4f& light_proj_matrix
@@ -783,7 +782,7 @@ public:
 		torus.Draw(
 			[](GLuint phase) -> bool
 			{
-				return (phase >= 0) && (phase <= 3);
+				return (phase <= 3);
 			}
 		);
 
@@ -834,14 +833,11 @@ public:
 		transf_prog.light_position.Set(light_position);
 
 		RenderFrameShadowMap(
-			time,
 			light_position,
-			torus_center,
 			torus_matrix,
 			light_proj_matrix
 		);
 		RenderGlassShadowMap(
-			time,
 			light_position,
 			torus_center,
 			torus_matrix,
@@ -849,7 +845,6 @@ public:
 		);
 		RenderImage(
 			time,
-			light_position,
 			torus_center,
 			torus_matrix,
 			light_proj_matrix
@@ -867,7 +862,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new GlassAndMetalExample);
 }

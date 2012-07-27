@@ -51,8 +51,8 @@ private:
 	Buffer plane_verts, plane_normals;
 public:
 	ReflectionExample(void)
-	 : cube_instr(make_cube.Instructions())
-	 , cube_indices(make_cube.Indices())
+	 : cube_indices(make_cube.Indices())
+	 , cube_instr(make_cube.Instructions())
 	 , vs(ObjectDesc("Vertex"))
 	 , fs(ObjectDesc("Fragment"))
 	{
@@ -271,7 +271,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new ReflectionExample);
 }

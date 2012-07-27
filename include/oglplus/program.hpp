@@ -53,7 +53,7 @@ class ProgramOps
  , public FriendOf<VertexAttribOps>
 {
 protected:
-	static void _init(GLsizei _count, GLuint* _name, std::true_type ne)
+	static void _init(GLsizei _count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_count == 1);
@@ -62,7 +62,7 @@ protected:
 		catch(...){ }
 	}
 
-	static void _init(GLsizei _count, GLuint* _name, std::false_type ne)
+	static void _init(GLsizei _count, GLuint* _name, std::false_type)
 	{
 		assert(_count == 1);
 		assert(_name != nullptr);
@@ -915,7 +915,7 @@ private:
 
 	template <typename Tuple, size_t N>
 	void _attach_tuple(
-		const Tuple& tuple,
+		const Tuple& /*tuple*/,
 		std::integral_constant<size_t, N>,
 		std::integral_constant<size_t, N>
 	){ }

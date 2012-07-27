@@ -39,8 +39,8 @@ private:
 		Vector<T, 3> operator()(
 			const Extractor& extractor,
 			const Sampler& sampler,
-			T one,
-			IT ione
+			T /*one*/,
+			IT /*ione*/
 		) const
 		{
 			const Vector<T, 4> c(

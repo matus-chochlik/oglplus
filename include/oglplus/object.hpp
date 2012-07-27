@@ -237,6 +237,7 @@ private:
 	OGLPLUS_NOEXCEPT(true)
 	{
 #if OGLPLUS_DONT_TEST_OBJECT_TYPE
+		OGLPLUS_FAKE_USE(_name);
 		return true;
 #else
 		try{return ObjectOps::_is_x(_name) == GL_TRUE;}
@@ -283,14 +284,15 @@ private:
 		GLsizei _c,
 		GLuint* _n,
 		Type _t,
-		std::true_type _t_is_type,
-		std::false_type _t_is_target
+		std::true_type /*_t_is_type*/,
+		std::false_type /*_t_is_target*/
 	)
 	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
+		assert(_c > 0);
 		assert(_n != nullptr);
 		assert(*_n == 0);
-		for(GLuint i=0; i!=_c; ++i)
+		for(GLsizei i=0; i!=_c; ++i)
 			ObjectOps::_init(1, _n+i, _t, _noexcept_constr());
 		assert(_can_be_zero() || *_n != 0);
 	}
@@ -300,8 +302,8 @@ private:
 		GLsizei _c,
 		GLuint* _n,
 		Target _t,
-		std::false_type _t_is_type,
-		std::true_type _t_is_target
+		std::false_type /*_t_is_type*/,
+		std::true_type /*_t_is_target*/
 	)
 	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
 	{
@@ -311,7 +313,7 @@ private:
 		assert(_can_be_zero() || *_n != 0);
 		try
 		{
-			for(GLuint i=0; i!=_c; ++i)
+			for(GLsizei i=0; i!=_c; ++i)
 				ObjectOps::_bind(_n[i], _t);
 		}
 		catch(...)

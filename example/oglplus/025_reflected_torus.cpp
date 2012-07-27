@@ -57,8 +57,8 @@ private:
 	Buffer plane_verts, plane_normals;
 public:
 	ReflectionExample(void)
-	 : torus_instr(make_torus.Instructions())
-	 , torus_indices(make_torus.Indices())
+	 : torus_indices(make_torus.Indices())
+	 , torus_instr(make_torus.Instructions())
 	 , vs_norm(ObjectDesc("Vertex-Normal"))
 	 , vs_refl(ObjectDesc("Vertex-Reflection"))
 	 , gs_refl(ObjectDesc("Geometry-Reflection"))
@@ -367,7 +367,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new ReflectionExample);
 }

@@ -7,6 +7,9 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ *
+ *  @oglplus_example_uses_cxx11{LAMBDAS}
+ *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -77,7 +80,7 @@ public:
 	ProgramUniform<Vec3f> camera_position, light_position;
 
 	TransformProgram(void)
-	 : HardwiredProgram<CommonVertShader>("Transform", true)
+	 : HardwiredProgram<CommonVertShader>(ObjectDesc("Transform"), true)
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , light_proj_matrix(prog(), "LightProjMatrix")
@@ -111,7 +114,7 @@ class ShadowProgram
 {
 public:
 	ShadowProgram(void)
-	 : HardwiredProgram<ShadowFragShader>("Shadow", true)
+	 : HardwiredProgram<ShadowFragShader>(ObjectDesc("Shadow"), true)
 	{ }
 };
 
@@ -200,7 +203,7 @@ class LineProgram
 {
 public:
 	LineProgram(void)
-	 : HardwiredProgram<LineGeomShader, LineFragShader>("Line", true)
+	 : HardwiredProgram<LineGeomShader, LineFragShader>(ObjectDesc("Line"), true)
 	{ }
 };
 
@@ -290,7 +293,7 @@ public:
 	ProgramUniformSampler sketch_tex, shadow_tex;
 
 	SketchProgram(void)
-	 : HardwiredProgram<SketchFragShader>("Sketch", true)
+	 : HardwiredProgram<SketchFragShader>(ObjectDesc("Sketch"), true)
 	 , sketch_tex(prog(), "SketchTex")
 	 , shadow_tex(prog(), "ShadowTex")
 	{ }
@@ -335,7 +338,7 @@ public:
 			"Normal",
 			"TexCoord"
 		};
-		for(int va=0; va!=nva; ++va)
+		for(size_t va=0; va!=nva; ++va)
 		{
 			const GLchar* name = vert_attr_name[va];
 			std::vector<GLfloat> data;
@@ -440,7 +443,7 @@ public:
 		{
 			auto bound_tex = Bind(sketch_texture, Texture::Target::_3D);
 
-			for(int i=0; i!=sketch_tex_layers; ++i)
+			for(size_t i=0; i!=sketch_tex_layers; ++i)
 			{
 				auto image = images::BrushedMetalUByte(
 					512, 512,
@@ -532,9 +535,7 @@ public:
 	}
 
 	void RenderShadowMap(
-		double time,
 		const Vec3f& light_position,
-		const Vec3f& torus_center,
 		const Mat4f& torus_matrix,
 		const Mat4f& light_proj_matrix
 	)
@@ -560,8 +561,6 @@ public:
 
 	void RenderImage(
 		double time,
-		const Vec3f& light_position,
-		const Vec3f& torus_center,
 		const Mat4f& torus_matrix,
 		const Mat4f& light_proj_matrix
 	)
@@ -658,16 +657,12 @@ public:
 		transf_prog.light_position.Set(light_position);
 
 		RenderShadowMap(
-			time,
 			light_position,
-			torus_center,
 			torus_matrix,
 			light_proj_matrix
 		);
 		RenderImage(
 			time,
-			light_position,
-			torus_center,
 			torus_matrix,
 			light_proj_matrix
 		);
@@ -684,7 +679,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new SketchExample);
 }

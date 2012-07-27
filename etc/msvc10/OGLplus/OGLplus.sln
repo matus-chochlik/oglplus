@@ -29,7 +29,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012_checker_cube", "012_che
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013_spiral_sphere", "013_spiral_sphere\013_spiral_sphere.vcxproj", "{BE87FD82-2140-4FA4-92F0-2EE27E6FC899}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013_stripped_cubes", "013_stripped_cubes\013_stripped_cubes.vcxproj", "{7C5C3E4D-6254-4573-8DCA-A2AAF257D428}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013_striped_cubes", "013_striped_cubes\013_striped_cubes.vcxproj", "{7C5C3E4D-6254-4573-8DCA-A2AAF257D428}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "014_multi_cube_gs", "014_multi_cube_gs\014_multi_cube_gs.vcxproj", "{3D5B796C-7A8D-4058-8F38-7DD5E0CE9AFE}"
 EndProject

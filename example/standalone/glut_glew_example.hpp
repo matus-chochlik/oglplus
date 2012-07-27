@@ -271,7 +271,7 @@ public:
 		example.Startup(width, height);
 	}
 
-	void Run(int argc, const char* argv[])
+	void Run(int /*argc*/, const char** /*argv*/)
 	{
 		glutMainLoop();
 	}

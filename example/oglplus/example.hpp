@@ -26,6 +26,11 @@ struct ExampleParams
 	ExampleParams(void)
 	 : quality(0.5f)
 	{ }
+
+	bool HighQuality(void) const
+	{
+		return quality > 0.9f;
+	}
 };
 
 /// Base class for OGLplus examples
@@ -55,6 +60,9 @@ struct Example
 	/// Mouse move event handler
 	virtual void MouseMoveNormalized(float x, float y, float aspect)
 	{
+		OGLPLUS_FAKE_USE(x);
+		OGLPLUS_FAKE_USE(y);
+		OGLPLUS_FAKE_USE(aspect);
 	}
 
 	/// Mouse move event handler

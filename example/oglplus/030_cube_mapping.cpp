@@ -164,12 +164,12 @@ public:
 	 , cube_prog(ObjectDesc("Cube"))
 	 , cmap_prog(ObjectDesc("Cube map"))
 	 , tex_side(128)
-	 , light_path(OGLPLUS_STD_VECTOR_INIT(Vec3f, {
+	 , light_path(OGLPLUS_STD_VECTOR_INIT(Vec3f,
 		Vec3f( 0.0f,  6.0f,  0.0f),
 		Vec3f(-3.0f, -4.0f,  3.5f),
 		Vec3f( 0.0f, -3.0f, -4.0f),
 		Vec3f( 3.5f, -4.0f,  3.0f)
-	}))
+	))
 	{
 		// Set the vertex shader source
 		sphere_vs.Source(
@@ -689,7 +689,7 @@ public:
 	}
 };
 
-std::unique_ptr<Example> makeExample(const ExampleParams& params)
+std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new CubeMapExample);
 }

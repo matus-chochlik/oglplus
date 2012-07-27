@@ -102,11 +102,11 @@ public:
 	 , face_indices(make_cube.Indices())
 	 , edge_indices(make_cube.EdgeIndices())
 	 , cube_matrices(MakeCubeMatrices(100, 10.0))
-	 , color_tex(Texture::Target::Rectangle)
-	 , depth_tex(Texture::Target::Rectangle)
 	 , viewport_width(dof_prog, "ViewportWidth")
 	 , viewport_height(dof_prog, "ViewportHeight")
 	 , projection_matrix(main_prog, "ProjectionMatrix")
+	 , color_tex(Texture::Target::Rectangle)
+	 , depth_tex(Texture::Target::Rectangle)
 	 , width(800)
 	 , height(600)
 	{
@@ -251,8 +251,8 @@ public:
 		dof_prog.Link();
 		dof_prog.Use();
 
-		float q2 = params.quality*params.quality;
-		Uniform<GLuint>(dof_prog, "SampleMult").Set(64 + q2*256);
+		GLuint sample_mult = params.HighQuality()?512:128;
+		Uniform<GLuint>(dof_prog, "SampleMult") = sample_mult;
 
 		// bind the VAO for the screen
 		screen.Bind();

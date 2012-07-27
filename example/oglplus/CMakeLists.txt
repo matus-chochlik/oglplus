@@ -6,7 +6,14 @@ cmake_minimum_required(VERSION 2.8)
 
 #TODO auto-detect or allow the caller to set this
 if(OGLPLUS_USE_GLEW)
-	set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
+	if(
+		("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC") OR
+		("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	)
+		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew_cxx03")
+	else()
+		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
+	endif()
 elseif(OGLPLUS_FRAMEDUMP)
 	set(OGLPLUS_EXAMPLE_HARNESS "frame_dump")
 else()
@@ -14,7 +21,10 @@ else()
 endif()
 
 # now setup the harness dependencies
-if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew")
+if(
+	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew") OR
+	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew_cxx03")
+)
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLUT_LIBRARIES})
 elseif(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR
@@ -29,9 +39,9 @@ endif()
 
 # add a target for the examples
 if(OGLPLUS_NO_EXAMPLES)
-add_custom_target(oglplus-examples)
+	add_custom_target(oglplus-examples)
 else()
-add_custom_target(oglplus-examples ALL)
+	add_custom_target(oglplus-examples ALL)
 endif()
 
 # add a target for the screenshots
@@ -45,29 +55,62 @@ add_library(
 )
 
 # get a list of all oglplus examples
-#
-# if it is one of the compilers that do not support everything
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-	file(STRINGS "./examples-MSVC.txt" OGLPLUS_EXAMPLES)
-else()
-	# otherwise use all examples in the directory
-	file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
-endif()
+file(GLOB OGLPLUS_EXAMPLES "./[0-9][0-9][0-9]_*.cpp")
 
 # list of examples that need libpng
-file(STRINGS "./examples-with-libpng.txt" OGLPLUS_EXAMPLES_WITH_LIBPNG)
+file(STRINGS "./requirements/libpng.txt" OGLPLUS_EXAMPLES_USING_LIBPNG)
+
+# list of examples that need c++11 features
+file(STRINGS "./requirements/LAMBDAS.txt" OGLPLUS_EXAMPLES_USING_LAMBDAS)
+file(STRINGS "./requirements/INITIALIZER_LISTS.txt" OGLPLUS_EXAMPLES_USING_INITIALIZER_LISTS)
+file(STRINGS "./requirements/VARIADIC_TEMPLATES.txt" OGLPLUS_EXAMPLES_USING_VARIADIC_TEMPLATES)
+
+macro(example_in_list EXAMPLE EXE_LIST VARIABLE)
+	list(FIND ${EXE_LIST} "${${EXAMPLE}}" ${VARIABLE})
+	set(${VARIABLE} NOT(${${VARIABLE}} LESS 0))
+endmacro()
+
+if(${PNG_FOUND})
+	include_directories(${PNG_INCLUDE_DIR})
+	add_definitions(${PNG_DEFINITIONS})
+endif()
 
 # make the instructions for compiling and linking of the examples
-foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
+foreach(EXAMPLE_PATH ${OGLPLUS_EXAMPLES})
 	# example name
-	get_filename_component(EXE_NAME "${EXAMPLE}" NAME_WE)
+	get_filename_component(EXE_NAME "${EXAMPLE_PATH}" NAME_WE)
+	set(EXAMPLE "${EXE_NAME}.cpp")
 
 	# check if we need to link to libpng
-	list(FIND OGLPLUS_EXAMPLES_WITH_LIBPNG "${EXE_NAME}.cpp" EXE_NEEDS_LIBPNG)
-	set(EXE_NEEDS_LIBPNG NOT(${EXE_NEEDS_LIBPNG} LESS 0))
+	example_in_list(
+		EXAMPLE
+		OGLPLUS_EXAMPLES_USING_LIBPNG
+		EXE_NEEDS_LIBPNG
+	)
 
+	# check if the example needs c++11 features
+	example_in_list(
+		EXAMPLE
+		OGLPLUS_EXAMPLES_USING_LAMBDAS
+		EXE_NEEDS_LAMBDAS
+	)
+	example_in_list(
+		EXAMPLE
+		OGLPLUS_EXAMPLES_USING_INITIALIZER_LISTS
+		EXE_NEEDS_INITIALIZER_LISTS
+	)
+	example_in_list(
+		EXAMPLE
+		OGLPLUS_EXAMPLES_USING_VARIADIC_TEMPLATES
+		EXE_NEEDS_VARIADIC_TEMPLATES
+	)
+
+	# now check if the example can be built
 	set(EXE_CAN_BE_BUILT
-		(${PNG_FOUND}) OR (NOT(${EXE_NEEDS_LIBPNG}))
+		((${PNG_FOUND}) OR (NOT(${EXE_NEEDS_LIBPNG}))) AND
+		((NOT(${OGLPLUS_NO_LAMBDAS})) OR (NOT(${EXE_NEEDS_LAMBDAS}))) AND
+		((NOT(${OGLPLUS_NO_INITIALIZER_LISTS})) OR (NOT(${EXE_NEEDS_INITIALIZER_LISTS}))) AND
+		((NOT(${OGLPLUS_NO_VARIADIC_TEMPLATES})) OR (NOT(${EXE_NEEDS_VARIADIC_TEMPLATES})))
 	)
 
 	# if we have everything to build the executable
@@ -81,7 +124,7 @@ foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 
 		# if this example needs lib png
 		if(EXE_NEEDS_LIBPNG)
-			set(EXE_LIBS ${EXE_LIBS} png)
+			set(EXE_LIBS ${EXE_LIBS} ${PNG_LIBRARIES})
 		endif()
 
 

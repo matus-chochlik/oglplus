@@ -8,11 +8,11 @@ find_path(
 	NO_DEFAULT_PATH
 )
 
-if("${GLM_INCLUDE_DIR}" STREQUAL  "GLM_INCLUDE_DIR-NOTFOUND")
+if(NOT GLM_INCLUDE_DIR)
 	find_path(GLM_INCLUDE_DIR NAMES glm/glm.hpp)
 endif()
 
-if("${GLM_INCLUDE_DIR}" STREQUAL  "GLM_INCLUDE_DIR-NOTFOUND")
+if(NOT GLM_INCLUDE_DIR)
 	message(STATUS "GLM header files not found")
 	set(GLM_FOUND false)
 else()

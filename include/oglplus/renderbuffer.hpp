@@ -42,7 +42,7 @@ public:
 #include <oglplus/enums/renderbuffer_target.ipp>
 	OGLPLUS_ENUM_CLASS_END
 protected:
-	static void _init(GLsizei count, GLuint* _name, std::true_type ne)
+	static void _init(GLsizei count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(_name != nullptr);
@@ -50,7 +50,7 @@ protected:
 		catch(...){ }
 	}
 
-	static void _init(GLsizei count, GLuint* _name, std::false_type ne)
+	static void _init(GLsizei count, GLuint* _name, std::false_type)
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenRenderbuffers)(count, _name);

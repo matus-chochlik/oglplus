@@ -289,7 +289,7 @@ public:
 	IndexArray EdgeIndices(void) const
 	{
 		size_t k = 0;
-		size_t offs = 0, leap = _udiv + 1;
+		size_t leap = _udiv + 1;
 		IndexArray indices(1 + 2*(_udiv+_vdiv));
 
 		for(size_t i=0; i!=leap; ++i)

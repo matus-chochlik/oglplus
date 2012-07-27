@@ -258,7 +258,6 @@ public:
 		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const T u_mult = _sections[si];
-			const auto angle = FullCircles(u_mult);
 
 			for(size_t r=0; r!=_rings; ++r)
 			{
@@ -282,7 +281,7 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<RevolveY> VertexAttribs;
-#else
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
 	typedef VertexAttribsInfo<
 		RevolveY,
 		VertexPositionsTag,

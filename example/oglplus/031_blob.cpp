@@ -7,6 +7,9 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ *
+ *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
+ *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -258,7 +261,7 @@ public:
 	ProgramUniformSampler configurations;
 
 	BlobProgram(void)
-	 : HardwiredProgram<BlobVertShader,BlobGeomShader,BlobFragShader>("Blob")
+	 : HardwiredProgram<BlobVertShader,BlobGeomShader,BlobFragShader>(ObjectDesc("Blob"))
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
@@ -426,7 +429,7 @@ public:
 	ProgramUniformSampler metal_tex;
 
 	MetalProgram(void)
-	 : HardwiredProgram<MetalVertShader, MetalFragShader>("Metal program")
+	 : HardwiredProgram<MetalVertShader, MetalFragShader>(ObjectDesc("Metal program"))
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , camera_position(prog(), "CameraPosition")
 	 , light_position(prog(), "LightPosition")
