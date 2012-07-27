@@ -48,7 +48,7 @@ protected:
 
 	GLint _do_init_index(const GLchar* identifier) const
 	{
-		GLint result = OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
+		return OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
 			_program,
 			GLenum(_stage),
 			identifier
@@ -220,7 +220,7 @@ protected:
 
 	GLint _do_init_index(const GLchar* identifier) const
 	{
-		GLint result = OGLPLUS_GLFUNC(GetSubroutineIndex)(
+		return OGLPLUS_GLFUNC(GetSubroutineIndex)(
 			_program,
 			GLenum(_stage),
 			identifier
