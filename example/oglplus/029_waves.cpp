@@ -15,7 +15,7 @@
 
 #include <oglplus/shapes/tetrahedrons.hpp>
 
-#include <oglplus/images/newton.hpp>
+#include <oglplus/images/squares.hpp>
 
 #include <cmath>
 
@@ -221,11 +221,9 @@ public:
 
 		"	float ViewLight = max(0.3-dot(ViewDir, LightDir), 0.0);"
 
-		"	float Ambient = 0.9;"
-
-		"	vec3 Environ = texture(EnvMap, reflect(-ViewDir, Normal)).rgb;"
+		"	vec3 Environ = texture(EnvMap, reflect(-ViewDir, Normal)).rrr;"
 		"	fragColor = "
-		"		Environ * Ambient +"
+		"		Environ * 0.1 +"
 		"		vec3(0.4, 0.4, 0.8) * Diffuse+"
 		"		vec3(0.2, 0.2, 0.3) * Specular;"
 		"}")
@@ -340,15 +338,7 @@ public:
 	{
 		Texture::Active(1);
 		{
-			auto image = images::NewtonFractal(
-				256, 256,
-				Vec3f(0.1f, 0.1f, 0.2f),
-				Vec3f(0.9f, 0.9f, 1.1f),
-				Vec2f(-1.0f, -1.0f),
-				Vec2f( 1.0f,  1.0f),
-				images::NewtonFractal::X4Minus1(),
-				images::NewtonFractal::DefaultMixer()
-			);
+			auto image = images::Squares(512, 512, 0.9f, 8, 8);
 			auto bound_tex = Bind(env_map, Texture::Target::CubeMap);
 			for(int i=0; i!=6; ++i)
 				Texture::Image2D(Texture::CubeMapFace(i), image);
