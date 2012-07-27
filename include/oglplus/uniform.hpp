@@ -958,27 +958,27 @@ public:
 	 *  or any other operation on the uniform besides destruction
 	 *  throws an exception.
 	 */
-	bool IsInitialized(void)
+	bool IsActive(void)
 	{
 		return this->_try_init_index();
 	}
 
-	/// Equivalent to IsInitialized()
+	/// Equivalent to IsActive()
 	/**
-	 *  @see IsInitialized
+	 *  @see IsActive
 	 */
 	operator bool (void)
 	{
-		return IsInitialized();
+		return IsActive();
 	}
 
-	/// Equivalent to !IsInitialized()
+	/// Equivalent to !IsActive()
 	/**
-	 *  @see IsInitialized
+	 *  @see IsActive
 	 */
 	bool operator ! (void)
 	{
-		return !IsInitialized();
+		return !IsActive();
 	}
 };
 

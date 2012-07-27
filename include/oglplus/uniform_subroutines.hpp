@@ -191,6 +191,39 @@ public:
 		String&& identifier
 	): Initializer(program, stage, std::forward<String>(identifier))
 	{ }
+
+	/// Tests if this SubroutineUniform is active and can be used
+	/**
+	 *  For SubroutineUniform this function always
+	 *  returns true as it cannot be in uninitialized state.
+	 *  For LazySubroutineUniform this function
+	 *  returns true if the uniform is active and can be referenced
+	 *  and used for subsequent operations.
+	 *  If this function returns false then trying to use the
+	 *  uniform throws an exception.
+	 */
+	bool IsActive(void)
+	{
+		return this->_try_init_index();
+	}
+
+	/// Equivalent to IsActive()
+	/**
+	 *  @see IsActive
+	 */
+	operator bool (void)
+	{
+		return IsActive();
+	}
+
+	/// Equivalent to !IsActive()
+	/**
+	 *  @see IsActive
+	 */
+	bool operator ! (void)
+	{
+		return !IsActive();
+	}
 };
 
 typedef SubroutineUniformTpl<aux::EagerSubroutineUniformInit>
@@ -363,6 +396,39 @@ public:
 		String&& identifier
 	): Initializer(program, stage, std::forward<String>(identifier))
 	{ }
+
+	/// Tests if this Subroutine is active and can be used
+	/**
+	 *  For Subroutine this function always
+	 *  returns true as it cannot be in uninitialized state.
+	 *  For LazySubroutine this function
+	 *  returns true if the subroutine is active and can be referenced
+	 *  and used for subsequent assignment operations.
+	 *  If this function returns false then trying to use the
+	 *  subroutine throws an exception.
+	 */
+	bool IsActive(void)
+	{
+		return this->_try_init_index();
+	}
+
+	/// Equivalent to IsActive()
+	/**
+	 *  @see IsActive
+	 */
+	operator bool (void)
+	{
+		return IsActive();
+	}
+
+	/// Equivalent to !IsActive()
+	/**
+	 *  @see IsActive
+	 */
+	bool operator ! (void)
+	{
+		return !IsActive();
+	}
 };
 
 typedef SubroutineTpl<aux::EagerSubroutineInit> Subroutine;
