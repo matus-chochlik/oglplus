@@ -59,7 +59,12 @@ public:
 	{
 		const size_t n = _divisions + 1;
 		size_t k = 0;
-		dest.resize(n*n*n*3);
+		dest.resize(n*n*n*3+3);
+
+		dest[k++] = T(0);
+		dest[k++] = T(0);
+		dest[k++] = T(0);
+
 		GLdouble step = _side / _divisions;
 		//
 		for(size_t z=0; z!=n; ++z)
@@ -80,7 +85,12 @@ public:
 	{
 		const size_t n = _divisions + 1;
 		size_t k = 0;
-		dest.resize(n*n*n*3);
+		dest.resize(n*n*n*3+3);
+
+		dest[k++] = T(0);
+		dest[k++] = T(0);
+		dest[k++] = T(0);
+
 		GLdouble step = 1.0 / _divisions;
 		//
 		for(size_t z=0; z!=n; ++z)
@@ -140,56 +150,57 @@ public:
 		for(size_t y=0; y!=n; ++y)
 		for(size_t x=0; x!=n; ++x)
 		{
-			size_t A = (z+0)*b + (y+0)*a + (x+0);
-			size_t B = (z+0)*b + (y+0)*a + (x+1);
-			size_t C = (z+1)*b + (y+0)*a + (x+1);
-			size_t D = (z+1)*b + (y+0)*a + (x+0);
-			size_t E = (z+0)*b + (y+1)*a + (x+0);
-			size_t F = (z+0)*b + (y+1)*a + (x+1);
-			size_t G = (z+1)*b + (y+1)*a + (x+1);
-			size_t H = (z+1)*b + (y+1)*a + (x+0);
+			size_t A = (z+0)*b + (y+0)*a + (x+0) + 1;
+			size_t B = (z+0)*b + (y+0)*a + (x+1) + 1;
+			size_t C = (z+1)*b + (y+0)*a + (x+1) + 1;
+			size_t D = (z+1)*b + (y+0)*a + (x+0) + 1;
+			size_t E = (z+0)*b + (y+1)*a + (x+0) + 1;
+			size_t F = (z+0)*b + (y+1)*a + (x+1) + 1;
+			size_t G = (z+1)*b + (y+1)*a + (x+1) + 1;
+			size_t H = (z+1)*b + (y+1)*a + (x+0) + 1;
+			size_t O = 0;
 
 			indices[k++] = C;
 			indices[k++] = A;
 			indices[k++] = B;
-			indices[k++] = A;
+			indices[k++] = O;
 			indices[k++] = G;
-			indices[k++] = A;
+			indices[k++] = O;
 
 			indices[k++] = B;
 			indices[k++] = G;
 			indices[k++] = A;
-			indices[k++] = G;
+			indices[k++] = O;
 			indices[k++] = F;
-			indices[k++] = G;
+			indices[k++] = O;
 
 			indices[k++] = E;
 			indices[k++] = G;
 			indices[k++] = F;
-			indices[k++] = G;
+			indices[k++] = O;
 			indices[k++] = A;
-			indices[k++] = G;
+			indices[k++] = O;
 
 			indices[k++] = E;
 			indices[k++] = G;
 			indices[k++] = A;
-			indices[k++] = G;
+			indices[k++] = O;
 			indices[k++] = H;
-			indices[k++] = G;
+			indices[k++] = O;
 
 			indices[k++] = A;
 			indices[k++] = G;
 			indices[k++] = D;
-			indices[k++] = G;
+			indices[k++] = O;
 			indices[k++] = H;
-			indices[k++] = G;
+			indices[k++] = O;
 
 			indices[k++] = D;
 			indices[k++] = G;
 			indices[k++] = A;
-			indices[k++] = G;
+			indices[k++] = O;
 			indices[k++] = C;
-			indices[k++] = G;
+			indices[k++] = O;
 		}
 
 		assert(k == indices.size());

@@ -111,6 +111,21 @@ public:
 	{
 		return !empty();
 	}
+
+	friend String operator + (StrLit a, StrLit b)
+	{
+		String result;
+		result.reserve(a.size()+b.size()+1);
+		result.append(a.c_str(), a.size());
+		result.append(b.c_str(), b.size());
+		return std::move(result);
+	}
+
+	friend String operator + (String a, StrLit b)
+	{
+		a.append(b.c_str(), b.size());
+		return a;
+	}
 };
 
 } // namespace oglplus
