@@ -16,9 +16,10 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/matrix.hpp>
+#include <oglplus/string.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
 #include <oglplus/auxiliary/tp_mat_vec.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/auxiliary/uniform_init.hpp>
 
 #include <vector>
 #include <cassert>
@@ -26,39 +27,32 @@
 namespace oglplus {
 namespace aux {
 
-class UniformInitBase
- : public FriendOf<ProgramOps>
+class UniformInitOps
 {
-private:
-	GLuint _program;
 protected:
-	UniformInitBase(const ProgramOps& program)
-	 : _program(FriendOf<ProgramOps>::GetName(program))
+	typedef None ParamType;
+
+	UniformInitOps(None)
 	{ }
 
-	GLuint _get_program(void) const
-	{
-		return _program;
-	}
-
-	GLint _do_init_index(const GLchar* identifier) const
+	GLint _do_init_index(GLuint program, const GLchar* identifier) const
 	{
 		return OGLPLUS_GLFUNC(GetUniformLocation)(
-			_program,
+			program,
 			identifier
 		);
 	}
 
-	GLint _init_index(const GLchar* identifier) const
+	GLint _init_index(GLuint program, const GLchar* identifier) const
 	{
-		GLint index = _do_init_index(identifier);
+		GLint index = _do_init_index(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformLocation));
 		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
 			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
-						_get_desc(_program);
+						_get_desc(program);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
@@ -70,86 +64,11 @@ protected:
 	}
 };
 
-class EagerUniformInit
- : public UniformInitBase
-{
-private:
-	GLint _index;
-protected:
-	GLint _get_index(void) const
-	{
-		return _index;
-	}
+typedef EagerUniformInitTpl<UniformInitOps>
+	EagerUniformInit;
 
-	bool _try_init_index(void) const
-	{
-		assert(_index != GLint(-1));
-		return true;
-	}
-
-	EagerUniformInit(const ProgramOps& program, const GLchar* identifier)
-	 : UniformInitBase(program)
-	 , _index(UniformInitBase::_init_index(identifier))
-	{ }
-
-	EagerUniformInit(const ProgramOps& program, const String& identifier)
-	 : UniformInitBase(program)
-	 , _index(UniformInitBase::_init_index(identifier.c_str()))
-	{ }
-
-	EagerUniformInit(const ProgramOps& program, String&& identifier)
-	 : UniformInitBase(program)
-	 , _index(UniformInitBase::_init_index(identifier.c_str()))
-	{ }
-};
-
-class LazyUniformInit
- : public UniformInitBase
-{
-private:
-	String _identifier;
-	mutable GLint _index;
-protected:
-	bool _index_initialized(void) const
-	{
-		return _index != GLint(-1);
-	}
-
-	bool _try_init_index(void)
-	{
-		if(!_index_initialized())
-			 _index = this->_do_init_index(_identifier.c_str());
-		return _index_initialized();
-	}
-
-	GLint _get_index(void)
-	{
-		if(!_index_initialized())
-		{
-			_index = this->_init_index(_identifier.c_str());
-			_identifier.clear();
-		}
-		return _index;
-	}
-
-	LazyUniformInit(const ProgramOps& program, const GLchar* identifier)
-	 : UniformInitBase(program)
-	 , _identifier(identifier)
-	 , _index(GLint(-1))
-	{ }
-
-	LazyUniformInit(const ProgramOps& program, const String& identifier)
-	 : UniformInitBase(program)
-	 , _identifier(identifier)
-	 , _index(GLint(-1))
-	{ }
-
-	LazyUniformInit(const ProgramOps& program, String&& identifier)
-	 : UniformInitBase(program)
-	 , _identifier(std::move(identifier))
-	 , _index(GLint(-1))
-	{ }
-};
+typedef LazyUniformInitTpl<UniformInitOps>
+	LazyUniformInit;
 
 } // namespace aux
 
@@ -161,7 +80,7 @@ class UniformOps
 protected:
 	template <class _String>
 	UniformOps(const ProgramOps& program, _String&& identifier)
-	 : Initializer(program, std::forward<_String>(identifier))
+	 : Initializer(program, None(), std::forward<_String>(identifier))
 	{ }
 public:
 };

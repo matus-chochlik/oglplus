@@ -19,6 +19,7 @@
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/auxiliary/uniform_init.hpp>
 
 #include <cassert>
 
@@ -29,42 +30,37 @@ class UniformSubroutines;
 
 namespace aux {
 
-class SubroutineUniformInitBase
- : public FriendOf<ProgramOps>
+class SubroutineUniformInitOps
 {
 private:
-	GLuint _program;
 	ShaderType _stage;
 protected:
-	SubroutineUniformInitBase(const ProgramOps& program, ShaderType stage)
-	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _stage(stage)
+	typedef ShaderType ParamType;
+
+	SubroutineUniformInitOps(ShaderType stage)
+	 : _stage(stage)
 	{ }
 
-	GLuint _get_program(void) const
-	{
-		return _program;
-	}
-
-	GLint _do_init_index(const GLchar* identifier) const
+	GLint _do_init_index(GLuint program, const GLchar* identifier) const
 	{
 		return OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
-			_program,
+			program,
 			GLenum(_stage),
 			identifier
 		);
 	}
 
-	GLint _init_index(const GLchar* identifier) const
+	GLint _init_index(GLuint program, const GLchar* identifier) const
 	{
-		GLint index = _do_init_index(identifier);
+		GLint index = _do_init_index(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineUniformLocation));
 		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
+			props["stage"] = EnumValueName(_stage);
 			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
-						_get_desc(_program);
+						_get_desc(program);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
@@ -76,104 +72,12 @@ protected:
 	}
 };
 
-class EagerSubroutineUniformInit
- : public SubroutineUniformInitBase
-{
-private:
-	GLint _index;
-protected:
-	GLint _get_index(void) const
-	{
-		return _index;
-	}
+typedef EagerUniformInitTpl<SubroutineUniformInitOps>
+	EagerSubroutineUniformInit;
 
-	bool _try_init_index(void) const
-	{
-		assert(_index != GLint(-1));
-		return true;
-	}
+typedef LazyUniformInitTpl<SubroutineUniformInitOps>
+	LazySubroutineUniformInit;
 
-	EagerSubroutineUniformInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		const GLchar* identifier
-	): SubroutineUniformInitBase(program, stage)
-	 , _index(SubroutineUniformInitBase::_init_index(identifier))
-	{ }
-
-	EagerSubroutineUniformInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		const String& identifier
-	): SubroutineUniformInitBase(program, stage)
-	 , _index(SubroutineUniformInitBase::_init_index(identifier.c_str()))
-	{ }
-
-	EagerSubroutineUniformInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		String&& identifier
-	): SubroutineUniformInitBase(program, stage)
-	 , _index(SubroutineUniformInitBase::_init_index(identifier.c_str()))
-	{ }
-};
-
-class LazySubroutineUniformInit
- : public SubroutineUniformInitBase
-{
-private:
-	String _identifier;
-	mutable GLint _index;
-protected:
-	bool _index_initialized(void) const
-	{
-		return _index != GLint(-1);
-	}
-
-	bool _try_init_index(void)
-	{
-		if(!_index_initialized())
-			 _index = this->_do_init_index(_identifier.c_str());
-		return _index_initialized();
-	}
-
-	GLint _get_index(void)
-	{
-		if(!_index_initialized())
-		{
-			_index = this->_init_index(_identifier.c_str());
-			_identifier.clear();
-		}
-		return _index;
-	}
-
-	LazySubroutineUniformInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		const GLchar* identifier
-	): SubroutineUniformInitBase(program, stage)
-	 , _identifier(identifier)
-	 , _index(GLint(-1))
-	{ }
-
-	LazySubroutineUniformInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		const String& identifier
-	): SubroutineUniformInitBase(program, stage)
-	 , _identifier(identifier)
-	 , _index(GLint(-1))
-	{ }
-
-	LazySubroutineUniformInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		String&& identifier
-	): SubroutineUniformInitBase(program, stage)
-	 , _identifier(std::move(identifier))
-	 , _index(GLint(-1))
-	{ }
-};
 
 } //namespace aux
 
@@ -234,42 +138,36 @@ typedef SubroutineUniformTpl<aux::LazySubroutineUniformInit>
 
 namespace aux {
 
-class SubroutineInitBase
- : public FriendOf<ProgramOps>
+class SubroutineInitOps
 {
 private:
-	GLuint _program;
 	ShaderType _stage;
 protected:
-	SubroutineInitBase(const ProgramOps& program, ShaderType stage)
-	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _stage(stage)
+	typedef ShaderType ParamType;
+
+	SubroutineInitOps(ShaderType stage)
+	 : _stage(stage)
 	{ }
 
-	GLuint _get_program(void) const
-	{
-		return _program;
-	}
-
-	GLint _do_init_index(const GLchar* identifier) const
+	GLint _do_init_index(GLuint program, const GLchar* identifier) const
 	{
 		return OGLPLUS_GLFUNC(GetSubroutineIndex)(
-			_program,
+			program,
 			GLenum(_stage),
 			identifier
 		);
 	}
 
-	GLint _init_index(const GLchar* identifier) const
+	GLint _init_index(GLuint program, const GLchar* identifier) const
 	{
-		GLint index = _do_init_index(identifier);
+		GLint index = _do_init_index(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineIndex));
 		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
 			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
-						_get_desc(_program);
+						_get_desc(program);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive subroutine",
@@ -281,104 +179,11 @@ protected:
 	}
 };
 
-class EagerSubroutineInit
- : public SubroutineInitBase
-{
-private:
-	GLint _index;
-protected:
-	GLint _get_index(void) const
-	{
-		return _index;
-	}
+typedef EagerUniformInitTpl<SubroutineInitOps>
+	EagerSubroutineInit;
 
-	bool _try_init_index(void) const
-	{
-		assert(_index != GLint(-1));
-		return true;
-	}
-
-	EagerSubroutineInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		const GLchar* identifier
-	): SubroutineInitBase(program, stage)
-	 , _index(SubroutineInitBase::_init_index(identifier))
-	{ }
-
-	EagerSubroutineInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		const String& identifier
-	): SubroutineInitBase(program, stage)
-	 , _index(SubroutineInitBase::_init_index(identifier.c_str()))
-	{ }
-
-	EagerSubroutineInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		String&& identifier
-	): SubroutineInitBase(program, stage)
-	 , _index(SubroutineInitBase::_init_index(identifier.c_str()))
-	{ }
-};
-
-class LazySubroutineInit
- : public SubroutineInitBase
-{
-private:
-	String _identifier;
-	mutable GLint _index;
-protected:
-	bool _index_initialized(void) const
-	{
-		return _index != GLint(-1);
-	}
-
-	bool _try_init_index(void)
-	{
-		if(!_index_initialized())
-			 _index = this->_do_init_index(_identifier.c_str());
-		return _index_initialized();
-	}
-
-	GLint _get_index(void)
-	{
-		if(!_index_initialized())
-		{
-			_index = this->_init_index(_identifier.c_str());
-			_identifier.clear();
-		}
-		return _index;
-	}
-
-	LazySubroutineInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		const GLchar* identifier
-	): SubroutineInitBase(program, stage)
-	 , _identifier(identifier)
-	 , _index(GLint(-1))
-	{ }
-
-	LazySubroutineInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		const String& identifier
-	): SubroutineInitBase(program, stage)
-	 , _identifier(identifier)
-	 , _index(GLint(-1))
-	{ }
-
-	LazySubroutineInit(
-		const ProgramOps& program,
-		const ShaderType stage,
-		String&& identifier
-	): SubroutineInitBase(program, stage)
-	 , _identifier(std::move(identifier))
-	 , _index(GLint(-1))
-	{ }
-};
+typedef LazyUniformInitTpl<SubroutineInitOps>
+	LazySubroutineInit;
 
 } // namespace aux
 
