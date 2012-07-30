@@ -69,7 +69,11 @@ public:
 		return std::move(result);
 	}
 
+#if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
 	inline explicit operator String(void) const
+#else
+	inline operator String(void) const
+#endif
 	{
 		return std::move(str());
 	}

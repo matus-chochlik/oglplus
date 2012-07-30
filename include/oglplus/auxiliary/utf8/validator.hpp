@@ -66,7 +66,7 @@ protected:
 	{
 		unsigned short bytes = 0;
 		assert(_S_is_valid_iterator(_s));
-		while((_s != _end) && bool(byte(_s)))
+		while((_s != _end) && (byte(_s) != 0x00))
 		{
 			// there are remaining bytes in the sequence
 			if(bytes)
