@@ -13,6 +13,7 @@
 #define OGLPLUS_STRING_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/auxiliary/utf8.hpp>
 #include <string>
 
 #if OGLPLUS_LAZY_STR_LIT
@@ -35,19 +36,21 @@ class StrLitCat
 private:
 	Left _left;
 	Right _right;
-
 public:
 	StrLitCat(Left left, Right right)
+	OGLPLUS_NOEXCEPT(true)
 	 : _left(left)
 	 , _right(right)
 	{ }
 
 	bool empty(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _left.empty() && _right.empty();
 	}
 
 	size_t size(void) const
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return _left.size() + _right.size();
 	}
@@ -68,7 +71,7 @@ public:
 
 	inline explicit operator String(void) const
 	{
-		return str();
+		return std::move(str());
 	}
 };
 
@@ -82,6 +85,11 @@ private:
 #if !OGLPLUS_LAZY_STR_LIT
 	size_t _size;
 #endif
+
+	void _check(void) const
+	{
+		assert(aux::ValidUTF8(begin(), end()));
+	}
 public:
 	StrLit(void)
 	 : _lit("")
@@ -107,12 +115,12 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	 : _lit(lit)
 	 , _size(N-1)
-	{ }
+	{ _check(); }
 #else
 	explicit StrLit(const GLchar* lit)
 	OGLPLUS_NOEXCEPT(true)
 	 : _lit(lit)
-	{ }
+	{ _check(); }
 #endif
 
 	String str(void) const
@@ -159,6 +167,33 @@ public:
 #endif
 	}
 
+	typedef const GLchar* iterator;
+	typedef const GLchar* const_iterator;
+
+	const_iterator begin(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return c_str();
+	}
+
+	const_iterator end(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return c_str()+size();
+	}
+
+	friend const_iterator begin(const StrLit& strlit)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return strlit.begin();
+	}
+
+	friend const_iterator end(const StrLit& strlit)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return strlit.end();
+	}
+
 	operator bool (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -172,6 +207,7 @@ public:
 	}
 
 	friend aux::StrLitCat<StrLit, StrLit> operator + (StrLit a, StrLit b)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return aux::StrLitCat<StrLit, StrLit>(a, b);
 	}
@@ -179,6 +215,7 @@ public:
 	template <typename Left, typename Right>
 	friend aux::StrLitCat<aux::StrLitCat<Left, Right>, StrLit>
 	operator + (aux::StrLitCat<Left, Right> a, StrLit b)
+	OGLPLUS_NOEXCEPT(true)
 	{
 		return aux::StrLitCat<aux::StrLitCat<Left, Right>,StrLit>(a, b);
 	}

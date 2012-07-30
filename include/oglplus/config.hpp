@@ -232,6 +232,16 @@
 #define OGLPLUS_NO_ENUM_VALUE_NAMES OGLPLUS_LOW_PROFILE
 #endif
 
+#ifndef OGLPLUS_NO_UTF8_CHECKS
+/// Compile-time switch disabling UTF-8 validity checks in various functions
+/** Setting this preprocessor symbol to a nonzero value causes that
+ *  the @c StrLit and @c String constructors to skip UTF-8 validity checks.
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_NO_UTF8_CHECKS OGLPLUS_LOW_PROFILE
+#endif
+
 #ifndef OGLPLUS_CUSTOM_ERROR_HANDLING
 /// Compile-time switch enabling customized @ref error_handling
 /**
