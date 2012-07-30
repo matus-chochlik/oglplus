@@ -1,12 +1,8 @@
-===================
-OGLplus README file
-===================
+==============
+OGLplus README
+==============
 
 :Author: Matúš Chochlík <chochlik@gmail.com>
-
-.. :Note:: This is just a introductory readme file. For the full documentation
-   visit the OGLplus website at http://oglplus.org/.
-
 
 .. contents::
 
