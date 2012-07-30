@@ -26,17 +26,43 @@
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
+namespace aux {
 
-/// Encapsulates shader uniform block operations
-/**
- *  @ingroup shader_variables
- */
-class UniformBlock
- : public FriendOf<ProgramOps>
+class UniformBlockInitOps
 {
 protected:
-	GLuint _program;
-	GLint _index;
+	typedef None ParamType;
+
+	UniformBlockInitOps(None)
+	{ }
+
+	GLint _do_init_index(GLuint program, const GLchar* identifier) const
+	{
+		return OGLPLUS_GLFUNC(GetUniformBlockIndex)(
+			program,
+			identifier
+		);
+	}
+
+	GLint _init_index(GLuint program, const GLchar* identifier) const
+	{
+		GLint index = _do_init_index(program, identifier);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
+		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
+		{
+			Error::PropertyMap props;
+			props["identifier"] = identifier;
+			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
+						_get_desc(program);
+			HandleError(
+				GL_INVALID_OPERATION,
+				"Getting the location of inactive uniform block",
+				OGLPLUS_ERROR_INFO(GetUniformBlockIndex),
+				std::move(props)
+			);
+		}
+		return index;
+	}
 
 	static GLenum _translate_ref(ShaderType shader_type)
 	{
@@ -77,64 +103,44 @@ protected:
 		}
 		return 0;
 	}
+};
 
-	void _check(const GLchar* identifier) const
-	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
-		if(OGLPLUS_IS_ERROR(_index == GLint(-1)))
-		{
-			Error::PropertyMap props;
-			props["identifer"] = identifier;
-			HandleError(
-				GL_INVALID_OPERATION,
-				"Getting the location of inactive uniform block",
-				OGLPLUS_ERROR_INFO(GetUniformBlockIndex),
-				std::move(props)
-			);
-		}
-	}
+typedef EagerUniformInitTpl<UniformBlockInitOps>
+	EagerUniformBlockInit;
+
+typedef LazyUniformInitTpl<UniformBlockInitOps>
+	LazyUniformBlockInit;
+
+} // namespace aux
+
+/// Base class for shader uniform block operations functionality
+/**
+ *  @note Do not use this class directly. Use UniformBlock or LazyUniformBlock
+ *  instead.
+ *
+ *  @ingroup shader_variables
+ */
+template <class Initializer>
+class UniformBlockTpl
+ : public Initializer
+{
 public:
-	/// Reference a uniform block at @p index in the @p program
-	UniformBlock(const ProgramOps& program, GLint index)
-	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _index(index)
+	/// Reference a uniform block @p identifier in the @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetUniformBlockIndex}
+	 */
+	template <class String>
+	UniformBlockTpl(const Program& program, String&& identifier)
+	 : Initializer(program, None(), std::forward<String>(identifier))
 	{ }
-
-	/// Reference a uniform block @p identifier in the @p program
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetUniformBlockIndex}
-	 */
-	UniformBlock(const ProgramOps& program, const GLchar* identifier)
-	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _index(OGLPLUS_GLFUNC(GetUniformBlockIndex)(_program, identifier))
-	{
-		_check(identifier);
-	}
-
-	/// Reference a uniform block @p identifier in the @p program
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetUniformBlockIndex}
-	 */
-	UniformBlock(const ProgramOps& program, const String& identifier)
-	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _index(
-		OGLPLUS_GLFUNC(GetUniformBlockIndex)(
-			_program,
-			identifier.c_str()
-		)
-	)
-	{
-		_check(identifier.c_str());
-	}
 
 	/// Return the maximum number of uniform blocks for a @p shader_type
 	static GLuint MaxIn(ShaderType shader_type)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(
-			_translate_max(shader_type),
+			Initializer::_translate_max(shader_type),
 			&result
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
@@ -151,9 +157,9 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
-			_program,
-			_index,
-			_translate_ref(shader_type),
+			this->_get_program(),
+			this->_get_index(),
+			Initializer::_translate_ref(shader_type),
 			&result
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniformBlockiv));
@@ -169,8 +175,8 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
-			_program,
-			_index,
+			this->_get_program(),
+			this->_get_index(),
 			GL_UNIFORM_BLOCK_DATA_SIZE,
 			&result
 		);
@@ -182,13 +188,23 @@ public:
 	void Binding(UniformBufferBindingPoint binding) const
 	{
 		OGLPLUS_GLFUNC(UniformBlockBinding)(
-			_program,
-			_index,
+			this->_get_program(),
+			this->_get_index(),
 			GLuint(binding)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UniformBlockBinding));
 	}
 };
+
+/// Encapsulates uniform block operations
+/**
+ *  @ingroup shader_variables
+ */
+typedef UniformBlockTpl<aux::EagerUniformBlockInit>
+	UniformBlock;
+
+typedef UniformBlockTpl<aux::LazyUniformBlockInit>
+	LazyUniformBlock;
 
 #endif // uniform buffer object
 

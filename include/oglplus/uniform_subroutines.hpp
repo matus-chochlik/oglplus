@@ -19,6 +19,7 @@
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/auxiliary/uniform_init.hpp>
 
 #include <cassert>
 
@@ -27,32 +28,39 @@ namespace oglplus {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
 class UniformSubroutines;
 
-class SubroutineUniform
- : public FriendOf<Program>
+namespace aux {
+
+class SubroutineUniformInitOps
 {
 private:
-	GLuint _program;
-	GLint _index;
+	ShaderType _stage;
+protected:
+	typedef ShaderType ParamType;
 
-	friend class UniformSubroutines;
+	SubroutineUniformInitOps(ShaderType stage)
+	 : _stage(stage)
+	{ }
 
-	static GLint _get_index(
-		const Program& program,
-		const ShaderType stage,
-		const GLchar* identifier
-	)
+	GLint _do_init_index(GLuint program, const GLchar* identifier) const
 	{
-		GLint result = OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
-			FriendOf<Program>::GetName(program),
-			GLenum(stage),
+		return OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
+			program,
+			GLenum(_stage),
 			identifier
 		);
+	}
+
+	GLint _init_index(GLuint program, const GLchar* identifier) const
+	{
+		GLint index = _do_init_index(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineUniformLocation));
-		if(OGLPLUS_IS_ERROR(result == GLint(-1)))
+		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
-			props["program"] = DescriptionOf(program);
+			props["stage"] = EnumValueName(_stage);
+			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
+						_get_desc(program);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
@@ -60,52 +68,106 @@ private:
 				std::move(props)
 			);
 		}
-		return result;
+		return index;
 	}
-public:
-	SubroutineUniform(
-		const Program& program,
-		const ShaderType stage,
-		const GLchar* identifier
-	): _program(FriendOf<Program>::GetName(program))
-	 , _index(_get_index(program, stage, identifier))
-	{ }
-
-	SubroutineUniform(
-		const Program& program,
-		const ShaderType stage,
-		const String& identifier
-	): _program(FriendOf<Program>::GetName(program))
-	 , _index(_get_index(program, stage, identifier.c_str()))
-	{ }
 };
 
-class Subroutine
- : public FriendOf<Program>
+typedef EagerUniformInitTpl<SubroutineUniformInitOps>
+	EagerSubroutineUniformInit;
+
+typedef LazyUniformInitTpl<SubroutineUniformInitOps>
+	LazySubroutineUniformInit;
+
+
+} //namespace aux
+
+template <class Initializer>
+class SubroutineUniformTpl
+ : public Initializer
 {
 private:
-	GLuint _program;
-	GLint _index;
-
 	friend class UniformSubroutines;
-
-	static GLint _get_index(
+public:
+	template <typename String>
+	SubroutineUniformTpl(
 		const Program& program,
 		const ShaderType stage,
-		const GLchar* identifier
-	)
+		String&& identifier
+	): Initializer(program, stage, std::forward<String>(identifier))
+	{ }
+
+	/// Tests if this SubroutineUniform is active and can be used
+	/**
+	 *  For SubroutineUniform this function always
+	 *  returns true as it cannot be in uninitialized state.
+	 *  For LazySubroutineUniform this function
+	 *  returns true if the uniform is active and can be referenced
+	 *  and used for subsequent operations.
+	 *  If this function returns false then trying to use the
+	 *  uniform throws an exception.
+	 */
+	bool IsActive(void)
 	{
-		GLint result = OGLPLUS_GLFUNC(GetSubroutineIndex)(
-			FriendOf<Program>::GetName(program),
-			GLenum(stage),
+		return this->_try_init_index();
+	}
+
+	/// Equivalent to IsActive()
+	/**
+	 *  @see IsActive
+	 */
+	operator bool (void)
+	{
+		return IsActive();
+	}
+
+	/// Equivalent to !IsActive()
+	/**
+	 *  @see IsActive
+	 */
+	bool operator ! (void)
+	{
+		return !IsActive();
+	}
+};
+
+typedef SubroutineUniformTpl<aux::EagerSubroutineUniformInit>
+	SubroutineUniform;
+
+typedef SubroutineUniformTpl<aux::LazySubroutineUniformInit>
+	LazySubroutineUniform;
+
+namespace aux {
+
+class SubroutineInitOps
+{
+private:
+	ShaderType _stage;
+protected:
+	typedef ShaderType ParamType;
+
+	SubroutineInitOps(ShaderType stage)
+	 : _stage(stage)
+	{ }
+
+	GLint _do_init_index(GLuint program, const GLchar* identifier) const
+	{
+		return OGLPLUS_GLFUNC(GetSubroutineIndex)(
+			program,
+			GLenum(_stage),
 			identifier
 		);
+	}
+
+	GLint _init_index(GLuint program, const GLchar* identifier) const
+	{
+		GLint index = _do_init_index(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineIndex));
-		if(OGLPLUS_IS_ERROR(result == GLint(-1)))
+		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
-			props["program"] = DescriptionOf(program);
+			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
+						_get_desc(program);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive subroutine",
@@ -113,25 +175,71 @@ private:
 				std::move(props)
 			);
 		}
-		return result;
+		return index;
 	}
+};
+
+typedef EagerUniformInitTpl<SubroutineInitOps>
+	EagerSubroutineInit;
+
+typedef LazyUniformInitTpl<SubroutineInitOps>
+	LazySubroutineInit;
+
+} // namespace aux
+
+template <class Initializer>
+class SubroutineTpl
+ : public Initializer
+{
+private:
+	friend class UniformSubroutines;
 public:
-	Subroutine(
+	template <class String>
+	SubroutineTpl(
 		const Program& program,
 		const ShaderType stage,
-		const GLchar* identifier
-	): _program(FriendOf<Program>::GetName(program))
-	 , _index(_get_index(program, stage, identifier))
+		String&& identifier
+	): Initializer(program, stage, std::forward<String>(identifier))
 	{ }
 
-	Subroutine(
-		const Program& program,
-		const ShaderType stage,
-		const String& identifier
-	): _program(FriendOf<Program>::GetName(program))
-	 , _index(_get_index(program, stage, identifier.c_str()))
-	{ }
+	/// Tests if this Subroutine is active and can be used
+	/**
+	 *  For Subroutine this function always
+	 *  returns true as it cannot be in uninitialized state.
+	 *  For LazySubroutine this function
+	 *  returns true if the subroutine is active and can be referenced
+	 *  and used for subsequent assignment operations.
+	 *  If this function returns false then trying to use the
+	 *  subroutine throws an exception.
+	 */
+	bool IsActive(void)
+	{
+		return this->_try_init_index();
+	}
+
+	/// Equivalent to IsActive()
+	/**
+	 *  @see IsActive
+	 */
+	operator bool (void)
+	{
+		return IsActive();
+	}
+
+	/// Equivalent to !IsActive()
+	/**
+	 *  @see IsActive
+	 */
+	bool operator ! (void)
+	{
+		return !IsActive();
+	}
 };
+
+typedef SubroutineTpl<aux::EagerSubroutineInit> Subroutine;
+
+typedef SubroutineTpl<aux::LazySubroutineInit> LazySubroutine;
+
 
 /// Encapsulates the uniform subroutine setting operations
 /**
@@ -188,11 +296,11 @@ public:
 		const Subroutine& subroutine
 	)
 	{
-		assert(uniform._program == _program);
-		assert(subroutine._program == _program);
-		assert(uniform._index <= GLint(_indices.size()));
+		assert(uniform._get_program() == _program);
+		assert(subroutine._get_program() == _program);
+		assert(uniform._get_index() <= GLint(_indices.size()));
 
-		_indices[uniform._index] = subroutine._index;
+		_indices[uniform._get_index()] = subroutine._get_index();
 		return *this;
 	}
 
