@@ -24,6 +24,56 @@ namespace oglplus {
 /// String class
 typedef ::std::basic_string<GLchar> String;
 
+class StrLit;
+
+namespace aux {
+
+// helper class used for implementation of concatenation
+template <typename Left, typename Right>
+class StrLitCat
+{
+private:
+	Left _left;
+	Right _right;
+
+public:
+	StrLitCat(Left left, Right right)
+	 : _left(left)
+	 , _right(right)
+	{ }
+
+	bool empty(void) const
+	{
+		return _left.empty() && _right.empty();
+	}
+
+	size_t size(void) const
+	{
+		return _left.size() + _right.size();
+	}
+
+	void append_to(String& dest) const
+	{
+		_left.append_to(dest);
+		_right.append_to(dest);
+	}
+
+	String str(void) const
+	{
+		String result;
+		result.reserve(this->size()+1);
+		this->append_to(result);
+		return std::move(result);
+	}
+
+	inline explicit operator String(void) const
+	{
+		return str();
+	}
+};
+
+} // namespace aux
+
 /// String literal wrapper
 class StrLit
 {
@@ -74,6 +124,15 @@ public:
 #endif
 	}
 
+	void append_to(String& dest) const
+	{
+#if !OGLPLUS_LAZY_STR_LIT
+		dest.append(_lit, _lit+_size);
+#else
+		dest.append(_lit);
+#endif
+	}
+
 	const GLchar* c_str(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -112,19 +171,16 @@ public:
 		return !empty();
 	}
 
-	friend String operator + (StrLit a, StrLit b)
+	friend aux::StrLitCat<StrLit, StrLit> operator + (StrLit a, StrLit b)
 	{
-		String result;
-		result.reserve(a.size()+b.size()+1);
-		result.append(a.c_str(), a.size());
-		result.append(b.c_str(), b.size());
-		return std::move(result);
+		return aux::StrLitCat<StrLit, StrLit>(a, b);
 	}
 
-	friend String operator + (String a, StrLit b)
+	template <typename Left, typename Right>
+	friend aux::StrLitCat<aux::StrLitCat<Left, Right>, StrLit>
+	operator + (aux::StrLitCat<Left, Right> a, StrLit b)
 	{
-		a.append(b.c_str(), b.size());
-		return a;
+		return aux::StrLitCat<aux::StrLitCat<Left, Right>,StrLit>(a, b);
 	}
 };
 
