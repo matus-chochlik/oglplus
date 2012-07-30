@@ -35,6 +35,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/pixel_data_type.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -57,6 +58,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/pixel_data_format.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -81,6 +83,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/pixel_data_internal_format.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -101,6 +104,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/image_unit_format.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 

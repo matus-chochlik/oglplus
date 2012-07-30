@@ -42,6 +42,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_command.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -62,6 +63,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_format.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -82,6 +84,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_fill_mode.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -102,6 +105,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_fill_cover_mode.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -122,6 +126,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_stroke_cover_mode.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -142,6 +147,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_join_style.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -162,6 +168,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_cap_style.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -182,6 +189,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_dash_offset_reset.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -202,6 +210,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_color.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -222,6 +231,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_color_format.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -242,6 +252,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_gen_mode.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -262,6 +273,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_transform_type.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -282,6 +294,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_font_target.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -302,6 +315,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_missing_glyph.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -322,6 +336,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_list_mode.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -344,6 +359,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_font_style.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -366,6 +382,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_metric_query.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 

@@ -305,6 +305,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/query_target.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 

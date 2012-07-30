@@ -15,6 +15,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/auxiliary/utf8.hpp>
 #include <string>
+#include <cassert>
 
 #if OGLPLUS_LAZY_STR_LIT
 #include <cstring>

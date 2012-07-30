@@ -51,6 +51,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_attachment.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -65,6 +66,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_status.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -509,6 +511,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_target.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 

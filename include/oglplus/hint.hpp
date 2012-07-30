@@ -31,6 +31,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/hint_target.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 
@@ -51,6 +52,7 @@ OGLPLUS_NOEXCEPT(true)
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/hint_option.ipp>
 #endif
+	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
 

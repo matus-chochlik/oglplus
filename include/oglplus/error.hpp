@@ -329,6 +329,7 @@ inline const char* ErrorFile(const ErrorInfo& info)
 #if !OGLPLUS_ERROR_INFO_NO_FILE
 	return info._file;
 #else
+	OGLPLUS_FAKE_USE(info);
 	return "";
 #endif
 }
@@ -355,6 +356,7 @@ inline const char* ErrorFunc(const ErrorInfo& info)
 #if !OGLPLUS_ERROR_INFO_NO_FUNC
 	return info._func;
 #else
+	OGLPLUS_FAKE_USE(info);
 	return "";
 #endif
 }
@@ -381,6 +383,7 @@ inline unsigned ErrorLine(const ErrorInfo& info)
 #if !OGLPLUS_ERROR_INFO_NO_LINE
 	return info._line;
 #else
+	OGLPLUS_FAKE_USE(info);
 	return 0;
 #endif
 }
@@ -409,6 +412,7 @@ inline const char* ErrorClassName(const ErrorInfo& info)
 		info._cls_name :
 		"UnknownClass";
 #else
+	OGLPLUS_FAKE_USE(info);
 	return "UnknownClass";
 #endif
 }
@@ -432,6 +436,7 @@ inline const char* ErrorClassName(const ErrorInfo& info)
  */
 inline const char* ErrorBindTarget(const ErrorInfo& info)
 {
+	OGLPLUS_FAKE_USE(info);
 	return
 #if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
 	(info._bind_tgt) ?
@@ -459,6 +464,7 @@ inline const char* ErrorBindTarget(const ErrorInfo& info)
  */
 inline const String& ErrorObjectDescription(const ErrorInfo& info)
 {
+	OGLPLUS_FAKE_USE(info);
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	if((info._get_obj_desc != 0) && (info._obj_name != 0))
 		return info._get_obj_desc(info._obj_name);
@@ -1022,38 +1028,53 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 	throw Error(code, msg, info, assertion);
 }
 
-#ifndef OGLPLUS_IS_ERROR
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// This macro decides if error handling should be done
 /** The @p EXPRESSION parameter is a boolean expression
  *  and true values indicate an error condition. If this
  *  macro returns a false expression any error handling
  *  is skipped.
  */
+#define OGLPLUS_IS_ERROR(EXPRESSION)
+#endif
+
+#ifndef OGLPLUS_IS_ERROR
 #define OGLPLUS_IS_ERROR(EXPRESSION) (EXPRESSION)
 #endif
 
-#ifndef OGLPLUS_CHECK
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Macro checking and possibly handling run-time errors in previous call to GL
 /** This macro is called immediatelly after calls to GL functions
  *  that may fail due to invalid values of run-time parameters.
  */
+#define OGLPLUS_CHECK(PARAM)
+#endif
+
+#ifndef OGLPLUS_CHECK
 #define OGLPLUS_CHECK(PARAM) { \
 	GLenum error_code = OGLPLUS_GLFUNC(GetError)(); \
 	if(error_code != GL_NO_ERROR) HandleError(error_code, PARAM, false); \
 }
 #endif
 
-#ifndef OGLPLUS_VERIFY
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Macro asserting that no errors occured in prevous call to GL
 /** This macro is called immediatelly after calls to GL functions
  *  that "should not" fail and if they do fail it indicates
  *  a program logic error that is not dependent on run-time parameters.
  */
+#define OGLPLUS_VERIFY(PARAM)
+#endif
+
+#ifndef OGLPLUS_VERIFY
+#if !OGPLUS_LOW_PROFILE
 #define OGLPLUS_VERIFY(PARAM) { \
 	GLenum error_code = OGLPLUS_GLFUNC(GetError)(); \
 	if(error_code != GL_NO_ERROR) HandleError(error_code, PARAM, true); \
 }
-
+#else
+#define OGLPLUS_VERIFY(PARAM)
+#endif
 #endif
 
 } // namespace oglplus

@@ -44,25 +44,33 @@ public:
 #if !OGLPLUS_NO_OBJECT_DESCS
 	 : _str(cstr)
 #endif
-	{ }
+	{
+		OGLPLUS_FAKE_USE(cstr);
+	}
 
 	ObjectDesc(const StrLit& lit)
 #if !OGLPLUS_NO_OBJECT_DESCS
 	 : _str(lit.str())
 #endif
-	{ }
+	{
+		OGLPLUS_FAKE_USE(lit);
+	}
 
 	ObjectDesc(const String& str)
 #if !OGLPLUS_NO_OBJECT_DESCS
 	 : _str(str)
 #endif
-	{ }
+	{
+		OGLPLUS_FAKE_USE(str);
+	}
 
 	ObjectDesc(String&& str)
 #if !OGLPLUS_NO_OBJECT_DESCS
 	 : _str(std::forward<String>(str))
 #endif
-	{ }
+	{
+		OGLPLUS_FAKE_USE(str);
+	}
 
 	ObjectDesc(void){ }
 
@@ -70,7 +78,9 @@ public:
 #if !OGLPLUS_NO_OBJECT_DESCS
 	 : _str(std::move(tmp._str))
 #endif
-	{ }
+	{
+		OGLPLUS_FAKE_USE(tmp);
+	}
 
 	const String& Str(void)
 	{
@@ -117,6 +127,8 @@ protected:
 	OGLPLUS_NOEXCEPT(true)
 #endif
 	{
+		OGLPLUS_FAKE_USE(name);
+		OGLPLUS_FAKE_USE(desc);
 #if !OGLPLUS_NO_OBJECT_DESCS
 		assert(name != 0);
 		assert(_storage().find(name) == _storage().end());
@@ -134,6 +146,7 @@ protected:
 	OGLPLUS_NOEXCEPT(true)
 #endif
 	{
+		OGLPLUS_FAKE_USE(name);
 #if !OGLPLUS_NO_OBJECT_DESCS
 		assert(name != 0);
 		auto pos = _storage().find(name);
@@ -164,6 +177,7 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 #endif
 	{
+		OGLPLUS_FAKE_USE(name);
 #if !OGLPLUS_NO_OBJECT_DESCS
 		assert(name != 0);
 		auto pos = _storage().find(name);

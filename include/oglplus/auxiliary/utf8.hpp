@@ -28,6 +28,8 @@ inline bool ValidUTF8(Iterator begin, Iterator end)
 	UTF8Validator<Iterator> valid_utf8;
 	return valid_utf8(begin, end);
 #else
+	OGLPLUS_FAKE_USE(begin);
+	OGLPLUS_FAKE_USE(end);
 	return true;
 #endif
 }
