@@ -2,7 +2,7 @@
  *  @example oglplus/012_checker_sphere.cpp
  *  @brief Shows how to draw a checkered sphere using the Sphere builder
  *
- *  @image html 012_checker_sphere.png
+ *  @oglplus_screenshot{012_checker_sphere}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

@@ -2,7 +2,7 @@
  *  @example oglplus/004_newton.cpp
  *  @brief Shows how to draw a rectangle with the Newton fractal.
  *
- *  @image html 004_newton.png
+ *  @oglplus_screenshot{004_newton}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

@@ -2,7 +2,7 @@
  *  @example oglplus/029_surface.cpp
  *  @brief Shows implicit surface polygonization and single-pass wireframe
  *
- *  @image html 029_surface.png
+ *  @oglplus_screenshot{029_surface}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

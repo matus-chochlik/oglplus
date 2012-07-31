@@ -92,7 +92,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glvoereq{4,1,ARB_viewport_array}
+	 *  @glvoereq{4,1,ARB,viewport_array}
 	 *  @glsymbols
 	 *  @glfunref{ScissorIndexed}
 	 */
@@ -116,7 +116,7 @@ public:
 
 	/// Defines the scissor rectangle for the specified @p viewport
 	/**
-	 *  @glvoereq{4,1,ARB_viewport_array}
+	 *  @glvoereq{4,1,ARB,viewport_array}
 	 *  @glsymbols
 	 *  @glfunref{ScissorIndexedv}
 	 */
@@ -130,7 +130,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glvoereq{4,1,ARB_viewport_array}
+	 *  @glvoereq{4,1,ARB,viewport_array}
 	 *  @glsymbols
 	 *  @glfunref{ScissorArrayv}
 	 */
@@ -144,7 +144,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glvoereq{4,1,ARB_viewport_array}
+	 *  @glvoereq{4,1,ARB,viewport_array}
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{SCISSOR_BOX}

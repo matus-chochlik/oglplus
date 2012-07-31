@@ -2,7 +2,7 @@
  *  @example oglplus/019_honeycomb_cube.cpp
  *  @brief Shows how to draw a semi-transparent textured cube
  *
- *  @image html 019_honeycomb_cube.png
+ *  @oglplus_screenshot{019_honeycomb_cube}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

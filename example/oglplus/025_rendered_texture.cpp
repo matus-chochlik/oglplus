@@ -2,7 +2,7 @@
  *  @example oglplus/025_rendered_texture.cpp
  *  @brief Shows how to render into a texture
  *
- *  @image html 025_rendered_texture.png
+ *  @oglplus_screenshot{025_rendered_texture}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

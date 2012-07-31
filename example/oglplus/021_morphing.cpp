@@ -2,7 +2,7 @@
  *  @example oglplus/021_morphing.cpp
  *  @brief Shows simple morphing animation
  *
- *  @image html 021_morphing.png
+ *  @oglplus_screenshot{021_morphing}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

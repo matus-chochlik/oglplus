@@ -48,7 +48,7 @@ public:
 	 *
 	 *  @throws Error
 	 *
-	 *  @glvoereq{4,2,ARB_shader_image_load_store}
+	 *  @glvoereq{4,2,ARB,shader_image_load_store}
 	 *  @glsymbols
 	 *  @glfunref{MemoryBarrier}
 	 */

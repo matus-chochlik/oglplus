@@ -2,7 +2,7 @@
  *  @example oglplus/030_shadow_volume.cpp
  *  @brief Shows how to draw volumetric shadow
  *
- *  @image html 030_shadow_volume.png
+ *  @oglplus_screenshot{030_shadow_volume}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

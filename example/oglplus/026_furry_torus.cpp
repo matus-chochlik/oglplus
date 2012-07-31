@@ -2,7 +2,7 @@
  *  @example oglplus/026_furry_torus.cpp
  *  @brief Shows simple simulation of fur
  *
- *  @image html 026_furry_torus.png
+ *  @oglplus_screenshot{026_furry_torus}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

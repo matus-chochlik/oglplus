@@ -2,7 +2,7 @@
  *  @example oglplus/017_phong_torus.cpp
  *  @brief Shows how to draw a "phong"-like shaded torus
  *
- *  @image html 017_phong_torus.png
+ *  @oglplus_screenshot{017_phong_torus}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

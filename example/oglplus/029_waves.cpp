@@ -2,7 +2,7 @@
  *  @example oglplus/029_waves.cpp
  *  @brief Shows implicit surface polygonization
  *
- *  @image html 029_waves.png
+ *  @oglplus_screenshot{029_waves}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

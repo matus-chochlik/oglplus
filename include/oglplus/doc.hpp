@@ -36,6 +36,7 @@ namespace oglplus {
  *    - @ref feat_interoperability_with_opengl
  *    - @ref feat_related_classes
  *    - @ref oglplus_object_description
+ *    - @ref oglplus_configurability
  *  - <A HREF="../index.html">Home page</A>
  *  - @ref oglplus_what_it_is_not
  *  - @ref oglplus_screenshot_gallery
@@ -131,15 +132,14 @@ namespace oglplus {
  *  have a human-readable description which is attached to the exception raised
  *  by the error.
  *
- *  The classes like @ref oglplus::Shader "Shader", @ref oglplus::Program "Program",
- *  @ref oglplus::Texture "Texture", @ref oglplus::Query "Query" and many others
- *  have one or more constructors allowing to assign a description to the object
- *  during construction.
+ *  @subsection oglplus_configurability Configurability
  *
- *  If the overhead caused by the descriptions is unacceptable for release builds
- *  of an application and they are intended for debugging purposes only, they can be compiled away
- *  by setting the value of the @c #OGLPLUS_NO_OBJECT_DESCS preprocessor symbol to
- *  a nonzero integer value.
+ *  If the overhead caused by the object descriptions or other run-time checks
+ *  (which are useful during the development and/or debugging) is unacceptable
+ *  for release builds of an application using @OGLplus, they can all be compiled
+ *  away by setting the value of the @c #OGLPLUS_LOW_PROFILE preprocessor symbol.
+ *  Individual features can be also enabled or disabled independently as required
+ *  by setting the appropriate @ref oglplus_configuration_options.
  *
  *
  *  @section oglplus_what_it_is_not What OGLplus isn't
@@ -363,6 +363,13 @@ namespace oglplus {
  *  or to allocate and cleanup several instances of the same type
  *  at the same time.
  */
+
+/// Unspecified internal type
+/** This type does not actually exist and is only a placeholder for various
+ *  internal implementation details not to be used directly by the end-users.
+ */
+struct Unspecified
+{ };
 
 /// Wrapper class for all ranges that can be used for Element traversal
 /** This class cannot be instantiated and used directly in end-user

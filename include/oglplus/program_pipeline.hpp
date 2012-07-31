@@ -53,7 +53,7 @@ OGLPLUS_NOEXCEPT(true)
  *
  *  @see ProgramPipeline
  *
- *  @glvoereq{4,1,ARB_separate_shader_objects}
+ *  @glvoereq{4,1,ARB,separate_shader_objects}
  *  @glsymbols
  *  @glfunref{GenProgramPipelines}
  *  @glfunref{DeleteProgramPipelines}

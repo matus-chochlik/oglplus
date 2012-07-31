@@ -2,7 +2,7 @@
  *  @example oglplus/005_mandelbrot.cpp
  *  @brief Shows how to draw a rectangle with the mandelbrot set
  *
- *  @image html 005_mandelbrot.png
+ *  @oglplus_screenshot{005_mandelbrot}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

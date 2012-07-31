@@ -2,7 +2,7 @@
  *  @example oglplus/013_striped_cubes.cpp
  *  @brief Shows how to draw rotating striped cubes using the Cube builder
  *
- *  @image html 013_striped_cubes.png
+ *  @oglplus_screenshot{013_striped_cubes}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

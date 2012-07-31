@@ -2,7 +2,7 @@
  *  @example oglplus/025_subroutines.cpp
  *  @brief Shows the usage of subroutines and subroutine uniforms
  *
- *  @image html 025_subroutines.png
+ *  @oglplus_screenshot{025_subroutines}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

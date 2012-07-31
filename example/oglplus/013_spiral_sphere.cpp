@@ -2,7 +2,7 @@
  *  @example oglplus/013_spiral_sphere.cpp
  *  @brief Shows how to draw a jumping and rotating sphere
  *
- *  @image html 013_spiral_sphere.png
+ *  @oglplus_screenshot{013_spiral_sphere}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

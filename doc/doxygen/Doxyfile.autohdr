@@ -29,6 +29,7 @@ PREDEFINED             = \
 		"GL_VERSION_4_2=1" \
 		"OGLPLUS_DOXYGEN_PARSE=1"
 
+ALIASES                += oglplus_screenshot=""
 ALIASES                += glsymbols=""
 ALIASES                += glfunref{1}=""
 ALIASES                += gldefref{1}=""

@@ -2,7 +2,7 @@
  *  @example oglplus/025_multi_viewport.cpp
  *  @brief Shows how to draw into multiple viewport at the same time
  *
- *  @image html 025_multi_viewport.png
+ *  @oglplus_screenshot{025_multi_viewport}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

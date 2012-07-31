@@ -2,7 +2,7 @@
  *  @example oglplus/017_single_pass_edges.cpp
  *  @brief Shows how render the faces and the wireframe in single pass
  *
- *  @image html 017_single_pass_edges.png
+ *  @oglplus_screenshot{017_single_pass_edges}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

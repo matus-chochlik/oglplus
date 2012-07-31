@@ -265,7 +265,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glvoereq{3,2,ARB_draw_elements_base_vertex}
+	 *  @glvoereq{3,2,ARB,draw_elements_base_vertex}
 	 *  @glsymbols
 	 *  @glfunref{DrawElementsBaseVertex}
 	 */
@@ -292,7 +292,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glvoereq{3,2,ARB_draw_elements_base_vertex}
+	 *  @glvoereq{3,2,ARB,draw_elements_base_vertex}
 	 *  @glsymbols
 	 *  @glfunref{DrawRangeElementsBaseVertex}
 	 */
@@ -323,7 +323,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glvoereq{3,2,ARB_draw_elements_base_vertex}
+	 *  @glvoereq{3,2,ARB,draw_elements_base_vertex}
 	 *  @glsymbols
 	 *  @glfunref{DrawElementsInstancedBaseVertex}
 	 */
@@ -354,7 +354,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glvoereq{3,2,ARB_draw_elements_base_vertex}
+	 *  @glvoereq{3,2,ARB,draw_elements_base_vertex}
 	 *  @glsymbols
 	 *  @glfunref{MultiDrawElementsBaseVertex}
 	 */

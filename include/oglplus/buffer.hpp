@@ -608,7 +608,7 @@ public:
 	 *  @see SubData
 	 *  @throws Error
 	 *
-	 *  @glvoereq{3,1,ARB_copy_buffer}
+	 *  @glvoereq{3,1,ARB,copy_buffer}
 	 */
 	friend void CopySubData(
 		const BufferOps& readtarget,

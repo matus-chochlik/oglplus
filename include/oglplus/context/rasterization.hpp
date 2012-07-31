@@ -224,7 +224,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_provoking_vertex
 	/// Sets the provoking vertex selection mode for flatshading
 	/**
-	 *  @glvoereq{3,2,ARB_provoking_vertex}
+	 *  @glvoereq{3,2,ARB,provoking_vertex}
 	 *  @glsymbols
 	 *  @glfunref{ProvokingVertex}
 	 */
@@ -236,7 +236,7 @@ public:
 
 	/// Returns the provoking vertex selection mode for flatshading
 	/**
-	 *  @glvoereq{3,2,ARB_provoking_vertex}
+	 *  @glvoereq{3,2,ARB,provoking_vertex}
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{PROVOKING_VERTEX}

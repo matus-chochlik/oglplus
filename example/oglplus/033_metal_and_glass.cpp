@@ -2,7 +2,7 @@
  *  @example oglplus/033_metal_and_glass.cpp
  *  @brief Shows a little more advanced lighting and blending
  *
- *  @image html 033_metal_and_glass.png
+ *  @oglplus_screenshot{033_metal_and_glass}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

@@ -2,7 +2,7 @@
  *  @example oglplus/028_ripples.cpp
  *  @brief Shows implicit surface polygonization
  *
- *  @image html 028_ripples.png
+ *  @oglplus_screenshot{028_ripples}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

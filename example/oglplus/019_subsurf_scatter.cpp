@@ -2,7 +2,7 @@
  *  @example oglplus/019_subsurf_scatter.cpp
  *  @brief Shows how to draw a cube with a subsurface light scattering effect
  *
- *  @image html 019_subsurf_scatter.png
+ *  @oglplus_screenshot{019_subsurf_scatter}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

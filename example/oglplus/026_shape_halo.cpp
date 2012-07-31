@@ -2,7 +2,7 @@
  *  @example oglplus/026_shape_halo.cpp
  *  @brief Shows how to render a halo around a shape
  *
- *  @image html 026_shape_halo.png
+ *  @oglplus_screenshot{026_shape_halo}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

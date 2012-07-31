@@ -97,7 +97,7 @@ OGLPLUS_NOEXCEPT(true)
 /// Encapsulates sync object and fence functionality
 /**
  *
- *  @glvoereq{3,2,ARB_sync}
+ *  @glvoereq{3,2,ARB,sync}
  */
 class Sync
 {

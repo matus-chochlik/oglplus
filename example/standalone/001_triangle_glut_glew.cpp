@@ -2,7 +2,7 @@
  *  @example standalone/001_triangle_glut_glew.cpp
  *  @brief Shows the basic usage of OGLplus with GLUT and GLEW.
  *
- *  @image html 001_triangle.png
+ *  @oglplus_screenshot{001_triangle}
  *
  *  See the @ref oglplus_tut_001_glut_glew tutorial for a detailed explanation
  *  of the source code of this example.

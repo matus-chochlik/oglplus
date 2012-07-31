@@ -2,7 +2,7 @@
  *  @example oglplus/022_parallax_map.cpp
  *  @brief Shows how to achieve a simple view parallax effect on a checker cube
  *
- *  @image html 022_parallax_map.png
+ *  @oglplus_screenshot{022_parallax_map}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

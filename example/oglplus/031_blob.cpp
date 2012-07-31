@@ -2,7 +2,7 @@
  *  @example oglplus/031_blob.cpp
  *  @brief Shows implicit surface polygonization
  *
- *  @image html 031_blob.png
+ *  @oglplus_screenshot{031_blob}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

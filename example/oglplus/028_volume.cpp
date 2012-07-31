@@ -2,7 +2,7 @@
  *  @example oglplus/028_volume.cpp
  *  @brief Shows volumetric data polygonization
  *
- *  @image html 028_volume.png
+ *  @oglplus_screenshot{028_volume}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

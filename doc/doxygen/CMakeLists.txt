@@ -57,6 +57,9 @@ if(DOXYGEN_FOUND)
 	file(APPEND ${DOXYFILE} "PROJECT_NUMBER = ${OGLPLUS_VERSION_STR}\n")
 	file(APPEND ${DOXYFILE} "QUIET = YES\n")
 
+	if(OGLPLUS_NO_SCREENSHOTS)
+		file(APPEND ${DOXYFILE} "ALIASES += oglplus_screenshot{1}=\"\"\n")
+	endif()
 
 	add_custom_command(
 		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html

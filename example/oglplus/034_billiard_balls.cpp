@@ -2,7 +2,7 @@
  *  @example oglplus/034_billiard_balls.cpp
  *  @brief Shows rendering into multiple cube maps and simple shadow raytracing
  *
- *  @image html 034_billiard_balls.png
+ *  @oglplus_screenshot{034_billiard_balls}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

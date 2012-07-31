@@ -2,7 +2,7 @@
  *  @example oglplus/009_metaballs.cpp
  *  @brief Shows how to draw a rectangle 2D metaballs
  *
- *  @image html 009_metaballs.png
+ *  @oglplus_screenshot{009_metaballs}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

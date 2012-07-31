@@ -2,7 +2,7 @@
  *  @example oglplus/006_newton_zoom.cpp
  *  @brief Shows how to do a zooming animation of the Newton fractal.
  *
- *  @image html 006_newton_zoom.png
+ *  @oglplus_screenshot{006_newton_zoom}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

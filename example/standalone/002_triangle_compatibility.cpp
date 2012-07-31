@@ -2,7 +2,7 @@
  *  @example standalone/002_triangle_compatibility.cpp
  *  @brief Shows usage of the ARB_compatibility and ARB_debug_output wrappers
  *
- *  @image html 002_triangle.png
+ *  @oglplus_screenshot{002_triangle}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

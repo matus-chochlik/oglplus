@@ -245,7 +245,7 @@ typedef SubroutineTpl<aux::LazySubroutineInit> LazySubroutine;
 /**
  *  @ingroup shader_variables
  *
- *  @glvoereq{4,0,ARB_shader_subroutine}
+ *  @glvoereq{4,0,ARB,shader_subroutine}
  */
 class UniformSubroutines
  : public FriendOf<Program>

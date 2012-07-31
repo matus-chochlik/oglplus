@@ -2,7 +2,7 @@
  *  @example oglplus/011_writing.cpp
  *  @brief Shows how to use a bezier spline and geometry shader to write a text
  *
- *  @image html 011_writing.png
+ *  @oglplus_screenshot{011_writing}
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

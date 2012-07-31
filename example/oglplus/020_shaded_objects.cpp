@@ -2,7 +2,7 @@
  *  @example oglplus/020_shaded_objects.cpp
  *  @brief Shows how to draw several differently shaded geometric shapes
  *
- *  @image html 020_shaded_objects.png
+ *  @oglplus_screenshot{020_shaded_objects}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

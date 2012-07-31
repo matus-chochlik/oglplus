@@ -2,7 +2,7 @@
  *  @example oglplus/015_graph.cpp
  *  @brief Shows how to draw smooth lines and points
  *
- *  @image html 015_graph.png
+ *  @oglplus_screenshot{015_graph}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

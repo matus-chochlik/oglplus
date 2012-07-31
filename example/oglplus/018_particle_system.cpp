@@ -2,7 +2,7 @@
  *  @example oglplus/018_particle_system.cpp
  *  @brief Shows how to draw a simple particle system using the geometry shader
  *
- *  @image html 018_particle_system.png
+ *  @oglplus_screenshot{018_particle_system}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

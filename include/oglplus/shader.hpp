@@ -295,7 +295,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
 	/// Indicate that the resources associated with the compiler can be freed
 	/**
-	 *  @glvoereq{4,1,ARB_ES2_compatibility}
+	 *  @glvoereq{4,1,ARB,ES2_compatibility}
 	 *  @glsymbols
 	 *  @glfunref{ReleaseShaderCompiler}
 	 */

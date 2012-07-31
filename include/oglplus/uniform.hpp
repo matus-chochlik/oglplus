@@ -1017,7 +1017,7 @@ inline void SetUniform(
  *
  *  @ingroup shader_variables
  *
- *  @glvoereq{4,1,ARB_separate_shader_objects}
+ *  @glvoereq{4,1,ARB,separate_shader_objects}
  */
 template <typename T>
 class ProgramUniform

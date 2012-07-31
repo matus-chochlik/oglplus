@@ -2,7 +2,7 @@
  *  @example oglplus/027_smoke_trails.cpp
  *  @brief Shows how to draw multpile lighted smoke trails
  *
- *  @image html 027_smoke_trails.png
+ *  @oglplus_screenshot{027_smoke_trails}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

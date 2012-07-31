@@ -178,7 +178,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
 	/// Get the query result
 	/**
-	 *  @glvoereq{3,3,ARB_timer_query}
+	 *  @glvoereq{3,3,ARB,timer_query}
 	 *  @glsymbols
 	 *  @glfunref{GetQueryObject}
 	 *  @gldefref{QUERY_RESULT}
@@ -201,7 +201,7 @@ public:
 
 	/// Get the query result
 	/**
-	 *  @glvoereq{3,3,ARB_timer_query}
+	 *  @glvoereq{3,3,ARB,timer_query}
 	 *  @glsymbols
 	 *  @glfunref{GetQueryObject}
 	 *  @gldefref{QUERY_RESULT}

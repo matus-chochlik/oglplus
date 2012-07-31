@@ -2,7 +2,7 @@
  *  @example oglplus/026_stencil_shadow.cpp
  *  @brief Shows how to render shadows using geometry shader and stencil buffer
  *
- *  @image html 026_stencil_shadow.png
+ *  @oglplus_screenshot{026_stencil_shadow}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

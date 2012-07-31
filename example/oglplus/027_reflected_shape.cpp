@@ -2,7 +2,7 @@
  *  @example oglplus/027_reflected_shape.cpp
  *  @brief Show a how to do texture-based blurry reflection
  *
- *  @image html 027_reflected_shape.png
+ *  @oglplus_screenshot{027_reflected_shape}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
