@@ -14,6 +14,7 @@ OUTPUT_DIRECTORY       = ../../_build/doc/doxygen/oglplus
 INPUT = \
 	../tutorial \
 	../../include/oglplus \
+	../../include/oglplus/bound \
 	../../include/oglplus/context \
 	../../include/oglplus/ext \
 	../../include/oglplus/shapes \
@@ -32,6 +33,12 @@ PREDEFINED             = \
 	"OGLPLUS_ENUM_CLASS_BEGIN(NAME,TYPE)=enum class NAME : TYPE {" \
 	"OGLPLUS_ENUM_CLASS_END=};"
 
+ALIASES                += glsymbols="@par Related OpenGL symbols:"
+ALIASES                += glfunref{1}=" <a href='http://www.opengl.org/sdk/docs/man4/xhtml/gl\1.xml'>gl\1</a>"
+ALIASES                += gldefref{1}=" @c GL_\1"
+ALIASES                += glextref{2}=" <a href='http://www.opengl.org/registry/specs/\1/\2.txt'>GL_\1_\2</a>"
+ALIASES                += glverreq{2}=" <em>Requires OpenGL \1.\2.</em>"
+ALIASES                += glvoereq{3}=" <em>Requires OpenGL \1.\2 or the \3 extension.</em>"
 
 GENERATE_HTML = YES
 GENERATE_XML = NO

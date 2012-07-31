@@ -1600,6 +1600,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
 	/// Sets-up a three dimensional multisample texture
 	/**
+	 *  @glvoereq{3,2,ARB_texture_multisample}
 	 *  @glsymbols
 	 *  @glfunref{TexImage3DMultisample}
 	 */
@@ -1632,6 +1633,7 @@ public:
 
 	/// Sets-up a two dimensional multisample texture
 	/**
+	 *  @glvoereq{3,2,ARB_texture_multisample}
 	 *  @glsymbols
 	 *  @glfunref{TexImage2DMultisample}
 	 */
@@ -1664,6 +1666,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 	/// Assigns a buffer storing the texel data to the texture
 	/**
+	 *  @glverreq{3,1}
 	 *  @glsymbols
 	 *  @glfunref{TexBuffer}
 	 */
@@ -1690,6 +1693,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 	/// Specifies all levels of 1D texture at the same time
 	/**
+	 *  @glvoereq{4,2,ARB_texture_storage}
 	 *  @glsymbols
 	 *  @glfunref{TexStorage1D}
 	 */
@@ -1716,6 +1720,7 @@ public:
 
 	/// Specifies all levels of 2D texture at the same time
 	/**
+	 *  @glvoereq{4,2,ARB_texture_storage}
 	 *  @glsymbols
 	 *  @glfunref{TexStorage2D}
 	 */
@@ -1744,6 +1749,7 @@ public:
 
 	/// Specifies all levels of 3D texture at the same time
 	/**
+	 *  @glvoereq{4,2,ARB_texture_storage}
 	 *  @glsymbols
 	 *  @glfunref{TexStorage3D}
 	 */
@@ -1776,6 +1782,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_2 ||GL_ARB_shader_image_load_store
 	/// Binds a @p level of this texture to an image @p unit
 	/**
+	 *  @glvoereq{4,2,ARB_shader_image_load_store}
 	 *  @glsymbols
 	 *  @glfunref{BindImageTexture}
 	 */
@@ -2209,6 +2216,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_*)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
 	 */
@@ -2222,6 +2230,7 @@ public:
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_*)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 */
@@ -2246,6 +2255,7 @@ public:
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_R)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_R}
@@ -2257,6 +2267,7 @@ public:
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_R)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_R}
@@ -2268,6 +2279,7 @@ public:
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_G)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_G}
@@ -2279,6 +2291,7 @@ public:
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_G)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_G}
@@ -2290,6 +2303,7 @@ public:
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_B)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_B}
@@ -2301,6 +2315,7 @@ public:
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_B)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_B}
@@ -2312,6 +2327,7 @@ public:
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_A)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_A}
@@ -2323,6 +2339,7 @@ public:
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_A)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_A}
@@ -2334,6 +2351,7 @@ public:
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_RGBA}
@@ -2345,6 +2363,7 @@ public:
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
 	/**
+	 *  @glvoereq{3,3,ARB_texture_swizzle}
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLER_RGBA}

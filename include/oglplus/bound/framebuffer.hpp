@@ -1,7 +1,7 @@
 
 /**
  *  @file oglplus/bound/framebuffer.hpp
- *  @brief BoundTemplate Framebuffer wrapper
+ *  @brief Specialization of BoundTemplate for Framebuffer.
  *
  *  Automatically generated file, do not edit manually!
  *
@@ -21,6 +21,13 @@
 
 namespace oglplus {
 
+/** Specialization of the BoundTemplate for Framebuffer.
+ *
+ *  @see Bind
+ *  @see Bound
+ *
+ *  @ingroup utility_classes
+ */
 template <template <class> class Base, class BaseParam>
 class BoundTemplate<Base, BaseParam, FramebufferOps>
  : public Base<BaseParam>
@@ -37,6 +44,10 @@ public:
 	): Base<BaseParam>(target)
 	{ }
 
+
+	/** Wrapper for Framebuffer::BindDefault()
+	 *  @see Framebuffer::BindDefault()
+	 */
 	void BindDefault(void) const
 	{
 		FramebufferOps::BindDefault(
@@ -44,6 +55,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::Status()
+	 *  @see Framebuffer::Status()
+	 */
 	FramebufferStatus Status(void) const
 	{
 		return FramebufferOps::Status(
@@ -51,6 +66,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::IsComplete()
+	 *  @see Framebuffer::IsComplete()
+	 */
 	bool IsComplete(void) const
 	{
 		return FramebufferOps::IsComplete(
@@ -58,6 +77,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::AttachRenderbuffer()
+	 *  @see Framebuffer::AttachRenderbuffer()
+	 */
 	void AttachRenderbuffer(
 		FramebufferAttachment attachment,
 		const RenderbufferOps & renderbuffer
@@ -70,6 +93,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::AttachColorRenderbuffer()
+	 *  @see Framebuffer::AttachColorRenderbuffer()
+	 */
 	void AttachColorRenderbuffer(
 		FramebufferColorAttachment attachment,
 		const RenderbufferOps & renderbuffer
@@ -82,6 +109,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::AttachTexture()
+	 *  @see Framebuffer::AttachTexture()
+	 */
 	void AttachTexture(
 		FramebufferAttachment attachment,
 		const TextureOps & texture,
@@ -96,6 +127,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::AttachColorTexture()
+	 *  @see Framebuffer::AttachColorTexture()
+	 */
 	void AttachColorTexture(
 		FramebufferColorAttachment attachment,
 		const TextureOps & texture,
@@ -110,6 +145,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::AttachTexture1D()
+	 *  @see Framebuffer::AttachTexture1D()
+	 */
 	void AttachTexture1D(
 		FramebufferAttachment attachment,
 		Texture::Target textarget,
@@ -126,6 +165,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::AttachTexture2D()
+	 *  @see Framebuffer::AttachTexture2D()
+	 */
 	void AttachTexture2D(
 		FramebufferAttachment attachment,
 		Texture::Target textarget,
@@ -142,6 +185,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::AttachTexture3D()
+	 *  @see Framebuffer::AttachTexture3D()
+	 */
 	void AttachTexture3D(
 		FramebufferAttachment attachment,
 		Texture::Target textarget,
@@ -160,6 +207,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Framebuffer::AttachTextureLayer()
+	 *  @see Framebuffer::AttachTextureLayer()
+	 */
 	void AttachTextureLayer(
 		FramebufferAttachment attachment,
 		const TextureOps & texture,

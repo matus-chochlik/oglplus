@@ -1,7 +1,7 @@
 
 /**
  *  @file oglplus/bound/texture.hpp
- *  @brief BoundTemplate Texture wrapper
+ *  @brief Specialization of BoundTemplate for Texture.
  *
  *  Automatically generated file, do not edit manually!
  *
@@ -21,6 +21,13 @@
 
 namespace oglplus {
 
+/** Specialization of the BoundTemplate for Texture.
+ *
+ *  @see Bind
+ *  @see Bound
+ *
+ *  @ingroup utility_classes
+ */
 template <template <class> class Base, class BaseParam>
 class BoundTemplate<Base, BaseParam, TextureOps>
  : public Base<BaseParam>
@@ -37,6 +44,10 @@ public:
 	): Base<BaseParam>(target)
 	{ }
 
+
+	/** Wrapper for Texture::GetIntParam()
+	 *  @see Texture::GetIntParam()
+	 */
 	GLint GetIntParam(
 		GLenum query
 	) const
@@ -47,6 +58,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::GetFloatParam()
+	 *  @see Texture::GetFloatParam()
+	 */
 	GLfloat GetFloatParam(
 		GLenum query
 	) const
@@ -57,6 +72,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::GetIntParam()
+	 *  @see Texture::GetIntParam()
+	 */
 	GLint GetIntParam(
 		GLint level,
 		GLenum query
@@ -69,6 +88,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::GetFloatParam()
+	 *  @see Texture::GetFloatParam()
+	 */
 	GLfloat GetFloatParam(
 		GLint level,
 		GLenum query
@@ -81,6 +104,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Width()
+	 *  @see Texture::Width()
+	 */
 	GLsizei Width(
 		GLint level = 0
 	) const
@@ -91,6 +118,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Height()
+	 *  @see Texture::Height()
+	 */
 	GLsizei Height(
 		GLint level = 0
 	) const
@@ -101,6 +132,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Depth()
+	 *  @see Texture::Depth()
+	 */
 	GLsizei Depth(
 		GLint level = 0
 	) const
@@ -111,6 +146,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::RedType()
+	 *  @see Texture::RedType()
+	 */
 	PixelDataType RedType(
 		GLint level = 0
 	) const
@@ -121,6 +160,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::GreenType()
+	 *  @see Texture::GreenType()
+	 */
 	PixelDataType GreenType(
 		GLint level = 0
 	) const
@@ -131,6 +174,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BlueType()
+	 *  @see Texture::BlueType()
+	 */
 	PixelDataType BlueType(
 		GLint level = 0
 	) const
@@ -141,6 +188,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::AlphaType()
+	 *  @see Texture::AlphaType()
+	 */
 	PixelDataType AlphaType(
 		GLint level = 0
 	) const
@@ -151,6 +202,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::DepthType()
+	 *  @see Texture::DepthType()
+	 */
 	PixelDataType DepthType(
 		GLint level = 0
 	) const
@@ -161,6 +216,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::RedSize()
+	 *  @see Texture::RedSize()
+	 */
 	GLsizei RedSize(
 		GLint level = 0
 	) const
@@ -171,6 +230,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::GreenSize()
+	 *  @see Texture::GreenSize()
+	 */
 	GLsizei GreenSize(
 		GLint level = 0
 	) const
@@ -181,6 +244,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BlueSize()
+	 *  @see Texture::BlueSize()
+	 */
 	GLsizei BlueSize(
 		GLint level = 0
 	) const
@@ -191,6 +258,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::AlphaSize()
+	 *  @see Texture::AlphaSize()
+	 */
 	GLsizei AlphaSize(
 		GLint level = 0
 	) const
@@ -201,6 +272,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::DepthSize()
+	 *  @see Texture::DepthSize()
+	 */
 	GLsizei DepthSize(
 		GLint level = 0
 	) const
@@ -211,6 +286,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::StencilSize()
+	 *  @see Texture::StencilSize()
+	 */
 	GLsizei StencilSize(
 		GLint level = 0
 	) const
@@ -221,6 +300,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::SharedSize()
+	 *  @see Texture::SharedSize()
+	 */
 	GLsizei SharedSize(
 		GLint level = 0
 	) const
@@ -231,6 +314,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompressedImageSize()
+	 *  @see Texture::CompressedImageSize()
+	 */
 	GLsizei CompressedImageSize(
 		GLint level = 0
 	) const
@@ -241,6 +328,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::InternalFormat()
+	 *  @see Texture::InternalFormat()
+	 */
 	PixelDataInternalFormat InternalFormat(
 		GLint level = 0
 	) const
@@ -251,6 +342,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::GetCompressedImage()
+	 *  @see Texture::GetCompressedImage()
+	 */
 	void GetCompressedImage(
 		GLint level,
 		std::vector< GLubyte > & dest
@@ -263,6 +358,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Image3D()
+	 *  @see Texture::Image3D()
+	 */
 	void Image3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -289,6 +388,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Image3D()
+	 *  @see Texture::Image3D()
+	 */
 	template <typename T>
 	void Image3D(
 		const Image< T > & image,
@@ -304,6 +407,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::SubImage3D()
+	 *  @see Texture::SubImage3D()
+	 */
 	void SubImage3D(
 		GLint level,
 		GLint xoffs,
@@ -332,6 +439,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::SubImage3D()
+	 *  @see Texture::SubImage3D()
+	 */
 	template <typename T>
 	void SubImage3D(
 		const Image< T > & image,
@@ -351,6 +462,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Image2D()
+	 *  @see Texture::Image2D()
+	 */
 	void Image2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -375,6 +490,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Image2D()
+	 *  @see Texture::Image2D()
+	 */
 	template <typename T>
 	void Image2D(
 		const Image< T > & image,
@@ -390,6 +509,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::SubImage2D()
+	 *  @see Texture::SubImage2D()
+	 */
 	void SubImage2D(
 		GLint level,
 		GLint xoffs,
@@ -414,6 +537,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::SubImage2D()
+	 *  @see Texture::SubImage2D()
+	 */
 	template <typename T>
 	void SubImage2D(
 		const Image< T > & image,
@@ -431,6 +558,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Image1D()
+	 *  @see Texture::Image1D()
+	 */
 	void Image1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -453,6 +584,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Image1D()
+	 *  @see Texture::Image1D()
+	 */
 	template <typename T>
 	void Image1D(
 		const Image< T > & image,
@@ -468,6 +603,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::SubImage1D()
+	 *  @see Texture::SubImage1D()
+	 */
 	void SubImage1D(
 		GLint level,
 		GLint xoffs,
@@ -488,6 +627,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::SubImage1D()
+	 *  @see Texture::SubImage1D()
+	 */
 	template <typename T>
 	void SubImage1D(
 		const Image< T > & image,
@@ -503,6 +646,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CopyImage2D()
+	 *  @see Texture::CopyImage2D()
+	 */
 	void CopyImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -525,6 +672,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CopyImage1D()
+	 *  @see Texture::CopyImage1D()
+	 */
 	void CopyImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -545,6 +696,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CopySubImage3D()
+	 *  @see Texture::CopySubImage3D()
+	 */
 	void CopySubImage3D(
 		GLint level,
 		GLint xoffs,
@@ -569,6 +724,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CopySubImage2D()
+	 *  @see Texture::CopySubImage2D()
+	 */
 	void CopySubImage2D(
 		GLint level,
 		GLint xoffs,
@@ -591,6 +750,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CopySubImage1D()
+	 *  @see Texture::CopySubImage1D()
+	 */
 	void CopySubImage1D(
 		GLint level,
 		GLint xoffs,
@@ -609,6 +772,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompressedImage3D()
+	 *  @see Texture::CompressedImage3D()
+	 */
 	void CompressedImage3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -633,6 +800,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompressedImage2D()
+	 *  @see Texture::CompressedImage2D()
+	 */
 	void CompressedImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -655,6 +826,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompressedImage1D()
+	 *  @see Texture::CompressedImage1D()
+	 */
 	void CompressedImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -675,6 +850,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompressedSubImage3D()
+	 *  @see Texture::CompressedSubImage3D()
+	 */
 	void CompressedSubImage3D(
 		GLint level,
 		GLint xoffs,
@@ -703,6 +882,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompressedSubImage2D()
+	 *  @see Texture::CompressedSubImage2D()
+	 */
 	void CompressedSubImage2D(
 		GLint level,
 		GLint xoffs,
@@ -727,6 +910,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompressedSubImage1D()
+	 *  @see Texture::CompressedSubImage1D()
+	 */
 	void CompressedSubImage1D(
 		GLint level,
 		GLint xoffs,
@@ -747,6 +934,144 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
+
+	/** Wrapper for Texture::Image3DMultisample()
+	 *  @see Texture::Image3DMultisample()
+	 */
+	void Image3DMultisample(
+		GLsizei samples,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		bool fixed_sample_locations
+	) const
+	{
+		TextureOps::Image3DMultisample(
+			this->BindTarget(),
+			samples,
+			internal_format,
+			width,
+			height,
+			depth,
+			fixed_sample_locations
+		);
+	}
+#endif // GL_VERSION_3_2 || GL_ARB_texture_multisample
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
+
+	/** Wrapper for Texture::Image2DMultisample()
+	 *  @see Texture::Image2DMultisample()
+	 */
+	void Image2DMultisample(
+		GLsizei samples,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		bool fixed_sample_locations
+	) const
+	{
+		TextureOps::Image2DMultisample(
+			this->BindTarget(),
+			samples,
+			internal_format,
+			width,
+			height,
+			fixed_sample_locations
+		);
+	}
+#endif // GL_VERSION_3_2 || GL_ARB_texture_multisample
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
+
+	/** Wrapper for Texture::SetBuffer()
+	 *  @see Texture::SetBuffer()
+	 */
+	void SetBuffer(
+		PixelDataInternalFormat internal_format,
+		const BufferOps & buffer
+	) const
+	{
+		TextureOps::SetBuffer(
+			this->BindTarget(),
+			internal_format,
+			buffer
+		);
+	}
+#endif // GL_VERSION_3_1
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
+
+	/** Wrapper for Texture::Storage1D()
+	 *  @see Texture::Storage1D()
+	 */
+	void Storage1D(
+		GLsizei levels,
+		PixelDataInternalFormat internal_format,
+		GLsizei width
+	) const
+	{
+		TextureOps::Storage1D(
+			this->BindTarget(),
+			levels,
+			internal_format,
+			width
+		);
+	}
+#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
+
+	/** Wrapper for Texture::Storage2D()
+	 *  @see Texture::Storage2D()
+	 */
+	void Storage2D(
+		GLsizei levels,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height
+	) const
+	{
+		TextureOps::Storage2D(
+			this->BindTarget(),
+			levels,
+			internal_format,
+			width,
+			height
+		);
+	}
+#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
+
+	/** Wrapper for Texture::Storage3D()
+	 *  @see Texture::Storage3D()
+	 */
+	void Storage3D(
+		GLsizei levels,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth
+	) const
+	{
+		TextureOps::Storage3D(
+			this->BindTarget(),
+			levels,
+			internal_format,
+			width,
+			height,
+			depth
+		);
+	}
+#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+
+
+	/** Wrapper for Texture::BaseLevel()
+	 *  @see Texture::BaseLevel()
+	 */
 	GLuint BaseLevel(void) const
 	{
 		return TextureOps::BaseLevel(
@@ -754,6 +1079,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BaseLevel()
+	 *  @see Texture::BaseLevel()
+	 */
 	void BaseLevel(
 		GLuint level
 	) const
@@ -764,6 +1093,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BorderColor()
+	 *  @see Texture::BorderColor()
+	 */
 	Vector< GLfloat, 4 > BorderColor(
 		TypeTag< GLfloat > _auto_param_2
 	) const
@@ -774,6 +1107,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BorderColor()
+	 *  @see Texture::BorderColor()
+	 */
 	void BorderColor(
 		Vector< GLfloat, 4 > color
 	) const
@@ -784,6 +1121,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BorderColor()
+	 *  @see Texture::BorderColor()
+	 */
 	Vector< GLint, 4 > BorderColor(
 		TypeTag< GLint > _auto_param_2
 	) const
@@ -794,6 +1135,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BorderColor()
+	 *  @see Texture::BorderColor()
+	 */
 	void BorderColor(
 		Vector< GLint, 4 > color
 	) const
@@ -804,6 +1149,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BorderColor()
+	 *  @see Texture::BorderColor()
+	 */
 	Vector< GLuint, 4 > BorderColor(
 		TypeTag< GLuint > _auto_param_2
 	) const
@@ -814,6 +1163,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::BorderColor()
+	 *  @see Texture::BorderColor()
+	 */
 	void BorderColor(
 		Vector< GLuint, 4 > color
 	) const
@@ -824,6 +1177,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompareMode()
+	 *  @see Texture::CompareMode()
+	 */
 	TextureCompareMode CompareMode(void) const
 	{
 		return TextureOps::CompareMode(
@@ -831,6 +1188,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompareMode()
+	 *  @see Texture::CompareMode()
+	 */
 	void CompareMode(
 		TextureCompareMode mode
 	) const
@@ -841,6 +1202,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompareFunc()
+	 *  @see Texture::CompareFunc()
+	 */
 	CompareFunction CompareFunc(void) const
 	{
 		return TextureOps::CompareFunc(
@@ -848,6 +1213,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::CompareFunc()
+	 *  @see Texture::CompareFunc()
+	 */
 	void CompareFunc(
 		CompareFunction func
 	) const
@@ -858,6 +1227,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::LODBias()
+	 *  @see Texture::LODBias()
+	 */
 	GLfloat LODBias(void) const
 	{
 		return TextureOps::LODBias(
@@ -865,6 +1238,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::LODBias()
+	 *  @see Texture::LODBias()
+	 */
 	void LODBias(
 		GLfloat value
 	) const
@@ -875,6 +1252,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MagFilter()
+	 *  @see Texture::MagFilter()
+	 */
 	TextureMagFilter MagFilter(void) const
 	{
 		return TextureOps::MagFilter(
@@ -882,6 +1263,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MagFilter()
+	 *  @see Texture::MagFilter()
+	 */
 	void MagFilter(
 		TextureMagFilter filter
 	) const
@@ -892,6 +1277,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MinFilter()
+	 *  @see Texture::MinFilter()
+	 */
 	TextureMinFilter MinFilter(void) const
 	{
 		return TextureOps::MinFilter(
@@ -899,6 +1288,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MinFilter()
+	 *  @see Texture::MinFilter()
+	 */
 	void MinFilter(
 		TextureMinFilter filter
 	) const
@@ -909,6 +1302,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MinLOD()
+	 *  @see Texture::MinLOD()
+	 */
 	GLfloat MinLOD(void) const
 	{
 		return TextureOps::MinLOD(
@@ -916,6 +1313,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MinLOD()
+	 *  @see Texture::MinLOD()
+	 */
 	void MinLOD(
 		GLfloat value
 	) const
@@ -926,6 +1327,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MaxLOD()
+	 *  @see Texture::MaxLOD()
+	 */
 	GLfloat MaxLOD(void) const
 	{
 		return TextureOps::MaxLOD(
@@ -933,6 +1338,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MaxLOD()
+	 *  @see Texture::MaxLOD()
+	 */
 	void MaxLOD(
 		GLfloat value
 	) const
@@ -943,6 +1352,189 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::Swizzle()
+	 *  @see Texture::Swizzle()
+	 */
+	TextureSwizzle Swizzle(
+		TextureSwizzleCoord coord
+	) const
+	{
+		return TextureOps::Swizzle(
+			this->BindTarget(),
+			coord
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::Swizzle()
+	 *  @see Texture::Swizzle()
+	 */
+	void Swizzle(
+		TextureSwizzleCoord coord,
+		TextureSwizzle mode
+	) const
+	{
+		TextureOps::Swizzle(
+			this->BindTarget(),
+			coord,
+			mode
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleR()
+	 *  @see Texture::SwizzleR()
+	 */
+	TextureSwizzle SwizzleR(void) const
+	{
+		return TextureOps::SwizzleR(
+			this->BindTarget()
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleR()
+	 *  @see Texture::SwizzleR()
+	 */
+	void SwizzleR(
+		TextureSwizzle mode
+	) const
+	{
+		TextureOps::SwizzleR(
+			this->BindTarget(),
+			mode
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleG()
+	 *  @see Texture::SwizzleG()
+	 */
+	TextureSwizzle SwizzleG(void) const
+	{
+		return TextureOps::SwizzleG(
+			this->BindTarget()
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleG()
+	 *  @see Texture::SwizzleG()
+	 */
+	void SwizzleG(
+		TextureSwizzle mode
+	) const
+	{
+		TextureOps::SwizzleG(
+			this->BindTarget(),
+			mode
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleB()
+	 *  @see Texture::SwizzleB()
+	 */
+	TextureSwizzle SwizzleB(void) const
+	{
+		return TextureOps::SwizzleB(
+			this->BindTarget()
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleB()
+	 *  @see Texture::SwizzleB()
+	 */
+	void SwizzleB(
+		TextureSwizzle mode
+	) const
+	{
+		TextureOps::SwizzleB(
+			this->BindTarget(),
+			mode
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleA()
+	 *  @see Texture::SwizzleA()
+	 */
+	TextureSwizzle SwizzleA(void) const
+	{
+		return TextureOps::SwizzleA(
+			this->BindTarget()
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleA()
+	 *  @see Texture::SwizzleA()
+	 */
+	void SwizzleA(
+		TextureSwizzle mode
+	) const
+	{
+		TextureOps::SwizzleA(
+			this->BindTarget(),
+			mode
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleRGBA()
+	 *  @see Texture::SwizzleRGBA()
+	 */
+	TextureSwizzle SwizzleRGBA(void) const
+	{
+		return TextureOps::SwizzleRGBA(
+			this->BindTarget()
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleRGBA()
+	 *  @see Texture::SwizzleRGBA()
+	 */
+	void SwizzleRGBA(
+		TextureSwizzle mode
+	) const
+	{
+		TextureOps::SwizzleRGBA(
+			this->BindTarget(),
+			mode
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+
+	/** Wrapper for Texture::Wrap()
+	 *  @see Texture::Wrap()
+	 */
 	TextureWrap Wrap(
 		TextureWrapCoord coord
 	) const
@@ -953,6 +1545,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::Wrap()
+	 *  @see Texture::Wrap()
+	 */
 	void Wrap(
 		TextureWrapCoord coord,
 		TextureWrap mode
@@ -965,6 +1561,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::WrapS()
+	 *  @see Texture::WrapS()
+	 */
 	TextureWrap WrapS(void) const
 	{
 		return TextureOps::WrapS(
@@ -972,6 +1572,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::WrapS()
+	 *  @see Texture::WrapS()
+	 */
 	void WrapS(
 		TextureWrap mode
 	) const
@@ -982,6 +1586,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::WrapT()
+	 *  @see Texture::WrapT()
+	 */
 	TextureWrap WrapT(void) const
 	{
 		return TextureOps::WrapT(
@@ -989,6 +1597,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::WrapT()
+	 *  @see Texture::WrapT()
+	 */
 	void WrapT(
 		TextureWrap mode
 	) const
@@ -999,6 +1611,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::WrapR()
+	 *  @see Texture::WrapR()
+	 */
 	TextureWrap WrapR(void) const
 	{
 		return TextureOps::WrapR(
@@ -1006,6 +1622,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::WrapR()
+	 *  @see Texture::WrapR()
+	 */
 	void WrapR(
 		TextureWrap mode
 	) const
@@ -1016,6 +1636,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::GenerateMipmap()
+	 *  @see Texture::GenerateMipmap()
+	 */
 	void GenerateMipmap(void) const
 	{
 		TextureOps::GenerateMipmap(

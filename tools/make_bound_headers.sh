@@ -57,6 +57,7 @@ do
 	xsltproc \
 		--output ${Header} \
 		--stringparam object ${Bindable} \
+		--stringparam year $(date +%Y) \
 		${RootDir}/xslt/bound_hpp.xsl \
 		${TempDir}/xml/oglplus.xml
 

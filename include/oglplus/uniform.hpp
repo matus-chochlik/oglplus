@@ -1016,6 +1016,8 @@ inline void SetUniform(
  *  @see LazyProgramUniform
  *
  *  @ingroup shader_variables
+ *
+ *  @glvoereq{4,1,ARB_separate_shader_objects}
  */
 template <typename T>
 class ProgramUniform

@@ -221,7 +221,7 @@ public:
 
 		"	float ViewLight = max(0.3-dot(ViewDir, LightDir), 0.0);"
 
-		"	vec3 Environ = texture(EnvMap, reflect(-ViewDir, Normal)).rrr;"
+		"	vec3 Environ = texture(EnvMap, reflect(-ViewDir, Normal)).rgb;"
 		"	fragColor = "
 		"		Environ * 0.1 +"
 		"		vec3(0.4, 0.4, 0.8) * Diffuse+"
@@ -348,6 +348,8 @@ public:
 			bound_tex.WrapS(TextureWrap::ClampToEdge);
 			bound_tex.WrapT(TextureWrap::ClampToEdge);
 			bound_tex.WrapR(TextureWrap::ClampToEdge);
+			bound_tex.SwizzleG(TextureSwizzle::Red);
+			bound_tex.SwizzleB(TextureSwizzle::Red);
 		}
 		ProgramUniformSampler(liquid_prog, "EnvMap").Set(1);
 

@@ -451,6 +451,8 @@ public:
 	 *  be used after the Program goes out of scope and is destroyed.
 	 *
 	 *  @throws Error
+	 *
+	 *  @glvoereq{4,0,ARB_shader_subroutine}
 	 */
 	ActiveSubroutineRange ActiveSubroutines(ShaderType stage) const
 	{
@@ -481,6 +483,8 @@ public:
 	 *  be used after the Program goes out of scope and is destroyed.
 	 *
 	 *  @throws Error
+	 *
+	 *  @glvoereq{4,0,ARB_shader_subroutine}
 	 */
 	ActiveSubroutineUniformRange ActiveSubroutineUniforms(ShaderType stage) const
 	{
@@ -653,6 +657,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	/// Makes this program separable
 	/**
+	 *  @glvoereq{4,1,ARB_separate_shader_objects}
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
@@ -678,6 +683,7 @@ public:
 	/**
 	 *  @see GetBinary
 	 *
+	 *  @glvoereq{4,1,ARB_get_program_binary}
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
@@ -702,6 +708,7 @@ public:
 	 *  @see MakeRetrievable
 	 *  @see Binary
 	 *
+	 *  @glvoereq{4,1,ARB_get_program_binary}
 	 *  @glsymbols
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramBinary}
@@ -736,6 +743,7 @@ public:
 	 *  @see MakeRetrievable
 	 *  @see GetBinary
 	 *
+	 *  @glvoereq{4,1,ARB_get_program_binary}
 	 *  @glsymbols
 	 *  @glfunref{ProgramBinary}
 	 */
@@ -785,6 +793,7 @@ public:
 
 	/// Returns the number of invocations of geometry shader per primitive
 	/**
+	 *  @glvoereq{4,1,ARB_gpu_shader5}
 	 *  @glsymbols
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{GEOMETRY_SHADER_INVOCATIONS}
@@ -799,6 +808,7 @@ public:
 
 	/// Returns the geometry shader input primitive type
 	/**
+	 *  @glverreq{3,2}
 	 *  @glsymbols
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{GEOMETRY_INPUT_TYPE}
@@ -810,6 +820,7 @@ public:
 
 	/// Returns the geometry shader output primitive type
 	/**
+	 *  @glverreq{3,2}
 	 *  @glsymbols
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{GEOMETRY_OUTPUT_TYPE}
@@ -824,6 +835,7 @@ public:
 
 	/// Returns the vertex order in tesselation evaluation shader
 	/**
+	 *  @glvoereq{4,0,ARB_tessellation_shader}
 	 *  @glsymbols
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_VERTEX_ORDER}
@@ -835,6 +847,7 @@ public:
 
 	/// Returns the tesselation generator output primitive type
 	/**
+	 *  @glvoereq{4,0,ARB_tessellation_shader}
 	 *  @glsymbols
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_MODE}
@@ -846,6 +859,7 @@ public:
 
 	/// Returns the tesselation generator primitive spacing mode
 	/**
+	 *  @glvoereq{4,0,ARB_tessellation_shader}
 	 *  @glsymbols
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_SPACING}
@@ -857,6 +871,7 @@ public:
 
 	/// Returns true if point mode is enabled in tesslation eval. shader
 	/**
+	 *  @glvoereq{4,0,ARB_tessellation_shader}
 	 *  @glsymbols
 	 *  @glfunref{GetProgram}
 	 *  @gldefref{TESS_GEN_POINT_MODE}

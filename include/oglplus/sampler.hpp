@@ -29,6 +29,7 @@ namespace oglplus {
 /** @note Do not use this class directly, use Sampler instead.
  *  @see Sampler
  *
+ *  @glvoereq{3,3,ARB_sampler_objects}
  *  @glsymbols
  *  @glfunref{GenSamplers}
  *  @glfunref{DeleteSamplers}

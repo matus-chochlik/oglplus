@@ -58,6 +58,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Sets the blend equation for a particular draw @p buffer
 	/**
+	 *  @glverreq{4,0}
 	 *  @glsymbols
 	 *  @glfunref{BlendEquationi}
 	 */
@@ -69,6 +70,7 @@ public:
 
 	/// Sets the blend equation separate for RGB and alpha for a @p buffer
 	/**
+	 *  @glverreq{4,0}
 	 *  @glsymbols
 	 *  @glfunref{BlendEquationSeparatei}
 	 */
@@ -122,6 +124,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Sets the blend function for a particular @p buffer
 	/**
+	 *  @glverreq{4,0}
 	 *  @glsymbols
 	 *  @glfunref{BlendFunci}
 	 */
@@ -137,6 +140,7 @@ public:
 
 	/// Sets the blend function separate for RGB and alpha for a @p buffer
 	/**
+	 *  @glverreq{4,0}
 	 *  @glsymbols
 	 *  @glfunref{BlendFuncSeparatei}
 	 */
