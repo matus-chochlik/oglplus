@@ -14,6 +14,7 @@ OUTPUT_DIRECTORY       = ../../_build/doc/doxygen/oglplus
 INPUT = \
 	../tutorial \
 	../../include/oglplus \
+	../../include/oglplus/bound \
 	../../include/oglplus/context \
 	../../include/oglplus/ext \
 	../../include/oglplus/shapes \
@@ -24,6 +25,21 @@ INPUT = \
 EXAMPLE_PATH = ../tutorial ../../example ../../_build
 
 PREDEFINED             = \
+	"OGLPLUS_NO_SITE_CONFIG=1" \
+	"OGLPLUS_LOW_PROFILE=0" \
+	"OGLPLUS_LAZY_STR_LIT=0" \
+	"OGLPLUS_NO_ENUM_VALUE_NAMES=0" \
+	"OGLPLUS_NO_OBJECT_DESCS=0" \
+	"OGLPLUS_DONT_TEST_OBJECT_TYPE=1" \
+	"OGLPLUS_NO_UTF8_CHECKS=0" \
+	"OGLPLUS_CUSTOM_ERROR_HANDLING=0" \
+	"OGLPLUS_ERROR_INFO_NO_GL_SYMBOL=0" \
+	"OGLPLUS_ERROR_INFO_NO_FILE=0" \
+	"OGLPLUS_ERROR_INFO_NO_LINE=0" \
+	"OGLPLUS_ERROR_INFO_NO_FUNC=0" \
+	"OGLPLUS_ERROR_INFO_NO_CLASS_NAME=0" \
+	"OGLPLUS_ERROR_INFO_NO_BIND_TARGET=0" \
+	"OGLPLUS_ERROR_INFO_NO_OBJECT_DESC=0" \
 	"OGLPLUS_DOXYGEN_PARSE=1" \
 	"OGLPLUS_DOCUMENTATION_ONLY=1" \
 	"OGLPLUS_NOEXCEPT()=" \
@@ -32,6 +48,13 @@ PREDEFINED             = \
 	"OGLPLUS_ENUM_CLASS_BEGIN(NAME,TYPE)=enum class NAME : TYPE {" \
 	"OGLPLUS_ENUM_CLASS_END=};"
 
+ALIASES                += oglplus_screenshot{1}="@image html \1.png"
+ALIASES                += glsymbols="@par Related OpenGL symbols:"
+ALIASES                += glfunref{1}=" <a href='http://www.opengl.org/sdk/docs/man4/xhtml/gl\1.xml'>gl\1</a>"
+ALIASES                += gldefref{1}=" <code>GL_\1</code>"
+ALIASES                += glextref{2}=" <a href='http://www.opengl.org/registry/specs/\1/\2.txt'>GL_\1_\2</a>"
+ALIASES                += glverreq{2}=" <em>Requires OpenGL \1.\2.</em>"
+ALIASES                += glvoereq{4}=" <em>Requires OpenGL \1.\2 or the <a href='http://www.opengl.org/registry/specs/\3/\4.txt'>GL_\3_\4</a> extension.</em>"
 
 GENERATE_HTML = YES
 GENERATE_XML = NO

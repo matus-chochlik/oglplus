@@ -2,7 +2,7 @@
  *  @example oglplus/006_cartoon_sun.cpp
  *  @brief Shows how to render a rectangle with an animated sun drawing
  *
- *  @image html 006_cartoon_sun.png
+ *  @oglplus_screenshot{006_cartoon_sun}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

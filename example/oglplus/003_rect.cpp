@@ -2,7 +2,7 @@
  *  @example oglplus/003_rect.cpp
  *  @brief Shows how to draw a shaded rectangle
  *
- *  @image html 003_rect.png
+ *  @oglplus_screenshot{003_rect}
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

@@ -60,7 +60,8 @@ public:
 		return _storage[index];
 	}
 
-	typedef typename std::vector<Object>::const_iterator iterator;
+	typedef typename std::vector<Object>::const_iterator const_iterator;
+	typedef const_iterator iterator;
 
 	iterator begin(void) const
 	{
@@ -148,7 +149,8 @@ public:
 		return at(index);
 	}
 
-	typedef aux::BaseIter<Managed<ObjectOps> > iterator;
+	typedef aux::BaseIter<Managed<ObjectOps> > const_iterator;
+	typedef const_iterator iterator;
 
 	iterator begin(void) const
 	{

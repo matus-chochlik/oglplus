@@ -2,7 +2,7 @@
  *  @example oglplus/029_flares.cpp
  *  @brief Shows how to use queries to influence rendering of effects like flares
  *
- *  @image html 029_flares.png
+ *  @oglplus_screenshot{029_flares}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

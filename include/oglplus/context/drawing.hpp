@@ -50,6 +50,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glverreq{4,2}
 	 *  @glsymbols
 	 *  @glfunref{DrawArraysInstancedBaseInstance}
 	 */
@@ -79,6 +80,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glverreq{3,1}
 	 *  @glsymbols
 	 *  @glfunref{DrawArraysInstanced}
 	 */
@@ -175,6 +177,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glverreq{4,2}
 	 *  @glsymbols
 	 *  @glfunref{DrawElementsInstancedBaseInstance}
 	 */
@@ -262,6 +265,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glvoereq{3,2,ARB,draw_elements_base_vertex}
 	 *  @glsymbols
 	 *  @glfunref{DrawElementsBaseVertex}
 	 */
@@ -288,6 +292,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glvoereq{3,2,ARB,draw_elements_base_vertex}
 	 *  @glsymbols
 	 *  @glfunref{DrawRangeElementsBaseVertex}
 	 */
@@ -318,6 +323,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glvoereq{3,2,ARB,draw_elements_base_vertex}
 	 *  @glsymbols
 	 *  @glfunref{DrawElementsInstancedBaseVertex}
 	 */
@@ -348,6 +354,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glvoereq{3,2,ARB,draw_elements_base_vertex}
 	 *  @glsymbols
 	 *  @glfunref{MultiDrawElementsBaseVertex}
 	 */
@@ -378,6 +385,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glverreq{4,2}
 	 *  @glsymbols
 	 *  @glfunref{DrawElementsInstancedBaseVertexBaseInstance}
 	 */
@@ -414,6 +422,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
+	 *  @glverreq{3,1}
 	 *  @glsymbols
 	 *  @glfunref{PrimitiveRestartIndex}
 	 */

@@ -2,7 +2,7 @@
  *  @example oglplus/010_rgb_cube.cpp
  *  @brief Shows how to draw a RGB colored cube
  *
- *  @image html 010_rgb_cube.png
+ *  @oglplus_screenshot{010_rgb_cube}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

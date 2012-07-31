@@ -2,7 +2,7 @@
  *  @example oglplus/014_multi_cube.cpp
  *  @brief Shows how to transform and draw multiple instances of a cube
  *
- *  @image html 014_multi_cube.png
+ *  @oglplus_screenshot{014_multi_cube}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

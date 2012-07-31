@@ -132,10 +132,6 @@ TAB_SIZE               = 4
 
 ALIASES                += OGLplus="@em OGLplus"
 ALIASES                += oglplus_example{2}="<a href='\1_2\2_8cpp-example.html'><code>\1/\2.cpp</code></a>"
-ALIASES                += glsymbols="@par Related OpenGL symbols:"
-ALIASES                += glfunref{1}=" <a href='http://www.opengl.org/sdk/docs/man4/xhtml/gl\1.xml'>gl\1</a>"
-ALIASES                += gldefref{1}=" @c GL_\1"
-ALIASES                += glextref{2}=" <a href='http://www.opengl.org/registry/specs/\1/\2.txt'>GL_\1_\2</a>"
 ALIASES                += oglplus_example_uses_tex{1}=""
 ALIASES                += oglplus_example_uses_cxx11{1}=""
 

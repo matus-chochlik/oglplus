@@ -2,7 +2,7 @@
  *  @example oglplus/016_textured_cube.cpp
  *  @brief Shows how to draw a simple textured cube
  *
- *  @image html 016_textured_cube.png
+ *  @oglplus_screenshot{016_textured_cube}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

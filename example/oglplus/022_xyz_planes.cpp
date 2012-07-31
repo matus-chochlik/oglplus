@@ -2,7 +2,7 @@
  *  @example oglplus/022_xyz_planes.cpp
  *  @brief Shows how to use clipping for proper blending of overlapping objects
  *
- *  @image html 022_xyz_planes.png
+ *  @oglplus_screenshot{022_xyz_planes}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

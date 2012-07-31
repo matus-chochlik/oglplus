@@ -2,7 +2,7 @@
  *  @example oglplus/030_cube_mapping.cpp
  *  @brief Shows how to do dynamic reflection using cube mapping
  *
- *  @image html 030_cube_mapping.png
+ *  @oglplus_screenshot{030_cube_mapping}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

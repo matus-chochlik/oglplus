@@ -23,10 +23,10 @@ namespace oglplus {
 /// Class implementing planar angle-related functionality
 /** @c Angle is a lightweight class allowing more natural construction and
  *  usage of planar angle values. The storage requirements are the same
- *  as for the template parameter type @c T and the @c Angle template gives
+ *  as for the template parameter type @c T, but the @c Angle template gives
  *  the @c T type special meaning and implements a set of angle-related member
- *  functions. There are also several associated free functions for creating
- *  new instances of @c Angle.
+ *  and friend functions. There are also several associated free functions
+ *  for creating new instances of @c Angle.
  *
  *  @see oglplus::Radians
  *  @see oglplus::Degrees
@@ -62,7 +62,7 @@ public:
 	 : _val_rad(T(0))
 	{ }
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS || OGLPLUS_DOCUMENTATION_ONLY
 	/// Angle is copy constructible
 	Angle(const Angle&) = default;
 
@@ -70,7 +70,7 @@ public:
 	Angle(Angle&&) = default;
 #endif
 
-	/// Copy construction from angles using different representation type
+	/// Copy construction from angles using different underlying type
 	template <typename U>
 	Angle(const Angle<U>& other)
 	OGLPLUS_NOEXCEPT_IF(T(T(other.Value())))

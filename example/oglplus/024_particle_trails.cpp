@@ -2,7 +2,7 @@
  *  @example oglplus/024_particle_trails.cpp
  *  @brief Shows how to draw multpile properly sorted particle systems
  *
- *  @image html 024_particle_trails.png
+ *  @oglplus_screenshot{024_particle_trails}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

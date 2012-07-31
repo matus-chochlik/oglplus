@@ -2,7 +2,7 @@
  *  @example oglplus/020_golf_ball.cpp
  *  @brief Shows how to draw a bump mapped bouncing "golf ball"
  *
- *  @image html 020_golf_ball.png
+ *  @oglplus_screenshot{020_golf_ball}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

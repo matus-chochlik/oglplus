@@ -2,7 +2,7 @@
  *  @example oglplus/028_glass_shape.cpp
  *  @brief Show a simple simulation of refractive transparent object
  *
- *  @image html 028_glass_shape.png
+ *  @oglplus_screenshot{028_glass_shape}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

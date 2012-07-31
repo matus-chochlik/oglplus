@@ -2,7 +2,7 @@
  *  @example oglplus/024_simple_picking.cpp
  *  @brief Shows how to do picking/hiliting of objects by mouse
  *
- *  @image html 024_simple_picking.png
+ *  @oglplus_screenshot{024_simple_picking}
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

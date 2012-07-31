@@ -18,8 +18,6 @@
 #include <oglplus/buffer_select_bit.hpp>
 #include <oglplus/bitfield.hpp>
 
-#include <oglplus/auxiliary/clr_bits.hpp>
-
 namespace oglplus {
 
 /// Draw buffer clear bit enumeration
@@ -29,6 +27,8 @@ namespace oglplus {
 typedef BufferSelectBit ClearBit;
 
 namespace context {
+
+class ClearBuffers;
 
 /// Helper structure storing the clear color components
 struct RGBAValue
@@ -58,6 +58,107 @@ struct RGBAValue
 	GLfloat Alpha(void) const
 	{
 		return _v[3];
+	}
+};
+
+/// Helper class used by ClearBuffers::Clear()
+/** Instances of this class cause the write buffers to be cleared
+ *  depending on which member functions were called during the life-time
+ *  of the instance.
+ *
+ *  @note The actual clearing of the buffers is done when the instance
+ *  is destroyed.
+ *
+ *  @see ClearBuffers
+ *  @see ClearBuffers::Clear()
+ *
+ *  @ingroup ogl_context
+ */
+class ClrBits
+{
+private:
+	GLbitfield _bits;
+
+	GLbitfield _forward(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		GLbitfield res = _bits;
+		_bits = 0;
+		return res;
+	}
+
+	friend class ClearBuffers;
+
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	ClrBits(void) = delete;
+	ClrBits(const ClrBits&) = delete;
+#else
+	ClrBits(void);
+	ClrBits(const ClrBits&);
+#endif
+
+	ClrBits(GLbitfield bit)
+	OGLPLUS_NOEXCEPT(true)
+	 : _bits(bit)
+	{ }
+
+	inline ClrBits _make(GLbitfield bit)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ClrBits(_forward() | bit);
+	}
+public:
+	/// Calling this member function causes the color buffer to be cleared
+	/**
+	 *  @glsymbols
+	 *  @gldefref{COLOR_BUFFER_BIT}
+	 */
+	inline ClrBits ColorBuffer(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _make(GL_COLOR_BUFFER_BIT);
+	}
+
+	/// Calling this member function causes the depth buffer to be cleared
+	/**
+	 *  @glsymbols
+	 *  @gldefref{DEPTH_BUFFER_BIT}
+	 */
+	inline ClrBits DepthBuffer(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _make(GL_DEPTH_BUFFER_BIT);
+	}
+
+	/// Calling this member function causes the stencil buffer to be cleared
+	/**
+	 *  @glsymbols
+	 *  @gldefref{STENCIL_BUFFER_BIT}
+	 */
+	inline ClrBits StencilBuffer(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _make(GL_STENCIL_BUFFER_BIT);
+	}
+
+	inline ClrBits(ClrBits&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _bits(temp._forward())
+	{ }
+
+	/// The destructor does the actual clearing of the buffers
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Clear}
+	 */
+	inline ~ClrBits(void)
+	OGLPLUS_NOEXCEPT(false)
+	{
+		if(_bits)
+		{
+			OGLPLUS_GLFUNC(Clear)(_bits);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Clear));
+		}
 	}
 };
 
@@ -130,14 +231,10 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Clear}
 	 */
-#if OGLPLUS_DOCUMENTATION_ONLY
-	static UnspecifiedType Clear(void);
-#else
-	static oglplus::aux::ClrBits Clear(void)
+	static ClrBits Clear(void)
 	{
-		return aux::ClrBits(0);
+		return ClrBits(0);
 	}
-#endif
 
 	/// Clears buffers specified by the bits parameter
 	/** This function clears the specified buffers.

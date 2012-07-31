@@ -2,7 +2,7 @@
  *  @example oglplus/007_cubic_bezier.cpp
  *  @brief Shows how to render line approximating a cubic bezier curve
  *
- *  @image html 007_cubic_bezier.png
+ *  @oglplus_screenshot{007_cubic_bezier}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

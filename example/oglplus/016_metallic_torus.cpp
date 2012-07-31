@@ -2,7 +2,7 @@
  *  @example oglplus/016_metallic_torus.cpp
  *  @brief Shows how to draw a metallic-looking torus
  *
- *  @image html 016_metallic_torus.png
+ *  @oglplus_screenshot{016_metallic_torus}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

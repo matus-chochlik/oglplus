@@ -117,6 +117,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3
 	/// Set the vertex attrib divisor
 	/**
+	 *  @glverreq{3,3}
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribDivisor}
 	 */

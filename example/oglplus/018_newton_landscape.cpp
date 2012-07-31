@@ -2,7 +2,7 @@
  *  @example oglplus/018_newton_landscape.cpp
  *  @brief Shows how to use a texture for vertex transformations
  *
- *  @image html 018_newton_landscape.png
+ *  @oglplus_screenshot{018_newton_landscape}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

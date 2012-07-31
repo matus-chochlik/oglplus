@@ -2,7 +2,7 @@
  *  @example oglplus/027_depth_of_field.cpp
  *  @brief Shows simple simulation of the Depth-of-field effect
  *
- *  @image html 027_depth_of_field.png
+ *  @oglplus_screenshot{027_depth_of_field}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

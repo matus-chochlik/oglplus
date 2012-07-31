@@ -2,7 +2,7 @@
  *  @example standalone/001_triangle_wxgl_glew.cpp
  *  @brief Shows the basic usage of OGLplus with wxWidgets and GLEW.
  *
- *  @image html 001_triangle.png
+ *  @oglplus_screenshot{001_triangle}
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

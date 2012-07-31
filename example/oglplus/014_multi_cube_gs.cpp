@@ -2,7 +2,7 @@
  *  @example oglplus/014_multi_cube_gs.cpp
  *  @brief Shows how to draw multiple instances of a cube using geometry shader
  *
- *  @image html 014_multi_cube_gs.png
+ *  @oglplus_screenshot{014_multi_cube_gs}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

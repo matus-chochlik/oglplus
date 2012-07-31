@@ -2,7 +2,7 @@
  *  @example oglplus/022_vase.cpp
  *  @brief Renders an object built by revolving a spline around the y-axis.
  *
- *  @image html 022_vase.png
+ *  @oglplus_screenshot{022_vase}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

@@ -2,7 +2,7 @@
  *  @example oglplus/026_clouds.cpp
  *  @brief Shows how to render dynamically lighted clouds using a 3d texture
  *
- *  @image html 026_clouds.png
+ *  @oglplus_screenshot{026_clouds}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

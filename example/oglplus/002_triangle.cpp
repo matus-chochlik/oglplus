@@ -2,7 +2,7 @@
  *  @example oglplus/002_triangle.cpp
  *  @brief Shows the basic usage of OGLplus by drawing a simple triangle.
  *
- *  @image html 002_triangle.png
+ *  @oglplus_screenshot{002_triangle}
  *
  *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

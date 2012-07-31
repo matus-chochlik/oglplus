@@ -2,7 +2,7 @@
  *  @example oglplus/026_recursive_texture.cpp
  *  @brief Shows how to render into a texture
  *
- *  @image html 026_recursive_texture.png
+ *  @oglplus_screenshot{026_recursive_texture}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

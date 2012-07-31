@@ -52,13 +52,16 @@ public:
 	const Object& operator[](GLuint index) const;
 
 	/// Iterator type
-	typedef unspecified_type iterator;
+	typedef ForwardIterator iterator;
+
+	/// Const-iterator type
+	typedef ForwardIterator const_iterator;
 
 	/// Returns an iterator pointing to the first element
-	iterator begin(void) const;
+	const_iterator begin(void) const;
 
 	/// Returns an iterator pointing after the last element
-	iterator end(void) const;
+	const_iterator end(void) const;
 
 	/// Returns a range allowing to traverse the instances in the array
 	Range<Object> all(void) const;

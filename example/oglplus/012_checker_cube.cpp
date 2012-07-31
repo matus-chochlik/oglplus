@@ -2,7 +2,7 @@
  *  @example oglplus/012_checker_cube.cpp
  *  @brief Shows how to draw a checkered cube using the Cube builder
  *
- *  @image html 012_checker_cube.png
+ *  @oglplus_screenshot{012_checker_cube}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

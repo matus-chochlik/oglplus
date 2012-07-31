@@ -2,7 +2,7 @@
  *  @example oglplus/016_cartoon_torus.cpp
  *  @brief Shows how to draw a cartoon-like cel shaded torus
  *
- *  @image html 016_cartoon_torus.png
+ *  @oglplus_screenshot{016_cartoon_torus}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

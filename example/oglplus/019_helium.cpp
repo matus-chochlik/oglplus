@@ -2,7 +2,7 @@
  *  @example oglplus/019_helium.cpp
  *  @brief Shows how to draw a naive helium atom model
  *
- *  @image html 019_helium.png
+ *  @oglplus_screenshot{019_helium}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

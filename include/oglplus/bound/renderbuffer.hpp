@@ -1,7 +1,7 @@
 
 /**
  *  @file oglplus/bound/renderbuffer.hpp
- *  @brief BoundTemplate Renderbuffer wrapper
+ *  @brief Specialization of BoundTemplate for Renderbuffer.
  *
  *  Automatically generated file, do not edit manually!
  *
@@ -21,6 +21,13 @@
 
 namespace oglplus {
 
+/** Specialization of the BoundTemplate for Renderbuffer.
+ *
+ *  @see Bind
+ *  @see Bound
+ *
+ *  @ingroup utility_classes
+ */
 template <template <class> class Base, class BaseParam>
 class BoundTemplate<Base, BaseParam, RenderbufferOps>
  : public Base<BaseParam>
@@ -37,6 +44,10 @@ public:
 	): Base<BaseParam>(target)
 	{ }
 
+
+	/** Wrapper for Renderbuffer::Storage()
+	 *  @see Renderbuffer::Storage()
+	 */
 	void Storage(
 		PixelDataInternalFormat internalformat,
 		GLsizei width,
@@ -51,6 +62,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::StorageMultisample()
+	 *  @see Renderbuffer::StorageMultisample()
+	 */
 	void StorageMultisample(
 		GLsizei samples,
 		PixelDataInternalFormat internalformat,
@@ -67,6 +82,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::Width()
+	 *  @see Renderbuffer::Width()
+	 */
 	GLsizei Width(void) const
 	{
 		return RenderbufferOps::Width(
@@ -74,6 +93,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::Height()
+	 *  @see Renderbuffer::Height()
+	 */
 	GLsizei Height(void) const
 	{
 		return RenderbufferOps::Height(
@@ -81,6 +104,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::RedSize()
+	 *  @see Renderbuffer::RedSize()
+	 */
 	GLsizei RedSize(void) const
 	{
 		return RenderbufferOps::RedSize(
@@ -88,6 +115,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::GreenSize()
+	 *  @see Renderbuffer::GreenSize()
+	 */
 	GLsizei GreenSize(void) const
 	{
 		return RenderbufferOps::GreenSize(
@@ -95,6 +126,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::BlueSize()
+	 *  @see Renderbuffer::BlueSize()
+	 */
 	GLsizei BlueSize(void) const
 	{
 		return RenderbufferOps::BlueSize(
@@ -102,6 +137,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::AlphaSize()
+	 *  @see Renderbuffer::AlphaSize()
+	 */
 	GLsizei AlphaSize(void) const
 	{
 		return RenderbufferOps::AlphaSize(
@@ -109,6 +148,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::DepthSize()
+	 *  @see Renderbuffer::DepthSize()
+	 */
 	GLsizei DepthSize(void) const
 	{
 		return RenderbufferOps::DepthSize(
@@ -116,6 +159,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::StencilSize()
+	 *  @see Renderbuffer::StencilSize()
+	 */
 	GLsizei StencilSize(void) const
 	{
 		return RenderbufferOps::StencilSize(
@@ -123,6 +170,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::Samples()
+	 *  @see Renderbuffer::Samples()
+	 */
 	GLsizei Samples(void) const
 	{
 		return RenderbufferOps::Samples(
@@ -130,6 +181,10 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Renderbuffer::InternalFormat()
+	 *  @see Renderbuffer::InternalFormat()
+	 */
 	PixelDataInternalFormat InternalFormat(void) const
 	{
 		return RenderbufferOps::InternalFormat(

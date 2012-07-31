@@ -2,7 +2,7 @@
  *  @example oglplus/022_volumetric_light.cpp
  *  @brief Shows how to render a volumetric light
  *
- *  @image html 022_volumetric_light.png
+ *  @oglplus_screenshot{022_volumetric_light}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

@@ -2,7 +2,7 @@
  *  @example oglplus/018_stained_glass_cube.cpp
  *  @brief Shows how to draw a semi-transparent textured stained glass cube
  *
- *  @image html 018_stained_glass_cube.png
+ *  @oglplus_screenshot{018_stained_glass_cube}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

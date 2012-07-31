@@ -2,7 +2,7 @@
  *  @example oglplus/019_gs_tessell.cpp
  *  @brief Shows how to do simple tessellation with the geometry shader
  *
- *  @image html 019_gs_tessell.png
+ *  @oglplus_screenshot{019_gs_tessell}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

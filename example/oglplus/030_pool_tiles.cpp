@@ -2,7 +2,7 @@
  *  @example oglplus/030_pool_tiles.cpp
  *  @brief Shows a multitextured bump-mapped reflective plane
  *
- *  @image html 030_pool_tiles.png
+ *  @oglplus_screenshot{030_pool_tiles}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

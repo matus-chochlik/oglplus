@@ -2,7 +2,7 @@
  *  @example oglplus/023_reflected_cube.cpp
  *  @brief Shows how to draw a cube reflected in a horizontal plane
  *
- *  @image html 023_reflected_cube.png
+ *  @oglplus_screenshot{023_reflected_cube}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

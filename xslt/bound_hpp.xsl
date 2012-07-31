@@ -14,6 +14,7 @@
 	<xsl:template name="Newline"><xsl:text>&#x0A;</xsl:text></xsl:template>
 
 	<xsl:param name="object"/>
+	<xsl:param name="year"/>
 
 	<xsl:template name="Capitalize">
 		<xsl:param name="String"/>
@@ -49,6 +50,53 @@
 	</xsl:template>
 
 	<xsl:template name="GenerateFunction">
+		<xsl:variable name="RequiredGLVersion">
+			<xsl:if test="contains(
+				detaileddescription/descendant-or-self::text(),
+				'_oglplus_req_gl_ver('
+			)">
+				<xsl:value-of select="substring-before(
+					substring-after(
+						detaileddescription/descendant-or-self::text(),
+						'_oglplus_req_gl_ver('
+					), ')'
+				)"/>
+			</xsl:if>
+		</xsl:variable>
+		<xsl:variable name="RequiredGLExtension">
+			<xsl:if test="contains(
+				detaileddescription/descendant-or-self::text(),
+				'_oglplus_req_gl_ext('
+			)">
+				<xsl:value-of select="substring-before(
+					substring-after(
+						detaileddescription/descendant-or-self::text(),
+						'_oglplus_req_gl_ext('
+					), ')'
+				)"/>
+			</xsl:if>
+		</xsl:variable>
+		<xsl:if test="string-length($RequiredGLVersion) != 0">
+			<xsl:text>#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_</xsl:text>
+			<xsl:value-of select="$RequiredGLVersion"/>
+			<xsl:if test="string-length($RequiredGLExtension) != 0">
+				<xsl:text> || GL_</xsl:text>
+				<xsl:value-of select="$RequiredGLExtension"/>
+			</xsl:if>
+			<xsl:call-template name="Newline"/>
+		</xsl:if>
+		<xsl:text>
+	/** Wrapper for </xsl:text>
+		<xsl:value-of select="$Object"/>
+		<xsl:text>::</xsl:text>
+		<xsl:value-of select="name/text()"/>
+		<xsl:text>()
+	 *  @see </xsl:text>
+		<xsl:value-of select="$Object"/>
+		<xsl:text>::</xsl:text>
+		<xsl:value-of select="name/text()"/>
+		<xsl:text>()
+	 */</xsl:text><xsl:call-template name="Newline"/>
 		<xsl:for-each select="templateparamlist">
 			<xsl:text>	template &lt;</xsl:text>
 			<xsl:for-each select="param">
@@ -169,17 +217,29 @@
 		<xsl:call-template name="Newline"/>
 		<xsl:text>	}</xsl:text>
 		<xsl:call-template name="Newline"/>
+
+		<xsl:if test="string-length($RequiredGLVersion) != 0">
+			<xsl:text>#endif // GL_VERSION_</xsl:text>
+			<xsl:value-of select="$RequiredGLVersion"/>
+			<xsl:if test="string-length($RequiredGLExtension) != 0">
+				<xsl:text> || GL_</xsl:text>
+				<xsl:value-of select="$RequiredGLExtension"/>
+			</xsl:if>
+			<xsl:call-template name="Newline"/>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="GenerateHeader">
 <xsl:text>
 /**
  *  @file oglplus/bound/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp
- *  @brief BoundTemplate </xsl:text><xsl:value-of select="$Object"/><xsl:text> wrapper
+ *  @brief Specialization of BoundTemplate for </xsl:text><xsl:value-of select="$Object"/><xsl:text>.
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-</xsl:text>
+	<xsl:value-of select="$year"/>
+<xsl:text> Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -195,6 +255,13 @@
 
 namespace oglplus {
 
+/** Specialization of the BoundTemplate for </xsl:text><xsl:value-of select="$Object"/><xsl:text>.
+ *
+ *  @see Bind
+ *  @see Bound
+ *
+ *  @ingroup utility_classes
+ */
 template &lt;template &lt;class&gt; class Base, class BaseParam&gt;
 class BoundTemplate&lt;Base, BaseParam, </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
  : public Base&lt;BaseParam&gt;

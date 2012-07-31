@@ -65,6 +65,7 @@ OGLPLUS_NOEXCEPT(true)
 /// Wrapper for fransform feedback operations
 /** @note Do not use this class directly, use TransformFeedback instead.
  *
+ *  @glvoereq{4,0,ARB,transform_feedback2}
  *  @glsymbols
  *  @glfunref{GenTransformFeedbacks}
  *  @glfunref{DeleteTransformFeedbacks}

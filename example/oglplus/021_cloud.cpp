@@ -2,7 +2,7 @@
  *  @example oglplus/021_cloud.cpp
  *  @brief Shows how to render a cloud using a geometry shader and a 3d texture
  *
- *  @image html 021_cloud.png
+ *  @oglplus_screenshot{021_cloud}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

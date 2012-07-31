@@ -99,6 +99,10 @@ OGLPLUS_NOEXCEPT(true)
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_sync
 
 /// Encapsulates sync object and fence functionality
+/**
+ *
+ *  @glvoereq{3,2,ARB,sync}
+ */
 class Sync
 {
 private:

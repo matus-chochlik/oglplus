@@ -2,7 +2,7 @@
  *  @example oglplus/029_shadow_mapping.cpp
  *  @brief Shows how to do dynamic shadow mapping
  *
- *  @image html 029_shadow_mapping.png
+ *  @oglplus_screenshot{029_shadow_mapping}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

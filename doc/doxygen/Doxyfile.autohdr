@@ -19,7 +19,23 @@ GENERATE_XML = YES
 HIDE_UNDOC_CLASSES     = NO
 HIDE_UNDOC_RELATIONS   = NO
 
-PREDEFINED             = "OGLPLUS_DOXYGEN_PARSE=1"
+PREDEFINED             = \
+		"GL_VERSION_3_0=1" \
+		"GL_VERSION_3_1=1" \
+		"GL_VERSION_3_2=1" \
+		"GL_VERSION_3_3=1" \
+		"GL_VERSION_4_0=1" \
+		"GL_VERSION_4_1=1" \
+		"GL_VERSION_4_2=1" \
+		"OGLPLUS_DOXYGEN_PARSE=1"
+
+ALIASES                += oglplus_screenshot=""
+ALIASES                += glsymbols=""
+ALIASES                += glfunref{1}=""
+ALIASES                += gldefref{1}=""
+ALIASES                += glextref{2}=""
+ALIASES                += glverreq{2}=" _oglplus_req_gl_ver(\1_\2)"
+ALIASES                += glvoereq{3}=" _oglplus_req_gl_ver(\1_\2) _oglplus_req_gl_ext(\3)"
 
 CALL_GRAPH = NO
 CALLER_GRAPH = NO
