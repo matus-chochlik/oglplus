@@ -21,10 +21,19 @@
 
 namespace oglplus {
 
-/** Specialization of the BoundTemplate for Framebuffer.
+/// Specialization of the BoundTemplate for FramebufferOps, implements Bound < Framebuffer  >.
+/** This template implements wrappers around the member functions
+ *  of Framebuffer, which have
+ *  a FramebufferOps::Target parameter
+ *  specifying the binding point on which they should operate.
  *
- *  @see Bind
+ *  @note Do not use this template class directly use
+ *  Bound < Framebuffer > or the Bind()
+ *  function instead.
+ *
+ *  @see Bind()
  *  @see Bound
+ *  @see AutoBind
  *
  *  @ingroup utility_classes
  */

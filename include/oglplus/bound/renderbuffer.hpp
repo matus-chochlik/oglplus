@@ -21,10 +21,19 @@
 
 namespace oglplus {
 
-/** Specialization of the BoundTemplate for Renderbuffer.
+/// Specialization of the BoundTemplate for RenderbufferOps, implements Bound < Renderbuffer  >.
+/** This template implements wrappers around the member functions
+ *  of Renderbuffer, which have
+ *  a RenderbufferOps::Target parameter
+ *  specifying the binding point on which they should operate.
  *
- *  @see Bind
+ *  @note Do not use this template class directly use
+ *  Bound < Renderbuffer > or the Bind()
+ *  function instead.
+ *
+ *  @see Bind()
  *  @see Bound
+ *  @see AutoBind
  *
  *  @ingroup utility_classes
  */

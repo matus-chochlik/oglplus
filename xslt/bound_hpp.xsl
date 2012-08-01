@@ -255,10 +255,23 @@
 
 namespace oglplus {
 
-/** Specialization of the BoundTemplate for </xsl:text><xsl:value-of select="$Object"/><xsl:text>.
+/// Specialization of the BoundTemplate for </xsl:text>
+	<xsl:value-of select="$Object"/>
+<xsl:text>Ops, implements Bound &lt; </xsl:text> 
+	<xsl:value-of select="$Object"/>
+<xsl:text>  &gt;.
+/** This template implements wrappers around the member functions
+ *  of </xsl:text><xsl:value-of select="$Object"/><xsl:text>, which have
+ *  a </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target parameter
+ *  specifying the binding point on which they should operate.
  *
- *  @see Bind
+ *  @note Do not use this template class directly use
+ *  Bound &lt; </xsl:text><xsl:value-of select="$Object"/><xsl:text> &gt; or the Bind()
+ *  function instead.
+ *
+ *  @see Bind()
  *  @see Bound
+ *  @see AutoBind
  *
  *  @ingroup utility_classes
  */

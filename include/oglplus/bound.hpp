@@ -16,7 +16,12 @@
 
 namespace oglplus {
 
-// A common base class for Bound<>
+/// A common base class for Bound objects
+/**
+ *  @note Do not use this class directly, use Bound or Bind() instead.
+ *
+ *  @ingroup modifier_classes
+ */
 template <class Bindable>
 class BoundBase
 {
@@ -29,14 +34,32 @@ protected:
 		bindable.Bind(target);
 	}
 public:
+	/// Returns the target to which the object is bound
 	typename Bindable::Target BindTarget(void) const
 	{
 		return _bind_target;
 	}
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Specializations of this template wrap functions of Bindable with bind target
+/**
+ *  @note Do not use this class directly, use Bound or Bind() instead.
+ *
+ *  @see Bind()
+ *  @see Bound
+ *
+ *  @ingroup utility_classes
+ */
+template <template <class> class Base, class BaseParam, class Bindable>
+class BoundTemplate
+ : public Base<BaseParam>
+{
+};
+#else
 template <template <class> class Base, class BaseParam, class Bindable>
 class BoundTemplate;
+#endif
 
 /// A wraper that binds @ref oglplus_object "objects" to a specified target
 /**
@@ -53,9 +76,9 @@ class BoundTemplate;
  *  member functions, but lack the @c target parameter and supply it to the
  *  original function call automatically.
  *
- *  @see Bind
+ *  @see Bind()
  *
- *  @ingroup utility_classes
+ *  @ingroup modifier_classes
  */
 template <class Bindable>
 class Bound
@@ -73,6 +96,21 @@ public:
 	{ }
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Function constructing Bound objects
+/** This function is the preferred way to construct instances of objects
+ *  Bound to a target (binding point).
+ */
+template <class Object>
+inline Bound<Object> Bind(
+	const Object& bindable,
+	typename Object::Target target
+)
+{
+	return Bound<ObjectOps>(bindable, target);
+}
+
+#else
 template <class ObjectOps>
 inline Bound<ObjectOps> Bind(
 	const Object<ObjectOps>& bindable,
@@ -90,6 +128,7 @@ inline Bound<ObjectOps> Bind(
 {
 	return Bound<ObjectOps>(bindable, target);
 }
+#endif
 
 } // namespace oglplus
 

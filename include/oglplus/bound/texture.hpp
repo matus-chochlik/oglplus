@@ -21,10 +21,19 @@
 
 namespace oglplus {
 
-/** Specialization of the BoundTemplate for Texture.
+/// Specialization of the BoundTemplate for TextureOps, implements Bound < Texture  >.
+/** This template implements wrappers around the member functions
+ *  of Texture, which have
+ *  a TextureOps::Target parameter
+ *  specifying the binding point on which they should operate.
  *
- *  @see Bind
+ *  @note Do not use this template class directly use
+ *  Bound < Texture > or the Bind()
+ *  function instead.
+ *
+ *  @see Bind()
  *  @see Bound
+ *  @see AutoBind
  *
  *  @ingroup utility_classes
  */
@@ -934,7 +943,6 @@ public:
 		);
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
 
 	/** Wrapper for Texture::Image3DMultisample()
 	 *  @see Texture::Image3DMultisample()
@@ -958,9 +966,7 @@ public:
 			fixed_sample_locations
 		);
 	}
-#endif // GL_VERSION_3_2 || GL_ARB_texture_multisample
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
 
 	/** Wrapper for Texture::Image2DMultisample()
 	 *  @see Texture::Image2DMultisample()
@@ -982,7 +988,6 @@ public:
 			fixed_sample_locations
 		);
 	}
-#endif // GL_VERSION_3_2 || GL_ARB_texture_multisample
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 
@@ -1002,7 +1007,6 @@ public:
 	}
 #endif // GL_VERSION_3_1
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 
 	/** Wrapper for Texture::Storage1D()
 	 *  @see Texture::Storage1D()
@@ -1020,9 +1024,7 @@ public:
 			width
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 
 	/** Wrapper for Texture::Storage2D()
 	 *  @see Texture::Storage2D()
@@ -1042,9 +1044,7 @@ public:
 			height
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 
 	/** Wrapper for Texture::Storage3D()
 	 *  @see Texture::Storage3D()
@@ -1066,7 +1066,6 @@ public:
 			depth
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
 
 
 	/** Wrapper for Texture::BaseLevel()
@@ -1352,7 +1351,6 @@ public:
 		);
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::Swizzle()
 	 *  @see Texture::Swizzle()
@@ -1366,9 +1364,7 @@ public:
 			coord
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::Swizzle()
 	 *  @see Texture::Swizzle()
@@ -1384,9 +1380,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleR()
 	 *  @see Texture::SwizzleR()
@@ -1397,9 +1391,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleR()
 	 *  @see Texture::SwizzleR()
@@ -1413,9 +1405,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleG()
 	 *  @see Texture::SwizzleG()
@@ -1426,9 +1416,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleG()
 	 *  @see Texture::SwizzleG()
@@ -1442,9 +1430,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleB()
 	 *  @see Texture::SwizzleB()
@@ -1455,9 +1441,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleB()
 	 *  @see Texture::SwizzleB()
@@ -1471,9 +1455,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleA()
 	 *  @see Texture::SwizzleA()
@@ -1484,9 +1466,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleA()
 	 *  @see Texture::SwizzleA()
@@ -1500,9 +1480,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
@@ -1513,9 +1491,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
@@ -1529,7 +1505,6 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 
 	/** Wrapper for Texture::Wrap()

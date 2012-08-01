@@ -493,14 +493,6 @@ public:
  *
  */
 
-/// Allows to handle objects which are used through a binding point conveniently
-/** See @ref bound_object for more details.
- *
- *  @ingroup modifier_classes
- */
-template <class Object>
-class Bound;
-
 } // namespace oglplus
 #endif // OGLPLUS_DOCUMENTATION_ONLY
 

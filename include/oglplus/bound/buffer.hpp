@@ -21,10 +21,19 @@
 
 namespace oglplus {
 
-/** Specialization of the BoundTemplate for Buffer.
+/// Specialization of the BoundTemplate for BufferOps, implements Bound < Buffer  >.
+/** This template implements wrappers around the member functions
+ *  of Buffer, which have
+ *  a BufferOps::Target parameter
+ *  specifying the binding point on which they should operate.
  *
- *  @see Bind
+ *  @note Do not use this template class directly use
+ *  Bound < Buffer > or the Bind()
+ *  function instead.
+ *
+ *  @see Bind()
  *  @see Bound
+ *  @see AutoBind
  *
  *  @ingroup utility_classes
  */
