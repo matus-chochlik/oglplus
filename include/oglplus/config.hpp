@@ -333,6 +333,30 @@
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch disabling checks of validity of pointers to functions
+/** Setting this preprocessor symbol to a nonzero value causes that
+ *  if the OpenGL functions are called through a pointer then the pointer
+ *  is checked before it is used to call the function. If enabled and a pointer
+ *  to GL function is nullptr then the MissingFunction exception is thrown.
+ *
+ *  This check can safely be disabled if functions from the GL API are
+ *  not called through pointers.
+ *
+ *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
+ *  i.e. the function pointer checks are enabled, when not in low-profile mode.
+ *  and disabled otherwise. The check however requires variadic templates.
+ *  If variadic templates are not available then the checks are disabled.
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_NO_GLFUNC_CHECKS
+#else
+# ifndef OGLPLUS_NO_GLFUNC_CHECKS
+#  define OGLPLUS_NO_GLFUNC_CHECKS OGLPLUS_LOW_PROFILE
+# endif
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time switch enabling customized @ref error_handling
 /**
  *  By default this option is set to 0, i.e. customized error handling

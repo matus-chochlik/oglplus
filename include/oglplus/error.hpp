@@ -14,7 +14,6 @@
 
 #include <oglplus/auxiliary/strings.hpp>
 #include <oglplus/config.hpp>
-#include <oglplus/glfunc.hpp>
 #include <stdexcept>
 #include <cassert>
 #include <list>
@@ -941,6 +940,29 @@ inline void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
 	throw Exception(value, limit, info);
 }
 
+template <class Exception>
+inline void HandleMissingFunction(const ErrorInfo& info)
+{
+	const GLenum code = GL_INVALID_VALUE;
+	const char* msg = "Function called through an invalid pointer";
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			code,
+			0u, 0u,
+			msg,
+			info,
+			Error::PropertyMap(),
+			true,
+			true,
+			false,
+			false
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw Exception(code, msg, info);
+}
+
 inline void HandleError(
 	GLenum code,
 	const GLchar* msg,
@@ -1052,7 +1074,7 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 
 #ifndef OGLPLUS_CHECK
 #define OGLPLUS_CHECK(PARAM) { \
-	GLenum error_code = OGLPLUS_GLFUNC(GetError)(); \
+	GLenum error_code = ::glGetError(); \
 	if(error_code != GL_NO_ERROR) HandleError(error_code, PARAM, false); \
 }
 #endif
@@ -1069,7 +1091,7 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 #ifndef OGLPLUS_VERIFY
 #if !OGPLUS_LOW_PROFILE
 #define OGLPLUS_VERIFY(PARAM) { \
-	GLenum error_code = OGLPLUS_GLFUNC(GetError)(); \
+	GLenum error_code = ::glGetError(); \
 	if(error_code != GL_NO_ERROR) HandleError(error_code, PARAM, true); \
 }
 #else

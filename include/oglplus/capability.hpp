@@ -15,7 +15,13 @@
 namespace oglplus {
 
 /// Capability enumeration
-/**
+/** This enumaration lists capabilities i.e. features that can
+ *  be enabled, disabled or queried by the
+ *  @ref oglplus::context::Capabilities::Enable() "Enable",
+ *  @ref oglplus::context::Capabilities::Disable() "Disable" and
+ *  @ref oglplus::context::Capabilities::IsEnabled() "IsEnabled"
+ *  member functions of the Context class.
+ *
  *  @ingroup enumerations
  *
  *  @glsymbols
