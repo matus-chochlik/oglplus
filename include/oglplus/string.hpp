@@ -23,7 +23,16 @@
 
 namespace oglplus {
 
+/** @defgroup oglplus_strings Strings
+ *
+ *  Classes, types and functions in this group are related to text string
+ *  and/or string literal handling.
+ */
+
 /// String class
+/**
+ *  @ingroup oglplus_strings
+ */
 typedef ::std::basic_string<GLchar> String;
 
 class StrLit;
@@ -83,6 +92,14 @@ public:
 } // namespace aux
 
 /// String literal wrapper
+/** The literal optionally checks the source c-string literal
+ *  for UTF-8 validity (which is required by the OpenGL specification
+ *  for input string parameters of GL functions).
+ *
+ *  @see #OGLPLUS_NO_UTF8_CHECKS
+ *
+ *  @ingroup oglplus_strings
+ */
 class StrLit
 {
 private:
@@ -96,6 +113,7 @@ private:
 		assert(aux::ValidUTF8(begin(), end()));
 	}
 public:
+	/// Default constructor
 	StrLit(void)
 	 : _lit("")
 #if !OGLPLUS_LAZY_STR_LIT
@@ -103,7 +121,10 @@ public:
 #endif
 	{ }
 
-#if !OGLPLUS_NO_NULLPTR
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from nullptr
+	StrLit(std::nullptr_t);
+#elif !OGLPLUS_NO_NULLPTR
 	StrLit(std::nullptr_t)
 #else
 	StrLit(int)
@@ -114,7 +135,15 @@ public:
 #endif
 	{ }
 
-#if !OGLPLUS_LAZY_STR_LIT
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from a c-string @p literal
+	/** The input @p literal can be optionally checked
+	 *  for UTF-8 validity.
+	 *
+	 *  @see #OGLPLUS_NO_UTF8_CHECKS
+	 */
+	explicit StrLit(const GLchar* literal);
+#elif !OGLPLUS_LAZY_STR_LIT
 	template <size_t N>
 	explicit StrLit(const GLchar (&lit)[N])
 	OGLPLUS_NOEXCEPT(true)
@@ -128,6 +157,7 @@ public:
 	{ _check(); }
 #endif
 
+	/// Effictient conversion to String
 	String str(void) const
 	{
 #if !OGLPLUS_LAZY_STR_LIT
@@ -146,12 +176,14 @@ public:
 #endif
 	}
 
+	/// Returns the c-string literal
 	const GLchar* c_str(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _lit;
 	}
 
+	/// Returns the size (in GLchars) of the literal
 	size_t size(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -162,6 +194,7 @@ public:
 #endif
 	}
 
+	/// Returns true if the literal is empty
 	bool empty(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -172,44 +205,60 @@ public:
 #endif
 	}
 
+	/// character iterator
 	typedef const GLchar* iterator;
+
+	/// character iterator
 	typedef const GLchar* const_iterator;
 
+	/// returns a const iterator to the first character in the literal
 	const_iterator begin(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return c_str();
 	}
 
+	/// returns a const iterator past the last character in the literal
 	const_iterator end(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return c_str()+size();
 	}
 
+	/// returns a const iterator to the first character in the literal
 	friend const_iterator begin(const StrLit& strlit)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return strlit.begin();
 	}
 
+	/// returns a const iterator past the last character in the literal
 	friend const_iterator end(const StrLit& strlit)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return strlit.end();
 	}
 
+	/// Equivalent to the empty() function
 	operator bool (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return empty();
 	}
 
+	/// Equivalent to @c !empty()
 	bool operator ! (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return !empty();
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Literal concatenation operator
+	/** Returns an unspecified type explicitly convertible to String
+	 */
+	friend Unspecified operator + (StrLit a, StrLit b);
+#endif
 
 	friend aux::StrLitCat<StrLit, StrLit> operator + (StrLit a, StrLit b)
 	OGLPLUS_NOEXCEPT(true)

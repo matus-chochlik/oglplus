@@ -81,6 +81,14 @@ typedef LazyUniformInitTpl<SubroutineUniformInitOps>
 
 } //namespace aux
 
+/// Template for SubroutineUniform and LazySubroutineUniform
+/** @note Do not use directly, use SubroutineUniform or
+ *  LazySubroutineUniform instead.
+ *
+ *  @ingroup shader_variables
+ *
+ *  @glvoereq{4,0,ARB,shader_subroutine}
+ */
 template <class Initializer>
 class SubroutineUniformTpl
  : public Initializer
@@ -130,11 +138,71 @@ public:
 	}
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Subroutine uniform variable
+/**
+ *  The difference between SubroutineUniform and LazySubroutineUniform is,
+ *  that SubroutineUniform tries to get the location (index) of the GLSL
+ *  subroutine uniform variable in a Program during construction
+ *  and LazySubroutineUniform postpones this initialization until
+ *  the value is actually needed at the cost of having to internally
+ *  store the identifer in a String.
+ *
+ *  @see LazySubroutineUniform
+ *  @see Subroutine
+ *  @see LazySubroutine
+ *
+ *  @ingroup shader_variables
+ *
+ *  @glvoereq{4,0,ARB,shader_subroutine}
+ */
+struct SubroutineUniform
+ : public SubroutineUniformTpl<Unspecified>
+{
+	/// Constructionf from a program, stage and identifier
+	SubroutineUniform(
+		const Program& program,
+		const ShaderType stage,
+		String identifier
+	);
+};
+#else
 typedef SubroutineUniformTpl<aux::EagerSubroutineUniformInit>
 	SubroutineUniform;
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Lazy subroutine uniform variable
+/**
+ *  The difference between SubroutineUniform and LazySubroutineUniform is,
+ *  that SubroutineUniform tries to get the location (index) of the GLSL
+ *  subroutine uniform variable in a Program during construction
+ *  and LazySubroutineUniform postpones this initialization until
+ *  the value is actually needed at the cost of having to internally
+ *  store the identifer in a String.
+ *
+ *  @see SubroutineUniform
+ *  @see Subroutine
+ *  @see LazySubroutine
+ *
+ *  @ingroup shader_variables
+ *
+ *  @glvoereq{4,0,ARB,shader_subroutine}
+ */
+struct LazySubroutineUniform
+ : public SubroutineUniformTpl<Unspecified>
+{
+	/// Constructionf from a program, stage and identifier
+	LazySubroutineUniform(
+		const Program& program,
+		const ShaderType stage,
+		String identifier
+	);
+};
+#else
 typedef SubroutineUniformTpl<aux::LazySubroutineUniformInit>
 	LazySubroutineUniform;
+#endif
 
 namespace aux {
 
@@ -187,6 +255,11 @@ typedef LazyUniformInitTpl<SubroutineInitOps>
 
 } // namespace aux
 
+/// Template for Subroutine and LazySubroutine
+/** @note Do not use directly, use Subroutine or LazySubroutine instead.
+ *
+ *  @ingroup shader_variables
+ */
 template <class Initializer>
 class SubroutineTpl
  : public Initializer
@@ -236,9 +309,70 @@ public:
 	}
 };
 
-typedef SubroutineTpl<aux::EagerSubroutineInit> Subroutine;
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Subroutine variable
+/**
+ *  The difference between Subroutine and LazySubroutine is,
+ *  that Subroutine tries to get the location (index) of the GLSL
+ *  function declared as subroutine in a Program during construction
+ *  and LazySubroutine postpones this initialization until
+ *  the value is actually needed at the cost of having to internally
+ *  store the identifer in a String.
+ *
+ *  @see SubroutineUniform
+ *  @see LazySubroutineUniform
+ *  @see LazySubroutine
+ *
+ *  @ingroup shader_variables
+ *
+ *  @glvoereq{4,0,ARB,shader_subroutine}
+ */
+struct Subroutine
+ : public SubroutineTpl<Unspecified>
+{
+	/// Constructionf from a program, stage and identifier
+	Subroutine(
+		const Program& program,
+		const ShaderType stage,
+		String identifier
+	);
+};
+#else
+typedef SubroutineTpl<aux::EagerSubroutineInit> Subroutine;
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Lazy subroutine variable
+/**
+ *  The difference between Subroutine and LazySubroutine is,
+ *  that Subroutine tries to get the location (index) of the GLSL
+ *  function declared as subroutine in a Program during construction
+ *  and LazySubroutine postpones this initialization until
+ *  the value is actually needed at the cost of having to internally
+ *  store the identifer in a String.
+ *
+ *  @see SubroutineUniform
+ *  @see LazySubroutineUniform
+ *  @see Subroutine
+ *
+ *  @ingroup shader_variables
+ *
+ *  @glvoereq{4,0,ARB,shader_subroutine}
+ */
+struct LazySubroutine
+ : public SubroutineTpl<Unspecified>
+{
+	/// Constructionf from a program, stage and identifier
+	LazySubroutine(
+		const Program& program,
+		const ShaderType stage,
+		String identifier
+	);
+};
+#else
 typedef SubroutineTpl<aux::LazySubroutineInit> LazySubroutine;
+#endif
 
 
 /// Encapsulates the uniform subroutine setting operations

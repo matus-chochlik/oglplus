@@ -32,7 +32,7 @@ namespace oglplus {
  *
  *  The MissingFunction exception class indicates that the usage
  *  of such uninitialized function pointer was detected at run-time
- *  and allows the appliaction to terminate more gracefully.
+ *  and allows the application to terminate more gracefully.
  *
  *  @see #OGLPLUS_NO_GLFUNC_CHECKS
  *

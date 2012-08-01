@@ -118,18 +118,18 @@ typedef LazyUniformInitTpl<UniformBlockInitOps>
  *  @note Do not use this class directly. Use UniformBlock or LazyUniformBlock
  *  instead.
  *
+ *  @see UniformBlock
+ *  @see LazyUniformBlock
+ *
  *  @ingroup shader_variables
+ *
+ *  @glvoereq{3,1,ARB,uniform_buffer_object}
  */
 template <class Initializer>
 class UniformBlockTpl
  : public Initializer
 {
 public:
-	/// Reference a uniform block @p identifier in the @p program
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetUniformBlockIndex}
-	 */
 	template <class String>
 	UniformBlockTpl(const Program& program, String&& identifier)
 	 : Initializer(program, None(), std::forward<String>(identifier))
@@ -196,15 +196,67 @@ public:
 	}
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Encapsulates uniform block operations
 /**
+ *  The difference between UniformBlock and LazyUniformBlock is,
+ *  that UniformBlock tries to get the location (index) of the GLSL
+ *  uniform block variable in a Program during construction
+ *  and LazyUniformBlock postpones this initialization until the value
+ *  is actually needed at the cost of having to internally store
+ *  the identifer in a String.
+ *
+ *  @see LazyUniformBlock
+ *  @see Uniform
+ *
  *  @ingroup shader_variables
+ *
+ *  @glvoereq{3,1,ARB,uniform_buffer_object}
  */
-typedef UniformBlockTpl<aux::EagerUniformBlockInit>
-	UniformBlock;
+struct UniformBlock
+ : public UniformBlockTpl<Unspecified>
+{
+	/// Construction from a program and an identifier
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetUniformBlockIndex}
+	 */
+	UniformBlock(const Program& program, String identifier);
+};
+#else
+typedef UniformBlockTpl<aux::EagerUniformBlockInit> UniformBlock;
+#endif
 
-typedef UniformBlockTpl<aux::LazyUniformBlockInit>
-	LazyUniformBlock;
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Encapsulates lazily initialized uniform block operations
+/**
+ *  The difference between UniformBlock and LazyUniformBlock is,
+ *  that UniformBlock tries to get the location (index) of the GLSL
+ *  uniform block variable in a Program during construction
+ *  and LazyUniformBlock postpones this initialization until the value
+ *  is actually needed at the cost of having to internally store
+ *  the identifer in a String.
+ *
+ *  @see UniformBlock
+ *  @see LazyUniform
+ *
+ *  @ingroup shader_variables
+ *
+ *  @glvoereq{3,1,ARB,uniform_buffer_object}
+ */
+struct LazyUniformBlock
+ : public UniformBlockTpl<Unspecified>
+{
+	/// Construction from a program and an identifier
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetUniformBlockIndex}
+	 */
+	LazyUniformBlock(const Program& program, String identifier);
+};
+#else
+typedef UniformBlockTpl<aux::LazyUniformBlockInit> LazyUniformBlock;
+#endif
 
 #endif // uniform buffer object
 

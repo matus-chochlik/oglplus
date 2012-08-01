@@ -312,7 +312,7 @@ public:
 	 *  @glfunref{ProgramUniform}
 	 */
 	template <typename ... P>
-	void SetVector(T v, P ... p)
+	void SetVector(T v, P ... p);
 #endif
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
@@ -916,7 +916,11 @@ public:
  */
 template <typename T>
 class Uniform
+#if OGLPLUS_DOCUMENTATION_ONLY
+ : public UniformTpl<T, Unspecified, Unspecified>
+#else
  : public UniformTpl<T, aux::EagerUniformInit, aux::UniformSetOps<T>>
+#endif
 {
 protected:
 	typedef UniformTpl<
@@ -925,11 +929,17 @@ protected:
 		aux::UniformSetOps<T>
 	> _base;
 public:
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from a const reference to @p program and an identifier
+	Uniform(const Program& program, String identifier);
+#else
 	template <typename _String>
 	Uniform(const Program& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
+#endif
 
+	/// Set the value of the uniform variable
 	inline void operator = (const T& value)
 	{
 		this->Set(value);
@@ -951,7 +961,11 @@ public:
  */
 template <typename T>
 class LazyUniform
+#if OGLPLUS_DOCUMENTATION_ONLY
+ : public UniformTpl<T, Unspecified, Unspecified>
+#else
  : public UniformTpl<T, aux::LazyUniformInit, aux::UniformSetOps<T>>
+#endif
 {
 protected:
 	typedef UniformTpl<
@@ -960,11 +974,17 @@ protected:
 		aux::UniformSetOps<T>
 	> _base;
 public:
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from a const reference to @p program and an identifier
+	LazyUniform(const Program& program, String identifier);
+#else
 	template <typename _String>
 	LazyUniform(const Program& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
+#endif
 
+	/// Set the value of the uniform variable
 	inline void operator = (const T& value)
 	{
 		this->Set(value);
@@ -981,10 +1001,15 @@ typedef Uniform<GLint> UniformSampler;
 /** This convenience function finds the uniform variable with the name
  *  @p identifier in the specified @p program and sets its @p value.
  *
- *  @note This function is not very efficient, if you need to set the value
+ *  @note This function is not very efficient. If you need to set the value
  *  of this uniform variable repeatedly, consider declaring a Uniform variable
  *  and use it to set the @p value to avoid repetitive search for the reference
  *  to the shading program variable by its name.
+ *
+ *  @see Uniform
+ *  @see LazyUniform
+ *  @see ProgramUniform
+ *  @see LazyProgramUniform
  *
  *  @ingroup shader_variables
  *
@@ -1002,7 +1027,10 @@ inline void SetUniform(
 	Uniform<T>(program, identifier).Set(value);
 }
 
-#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects || GL_EXT_direct_state_access
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_VERSION_4_1 || \
+	GL_ARB_separate_shader_objects || \
+	GL_EXT_direct_state_access
 
 /// Class encapsulating ProgramUniform shader variable functionality
 /**
@@ -1021,7 +1049,11 @@ inline void SetUniform(
  */
 template <typename T>
 class ProgramUniform
+#if OGLPLUS_DOCUMENTATION_ONLY
+ : public UniformTpl<T, Unspecified, Unspecified>
+#else
  : public UniformTpl<T, aux::EagerUniformInit, aux::ProgramUniformSetOps<T>>
+#endif
 {
 private:
 	typedef UniformTpl<
@@ -1030,11 +1062,17 @@ private:
 		aux::ProgramUniformSetOps<T>>
 	_base;
 public:
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from a const reference to @p program and an identifier
+	ProgramUniform(const Program& program, String identifier);
+#else
 	template <typename _String>
 	ProgramUniform(const Program& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
+#endif
 
+	/// Set the value of the uniform variable
 	inline void operator = (const T& value)
 	{
 		this->Set(value);
@@ -1056,7 +1094,11 @@ public:
  */
 template <typename T>
 class LazyProgramUniform
+#if OGLPLUS_DOCUMENTATION_ONLY
+ : public UniformTpl<T, Unspecified, Unspecified>
+#else
  : public UniformTpl<T, aux::LazyUniformInit, aux::ProgramUniformSetOps<T>>
+#endif
 {
 private:
 	typedef UniformTpl<
@@ -1065,11 +1107,17 @@ private:
 		aux::ProgramUniformSetOps<T>>
 	_base;
 public:
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from a const reference to @p program and an identifier
+	LazyProgramUniform(const Program& program, String identifier);
+#else
 	template <typename _String>
 	LazyProgramUniform(const Program& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
+#endif
 
+	/// Set the value of the uniform variable
 	inline void operator = (const T& value)
 	{
 		this->Set(value);
@@ -1086,10 +1134,15 @@ typedef ProgramUniform<GLint> ProgramUniformSampler;
 /** This convenience function finds the uniform variable with the name
  *  @p identifier in the specified @p program and sets its @p value.
  *
- *  @note This function is not very efficient, if you need to set the value
+ *  @note This function is not very efficient. If you need to set the value
  *  of this uniform variable repeatedly, consider declaring a ProgramUniform variable
  *  and use it to set the @p value to avoid repetitive search for the reference
  *  to the shading program variable by its name.
+ *
+ *  @see Uniform
+ *  @see LazyUniform
+ *  @see ProgramUniform
+ *  @see LazyProgramUniform
  *
  *  @ingroup shader_variables
  *
