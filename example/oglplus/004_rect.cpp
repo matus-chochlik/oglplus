@@ -21,11 +21,8 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
+	// Vertex and fragment shaders
+	Shader vs, fs;
 
 	// Program
 	Program prog;
@@ -33,14 +30,16 @@ private:
 	// A vertex array object for the rendered rectangle
 	VertexArray rectangle;
 
-	// VBOs for the rectangle's vertices
+	// VBO for the rectangle's vertices
 	Buffer verts;
 
 	// Variables referencing the program's uniforms
 	LazyUniform<Vec2f> red_center, green_center, blue_center;
 public:
 	RectangleExample(void)
-	 : prog()
+	 : vs(ShaderType::Vertex)
+	 , fs(ShaderType::Fragment)
+	 , prog()
 	 , red_center(prog, "RedCenter")
 	 , green_center(prog, "GreenCenter")
 	 , blue_center(prog, "BlueCenter")
@@ -63,13 +62,12 @@ public:
 		fs.Source(StrLit(" \
 			#version 330\n \
 			const float radius = 0.4; \
-			uniform vec2 RedCenter, GreenCenter, BlueCenter; \
-			vec3 dist; \
 			in vec2 vertCoord; \
+			uniform vec2 RedCenter, GreenCenter, BlueCenter; \
 			out vec4 fragColor; \
 			void main(void) \
 			{ \
-				dist = vec3( \
+				vec3 dist = vec3( \
 					distance(vertCoord, RedCenter), \
 					distance(vertCoord, GreenCenter), \
 					distance(vertCoord, BlueCenter) \

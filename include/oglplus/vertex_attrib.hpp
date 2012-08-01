@@ -30,6 +30,11 @@ namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the vertex attribute slot (implementation-dependent limited) number
+/**
+ *  @see VertexAttrib
+ *
+ *  @ingroup shader_variables
+ */
 class VertexAttribSlot
  : public LimitedCount
 {
@@ -43,6 +48,14 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 )
 #endif
 
+/// Helper class that encapsulates vertex attribute functionality
+/**
+ *  @note Do not use this class directly, use VertexAttrib instead.
+ *
+ *  @see VertexAttrib
+ *
+ *  @ingroup shader_variables
+ */
 class VertexAttribOps
  : public FriendOf<ProgramOps>
 {
@@ -199,12 +212,16 @@ protected:
 template <typename T>
 class VertexAttrib
  : public VertexAttribOps
+#if OGLPLUS_DOCUMENTATION_ONLY
+ , public Unspecified
+#else
  , public aux::ShaderDataSetOps<
 	aux::VertexAttribQueries,
 	aux::VertexAttribSetters,
 	aux::ActiveProgramCallOps<T>,
 	16
 >
+#endif
 {
 public:
 	/// References the vertex attribute array at @p index

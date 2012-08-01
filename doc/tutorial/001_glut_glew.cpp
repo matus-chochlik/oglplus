@@ -27,7 +27,7 @@
  *
  *  First we include two headers from the C++ standard library; we are going
  *  to use C assertions and C++ input/output streams.
- *  @skipline #include <iostream>
+ *  @until #include <iostream>
  *
  *  Next we'll include the main header of the GLEW library which declares the
  *  OpenGL 3 function prototypes, typedefs, enumerations, etc.

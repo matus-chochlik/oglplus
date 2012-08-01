@@ -127,7 +127,7 @@
  *
  *  @until fragColor = vec4
  *
- *  This example uses the number of iterations used to reach s good enough approximation
+ *  This example uses the number of iterations used to reach a good enough approximation
  *  to create a color gradient between the @c Color1 and @c Color2 values
  *  specified as uniform variables above.
  *
