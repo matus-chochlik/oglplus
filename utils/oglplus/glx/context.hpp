@@ -57,7 +57,7 @@ private:
 		const int CONTEXT_MINOR_VERSION_ARB = 0x2092;
 		const int CONTEXT_FLAGS_ARB = 0x2094;
 		const int CONTEXT_DEBUG_BIT_ARB = 0x0001;
-		const int CONTEXT_FORWARD_COMPATIBLE_BIT_ARB = 0x0002;
+		//const int CONTEXT_FORWARD_COMPATIBLE_BIT_ARB = 0x0002;
 		int context_attribs[] =
 		{
 			CONTEXT_MAJOR_VERSION_ARB, version_major,
