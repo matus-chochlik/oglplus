@@ -62,7 +62,7 @@ private:
 					RightAngles(float(std::rand())/RAND_MAX)
 				);
 		}
-		return std::move(offsets);
+		return offsets;
 	}
 
 	// wrapper around the current OpenGL context

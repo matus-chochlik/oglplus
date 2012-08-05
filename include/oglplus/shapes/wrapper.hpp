@@ -26,40 +26,42 @@
 
 #include <vector>
 #include <functional>
+#include <iterator>
+#include <cassert>
 
 namespace oglplus {
 namespace shapes {
 
-/// Wraps instructions and VAO+VBOs used to render a shape built by @p ShapeBuilder
-template <typename ShapeBuilder>
+/// Wraps instructions and VAO+VBOs used to render a shape built by a ShapeBuilder
 class ShapeWrapper
 {
 protected:
-	FaceOrientation face_winding;
+	FaceOrientation _face_winding;
 	// helper object encapsulating shape drawing instructions
-	shapes::DrawingInstructions shape_instr;
-	// indices pointing to shape primitive elements
-	typename ShapeBuilder::IndexArray shape_indices;
+	shapes::DrawingInstructions _shape_instr;
 
-	Context gl;
+	// index type properties
+	shapes::ElementIndexInfo _index_info;
+
+	Context _gl;
 
 	// A vertex array object for the rendered shape
-	VertexArray vao;
+	VertexArray _vao;
 
 	// VBOs for the shape's vertex attributes
-	Array<Buffer> vbos;
+	Array<Buffer> _vbos;
 
 	// numbers of values per vertex for the individual attributes
-	std::vector<GLuint> npvs;
+	std::vector<GLuint> _npvs;
 
 	// names of the individual vertex attributes
-	std::vector<String> names;
+	std::vector<String> _names;
 
-	template <typename Iterator>
+	template <class ShapeBuilder, typename Iterator>
 	void _init(const ShapeBuilder& builder, Iterator name, Iterator end)
 	{
 		// bind the VAO for the shape
-		vao.Bind();
+		_vao.Bind();
 
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
 		size_t i = 0;
@@ -73,90 +75,136 @@ protected:
 			if(getter != nullptr)
 			{
 				// bind the VBO for the vertex attribute
-				vbos[i].Bind(Buffer::Target::Array);
-				npvs[i] = getter(builder, data);
-				names[i] = *name;
+				_vbos[i].Bind(Buffer::Target::Array);
+				_npvs[i] = getter(builder, data);
+				_names[i] = *name;
 				// upload the data
 				Buffer::Data(Buffer::Target::Array, data);
 			}
 			++name;
 			++i;
 		}
+		auto shape_indices = builder.Indices();
+		if(!shape_indices.empty())
+		{
+			assert((i+1) == _npvs.size());
+			assert((i+1) == _vbos.size());
+
+			_npvs[i] = 1;
+			_vbos[i].Bind(Buffer::Target::ElementArray);
+			Buffer::Data(
+				Buffer::Target::ElementArray,
+				shape_indices
+			);
+		}
 	}
 public:
-	template <typename StdRange>
+	template <typename StdRange, class ShapeBuilder>
 	ShapeWrapper(const StdRange& names, const ShapeBuilder& builder)
-	 : face_winding(builder.FaceWinding())
-	 , shape_instr(builder.Instructions())
-	 , shape_indices(builder.Indices())
-	 , vbos(names.end() - names.begin())
-	 , npvs(names.end() - names.begin(), 0)
-	 , names(names.end() - names.begin())
+	 : _face_winding(builder.FaceWinding())
+	 , _shape_instr(builder.Instructions())
+	 , _index_info(builder)
+	 , _vbos(std::distance(names.begin(), names.end())+1)
+	 , _npvs(std::distance(names.begin(), names.end())+1, 0)
+	 , _names(std::distance(names.begin(), names.end()))
 	{
 		_init(builder, names.begin(), names.end());
 	}
 
-	template <typename StdRange>
+	template <typename StdRange, class ShapeBuilder>
 	ShapeWrapper(
 		const StdRange& names,
 		const ShapeBuilder& builder,
 		const Program& prog
-	): face_winding(builder.FaceWinding())
-	 , shape_instr(builder.Instructions())
-	 , shape_indices(builder.Indices())
-	 , vbos(names.end() - names.begin())
-	 , npvs(names.end() - names.begin(), 0)
-	 , names(names.end() - names.begin())
+	): _face_winding(builder.FaceWinding())
+	 , _shape_instr(builder.Instructions())
+	 , _index_info(builder)
+	 , _vbos(std::distance(names.begin(), names.end())+1)
+	 , _npvs(std::distance(names.begin(), names.end())+1, 0)
+	 , _names(std::distance(names.begin(), names.end()))
 	{
 		_init(builder, names.begin(), names.end());
 		UseInProgram(prog);
 	}
 
+	template <class ShapeBuilder>
 	ShapeWrapper(
 		const std::initializer_list<const GLchar*>& names,
 		const ShapeBuilder& builder,
 		const Program& prog
-	): face_winding(builder.FaceWinding())
-	 , shape_instr(builder.Instructions())
-	 , shape_indices(builder.Indices())
-	 , vbos(names.end() - names.begin())
-	 , npvs(names.end() - names.begin(), 0)
-	 , names(names.end() - names.begin())
+	): _face_winding(builder.FaceWinding())
+	 , _shape_instr(builder.Instructions())
+	 , _index_info(builder)
+	 , _vbos(std::distance(names.begin(), names.end())+1)
+	 , _npvs(std::distance(names.begin(), names.end())+1, 0)
+	 , _names(std::distance(names.begin(), names.end()))
 	{
 		_init(builder, names.begin(), names.end());
 		UseInProgram(prog);
 	}
 
+	ShapeWrapper(ShapeWrapper&& temp)
+	 : _face_winding(temp._face_winding)
+	 , _shape_instr(std::move(temp._shape_instr))
+	 , _index_info(temp._index_info)
+	 , _gl(std::move(temp._gl))
+	 , _vao(std::move(temp._vao))
+	 , _vbos(std::move(temp._vbos))
+	 , _npvs(std::move(temp._npvs))
+	 , _names(std::move(temp._names))
+	{ }
+
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	ShapeWrapper(const ShapeWrapper&) = delete;
+#else
+private:
+	ShapeWrapper(const ShapeWrapper&);
+public:
+#endif
+
 	void UseInProgram(const Program& prog)
 	{
-		vao.Bind();
-		size_t i=0, n = npvs.size();
-		while(i != n) if(npvs[i] != 0) try
+		prog.Use();
+		_vao.Bind();
+		size_t i=0, n = _names.size();
+		while(i != n)
 		{
-			vbos[i].Bind(Buffer::Target::Array);
-			VertexAttribArray attr(prog, names[i]);
-			attr.Setup(npvs[i], DataType::Float);
-			attr.Enable();
+			if(_npvs[i] != 0)
+			{
+				try
+				{
+					_vbos[i].Bind(Buffer::Target::Array);
+					VertexAttribArray attr(prog, _names[i]);
+					attr.Setup(_npvs[i], DataType::Float);
+					attr.Enable();
+				}
+				catch(Error& e){ }
+			}
 			++i;
 		}
-		catch(Error& e){ }
+		assert((i+1) == _npvs.size());
+		if(_npvs[i] != 0)
+		{
+			assert((i+1) == _vbos.size());
+			_vbos[i].Bind(Buffer::Target::ElementArray);
+		}
 	}
 
 	void Use(void)
 	{
-		vao.Bind();
+		_vao.Bind();
 	}
 
 	void Draw(void)
 	{
-		gl.FrontFace(face_winding);
-		shape_instr.Draw(shape_indices);
+		_gl.FrontFace(_face_winding);
+		_shape_instr.Draw(_index_info, 1);
 	}
 
 	void Draw(const std::function<bool (GLuint)>& drawing_driver)
 	{
-		gl.FrontFace(face_winding);
-		shape_instr.Draw(shape_indices, 1, drawing_driver);
+		_gl.FrontFace(_face_winding);
+		_shape_instr.Draw(_index_info, 1, drawing_driver);
 	}
 };
 } // shapes

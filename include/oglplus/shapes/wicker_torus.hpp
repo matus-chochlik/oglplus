@@ -863,7 +863,7 @@ public:
 			}
 			++phase;
 		}
-		return std::move(instructions);
+		return instructions;
 	}
 
 	/// Returns element indices that are used with the drawing instructions
@@ -910,7 +910,7 @@ public:
 
 		assert(k == indices.size());
 
-		return std::move(indices);
+		return indices;
 	}
 
 	/// Returns the instructions for rendering of edges
@@ -977,7 +977,7 @@ public:
 			}
 		}
 
-		return std::move(instructions);
+		return instructions;
 	}
 };
 

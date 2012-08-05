@@ -317,7 +317,7 @@ public:
 		assert(k == indices.size());
 		//
 		// return the indices
-		return std::move(indices);
+		return indices;
 	}
 
 	/// Returns element indices that are used with the drawing instructions
@@ -346,7 +346,7 @@ public:
 				}
 			);
 		}
-		return std::move(instructions);
+		return instructions;
 	}
 
 	/// Returns the instructions for rendering

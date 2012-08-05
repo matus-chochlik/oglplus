@@ -247,7 +247,7 @@ private:
 	Texture cube_tex;
 
 	// wraper for the cube builder, VAO and VBOs
-	shapes::ShapeWrapper<shapes::Cube> cube;
+	shapes::ShapeWrapper cube;
 public:
 	CubeExample(void)
 	 : cube(

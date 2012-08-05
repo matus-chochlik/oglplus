@@ -91,14 +91,12 @@ public:
 #endif
 	}
 
+#if !OGLPLUS_NO_OBJECT_DESCS
 	String&& Release(void)
 	{
-#if !OGLPLUS_NO_OBJECT_DESCS
 		return std::move(_str);
-#else
-		return std::move(String());
-#endif
 	}
+#endif
 };
 
 namespace aux {

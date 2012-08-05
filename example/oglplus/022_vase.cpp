@@ -141,7 +141,7 @@ private:
 	Texture vase_tex;
 
 	// wraper for the vase builder, VAO and VBOs
-	shapes::ShapeWrapper<shapes::RevolveY<GLfloat>> vase;
+	shapes::ShapeWrapper vase;
 public:
 	VaseExample(void)
 	 : vase(

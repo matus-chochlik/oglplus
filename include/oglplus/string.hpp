@@ -76,7 +76,7 @@ public:
 		String result;
 		result.reserve(this->size()+1);
 		this->append_to(result);
-		return std::move(result);
+		return result;
 	}
 
 #if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
@@ -85,7 +85,7 @@ public:
 	inline operator String(void) const
 #endif
 	{
-		return std::move(str());
+		return str();
 	}
 };
 
@@ -161,9 +161,9 @@ public:
 	String str(void) const
 	{
 #if !OGLPLUS_LAZY_STR_LIT
-		return std::move(String(_lit, _lit+_size));
+		return String(_lit, _lit+_size);
 #else
-		return std::move(String(_lit));
+		return String(_lit);
 #endif
 	}
 

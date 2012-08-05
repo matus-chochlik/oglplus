@@ -361,7 +361,7 @@ public:
 			31, 35, 32, 30  //-z
 		};
 		IndexArray indices(_indices, _indices+24);
-		return std::move(indices);
+		return indices;
 	}
 
 	/// Returns the instructions for rendering of edges
@@ -379,7 +379,7 @@ public:
 
 			this->AddInstruction(instructions, operation);
 		}
-		return std::move(instructions);
+		return instructions;
 	}
 };
 

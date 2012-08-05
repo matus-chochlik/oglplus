@@ -472,7 +472,7 @@ public:
 		assert(k == indices.size());
 		//
 		// return the indices
-		return std::move(indices);
+		return indices;
 	}
 
 	/// Returns the instructions for rendering
@@ -518,7 +518,7 @@ public:
 				offs += edge * 2;
 			}
 		}
-		return std::move(instructions);
+		return instructions;
 	}
 };
 

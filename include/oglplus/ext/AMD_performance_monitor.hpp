@@ -208,7 +208,7 @@ public:
 	{
 		std::vector<PerfMonitorAMDCounter> result;
 		GetCounters(max_active_counters, result);
-		return std::move(result);
+		return result;
 	}
 
 };
@@ -509,7 +509,7 @@ public:
 	{
 		std::vector<PerfMonitorAMDGroup> result;
 		GetGroups(result);
-		return std::move(result);
+		return result;
 	}
 };
 #endif

@@ -311,7 +311,7 @@ public:
 	{ }
 };
 
-typedef shapes::ShapeWrapper<shapes::Torus> Torus;
+typedef shapes::ShapeWrapper Torus;
 
 class FurExample : public Example
 {

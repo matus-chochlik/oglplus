@@ -438,11 +438,11 @@ public:
 };
 
 class Plate
- : public shapes::ShapeWrapper<shapes::Plane>
+ : public shapes::ShapeWrapper
 {
 public:
 	Plate(const Program& program)
-	 : shapes::ShapeWrapper<shapes::Plane>(
+	 : shapes::ShapeWrapper(
 		{"Position", "Normal", "Tangent", "TexCoord"},
 		shapes::Plane(Vec3f(9, 0, 0), Vec3f(0, 0,-9)),
 		program

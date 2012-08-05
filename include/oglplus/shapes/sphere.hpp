@@ -188,7 +188,7 @@ public:
 		assert(k == indices.size());
 		//
 		// return the indices
-		return std::move(indices);
+		return indices;
 	}
 
 	/// Returns the instructions for rendering
@@ -205,7 +205,7 @@ public:
 			operation.phase = 0;
 			this->AddInstruction(instructions, operation);
 		}
-		return std::move(instructions);
+		return instructions;
 	}
 };
 
