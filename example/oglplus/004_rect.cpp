@@ -112,7 +112,7 @@ public:
 		green_center.Set(0.141f, 0.141f);
 		blue_center.Set(0.0f, -0.2f);
 
-		gl.ClearDepth(1.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Reshape(size_t width, size_t height)
@@ -122,7 +122,7 @@ public:
 
 	void Render(double)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.Clear().ColorBuffer();
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

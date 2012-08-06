@@ -15,6 +15,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/glfunc.hpp>
 
 #include <cassert>
 #include <stack>

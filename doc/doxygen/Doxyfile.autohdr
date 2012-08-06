@@ -35,7 +35,7 @@ ALIASES                += glfunref{1}=""
 ALIASES                += gldefref{1}=""
 ALIASES                += glextref{2}=""
 ALIASES                += glverreq{2}=" _oglplus_req_gl_ver(\1_\2)"
-ALIASES                += glvoereq{3}=" _oglplus_req_gl_ver(\1_\2) _oglplus_req_gl_ext(\3)"
+ALIASES                += glvoereq{4}=" _oglplus_req_gl_ver(\1_\2) _oglplus_req_gl_ext(\3_\4)"
 
 CALL_GRAPH = NO
 CALLER_GRAPH = NO
