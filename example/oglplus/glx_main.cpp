@@ -17,6 +17,7 @@
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
 #include <oglplus/os/semaphore.hpp>
+#include <oglplus/os/steady_clock.hpp>
 
 #include <oglplus/config.hpp>
 #include <oglplus/compile_error.hpp>
@@ -28,7 +29,6 @@
 #include <fstream>
 #include <stdexcept>
 #include <iostream>
-#include <chrono>
 #include <cstring>
 #include <cassert>
 
@@ -46,7 +46,7 @@ void run_loop(
 )
 {
 	std::cout << "-+-[Begin]" << std::endl;
-#if GL_ARB_debug_output
+#if GL_ARB_debug_output && !OGLPLUS_NO_LAMBDAS
 	ARB_debug_output dbg;
 	ARB_debug_output::LogSink sink(
 		[](const ARB_debug_output::CallbackData& data) -> void
@@ -85,10 +85,7 @@ void run_loop(
 		0
 	);
 	XEvent event;
-	double period =
-		double(std::chrono::system_clock::period::num)/
-		double(std::chrono::system_clock::period::den);
-	auto start = std::chrono::system_clock::now();
+	os::steady_clock clock;
 	while(1)
 	{
 		while(display.NextEvent(event))
@@ -107,8 +104,7 @@ void run_loop(
 				default:;
 			}
 		}
-		auto now = std::chrono::system_clock::now();
-		double t = (now - start).count() * period;
+		double t = clock.seconds();
 		if(!example->Continue(t)) break;
 		example->Render(t);
 		ctx.SwapBuffers(win);

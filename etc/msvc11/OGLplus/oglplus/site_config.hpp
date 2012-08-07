@@ -28,6 +28,8 @@
 #define OGLPLUS_NO_NOEXCEPT 1
 #define OGLPLUS_NO_LAMBDAS 0
 #define OGLPLUS_NO_NULLPTR 0
+
+#define OGLPLUS_NO_CHRONO 0
 #endif
 
 #pragma warning(disable : 4244)

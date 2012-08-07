@@ -4,16 +4,8 @@
 #
 cmake_minimum_required(VERSION 2.8)
 
-#TODO auto-detect or allow the caller to set this
 if(OGLPLUS_USE_GLEW)
-	if(
-		("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC") OR
-		("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	)
-		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew_cxx03")
-	else()
-		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
-	endif()
+	set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
 elseif(OGLPLUS_FRAMEDUMP)
 	set(OGLPLUS_EXAMPLE_HARNESS "frame_dump")
 else()
@@ -30,12 +22,11 @@ elseif(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "frame_dump")
 )
-	# include the X11/GLX utility headers
-	include_directories(${PROJECT_SOURCE_DIR}/utils)
-
 	find_package(X11)
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS X11)
 endif()
+
+include_directories(${PROJECT_SOURCE_DIR}/utils)
 
 # add a target for the examples
 if(OGLPLUS_NO_EXAMPLES)

@@ -69,6 +69,12 @@
 #define OGLPLUS_NO_NULLPTR @OGLPLUS_NO_NULLPTR@
 #endif
 
+
+#endif // !OGLPLUS_USE_BOOST_CONFIG
+
+
+#ifndef OGLPLUS_NO_CHRONO
+#define OGLPLUS_NO_CHRONO @OGLPLUS_NO_CHRONO@
 #endif
 
 #endif

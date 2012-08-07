@@ -47,5 +47,13 @@ cpp11_feature_detection(CONSTEXPR)
 cpp11_feature_detection(NOEXCEPT)
 cpp11_feature_detection(LAMBDAS)
 cpp11_feature_detection(NULLPTR)
+cpp11_feature_detection(CHRONO)
+
+# explicit configuration
+if(
+	("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+)
+	set(OGLPLUS_NO_CHRONO 1)
+endif()
 
 unset(CPP11_COMPILER_SWITCH)

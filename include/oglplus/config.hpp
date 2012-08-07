@@ -134,6 +134,15 @@
 #endif
 #endif
 
+
+#ifndef OGLPLUS_NO_CHRONO
+#ifdef BOOST_NO_CXX11_HDR_CHRONO
+#define OGLPLUS_NO_CHRONO 1
+#else
+#define OGLPLUS_NO_CHRONO 0
+#endif
+#endif
+
 // ------- C++11 feature availability detection -------
 
 #if OGLPLUS_NO_NULLPTR

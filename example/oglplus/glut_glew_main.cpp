@@ -13,7 +13,6 @@
 #include <cassert>
 #include <iostream>
 #include <iomanip>
-#include <chrono>
 
 #include <oglplus/site_config.hpp>
 #include <oglplus/config.hpp>
@@ -21,6 +20,8 @@
 #include <oglplus/compile_error.hpp>
 
 #include <oglplus/query.hpp>
+
+#include <oglplus/os/steady_clock.hpp>
 
 #include "example.hpp"
 
@@ -35,7 +36,7 @@ private:
 		return wrapper;
 	}
 
-	std::chrono::time_point<std::chrono::system_clock> _start;
+	os::steady_clock _clock;
 	double _fps_time, _prim_count;
 	unsigned long _frame_no;
 	size_t _width, _height;
@@ -67,7 +68,7 @@ public:
 
 		_example->Reshape(width, height);
 		_example->MouseMove(width/2, height/2, width, height);
-		_start = std::chrono::system_clock::now();
+		_clock.reset();
 	}
 
 	~SingleExample(void)
@@ -78,11 +79,7 @@ public:
 
 	void Display(void)
 	{
-		static const double period =
-			double(std::chrono::system_clock::period::num)/
-			double(std::chrono::system_clock::period::den);
-		auto now = std::chrono::system_clock::now();
-		double frame_time = (now - _start).count() * period;
+		double frame_time = _clock.seconds();
 		_frame_no++;
 
 		GLuint primitives_per_frame = 0;
