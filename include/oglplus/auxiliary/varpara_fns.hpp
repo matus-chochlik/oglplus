@@ -19,7 +19,7 @@
 namespace oglplus {
 
 #define OGLPLUS_AUX_VARPARA_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, NPARAM)\
-	static inline typename std::decay< \
+	static inline std::decay< \
 		decltype( :: gl ## PREFIX ## NPARAM ## SUFFIX ) \
 	>::type _fns_ ## SELECTOR( \
 		std::integral_constant<size_t, NPARAM>, \
@@ -39,7 +39,7 @@ namespace oglplus {
 	OGLPLUS_AUX_VARPARA_FNS(PREFIX, SUFFIX##EXT, SELECTOR, TYPE)
 
 #define OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, C, R, CxR)\
-	static inline typename std::decay< \
+	static inline std::decay< \
 		decltype( :: gl ## PREFIX ## CxR ## SUFFIX ) \
 	>::type _fns_ ## SELECTOR( \
 		std::integral_constant<size_t, C>, \
