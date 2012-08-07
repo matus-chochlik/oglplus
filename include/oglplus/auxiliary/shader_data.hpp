@@ -282,10 +282,11 @@ private:
 		const T* v
 	)
 	{
+		std::integral_constant<size_t, 4> nparam;
 		Callers::_call_set_v(
 			program,
 			index,
-			::std::get<3>(Setters::_fns_v(v)),
+			Setters::_fns_v(nparam, v),
 			v
 		);
 		_report_if_error(program, base_index);
@@ -307,10 +308,11 @@ private:
 		const T* v
 	)
 	{
+		std::integral_constant<size_t, N> nparam;
 		Callers::_call_set_v(
 			program,
 			index,
-			::std::get<N-1>(Setters::_fns_v(v)),
+			Setters::_fns_v(nparam, v),
 			v
 		);
 		_report_if_error(program, base_index);
@@ -326,11 +328,12 @@ private:
 		const T* v
 	)
 	{
+		std::integral_constant<size_t, N> nparam;
 		Callers::_call_set_vn(
 			program,
 			index,
 			n,
-			::std::get<N-1>(Setters::_fns_v(v)),
+			Setters::_fns_v(nparam, v),
 			v
 		);
 		_report_if_error(program, base_index);
@@ -348,10 +351,11 @@ private:
 		T ... v
 	)
 	{
+		std::integral_constant<size_t, 4> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
-			std::get<3>(Setters::_fns_t(&v0)),
+			Setters::_fns_t(nparam, &v0),
 			v0, v1, v2, v3
 		);
 		_report_if_error(program, base_index);
@@ -373,10 +377,11 @@ private:
 		T ... v
 	)
 	{
+		std::integral_constant<size_t, sizeof...(T)> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
-			std::get<sizeof...(T) - 1>(Setters::_fns_t(&v...)),
+			Setters::_fns_t(nparam, &v...),
 			v...
 		);
 		_report_if_error(program, base_index);
@@ -406,10 +411,11 @@ protected:
 	template <typename T>
 	static void _do_set(GLuint program, GLuint index, T v0)
 	{
+		std::integral_constant<size_t, 1> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
-			std::get<0>(Setters::_fns_t(&v0)),
+			Setters::_fns_t(nparam, &v0),
 			v0
 		);
 		_report_if_error(program, index);
@@ -418,10 +424,11 @@ protected:
 	template <typename T>
 	static void _do_set(GLuint program, GLuint index, T v0, T v1)
 	{
+		std::integral_constant<size_t, 2> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
-			std::get<1>(Setters::_fns_t(&v0)),
+			Setters::_fns_t(nparam, &v0),
 			v0, v1
 		);
 		_report_if_error(program, index);
@@ -430,10 +437,11 @@ protected:
 	template <typename T>
 	static void _do_set(GLuint program, GLuint index, T v0, T v1, T v2)
 	{
+		std::integral_constant<size_t, 3> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
-			std::get<2>(Setters::_fns_t(&v0)),
+			Setters::_fns_t(nparam, &v0),
 			v0, v1, v2
 		);
 		_report_if_error(program, index);
@@ -442,10 +450,11 @@ protected:
 	template <typename T>
 	static void _do_set(GLuint program, GLuint index, T v0, T v1, T v2, T v3)
 	{
+		std::integral_constant<size_t, 4> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
-			std::get<3>(Setters::_fns_t(&v0)),
+			Setters::_fns_t(nparam, &v0),
 			v0, v1, v2, v3
 		);
 		_report_if_error(program, index);
@@ -523,16 +532,14 @@ protected:
 			(Rows > 0) && (Rows <= 4),
 			"The number of rows must be between 1 and 4"
 		);
+		std::integral_constant<size_t, Rows> rows;
+		std::integral_constant<size_t, Cols> cols;
 		Callers::_call_set_m(
 			program,
 			index,
 			count,
 			transpose ? GL_TRUE : GL_FALSE,
-			std::get<Cols - 2>(
-				std::get<Rows - 2>(
-					Setters::_fns_v(v)
-				)
-			),
+			Setters::_fns_v(cols, rows, v),
 			v
 		);
 		_report_if_error(program, index);

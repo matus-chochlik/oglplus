@@ -13,72 +13,49 @@
 #define OGLPLUS_AUX_VARPARA_FNS_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <tuple>
+#include <oglplus/glfunc.hpp>
+#include <type_traits>
 
 namespace oglplus {
 
-#define OGLPLUS_AUX_VARPARA_FNS(PREFIX, SUFFIX, SELECTOR, TYPE) \
-	static decltype( \
-		std::make_tuple( \
-			::gl ## PREFIX ## 1 ## SUFFIX, \
-			::gl ## PREFIX ## 2 ## SUFFIX, \
-			::gl ## PREFIX ## 3 ## SUFFIX, \
-			::gl ## PREFIX ## 4 ## SUFFIX  \
-		) \
-	) _fns_ ## SELECTOR(const TYPE*, ...) \
-	OGLPLUS_NOEXCEPT(true) \
+#define OGLPLUS_AUX_VARPARA_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, NPARAM)\
+	static inline auto _fns_ ## SELECTOR( \
+		std::integral_constant<size_t, NPARAM>, \
+		const TYPE*, ... \
+	) -> decltype( OGLPLUS_GLFUNC(PREFIX ## NPARAM ## SUFFIX) ) \
 	{ \
-		return std::make_tuple( \
-			::gl ## PREFIX ## 1 ## SUFFIX, \
-			::gl ## PREFIX ## 2 ## SUFFIX, \
-			::gl ## PREFIX ## 3 ## SUFFIX, \
-			::gl ## PREFIX ## 4 ## SUFFIX  \
-		); \
+		return OGLPLUS_GLFUNC(PREFIX ## NPARAM ## SUFFIX); \
 	}
+
+#define OGLPLUS_AUX_VARPARA_FNS(PREFIX, SUFFIX, SELECTOR, TYPE) \
+	OGLPLUS_AUX_VARPARA_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 1) \
+	OGLPLUS_AUX_VARPARA_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 2) \
+	OGLPLUS_AUX_VARPARA_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 3) \
+	OGLPLUS_AUX_VARPARA_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 4)
 
 #define OGLPLUS_AUX_VARPARA_FNS_EXT(PREFIX, SUFFIX, EXT, SELECTOR, TYPE) \
 	OGLPLUS_AUX_VARPARA_FNS(PREFIX, SUFFIX##EXT, SELECTOR, TYPE)
 
-#define OGLPLUS_AUX_VARPARA_MAT_FNS(PREFIX, SUFFIX, SELECTOR, TYPE) \
-	static decltype( \
-		std::make_tuple( \
-			std::make_tuple( \
-				::gl ## PREFIX ## 2 ## SUFFIX, \
-				::gl ## PREFIX ## 2x3 ## SUFFIX,  \
-				::gl ## PREFIX ## 2x4 ## SUFFIX  \
-			), \
-			std::make_tuple( \
-				::gl ## PREFIX ## 3x2 ## SUFFIX,  \
-				::gl ## PREFIX ## 3 ## SUFFIX, \
-				::gl ## PREFIX ## 3x4 ## SUFFIX  \
-			), \
-			std::make_tuple( \
-				::gl ## PREFIX ## 4x2 ## SUFFIX, \
-				::gl ## PREFIX ## 4x3 ## SUFFIX, \
-				::gl ## PREFIX ## 4 ## SUFFIX  \
-			) \
-		) \
-	) _fns_ ## SELECTOR(const TYPE*, ...) \
-	OGLPLUS_NOEXCEPT(true) \
+#define OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, C, R, CxR)\
+	static inline auto _fns_ ## SELECTOR( \
+		std::integral_constant<size_t, C>, \
+		std::integral_constant<size_t, R>, \
+		const TYPE*, ... \
+	) -> decltype( OGLPLUS_GLFUNC(PREFIX ## CxR ## SUFFIX) ) \
 	{ \
-		return std::make_tuple( \
-			std::make_tuple( \
-				::gl ## PREFIX ## 2 ## SUFFIX, \
-				::gl ## PREFIX ## 2x3 ## SUFFIX,  \
-				::gl ## PREFIX ## 2x4 ## SUFFIX  \
-			), \
-			std::make_tuple( \
-				::gl ## PREFIX ## 3x2 ## SUFFIX,  \
-				::gl ## PREFIX ## 3 ## SUFFIX, \
-				::gl ## PREFIX ## 3x4 ## SUFFIX  \
-			), \
-			std::make_tuple( \
-				::gl ## PREFIX ## 4x2 ## SUFFIX, \
-				::gl ## PREFIX ## 4x3 ## SUFFIX, \
-				::gl ## PREFIX ## 4 ## SUFFIX  \
-			) \
-		);\
+		return OGLPLUS_GLFUNC(PREFIX ## CxR ## SUFFIX); \
 	}
+
+#define OGLPLUS_AUX_VARPARA_MAT_FNS(PREFIX, SUFFIX, SELECTOR, TYPE) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 2, 2, 2) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 2, 3, 2x3) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 2, 4, 2x4) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 3, 2, 3x2) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 3, 3, 3) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 3, 4, 3x4) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 4, 2, 4x2) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 4, 3, 4x3) \
+	OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, 4, 4, 4)
 
 #define OGLPLUS_AUX_VARPARA_MAT_FNS_EXT(PREFIX, SUFFIX, EXT, SELECTOR, TYPE) \
 	OGLPLUS_AUX_VARPARA_MAT_FNS(PREFIX, SUFFIX##EXT, SELECTOR, TYPE)
