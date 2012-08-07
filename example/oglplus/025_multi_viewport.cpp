@@ -49,6 +49,16 @@ private:
 	// Program
 	Program prog;
 
+	// Handles for setting uniforms in program
+	LazyUniform<Vec3f> camera_position_3;
+	LazyUniform<Mat4f>
+		camera_matrix_0,
+		camera_matrix_1,
+		camera_matrix_2,
+		camera_matrix_3,
+		model_matrix;
+
+
 	// A vertex array object for the rendered shape
 	VertexArray shape;
 
@@ -64,6 +74,12 @@ public:
 	 : make_shape(1.0, 0.1, 8, 4, 48)
 	 , shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
+	 , camera_position_3(prog, "CameraPosition[3]")
+	 , camera_matrix_0(prog, "CameraMatrix[0]")
+	 , camera_matrix_1(prog, "CameraMatrix[1]")
+	 , camera_matrix_2(prog, "CameraMatrix[2]")
+	 , camera_matrix_3(prog, "CameraMatrix[3]")
+	 , model_matrix(prog, "ModelMatrix")
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -278,7 +294,7 @@ public:
 			1, 10
 		);
 
-		Uniform<Mat4f>(prog, "CameraMatrix[0]").Set(
+		camera_matrix_0.Set(
 			projection *
 			Mat4f(
 				 0, 0,-1, 0,
@@ -287,7 +303,7 @@ public:
 				 0, 0, 0, 1
 			)
 		);
-		Uniform<Mat4f>(prog, "CameraMatrix[1]").Set(
+		camera_matrix_1.Set(
 			projection *
 			Mat4f(
 				 1, 0, 0, 0,
@@ -296,7 +312,7 @@ public:
 				 0, 0, 0, 1
 			)
 		);
-		Uniform<Mat4f>(prog, "CameraMatrix[2]").Set(
+		camera_matrix_2.Set(
 			projection *
 			Mat4f(
 				 1, 0, 0, 0,
@@ -318,11 +334,11 @@ public:
 			Degrees(SineWave(time / 30.0) * 90)
 		);
 		// set the matrix for camera orbiting the origin
-		Uniform<Mat4f>(prog, "CameraMatrix[3]").Set(projection * camera);
-		Uniform<Vec3f>(prog, "CameraPosition[3]").Set(camera.Position());
+		camera_matrix_3.Set(projection * camera);
+		camera_position_3.Set(camera.Position());
 
 		// set the model matrix
-		Uniform<Mat4f>(prog, "ModelMatrix").Set(
+		model_matrix.Set(
 			ModelMatrixf::RotationX(FullCircles(time / 10.0))
 		);
 

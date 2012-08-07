@@ -44,6 +44,13 @@ private:
 
 	Program plane_prog, shape_prog;
 
+	LazyUniform<Mat4f>
+		plane_camera_matrix, plane_model_matrix,
+		shape_camera_matrix, shape_model_matrix;
+	LazyUniform<Vec4f> shape_clip_plane;
+	LazyUniform<GLfloat> shape_clip_direction;
+
+
 	VertexArray plane, shape;
 
 	Buffer plane_verts, plane_texcoords;
@@ -65,6 +72,12 @@ public:
 	 , shape_vs(ObjectDesc("Shape vertex"))
 	 , plane_fs(ObjectDesc("Plane fragment"))
 	 , shape_fs(ObjectDesc("Shape fragment"))
+	 , plane_camera_matrix(plane_prog, "CameraMatrix")
+	 , plane_model_matrix(plane_prog, "ModelMatrix")
+	 , shape_camera_matrix(shape_prog, "CameraMatrix")
+	 , shape_model_matrix(shape_prog, "ModelMatrix")
+	 , shape_clip_plane(shape_prog, "ClipPlane")
+	 , shape_clip_direction(shape_prog, "ClipDirection")
 	 , width(512)
 	 , height(512)
 	 , tex_side(512)
@@ -323,9 +336,9 @@ public:
 
 		// Render the plane
 		plane_prog.Use();
-		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
+		plane_camera_matrix.Set(camera);
 
-		Uniform<Mat4f>(plane_prog, "ModelMatrix").Set(
+		plane_model_matrix.Set(
 			ModelMatrixf::Translation(0.0f, -1.1f, 0.0f)
 		);
 
@@ -338,11 +351,11 @@ public:
 
 		auto clip_plane = Planef::FromNormal(Vec3f(Data(camera.Row<2>()), 3));
 
-		Uniform<Vec4f>(shape_prog, "ClipPlane").Set(clip_plane.Equation());
+		shape_clip_plane.Set(clip_plane.Equation());
 
-		Uniform<Mat4f>(shape_prog, "CameraMatrix").Set(camera);
+		shape_camera_matrix.Set(camera);
 
-		Uniform<Mat4f>(shape_prog, "ModelMatrix").Set(
+		shape_model_matrix.Set(
 			ModelMatrixf::RotationX(FullCircles(time / 12.0))
 		);
 
@@ -356,10 +369,9 @@ public:
 		GLfloat clip_dirs[2] = {-1.0f, 1.0f};
 		Face facing_dirs[2] = {Face::Front, Face::Back};
 
-		Uniform<GLfloat> clip_direction(shape_prog, "ClipDirection");
 		for(int c=0; c!=2; ++c)
 		{
-			clip_direction.Set(clip_dirs[c]);
+			shape_clip_direction.Set(clip_dirs[c]);
 			for(int f=0; f!=2; ++f)
 			{
 				Texture::CopyImage2D(

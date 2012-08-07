@@ -42,6 +42,13 @@ private:
 	FragmentShader fs_shadow;
 	Program shadow_prog;
 
+	// Uniforms
+	LazyUniform<Mat4f>
+		object_camera_matrix, object_model_matrix,
+		shadow_camera_matrix, shadow_model_matrix;
+	LazyUniform<Vec3f> object_color;
+	LazyUniform<GLfloat> object_light_mult;
+
 	// A vertex array object for the torus
 	VertexArray torus;
 	// VBOs for the torus' vertices and normals
@@ -56,6 +63,12 @@ public:
 	 : make_torus(1.0, 0.7, 72, 48)
 	 , torus_indices(make_torus.Indices())
 	 , torus_instr(make_torus.Instructions())
+	 , object_camera_matrix(object_prog, "CameraMatrix")
+	 , object_model_matrix(object_prog, "ModelMatrix")
+	 , shadow_camera_matrix(shadow_prog, "CameraMatrix")
+	 , shadow_model_matrix(shadow_prog, "ModelMatrix")
+	 , object_color(object_prog, "Color")
+	 , object_light_mult(object_prog, "LightMult")
 	{
 		vs_object.Source(
 			"#version 330\n"
@@ -89,7 +102,7 @@ public:
 			"in vec3 vertNormal;"
 			"in vec3 vertLight;"
 			"uniform vec3 Color;"
-			"uniform float lightMult;"
+			"uniform float LightMult;"
 			"out vec4 fragColor;"
 			"void main(void)"
 			"{"
@@ -99,7 +112,7 @@ public:
 			"			vertNormal,"
 			"			normalize(vertLight)"
 			"		) / l : 0.0;"
-			"	float i = 0.3 + max(d, 0.0) * lightMult;"
+			"	float i = 0.3 + max(d, 0.0) * LightMult;"
 			"	fragColor = vec4(Color*i, 1.0);"
 			"}"
 		);
@@ -330,14 +343,14 @@ public:
 		gl.Disable(Capability::StencilTest);
 
 		object_prog.Use();
-		Uniform<Mat4f>(object_prog, "CameraMatrix").Set(camera);
-		Uniform<GLfloat>(object_prog, "lightMult").Set(0.2f);
+		object_camera_matrix.Set(camera);
+		object_light_mult.Set(0.2f);
 
-		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(identity);
+		object_model_matrix.Set(identity);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
-		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(model);
+		object_model_matrix.Set(model);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 
@@ -359,8 +372,8 @@ public:
 		);
 
 		shadow_prog.Use();
-		Uniform<Mat4f>(shadow_prog, "CameraMatrix").Set(camera);
-		Uniform<Mat4f>(shadow_prog, "ModelMatrix").Set(model);
+		shadow_camera_matrix.Set(camera);
+		shadow_model_matrix.Set(model);
 
 		gl.CullFace(Face::Back);
 		torus_instr.Draw(torus_indices);
@@ -375,15 +388,15 @@ public:
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Keep);
 
 		object_prog.Use();
-		Uniform<GLfloat>(object_prog, "lightMult").Set(2.5);
+		object_light_mult.Set(2.5);
 
-		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(identity);
-		Uniform<Vec3f>(object_prog, "Color").Set(0.8f, 0.7f, 0.4f);
+		object_model_matrix.Set(identity);
+		object_color.Set(0.8f, 0.7f, 0.4f);
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
-		Uniform<Mat4f>(object_prog, "ModelMatrix").Set(model);
-		Uniform<Vec3f>(object_prog, "Color").Set(0.9f, 0.8f, 0.1f);
+		object_model_matrix.Set(model);
+		object_color.Set(0.9f, 0.8f, 0.1f);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 	}

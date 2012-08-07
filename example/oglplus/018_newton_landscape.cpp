@@ -39,6 +39,10 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Vec3f> light_pos;
+	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+
 	// A vertex array object for the rendered plane
 	VertexArray plane;
 
@@ -60,6 +64,9 @@ public:
 		grid_side*3, grid_side*3
 	), plane_instr(make_plane.Instructions())
 	 , plane_indices(make_plane.Indices())
+	 , light_pos(prog, "LightPos")
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
 	 , light_path(OGLPLUS_STD_VECTOR_INIT(Vec3f,
 		Vec3f(-3.0f,  2.0f, -3.5f),
 		Vec3f( 0.0f,  5.0f,  0.5f),
@@ -212,7 +219,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -226,7 +233,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(0.0f, 0.5f, 0.0f),
 				4.5,
@@ -234,7 +241,7 @@ public:
 				Degrees(55 - SineWave(time / 20.0) * 30)
 			)
 		);
-		Uniform<Vec3f>(prog, "LightPos").Set(light_path.Position(time / 10.0));
+		light_pos.Set(light_path.Position(time / 10.0));
 
 		plane.Bind();
 		plane_instr.Draw(plane_indices);

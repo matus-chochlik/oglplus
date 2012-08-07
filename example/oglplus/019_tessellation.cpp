@@ -39,6 +39,11 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	LazyUniform<Vec3f> offset, view_position;
+	LazyUniform<Vec2f> viewport_dimensions;
+
 	// A vertex array object for the rendered shape
 	VertexArray shape;
 
@@ -53,6 +58,12 @@ public:
 	 , es(ObjectDesc("Tessellation Evaluation"))
 	 , gs(ObjectDesc("Geometry"))
 	 , fs(ObjectDesc("Fragment"))
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , offset(prog, "Offset")
+	 , view_position(prog, "ViewPosition")
+	 , viewport_dimensions(prog, "ViewportDimensions")
 	{
 		vs.Source(
 			"#version 410\n"
@@ -282,10 +293,8 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		Uniform<Vec2f>(prog, "ViewportDimensions").Set(
-			Vec2f(width, height)
-		);
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		viewport_dimensions.Set(Vec2f(width, height));
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -304,7 +313,7 @@ public:
 			Degrees(time * 33),
 			Degrees(SineWave(time / 21.0) * 31)
 		);
-		Uniform<Mat4f>(prog, "CameraMatrix") = camera;
+		camera_matrix = camera;
 
 		const Vec3f offsets[6] = {
 			Vec3f( 2, 0, 0),
@@ -322,9 +331,9 @@ public:
 				ModelMatrixf::Translation(offsets[i])*
 				ModelMatrixf::RotationZ(Degrees(time * (37+9*i)));
 
-			Uniform<Mat4f>(prog, "ModelMatrix") = model;
-			Uniform<Vec3f>(prog, "Offset") = offsets[i];
-			Uniform<Vec3f>(prog, "ViewPosition") = (
+			model_matrix = model;
+			offset = offsets[i];
+			view_position = (
 				Inverse(model)*
 				Vec4f(camera.Position(), 1)
 			).xyz();

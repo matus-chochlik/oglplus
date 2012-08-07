@@ -40,6 +40,10 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	LazyUniform<Vec3f> light_pos;
+
 	// A vertex array object for the rendered cube
 	VertexArray cube;
 
@@ -54,6 +58,10 @@ public:
 	 , cube_indices(make_cube.Indices())
 	 , vs(ShaderType::Vertex)
 	 , fs(ShaderType::Fragment)
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , light_pos(prog, "LightPos")
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -252,7 +260,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(54),
 				double(width)/height,
@@ -266,7 +274,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		auto lightAzimuth = FullCircles(time * -0.5);
-		Uniform<Vec3f>(prog, "LightPos").Set(
+		light_pos.Set(
 			Vec3f(
 				-Cos(lightAzimuth),
 				1.0f,
@@ -274,7 +282,7 @@ public:
 			) * 2.0f
 		);
 		//
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0f,
@@ -284,7 +292,7 @@ public:
 		);
 
 		// set the model matrix
-		Uniform<Mat4f>(prog, "ModelMatrix").Set(
+		model_matrix.Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(-time * 0.05)

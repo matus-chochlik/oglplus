@@ -40,6 +40,9 @@ private:
 	// Programs
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+
 	// A vertex array object for the cube
 	VertexArray cube;
 	// A vertex array object for the reflective plane
@@ -55,6 +58,9 @@ public:
 	 , cube_instr(make_cube.Instructions())
 	 , vs(ObjectDesc("Vertex"))
 	 , fs(ObjectDesc("Fragment"))
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -195,7 +201,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -209,7 +215,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 		// make the camera matrix orbiting around the origin
 		// at radius of 3.5 with elevation between 15 and 90 degrees
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				3.5,
@@ -227,8 +233,6 @@ public:
 			);
 		// make the reflection matrix
 		auto reflection = ModelMatrixf::Reflection(false, true, false);
-		//
-		Uniform<Mat4f> model_matrix(prog, "ModelMatrix");
 		//
 		gl.Disable(Capability::Blend);
 		gl.Disable(Capability::DepthTest);

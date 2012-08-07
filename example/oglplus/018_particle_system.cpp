@@ -36,6 +36,9 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+
 	const size_t particle_count;
 	std::vector<Vec3f> positions;
 	std::vector<Vec3f> directions;
@@ -50,7 +53,9 @@ private:
 	double prev_time, prev_spawn;
 public:
 	ParticlesExample(void)
-	 : particle_count(100)
+	 : projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , particle_count(100)
 	 , prev_time(0.0)
 	 , prev_spawn(0.0)
 	{
@@ -171,7 +176,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -239,7 +244,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				15.0f,

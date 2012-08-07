@@ -168,6 +168,10 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+	LazyUniform<Vec3f> light_cam_pos;
+
 	// A vertex array object for the particles
 	VertexArray particles;
 
@@ -205,6 +209,9 @@ public:
 	), vs(ShaderType::Vertex, "Vertex")
 	 , gs(ShaderType::Geometry, "Geometry")
 	 , fs(ShaderType::Fragment, "Fragment")
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , light_cam_pos(prog, "LightCamPos")
 	 , prev_time(0.0)
 	{
 		// Set the vertex shader source
@@ -386,7 +393,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
 				double(width)/height,
@@ -448,10 +455,10 @@ public:
 		Buffer::Data(Buffer::Target::Array, ids);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
-		Uniform<Vec3f>(prog, "LightCamPos").Set(
+		light_cam_pos.Set(
 			(cameraMatrix*Vec4f(30.0f, 30.0f, 30.0f, 1.0f)).xyz()
 		);
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(cameraMatrix);
+		camera_matrix.Set(cameraMatrix);
 		// use the indices to draw the particles
 		gl.DrawElements(
 			PrimitiveType::Points,

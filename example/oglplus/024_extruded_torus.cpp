@@ -34,6 +34,10 @@ private:
 	Program transf_prog, face_prog, frame_prog;
 	ProgramPipeline face_pp, frame_pp;
 
+	// Uniforms
+	LazyProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	LazyProgramUniform<GLfloat> transf_time;
+
 	// A vertex array object for the rendered torus
 	VertexArray torus;
 
@@ -51,6 +55,10 @@ public:
 	 , transf_prog(ObjectDesc("Transformation"))
 	 , face_prog(ObjectDesc("Face"))
 	 , frame_prog(ObjectDesc("Frame"))
+	 , projection_matrix(transf_prog, "ProjectionMatrix")
+	 , camera_matrix(transf_prog, "CameraMatrix")
+	 , model_matrix(transf_prog, "ModelMatrix")
+	 , transf_time(transf_prog, "Time")
 	{
 		vs.Source(
 			"#version 330\n"
@@ -277,15 +285,11 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		auto projection = CamMatrixf::PerspectiveX(
+		projection_matrix = CamMatrixf::PerspectiveX(
 			Degrees(48),
 			double(width)/height,
 			1, 100
 		);
-		ProgramUniform<Mat4f>(
-			transf_prog,
-			"ProjectionMatrix"
-		).Set(projection);
 	}
 
 	void Render(double time)
@@ -303,9 +307,9 @@ public:
 			ModelMatrixf::RotationY(FullCircles(time * 0.25)) *
 			ModelMatrixf::RotationX(FullCircles(time * 0.33));
 
-		ProgramUniform<Mat4f>(transf_prog, "CameraMatrix").Set(camera);
-		ProgramUniform<Mat4f>(transf_prog, "ModelMatrix").Set(model);
-		ProgramUniform<GLfloat>(transf_prog, "Time").Set(time);
+		camera_matrix.Set(camera);
+		model_matrix.Set(model);
+		transf_time.Set(time);
 
 		face_pp.Bind();
 		gl.PolygonMode(PolygonMode::Fill);

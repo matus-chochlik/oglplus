@@ -155,6 +155,9 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+
 	// A vertex array object for the particles
 	VertexArray particles;
 
@@ -167,6 +170,8 @@ private:
 public:
 	SmokeExample(void)
 	 : emitters()
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
 	 , prev_time(0.0)
 	{
 		emitters.push_back(
@@ -307,7 +312,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -364,7 +369,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, ages);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(cameraMatrix);
+		camera_matrix.Set(cameraMatrix);
 		// use the indices to draw the particles
 		gl.DrawElements(
 			PrimitiveType::Points,

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,10 +19,12 @@
 namespace oglplus {
 
 #define OGLPLUS_AUX_VARPARA_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, NPARAM)\
-	static inline auto _fns_ ## SELECTOR( \
+	static inline typename std::decay< \
+		decltype( :: gl ## PREFIX ## NPARAM ## SUFFIX ) \
+	>::type _fns_ ## SELECTOR( \
 		std::integral_constant<size_t, NPARAM>, \
 		const TYPE*, ... \
-	) -> decltype( OGLPLUS_GLFUNC(PREFIX ## NPARAM ## SUFFIX) ) \
+	) \
 	{ \
 		return OGLPLUS_GLFUNC(PREFIX ## NPARAM ## SUFFIX); \
 	}
@@ -37,11 +39,13 @@ namespace oglplus {
 	OGLPLUS_AUX_VARPARA_FNS(PREFIX, SUFFIX##EXT, SELECTOR, TYPE)
 
 #define OGLPLUS_AUX_VARPARA_MAT_FNC(PREFIX, SUFFIX, SELECTOR, TYPE, C, R, CxR)\
-	static inline auto _fns_ ## SELECTOR( \
+	static inline typename std::decay< \
+		decltype( :: gl ## PREFIX ## CxR ## SUFFIX ) \
+	>::type _fns_ ## SELECTOR( \
 		std::integral_constant<size_t, C>, \
 		std::integral_constant<size_t, R>, \
 		const TYPE*, ... \
-	) -> decltype( OGLPLUS_GLFUNC(PREFIX ## CxR ## SUFFIX) ) \
+	) \
 	{ \
 		return OGLPLUS_GLFUNC(PREFIX ## CxR ## SUFFIX); \
 	}

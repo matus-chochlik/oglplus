@@ -125,6 +125,14 @@ private:
 	// Programs
 	Program sphere_prog, cube_prog, cmap_prog;
 
+	// Uniforms
+	LazyUniform<Mat4f>
+		sphere_projection_matrix, sphere_camera_matrix,
+		cube_projection_matrix, cube_camera_matrix;
+	LazyUniform<Vec4f> cmap_light_pos, sphere_light_pos, cube_light_pos;
+	LazyUniform<Vec3f> cmap_offset, cube_offset;
+	LazyUniform<GLfloat> sphere_time;
+
 	// A vertex array object for the rendered sphere and cubes
 	VertexArray sphere, cube;
 
@@ -163,6 +171,16 @@ public:
 	 , sphere_prog(ObjectDesc("Sphere"))
 	 , cube_prog(ObjectDesc("Cube"))
 	 , cmap_prog(ObjectDesc("Cube map"))
+	 , sphere_projection_matrix(sphere_prog, "ProjectionMatrix")
+	 , sphere_camera_matrix(sphere_prog, "CameraMatrix")
+	 , cube_projection_matrix(cube_prog, "ProjectionMatrix")
+	 , cube_camera_matrix(cube_prog, "CameraMatrix")
+	 , cmap_light_pos(cmap_prog, "LightPos")
+	 , sphere_light_pos(sphere_prog, "LightPos")
+	 , cube_light_pos(cube_prog, "LightPos")
+	 , cmap_offset(cmap_prog, "Offset")
+	 , cube_offset(cube_prog, "Offset")
+	 , sphere_time(sphere_prog, "Time")
 	 , tex_side(128)
 	 , light_path(OGLPLUS_STD_VECTOR_INIT(Vec3f,
 		Vec3f( 0.0f,  6.0f,  0.0f),
@@ -606,7 +624,7 @@ public:
 	void Render(double time)
 	{
 		// Calculate the light position on the path
-		Vec4f lightPos(Vec4f(light_path.Position(time / 10.0), 1.0));
+		Vec4f lightPos = Vec4f(light_path.Position(time / 10.0), 1.0f);
 
 		// First we are going to render the cubes into the cube map
 		gl.FrontFace(make_cube.FaceWinding());
@@ -623,14 +641,12 @@ public:
 
 		// Use the cube map rendering program
 		cmap_prog.Use();
-		Uniform<Vec4f>(cmap_prog, "LightPos").Set(lightPos);
+		cmap_light_pos.Set(lightPos);
 		{
-			Uniform<Vec3f> object_offs(cmap_prog, "Offset");
-
 			auto b=cube_offsets.begin(), e = cube_offsets.end();
 			for(auto i=b; i!=e; ++i)
 			{
-				object_offs.Set(*i);
+				cmap_offset.Set(*i);
 				cube_instr.Draw(cube_indices);
 			}
 		}
@@ -658,25 +674,23 @@ public:
 		);
 
 		cube_prog.Use();
-		Uniform<Mat4f>(cube_prog, "ProjectionMatrix").Set(persp);
-		Uniform<Mat4f>(cube_prog, "CameraMatrix").Set(cameraMatrix);
-		Uniform<Vec4f>(cube_prog, "LightPos").Set(lightPos);
+		cube_projection_matrix.Set(persp);
+		cube_camera_matrix.Set(cameraMatrix);
+		cube_light_pos.Set(lightPos);
 		{
-			Uniform<Vec3f> object_offs(cube_prog, "Offset");
-
 			auto b=cube_offsets.begin(), e = cube_offsets.end();
 			for(auto i=b; i!=e; ++i)
 			{
-				object_offs.Set(*i);
+				cube_offset.Set(*i);
 				cube_instr.Draw(cube_indices);
 			}
 		}
 
 		sphere_prog.Use();
-		Uniform<Mat4f>(sphere_prog, "ProjectionMatrix").Set(persp);
-		Uniform<Mat4f>(sphere_prog, "CameraMatrix").Set(cameraMatrix);
-		Uniform<Vec4f>(sphere_prog, "LightPos").Set(lightPos);
-		Uniform<GLfloat>(sphere_prog, "Time").Set(time);
+		sphere_projection_matrix.Set(persp);
+		sphere_camera_matrix.Set(cameraMatrix);
+		sphere_light_pos.Set(lightPos);
+		sphere_time.Set(time);
 
 		gl.FrontFace(make_sphere.FaceWinding());
 		sphere.Bind();

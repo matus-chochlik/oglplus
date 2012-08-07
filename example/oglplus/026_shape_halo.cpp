@@ -42,6 +42,13 @@ private:
 	FragmentShader fs_halo;
 	Program halo_prog;
 
+	// Uniforms
+	LazyProgramUniform<Mat4f>
+		shape_projection_matrix, shape_camera_matrix, shape_model_matrix,
+		plane_projection_matrix, plane_camera_matrix,
+		halo_projection_matrix, halo_camera_matrix, halo_model_matrix;
+
+
 	// A vertex array object for the shape
 	VertexArray shape;
 	// VBOs for the shape' vertices and normals
@@ -63,6 +70,14 @@ public:
 	 , vs_halo(ObjectDesc("Halo VS"))
 	 , gs_halo(ObjectDesc("Halo GS"))
 	 , fs_halo(ObjectDesc("Halo FS"))
+	 , shape_projection_matrix(shape_prog, "ProjectionMatrix")
+	 , shape_camera_matrix(shape_prog, "CameraMatrix")
+	 , shape_model_matrix(shape_prog, "ModelMatrix")
+	 , plane_projection_matrix(plane_prog, "ProjectionMatrix")
+	 , plane_camera_matrix(plane_prog, "CameraMatrix")
+	 , halo_projection_matrix(halo_prog, "ProjectionMatrix")
+	 , halo_camera_matrix(halo_prog, "CameraMatrix")
+	 , halo_model_matrix(halo_prog, "ModelMatrix")
 	{
 		vs_shape.Source(
 			"#version 330\n"
@@ -389,9 +404,9 @@ public:
 			double(width)/height,
 			1, 100
 		);
-		SetProgramUniform(shape_prog, "ProjectionMatrix", projection);
-		SetProgramUniform(plane_prog, "ProjectionMatrix", projection);
-		SetProgramUniform(halo_prog,  "ProjectionMatrix", projection);
+		shape_projection_matrix = projection;
+		plane_projection_matrix = projection;
+		halo_projection_matrix = projection;
 	}
 
 	void Render(double time)
@@ -412,21 +427,21 @@ public:
 			);
 
 		plane_prog.Use();
-		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
+		plane_camera_matrix.Set(camera);
 
 		plane.Bind();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
 		shape_prog.Use();
-		Uniform<Mat4f>(shape_prog, "CameraMatrix").Set(camera);
+		shape_camera_matrix.Set(camera);
 
-		Uniform<Mat4f>(shape_prog, "ModelMatrix").Set(model);
+		shape_model_matrix.Set(model);
 		shape.Bind();
 		shape_instr.Draw(shape_indices);
 
 		halo_prog.Use();
-		Uniform<Mat4f>(halo_prog, "CameraMatrix").Set(camera);
-		Uniform<Mat4f>(halo_prog, "ModelMatrix").Set(model);
+		halo_camera_matrix.Set(camera);
+		halo_model_matrix.Set(model);
 
 		gl.DepthMask(false);
 		gl.Enable(Capability::Blend);

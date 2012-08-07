@@ -42,10 +42,14 @@ private:
 	// VAO and VBO for the curve control points
 	VertexArray control;
 	Buffer ctrl_verts;
+
+	// Handle for the Color uniform in fragment shader
+	LazyUniform<Vec3f> color;
 	// The count of control points
 	size_t ctrl_n;
 public:
 	RectangleExample(void)
+	 : color(prog, "Color")
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -132,7 +136,6 @@ public:
 	void Render(double /*time*/)
 	{
 		gl.Clear().ColorBuffer();
-		Uniform<Vec3f> color(prog, "Color");
 		// draw the lines between control points
 		color = Vec3f(0.9f, 0.9f, 0.2f);
 		control.Bind();

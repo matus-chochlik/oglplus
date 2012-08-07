@@ -60,6 +60,16 @@ private:
 
 	Program torus_prog, plane_prog;
 
+	// Uniform references
+	std::vector<ProgramUniform<GLfloat>> torus_clip_sign;
+	std::vector<ProgramUniform<GLfloat>> plane_clip_sign;
+
+	LazyProgramUniform<Vec3f> plane_normal;
+	LazyProgramUniform<Mat4f>
+		plane_camera_matrix,
+		torus_camera_matrix,
+		torus_model_matrix;
+
 	// A vertex array objects for the rendered torus and planes
 	VertexArray torus;
 	Array<VertexArray> plane;
@@ -68,10 +78,6 @@ private:
 	Buffer torus_positions, torus_texcoords;
 	// VBOs for plane vertex positions
 	Array<Buffer> plane_positions;
-
-	// Uniform references
-	std::vector<ProgramUniform<GLfloat>> torus_clip_sign;
-	std::vector<ProgramUniform<GLfloat>> plane_clip_sign;
 public:
 	TorusExample(void)
 	 : make_torus(1.0, 0.5, 36, 24)
@@ -86,6 +92,10 @@ public:
 	 , plane_fs(ShaderType::Fragment, ObjectDesc("Plane fragment"))
 	 , torus_prog(ObjectDesc("Torus"))
 	 , plane_prog(ObjectDesc("Plane"))
+	 , plane_normal(plane_prog, "Normal")
+	 , plane_camera_matrix(plane_prog, "CameraMatrix")
+	 , torus_camera_matrix(torus_prog, "CameraMatrix")
+	 , torus_model_matrix(torus_prog, "ModelMatrix")
 	 , plane(make_plane.size())
 	 , plane_positions(make_plane.size())
 	{
@@ -291,7 +301,7 @@ public:
 	{
 		gl.Enable(Capability::Blend);
 		plane_prog.Use();
-		Uniform<Vec3f>(plane_prog, "Normal").Set(make_plane[p].Normal());
+		plane_normal.Set(make_plane[p].Normal());
 		plane[p].Bind();
 		plane_instr.Draw(plane_indices);
 		gl.Disable(Capability::Blend);
@@ -336,9 +346,9 @@ public:
 		);
 		auto model = ModelMatrixf::RotationX(FullCircles(time / 12.0));
 
-		ProgramUniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
-		ProgramUniform<Mat4f>(torus_prog, "CameraMatrix").Set(camera);
-		ProgramUniform<Mat4f>(torus_prog, "ModelMatrix").Set(model);
+		plane_camera_matrix.Set(camera);
+		torus_camera_matrix.Set(camera);
+		torus_model_matrix.Set(model);
 
 		BSP(camera, 0);
 	}

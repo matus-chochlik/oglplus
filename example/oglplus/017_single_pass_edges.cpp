@@ -41,6 +41,11 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	LazyUniform<Vec2f> viewport_dimensions;
+	LazyUniform<GLfloat> edge_width;
+
 	// A vertex array object for the rendered shape
 	VertexArray shape;
 
@@ -53,6 +58,11 @@ public:
 	 , vs(ObjectDesc("Vertex"))
 	 , gs(ObjectDesc("Geometry"))
 	 , fs(ObjectDesc("Fragment"))
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , viewport_dimensions(prog, "ViewportDimensions")
+	 , edge_width(prog, "EdgeWidth")
 	{
 		vs.Source(StrLit(
 			"#version 330\n"
@@ -217,10 +227,8 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		Uniform<Vec2f>(prog, "ViewportDimensions").Set(
-			Vec2f(width, height)
-		);
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		viewport_dimensions.Set(Vec2f(width, height));
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -233,9 +241,9 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		Uniform<GLfloat>(prog, "EdgeWidth").Set(4.0+SineWave(time / 7.0)*3.0);
+		edge_width.Set(4.0+SineWave(time / 7.0)*3.0);
 
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				4.5 - SineWave(time / 27)*2.0,
@@ -244,9 +252,7 @@ public:
 			)
 		);
 
-		Uniform<Mat4f>(prog, "ModelMatrix").Set(
-			ModelMatrixf::RotationZ(Degrees(time * 37))
-		);
+		model_matrix.Set(ModelMatrixf::RotationZ(Degrees(time * 37)));
 
 		shape_instr.Draw(shape_indices);
 	}

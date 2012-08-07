@@ -36,14 +36,20 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+
 	VertexArray clouds;
 	Buffer buffer;
 
 	Texture cloud_tex;
 public:
 	CloudExample(void)
+	 : projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
 	{
 		// Set the vertex shader source
+
 		vs.Source(
 			"#version 330\n"
 			"in vec4 Position;"
@@ -202,7 +208,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -215,7 +221,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.5 + SineWave(time / 6.0)*0.5,

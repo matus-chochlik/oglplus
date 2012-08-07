@@ -47,6 +47,11 @@ private:
 	// Program
 	Program cube_prog, torus_prog;
 
+	// Handle for matrix uniforms
+	LazyUniform<Mat4f>
+		torus_projection_matrix, torus_camera_matrix, torus_model_matrix,
+		cube_projection_matrix, cube_camera_matrix, cube_model_matrix;
+
 	// A vertex array objects for the rendered shapes
 	VertexArray cube, torus;
 
@@ -73,6 +78,12 @@ public:
 	 , torus_indices(make_torus.Indices())
 	 , cube_fs(ObjectDesc("Cube fragment"))
 	 , torus_fs(ObjectDesc("Torus fragment"))
+	 , torus_projection_matrix(torus_prog, "ProjectionMatrix")
+	 , torus_camera_matrix(torus_prog, "CameraMatrix")
+	 , torus_model_matrix(torus_prog, "ModelMatrix")
+	 , cube_projection_matrix(cube_prog, "ProjectionMatrix")
+	 , cube_camera_matrix(cube_prog, "CameraMatrix")
+	 , cube_model_matrix(cube_prog, "ModelMatrix")
 	 , tex_side(512)
 	 , width(tex_side)
 	 , height(tex_side)
@@ -291,11 +302,11 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		torus_prog.Use();
 
-		Uniform<Mat4f>(torus_prog, "ProjectionMatrix").Set(
+		torus_projection_matrix.Set(
 			CamMatrixf::PerspectiveX(Degrees(48), 1.0, 1, 100)
 		);
 
-		Uniform<Mat4f>(torus_prog, "CameraMatrix").Set(
+		torus_camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.5,
@@ -304,7 +315,7 @@ public:
 			)
 		);
 
-		Uniform<Mat4f>(torus_prog, "ModelMatrix").Set(
+		torus_model_matrix.Set(
 			ModelMatrixf::RotationA(
 				Vec3f(1.0f, 1.0f, 1.0f),
 				FullCircles(time * 0.5)
@@ -323,7 +334,7 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		cube_prog.Use();
 
-		Uniform<Mat4f>(cube_prog, "ProjectionMatrix").Set(
+		cube_projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(54),
 				double(width)/height,
@@ -331,7 +342,7 @@ public:
 			)
 		);
 
-		Uniform<Mat4f>(cube_prog, "CameraMatrix").Set(
+		cube_camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0,
@@ -340,7 +351,7 @@ public:
 			)
 		);
 
-		Uniform<Mat4f>(cube_prog, "ModelMatrix").Set(
+		cube_model_matrix.Set(
 			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 

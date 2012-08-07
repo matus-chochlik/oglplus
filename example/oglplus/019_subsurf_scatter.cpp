@@ -40,6 +40,10 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	LazyUniform<GLint> front_facing;
+
 	// A vertex array object for the rendered cube
 	VertexArray cube;
 
@@ -52,6 +56,10 @@ public:
 	CubeExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , front_facing(prog, "FrontFacing")
 	 , inst_count(32)
 	{
 		// Set the vertex shader source
@@ -199,7 +207,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(54),
 				double(width)/height,
@@ -212,7 +220,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				2.0f,
@@ -221,10 +229,9 @@ public:
 			)
 		);
 		// the model matrix
-		Uniform<Mat4f>(prog, "ModelMatrix").Set(
+		model_matrix.Set(
 			ModelMatrixf::RotationY(Degrees(time * 25))
 		);
-		Uniform<GLint> front_facing(prog, "FrontFacing");
 		// draw 36 instances of the cube
 		// first the back faces
 		gl.CullFace(Face::Front);

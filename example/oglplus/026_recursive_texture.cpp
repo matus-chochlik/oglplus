@@ -38,6 +38,11 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniformSampler tex_unit;
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+
+
 	// A vertex array objects for the rendered cube
 	VertexArray cube;
 
@@ -62,6 +67,10 @@ public:
 	 , cube_indices(make_cube.Indices())
 	 , vs(ShaderType::Vertex, ObjectDesc("Vertex"))
 	 , fs(ShaderType::Fragment, ObjectDesc("Fragment"))
+	 , tex_unit(prog, "TexUnit")
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
 	 , fbos(2)
 	 , rbos(2)
 	 , texs(2)
@@ -222,12 +231,7 @@ public:
 		current_tex = back;
 
 		// render into the texture
-		UniformSampler(prog, "TexUnit").Set(front);
-
-		Uniform<Mat4f> camera_matrix(prog, "CameraMatrix");
-		Uniform<Mat4f> model_matrix(prog, "ModelMatrix");
-		Uniform<Mat4f> projection_matrix(prog, "ProjectionMatrix");
-
+		tex_unit = front;
 
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(

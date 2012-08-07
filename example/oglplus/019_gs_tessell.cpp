@@ -37,6 +37,11 @@ private:
 	// Program
 	Program prog;
 
+	// Handles for uniforms in prog
+	LazyUniform<GLint> tess_level;
+	LazyUniform<Vec2f> viewport_dimensions;
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+
 	// A vertex array object for the rendered shape
 	VertexArray shape;
 
@@ -46,6 +51,11 @@ public:
 	TessellationExample(void)
 	 : shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
+	 , tess_level(prog, "TessLevel")
+	 , viewport_dimensions(prog, "ViewportDimensions")
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
 	{
 		vs.Source(
 			"#version 330\n"
@@ -228,10 +238,8 @@ public:
 	void Reshape(size_t width, size_t height)
 	{
 		gl.Viewport(width, height);
-		Uniform<Vec2f>(prog, "ViewportDimensions").Set(
-			Vec2f(width, height)
-		);
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		viewport_dimensions.Set(Vec2f(width, height));
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
@@ -250,7 +258,7 @@ public:
 			Degrees(time * 33),
 			Degrees(SineWave(time / 21.0) * 31)
 		);
-		Uniform<Mat4f>(prog, "CameraMatrix") = camera;
+		camera_matrix = camera;
 
 		const Vec3f offsets[4] = {
 			Vec3f( 2, 0, 0),
@@ -271,8 +279,8 @@ public:
 				Vec4f(camera.Position(), 1)
 			).xyz())+0.1));
 
-			Uniform<Mat4f>(prog, "ModelMatrix") = model;
-			Uniform<GLint>(prog, "TessLevel") = level;
+			model_matrix = model;
+			tess_level = level;
 
 			shape_instr.Draw(shape_indices);
 		}

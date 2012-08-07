@@ -40,6 +40,9 @@ private:
 	// Program
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+
 	// A vertex array object for the rendered sphere
 	VertexArray sphere;
 
@@ -50,6 +53,9 @@ public:
 	SphereExample(void)
 	 : sphere_instr(make_sphere.Instructions())
 	 , sphere_indices(make_sphere.Indices())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -137,7 +143,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(52),
 				double(width)/height,
@@ -151,14 +157,14 @@ public:
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
 		// set the matrix for camera orbiting the origin
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::LookingAt(
 				Vec3f(1.5, 2.5, 1.5),
 				Vec3f()
 			)
 		);
 
-		Uniform<Mat4f>(prog, "ModelMatrix").Set(
+		model_matrix.Set(
 			ModelMatrixf::Translation(
 				0.0f,
 				sqrt(1.0f+SineWave(time / 2.0)),

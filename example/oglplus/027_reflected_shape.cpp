@@ -45,6 +45,10 @@ private:
 
 	Program plane_prog, shape_prog;
 
+	LazyProgramUniform<Mat4f>
+		plane_projection_matrix, plane_camera_matrix, plane_model_matrix,
+		shape_projection_matrix, shape_camera_matrix, shape_model_matrix;
+
 	VertexArray plane, shape;
 
 	Buffer plane_verts, plane_texcoords;
@@ -73,6 +77,12 @@ public:
 	 , shape_vs(ObjectDesc("Shape vertex"))
 	 , plane_fs(ObjectDesc("Plane fragment"))
 	 , shape_fs(ObjectDesc("Shape fragment"))
+	 , plane_projection_matrix(plane_prog, "ProjectionMatrix")
+	 , plane_camera_matrix(plane_prog, "CameraMatrix")
+	 , plane_model_matrix(plane_prog, "ModelMatrix")
+	 , shape_projection_matrix(shape_prog, "ProjectionMatrix")
+	 , shape_camera_matrix(shape_prog, "CameraMatrix")
+	 , shape_model_matrix(shape_prog, "ModelMatrix")
 	 , width(800)
 	 , height(600)
 	 , tex_size_div(2)
@@ -303,8 +313,8 @@ public:
 		auto projection =
 			CamMatrixf::PerspectiveX(Degrees(48), aspect, 1, 100);
 
-		ProgramUniform<Mat4f>(shape_prog, "ProjectionMatrix").Set(projection);
-		ProgramUniform<Mat4f>(plane_prog, "ProjectionMatrix").Set(projection);
+		plane_projection_matrix.Set(projection);
+		shape_projection_matrix.Set(projection);
 
 		Bind(depth_tex, Texture::Target::Rectangle).Image2D(
 			0,
@@ -343,7 +353,7 @@ public:
 		shape.Bind();
 		gl.FrontFace(make_shape.FaceWinding());
 
-		Uniform<Mat4f>(shape_prog, "ModelMatrix") =
+		shape_model_matrix =
 			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f) *
 			ModelMatrixf::RotationX(FullCircles(time / 12.0));
 
@@ -353,7 +363,7 @@ public:
 		gl.Viewport(width/tex_size_div, height/tex_size_div);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform<Mat4f>(shape_prog, "CameraMatrix") = camera * reflection;
+		shape_camera_matrix = camera * reflection;
 
 		gl.FrontFace(Inverted(make_shape.FaceWinding()));
 		shape_instr.Draw(shape_indices);
@@ -363,7 +373,7 @@ public:
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform<Mat4f>(shape_prog, "CameraMatrix") = camera;
+		shape_camera_matrix = camera;
 
 		gl.FrontFace(make_shape.FaceWinding());
 		shape_instr.Draw(shape_indices);
@@ -373,9 +383,8 @@ public:
 		plane.Bind();
 		gl.FrontFace(make_plane.FaceWinding());
 
-		Uniform<Mat4f>(plane_prog, "CameraMatrix") = camera;
-		Uniform<Mat4f>(plane_prog, "ModelMatrix") =
-			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f);
+		plane_camera_matrix = camera;
+		plane_model_matrix = ModelMatrixf::Translation(0.0f, -0.5f, 0.0f);
 
 		plane_instr.Draw(plane_indices);
 	}

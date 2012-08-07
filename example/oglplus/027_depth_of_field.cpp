@@ -86,7 +86,9 @@ private:
 	// Program uniform variables
 	LazyProgramUniform<GLuint> viewport_width;
 	LazyProgramUniform<GLuint> viewport_height;
-	LazyProgramUniform<Mat4f> projection_matrix;
+	LazyProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	LazyProgramUniform<Vec3f> ambient_color, diffuse_color;
+	LazyProgramUniform<GLfloat> focus_depth;
 
 	// The framebuffer object of offscreen rendering
 	Framebuffer fbo;
@@ -105,6 +107,11 @@ public:
 	 , viewport_width(dof_prog, "ViewportWidth")
 	 , viewport_height(dof_prog, "ViewportHeight")
 	 , projection_matrix(main_prog, "ProjectionMatrix")
+	 , camera_matrix(main_prog, "CameraMatrix")
+	 , model_matrix(main_prog, "ModelMatrix")
+	 , ambient_color(main_prog, "AmbientColor")
+	 , diffuse_color(main_prog, "DiffuseColor")
+	 , focus_depth(dof_prog, "FocusDepth")
 	 , color_tex(Texture::Target::Rectangle)
 	 , depth_tex(Texture::Target::Rectangle)
 	 , width(800)
@@ -382,7 +389,7 @@ public:
 		main_prog.Use();
 		cube.Bind();
 
-		Uniform<Mat4f>(main_prog, "CameraMatrix").Set(
+		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				18.5,
@@ -394,13 +401,13 @@ public:
 		auto i = cube_matrices.begin(), e = cube_matrices.end();
 		while(i != e)
 		{
-			Uniform<Mat4f>(main_prog, "ModelMatrix").Set(*i);
-			Uniform<Vec3f>(main_prog, "AmbientColor").Set(0.7f, 0.6f, 0.2f);
-			Uniform<Vec3f>(main_prog, "DiffuseColor").Set(1.0f, 0.8f, 0.3f);
+			model_matrix.Set(*i);
+			ambient_color.Set(0.7f, 0.6f, 0.2f);
+			diffuse_color.Set(1.0f, 0.8f, 0.3f);
 			face_instr.Draw(face_indices);
 
-			Uniform<Vec3f>(main_prog, "AmbientColor").Set(0.1f, 0.1f, 0.1f);
-			Uniform<Vec3f>(main_prog, "DiffuseColor").Set(0.3f, 0.3f, 0.3f);
+			ambient_color.Set(0.1f, 0.1f, 0.1f);
+			diffuse_color.Set(0.3f, 0.3f, 0.3f);
 			edge_instr.Draw(edge_indices);
 			++i;
 		}
@@ -412,9 +419,7 @@ public:
 		dof_prog.Use();
 		screen.Bind();
 
-		Uniform<GLfloat>(dof_prog, "FocusDepth").Set(
-			0.6 + SineWave(time / 9.0)*0.3
-		);
+		focus_depth.Set(0.6 + SineWave(time / 9.0)*0.3);
 
 		gl.Enable(Capability::Blend);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);

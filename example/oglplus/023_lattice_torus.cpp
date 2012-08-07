@@ -33,6 +33,11 @@ private:
 	FragmentShader fs;
 	Program prog;
 
+	// Uniforms
+	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	LazyUniform<Vec4f> light_pos_cam;
+	LazyUniform<Vec3f> front_color, back_color;
+
 	// A vertex array object for the rendered torus
 	VertexArray torus;
 
@@ -43,6 +48,12 @@ public:
 	 : make_torus(1.0, 0.5, 12, 12)
 	 , torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , light_pos_cam(prog, "LightPosCam")
+	 , front_color(prog, "FrontColor")
+	 , back_color(prog, "BackColor")
 	{
 		vs.Source(
 			"#version 330\n"
@@ -73,15 +84,16 @@ public:
 			"	) * 0.333333, 1.0);"
 			"	for(int v = 0; v != 4; ++v)"
 			"	{"
-			"		vec4 a = gl_in[v%3].gl_Position;"
+			"		vec4 b = gl_in[v%3].gl_Position;"
+			"		vec4 a = vec4("
+			"			b.xyz + (c.xyz - b.xyz)*0.3,"
+			"			1.0"
+			"		);"
+
 			"		gl_Position = ProjectionMatrix * a;"
 			"		geomLightDir = (LightPosCam - a).xyz;"
 			"		geomOpacity = 1.0;"
 			"		EmitVertex();"
-			"		vec4 b = vec4("
-			"			a.xyz + (c.xyz - a.xyz)*0.3,"
-			"			1.0"
-			"		);"
 			"		gl_Position = ProjectionMatrix * b;"
 			"		geomLightDir = (LightPosCam - b).xyz;"
 			"		geomOpacity = 0.0;"
@@ -143,7 +155,7 @@ public:
 			1, 100
 		);
 		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(projection);
+		projection_matrix.Set(projection);
 	}
 
 	void Render(double time)
@@ -164,17 +176,17 @@ public:
 		Vec4f lightPos(4.0f, 4.0f, -8.0f, 1.0f);
 
 		prog.Use();
-		Uniform<Mat4f>(prog, "CameraMatrix").Set(camera);
-		Uniform<Mat4f>(prog, "ModelMatrix").Set(model);
-		Uniform<Vec4f>(prog, "LightPosCam").Set(camera * lightPos);
+		camera_matrix.Set(camera);
+		model_matrix.Set(model);
+		light_pos_cam.Set(camera * lightPos);
 
-		Uniform<Vec3f>(prog, "FrontColor").Set(Vec3f(0.3f, 0.2f, 0.0f));
-		Uniform<Vec3f>(prog, "BackColor").Set(Vec3f(0.2f, 0.1f, 0.0f));
+		front_color.Set(Vec3f(0.3f, 0.2f, 0.0f));
+		back_color.Set(Vec3f(0.2f, 0.1f, 0.0f));
 		gl.PolygonMode(PolygonMode::Line);
 		torus_instr.Draw(torus_indices);
 
-		Uniform<Vec3f>(prog, "FrontColor").Set(Vec3f(0.9f, 0.8f, 0.1f));
-		Uniform<Vec3f>(prog, "BackColor").Set(Vec3f(0.7f, 0.6f, 0.2f));
+		front_color.Set(Vec3f(0.9f, 0.8f, 0.1f));
+		back_color.Set(Vec3f(1.0f, 0.9f, 0.8f));
 		gl.PolygonMode(PolygonMode::Fill);
 		torus_instr.Draw(torus_indices);
 	}

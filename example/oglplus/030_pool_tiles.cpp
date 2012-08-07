@@ -53,6 +53,9 @@ private:
 
 	Program plane_prog, shape_prog;
 
+	LazyUniform<Mat4f> plane_camera_matrix, shape_camera_matrix;
+	LazyUniform<Vec3f> plane_camera_position;
+
 	VertexArray plane, shape;
 
 	Buffer plane_verts, plane_texcoords;
@@ -85,6 +88,9 @@ public:
 	 , shape_vs(ObjectDesc("Shape vertex"))
 	 , plane_fs(ObjectDesc("Plane fragment"))
 	 , shape_fs(ObjectDesc("Shape fragment"))
+	 , plane_camera_matrix(plane_prog, "CameraMatrix")
+	 , shape_camera_matrix(shape_prog, "CameraMatrix")
+	 , plane_camera_position(plane_prog, "CameraPosition")
 	 , width(800)
 	 , height(600)
 	 , refl_tex_side(width > height ? height : width)
@@ -543,8 +549,7 @@ public:
 		);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		Uniform<Mat4f> camera_matrix(shape_prog, "CameraMatrix");
-		camera_matrix.Set(
+		shape_camera_matrix.Set(
 			camera *
 			ModelMatrixf::Translation(0.0f, -1.0f, 0.0f) *
 			reflection
@@ -557,7 +562,7 @@ public:
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		camera_matrix.Set(camera);
+		shape_camera_matrix.Set(camera);
 
 		gl.CullFace(Face::Back);
 		shape_instr.Draw(shape_indices);
@@ -568,8 +573,8 @@ public:
 		plane_prog.Use();
 		plane.Bind();
 
-		Uniform<Mat4f>(plane_prog, "CameraMatrix").Set(camera);
-		Uniform<Vec3f>(plane_prog, "CameraPosition").Set(camera.Position());
+		plane_camera_matrix.Set(camera);
+		plane_camera_position.Set(camera.Position());
 
 		plane_instr.Draw(plane_indices);
 

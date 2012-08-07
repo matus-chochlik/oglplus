@@ -997,6 +997,12 @@ public:
  */
 typedef Uniform<GLint> UniformSampler;
 
+/// Class that can be used to set sampler uniform variable values
+/**
+ *  @ingroup shader_variables
+ */
+typedef LazyUniform<GLint> LazyUniformSampler;
+
 /// Finds and sets the value of the variable identified by @p identifier in program
 /** This convenience function finds the uniform variable with the name
  *  @p identifier in the specified @p program and sets its @p value.
@@ -1129,6 +1135,12 @@ public:
  *  @ingroup shader_variables
  */
 typedef ProgramUniform<GLint> ProgramUniformSampler;
+
+/// Class that can be used to set sampler uniform variable values
+/**
+ *  @ingroup shader_variables
+ */
+typedef LazyProgramUniform<GLint> LazyProgramUniformSampler;
 
 /// Finds and sets the value of the variable identified by @p identifier in program
 /** This convenience function finds the uniform variable with the name
