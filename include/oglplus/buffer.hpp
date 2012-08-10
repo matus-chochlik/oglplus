@@ -561,7 +561,7 @@ public:
 		GLtype* data
 	)
 	{
-		OGLPLUS_GLFUNC(BufferData)(
+		OGLPLUS_GLFUNC(BufferSubData)(
 			GLenum(target),
 			offset,
 			count * sizeof(GLtype),
@@ -588,7 +588,7 @@ public:
 		const std::vector<GLtype>& data
 	)
 	{
-		OGLPLUS_GLFUNC(BufferData)(
+		OGLPLUS_GLFUNC(BufferSubData)(
 			GLenum(target),
 			offset,
 			data.size() * sizeof(GLtype),
