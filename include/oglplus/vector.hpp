@@ -16,6 +16,7 @@
 #include <cassert>
 #include <cmath>
 #include <type_traits>
+#include <algorithm>
 
 namespace oglplus {
 
@@ -386,9 +387,12 @@ public:
 		>::type& matrix
 	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>());
 
-#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
-	Vector& operator = (const Vector& other) = default;
-#endif
+	Vector& operator = (const Vector& other)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		std::copy(other._elem, other._elem+N, this->_elem);
+		return *this;
+	}
 
 	/// Returns the dimension of the vector
 	friend OGLPLUS_CONSTEXPR size_t Size(const Vector& a)
