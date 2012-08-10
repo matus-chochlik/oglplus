@@ -10,8 +10,8 @@ SET oglplus_archive_items=^
 	etc ^
 	example ^
 	include ^
+	utils ^
 	source ^
-	xslt ^
 	LICENSE_1_0.txt ^
 	README.txt ^
 	CHANGELOG ^

@@ -1,3 +1,24 @@
+Version 0.17.0
+
+- Improved support for MSVC (2010 and 11)
+- Backporting to clang (tested with version 3.0).
+- Updated the build system to detect required C++11 features
+  and external dependencies and building only examples with
+  all prerequisites.
+- Updated the configuration script.
+- Reimplementation of uniform variables. Lazily-initialized
+  uniforms were added and the wrappers for GL setter functions
+  were rewritten from scratch.
+- The Squares image generator was added.
+- Checking of pointers to GL functions was added.
+- Concatenation of StrLit objects was optimized.
+- Multiple bugs were fixed and several other optimizations
+  were made.
+- Several examples were updated and/or optimized.
+- The documentation has been updated and a new tutorial was
+  added.
+ 
+
 Version 0.16.0
 
 - Backporting to MSVC 2010.
