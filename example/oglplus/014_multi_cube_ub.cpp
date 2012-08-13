@@ -61,7 +61,7 @@ public:
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
-			"layout (std140, row_major) uniform ModelBlock {"
+			"layout (std140) uniform ModelBlock {"
 			"	mat4 ModelMatrices[36];"
 			"};"
 			"in vec4 Position;"
@@ -127,7 +127,7 @@ public:
 			{
 				GLfloat cx = Cos(angle);
 				GLfloat sx = Sin(angle);
-				auto matrix = Mat4f(
+				auto matrix = Transposed(Mat4f(
 					 cx, 0.0, -sx, 0.0,
 					0.0, 1.0, 0.0, 0.0,
 					 sx, 0.0,  cx, 0.0,
@@ -137,7 +137,7 @@ public:
 					 0.0, 1.0, 0.0, 0.0,
 					 0.0, 0.0, 1.0, 0.0,
 					 0.0, 0.0, 0.0, 1.0
-				);
+				));
 				p = std::copy(
 					Data(matrix),
 					Data(matrix)+Size(matrix),
