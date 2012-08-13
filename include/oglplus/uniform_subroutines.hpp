@@ -96,12 +96,12 @@ class SubroutineUniformTpl
 private:
 	friend class UniformSubroutines;
 public:
-	template <typename String>
+	template <typename _String>
 	SubroutineUniformTpl(
 		const Program& program,
 		const ShaderType stage,
-		String&& identifier
-	): Initializer(program, stage, std::forward<String>(identifier))
+		_String&& identifier
+	): Initializer(program, stage, std::forward<_String>(identifier))
 	{ }
 
 	/// Tests if this SubroutineUniform is active and can be used

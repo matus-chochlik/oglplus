@@ -174,6 +174,13 @@ public:
 		return Add(a, b);
 	}
 
+	/// Addition operator
+	Angle& operator += (const Angle& b)
+	{
+		*this = Add(*this, b);
+		return *this;
+	}
+
 	/// Subtraction
 	friend Angle Subtract(const Angle& a, const Angle& b)
 	{

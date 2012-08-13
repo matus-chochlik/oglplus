@@ -22,6 +22,9 @@ namespace oglplus {
 template <typename T, size_t Rows, size_t Cols>
 class Matrix;
 
+template <typename T, size_t N>
+class Vector;
+
 /// Basic template for vector types
 /**
  *  @tparam T the coordinate value type
@@ -324,7 +327,7 @@ public:
 			"Invalid number of additional values for this vector type"
 		);
 		for(size_t i=0; i!=M; ++i)
-			_elem[i] = Data(a)[i];
+			_elem[i] = a.Data()[i];
 		_init<M>(p...);
 	}
 #else
@@ -390,12 +393,10 @@ public:
 	Vector& operator = (const Vector& other) = default;
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the dimension of the vector
-	friend OGLPLUS_CONSTEXPR size_t Size(const Vector& a)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return N;
-	}
+	friend OGLPLUS_CONSTEXPR size_t Size(const Vector& a);
+#endif
 
 	/// Returns the dimension of the vector
 	static OGLPLUS_CONSTEXPR size_t Size(void)
@@ -404,11 +405,15 @@ public:
 		return N;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns a pointer to an array containing the vectors coordinates
 	friend const T* Data(const Vector& vector)
-	OGLPLUS_NOEXCEPT(true)
+#endif
+
+	/// Returns a pointer to an array containing the vectors coordinates
+	const T* Data(void) const
 	{
-		return vector._elem;
+		return this->_elem;
 	}
 
 	/// Returns the value of the I-th coordinate of the vector
@@ -912,6 +917,19 @@ public:
 	}
 };
 
+template <typename T, size_t N>
+inline const T* Data(const Vector<T, N>& a)
+OGLPLUS_NOEXCEPT(true)
+{
+	return a.Data();
+}
+
+template <typename T, size_t N>
+inline OGLPLUS_CONSTEXPR size_t Size(const Vector<T, N>&)
+OGLPLUS_NOEXCEPT(true)
+{
+	return N;
+}
 
 /// 1D float vector
 /**

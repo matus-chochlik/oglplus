@@ -130,9 +130,9 @@ class UniformBlockTpl
  : public Initializer
 {
 public:
-	template <class String>
-	UniformBlockTpl(const Program& program, String&& identifier)
-	 : Initializer(program, None(), std::forward<String>(identifier))
+	template <class _String>
+	UniformBlockTpl(const Program& program, _String&& identifier)
+	 : Initializer(program, None(), std::forward<_String>(identifier))
 	{ }
 
 	/// Return the maximum number of uniform blocks for a @p shader_type

@@ -411,12 +411,29 @@ public:
 				this->_m._elem[i][j] = source.At(I+i, J+j);
 	}
 
-	/// Returns a vector containing the matrix elements in row major order
-	friend const T* Data(const Matrix& matrix)
+	/// Returns an iterator to the matrix elements in row major order
+	const T* Data(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return matrix._m._data;
+		return this->_m._data;
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Returns an iterator to the matrix elements in row major order
+	friend const T* Data(const Matrix& matrix);
+#endif
+
+	/// Returns the number of elements of the matrix
+	size_t Size(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return Rows*Cols;
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Returns the number of elements of the matrix
+	friend size_t Size(const Matrix& matrix);
+#endif
 
 	/// Equality comparison function
 	friend bool Equal(const Matrix& a, const Matrix& b)
@@ -891,6 +908,20 @@ public:
 	}
 };
 
+template <typename T, size_t Rows, size_t Cols>
+inline const T* Data(const Matrix<T, Rows, Cols>& matrix)
+OGLPLUS_NOEXCEPT(true)
+{
+	return matrix.Data();
+}
+
+template <typename T, size_t Rows, size_t Cols>
+inline OGLPLUS_CONSTEXPR size_t Size(const Matrix<T, Rows, Cols>&)
+OGLPLUS_NOEXCEPT(true)
+{
+	return Rows * Cols;
+}
+
 /// 2x2 float matrix
 /**
  *  @ingroup math_utils
@@ -1274,7 +1305,7 @@ public:
 
 	Vector<T, 3> Position(void) const
 	{
-		return Vector<T, 3>(Data(Inverse(*this).template Col<3>()),	3);
+		return Vector<T,3>(Data(Inverse(*this).template Col<3>()), 3);
 	}
 
 	struct _Perspective { };
