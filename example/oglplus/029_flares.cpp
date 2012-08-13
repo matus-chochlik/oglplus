@@ -8,7 +8,6 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
  *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  */
 #include <oglplus/gl.hpp>
@@ -22,6 +21,7 @@
 #include <oglplus/images/load.hpp>
 
 #include <vector>
+#include <cstdlib>
 
 #include "example.hpp"
 
@@ -36,17 +36,15 @@ public:
 		ObjectDesc("Shape vertex shader"),
 		StrLit("#version 330\n"
 
-		"const int LightCount = 8;"
-
 		"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
-		"uniform vec3 CameraPosition, LightPosition[LightCount];"
+		"uniform vec3 CameraPosition;"
 
 		"in vec4 Position;"
 		"in vec3 Normal;"
 		"in vec3 Tangent;"
 		"in vec2 TexCoord;"
 
-		"out vec3 vertLightDir[LightCount];"
+		"out vec3 vertPosition;"
 		"out vec3 vertViewDir;"
 		"out vec3 vertNormal;"
 		"out vec3 vertTangent;"
@@ -55,8 +53,7 @@ public:
 		"void main(void)"
 		"{"
 		"	gl_Position = ModelMatrix * Position;"
-		"	for(int l=0; l!=LightCount; ++l)"
-		"		vertLightDir[l] = LightPosition[l] - gl_Position.xyz;"
+		"	vertPosition = gl_Position.xyz;"
 		"	vertViewDir = CameraPosition - gl_Position.xyz;"
 		"	vertNormal =  (ModelMatrix * vec4(Normal,  0.0)).xyz;"
 		"	vertTangent =  (ModelMatrix * vec4(Tangent,  0.0)).xyz;"
@@ -80,12 +77,13 @@ public:
 		ObjectDesc("Shape fragment shader"),
 		StrLit("#version 330\n"
 
-		"const int LightCount = 8;"
+		"const int LightCount = 32;"
 
 		"uniform vec3 Color1, Color2;"
+		"uniform vec3 LightPosition[LightCount];"
 		"uniform sampler2D MetalTex;"
 
-		"in vec3 vertLightDir[LightCount];"
+		"in vec3 vertPosition;"
 		"in vec3 vertViewDir;"
 		"in vec3 vertNormal;"
 		"in vec3 vertTangent;"
@@ -109,8 +107,9 @@ public:
 		"	float Specular = 0.0, Diffuse = 0.0;"
 		"	for(int l=0; l!=LightCount; ++l)"
 		"	{"
+		"		vec3 LightDir = normalize(LightPosition[l]-vertPosition);"
 		"		vec3 LightRefl = reflect("
-		"			-normalize(vertLightDir[l]),"
+		"			-LightDir,"
 		"			fragNormal"
 		"		);"
 
@@ -120,12 +119,14 @@ public:
 		"		)+0.04, 0.0), 32+Sample.b*32)*pow(0.4+Sample.b*1.6, 4.0);"
 
 		"		Diffuse += pow(max(dot("
-		"			normalize(vertLightDir[l]), "
+		"			LightDir, "
 		"			normalize(vertNormal*2.0 + fragNormal)"
-		"		), 0.0), 2.0) / LightCount;"
+		"		), 0.0), 2.0);"
 		"	}"
 
 		"	float Ambient = 0.1;"
+		"	Diffuse /= LightCount;"
+		"	Specular /= sqrt(float(LightCount));"
 
 		"	vec3 Color = mix(Color1, Color2, Sample.b);"
 
@@ -177,7 +178,7 @@ public:
 		"void main(void)"
 		"{"
 		"	gl_Position = ProjectionMatrix * CameraMatrix * Position;"
-		"	gl_PointSize = 6.0;"
+		"	gl_PointSize = 9.0;"
 		"}")
 	)
 	{ }
@@ -233,7 +234,7 @@ public:
 		"void main(void)"
 		"{"
 		"	gl_Position = CameraMatrix * Position;"
-		"	gl_PointSize = 6.0;"
+		"	gl_PointSize = 9.0;"
 		"}")
 	)
 	{ }
@@ -248,7 +249,7 @@ public:
 		ObjectDesc("Flare geometry shader"),
 		StrLit("#version 330\n"
 		"layout(points) in;"
-		"layout(triangle_strip, max_vertices = 60) out;"
+		"layout(triangle_strip, max_vertices = 72) out;"
 
 		"uniform mat4 ProjectionMatrix;"
 		"uniform int Samples;"
@@ -259,10 +260,12 @@ public:
 		"{"
 		"	for(int l=0; l!=3; ++l)"
 		"	{"
-		"		int i = 0, n = 7 + l*3;"
+		"		int i = 0, n = 8 + l*4;"
 		"		float step = (2.0 * 3.1415)/float(n-1);"
-		"		float a = length(gl_in[0].gl_Position)*(0.3+l*0.2);"
-		"		float Radius = sqrt(Samples)*(0.03 + l*0.02);"
+		"		float a = length(gl_in[0].gl_Position)*(0.3+l*0.4);"
+		"		float Radius = "
+		"			sqrt(Samples)*0.01 + "
+		"			Samples*sqrt(float(l))*0.001;"
 		"		while(i != n)"
 		"		{"
 		"			vec4 Offs = vec4(cos(a)*(1.0+l*0.2),sin(a),0,0);"
@@ -417,22 +420,26 @@ private:
 
 	Texture flare_texture;
 
+	const size_t n_flares;
 	Array<Query> queries;
 public:
 	FlareExample(void)
 	 : shape(shape_prog, shapes::SpiralSphere())
-	 , queries(8)
+	 , n_flares(32)
+	 , queries(n_flares)
 	{
-		const std::vector<Vec3f> light_positions({
-			Vec3f( 9.0, 2.0, 0.0),
-			Vec3f( 9.0, 1.0,-9.0),
-			Vec3f( 0.0,-2.0,-9.0),
-			Vec3f(-9.0, 0.0,-9.0),
-			Vec3f(-9.0,-1.0, 0.0),
-			Vec3f(-9.0,-2.0, 9.0),
-			Vec3f( 0.0, 2.0, 9.0),
-			Vec3f( 9.0,-1.0, 9.0)
-		});
+		std::vector<Vec3f> light_positions(n_flares);
+		for(size_t i=0; i!=n_flares; ++i)
+		{
+			const float rand_max = float(RAND_MAX);
+			auto angle = FullCircles(std::rand()/rand_max);
+
+			light_positions[i] = Vec3f(
+				7.0f*Cos(angle),
+				0.2f*(std::rand()/rand_max)-0.1,
+				7.0f*Sin(angle)
+			);
+		}
 
 		shape_prog.light_position.Set(light_positions);
 		shape_prog.color_1 = Vec3f(0.3, 0.3, 0.5);
@@ -518,7 +525,7 @@ public:
 
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			4.5 + SineWave(time / 25.0),
+			3.5 + SineWave(time / 25.0),
 			FullCircles(time / 30.0),
 			Degrees(SineWave(time / 19.0) * 20)
 		);
@@ -539,7 +546,7 @@ public:
 
 		light_prog.Use();
 
-		for(int l=0; l!=8; ++l)
+		for(size_t l=0; l!=n_flares; ++l)
 		{
 			queries[l].Begin(Query::Target::SamplesPassed);
 			gl.DrawArrays(PrimitiveType::Points, l, 1);
@@ -549,7 +556,7 @@ public:
 		gl.Enable(Capability::Blend);
 		gl.Disable(Capability::DepthTest);
 		flare_prog.Use();
-		for(int l=0; l!=8; ++l)
+		for(size_t l=0; l!=n_flares; ++l)
 		{
 			GLint samples = 0;
 			queries[l].WaitForResult(samples);
