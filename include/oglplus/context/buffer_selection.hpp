@@ -54,12 +54,18 @@ public:
 	template <size_t N>
 	static void DrawBuffers(ColorBuffer (&buffers)[N])
 	{
-		// TODO: if the alignment, etc. is right we could
-		// do without the temporary copy
-		GLenum _tmp[N];
-		for(size_t i=0; i!=N; ++i)
-			_tmp[i] = GLenum(buffers[i]);
-		OGLPLUS_GLFUNC(DrawBuffers)(N, _tmp);
+		if(sizeof(buffers) == sizeof(GLenum [N]))
+		{
+			GLenum *_tmp = reinterpret_cast<GLenum*>(buffers);
+			OGLPLUS_GLFUNC(DrawBuffers)(N, _tmp);
+		}
+		else
+		{
+			GLenum _tmp[N];
+			for(size_t i=0; i!=N; ++i)
+				_tmp[i] = GLenum(buffers[i]);
+			OGLPLUS_GLFUNC(DrawBuffers)(N, _tmp);
+		}
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawBuffers));
 	}
 

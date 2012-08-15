@@ -22,6 +22,10 @@ namespace aux {
 template <typename Common, typename T>
 class OneOfBase
 {
+	static_assert(
+		!std::is_same<T, void>::value,
+		"The passed value has not one of the allowed types!"
+	);
 protected:
 	static inline Common Accept(T value)
 	{
@@ -62,10 +66,35 @@ private:
 		aux::OneOfBase<Common, T>
 	>
 	{ };
+
+	template <typename T, typename V, typename ... Vi>
+	static V _do_find_one_of(std::true_type);
+
+	template <typename T, typename V>
+	static void _do_find_one_of(std::false_type);
+
+	template <typename T, typename V, typename ... Vi>
+	static auto _find_one_of(void) ->
+	decltype(_do_find_one_of<T, V, Vi...>(std::is_convertible<T, V>()));
+
+	template <typename T, typename V, typename V1, typename ... Vi>
+	static auto _do_find_one_of(std::false_type) ->
+	decltype(_find_one_of<T, V1, Vi...>());
+
+	template <typename T>
+	struct find
+	{
+		typedef decltype(_find_one_of<T, Variants...>()) type;
+	};
 public:
 	template <typename T>
 	OneOf(T value, typename std::enable_if<is_one_of<T>::value>::type* = 0)
 	 : _value(aux::OneOfBase<Common, T>::Accept(value))
+	{ }
+
+	template <typename T>
+	OneOf(T value, typename std::enable_if<!is_one_of<T>::value>::type* = 0)
+	 : _value(aux::OneOfBase<Common, typename find<T>::type>::Accept(value))
 	{ }
 
 #if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
