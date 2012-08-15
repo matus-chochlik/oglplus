@@ -33,7 +33,7 @@ public:
 		GLenum,
 		oglplus::ColorBuffer,
 		oglplus::FramebufferColorAttachment
-	> ColorBufer;
+	> ColorBuffer;
 
 	/// Sets the destination color buffer for draw operations
 	/**

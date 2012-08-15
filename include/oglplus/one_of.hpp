@@ -14,6 +14,8 @@
 
 #include <oglplus/config.hpp>
 
+#include <type_traits>
+
 namespace oglplus {
 namespace aux {
 
@@ -52,9 +54,17 @@ class OneOf
 {
 private:
 	Common _value;
+
+	template <typename T>
+	struct is_one_of
+	 : std::is_convertible<
+		OneOf,
+		aux::OneOfBase<Common, T>
+	>
+	{ };
 public:
 	template <typename T>
-	OneOf(T value)
+	OneOf(T value, typename std::enable_if<is_one_of<T>::value>::type* = 0)
 	 : _value(aux::OneOfBase<Common, T>::Accept(value))
 	{ }
 
