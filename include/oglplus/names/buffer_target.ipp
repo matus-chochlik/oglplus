@@ -44,6 +44,9 @@ switch(GLenum(value))
 #if defined GL_UNIFORM_BUFFER
 	case GL_UNIFORM_BUFFER: return StrLit("UNIFORM_BUFFER");
 #endif
+#if defined GL_QUERY_BUFFER_AMD
+	case GL_QUERY_BUFFER_AMD: return StrLit("QUERY_BUFFER_AMD");
+#endif
 #if defined GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 	case GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD: return StrLit("EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD");
 #endif

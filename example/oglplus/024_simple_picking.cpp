@@ -44,9 +44,6 @@ private:
 	// VBOs for the cube's vertices
 	Buffer verts;
 
-	// Transform feedback object
-	TransformFeedback tfb;
-
 	// VBO for the values returned by transform feedback
 	Buffer picked_instances;
 
@@ -217,15 +214,9 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			// setup the vertex attribs array for the vertices
-			draw_prog.Use();
 			VertexAttribArray draw_attr(draw_prog, "Position");
 			draw_attr.Setup(n_per_vertex, DataType::Float);
 			draw_attr.Enable();
-
-			pick_prog.Use();
-			VertexAttribArray pick_attr(pick_prog, "Position");
-			pick_attr.Setup(n_per_vertex, DataType::Float);
-			pick_attr.Enable();
 		}
 
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);

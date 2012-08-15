@@ -464,6 +464,11 @@ template <typename Enum> operator Enum (void) const{ return Enum::CompressedSRGB
 template <typename Enum> friend bool operator==(Enum value, CompressedSRGBAlpha){ return value == Enum::CompressedSRGBAlpha; }
 template <typename Enum> friend bool operator!=(Enum value, CompressedSRGBAlpha){ return value != Enum::CompressedSRGBAlpha; }
 };
+struct Compute {
+template <typename Enum> operator Enum (void) const{ return Enum::Compute; }
+template <typename Enum> friend bool operator==(Enum value, Compute){ return value == Enum::Compute; }
+template <typename Enum> friend bool operator!=(Enum value, Compute){ return value != Enum::Compute; }
+};
 struct ConditionSatisfied {
 template <typename Enum> operator Enum (void) const{ return Enum::ConditionSatisfied; }
 template <typename Enum> friend bool operator==(Enum value, ConditionSatisfied){ return value == Enum::ConditionSatisfied; }
@@ -2318,6 +2323,11 @@ struct QuadStrip {
 template <typename Enum> operator Enum (void) const{ return Enum::QuadStrip; }
 template <typename Enum> friend bool operator==(Enum value, QuadStrip){ return value == Enum::QuadStrip; }
 template <typename Enum> friend bool operator!=(Enum value, QuadStrip){ return value != Enum::QuadStrip; }
+};
+struct Query {
+template <typename Enum> operator Enum (void) const{ return Enum::Query; }
+template <typename Enum> friend bool operator==(Enum value, Query){ return value == Enum::Query; }
+template <typename Enum> friend bool operator!=(Enum value, Query){ return value != Enum::Query; }
 };
 struct R {
 template <typename Enum> operator Enum (void) const{ return Enum::R; }
