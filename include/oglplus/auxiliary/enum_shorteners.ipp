@@ -9,6 +9,46 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+struct _0 {
+template <typename Enum> operator Enum (void) const{ return Enum::_0; }
+template <typename Enum> friend bool operator==(Enum value, _0){ return value == Enum::_0; }
+template <typename Enum> friend bool operator!=(Enum value, _0){ return value != Enum::_0; }
+};
+struct _1 {
+template <typename Enum> operator Enum (void) const{ return Enum::_1; }
+template <typename Enum> friend bool operator==(Enum value, _1){ return value == Enum::_1; }
+template <typename Enum> friend bool operator!=(Enum value, _1){ return value != Enum::_1; }
+};
+struct _10 {
+template <typename Enum> operator Enum (void) const{ return Enum::_10; }
+template <typename Enum> friend bool operator==(Enum value, _10){ return value == Enum::_10; }
+template <typename Enum> friend bool operator!=(Enum value, _10){ return value != Enum::_10; }
+};
+struct _11 {
+template <typename Enum> operator Enum (void) const{ return Enum::_11; }
+template <typename Enum> friend bool operator==(Enum value, _11){ return value == Enum::_11; }
+template <typename Enum> friend bool operator!=(Enum value, _11){ return value != Enum::_11; }
+};
+struct _12 {
+template <typename Enum> operator Enum (void) const{ return Enum::_12; }
+template <typename Enum> friend bool operator==(Enum value, _12){ return value == Enum::_12; }
+template <typename Enum> friend bool operator!=(Enum value, _12){ return value != Enum::_12; }
+};
+struct _13 {
+template <typename Enum> operator Enum (void) const{ return Enum::_13; }
+template <typename Enum> friend bool operator==(Enum value, _13){ return value == Enum::_13; }
+template <typename Enum> friend bool operator!=(Enum value, _13){ return value != Enum::_13; }
+};
+struct _14 {
+template <typename Enum> operator Enum (void) const{ return Enum::_14; }
+template <typename Enum> friend bool operator==(Enum value, _14){ return value == Enum::_14; }
+template <typename Enum> friend bool operator!=(Enum value, _14){ return value != Enum::_14; }
+};
+struct _15 {
+template <typename Enum> operator Enum (void) const{ return Enum::_15; }
+template <typename Enum> friend bool operator==(Enum value, _15){ return value == Enum::_15; }
+template <typename Enum> friend bool operator!=(Enum value, _15){ return value != Enum::_15; }
+};
 struct _1D {
 template <typename Enum> operator Enum (void) const{ return Enum::_1D; }
 template <typename Enum> friend bool operator==(Enum value, _1D){ return value == Enum::_1D; }
@@ -18,6 +58,11 @@ struct _1DArray {
 template <typename Enum> operator Enum (void) const{ return Enum::_1DArray; }
 template <typename Enum> friend bool operator==(Enum value, _1DArray){ return value == Enum::_1DArray; }
 template <typename Enum> friend bool operator!=(Enum value, _1DArray){ return value != Enum::_1DArray; }
+};
+struct _2 {
+template <typename Enum> operator Enum (void) const{ return Enum::_2; }
+template <typename Enum> friend bool operator==(Enum value, _2){ return value == Enum::_2; }
+template <typename Enum> friend bool operator!=(Enum value, _2){ return value != Enum::_2; }
 };
 struct _2D {
 template <typename Enum> operator Enum (void) const{ return Enum::_2D; }
@@ -39,10 +84,45 @@ template <typename Enum> operator Enum (void) const{ return Enum::_2DMultisample
 template <typename Enum> friend bool operator==(Enum value, _2DMultisampleArray){ return value == Enum::_2DMultisampleArray; }
 template <typename Enum> friend bool operator!=(Enum value, _2DMultisampleArray){ return value != Enum::_2DMultisampleArray; }
 };
+struct _3 {
+template <typename Enum> operator Enum (void) const{ return Enum::_3; }
+template <typename Enum> friend bool operator==(Enum value, _3){ return value == Enum::_3; }
+template <typename Enum> friend bool operator!=(Enum value, _3){ return value != Enum::_3; }
+};
 struct _3D {
 template <typename Enum> operator Enum (void) const{ return Enum::_3D; }
 template <typename Enum> friend bool operator==(Enum value, _3D){ return value == Enum::_3D; }
 template <typename Enum> friend bool operator!=(Enum value, _3D){ return value != Enum::_3D; }
+};
+struct _4 {
+template <typename Enum> operator Enum (void) const{ return Enum::_4; }
+template <typename Enum> friend bool operator==(Enum value, _4){ return value == Enum::_4; }
+template <typename Enum> friend bool operator!=(Enum value, _4){ return value != Enum::_4; }
+};
+struct _5 {
+template <typename Enum> operator Enum (void) const{ return Enum::_5; }
+template <typename Enum> friend bool operator==(Enum value, _5){ return value == Enum::_5; }
+template <typename Enum> friend bool operator!=(Enum value, _5){ return value != Enum::_5; }
+};
+struct _6 {
+template <typename Enum> operator Enum (void) const{ return Enum::_6; }
+template <typename Enum> friend bool operator==(Enum value, _6){ return value == Enum::_6; }
+template <typename Enum> friend bool operator!=(Enum value, _6){ return value != Enum::_6; }
+};
+struct _7 {
+template <typename Enum> operator Enum (void) const{ return Enum::_7; }
+template <typename Enum> friend bool operator==(Enum value, _7){ return value == Enum::_7; }
+template <typename Enum> friend bool operator!=(Enum value, _7){ return value != Enum::_7; }
+};
+struct _8 {
+template <typename Enum> operator Enum (void) const{ return Enum::_8; }
+template <typename Enum> friend bool operator==(Enum value, _8){ return value == Enum::_8; }
+template <typename Enum> friend bool operator!=(Enum value, _8){ return value != Enum::_8; }
+};
+struct _9 {
+template <typename Enum> operator Enum (void) const{ return Enum::_9; }
+template <typename Enum> friend bool operator==(Enum value, _9){ return value == Enum::_9; }
+template <typename Enum> friend bool operator!=(Enum value, _9){ return value != Enum::_9; }
 };
 struct A {
 template <typename Enum> operator Enum (void) const{ return Enum::A; }

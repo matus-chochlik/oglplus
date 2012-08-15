@@ -21,26 +21,27 @@
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/one_of.hpp>
 #include <cassert>
 
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the framebuffer color attachment (implementation-dependent) number
-class FramebufferColorAttachment
+class FramebufferColorAttachmentNumber
  : public LimitedCount
 {
 public:
-	FramebufferColorAttachment(GLuint count);
+	FramebufferColorAttachmentNumber(GLuint count);
 };
 #else
 OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	FramebufferColorAttachment,
+	FramebufferColorAttachmentNumber,
 	MAX_COLOR_ATTACHMENTS
 )
 #endif
 
-/// Framebuffer renderbuffer attachment points
+/// Framebuffer attachment points
 OGLPLUS_ENUM_CLASS_BEGIN(FramebufferAttachment, GLenum)
 #include <oglplus/enums/framebuffer_attachment.ipp>
 OGLPLUS_ENUM_CLASS_END
@@ -50,6 +51,21 @@ OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_attachment.ipp>
+#endif
+	OGLPLUS_FAKE_USE(value);
+	return StrLit();
+}
+
+/// Framebuffer color attachment points
+OGLPLUS_ENUM_CLASS_BEGIN(FramebufferColorAttachment, GLenum)
+#include <oglplus/enums/framebuffer_color_attachment.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+inline StrLit EnumValueName(FramebufferColorAttachment value)
+OGLPLUS_NOEXCEPT(true)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/framebuffer_color_attachment.ipp>
 #endif
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
@@ -156,7 +172,11 @@ public:
 	struct Property
 	{
 		/// Attachment of a Framebuffer
-		typedef FramebufferAttachment Attachment;
+		typedef OneOf<
+			GLenum,
+			FramebufferAttachment,
+			FramebufferColorAttachment
+		> Attachment;
 
 		/// Status of a Framebuffer
 		typedef FramebufferStatus Status;
@@ -239,7 +259,7 @@ public:
 	 */
 	static void AttachRenderbuffer(
 		Target target,
-		FramebufferAttachment attachment,
+		Property::Attachment attachment,
 		const RenderbufferOps& renderbuffer
 	)
 	{
@@ -257,7 +277,7 @@ public:
 		));
 	}
 
-	/// Attach a @p renderbuffer to the color @p attachment of @p target
+	/// Attach a @p renderbuffer to the color @p attachment_no of @p target
 	/**
 	 *  @see AttachRenderbuffer
 	 *  @see AttachTexture
@@ -272,13 +292,13 @@ public:
 	 */
 	static void AttachColorRenderbuffer(
 		Target target,
-		FramebufferColorAttachment attachment,
+		FramebufferColorAttachmentNumber attachment_no,
 		const RenderbufferOps& renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
 			GLenum(target),
-			GL_COLOR_ATTACHMENT0 + GLuint(attachment),
+			GL_COLOR_ATTACHMENT0 + GLuint(attachment_no),
 			GL_RENDERBUFFER,
 			FriendOf<RenderbufferOps>::GetName(renderbuffer)
 		);
@@ -305,7 +325,7 @@ public:
 	 */
 	static void AttachTexture(
 		Target target,
-		FramebufferAttachment attachment,
+		Property::Attachment attachment,
 		const TextureOps& texture,
 		GLint level
 	)
@@ -373,7 +393,7 @@ public:
 	 */
 	static void AttachTexture1D(
 		Target target,
-		FramebufferAttachment attachment,
+		Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level
@@ -409,7 +429,7 @@ public:
 	 */
 	static void AttachTexture2D(
 		Target target,
-		FramebufferAttachment attachment,
+		Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level
@@ -445,7 +465,7 @@ public:
 	 */
 	static void AttachTexture3D(
 		Target target,
-		FramebufferAttachment attachment,
+		Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level,
@@ -483,7 +503,7 @@ public:
 	 */
 	static void AttachTextureLayer(
 		Target target,
-		FramebufferAttachment attachment,
+		Property::Attachment attachment,
 		const TextureOps& texture,
 		GLint level,
 		GLint layer
