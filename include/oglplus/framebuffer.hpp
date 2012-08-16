@@ -174,8 +174,10 @@ public:
 		/// Attachment of a Framebuffer
 		typedef OneOf<
 			GLenum,
-			FramebufferAttachment,
-			FramebufferColorAttachment
+			std::tuple<
+				FramebufferAttachment,
+				FramebufferColorAttachment
+			>
 		> Attachment;
 
 		/// Status of a Framebuffer
