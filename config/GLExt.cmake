@@ -16,7 +16,7 @@ function(gl_ext_detection EXTENSION_NAME)
 		${PROJECT_BINARY_DIR}/gl_ext
 		${PROJECT_BINARY_DIR}/gl_ext/has_GL_${EXTENSION_NAME}.cpp
 		COMPILE_DEFINITIONS
-			-I${OGLPLUS_GL_INCLUDE_DIR}
+			-I${OGLPLUS_GL_INCLUDE_DIRS}
 			-I${PROJECT_SOURCE_DIR}/include
 			-I${PROJECT_BINARY_DIR}/include
 	)
@@ -36,7 +36,7 @@ function(glew_ext_detection EXTENSION_NAME)
 			${PROJECT_BINARY_DIR}/gl_ext
 			${PROJECT_BINARY_DIR}/gl_ext/has_GLEW_${EXTENSION_NAME}.cpp
 			COMPILE_DEFINITIONS
-				-I${OGLPLUS_GL_INCLUDE_DIR}
+				-I${OGLPLUS_GL_INCLUDE_DIRS}
 				-I${PROJECT_SOURCE_DIR}/include
 				-I${PROJECT_BINARY_DIR}/include
 		)

@@ -4,12 +4,12 @@
 #
 # try to find png.h and related lib
 find_path(
-	PNG_INCLUDE_DIR png.h
+	PNG_INCLUDE_DIRS png.h
 	PATHS ${HEADER_SEARCH_PATHS}
 	NO_DEFAULT_PATH
 )
-if(NOT EXISTS ${PNG_INCLUDE_DIR})
-	find_path(PNG_INCLUDE_DIR png.h)
+if(NOT EXISTS ${PNG_INCLUDE_DIRS})
+	find_path(PNG_INCLUDE_DIRS png.h)
 endif()
 
 # try to find the PNG library
@@ -22,7 +22,7 @@ if(NOT PNG_LIBRARIES)
 	find_library(PNG_LIBRARIES NAMES png)
 endif()
 
-if(EXISTS ${PNG_INCLUDE_DIR})
+if(EXISTS ${PNG_INCLUDE_DIRS})
 	set(PNG_FOUND true)
 else()
 	set(PNG_FOUND false)
