@@ -66,6 +66,8 @@ public:
 	/// Angle is copy constructible
 	Angle(const Angle&) = default;
 
+	Angle& operator = (const Angle&) = default;
+
 	/// Angle is move constructible
 	Angle(Angle&&) = default;
 #endif
