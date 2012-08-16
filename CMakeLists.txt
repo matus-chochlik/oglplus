@@ -114,8 +114,7 @@ include(config/GLExt.cmake)
 
 # add this to enable M_PI on some platforms
 add_definitions(-D_USE_MATH_DEFINES)
-add_subdirectory("example/oglplus")
-add_subdirectory("example/standalone")
+add_subdirectory("example")
 
 # install the "regular" headers
 install(
