@@ -339,8 +339,8 @@ public:
 			N == 3,
 			"Invalid number of additional values for this vector type"
 		);
-		_elem[0] = Data(a)[0];
-		_elem[1] = Data(a)[1];
+		_elem[0] = a.Data()[0];
+		_elem[1] = a.Data()[1];
 		_elem[2] = v2;
 	}
 
@@ -352,8 +352,8 @@ public:
 			N == 4,
 			"Invalid number of additional values for this vector type"
 		);
-		_elem[0] = Data(a)[0];
-		_elem[1] = Data(a)[1];
+		_elem[0] = a.Data()[0];
+		_elem[1] = a.Data()[1];
 		_elem[2] = v2;
 		_elem[2] = v3;
 	}
@@ -365,9 +365,9 @@ public:
 			N == 4,
 			"Invalid number of additional values for this vector type"
 		);
-		_elem[0] = Data(a)[0];
-		_elem[1] = Data(a)[1];
-		_elem[2] = Data(a)[2];
+		_elem[0] = a.Data()[0];
+		_elem[1] = a.Data()[1];
+		_elem[2] = a.Data()[2];
 		_elem[3] = v3;
 	}
 #endif

@@ -15,6 +15,7 @@
 #include <oglplus/config.hpp>
 
 #include <type_traits>
+#include <tuple>
 
 namespace oglplus {
 namespace aux {
@@ -35,6 +36,8 @@ protected:
 
 } // namespace aux
 
+
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Stores a value having one of the listed types in a common representation.
 /**
  *  Applications rarely need to use this class directly. Instantiations of this
@@ -52,8 +55,65 @@ protected:
  *  gl.DrawBuffer(FramebufferColorAttachment::_0);
  *  @endcode
  */
-template <typename Common, typename ... Variants>
+template <typename Common, typename Variants>
 class OneOf
+{
+public:
+	/// OneOf is convertible to the Common representation of the Variants
+	operator Common(void) const;
+};
+#else
+template <typename Common, typename TypeList>
+class OneOf;
+#endif
+
+// Specialization for the common case of two variants
+template <typename Common, typename V1, typename V2>
+class OneOf<Common, std::tuple<V1, V2>>
+{
+private:
+	Common _value;
+public:
+	OneOf(V1 value)
+	 : _value(Common(value))
+	{ }
+
+	OneOf(V2 value)
+	 : _value(Common(value))
+	{ }
+
+	template <typename T>
+	OneOf(
+		T value,
+		typename std::enable_if<
+			std::is_convertible<T, V1>::value
+		>::type* = nullptr
+	): _value(Common(V1(value)))
+	{ }
+
+	template <typename T>
+	OneOf(
+		T value,
+		typename std::enable_if<
+			std::is_convertible<T, V2>::value
+		>::type* = nullptr
+	): _value(Common(V2(value)))
+	{ }
+
+#if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
+	explicit operator Common (void) const
+#else
+	operator Common (void) const
+#endif
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _value;
+	}
+};
+
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
+template <typename Common, typename ... Variants>
+class OneOf<Common, std::tuple<Variants...>>
  : public aux::OneOfBase<Common, Variants>...
 {
 private:
@@ -88,13 +148,17 @@ private:
 	};
 public:
 	template <typename T>
-	OneOf(T value, typename std::enable_if<is_one_of<T>::value>::type* = 0)
-	 : _value(aux::OneOfBase<Common, T>::Accept(value))
+	OneOf(
+		T value,
+		typename std::enable_if<is_one_of<T>::value>::type* = nullptr
+	): _value(aux::OneOfBase<Common, T>::Accept(value))
 	{ }
 
 	template <typename T>
-	OneOf(T value, typename std::enable_if<!is_one_of<T>::value>::type* = 0)
-	 : _value(aux::OneOfBase<Common, typename find<T>::type>::Accept(value))
+	OneOf(
+		T value,
+		typename std::enable_if<!is_one_of<T>::value>::type* = nullptr
+	): _value(aux::OneOfBase<Common, typename find<T>::type>::Accept(value))
 	{ }
 
 #if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
@@ -107,6 +171,7 @@ public:
 		return _value;
 	}
 };
+#endif // !OGLPLUS_NO_VARIADIC_TEMPLATES
 
 } // namespace oglplus
 

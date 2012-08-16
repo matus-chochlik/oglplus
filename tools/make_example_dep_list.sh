@@ -6,7 +6,7 @@
 temp_file=$(mktemp)
 search_include=${1}
 dependency_name=${2}
-dependency_file=example/oglplus/requirements/${dependency_name}.txt
+dependency_file=example/oglplus/dependencies/${dependency_name}.txt
 #
 pushd ${PWD} > /dev/null
 cd $(dirname $0)/../

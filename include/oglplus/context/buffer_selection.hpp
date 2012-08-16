@@ -31,8 +31,10 @@ public:
 	/// Color buffer specification type
 	typedef OneOf<
 		GLenum,
-		oglplus::ColorBuffer,
-		oglplus::FramebufferColorAttachment
+		std::tuple<
+			oglplus::ColorBuffer,
+			oglplus::FramebufferColorAttachment
+		>
 	> ColorBuffer;
 
 	/// Sets the destination color buffer for draw operations

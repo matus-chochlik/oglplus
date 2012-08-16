@@ -339,7 +339,7 @@ public:
 		Type& At(GLuint index) const
 		{
 			assert(_ptr != nullptr);
-			assert(((index + 1) * sizeof(Type)) <= _size);
+			assert(((index + 1) * sizeof(Type)) <= size_t(_size));
 			return ((Type*)_ptr)[index];
 		}
 	};

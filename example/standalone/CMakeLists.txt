@@ -22,8 +22,8 @@ function(standalone_example_common EXAMPLE_NAME)
 endfunction()
 
 if(GLUT_FOUND AND GLEW_FOUND)
-	include_directories(${GLEW_INCLUDE_DIR})
-	include_directories(${GLUT_INCLUDE_DIR})
+	include_directories(${GLEW_INCLUDE_DIRS})
+	include_directories(${GLUT_INCLUDE_DIRS})
 
 	standalone_example_common(
 		001_triangle_glut_glew
@@ -71,7 +71,7 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	endif()
 
 	if(GLM_FOUND)
-		include_directories(${GLM_INCLUDE_DIR})
+		include_directories(${GLM_INCLUDE_DIRS})
 		standalone_example_common(
 			007_glm_boxes
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}

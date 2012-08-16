@@ -71,7 +71,11 @@ namespace oglplus {
  */
 namespace smart_enums {
 
+#if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
 #include <oglplus/auxiliary/enum_shorteners.ipp>
+#else
+#error "Smart enumerations require support for function template default args!"
+#endif
 
 } // namespace smart_enums
 } // namespace oglplus

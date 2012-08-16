@@ -31,4 +31,4 @@ do
 	git add ${req_file}
 done
 
-$(dirname $0)/make_example_dep_list.sh png.h libpng
+$(dirname $0)/make_example_dep_list.sh png.h PNG
