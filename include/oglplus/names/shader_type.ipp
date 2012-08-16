@@ -26,6 +26,9 @@ switch(GLenum(value))
 #if defined GL_FRAGMENT_SHADER
 	case GL_FRAGMENT_SHADER: return StrLit("FRAGMENT_SHADER");
 #endif
+#if defined GL_COMPUTE_SHADER
+	case GL_COMPUTE_SHADER: return StrLit("COMPUTE_SHADER");
+#endif
 	default:;
 }
 

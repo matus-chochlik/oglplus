@@ -611,17 +611,17 @@ public:
 	 *
 	 *  @glvoereq{3,1,ARB,copy_buffer}
 	 */
-	friend void CopySubData(
-		const BufferOps& readtarget,
-		const BufferOps& writetarget,
+	static inline void CopySubData(
+		BufferOps::Target readtarget,
+		BufferOps::Target writetarget,
 		GLintptr readoffset,
 		GLintptr writeoffset,
 		GLsizeiptr size
 	)
 	{
 		OGLPLUS_GLFUNC(CopyBufferSubData)(
-			readtarget._name,
-			writetarget._name,
+			GLenum(readtarget),
+			GLenum(writetarget),
 			readoffset,
 			writeoffset,
 			size

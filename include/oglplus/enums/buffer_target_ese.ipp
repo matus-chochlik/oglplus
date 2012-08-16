@@ -119,6 +119,16 @@
    OGLPLUS_ENUM_CLASS_VALUE(Uniform, GL_UNIFORM_BUFFER)
 # endif
 #endif
+#if defined GL_QUERY_BUFFER_AMD
+# if defined Query
+#  pragma push_macro("Query")
+#  undef Query
+   OGLPLUS_ENUM_CLASS_VALUE(Query, GL_QUERY_BUFFER_AMD)
+#  pragma pop_macro("Query")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Query, GL_QUERY_BUFFER_AMD)
+# endif
+#endif
 #if defined GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 # if defined ExternalVirtualMemory
 #  pragma push_macro("ExternalVirtualMemory")

@@ -20,9 +20,12 @@ do
 	req_file=${oglplus_example_dir}/requirements/${cxx_feat}.txt
 	for example in ${oglplus_examples}
 	do
-		feat_required=$(grep -c -e"${cxx_feat_tag}{${cxx_feat}}"<${example})
-		if [ ${feat_required} -ne 0 ]
-		then echo $(basename ${example})
+		if [ "${example:0:3}" != "000" ]
+		then
+			feat_required=$(grep -c -e"${cxx_feat_tag}{${cxx_feat}}"<${example})
+			if [ ${feat_required} -ne 0 ]
+			then echo $(basename ${example})
+			fi
 		fi
 	done | sort > ${req_file}
 	git add ${req_file}

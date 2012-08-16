@@ -107,13 +107,13 @@ public:
 	 *  @see Framebuffer::AttachColorRenderbuffer()
 	 */
 	void AttachColorRenderbuffer(
-		FramebufferColorAttachment attachment,
+		FramebufferColorAttachmentNumber attachment_no,
 		const RenderbufferOps & renderbuffer
 	) const
 	{
 		FramebufferOps::AttachColorRenderbuffer(
 			this->BindTarget(),
-			attachment,
+			attachment_no,
 			renderbuffer
 		);
 	}

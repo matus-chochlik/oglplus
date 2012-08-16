@@ -20,7 +20,9 @@ TessEvaluation,
 /// GEOMETRY_SHADER
 Geometry,
 /// FRAGMENT_SHADER
-Fragment
+Fragment,
+/// COMPUTE_SHADER
+Compute
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

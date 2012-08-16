@@ -1,5 +1,4 @@
-/**
- *  @file oglplus/context/buffer_selection.hpp
+/** *  @file oglplus/context/buffer_selection.hpp
  *  @brief Wrappers for functions selecting the buffers for read/write operations
  *
  *  @author Matus Chochlik
@@ -16,6 +15,8 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/color_buffer.hpp>
+#include <oglplus/framebuffer.hpp>
+#include <oglplus/one_of.hpp>
 
 namespace oglplus {
 namespace context {
@@ -27,6 +28,13 @@ namespace context {
 class BufferSelection
 {
 public:
+	/// Color buffer specification type
+	typedef OneOf<
+		GLenum,
+		oglplus::ColorBuffer,
+		oglplus::FramebufferColorAttachment
+	> ColorBuffer;
+
 	/// Sets the destination color buffer for draw operations
 	/**
 	 *  @glsymbols
@@ -36,6 +44,29 @@ public:
 	{
 		OGLPLUS_GLFUNC(DrawBuffer)(GLenum(buffer));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawBuffer));
+	}
+
+	/// Sets the destination color buffers for draw operations
+	/**
+	 *  @glsymbols
+	 *  @glfunref{DrawBuffers}
+	 */
+	template <size_t N>
+	static void DrawBuffers(ColorBuffer (&buffers)[N])
+	{
+		if(sizeof(buffers) == sizeof(GLenum [N]))
+		{
+			GLenum *_tmp = reinterpret_cast<GLenum*>(buffers);
+			OGLPLUS_GLFUNC(DrawBuffers)(N, _tmp);
+		}
+		else
+		{
+			GLenum _tmp[N];
+			for(size_t i=0; i!=N; ++i)
+				_tmp[i] = GLenum(buffers[i]);
+			OGLPLUS_GLFUNC(DrawBuffers)(N, _tmp);
+		}
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawBuffers));
 	}
 
 	/// Sets the source color buffer for read operations

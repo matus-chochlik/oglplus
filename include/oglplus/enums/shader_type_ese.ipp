@@ -59,3 +59,13 @@
    OGLPLUS_ENUM_CLASS_VALUE(Fragment, GL_FRAGMENT_SHADER)
 # endif
 #endif
+#if defined GL_COMPUTE_SHADER
+# if defined Compute
+#  pragma push_macro("Compute")
+#  undef Compute
+   OGLPLUS_ENUM_CLASS_VALUE(Compute, GL_COMPUTE_SHADER)
+#  pragma pop_macro("Compute")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Compute, GL_COMPUTE_SHADER)
+# endif
+#endif

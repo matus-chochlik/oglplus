@@ -272,6 +272,7 @@ public:
 		~Activator(void)
 		{
 			if(_active) OGLPLUS_GLFUNC(EndTransformFeedback)();
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EndTransformFeedback));
 		}
 	};
 
@@ -326,6 +327,7 @@ public:
 		~Pauser(void)
 		{
 			if(_paused) OGLPLUS_GLFUNC(ResumeTransformFeedback)();
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
 		}
 	};
 };

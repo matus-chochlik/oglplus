@@ -55,11 +55,11 @@ void run_loop(
 			std::cout << " +-+-[" << data.id << "] '" <<
 				data.message << "'" << std::endl;
 			std::cout << " | +---[source]   '" <<
-				EnumValueName(data.source)  << "'" << std::endl;
+				EnumValueName(data.source).c_str()  << "'" << std::endl;
 			std::cout << " | +---[type]     '" <<
-				EnumValueName(data.type)  << "'" << std::endl;
+				EnumValueName(data.type).c_str()  << "'" << std::endl;
 			std::cout << " | `---[severity] '" <<
-				EnumValueName(data.severity)  << "'" << std::endl;
+				EnumValueName(data.severity).c_str()  << "'" << std::endl;
 		}
 	);
 

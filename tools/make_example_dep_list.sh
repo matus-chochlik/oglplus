@@ -14,9 +14,12 @@ cd $(dirname $0)/../
 echo ${dependency_name}
 for example in example/oglplus/[0-9][0-9][0-9]*.cpp
 do
-	g++ --std=c++0x ${example} ${CXXFLAGS} -Iinclude -DOGLPLUS_NO_SITE_CONFIG=1 -E -M -o ${temp_file}
-	if [ $(grep -c -e "${search_include}\>" < ${temp_file}) -gt 0 ]
-	then echo $(basename ${example})
+	if [ "${example:0:3}" != "000" ]
+	then
+		g++ --std=c++0x ${example} ${CXXFLAGS} -Iinclude -DOGLPLUS_NO_SITE_CONFIG=1 -E -M -o ${temp_file}
+		if [ $(grep -c -e "${search_include}\>" < ${temp_file}) -gt 0 ]
+		then echo $(basename ${example})
+		fi
 	fi
 done | sort > ${dependency_file}
 git add ${dependency_file}
