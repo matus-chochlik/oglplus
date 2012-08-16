@@ -7,3 +7,4 @@
 029_shadow_mapping.cpp
 031_blob.cpp
 034_billiard_balls.cpp
+040_jelly_cube.cpp
