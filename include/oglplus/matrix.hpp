@@ -1524,12 +1524,12 @@ public:
 	{
 		assert(eye != target);
 		Vector<T, 3> z = Normalized(eye - target);
-		Vector<T, 3> x(
-			z.template At<2>(),
-			T(0),
-			-z.template At<0>()
-		);
-		Vector<T, 3> y = Cross(z, x);
+		T zx = z.template At<0>();
+		T zy = z.template At<1>();
+		T zz = z.template At<2>();
+		Vector<T, 3> t(zz, T(0), zy*zy*zy-zx);
+		Vector<T, 3> y = Normalized(Cross(z, t));
+		Vector<T, 3> x = Cross(y, z);
 
 		OGLPLUS_AUX_MATRIX_INIT_DATA({
 			x.template At<0>(),

@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8)
 # get a list of all svg textures
 file(GLOB OGLPLUS_SVG_TEXTURES "./*.svg")
 
-add_custom_target(oglplus_textures)
+add_custom_target(oglplus-textures)
 
 foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 	get_filename_component(TEXTURE_NAME ${SVG_FILE} NAME_WE)
@@ -39,5 +39,5 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 	endif()
 
 	add_custom_target(texture-${TEXTURE_NAME} DEPENDS ${PNG_FILE})
-	add_dependencies(oglplus_textures texture-${TEXTURE_NAME})
+	add_dependencies(oglplus-textures texture-${TEXTURE_NAME})
 endforeach(SVG_FILE)

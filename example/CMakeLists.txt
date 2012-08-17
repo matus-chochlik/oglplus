@@ -157,13 +157,15 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 			add_all_dep_link_libraries(${TARGET_NAME})
 			add_dependencies("${PARENT_TARGET}" ${TARGET_NAME})
 
+			add_dependencies(${TARGET_NAME} oglplus-textures)
+
 			if(NOT OGLPLUS_NO_SCREENSHOTS)
 				add_custom_command(
 					OUTPUT ${EXE_NAME}.rgb
 					COMMAND ${EXE_NAME} --screenshot ${EXE_NAME}.rgb
 					DEPENDS ${EXE_NAME}
 				)
-	
+
 				if(${ImageMagick_convert_FOUND})
 					add_custom_command(
 						OUTPUT ${EXE_NAME}.png
@@ -176,7 +178,7 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 							${EXE_NAME}.png
 						DEPENDS ${EXE_NAME}.rgb
 					)
-	
+
 					add_custom_target(${EXE_NAME}-screenshot DEPENDS ${EXE_NAME}.png)
 					add_dependencies(${PARENT_TARGET}-screenshots ${EXE_NAME}-screenshot)
 				endif()
