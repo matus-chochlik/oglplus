@@ -229,7 +229,7 @@ public:
 			"		return spring_force("
 			"			Position,"
 			"			CubePositions[CubeCenterIndex],"
-			"			5.0,"
+			"			7.0,"
 			"			0.1"
 			"		);"
 			"	}"
@@ -613,14 +613,18 @@ public:
 
 		gs.Source(StrLit(
 			"#version 330\n"
-			"layout(triangles) in;"
+			"layout(triangles_adjacency) in;"
 			"layout(triangle_strip, max_vertices = 3) out;"
 
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 
-			"in vec3 vertLightDir[3];"
+			"in vec3 vertLightDir[6];"
 
 			"out vec3 geomLightDir, geomNormal;"
+
+			"void make_normal(int i0, int i1, int i2)"
+			"{"
+			"}"
 
 			"void make_vertex(int index)"
 			"{"
@@ -635,14 +639,14 @@ public:
 			"void main(void)"
 			"{"
 			"	geomNormal = normalize(cross("
-			"		gl_in[2].gl_Position.xyz-"
+			"		gl_in[4].gl_Position.xyz-"
 			"		gl_in[0].gl_Position.xyz,"
-			"		gl_in[1].gl_Position.xyz-"
+			"		gl_in[2].gl_Position.xyz-"
 			"		gl_in[0].gl_Position.xyz"
 			"	));"
 			"	make_vertex(0);"
-			"	make_vertex(1);"
 			"	make_vertex(2);"
+			"	make_vertex(4);"
 			"	EndPrimitive();"
 			"}"
 		));
@@ -804,7 +808,191 @@ private:
 		vert_attr.Enable();
 	}
 
-	GLint AdjustedIndex(int x, int y, int z, int n)
+	int FaceIndex(
+		const size_t n,
+		const size_t n_1,
+		size_t f,
+		int i,
+		int j
+	) const
+	{
+		if(i<0)
+		{
+			assert(i == -1);
+			assert(j >=  0);
+			assert(j <=int(n_1));
+			switch(f)
+			{
+				// +x -> +z
+				case 0: return FaceIndex(n, n_1, 4, n_1-1,     j);
+				// -x -> -z
+				case 1: return FaceIndex(n, n_1, 5, n_1-1,     j);
+				// +y -> -x
+				case 2: return FaceIndex(n, n_1, 1, n_1-j, n_1-1);
+				// -y -> -x
+				case 3: return FaceIndex(n, n_1, 1,     j,     1);
+				// +z -> -x
+				case 4: return FaceIndex(n, n_1, 1, n_1-1,     j);
+				// -z -> +x
+				case 5: return FaceIndex(n, n_1, 0, n_1-1,     j);
+			}
+		}
+		else if(i>int(n_1))
+		{
+			assert(i == int(n));
+			assert(j >=  0);
+			assert(j <= int(n_1));
+			switch(f)
+			{
+				// +x -> -z
+				case 0: return FaceIndex(n, n_1, 5,     1,     j);
+				// -x -> +z
+				case 1: return FaceIndex(n, n_1, 4,     1,     j);
+				// +y -> +x
+				case 2: return FaceIndex(n, n_1, 0,     j, n_1-1);
+				// -y -> +x
+				case 3: return FaceIndex(n, n_1, 0, n_1-j,     1);
+				// +z -> +x
+				case 4: return FaceIndex(n, n_1, 0,     1,     j);
+				// -z -> -x
+				case 5: return FaceIndex(n, n_1, 5,     1,     j);
+			}
+		}
+		else if(j<0)
+		{
+			assert(j == -1);
+			assert(i >=  0);
+			assert(i <= int(n_1));
+			switch(f)
+			{
+				// +x -> -y
+				case 0: return FaceIndex(n, n_1, 3, n_1-1, n_1-i);
+				// -x -> -y
+				case 1: return FaceIndex(n, n_1, 3,     1,     i);
+				// +y -> +z
+				case 2: return FaceIndex(n, n_1, 4,     i, n_1-1);
+				// -y -> -z
+				case 3: return FaceIndex(n, n_1, 5, n_1-i,     1);
+				// +z -> -y
+				case 4: return FaceIndex(n, n_1, 3,     i, n_1-1);
+				// -z -> -y
+				case 5: return FaceIndex(n, n_1, 3, n_1-i,     1);
+			}
+		}
+		else if(j>int(n_1))
+		{
+			assert(j == int(n));
+			assert(i >=  0);
+			assert(i <= int(n_1));
+			switch(f)
+			{
+				// +x -> +y
+				case 0: return FaceIndex(n, n_1, 2, n_1-1,     i);
+				// -x -> +y
+				case 1: return FaceIndex(n, n_1, 2,     1, n_1-i);
+				// +y -> -z
+				case 2: return FaceIndex(n, n_1, 5, n_1-i, n_1-1);
+				// -y -> +z
+				case 3: return FaceIndex(n, n_1, 4, n_1-i,     1);
+				// +z -> +y
+				case 4: return FaceIndex(n, n_1, 2,     i,     1);
+				// -z -> +y
+				case 5: return FaceIndex(n, n_1, 2, n_1-i, n_1-1);
+			}
+		}
+
+		assert(f < 6);
+		assert(i >= 0);
+		assert(j >= 0);
+		assert(i <= int(n_1));
+		assert(j <= int(n_1));
+
+		typedef int(*index_getter)(int,int,int);
+		index_getter get_x[6] = {
+			[](int n_1,int  ,int  )->int{return   n_1;},
+			[](int    ,int  ,int  )->int{return     0;},
+			[](int n_1,int i,int  )->int{return n_1-i;},
+			[](int    ,int i,int  )->int{return     i;},
+			[](int    ,int i,int  )->int{return     i;},
+			[](int n_1,int i,int  )->int{return n_1-i;}
+		};
+		index_getter get_y[6] = {
+			[](int    ,int  ,int j)->int{return     j;},
+			[](int    ,int  ,int j)->int{return     j;},
+			[](int n_1,int  ,int  )->int{return   n_1;},
+			[](int    ,int  ,int  )->int{return     0;},
+			[](int    ,int  ,int j)->int{return     j;},
+			[](int    ,int  ,int j)->int{return     j;}
+		};
+		index_getter get_z[6] = {
+			[](int n_1,int i,int  )->int{return n_1-i;},
+			[](int    ,int i,int  )->int{return     i;},
+			[](int    ,int  ,int j)->int{return     j;},
+			[](int    ,int  ,int j)->int{return     j;},
+			[](int n_1,int  ,int  )->int{return   n_1;},
+			[](int    ,int  ,int  )->int{return     0;}
+		};
+		int x = get_x[f](n_1, i, j);
+		int y = get_y[f](n_1, i, j);
+		int z = get_z[f](n_1, i, j);
+
+		return z*n*n + y*n + x;
+	}
+
+	void InitIndices(const size_t n)
+	{
+		std::vector<GLuint> index_data(face_index_count);
+
+		auto ii = index_data.begin(), ie = index_data.end();
+
+		size_t n_1 = n-1;
+
+		for(size_t f=0; f!=6; ++f)
+		{
+			for(size_t j=0; j!=n_1; ++j)
+			{
+				assert(ii != ie);
+				*ii++ = FaceIndex(n, n_1, f,  0, j+0);
+				assert(ii != ie);
+				*ii++ = FaceIndex(n, n_1, f, -1, j+1);
+				assert(ii != ie);
+				*ii++ = FaceIndex(n, n_1, f,  0, j+1);
+				assert(ii != ie);
+				*ii++ = FaceIndex(n, n_1, f, +1, j-1);
+
+				for(size_t i=1; i!=n_1; ++i)
+				{
+					assert(ii != ie);
+					*ii++ = FaceIndex(n, n_1, f, i+0, j+0);
+					assert(ii != ie);
+					*ii++ = FaceIndex(n, n_1, f, i-1, j+2);
+					assert(ii != ie);
+					*ii++ = FaceIndex(n, n_1, f, i+0, j+1);
+					assert(ii != ie);
+					*ii++ = FaceIndex(n, n_1, f, i+1, j-1);
+				}
+				assert(ii != ie);
+				*ii++ = FaceIndex(n, n_1, f, n_1+0, j+0);
+				assert(ii != ie);
+				*ii++ = FaceIndex(n, n_1, f, n_1-1, j+1);
+				assert(ii != ie);
+				*ii++ = FaceIndex(n, n_1, f, n_1+0, j+1);
+				assert(ii != ie);
+				*ii++ = FaceIndex(n, n_1, f, n_1+1, j+0);
+				// primitive restart index
+				assert(ii != ie);
+				*ii++ = vertex_count;
+			}
+		}
+
+		assert(ii == ie);
+
+		draw_vao.Bind();
+		indices.Bind(se::ElementArray());
+		Buffer::Data(se::ElementArray(), index_data);
+	}
+
+	GLint SpringIndex(int x, int y, int z, int n) const
 	{
 		if(x <  0) return -1;
 		if(x >= n) return -1;
@@ -816,130 +1004,6 @@ private:
 		assert(index >= 0);
 		assert(index < GLint(vertex_count));
 		return index;
-	}
-
-	void InitIndices(const size_t n)
-	{
-		std::vector<GLuint> index_data(face_index_count);
-
-		auto ii = index_data.begin(), ie = index_data.end();
-
-		size_t n_1 = n-1;
-
-		// x+
-		for(size_t j=0; j!=n_1; ++j)
-		{
-			for(size_t i=0; i!=n; ++i)
-			{
-				for(size_t s=0; s!=2; ++s)
-				{
-					int x = n_1;
-					int y = j+s;
-					int z = n_1-i;
-					assert(ii != ie);
-					*ii++ = z*n*n + y*n + x;
-				}
-			}
-			// primitive restart index
-			assert(ii != ie);
-			*ii++ = vertex_count;
-		}
-		// x-
-		for(size_t j=0; j!=n_1; ++j)
-		{
-			for(size_t i=0; i!=n; ++i)
-			{
-				for(size_t s=0; s!=2; ++s)
-				{
-					int x = 0;
-					int y = j+s;
-					int z = i;
-					assert(ii != ie);
-					*ii++ = z*n*n + y*n + x;
-				}
-			}
-			// primitive restart index
-			assert(ii != ie);
-			*ii++ = vertex_count;
-		}
-		// y+
-		for(size_t j=0; j!=n_1; ++j)
-		{
-			for(size_t i=0; i!=n; ++i)
-			{
-				for(size_t s=0; s!=2; ++s)
-				{
-					int x = n_1-i;
-					int y = n_1;
-					int z = j+s;
-					assert(ii != ie);
-					*ii++ = z*n*n + y*n + x;
-				}
-			}
-			// primitive restart index
-			assert(ii != ie);
-			*ii++ = vertex_count;
-		}
-		// y-
-		for(size_t j=0; j!=(n-1); ++j)
-		{
-			for(size_t i=0; i!=n; ++i)
-			{
-				for(size_t s=0; s!=2; ++s)
-				{
-					int x = i;
-					int y = 0;
-					int z = j+s;
-					assert(ii != ie);
-					*ii++ = z*n*n + y*n + x;
-				}
-			}
-			// primitive restart index
-			assert(ii != ie);
-			*ii++ = vertex_count;
-		}
-		// z+
-		for(size_t j=0; j!=n_1; ++j)
-		{
-			for(size_t i=0; i!=n; ++i)
-			{
-				for(size_t s=0; s!=2; ++s)
-				{
-					int x = i;
-					int y = j+s;
-					int z = n_1;
-					assert(ii != ie);
-					*ii++ = z*n*n + y*n + x;
-				}
-			}
-			// primitive restart index
-			assert(ii != ie);
-			*ii++ = vertex_count;
-		}
-		// z-
-		for(size_t j=0; j!=n_1; ++j)
-		{
-			for(size_t i=0; i!=n; ++i)
-			{
-				for(size_t s=0; s!=2; ++s)
-				{
-					int x = n_1-i;
-					int y = j+s;
-					int z = 0;
-					assert(ii != ie);
-					*ii++ = z*n*n + y*n + x;
-				}
-			}
-			// primitive restart index
-			assert(ii != ie);
-			*ii++ = vertex_count;
-		}
-
-		assert(ii == ie);
-
-		draw_vao.Bind();
-		indices.Bind(se::ElementArray());
-		Buffer::Data(se::ElementArray(), index_data);
 	}
 
 	void InitSprings(const JellyPhysProgram& phys_prog, const size_t n)
@@ -956,83 +1020,83 @@ private:
 				{
 					// SpringAX
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y+0, z+0, n);
+					*ii++ = SpringIndex(x-1, y+0, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y+0, z+0, n);
+					*ii++ = SpringIndex(x+1, y+0, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-2, y+0, z+0, n);
+					*ii++ = SpringIndex(x-2, y+0, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+2, y+0, z+0, n);
+					*ii++ = SpringIndex(x+2, y+0, z+0, n);
 
 					// SpringAY
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y-1, z+0, n);
+					*ii++ = SpringIndex(x+0, y-1, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y+1, z+0, n);
+					*ii++ = SpringIndex(x+0, y+1, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y-2, z+0, n);
+					*ii++ = SpringIndex(x+0, y-2, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y+2, z+0, n);
+					*ii++ = SpringIndex(x+0, y+2, z+0, n);
 
 					// SpringAZ
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y+0, z-1, n);
+					*ii++ = SpringIndex(x+0, y+0, z-1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y+0, z+1, n);
+					*ii++ = SpringIndex(x+0, y+0, z+1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y+0, z-2, n);
+					*ii++ = SpringIndex(x+0, y+0, z-2, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y+0, z+2, n);
+					*ii++ = SpringIndex(x+0, y+0, z+2, n);
 
 					// SpringBX
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y+1, z-1, n);
+					*ii++ = SpringIndex(x+0, y+1, z-1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y+1, z+1, n);
+					*ii++ = SpringIndex(x+0, y+1, z+1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y-1, z+1, n);
+					*ii++ = SpringIndex(x+0, y-1, z+1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+0, y-1, z-1, n);
+					*ii++ = SpringIndex(x+0, y-1, z-1, n);
 
 					// SpringBY
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y+0, z+1, n);
+					*ii++ = SpringIndex(x-1, y+0, z+1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y+0, z+1, n);
+					*ii++ = SpringIndex(x+1, y+0, z+1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y+0, z-1, n);
+					*ii++ = SpringIndex(x+1, y+0, z-1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y+0, z-1, n);
+					*ii++ = SpringIndex(x-1, y+0, z-1, n);
 
 					// SpringBZ
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y-1, z+0, n);
+					*ii++ = SpringIndex(x+1, y-1, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y+1, z+0, n);
+					*ii++ = SpringIndex(x+1, y+1, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y+1, z+0, n);
+					*ii++ = SpringIndex(x-1, y+1, z+0, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y-1, z+0, n);
+					*ii++ = SpringIndex(x-1, y-1, z+0, n);
 
 					// SpringCUp
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y+1, z-1, n);
+					*ii++ = SpringIndex(x-1, y+1, z-1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y+1, z-1, n);
+					*ii++ = SpringIndex(x+1, y+1, z-1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y+1, z+1, n);
+					*ii++ = SpringIndex(x+1, y+1, z+1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y+1, z+1, n);
+					*ii++ = SpringIndex(x-1, y+1, z+1, n);
 
 					// SpringCDn
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y-1, z-1, n);
+					*ii++ = SpringIndex(x-1, y-1, z-1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y-1, z-1, n);
+					*ii++ = SpringIndex(x+1, y-1, z-1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x+1, y-1, z+1, n);
+					*ii++ = SpringIndex(x+1, y-1, z+1, n);
 					assert(ii != ie);
-					*ii++ = AdjustedIndex(x-1, y-1, z+1, n);
+					*ii++ = SpringIndex(x-1, y-1, z+1, n);
 				}
 			}
 		}
@@ -1057,7 +1121,7 @@ public:
 		const size_t n,
 		const Mat4f& transform
 	): vertex_count(n*n*n)
-	 , face_index_count(6*(n-1)*(n*2+1))
+	 , face_index_count(6*(n-1)*(n*4+1))
 	{
 		assert(size > 0.0f);
 		assert(n > 1);
@@ -1102,14 +1166,17 @@ public:
 		draw_prog.ambient_color.Set(Vec3f(0.3, 0.4, 0.2));
 		draw_prog.diffuse_color.Set(Vec3f(0.6, 1.0, 0.4));
 
-		gl.DrawElements(se::TriangleStrip(), face_index_count, se::UnsignedInt());
+		se::TriangleStripAdjacency tswa;
+		gl.DrawElements(tswa, face_index_count, se::UnsignedInt());
 
 		draw_prog.ambient_color.Set(Vec3f(0.1, 0.2, 0.0));
 		draw_prog.diffuse_color.Set(Vec3f(0.3, 0.4, 0.2));
 
+		gl.Enable(se::PolygonOffsetLine());
 		gl.PolygonMode(se::Line());
-		gl.DrawElements(se::TriangleStrip(), face_index_count, se::UnsignedInt());
+		gl.DrawElements(tswa, face_index_count, se::UnsignedInt());
 		gl.PolygonMode(se::Fill());
+		gl.Disable(se::PolygonOffsetLine());
 
 
 		gl.Disable(se::PrimitiveRestart());
@@ -1138,7 +1205,7 @@ public:
 	 : prev_time(0.0)
 	 , prev_impulse_strength(0.0)
 	 , floor(metal_prog)
-	 , camera(cam_prog, 0.1f, 3.0f, 10.0f)
+	 , camera(cam_prog, 0.1f, 3.5f, 10.0f)
 	 , jelly_cube(
 		phys_prog,
 		draw_prog,
@@ -1164,6 +1231,8 @@ public:
 		gl.Enable(se::CullFace());
 		gl.FrontFace(se::CW());
 		gl.CullFace(se::Back());
+
+		gl.PolygonOffset(-1.0, -1.0);
 	}
 
 	void Reshape(size_t width, size_t height)
@@ -1182,9 +1251,9 @@ public:
 
 	void UpdateImpulse(double time, Vec3f pos)
 	{
-		double impulse_strength = 100.0 * (-SineWave(time / 3.0) - 0.99);
+		double impulse_strength = 100.0 * (-SineWave(time / 5.0) - 0.99);
 		if(impulse_strength < 0.0) impulse_strength = 0.0;
-		impulse_strength = pow(impulse_strength, 12.0) * 4.0;
+		impulse_strength = pow(impulse_strength, 12.0) * 2.0;
 
 		if(impulse_strength != 0.0)
 		{
@@ -1192,7 +1261,7 @@ public:
 			{
 				phys_prog.impulse_center.Set(Vec3f(
 					+4.5f-float(std::rand())/float(RAND_MAX)*9.0+pos.x(),
-					-9.0f-float(std::rand())/float(RAND_MAX),
+					-4.5f-float(std::rand())/float(RAND_MAX),
 					+4.5f-float(std::rand())/float(RAND_MAX)*9.0+pos.z()
 				));
 			}
