@@ -1,3 +1,17 @@
+Version 0.18.0
+
+- Added the OneOf template allowing to pass values
+  of several different types with a common representation
+  as parameter to certain functions.
+- Wrapper for glDrawBuffers was added to Context
+- The FramebufferColorAttachment enumeration was added.
+- The implementation of CameraMatrix::LookingAt was updated.
+- A bug in Buffer::SubData has been fixed.
+- Several other minor changes were made and bugs fixed.
+- The build system has been updated.
+- New examples were added.
+
+
 Version 0.17.0
 
 - Improved support for MSVC (2010 and 11)
@@ -17,7 +31,7 @@ Version 0.17.0
 - Several examples were updated and/or optimized.
 - The documentation has been updated and a new tutorial was
   added.
- 
+
 
 Version 0.16.0
 

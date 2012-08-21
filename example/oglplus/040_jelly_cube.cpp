@@ -1310,6 +1310,21 @@ public:
 	{
 		return time < 90.0;
 	}
+
+	double HeatUpTime(void) const
+	{
+		return 0.0;
+	}
+
+	double ScreenshotTime(void) const
+	{
+		return 5.0;
+	}
+
+	double FrameTime(void) const
+	{
+		return 1.0/60.0;
+	}
 };
 
 std::unique_ptr<Example> makeExample(const ExampleParams& params)

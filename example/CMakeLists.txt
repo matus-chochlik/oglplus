@@ -161,26 +161,26 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 
 			if(NOT OGLPLUS_NO_SCREENSHOTS)
 				add_custom_command(
-					OUTPUT ${EXE_NAME}.rgb
-					COMMAND ${EXE_NAME} --screenshot ${EXE_NAME}.rgb
-					DEPENDS ${EXE_NAME}
+					OUTPUT ${EXAMPLE_NAME}.rgb
+					COMMAND ${EXAMPLE_NAME} --screenshot ${EXAMPLE_NAME}.rgb
+					DEPENDS ${EXAMPLE_NAME}
 				)
 
 				if(${ImageMagick_convert_FOUND})
 					add_custom_command(
-						OUTPUT ${EXE_NAME}.png
+						OUTPUT ${EXAMPLE_NAME}.png
 						COMMAND ${ImageMagick_convert_EXECUTABLE}
 							-depth 8
 							-size 800x600
-							${EXE_NAME}.rgb
+							${EXAMPLE_NAME}.rgb
 							-flip
 							-adaptive-resize 400x300
-							${EXE_NAME}.png
-						DEPENDS ${EXE_NAME}.rgb
+							${EXAMPLE_NAME}.png
+						DEPENDS ${EXAMPLE_NAME}.rgb
 					)
 
-					add_custom_target(${EXE_NAME}-screenshot DEPENDS ${EXE_NAME}.png)
-					add_dependencies(${PARENT_TARGET}-screenshots ${EXE_NAME}-screenshot)
+					add_custom_target("${EXAMPLE_NAME}-screenshot" DEPENDS ${EXAMPLE_NAME}.png)
+					add_dependencies("${PARENT_TARGET}-screenshots" "${EXAMPLE_NAME}-screenshot")
 				endif()
 			endif()
 		endif()
