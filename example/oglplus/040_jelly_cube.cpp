@@ -636,16 +636,31 @@ public:
 			"	EmitVertex();"
 			"}"
 
+			"vec3 face_normal(int a, int b, int c)"
+			"{"
+			"	return normalize(cross("
+			"		gl_in[c].gl_Position.xyz-"
+			"		gl_in[a].gl_Position.xyz,"
+			"		gl_in[b].gl_Position.xyz-"
+			"		gl_in[a].gl_Position.xyz"
+			"	));"
+			"}"
+
 			"void main(void)"
 			"{"
-			"	geomNormal = normalize(cross("
-			"		gl_in[4].gl_Position.xyz-"
-			"		gl_in[0].gl_Position.xyz,"
-			"		gl_in[2].gl_Position.xyz-"
-			"		gl_in[0].gl_Position.xyz"
-			"	));"
+			"	vec3 fn  = face_normal(0, 2, 4);"
+			"	vec3 fn1 = face_normal(1, 2, 0);"
+			"	vec3 fn3 = face_normal(3, 4, 2);"
+			"	vec3 fn5 = face_normal(5, 0, 4);"
+
+			"	const float a = 0.334, b = (1.0 - a) * 0.5;"
+			"	geomNormal = fn*a + fn5*b + fn1*b;"
 			"	make_vertex(0);"
+
+			"	geomNormal = fn*a + fn1*b + fn3*b;"
 			"	make_vertex(2);"
+
+			"	geomNormal = fn*a + fn3*b + fn5*b;"
 			"	make_vertex(4);"
 			"	EndPrimitive();"
 			"}"
@@ -855,7 +870,7 @@ private:
 				// +z -> +x
 				case 4: return FaceIndex(n, n_1, 0,     1,     j);
 				// -z -> -x
-				case 5: return FaceIndex(n, n_1, 5,     1,     j);
+				case 5: return FaceIndex(n, n_1, 1,     1,     j);
 			}
 		}
 		else if(j<0)
@@ -893,7 +908,7 @@ private:
 				// +y -> -z
 				case 2: return FaceIndex(n, n_1, 5, n_1-i, n_1-1);
 				// -y -> +z
-				case 3: return FaceIndex(n, n_1, 4, n_1-i,     1);
+				case 3: return FaceIndex(n, n_1, 4,     i,     1);
 				// +z -> +y
 				case 4: return FaceIndex(n, n_1, 2,     i,     1);
 				// -z -> +y
@@ -911,7 +926,7 @@ private:
 		index_getter get_x[6] = {
 			[](int n_1,int  ,int  )->int{return   n_1;},
 			[](int    ,int  ,int  )->int{return     0;},
-			[](int n_1,int i,int  )->int{return n_1-i;},
+			[](int    ,int i,int  )->int{return     i;},
 			[](int    ,int i,int  )->int{return     i;},
 			[](int    ,int i,int  )->int{return     i;},
 			[](int n_1,int i,int  )->int{return n_1-i;}
@@ -927,7 +942,7 @@ private:
 		index_getter get_z[6] = {
 			[](int n_1,int i,int  )->int{return n_1-i;},
 			[](int    ,int i,int  )->int{return     i;},
-			[](int    ,int  ,int j)->int{return     j;},
+			[](int n_1,int  ,int j)->int{return n_1-j;},
 			[](int    ,int  ,int j)->int{return     j;},
 			[](int n_1,int  ,int  )->int{return   n_1;},
 			[](int    ,int  ,int  )->int{return     0;}
@@ -974,7 +989,7 @@ private:
 				assert(ii != ie);
 				*ii++ = FaceIndex(n, n_1, f, n_1+0, j+0);
 				assert(ii != ie);
-				*ii++ = FaceIndex(n, n_1, f, n_1-1, j+1);
+				*ii++ = FaceIndex(n, n_1, f, n_1-1, j+2);
 				assert(ii != ie);
 				*ii++ = FaceIndex(n, n_1, f, n_1+0, j+1);
 				assert(ii != ie);
@@ -1232,7 +1247,7 @@ public:
 		gl.FrontFace(se::CW());
 		gl.CullFace(se::Back());
 
-		gl.PolygonOffset(-1.0, -1.0);
+		gl.PolygonOffset(-0.3, 0.0);
 	}
 
 	void Reshape(size_t width, size_t height)
