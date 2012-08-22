@@ -42,6 +42,7 @@ private:
 public:
 	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
 	LazyProgramUniform<Vec3f> camera_position;
+	LazyProgramUniform<GLfloat> light_multiplier;
 
 	MetalProgram(void)
 	 : vs(se::Vertex(), ObjectDesc("Metal vertex"))
@@ -49,10 +50,12 @@ public:
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_position(prog(), "CameraPosition")
+	 , light_multiplier(prog(), "LightMultiplier")
 	{
 		vs.Source(StrLit("#version 330\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 CameraPosition, LightPosition;"
+
 			"in vec4 Position;"
 			"in vec3 Normal, Tangent;"
 			"in vec2 TexCoord;"
@@ -62,7 +65,7 @@ public:
 			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
-			"	gl_Position = Position - vec4(0.0, 1.0, 0.0, 0.0);"
+			"	gl_Position = Position;"
 			"	vertLightDir = LightPosition - gl_Position.xyz;"
 			"	vertViewDir = CameraPosition - gl_Position.xyz;"
 			"	vertNormal = Normal;"
@@ -80,6 +83,7 @@ public:
 			"const vec3 Color2 = vec3(0.7, 0.9, 0.8);"
 
 			"uniform sampler2D MetalTex;"
+			"uniform float LightMultiplier;"
 
 			"in vec3 vertNormal, vertTangent, vertBinormal;"
 			"in vec3 vertLightDir, vertViewDir;"
@@ -103,19 +107,19 @@ public:
 			"		Normal"
 			"	);"
 
-			"	float Specular = pow(max(dot("
+			"	float Specular = LightMultiplier * pow(max(dot("
 			"		normalize(LightRefl),"
 			"		normalize(vertViewDir)"
 			"	)+0.04, 0.0), 16+Sample.b*48)*pow(0.4+Sample.b*1.6, 4.0);"
 
 			"	Normal = normalize(vertNormal*3.0 + Normal);"
 
-			"	float Diffuse = pow(max(dot("
+			"	float Diffuse = LightMultiplier * pow(max(dot("
 			"		normalize(Normal), "
 			"		normalize(vertLightDir)"
 			"	), 0.0), 2.0);"
 
-			"	float Ambient = 0.5;"
+			"	float Ambient = 0.6;"
 
 			"	vec3 Color = mix(Color1, Color2, Sample.b);"
 
@@ -229,7 +233,7 @@ public:
 			"		return spring_force("
 			"			Position,"
 			"			CubePositions[CubeCenterIndex],"
-			"			7.0,"
+			"			9.0,"
 			"			0.1"
 			"		);"
 			"	}"
@@ -583,6 +587,7 @@ private:
 public:
 	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
 	LazyProgramUniform<Vec3f> ambient_color, diffuse_color;
+	LazyProgramUniform<GLfloat> light_multiplier;
 
 	JellyDrawProgram(void)
 	 : vs(se::Vertex(), ObjectDesc("Draw vertex"))
@@ -592,6 +597,7 @@ public:
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , ambient_color(prog(), "AmbientColor")
 	 , diffuse_color(prog(), "DiffuseColor")
+	 , light_multiplier(prog(), "LightMultiplier")
 	{
 		vs.Source(StrLit(
 			"#version 330\n"
@@ -621,10 +627,6 @@ public:
 			"in vec3 vertLightDir[6];"
 
 			"out vec3 geomLightDir, geomNormal;"
-
-			"void make_normal(int i0, int i1, int i2)"
-			"{"
-			"}"
 
 			"void make_vertex(int index)"
 			"{"
@@ -672,6 +674,7 @@ public:
 			"#version 330\n"
 
 			"uniform vec3 AmbientColor, DiffuseColor;"
+			"uniform float LightMultiplier;"
 
 			"in vec3 geomLightDir, geomNormal;"
 
@@ -679,8 +682,8 @@ public:
 
 			"void main(void)"
 			"{"
-			"	float Ambient = 0.8;"
-			"	float Diffuse = sqrt(max(dot("
+			"	float Ambient = 0.7;"
+			"	float Diffuse = LightMultiplier * sqrt(max(dot("
 			"		geomLightDir,"
 			"		geomNormal"
 			"	) - 0.1, 0.0));"
@@ -691,6 +694,116 @@ public:
 		));
 		fs.Compile();
 		this->AttachShader(fs);
+
+		this->Link();
+	}
+};
+
+class ShadowProgram
+ : public Program
+{
+private:
+	const Program& prog(void) { return *this; }
+
+	Shader vs, gs;
+public:
+	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
+
+	ShadowProgram(void)
+	 : vs(se::Vertex(), ObjectDesc("Shadow vertex"))
+	 , gs(se::Geometry(), ObjectDesc("Shadow geometry"))
+	 , camera_matrix(prog(), "CameraMatrix")
+	 , projection_matrix(prog(), "ProjectionMatrix")
+	{
+		vs.Source(StrLit(
+			"#version 330\n"
+
+			"uniform vec3 LightPosition;"
+
+			"in vec3 Position;"
+
+			"out vec3 vertLightDir;"
+
+			"void main(void)"
+			"{"
+			"	gl_Position = vec4(Position, 1.0);"
+			"	vertLightDir = LightPosition - Position;"
+			"}"
+		));
+		vs.Compile();
+		this->AttachShader(vs);
+
+		gs.Source(StrLit(
+			"#version 330\n"
+			"layout(triangles_adjacency) in;"
+			"layout(triangle_strip, max_vertices = 12) out;"
+
+			"uniform mat4 CameraMatrix, ProjectionMatrix;"
+
+			"in vec3 vertLightDir[6];"
+
+			"void make_near_vertex(int index)"
+			"{"
+			"	gl_Position = "
+			"		ProjectionMatrix*"
+			"		CameraMatrix*"
+			"		gl_in[index].gl_Position;"
+			"	EmitVertex();"
+			"}"
+
+			"void make_far_vertex(int index)"
+			"{"
+			"	vec3 Pos = gl_in[index].gl_Position.xyz;"
+			"	Pos -= vertLightDir[index];"
+			"	gl_Position = "
+			"		ProjectionMatrix*"
+			"		CameraMatrix*"
+			"		vec4(Pos, 1.0);"
+			"	EmitVertex();"
+			"}"
+
+			"void make_plane(int a, int b)"
+			"{"
+			"	make_near_vertex(a);"
+			"	make_near_vertex(b);"
+			"	make_far_vertex(a);"
+			"	make_far_vertex(b);"
+			"	EndPrimitive();"
+			"}"
+
+			"vec3 face_normal(int a, int b, int c)"
+			"{"
+			"	return cross("
+			"		gl_in[c].gl_Position.xyz-"
+			"		gl_in[a].gl_Position.xyz,"
+			"		gl_in[b].gl_Position.xyz-"
+			"		gl_in[a].gl_Position.xyz"
+			"	);"
+			"}"
+
+			"void main(void)"
+			"{"
+			"	vec3 ld = 0.333*("
+			"		vertLightDir[0]+"
+			"		vertLightDir[2]+"
+			"		vertLightDir[4] "
+			"	);"
+			"	vec3 fn  = face_normal(0, 2, 4);"
+
+			"	if(dot(fn, ld) >= 0.0)"
+			"	{"
+			"		vec3 fn1 = face_normal(1, 2, 0);"
+			"		vec3 fn3 = face_normal(3, 4, 2);"
+			"		vec3 fn5 = face_normal(5, 0, 4);"
+
+			"		if(dot(fn1, ld) < 0.0) make_plane(2, 0);"
+			"		if(dot(fn3, ld) < 0.0) make_plane(4, 2);"
+			"		if(dot(fn5, ld) < 0.0) make_plane(0, 4);"
+			"	}"
+			"}"
+		));
+		gs.Compile();
+		this->AttachShader(gs);
 
 		this->Link();
 	}
@@ -727,6 +840,7 @@ private:
 	void InitPositions(
 		JellyPhysProgram& phys_prog,
 		JellyDrawProgram& draw_prog,
+		ShadowProgram& shadow_prog,
 		CameraDriveProgram& cam_prog,
 		const GLfloat size,
 		const GLfloat mass,
@@ -779,6 +893,10 @@ private:
 		VertexAttribArray draw_vert_attr(draw_prog, "Position");
 		draw_vert_attr.Setup(4, se::Float());
 		draw_vert_attr.Enable();
+
+		VertexAttribArray shadow_vert_attr(shadow_prog, "Position");
+		shadow_vert_attr.Setup(4, se::Float());
+		shadow_vert_attr.Enable();
 
 		phys_vao.Bind();
 		VertexAttribArray phys_vert_attr(phys_prog, "Position");
@@ -1130,6 +1248,7 @@ public:
 	JellyCube(
 		JellyPhysProgram& phys_prog,
 		JellyDrawProgram& draw_prog,
+		ShadowProgram& shadow_prog,
 		CameraDriveProgram& cam_prog,
 		const GLfloat size,
 		const GLfloat mass,
@@ -1141,7 +1260,16 @@ public:
 		assert(size > 0.0f);
 		assert(n > 1);
 
-		InitPositions(phys_prog, draw_prog, cam_prog, size, mass, n, transform);
+		InitPositions(
+			phys_prog,
+			draw_prog,
+			shadow_prog,
+			cam_prog,
+			size,
+			mass,
+			n,
+			transform
+		);
 		InitIndices(n);
 		InitVelocities(phys_prog);
 		InitSprings(phys_prog, n);
@@ -1168,6 +1296,20 @@ public:
 			CopyFeedback(tfb_positions, positions);
 			CopyFeedback(tfb_velocities, velocities);
 		}
+	}
+
+	void Shadow(ShadowProgram& shadow_prog)
+	{
+		draw_vao.Bind();
+		shadow_prog.Use();
+
+		gl.PrimitiveRestartIndex(vertex_count);
+		gl.Enable(se::PrimitiveRestart());
+
+		se::TriangleStripAdjacency tswa;
+		gl.DrawElements(tswa, face_index_count, se::UnsignedInt());
+
+		gl.Disable(se::PrimitiveRestart());
 	}
 
 	void Draw(JellyDrawProgram& draw_prog)
@@ -1212,6 +1354,7 @@ private:
 	CameraDriveProgram cam_prog;
 	JellyPhysProgram phys_prog;
 	JellyDrawProgram draw_prog;
+	ShadowProgram shadow_prog;
 
 	ChasingCamera camera;
 	JellyCube jelly_cube;
@@ -1220,10 +1363,11 @@ public:
 	 : prev_time(0.0)
 	 , prev_impulse_strength(0.0)
 	 , floor(metal_prog)
-	 , camera(cam_prog, 0.1f, 3.5f, 10.0f)
+	 , camera(cam_prog, 0.05f, 3.5f, 10.0f)
 	 , jelly_cube(
 		phys_prog,
 		draw_prog,
+		shadow_prog,
 		cam_prog,
 		2.0f, 0.5f,
 		8,
@@ -1236,9 +1380,11 @@ public:
 		Vec3f light_pos(20.0f, 30.0f, 25.0f);
 		ProgramUniform<Vec3f>(metal_prog, "LightPosition").Set(light_pos);
 		ProgramUniform<Vec3f>(draw_prog, "LightPosition").Set(light_pos);
+		ProgramUniform<Vec3f>(shadow_prog, "LightPosition").Set(light_pos);
 
 		gl.ClearColor(0.6f, 0.6f, 0.6f, 0.0f);
 		gl.ClearDepth(1.0f);
+		gl.ClearStencil(0);
 
 		gl.Enable(se::DepthTest());
 		gl.DepthFunc(se::LEqual());
@@ -1262,6 +1408,7 @@ public:
 
 		metal_prog.projection_matrix.Set(perspective);
 		draw_prog.projection_matrix.Set(perspective);
+		shadow_prog.projection_matrix.Set(perspective);
 	}
 
 	void UpdateImpulse(double time, Vec3f pos)
@@ -1287,22 +1434,63 @@ public:
 
 	void Render(double time)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 
 		jelly_cube.UpdatePhysics(phys_prog, time - prev_time);
 		camera.UpdatePhysics(cam_prog, time - prev_time);
 
 		auto cam_matrix = camera.Matrix();
 
+		shadow_prog.camera_matrix.Set(cam_matrix);
 		metal_prog.camera_matrix.Set(cam_matrix);
 		metal_prog.camera_position.Set(camera.Position());
-		floor.Draw(metal_prog);
-
 		draw_prog.camera_matrix.Set(cam_matrix);
+
+		// Draw objects only with ambient light and the depth
+		metal_prog.light_multiplier.Set(0.2);
+		draw_prog.light_multiplier.Set(0.2);
+
+		gl.CullFace(se::Back());
+		gl.ColorMask(true, true, true, true);
+		gl.DepthMask(true);
+		gl.Disable(se::StencilTest());
+
+		floor.Draw(metal_prog);
 		jelly_cube.Draw(draw_prog);
 
-		prev_time = time;
+		// Draw the shadow "volume" into the stencil buffer
+		gl.ColorMask(false, false, false, false);
+		gl.DepthMask(false);
 
+		gl.Enable(se::StencilTest());
+		gl.StencilFunc(se::Always(), 0);
+		gl.StencilOpSeparate(se::Front(), se::Keep(), se::Keep(), se::Incr());
+		gl.StencilOpSeparate(se::Back(),  se::Keep(), se::Keep(), se::Decr());
+
+		gl.CullFace(se::Back());
+		jelly_cube.Shadow(shadow_prog);
+		gl.CullFace(se::Front());
+		jelly_cube.Shadow(shadow_prog);
+
+		// Draw stencilled parts of objects only with full light
+		gl.Clear().DepthBuffer();
+
+		metal_prog.light_multiplier.Set(1.0);
+		draw_prog.light_multiplier.Set(1.0);
+
+		gl.CullFace(se::Back());
+		gl.ColorMask(true, true, true, true);
+		gl.DepthMask(true);
+
+		gl.StencilFunc(se::Equal(), 0);
+		gl.StencilOp(se::Keep(), se::Keep(), se::Keep());
+
+		floor.Draw(metal_prog);
+		jelly_cube.Draw(draw_prog);
+
+		// remember the current time
+		prev_time = time;
+		// update the force pulse kicking the cube
 		UpdateImpulse(time, camera.Target());
 	}
 
@@ -1318,7 +1506,7 @@ public:
 
 	double ScreenshotTime(void) const
 	{
-		return 5.0;
+		return 2.0;
 	}
 
 	double FrameTime(void) const

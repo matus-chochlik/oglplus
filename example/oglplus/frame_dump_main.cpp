@@ -97,6 +97,7 @@ void run(const x11::Display& display, const char* prefix)
 
 		while(1)
 		{
+			t += period;
 			if(!example->Continue(t)) break;
 			example->Render(t);
 			glFinish();
@@ -121,7 +122,6 @@ void run(const x11::Display& display, const char* prefix)
 				file.flush();
 			}
 			std::cout << filename.str() << std::endl;
-			t += period;
 			++frame_no;
 
 			txtbuf.resize(filename.str().size()+1);

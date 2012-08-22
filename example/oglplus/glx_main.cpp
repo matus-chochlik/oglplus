@@ -132,8 +132,8 @@ void make_screenshot(
 	while(s < t)
 	{
 		while(display.NextEvent(event));
-		example->Render(s);
 		s += dt;
+		example->Render(s);
 		ctx.SwapBuffers(win);
 	}
 	while(display.NextEvent(event));
