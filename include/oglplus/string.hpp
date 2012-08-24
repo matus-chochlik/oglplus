@@ -157,6 +157,20 @@ public:
 	{ _check(); }
 #endif
 
+	/// Construction from a c-string @p and a length
+	/** The input @p literal can be optionally checked
+	 *  for UTF-8 validity.
+	 *
+	 *  @see #OGLPLUS_NO_UTF8_CHECKS
+	 */
+	explicit StrLit(const GLchar* lit, size_t size)
+	OGLPLUS_NOEXCEPT(true)
+	 : _lit(lit)
+#if !OGLPLUS_LAZY_STR_LIT
+	 , _size(size)
+#endif
+	{ _check(); }
+
 	/// Effictient conversion to String
 	String str(void) const
 	{

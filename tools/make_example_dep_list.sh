@@ -16,7 +16,7 @@ for example in example/oglplus/[0-9][0-9][0-9]*.cpp
 do
 	if [ "${example:0:3}" != "000" ]
 	then
-		g++ --std=c++0x ${example} ${CXXFLAGS} -Iinclude -DOGLPLUS_NO_SITE_CONFIG=1 -E -M -o ${temp_file}
+		g++ --std=c++0x ${example} ${CXXFLAGS} -Iinclude -DOGLPLUS_NO_SITE_CONFIG=1 -DOGLPLUS_NO_GL=1 -E -M -o ${temp_file}
 		if [ $(grep -c -e "${search_include}\>" < ${temp_file}) -gt 0 ]
 		then echo $(basename ${example})
 		fi

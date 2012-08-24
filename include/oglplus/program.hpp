@@ -907,6 +907,11 @@ class Program
 typedef Object<ProgramOps> Program;
 #endif
 
+Program& operator << (Program& program, const Shader& shader)
+{
+	program.AttachShader(shader);
+	return program;
+}
 
 /// A Program that allows to attach shaders and links itself during construction
 /** This specialization of Program allows to build a whole shading language

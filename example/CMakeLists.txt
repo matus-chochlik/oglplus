@@ -118,6 +118,7 @@ macro(fetch_all_dependent_examples)
 	fetch_cxx11_using_examples(INITIALIZER_LISTS)
 	fetch_cxx11_using_examples(VARIADIC_TEMPLATES)
 	fetch_cxx11_using_examples(FUNCTION_TEMPLATE_DEFAULT_ARGS)
+	fetch_cxx11_using_examples(USER_DEFINED_LITERALS)
 endmacro(fetch_all_dependent_examples)
 
 # checks if an EXE can be built and adds required include directories
@@ -129,6 +130,7 @@ macro(require_all_dependencies EXE_NAME RESULT)
 	require_cxx11_feature(${EXE_NAME} ${RESULT} INITIALIZER_LISTS)
 	require_cxx11_feature(${EXE_NAME} ${RESULT} VARIADIC_TEMPLATES)
 	require_cxx11_feature(${EXE_NAME} ${RESULT} FUNCTION_TEMPLATE_DEFAULT_ARGS)
+	require_cxx11_feature(${EXE_NAME} ${RESULT} USER_DEFINED_LITERALS)
 endmacro(require_all_dependencies)
 
 # adds all required libraries to an exe

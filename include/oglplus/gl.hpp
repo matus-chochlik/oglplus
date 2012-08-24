@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_GL_1107121519_HPP
 #define OGLPLUS_GL_1107121519_HPP
 
+#ifndef OGLPLUS_NO_GL
+
 #ifndef OGLPLUS_NO_SITE_CONFIG
 #include <oglplus/site_config.hpp>
 #endif
@@ -33,5 +35,7 @@
 #define __glext_h__
 
 #endif // OGLPLUS_USE_*
+
+#endif // OGLPLUS_NO_GL
 
 #endif // include guard

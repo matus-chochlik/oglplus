@@ -1,4 +1,3 @@
-000_adaptive_polygonization.cpp
 015_graph.cpp
 022_vase.cpp
 025_subroutines.cpp

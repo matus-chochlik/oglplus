@@ -439,6 +439,24 @@ typedef Specialized<
 > TessEvaluationShader;
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Compute shader wrapper
+/**
+ *  @see Shader
+ *  @see Program
+ *  @ingroup objects
+ */
+class ComputeShader
+ : public Shader
+{ };
+#elif GL_COMPUTE_SHADER
+typedef Specialized<
+	Shader,
+	OGLPLUS_CONST_ENUM_VALUE(ShaderType::Compute),
+	SpecializedShaderInitializer
+> ComputeShader;
+#endif
+
 } // namespace oglplus
 
 #endif // include guard
