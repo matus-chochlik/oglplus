@@ -24,10 +24,6 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	VertexShader vs;
-	GeometryShader gs;
-	FragmentShader fs;
-
 	// Program
 	Program prog;
 
@@ -39,6 +35,7 @@ private:
 public:
 	WritingExample(void)
 	{
+		VertexShader vs;
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
@@ -51,6 +48,7 @@ public:
 		// compile it
 		vs.Compile();
 
+		GeometryShader gs;
 		// Set the geometry shader source
 		gs.Source(
 			"#version 330\n"
@@ -73,6 +71,7 @@ public:
 		// compile it
 		gs.Compile();
 
+		FragmentShader fs;
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"

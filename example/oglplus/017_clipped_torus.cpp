@@ -31,12 +31,6 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Program
 	Program prog;
 
@@ -58,6 +52,7 @@ public:
 	 , camera_matrix(prog, "CameraMatrix")
 	 , model_matrix(prog, "ModelMatrix")
 	{
+		VertexShader vs;
 		// Set the vertex shader source
 		vs.Source(StrLit(
 			"#version 330\n"
@@ -82,6 +77,7 @@ public:
 		// compile it
 		vs.Compile();
 
+		FragmentShader fs;
 		// set the fragment shader source
 		fs.Source(StrLit(
 			"#version 330\n"

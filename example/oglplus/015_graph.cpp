@@ -27,12 +27,6 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Program
 	Program prog;
 
@@ -96,6 +90,9 @@ public:
 	 , tgt_path(make_tgt_path_cps())
 	{
 		std::srand(std::time(0));
+
+		// Vertex shader
+		VertexShader vs;
 		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
@@ -113,6 +110,8 @@ public:
 		// compile it
 		vs.Compile();
 
+		// Fragment shader
+		FragmentShader fs;
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
