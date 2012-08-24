@@ -232,7 +232,7 @@ public:
 
 	void Render(ExampleClock& clock)
 	{
-		if(long(time) % 4 == 0)
+		if(long(clock.Now().Seconds()) % 4 == 0)
 		{
 			status += clock.Interval().Seconds();
 		}
