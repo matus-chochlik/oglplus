@@ -69,7 +69,7 @@ public:
 
 		_example->Reshape(width, height);
 		_example->MouseMove(width/2, height/2, width, height);
-		_clock.reset();
+		_os_clock.reset();
 	}
 
 	~SingleExample(void)
@@ -81,7 +81,7 @@ public:
 	void Display(void)
 	{
 		_clock.Update(_os_clock.seconds());
-		double frame_time = _clock.Seconds();
+		double frame_time = _clock.Now().Seconds();
 		_frame_no++;
 
 		GLuint primitives_per_frame = 0;
