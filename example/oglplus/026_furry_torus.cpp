@@ -324,7 +324,7 @@ private:
 	Torus torus;
 	Fur fur;
 
-	double prev_time, accel, prev_vel, curr_vel;
+	double accel, prev_vel, curr_vel;
 
 	Mat4f projection;
 
@@ -333,7 +333,6 @@ public:
 	FurExample(void)
 	 : torus({"Position"}, shapes::Torus(), torus_prog)
 	 , fur(fur_prog)
-	 , prev_time(0.0)
 	 , accel(0.0)
 	 , prev_vel(0.0)
 	 , curr_vel(0.0)
@@ -373,21 +372,21 @@ public:
 		);
 	}
 
-	void Render(double time)
+	void Render(ExampleClock& clock)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		const CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
 			4.5,
-			FullCircles(time / 21.0),
-			Degrees(SineWave(time / 15.0) * 80)
+			FullCircles(clock.Time() / 21.0),
+			Degrees(SineWave(clock.Time() / 15.0) * 80)
 		);
 
-		switch(int(0.25*time) % 8)
+		switch(int(0.25*clock.Time()) % 8)
 		{
-			case 0: accel += (time - prev_time)*0.01; break;
-			case 4: accel -= (time - prev_time)*0.01; break;
+			case 0: accel += (clock.Interval().Seconds())*0.01; break;
+			case 4: accel -= (clock.Interval().Seconds())*0.01; break;
 		}
 		curr_vel += accel;
 
@@ -398,7 +397,6 @@ public:
 		fur_prog.new_model_matrix = curr_model;
 
 		prev_vel += (curr_vel - prev_vel) * 0.5;
-		prev_time = time;
 
 		torus_prog.model_matrix = curr_model;
 		torus_prog.camera_matrix = projection * camera;
@@ -407,7 +405,7 @@ public:
 		torus.Draw();
 
 		fur_prog.camera_matrix = projection * camera;
-		fur_prog.time = time;
+		fur_prog.time = clock.Time();
 		fur_prog.Use();
 		fur.Draw();
 	}

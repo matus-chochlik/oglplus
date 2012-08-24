@@ -36,7 +36,8 @@ private:
 		return wrapper;
 	}
 
-	os::steady_clock _clock;
+	os::steady_clock _os_clock;
+	ExampleClock _clock;
 	double _fps_time, _prim_count;
 	unsigned long _frame_no;
 	size_t _width, _height;
@@ -79,7 +80,8 @@ public:
 
 	void Display(void)
 	{
-		double frame_time = _clock.seconds();
+		_clock.Update(_os_clock.seconds());
+		double frame_time = _clock.Seconds();
 		_frame_no++;
 
 		GLuint primitives_per_frame = 0;
@@ -88,7 +90,7 @@ public:
 				Query::Target::PrimitivesGenerated,
 				primitives_per_frame
 			);
-			_example->Render(frame_time);
+			_example->Render(_clock);
 			glutSwapBuffers();
 		}
 		_prim_count += double(primitives_per_frame);

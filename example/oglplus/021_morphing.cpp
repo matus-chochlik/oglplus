@@ -202,12 +202,10 @@ private:
 
 	Shape shape;
 
-	double prev_time;
 	double status;
 public:
 	MorphingExample(void)
 	 : shape(point_prog)
-	 , prev_time(0.0)
 	 , status(0.0)
 	{
 		point_prog.color_1 = Vec3f(1.0f, 0.5f, 0.4f);
@@ -232,11 +230,11 @@ public:
 		);
 	}
 
-	void Render(double time)
+	void Render(ExampleClock& clock)
 	{
 		if(long(time) % 4 == 0)
 		{
-			status += (time - prev_time);
+			status += clock.Interval().Seconds();
 		}
 		else if(status != double(long(status)))
 		{
@@ -244,7 +242,6 @@ public:
 				status = double(long(status));
 			else status =1.0 + double(long(status));
 		}
-		prev_time = time;
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 
@@ -253,8 +250,8 @@ public:
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
 			4.5,
-			FullCircles(time / 19.0),
-			Degrees(45 + SineWave(time / 15.0) * 40)
+			FullCircles(clock.Now().Seconds() / 19.0),
+			Degrees(45 + SineWave(clock.Now().Seconds()/15.0) * 40)
 		);
 		point_prog.camera_matrix.Set(camera);
 

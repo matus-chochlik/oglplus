@@ -90,16 +90,18 @@ void run(const x11::Display& display, const char* prefix)
 
 		example->Reshape(width, height);
 		example->MouseMove(width/2, height/2, width, height);
-		double period = 1.0 / 25.0;
 		double t = 0.0;
+		double period = 1.0 / 25.0;
 		size_t frame_no = 0;
 		std::vector<char> pixels(width * height * 4);
 
+		ExampleClock clock;
 		while(1)
 		{
 			t += period;
-			if(!example->Continue(t)) break;
-			example->Render(t);
+			clock.Update(t);
+			if(!example->Continue(clock)) break;
+			example->Render(clock);
 			glFinish();
 			glReadPixels(
 				0, 0,

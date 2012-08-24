@@ -10,6 +10,7 @@
 #define __OGLPLUS_EXAMPLE_EXAMPLE_1119071146_HPP__
 
 #include <memory>
+#include <cassert>
 
 #ifndef _NDEBUG
 #include <iostream>
@@ -33,6 +34,126 @@ struct ExampleParams
 	}
 };
 
+/// A class measuring a time period in the examples
+class ExampleTimePeriod
+{
+private:
+	double _time;
+public:
+	ExampleTimePeriod(double time)
+	 : _time(time)
+	{
+		assert(_time >= 0.0);
+	}
+
+	/// The length of the periods in seconds
+	double Seconds(void) const
+	{
+		return _time;
+	}
+
+	/// The current second of the period <0-60)
+	int Second(void) const
+	{
+		return int(Seconds()) % 60;
+	}
+
+	/// The length of the periods in minutes
+	double Minutes(void) const
+	{
+		return _time / 60.0;
+	}
+
+	/// The current minute of the period <0-60)
+	int Minute(void) const
+	{
+		return int(Minutes()) % 60;
+	}
+
+	/// The length of the periods in hours
+	double Hours(void) const
+	{
+		return _time / 3600.0;
+	}
+
+	/// The current minute of the period <0-24)
+	int Hour(void) const
+	{
+		return int(Hours()) % 24;
+	}
+
+	/// The length of the period in days
+	double Days(void) const
+	{
+		return _time / (24*3600.0);
+	}
+
+	/// The current day of the period
+	int Day(void) const
+	{
+		return int(Days());
+	}
+};
+
+/// Class measuring the simulation time of an Example
+class ExampleClock
+{
+private:
+	double _start, _past, _real_time, _curr_time, _prev_time, _pace; //[s]
+public:
+	ExampleClock(double start = 0.0)
+	 : _start(start)
+	 , _past(start)
+	 , _real_time(start)
+	 , _curr_time(start)
+	 , _prev_time(start)
+	 , _pace(1.0)
+	{ }
+
+	/// Update the clock by providing real time
+	void Update(double real_time)
+	{
+		_prev_time = _curr_time;
+		_real_time = real_time;
+		_curr_time = _past + (_real_time - _start) * _pace;
+	}
+
+	/// Set the pace by which the sim. time advances compared to real-time
+	void Pace(double pace)
+	{
+		if(_pace != pace)
+		{
+			_start = _real_time;
+			_past = _curr_time;
+			_pace = pace;
+		}
+	}
+
+	/// Equivalent to Now().Seconds()
+	double Time(void) const
+	{
+		return this->Now().Seconds();
+	}
+
+	/// Returns the real time elapsed since the start of the example
+	ExampleTimePeriod RealTime(void) const
+	{
+		return ExampleTimePeriod(_real_time);
+	}
+
+	/// Returns the simulation time elapsed since the start of the example
+	ExampleTimePeriod Now(void) const
+	{
+		return ExampleTimePeriod(_curr_time);
+	}
+
+	/// Returns the time elapsed between the last and the previous Update
+	ExampleTimePeriod Interval(void) const
+	{
+		return ExampleTimePeriod(_curr_time-_prev_time);
+	}
+};
+
 /// Base class for OGLplus examples
 struct Example
 {
@@ -41,11 +162,22 @@ struct Example
 
 	/// Hint for the main function whether to continue rendering
 	/** Implementations of the main function may choose to ignore
-	 *  the result of this function
+	 *  the result of this function or not call it at all.
+	 *  This is the overload for simple timing.
 	 */
 	virtual bool Continue(double duration)
 	{
 		return duration < 3.0; // [seconds]
+	}
+
+	/// Hint for the main function whether to continue rendering
+	/** Implementations of the main function may choose to ignore
+	 *  the result of this function or not call it at all.
+	 *  This is the overload for advanced timing.
+	 */
+	virtual bool Continue(const ExampleClock& clock)
+	{
+		return this->Continue(clock.Now().Seconds());
 	}
 
 	/// Reshape event handler
@@ -75,8 +207,17 @@ struct Example
 		);
 	}
 
-	/// Rendering procedure
-	virtual void Render(double time) = 0;
+	/// Rendering procedure with simple timing
+	virtual void Render(double /*time*/)
+	{
+		assert(!"Render must be overloaded by examples!");
+	}
+
+	/// Rendering procedure with advanced timing
+	virtual void Render(ExampleClock& clock)
+	{
+		this->Render(clock.Now().Seconds());
+	}
 
 	/// The time of the default screenshot
 	virtual double ScreenshotTime(void) const

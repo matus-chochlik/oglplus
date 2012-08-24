@@ -85,7 +85,8 @@ void run_loop(
 		0
 	);
 	XEvent event;
-	os::steady_clock clock;
+	os::steady_clock os_clock;
+	ExampleClock clock;
 	while(1)
 	{
 		while(display.NextEvent(event))
@@ -104,9 +105,9 @@ void run_loop(
 				default:;
 			}
 		}
-		double t = clock.seconds();
-		if(!example->Continue(t)) break;
-		example->Render(t);
+		clock.Update(os_clock.seconds());
+		if(!example->Continue(clock)) break;
+		example->Render(clock);
 		ctx.SwapBuffers(win);
 	}
 	std::cout << " `-[Done]" << std::endl;
@@ -128,17 +129,21 @@ void make_screenshot(
 	double t = example->ScreenshotTime();
 	double dt = example->FrameTime();
 
+	ExampleClock clock(s);
+
 	// heat-up
 	while(s < t)
 	{
 		while(display.NextEvent(event));
 		s += dt;
-		example->Render(s);
+		clock.Update(s);
+		example->Render(clock);
 		ctx.SwapBuffers(win);
 	}
 	while(display.NextEvent(event));
 	// render the frame
-	example->Render(t);
+	clock.Update(t);
+	example->Render(clock);
 	glFinish();
 	//save it to a file
 	std::vector<char> pixels(width * height * 3);

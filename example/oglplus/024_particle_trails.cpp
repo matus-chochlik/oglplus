@@ -83,12 +83,12 @@ public:
 
 	// Updates the emitter
 	// Changes its position, emits new particles
-	void Update(double time, double prev_time)
+	void Update(ExampleClock& clock)
 	{
 		assert(positions.size() == directions.size());
 		assert(positions.size() == ages.size());
 
-		double time_diff = time - prev_time;
+		double time_diff = clock.Interval().Seconds();
 		double drag = 0.1 * time_diff;
 		if(drag > 1.0) drag = 1.0;
 
@@ -102,7 +102,7 @@ public:
 			{
 				// try to spawn a new one in its place
 				SpawnParticle(
-					time,
+					clock.Now().Seconds(),
 					positions[i],
 					directions[i],
 					ages[i]
@@ -119,7 +119,7 @@ public:
 		Vec3f direction;
 		float age;
 		// spawn new particles if necessary
-		while(SpawnParticle(time, position, direction, age))
+		while(SpawnParticle(clock.Now().Seconds(), position, direction, age))
 		{
 			positions.push_back(position);
 			directions.push_back(direction);
@@ -166,13 +166,11 @@ private:
 
 	std::vector<Vec3f> positions;
 	std::vector<float> ages;
-	double prev_time;
 public:
 	SmokeExample(void)
 	 : emitters()
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
-	 , prev_time(0.0)
 	{
 		emitters.push_back(
 			ParticleSystem(
@@ -321,7 +319,7 @@ public:
 		);
 	}
 
-	void Render(double time)
+	void Render(ExampleClock& clock)
 	{
 		positions.clear();
 		ages.clear();
@@ -329,7 +327,7 @@ public:
 		// update the emitters and get the particle data
 		for(auto i=emitters.begin(), e=emitters.end(); i!=e; ++i)
 		{
-			i->Update(time, prev_time);
+			i->Update(clock);
 			i->Upload(positions, ages);
 		}
 		assert(positions.size() == ages.size());
@@ -337,9 +335,9 @@ public:
 		// make a camera matrix
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			35.0 - SineWave(time / 6.0) * 15.0,
-			FullCircles(time * 0.1),
-			Degrees(SineWave(time / 20.0) * 60)
+			35.0 - SineWave(clock.Now().Seconds() / 6.0) * 15.0,
+			FullCircles(clock.Now().Seconds() * 0.1),
+			Degrees(SineWave(clock.Now().Seconds() / 20.0) * 60)
 		);
 
 		std::vector<float> depths(positions.size());
@@ -377,8 +375,6 @@ public:
 			DataType::UnsignedInt,
 			indices.data()
 		);
-
-		prev_time = time;
 	}
 
 	bool Continue(double time)

@@ -655,7 +655,7 @@ public:
 			"	vec3 fn3 = face_normal(3, 4, 2);"
 			"	vec3 fn5 = face_normal(5, 0, 4);"
 
-			"	const float a = 0.334, b = (1.0 - a) * 0.5;"
+			"	const float a = 0.400, b = (1.0 - a) * 0.5;"
 			"	geomNormal = fn*a + fn5*b + fn1*b;"
 			"	make_vertex(0);"
 
@@ -682,7 +682,7 @@ public:
 
 			"void main(void)"
 			"{"
-			"	float Ambient = 0.7;"
+			"	float Ambient = 0.8;"
 			"	float Diffuse = LightMultiplier * sqrt(max(dot("
 			"		geomLightDir,"
 			"		geomNormal"
@@ -781,24 +781,25 @@ public:
 			"	);"
 			"}"
 
+			"vec3 face_light_dir(int a, int b, int c)"
+			"{"
+			"	return ("
+			"		vertLightDir[a]+"
+			"		vertLightDir[b]+"
+			"		vertLightDir[c] "
+			"	);"
+			"}"
+
 			"void main(void)"
 			"{"
-			"	vec3 ld = 0.333*("
-			"		vertLightDir[0]+"
-			"		vertLightDir[2]+"
-			"		vertLightDir[4] "
-			"	);"
+			"	vec3 ld = face_light_dir(0, 2, 4);"
 			"	vec3 fn  = face_normal(0, 2, 4);"
 
 			"	if(dot(fn, ld) >= 0.0)"
 			"	{"
-			"		vec3 fn1 = face_normal(1, 2, 0);"
-			"		vec3 fn3 = face_normal(3, 4, 2);"
-			"		vec3 fn5 = face_normal(5, 0, 4);"
-
-			"		if(dot(fn1, ld) < 0.0) make_plane(2, 0);"
-			"		if(dot(fn3, ld) < 0.0) make_plane(4, 2);"
-			"		if(dot(fn5, ld) < 0.0) make_plane(0, 4);"
+			"		make_plane(2, 0);"
+			"		make_plane(4, 2);"
+			"		make_plane(0, 4);"
 			"	}"
 			"}"
 		));
@@ -813,13 +814,13 @@ public:
 class JellyCube
 {
 private:
-	const GLsizei vertex_count, face_index_count;
+	const GLsizei vertex_count, face_index_count, shadow_index_count;
 
 	Context gl;
 
-	VertexArray phys_vao, draw_vao;
+	VertexArray phys_vao, draw_vao, shadow_vao;
 
-	Buffer positions, velocities, indices;
+	Buffer positions, velocities, indices, shadow_indices;
 	Buffer tfb_positions, tfb_velocities;
 
 	void CopyFeedback(Buffer& src, Buffer& dst)
@@ -894,14 +895,15 @@ private:
 		draw_vert_attr.Setup(4, se::Float());
 		draw_vert_attr.Enable();
 
-		VertexAttribArray shadow_vert_attr(shadow_prog, "Position");
-		shadow_vert_attr.Setup(4, se::Float());
-		shadow_vert_attr.Enable();
-
 		phys_vao.Bind();
 		VertexAttribArray phys_vert_attr(phys_prog, "Position");
 		phys_vert_attr.Setup(4, se::Float());
 		phys_vert_attr.Enable();
+
+		shadow_vao.Bind();
+		VertexAttribArray shadow_vert_attr(shadow_prog, "Position");
+		shadow_vert_attr.Setup(4, se::Float());
+		shadow_vert_attr.Enable();
 
 		phys_prog.Use();
 
@@ -944,93 +946,97 @@ private:
 	int FaceIndex(
 		const size_t n,
 		const size_t n_1,
-		size_t f,
+		const size_t f,
 		int i,
 		int j
 	) const
 	{
 		if(i<0)
 		{
-			assert(i == -1);
+			i += n_1;
+			assert(i <=int(n_1));
 			assert(j >=  0);
 			assert(j <=int(n_1));
 			switch(f)
 			{
 				// +x -> +z
-				case 0: return FaceIndex(n, n_1, 4, n_1-1,     j);
+				case 0: return FaceIndex(n, n_1, 4,     i,     j);
 				// -x -> -z
-				case 1: return FaceIndex(n, n_1, 5, n_1-1,     j);
+				case 1: return FaceIndex(n, n_1, 5,     i,     j);
 				// +y -> -x
-				case 2: return FaceIndex(n, n_1, 1, n_1-j, n_1-1);
+				case 2: return FaceIndex(n, n_1, 1, n_1-j,     i);
 				// -y -> -x
-				case 3: return FaceIndex(n, n_1, 1,     j,     1);
+				case 3: return FaceIndex(n, n_1, 1,     j, n_1-i);
 				// +z -> -x
-				case 4: return FaceIndex(n, n_1, 1, n_1-1,     j);
+				case 4: return FaceIndex(n, n_1, 1,     i,     j);
 				// -z -> +x
-				case 5: return FaceIndex(n, n_1, 0, n_1-1,     j);
+				case 5: return FaceIndex(n, n_1, 0,     i,     j);
 			}
 		}
 		else if(i>int(n_1))
 		{
-			assert(i == int(n));
+			i -= n_1;
+			assert(i <= int(n_1));
 			assert(j >=  0);
 			assert(j <= int(n_1));
 			switch(f)
 			{
 				// +x -> -z
-				case 0: return FaceIndex(n, n_1, 5,     1,     j);
+				case 0: return FaceIndex(n, n_1, 5,     i,     j);
 				// -x -> +z
-				case 1: return FaceIndex(n, n_1, 4,     1,     j);
+				case 1: return FaceIndex(n, n_1, 4,     i,     j);
 				// +y -> +x
-				case 2: return FaceIndex(n, n_1, 0,     j, n_1-1);
+				case 2: return FaceIndex(n, n_1, 0,     j, n_1-i);
 				// -y -> +x
-				case 3: return FaceIndex(n, n_1, 0, n_1-j,     1);
+				case 3: return FaceIndex(n, n_1, 0, n_1-j,     i);
 				// +z -> +x
-				case 4: return FaceIndex(n, n_1, 0,     1,     j);
+				case 4: return FaceIndex(n, n_1, 0,     i,     j);
 				// -z -> -x
-				case 5: return FaceIndex(n, n_1, 1,     1,     j);
+				case 5: return FaceIndex(n, n_1, 1,     i,     j);
 			}
 		}
 		else if(j<0)
 		{
-			assert(j == -1);
+			j += n_1;
+			assert(j <= int(n_1));
 			assert(i >=  0);
 			assert(i <= int(n_1));
 			switch(f)
 			{
 				// +x -> -y
-				case 0: return FaceIndex(n, n_1, 3, n_1-1, n_1-i);
+				case 0: return FaceIndex(n, n_1, 3,     j, n_1-i);
 				// -x -> -y
-				case 1: return FaceIndex(n, n_1, 3,     1,     i);
+				case 1: return FaceIndex(n, n_1, 3, n_1-j,     i);
 				// +y -> +z
-				case 2: return FaceIndex(n, n_1, 4,     i, n_1-1);
+				case 2: return FaceIndex(n, n_1, 4,     i,     j);
 				// -y -> -z
-				case 3: return FaceIndex(n, n_1, 5, n_1-i,     1);
+				case 3: return FaceIndex(n, n_1, 5, n_1-i, n_1-j);
 				// +z -> -y
-				case 4: return FaceIndex(n, n_1, 3,     i, n_1-1);
+				case 4: return FaceIndex(n, n_1, 3,     i,     j);
 				// -z -> -y
-				case 5: return FaceIndex(n, n_1, 3, n_1-i,     1);
+				case 5: return FaceIndex(n, n_1, 3, n_1-i, n_1-j);
 			}
 		}
 		else if(j>int(n_1))
 		{
-			assert(j == int(n));
+			j -= n_1;
+			assert(j <= int(n_1));
 			assert(i >=  0);
 			assert(i <= int(n_1));
 			switch(f)
 			{
 				// +x -> +y
-				case 0: return FaceIndex(n, n_1, 2, n_1-1,     i);
+				case 0: return FaceIndex(n, n_1, 2, n_1-j,     i);
 				// -x -> +y
-				case 1: return FaceIndex(n, n_1, 2,     1, n_1-i);
+				case 1: return FaceIndex(n, n_1, 2,     j, n_1-i);
 				// +y -> -z
-				case 2: return FaceIndex(n, n_1, 5, n_1-i, n_1-1);
+				case 2: return FaceIndex(n, n_1, 5, n_1-i, n_1-j);
 				// -y -> +z
-				case 3: return FaceIndex(n, n_1, 4,     i,     1);
+				case 3: return FaceIndex(n, n_1, 4,     i,     j);
 				// +z -> +y
-				case 4: return FaceIndex(n, n_1, 2,     i,     1);
+				case 4: return FaceIndex(n, n_1, 2,     i,     j);
 				// -z -> +y
-				case 5: return FaceIndex(n, n_1, 2, n_1-i, n_1-1);
+				case 5: return FaceIndex(n, n_1, 2, n_1-i, n_1-j);
 			}
 		}
 
@@ -1069,49 +1075,57 @@ private:
 		int y = get_y[f](n_1, i, j);
 		int z = get_z[f](n_1, i, j);
 
+
 		return z*n*n + y*n + x;
 	}
 
-	void InitIndices(const size_t n)
+	void InitIndexData(
+		std::vector<GLuint>& index_data,
+		const size_t n,
+		const size_t n_1,
+		const size_t k
+	)
 	{
-		std::vector<GLuint> index_data(face_index_count);
+		assert(k != 0);
+		assert(k < n);
+		assert(n_1 % k == 0);
 
 		auto ii = index_data.begin(), ie = index_data.end();
 
-		size_t n_1 = n-1;
-
 		for(size_t f=0; f!=6; ++f)
 		{
-			for(size_t j=0; j!=n_1; ++j)
+			for(size_t j=0; j!=n_1; j+=k)
 			{
 				assert(ii != ie);
 				*ii++ = FaceIndex(n, n_1, f,  0, j+0);
 				assert(ii != ie);
-				*ii++ = FaceIndex(n, n_1, f, -1, j+1);
+				*ii++ = FaceIndex(n, n_1, f, -k, j+k);
 				assert(ii != ie);
-				*ii++ = FaceIndex(n, n_1, f,  0, j+1);
+				*ii++ = FaceIndex(n, n_1, f,  0, j+k);
 				assert(ii != ie);
-				*ii++ = FaceIndex(n, n_1, f, +1, j-1);
+				*ii++ = FaceIndex(n, n_1, f, +k, j-k);
 
-				for(size_t i=1; i!=n_1; ++i)
+				for(size_t i=k; i!=n_1; i+=k)
 				{
 					assert(ii != ie);
 					*ii++ = FaceIndex(n, n_1, f, i+0, j+0);
 					assert(ii != ie);
-					*ii++ = FaceIndex(n, n_1, f, i-1, j+2);
+					*ii++ = FaceIndex(n, n_1, f, i-k, j+2*k);
 					assert(ii != ie);
-					*ii++ = FaceIndex(n, n_1, f, i+0, j+1);
+					*ii++ = FaceIndex(n, n_1, f, i+0, j+k);
 					assert(ii != ie);
-					*ii++ = FaceIndex(n, n_1, f, i+1, j-1);
+					*ii++ = FaceIndex(n, n_1, f, i+k, j-k);
 				}
+
 				assert(ii != ie);
 				*ii++ = FaceIndex(n, n_1, f, n_1+0, j+0);
 				assert(ii != ie);
-				*ii++ = FaceIndex(n, n_1, f, n_1-1, j+2);
+				*ii++ = FaceIndex(n, n_1, f, n_1-k, j+2*k);
 				assert(ii != ie);
-				*ii++ = FaceIndex(n, n_1, f, n_1+0, j+1);
+				*ii++ = FaceIndex(n, n_1, f, n_1+0, j+k);
 				assert(ii != ie);
-				*ii++ = FaceIndex(n, n_1, f, n_1+1, j+0);
+				*ii++ = FaceIndex(n, n_1, f, n_1+k, j+0);
+
 				// primitive restart index
 				assert(ii != ie);
 				*ii++ = vertex_count;
@@ -1119,9 +1133,22 @@ private:
 		}
 
 		assert(ii == ie);
+	}
+
+	void InitIndices(const size_t n)
+	{
+		const size_t n_1 = n-1;
+
+		std::vector<GLuint> index_data(face_index_count);
+		InitIndexData(index_data, n, n_1, 1);
 
 		draw_vao.Bind();
 		indices.Bind(se::ElementArray());
+		Buffer::Data(se::ElementArray(), index_data);
+
+
+		shadow_vao.Bind();
+		shadow_indices.Bind(se::ElementArray());
 		Buffer::Data(se::ElementArray(), index_data);
 	}
 
@@ -1256,6 +1283,7 @@ public:
 		const Mat4f& transform
 	): vertex_count(n*n*n)
 	 , face_index_count(6*(n-1)*(n*4+1))
+	 , shadow_index_count(face_index_count)
 	{
 		assert(size > 0.0f);
 		assert(n > 1);
@@ -1300,14 +1328,14 @@ public:
 
 	void Shadow(ShadowProgram& shadow_prog)
 	{
-		draw_vao.Bind();
+		shadow_vao.Bind();
 		shadow_prog.Use();
 
 		gl.PrimitiveRestartIndex(vertex_count);
 		gl.Enable(se::PrimitiveRestart());
 
 		se::TriangleStripAdjacency tswa;
-		gl.DrawElements(tswa, face_index_count, se::UnsignedInt());
+		gl.DrawElements(tswa, shadow_index_count, se::UnsignedInt());
 
 		gl.Disable(se::PrimitiveRestart());
 	}
@@ -1340,10 +1368,59 @@ public:
 	}
 };
 
+class BulletTimeTrigger
+{
+private:
+	double _remaining;
+	bool _status;
+
+	bool _started(void) const
+	{
+		return _remaining > 0.0;
+	}
+
+	bool _can_restart(void) const
+	{
+		return _remaining < -2.0;
+	}
+public:
+	BulletTimeTrigger(void)
+	 : _remaining(0.0)
+	 , _status(false)
+	{ }
+
+	void UpdateAndStartIf(double interval, bool can_start, double duration)
+	{
+		_remaining -= interval;
+		if(can_start && _can_restart())
+			_remaining = duration;
+	}
+
+	bool On(void)
+	{
+		if(_started() && !_status)
+		{
+			_status = true;
+			return true;
+		}
+		return false;
+	}
+
+	bool Off(void)
+	{
+		if(!_started() && _status)
+		{
+			_status = false;
+			return true;
+		}
+		return false;
+	}
+};
+
 class JellyExample : public Example
 {
 private:
-	double prev_time, prev_impulse_strength;
+	double prev_impulse_strength;
 
 	// wrapper around the current OpenGL context
 	Context gl;
@@ -1358,10 +1435,11 @@ private:
 
 	ChasingCamera camera;
 	JellyCube jelly_cube;
+
+	BulletTimeTrigger bt_trg;
 public:
 	JellyExample(const ExampleParams&)
-	 : prev_time(0.0)
-	 , prev_impulse_strength(0.0)
+	 : prev_impulse_strength(0.0)
 	 , floor(metal_prog)
 	 , camera(cam_prog, 0.05f, 3.5f, 10.0f)
 	 , jelly_cube(
@@ -1384,7 +1462,7 @@ public:
 
 		gl.ClearColor(0.6f, 0.6f, 0.6f, 0.0f);
 		gl.ClearDepth(1.0f);
-		gl.ClearStencil(0);
+		gl.ClearStencil(1);
 
 		gl.Enable(se::DepthTest());
 		gl.DepthFunc(se::LEqual());
@@ -1393,7 +1471,7 @@ public:
 		gl.FrontFace(se::CW());
 		gl.CullFace(se::Back());
 
-		gl.PolygonOffset(-0.3, 0.0);
+		gl.PolygonOffset(-0.01, -1.0);
 	}
 
 	void Reshape(size_t width, size_t height)
@@ -1432,19 +1510,35 @@ public:
 		prev_impulse_strength = impulse_strength;
 	}
 
-	void Render(double time)
+	void Render(ExampleClock& clock)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer().StencilBuffer();
 
-		jelly_cube.UpdatePhysics(phys_prog, time - prev_time);
-		camera.UpdatePhysics(cam_prog, time - prev_time);
+		double interval = clock.Interval().Seconds();
+		jelly_cube.UpdatePhysics(phys_prog, interval);
+		camera.UpdatePhysics(cam_prog, interval);
+
+		// update the 'bullet-time' trigger
+		bt_trg.UpdateAndStartIf(
+			clock.Interval().Seconds(),
+			camera.Target().y() < 1.0f &&
+			clock.RealTime().Second() < 20,
+			1.5
+		);
+
+		// slow down the time if necessary
+		if(bt_trg.On()) clock.Pace(0.1);
+		// restore normal time flow if necessary
+		if(bt_trg.Off())clock.Pace(1.0);
+
 
 		auto cam_matrix = camera.Matrix();
 
 		shadow_prog.camera_matrix.Set(cam_matrix);
 		metal_prog.camera_matrix.Set(cam_matrix);
-		metal_prog.camera_position.Set(camera.Position());
 		draw_prog.camera_matrix.Set(cam_matrix);
+
+		metal_prog.camera_position.Set(camera.Position());
 
 		// Draw objects only with ambient light and the depth
 		metal_prog.light_multiplier.Set(0.2);
@@ -1467,10 +1561,10 @@ public:
 		gl.StencilOpSeparate(se::Front(), se::Keep(), se::Keep(), se::Incr());
 		gl.StencilOpSeparate(se::Back(),  se::Keep(), se::Keep(), se::Decr());
 
-		gl.CullFace(se::Back());
+		gl.Disable(se::CullFace());
 		jelly_cube.Shadow(shadow_prog);
-		gl.CullFace(se::Front());
-		jelly_cube.Shadow(shadow_prog);
+		gl.Enable(se::CullFace());
+
 
 		// Draw stencilled parts of objects only with full light
 		gl.Clear().DepthBuffer();
@@ -1482,21 +1576,19 @@ public:
 		gl.ColorMask(true, true, true, true);
 		gl.DepthMask(true);
 
-		gl.StencilFunc(se::Equal(), 0);
+		gl.StencilFunc(se::Equal(), 1);
 		gl.StencilOp(se::Keep(), se::Keep(), se::Keep());
 
 		floor.Draw(metal_prog);
 		jelly_cube.Draw(draw_prog);
 
-		// remember the current time
-		prev_time = time;
 		// update the force pulse kicking the cube
-		UpdateImpulse(time, camera.Target());
+		UpdateImpulse(clock.Now().Seconds(), camera.Target());
 	}
 
-	bool Continue(double time)
+	bool Continue(const ExampleClock& clock)
 	{
-		return time < 90.0;
+		return clock.RealTime().Minutes() < 2.0;
 	}
 
 	double HeatUpTime(void) const
