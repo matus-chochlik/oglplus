@@ -132,18 +132,16 @@ void make_screenshot(
 	ExampleClock clock(s);
 
 	// heat-up
-	while(s < t)
+	while(true)
 	{
 		while(display.NextEvent(event));
 		s += dt;
 		clock.Update(s);
 		example->Render(clock);
-		ctx.SwapBuffers(win);
+		if(s < t) ctx.SwapBuffers(win);
+		else break;
 	}
 	while(display.NextEvent(event));
-	// render the frame
-	clock.Update(t);
-	example->Render(clock);
 	glFinish();
 	//save it to a file
 	std::vector<char> pixels(width * height * 3);
