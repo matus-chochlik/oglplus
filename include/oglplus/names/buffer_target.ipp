@@ -23,6 +23,9 @@ switch(GLenum(value))
 #if defined GL_COPY_WRITE_BUFFER
 	case GL_COPY_WRITE_BUFFER: return StrLit("COPY_WRITE_BUFFER");
 #endif
+#if defined GL_DISPATCH_INDIRECT_BUFFER
+	case GL_DISPATCH_INDIRECT_BUFFER: return StrLit("DISPATCH_INDIRECT_BUFFER");
+#endif
 #if defined GL_DRAW_INDIRECT_BUFFER
 	case GL_DRAW_INDIRECT_BUFFER: return StrLit("DRAW_INDIRECT_BUFFER");
 #endif
@@ -34,6 +37,9 @@ switch(GLenum(value))
 #endif
 #if defined GL_PIXEL_UNPACK_BUFFER
 	case GL_PIXEL_UNPACK_BUFFER: return StrLit("PIXEL_UNPACK_BUFFER");
+#endif
+#if defined GL_SHADER_STORAGE_BUFFER
+	case GL_SHADER_STORAGE_BUFFER: return StrLit("SHADER_STORAGE_BUFFER");
 #endif
 #if defined GL_TEXTURE_BUFFER
 	case GL_TEXTURE_BUFFER: return StrLit("TEXTURE_BUFFER");

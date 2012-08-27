@@ -47,6 +47,9 @@ switch(GLenum(value))
 #if defined GL_ATOMIC_COUNTER_BARRIER_BIT
 	case GL_ATOMIC_COUNTER_BARRIER_BIT: return StrLit("ATOMIC_COUNTER_BARRIER_BIT");
 #endif
+#if defined GL_SHADER_STORAGE_BARRIER_BIT
+	case GL_SHADER_STORAGE_BARRIER_BIT: return StrLit("SHADER_STORAGE_BARRIER_BIT");
+#endif
 #if defined GL_ALL_BARRIER_BITS
 	case GL_ALL_BARRIER_BITS: return StrLit("ALL_BARRIER_BITS");
 #endif

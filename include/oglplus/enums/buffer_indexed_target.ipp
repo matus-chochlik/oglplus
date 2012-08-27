@@ -13,6 +13,8 @@
 
 /// ATOMIC_COUNTER_BUFFER
 AtomicCounter,
+/// SHADER_STORAGE_BUFFER
+ShaderStorage,
 /// TRANSFORM_FEEDBACK_BUFFER
 TransformFeedback,
 /// UNIFORM_BUFFER

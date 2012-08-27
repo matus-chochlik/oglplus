@@ -58,6 +58,15 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_COMPUTE_SHADER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+   ,
+# endif
+  OGLPLUS_ENUM_CLASS_VALUE(ComputeShader, GL_COMPUTE_SHADER_BIT)
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined GL_ALL_SHADER_BITS
 # if OGLPLUS_LIST_NEEDS_COMMA
    ,

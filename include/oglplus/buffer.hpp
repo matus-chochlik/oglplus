@@ -630,6 +630,78 @@ public:
 	}
 #endif // copy buffer
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	/// Clear the buffer data
+	/**
+	 *  @see Data
+	 *  @see ClearSubData
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 *
+	 *  @glverreq{4,3}
+	 */
+	template <typename GLtype>
+	static void ClearData(
+		Target target,
+		PixelDataInternalFormat internal_format,
+		PixelDataFormat format,
+		const std::vector<GLtype>& data
+	)
+	{
+		OGLPLUS_GLFUNC(ClearBufferData)(
+			GLenum(target),
+			GLenum(internal_format),
+			GLenum(format),
+			GLenum(GetDataType<GLtype>()),
+			data.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			ClearBufferData,
+			Buffer,
+			EnumValueNameTpl(target),
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Clear a subrange of the buffer data
+	/**
+	 *  @see Data
+	 *  @see ClearData
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 *
+	 *  @glverreq{4,3}
+	 */
+	template <typename GLtype>
+	static void ClearSubData(
+		Target target,
+		PixelDataInternalFormat internal_format,
+		GLintptr offset,
+		GLsizeiptr size,
+		PixelDataFormat format,
+		const std::vector<GLtype>& data
+	)
+	{
+		OGLPLUS_GLFUNC(ClearBufferSubData)(
+			GLenum(target),
+			GLenum(internal_format),
+			offset,
+			size,
+			GLenum(format),
+			GLenum(GetDataType<GLtype>()),
+			data.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			ClearBufferSubData,
+			Buffer,
+			EnumValueNameTpl(target),
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
+	}
+#endif
+
 	/// Returns the buffer usage
 	/**
 	 *  @see Access

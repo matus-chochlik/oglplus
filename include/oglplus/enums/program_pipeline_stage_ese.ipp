@@ -59,6 +59,16 @@
    OGLPLUS_ENUM_CLASS_VALUE(FragmentShader, GL_FRAGMENT_SHADER_BIT)
 # endif
 #endif
+#if defined GL_COMPUTE_SHADER_BIT
+# if defined ComputeShader
+#  pragma push_macro("ComputeShader")
+#  undef ComputeShader
+   OGLPLUS_ENUM_CLASS_VALUE(ComputeShader, GL_COMPUTE_SHADER_BIT)
+#  pragma pop_macro("ComputeShader")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ComputeShader, GL_COMPUTE_SHADER_BIT)
+# endif
+#endif
 #if defined GL_ALL_SHADER_BITS
 # if defined AllShaders
 #  pragma push_macro("AllShaders")

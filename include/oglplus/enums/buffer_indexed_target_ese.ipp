@@ -19,6 +19,16 @@
    OGLPLUS_ENUM_CLASS_VALUE(AtomicCounter, GL_ATOMIC_COUNTER_BUFFER)
 # endif
 #endif
+#if defined GL_SHADER_STORAGE_BUFFER
+# if defined ShaderStorage
+#  pragma push_macro("ShaderStorage")
+#  undef ShaderStorage
+   OGLPLUS_ENUM_CLASS_VALUE(ShaderStorage, GL_SHADER_STORAGE_BUFFER)
+#  pragma pop_macro("ShaderStorage")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ShaderStorage, GL_SHADER_STORAGE_BUFFER)
+# endif
+#endif
 #if defined GL_TRANSFORM_FEEDBACK_BUFFER
 # if defined TransformFeedback
 #  pragma push_macro("TransformFeedback")

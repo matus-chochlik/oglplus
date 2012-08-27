@@ -21,6 +21,8 @@ TessEvaluationShader,
 GeometryShader,
 /// FRAGMENT_SHADER_BIT
 FragmentShader,
+/// COMPUTE_SHADER_BIT
+ComputeShader,
 /// ALL_SHADER_BITS
 AllShaders
 

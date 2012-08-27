@@ -549,6 +549,11 @@ template <typename Enum, Enum = Enum::Compute> operator Enum (void) const{ retur
 template <typename Enum> friend bool operator==(Enum value, Compute){ return value == Enum::Compute; }
 template <typename Enum> friend bool operator!=(Enum value, Compute){ return value != Enum::Compute; }
 };
+struct ComputeShader {
+template <typename Enum, Enum = Enum::ComputeShader> operator Enum (void) const{ return Enum::ComputeShader; }
+template <typename Enum> friend bool operator==(Enum value, ComputeShader){ return value == Enum::ComputeShader; }
+template <typename Enum> friend bool operator!=(Enum value, ComputeShader){ return value != Enum::ComputeShader; }
+};
 struct ConditionSatisfied {
 template <typename Enum, Enum = Enum::ConditionSatisfied> operator Enum (void) const{ return Enum::ConditionSatisfied; }
 template <typename Enum> friend bool operator==(Enum value, ConditionSatisfied){ return value == Enum::ConditionSatisfied; }
@@ -728,6 +733,11 @@ struct DepthTest {
 template <typename Enum, Enum = Enum::DepthTest> operator Enum (void) const{ return Enum::DepthTest; }
 template <typename Enum> friend bool operator==(Enum value, DepthTest){ return value == Enum::DepthTest; }
 template <typename Enum> friend bool operator!=(Enum value, DepthTest){ return value != Enum::DepthTest; }
+};
+struct DispatchIndirect {
+template <typename Enum, Enum = Enum::DispatchIndirect> operator Enum (void) const{ return Enum::DispatchIndirect; }
+template <typename Enum> friend bool operator==(Enum value, DispatchIndirect){ return value == Enum::DispatchIndirect; }
+template <typename Enum> friend bool operator!=(Enum value, DispatchIndirect){ return value != Enum::DispatchIndirect; }
 };
 struct Dither {
 template <typename Enum, Enum = Enum::Dither> operator Enum (void) const{ return Enum::Dither; }
@@ -3053,6 +3063,11 @@ struct ShaderImageAccess {
 template <typename Enum, Enum = Enum::ShaderImageAccess> operator Enum (void) const{ return Enum::ShaderImageAccess; }
 template <typename Enum> friend bool operator==(Enum value, ShaderImageAccess){ return value == Enum::ShaderImageAccess; }
 template <typename Enum> friend bool operator!=(Enum value, ShaderImageAccess){ return value != Enum::ShaderImageAccess; }
+};
+struct ShaderStorage {
+template <typename Enum, Enum = Enum::ShaderStorage> operator Enum (void) const{ return Enum::ShaderStorage; }
+template <typename Enum> friend bool operator==(Enum value, ShaderStorage){ return value == Enum::ShaderStorage; }
+template <typename Enum> friend bool operator!=(Enum value, ShaderStorage){ return value != Enum::ShaderStorage; }
 };
 struct ShadingLanguageVersion {
 template <typename Enum, Enum = Enum::ShadingLanguageVersion> operator Enum (void) const{ return Enum::ShadingLanguageVersion; }
