@@ -21,7 +21,7 @@
 
 #include <oglplus/bound/texture.hpp>
 
-#include <oglplus/smart_enums.hpp>
+#include <oglplus/opt/smart_enums.hpp>
 
 #include <vector>
 #include <cassert>

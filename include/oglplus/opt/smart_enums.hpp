@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/smart_enums.hpp
+ *  @file oglplus/opt/smart_enums.hpp
  *  @brief Implements syntax sugar for shortening enumerated values
  *
  *  @author Matus Chochlik
@@ -9,8 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef OGLPLUS_SMART_ENUMS_1204051600_HPP
-#define OGLPLUS_SMART_ENUMS_1204051600_HPP
+#ifndef OGLPLUS_OPT_SMART_ENUMS_1204051600_HPP
+#define OGLPLUS_OPT_SMART_ENUMS_1204051600_HPP
 
 #include <oglplus/config.hpp>
 
