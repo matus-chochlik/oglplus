@@ -33,9 +33,6 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	VertexShader vs;
-	FragmentShader fs;
-
 	// Program
 	Program prog;
 
@@ -76,6 +73,7 @@ public:
 		Vec3f(-3.2f,  2.0f,  3.0f)
 	))
 	{
+		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
@@ -131,6 +129,7 @@ public:
 		);
 		vs.Compile();
 
+		FragmentShader fs;
 		fs.Source(
 			"#version 330\n"
 			"in vec3 vertNormal;"
