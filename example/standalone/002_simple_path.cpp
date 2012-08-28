@@ -61,9 +61,9 @@ public:
 			dash_array
 		);
 
-		glc.MatrixMode(MatrixMode::Projection);
+		glc.MatrixMode(CompatibilityMatrixMode::Projection);
 		glc.LoadIdentity();
-		glc.MatrixMode(MatrixMode::Modelview);
+		glc.MatrixMode(CompatibilityMatrixMode::Modelview);
 		glc.LoadIdentity();
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);

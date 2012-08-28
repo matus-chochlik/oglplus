@@ -53,11 +53,11 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{MatrixMode}
  *  @glextref{ARB,compatibility}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(MatrixMode, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityMatrixMode, GLenum)
 #include <oglplus/enums/ext/compat_matrix_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(MatrixMode value)
+inline StrLit EnumValueName(CompatibilityMatrixMode value)
 OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
@@ -202,7 +202,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixMode}
 	 */
-	static void MatrixMode(oglplus::MatrixMode mode)
+	static void MatrixMode(CompatibilityMatrixMode mode)
 	{
 		OGLPLUS_GLFUNC(MatrixMode)(GLenum(mode));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMode));
