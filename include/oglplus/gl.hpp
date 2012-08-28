@@ -12,29 +12,50 @@
 #ifndef OGLPLUS_GL_1107121519_HPP
 #define OGLPLUS_GL_1107121519_HPP
 
-#ifndef OGLPLUS_NO_GL
-
 #ifndef OGLPLUS_NO_SITE_CONFIG
 #include <oglplus/site_config.hpp>
+#endif
+
+#ifndef OGLPLUS_USE_GLCOREARB_H
+#define OGLPLUS_USE_GLCOREARB_H 1
+#endif
+
+#ifndef OGLPLUS_USE_GL3_H
+#define OGLPLUS_USE_GL3_H 0
 #endif
 
 #ifndef OGLPLUS_USE_GLEW
 #define OGLPLUS_USE_GLEW 0
 #endif
 
-#if OGLPLUS_USE_GLEW
+#ifndef OGLPLUS_USE_GL3W
+#define OGLPLUS_USE_GL3W 0
+#endif
 
-#define GL3_PROTOTYPES
-#include <GL/glew.h>
 
-#else // using GL3/gl3.h is the fallback
+#ifndef OGLPLUS_NO_GL
 
-#define GL3_PROTOTYPES
-#include <GL3/gl3.h>
-#define __gl_h__
-#define __glext_h__
+# if OGLPLUS_USE_GLCOREARB_H
+#  define GLCOREARB_PROTOTYPES
+#  include <GL/glcorearb.h>
 
-#endif // OGLPLUS_USE_*
+# elif OGLPLUS_USE_GL3_H
+#  define GL3_PROTOTYPES
+#  include <GL3/gl3.h>
+#  define __gl_h__
+#  define __glext_h__
+
+# elif OGLPLUS_USE_GLEW
+#  define GL3_PROTOTYPES
+#  include <GL/glew.h>
+
+# elif OGLPLUS_USE_GL3W
+#  define GL3_PROTOTYPES
+#  include <GL/gl3w.h>
+
+# else
+#  error "Some library including OpenGL symbols is required!"
+# endif // OGLPLUS_USE_*
 
 #endif // OGLPLUS_NO_GL
 

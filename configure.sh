@@ -5,7 +5,7 @@
 #
 # defaults
 oglplus_default_build_dir=_build
-oglplus_without_glew=false
+oglplus_forced_gl_header=""
 oglplus_no_examples=false
 oglplus_no_screenshots=true
 oglplus_framedump=false
@@ -160,7 +160,10 @@ do
 		library_search_paths="${library_search_paths}${option_path};"
 		unset option_path;;
 
-	--without-glew) oglplus_without_glew=true;;
+	--use-glcorearb-h) oglplus_forced_gl_header=GLCOREARB_H;;
+	--use-gl3-h) oglplus_forced_gl_header=GL3_H;;
+	--use-glew) oglplus_forced_gl_header=GLEW;;
+	--use-gl3w) oglplus_forced_gl_header=GL3W;;
 
 	--no-examples) oglplus_no_examples=true;;
 	--screenshots) oglplus_no_screenshots=false;;
@@ -287,9 +290,9 @@ if [ "${oglplus_no_docs}" == "true" ]
 then oglplus_cmake_options="'-DOGLPLUS_NO_DOCS=On' ${oglplus_cmake_options}"
 fi
 
-# pass the without-glew option to cmake
-if [ "${oglplus_without_glew}" == "true" ]
-then oglplus_cmake_options="'-DOGLPLUS_WITHOUT_GLEW=On' ${oglplus_cmake_options}"
+# pass the forced GL header option to cmake
+if [ "${oglplus_forced_gl_header}" != "" ]
+then oglplus_cmake_options="'-DOGLPLUS_FORCE_${oglplus_forced_gl_header}=On' ${oglplus_cmake_options}"
 fi
 
 # pass the list of paths to search for libraries to cmake
