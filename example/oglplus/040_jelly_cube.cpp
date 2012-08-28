@@ -162,10 +162,10 @@ public:
 				)
 			);
 			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			bound_tex.MinFilter(se::LinearMipmapLinear());
+			bound_tex.MagFilter(se::Linear());
+			bound_tex.WrapS(se::Repeat());
+			bound_tex.WrapT(se::Repeat());
 		}
 	}
 
