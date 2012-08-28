@@ -46,7 +46,7 @@ fi
 git_diff_output_transform='s/^:\([0-7]\{6\} \)\{2\}\([0-9A-Fa-f]\{40\} \)\{2\}[ACDMRTUX][0-9]*[[:space:]]\+//'
 whitespace_error_pattern1='^\(\ \{8\}\|	\)*\( \{8\}\)\+\( \{8\}\|	\)*'
 whitespace_error_pattern2='[[:space:]]$'
-grep_file_type_filter='\.\(png\|ico\|svg\|xsl\|jpg\|txt\)'
+grep_file_type_filter='\.\(png\|ico\|svg\|xsl\|jpg\|rst\)'
 #
 if [ $(
 git diff-index $against |

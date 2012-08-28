@@ -140,9 +140,6 @@ cmake (with the -D option. see cmake manual for details):
    to additional directories to search when looking for 3rd-party compiled
    libraries like GL, GLEW, glut, png, etc.
 
- * ``OGLPLUS_WITHOUT_GLEW`` *Off*: Do not use GLEW even if it is available,
-   this requires GL3/gl3.h to be installed.
-
  * ``OGLPLUS_NO_EXAMPLES`` *Off*: Do not build the examples and the textures.
 
  * ``OGLPLUS_NO_DOCS`` *Off*: Do not build and install the documentation.
@@ -163,9 +160,9 @@ Some of the more important command-line options are described below:
 
 --help  Display the help screen.
 
---prefix PATH  Specifies the installation prefix path for cmake (sets
-               the value of the CMAKE_INSTALL_PREFIX variable).
-               If this option is not specified, cmake's default prefix is used.
+--prefix PATH       Specifies the installation prefix path for cmake (sets
+                    the value of the CMAKE_INSTALL_PREFIX variable).
+                    If this option is not specified, cmake's default prefix is used.
 
 --include-dir PATH  This options allows to specify additional directiories
                     to search when looking for header files. It may be used multiple
@@ -174,8 +171,6 @@ Some of the more important command-line options are described below:
 --library-dir PATH  This options allows to specify additional directiories
                     to search when looking for compiled libraries. It may be used
                     multiple times to specify multiple directories.
-
---without-glew  Do not use GLEW even if it is available.
 
 --no-docs  Do not build the documentation.
 
