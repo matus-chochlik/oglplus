@@ -907,7 +907,7 @@ class Program
 typedef Object<ProgramOps> Program;
 #endif
 
-Program& operator << (Program& program, const Shader& shader)
+inline Program& operator << (Program& program, const Shader& shader)
 {
 	program.AttachShader(shader);
 	return program;
