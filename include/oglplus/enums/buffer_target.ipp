@@ -19,6 +19,8 @@ AtomicCounter,
 CopyRead,
 /// COPY_WRITE_BUFFER
 CopyWrite,
+/// DISPATCH_INDIRECT_BUFFER
+DispatchIndirect,
 /// DRAW_INDIRECT_BUFFER
 DrawIndirect,
 /// ELEMENT_ARRAY_BUFFER
@@ -27,6 +29,8 @@ ElementArray,
 PixelPack,
 /// PIXEL_UNPACK_BUFFER
 PixelUnpack,
+/// SHADER_STORAGE_BUFFER
+ShaderStorage,
 /// TEXTURE_BUFFER
 TextureBuffer,
 /// TRANSFORM_FEEDBACK_BUFFER

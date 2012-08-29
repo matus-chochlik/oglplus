@@ -26,6 +26,9 @@ switch(GLenum(value))
 #if defined GL_FRAGMENT_SHADER_BIT
 	case GL_FRAGMENT_SHADER_BIT: return StrLit("FRAGMENT_SHADER_BIT");
 #endif
+#if defined GL_COMPUTE_SHADER_BIT
+	case GL_COMPUTE_SHADER_BIT: return StrLit("COMPUTE_SHADER_BIT");
+#endif
 #if defined GL_ALL_SHADER_BITS
 	case GL_ALL_SHADER_BITS: return StrLit("ALL_SHADER_BITS");
 #endif

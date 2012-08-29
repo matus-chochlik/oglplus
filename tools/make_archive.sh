@@ -28,7 +28,7 @@ fi
 rm -rf ./_prebuilt ./_build
 
 ./configure.sh --from-scratch --no-examples --no-docs --quiet
-(cd ./_build && make oglplus_textures -j 4)
+(cd ./_build && make oglplus-textures -j 4)
 
 #
 # move built files to the pre-built directory

@@ -88,8 +88,8 @@ public:
 		);
 		glyph_spacings.insert(glyph_spacings.begin(), 0);
 
-		dsa.MatrixLoadIdentity(MatrixMode::Modelview);
-		dsa.MatrixTranslate(MatrixMode::Modelview, x, y, 0.0);
+		dsa.MatrixLoadIdentity(CompatibilityMatrixMode::Modelview);
+		dsa.MatrixTranslate(CompatibilityMatrixMode::Modelview, x, y, 0.0);
 
 		text_glyphs.StencilFillInstanced(
 			text,
@@ -158,9 +158,9 @@ public:
 
 		gl.Viewport(Width(), Height());
 
-		dsa.MatrixLoadIdentity(MatrixMode::Projection);
+		dsa.MatrixLoadIdentity(CompatibilityMatrixMode::Projection);
 		dsa.MatrixOrtho(
-			MatrixMode::Projection,
+			CompatibilityMatrixMode::Projection,
 			0, Width(),
 			0, Height(),
 			-1.0, 1.0

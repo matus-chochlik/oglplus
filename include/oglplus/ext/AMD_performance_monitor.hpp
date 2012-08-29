@@ -22,7 +22,7 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTAMDON_ONLY || GL_AMD_performance_monitor
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_AMD_performance_monitor
 
 /// Performance counter type
 /**

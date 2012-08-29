@@ -17,13 +17,25 @@ if(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew") OR
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew_cxx03")
 )
+	if(NOT GLUT_FOUND)
+		message(FATAL_ERROR "GLUT is required for this build configuration")
+		return()
+	endif()
+
+	include_directories(${GLUT_INCLUDE_DIRS})
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLUT_LIBRARIES})
 elseif(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "frame_dump")
 )
 	find_package(X11)
-	set(OGLPLUS_EXAMPLE_HARNESS_LIBS X11)
+	if(NOT X11_FOUND)
+		message(FATAL_ERROR "X11 is required for this build configuration")
+		return()
+	endif()
+
+	include_directories(${X11_INCLUDE_DIR})
+	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${X11_LIBRARIES})
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/utils)

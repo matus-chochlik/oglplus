@@ -91,7 +91,7 @@ public:
 	 *  @see Framebuffer::AttachRenderbuffer()
 	 */
 	void AttachRenderbuffer(
-		FramebufferAttachment attachment,
+		FramebufferOps::Property::Attachment attachment,
 		const RenderbufferOps & renderbuffer
 	) const
 	{
@@ -123,7 +123,7 @@ public:
 	 *  @see Framebuffer::AttachTexture()
 	 */
 	void AttachTexture(
-		FramebufferAttachment attachment,
+		FramebufferOps::Property::Attachment attachment,
 		const TextureOps & texture,
 		GLint level
 	) const
@@ -159,7 +159,7 @@ public:
 	 *  @see Framebuffer::AttachTexture1D()
 	 */
 	void AttachTexture1D(
-		FramebufferAttachment attachment,
+		FramebufferOps::Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps & texture,
 		GLint level
@@ -179,7 +179,7 @@ public:
 	 *  @see Framebuffer::AttachTexture2D()
 	 */
 	void AttachTexture2D(
-		FramebufferAttachment attachment,
+		FramebufferOps::Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps & texture,
 		GLint level
@@ -199,7 +199,7 @@ public:
 	 *  @see Framebuffer::AttachTexture3D()
 	 */
 	void AttachTexture3D(
-		FramebufferAttachment attachment,
+		FramebufferOps::Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps & texture,
 		GLint level,
@@ -221,7 +221,7 @@ public:
 	 *  @see Framebuffer::AttachTextureLayer()
 	 */
 	void AttachTextureLayer(
-		FramebufferAttachment attachment,
+		FramebufferOps::Property::Attachment attachment,
 		const TextureOps & texture,
 		GLint level,
 		GLint layer

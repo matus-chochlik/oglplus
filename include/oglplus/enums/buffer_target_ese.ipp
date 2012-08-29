@@ -49,6 +49,16 @@
    OGLPLUS_ENUM_CLASS_VALUE(CopyWrite, GL_COPY_WRITE_BUFFER)
 # endif
 #endif
+#if defined GL_DISPATCH_INDIRECT_BUFFER
+# if defined DispatchIndirect
+#  pragma push_macro("DispatchIndirect")
+#  undef DispatchIndirect
+   OGLPLUS_ENUM_CLASS_VALUE(DispatchIndirect, GL_DISPATCH_INDIRECT_BUFFER)
+#  pragma pop_macro("DispatchIndirect")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(DispatchIndirect, GL_DISPATCH_INDIRECT_BUFFER)
+# endif
+#endif
 #if defined GL_DRAW_INDIRECT_BUFFER
 # if defined DrawIndirect
 #  pragma push_macro("DrawIndirect")
@@ -87,6 +97,16 @@
 #  pragma pop_macro("PixelUnpack")
 # else
    OGLPLUS_ENUM_CLASS_VALUE(PixelUnpack, GL_PIXEL_UNPACK_BUFFER)
+# endif
+#endif
+#if defined GL_SHADER_STORAGE_BUFFER
+# if defined ShaderStorage
+#  pragma push_macro("ShaderStorage")
+#  undef ShaderStorage
+   OGLPLUS_ENUM_CLASS_VALUE(ShaderStorage, GL_SHADER_STORAGE_BUFFER)
+#  pragma pop_macro("ShaderStorage")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ShaderStorage, GL_SHADER_STORAGE_BUFFER)
 # endif
 #endif
 #if defined GL_TEXTURE_BUFFER

@@ -1,4 +1,4 @@
-#  Copyright 2009-2011 Matus Chochlik. Distributed under the Boost
+#  Copyright 2009-2012 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -9,6 +9,9 @@
 
 PROJECT_NAME           = "OGLplus"
 
+SORT_BY_SCOPE_NAME     = YES
+HIDE_SCOPE_NAMES       = NO
+
 OUTPUT_DIRECTORY       = ../../_build/doc/doxygen/oglplus
 
 INPUT = \
@@ -17,6 +20,7 @@ INPUT = \
 	../../include/oglplus/bound \
 	../../include/oglplus/context \
 	../../include/oglplus/ext \
+	../../include/oglplus/opt \
 	../../include/oglplus/shapes \
 	../../include/oglplus/images \
 	../../example/standalone \

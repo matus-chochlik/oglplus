@@ -35,6 +35,8 @@ Framebuffer,
 TransformFeedback,
 /// ATOMIC_COUNTER_BARRIER_BIT
 AtomicCounter,
+/// SHADER_STORAGE_BARRIER_BIT
+ShaderStorage,
 /// ALL_BARRIER_BITS
 All
 

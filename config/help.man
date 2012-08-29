@@ -70,11 +70,44 @@ Remove any previous cached and intermediate files
 and run the configuration process from scratch.
 
 .TP
-.B --without-glew
-Do not use GLEW even if it is available.
-This option requires \fIGL3/gl3.h\fR installed somewhere
+.B --use-gl3-h
+Force use of the GL3/gl3.h header. If this option is used,
+then this header must be installed somewhere
 in the system include directories or in directories
 specified with \fI--include-dir\fR.
+The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
+and \iI--use-gl3w\fR
+options are mutually exclusive.
+
+.TP
+.B --use-glcorearb-h
+Force use of the GL/glcorearb.h header. If this option is used,
+then this header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
+and \iI--use-gl3w\fR
+options are mutually exclusive.
+
+.TP
+.B --use-glew
+Force use of the GLEW library. If this option is used, then
+GLEW and the \fIGL/glew.h\fR header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
+and \iI--use-gl3w\fR
+options are mutually exclusive.
+
+.TP
+.B --use-gl3w
+Force use of the GL3W library. If this option is used, then
+GL3W and the \fIGL/gl3w.h\fR header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
+and \iI--use-gl3w\fR
+options are mutually exclusive.
 
 .TP
 .B --no-examples

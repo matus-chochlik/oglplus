@@ -63,10 +63,36 @@ OOPPTTIIOONNSS
               configuration process from scratch.
 
 
-       ----wwiitthhoouutt--gglleeww
-              Do not use GLEW even if it is available.  This  option  requires
-              _G_L_3_/_g_l_3_._h  installed somewhere in the system include directories
-              or in directories specified with _-_-_i_n_c_l_u_d_e_-_d_i_r.
+       ----uussee--ggll33--hh
+              Force use of the GL3/gl3.h header. If this option is used,  then
+              this  header  must  be installed somewhere in the system include
+              directories or in directories specified with _-_-_i_n_c_l_u_d_e_-_d_i_r.  The
+              _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h,   _-_-_u_s_e_-_g_l_3_-_h,  _-_-_u_s_e_-_g_l_e_w  and  iI--use-gl3w
+              options are mutually exclusive.
+
+
+       ----uussee--ggllccoorreeaarrbb--hh
+              Force use of the GL/glcorearb.h header. If this option is  used,
+              then  this  header  must  be  installed  somewhere in the system
+              include directories or in directories specified with  _-_-_i_n_c_l_u_d_e_-
+              _d_i_r.    The   _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h,   _-_-_u_s_e_-_g_l_3_-_h,  _-_-_u_s_e_-_g_l_e_w  and
+              iI--use-gl3w options are mutually exclusive.
+
+
+       ----uussee--gglleeww
+              Force use of the GLEW library. If this option is used, then GLEW
+              and the _G_L_/_g_l_e_w_._h header must be installed somewhere in the sys-
+              tem  include  directories  or  in  directories  specified   with
+              _-_-_i_n_c_l_u_d_e_-_d_i_r.   The  _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w
+              and iI--use-gl3w options are mutually exclusive.
+
+
+       ----uussee--ggll33ww
+              Force use of the GL3W library. If this option is used, then GL3W
+              and the _G_L_/_g_l_3_w_._h header must be installed somewhere in the sys-
+              tem  include  directories  or  in  directories  specified   with
+              _-_-_i_n_c_l_u_d_e_-_d_i_r.   The  _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w
+              and iI--use-gl3w options are mutually exclusive.
 
 
        ----nnoo--eexxaammpplleess

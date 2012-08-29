@@ -149,6 +149,12 @@
 					<xsl:value-of select="$Object"/>
 					<xsl:text>Ops::</xsl:text>
 				</xsl:if>
+				<xsl:if test="../../../../compounddef[
+					contains(compoundname, concat($Object,'Ops::'))
+				]/sectiondef/memberdef[@id = $RefId]">
+					<xsl:value-of select="$Object"/>
+					<xsl:text>Ops::</xsl:text>
+				</xsl:if>
 			</xsl:variable>
 			<xsl:if test="$Type != 'Target'">
 				<xsl:text>		</xsl:text>

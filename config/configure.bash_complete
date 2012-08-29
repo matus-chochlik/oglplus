@@ -22,7 +22,10 @@ function _configure_oglplus()
 		--build-dir \
 		--dry-run \
 		--from-scratch \
-		--without-glew \
+		--use-glcorearb-h \
+		--use-gl3-h \
+		--use-glew \
+		--use-gl3w \
 		--no-examples \
 		--no-docs \
 		--screenshots \
@@ -31,6 +34,13 @@ function _configure_oglplus()
 		--use-cxxflags \
 		--use-ldflags \
 	"
+	local mutually_exclusive_opts=" \
+		--use-glcorearb-h \
+		--use-gl3-h \
+		--use-glew \
+		--use-gl3w \
+	"
+
 	local repeated_opts=" \
 		--include-dir \
 		--library-dir \
@@ -48,7 +58,30 @@ function _configure_oglplus()
 			fi
 		done
 		if [ "${opt_used}" == "false" ]
-		then opts="${opts} ${opt}"
+		then
+			local is_muo=false
+			for muo in ${mutually_exclusive_opts}
+			do
+				if [ "${opt}" == "${muo}" ]
+				then is_muo=true && break
+				fi
+			done
+			if [ "${is_muo}" == "true" ]
+			then
+				for pre in ${COMP_WORDS[@]}
+				do
+					for muo in ${mutually_exclusive_opts}
+					do
+						if [ "${pre}" == "${muo}" ]
+						then opt_used=true && break
+						fi
+					done
+				done
+			fi
+
+			if [ "${opt_used}" == "false" ]
+			then opts="${opts} ${opt}"
+			fi
 		fi
 	done
 	if [ ${COMP_CWORD} -le 1 ]

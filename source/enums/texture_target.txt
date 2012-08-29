@@ -1,7 +1,8 @@
-# Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+# Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 # GL_DEF:OGLPLUS_DEF:AVAILABILITY_QUERY:BINDING_QUERY_DEF:DOCUMENTATION
+#Texture::Target#
 TEXTURE_1D:_1D:::TEXTURE_BINDING_1D
 TEXTURE_2D:_2D:::TEXTURE_BINDING_2D
 TEXTURE_3D:_3D:::TEXTURE_BINDING_3D

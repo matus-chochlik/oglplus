@@ -12,7 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/smart_enums.hpp>
+#include <oglplus/opt/smart_enums.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/images/load.hpp>
 #include <oglplus/bound/texture.hpp>

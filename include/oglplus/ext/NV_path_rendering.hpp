@@ -386,6 +386,27 @@ OGLPLUS_NOEXCEPT(true)
 	return StrLit();
 }
 
+/// Text encoding type enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @glsymbols
+ *  @glextref{NV,path_rendering}
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVTextEncoding, GLenum)
+#include <oglplus/enums/ext/nv_path_text_encoding.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+inline StrLit EnumValueName(PathNVTextEncoding value)
+OGLPLUS_NOEXCEPT(true)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/ext/nv_path_text_encoding.ipp>
+#endif
+	OGLPLUS_FAKE_USE(value);
+	return StrLit();
+}
+
 /// Wrapper for NV_path_rendering-related operations
 /** @note Do not use this class directly, use PathNV instead.
  *

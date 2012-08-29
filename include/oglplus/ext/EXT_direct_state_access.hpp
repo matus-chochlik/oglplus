@@ -70,7 +70,7 @@ struct DSAMatrixEXT
 	 *  @glsymbols
 	 *  @glfunref{MatrixPushEXT}
 	 */
-	static void MatrixPush(MatrixMode matrix_mode)
+	static void MatrixPush(CompatibilityMatrixMode matrix_mode)
 	{
 		OGLPLUS_GLFUNC(MatrixPushEXT)(GLenum(matrix_mode));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixPushEXT));
@@ -81,7 +81,7 @@ struct DSAMatrixEXT
 	 *  @glsymbols
 	 *  @glfunref{MatrixPopEXT}
 	 */
-	static void MatrixPop(MatrixMode matrix_mode)
+	static void MatrixPop(CompatibilityMatrixMode matrix_mode)
 	{
 		OGLPLUS_GLFUNC(MatrixPopEXT)(GLenum(matrix_mode));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixPopEXT));
@@ -92,7 +92,7 @@ struct DSAMatrixEXT
 	 *  @glsymbols
 	 *  @glfunref{MatrixLoadIdentityEXT}
 	 */
-	static void MatrixLoadIdentity(MatrixMode matrix_mode)
+	static void MatrixLoadIdentity(CompatibilityMatrixMode matrix_mode)
 	{
 		OGLPLUS_GLFUNC(MatrixLoadIdentityEXT)(GLenum(matrix_mode));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixLoadIdentityEXT));
@@ -103,7 +103,10 @@ struct DSAMatrixEXT
 	 *  @glsymbols
 	 *  @glfunref{MatrixLoadTransposeEXT}
 	 */
-	static void MatrixLoad(MatrixMode matrix_mode, const Mat4f& matrix)
+	static void MatrixLoad(
+		CompatibilityMatrixMode matrix_mode,
+		const Mat4f& matrix
+	)
 	{
 		OGLPLUS_GLFUNC(MatrixLoadTransposefEXT)(
 			GLenum(matrix_mode),
@@ -117,7 +120,10 @@ struct DSAMatrixEXT
 	 *  @glsymbols
 	 *  @glfunref{MatrixLoadTransposeEXT}
 	 */
-	static void MatrixLoad(MatrixMode matrix_mode, const Mat4d& matrix)
+	static void MatrixLoad(
+		CompatibilityMatrixMode matrix_mode,
+		const Mat4d& matrix
+	)
 	{
 		OGLPLUS_GLFUNC(MatrixLoadTransposedEXT)(
 			GLenum(matrix_mode),
@@ -131,7 +137,10 @@ struct DSAMatrixEXT
 	 *  @glsymbols
 	 *  @glfunref{MatrixMultTransposeEXT}
 	 */
-	static void MatrixMult(MatrixMode matrix_mode, const Mat4f& matrix)
+	static void MatrixMult(
+		CompatibilityMatrixMode matrix_mode,
+		const Mat4f& matrix
+	)
 	{
 		OGLPLUS_GLFUNC(MatrixMultTransposefEXT)(
 			GLenum(matrix_mode),
@@ -145,7 +154,10 @@ struct DSAMatrixEXT
 	 *  @glsymbols
 	 *  @glfunref{MatrixMultTransposeEXT}
 	 */
-	static void MatrixMult(MatrixMode matrix_mode, const Mat4d& matrix)
+	static void MatrixMult(
+		CompatibilityMatrixMode matrix_mode,
+		const Mat4d& matrix
+	)
 	{
 		OGLPLUS_GLFUNC(MatrixMultTransposedEXT)(
 			GLenum(matrix_mode),
@@ -160,7 +172,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixRotateEXT}
 	 */
 	static void MatrixRotate(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		Angle<GLfloat> angle,
 		const GLfloat x,
 		const GLfloat y,
@@ -181,7 +193,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixRotateEXT}
 	 */
 	static void MatrixRotate(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		Angle<GLfloat> angle,
 		const Vector<GLfloat, 3>& axis
 	)
@@ -200,7 +212,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixRotateEXT}
 	 */
 	static void MatrixRotate(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		Angle<GLdouble> angle,
 		const Vector<GLdouble, 3>& axis
 	)
@@ -219,7 +231,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixScaleEXT}
 	 */
 	static void MatrixScale(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		const GLfloat x,
 		const GLfloat y,
 		const GLfloat z
@@ -238,7 +250,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixScaleEXT}
 	 */
 	static void MatrixScale(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		const Vector<GLfloat, 3>& amount
 	)
 	{
@@ -255,7 +267,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixScaleEXT}
 	 */
 	static void MatrixScale(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		const Vector<GLdouble, 3>& amount
 	)
 	{
@@ -272,7 +284,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixTranslateEXT}
 	 */
 	static void MatrixTranslate(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		const GLfloat x,
 		const GLfloat y,
 		const GLfloat z
@@ -291,7 +303,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixTranslateEXT}
 	 */
 	static void MatrixTranslate(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		const Vector<GLfloat, 3>& amount
 	)
 	{
@@ -308,7 +320,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixTranslateEXT}
 	 */
 	static void MatrixTranslate(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		const Vector<GLdouble, 3>& amount
 	)
 	{
@@ -325,7 +337,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixOrthoEXT}
 	 */
 	static void MatrixOrtho(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		GLdouble left,
 		GLdouble right,
 		GLdouble bottom,
@@ -352,7 +364,7 @@ struct DSAMatrixEXT
 	 *  @glfunref{MatrixFrustumEXT}
 	 */
 	static void MatrixFrustum(
-		MatrixMode matrix_mode,
+		CompatibilityMatrixMode matrix_mode,
 		GLdouble left,
 		GLdouble right,
 		GLdouble bottom,

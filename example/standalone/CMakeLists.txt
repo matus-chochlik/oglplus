@@ -18,7 +18,7 @@ function(standalone_example_common EXAMPLE_NAME)
 		${EXAMPLE_NAME}.cpp
 	)
 	add_dependencies(standalone-examples ${EXAMPLE_NAME})
-	target_link_libraries(${EXAMPLE_NAME} ${OPENGL3_LIBRARIES} ${ARGN})
+	target_link_libraries(${EXAMPLE_NAME} ${OPENGL_LIBRARIES} ${ARGN})
 endfunction()
 
 if(GLUT_FOUND AND GLEW_FOUND)

@@ -129,6 +129,16 @@
    OGLPLUS_ENUM_CLASS_VALUE(AtomicCounter, GL_ATOMIC_COUNTER_BARRIER_BIT)
 # endif
 #endif
+#if defined GL_SHADER_STORAGE_BARRIER_BIT
+# if defined ShaderStorage
+#  pragma push_macro("ShaderStorage")
+#  undef ShaderStorage
+   OGLPLUS_ENUM_CLASS_VALUE(ShaderStorage, GL_SHADER_STORAGE_BARRIER_BIT)
+#  pragma pop_macro("ShaderStorage")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ShaderStorage, GL_SHADER_STORAGE_BARRIER_BIT)
+# endif
+#endif
 #if defined GL_ALL_BARRIER_BITS
 # if defined All
 #  pragma push_macro("All")

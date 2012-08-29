@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/smart_enums.hpp
+ *  @file oglplus/opt/smart_enums.hpp
  *  @brief Implements syntax sugar for shortening enumerated values
  *
  *  @author Matus Chochlik
@@ -9,8 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef OGLPLUS_SMART_ENUMS_1204051600_HPP
-#define OGLPLUS_SMART_ENUMS_1204051600_HPP
+#ifndef OGLPLUS_OPT_SMART_ENUMS_1204051600_HPP
+#define OGLPLUS_OPT_SMART_ENUMS_1204051600_HPP
 
 #include <oglplus/config.hpp>
 
@@ -63,6 +63,9 @@ namespace oglplus {
  *  Texture::MinFilter(linear);
  *  Texture::MagFilter(linear);
  *  @endcode
+ *
+ *  @note Smart enumerations are not included by @c oglplus/all.hpp.
+ *  To use them the @c oglplus/opt/smart_enums.hpp file must be included.
  */
 
 /// @ref smart_enums are defined in this namespace
@@ -71,10 +74,16 @@ namespace oglplus {
  */
 namespace smart_enums {
 
-#if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
-#include <oglplus/auxiliary/enum_shorteners.ipp>
+#if OGLPLUS_DOCUMENTATION_ONLY
+# include <oglplus/auxiliary/enum_shorteners_doc.ipp>
 #else
-#error "Smart enumerations require support for function template default args!"
+
+# if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+#  include <oglplus/auxiliary/enum_shorteners.ipp>
+# else
+#  error "Smart enumerations require support for function template default args!"
+# endif
+
 #endif
 
 } // namespace smart_enums

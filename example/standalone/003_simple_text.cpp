@@ -82,7 +82,7 @@ public:
 		);
 
 		dsa.MatrixOrtho(
-			MatrixMode::Projection,
+			CompatibilityMatrixMode::Projection,
 				text_left -10,
 				text_right+10,
 				font_min_max[0],
@@ -90,7 +90,7 @@ public:
 				-1.0,
 				1.0
 		);
-		dsa.MatrixLoadIdentity(MatrixMode::Modelview);
+		dsa.MatrixLoadIdentity(CompatibilityMatrixMode::Modelview);
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearStencil(0);

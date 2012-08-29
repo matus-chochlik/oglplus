@@ -13,7 +13,7 @@
 #include <GL/glut.h>
 
 #include <oglplus/all.hpp>
-#include <oglplus/smart_enums.hpp>
+#include <oglplus/opt/smart_enums.hpp>
 #include <oglplus/ext/AMD_performance_monitor.hpp>
 
 int main(int argc, char* argv[])

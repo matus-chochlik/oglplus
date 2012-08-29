@@ -1,4 +1,4 @@
-# Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+# Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 VERTEX_ATTRIB_ARRAY_BARRIER_BIT:VertexAttribArray
@@ -13,4 +13,5 @@ BUFFER_UPDATE_BARRIER_BIT:BufferUpdate
 FRAMEBUFFER_BARRIER_BIT:Framebuffer
 TRANSFORM_FEEDBACK_BARRIER_BIT:TransformFeedback
 ATOMIC_COUNTER_BARRIER_BIT:AtomicCounter
+SHADER_STORAGE_BARRIER_BIT:ShaderStorage
 ALL_BARRIER_BITS:All

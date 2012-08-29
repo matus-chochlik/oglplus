@@ -173,7 +173,10 @@ done
 for InputFile in ${InputFiles}
 do
 (
-	EnumClass=$(sed -n -e 's|^#\(\w\+\)#$|\1|p' < ${InputFile})
+	EnumClass=$(sed -n -e 's|^#\([^#]\+\)#$|\1|p' < ${InputFile})
+	if [ "${EnumClass}" == "" ]
+	then EnumClass=$(echo $(basename ${InputFile} .txt) | sed -e 's|^\([a-z]\)|\u\1|;s|_\([a-z]\)|\u\1|g')
+	fi
 
 	IFS=':'
 
@@ -185,12 +188,13 @@ do
 		fi
 
 		mkdir -p ${ShortEnumTempDir}
-		echo "${GL_DEF}" >> ${ShortEnumTempDir}/${OGLPLUS_DEF}
+		echo "${GL_DEF}:${EnumClass}" >> ${ShortEnumTempDir}/${OGLPLUS_DEF}
 	done
 )
 done
 
 (
+	# first the real-deal
 	OutputFile="oglplus/auxiliary/enum_shorteners.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
@@ -205,11 +209,6 @@ done
 	do
 		OGLPLUS_DEF=$(basename ${InputFile})
 
-		#echo -n "#if"
-		#for GL_DEF in $(cat ${InputFile} | sort | uniq)
-		#do echo -n " defined(GL_${GL_DEF}) ||"
-		#done
-		#echo " false"
 		echo -n "struct ${OGLPLUS_DEF} {"
 		echo
 		echo -n "template <typename Enum, Enum = Enum::${OGLPLUS_DEF}> operator Enum (void) const"
@@ -222,7 +221,62 @@ done
 		echo -n "{ return value != Enum::${OGLPLUS_DEF}; }"
 		echo
 		echo "};"
-		#echo "#endif"
+	done
+
+	git add ${OutputPath}
+
+	# now the documentation
+	OutputFile="oglplus/auxiliary/enum_shorteners_doc.ipp"
+	OutputPath="${RootDir}/include/${OutputFile}"
+
+	mkdir -p $(dirname ${OutputPath})
+	exec > ${OutputPath}
+	PrintFileHeader "${RootDir}/source/enums/.*.txt" ${OutputFile}
+
+	# the enumeration name shorteners
+	find ${ShortEnumTempDir}/ -mindepth 1 -maxdepth 1 -type f |
+	sort |
+	while read InputFile
+	do
+		OGLPLUS_DEF=$(basename ${InputFile})
+
+		echo "/// @ref oglplus_smart_enums \"Smart enum\" for enumerations with the @c ${OGLPLUS_DEF} value."
+		echo "/**"
+		for OGLPLUS_ENUM in $(cut -d':' -f2 < ${InputFile} | sort | uniq)
+		do echo " *  @see @ref oglplus::${OGLPLUS_ENUM} \"${OGLPLUS_ENUM}\""
+		done
+		echo " *"
+		echo " *  @glsymbols"
+		for GL_DEF in $(cut -d':' -f1 < ${InputFile} | sort | uniq)
+		do echo " *  @gldefref{${GL_DEF}}"
+		done
+		echo " *"
+		echo " *  @ingroup smart_enums"
+		echo " */"
+		echo "struct ${OGLPLUS_DEF} {"
+		echo
+		echo "/// Conversion to any @p Enum type having the ${OGLPLUS_DEF} value."
+		echo "/** Instances of the @ref oglplus::smart_enums::${OGLPLUS_DEF} \"${OGLPLUS_DEF}\""
+		echo " *  type are convertible to instances of any enumeration type having"
+		echo " *  the @c ${OGLPLUS_DEF} value."
+		echo " */"
+		echo "template <typename Enum, Enum = Enum::${OGLPLUS_DEF}> operator Enum (void) const;"
+		echo
+		echo "/// Equality comparison with any @p Enum type having the ${OGLPLUS_DEF} value."
+		echo "/** Instances of the @c smart_enums::${OGLPLUS_DEF} type can be compared"
+		echo " *  for equality to instances of any enumeration type having"
+		echo " *  the @c ${OGLPLUS_DEF} value."
+		echo " */"
+		echo "template <typename Enum> friend bool operator==(Enum value, ${OGLPLUS_DEF});"
+		echo
+		echo "/// Non-equality comparison with any @p Enum type having the ${OGLPLUS_DEF} value."
+		echo "/** Instances of the @c smart_enums::${OGLPLUS_DEF} type can be compared"
+		echo " *  for non-equality to instances of any enumeration type having"
+		echo " *  the @c ${OGLPLUS_DEF} value."
+		echo " */"
+		echo "template <typename Enum> friend bool operator!=(Enum value, ${OGLPLUS_DEF});"
+		echo "};"
+		echo
 	done
 
 	git add ${OutputPath}
