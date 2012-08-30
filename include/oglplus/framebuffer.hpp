@@ -42,6 +42,9 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 #endif
 
 /// Framebuffer attachment points
+/**
+ *  @ingroup enumerations
+ */
 OGLPLUS_ENUM_CLASS_BEGIN(FramebufferAttachment, GLenum)
 #include <oglplus/enums/framebuffer_attachment.ipp>
 OGLPLUS_ENUM_CLASS_END
@@ -57,6 +60,9 @@ OGLPLUS_NOEXCEPT(true)
 }
 
 /// Framebuffer color attachment points
+/**
+ *  @ingroup enumerations
+ */
 OGLPLUS_ENUM_CLASS_BEGIN(FramebufferColorAttachment, GLenum)
 #include <oglplus/enums/framebuffer_color_attachment.ipp>
 OGLPLUS_ENUM_CLASS_END
@@ -72,6 +78,9 @@ OGLPLUS_NOEXCEPT(true)
 }
 
 /// Framebuffer status enumeration
+/**
+ *  @ingroup enumerations
+ */
 OGLPLUS_ENUM_CLASS_BEGIN(FramebufferStatus, GLenum)
 #include <oglplus/enums/framebuffer_status.ipp>
 OGLPLUS_ENUM_CLASS_END
@@ -81,6 +90,24 @@ OGLPLUS_NOEXCEPT(true)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/framebuffer_status.ipp>
+#endif
+	OGLPLUS_FAKE_USE(value);
+	return StrLit();
+}
+
+/// Framebuffer bind target
+/**
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(FramebufferTarget, GLenum)
+#include <oglplus/enums/framebuffer_target.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+inline StrLit EnumValueName(FramebufferTarget value)
+OGLPLUS_NOEXCEPT(true)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/framebuffer_target.ipp>
 #endif
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
@@ -105,9 +132,7 @@ class FramebufferOps
 {
 public:
 	/// Framebuffer bind targets
-	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
-#include <oglplus/enums/framebuffer_target.ipp>
-	OGLPLUS_ENUM_CLASS_END
+	typedef FramebufferTarget Target;
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
@@ -526,16 +551,6 @@ public:
 		));
 	}
 };
-
-inline StrLit EnumValueName(FramebufferOps::Target value)
-OGLPLUS_NOEXCEPT(true)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/framebuffer_target.ipp>
-#endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality

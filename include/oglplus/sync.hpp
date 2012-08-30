@@ -82,6 +82,11 @@ OGLPLUS_NOEXCEPT(true)
 
 
 /// The wait result enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @see Sync::ClientWait
+ */
 OGLPLUS_ENUM_CLASS_BEGIN(SyncWaitResult, GLenum)
 #include <oglplus/enums/sync_wait_result.ipp>
 OGLPLUS_ENUM_CLASS_END

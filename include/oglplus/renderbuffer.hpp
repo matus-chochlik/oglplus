@@ -24,6 +24,24 @@
 
 namespace oglplus {
 
+/// Renderbuffer bind targets
+/**
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(RenderbufferTarget, GLenum)
+#include <oglplus/enums/renderbuffer_target.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+inline StrLit EnumValueName(RenderbufferTarget value)
+OGLPLUS_NOEXCEPT(true)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/renderbuffer_target.ipp>
+#endif
+	OGLPLUS_FAKE_USE(value);
+	return StrLit();
+}
+
 /// Class wrapping renderbuffer-related functionality
 /** @note Do not use this class directly, use Renderbuffer instead.
  *
@@ -38,9 +56,7 @@ class RenderbufferOps
 {
 public:
 	/// Renderbuffer bind targets
-	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
-#include <oglplus/enums/renderbuffer_target.ipp>
-	OGLPLUS_ENUM_CLASS_END
+	typedef RenderbufferTarget Target;
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
@@ -339,16 +355,6 @@ public:
 		);
 	}
 };
-
-inline StrLit EnumValueName(RenderbufferOps::Target value)
-OGLPLUS_NOEXCEPT(true)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/renderbuffer_target.ipp>
-#endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality

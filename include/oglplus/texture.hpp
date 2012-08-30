@@ -193,6 +193,27 @@ OGLPLUS_NOEXCEPT(true)
 	return StrLit();
 }
 
+/// Texture bind and image specification targets
+/** @note Not all of the values enumerated here are valid
+ *  bind targets. Some of them are just image specification
+ *  targets.
+ *
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(TextureTarget, GLenum)
+#include <oglplus/enums/texture_target.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+inline StrLit EnumValueName(TextureTarget value)
+OGLPLUS_NOEXCEPT(true)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/texture_target.ipp>
+#endif
+	OGLPLUS_FAKE_USE(value);
+	return StrLit();
+}
+
 /// Wrapper for texture and texture unit-related operations
 /** @note Do not use this class directly, use Texture instead.
  *
@@ -212,10 +233,7 @@ public:
 	 *  bind targets. Some of them are just image specification
 	 *  targets.
 	 */
-	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
-#include <oglplus/enums/texture_target.ipp>
-	OGLPLUS_ENUM_CLASS_END
-
+	typedef TextureTarget Target;
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
@@ -2519,16 +2537,6 @@ public:
 		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
 	}
 };
-
-inline StrLit EnumValueName(TextureOps::Target value)
-OGLPLUS_NOEXCEPT(true)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_target.ipp>
-#endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL texture functionality

@@ -82,6 +82,9 @@ OGLPLUS_NOEXCEPT(true)
 }
 
 /// Mapped buffer data access types
+/**
+ *  @ingroup enumerations
+ */
 OGLPLUS_ENUM_CLASS_BEGIN(BufferMapAccess, GLbitfield)
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// MAP_READ_BIT
@@ -99,6 +102,43 @@ OGLPLUS_ENUM_CLASS_BEGIN(BufferMapAccess, GLbitfield)
 #endif
 OGLPLUS_ENUM_CLASS_END
 
+/// Buffer bind target
+/**
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(BufferTarget, GLenum)
+#include <oglplus/enums/buffer_target.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+inline StrLit EnumValueName(BufferTarget value)
+OGLPLUS_NOEXCEPT(true)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/buffer_target.ipp>
+#endif
+	OGLPLUS_FAKE_USE(value);
+	return StrLit();
+}
+
+
+/// Buffer indexed bind target
+/**
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(BufferIndexedTarget, GLenum)
+#include <oglplus/enums/buffer_indexed_target.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+inline StrLit EnumValueName(BufferIndexedTarget value)
+OGLPLUS_NOEXCEPT(true)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/buffer_indexed_target.ipp>
+#endif
+	OGLPLUS_FAKE_USE(value);
+	return StrLit();
+}
+
 
 /// Wrapper for OpenGL buffer operations
 /**
@@ -112,10 +152,10 @@ class BufferOps
 {
 public:
 	/// Buffer bind targets
-	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
-#include <oglplus/enums/buffer_target.ipp>
-	OGLPLUS_ENUM_CLASS_END
+	typedef BufferTarget Target;
 
+	/// Buffer indexed bind targets
+	typedef BufferIndexedTarget IndexedTarget;
 protected:
 	static void _init(GLsizei count, GLuint* _name, std::true_type)
 	OGLPLUS_NOEXCEPT(true)
@@ -197,11 +237,6 @@ public:
 		/// The buffer map access mode
 		typedef BufferMapAccess MapAccess;
 	};
-
-	/// Buffer indexed bind targets
-	OGLPLUS_ENUM_CLASS_BEGIN(IndexedTarget, GLenum)
-#include <oglplus/enums/buffer_indexed_target.ipp>
-	OGLPLUS_ENUM_CLASS_END
 
 	/// Typed mapping of the buffer to the client address space
 	template <typename Type>
@@ -732,26 +767,6 @@ public:
 		return BufferMapAccess(GetIntParam(target, GL_BUFFER_ACCESS));
 	}
 };
-
-inline StrLit EnumValueName(BufferOps::Target value)
-OGLPLUS_NOEXCEPT(true)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/buffer_target.ipp>
-#endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
-
-inline StrLit EnumValueName(BufferOps::IndexedTarget value)
-OGLPLUS_NOEXCEPT(true)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/buffer_indexed_target.ipp>
-#endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality

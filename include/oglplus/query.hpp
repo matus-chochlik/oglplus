@@ -22,6 +22,24 @@
 
 namespace oglplus {
 
+/// Query bind target
+/**
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(QueryTarget, GLenum)
+#include <oglplus/enums/query_target.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+inline StrLit EnumValueName(QueryTarget value)
+OGLPLUS_NOEXCEPT(true)
+{
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/names/query_target.ipp>
+#endif
+	OGLPLUS_FAKE_USE(value);
+	return StrLit();
+}
+
 /// Wrapper for asynchronous query functions
 /** @note Do not use this class directly, use Query instead.
  *
@@ -68,10 +86,8 @@ protected:
 		return GL_FALSE;
 	}
 public:
-	/// Query bint target
-	OGLPLUS_ENUM_CLASS_BEGIN(Target, GLenum)
-#include <oglplus/enums/query_target.ipp>
-	OGLPLUS_ENUM_CLASS_END
+	/// Query bind target
+	typedef QueryTarget Target;
 
 	/// Begin the query on the specified @p target
 	/**
@@ -300,16 +316,6 @@ public:
 		return Execution<ResultType>(target, *this, result);
 	}
 };
-
-inline StrLit EnumValueName(QueryOps::Target value)
-OGLPLUS_NOEXCEPT(true)
-{
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/query_target.ipp>
-#endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL asynchronous query functionality
