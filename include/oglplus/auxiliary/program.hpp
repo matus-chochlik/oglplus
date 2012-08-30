@@ -22,35 +22,43 @@ class ProgramOps;
 
 namespace aux {
 
-class ProgramPartInfoContext
+class ProgramInterfaceContext
 {
 private:
-	GLuint _name;
+	GLuint _program;
 	GLuint _size;
-	GLenum _stage;
+	GLenum _stage_or_intf;
 	std::vector<GLchar> _buffer;
 public:
-	ProgramPartInfoContext(GLuint name, GLuint size, GLenum stage = GL_NONE)
-	 : _name(name)
+	ProgramInterfaceContext(
+		GLuint name,
+		GLuint size,
+		GLenum stage_or_intf = GL_NONE
+	): _program(name)
 	 , _size(size)
-	 , _stage(stage)
+	 , _stage_or_intf(stage_or_intf)
 	{ }
 
-	ProgramPartInfoContext(ProgramPartInfoContext&& tmp)
-	 : _name(tmp._name)
+	ProgramInterfaceContext(ProgramInterfaceContext&& tmp)
+	 : _program(tmp._program)
 	 , _size(tmp._size)
-	 , _stage(tmp._stage)
+	 , _stage_or_intf(tmp._stage_or_intf)
 	 , _buffer(std::move(tmp._buffer))
 	{ }
 
 	GLuint Program(void) const
 	{
-		return _name;
+		return _program;
 	}
 
 	GLenum Stage(void) const
 	{
-		return _stage;
+		return _stage_or_intf;
+	}
+
+	GLenum Interface(void) const
+	{
+		return _stage_or_intf;
 	}
 
 	std::vector<GLchar>& Buffer(void)
@@ -71,7 +79,7 @@ private:
 	String _name;
 protected:
 	ActiveVariableInfo(
-		ProgramPartInfoContext& context,
+		ProgramInterfaceContext& context,
 		GLuint index,
 		void (GLAPIENTRY *GetActiveVariable)(
 			GLuint /*program*/,
@@ -101,7 +109,7 @@ protected:
 	// TODO: this is here only because GLEW defines
 	// glGetTransformFeedbackVaryings this way
 	ActiveVariableInfo(
-		ProgramPartInfoContext& context,
+		ProgramInterfaceContext& context,
 		GLuint index,
 		void (GLAPIENTRY *GetActiveVariable)(GLuint, GLuint, GLint*)
 	): _index(index)
@@ -139,7 +147,7 @@ public:
 struct ActiveAttribInfo : ActiveVariableInfo
 {
 	ActiveAttribInfo(
-		ProgramPartInfoContext& context,
+		ProgramInterfaceContext& context,
 		GLuint index
 	): ActiveVariableInfo(
 		context,
@@ -159,7 +167,7 @@ struct ActiveAttribInfo : ActiveVariableInfo
 struct ActiveUniformInfo : ActiveVariableInfo
 {
 	ActiveUniformInfo(
-		ProgramPartInfoContext& context,
+		ProgramInterfaceContext& context,
 		GLuint index
 	): ActiveVariableInfo(
 		context,
@@ -184,7 +192,7 @@ private:
 	String _name;
 public:
 	ActiveSubroutineInfo(
-		ProgramPartInfoContext& context,
+		ProgramInterfaceContext& context,
 		GLuint index
 	): _index(index)
 	{
@@ -225,7 +233,7 @@ private:
 	String _name;
 public:
 	ActiveSubroutineUniformInfo(
-		ProgramPartInfoContext& context,
+		ProgramInterfaceContext& context,
 		GLuint index
 	): _index(index)
 	 , _size(0)
@@ -287,7 +295,7 @@ public:
 struct TransformFeedbackVaryingInfo : ActiveVariableInfo
 {
 	TransformFeedbackVaryingInfo(
-		ProgramPartInfoContext& context,
+		ProgramInterfaceContext& context,
 		GLuint index
 	): ActiveVariableInfo(
 		context,
@@ -311,7 +319,7 @@ private:
 	String _name;
 public:
 	ActiveUniformBlockInfo(
-		ProgramPartInfoContext& context,
+		ProgramInterfaceContext& context,
 		GLuint index
 	): _index(0)
 	{

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,6 +20,7 @@
 #include <oglplus/transform_feedback.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
+#include <oglplus/program_interface.hpp>
 #include <oglplus/auxiliary/program.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
@@ -34,6 +35,122 @@
 namespace oglplus {
 
 class VertexAttribOps;
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+/// Information about a single active program resource
+/**
+ *  @see Program
+ *  @see Program::ActiveResources()
+ *  @see ProgramInterface
+ *
+ *  @code
+ *  Program prog;
+ *  ...
+ *  ProgramInterface intf = ProgramInterface::ProgramInput;
+ *  for(auto range=prog.ActiveResources(intf); !range.Empty(); range.Next())
+ *  {
+ *      auto res = range.Front();
+ *      std::cout << res.Name() << std::endl;
+ *      std::cout << EnumValueName(res.Type()) << std::endl;
+ *      if(res.IsPerPatch())
+ *          std::cout << "Per-patch" << std::endl;
+ *      else std::cout << "Not per-patch << std::endl;
+ *  }
+ *  @endcode
+ */
+class ProgramResource
+{
+private:
+	GLint _program;
+	GLenum _interface;
+	GLuint _index;
+	String _name;
+
+	GLint GetParams(
+		GLenum property,
+		GLsizei bufsize,
+		GLsizei* written,
+		GLint* params
+	) const
+	{
+		OGLPLUS_GLFUNC(GetProgramResourceiv)(
+			_program,
+			_interface,
+			_index,
+			1, &property,
+			bufsize,
+			written,
+			params
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceiv));
+		return params[0];
+	}
+
+	GLint GetParam(GLenum property) const
+	{
+		GLint res;
+		return GetParams(property, 1, nullptr, &res);
+	}
+public:
+	ProgramResource(
+		aux::ProgramInterfaceContext& context,
+		GLuint index
+	): _program(context.Program())
+	 , _interface(context.Interface())
+	 , _index(index)
+	{
+		GLsizei bufsize = context.Buffer().size(), length = 0;
+		OGLPLUS_GLFUNC(GetProgramResourceName)(
+			_program,
+			_interface,
+			_index,
+			bufsize,
+			&length,
+			context.Buffer().data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceName));
+		_name.assign(context.Buffer().data(), length);
+	}
+
+	/// Returns the interface of the resource
+	ProgramInterface Interface(void) const
+	{
+		return ProgramInterface(_interface);
+	}
+
+	/// Returns the name of the resource
+	const String& Name(void) const
+	{
+		return _name;
+	}
+
+	/// Returns the index of the resource
+	GLuint Index(void) const
+	{
+		return _index;
+	}
+
+	/// Returns the data type of the resource (if applicable)
+	SLDataType Type(void) const
+	{
+		return SLDataType(GetParam(GL_TYPE));
+	}
+
+	/// Returns the array size of the resource (if applicable)
+	GLint ArraySize(void) const
+	{
+		return GetParam(GL_ARRAY_SIZE);
+	}
+
+	/// Returns true if the resource is per-patch (if applicable)
+	bool IsPerPatch(void) const
+	{
+		return GetParam(GL_IS_PER_PATCH) != 0;
+	}
+
+	// TODO: finish this
+};
+#endif
 
 /// Program operations wrapper helper class
 /** This class implements OpenGL shading language program operations.
@@ -323,6 +440,9 @@ public:
 		const SLDataType Type(void) const;
 	};
 
+	/// The type of the range for traversing program resource information
+	typedef Range<ProgramResource> ActiveResourceRange;
+
 	/// The type of the range for traversing active vertex attributes
 	typedef Range<ActiveVariableInfo> ActiveAttribRange;
 	/// The type of the range for traversing active uniforms
@@ -335,29 +455,36 @@ public:
 	typedef Range<Managed<Shader> > ShaderRange;
 #else
 
+#if GL_VERSION_4_3
 	typedef aux::BaseRange<
-		aux::ProgramPartInfoContext,
+		aux::ProgramInterfaceContext,
+		ProgramResource
+	> ActiveResourceRange;
+#endif
+
+	typedef aux::BaseRange<
+		aux::ProgramInterfaceContext,
 		aux::ActiveAttribInfo
 	> ActiveAttribRange;
 
 	typedef aux::BaseRange<
-		aux::ProgramPartInfoContext,
+		aux::ProgramInterfaceContext,
 		aux::ActiveUniformInfo
 	> ActiveUniformRange;
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
 	typedef aux::BaseRange<
-		aux::ProgramPartInfoContext,
+		aux::ProgramInterfaceContext,
 		aux::ActiveSubroutineInfo
 	> ActiveSubroutineRange;
 
 	typedef aux::BaseRange<
-		aux::ProgramPartInfoContext,
+		aux::ProgramInterfaceContext,
 		aux::ActiveSubroutineUniformInfo
 	> ActiveSubroutineUniformRange;
 #endif
 	typedef aux::BaseRange<
-		aux::ProgramPartInfoContext,
+		aux::ProgramInterfaceContext,
 		aux::TransformFeedbackVaryingInfo
 	> TransformFeedbackVaryingRange;
 
@@ -404,6 +531,49 @@ public:
 	> ShaderRange;
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	/// Returns a range allowing to do the traversal of interface's resources
+	/** This instance of Program must be kept alive during the whole
+	 *  lifetime of the returned range, i.e. the returned range must not
+	 *  be used after the Program goes out of scope and is destroyed.
+	 *
+	 *  @see ProgramInterface
+	 *  @see ProgramResource
+	 *
+	 *  @throws Error
+	 */
+	ActiveResourceRange ActiveResources(ProgramInterface intf) const
+	{
+		// get the count of active attributes
+		GLint count = 0;
+		OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
+			_name,
+			GLenum(intf),
+			GL_ACTIVE_RESOURCES,
+			&count
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramInterfaceiv));
+
+		// get the maximum string length of the longest identifier
+		GLint length = 0;
+		OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
+			_name,
+			GLenum(intf),
+			GL_ACTIVE_RESOURCES,
+			&count
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramInterfaceiv));
+
+		return ActiveResourceRange(
+			aux::ProgramInterfaceContext(
+				_name,
+				length,
+				GLenum(intf)
+			), 0, count
+		);
+	}
+#endif
+
 	/// Returns a range allowing to do the traversal of active attributes
 	/** This instance of Program must be kept alive during the whole
 	 *  lifetime of the returned range, i.e. the returned range must not
@@ -419,7 +589,7 @@ public:
 		GLint length = GetIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH);
 
 		return ActiveAttribRange(
-			aux::ProgramPartInfoContext(_name, length),
+			aux::ProgramInterfaceContext(_name, length),
 			0, count
 		);
 	}
@@ -439,7 +609,7 @@ public:
 		GLint length = GetIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH);
 
 		return ActiveUniformRange(
-			aux::ProgramPartInfoContext(_name, length),
+			aux::ProgramInterfaceContext(_name, length),
 			0, count
 		);
 	}
@@ -468,7 +638,7 @@ public:
 		);
 
 		return ActiveSubroutineRange(
-			aux::ProgramPartInfoContext(
+			aux::ProgramInterfaceContext(
 				_name,
 				length,
 				GLenum(stage)
@@ -500,7 +670,7 @@ public:
 		);
 
 		return ActiveSubroutineUniformRange(
-			aux::ProgramPartInfoContext(
+			aux::ProgramInterfaceContext(
 				_name,
 				length,
 				GLenum(stage)
@@ -526,7 +696,7 @@ public:
 		);
 
 		return TransformFeedbackVaryingRange(
-			aux::ProgramPartInfoContext(_name, length),
+			aux::ProgramInterfaceContext(_name, length),
 			0, count
 		);
 	}
@@ -626,7 +796,7 @@ public:
 	typedef Range<ActiveUniformBlockInfo> ActiveUniformRange;
 #else
 	typedef aux::BaseRange<
-		aux::ProgramPartInfoContext,
+		aux::ProgramInterfaceContext,
 		aux::ActiveUniformBlockInfo
 	> ActiveUniformBlockRange;
 #endif
@@ -649,7 +819,7 @@ public:
 			length = GetIntParam(GL_UNIFORM_BLOCK_NAME_LENGTH);
 		}
 		return ActiveUniformBlockRange(
-			aux::ProgramPartInfoContext(_name, length),
+			aux::ProgramInterfaceContext(_name, length),
 			0, count
 		);
 	}

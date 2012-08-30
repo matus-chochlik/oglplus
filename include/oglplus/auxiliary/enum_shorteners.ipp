@@ -234,6 +234,11 @@ template <typename Enum, Enum = Enum::AtomicCounter> operator Enum (void) const{
 template <typename Enum> friend bool operator==(Enum value, AtomicCounter){ return value == Enum::AtomicCounter; }
 template <typename Enum> friend bool operator!=(Enum value, AtomicCounter){ return value != Enum::AtomicCounter; }
 };
+struct AtomicCounterBuffer {
+template <typename Enum, Enum = Enum::AtomicCounterBuffer> operator Enum (void) const{ return Enum::AtomicCounterBuffer; }
+template <typename Enum> friend bool operator==(Enum value, AtomicCounterBuffer){ return value == Enum::AtomicCounterBuffer; }
+template <typename Enum> friend bool operator!=(Enum value, AtomicCounterBuffer){ return value != Enum::AtomicCounterBuffer; }
+};
 struct B {
 template <typename Enum, Enum = Enum::B> operator Enum (void) const{ return Enum::B; }
 template <typename Enum> friend bool operator==(Enum value, B){ return value == Enum::B; }
@@ -338,6 +343,11 @@ struct BufferUpdate {
 template <typename Enum, Enum = Enum::BufferUpdate> operator Enum (void) const{ return Enum::BufferUpdate; }
 template <typename Enum> friend bool operator==(Enum value, BufferUpdate){ return value == Enum::BufferUpdate; }
 template <typename Enum> friend bool operator!=(Enum value, BufferUpdate){ return value != Enum::BufferUpdate; }
+};
+struct BufferVariable {
+template <typename Enum, Enum = Enum::BufferVariable> operator Enum (void) const{ return Enum::BufferVariable; }
+template <typename Enum> friend bool operator==(Enum value, BufferVariable){ return value == Enum::BufferVariable; }
+template <typename Enum> friend bool operator!=(Enum value, BufferVariable){ return value != Enum::BufferVariable; }
 };
 struct Byte {
 template <typename Enum, Enum = Enum::Byte> operator Enum (void) const{ return Enum::Byte; }
@@ -553,6 +563,16 @@ struct ComputeShader {
 template <typename Enum, Enum = Enum::ComputeShader> operator Enum (void) const{ return Enum::ComputeShader; }
 template <typename Enum> friend bool operator==(Enum value, ComputeShader){ return value == Enum::ComputeShader; }
 template <typename Enum> friend bool operator!=(Enum value, ComputeShader){ return value != Enum::ComputeShader; }
+};
+struct ComputeSubroutine {
+template <typename Enum, Enum = Enum::ComputeSubroutine> operator Enum (void) const{ return Enum::ComputeSubroutine; }
+template <typename Enum> friend bool operator==(Enum value, ComputeSubroutine){ return value == Enum::ComputeSubroutine; }
+template <typename Enum> friend bool operator!=(Enum value, ComputeSubroutine){ return value != Enum::ComputeSubroutine; }
+};
+struct ComputeSubroutineUniform {
+template <typename Enum, Enum = Enum::ComputeSubroutineUniform> operator Enum (void) const{ return Enum::ComputeSubroutineUniform; }
+template <typename Enum> friend bool operator==(Enum value, ComputeSubroutineUniform){ return value == Enum::ComputeSubroutineUniform; }
+template <typename Enum> friend bool operator!=(Enum value, ComputeSubroutineUniform){ return value != Enum::ComputeSubroutineUniform; }
 };
 struct ConditionSatisfied {
 template <typename Enum, Enum = Enum::ConditionSatisfied> operator Enum (void) const{ return Enum::ConditionSatisfied; }
@@ -1114,6 +1134,16 @@ template <typename Enum, Enum = Enum::FragmentShaderDerivative> operator Enum (v
 template <typename Enum> friend bool operator==(Enum value, FragmentShaderDerivative){ return value == Enum::FragmentShaderDerivative; }
 template <typename Enum> friend bool operator!=(Enum value, FragmentShaderDerivative){ return value != Enum::FragmentShaderDerivative; }
 };
+struct FragmentSubroutine {
+template <typename Enum, Enum = Enum::FragmentSubroutine> operator Enum (void) const{ return Enum::FragmentSubroutine; }
+template <typename Enum> friend bool operator==(Enum value, FragmentSubroutine){ return value == Enum::FragmentSubroutine; }
+template <typename Enum> friend bool operator!=(Enum value, FragmentSubroutine){ return value != Enum::FragmentSubroutine; }
+};
+struct FragmentSubroutineUniform {
+template <typename Enum, Enum = Enum::FragmentSubroutineUniform> operator Enum (void) const{ return Enum::FragmentSubroutineUniform; }
+template <typename Enum> friend bool operator==(Enum value, FragmentSubroutineUniform){ return value == Enum::FragmentSubroutineUniform; }
+template <typename Enum> friend bool operator!=(Enum value, FragmentSubroutineUniform){ return value != Enum::FragmentSubroutineUniform; }
+};
 struct Framebuffer {
 template <typename Enum, Enum = Enum::Framebuffer> operator Enum (void) const{ return Enum::Framebuffer; }
 template <typename Enum> friend bool operator==(Enum value, Framebuffer){ return value == Enum::Framebuffer; }
@@ -1158,6 +1188,16 @@ struct GeometryShader {
 template <typename Enum, Enum = Enum::GeometryShader> operator Enum (void) const{ return Enum::GeometryShader; }
 template <typename Enum> friend bool operator==(Enum value, GeometryShader){ return value == Enum::GeometryShader; }
 template <typename Enum> friend bool operator!=(Enum value, GeometryShader){ return value != Enum::GeometryShader; }
+};
+struct GeometrySubroutine {
+template <typename Enum, Enum = Enum::GeometrySubroutine> operator Enum (void) const{ return Enum::GeometrySubroutine; }
+template <typename Enum> friend bool operator==(Enum value, GeometrySubroutine){ return value == Enum::GeometrySubroutine; }
+template <typename Enum> friend bool operator!=(Enum value, GeometrySubroutine){ return value != Enum::GeometrySubroutine; }
+};
+struct GeometrySubroutineUniform {
+template <typename Enum, Enum = Enum::GeometrySubroutineUniform> operator Enum (void) const{ return Enum::GeometrySubroutineUniform; }
+template <typename Enum> friend bool operator==(Enum value, GeometrySubroutineUniform){ return value == Enum::GeometrySubroutineUniform; }
+template <typename Enum> friend bool operator!=(Enum value, GeometrySubroutineUniform){ return value != Enum::GeometrySubroutineUniform; }
 };
 struct GEqual {
 template <typename Enum, Enum = Enum::GEqual> operator Enum (void) const{ return Enum::GEqual; }
@@ -2384,6 +2424,16 @@ template <typename Enum, Enum = Enum::PrimitivesGenerated> operator Enum (void) 
 template <typename Enum> friend bool operator==(Enum value, PrimitivesGenerated){ return value == Enum::PrimitivesGenerated; }
 template <typename Enum> friend bool operator!=(Enum value, PrimitivesGenerated){ return value != Enum::PrimitivesGenerated; }
 };
+struct ProgramInput {
+template <typename Enum, Enum = Enum::ProgramInput> operator Enum (void) const{ return Enum::ProgramInput; }
+template <typename Enum> friend bool operator==(Enum value, ProgramInput){ return value == Enum::ProgramInput; }
+template <typename Enum> friend bool operator!=(Enum value, ProgramInput){ return value != Enum::ProgramInput; }
+};
+struct ProgramOutput {
+template <typename Enum, Enum = Enum::ProgramOutput> operator Enum (void) const{ return Enum::ProgramOutput; }
+template <typename Enum> friend bool operator==(Enum value, ProgramOutput){ return value == Enum::ProgramOutput; }
+template <typename Enum> friend bool operator!=(Enum value, ProgramOutput){ return value != Enum::ProgramOutput; }
+};
 struct ProgramPointSize {
 template <typename Enum, Enum = Enum::ProgramPointSize> operator Enum (void) const{ return Enum::ProgramPointSize; }
 template <typename Enum> friend bool operator==(Enum value, ProgramPointSize){ return value == Enum::ProgramPointSize; }
@@ -3069,6 +3119,11 @@ template <typename Enum, Enum = Enum::ShaderStorage> operator Enum (void) const{
 template <typename Enum> friend bool operator==(Enum value, ShaderStorage){ return value == Enum::ShaderStorage; }
 template <typename Enum> friend bool operator!=(Enum value, ShaderStorage){ return value != Enum::ShaderStorage; }
 };
+struct ShaderStorageBlock {
+template <typename Enum, Enum = Enum::ShaderStorageBlock> operator Enum (void) const{ return Enum::ShaderStorageBlock; }
+template <typename Enum> friend bool operator==(Enum value, ShaderStorageBlock){ return value == Enum::ShaderStorageBlock; }
+template <typename Enum> friend bool operator!=(Enum value, ShaderStorageBlock){ return value != Enum::ShaderStorageBlock; }
+};
 struct ShadingLanguageVersion {
 template <typename Enum, Enum = Enum::ShadingLanguageVersion> operator Enum (void) const{ return Enum::ShadingLanguageVersion; }
 template <typename Enum> friend bool operator==(Enum value, ShadingLanguageVersion){ return value == Enum::ShadingLanguageVersion; }
@@ -3254,6 +3309,16 @@ template <typename Enum, Enum = Enum::TessControlShader> operator Enum (void) co
 template <typename Enum> friend bool operator==(Enum value, TessControlShader){ return value == Enum::TessControlShader; }
 template <typename Enum> friend bool operator!=(Enum value, TessControlShader){ return value != Enum::TessControlShader; }
 };
+struct TessControlSubroutine {
+template <typename Enum, Enum = Enum::TessControlSubroutine> operator Enum (void) const{ return Enum::TessControlSubroutine; }
+template <typename Enum> friend bool operator==(Enum value, TessControlSubroutine){ return value == Enum::TessControlSubroutine; }
+template <typename Enum> friend bool operator!=(Enum value, TessControlSubroutine){ return value != Enum::TessControlSubroutine; }
+};
+struct TessControlSubroutineUniform {
+template <typename Enum, Enum = Enum::TessControlSubroutineUniform> operator Enum (void) const{ return Enum::TessControlSubroutineUniform; }
+template <typename Enum> friend bool operator==(Enum value, TessControlSubroutineUniform){ return value == Enum::TessControlSubroutineUniform; }
+template <typename Enum> friend bool operator!=(Enum value, TessControlSubroutineUniform){ return value != Enum::TessControlSubroutineUniform; }
+};
 struct TessEvaluation {
 template <typename Enum, Enum = Enum::TessEvaluation> operator Enum (void) const{ return Enum::TessEvaluation; }
 template <typename Enum> friend bool operator==(Enum value, TessEvaluation){ return value == Enum::TessEvaluation; }
@@ -3263,6 +3328,16 @@ struct TessEvaluationShader {
 template <typename Enum, Enum = Enum::TessEvaluationShader> operator Enum (void) const{ return Enum::TessEvaluationShader; }
 template <typename Enum> friend bool operator==(Enum value, TessEvaluationShader){ return value == Enum::TessEvaluationShader; }
 template <typename Enum> friend bool operator!=(Enum value, TessEvaluationShader){ return value != Enum::TessEvaluationShader; }
+};
+struct TessEvaluationSubroutine {
+template <typename Enum, Enum = Enum::TessEvaluationSubroutine> operator Enum (void) const{ return Enum::TessEvaluationSubroutine; }
+template <typename Enum> friend bool operator==(Enum value, TessEvaluationSubroutine){ return value == Enum::TessEvaluationSubroutine; }
+template <typename Enum> friend bool operator!=(Enum value, TessEvaluationSubroutine){ return value != Enum::TessEvaluationSubroutine; }
+};
+struct TessEvaluationSubroutineUniform {
+template <typename Enum, Enum = Enum::TessEvaluationSubroutineUniform> operator Enum (void) const{ return Enum::TessEvaluationSubroutineUniform; }
+template <typename Enum> friend bool operator==(Enum value, TessEvaluationSubroutineUniform){ return value == Enum::TessEvaluationSubroutineUniform; }
+template <typename Enum> friend bool operator!=(Enum value, TessEvaluationSubroutineUniform){ return value != Enum::TessEvaluationSubroutineUniform; }
 };
 struct Texture {
 template <typename Enum, Enum = Enum::Texture> operator Enum (void) const{ return Enum::Texture; }
@@ -3328,6 +3403,11 @@ struct TransformFeedbackPrimitivesWritten {
 template <typename Enum, Enum = Enum::TransformFeedbackPrimitivesWritten> operator Enum (void) const{ return Enum::TransformFeedbackPrimitivesWritten; }
 template <typename Enum> friend bool operator==(Enum value, TransformFeedbackPrimitivesWritten){ return value == Enum::TransformFeedbackPrimitivesWritten; }
 template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackPrimitivesWritten){ return value != Enum::TransformFeedbackPrimitivesWritten; }
+};
+struct TransformFeedebackVarying {
+template <typename Enum, Enum = Enum::TransformFeedebackVarying> operator Enum (void) const{ return Enum::TransformFeedebackVarying; }
+template <typename Enum> friend bool operator==(Enum value, TransformFeedebackVarying){ return value == Enum::TransformFeedebackVarying; }
+template <typename Enum> friend bool operator!=(Enum value, TransformFeedebackVarying){ return value != Enum::TransformFeedebackVarying; }
 };
 struct Translate2D {
 template <typename Enum, Enum = Enum::Translate2D> operator Enum (void) const{ return Enum::Translate2D; }
@@ -3403,6 +3483,11 @@ struct Uniform {
 template <typename Enum, Enum = Enum::Uniform> operator Enum (void) const{ return Enum::Uniform; }
 template <typename Enum> friend bool operator==(Enum value, Uniform){ return value == Enum::Uniform; }
 template <typename Enum> friend bool operator!=(Enum value, Uniform){ return value != Enum::Uniform; }
+};
+struct UniformBlock {
+template <typename Enum, Enum = Enum::UniformBlock> operator Enum (void) const{ return Enum::UniformBlock; }
+template <typename Enum> friend bool operator==(Enum value, UniformBlock){ return value == Enum::UniformBlock; }
+template <typename Enum> friend bool operator!=(Enum value, UniformBlock){ return value != Enum::UniformBlock; }
 };
 struct UnpackAlignment {
 template <typename Enum, Enum = Enum::UnpackAlignment> operator Enum (void) const{ return Enum::UnpackAlignment; }
@@ -3683,6 +3768,16 @@ struct VertexShader {
 template <typename Enum, Enum = Enum::VertexShader> operator Enum (void) const{ return Enum::VertexShader; }
 template <typename Enum> friend bool operator==(Enum value, VertexShader){ return value == Enum::VertexShader; }
 template <typename Enum> friend bool operator!=(Enum value, VertexShader){ return value != Enum::VertexShader; }
+};
+struct VertexSubroutine {
+template <typename Enum, Enum = Enum::VertexSubroutine> operator Enum (void) const{ return Enum::VertexSubroutine; }
+template <typename Enum> friend bool operator==(Enum value, VertexSubroutine){ return value == Enum::VertexSubroutine; }
+template <typename Enum> friend bool operator!=(Enum value, VertexSubroutine){ return value != Enum::VertexSubroutine; }
+};
+struct VertexSubroutineUniform {
+template <typename Enum, Enum = Enum::VertexSubroutineUniform> operator Enum (void) const{ return Enum::VertexSubroutineUniform; }
+template <typename Enum> friend bool operator==(Enum value, VertexSubroutineUniform){ return value == Enum::VertexSubroutineUniform; }
+template <typename Enum> friend bool operator!=(Enum value, VertexSubroutineUniform){ return value != Enum::VertexSubroutineUniform; }
 };
 struct VerticalLineTo {
 template <typename Enum, Enum = Enum::VerticalLineTo> operator Enum (void) const{ return Enum::VerticalLineTo; }
