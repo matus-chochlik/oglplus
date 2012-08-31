@@ -13,6 +13,7 @@
 #define OGLPLUS_BUFFER_SELECT_BIT_1201201052_HPP
 
 #include <oglplus/bitfield.hpp>
+#include <oglplus/enumerations.hpp>
 
 namespace oglplus {
 
@@ -30,20 +31,12 @@ OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(BufferSelectBit)
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	BufferSelectBit*,
-	EnumBaseType<BufferSelectBit>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/buffer_select_bit.ipp>
+#include <oglplus/enums/buffer_select_bit_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/buffer_select_bit_range.ipp>
 #endif
 
 } // namespace oglplus

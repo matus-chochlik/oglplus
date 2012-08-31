@@ -19,6 +19,7 @@
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/pixel_data.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
@@ -32,20 +33,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(RenderbufferTarget, GLenum)
 #include <oglplus/enums/renderbuffer_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	RenderbufferTarget*,
-	EnumBaseType<RenderbufferTarget>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/renderbuffer_target.ipp>
+#include <oglplus/enums/renderbuffer_target_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/renderbuffer_target_range.ipp>
 #endif
 
 /// Class wrapping renderbuffer-related functionality

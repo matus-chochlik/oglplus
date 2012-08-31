@@ -16,6 +16,7 @@
 #include <oglplus/extension.hpp>
 #include <oglplus/string.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/enumerations.hpp>
 
 #include <cassert>
 #include <stack>
@@ -38,20 +39,12 @@ OGLPLUS_ENUM_CLASS_END
 /// A shorter name for DebugOutputSeverity
 typedef DebugOutputSeverity DebugSeverity;
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	DebugOutputSeverity*,
-	EnumBaseType<DebugOutputSeverity>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/ext/debug_output_severity.ipp>
+#include <oglplus/enums/ext/debug_output_severity_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/ext/debug_output_severity_range.ipp>
 #endif
 
 
@@ -69,20 +62,12 @@ OGLPLUS_ENUM_CLASS_END
 /// A shorter name for DebugOutputSource
 typedef DebugOutputSource DebugSource;
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	DebugOutputSource*,
-	EnumBaseType<DebugOutputSource>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/ext/debug_output_source.ipp>
+#include <oglplus/enums/ext/debug_output_source_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/ext/debug_output_source_range.ipp>
 #endif
 
 
@@ -100,20 +85,12 @@ OGLPLUS_ENUM_CLASS_END
 /// A shorter name for DebugOutputType
 typedef DebugOutputType DebugType;
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	DebugOutputType*,
-	EnumBaseType<DebugOutputType>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/ext/debug_output_type.ipp>
+#include <oglplus/enums/ext/debug_output_type_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/ext/debug_output_type_range.ipp>
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_debug_output

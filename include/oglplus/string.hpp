@@ -182,7 +182,10 @@ public:
 #if !OGLPLUS_LAZY_STR_LIT
 	 , _size(size)
 #endif
-	{ _check(); }
+	{
+		OGLPLUS_FAKE_USE(size);
+		_check();
+	}
 
 	/// Effictient conversion to String
 	String str(void) const

@@ -37,6 +37,10 @@ private:
 public:
 	TriangleExample(void)
 	{
+for(auto r=EnumValueRange<Texture::Target>(); !r.Empty(); r.Next())
+{
+	std::cerr << EnumValueName(r.Front()).c_str() << std::endl;
+}
 		// Set the vertex shader source
 		vs.Source(StrLit(" \
 			#version 330\n \

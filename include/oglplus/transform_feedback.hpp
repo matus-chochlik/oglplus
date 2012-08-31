@@ -16,6 +16,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
@@ -30,20 +31,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackMode, GLenum)
 #include <oglplus/enums/transform_feedback_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TransformFeedbackMode*,
-	EnumBaseType<TransformFeedbackMode>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/transform_feedback_mode.ipp>
+#include <oglplus/enums/transform_feedback_mode_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/transform_feedback_mode_range.ipp>
 #endif
 
 
@@ -55,20 +48,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackPrimitiveType, GLenum)
 #include <oglplus/enums/transform_feedback_primitive_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TransformFeedbackPrimitiveType*,
-	EnumBaseType<TransformFeedbackPrimitiveType>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/transform_feedback_primitive_type.ipp>
+#include <oglplus/enums/transform_feedback_primitive_type_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/transform_feedback_primitive_type_range.ipp>
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
@@ -78,20 +63,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackTarget, GLenum)
 #include <oglplus/enums/transform_feedback_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TransformFeedbackTarget*,
-	EnumBaseType<TransformFeedbackTarget>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/transform_feedback_target.ipp>
+#include <oglplus/enums/transform_feedback_target_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/transform_feedback_target_range.ipp>
 #endif
 
 /// Wrapper for fransform feedback operations

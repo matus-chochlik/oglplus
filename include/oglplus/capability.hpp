@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_CAPABILITY_1107121519_HPP
 #define OGLPLUS_CAPABILITY_1107121519_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Capability enumeration
@@ -33,20 +35,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(Capability, GLenum)
 #include <oglplus/enums/capability.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	Capability*,
-	EnumBaseType<Capability>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/capability.ipp>
+#include <oglplus/enums/capability_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/capability_range.ipp>
 #endif
 
 /// Functionality enumeration
@@ -62,20 +56,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(Functionality, GLenum)
 #include <oglplus/enums/functionality.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	Functionality*,
-	EnumBaseType<Functionality>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/functionality.ipp>
+#include <oglplus/enums/functionality_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/functionality_range.ipp>
 #endif
 
 } // namespace oglplus

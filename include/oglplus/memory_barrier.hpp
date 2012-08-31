@@ -13,6 +13,7 @@
 #define OGLPLUS_MEMORY_BARRIER_1107121519_HPP
 
 #include <oglplus/bitfield.hpp>
+#include <oglplus/enumerations.hpp>
 
 namespace oglplus {
 
@@ -29,20 +30,12 @@ OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(MemoryBarrierBit)
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	MemoryBarrierBit*,
-	EnumBaseType<MemoryBarrierBit>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/memory_barrier_bit.ipp>
+#include <oglplus/enums/memory_barrier_bit_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/memory_barrier_bit_range.ipp>
 #endif
 
 } // namespace oglplus

@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_BLIT_FILTER_1201201108_HPP
 #define OGLPLUS_BLIT_FILTER_1201201108_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Enumeration of blit operation filtering modes
@@ -25,20 +27,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(BlitFilter, GLenum)
 #include <oglplus/enums/blit_filter.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	BlitFilter*,
-	EnumBaseType<BlitFilter>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/blit_filter.ipp>
+#include <oglplus/enums/blit_filter_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/blit_filter_range.ipp>
 #endif
 
 } // namespace oglplus

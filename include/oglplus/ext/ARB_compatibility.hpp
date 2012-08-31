@@ -15,6 +15,7 @@
 #include <oglplus/extension.hpp>
 #include <oglplus/texture_unit.hpp>
 #include <oglplus/bitfield.hpp>
+#include <oglplus/enumerations.hpp>
 
 #include <oglplus/matrix.hpp>
 
@@ -35,20 +36,12 @@ OGLPLUS_ENUM_CLASS_END
 /// Shorter name for CompatibilityPrimitiveType
 typedef CompatibilityPrimitiveType CompatPrimType;
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	CompatibilityPrimitiveType*,
-	EnumBaseType<CompatibilityPrimitiveType>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/ext/compat_prim_type.ipp>
+#include <oglplus/enums/ext/compat_prim_type_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/ext/compat_prim_type_range.ipp>
 #endif
 
 /// Compatibility matrix mode enumeration
@@ -63,20 +56,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityMatrixMode, GLenum)
 #include <oglplus/enums/ext/compat_matrix_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	CompatibilityMatrixMode*,
-	EnumBaseType<CompatibilityMatrixMode>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/ext/compat_matrix_mode.ipp>
+#include <oglplus/enums/ext/compat_matrix_mode_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/ext/compat_matrix_mode_range.ipp>
 #endif
 
 /// Compatibility server context attribute bits enumeration
@@ -94,20 +79,12 @@ OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(CompatibilityAttributeGroup)
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	CompatibilityAttributeGroup*,
-	EnumBaseType<CompatibilityAttributeGroup>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/ext/compat_attrib_group.ipp>
+#include <oglplus/enums/ext/compat_attrib_group_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/ext/compat_attrib_group_range.ipp>
 #endif
 
 /// Compatibility client context attribute bits enumeration
@@ -125,20 +102,12 @@ OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	CompatibilityClientAttributeGroup*,
-	EnumBaseType<CompatibilityClientAttributeGroup>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/ext/compat_client_attrib_group.ipp>
+#include <oglplus/enums/ext/compat_client_attrib_group_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/ext/compat_client_attrib_group_range.ipp>
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_compatibility

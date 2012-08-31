@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_COLOR_BUFFER_1107121519_HPP
 #define OGLPLUS_COLOR_BUFFER_1107121519_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Enumeration of color buffers for read/write operations
@@ -26,20 +28,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(ColorBuffer, GLenum)
 #include <oglplus/enums/color_buffer.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	ColorBuffer*,
-	EnumBaseType<ColorBuffer>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/color_buffer.ipp>
+#include <oglplus/enums/color_buffer_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/color_buffer_range.ipp>
 #endif
 
 } // namespace oglplus

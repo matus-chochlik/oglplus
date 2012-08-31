@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_FACE_MODE_1107121519_HPP
 #define OGLPLUS_FACE_MODE_1107121519_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Polygon facing enumeration
@@ -28,20 +30,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(Face, GLenum)
 #include <oglplus/enums/face.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	Face*,
-	EnumBaseType<Face>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/face.ipp>
+#include <oglplus/enums/face_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/face_range.ipp>
 #endif
 
 /// Face orientation enumeration
@@ -55,20 +49,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(FaceOrientation, GLenum)
 #include <oglplus/enums/face_orientation.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	FaceOrientation*,
-	EnumBaseType<FaceOrientation>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/face_orientation.ipp>
+#include <oglplus/enums/face_orientation_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/face_orientation_range.ipp>
 #endif
 
 /// Inverts the face orientation (CW to CCW and CCW to CW)

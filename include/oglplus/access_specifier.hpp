@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_ACCESS_SPECIFIER_1202231207_HPP
 #define OGLPLUS_ACCESS_SPECIFIER_1202231207_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Enumeration of access type specifiers
@@ -31,20 +33,12 @@ OGLPLUS_ENUM_CLASS_END
  */
 typedef AccessSpecifier Access;
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	AccessSpecifier*,
-	EnumBaseType<AccessSpecifier>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/access_specifier.ipp>
+#include <oglplus/enums/access_specifier_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_NO_ENUM_VALUE_RANGES
+#include <oglplus/enums/access_specifier_range.ipp>
 #endif
 
 } // namespace oglplus

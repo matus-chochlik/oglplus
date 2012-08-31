@@ -13,6 +13,7 @@
 #define OGLPLUS_CONTEXT_ERRORS_1201040722_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/glfunc.hpp>
 
 namespace oglplus {
@@ -28,20 +29,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(ErrorCode, GLenum)
 #include <oglplus/enums/error_code.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	ErrorCode*,
-	EnumBaseType<ErrorCode>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/error_code.ipp>
+#include <oglplus/enums/error_code_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/error_code_range.ipp>
 #endif
 
 namespace context {

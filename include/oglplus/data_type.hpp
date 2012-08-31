@@ -12,7 +12,7 @@
 #ifndef OGLPLUS_DATA_TYPE_1107121519_HPP
 #define OGLPLUS_DATA_TYPE_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/enumerations.hpp>
 
 namespace oglplus {
 
@@ -33,20 +33,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(DataType, GLenum)
 #include <oglplus/enums/data_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	DataType*,
-	EnumBaseType<DataType>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/data_type.ipp>
+#include <oglplus/enums/data_type_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/data_type_range.ipp>
 #endif
 
 inline DataType GetDataType(GLbyte*)
@@ -105,20 +97,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(SLDataType, GLenum)
 #include <oglplus/enums/sl_data_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	SLDataType*,
-	EnumBaseType<SLDataType>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/sl_data_type.ipp>
+#include <oglplus/enums/sl_data_type_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/sl_data_type_range.ipp>
 #endif
 
 } // namespace oglplus

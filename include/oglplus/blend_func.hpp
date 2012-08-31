@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_BLEND_FUNC_1107121519_HPP
 #define OGLPLUS_BLEND_FUNC_1107121519_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Blend function type enumeration
@@ -25,20 +27,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(BlendFunction, GLenum)
 #include <oglplus/enums/blend_function.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	BlendFunction*,
-	EnumBaseType<BlendFunction>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/blend_function.ipp>
+#include <oglplus/enums/blend_function_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/blend_function_range.ipp>
 #endif
 
 /// Alternative name for the BlendFunction enumeration
@@ -55,20 +49,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(BlendEquation, GLenum)
 #include <oglplus/enums/blend_equation.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	BlendEquation*,
-	EnumBaseType<BlendEquation>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/blend_equation.ipp>
+#include <oglplus/enums/blend_equation_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/blend_equation_range.ipp>
 #endif
 
 /// Alternative name for the BlendEquation enumeration

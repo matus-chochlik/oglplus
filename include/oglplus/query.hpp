@@ -17,6 +17,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/friend_of.hpp>
 #include <cassert>
 
@@ -30,20 +31,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(QueryTarget, GLenum)
 #include <oglplus/enums/query_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	QueryTarget*,
-	EnumBaseType<QueryTarget>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/query_target.ipp>
+#include <oglplus/enums/query_target_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/query_target_range.ipp>
 #endif
 
 /// Wrapper for asynchronous query functions

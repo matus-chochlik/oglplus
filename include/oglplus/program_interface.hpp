@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_PROGRAM_INTERFACE_1208301144_HPP
 #define OGLPLUS_PROGRAM_INTERFACE_1208301144_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Program interface enumeration
@@ -31,20 +33,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(ProgramInterface, GLenum)
 #include <oglplus/enums/program_interface.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	ProgramInterface*,
-	EnumBaseType<ProgramInterface>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/program_interface.ipp>
+#include <oglplus/enums/program_interface_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/program_interface_range.ipp>
 #endif
 
 } // namespace oglplus

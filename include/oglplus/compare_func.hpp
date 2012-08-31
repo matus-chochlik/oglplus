@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_CMP_FUNC_1107121519_HPP
 #define OGLPLUS_CMP_FUNC_1107121519_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Comparison function type enumeration
@@ -28,20 +30,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	CompareFunction*,
-	EnumBaseType<CompareFunction>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/compare_function.ipp>
+#include <oglplus/enums/compare_function_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/compare_function_range.ipp>
 #endif
 
 /// Alternate name for the CompareFunction enumeration

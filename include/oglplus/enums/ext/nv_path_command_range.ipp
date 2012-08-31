@@ -1,0 +1,132 @@
+/*
+ *  .file oglplus/enums/ext/nv_path_command_range.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/ext/nv_path_command.txt' instead.
+ *
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+OGLPLUS_LIB_FUNC aux::CastIterRange<
+	const GLenum*,
+	PathNVCommand
+> EnumValueRange(PathNVCommand*)
+OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+;
+#else
+{
+static const GLenum _values[] = {
+#if defined GL_CLOSE_PATH_NV
+GL_CLOSE_PATH_NV,
+#endif
+#if defined GL_MOVE_TO_NV
+GL_MOVE_TO_NV,
+#endif
+#if defined GL_RELATIVE_MOVE_TO_NV
+GL_RELATIVE_MOVE_TO_NV,
+#endif
+#if defined GL_LINE_TO_NV
+GL_LINE_TO_NV,
+#endif
+#if defined GL_RELATIVE_LINE_TO_NV
+GL_RELATIVE_LINE_TO_NV,
+#endif
+#if defined GL_HORIZONTAL_LINE_TO_NV
+GL_HORIZONTAL_LINE_TO_NV,
+#endif
+#if defined GL_RELATIVE_HORIZONTAL_LINE_TO_NV
+GL_RELATIVE_HORIZONTAL_LINE_TO_NV,
+#endif
+#if defined GL_VERTICAL_LINE_TO_NV
+GL_VERTICAL_LINE_TO_NV,
+#endif
+#if defined GL_RELATIVE_VERTICAL_LINE_TO_NV
+GL_RELATIVE_VERTICAL_LINE_TO_NV,
+#endif
+#if defined GL_QUADRATIC_CURVE_TO_NV
+GL_QUADRATIC_CURVE_TO_NV,
+#endif
+#if defined GL_RELATIVE_QUADRATIC_CURVE_TO_NV
+GL_RELATIVE_QUADRATIC_CURVE_TO_NV,
+#endif
+#if defined GL_CUBIC_CURVE_TO_NV
+GL_CUBIC_CURVE_TO_NV,
+#endif
+#if defined GL_RELATIVE_CUBIC_CURVE_TO_NV
+GL_RELATIVE_CUBIC_CURVE_TO_NV,
+#endif
+#if defined GL_SMOOTH_QUADRATIC_CURVE_TO_NV
+GL_SMOOTH_QUADRATIC_CURVE_TO_NV,
+#endif
+#if defined GL_RELATIVE_SMOOTH_QUADRATIC_CURVE_TO_NV
+GL_RELATIVE_SMOOTH_QUADRATIC_CURVE_TO_NV,
+#endif
+#if defined GL_SMOOTH_CUBIC_CURVE_TO_NV
+GL_SMOOTH_CUBIC_CURVE_TO_NV,
+#endif
+#if defined GL_RELATIVE_SMOOTH_CUBIC_CURVE_TO_NV
+GL_RELATIVE_SMOOTH_CUBIC_CURVE_TO_NV,
+#endif
+#if defined GL_SMALL_CCW_ARC_TO_NV
+GL_SMALL_CCW_ARC_TO_NV,
+#endif
+#if defined GL_RELATIVE_SMALL_CCW_ARC_TO_NV
+GL_RELATIVE_SMALL_CCW_ARC_TO_NV,
+#endif
+#if defined GL_SMALL_CW_ARC_TO_NV
+GL_SMALL_CW_ARC_TO_NV,
+#endif
+#if defined GL_RELATIVE_SMALL_CW_ARC_TO_NV
+GL_RELATIVE_SMALL_CW_ARC_TO_NV,
+#endif
+#if defined GL_LARGE_CCW_ARC_TO_NV
+GL_LARGE_CCW_ARC_TO_NV,
+#endif
+#if defined GL_RELATIVE_LARGE_CCW_ARC_TO_NV
+GL_RELATIVE_LARGE_CCW_ARC_TO_NV,
+#endif
+#if defined GL_LARGE_CW_ARC_TO_NV
+GL_LARGE_CW_ARC_TO_NV,
+#endif
+#if defined GL_RELATIVE_LARGE_CW_ARC_TO_NV
+GL_RELATIVE_LARGE_CW_ARC_TO_NV,
+#endif
+#if defined GL_RESTART_PATH_NV
+GL_RESTART_PATH_NV,
+#endif
+#if defined GL_DUP_FIRST_CUBIC_CURVE_TO_NV
+GL_DUP_FIRST_CUBIC_CURVE_TO_NV,
+#endif
+#if defined GL_DUP_LAST_CUBIC_CURVE_TO_NV
+GL_DUP_LAST_CUBIC_CURVE_TO_NV,
+#endif
+#if defined GL_RECT_NV
+GL_RECT_NV,
+#endif
+#if defined GL_CIRCULAR_CCW_ARC_TO_NV
+GL_CIRCULAR_CCW_ARC_TO_NV,
+#endif
+#if defined GL_CIRCULAR_CW_ARC_TO_NV
+GL_CIRCULAR_CW_ARC_TO_NV,
+#endif
+#if defined GL_CIRCULAR_TANGENT_ARC_TO_NV
+GL_CIRCULAR_TANGENT_ARC_TO_NV,
+#endif
+#if defined GL_ARC_TO_NV
+GL_ARC_TO_NV,
+#endif
+#if defined GL_RELATIVE_ARC_TO_NV
+GL_RELATIVE_ARC_TO_NV,
+#endif
+0
+};
+return aux::CastIterRange<
+	const GLenum*,
+	PathNVCommand
+>(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
+}
+#endif
+

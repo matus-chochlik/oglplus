@@ -19,6 +19,7 @@
 #include <oglplus/program.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/bitfield.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/auxiliary/prog_pl_stages.hpp>
 
 #include <cassert>
@@ -38,20 +39,12 @@ OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	ProgramPipelineStage*,
-	EnumBaseType<ProgramPipelineStage>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/program_pipeline_stage.ipp>
+#include <oglplus/enums/program_pipeline_stage_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/program_pipeline_stage_range.ipp>
 #endif
 
 /// ProgramPipeline operations wrapper class

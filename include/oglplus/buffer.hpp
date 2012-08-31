@@ -19,6 +19,7 @@
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/limited_value.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 
@@ -71,20 +72,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(BufferUsage, GLenum)
 #include <oglplus/enums/buffer_usage.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	BufferUsage*,
-	EnumBaseType<BufferUsage>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/buffer_usage.ipp>
+#include <oglplus/enums/buffer_usage_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/buffer_usage_range.ipp>
 #endif
 
 /// Mapped buffer data access types
@@ -116,20 +109,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(BufferTarget, GLenum)
 #include <oglplus/enums/buffer_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	BufferTarget*,
-	EnumBaseType<BufferTarget>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/buffer_target.ipp>
+#include <oglplus/enums/buffer_target_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/buffer_target_range.ipp>
 #endif
 
 
@@ -141,20 +126,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(BufferIndexedTarget, GLenum)
 #include <oglplus/enums/buffer_indexed_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	BufferIndexedTarget*,
-	EnumBaseType<BufferIndexedTarget>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/buffer_indexed_target.ipp>
+#include <oglplus/enums/buffer_indexed_target_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/buffer_indexed_target_range.ipp>
 #endif
 
 

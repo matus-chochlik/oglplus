@@ -12,7 +12,7 @@
 #ifndef OGLPLUS_PIXEL_DATA_1107121519_HPP
 #define OGLPLUS_PIXEL_DATA_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/enumerations.hpp>
 
 namespace oglplus {
 
@@ -29,20 +29,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(PixelDataType, GLenum)
 #include <oglplus/enums/pixel_data_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	PixelDataType*,
-	EnumBaseType<PixelDataType>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/pixel_data_type.ipp>
+#include <oglplus/enums/pixel_data_type_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/pixel_data_type_range.ipp>
 #endif
 
 /// OpenGL pixel data format enumeration
@@ -58,20 +50,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(PixelDataFormat, GLenum)
 #include <oglplus/enums/pixel_data_format.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	PixelDataFormat*,
-	EnumBaseType<PixelDataFormat>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/pixel_data_format.ipp>
+#include <oglplus/enums/pixel_data_format_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/pixel_data_format_range.ipp>
 #endif
 
 /// OpenGL pixel data internal format enumeration
@@ -89,20 +73,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(PixelDataInternalFormat, GLenum)
 #include <oglplus/enums/pixel_data_internal_format.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	PixelDataInternalFormat*,
-	EnumBaseType<PixelDataInternalFormat>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/pixel_data_internal_format.ipp>
+#include <oglplus/enums/pixel_data_internal_format_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/pixel_data_internal_format_range.ipp>
 #endif
 
 /// OpenGL image unit format enumeration
@@ -116,20 +92,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(ImageUnitFormat, GLenum)
 #include <oglplus/enums/image_unit_format.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	ImageUnitFormat*,
-	EnumBaseType<ImageUnitFormat>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/image_unit_format.ipp>
+#include <oglplus/enums/image_unit_format_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/image_unit_format_range.ipp>
 #endif
 
 } // namespace oglplus

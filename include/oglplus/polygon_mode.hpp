@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_POLYGON_MODE_1107121519_HPP
 #define OGLPLUS_POLYGON_MODE_1107121519_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Polygon rasterization mode enumeration
@@ -25,20 +27,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(PolygonMode, GLenum)
 #include <oglplus/enums/polygon_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	PolygonMode*,
-	EnumBaseType<PolygonMode>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/polygon_mode.ipp>
+#include <oglplus/enums/polygon_mode_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/polygon_mode_range.ipp>
 #endif
 
 } // namespace oglplus

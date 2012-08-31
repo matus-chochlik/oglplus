@@ -24,6 +24,7 @@
 #include <oglplus/buffer.hpp>
 #include <oglplus/texture_unit.hpp>
 #include <oglplus/image.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
@@ -43,20 +44,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureCompareMode, GLenum)
 OGLPLUS_ENUM_CLASS_END
 
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TextureCompareMode*,
-	EnumBaseType<TextureCompareMode>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_compare_mode.ipp>
+#include <oglplus/enums/texture_compare_mode_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/texture_compare_mode_range.ipp>
 #endif
 
 /// Texture magnification filter enumeration
@@ -72,20 +65,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureMagFilter, GLenum)
 #include <oglplus/enums/texture_mag_filter.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TextureMagFilter*,
-	EnumBaseType<TextureMagFilter>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_mag_filter.ipp>
+#include <oglplus/enums/texture_mag_filter_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/texture_mag_filter_range.ipp>
 #endif
 
 /// Texture minification filter enumeration
@@ -101,20 +86,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureMinFilter, GLenum)
 #include <oglplus/enums/texture_min_filter.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TextureMinFilter*,
-	EnumBaseType<TextureMinFilter>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_min_filter.ipp>
+#include <oglplus/enums/texture_min_filter_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/texture_min_filter_range.ipp>
 #endif
 
 /// Texture swizzle parameter coordinate enumeration
@@ -129,20 +106,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzleCoord, GLenum)
 #include <oglplus/enums/texture_swizzle_coord.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TextureSwizzleCoord*,
-	EnumBaseType<TextureSwizzleCoord>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_swizzle_coord.ipp>
+#include <oglplus/enums/texture_swizzle_coord_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/texture_swizzle_coord_range.ipp>
 #endif
 
 /// Texture swizzle enumeration
@@ -160,20 +129,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzle, GLenum)
 #include <oglplus/enums/texture_swizzle.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TextureSwizzle*,
-	EnumBaseType<TextureSwizzle>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_swizzle.ipp>
+#include <oglplus/enums/texture_swizzle_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/texture_swizzle_range.ipp>
 #endif
 
 /// Texture wrap parameter coordinate enumeration
@@ -188,20 +149,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureWrapCoord, GLenum)
 #include <oglplus/enums/texture_wrap_coord.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TextureWrapCoord*,
-	EnumBaseType<TextureWrapCoord>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_wrap_coord.ipp>
+#include <oglplus/enums/texture_wrap_coord_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/texture_wrap_coord_range.ipp>
 #endif
 
 /// Texture wrap enumeration
@@ -219,20 +172,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureWrap, GLenum)
 #include <oglplus/enums/texture_wrap.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TextureWrap*,
-	EnumBaseType<TextureWrap>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_wrap.ipp>
+#include <oglplus/enums/texture_wrap_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/texture_wrap_range.ipp>
 #endif
 
 /// Texture bind and image specification targets
@@ -246,20 +191,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureTarget, GLenum)
 #include <oglplus/enums/texture_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	TextureTarget*,
-	EnumBaseType<TextureTarget>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/texture_target.ipp>
+#include <oglplus/enums/texture_target_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/texture_target_range.ipp>
 #endif
 
 /// Wrapper for texture and texture unit-related operations

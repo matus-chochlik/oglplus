@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_PIXEL_STORAGE_MODE_1201200843_HPP
 #define OGLPLUS_PIXEL_STORAGE_MODE_1201200843_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Pixel storage mode parameter enumeration
@@ -26,20 +28,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(PixelStorageMode, GLenum)
 #include <oglplus/enums/pixel_storage_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	PixelStorageMode*,
-	EnumBaseType<PixelStorageMode>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/pixel_storage_mode.ipp>
+#include <oglplus/enums/pixel_storage_mode_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/pixel_storage_mode_range.ipp>
 #endif
 
 } // namespace oglplus

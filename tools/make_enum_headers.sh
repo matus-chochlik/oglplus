@@ -22,12 +22,31 @@ function PrintFileHeader()
 	echo
 }
 
+function MakeEnumClass()
+{
+	local EnumClass=$(sed -n -e 's|^#\([^@#]\+\)#$|\1|p' < ${1})
+	if [ "${EnumClass}" == "" ]
+	then EnumClass=$(echo $(basename ${1} .txt) | sed -e 's|^\([a-z]\)|\u\1|;s|_\([a-z]\)|\u\1|g')
+	fi
+	echo ${EnumClass}
+}
+
+function MakeEnumBaseType()
+{
+	local EnumBaseType=$(sed -n -e 's|^#@\([^@#]\+\)#$|\1|p' < ${1})
+	if [ "${EnumBaseType}" == "" ]
+	then EnumBaseType="enum"
+	fi
+	echo ${EnumBaseType}
+}
+
 ShortEnumTempDir=$(mktemp -d)
 
 # Creates the following files:
 #  oglplus/enums/${InputName}.ipp
 #  oglplus/enums/${InputName}_ese.ipp
 #  oglplus/enums/${InputName}_nse.ipp
+#  oglplus/enums/${InputName}_names.ipp
 for InputFile in ${InputFiles}
 do
 	InputName="${InputFile#${InputDir}/}"
@@ -145,7 +164,7 @@ do
 	)
 	git add ${OutputPath}
 
-	OutputFile="oglplus/names/${InputName}.ipp"
+	OutputFile="oglplus/enums/${InputName}_names.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
@@ -153,12 +172,24 @@ do
 	echo "${InputName}" 1>&2
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
+	#
 	PrintFileHeader ${InputFile} ${OutputFile}
 	#
-	IFS=':'
-	unset Comma
+	EnumClass=$(MakeEnumClass ${InputFile})
+	EnumBaseType=$(MakeEnumBaseType ${InputFile})
+	#
+	echo "OGLPLUS_LIB_FUNC StrLit EnumValueName("
+	echo "	${EnumClass}*,"
+	echo "	GL${EnumBaseType} value"
+	echo ") OGLPLUS_NOEXCEPT(true)"
+	echo "#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)"
+	echo ";"
+	echo "#else"
+	echo "{"
 	echo "switch(value)"
 	echo "{"
+	IFS=':'
+	unset Comma
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
 	while read GL_DEF X
 	do
@@ -168,6 +199,56 @@ do
 	done
 	echo "	default:;"
 	echo "}"
+	echo "OGLPLUS_FAKE_USE(value);"
+	echo "return StrLit();"
+	echo "}"
+	echo "#endif"
+	echo
+	)
+
+	git add ${OutputPath}
+
+	OutputFile="oglplus/enums/${InputName}_range.ipp"
+	OutputPath="${RootDir}/include/${OutputFile}"
+
+	[[ ${InputFile} -ot ${OutputPath} ]] ||
+	(
+	echo "${InputName}" 1>&2
+	mkdir -p $(dirname ${OutputPath})
+	exec > ${OutputPath}
+	#
+	PrintFileHeader ${InputFile} ${OutputFile}
+	#
+	EnumClass=$(MakeEnumClass ${InputFile})
+	EnumBaseType=$(MakeEnumBaseType ${InputFile})
+	#
+	echo "OGLPLUS_LIB_FUNC aux::CastIterRange<"
+	echo "	const GL${EnumBaseType}*,"
+	echo "	${EnumClass}"
+	echo "> EnumValueRange(${EnumClass}*)"
+	echo "OGLPLUS_NOEXCEPT(true)"
+	echo "#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)"
+	echo ";"
+	echo "#else"
+	echo "{"
+	echo "static const GL${EnumBaseType} _values[] = {"
+	IFS=':'
+	unset Comma
+	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
+	while read GL_DEF X
+	do
+		echo "#if defined GL_${GL_DEF}"
+		echo "GL_${GL_DEF},"
+		echo "#endif"
+	done
+	echo "0"
+	echo "};"
+	echo "return aux::CastIterRange<"
+	echo "	const GL${EnumBaseType}*,"
+	echo "	${EnumClass}"
+	echo ">(_values, _values+sizeof(_values)/sizeof(_values[0])-1);"
+	echo "}"
+	echo "#endif"
 	echo
 	)
 
@@ -184,43 +265,56 @@ exec > ${OutputPath}
 
 PrintFileHeader "${RootDir}/source/enums/.*.txt" ${OutputFile}
 
+echo "#if !OGLPLUS_NO_ENUM_VALUE_NAMES"
 for InputFile in ${InputFiles}
 do
 	InputName="${InputFile#${InputDir}/}"
 	InputName=${InputName%.txt}
 
-	EnumClass=$(sed -n -e 's|^#\([^@#]\+\)#$|\1|p' < ${InputFile})
-	if [ "${EnumClass}" == "" ]
-	then EnumClass=$(echo $(basename ${InputFile} .txt) | sed -e 's|^\([a-z]\)|\u\1|;s|_\([a-z]\)|\u\1|g')
-	fi
-
-	EnumBaseType=$(sed -n -e 's|^#@\([^@#]\+\)#$|\1|p' < ${InputFile})
-	if [ "${EnumBaseType}" == "" ]
-	then EnumBaseType="enum"
-	fi
+	EnumClass=$(MakeEnumClass ${InputFile})
+	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 
 	echo "OGLPLUS_ENUM_CLASS_FWD(${EnumClass}, GL${EnumBaseType})"
-	echo "StrLit EnumValueName(${EnumClass}*, GL${EnumBaseType} value)"
-	echo "OGLPLUS_NOEXCEPT(true)"
-	echo "{"
-	echo "#if !OGLPLUS_NO_ENUM_VALUE_NAMES"
-	echo "#include <oglplus/names/${InputName}.ipp>"
-	echo "#else"
-	echo "	OGLPLUS_FAKE_USE(value);"
-	echo "#endif"
-	echo "	return StrLit();"
-	echo "}"
+	echo "#include <oglplus/enums/${InputName}_names.ipp>"
 	echo
 done
+echo "#endif"
+
+git add ${OutputPath}
+)
+
+# Creates the oglplus/lib/enum_value_range.ipp file
+(
+OutputFile="oglplus/lib/enum_value_range.ipp"
+OutputPath="${RootDir}/include/${OutputFile}"
+
+mkdir -p $(dirname ${OutputPath})
+exec > ${OutputPath}
+
+PrintFileHeader "${RootDir}/source/enums/.*.txt" ${OutputFile}
+
+echo "#if !OGLPLUS_NO_ENUM_VALUE_RANGES"
+for InputFile in ${InputFiles}
+do
+	InputName="${InputFile#${InputDir}/}"
+	InputName=${InputName%.txt}
+
+	EnumClass=$(MakeEnumClass ${InputFile})
+	EnumBaseType=$(MakeEnumBaseType ${InputFile})
+
+	echo "OGLPLUS_ENUM_CLASS_FWD(${EnumClass}, GL${EnumBaseType})"
+	echo "#include <oglplus/enums/${InputName}_range.ipp>"
+	echo
+done
+echo "#endif"
+
+git add ${OutputPath}
 )
 
 for InputFile in ${InputFiles}
 do
 (
-	EnumClass=$(sed -n -e 's|^#\([^@#]\+\)#$|\1|p' < ${InputFile})
-	if [ "${EnumClass}" == "" ]
-	then EnumClass=$(echo $(basename ${InputFile} .txt) | sed -e 's|^\([a-z]\)|\u\1|;s|_\([a-z]\)|\u\1|g')
-	fi
+	EnumClass=$(MakeEnumClass ${InputFile})
 
 	IFS=':'
 

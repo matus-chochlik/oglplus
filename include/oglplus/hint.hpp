@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_HINT_1201201108_HPP
 #define OGLPLUS_HINT_1201201108_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Enumeration of hint targets
@@ -25,20 +27,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(HintTarget, GLenum)
 #include <oglplus/enums/hint_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	HintTarget*,
-	EnumBaseType<HintTarget>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/hint_target.ipp>
+#include <oglplus/enums/hint_target_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/hint_target_range.ipp>
 #endif
 
 /// Enumeration of hint options
@@ -52,20 +46,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(HintOption, GLenum)
 #include <oglplus/enums/hint_option.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	HintOption*,
-	EnumBaseType<HintOption>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/hint_option.ipp>
+#include <oglplus/enums/hint_option_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/hint_option_range.ipp>
 #endif
 
 } // namespace oglplus

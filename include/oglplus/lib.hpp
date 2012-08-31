@@ -17,6 +17,7 @@
 #include <oglplus/fwd.hpp>
 
 #include <oglplus/auxiliary/utf8.hpp>
+#include <oglplus/auxiliary/base_range.hpp>
 
 #include <map>
 
@@ -42,8 +43,16 @@ bool ValidString(const GLchar* begin, const GLchar* end)
 	return aux::ValidUTF8(begin, end);
 }
 
+#ifndef OGLPLUS_IMPLEMENTING_LIBRARY
+#define OGLPLUS_IMPLEMENTING_LIBRARY
+#endif
+
 // EnumValueName implementations
 #include <oglplus/lib/enum_value_name.ipp>
+// EnumValueRange implementations
+#include <oglplus/lib/enum_value_range.ipp>
+
+#undef OGLPLUS_IMPLEMENTING_LIBRARY
 
 } // namespace oglplus
 

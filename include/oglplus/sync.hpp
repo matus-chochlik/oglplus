@@ -14,6 +14,7 @@
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
+#include <oglplus/enumerations.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -28,20 +29,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(SyncCondition, GLenum)
 #include <oglplus/enums/sync_condition.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	SyncCondition*,
-	EnumBaseType<SyncCondition>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/sync_condition.ipp>
+#include <oglplus/enums/sync_condition_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/sync_condition_range.ipp>
 #endif
 
 
@@ -55,20 +48,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(SyncType, GLenum)
 #include <oglplus/enums/sync_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	SyncType*,
-	EnumBaseType<SyncType>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/sync_type.ipp>
+#include <oglplus/enums/sync_type_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/sync_type_range.ipp>
 #endif
 
 
@@ -82,20 +67,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(SyncStatus, GLenum)
 #include <oglplus/enums/sync_status.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	SyncStatus*,
-	EnumBaseType<SyncStatus>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/sync_status.ipp>
+#include <oglplus/enums/sync_status_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/sync_status_range.ipp>
 #endif
 
 /// The wait result enumeration
@@ -108,20 +85,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(SyncWaitResult, GLenum)
 #include <oglplus/enums/sync_wait_result.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	SyncWaitResult*,
-	EnumBaseType<SyncWaitResult>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/sync_wait_result.ipp>
+#include <oglplus/enums/sync_wait_result_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/sync_wait_result_range.ipp>
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_sync

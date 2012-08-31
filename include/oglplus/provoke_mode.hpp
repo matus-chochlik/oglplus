@@ -12,6 +12,8 @@
 #ifndef OGLPLUS_PROVOKE_MODE_1201041118_HPP
 #define OGLPLUS_PROVOKE_MODE_1201041118_HPP
 
+#include <oglplus/enumerations.hpp>
+
 namespace oglplus {
 
 /// Provoking vertex selection mode (for flatshading) enumeration
@@ -25,20 +27,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(ProvokeMode, GLenum)
 #include <oglplus/enums/provoke_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	ProvokeMode*,
-	EnumBaseType<ProvokeMode>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/provoke_mode.ipp>
+#include <oglplus/enums/provoke_mode_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/provoke_mode_range.ipp>
 #endif
 
 } // namespace oglplus

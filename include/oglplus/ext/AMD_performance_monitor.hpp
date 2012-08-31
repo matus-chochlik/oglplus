@@ -16,6 +16,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
+#include <oglplus/enumerations.hpp>
 
 #include <cassert>
 #include <vector>
@@ -35,20 +36,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(PerfMonitorAMDType, GLenum)
 #include <oglplus/enums/ext/amd_perf_monitor_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	PerfMonitorAMDType*,
-	EnumBaseType<PerfMonitorAMDType>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/ext/amd_perf_monitor_type.ipp>
+#include <oglplus/enums/ext/amd_perf_monitor_type_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/ext/amd_perf_monitor_type_range.ipp>
 #endif
 
 class PerfMonitorAMDGroup;

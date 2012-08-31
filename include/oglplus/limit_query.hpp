@@ -12,7 +12,7 @@
 #ifndef OGLPLUS_LIMIT_QUERY_1202091518_HPP
 #define OGLPLUS_LIMIT_QUERY_1202091518_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/enumerations.hpp>
 
 namespace oglplus {
 
@@ -27,20 +27,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(LimitQuery, GLenum)
 #include <oglplus/enums/limit_query.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	LimitQuery*,
-	EnumBaseType<LimitQuery>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/limit_query.ipp>
+#include <oglplus/enums/limit_query_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/limit_query_range.ipp>
 #endif
 
 /// Alternate name for the ColorLogicOperation enumeration

@@ -13,6 +13,7 @@
 #define OGLPLUS_AUX_BASE_RANGE_1107121519_HPP
 
 #include <cassert>
+#include <vector>
 #include <iterator>
 
 namespace oglplus {
@@ -99,10 +100,25 @@ public:
 		Next();
 	}
 
-	typename std::iterator_traits<Iterator>::reference Front(void)
+	typename std::iterator_traits<Iterator>::reference Front(void) const
 	{
 		assert(!Empty());
 		return *_pos;
+	}
+};
+
+template <typename Iterator, typename Element>
+class CastIterRange
+ : public IterRange<Iterator>
+{
+public:
+	CastIterRange(Iterator begin, Iterator end)
+	 : IterRange<Iterator>(begin, end)
+	{ }
+
+	Element Front(void) const
+	{
+		return Element(IterRange<Iterator>::Front());
 	}
 };
 

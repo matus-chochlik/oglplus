@@ -21,6 +21,7 @@
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/one_of.hpp>
 #include <cassert>
 
@@ -49,20 +50,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(FramebufferAttachment, GLenum)
 #include <oglplus/enums/framebuffer_attachment.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	FramebufferAttachment*,
-	EnumBaseType<FramebufferAttachment>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/framebuffer_attachment.ipp>
+#include <oglplus/enums/framebuffer_attachment_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/framebuffer_attachment_range.ipp>
 #endif
 
 /// Framebuffer color attachment points
@@ -73,20 +66,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(FramebufferColorAttachment, GLenum)
 #include <oglplus/enums/framebuffer_color_attachment.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	FramebufferColorAttachment*,
-	EnumBaseType<FramebufferColorAttachment>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/framebuffer_color_attachment.ipp>
+#include <oglplus/enums/framebuffer_color_attachment_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/framebuffer_color_attachment_range.ipp>
 #endif
 
 /// Framebuffer status enumeration
@@ -97,20 +82,12 @@ OGLPLUS_ENUM_CLASS_BEGIN(FramebufferStatus, GLenum)
 #include <oglplus/enums/framebuffer_status.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	FramebufferStatus*,
-	EnumBaseType<FramebufferStatus>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/framebuffer_status.ipp>
+#include <oglplus/enums/framebuffer_status_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/framebuffer_status_range.ipp>
 #endif
 
 /// Framebuffer bind target
@@ -121,21 +98,14 @@ OGLPLUS_ENUM_CLASS_BEGIN(FramebufferTarget, GLenum)
 #include <oglplus/enums/framebuffer_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	FramebufferTarget*,
-	EnumBaseType<FramebufferTarget>::Type value
-) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
-{
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/names/framebuffer_target.ipp>
+#include <oglplus/enums/framebuffer_target_names.ipp>
 #endif
-	OGLPLUS_FAKE_USE(value);
-	return StrLit();
-}
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/framebuffer_target_range.ipp>
 #endif
+
 /// Wrapper for OpenGL framebuffer operations
 /**
  *  @note Do not use this class directly, use FrameBuffer instead
