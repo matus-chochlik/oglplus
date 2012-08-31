@@ -132,12 +132,12 @@ private:
 	typedef ::std::map<GLuint, String> _desc_map;
 	static _desc_map& _storage(void)
 	{
-		return ObjectDescRegistryStorage(ObjectTypeId<ObjectOps>());
+		return ObjectDescRegistryStorage(ObjectTypeId<ObjectOps>::value);
 	}
 
 	static _desc_map& _archive(void)
 	{
-		return ObjectDescRegistryArchive(ObjectTypeId<ObjectOps>());
+		return ObjectDescRegistryArchive(ObjectTypeId<ObjectOps>::value);
 	}
 #endif
 protected:

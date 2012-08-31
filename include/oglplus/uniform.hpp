@@ -30,9 +30,9 @@ namespace aux {
 class UniformInitOps
 {
 protected:
-	typedef None ParamType;
+	typedef Nothing ParamType;
 
-	UniformInitOps(None)
+	UniformInitOps(Nothing)
 	{ }
 
 	GLint _do_init_index(GLuint program, const GLchar* identifier) const
@@ -80,7 +80,7 @@ class UniformOps
 protected:
 	template <class _String>
 	UniformOps(const ProgramOps& program, _String&& identifier)
-	 : Initializer(program, None(), std::forward<_String>(identifier))
+	 : Initializer(program, Nothing(), std::forward<_String>(identifier))
 	{ }
 public:
 };

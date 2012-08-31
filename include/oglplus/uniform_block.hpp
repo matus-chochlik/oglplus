@@ -31,9 +31,9 @@ namespace aux {
 class UniformBlockInitOps
 {
 protected:
-	typedef None ParamType;
+	typedef Nothing ParamType;
 
-	UniformBlockInitOps(None)
+	UniformBlockInitOps(Nothing)
 	{ }
 
 	GLint _do_init_index(GLuint program, const GLchar* identifier) const
@@ -156,7 +156,7 @@ class UniformBlockTpl
 public:
 	template <class _String>
 	UniformBlockTpl(const Program& program, _String&& identifier)
-	 : Initializer(program, None(), std::forward<_String>(identifier))
+	 : Initializer(program, Nothing(), std::forward<_String>(identifier))
 	{ }
 
 	/// Return the maximum number of uniform blocks for a @p shader_type

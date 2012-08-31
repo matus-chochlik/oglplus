@@ -97,7 +97,7 @@ struct ObjectWithType
 	template <typename X>
 	static typename X::Property::Type
 		_get(X*, typename X::Property::Type* = nullptr);
-	static None _get(...);
+	static Nothing _get(...);
 
 	typedef decltype(_get((Object*)nullptr)) Type;
 };
@@ -115,7 +115,7 @@ struct ObjectWithTarget
 	template <typename X>
 	static typename X::Target
 		_get(X*, typename X::Target* = nullptr);
-	static None _get(...);
+	static Nothing _get(...);
 
 	typedef decltype(_get((Object*)nullptr)) Target;
 };
@@ -465,7 +465,7 @@ struct ObjectBaseOps<Object<ObjectOps> >
 struct NoOpSpecializedInitializer
 {
 protected:
-	typedef None ParameterType;
+	typedef Nothing ParameterType;
 
 	NoOpSpecializedInitializer(void)
 	{ }
@@ -474,7 +474,7 @@ protected:
 	NoOpSpecializedInitializer(
 		Object& object,
 		typename ObjectTypeOrTarget<Object>::Type,
-		None
+		Nothing
 	)
 	{ }
 };
