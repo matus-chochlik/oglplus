@@ -15,6 +15,9 @@
 // if we have native strongly typed enums
 #if !OGLPLUS_NO_SCOPED_ENUMS
 
+#define OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
+enum class NAME : TYPE; \
+
 #define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
 enum class NAME : TYPE {
 
@@ -36,8 +39,17 @@ struct EnumValueType
 	typedef Enum Type;
 };
 
+template <typename Enum>
+struct EnumBaseType
+{
+	typedef GLenum Type;
+};
+
 // no native strongly typed enums
 #else
+
+#define OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
+class NAME;
 
 #define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
 class NAME { \
@@ -66,6 +78,12 @@ namespace oglplus {
 
 template <typename Enum>
 struct EnumValueType
+{
+	typedef typename Enum::_value_type Type;
+};
+
+template <typename Enum>
+struct EnumBaseType
 {
 	typedef typename Enum::_value_type Type;
 };

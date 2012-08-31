@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_STANDARD_FONT_NAME_NV
 	case GL_STANDARD_FONT_NAME_NV: return StrLit("STANDARD_FONT_NAME_NV");

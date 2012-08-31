@@ -50,6 +50,8 @@ endif()
 # add a target for the screenshots
 add_custom_target(oglplus-examples-screenshots)
 
+add_definitions(-DOGLPLUS_LINK_LIBRARY=1)
+
 # build the code common to all the examples into this library
 add_library(
 	oglplus_example_harness STATIC

@@ -37,12 +37,23 @@ struct None { typedef int _value_type; };
 StrLit EnumValueName(Enum enum_value);
 
 #else
+
+template <typename Enum>
+struct EnumBaseType;
+
 template <typename EnumType>
-inline StrLit EnumValueNameTpl(EnumType enum_value)
+inline StrLit EnumValueName(EnumType enum_value)
 {
-	return EnumValueName(enum_value);
+	typedef typename EnumBaseType<EnumType>::Type BaseType;
+	return EnumValueName(
+		(EnumType*)nullptr,
+		BaseType(enum_value)
+	);
 }
 #endif
+
+template <typename ObjectOps>
+struct ObjectTypeId;
 
 } // namespace oglplus
 

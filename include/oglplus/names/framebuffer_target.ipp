@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_DRAW_FRAMEBUFFER
 	case GL_DRAW_FRAMEBUFFER: return StrLit("DRAW_FRAMEBUFFER");

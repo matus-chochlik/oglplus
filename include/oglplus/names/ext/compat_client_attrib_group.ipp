@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_CLIENT_VERTEX_ARRAY_BIT
 	case GL_CLIENT_VERTEX_ARRAY_BIT: return StrLit("CLIENT_VERTEX_ARRAY_BIT");

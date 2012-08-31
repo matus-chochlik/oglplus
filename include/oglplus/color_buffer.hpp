@@ -26,8 +26,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(ColorBuffer, GLenum)
 #include <oglplus/enums/color_buffer.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(ColorBuffer value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	ColorBuffer*,
+	EnumBaseType<ColorBuffer>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/color_buffer.ipp>
@@ -35,6 +40,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 } // namespace oglplus
 

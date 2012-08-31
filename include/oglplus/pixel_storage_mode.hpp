@@ -26,8 +26,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PixelStorageMode, GLenum)
 #include <oglplus/enums/pixel_storage_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PixelStorageMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PixelStorageMode*,
+	EnumBaseType<PixelStorageMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/pixel_storage_mode.ipp>
@@ -35,6 +40,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 } // namespace oglplus
 

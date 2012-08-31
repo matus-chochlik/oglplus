@@ -24,14 +24,19 @@ namespace oglplus {
  *  @glfunref{Clear}
  *  @glfunref{BlitFramebuffer}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferSelectBit, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(BufferSelectBit, GLbitfield)
 #include <oglplus/enums/buffer_select_bit.ipp>
 OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(BufferSelectBit)
 
-inline StrLit EnumValueName(BufferSelectBit value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	BufferSelectBit*,
+	EnumBaseType<BufferSelectBit>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_select_bit.ipp>
@@ -39,6 +44,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 } // namespace oglplus
 

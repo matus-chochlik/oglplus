@@ -1,7 +1,7 @@
 # Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-#Buffer::IndexedTarget#
+#BufferIndexedTarget#
 ATOMIC_COUNTER_BUFFER:AtomicCounter:::ATOMIC_COUNTER_BUFFER_BINDING
 SHADER_STORAGE_BUFFER:ShaderStorage:::SHADER_STORAGE_BUFFER_BINDING
 TRANSFORM_FEEDBACK_BUFFER:TransformFeedback:::TRANSFORM_FEEDBACK_BUFFER_BINDING

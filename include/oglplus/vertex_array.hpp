@@ -111,6 +111,7 @@ class VertexArray
 { };
 #else
 typedef Object<VertexArrayOps> VertexArray;
+OGLPLUS_OBJECT_TYPE_ID(VertexArray, 10)
 #endif
 
 } // namespace oglplus

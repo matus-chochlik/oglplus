@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_TRANSFORM_FEEDBACK
 	case GL_TRANSFORM_FEEDBACK: return StrLit("TRANSFORM_FEEDBACK");

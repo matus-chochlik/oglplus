@@ -23,6 +23,10 @@
 #include <oglplus/compile_error.hpp>
 #include <oglplus/application.hpp>
 
+#if OGLPLUS_LINK_LIBRARY
+# include <oglplus/lib.hpp>
+#endif
+
 #include <oglplus/ext/ARB_debug_output.hpp>
 
 #include <vector>

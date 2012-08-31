@@ -28,8 +28,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(ErrorCode, GLenum)
 #include <oglplus/enums/error_code.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(ErrorCode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	ErrorCode*,
+	EnumBaseType<ErrorCode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/error_code.ipp>
@@ -37,6 +42,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 namespace context {
 

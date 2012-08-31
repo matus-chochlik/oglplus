@@ -32,8 +32,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(RenderbufferTarget, GLenum)
 #include <oglplus/enums/renderbuffer_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(RenderbufferTarget value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	RenderbufferTarget*,
+	EnumBaseType<RenderbufferTarget>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/renderbuffer_target.ipp>
@@ -41,6 +46,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Class wrapping renderbuffer-related functionality
 /** @note Do not use this class directly, use Renderbuffer instead.
@@ -122,7 +128,7 @@ protected:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetRenderbufferParameteriv,
 			Renderbuffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<RenderbufferOps>::QueryBinding(target)
 		));
 		return result;
@@ -171,7 +177,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			RenderbufferStorage,
 			Renderbuffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<RenderbufferOps>::QueryBinding(target)
 		));
 	}
@@ -199,7 +205,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			RenderbufferStorageMultisample,
 			Renderbuffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<RenderbufferOps>::QueryBinding(target)
 		));
 	}
@@ -366,6 +372,7 @@ class Renderbuffer
 { };
 #else
 typedef Object<RenderbufferOps> Renderbuffer;
+OGLPLUS_OBJECT_TYPE_ID(Renderbuffer, 1)
 #endif
 
 } // namespace oglplus

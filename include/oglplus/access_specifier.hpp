@@ -31,8 +31,13 @@ OGLPLUS_ENUM_CLASS_END
  */
 typedef AccessSpecifier Access;
 
-inline StrLit EnumValueName(AccessSpecifier value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	AccessSpecifier*,
+	EnumBaseType<AccessSpecifier>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/access_specifier.ipp>
@@ -40,6 +45,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 } // namespace oglplus
 

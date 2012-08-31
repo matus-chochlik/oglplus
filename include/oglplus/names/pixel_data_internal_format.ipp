@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_DEPTH_COMPONENT
 	case GL_DEPTH_COMPONENT: return StrLit("DEPTH_COMPONENT");

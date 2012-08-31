@@ -38,8 +38,13 @@ OGLPLUS_ENUM_CLASS_END
 /// A shorter name for DebugOutputSeverity
 typedef DebugOutputSeverity DebugSeverity;
 
-inline StrLit EnumValueName(DebugOutputSeverity value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	DebugOutputSeverity*,
+	EnumBaseType<DebugOutputSeverity>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/debug_output_severity.ipp>
@@ -47,6 +52,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 
 /// Debug output source enumeration
@@ -63,8 +69,13 @@ OGLPLUS_ENUM_CLASS_END
 /// A shorter name for DebugOutputSource
 typedef DebugOutputSource DebugSource;
 
-inline StrLit EnumValueName(DebugOutputSource value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	DebugOutputSource*,
+	EnumBaseType<DebugOutputSource>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/debug_output_source.ipp>
@@ -72,6 +83,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 
 /// Debug output type enumeration
@@ -88,8 +100,13 @@ OGLPLUS_ENUM_CLASS_END
 /// A shorter name for DebugOutputType
 typedef DebugOutputType DebugType;
 
-inline StrLit EnumValueName(DebugOutputType value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	DebugOutputType*,
+	EnumBaseType<DebugOutputType>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/debug_output_type.ipp>
@@ -97,6 +114,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_debug_output
 

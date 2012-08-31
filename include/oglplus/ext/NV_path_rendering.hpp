@@ -36,8 +36,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVCommand, GLubyte)
 #include <oglplus/enums/ext/nv_path_command.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVCommand value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVCommand*,
+	EnumBaseType<PathNVCommand>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_command.ipp>
@@ -45,6 +50,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path specification string format enumeration
 /**
@@ -57,8 +63,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVFormat, GLenum)
 #include <oglplus/enums/ext/nv_path_format.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVFormat value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVFormat*,
+	EnumBaseType<PathNVFormat>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_format.ipp>
@@ -66,6 +77,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path fill mode
 /**
@@ -78,8 +90,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVFillMode, GLenum)
 #include <oglplus/enums/ext/nv_path_fill_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVFillMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVFillMode*,
+	EnumBaseType<PathNVFillMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_fill_mode.ipp>
@@ -87,6 +104,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path fill covering mode
 /**
@@ -99,8 +117,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVFillCoverMode, GLenum)
 #include <oglplus/enums/ext/nv_path_fill_cover_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVFillCoverMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVFillCoverMode*,
+	EnumBaseType<PathNVFillCoverMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_fill_cover_mode.ipp>
@@ -108,6 +131,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path stroke covering move
 /**
@@ -120,8 +144,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVStrokeCoverMode, GLenum)
 #include <oglplus/enums/ext/nv_path_stroke_cover_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVStrokeCoverMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVStrokeCoverMode*,
+	EnumBaseType<PathNVStrokeCoverMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_stroke_cover_mode.ipp>
@@ -129,6 +158,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Stroke line join style enumeration
 /**
@@ -141,8 +171,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVJoinStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_join_style.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVJoinStyle value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVJoinStyle*,
+	EnumBaseType<PathNVJoinStyle>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_join_style.ipp>
@@ -150,6 +185,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path cap mode enumeration
 /**
@@ -162,8 +198,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVCapStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_cap_style.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVCapStyle value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVCapStyle*,
+	EnumBaseType<PathNVCapStyle>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_cap_style.ipp>
@@ -171,6 +212,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path dash offset reset mode enumeration
 /**
@@ -183,8 +225,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVDashOffsetReset, GLenum)
 #include <oglplus/enums/ext/nv_path_dash_offset_reset.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVDashOffsetReset value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVDashOffsetReset*,
+	EnumBaseType<PathNVDashOffsetReset>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_dash_offset_reset.ipp>
@@ -192,6 +239,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path color mode enumeration
 /**
@@ -204,8 +252,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVColor, GLenum)
 #include <oglplus/enums/ext/nv_path_color.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVColor value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVColor*,
+	EnumBaseType<PathNVColor>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_color.ipp>
@@ -213,6 +266,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path color format enumeration
 /**
@@ -225,8 +279,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVColorFormat, GLenum)
 #include <oglplus/enums/ext/nv_path_color_format.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVColorFormat value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVColorFormat*,
+	EnumBaseType<PathNVColorFormat>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_color_format.ipp>
@@ -234,6 +293,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path color and tex-coord generation mode enumeration
 /**
@@ -246,8 +306,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVGenMode, GLenum)
 #include <oglplus/enums/ext/nv_path_gen_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVGenMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVGenMode*,
+	EnumBaseType<PathNVGenMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_gen_mode.ipp>
@@ -255,6 +320,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path transform type enumeration
 /**
@@ -267,8 +333,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVTransformType, GLenum)
 #include <oglplus/enums/ext/nv_path_transform_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVTransformType value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVTransformType*,
+	EnumBaseType<PathNVTransformType>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_transform_type.ipp>
@@ -276,6 +347,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path font target enumeration
 /**
@@ -288,8 +360,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVFontTarget, GLenum)
 #include <oglplus/enums/ext/nv_path_font_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVFontTarget value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVFontTarget*,
+	EnumBaseType<PathNVFontTarget>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_font_target.ipp>
@@ -297,6 +374,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path missing glyph action mode enumeration
 /**
@@ -309,8 +387,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVMissingGlyph, GLenum)
 #include <oglplus/enums/ext/nv_path_missing_glyph.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVMissingGlyph value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVMissingGlyph*,
+	EnumBaseType<PathNVMissingGlyph>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_missing_glyph.ipp>
@@ -318,6 +401,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path list mode enumeration
 /**
@@ -330,8 +414,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVListMode, GLenum)
 #include <oglplus/enums/ext/nv_path_list_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVListMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVListMode*,
+	EnumBaseType<PathNVListMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_list_mode.ipp>
@@ -339,6 +428,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path font style bits enumeration
 /**
@@ -347,14 +437,19 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(PathNVFontStyle, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVFontStyle, GLbitfield)
 #include <oglplus/enums/ext/nv_path_font_style.ipp>
 OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(PathNVFontStyle)
 
-inline StrLit EnumValueName(PathNVFontStyle value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVFontStyle*,
+	EnumBaseType<PathNVFontStyle>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_font_style.ipp>
@@ -362,6 +457,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Path metric query bits enumeration
 /**
@@ -370,14 +466,19 @@ OGLPLUS_NOEXCEPT(true)
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(PathNVMetricQuery, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(PathNVMetricQuery, GLbitfield)
 #include <oglplus/enums/ext/nv_path_metric_query.ipp>
 OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(PathNVMetricQuery)
 
-inline StrLit EnumValueName(PathNVMetricQuery value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVMetricQuery*,
+	EnumBaseType<PathNVMetricQuery>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_metric_query.ipp>
@@ -385,6 +486,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Text encoding type enumeration
 /**
@@ -397,8 +499,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PathNVTextEncoding, GLenum)
 #include <oglplus/enums/ext/nv_path_text_encoding.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PathNVTextEncoding value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PathNVTextEncoding*,
+	EnumBaseType<PathNVTextEncoding>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/nv_path_text_encoding.ipp>
@@ -406,6 +513,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Wrapper for NV_path_rendering-related operations
 /** @note Do not use this class directly, use PathNV instead.
@@ -1116,6 +1224,7 @@ class PathNV
 { };
 #else
 typedef Object<PathNVOps> PathNV;
+OGLPLUS_OBJECT_TYPE_ID(PathNV, 13)
 #endif
 
 /// Array of PathNV objects and related operations

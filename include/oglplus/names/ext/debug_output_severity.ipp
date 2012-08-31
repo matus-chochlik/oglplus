@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_DEBUG_SEVERITY_HIGH_ARB
 	case GL_DEBUG_SEVERITY_HIGH_ARB: return StrLit("DEBUG_SEVERITY_HIGH_ARB");

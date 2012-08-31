@@ -25,8 +25,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(StencilOperation, GLenum)
 #include <oglplus/enums/stencil_operation.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(StencilOperation value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	StencilOperation*,
+	EnumBaseType<StencilOperation>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/stencil_operation.ipp>
@@ -34,6 +39,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Alternate name for the StencilOperation enumeration
 typedef StencilOperation StencilOp;

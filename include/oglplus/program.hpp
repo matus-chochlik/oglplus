@@ -1075,6 +1075,7 @@ class Program
 { };
 #else
 typedef Object<ProgramOps> Program;
+OGLPLUS_OBJECT_TYPE_ID(Program, 7)
 #endif
 
 inline Program& operator << (Program& program, const Shader& shader)

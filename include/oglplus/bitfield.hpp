@@ -94,6 +94,7 @@ public:
 
 // helper macro used to define bitfield-related functions
 #define OGLPLUS_MAKE_BITFIELD(BITS) \
+template <> struct EnumBaseType<BITS> { typedef GLbitfield Type; }; \
 inline oglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
 OGLPLUS_NOEXCEPT_IF(Bitfield<BITS>(std::declval<BITS>(), std::declval<BITS>()))\
 { \

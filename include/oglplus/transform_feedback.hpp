@@ -30,8 +30,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackMode, GLenum)
 #include <oglplus/enums/transform_feedback_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TransformFeedbackMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TransformFeedbackMode*,
+	EnumBaseType<TransformFeedbackMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/transform_feedback_mode.ipp>
@@ -39,6 +44,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 
 /// Transform feedback primitive modes
@@ -49,8 +55,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackPrimitiveType, GLenum)
 #include <oglplus/enums/transform_feedback_primitive_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TransformFeedbackPrimitiveType value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TransformFeedbackPrimitiveType*,
+	EnumBaseType<TransformFeedbackPrimitiveType>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/transform_feedback_primitive_type.ipp>
@@ -58,6 +69,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 
@@ -66,8 +78,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackTarget, GLenum)
 #include <oglplus/enums/transform_feedback_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TransformFeedbackTarget value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TransformFeedbackTarget*,
+	EnumBaseType<TransformFeedbackTarget>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/transform_feedback_target.ipp>
@@ -75,7 +92,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
-
+#endif
 
 /// Wrapper for fransform feedback operations
 /** @note Do not use this class directly, use TransformFeedback instead.
@@ -355,6 +372,7 @@ class TransformFeedback
 { };
 #else
 typedef Object<TransformFeedbackOps> TransformFeedback;
+OGLPLUS_OBJECT_TYPE_ID(TransformFeedback, 8)
 #endif
 
 #endif // transform feedback 2

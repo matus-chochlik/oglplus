@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_VERTEX_SHADER_BIT
 	case GL_VERTEX_SHADER_BIT: return StrLit("VERTEX_SHADER_BIT");

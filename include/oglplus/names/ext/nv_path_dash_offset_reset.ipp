@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_MOVE_TO_RESET_NV
 	case GL_MOVE_TO_RESET_NV: return StrLit("MOVE_TO_RESET_NV");

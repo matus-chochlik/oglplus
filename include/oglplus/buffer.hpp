@@ -71,8 +71,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(BufferUsage, GLenum)
 #include <oglplus/enums/buffer_usage.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(BufferUsage value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	BufferUsage*,
+	EnumBaseType<BufferUsage>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_usage.ipp>
@@ -80,6 +85,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Mapped buffer data access types
 /**
@@ -110,8 +116,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(BufferTarget, GLenum)
 #include <oglplus/enums/buffer_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(BufferTarget value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	BufferTarget*,
+	EnumBaseType<BufferTarget>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_target.ipp>
@@ -119,6 +130,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 
 /// Buffer indexed bind target
@@ -129,8 +141,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(BufferIndexedTarget, GLenum)
 #include <oglplus/enums/buffer_indexed_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(BufferIndexedTarget value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	BufferIndexedTarget*,
+	EnumBaseType<BufferIndexedTarget>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/buffer_indexed_target.ipp>
@@ -138,6 +155,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 
 /// Wrapper for OpenGL buffer operations
@@ -197,7 +215,7 @@ protected:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			_name
 		));
 	}
@@ -415,7 +433,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -431,7 +449,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferBase,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			_name
 		));
 	}
@@ -488,7 +506,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferRange,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			_name
 		));
 	}
@@ -519,7 +537,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -549,7 +567,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -577,7 +595,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferData,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -605,7 +623,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferSubData,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -632,7 +650,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			BufferSubData,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -694,7 +712,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			ClearBufferData,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -731,7 +749,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			ClearBufferSubData,
 			Buffer,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
 		));
 	}
@@ -778,6 +796,7 @@ class Buffer
 { };
 #else
 typedef Object<BufferOps> Buffer;
+OGLPLUS_OBJECT_TYPE_ID(Buffer, 4)
 #endif
 
 } // namespace oglplus

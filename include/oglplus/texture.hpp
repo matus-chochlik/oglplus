@@ -43,8 +43,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureCompareMode, GLenum)
 OGLPLUS_ENUM_CLASS_END
 
 
-inline StrLit EnumValueName(TextureCompareMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TextureCompareMode*,
+	EnumBaseType<TextureCompareMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_compare_mode.ipp>
@@ -52,6 +57,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Texture magnification filter enumeration
 /**
@@ -66,8 +72,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureMagFilter, GLenum)
 #include <oglplus/enums/texture_mag_filter.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TextureMagFilter value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TextureMagFilter*,
+	EnumBaseType<TextureMagFilter>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_mag_filter.ipp>
@@ -75,6 +86,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Texture minification filter enumeration
 /**
@@ -89,8 +101,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureMinFilter, GLenum)
 #include <oglplus/enums/texture_min_filter.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TextureMinFilter value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TextureMinFilter*,
+	EnumBaseType<TextureMinFilter>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_min_filter.ipp>
@@ -98,6 +115,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Texture swizzle parameter coordinate enumeration
 /**
@@ -111,8 +129,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzleCoord, GLenum)
 #include <oglplus/enums/texture_swizzle_coord.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TextureSwizzleCoord value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TextureSwizzleCoord*,
+	EnumBaseType<TextureSwizzleCoord>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_swizzle_coord.ipp>
@@ -120,6 +143,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Texture swizzle enumeration
 /**
@@ -136,8 +160,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzle, GLenum)
 #include <oglplus/enums/texture_swizzle.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TextureSwizzle value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TextureSwizzle*,
+	EnumBaseType<TextureSwizzle>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_swizzle.ipp>
@@ -145,6 +174,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Texture wrap parameter coordinate enumeration
 /**
@@ -158,8 +188,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureWrapCoord, GLenum)
 #include <oglplus/enums/texture_wrap_coord.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TextureWrapCoord value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TextureWrapCoord*,
+	EnumBaseType<TextureWrapCoord>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_wrap_coord.ipp>
@@ -167,6 +202,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Texture wrap enumeration
 /**
@@ -183,8 +219,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureWrap, GLenum)
 #include <oglplus/enums/texture_wrap.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TextureWrap value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TextureWrap*,
+	EnumBaseType<TextureWrap>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_wrap.ipp>
@@ -192,6 +233,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Texture bind and image specification targets
 /** @note Not all of the values enumerated here are valid
@@ -204,8 +246,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(TextureTarget, GLenum)
 #include <oglplus/enums/texture_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(TextureTarget value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	TextureTarget*,
+	EnumBaseType<TextureTarget>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/texture_target.ipp>
@@ -213,6 +260,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Wrapper for texture and texture unit-related operations
 /** @note Do not use this class directly, use Texture instead.
@@ -275,7 +323,7 @@ protected:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindTexture,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			_name
 		));
 	}
@@ -393,7 +441,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameteriv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return result;
@@ -410,7 +458,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return result;
@@ -428,7 +476,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameteriv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return result;
@@ -446,7 +494,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexLevelParameterfv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return result;
@@ -830,7 +878,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetCompressedTexImage,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -868,7 +916,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -901,7 +949,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -941,7 +989,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage3D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -977,7 +1025,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage3D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1013,7 +1061,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1045,7 +1093,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1081,7 +1129,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1114,7 +1162,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1148,7 +1196,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1179,7 +1227,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1211,7 +1259,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1241,7 +1289,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexSubImage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1275,7 +1323,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexImage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1307,7 +1355,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexImage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1343,7 +1391,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage3D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1377,7 +1425,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1407,7 +1455,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CopyTexSubImage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1443,7 +1491,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage3D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1477,7 +1525,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1509,7 +1557,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexImage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1549,7 +1597,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage3D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1585,7 +1633,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1617,7 +1665,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompressedTexSubImage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1651,7 +1699,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage3DMultisample,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1682,7 +1730,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexImage2DMultisample,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1709,7 +1757,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexBuffer,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1738,7 +1786,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexStorage1D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1767,7 +1815,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexStorage2D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1798,7 +1846,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexStorage3D,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1865,7 +1913,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1887,7 +1935,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterfv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return Vector<GLfloat, 4>(result, 4);
@@ -1909,7 +1957,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterfv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1931,7 +1979,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterIiv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return Vector<GLint, 4>(result, 4);
@@ -1953,7 +2001,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterIiv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -1975,7 +2023,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTexParameterIuiv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 		return Vector<GLuint, 4>(result, 4);
@@ -1997,7 +2045,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterIuiv,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2032,7 +2080,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2067,7 +2115,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2099,7 +2147,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2134,7 +2182,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2169,7 +2217,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2201,7 +2249,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2233,7 +2281,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2273,7 +2321,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2431,7 +2479,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2513,7 +2561,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GenerateMipmap,
 			Texture,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
@@ -2548,6 +2596,7 @@ class Texture
 { };
 #else
 typedef Object<TextureOps> Texture;
+OGLPLUS_OBJECT_TYPE_ID(Texture, 3)
 #endif
 
 } // namespace oglplus

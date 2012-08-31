@@ -38,8 +38,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(ShaderType, GLenum)
 #include <oglplus/enums/shader_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(ShaderType value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	ShaderType*,
+	EnumBaseType<ShaderType>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/shader_type.ipp>
@@ -47,6 +52,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Shader operations wrapper helper class
 /**
@@ -135,7 +141,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			CreateShader,
 			Shader,
-			EnumValueNameTpl(ShaderType(result)),
+			EnumValueName(ShaderType(result)),
 			_name
 		));
 		return ShaderType(result);
@@ -238,7 +244,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetShaderiv,
 			Shader,
-			EnumValueNameTpl(Type()),
+			EnumValueName(Type()),
 			_name
 		));
 		return status == GL_TRUE;
@@ -279,7 +285,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CompileShader,
 			Shader,
-			EnumValueNameTpl(Type()),
+			EnumValueName(Type()),
 			_name
 		));
 		if(OGLPLUS_IS_ERROR(!IsCompiled()))
@@ -288,7 +294,7 @@ public:
 				OGLPLUS_OBJECT_ERROR_INFO(
 					CompileShader,
 					Shader,
-					EnumValueNameTpl(Type()),
+					EnumValueName(Type()),
 					_name
 				)
 			);
@@ -327,6 +333,7 @@ public:
 };
 #else
 typedef Object<ShaderOps> Shader;
+OGLPLUS_OBJECT_TYPE_ID(Shader, 11)
 #endif
 
 

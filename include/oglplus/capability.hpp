@@ -33,8 +33,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(Capability, GLenum)
 #include <oglplus/enums/capability.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(Capability value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	Capability*,
+	EnumBaseType<Capability>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/capability.ipp>
@@ -42,6 +47,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Functionality enumeration
 /**
@@ -56,8 +62,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(Functionality, GLenum)
 #include <oglplus/enums/functionality.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(Functionality value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	Functionality*,
+	EnumBaseType<Functionality>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/functionality.ipp>
@@ -65,6 +76,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 } // namespace oglplus
 

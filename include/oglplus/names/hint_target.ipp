@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_LINE_SMOOTH_HINT
 	case GL_LINE_SMOOTH_HINT: return StrLit("LINE_SMOOTH_HINT");

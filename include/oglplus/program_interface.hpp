@@ -31,8 +31,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(ProgramInterface, GLenum)
 #include <oglplus/enums/program_interface.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(ProgramInterface value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	ProgramInterface*,
+	EnumBaseType<ProgramInterface>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/program_interface.ipp>
@@ -40,6 +45,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 } // namespace oglplus
 

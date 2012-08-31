@@ -275,7 +275,7 @@ template <typename Enum> friend bool operator!=(Enum value, _15);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c _1D value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_1D}
@@ -308,7 +308,7 @@ template <typename Enum> friend bool operator!=(Enum value, _1D);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c _1DArray value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_1D_ARRAY}
@@ -374,7 +374,7 @@ template <typename Enum> friend bool operator!=(Enum value, _2);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c _2D value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_2D}
@@ -407,7 +407,7 @@ template <typename Enum> friend bool operator!=(Enum value, _2D);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c _2DArray value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_2D_ARRAY}
@@ -440,7 +440,7 @@ template <typename Enum> friend bool operator!=(Enum value, _2DArray);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c _2DMultisample value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_2D_MULTISAMPLE}
@@ -473,7 +473,7 @@ template <typename Enum> friend bool operator!=(Enum value, _2DMultisample);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c _2DMultisampleArray value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_2D_MULTISAMPLE_ARRAY}
@@ -539,7 +539,7 @@ template <typename Enum> friend bool operator!=(Enum value, _3);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c _3D value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_3D}
@@ -1301,7 +1301,7 @@ template <typename Enum> friend bool operator!=(Enum value, AndReverse);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c AnySamplesPassed value.
 /**
- *  @see @ref oglplus::Query "Query"
+ *  @see @ref oglplus::QueryTarget "QueryTarget"
  *
  *  @glsymbols
  *  @gldefref{ANY_SAMPLES_PASSED}
@@ -1433,7 +1433,7 @@ template <typename Enum> friend bool operator!=(Enum value, ArcTo);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Array value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{ARRAY_BUFFER}
@@ -1466,7 +1466,8 @@ template <typename Enum> friend bool operator!=(Enum value, Array);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c AtomicCounter value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferIndexedTarget "BufferIndexedTarget"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
  *
  *  @glsymbols
@@ -2165,7 +2166,7 @@ template <typename Enum> friend bool operator!=(Enum value, BoundingBoxOfBoundin
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Buffer value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_BUFFER}
@@ -3950,7 +3951,7 @@ template <typename Enum> friend bool operator!=(Enum value, CopyInverted);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CopyRead value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{COPY_READ_BUFFER}
@@ -3983,7 +3984,7 @@ template <typename Enum> friend bool operator!=(Enum value, CopyRead);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CopyWrite value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{COPY_WRITE_BUFFER}
@@ -4082,7 +4083,7 @@ template <typename Enum> friend bool operator!=(Enum value, CountUp);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CubeMap value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_CUBE_MAP}
@@ -4115,7 +4116,7 @@ template <typename Enum> friend bool operator!=(Enum value, CubeMap);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CubeMapArray value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_CUBE_MAP_ARRAY}
@@ -4148,7 +4149,7 @@ template <typename Enum> friend bool operator!=(Enum value, CubeMapArray);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CubeMapNegativeX value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_X}
@@ -4181,7 +4182,7 @@ template <typename Enum> friend bool operator!=(Enum value, CubeMapNegativeX);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CubeMapNegativeY value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Y}
@@ -4214,7 +4215,7 @@ template <typename Enum> friend bool operator!=(Enum value, CubeMapNegativeY);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CubeMapNegativeZ value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
@@ -4247,7 +4248,7 @@ template <typename Enum> friend bool operator!=(Enum value, CubeMapNegativeZ);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CubeMapPositiveX value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_X}
@@ -4280,7 +4281,7 @@ template <typename Enum> friend bool operator!=(Enum value, CubeMapPositiveX);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CubeMapPositiveY value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Y}
@@ -4313,7 +4314,7 @@ template <typename Enum> friend bool operator!=(Enum value, CubeMapPositiveY);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CubeMapPositiveZ value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
@@ -4945,7 +4946,7 @@ template <typename Enum> friend bool operator!=(Enum value, DepthTest);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c DispatchIndirect value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{DISPATCH_INDIRECT_BUFFER}
@@ -5477,7 +5478,7 @@ template <typename Enum> friend bool operator!=(Enum value, DoubleVec4);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Draw value.
 /**
- *  @see @ref oglplus::Framebuffer "Framebuffer"
+ *  @see @ref oglplus::FramebufferTarget "FramebufferTarget"
  *
  *  @glsymbols
  *  @gldefref{DRAW_FRAMEBUFFER}
@@ -5510,7 +5511,7 @@ template <typename Enum> friend bool operator!=(Enum value, Draw);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c DrawIndirect value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{DRAW_INDIRECT_BUFFER}
@@ -5774,7 +5775,7 @@ template <typename Enum> friend bool operator!=(Enum value, DynamicRead);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ElementArray value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
  *
  *  @glsymbols
@@ -5975,7 +5976,7 @@ template <typename Enum> friend bool operator!=(Enum value, Eval);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ExternalVirtualMemory value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD}
@@ -15512,7 +15513,7 @@ template <typename Enum> friend bool operator!=(Enum value, PixelMode);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PixelPack value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{PIXEL_PACK_BUFFER}
@@ -15578,7 +15579,7 @@ template <typename Enum> friend bool operator!=(Enum value, PixelStore);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PixelUnpack value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{PIXEL_UNPACK_BUFFER}
@@ -15982,7 +15983,7 @@ template <typename Enum> friend bool operator!=(Enum value, PrimitiveRestart);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PrimitivesGenerated value.
 /**
- *  @see @ref oglplus::Query "Query"
+ *  @see @ref oglplus::QueryTarget "QueryTarget"
  *
  *  @glsymbols
  *  @gldefref{PRIMITIVES_GENERATED}
@@ -16280,7 +16281,7 @@ template <typename Enum> friend bool operator!=(Enum value, QuadStrip);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Query value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{QUERY_BUFFER_AMD}
@@ -16856,7 +16857,7 @@ template <typename Enum> friend bool operator!=(Enum value, RasterizerDiscard);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Read value.
 /**
- *  @see @ref oglplus::Framebuffer "Framebuffer"
+ *  @see @ref oglplus::FramebufferTarget "FramebufferTarget"
  *
  *  @glsymbols
  *  @gldefref{READ_FRAMEBUFFER}
@@ -16988,7 +16989,7 @@ template <typename Enum> friend bool operator!=(Enum value, Rect);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Rectangle value.
 /**
- *  @see @ref oglplus::Texture "Texture"
+ *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_RECTANGLE}
@@ -17518,7 +17519,7 @@ template <typename Enum> friend bool operator!=(Enum value, RelativeVerticalLine
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Renderbuffer value.
 /**
- *  @see @ref oglplus::Renderbuffer "Renderbuffer"
+ *  @see @ref oglplus::RenderbufferTarget "RenderbufferTarget"
  *
  *  @glsymbols
  *  @gldefref{RENDERBUFFER}
@@ -20356,7 +20357,7 @@ template <typename Enum> friend bool operator!=(Enum value, SampleShading);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c SamplesPassed value.
 /**
- *  @see @ref oglplus::Query "Query"
+ *  @see @ref oglplus::QueryTarget "QueryTarget"
  *
  *  @glsymbols
  *  @gldefref{SAMPLES_PASSED}
@@ -20620,7 +20621,8 @@ template <typename Enum> friend bool operator!=(Enum value, ShaderImageAccess);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ShaderStorage value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferIndexedTarget "BufferIndexedTarget"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
  *
  *  @glsymbols
@@ -22142,7 +22144,7 @@ template <typename Enum> friend bool operator!=(Enum value, Texture);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TextureBuffer value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE_BUFFER}
@@ -22340,7 +22342,7 @@ template <typename Enum> friend bool operator!=(Enum value, ThirdParty);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TimeElapsed value.
 /**
- *  @see @ref oglplus::Query "Query"
+ *  @see @ref oglplus::QueryTarget "QueryTarget"
  *
  *  @glsymbols
  *  @gldefref{TIME_ELAPSED}
@@ -22406,7 +22408,7 @@ template <typename Enum> friend bool operator!=(Enum value, TimeoutExpired);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Timestamp value.
 /**
- *  @see @ref oglplus::Query "Query"
+ *  @see @ref oglplus::QueryTarget "QueryTarget"
  *
  *  @glsymbols
  *  @gldefref{TIMESTAMP}
@@ -22472,9 +22474,10 @@ template <typename Enum> friend bool operator!=(Enum value, Transform);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TransformFeedback value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferIndexedTarget "BufferIndexedTarget"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
- *  @see @ref oglplus::TransformFeedback "TransformFeedback"
+ *  @see @ref oglplus::TransformFeedbackTarget "TransformFeedbackTarget"
  *
  *  @glsymbols
  *  @gldefref{TRANSFORM_FEEDBACK}
@@ -22509,7 +22512,7 @@ template <typename Enum> friend bool operator!=(Enum value, TransformFeedback);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TransformFeedbackPrimitivesWritten value.
 /**
- *  @see @ref oglplus::Query "Query"
+ *  @see @ref oglplus::QueryTarget "QueryTarget"
  *
  *  @glsymbols
  *  @gldefref{TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN}
@@ -23042,7 +23045,8 @@ template <typename Enum> friend bool operator!=(Enum value, UndefinedBehavior);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Uniform value.
 /**
- *  @see @ref oglplus::Buffer "Buffer"
+ *  @see @ref oglplus::BufferIndexedTarget "BufferIndexedTarget"
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
  *  @see @ref oglplus::ProgramInterface "ProgramInterface"
  *

@@ -25,8 +25,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(ColorLogicOperation, GLenum)
 #include <oglplus/enums/color_logic_operation.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(ColorLogicOperation value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	ColorLogicOperation*,
+	EnumBaseType<ColorLogicOperation>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/color_logic_operation.ipp>
@@ -34,6 +39,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Alternate name for the ColorLogicOperation enumeration
 typedef ColorLogicOperation ColorLogicOp;

@@ -21,6 +21,10 @@
 #include <oglplus/compile_error.hpp>
 #include <oglplus/application.hpp>
 
+#if OGLPLUS_LINK_LIBRARY
+# include <oglplus/lib.hpp>
+#endif
+
 #include <stdexcept>
 #include <vector>
 #include <iomanip>

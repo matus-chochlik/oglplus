@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_ACCUM_BUFFER_BIT
 	case GL_ACCUM_BUFFER_BIT: return StrLit("ACCUM_BUFFER_BIT");

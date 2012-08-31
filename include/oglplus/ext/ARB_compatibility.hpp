@@ -35,8 +35,13 @@ OGLPLUS_ENUM_CLASS_END
 /// Shorter name for CompatibilityPrimitiveType
 typedef CompatibilityPrimitiveType CompatPrimType;
 
-inline StrLit EnumValueName(CompatibilityPrimitiveType value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	CompatibilityPrimitiveType*,
+	EnumBaseType<CompatibilityPrimitiveType>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/compat_prim_type.ipp>
@@ -44,6 +49,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Compatibility matrix mode enumeration
 /**
@@ -57,8 +63,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityMatrixMode, GLenum)
 #include <oglplus/enums/ext/compat_matrix_mode.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(CompatibilityMatrixMode value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	CompatibilityMatrixMode*,
+	EnumBaseType<CompatibilityMatrixMode>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/compat_matrix_mode.ipp>
@@ -66,6 +77,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Compatibility server context attribute bits enumeration
 /**
@@ -76,14 +88,19 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{PopAttrib}
  *  @glextref{ARB,compatibility}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityAttributeGroup, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityAttributeGroup, GLbitfield)
 #include <oglplus/enums/ext/compat_attrib_group.ipp>
 OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(CompatibilityAttributeGroup)
 
-inline StrLit EnumValueName(CompatibilityAttributeGroup value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	CompatibilityAttributeGroup*,
+	EnumBaseType<CompatibilityAttributeGroup>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/compat_attrib_group.ipp>
@@ -91,6 +108,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Compatibility client context attribute bits enumeration
 /**
@@ -101,14 +119,19 @@ OGLPLUS_NOEXCEPT(true)
  *  @glfunref{PopClientAttrib}
  *  @glextref{ARB,compatibility}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityClientAttributeGroup, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityClientAttributeGroup, GLbitfield)
 #include <oglplus/enums/ext/compat_client_attrib_group.ipp>
 OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
 
-inline StrLit EnumValueName(CompatibilityClientAttributeGroup value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	CompatibilityClientAttributeGroup*,
+	EnumBaseType<CompatibilityClientAttributeGroup>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/compat_client_attrib_group.ipp>
@@ -116,6 +139,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_compatibility
 /// Wrapper for the ARB_compatibility extension

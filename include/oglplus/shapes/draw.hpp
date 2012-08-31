@@ -86,6 +86,17 @@ public:
 	}
 };
 
+} // namespace shapes
+
+/// Enumeration of drawing methods
+OGLPLUS_ENUM_CLASS_BEGIN(ShapeDrawOperationMethod, GLuint)
+	OGLPLUS_ENUM_CLASS_VALUE(DrawArrays, 0)
+	OGLPLUS_ENUM_CLASS_COMMA
+	OGLPLUS_ENUM_CLASS_VALUE(DrawElements, 1)
+	// TODO
+OGLPLUS_ENUM_CLASS_END
+
+namespace shapes {
 
 /// Structure containing information about how to draw a part of a shape
 /**
@@ -95,12 +106,7 @@ public:
 struct DrawOperation
 {
 	/// Enumeration of drawing methods
-	OGLPLUS_ENUM_CLASS_BEGIN(Method, GLuint)
-		OGLPLUS_ENUM_CLASS_VALUE(DrawArrays, 0)
-		OGLPLUS_ENUM_CLASS_COMMA
-		OGLPLUS_ENUM_CLASS_VALUE(DrawElements, 1)
-		// TODO
-	OGLPLUS_ENUM_CLASS_END
+	typedef oglplus::ShapeDrawOperationMethod Method;
 
 	/// The method to be used to draw
 	Method method;

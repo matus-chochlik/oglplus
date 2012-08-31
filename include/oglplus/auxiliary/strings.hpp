@@ -14,6 +14,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/fwd.hpp>
 
 #if OGLPLUS_NO_OBJECT_DESCS == 0
 #include <cassert>
@@ -101,6 +102,28 @@ public:
 
 namespace aux {
 
+#if !OGLPLUS_NO_OBJECT_DESCS
+OGLPLUS_LIB_FUNC ::std::map<GLuint, String>& ObjectDescRegistryStorage(int id)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
+{
+	static ::std::map<int, ::std::map<GLuint, String> > _maps;
+	return _maps[id];
+}
+#endif
+
+OGLPLUS_LIB_FUNC ::std::map<GLuint, String>& ObjectDescRegistryArchive(int id)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
+{
+	static ::std::map<int, ::std::map<GLuint, String> > _maps;
+	return _maps[id];
+}
+#endif
+#endif
+
 template <class ObjectOps>
 class ObjectDescRegistry
 {
@@ -109,14 +132,12 @@ private:
 	typedef ::std::map<GLuint, String> _desc_map;
 	static _desc_map& _storage(void)
 	{
-		static _desc_map _store;
-		return _store;
+		return ObjectDescRegistryStorage(ObjectTypeId<ObjectOps>());
 	}
 
 	static _desc_map& _archive(void)
 	{
-		static _desc_map _ar;
-		return _ar;
+		return ObjectDescRegistryArchive(ObjectTypeId<ObjectOps>());
 	}
 #endif
 protected:

@@ -35,8 +35,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(PerfMonitorAMDType, GLenum)
 #include <oglplus/enums/ext/amd_perf_monitor_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(PerfMonitorAMDType value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	PerfMonitorAMDType*,
+	EnumBaseType<PerfMonitorAMDType>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/ext/amd_perf_monitor_type.ipp>
@@ -44,6 +49,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 class PerfMonitorAMDGroup;
 class PerfMonitorAMDOps;
@@ -457,6 +463,7 @@ class PerfMonitorAMD
 { };
 #else
 typedef Object<PerfMonitorAMDOps> PerfMonitorAMD;
+OGLPLUS_OBJECT_TYPE_ID(PerfMonitorAMD, 12)
 #endif
 
 /// Wrapper for the AMD_performance_monitor extension

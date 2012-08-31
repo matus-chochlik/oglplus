@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_SKIP_MISSING_GLYPH_NV
 	case GL_SKIP_MISSING_GLYPH_NV: return StrLit("SKIP_MISSING_GLYPH_NV");

@@ -324,6 +324,7 @@ class Sampler
 { };
 #else
 typedef Object<SamplerOps> Sampler;
+OGLPLUS_OBJECT_TYPE_ID(Sampler, 9)
 #endif
 
 #endif // sampler object

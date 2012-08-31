@@ -28,8 +28,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(CompareFunction value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	CompareFunction*,
+	EnumBaseType<CompareFunction>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/compare_function.ipp>
@@ -37,6 +42,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Alternate name for the CompareFunction enumeration
 typedef CompareFunction CompareFn;

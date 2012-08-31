@@ -19,6 +19,10 @@
 #include <oglplus/error.hpp>
 #include <oglplus/compile_error.hpp>
 
+#if OGLPLUS_LINK_LIBRARY
+# include <oglplus/lib.hpp>
+#endif
+
 #include <oglplus/query.hpp>
 
 #include <oglplus/os/steady_clock.hpp>

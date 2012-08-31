@@ -38,8 +38,13 @@ OGLPLUS_ENUM_CLASS_END
 
 OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
 
-inline StrLit EnumValueName(ProgramPipelineStage value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	ProgramPipelineStage*,
+	EnumBaseType<ProgramPipelineStage>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/program_pipeline_stage.ipp>
@@ -47,6 +52,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// ProgramPipeline operations wrapper class
 /** This class implements OpenGL program pipeline operations.
@@ -338,6 +344,7 @@ class ProgramPipeline
 { };
 #else
 typedef Object<ProgramPipelineOps> ProgramPipeline;
+OGLPLUS_OBJECT_TYPE_ID(ProgramPipeline, 6)
 #endif
 
 #endif // program pipeline

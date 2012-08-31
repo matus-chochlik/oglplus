@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,8 +25,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(BlendFunction, GLenum)
 #include <oglplus/enums/blend_function.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(BlendFunction value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	BlendFunction*,
+	EnumBaseType<BlendFunction>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/blend_function.ipp>
@@ -34,6 +39,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Alternative name for the BlendFunction enumeration
 typedef BlendFunction BlendFn;
@@ -49,8 +55,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(BlendEquation, GLenum)
 #include <oglplus/enums/blend_equation.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(BlendEquation value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	BlendEquation*,
+	EnumBaseType<BlendEquation>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/blend_equation.ipp>
@@ -58,6 +69,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Alternative name for the BlendEquation enumeration
 typedef BlendEquation BlendEq;

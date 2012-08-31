@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-switch(GLenum(value))
+switch(value)
 {
 #if defined GL_FRAMEBUFFER_COMPLETE
 	case GL_FRAMEBUFFER_COMPLETE: return StrLit("FRAMEBUFFER_COMPLETE");

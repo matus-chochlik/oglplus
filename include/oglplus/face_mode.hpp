@@ -28,8 +28,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(Face, GLenum)
 #include <oglplus/enums/face.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(Face value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	Face*,
+	EnumBaseType<Face>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/face.ipp>
@@ -37,6 +42,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Face orientation enumeration
 /**
@@ -49,8 +55,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(FaceOrientation, GLenum)
 #include <oglplus/enums/face_orientation.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(FaceOrientation value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	FaceOrientation*,
+	EnumBaseType<FaceOrientation>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/face_orientation.ipp>
@@ -58,6 +69,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Inverts the face orientation (CW to CCW and CCW to CW)
 /**

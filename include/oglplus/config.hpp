@@ -243,6 +243,35 @@
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch enabling linking of some parts of OGLplus from a library.
+/** Certain parts of OGLplus (mostly complicated functions and functions where
+ *  static variables are used) can be built into a separate library that can
+ *  be then linked to applications. If the @c OGLPLUS_LINK_LIBRARY is set to
+ *  zero, then everything is inlined. If it is set to a nonzero integer value,
+ *  then some functions are just declared and must be built separatelly and
+ *  linked to the final executable.
+ *
+ *  The @c oglplus/lib.hpp file can be included when building the library
+ *  or the final executable to include the implementations of all such functions.
+ *
+ *  By default this option is set to 0.
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_LINK_LIBRARY
+#else
+# ifndef OGLPLUS_LINK_LIBRARY
+#  define OGLPLUS_LINK_LIBRARY 0
+# endif
+#endif
+
+#if OGLPLUS_LINK_LIBRARY
+# define OGLPLUS_LIB_FUNC
+#else
+# define OGLPLUS_LIB_FUNC inline
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time switch disabling the testing of object type on construction
 /** Setting this preprocessor option to a non-zero integer value
  *  disables the additional checking of the type of object
@@ -272,6 +301,15 @@
  *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
  *  i.e. objects descriptions are enabled, when not in low-profile mode
  *  and disabled otherwise.
+ *
+ *  @note Object descriptions use statically initialized data which
+ *  may cause problems if the final executable is built together from
+ *  several different object files. Because of this, if object descriptions
+ *  are enabled it is recommended that OGLplus applications are built with
+ *  #OGLPLUS_LINK_LIBRARY set to non-zero or are built as a single translation
+ *  unit.
+ *
+ *  @see OGLPLUS_LINK_LIBRARY
  *
  *  @ingroup compile_time_config
  */

@@ -33,8 +33,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(DataType, GLenum)
 #include <oglplus/enums/data_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(DataType value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	DataType*,
+	EnumBaseType<DataType>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/data_type.ipp>
@@ -42,6 +47,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 inline DataType GetDataType(GLbyte*)
 {
@@ -99,8 +105,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(SLDataType, GLenum)
 #include <oglplus/enums/sl_data_type.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(SLDataType value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	SLDataType*,
+	EnumBaseType<SLDataType>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/sl_data_type.ipp>
@@ -108,6 +119,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 } // namespace oglplus
 

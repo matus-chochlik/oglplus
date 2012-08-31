@@ -13,7 +13,11 @@
 #define OGLPLUS_STRING_1107121519_HPP
 
 #include <oglplus/config.hpp>
+
+#if !OGLPLUS_LINK_LIBRARY
 #include <oglplus/auxiliary/utf8.hpp>
+#endif
+
 #include <string>
 #include <cassert>
 
@@ -28,6 +32,15 @@ namespace oglplus {
  *  Classes, types and functions in this group are related to text string
  *  and/or string literal handling.
  */
+
+OGLPLUS_LIB_FUNC bool ValidString(const GLchar* begin, const GLchar* end)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
+{
+	return aux::ValidUTF8(begin, end);
+}
+#endif
 
 /// String class
 /**
@@ -110,7 +123,7 @@ private:
 
 	void _check(void) const
 	{
-		assert(aux::ValidUTF8(begin(), end()));
+		assert(ValidString(begin(), end()));
 	}
 public:
 	/// Default constructor

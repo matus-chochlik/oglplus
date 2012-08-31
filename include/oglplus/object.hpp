@@ -24,7 +24,7 @@ namespace oglplus {
 /** @defgroup objects OGLplus objects
  *
  *  An @ref oglplus_object is a class wrapping around OpenGL objects
- *  like shaders, programs, textures, etc. Its using the RAII technique
+ *  like shaders, programs, textures, etc. It is using the RAII technique
  *  to provide automated resource management for these OpenGL resources.
  *  They also wrap operations related to these objects and provide
  *  additional type safety and more robust error handling. Look
@@ -171,6 +171,27 @@ public:
 		MultiObject
 	> IsMultiObject;
 };
+
+template <typename Id>
+struct ObjectTypeById;
+
+template <typename ObjectOps>
+struct ObjectTypeId;
+
+template <typename Object>
+OGLPLUS_CONSTEXPR inline int GetObjectTypeId(const Object&)
+{
+	return ObjectTypeId<
+		typename ObjectBaseOps<Object>::Type
+	>::value;
+}
+
+#define OGLPLUS_OBJECT_TYPE_ID(OBJECT, ID) \
+template <> struct ObjectTypeId<OBJECT##Ops> \
+ : public std::integral_constant<int, ID> { }; \
+template <> struct ObjectTypeById<std::integral_constant<int, ID> > \
+{ typedef OBJECT##Ops Type; };
+
 
 // Helper base class for OpenGL object wrappers
 /*

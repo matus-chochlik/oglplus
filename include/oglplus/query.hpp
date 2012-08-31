@@ -30,8 +30,13 @@ OGLPLUS_ENUM_CLASS_BEGIN(QueryTarget, GLenum)
 #include <oglplus/enums/query_target.ipp>
 OGLPLUS_ENUM_CLASS_END
 
-inline StrLit EnumValueName(QueryTarget value)
-OGLPLUS_NOEXCEPT(true)
+OGLPLUS_LIB_FUNC StrLit EnumValueName(
+	QueryTarget*,
+	EnumBaseType<QueryTarget>::Type value
+) OGLPLUS_NOEXCEPT(true)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/names/query_target.ipp>
@@ -39,6 +44,7 @@ OGLPLUS_NOEXCEPT(true)
 	OGLPLUS_FAKE_USE(value);
 	return StrLit();
 }
+#endif
 
 /// Wrapper for asynchronous query functions
 /** @note Do not use this class directly, use Query instead.
@@ -101,7 +107,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BeginQuery,
 			Query,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			_name
 		));
 	}
@@ -118,7 +124,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			EndQuery,
 			Query,
-			EnumValueNameTpl(target),
+			EnumValueName(target),
 			_name
 		));
 	}
@@ -327,6 +333,7 @@ class Query
 { };
 #else
 typedef Object<QueryOps> Query;
+OGLPLUS_OBJECT_TYPE_ID(Query, 5)
 #endif
 
 } // namespace oglplus
