@@ -50,14 +50,19 @@
 	</xsl:template>
 
 	<xsl:template name="GenerateFunction">
+		<xsl:variable name="DetailedDescription">
+			<xsl:for-each select="detaileddescription/descendant-or-self::node()">
+				<xsl:value-of select="text()"/><xsl:text> </xsl:text>
+			</xsl:for-each>
+		</xsl:variable>
 		<xsl:variable name="RequiredGLVersion">
 			<xsl:if test="contains(
-				detaileddescription/descendant-or-self::text(),
+				$DetailedDescription,
 				'_oglplus_req_gl_ver('
 			)">
 				<xsl:value-of select="substring-before(
 					substring-after(
-						detaileddescription/descendant-or-self::text(),
+						$DetailedDescription,
 						'_oglplus_req_gl_ver('
 					), ')'
 				)"/>
@@ -65,12 +70,12 @@
 		</xsl:variable>
 		<xsl:variable name="RequiredGLExtension">
 			<xsl:if test="contains(
-				detaileddescription/descendant-or-self::text(),
+				$DetailedDescription,
 				'_oglplus_req_gl_ext('
 			)">
 				<xsl:value-of select="substring-before(
 					substring-after(
-						detaileddescription/descendant-or-self::text(),
+						$DetailedDescription,
 						'_oglplus_req_gl_ext('
 					), ')'
 				)"/>

@@ -40,6 +40,19 @@ public:
 		return result;
 	}
 
+	/// Gets the implementation-dependent indexed limit value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 */
+	static GLint IntLimit(LimitQuery query, GLuint index)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegeri_v)(GLenum(query), index, &result);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+		return result;
+	}
+
 	/// Gets the implementation-dependent limit value
 	/**
 	 *  @glsymbols
@@ -53,16 +66,27 @@ public:
 		return result;
 	}
 
-	/// Raises a LimitError if @p value is greater than the specified @p limit
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
+	/// Gets the implementation-dependent indexed limit value
 	/**
 	 *  @glsymbols
 	 *  @glfunref{Get}
-	 *
-	 *  @throws LimitError
 	 */
-	static void RequireAtLeast(LimitQuery limit, GLint value)
+	static GLfloat FloatLimit(LimitQuery query, GLuint index)
 	{
-		GLint max_limit = IntLimit(limit);
+		GLfloat result = 0;
+		OGLPLUS_GLFUNC(GetFloati_v)(GLenum(query), index, &result);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloati_v));
+		return result;
+	}
+#endif
+
+	static void ThrowIfOverLimit(
+		LimitQuery limit,
+		GLint value,
+		GLint max_limit
+	)
+	{
 		if(value > max_limit)
 		{
 			HandleLimitError<LimitError>(
@@ -73,6 +97,30 @@ public:
 				)
 			);
 		}
+	}
+
+	/// Raises a LimitError if @p value is greater than the specified @p limit
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *
+	 *  @throws LimitError
+	 */
+	static void RequireAtLeast(LimitQuery limit, GLint value)
+	{
+		ThrowIfOverLimit(limit, value, IntLimit(limit));
+	}
+
+	/// Raises a LimitError if @p value is greater than the specified @p limit
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *
+	 *  @throws LimitError
+	 */
+	static void RequireAtLeast(LimitQuery limit, GLuint index, GLint value)
+	{
+		ThrowIfOverLimit(limit, value, IntLimit(limit, index));
 	}
 };
 

@@ -22,6 +22,7 @@
 #include <oglplus/context/clear_buffers.hpp>
 #include <oglplus/context/rasterization.hpp>
 #include <oglplus/context/drawing.hpp>
+#include <oglplus/context/computing.hpp>
 #include <oglplus/context/depth_test.hpp>
 #include <oglplus/context/stencil_test.hpp>
 #include <oglplus/context/blending.hpp>
@@ -63,6 +64,7 @@ class Context
  , public context::ClearBuffers
  , public context::Rasterization
  , public context::Drawing
+ , public context::Computing
  , public context::DepthTest
  , public context::StencilTest
  , public context::ScissorTest

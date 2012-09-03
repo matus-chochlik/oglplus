@@ -3288,6 +3288,72 @@ template <typename Enum> friend bool operator==(Enum value, Complete);
 template <typename Enum> friend bool operator!=(Enum value, Complete);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedETC2EAC value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_RGBA8_ETC2_EAC}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedETC2EAC {
+
+/// Conversion to any @p Enum type having the CompressedETC2EAC value.
+/** Instances of the @ref oglplus::smart_enums::CompressedETC2EAC "CompressedETC2EAC"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedETC2EAC value.
+ */
+template <typename Enum, Enum = Enum::CompressedETC2EAC> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedETC2EAC value.
+/** Instances of the @c smart_enums::CompressedETC2EAC type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedETC2EAC value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedETC2EAC);
+
+/// Non-equality comparison with any @p Enum type having the CompressedETC2EAC value.
+/** Instances of the @c smart_enums::CompressedETC2EAC type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedETC2EAC value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedETC2EAC);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedR11EAC value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_R11_EAC}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedR11EAC {
+
+/// Conversion to any @p Enum type having the CompressedR11EAC value.
+/** Instances of the @ref oglplus::smart_enums::CompressedR11EAC "CompressedR11EAC"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedR11EAC value.
+ */
+template <typename Enum, Enum = Enum::CompressedR11EAC> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedR11EAC value.
+/** Instances of the @c smart_enums::CompressedR11EAC type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedR11EAC value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedR11EAC);
+
+/// Non-equality comparison with any @p Enum type having the CompressedR11EAC value.
+/** Instances of the @c smart_enums::CompressedR11EAC type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedR11EAC value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedR11EAC);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRed value.
 /**
  *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
@@ -3387,6 +3453,39 @@ template <typename Enum> friend bool operator==(Enum value, CompressedRG);
 template <typename Enum> friend bool operator!=(Enum value, CompressedRG);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRG11EAC value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_RG11_EAC}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedRG11EAC {
+
+/// Conversion to any @p Enum type having the CompressedRG11EAC value.
+/** Instances of the @ref oglplus::smart_enums::CompressedRG11EAC "CompressedRG11EAC"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedRG11EAC value.
+ */
+template <typename Enum, Enum = Enum::CompressedRG11EAC> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedRG11EAC value.
+/** Instances of the @c smart_enums::CompressedRG11EAC type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedRG11EAC value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedRG11EAC);
+
+/// Non-equality comparison with any @p Enum type having the CompressedRG11EAC value.
+/** Instances of the @c smart_enums::CompressedRG11EAC type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedRG11EAC value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedRG11EAC);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRGB value.
 /**
  *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
@@ -3418,6 +3517,72 @@ template <typename Enum> friend bool operator==(Enum value, CompressedRGB);
  *  the @c CompressedRGB value.
  */
 template <typename Enum> friend bool operator!=(Enum value, CompressedRGB);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRGB8ETC2 value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_RGB8_ETC2}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedRGB8ETC2 {
+
+/// Conversion to any @p Enum type having the CompressedRGB8ETC2 value.
+/** Instances of the @ref oglplus::smart_enums::CompressedRGB8ETC2 "CompressedRGB8ETC2"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedRGB8ETC2 value.
+ */
+template <typename Enum, Enum = Enum::CompressedRGB8ETC2> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedRGB8ETC2 value.
+/** Instances of the @c smart_enums::CompressedRGB8ETC2 type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedRGB8ETC2 value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedRGB8ETC2);
+
+/// Non-equality comparison with any @p Enum type having the CompressedRGB8ETC2 value.
+/** Instances of the @c smart_enums::CompressedRGB8ETC2 type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedRGB8ETC2 value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedRGB8ETC2);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRGB8PunchthroughAlpha1ETC2 value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedRGB8PunchthroughAlpha1ETC2 {
+
+/// Conversion to any @p Enum type having the CompressedRGB8PunchthroughAlpha1ETC2 value.
+/** Instances of the @ref oglplus::smart_enums::CompressedRGB8PunchthroughAlpha1ETC2 "CompressedRGB8PunchthroughAlpha1ETC2"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedRGB8PunchthroughAlpha1ETC2 value.
+ */
+template <typename Enum, Enum = Enum::CompressedRGB8PunchthroughAlpha1ETC2> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedRGB8PunchthroughAlpha1ETC2 value.
+/** Instances of the @c smart_enums::CompressedRGB8PunchthroughAlpha1ETC2 type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedRGB8PunchthroughAlpha1ETC2 value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedRGB8PunchthroughAlpha1ETC2);
+
+/// Non-equality comparison with any @p Enum type having the CompressedRGB8PunchthroughAlpha1ETC2 value.
+/** Instances of the @c smart_enums::CompressedRGB8PunchthroughAlpha1ETC2 type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedRGB8PunchthroughAlpha1ETC2 value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedRGB8PunchthroughAlpha1ETC2);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRGBA value.
@@ -3453,6 +3618,105 @@ template <typename Enum> friend bool operator==(Enum value, CompressedRGBA);
 template <typename Enum> friend bool operator!=(Enum value, CompressedRGBA);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRGBABPTCUNorm value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_RGBA_BPTC_UNORM}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedRGBABPTCUNorm {
+
+/// Conversion to any @p Enum type having the CompressedRGBABPTCUNorm value.
+/** Instances of the @ref oglplus::smart_enums::CompressedRGBABPTCUNorm "CompressedRGBABPTCUNorm"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedRGBABPTCUNorm value.
+ */
+template <typename Enum, Enum = Enum::CompressedRGBABPTCUNorm> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedRGBABPTCUNorm value.
+/** Instances of the @c smart_enums::CompressedRGBABPTCUNorm type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedRGBABPTCUNorm value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedRGBABPTCUNorm);
+
+/// Non-equality comparison with any @p Enum type having the CompressedRGBABPTCUNorm value.
+/** Instances of the @c smart_enums::CompressedRGBABPTCUNorm type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedRGBABPTCUNorm value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedRGBABPTCUNorm);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRGBBPTCSignedFloat value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_RGB_BPTC_SIGNED_FLOAT}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedRGBBPTCSignedFloat {
+
+/// Conversion to any @p Enum type having the CompressedRGBBPTCSignedFloat value.
+/** Instances of the @ref oglplus::smart_enums::CompressedRGBBPTCSignedFloat "CompressedRGBBPTCSignedFloat"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedRGBBPTCSignedFloat value.
+ */
+template <typename Enum, Enum = Enum::CompressedRGBBPTCSignedFloat> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedRGBBPTCSignedFloat value.
+/** Instances of the @c smart_enums::CompressedRGBBPTCSignedFloat type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedRGBBPTCSignedFloat value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedRGBBPTCSignedFloat);
+
+/// Non-equality comparison with any @p Enum type having the CompressedRGBBPTCSignedFloat value.
+/** Instances of the @c smart_enums::CompressedRGBBPTCSignedFloat type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedRGBBPTCSignedFloat value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedRGBBPTCSignedFloat);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRGBBPTCUnsignedFloat value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedRGBBPTCUnsignedFloat {
+
+/// Conversion to any @p Enum type having the CompressedRGBBPTCUnsignedFloat value.
+/** Instances of the @ref oglplus::smart_enums::CompressedRGBBPTCUnsignedFloat "CompressedRGBBPTCUnsignedFloat"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedRGBBPTCUnsignedFloat value.
+ */
+template <typename Enum, Enum = Enum::CompressedRGBBPTCUnsignedFloat> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedRGBBPTCUnsignedFloat value.
+/** Instances of the @c smart_enums::CompressedRGBBPTCUnsignedFloat type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedRGBBPTCUnsignedFloat value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedRGBBPTCUnsignedFloat);
+
+/// Non-equality comparison with any @p Enum type having the CompressedRGBBPTCUnsignedFloat value.
+/** Instances of the @c smart_enums::CompressedRGBBPTCUnsignedFloat type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedRGBBPTCUnsignedFloat value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedRGBBPTCUnsignedFloat);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedRGRGTC2 value.
 /**
  *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
@@ -3486,6 +3750,39 @@ template <typename Enum> friend bool operator==(Enum value, CompressedRGRGTC2);
 template <typename Enum> friend bool operator!=(Enum value, CompressedRGRGTC2);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSignedR11EAC value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_SIGNED_R11_EAC}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedSignedR11EAC {
+
+/// Conversion to any @p Enum type having the CompressedSignedR11EAC value.
+/** Instances of the @ref oglplus::smart_enums::CompressedSignedR11EAC "CompressedSignedR11EAC"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedSignedR11EAC value.
+ */
+template <typename Enum, Enum = Enum::CompressedSignedR11EAC> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedSignedR11EAC value.
+/** Instances of the @c smart_enums::CompressedSignedR11EAC type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedSignedR11EAC value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedSignedR11EAC);
+
+/// Non-equality comparison with any @p Enum type having the CompressedSignedR11EAC value.
+/** Instances of the @c smart_enums::CompressedSignedR11EAC type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedSignedR11EAC value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedSignedR11EAC);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSignedRedRGTC1 value.
 /**
  *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
@@ -3517,6 +3814,39 @@ template <typename Enum> friend bool operator==(Enum value, CompressedSignedRedR
  *  the @c CompressedSignedRedRGTC1 value.
  */
 template <typename Enum> friend bool operator!=(Enum value, CompressedSignedRedRGTC1);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSignedRG11EAC value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_SIGNED_RG11_EAC}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedSignedRG11EAC {
+
+/// Conversion to any @p Enum type having the CompressedSignedRG11EAC value.
+/** Instances of the @ref oglplus::smart_enums::CompressedSignedRG11EAC "CompressedSignedRG11EAC"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedSignedRG11EAC value.
+ */
+template <typename Enum, Enum = Enum::CompressedSignedRG11EAC> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedSignedRG11EAC value.
+/** Instances of the @c smart_enums::CompressedSignedRG11EAC type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedSignedRG11EAC value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedSignedRG11EAC);
+
+/// Non-equality comparison with any @p Enum type having the CompressedSignedRG11EAC value.
+/** Instances of the @c smart_enums::CompressedSignedRG11EAC type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedSignedRG11EAC value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedSignedRG11EAC);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSignedRGRGTC2 value.
@@ -3585,6 +3915,105 @@ template <typename Enum> friend bool operator==(Enum value, CompressedSRGB);
 template <typename Enum> friend bool operator!=(Enum value, CompressedSRGB);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSRGB8Alpha8ETC2EAC value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_SRGB8_ALPHA8_ETC2_EAC}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedSRGB8Alpha8ETC2EAC {
+
+/// Conversion to any @p Enum type having the CompressedSRGB8Alpha8ETC2EAC value.
+/** Instances of the @ref oglplus::smart_enums::CompressedSRGB8Alpha8ETC2EAC "CompressedSRGB8Alpha8ETC2EAC"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedSRGB8Alpha8ETC2EAC value.
+ */
+template <typename Enum, Enum = Enum::CompressedSRGB8Alpha8ETC2EAC> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedSRGB8Alpha8ETC2EAC value.
+/** Instances of the @c smart_enums::CompressedSRGB8Alpha8ETC2EAC type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedSRGB8Alpha8ETC2EAC value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedSRGB8Alpha8ETC2EAC);
+
+/// Non-equality comparison with any @p Enum type having the CompressedSRGB8Alpha8ETC2EAC value.
+/** Instances of the @c smart_enums::CompressedSRGB8Alpha8ETC2EAC type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedSRGB8Alpha8ETC2EAC value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedSRGB8Alpha8ETC2EAC);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSRGB8ETC2 value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_SRGB8_ETC2}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedSRGB8ETC2 {
+
+/// Conversion to any @p Enum type having the CompressedSRGB8ETC2 value.
+/** Instances of the @ref oglplus::smart_enums::CompressedSRGB8ETC2 "CompressedSRGB8ETC2"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedSRGB8ETC2 value.
+ */
+template <typename Enum, Enum = Enum::CompressedSRGB8ETC2> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedSRGB8ETC2 value.
+/** Instances of the @c smart_enums::CompressedSRGB8ETC2 type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedSRGB8ETC2 value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedSRGB8ETC2);
+
+/// Non-equality comparison with any @p Enum type having the CompressedSRGB8ETC2 value.
+/** Instances of the @c smart_enums::CompressedSRGB8ETC2 type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedSRGB8ETC2 value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedSRGB8ETC2);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSRGB8PunchthroughAlpha1ETC2 value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedSRGB8PunchthroughAlpha1ETC2 {
+
+/// Conversion to any @p Enum type having the CompressedSRGB8PunchthroughAlpha1ETC2 value.
+/** Instances of the @ref oglplus::smart_enums::CompressedSRGB8PunchthroughAlpha1ETC2 "CompressedSRGB8PunchthroughAlpha1ETC2"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedSRGB8PunchthroughAlpha1ETC2 value.
+ */
+template <typename Enum, Enum = Enum::CompressedSRGB8PunchthroughAlpha1ETC2> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedSRGB8PunchthroughAlpha1ETC2 value.
+/** Instances of the @c smart_enums::CompressedSRGB8PunchthroughAlpha1ETC2 type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedSRGB8PunchthroughAlpha1ETC2 value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedSRGB8PunchthroughAlpha1ETC2);
+
+/// Non-equality comparison with any @p Enum type having the CompressedSRGB8PunchthroughAlpha1ETC2 value.
+/** Instances of the @c smart_enums::CompressedSRGB8PunchthroughAlpha1ETC2 type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedSRGB8PunchthroughAlpha1ETC2 value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedSRGB8PunchthroughAlpha1ETC2);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSRGBAlpha value.
 /**
  *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
@@ -3616,6 +4045,39 @@ template <typename Enum> friend bool operator==(Enum value, CompressedSRGBAlpha)
  *  the @c CompressedSRGBAlpha value.
  */
 template <typename Enum> friend bool operator!=(Enum value, CompressedSRGBAlpha);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompressedSRGBAlphaBPTCUNorm value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPRESSED_SRGB_ALPHA_BPTC_UNORM}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompressedSRGBAlphaBPTCUNorm {
+
+/// Conversion to any @p Enum type having the CompressedSRGBAlphaBPTCUNorm value.
+/** Instances of the @ref oglplus::smart_enums::CompressedSRGBAlphaBPTCUNorm "CompressedSRGBAlphaBPTCUNorm"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompressedSRGBAlphaBPTCUNorm value.
+ */
+template <typename Enum, Enum = Enum::CompressedSRGBAlphaBPTCUNorm> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompressedSRGBAlphaBPTCUNorm value.
+/** Instances of the @c smart_enums::CompressedSRGBAlphaBPTCUNorm type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompressedSRGBAlphaBPTCUNorm value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompressedSRGBAlphaBPTCUNorm);
+
+/// Non-equality comparison with any @p Enum type having the CompressedSRGBAlphaBPTCUNorm value.
+/** Instances of the @c smart_enums::CompressedSRGBAlphaBPTCUNorm type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompressedSRGBAlphaBPTCUNorm value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompressedSRGBAlphaBPTCUNorm);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Compute value.
@@ -10877,6 +11339,138 @@ template <typename Enum> friend bool operator==(Enum value, MaxCombinedVertexUni
  *  the @c MaxCombinedVertexUniformComponents value.
  */
 template <typename Enum> friend bool operator!=(Enum value, MaxCombinedVertexUniformComponents);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MaxComputeSharedMemorySize value.
+/**
+ *  @see @ref oglplus::LimitQuery "LimitQuery"
+ *
+ *  @glsymbols
+ *  @gldefref{MAX_COMPUTE_SHARED_MEMORY_SIZE}
+ *
+ *  @ingroup smart_enums
+ */
+struct MaxComputeSharedMemorySize {
+
+/// Conversion to any @p Enum type having the MaxComputeSharedMemorySize value.
+/** Instances of the @ref oglplus::smart_enums::MaxComputeSharedMemorySize "MaxComputeSharedMemorySize"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MaxComputeSharedMemorySize value.
+ */
+template <typename Enum, Enum = Enum::MaxComputeSharedMemorySize> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MaxComputeSharedMemorySize value.
+/** Instances of the @c smart_enums::MaxComputeSharedMemorySize type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MaxComputeSharedMemorySize value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MaxComputeSharedMemorySize);
+
+/// Non-equality comparison with any @p Enum type having the MaxComputeSharedMemorySize value.
+/** Instances of the @c smart_enums::MaxComputeSharedMemorySize type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MaxComputeSharedMemorySize value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MaxComputeSharedMemorySize);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MaxComputeWorkGroupCount value.
+/**
+ *  @see @ref oglplus::LimitQuery "LimitQuery"
+ *
+ *  @glsymbols
+ *  @gldefref{MAX_COMPUTE_WORK_GROUP_COUNT}
+ *
+ *  @ingroup smart_enums
+ */
+struct MaxComputeWorkGroupCount {
+
+/// Conversion to any @p Enum type having the MaxComputeWorkGroupCount value.
+/** Instances of the @ref oglplus::smart_enums::MaxComputeWorkGroupCount "MaxComputeWorkGroupCount"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupCount value.
+ */
+template <typename Enum, Enum = Enum::MaxComputeWorkGroupCount> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MaxComputeWorkGroupCount value.
+/** Instances of the @c smart_enums::MaxComputeWorkGroupCount type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupCount value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MaxComputeWorkGroupCount);
+
+/// Non-equality comparison with any @p Enum type having the MaxComputeWorkGroupCount value.
+/** Instances of the @c smart_enums::MaxComputeWorkGroupCount type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupCount value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MaxComputeWorkGroupCount);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MaxComputeWorkGroupInvocations value.
+/**
+ *  @see @ref oglplus::LimitQuery "LimitQuery"
+ *
+ *  @glsymbols
+ *  @gldefref{MAX_COMPUTE_WORK_GROUP_INVOCATIONS}
+ *
+ *  @ingroup smart_enums
+ */
+struct MaxComputeWorkGroupInvocations {
+
+/// Conversion to any @p Enum type having the MaxComputeWorkGroupInvocations value.
+/** Instances of the @ref oglplus::smart_enums::MaxComputeWorkGroupInvocations "MaxComputeWorkGroupInvocations"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupInvocations value.
+ */
+template <typename Enum, Enum = Enum::MaxComputeWorkGroupInvocations> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MaxComputeWorkGroupInvocations value.
+/** Instances of the @c smart_enums::MaxComputeWorkGroupInvocations type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupInvocations value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MaxComputeWorkGroupInvocations);
+
+/// Non-equality comparison with any @p Enum type having the MaxComputeWorkGroupInvocations value.
+/** Instances of the @c smart_enums::MaxComputeWorkGroupInvocations type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupInvocations value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MaxComputeWorkGroupInvocations);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MaxComputeWorkGroupSize value.
+/**
+ *  @see @ref oglplus::LimitQuery "LimitQuery"
+ *
+ *  @glsymbols
+ *  @gldefref{MAX_COMPUTE_WORK_GROUP_SIZE}
+ *
+ *  @ingroup smart_enums
+ */
+struct MaxComputeWorkGroupSize {
+
+/// Conversion to any @p Enum type having the MaxComputeWorkGroupSize value.
+/** Instances of the @ref oglplus::smart_enums::MaxComputeWorkGroupSize "MaxComputeWorkGroupSize"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupSize value.
+ */
+template <typename Enum, Enum = Enum::MaxComputeWorkGroupSize> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MaxComputeWorkGroupSize value.
+/** Instances of the @c smart_enums::MaxComputeWorkGroupSize type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupSize value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MaxComputeWorkGroupSize);
+
+/// Non-equality comparison with any @p Enum type having the MaxComputeWorkGroupSize value.
+/** Instances of the @c smart_enums::MaxComputeWorkGroupSize type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MaxComputeWorkGroupSize value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MaxComputeWorkGroupSize);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MaxCubeMapTextureSize value.

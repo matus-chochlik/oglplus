@@ -999,6 +999,46 @@
    OGLPLUS_ENUM_CLASS_VALUE(MaxViewports, GL_MAX_VIEWPORTS)
 # endif
 #endif
+#if defined GL_MAX_COMPUTE_WORK_GROUP_COUNT
+# if defined MaxComputeWorkGroupCount
+#  pragma push_macro("MaxComputeWorkGroupCount")
+#  undef MaxComputeWorkGroupCount
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeWorkGroupCount, GL_MAX_COMPUTE_WORK_GROUP_COUNT)
+#  pragma pop_macro("MaxComputeWorkGroupCount")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeWorkGroupCount, GL_MAX_COMPUTE_WORK_GROUP_COUNT)
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_WORK_GROUP_SIZE
+# if defined MaxComputeWorkGroupSize
+#  pragma push_macro("MaxComputeWorkGroupSize")
+#  undef MaxComputeWorkGroupSize
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeWorkGroupSize, GL_MAX_COMPUTE_WORK_GROUP_SIZE)
+#  pragma pop_macro("MaxComputeWorkGroupSize")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeWorkGroupSize, GL_MAX_COMPUTE_WORK_GROUP_SIZE)
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS
+# if defined MaxComputeWorkGroupInvocations
+#  pragma push_macro("MaxComputeWorkGroupInvocations")
+#  undef MaxComputeWorkGroupInvocations
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeWorkGroupInvocations, GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS)
+#  pragma pop_macro("MaxComputeWorkGroupInvocations")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeWorkGroupInvocations, GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS)
+# endif
+#endif
+#if defined GL_MAX_COMPUTE_SHARED_MEMORY_SIZE
+# if defined MaxComputeSharedMemorySize
+#  pragma push_macro("MaxComputeSharedMemorySize")
+#  undef MaxComputeSharedMemorySize
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeSharedMemorySize, GL_MAX_COMPUTE_SHARED_MEMORY_SIZE)
+#  pragma pop_macro("MaxComputeSharedMemorySize")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MaxComputeSharedMemorySize, GL_MAX_COMPUTE_SHARED_MEMORY_SIZE)
+# endif
+#endif
 #if defined GL_MIN_FRAGMENT_INTERPOLATION_OFFSET
 # if defined MinFragmentInterpolationOffset
 #  pragma push_macro("MinFragmentInterpolationOffset")

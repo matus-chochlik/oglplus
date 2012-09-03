@@ -153,6 +153,52 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+
+	/** Wrapper for Buffer::ClearData()
+	 *  @see Buffer::ClearData()
+	 */
+	template <typename GLtype>
+	void ClearData(
+		PixelDataInternalFormat internal_format,
+		PixelDataFormat format,
+		const std::vector< GLtype > & data
+	) const
+	{
+		BufferOps::ClearData(
+			this->BindTarget(),
+			internal_format,
+			format,
+			data
+		);
+	}
+#endif // GL_VERSION_4_3
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+
+	/** Wrapper for Buffer::ClearSubData()
+	 *  @see Buffer::ClearSubData()
+	 */
+	template <typename GLtype>
+	void ClearSubData(
+		PixelDataInternalFormat internal_format,
+		GLintptr offset,
+		GLsizeiptr size,
+		PixelDataFormat format,
+		const std::vector< GLtype > & data
+	) const
+	{
+		BufferOps::ClearSubData(
+			this->BindTarget(),
+			internal_format,
+			offset,
+			size,
+			format,
+			data
+		);
+	}
+#endif // GL_VERSION_4_3
+
 
 	/** Wrapper for Buffer::Usage()
 	 *  @see Buffer::Usage()

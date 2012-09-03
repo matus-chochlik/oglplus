@@ -1700,6 +1700,37 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	/// Assigns a buffer range storing the texel data to the texture
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{TexBufferRange}
+	 */
+	static void SetBufferRange(
+		Target target,
+		PixelDataInternalFormat internal_format,
+		const BufferOps& buffer,
+		GLintptr offset,
+		GLsizeiptr size
+	)
+	{
+		OGLPLUS_GLFUNC(TexBufferRange)(
+			GLenum(target),
+			GLenum(internal_format),
+			FriendOf<BufferOps>::GetName(buffer),
+			offset,
+			size
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexBufferRange,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+#endif
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 	/// Specifies all levels of 1D texture at the same time
 	/**
@@ -2486,6 +2517,48 @@ public:
 	{
 		Wrap(target, TextureWrapCoord::R, mode);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	/// Gets the depth stencil mode parameter (DEPTH_STENCIL_TEXTURE_MODE)
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
+	 */
+	static PixelDataFormat DepthStencilMode(Target target)
+	{
+		return PixelDataFormat(GetIntParam(
+			target,
+			GL_DEPTH_STENCIL_TEXTURE_MODE
+		));
+	}
+
+	/// Sets the swizzle parameter (DEPTH_STENCIL_TEXTURE_MODE)
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
+	 */
+	static void DepthStencilMode(
+		Target target,
+		PixelDataFormat mode
+	)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_DEPTH_STENCIL_TEXTURE_MODE,
+			GLenum(mode)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+#endif
 
 	/// Generate mipmap for the texture bound to the specified target
 	/**

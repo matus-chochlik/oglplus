@@ -667,6 +667,7 @@ public:
 	 *  @see ClearSubData
 	 *  @see SubData
 	 *  @see CopySubData
+	 *
 	 *  @throws Error
 	 *
 	 *  @glverreq{4,3}
@@ -700,6 +701,7 @@ public:
 	 *  @see ClearData
 	 *  @see SubData
 	 *  @see CopySubData
+	 *
 	 *  @throws Error
 	 *
 	 *  @glverreq{4,3}

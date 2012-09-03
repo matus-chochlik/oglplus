@@ -27,6 +27,7 @@ PREDEFINED             = \
 		"GL_VERSION_4_0=1" \
 		"GL_VERSION_4_1=1" \
 		"GL_VERSION_4_2=1" \
+		"GL_VERSION_4_3=1" \
 		"OGLPLUS_DOXYGEN_PARSE=1"
 
 ALIASES                += oglplus_screenshot=""

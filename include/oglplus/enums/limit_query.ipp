@@ -209,6 +209,14 @@ MaxVertexUniformVectors,
 MaxViewportDims,
 /// MAX_VIEWPORTS
 MaxViewports,
+/// MAX_COMPUTE_WORK_GROUP_COUNT
+MaxComputeWorkGroupCount,
+/// MAX_COMPUTE_WORK_GROUP_SIZE
+MaxComputeWorkGroupSize,
+/// MAX_COMPUTE_WORK_GROUP_INVOCATIONS
+MaxComputeWorkGroupInvocations,
+/// MAX_COMPUTE_SHARED_MEMORY_SIZE
+MaxComputeSharedMemorySize,
 /// MIN_FRAGMENT_INTERPOLATION_OFFSET
 MinFragmentInterpolationOffset,
 /// MIN_MAP_BUFFER_ALIGNMENT

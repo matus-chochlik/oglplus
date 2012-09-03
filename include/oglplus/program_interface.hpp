@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/primitive_interface.hpp
+ *  @file oglplus/program_interface.hpp
  *  @brief OpenGL program interface enumeration
  *
  *  @author Matus Chochlik

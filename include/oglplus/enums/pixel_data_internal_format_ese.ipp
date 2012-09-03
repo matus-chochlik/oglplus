@@ -859,3 +859,143 @@
    OGLPLUS_ENUM_CLASS_VALUE(CompressedSignedRGRGTC2, GL_COMPRESSED_SIGNED_RG_RGTC2)
 # endif
 #endif
+#if defined GL_COMPRESSED_RGBA_BPTC_UNORM
+# if defined CompressedRGBABPTCUNorm
+#  pragma push_macro("CompressedRGBABPTCUNorm")
+#  undef CompressedRGBABPTCUNorm
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBABPTCUNorm, GL_COMPRESSED_RGBA_BPTC_UNORM)
+#  pragma pop_macro("CompressedRGBABPTCUNorm")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBABPTCUNorm, GL_COMPRESSED_RGBA_BPTC_UNORM)
+# endif
+#endif
+#if defined GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM
+# if defined CompressedSRGBAlphaBPTCUNorm
+#  pragma push_macro("CompressedSRGBAlphaBPTCUNorm")
+#  undef CompressedSRGBAlphaBPTCUNorm
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSRGBAlphaBPTCUNorm, GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM)
+#  pragma pop_macro("CompressedSRGBAlphaBPTCUNorm")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSRGBAlphaBPTCUNorm, GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM)
+# endif
+#endif
+#if defined GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT
+# if defined CompressedRGBBPTCSignedFloat
+#  pragma push_macro("CompressedRGBBPTCSignedFloat")
+#  undef CompressedRGBBPTCSignedFloat
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBBPTCSignedFloat, GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT)
+#  pragma pop_macro("CompressedRGBBPTCSignedFloat")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBBPTCSignedFloat, GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT)
+# endif
+#endif
+#if defined GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT
+# if defined CompressedRGBBPTCUnsignedFloat
+#  pragma push_macro("CompressedRGBBPTCUnsignedFloat")
+#  undef CompressedRGBBPTCUnsignedFloat
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBBPTCUnsignedFloat, GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT)
+#  pragma pop_macro("CompressedRGBBPTCUnsignedFloat")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGBBPTCUnsignedFloat, GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT)
+# endif
+#endif
+#if defined GL_COMPRESSED_RGB8_ETC2
+# if defined CompressedRGB8ETC2
+#  pragma push_macro("CompressedRGB8ETC2")
+#  undef CompressedRGB8ETC2
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGB8ETC2, GL_COMPRESSED_RGB8_ETC2)
+#  pragma pop_macro("CompressedRGB8ETC2")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGB8ETC2, GL_COMPRESSED_RGB8_ETC2)
+# endif
+#endif
+#if defined GL_COMPRESSED_SRGB8_ETC2
+# if defined CompressedSRGB8ETC2
+#  pragma push_macro("CompressedSRGB8ETC2")
+#  undef CompressedSRGB8ETC2
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSRGB8ETC2, GL_COMPRESSED_SRGB8_ETC2)
+#  pragma pop_macro("CompressedSRGB8ETC2")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSRGB8ETC2, GL_COMPRESSED_SRGB8_ETC2)
+# endif
+#endif
+#if defined GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2
+# if defined CompressedRGB8PunchthroughAlpha1ETC2
+#  pragma push_macro("CompressedRGB8PunchthroughAlpha1ETC2")
+#  undef CompressedRGB8PunchthroughAlpha1ETC2
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGB8PunchthroughAlpha1ETC2, GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2)
+#  pragma pop_macro("CompressedRGB8PunchthroughAlpha1ETC2")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRGB8PunchthroughAlpha1ETC2, GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2)
+# endif
+#endif
+#if defined GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2
+# if defined CompressedSRGB8PunchthroughAlpha1ETC2
+#  pragma push_macro("CompressedSRGB8PunchthroughAlpha1ETC2")
+#  undef CompressedSRGB8PunchthroughAlpha1ETC2
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSRGB8PunchthroughAlpha1ETC2, GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2)
+#  pragma pop_macro("CompressedSRGB8PunchthroughAlpha1ETC2")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSRGB8PunchthroughAlpha1ETC2, GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2)
+# endif
+#endif
+#if defined GL_COMPRESSED_RGBA8_ETC2_EAC
+# if defined CompressedETC2EAC
+#  pragma push_macro("CompressedETC2EAC")
+#  undef CompressedETC2EAC
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedETC2EAC, GL_COMPRESSED_RGBA8_ETC2_EAC)
+#  pragma pop_macro("CompressedETC2EAC")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedETC2EAC, GL_COMPRESSED_RGBA8_ETC2_EAC)
+# endif
+#endif
+#if defined GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC
+# if defined CompressedSRGB8Alpha8ETC2EAC
+#  pragma push_macro("CompressedSRGB8Alpha8ETC2EAC")
+#  undef CompressedSRGB8Alpha8ETC2EAC
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSRGB8Alpha8ETC2EAC, GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC)
+#  pragma pop_macro("CompressedSRGB8Alpha8ETC2EAC")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSRGB8Alpha8ETC2EAC, GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC)
+# endif
+#endif
+#if defined GL_COMPRESSED_R11_EAC
+# if defined CompressedR11EAC
+#  pragma push_macro("CompressedR11EAC")
+#  undef CompressedR11EAC
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedR11EAC, GL_COMPRESSED_R11_EAC)
+#  pragma pop_macro("CompressedR11EAC")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedR11EAC, GL_COMPRESSED_R11_EAC)
+# endif
+#endif
+#if defined GL_COMPRESSED_SIGNED_R11_EAC
+# if defined CompressedSignedR11EAC
+#  pragma push_macro("CompressedSignedR11EAC")
+#  undef CompressedSignedR11EAC
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSignedR11EAC, GL_COMPRESSED_SIGNED_R11_EAC)
+#  pragma pop_macro("CompressedSignedR11EAC")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSignedR11EAC, GL_COMPRESSED_SIGNED_R11_EAC)
+# endif
+#endif
+#if defined GL_COMPRESSED_RG11_EAC
+# if defined CompressedRG11EAC
+#  pragma push_macro("CompressedRG11EAC")
+#  undef CompressedRG11EAC
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRG11EAC, GL_COMPRESSED_RG11_EAC)
+#  pragma pop_macro("CompressedRG11EAC")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedRG11EAC, GL_COMPRESSED_RG11_EAC)
+# endif
+#endif
+#if defined GL_COMPRESSED_SIGNED_RG11_EAC
+# if defined CompressedSignedRG11EAC
+#  pragma push_macro("CompressedSignedRG11EAC")
+#  undef CompressedSignedRG11EAC
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSignedRG11EAC, GL_COMPRESSED_SIGNED_RG11_EAC)
+#  pragma pop_macro("CompressedSignedRG11EAC")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(CompressedSignedRG11EAC, GL_COMPRESSED_SIGNED_RG11_EAC)
+# endif
+#endif

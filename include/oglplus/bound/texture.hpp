@@ -1011,6 +1011,28 @@ public:
 	}
 #endif // GL_VERSION_3_1
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+
+	/** Wrapper for Texture::SetBufferRange()
+	 *  @see Texture::SetBufferRange()
+	 */
+	void SetBufferRange(
+		PixelDataInternalFormat internal_format,
+		const BufferOps & buffer,
+		GLintptr offset,
+		GLsizeiptr size
+	) const
+	{
+		TextureOps::SetBufferRange(
+			this->BindTarget(),
+			internal_format,
+			buffer,
+			offset,
+			size
+		);
+	}
+#endif // GL_VERSION_4_3
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 
 	/** Wrapper for Texture::Storage1D()
@@ -1644,6 +1666,35 @@ public:
 			mode
 		);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+
+	/** Wrapper for Texture::DepthStencilMode()
+	 *  @see Texture::DepthStencilMode()
+	 */
+	PixelDataFormat DepthStencilMode(void) const
+	{
+		return TextureOps::DepthStencilMode(
+			this->BindTarget()
+		);
+	}
+#endif // GL_VERSION_4_3
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+
+	/** Wrapper for Texture::DepthStencilMode()
+	 *  @see Texture::DepthStencilMode()
+	 */
+	void DepthStencilMode(
+		PixelDataFormat mode
+	) const
+	{
+		TextureOps::DepthStencilMode(
+			this->BindTarget(),
+			mode
+		);
+	}
+#endif // GL_VERSION_4_3
 
 
 	/** Wrapper for Texture::GenerateMipmap()
