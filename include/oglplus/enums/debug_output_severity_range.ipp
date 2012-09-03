@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/ext/debug_output_type_range.ipp
+ *  .file oglplus/enums/debug_output_severity_range.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/ext/debug_output_type.txt' instead.
+ *  edit 'source/enums/debug_output_severity.txt' instead.
  *
  *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,31 +11,25 @@
 
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
-	DebugOutputARBType
-> EnumValueRange(DebugOutputARBType*)
+	DebugOutputSeverity
+> EnumValueRange(DebugOutputSeverity*)
 OGLPLUS_NOEXCEPT(true)
 #if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 ;
 #else
 {
 static const GLenum _values[] = {
-#if defined GL_DEBUG_TYPE_ERROR_ARB
-GL_DEBUG_TYPE_ERROR_ARB,
+#if defined GL_DEBUG_SEVERITY_HIGH
+GL_DEBUG_SEVERITY_HIGH,
 #endif
-#if defined GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB
-GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB,
+#if defined GL_DEBUG_SEVERITY_MEDIUM
+GL_DEBUG_SEVERITY_MEDIUM,
 #endif
-#if defined GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB
-GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB,
+#if defined GL_DEBUG_SEVERITY_LOW
+GL_DEBUG_SEVERITY_LOW,
 #endif
-#if defined GL_DEBUG_TYPE_PORTABILITY_ARB
-GL_DEBUG_TYPE_PORTABILITY_ARB,
-#endif
-#if defined GL_DEBUG_TYPE_PERFORMANCE_ARB
-GL_DEBUG_TYPE_PERFORMANCE_ARB,
-#endif
-#if defined GL_DEBUG_TYPE_OTHER_ARB
-GL_DEBUG_TYPE_OTHER_ARB,
+#if defined GL_DEBUG_SEVERITY_NOTIFICATION
+GL_DEBUG_SEVERITY_NOTIFICATION,
 #endif
 #if defined GL_DONT_CARE
 GL_DONT_CARE,
@@ -44,7 +38,7 @@ GL_DONT_CARE,
 };
 return aux::CastIterRange<
 	const GLenum*,
-	DebugOutputARBType
+	DebugOutputSeverity
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
 #endif

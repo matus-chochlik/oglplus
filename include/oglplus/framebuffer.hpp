@@ -160,6 +160,14 @@ protected:
 		return GL_FALSE;
 	}
 
+#ifdef GL_FRAMEBUFFER
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Framebuffer;
+	}
+#endif
+
 	static void _bind(GLuint _name, Target target)
 	{
 		assert(_name != 0);

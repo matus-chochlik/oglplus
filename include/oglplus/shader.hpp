@@ -108,6 +108,14 @@ protected:
 		return GL_FALSE;
 	}
 
+#ifdef GL_SHADER
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Shader;
+	}
+#endif
+
 	friend class FriendOf<ShaderOps>;
 public:
 	/// Types related to Shader

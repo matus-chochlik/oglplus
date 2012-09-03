@@ -75,6 +75,14 @@ protected:
 		return GL_FALSE;
 	}
 
+#ifdef GL_SAMPLER
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Sampler;
+	}
+#endif
+
 	static void _bind(GLuint _name, TextureUnitSelector unit)
 	{
 		assert(_name != 0);

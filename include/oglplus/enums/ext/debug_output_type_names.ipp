@@ -10,7 +10,7 @@
  */
 
 OGLPLUS_LIB_FUNC StrLit EnumValueName(
-	DebugOutputType*,
+	DebugOutputARBType*,
 	GLenum value
 ) OGLPLUS_NOEXCEPT(true)
 #if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)

@@ -14,6 +14,7 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/enumerations.hpp>
 #include <oglplus/auxiliary/named.hpp>
 #include <oglplus/auxiliary/strings.hpp>
 #include <type_traits>
@@ -69,6 +70,22 @@ namespace oglplus {
  *  };
  *  @endcode
  */
+
+/// Enumeration of object types
+/**
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(ObjectType, GLenum)
+#include <oglplus/enums/object_type.ipp>
+OGLPLUS_ENUM_CLASS_END
+
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/enums/object_type_names.ipp>
+#endif
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/object_type_range.ipp>
+#endif
 
 
 template <class Object>
@@ -424,6 +441,29 @@ public:
 			_undescribe(this);
 			_do_cleanup(1, &this->_name);
 		}
+	}
+
+private:
+	template <typename _ObjectOps>
+	static oglplus::ObjectType _get_object_type(
+		_ObjectOps*,
+		oglplus::ObjectType (*get)(void) = _ObjectOps::_object_type
+	) OGLPLUS_NOEXCEPT(true)
+	{
+		assert(get);
+		return get();
+	}
+
+	// calling this means that the _object_type function is not implemented
+	// by ObjectOps which means that some GL symbols are not properly
+	// defined by the used GL header
+	static oglplus::ObjectType _get_object_type(...)
+	OGLPLUS_NOEXCEPT(true);
+public:
+	static oglplus::ObjectType ObjectType(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _get_object_type((ObjectOps*)nullptr);
 	}
 
 	const String& Description(void) const

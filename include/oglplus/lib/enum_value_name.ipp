@@ -49,6 +49,15 @@ OGLPLUS_ENUM_CLASS_FWD(CompareFunction, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(DataType, GLenum)
 #include <oglplus/enums/data_type_names.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(DebugOutputSeverity, GLenum)
+#include <oglplus/enums/debug_output_severity_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(DebugOutputSource, GLenum)
+#include <oglplus/enums/debug_output_source_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(DebugOutputType, GLenum)
+#include <oglplus/enums/debug_output_type_names.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(ErrorCode, GLenum)
 #include <oglplus/enums/error_code_names.ipp>
 
@@ -87,6 +96,9 @@ OGLPLUS_ENUM_CLASS_FWD(LimitQuery, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(MemoryBarrierBit, GLbitfield)
 #include <oglplus/enums/memory_barrier_bit_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(ObjectType, GLenum)
+#include <oglplus/enums/object_type_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PixelDataFormat, GLenum)
 #include <oglplus/enums/pixel_data_format_names.ipp>
@@ -199,13 +211,13 @@ OGLPLUS_ENUM_CLASS_FWD(CompatibilityMatrixMode, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(CompatibilityPrimitiveType, GLenum)
 #include <oglplus/enums/ext/compat_prim_type_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(DebugOutputSeverity, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(DebugOutputARBSeverity, GLenum)
 #include <oglplus/enums/ext/debug_output_severity_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(DebugOutputSource, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(DebugOutputARBSource, GLenum)
 #include <oglplus/enums/ext/debug_output_source_names.ipp>
 
-OGLPLUS_ENUM_CLASS_FWD(DebugOutputType, GLenum)
+OGLPLUS_ENUM_CLASS_FWD(DebugOutputARBType, GLenum)
 #include <oglplus/enums/ext/debug_output_type_names.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(PathNVCapStyle, GLenum)

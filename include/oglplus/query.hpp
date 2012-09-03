@@ -84,6 +84,14 @@ protected:
 		catch(...){ }
 		return GL_FALSE;
 	}
+
+#ifdef GL_QUERY
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Query;
+	}
+#endif
 public:
 	/// Query bind target
 	typedef QueryTarget Target;

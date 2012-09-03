@@ -32,12 +32,9 @@ namespace oglplus {
  *  @glsymbols
  *  @glextref{ARB,debug_output}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputSeverity, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputARBSeverity, GLenum)
 #include <oglplus/enums/ext/debug_output_severity.ipp>
 OGLPLUS_ENUM_CLASS_END
-
-/// A shorter name for DebugOutputSeverity
-typedef DebugOutputSeverity DebugSeverity;
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/debug_output_severity_names.ipp>
@@ -55,12 +52,9 @@ typedef DebugOutputSeverity DebugSeverity;
  *  @glsymbols
  *  @glextref{ARB,debug_output}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputSource, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputARBSource, GLenum)
 #include <oglplus/enums/ext/debug_output_source.ipp>
 OGLPLUS_ENUM_CLASS_END
-
-/// A shorter name for DebugOutputSource
-typedef DebugOutputSource DebugSource;
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/debug_output_source_names.ipp>
@@ -78,12 +72,9 @@ typedef DebugOutputSource DebugSource;
  *  @glsymbols
  *  @glextref{ARB,debug_output}
  */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputType, GLenum)
+OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputARBType, GLenum)
 #include <oglplus/enums/ext/debug_output_type.ipp>
 OGLPLUS_ENUM_CLASS_END
-
-/// A shorter name for DebugOutputType
-typedef DebugOutputType DebugType;
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/debug_output_type_names.ipp>
@@ -110,9 +101,9 @@ public:
 
 	/// Enables/disables messages with specific parameters
 	static void Control(
-		DebugOutputSource source,
-		DebugOutputType type,
-		DebugOutputSeverity severity,
+		DebugOutputARBSource source,
+		DebugOutputARBType type,
+		DebugOutputARBSeverity severity,
 		bool enable
 	)
 	{
@@ -129,10 +120,10 @@ public:
 	/// Structure containing data passed to Callback functor
 	struct CallbackData
 	{
-		DebugOutputSource source;
-		DebugOutputType type;
+		DebugOutputARBSource source;
+		DebugOutputARBType type;
 		GLuint id;
-		DebugOutputSeverity severity;
+		DebugOutputARBSeverity severity;
 		GLsizei length;
 		const GLchar* message;
 	};
@@ -142,7 +133,7 @@ public:
 
 	/// Installs a custom callback processing the debug output
 	/**
-	 *  Instanes of this class install a new Callback function
+	 *  Instances of this class install a new Callback function
 	 *  processing the debug output messages in the constructor
 	 *  and restoring the previous callback when destroyed.
 	 */
@@ -164,10 +155,10 @@ public:
 			if(self->_callback)
 			{
 				CallbackData data;
-				data.source = DebugOutputSource(source);
-				data.type = DebugOutputType(type);
+				data.source = DebugOutputARBSource(source);
+				data.type = DebugOutputARBType(type);
 				data.id = id;
-				data.severity = DebugOutputSeverity(severity);
+				data.severity = DebugOutputARBSeverity(severity);
 				data.length = length;
 				data.message = message;
 				self->_callback(data);
@@ -250,10 +241,10 @@ public:
 
 	/// Inserts a new message into the debug output
 	static void InsertMessage(
-		DebugOutputSource source,
-		DebugOutputType type,
+		DebugOutputARBSource source,
+		DebugOutputARBType type,
 		GLuint id,
-		DebugOutputSeverity severity,
+		DebugOutputARBSeverity severity,
 		const GLchar* buffer,
 		GLint length = -1
 	)
@@ -271,10 +262,10 @@ public:
 
 	/// Inserts a new message into the debug output
 	static void InsertMessage(
-		DebugOutputSource source,
-		DebugOutputType type,
+		DebugOutputARBSource source,
+		DebugOutputARBType type,
 		GLuint id,
-		DebugOutputSeverity severity,
+		DebugOutputARBSeverity severity,
 		const String& message
 	)
 	{

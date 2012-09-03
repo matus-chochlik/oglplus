@@ -185,6 +185,14 @@ protected:
 		return GL_FALSE;
 	}
 
+#ifdef GL_BUFFER
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Buffer;
+	}
+#endif
+
 	static void _bind(GLuint _name, Target target)
 	{
 		assert(_name != 0);

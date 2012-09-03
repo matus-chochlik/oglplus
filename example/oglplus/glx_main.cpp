@@ -68,17 +68,17 @@ void run_loop(
 	);
 
 	dbg.Control(
-		DebugOutputSource::DontCare,
-		DebugOutputType::DontCare,
-		DebugOutputSeverity::Low,
+		DebugOutputARBSource::DontCare,
+		DebugOutputARBType::DontCare,
+		DebugOutputARBSeverity::Low,
 		true
 	);
 
 	dbg.InsertMessage(
-		DebugOutputSource::Application,
-		DebugOutputType::Other,
+		DebugOutputARBSource::Application,
+		DebugOutputARBType::Other,
 		0,
-		DebugOutputSeverity::Low,
+		DebugOutputARBSeverity::Low,
 		"Starting main loop"
 	);
 #endif // GL_ARB_debug_output

@@ -253,6 +253,14 @@ protected:
 		return GL_FALSE;
 	}
 
+#ifdef GL_TEXTURE
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Texture;
+	}
+#endif
+
 	static void _bind(GLuint _name, Target target)
 	{
 		assert(_name != 0);

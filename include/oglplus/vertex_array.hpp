@@ -70,6 +70,14 @@ protected:
 		return GL_FALSE;
 	}
 
+#ifdef GL_VERTEX_ARRAY
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::VertexArray;
+	}
+#endif
+
 	static void _bind(GLuint _name, Nothing)
 	{
 		assert(_name != 0);

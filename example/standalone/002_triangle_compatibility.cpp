@@ -49,9 +49,9 @@ public:
 		using namespace oglplus;
 
 		dbg.Control(
-			DebugOutputSource::DontCare,
-			DebugOutputType::DontCare,
-			DebugOutputSeverity::Low,
+			DebugOutputARBSource::DontCare,
+			DebugOutputARBType::DontCare,
+			DebugOutputARBSeverity::Low,
 			true
 		);
 

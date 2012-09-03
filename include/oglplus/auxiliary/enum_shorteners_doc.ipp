@@ -1334,9 +1334,11 @@ template <typename Enum> friend bool operator!=(Enum value, AnySamplesPassed);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c API value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SOURCE_API}
  *  @gldefref{DEBUG_SOURCE_API_ARB}
  *
  *  @ingroup smart_enums
@@ -1367,9 +1369,11 @@ template <typename Enum> friend bool operator!=(Enum value, API);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Application value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SOURCE_APPLICATION}
  *  @gldefref{DEBUG_SOURCE_APPLICATION_ARB}
  *
  *  @ingroup smart_enums
@@ -2166,9 +2170,11 @@ template <typename Enum> friend bool operator!=(Enum value, BoundingBoxOfBoundin
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Buffer value.
 /**
+ *  @see @ref oglplus::ObjectType "ObjectType"
  *  @see @ref oglplus::TextureTarget "TextureTarget"
  *
  *  @glsymbols
+ *  @gldefref{BUFFER}
  *  @gldefref{TEXTURE_BUFFER}
  *
  *  @ingroup smart_enums
@@ -5007,9 +5013,11 @@ template <typename Enum> friend bool operator!=(Enum value, DecrWrap);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c DeprecatedBehavior value.
 /**
+ *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_TYPE_DEPRECATED_BEHAVIOR}
  *  @gldefref{DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB}
  *
  *  @ingroup smart_enums
@@ -5474,6 +5482,9 @@ template <typename Enum> friend bool operator!=(Enum value, Dither);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c DontCare value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSeverity "DebugOutputARBSeverity"
+ *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
+ *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
@@ -6372,9 +6383,11 @@ template <typename Enum> friend bool operator!=(Enum value, Equiv);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Error value.
 /**
+ *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_TYPE_ERROR}
  *  @gldefref{DEBUG_TYPE_ERROR_ARB}
  *
  *  @ingroup smart_enums
@@ -7993,8 +8006,10 @@ template <typename Enum> friend bool operator!=(Enum value, FragmentSubroutineUn
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Framebuffer value.
 /**
  *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
+ *  @see @ref oglplus::ObjectType "ObjectType"
  *
  *  @glsymbols
+ *  @gldefref{FRAMEBUFFER}
  *  @gldefref{FRAMEBUFFER_BARRIER_BIT}
  *
  *  @ingroup smart_enums
@@ -8854,9 +8869,11 @@ template <typename Enum> friend bool operator!=(Enum value, HalfFloat);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c High value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSeverity "DebugOutputARBSeverity"
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SEVERITY_HIGH}
  *  @gldefref{DEBUG_SEVERITY_HIGH_ARB}
  *
  *  @ingroup smart_enums
@@ -10617,9 +10634,11 @@ template <typename Enum> friend bool operator!=(Enum value, List);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Low value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSeverity "DebugOutputARBSeverity"
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SEVERITY_LOW}
  *  @gldefref{DEBUG_SEVERITY_LOW_ARB}
  *
  *  @ingroup smart_enums
@@ -10712,6 +10731,39 @@ template <typename Enum> friend bool operator==(Enum value, LuminanceAlpha);
  *  the @c LuminanceAlpha value.
  */
 template <typename Enum> friend bool operator!=(Enum value, LuminanceAlpha);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Marker value.
+/**
+ *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *
+ *  @glsymbols
+ *  @gldefref{DEBUG_TYPE_MARKER}
+ *
+ *  @ingroup smart_enums
+ */
+struct Marker {
+
+/// Conversion to any @p Enum type having the Marker value.
+/** Instances of the @ref oglplus::smart_enums::Marker "Marker"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Marker value.
+ */
+template <typename Enum, Enum = Enum::Marker> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Marker value.
+/** Instances of the @c smart_enums::Marker type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Marker value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Marker);
+
+/// Non-equality comparison with any @p Enum type having the Marker value.
+/** Instances of the @c smart_enums::Marker type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Marker value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Marker);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Max value.
@@ -14148,9 +14200,11 @@ template <typename Enum> friend bool operator!=(Enum value, MaxViewports);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Medium value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSeverity "DebugOutputARBSeverity"
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SEVERITY_MEDIUM}
  *  @gldefref{DEBUG_SEVERITY_MEDIUM_ARB}
  *
  *  @ingroup smart_enums
@@ -15013,6 +15067,39 @@ template <typename Enum> friend bool operator==(Enum value, NotEqual);
 template <typename Enum> friend bool operator!=(Enum value, NotEqual);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Notification value.
+/**
+ *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
+ *
+ *  @glsymbols
+ *  @gldefref{DEBUG_SEVERITY_NOTIFICATION}
+ *
+ *  @ingroup smart_enums
+ */
+struct Notification {
+
+/// Conversion to any @p Enum type having the Notification value.
+/** Instances of the @ref oglplus::smart_enums::Notification "Notification"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Notification value.
+ */
+template <typename Enum, Enum = Enum::Notification> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Notification value.
+/** Instances of the @c smart_enums::Notification type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Notification value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Notification);
+
+/// Non-equality comparison with any @p Enum type having the Notification value.
+/** Instances of the @c smart_enums::Notification type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Notification value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Notification);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ObjectBoundingBox value.
 /**
  *  @see @ref oglplus::PathNVGenMode "PathNVGenMode"
@@ -15478,11 +15565,15 @@ template <typename Enum> friend bool operator!=(Enum value, OrReverse);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Other value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
+ *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SOURCE_OTHER}
  *  @gldefref{DEBUG_SOURCE_OTHER_ARB}
+ *  @gldefref{DEBUG_TYPE_OTHER}
  *  @gldefref{DEBUG_TYPE_OTHER_ARB}
  *
  *  @ingroup smart_enums
@@ -16008,9 +16099,11 @@ template <typename Enum> friend bool operator!=(Enum value, Percentage);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Performance value.
 /**
+ *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_TYPE_PERFORMANCE}
  *  @gldefref{DEBUG_TYPE_PERFORMANCE_ARB}
  *
  *  @ingroup smart_enums
@@ -16476,11 +16569,46 @@ template <typename Enum> friend bool operator==(Enum value, PolygonStipple);
 template <typename Enum> friend bool operator!=(Enum value, PolygonStipple);
 };
 
-/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Portability value.
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PopGroup value.
 /**
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_TYPE_POP_GROUP}
+ *
+ *  @ingroup smart_enums
+ */
+struct PopGroup {
+
+/// Conversion to any @p Enum type having the PopGroup value.
+/** Instances of the @ref oglplus::smart_enums::PopGroup "PopGroup"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c PopGroup value.
+ */
+template <typename Enum, Enum = Enum::PopGroup> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the PopGroup value.
+/** Instances of the @c smart_enums::PopGroup type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c PopGroup value.
+ */
+template <typename Enum> friend bool operator==(Enum value, PopGroup);
+
+/// Non-equality comparison with any @p Enum type having the PopGroup value.
+/** Instances of the @c smart_enums::PopGroup type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c PopGroup value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, PopGroup);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Portability value.
+/**
+ *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
+ *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *
+ *  @glsymbols
+ *  @gldefref{DEBUG_TYPE_PORTABILITY}
  *  @gldefref{DEBUG_TYPE_PORTABILITY_ARB}
  *
  *  @ingroup smart_enums
@@ -16608,6 +16736,39 @@ template <typename Enum> friend bool operator==(Enum value, PrimitivesGenerated)
 template <typename Enum> friend bool operator!=(Enum value, PrimitivesGenerated);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Program value.
+/**
+ *  @see @ref oglplus::ObjectType "ObjectType"
+ *
+ *  @glsymbols
+ *  @gldefref{PROGRAM}
+ *
+ *  @ingroup smart_enums
+ */
+struct Program {
+
+/// Conversion to any @p Enum type having the Program value.
+/** Instances of the @ref oglplus::smart_enums::Program "Program"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Program value.
+ */
+template <typename Enum, Enum = Enum::Program> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Program value.
+/** Instances of the @c smart_enums::Program type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Program value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Program);
+
+/// Non-equality comparison with any @p Enum type having the Program value.
+/** Instances of the @c smart_enums::Program type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Program value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Program);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ProgramInput value.
 /**
  *  @see @ref oglplus::ProgramInterface "ProgramInterface"
@@ -16672,6 +16833,39 @@ template <typename Enum> friend bool operator==(Enum value, ProgramOutput);
  *  the @c ProgramOutput value.
  */
 template <typename Enum> friend bool operator!=(Enum value, ProgramOutput);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ProgramPipeline value.
+/**
+ *  @see @ref oglplus::ObjectType "ObjectType"
+ *
+ *  @glsymbols
+ *  @gldefref{PROGRAM_PIPELINE}
+ *
+ *  @ingroup smart_enums
+ */
+struct ProgramPipeline {
+
+/// Conversion to any @p Enum type having the ProgramPipeline value.
+/** Instances of the @ref oglplus::smart_enums::ProgramPipeline "ProgramPipeline"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ProgramPipeline value.
+ */
+template <typename Enum, Enum = Enum::ProgramPipeline> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ProgramPipeline value.
+/** Instances of the @c smart_enums::ProgramPipeline type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ProgramPipeline value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ProgramPipeline);
+
+/// Non-equality comparison with any @p Enum type having the ProgramPipeline value.
+/** Instances of the @c smart_enums::ProgramPipeline type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ProgramPipeline value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ProgramPipeline);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ProgramPointSize value.
@@ -16771,6 +16965,39 @@ template <typename Enum> friend bool operator==(Enum value, PS);
  *  the @c PS value.
  */
 template <typename Enum> friend bool operator!=(Enum value, PS);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PushGroup value.
+/**
+ *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *
+ *  @glsymbols
+ *  @gldefref{DEBUG_TYPE_PUSH_GROUP}
+ *
+ *  @ingroup smart_enums
+ */
+struct PushGroup {
+
+/// Conversion to any @p Enum type having the PushGroup value.
+/** Instances of the @ref oglplus::smart_enums::PushGroup "PushGroup"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c PushGroup value.
+ */
+template <typename Enum, Enum = Enum::PushGroup> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the PushGroup value.
+/** Instances of the @c smart_enums::PushGroup type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c PushGroup value.
+ */
+template <typename Enum> friend bool operator==(Enum value, PushGroup);
+
+/// Non-equality comparison with any @p Enum type having the PushGroup value.
+/** Instances of the @c smart_enums::PushGroup type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c PushGroup value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, PushGroup);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c QuadraticCurveTo value.
@@ -16876,8 +17103,10 @@ template <typename Enum> friend bool operator!=(Enum value, QuadStrip);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Query value.
 /**
  *  @see @ref oglplus::BufferTarget "BufferTarget"
+ *  @see @ref oglplus::ObjectType "ObjectType"
  *
  *  @glsymbols
+ *  @gldefref{QUERY}
  *  @gldefref{QUERY_BUFFER_AMD}
  *
  *  @ingroup smart_enums
@@ -18113,6 +18342,7 @@ template <typename Enum> friend bool operator!=(Enum value, RelativeVerticalLine
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Renderbuffer value.
 /**
+ *  @see @ref oglplus::ObjectType "ObjectType"
  *  @see @ref oglplus::RenderbufferTarget "RenderbufferTarget"
  *
  *  @glsymbols
@@ -20322,6 +20552,39 @@ template <typename Enum> friend bool operator==(Enum value, SampleCoverage);
 template <typename Enum> friend bool operator!=(Enum value, SampleCoverage);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Sampler value.
+/**
+ *  @see @ref oglplus::ObjectType "ObjectType"
+ *
+ *  @glsymbols
+ *  @gldefref{SAMPLER}
+ *
+ *  @ingroup smart_enums
+ */
+struct Sampler {
+
+/// Conversion to any @p Enum type having the Sampler value.
+/** Instances of the @ref oglplus::smart_enums::Sampler "Sampler"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Sampler value.
+ */
+template <typename Enum, Enum = Enum::Sampler> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Sampler value.
+/** Instances of the @c smart_enums::Sampler type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Sampler value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Sampler);
+
+/// Non-equality comparison with any @p Enum type having the Sampler value.
+/** Instances of the @c smart_enums::Sampler type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Sampler value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Sampler);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Sampler1D value.
 /**
  *  @see @ref oglplus::SLDataType "SLDataType"
@@ -21147,11 +21410,46 @@ template <typename Enum> friend bool operator==(Enum value, Set);
 template <typename Enum> friend bool operator!=(Enum value, Set);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Shader value.
+/**
+ *  @see @ref oglplus::ObjectType "ObjectType"
+ *
+ *  @glsymbols
+ *  @gldefref{SHADER}
+ *
+ *  @ingroup smart_enums
+ */
+struct Shader {
+
+/// Conversion to any @p Enum type having the Shader value.
+/** Instances of the @ref oglplus::smart_enums::Shader "Shader"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Shader value.
+ */
+template <typename Enum, Enum = Enum::Shader> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Shader value.
+/** Instances of the @c smart_enums::Shader type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Shader value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Shader);
+
+/// Non-equality comparison with any @p Enum type having the Shader value.
+/** Instances of the @c smart_enums::Shader type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Shader value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Shader);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ShaderCompiler value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SOURCE_SHADER_COMPILER}
  *  @gldefref{DEBUG_SOURCE_SHADER_COMPILER_ARB}
  *
  *  @ingroup smart_enums
@@ -22706,8 +23004,10 @@ template <typename Enum> friend bool operator!=(Enum value, TessEvaluationSubrou
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Texture value.
 /**
  *  @see @ref oglplus::CompatibilityAttributeGroup "CompatibilityAttributeGroup"
+ *  @see @ref oglplus::ObjectType "ObjectType"
  *
  *  @glsymbols
+ *  @gldefref{TEXTURE}
  *  @gldefref{TEXTURE_BIT}
  *
  *  @ingroup smart_enums
@@ -22903,9 +23203,11 @@ template <typename Enum> friend bool operator!=(Enum value, TextureUpdate);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ThirdParty value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SOURCE_THIRD_PARTY}
  *  @gldefref{DEBUG_SOURCE_THIRD_PARTY_ARB}
  *
  *  @ingroup smart_enums
@@ -23071,6 +23373,7 @@ template <typename Enum> friend bool operator!=(Enum value, Transform);
  *  @see @ref oglplus::BufferIndexedTarget "BufferIndexedTarget"
  *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
+ *  @see @ref oglplus::ObjectType "ObjectType"
  *  @see @ref oglplus::TransformFeedbackTarget "TransformFeedbackTarget"
  *
  *  @glsymbols
@@ -23606,9 +23909,11 @@ template <typename Enum> friend bool operator!=(Enum value, Undefined);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UndefinedBehavior value.
 /**
+ *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_TYPE_UNDEFINED_BEHAVIOR}
  *  @gldefref{DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB}
  *
  *  @ingroup smart_enums
@@ -25465,9 +25770,11 @@ template <typename Enum> friend bool operator!=(Enum value, Vertex);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c VertexArray value.
 /**
  *  @see @ref oglplus::CompatibilityClientAttributeGroup "CompatibilityClientAttributeGroup"
+ *  @see @ref oglplus::ObjectType "ObjectType"
  *
  *  @glsymbols
  *  @gldefref{CLIENT_VERTEX_ARRAY_BIT}
+ *  @gldefref{VERTEX_ARRAY}
  *
  *  @ingroup smart_enums
  */
@@ -25728,9 +26035,11 @@ template <typename Enum> friend bool operator!=(Enum value, WaitFailed);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c WindowSystem value.
 /**
+ *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *
  *  @glsymbols
+ *  @gldefref{DEBUG_SOURCE_WINDOW_SYSTEM}
  *  @gldefref{DEBUG_SOURCE_WINDOW_SYSTEM_ARB}
  *
  *  @ingroup smart_enums

@@ -90,6 +90,14 @@ protected:
 		return GL_FALSE;
 	}
 
+#ifdef GL_RENDERBUFFER
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Renderbuffer;
+	}
+#endif
+
 	static void _bind(GLuint _name, Target target)
 	{
 		assert(_name != 0);

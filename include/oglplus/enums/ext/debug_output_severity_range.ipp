@@ -11,8 +11,8 @@
 
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
-	DebugOutputSeverity
-> EnumValueRange(DebugOutputSeverity*)
+	DebugOutputARBSeverity
+> EnumValueRange(DebugOutputARBSeverity*)
 OGLPLUS_NOEXCEPT(true)
 #if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 ;
@@ -35,7 +35,7 @@ GL_DONT_CARE,
 };
 return aux::CastIterRange<
 	const GLenum*,
-	DebugOutputSeverity
+	DebugOutputARBSeverity
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
 #endif

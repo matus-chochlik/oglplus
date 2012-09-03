@@ -1,8 +1,8 @@
 /*
- *  .file oglplus/enums/ext/debug_output_source_range.ipp
+ *  .file oglplus/enums/debug_output_source_range.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/ext/debug_output_source.txt' instead.
+ *  edit 'source/enums/debug_output_source.txt' instead.
  *
  *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,31 +11,31 @@
 
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
-	DebugOutputARBSource
-> EnumValueRange(DebugOutputARBSource*)
+	DebugOutputSource
+> EnumValueRange(DebugOutputSource*)
 OGLPLUS_NOEXCEPT(true)
 #if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 ;
 #else
 {
 static const GLenum _values[] = {
-#if defined GL_DEBUG_SOURCE_API_ARB
-GL_DEBUG_SOURCE_API_ARB,
+#if defined GL_DEBUG_SOURCE_API
+GL_DEBUG_SOURCE_API,
 #endif
-#if defined GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB
-GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB,
+#if defined GL_DEBUG_SOURCE_WINDOW_SYSTEM
+GL_DEBUG_SOURCE_WINDOW_SYSTEM,
 #endif
-#if defined GL_DEBUG_SOURCE_SHADER_COMPILER_ARB
-GL_DEBUG_SOURCE_SHADER_COMPILER_ARB,
+#if defined GL_DEBUG_SOURCE_SHADER_COMPILER
+GL_DEBUG_SOURCE_SHADER_COMPILER,
 #endif
-#if defined GL_DEBUG_SOURCE_THIRD_PARTY_ARB
-GL_DEBUG_SOURCE_THIRD_PARTY_ARB,
+#if defined GL_DEBUG_SOURCE_THIRD_PARTY
+GL_DEBUG_SOURCE_THIRD_PARTY,
 #endif
-#if defined GL_DEBUG_SOURCE_APPLICATION_ARB
-GL_DEBUG_SOURCE_APPLICATION_ARB,
+#if defined GL_DEBUG_SOURCE_APPLICATION
+GL_DEBUG_SOURCE_APPLICATION,
 #endif
-#if defined GL_DEBUG_SOURCE_OTHER_ARB
-GL_DEBUG_SOURCE_OTHER_ARB,
+#if defined GL_DEBUG_SOURCE_OTHER
+GL_DEBUG_SOURCE_OTHER,
 #endif
 #if defined GL_DONT_CARE
 GL_DONT_CARE,
@@ -44,7 +44,7 @@ GL_DONT_CARE,
 };
 return aux::CastIterRange<
 	const GLenum*,
-	DebugOutputARBSource
+	DebugOutputSource
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
 #endif

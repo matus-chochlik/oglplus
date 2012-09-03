@@ -206,6 +206,14 @@ protected:
 		return GL_FALSE;
 	}
 
+#ifdef GL_PROGRAM
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Program;
+	}
+#endif
+
 	friend class FriendOf<ProgramOps>;
 
 	GLint GetIntParam(GLenum query) const
