@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,14 +19,27 @@
 namespace oglplus {
 namespace aux {
 
+template <class Range>
+std::true_type IsRange(
+	const Range*,
+	bool (Range::*)(void) const = &Range::Empty,
+	size_t (Range::*)(void) const = &Range::Size,
+	void (Range::*)(void) = &Range::Next,
+	typename Range::ValueType (Range::*)(void) const = &Range::Front
+);
+
+std::false_type IsRange(...);
+
 template <typename Context, typename Element>
-class BaseRange
+class ContextElementRange
 {
 private:
 	Context _context;
 	GLuint _current, _count;
 public:
-	BaseRange(Context&& context, GLuint current, GLuint count)
+	typedef Element ValueType;
+
+	ContextElementRange(Context&& context, GLuint current, GLuint count)
 	 : _context(std::move(context))
 	 , _current(current)
 	 , _count(count)
@@ -34,7 +47,7 @@ public:
 		assert(current <= count);
 	}
 
-	BaseRange(BaseRange&& tmp)
+	ContextElementRange(ContextElementRange&& tmp)
 	 : _context(std::move(tmp._context))
 	 , _current(tmp._current)
 	 , _count(tmp._count)
@@ -45,7 +58,7 @@ public:
 		return _current == _count;
 	}
 
-	GLuint Size(void) const
+	size_t Size(void) const
 	{
 		return _count - _current;
 	}
@@ -56,12 +69,7 @@ public:
 		++_current;
 	}
 
-	void StepFront(void)
-	{
-		Next();
-	}
-
-	Element Front(void)
+	ValueType Front(void)
 	{
 		assert(!Empty());
 		return Element(_context, _current);
@@ -74,6 +82,9 @@ class IterRange
 private:
 	Iterator _pos, _end;
 public:
+	typedef const typename std::iterator_traits<Iterator>::reference
+		ValueType;
+
 	IterRange(Iterator begin, Iterator end)
 	 : _pos(begin)
 	 , _end(end)
@@ -84,7 +95,7 @@ public:
 		return _pos == _end;
 	}
 
-	GLuint Size(void) const
+	size_t Size(void) const
 	{
 		return _end - _pos;
 	}
@@ -95,12 +106,7 @@ public:
 		++_pos;
 	}
 
-	void StepFront(void)
-	{
-		Next();
-	}
-
-	typename std::iterator_traits<Iterator>::reference Front(void) const
+	ValueType Front(void) const
 	{
 		assert(!Empty());
 		return *_pos;
@@ -112,11 +118,13 @@ class CastIterRange
  : public IterRange<Iterator>
 {
 public:
+	typedef Element ValueType;
+
 	CastIterRange(Iterator begin, Iterator end)
 	 : IterRange<Iterator>(begin, end)
 	{ }
 
-	Element Front(void) const
+	ValueType Front(void) const
 	{
 		return Element(IterRange<Iterator>::Front());
 	}
@@ -124,43 +132,18 @@ public:
 
 template <typename Element>
 class ArrayRange
+ : public CastIterRange<
+	std::vector<GLuint>::const_iterator,
+	Element
+>
 {
 private:
 	typedef std::vector<GLuint>::const_iterator iterator;
-	iterator _pos;
-	iterator _end;
+	typedef CastIterRange<iterator, Element> _base;
 public:
 	ArrayRange(iterator i, iterator e)
-	 : _pos(i)
-	 , _end(e)
+	 : _base(i, e)
 	{ }
-
-	bool Empty(void) const
-	{
-		return _pos == _end;
-	}
-
-	GLuint Size(void) const
-	{
-		return _end - _pos;
-	}
-
-	void Next(void)
-	{
-		assert(!Empty());
-		++_pos;
-	}
-
-	void StepFront(void)
-	{
-		Next();
-	}
-
-	Element Front(void)
-	{
-		assert(!Empty());
-		return Element(*_pos);
-	}
 };
 
 } // namespace aux

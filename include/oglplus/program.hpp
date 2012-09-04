@@ -464,34 +464,34 @@ public:
 #else
 
 #if GL_VERSION_4_3
-	typedef aux::BaseRange<
+	typedef aux::ContextElementRange<
 		aux::ProgramInterfaceContext,
 		ProgramResource
 	> ActiveResourceRange;
 #endif
 
-	typedef aux::BaseRange<
+	typedef aux::ContextElementRange<
 		aux::ProgramInterfaceContext,
 		aux::ActiveAttribInfo
 	> ActiveAttribRange;
 
-	typedef aux::BaseRange<
+	typedef aux::ContextElementRange<
 		aux::ProgramInterfaceContext,
 		aux::ActiveUniformInfo
 	> ActiveUniformRange;
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
-	typedef aux::BaseRange<
+	typedef aux::ContextElementRange<
 		aux::ProgramInterfaceContext,
 		aux::ActiveSubroutineInfo
 	> ActiveSubroutineRange;
 
-	typedef aux::BaseRange<
+	typedef aux::ContextElementRange<
 		aux::ProgramInterfaceContext,
 		aux::ActiveSubroutineUniformInfo
 	> ActiveSubroutineUniformRange;
 #endif
-	typedef aux::BaseRange<
+	typedef aux::ContextElementRange<
 		aux::ProgramInterfaceContext,
 		aux::TransformFeedbackVaryingInfo
 	> TransformFeedbackVaryingRange;
@@ -533,7 +533,7 @@ public:
 		{ }
 	};
 
-	typedef aux::BaseRange<
+	typedef aux::ContextElementRange<
 			ShaderIterationContext,
 			ManagedShader
 	> ShaderRange;
@@ -803,7 +803,7 @@ public:
 	/// The type of the range for traversing active uniform blocks
 	typedef Range<ActiveUniformBlockInfo> ActiveUniformRange;
 #else
-	typedef aux::BaseRange<
+	typedef aux::ContextElementRange<
 		aux::ProgramInterfaceContext,
 		aux::ActiveUniformBlockInfo
 	> ActiveUniformBlockRange;
