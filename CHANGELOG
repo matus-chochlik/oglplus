@@ -1,3 +1,26 @@
+Version 0.19.0
+
+- Some parts of OGLplus can now optionally be built into a library
+  and linked to the applications based on the value of the
+  OGLPLUS_LINK_LIBRARY preprocessor switch.
+- The implementation of the EnumValueName function was refactored.
+- The EnumValueRange function was added.
+- Wrappers for GL 4.3 program interface, compute shader dispatching,
+  and debug output functionality were added.
+- Support for GL/glcorearb.h header was added to the build system.
+- The configuration script for the build system was updated.
+- The smart enumerations header was moved to the oglplus/opt dir.
+- Wrappers for BufferClearData and BufferClearSubData were added.
+- Wrappers for texture functions were added.
+- Operator << was added to Program for attaching shaders.
+- The shader literals were added.
+- Several new enumeration types and new values to the existing
+  enumerations were added.
+- New example showing a soft body simulation was added.
+- New example showing the usage of shader literals was added.
+- The documentation and README was updated.
+- Several bugs were fixed.
+
 Version 0.18.0
 
 - Added the OneOf template allowing to pass values
