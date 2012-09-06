@@ -51,7 +51,7 @@
 
 # elif OGLPLUS_USE_GL3W
 #  define GL3_PROTOTYPES
-#  include <GL/gl3w.h>
+#  include <GL3/gl3w.h>
 
 # else
 #  error "Some library including OpenGL symbols is required!"
