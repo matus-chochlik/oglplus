@@ -7,5 +7,6 @@
 030_pool_tiles.cpp
 031_blob.cpp
 031_sketch.cpp
+032_bar_grid.cpp
 033_metal_and_glass.cpp
 034_billiard_balls.cpp
