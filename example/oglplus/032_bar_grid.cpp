@@ -10,6 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/preprocessor.hpp>
 
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/shapes/plane.hpp>
@@ -31,7 +32,13 @@ private:
 public:
 	MetalFloor(const Program& metal_prog)
 	 : shapes::ShapeWrapper(
-		{"Position", "Normal", "Tangent", "TexCoord"},
+		OGLPLUS_STD_VECTOR_INIT(
+			const GLchar*,
+			"Position",
+			"Normal",
+			"Tangent",
+			"TexCoord"
+		),
 		shapes::Plane(Vec3f(100, 0, 0), Vec3f(0, 0,-100)),
 		metal_prog
 	)

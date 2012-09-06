@@ -127,6 +127,7 @@ public:
 		UseInProgram(prog);
 	}
 
+#if !OGLPLUS_NO_INITIALIZER_LISTS
 	template <class ShapeBuilder>
 	ShapeWrapper(
 		const std::initializer_list<const GLchar*>& names,
@@ -140,6 +141,24 @@ public:
 	 , _names(std::distance(names.begin(), names.end()))
 	{
 		_init(builder, names.begin(), names.end());
+		UseInProgram(prog);
+	}
+#endif
+
+	template <class ShapeBuilder>
+	ShapeWrapper(
+		const GLchar* names,
+		size_t name_count,
+		const ShapeBuilder& builder,
+		const Program& prog
+	): _face_winding(builder.FaceWinding())
+	 , _shape_instr(builder.Instructions())
+	 , _index_info(builder)
+	 , _vbos(std::distance(names, names+name_count)+1)
+	 , _npvs(std::distance(names, names+name_count)+1, 0)
+	 , _names(std::distance(names, names+name_count))
+	{
+		_init(builder, names, names+name_count);
 		UseInProgram(prog);
 	}
 
