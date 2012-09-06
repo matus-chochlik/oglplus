@@ -143,7 +143,7 @@ public:
 			GLenum(primitive),
 			count,
 			GLenum(data_type),
-			0
+			nullptr
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElements));
 	}
@@ -170,6 +170,30 @@ public:
 			indices
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElements));
+	}
+
+	/// Draws a sequence of primitives from the bound element array buffers
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{DrawElementsInstanced}
+	 */
+	static void DrawElementsInstanced(
+		PrimitiveType primitive,
+		GLsizei count,
+		DataType data_type,
+		GLsizei instance_count
+	)
+	{
+		OGLPLUS_GLFUNC(DrawElementsInstanced)(
+			GLenum(primitive),
+			count,
+			GLenum(data_type),
+			nullptr,
+			instance_count
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElementsInstanced));
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
@@ -426,7 +450,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PrimitiveRestartIndex}
 	 */
-	void PrimitiveRestartIndex(GLuint index)
+	static void PrimitiveRestartIndex(GLuint index)
 	{
 		OGLPLUS_GLFUNC(PrimitiveRestartIndex)(index);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PrimitiveRestartIndex));
