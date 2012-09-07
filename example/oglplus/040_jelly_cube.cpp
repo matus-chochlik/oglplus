@@ -1567,8 +1567,6 @@ public:
 
 
 		// Draw stencilled parts of objects only with full light
-		gl.Clear().DepthBuffer();
-
 		metal_prog.light_multiplier.Set(1.0);
 		draw_prog.light_multiplier.Set(1.0);
 
@@ -1578,6 +1576,8 @@ public:
 
 		gl.StencilFunc(se::Equal(), 1);
 		gl.StencilOp(se::Keep(), se::Keep(), se::Keep());
+
+		gl.Clear().DepthBuffer();
 
 		floor.Draw(metal_prog);
 		jelly_cube.Draw(draw_prog);

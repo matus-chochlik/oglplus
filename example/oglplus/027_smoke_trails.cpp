@@ -461,7 +461,6 @@ public:
 		gl.DrawElements(
 			PrimitiveType::Points,
 			indices.size(),
-			DataType::UnsignedInt,
 			indices.data()
 		);
 	}

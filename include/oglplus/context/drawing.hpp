@@ -159,14 +159,13 @@ public:
 	static void DrawElements(
 		PrimitiveType primitive,
 		GLsizei count,
-		DataType data_type,
-		T* indices
+		const T* indices
 	)
 	{
 		OGLPLUS_GLFUNC(DrawElements)(
 			GLenum(primitive),
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElements));
@@ -196,6 +195,31 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElementsInstanced));
 	}
 
+	/// Draws a sequence of primitives from the bound element array buffers
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{DrawElementsInstanced}
+	 */
+	template <typename T>
+	static void DrawElementsInstanced(
+		PrimitiveType primitive,
+		GLsizei count,
+		const T* indices,
+		GLsizei instance_count
+	)
+	{
+		OGLPLUS_GLFUNC(DrawElementsInstanced)(
+			GLenum(primitive),
+			count,
+			GLenum(GetDataType<T>()),
+			nullptr,
+			instance_count
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawElementsInstanced));
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
 	/// Draws a sequence of primitives from the bound element array buffers
 	/**
@@ -209,8 +233,7 @@ public:
 	static void DrawElementsInstancedBaseInstance(
 		PrimitiveType primitive,
 		GLsizei count,
-		DataType data_type,
-		T* indices,
+		const T* indices,
 		GLsizei prim_count,
 		GLuint base_instance
 	)
@@ -218,7 +241,7 @@ public:
 		OGLPLUS_GLFUNC(DrawElementsInstancedBaseInstance)(
 			GLenum(primitive),
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices,
 			prim_count,
 			base_instance
@@ -240,15 +263,14 @@ public:
 	static void MultiDrawElements(
 		PrimitiveType primitive,
 		GLsizei count,
-		DataType data_type,
-		T** indices,
+		T* const * indices,
 		GLsizei prim_count
 	)
 	{
 		OGLPLUS_GLFUNC(MultiDrawElements)(
 			GLenum(primitive),
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices,
 			prim_count
 		);
@@ -268,8 +290,7 @@ public:
 		GLuint start,
 		GLuint end,
 		GLsizei count,
-		DataType data_type,
-		T* indices
+		const T* indices
 	)
 	{
 		OGLPLUS_GLFUNC(DrawRangeElements)(
@@ -277,7 +298,7 @@ public:
 			start,
 			end,
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawRangeElements));
@@ -297,15 +318,14 @@ public:
 	static void DrawElementsBaseVertex(
 		PrimitiveType primitive,
 		GLsizei count,
-		DataType data_type,
-		T* indices,
+		const T* indices,
 		GLint base_vertex
 	)
 	{
 		OGLPLUS_GLFUNC(DrawElementsBaseVertex)(
 			GLenum(primitive),
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices,
 			base_vertex
 		);
@@ -326,8 +346,7 @@ public:
 		GLuint start,
 		GLuint end,
 		GLsizei count,
-		DataType data_type,
-		T* indices,
+		const T* indices,
 		GLint base_vertex
 	)
 	{
@@ -336,7 +355,7 @@ public:
 			start,
 			end,
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices,
 			base_vertex
 		);
@@ -355,8 +374,7 @@ public:
 	static void DrawElementsInstancedBaseVertex(
 		PrimitiveType primitive,
 		GLsizei count,
-		DataType data_type,
-		T* indices,
+		const T* indices,
 		GLsizei prim_count,
 		GLint base_vertex
 	)
@@ -364,7 +382,7 @@ public:
 		OGLPLUS_GLFUNC(DrawElementsInstancedBaseVertex)(
 			GLenum(primitive),
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices,
 			prim_count,
 			base_vertex
@@ -386,8 +404,7 @@ public:
 	static void MultiDrawElementsBaseVertex(
 		PrimitiveType primitive,
 		GLsizei count,
-		DataType data_type,
-		T** indices,
+		T* const * indices,
 		GLsizei prim_count,
 		const int* base_vertex
 	)
@@ -395,7 +412,7 @@ public:
 		OGLPLUS_GLFUNC(MultiDrawElementsBaseVertex)(
 			GLenum(primitive),
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices,
 			prim_count,
 			base_vertex
@@ -417,8 +434,7 @@ public:
 	static void DrawElementsInstancedBaseVertexBaseInstance(
 		PrimitiveType primitive,
 		GLsizei count,
-		DataType data_type,
-		T* indices,
+		const T* indices,
 		GLsizei prim_count,
 		GLint base_vertex,
 		GLuint base_instance
@@ -427,7 +443,7 @@ public:
 		OGLPLUS_GLFUNC(DrawElementsInstancedBaseVertexBaseInstance)(
 			GLenum(primitive),
 			count,
-			GLenum(data_type),
+			GLenum(GetDataType<T>()),
 			indices,
 			prim_count,
 			base_vertex,

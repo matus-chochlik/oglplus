@@ -304,8 +304,20 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Set the vector value of the uniform variable
-	/**
-	 *  @note Consider using @c Uniform<Vector<T,N>> instead
+	/** This function can be used to set uniform variables
+	 *  with 2, 3 or 4 -component vector types with the
+	 *  same underlying type as is the template parameter
+	 *  of the Uniform or ProgramUniform class. For example
+	 *  Uniform<GLfloat>::SetVector() can be used to set the
+	 *  values of GLSL uniforms with vec2, vec3 or vec4 type,
+	 *  Uniform<GLint>::SetVector() can be used to set the
+	 *  values of GLSL uniforms with ivec2, ivec3 or ivec4 type, etc.
+	 *
+	 *  @note Consider using Uniform<Vector<T,N>>::Set() instead
+	 *  of Uniform<T>::SetVector<N>().
+	 *
+	 *  @note This function is @em not intended for setting
+	 *  arrays of uniform variables.
 	 *
 	 *  @glsymbols
 	 *  @glfunref{Uniform}
@@ -358,8 +370,22 @@ public:
 #endif
 
 	/// Set the vector value of the uniform variable
-	/**
-	 *  @note Consider using @c Uniform<Vector<T,N>> instead
+	/** This function can be used to set uniform variables
+	 *  with 2, 3 or 4 -component vector types with the
+	 *  same underlying type as is the template parameter
+	 *  of the Uniform or ProgramUniform class.
+	 *
+	 *  For example
+	 *  Uniform<GLfloat>::SetVector() can be used to set the
+	 *  values of GLSL uniforms with vec2, vec3 or vec4 type,
+	 *  Uniform<GLint>::SetVector() can be used to set the
+	 *  values of GLSL uniforms with ivec2, ivec3 or ivec4 type, etc.
+	 *
+	 *  @note Consider using Uniform<Vector<T,N>>::Set() instead
+	 *  of Uniform<T>::SetVector<N>().
+	 *
+	 *  @note This function is @em not intended for setting
+	 *  arrays of uniform variables.
 	 *
 	 *  @glsymbols
 	 *  @glfunref{Uniform}
@@ -375,9 +401,20 @@ public:
 		);
 	}
 
-	/// Set the vector value(s) of the uniform variable
-	/**
-	 *  @note Consider using @c Uniform<Vector<T,N>> instead
+	/// Set multiple scalar or vector values of an uniform variable
+	/** This function can be used to set multiple values of an
+	 *  uniform array variable with scalar or vector type with
+	 *  2, 3 or 4 -components with the same underlying type as is
+	 *  the template parameter of the Uniform or ProgramUniform class.
+	 *
+	 *  For example
+	 *  Uniform<GLfloat>::SetVector() can be used to set the
+	 *  values of GLSL uniforms with vec2, vec3 or vec4 type,
+	 *  Uniform<GLint>::SetVector() can be used to set the
+	 *  values of GLSL uniforms with ivec2, ivec3 or ivec4 type, etc.
+	 *
+	 *  @note Consider using Uniform<T>::Set()
+	 *  or Uniform<Vector<T,N>>::Set() instead of SetVectors.
 	 *
 	 *  @glsymbols
 	 *  @glfunref{Uniform}
@@ -394,9 +431,20 @@ public:
 		);
 	}
 
-	/// Set the vector value(s) of the uniform variable
-	/**
-	 *  @note Consider using @c Uniform<Vector<T,N>> instead
+	/// Set multiple scalar or vector values of an uniform variable
+	/** This function can be used to set multiple values of an
+	 *  uniform array variable with scalar or vector type with
+	 *  2, 3 or 4 -components with the same underlying type as is
+	 *  the template parameter of the Uniform or ProgramUniform class.
+	 *
+	 *  For example
+	 *  Uniform<GLfloat>::SetVector() can be used to set the
+	 *  values of GLSL uniforms with vec2, vec3 or vec4 type,
+	 *  Uniform<GLint>::SetVector() can be used to set the
+	 *  values of GLSL uniforms with ivec2, ivec3 or ivec4 type, etc.
+	 *
+	 *  @note Consider using Uniform<T>::Set()
+	 *  or Uniform<Vector<T,N>>::Set() instead of SetVectors.
 	 *
 	 *  @glsymbols
 	 *  @glfunref{Uniform}
