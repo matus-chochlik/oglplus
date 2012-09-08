@@ -7348,7 +7348,7 @@ template <typename Enum> friend bool operator!=(Enum value, Fog);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_ASCENDER_NV}
+ *  @gldefref{FONT_ASCENDER_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7381,7 +7381,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontAscender);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_DESCENDER_NV}
+ *  @gldefref{FONT_DESCENDER_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7414,7 +7414,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontDescender);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_HAS_KERNING_NV}
+ *  @gldefref{FONT_HAS_KERNING_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7447,7 +7447,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontHasKerning);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_HEIGHT_NV}
+ *  @gldefref{FONT_HEIGHT_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7480,7 +7480,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontHeight);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_MAX_ADVANCE_HEIGHT_NV}
+ *  @gldefref{FONT_MAX_ADVANCE_HEIGHT_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7513,7 +7513,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontMaxAdvanceHeight
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_MAX_ADVANCE_WIDTH_NV}
+ *  @gldefref{FONT_MAX_ADVANCE_WIDTH_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7546,7 +7546,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontMaxAdvanceWidth)
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_UNDERLINE_POSITION_NV}
+ *  @gldefref{FONT_UNDERLINE_POSITION_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7579,7 +7579,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontUnderlinePositio
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_UNDERLINE_THICKNESS_NV}
+ *  @gldefref{FONT_UNDERLINE_THICKNESS_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7612,7 +7612,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontUnderlineThickne
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_UNITS_PER_EM_NV}
+ *  @gldefref{FONT_UNITS_PER_EM_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7645,7 +7645,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontUnitsPerEm);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_X_MAX_BOUNDS_NV}
+ *  @gldefref{FONT_X_MAX_BOUNDS_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7678,7 +7678,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontXMaxBounds);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_X_MIN_BOUNDS_NV}
+ *  @gldefref{FONT_X_MIN_BOUNDS_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7711,7 +7711,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontXMinBounds);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_Y_MAX_BOUNDS_NV}
+ *  @gldefref{FONT_Y_MAX_BOUNDS_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -7744,7 +7744,7 @@ template <typename Enum> friend bool operator!=(Enum value, FontYMaxBounds);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{FONT_Y_MIN_BOUNDS_NV}
+ *  @gldefref{FONT_Y_MIN_BOUNDS_BIT_NV}
  *
  *  @ingroup smart_enums
  */
@@ -8408,7 +8408,7 @@ template <typename Enum> friend bool operator!=(Enum value, GEqual);
  *  @see @ref oglplus::PathNVMetricQuery "PathNVMetricQuery"
  *
  *  @glsymbols
- *  @gldefref{GLYPH_HAS_KERNING_NV}
+ *  @gldefref{GLYPH_HAS_KERNING_BIT_NV}
  *
  *  @ingroup smart_enums
  */

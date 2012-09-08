@@ -89,143 +89,143 @@
    OGLPLUS_ENUM_CLASS_VALUE(GlyphVerticalBearingAdvance, GL_GLYPH_VERTICAL_BEARING_ADVANCE_BIT_NV)
 # endif
 #endif
-#if defined GL_GLYPH_HAS_KERNING_NV
+#if defined GL_GLYPH_HAS_KERNING_BIT_NV
 # if defined GlyphHasKerning
 #  pragma push_macro("GlyphHasKerning")
 #  undef GlyphHasKerning
-   OGLPLUS_ENUM_CLASS_VALUE(GlyphHasKerning, GL_GLYPH_HAS_KERNING_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(GlyphHasKerning, GL_GLYPH_HAS_KERNING_BIT_NV)
 #  pragma pop_macro("GlyphHasKerning")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(GlyphHasKerning, GL_GLYPH_HAS_KERNING_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(GlyphHasKerning, GL_GLYPH_HAS_KERNING_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_X_MIN_BOUNDS_NV
+#if defined GL_FONT_X_MIN_BOUNDS_BIT_NV
 # if defined FontXMinBounds
 #  pragma push_macro("FontXMinBounds")
 #  undef FontXMinBounds
-   OGLPLUS_ENUM_CLASS_VALUE(FontXMinBounds, GL_FONT_X_MIN_BOUNDS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontXMinBounds, GL_FONT_X_MIN_BOUNDS_BIT_NV)
 #  pragma pop_macro("FontXMinBounds")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontXMinBounds, GL_FONT_X_MIN_BOUNDS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontXMinBounds, GL_FONT_X_MIN_BOUNDS_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_Y_MIN_BOUNDS_NV
+#if defined GL_FONT_Y_MIN_BOUNDS_BIT_NV
 # if defined FontYMinBounds
 #  pragma push_macro("FontYMinBounds")
 #  undef FontYMinBounds
-   OGLPLUS_ENUM_CLASS_VALUE(FontYMinBounds, GL_FONT_Y_MIN_BOUNDS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontYMinBounds, GL_FONT_Y_MIN_BOUNDS_BIT_NV)
 #  pragma pop_macro("FontYMinBounds")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontYMinBounds, GL_FONT_Y_MIN_BOUNDS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontYMinBounds, GL_FONT_Y_MIN_BOUNDS_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_X_MAX_BOUNDS_NV
+#if defined GL_FONT_X_MAX_BOUNDS_BIT_NV
 # if defined FontXMaxBounds
 #  pragma push_macro("FontXMaxBounds")
 #  undef FontXMaxBounds
-   OGLPLUS_ENUM_CLASS_VALUE(FontXMaxBounds, GL_FONT_X_MAX_BOUNDS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontXMaxBounds, GL_FONT_X_MAX_BOUNDS_BIT_NV)
 #  pragma pop_macro("FontXMaxBounds")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontXMaxBounds, GL_FONT_X_MAX_BOUNDS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontXMaxBounds, GL_FONT_X_MAX_BOUNDS_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_Y_MAX_BOUNDS_NV
+#if defined GL_FONT_Y_MAX_BOUNDS_BIT_NV
 # if defined FontYMaxBounds
 #  pragma push_macro("FontYMaxBounds")
 #  undef FontYMaxBounds
-   OGLPLUS_ENUM_CLASS_VALUE(FontYMaxBounds, GL_FONT_Y_MAX_BOUNDS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontYMaxBounds, GL_FONT_Y_MAX_BOUNDS_BIT_NV)
 #  pragma pop_macro("FontYMaxBounds")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontYMaxBounds, GL_FONT_Y_MAX_BOUNDS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontYMaxBounds, GL_FONT_Y_MAX_BOUNDS_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_UNITS_PER_EM_NV
+#if defined GL_FONT_UNITS_PER_EM_BIT_NV
 # if defined FontUnitsPerEm
 #  pragma push_macro("FontUnitsPerEm")
 #  undef FontUnitsPerEm
-   OGLPLUS_ENUM_CLASS_VALUE(FontUnitsPerEm, GL_FONT_UNITS_PER_EM_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontUnitsPerEm, GL_FONT_UNITS_PER_EM_BIT_NV)
 #  pragma pop_macro("FontUnitsPerEm")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontUnitsPerEm, GL_FONT_UNITS_PER_EM_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontUnitsPerEm, GL_FONT_UNITS_PER_EM_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_ASCENDER_NV
+#if defined GL_FONT_ASCENDER_BIT_NV
 # if defined FontAscender
 #  pragma push_macro("FontAscender")
 #  undef FontAscender
-   OGLPLUS_ENUM_CLASS_VALUE(FontAscender, GL_FONT_ASCENDER_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontAscender, GL_FONT_ASCENDER_BIT_NV)
 #  pragma pop_macro("FontAscender")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontAscender, GL_FONT_ASCENDER_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontAscender, GL_FONT_ASCENDER_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_DESCENDER_NV
+#if defined GL_FONT_DESCENDER_BIT_NV
 # if defined FontDescender
 #  pragma push_macro("FontDescender")
 #  undef FontDescender
-   OGLPLUS_ENUM_CLASS_VALUE(FontDescender, GL_FONT_DESCENDER_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontDescender, GL_FONT_DESCENDER_BIT_NV)
 #  pragma pop_macro("FontDescender")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontDescender, GL_FONT_DESCENDER_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontDescender, GL_FONT_DESCENDER_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_HEIGHT_NV
+#if defined GL_FONT_HEIGHT_BIT_NV
 # if defined FontHeight
 #  pragma push_macro("FontHeight")
 #  undef FontHeight
-   OGLPLUS_ENUM_CLASS_VALUE(FontHeight, GL_FONT_HEIGHT_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontHeight, GL_FONT_HEIGHT_BIT_NV)
 #  pragma pop_macro("FontHeight")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontHeight, GL_FONT_HEIGHT_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontHeight, GL_FONT_HEIGHT_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_MAX_ADVANCE_WIDTH_NV
+#if defined GL_FONT_MAX_ADVANCE_WIDTH_BIT_NV
 # if defined FontMaxAdvanceWidth
 #  pragma push_macro("FontMaxAdvanceWidth")
 #  undef FontMaxAdvanceWidth
-   OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceWidth, GL_FONT_MAX_ADVANCE_WIDTH_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceWidth, GL_FONT_MAX_ADVANCE_WIDTH_BIT_NV)
 #  pragma pop_macro("FontMaxAdvanceWidth")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceWidth, GL_FONT_MAX_ADVANCE_WIDTH_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceWidth, GL_FONT_MAX_ADVANCE_WIDTH_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_MAX_ADVANCE_HEIGHT_NV
+#if defined GL_FONT_MAX_ADVANCE_HEIGHT_BIT_NV
 # if defined FontMaxAdvanceHeight
 #  pragma push_macro("FontMaxAdvanceHeight")
 #  undef FontMaxAdvanceHeight
-   OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceHeight, GL_FONT_MAX_ADVANCE_HEIGHT_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceHeight, GL_FONT_MAX_ADVANCE_HEIGHT_BIT_NV)
 #  pragma pop_macro("FontMaxAdvanceHeight")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceHeight, GL_FONT_MAX_ADVANCE_HEIGHT_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontMaxAdvanceHeight, GL_FONT_MAX_ADVANCE_HEIGHT_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_UNDERLINE_POSITION_NV
+#if defined GL_FONT_UNDERLINE_POSITION_BIT_NV
 # if defined FontUnderlinePosition
 #  pragma push_macro("FontUnderlinePosition")
 #  undef FontUnderlinePosition
-   OGLPLUS_ENUM_CLASS_VALUE(FontUnderlinePosition, GL_FONT_UNDERLINE_POSITION_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontUnderlinePosition, GL_FONT_UNDERLINE_POSITION_BIT_NV)
 #  pragma pop_macro("FontUnderlinePosition")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontUnderlinePosition, GL_FONT_UNDERLINE_POSITION_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontUnderlinePosition, GL_FONT_UNDERLINE_POSITION_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_UNDERLINE_THICKNESS_NV
+#if defined GL_FONT_UNDERLINE_THICKNESS_BIT_NV
 # if defined FontUnderlineThickness
 #  pragma push_macro("FontUnderlineThickness")
 #  undef FontUnderlineThickness
-   OGLPLUS_ENUM_CLASS_VALUE(FontUnderlineThickness, GL_FONT_UNDERLINE_THICKNESS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontUnderlineThickness, GL_FONT_UNDERLINE_THICKNESS_BIT_NV)
 #  pragma pop_macro("FontUnderlineThickness")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontUnderlineThickness, GL_FONT_UNDERLINE_THICKNESS_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontUnderlineThickness, GL_FONT_UNDERLINE_THICKNESS_BIT_NV)
 # endif
 #endif
-#if defined GL_FONT_HAS_KERNING_NV
+#if defined GL_FONT_HAS_KERNING_BIT_NV
 # if defined FontHasKerning
 #  pragma push_macro("FontHasKerning")
 #  undef FontHasKerning
-   OGLPLUS_ENUM_CLASS_VALUE(FontHasKerning, GL_FONT_HAS_KERNING_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontHasKerning, GL_FONT_HAS_KERNING_BIT_NV)
 #  pragma pop_macro("FontHasKerning")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FontHasKerning, GL_FONT_HAS_KERNING_NV)
+   OGLPLUS_ENUM_CLASS_VALUE(FontHasKerning, GL_FONT_HAS_KERNING_BIT_NV)
 # endif
 #endif

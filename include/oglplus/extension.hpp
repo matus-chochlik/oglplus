@@ -36,8 +36,10 @@ inline void RequireExtension(const GLchar* name, bool available)
 }
 
 #if OGLPLUS_USE_GLEW
-#define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) \
-	(GLEW_ ## VENDOR ## _ ## EXTENSION == GL_TRUE)
+#define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
+	(GL_ ## VENDOR ## _ ## EXTENSION == GL_TRUE) ||\
+	(GLEW_ ## VENDOR ## _ ## EXTENSION == GL_TRUE) \
+)
 #else
 // TODO
 #define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) true

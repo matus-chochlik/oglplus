@@ -13,11 +13,11 @@ SET oglplus_archive_items=^
 	utils ^
 	source ^
 	LICENSE_1_0.txt ^
-	README.txt ^
+	README.rst ^
 	CHANGELOG ^
 	VERSION ^
 	CMakeLists.txt ^
-	configure.bat 
+	configure.bat
 
 :: Get the current version
 SET /P oglplus_version=<VERSION

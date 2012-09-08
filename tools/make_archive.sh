@@ -13,7 +13,7 @@ oglplus_archive_items="
 	utils
 	xslt
 	LICENSE_1_0.txt
-	README.txt
+	README.rst
 	CHANGELOG
 	VERSION
 	CMakeLists.txt
