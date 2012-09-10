@@ -67,7 +67,7 @@ OOPPTTIIOONNSS
               Force use of the GL3/gl3.h header. If this option is used,  then
               this  header  must  be installed somewhere in the system include
               directories or in directories specified with _-_-_i_n_c_l_u_d_e_-_d_i_r.  The
-              _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h,   _-_-_u_s_e_-_g_l_3_-_h,  _-_-_u_s_e_-_g_l_e_w  and  iI--use-gl3w
+              _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h,   _-_-_u_s_e_-_g_l_3_-_h,   _-_-_u_s_e_-_g_l_e_w   and  _-_-_u_s_e_-_g_l_3_w
               options are mutually exclusive.
 
 
@@ -75,8 +75,8 @@ OOPPTTIIOONNSS
               Force use of the GL/glcorearb.h header. If this option is  used,
               then  this  header  must  be  installed  somewhere in the system
               include directories or in directories specified with  _-_-_i_n_c_l_u_d_e_-
-              _d_i_r.    The   _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h,   _-_-_u_s_e_-_g_l_3_-_h,  _-_-_u_s_e_-_g_l_e_w  and
-              iI--use-gl3w options are mutually exclusive.
+              _d_i_r.   The _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w and _-_-_u_s_e_-
+              _g_l_3_w options are mutually exclusive.
 
 
        ----uussee--gglleeww
@@ -84,7 +84,7 @@ OOPPTTIIOONNSS
               and the _G_L_/_g_l_e_w_._h header must be installed somewhere in the sys-
               tem  include  directories  or  in  directories  specified   with
               _-_-_i_n_c_l_u_d_e_-_d_i_r.   The  _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w
-              and iI--use-gl3w options are mutually exclusive.
+              and _-_-_u_s_e_-_g_l_3_w options are mutually exclusive.
 
 
        ----uussee--ggll33ww
@@ -92,7 +92,7 @@ OOPPTTIIOONNSS
               and the _G_L_/_g_l_3_w_._h header must be installed somewhere in the sys-
               tem  include  directories  or  in  directories  specified   with
               _-_-_i_n_c_l_u_d_e_-_d_i_r.   The  _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w
-              and iI--use-gl3w options are mutually exclusive.
+              and _-_-_u_s_e_-_g_l_3_w options are mutually exclusive.
 
 
        ----nnoo--eexxaammpplleess

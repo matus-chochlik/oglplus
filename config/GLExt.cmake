@@ -3,46 +3,42 @@
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 
-function(gl_ext_detection EXTENSION_NAME)
-	set(OGLPLUS_CONFIG_QUERY_GL_EXT GL_${EXTENSION_NAME})
-	configure_file(
-		${PROJECT_SOURCE_DIR}/config/has_GL_EXT.cpp.in
-		${PROJECT_BINARY_DIR}/gl_ext/has_GL_${EXTENSION_NAME}.cpp
-	)
-	unset(OGLPLUS_CONFIG_QUERY_GL_EXT)
+function(gl_lib_ext_detection GL_LIB EXTENSION_NAME)
+	# if there is a specific file for the detection of extension availability
+	if(EXISTS ${PROJECT_SOURCE_DIR}/config/gl_ext/has_${GL_LIB}_${EXTENSION_NAME}.cpp)
+		# use it
+		configure_file(
+			${PROJECT_SOURCE_DIR}/config/gl_ext/has_${GL_LIB}_${EXTENSION_NAME}.cpp
+			${PROJECT_BINARY_DIR}/gl_ext/has_${GL_LIB}_${EXTENSION_NAME}.cpp
+		)
+	else()
+		# otherwise use the generic template
+		set(OGLPLUS_CONFIG_QUERY_GL_EXT GL_${EXTENSION_NAME})
+
+		configure_file(
+			${PROJECT_SOURCE_DIR}/config/gl_ext/has_${GL_LIB}_EXT.cpp.in
+			${PROJECT_BINARY_DIR}/gl_ext/has_${GL_LIB}_${EXTENSION_NAME}.cpp
+		)
+		unset(OGLPLUS_CONFIG_QUERY_GL_EXT)
+	endif()
 
 	try_compile(
-		HAS_GL_${EXTENSION_NAME}
+		HAS_${GL_LIB}_${EXTENSION_NAME}
 		${PROJECT_BINARY_DIR}/gl_ext
-		${PROJECT_BINARY_DIR}/gl_ext/has_GL_${EXTENSION_NAME}.cpp
+		${PROJECT_BINARY_DIR}/gl_ext/has_${GL_LIB}_${EXTENSION_NAME}.cpp
 		COMPILE_DEFINITIONS
 			-I${OGLPLUS_GL_INCLUDE_DIRS}
 			-I${PROJECT_SOURCE_DIR}/include
 			-I${PROJECT_BINARY_DIR}/include
 	)
+	if(HAS_GLEW_${EXTENSION_NAME})
+		message(STATUS "Found ${GL_LIB} extension: ${EXTENSION_NAME}")
+	endif()
 endfunction()
 
 function(glew_ext_detection EXTENSION_NAME)
 	if(GLEW_FOUND)
-		set(OGLPLUS_CONFIG_QUERY_GL_EXT GL_${EXTENSION_NAME})
-		configure_file(
-			${PROJECT_SOURCE_DIR}/config/has_GLEW_EXT.cpp.in
-			${PROJECT_BINARY_DIR}/gl_ext/has_GLEW_${EXTENSION_NAME}.cpp
-		)
-		unset(OGLPLUS_CONFIG_QUERY_GL_EXT)
-
-		try_compile(
-			HAS_GLEW_${EXTENSION_NAME}
-			${PROJECT_BINARY_DIR}/gl_ext
-			${PROJECT_BINARY_DIR}/gl_ext/has_GLEW_${EXTENSION_NAME}.cpp
-			COMPILE_DEFINITIONS
-				-I${OGLPLUS_GL_INCLUDE_DIRS}
-				-I${PROJECT_SOURCE_DIR}/include
-				-I${PROJECT_BINARY_DIR}/include
-		)
-		if(HAS_GLEW_${EXTENSION_NAME})
-			message(STATUS "Found GLEW extension: ${EXTENSION_NAME}")
-		endif()
+		gl_lib_ext_detection(GLEW ${EXTENSION_NAME})
 	endif()
 endfunction()
 

@@ -76,7 +76,7 @@ then this header must be installed somewhere
 in the system include directories or in directories
 specified with \fI--include-dir\fR.
 The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
-and \iI--use-gl3w\fR
+and \fI--use-gl3w\fR
 options are mutually exclusive.
 
 .TP
@@ -86,7 +86,7 @@ then this header must be installed somewhere
 in the system include directories or in directories
 specified with \fI--include-dir\fR.
 The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
-and \iI--use-gl3w\fR
+and \fI--use-gl3w\fR
 options are mutually exclusive.
 
 .TP
@@ -96,7 +96,7 @@ GLEW and the \fIGL/glew.h\fR header must be installed somewhere
 in the system include directories or in directories
 specified with \fI--include-dir\fR.
 The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
-and \iI--use-gl3w\fR
+and \fI--use-gl3w\fR
 options are mutually exclusive.
 
 .TP
@@ -106,7 +106,7 @@ GL3W and the \fIGL/gl3w.h\fR header must be installed somewhere
 in the system include directories or in directories
 specified with \fI--include-dir\fR.
 The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
-and \iI--use-gl3w\fR
+and \fI--use-gl3w\fR
 options are mutually exclusive.
 
 .TP
