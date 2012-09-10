@@ -567,7 +567,7 @@ public:
 		OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
 			_name,
 			GLenum(intf),
-			GL_ACTIVE_RESOURCES,
+			GL_MAX_NAME_LENGTH,
 			&count
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramInterfaceiv));
