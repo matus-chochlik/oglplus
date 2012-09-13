@@ -11,6 +11,8 @@ option(OGLPLUS_FORCE_GLCOREARB_H "Force use of the GL/glcorearb.h header" Off)
 option(OGLPLUS_FORCE_GLEW "Force use of the GL/glew.h header" Off)
 option(OGLPLUS_FORCE_GL3W "Force use of the GL/gl3w.h header" Off)
 
+option(OGLPLUS_FORCE_WXGL "Force use of the wxGL library" Off)
+
 option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
 option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
@@ -33,6 +35,7 @@ include(config/FindOpenGL.cmake)
 include(config/FindGLEW.cmake)
 include(config/FindGL3W.cmake)
 include(config/FindGLUT.cmake)
+include(config/FindWXGL.cmake)
 include(config/FindGLM.cmake)
 include(config/FindPNG.cmake)
 
@@ -95,6 +98,24 @@ else()
 	endif()
 endif()
 
+# if wxGL was forced
+if(${OGLPLUS_FORCE_WXGL})
+	if(wxWidgets_FOUND)
+		set(OGLPLUS_USE_WXGL 1)
+	else()
+		message(FATAL_ERROR "The wxGL library requested but not found!")
+		return()
+	endif()
+else()
+	if(GLUT_FOUND)
+		set(OGLPLUS_USE_GLUT 1)
+	elseif(wxWidgets_FOUND)
+		set(OGLPLUS_USE_WXGL 1)
+	endif()
+endif()
+
+
+
 unset(OGLPLUS_GL_INCLUDE_DIRS)
 
 if((${OGLPLUS_USE_GLCOREARB_H}) OR (${OGLPLUS_USE_GL3_H}))
@@ -117,7 +138,7 @@ else()
 endif()
 
 # check if Boost.Config is available
-include(config/FindBoostConfig.cmake)
+include(config/FindBoost.cmake)
 if(${BoostConfig_FOUND})
 	include_directories(BEFORE SYSTEM BoostConfig_INCLUDE_DIRS)
 endif()

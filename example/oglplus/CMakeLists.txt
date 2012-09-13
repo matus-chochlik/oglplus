@@ -5,7 +5,11 @@
 cmake_minimum_required(VERSION 2.8)
 
 if(OGLPLUS_USE_GLEW)
-	set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
+	if(OGLPLUS_USE_WXGL)
+		set(OGLPLUS_EXAMPLE_HARNESS "wxgl_glew")
+	else()
+		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
+	endif()
 elseif(OGLPLUS_FRAMEDUMP)
 	set(OGLPLUS_EXAMPLE_HARNESS "frame_dump")
 else()
@@ -13,10 +17,9 @@ else()
 endif()
 
 # now setup the harness dependencies
-if(
-	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew") OR
-	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew_cxx03")
-)
+#
+# the GLUT/GLEW combination
+if(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew"))
 	if(NOT GLUT_FOUND)
 		message(FATAL_ERROR "GLUT is required for this build configuration")
 		return()
@@ -24,6 +27,18 @@ if(
 
 	include_directories(${GLUT_INCLUDE_DIRS})
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLUT_LIBRARIES})
+
+# the WXGL/GLEW combination
+elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "wxgl_glew"))
+	if(NOT wxWidgets_FOUND)
+		message(FATAL_ERROR "wxGL is required for this build configuration")
+		return()
+	endif()
+
+	include(${wxWidgets_USE_FILE})
+	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${wxWidgets_LIBRARIES})
+
+# X11/GLX
 elseif(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "frame_dump")

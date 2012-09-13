@@ -109,6 +109,14 @@ The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
 and \fI--use-gl3w\fR
 options are mutually exclusive.
 
+
+.TP
+.B --use-wxgl
+Force use of the wxGL library. If this option is used, then
+wxWidgets and the \fIwx/glcanvas.h\fR header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+
 .TP
 .B --no-examples
 Do not build the examples and the textures.

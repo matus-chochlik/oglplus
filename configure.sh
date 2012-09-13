@@ -6,6 +6,7 @@
 # defaults
 oglplus_default_build_dir=_build
 oglplus_forced_gl_header=""
+oglplus_forced_gl_init_lib=""
 oglplus_no_examples=false
 oglplus_no_screenshots=true
 oglplus_framedump=false
@@ -165,6 +166,8 @@ do
 	--use-glew) oglplus_forced_gl_header=GLEW;;
 	--use-gl3w) oglplus_forced_gl_header=GL3W;;
 
+	--use-wxgl) oglplus_forced_gl_init_lib=WXGL;;
+
 	--no-examples) oglplus_no_examples=true;;
 	--screenshots) oglplus_no_screenshots=false;;
 	--framedump) oglplus_framedump=true;;
@@ -293,6 +296,11 @@ fi
 # pass the forced GL header option to cmake
 if [ "${oglplus_forced_gl_header}" != "" ]
 then oglplus_cmake_options="'-DOGLPLUS_FORCE_${oglplus_forced_gl_header}=On' ${oglplus_cmake_options}"
+fi
+
+# pass the forced GL initializer library option to cmake
+if [ "${oglplus_forced_gl_init_lib}" != "" ]
+then oglplus_cmake_options="'-DOGLPLUS_FORCE_${oglplus_forced_gl_init_lib}=On' ${oglplus_cmake_options}"
 fi
 
 # pass the list of paths to search for libraries to cmake

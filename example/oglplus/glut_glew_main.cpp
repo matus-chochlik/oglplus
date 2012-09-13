@@ -154,7 +154,7 @@ int main(int argc, char* argv[])
 {
 	size_t width = 800, height = 600;
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("OGLplus+GLUT+GLEW");

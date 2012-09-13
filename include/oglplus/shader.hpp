@@ -86,7 +86,12 @@ protected:
 		assert(_count == 1);
 		assert(_name != nullptr);
 		*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CreateShader));
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			CreateShader,
+			Shader,
+			EnumValueName(type),
+			_name
+		));
 	}
 
 	static void _cleanup(GLsizei _count, GLuint* _name)
@@ -140,7 +145,7 @@ public:
 			&result
 		);
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			CreateShader,
+			GetShaderiv,
 			Shader,
 			EnumValueName(ShaderType(result)),
 			_name
