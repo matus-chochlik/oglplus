@@ -66,7 +66,7 @@ private:
 	GLuint _index;
 	String _name;
 
-	GLint GetParams(
+	void QueryParams(
 		GLenum property,
 		GLsizei bufsize,
 		GLsizei* written,
@@ -82,14 +82,21 @@ private:
 			written,
 			params
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceiv));
-		return params[0];
 	}
 
 	GLint GetParam(GLenum property) const
 	{
 		GLint res;
-		return GetParams(property, 1, nullptr, &res);
+		QueryParams(property, 1, nullptr, &res);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceiv));
+		return res;
+	}
+
+	bool HasParam(GLenum property) const
+	{
+		GLint res;
+		QueryParams(property, 1, nullptr, &res);
+		return OGLPLUS_GLFUNC(GetError)() == GL_NO_ERROR;
 	}
 public:
 	ProgramResource(
@@ -99,17 +106,21 @@ public:
 	 , _interface(context.Interface())
 	 , _index(index)
 	{
-		GLsizei bufsize = context.Buffer().size(), length = 0;
-		OGLPLUS_GLFUNC(GetProgramResourceName)(
-			_program,
-			_interface,
-			_index,
-			bufsize,
-			&length,
-			context.Buffer().data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceName));
-		_name.assign(context.Buffer().data(), length);
+		GLsizei bufsize = context.Buffer().size();
+		if(bufsize != 0)
+		{
+			GLsizei length = 0;
+			OGLPLUS_GLFUNC(GetProgramResourceName)(
+				_program,
+				_interface,
+				_index,
+				bufsize,
+				&length,
+				context.Buffer().data()
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceName));
+			_name.assign(context.Buffer().data(), length);
+		}
 	}
 
 	/// Returns the interface of the resource
@@ -128,6 +139,12 @@ public:
 	GLuint Index(void) const
 	{
 		return _index;
+	}
+
+	/// Returns true if the resource has a type
+	bool HasType(void) const
+	{
+		return HasParam(GL_TYPE);
 	}
 
 	/// Returns the data type of the resource (if applicable)
@@ -568,9 +585,12 @@ public:
 			_name,
 			GLenum(intf),
 			GL_MAX_NAME_LENGTH,
-			&count
+			&length
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramInterfaceiv));
+		// for some interfaces the call above is not applicable
+		// so GetError may return INVALID_OPERATION and we
+		// silently ignore it here
+		OGLPLUS_GLFUNC(GetError)();
 
 		return ActiveResourceRange(
 			aux::ProgramInterfaceContext(
