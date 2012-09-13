@@ -801,7 +801,8 @@ public:
 	{
 		size_t ix = side*(0.5f * (1.0f + x));
 		size_t iy = side*(0.5f * (1.0f + y));
-		triggered.push_back(iy*side + ix);
+		if(ix < side && iy < side)
+			triggered.push_back(iy*side + ix);
 	}
 
 	bool Continue(double time)
