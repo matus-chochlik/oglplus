@@ -432,6 +432,7 @@ public:
 		for(size_t i=0, n=triggered.size(); i!=n; ++i)
 		{
 			size_t idx = 4*triggered[i]+1;
+			assert(idx < bar_pos_data.size());
 			bar_pos_data[idx] += 1.0f;
 			if(bar_pos_data[idx] > max)
 				bar_pos_data[idx] = max;

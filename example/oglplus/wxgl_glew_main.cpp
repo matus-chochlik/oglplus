@@ -41,6 +41,11 @@ struct ExampleInfoDisplay
 
 	virtual void ExampleFinish(bool ok) = 0;
 
+	virtual void MouseMove(
+		unsigned mouse_x,
+		unsigned mouse_y
+	) = 0;
+
 	virtual void Resize(
 		unsigned width,
 		unsigned height
@@ -233,7 +238,35 @@ class ExampleFrame
 private:
 	ExampleInfoDisplay* info_display;
 	wxPanel* main_panel;
-	wxGLCanvas* gl_canvas;
+
+	class ExampleGLCanvas
+	 : public wxGLCanvas
+	{
+	private:
+		wxEvtHandler* evt_handler;
+
+		void OnMouseEvent(wxMouseEvent& event)
+		{
+			evt_handler->ProcessEvent(event);
+		}
+	public:
+		ExampleGLCanvas(
+			wxEvtHandler* handler,
+			wxWindow* parent
+		): wxGLCanvas(
+			parent,
+			wxID_ANY,
+			GLConfig(),
+			wxDefaultPosition,
+			wxDefaultSize
+		), evt_handler(handler)
+		{
+			Connect(
+				wxEVT_MOTION,
+				wxMouseEventHandler(ExampleGLCanvas::OnMouseEvent)
+			);
+		}
+	}* gl_canvas;
 	wxGLContext* gl_context;
 
 
@@ -336,11 +369,50 @@ private:
 		catch(const std::exception& se) { HandleError(se, this); }
 	}
 
-	void OnClose(wxCloseEvent& event)
+	void HandleMouseMove(wxPoint position)
+	{
+		assert(example);
+		assert(info_display);
+
+		wxSize size = gl_canvas->GetSize();
+		if(position.x < 0) position.x = 0;
+		if(position.y < 0) position.y = 0;
+		if(position.x > size.GetWidth())  position.x = size.GetWidth();
+		if(position.y > size.GetHeight()) position.y = size.GetHeight();
+		example->MouseMove(
+			position.x,
+			size.GetHeight()-
+			position.y,
+			size.GetWidth(),
+			size.GetHeight()
+		);
+		info_display->MouseMove(
+			position.x,
+			size.GetHeight()-
+			position.y
+		);
+	}
+
+	void OnMouseEvent(wxMouseEvent& event)
+	{
+		try
+		{
+			HandleMouseMove(event.GetPosition());
+			event.Skip();
+			return;
+		}
+		catch(oglplus::MissingFunction& mfe) { HandleError(mfe, this); }
+		catch(oglplus::ProgramBuildError& pbe) { HandleError(pbe, this); }
+		catch(oglplus::LimitError& le) { HandleError(le, this); }
+		catch(oglplus::OutOfMemory& oom) { HandleError(oom, this); }
+		catch(oglplus::Error& err) { HandleError(err, this); }
+		catch(const std::exception& se) { HandleError(se, this); }
+	}
+
+	void OnClose(wxCloseEvent&)
 	{
 		assert(info_display);
 
-		Disconnect(wxEVT_SIZE);
 		Disconnect(wxEVT_IDLE);
 		info_display->ExampleFinish(idle_call_count == 0);
 		Destroy();
@@ -366,12 +438,9 @@ public:
 			wxDefaultSize
 		)
 	), gl_canvas(
-		new wxGLCanvas(
-			(wxWindow*)main_panel,
-			wxID_ANY,
-			GLConfig(),
-			wxDefaultPosition,
-			wxDefaultSize
+		new ExampleGLCanvas(
+			(wxEvtHandler*)this,
+			(wxWindow*)main_panel
 		)
 	), gl_context(context)
 	 , frame_no(0)
@@ -417,6 +486,10 @@ public:
 			wxCloseEventHandler(ExampleFrame::OnClose)
 		);
 		Connect(
+			wxEVT_MOTION,
+			wxMouseEventHandler(ExampleFrame::OnMouseEvent)
+		);
+		Connect(
 			wxEVT_SIZE,
 			wxSizeEventHandler(ExampleFrame::OnResize)
 		);
@@ -446,6 +519,8 @@ private:
 		status_bar->SetStatusText(status_text);
 	}
 
+	wxStaticText* mouse_x_label;
+	wxStaticText* mouse_y_label;
 	wxStaticText* vp_width_label;
 	wxStaticText* vp_height_label;
 	wxStaticText* vp_aspect_label;
@@ -456,6 +531,18 @@ private:
 	wxStaticText* fps_label;
 	wxStaticText* pps_label;
 	wxStaticText* ppf_label;
+
+	void MouseMove(unsigned mouse_x, unsigned mouse_y)
+	{
+		mouse_x_label->SetLabel(wxString::Format(
+			wxT("%u"),
+			mouse_x
+		));
+		mouse_y_label->SetLabel(wxString::Format(
+			wxT("%u"),
+			mouse_y
+		));
+	}
 
 	void Resize(unsigned width, unsigned height)
 	{
@@ -580,6 +667,20 @@ private:
 			wxT("Example name"),
 			wxT("The name of the example"),
 			example_name
+		);
+		mouse_x_label = AddKeyValue(
+			example_info_panel,
+			example_info_sizer,
+			wxT("Mouse X"),
+			wxT("Displays the X coordinate of the mouse over the OpenGL viewport"),
+			n_a
+		);
+		mouse_y_label = AddKeyValue(
+			example_info_panel,
+			example_info_sizer,
+			wxT("Mouse Y"),
+			wxT("Displays the Y coordinate of the mouse over the OpenGL viewport"),
+			n_a
 		);
 		vp_width_label = AddKeyValue(
 			example_info_panel,
