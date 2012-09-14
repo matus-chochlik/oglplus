@@ -113,6 +113,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "019_gs_tessell", "019_gs_te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "019_tessellation", "019_tessellation\019_tessellation.vcxproj", "{CC4EFA8F-CB6A-1D9F-25AF-A213D12DA6ED}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "001_program_resources", "001_program_resources\001_program_resources.vcxproj", "{9F531F75-53F8-4F0E-40AA-09E43EC3B577}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -235,6 +237,10 @@ Global
 		{9B6EE07F-7F0A-A984-80C4-62A8B9A0DFC7}.Debug|Win32.Build.0 = Debug|Win32
 		{9B6EE07F-7F0A-A984-80C4-62A8B9A0DFC7}.Release|Win32.ActiveCfg = Release|Win32
 		{9B6EE07F-7F0A-A984-80C4-62A8B9A0DFC7}.Release|Win32.Build.0 = Release|Win32
+		{9F531F75-53F8-4F0E-40AA-09E43EC3B577}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9F531F75-53F8-4F0E-40AA-09E43EC3B577}.Debug|Win32.Build.0 = Debug|Win32
+		{9F531F75-53F8-4F0E-40AA-09E43EC3B577}.Release|Win32.ActiveCfg = Release|Win32
+		{9F531F75-53F8-4F0E-40AA-09E43EC3B577}.Release|Win32.Build.0 = Release|Win32
 		{A83C7F37-9CD5-1BE3-A500-E68F59D743DA}.Debug|Win32.ActiveCfg = Debug|Win32
 		{A83C7F37-9CD5-1BE3-A500-E68F59D743DA}.Debug|Win32.Build.0 = Debug|Win32
 		{A83C7F37-9CD5-1BE3-A500-E68F59D743DA}.Release|Win32.ActiveCfg = Release|Win32
