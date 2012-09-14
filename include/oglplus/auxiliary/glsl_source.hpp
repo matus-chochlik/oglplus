@@ -18,6 +18,8 @@
 
 #include <vector>
 #include <cassert>
+#include <fstream>
+#include <stdexcept>
 
 namespace oglplus {
 namespace aux {
@@ -149,6 +151,60 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return const_cast<const GLchar**>(&_ptr);
+	}
+
+	const GLint* Lengths(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return &_size;
+	}
+};
+
+class FileGLSLSrcWrap
+ : public GLSLSourceWrapper
+{
+private:
+	std::ifstream _file;
+	GLint _size;
+	std::vector<GLchar> _storage;
+	GLchar* _pdata;
+
+	static GLint _check_and_get_size(const char* path, std::istream& in)
+	{
+		if(!in.good())
+		{
+			std::string msg("Failed to open file '");
+			msg.append(path);
+			msg.append("' for reading.");
+			throw std::runtime_error(msg);
+		}
+		std::streampos begin = in.tellg();
+		in.seekg(0, std::ios::end);
+		std::streampos end = in.tellg();
+		in.seekg(0, std::ios::beg);
+		return end - begin;
+	}
+public:
+	FileGLSLSrcWrap(const char* path)
+	 : _file(path)
+	 , _size(_check_and_get_size(path, _file))
+	 , _storage(_size+1, GLchar(0))
+	 , _pdata(_storage.data())
+	{
+		_file.read(_pdata, _size);
+		_file.close();
+	}
+
+	GLsizei Count(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return GLsizei(1);
+	}
+
+	const GLchar** Parts(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return const_cast<const GLchar**>(&_pdata);
 	}
 
 	const GLint* Lengths(void) const

@@ -52,17 +52,20 @@ private:
 public:
 	~GLSLSource(void)
 	{
-		assert(_impl);
-		delete _impl;
+		if(_impl) delete _impl;
+	}
+
+	GLSLSource(GLSLSource&& tmp)
+	 : _impl(tmp._impl)
+	{
+		tmp._impl = nullptr;
 	}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
 	GLSLSource(const GLSLSource&) = delete;
-	GLSLSource(GLSLSource&&) = delete;
 #else
 private:
 	GLSLSource(const GLSLSource&);
-	GLSLSource(GLSLSource&&);
 public:
 #endif
 
@@ -106,6 +109,17 @@ public:
 	GLSLSource(String&& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(std::move(source)))
 	{ }
+
+	struct _FromFile { };
+
+	GLSLSource(const char* path, _FromFile)
+	 : _impl(make_impl<aux::FileGLSLSrcWrap>(path))
+	{ }
+
+	static GLSLSource FromFile(const char* path)
+	{
+		return GLSLSource(path, _FromFile());
+	}
 
 	/// Count of buffers storing the individual parts of the source
 	GLsizei Count(void) const

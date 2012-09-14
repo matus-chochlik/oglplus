@@ -26,6 +26,7 @@ function _configure_oglplus()
 		--use-gl3-h \
 		--use-glew \
 		--use-gl3w \
+		--use-wxgl \
 		--no-examples \
 		--no-docs \
 		--screenshots \
@@ -34,7 +35,7 @@ function _configure_oglplus()
 		--use-cxxflags \
 		--use-ldflags \
 	"
-	local mutually_exclusive_opts=" \
+	local gl_header_opts=" \
 		--use-glcorearb-h \
 		--use-gl3-h \
 		--use-glew \
@@ -60,7 +61,7 @@ function _configure_oglplus()
 		if [ "${opt_used}" == "false" ]
 		then
 			local is_muo=false
-			for muo in ${mutually_exclusive_opts}
+			for muo in ${gl_header_opts}
 			do
 				if [ "${opt}" == "${muo}" ]
 				then is_muo=true && break
@@ -70,7 +71,7 @@ function _configure_oglplus()
 			then
 				for pre in ${COMP_WORDS[@]}
 				do
-					for muo in ${mutually_exclusive_opts}
+					for muo in ${gl_header_opts}
 					do
 						if [ "${pre}" == "${muo}" ]
 						then opt_used=true && break
