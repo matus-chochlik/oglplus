@@ -156,7 +156,8 @@ public:
 	 *  @glfunref{DrawElements}
 	 */
 	template <typename T>
-	static void DrawElements(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	DrawElements(
 		PrimitiveType primitive,
 		GLsizei count,
 		const T* indices
@@ -203,7 +204,8 @@ public:
 	 *  @glfunref{DrawElementsInstanced}
 	 */
 	template <typename T>
-	static void DrawElementsInstanced(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	DrawElementsInstanced(
 		PrimitiveType primitive,
 		GLsizei count,
 		const T* indices,
@@ -230,7 +232,8 @@ public:
 	 *  @glfunref{DrawElementsInstancedBaseInstance}
 	 */
 	template <typename T>
-	static void DrawElementsInstancedBaseInstance(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	DrawElementsInstancedBaseInstance(
 		PrimitiveType primitive,
 		GLsizei count,
 		const T* indices,
@@ -260,7 +263,8 @@ public:
 	 *  @glfunref{MultiDrawElements}
 	 */
 	template <typename T>
-	static void MultiDrawElements(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	MultiDrawElements(
 		PrimitiveType primitive,
 		GLsizei count,
 		T* const * indices,
@@ -285,7 +289,8 @@ public:
 	 *  @glfunref{DrawRangeElements}
 	 */
 	template <typename T>
-	static void DrawRangeElements(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	DrawRangeElements(
 		PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
@@ -315,7 +320,8 @@ public:
 	 *  @glfunref{DrawElementsBaseVertex}
 	 */
 	template <typename T>
-	static void DrawElementsBaseVertex(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	DrawElementsBaseVertex(
 		PrimitiveType primitive,
 		GLsizei count,
 		const T* indices,
@@ -341,7 +347,8 @@ public:
 	 *  @glfunref{DrawRangeElementsBaseVertex}
 	 */
 	template <typename T>
-	static void DrawRangeElementsBaseVertex(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	DrawRangeElementsBaseVertex(
 		PrimitiveType primitive,
 		GLuint start,
 		GLuint end,
@@ -371,7 +378,8 @@ public:
 	 *  @glfunref{DrawElementsInstancedBaseVertex}
 	 */
 	template <typename T>
-	static void DrawElementsInstancedBaseVertex(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	DrawElementsInstancedBaseVertex(
 		PrimitiveType primitive,
 		GLsizei count,
 		const T* indices,
@@ -401,7 +409,8 @@ public:
 	 *  @glfunref{MultiDrawElementsBaseVertex}
 	 */
 	template <typename T>
-	static void MultiDrawElementsBaseVertex(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	MultiDrawElementsBaseVertex(
 		PrimitiveType primitive,
 		GLsizei count,
 		T* const * indices,
@@ -431,7 +440,8 @@ public:
 	 *  @glfunref{DrawElementsInstancedBaseVertexBaseInstance}
 	 */
 	template <typename T>
-	static void DrawElementsInstancedBaseVertexBaseInstance(
+	static typename std::enable_if<IsGLDataType<T>::value, void>::type
+	DrawElementsInstancedBaseVertexBaseInstance(
 		PrimitiveType primitive,
 		GLsizei count,
 		const T* indices,

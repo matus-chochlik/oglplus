@@ -13,6 +13,7 @@
 #define OGLPLUS_DATA_TYPE_1107121519_HPP
 
 #include <oglplus/enumerations.hpp>
+#include <type_traits>
 
 namespace oglplus {
 
@@ -80,6 +81,51 @@ inline DataType GetDataType(GLdouble*)
 {
 	return DataType::Double;
 }
+
+template <typename T>
+struct IsGLDataType
+ : public std::false_type
+{ };
+
+template <>
+struct IsGLDataType<GLbyte>
+ : public std::true_type
+{ };
+
+template <>
+struct IsGLDataType<GLshort>
+ : public std::true_type
+{ };
+
+template <>
+struct IsGLDataType<GLint>
+ : public std::true_type
+{ };
+
+template <>
+struct IsGLDataType<GLubyte>
+ : public std::true_type
+{ };
+
+template <>
+struct IsGLDataType<GLushort>
+ : public std::true_type
+{ };
+
+template <>
+struct IsGLDataType<GLuint>
+ : public std::true_type
+{ };
+
+template <>
+struct IsGLDataType<GLfloat>
+ : public std::true_type
+{ };
+
+template <>
+struct IsGLDataType<GLdouble>
+ : public std::true_type
+{ };
 
 /// Returns the DataType for the specified type @p T
 template <typename T>
