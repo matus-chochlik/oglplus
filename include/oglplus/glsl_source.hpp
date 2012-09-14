@@ -121,6 +121,11 @@ public:
 		return GLSLSource(path, _FromFile());
 	}
 
+	static GLSLSource FromFile(const String& path)
+	{
+		return GLSLSource(path.c_str(), _FromFile());
+	}
+
 	/// Count of buffers storing the individual parts of the source
 	GLsizei Count(void) const
 	OGLPLUS_NOEXCEPT(true)

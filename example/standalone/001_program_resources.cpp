@@ -86,11 +86,10 @@ int main(int argc, char* argv[])
 
 			if(++arg != argc)
 			{
-				// TODO
-				//Shader shader(shader_type);
-				//shader.Source(GLSLSource::FromFile(argc[arg]));
-				//shader.Compile();
-				//prog.AttachShader(shader);
+				Shader shader(shader_type, ObjectDesc(argv[arg]));
+				shader.Source(GLSLSource::FromFile(argv[arg]));
+				shader.Compile();
+				prog.AttachShader(shader);
 			}
 			else
 			{
@@ -186,7 +185,10 @@ int main(int argc, char* argv[])
 	catch(oglplus::ProgramBuildError& pbe)
 	{
 		std::cerr <<
-			"Program build error: " <<
+			"Program build error (in " <<
+			pbe.GLSymbol() << ", " <<
+			pbe.ClassName() << " '" <<
+			pbe.ObjectDescription() << "'): " <<
 			pbe.what() << std::endl <<
 			pbe.Log() << std::endl;
 		pbe.Cleanup();
@@ -194,13 +196,19 @@ int main(int argc, char* argv[])
 	catch(oglplus::Error& err)
 	{
 		std::cerr <<
-			"Error (in " << err.GLSymbol() << ", " <<
+			"GL error (in " << err.GLSymbol() << ", " <<
 			err.ClassName() << ": '" <<
 			err.ObjectDescription() << "'): " <<
 			err.what() <<
 			" [" << err.File() << ":" << err.Line() << "] ";
 		std::cerr << std::endl;
 		err.Cleanup();
+	}
+	catch(const std::exception& se)
+	{
+		std::cerr <<
+			"General error: " <<
+			se.what() << std::endl;
 	}
 #else
 		std::cout << "OpenGL 4.3 is required." << std::endl;
