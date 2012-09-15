@@ -279,6 +279,16 @@ public:
 			tmp._active = false;
 		}
 
+		void Finish(void)
+		{
+			if(_active)
+			{
+				OGLPLUS_GLFUNC(EndTransformFeedback)();
+				OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EndTransformFeedback));
+				_active = false;
+			}
+		}
+
 		/// Ends transform feedback
 		/**
 		 *  @glsymbols
@@ -286,8 +296,8 @@ public:
 		 */
 		~Activator(void)
 		{
-			if(_active) OGLPLUS_GLFUNC(EndTransformFeedback)();
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EndTransformFeedback));
+			try { Finish(); }
+			catch(...){ }
 		}
 	};
 
@@ -334,6 +344,16 @@ public:
 			tmp._paused = false;
 		}
 
+		void Finish(void)
+		{
+			if(_paused)
+			{
+				OGLPLUS_GLFUNC(ResumeTransformFeedback)();
+				OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
+				_paused = false;
+			}
+		}
+
 		/// Resumes transform feedback
 		/**
 		 *  @glsymbols
@@ -341,8 +361,8 @@ public:
 		 */
 		~Pauser(void)
 		{
-			if(_paused) OGLPLUS_GLFUNC(ResumeTransformFeedback)();
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
+			try{ Finish(); }
+			catch(...){ }
 		}
 	};
 };

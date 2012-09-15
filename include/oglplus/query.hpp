@@ -302,13 +302,20 @@ public:
 			temp._alive = false;
 		}
 
-		~Execution(void)
+		void Finish(void)
 		{
 			if(_alive)
 			{
 				_query.End(_target);
 				_query.WaitForResult(_result);
+				_alive = false;
 			}
+		}
+
+		~Execution(void)
+		{
+			try{ Finish(); }
+			catch(...){ }
 		}
 	};
 

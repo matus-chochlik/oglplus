@@ -90,7 +90,7 @@ protected:
 			CreateShader,
 			Shader,
 			EnumValueName(type),
-			_name
+			*_name
 		));
 	}
 

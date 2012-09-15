@@ -146,19 +146,40 @@ public:
 	 : _bits(temp._forward())
 	{ }
 
-	/// The destructor does the actual clearing of the buffers
-	/**
-	 *  @glsymbols
-	 *  @glfunref{Clear}
-	 */
-	inline ~ClrBits(void)
-	OGLPLUS_NOEXCEPT(false)
+	void DoIt(void) const
 	{
 		if(_bits)
 		{
 			OGLPLUS_GLFUNC(Clear)(_bits);
 			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Clear));
 		}
+	}
+
+	void Dismiss(void)
+	{
+		_bits = 0;
+	}
+
+	void operator()(void) const
+	{
+		DoIt();
+	}
+
+	void operator()(bool dismiss)
+	{
+		DoIt();
+		if(dismiss) Dismiss();
+	}
+
+	/// The destructor does the actual clearing of the buffers
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Clear}
+	 */
+	inline ~ClrBits(void)
+	{
+		try{ DoIt(); }
+		catch(...){ }
 	}
 };
 

@@ -104,8 +104,7 @@ public:
 	 , _bits(temp._forward())
 	{ }
 
-	inline ~ProgPLUseStages(void)
-	OGLPLUS_NOEXCEPT(false)
+	void DoIt(void)
 	{
 		if(_bits)
 		{
@@ -117,7 +116,14 @@ public:
 				_program
 			);
 			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgramStages));
+			_bits = 0;
 		}
+	}
+
+	inline ~ProgPLUseStages(void)
+	{
+		try{ DoIt(); }
+		catch(...){ }
 	}
 };
 

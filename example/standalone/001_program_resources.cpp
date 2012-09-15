@@ -211,7 +211,9 @@ int main(int argc, char* argv[])
 			se.what() << std::endl;
 	}
 #else
-		std::cout << "OpenGL 4.3 is required." << std::endl;
+	OGLPLUS_FAKE_USE(argc);
+	OGLPLUS_FAKE_USE(argv);
+	std::cout << "OpenGL 4.3 is required." << std::endl;
 #endif
 	return 1;
 }
