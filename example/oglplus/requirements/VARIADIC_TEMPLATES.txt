@@ -8,5 +8,6 @@
 031_blob.cpp
 031_sketch.cpp
 032_bar_grid.cpp
+032_transitions.cpp
 033_metal_and_glass.cpp
 034_billiard_balls.cpp

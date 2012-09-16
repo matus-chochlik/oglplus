@@ -90,7 +90,6 @@ void run(const x11::Display& display, const char* prefix)
 		std::unique_ptr<Example> example(makeExample(params));
 
 		win.SelectInput(0);
-		XEvent event;
 
 		example->Reshape(width, height);
 		example->MouseMove(width/2, height/2, width, height);

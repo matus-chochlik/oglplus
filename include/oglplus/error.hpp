@@ -940,9 +940,9 @@ inline void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
 	throw Exception(value, limit, info);
 }
 
-template <class Exception, typename Status>
+template <class Exception, typename FBStatus>
 inline void HandleIncompleteFramebuffer(
-	Status status,
+	FBStatus status,
 	const ErrorInfo& info
 )
 {
