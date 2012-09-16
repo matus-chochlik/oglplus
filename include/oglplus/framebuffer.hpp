@@ -106,6 +106,34 @@ OGLPLUS_ENUM_CLASS_END
 #include <oglplus/enums/framebuffer_target_range.ipp>
 #endif
 
+/// Incomplete framebuffer exception class
+/**
+ *  @ingroup error_handling
+ */
+class IncompleteFramebuffer
+ : public Error
+{
+private:
+	FramebufferStatus _status;
+public:
+	IncompleteFramebuffer(
+		FramebufferStatus status,
+		const char* msg,
+		const ErrorInfo& info
+	): Error(GL_INVALID_FRAMEBUFFER_OPERATION, msg, info)
+	 , _status(status)
+	{ }
+
+	~IncompleteFramebuffer(void) throw()
+	{ }
+
+	FramebufferStatus Status(void) const
+	{
+		return _status;
+	}
+};
+
+
 /// Wrapper for OpenGL framebuffer operations
 /**
  *  @note Do not use this class directly, use FrameBuffer instead
@@ -270,6 +298,23 @@ public:
 	static bool IsComplete(Target target)
 	{
 		return Status(target) == FramebufferStatus::Complete;
+	}
+
+	/// Throws an exception if the framebuffer is not complete
+	static void Complete(Target target)
+	{
+		FramebufferStatus status = Status(target);
+		if(OGLPLUS_IS_ERROR(status != FramebufferStatus::Complete))
+			HandleIncompleteFramebuffer<IncompleteFramebuffer>(
+				status,
+				OGLPLUS_OBJECT_ERROR_INFO(
+					CheckFramebufferStatus,
+					Framebuffer,
+					EnumValueName(target),
+					BindingQuery<FramebufferOps>::
+					QueryBinding(target)
+				)
+			);
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of @p target

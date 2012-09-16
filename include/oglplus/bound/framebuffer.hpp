@@ -87,6 +87,17 @@ public:
 	}
 
 
+	/** Wrapper for Framebuffer::Complete()
+	 *  @see Framebuffer::Complete()
+	 */
+	void Complete(void) const
+	{
+		FramebufferOps::Complete(
+			this->BindTarget()
+		);
+	}
+
+
 	/** Wrapper for Framebuffer::AttachRenderbuffer()
 	 *  @see Framebuffer::AttachRenderbuffer()
 	 */

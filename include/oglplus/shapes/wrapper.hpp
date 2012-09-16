@@ -147,7 +147,7 @@ public:
 
 	template <class ShapeBuilder>
 	ShapeWrapper(
-		const GLchar* names,
+		const GLchar** names,
 		size_t name_count,
 		const ShapeBuilder& builder,
 		const Program& prog

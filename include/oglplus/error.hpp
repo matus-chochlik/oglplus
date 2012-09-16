@@ -940,6 +940,31 @@ inline void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
 	throw Exception(value, limit, info);
 }
 
+template <class Exception, typename Status>
+inline void HandleIncompleteFramebuffer(
+	Status status,
+	const ErrorInfo& info
+)
+{
+	const char* msg = "Framebuffer is incomplete";
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			GL_INVALID_FRAMEBUFFER_OPERATION,
+			0, 0,
+			msg,
+			info,
+			Error::PropertyMap(),
+			false,
+			false,
+			false,
+			true
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw Exception(status, msg, info);
+}
+
 template <class Exception>
 inline void HandleMissingFunction(const ErrorInfo& info)
 {
@@ -973,7 +998,7 @@ inline void HandleError(
 #if OGLPLUS_CUSTOM_ERROR_HANDLING
 	if(aux::_has_error_handler() && aux::_get_error_handler()(
 		ErrorData(
-			GL_INVALID_OPERATION,
+			code,
 			0, 0,
 			msg,
 			info,
@@ -1035,7 +1060,7 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 #if OGLPLUS_CUSTOM_ERROR_HANDLING
 	if(aux::_has_error_handler() && aux::_get_error_handler()(
 		ErrorData(
-			GL_INVALID_OPERATION,
+			code,
 			0, 0,
 			msg,
 			info,

@@ -70,6 +70,12 @@ protected:
 		}
 		return index;
 	}
+public:
+	/// Returns this subroutine uniform's program stage
+	ShaderType Stage(void) const
+	{
+		return _stage;
+	}
 };
 
 typedef EagerUniformInitTpl<SubroutineUniformInitOps>
@@ -245,6 +251,12 @@ protected:
 		}
 		return index;
 	}
+public:
+	/// Returns this subroutine's program stage
+	ShaderType Stage(void) const
+	{
+		return _stage;
+	}
 };
 
 typedef EagerUniformInitTpl<SubroutineInitOps>
@@ -409,6 +421,13 @@ private:
 		));
 		return result;
 	}
+
+	std::vector<GLuint>& _get_indices(void)
+	{
+		if(_indices.empty())
+			_indices.resize(_get_index_count(_program, _stage), 0);
+		return _indices;
+	}
 public:
 	/// Constructs a uniform subroutine setter for a @p stage of a @p program
 	UniformSubroutines(
@@ -416,9 +435,9 @@ public:
 		const ShaderType stage
 	): _program(FriendOf<Program>::GetName(program))
 	 , _stage(GLenum(stage))
-	 , _indices(_get_index_count(_program, _stage), 0)
 	{ }
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Assigns the @p subroutine to the subroutine @p uniform
 	/**
 	 *  @note This function does not apply the changes to the actual
@@ -428,15 +447,23 @@ public:
 	 *  @see Apply
 	 */
 	UniformSubroutines& Assign(
-		const SubroutineUniform& uniform,
-		const Subroutine& subroutine
+		SubroutineUniform& uniform,
+		Subroutine& subroutine
+	);
+#endif
+	template <typename SUInit, typename SInit>
+	UniformSubroutines& Assign(
+		SubroutineUniformTpl<SUInit>& uniform,
+		SubroutineTpl<SInit>& subroutine
 	)
 	{
 		assert(uniform._get_program() == _program);
 		assert(subroutine._get_program() == _program);
-		assert(uniform._get_index() <= GLint(_indices.size()));
+		assert(uniform.Stage() == ShaderType(_stage));
+		assert(subroutine.Stage() == ShaderType(_stage));
+		assert(uniform._get_index() <= GLint(_get_indices().size()));
 
-		_indices[uniform._get_index()] = subroutine._get_index();
+		_get_indices()[uniform._get_index()] = subroutine._get_index();
 		return *this;
 	}
 
@@ -448,8 +475,8 @@ public:
 	{
 		OGLPLUS_GLFUNC(UniformSubroutinesuiv)(
 			_stage,
-			GLsizei(_indices.size()),
-			_indices.data()
+			GLsizei(_get_indices().size()),
+			_get_indices().data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UniformSubroutinesuiv));
 	}

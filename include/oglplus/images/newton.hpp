@@ -164,6 +164,21 @@ public:
 		}
 	};
 
+	struct PowMixer
+	{
+		float _exponent;
+
+		PowMixer(float exponent)
+		 : _exponent(exponent)
+		{ }
+
+		template <typename T>
+		T operator()(T value) const
+		{
+			return std::pow(value, T(_exponent));
+		}
+	};
+
 	typedef NoopMixer DefaultMixer;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
