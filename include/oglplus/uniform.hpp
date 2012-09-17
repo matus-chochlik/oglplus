@@ -71,11 +71,17 @@ typedef LazyUniformInitTpl<UniformInitOps>
 	LazyUniformInit;
 
 class DirectUniformInit
+ : public FriendOf<ProgramOps>
 {
 private:
 	GLuint _program;
 	GLint _index;
 protected:
+	DirectUniformInit(const ProgramOps& program, Nothing, GLint index)
+	 : _program(FriendOf<ProgramOps>::GetName(program))
+	 , _index(index)
+	{ }
+
 	DirectUniformInit(GLuint program, Nothing, GLint index)
 	 : _program(program)
 	 , _index(index)
@@ -103,6 +109,10 @@ protected:
 	template <class StrOrInt>
 	UniformOps(const ProgramOps& program, StrOrInt&& name_or_idx)
 	 : Initializer(program, Nothing(), std::forward<StrOrInt>(name_or_idx))
+	{ }
+
+	UniformOps(GLuint program, GLint index)
+	 : Initializer(program, Nothing(), index)
 	{ }
 public:
 };
@@ -216,6 +226,10 @@ protected:
 	template <class StrOrInt>
 	UniformBase(const Program& program, StrOrInt&& name_or_idx)
 	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
+	{ }
+
+	UniformBase(GLuint program, GLint index)
+	 : UniformOps<IndexInit>(program, index)
 	{ }
 public:
 
@@ -536,6 +550,10 @@ protected:
 	UniformBase(const Program& program, StrOrInt&& name_or_idx)
 	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
 	{ }
+
+	UniformBase(GLuint program, GLint index)
+	 : UniformOps<IndexInit>(program, index)
+	{ }
 public:
 	/// Set the vector value of the uniform variable
 	/**
@@ -687,6 +705,10 @@ protected:
 	template <class StrOrInt>
 	UniformBase(const Program& program, StrOrInt&& name_or_idx)
 	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
+	{ }
+
+	UniformBase(GLuint program, GLint index)
+	 : UniformOps<IndexInit>(program, index)
 	{ }
 public:
 	/// Set the matrix components of the uniform variable
@@ -898,6 +920,10 @@ class UniformTpl
 private:
 	typedef UniformBase<T, IndexInit, SetOps> _base;
 public:
+	UniformTpl(GLuint program, GLint index)
+	 : _base(program, index)
+	{ }
+
 	/// Reference a uniform identified by @p identifier in the @p program
 	/**
 	 *  @glsymbols
@@ -932,6 +958,15 @@ public:
 	UniformTpl(const Program& program, GLint index)
 	 : _base(program, index)
 	{ }
+
+	UniformTpl<T, aux::DirectUniformInit, SetOps>
+	operator[](GLint index) const
+	{
+		return UniformTpl<T, aux::DirectUniformInit, SetOps>(
+			this->_get_program(),
+			this->_get_index()+index
+		);
+	}
 
 	/// Set the value of the uniform variable
 	/**
@@ -982,7 +1017,7 @@ public:
 /// Class encapsulating Uniform shader variable functionality
 /**
  *  The difference between Uniform and LazyUniform is, that Uniform
- *  tries to get the location (index) of the GLSL uniform variable
+ *  tries to get the location (binding) of the GLSL uniform variable
  *  in a Program during construction and LazyUniform postpones this
  *  initialization until the value is actually needed at the cost
  *  of having to internally store the identifer in a String.
@@ -1028,7 +1063,7 @@ public:
 /// Class encapsulating Uniform shader variable functionality
 /**
  *  The difference between Uniform and LazyUniform is, that Uniform
- *  tries to get the location (index) of the GLSL uniform variable
+ *  tries to get the location (binding) of the GLSL uniform variable
  *  in a Program during construction and LazyUniform postpones this
  *  initialization until the value is actually needed at the cost
  *  of having to internally store the identifer in a String.
@@ -1075,7 +1110,7 @@ public:
 /**
  *  The difference between Uniform and DirectUniform is, that Uniform
  *  is initialized by the name of the uniform variable in the GLSL
- *  program. Direct uniform is initialized by the location (index)
+ *  program. Direct uniform is initialized by the location (binding)
  *  of the variable in the program.
  *
  *  @see Uniform
@@ -1102,6 +1137,10 @@ public:
 	/// Construction from a const reference to @p program and a @p location
 	DirectUniform(const Program& program, GLint location)
 	 : _base(program, location)
+	{ }
+
+	DirectUniform(const _base& other)
+	 : _base(other)
 	{ }
 
 	/// Set the value of the uniform variable
@@ -1161,9 +1200,9 @@ inline void SetUniform(
 /// Class encapsulating ProgramUniform shader variable functionality
 /**
  *  The difference between ProgramUniform and LazyProgramUniform is, that
- *  ProgramUniform tries to get the location (index) of the GLSL uniform variable
- *  in a Program during construction and LazyProgramUniform postpones this
- *  initialization until the value is actually needed at the cost
+ *  ProgramUniform tries to get the location (binding) of the GLSL uniform
+ *  variable in a Program during construction and LazyProgramUniform postpones
+ *  this initialization until the value is actually needed at the cost
  *  of having to internally store the identifer in a String.
  *
  *  @see Uniform
@@ -1208,9 +1247,9 @@ public:
 /// Class encapsulating ProgramUniform shader variable functionality
 /**
  *  The difference between ProgramUniform and LazyProgramUniform is, that
- *  ProgramUniform tries to get the location (index) of the GLSL uniform variable
- *  in a Program during construction and LazyProgramUniform postpones this
- *  initialization until the value is actually needed at the cost
+ *  ProgramUniform tries to get the location (binding) of the GLSL uniform
+ *  variable in a Program during construction and LazyProgramUniform postpones
+ *  this initialization until the value is actually needed at the cost
  *  of having to internally store the identifer in a String.
  *
  *  @see Uniform
@@ -1242,6 +1281,50 @@ public:
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
 #endif
+
+	/// Set the value of the uniform variable
+	inline void operator = (const T& value)
+	{
+		this->Set(value);
+	}
+};
+
+/// Class encapsulating ProgramUniform shader variable functionality
+/**
+ *  The difference between ProgramUniform and DirectProgramUniform is,
+ *  that Uniform is initialized by the name of the uniform variable in the GLSL
+ *  program. Direct uniform is initialized by the location (binding)
+ *  of the variable in the program.
+ *
+ *  @see Uniform
+ *  @see ProgramUniform
+ *  @see LazyProgramUniform
+ *
+ *  @ingroup shader_variables
+ */
+template <typename T>
+class DirectProgramUniform
+#if OGLPLUS_DOCUMENTATION_ONLY
+ : public UniformTpl<T, Unspecified, Unspecified>
+#else
+ : public UniformTpl<T, aux::DirectUniformInit, aux::ProgramUniformSetOps<T>>
+#endif
+{
+protected:
+	typedef UniformTpl<
+		T,
+		aux::DirectUniformInit,
+		aux::ProgramUniformSetOps<T>
+	> _base;
+public:
+	/// Construction from a const reference to @p program and a @p location
+	DirectProgramUniform(const Program& program, GLint location)
+	 : _base(program, location)
+	{ }
+
+	DirectProgramUniform(const _base& other)
+	 : _base(other)
+	{ }
 
 	/// Set the value of the uniform variable
 	inline void operator = (const T& value)

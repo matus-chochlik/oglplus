@@ -265,9 +265,10 @@ public:
 		gl.FrontFace(make_shape.FaceWinding());
 		gl.CullFace(Face::Back);
 
-		Uniform<Vec3f>(prog, "CameraPosition[0]").Set(Vec3f(2, 0, 0));
-		Uniform<Vec3f>(prog, "CameraPosition[1]").Set(Vec3f(0, 2, 0));
-		Uniform<Vec3f>(prog, "CameraPosition[2]").Set(Vec3f(0, 0, 2));
+		Uniform<Vec3f> camera_position(prog, "CameraPosition");
+		camera_position[0].Set(Vec3f(2, 0, 0));
+		camera_position[1].Set(Vec3f(0, 2, 0));
+		camera_position[2].Set(Vec3f(0, 0, 2));
 	}
 
 	void Reshape(size_t width, size_t height)

@@ -160,14 +160,15 @@ public:
 
 		// setup the color gradient
 		Uniform<GLint>(prog, "ColorCount").Set(8);
-		Uniform<Vec4f>(prog, "Color[0]").Set(1.0f, 1.0f, 0.9f, 1.00f);
-		Uniform<Vec4f>(prog, "Color[1]").Set(1.0f, 0.9f, 0.8f, 0.97f);
-		Uniform<Vec4f>(prog, "Color[2]").Set(0.9f, 0.7f, 0.5f, 0.95f);
-		Uniform<Vec4f>(prog, "Color[3]").Set(0.5f, 0.5f, 1.0f, 0.95f);
-		Uniform<Vec4f>(prog, "Color[4]").Set(0.2f, 0.2f, 0.7f, 0.00f);
-		Uniform<Vec4f>(prog, "Color[5]").Set(0.1f, 0.1f, 0.1f, 0.00f);
-		Uniform<Vec4f>(prog, "Color[6]").Set(0.2f, 0.2f, 0.2f,-0.10f);
-		Uniform<Vec4f>(prog, "Color[7]").Set(0.5f, 0.5f, 0.5f,-1.00f);
+		Uniform<Vec4f> color(prog, "Color");
+		color[0].Set(1.0f, 1.0f, 0.9f, 1.00f);
+		color[1].Set(1.0f, 0.9f, 0.8f, 0.97f);
+		color[2].Set(0.9f, 0.7f, 0.5f, 0.95f);
+		color[3].Set(0.5f, 0.5f, 1.0f, 0.95f);
+		color[4].Set(0.2f, 0.2f, 0.7f, 0.00f);
+		color[5].Set(0.1f, 0.1f, 0.1f, 0.00f);
+		color[6].Set(0.2f, 0.2f, 0.2f,-0.10f);
+		color[7].Set(0.5f, 0.5f, 0.5f,-1.00f);
 
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);

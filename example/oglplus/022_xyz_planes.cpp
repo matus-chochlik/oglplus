@@ -61,8 +61,8 @@ private:
 	Program torus_prog, plane_prog;
 
 	// Uniform references
-	std::vector<ProgramUniform<GLfloat>> torus_clip_sign;
-	std::vector<ProgramUniform<GLfloat>> plane_clip_sign;
+	std::vector<DirectProgramUniform<GLfloat>> torus_clip_signs;
+	std::vector<DirectProgramUniform<GLfloat>> plane_clip_signs;
 
 	LazyProgramUniform<Vec3f> plane_normal;
 	LazyProgramUniform<Mat4f>
@@ -229,6 +229,10 @@ public:
 		plane_prog.Use();
 
 
+		ProgramUniform<Vec4f> torus_clip_plane(torus_prog, "ClipPlane");
+		ProgramUniform<Vec4f> plane_clip_plane(plane_prog, "ClipPlane");
+		ProgramUniform<GLfloat> torus_clip_sign(torus_prog, "ClipSign");
+		ProgramUniform<GLfloat> plane_clip_sign(plane_prog, "ClipSign");
 		for(size_t p=0; p!=plane.size(); ++p)
 		{
 			plane[p].Bind();
@@ -245,28 +249,12 @@ public:
 			}
 			{
 				auto eq = make_plane[p].Equation();
-				std::stringstream uni_name;
-				uni_name << "ClipPlane[" << p << "]";
-				ProgramUniform<Vec4f>(
-					torus_prog,
-					uni_name.str()
-				).Set(eq);
-				ProgramUniform<Vec4f>(
-					plane_prog,
-					uni_name.str()
-				).Set(eq);
+				torus_clip_plane[p].Set(eq);
+				plane_clip_plane[p].Set(eq);
 			}
 			{
-				std::stringstream uni_name;
-				uni_name << "ClipSign[" << p << "]";
-				torus_clip_sign.push_back(ProgramUniform<GLfloat>(
-					torus_prog,
-					uni_name.str())
-				);
-				plane_clip_sign.push_back(ProgramUniform<GLfloat>(
-					plane_prog,
-					uni_name.str())
-				);
+				torus_clip_signs.push_back(torus_clip_sign[p]);
+				plane_clip_signs.push_back(plane_clip_sign[p]);
 			}
 		}
 
@@ -317,8 +305,8 @@ public:
 		bool at_leaf = p+1 == plane.size();
 
 		gl.Enable(Functionality::ClipDistance, p);
-		torus_clip_sign[p].Set(-sign);
-		plane_clip_sign[p].Set(-sign);
+		torus_clip_signs[p].Set(-sign);
+		plane_clip_signs[p].Set(-sign);
 		if(at_leaf) RenderTorus();
 		else BSP(camera, p+1);
 		gl.Disable(Functionality::ClipDistance, p);
@@ -326,8 +314,8 @@ public:
 		RenderPlane(p);
 
 		gl.Enable(Functionality::ClipDistance, p);
-		torus_clip_sign[p].Set(+sign);
-		plane_clip_sign[p].Set(+sign);
+		torus_clip_signs[p].Set(+sign);
+		plane_clip_signs[p].Set(+sign);
 		if(at_leaf) RenderTorus();
 		else BSP(camera, p+1);
 		gl.Disable(Functionality::ClipDistance, p);

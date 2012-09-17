@@ -146,9 +146,10 @@ public:
 		}
 
 		// set the light positions
-		Uniform<Vec3f>(prog, "LightPos[0]").Set(Vec3f(2.0f,-1.0f, 0.0f));
-		Uniform<Vec3f>(prog, "LightPos[1]").Set(Vec3f(0.0f, 3.0f, 0.0f));
-		Uniform<Vec3f>(prog, "LightPos[2]").Set(Vec3f(0.0f,-1.0f, 4.0f));
+		Uniform<Vec3f> light_pos(prog, "LightPos");
+		light_pos[0].Set(Vec3f(2.0f,-1.0f, 0.0f));
+		light_pos[1].Set(Vec3f(0.0f, 3.0f, 0.0f));
+		light_pos[2].Set(Vec3f(0.0f,-1.0f, 4.0f));
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
