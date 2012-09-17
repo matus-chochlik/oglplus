@@ -499,7 +499,7 @@ public:
 		};
 		return _query_common_location(
 			pprogs,
-			pprogs+2
+			pprogs+2,
 			identifier,
 			location
 		);
@@ -520,7 +520,7 @@ public:
 		};
 		return _query_common_location(
 			pprogs,
-			pprogs+3
+			pprogs+3,
 			identifier,
 			location
 		);
