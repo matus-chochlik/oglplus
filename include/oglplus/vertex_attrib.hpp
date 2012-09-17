@@ -238,13 +238,15 @@ public:
 		));
 	}
 
-	/// Finds the vertex attribute location throws on failure
+	/// Finds the vertex attribute location, throws on failure
 	/** Finds the location of the input vertex attribute specified
 	 *  by @p identifier in a @p program. Throws if no such attribute
 	 *  exists or if it is not active. For a non-throwing version
 	 *  see QueryLocation().
 	 *
+	 *  @see GetCommonLocation
 	 *  @see QueryLocation
+	 *  @see BindLocation
 	 *
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
@@ -261,7 +263,7 @@ public:
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
-	/// Returns vertex attribute location in multiple programs if consistent
+	/// Returns vertex attr. location in multiple programs if it's consistent
 	/** Finds the location of the input vertex attribute specified
 	 *  by @p identifier in every program in @p programs.
 	 *  Throws Error if no such attribute exists or if it is not active
@@ -299,6 +301,7 @@ public:
 	 *  @see GetLocation
 	 *  @see GetCommonLocation
 	 *  @see QueryLocation
+	 *  @see BindLocation
 	 *
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
@@ -377,6 +380,7 @@ public:
 	 *  @see GetLocation
 	 *  @see GetCommonLocation
 	 *  @see QueryCommonLocation
+	 *  @see BindLocation
 	 *
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
@@ -431,13 +435,14 @@ public:
 	 *  }
 	 *  @endcode
 	 *
-	 *  @note Never store the resulting temporary in a named variable
+	 *  @note Never store the resulting object in a named variable
 	 *  nor use it after the call to this overload of QueryCommonLocation
 	 *  has finished. Doing this causes undefined behavior.
 	 *
 	 *  @see GetLocation
 	 *  @see GetCommonLocation
 	 *  @see QueryLocation
+	 *  @see BindLocation
 	 *
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
@@ -455,13 +460,14 @@ public:
 	/** Finds the @p location of the input vertex attribute specified
 	 *  by @p identifier in every program in @p programs.
 	 *  Returns false if no such attribute exists or if it is not active
-	 *  in any of the programs or if the attribute has different locations
+	 *  in some of the programs or if the attribute has different locations
 	 *  in different programs. Otherwise stores the vertex attribute
 	 *  position in @p location and returns true.
 	 *
 	 *  @see GetLocation
 	 *  @see GetCommonLocation
 	 *  @see QueryLocation
+	 *  @see BindLocation
 	 *
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
@@ -527,11 +533,6 @@ public:
 	}
 #endif
 
-	/// Bind the vertex attribute location
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindAttribLocation}
-	 */
 	void BindLocation(
 		const ProgramOps& program,
 		const GLchar* identifier
@@ -547,6 +548,9 @@ public:
 
 	/// Bind the vertex attribute location
 	/**
+	 *  @see GetLocation
+	 *  @see QueryLocation
+	 *
 	 *  @glsymbols
 	 *  @glfunref{BindAttribLocation}
 	 */
