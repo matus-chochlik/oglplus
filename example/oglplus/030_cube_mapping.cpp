@@ -511,15 +511,15 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			cube_prog.Use();
-			VertexAttribArray cube_attr(cube_prog, "Position");
-			cube_attr.Setup(n_per_vertex, DataType::Float);
-			cube_attr.Enable();
-
-			cmap_prog.Use();
-			VertexAttribArray cmap_attr(cmap_prog, "Position");
-			cmap_attr.Setup(n_per_vertex, DataType::Float);
-			cmap_attr.Enable();
+			VertexAttribArray attr(
+				VertexAttribArray::GetCommonLocation(
+					"Position",
+					cube_prog,
+					cmap_prog
+				)
+			);
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
 		}
 
 		// bind the VBO for the cube normals
@@ -530,15 +530,15 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			cube_prog.Use();
-			VertexAttribArray cube_attr(cube_prog, "Normal");
-			cube_attr.Setup(n_per_vertex, DataType::Float);
-			cube_attr.Enable();
-
-			cmap_prog.Use();
-			VertexAttribArray cmap_attr(cmap_prog, "Normal");
-			cmap_attr.Setup(n_per_vertex, DataType::Float);
-			cmap_attr.Enable();
+			VertexAttribArray attr(
+				VertexAttribArray::GetCommonLocation(
+					"Normal",
+					cube_prog,
+					cmap_prog
+				)
+			);
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
 		}
 
 

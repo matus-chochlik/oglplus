@@ -68,16 +68,25 @@ protected:
 	 : _index(GLint(i))
 	{ }
 
-	VertexAttribOps(const ProgramOps& program, const GLchar* identifier)
-	 : _index(
-		OGLPLUS_GLFUNC(GetAttribLocation)(
-			FriendOf<ProgramOps>::GetName(program),
-			identifier
-		)
+	static GLint _get_location(
+		const ProgramOps& program,
+		const GLchar* identifier
 	)
 	{
+		return OGLPLUS_GLFUNC(GetAttribLocation)(
+			FriendOf<ProgramOps>::GetName(program),
+			identifier
+		);
+	}
+
+	static GLint _find_location(
+		const ProgramOps& program,
+		const GLchar* identifier
+	)
+	{
+		GLint result = _get_location(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
-		if(OGLPLUS_IS_ERROR(_index == GLint(-1)))
+		if(OGLPLUS_IS_ERROR(result == GLint(-1)))
 		{
 			Error::PropertyMap props;
 			props["identifier"] = identifier;
@@ -89,8 +98,435 @@ protected:
 				std::move(props)
 			);
 		}
+		return result;
 	}
+
+	static bool _query_location(
+		const ProgramOps& program,
+		const String& identifier,
+		VertexAttribSlot& location
+	)
+	{
+		GLint result = _get_location(program, identifier.c_str());
+		if(OGLPLUS_GLFUNC(GetError)() != GL_NO_ERROR)
+			return false;
+		if(result < 0) return false;
+		location = result;
+		return true;
+	}
+
+	template <typename Iterator>
+	static bool _query_common_location(
+		Iterator pprogram_begin,
+		Iterator pprogram_end,
+		const GLchar* identifier,
+		VertexAttribSlot& location
+	)
+	{
+		Iterator i=pprogram_begin, e=pprogram_end;
+		if(i != e)
+		{
+			const ProgramOps* pprog = *i;
+			assert(pprog);
+			const ProgramOps& prog = *pprog;
+			if(!_query_location(prog, identifier, location))
+				return false;
+			const VertexAttribSlot prev_loc(location);
+			while(++i != e)
+			{
+				if(!_query_location(prog, identifier, location))
+					return false;
+				if(prev_loc != location)
+					return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	template <typename Iterator>
+	static VertexAttribSlot _get_common_location(
+		Iterator pprogram_begin,
+		Iterator pprogram_end,
+		const GLchar* identifier
+	)
+	{
+		VertexAttribSlot location;
+		if(OGLPLUS_IS_ERROR(!_query_common_location(
+			pprogram_begin,
+			pprogram_end,
+			identifier,
+			location
+		)))
+		{
+			Error::PropertyMap props;
+			props["identifier"] = identifier;
+			HandleError(
+				GL_INVALID_OPERATION,
+				"Inconsistent location of a vertex "
+				"attribute in multiple programs",
+				OGLPLUS_ERROR_INFO(GetAttribLocation),
+				std::move(props)
+			);
+		}
+		return location;
+	}
+
+	class _common_location_query
+	{
+	private:
+		const GLchar* _identifier;
+		VertexAttribSlot& _location;
+		bool _first, _ok;
+
+		_common_location_query(
+			const GLchar* identifier,
+			VertexAttribSlot& location,
+			bool ok
+		): _identifier(identifier)
+		 , _location(location)
+		 , _first(false)
+		 , _ok(ok)
+		{ }
+
+	public:
+		_common_location_query(
+			const GLchar* identifier,
+			VertexAttribSlot& location
+		): _identifier(identifier)
+		 , _location(location)
+		 , _first(true)
+		 , _ok(true)
+		{ }
+
+		_common_location_query In(const ProgramOps& prog) const
+		{
+			return _common_location_query(
+				_identifier,
+				_location,
+				_ok && VertexAttribOps::_query_location(
+					prog,
+					_identifier,
+					_location
+				)
+			);
+		}
+
+		_common_location_query And(const ProgramOps& prog) const
+		{
+			return In(prog);
+		}
+
+		operator bool (void) const
+		{
+			return !_first && _ok;
+		}
+	};
+
+	VertexAttribOps(const ProgramOps& program, const GLchar* identifier)
+	 : _index(_find_location(program, identifier))
+	{ }
 public:
+	static VertexAttribSlot GetLocation(
+		const ProgramOps& program,
+		const GLchar* identifier
+	)
+	{
+		return VertexAttribSlot(_find_location(
+			program,
+			identifier
+		));
+	}
+
+	/// Finds the vertex attribute location throws on failure
+	/** Finds the location of the input vertex attribute specified
+	 *  by @p identifier in a @p program. Throws if no such attribute
+	 *  exists or if it is not active. For a non-throwing version
+	 *  see QueryLocation().
+	 *
+	 *  @see QueryLocation
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	static VertexAttribSlot GetLocation(
+		const ProgramOps& program,
+		const String& identifier
+	)
+	{
+		return VertexAttribSlot(_find_location(
+			program,
+			identifier.c_str()
+		));
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
+	/// Returns vertex attribute location in multiple programs if consistent
+	/** Finds the location of the input vertex attribute specified
+	 *  by @p identifier in every program in @p programs.
+	 *  Throws Error if no such attribute exists or if it is not active
+	 *  in some of the programs or if the attribute has different locations
+	 *  in different programs. Otherwise returns the vertex attribute
+	 *  position.
+	 *
+	 *  @code
+	 *  VertexArray vao;
+	 *  Buffer buf;
+	 *  Program prog1, prog2, prog3;
+	 *  // build the programs, load data into the buffer, ...
+	 *  vao.Bind();
+	 *  buffer.Bind(Buffer::Target::Array);
+	 *  try
+	 *  {
+	 *      VertexAttribArray attr(
+	 *          VertexAttribOps::GetCommonLocation(
+	 *              "Position",
+	 *              prog1,
+	 *              prog2,
+	 *              prog3
+	 &          )
+	 *      );
+	 *      attr.Setup(n_per_vertex, DataType::Float);
+	 *      attr.Enable();
+	 *  }
+	 *  catch(Error& error)
+	 *  {
+	 *      // handle the error or bind the locations manually
+	 *  }
+	 *
+	 *  @endcode
+	 *
+	 *  @see GetLocation
+	 *  @see GetCommonLocation
+	 *  @see QueryLocation
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	template <typename ... _ProgramOps>
+	static VertexAttribSlot GetCommonLocation(
+		const GLchar* identifier,
+		const  ProgramOps& program,
+		const _ProgramOps& ... programs
+	)
+	{
+		const ProgramOps* pprogs[] = {
+			&program,
+			&programs...
+		};
+		return _get_common_location(
+			pprogs,
+			pprogs+1+sizeof...(programs),
+			identifier
+		);
+	}
+#else
+	static VertexAttribSlot GetCommonLocation(
+		const GLchar* identifier,
+		const ProgramOps& program1,
+		const ProgramOps& program2
+	)
+	{
+		const ProgramOps* pprogs[] = {
+			&program1,
+			&program2
+		};
+		return _get_common_location(
+			pprogs,
+			pprogs+2,
+			identifier
+		);
+	}
+
+	static VertexAttribSlot GetCommonLocation(
+		const GLchar* identifier,
+		const ProgramOps& program1,
+		const ProgramOps& program2,
+		const ProgramOps& program3
+	)
+	{
+		const ProgramOps* pprogs[] = {
+			&program1,
+			&program2,
+			&program3
+		};
+		return _get_common_location(
+			pprogs,
+			pprogs+3,
+			identifier
+		);
+	}
+#endif
+
+	static bool QueryLocation(
+		const ProgramOps& program,
+		const GLchar* identifier,
+		VertexAttribSlot& location
+	)
+	{
+		return _query_location(program, identifier, location);
+	}
+
+	/// Queries the vertex attribute @p location in a program
+	/** Finds the @p location of the input vertex attribute specified
+	 *  by @p identifier in a @p program. Returns false if no such attribute
+	 *  exists or if it is not active, otherwise stores the vertex attribute
+	 *  position in @p location and returns true.
+	 *  For a throwing version see GetLocation().
+	 *
+	 *  @see GetLocation
+	 *  @see GetCommonLocation
+	 *  @see QueryCommonLocation
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	static bool QueryLocation(
+		const ProgramOps& program,
+		const String& identifier,
+		VertexAttribSlot& location
+	)
+	{
+		return _query_location(program, identifier.c_str(), location);
+	}
+
+
+	static _common_location_query QueryCommonLocation(
+		const GLchar* identifier,
+		VertexAttribSlot& location
+	)
+	{
+		return _common_location_query(identifier, location);
+	}
+
+	/// Allows to query the vertex attribute @p location in multiple programs
+	/** This function returns a temporary object that allows to query
+	 *  the @p location of the specified @p identifier in several programs.
+	 *  The returned object has two functions called @c In and @c And
+	 *  which are equivalent and take a Program as the argument. Both
+	 *  these functions return in turn a new instance of the temporary
+	 *  which allows to check in another program, and so on.
+	 *  The temporary is also convertible to @c bool indicating whether
+	 *  a common location was found in all programs in the chain.
+	 *
+	 *  @code
+	 *  VertexArray vao;
+	 *  Buffer buf;
+	 *  Program prog1, prog2, prog3, prog4;
+	 *  // build the programs, load data into the buffer, ...
+	 *  vao.Bind();
+	 *  buffer.Bind(Buffer::Target::Array);
+	 *  VertexAttribSlot loc;
+	 *  if(VertexAttribOps::QueryCommonLocation("Pos", loc)
+	 *	.In(prog1).In(prog2).In(prog3).And(prog4)
+	 *  )
+	 *  {
+	 *      VertexAttribArray attr(location);
+	 *      attr.Setup(n_per_vertex, DataType::Float);
+	 *      attr.Enable();
+	 *  }
+	 *  else
+	 *  {
+	 *      // handle the error or bind the locations manually
+	 *  }
+	 *  @endcode
+	 *
+	 *  @note Never store the resulting temporary in a named variable
+	 *  nor use it after the call to this overload of QueryCommonLocation
+	 *  has finished. Doing this causes undefined behavior.
+	 *
+	 *  @see GetLocation
+	 *  @see GetCommonLocation
+	 *  @see QueryLocation
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	static _common_location_query QueryCommonLocation(
+		const String& identifier,
+		VertexAttribSlot& location
+	)
+	{
+		return _common_location_query(identifier.c_str(), location);
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
+	/// Queries the vertex attribute @p location in multiple programs
+	/** Finds the @p location of the input vertex attribute specified
+	 *  by @p identifier in every program in @p programs.
+	 *  Returns false if no such attribute exists or if it is not active
+	 *  in any of the programs or if the attribute has different locations
+	 *  in different programs. Otherwise stores the vertex attribute
+	 *  position in @p location and returns true.
+	 *
+	 *  @see GetLocation
+	 *  @see GetCommonLocation
+	 *  @see QueryLocation
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	template <typename ... _ProgramOps>
+	static bool QueryCommonLocation(
+		const GLchar* identifier,
+		VertexAttribSlot& location,
+		const  ProgramOps& program,
+		const _ProgramOps& ... programs
+	)
+	{
+		const ProgramOps* pprogs[] = {
+			&program,
+			&programs...
+		};
+		return _query_common_location(
+			pprogs,
+			pprogs+1+sizeof...(programs),
+			identifier,
+			location
+		);
+	}
+#else
+	static bool QueryCommonLocation(
+		const GLchar* identifier,
+		VertexAttribSlot& location,
+		const ProgramOps& program1,
+		const ProgramOps& program2
+	)
+	{
+		const ProgramOps* pprogs[] = {
+			&program1,
+			&program2
+		};
+		return _query_common_location(
+			pprogs,
+			pprogs+2
+			identifier,
+			location
+		);
+	}
+
+	static bool QueryCommonLocation(
+		const GLchar* identifier,
+		VertexAttribSlot& location,
+		const ProgramOps& program1,
+		const ProgramOps& program2,
+		const ProgramOps& program3
+	)
+	{
+		const ProgramOps* pprogs[] = {
+			&program1,
+			&program2,
+			&program3
+		};
+		return _query_common_location(
+			pprogs,
+			pprogs+3
+			identifier,
+			location
+		);
+	}
+#endif
+
 	/// Bind the vertex attribute location
 	/**
 	 *  @glsymbols

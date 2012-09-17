@@ -274,15 +274,19 @@ public:
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			shape_prog.Use();
-			VertexAttribArray shape_attr(shape_prog, "Position");
-			shape_attr.Setup(n_per_vertex, DataType::Float);
-			shape_attr.Enable();
-
-			depth_prog.Use();
-			VertexAttribArray depth_attr(depth_prog, "Position");
-			depth_attr.Setup(n_per_vertex, DataType::Float);
-			depth_attr.Enable();
+			VertexAttribSlot location;
+			if(VertexAttribArray::QueryCommonLocation(
+				"Position",
+				location,
+				shape_prog,
+				depth_prog
+			))
+			{
+				VertexAttribArray shape_attr(location);
+				shape_attr.Setup(n_per_vertex, DataType::Float);
+				shape_attr.Enable();
+			}
+			else assert(!"Inconsistent 'Position' location");
 		}
 
 		shape_normals.Bind(Buffer::Target::Array);

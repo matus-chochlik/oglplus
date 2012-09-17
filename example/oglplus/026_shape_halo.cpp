@@ -325,15 +325,17 @@ public:
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			shape_prog.Use();
-			VertexAttribArray attr_o(shape_prog, "Position");
-			attr_o.Setup(n_per_vertex, DataType::Float);
-			attr_o.Enable();
-
-			halo_prog.Use();
-			VertexAttribArray attr_s(halo_prog, "Position");
-			attr_s.Setup(n_per_vertex, DataType::Float);
-			attr_s.Enable();
+			VertexAttribSlot location;
+			if(VertexAttribArray::QueryCommonLocation(
+				"Position",
+				location
+			).In(shape_prog).And(halo_prog))
+			{
+				VertexAttribArray attr(location);
+				attr.Setup(n_per_vertex, DataType::Float);
+				attr.Enable();
+			}
+			else assert(!"Inconsistent 'Position' location");
 		}
 
 		// bind the VBO for the shape normals
@@ -344,9 +346,9 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			shape_prog.Use();
-			VertexAttribArray attr_o(shape_prog, "Normal");
-			attr_o.Setup(n_per_vertex, DataType::Float);
-			attr_o.Enable();
+			VertexAttribArray attr(shape_prog, "Normal");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
 		}
 
 		// bind the VAO for the plane

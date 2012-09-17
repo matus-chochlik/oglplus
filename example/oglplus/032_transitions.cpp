@@ -609,7 +609,8 @@ private:
 	VertexArray vao;
 	Buffer corners;
 public:
-	Screen(const Program& prog)
+	template <typename ... _Program>
+	Screen(const _Program& ... progs)
 	{
 		// bind the VAO for the screen
 		vao.Bind();
@@ -624,7 +625,13 @@ public:
 				 1.0f,  1.0f
 			};
 			Buffer::Data(Buffer::Target::Array, 8, screen_verts);
-			VertexAttribArray attr(prog, "Position");
+
+			VertexAttribArray attr(
+				VertexAttribArray::GetCommonLocation(
+					"Position",
+					progs...
+				)
+			);
 			attr.Setup(2, DataType::Float);
 			attr.Enable();
 		}
@@ -700,7 +707,7 @@ public:
 	 , draw_fbo(color_tex_unit, depth_tex_unit)
 	 , clear_prog()
 	 , trans_prog()
-	 , screen(trans_prog)
+	 , screen(clear_prog, trans_prog)
 	{
 		ProgramUniformSampler(draw_prog, "MetalTexture").Set(metal_tex_unit);
 		ProgramUniform<Vec3f>(draw_prog, "LightPosition").Set(10.0f, 30.0f, 20.0f);

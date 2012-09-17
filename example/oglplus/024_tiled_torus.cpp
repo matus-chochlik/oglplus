@@ -53,7 +53,7 @@ public:
 			"#version 330\n"
 			"uniform vec3 position;"
 			"uniform mat4 modelMatrix;"
-			"in vec4 vertex;"
+			"layout (location=0) in vec4 vertex;"
 			"out vec3 dir;"
 			"void main(void)"
 			"{"
@@ -124,7 +124,7 @@ public:
 			"#version 330\n"
 			"uniform vec3 lightPos;"
 			"uniform mat4 modelMatrix;"
-			"in vec4 vertex;"
+			"layout (location=0) in vec4 vertex;"
 			"out vec3 lightDir;"
 			"void main(void)"
 			"{"
@@ -194,15 +194,17 @@ public:
 			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			line_prog.Use();
-			VertexAttribArray line_attr(line_prog, "vertex");
-			line_attr.Setup(n_per_vertex, DataType::Float);
-			line_attr.Enable();
-
-			fill_prog.Use();
-			VertexAttribArray fill_attr(fill_prog, "vertex");
-			fill_attr.Setup(n_per_vertex, DataType::Float);
-			fill_attr.Enable();
+			VertexAttribSlot location;
+			if(VertexAttribArray::QueryCommonLocation(
+				"vertex",
+				location
+			).In(line_prog).And(fill_prog))
+			{
+				VertexAttribArray attr(location);
+				attr.Setup(n_per_vertex, DataType::Float);
+				attr.Enable();
+			}
+			else assert(!"Inconsistent vertex attribute location");
 		}
 
 		gl.ClearColor(0.8f, 0.7f, 0.6f, 0.0f);

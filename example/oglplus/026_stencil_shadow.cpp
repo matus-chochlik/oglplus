@@ -236,15 +236,15 @@ public:
 			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			object_prog.Use();
-			VertexAttribArray attr_o(object_prog, "Position");
-			attr_o.Setup(n_per_vertex, DataType::Float);
-			attr_o.Enable();
-
-			shadow_prog.Use();
-			VertexAttribArray attr_s(shadow_prog, "Position");
-			attr_s.Setup(n_per_vertex, DataType::Float);
-			attr_s.Enable();
+			VertexAttribArray attr(
+				VertexAttribArray::GetCommonLocation(
+					"Position",
+					object_prog,
+					shadow_prog
+				)
+			);
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
 		}
 
 		// bind the VBO for the torus normals
@@ -255,9 +255,9 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			object_prog.Use();
-			VertexAttribArray attr_o(object_prog, "Normal");
-			attr_o.Setup(n_per_vertex, DataType::Float);
-			attr_o.Enable();
+			VertexAttribArray attr(object_prog, "Normal");
+			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Enable();
 		}
 		// bind the VAO for the plane
 		plane.Bind();

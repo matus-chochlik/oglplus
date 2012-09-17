@@ -211,16 +211,17 @@ public:
 			GLuint n_per_vertex = make_torus.Positions(data);
 			// upload the data
 			Buffer::Data(se::Array(), data);
+
 			// setup the vertex attribs array for the vertices
-			prog_norm.Use();
-			VertexAttribArray attr_n(prog_norm, "Position");
-			attr_n.Setup(n_per_vertex, se::Float());
-			attr_n.Enable();
-			//
-			prog_refl.Use();
-			VertexAttribArray attr_r(prog_refl, "Position");
-			attr_r.Setup(n_per_vertex, se::Float());
-			attr_r.Enable();
+			typedef VertexAttribArray VAA;
+			VertexAttribSlot
+				loc_norm = VAA::GetLocation(prog_norm, "Position"),
+				loc_refl = VAA::GetLocation(prog_refl, "Position");
+
+			assert(loc_norm == loc_refl);
+			VertexAttribArray attr(loc_norm);
+			attr.Setup(n_per_vertex, se::Float());
+			attr.Enable();
 		}
 
 		// bind the VBO for the torus normals
@@ -230,16 +231,17 @@ public:
 			GLuint n_per_vertex = make_torus.Normals(data);
 			// upload the data
 			Buffer::Data(se::Array(), data);
+
 			// setup the vertex attribs array for the normals
-			prog_norm.Use();
-			VertexAttribArray attr_n(prog_norm, "Normal");
-			attr_n.Setup(n_per_vertex, se::Float());
-			attr_n.Enable();
-			//
-			prog_refl.Use();
-			VertexAttribArray attr_r(prog_refl, "Normal");
-			attr_r.Setup(n_per_vertex, se::Float());
-			attr_r.Enable();
+			typedef VertexAttribArray VAA;
+			VertexAttribSlot
+				loc_norm = VAA::GetLocation(prog_norm, "Normal"),
+				loc_refl = VAA::GetLocation(prog_refl, "Normal");
+
+			assert(loc_norm == loc_refl);
+			VertexAttribArray attr(loc_norm);
+			attr.Setup(n_per_vertex, se::Float());
+			attr.Enable();
 		}
 
 		// bind the VAO for the plane

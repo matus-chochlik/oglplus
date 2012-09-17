@@ -60,10 +60,17 @@ protected:
 	}
 public:
 
+	LimitedCount& operator = (const LimitedCount& other)
+	{
+		_value = other._value;
+		assert(_value < _limit());
+		return *this;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the value
 	template <typename Type>
-	explicit operator Type(void) const
+	explicit operator Type(void) const;
 #endif
 
 	template <typename Type>
@@ -80,6 +87,36 @@ public:
 	{
 		return _limit();
 	}
+
+	friend bool operator == (LimitedCount a, LimitedCount b)
+	{
+		return a._value == b._value;
+	}
+
+	friend bool operator != (LimitedCount a, LimitedCount b)
+	{
+		return a._value != b._value;
+	}
+
+	friend bool operator <= (LimitedCount a, LimitedCount b)
+	{
+		return a._value <= b._value;
+	}
+
+	friend bool operator <  (LimitedCount a, LimitedCount b)
+	{
+		return a._value <  b._value;
+	}
+
+	friend bool operator >= (LimitedCount a, LimitedCount b)
+	{
+		return a._value >= b._value;
+	}
+
+	friend bool operator >  (LimitedCount a, LimitedCount b)
+	{
+		return a._value >  b._value;
+	}
 };
 
 #define OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(NAME, QUERY) \
@@ -87,7 +124,7 @@ class NAME \
  : public LimitedCount<GL_ ## QUERY> \
 { \
 public: \
-	NAME(GLuint value) \
+	NAME(GLuint value = 0) \
 	 : LimitedCount<GL_ ## QUERY>( \
 		value, \
 		OGLPLUS_LIMIT_ERROR_INFO(QUERY) \
