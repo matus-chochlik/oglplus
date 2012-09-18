@@ -177,7 +177,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
 	 */
-	bool ReferencedBy(ShaderType shader_type) const
+	bool ReferencedBy(ShaderType shader_type)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
@@ -195,7 +195,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
 	 */
-	GLuint DataSize(void) const
+	GLuint DataSize(void)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
@@ -209,7 +209,7 @@ public:
 		return GLuint(result);
 	}
 
-	void Binding(UniformBufferBindingPoint binding) const
+	void Binding(UniformBufferBindingPoint binding)
 	{
 		OGLPLUS_GLFUNC(UniformBlockBinding)(
 			this->_get_program(),

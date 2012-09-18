@@ -1,0 +1,490 @@
+/**
+ *  @example standalone/025_bitmap_font_text.cpp
+ *  @brief Shows rendering of text using a font stored in a texture+metrics
+ *
+ *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#include "glut_glew_example.hpp"
+
+#include <oglplus/all.hpp>
+#include <oglplus/images/png.hpp>
+#include <oglplus/bound/texture.hpp>
+
+#include <fstream>
+#include <sstream>
+#include <vector>
+
+class FontTexture
+ : public oglplus::Texture
+{
+public:
+	FontTexture(const char* png_path)
+	{
+		using namespace oglplus;
+
+		std::ifstream png_stream(png_path);
+
+		auto image = images::PNG(png_stream);
+
+		auto bound_tex = oglplus::Bind(*this, Texture::Target::_2D);
+
+		bound_tex.Image2D(image);
+		bound_tex.GenerateMipmap();
+		bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+		bound_tex.MagFilter(TextureMagFilter::Linear);
+		bound_tex.WrapS(TextureWrap::ClampToBorder);
+		bound_tex.WrapT(TextureWrap::ClampToBorder);
+		bound_tex.SwizzleB(TextureSwizzle::Red);
+		bound_tex.SwizzleG(TextureSwizzle::Red);
+	}
+};
+
+// Class containing metric data for a range of glyphs
+class GlyphMetrics
+{
+private:
+	// For each glyph the following values are stored
+	// 4 values * 3 (triangle) vertices
+	//
+	// Vertex[0]
+	// x - logical rectangle left bearing
+	// y - logical rectangle right bearing
+	// z - logical rectangle ascent
+	// w - logical rectangle descent
+	//
+	// Vertex[1]
+	// x - ink rectangle left bearing
+	// y - ink rectangle right bearing
+	// z - ink rectangle ascent
+	// w - ink rectangle descent
+	//
+	// Vertex[2]
+	// x - Glyph origin x in normalized texture space
+	// y - Glyph origin y in normalized texture space
+	// z - Glyph width in normalized texture space
+	// w - Glyph height in normalized texture space
+
+	const size_t n_glyphs;
+	std::vector<GLfloat> log_data, ink_data, tex_data;
+
+	void LoadGlyph(
+		std::istream& bfm,
+		char* buf,
+		const size_t size
+	)
+	{
+		// get the code point number from the stream
+		size_t glyph_cp;
+		assert(bfm.good());
+		bfm >> glyph_cp;
+		assert(bfm.good());
+		// eat the newline
+		bfm.getline(buf, size);
+		assert(bfm.good());
+		// skip the hex code point line
+		bfm.getline(buf, size);
+		assert(bfm.good());
+		// skip the code point's quoted utf-8 sequence
+		char c;
+		bfm.get(c);
+		assert(bfm.good());
+		assert(c == '\'');
+		do { bfm.get(c); assert(bfm.good()); }
+		while(c != '\'');
+		bfm.getline(buf, size);
+		assert(bfm.good());
+
+		// now load the 12 metric values
+		std::vector<GLfloat>* pdata[3] = {&log_data, &ink_data, &tex_data};
+		for(size_t d=0; d!=3; ++d)
+		{
+			for(size_t v=0; v!=4; ++v)
+			{
+				// read the value
+				GLfloat value;
+				bfm >> value;
+				assert(bfm.good());
+				// assign the value to the data buffer
+				(*pdata[d])[glyph_cp*4+v] = value;
+				// eat the rest of the line
+				bfm.getline(buf, size);
+				assert(bfm.good());
+			}
+		}
+		// skip the separating empty line
+		bfm.getline(buf, size);
+	}
+
+public:
+	GlyphMetrics(const char* bfm_path)
+	 : n_glyphs(256)
+	 , log_data(n_glyphs*4)
+	 , ink_data(n_glyphs*4)
+	 , tex_data(n_glyphs*4)
+	{
+		std::ifstream bfm_stream(bfm_path);
+		const size_t linelen = 63;
+		char linebuf[linelen+1];
+		for(size_t cp=0; cp!=n_glyphs; ++cp)
+			LoadGlyph(bfm_stream, linebuf, linelen);
+	}
+
+	const std::vector<GLfloat>& LogData(void) const
+	{
+		return log_data;
+	}
+
+	const std::vector<GLfloat>& InkData(void) const
+	{
+		return ink_data;
+	}
+
+	const std::vector<GLfloat>& TexData(void) const
+	{
+		return tex_data;
+	}
+
+	std::vector<GLfloat> XOffsets(const std::vector<GLubyte>& indices)
+	{
+		std::vector<GLfloat> result(indices.size()*4);
+		auto ii=indices.begin(), ie=indices.end();
+		if(ii != ie)
+		{
+			size_t index = *ii;
+			// left bearing
+			GLfloat offs = log_data[index*4+0];
+
+			auto ri=result.begin(), re=result.end();
+			*ri++ = offs;
+			*ri++ = 0.0f; *ri++ = 0.0f; *ri++ = 0.0f;
+			while(true)
+			{
+				// right - left bearing
+				offs += log_data[index*4+1]-log_data[index*4+0];
+				++ii;
+				if(ii != ie) index = *ii;
+				else break;
+				*ri++ = offs;
+				*ri++ = 0.0f; *ri++ = 0.0f; *ri++ = 0.0f;
+			}
+			assert(ri == re);
+		}
+		return result;
+	}
+};
+
+class BitmapFontProgram
+ : public oglplus::Program
+{
+private:
+	oglplus::Program& prog(void) { return *this; }
+
+	oglplus::Buffer glyph_spacing_buf;
+	oglplus::LazyUniformBlock glyph_spacing;
+public:
+	oglplus::LazyProgramUniform<oglplus::Mat4f> projection_matrix;
+	oglplus::LazyProgramUniform<oglplus::Mat4f> camera_matrix;
+	oglplus::LazyProgramUniform<oglplus::Mat4f> layout_matrix;
+	oglplus::LazyProgramUniformSampler font_texture;
+
+	BitmapFontProgram(void)
+	 : glyph_spacing(prog(), "GlyphSpacing")
+	 , projection_matrix(prog(), "ProjectionMatrix")
+	 , camera_matrix(prog(), "CameraMatrix")
+	 , layout_matrix(prog(), "LayoutMatrix")
+	 , font_texture(prog(), "FontTexture")
+	{
+		using namespace oglplus;
+		// Nothing to see here, move along
+		AttachShader(VertexShader(
+			ObjectDesc("Glyph vertex"),
+			StrLit("#version 330\n"
+
+			"layout(location = 0) in vec4 InkData;"
+			"layout(location = 1) in vec4 TexData;"
+
+			"out vec4 vertInkData;"
+			"out vec4 vertTexData;"
+
+			"void main(void)"
+			"{"
+			"	vertInkData = InkData;"
+			"	vertTexData = TexData;"
+			"}")
+		));
+		/*
+		 *        (5)    (4)
+		 *         O-----O  <-- Ascender
+		 *         |    /|      (InkD.z)
+		 * Left<-->|   / |
+		 * Bearing |  /  |
+		 * (InkD.x)| /   |
+		 *         |/    |
+		 *  ===*===O=====O==<-- Baseline
+		 *     .(3)|    /|(2)
+		 *     .   |   / |
+		 *     .   |  /  |
+		 *     .   | /   |
+		 *     .   |/    |
+		 *     .   O-----O  <-- Descender
+		 *     .  (1)    .(0)   (InkD.w)
+		 *     .         .
+		 *     <--------->Right Bearing
+		 *                (InkD.y)
+		 */
+		AttachShader(GeometryShader(
+			ObjectDesc("Glyph geometry"),
+			StrLit("#version 330\n"
+			"layout(points) in;"
+			"layout(triangle_strip, max_vertices = 6) out;"
+
+			"layout(std140) uniform GlyphSpacing {"
+			"	vec4 GlyphXOffsets[256];"
+			"};"
+
+			"uniform mat4 ProjectionMatrix, CameraMatrix, LayoutMatrix;"
+
+			"mat4 Matrix = ProjectionMatrix*CameraMatrix*LayoutMatrix;"
+
+			"uniform vec3 LayoutOrigin;"
+
+			"in vec4 vertInkData[1], vertTexData[1];"
+
+			"out vec2 geomTexCoord;"
+
+			"void make_vertex(vec2 Pos, vec2 TexCoord)"
+			"{"
+			"	float xo = GlyphXOffsets[gl_PrimitiveIDIn].x;"
+			"	gl_Position = Matrix*vec4(Pos.x+xo, Pos.y, 0.0, 1.0);"
+			"	geomTexCoord = TexCoord;"
+			"	EmitVertex();"
+			"}"
+
+			"void main(void)"
+			"{"
+			//	left bearing
+			"	float lb = vertInkData[0].x;"
+			//	right bearing
+			"	float rb = vertInkData[0].y;"
+			//	ascender
+			"	float as = vertInkData[0].z;"
+			//	descender
+			"	float ds = vertInkData[0].w;"
+			//	height
+			"	float ht = as + ds;"
+			//	glyph origin in texture space
+			"	vec2  to = vertTexData[0].xy;"
+			//	glyph width in texture space
+			"	float tw = vertTexData[0].z;"
+			//	glyph height in texture space
+			"	float th = vertTexData[0].w;"
+			//	glyph ascent in texture space
+			"	float ta = th * (as / ht);"
+			//	glyph descent in texture space
+			"	float td = th * (ds / ht);"
+
+			"	make_vertex(vec2( rb, -ds), to+vec2( tw, -td));"
+			"	make_vertex(vec2( lb, -ds), to+vec2(0.0, -td));"
+			"	make_vertex(vec2( rb, 0.0), to+vec2( tw, 0.0));"
+			"	make_vertex(vec2( lb, 0.0), to+vec2(0.0, 0.0));"
+			"	make_vertex(vec2( rb,  as), to+vec2( tw,  ta));"
+			"	make_vertex(vec2( lb,  as), to+vec2(0.0,  ta));"
+			"	EndPrimitive();"
+			"}")
+		));
+		AttachShader(FragmentShader(
+			ObjectDesc("Glyph fragment"),
+			StrLit("#version 330\n"
+			"uniform sampler2D FontTexture;"
+
+			"in vec2 geomTexCoord;"
+
+			"out vec4 fragColor;"
+
+			"void main(void)"
+			"{"
+			"	fragColor = texture(FontTexture, geomTexCoord);"
+			"}")
+		));
+
+		Link();
+		Use();
+	}
+
+	void Render(
+		const std::vector<GLfloat>& x_offsets,
+		const std::vector<GLubyte>& indices
+	)
+	{
+		using namespace oglplus;
+		glyph_spacing_buf.Bind(Buffer::Target::Uniform);
+		glyph_spacing_buf.BindBaseUniform(0);
+		glyph_spacing.Binding(0);
+		Buffer::Data(Buffer::Target::Uniform, x_offsets);
+
+		Context().DrawElements(
+			PrimitiveType::Points,
+			indices.size(),
+			indices.data()
+		);
+	}
+};
+
+// Wrapper around the bitmap font data
+class BitmapFont
+{
+private:
+	// The texture storing the bitmap containing font glyphs
+	FontTexture texture;
+
+	// The glyph metrics
+	GlyphMetrics metrics;
+
+	// The VAO and VBO for font glyph metrics
+	oglplus::VertexArray vao;
+	oglplus::Buffer ink_data, tex_data;
+public:
+	BitmapFont(const char* png_path, const char* bfm_path)
+	 : texture(png_path)
+	 , metrics(bfm_path)
+	{
+		using namespace oglplus;
+		vao.Bind();
+
+		ink_data.Bind(Buffer::Target::Array);
+		Buffer::Data(Buffer::Target::Array, metrics.InkData());
+		VertexAttribArray ink_attr(VertexAttribSlot(0));
+		ink_attr.Setup(4, DataType::Float);
+		ink_attr.Enable();
+
+		tex_data.Bind(Buffer::Target::Array);
+		Buffer::Data(Buffer::Target::Array, metrics.TexData());
+		VertexAttribArray tex_attr(VertexAttribSlot(1));
+		tex_attr.Setup(4, DataType::Float);
+		tex_attr.Enable();
+	}
+
+	void Render(BitmapFontProgram& prog, const std::string& str)
+	{
+		std::vector<GLubyte> indices(str.begin(), str.end());
+		std::vector<GLfloat> x_offsets(metrics.XOffsets(indices));
+		prog.Render(x_offsets, indices);
+	}
+};
+
+class BitmapFontExample
+ : public oglplus::SingleExample
+{
+private:
+	oglplus::Context gl;
+
+	BitmapFontProgram font_prog;
+	BitmapFont font;
+
+	size_t frame_no;
+	std::stringstream txt;
+public:
+	BitmapFontExample(int argc, const char** argv)
+	 : gl()
+	 , font_prog()
+	 , font(
+		((argc>1) ? argv[1] : "font.png"),
+		((argc>2) ? argv[2] : "font.bfm")
+	), frame_no(0)
+	{
+		using namespace oglplus;
+
+		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		gl.Enable(Capability::Blend);
+		gl.BlendFunc(
+			BlendFunction::SrcAlpha,
+			BlendFunction::DstAlpha
+		);
+	}
+
+	void Reshape(void)
+	{
+		using namespace oglplus;
+
+		gl.Viewport(Width(), Height());
+		font_prog.projection_matrix.Set(
+			CamMatrixf::PerspectiveX(
+				Degrees(48),
+				Width()/Height(),
+				1, 100
+			)
+		);
+	}
+
+	void Render(void)
+	{
+		using namespace oglplus;
+
+		double t = FrameTime();
+		gl.Clear().ColorBuffer().DoIt();
+		font_prog.camera_matrix.Set(
+			CamMatrixf::Orbiting(
+				Vec3f(),
+				11.0 + SineWave(t / 7.0)*3.0,
+				FullCircles(t / 17.0),
+				Degrees(SineWave(t / 21.0) * 35)
+			)
+		);
+
+		// the "OGLplus" string
+		font_prog.layout_matrix.Set(
+			ModelMatrixf::Translation(-4.0f, 3.0f+SineWave(t/0.5)*0.1, 0.1f)
+		);
+		font.Render(font_prog, "OGLplus");
+
+		// the description string
+		font_prog.layout_matrix.Set(
+			ModelMatrixf::RotationY(Degrees(31+CosineWave(t/0.9)*2))*
+			ModelMatrixf::Translation(-7.0f, 2.0f,-0.1f)*
+			ModelMatrixf::Scale(0.707f, 0.707f, 1.0f)
+		);
+		font.Render(font_prog, "a C++ wrapper around the OpenGL C-API");
+
+		// the frame number string
+		font_prog.layout_matrix.Set(
+			ModelMatrixf::RotationY(Degrees(-19))*
+			ModelMatrixf::Translation(-2.0f, 1.0f+SineWave(t/0.7)*0.2, 0.0f)*
+			ModelMatrixf::Scale(0.6f, 0.6f, 1.0f)
+		);
+		txt << "Frame number: " << frame_no++;
+		font.Render(font_prog, txt.str());
+		txt.str(std::string());
+
+		// the frame time string
+		font_prog.layout_matrix.Set(
+			ModelMatrixf::RotationY(Degrees(17))*
+			ModelMatrixf::Translation(-3.0f, 0.0f, 0.1f)*
+			ModelMatrixf::Scale(0.6f, 0.6f+CosineWave(t/0.6)*0.2, 1.0f)
+		);
+		txt << "Frame time: " << t << " [s]";
+		font.Render(font_prog, txt.str());
+		txt.str(std::string());
+
+		// the FPS string
+		font_prog.layout_matrix.Set(
+			ModelMatrixf::RotationY(Degrees(-7))*
+			ModelMatrixf::Translation(-2.5f,-1.0f, 0.0f)*
+			ModelMatrixf::Scale(0.6f+SineWave(t/0.8)*0.1, 0.6f, 1.0f)
+		);
+		txt << "Frames per second : " << frame_no/t;
+		font.Render(font_prog, txt.str());
+		txt.str(std::string());
+	}
+};
+
+int main(int argc, char* argv[])
+{
+	return oglplus::GlutGlewMain<BitmapFontExample>(
+		"Simple example of bitmap font text rendering",
+		argc, argv
+	);
+}
+

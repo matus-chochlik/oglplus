@@ -82,4 +82,12 @@ if(GLUT_FOUND AND GLEW_FOUND)
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 		)
 	endif()
+
+	if(PNG_FOUND)
+		include_directories(${PNG_INCLUDE_DIRS})
+		standalone_example_common(
+			025_bitmap_font_text
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARIES}
+		)
+	endif()
 endif()
