@@ -1,3 +1,25 @@
+Version 0.20.0
+
+- The subscript operator was added to Uniform which allows to
+  set the individual elements of uniform array variables separatelly.
+- The GetLocation, GetCommonLocation, QueryLocation and
+  QueryCommonLocation member functions were added to VertexAttribute.
+- Minor changes in Subroutine uniforms were made.
+- Added the IncompleteFramebuffer exception and
+  the Framebuffer::Complete function.
+- Destructors that could potentially throw were rewritten.
+- Support for loading GLSLSource from a file was added.
+- A wxWidgets/wxGL-based "harness" for the examples was added.
+- Fixed a bug in the program resource traversal functions
+  and classes
+- Fixed a problem with GL extension availability detection
+- Updated the enumerations in the NV_path_rendering extension
+- Some problems in the build system were fixed.
+- Automatic index type detection was added to some overloads
+  of Context::DrawElements.
+- Several new examples were added.
+- The documentation and the README file was updated.
+
 Version 0.19.0
 
 - Some parts of OGLplus can now optionally be built into a library
