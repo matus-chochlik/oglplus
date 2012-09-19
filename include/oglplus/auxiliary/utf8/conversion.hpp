@@ -17,7 +17,9 @@
 namespace oglplus {
 namespace aux {
 
-inline void ConvertCodePointToUTF8(unsigned cp, char* str, size_t& len)
+typedef char32_t UnicodeCP;
+
+inline void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len)
 {
 	// 7-bits -> one byte
 	if((cp & ~0x0000007F) == 0)
@@ -74,13 +76,13 @@ inline void ConvertCodePointToUTF8(unsigned cp, char* str, size_t& len)
 }
 
 
-inline unsigned ConvertUTF8ToCodePoint(const char* str, size_t len)
+inline UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len)
 {
 	// 0xxxxxxx
 	if((*(str+0) & 0x80) == 0x00)
 	{
 		assert(len >= 1);
-		return unsigned(*(str+0));
+		return UnicodeCP(*(str+0));
 	}
 	// 110xxxxx
 	else if((*(str+0) & 0xE0) == 0xC0)
@@ -88,7 +90,7 @@ inline unsigned ConvertUTF8ToCodePoint(const char* str, size_t len)
 		// but not 11000000
 		assert(*(str+0) != 0xC0);
 		assert(len >= 2);
-		return unsigned(
+		return UnicodeCP(
 			(((*(str+0) & ~0xE0) <<  6) & 0x00000FC0)|
 			(((*(str+1) & ~0xC0) <<  0) & 0x0000003F)
 		);
@@ -99,7 +101,7 @@ inline unsigned ConvertUTF8ToCodePoint(const char* str, size_t len)
 		// but not 11100000
 		assert(*(str+0) != 0xE0);
 		assert(len >= 3);
-		return unsigned(
+		return UnicodeCP(
 			(((*(str+0) & ~0xF0) << 12) & 0x0003F000)|
 			(((*(str+1) & ~0xC0) <<  6) & 0x00000FC0)|
 			(((*(str+2) & ~0xC0) <<  0) & 0x0000003F)
@@ -111,7 +113,7 @@ inline unsigned ConvertUTF8ToCodePoint(const char* str, size_t len)
 		// but not 11111000
 		assert(*(str+0) != 0xF8);
 		assert(len >= 5);
-		return unsigned(
+		return UnicodeCP(
 			(((*(str+0) & ~0xFC) << 24) & 0x3F000000)|
 			(((*(str+1) & ~0xC0) << 18) & 0x00FC0000)|
 			(((*(str+2) & ~0xC0) << 12) & 0x0003F000)|
@@ -125,7 +127,7 @@ inline unsigned ConvertUTF8ToCodePoint(const char* str, size_t len)
 		// but not 11111100
 		assert(*(str+0) != 0xFC);
 		assert(len >= 6);
-		return unsigned(
+		return UnicodeCP(
 			(((*(str+0) & ~0xFE) << 30) & 0xC0000000)|
 			(((*(str+1) & ~0xC0) << 24) & 0x3F000000)|
 			(((*(str+2) & ~0xC0) << 18) & 0x00FC0000)|
