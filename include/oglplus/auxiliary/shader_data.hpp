@@ -243,7 +243,7 @@ protected:
 	}
 };
 
-template <class Queries, class Setters, class Callers, size_t MaxCount>
+template <class Queries, class Setters, class Callers, unsigned MaxCount>
 class ShaderDataSetOps
  : public Queries
  , public Setters
@@ -265,7 +265,7 @@ private:
 	typedef std::false_type _set_done;
 	typedef std::true_type  _set_cont;
 
-	template <size_t N>
+	template <unsigned N>
 	static OGLPLUS_CONSTEXPR
 	std::integral_constant<bool,  (N > 4)> _set_mode(void)
 	OGLPLUS_NOEXCEPT(true)
@@ -273,7 +273,7 @@ private:
 		return std::integral_constant<bool, (N > 4)>();
 	}
 
-	template <size_t N, typename T>
+	template <unsigned N, typename T>
 	static void _do_set_v(
 		_set_cont,
 		GLuint program,
@@ -282,7 +282,7 @@ private:
 		const T* v
 	)
 	{
-		std::integral_constant<size_t, 4> nparam;
+		std::integral_constant<unsigned, 4> nparam;
 		Callers::_call_set_v(
 			program,
 			index,
@@ -299,7 +299,7 @@ private:
 		);
 	}
 
-	template <size_t N, typename T>
+	template <unsigned N, typename T>
 	static void _do_set_v(
 		_set_done,
 		GLuint program,
@@ -308,7 +308,7 @@ private:
 		const T* v
 	)
 	{
-		std::integral_constant<size_t, N> nparam;
+		std::integral_constant<unsigned, N> nparam;
 		Callers::_call_set_v(
 			program,
 			index,
@@ -318,7 +318,7 @@ private:
 		_report_if_error(program, base_index);
 	}
 
-	template <size_t N, typename T>
+	template <unsigned N, typename T>
 	static void _do_set_n(
 		_set_done,
 		GLuint program,
@@ -328,7 +328,7 @@ private:
 		const T* v
 	)
 	{
-		std::integral_constant<size_t, N> nparam;
+		std::integral_constant<unsigned, N> nparam;
 		Callers::_call_set_vn(
 			program,
 			index,
@@ -351,7 +351,7 @@ private:
 		T ... v
 	)
 	{
-		std::integral_constant<size_t, 4> nparam;
+		std::integral_constant<unsigned, 4> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
@@ -377,7 +377,7 @@ private:
 		T ... v
 	)
 	{
-		std::integral_constant<size_t, sizeof...(T)> nparam;
+		std::integral_constant<unsigned, sizeof...(T)> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
@@ -411,7 +411,7 @@ protected:
 	template <typename T>
 	static void _do_set(GLuint program, GLuint index, T v0)
 	{
-		std::integral_constant<size_t, 1> nparam;
+		std::integral_constant<unsigned, 1> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
@@ -424,7 +424,7 @@ protected:
 	template <typename T>
 	static void _do_set(GLuint program, GLuint index, T v0, T v1)
 	{
-		std::integral_constant<size_t, 2> nparam;
+		std::integral_constant<unsigned, 2> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
@@ -437,7 +437,7 @@ protected:
 	template <typename T>
 	static void _do_set(GLuint program, GLuint index, T v0, T v1, T v2)
 	{
-		std::integral_constant<size_t, 3> nparam;
+		std::integral_constant<unsigned, 3> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
@@ -450,7 +450,7 @@ protected:
 	template <typename T>
 	static void _do_set(GLuint program, GLuint index, T v0, T v1, T v2, T v3)
 	{
-		std::integral_constant<size_t, 4> nparam;
+		std::integral_constant<unsigned, 4> nparam;
 		Callers::_call_set_t(
 			program,
 			index,
@@ -461,7 +461,7 @@ protected:
 	}
 #endif //NO_VARIADIC_TEMPLATES
 
-	template <size_t Cols, typename T>
+	template <unsigned Cols, typename T>
 	static void _do_set(GLuint program, GLuint index, const T* v)
 	{
 		static_assert(
@@ -477,7 +477,7 @@ protected:
 		);
 	}
 
-	template <size_t Cols, typename T>
+	template <unsigned Cols, typename T>
 	static void _do_set_many(GLuint prog, GLuint index, GLsizei n, const T*v)
 	{
 		static_assert(
@@ -515,7 +515,7 @@ private:
 		);
 	}
 protected:
-	template <size_t Cols, size_t Rows, typename T>
+	template <unsigned Cols, unsigned Rows, typename T>
 	static void _do_set_mat(
 		GLuint program,
 		GLuint index,
@@ -532,8 +532,8 @@ protected:
 			(Rows > 0) && (Rows <= 4),
 			"The number of rows must be between 1 and 4"
 		);
-		std::integral_constant<size_t, Rows> rows;
-		std::integral_constant<size_t, Cols> cols;
+		std::integral_constant<unsigned, Rows> rows;
+		std::integral_constant<unsigned, Cols> cols;
 		Callers::_call_set_m(
 			program,
 			index,
@@ -546,7 +546,7 @@ protected:
 	}
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <size_t Cols, typename T, typename ... P>
+	template <unsigned Cols, typename T, typename ... P>
 	static void _do_set_mat_p(
 		GLuint program,
 		GLuint index,

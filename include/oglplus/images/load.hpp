@@ -29,8 +29,8 @@ bool FindImageWithExts(
 	std::ifstream& file,
 	const std::string& path,
 	const char** exts,
-	size_t& e,
-	size_t nexts
+	unsigned& e,
+	unsigned nexts
 )
 {
 	for(e=0; e!= nexts; ++e)
@@ -46,8 +46,8 @@ bool FindImage(
 	std::string dirname,
 	std::string name,
 	const char** exts,
-	size_t& e,
-	size_t nexts
+	unsigned& e,
+	unsigned nexts
 )
 {
 	// TODO: switch this on platforms using other directory separators
@@ -57,7 +57,7 @@ bool FindImage(
 	const std::string apppath = Application::RelativePath();
 	std::string prefix;
 
-	for(size_t i=0; i!=3; ++i)
+	for(unsigned i=0; i!=3; ++i)
 	{
 		if(FindImageWithExts(file, apppath+prefix+path, exts, e, nexts))
 			return true;
@@ -74,8 +74,8 @@ inline Image<GLubyte> LoadByName(std::string dirname, std::string name)
 {
 	std::ifstream file;
 	const char* exts[] = {".png"};
-	size_t nexts = sizeof(exts)/sizeof(exts[0]);
-	size_t iext = nexts;
+	unsigned nexts = sizeof(exts)/sizeof(exts[0]);
+	unsigned iext = nexts;
 	aux::FindImage(file, dirname, name, exts, iext, nexts);
 
 	if(!file.good())

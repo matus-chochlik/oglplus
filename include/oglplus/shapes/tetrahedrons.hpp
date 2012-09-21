@@ -30,7 +30,7 @@ class Tetrahedrons
 {
 private:
 	GLdouble _side;
-	size_t _divisions;
+	unsigned _divisions;
 public:
 	/// Makes a unit sized tetrahedra filled cube with 10 divisions
 	Tetrahedrons(void)
@@ -39,7 +39,7 @@ public:
 	{ }
 
 	/// Makes a cube with the specified @p side and number of @p divisions
-	Tetrahedrons(GLdouble side, size_t divisions)
+	Tetrahedrons(GLdouble side, unsigned divisions)
 	 : _side(side)
 	 , _divisions(divisions)
 	{
@@ -57,8 +57,8 @@ public:
 	template <typename T>
 	GLuint Positions(std::vector<T>& dest) const
 	{
-		const size_t n = _divisions + 1;
-		size_t k = 0;
+		const unsigned n = _divisions + 1;
+		unsigned k = 0;
 		dest.resize(n*n*n*3+3);
 
 		dest[k++] = T(0);
@@ -67,9 +67,9 @@ public:
 
 		GLdouble step = _side / _divisions;
 		//
-		for(size_t z=0; z!=n; ++z)
-		for(size_t y=0; y!=n; ++y)
-		for(size_t x=0; x!=n; ++x)
+		for(unsigned z=0; z!=n; ++z)
+		for(unsigned y=0; y!=n; ++y)
+		for(unsigned x=0; x!=n; ++x)
 		{
 			dest[k++] = x*step;
 			dest[k++] = y*step;
@@ -83,8 +83,8 @@ public:
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
-		const size_t n = _divisions + 1;
-		size_t k = 0;
+		const unsigned n = _divisions + 1;
+		unsigned k = 0;
 		dest.resize(n*n*n*3+3);
 
 		dest[k++] = T(0);
@@ -93,9 +93,9 @@ public:
 
 		GLdouble step = 1.0 / _divisions;
 		//
-		for(size_t z=0; z!=n; ++z)
-		for(size_t y=0; y!=n; ++y)
-		for(size_t x=0; x!=n; ++x)
+		for(unsigned z=0; z!=n; ++z)
+		for(unsigned y=0; y!=n; ++y)
+		for(unsigned x=0; x!=n; ++x)
 		{
 			dest[k++] = x*step;
 			dest[k++] = y*step;
@@ -127,12 +127,12 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray IndicesWithAdjacency(void) const
 	{
-		const size_t n = _divisions;
-		const size_t a = (n+1);
-		const size_t b = (n+1)*(n+1);
+		const unsigned n = _divisions;
+		const unsigned a = (n+1);
+		const unsigned b = (n+1)*(n+1);
 		//
 		IndexArray indices(n*n*n*6*6);
-		size_t k = 0;
+		unsigned k = 0;
 
 		/*
 		 *   (E)-----(F)
@@ -146,19 +146,19 @@ public:
 		 *
 		 */
 
-		for(size_t z=0; z!=n; ++z)
-		for(size_t y=0; y!=n; ++y)
-		for(size_t x=0; x!=n; ++x)
+		for(unsigned z=0; z!=n; ++z)
+		for(unsigned y=0; y!=n; ++y)
+		for(unsigned x=0; x!=n; ++x)
 		{
-			size_t A = (z+0)*b + (y+0)*a + (x+0) + 1;
-			size_t B = (z+0)*b + (y+0)*a + (x+1) + 1;
-			size_t C = (z+1)*b + (y+0)*a + (x+1) + 1;
-			size_t D = (z+1)*b + (y+0)*a + (x+0) + 1;
-			size_t E = (z+0)*b + (y+1)*a + (x+0) + 1;
-			size_t F = (z+0)*b + (y+1)*a + (x+1) + 1;
-			size_t G = (z+1)*b + (y+1)*a + (x+1) + 1;
-			size_t H = (z+1)*b + (y+1)*a + (x+0) + 1;
-			size_t O = 0;
+			unsigned A = (z+0)*b + (y+0)*a + (x+0) + 1;
+			unsigned B = (z+0)*b + (y+0)*a + (x+1) + 1;
+			unsigned C = (z+1)*b + (y+0)*a + (x+1) + 1;
+			unsigned D = (z+1)*b + (y+0)*a + (x+0) + 1;
+			unsigned E = (z+0)*b + (y+1)*a + (x+0) + 1;
+			unsigned F = (z+0)*b + (y+1)*a + (x+1) + 1;
+			unsigned G = (z+1)*b + (y+1)*a + (x+1) + 1;
+			unsigned H = (z+1)*b + (y+1)*a + (x+0) + 1;
+			unsigned O = 0;
 
 			indices[k++] = C;
 			indices[k++] = A;
@@ -212,7 +212,7 @@ public:
 	/// Returns the instructions for rendering
 	DrawingInstructions InstructionsWithAdjacency(void) const
 	{
-		const size_t n = _divisions;
+		const unsigned n = _divisions;
 		auto instructions = this->MakeInstructions();
 		DrawOperation operation;
 		operation.method = DrawOperation::Method::DrawElements;

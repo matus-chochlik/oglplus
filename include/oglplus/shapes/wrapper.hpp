@@ -64,7 +64,7 @@ protected:
 		_vao.Bind();
 
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
-		size_t i = 0;
+		unsigned i = 0;
 		std::vector<GLfloat> data;
 		while(name != end)
 		{
@@ -148,7 +148,7 @@ public:
 	template <class ShapeBuilder>
 	ShapeWrapper(
 		const GLchar** names,
-		size_t name_count,
+		unsigned name_count,
 		const ShapeBuilder& builder,
 		const Program& prog
 	): _face_winding(builder.FaceWinding())

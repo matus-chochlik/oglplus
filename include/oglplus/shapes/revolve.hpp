@@ -31,7 +31,7 @@ class RevolveY
 {
 private:
 	const std::vector<Type> _sections, _section_factors;
-	const size_t _rings;
+	const unsigned _rings;
 
 	const std::vector<Vector<Type, 3>> _positions_0, _positions_1;
 	const std::vector<Vector<Type, 3>> _normals_0, _normals_1;
@@ -48,7 +48,7 @@ private:
 		return a * (Type(1) - factor) + b * factor;
 	}
 
-	Vector<Type, 3> _get_position(size_t ring, size_t section) const
+	Vector<Type, 3> _get_position(unsigned ring, unsigned section) const
 	{
 		return _mix(
 			_positions_0[ring],
@@ -57,7 +57,7 @@ private:
 		);
 	}
 
-	Vector<Type, 3> _get_normal(size_t ring, size_t section) const
+	Vector<Type, 3> _get_normal(unsigned ring, unsigned section) const
 	{
 		return _mix(
 			_normals_0[ring],
@@ -66,7 +66,7 @@ private:
 		);
 	}
 
-	Vector<Type, 3> _get_tex_coord(size_t ring, size_t section) const
+	Vector<Type, 3> _get_tex_coord(unsigned ring, unsigned section) const
 	{
 		return _mix(
 			_tex_coords_0[ring],
@@ -75,7 +75,7 @@ private:
 		);
 	}
 
-	static std::vector<Type> _make_default_sections(size_t sections)
+	static std::vector<Type> _make_default_sections(unsigned sections)
 	{
 		std::vector<Type> result(sections + 1);
 		const Type s_step = Type(1) / Type(sections);
@@ -97,11 +97,11 @@ private:
 		}
 		std::vector<Vector<Type, 3>> result(pos.size());
 
-		const size_t n = result.size()-1;
+		const unsigned n = result.size()-1;
 		const Vec3f tgnt(0.0, 0.0, -1.0);
 
 		result[0] = Normalized(Cross(tgnt, pos[1] - pos[0]));
-		for(size_t i=1; i!=n; ++i)
+		for(unsigned i=1; i!=n; ++i)
 			result[i] = Normalized(Cross(tgnt, pos[i+1]-pos[i-1]));
 		result[n] = Normalized(Cross(tgnt, pos[n] - pos[n-1]));
 		return result;
@@ -123,7 +123,7 @@ private:
 public:
 	/// Creates a shape by revolving curve approximation around the y-axis
 	RevolveY(
-		size_t sections,
+		unsigned sections,
 		const std::vector<Vector<Type, 3>>& positions,
 		const std::vector<Vector<Type, 3>>& normals,
 		const std::vector<Vector<Type, 3>>& tex_coords
@@ -173,14 +173,14 @@ public:
 	GLuint Positions(std::vector<T>& dest) const
 	{
 		dest.resize(_rings * _sections.size() * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
-		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 
-			for(size_t r=0; r!=_rings; ++r)
+			for(unsigned r=0; r!=_rings; ++r)
 			{
 				const Vector<Type, 4> in(_get_position(r, si), 1);
 				const Vector<Type, 4> out = mat * in;
@@ -199,14 +199,14 @@ public:
 	GLuint Normals(std::vector<T>& dest) const
 	{
 		dest.resize(_rings * _sections.size() * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
-		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 
-			for(size_t r=0; r!=_rings; ++r)
+			for(unsigned r=0; r!=_rings; ++r)
 			{
 				const Vector<Type, 4> in(_get_normal(r, si), 0);
 				const Vector<Type, 4> out = mat * in;
@@ -225,17 +225,17 @@ public:
 	GLuint Tangents(std::vector<T>& dest) const
 	{
 		dest.resize(_rings * _sections.size() * 3);
-		size_t k = 0;
+		unsigned k = 0;
 
 		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
 
-		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const auto angle = FullCircles(_sections[si]);
 			const auto mat = ModelMatrix<Type>::RotationY(angle);
 			const auto out = mat * in;
 
-			for(size_t r=0; r!=_rings; ++r)
+			for(unsigned r=0; r!=_rings; ++r)
 			{
 				dest[k++] = out.x();
 				dest[k++] = out.y();
@@ -251,15 +251,15 @@ public:
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
 		dest.resize(_rings * _sections.size() * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
 
-		for(size_t si=0, sn=_sections.size(); si!=sn; ++si)
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
 		{
 			const T u_mult = _sections[si];
 
-			for(size_t r=0; r!=_rings; ++r)
+			for(unsigned r=0; r!=_rings; ++r)
 			{
 				auto tc = _get_tex_coord(r, si);
 				dest[k++] = tc.x()*u_mult;
@@ -297,17 +297,17 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
-		const size_t sn = _sections.size() - 1;
-		const size_t n = 2 * _rings * sn;
+		const unsigned sn = _sections.size() - 1;
+		const unsigned n = 2 * _rings * sn;
 		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 		//
 		IndexArray indices(n);
-		size_t k = 0;
-		size_t offs = 0;
+		unsigned k = 0;
+		unsigned offs = 0;
 		// the triangle strips
-		for(size_t s=0; s!=sn; ++s)
+		for(unsigned s=0; s!=sn; ++s)
 		{
-			for(size_t r=0; r!=_rings; ++r)
+			for(unsigned r=0; r!=_rings; ++r)
 			{
 				indices[k++] = offs + r + _rings;
 				indices[k++] = offs + r;
@@ -331,9 +331,9 @@ public:
 	DrawingInstructions Instructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		const size_t sn = _sections.size() - 1;
-		const size_t step = _rings * 2;
-		for(size_t s=0; s!=sn; ++s)
+		const unsigned sn = _sections.size() - 1;
+		const unsigned step = _rings * 2;
+		for(unsigned s=0; s!=sn; ++s)
 		{
 			this->AddInstruction(
 				instructions,

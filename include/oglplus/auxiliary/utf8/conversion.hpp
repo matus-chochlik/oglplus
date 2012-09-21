@@ -13,11 +13,35 @@
 #define __OGLPLUS_AUX_UTF8_CONVERSION_1102101236_HPP
 
 #include <cassert>
+#include <vector>
 
 namespace oglplus {
 namespace aux {
 
 typedef char32_t UnicodeCP;
+
+inline size_t UTF8BytesRequired(const UnicodeCP* cp_str, size_t len)
+{
+	size_t result = 0;
+	for(size_t i=0; i!=len; ++i)
+	{
+		UnicodeCP cp = *cp_str++;
+		if((cp & ~0x0000007F) == 0)
+			result += 1;
+		else if((cp & ~0x000007FF) == 0)
+			result += 2;
+		else if((cp & ~0x0000FFFF) == 0)
+			result += 3;
+		else if((cp & ~0x001FFFFF) == 0)
+			result += 4;
+		else if((cp & ~0x03FFFFFF) == 0)
+			result += 5;
+		else if((cp & ~0x7FFFFFFF) == 0)
+			result += 6;
+		else assert(!"Invalid code point");
+	}
+	return result;
+}
 
 inline void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len)
 {
@@ -75,68 +99,164 @@ inline void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len)
 	else assert(!"Invalid code point");
 }
 
-
-inline UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len)
+inline void ConvertCodePointsToUTF8(
+	const UnicodeCP* cps,
+	size_t len,
+	std::vector<char>& result
+)
 {
+	size_t u8len = UTF8BytesRequired(cps, len);
+	result.resize(u8len);
+	char* cptr = result.data();
+	size_t clen = 0;
+	while(len)
+	{
+		assert(u8len >= clen);
+		ConvertCodePointToUTF8(*cps, cptr, clen);
+		assert(clen > 0);
+		u8len -= clen;
+		cptr += clen;
+		len -= 1;
+		cps += 1;
+	}
+	assert(u8len == 0);
+}
+
+inline size_t CodePointsRequired(const char* str, size_t len)
+{
+	assert(sizeof(char) == sizeof(unsigned char));
+	const unsigned char* pb=reinterpret_cast<const unsigned char*>(str);
+
+	size_t result = 0;
+
+	while(len)
+	{
+		size_t skip = 0;
+		if(((*pb) & 0x80) == 0x00)
+			skip = 1;
+		else if(((*pb) & 0xE0) == 0xC0)
+			skip = 2;
+		else if(((*pb) & 0xF0) == 0xE0)
+			skip = 3;
+		else if(((*pb) & 0xF8) == 0xF0)
+			skip = 4;
+		else if(((*pb) & 0xFC) == 0xF8)
+			skip = 5;
+		else if(((*pb) & 0xFE) == 0xFC)
+			skip = 6;
+		else assert(!"Invalid UTF8 sequence");
+		assert(len >= skip);
+		len -= skip;
+		pb += skip;
+		++result;
+	}
+	return result;
+}
+
+inline UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len, size_t& cp_len)
+{
+	assert(sizeof(char) == sizeof(unsigned char));
+	const unsigned char* bytes=reinterpret_cast<const unsigned char*>(str);
 	// 0xxxxxxx
-	if((*(str+0) & 0x80) == 0x00)
+	if((bytes[0] & 0x80) == 0x00)
 	{
 		assert(len >= 1);
-		return UnicodeCP(*(str+0));
+		cp_len = 1;
+		return UnicodeCP(bytes[0]);
 	}
 	// 110xxxxx
-	else if((*(str+0) & 0xE0) == 0xC0)
+	else if((bytes[0] & 0xE0) == 0xC0)
 	{
 		// but not 11000000
-		assert(*(str+0) != 0xC0);
+		assert(bytes[0] != 0xC0);
 		assert(len >= 2);
+		cp_len = 2;
 		return UnicodeCP(
-			(((*(str+0) & ~0xE0) <<  6) & 0x00000FC0)|
-			(((*(str+1) & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xE0) <<  6) & 0x00000FC0)|
+			(((bytes[1] & ~0xC0) <<  0) & 0x0000003F)
 		);
 	}
 	// 1110xxxx
-	else if((*(str+0) & 0xF0) == 0xE0)
+	else if((bytes[0] & 0xF0) == 0xE0)
 	{
 		// but not 11100000
-		assert(*(str+0) != 0xE0);
+		assert(bytes[0] != 0xE0);
 		assert(len >= 3);
+		cp_len = 3;
 		return UnicodeCP(
-			(((*(str+0) & ~0xF0) << 12) & 0x0003F000)|
-			(((*(str+1) & ~0xC0) <<  6) & 0x00000FC0)|
-			(((*(str+2) & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xF0) << 12) & 0x0003F000)|
+			(((bytes[1] & ~0xC0) <<  6) & 0x00000FC0)|
+			(((bytes[2] & ~0xC0) <<  0) & 0x0000003F)
+		);
+	}
+	// 11110xxx
+	else if((bytes[0] & 0xF8) == 0xF0)
+	{
+		// but not 11110000
+		assert(bytes[0] != 0xF0);
+		assert(len >= 4);
+		cp_len = 4;
+		return UnicodeCP(
+			(((bytes[0] & ~0xF8) << 18) & 0x00FC0000)|
+			(((bytes[1] & ~0xC0) << 12) & 0x0003F000)|
+			(((bytes[2] & ~0xC0) <<  6) & 0x00000FC0)|
+			(((bytes[3] & ~0xC0) <<  0) & 0x0000003F)
 		);
 	}
 	// 111110xx
-	else if((*(str+0) & 0xFC) == 0xF8)
+	else if((bytes[0] & 0xFC) == 0xF8)
 	{
 		// but not 11111000
-		assert(*(str+0) != 0xF8);
+		assert(bytes[0] != 0xF8);
 		assert(len >= 5);
+		cp_len = 5;
 		return UnicodeCP(
-			(((*(str+0) & ~0xFC) << 24) & 0x3F000000)|
-			(((*(str+1) & ~0xC0) << 18) & 0x00FC0000)|
-			(((*(str+2) & ~0xC0) << 12) & 0x0003F000)|
-			(((*(str+3) & ~0xC0) <<  6) & 0x00000FC0)|
-			(((*(str+4) & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xFC) << 24) & 0x3F000000)|
+			(((bytes[1] & ~0xC0) << 18) & 0x00FC0000)|
+			(((bytes[2] & ~0xC0) << 12) & 0x0003F000)|
+			(((bytes[3] & ~0xC0) <<  6) & 0x00000FC0)|
+			(((bytes[4] & ~0xC0) <<  0) & 0x0000003F)
 		);
 	}
 	// 1111110x
-	else if((*(str+0) & 0xFE) == 0xFC)
+	else if((bytes[0] & 0xFE) == 0xFC)
 	{
 		// but not 11111100
-		assert(*(str+0) != 0xFC);
+		assert(bytes[0] != 0xFC);
 		assert(len >= 6);
+		cp_len = 6;
 		return UnicodeCP(
-			(((*(str+0) & ~0xFE) << 30) & 0xC0000000)|
-			(((*(str+1) & ~0xC0) << 24) & 0x3F000000)|
-			(((*(str+2) & ~0xC0) << 18) & 0x00FC0000)|
-			(((*(str+3) & ~0xC0) << 12) & 0x0003F000)|
-			(((*(str+4) & ~0xC0) <<  6) & 0x00000FC0)|
-			(((*(str+5) & ~0xC0) <<  0) & 0x0000003F)
+			(((bytes[0] & ~0xFE) << 30) & 0xC0000000)|
+			(((bytes[1] & ~0xC0) << 24) & 0x3F000000)|
+			(((bytes[2] & ~0xC0) << 18) & 0x00FC0000)|
+			(((bytes[3] & ~0xC0) << 12) & 0x0003F000)|
+			(((bytes[4] & ~0xC0) <<  6) & 0x00000FC0)|
+			(((bytes[5] & ~0xC0) <<  0) & 0x0000003F)
 		);
 	}
 	else assert(!"Invalid UTF8 sequence");
+}
+
+inline void ConvertUTF8ToCodePoints(
+	const char* str,
+	size_t len,
+	std::vector<UnicodeCP>& result
+)
+{
+	size_t ulen = CodePointsRequired(str, len);
+	result.resize(ulen);
+	UnicodeCP* cpptr = result.data();
+	size_t cplen = 0;
+	while(len)
+	{
+		*cpptr = ConvertUTF8ToCodePoint(str, len, cplen);
+		assert(cplen > 0);
+		assert(len >= cplen);
+		len -= cplen;
+		str += cplen;
+		ulen -= 1;
+	}
+	assert(ulen == 0);
 }
 
 } // namespace aux

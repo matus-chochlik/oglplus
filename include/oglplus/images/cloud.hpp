@@ -41,7 +41,7 @@ private:
 	void _adjust_sphere(Vec3f& center, GLfloat& radius) const
 	{
 		GLfloat c[3] = {center.x(), center.y(), center.z()};
-		for(size_t i=0; i!=3; ++i)
+		for(unsigned i=0; i!=3; ++i)
 		{
 			if(c[i] < -1.0f)
 			{

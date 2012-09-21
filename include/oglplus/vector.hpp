@@ -20,10 +20,10 @@
 
 namespace oglplus {
 
-template <typename T, size_t Rows, size_t Cols>
+template <typename T, unsigned Rows, unsigned Cols>
 class Matrix;
 
-template <typename T, size_t N>
+template <typename T, unsigned N>
 class Vector;
 
 /// Basic template for vector types
@@ -35,7 +35,7 @@ class Vector;
  *
  *  @ingroup math_utils
  */
-template <typename T, size_t N>
+template <typename T, unsigned N>
 class Vector
 {
 private:
@@ -49,7 +49,7 @@ private:
 		) const
 		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
 		{
-			for(size_t i=0; i!=N; ++i)
+			for(unsigned i=0; i!=N; ++i)
 				t._elem[i] = -a._elem[i];
 		}
 	};
@@ -67,7 +67,7 @@ private:
 			std::declval<T>()
 		)
 		{
-			for(size_t i=0; i!=N; ++i)
+			for(unsigned i=0; i!=N; ++i)
 				t._elem[i] = a._elem[i] + b._elem[i];
 		}
 	};
@@ -85,7 +85,7 @@ private:
 			std::declval<T>()
 		)
 		{
-			for(size_t i=0; i!=N; ++i)
+			for(unsigned i=0; i!=N; ++i)
 				t._elem[i] = a._elem[i] - b._elem[i];
 		}
 	};
@@ -106,7 +106,7 @@ private:
 			std::declval<T>()
 		)
 		{
-			for(size_t i=0; i!=N; ++i)
+			for(unsigned i=0; i!=N; ++i)
 				t._elem[i] = a._elem[i] * v;
 		}
 	};
@@ -178,7 +178,7 @@ private:
 		init(*this, a, v);
 	}
 
-	template <size_t Rows>
+	template <unsigned Rows>
 	inline Vector(
 		const Vector<T, Rows>&,
 		const Matrix<T, Rows, N>&,
@@ -189,7 +189,7 @@ private:
 		std::declval<T>()
 	);
 
-	template <size_t Cols>
+	template <unsigned Cols>
 	inline Vector(
 		const Matrix<T, N, Cols>&,
 		const Vector<T, Cols>&,
@@ -201,7 +201,7 @@ private:
 	);
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <size_t I>
+	template <unsigned I>
 	inline void _init(T v)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
@@ -212,7 +212,7 @@ private:
 		_elem[I] = v;
 	}
 
-	template <size_t I, typename ... P>
+	template <unsigned I, typename ... P>
 	inline void _init(T v, P ... p)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
@@ -226,7 +226,7 @@ public:
 	Vector(void)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(0))
 	{
-		for(size_t i=0; i!=N; ++i)
+		for(unsigned i=0; i!=N; ++i)
 			_elem[i] = T(0);
 	}
 
@@ -242,18 +242,18 @@ public:
 	Vector(const Vector<U, N>& vector)
 	OGLPLUS_NOEXCEPT_IF(
 		std::declval<T&>() =
-		T(std::declval<Vector<U, N> >().At(std::declval<size_t>()))
+		T(std::declval<Vector<U, N> >().At(std::declval<unsigned>()))
 	)
 	{
-		for(size_t i=0; i!=N; ++i)
+		for(unsigned i=0; i!=N; ++i)
 			_elem[i] = T(vector.At(i));
 	}
 
-	Vector(const T* v, size_t n)
+	Vector(const T* v, unsigned n)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		assert(n >= N);
-		for(size_t i=0; i!=N; ++i)
+		for(unsigned i=0; i!=N; ++i)
 			_elem[i] = v[i];
 	}
 
@@ -313,13 +313,13 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Initializes the vector from a sub-vector and additional coordinates
-	template <size_t M, typename ... P>
+	template <unsigned M, typename ... P>
 	Vector(const Vector<T, M>& a, P ... p);
 #endif
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 
-	template <size_t M, typename ... P>
+	template <unsigned M, typename ... P>
 	Vector(const Vector<T, M>& a, P ... p)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
@@ -327,7 +327,7 @@ public:
 			M + sizeof...(P) == N,
 			"Invalid number of additional values for this vector type"
 		);
-		for(size_t i=0; i!=M; ++i)
+		for(unsigned i=0; i!=M; ++i)
 			_elem[i] = a.Data()[i];
 		_init<M>(p...);
 	}
@@ -373,7 +373,7 @@ public:
 #endif
 
 	/// Construction from to Matrix-1xN
-	template <size_t M>
+	template <unsigned M>
 	explicit inline Vector(
 		const typename ::std::enable_if<
 			(M == N && N > 1),
@@ -382,7 +382,7 @@ public:
 	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>());
 
 	/// Construction from to Matrix-Nx1
-	template <size_t M>
+	template <unsigned M>
 	explicit inline Vector(
 		const typename ::std::enable_if<
 			(M == N && N > 1),
@@ -399,11 +399,11 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the dimension of the vector
-	friend OGLPLUS_CONSTEXPR size_t Size(const Vector& a);
+	friend OGLPLUS_CONSTEXPR unsigned Size(const Vector& a);
 #endif
 
 	/// Returns the dimension of the vector
-	static OGLPLUS_CONSTEXPR size_t Size(void)
+	static OGLPLUS_CONSTEXPR unsigned Size(void)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return N;
@@ -425,7 +425,7 @@ public:
 	 *  @tparam I the index of the coordinate to be retrieved
 	 *  @param a the vector from which the coordinate is retrieved
 	 */
-	template <size_t I>
+	template <unsigned I>
 	static T At(const Vector& a)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
@@ -442,7 +442,7 @@ public:
 	 *  @param a the vector from which the coordinate is retrieved
 	 *  @param value the fallback value if I is not between 0 and N-1
 	 */
-	template <size_t I>
+	template <unsigned I>
 	static T At(const Vector& a, T value)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
@@ -454,7 +454,7 @@ public:
 	/**
 	 *  @tparam I the index of the coordinate to be retrieved
 	 */
-	template <size_t I>
+	template <unsigned I>
 	T At(void) const
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
@@ -465,7 +465,7 @@ public:
 	/**
 	 *  @param i the index of the coordinate to be retrieved
 	 */
-	T At(size_t i) const
+	T At(unsigned i) const
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		assert(i < N);
@@ -474,7 +474,7 @@ public:
 
 
 	/// Returns a reference to the I-th coordinate of the vector
-	template <size_t I>
+	template <unsigned I>
 	static T& Ref(Vector& a)
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -486,7 +486,7 @@ public:
 	friend bool Equal(const Vector& a, const Vector& b)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
 	{
-		for(size_t i=0; i!= N; ++i)
+		for(unsigned i=0; i!= N; ++i)
 			if(a._elem[i] != b._elem[i])
 				return false;
 		return true;
@@ -582,7 +582,7 @@ public:
 	}
 
 	/// Vector by Matrix multiplication
-	template <size_t Cols>
+	template <unsigned Cols>
 	friend Vector<T, Cols> Multiply(
 		const Vector& v,
 		const Matrix<T, N, Cols>& m
@@ -596,7 +596,7 @@ public:
 	}
 
 	/// Vector by Matrix multiplication operator
-	template <size_t Cols>
+	template <unsigned Cols>
 	friend Vector<T, Cols> operator * (
 		const Vector& v,
 		const Matrix<T, N, Cols>& m
@@ -610,7 +610,7 @@ public:
 	}
 
 	/// Matrix by Vector multiplication
-	template <size_t Rows>
+	template <unsigned Rows>
 	friend Vector<T, Rows> Multiply(
 		const Matrix<T, Rows, N>& m,
 		const Vector& v
@@ -624,7 +624,7 @@ public:
 	}
 
 	/// Matrix by Vector multiplication operator
-	template <size_t Rows>
+	template <unsigned Rows>
 	friend Vector<T, Rows> operator * (
 		const Matrix<T, Rows, N>& m,
 		const Vector& v
@@ -690,12 +690,12 @@ public:
 	)
 	{
 		T result = a._elem[0]*b._elem[0];
-		for(size_t i=1; i!=N; ++i)
+		for(unsigned i=1; i!=N; ++i)
 			result += a._elem[i] * b._elem[i];
 		return result;
 	}
 
-	template <size_t M>
+	template <unsigned M>
 	friend typename ::std::enable_if<M==2 && N==2, Vector>::type
 	Perpendicular(const Vector<T, M>& a)
 	OGLPLUS_NOEXCEPT_IF(
@@ -712,7 +712,7 @@ public:
 	friend Vector Cross(const Vector<T, 3>& a, const Vector<T, 3>& b);
 #endif
 
-	template <size_t M>
+	template <unsigned M>
 	friend typename ::std::enable_if<M==3 && N==3, Vector>::type
 	Cross(const Vector<T, M>& a, const Vector<T, M>& b)
 	OGLPLUS_NOEXCEPT_IF(
@@ -804,26 +804,26 @@ public:
 	 *  v.zy();                         // [3, 2]
 	 *  @endcode
 	 */
-	template <size_t ... Dims>
+	template <unsigned ... Dims>
 	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a);
 #endif
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <size_t ... Dims>
+	template <unsigned ... Dims>
 	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return Vector<T, sizeof...(Dims)>(At<Dims>(a)...);
 	}
 #else
-	template <size_t D0, size_t D1>
+	template <unsigned D0, unsigned D1>
 	static Vector<T, 2> Extract(const Vector<T, N>& a)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return Vector<T, 2>(At<D0>(a), At<D1>(a));
 	}
 
-	template <size_t D0, size_t D1, size_t D2>
+	template <unsigned D0, unsigned D1, unsigned D2>
 	static Vector<T, 3> Extract(const Vector<T, N>& a)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
@@ -861,26 +861,26 @@ public:
 	 *  v.__z();                              // [0, 0, 3]
 	 *  @endcode
 	 */
-	template <size_t ... Dims>
+	template <unsigned ... Dims>
 	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a, T v);
 #endif
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <size_t ... Dims>
+	template <unsigned ... Dims>
 	static Vector<T, sizeof...(Dims)> Extract(const Vector<T, N>& a, T v)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return Vector<T, sizeof...(Dims)>(At<Dims>(a, v)...);
 	}
 #else
-	template <size_t D0, size_t D1>
+	template <unsigned D0, unsigned D1>
 	static Vector<T, 2> Extract(const Vector<T, N>& a, T v)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return Vector<T, 2>(At<D0>(a, v), At<D1>(a, v));
 	}
 
-	template <size_t D0, size_t D1, size_t D2>
+	template <unsigned D0, unsigned D1, unsigned D2>
 	static Vector<T, 3> Extract(const Vector<T, N>& a, T v)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
@@ -914,22 +914,22 @@ public:
 	void _print(Out& out) const
 	{
 		out << _elem[0];
-		for(size_t i=1; i!=N; ++i)
+		for(unsigned i=1; i!=N; ++i)
 		{
 			out << ", " << _elem[i];
 		}
 	}
 };
 
-template <typename T, size_t N>
+template <typename T, unsigned N>
 inline const T* Data(const Vector<T, N>& a)
 OGLPLUS_NOEXCEPT(true)
 {
 	return a.Data();
 }
 
-template <typename T, size_t N>
-inline OGLPLUS_CONSTEXPR size_t Size(const Vector<T, N>&)
+template <typename T, unsigned N>
+inline OGLPLUS_CONSTEXPR unsigned Size(const Vector<T, N>&)
 OGLPLUS_NOEXCEPT(true)
 {
 	return N;

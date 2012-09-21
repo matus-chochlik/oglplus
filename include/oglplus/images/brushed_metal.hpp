@@ -118,7 +118,7 @@ public:
 	BrushedMetalUByte(
 		GLsizei width,
 		GLsizei height,
-		size_t n_scratches,
+		unsigned n_scratches,
 		int s_disp_min,
 		int s_disp_max,
 		int t_disp_min,

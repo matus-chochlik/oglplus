@@ -33,6 +33,10 @@ namespace oglplus {
  *  and/or string literal handling.
  */
 
+/// Checks if the range between @p begin and @p end is valid UTF-8 sequence
+/**
+ *  @ingroup oglplus_strings
+ */
 OGLPLUS_LIB_FUNC bool ValidString(const GLchar* begin, const GLchar* end)
 #if OGLPLUS_LINK_LIBRARY
 ;

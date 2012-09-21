@@ -427,7 +427,7 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	template <size_t Cols>
+	template <unsigned Cols>
 	void SetVector(const T* v)
 	{
 		this->template _do_set<Cols>(
@@ -456,7 +456,7 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	template <size_t Cols>
+	template <unsigned Cols>
 	void SetVectors(GLsizei count, const T* v)
 	{
 		this->template _do_set_many<Cols>(
@@ -486,7 +486,7 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	template <size_t Cols>
+	template <unsigned Cols>
 	void SetVectors(const std::vector<T>& v)
 	{
 		this->template _do_set_many<Cols>(
@@ -505,8 +505,8 @@ public:
 	 *  @glfunref{UniformMatrix}
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
-	template <size_t Cols, size_t Rows>
-	void SetMatrix(size_t count, const T* v)
+	template <unsigned Cols, unsigned Rows>
+	void SetMatrix(unsigned count, const T* v)
 	{
 		this->template _do_set_mat<Cols, Rows>(
 			this->_get_program(),
@@ -526,7 +526,7 @@ public:
 	 *  @glfunref{UniformMatrix}
 	 *  @glfunref{ProgramUniformMatrix}
 	 */
-	template <size_t Cols, typename ... P>
+	template <unsigned Cols, typename ... P>
 	void SetMatrix(T v, P ... p)
 	{
 		this->template _do_set_mat_p<Cols>(
@@ -540,7 +540,7 @@ public:
 };
 
 /// Specialization of uniform operations for Vector types
-template <typename T, size_t N, class IndexInit, class SpecOpsWrapper>
+template <typename T, unsigned N, class IndexInit, class SpecOpsWrapper>
 class UniformBase<Vector<T, N>, IndexInit, SpecOpsWrapper>
  : public UniformOps<IndexInit>
  , public SpecOpsWrapper::type
@@ -692,8 +692,8 @@ public:
 /// Specialization of uniform operations for Matrix types
 template <
 	typename T,
-	size_t Rows,
-	size_t Cols,
+	unsigned Rows,
+	unsigned Cols,
 	class IndexInit,
 	class SpecOpsWrapper
 >
@@ -843,7 +843,7 @@ struct UniformSetOps
 	typedef UniformAllSetOps<T> type;
 };
 
-template <typename T, size_t N>
+template <typename T, unsigned N>
 struct UniformSetOps<Vector<T, N> >
 {
 	typedef aux::ShaderDataSetOps<
@@ -854,7 +854,7 @@ struct UniformSetOps<Vector<T, N> >
 	> type;
 };
 
-template <typename T, size_t Rows, size_t Cols>
+template <typename T, unsigned Rows, unsigned Cols>
 struct UniformSetOps<Matrix<T, Rows, Cols> >
 {
 	typedef aux::ShaderMatrixSetOps<
@@ -884,7 +884,7 @@ struct ProgramUniformSetOps
 	typedef ProgramUniformAllSetOps<T> type;
 };
 
-template <typename T, size_t N>
+template <typename T, unsigned N>
 struct ProgramUniformSetOps<Vector<T, N> >
 {
 	typedef aux::ShaderDataSetOps<
@@ -895,7 +895,7 @@ struct ProgramUniformSetOps<Vector<T, N> >
 	> type;
 };
 
-template <typename T, size_t Rows, size_t Cols>
+template <typename T, unsigned Rows, unsigned Cols>
 struct ProgramUniformSetOps<Matrix<T, Rows, Cols> >
 {
 	typedef aux::ShaderMatrixSetOps<

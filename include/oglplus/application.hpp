@@ -14,6 +14,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/auxiliary/filesystem.hpp>
 
 #include <cassert>
 #include <iostream>
@@ -58,8 +59,6 @@ public:
 
 	static void ParseCommandLineOptions(int argc, const char** argv)
 	{
-		// TODO: switch this on platforms using other separators
-		const char dirsep = '/';
 		assert(argc > 0);
 		assert(argv != 0);
 		assert(argv[0] != 0);
@@ -69,7 +68,7 @@ public:
 		const char* s = 0;
 		while(*p)
 		{
-			if(*p == dirsep) s = p;
+			if(aux::IsFilesysPathSep(p, 1)) s = p;
 			++p;
 		}
 		// if found

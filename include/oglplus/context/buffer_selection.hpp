@@ -53,7 +53,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DrawBuffers}
 	 */
-	template <size_t N>
+	template <unsigned N>
 	static void DrawBuffers(ColorBuffer (&buffers)[N])
 	{
 		if(sizeof(buffers) == sizeof(GLenum [N]))
@@ -64,7 +64,7 @@ public:
 		else
 		{
 			GLenum _tmp[N];
-			for(size_t i=0; i!=N; ++i)
+			for(unsigned i=0; i!=N; ++i)
 				_tmp[i] = GLenum(buffers[i]);
 			OGLPLUS_GLFUNC(DrawBuffers)(N, _tmp);
 		}

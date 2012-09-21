@@ -25,7 +25,7 @@ template <class T> \
 struct ThirdPartyVectorBase<glm::detail::tvec##DIM<T> > \
 { \
 	typedef T Type; \
-	typedef std::integral_constant<size_t, DIM> N; \
+	typedef std::integral_constant<unsigned, DIM> N; \
 	static const T* Data(glm::detail::tvec##DIM<T> const & v)\
 	{ \
 		return glm::value_ptr(v); \
@@ -43,8 +43,8 @@ template <class T> \
 struct ThirdPartyMatrixBase<glm::detail::tmat##COLS##x##ROWS<T> > \
 { \
 	typedef T Type; \
-	typedef std::integral_constant<size_t, ROWS> Rows; \
-	typedef std::integral_constant<size_t, COLS> Cols; \
+	typedef std::integral_constant<unsigned, ROWS> Rows; \
+	typedef std::integral_constant<unsigned, COLS> Cols; \
 	typedef std::integral_constant<bool, false> IsRowMajor; \
 	static const T* Data(glm::detail::tmat##COLS##x##ROWS<T> const & m)\
 	{ \

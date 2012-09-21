@@ -35,7 +35,7 @@ namespace oglplus {
  *
  *  @ingroup math_utils
  */
-template <typename T, size_t Rows, size_t Cols>
+template <typename T, unsigned Rows, unsigned Cols>
 class Matrix
 {
 protected:
@@ -50,8 +50,8 @@ private:
 		void operator()(Matrix& t, const Matrix& a)
 		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
 		{
-			for(size_t i=0; i!=Rows; ++i)
-			for(size_t j=0; j!=Cols; ++j)
+			for(unsigned i=0; i!=Rows; ++i)
+			for(unsigned j=0; j!=Cols; ++j)
 				t._m._elem[i][j] = -a._m._elem[i][j];
 		}
 	};
@@ -65,8 +65,8 @@ private:
 			std::declval<T>()
 		)
 		{
-			for(size_t i=0; i!=Rows; ++i)
-			for(size_t j=0; j!=Cols; ++j)
+			for(unsigned i=0; i!=Rows; ++i)
+			for(unsigned j=0; j!=Cols; ++j)
 				t._m._elem[i][j] =
 					a._m._elem[i][j]+
 					b._m._elem[i][j];
@@ -82,8 +82,8 @@ private:
 			std::declval<T>()
 		)
 		{
-			for(size_t i=0; i!=Rows; ++i)
-			for(size_t j=0; j!=Cols; ++j)
+			for(unsigned i=0; i!=Rows; ++i)
+			for(unsigned j=0; j!=Cols; ++j)
 				t._m._elem[i][j] =
 					a._m._elem[i][j]-
 					b._m._elem[i][j];
@@ -99,8 +99,8 @@ private:
 			std::declval<T>()
 		)
 		{
-			for(size_t i=0; i!=Rows; ++i)
-			for(size_t j=0; j!=Cols; ++j)
+			for(unsigned i=0; i!=Rows; ++i)
+			for(unsigned j=0; j!=Cols; ++j)
 				t._m._elem[i][j] = a._m._elem[i][j] * v;
 		}
 	};
@@ -110,8 +110,8 @@ private:
 		void operator()(Matrix& t, const Matrix& a)
 		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 		{
-			for(size_t i=0; i!=Rows; ++i)
-			for(size_t j=0; j!=Cols; ++j)
+			for(unsigned i=0; i!=Rows; ++i)
+			for(unsigned j=0; j!=Cols; ++j)
 				t._m._elem[i][j] = a._m._elem[j][i];
 		}
 	};
@@ -152,7 +152,7 @@ private:
 		init(*this, a);
 	}
 
-	template <size_t N>
+	template <unsigned N>
 	inline Matrix(
 		const Matrix<T, Rows, N>& a,
 		const Matrix<T, N, Cols>& b,
@@ -171,38 +171,38 @@ private:
 		)
 	)
 	{
-		for(size_t i=0; i!=Rows; ++i)
-		for(size_t j=0; j!=Cols; ++j)
+		for(unsigned i=0; i!=Rows; ++i)
+		for(unsigned j=0; j!=Cols; ++j)
 		{
 			_m._elem[i][j] = a.At(i, 0)* b.At(0, j);
-			for(size_t k=1; k!=N; ++k)
+			for(unsigned k=1; k!=N; ++k)
 				_m._elem[i][j] += a.At(i, k)* b.At(k, j);
 		}
 	}
 
-	inline Matrix(T* data, size_t size)
+	inline Matrix(T* data, unsigned size)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		assert(size == Rows*Cols);
-		for(size_t k=0; k!=Rows*Cols; ++k)
+		for(unsigned k=0; k!=Rows*Cols; ++k)
 			_m._data[k] = data[k];
 	}
 
-	template <size_t R>
+	template <unsigned R>
 	inline void _init_row(const Vector<T, Cols>& row)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
-		for(size_t c=0; c!=Cols; ++c)
+		for(unsigned c=0; c!=Cols; ++c)
 			this->_m._elem[R][c] = row.At(c);
 	}
 
-	template <size_t R>
+	template <unsigned R>
 	inline void _init_rows(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <size_t R, size_t ... C>
+	template <unsigned R, unsigned ... C>
 	inline void _init_rows(
 		const Vector<T, Cols>& row,
 		const Vector<T, C>&... rows
@@ -282,7 +282,7 @@ protected:
 #define OGLPLUS_AUX_MATRIX_INIT_DATA(...) \
 	this->_init_data(__VA_ARGS__);
 #else
-	void _init_data(const T* data, size_t size)
+	void _init_data(const T* data, unsigned size)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		std::copy(data, data+size, this->_m._data);
@@ -310,8 +310,8 @@ public:
 	Matrix(Zero)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
-		for(size_t r=0; r!=Rows; ++r)
-			for(size_t c=0; c!=Cols; ++c)
+		for(unsigned r=0; r!=Rows; ++r)
+			for(unsigned c=0; c!=Cols; ++c)
 				this->_m._elem[r][c] = T(0);
 	}
 
@@ -319,8 +319,8 @@ public:
 	Matrix(void)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
-		for(size_t r=0; r!=Rows; ++r)
-			for(size_t c=0; c!=Cols; ++c)
+		for(unsigned r=0; r!=Rows; ++r)
+			for(unsigned c=0; c!=Cols; ++c)
 				this->_m._elem[r][c] = r == c ? T(1) : T(0);
 	}
 
@@ -353,12 +353,12 @@ public:
 	 *  vectors. The number of vectors must be Rows and each vector
 	 *  must have exactly Cols elements.
 	 */
-	template <size_t ... C>
+	template <unsigned ... C>
 	Matrix(const Vector<T, C>& ... rows);
 #endif
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <size_t ... C>
+	template <unsigned ... C>
 	Matrix(const Vector<T, C>& ... rows)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
@@ -397,17 +397,17 @@ public:
 	}
 #endif
 
-	template <size_t I, size_t J, size_t R, size_t C>
+	template <unsigned I, unsigned J, unsigned R, unsigned C>
 	Matrix(
-		std::integral_constant<size_t, I>,
-		std::integral_constant<size_t, J>,
+		std::integral_constant<unsigned, I>,
+		std::integral_constant<unsigned, J>,
 		const Matrix<T, R, C>& source
 	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
 		static_assert(I+Rows <= R, "Invalid row for this matrix type");
 		static_assert(J+Cols <= C, "Invalid column for this matrix type");
-		for(size_t i=0; i!=Rows; ++i)
-			for(size_t j=0; j!=Cols; ++j)
+		for(unsigned i=0; i!=Rows; ++i)
+			for(unsigned j=0; j!=Cols; ++j)
 				this->_m._elem[i][j] = source.At(I+i, J+j);
 	}
 
@@ -424,7 +424,7 @@ public:
 #endif
 
 	/// Returns the number of elements of the matrix
-	size_t Size(void) const
+	unsigned Size(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return Rows*Cols;
@@ -432,15 +432,15 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the number of elements of the matrix
-	friend size_t Size(const Matrix& matrix);
+	friend unsigned Size(const Matrix& matrix);
 #endif
 
 	/// Equality comparison function
 	friend bool Equal(const Matrix& a, const Matrix& b)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
 	{
-		for(size_t i=0; i!=Rows; ++i)
-		for(size_t j=0; j!=Cols; ++j)
+		for(unsigned i=0; i!=Rows; ++i)
+		for(unsigned j=0; j!=Cols; ++j)
 			if(a._m._elem[i][j] != b._m._elem[i][j])
 				return false;
 		return true;
@@ -461,7 +461,7 @@ public:
 	}
 
 	/// Returns the value of the element at position I,J
-	template <size_t I, size_t J>
+	template <unsigned I, unsigned J>
 	friend T ElementAt(const Matrix& matrix)
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
@@ -474,7 +474,7 @@ public:
 	}
 
 	/// Returns the value of the element at position I,J
-	template <size_t I, size_t J>
+	template <unsigned I, unsigned J>
 	T At(void) const
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
@@ -487,7 +487,7 @@ public:
 	}
 
 	/// Returns the value of the element at position i,j
-	T At(size_t i, size_t j) const
+	T At(unsigned i, unsigned j) const
 	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		assert((i < Rows) && (j < Cols));
@@ -553,7 +553,7 @@ public:
 	}
 
 	/// Matrix multiplication
-	template <size_t N>
+	template <unsigned N>
 	friend Matrix Multiply(
 		const Matrix<T, Rows, N>& a,
 		const Matrix<T, N, Cols>& b
@@ -567,7 +567,7 @@ public:
 	}
 
 	/// Matrix multiplication operator
-	template <size_t N>
+	template <unsigned N>
 	friend Matrix operator * (
 		const Matrix<T, Rows, N>& a,
 		const Matrix<T, N, Cols>& b
@@ -621,7 +621,7 @@ public:
 	}
 
 	/// Swaps two rows of the Matrix
-	friend Matrix& RowSwap(Matrix& m, size_t a, size_t b)
+	friend Matrix& RowSwap(Matrix& m, unsigned a, unsigned b)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		assert(a < Rows);
@@ -635,17 +635,17 @@ public:
 	}
 
 	/// Multiplies row @a i with coeficient @a k
-	friend Matrix& RowMultiply(Matrix& m, size_t i, T k)
+	friend Matrix& RowMultiply(Matrix& m, unsigned i, T k)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() *= std::declval<T>())
 	{
 		assert(i < Rows);
-		for(size_t j=0; j!=Cols; ++j)
+		for(unsigned j=0; j!=Cols; ++j)
 			m._m._elem[i][j] *= k;
 		return m;
 	}
 
 	/// Adds row @a b multipled by coeficient @a k to row @a a
-	friend Matrix RowAdd(Matrix& m, size_t a, size_t b, T k)
+	friend Matrix RowAdd(Matrix& m, unsigned a, unsigned b, T k)
 	OGLPLUS_NOEXCEPT_IF(
 		std::declval<T&>()+=
 		std::declval<T>()*
@@ -654,13 +654,13 @@ public:
 	{
 		assert(a < Rows);
 		assert(b < Rows);
-		for(size_t j=0; j!=Cols; ++j)
+		for(unsigned j=0; j!=Cols; ++j)
 			m._m._elem[a][j] += m._m._elem[b][j] * k;
 		return m;
 	}
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <size_t ... C>
+	template <unsigned ... C>
 	friend bool Gauss(Matrix& a, Matrix<T, Rows, C>&... b)
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T>()!=T(1)) &&
@@ -675,12 +675,12 @@ public:
 	)
 	{
 		const T zero(0), one(1);
-		for(size_t i=0; i!=Rows; ++i)
+		for(unsigned i=0; i!=Rows; ++i)
 		{
 			T d = a._m._elem[i][i];
 			if(d == zero)
 			{
-				for(size_t k=i+1; k!=Rows; ++k)
+				for(unsigned k=i+1; k!=Rows; ++k)
 				{
 					if(a._m._elem[k][i] != zero)
 					{
@@ -696,7 +696,7 @@ public:
 			RowMultiply(a, i, one / d);
 			_eat(RowMultiply(b, i, one / d)...);
 
-			for(size_t k=i+1; k!=Rows; ++k)
+			for(unsigned k=i+1; k!=Rows; ++k)
 			{
 				T c = a._m._elem[k][i];
 				if(c != zero)
@@ -709,16 +709,16 @@ public:
 		return true;
 	}
 #else
-	template <size_t C>
+	template <unsigned C>
 	friend bool Gauss(Matrix& a, Matrix<T, Rows, C>& b)
 	{
 		const T zero(0), one(1);
-		for(size_t i=0; i!=Rows; ++i)
+		for(unsigned i=0; i!=Rows; ++i)
 		{
 			T d = a._m._elem[i][i];
 			if(d == zero)
 			{
-				for(size_t k=i+1; k!=Rows; ++k)
+				for(unsigned k=i+1; k!=Rows; ++k)
 				{
 					if(a._m._elem[k][i] != zero)
 					{
@@ -734,7 +734,7 @@ public:
 			RowMultiply(a, i, one / d);
 			RowMultiply(b, i, one / d);
 
-			for(size_t k=i+1; k!=Rows; ++k)
+			for(unsigned k=i+1; k!=Rows; ++k)
 			{
 				T c = a._m._elem[k][i];
 				if(c != zero)
@@ -749,7 +749,7 @@ public:
 #endif
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <size_t ... C>
+	template <unsigned ... C>
 	friend bool GaussJordan(Matrix& a, Matrix<T, Rows, C>&... b)
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T>()!=T(1)) &&
@@ -765,9 +765,9 @@ public:
 	{
 		if(!Gauss(a, b...)) return false;
 		const T zero(0);
-		for(size_t i=Rows-1; i!=0; --i)
+		for(unsigned i=Rows-1; i!=0; --i)
 		{
-			for(size_t k=0; k!=i; ++k)
+			for(unsigned k=0; k!=i; ++k)
 			{
 				T c = a._m._elem[k][i];
 				if(c != zero)
@@ -780,14 +780,14 @@ public:
 		return true;
 	}
 #else
-	template <size_t  C>
+	template <unsigned  C>
 	friend bool GaussJordan(Matrix& a, Matrix<T, Rows, C>& b)
 	{
 		if(!Gauss(a, b)) return false;
 		const T zero(0);
-		for(size_t i=Rows-1; i!=0; --i)
+		for(unsigned i=Rows-1; i!=0; --i)
 		{
-			for(size_t k=0; k!=i; ++k)
+			for(unsigned k=0; k!=i; ++k)
 			{
 				T c = a._m._elem[k][i];
 				if(c != zero)
@@ -820,7 +820,7 @@ public:
 		else return Matrix(Zero());
 	}
 
-	template <size_t I>
+	template <unsigned I>
 	Vector<T, Cols> Row(void) const
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
     	{
@@ -829,33 +829,33 @@ public:
 	}
 
 	/// Row vector getter
-	template <size_t I>
+	template <unsigned I>
 	friend Vector<T, Cols> Row(const Matrix& m)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
 		return m.template Row<I>();
 	}
 
-	template <size_t J>
+	template <unsigned J>
 	Vector<T, Rows> Col(void) const
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		static_assert(J < Cols, "Invalid index for this matrix");
 		T v[Rows];
-		for(size_t i=0; i!= Rows; ++i)
+		for(unsigned i=0; i!= Rows; ++i)
 			v[i] = this->_m._elem[i][J];
 		return Vector<T, Rows>(v, Rows);
 	}
 
 	/// Column vector getter
-	template <size_t J>
+	template <unsigned J>
 	friend Vector<T, Rows> Col(const Matrix& m)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		return m.template Col<J>();
 	}
 
-	template <size_t I, size_t J, size_t R, size_t C>
+	template <unsigned I, unsigned J, unsigned R, unsigned C>
 	Matrix<T, R, C> Submatrix(void) const
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
@@ -866,14 +866,14 @@ public:
 
 		typedef Matrix<T, R, C> Result;
 		return Result(
-			std::integral_constant<size_t, I>(),
-			std::integral_constant<size_t, J>(),
+			std::integral_constant<unsigned, I>(),
+			std::integral_constant<unsigned, J>(),
 			*this
 		);
 	}
 
 	/// Submatrix getter
-	template <size_t I, size_t J, size_t R, size_t C>
+	template <unsigned I, unsigned J, unsigned R, unsigned C>
 	friend Matrix<T, R, C> Submatrix(const Matrix& m)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
@@ -898,25 +898,25 @@ public:
 	template <typename Out>
 	void _print(Out& out) const
 	{
-		for(size_t i=0; i!=Rows; ++i)
+		for(unsigned i=0; i!=Rows; ++i)
 		{
 			out << "|" << _m._elem[i][0];
-			for(size_t j=1; j!= Cols; ++j)
+			for(unsigned j=1; j!= Cols; ++j)
 				out << ", " << _m._elem[i][j];
 			out << "|\n";
 		}
 	}
 };
 
-template <typename T, size_t Rows, size_t Cols>
+template <typename T, unsigned Rows, unsigned Cols>
 inline const T* Data(const Matrix<T, Rows, Cols>& matrix)
 OGLPLUS_NOEXCEPT(true)
 {
 	return matrix.Data();
 }
 
-template <typename T, size_t Rows, size_t Cols>
-inline OGLPLUS_CONSTEXPR size_t Size(const Matrix<T, Rows, Cols>&)
+template <typename T, unsigned Rows, unsigned Cols>
+inline OGLPLUS_CONSTEXPR unsigned Size(const Matrix<T, Rows, Cols>&)
 OGLPLUS_NOEXCEPT(true)
 {
 	return Rows * Cols;
@@ -1711,8 +1711,8 @@ typedef CameraMatrix<GLfloat> CamMatrixf;
 typedef CameraMatrix<GLdouble> CamMatrixd;
 
 // implementation of Vector's constructors, conversions and operations
-template <typename T, size_t N>
-template <size_t M>
+template <typename T, unsigned N>
+template <unsigned M>
 Vector<T, N>::Vector(
 	const typename ::std::enable_if<
 		(M == N && N > 1),
@@ -1720,12 +1720,12 @@ Vector<T, N>::Vector(
 	>::type& matrix
 ) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 {
-	for(size_t i=0; i!=N; ++i)
+	for(unsigned i=0; i!=N; ++i)
 		_elem[i] = matrix._m._elem[0][i];
 }
 
-template <typename T, size_t N>
-template <size_t M>
+template <typename T, unsigned N>
+template <unsigned M>
 Vector<T, N>::Vector(
 	const typename ::std::enable_if<
 		(M == N && N > 1),
@@ -1733,12 +1733,12 @@ Vector<T, N>::Vector(
 	>::type& matrix
 ) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 {
-	for(size_t i=0; i!=N; ++i)
+	for(unsigned i=0; i!=N; ++i)
 		_elem[i] = matrix._m._elem[i][0];
 }
 
-template <typename T, size_t N>
-template <size_t Rows>
+template <typename T, unsigned N>
+template <unsigned Rows>
 Vector<T, N>::Vector(
 	const Vector<T, Rows>& v,
 	const Matrix<T, Rows, N>& m,
@@ -1749,16 +1749,16 @@ Vector<T, N>::Vector(
 	std::declval<T>()
 )
 {
-	for(size_t j=0; j!=N; ++j)
+	for(unsigned j=0; j!=N; ++j)
 	{
 		_elem[j] = v._elem[0]*m._m._elem[0][j];
-		for(size_t i=1; i!=Rows; ++i)
+		for(unsigned i=1; i!=Rows; ++i)
 			_elem[j] += v._elem[i]*m._m._elem[i][j];
 	}
 }
 
-template <typename T, size_t N>
-template <size_t Cols>
+template <typename T, unsigned N>
+template <unsigned Cols>
 Vector<T, N>::Vector(
 	const Matrix<T, N, Cols>& m,
 	const Vector<T, Cols>& v,
@@ -1769,10 +1769,10 @@ Vector<T, N>::Vector(
 	std::declval<T>()
 )
 {
-	for(size_t i=0; i!=N; ++i)
+	for(unsigned i=0; i!=N; ++i)
 	{
 		_elem[i] = m._m._elem[i][0]*v._elem[0];
-		for(size_t j=1; j!=Cols; ++j)
+		for(unsigned j=1; j!=Cols; ++j)
 			_elem[i] += m._m._elem[i][j]*v._elem[j];
 	}
 }

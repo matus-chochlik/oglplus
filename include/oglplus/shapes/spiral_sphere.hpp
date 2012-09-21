@@ -30,9 +30,9 @@ class SpiralSphere
 {
 private:
 	const GLdouble _radius, _thickness;
-	const size_t _bands, _divisions, _segments;
+	const unsigned _bands, _divisions, _segments;
 
-	size_t _vertex_count(void) const
+	unsigned _vertex_count(void) const
 	{
 		return	(_bands * 2)*
 			(_divisions + 1)*
@@ -44,7 +44,7 @@ private:
 	template <typename T>
 	void _make_vectors(
 		std::vector<T>& dest,
-		size_t& k,
+		unsigned& k,
 		GLdouble sign,
 		GLdouble radius
 	) const
@@ -55,12 +55,12 @@ private:
 
 		GLdouble m = sign * radius;
 
-		for(size_t b=0; b!=_bands; ++b)
+		for(unsigned b=0; b!=_bands; ++b)
 		{
-			for(size_t d=0; d!=(_divisions+1); ++d)
+			for(unsigned d=0; d!=(_divisions+1); ++d)
 			{
 				GLdouble b_offs = 0.0;
-				for(size_t s=0; s!=(_segments+1); ++s)
+				for(unsigned s=0; s!=(_segments+1); ++s)
 				{
 					GLdouble b_angle =
 						2*b*b_leap + d*b_step + b_offs;
@@ -83,7 +83,7 @@ private:
 	template <typename T>
 	void _make_tangents(
 		std::vector<T>& dest,
-		size_t& k,
+		unsigned& k,
 		GLdouble sign
 	) const
 	{
@@ -93,12 +93,12 @@ private:
 
 		GLdouble m = sign;
 
-		for(size_t b=0; b!=_bands; ++b)
+		for(unsigned b=0; b!=_bands; ++b)
 		{
-			for(size_t d=0; d!=(_divisions+1); ++d)
+			for(unsigned d=0; d!=(_divisions+1); ++d)
 			{
 				GLdouble b_offs = 0.0;
-				for(size_t s=0; s!=(_segments+1); ++s)
+				for(unsigned s=0; s!=(_segments+1); ++s)
 				{
 					GLdouble b_angle =
 						2*b*b_leap + d*b_step + b_offs;
@@ -118,19 +118,19 @@ private:
 	}
 
 	template <typename T>
-	void _make_uv_coords(std::vector<T>& dest, size_t& k) const
+	void _make_uv_coords(std::vector<T>& dest, unsigned& k) const
 	{
 		GLdouble b_leap = 0.5 / GLdouble(_bands);
 		GLdouble b_step = b_leap / GLdouble(_divisions);
 		GLdouble s_step = 1.0 / GLdouble(_segments);
 
 		GLdouble u = 0.0;
-		for(size_t b=0; b!=_bands; ++b)
+		for(unsigned b=0; b!=_bands; ++b)
 		{
-			for(size_t d=0; d!=(_divisions+1); ++d)
+			for(unsigned d=0; d!=(_divisions+1); ++d)
 			{
 				GLdouble v = 1.0;
-				for(size_t s=0; s!=(_segments+1); ++s)
+				for(unsigned s=0; s!=(_segments+1); ++s)
 				{
 					dest[k++] = u;
 					dest[k++] = v;
@@ -143,7 +143,7 @@ private:
 	}
 
 	template <typename T>
-	void _make_side_verts(std::vector<T>& dest, size_t& k) const
+	void _make_side_verts(std::vector<T>& dest, unsigned& k) const
 	{
 		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
 		GLdouble b_slip = b_leap * _thickness * 0.5;
@@ -152,10 +152,10 @@ private:
 		GLdouble m = _radius + _thickness * 0.5;
 		GLdouble g = -1.0;
 
-		for(size_t b=0; b!=_bands*2; ++b)
+		for(unsigned b=0; b!=_bands*2; ++b)
 		{
 			GLdouble b_offs = 0.0;
-			for(size_t s=0; s!=(_segments+1); ++s)
+			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
 				GLdouble b_angle =
 					b*b_leap + b_offs + g*b_slip;
@@ -176,16 +176,16 @@ private:
 	}
 
 	template <typename T>
-	void _make_side_norms(std::vector<T>& dest, size_t& k) const
+	void _make_side_norms(std::vector<T>& dest, unsigned& k) const
 	{
 		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
 		GLdouble s_step = (math::pi()) / GLdouble(_segments);
 
 		GLfloat m = 1.0;
-		for(size_t b=0; b!=_bands*2; ++b)
+		for(unsigned b=0; b!=_bands*2; ++b)
 		{
 			GLdouble b_offs = 0.0;
-			for(size_t s=0; s!=(_segments+1); ++s)
+			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
 				GLdouble b_angle =
 					b*b_leap + b_offs;
@@ -205,16 +205,16 @@ private:
 	}
 
 	template <typename T>
-	void _make_side_tgts(std::vector<T>& dest, size_t& k) const
+	void _make_side_tgts(std::vector<T>& dest, unsigned& k) const
 	{
 		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
 		GLdouble s_step = (math::pi()) / GLdouble(_segments);
 
 		GLfloat m = -1.0;
-		for(size_t b=0; b!=_bands*2; ++b)
+		for(unsigned b=0; b!=_bands*2; ++b)
 		{
 			GLdouble b_offs = 0.0;
-			for(size_t s=0; s!=(_segments+1); ++s)
+			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
 				GLdouble b_angle =
 					b*b_leap + b_offs;
@@ -235,7 +235,7 @@ private:
 	}
 
 	template <typename T>
-	void _make_side_uvs(std::vector<T>& dest, size_t& k) const
+	void _make_side_uvs(std::vector<T>& dest, unsigned& k) const
 	{
 		GLdouble b_leap = 0.5 / GLdouble(_bands);
 		GLdouble b_slip = b_leap * _thickness * 0.5;
@@ -243,11 +243,11 @@ private:
 
 		GLdouble g = -1.0;
 
-		for(size_t b=0; b!=_bands*2; ++b)
+		for(unsigned b=0; b!=_bands*2; ++b)
 		{
 			GLdouble b_offs = 0.0;
 			GLdouble v = 1.0;
-			for(size_t s=0; s!=(_segments+1); ++s)
+			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
 				dest[k++] = b*b_leap + b_offs + g*b_slip;
 				dest[k++] = v;
@@ -270,9 +270,9 @@ public:
 	SpiralSphere(
 		GLdouble radius,
 		GLdouble thickness,
-		size_t bands,
-		size_t divisions,
-		size_t segments
+		unsigned bands,
+		unsigned divisions,
+		unsigned segments
 	): _radius(radius)
 	 , _thickness(thickness)
 	 , _bands(bands)
@@ -291,7 +291,7 @@ public:
 	GLuint Positions(std::vector<T>& dest) const
 	{
 		dest.resize(_vertex_count() * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		_make_vectors(dest, k,  1.0, _radius);
 		_make_vectors(dest, k,  1.0, _radius + _thickness);
@@ -306,7 +306,7 @@ public:
 	GLuint Normals(std::vector<T>& dest) const
 	{
 		dest.resize(_vertex_count() * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		_make_vectors(dest, k, -1.0, 1.0);
 		_make_vectors(dest, k,  1.0, 1.0);
@@ -322,7 +322,7 @@ public:
 	GLuint Tangents(std::vector<T>& dest) const
 	{
 		dest.resize(_vertex_count() * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		_make_tangents(dest, k, -1.0);
 		_make_tangents(dest, k,  1.0);
@@ -338,7 +338,7 @@ public:
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
 		dest.resize(_vertex_count() * 2);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		_make_uv_coords(dest, k);
 		_make_uv_coords(dest, k);
@@ -379,7 +379,7 @@ public:
 			(1 << (sizeof(GLushort) * 8)) - 1 >=
 			_vertex_count()
 		);
-		const size_t n =
+		const unsigned n =
 			(_bands * 2)*
 			(_divisions * 2)*
 			(_segments + 1)+
@@ -388,21 +388,21 @@ public:
 		;
 		//
 		IndexArray indices(n);
-		size_t k = 0;
-		size_t eoffs, offs = 0;
-		const size_t edge = _segments + 1;
-		const size_t band = edge * (_divisions + 1);
-		const size_t surface = _bands * band;
+		unsigned k = 0;
+		unsigned eoffs, offs = 0;
+		const unsigned edge = _segments + 1;
+		const unsigned band = edge * (_divisions + 1);
+		const unsigned surface = _bands * band;
 
-		for(size_t n=0; n!=2; ++n)
+		for(unsigned n=0; n!=2; ++n)
 		{
-			size_t edge1 = n ? edge : 0;
-			size_t edge2 = n ? 0 : edge;
-			for(size_t b=0; b!=_bands; ++b)
+			unsigned edge1 = n ? edge : 0;
+			unsigned edge2 = n ? 0 : edge;
+			for(unsigned b=0; b!=_bands; ++b)
 			{
-				for(size_t d=0; d!=_divisions; ++d)
+				for(unsigned d=0; d!=_divisions; ++d)
 				{
-					for(size_t s=0; s!=edge; ++s)
+					for(unsigned s=0; s!=edge; ++s)
 					{
 						indices[k++] = offs + s + edge1;
 						indices[k++] = offs + s + edge2;
@@ -416,9 +416,9 @@ public:
 		offs = 0;
 		eoffs = 2*surface;
 
-		for(size_t b=0; b!=_bands; ++b)
+		for(unsigned b=0; b!=_bands; ++b)
 		{
-			for(size_t s=0; s!=edge; ++s)
+			for(unsigned s=0; s!=edge; ++s)
 			{
 				indices[k++] = eoffs + s;
 				indices[k++] = offs + s;
@@ -430,9 +430,9 @@ public:
 		offs = _divisions * edge;
 		eoffs = 2*surface + edge;
 
-		for(size_t b=0; b!=_bands; ++b)
+		for(unsigned b=0; b!=_bands; ++b)
 		{
-			for(size_t s=0; s!=edge; ++s)
+			for(unsigned s=0; s!=edge; ++s)
 			{
 				indices[k++] = offs + s;
 				indices[k++] = eoffs + s;
@@ -444,9 +444,9 @@ public:
 		offs = surface;
 		eoffs = 2*surface;
 
-		for(size_t b=0; b!=_bands; ++b)
+		for(unsigned b=0; b!=_bands; ++b)
 		{
-			for(size_t s=0; s!=edge; ++s)
+			for(unsigned s=0; s!=edge; ++s)
 			{
 				indices[k++] = offs + s;
 				indices[k++] = eoffs + s;
@@ -458,9 +458,9 @@ public:
 		offs = surface + _divisions * edge;
 		eoffs = 2*surface + edge;
 
-		for(size_t b=0; b!=_bands; ++b)
+		for(unsigned b=0; b!=_bands; ++b)
 		{
-			for(size_t s=0; s!=edge; ++s)
+			for(unsigned s=0; s!=edge; ++s)
 			{
 				indices[k++] = eoffs + s;
 				indices[k++] = offs + s;
@@ -479,18 +479,18 @@ public:
 	DrawingInstructions Instructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		const size_t edge = _segments + 1;
+		const unsigned edge = _segments + 1;
 
 		auto method = DrawOperation::Method::DrawElements;
 		auto primitive_type = PrimitiveType::TriangleStrip;
 
 		GLuint offs = 0;
 		GLuint phase = 0;
-		for(size_t n=0; n!=2; ++n)
+		for(unsigned n=0; n!=2; ++n)
 		{
-			for(size_t b=0; b!=_bands; ++b)
+			for(unsigned b=0; b!=_bands; ++b)
 			{
-				for(size_t d=0; d!=_divisions; ++d)
+				for(unsigned d=0; d!=_divisions; ++d)
 				{
 					DrawOperation operation;
 					operation.method = method;
@@ -504,9 +504,9 @@ public:
 			}
 			++phase;
 		}
-		for(size_t n=0; n!=4; ++n)
+		for(unsigned n=0; n!=4; ++n)
 		{
-			for(size_t b=0; b!=_bands; ++b)
+			for(unsigned b=0; b!=_bands; ++b)
 			{
 				DrawOperation operation;
 				operation.method = method;

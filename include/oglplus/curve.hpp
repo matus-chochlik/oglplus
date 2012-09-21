@@ -34,7 +34,7 @@ namespace oglplus {
  *
  *  @ingroup math_utils
  */
-template <typename Type, typename Parameter, size_t Order>
+template <typename Type, typename Parameter, unsigned Order>
 class BezierCurves
 {
 private:
@@ -69,7 +69,7 @@ public:
 	}
 
 	/// Returns the count of individual curves in the sequence
-	size_t SegmentCount(void) const
+	unsigned SegmentCount(void) const
 	{
 		return (_points.size() - 1) / Order;
 	}
@@ -98,7 +98,7 @@ public:
 		const Parameter one(1);
 		assert(t >= zero && t <= one);
 		Parameter toffs = t*SegmentCount();
-		size_t poffs = size_t(toffs) * Order;
+		unsigned poffs = unsigned(toffs) * Order;
 		assert(poffs < _points.size() - Order);
 		Parameter t_sub = toffs - ::std::floor(toffs);
 		return aux::Bezier<Type, Parameter, Order>::Position(
@@ -115,20 +115,20 @@ public:
 	}
 
 	/// Makes a sequence of points on the curve (n points per segment)
-	void Approximate(std::vector<Type>& dest, size_t n) const
+	void Approximate(std::vector<Type>& dest, unsigned n) const
 	{
-		size_t s = SegmentCount();
+		unsigned s = SegmentCount();
 		dest.resize(s*n+1);
 		auto p = dest.begin(), e = dest.end();
 		const Parameter t_step = Parameter(1)/n;
 		typedef aux::Bezier<Type, Parameter, Order> b;
-		for(size_t i=0; i!=s; ++i)
+		for(unsigned i=0; i!=s; ++i)
 		{
-			size_t poffs = i*Order;
+			unsigned poffs = i*Order;
 			Parameter t_sub = Parameter(0);
 			const Type* data = _points.data() + poffs;
-			size_t size = _points.size() - poffs;
-			for(size_t j=0; j!=n; ++j)
+			unsigned size = _points.size() - poffs;
+			for(unsigned j=0; j!=n; ++j)
 			{
 				assert(p != e);
 				*p = Type(b::Position(data, size, t_sub));
@@ -143,7 +143,7 @@ public:
 	}
 
 	/// Returns a sequence of points on the curve (n points per segment)
-	::std::vector<Type> Approximate(size_t n) const
+	::std::vector<Type> Approximate(unsigned n) const
 	{
 		::std::vector<Type> result;
 		Approximate(result, n);
@@ -169,16 +169,16 @@ private:
 		Parameter r
 	)
 	{
-		size_t i = 0, n = points.size();
+		unsigned i = 0, n = points.size();
 		assert(n != 0);
 		std::vector<Type> result(points.size() * 3 + 1);
 		auto ir = result.begin(), er = result.end();
 		while(i != n)
 		{
-			size_t a = (n+i-1)%n;
-			size_t b = i;
-			size_t c = (i+1)%n;
-			size_t d = (i+2)%n;
+			unsigned a = (n+i-1)%n;
+			unsigned b = i;
+			unsigned c = (i+1)%n;
+			unsigned d = (i+2)%n;
 			assert(ir != er);
 			*ir = points[b];
 			++ir;

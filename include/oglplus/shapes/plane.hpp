@@ -33,9 +33,9 @@ class Plane
 private:
 	Vec3f _point;
 	Vec3f _u, _v;
-	size_t _udiv, _vdiv;
+	unsigned _udiv, _vdiv;
 
-	size_t _vertex_count(void) const
+	unsigned _vertex_count(void) const
 	{
 		return (_udiv+1)*(_vdiv+1);
 	}
@@ -66,8 +66,8 @@ public:
 		const Vec3f p,
 		const Vec3f u,
 		const Vec3f v,
-		size_t udiv,
-		size_t vdiv
+		unsigned udiv,
+		unsigned vdiv
 	): _point(p)
 	 , _u(u)
 	 , _v(v)
@@ -125,11 +125,11 @@ public:
 	template <typename T>
 	GLuint Normals(std::vector<T>& dest) const
 	{
-		size_t k = 0, n = _vertex_count();
+		unsigned k = 0, n = _vertex_count();
 		dest.resize(n * 3);
 		Vec3f normal = Normal();
 
-		for(size_t i=0; i!=n; ++i)
+		for(unsigned i=0; i!=n; ++i)
 		{
 			dest[k++] = normal.x();
 			dest[k++] = normal.y();
@@ -145,11 +145,11 @@ public:
 	template <typename T>
 	GLuint Tangents(std::vector<T>& dest) const
 	{
-		size_t k = 0, n = _vertex_count();
+		unsigned k = 0, n = _vertex_count();
 		dest.resize(n * 3);
 		Vec3f tangent(Normalized(_u));
 
-		for(size_t i=0; i!=n; ++i)
+		for(unsigned i=0; i!=n; ++i)
 		{
 			dest[k++] = tangent.x();
 			dest[k++] = tangent.y();
@@ -165,7 +165,7 @@ public:
 	template <typename T>
 	GLuint Positions(std::vector<T>& dest) const
 	{
-		size_t k = 0, n = _vertex_count();
+		unsigned k = 0, n = _vertex_count();
 		dest.resize(n * 3);
 
 
@@ -173,12 +173,12 @@ public:
 		Vec3f ustep(_u * (2.0 / _udiv));
 		Vec3f vstep(_v * (2.0 / _vdiv));
 
-		size_t leap = _udiv+1;
+		unsigned leap = _udiv+1;
 
-		for(size_t j=0; j!=(_vdiv+1); ++j)
+		for(unsigned j=0; j!=(_vdiv+1); ++j)
 		{
 			Vec3f tmp = pos;
-			for(size_t i=0; i!=leap; ++i)
+			for(unsigned i=0; i!=leap; ++i)
 			{
 				dest[k++] = tmp.x();
 				dest[k++] = tmp.y();
@@ -195,7 +195,7 @@ public:
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
-		size_t k = 0, n = _vertex_count();
+		unsigned k = 0, n = _vertex_count();
 		dest.resize(n * 2);
 
 
@@ -203,13 +203,13 @@ public:
 		T ustep = T(1) / _udiv;
 		T vstep = T(1) / _vdiv;
 
-		size_t leap = _udiv+1;
+		unsigned leap = _udiv+1;
 
 
-		for(size_t j=0; j!=(_vdiv+1); ++j)
+		for(unsigned j=0; j!=(_vdiv+1); ++j)
 		{
 			uc = T(0);
-			for(size_t i=0; i!=leap; ++i)
+			for(unsigned i=0; i!=leap; ++i)
 			{
 				dest[k++] = uc;
 				dest[k++] = vc;
@@ -248,13 +248,13 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
-		size_t k = 0;
-		size_t offs = 0, leap = _udiv + 1;
+		unsigned k = 0;
+		unsigned offs = 0, leap = _udiv + 1;
 		IndexArray indices(2 * _vdiv * leap);
 
-		for(size_t j=0; j!=_vdiv; ++j)
+		for(unsigned j=0; j!=_vdiv; ++j)
 		{
-			for(size_t i=0; i!=leap; ++i)
+			for(unsigned i=0; i!=leap; ++i)
 			{
 				indices[k++] = offs + i;
 				indices[k++] = offs + i + leap;
@@ -271,7 +271,7 @@ public:
 	DrawingInstructions Instructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(size_t j=0; j!=_vdiv; ++j)
+		for(unsigned j=0; j!=_vdiv; ++j)
 		{
 			DrawOperation operation;
 			operation.method = DrawOperation::Method::DrawElements;
@@ -288,17 +288,17 @@ public:
 	/// Returns edge element indices that are used with the drawing instructions
 	IndexArray EdgeIndices(void) const
 	{
-		size_t k = 0;
-		size_t leap = _udiv + 1;
+		unsigned k = 0;
+		unsigned leap = _udiv + 1;
 		IndexArray indices(1 + 2*(_udiv+_vdiv));
 
-		for(size_t i=0; i!=leap; ++i)
+		for(unsigned i=0; i!=leap; ++i)
 			indices[k++] = i;
-		for(size_t j=0; j!=_vdiv; ++j)
+		for(unsigned j=0; j!=_vdiv; ++j)
 			indices[k++] = (j + 2)*leap - 1;
-		for(size_t i=0; i!=_udiv; ++i)
+		for(unsigned i=0; i!=_udiv; ++i)
 			indices[k++] = (leap*(_vdiv+1)) - 2 - i;
-		for(size_t j=0; j!=_vdiv; ++j)
+		for(unsigned j=0; j!=_vdiv; ++j)
 			indices[k++] = (_vdiv - j - 1)*leap;
 
 		assert(k == indices.size());

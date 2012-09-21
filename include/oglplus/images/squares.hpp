@@ -41,7 +41,7 @@ public:
 		float rmin = (1.0f - ratio) * 0.5f;
 		float rmax = rmin + ratio;
 
-		size_t n = 0;
+		unsigned n = 0;
 
 		for(GLsizei y=0; y!=height; ++y)
 		for(GLsizei x=0; x!=width;  ++x)

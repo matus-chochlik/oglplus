@@ -17,6 +17,7 @@
 #include <oglplus/fwd.hpp>
 
 #include <oglplus/auxiliary/utf8.hpp>
+#include <oglplus/auxiliary/utf8/conversion.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 
 #include <map>
@@ -41,6 +42,24 @@ namespace aux {
 bool ValidString(const GLchar* begin, const GLchar* end)
 {
 	return aux::ValidUTF8(begin, end);
+}
+
+void UTF8ToCodePoints(
+	const GLchar* begin,
+	const GLchar* end,
+	std::vector<aux::UnicodeCP>& result
+)
+{
+	aux::ConvertUTF8ToCodePoints(begin, end-begin, result);
+}
+
+void UTF8ToCodePoints(
+	const GLchar* c_str,
+	size_t length,
+	std::vector<aux::UnicodeCP>& result
+)
+{
+	aux::ConvertUTF8ToCodePoints(c_str, length, result);
 }
 
 #ifndef OGLPLUS_IMPLEMENTING_LIBRARY

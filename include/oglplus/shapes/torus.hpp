@@ -30,7 +30,7 @@ class Torus
 {
 private:
 	GLdouble _radius_out, _radius_in;
-	size_t _sections, _rings;
+	unsigned _sections, _rings;
 public:
 	/// Creates a torus with unit radius centered at the origin
 	Torus(void)
@@ -41,7 +41,7 @@ public:
 	{ }
 
 	/// Creates a torus with unit radius centered at the origin
-	Torus(GLdouble rad_out, GLdouble rad_in, size_t sects, size_t rings)
+	Torus(GLdouble rad_out, GLdouble rad_in, unsigned sects, unsigned rings)
 	 : _radius_out(rad_out)
 	 , _radius_in(rad_in)
 	 , _sections(sects)
@@ -59,18 +59,18 @@ public:
 	GLuint Positions(std::vector<T>& dest) const
 	{
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
 		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 		GLdouble r1 = _radius_in;
 		GLdouble r2 = _radius_out - _radius_in;
 
-		for(size_t r=0; r!=(_rings+1); ++r)
+		for(unsigned r=0; r!=(_rings+1); ++r)
 		{
 			GLdouble vx = std::cos(r*r_step);
 			GLdouble vz = std::sin(r*r_step);
-			for(size_t s=0; s!=(_sections+1); ++s)
+			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
 				GLdouble vr = std::cos(s*s_step);
 				GLdouble vy = std::sin(s*s_step);
@@ -88,16 +88,16 @@ public:
 	GLuint Normals(std::vector<T>& dest) const
 	{
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
 		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
 
-		for(size_t r=0; r!=(_rings+1); ++r)
+		for(unsigned r=0; r!=(_rings+1); ++r)
 		{
 			GLdouble vx = std::cos(r*r_step);
 			GLdouble vz = std::sin(r*r_step);
-			for(size_t s=0; s!=(_sections+1); ++s)
+			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
 				GLdouble vr = std::cos(s*s_step);
 				GLdouble vy = std::sin(s*s_step);
@@ -115,15 +115,15 @@ public:
 	GLuint Tangents(std::vector<T>& dest) const
 	{
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
 
-		for(size_t r=0; r!=(_rings+1); ++r)
+		for(unsigned r=0; r!=(_rings+1); ++r)
 		{
 			GLdouble vx = std::cos(r*r_step);
 			GLdouble vz = std::sin(r*r_step);
-			for(size_t s=0; s!=(_sections+1); ++s)
+			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
 				dest[k++] = +vz;
 				dest[k++] = T(0);
@@ -139,15 +139,15 @@ public:
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
 		dest.resize((_rings + 1) * (_sections + 1) * 2);
-		size_t k = 0;
+		unsigned k = 0;
 		//
 		GLdouble r_step = 1.0 / GLdouble(_rings);
 		GLdouble s_step = 1.0 / GLdouble(_sections);
 
-		for(size_t r=0; r!=(_rings+1); ++r)
+		for(unsigned r=0; r!=(_rings+1); ++r)
 		{
 			GLdouble u = r*r_step;
-			for(size_t s=0; s!=(_sections+1); ++s)
+			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
 				GLdouble v = s*s_step;
 				dest[k++] = u;
@@ -184,16 +184,16 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
-		const size_t n = 2 * (_rings)*(_sections + 1);
+		const unsigned n = 2 * (_rings)*(_sections + 1);
 		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 		//
 		IndexArray indices(n);
-		size_t k = 0;
-		size_t offs = 0;
+		unsigned k = 0;
+		unsigned offs = 0;
 		// the triangle strips
-		for(size_t r=0; r!=(_rings); ++r)
+		for(unsigned r=0; r!=(_rings); ++r)
 		{
-			for(size_t s=0; s!=(_sections+1); ++s)
+			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
 				indices[k++] = offs + s;
 				indices[k++] = offs + s + (_sections+1);
@@ -209,20 +209,20 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray IndicesWithAdjacency(void) const
 	{
-		const size_t m = (_rings)*(_sections + 1);
-		const size_t n = 4 * m;
+		const unsigned m = (_rings)*(_sections + 1);
+		const unsigned n = 4 * m;
 		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 		//
 		IndexArray indices(n);
-		size_t k = 0;
-		size_t offs = 0;
+		unsigned k = 0;
+		unsigned offs = 0;
 
-		for(size_t r=0; r!=(_rings); ++r)
+		for(unsigned r=0; r!=(_rings); ++r)
 		{
 			indices[k++] = offs;
 			indices[k++] = offs + (2*_sections);
 			indices[k++] = offs + (_sections+1);
-			for(size_t s=0; s!=_sections; ++s)
+			for(unsigned s=0; s!=_sections; ++s)
 			{
 				indices[k++] = (offs + m-(_sections+1))%m + s+1;
 				indices[k++] = offs + s + 1;
@@ -242,7 +242,7 @@ public:
 	DrawingInstructions Instructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(size_t r=0; r!=_rings; ++r)
+		for(unsigned r=0; r!=_rings; ++r)
 		{
 			DrawOperation operation;
 			operation.method = DrawOperation::Method::DrawElements;
@@ -260,7 +260,7 @@ public:
 	DrawingInstructions InstructionsWithAdjacency(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(size_t r=0; r!=_rings; ++r)
+		for(unsigned r=0; r!=_rings; ++r)
 		{
 			DrawOperation operation;
 			operation.method = DrawOperation::Method::DrawElements;

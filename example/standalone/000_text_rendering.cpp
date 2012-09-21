@@ -11,98 +11,35 @@
 
 #include <oglplus/all.hpp>
 #include <oglplus/images/png.hpp>
-#include <oglplus/bound/texture.hpp>
 
-#include <oglplus/auxiliary/conversion.hpp>
+#include <oglplus/text/bitmap_glyph.hpp>
 
-#include <fstream>
 #include <vector>
 
 namespace oglplus {
-namespace text {
 
-typedef oglplus::aux::utf8::UnicodeCP CodePoint;
-
-class Rectangle
-{
-private:
-	GLfloat _left, _right, _bottom, _top;
-public:
-	Rectangle(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top)
-	 : _left(left)
-	 , _right(right)
-	 , _bottom(bottom)
-	 , _top(top)
-	{ }
-
-	GLfloat Left(void) const { return _left; }
-
-	GLfloat Right(void) const { return _right; }
-
-	GLfloat Bottom(void) const { return _bottom; }
-
-	GLfloat Top(void) const { return _top; }
-
-	GLfloat Width(void) const {return Right() - Left(); }
-
-	GLfloat Height(void) const {return Top() - Bottom(); }
-};
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-
-class Font
-{
-public:
-	GLfloat PixelsPerUnit(void);
-};
-
-class Layout
-{
-public:
-	Rectangle LogicalMetrics(void);
-};
-
-class LayoutTransform
-{
-public:
-};
-
-class GlyphTransform
-{
-public:
-};
-
-class Renderer
-{
-public:
-	void Render(
-		const Layout& layout,
-		LayoutTransform layout_transform,
-		GlyphTransform glyph_transform
-	);
-};
-
-#endif
-
-class BitmapFontTextRendering
-{
-private:
-public:
-};
-
-} // namespace text
 } // namespace oglplus
 
 
-class BitmapFontExample
+class BitmapGlyphExample
  : public oglplus::SingleExample
 {
 private:
 	oglplus::Context gl;
 
+	static std::vector<oglplus::TextureUnitSelector> tr_tex_units(void)
+	{
+		std::vector<oglplus::TextureUnitSelector> result(2);
+		result[0] = 0;
+		result[1] = 1;
+		return result;
+	}
+	oglplus::text::BitmapGlyphRendering tr;
+
 public:
-	BitmapFontExample(int argc, const char** argv)
+	BitmapGlyphExample(int argc, const char** argv)
 	 : gl()
+	 , tr((argc>0)?argv[0]:".", tr_tex_units())
 	{
 		using namespace oglplus;
 
@@ -112,6 +49,10 @@ public:
 			BlendFunction::SrcAlpha,
 			BlendFunction::DstAlpha
 		);
+size_t l;
+const char s[] = u8"A";
+size_t sl = sizeof(s)/sizeof(s[0]);
+std::cerr << oglplus::text::BitmapGlyphPageName(tr, oglplus::aux::ConvertUTF8ToCodePoint(s, sl, l)) << std::endl;
 	}
 
 	void Reshape(void)
@@ -131,7 +72,7 @@ public:
 
 int main(int argc, char* argv[])
 {
-	return oglplus::GlutGlewMain<BitmapFontExample>(
+	return oglplus::GlutGlewMain<BitmapGlyphExample>(
 		"Example of usage of OGLplus' font rendering",
 		argc, argv
 	);

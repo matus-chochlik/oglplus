@@ -79,7 +79,7 @@ public:
 			{-half_x, -half_y, +half_z}, //(G)
 			{-half_x, -half_y, -half_z}  //(H)
 		};
-		const size_t A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7;
+		const unsigned A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7;
 		const T _positions[108] = {
 			c[A][0], c[A][1], c[A][2],
 			c[D][0], c[D][1], c[D][2],
@@ -368,7 +368,7 @@ public:
 	DrawingInstructions EdgeInstructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(size_t r=0; r!=6; ++r)
+		for(unsigned r=0; r!=6; ++r)
 		{
 			DrawOperation operation;
 			operation.method = DrawOperation::Method::DrawElements;

@@ -25,7 +25,7 @@ namespace images {
  *  @note Do not use this class directly, use the derived filters instead.
  *  @ingroup image_load_gen
  */
-template <typename T, size_t EPP>
+template <typename T, unsigned EPP>
 class FilteredImage
  : public Image<T>
 {
@@ -39,16 +39,16 @@ protected:
 	struct _sampler
 	{
 	private:
-		size_t _width, _height, _iepp, _x, _y, _n;
+		unsigned _width, _height, _iepp, _x, _y, _n;
 		const IT* _data;
 	public:
 		_sampler(
-			size_t width,
-			size_t height,
-			size_t iepp,
-			size_t x,
-			size_t y,
-			size_t z,
+			unsigned width,
+			unsigned height,
+			unsigned iepp,
+			unsigned x,
+			unsigned y,
+			unsigned z,
 			const IT* data
 		): _width(width)
 		 , _height(height)
@@ -76,7 +76,7 @@ protected:
 			if(ypos >= int(_height)) ypos %= _height;
 			if(ypos < 0) ypos = (ypos+_height)%_height;
 
-			size_t offs = _n + ypos*_width + xpos;
+			unsigned offs = _n + ypos*_width + xpos;
 			const IT* p = _data + _iepp*offs;
 			return Vector<IT, 4>(
 				*p,
@@ -96,13 +96,13 @@ private:
 		IT ione
 	)
 	{
-		size_t iepp = input.ElementsPerPixel();
+		unsigned iepp = input.ElementsPerPixel();
 		auto p = this->_data.begin(), e = this->_data.end();
-		size_t w = input.Width(), h = input.Height(), d = input.Depth();
+		unsigned w = input.Width(), h = input.Height(), d = input.Depth();
 		const IT* data = input.Data();
-		for(size_t k=0; k!=d; ++k)
-		for(size_t j=0; j!=h; ++j)
-		for(size_t i=0; i!=w; ++i)
+		for(unsigned k=0; k!=d; ++k)
+		for(unsigned j=0; j!=h; ++j)
+		for(unsigned i=0; i!=w; ++i)
 		{
 			_sampler<IT> sampler(w,h,iepp,i,j,k,data);
 			Vector<T, EPP> outv = filter(
@@ -111,7 +111,7 @@ private:
 				one,
 				ione
 			);
-			for(size_t c=0; c!= EPP; ++c)
+			for(unsigned c=0; c!= EPP; ++c)
 			{
 				assert(p != e);
 				*p = outv.At(c);
@@ -138,7 +138,7 @@ private:
 	}
 public:
 	/// Extractor that allows to specify which component to use as input
-	template <size_t I>
+	template <unsigned I>
 	struct FromComponentI
 	{
 		template <typename IT>
