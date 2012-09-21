@@ -181,7 +181,7 @@
 #undef GLAPIENTRY
 #endif
 // borrowed from glew.h which does define GLAPIENTRY properly
-// at the beginning but undefs in at the end of the header
+// at the beginning but undefs it at the end of the header
 #if defined(__MINGW32__) || defined(__CYGWIN__)
 #  define GLAPIENTRY __stdcall
 #elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)

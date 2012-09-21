@@ -53,7 +53,7 @@ public:
 
 template <typename RV, typename ... Params>
 inline auto _checked_glfunc(
-	RV (*pfn)(Params...),
+	RV (GLAPIENTRY *pfn)(Params...),
 	const ErrorInfo&
 ) -> decltype(pfn)
 {
@@ -62,7 +62,7 @@ inline auto _checked_glfunc(
 
 template <typename RV, typename ... Params>
 inline auto _checked_glfunc(
-	RV (**ppfn)(Params...),
+	RV (* GLAPIENTRY *ppfn)(Params...),
 	const ErrorInfo& error_info
 ) -> decltype(*ppfn)
 {
