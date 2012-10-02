@@ -467,6 +467,75 @@ public:
 		return *this;
 	}
 
+	/// This type stores a setting of the subroutine uniforms
+	/** Preset stores a whole setting of a set of subroutine uniforms
+	 *  which can be later applied or loaded.
+	 *
+	 *  Applications should treat this type as opaque and use it
+	 *  only with the Save, Load and Apply functions.
+	 *
+	 *  @see Save
+	 *  @see Load
+	 *  @see Apply
+	 */
+	struct Preset
+	{
+		const std::vector<GLuint> _indices;
+
+		Preset(const std::vector<GLuint>& indices)
+		 : _indices(indices)
+		{ }
+
+		Preset(Preset&& tmp)
+		 : _indices(std::move(tmp._indices))
+		{ }
+	};
+
+	/// Saves the current setting of subroutine uniforms into a preset
+	/**
+	 *  @see Preset
+	 *  @see Apply
+	 *  @see Load
+	 */
+	Preset Save(void)
+	{
+		return Preset(_get_indices());
+	}
+
+	/// Loads the setting of subroutine uniforms from a @p preset
+	/** @note Only presets from the same instance of SubroutineUniforms
+	 *  that saved them can be loaded or applied.
+	 *
+	 *  @see Preset
+	 *  @see Apply
+	 *  @see Save
+	 */
+	void Load(const Preset& preset)
+	{
+		assert(_get_indices().size() == preset._indices.size());
+		_get_indices() = preset._indices;
+	}
+
+	/// Applies the setting from a preset without changing the current setting
+	/** @note Only presets from the same instance of SubroutineUniforms
+	 *  that saved them can be loaded or applied.
+	 *
+	 *  @see Preset
+	 *  @see Save
+	 *  @see Load
+	 */
+	void Apply(const Preset& preset)
+	{
+		assert(_get_indices().size() == preset._indices.size());
+
+		OGLPLUS_GLFUNC(UniformSubroutinesuiv)(
+			_stage,
+			GLsizei(preset._indices.size()),
+			preset._indices.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UniformSubroutinesuiv));
+	}
+
 	/// Applies all changes made by Assign
 	/**
 	 *  @see Assign

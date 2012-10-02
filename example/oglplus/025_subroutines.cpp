@@ -209,6 +209,11 @@ public:
 
 	UniformSubroutines frag_subroutines;
 
+	UniformSubroutines::Preset frag_shiny_checker;
+	UniformSubroutines::Preset frag_shiny_texture;
+	UniformSubroutines::Preset frag_shiny_strips;
+	UniformSubroutines::Preset frag_shiny_spiral;
+
 	CubeProgram(void)
 	 : _base_program("Cube program", false)
 	 , projection_matrix(prog(), "ProjectionMatrix")
@@ -231,6 +236,24 @@ public:
 	 , texture_rgb(prog(), ShaderType::Fragment, "textureRGB")
 	 , texture_bgr(prog(), ShaderType::Fragment, "textureBGR")
 	 , frag_subroutines(prog(), ShaderType::Fragment)
+	 , frag_shiny_checker(
+		frag_subroutines
+			.Assign(pixel_light_func, shiny)
+			.Assign(pixel_color_func, checker)
+			.Save()
+	), frag_shiny_texture(
+		frag_subroutines
+			.Assign(pixel_color_func, texture_rgb)
+			.Save()
+	), frag_shiny_strips(
+		frag_subroutines
+			.Assign(pixel_color_func, strips)
+			.Save()
+	), frag_shiny_spiral(
+		frag_subroutines
+			.Assign(pixel_color_func, spiral)
+			.Save()
+	)
 	{ }
 };
 
@@ -313,14 +336,7 @@ public:
 
 
 		// shiny gray/blue checkered cube
-		cube_prog.frag_subroutines
-			.Assign(
-				cube_prog.pixel_light_func,
-				cube_prog.shiny
-			).Assign(
-				cube_prog.pixel_color_func,
-				cube_prog.checker
-			).Apply();
+		cube_prog.frag_subroutines.Apply(cube_prog.frag_shiny_checker);
 
 		cube_prog.specular_factor = 32;
 		cube_prog.color_1 = Vec3f(0.9, 0.8, 0.7);
@@ -333,11 +349,7 @@ public:
 		cube.Draw();
 
 		// shiny textured cube
-		cube_prog.frag_subroutines
-			.Assign(
-				cube_prog.pixel_color_func,
-				cube_prog.texture_rgb
-			).Apply();
+		cube_prog.frag_subroutines.Apply(cube_prog.frag_shiny_texture);
 
 		cube_prog.specular_factor = 16;
 		cube_prog.tex_scale = Vec2f(1, 1);
@@ -348,11 +360,7 @@ public:
 		cube.Draw();
 
 		// shiny yellow/black striped cube
-		cube_prog.frag_subroutines
-			.Assign(
-				cube_prog.pixel_color_func,
-				cube_prog.strips
-			).Apply();
+		cube_prog.frag_subroutines.Apply(cube_prog.frag_shiny_strips);
 
 		cube_prog.specular_factor = 32;
 		cube_prog.color_1 = Vec3f(0.9, 0.9, 0.1);
@@ -365,11 +373,7 @@ public:
 		cube.Draw();
 
 		// shiny gray/green spiral cube
-		cube_prog.frag_subroutines
-			.Assign(
-				cube_prog.pixel_color_func,
-				cube_prog.spiral
-			).Apply();
+		cube_prog.frag_subroutines.Apply(cube_prog.frag_shiny_spiral);
 
 		cube_prog.specular_factor = 24;
 		cube_prog.color_1 = Vec3f(0.9, 0.9, 0.9);
