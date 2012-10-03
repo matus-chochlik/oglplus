@@ -70,6 +70,7 @@ protected:
 		std::true_type
 	) OGLPLUS_NOEXCEPT(true)
 	{
+		OGLPLUS_FAKE_USE(_count);
 		assert(_count == 1);
 		assert(_name != nullptr);
 		try{*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));}
@@ -83,6 +84,7 @@ protected:
 		std::false_type
 	)
 	{
+		OGLPLUS_FAKE_USE(_count);
 		assert(_count == 1);
 		assert(_name != nullptr);
 		*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));
@@ -97,6 +99,7 @@ protected:
 	static void _cleanup(GLsizei _count, GLuint* _name)
 	OGLPLUS_NOEXCEPT(true)
 	{
+		OGLPLUS_FAKE_USE(_count);
 		assert(_count == 1);
 		assert(_name != nullptr);
 		assert(*_name != 0);

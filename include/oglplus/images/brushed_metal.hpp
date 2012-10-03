@@ -49,7 +49,10 @@ private:
 		GLubyte* pr = p;
 		GLubyte* pg = p+1;
 		GLubyte* pb = p+2;
+
+		OGLPLUS_FAKE_USE(e);
 		assert((pr < e) && (pg < e) && (pb < e));
+
 		*pr = r;
 		*pg = g;
 		*pb = (*pb + 8) % 0x100;

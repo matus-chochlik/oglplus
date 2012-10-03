@@ -22,7 +22,7 @@ namespace oglplus {
 namespace images {
 
 /// Creates a RED (one component per pixel) white noise image
-/** 
+/**
  *  @ingroup image_load_gen
  */
 class RandomRedUByte
@@ -42,6 +42,7 @@ public:
 			*p = ::std::rand() % 0x100;
 			++p;
 		}
+		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
 		_type = PixelDataType::UnsignedByte;
 		_format = PixelDataFormat::Red;
@@ -51,7 +52,7 @@ public:
 
 
 /// Creates a RGB (three components per pixel) white noise image
-/** 
+/**
  *  @ingroup image_load_gen
  */
 class RandomRGBUByte
@@ -72,6 +73,7 @@ public:
 			*p = ::std::rand() % 0x100;
 			++p;
 		}
+		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
 		_type = PixelDataType::UnsignedByte;
 		_format = PixelDataFormat::RGB;

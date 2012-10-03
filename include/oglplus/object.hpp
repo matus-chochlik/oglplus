@@ -286,6 +286,8 @@ private:
 	static inline void _verify(const Object* that)
 	OGLPLUS_NOEXCEPT(true)
 	{
+		OGLPLUS_FAKE_USE(that);
+		assert(that);
 		assert(_can_be_zero() || that->_name != 0);
 		assert(_type_ok(that->_name));
 	}

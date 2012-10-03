@@ -162,6 +162,7 @@ public:
 			*p = GLubyte(0);
 			++p;
 		}
+		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
 		_make_spheres(origin, init_radius);
 		_type = PixelDataType::UnsignedByte;
@@ -215,6 +216,7 @@ public:
 			assert(p != e);
 			*p = GLubyte(avg_density); ++p;
 		}
+		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
 		_type = PixelDataType::UnsignedByte;
 		_format = PixelDataFormat::RGB;
