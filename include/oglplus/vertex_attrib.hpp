@@ -708,7 +708,7 @@ public:
 	}
 };
 
-template <typename T, unsigned N>
+template <typename T, std::size_t N>
 class VertexAttrib<Vector<T, N> >
  : public VertexAttribOps
  , public aux::ShaderDataSetOps<
@@ -763,7 +763,7 @@ public:
 	}
 };
 
-template <typename T, unsigned Rows, unsigned Cols>
+template <typename T, std::size_t Rows, std::size_t Cols>
 class VertexAttrib<Matrix<T, Rows, Cols> >
  : public VertexAttribOps
  , public aux::ShaderDataSetOps<
@@ -833,13 +833,13 @@ private:
 		return 1;
 	}
 
-	template <typename T, unsigned N>
+	template <typename T, std::size_t N>
 	static GLint _get_values_per_vertex(Vector<T, N>*)
 	{
 		return N;
 	}
 
-	template <typename T, unsigned Rows, unsigned Cols>
+	template <typename T, std::size_t Rows, std::size_t Cols>
 	static GLint _get_values_per_vertex(Matrix<T, Rows, Cols>*)
 	{
 		return Rows*Cols;
@@ -852,13 +852,13 @@ private:
 		return ::oglplus::GetDataType(p);
 	}
 
-	template <typename T, unsigned N>
+	template <typename T, std::size_t N>
 	static DataType _get_data_type(Vector<T, N>*)
 	{
 		return ::oglplus::GetDataType((T*)nullptr);
 	}
 
-	template <typename T, unsigned Rows, unsigned Cols>
+	template <typename T, std::size_t Rows, std::size_t Cols>
 	static DataType _get_data_type(Matrix<T, Rows, Cols>*)
 	{
 		return ::oglplus::GetDataType((T*)nullptr);
