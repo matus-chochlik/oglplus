@@ -66,6 +66,7 @@ public:
 				*p = d; ++p;
 			}
 		}
+		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
 		_type = PixelDataType::Float;
 		_format = PixelDataFormat::RGBA;

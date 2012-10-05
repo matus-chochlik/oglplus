@@ -89,6 +89,7 @@ private:
 				}
 			}
 		}
+		OGLPLUS_FAKE_USE(hole_count);
 		assert(k == hole_count * 3);
 		assert(k == data.size());
 	}

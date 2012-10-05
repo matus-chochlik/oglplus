@@ -311,6 +311,7 @@ protected:
 	static GLboolean _is_x(GLuint _name)
 	OGLPLUS_NOEXCEPT(true)
 	{
+		OGLPLUS_FAKE_USE(_name);
 		assert(_name != 0);
 		return GL_TRUE;
 	}

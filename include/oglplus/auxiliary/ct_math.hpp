@@ -162,6 +162,7 @@ public:
 		Bezier::_sum(d, std::integral_constant<unsigned, N-D>(), v, t)
 	)
 	{
+		OGLPLUS_FAKE_USE(s);
 		assert(s >= N);
 		std::integral_constant<unsigned, N-D> n_d;
 		return _sum(d, n_d, v, t);

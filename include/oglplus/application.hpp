@@ -59,6 +59,7 @@ public:
 
 	static void ParseCommandLineOptions(int argc, const char** argv)
 	{
+		OGLPLUS_FAKE_USE(argc);
 		assert(argc > 0);
 		assert(argv != 0);
 		assert(argv[0] != 0);

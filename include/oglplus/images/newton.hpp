@@ -107,6 +107,7 @@ private:
 				++p;
 			}
 		}
+		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
 	}
 public:

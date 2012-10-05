@@ -170,6 +170,7 @@ public:
 				*ri++ = offs;
 				*ri++ = 0.0f; *ri++ = 0.0f; *ri++ = 0.0f;
 			}
+			OGLPLUS_FAKE_USE(re);
 			assert(ri == re);
 		}
 		return result;

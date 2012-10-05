@@ -252,6 +252,7 @@ public:
 	Vector(const T* v, unsigned n)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
+		OGLPLUS_FAKE_USE(n);
 		assert(n >= N);
 		for(unsigned i=0; i!=N; ++i)
 			_elem[i] = v[i];
