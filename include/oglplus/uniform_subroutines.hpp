@@ -503,7 +503,7 @@ public:
 	}
 
 	/// Loads the setting of subroutine uniforms from a @p preset
-	/** @note Only presets from the same instance of SubroutineUniforms
+	/** @note Only presets from the same instance of UniformSubroutines
 	 *  that saved them can be loaded or applied.
 	 *
 	 *  @see Preset
@@ -517,7 +517,7 @@ public:
 	}
 
 	/// Applies the setting from a preset without changing the current setting
-	/** @note Only presets from the same instance of SubroutineUniforms
+	/** @note Only presets from the same instance of UniformSubroutines
 	 *  that saved them can be loaded or applied.
 	 *
 	 *  @see Preset
