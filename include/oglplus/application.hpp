@@ -60,6 +60,7 @@ public:
 	{
 		// TODO: switch this on platforms using other separators
 		const char dirsep = '/';
+		OGLPLUS_FAKE_USE(argc);
 		assert(argc > 0);
 		assert(argv != 0);
 		assert(argv[0] != 0);

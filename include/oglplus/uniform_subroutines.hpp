@@ -467,7 +467,7 @@ public:
 		return *this;
 	}
 
-	/// This type stores a setting of the subroutine uniforms
+	/// This type stores a setting of the whole set of subroutine uniforms
 	/** Preset stores a whole setting of a set of subroutine uniforms
 	 *  which can be later applied or loaded.
 	 *
@@ -478,16 +478,36 @@ public:
 	 *  @see Load
 	 *  @see Apply
 	 */
-	struct Preset
+	class Preset
 	{
+	private:
+		friend class UniformSubroutines;
+
 		const std::vector<GLuint> _indices;
+#ifndef NDEBUG
+		GLuint _program;
+		GLenum _stage;
+#endif
 
-		Preset(const std::vector<GLuint>& indices)
-		 : _indices(indices)
+		Preset(
+#ifndef NDEBUG
+			GLuint program,
+			GLenum stage,
+#endif
+			const std::vector<GLuint>& indices
+		): _indices(indices)
+#ifndef NDEBUG
+		 , _program(program)
+		 , _stage(stage)
+#endif
 		{ }
-
+	public:
 		Preset(Preset&& tmp)
 		 : _indices(std::move(tmp._indices))
+#ifndef NDEBUG
+		 , _program(tmp._program)
+		 , _stage(tmp._stage)
+#endif
 		{ }
 	};
 
@@ -499,7 +519,13 @@ public:
 	 */
 	Preset Save(void)
 	{
-		return Preset(_get_indices());
+		return Preset(
+#ifndef NDEBUG
+			_program,
+			_stage,
+#endif
+			_get_indices()
+		);
 	}
 
 	/// Loads the setting of subroutine uniforms from a @p preset
@@ -512,6 +538,8 @@ public:
 	 */
 	void Load(const Preset& preset)
 	{
+		assert(_program == preset._program);
+		assert(_stage == preset._stage);
 		assert(_get_indices().size() == preset._indices.size());
 		_get_indices() = preset._indices;
 	}
@@ -526,6 +554,8 @@ public:
 	 */
 	void Apply(const Preset& preset)
 	{
+		assert(_program == preset._program);
+		assert(_stage == preset._stage);
 		assert(_get_indices().size() == preset._indices.size());
 
 		OGLPLUS_GLFUNC(UniformSubroutinesuiv)(

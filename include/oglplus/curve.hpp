@@ -96,7 +96,11 @@ public:
 	{
 		const Parameter zero(0);
 		const Parameter one(1);
+
+		OGLPLUS_FAKE_USE(zero);
+		OGLPLUS_FAKE_USE(one);
 		assert(t >= zero && t <= one);
+
 		Parameter toffs = t*SegmentCount();
 		size_t poffs = size_t(toffs) * Order;
 		assert(poffs < _points.size() - Order);
@@ -139,6 +143,7 @@ public:
 		assert(p != e);
 		*p = _points.back();
 		++p;
+		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
 	}
 
@@ -192,6 +197,7 @@ private:
 		}
 		assert(ir != er);
 		*ir = points[0]; ++ir;
+		OGLPLUS_FAKE_USE(er);
 		assert(ir == er);
 		return result;
 	}
