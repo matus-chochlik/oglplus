@@ -56,11 +56,7 @@ endif()
 include_directories(${PROJECT_SOURCE_DIR}/utils)
 
 # add a target for the examples
-if(OGLPLUS_NO_EXAMPLES)
-	add_custom_target(oglplus-examples)
-else()
-	add_custom_target(oglplus-examples ALL)
-endif()
+add_custom_target(oglplus-examples ALL)
 
 # add a target for the screenshots
 add_custom_target(oglplus-examples-screenshots)
