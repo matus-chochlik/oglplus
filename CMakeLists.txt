@@ -169,9 +169,11 @@ include_directories(${PROJECT_BINARY_DIR}/include)
 # GL extension detection
 include(config/GLExt.cmake)
 
-# add this to enable M_PI on some platforms
-add_definitions(-D_USE_MATH_DEFINES)
-add_subdirectory("example")
+if(NOT OGLPLUS_NO_EXAMPLES)
+	# add this to enable M_PI on some platforms
+	add_definitions(-D_USE_MATH_DEFINES)
+	add_subdirectory("example")
+endif()
 
 # install the "regular" headers
 install(
