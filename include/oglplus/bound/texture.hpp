@@ -995,15 +995,15 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 
-	/** Wrapper for Texture::SetBuffer()
-	 *  @see Texture::SetBuffer()
+	/** Wrapper for Texture::Buffer()
+	 *  @see Texture::Buffer()
 	 */
-	void SetBuffer(
+	void Buffer(
 		PixelDataInternalFormat internal_format,
 		const BufferOps & buffer
 	) const
 	{
-		TextureOps::SetBuffer(
+		TextureOps::Buffer(
 			this->BindTarget(),
 			internal_format,
 			buffer
@@ -1013,17 +1013,17 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 
-	/** Wrapper for Texture::SetBufferRange()
-	 *  @see Texture::SetBufferRange()
+	/** Wrapper for Texture::BufferRange()
+	 *  @see Texture::BufferRange()
 	 */
-	void SetBufferRange(
+	void BufferRange(
 		PixelDataInternalFormat internal_format,
 		const BufferOps & buffer,
 		GLintptr offset,
 		GLsizeiptr size
 	) const
 	{
-		TextureOps::SetBufferRange(
+		TextureOps::BufferRange(
 			this->BindTarget(),
 			internal_format,
 			buffer,

@@ -601,7 +601,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(BufferSubData)(
 			GLenum(target),
-			offset,
+			offset * sizeof(GLtype),
 			count * sizeof(GLtype),
 			data
 		);
@@ -628,7 +628,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(BufferSubData)(
 			GLenum(target),
-			offset,
+			offset * sizeof(GLtype),
 			data.size() * sizeof(GLtype),
 			data.data()
 		);

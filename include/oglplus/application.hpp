@@ -17,7 +17,6 @@
 #include <oglplus/auxiliary/filesystem.hpp>
 
 #include <cassert>
-#include <iostream>
 
 namespace oglplus {
 

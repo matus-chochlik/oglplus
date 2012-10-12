@@ -47,21 +47,18 @@ class GlyphMetrics
 {
 private:
 	// For each glyph the following values are stored
-	// 4 values * 3 (triangle) vertices
+	// 4 values * 3
 	//
-	// Vertex[0]
 	// x - logical rectangle left bearing
 	// y - logical rectangle right bearing
 	// z - logical rectangle ascent
 	// w - logical rectangle descent
 	//
-	// Vertex[1]
 	// x - ink rectangle left bearing
 	// y - ink rectangle right bearing
 	// z - ink rectangle ascent
 	// w - ink rectangle descent
 	//
-	// Vertex[2]
 	// x - Glyph origin x in normalized texture space
 	// y - Glyph origin y in normalized texture space
 	// z - Glyph width in normalized texture space
@@ -249,8 +246,6 @@ public:
 			"uniform mat4 ProjectionMatrix, CameraMatrix, LayoutMatrix;"
 
 			"mat4 Matrix = ProjectionMatrix*CameraMatrix*LayoutMatrix;"
-
-			"uniform vec3 LayoutOrigin;"
 
 			"in vec4 vertInkData[1], vertTexData[1];"
 

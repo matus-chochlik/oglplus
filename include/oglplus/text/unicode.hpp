@@ -51,7 +51,7 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
  */
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 	const GLchar* c_str,
-	size_t length,
+	std::size_t length,
 	std::vector<CodePoint>& result
 )
 #if OGLPLUS_LINK_LIBRARY
@@ -74,7 +74,7 @@ inline std::vector<CodePoint> UTF8ToCodePoints(
 
 inline std::vector<CodePoint> UTF8ToCodePoints(
 	const GLchar* c_str,
-	size_t length
+	std::size_t length
 )
 {
 	std::vector<CodePoint> result;

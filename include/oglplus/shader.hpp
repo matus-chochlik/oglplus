@@ -161,12 +161,22 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const String& source) const
+	void Source(const GLchar** srcs, const GLint* lens, int count) const
 	{
 		assert(_name != 0);
+		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, lens);
+	}
+
+	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
+	void Source(const String& source) const
+	{
 		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[] = {GLint(source.size())};
-		OGLPLUS_GLFUNC(ShaderSource)(_name, 1, srcs, lens);
+		GLint lens[1] = {GLint(source.size())};
+		Source(srcs, lens, 1);
 	}
 
 	/// Set the source code of the shader
@@ -176,10 +186,9 @@ public:
 	 */
 	void Source(const StrLit& source) const
 	{
-		assert(_name != 0);
 		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[] = {GLint(source.size())};
-		OGLPLUS_GLFUNC(ShaderSource)(_name, 1, srcs, lens);
+		GLint lens[1] = {GLint(source.size())};
+		Source(srcs, lens, 1);
 	}
 
 	/// Set the source code of the shader
@@ -189,9 +198,7 @@ public:
 	 */
 	void Source(const GLchar* source) const
 	{
-		assert(_name != 0);
-		const GLchar* srcs[1] = {source};
-		OGLPLUS_GLFUNC(ShaderSource)(_name, 1, srcs, 0);
+		Source(&source, nullptr, 1);
 	}
 
 	/// Set the source code of the shader
@@ -201,8 +208,7 @@ public:
 	 */
 	void Source(const GLchar** srcs, int count) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, 0);
+		Source(srcs, nullptr, count);
 	}
 
 	/// Set the source code of the shader
@@ -212,12 +218,10 @@ public:
 	 */
 	void Source(const std::vector<const GLchar*>& srcs) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(ShaderSource)(
-			_name,
-			srcs.size(),
+		Source(
 			const_cast<const GLchar**>(srcs.data()),
-			0
+			nullptr,
+			srcs.size()
 		);
 	}
 
@@ -228,12 +232,10 @@ public:
 	 */
 	void Source(const GLSLSource& glsl_source) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(ShaderSource)(
-			_name,
-			glsl_source.Count(),
+		Source(
 			glsl_source.Parts(),
-			glsl_source.Lengths()
+			glsl_source.Lengths(),
+			glsl_source.Count()
 		);
 	}
 

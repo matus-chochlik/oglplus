@@ -19,24 +19,35 @@
 #include <oglplus/text/bitmap_glyph/font.hpp>
 #include <oglplus/text/bitmap_glyph/layout_storage.hpp>
 
+#include <vector>
+#include <algorithm>
+
 namespace oglplus {
 namespace text {
 
 class BitmapGlyphLayout
 {
 private:
+	// reference to the parent rendering system
 	BitmapGlyphRendering& _parent;
 
+	// the font used by this layout
 	BitmapGlyphFont _font;
 
+	// layout data used by a renderer
 	BitmapGlyphLayoutData _data;
+
+	// the list of font pages that this layout references
+	std::vector<GLint> _pages;
 
 	friend class BitmapGlyphRenderer;
 
+	// sanity check
 	bool _is_ok(void) const
 	{
 		return	(_data._offset >= 0) &&
-			(_data._offset < _data._count);
+			(_data._capacity > 0) &&
+			(_data._storage);
 	}
 public:
 	BitmapGlyphLayout(
@@ -55,6 +66,7 @@ public:
 	 : _parent(other._parent)
 	 , _font(other._font)
 	 , _data(other._data)
+	 , _pages(other._pages)
 	{
 		_data._offset = -1;
 		BitmapGlyphAllocateLayoutData(_parent, _data);
@@ -65,6 +77,7 @@ public:
 	 : _parent(tmp._parent)
 	 , _font(std::move(tmp._font))
 	 , _data(std::move(tmp._data))
+	 , _pages(std::move(tmp._pages))
 	{
 		tmp._data._offset = -1;
 		assert(_is_ok());
@@ -78,14 +91,24 @@ public:
 
 	GLsizei Capacity(void) const
 	{
-		return _data._count;
+		return _data._capacity;
 	}
 
 	void Set(const CodePoint* cps, GLsizei size)
 	{
 		assert(_is_ok());
 		assert(size <= Capacity());
-		BitmapGlyphInitializeLayoutData(_parent, _data, cps, size);
+		BitmapGlyphInitializeLayoutData(_parent,_data,_font, cps, size);
+
+		// update the list of referenced font pages
+		_pages.clear();
+		for(GLsizei cp=0; cp!=size; ++cp)
+		{
+			GLint page = BitmapGlyphPageOfCP(_parent, cps[cp]);
+			auto i = _pages.begin(), e = _pages.end();
+			if(std::find(i, e, page) == e)
+				_pages.push_back(page);
+		}
 	}
 
 	void Set(const std::vector<CodePoint>& cps)

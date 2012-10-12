@@ -1688,7 +1688,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexBuffer}
 	 */
-	static void SetBuffer(
+	static void Buffer(
 		Target target,
 		PixelDataInternalFormat internal_format,
 		const BufferOps& buffer
@@ -1715,7 +1715,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexBufferRange}
 	 */
-	static void SetBufferRange(
+	static void BufferRange(
 		Target target,
 		PixelDataInternalFormat internal_format,
 		const BufferOps& buffer,

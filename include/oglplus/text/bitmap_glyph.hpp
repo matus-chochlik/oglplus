@@ -14,11 +14,15 @@
 
 #include <oglplus/config.hpp>
 
-#include <oglplus/text/bitmap_glyph/page_map.hpp>
 #include <oglplus/text/bitmap_glyph/layout_storage.hpp>
 #include <oglplus/text/bitmap_glyph/layout.hpp>
 #include <oglplus/text/bitmap_glyph/font.hpp>
 #include <oglplus/text/bitmap_glyph/renderer.hpp>
+
+#include <oglplus/auxiliary/filesystem.hpp>
+
+#include <oglplus/program.hpp>
+#include <oglplus/uniform.hpp>
 
 #include <vector>
 #include <cassert>
@@ -32,26 +36,37 @@ private:
 	// path to the directory where the font files are stored
 	std::string _font_dir;
 
-	friend const std::string& BitmapGlyphFontDirPath(
-		const BitmapGlyphRendering& that
+	friend std::string BitmapGlyphFontPagePath(
+		const BitmapGlyphRendering& that,
+		const std::string& font_name,
+		GLint font_page
 	)
 	{
-		return that._font_dir;
+		std::string dirsep = oglplus::aux::FilesysPathSep();
+		return that._font_dir+
+			dirsep+
+			font_name+
+			dirsep+
+			BitmapGlyphPageName(that, font_page);
 	}
 
-	// the list of texture units used by this instance
-	// of the rendering utility
-	std::vector<TextureUnitSelector> _tex_units;
+	TextureUnitSelector _bitmap_tex_unit;
+	TextureUnitSelector _metric_tex_unit;
+	TextureUnitSelector _pg_map_tex_unit;
 
-	friend unsigned BitmapGlyphTexUnits(const BitmapGlyphRendering& that)
+	const unsigned _page_frames;
+
+	// the number of frames (texture images) that are used to store
+	// active glyph pages for rendering
+	friend unsigned BitmapGlyphPageFrames(const BitmapGlyphRendering& that)
 	{
-		return that._tex_units.size();
+		return that._page_frames;
 	}
 
 
 	// the number of planes supported by this instance
 	// of the rendering utility
-	unsigned _plane_count;
+	const unsigned _plane_count;
 
 	friend unsigned BitmapGlyphPlaneCount(const BitmapGlyphRendering& that)
 	{
@@ -60,7 +75,7 @@ private:
 
 
 	// the number of font pages per a single plane
-	unsigned _pages_per_plane;
+	const unsigned _pages_per_plane;
 
 	friend unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRendering& that)
 	{
@@ -69,7 +84,7 @@ private:
 
 
 	// the number of glyphs per a single font page
-	unsigned _glyphs_per_page;
+	const unsigned _glyphs_per_page;
 
 	friend unsigned BitmapGlyphGlyphsPerPage(const BitmapGlyphRendering& that)
 	{
@@ -77,7 +92,7 @@ private:
 	}
 
 
-	// TODO:
+	// TODO: replace this with a vector of data objects
 	BitmapGlyphStaticLayoutStorage _static_layout_data;
 
 	friend void BitmapGlyphAllocateLayoutData(
@@ -91,11 +106,17 @@ private:
 	friend void BitmapGlyphInitializeLayoutData(
 		BitmapGlyphRendering& that,
 		BitmapGlyphLayoutData& layout_data,
+		BitmapGlyphFont& font,
 		const CodePoint* cps,
 		GLsizei length
 	)
 	{
-		that._static_layout_data.Initialize(layout_data, cps, length);
+		that._static_layout_data.Initialize(
+			layout_data,
+			font,
+			cps,
+			length
+		);
 	}
 
 	friend void BitmapGlyphDeallocateLayoutData(
@@ -108,29 +129,90 @@ private:
 public:
 	BitmapGlyphRendering(
 		const std::string& font_dir,
-		std::vector<TextureUnitSelector>&& tex_units,
+		TextureUnitSelector bitmap_tex_unit,
+		TextureUnitSelector metric_tex_unit,
+		TextureUnitSelector pg_map_tex_unit,
+		unsigned max_glyphs = 1024,
+		unsigned page_frames = 8,
 		unsigned planes = 3,
 		unsigned pages = 256,
 		unsigned cells = 256
 	): _font_dir(font_dir)
-	 , _tex_units(std::move(tex_units))
+	 , _bitmap_tex_unit(bitmap_tex_unit)
+	 , _metric_tex_unit(metric_tex_unit)
+	 , _pg_map_tex_unit(pg_map_tex_unit)
+	 , _page_frames(page_frames)
 	 , _plane_count(planes)
 	 , _pages_per_plane(pages)
 	 , _glyphs_per_page(cells)
-	 , _static_layout_data(*this, 1024)
+	 , _static_layout_data(*this, max_glyphs) //TODO
 	{ }
+
+	typedef BitmapGlyphRenderer Renderer;
+
+	Renderer GetRenderer(
+		const GeometryShader& layout_transform_shader,
+		const GeometryShader& glyph_transform_shader,
+		const FragmentShader& pixel_color_shader
+	)
+	{
+		return Renderer(
+			*this,
+			layout_transform_shader,
+			glyph_transform_shader,
+			pixel_color_shader
+		);
+	}
 
 	typedef BitmapGlyphFont Font;
 
+	Font LoadFont(
+		const std::string& font_name,
+		TextureUnitSelector bitmap_tex_unit,
+		TextureUnitSelector metric_tex_unit,
+		TextureUnitSelector pg_map_tex_unit,
+		GLsizei frames,
+		GLint page
+	)
+	{
+		return Font(
+			*this,
+			bitmap_tex_unit,
+			metric_tex_unit,
+			pg_map_tex_unit,
+			font_name,
+			frames,
+			page
+		);
+	}
+
 	Font LoadFont(const std::string& font_name)
 	{
-		return Font(*this, font_name);
+		return LoadFont(
+			font_name,
+			_bitmap_tex_unit,
+			_metric_tex_unit,
+			_pg_map_tex_unit,
+			BitmapGlyphPageFrames(*this),
+			0
+		);
 	}
 
 	typedef BitmapGlyphLayout Layout;
 
+	Layout MakeLayout(Font font, GLsizei max_len)
+	{
+		return Layout(*this, font, max_len);
+	}
+
 	Layout MakeLayout(Font font, const StrLit& lit)
 	{
+		std::vector<CodePoint> cps;
+		UTF8ToCodePoints(lit.c_str(), lit.size(), cps);
+
+		Layout layout(MakeLayout(font, cps.size()));
+		layout.Set(cps);
+		return std::move(layout);
 	}
 };
 

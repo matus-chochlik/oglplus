@@ -250,6 +250,7 @@ inline void ConvertUTF8ToCodePoints(
 	while(len)
 	{
 		*cpptr = ConvertUTF8ToCodePoint(str, len, cplen);
+		++cpptr;
 		assert(cplen > 0);
 		assert(len >= cplen);
 		len -= cplen;

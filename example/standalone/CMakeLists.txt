@@ -25,14 +25,6 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	include_directories(${GLEW_INCLUDE_DIRS})
 	include_directories(${GLUT_INCLUDE_DIRS})
 
-	if(PNG_FOUND)
-		include_directories(${PNG_INCLUDE_DIRS})
-		standalone_example_common(
-			000_text_rendering
-			${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARIES}
-		)
-	endif()
-
 	standalone_example_common(
 		001_triangle_glut_glew
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
@@ -81,6 +73,14 @@ if(GLUT_FOUND AND GLEW_FOUND)
 				${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 			)
 		endif()
+	endif()
+
+	if(PNG_FOUND)
+		include_directories(${PNG_INCLUDE_DIRS})
+		standalone_example_common(
+			004_bitmap_text_rendering
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARIES}
+		)
 	endif()
 
 	if(GLM_FOUND)

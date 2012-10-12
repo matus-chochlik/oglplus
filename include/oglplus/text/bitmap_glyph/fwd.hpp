@@ -25,7 +25,13 @@ class BitmapGlyphRendering;
 // Forward declaration of the renderer
 class BitmapGlyphRenderer;
 
-// Forward declaration of layout storage data
+// Forward declaration of the font
+class BitmapGlyphFont;
+
+// Forward declaration of layout storage
+class BitmapGlyphStaticLayoutStorage;
+
+// Forward declaration of layout data
 struct BitmapGlyphLayoutData;
 
 // Returns the number of glyphs per a font page
@@ -38,10 +44,11 @@ unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRendering&);
 // One plane consists of PagesPerPlane pages of GlyphsPerPage glyphs
 unsigned BitmapGlyphPlaneCount(const BitmapGlyphRendering&);
 
-// Returns the number of texture units used by the font rendering utility
-unsigned BitmapGlyphTexUnits(const BitmapGlyphRendering&);
-
-const std::string& BitmapGlyphFontDirPath(const BitmapGlyphRendering&);
+std::string BitmapGlyphFontPagePath(
+	const BitmapGlyphRendering& that,
+	const std::string& font_name,
+	GLint font_page
+);
 
 void BitmapGlyphAllocateLayoutData(
 	BitmapGlyphRendering& parent,
@@ -50,6 +57,7 @@ void BitmapGlyphAllocateLayoutData(
 void BitmapGlyphInitializeLayoutData(
 	BitmapGlyphRendering& parent,
 	BitmapGlyphLayoutData& layout_data,
+	BitmapGlyphFont& font,
 	const CodePoint* cps,
 	GLsizei length
 );
@@ -59,7 +67,7 @@ void BitmapGlyphDeallocateLayoutData(
 );
 
 // Returns the page of the font containing the glyph for the specified codepoint
-inline unsigned BitmapGlyphPageOfCP(
+inline GLint BitmapGlyphPageOfCP(
 	const BitmapGlyphRendering& parent,
 	CodePoint code_point
 )
@@ -69,7 +77,7 @@ inline unsigned BitmapGlyphPageOfCP(
 	return code_point / BitmapGlyphGlyphsPerPage(parent);
 }
 
-inline unsigned BitmapGlyphCellOfCP(
+inline GLint BitmapGlyphCellOfCP(
 	const BitmapGlyphRendering& parent,
 	CodePoint code_point
 )
@@ -89,7 +97,7 @@ inline std::string BitmapGlyphPageName(
 		'5','6','7','8','9',
 		'A','B','C','D','E','F'
 	};
-	unsigned page_head =
+	GLint page_head =
 		BitmapGlyphPageOfCP(parent, code_point)*
 		BitmapGlyphGlyphsPerPage(parent);
 	const char result[6] = {

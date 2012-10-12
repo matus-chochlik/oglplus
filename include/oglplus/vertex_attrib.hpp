@@ -904,15 +904,13 @@ public:
 		void* pointer = nullptr
 	) const
 	{
-		OGLPLUS_GLFUNC(VertexAttribPointer)(
-			_index,
+		Pointer(
 			values_per_vertex,
-			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
+			data_type,
+			normalized,
 			stride,
 			pointer
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 	}
 
 	/// Setup the properties of this vertex attribute array
@@ -927,16 +925,134 @@ public:
 		void* pointer = nullptr
 	) const
 	{
+		Pointer(
+			_get_values_per_vertex((T*)nullptr),
+			_get_data_type((T*)nullptr),
+			normalized,
+			stride,
+			pointer
+		);
+	}
+
+	/// Setup the properties of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribPointer}
+	 */
+	void Pointer(
+		GLint values_per_vertex,
+		DataType data_type,
+		bool normalized,
+		GLsizei stride,
+		void* pointer
+	) const
+	{
 		OGLPLUS_GLFUNC(VertexAttribPointer)(
 			_index,
-			_get_values_per_vertex((T*)nullptr),
-			GLenum(_get_data_type((T*)nullptr)),
+			values_per_vertex,
+			GLenum(data_type),
 			normalized ? GL_TRUE : GL_FALSE,
 			stride,
 			pointer
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 	}
+
+	/// Setup the properties of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribIPointer}
+	 *  @glfunref{VertexAttribLPointer}
+	 */
+	void Pointer(
+		GLint values_per_vertex,
+		DataType data_type,
+		GLsizei stride,
+		void* pointer
+	) const
+	{
+		if(data_type == DataType::Double)
+		{
+			OGLPLUS_GLFUNC(VertexAttribLPointer)(
+				_index,
+				values_per_vertex,
+				GLenum(data_type),
+				stride,
+				pointer
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLPointer));
+		}
+		else
+		{
+			OGLPLUS_GLFUNC(VertexAttribIPointer)(
+				_index,
+				values_per_vertex,
+				GLenum(data_type),
+				stride,
+				pointer
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIPointer));
+		}
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_vertex_attrib_binding
+	/// Setup the format of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribFormat}
+	 */
+	void Format(
+		GLint values_per_vertex,
+		DataType data_type,
+		bool normalized,
+		GLuint relative_offset
+	) const
+	{
+		OGLPLUS_GLFUNC(VertexAttribFormat)(
+			_index,
+			values_per_vertex,
+			GLenum(data_type),
+			normalized ? GL_TRUE : GL_FALSE,
+			relative_offset
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribFormat));
+	}
+
+	/// Setup the format of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribIFormat}
+	 *  @glfunref{VertexAttribLFormat}
+	 */
+	void Format(
+		GLint values_per_vertex,
+		DataType data_type,
+		GLuint relative_offset
+	) const
+	{
+		if(data_type == DataType::Double)
+		{
+			OGLPLUS_GLFUNC(VertexAttribLFormat)(
+				_index,
+				values_per_vertex,
+				GLenum(data_type),
+				relative_offset
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLFormat));
+		}
+		else
+		{
+			OGLPLUS_GLFUNC(VertexAttribIFormat)(
+				_index,
+				values_per_vertex,
+				GLenum(data_type),
+				relative_offset
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIFormat));
+		}
+	}
+#endif
+
 
 
 	/// Enables this vertex attribute array
