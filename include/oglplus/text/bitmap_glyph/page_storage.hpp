@@ -85,7 +85,7 @@ public:
 		);
 		Texture::MinFilter(
 			Texture::Target::_2DArray,
-			TextureMinFilter::Linear
+			TextureMinFilter::LinearMipmapLinear
 		);
 		Texture::MagFilter(
 			Texture::Target::_2DArray,
@@ -167,6 +167,7 @@ public:
 			image.Type(),
 			image.Data()
 		);
+		Texture::GenerateMipmap(Texture::Target::_2DArray);
 
 		// load the metric values
 		Texture::Active(_metric_tex_unit);

@@ -30,9 +30,11 @@ private:
 
 	TextRendering::Font sans;
 
-	TextRendering::Layout oglp_text;
-	TextRendering::Layout desc_text;
-	TextRendering::Layout time_text;
+	TextRendering::Layout oglp_layout;
+	TextRendering::Layout desc_layout;
+
+	TextRendering::Layout time_layout;
+	std::string time_str;
 
 	std::stringstream text_stream;
 
@@ -50,9 +52,9 @@ public:
 	 : gl()
 	 , tr((argc>1)?argv[1]:"./_font", 0, 1, 2)
 	 , sans(tr.LoadFont((argc>2)?argv[2]:"Sans"))
-	 , oglp_text(tr.MakeLayout(sans, oglplus::StrLit("OGLplus")))
-	 , desc_text(tr.MakeLayout(sans, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
-	 , time_text(tr.MakeLayout(sans, 25))
+	 , oglp_layout(tr.MakeLayout(sans, oglplus::StrLit("OGLplus")))
+	 , desc_layout(tr.MakeLayout(sans, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
+	 , time_layout(tr.MakeLayout(sans, 25))
 	 , rndr(tr.GetRenderer(
 			oglplus::GeometryShader(
 				oglplus::ObjectDesc("Layout transform"),
@@ -135,7 +137,11 @@ public:
 
 		text_stream.str(std::string());
 		text_stream << "Time: " << std::setprecision(4) << t << " [s]";
-		time_text.Set(text_stream.str());
+		if(time_str != text_stream.str())
+		{
+			time_str = text_stream.str();
+			time_layout.Set(time_str);
+		}
 
 		rndr_camera_matrix.Set(
 			CamMatrixf::Orbiting(
@@ -147,16 +153,16 @@ public:
 		);
 
 		rndr_layout_matrix.Set(ModelMatrixf::Translation(-3.0f, 0.7f, 0.1f));
-		rndr.Render(oglp_text);
+		rndr.Render(oglp_layout);
 
 		rndr_layout_matrix.Set(ModelMatrixf::Translation(-8.0f,-0.7f, 0.0f));
-		rndr.Render(desc_text);
+		rndr.Render(desc_layout);
 
 		rndr_layout_matrix.Set(
 			ModelMatrixf::Translation(-4.0f,-2.0f, 0.0f)*
 			ModelMatrixf::Scale(0.7f, 0.7f, 0.5f)
 		);
-		rndr.Render(time_text);
+		rndr.Render(time_layout);
 	}
 };
 
