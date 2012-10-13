@@ -122,6 +122,7 @@ public:
 			"	vertXOffset = XOffset;"
 			"}"
 		));
+		vs.Compile();
 		_program.AttachShader(vs);
 
 		_program.AttachShader(layout_transform_shader);
@@ -192,6 +193,7 @@ public:
 			"       EndPrimitive();"
 			"}"
 		));
+		gs.Compile();
 		_program.AttachShader(gs);
 
 		_program.AttachShader(pixel_color_shader);
@@ -213,6 +215,7 @@ public:
 			"}"
 
 		));
+		fs.Compile();
 		_program.AttachShader(fs);
 
 		_program.Link();
