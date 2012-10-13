@@ -22,7 +22,7 @@ namespace oglplus {
 	static inline std::decay< \
 		decltype( :: gl ## PREFIX ## NPARAM ## SUFFIX ) \
 	>::type _fns_ ## SELECTOR( \
-		std::integral_constant<size_t, NPARAM>, \
+		std::integral_constant<std::size_t, NPARAM>, \
 		const TYPE*, ... \
 	) \
 	{ \
@@ -42,8 +42,8 @@ namespace oglplus {
 	static inline std::decay< \
 		decltype( :: gl ## PREFIX ## CxR ## SUFFIX ) \
 	>::type _fns_ ## SELECTOR( \
-		std::integral_constant<size_t, C>, \
-		std::integral_constant<size_t, R>, \
+		std::integral_constant<std::size_t, C>, \
+		std::integral_constant<std::size_t, R>, \
 		const TYPE*, ... \
 	) \
 	{ \
