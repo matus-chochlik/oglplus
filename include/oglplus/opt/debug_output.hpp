@@ -185,14 +185,14 @@ public:
 		 , _prev_context(nullptr)
 		{
 			// get the previous callback
-			void* _tmp_ptr = nullptr;
+			GLDEBUGPROC _tmp_callback = nullptr;
+			void** _tmp_ptr=reinterpret_cast<void**>(&_tmp_callback);
 			OGLPLUS_GLFUNC(GetPointerv)(
 				GL_DEBUG_CALLBACK_FUNCTION,
-				&_tmp_ptr
+				_tmp_ptr
 			);
 			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPointerv));
-			// TODO: this might be a problem
-			_prev_callback = reinterpret_cast<GLDEBUGPROC>(_tmp_ptr);
+			_prev_callback = _tmp_callback;
 
 			//get the previous context
 			OGLPLUS_GLFUNC(GetPointerv)(
