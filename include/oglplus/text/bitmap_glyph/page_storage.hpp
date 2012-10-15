@@ -138,7 +138,7 @@ public:
 		return _metric_tex_unit;
 	}
 
-	void Bind(void)
+	void Bind(void) const
 	{
 		Texture::Active(_bitmap_tex_unit);
 		_bitmap_storage.Bind(Texture::Target::_2DArray);
@@ -174,10 +174,8 @@ public:
 		Texture::SubImage2D(
 			Texture::Target::Rectangle,
 			0,
-			0,
-			frame*_glyphs_per_page*_vects_per_glyph,
-			_glyphs_per_page*_vects_per_glyph,
-			1,
+			0, frame,
+			_glyphs_per_page*_vects_per_glyph, 1,
 			PixelDataFormat::RGBA,
 			PixelDataType::Float,
 			metrics.data()

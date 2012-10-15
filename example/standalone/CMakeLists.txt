@@ -78,6 +78,11 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	if(PNG_FOUND)
 		include_directories(${PNG_INCLUDE_DIRS})
 		standalone_example_common(
+			004_bitmap_text_hello
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARIES}
+		)
+		include_directories(${PNG_INCLUDE_DIRS})
+		standalone_example_common(
 			004_bitmap_text_rendering
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARIES}
 		)

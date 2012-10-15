@@ -28,35 +28,28 @@ private:
 
 	Program _program;
 
-	LazyProgramUniform<Mat4f>
-		_projection_matrix,
-		_camera_matrix,
-		_layout_matrix;
-
 	LazyProgramUniformSampler
 		_bitmap_sampler,
 		_metric_sampler,
 		_pg_map_sampler;
+
+	LazyProgramUniform<GLfloat> _layout_width;
+	bool _layout_width_active;
 
 	const BitmapGlyphFontEssence* _prev_font_essence;
 	void _use_font(const BitmapGlyphFontEssence& essence)
 	{
 		if(_prev_font_essence != &essence)
 		{
-			_bitmap_sampler.Set(GLint(
-				essence._page_storage.BitmapSampler()
-			));
-			_metric_sampler.Set(GLint(
-				essence._page_storage.MetricSampler()
-			));
-			_pg_map_sampler.Set(GLint(
-				essence._pager.PageMapSampler()
-			));
+			essence.Use();
+			_bitmap_sampler.Set(GLint(essence.BitmapSampler()));
+			_metric_sampler.Set(GLint(essence.MetricSampler()));
+			_pg_map_sampler.Set(GLint(essence.PageMapSampler()));
 			_prev_font_essence = &essence;
 		}
 	}
 
-	const BitmapGlyphStaticLayoutStorage* _prev_layout_storage;
+	const BitmapGlyphLayoutStorage* _prev_layout_storage;
 	void _use_layout(const BitmapGlyphLayoutData& layout_data)
 	{
 		if(_prev_layout_storage != layout_data._storage)
@@ -75,12 +68,11 @@ public:
 		const FragmentShader& pixel_color_shader
 	): _parent(parent)
 	 , _program(ObjectDesc("BitmapGlyphRenderer"))
-	 , _projection_matrix(_program, "ProjectionMatrix")
-	 , _camera_matrix(_program, "CameraMatrix")
-	 , _layout_matrix(_program, "LayoutMatrix")
-	 , _bitmap_sampler(_program, "Bitmap")
-	 , _metric_sampler(_program, "Metric")
-	 , _pg_map_sampler(_program, "PageMap")
+	 , _bitmap_sampler(_program, "oglpBitmap")
+	 , _metric_sampler(_program, "oglpMetric")
+	 , _pg_map_sampler(_program, "oglpPageMap")
+	 , _layout_width(_program, "oglpLayoutWidth")
+	 , _layout_width_active(false)
 	 , _prev_font_essence(nullptr)
 	 , _prev_layout_storage(nullptr)
 	{
@@ -90,8 +82,8 @@ public:
 
 			"uniform uint GlyphsPerPage;"
 
-			"uniform sampler2DRect Metric;"
-			"uniform isamplerBuffer PageMap;"
+			"uniform sampler2DRect oglpMetric;"
+			"uniform usamplerBuffer oglpPageMap;"
 
 			"layout (location = 0) in uint CodePoint;"
 			"layout (location = 1) in float XOffset;"
@@ -100,26 +92,28 @@ public:
 			"out vec4 vertInkData;"
 			"out vec4 vertTexData;"
 			"out float vertXOffset;"
+			"out float vertFrame;"
 
 			"void main(void)"
 			"{"
 			"	int goffs = int(CodePoint % GlyphsPerPage)*3;"
 			"	int page =  int(CodePoint / GlyphsPerPage);"
-			"	int frame = texelFetch(PageMap, page).r;"
+			"	int frame = int(texelFetch(oglpPageMap,page).r);"
 
 			"	vertLogData = texelFetch("
-			"		Metric,"
+			"		oglpMetric,"
 			"		ivec2(goffs+0, frame)"
 			"	);"
 			"	vertInkData = texelFetch("
-			"		Metric,"
+			"		oglpMetric,"
 			"		ivec2(goffs+1, frame)"
 			"	);"
 			"	vertTexData = texelFetch("
-			"		Metric,"
+			"		oglpMetric,"
 			"		ivec2(goffs+2, frame)"
 			"	);"
 			"	vertXOffset = XOffset;"
+			"	vertFrame = float(frame);"
 			"}"
 		));
 		vs.Compile();
@@ -135,8 +129,11 @@ public:
 			"layout (triangle_strip, max_vertices = 6) out;"
 
 			"vec3 TransformGlyph("
+			"	vec4 LogMetrics,"
+			"	vec4 InkMetrics,"
 			"	vec2 Position,"
 			"	float XOffset,"
+			"	float LayoutWidth,"
 			"	int Index"
 			");"
 
@@ -146,18 +143,24 @@ public:
 			"in vec4 vertInkData[1];"
 			"in vec4 vertTexData[1];"
 			"in float vertXOffset[1];"
+			"in float vertFrame[1];"
 
 			"out vec3 geomTexCoord;"
+
+			"uniform float oglpLayoutWidth;"
 
 			"void make_vertex(vec2 Position, vec2 TexCoord)"
 			"{"
 			"	vec3 GlyphPosition = TransformGlyph("
+			"		vertLogData[0],"
+			"		vertInkData[0],"
 			"		Position,"
-			"		float(vertXOffset[0]),"
+			"		vertXOffset[0],"
+			"		oglpLayoutWidth,"
 			"		int(gl_PrimitiveIDIn)"
 			"	);"
 			"	gl_Position = TransformLayout(GlyphPosition);"
-			"	geomTexCoord = vec3(TexCoord, 0.0);"
+			"	geomTexCoord = vec3(TexCoord, vertFrame[0]);"
 			"	EmitVertex();"
 			"}"
 
@@ -201,7 +204,7 @@ public:
 		FragmentShader fs(ObjectDesc("BitmapGlyphRenderer - Fragment"));
 		fs.Source(StrLit(
 			"#version 330\n"
-			"uniform sampler2DArray Bitmap;"
+			"uniform sampler2DArray oglpBitmap;"
 
 			"in vec3 geomTexCoord;"
 
@@ -211,7 +214,10 @@ public:
 
 			"void main(void)"
 			"{"
-			"       fragColor = PixelColor(texture(Bitmap, geomTexCoord));"
+			"       fragColor = PixelColor(texture("
+			"		oglpBitmap,"
+			"		geomTexCoord"
+			"	));"
 			"}"
 
 		));
@@ -222,6 +228,7 @@ public:
 		ProgramUniform<GLuint>(_program, "GlyphsPerPage").Set(
 			BitmapGlyphGlyphsPerPage(_parent)
 		);
+		_layout_width_active = _layout_width.IsActive();
 	}
 
 	void Use(void)
@@ -250,6 +257,10 @@ public:
 			layout._pages.size()
 		);
 
+		// set the Layout Width uniform value if necessary
+		if(_layout_width_active)
+			_layout_width.Set(layout._data._width);
+
 		// draw the glyphs
 		Context gl;
 		gl.DrawArrays(
@@ -257,6 +268,107 @@ public:
 			layout._data._offset,
 			layout._data._length
 		);
+	}
+};
+
+enum class BitmapGlyphAlignment
+{
+	Left,
+	Center,
+	Right
+};
+
+class BitmapGlyphDefaultRenderer
+ : public BitmapGlyphRenderer
+{
+private:
+	ProgramUniform<Mat4f>
+		_projection_matrix,
+		_camera_matrix,
+		_layout_matrix;
+
+	ProgramUniform<GLfloat>
+		_align_coef;
+
+	BitmapGlyphRenderer& self(void){ return *this; }
+public:
+	BitmapGlyphDefaultRenderer(
+		BitmapGlyphRendering& parent,
+		const FragmentShader& pixel_color_shader
+	): BitmapGlyphRenderer(
+		parent,
+		GeometryShader(
+			ObjectDesc("BitmapGlyphRenderer - Layout transform"),
+			StrLit("#version 330\n"
+			"uniform mat4 "
+			"	oglpProjectionMatrix,"
+			"	oglpCameraMatrix,"
+			"	oglpLayoutMatrix;"
+			"mat4 Matrix = "
+			"	oglpProjectionMatrix*"
+			"	oglpCameraMatrix*"
+			"	oglpLayoutMatrix;"
+
+			"vec4 TransformLayout(vec3 GlyphPosition)"
+			"{"
+			"	return Matrix * vec4(GlyphPosition, 1.0);"
+			"}")
+		),
+		GeometryShader(
+			ObjectDesc("BitmapGlyphRenderer - Glyph transform"),
+			StrLit("#version 330\n"
+			"uniform float oglpAlignCoef;"
+
+			"vec3 TransformGlyph("
+			"	vec4 LogMetrics,"
+			"	vec4 InkMetrics,"
+			"	vec2 Pos,"
+			"	float XOffs,"
+			"	float LayoutWidth,"
+			"	int Idx"
+			")"
+			"{"
+			"	return vec3("
+			"		Pos.x+XOffs-LayoutWidth*oglpAlignCoef,"
+			"		Pos.y,"
+			"		0.0"
+			"	);"
+			"}")
+		),
+		pixel_color_shader
+	), _projection_matrix(self().GetUniform<Mat4f>("oglpProjectionMatrix"))
+	 , _camera_matrix(self().GetUniform<Mat4f>("oglpCameraMatrix"))
+	 , _layout_matrix(self().GetUniform<Mat4f>("oglpLayoutMatrix"))
+	 , _align_coef(self().GetUniform<GLfloat>("oglpAlignCoef"))
+	{
+		_projection_matrix.Set(Mat4f());
+		_camera_matrix.Set(Mat4f());
+		_layout_matrix.Set(Mat4f());
+	}
+
+	void SetProjection(const Mat4f& projection_matrix)
+	{
+		_projection_matrix.Set(projection_matrix);
+	}
+
+	void SetCamera(const Mat4f& camera_matrix)
+	{
+		_camera_matrix.Set(camera_matrix);
+	}
+
+	void SetLayoutTransform(const Mat4f& layout_matrix)
+	{
+		_layout_matrix.Set(layout_matrix);
+	}
+
+	void SetAlignment(BitmapGlyphAlignment alignment)
+	{
+		if(alignment == BitmapGlyphAlignment::Left)
+			_align_coef.Set(0.0f);
+		else if(alignment == BitmapGlyphAlignment::Center)
+			_align_coef.Set(0.5f);
+		else if(alignment == BitmapGlyphAlignment::Right)
+			_align_coef.Set(1.0f);
 	}
 };
 

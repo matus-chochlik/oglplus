@@ -153,8 +153,6 @@ public:
 	 , _ages(frame_count, _zero_age())
 	 , _pg_map_tex_unit(pg_map_tex_unit)
 	{
-		assert(frame_count < (1 << sizeof(gpu_frame_t)*8));
-
 		_gpu_page_map.Bind(Buffer::Target::Uniform);
 		std::vector<gpu_frame_t> data(
 			BitmapGlyphPlaneCount(_parent)*
@@ -163,6 +161,7 @@ public:
 		);
 		Buffer::Data(Buffer::Target::Uniform, data);
 
+		Texture::Active(_pg_map_tex_unit);
 		_page_map_tex.Bind(Texture::Target::Buffer);
 		Texture::Buffer(
 			Texture::Target::Buffer,
@@ -171,6 +170,12 @@ public:
 		);
 
 		assert(_is_ok());
+	}
+
+	void Bind(void) const
+	{
+		Texture::Active(_pg_map_tex_unit);
+		_page_map_tex.Bind(Texture::Target::Buffer);
 	}
 
 	std::size_t FrameCount(void) const
@@ -246,7 +251,7 @@ public:
 
 	// Swaps the specified page into a frame
 	// Use only if the page is not already swapped in
-	void SwapPageIn(GLint page, GLint frame)
+	void SwapPageIn(GLint frame, GLint page)
 	{
 		assert(_is_ok());
 		_replace_page(frame, page);

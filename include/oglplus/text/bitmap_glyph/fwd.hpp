@@ -29,7 +29,7 @@ class BitmapGlyphRenderer;
 class BitmapGlyphFont;
 
 // Forward declaration of layout storage
-class BitmapGlyphStaticLayoutStorage;
+class BitmapGlyphLayoutStorage;
 
 // Forward declaration of layout data
 struct BitmapGlyphLayoutData;
@@ -89,7 +89,7 @@ inline GLint BitmapGlyphCellOfCP(
 
 inline std::string BitmapGlyphPageName(
 	const BitmapGlyphRendering& parent,
-	CodePoint code_point
+	GLint page
 )
 {
 	const char hexdigit[16] = {
@@ -97,9 +97,7 @@ inline std::string BitmapGlyphPageName(
 		'5','6','7','8','9',
 		'A','B','C','D','E','F'
 	};
-	GLint page_head =
-		BitmapGlyphPageOfCP(parent, code_point)*
-		BitmapGlyphGlyphsPerPage(parent);
+	GLint page_head = page*BitmapGlyphGlyphsPerPage(parent);
 	const char result[6] = {
 		hexdigit[(page_head >> 20) & 0x0F],
 		hexdigit[(page_head >> 16) & 0x0F],

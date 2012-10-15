@@ -26,8 +26,6 @@ namespace text {
 class BitmapGlyphFontEssence
 {
 private:
-	friend class BitmapGlyphRenderer;
-
 	BitmapGlyphRendering& _parent;
 	const std::string _font_name;
 
@@ -43,21 +41,21 @@ private:
 
 	inline std::string _page_metric_path(GLint page)
 	{
-		return BitmapGlyphFontPagePath(_parent,_font_name,page)+".bfm";
+		return BitmapGlyphFontPagePath(_parent,_font_name,page)+".bgm";
 	}
 
 	static void _check_input(std::istream& input)
 	{
 		assert(!input.fail());
 		if(input.eof())
-			throw std::runtime_error("Unexpected EOF in .bfm file");
+			throw std::runtime_error("Unexpected EOF in .bgm file");
 		if(input.bad())
-			throw std::runtime_error("Error reading .bfm file");
+			throw std::runtime_error("Error reading .bgm file");
 	}
 
 	static void _unexpected_char(char)
 	{
-		throw std::runtime_error("Unexpected character in .bfm file");
+		throw std::runtime_error("Unexpected character in .bgm file");
 	}
 
 	static void _load_single_glyph(
@@ -207,19 +205,40 @@ public:
 		_pager.SwapPageIn(_initial_frame, default_page);
 	}
 
+	void Use(void) const
+	{
+		_pager.Bind();
+		_page_storage.Bind();
+	}
+
+	TextureUnitSelector BitmapSampler(void) const
+	{
+		return _page_storage.BitmapSampler();
+	}
+
+	TextureUnitSelector MetricSampler(void) const
+	{
+		return _page_storage.MetricSampler();
+	}
+
+	TextureUnitSelector PageMapSampler(void) const
+	{
+		return _pager.PageMapSampler();
+	}
+
 	void LoadPages(const GLint* pages, GLsizei size)
 	{
 		assert(size < GLsizei(_pager.FrameCount()));
 		_do_load_pages(_page_to_page(), pages, size);
 	}
 
-	void QueryXOffsets(
+	GLfloat QueryXOffsets(
 		const CodePoint* cps,
 		GLsizei size,
 		std::vector<GLfloat>& x_offsets
 	) const
 	{
-		if(size <= 0) return;
+		if(size <= 0) return 0.0f;
 		x_offsets.resize(size);
 
 		GLsizei i = 0;
@@ -239,8 +258,8 @@ public:
 			cell = BitmapGlyphCellOfCP(_parent, cps[i]);
 			frame = _pager.FrameOfPage(page);
 			assert(frame >= 0);
-
 		}
+		return sum + _page_storage.GetGlyphWidth(frame, cell);
 	}
 };
 
@@ -250,6 +269,7 @@ private:
 	std::shared_ptr<BitmapGlyphFontEssence> _essence;
 
 	friend class BitmapGlyphRenderer;
+	friend class BitmapGlyphLayout;
 public:
 	BitmapGlyphFont(
 		BitmapGlyphRendering& parent,
@@ -270,13 +290,13 @@ public:
 	))
 	{ }
 
-	void QueryXOffsets(
+	GLfloat QueryXOffsets(
 		const CodePoint* cps,
 		GLsizei size,
 		std::vector<GLfloat>& x_offsets
 	) const
 	{
-		_essence->QueryXOffsets(cps, size, x_offsets);
+		return _essence->QueryXOffsets(cps, size, x_offsets);
 	}
 };
 

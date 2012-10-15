@@ -1091,6 +1091,27 @@ public:
 	}
 
 	/// Constructs a translation matrix
+	static inline ModelMatrix TranslationX(T dx)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		return ModelMatrix(_Translation(), dx, T(0), T(0));
+	}
+
+	/// Constructs a translation matrix
+	static inline ModelMatrix TranslationY(T dy)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		return ModelMatrix(_Translation(), T(0), dy, T(0));
+	}
+
+	/// Constructs a translation matrix
+	static inline ModelMatrix TranslationZ(T dz)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		return ModelMatrix(_Translation(), T(0), T(0), dz);
+	}
+
+	/// Constructs a translation matrix
 	static inline ModelMatrix Translation(const Vector<T, 3>& dp)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{

@@ -28,7 +28,7 @@ private:
 
 	TextRendering tr;
 
-	TextRendering::Font sans;
+	TextRendering::Font font;
 
 	TextRendering::Layout oglp_layout;
 	TextRendering::Layout desc_layout;
@@ -38,7 +38,7 @@ private:
 
 	std::stringstream text_stream;
 
-	TextRendering::Renderer rndr;
+	TextRendering::CustomRenderer rndr;
 
 	oglplus::ProgramUniform<oglplus::Mat4f>
 		rndr_projection_matrix,
@@ -51,10 +51,10 @@ public:
 	BitmapGlyphExample(int argc, const char** argv)
 	 : gl()
 	 , tr((argc>1)?argv[1]:"./_font", 0, 1, 2)
-	 , sans(tr.LoadFont((argc>2)?argv[2]:"Sans"))
-	 , oglp_layout(tr.MakeLayout(sans, oglplus::StrLit("OGLplus")))
-	 , desc_layout(tr.MakeLayout(sans, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
-	 , time_layout(tr.MakeLayout(sans, 25))
+	 , font(tr.LoadFont((argc>2)?argv[2]:"Sans"))
+	 , oglp_layout(tr.MakeLayout(font, oglplus::StrLit("OGLplus")))
+	 , desc_layout(tr.MakeLayout(font, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
+	 , time_layout(tr.MakeLayout(font, 25))
 	 , rndr(tr.GetRenderer(
 			oglplus::GeometryShader(
 				oglplus::ObjectDesc("Layout transform"),
@@ -72,7 +72,14 @@ public:
 				oglplus::StrLit("#version 330\n"
 				"uniform float Time;"
 
-				"vec3 TransformGlyph(vec2 Pos, float XOffs, int Idx)"
+				"vec3 TransformGlyph("
+				"	vec4 LM,"
+				"	vec4 IM,"
+				"	vec2 Pos,"
+				"	float XOffs,"
+				"	float LW,"
+				"	int Idx"
+				")"
 				"{"
 				"	float a = Idx*0.7+Time*2.4;"
 				"	return vec3("
@@ -169,7 +176,7 @@ public:
 int main(int argc, char* argv[])
 {
 	return oglplus::GlutGlewMain<BitmapGlyphExample>(
-		"Example of usage of OGLplus' font rendering",
+		"Example of usage of OGLplus' bitmap glyph text rendering",
 		argc, argv
 	);
 }
