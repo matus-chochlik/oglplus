@@ -18,6 +18,13 @@
 namespace oglplus {
 
 /** @defgroup text_rendering Text rendering
+ *
+ *  OGLplus implements a set of utilities for simple text rendering.
+ *
+ *  @note The text rendering utilities are still work-in-progress
+ *  and there are several limitations, for example, some special scripts
+ *  like arabic may be rendered properly, combining characters are not
+ *  supported, etc.
  */
 
 /// Namespace containing text rendering utilities
@@ -58,52 +65,295 @@ public:
 	GLfloat Height(void) const {return Top() - Bottom(); }
 };
 
+/// Enumeration specifying the horizonal alignment when rendering layouts
+/**
+ *  @ingroup text_rendering
+ */
+enum class Alignment
+{
+	/// Glyphs are placed to the right of the layout origin
+	Left,
+	/// Glyphs are placed to the both sided of the layout origin
+	Center,
+	/// Glyphs are placed to the left of the layout origin
+	Right
+};
+
+/// Enumeration specifying the writing direction when rendering layouts
+/**
+ *  @ingroup text_rendering
+ */
+enum class Direction
+{
+	/// Left-to-right writing direction
+	LeftToRight,
+	/// Right-to-left writing direction
+	RightToLeft
+	// TODO TopDown?
+};
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 
 // TODO: docs
 
-class Font
+/// Represents a font in a particular text rendering utility
+/** @note There is no real class called UnspecifiedFont,
+ *  it is here for documentation purporses only. Concrete
+ *  implementations of text RenderingUtility have their own
+ *  font classes. The exact type of these can be obtained
+ *  from the @c Font typedef in the particular @c RenderingUtility.
+ *  Concrete implementations of font may have additional
+ *  members.
+ *
+ *  Font encapsulates the data describing individual glyphs.
+ *  Depending on the implementation, the glyphs may be stored
+ *  as bitmaps in a texture or in a polygonal representation, etc.
+ *
+ *  Instances of font are constructed by their parent RenderingUtility.
+ *
+ *  All implementations of fonts use the following convention
+ *  regarding the size and scaling of the glyphs:
+ *  In any font the distance (in OpenGL units) between the font's
+ *  ascender and descender is one - this means that the logical
+ *  height of the glyphs in the font is one unit. The logical width
+ *  of the glyphs is proportional to the height. To scale the glyphs
+ *  during rendering the renderer should be set-up accordingly.
+ *  This means that all fonts have the same scale, but (based on the
+ *  implementation) they can have different resolutions. For example
+ *  in bitmap-based fonts, the resolution is determined by the reslution
+ *  of the bitmap storing the glyphs. In polygonal representation
+ *  the resolution is determined by the "coarseness" of the mesh.
+ *
+ *  @see RenderingUtility
+ *
+ *  @ingroup text_rendering
+ */
+class UnspecifiedFont
 {
 public:
-	GLfloat PixelsPerUnit(void) const;
-	void Preload(CodePoint code_point);
-	void Preload(const char* str);
+	/// Returns the logical metrics for the specified glyph
+	Rectangle GlyphLogicalMetrics(CodePoint code_point);
 };
 
-class Layout
+
+/// Represents a text layout in a particular text rendering utility
+/** @note There is no real class called UnspecifiedLayout,
+ *  it is here for documentation purporses only. Concrete
+ *  implementations of text RenderingUtility have their own
+ *  layout classes. The exact type of these can be obtained
+ *  from the @c Layout typedef in the particular @c RenderingUtility.
+ *  Concrete implementations of layouts may have additional
+ *  members.
+ *
+ *  Layouts encapsulate the data describing the layout of the glyphs
+ *  in a single line of text. Layouts can be rendered by a renderer
+ *  provided by the same implementation of text RenderingUtility.
+ *
+ *  Instances of layout are constructed by their parent RenderingUtility.
+ *
+ *  @see RenderingUtility
+ *
+ *  @ingroup text_rendering
+ */
+class UnspecifiedLayout
 {
 public:
-	Rectangle LogicalMetrics(void);
+	/// The maximum number of glyphs that can be stored in the layout
+	/** Layouts have a maximum capacity, that is determined at the time
+	 *  of construction. The number of code-points that are set via
+	 *  the @c Set member function must not be greater than the capacity.
+	 *
+	 *  @see Set
+	 */
+	GLsizei Capacity(void) const;
+
+	/// The width of the layout in font size units
+	GLfloat Width(void) const;
+
+	/// Sets a new text to be layed-out
+	/** This function lays-out a new sequence of glyphs representing
+	 *  the text specified by the @c code_points argument.
+	 *  The previous glyph layout (if any) is discarded.
+	 *
+	 *  The @c length must not be greater that the value returned
+	 *  by @c Capacity.
+	 *
+	 *  @see Capacity
+	 */
+	void Set(const CodePoint* code_points, const GLsizei length)
+
+	/// Sets a new text to be layed-out
+	/** This function lays-out a new sequence of glyphs representing
+	 *  the text specified by the @c string_literal argument.
+	 *  The previous glyph layout (if any) is discarded.
+	 *
+	 *  The @c string_literal must be encoded in (normalized) UTF-8.
+	 *  The number of code points after the conversion to UTF-32 must not
+	 *  exceed the value returned by @c Capacity.
+	 *
+	 *  @see Capacity
+	 */
+	void Set(StrLit string_literal);
+
+	/// Sets a new text to be layed-out
+	/** This function lays-out a new sequence of glyphs representing
+	 *  the text specified by the @c string argument.
+	 *  The previous glyph layout (if any) is discarded.
+	 *
+	 *  The @c string must be encoded in (normalized) UTF-8.
+	 *  The number of code points after the conversion to UTF-32 must not
+	 *  exceed the value returned by @c Capacity.
+	 *
+	 *  @see Capacity
+	 */
+	void Set(String string);
 };
 
-class LayoutTransform
+
+/// Can be used to render text layouts from the same text RenderingUtility
+/** @note There is no real class called UnspecifiedRenderer,
+ *  it is here for documentation purporses only. Concrete
+ *  implementations of text RenderingUtility have their own
+ *  renderer classes. The exact type of these can be obtained
+ *  from the @c Renderer typedef in the particular @c RenderingUtility.
+ *  Concrete implementations of layouts may have additional
+ *  members.
+ *
+ *  Renderers are used to draw transformed text layouts in 3D space.
+ *  Default renderers allow to set separate projection, camera and
+ *  whole-layout transformation matrices and layout horizontal alignment.
+ *
+ *  During rendering the alignment (left, center, right) is first applied
+ *  and then every vertex in the layout is transformed according to:
+ *  @code
+ *  vec4 ScreenPos =
+ *      ProjectionMatrix*
+ *      CameraMatrix*
+ *      LayoutTransformMatrix*
+ *      vec4(AlignedPosition, 0.0, 1.0);
+ *  @endcode
+ *
+ *  Instances of renderers are constructed by their parent RenderingUtility.
+ *
+ *  @see RenderingUtility
+ *
+ *  @ingroup text_rendering
+ */
+class UnspecifiedRenderer
 {
 public:
+	/// Sets the projection matrix
+	/** The new matrix applies to subsequent rendering operations.
+	 *
+	 *  @see Render()
+	 *  @see SetCamera()
+	 *  @see SetLayoutTransform()
+	 *  @see SetAlignment()
+	 *  @see SetDirection()
+	 */
+	void SetProjection(const Mat4f& projection_matrix);
+
+	/// Sets the camera matrix
+	/** The new matrix applies to subsequent rendering operations.
+	 *
+	 *  @see Render()
+	 *  @see SetProjection()
+	 *  @see SetLayoutTransform()
+	 *  @see SetAlignment()
+	 *  @see SetDirection()
+	 */
+	void SetCamera(const Mat4f& camera_matrix);
+
+	/// Sets the layout transformation matrix
+	/** The new matrix applies to subsequent rendering operations.
+	 *
+	 *  @see Render()
+	 *  @see SetProjection()
+	 *  @see SetCamera()
+	 *  @see SetAlignment()
+	 *  @see SetDirection()
+	 */
+	void SetLayoutTransform(const Mat4f& layout_matrix);
+
+	/// Sets the layout horizontal alignment
+	/** The new alignment applies to subsequent rendering operations.
+	 *
+	 *  @see Render()
+	 *  @see SetProjection()
+	 *  @see SetCamera()
+	 *  @see SetLayoutTransform()
+	 *  @see SetDirection()
+	 */
+	void SetAlignment(Alignment alignment);
+
+	/// Sets the writing direction
+	/** The new direction applies to subsequent rendering operations.
+	 *
+	 *  @see Render()
+	 *  @see SetProjection()
+	 *  @see SetCamera()
+	 *  @see SetLayoutTransform()
+	 *  @see SetAlignment()
+	 */
+	void SetDirection(Direction direction);
+
+	/// Transforms and renders the specified @p layout
+	/** The currently set alignment and matrices are used
+	 *  to transform the layout to screen space.
+	 */
+	void Render(Layout layout);
 };
 
-class GlyphTransform
+/// Represents an implementation of a text rendering utility
+/** @note There is no real RenderingUtility class, it is here
+ *  for documentation purporses only.
+ *  Concrete implementations of rendering utilities may have additional
+ *  members and may support additional specific functionality.
+ */
+class RenderingUtility
 {
 public:
-};
+	/// The concrete font type of the text rendering utility
+	typedef UnspecifiedFont Font;
 
-class Renderer
-{
-public:
-	void Render(
-		const Layout& layout,
-		LayoutTransform layout_transform,
-		GlyphTransform glyph_transform
-	);
-};
-
-class Rendering
-{
-public:
+	/// Loads a font with the specified name
+	/** Font loading is a potentially time-consuming operation. Programs
+	 *  should load the required fonts once and re-use them, if possible
+	 *  for optimal performance.
+	 */
 	Font LoadFont(const char* font_name);
 
-	Renderer MakeRenderer(void);
+	/// The concrete layout type of the text rendering utility
+	typedef UnspecifiedLayout Layout;
 
-	Layout MakeLayout(const char* str);
+	/// Makes a new layout object using the @p font with specified @p capacity
+	/** Layout construction is a potentially time-consuming operation.
+	 *  Programs should request layouts with sufficient capacity and try
+	 *  to reuse them, if possible for optimal performance.
+	 */
+	Layout MakeLayout(Font font, GLsizei capacity);
+
+	/// The concrete renderer type of the text rendering utility
+	typedef UnspecifiedRenderer Renderer;
+
+	/// Returns a new default renderer
+	/** The renderer uses a custom fragment shader that should
+	 *  implement a function with the following signature:
+	 *  @code
+	 *  vec4 PixelColor(vec4 Color);
+	 *  @endcode
+	 *  This shader can be used to change the color and alpha
+	 *  components of the final fragment color on the rendered
+	 *  glyphs. The @c Color value passed to this function depends
+	 *  on the concrete implementation. For bitmap-based rendering
+	 *  utilities it is for example the sampled value from the font
+	 *  texture.
+	 *
+	 *  Renderer construction is a potentially time-consuming operation.
+	 *  Programs should get a renderer once and re-use it, if possible
+	 *  for optimal performance.
+	 */
+	Renderer GetRenderer(const FragmentShader& fragment_shader);
 };
 
 #endif

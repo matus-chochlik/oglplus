@@ -93,6 +93,11 @@ public:
 		return _data._capacity;
 	}
 
+	GLfloat Width(void) const
+	{
+		return _data._width;
+	}
+
 	void Set(const CodePoint* cps, GLsizei size)
 	{
 		assert(_is_ok());

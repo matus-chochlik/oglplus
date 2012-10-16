@@ -165,7 +165,6 @@ private:
 		);
 	}
 public:
-	typedef BitmapGlyphAlignment Alignment;
 	typedef BitmapGlyphRenderingConfig Config;
 
 	BitmapGlyphRendering(

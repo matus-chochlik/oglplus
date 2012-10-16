@@ -14,6 +14,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/program.hpp>
+#include <oglplus/text/common.hpp>
 #include <oglplus/text/bitmap_glyph/fwd.hpp>
 #include <oglplus/text/bitmap_glyph/font.hpp>
 #include <oglplus/text/bitmap_glyph/layout.hpp>
@@ -271,13 +272,6 @@ public:
 	}
 };
 
-enum class BitmapGlyphAlignment
-{
-	Left,
-	Center,
-	Right
-};
-
 class BitmapGlyphDefaultRenderer
  : public BitmapGlyphRenderer
 {
@@ -288,7 +282,8 @@ private:
 		_layout_matrix;
 
 	ProgramUniform<GLfloat>
-		_align_coef;
+		_align_coef,
+		_dir_coef;
 
 	BitmapGlyphRenderer& self(void){ return *this; }
 public:
@@ -318,6 +313,10 @@ public:
 			ObjectDesc("BitmapGlyphRenderer - Glyph transform"),
 			StrLit("#version 330\n"
 			"uniform float oglpAlignCoef;"
+			"uniform float oglpDirCoef;"
+
+			"float oglpAlignCoef2 = 0.5*oglpDirCoef-oglpAlignCoef;"
+			"float oglpDirCoef2 = min(oglpDirCoef, 0.0);"
 
 			"vec3 TransformGlyph("
 			"	vec4 LogMetrics,"
@@ -328,8 +327,12 @@ public:
 			"	int Idx"
 			")"
 			"{"
+			"	float LogWidth = LogMetrics.y - LogMetrics.x;"
+			"	XOffs = oglpDirCoef * XOffs+"
+			"		oglpDirCoef2* LogWidth-"
+			"		oglpAlignCoef2*LayoutWidth;"
 			"	return vec3("
-			"		Pos.x+XOffs-LayoutWidth*oglpAlignCoef,"
+			"		Pos.x+XOffs,"
 			"		Pos.y,"
 			"		0.0"
 			"	);"
@@ -340,10 +343,13 @@ public:
 	 , _camera_matrix(self().GetUniform<Mat4f>("oglpCameraMatrix"))
 	 , _layout_matrix(self().GetUniform<Mat4f>("oglpLayoutMatrix"))
 	 , _align_coef(self().GetUniform<GLfloat>("oglpAlignCoef"))
+	 , _dir_coef(self().GetUniform<GLfloat>("oglpDirCoef"))
 	{
 		_projection_matrix.Set(Mat4f());
 		_camera_matrix.Set(Mat4f());
 		_layout_matrix.Set(Mat4f());
+		_align_coef.Set(0.0f);
+		_dir_coef.Set(1.0f);
 	}
 
 	void SetProjection(const Mat4f& projection_matrix)
@@ -361,14 +367,27 @@ public:
 		_layout_matrix.Set(layout_matrix);
 	}
 
-	void SetAlignment(BitmapGlyphAlignment alignment)
+	void SetDirection(Direction direction)
 	{
-		if(alignment == BitmapGlyphAlignment::Left)
-			_align_coef.Set(0.0f);
-		else if(alignment == BitmapGlyphAlignment::Center)
-			_align_coef.Set(0.5f);
-		else if(alignment == BitmapGlyphAlignment::Right)
-			_align_coef.Set(1.0f);
+		if(direction == Direction::LeftToRight)
+			_dir_coef.Set(+1.0f);
+		else if(direction == Direction::RightToLeft)
+			_dir_coef.Set(-1.0f);
+	}
+
+	void SetAlignOffset(GLfloat offset)
+	{
+		_align_coef.Set(offset);
+	}
+
+	void SetAlignment(Alignment alignment)
+	{
+		if(alignment == Alignment::Left)
+			_align_coef.Set(+0.5);
+		else if(alignment == Alignment::Center)
+			_align_coef.Set( 0.0f);
+		else if(alignment == Alignment::Right)
+			_align_coef.Set(-0.5f);
 	}
 };
 

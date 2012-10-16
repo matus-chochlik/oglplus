@@ -15,6 +15,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/image.hpp>
+#include <oglplus/text/common.hpp>
 #include <oglplus/text/unicode.hpp>
 #include <oglplus/text/bitmap_glyph/fwd.hpp>
 
@@ -183,9 +184,25 @@ public:
 		_metrics[frame] = metrics;
 	}
 
-	GLfloat GetGlyphMetric(GLint frame, GLint offset, GLint metric) const
+	void QueryGlyphMetrics(
+		GLint frame,
+		GLint cell,
+		GLint metric,
+		GLint count,
+		GLfloat* result
+	) const
 	{
-		return _metrics[frame][4*_vects_per_glyph*offset+metric];
+		const std::vector<GLfloat>& frame_data = _metrics[frame];
+		const GLint offs = 4*_vects_per_glyph*cell+metric;
+
+		assert(count >= 0);
+		for(GLint i=0; i!=count; ++i)
+			result[i] = frame_data[offs+i];
+	}
+
+	GLfloat GetGlyphMetric(GLint frame, GLint cell, GLint metric) const
+	{
+		return _metrics[frame][4*_vects_per_glyph*cell+metric];
 	}
 
 	GLfloat GetGlyphWidth(GLint frame, GLint offset) const

@@ -35,7 +35,7 @@ private:
 	oglplus::ProgramUniform<GLfloat> rndr_opacity;
 
 	int prev_interval;
-	std::size_t current_text;
+	std::size_t current_line;
 public:
 	BitmapGlyphExample(int argc, const char** argv)
 	 : gl()
@@ -57,7 +57,7 @@ public:
 	), rndr_color(rndr.GetUniform<oglplus::Vec3f>("Color"))
 	 , rndr_opacity(rndr.GetUniform<GLfloat>("Opacity"))
 	 , prev_interval(-1)
-	 , current_text(0)
+	 , current_line(0)
 	{
 		using namespace oglplus;
 
@@ -70,47 +70,56 @@ public:
 			BlendFunction::DstAlpha
 		);
 
-		rndr.SetAlignment(TextRendering::Alignment::Center);
+		rndr.SetAlignment(text::Alignment::Center);
 	}
 
 	void LoadNext(void)
 	{
-		const char* texts[] = {
-			u8"Hello world",
-			u8"Nazdar svet",
-			u8"Γεια σας κόσμο",
-			u8"Привет мир",
-			u8"Witaj świecie",
-			u8"Здравей свят",
-			u8"Ahoj světe",
-			u8"Moi maailma",
-			u8"Bonjour tout le monde",
-			u8"Hallo welt",
-			u8"Hej världen",
-			u8"Прывітанне свет",
-			u8"Olá mundo",
-			u8"Здраво свете",
-			u8"Zdravo svet",
-			u8"Hola mundo",
-			u8"Merhaba dünya",
-			u8"Привіт світ",
-			u8"Pozdrav svijetu",
-			u8"Hello világ",
-			u8"Ciao mondo",
-			u8"Здраво светот",
-			u8"Hei verden"
+		typedef oglplus::text::Direction Dir;
+		struct {
+			Dir direction;
+			const char* text;
+		} lines[] = {
+			{Dir::LeftToRight, u8"Hello world"},
+			{Dir::LeftToRight, u8"Nazdar svet"},
+			{Dir::LeftToRight, u8"Γεια σας κόσμο"},
+			{Dir::LeftToRight, u8"Привет мир"},
+			{Dir::LeftToRight, u8"Witaj świecie"},
+			{Dir::LeftToRight, u8"Здравей свят"},
+			{Dir::LeftToRight, u8"Ahoj světe"},
+			{Dir::LeftToRight, u8"Moi maailma"},
+			{Dir::LeftToRight, u8"Bonjour tout le monde"},
+			{Dir::LeftToRight, u8"Hallo welt"},
+			{Dir::LeftToRight, u8"Բարեւ աշխարհ"},
+			{Dir::LeftToRight, u8"Hej världen"},
+			{Dir::LeftToRight, u8"Прывітанне свет"},
+			{Dir::LeftToRight, u8"Olá mundo"},
+			{Dir::LeftToRight, u8"Здраво свете"},
+			{Dir::LeftToRight, u8"Zdravo svet"},
+			{Dir::LeftToRight, u8"Hola mundo"},
+			{Dir::LeftToRight, u8"Merhaba dünya"},
+			{Dir::LeftToRight, u8"Привіт світ"},
+			{Dir::LeftToRight, u8"Pozdrav svijetu"},
+			{Dir::LeftToRight, u8"Hello világ"},
+			{Dir::RightToLeft, u8"مرحبا العالم"},
+			{Dir::LeftToRight, u8"Ciao mondo"},
+			{Dir::LeftToRight, u8"Здраво светот"},
+			{Dir::RightToLeft, u8"שלום עולם"},
+			{Dir::LeftToRight, u8"Hei verden"}
 		};
-		const std::size_t text_count = sizeof(texts)/sizeof(texts[0]);
+		const std::size_t line_count = sizeof(lines)/sizeof(lines[0]);
 
-		layout.Set(texts[current_text]);
-		if(++current_text >= text_count)
-			current_text = 0;
+		layout.Set(lines[current_line].text);
 
+		rndr.SetDirection(lines[current_line].direction);
 		rndr_color.Set(
-			0.2f+GLfloat(0.8f*std::rand())/RAND_MAX,
+			0.1f+GLfloat(0.8f*std::rand())/RAND_MAX,
 			0.3f+GLfloat(0.7f*std::rand())/RAND_MAX,
-			0.2f+GLfloat(0.8f*std::rand())/RAND_MAX
+			0.1f+GLfloat(0.8f*std::rand())/RAND_MAX
 		);
+
+		if(++current_line >= line_count)
+			current_line = 0;
 	}
 
 	void Reshape(void)
