@@ -17,6 +17,12 @@ option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
 option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
 
+set(OGLPLUS_USE_GLCOREARB_H 0)
+set(OGLPLUS_USE_GL3_H 0)
+set(OGLPLUS_USE_GLEW 0)
+set(OGLPLUS_USE_GL3W 0)
+set(OGLPLUS_USE_FREEGLUT 0)
+
 if(OGLPLUS_NO_EXAMPLES)
 	set(OGLPLUS_NO_SCREENSHOTS On)
 endif()
@@ -38,6 +44,7 @@ include(config/FindGLUT.cmake)
 include(config/FindWXGL.cmake)
 include(config/FindGLM.cmake)
 include(config/FindPNG.cmake)
+include(config/FindPangoCairo.cmake)
 
 # enable warnings on gcc
 if(${CMAKE_COMPILER_IS_GNUCXX})
@@ -45,10 +52,7 @@ if(${CMAKE_COMPILER_IS_GNUCXX})
 endif()
 #
 # we need one of the headers including the OpenGL C-API
-set(OGLPLUS_USE_GLCOREARB_H 0)
-set(OGLPLUS_USE_GL3_H 0)
-set(OGLPLUS_USE_GLEW 0)
-set(OGLPLUS_USE_GL3W 0)
+#
 # if GL/glcorearb.h was forced
 if(${OGLPLUS_FORCE_GLCOREARB_H})
 	if((OPENGL_FOUND) AND (EXISTS ${OPENGL_GLCOREARB_H_DIR}))

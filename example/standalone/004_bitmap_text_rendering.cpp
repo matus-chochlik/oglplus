@@ -6,7 +6,6 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-
 #include "glut_glew_example.hpp"
 
 #include <oglplus/all.hpp>
@@ -19,7 +18,7 @@
 
 
 class BitmapGlyphExample
- : public oglplus::SingleExample
+ : public oglplus::StandaloneExample
 {
 private:
 	oglplus::Context gl;
@@ -92,9 +91,22 @@ public:
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
 				oglplus::StrLit("#version 330\n"
-				"vec4 PixelColor(vec4 TexelColor)"
+				"vec4 PixelColor("
+				"	vec4 TexelColor,"
+				"	vec3 GlyphPosition,"
+				"	float GlyphXOffset,"
+				"	vec2 GlyphExtent,"
+				"	vec2 GlyphCoord,"
+				"	float LayoutWidth"
+				")"
 				"{"
-				"	return TexelColor.rrrr;"
+				"	float g = GlyphXOffset / LayoutWidth - GlyphCoord.x;"
+				"	vec3 Color = mix("
+				"		vec3(1.0, 0.2+0.8*g, 0.2), "
+				"		vec3(0.2, 0.2+0.8*g, 1.0), "
+				"		(GlyphPosition.z+0.1)/0.2"
+				"	);"
+				"	return vec4(Color, TexelColor.r);"
 				"}")
 			)
 		)

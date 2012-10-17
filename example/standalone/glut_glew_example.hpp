@@ -10,33 +10,39 @@
 #define __OGLPLUS_STANDALONE_GLUT_GLEW_EXAMPLE_1203161253_HPP__
 
 #include <GL/glew.h>
-#include <GL/glut.h>
+
+#include <oglplus/config.hpp>
+
+#if OGLPLUS_USE_FREEGLUT
+# include <GL/freeglut.h>
+#else
+# include <GL/glut.h>
+#endif
 
 #include <cassert>
 #include <iostream>
 #include <chrono>
 
-#include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/compile_error.hpp>
 
 namespace oglplus {
 
-class SingleExample
+class StandaloneExample
 {
 private:
-	static SingleExample*& SingleInstance(void)
-	{
-		static SingleExample* wrapper = nullptr;
-		return wrapper;
-	}
-
 	std::chrono::time_point<std::chrono::system_clock> _start;
 	std::chrono::time_point<std::chrono::system_clock> _now;
 	double _frame_time, _frame_duration;
 	unsigned long _frame_number;
 
-	void _update(void)
+	size_t _width, _height;
+
+	size_t _prev_mouse_x, _prev_mouse_y;
+	size_t _curr_mouse_x, _curr_mouse_y;
+
+public:
+	void HandleUpdate(void)
 	{
 		static const double period =
 			double(std::chrono::system_clock::period::num)/
@@ -48,18 +54,13 @@ private:
 		++_frame_number;
 	}
 
-	size_t _width, _height;
-
-	void _resize(size_t width, size_t height)
+	void HandleResize(size_t width, size_t height)
 	{
 		_width = width;
 		_height = height;
 	}
 
-	size_t _prev_mouse_x, _prev_mouse_y;
-	size_t _curr_mouse_x, _curr_mouse_y;
-
-	void _mouse_move(size_t mouse_x, size_t mouse_y)
+	void HandleMouseMove(size_t mouse_x, size_t mouse_y)
 	{
 		_prev_mouse_x = _curr_mouse_x;
 		_prev_mouse_y = _curr_mouse_y;;
@@ -67,7 +68,7 @@ private:
 		_curr_mouse_y = mouse_y;
 	}
 
-public:
+
 	double FrameTime(void) const { return _frame_time; }
 	double FrameDuration(void) const { return _frame_duration; }
 	unsigned long FrameNumber(void) const { return _frame_number; }
@@ -112,80 +113,102 @@ public:
 		return double(2*MouseDiffY())/_height;
 	}
 
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
-	SingleExample(const SingleExample&) = delete;
-#else
 private:
-	SingleExample(const SingleExample&);
+	StandaloneExample(const StandaloneExample&);
 public:
-#endif
 
-	SingleExample(void)
+	StandaloneExample(void)
 	 : _width(800)
 	 , _height(800)
-	{
-		assert(!SingleInstance());
-		SingleInstance() = this;
-	}
-
-	~SingleExample(void)
-	{
-		assert(SingleInstance());
-		SingleInstance() = nullptr;
-	}
+	{ }
 
 	void Startup(size_t width, size_t height)
 	{
-		_resize(width, height);
+		HandleResize(width, height);
 		Reshape();
 
-		_mouse_move(_width/2, _height/2);
-		_mouse_move(_width/2, _height/2);
+		HandleMouseMove(_width/2, _height/2);
+		HandleMouseMove(_width/2, _height/2);
 		PassiveMotion();
 
 		_start = std::chrono::system_clock::now();
 		_frame_number = 0;
-		_update();
+		HandleUpdate();
 	}
 
 	virtual void Render(void) = 0;
 
-	static void DisplayFunc(void)
-	{
-		assert(SingleInstance());
-		SingleInstance()->_update();
-		SingleInstance()->Render();
-		glutSwapBuffers();
-	}
-
 	virtual void Reshape(void) = 0;
-
-	static void ReshapeFunc(int width, int height)
-	{
-		assert(SingleInstance());
-		SingleInstance()->_resize(width, height);
-		SingleInstance()->Reshape();
-	}
 
 	virtual void Motion(void)
 	{
 	}
 
+	virtual void PassiveMotion(void)
+	{
+	}
+};
+
+template <typename Example>
+class SingleExampleTpl
+{
+private:
+	static Example*& SingleInstance(void)
+	{
+		static Example* _ptr = nullptr;
+		return _ptr;
+	}
+public:
+	SingleExampleTpl(int argc, const char** argv)
+	{
+		assert(!SingleInstance());
+		SingleInstance() = new Example(argc, argv);
+	}
+
+	~SingleExampleTpl(void)
+	{
+		delete SingleInstance();
+	}
+
+	void Startup(size_t width, size_t height)
+	{
+		assert(SingleInstance());
+		SingleInstance()->Startup(width, height);
+	}
+
+	static void CloseFunc(void)
+	{
+		assert(SingleInstance());
+		delete SingleInstance();
+		SingleInstance() = nullptr;
+	}
+
+	static void DisplayFunc(void)
+	{
+		assert(SingleInstance());
+		SingleInstance()->HandleUpdate();
+		SingleInstance()->Render();
+		glutSwapBuffers();
+	}
+
+	static void ReshapeFunc(int width, int height)
+	{
+		assert(SingleInstance());
+		SingleInstance()->HandleResize(width, height);
+		SingleInstance()->Reshape();
+	}
+
 	static void MotionFunc(int x, int y)
 	{
 		assert(SingleInstance());
-		SingleInstance()->_mouse_move(x, y);
+		SingleInstance()->HandleMouseMove(x, y);
 		SingleInstance()->Motion();
-	}
-
-	virtual void PassiveMotion(void)
-	{
 	}
 
 	static void PassiveMotionFunc(int x, int y)
 	{
 		assert(SingleInstance());
-		SingleInstance()->_mouse_move(x, y);
+		SingleInstance()->HandleMouseMove(x, y);
 		SingleInstance()->PassiveMotion();
 	}
 };
@@ -239,7 +262,10 @@ class GlutGlewExampleApp
  , public GlewInit
 {
 private:
-	Example example;
+	typedef SingleExampleTpl<Example> SingleExample;
+	SingleExample example;
+
+	GlutGlewExampleApp(const GlutGlewExampleApp&);
 public:
 	GlutGlewExampleApp(
 		size_t xpos,
@@ -260,19 +286,26 @@ public:
 	), GlewInit()
 	 , example(argc, const_cast<const char**>(argv))
 	{
-		glutReshapeFunc(&Example::ReshapeFunc);
+		glutReshapeFunc(&SingleExample::ReshapeFunc);
 
-		glutMotionFunc(&Example::MotionFunc);
-		glutPassiveMotionFunc(&Example::PassiveMotionFunc);
+		glutMotionFunc(&SingleExample::MotionFunc);
+		glutPassiveMotionFunc(&SingleExample::PassiveMotionFunc);
 
-		glutDisplayFunc(&Example::DisplayFunc);
-		glutIdleFunc(&Example::DisplayFunc);
+		glutDisplayFunc(&SingleExample::DisplayFunc);
+		glutIdleFunc(&SingleExample::DisplayFunc);
 
 		example.Startup(width, height);
 	}
 
 	void Run(int /*argc*/, const char** /*argv*/)
 	{
+#if OGLPLUS_USE_FREEGLUT
+		glutSetOption(
+			GLUT_ACTION_ON_WINDOW_CLOSE,
+			GLUT_ACTION_GLUTMAINLOOP_RETURNS
+		);
+		glutCloseFunc(&SingleExample::CloseFunc);
+#endif
 		glutMainLoop();
 	}
 };
@@ -282,14 +315,18 @@ int GlutGlewMain(const char* title, int argc, char* argv[])
 {
 	try
 	{
-		size_t width = 800, height = 600;
-		GlutGlewExampleApp<Example> app(
-			100, 100,
-			width, height,
-			title,
-			argc, argv
-		);
-		app.Run(argc, const_cast<const char**>(argv));
+		std::cout << "Started" << std::endl;
+		{
+			size_t width = 800, height = 600;
+			GlutGlewExampleApp<Example> app(
+				100, 100,
+				width, height,
+				title,
+				argc, argv
+			);
+			app.Run(argc, const_cast<const char**>(argv));
+		}
+		std::cout << "Finished" << std::endl;
 		return 0;
 	}
 	catch(oglplus::ProgramBuildError& pbe)

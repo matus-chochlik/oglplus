@@ -1,5 +1,5 @@
 /**
- *  @example standalone/004_bitmap_text_hello.cpp
+ *  @example standalone/004_pango_cairo_hello.cpp
  *  @brief Shows the usage of OGLplus' text rendering utilities
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
@@ -12,16 +12,16 @@
 #include <oglplus/all.hpp>
 #include <oglplus/images/png.hpp>
 
-#include <oglplus/text/bitmap_glyph.hpp>
+#include <oglplus/text/pango_cairo.hpp>
 
 
-class BitmapGlyphExample
+class PangoCairoTextExample
  : public oglplus::StandaloneExample
 {
 private:
 	oglplus::Context gl;
 
-	typedef oglplus::text::BitmapGlyphRendering TextRendering;
+	typedef oglplus::text::PangoCairoRendering TextRendering;
 
 	TextRendering tr;
 
@@ -37,11 +37,11 @@ private:
 	int prev_interval;
 	std::size_t current_line;
 public:
-	BitmapGlyphExample(int argc, const char** argv)
+	PangoCairoTextExample(int argc, const char** argv)
 	 : gl()
-	 , tr((argc>1)?argv[1]:"./_font", 0, 1, 2)
-	 , font(tr.LoadFont((argc>2)?argv[2]:"Sans"))
-	 , layout(tr.MakeLayout(font, 128))
+	 , tr(0)
+	 , font(tr.LoadFont((argc>2)?argv[2]:"Sans 38"))
+	 , layout(tr.MakeLayout(font, 48))
 	 , rndr(tr.GetRenderer(
 			oglplus::FragmentShader(
 				oglplus::ObjectDesc("Pixel color"),
@@ -169,8 +169,8 @@ public:
 
 int main(int argc, char* argv[])
 {
-	return oglplus::GlutGlewMain<BitmapGlyphExample>(
-		"Example of usage of OGLplus' bitmap glyph text rendering",
+	return oglplus::GlutGlewMain<PangoCairoTextExample>(
+		"Example of usage of OGLplus' Pango/Cairo-based text rendering",
 		argc, argv
 	);
 }

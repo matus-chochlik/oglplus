@@ -20,6 +20,10 @@
 #define OGLPLUS_USE_GLEW 0
 #endif
 
+#ifndef OGLPLUS_USE_FREEGLUT
+#define OGLPLUS_USE_FREEGLUT 0
+#endif
+
 #ifndef OGLPLUS_USE_BOOST_CONFIG
 #define OGLPLUS_USE_BOOST_CONFIG 0
 #endif

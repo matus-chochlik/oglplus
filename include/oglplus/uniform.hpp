@@ -27,6 +27,23 @@
 namespace oglplus {
 namespace aux {
 
+class OptionalUniformInitOps
+{
+protected:
+	typedef Nothing ParamType;
+
+	OptionalUniformInitOps(Nothing)
+	{ }
+
+	GLint _init_index(GLuint program, const GLchar* identifier) const
+	{
+		return OGLPLUS_GLFUNC(GetUniformLocation)(
+			program,
+			identifier
+		);
+	}
+};
+
 class UniformInitOps
 {
 protected:
@@ -69,6 +86,9 @@ typedef EagerUniformInitTpl<UniformInitOps>
 
 typedef LazyUniformInitTpl<UniformInitOps>
 	LazyUniformInit;
+
+typedef EagerUniformInitTpl<OptionalUniformInitOps>
+	OptionalUniformInit;
 
 class DirectUniformInit
  : public FriendOf<ProgramOps>
@@ -1105,6 +1125,50 @@ public:
 	}
 };
 
+/// Class encapsulating Uniform shader variable functionality
+/**
+ *  The difference between Uniform and OptionalUniform is, that Uniform
+ *  construction fails if the referenced uniform variable in the GLSL
+ *  program is inactive. OptionalUniform always constructs, but may
+ *  fail when used later.
+ *
+ *  @see ProgramUniform
+ *  @see Uniform
+ *
+ *  @ingroup shader_variables
+ */
+template <typename T>
+class OptionalUniform
+#if OGLPLUS_DOCUMENTATION_ONLY
+ : public UniformTpl<T, Unspecified, Unspecified>
+#else
+ : public UniformTpl<T, aux::OptionalUniformInit, aux::UniformSetOps<T>>
+#endif
+{
+protected:
+	typedef UniformTpl<
+		T,
+		aux::OptionalUniformInit,
+		aux::UniformSetOps<T>
+	> _base;
+public:
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from a const reference to @p program and an identifier
+	OptionalUniform(const Program& program, String identifier);
+#else
+	template <typename _String>
+	OptionalUniform(const Program& program, _String&& identifier)
+	 : _base(program, std::forward<_String>(identifier))
+	{ }
+#endif
+
+	/// Set the value of the uniform variable
+	inline void operator = (const T& value)
+	{
+		this->Set(value);
+	}
+};
+
 
 /// Class encapsulating Uniform shader variable functionality
 /**
@@ -1278,6 +1342,50 @@ public:
 #else
 	template <typename _String>
 	LazyProgramUniform(const Program& program, _String&& identifier)
+	 : _base(program, std::forward<_String>(identifier))
+	{ }
+#endif
+
+	/// Set the value of the uniform variable
+	inline void operator = (const T& value)
+	{
+		this->Set(value);
+	}
+};
+
+/// Class encapsulating ProgramUniform shader variable functionality
+/**
+ *  The difference between ProgramUniform and OptionalProgramUniform is,
+ *  that ProgramUniform construction fails if the referenced uniform variable
+ *  in the GLSL program is inactive. OptionalProgramUniform always constructs,
+ *  but may fail when used later.
+ *
+ *  @see ProgramUniform
+ *  @see Uniform
+ *
+ *  @ingroup shader_variables
+ */
+template <typename T>
+class OptionalProgramUniform
+#if OGLPLUS_DOCUMENTATION_ONLY
+ : public UniformTpl<T, Unspecified, Unspecified>
+#else
+ : public UniformTpl<T, aux::OptionalUniformInit, aux::ProgramUniformSetOps<T>>
+#endif
+{
+protected:
+	typedef UniformTpl<
+		T,
+		aux::OptionalUniformInit,
+		aux::ProgramUniformSetOps<T>
+	> _base;
+public:
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from a const reference to @p program and an identifier
+	OptionalProgramUniform(const Program& program, String identifier);
+#else
+	template <typename _String>
+	OptionalProgramUniform(const Program& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
 #endif

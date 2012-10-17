@@ -59,3 +59,11 @@ if(GLUT_LIBRARIES)
 
 	unset(TMP_GLUT_LIBRARIES)
 endif()
+
+if(GLUT_FOUND)
+	foreach(INCLUDE_DIR ${GLUT_INCLUDE_DIRS})
+		if(EXISTS "${INCLUDE_DIR}/GL/freeglut.h")
+			set(OGLPLUS_USE_FREEGLUT 1)
+		endif()
+	endforeach()
+endif()

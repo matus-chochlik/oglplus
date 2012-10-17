@@ -180,7 +180,7 @@ public:
 	 *
 	 *  @see Capacity
 	 */
-	void Set(const CodePoint* code_points, const GLsizei length)
+	void Set(const CodePoint* code_points, const GLsizei length);
 
 	/// Sets a new text to be layed-out
 	/** This function lays-out a new sequence of glyphs representing
@@ -357,6 +357,85 @@ public:
 };
 
 #endif
+
+template <class ConcreteRenderer>
+class DefaultRendererTpl
+ : public ConcreteRenderer
+{
+private:
+	Uniform<Mat4f>
+		_projection_matrix,
+		_camera_matrix,
+		_layout_matrix;
+
+	OptionalUniform<GLfloat>
+		_align_coef,
+		_dir_coef;
+
+	typedef ConcreteRenderer Base;
+public:
+	template <class ConcreteRenderingImpl, class ... Params>
+	DefaultRendererTpl(
+		ConcreteRenderingImpl& parent,
+		const FragmentShader& pixel_color_shader,
+		const Params& ... params
+	): ConcreteRenderer(
+		parent,
+		params ...,
+		pixel_color_shader
+	), _projection_matrix(Base::_get_program(), "oglpProjectionMatrix")
+	 , _camera_matrix(Base::_get_program(), "oglpCameraMatrix")
+	 , _layout_matrix(Base::_get_program(), "oglpLayoutMatrix")
+	 , _align_coef(Base::_get_program(), "oglpAlignCoef")
+	 , _dir_coef(Base::_get_program(), "oglpDirCoef")
+	{
+		_projection_matrix.Set(Mat4f());
+		_camera_matrix.Set(Mat4f());
+		_layout_matrix.Set(Mat4f());
+		if(_align_coef) _align_coef.Set(0.5f);
+		if(_dir_coef) _dir_coef.Set(1.0f);
+	}
+
+	void SetProjection(const Mat4f& projection_matrix)
+	{
+		_projection_matrix.Set(projection_matrix);
+	}
+
+	void SetCamera(const Mat4f& camera_matrix)
+	{
+		_camera_matrix.Set(camera_matrix);
+	}
+
+	void SetLayoutTransform(const Mat4f& layout_matrix)
+	{
+		_layout_matrix.Set(layout_matrix);
+	}
+
+	void SetDirection(Direction direction)
+	{
+		if(!_dir_coef) return;
+		if(direction == Direction::LeftToRight)
+			_dir_coef.Set(+1.0f);
+		else if(direction == Direction::RightToLeft)
+			_dir_coef.Set(-1.0f);
+	}
+
+	void SetAlignOffset(GLfloat offset)
+	{
+		if(!_align_coef) return;
+		_align_coef.Set(offset);
+	}
+
+	void SetAlignment(Alignment alignment)
+	{
+		if(alignment == Alignment::Left)
+			SetAlignOffset(+0.5);
+		else if(alignment == Alignment::Center)
+			SetAlignOffset( 0.0f);
+		else if(alignment == Alignment::Right)
+			SetAlignOffset(-0.5f);
+	}
+};
 
 } // namespace text
 } // namespace oglplus

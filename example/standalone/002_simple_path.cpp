@@ -14,7 +14,7 @@
 #include <oglplus/ext/NV_path_rendering.hpp>
 
 class PathExample
- : public oglplus::SingleExample
+ : public oglplus::StandaloneExample
 {
 private:
 	oglplus::Context gl;

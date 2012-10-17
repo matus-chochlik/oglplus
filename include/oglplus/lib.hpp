@@ -45,8 +45,8 @@ bool ValidString(const GLchar* begin, const GLchar* end)
 }
 
 void UTF8ToCodePoints(
-	const GLchar* begin,
-	const GLchar* end,
+	const char* begin,
+	const char* end,
 	std::vector<aux::UnicodeCP>& result
 )
 {
@@ -54,12 +54,30 @@ void UTF8ToCodePoints(
 }
 
 void UTF8ToCodePoints(
-	const GLchar* c_str,
+	const char* c_str,
 	size_t length,
 	std::vector<aux::UnicodeCP>& result
 )
 {
 	aux::ConvertUTF8ToCodePoints(c_str, length, result);
+}
+
+void CodePointsToUTF8(
+	const aux::UnicodeCP* begin,
+	const aux::UnicodeCP* end,
+	std::vector<char>& result
+)
+{
+	aux::ConvertCodePointsToUTF8(begin, end-begin, result);
+}
+
+void CodePointsToUTF8(
+	const aux::UnicodeCP* c_str,
+	std::size_t length,
+	std::vector<char>& result
+)
+{
+	aux::ConvertCodePointsToUTF8(c_str, length, result);
 }
 
 #ifndef OGLPLUS_IMPLEMENTING_LIBRARY

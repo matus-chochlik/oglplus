@@ -372,7 +372,7 @@ public:
 };
 
 class BitmapFontExample
- : public oglplus::SingleExample
+ : public oglplus::StandaloneExample
 {
 private:
 	oglplus::Context gl;

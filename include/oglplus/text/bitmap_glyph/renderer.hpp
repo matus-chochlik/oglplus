@@ -61,6 +61,11 @@ private:
 			_prev_layout_storage = layout_data._storage;
 		}
 	}
+protected:
+	const Program& _get_program(void) const
+	{
+		return _program;
+	}
 public:
 	BitmapGlyphRenderer(
 		BitmapGlyphRendering& parent,
@@ -146,21 +151,24 @@ public:
 			"in float vertXOffset[1];"
 			"in float vertFrame[1];"
 
+			"out vec4 geomGlyphPos;"
+			"out vec4 geomGlyphCoord;"
 			"out vec3 geomTexCoord;"
 
 			"uniform float oglpLayoutWidth;"
 
-			"void make_vertex(vec2 Position, vec2 TexCoord)"
+			"void make_vertex(vec2 Position, vec2 GlyphCoord, vec2 TexCoord)"
 			"{"
-			"	vec3 GlyphPosition = TransformGlyph("
+			"	geomGlyphPos = vec4(TransformGlyph("
 			"		vertLogData[0],"
 			"		vertInkData[0],"
 			"		Position,"
 			"		vertXOffset[0],"
 			"		oglpLayoutWidth,"
 			"		int(gl_PrimitiveIDIn)"
-			"	);"
-			"	gl_Position = TransformLayout(GlyphPosition);"
+			"	), vertXOffset[0]);"
+			"	gl_Position = TransformLayout(geomGlyphPos.xyz);"
+			"	geomGlyphCoord = vec4(Position, GlyphCoord);"
 			"	geomTexCoord = vec3(TexCoord, vertFrame[0]);"
 			"	EmitVertex();"
 			"}"
@@ -188,12 +196,12 @@ public:
 			//      glyph descent in texture space
 			"       float td = th * (ds / ht);"
 
-			"       make_vertex(vec2( rb, -ds), to+vec2( tw, -td));"
-			"       make_vertex(vec2( lb, -ds), to+vec2(0.0, -td));"
-			"       make_vertex(vec2( rb, 0.0), to+vec2( tw, 0.0));"
-			"       make_vertex(vec2( lb, 0.0), to+vec2(0.0, 0.0));"
-			"       make_vertex(vec2( rb,  as), to+vec2( tw,  ta));"
-			"       make_vertex(vec2( lb,  as), to+vec2(0.0,  ta));"
+			"       make_vertex(vec2(rb,-ds), vec2(1.0,-1.0), to+vec2( tw, -td));"
+			"       make_vertex(vec2(lb,-ds), vec2(0.0,-1.0), to+vec2(0.0, -td));"
+			"       make_vertex(vec2(rb,0.0), vec2(1.0, 0.0), to+vec2( tw, 0.0));"
+			"       make_vertex(vec2(lb,0.0), vec2(0.0, 0.0), to+vec2(0.0, 0.0));"
+			"       make_vertex(vec2(rb, as), vec2(1.0, 1.0), to+vec2( tw,  ta));"
+			"       make_vertex(vec2(lb, as), vec2(0.0, 1.0), to+vec2(0.0,  ta));"
 			"       EndPrimitive();"
 			"}"
 		));
@@ -207,18 +215,33 @@ public:
 			"#version 330\n"
 			"uniform sampler2DArray oglpBitmap;"
 
+			"uniform float oglpLayoutWidth;"
+
+			"in vec4 geomGlyphPos;"
+			"in vec4 geomGlyphCoord;"
 			"in vec3 geomTexCoord;"
 
 			"out vec4 fragColor;"
 
-			"vec4 PixelColor(vec4 TexelColor);"
+			"vec4 PixelColor("
+			"	vec4 TexelColor,"
+			"	vec3 GlyphPosition,"
+			"	float GlyphXOffset,"
+			"	vec2 GlyphExtent,"
+			"	vec2 GlyphCoord,"
+			"	float LayoutWidth"
+			");"
 
 			"void main(void)"
 			"{"
-			"       fragColor = PixelColor(texture("
-			"		oglpBitmap,"
-			"		geomTexCoord"
-			"	));"
+			"       fragColor = PixelColor("
+			"		texture(oglpBitmap, geomTexCoord),"
+			"		geomGlyphPos.xyz,"
+			"		geomGlyphPos.w,"
+			"		geomGlyphCoord.xy,"
+			"		geomGlyphCoord.zw,"
+			"		oglpLayoutWidth"
+			"	);"
 			"}"
 
 		));
@@ -273,25 +296,15 @@ public:
 };
 
 class BitmapGlyphDefaultRenderer
- : public BitmapGlyphRenderer
+ : public DefaultRendererTpl<BitmapGlyphRenderer>
 {
-private:
-	ProgramUniform<Mat4f>
-		_projection_matrix,
-		_camera_matrix,
-		_layout_matrix;
-
-	ProgramUniform<GLfloat>
-		_align_coef,
-		_dir_coef;
-
-	BitmapGlyphRenderer& self(void){ return *this; }
 public:
 	BitmapGlyphDefaultRenderer(
 		BitmapGlyphRendering& parent,
 		const FragmentShader& pixel_color_shader
-	): BitmapGlyphRenderer(
+	): DefaultRendererTpl<BitmapGlyphRenderer>(
 		parent,
+		pixel_color_shader,
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Layout transform"),
 			StrLit("#version 330\n"
@@ -337,58 +350,9 @@ public:
 			"		0.0"
 			"	);"
 			"}")
-		),
-		pixel_color_shader
-	), _projection_matrix(self().GetUniform<Mat4f>("oglpProjectionMatrix"))
-	 , _camera_matrix(self().GetUniform<Mat4f>("oglpCameraMatrix"))
-	 , _layout_matrix(self().GetUniform<Mat4f>("oglpLayoutMatrix"))
-	 , _align_coef(self().GetUniform<GLfloat>("oglpAlignCoef"))
-	 , _dir_coef(self().GetUniform<GLfloat>("oglpDirCoef"))
-	{
-		_projection_matrix.Set(Mat4f());
-		_camera_matrix.Set(Mat4f());
-		_layout_matrix.Set(Mat4f());
-		_align_coef.Set(0.0f);
-		_dir_coef.Set(1.0f);
-	}
-
-	void SetProjection(const Mat4f& projection_matrix)
-	{
-		_projection_matrix.Set(projection_matrix);
-	}
-
-	void SetCamera(const Mat4f& camera_matrix)
-	{
-		_camera_matrix.Set(camera_matrix);
-	}
-
-	void SetLayoutTransform(const Mat4f& layout_matrix)
-	{
-		_layout_matrix.Set(layout_matrix);
-	}
-
-	void SetDirection(Direction direction)
-	{
-		if(direction == Direction::LeftToRight)
-			_dir_coef.Set(+1.0f);
-		else if(direction == Direction::RightToLeft)
-			_dir_coef.Set(-1.0f);
-	}
-
-	void SetAlignOffset(GLfloat offset)
-	{
-		_align_coef.Set(offset);
-	}
-
-	void SetAlignment(Alignment alignment)
-	{
-		if(alignment == Alignment::Left)
-			_align_coef.Set(+0.5);
-		else if(alignment == Alignment::Center)
-			_align_coef.Set( 0.0f);
-		else if(alignment == Alignment::Right)
-			_align_coef.Set(-0.5f);
-	}
+		)
+	)
+	{ }
 };
 
 } // namespace text

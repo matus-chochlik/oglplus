@@ -33,8 +33,8 @@ typedef oglplus::aux::UnicodeCP CodePoint;
  *  @ingroup text_rendering
  */
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
-	const GLchar* begin,
-	const GLchar* end,
+	const char* begin,
+	const char* end,
 	std::vector<CodePoint>& result
 )
 #if OGLPLUS_LINK_LIBRARY
@@ -50,7 +50,7 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
  *  @ingroup text_rendering
  */
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
-	const GLchar* c_str,
+	const char* c_str,
 	std::size_t length,
 	std::vector<CodePoint>& result
 )
@@ -63,8 +63,8 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 #endif
 
 inline std::vector<CodePoint> UTF8ToCodePoints(
-	const GLchar* begin,
-	const GLchar* end
+	const char* begin,
+	const char* end
 )
 {
 	std::vector<CodePoint> result;
@@ -73,12 +73,66 @@ inline std::vector<CodePoint> UTF8ToCodePoints(
 }
 
 inline std::vector<CodePoint> UTF8ToCodePoints(
-	const GLchar* c_str,
+	const char* c_str,
 	std::size_t length
 )
 {
 	std::vector<CodePoint> result;
 	UTF8ToCodePoints(c_str, length, result);
+	return result;
+}
+
+/// Converts a range of unicode code points to a UTF8 sequence
+/**
+ *  @ingroup text_rendering
+ */
+OGLPLUS_LIB_FUNC void CodePointsToUTF8(
+	const CodePoint* begin,
+	const CodePoint* end,
+	std::vector<char>& result
+)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
+{
+	aux::ConvertCodePointsToUTF8(begin, end-begin, result);
+}
+#endif
+
+/// Converts a range of unicode code points to a UTF8 sequence
+/**
+ *  @ingroup text_rendering
+ */
+OGLPLUS_LIB_FUNC void CodePointsToUTF8(
+	const CodePoint* c_str,
+	std::size_t length,
+	std::vector<char>& result
+)
+#if OGLPLUS_LINK_LIBRARY
+;
+#else
+{
+	aux::ConvertCodePointsToUTF8(c_str, length, result);
+}
+#endif
+
+inline std::vector<char> CodePointsToUTF8(
+	const CodePoint* begin,
+	const CodePoint* end
+)
+{
+	std::vector<char> result;
+	CodePointsToUTF8(begin, end, result);
+	return result;
+}
+
+inline std::vector<char> CodePointsToUTF8(
+	const CodePoint* c_str,
+	std::size_t length
+)
+{
+	std::vector<char> result;
+	CodePointsToUTF8(c_str, length, result);
 	return result;
 }
 

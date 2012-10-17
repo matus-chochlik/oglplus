@@ -16,7 +16,7 @@
 
 
 class GLMBoxesExample
- : public oglplus::SingleExample
+ : public oglplus::StandaloneExample
 {
 private:
 	oglplus::shapes::Cube make_cube;

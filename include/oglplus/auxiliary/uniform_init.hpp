@@ -65,8 +65,7 @@ protected:
 
 	bool _try_init_index(void) const
 	{
-		assert(_index != GLint(-1));
-		return true;
+		return (_index != GLint(-1));
 	}
 
 	EagerUniformInitTpl(

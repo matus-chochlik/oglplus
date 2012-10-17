@@ -27,8 +27,10 @@
 #include <vector>
 #include <list>
 #include <cassert>
+#include <sstream>
 
 namespace oglplus {
+
 namespace text {
 
 struct BitmapGlyphRenderingConfig

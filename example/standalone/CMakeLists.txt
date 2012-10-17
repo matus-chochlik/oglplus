@@ -31,6 +31,11 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	)
 
 	standalone_example_common(
+		002_rectangle_glut_glew
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+	)
+
+	standalone_example_common(
 		001_program_resources
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
@@ -85,6 +90,16 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		standalone_example_common(
 			004_bitmap_text_rendering
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARIES}
+		)
+	endif()
+
+	if(PANGO_CAIRO_FOUND)
+		include_directories(${PANGO_CAIRO_INCLUDE_DIRS})
+		add_definitions(${PANGO_CAIRO_CFLAGS_OTHER})
+		add_definitions(${PANGO_CAIRO_LDFLAGS})
+		standalone_example_common(
+			004_pango_cairo_hello
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PANGO_CAIRO_LIBRARIES}
 		)
 	endif()
 
