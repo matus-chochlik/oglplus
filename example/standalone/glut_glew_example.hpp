@@ -122,6 +122,9 @@ public:
 	 , _height(800)
 	{ }
 
+	virtual ~StandaloneExample(void)
+	{ }
+
 	void Startup(size_t width, size_t height)
 	{
 		HandleResize(width, height);
