@@ -13,6 +13,7 @@
 #define OGLPLUS_AUX_ENDIAN_1210241959_HPP
 
 #include <cassert>
+#include <algorithm>
 
 namespace oglplus {
 namespace aux {
