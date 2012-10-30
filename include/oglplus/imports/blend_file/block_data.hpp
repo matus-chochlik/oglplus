@@ -33,20 +33,22 @@ private:
 	 , _ptr_size(ptr_size)
 	{ }
 public:
+	/// Returns the value of the specified field as an integer
 	template <typename Int>
-	Int GetInt(const BlendFileFlattenedStructField& field) const
+	Int GetInt(const BlendFileFlattenedStructField& flat_field) const
 	{
-		assert(sizeof(Int) == field.Field().BaseType().Size());
-		const char* pos = _block_data.data() + field.Offset();
+		assert(sizeof(Int) == flat_field.Field().BaseType().Size());
+		const char* pos = _block_data.data() + flat_field.Offset();
 		return ReorderToNative(
 			_byte_order,
 			*reinterpret_cast<const Int*>(pos)
 		);
 	}
 
-	uint64_t GetPointer(const BlendFileFlattenedStructField& field) const
+	/// Returns the value of the specified field as a pointer
+	uint64_t GetPointer(const BlendFileFlattenedStructField& flat_field) const
 	{
-		const char* pos = _block_data.data() + field.Offset();
+		const char* pos = _block_data.data() + flat_field.Offset();
 		if(_ptr_size == 4)
 			return ReorderToNative(
 				_byte_order,
@@ -61,18 +63,91 @@ public:
 		return 0;
 	}
 
+	/// Returns the value of the specified field as a floating point value
 	template <typename Float>
-	Float GetFloat(const BlendFileFlattenedStructField& field) const
+	Float GetFloat(const BlendFileFlattenedStructField& flat_field) const
 	{
-		assert(sizeof(Float) == field.Field().BaseType().Size());
-		const char* pos = _block_data.data() + field.Offset();
+		assert(sizeof(Float) == flat_field.Field().BaseType().Size());
+		const char* pos = _block_data.data() + flat_field.Offset();
 		return *reinterpret_cast<const Float*>(pos);
 	}
 
-	std::string GetString(const BlendFileFlattenedStructField& field) const
+	/// Returns the value of the specified field as a string
+	std::string GetString(const BlendFileFlattenedStructField& flat_field) const
 	{
-		const char* pos = _block_data.data() + field.Offset();
-		return std::string(pos, field.Size());
+		const char* pos = _block_data.data() + flat_field.Offset();
+		return std::string(pos, flat_field.Size());
+	}
+
+	/// Visits the value of the specified field by a visitor
+	/**
+	 *  The Visitor must implement the following overloads of operator():
+	 *  @code
+	 *  struct Visitor
+	 *  {
+	 *      // regular values of atomic types - chars,strings,integers,floats
+	 *      template <typename T>
+	 *      void operator()(T value);
+	 *
+	 *      // pointers
+	 *      void operator()(uint64_t pointer, void*);
+	 *
+	 *      // raw data of unknown type
+	 *      void operator()(const char* data, size_t size);
+	 *  };
+	 *  @endcode
+	 */
+	template <typename Visitor>
+	void ValueVisitRef(
+		const BlendFileFlattenedStructField& flat_field,
+		Visitor& visitor
+	) const
+	{
+		auto f = flat_field.Field();
+		if(f.IsPointer()) visitor(GetPointer(flat_field), nullptr);
+		else
+		{
+			auto bt = f.BaseType();
+			if(bt.IsNative<char>())
+			{
+				if(f.IsArray())
+					visitor(GetString(flat_field));
+				else visitor(GetInt<char>(flat_field));
+			}
+			else if(bt.IsNative<uint8_t>())
+				visitor(GetInt<uint8_t>(flat_field));
+			else if(bt.IsNative<int8_t>())
+				visitor(GetInt<int8_t>(flat_field));
+			else if(bt.IsNative<uint16_t>())
+				visitor(GetInt<uint16_t>(flat_field));
+			else if(bt.IsNative<int16_t>())
+				visitor(GetInt<int16_t>(flat_field));
+			else if(bt.IsNative<uint32_t>())
+				visitor(GetInt<uint32_t>(flat_field));
+			else if(bt.IsNative<int32_t>())
+				visitor(GetInt<int32_t>(flat_field));
+			else if(bt.IsNative<uint64_t>())
+				visitor(GetInt<uint64_t>(flat_field));
+			else if(bt.IsNative<int64_t>())
+				visitor(GetInt<int64_t>(flat_field));
+			else if(bt.IsNative<float>())
+				visitor(GetFloat<float>(flat_field));
+			else if(bt.IsNative<double>())
+				visitor(GetFloat<double>(flat_field));
+			else visitor(
+				_block_data.data() + flat_field.Offset(),
+				flat_field.Size()
+			);
+		}
+	}
+
+	template <typename Visitor>
+	void ValueVisit(
+		const BlendFileFlattenedStructField& flat_field,
+		Visitor visitor
+	) const
+	{
+		ValueVisitRef(flat_field, visitor);
 	}
 };
 
