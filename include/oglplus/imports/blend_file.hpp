@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_IMPORTS_BLEND_FILE_1107121519_HPP
 #define OGLPLUS_IMPORTS_BLEND_FILE_1107121519_HPP
 
+#include <oglplus/imports/blend_file/utils.hpp>
 #include <oglplus/imports/blend_file/reader_client.hpp>
 #include <oglplus/imports/blend_file/range.hpp>
 #include <oglplus/imports/blend_file/info.hpp>
@@ -21,6 +22,7 @@
 #include <oglplus/imports/blend_file/structure.hpp>
 #include <oglplus/imports/blend_file/flattened.hpp>
 #include <oglplus/imports/blend_file/block_data.hpp>
+#include <cstring>
 
 namespace oglplus {
 namespace imports {
@@ -37,6 +39,13 @@ private:
 	std::map<uint64_t, std::size_t> _block_map;
 
 	std::shared_ptr<BlendFileSDNA> _sdna;
+
+	// internal string equality comparison utility
+	template <std::size_t N>
+	bool _equal(const std::array<char, N>& a, const char* b)
+	{
+		return std::strncmp(a.data(), b, N) == 0;
+	}
 
 public:
 	BlendFile(std::istream& input)

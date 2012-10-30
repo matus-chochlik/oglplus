@@ -50,10 +50,17 @@ public:
 		return _sdna->_type_sizes[_type_index];
 	}
 
+	/// Returns true if the Blender type matches the type T
+	template <typename T>
+	bool IsNative(void) const
+	{
+		return _sdna->_type_matches<T>(_type_index);
+	}
+
 	/// Returns true if the type is structured
 	bool IsStructure(void) const
 	{
-		return _struct_index != _sdna->_structs.size();
+		return _struct_index != _sdna->_invalid_struct_index();
 	}
 
 	/// returns the structure of the type

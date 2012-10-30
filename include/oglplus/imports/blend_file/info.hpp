@@ -38,10 +38,12 @@ private:
 			"_-", 2,
 			"Failed to read pointer size"
 		);
-		if(c == '_') return 4;
-		if(c == '-') return 8;
-		assert(!"Logic error");
-		return 0;
+		std::size_t ptr_size = 0;
+		if(c == '_') ptr_size = 4;
+		if(c == '-') ptr_size = 8;
+		_adjust_ptr_size(bfr, ptr_size);
+		assert(ptr_size);
+		return ptr_size;
 	}
 
 	const Endian _byte_order;

@@ -61,11 +61,12 @@ public:
 		return 0;
 	}
 
-	float GetFloat(const BlendFileFlattenedStructField& field) const
+	template <typename Float>
+	Float GetFloat(const BlendFileFlattenedStructField& field) const
 	{
-		assert(sizeof(float) == field.Field().BaseType().Size());
+		assert(sizeof(Float) == field.Field().BaseType().Size());
 		const char* pos = _block_data.data() + field.Offset();
-		return *reinterpret_cast<const float*>(pos);
+		return *reinterpret_cast<const Float*>(pos);
 	}
 
 	std::string GetString(const BlendFileFlattenedStructField& field) const

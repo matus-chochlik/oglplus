@@ -23,11 +23,9 @@ namespace imports {
 // NOTE: implementation detail do not use directly
 class BlendFileSDNA
  : public BlendFileReaderClient
+ , public BlendFileUtils
 {
 private:
-	// the size of pointers in bytes as used by the input file
-	const std::size_t _ptr_size;
-
 	// list of structure field names as loaded from the file's SDNA
 	std::vector<std::string> _names;
 
@@ -37,16 +35,22 @@ private:
 	// list of type sizes as loaded from the the file's SDNA
 	std::vector<uint16_t> _type_sizes;
 
+	// returns an invalid type index value
+	std::size_t _invalid_type_index(void) const
+	{
+		return _type_sizes.size();
+	}
+
 	// 'map' of types to indices of structures stored in _structs
 	// if the i-th type is atomic then the value stored here
-	// is _structs.size(), if it is a structured type then the
+	// is _invalid_struct_index(), if it is a structured type then the
 	// value stored here is an index into the _structs list
 	std::vector<uint32_t> _type_structs;
 
 	// checks if a type with the specified index is a structure
 	bool _type_is_struct(uint32_t type) const
 	{
-		return _type_structs[type] != _structs.size();
+		return _type_structs[type] != _invalid_struct_index();
 	}
 
 	// stores the data describing a flattened structure.
@@ -243,6 +247,11 @@ private:
 	// in the SDNA block
 	std::vector<_struct_info> _structs;
 
+	std::size_t _invalid_struct_index(void) const
+	{
+		return _structs.size();
+	}
+
 	// helper comparator
 	struct _pstr_less
 	{
@@ -306,7 +315,7 @@ private:
 	std::size_t _struct_flat_field_count(uint32_t struct_index)
 	{
 		// if it is an atomic type return 1
-		if(struct_index == _structs.size()) return 1;
+		if(struct_index == _invalid_struct_index()) return 1;
 
 		const _struct_info& si = _structs[struct_index];
 
@@ -325,7 +334,7 @@ private:
 			uint32_t fsi = _type_structs[si._field_type_indices[f]];
 			if(si._field_fn_ptr_flags[f]) ++result;
 			else if(si._field_ptr_flags[f]) ++result;
-			else if(fsi == _structs.size()) ++result;
+			else if(fsi == _invalid_struct_index()) ++result;
 			else result += _struct_flat_field_count(fsi) * elem_count;
 			++f;
 		}
@@ -380,7 +389,7 @@ private:
 				si._field_fn_ptr_flags[f] ||
 				si._field_ptr_flags[f];
 			// or if it is atomic (i.e. not a structured type)
-			bool is_plain = fsi == _structs.size();
+			bool is_plain = fsi == _invalid_struct_index();
 
 			// also get the number of elements in the field
 			std::size_t elem_count = si._field_elem_counts[f];
@@ -408,8 +417,8 @@ private:
 				result->_field_indices[field_index] = f;
 
 				// align the field offset to the fields size
-				if(offset % size)
-					offset += size - offset % size;
+				std::size_t align_diff = _align_diff(offset, size);
+				if(align_diff) offset += size - align_diff;
 				// store the offset
 				result->_field_offsets[field_index] = offset;
 				// update the offset
@@ -485,8 +494,8 @@ private:
 						else size = _type_sizes[nfti];
 
 						// align the offset to size
-						if(offset % size)
-							offset += size - offset % size;
+						std::size_t align_diff = _align_diff(offset, size);
+						if(align_diff) offset += size - align_diff;
 						// store the offset
 						result->_field_offsets[field_index] = offset;
 						// update the offset
@@ -501,9 +510,69 @@ private:
 
 		// at this point the offset should be the same
 		// as the size of the whole structure
-		// TODO:assert(offset == _type_sizes[si._type_index]);
+		assert(offset == _type_sizes[si._type_index]);
 
 		return result;
+	}
+
+	// a sequence for assigning unique integer identifiers to
+	// C++ types
+	static std::size_t& _type_id_seq(void)
+	{
+		static std::size_t seq = 0;
+		return seq;
+	}
+
+	// returns an unique integer identifier for type T
+	template <typename T>
+	static std::size_t _type_id(T*)
+	{
+		static std::size_t tid = _type_id_seq()++;
+		return tid;
+	}
+
+	// maps type identifier to a sdna type index
+	std::vector<std::size_t> _type_id_to_type_index;
+
+	template <typename T>
+	void _init_type_id_index(const std::string& type_name)
+	{
+		// get the type idntifier for type T
+		std::size_t tid = _type_id((T*)nullptr);
+		// check if the type is already registered
+		if(_type_id_to_type_index.size() <= tid)
+		{
+			_type_id_to_type_index.resize(
+				tid+4,
+				_invalid_type_index()
+			);
+		}
+
+		auto pos = _type_map.find(&type_name);
+		if(pos == _type_map.end())
+			_type_id_to_type_index[tid] = _invalid_type_index();
+		else _type_id_to_type_index[tid] = pos->second;
+	}
+
+	template <typename T>
+	std::size_t _find_type_index(void) const
+	{
+		std::size_t tid = _type_id((T*)nullptr);
+		if(_type_id_to_type_index.size() > tid)
+			return _type_id_to_type_index[tid];
+		else return _invalid_type_index();
+	}
+
+	template <typename T>
+	bool _is_known_type(void) const
+	{
+		return _find_type_index<T>() != _invalid_type_index();
+	}
+
+	template <typename T>
+	bool _type_matches(std::size_t type_index) const
+	{
+		return _find_type_index<T>() == type_index;
 	}
 
 	// this class is used internally by a whole heap
@@ -522,7 +591,7 @@ public:
 	// constructor uses a reader and info to parse the SDNA
 	// block from the input stream
 	BlendFileSDNA(BlendFileReader& bfr, const BlendFileInfo& bfi)
-	 : _ptr_size(bfi.PointerSize())
+	 : BlendFileUtils(bfi.PointerSize())
 	{
 		// first align the input to 4 bytes
 		_align(bfr, 4, "Failed to skip DNA block padding");
@@ -701,6 +770,21 @@ public:
 				si._field_array_flags[j] = is_array;
 			}
 		}
+		_init_type_id_index<void>("void");
+		_init_type_id_index<char>("char");
+		_init_type_id_index<unsigned char>("uchar");
+		_init_type_id_index<short>("short");
+		_init_type_id_index<unsigned short>("ushort");
+		_init_type_id_index<int>("int");
+		_init_type_id_index<unsigned int>("uint");
+		_init_type_id_index<long>("long");
+		_init_type_id_index<unsigned long>("ulong");
+		_init_type_id_index<long>("long");
+		_init_type_id_index<unsigned long>("ulong");
+		_init_type_id_index<int64_t>("int64_t");
+		_init_type_id_index<uint64_t>("uint64_t");
+		_init_type_id_index<float>("float");
+		_init_type_id_index<double>("double");
 	}
 };
 

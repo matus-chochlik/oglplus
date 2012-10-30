@@ -17,10 +17,8 @@
 #include <istream>
 #include <sstream>
 #include <cstddef>
-#include <cstring>
 #include <string>
 #include <vector>
-#include <array>
 
 namespace oglplus {
 namespace imports {
@@ -30,6 +28,7 @@ namespace imports {
 // the loader
 // NOTE: implementation detail, do not use
 class BlendFileReader
+ : public BlendFileUtils
 {
 private:
 	std::istream& _input;
@@ -112,7 +111,7 @@ private:
 	)
 	{
 		std::streampos input_pos = _input.tellg();
-		const std::size_t mod = input_pos % size;
+		const std::size_t mod = _align_diff(input_pos, size);
 		if(mod != 0)
 		{
 			_skip(size - mod, error_message);
@@ -123,7 +122,8 @@ private:
 	friend class BlendFileReaderClient;
 public:
 	BlendFileReader(std::istream& input)
-	 : _input(input)
+	 : BlendFileUtils(4)
+	 , _input(input)
 	{ }
 };
 

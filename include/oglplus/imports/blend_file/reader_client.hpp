@@ -14,6 +14,8 @@
 
 #include <oglplus/imports/blend_file/reader.hpp>
 #include <oglplus/auxiliary/endian.hpp>
+#include <array>
+#include <cstring>
 
 namespace oglplus {
 namespace imports {
@@ -26,6 +28,14 @@ using oglplus::aux::Endian;
 class BlendFileReaderClient
 {
 protected:
+	static void _adjust_ptr_size(
+		BlendFileReader& reader,
+		std::size_t ptr_size
+	)
+	{
+		reader._ptr_size = ptr_size;
+	}
+
 	// end of input indication
 	static bool _eof(BlendFileReader& reader)
 	{
@@ -191,13 +201,6 @@ protected:
 		msg.append("} in input");
 		reader._error(msg);
 		return '\0';
-	}
-
-	// string equality comparison utility
-	template <std::size_t N>
-	bool _equal(const std::array<char, N>& a, const char* b)
-	{
-		return std::strncmp(a.data(), b, N) == 0;
 	}
 };
 

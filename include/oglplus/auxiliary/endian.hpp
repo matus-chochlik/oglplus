@@ -77,7 +77,7 @@ struct EndianNoReorder
 struct EndianDoReorder
 {
 	template <typename T>
-	static T Reorder(T value)
+	static T DoReorder(T value)
 	{
 		union {
 			T x;
@@ -89,6 +89,20 @@ struct EndianDoReorder
 
 		std::reverse(_hlp.y, _hlp.y+sizeof(T));
 		return _hlp.x;
+	}
+
+	template <typename T>
+	static T DoForward(T value)
+	{
+		return value;
+	}
+
+	template <typename T>
+	static T Reorder(T value)
+	{
+		if(sizeof(T) == 1)
+			return DoForward(value);
+		else return DoReorder(value);
 	}
 };
 
