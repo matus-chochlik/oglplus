@@ -35,6 +35,16 @@ public:
 		return _value == 0;
 	}
 
+	friend bool operator == (BlendFilePointer a, BlendFilePointer b)
+	{
+		return a._value == b._value;
+	}
+
+	friend bool operator != (BlendFilePointer a, BlendFilePointer b)
+	{
+		return a._value != b._value;
+	}
+
 	ValueType Value(void) const
 	{
 		return _value;
