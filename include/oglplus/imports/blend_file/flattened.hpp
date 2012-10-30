@@ -35,6 +35,7 @@ private:
 	 , _flat_fields(flat_fields)
 	{ }
 
+	friend class BlendFileFlattenedStruct;
 	friend class BlendFileFlattenedStructFieldRange;
 public:
 
@@ -118,6 +119,7 @@ public:
 	 : BlendFileType(type)
 	{ }
 
+	/// Returns a range of fields of the flattened structure
 	BlendFileFlattenedStructFieldRange Fields(void) const
 	{
 		return BlendFileFlattenedStructFieldRange(
@@ -126,7 +128,37 @@ public:
 			*_sdna->_struct_flatten_fields(_struct_index)
 		);
 	}
+
+	/// Returns a field by its full name
+	BlendFileFlattenedStructField FieldByName(const std::string& name) const
+	{
+		const BlendFileSDNA::_flat_struct_info& flat_fields =
+			*_sdna->_struct_flatten_fields(_struct_index);
+		auto pos = flat_fields._field_map.find(&name);
+
+		if(pos == flat_fields._field_map.end())
+		{
+			std::string what("Cannot find field '");
+			what.append(name);
+			what.append("' in flattened structure");
+			throw std::runtime_error(what);
+		}
+
+		const std::size_t flat_field_index = pos->second;
+
+		return BlendFileFlattenedStructField(
+			_sdna,
+			_struct_index,
+			flat_field_index,
+			flat_fields
+		);
+	}
 };
+
+BlendFileFlattenedStruct BlendFileStruct::Flattened(void) const
+{
+	return BlendFileFlattenedStruct(*this);
+}
 
 } // imports
 } // oglplus

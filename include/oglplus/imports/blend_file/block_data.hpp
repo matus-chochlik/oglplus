@@ -46,21 +46,23 @@ public:
 	}
 
 	/// Returns the value of the specified field as a pointer
-	uint64_t GetPointer(const BlendFileFlattenedStructField& flat_field) const
+	BlendFilePointer GetPointer(
+		const BlendFileFlattenedStructField& flat_field
+	) const
 	{
 		const char* pos = _block_data.data() + flat_field.Offset();
 		if(_ptr_size == 4)
-			return ReorderToNative(
+			return BlendFilePointer(ReorderToNative(
 				_byte_order,
 				*reinterpret_cast<const uint32_t*>(pos)
-			);
+			));
 		if(_ptr_size == 8)
-			return ReorderToNative(
+			return BlendFilePointer(ReorderToNative(
 				_byte_order,
 				*reinterpret_cast<const uint64_t*>(pos)
-			);
+			));
 		assert(!"Invalid pointer size!");
-		return 0;
+		return BlendFilePointer(0);
 	}
 
 	/// Returns the value of the specified field as a floating point value
@@ -76,7 +78,7 @@ public:
 	std::string GetString(const BlendFileFlattenedStructField& flat_field) const
 	{
 		const char* pos = _block_data.data() + flat_field.Offset();
-		return std::string(pos, flat_field.Size());
+		return std::string (pos, flat_field.Size());
 	}
 
 	/// Visits the value of the specified field by a visitor
@@ -90,7 +92,7 @@ public:
 	 *      void operator()(T value);
 	 *
 	 *      // pointers
-	 *      void operator()(uint64_t pointer, void*);
+	 *      void operator()(BlendFilePointer pointer);
 	 *
 	 *      // raw data of unknown type
 	 *      void operator()(const char* data, size_t size);
@@ -104,7 +106,7 @@ public:
 	) const
 	{
 		auto f = flat_field.Field();
-		if(f.IsPointer()) visitor(GetPointer(flat_field), nullptr);
+		if(f.IsPointer()) visitor(GetPointer(flat_field));
 		else
 		{
 			auto bt = f.BaseType();

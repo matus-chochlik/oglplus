@@ -26,6 +26,8 @@ class BlendFileSDNA
  , public BlendFileUtils
 {
 private:
+	BlendFileSDNA(const BlendFileSDNA&);
+
 	// list of structure field names as loaded from the file's SDNA
 	std::vector<std::string> _names;
 
@@ -53,6 +55,17 @@ private:
 		return _type_structs[type] != _invalid_struct_index();
 	}
 
+	// helper comparator
+	struct _pstr_less
+	{
+		typedef const std::string* ptr;
+		bool operator()(ptr a, ptr b) const
+		{
+			assert(a && b);
+			return *a < *b;
+		}
+	};
+
 	// stores the data describing a flattened structure.
 	// flattening is a process of unfolding of the structure
 	// so that it contains only atomic fields. if a structure's
@@ -61,6 +74,10 @@ private:
 	// flattened) structure.
 	struct _flat_struct_info
 	{
+	private:
+		// non copyable
+		_flat_struct_info(const _flat_struct_info&);
+	public:
 		// flat field information
 		// all vectors below have the same number of elements
 		// and each stores a different property of the atomic
@@ -80,6 +97,8 @@ private:
 		//
 		// the offset of the fields in the flattened structure
 		std::vector<uint32_t> _field_offsets;
+
+		std::map<const std::string*, std::size_t, _pstr_less> _field_map;
 
 		_flat_struct_info(std::size_t field_count)
 		 : _field_names(field_count)
@@ -252,17 +271,6 @@ private:
 		return _structs.size();
 	}
 
-	// helper comparator
-	struct _pstr_less
-	{
-		typedef const std::string* ptr;
-		bool operator()(ptr a, ptr b) const
-		{
-			assert(a && b);
-			return *a < *b;
-		}
-	};
-
 	// maps type name to index in _type_names and _type_sizes
 	// used for lookup of type properties by name
 	std::map<const std::string*, std::size_t, _pstr_less> _type_map;
@@ -306,6 +314,36 @@ private:
 			else ++i;
 		}
 		result.resize(n);
+		return result;
+	}
+
+	static std::string _elem_field_suffix(uint64_t i)
+	{
+		std::string result;
+		if(i == 0)
+		{
+			result.append("0", 1);
+		}
+		else
+		{
+			std::size_t l = 1;
+			uint64_t d = 1;
+			while(l < 24)
+			{
+				if(i / d == 0) break;
+				l += 1;
+				d *= 10;
+			}
+			--l;
+			d /= 10;
+			result.resize(l);
+			for(std::size_t p=0; p!=l; ++p)
+			{
+				result[p] = '0' + i / d;
+				i %= d;
+				d /= 10;
+			}
+		}
 		return result;
 	}
 
@@ -362,7 +400,7 @@ private:
 
 		// otherwise ..
 		// get the number of atomic fields
-		std::size_t fc = _struct_flat_field_count(struct_index);
+		const std::size_t fc = _struct_flat_field_count(struct_index);
 		// make a new instance of the flat info
 		result = std::make_shared<_flat_struct_info>(fc);
 
@@ -410,6 +448,10 @@ private:
 				//
 				// the full field name
 				result->_field_names[field_index] = fn;
+				// update the field map
+				result->_field_map[
+					&result->_field_names[field_index]
+				] = field_index;
 				// the index of the structure in which the field
 				// is actually defined
 				result->_field_structs[field_index] = struct_index;
@@ -448,13 +490,15 @@ private:
 				// processed field
 				for(std::size_t e=0; e!=elem_count; ++e)
 				{
+					std::string efn = fn;
+					if(e) efn.append(_elem_field_suffix(e));
 					for(std::size_t g=0; g!=gn ; ++g)
 					{
 						// get the nested field's full name
 						const std::string& ffn = nffi->_field_names[g];
 						// prepend the name of the currently
 						// processed field
-						std::string nfn = fn;
+						std::string nfn = efn;
 						nfn.append(".", 1);
 						nfn.append(ffn);
 
@@ -470,6 +514,10 @@ private:
 						//
 						// the full name
 						result->_field_names[field_index] = nfn;
+						// update the field map
+						result->_field_map[
+							&result->_field_names[field_index]
+						] = field_index;
 						// the parent structure
 						result->_field_structs[field_index] = nfs;
 						// the index in the parent structure
@@ -507,6 +555,10 @@ private:
 			}
 			++f;
 		}
+
+		// there should be no duplicities in the field map
+		// nor anything missing
+		assert(result->_field_map.size() == fc);
 
 		// at this point the offset should be the same
 		// as the size of the whole structure

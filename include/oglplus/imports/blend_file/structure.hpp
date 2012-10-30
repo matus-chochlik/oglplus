@@ -15,6 +15,8 @@
 namespace oglplus {
 namespace imports {
 
+class BlendFileFlattenedStruct;
+
 /// Provides information about a field of a blender structure
 class BlendFileStructField
 {
@@ -180,6 +182,8 @@ public:
 			_struct_index
 		);
 	}
+
+	inline BlendFileFlattenedStruct Flattened(void) const;
 };
 
 BlendFileStruct BlendFileType::AsStructure(void) const

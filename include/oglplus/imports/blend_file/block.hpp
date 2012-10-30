@@ -19,6 +19,37 @@ namespace imports {
 
 class BlendFile;
 
+/// Type wrapping a pointer inside of a .blend file
+class BlendFilePointer
+{
+public:
+	typedef uint64_t ValueType;
+
+	operator bool (void) const
+	{
+		return _value != 0;
+	}
+
+	bool operator !(void) const
+	{
+		return _value == 0;
+	}
+
+	ValueType Value(void) const
+	{
+		return _value;
+	}
+private:
+	uint64_t _value;
+
+	friend class BlendFileBlock;
+	friend class BlendFileBlockData;
+
+	BlendFilePointer(ValueType value)
+	 : _value(value)
+	{ }
+};
+
 /// Class for access to a single .blend file block
 class BlendFileBlock
  : public BlendFileReaderClient
@@ -36,7 +67,7 @@ private:
 		);
 	}
 
-	uint64_t _old_ptr;
+	BlendFilePointer _old_ptr;
 	uint64_t _read_old_ptr(BlendFileReader& bfr, const BlendFileInfo& bfi)
 	{
 		if(bfi.PointerSize() == 4)
@@ -113,7 +144,7 @@ public:
 	}
 
 	/// Returns the 'old' pointer value of the block as loaded from input
-	uint64_t Pointer(void) const
+	BlendFilePointer Pointer(void) const
 	{
 		return _old_ptr;
 	}

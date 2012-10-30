@@ -36,7 +36,9 @@ private:
 	BlendFileInfo _info;
 
 	std::vector<BlendFileBlock> _blocks;
-	std::map<uint64_t, std::size_t> _block_map;
+	std::map<BlendFilePointer::ValueType, std::size_t> _block_map;
+
+	std::size_t _glob_block_index;
 
 	std::shared_ptr<BlendFileSDNA> _sdna;
 
@@ -51,6 +53,7 @@ public:
 	BlendFile(std::istream& input)
 	 : _reader(input)
 	 , _info(_reader)
+	 , _glob_block_index(std::size_t(-1))
 	{
 		std::size_t block_idx = 0;
 		while(!_eof(_reader))
@@ -59,6 +62,9 @@ public:
 				_reader,
 				"Failed to read file block code"
 			);
+			if(_equal(code, "GLOB"))
+				_glob_block_index = block_idx;
+
 			if(_equal(code, "DNA1"))
 			{
 				_blocks.emplace_back(
@@ -81,7 +87,13 @@ public:
 					true
 				);
 			}
-			_block_map[_blocks.back()._old_ptr] = block_idx++;
+			_block_map[_blocks.back()._old_ptr.Value()]=block_idx++;
+		}
+		if(_glob_block_index == std::size_t(-1))
+		{
+			throw std::runtime_error(
+				"Blend file does not contain GLOB block"
+			);
 		}
 		if(!_sdna)
 		{
@@ -99,6 +111,30 @@ public:
 	BlendFileStructRange Structures(void) const
 	{
 		return BlendFileStructRange(_sdna);
+	}
+
+	const BlendFileBlock& GlobalBlock(void) const
+	{
+		return _blocks[_glob_block_index];
+	}
+
+	const BlendFileBlock BlockByPointer(BlendFilePointer pointer) const
+	{
+		auto pos = _block_map.find(pointer.Value());
+		if(pos == _block_map.end())
+		{
+			throw std::runtime_error(
+				"Unable to find block by pointer"
+			);
+		}
+		assert(pos->second < _blocks.size());
+
+		return _blocks[pos->second];
+	}
+
+	BlendFileBlockRange Blocks(void) const
+	{
+		return BlendFileBlockRange(_blocks);
 	}
 
 	BlendFileStruct BlockStructure(const BlendFileBlock& block) const
@@ -125,11 +161,6 @@ public:
 			_info.ByteOrder(),
 			_info.PointerSize()
 		);
-	}
-
-	BlendFileBlockRange Blocks(void) const
-	{
-		return BlendFileBlockRange(_blocks);
 	}
 };
 
