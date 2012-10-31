@@ -159,7 +159,10 @@ public:
 		return BlendFileBlockData(
 			std::move(data),
 			_info.ByteOrder(),
-			_info.PointerSize()
+			_info.PointerSize(),
+			_sdna->_type_sizes[
+				_sdna->_structs[block._sdna_index]._type_index
+			]
 		);
 	}
 };
