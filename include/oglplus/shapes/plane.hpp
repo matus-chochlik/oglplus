@@ -285,6 +285,50 @@ public:
 		return instructions;
 	}
 
+	/// Returns element indices that are used with the drawing instructions
+	IndexArray PatchIndices(void) const
+	{
+		unsigned k = 0;
+		unsigned offs = 0, leap = _udiv + 1;
+		IndexArray indices(_vdiv * _udiv * 6);
+
+		for(unsigned j=0; j!=_vdiv; ++j)
+		{
+			for(unsigned i=0; i!=_udiv; ++i)
+			{
+				indices[k++] = offs + i;
+				indices[k++] = offs + i + leap;
+				indices[k++] = offs + i + 1;
+				indices[k++] = offs + i + 1;
+				indices[k++] = offs + i + leap;
+				indices[k++] = offs + i + leap + 1;
+			}
+			offs += leap;
+		}
+		assert(k == indices.size());
+		//
+		// return the indices
+		return indices;
+	}
+
+	/// Returns the instructions for rendering
+	DrawingInstructions PatchInstructions(void) const
+	{
+		auto instructions = this->MakeInstructions();
+		for(unsigned j=0; j!=_vdiv; ++j)
+		{
+			DrawOperation operation;
+			operation.method = DrawOperation::Method::DrawElements;
+			operation.mode = PrimitiveType::Patches;
+			operation.first = GLuint(j * _udiv * 6);
+			operation.count = GLuint(_udiv * 6);
+			operation.phase = 0;
+
+			this->AddInstruction(instructions, operation);
+		}
+		return instructions;
+	}
+
 	/// Returns edge element indices that are used with the drawing instructions
 	IndexArray EdgeIndices(void) const
 	{
