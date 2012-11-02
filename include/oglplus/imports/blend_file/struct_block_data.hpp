@@ -23,7 +23,7 @@ class BlendFileFlatStructTypedFieldData
 {
 private:
 	BlendFileFlattenedStructField _flat_field;
-	const BlendFileBlockData& _block_data_ref;
+	const BlendFileBlockData* _block_data_ref;
 
 	friend class BlendFileFlatStructBlockData;
 
@@ -31,7 +31,7 @@ private:
 		BlendFileFlattenedStructField&& flat_field,
 		const BlendFileBlockData& block_data_ref
 	): _flat_field(std::move(flat_field))
-	 , _block_data_ref(block_data_ref)
+	 , _block_data_ref(&block_data_ref)
 	{ }
 
 	static const BlendFileFlatStructTypedFieldData& _that(void);
@@ -42,7 +42,7 @@ private:
 		std::size_t fe
 	) const
 	{
-		return _block_data_ref.GetPointer(_flat_field, be, fe);
+		return _block_data_ref->GetPointer(_flat_field, be, fe);
 	}
 
 	BlendFilePointer _do_get(
@@ -51,7 +51,7 @@ private:
 		std::size_t fe
 	) const
 	{
-		return _block_data_ref.GetPointer(_flat_field, be, fe);
+		return _block_data_ref->GetPointer(_flat_field, be, fe);
 	}
 
 	std::string _do_get(
@@ -60,22 +60,22 @@ private:
 		std::size_t fe
 	) const
 	{
-		return _block_data_ref.GetString(_flat_field, be, fe);
+		return _block_data_ref->GetString(_flat_field, be, fe);
 	}
 
 	char _do_get(char*, std::size_t be, std::size_t fe) const
 	{
-		return _block_data_ref.GetInt<char>(_flat_field, be, fe);
+		return _block_data_ref->GetInt<char>(_flat_field, be, fe);
 	}
 
 	float _do_get(float*, std::size_t be, std::size_t fe) const
 	{
-		return _block_data_ref.GetFloat<float>(_flat_field, be, fe);
+		return _block_data_ref->GetFloat<float>(_flat_field, be, fe);
 	}
 
 	double _do_get(double*, std::size_t be, std::size_t fe) const
 	{
-		return _block_data_ref.GetFloat<double>(_flat_field, be, fe);
+		return _block_data_ref->GetFloat<double>(_flat_field, be, fe);
 	}
 
 	template <typename Int>
@@ -84,7 +84,7 @@ private:
 		Int
 	>::type _do_get(Int*, std::size_t be, std::size_t fe) const
 	{
-		return _block_data_ref.GetInt<Int>(_flat_field, be, fe);
+		return _block_data_ref->GetInt<Int>(_flat_field, be, fe);
 	}
 public:
 	typedef decltype(_that()._do_get((T*)nullptr, 0, 0)) ValueType;
@@ -128,6 +128,24 @@ private:
 	 , _block(std::move(block))
 	 , _data(std::move(data))
 	{ }
+
+	template <typename T>
+	static T _adjust_value(T* ptr)
+	{
+		assert(ptr);
+		return *ptr;
+	}
+
+	static BlendFilePointer _adjust_value(void**)
+	{
+		return BlendFilePointer();
+	}
+
+	template <typename T>
+	struct _adjust_type
+	{
+		typedef decltype(_adjust_value((T*)0)) type;
+	};
 public:
 	BlendFileFlatStructBlockData(BlendFileFlatStructBlockData&& tmp)
 	 : _flat_struct(std::move(tmp._flat_struct))
@@ -256,6 +274,25 @@ public:
 			Structure().FieldByName(field_name),
 			BlockData()
 		);
+	}
+
+	template <typename T>
+	typename _adjust_type<T>::type TryGet(
+		const std::string& field_name,
+		T default_value,
+		std::size_t block_element = 0,
+		std::size_t field_element = 0
+	) const
+	{
+		try
+		{
+			return Field<T>(field_name).Get(
+				block_element,
+				field_element
+			);
+		}
+		catch(...) { }
+		return _adjust_value(&default_value);
 	}
 };
 

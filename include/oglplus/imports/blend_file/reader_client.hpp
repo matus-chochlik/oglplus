@@ -162,7 +162,8 @@ protected:
 		const char* error_message
 	)
 	{
-		char buffer[size+1];
+		char buffer[16];
+		assert(sizeof(buffer) > size);
 		reader._read(buffer, size, error_message);
 		if(std::strncmp(buffer, expected, size) != 0)
 		{

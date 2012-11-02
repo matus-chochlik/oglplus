@@ -21,6 +21,10 @@ namespace imports {
 class BlendFilePointer
 {
 public:
+	BlendFilePointer(void)
+	 : _value(0)
+	{ }
+
 	/// Type type return by the Value function
 	typedef uint64_t ValueType;
 
@@ -57,13 +61,15 @@ private:
 	friend class BlendFile;
 	friend class BlendFileBlock;
 	friend class BlendFileBlockData;
+	friend class BlendFileFlatStructBlockData;
 
 	BlendFilePointer(ValueType value)
 	 : _value(value)
 	{ }
 
-	BlendFilePointer(void)
-	 : _value(0)
+	template <typename T>
+	explicit BlendFilePointer(T value)
+	 : _value(static_cast<ValueType>(value))
 	{ }
 };
 

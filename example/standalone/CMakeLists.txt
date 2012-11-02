@@ -111,6 +111,11 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		)
 	endif()
 
+	standalone_example_common(
+		024_blender_mesh_loader
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+	)
+
 	if(PNG_FOUND)
 		include_directories(${PNG_INCLUDE_DIRS})
 		standalone_example_common(

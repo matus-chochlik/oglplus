@@ -22,7 +22,7 @@ private:
 	std::shared_ptr<BlendFileSDNA> _sdna;
 	std::size_t _struct_index;
 	std::size_t _flat_field_index;
-	const BlendFileSDNA::_flat_struct_info& _flat_fields;
+	const BlendFileSDNA::_flat_struct_info* _flat_fields;
 
 	BlendFileFlattenedStructField(
 		const std::shared_ptr<BlendFileSDNA>& sdna,
@@ -32,7 +32,7 @@ private:
 	): _sdna(sdna)
 	 , _struct_index(struct_index)
 	 , _flat_field_index(flat_field_index)
-	 , _flat_fields(flat_fields)
+	 , _flat_fields(&flat_fields)
 	{ }
 
 	friend class BlendFileFlattenedStruct;
@@ -41,14 +41,14 @@ public:
 
 	const std::string& Name(void) const
 	{
-		return _flat_fields._field_names[_flat_field_index];
+		return _flat_fields->_field_names[_flat_field_index];
 	}
 
 	BlendFileStruct Parent(void) const
 	{
 		return BlendFileStruct(
 			_sdna,
-			_flat_fields._field_structs[_flat_field_index]
+			_flat_fields->_field_structs[_flat_field_index]
 		);
 	}
 
@@ -56,14 +56,14 @@ public:
 	{
 		return BlendFileStructField(
 			_sdna,
-			_flat_fields._field_structs[_flat_field_index],
-			_flat_fields._field_indices[_flat_field_index]
+			_flat_fields->_field_structs[_flat_field_index],
+			_flat_fields->_field_indices[_flat_field_index]
 		);
 	}
 
 	uint32_t Offset(void) const
 	{
-		return _flat_fields._field_offsets[_flat_field_index];
+		return _flat_fields->_field_offsets[_flat_field_index];
 	}
 
 	uint32_t Size(void) const
@@ -81,7 +81,7 @@ class BlendFileFlattenedStructFieldRange
 private:
 	std::shared_ptr<BlendFileSDNA> _sdna;
 	std::size_t _struct_index;
-	const BlendFileSDNA::_flat_struct_info& _flat_fields;
+	const BlendFileSDNA::_flat_struct_info* _flat_fields;
 
 	typedef BlendFileRangeTpl<
 		BlendFileFlattenedStructFieldRange,
@@ -95,7 +95,7 @@ private:
 	): Base(flat_fields._field_count())
 	 , _sdna(sdna)
 	 , _struct_index(struct_index)
-	 , _flat_fields(flat_fields)
+	 , _flat_fields(&flat_fields)
 	{ }
 
 	friend class BlendFileFlattenedStruct;
@@ -106,7 +106,7 @@ public:
 			_sdna,
 			_struct_index,
 			index,
-			_flat_fields
+			*_flat_fields
 		);
 	}
 };
