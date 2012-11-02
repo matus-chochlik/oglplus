@@ -17,16 +17,36 @@
 #include <oglplus/imports/blend_file/range.hpp>
 #include <oglplus/imports/blend_file/info.hpp>
 #include <oglplus/imports/blend_file/sdna.hpp>
+#include <oglplus/imports/blend_file/pointer.hpp>
 #include <oglplus/imports/blend_file/block.hpp>
 #include <oglplus/imports/blend_file/type.hpp>
 #include <oglplus/imports/blend_file/structure.hpp>
 #include <oglplus/imports/blend_file/flattened.hpp>
 #include <oglplus/imports/blend_file/block_data.hpp>
+#include <oglplus/imports/blend_file/struct_block_data.hpp>
 #include <cstring>
 
 namespace oglplus {
 namespace imports {
 
+class BlendFileStructGlobBlock
+ : public BlendFileFlatStructBlockData
+{
+private:
+
+	friend class BlendFile;
+
+	BlendFileStructGlobBlock(BlendFileFlatStructBlockData&& tmp)
+	 : BlendFileFlatStructBlockData(std::move(tmp))
+	 , curscreen(TypedFieldValue<void*>("curscreen"))
+	 , curscene(TypedFieldValue<void*>("curscene"))
+	{ }
+public:
+	BlendFileFlatStructTypedFieldData<void*> curscreen;
+	BlendFileFlatStructTypedFieldData<void*> curscene;
+};
+
+/// Represents and allows access to the structures and data of a .blend file
 class BlendFile
  : public BlendFileReaderClient
 {
@@ -50,6 +70,11 @@ private:
 	}
 
 public:
+	/// Parses the file from an input stream
+	/**
+	 *  @note The input stream must exist during the whole lifetime
+	 *  of an instance of BlendFile
+	 */
 	BlendFile(std::istream& input)
 	 : _reader(input)
 	 , _info(_reader)
@@ -103,22 +128,20 @@ public:
 		}
 	}
 
+	/// Returns the basic file-level information
 	const BlendFileInfo& Info(void) const
 	{
 		return _info;
 	}
 
+	/// Returns a range of meta-data describing structures unsed in the file
 	BlendFileStructRange Structures(void) const
 	{
 		return BlendFileStructRange(_sdna);
 	}
 
-	const BlendFileBlock& GlobalBlock(void) const
-	{
-		return _blocks[_glob_block_index];
-	}
-
-	const BlendFileBlock BlockByPointer(BlendFilePointer pointer) const
+	/// Returns a block by its pointer
+	const BlendFileBlock& BlockByPointer(BlendFilePointer pointer) const
 	{
 		auto pos = _block_map.find(pointer.Value());
 		if(pos == _block_map.end())
@@ -132,16 +155,63 @@ public:
 		return _blocks[pos->second];
 	}
 
+	/// Returns a structured block by its pointer
+	BlendFileFlatStructBlockData StructuredBlockByPointer(
+		BlendFilePointer pointer
+	)
+	{
+		auto block = BlockByPointer(pointer);
+		auto block_data = BlockData(block);
+		auto flat_struct = BlockStructure(block).Flattened();
+
+		return BlendFileFlatStructBlockData(
+			std::move(flat_struct),
+			std::move(block),
+			std::move(block_data)
+		);
+	}
+
+	/// Alias for StructuredBlockByPointer
+	BlendFileFlatStructBlockData operator[](BlendFilePointer pointer)
+	{
+		return StructuredBlockByPointer(pointer);
+	}
+
+	/// Returns the global block of the file
+	const BlendFileBlock& GlobalBlock(void) const
+	{
+		return _blocks[_glob_block_index];
+	}
+
+	/// Returns a pointer to the global block
+	BlendFilePointer GlobalBlockPointer(void) const
+	{
+		return GlobalBlock().Pointer();
+	}
+
+	/// Returns a structured global block object
+	BlendFileStructGlobBlock StructuredGlobalBlock(void)
+	{
+		return BlendFileStructGlobBlock(
+			StructuredBlockByPointer(
+				GlobalBlockPointer()
+			)
+		);
+	}
+
+	/// Returns a range allowing the traversal of file blocks
 	BlendFileBlockRange Blocks(void) const
 	{
 		return BlendFileBlockRange(_blocks);
 	}
 
+	/// Returns the structures of a file block
 	BlendFileStruct BlockStructure(const BlendFileBlock& block) const
 	{
 		return BlendFileStruct(_sdna, block._sdna_index);
 	}
 
+	/// Returns the data of a block
 	BlendFileBlockData BlockData(const BlendFileBlock& block)
 	{
 		std::vector<char> data;

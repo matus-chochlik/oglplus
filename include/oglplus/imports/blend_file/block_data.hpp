@@ -36,6 +36,13 @@ private:
 	 , _struct_size(struct_size)
 	{ }
 public:
+	BlendFileBlockData(BlendFileBlockData&& tmp)
+	 : _block_data(tmp._block_data)
+	 , _byte_order(tmp._byte_order)
+	 , _ptr_size(tmp._ptr_size)
+	 , _struct_size(tmp._struct_size)
+	{ }
+
 	/// Returns the value of the specified field as a pointer
 	BlendFilePointer GetPointer(
 		const BlendFileFlattenedStructField& flat_field,
@@ -251,7 +258,6 @@ public:
 		);
 	}
 };
-
 
 } // imports
 } // oglplus

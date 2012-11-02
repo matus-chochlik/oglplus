@@ -19,47 +19,6 @@ namespace imports {
 
 class BlendFile;
 
-/// Type wrapping a pointer inside of a .blend file
-class BlendFilePointer
-{
-public:
-	typedef uint64_t ValueType;
-
-	operator bool (void) const
-	{
-		return _value != 0;
-	}
-
-	bool operator !(void) const
-	{
-		return _value == 0;
-	}
-
-	friend bool operator == (BlendFilePointer a, BlendFilePointer b)
-	{
-		return a._value == b._value;
-	}
-
-	friend bool operator != (BlendFilePointer a, BlendFilePointer b)
-	{
-		return a._value != b._value;
-	}
-
-	ValueType Value(void) const
-	{
-		return _value;
-	}
-private:
-	uint64_t _value;
-
-	friend class BlendFileBlock;
-	friend class BlendFileBlockData;
-
-	BlendFilePointer(ValueType value)
-	 : _value(value)
-	{ }
-};
-
 /// Class for access to a single .blend file block
 class BlendFileBlock
  : public BlendFileReaderClient

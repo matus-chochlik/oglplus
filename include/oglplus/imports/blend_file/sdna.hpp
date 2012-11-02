@@ -638,6 +638,7 @@ private:
 	friend class BlendFileFlattenedStruct;
 	friend class BlendFileFlattenedStructField;
 	friend class BlendFileFlattenedStructFieldRange;
+	friend class BlendFileFlatStructBlockData;
 
 public:
 	// constructor uses a reader and info to parse the SDNA
