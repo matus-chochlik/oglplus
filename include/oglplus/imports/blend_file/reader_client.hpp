@@ -111,7 +111,7 @@ protected:
 	)
 	{
 		char c = '\0';
-		reader._read(&c, 1, error_message);
+		reader._raw_read(&c, 1, error_message);
 		return c;
 	}
 
