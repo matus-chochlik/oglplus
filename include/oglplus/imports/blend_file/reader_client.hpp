@@ -162,13 +162,15 @@ protected:
 		const char* error_message
 	)
 	{
-		char buffer[16];
+		char buffer[16] = {'\0'};
 		assert(sizeof(buffer) > size);
 		reader._read(buffer, size, error_message);
 		if(std::strncmp(buffer, expected, size) != 0)
 		{
 			std::string msg("Expected '");
 			msg.append(expected);
+			msg.append("' instead of '");
+			msg.append(buffer);
 			msg.append("' in input");
 			reader._error(msg);
 		}

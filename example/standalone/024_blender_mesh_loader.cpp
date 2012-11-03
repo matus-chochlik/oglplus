@@ -23,6 +23,8 @@ private:
 	oglplus::Program prog;
 
 	oglplus::LazyUniform<oglplus::Mat4f> camera_matrix;
+	oglplus::LazyUniform<oglplus::Vec3f> light_position;
+	oglplus::LazyUniform<oglplus::Vec3f> camera_position;
 	oglplus::LazyUniform<GLint> face_normals;
 
 	oglplus::VertexArray meshes;
@@ -36,6 +38,8 @@ public:
 	BlenderMeshExample(int argc, const char* argv[])
 	 : prog()
 	 , camera_matrix(prog, "CameraMatrix")
+	 , light_position(prog, "LightPosition")
+	 , camera_position(prog, "CameraPosition")
 	 , face_normals(prog, "FaceNormals")
 	 , element_count(0)
 	{
@@ -45,7 +49,7 @@ public:
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
-			"uniform vec3 LightPos;"
+			"uniform vec3 LightPosition, CameraPosition;"
 
 			"mat4 Matrix = ProjectionMatrix * CameraMatrix;"
 
@@ -54,11 +58,13 @@ public:
 
 			"out vec3 vertNormal;"
 			"out vec3 vertLightDir;"
+			"out vec3 vertViewDir;"
 
 			"void main(void)"
 			"{"
 			"	vertNormal = Normal;"
-			"	vertLightDir = LightPos - Position;"
+			"	vertLightDir = LightPosition - Position;"
+			"	vertViewDir = CameraPosition - Position;"
 			"	gl_Position = Matrix * vec4(Position, 1.0);"
 			"}"
 		);
@@ -75,9 +81,11 @@ public:
 
 			"in vec3 vertNormal[3];"
 			"in vec3 vertLightDir[3];"
+			"in vec3 vertViewDir[3];"
 
 			"out vec3 geomNormal;"
 			"out vec3 geomLightDir;"
+			"out vec3 geomViewDir;"
 
 			"void main(void)"
 			"{"
@@ -96,6 +104,7 @@ public:
 			"		if(FaceNormals) geomNormal = fn;"
 			"		else geomNormal = vertNormal[v];"
 			"		geomLightDir = vertLightDir[v];"
+			"		geomViewDir = vertViewDir[v];"
 			"		EmitVertex();"
 			"	}"
 			"	EndPrimitive();"
@@ -110,6 +119,7 @@ public:
 
 			"in vec3 geomNormal;"
 			"in vec3 geomLightDir;"
+			"in vec3 geomViewDir;"
 
 			"out vec3 fragColor;"
 
@@ -118,13 +128,21 @@ public:
 			"	vec3 LightColor = vec3(1.0, 1.0, 1.0);"
 			"	vec3 MatColor = vec3(0.5, 0.5, 0.5);"
 
+			"	vec3 LightRefl = reflect(-geomLightDir, geomNormal);"
+
 			"	float Ambient = 0.3;"
 			"	float Diffuse = max(dot("
 			"		normalize(geomNormal),"
 			"		normalize(geomLightDir)"
-			"	)+0.1, 0.0);"
+			"	), 0.0);"
 
-			"	fragColor = MatColor * LightColor * (Diffuse + Ambient);"
+			"	float Specular = pow(clamp(dot("
+			"		normalize(geomViewDir),"
+			"		normalize(LightRefl)"
+			"	)+0.005, 0.0, 0.98), 64.0);"
+
+			"	fragColor = MatColor * LightColor * (Diffuse + Ambient)+"
+			"			LightColor * Specular;"
 			"}"
 		);
 		fs.Compile();
@@ -308,6 +326,7 @@ public:
 
 		element_count = idx_data.size();
 
+		// find the extremes of the mesh(es)
 		GLfloat min_x = pos_data[3], max_x = pos_data[3];
 		GLfloat min_y = pos_data[4], max_y = pos_data[4];
 		GLfloat min_z = pos_data[5], max_z = pos_data[5];
@@ -325,11 +344,13 @@ public:
 			if(max_z < z) max_z = z;
 		}
 
+		// position the camera target
 		camera_target = Vec3f(
 			(min_x + max_x) * 0.5,
 			(min_y + max_y) * 0.5,
 			(min_z + max_z) * 0.5
 		);
+		// and calculate a good value for camera distance
 		camera_distance = 1.1*Distance(camera_target, Vec3f(min_x, min_y, min_z))+1.0;
 
 
@@ -338,9 +359,6 @@ public:
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::PrimitiveRestart);
 
-		Uniform<Vec3f>(prog, "LightPos").Set(
-			Vec3f(7.0, 3.0, -1.0)
-		);
 	}
 
 	void Reshape(void)
@@ -366,13 +384,22 @@ public:
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		camera_matrix.Set(
+		auto camera = CamMatrixf::Orbiting(
+			camera_target,
+			camera_distance,
+			-FullCircles(t / 17.0),
+			Degrees(SineWave(t / 21.0) * 85)
+		);
+		camera_matrix.Set(camera);
+		camera_position.Set(camera.Position());
+
+		light_position.Set(
 			CamMatrixf::Orbiting(
 				camera_target,
-				camera_distance,
-				-FullCircles(t / 17.0),
-				Degrees(SineWave(t / 21.0) * 35)
-			)
+				camera_distance*2.0,
+				FullCircles(t / 37.0),
+				Degrees(SineWave(t / 31.0) * 85)
+			).Position()
 		);
 
 		face_normals.Set(int(t*0.25) % 2);
