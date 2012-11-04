@@ -47,6 +47,12 @@ public:
 };
 
 /// Represents and allows access to the structures and data of a .blend file
+/**
+ *  @note The objects representing blocks, structures, structure fields, etc.
+ *  created directly or indirectly from a BlendFile instance must not be used
+ *  after their "parent" BlendFile is destroyed. Doing so results in undefined
+ *  behaviour.
+ */
 class BlendFile
  : public BlendFileReaderClient
 {
@@ -112,7 +118,7 @@ public:
 					true
 				);
 			}
-			_block_map[_blocks.back()._old_ptr.Value()]=block_idx++;
+			_block_map[_blocks.back()._old_ptr] = block_idx++;
 		}
 		if(_glob_block_index == std::size_t(-1))
 		{
@@ -137,13 +143,29 @@ public:
 	/// Returns a range of meta-data describing structures unsed in the file
 	BlendFileStructRange Structures(void) const
 	{
-		return BlendFileStructRange(_sdna);
+		return BlendFileStructRange(_sdna.get());
 	}
 
 	/// Returns a block by its pointer
 	const BlendFileBlock& BlockByPointer(BlendFilePointer pointer) const
 	{
-		auto pos = _block_map.find(pointer.Value());
+		auto ptr = pointer.Value();
+		auto pos = _block_map.find(ptr);
+		if(pos == _block_map.end())
+		{
+			auto pos2 = _block_map.lower_bound(ptr);
+			if(pos2 != _block_map.end())
+			{
+				if(pos2 != _block_map.begin())
+				{
+					--pos2;
+					assert(pos2->first < ptr);
+					assert(pos2->second < _blocks.size());
+					std::size_t size = _blocks[pos2->second].Size();
+					if(ptr - pos2->first < size) pos = pos2;
+				}
+			}
+		}
 		if(pos == _block_map.end())
 		{
 			throw std::runtime_error(
@@ -208,7 +230,7 @@ public:
 	/// Returns the structures of a file block
 	BlendFileStruct BlockStructure(const BlendFileBlock& block) const
 	{
-		return BlendFileStruct(_sdna, block._sdna_index);
+		return BlendFileStruct(_sdna.get(), block._sdna_index);
 	}
 
 	/// Returns the data of a block
@@ -233,6 +255,16 @@ public:
 			_sdna->_type_sizes[
 				_sdna->_structs[block._sdna_index]._type_index
 			]
+		);
+	}
+
+	/// Returns the pointee type for a pointer
+	BlendFileType Pointee(const BlendFilePointer& pointer) const
+	{
+		return BlendFileType(
+			_sdna.get(),
+			pointer._type_index,
+			_sdna->_type_structs[pointer._type_index]
 		);
 	}
 };

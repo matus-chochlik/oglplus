@@ -52,6 +52,14 @@ private:
 		throw std::runtime_error(ss.str());
 	}
 
+	// reads a single char throws on error
+	char _read_char(const char* error_message)
+	{
+		char c = '\0';
+		if(_input.get(c).fail()) _error(error_message);
+		return c;
+	}
+
 	// reads the specified number of bytes throws on error
 	void _raw_read(
 		char* buffer,

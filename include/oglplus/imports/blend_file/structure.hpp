@@ -21,7 +21,7 @@ class BlendFileFlattenedStruct;
 class BlendFileStructField
 {
 private:
-	std::shared_ptr<BlendFileSDNA> _sdna;
+	BlendFileSDNA* _sdna;
 	std::size_t _struct_index;
 	std::size_t _field_index;
 
@@ -29,10 +29,10 @@ private:
 	friend class BlendFileFlattenedStructField;
 
 	BlendFileStructField(
-		const std::shared_ptr<BlendFileSDNA>& _sdna,
+		BlendFileSDNA* sdna,
 		std::size_t struct_index,
 		std::size_t field_index
-	): _sdna(_sdna)
+	): _sdna(sdna)
 	 , _struct_index(struct_index)
 	 , _field_index(field_index)
 	{
@@ -51,11 +51,12 @@ public:
  	 */
 	BlendFileType BaseType(void) const
 	{
+		auto type_index = _sdna->_structs[_struct_index].
+				_field_type_indices[_field_index];
 		return BlendFileType(
 			_sdna,
-			_sdna->_structs[_struct_index].
-				_field_type_indices[_field_index],
-			_struct_index
+			type_index,
+			_sdna->_type_structs[type_index]
 		);
 	}
 
@@ -81,11 +82,24 @@ public:
 			_field_ptr_flags[_field_index];
 	}
 
+	/// Returns true if the field is a pointer to a pointer
+	bool IsPointerToPointer(void) const
+	{
+		bool is_ptr = _sdna->_structs[_struct_index].
+			_field_ptr_flags[_field_index];
+		bool is_ptr2 = _sdna->_structs[_struct_index].
+			_field_ptr2_flags[_field_index];
+		return is_ptr && is_ptr2;
+	}
+
 	/// Returns true if the field is a pointer to a function
 	bool IsPointerToFunc(void) const
 	{
-		return	_sdna->_structs[_struct_index].
-			_field_fn_ptr_flags[_field_index];
+		bool is_ptr = _sdna->_structs[_struct_index].
+			_field_ptr_flags[_field_index];
+		bool is_ptr2 = _sdna->_structs[_struct_index].
+			_field_ptr2_flags[_field_index];
+		return !is_ptr && is_ptr2;
 	}
 
 	/// Returns true if the field is an array
@@ -123,7 +137,7 @@ class BlendFileStructFieldRange
  : public BlendFileRangeTpl<BlendFileStructFieldRange, BlendFileStructField>
 {
 private:
-	std::shared_ptr<BlendFileSDNA> _sdna;
+	BlendFileSDNA* _sdna;
 	std::size_t _struct_index;
 
 	typedef BlendFileRangeTpl<BlendFileStructFieldRange, BlendFileStructField> Base;
@@ -131,7 +145,7 @@ private:
 	friend class BlendFileStruct;
 
 	BlendFileStructFieldRange(
-		const std::shared_ptr<BlendFileSDNA>& sdna,
+		BlendFileSDNA* sdna,
 		std::size_t struct_index
 	): Base(sdna->_structs[struct_index]._field_count())
 	 , _sdna(sdna)
@@ -160,7 +174,7 @@ private:
 	friend class BlendFileFlattenedStructField;
 
 	BlendFileStruct(
-		const std::shared_ptr<BlendFileSDNA>& _sdna,
+		BlendFileSDNA* _sdna,
 		std::size_t struct_index
 	): BlendFileType(
 		_sdna,
@@ -196,13 +210,13 @@ class BlendFileStructRange
  : public BlendFileRangeTpl<BlendFileStructRange, BlendFileStruct>
 {
 private:
-	std::shared_ptr<BlendFileSDNA> _sdna;
+	BlendFileSDNA* _sdna;
 
 	typedef BlendFileRangeTpl<BlendFileStructRange, BlendFileStruct> Base;
 
 	friend class BlendFile;
 
-	BlendFileStructRange(const std::shared_ptr<BlendFileSDNA>& sdna)
+	BlendFileStructRange(BlendFileSDNA* sdna)
 	 : Base(sdna->_structs.size())
 	 , _sdna(sdna)
 	{ }

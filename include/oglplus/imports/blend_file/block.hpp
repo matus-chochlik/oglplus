@@ -36,7 +36,7 @@ private:
 		);
 	}
 
-	BlendFilePointer _old_ptr;
+	uint64_t _old_ptr;
 	uint64_t _read_old_ptr(BlendFileReader& bfr, const BlendFileInfo& bfi)
 	{
 		if(bfi.PointerSize() == 4)
@@ -115,7 +115,7 @@ public:
 	/// Returns the 'old' pointer value of the block as loaded from input
 	BlendFilePointer Pointer(void) const
 	{
-		return _old_ptr;
+		return BlendFilePointer(_old_ptr, _sdna_index);
 	}
 
 	/// Returns the the position of the block data in the input file

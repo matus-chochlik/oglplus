@@ -55,18 +55,31 @@ public:
 			block_element * _struct_size +
 			field_element * _ptr_size +
 			flat_field.Offset();
+
+
+		auto type_index =
+			flat_field._sdna->_structs[
+				flat_field._flat_fields->_field_structs[
+					flat_field._flat_field_index
+				]
+			]._field_type_indices[
+				flat_field._flat_fields->_field_indices[
+					flat_field._flat_field_index
+				]
+			];
+
 		if(_ptr_size == 4)
 			return BlendFilePointer(ReorderToNative(
 				_byte_order,
 				*reinterpret_cast<const uint32_t*>(pos)
-			));
+			), type_index);
 		if(_ptr_size == 8)
 			return BlendFilePointer(ReorderToNative(
 				_byte_order,
 				*reinterpret_cast<const uint64_t*>(pos)
-			));
+			), type_index);
 		assert(!"Invalid pointer size!");
-		return BlendFilePointer(0);
+		return BlendFilePointer();
 	}
 
 	/// Returns the value of the specified field as an integer

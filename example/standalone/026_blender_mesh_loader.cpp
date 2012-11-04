@@ -1,5 +1,5 @@
 /**
- *  @example standalone/024_blender_mesh_loader.cpp
+ *  @example standalone/026_blender_mesh_loader.cpp
  *  @brief Shows the usage of the .blend file parser utility
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
@@ -185,7 +185,7 @@ public:
 			// get the pointer to its object
 			auto object_ptr = object_link_block.Field<void*>("object").Get();
 			// open the object block (if any)
-			if(object_ptr)
+			if(object_ptr) try
 			{
 				auto object_block = blend_file[object_ptr];
 				// get the data pointer
@@ -197,6 +197,31 @@ public:
 					// if it is a mesh
 					if(object_data_block.StructureName() == "Mesh")
 					{
+						// get the object matrix field
+						auto object_obmat_field = object_block.Field<float>("obmat");
+						// make a transformation matrix
+						Mat4f obmat(
+							object_obmat_field.Get(0, 0),
+							object_obmat_field.Get(0, 4),
+							object_obmat_field.Get(0, 8),
+							object_obmat_field.Get(0,12),
+
+							object_obmat_field.Get(0, 1),
+							object_obmat_field.Get(0, 5),
+							object_obmat_field.Get(0, 9),
+							object_obmat_field.Get(0,13),
+
+							object_obmat_field.Get(0, 2),
+							object_obmat_field.Get(0, 6),
+							object_obmat_field.Get(0,10),
+							object_obmat_field.Get(0,14),
+
+							object_obmat_field.Get(0, 3),
+							object_obmat_field.Get(0, 7),
+							object_obmat_field.Get(0,11),
+							object_obmat_field.Get(0,15)
+						);
+						// the number of vertices
 						std::size_t n_verts = 0;
 						// get the vertex block pointer
 						auto vertex_ptr = object_data_block.Field<void*>("mvert").Get();
@@ -216,13 +241,27 @@ public:
 							{
 								// (transpose y and z axes)
 								// get the positional coordinates
-								ps[3*v+0] = vertex_co_field.Get(v, 0);
-								ps[3*v+1] = vertex_co_field.Get(v, 2);
-								ps[3*v+2] = vertex_co_field.Get(v, 1);
+								Vec4f position(
+									vertex_co_field.Get(v, 0),
+									vertex_co_field.Get(v, 1),
+									vertex_co_field.Get(v, 2),
+									1.0f
+								);
+								Vec4f newpos = obmat * position;
+								ps[3*v+0] = newpos.x();
+								ps[3*v+1] = newpos.z();
+								ps[3*v+2] =-newpos.y();
 								// get the normals
-								ns[3*v+0] = vertex_no_field.Get(v, 0);
-								ns[3*v+1] = vertex_no_field.Get(v, 2);
-								ns[3*v+2] = vertex_no_field.Get(v, 1);
+								Vec4f normal(
+									vertex_no_field.Get(v, 0),
+									vertex_no_field.Get(v, 1),
+									vertex_no_field.Get(v, 2),
+									0.0f
+								);
+								Vec4f newnorm = obmat * normal;
+								ns[3*v+0] = newnorm.x();
+								ns[3*v+1] = newnorm.z();
+								ns[3*v+2] =-newnorm.y();
 							}
 							// append the values
 							pos_data.insert(pos_data.end(), ps.begin(), ps.end());
@@ -299,6 +338,8 @@ public:
 					}
 				}
 			}
+			catch(...)
+			{ }
 			// and get the pointer to the nex block
 			object_link_ptr = object_link_block.Field<void*>("next").Get();
 		}

@@ -151,7 +151,9 @@ private:
 		//
 		// stores values indicating if the i-th
 		// field is a pointer to a function
-		std::vector<bool> _field_fn_ptr_flags;
+		// or if combined with _field_ptr_flags[i]
+		// it means that it is a pointer to pointer
+		std::vector<bool> _field_ptr2_flags;
 		//
 		// stores values indication if the i-th
 		// field is an array with multiple values
@@ -180,7 +182,7 @@ private:
 			);
 			assert(
 				_field_type_indices.size() ==
-				_field_fn_ptr_flags.size()
+				_field_ptr2_flags.size()
 			);
 			assert(
 				_field_type_indices.size() ==
@@ -196,6 +198,14 @@ private:
 	{
 		if(def.empty()) return false;
 		return def[0] == '*';
+	}
+
+	// helper function of testing whether a field specified
+	// by a definition def is a pointer to pointer
+	static bool _field_is_ptr_to_ptr(const std::string& def)
+	{
+		if(def.size() < 2) return false;
+		return def[0] == '*' && def[1] == '*';
 	}
 
 	// helper function of testing whether a field specified
@@ -370,7 +380,7 @@ private:
 		{
 			std::size_t elem_count = si._field_elem_counts[f];
 			uint32_t fsi = _type_structs[si._field_type_indices[f]];
-			if(si._field_fn_ptr_flags[f]) ++result;
+			if(si._field_ptr2_flags[f]) ++result;
 			else if(si._field_ptr_flags[f]) ++result;
 			else if(fsi == _invalid_struct_index()) ++result;
 			else result += _struct_flat_field_count(fsi) * elem_count;
@@ -424,7 +434,7 @@ private:
 
 			// check if the field type is a pointer
 			bool is_ptr =
-				si._field_fn_ptr_flags[f] ||
+				si._field_ptr2_flags[f] ||
 				si._field_ptr_flags[f];
 			// or if it is atomic (i.e. not a structured type)
 			bool is_plain = fsi == _invalid_struct_index();
@@ -532,12 +542,12 @@ private:
 						// check if it is a pointer
 						bool is_ptr = _structs[nfs].
 								_field_ptr_flags[nfi];
-						bool is_fn_ptr = _structs[nfs].
-								_field_fn_ptr_flags[nfi];
+						bool is_ptr2 = _structs[nfs].
+								_field_ptr2_flags[nfi];
 
 						// calculate the size
 						std::size_t size;
-						if(is_ptr || is_fn_ptr)
+						if(is_ptr || is_ptr2)
 							size = _ptr_size;
 						else size = _type_sizes[nfti];
 
@@ -638,6 +648,7 @@ private:
 	friend class BlendFileFlattenedStruct;
 	friend class BlendFileFlattenedStructField;
 	friend class BlendFileFlattenedStructFieldRange;
+	friend class BlendFileBlockData;
 	friend class BlendFileFlatStructBlockData;
 
 public:
@@ -786,7 +797,7 @@ public:
 			si._field_name_indices.resize(k);
 			si._field_elem_counts.resize(k);
 			si._field_ptr_flags.resize(k);
-			si._field_fn_ptr_flags.resize(k);
+			si._field_ptr2_flags.resize(k);
 			si._field_array_flags.resize(k);
 
 			// and load the individual fields
@@ -811,6 +822,7 @@ public:
 				const std::string& def = _names[si._field_name_indices[j]];
 				// and check if the field is a pointer/array/...
 				bool is_ptr = _field_is_ptr(def);
+				bool is_ptr_to_ptr = _field_is_ptr_to_ptr(def);
 				bool is_fn_ptr = _field_is_fn_ptr(def);
 				bool is_array = _field_is_array(def);
 
@@ -819,7 +831,7 @@ public:
 				// in the appropriate arrays
 				si._field_elem_counts[j] = is_array?_field_elem_count(def):1;
 				si._field_ptr_flags[j] = is_ptr;
-				si._field_fn_ptr_flags[j] = is_fn_ptr;
+				si._field_ptr2_flags[j] = is_ptr_to_ptr || is_fn_ptr;
 				si._field_array_flags[j] = is_array;
 			}
 		}

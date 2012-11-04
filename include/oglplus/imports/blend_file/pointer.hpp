@@ -23,6 +23,7 @@ class BlendFilePointer
 public:
 	BlendFilePointer(void)
 	 : _value(0)
+	 , _type_index(0)
 	{ }
 
 	/// Type type return by the Value function
@@ -39,13 +40,19 @@ public:
 	}
 
 	/// Equality comparison
-	friend bool operator == (BlendFilePointer a, BlendFilePointer b)
+	friend bool operator == (
+		const BlendFilePointer& a,
+		const BlendFilePointer& b
+	)
 	{
 		return a._value == b._value;
 	}
 
 	/// Inequality comparison
-	friend bool operator != (BlendFilePointer a, BlendFilePointer b)
+	friend bool operator != (
+		const BlendFilePointer& a,
+		const BlendFilePointer& b
+	)
 	{
 		return a._value != b._value;
 	}
@@ -57,19 +64,16 @@ public:
 	}
 private:
 	uint64_t _value;
+	std::size_t _type_index;
 
 	friend class BlendFile;
 	friend class BlendFileBlock;
 	friend class BlendFileBlockData;
 	friend class BlendFileFlatStructBlockData;
 
-	BlendFilePointer(ValueType value)
+	BlendFilePointer(ValueType value, std::size_t type_index)
 	 : _value(value)
-	{ }
-
-	template <typename T>
-	explicit BlendFilePointer(T value)
-	 : _value(static_cast<ValueType>(value))
+	 , _type_index(type_index)
 	{ }
 };
 

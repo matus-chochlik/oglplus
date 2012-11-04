@@ -110,9 +110,7 @@ protected:
 		const char* error_message
 	)
 	{
-		char c = '\0';
-		reader._raw_read(&c, 1, error_message);
-		return c;
+		return reader._read_char(error_message);
 	}
 
 	// reads an integer value, reorders to native byte-order

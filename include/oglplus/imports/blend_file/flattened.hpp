@@ -19,13 +19,13 @@ namespace imports {
 class BlendFileFlattenedStructField
 {
 private:
-	std::shared_ptr<BlendFileSDNA> _sdna;
+	BlendFileSDNA* _sdna;
 	std::size_t _struct_index;
 	std::size_t _flat_field_index;
 	const BlendFileSDNA::_flat_struct_info* _flat_fields;
 
 	BlendFileFlattenedStructField(
-		const std::shared_ptr<BlendFileSDNA>& sdna,
+		BlendFileSDNA* sdna,
 		std::size_t struct_index,
 		std::size_t flat_field_index,
 		const BlendFileSDNA::_flat_struct_info& flat_fields
@@ -35,6 +35,7 @@ private:
 	 , _flat_fields(&flat_fields)
 	{ }
 
+	friend class BlendFileBlockData;
 	friend class BlendFileFlattenedStruct;
 	friend class BlendFileFlattenedStructFieldRange;
 public:
@@ -79,7 +80,7 @@ class BlendFileFlattenedStructFieldRange
 >
 {
 private:
-	std::shared_ptr<BlendFileSDNA> _sdna;
+	BlendFileSDNA* _sdna;
 	std::size_t _struct_index;
 	const BlendFileSDNA::_flat_struct_info* _flat_fields;
 
@@ -89,7 +90,7 @@ private:
 	> Base;
 
 	BlendFileFlattenedStructFieldRange(
-		const std::shared_ptr<BlendFileSDNA>& sdna,
+		BlendFileSDNA* sdna,
 		std::size_t struct_index,
 		const BlendFileSDNA::_flat_struct_info& flat_fields
 	): Base(flat_fields._field_count())

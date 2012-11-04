@@ -21,17 +21,18 @@ class BlendFileStruct;
 class BlendFileType
 {
 protected:
-	const std::shared_ptr<BlendFileSDNA> _sdna;
+	BlendFileSDNA* _sdna;
 	const std::size_t _type_index;
 	const std::size_t _struct_index;
 
+	friend class BlendFile;
 	friend class BlendFileStructField;
 
 	BlendFileType(
-		const std::shared_ptr<BlendFileSDNA>& _sdna,
+		BlendFileSDNA* sdna,
 		std::size_t type_index,
 		std::size_t struct_index
-	): _sdna(_sdna)
+	): _sdna(sdna)
 	 , _type_index(type_index)
 	 , _struct_index(struct_index)
 	{
