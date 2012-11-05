@@ -38,8 +38,8 @@ private:
 
 	BlendFileStructGlobBlock(BlendFileFlatStructBlockData&& tmp)
 	 : BlendFileFlatStructBlockData(std::move(tmp))
-	 , curscreen(TypedFieldValue<void*>("curscreen"))
-	 , curscene(TypedFieldValue<void*>("curscene"))
+	 , curscreen(Field<void*>("curscreen"))
+	 , curscene(Field<void*>("curscene"))
 	{ }
 public:
 	BlendFileFlatStructTypedFieldData<void*> curscreen;
@@ -183,13 +183,18 @@ public:
 	)
 	{
 		auto block = BlockByPointer(pointer);
+		auto offset = pointer - block.Pointer();
 		auto block_data = BlockData(block);
-		auto flat_struct = BlockStructure(block).Flattened();
+		auto flat_struct =
+			(offset == 0)?
+			BlockStructure(block).Flattened():
+			Pointee(pointer).AsStructure().Flattened();
 
 		return BlendFileFlatStructBlockData(
 			std::move(flat_struct),
 			std::move(block),
-			std::move(block_data)
+			std::move(block_data),
+			offset
 		);
 	}
 

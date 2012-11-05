@@ -27,6 +27,7 @@ protected:
 
 	friend class BlendFile;
 	friend class BlendFileStructField;
+	friend class BlendFileFlatStructBlockData;
 
 	BlendFileType(
 		BlendFileSDNA* sdna,

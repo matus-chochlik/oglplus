@@ -15,9 +15,14 @@
 namespace oglplus {
 namespace imports {
 
+
+/// Class wrapping the data of a file block
 class BlendFileBlockData
 {
 private:
+	// TODO: some kind of caching in BlendFile or BlendFileBlock
+	// and only a reference to the buffer here
+	// to make this class more lightweight
 	std::vector<char> _block_data;
 	Endian _byte_order;
 	std::size_t _ptr_size;
@@ -43,30 +48,21 @@ public:
 	 , _struct_size(tmp._struct_size)
 	{ }
 
-	/// Returns the value of the specified field as a pointer
+	/// Returns the value at the specified offset as a pointer
 	BlendFilePointer GetPointer(
-		const BlendFileFlattenedStructField& flat_field,
-		std::size_t block_element = 0,
-		std::size_t field_element = 0
+		std::size_t type_index,
+		std::size_t field_offset,
+		std::size_t block_element,
+		std::size_t field_element,
+		std::size_t data_offset
 	) const
 	{
 		const char* pos =
 			_block_data.data() +
+			data_offset +
 			block_element * _struct_size +
 			field_element * _ptr_size +
-			flat_field.Offset();
-
-
-		auto type_index =
-			flat_field._sdna->_structs[
-				flat_field._flat_fields->_field_structs[
-					flat_field._flat_field_index
-				]
-			]._field_type_indices[
-				flat_field._flat_fields->_field_indices[
-					flat_field._flat_field_index
-				]
-			];
+			field_offset;
 
 		if(_ptr_size == 4)
 			return BlendFilePointer(ReorderToNative(
@@ -82,24 +78,86 @@ public:
 		return BlendFilePointer();
 	}
 
+	/// Returns the value of the specified field as a pointer
+	BlendFilePointer GetPointer(
+		const BlendFileFlattenedStructField& flat_field,
+		std::size_t block_element = 0,
+		std::size_t field_element = 0,
+		std::size_t data_offset = 0
+	) const
+	{
+		return GetPointer(
+			flat_field._sdna->_structs[
+				flat_field._flat_fields->_field_structs[
+					flat_field._flat_field_index
+				]
+			]._field_type_indices[
+				flat_field._flat_fields->_field_indices[
+					flat_field._flat_field_index
+				]
+			],
+			flat_field.Offset(),
+			block_element,
+			field_element,
+			data_offset
+		);
+	}
+
+	/// Returns the value at the specified offset as an integer
+	template <typename Int>
+	Int GetInt(
+		std::size_t field_offset,
+		std::size_t block_element,
+		std::size_t field_element,
+		std::size_t data_offset
+	) const
+	{
+		const char* pos =
+			_block_data.data() +
+			data_offset +
+			block_element * _struct_size +
+			field_element * sizeof(Int) +
+			field_offset;
+		return ReorderToNative(
+			_byte_order,
+			*reinterpret_cast<const Int*>(pos)
+		);
+	}
+
 	/// Returns the value of the specified field as an integer
 	template <typename Int>
 	Int GetInt(
 		const BlendFileFlattenedStructField& flat_field,
 		std::size_t block_element = 0,
-		std::size_t field_element = 0
+		std::size_t field_element = 0,
+		std::size_t data_offset = 0
 	) const
 	{
 		assert(sizeof(Int) == flat_field.Field().BaseType().Size());
+		return GetInt<Int>(
+			flat_field.Offset(),
+			block_element,
+			field_element,
+			data_offset
+		);
+	}
+
+	/// Returns the value at the specified offset as a floating point value
+	template <typename Float>
+	Float GetFloat(
+		std::size_t field_offset,
+		std::size_t block_element,
+		std::size_t field_element,
+		std::size_t data_offset
+	) const
+	{
 		const char* pos =
 			_block_data.data() +
+			data_offset +
 			block_element * _struct_size +
-			field_element * sizeof(Int) +
-			flat_field.Offset();
-		return ReorderToNative(
-			_byte_order,
-			*reinterpret_cast<const Int*>(pos)
-		);
+			field_element * sizeof(Float) +
+			field_offset;
+		return *reinterpret_cast<const Float*>(pos);
 	}
 
 	/// Returns the value of the specified field as a floating point value
@@ -107,31 +165,52 @@ public:
 	Float GetFloat(
 		const BlendFileFlattenedStructField& flat_field,
 		std::size_t block_element = 0,
-		std::size_t field_element = 0
+		std::size_t field_element = 0,
+		std::size_t data_offset = 0
 	) const
 	{
 		assert(sizeof(Float) == flat_field.Field().BaseType().Size());
+		return GetFloat<Float>(
+			flat_field.Offset(),
+			block_element,
+			field_element,
+			data_offset
+		);
+	}
+
+	/// Returns the value at the specified offset as a string
+	std::string GetString(
+		std::size_t field_size,
+		std::size_t field_offset,
+		std::size_t block_element,
+		std::size_t field_element,
+		std::size_t data_offset
+	) const
+	{
 		const char* pos =
 			_block_data.data() +
+			data_offset +
 			block_element * _struct_size +
-			field_element * sizeof(Float) +
-			flat_field.Offset();
-		return *reinterpret_cast<const Float*>(pos);
+			field_element * field_size +
+			field_offset;
+		return std::string(pos, field_size);
 	}
 
 	/// Returns the value of the specified field as a string
 	std::string GetString(
 		const BlendFileFlattenedStructField& flat_field,
 		std::size_t block_element = 0,
-		std::size_t field_element = 0
+		std::size_t field_element = 0,
+		std::size_t data_offset = 0
 	) const
 	{
-		const char* pos =
-			_block_data.data() +
-			block_element * _struct_size +
-			field_element * flat_field.Size() +
-			flat_field.Offset();
-		return std::string(pos, flat_field.Size());
+		return GetString(
+			flat_field.Size(),
+			flat_field.Offset(),
+			block_element,
+			field_element,
+			data_offset
+		);
 	}
 
 	/// Visits the value of the specified field by a visitor
@@ -157,7 +236,8 @@ public:
 		Visitor& visitor,
 		const BlendFileFlattenedStructField& flat_field,
 		std::size_t block_element = 0,
-		std::size_t field_element = 0
+		std::size_t field_element = 0,
+		std::size_t data_offset = 0
 	) const
 	{
 		auto f = flat_field.Field();
@@ -166,7 +246,8 @@ public:
 			visitor(GetPointer(
 				flat_field,
 				block_element,
-				field_element
+				field_element,
+				data_offset
 			));
 		}
 		else
@@ -178,76 +259,89 @@ public:
 					visitor(GetString(
 						flat_field,
 						block_element,
-						field_element
+						field_element,
+						data_offset
 					));
 				else visitor(GetInt<char>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			}
 			else if(bt.IsNative<uint8_t>())
 				visitor(GetInt<uint8_t>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<int8_t>())
 				visitor(GetInt<int8_t>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<uint16_t>())
 				visitor(GetInt<uint16_t>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<int16_t>())
 				visitor(GetInt<int16_t>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<uint32_t>())
 				visitor(GetInt<uint32_t>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<int32_t>())
 				visitor(GetInt<int32_t>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<uint64_t>())
 				visitor(GetInt<uint64_t>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<int64_t>())
 				visitor(GetInt<int64_t>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<float>())
 				visitor(GetFloat<float>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else if(bt.IsNative<double>())
 				visitor(GetFloat<double>(
 					flat_field,
 					block_element,
-					field_element
+					field_element,
+					data_offset
 				));
 			else visitor(
 				_block_data.data() +
+				data_offset +
 				block_element * _struct_size +
 				flat_field.Offset(),
 				flat_field.Size()

@@ -140,6 +140,15 @@ private:
 	BlendFileSDNA* _sdna;
 	std::size_t _struct_index;
 
+	static std::size_t _field_count(
+		BlendFileSDNA* sdna,
+		std::size_t struct_index
+	)
+	{
+		if(struct_index == sdna->_invalid_struct_index()) return 0;
+		else return sdna->_structs[struct_index]._field_count();
+	}
+
 	typedef BlendFileRangeTpl<BlendFileStructFieldRange, BlendFileStructField> Base;
 
 	friend class BlendFileStruct;
@@ -147,7 +156,7 @@ private:
 	BlendFileStructFieldRange(
 		BlendFileSDNA* sdna,
 		std::size_t struct_index
-	): Base(sdna->_structs[struct_index]._field_count())
+	): Base(_field_count(_sdna, struct_index))
 	 , _sdna(sdna)
 	 , _struct_index(struct_index)
 	{ }

@@ -28,11 +28,11 @@ private:
 		BlendFileSDNA* sdna,
 		std::size_t struct_index,
 		std::size_t flat_field_index,
-		const BlendFileSDNA::_flat_struct_info& flat_fields
+		const BlendFileSDNA::_flat_struct_info* flat_fields
 	): _sdna(sdna)
 	 , _struct_index(struct_index)
 	 , _flat_field_index(flat_field_index)
-	 , _flat_fields(&flat_fields)
+	 , _flat_fields(flat_fields)
 	{ }
 
 	friend class BlendFileBlockData;
@@ -89,25 +89,34 @@ private:
 		BlendFileFlattenedStructField
 	> Base;
 
+	static std::size_t _field_count(
+		const BlendFileSDNA::_flat_struct_info* flat_fields
+	)
+	{
+		if(flat_fields) return flat_fields->_field_count();
+		else return 0;
+	}
+
 	BlendFileFlattenedStructFieldRange(
 		BlendFileSDNA* sdna,
 		std::size_t struct_index,
-		const BlendFileSDNA::_flat_struct_info& flat_fields
-	): Base(flat_fields._field_count())
+		const BlendFileSDNA::_flat_struct_info* flat_fields
+	): Base(_field_count(flat_fields))
 	 , _sdna(sdna)
 	 , _struct_index(struct_index)
-	 , _flat_fields(&flat_fields)
+	 , _flat_fields(flat_fields)
 	{ }
 
 	friend class BlendFileFlattenedStruct;
 public:
 	BlendFileFlattenedStructField Get(std::size_t index) const
 	{
+		assert(_flat_fields);
 		return BlendFileFlattenedStructField(
 			_sdna,
 			_struct_index,
 			index,
-			*_flat_fields
+			_flat_fields
 		);
 	}
 };
@@ -123,21 +132,37 @@ public:
 	/// Returns a range of fields of the flattened structure
 	BlendFileFlattenedStructFieldRange Fields(void) const
 	{
+		const BlendFileSDNA::_flat_struct_info* flat_fields =
+			(_struct_index == _sdna->_invalid_struct_index())?
+			(const BlendFileSDNA::_flat_struct_info*)nullptr:
+			(_sdna->_struct_flatten_fields(_struct_index).get());
+
 		return BlendFileFlattenedStructFieldRange(
 			_sdna,
 			_struct_index,
-			*_sdna->_struct_flatten_fields(_struct_index)
+			flat_fields
 		);
 	}
 
 	/// Returns a field by its full name
 	BlendFileFlattenedStructField FieldByName(const std::string& name) const
 	{
-		const BlendFileSDNA::_flat_struct_info& flat_fields =
-			*_sdna->_struct_flatten_fields(_struct_index);
-		auto pos = flat_fields._field_map.find(&name);
+		// this of course does not work for atomic types
+		if(_struct_index == _sdna->_invalid_struct_index())
+		{
+			std::string what("Requesting field '");
+			what.append(name);
+			what.append("' in an atomic type");
+			throw std::runtime_error(what);
+		}
 
-		if(pos == flat_fields._field_map.end())
+		const BlendFileSDNA::_flat_struct_info* flat_fields =
+			_sdna->_struct_flatten_fields(_struct_index).get();
+		assert(flat_fields);
+
+		auto pos = flat_fields->_field_map.find(&name);
+
+		if(pos == flat_fields->_field_map.end())
 		{
 			std::string what("Cannot find field '");
 			what.append(name);

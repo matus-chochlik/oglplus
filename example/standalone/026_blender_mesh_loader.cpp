@@ -173,32 +173,32 @@ public:
 		auto glob_block = blend_file.StructuredGlobalBlock();
 
 		// get the default scene
-		auto scene_block = blend_file[glob_block.curscene];
+		auto scene_data = blend_file[glob_block.curscene];
 		//
 		// get the pointer to the first object in the scene
-		auto object_link_ptr = scene_block.Field<void*>("base.first").Get();
+		auto object_link_ptr = scene_data.Field<void*>("base.first").Get();
 		// and go through the whole list of objects
 		while(object_link_ptr)
 		{
 			// for each list element open the linked list block
-			auto object_link_block = blend_file[object_link_ptr];
+			auto object_link_data = blend_file[object_link_ptr];
 			// get the pointer to its object
-			auto object_ptr = object_link_block.Field<void*>("object").Get();
+			auto object_ptr = object_link_data.Field<void*>("object").Get();
 			// open the object block (if any)
 			if(object_ptr) try
 			{
-				auto object_block = blend_file[object_ptr];
+				auto object_data = blend_file[object_ptr];
 				// get the data pointer
-				auto object_data_ptr = object_block.Field<void*>("data").Get();
+				auto object_data_ptr = object_data.Field<void*>("data").Get();
 				// open the data block (if any)
 				if(object_data_ptr)
 				{
-					auto object_data_block = blend_file[object_data_ptr];
+					auto object_data_data = blend_file[object_data_ptr];
 					// if it is a mesh
-					if(object_data_block.StructureName() == "Mesh")
+					if(object_data_data.StructureName() == "Mesh")
 					{
 						// get the object matrix field
-						auto object_obmat_field = object_block.Field<float>("obmat");
+						auto object_obmat_field = object_data.Field<float>("obmat");
 						// make a transformation matrix
 						Mat4f obmat(
 							object_obmat_field.Get(0, 0),
@@ -224,16 +224,16 @@ public:
 						// the number of vertices
 						std::size_t n_verts = 0;
 						// get the vertex block pointer
-						auto vertex_ptr = object_data_block.Field<void*>("mvert").Get();
+						auto vertex_ptr = object_data_data.Field<void*>("mvert").Get();
 						// open the vertex block (if any)
 						if(vertex_ptr)
 						{
-							auto vertex_block = blend_file[vertex_ptr];
+							auto vertex_data = blend_file[vertex_ptr];
 							// get the number of vertices in the block
-							n_verts = vertex_block.BlockElementCount();
+							n_verts = vertex_data.BlockElementCount();
 							// get the vertex coordinate and normal fields
-							auto vertex_co_field = vertex_block.Field<float>("co");
-							auto vertex_no_field = vertex_block.Field<short>("no");
+							auto vertex_co_field = vertex_data.Field<float>("co");
+							auto vertex_no_field = vertex_data.Field<short>("no");
 							// make two vectors of position and normal data
 							std::vector<GLfloat> ps(3 * n_verts);
 							std::vector<GLfloat> ns(3 * n_verts);
@@ -269,18 +269,18 @@ public:
 						}
 
 						// get the face block pointer
-						auto face_ptr = object_data_block.Field<void*>("mface").Get();
+						auto face_ptr = object_data_data.Field<void*>("mface").Get();
 						// open the face block (if any)
 						if(face_ptr)
 						{
-							auto face_block = blend_file[face_ptr];
+							auto face_data = blend_file[face_ptr];
 							// get the number of faces in the block
-							std::size_t n_faces = face_block.BlockElementCount();
+							std::size_t n_faces = face_data.BlockElementCount();
 							// get the vertex index fields of the face
-							auto face_v1_field = face_block.Field<int>("v1");
-							auto face_v2_field = face_block.Field<int>("v2");
-							auto face_v3_field = face_block.Field<int>("v3");
-							auto face_v4_field = face_block.Field<int>("v4");
+							auto face_v1_field = face_data.Field<int>("v1");
+							auto face_v2_field = face_data.Field<int>("v2");
+							auto face_v3_field = face_data.Field<int>("v3");
+							auto face_v4_field = face_data.Field<int>("v4");
 							// make a vector of index data
 							std::vector<GLuint> is(5 * n_faces);
 							for(std::size_t f=0; f!=n_faces; ++f)
@@ -302,20 +302,20 @@ public:
 						}
 
 						// get the poly block pointer
-						auto poly_ptr = object_data_block.TryGet<void*>("mpoly", nullptr);
+						auto poly_ptr = object_data_data.TryGet<void*>("mpoly", nullptr);
 						// and the loop block pointer
-						auto loop_ptr = object_data_block.TryGet<void*>("mloop", nullptr);
+						auto loop_ptr = object_data_data.TryGet<void*>("mloop", nullptr);
 						// open the poly and loop blocks (if we have both)
 						if(poly_ptr && loop_ptr)
 						{
-							auto poly_block = blend_file[poly_ptr];
-							auto loop_block = blend_file[loop_ptr];
+							auto poly_data = blend_file[poly_ptr];
+							auto loop_data = blend_file[loop_ptr];
 							// get the number of polys in the block
-							std::size_t n_polys = poly_block.BlockElementCount();
+							std::size_t n_polys = poly_data.BlockElementCount();
 							// get the fields of poly and loop
-							auto poly_loopstart_field = poly_block.Field<int>("loopstart");
-							auto poly_totloop_field = poly_block.Field<int>("totloop");
-							auto loop_v_field = loop_block.Field<int>("v");
+							auto poly_loopstart_field = poly_data.Field<int>("loopstart");
+							auto poly_totloop_field = poly_data.Field<int>("totloop");
+							auto loop_v_field = loop_data.Field<int>("v");
 
 							// make a vector of index data
 							std::vector<GLuint> is;
@@ -341,7 +341,7 @@ public:
 			catch(...)
 			{ }
 			// and get the pointer to the nex block
-			object_link_ptr = object_link_block.Field<void*>("next").Get();
+			object_link_ptr = object_link_data.Field<void*>("next").Get();
 		}
 
 		meshes.Bind();
