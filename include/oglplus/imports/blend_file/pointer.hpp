@@ -17,11 +17,12 @@
 namespace oglplus {
 namespace imports {
 
-/// Type wrapping a pointer inside of a .blend file
-class BlendFilePointer
+/// Helper type used as a template for pointers in of a .blend file
+template <unsigned Level>
+class BlendFilePointerTpl
 {
 public:
-	BlendFilePointer(void)
+	BlendFilePointerTpl(void)
 	 : _value(0)
 	 , _type_index(0)
 	{ }
@@ -41,8 +42,8 @@ public:
 
 	/// Equality comparison
 	friend bool operator == (
-		const BlendFilePointer& a,
-		const BlendFilePointer& b
+		const BlendFilePointerTpl& a,
+		const BlendFilePointerTpl& b
 	)
 	{
 		return a._value == b._value;
@@ -50,8 +51,8 @@ public:
 
 	/// Inequality comparison
 	friend bool operator != (
-		const BlendFilePointer& a,
-		const BlendFilePointer& b
+		const BlendFilePointerTpl& a,
+		const BlendFilePointerTpl& b
 	)
 	{
 		return a._value != b._value;
@@ -71,11 +72,18 @@ private:
 	friend class BlendFileBlockData;
 	friend class BlendFileFlatStructBlockData;
 
-	BlendFilePointer(ValueType value, std::size_t type_index)
+	BlendFilePointerTpl(ValueType value, std::size_t type_index)
 	 : _value(value)
 	 , _type_index(type_index)
 	{ }
 };
+
+
+/// Type representing a pointer in of a .blend file
+typedef BlendFilePointerTpl<1> BlendFilePointer;
+
+/// Type representing a pointer to pointer in a .blend file
+typedef BlendFilePointerTpl<2> BlendFilePointerToPointer;
 
 } // imports
 } // oglplus

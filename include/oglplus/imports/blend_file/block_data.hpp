@@ -40,16 +40,9 @@ private:
 	 , _ptr_size(ptr_size)
 	 , _struct_size(struct_size)
 	{ }
-public:
-	BlendFileBlockData(BlendFileBlockData&& tmp)
-	 : _block_data(tmp._block_data)
-	 , _byte_order(tmp._byte_order)
-	 , _ptr_size(tmp._ptr_size)
-	 , _struct_size(tmp._struct_size)
-	{ }
 
-	/// Returns the value at the specified offset as a pointer
-	BlendFilePointer GetPointer(
+	template <unsigned Level>
+	BlendFilePointerTpl<Level> _do_get_pointer(
 		std::size_t type_index,
 		std::size_t field_offset,
 		std::size_t block_element,
@@ -65,28 +58,28 @@ public:
 			field_offset;
 
 		if(_ptr_size == 4)
-			return BlendFilePointer(ReorderToNative(
+			return BlendFilePointerTpl<Level>(ReorderToNative(
 				_byte_order,
 				*reinterpret_cast<const uint32_t*>(pos)
 			), type_index);
 		if(_ptr_size == 8)
-			return BlendFilePointer(ReorderToNative(
+			return BlendFilePointerTpl<Level>(ReorderToNative(
 				_byte_order,
 				*reinterpret_cast<const uint64_t*>(pos)
 			), type_index);
 		assert(!"Invalid pointer size!");
-		return BlendFilePointer();
+		return BlendFilePointerTpl<Level>();
 	}
 
-	/// Returns the value of the specified field as a pointer
-	BlendFilePointer GetPointer(
+	template <unsigned Level>
+	BlendFilePointerTpl<Level> _get_pointer(
 		const BlendFileFlattenedStructField& flat_field,
-		std::size_t block_element = 0,
-		std::size_t field_element = 0,
-		std::size_t data_offset = 0
+		std::size_t block_element,
+		std::size_t field_element,
+		std::size_t data_offset
 	) const
 	{
-		return GetPointer(
+		return _do_get_pointer<Level>(
 			flat_field._sdna->_structs[
 				flat_field._flat_fields->_field_structs[
 					flat_field._flat_field_index
@@ -97,6 +90,45 @@ public:
 				]
 			],
 			flat_field.Offset(),
+			block_element,
+			field_element,
+			data_offset
+		);
+	}
+public:
+	BlendFileBlockData(BlendFileBlockData&& tmp)
+	 : _block_data(tmp._block_data)
+	 , _byte_order(tmp._byte_order)
+	 , _ptr_size(tmp._ptr_size)
+	 , _struct_size(tmp._struct_size)
+	{ }
+
+	/// Returns the value of the specified field as a pointer
+	BlendFilePointer GetPointer(
+		const BlendFileFlattenedStructField& flat_field,
+		std::size_t block_element = 0,
+		std::size_t field_element = 0,
+		std::size_t data_offset = 0
+	) const
+	{
+		return _get_pointer<1>(
+			flat_field,
+			block_element,
+			field_element,
+			data_offset
+		);
+	}
+
+	/// Returns the value of the specified field as a pointer to pointer
+	BlendFilePointerToPointer GetPointerToPointer(
+		const BlendFileFlattenedStructField& flat_field,
+		std::size_t block_element = 0,
+		std::size_t field_element = 0,
+		std::size_t data_offset = 0
+	) const
+	{
+		return _get_pointer<2>(
+			flat_field,
 			block_element,
 			field_element,
 			data_offset
@@ -244,6 +276,15 @@ public:
 		if(f.IsPointer())
 		{
 			visitor(GetPointer(
+				flat_field,
+				block_element,
+				field_element,
+				data_offset
+			));
+		}
+		else if(f.IsPointerToPointer())
+		{
+			visitor(GetPointerToPointer(
 				flat_field,
 				block_element,
 				field_element,

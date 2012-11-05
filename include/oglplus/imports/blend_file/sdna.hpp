@@ -205,7 +205,7 @@ private:
 	static bool _field_is_ptr_to_ptr(const std::string& def)
 	{
 		if(def.size() < 2) return false;
-		return def[0] == '*' && def[1] == '*';
+		return (def[0] == '*') && (def[1] == '*');
 	}
 
 	// helper function of testing whether a field specified

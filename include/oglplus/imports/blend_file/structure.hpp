@@ -78,8 +78,11 @@ public:
 	/// Returns true if the field is a regular pointer
 	bool IsPointer(void) const
 	{
-		return	_sdna->_structs[_struct_index].
+		bool is_ptr = _sdna->_structs[_struct_index].
 			_field_ptr_flags[_field_index];
+		bool is_ptr2 = _sdna->_structs[_struct_index].
+			_field_ptr2_flags[_field_index];
+		return is_ptr && !is_ptr2;
 	}
 
 	/// Returns true if the field is a pointer to a pointer

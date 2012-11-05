@@ -147,11 +147,15 @@ public:
 	}
 
 	/// Returns a block by its pointer
-	const BlendFileBlock& BlockByPointer(BlendFilePointer pointer) const
+	template <unsigned Level>
+	const BlendFileBlock& BlockByPointer(
+		BlendFilePointerTpl<Level> pointer,
+		bool allow_offset = false
+	) const
 	{
 		auto ptr = pointer.Value();
 		auto pos = _block_map.find(ptr);
-		if(pos == _block_map.end())
+		if(allow_offset && (pos == _block_map.end()))
 		{
 			auto pos2 = _block_map.lower_bound(ptr);
 			if(pos2 != _block_map.end())
@@ -177,18 +181,35 @@ public:
 		return _blocks[pos->second];
 	}
 
+	/// Dereferences a pointer to pointer
+	template <unsigned Level>
+	BlendFilePointerTpl<Level-1>
+	Dereference(BlendFilePointerTpl<Level> pptr)
+	{
+		auto block = BlockByPointer(pptr, true);
+		auto offset = pptr - block.Pointer();
+		auto block_data = BlockData(block);
+		return block_data.template _do_get_pointer<Level-1>(
+			pptr._type_index,
+			0, 0, 0,
+			offset
+		);
+	}
+
 	/// Returns a structured block by its pointer
 	BlendFileFlatStructBlockData StructuredBlockByPointer(
-		BlendFilePointer pointer
+		BlendFilePointer pointer,
+		bool allow_offset = false,
+		bool use_pointee_struct = false
 	)
 	{
-		auto block = BlockByPointer(pointer);
+		auto block = BlockByPointer(pointer, allow_offset);
 		auto offset = pointer - block.Pointer();
 		auto block_data = BlockData(block);
 		auto flat_struct =
-			(offset == 0)?
-			BlockStructure(block).Flattened():
-			Pointee(pointer).AsStructure().Flattened();
+			(use_pointee_struct)?
+			Pointee(pointer).AsStructure().Flattened():
+			BlockStructure(block).Flattened();
 
 		return BlendFileFlatStructBlockData(
 			std::move(flat_struct),

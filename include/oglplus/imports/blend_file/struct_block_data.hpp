@@ -39,13 +39,14 @@ private:
 
 	static const BlendFileFlatStructTypedFieldData& _that(void);
 
-	BlendFilePointer _do_get(
-		BlendFilePointer* /*selector*/,
+	template <unsigned Level>
+	BlendFilePointerTpl<Level> _do_get(
+		BlendFilePointerTpl<Level>* /*selector*/,
 		std::size_t block_element,
 		std::size_t field_element
 	) const
 	{
-		return _block_data_ref->GetPointer(
+		return _block_data_ref->template _get_pointer<Level>(
 			_flat_field,
 			block_element,
 			field_element,
@@ -60,6 +61,20 @@ private:
 	) const
 	{
 		return _block_data_ref->GetPointer(
+			_flat_field,
+			block_element,
+			field_element,
+			_offset
+		);
+	}
+
+	BlendFilePointerToPointer _do_get(
+		void*** /*selector*/,
+		std::size_t block_element,
+		std::size_t field_element
+	) const
+	{
+		return _block_data_ref->GetPointerToPointer(
 			_flat_field,
 			block_element,
 			field_element,
@@ -322,15 +337,6 @@ public:
 		return BlendFileFlatStructTypedFieldData<T>(
 			Structure().FieldByName(field_name),
 			BlockData(),
-			_offset
-		);
-	}
-
-	BlendFilePointer GetPointer(const BlendFileType& type) const
-	{
-		return BlockData().GetPointer(
-			type._type_index,
-			0, 0, 0,
 			_offset
 		);
 	}
