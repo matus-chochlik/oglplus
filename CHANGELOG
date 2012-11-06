@@ -1,3 +1,17 @@
+Version 0.21.0
+
+- A utility for parsing Blender's .blend files was added.
+- The OptionalUnifom class and its variants were added.
+- The common base code for standalone examples was updated.
+- A tool for bitmap-glyph-based text renreding was added.
+- A tool for Pango/Cairo-based text renreding was added.
+- Several problems in the build system were fixed.
+- The SubroutineUniforms class was updated, a Preset
+  type and Load, Save and Apply functions were added.
+- Problems with calling conventions on MinGW were fixed.
+- Problems with building on 64-bit systems were fixed.
+- Multiple examples showing the new features were added.
+
 Version 0.20.0
 
 - The subscript operator was added to Uniform which allows to
