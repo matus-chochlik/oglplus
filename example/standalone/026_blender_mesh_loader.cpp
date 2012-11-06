@@ -136,12 +136,17 @@ public:
 			"		normalize(geomLightDir)"
 			"	), 0.0);"
 
+			"	float Contour = pow((1.0 - max(dot("
+			"		normalize(geomNormal),"
+			"		normalize(geomViewDir)"
+			"	)-0.1, 0.0))*1.05, 4.0);"
+
 			"	float Specular = pow(clamp(dot("
 			"		normalize(geomViewDir),"
 			"		normalize(LightRefl)"
 			"	)+0.005, 0.0, 0.98), 64.0);"
 
-			"	fragColor = MatColor * LightColor * (Diffuse + Ambient)+"
+			"	fragColor = MatColor * LightColor * (Contour + Diffuse + Ambient)+"
 			"			LightColor * Specular;"
 			"}"
 		);
@@ -411,7 +416,7 @@ public:
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
-				Width()/Height(),
+				Aspect(),
 				1, 100
 			)
 		);
@@ -429,7 +434,7 @@ public:
 			camera_target,
 			camera_distance,
 			-FullCircles(t / 17.0),
-			Degrees(SineWave(t / 21.0) * 85)
+			Degrees(SineWave(t / 41.0) * 85)
 		);
 		camera_matrix.Set(camera);
 		camera_position.Set(camera.Position());
