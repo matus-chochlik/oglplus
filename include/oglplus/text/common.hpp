@@ -363,12 +363,12 @@ class DefaultRendererTpl
  : public ConcreteRenderer
 {
 private:
-	Uniform<Mat4f>
+	ProgramUniform<Mat4f>
 		_projection_matrix,
 		_camera_matrix,
 		_layout_matrix;
 
-	OptionalUniform<GLfloat>
+	OptionalProgramUniform<GLfloat>
 		_align_coef,
 		_dir_coef;
 
