@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/000_waves.cpp
+ *  @example oglplus/023_waves.cpp
  *  @brief Shows tessellation and dynamic deformation of a plane
  *
- *  @oglplus_screenshot{000_waves}
+ *  @oglplus_screenshot{023_waves}
  *
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
