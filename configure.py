@@ -538,10 +538,19 @@ def main(argv):
 	if options.build:
 		cmake_build_tool = cmake_info.get("CMAKE_BUILD_TOOL")
 
-		if(os.path.basename(cmake_build_tool) in ("make")):
+		build_tool_name = os.path.basename(cmake_build_tool)
+
+		if(build_tool_name in ("make")):
 			build_cmd_line = [cmake_build_tool];
 			if processor_count:
 				build_cmd_line += ["-j", str(processor_count+1)]
+		elif(build_tool_name in ("devenv.com", "devenv.exe")):
+			build_cmd_line = [
+				cmake_build_tool,
+				os.path.join(options.build_dir, "OGLplus.sln"),
+				"/Build",
+				"Release"
+			]
 		else: build_cmd_line = None
 
 		if(build_cmd_line):
