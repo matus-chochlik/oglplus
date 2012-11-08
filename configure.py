@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 #  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -6,21 +7,306 @@
 import os, sys, getopt, shutil, subprocess
 
 # initial values for the configuration options
-oglplus_quiet_config=False
-oglplus_quick_config=False
-oglplus_install_prefix = None
-oglplus_build_dir = os.path.abspath("_build")
-oglplus_include_dirs = list()
-oglplus_library_dirs = list()
-oglplus_from_scratch = False
-oglplus_use_cxxflags = False
-oglplus_use_ldflags = False
-oglplus_forced_gl_header=None
-oglplus_forced_gl_init_lib=None
-oglplus_no_examples=False
-oglplus_no_screenshots=True
-oglplus_framedump=False
-oglplus_no_docs=False
+
+def parse_arguments():
+	import argparse
+
+	def BoolArgValue(arg):
+		if(arg in ("True", "true", "Yes", "yes", "Y", "On", "1")):
+			return True
+		elif(arg in ("False", "false", "No", "no", "N", "Off", "0")):
+			return False
+		else:
+			msg = "'%s' is not a valid boolean value" % str(arg)
+			raise argparse.ArgumentTypeError(msg)
+
+
+
+	argparser = argparse.ArgumentParser(
+		prog="configure",
+		description="Configuration script for the OGLplus library",
+		epilog="""
+			Copyright (c) 2008 - 2012 Matúš Chochlík.
+			Permission is granted to copy, distribute and/or modify this document
+			under the terms of the Boost Software License, Version 1.0.
+			(See a copy at http://www.boost.org/LICENSE_1_0.txt)
+		"""
+	)
+	argparser.add_argument(
+		"--prefix",
+		dest="install_prefix",
+		type=os.path.abspath,
+		action="store",
+		help="""
+			Specifies the installation prefix. The path must be absolute or
+			relative to the current working directory from which %(prog)s is
+			invoked.
+		"""
+	)
+	argparser.add_argument(
+		"--build-dir",
+		type=os.path.abspath,
+		default="_build",
+		action="store",
+		help="""
+			Specifies the work directory for cmake, where the cached files,
+			generated makefiles and the intermediate build files will be
+			placed. The specified path must be either absolute or
+			relative to the current working directory from which %(prog)s
+			is invoked (default = '%(default)s').
+		"""
+	)
+	argparser.add_argument(
+		"--include-dir", "-I",
+		dest="include_dirs",
+		type=os.path.abspath,
+		action="append",
+		default=list(),
+		help="""
+			Specifies additional directory to search when looking for external
+			headers like GL/glew.h or GL3/gl3.h. The specified path
+			must be absolute or relative to the current working directory
+			from which %(prog)s is invoked. This option may be specified
+			multiple times to add multiple directories to the search list.
+		"""
+	)
+	argparser.add_argument(
+		"--library-dir", "-L",
+		dest="library_dirs",
+		type=os.path.abspath,
+		action="append",
+		default=list(),
+		help="""
+			Specifies additional directory to search when looking for compiled
+			libraries like GL, GLEW, glut, png, etc. The specified
+			path must be absolute or relative to the current working directory
+			from which configure is invoked. This option may be specified
+			multiple times to add multiple directories to the search list.
+		"""
+	)
+	argparser.add_argument(
+		"--use-cxxflags",
+		default=False,
+		action="store_true",
+		help="""
+			Uses the directories specified by the -I options
+			in CXXFLAGS (if available) and adds them
+			to the values specified by --include-dir.
+		"""
+	)
+	argparser.add_argument(
+		"--use-ldflags",
+		default=False,
+		action="store_true",
+		help="""
+			Uses the directories specified by the -L options
+			in LDFLAGS (if available) and adds them
+			to the values specified by --library-dir.
+		"""
+	)
+	argparser_build_examples_group = argparser.add_mutually_exclusive_group()
+	argparser_build_examples_group.add_argument(
+		"--build-examples",
+		dest="build_examples",
+		type=BoolArgValue,
+		choices=[True, False],
+		action="store",
+		default=True,
+		help="""
+			Determines whether the examples should be built (default = %(default)s).
+		"""
+	)
+	argparser_build_examples_group.add_argument(
+		"--no-examples",
+		dest="build_examples",
+		action="store_false",
+		help="""
+			Do not build the examples and the textures.
+			Equivalent to --build-examples=False.
+		"""
+	)
+	argparser_build_docs_group = argparser.add_mutually_exclusive_group()
+	argparser_build_docs_group.add_argument(
+		"--build-docs",
+		dest="build_docs",
+		type=BoolArgValue,
+		choices=[True, False],
+		action="store",
+		default=True,
+		help="""
+			Determines whether the documentation should be built (default = %(default)s).
+		"""
+	)
+	argparser_build_docs_group.add_argument(
+		"--no-docs",
+		dest="build_docs",
+		action="store_false",
+		help="""
+			Do not build the documentation.
+			Equivalent to --build-docs=False.
+		"""
+	)
+	argparser_make_screenshots_group = argparser.add_mutually_exclusive_group()
+	argparser_make_screenshots_group.add_argument(
+		"--make-screenshots",
+		dest="make_screenshots",
+		type=BoolArgValue,
+		choices=[True, False],
+		action="store",
+		default=False,
+		help="""
+			Determines whether screenshots from OGLplus examples should be
+			made when building the documentation (default = %(default)s).
+		"""
+	)
+	argparser_make_screenshots_group.add_argument(
+		"--screenshots",
+		dest="make_screenshots",
+		action="store_true",
+		help="""
+			Equivalent to --make-screenshots=True.
+		"""
+	)
+	argparser_gl_header_lib_group = argparser.add_mutually_exclusive_group()
+	argparser_gl_header_lib_group.add_argument(
+		"--use-gl-header-lib",
+		dest="gl_header_lib",
+		type=str,
+		choices=["GLCOREARB_H", "GL3_H", "GLEW", "GL3W"],
+		action="store",
+		default=None,
+		help="""
+			Forces the use of a specific header or library which
+			defines the GL symbols.
+		"""
+	)
+	argparser_gl_header_lib_group.add_argument(
+		"--use-glcorearb-h",
+		dest="gl_header_lib",
+		action="store_const",
+		const="GLCOREARB_H",
+		help="""
+			Force use of the GL/glcorearb.h header. If this option is used,
+			then this header must be installed somewhere in the system
+			include directories or in directories specified with --include-dir.
+			Equivalent to --use-gl-header-lib=GLCOREARB_H.
+		"""
+	)
+	argparser_gl_header_lib_group.add_argument(
+		"--use-gl3-h",
+		dest="gl_header_lib",
+		action="store_const",
+		const="GL3_H",
+		help="""
+			Force use of the GL3/gl3.h header. If this option is used,
+			then this header must be installed somewhere in the system
+			include directories or in directories specified with --include-dir.
+			Equivalent to --use-gl-header-lib=GL3_H.
+		"""
+	)
+	argparser_gl_header_lib_group.add_argument(
+		"--use-glew",
+		dest="gl_header_lib",
+		action="store_const",
+		const="GLEW",
+		help="""
+			Force use of the GLEW library. If this option is used, then GLEW
+			and the GL/glew.h header must be installed somewhere in the system
+			include directories or in directories specified with
+			--include-dir.
+			Equivalent to --use-gl-header-lib=GLEW.
+		"""
+	)
+	argparser_gl_header_lib_group.add_argument(
+		"--use-gl3w",
+		dest="gl_header_lib",
+		action="store_const",
+		const="GL3W",
+		help="""
+			Force use of the GL3W library. If this option is used, then GL3W
+			and the GL/gl3w.h header must be installed somewhere in the system
+			include directories or in directories specified with
+			--include-dir.
+			Equivalent to --use-gl-header-lib=GL3W.
+		"""
+	)
+	argparser_gl_window_lib_group = argparser.add_mutually_exclusive_group()
+	argparser_gl_window_lib_group.add_argument(
+		"--use-gl-window-lib",
+		dest="gl_window_lib",
+		type=str,
+		choices=["WXGL"],
+		action="store",
+		default=None,
+		help="""
+			Forces the use of a specific window library which
+			initializes the default GL context. This option allows
+			to force a specific example 'harness'.
+		"""
+	)
+	argparser_gl_window_lib_group.add_argument(
+		"--use-wxgl",
+		dest="gl_window_lib",
+		action="store_const",
+		const="WXGL",
+		help="""
+			Equivalent to --use-gl-window-lib=WXGL.
+		"""
+	)
+
+	argparser.add_argument(
+		"--from-scratch",
+		default=False,
+		action="store_true",
+		help="""
+			Remove any previous cached and intermediate files and run the
+			configuration process from scratch.
+			Specifying this option causes the build directory to be deleted
+			and recreated.
+		"""
+	)
+	argparser.add_argument(
+		"--quiet",
+		default=False,
+		action="store_true",
+		help="""
+			Do not print regular messages, errors are still printed to
+			stderr. Also any cmake output is still printed.
+		"""
+	)
+	argparser.add_argument(
+		"--quick",
+		default=False,
+		action="store_true",
+		help="""
+			Skips some optional steps in the configuration process.
+		"""
+	)
+	argparser.add_argument(
+		"--framedump",
+		default=False,
+		action="store_true",
+		help="""For internal use only."""
+	)
+	argparser.add_argument(
+		"--build",
+		default=False,
+		action="store_true",
+		help="""
+			If possible, after running cmake also invoke the build tool
+			and build the project. This is currently supported only
+			for certain build tools.
+		"""
+	)
+	argparser.add_argument(
+		"--cmake",
+		dest="cmake_options",
+		nargs=argparse.REMAINDER,
+		default=list(),
+		help="""Everything following this option will be passed to cmake verbatim."""
+	)
+
+	return argparser.parse_args()
 
 
 # returns the shortest path from the directory
@@ -67,131 +353,36 @@ def shorten_command(command_path):
 	return command_path
 
 
-# prints short usage screen
-def print_short_usage():
-	print "Use 'configure --help' for a full list of options"
-
-# print the long usage screen
-def print_long_usage():
-	print "Usage:"
-	print "configure [options]"
-	# TODO: use the text formatted by groff
-
-# parses the command line arguments
-def parse_cmd_line(argv):
-	try:
-		shortopts = "hqQP:B:I:L:"
-		longopts = [
-			"help",
-			"quiet",
-			"quick",
-			"from-scratch",
-			"prefix=",
-			"build-dir=",
-			"include-dir=",
-			"library-dir=",
-			"use-cxxflags",
-			"use-ldflags",
-			"use-glcorearb-h",
-			"use-gl3-h",
-			"use-glew",
-			"use-gl3w",
-			"use-wxgl",
-			"no-examples",
-			"screenshots",
-			"framedump",
-			"no-docs"
-		]
-		return getopt.getopt(argv, shortopts, longopts)
-	except getopt.GetoptError:
-		print_short_usage()
-		sys.exit(1)
-
-
-# processes the configure options
-def process_options(opts):
-	global oglplus_quick_config
-	global oglplus_quiet_config
-	global oglplus_install_prefix
-	global oglplus_build_dir
-	global oglplus_include_dirs
-	global oglplus_library_dirs
-	global oglplus_from_scratch
-	global oglplus_use_cxxflags
-	global oglplus_use_ldflags
-	global oglplus_forced_gl_header
-	global oglplus_forced_gl_init_lib
-
-	for opt, arg in opts:
-		if opt in ("--help", "-h"):
-			print_long_usage()
-			sys.exit(0)
-		elif opt in ("--quiet", "-q"):
-			oglplus_quiet_config=True
-		elif opt in ("--quick", "-Q"):
-			oglplus_quick_config=True
-		elif opt in ("--prefix", "-P"):
-			oglplus_install_prefix = os.path.abspath(arg)
-		elif opt in ("--build-dir", "-B"):
-			oglplus_build_dir = os.path.abspath(arg)
-		elif opt in ("--include-dir", "-I"):
-			oglplus_include_dirs.append(os.path.abspath(arg))
-		elif opt in ("--library-dir", "-B"):
-			oglplus_library_dirs.append(os.path.abspath(arg))
-		elif opt in ("--use-cxxflags"):
-			oglplus_use_cxxflags = True
-		elif opt in ("--use-ldflags"):
-			oglplus_use_ldflags = True
-		elif opt in ("--from-scratch"):
-			oglplus_from_scratch = True
-		elif opt in ("--use-glcorearb-h"):
-			oglplus_forced_gl_header="GLCOREARB_H"
-		elif opt in ("--use-gl3-h"):
-			oglplus_forced_gl_header="GL3_H"
-		elif opt in ("--use-glew"):
-			oglplus_forced_gl_header="GLEW"
-		elif opt in ("--use-gl3w"):
-			oglplus_forced_gl_header="GL3W"
-		elif opt in ("--use-wxgl"):
-			oglplus_forced_gl_init_lib="WXGL"
-		elif opt in ("--no-examples"):
-			oglplus_no_examples=True
-		elif opt in ("--screenshots"):
-			oglplus_no_screenshots=False
-		elif opt in ("--framedump"):
-			oglplus_framedump=True
-		elif opt in ("--no-docs"):
-			oglplus_no_docs=True
-
-
 # applies CXXFLAGS to the options for cmake if possible
-def apply_cxxflags():
-	global oglplus_include_dirs
+def search_cxxflags():
+	cxxflags_include_dirs = list()
 	try:
 		import shlex
 
 		flagiter = iter(shlex.split(os.environ.get("CXXFLAGS")))
 		for flag in flagiter:
 			if flag == "-I":
-				oglplus_include_dirs.append(flagiter.next())
+				cxxflags_include_dirs.append(flagiter.next())
 			elif flag.startswith("-I"):
-				oglplus_include_dirs.append(flag[2:])
+				cxxflags_include_dirs.append(flag[2:])
 	except: pass
+	return cxxflags_include_dirs
 
 
 # applies LDFLAGS to the options for cmake if possible
-def apply_ldflags():
-	global oglplus_library_dirs
+def search_ldflags():
+	ldflags_library_dirs = list()
 	try:
 		import shlex
 
 		flagiter = iter(shlex.split(os.environ.get("LDFLAGS")))
 		for flag in flagiter:
 			if flag == "-L":
-				oglplus_library_dirs.append(flagiter.next())
+				ldflags_library_dirs.append(flagiter.next())
 			elif flag.startswith("-L"):
-				oglplus_library_dirs.append(flag[2:])
+				ldflags_library_dirs.append(flag[2:])
 	except: pass
+	return ldflags_library_dirs
 
 # get some useful information from cmake
 def cmake_system_info(cmake_args):
@@ -204,10 +395,10 @@ def cmake_system_info(cmake_args):
 			stderr=None
 		)
 	except OSError as os_error:
-		print "Failed to execute '%(cmd)s': %(error)s" % {
+		print("Failed to execute '%(cmd)s': %(error)s" % {
 			"cmd": command,
 			"error": os_error
-		}
+		})
 		sys.exit(2)
 
 	result = dict()
@@ -231,138 +422,155 @@ def cmake_system_info(cmake_args):
 
 # the main function
 def main(argv):
-	global oglplus_quiet_config
-	global oglplus_quick_config
-	global oglplus_install_prefix
-	global oglplus_build_dir
-	global oglplus_include_dirs
-	global oglplus_library_dirs
-	global oglplus_from_scratch
-	global oglplus_use_cxxflags
-	global oglplus_use_ldflags
-	global oglplus_forced_gl_header
-	global oglplus_forced_gl_init_lib
-	global oglplus_no_examples
-	global oglplus_no_screenshots
-	global oglplus_framedump
-	global oglplus_no_docs
 
-	# parse and process the options
-	options, init_cmake_options = parse_cmd_line(argv)
-	process_options(options)
+	# parse and process the command-line arguments
+	options = parse_arguments()
 
-	if oglplus_quiet_config:
-		oglplus_quick_config = True
+	# if we are in quiet mode we may also go to quick mode
+	if options.quiet: options.quick = True
+
+	# if we also want to build the project disable quick mode
+	if options.build: options.quick = False
+
 	# get the info from cmake if we are not in a hurry
-	if not oglplus_quick_config:
-		cmake_info = cmake_system_info(init_cmake_options)
+	if not options.quick:
+		cmake_info = cmake_system_info(options.cmake_options)
 	else: cmake_info = list()
 
-	# apply the CXX and LD FLAGS if requested
-	if(oglplus_use_cxxflags): apply_cxxflags()
-	if(oglplus_use_ldflags): apply_ldflags()
+	# search the CXX and LD FLAGS if requested
+	if(options.use_cxxflags): options.include_dirs += search_cxxflags()
+	if(options.use_ldflags):  options.library_dirs += search_ldflags()
 
 	# additional options for cmake
 	cmake_options = list()
 
 	# add the installation prefix if provided
-	if(oglplus_install_prefix):
+	if(options.install_prefix):
 		cmake_options.append(
 			"-DCMAKE_INSTALL_PREFIX="+
-			oglplus_install_prefix
+			options.install_prefix
 		)
 
 	# disable building the examples
-	if(oglplus_no_examples):
+	if(not options.build_examples):
 		cmake_options.append("-DOGLPLUS_NO_EXAMPLES=On")
 
 	# disable example screenshots in the docs
-	if(oglplus_no_screenshots):
+	if(not options.make_screenshots):
 		cmake_options.append("-DOGLPLUS_NO_SCREENSHOTS=On")
 
 	# use the framedump harness for examples
-	if(oglplus_framedump):
+	if(options.framedump):
 		cmake_options.append("-DOGLPLUS_FRAMEDUMP=On")
 
 	# disable building the docs
-	if(oglplus_no_docs):
+	if(not options.build_docs):
 		cmake_options.append("-DOGLPLUS_NO_DOCS=On")
 
 	# force the GL header to be used
-	if(oglplus_forced_gl_header):
-		cmake_options.append("-DOGLPLUS_FORCE_"+oglplus_forced_gl_header+"=On")
+	if(options.gl_header_lib):
+		cmake_options.append("-DOGLPLUS_FORCE_"+options.gl_header_lib+"=On")
 
 	# force the GL initialization library to be used
-	if(oglplus_forced_gl_init_lib):
-		cmake_options.append("-DOGLPLUS_FORCE_"+oglplus_forced_gl_init_lib+"=On")
+	if(options.gl_window_lib):
+		cmake_options.append("-DOGLPLUS_FORCE_"+options.gl_window_lib+"=On")
 
 	# add paths for header lookop
-	if(oglplus_include_dirs):
-		cmake_options.append("-DHEADER_SEARCH_PATHS="+";".join(oglplus_include_dirs))
+	if(options.include_dirs):
+		cmake_options.append("-DHEADER_SEARCH_PATHS="+";".join(options.include_dirs))
 
 	# add paths for library lookup
-	if(oglplus_library_dirs):
-		cmake_options.append("-DLIBRARY_SEARCH_PATHS="+";".join(oglplus_library_dirs))
+	if(options.library_dirs):
+		cmake_options.append("-DLIBRARY_SEARCH_PATHS="+";".join(options.library_dirs))
 
 	# remove the build dir if it was requested
-	if(oglplus_from_scratch and os.path.exists(oglplus_build_dir)):
-		shutil.rmtree(oglplus_build_dir)
+	if(options.from_scratch and os.path.exists(options.build_dir)):
+		shutil.rmtree(options.build_dir)
 
 	# create the build directory if necessary
-	if(not os.path.isdir(oglplus_build_dir)):
-		os.makedirs(oglplus_build_dir)
+	if(not os.path.isdir(options.build_dir)):
+		os.makedirs(options.build_dir)
 
 	# compose the command line for calling cmake
 	workdir = os.path.abspath(os.path.dirname(sys.argv[0]))
-	cmake_cmd_line = ["cmake"] + cmake_options + init_cmake_options + [workdir]
+	cmake_cmd_line = ["cmake"] + cmake_options + options.cmake_options + [workdir]
 
 	# call cmake
-	try: subprocess.call(cmake_cmd_line,cwd=oglplus_build_dir)
+	try: subprocess.call(cmake_cmd_line,cwd=options.build_dir)
 	# handle errors
 	except OSError as os_error:
-		print "# Configuration failed"
-		print "# Failed to execute '%(cmd)s': %(error)s" % {
+		print( "# Configuration failed")
+		print("# Failed to execute '%(cmd)s': %(error)s" % {
 			"cmd": str(" ").join(cmake_cmd_line),
 			"error": str(os_error)
-		}
+		})
 		sys.exit(3)
 
+	# try to get the processor count (use below)
+	try:
+		import multiprocessing
+		processor_count = multiprocessing.cpu_count()
+	except: processor_count = None
+
 	# print some info if not supressed
-	if not oglplus_quiet_config:
-		print "# Configuration completed successfully."
+	if not options.quiet:
+		print("# Configuration completed successfully.")
 
 		cmake_build_tool = cmake_info.get("CMAKE_BUILD_TOOL")
 		if(cmake_build_tool):
 			cmake_build_tool = shorten_command(cmake_build_tool)
-			path_to_build_dir = shortest_path_from_to(os.getcwd(), oglplus_build_dir)
+			path_to_build_dir = shortest_path_from_to(os.getcwd(), options.build_dir)
 
-			if(cmake_build_tool == "make"):
-				try:
-					import multiprocessing
-					processor_count = multiprocessing.cpu_count()
-				except: processor_count = None
-				print "# To build OGLplus do the following:"
-				print
-				print "cd "+ path_to_build_dir
-				if processor_count:
-					print "%(tool)s -j %(jobs)d" % {
-						"tool": cmake_build_tool,
-						"jobs": processor_count+1
-					}
-				else: print cmake_build_tool
-				print cmake_build_tool + " install"
+			if(not options.build):
+				if(cmake_build_tool == "make"):
+					print("# To build OGLplus do the following:")
+					print(str())
+					print("cd "+ path_to_build_dir)
+					if processor_count:
+						print("%(tool)s -j %(jobs)d" % {
+							"tool": cmake_build_tool,
+							"jobs": processor_count+1
+						})
+					else: print(cmake_build_tool)
+					print(cmake_build_tool + " install")
 
-		cmake_install_prefix = cmake_info.get("CMAKE_INSTALL_PREFIX")
-		if(cmake_install_prefix):
-			if not oglplus_install_prefix:
-				oglplus_install_prefix = cmake_install_prefix
+	# if the user requested build after config is done
+	if options.build:
+		cmake_build_tool = cmake_info.get("CMAKE_BUILD_TOOL")
 
-			if not os.access(oglplus_install_prefix, os.W_OK):
-				print
-				print "# NOTE: installing to '%(prefix)s' "\
+		if(os.path.basename(cmake_build_tool) in ("make")):
+			build_cmd_line = [cmake_build_tool];
+			if processor_count:
+				build_cmd_line += ["-j", str(processor_count+1)]
+		else: build_cmd_line = None
+
+		if(build_cmd_line):
+			try: subprocess.call(build_cmd_line,cwd=options.build_dir)
+			except OSError as os_error:
+				print( "# Build failed")
+				print("# Failed to execute '%(cmd)s': %(error)s" % {
+					"cmd": str(" ").join(build_cmd_line),
+					"error": str(os_error)
+				})
+				sys.exit(4)
+		else: print("# --build is not supported with the current build tool")
+
+
+	# print additional info if not supressed
+	if not options.quiet:
+
+		if not options.install_prefix:
+			options.install_prefix = cmake_info.get("CMAKE_INSTALL_PREFIX")
+
+		if(options.install_prefix):
+
+			if not os.access(options.install_prefix, os.W_OK):
+				print(str())
+				print("# NOTE: installing to '%(prefix)s' "\
 					"may require administrative privilegues" % {
-						"prefix": oglplus_install_prefix
+						"prefix": options.install_prefix
 					}
+				)
 
 # run the main function
 if __name__ == "__main__": main(sys.argv[1:])
