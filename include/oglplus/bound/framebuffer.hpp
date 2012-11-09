@@ -152,7 +152,7 @@ public:
 	 *  @see Framebuffer::AttachColorTexture()
 	 */
 	void AttachColorTexture(
-		FramebufferColorAttachment attachment,
+		FramebufferColorAttachmentNumber attachment,
 		const TextureOps & texture,
 		GLint level
 	) const

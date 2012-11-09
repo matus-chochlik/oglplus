@@ -432,7 +432,7 @@ public:
 	 */
 	static void AttachColorTexture(
 		Target target,
-		FramebufferColorAttachment attachment,
+		FramebufferColorAttachmentNumber attachment,
 		const TextureOps& texture,
 		GLint level
 	)
