@@ -44,7 +44,7 @@ private:
 	ExampleClock _clock;
 	double _fps_time, _prim_count;
 	unsigned long _frame_no;
-	size_t _width, _height;
+	GLuint _width, _height;
 	ExampleParams _params;
 	std::unique_ptr<Example> _example;
 
@@ -59,7 +59,7 @@ public:
 		return SingleInstance()->_example.get();
 	}
 
-	SingleExample(size_t width, size_t height)
+	SingleExample(GLuint width, GLuint height)
 	 : _fps_time(0.0)
 	 , _prim_count(0.0)
 	 , _frame_no(0)
@@ -152,7 +152,7 @@ public:
 
 int main(int argc, char* argv[])
 {
-	size_t width = 800, height = 600;
+	GLuint width = 800, height = 600;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
 	glutInitWindowSize(width, height);

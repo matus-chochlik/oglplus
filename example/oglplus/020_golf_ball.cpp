@@ -28,7 +28,7 @@ private:
 	// indices pointing to sphere primitive elements
 	shapes::Sphere::IndexArray sphere_indices;
 
-	size_t hole_count;
+	GLuint hole_count;
 	float hole_diameter;
 
 	// wrapper around the current OpenGL context
@@ -49,27 +49,27 @@ private:
 	// the normals for bump-mapping
 	// there vertices must be transformed just like
 	// the sphere vertices
-	static void make_hole_data(std::vector<GLfloat>& data, size_t hole_count)
+	static void make_hole_data(std::vector<GLfloat>& data, GLuint hole_count)
 	{
-		const size_t ne = 5;
+		const GLuint ne = 5;
 		const float el[ne] = {0.50f, 0.33f, 0.21f, 0.11f, 0.07f};
-		const size_t ea[ne] = {1, 6, 6, 6, 6};
+		const GLuint ea[ne] = {1, 6, 6, 6, 6};
 		const float ao[ne] = {0.00f, 0.00f, 0.50f,-0.08f, 0.42f};
 		const float si[2] = {1.0f, -1.0f};
-		size_t k = 0;
+		GLuint k = 0;
 
 		if(ne != 0)
 		{
-			size_t hn = 0;
-			for(size_t e=0; e!=ne; ++e)
+			GLuint hn = 0;
+			for(GLuint e=0; e!=ne; ++e)
 				hn += ea[e];
 			assert(hn * 2 == hole_count);
 			data.resize(hn * 2 * 3);
 		}
-		for(size_t s=0; s!= 2; ++s)
-		for(size_t e=0; e!=ne; ++e)
+		for(GLuint s=0; s!= 2; ++s)
+		for(GLuint e=0; e!=ne; ++e)
 		{
-			size_t na = ea[e];
+			GLuint na = ea[e];
 			if(na == 1)
 			{
 				data[k++] = 0.0f;
@@ -80,7 +80,7 @@ private:
 			{
 				float elev = el[e] * M_PI;
 				float a_step = 1.0f / na;
-				for(size_t a=0; a!=na; ++a)
+				for(GLuint a=0; a!=na; ++a)
 				{
 					float azim = si[s]*ao[e]+a*a_step*2*M_PI;
 					data[k++] = std::cos(elev)*std::cos(azim);
@@ -281,7 +281,7 @@ public:
 		gl.Enable(Capability::DepthTest);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		prog.Use();

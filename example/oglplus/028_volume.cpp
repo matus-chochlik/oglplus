@@ -265,7 +265,7 @@ public:
 class Grid
 {
 protected:
-	const size_t grid_div;
+	const GLuint grid_div;
 	shapes::Tetrahedrons make_grid;
 	shapes::DrawingInstructions grid_instr;
 	shapes::Tetrahedrons::IndexArray grid_indices;
@@ -333,7 +333,7 @@ private:
 
 	Grid grid;
 
-	size_t width, height;
+	GLuint width, height;
 
 	// A 3D texture containing density data
 	Texture volume_tex;
@@ -409,7 +409,7 @@ public:
 		grid.Draw();
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

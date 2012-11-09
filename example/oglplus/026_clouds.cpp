@@ -45,7 +45,7 @@ private:
 	VertexArray clouds;
 	Buffer pos_buffer, size_buffer;
 
-	const size_t samples;
+	const GLuint samples;
 
 	const std::vector<Vec3f> positions;
 	static std::vector<Vec3f> make_positions(void)
@@ -263,7 +263,7 @@ public:
 
 		Texture::Active(0);
 		UniformSampler(cloud_prog, "CloudTex").Set(0);
-		for(size_t i=0, n=positions.size(); i!=n; ++i)
+		for(std::size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			auto bound_tex = Bind(cloud_tex[i], Texture::Target::_3D);
 			bound_tex.Image3D(
@@ -289,7 +289,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::OneMinusSrcAlpha);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		Mat4f perspective = CamMatrixf::PerspectiveX(
@@ -329,7 +329,7 @@ public:
 		Uniform<Vec4f>(cloud_prog, "ViewX").Set(cameraMatrix.Row<0>());
 		Uniform<Vec4f>(cloud_prog, "ViewY").Set(cameraMatrix.Row<1>());
 		Uniform<Vec4f>(cloud_prog, "ViewZ").Set(cameraMatrix.Row<2>());
-		for(size_t i=0, n=positions.size(); i!=n; ++i)
+		for(std::size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			cloud_tex[i].Bind(Texture::Target::_3D);
 			gl.DrawArraysInstanced(

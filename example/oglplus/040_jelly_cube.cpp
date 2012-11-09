@@ -359,13 +359,13 @@ public:
 		cam_vao.Bind();
 		cam_prog.Use();
 
-		size_t n = 10;
+		GLuint n = 10;
 		cam_prog.interval.Set(interval / n);
 
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
-		for(size_t i=0; i!=n; ++i)
+		for(GLuint i=0; i!=n; ++i)
 		{
 			{
 				TransformFeedbackPrimitiveType tfbmode = se::Points();
@@ -845,7 +845,7 @@ private:
 		CameraDriveProgram& cam_prog,
 		const GLfloat size,
 		const GLfloat mass,
-		const size_t n,
+		const GLuint n,
 		const Mat4f& transform
 	)
 	{
@@ -855,13 +855,13 @@ private:
 		std::vector<GLfloat> pos_data(vertex_count * 4);
 		auto pi = pos_data.begin(), pe = pos_data.end();
 
-		for(size_t z=0; z!=n; ++z)
+		for(GLuint z=0; z!=n; ++z)
 		{
 			const GLfloat z_offs = -s_2 + s_n*z;
-			for(size_t y=0; y!=n; ++y)
+			for(GLuint y=0; y!=n; ++y)
 			{
 				const GLfloat y_offs = -s_2 + s_n*y;
-				for(size_t x=0; x!=n; ++x)
+				for(GLuint x=0; x!=n; ++x)
 				{
 					const GLfloat x_offs = -s_2 + s_n*x;
 
@@ -944,9 +944,9 @@ private:
 	}
 
 	int FaceIndex(
-		const size_t n,
-		const size_t n_1,
-		const size_t f,
+		const GLuint n,
+		const GLuint n_1,
+		const GLuint f,
 		int i,
 		int j
 	) const
@@ -1081,9 +1081,9 @@ private:
 
 	void InitIndexData(
 		std::vector<GLuint>& index_data,
-		const size_t n,
-		const size_t n_1,
-		const size_t k
+		const GLuint n,
+		const GLuint n_1,
+		const GLuint k
 	)
 	{
 		assert(k != 0);
@@ -1092,9 +1092,9 @@ private:
 
 		auto ii = index_data.begin(), ie = index_data.end();
 
-		for(size_t f=0; f!=6; ++f)
+		for(GLuint f=0; f!=6; ++f)
 		{
-			for(size_t j=0; j!=n_1; j+=k)
+			for(GLuint j=0; j!=n_1; j+=k)
 			{
 				assert(ii != ie);
 				*ii++ = FaceIndex(n, n_1, f,  0, j+0);
@@ -1105,7 +1105,7 @@ private:
 				assert(ii != ie);
 				*ii++ = FaceIndex(n, n_1, f, +k, j-k);
 
-				for(size_t i=k; i!=n_1; i+=k)
+				for(GLuint i=k; i!=n_1; i+=k)
 				{
 					assert(ii != ie);
 					*ii++ = FaceIndex(n, n_1, f, i+0, j+0);
@@ -1135,9 +1135,9 @@ private:
 		assert(ii == ie);
 	}
 
-	void InitIndices(const size_t n)
+	void InitIndices(const GLuint n)
 	{
-		const size_t n_1 = n-1;
+		const GLuint n_1 = n-1;
 
 		std::vector<GLuint> index_data(face_index_count);
 		InitIndexData(index_data, n, n_1, 1);
@@ -1166,17 +1166,17 @@ private:
 		return index;
 	}
 
-	void InitSprings(const JellyPhysProgram& phys_prog, const size_t n)
+	void InitSprings(const JellyPhysProgram& phys_prog, const GLuint n)
 	{
 		std::vector<GLint> indices(vertex_count * (4*8));
 
 		auto ii = indices.begin(), ie = indices.end();
 
-		for(size_t z=0; z!=n; ++z)
+		for(GLuint z=0; z!=n; ++z)
 		{
-			for(size_t y=0; y!=n; ++y)
+			for(GLuint y=0; y!=n; ++y)
 			{
-				for(size_t x=0; x!=n; ++x)
+				for(GLuint x=0; x!=n; ++x)
 				{
 					// SpringAX
 					assert(ii != ie);
@@ -1279,7 +1279,7 @@ public:
 		CameraDriveProgram& cam_prog,
 		const GLfloat size,
 		const GLfloat mass,
-		const size_t n,
+		const GLuint n,
 		const Mat4f& transform
 	): vertex_count(n*n*n)
 	 , face_index_count(6*(n-1)*(n*4+1))
@@ -1308,13 +1308,13 @@ public:
 		phys_vao.Bind();
 		phys_prog.Use();
 
-		size_t n = 20;
+		GLuint n = 20;
 		phys_prog.interval.Set(interval / n);
 
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
-		for(size_t i=0; i!=n; ++i)
+		for(GLuint i=0; i!=n; ++i)
 		{
 			{
 				TransformFeedbackPrimitiveType tfbmode = se::Points();
@@ -1474,7 +1474,7 @@ public:
 		gl.PolygonOffset(-0.01, -1.0);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 

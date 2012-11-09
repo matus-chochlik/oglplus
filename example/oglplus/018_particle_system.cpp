@@ -39,7 +39,7 @@ private:
 	// Uniforms
 	LazyUniform<Mat4f> projection_matrix, camera_matrix;
 
-	const size_t particle_count;
+	const GLuint particle_count;
 	std::vector<Vec3f> positions;
 	std::vector<Vec3f> directions;
 	std::vector<float> ages;
@@ -172,7 +172,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::OneMinusSrcAlpha);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		prog.Use();
@@ -198,7 +198,7 @@ public:
 	void Render(double time)
 	{
 		// update the particle positions, ages and directions
-		size_t i = 0;
+		GLuint i = 0;
 		float time_diff = (time - prev_time);
 		float age_mult = 0.2f;
 		while(i != positions.size())

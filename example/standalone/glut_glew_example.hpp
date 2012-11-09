@@ -36,10 +36,10 @@ private:
 	double _frame_time, _frame_duration;
 	unsigned long _frame_number;
 
-	size_t _width, _height;
+	GLuint _width, _height;
 
-	size_t _prev_mouse_x, _prev_mouse_y;
-	size_t _curr_mouse_x, _curr_mouse_y;
+	GLuint _prev_mouse_x, _prev_mouse_y;
+	GLuint _curr_mouse_x, _curr_mouse_y;
 
 public:
 	void HandleUpdate(void)
@@ -54,13 +54,13 @@ public:
 		++_frame_number;
 	}
 
-	void HandleResize(size_t width, size_t height)
+	void HandleResize(GLuint width, GLuint height)
 	{
 		_width = width;
 		_height = height;
 	}
 
-	void HandleMouseMove(size_t mouse_x, size_t mouse_y)
+	void HandleMouseMove(GLuint mouse_x, GLuint mouse_y)
 	{
 		_prev_mouse_x = _curr_mouse_x;
 		_prev_mouse_y = _curr_mouse_y;;
@@ -76,12 +76,12 @@ public:
 	double CurrentFPS(void) const { return 1.0 / _frame_duration; }
 	double AverageFPS(void) const { return _frame_number / _frame_time; }
 
-	size_t Width(void) const { return _width; }
-	size_t Height(void) const { return _height; }
+	GLuint Width(void) const { return _width; }
+	GLuint Height(void) const { return _height; }
 	double Aspect(void) const { return double(_width)/double(_height); }
 
-	size_t MouseX(void) const { return _curr_mouse_x; }
-	size_t MouseY(void) const { return _curr_mouse_y; }
+	GLuint MouseX(void) const { return _curr_mouse_x; }
+	GLuint MouseY(void) const { return _curr_mouse_y; }
 
 	int MouseDiffX(void) const
 	{
@@ -125,7 +125,7 @@ public:
 	virtual ~StandaloneExample(void)
 	{ }
 
-	void Startup(size_t width, size_t height)
+	void Startup(GLuint width, GLuint height)
 	{
 		HandleResize(width, height);
 		Reshape();
@@ -173,7 +173,7 @@ public:
 		delete SingleInstance();
 	}
 
-	void Startup(size_t width, size_t height)
+	void Startup(GLuint width, GLuint height)
 	{
 		assert(SingleInstance());
 		SingleInstance()->Startup(width, height);
@@ -220,10 +220,10 @@ class GlutInit
 {
 protected:
 	GlutInit(
-		size_t xpos,
-		size_t ypos,
-		size_t width,
-		size_t height,
+		GLuint xpos,
+		GLuint ypos,
+		GLuint width,
+		GLuint height,
 		const char* window_title,
 		int &argc,
 		char* argv[]
@@ -271,10 +271,10 @@ private:
 	GlutGlewExampleApp(const GlutGlewExampleApp&);
 public:
 	GlutGlewExampleApp(
-		size_t xpos,
-		size_t ypos,
-		size_t width,
-		size_t height,
+		GLuint xpos,
+		GLuint ypos,
+		GLuint width,
+		GLuint height,
 		const char* window_title,
 		int &argc,
 		char* argv[]
@@ -320,7 +320,7 @@ int GlutGlewMain(const char* title, int argc, char* argv[])
 	{
 		std::cout << "Started" << std::endl;
 		{
-			size_t width = 800, height = 600;
+			GLuint width = 800, height = 600;
 			GlutGlewExampleApp<Example> app(
 				100, 100,
 				width, height,

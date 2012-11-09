@@ -114,7 +114,7 @@ public:
 			{+0.5f, +0.5f, -0.5f},
 			{+0.5f, +0.5f, +0.5f}
 		};
-		const size_t vertex_count = 6 * 2 * 3;
+		const GLuint vertex_count = 6 * 2 * 3;
 		const GLfloat cube_vertices[vertex_count * 3] = {
 			c[0][0], c[0][1], c[0][2],
 			c[2][0], c[2][1], c[2][2],
@@ -180,9 +180,9 @@ public:
 			{ 0.0f,  0.0f,  1.0f}
 		};
 		GLfloat cube_normals[vertex_count * 3];
-		for(size_t f=0;f!=6;++f)
-			for(size_t v=0;v!=6;++v)
-				for(size_t c=0;c!=3;++c)
+		for(GLuint f=0;f!=6;++f)
+			for(GLuint v=0;v!=6;++v)
+				for(GLuint c=0;c!=3;++c)
 					cube_normals[(f*6+v)*3+c] = n[f][c];
 		// bind the VBO for the cube normals
 		normals.Bind(Buffer::Target::Array);
@@ -202,7 +202,7 @@ public:
 		gl.Enable(Capability::DepthTest);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		prog.Use();

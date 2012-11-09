@@ -479,7 +479,7 @@ public:
 		gl.Enable(Capability::DepthTest);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

@@ -20,7 +20,7 @@ namespace oglplus {
 class LandscapeExample : public Example
 {
 private:
-	size_t grid_side;
+	GLuint grid_side;
 
 	// helper object building plane vertex attributes
 	shapes::Plane make_plane;
@@ -185,7 +185,7 @@ public:
 		plane.Bind();
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		projection_matrix.Set(

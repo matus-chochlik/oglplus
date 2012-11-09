@@ -181,7 +181,7 @@ struct Example
 	}
 
 	/// Reshape event handler
-	virtual void Reshape(size_t width, size_t height) = 0;
+	virtual void Reshape(GLuint width, GLuint height) = 0;
 
 	/// Indicates if the example uses mouse motion events
 	virtual bool UsesMouseMotion(void) const
@@ -198,7 +198,7 @@ struct Example
 	}
 
 	/// Mouse move event handler
-	virtual void MouseMove(size_t x, size_t y, size_t width, size_t height)
+	virtual void MouseMove(GLuint x, GLuint y, GLuint width, GLuint height)
 	{
 		return MouseMoveNormalized(
 			(float(x) - width * 0.5f) / (width * 0.5f),
@@ -232,7 +232,7 @@ struct Example
 	}
 
 	/// The number of heat-up sequence frames
-	virtual size_t HeatUpFrames(void) const
+	virtual GLuint HeatUpFrames(void) const
 	{
 		return 5;
 	}

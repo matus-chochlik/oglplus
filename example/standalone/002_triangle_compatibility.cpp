@@ -28,7 +28,7 @@ private:
 	oglplus::ARB_compatibility glc;
 
 public:
-	Example(size_t width, size_t height)
+	Example(GLuint width, GLuint height)
 	 : log_sink(
 		[](const oglplus::ARB_debug_output::CallbackData& data) -> void
 		{
@@ -95,7 +95,7 @@ private:
 	SingleExample(const SingleExample&);
 public:
 
-	SingleExample(size_t width, size_t height)
+	SingleExample(GLuint width, GLuint height)
 	{
 		assert(!SingleInstance());
 		SingleInstance() = new Example(width, height);
@@ -118,7 +118,7 @@ public:
 
 int main(int argc, char* argv[])
 {
-	size_t width = 800, height = 600;
+	GLuint width = 800, height = 600;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitContextVersion(3, 1);

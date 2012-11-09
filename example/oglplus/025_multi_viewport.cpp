@@ -230,7 +230,7 @@ public:
 
 		// setup the texture
 		{
-			size_t tex_side = 512;
+			GLuint tex_side = 512;
 			auto image = images::NewtonFractal(
 				tex_side, tex_side,
 				Vec3f(0.8f, 0.8f, 1.0f),
@@ -271,7 +271,7 @@ public:
 		camera_position[2].Set(Vec3f(0, 0, 2));
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		GLfloat w_2f = width / 2.0f;
 		GLfloat h_2f = height/ 2.0f;

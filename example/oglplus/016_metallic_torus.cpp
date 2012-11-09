@@ -178,7 +178,7 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		prog.Use();

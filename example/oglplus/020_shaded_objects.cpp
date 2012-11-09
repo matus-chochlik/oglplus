@@ -59,7 +59,7 @@ public:
 		// bind the VAO for the shape
 		shape.Bind();
 
-		const size_t n_attr = 3;
+		const GLuint n_attr = 3;
 		// pointers to the vertex attribute data build functions
 		typedef GLuint (ShapeMaker::*Func)(std::vector<GLfloat>&) const;
 		Func func[n_attr] = {
@@ -72,7 +72,7 @@ public:
 		// vertex attribute identifiers from the shaders
 		const GLchar* ident[n_attr] = {"Vertex", "Normal", "TexCoord"};
 
-		for(size_t i=0; i!=n_attr; ++i)
+		for(GLuint i=0; i!=n_attr; ++i)
 		{
 			// bind the VBO
 			vbo[i].Bind(Buffer::Target::Array);
@@ -283,7 +283,7 @@ public:
 		gl.Enable(Capability::DepthTest);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::PerspectiveX(

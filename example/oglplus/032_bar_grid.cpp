@@ -172,7 +172,7 @@ private:
 	VertexArray draw_vao, shdw_vao;
 
 	Buffer positions, normals, indices;
-	const size_t vertex_count, index_count;
+	const GLuint vertex_count, index_count;
 public:
 	BarGridBarData(
 		const Program& draw_prog,
@@ -365,7 +365,7 @@ public:
 class BarGrid
 {
 private:
-	size_t bar_count;
+	GLuint bar_count;
 	BarGridBarData bar_data;
 
 	std::vector<GLfloat> bar_pos_data;
@@ -374,7 +374,7 @@ public:
 	BarGrid(
 		const Program& draw_prog,
 		const Program& shdw_prog,
-		size_t side,
+		GLuint side,
 		GLfloat size,
 		GLfloat chamfer,
 		GLfloat space
@@ -389,10 +389,10 @@ public:
 
 		auto pi = bar_pos_data.begin(), pe = bar_pos_data.end();
 
-		for(size_t z=0; z!=side; ++z)
+		for(GLuint z=0; z!=side; ++z)
 		{
 			const GLfloat zoffs = -h1 + h2 + z*(size+space);
-			for(size_t x=0; x!=side; ++x)
+			for(GLuint x=0; x!=side; ++x)
 			{
 				const GLfloat xoffs = -h1 + h2 + x*(size+space);
 				assert(pi != pe); *pi++ = xoffs;
@@ -411,12 +411,12 @@ public:
 		UniformBlock(shdw_prog, "BarOffsetBlock").Binding(0);
 	}
 
-	void Update(float interval, const std::vector<size_t>& triggered)
+	void Update(float interval, const std::vector<GLuint>& triggered)
 	{
 		const GLfloat max = 5.0f;
 		GLfloat falloff = interval * 0.5;
 		if(falloff > 0.0f) falloff = 1.0f - falloff ;
-		for(size_t i=0, n=bar_pos_data.size(); i!=n; i+=4)
+		for(GLuint i=0, n=bar_pos_data.size(); i!=n; i+=4)
 		{
 			GLfloat incr = (GLfloat(std::rand()) / GLfloat(RAND_MAX));
 			incr *= incr*incr;
@@ -429,9 +429,9 @@ public:
 			bar_pos_data[i+1] *= falloff;
 		}
 
-		for(size_t i=0, n=triggered.size(); i!=n; ++i)
+		for(GLuint i=0, n=triggered.size(); i!=n; ++i)
 		{
-			size_t idx = 4*triggered[i]+1;
+			GLuint idx = 4*triggered[i]+1;
 			assert(idx < bar_pos_data.size());
 			bar_pos_data[idx] += 1.0f;
 			if(bar_pos_data[idx] > max)
@@ -671,12 +671,12 @@ private:
 	MetalProgram metal_prog;
 	MetalFloor floor;
 
-	const size_t side;
+	const GLuint side;
 	ShadowProgram shadow_prog;
 	BarGridDrawProgram draw_prog;
 	BarGrid grid;
 
-	std::vector<size_t> triggered;
+	std::vector<GLuint> triggered;
 public:
 	BarGridExample(void)
 	 : gl()
@@ -694,7 +694,7 @@ public:
 		gl.Enable(Capability::CullFace);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 
@@ -799,8 +799,8 @@ public:
 
 	void MouseMoveNormalized(float x, float y, float)
 	{
-		size_t ix = side*(0.5f * (1.0f + x));
-		size_t iy = side*(0.5f * (1.0f + y));
+		GLuint ix = side*(0.5f * (1.0f + x));
+		GLuint iy = side*(0.5f * (1.0f + y));
 		if(ix < side && iy < side)
 			triggered.push_back(iy*side + ix);
 	}

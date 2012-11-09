@@ -184,7 +184,7 @@ protected:
 	VertexArray vao;
 	Array<Buffer> vbos;
 
-	const size_t hair_count;
+	const GLuint hair_count;
 
 public:
 	Fur(const Program& prog)
@@ -199,9 +199,9 @@ public:
 		std::vector<GLfloat> nms(hair_count * 3);
 		std::vector<GLfloat> tcs(hair_count * 2);
 
-		size_t i = 0, j = 0, k = 0;
+		GLuint i = 0, j = 0, k = 0;
 
-		for(size_t h=0; h!=hair_count; ++h)
+		for(GLuint h=0; h!=hair_count; ++h)
 		{
 			GLfloat u = GLfloat(std::rand()) / RAND_MAX;
 			GLfloat z = GLfloat(std::rand()) / RAND_MAX;
@@ -362,7 +362,7 @@ public:
 		matrix = ModelMatrixf::RotationZ(FullCircles(value / 4.0));
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		projection = CamMatrixf::PerspectiveX(

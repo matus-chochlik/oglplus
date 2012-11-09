@@ -52,13 +52,13 @@ private:
 	Framebuffer depth_fbo;
 
 	// The dimension of the texture
-	const size_t tex_side;
+	const GLuint tex_side;
 
 	// The number of samples
-	const size_t sample_count;
+	const GLuint sample_count;
 
 	// The window width and height
-	size_t width, height;
+	GLuint width, height;
 public:
 	ShadowVolExample(const ExampleParams& params)
 	 : shape_instr(make_shape.Instructions())
@@ -445,7 +445,7 @@ public:
 		gl.BlendFunc(BlendFunction::SrcAlpha, BlendFunction::One);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

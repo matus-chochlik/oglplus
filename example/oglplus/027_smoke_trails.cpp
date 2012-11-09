@@ -104,7 +104,7 @@ public:
 		if(drag > 1.0) drag = 1.0;
 
 		// go through the existing particles
-		for(size_t i=0, n=positions.size(); i!=n; ++i)
+		for(std::size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			// update the age
 			ages[i] += time_diff / lifetime;
@@ -387,7 +387,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::OneMinusSrcAlpha);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		prog.Use();

@@ -59,7 +59,7 @@ private:
 	// Texture user for the simulation of refraction
 	Texture refract_tex;
 
-	size_t width, height, tex_side;
+	GLuint width, height, tex_side;
 public:
 	GlassExample(void)
 	 : make_plane(Vec3f(2.0f, 0.0f, 0.0f), Vec3f(0.0f, 0.0f, -2.0f))
@@ -306,7 +306,7 @@ public:
 		gl.Enable(Capability::DepthTest);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

@@ -85,7 +85,7 @@ private:
 
 
 	// The resolution of the texture (side x side)
-	size_t tex_side;
+	GLuint tex_side;
 
 	// The paths of the lights
 	const std::vector<CubicBezierLoop<Vec3f, double> > light_paths;
@@ -105,7 +105,7 @@ private:
 	const Array<Framebuffer> fbo;
 
 	// The viewport width and height
-	size_t width, height;
+	GLuint width, height;
 public:
 	ShadowMapExample(const ExampleParams& params)
 	 : cube_instr(make_cube.Instructions())
@@ -412,7 +412,7 @@ public:
 		gl.PolygonOffset(1.0, 1.0);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

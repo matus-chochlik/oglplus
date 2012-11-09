@@ -37,7 +37,7 @@ private:
 	VertexArray curve;
 	Buffer curve_verts;
 	// The count of curve points
-	size_t curve_n;
+	std::size_t curve_n;
 
 	// VAO and VBO for the curve control points
 	VertexArray control;
@@ -46,7 +46,7 @@ private:
 	// Handle for the Color uniform in fragment shader
 	LazyUniform<Vec3f> color;
 	// The count of control points
-	size_t ctrl_n;
+	std::size_t ctrl_n;
 public:
 	RectangleExample(void)
 	 : color(prog, "Color")
@@ -128,7 +128,7 @@ public:
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 	}

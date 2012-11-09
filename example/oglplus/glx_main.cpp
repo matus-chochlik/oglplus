@@ -45,8 +45,8 @@ void run_loop(
 	const x11::Window& win,
 	const glx::Context& ctx,
 	std::unique_ptr<Example>& example,
-	size_t width,
-	size_t height
+	GLuint width,
+	GLuint height
 )
 {
 	std::cout << "-+-[Begin]" << std::endl;
@@ -122,8 +122,8 @@ void make_screenshot(
 	const x11::Window& win,
 	const glx::Context& ctx,
 	std::unique_ptr<Example>& example,
-	size_t width,
-	size_t height,
+	GLuint width,
+	GLuint height,
 	const char* screenshot_path
 )
 {
@@ -189,7 +189,7 @@ void run(const x11::Display& display, const char* screenshot_path)
 
 	x11::VisualInfo vi(display, fbc);
 
-	const size_t width = 800, height = 600;
+	const GLuint width = 800, height = 600;
 
 	x11::Window win(
 		display,

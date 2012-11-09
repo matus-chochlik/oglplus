@@ -242,7 +242,7 @@ public:
 		prog.light_position.Set(Vec3f(4.0, 10.0, 4.0));
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 

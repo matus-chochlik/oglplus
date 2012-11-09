@@ -528,7 +528,7 @@ protected:
 	VertexArray vao;
 
 	// number of vertex attributes
-	const size_t nva;
+	const GLuint nva;
 
 	// VBOs for the shape's vertex attributes
 	Array<Buffer> vbos;
@@ -551,7 +551,7 @@ public:
 			"Tangent",
 			"TexCoord"
 		};
-		for(size_t va=0; va!=nva; ++va)
+		for(GLuint va=0; va!=nva; ++va)
 		{
 			const GLchar* name = vert_attr_name[va];
 			std::vector<GLfloat> data;
@@ -601,7 +601,7 @@ private:
 	Shape<shapes::Plane> plane;
 	Shape<shapes::Sphere> sphere;
 
-	const size_t ball_count;
+	const GLuint ball_count;
 
 	std::vector<Vec3f> ball_colors;
 	std::vector<Vec3f> ball_offsets;
@@ -702,7 +702,7 @@ public:
 		Texture::Active(0);
 		cloth_prog.light_map.Set(0);
 		{
-			size_t light_map_side = 512;
+			GLuint light_map_side = 512;
 			auto bound_tex = Bind(table_light_map, Texture::Target::_2D);
 			bound_tex.Image2D(
 				0,
@@ -755,7 +755,7 @@ public:
 				"pool_ball14",
 				"pool_ball15",
 			};
-			for(size_t i=0; i!=ball_count; ++i)
+			for(GLuint i=0; i!=ball_count; ++i)
 			{
 				auto image = images::LoadTexture(tex_names[i]);
 				if(i == 0)
@@ -808,7 +808,7 @@ public:
 		Texture::Active(3);
 		ball_prog.reflect_tex.Set(3);
 
-		size_t cubemap_side = 128;
+		GLuint cubemap_side = 128;
 
 		Array<Texture> temp_cubemaps(ball_count);
 
@@ -821,11 +821,11 @@ public:
 		Framebuffer::BindDefault(Framebuffer::Target::Draw);
 	}
 
-	void InitializeCubemaps(Array<Texture>& cubemaps, size_t cubemap_side)
+	void InitializeCubemaps(Array<Texture>& cubemaps, GLuint cubemap_side)
 	{
 		std::vector<GLubyte> black(cubemap_side*cubemap_side*3, 0x00);
 
-		for(size_t b=0; b!=ball_count; ++b)
+		for(GLuint b=0; b!=ball_count; ++b)
 		{
 			auto bound_tex = Bind(cubemaps[b], Texture::Target::CubeMap);
 			bound_tex.MinFilter(TextureMinFilter::Linear);
@@ -850,7 +850,7 @@ public:
 		}
 	}
 
-	void PrerenderLightmap(const Vec3f& light_position, size_t tex_side)
+	void PrerenderLightmap(const Vec3f& light_position, GLuint tex_side)
 	{
 		AutoBind<Framebuffer> table_light_fbo(Framebuffer::Target::Draw);
 
@@ -896,7 +896,7 @@ public:
 	void PrerenderCubemaps(
 		Array<Texture>& src_texs,
 		Array<Texture>& dst_texs,
-		size_t tex_side
+		GLuint tex_side
 	)
 	{
 		Texture::Active(4);
@@ -954,7 +954,7 @@ public:
 		);
 		gl.Viewport(tex_side, tex_side);
 
-		for(size_t b=0; b!=ball_count; ++b)
+		for(GLuint b=0; b!=ball_count; ++b)
 		{
 			fbo.AttachTexture(
 				FramebufferAttachment::Color,
@@ -1000,7 +1000,7 @@ public:
 			0.0, 3.0,-1.0,
 			0.0, 0.0, 1.0
 		));
-		for(size_t i=0; i!=ball_count; ++i)
+		for(GLuint i=0; i!=ball_count; ++i)
 		{
 			if(int(i) == skipped) continue;
 			Vec3f rot = ball_rotations[i];
@@ -1042,7 +1042,7 @@ public:
 		RenderScene(reflect_textures, cloth_pp, ball_pp);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 

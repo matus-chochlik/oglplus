@@ -132,7 +132,7 @@ public:
 		coord_attr.Enable();
 		//
 		// color map used in the fragment shader to colorize the fractal
-		const size_t nclr = 5;
+		const std::size_t nclr = 5;
 		GLfloat colormap[nclr*4] = {
 			0.4f, 0.2f, 1.0f, 0.00f,
 			1.0f, 0.2f, 0.2f, 0.30f,
@@ -145,7 +145,7 @@ public:
 		gl.ClearDepth(1.0f);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 	}

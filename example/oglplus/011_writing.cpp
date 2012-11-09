@@ -31,7 +31,7 @@ private:
 	VertexArray writing;
 	Buffer curve_verts;
 	// The count of curve points
-	size_t curve_n;
+	std::size_t curve_n;
 public:
 	WritingExample(void)
 	{
@@ -148,7 +148,7 @@ public:
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 	}

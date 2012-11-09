@@ -57,9 +57,9 @@ private:
 	Array<Texture> texs;
 	// The currently used texture
 	GLuint current_tex;
-	size_t tex_side;
+	GLuint tex_side;
 
-	size_t width, height;
+	GLuint width, height;
 public:
 	FBTexExample(void)
 	 : make_cube()
@@ -218,7 +218,7 @@ public:
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

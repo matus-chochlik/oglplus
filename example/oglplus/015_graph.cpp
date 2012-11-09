@@ -42,9 +42,9 @@ private:
 
 
 	// The number of nodes in the graph
-	const size_t node_count;
+	const GLuint node_count;
 	// The number of edges in the graph
-	size_t edge_count;
+	GLuint edge_count;
 
 	static double nrand(void)
 	{
@@ -138,8 +138,8 @@ public:
 		// bind the VBO for the cube vertices
 		verts.Bind(Buffer::Target::Array);
 		{
-			size_t k = 0;
-			for(size_t p=0; p!=node_count; ++p)
+			GLuint k = 0;
+			for(GLuint p=0; p!=node_count; ++p)
 			{
 				positions[k++] = nrand() *120.0;
 				positions[k++] = nrand() *  5.0;
@@ -160,7 +160,7 @@ public:
 		{
 			std::vector<GLuint> edges;
 			edges.reserve(node_count * 6);
-			for(size_t i=0; i!=node_count; ++i)
+			for(GLuint i=0; i!=node_count; ++i)
 			{
 				Vec3f pi(
 					positions[i*3+0],
@@ -168,8 +168,8 @@ public:
 					positions[i*3+2]
 				);
 				float min_dist = 1000.0f;
-				size_t m = i;
-				for(size_t j=i+1; j!=node_count; ++j)
+				GLuint m = i;
+				for(GLuint j=i+1; j!=node_count; ++j)
 				{
 					Vec3f pj(
 						positions[j*3+0],
@@ -184,8 +184,8 @@ public:
 					}
 				}
 				min_dist *= 2.0f;
-				size_t done = 0;
-				for(size_t j=i+1; j!=node_count; ++j)
+				GLuint done = 0;
+				for(GLuint j=i+1; j!=node_count; ++j)
 				{
 					Vec3f pj(
 						positions[j*3+0],
@@ -229,7 +229,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::OneMinusSrcAlpha);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		prog.Use();

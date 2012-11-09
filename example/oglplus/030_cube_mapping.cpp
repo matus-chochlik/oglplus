@@ -142,7 +142,7 @@ private:
 
 
 	// The resolution of the texture (side x side)
-	size_t tex_side;
+	GLuint tex_side;
 
 	// The cube map color and depth textures
 	Texture ctex, dtex;
@@ -153,7 +153,7 @@ private:
 	// Path of the light
 	CubicBezierLoop<Vec3f, double> light_path;
 
-	size_t width, height;
+	GLuint width, height;
 public:
 	CubeMapExample(void)
 	 : make_sphere(1.0, 72, 48)
@@ -615,7 +615,7 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

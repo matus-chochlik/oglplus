@@ -34,11 +34,11 @@ private:
 	std::vector<Mat4f> cube_matrices;
 
 	// Returns a vector of cube offsets
-	static std::vector<Mat4f> MakeCubeMatrices(size_t count, float max_dist)
+	static std::vector<Mat4f> MakeCubeMatrices(GLuint count, float max_dist)
 	{
 		std::srand(59039);
 		std::vector<Mat4f> offsets(count);
-		for(size_t i=0; i!=count; ++i)
+		for(GLuint i=0; i!=count; ++i)
 		{
 			float x = float(std::rand())/RAND_MAX;
 			float y = float(std::rand())/RAND_MAX;
@@ -96,7 +96,7 @@ private:
 	// The color and depth textures
 	Texture color_tex, depth_tex;
 
-	size_t width, height;
+	GLuint width, height;
 public:
 	DOFExample(const ExampleParams& params)
 	 : face_instr(make_cube.Instructions())
@@ -342,7 +342,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::OneMinusSrcAlpha);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

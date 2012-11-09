@@ -233,7 +233,7 @@ public:
 		ProgramUniform<Vec4f> plane_clip_plane(plane_prog, "ClipPlane");
 		ProgramUniform<GLfloat> torus_clip_sign(torus_prog, "ClipSign");
 		ProgramUniform<GLfloat> plane_clip_sign(plane_prog, "ClipSign");
-		for(size_t p=0; p!=plane.size(); ++p)
+		for(std::size_t p=0; p!=plane.size(); ++p)
 		{
 			plane[p].Bind();
 
@@ -266,7 +266,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::OneMinusSrcAlpha);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		auto proj = CamMatrixf::PerspectiveX(
@@ -285,7 +285,7 @@ public:
 		torus_instr.Draw(torus_indices);
 	}
 
-	void RenderPlane(size_t p)
+	void RenderPlane(std::size_t p)
 	{
 		gl.Enable(Capability::Blend);
 		plane_prog.Use();
@@ -295,9 +295,9 @@ public:
 		gl.Disable(Capability::Blend);
 	}
 
-	void BSP(const Mat4f& camera, size_t p)
+	void BSP(const Mat4f& camera, std::size_t p)
 	{
-		assert(p < size_t(plane.size()));
+		assert(p < std::size_t(plane.size()));
 		// the normal vector of the plane
 		Vec4f normal(make_plane[p].Normal(), 0.0);
 		// check if we are seeing the front or the back face

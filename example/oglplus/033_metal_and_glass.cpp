@@ -435,14 +435,14 @@ public:
 		vao.Bind();
 
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
-		const size_t nva = 4;
+		const GLuint nva = 4;
 		const GLchar* vert_attr_name[nva] = {
 			"Position",
 			"Normal",
 			"Tangent",
 			"TexCoord"
 		};
-		for(size_t va=0; va!=nva; ++va)
+		for(GLuint va=0; va!=nva; ++va)
 		{
 			const GLchar* name = vert_attr_name[va];
 			std::vector<GLfloat> data;
@@ -491,8 +491,8 @@ private:
 	// The burshed metal texture
 	Texture metal_texture;
 
-	size_t width, height;
-	const size_t shadow_tex_side;
+	GLuint width, height;
+	const GLuint shadow_tex_side;
 
 	// The metal frame shadow texture and its framebuffer
 	Texture frame_shadow_tex;
@@ -622,7 +622,7 @@ public:
 
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

@@ -420,7 +420,7 @@ private:
 
 	Texture flare_texture;
 
-	const size_t n_flares;
+	const GLuint n_flares;
 	Array<Query> queries;
 public:
 	FlareExample(void)
@@ -429,7 +429,7 @@ public:
 	 , queries(n_flares)
 	{
 		std::vector<Vec3f> light_positions(n_flares);
-		for(size_t i=0; i!=n_flares; ++i)
+		for(GLuint i=0; i!=n_flares; ++i)
 		{
 			const float rand_max = float(RAND_MAX);
 			auto angle = FullCircles(std::rand()/rand_max);
@@ -504,7 +504,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::One);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 
@@ -546,7 +546,7 @@ public:
 
 		light_prog.Use();
 
-		for(size_t l=0; l!=n_flares; ++l)
+		for(GLuint l=0; l!=n_flares; ++l)
 		{
 			queries[l].Begin(Query::Target::SamplesPassed);
 			gl.DrawArrays(PrimitiveType::Points, l, 1);
@@ -556,7 +556,7 @@ public:
 		gl.Enable(Capability::Blend);
 		gl.Disable(Capability::DepthTest);
 		flare_prog.Use();
-		for(size_t l=0; l!=n_flares; ++l)
+		for(GLuint l=0; l!=n_flares; ++l)
 		{
 			GLint samples = 0;
 			queries[l].WaitForResult(samples);

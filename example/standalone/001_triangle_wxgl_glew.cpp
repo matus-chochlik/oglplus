@@ -98,7 +98,7 @@ public:
 		gl.DrawArrays(PrimitiveType::Triangles, 0, 3);
 	}
 
-	void Reshape(size_t w, size_t h)
+	void Reshape(GLuint w, GLuint h)
 	{
 		gl.Viewport(w, h);
 	}

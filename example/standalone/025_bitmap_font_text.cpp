@@ -64,17 +64,17 @@ private:
 	// z - Glyph width in normalized texture space
 	// w - Glyph height in normalized texture space
 
-	const size_t n_glyphs;
+	const GLuint n_glyphs;
 	std::vector<GLfloat> log_data, ink_data, tex_data;
 
 	void LoadGlyph(
 		std::istream& bfm,
 		char* buf,
-		const size_t size
+		const GLuint size
 	)
 	{
 		// get the code point number from the stream
-		size_t glyph_cp;
+		GLuint glyph_cp;
 		assert(bfm.good());
 		bfm >> glyph_cp;
 		assert(bfm.good());
@@ -96,9 +96,9 @@ private:
 
 		// now load the 12 metric values
 		std::vector<GLfloat>* pdata[3] = {&log_data, &ink_data, &tex_data};
-		for(size_t d=0; d!=3; ++d)
+		for(GLuint d=0; d!=3; ++d)
 		{
-			for(size_t v=0; v!=4; ++v)
+			for(GLuint v=0; v!=4; ++v)
 			{
 				// read the value
 				GLfloat value;
@@ -123,9 +123,9 @@ public:
 	 , tex_data(n_glyphs*4)
 	{
 		std::ifstream bfm_stream(bfm_path);
-		const size_t linelen = 63;
+		const GLuint linelen = 63;
 		char linebuf[linelen+1];
-		for(size_t cp=0; cp!=n_glyphs; ++cp)
+		for(GLuint cp=0; cp!=n_glyphs; ++cp)
 			LoadGlyph(bfm_stream, linebuf, linelen);
 	}
 
@@ -150,7 +150,7 @@ public:
 		auto ii=indices.begin(), ie=indices.end();
 		if(ii != ie)
 		{
-			size_t index = *ii;
+			GLuint index = *ii;
 			// left bearing
 			GLfloat offs = log_data[index*4+0];
 
@@ -380,7 +380,7 @@ private:
 	BitmapFontProgram font_prog;
 	BitmapFont font;
 
-	size_t frame_no;
+	GLuint frame_no;
 	std::stringstream txt;
 public:
 	BitmapFontExample(int argc, const char** argv)

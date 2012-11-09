@@ -110,7 +110,7 @@ protected:
 	// VBOs for the shape's vertex attributes
 	Array<Buffer> vbos;
 
-	const size_t point_count;
+	const GLuint point_count;
 
 	void make_shape_1(const Program& prog, int vbo, const GLchar* name)
 	{
@@ -218,7 +218,7 @@ public:
 		gl.Enable(Capability::Blend);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		point_prog.projection_matrix.Set(

@@ -463,7 +463,7 @@ private:
 	Grid grid;
 	Plate plane;
 
-	size_t width, height;
+	GLuint width, height;
 
 	std::vector<CubicBezierLoop<Vec4f, double> > ball_paths;
 
@@ -480,9 +480,9 @@ public:
 	 , plane(metal_prog)
 	{
 		std::srand(234);
-		for(size_t i=0; i!=48; ++i)
+		for(GLuint i=0; i!=48; ++i)
 		{
-			size_t j = 0, n = 3+std::rand()%3;
+			GLuint j = 0, n = 3+std::rand()%3;
 			std::vector<Vec4f> points(n);
 			GLfloat ball_size = 0.15*std::rand()/GLdouble(RAND_MAX) + 0.25;
 			while(j != n)
@@ -549,7 +549,7 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;
@@ -558,13 +558,13 @@ public:
 
 	void UpdateMetaballs(double time)
 	{
-		size_t metaball_count = ball_paths.size(), k = 0;
+		std::size_t metaball_count = ball_paths.size(), k = 0;
 		std::vector<GLfloat> metaballs(metaball_count*4);
-		for(size_t ball=0; ball != metaball_count; ++ball)
+		for(std::size_t ball=0; ball != metaball_count; ++ball)
 		{
 			Vec4f pos = ball_paths[ball].Position(time / 21.0);
 
-			for(size_t coord=0; coord != 4; ++coord)
+			for(GLuint coord=0; coord != 4; ++coord)
 				metaballs[k++] = pos.At(coord);
 		}
 

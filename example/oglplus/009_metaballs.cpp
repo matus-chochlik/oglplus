@@ -48,9 +48,9 @@ private:
 public:
 	MetaballExample(void)
 	{
-		for(size_t i=0; i!=64; ++i)
+		for(GLuint i=0; i!=64; ++i)
 		{
-			size_t j = 0, n = 3+std::rand()%3;
+			GLuint j = 0, n = 3+std::rand()%3;
 			std::vector<Vec4f> points(n);
 			while(j != n)
 			{
@@ -173,20 +173,20 @@ public:
 		gl.ClearDepth(1.0f);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 	}
 
 	void Render(double time)
 	{
-		size_t metaball_count = ball_paths.size(), k = 0;
+		std::size_t metaball_count = ball_paths.size(), k = 0;
 		std::vector<GLfloat> metaballs(metaball_count*4);
-		for(size_t ball=0; ball != metaball_count; ++ball)
+		for(std::size_t ball=0; ball != metaball_count; ++ball)
 		{
 			Vec4f pos = ball_paths[ball].Position(time / 10.0);
 
-			for(size_t coord=0; coord != 4; ++coord)
+			for(std::size_t coord=0; coord != 4; ++coord)
 				metaballs[k++] = pos.At(coord);
 		}
 

@@ -167,10 +167,10 @@ public:
 		Texture::Target tex_tgt = Texture::Target::_2D;
 		tex.Bind(tex_tgt);
 		{
-			size_t s = 256;
+			GLuint s = 256;
 			std::vector<GLubyte> tex_data(s*s);
-			for(size_t v=0;v!=s;++v)
-				for(size_t u=0;u!=s;++u)
+			for(GLuint v=0;v!=s;++v)
+				for(GLuint u=0;u!=s;++u)
 					tex_data[v*s+u] = rand() % 0x100;
 			Texture::Image2D(
 				tex_tgt,
@@ -201,7 +201,7 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		prog.Use();

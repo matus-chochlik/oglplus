@@ -261,7 +261,7 @@ public:
 	{
 		// setup the texture
 		{
-			size_t tex_side = 512;
+			GLuint tex_side = 512;
 			auto image = images::NewtonFractal(
 				tex_side, tex_side,
 				Vec3f(0.8f, 0.8f, 1.0f),
@@ -295,7 +295,7 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		vase_prog.projection_matrix = CamMatrixf::PerspectiveX(

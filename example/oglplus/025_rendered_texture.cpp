@@ -65,9 +65,9 @@ private:
 
 	// The dynamically rendered texture
 	Texture tex;
-	size_t tex_side;
+	GLuint tex_side;
 
-	size_t width, height;
+	GLuint width, height;
 public:
 	FBTexExample(void)
 	 : make_cube()
@@ -286,7 +286,7 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

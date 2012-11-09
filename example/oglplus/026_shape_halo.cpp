@@ -398,7 +398,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::One);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		Mat4f projection = CamMatrixf::PerspectiveX(

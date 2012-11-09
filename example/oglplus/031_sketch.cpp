@@ -332,13 +332,13 @@ public:
 		vao.Bind();
 
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
-		const size_t nva = 3;
+		const GLuint nva = 3;
 		const GLchar* vert_attr_name[nva] = {
 			"Position",
 			"Normal",
 			"TexCoord"
 		};
-		for(size_t va=0; va!=nva; ++va)
+		for(GLuint va=0; va!=nva; ++va)
 		{
 			const GLchar* name = vert_attr_name[va];
 			std::vector<GLfloat> data;
@@ -399,8 +399,8 @@ private:
 	// The sketch texture
 	Texture sketch_texture;
 
-	size_t width, height;
-	const size_t sketch_tex_layers, shadow_tex_side;
+	GLuint width, height;
+	const GLuint sketch_tex_layers, shadow_tex_side;
 
 	// The metal frame shadow texture and its framebuffer
 	Texture shadow_tex;
@@ -443,7 +443,7 @@ public:
 		{
 			auto bound_tex = Bind(sketch_texture, Texture::Target::_3D);
 
-			for(size_t i=0; i!=sketch_tex_layers; ++i)
+			for(GLuint i=0; i!=sketch_tex_layers; ++i)
 			{
 				auto image = images::BrushedMetalUByte(
 					512, 512,
@@ -528,7 +528,7 @@ public:
 
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

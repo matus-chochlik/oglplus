@@ -71,7 +71,7 @@ void run(const x11::Display& display, const char* prefix)
 
 	x11::VisualInfo vi(display, fbc);
 
-	const size_t width = 852, height = 480;
+	const GLuint width = 852, height = 480;
 
 	x11::Window win(
 		display,
@@ -95,7 +95,7 @@ void run(const x11::Display& display, const char* prefix)
 		example->MouseMove(width/2, height/2, width, height);
 		double t = 0.0;
 		double period = 1.0 / 25.0;
-		size_t frame_no = 0;
+		GLuint frame_no = 0;
 		std::vector<char> pixels(width * height * 4);
 
 		ExampleClock clock;

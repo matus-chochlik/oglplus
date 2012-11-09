@@ -36,7 +36,7 @@ private:
 	VertexArray volume, plane;
 	Buffer volume_pos, plane_pos;
 
-	const size_t samples;
+	const GLuint samples;
 
 	Texture light_tex;
 public:
@@ -248,7 +248,7 @@ public:
 		gl.BlendFunc(BlendFn::SrcAlpha, BlendFn::One);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		auto perspective = CamMatrixf::PerspectiveX(

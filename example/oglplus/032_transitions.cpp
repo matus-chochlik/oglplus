@@ -256,7 +256,7 @@ public:
 		Resize(256, 256);
 	}
 
-	void Resize(size_t width, size_t height)
+	void Resize(GLuint width, GLuint height)
 	{
 		if(width < height) width = height;
 		if(height < width) height = width;
@@ -571,7 +571,7 @@ public:
 
 	void NextTransition(void)
 	{
-		size_t next = std::rand() % transitions.size();
+		std::size_t next = std::rand() % transitions.size();
 		frag_subroutines.Assign(frag_transition, transitions[next]);
 		direction.Set(std::rand() % 2);
 	}
@@ -655,7 +655,7 @@ private:
 
 	// torus vertex attribute names and count and
 	// a wraper for the torus builder, VAO and VBOs
-	static size_t torus_vert_attr_count(void) { return 4; }
+	static std::size_t torus_vert_attr_count(void) { return 4; }
 	static const GLchar** torus_vert_attr_names(void)
 	{
 		static const GLchar* attrs[] = {"Position", "Normal", "Tangent", "TexCoord"};
@@ -686,7 +686,7 @@ private:
 	// rectangle covering the screen
 	Screen screen;
 
-	size_t width, height;
+	GLuint width, height;
 
 	Mat4f projection_0, projection_1;
 public:
@@ -728,7 +728,7 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

@@ -58,8 +58,8 @@ private:
 
 	Framebuffer fbo;
 
-	size_t width, height;
-	const size_t tex_size_div;
+	GLuint width, height;
+	const GLuint tex_size_div;
 public:
 	ReflectionExample(void)
 	 : make_plane(
@@ -303,7 +303,7 @@ public:
 		gl.Enable(Capability::CullFace);
 	}
 
-	void Reshape(size_t vp_width, size_t vp_height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
 		width = vp_width;
 		height = vp_height;

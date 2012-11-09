@@ -172,7 +172,7 @@ public:
 
 		// setup the texture
 		{
-			size_t tex_side = 256;
+			GLuint tex_side = 256;
 			auto image = images::NewtonFractal(
 				tex_side, tex_side,
 				Vec3f(0.3f, 0.1f, 0.2f),
@@ -205,7 +205,7 @@ public:
 		gl.CullFace(Face::Back);
 	}
 
-	void Reshape(size_t width, size_t height)
+	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
 		prog.Use();
