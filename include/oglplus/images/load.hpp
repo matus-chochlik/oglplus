@@ -70,7 +70,11 @@ bool FindImage(
 
 } // namespace aux
 
-inline Image<GLubyte> LoadByName(std::string dirname, std::string name)
+inline Image<GLubyte> LoadByName(
+	std::string dirname,
+	std::string name,
+	bool y_is_up
+)
 {
 	std::ifstream file;
 	const char* exts[] = {".png"};
@@ -82,13 +86,13 @@ inline Image<GLubyte> LoadByName(std::string dirname, std::string name)
 		throw std::runtime_error("Unable to open image: "+name);
 	// TODO switch on extension
 	assert(iext == 0);
-	return PNG(file);
+	return PNG(file, y_is_up);
 }
 
 /// Helper function for loading textures that come with @OGLplus in the examples
-inline Image<GLubyte> LoadTexture(std::string name)
+inline Image<GLubyte> LoadTexture(std::string name, bool y_is_up = true)
 {
-	return LoadByName("textures", name);
+	return LoadByName("textures", name, y_is_up);
 }
 
 } // images

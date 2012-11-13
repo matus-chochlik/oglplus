@@ -432,14 +432,14 @@ public:
 	 */
 	static void AttachColorTexture(
 		Target target,
-		FramebufferColorAttachmentNumber attachment,
+		FramebufferColorAttachmentNumber attachment_no,
 		const TextureOps& texture,
 		GLint level
 	)
 	{
 		OGLPLUS_GLFUNC(FramebufferTexture)(
 			GLenum(target),
-			GL_COLOR_ATTACHMENT0 + GLenum(attachment),
+			GL_COLOR_ATTACHMENT0 + GLenum(attachment_no),
 			FriendOf<TextureOps>::GetName(texture),
 			level
 		);

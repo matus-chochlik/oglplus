@@ -214,8 +214,11 @@ private:
 		return 0;
 	}
 public:
-	PNGLoader(std::istream& input, Image<GLubyte>& image)
-	 : _input(input)
+	PNGLoader(
+		std::istream& input,
+		Image<GLubyte>& image,
+		bool y_is_up
+	): _input(input)
 	 , _validate_header(_input)
 	 , _png(*this)
 	{
@@ -268,8 +271,9 @@ public:
 			//
 			for(GLsizei r=0; r!= height; ++r)
 			{
-				size_t ofs = (height - r - 1) * rowsize;
-				rows[r] = (::png_bytep)data.data() + ofs;
+				GLsizei row = y_is_up? (height-r-1): r;
+				GLsizei offs = row * rowsize;
+				rows[r] = (::png_bytep)data.data() + offs;
 			}
 
 			// read
@@ -302,16 +306,16 @@ class PNG
 {
 public:
 	/// Load the image from a file with the specified @p file_path
-	PNG(const char* file_path)
+	PNG(const char* file_path, bool y_is_up = true)
 	{
 		std::ifstream  file(file_path);
-		aux::PNGLoader(file, *this);
+		aux::PNGLoader(file, *this, y_is_up);
 	}
 
 	/// Load the image from the specified @p input stream
-	PNG(std::istream& input)
+	PNG(std::istream& input, bool y_is_up = true)
 	{
-		aux::PNGLoader(input, *this);
+		aux::PNGLoader(input, *this, y_is_up);
 	}
 };
 
