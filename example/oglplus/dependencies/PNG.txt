@@ -7,4 +7,5 @@
 026_furry_torus.cpp
 029_flares.cpp
 030_pool_tiles.cpp
+030_rain.cpp
 034_billiard_balls.cpp
