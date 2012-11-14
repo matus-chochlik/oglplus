@@ -4,7 +4,7 @@
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 cd $(dirname $0)/../
-build_dir=_build
+build_dir=${PWD}/_build
 label="http://oglplus.org/"
 width=852
 height=480
@@ -63,6 +63,8 @@ function convert_single_frame()
 #
 let frameno=0
 # start the example
+(
+cd ${build_dir}
 echo "${prefix}-" > ${filelist} &
 ${build_dir}/${1} ${prefix}- < ${filelist} |
 while read framepath
@@ -70,7 +72,7 @@ do
 	echo "${framepath}"
 	convert_single_frame "${framepath}" > /dev/null
 done > ${filelist}
-
+)
 
 for job in $(jobs -p)
 do wait ${job}
