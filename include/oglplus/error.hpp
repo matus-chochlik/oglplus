@@ -1124,6 +1124,8 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 #endif
 #endif
 
+#define OGLPLUS_IGNORE(PARAM) ::glGetError();
+
 } // namespace oglplus
 
 #endif // include guard

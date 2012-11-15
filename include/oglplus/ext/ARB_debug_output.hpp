@@ -182,7 +182,7 @@ public:
 				GL_DEBUG_CALLBACK_FUNCTION_ARB,
 				_tmp_ptr
 			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPointerv));
+			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(GetPointerv));
 			_prev_callback = _tmp_callback;
 
 			//get the previous context
@@ -190,7 +190,7 @@ public:
 				GL_DEBUG_CALLBACK_USER_PARAM_ARB,
 				&_prev_context
 			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetPointerv));
+			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(GetPointerv));
 
 			OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
 				&LogSink::_gl_debug_proc,
@@ -213,10 +213,13 @@ public:
 		/// Restores the previous callback and its context
 		~LogSink(void)
 		{
-			OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
-				_prev_callback,
-				_prev_context
-			);
+			if(_prev_callback)
+			{
+				OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
+					_prev_callback,
+					_prev_context
+				);
+			}
 		}
 	};
 
