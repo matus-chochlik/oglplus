@@ -8,6 +8,8 @@ cmake_minimum_required(VERSION 2.8)
 
 add_custom_target(oglplus-textures)
 
+set(NOT_AVAILABLE_PNG ${CMAKE_CURRENT_SOURCE_DIR}/not_available.png)
+
 # SVG -> PNG
 find_program(INKSCAPE_EXECUTABLE inkscape)
 file(GLOB OGLPLUS_SVG_TEXTURES "./*.svg")
@@ -34,6 +36,14 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 				--export-png="${PNG_FILE}"
 			MAIN_DEPENDENCY ${SVG_FILE}
 			COMMENT "Converting texture ${TEXTURE_NAME}"
+		)
+	else()
+		add_custom_command(
+			OUTPUT ${PNG_FILE}
+			COMMAND ${CMAKE_COMMAND} -E copy
+				"${NOT_AVAILABLE_PNG}"
+				"${PNG_FILE}"
+			COMMENT "Copying default fallback texture ${TEXTURE_NAME}"
 		)
 	endif()
 
@@ -89,6 +99,14 @@ foreach(POV_FILE ${OGLPLUS_POV_TEXTURES})
 				COMMENT "Converting texture ${TEXTURE_NAME}"
 			)
 		endif()
+	else()
+		add_custom_command(
+			OUTPUT ${PNG_FILE}
+			COMMAND ${CMAKE_COMMAND} -E copy
+				"${NOT_AVAILABLE_PNG}"
+				"${PNG_FILE}"
+			COMMENT "Copying default fallback texture ${TEXTURE_NAME}"
+		)
 	endif()
 
 	add_custom_target(texture-${TEXTURE_NAME} DEPENDS ${PNG_FILE})
