@@ -1,4 +1,5 @@
 016_textured_cube.cpp
+017_sky_box.cpp
 018_stained_glass_cube.cpp
 019_honeycomb_cube.cpp
 020_texture_projection.cpp

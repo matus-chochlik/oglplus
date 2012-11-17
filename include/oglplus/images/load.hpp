@@ -73,7 +73,8 @@ bool FindImage(
 inline Image<GLubyte> LoadByName(
 	std::string dirname,
 	std::string name,
-	bool y_is_up
+	bool y_is_up,
+	bool x_is_right
 )
 {
 	std::ifstream file;
@@ -86,13 +87,17 @@ inline Image<GLubyte> LoadByName(
 		throw std::runtime_error("Unable to open image: "+name);
 	// TODO switch on extension
 	assert(iext == 0);
-	return PNG(file, y_is_up);
+	return PNG(file, y_is_up, x_is_right);
 }
 
 /// Helper function for loading textures that come with @OGLplus in the examples
-inline Image<GLubyte> LoadTexture(std::string name, bool y_is_up = true)
+inline Image<GLubyte> LoadTexture(
+	std::string name,
+	bool y_is_up = true,
+	bool x_is_right = true
+)
 {
-	return LoadByName("textures", name, y_is_up);
+	return LoadByName("textures", name, y_is_up, x_is_right);
 }
 
 } // images

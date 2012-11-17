@@ -217,7 +217,8 @@ public:
 	PNGLoader(
 		std::istream& input,
 		Image<GLubyte>& image,
-		bool y_is_up
+		bool y_is_up,
+		bool x_is_right
 	): _input(input)
 	 , _validate_header(_input)
 	 , _png(*this)
@@ -278,6 +279,22 @@ public:
 
 			// read
 			::png_read_image(_png._read, rows.data());
+
+			if(!x_is_right)
+			{
+				for(GLsizei r=0; r!=height; ++r)
+				{
+					for(GLsizei p=0; p!=width/2; ++p)
+					{
+						for(GLuint c=0; c!=channels; ++c)
+						{
+							::png_byte tmp = rows[r][p*channels+c];
+							rows[r][p*channels+c] = rows[r][(width-p-1)*channels+c];
+							rows[r][(width-p-1)*channels+c] = tmp;
+						}
+					}
+				}
+			}
 		}
 
 		GLenum gl_format = _translate_format(color_type, has_alpha);
@@ -306,16 +323,16 @@ class PNG
 {
 public:
 	/// Load the image from a file with the specified @p file_path
-	PNG(const char* file_path, bool y_is_up = true)
+	PNG(const char* file_path, bool y_is_up = true, bool x_is_right = true)
 	{
 		std::ifstream  file(file_path);
-		aux::PNGLoader(file, *this, y_is_up);
+		aux::PNGLoader(file, *this, y_is_up, x_is_right);
 	}
 
 	/// Load the image from the specified @p input stream
-	PNG(std::istream& input, bool y_is_up = true)
+	PNG(std::istream& input, bool y_is_up = true, bool x_is_right = true)
 	{
-		aux::PNGLoader(input, *this, y_is_up);
+		aux::PNGLoader(input, *this, y_is_up, x_is_right);
 	}
 };
 

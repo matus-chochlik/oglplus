@@ -6,28 +6,36 @@
 
 #declare CameraDirections = array[6];
 #declare CameraRightSides = array[6];
+#declare CameraUpSides    = array[6];
 
 #declare CameraDirections[0] = +x;
-#declare CameraRightSides[0] = +z;
+#declare CameraRightSides[0] = +x;
+#declare CameraUpSides   [0] = +y;
 
 #declare CameraDirections[1] = -x;
-#declare CameraRightSides[1] = -z;
+#declare CameraRightSides[1] = +x;
+#declare CameraUpSides   [1] = +y;
 
 #declare CameraDirections[2] = +y;
-#declare CameraRightSides[2] = +x;
+#declare CameraRightSides[2] = -x;
+#declare CameraUpSides   [2] = -y;
 
 #declare CameraDirections[3] = -y;
-#declare CameraRightSides[3] = +x;
+#declare CameraRightSides[3] = -x;
+#declare CameraUpSides   [3] = -y;
 
-#declare CameraDirections[4] = +z;
-#declare CameraRightSides[4] = -x;
+#declare CameraDirections[4] = -z;
+#declare CameraRightSides[4] = +x;
+#declare CameraUpSides   [4] = +y;
 
-#declare CameraDirections[5] = -z;
+#declare CameraDirections[5] = +z;
 #declare CameraRightSides[5] = +x;
+#declare CameraUpSides   [5] = +y;
 
 camera {
 	location CameraPosition
-	right CameraRightSides[CubeMapFace]*image_width/image_height
+	right CameraRightSides[CubeMapFace]
+	up CameraUpSides[CubeMapFace]
 	angle CameraAngle
 	look_at CameraPosition+CameraDirections[CubeMapFace]
 }

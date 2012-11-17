@@ -480,12 +480,30 @@ public:
 		bound_tex.WrapT(TextureWrap::ClampToEdge);
 		bound_tex.WrapR(TextureWrap::ClampToEdge);
 
-		Texture::Image2D(Texture::CubeMapFace(0), images::LoadTexture("cloudy_day-cm_0", false));
-		Texture::Image2D(Texture::CubeMapFace(1), images::LoadTexture("cloudy_day-cm_1", false));
-		Texture::Image2D(Texture::CubeMapFace(2), images::LoadTexture("cloudy_day-cm_2", false));
-		Texture::Image2D(Texture::CubeMapFace(3), images::LoadTexture("cloudy_day-cm_3", false));
-		Texture::Image2D(Texture::CubeMapFace(4), images::LoadTexture("cloudy_day-cm_4", false));
-		Texture::Image2D(Texture::CubeMapFace(5), images::LoadTexture("cloudy_day-cm_5", false));
+		Texture::Image2D(
+			Texture::CubeMapFace(0),
+			images::LoadTexture("cloudy_day-cm_0", false, false)
+		);
+		Texture::Image2D(
+			Texture::CubeMapFace(1),
+			images::LoadTexture("cloudy_day-cm_1", false, false)
+		);
+		Texture::Image2D(
+			Texture::CubeMapFace(2),
+			images::LoadTexture("cloudy_day-cm_2", false, false)
+		);
+		Texture::Image2D(
+			Texture::CubeMapFace(3),
+			images::LoadTexture("cloudy_day-cm_3", false, false)
+		);
+		Texture::Image2D(
+			Texture::CubeMapFace(4),
+			images::LoadTexture("cloudy_day-cm_4", false, false)
+		);
+		Texture::Image2D(
+			Texture::CubeMapFace(5),
+			images::LoadTexture("cloudy_day-cm_5", false, false)
+		);
 	}
 
 	GLuint TexUnit(void) const
