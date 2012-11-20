@@ -6,7 +6,6 @@
 
 #declare WorldRadius = 10000;
 #declare SunPosition = <-15000, 25000, -25000>;
-#declare HazeColor = <1.0, 1.0, 0.8>;
 
 #declare CameraPosition = <0.00, 10.00, 0.00>;
 #include "cube_map_common.pov.inc"
@@ -20,9 +19,9 @@ sky_sphere {
 	pigment {
 		gradient +y
 		color_map {
-			[0.00 rgb HazeColor*0.8]
-			[0.10 rgb <0.1,0.3,0.7>*0.6]
-			[1.00 rgb <0.1,0.2,0.4>*0.4]
+			[0.00 rgbt <1.0, 1.0, 0.0, 0.0> * 0.8]
+			[0.10 rgbt <0.1, 0.3, 0.7, 0.0> * 0.6]
+			[1.00 rgbt <0.1, 0.2, 0.4, 0.0> * 0.4]
 		}
 		scale 1.1
 	}
@@ -105,7 +104,7 @@ isosurface {
 		+ y
 	}
 	contained_by {sphere {CameraPosition, WorldRadius}}
-	max_gradient 2.0
+	max_gradient 5.0
 	texture {
 		pigment {
 			bozo turbulence 0.75
