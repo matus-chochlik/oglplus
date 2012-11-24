@@ -169,8 +169,7 @@ public:
 	{
 		assert((1<<(sizeof(GLushort)*8))-1>=((_rings+2)*(_sections+1)));
 		//
-		const unsigned n =
-			2 * (_rings + 1)*(_sections + 1);
+		const unsigned n = (_rings + 1)*(2 * (_sections + 1) + 1);
 		//
 		IndexArray indices(n);
 		unsigned k = 0;
@@ -183,6 +182,7 @@ public:
 				indices[k++] = offs + s;
 				indices[k++] = offs + s + (_sections+1);
 			}
+			indices[k++] = n;
 			offs += _sections + 1;
 		}
 		assert(k == indices.size());
@@ -195,16 +195,18 @@ public:
 	DrawingInstructions Instructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(unsigned r=0; r!=(_rings+1); ++r)
-		{
-			DrawOperation operation;
-			operation.method = DrawOperation::Method::DrawElements;
-			operation.mode = PrimitiveType::TriangleStrip;
-			operation.first =  GLuint(r * (_sections + 1) * 2);
-			operation.count = GLuint((_sections + 1) * 2);
-			operation.phase = 0;
-			this->AddInstruction(instructions, operation);
-		}
+
+		const GLuint n = (_rings + 1)*(2 * (_sections + 1) + 1);
+
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::TriangleStrip;
+		operation.first =  GLuint(0);
+		operation.count = n;
+		operation.restart_index = n;
+		operation.phase = 0;
+		this->AddInstruction(instructions, operation);
+
 		return instructions;
 	}
 };

@@ -250,7 +250,10 @@ public:
 	{
 		unsigned k = 0;
 		unsigned offs = 0, leap = _udiv + 1;
-		IndexArray indices(2 * _vdiv * leap);
+
+		// primitive restart index (the count of indices)
+		GLuint pri = _vdiv * (2 * leap + 1);
+		IndexArray indices(pri);
 
 		for(unsigned j=0; j!=_vdiv; ++j)
 		{
@@ -259,6 +262,7 @@ public:
 				indices[k++] = offs + i;
 				indices[k++] = offs + i + leap;
 			}
+			indices[k++] = pri;
 			offs += leap;
 		}
 		assert(k == indices.size());
@@ -271,17 +275,17 @@ public:
 	DrawingInstructions Instructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(unsigned j=0; j!=_vdiv; ++j)
-		{
-			DrawOperation operation;
-			operation.method = DrawOperation::Method::DrawElements;
-			operation.mode = PrimitiveType::TriangleStrip;
-			operation.first = GLuint(j * (_udiv + 1) * 2);
-			operation.count = GLuint((_udiv + 1) * 2);
-			operation.phase = 0;
 
-			this->AddInstruction(instructions, operation);
-		}
+		GLuint pri = _vdiv * (2 * (_udiv + 1) + 1);
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::TriangleStrip;
+		operation.first = GLuint(0);
+		operation.count = pri;
+		operation.restart_index = pri;
+		operation.phase = 0;
+		this->AddInstruction(instructions, operation);
+
 		return instructions;
 	}
 
@@ -315,17 +319,16 @@ public:
 	DrawingInstructions PatchInstructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(unsigned j=0; j!=_vdiv; ++j)
-		{
-			DrawOperation operation;
-			operation.method = DrawOperation::Method::DrawElements;
-			operation.mode = PrimitiveType::Patches;
-			operation.first = GLuint(j * _udiv * 6);
-			operation.count = GLuint(_udiv * 6);
-			operation.phase = 0;
 
-			this->AddInstruction(instructions, operation);
-		}
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::Patches;
+		operation.first = GLuint(0);
+		operation.count = GLuint(_vdiv * _udiv * 6);
+		operation.restart_index = DrawOperation::NoRestartIndex();
+		operation.phase = 0;
+
+		this->AddInstruction(instructions, operation);
 		return instructions;
 	}
 
@@ -361,6 +364,7 @@ public:
 		operation.mode = PrimitiveType::LineStrip;
 		operation.first = 0;
 		operation.count = GLuint(1 + 2*(_udiv+_vdiv));
+		operation.restart_index = DrawOperation::NoRestartIndex();
 		operation.phase = 0;
 
 		this->AddInstruction(instructions, operation);

@@ -292,14 +292,13 @@ public:
 #endif
 
 	/// The type of index container returned by Indices()
-	typedef std::vector<GLushort> IndexArray;
+	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
 		const unsigned sn = _sections.size() - 1;
-		const unsigned n = 2 * _rings * sn;
-		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
+		const unsigned n = sn * (2 * _rings + 1);
 		//
 		IndexArray indices(n);
 		unsigned k = 0;
@@ -312,6 +311,8 @@ public:
 				indices[k++] = offs + r + _rings;
 				indices[k++] = offs + r;
 			}
+			// primitive restart index
+			indices[k++] = n;
 			offs += _rings;
 		}
 		assert(k == indices.size());
@@ -332,20 +333,18 @@ public:
 	{
 		auto instructions = this->MakeInstructions();
 		const unsigned sn = _sections.size() - 1;
-		const unsigned step = _rings * 2;
-		for(unsigned s=0; s!=sn; ++s)
-		{
-			this->AddInstruction(
-				instructions,
-				{
-					DrawOperation::Method::DrawElements,
-					PrimitiveType::TriangleStrip,
-					GLuint(s * step),
-					GLuint(step),
-					0
-				}
-			);
-		}
+		const unsigned n = sn * (2 * _rings + 1);
+
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::TriangleStrip;
+		operation.first = GLuint(0);
+		operation.count = GLuint(n);
+		operation.restart_index = GLuint(n);
+		operation.phase = 0;
+
+		this->AddInstruction(instructions, operation);
+
 		return instructions;
 	}
 

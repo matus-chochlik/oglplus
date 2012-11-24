@@ -219,6 +219,7 @@ public:
 		operation.mode = PrimitiveType::TrianglesAdjacency;
 		operation.first = GLuint(0);
 		operation.count = GLuint(n*n*n*6*6);
+		operation.restart_index = DrawOperation::NoRestartIndex();
 		operation.phase = 0;
 		this->AddInstruction(instructions, operation);
 		return instructions;

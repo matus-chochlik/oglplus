@@ -184,7 +184,7 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
-		const unsigned n = 2 * (_rings)*(_sections + 1);
+		const unsigned n = _rings * (2 * (_sections + 1) + 1);
 		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 		//
 		IndexArray indices(n);
@@ -198,6 +198,7 @@ public:
 				indices[k++] = offs + s;
 				indices[k++] = offs + s + (_sections+1);
 			}
+			indices[k++] = n;
 			offs += _sections + 1;
 		}
 		assert(k == indices.size());
@@ -209,8 +210,8 @@ public:
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray IndicesWithAdjacency(void) const
 	{
-		const unsigned m = (_rings)*(_sections + 1);
-		const unsigned n = 4 * m;
+		const unsigned m = _rings*(_sections + 1);
+		const unsigned n = _rings*(4 * (_sections + 1) + 1);
 		assert((1<<(sizeof(GLushort)*8)) - 1 >= n);
 		//
 		IndexArray indices(n);
@@ -230,6 +231,7 @@ public:
 				indices[k++] = offs + (_sections+1) + s + 1;
 			}
 			indices[k++] = offs + 1;
+			indices[k++] = n;
 			offs += _sections + 1;
 		}
 		assert(k == indices.size());
@@ -242,17 +244,18 @@ public:
 	DrawingInstructions Instructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(unsigned r=0; r!=_rings; ++r)
-		{
-			DrawOperation operation;
-			operation.method = DrawOperation::Method::DrawElements;
-			operation.mode = PrimitiveType::TriangleStrip;
-			operation.first = GLuint(r * (_sections + 1) * 2);
-			operation.count = GLuint((_sections + 1) * 2);
-			operation.phase = 0;
 
-			this->AddInstruction(instructions, operation);
-		}
+		const GLuint n = _rings * (2 * (_sections + 1) + 1);
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::TriangleStrip;
+		operation.first = GLuint(0);
+		operation.count = n;
+		operation.restart_index = n;
+		operation.phase = 0;
+
+		this->AddInstruction(instructions, operation);
+
 		return instructions;
 	}
 
@@ -260,17 +263,18 @@ public:
 	DrawingInstructions InstructionsWithAdjacency(void) const
 	{
 		auto instructions = this->MakeInstructions();
-		for(unsigned r=0; r!=_rings; ++r)
-		{
-			DrawOperation operation;
-			operation.method = DrawOperation::Method::DrawElements;
-			operation.mode = PrimitiveType::TriangleStripAdjacency;
-			operation.first = GLuint(r * (_sections + 1) * 4);
-			operation.count = GLuint((_sections + 1) * 4);
-			operation.phase = 0;
 
-			this->AddInstruction(instructions, operation);
-		}
+		const unsigned n = _rings*(4 * (_sections + 1) + 1);
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::TriangleStripAdjacency;
+		operation.first = GLuint(0);
+		operation.count = n;
+		operation.restart_index = n;
+		operation.phase = 0;
+
+		this->AddInstruction(instructions, operation);
+
 		return instructions;
 	}
 };

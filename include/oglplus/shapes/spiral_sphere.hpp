@@ -485,6 +485,7 @@ public:
 		auto primitive_type = PrimitiveType::TriangleStrip;
 
 		GLuint offs = 0;
+		GLuint restart_index = DrawOperation::NoRestartIndex();
 		GLuint phase = 0;
 		for(unsigned n=0; n!=2; ++n)
 		{
@@ -497,6 +498,7 @@ public:
 					operation.mode = primitive_type;
 					operation.first = offs;
 					operation.count = GLuint(edge * 2);
+					operation.restart_index = restart_index;
 					operation.phase = phase;
 					this->AddInstruction(instructions, operation);
 					offs += edge * 2;
@@ -513,6 +515,7 @@ public:
 				operation.mode = primitive_type;
 				operation.first = offs;
 				operation.count = GLuint(edge * 2);
+				operation.restart_index = restart_index;
 				operation.phase = phase;
 				this->AddInstruction(instructions, operation);
 				offs += edge * 2;

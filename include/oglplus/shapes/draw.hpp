@@ -119,6 +119,18 @@ struct DrawOperation
 	/// Count of elements
 	GLuint count;
 
+	/// Special constant for disabling primitive restart
+	static OGLPLUS_CONSTEXPR GLuint NoRestartIndex(void)
+	{
+		return ~GLuint(0);
+	}
+
+	/// Primitive restart index
+	/**
+	 *  @see NoRestartIndex
+	 */
+	GLuint restart_index;
+
 	/// The phase of the drawing process
 	/** The phase is a shape-builder-specific value that indicates
 	 *  which part of the shape is being rendered. Together with a
@@ -174,6 +186,22 @@ private:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return (void*)(first * index_info.Size());
+	}
+
+	void _SetupPrimitiveRestart(void) const
+	{
+		if(restart_index == NoRestartIndex())
+		{
+			OGLPLUS_GLFUNC(Disable)(GL_PRIMITIVE_RESTART);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+		}
+		else
+		{
+			OGLPLUS_GLFUNC(Enable)(GL_PRIMITIVE_RESTART);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+			OGLPLUS_GLFUNC(PrimitiveRestartIndex)(restart_index);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PrimitiveRestartIndex));
+		}
 	}
 
 	void _Draw(
@@ -236,6 +264,7 @@ private:
 
 	void _DrawElements(void* indices, DataType index_data_type) const
 	{
+		_SetupPrimitiveRestart();
 		OGLPLUS_GLFUNC(DrawElements)(
 			GLenum(mode),
 			count,
@@ -251,6 +280,7 @@ private:
 		GLuint inst_count
 	) const
 	{
+		_SetupPrimitiveRestart();
 		OGLPLUS_GLFUNC(DrawElementsInstanced)(
 			GLenum(mode),
 			count,

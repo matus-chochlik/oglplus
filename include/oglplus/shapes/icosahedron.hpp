@@ -73,12 +73,12 @@ public:
 #endif
 
 	/// The type of the index container returned by Indices()
-	typedef std::vector<GLubyte> IndexArray;
+	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
 	{
-		const GLubyte _indices[20*3] = {
+		const GLushort _indices[20*3] = {
 			 2,  1,  0,
 			 3,  2,  0,
 			 4,  3,  0,
@@ -113,6 +113,7 @@ public:
 		operation.mode = mode;
 		operation.first = 0;
 		operation.count = 20*3;
+		operation.restart_index = DrawOperation::NoRestartIndex();
 		operation.phase = 0;
 
 		return this->MakeInstructions(operation);

@@ -317,7 +317,7 @@ public:
 #endif
 
 	/// The type of the index container returned by Indices()
-	typedef std::vector<GLubyte> IndexArray;
+	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray Indices(void) const
@@ -333,6 +333,7 @@ public:
 		operation.mode = PrimitiveType::Triangles;
 		operation.first = 0;
 		operation.count = 36;
+		operation.restart_index = DrawOperation::NoRestartIndex();
 		operation.phase = 0;
 
 		return this->MakeInstructions(operation);
@@ -352,7 +353,7 @@ public:
 		 *(G)-----(C)
 		 *
 		 */
-		GLubyte _indices[24] = {
+		GLushort _indices[24] = {
 			 0,  1,  5,  2, //+x
 			19, 22, 23, 18, //-x
 			 6,  7, 10, 11, //+y
@@ -375,6 +376,7 @@ public:
 			operation.mode = PrimitiveType::LineLoop;
 			operation.first = GLuint(r*4);
 			operation.count = GLuint(4);
+			operation.restart_index = DrawOperation::NoRestartIndex();
 			operation.phase = 0;
 
 			this->AddInstruction(instructions, operation);

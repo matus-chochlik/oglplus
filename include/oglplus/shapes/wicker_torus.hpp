@@ -840,6 +840,7 @@ public:
 				operation.mode = PrimitiveType::TriangleStrip;
 				operation.first = GLuint(offs);
 				operation.count = GLuint(strip);
+				operation.restart_index = DrawOperation::NoRestartIndex();
 				operation.phase = phase;
 				this->AddInstruction(instructions, operation);
 				offs += strip;
@@ -858,6 +859,7 @@ public:
 				operation.mode = PrimitiveType::TriangleStrip;
 				operation.first = GLuint(offs);
 				operation.count = GLuint(strip);
+				operation.restart_index = DrawOperation::NoRestartIndex();
 				operation.phase = phase;
 				this->AddInstruction(instructions, operation);
 				offs += strip;
@@ -934,6 +936,7 @@ public:
 					operation.mode = PrimitiveType::LineLoop;
 					operation.first = GLuint(offs);
 					operation.count = GLuint(edge-1);
+					operation.restart_index = DrawOperation::NoRestartIndex();
 					operation.phase = phase;
 					this->AddInstruction(instructions, operation);
 					offs += edge;
@@ -954,6 +957,7 @@ public:
 					operation.mode = PrimitiveType::LineLoop;
 					operation.first = GLuint(offs);
 					operation.count = GLuint(edge-1);
+					operation.restart_index = DrawOperation::NoRestartIndex();
 					operation.phase = phase;
 					this->AddInstruction(instructions, operation);
 					offs += edge;
@@ -972,6 +976,7 @@ public:
 				operation.mode = PrimitiveType::Lines;
 				operation.first = GLuint(offs);
 				operation.count = GLuint(2*edge);
+				operation.restart_index = DrawOperation::NoRestartIndex();
 				operation.phase = phase;
 				this->AddInstruction(instructions, operation);
 				offs += 2*edge;
