@@ -17,7 +17,7 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 	get_filename_component(TEXTURE_NAME ${SVG_FILE} NAME_WE)
 	set(PNG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${TEXTURE_NAME}.png")
 
-	set(PREBUILT_PNG ${PROJECT_SOURCE_DIR}/_prebuilt/textures/${PNG_FILE})
+	set(PREBUILT_PNG ${PROJECT_SOURCE_DIR}/_prebuilt/textures/${TEXTURE_NAME}.png)
 
 	if(EXISTS ${PREBUILT_PNG})
 		add_custom_command(
@@ -58,7 +58,7 @@ foreach(POV_FILE ${OGLPLUS_POV_TEXTURES})
 	get_filename_component(TEXTURE_NAME ${POV_FILE} NAME_WE)
 	set(PNG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${TEXTURE_NAME}.png")
 
-	set(PREBUILT_PNG ${PROJECT_SOURCE_DIR}/_prebuilt/textures/${PNG_FILE})
+	set(PREBUILT_PNG ${PROJECT_SOURCE_DIR}/_prebuilt/textures/${TEXTURE_NAME}.png)
 
 	if(EXISTS ${PREBUILT_PNG})
 		add_custom_command(
@@ -90,6 +90,7 @@ foreach(POV_FILE ${OGLPLUS_POV_TEXTURES})
 					"+W512"
 					"+H512"
 					"+A0.3"
+					"+ua"
 					"-V"
 					"-D"
 					"+I${POV_FILE}"

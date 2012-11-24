@@ -10,6 +10,10 @@
 #declare CameraPosition = <0.00, 10.00, 0.00>;
 #include "cube_map_common.pov.inc"
 
+global_settings {
+	assumed_gamma 1.0
+}
+
 light_source {
 	SunPosition
 	color rgb <1.0, 1.0, 1.0> * 2
