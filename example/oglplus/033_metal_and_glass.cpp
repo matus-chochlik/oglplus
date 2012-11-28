@@ -92,7 +92,7 @@ public:
 	ProgramUniform<GLfloat> clip_direction;
 
 	TransformProgram(void)
-	 : HardwiredTupleProgram<std::tuple<CommonVertShader>>("Transform", true)
+	 : HardwiredTupleProgram<std::tuple<CommonVertShader>>(ObjectDesc("Transform"), true)
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , light_proj_matrix(prog(), "LightProjMatrix")
@@ -132,7 +132,7 @@ class ShadowProgram
 {
 public:
 	ShadowProgram(void)
-	 : HardwiredTupleProgram<std::tuple<ShadowFragmentShader>>("Shadow", true)
+	 : HardwiredTupleProgram<std::tuple<ShadowFragmentShader>>(ObjectDesc("Shadow"), true)
 	{ }
 };
 
@@ -175,7 +175,7 @@ public:
 	ProgramUniform<Vec3f> color;
 
 	LightProgram(void)
-	 : HardwiredTupleProgram<std::tuple<LightFragmentShader>>("Light", true)
+	 : HardwiredTupleProgram<std::tuple<LightFragmentShader>>(ObjectDesc("Light"), true)
 	 , color(prog(), "Color")
 	{ }
 };
@@ -269,7 +269,7 @@ public:
 	ProgramUniformSampler frame_shadow_tex;
 
 	GlassProgram(void)
-	 : HardwiredTupleProgram<std::tuple<GlassFragmentShader>>("Glass", true)
+	 : HardwiredTupleProgram<std::tuple<GlassFragmentShader>>(ObjectDesc("Glass"), true)
 	 , color(prog(), "Color")
 	 , frame_shadow_tex(prog(), "FrameShadowTex")
 	{ }
@@ -394,7 +394,7 @@ public:
 	ProgramUniform<GLint> with_glass_shadow;
 
 	MetalProgram(void)
-	 : HardwiredTupleProgram<std::tuple<MetalFragmentShader>>("Metal", true)
+	 : HardwiredTupleProgram<std::tuple<MetalFragmentShader>>(ObjectDesc("Metal"), true)
 	 , color_1(prog(), "Color1")
 	 , color_2(prog(), "Color2")
 	 , metal_tex(prog(), "MetalTex")

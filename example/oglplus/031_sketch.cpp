@@ -22,6 +22,7 @@
 #include <oglplus/bound/framebuffer.hpp>
 
 #include <cmath>
+#include <functional>
 
 #include "example.hpp"
 
@@ -616,13 +617,13 @@ public:
 		gl.Enable(Capability::Blend);
 
 		transf_prog.model_matrix = ModelMatrixf();
-		transf_prog.texture_matrix.Set(Mat2f(3.0, 0.0, 0.0, 3.0));
+		transf_prog.texture_matrix.Set(Mat2f(Vec2f(3.0, 0.0), Vec2f(0.0, 3.0)));
 		plane.Draw();
 
 		transf_prog.model_matrix.Set(torus_matrix);
-		transf_prog.texture_matrix.Set(Mat2f(8.0, 0.0, 0.0, 2.0));
+		transf_prog.texture_matrix.Set(Mat2f(Vec2f(8.0, 0.0), Vec2f(0.0, 2.0)));
 		torus.Draw([](GLuint phase) -> bool { return phase <  4; });
-		transf_prog.texture_matrix.Set(Mat2f(0.0, 2.0, 8.0, 0.0));
+		transf_prog.texture_matrix.Set(Mat2f(Vec2f(0.0, 2.0), Vec2f(8.0, 0.0)));
 		torus.Draw([](GLuint phase) -> bool { return phase >= 4; });
 
 		// render the edges

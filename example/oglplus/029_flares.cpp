@@ -138,7 +138,7 @@ public:
 };
 
 class ShapeProgram
- : public HardwiredProgram<ShapeVertShader, ShapeFragShader>
+ : public HardwiredTupleProgram<std::tuple<ShapeVertShader, ShapeFragShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -149,7 +149,7 @@ public:
 	ProgramUniformSampler metal_tex;
 
 	ShapeProgram(void)
-	 : HardwiredProgram<ShapeVertShader, ShapeFragShader>("Shape program")
+	 : HardwiredTupleProgram<std::tuple<ShapeVertShader, ShapeFragShader>>("Shape program")
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
@@ -203,7 +203,7 @@ public:
 };
 
 class LightProgram
- : public HardwiredProgram<LightVertShader, LightFragShader>
+ : public HardwiredTupleProgram<std::tuple<LightVertShader, LightFragShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -211,7 +211,7 @@ public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
 
 	LightProgram(void)
-	 : HardwiredProgram<LightVertShader, LightFragShader>("Light program")
+	 : HardwiredTupleProgram<std::tuple<LightVertShader, LightFragShader>>("Light program")
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	{ }
@@ -312,7 +312,7 @@ public:
 };
 
 class FlareProgram
- : public HardwiredProgram<FlareVertShader, FlareGeomShader, FlareFragShader>
+ : public HardwiredTupleProgram<std::tuple<FlareVertShader, FlareGeomShader, FlareFragShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -322,7 +322,7 @@ public:
 	ProgramUniformSampler flare_tex;
 
 	FlareProgram(void)
-	 : HardwiredProgram<FlareVertShader, FlareGeomShader, FlareFragShader>("Flare")
+	 : HardwiredTupleProgram<std::tuple<FlareVertShader, FlareGeomShader, FlareFragShader>>("Flare")
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , samples(prog(), "Samples")
