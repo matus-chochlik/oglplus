@@ -72,9 +72,9 @@ public:
 			{
 				GLdouble vr = std::cos(s*s_step);
 				GLdouble vy = std::sin(s*s_step);
-				dest[k++] = vx*(r1 + r2 * (1.0 + vr));
-				dest[k++] = vy*r2;
-				dest[k++] = vz*(r1 + r2 * (1.0 + vr));
+				dest[k++] = T(vx*(r1 + r2 * (1.0 + vr)))
+				dest[k++] = T(vy*r2)
+				dest[k++] = T(vz*(r1 + r2 * (1.0 + vr)))
 			}
 		}
 		assert(k == dest.size());
@@ -99,9 +99,9 @@ public:
 			{
 				GLdouble vr = std::cos(s*s_step);
 				GLdouble vy = std::sin(s*s_step);
-				dest[k++] = vx*vr;
-				dest[k++] = vy;
-				dest[k++] = vz*vr;
+				dest[k++] = T(vx*vr)
+				dest[k++] = T(vy)
+				dest[k++] = T(vz*vr)
 			}
 		}
 		assert(k == dest.size());
@@ -123,9 +123,9 @@ public:
 			GLdouble vz = std::sin(r*r_step);
 			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
-				dest[k++] = +vz;
-				dest[k++] = T(0);
-				dest[k++] = -vx;
+				dest[k++] = T(+vz)
+				dest[k++] = T(T(0))
+				dest[k++] = T(-vx)
 			}
 		}
 		assert(k == dest.size());
@@ -148,8 +148,8 @@ public:
 			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
 				GLdouble v = s*s_step;
-				dest[k++] = u;
-				dest[k++] = v;
+				dest[k++] = T(u)
+				dest[k++] = T(v)
 			}
 		}
 		assert(k == dest.size());

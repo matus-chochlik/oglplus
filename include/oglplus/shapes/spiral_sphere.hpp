@@ -69,9 +69,9 @@ private:
 					GLdouble cs = std::cos(s_angle);
 					GLdouble ss = std::sin(s_angle);
 
-					dest[k++] = m* ss * cb;
-					dest[k++] = m* cs;
-					dest[k++] = m* ss * -sb;
+					dest[k++] = T(m* ss * cb)
+					dest[k++] = T(m* cs)
+					dest[k++] = T(m* ss * -sb)
 					b_offs += ss * s_step;
 				}
 			}
@@ -106,9 +106,9 @@ private:
 					GLdouble s_angle = s*s_step;
 					GLdouble ss = std::sin(s_angle);
 
-					dest[k++] = m*-sb;
-					dest[k++] = T(0);
-					dest[k++] = m* cb;
+					dest[k++] = T(m*-sb)
+					dest[k++] = T(T(0))
+					dest[k++] = T(m* cb)
 					b_offs += ss * s_step;
 				}
 			}
@@ -130,8 +130,8 @@ private:
 				GLdouble v = 1.0;
 				for(unsigned s=0; s!=(_segments+1); ++s)
 				{
-					dest[k++] = u;
-					dest[k++] = v;
+					dest[k++] = T(u)
+					dest[k++] = T(v)
 					v -= s_step;
 				}
 				u += b_step;
@@ -164,9 +164,9 @@ private:
 				GLdouble cs = std::cos(s_angle);
 				GLdouble ss = std::sin(s_angle);
 
-				dest[k++] = m* ss * cb;
-				dest[k++] = m* cs;
-				dest[k++] = m* ss * -sb;
+				dest[k++] = T(m* ss * cb)
+				dest[k++] = T(m* cs)
+				dest[k++] = T(m* ss * -sb)
 				b_offs += ss * s_step;
 			}
 			g *= -1.0;
@@ -193,9 +193,9 @@ private:
 				GLdouble s_angle = s*s_step;
 				GLdouble ss = std::sin(s_angle);
 
-				dest[k++] = m* -sb;
-				dest[k++] = T(0);
-				dest[k++] = m* cb;
+				dest[k++] = T(m* -sb)
+				dest[k++] = T(T(0))
+				dest[k++] = T(m* cb)
 				b_offs += ss * s_step;
 			}
 			m *= -1.0;
@@ -223,9 +223,9 @@ private:
 				GLdouble cs = std::cos(s_angle);
 				GLdouble ss = std::sin(s_angle);
 
-				dest[k++] = m* ss * cb;
-				dest[k++] = m* cs;
-				dest[k++] = m* ss * -sb;
+				dest[k++] = T(m* ss * cb)
+				dest[k++] = T(m* cs)
+				dest[k++] = T(m* ss * -sb)
 				b_offs += ss * s_step;
 			}
 			m *= -1.0;
@@ -247,8 +247,8 @@ private:
 			GLdouble v = 1.0;
 			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
-				dest[k++] = b*b_leap + b_offs + g*b_slip;
-				dest[k++] = v;
+				dest[k++] = T(b*b_leap + b_offs + g*b_slip)
+				dest[k++] = T(v)
 				v -= s_step;
 			}
 			g *= -1.0;

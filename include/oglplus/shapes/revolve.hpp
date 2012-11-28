@@ -186,9 +186,9 @@ public:
 				const Vector<Type, 4> in(_get_position(r, si), 1);
 				const Vector<Type, 4> out = mat * in;
 
-				dest[k++] = out.x();
-				dest[k++] = out.y();
-				dest[k++] = out.z();
+				dest[k++] = T(out.x())
+				dest[k++] = T(out.y())
+				dest[k++] = T(out.z())
 			}
 		}
 		assert(k == dest.size());
@@ -212,9 +212,9 @@ public:
 				const Vector<Type, 4> in(_get_normal(r, si), 0);
 				const Vector<Type, 4> out = mat * in;
 
-				dest[k++] = out.x();
-				dest[k++] = out.y();
-				dest[k++] = out.z();
+				dest[k++] = T(out.x())
+				dest[k++] = T(out.y())
+				dest[k++] = T(out.z())
 			}
 		}
 		assert(k == dest.size());
@@ -238,9 +238,9 @@ public:
 
 			for(unsigned r=0; r!=_rings; ++r)
 			{
-				dest[k++] = out.x();
-				dest[k++] = out.y();
-				dest[k++] = out.z();
+				dest[k++] = T(out.x())
+				dest[k++] = T(out.y())
+				dest[k++] = T(out.z())
 			}
 		}
 		assert(k == dest.size());
@@ -263,9 +263,9 @@ public:
 			for(unsigned r=0; r!=_rings; ++r)
 			{
 				auto tc = _get_tex_coord(r, si);
-				dest[k++] = tc.x()*u_mult;
-				dest[k++] = tc.y();
-				dest[k++] = tc.z();
+				dest[k++] = T(tc.x()*u_mult)
+				dest[k++] = T(tc.y())
+				dest[k++] = T(tc.z())
 			}
 		}
 		assert(k == dest.size());
