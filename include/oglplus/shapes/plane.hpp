@@ -16,9 +16,7 @@
 #include <oglplus/vector.hpp>
 #include <oglplus/face_mode.hpp>
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/shapes/vert_attr_info.hpp>
-#endif
 
 #include <cmath>
 #include <cassert>

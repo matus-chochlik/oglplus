@@ -13,8 +13,9 @@
 #define OGLPLUS_SHAPES_REVOLVE_1107121519_HPP
 
 #include <oglplus/shapes/draw.hpp>
-#include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/face_mode.hpp>
+
+#include <oglplus/shapes/vert_attr_info.hpp>
 
 #include <oglplus/vector.hpp>
 #include <oglplus/matrix.hpp>

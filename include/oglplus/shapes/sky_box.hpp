@@ -15,9 +15,7 @@
 #include <oglplus/face_mode.hpp>
 #include <oglplus/shapes/draw.hpp>
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/shapes/vert_attr_info.hpp>
-#endif
 
 namespace oglplus {
 namespace shapes {

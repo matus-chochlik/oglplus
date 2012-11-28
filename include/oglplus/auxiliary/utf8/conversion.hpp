@@ -234,7 +234,8 @@ inline UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len, size_t& cp_
 			(((bytes[5] & ~0xC0) <<  0) & 0x0000003F)
 		);
 	}
-	else assert(!"Invalid UTF8 sequence");
+	assert(!"Invalid UTF8 sequence");
+	return UnicodeCP();
 }
 
 inline void ConvertUTF8ToCodePoints(

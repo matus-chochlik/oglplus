@@ -35,7 +35,13 @@ public: \
 	} \
  \
 	template <typename T> \
-	static GLuint _getter_proc( \
+	struct _getter_proc \
+	{ \
+		typedef GLuint (*type)(const ShapeBuilder&, std::vector<T>&); \
+	};\
+ \
+	template <typename T> \
+	static GLuint _getter_wrapper( \
 		const ShapeBuilder& make, \
 		std::vector<T>& dest \
 	) \
@@ -44,9 +50,9 @@ public: \
 	} \
  \
 	template <typename T> \
-	static decltype(&VertexAttribInfo::_getter_proc<T>) _getter(T*) \
+	static typename _getter_proc<T>::type _getter(T*) \
 	{ \
-		return &VertexAttribInfo::_getter_proc<T>; \
+		return &VertexAttribInfo::_getter_wrapper<T>; \
 	} \
 };
 
@@ -86,9 +92,6 @@ public:
 template <class ShapeBuilder, class VertexAttribTags, std::size_t N>
 class VertexAttribsInfoBase
 {
-protected:
-	template <typename T>
-	static GLuint _getter_proc(const ShapeBuilder&, std::vector<T>&);
 private:
 	static bool _has_vertex_attrib(
 		const String&,
@@ -117,9 +120,24 @@ private:
 			std::integral_constant<std::size_t, N>()
 		);
 	}
+protected:
+	static bool _has_vertex_attrib(const String& name)
+	{
+		return _has_vertex_attrib(
+			name,
+			std::integral_constant<std::size_t, 0>(),
+			std::integral_constant<std::size_t, N>()
+		);
+	}
 
 	template <typename T>
-	static decltype(&VertexAttribsInfoBase::_getter_proc<T>)
+	struct _getter_proc
+	{
+		typedef GLuint (*type)(const ShapeBuilder&, std::vector<T>&);
+	};
+private:
+	template <typename T>
+	static typename _getter_proc<T>::type
 	_find_getter(
 		T*,
 		const String&,
@@ -131,7 +149,7 @@ private:
 	}
 
 	template <typename T, std::size_t I>
-	static decltype(&VertexAttribsInfoBase::_getter_proc<T>)
+	static typename _getter_proc<T>::type
 	_find_getter(
 		T* selector,
 		const String& name,
@@ -153,17 +171,8 @@ private:
 	}
 
 protected:
-	static bool _has_vertex_attrib(const String& name)
-	{
-		return _has_vertex_attrib(
-			name,
-			std::integral_constant<std::size_t, 0>(),
-			std::integral_constant<std::size_t, N>()
-		);
-	}
-
 	template <typename T>
-	static decltype(&VertexAttribsInfoBase::_getter_proc<T>)
+	static typename _getter_proc<T>::type
 	_find_getter(T* selector, const String& name)
 	{
 		return _find_getter(
@@ -196,10 +205,11 @@ public:
 	}
 
 	template <typename T>
-	decltype(&_Base::template _getter_proc<T>) VertexAttribGetter(
+	static typename _Base::template _getter_proc<T>::type
+	VertexAttribGetter(
 		const std::vector<T>& /*selector*/,
 		const String& name
-	) const
+	)
 	{
 		return _Base::_find_getter((T*)nullptr, name);
 	}

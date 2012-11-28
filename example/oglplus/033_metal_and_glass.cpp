@@ -24,6 +24,7 @@
 #include <oglplus/bound/renderbuffer.hpp>
 
 #include <cmath>
+#include <functional>
 
 #include "example.hpp"
 
@@ -80,7 +81,7 @@ public:
 };
 
 class TransformProgram
- : public HardwiredProgram<CommonVertShader>
+ : public HardwiredTupleProgram<std::tuple<CommonVertShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -92,7 +93,7 @@ public:
 	ProgramUniform<GLfloat> clip_direction;
 
 	TransformProgram(void)
-	 : HardwiredProgram<CommonVertShader>("Transform", true)
+	 : HardwiredTupleProgram<std::tuple<CommonVertShader>>("Transform", true)
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , light_proj_matrix(prog(), "LightProjMatrix")
@@ -128,11 +129,11 @@ public:
 };
 
 class ShadowProgram
- : public HardwiredProgram<ShadowFragmentShader>
+ : public HardwiredTupleProgram<std::tuple<ShadowFragmentShader>>
 {
 public:
 	ShadowProgram(void)
-	 : HardwiredProgram<ShadowFragmentShader>("Shadow", true)
+	 : HardwiredTupleProgram<std::tuple<ShadowFragmentShader>>("Shadow", true)
 	{ }
 };
 
@@ -167,7 +168,7 @@ public:
 };
 
 class LightProgram
- : public HardwiredProgram<LightFragmentShader>
+ : public HardwiredTupleProgram<std::tuple<LightFragmentShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -175,7 +176,7 @@ public:
 	ProgramUniform<Vec3f> color;
 
 	LightProgram(void)
-	 : HardwiredProgram<LightFragmentShader>("Light", true)
+	 : HardwiredTupleProgram<std::tuple<LightFragmentShader>>("Light", true)
 	 , color(prog(), "Color")
 	{ }
 };
@@ -260,7 +261,7 @@ public:
 };
 
 class GlassProgram
- : public HardwiredProgram<GlassFragmentShader>
+ : public HardwiredTupleProgram<std::tuple<GlassFragmentShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -269,7 +270,7 @@ public:
 	ProgramUniformSampler frame_shadow_tex;
 
 	GlassProgram(void)
-	 : HardwiredProgram<GlassFragmentShader>("Glass", true)
+	 : HardwiredTupleProgram<std::tuple<GlassFragmentShader>>("Glass", true)
 	 , color(prog(), "Color")
 	 , frame_shadow_tex(prog(), "FrameShadowTex")
 	{ }
@@ -384,7 +385,7 @@ public:
 };
 
 class MetalProgram
- : public HardwiredProgram<MetalFragmentShader>
+ : public HardwiredTupleProgram<std::tuple<MetalFragmentShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -394,7 +395,7 @@ public:
 	ProgramUniform<GLint> with_glass_shadow;
 
 	MetalProgram(void)
-	 : HardwiredProgram<MetalFragmentShader>("Metal", true)
+	 : HardwiredTupleProgram<std::tuple<MetalFragmentShader>>("Metal", true)
 	 , color_1(prog(), "Color1")
 	 , color_2(prog(), "Color2")
 	 , metal_tex(prog(), "MetalTex")
@@ -763,7 +764,7 @@ public:
 
 		// Render the plane
 		transf_prog.model_matrix = ModelMatrixf();
-		transf_prog.texture_matrix.Set(Mat2f(9.0, 0.0, 0.0, 9.0));
+		transf_prog.texture_matrix.Set(Mat2f(Vec2f(9.0, 0.0), Vec2f(0.0, 9.0)));
 		metal_prog.color_1 = Vec3f(1.0, 0.9, 0.8);
 		metal_prog.color_2 = Vec3f(0.9, 0.8, 0.6);
 		metal_prog.with_glass_shadow = 1;
@@ -772,7 +773,7 @@ public:
 
 		// Render the torus
 		transf_prog.model_matrix.Set(torus_matrix);
-		transf_prog.texture_matrix.Set(Mat2f(16.0, 0.0, 0.0, 4.0));
+		transf_prog.texture_matrix.Set(Mat2f(Vec2f(16.0, 0.0), Vec2f(0.0, 4.0)));
 		metal_prog.metal_tex.Set(0);
 		metal_prog.color_1 = Vec3f(0.9, 0.9, 0.9);
 		metal_prog.color_2 = Vec3f(0.3, 0.3, 0.3);
