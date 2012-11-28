@@ -276,7 +276,10 @@ public:
 			auto bound_tex = Bind(norm_tex, Texture::Target::_2D);
 			bound_tex.Image2D(
 				images::Transformed<GLfloat>(
-					images::NormalMap(tileImage),
+					images::NormalMap(
+						tileImage,
+						images::NormalMap::Filter::FromRed()
+					),
 					Mat4f(
 						Vec4f(1.0, 0.0, 0.0, 0.0),
 						Vec4f(0.0, 0.0, 1.0, 0.0),
@@ -519,10 +522,10 @@ public:
 	void Render(double time)
 	{
 		static const ModelMatrixf reflection(
-			 1.0, 0.0, 0.0, 0.0,
-			 0.0,-1.0, 0.0, 0.0,
-			 0.0, 0.0, 1.0, 0.0,
-			 0.0, 0.0, 0.0, 1.0
+			Vec4f( 1.0, 0.0, 0.0, 0.0),
+			Vec4f( 0.0,-1.0, 0.0, 0.0),
+			Vec4f( 0.0, 0.0, 1.0, 0.0),
+			Vec4f( 0.0, 0.0, 0.0, 1.0)
 		);
 
 		auto camera = CamMatrixf::Orbiting(
