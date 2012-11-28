@@ -129,9 +129,9 @@ public:
 
 		for(unsigned i=0; i!=n; ++i)
 		{
-			dest[k++] = T(normal.x())
-			dest[k++] = T(normal.y())
-			dest[k++] = T(normal.z())
+			dest[k++] = T(normal.x());
+			dest[k++] = T(normal.y());
+			dest[k++] = T(normal.z());
 		}
 		//
 		assert(k == dest.size());
@@ -149,9 +149,9 @@ public:
 
 		for(unsigned i=0; i!=n; ++i)
 		{
-			dest[k++] = T(tangent.x())
-			dest[k++] = T(tangent.y())
-			dest[k++] = T(tangent.z())
+			dest[k++] = T(tangent.x());
+			dest[k++] = T(tangent.y());
+			dest[k++] = T(tangent.z());
 		}
 		//
 		assert(k == dest.size());
@@ -178,9 +178,9 @@ public:
 			Vec3f tmp = pos;
 			for(unsigned i=0; i!=leap; ++i)
 			{
-				dest[k++] = T(tmp.x())
-				dest[k++] = T(tmp.y())
-				dest[k++] = T(tmp.z())
+				dest[k++] = T(tmp.x());
+				dest[k++] = T(tmp.y());
+				dest[k++] = T(tmp.z());
 				tmp += ustep;
 			}
 			pos += vstep;
@@ -209,8 +209,8 @@ public:
 			uc = T(0);
 			for(unsigned i=0; i!=leap; ++i)
 			{
-				dest[k++] = T(uc)
-				dest[k++] = T(vc)
+				dest[k++] = T(uc);
+				dest[k++] = T(vc);
 				uc += ustep;
 			}
 			vc += vstep;

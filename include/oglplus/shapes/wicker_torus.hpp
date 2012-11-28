@@ -124,9 +124,9 @@ public:
 							GLdouble vx = std::cos(rs_angle);
 							GLdouble vz = std::sin(rs_angle);
 
-							dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + rd[p]*vr))
-							dest[k++] = T(vy*(r2 + rd[p]))
-							dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + rd[p]*vr))
+							dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + rd[p]*vr));
+							dest[k++] = T(vy*(r2 + rd[p]));
+							dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + rd[p]*vr));
 						}
 					}
 				}
@@ -138,9 +138,9 @@ public:
 
 					GLdouble vx = std::cos(rs_angle);
 					GLdouble vz = std::sin(rs_angle);
-					dest[k++] = T(vx*(r1 + r2*(2.0) + fdt))
-					dest[k++] = T(0.0)
-					dest[k++] = T(vz*(r1 + r2*(2.0) + fdt))
+					dest[k++] = T(vx*(r1 + r2*(2.0) + fdt));
+					dest[k++] = T(0.0);
+					dest[k++] = T(vz*(r1 + r2*(2.0) + fdt));
 				}
 			}
 		}
@@ -181,9 +181,9 @@ public:
 						{
 							const GLdouble f_sign = (f == 0)? 1.0: -1.0;
 							const GLdouble fdt = 0.5*t*f_sign*d_sign;
-							dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + (fdt+rd[p])*vr))
-							dest[k++] = T(vy*(r2 + (fdt+rd[p])))
-							dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + (fdt+rd[p])*vr))
+							dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + (fdt+rd[p])*vr));
+							dest[k++] = T(vy*(r2 + (fdt+rd[p])));
+							dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + (fdt+rd[p])*vr));
 						}
 					}
 				}
@@ -195,9 +195,9 @@ public:
 				{
 					const GLdouble f_sign = (f == 0)? 1.0: -1.0;
 					const GLdouble fdt = 0.5*t*f_sign*d_sign;
-					dest[k++] = T(vx*(r1 + r2*(2.0) + fdt))
-					dest[k++] = T(0.0)
-					dest[k++] = T(vz*(r1 + r2*(2.0) + fdt))
+					dest[k++] = T(vx*(r1 + r2*(2.0) + fdt));
+					dest[k++] = T(0.0);
+					dest[k++] = T(vz*(r1 + r2*(2.0) + fdt));
 				}
 			}
 		}
@@ -230,9 +230,9 @@ public:
 							GLdouble vr = std::cos(sa[d]);
 							GLdouble vy = std::sin(sa[d]);
 
-							dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr))
-							dest[k++] = T(vy*(r2 + fdt))
-							dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + fdt*vr))
+							dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
+							dest[k++] = T(vy*(r2 + fdt));
+							dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + fdt*vr));
 						}
 					}
 				}
@@ -244,9 +244,9 @@ public:
 					GLdouble vr = std::cos(sa[d]);
 					GLdouble vy = std::sin(sa[d]);
 
-					dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr))
-					dest[k++] = T(vy*(r2 + fdt))
-					dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + fdt*vr))
+					dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
+					dest[k++] = T(vy*(r2 + fdt));
+					dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + fdt*vr));
 				}
 			}
 		}
@@ -277,9 +277,9 @@ public:
 							const GLdouble f_sign = (f == 0)? 1.0: -1.0;
 							const GLdouble fdt = -t*d_sign*f_sign*0.95;
 
-							dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr))
-							dest[k++] = T(vy*(r2 + fdt))
-							dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + fdt*vr))
+							dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
+							dest[k++] = T(vy*(r2 + fdt));
+							dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + fdt*vr));
 						}
 					}
 				}
@@ -291,9 +291,9 @@ public:
 					const GLdouble f_sign = (f == 0)? 1.0: -1.0;
 					const GLdouble fdt = -t*d_sign*f_sign*0.5;
 
-					dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr))
-					dest[k++] = T(vy*(r2 + fdt))
-					dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + fdt*vr))
+					dest[k++] = T(vx*(r1 + r2*(1.0 + vr) + fdt*vr));
+					dest[k++] = T(vy*(r2 + fdt));
+					dest[k++] = T(vz*(r1 + r2*(1.0 + vr) + fdt*vr));
 				}
 			}
 		}
@@ -339,17 +339,17 @@ public:
 						GLdouble vy = std::sin(sa[p]);
 						for(unsigned d=0; d!=2; ++d)
 						{
-							dest[k++] = T(f_sign*vx*vr)
-							dest[k++] = T(f_sign*vy)
-							dest[k++] = T(f_sign*vz*vr)
+							dest[k++] = T(f_sign*vx*vr);
+							dest[k++] = T(f_sign*vy);
+							dest[k++] = T(f_sign*vz*vr);
 						}
 					}
 				}
 				for(unsigned d=0; d!=2; ++d)
 				{
-					dest[k++] = T(f_sign*vx)
-					dest[k++] = T(f_sign*std::sin(-rslp))
-					dest[k++] = T(f_sign*vz)
+					dest[k++] = T(f_sign*vx);
+					dest[k++] = T(f_sign*std::sin(-rslp));
+					dest[k++] = T(f_sign*vz);
 				}
 			}
 		}
@@ -367,17 +367,17 @@ public:
 					{
 						for(unsigned f=0; f!=2; ++f)
 						{
-							dest[k++] = T(+vz*d_sign)
-							dest[k++] = T(T(0))
-							dest[k++] = T(-vx*d_sign)
+							dest[k++] = T(+vz*d_sign);
+							dest[k++] = T(T(0));
+							dest[k++] = T(-vx*d_sign);
 						}
 					}
 				}
 				for(unsigned f=0; f!=2; ++f)
 				{
-					dest[k++] = T(+vz*d_sign)
-					dest[k++] = T(T(0))
-					dest[k++] = T(-vx*d_sign)
+					dest[k++] = T(+vz*d_sign);
+					dest[k++] = T(T(0));
+					dest[k++] = T(-vx*d_sign);
 				}
 			}
 		}
@@ -409,9 +409,9 @@ public:
 							GLdouble vr = std::cos(sa[d]);
 							GLdouble vy = std::sin(sa[d]);
 
-							dest[k++] = T(f_sign*vx*vr)
-							dest[k++] = T(f_sign*vy)
-							dest[k++] = T(f_sign*vz*vr)
+							dest[k++] = T(f_sign*vx*vr);
+							dest[k++] = T(f_sign*vy);
+							dest[k++] = T(f_sign*vz*vr);
 						}
 					}
 				}
@@ -423,9 +423,9 @@ public:
 					GLdouble vr = std::cos(sa[d]);
 					GLdouble vy = std::sin(sa[d]);
 
-					dest[k++] = T(f_sign*vx*vr)
-					dest[k++] = T(f_sign*vy)
-					dest[k++] = T(f_sign*vz*vr)
+					dest[k++] = T(f_sign*vx*vr);
+					dest[k++] = T(f_sign*vy);
+					dest[k++] = T(f_sign*vz*vr);
 				}
 			}
 		}
@@ -453,9 +453,9 @@ public:
 
 						for(unsigned f=0; f!=2; ++f)
 						{
-							dest[k++] = T(d_sign*-vx*vr)
-							dest[k++] = T(d_sign*vy)
-							dest[k++] = T(d_sign*-vz*vr)
+							dest[k++] = T(d_sign*-vx*vr);
+							dest[k++] = T(d_sign*vy);
+							dest[k++] = T(d_sign*-vz*vr);
 						}
 					}
 				}
@@ -464,9 +464,9 @@ public:
 
 				for(unsigned f=0; f!=2; ++f)
 				{
-					dest[k++] = T(d_sign*-vx*vr)
-					dest[k++] = T(d_sign*vy)
-					dest[k++] = T(d_sign*-vz*vr)
+					dest[k++] = T(d_sign*-vx*vr);
+					dest[k++] = T(d_sign*vy);
+					dest[k++] = T(d_sign*-vz*vr);
 				}
 			}
 		}
@@ -503,17 +503,17 @@ public:
 					{
 						for(unsigned d=0; d!=2; ++d)
 						{
-							dest[k++] = T(+vz*f_sign)
-							dest[k++] = T(T(0))
-							dest[k++] = T(-vx*f_sign)
+							dest[k++] = T(+vz*f_sign);
+							dest[k++] = T(T(0));
+							dest[k++] = T(-vx*f_sign);
 						}
 					}
 				}
 				for(unsigned d=0; d!=2; ++d)
 				{
-					dest[k++] = T(+vz*f_sign)
-					dest[k++] = T(T(0))
-					dest[k++] = T(-vx*f_sign)
+					dest[k++] = T(+vz*f_sign);
+					dest[k++] = T(T(0));
+					dest[k++] = T(-vx*f_sign);
 				}
 			}
 		}
@@ -540,17 +540,17 @@ public:
 						GLdouble vy = std::sin(sa[p]);
 						for(unsigned f=0; f!=2; ++f)
 						{
-							dest[k++] = T(d_sign*vx*vr)
-							dest[k++] = T(d_sign*vy)
-							dest[k++] = T(d_sign*vz*vr)
+							dest[k++] = T(d_sign*vx*vr);
+							dest[k++] = T(d_sign*vy);
+							dest[k++] = T(d_sign*vz*vr);
 						}
 					}
 				}
 				for(unsigned f=0; f!=2; ++f)
 				{
-					dest[k++] = T(d_sign*vx)
-					dest[k++] = T(d_sign*std::sin(rslp))
-					dest[k++] = T(d_sign*vz)
+					dest[k++] = T(d_sign*vx);
+					dest[k++] = T(d_sign*std::sin(rslp));
+					dest[k++] = T(d_sign*vz);
 				}
 			}
 		}
@@ -574,9 +574,9 @@ public:
 
 						for(unsigned d=0; d!=2; ++d)
 						{
-							dest[k++] = T(+vz*f_sign)
-							dest[k++] = T(T(0))
-							dest[k++] = T(-vx*f_sign)
+							dest[k++] = T(+vz*f_sign);
+							dest[k++] = T(T(0));
+							dest[k++] = T(-vx*f_sign);
 						}
 					}
 				}
@@ -585,9 +585,9 @@ public:
 
 				for(unsigned d=0; d!=2; ++d)
 				{
-					dest[k++] = T(+vz*f_sign)
-					dest[k++] = T(T(0))
-					dest[k++] = T(-vx*f_sign)
+					dest[k++] = T(+vz*f_sign);
+					dest[k++] = T(T(0));
+					dest[k++] = T(-vx*f_sign);
 				}
 			}
 		}
@@ -611,9 +611,9 @@ public:
 
 						for(unsigned f=0; f!=2; ++f)
 						{
-							dest[k++] = T(+vz*d_sign)
-							dest[k++] = T(T(0))
-							dest[k++] = T(-vx*d_sign)
+							dest[k++] = T(+vz*d_sign);
+							dest[k++] = T(T(0));
+							dest[k++] = T(-vx*d_sign);
 						}
 					}
 				}
@@ -622,9 +622,9 @@ public:
 
 				for(unsigned f=0; f!=2; ++f)
 				{
-					dest[k++] = T(+vz*d_sign)
-					dest[k++] = T(T(0))
-					dest[k++] = T(-vx*d_sign)
+					dest[k++] = T(+vz*d_sign);
+					dest[k++] = T(T(0));
+					dest[k++] = T(-vx*d_sign);
 				}
 			}
 		}
@@ -667,16 +667,16 @@ public:
 						for(unsigned d=0; d!=2; ++d)
 						{
 							GLdouble u = rv + ((d+f)%2)*r_step;
-							dest[k++] = T(u)
-							dest[k++] = T(v)
+							dest[k++] = T(u);
+							dest[k++] = T(v);
 						}
 					}
 				}
 				for(unsigned d=0; d!=2; ++d)
 				{
 					GLdouble u = rv + ((d+f)%2)*r_step;
-					dest[k++] = T(u)
-					dest[k++] = T(1.0)
+					dest[k++] = T(u);
+					dest[k++] = T(1.0);
 				}
 			}
 		}
@@ -699,16 +699,16 @@ public:
 						for(unsigned f=0; f!=2; ++f)
 						{
 							GLdouble u = rv + ((d+f)%2)*r_step;
-							dest[k++] = T(u)
-							dest[k++] = T(v)
+							dest[k++] = T(u);
+							dest[k++] = T(v);
 						}
 					}
 				}
 				for(unsigned f=0; f!=2; ++f)
 				{
 					GLdouble u = rv + ((d+f)%2)*r_step;
-					dest[k++] = T(u)
-					dest[k++] = T(1.0)
+					dest[k++] = T(u);
+					dest[k++] = T(1.0);
 				}
 			}
 		}
@@ -738,8 +738,8 @@ public:
 						for(unsigned d=0; d!=2; ++d)
 						{
 							GLdouble v = sa[d];
-							dest[k++] = T(u)
-							dest[k++] = T(v)
+							dest[k++] = T(u);
+							dest[k++] = T(v);
 						}
 					}
 				}
@@ -748,8 +748,8 @@ public:
 				for(unsigned d=0; d!=2; ++d)
 				{
 					GLdouble v = sa[d];
-					dest[k++] = T(u)
-					dest[k++] = T(v)
+					dest[k++] = T(u);
+					dest[k++] = T(v);
 				}
 			}
 		}
@@ -773,8 +773,8 @@ public:
 						GLdouble u = ra[p];
 						for(unsigned f=0; f!=2; ++f)
 						{
-							dest[k++] = T(u)
-							dest[k++] = T(v)
+							dest[k++] = T(u);
+							dest[k++] = T(v);
 						}
 					}
 				}
@@ -782,8 +782,8 @@ public:
 				GLdouble u = 1.0 + r_slip;
 				for(unsigned f=0; f!=2; ++f)
 				{
-					dest[k++] = T(u)
-					dest[k++] = T(v)
+					dest[k++] = T(u);
+					dest[k++] = T(v);
 				}
 			}
 		}

@@ -67,9 +67,9 @@ public:
 			// the sections
 			for(unsigned s=0; s!=(_sections+1);++s)
 			{
-				dest[k++] = T(r_rad * std::cos(s * s_step))
-				dest[k++] = T(r_lat)
-				dest[k++] = T(r_rad * -std::sin(s * s_step))
+				dest[k++] = T(r_rad * std::cos(s * s_step));
+				dest[k++] = T(r_lat);
+				dest[k++] = T(r_rad * -std::sin(s * s_step));
 			}
 		}
 		//
@@ -93,9 +93,9 @@ public:
 			{
 				GLdouble vx = std::cos(s*s_step);
 				GLdouble vz = std::sin(s*s_step);
-				dest[k++] = T(+vz)
-				dest[k++] = T(T(0))
-				dest[k++] = T(-vx)
+				dest[k++] = T(+vz);
+				dest[k++] = T(T(0));
+				dest[k++] = T(-vx);
 			}
 		}
 		//
@@ -130,8 +130,8 @@ public:
 			// the sections
 			for(unsigned s=0; s!=(_sections+1);++s)
 			{
-				dest[k++] = T(s * s_step)
-				dest[k++] = T(r_lat)
+				dest[k++] = T(s * s_step);
+				dest[k++] = T(r_lat);
 			}
 		}
 		assert(k == dest.size());

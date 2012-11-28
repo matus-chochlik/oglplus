@@ -70,9 +70,9 @@ public:
 		for(unsigned y=0; y!=n; ++y)
 		for(unsigned x=0; x!=n; ++x)
 		{
-			dest[k++] = T(x*step)
-			dest[k++] = T(y*step)
-			dest[k++] = T(z*step)
+			dest[k++] = T(x*step);
+			dest[k++] = T(y*step);
+			dest[k++] = T(z*step);
 		}
 		assert(k == dest.size());
 		return 3;
@@ -96,9 +96,9 @@ public:
 		for(unsigned y=0; y!=n; ++y)
 		for(unsigned x=0; x!=n; ++x)
 		{
-			dest[k++] = T(x*step)
-			dest[k++] = T(y*step)
-			dest[k++] = T(z*step)
+			dest[k++] = T(x*step);
+			dest[k++] = T(y*step);
+			dest[k++] = T(z*step);
 		}
 		assert(k == dest.size());
 		return 3;
