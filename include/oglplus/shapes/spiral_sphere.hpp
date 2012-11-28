@@ -359,13 +359,15 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<SpiralSphere> VertexAttribs;
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
+#else
 	typedef VertexAttribsInfo<
 		SpiralSphere,
-		VertexPositionsTag,
-		VertexNormalsTag,
-		VertexTangentsTag,
-		VertexTexCoordinatesTag
+		std::tuple<
+			VertexPositionsTag,
+			VertexNormalsTag,
+			VertexTangentsTag,
+			VertexTexCoordinatesTag
+		>
 	> VertexAttribs;
 #endif
 

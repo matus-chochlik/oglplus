@@ -804,13 +804,15 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<WickerTorus> VertexAttribs;
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
+#else
 	typedef VertexAttribsInfo<
 		WickerTorus,
-		VertexPositionsTag,
-		VertexNormalsTag,
-		VertexTangentsTag,
-		VertexTexCoordinatesTag
+		std::tuple<
+			VertexPositionsTag,
+			VertexNormalsTag,
+			VertexTangentsTag,
+			VertexTexCoordinatesTag
+		>
 	> VertexAttribs;
 #endif
 

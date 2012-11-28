@@ -61,10 +61,12 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 */
 	typedef VertexAttribsInfo<SkyBox> VertexAttribs;
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
+#else
 	typedef VertexAttribsInfo<
 		SkyBox,
-		VertexPositionsTag
+		std::tuple<
+			VertexPositionsTag
+		>
 	> VertexAttribs;
 #endif
 

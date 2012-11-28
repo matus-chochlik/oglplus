@@ -82,7 +82,7 @@ public:
 				(GLuint*)nullptr
 			);
 
-			GLuint _linked_list[2] = {_capacity, _list_nil()};
+			GLuint _linked_list[2] = {GLuint(_capacity), _list_nil()};
 			Buffer::SubData(
 				Buffer::Target::Array,
 				_list_head,

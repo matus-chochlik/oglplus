@@ -14,6 +14,8 @@
 
 #include <oglplus/string.hpp>
 
+#include <tuple>
+
 namespace oglplus {
 namespace shapes {
 
@@ -26,7 +28,7 @@ struct Vertex ## GETTER_NAME ## Tag { }; \
 template <class ShapeBuilder> \
 struct VertexAttribInfo<ShapeBuilder, Vertex ## GETTER_NAME ## Tag> \
 { \
-protected: \
+public: \
 	static const GLchar* _name(void) \
 	{ \
 		return #ATTR_NAME; \
@@ -81,69 +83,125 @@ public:
 	static GetterFunction VertexAttribGetter(const String& name);
 };
 #else
-template <class ShapeBuilder, typename ... VertexAttribTags>
-class VertexAttribsInfo
- : public VertexAttribInfo<ShapeBuilder, VertexAttribTags>...
+template <class ShapeBuilder, class VertexAttribTags, std::size_t N>
+class VertexAttribsInfoBase
 {
+protected:
+	template <typename T>
+	static GLuint _getter_proc(const ShapeBuilder&, std::vector<T>&);
 private:
-
-	template <typename Tag>
-	const VertexAttribInfo<ShapeBuilder, Tag>& _info(Tag*) const
-	{
-		return *this;
-	}
-
-	static bool _has_vertex_attrib(const String&)
+	static bool _has_vertex_attrib(
+		const String&,
+		std::integral_constant<std::size_t, N>,
+		std::integral_constant<std::size_t, N>
+	)
 	{
 		return false;
 	}
 
-	template <typename Tag, typename ... Tags>
+	template <std::size_t I>
 	static bool _has_vertex_attrib(
 		const String& name,
-		const VertexAttribInfo<ShapeBuilder, Tag>& info,
-		const VertexAttribInfo<ShapeBuilder, Tags>& ...infos
+		std::integral_constant<std::size_t, I>,
+		std::integral_constant<std::size_t, N>
 	)
 	{
+		auto info = VertexAttribInfo<
+			ShapeBuilder,
+			typename std::tuple_element<I, VertexAttribTags>::type
+		>();
 		if(name == info._name()) return true;
-		else return _has_vertex_attrib(name, infos...);
+		else return _has_vertex_attrib(
+			name,
+			std::integral_constant<std::size_t, I+1>(),
+			std::integral_constant<std::size_t, N>()
+		);
 	}
 
 	template <typename T>
-	static GLuint _getter_proc(const ShapeBuilder&, std::vector<T>&);
-
-	template <typename T>
-	static decltype(&VertexAttribsInfo::_getter_proc<T>)
-	_find_getter(T*, const String&)
+	static decltype(&VertexAttribsInfoBase::_getter_proc<T>)
+	_find_getter(
+		T*,
+		const String&,
+		std::integral_constant<std::size_t, N>,
+		std::integral_constant<std::size_t, N>
+	)
 	{
 		return nullptr;
 	}
 
-	template <typename T, typename Tag, typename ... Tags>
-	static decltype(&VertexAttribsInfo::_getter_proc<T>) _find_getter(
-		T* sel,
+	template <typename T, std::size_t I>
+	static decltype(&VertexAttribsInfoBase::_getter_proc<T>)
+	_find_getter(
+		T* selector,
 		const String& name,
-		const VertexAttribInfo<ShapeBuilder, Tag>& info,
-		const VertexAttribInfo<ShapeBuilder, Tags>& ...infos
+		std::integral_constant<std::size_t, I>,
+		std::integral_constant<std::size_t, N>
 	)
 	{
-		if(name == info._name()) return info._getter((T*)0);
-		else return _find_getter(sel, name, infos...);
+		auto info = VertexAttribInfo<
+			ShapeBuilder,
+			typename std::tuple_element<I, VertexAttribTags>::type
+		>();
+		if(name == info._name()) return info._getter(selector);
+		else return _find_getter(
+			selector,
+			name,
+			std::integral_constant<std::size_t, I+1>(),
+			std::integral_constant<std::size_t, N>()
+		);
 	}
 
-public:
-	bool MakesVertexAttrib(const String& name) const
+protected:
+	static bool _has_vertex_attrib(const String& name)
 	{
-		return _has_vertex_attrib(name, _info((VertexAttribTags*)0)...);
+		return _has_vertex_attrib(
+			name,
+			std::integral_constant<std::size_t, 0>(),
+			std::integral_constant<std::size_t, N>()
+		);
 	}
 
 	template <typename T>
-	decltype(&VertexAttribsInfo::_getter_proc<T>) VertexAttribGetter(
+	static decltype(&VertexAttribsInfoBase::_getter_proc<T>)
+	_find_getter(T* selector, const String& name)
+	{
+		return _find_getter(
+			selector,
+			name,
+			std::integral_constant<std::size_t, 0>(),
+			std::integral_constant<std::size_t, N>()
+		);
+	}
+};
+
+template <class ShapeBuilder, class VertexAttribTags>
+class VertexAttribsInfo
+ : public VertexAttribsInfoBase<
+	ShapeBuilder,
+	VertexAttribTags,
+	std::tuple_size<VertexAttribTags>::value
+>
+{
+private:
+	typedef VertexAttribsInfoBase<
+		ShapeBuilder,
+		VertexAttribTags,
+		std::tuple_size<VertexAttribTags>::value
+	> _Base;
+public:
+	bool MakesVertexAttrib(const String& name) const
+	{
+		return _Base::_has_vertex_attrib(name);
+	}
+
+	template <typename T>
+	decltype(&_Base::template _getter_proc<T>) VertexAttribGetter(
 		const std::vector<T>& /*selector*/,
 		const String& name
 	) const
 	{
-		return _find_getter((T*)0, name, _info((VertexAttribTags*)0)...);
+		return _Base::_find_getter((T*)nullptr, name);
 	}
 };
 #endif

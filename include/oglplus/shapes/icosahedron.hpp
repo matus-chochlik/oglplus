@@ -65,10 +65,12 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 */
 	typedef VertexAttribsInfo<Icosahedron> VertexAttribs;
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
+#else
 	typedef VertexAttribsInfo<
 		Icosahedron,
-		VertexPositionsTag
+		std::tuple<
+			VertexPositionsTag
+		>
 	> VertexAttribs;
 #endif
 

@@ -15,9 +15,7 @@
 #include <oglplus/face_mode.hpp>
 #include <oglplus/shapes/draw.hpp>
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/shapes/vert_attr_info.hpp>
-#endif
 
 namespace oglplus {
 namespace shapes {
@@ -306,13 +304,15 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Cube> VertexAttribs;
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
+#else
 	typedef VertexAttribsInfo<
 		Cube,
-		VertexPositionsTag,
-		VertexNormalsTag,
-		VertexTangentsTag,
-		VertexTexCoordinatesTag
+		std::tuple<
+			VertexPositionsTag,
+			VertexNormalsTag,
+			VertexTangentsTag,
+			VertexTexCoordinatesTag
+		>
 	> VertexAttribs;
 #endif
 

@@ -281,13 +281,15 @@ public:
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<RevolveY> VertexAttribs;
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
+#else
 	typedef VertexAttribsInfo<
 		RevolveY,
-		VertexPositionsTag,
-		VertexNormalsTag,
-		VertexTangentsTag,
-		VertexTexCoordinatesTag
+		std::tuple<
+			VertexPositionsTag,
+			VertexNormalsTag,
+			VertexTangentsTag,
+			VertexTexCoordinatesTag
+		>
 	> VertexAttribs;
 #endif
 

@@ -113,11 +113,13 @@ public:
 	 *  - "TexCoord" the STR texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Tetrahedrons> VertexAttribs;
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES
+#else
 	typedef VertexAttribsInfo<
 		Tetrahedrons,
-		VertexPositionsTag,
-		VertexTexCoordinatesTag
+		std::tuple<
+			VertexPositionsTag,
+			VertexTexCoordinatesTag
+		>
 	> VertexAttribs;
 #endif
 
