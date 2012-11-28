@@ -521,7 +521,7 @@ public:
 
 	void Render(double time)
 	{
-		static const ModelMatrixf reflection(
+		static const Mat4f reflection(
 			Vec4f( 1.0, 0.0, 0.0, 0.0),
 			Vec4f( 0.0,-1.0, 0.0, 0.0),
 			Vec4f( 0.0, 0.0, 1.0, 0.0),
