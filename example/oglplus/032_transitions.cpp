@@ -7,8 +7,6 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- *
- *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -609,8 +607,7 @@ private:
 	VertexArray vao;
 	Buffer corners;
 public:
-	template <typename ... _Program>
-	Screen(const _Program& ... progs)
+	Screen(const Program& prog1, const Program& prog2)
 	{
 		// bind the VAO for the screen
 		vao.Bind();
@@ -629,7 +626,7 @@ public:
 			VertexAttribArray attr(
 				VertexAttribArray::GetCommonLocation(
 					"Position",
-					progs...
+					prog1, prog2
 				)
 			);
 			attr.Setup(2, DataType::Float);

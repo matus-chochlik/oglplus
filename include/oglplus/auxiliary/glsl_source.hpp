@@ -182,7 +182,7 @@ private:
 		in.seekg(0, std::ios::end);
 		std::streampos end = in.tellg();
 		in.seekg(0, std::ios::beg);
-		return end - begin;
+		return GLint(end - begin);
 	}
 public:
 	FileGLSLSrcWrap(const char* path)

@@ -9,7 +9,6 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_cxx11{LAMBDAS}
- *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -70,7 +69,7 @@ public:
 };
 
 class TransformProgram
- : public HardwiredProgram<CommonVertShader>
+ : public HardwiredTupleProgram<std::tuple<CommonVertShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -80,7 +79,7 @@ public:
 	ProgramUniform<Vec3f> camera_position, light_position;
 
 	TransformProgram(void)
-	 : HardwiredProgram<CommonVertShader>(ObjectDesc("Transform"), true)
+	 : HardwiredTupleProgram<std::tuple<CommonVertShader>>(ObjectDesc("Transform"), true)
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , light_proj_matrix(prog(), "LightProjMatrix")
@@ -110,11 +109,11 @@ public:
 };
 
 class ShadowProgram
- : public HardwiredProgram<ShadowFragShader>
+ : public HardwiredTupleProgram<std::tuple<ShadowFragShader>>
 {
 public:
 	ShadowProgram(void)
-	 : HardwiredProgram<ShadowFragShader>(ObjectDesc("Shadow"), true)
+	 : HardwiredTupleProgram<std::tuple<ShadowFragShader>>(ObjectDesc("Shadow"), true)
 	{ }
 };
 
@@ -199,11 +198,11 @@ public:
 };
 
 class LineProgram
- : public HardwiredProgram<LineGeomShader, LineFragShader>
+ : public HardwiredTupleProgram<std::tuple<LineGeomShader, LineFragShader>>
 {
 public:
 	LineProgram(void)
-	 : HardwiredProgram<LineGeomShader, LineFragShader>(ObjectDesc("Line"), true)
+	 : HardwiredTupleProgram<std::tuple<LineGeomShader, LineFragShader>>(ObjectDesc("Line"), true)
 	{ }
 };
 
@@ -285,7 +284,7 @@ public:
 };
 
 class SketchProgram
- : public HardwiredProgram<SketchFragShader>
+ : public HardwiredTupleProgram<std::tuple<SketchFragShader>>
 {
 private:
 	const Program& prog(void) const { return *this; }
@@ -293,7 +292,7 @@ public:
 	ProgramUniformSampler sketch_tex, shadow_tex;
 
 	SketchProgram(void)
-	 : HardwiredProgram<SketchFragShader>(ObjectDesc("Sketch"), true)
+	 : HardwiredTupleProgram<std::tuple<SketchFragShader>>(ObjectDesc("Sketch"), true)
 	 , sketch_tex(prog(), "SketchTex")
 	 , shadow_tex(prog(), "ShadowTex")
 	{ }

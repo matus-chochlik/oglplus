@@ -9,7 +9,6 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_cxx11{LAMBDAS}
- *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -292,28 +291,28 @@ public:
 		camera_matrix_0.Set(
 			projection *
 			Mat4f(
-				 0, 0,-1, 0,
-				 0, 1, 0, 0,
-				 1, 0, 0,-2,
-				 0, 0, 0, 1
+				 Vec4f(0, 0,-1, 0),
+				 Vec4f(0, 1, 0, 0),
+				 Vec4f(1, 0, 0,-2),
+				 Vec4f(0, 0, 0, 1)
 			)
 		);
 		camera_matrix_1.Set(
 			projection *
 			Mat4f(
-				 1, 0, 0, 0,
-				 0, 0,-1, 0,
-				 0, 1, 0,-2,
-				 0, 0, 0, 1
+				 Vec4f(1, 0, 0, 0),
+				 Vec4f(0, 0,-1, 0),
+				 Vec4f(0, 1, 0,-2),
+				 Vec4f(0, 0, 0, 1)
 			)
 		);
 		camera_matrix_2.Set(
 			projection *
 			Mat4f(
-				 1, 0, 0, 0,
-				 0, 1, 0, 0,
-				 0, 0, 1,-2,
-				 0, 0, 0, 1
+				 Vec4f(1, 0, 0, 0),
+				 Vec4f(0, 1, 0, 0),
+				 Vec4f(0, 0, 1,-2),
+				 Vec4f(0, 0, 0, 1)
 			)
 		);
 	}
