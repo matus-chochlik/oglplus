@@ -8,6 +8,8 @@
  */
 
 #include <oglplus/gl.hpp>
+#include <oglplus/vector.hpp>
+#include <oglplus/curve.hpp>
 
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
@@ -92,15 +94,72 @@ void run(const x11::Display& display, const char* prefix)
 		win.SelectInput(0);
 
 		example->Reshape(width, height);
-		example->MouseMove(width/2, height/2, width, height);
+
+		const std::size_t mouse_path_pts = 7;
+		std::vector<Vec2f> mouse_path_pos(mouse_path_pts);
+		std::vector<Vec2f> mouse_path_dir(mouse_path_pts);
+
+		for(std::size_t p=0; p!= mouse_path_pts; ++p)
+		{
+			mouse_path_pos[p] = Vec2f(
+				std::rand() % width,
+				std::rand() % height
+			);
+			mouse_path_dir[p] = Vec2f(
+				(std::rand()%2?1.0:-1.0)*10.0f*
+				(0.2+float(std::rand())/float(RAND_MAX)*0.8),
+				(std::rand()%2?1.0:-1.0)*10.0f*
+				(0.2+float(std::rand())/float(RAND_MAX)*0.8)
+			);
+		}
+
+		typedef CubicBezierLoop<Vec2f, double> Loop;
+
 		double t = 0.0;
 		double period = 1.0 / 25.0;
 		GLuint frame_no = 0;
 		std::vector<char> pixels(width * height * 4);
-
 		ExampleClock clock;
+
+		GLuint border = 32;
+
 		while(1)
 		{
+			Vec2f mouse_pos = Loop(mouse_path_pos).Position(t*0.2);
+
+			for(std::size_t p=0; p!= mouse_path_pts; ++p)
+			{
+				Vec2f dir = mouse_path_dir[p];
+				Vec2f pos = mouse_path_pos[p];
+
+				if((pos.x() < border) && (dir.x() < 0.0))
+					dir = Vec2f(-dir.x(), dir.y());
+				if((pos.y() < border) && (dir.y() < 0.0))
+					dir = Vec2f( dir.x(),-dir.y());
+				if((pos.x() > width-border) && (dir.x() > 0.0))
+					dir = Vec2f(-dir.x(), dir.y());
+				if((pos.y() >height-border) && (dir.y() > 0.0))
+					dir = Vec2f( dir.x(),-dir.y());
+
+				mouse_path_dir[p] = dir;
+				mouse_path_pos[p] = pos + dir;
+			}
+
+			float mouse_x = mouse_pos.x();
+			float mouse_y = mouse_pos.y();
+
+			if(mouse_x < 0.0f) mouse_x = 0.0f;
+			if(mouse_y < 0.0f) mouse_y = 0.0f;
+			if(mouse_x > width) mouse_x = width;
+			if(mouse_y > height) mouse_y = height;
+
+			example->MouseMove(
+				GLuint(mouse_x),
+				GLuint(mouse_y),
+				width,
+				height
+			);
+
 			t += period;
 			clock.Update(t);
 			if(!example->Continue(clock)) break;
