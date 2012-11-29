@@ -129,8 +129,8 @@ public:
 	IndexArray IndicesWithAdjacency(void) const
 	{
 		const unsigned n = _divisions;
-		const unsigned a = (n+1);
-		const unsigned b = (n+1)*(n+1);
+		const unsigned a = n+1;
+		const unsigned b = a*a;
 		//
 		IndexArray indices(n*n*n*6*6);
 		unsigned k = 0;
@@ -160,6 +160,15 @@ public:
 			unsigned G = (z+1)*b + (y+1)*a + (x+1) + 1;
 			unsigned H = (z+1)*b + (y+1)*a + (x+0) + 1;
 			unsigned O = 0;
+
+			assert(A < a*a*a+1);
+			assert(B < a*a*a+1);
+			assert(C < a*a*a+1);
+			assert(D < a*a*a+1);
+			assert(E < a*a*a+1);
+			assert(F < a*a*a+1);
+			assert(G < a*a*a+1);
+			assert(H < a*a*a+1);
 
 			indices[k++] = C;
 			indices[k++] = A;
@@ -214,7 +223,6 @@ public:
 	DrawingInstructions InstructionsWithAdjacency(void) const
 	{
 		const unsigned n = _divisions;
-		auto instructions = this->MakeInstructions();
 		DrawOperation operation;
 		operation.method = DrawOperation::Method::DrawElements;
 		operation.mode = PrimitiveType::TrianglesAdjacency;
@@ -222,8 +230,7 @@ public:
 		operation.count = GLuint(n*n*n*6*6);
 		operation.restart_index = DrawOperation::NoRestartIndex();
 		operation.phase = 0;
-		this->AddInstruction(instructions, operation);
-		return instructions;
+		return this->MakeInstructions(operation);
 	}
 };
 

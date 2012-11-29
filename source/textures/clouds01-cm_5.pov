@@ -3,4 +3,4 @@
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #version 3.6;
 #declare CubeMapFace = 5;
-#include "cloudy_day-cm.pov.inc"
+#include "clouds01-cm.pov.inc"
