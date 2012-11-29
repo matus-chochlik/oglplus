@@ -46,7 +46,7 @@ protected:
 	Context _gl;
 
 	// A vertex array object for the rendered shape
-	VertexArray _vao;
+	Optional<VertexArray> _vao;
 
 	// VBOs for the shape's vertex attributes
 	Array<Buffer> _vbos;
@@ -60,9 +60,6 @@ protected:
 	template <class ShapeBuilder, typename Iterator>
 	void _init(const ShapeBuilder& builder, Iterator name, Iterator end)
 	{
-		// bind the VAO for the shape
-		_vao.Bind();
-
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
 		unsigned i = 0;
 		std::vector<GLfloat> data;
@@ -181,10 +178,11 @@ private:
 public:
 #endif
 
-	void UseInProgram(const Program& prog)
+	VertexArray VAOForProgram(const Program& prog)
 	{
+		VertexArray vao;
+		vao.Bind();
 		prog.Use();
-		_vao.Bind();
 		size_t i=0, n = _names.size();
 		while(i != n)
 		{
@@ -207,6 +205,12 @@ public:
 			assert((i+1) == _vbos.size());
 			_vbos[i].Bind(Buffer::Target::ElementArray);
 		}
+		return std::move(vao);
+	}
+
+	void UseInProgram(const Program& prog)
+	{
+		_vao.Assign(VAOForProgram(prog));
 	}
 
 	void Use(void)

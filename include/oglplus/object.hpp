@@ -283,13 +283,25 @@ private:
 #endif
 	}
 
+	static inline bool _verified_name(const Object* that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(that);
+		return (_can_be_zero() || that->_name != 0);
+	}
+
+	static inline bool _verified_type(const Object* that)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(that);
+		return (_type_ok(that->_name));
+	}
+
 	static inline void _verify(const Object* that)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		OGLPLUS_FAKE_USE(that);
-		assert(that);
-		assert(_can_be_zero() || that->_name != 0);
-		assert(_type_ok(that->_name));
+		assert(_verified_name(that) && _verified_type(that));
 	}
 
 	static inline void _describe(
@@ -381,10 +393,53 @@ private:
 			assert((OGLPLUS_GLFUNC(GetError)()) == GL_NO_ERROR);
 		}
 		catch(...){ }
-		assert((*_n = 0) == 0);
+		*_n = 0;
 	}
 
 	friend class ObjectInitializer<Object>;
+protected:
+	inline bool _is_initialized(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return this->_name != 0;
+	}
+
+	void _move_in(Object&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(!_is_initialized());
+		_verify(&temp);
+		this->_name = temp._release();
+		_verify(this);
+		assert(!temp._is_initialized());
+	}
+
+	void _move_in_uninit(Object&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(!_is_initialized());
+		bool is_init = _verified_name(&temp);
+		this->_name = temp._release();
+		if(is_init) _verify(this);
+		assert(!temp._is_initialized());
+	}
+
+	void _cleanup_if_needed(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		if(_is_initialized())
+		{
+			_verify(this);
+			_undescribe(this);
+			_do_cleanup(1, &this->_name);
+		}
+	}
+
+	struct _Uninitialized { };
+
+	Object(_Uninitialized)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
 public:
 	Object(void)
 	OGLPLUS_NOEXCEPT(ObjectOps::_noexcept_constructor::value)
@@ -412,11 +467,7 @@ public:
 	Object(Object&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		assert(this->_name == 0);
-		_verify(&temp);
-		this->_name = temp._release();
-		_verify(this);
-		assert(temp._name  == 0);
+		_move_in(std::move(temp));
 	}
 
 	Object(typename ObjectTypeOrTarget<ObjectOps>::Type type_or_target)
@@ -435,16 +486,19 @@ public:
 		_describe(this, std::move(description));
 	}
 
-	~Object(void) OGLPLUS_NOEXCEPT(true)
+	~Object(void)
+	OGLPLUS_NOEXCEPT(true)
 	{
-		if(this->_name != 0)
-		{
-			_verify(this);
-			_undescribe(this);
-			_do_cleanup(1, &this->_name);
-		}
+		_cleanup_if_needed();
 	}
 
+	Object& operator = (Object&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_cleanup_if_needed();
+		_move_in(std::move(temp));
+		return *this;
+	}
 private:
 	template <typename _ObjectOps>
 	static oglplus::ObjectType _get_object_type(
@@ -630,6 +684,101 @@ public:
 	~Managed(void)
 	{
 		FriendOf<ObjectOps>::SetName(*this, 0);
+	}
+};
+
+
+/// Modifier that allows to create uninitialized Object(s)
+/** The Optional template class is a modifier for @ref oglplus_object "Objects"
+ *  and in contrast to Objects it does allow to construct uninitialized
+ *  instances which can be initialized later.
+ *
+ *  An Optional<Object> can be used everywhere an Object could be
+ *  used but it must be initialized (the IsInitialized() member function
+ *  must return true), otherwise usage results in undefined behavior.
+ *
+ *  @ingroup modifier_classes
+ */
+template <class _Object>
+class Optional
+ : public _Object
+{
+public:
+	/// Construction of an uninitialized instance
+	/** The only things that can safely be done with
+	 *  an uninitialized Optional<Object> is assignment,
+	 *  moving, destruction and checking whether it is
+	 *  initialized.
+	 *
+	 *  @see IsInitialized
+	 *  @see Assign
+	 */
+	Optional(void)
+	OGLPLUS_NOEXCEPT(true)
+	 : _Object(typename _Object::_Uninitialized())
+	{ }
+
+	/// Construction of an initialized instance
+	/** Initialized Optional<Object> can be used everywhere where
+	 *  a plain Object could be used, furthermore Optional<Object>
+	 *  can also be cleared (this brings it in uninitialized state)
+	 *
+	 *  @see IsInitialized
+	 *  @see Clear
+	 */
+	Optional(_Object&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _Object(std::move(temp))
+	{ }
+
+	/// Move constructor
+	Optional(Optional&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	 : _Object(typename _Object::_Uninitialized())
+	{
+		_move_in_uninit(static_cast<_Object&&>(temp));
+	}
+
+	/// Returns true if the object is initialized, false otherwise
+	/** The only things that can safely be done with
+	 *  an uninitialized Optional<Object> is assignment,
+	 *  moving, destruction and checking whether it is
+	 *  initialized. On the other hand initialized
+	 *  Optional<Object> can be used everywhere where
+	 *  a plain Object could be used.
+	 *
+	 *  @see Assign
+	 *  @see Clear
+	 */
+	bool IsInitialized(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return this->_is_initialized();
+	}
+
+	/// Assigns an initialized Object to this Optional<Object>
+	/** After this the Optional<Object> is initialized.
+	 *
+	 *  @see Clear
+	 *  @see IsInitialized
+	 */
+	void Assign(_Object&& temp)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		this->_cleanup_if_needed();
+		this->_move_in(std::move(temp));
+	}
+
+	/// Clears this Optional<Object>
+	/** After clearing, this Optional<Object> is uninitialized.
+	 *
+	 *  @see Assign
+	 *  @see IsInitialized
+	 */
+	void Clear(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		this->_cleanup_if_needed();
 	}
 };
 
