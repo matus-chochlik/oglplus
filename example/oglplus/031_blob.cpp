@@ -7,8 +7,6 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- *
- *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -249,9 +247,11 @@ public:
 };
 
 class BlobProgram
- : public HardwiredProgram<BlobVertShader, BlobGeomShader, BlobFragShader>
+ : public HardwiredTupleProgram<std::tuple<BlobVertShader, BlobGeomShader, BlobFragShader>>
 {
 private:
+	typedef HardwiredTupleProgram<std::tuple<BlobVertShader, BlobGeomShader, BlobFragShader>>
+		Base;
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix;
@@ -260,7 +260,7 @@ public:
 	ProgramUniformSampler configurations;
 
 	BlobProgram(void)
-	 : HardwiredProgram<BlobVertShader,BlobGeomShader,BlobFragShader>(ObjectDesc("Blob"))
+	 : Base(ObjectDesc("Blob"))
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
@@ -418,9 +418,10 @@ public:
 };
 
 class MetalProgram
- : public HardwiredProgram<MetalVertShader, MetalFragShader>
+ : public HardwiredTupleProgram<std::tuple<MetalVertShader, MetalFragShader>>
 {
 private:
+	typedef HardwiredTupleProgram<std::tuple<MetalVertShader, MetalFragShader>> Base;
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix;
@@ -428,7 +429,7 @@ public:
 	ProgramUniformSampler metal_tex;
 
 	MetalProgram(void)
-	 : HardwiredProgram<MetalVertShader, MetalFragShader>(ObjectDesc("Metal program"))
+	 : Base(ObjectDesc("Metal program"))
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , camera_position(prog(), "CameraPosition")
 	 , light_position(prog(), "LightPosition")

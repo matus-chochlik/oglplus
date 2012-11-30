@@ -76,10 +76,10 @@ public:
  *
  *  @ingroup utility_classes
  */
-template <class Object>
-inline Exposed<Object> Expose(const Object& object)
+template <class ObjectOps>
+inline Exposed<Object<ObjectOps> > Expose(const Object<ObjectOps>& object)
 {
-	return Exposed<Object>(object);
+	return Exposed<Object<ObjectOps> >(object);
 }
 
 } // namespace oglplus
