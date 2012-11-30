@@ -195,7 +195,7 @@ public:
 					attr.Setup(_npvs[i], DataType::Float);
 					attr.Enable();
 				}
-				catch(Error& e){ }
+				catch(Error&){ }
 			}
 			++i;
 		}

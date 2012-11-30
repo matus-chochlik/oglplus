@@ -36,7 +36,7 @@ public:
 		"uniform vec3 GridOffset;"
 		"uniform sampler1D Metaballs;"
 
-		"in vec4 Position;"
+		"in vec3 Position;"
 
 		"out vec3 vertCenter;"
 		"out float vertValue;"
@@ -44,7 +44,7 @@ public:
 
 		"void main(void)"
 		"{"
-		"	gl_Position = Position + vec4(GridOffset, 0.0);"
+		"	vec3 vertPosition = Position + GridOffset;"
 
 		"	float Sum = 0.0;"
 		"	vertValue = 0.0;"
@@ -55,7 +55,7 @@ public:
 		"		vec4 Metaball = texelFetch(Metaballs, Ball, 0);"
 		"		vec3 Center = Metaball.xyz;"
 		"		float Radius = Metaball.w;"
-		"		vec3 Vect = gl_Position.xyz - Center;"
+		"		vec3 Vect = vertPosition - Center;"
 		"		float Tmp = (Radius*Radius)/dot(Vect, Vect);"
 		"		vertValue += Tmp - 0.25;"
 		"		float Mul = max(Tmp - 0.10, 0.0);"
@@ -65,6 +65,7 @@ public:
 		"	}"
 		"	if(Sum > 0.0) vertCenter = vertCenter / Sum;"
 		"	vertInside = (vertValue >= 0.0)?1:0;"
+		"	gl_Position = vec4(vertPosition, 1.0);"
 		"}")
 	)
 	{ }
@@ -83,7 +84,7 @@ public:
 		"layout(triangles_adjacency) in;"
 		"layout(triangle_strip, max_vertices = 4) out;"
 
-		"uniform isampler1D Configurations;"
+		"uniform usampler1D Configurations;"
 		"uniform mat4 CameraMatrix;"
 		"uniform vec3 CameraPosition, LightPosition;"
 
@@ -93,13 +94,13 @@ public:
 
 		"out vec3 geomNormal, geomLightDir, geomViewDir;"
 
-		"float find_t(const int i1, const int i2)"
+		"float find_t(const uint i1, const uint i2)"
 		"{"
 		"	float d = vertValue[i2] - vertValue[i1];"
 		"	return -vertValue[i1]/d;"
 		"}"
 
-		"void make_vertex(const int i1, const int i2)"
+		"void make_vertex(const uint i1, const uint i2)"
 		"{"
 		"	float t = find_t(i1, i2);"
 		"	gl_Position = mix("
@@ -117,7 +118,7 @@ public:
 		"	EmitVertex();"
 		"}"
 
-		"void make_triangle(const ivec4 v1, const ivec4 v2)"
+		"void make_triangle(const uvec4 v1, const uvec4 v2)"
 		"{"
 		"	make_vertex(v1.x, v2.x);"
 		"	make_vertex(v1.y, v2.y);"
@@ -125,7 +126,7 @@ public:
 		"	EndPrimitive();"
 		"}"
 
-		"void make_quad(const ivec4 v1, const ivec4 v2)"
+		"void make_quad(const uvec4 v1, const uvec4 v2)"
 		"{"
 		"	make_vertex(v1.x, v2.x);"
 		"	make_vertex(v1.y, v2.y);"
@@ -146,8 +147,8 @@ public:
 		"	if(si != 0)"
 		"	{"
 		"		int iv = int(dot(i, ivec4(16, 8, 4, 2)));"
-		"		ivec4 v1 = texelFetch(Configurations, iv+0, 0);"
-		"		ivec4 v2 = texelFetch(Configurations, iv+1, 0);"
+		"		uvec4 v1 = texelFetch(Configurations, iv+0, 0);"
+		"		uvec4 v2 = texelFetch(Configurations, iv+1, 0);"
 		"		if(si % 2 == 0) make_quad(v1, v2);"
 		"		else make_triangle(v1, v2);"
 		"	}"
@@ -440,10 +441,21 @@ public:
 class Plate
  : public shapes::ShapeWrapper
 {
+private:
+	static const GLchar** AttrNames(void)
+	{
+		static const GLchar* names[] = {"Position", "Normal", "Tangent", "TexCoord"};
+		return names;
+	}
+	static std::size_t AttrCount(void)
+	{
+		return 4;
+	}
 public:
 	Plate(const Program& program)
 	 : shapes::ShapeWrapper(
-		{"Position", "Normal", "Tangent", "TexCoord"},
+		AttrNames(),
+		AttrCount(),
 		shapes::Plane(Vec3f(9, 0, 0), Vec3f(0, 0,-9)),
 		program
 	)
