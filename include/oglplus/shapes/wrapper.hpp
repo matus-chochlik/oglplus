@@ -60,6 +60,7 @@ protected:
 	template <class ShapeBuilder, typename Iterator>
 	void _init(const ShapeBuilder& builder, Iterator name, Iterator end)
 	{
+		VertexArray::Unbind();
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
 		unsigned i = 0;
 		std::vector<GLfloat> data;

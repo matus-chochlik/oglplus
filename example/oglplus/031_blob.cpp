@@ -278,7 +278,7 @@ class Grid
 protected:
 	shapes::Tetrahedrons make_grid;
 	shapes::DrawingInstructions grid_instr;
-	typename shapes::Tetrahedrons::IndexArray grid_indices;
+	shapes::Tetrahedrons::IndexArray grid_indices;
 
 	Context gl;
 
