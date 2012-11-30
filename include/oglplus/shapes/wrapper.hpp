@@ -33,7 +33,7 @@ namespace oglplus {
 namespace shapes {
 
 /// Wraps instructions and VAO+VBOs used to render a shape built by a ShapeBuilder
-class ShapeWrapper
+class ShapeWrapperBase
 {
 protected:
 	FaceOrientation _face_winding;
@@ -97,70 +97,22 @@ protected:
 		}
 	}
 public:
-	template <typename StdRange, class ShapeBuilder>
-	ShapeWrapper(const StdRange& names, const ShapeBuilder& builder)
-	 : _face_winding(builder.FaceWinding())
-	 , _shape_instr(builder.Instructions())
-	 , _index_info(builder)
-	 , _vbos(std::distance(names.begin(), names.end())+1)
-	 , _npvs(std::distance(names.begin(), names.end())+1, 0)
-	 , _names(std::distance(names.begin(), names.end()))
-	{
-		_init(builder, names.begin(), names.end());
-	}
-
-	template <typename StdRange, class ShapeBuilder>
-	ShapeWrapper(
-		const StdRange& names,
-		const ShapeBuilder& builder,
-		const Program& prog
+	template <typename Iterator, class ShapeBuilder>
+	ShapeWrapperBase(
+		Iterator names_begin,
+		Iterator names_end,
+		const ShapeBuilder& builder
 	): _face_winding(builder.FaceWinding())
 	 , _shape_instr(builder.Instructions())
 	 , _index_info(builder)
-	 , _vbos(std::distance(names.begin(), names.end())+1)
-	 , _npvs(std::distance(names.begin(), names.end())+1, 0)
-	 , _names(std::distance(names.begin(), names.end()))
+	 , _vbos(std::distance(names_begin, names_end)+1)
+	 , _npvs(std::distance(names_begin, names_end)+1, 0)
+	 , _names(std::distance(names_begin, names_end))
 	{
-		_init(builder, names.begin(), names.end());
-		UseInProgram(prog);
+		_init(builder, names_begin, names_end);
 	}
 
-#if !OGLPLUS_NO_INITIALIZER_LISTS
-	template <class ShapeBuilder>
-	ShapeWrapper(
-		const std::initializer_list<const GLchar*>& names,
-		const ShapeBuilder& builder,
-		const Program& prog
-	): _face_winding(builder.FaceWinding())
-	 , _shape_instr(builder.Instructions())
-	 , _index_info(builder)
-	 , _vbos(std::distance(names.begin(), names.end())+1)
-	 , _npvs(std::distance(names.begin(), names.end())+1, 0)
-	 , _names(std::distance(names.begin(), names.end()))
-	{
-		_init(builder, names.begin(), names.end());
-		UseInProgram(prog);
-	}
-#endif
-
-	template <class ShapeBuilder>
-	ShapeWrapper(
-		const GLchar** names,
-		unsigned name_count,
-		const ShapeBuilder& builder,
-		const Program& prog
-	): _face_winding(builder.FaceWinding())
-	 , _shape_instr(builder.Instructions())
-	 , _index_info(builder)
-	 , _vbos(std::distance(names, names+name_count)+1)
-	 , _npvs(std::distance(names, names+name_count)+1, 0)
-	 , _names(std::distance(names, names+name_count))
-	{
-		_init(builder, names, names+name_count);
-		UseInProgram(prog);
-	}
-
-	ShapeWrapper(ShapeWrapper&& temp)
+	ShapeWrapperBase(ShapeWrapperBase&& temp)
 	 : _face_winding(temp._face_winding)
 	 , _shape_instr(std::move(temp._shape_instr))
 	 , _index_info(temp._index_info)
@@ -172,10 +124,10 @@ public:
 	{ }
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
-	ShapeWrapper(const ShapeWrapper&) = delete;
+	ShapeWrapperBase(const ShapeWrapperBase&) = delete;
 #else
 private:
-	ShapeWrapper(const ShapeWrapper&);
+	ShapeWrapperBase(const ShapeWrapperBase&);
 public:
 #endif
 
@@ -231,6 +183,72 @@ public:
 		_shape_instr.Draw(_index_info, 1, drawing_driver);
 	}
 };
+
+/// Wraps instructions and VBOs and VAO used to render a shape built by a ShapeBuilder
+class ShapeWrapper
+ : public ShapeWrapperBase
+{
+public:
+	ShapeWrapper(ShapeWrapper&& temp)
+	 : ShapeWrapperBase(static_cast<ShapeWrapperBase&&>(temp))
+	{ }
+	
+	template <typename StdRange, class ShapeBuilder>
+	ShapeWrapper(	
+		const StdRange& names,
+		const ShapeBuilder& builder
+	): ShapeWrapperBase(names.begin(), names.end(), builder)
+	{ }
+
+	template <typename StdRange, class ShapeBuilder>
+	ShapeWrapper(
+		const StdRange& names,
+		const ShapeBuilder& builder,
+		const Program& prog
+	): ShapeWrapperBase(names.begin(), names.end(), builder)
+	{
+		UseInProgram(prog);
+	}
+
+#if !OGLPLUS_NO_INITIALIZER_LISTS
+	template <class ShapeBuilder>
+	ShapeWrapper(
+		const std::initializer_list<const GLchar*>& names,
+		const ShapeBuilder& builder
+	): ShapeWrapperBase(names.begin(), names.end(), builder)
+	{ }
+
+	template <class ShapeBuilder>
+	ShapeWrapper(
+		const std::initializer_list<const GLchar*>& names,
+		const ShapeBuilder& builder,
+		const Program& prog
+	): ShapeWrapperBase(names.begin(), names.end(), builder)
+	{
+		UseInProgram(prog);
+	}
+#endif
+
+	template <class ShapeBuilder>
+	ShapeWrapper(
+		const GLchar** names,
+		unsigned name_count,
+		const ShapeBuilder& builder
+	): ShapeWrapperBase(names, names+name_count, builder)
+	{ }
+
+	template <class ShapeBuilder>
+	ShapeWrapper(
+		const GLchar** names,
+		unsigned name_count,
+		const ShapeBuilder& builder,
+		const Program& prog
+	): ShapeWrapperBase(names, names+name_count, builder)
+	{
+		UseInProgram(prog);
+	}
+};
+
 } // shapes
 } // oglplus
 
