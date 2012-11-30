@@ -31,7 +31,7 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 
 #macro CloudLayer(Altitude, Scale, Coverage, Turbulence, Octaves, Omega, BorderTransparency, CenterTransparency)
 	union {
-	#declare LayerMax = 20;
+	#declare LayerMax = 30;
 	#declare LayerThickness = 15;
 	#declare Layer = 0;
 	#while(Layer <= LayerMax)
@@ -48,8 +48,8 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 					pigment_pattern {
 						bozo
 							turbulence 0.5 + Altitude/4000
-							octaves 11
-							omega 0.55
+							octaves 11 + Altitude / 10000
+							omega 0.55 + Altitude / 200000
 							lambda 2
 						pigment_map {
 							[0.00	rgb 0.0]
@@ -66,9 +66,9 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 							]
 							[0.40	bozo
 								turbulence Turbulence+0.01*LayerPart*Altitude/7000
-								octaves Octaves+LayerPart
+								octaves Octaves+LayerPart*Altitude/7000
 								omega Omega+0.04*LayerPart
-								lambda 2
+								lambda 3
 								color_map {
 									[0.00 rgb 0.0]
 									[0.50 rgb 0.2]
@@ -79,7 +79,7 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 								turbulence Turbulence+0.02*LayerPart*Altitude/7000
 								octaves Octaves+1+LayerPart*Altitude/3000
 								omega Omega+0.05+0.05*LayerPart
-								lambda 2
+								lambda 4
 								color_map {
 									[0.00 rgb 0.3]
 									[0.80 rgb 0.6]
@@ -89,7 +89,7 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 							[0.75	rgb 1.0]
 							[1.00	rgb 1.0]
 						}
-						scale <0.5, 0.3, 0.6> * WorldRadius * 0.003 * Altitude/3000 * Scale
+						scale <0.5, 0.3, 0.7> * WorldRadius * 0.003 * Altitude/3000 * Scale
 						translate <Altitude, 0.0, Altitude>
 						rotate<0, Altitude / 100 , 0>
 					}
@@ -108,8 +108,8 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 	}
 #end
 
-CloudLayer(25000, 11, 0.30, 0.90, 11, 0.7, 0.70, 0.30)
-CloudLayer(10000, 7, 0.30, 0.80, 11, 0.5, 0.45, 0.10)
+CloudLayer(25000, 29, 0.10, 0.90, 11, 0.7, 0.70, 0.30)
+CloudLayer(10000, 19, 0.25, 0.80, 11, 0.5, 0.45, 0.10)
 CloudLayer(3000, 2, 0.35, 0.91, 12, 0.6, 0.40, 0.05)
 
 plane {
