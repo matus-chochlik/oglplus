@@ -15,45 +15,100 @@ global_settings {
 
 background { rgbt <0.5, 0.5, 0.5, 0.0> }
 
-#macro CloudColor(Altitude, Layer, Density)
+#macro CloudColor(Altitude, LayerPart, Density)
 		function {
-			min(25 * sqrt(
+			min(sqrt(
 				pow(x/AtmThickness, 2)+
 				pow(y/AtmThickness, 2)+
 				pow(z/AtmThickness, 2)
 			), 1.0)
 		}
 		color_map {
-			[0.00 color rgbt <0.0, min(Altitude / AtmThickness, 1), min(Layer * 0.025, 1), min(Density, 1)>]
-			[1.00 color rgbt <1.0, min(Altitude / AtmThickness, 1), min(Layer * 0.025, 1), min(Density, 1)>]
+			[0.00 color rgbt <0.0, min(Altitude / AtmThickness, 1), min(LayerPart, 1), max(min(Density, 1), 0)>]
+			[1.00 color rgbt <1.0, min(Altitude / AtmThickness, 1), min(LayerPart, 1), max(min(Density, 1), 0)>]
 		}
 #end
 
 #macro CloudLayer(Altitude, Scale, Coverage, Turbulence, Octaves, Omega, BorderTransparency, CenterTransparency)
-	#for(Layer, 0, 40, 1)
-		sphere {
-			<0, -WorldRadius, 0>, WorldRadius+Altitude+Layer*10
+	union {
+	#declare LayerMax = 20;
+	#declare LayerThickness = 15;
+	#declare Layer = 0;
+	#while(Layer <= LayerMax)
+		#declare LayerPart = Layer / LayerMax;
+		difference {
+			sphere {
+				<0, -WorldRadius, 0>, WorldRadius+Altitude+LayerThickness*(Layer+0.45)
+			}
+			sphere {
+				<0, -WorldRadius, 0>, WorldRadius+Altitude+LayerThickness*Layer
+			}
 			texture {
 				pigment {
-					bozo turbulence Turbulence+0.004*Layer
-					octaves Octaves+Layer*0.04 omega Omega+Layer*0.003 lambda 2
-					pigment_map {
-						[0.00 CloudColor(Altitude, Layer, CenterTransparency)]
-						[Coverage-0.05-Layer*0.005 CloudColor(Altitude, Layer, BorderTransparency-Layer*0.004)]
-						[Coverage+0.05+Layer*0.002 CloudColor(Altitude, Layer, 1.00)]
-						[1.00 CloudColor(Altitude, Layer, 1.00)]
+					pigment_pattern {
+						bozo
+							turbulence 0.5 + Altitude/4000
+							octaves 11
+							omega 0.55
+							lambda 2
+						pigment_map {
+							[0.00	rgb 0.0]
+							[0.20	agate
+								turbulence Turbulence-0.1+0.01*LayerPart
+								octaves Octaves+LayerPart
+								omega Omega-0.1+0.1*LayerPart
+								lambda 2
+								color_map {
+									[0.00 rgb 0.0]
+									[0.80 rgb 0.1]
+									[1.00 rgb 0.2]
+								}
+							]
+							[0.40	bozo
+								turbulence Turbulence+0.01*LayerPart*Altitude/7000
+								octaves Octaves+LayerPart
+								omega Omega+0.04*LayerPart
+								lambda 2
+								color_map {
+									[0.00 rgb 0.0]
+									[0.50 rgb 0.2]
+									[1.00 rgb 0.5]
+								}
+							]
+							[0.55	bozo
+								turbulence Turbulence+0.02*LayerPart*Altitude/7000
+								octaves Octaves+1+LayerPart*Altitude/3000
+								omega Omega+0.05+0.05*LayerPart
+								lambda 2
+								color_map {
+									[0.00 rgb 0.3]
+									[0.80 rgb 0.6]
+									[1.00 rgb 0.8]
+								}
+							]
+							[0.75	rgb 1.0]
+							[1.00	rgb 1.0]
+						}
+						scale <0.5, 0.3, 0.6> * WorldRadius * 0.003 * Altitude/3000 * Scale
+						translate <Altitude, 0.0, Altitude>
+						rotate<0, Altitude / 100 , 0>
 					}
-					rotate<20, 20 , 0>
-					scale <0.5, 0.3, 0.7> * WorldRadius * 0.001 * Scale
+					pigment_map {
+						[0.00                          CloudColor(Altitude, LayerPart, CenterTransparency)]
+						[Coverage-0.05-0.18*LayerPart  CloudColor(Altitude, LayerPart, BorderTransparency-0.01*LayerPart)]
+						[Coverage+0.05+0.08*LayerPart  CloudColor(Altitude, LayerPart, 1.00)]
+						[1.00                          CloudColor(Altitude, LayerPart, 1.00)]
+					}
 				}
 				finish {ambient 1 diffuse 0}
 			}
-			hollow
 		}
+		#declare Layer = Layer + 1;
 	#end
+	}
 #end
 
-CloudLayer(25000, 9, 0.40, 0.90, 11, 0.7, 0.70, 0.30)
+CloudLayer(25000, 11, 0.30, 0.90, 11, 0.7, 0.70, 0.30)
 CloudLayer(10000, 7, 0.30, 0.80, 11, 0.5, 0.45, 0.10)
 CloudLayer(3000, 2, 0.35, 0.91, 12, 0.6, 0.40, 0.05)
 

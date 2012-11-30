@@ -89,8 +89,9 @@ foreach(POV_FILE ${OGLPLUS_POV_TEXTURES})
 				COMMAND ${POVRAY_EXECUTABLE}
 					"+W512"
 					"+H512"
+					"+Q9"
 					"+A0.3"
-					"+ua"
+					"+UA"
 					"-V"
 					"-D"
 					"+I${POV_FILE}"
