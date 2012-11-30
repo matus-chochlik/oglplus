@@ -260,7 +260,7 @@ public:
 	ProgramUniformSampler configurations;
 
 	BlobProgram(void)
-	 : Base(ObjectDesc("Blob"))
+	 : Base(ObjectDesc("Blob"), false)
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
@@ -429,7 +429,7 @@ public:
 	ProgramUniformSampler metal_tex;
 
 	MetalProgram(void)
-	 : Base(ObjectDesc("Metal program"))
+	 : Base(ObjectDesc("Metal program"), false)
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , camera_position(prog(), "CameraPosition")
 	 , light_position(prog(), "LightPosition")
