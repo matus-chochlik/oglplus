@@ -308,6 +308,16 @@ def parse_arguments():
 
 	return argparser.parse_args()
 
+# returns the common valid prefix for the specified paths
+def common_path_prefix(paths):
+	prefix = os.path.commonprefix(paths)
+	for path in paths:
+		if prefix != path:
+			suffix = path[len(prefix):]
+			if not suffix.startswith(os.path.sep):
+				return op.path.dirname(prefix)
+	return prefix
+
 
 # returns the shortest path from the directory
 # at source_path to the directory at target_path
@@ -318,7 +328,7 @@ def shortest_path_from_to(source_path, target_path):
 	if source_path == target_path:
 		return os.path.curdir
 
-	common_prefix = os.path.commonprefix([
+	common_prefix = common_path_prefix([
 		source_path,
 		target_path
 	])
