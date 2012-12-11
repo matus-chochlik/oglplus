@@ -736,7 +736,7 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	 : _Object(typename _Object::_Uninitialized())
 	{
-		_move_in_uninit(static_cast<_Object&&>(temp));
+		this->_move_in_uninit(static_cast<_Object&&>(temp));
 	}
 
 	/// Returns true if the object is initialized, false otherwise
