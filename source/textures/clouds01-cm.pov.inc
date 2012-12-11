@@ -17,11 +17,11 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 
 #macro CloudColor(Altitude, LayerPart, Density)
 		function {
-			min(sqrt(
-				pow(x/AtmThickness, 2)+
-				pow(y/AtmThickness, 2)+
-				pow(z/AtmThickness, 2)
-			), 1.0)
+			min(max(sqrt(
+				pow(x/(AtmThickness), 2)+
+				pow(y/(AtmThickness), 2)+
+				pow(z/(AtmThickness), 2)
+			)-1.0, 0.0), 1.0)
 		}
 		color_map {
 			[0.00 color rgbt <0.0, min(Altitude / AtmThickness, 1), min(LayerPart, 1), max(min(Density, 1), 0)>]
@@ -47,9 +47,9 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 				pigment {
 					pigment_pattern {
 						bozo
-							turbulence 0.5 + Altitude/4000
+							turbulence 0.6 + Altitude/6000
 							octaves 11 + Altitude / 10000
-							omega 0.55 + Altitude / 200000
+							omega 0.60 + Altitude / 200000
 							lambda 2
 						pigment_map {
 							[0.00	rgb 0.0]
@@ -64,7 +64,7 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 									[1.00 rgb 0.2]
 								}
 							]
-							[0.40	bozo
+							[0.35	bozo
 								turbulence Turbulence+0.01*LayerPart*Altitude/7000
 								octaves Octaves+LayerPart*Altitude/7000
 								omega Omega+0.04*LayerPart
@@ -75,7 +75,7 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 									[1.00 rgb 0.5]
 								}
 							]
-							[0.55	bozo
+							[0.45	bozo
 								turbulence Turbulence+0.02*LayerPart*Altitude/7000
 								octaves Octaves+1+LayerPart*Altitude/3000
 								omega Omega+0.05+0.05*LayerPart
@@ -86,7 +86,7 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 									[1.00 rgb 0.8]
 								}
 							]
-							[0.75	rgb 1.0]
+							[0.55	rgb 1.0]
 							[1.00	rgb 1.0]
 						}
 						scale <0.5, 0.3, 0.7> * WorldRadius * 0.003 * Altitude/3000 * Scale
@@ -108,9 +108,9 @@ background { rgbt <0.5, 0.5, 0.5, 0.0> }
 	}
 #end
 
-CloudLayer(25000, 29, 0.10, 0.90, 11, 0.7, 0.70, 0.30)
-CloudLayer(10000, 19, 0.25, 0.80, 11, 0.5, 0.45, 0.10)
-CloudLayer(3000, 2, 0.35, 0.91, 12, 0.6, 0.40, 0.05)
+CloudLayer(25000, 29, 0.10, 0.90, 11, 0.7, 0.70, 0.40)
+CloudLayer(10000, 19, 0.25, 0.80, 11, 0.5, 0.45, 0.15)
+CloudLayer(3000, 2, 0.35, 0.95, 12, 0.6, 0.35, 0.10)
 
 plane {
 	y,0

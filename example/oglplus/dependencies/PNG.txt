@@ -5,6 +5,7 @@
 020_texture_projection.cpp
 021_wooden_crate.cpp
 022_volumetric_light.cpp
+023_sky.cpp
 026_furry_torus.cpp
 029_flares.cpp
 030_pool_tiles.cpp
