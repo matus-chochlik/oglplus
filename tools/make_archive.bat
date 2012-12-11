@@ -17,6 +17,7 @@ SET oglplus_archive_items=^
 	CHANGELOG ^
 	VERSION ^
 	CMakeLists.txt ^
+	configure.py ^
 	configure.bat
 
 :: Get the current version

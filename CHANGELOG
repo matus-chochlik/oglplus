@@ -1,3 +1,20 @@
+Version 0.22.0
+
+- The Optional<Object> template class allowing optionally initialized
+  objects like textures, samplers, framebuffres, shaders, programs, etc.
+  was added.
+- Some problems in the ARB_debug_output wrapper were fixed.
+- Several new examples were added.
+- Several new textures were added.
+- The gradient image generator was added.
+- Some problems in the PNG file loaded were fixed.
+- The build system was updated to use a fallback texture if a texture
+  cannot be rendered from source and a prebuilt texture is not
+  available.
+- Some features of shape builders and several examples were
+  backported to MSVC
+- Several other minor bugs and problems were fixed
+
 Version 0.21.0
 
 - A utility for parsing Blender's .blend files was added.
