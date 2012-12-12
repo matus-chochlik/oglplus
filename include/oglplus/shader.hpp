@@ -24,6 +24,7 @@
 #include <oglplus/enumerations.hpp>
 #include <oglplus/glsl_source.hpp>
 
+#include <array>
 #include <vector>
 #include <cassert>
 
@@ -217,6 +218,21 @@ public:
 	 *  @glfunref{ShaderSource}
 	 */
 	void Source(const std::vector<const GLchar*>& srcs) const
+	{
+		Source(
+			const_cast<const GLchar**>(srcs.data()),
+			nullptr,
+			srcs.size()
+		);
+	}
+
+	/// Set the source code of the shader
+	/**
+	 *  @glsymbols
+	 *  @glfunref{ShaderSource}
+	 */
+	template <std::size_t N>
+	void Source(const std::array<const GLchar*, N>& srcs) const
 	{
 		Source(
 			const_cast<const GLchar**>(srcs.data()),

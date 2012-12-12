@@ -7,11 +7,11 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- *
- *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/opt/list_init.hpp>
+
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
@@ -121,34 +121,34 @@ public:
 	 , shadow_pp(ObjectDesc("Shadow"))
 	 , tex_side(params.HighQuality()?4096:512)
 	 , light_paths(
-		{
-			CubicBezierLoop<Vec3f, double>({
-				{-9.0f,  5.0f,  8.0f},
-				{ 0.0f,  6.0f, -9.0f},
-				{ 9.0f,  5.0f,  9.0f},
-				{ 0.0f, 15.0f,  0.0f}
-			}),
-			CubicBezierLoop<Vec3f, double>({
-				{-8.0f,  5.0f,  9.0f},
-				{-9.0f,  9.0f, -9.0f},
-				{ 9.0f,  8.0f, -9.0f},
-				{ 9.0f,  4.0f,  9.0f}
-			}),
-			CubicBezierLoop<Vec3f, double>({
-				{-9.0f,  7.0f,  9.0f},
-				{ 9.0f,  5.0f,  9.0f},
-				{ 9.0f,  5.0f, -9.0f},
-				{-9.0f,  8.0f, -9.0f}
-			})
-		}
+		List
+			(CubicBezierLoop<Vec3f, double>(List
+				(Vec3f(-9.0f,  5.0f,  8.0f))
+				(Vec3f( 0.0f,  6.0f, -9.0f))
+				(Vec3f( 9.0f,  5.0f,  9.0f))
+				(Vec3f( 0.0f, 15.0f,  0.0f))
+			.Get()))
+			(CubicBezierLoop<Vec3f, double>(List
+				(Vec3f(-8.0f,  5.0f,  9.0f))
+				(Vec3f(-9.0f,  9.0f, -9.0f))
+				(Vec3f( 9.0f,  8.0f, -9.0f))
+				(Vec3f( 9.0f,  4.0f,  9.0f))
+			.Get()))
+			(CubicBezierLoop<Vec3f, double>(List
+				(Vec3f(-9.0f,  7.0f,  9.0f))
+				(Vec3f( 9.0f,  5.0f,  9.0f))
+				(Vec3f( 9.0f,  5.0f, -9.0f))
+				(Vec3f(-9.0f,  8.0f, -9.0f))
+			.Get()))
+		.AsVector()
 	), light_positions(light_paths.size())
 	 , light_proj_matrices(light_paths.size())
 	 , light_colors(
-		{
-			{1.0f, 0.1f, 0.01},
-			{0.1f, 1.0f, 0.1f},
-			{0.1f, 0.1f, 1.0f}
-		}
+		List
+			(Vec3f(1.0f, 0.1f, 0.01))
+			(Vec3f(0.1f, 1.0f, 0.1f))
+			(Vec3f(0.1f, 0.1f, 1.0f))
+		.AsVector()
 	), smap(light_paths.size())
 	 , fbo(light_paths.size())
 	{
@@ -159,10 +159,10 @@ public:
 		max_lights_def <<"#define MaxLights "<<light_paths.size()<<'\n';
 		cube_count_def <<"#define CubeCount "<<cube_offsets.size()<<'\n';
 		// Set the vertex shader source
-		vs.Source({
-			"#version 330\n",
-			max_lights_def.str().c_str(),
-			cube_count_def.str().c_str(),
+		vs.Source(List
+			("#version 330\n")
+			(max_lights_def.str().c_str())
+			(cube_count_def.str().c_str())(
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform mat4 TexProjectionMatrices[MaxLights];"
 			"uniform vec3 LightPositions[MaxLights];"
@@ -198,7 +198,8 @@ public:
 			"		CameraMatrix *"
 			"		gl_Position;"
 			"}"
-		});
+			).Get()
+		);
 		// compile it
 		vs.Compile();
 
@@ -282,9 +283,9 @@ public:
 		VertexArray::Unbind();
 
 		// set the fragment shader source
-		const GLchar* draw_fs_source[3] = {
-			"#version 330\n",
-			max_lights_def.str().c_str(),
+		draw_fs.Source(List
+			("#version 330\n")
+			(max_lights_def.str().c_str())(
 			"uniform vec3 LightColors[MaxLights];"
 			"uniform sampler2DShadow ShadowTexs[MaxLights];"
 			"in vec3 vertNormal;"
@@ -327,8 +328,8 @@ public:
 			"	}"
 			"	fragColor = vec4(color, 1.0);"
 			"}"
-		};
-		draw_fs.Source(draw_fs_source, 3);
+			).Get()
+		);
 		// compile it
 		draw_fs.Compile();
 

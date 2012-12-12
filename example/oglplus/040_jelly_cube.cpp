@@ -7,12 +7,11 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- *
- *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
- *  @oglplus_example_uses_cxx11{FUNCTION_TEMPLATE_DEFAULT_ARGS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+
+#include <oglplus/opt/list_init.hpp>
 
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/shapes/plane.hpp>
@@ -144,7 +143,7 @@ private:
 public:
 	MetalFloor(const MetalProgram& metal_prog)
 	 : shapes::ShapeWrapper(
-		{"Position", "Normal", "Tangent", "TexCoord"},
+		List("Position")("Normal")("Tangent")("TexCoord").Get(),
 		shapes::Plane(Vec3f(200, 0, 0), Vec3f(0, 0,-200)),
 		metal_prog
 	)

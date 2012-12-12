@@ -14,7 +14,9 @@
 
 #include <oglplus/config.hpp>
 
+#include <type_traits>
 #include <array>
+#include <vector>
 
 namespace oglplus {
 namespace aux {
@@ -31,8 +33,15 @@ protected:
 	template <typename RandomAccessContainer>
 	void _init(RandomAccessContainer& dest) const
 	{
-		dest[I] = _value;
 		_prev->_init(dest);
+		dest[I] = _value;
+	}
+
+	template <typename BackInsertionContainer>
+	void _push_back(BackInsertionContainer& dest) const
+	{
+		_prev->_push_back(dest);
+		dest.push_back(_value);
 	}
 
 	ListInitializerBase(T value, const ListInitializerBase<T, I-1>* prev)
@@ -56,6 +65,12 @@ protected:
 		dest[0] = _value;
 	}
 
+	template <typename BackInsertionContainer>
+	void _push_back(BackInsertionContainer& dest) const
+	{
+		dest.push_back(_value);
+	}
+
 	ListInitializerBase(T value)
 	 : _value(value)
 	{ }
@@ -74,6 +89,41 @@ private:
 	 : _Base(value, prev)
 	{ }
 
+	template <typename X>
+	static decltype(X(), std::true_type()) _has_def_ctr(X*);
+
+	static std::false_type _has_def_ctr(...);
+
+	static std::array<T, I+1> _result_of_get(std::true_type);
+
+	static std::vector<T> _result_of_get(std::false_type);
+
+	typedef decltype(_result_of_get(_has_def_ctr((T*)0))) ResultOfGet;
+
+	template <typename X>
+	void _do_get(std::array<X, I+1>& result) const
+	{
+		this->_init(result);
+	}
+
+	void _do_get(std::vector<T>& result) const
+	{
+		this->_push_back(result);
+	}
+
+	template <typename StdContainer>
+	StdContainer _do_get_as(StdContainer*, std::true_type) const
+	{
+		return StdContainer(Get());
+	}
+
+	template <typename StdContainer>
+	StdContainer _do_get_as(StdContainer*, std::false_type) const
+	{
+		auto tmp = Get();
+		return StdContainer(tmp.begin(), tmp.end());
+	}
+
 	// non copyable
 	ListInitializer(const ListInitializer&);
 public:
@@ -90,20 +140,28 @@ public:
 		return ListInitializer<T, I+1>(value, this);
 	}
 
-	std::array<T, I+1> Get(void) const
+	ResultOfGet Get(void) const
 	{
-		std::array<T, I+1> result;
-		this->_init(result);
+		ResultOfGet result;
+		this->_do_get(result);
 		return result;
 	}
 
-	template <typename RandomAccessContainer>
-	std::vector<T> As(void) const
+	template <typename StdContainer>
+	StdContainer As(void) const
 	{
-		RandomAccessContainer result;
-		result.resize(I+1);
-		this->_init(result);
-		return std::move(result);
+		return this->_do_get_as(
+			(StdContainer*)nullptr,
+			typename std::is_convertible<
+				ResultOfGet,
+				StdContainer
+			>::type()
+		);
+	}
+
+	std::vector<T> AsVector(void) const
+	{
+		return As<std::vector<T>>();
 	}
 };
 

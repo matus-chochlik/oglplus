@@ -7,11 +7,12 @@
  *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- *
- *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+
+#include <oglplus/opt/list_init.hpp>
+
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/images/newton.hpp>
@@ -274,7 +275,7 @@ private:
 public:
 	CubeExample(void)
 	 : cube(
-		{"Position", "Normal", "TexCoord"},
+		List("Position")("Normal")("TexCoord").Get(),
 		shapes::Cube(),
 		cube_prog
 	)
