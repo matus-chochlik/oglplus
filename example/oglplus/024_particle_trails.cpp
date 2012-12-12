@@ -12,7 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/preprocessor.hpp>
+#include <oglplus/opt/list_init.hpp>
 
 #include <vector>
 #include <algorithm>
@@ -174,32 +174,32 @@ public:
 	{
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f,
-					Vec3f(-20.0f, -10.0f,  10.0f),
-					Vec3f( 20.0f,   0.0f, -20.0f),
-					Vec3f( 20.0f,  10.0f,  20.0f),
-					Vec3f(-20.0f,   0.0f, -10.0f)
-				), 5.0, 200.0
+				ListOf<Vec3f>
+					(Vec3f(-20.0f, -10.0f,  10.0f))
+					(Vec3f( 20.0f,   0.0f, -20.0f))
+					(Vec3f( 20.0f,  10.0f,  20.0f))
+					(Vec3f(-20.0f,   0.0f, -10.0f))
+				.As<std::vector<Vec3f>>(), 5.0, 200.0
 			)
 		);
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f,
-					Vec3f( 30.0f,   0.0f,   0.0f),
-					Vec3f(-30.0f,   0.0f,   0.0f),
-					Vec3f(-20.0f,  20.0f,   0.0f),
-					Vec3f( 20.0f, -10.0f,   0.0f)
-				), 3.0, 200.0
+				ListOf<Vec3f>
+					(Vec3f( 30.0f,   0.0f,   0.0f))
+					(Vec3f(-30.0f,   0.0f,   0.0f))
+					(Vec3f(-20.0f,  20.0f,   0.0f))
+					(Vec3f( 20.0f, -10.0f,   0.0f))
+				.As<std::vector<Vec3f>>(), 3.0, 200.0
 			)
 		);
 		emitters.push_back(
 			ParticleSystem(
-				OGLPLUS_STD_VECTOR_INIT(Vec3f,
-					Vec3f(  5.0f,  20.0f,  20.0f),
-					Vec3f( -5.0f,  20.0f, -20.0f),
-					Vec3f(  5.0f, -20.0f, -20.0f),
-					Vec3f( -5.0f, -20.0f,  20.0f)
-				), 20.0, 100.0
+				ListOf<Vec3f>
+					(Vec3f(  5.0f,  20.0f,  20.0f))
+					(Vec3f( -5.0f,  20.0f, -20.0f))
+					(Vec3f(  5.0f, -20.0f, -20.0f))
+					(Vec3f( -5.0f, -20.0f,  20.0f))
+				.As<std::vector<Vec3f>>(), 20.0, 100.0
 			)
 		);
 		// Set the vertex shader source

@@ -16,6 +16,7 @@
 #include <oglplus/auxiliary/ct_math.hpp>
 
 #include <vector>
+#include <array>
 #include <cmath>
 #include <cassert>
 
@@ -64,6 +65,13 @@ public:
 	 */
 	BezierCurves(const ::std::vector<Type>& points)
 	 : _points(points)
+	{
+		assert(PointsOk(_points));
+	}
+
+	template <std::size_t N>
+	BezierCurves(const ::std::array<Type, N>& points)
+	 : _points(points.begin(), points.end())
 	{
 		assert(PointsOk(_points));
 	}
@@ -169,12 +177,13 @@ class CubicBezierLoop
  : public BezierCurves<Type, Parameter, 3>
 {
 private:
+	template <typename StdRange>
 	static std::vector<Type> _make_cpoints(
-		const std::vector<Type>& points,
+		const StdRange& points,
 		Parameter r
 	)
 	{
-		unsigned i = 0, n = points.size();
+		std::size_t i = 0, n = points.size();
 		assert(n != 0);
 		std::vector<Type> result(points.size() * 3 + 1);
 		auto ir = result.begin(), er = result.end();
@@ -205,6 +214,13 @@ public:
 	/// Creates a loop passing through the sequence of the input points
 	CubicBezierLoop(
 		const ::std::vector<Type>& points,
+		Parameter r = Parameter(1)/Parameter(3)
+	): BezierCurves<Type, Parameter, 3>(_make_cpoints(points, r))
+	{ }
+
+	template <std::size_t N>
+	CubicBezierLoop(
+		const ::std::array<Type, N>& points,
 		Parameter r = Parameter(1)/Parameter(3)
 	): BezierCurves<Type, Parameter, 3>(_make_cpoints(points, r))
 	{ }

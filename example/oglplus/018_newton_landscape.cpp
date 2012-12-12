@@ -10,7 +10,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/preprocessor.hpp>
+#include <oglplus/opt/list_init.hpp>
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/images/newton.hpp>
 
@@ -64,14 +64,16 @@ public:
 	 , light_pos(prog, "LightPos")
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
-	 , light_path(OGLPLUS_STD_VECTOR_INIT(Vec3f,
-		Vec3f(-3.0f,  2.0f, -3.5f),
-		Vec3f( 0.0f,  5.0f,  0.5f),
-		Vec3f( 3.0f,  3.0f,  3.0f),
-		Vec3f( 3.0f,  3.0f, -3.0f),
-		Vec3f( 0.0f,  5.0f,  0.5f),
-		Vec3f(-3.2f,  2.0f,  3.0f)
-	))
+	 , light_path(
+		ListOf<Vec3f>
+			(Vec3f(-3.0f,  2.0f, -3.5f))
+			(Vec3f( 0.0f,  5.0f,  0.5f))
+			(Vec3f( 3.0f,  3.0f,  3.0f))
+			(Vec3f( 3.0f,  3.0f, -3.0f))
+			(Vec3f( 0.0f,  5.0f,  0.5f))
+			(Vec3f(-3.2f,  2.0f,  3.0f))
+		.Get()
+	)
 	{
 		VertexShader vs;
 		vs.Source(

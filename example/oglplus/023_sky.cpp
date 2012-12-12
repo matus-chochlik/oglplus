@@ -19,6 +19,8 @@
 #include <oglplus/shapes/sky_box.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
+#include <oglplus/opt/list_init.hpp>
+
 #include "example.hpp"
 
 namespace oglplus {
@@ -48,8 +50,8 @@ private:
 	Texture env_map;
 public:
 	SkyBoxExample(void)
-	 : sky_box({"Position"}, shapes::SkyBox())
-	 , shape({"Position", "Normal"}, shapes::WickerTorus())
+	 : sky_box(List("Position").Get(), shapes::SkyBox())
+	 , shape(List("Position")("Normal").Get(), shapes::WickerTorus())
 	 , sky_box_prog()
 	 , sky_box_projection_matrix(sky_box_prog, "ProjectionMatrix")
 	 , sky_box_camera_matrix(sky_box_prog, "CameraMatrix")
@@ -154,7 +156,7 @@ public:
 			"const vec3 LightColor = vec3(1.0, 1.0, 1.0);"
 
 			"uniform vec3 SunPosition;"
-			
+
 			"uniform samplerCube EnvMap;"
 
 			"float atm_intersection(vec3 v)"
@@ -172,7 +174,7 @@ public:
 			"	vec3 ld = normalize(SunPosition);"
 			"	vec4 cl = texture(EnvMap, vd);"
 			"	float ai = atm_intersection(vd);"
-			"	float al = max(dot(ld, up) + 0.12, 0.0);" 
+			"	float al = max(dot(ld, up) + 0.12, 0.0);"
 			"	float vl = max(dot(vd, ld), 0.0);"
 			"	float ct = (1.0-cl.a)*cl.b;"
 			"	vec3 ac = max(LightColor-AirColor*pow(ai, 0.33), vec3(0.0, 0.0, 0.0));"

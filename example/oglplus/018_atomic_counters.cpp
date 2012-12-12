@@ -10,7 +10,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/preprocessor.hpp>
 #include <oglplus/shapes/plane.hpp>
 
 #include "example.hpp"

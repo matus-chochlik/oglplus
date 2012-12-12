@@ -10,7 +10,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/preprocessor.hpp>
 #include <oglplus/shapes/wicker_torus.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
