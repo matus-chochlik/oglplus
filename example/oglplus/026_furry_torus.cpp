@@ -154,10 +154,16 @@ public:
 };
 
 class FurProgram
- : public HardwiredProgram<FurVertShader, FurGeomShader, FurFragShader>
+ : public HardwiredTupleProgram<
+	std::tuple<FurVertShader, FurGeomShader, FurFragShader>
+>
 {
 private:
 	const Program& prog(void) const { return *this; }
+
+	typedef HardwiredTupleProgram<
+		std::tuple<FurVertShader, FurGeomShader, FurFragShader>
+	> Base;
 public:
 	ProgramUniform<Mat4f> camera_matrix, new_model_matrix, old_model_matrix;
 	ProgramUniform<Vec3f> light_position;
@@ -165,7 +171,7 @@ public:
 	ProgramUniformSampler fur_tex;
 
 	FurProgram(void)
-	 : HardwiredProgram<FurVertShader, FurGeomShader, FurFragShader>("Fur")
+	 : Base("Fur")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , new_model_matrix(prog(), "NewModelMatrix")
 	 , old_model_matrix(prog(), "OldModelMatrix")
@@ -296,15 +302,20 @@ public:
 };
 
 class TorusProgram
- : public HardwiredProgram<TorusVertShader, TorusFragShader>
+ : public HardwiredTupleProgram<
+	std::tuple<TorusVertShader, TorusFragShader>
+>
 {
 private:
 	const Program& prog(void) const { return *this; }
+	typedef HardwiredTupleProgram<
+		std::tuple<TorusVertShader, TorusFragShader>
+	> Base;
 public:
 	ProgramUniform<Mat4f> camera_matrix, model_matrix;
 
 	TorusProgram(void)
-	 : HardwiredProgram<TorusVertShader, TorusFragShader>("Torus")
+	 : Base("Torus")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	{ }
