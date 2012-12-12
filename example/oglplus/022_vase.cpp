@@ -117,7 +117,7 @@ public:
 	ProgramUniformSampler vase_tex;
 
 	VaseProgram(void)
-	 : _base_program("Vase program", false)
+	 : _base_program(ObjectDesc("Vase program"), false)
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
