@@ -289,7 +289,8 @@ public:
 				Vec3f(0.8f, 0.8f, 1.0f),
 				Vec2f(-1.0f, -1.0f),
 				Vec2f( 1.0f,  1.0f),
-				images::NewtonFractal::X4Minus1()
+				images::NewtonFractal::X4Minus1(),
+				images::NewtonFractal::DefaultMixer()
 			);
 			auto bound_tex = Bind(cube_tex, Texture::Target::_2D);
 
