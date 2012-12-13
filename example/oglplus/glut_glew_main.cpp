@@ -54,8 +54,7 @@ private:
 	GLuint _width, _height;
 	ExampleParams _params;
 	std::unique_ptr<Example> _example;
-
-	Query _primitive_query;
+	std::unique_ptr<Query> _primitive_query;
 
 	SingleExample(const SingleExample&);
 public:
@@ -74,6 +73,7 @@ public:
 	 , _height(height)
 	 , _params()
 	 , _example(makeExample(_params))
+	 , _primitive_query(new Query())
 	{
 		assert(!SingleInstance());
 		SingleInstance() = this;
@@ -91,6 +91,7 @@ public:
 
 	void Close(void)
 	{
+		_primitive_query.reset();
 		_example.reset();
 	}
 
@@ -108,7 +109,7 @@ public:
 
 		GLuint primitives_per_frame = 0;
 		{
-			auto query_exec = _primitive_query.Execute(
+			auto query_exec = _primitive_query->Execute(
 				Query::Target::PrimitivesGenerated,
 				primitives_per_frame
 			);
