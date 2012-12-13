@@ -167,6 +167,26 @@ public:
 
 } // namespace aux
 
+/// Helper class template that can be used for static container initialization
+/**
+ *  @ingroup utility_classes
+ *
+ *  Usage:
+ *  @code
+ *  // creates a standard RandomAccessContainer of std::strings
+ *  // containing the values "A", "B", "C", "D", "E"
+ *  auto list = ListOf<std::string>("A")("B")("C")("D")("E").Get();
+ *  for(auto i=list.begin(), e=list.end(); i!=e; ++i)
+ *  {
+ *    std::cout << *i << std::endl;
+ *  }
+ *
+ *  // creates a vector of doubles
+ *  std::vector<double> v = ListOf<double>(1)(2)(3)(4)(5)(6).As<std::vector<double>>();
+ *  @endcode
+ *
+ *  @see List()
+ */
 template <typename T>
 class ListOf
  : public aux::ListInitializer<T, 0>
@@ -177,6 +197,26 @@ public:
 	{ }
 };
 
+
+/// Helper function template that can be used for static container initialization
+/**
+ *  @ingroup utility_classes
+ *
+ *  Usage:
+ *  @code
+ *  // creates a standard RandomAccessContainer of const char*
+ *  // containing the values "A", "B", "C", "D", "E"
+ *  auto list = List("A")("B")("C")("D")("E").Get();
+ *  for(auto i=list.begin(), e=list.end(); i!=e; ++i)
+ *  {
+ *    std::cout << *i << std::endl;
+ *  }
+ *
+ *  std::vector<int> v = List(1)(2)(3)(4)(5)(6).As<std::vector<int>>();
+ *  @endcode
+ *
+ *  @see ListOf
+ */
 template <typename T>
 inline aux::ListInitializer<T, 0> List(T value)
 {

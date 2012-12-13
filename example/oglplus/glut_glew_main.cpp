@@ -180,6 +180,8 @@ public:
 
 int main(int argc, char* argv[])
 {
+	oglplus::Application::ParseCommandLineOptions(argc, argv);
+
 	GLuint width = 800, height = 600;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);

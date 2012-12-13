@@ -1,16 +1,16 @@
 /**
- *  @file oglplus/application.hpp
+ *  @file oglplus/opt/application.hpp
  *  @brief Application/startup options-related declarations unrelated to OpenGL
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef OGLPLUS_APPLICATION_1107121519_HPP
-#define OGLPLUS_APPLICATION_1107121519_HPP
+#ifndef OGLPLUS_OPT_APPLICATION_1107121519_HPP
+#define OGLPLUS_OPT_APPLICATION_1107121519_HPP
 
 #include <oglplus/config.hpp>
 #include <oglplus/string.hpp>
