@@ -30,7 +30,7 @@ inline void RequireExtension(const GLchar* name, bool available)
 			GL_INVALID_OPERATION,
 			"Missing extension",
 			OGLPLUS_ERROR_INFO_STR(name),
-			oglplus::Error::PropertyMap()
+			oglplus::Error::PropertyMapInit()
 		);
 	}
 }

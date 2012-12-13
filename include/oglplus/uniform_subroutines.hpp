@@ -56,11 +56,23 @@ protected:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineUniformLocation));
 		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
 		{
-			Error::PropertyMap props;
-			props["identifier"] = identifier;
-			props["stage"] = EnumValueName(_stage);
-			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
-						_get_desc(program);
+			Error::PropertyMapInit props;
+			Error::AddPropertyValue(
+				props,
+				"identifier",
+				identifier
+			);
+			Error::AddPropertyValue(
+				props,
+				"stage",
+				EnumValueName(_stage)
+			);
+			Error::AddPropertyValue(
+				props,
+				"program",
+				aux::ObjectDescRegistry<ProgramOps>::
+					_get_desc(program)
+			);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive uniform",
@@ -238,10 +250,18 @@ protected:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineIndex));
 		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
 		{
-			Error::PropertyMap props;
-			props["identifier"] = identifier;
-			props["program"] = aux::ObjectDescRegistry<ProgramOps>::
-						_get_desc(program);
+			Error::PropertyMapInit props;
+			Error::AddPropertyValue(
+				props,
+				"identifier",
+				identifier
+			);
+			Error::AddPropertyValue(
+				props,
+				"program",
+				aux::ObjectDescRegistry<ProgramOps>::
+					_get_desc(program)
+			);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive subroutine",

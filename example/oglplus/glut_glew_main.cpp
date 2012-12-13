@@ -24,6 +24,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/compile_error.hpp>
+#include <oglplus/opt/application.hpp>
 
 #if OGLPLUS_LINK_LIBRARY
 # include <oglplus/lib.hpp>

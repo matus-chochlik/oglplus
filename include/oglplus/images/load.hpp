@@ -25,7 +25,7 @@ namespace oglplus {
 namespace images {
 namespace aux {
 
-bool FindImageWithExts(
+inline bool FindImageWithExts(
 	std::ifstream& file,
 	const std::string& path,
 	const char** exts,
@@ -41,7 +41,7 @@ bool FindImageWithExts(
 	return false;
 }
 
-bool FindImage(
+inline bool FindImage(
 	std::ifstream& file,
 	std::string dirname,
 	std::string name,
@@ -50,8 +50,11 @@ bool FindImage(
 	unsigned nexts
 )
 {
-	// TODO: switch this on platforms using other directory separators
+#if defined(WIN32) || defined(WIN64)
+	const std::string dirsep("\\");
+#else
 	const std::string dirsep("/");
+#endif
 	const std::string pardir(".." + dirsep);
 	const std::string path = dirname+dirsep+name;
 	const std::string apppath = Application::RelativePath();

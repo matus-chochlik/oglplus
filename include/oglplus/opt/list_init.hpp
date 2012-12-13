@@ -15,6 +15,7 @@
 #include <oglplus/config.hpp>
 
 #include <type_traits>
+#include <utility>
 #include <array>
 #include <vector>
 
@@ -85,10 +86,6 @@ private:
 
 	friend class ListInitializer<T, I-1>;
 
-	ListInitializer(T value, const ListInitializer<T, I-1>* prev)
-	 : _Base(value, prev)
-	{ }
-
 	template <typename X>
 	static decltype(X(), std::true_type()) _has_def_ctr(X*);
 
@@ -126,6 +123,10 @@ private:
 
 	// non copyable
 	ListInitializer(const ListInitializer&);
+
+	ListInitializer(T value, const ListInitializer<T, I-1>* prev)
+	 : _Base(value, prev)
+	{ }
 public:
 	ListInitializer(T value)
 	 : _Base(value)

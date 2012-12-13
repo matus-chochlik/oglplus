@@ -88,9 +88,17 @@ protected:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
 		if(OGLPLUS_IS_ERROR(result == GLint(-1)))
 		{
-			Error::PropertyMap props;
-			props["identifier"] = identifier;
-			props["program"] = DescriptionOf(program);
+			Error::PropertyMapInit props;
+			Error::AddPropertyValue(
+				props,
+				"identifier",
+				identifier
+			);
+			Error::AddPropertyValue(
+				props,
+				"program",
+				DescriptionOf(program)
+			);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Getting the location of inactive vertex attrib",
@@ -159,8 +167,12 @@ protected:
 			location
 		)))
 		{
-			Error::PropertyMap props;
-			props["identifier"] = identifier;
+			Error::PropertyMapInit props;
+			Error::AddPropertyValue(
+				props,
+				"identifier",
+				identifier
+			);
 			HandleError(
 				GL_INVALID_OPERATION,
 				"Inconsistent location of a vertex "

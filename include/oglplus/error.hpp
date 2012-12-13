@@ -485,7 +485,14 @@ class Error
  : public std::runtime_error
 {
 public:
+	/// A map of properties attached to the exception
 	typedef std::map<String, String> PropertyMap;
+
+#if !OGLPLUS_ERROR_NO_PROPERTIES
+	typedef PropertyMap PropertyMapInit;
+#else
+	struct PropertyMapInit { };
+#endif
 
 	/// List of ErrorInfo objects marking exception trace points
 	typedef std::list<ErrorInfo> PropagationInfoList;
@@ -516,7 +523,7 @@ public:
 		GLenum code,
 		const char* desc,
 		const ErrorInfo& info,
-		PropertyMap&& properties
+		PropertyMapInit&& properties
 	): std::runtime_error(desc)
 	 , _code(code)
 	 , _info(info)
@@ -660,6 +667,22 @@ public:
 	{
 		return _properties;
 	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_ERROR_NO_PROPERTIES
+	/// Set a property key/value to the property map
+	template <typename Key, typename Value>
+	static void AddPropertyValue(
+		PropertyMapInit& properties,
+		Key&& key,
+		Value&& value
+	)
+	{
+		properties[key] = value;
+	}
+#else
+	template <typename Key, typename Value>
+	static void AddPropertyValue(PropertyMapInit&, Key&&, Value&&) { }
 #endif
 
 	/// Set a property key/value to the exception
@@ -858,7 +881,7 @@ public:
 		GLuint limit,
 		const char* message,
 		const ErrorInfo& info,
-		Error::PropertyMap&& properties,
+		Error::PropertyMapInit&& properties,
 		bool assertion,
 		bool fatal_error,
 		bool build_error,
@@ -868,7 +891,7 @@ public:
 	 , _limit(limit)
 	 , _message(message)
 	 , _info(info)
-	 , _properties(properties)
+	 , _properties(std::move(properties))
 	 , _assertion(assertion)
 	 , _fatal_error(fatal_error)
 	 , _build_error(build_error)
@@ -951,7 +974,7 @@ inline void HandleBuildError(const String& msg, const ErrorInfo& info)
 			0, 0,
 			msg.c_str(),
 			info,
-			Error::PropertyMap(),
+			Error::PropertyMapInit(),
 			false,
 			false,
 			true,
@@ -972,7 +995,7 @@ inline void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
 			value, limit,
 			"OpenGL limited value out of range",
 			info,
-			Error::PropertyMap(),
+			Error::PropertyMapInit(),
 			false,
 			false,
 			false,
@@ -997,7 +1020,7 @@ inline void HandleIncompleteFramebuffer(
 			0, 0,
 			msg,
 			info,
-			Error::PropertyMap(),
+			Error::PropertyMapInit(),
 			false,
 			false,
 			false,
@@ -1020,7 +1043,7 @@ inline void HandleMissingFunction(const ErrorInfo& info)
 			0u, 0u,
 			msg,
 			info,
-			Error::PropertyMap(),
+			Error::PropertyMapInit(),
 			true,
 			true,
 			false,
@@ -1035,7 +1058,7 @@ inline void HandleError(
 	GLenum code,
 	const GLchar* msg,
 	const ErrorInfo& info,
-	Error::PropertyMap&& properties
+	Error::PropertyMapInit&& properties
 )
 {
 #if OGLPLUS_CUSTOM_ERROR_HANDLING
@@ -1045,7 +1068,7 @@ inline void HandleError(
 			0, 0,
 			msg,
 			info,
-			std::forward<Error::PropertyMap>(properties),
+			std::move(properties),
 			false,
 			code == GL_OUT_OF_MEMORY,
 			false,
@@ -1057,7 +1080,7 @@ inline void HandleError(
 		code,
 		msg,
 		info,
-		std::forward<Error::PropertyMap>(properties)
+		std::move(properties)
 	);
 }
 
@@ -1107,7 +1130,7 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 			0, 0,
 			msg,
 			info,
-			Error::PropertyMap(),
+			Error::PropertyMapInit(),
 			assertion,
 			code == GL_OUT_OF_MEMORY,
 			false,

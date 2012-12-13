@@ -230,10 +230,18 @@ protected:
 		GLenum result = OGLPLUS_GLFUNC(GetError)();
 		if(OGLPLUS_IS_ERROR(result != GL_NO_ERROR))
 		{
-			Error::PropertyMap props;
-			props["identifier"] = _get_name(program, index);
-			props["program"] = ObjectDescRegistry<ProgramOps>::
-					_get_desc(program);
+			Error::PropertyMapInit props;
+			Error::AddPropertyValue(
+				props,
+				"identifier",
+				_get_name(program, index)
+			);
+			Error::AddPropertyValue(
+				props,
+				"program",
+				ObjectDescRegistry<ProgramOps>::
+					_get_desc(program)
+			);
 			HandleError(
 				result,
 				"Error setting shading program variable value",
