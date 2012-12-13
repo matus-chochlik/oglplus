@@ -18,7 +18,7 @@
 #include <oglplus/x11/display.hpp>
 
 #include <oglplus/compile_error.hpp>
-#include <oglplus/application.hpp>
+#include <oglplus/opt/application.hpp>
 
 #include <stdexcept>
 #include <iostream>

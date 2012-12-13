@@ -352,7 +352,7 @@ namespace oglplus {
  *  to the application code and helps avoid subtle hard to track errors.
  */
 
-/** @defgroup utility_classes Utility classes
+/** @defgroup utility_classes Utility classes and functions
  */
 
 /** @defgroup modifier_classes Modifier classes

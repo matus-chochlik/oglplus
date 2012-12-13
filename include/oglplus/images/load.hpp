@@ -12,7 +12,7 @@
 #ifndef OGLPLUS_IMAGES_LOAD_1107121519_HPP
 #define OGLPLUS_IMAGES_LOAD_1107121519_HPP
 
-#include <oglplus/application.hpp>
+#include <oglplus/opt/application.hpp>
 #include <oglplus/image.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/images/png.hpp>
