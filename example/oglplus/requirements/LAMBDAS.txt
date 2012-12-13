@@ -3,3 +3,4 @@
 025_multi_viewport.cpp
 031_sketch.cpp
 033_metal_and_glass.cpp
+040_jelly_cube.cpp
