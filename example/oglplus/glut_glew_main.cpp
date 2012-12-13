@@ -89,6 +89,17 @@ public:
 		SingleInstance() = nullptr;
 	}
 
+	void Close(void)
+	{
+		_example.reset();
+	}
+
+	static void CloseFunc(void)
+	{
+		assert(SingleInstance());
+		SingleInstance()->Close();
+	}
+
 	void Display(void)
 	{
 		_clock.Update(_os_clock.seconds());
@@ -211,6 +222,7 @@ int main(int argc, char* argv[])
 			GLUT_ACTION_ON_WINDOW_CLOSE,
 			GLUT_ACTION_GLUTMAINLOOP_RETURNS
 		);
+		glutCloseFunc(&SingleExample::CloseFunc);
 #endif
 
 		glutMainLoop();
