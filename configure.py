@@ -104,6 +104,23 @@ def parse_arguments():
 			to the values specified by --library-dir.
 		"""
 	)
+	argparser.add_argument(
+		"--low-profile",
+		dest="low_profile",
+		type=BoolArgValue,
+		choices=[True, False],
+		action="store",
+		default=None,
+		help="""
+			Enables or disables the low profile mode (see the documentation
+			for the OGLPLUS_LOW_PROFILE compile-time switch).
+			If this option is used, then the specified value is written to
+			the oglplus/site_config.hpp file, otherwise it is set to the default
+			value in oglplus/config.hpp and may be overriden in sources by
+			defining this preprocessor symbol or by using the appropriate
+			compiler command-line switch or build environment setting.
+		"""
+	)
 	argparser_build_examples_group = argparser.add_mutually_exclusive_group()
 	argparser_build_examples_group.add_argument(
 		"--build-examples",
@@ -460,6 +477,14 @@ def main(argv):
 			"-DCMAKE_INSTALL_PREFIX="+
 			options.install_prefix
 		)
+
+	# set the low profile mode switch
+	if(options.low_profile is not None):
+		cmake_options.append("-DOGLPLUS_CONFIG_SET_LOW_PROFILE=On")
+		if(options.low_profile):
+			cmake_options.append("-DOGLPLUS_LOW_PROFILE=On")
+		else:
+			cmake_options.append("-DOGLPLUS_LOW_PROFILE=Off")
 
 	# disable building the examples
 	if(not options.build_examples):

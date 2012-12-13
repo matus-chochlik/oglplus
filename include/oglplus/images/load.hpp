@@ -35,7 +35,7 @@ bool FindImageWithExts(
 {
 	for(e=0; e!= nexts; ++e)
 	{
-		file.open(path + exts[e]);
+		file.open(path + exts[e], std::ios::binary);
 		if(file.good()) return true;
 	}
 	return false;

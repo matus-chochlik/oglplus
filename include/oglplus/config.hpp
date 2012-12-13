@@ -589,6 +589,44 @@
 # endif
 #endif
 
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch disabling the PropagationInfo function in Error
+/**
+ *  @see Error::PropagationInfo()
+ *
+ *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
+ *  i.e. Error::PropagationInfo() is enabled, when not in low-profile
+ *   and disabled otherwise and returns an empty list.
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_NO_PROPAGATION_INFO
+#else
+# ifndef OGLPLUS_ERROR_NO_PROPAGATION_INFO
+#  define OGLPLUS_ERROR_NO_PROPAGATION_INFO OGLPLUS_LOW_PROFILE
+# endif
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch disabling the Properties in Error
+/**
+ *  @see Error::Properties()
+ *
+ *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
+ *  i.e. Error::Properties() is enabled, when not in low-profile
+ *   and disabled otherwise and returns an empty map.
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_ERROR_NO_PROPERTIES
+#else
+# ifndef OGLPLUS_ERROR_NO_PROPERTIES
+#  define OGLPLUS_ERROR_NO_PROPERTIES OGLPLUS_LOW_PROFILE
+# endif
+#endif
+
+
 #include <oglplus/auxiliary/enum_class.hpp>
 
 #endif // include guard

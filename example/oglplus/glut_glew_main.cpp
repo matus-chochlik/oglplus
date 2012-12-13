@@ -8,13 +8,19 @@
  */
 
 #include <GL/glew.h>
-#include <GL/glut.h>
+
+#include <oglplus/site_config.hpp>
+
+#if OGLPLUS_USE_FREEGLUT
+# include <GL/freeglut.h>
+#else
+# include <GL/glut.h>
+#endif
 
 #include <cassert>
 #include <iostream>
 #include <iomanip>
 
-#include <oglplus/site_config.hpp>
 #include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/compile_error.hpp>
@@ -146,6 +152,28 @@ public:
 		assert(SingleInstance());
 		SingleInstance()->Motion(x, y);
 	}
+
+	void KeyPress(unsigned char /*k*/)
+	{
+		// TODO
+	}
+
+	static void KeyboardFunc(unsigned char k, int, int)
+	{
+		if(k == 0x1B) // Escape
+		{
+#if OGLPLUS_USE_FREEGLUT
+			glutLeaveMainLoop();
+#else
+			exit(0);
+#endif
+		}
+		else
+		{
+			assert(SingleInstance());
+			SingleInstance()->KeyPress(k);
+		}
+	}
 };
 
 } // namespace oglplus
@@ -173,6 +201,14 @@ int main(int argc, char* argv[])
 			glutMotionFunc(&SingleExample::MotionFunc);
 			glutPassiveMotionFunc(&SingleExample::MotionFunc);
 		}
+
+		glutKeyboardFunc(&SingleExample::KeyboardFunc);
+#if OGLPLUS_USE_FREEGLUT
+		glutSetOption(
+			GLUT_ACTION_ON_WINDOW_CLOSE,
+			GLUT_ACTION_GLUTMAINLOOP_RETURNS
+		);
+#endif
 
 		glutMainLoop();
 		return 0;

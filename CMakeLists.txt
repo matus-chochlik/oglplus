@@ -17,6 +17,22 @@ option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
 option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
 
+# The low-profile setting
+option(OGLPLUS_CONFIG_SET_LOW_PROFILE "Set the OGLPLUS_LOW_PROFILE switch in site_config.hpp" Off)
+
+if(OGLPLUS_CONFIG_SET_LOW_PROFILE)
+	set(OGLPLUS_CONFIG_SET_LOW_PROFILE 1)
+	if(${OGLPLUS_LOW_PROFILE})
+		set(OGLPLUS_LOW_PROFILE 1)
+	else()
+		set(OGLPLUS_LOW_PROFILE 0)
+	endif()
+else()
+	set(OGLPLUS_CONFIG_SET_LOW_PROFILE 0)
+	set(OGLPLUS_LOW_PROFILE 0)
+endif()
+
+# the GL header and GL init lib
 set(OGLPLUS_USE_GLCOREARB_H 0)
 set(OGLPLUS_USE_GL3_H 0)
 set(OGLPLUS_USE_GLEW 0)

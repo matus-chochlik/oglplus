@@ -181,8 +181,8 @@ of this script.
 Other build environments
 ========================
 
-Microsoft Visual Studio 2010 and 11
------------------------------------
+Microsoft Visual Studio 2010, 11 Beta and 2012
+----------------------------------------------
 
 OGLplus contains two solution files and a set of project files for building
 some of the examples in MSVC 2010 and 11.
@@ -191,7 +191,7 @@ The solutions are located at the following paths:
 - ``$(OGLplusRoot)/etc/msvc10/OGLplus/OGLplus.sln``
 - ``$(OGLplusRoot)/etc/msvc11/OGLplus/OGLplus.sln``
 
-To build properly, it requires GLEW (1.7 or higher) and FreeGLUT libraries
+To build properly, it requires GLEW (1.9 or higher) and FreeGLUT libraries
 to be installed and added to the list of header/library search paths
 in the solution. This can be achieved by setting the following variables
 visible to MSVC:
@@ -214,7 +214,11 @@ These variables can be set either as system or user environment variables
 or the ``OGLplus-site.props`` property sheet file (located in the solution's
 directory) can be used. Either edit the file in a text editor or use MSVC's
 *Property Manager* and set the variables listed above as appropriate
-on your system.
+on your system. Note, that the ``OGLplus-site.props`` file already
+defines variables like the above, but with appended underscore
+(for example ``OGLPLUS_DEP_INCLUDE_DIRS_``, etc.). To set the variables
+you can open the file in a text editor, remove the underscores and set
+the values to match your system configuration.
 
 Also note that when building the examples via the MSVC solutions
 the ``$(OGLplusRoot)/_prebuilt/`` directory is required. This directory
@@ -232,10 +236,11 @@ Acknowledgements
 
 - *Tolga Dalman* for helping to get started with CMake.
 - *Timo Keller* for contributing one of the examples.
+- *Denis Ovod* for constructive critique and suggestions.
 
 
 .. [#req_cxx11_feats] OGLplus requires the following C++11 features:
-   The ``type_traits`` library, variadic preprocessor macros, r-value
+   The ``type_traits`` and ``tuple`` librares, variadic preprocessor macros, r-value
    references and move-constructors.
    OGLplus also uses (but has workarounds for or disables certain components
    and/or functions if the features are not available):

@@ -486,12 +486,19 @@ class Error
 {
 public:
 	typedef std::map<String, String> PropertyMap;
+
+	/// List of ErrorInfo objects marking exception trace points
 	typedef std::list<ErrorInfo> PropagationInfoList;
 private:
 	GLenum _code;
 	ErrorInfo _info;
+#if !OGLPLUS_ERROR_NO_PROPERTIES
 	PropertyMap _properties;
+#endif
+
+#if !OGLPLUS_ERROR_NO_PROPAGATION_INFO
 	PropagationInfoList  _propagation;
+#endif
 	bool _assertion;
 public:
 	Error(
@@ -513,9 +520,15 @@ public:
 	): std::runtime_error(desc)
 	 , _code(code)
 	 , _info(info)
+#if !OGLPLUS_ERROR_NO_PROPERTIES
 	 , _properties(std::move(properties))
+#endif
 	 , _assertion(false)
-	{ }
+	{
+#if OGLPLUS_ERROR_NO_PROPERTIES
+		OGLPLUS_FAKE_USE(properties);
+#endif
+	}
 
 	inline ~Error(void) throw()
 	{ }
@@ -633,26 +646,56 @@ public:
 		return ::oglplus::ErrorObjectDescription(_info);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || OGLPLUS_ERROR_NO_PROPERTIES
 	/// Returns the properties of the exception
+	/**
+	 *  @see #OGLPLUS_ERROR_NO_PROPERTIES
+	 */
+	PropertyMap Properties(void) const
+	{
+		return PropertyMap();
+	}
+#else
 	const PropertyMap& Properties(void) const
 	{
 		return _properties;
 	}
+#endif
 
 	/// Set a property key/value to the exception
 	void SetPropertyValue(const String& key, const String& value)
 	{
+#if !OGLPLUS_ERROR_NO_PROPERTIES
 		_properties[key] = value;
+#else
+		OGLPLUS_FAKE_USE(key);
+		OGLPLUS_FAKE_USE(value);
+#endif
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || OGLPLUS_ERROR_NO_PROPAGATION_INFO
+	/// Returns a list of ErrorInfo objects marking exception trace points
+	/**
+	 *  @see #OGLPLUS_ERROR_NO_PROPAGATION_INFO
+	 */
+	PropagationInfoList PropagationInfo(void) const
+	{
+		return PropagationInfoList();
+	}
+#else
 	const PropagationInfoList& PropagationInfo(void) const
 	{
 		return _propagation;
 	}
+#endif
 
-	Error& Trace(const ErrorInfo& info)
+	void Trace(const ErrorInfo& info)
 	{
+#if !OGLPLUS_ERROR_NO_PROPAGATION_INFO
 		_propagation.push_back(info);
+#else
+		OGLPLUS_FAKE_USE(info);
+#endif
 		throw;
 	}
 

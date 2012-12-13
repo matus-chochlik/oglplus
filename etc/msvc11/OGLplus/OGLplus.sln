@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 11
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "001_triangle_glut_glew", "001_triangle_glut_glew\001_triangle_glut_glew.vcxproj", "{A8FEF6F4-70D0-174D-975C-9A5D3D29331D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "004_text_rendering", "004_text_rendering\004_text_rendering.vcxproj", "{17356C11-E74D-EE4A-0EA7-F5212F42B635}"

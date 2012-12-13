@@ -20,6 +20,7 @@
 #endif
 
 #include <cassert>
+#include <cstdlib>
 #include <iostream>
 #include <chrono>
 
@@ -41,6 +42,7 @@ private:
 	GLuint _prev_mouse_x, _prev_mouse_y;
 	GLuint _curr_mouse_x, _curr_mouse_y;
 
+	GLuint _curr_key;
 public:
 	void HandleUpdate(void)
 	{
@@ -66,6 +68,11 @@ public:
 		_prev_mouse_y = _curr_mouse_y;;
 		_curr_mouse_x = mouse_x;
 		_curr_mouse_y = mouse_y;
+	}
+
+	void HandleKeyPress(GLuint key)
+	{
+		_curr_key = key;
 	}
 
 
@@ -113,6 +120,8 @@ public:
 		return double(2*MouseDiffY())/_height;
 	}
 
+	GLuint Key(void) const { return _curr_key; }
+
 private:
 	StandaloneExample(const StandaloneExample&);
 public:
@@ -148,6 +157,10 @@ public:
 	}
 
 	virtual void PassiveMotion(void)
+	{
+	}
+
+	virtual void KeyPress(void)
 	{
 	}
 };
@@ -213,6 +226,24 @@ public:
 		assert(SingleInstance());
 		SingleInstance()->HandleMouseMove(x, y);
 		SingleInstance()->PassiveMotion();
+	}
+
+	static void KeyboardFunc(unsigned char k, int, int)
+	{
+		if(k == 0x1B) // Escape
+		{
+#if OGLPLUS_USE_FREEGLUT
+			glutLeaveMainLoop();
+#else
+			exit(0);
+#endif
+		}
+		else
+		{
+			assert(SingleInstance());
+			SingleInstance()->HandleKeyPress(k);
+			SingleInstance()->KeyPress();
+		}
 	}
 };
 
@@ -293,6 +324,8 @@ public:
 
 		glutMotionFunc(&SingleExample::MotionFunc);
 		glutPassiveMotionFunc(&SingleExample::PassiveMotionFunc);
+
+		glutKeyboardFunc(&SingleExample::KeyboardFunc);
 
 		glutDisplayFunc(&SingleExample::DisplayFunc);
 		glutIdleFunc(&SingleExample::DisplayFunc);
