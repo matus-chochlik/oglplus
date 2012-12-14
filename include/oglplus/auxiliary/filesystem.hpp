@@ -21,16 +21,32 @@ namespace aux {
 
 inline std::string FilesysPathSep(void)
 {
-	// TODO
+#if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
+	return std::string("\\");
+#else
 	return std::string("/");
+#endif
+}
+
+inline std::string FilesysPathParDir(void)
+{
+	return std::string("..");
+}
+
+inline std::string FilesysPathCurDir(void)
+{
+	return std::string(".");
 }
 
 inline bool IsFilesysPathSep(const char* str, size_t size)
 {
 	assert(size > 0);
 	assert(str);
-	// TODO
+#if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
+	return *str == '\\';
+#else
 	return *str == '/';
+#endif
 }
 
 } // namespace aux

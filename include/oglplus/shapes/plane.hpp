@@ -242,6 +242,18 @@ public:
 	> VertexAttribs;
 #endif
 
+	/// Queries the bounding sphere coordinates and dimensions
+	template <typename T>
+	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	{
+		center_and_radius = Vector<T, 4>(
+			T(_point.x()),
+			T(_point.y()),
+			T(_point.z()),
+			T(Length(_u + _v))
+		);
+	}
+
 	/// The type of index container returned by Indices()
 	typedef std::vector<GLuint> IndexArray;
 

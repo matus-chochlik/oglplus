@@ -57,6 +57,9 @@ protected:
 	// names of the individual vertex attributes
 	std::vector<String> _names;
 
+	// the origin and radius of the bounding sphere
+	Vector<GLfloat, 4> _bounding_sphere;
+
 	template <class ShapeBuilder, typename Iterator>
 	void _init(const ShapeBuilder& builder, Iterator name, Iterator end)
 	{
@@ -95,6 +98,7 @@ protected:
 				shape_indices
 			);
 		}
+		builder.BoundingSphere(_bounding_sphere);
 	}
 public:
 	template <typename Iterator, class ShapeBuilder>
@@ -182,6 +186,25 @@ public:
 		_gl.FrontFace(_face_winding);
 		_shape_instr.Draw(_index_info, 1, drawing_driver);
 	}
+
+	Vector<GLfloat, 4> BoundingSphere(void) const
+	{
+		return _bounding_sphere;
+	}
+
+	Vector<GLfloat, 3> BoundingSphereCenter(void) const
+	{
+		return Vector<GLfloat, 3>(
+			_bounding_sphere.x(),
+			_bounding_sphere.y(),
+			_bounding_sphere.z()
+		);
+	}
+
+	GLfloat BoundingSphereRadius(void) const
+	{
+		return _bounding_sphere.w();
+	}
 };
 
 /// Wraps instructions and VBOs and VAO used to render a shape built by a ShapeBuilder
@@ -192,9 +215,9 @@ public:
 	ShapeWrapper(ShapeWrapper&& temp)
 	 : ShapeWrapperBase(static_cast<ShapeWrapperBase&&>(temp))
 	{ }
-	
+
 	template <typename StdRange, class ShapeBuilder>
-	ShapeWrapper(	
+	ShapeWrapper(
 		const StdRange& names,
 		const ShapeBuilder& builder
 	): ShapeWrapperBase(names.begin(), names.end(), builder)

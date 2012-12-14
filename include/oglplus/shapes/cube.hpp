@@ -17,6 +17,8 @@
 
 #include <oglplus/shapes/vert_attr_info.hpp>
 
+#include <cmath>
+
 namespace oglplus {
 namespace shapes {
 
@@ -315,6 +317,18 @@ public:
 		>
 	> VertexAttribs;
 #endif
+
+	/// Queries the bounding sphere coordinates and dimensions
+	template <typename T>
+	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	{
+		center_and_radius = Vector<T, 4>(
+			T(0),
+			T(0),
+			T(0),
+			T(std::sqrt(_x*_x + _y*_y + _z*_z))
+		);
+	}
 
 	/// The type of the index container returned by Indices()
 	typedef std::vector<GLushort> IndexArray;

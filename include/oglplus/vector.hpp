@@ -911,6 +911,12 @@ public:
 		return At<2>(*this);
 	}
 
+	T w(void) const
+	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
+	{
+		return At<3>(*this);
+	}
+
 	// TODO:
 	template <typename Out>
 	void _print(Out& out) const

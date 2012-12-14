@@ -38,6 +38,8 @@ private:
 	const std::vector<Vector<Type, 3>> _normals_0, _normals_1;
 	const std::vector<Vector<Type, 3>> _tex_coords_0, _tex_coords_1;
 
+	Type _radius;
+
 	static Vector<Type, 3> _mix(
 		const Vector<Type, 3>& a,
 		const Vector<Type, 3>& b,
@@ -121,6 +123,19 @@ private:
 		assert(_tex_coords_0.size() == _rings);
 		assert(_tex_coords_1.size() == _rings);
 	}
+
+	void _calc_radius(void)
+	{
+		_radius = Type(0);
+		Type l;
+		for(unsigned i=0; i!=_rings; ++i)
+		{
+			l = Length(_positions_0[i]);
+			if(_radius < l) _radius = l;
+			l = Length(_positions_1[i]);
+			if(_radius < l) _radius = l;
+		}
+	}
 public:
 	/// Creates a shape by revolving curve approximation around the y-axis
 	RevolveY(
@@ -139,6 +154,7 @@ public:
 	 , _tex_coords_1(_tex_coords_0)
 	{
 		_check();
+		_calc_radius();
 	}
 
 	/// Creates a shape by revolving curve approximation around the y-axis
@@ -161,6 +177,7 @@ public:
 	 , _tex_coords_1(tex_coords_1)
 	{
 		_check();
+		_calc_radius();
 	}
 
 	/// Returns the winding direction of faces
@@ -293,6 +310,18 @@ public:
 		>
 	> VertexAttribs;
 #endif
+
+	/// Queries the bounding sphere coordinates and dimensions
+	template <typename T>
+	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	{
+		center_and_radius = Vector<T, 4>(
+			T(0),
+			T(0),
+			T(0),
+			T(_radius)
+		);
+	}
 
 	/// The type of index container returned by Indices()
 	typedef std::vector<GLuint> IndexArray;

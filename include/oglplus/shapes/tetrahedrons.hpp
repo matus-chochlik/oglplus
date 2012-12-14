@@ -122,6 +122,12 @@ public:
 	> VertexAttribs;
 #endif
 
+	// This is here just for consistency with Shape wrapper
+	template <typename T>
+	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	{
+	}
+
 	/// The type of index container returned by Indices()
 	typedef std::vector<GLuint> IndexArray;
 

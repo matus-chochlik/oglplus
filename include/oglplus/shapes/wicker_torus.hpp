@@ -814,6 +814,18 @@ public:
 	> VertexAttribs;
 #endif
 
+	/// Queries the bounding sphere coordinates and dimensions
+	template <typename T>
+	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	{
+		center_and_radius = Vector<T, 4>(
+			T(0),
+			T(0),
+			T(0),
+			T(_radius_out + _thickness)
+		);
+	}
+
 	/// The type of index container returned by Indices()
 	typedef std::vector<GLuint> IndexArray;
 
