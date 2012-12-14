@@ -159,7 +159,7 @@ private:
 	BlendFileStructFieldRange(
 		BlendFileSDNA* sdna,
 		std::size_t struct_index
-	): Base(_field_count(_sdna, struct_index))
+	): Base(_field_count(sdna, struct_index))
 	 , _sdna(sdna)
 	 , _struct_index(struct_index)
 	{ }
