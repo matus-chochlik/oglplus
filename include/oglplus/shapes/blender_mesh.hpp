@@ -193,25 +193,30 @@ private:
 			auto object_obmat_field = object_data.Field<float>("obmat");
 			// make a transformation matrix
 			Mat4f obmat(
-				object_obmat_field.Get(0, 0),
-				object_obmat_field.Get(0, 4),
-				object_obmat_field.Get(0, 8),
-				object_obmat_field.Get(0,12),
-
-				object_obmat_field.Get(0, 1),
-				object_obmat_field.Get(0, 5),
-				object_obmat_field.Get(0, 9),
-				object_obmat_field.Get(0,13),
-
-				object_obmat_field.Get(0, 2),
-				object_obmat_field.Get(0, 6),
-				object_obmat_field.Get(0,10),
-				object_obmat_field.Get(0,14),
-
-				object_obmat_field.Get(0, 3),
-				object_obmat_field.Get(0, 7),
-				object_obmat_field.Get(0,11),
-				object_obmat_field.Get(0,15)
+				Vec4f(
+					object_obmat_field.Get(0, 0),
+					object_obmat_field.Get(0, 4),
+					object_obmat_field.Get(0, 8),
+					object_obmat_field.Get(0,12)
+				),
+				Vec4f(
+					object_obmat_field.Get(0, 1),
+					object_obmat_field.Get(0, 5),
+					object_obmat_field.Get(0, 9),
+					object_obmat_field.Get(0,13)
+				),
+				Vec4f(
+					object_obmat_field.Get(0, 2),
+					object_obmat_field.Get(0, 6),
+					object_obmat_field.Get(0,10),
+					object_obmat_field.Get(0,14)
+				),
+				Vec4f(
+					object_obmat_field.Get(0, 3),
+					object_obmat_field.Get(0, 7),
+					object_obmat_field.Get(0,11),
+					object_obmat_field.Get(0,15)
+				)
 			);
 
 			_load_mesh(
