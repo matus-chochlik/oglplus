@@ -21,6 +21,7 @@
 
 #include <vector>
 
+#include <iostream>
 namespace oglplus {
 namespace shapes {
 
@@ -29,6 +30,13 @@ class BlenderMesh
  : public DrawingInstructionWriter
 {
 private:
+	struct _loading_options
+	{
+		const char* scene_name;
+		bool load_normals;
+		bool load_texcoords;
+	};
+
 	// vertex positions
 	std::vector<GLfloat> _pos_data;
 	// vertex normals
@@ -41,9 +49,9 @@ private:
 
 	// find the scene by name or the default scene
 	imports::BlendFileFlatStructBlockData _find_scene(
+		const _loading_options& /*opts*/,
 		imports::BlendFile& blend_file,
-		imports::BlendFileStructGlobBlock& glob_block,
-		const char* /*scene_name*/
+		imports::BlendFileStructGlobBlock& glob_block
 	)
 	{
 		// TODO: find the scene by name
@@ -52,6 +60,7 @@ private:
 
 	// load a single mesh from a scene
 	void _load_mesh(
+		const _loading_options& opts,
 		imports::BlendFile& blend_file,
 		imports::BlendFileFlatStructBlockData& object_mesh_data,
 		const Mat4f& mesh_matrix,
@@ -60,6 +69,8 @@ private:
 	{
 		// the number of vertices
 		std::size_t n_verts = 0;
+		// the number of additional vertices
+		std::size_t n_add_verts = 0;
 
 		// get the vertex block pointer
 		imports::BlendFilePointer vertex_ptr =
@@ -75,7 +86,8 @@ private:
 			auto vertex_no_field = vertex_data.Field<short>("no");
 			// make two vectors of position and normal data
 			std::vector<GLfloat> ps(3 * n_verts);
-			std::vector<GLfloat> ns(3 * n_verts);
+			std::vector<GLfloat> ns(opts.load_normals?3*n_verts:0);
+			std::vector<GLfloat> ts(opts.load_texcoords?2*n_verts:0,-1.0f);
 			for(std::size_t v=0; v!=n_verts; ++v)
 			{
 				// (transpose y and z axes)
@@ -90,27 +102,140 @@ private:
 				ps[3*v+0] = newpos.x();
 				ps[3*v+1] = newpos.z();
 				ps[3*v+2] =-newpos.y();
+				//
 				// get the normals
-				Vec4f normal(
-					vertex_no_field.Get(v, 0),
-					vertex_no_field.Get(v, 1),
-					vertex_no_field.Get(v, 2),
-					0.0f
-				);
-				Vec4f newnorm = mesh_matrix * normal;
-				ns[3*v+0] = newnorm.x();
-				ns[3*v+1] = newnorm.z();
-				ns[3*v+2] =-newnorm.y();
+				if(opts.load_normals)
+				{
+					Vec4f normal(
+						vertex_no_field.Get(v, 0),
+						vertex_no_field.Get(v, 1),
+						vertex_no_field.Get(v, 2),
+						0.0f
+					);
+					Vec4f newnorm = mesh_matrix * normal;
+					ns[3*v+0] = newnorm.x();
+					ns[3*v+1] = newnorm.z();
+					ns[3*v+2] =-newnorm.y();
+				}
 			}
-			// append the values
+			// append the values:
+			// positions
 			_pos_data.insert(_pos_data.end(), ps.begin(), ps.end());
-			_nml_data.insert(_nml_data.end(), ns.begin(), ns.end());
+			// normals
+			if(opts.load_normals)
+				_nml_data.insert(_nml_data.end(), ns.begin(), ns.end());
+			if(opts.load_texcoords)
+				_uvc_data.insert(_uvc_data.end(), ts.begin(), ts.end());
 		}
+
+		// additional positions, normals and uv coords
+		// and indices that might be added due when
+		// loading uv-coordinates for vertices with the same
+		// positions/normals but different texture coordinates
+		std::vector<GLfloat> aps, ans, ats;
+		std::vector<GLuint> ais;
 
 		// get the face block pointer
 		auto face_ptr = object_mesh_data.Field<void*>("mface").Get();
-		// open the face block (if any)
-		if(face_ptr)
+		// get the face texture block pointer
+		auto tface_ptr = object_mesh_data.Field<void*>("mtface").Get();
+		//
+		// if we wanted to load the uv-coordinates and they are available
+		if(face_ptr && tface_ptr && opts.load_texcoords)
+		{
+			auto face_data = blend_file[face_ptr];
+			auto tface_data = blend_file[tface_ptr];
+			// get the number of faces in the block
+			std::size_t n_faces = face_data.BlockElementCount();
+			assert(n_faces == tface_data.BlockElementCount());
+			// get the vertex index fields of the face
+			auto face_v1_field = face_data.Field<int>("v1");
+			auto face_v2_field = face_data.Field<int>("v2");
+			auto face_v3_field = face_data.Field<int>("v3");
+			auto face_v4_field = face_data.Field<int>("v4");
+			// get the uv coords fields
+			auto tface_uv_field = tface_data.Field<float>("uv");
+			// make a vector of index data
+			std::vector<GLuint> is(5 * n_faces);
+
+			std::size_t ii = 0;
+			for(std::size_t f=0; f!=n_faces; ++f)
+			{
+				// get face vertex indices
+				int fv[4] = {
+					face_v1_field.Get(f),
+					face_v2_field.Get(f),
+					face_v3_field.Get(f),
+					face_v4_field.Get(f)
+				};
+
+				float uv[8];
+				for(std::size_t i=0; i!=8; ++i)
+					uv[i] = tface_uv_field.Get(f, i);
+
+				int fi[4] = {
+					fv[0]+index_offset,
+					fv[1]+index_offset,
+					fv[2]+index_offset,
+					fv[3]?fv[3]+index_offset:0
+				};
+
+				bool need_face_copy = false;
+				for(std::size_t i=0; i!=4; ++i)
+					for(std::size_t j=0; j!=2; ++j)
+						need_face_copy |=
+							(fi[i] != 0) &&
+							(_uvc_data[fi[i]*2+j] >= 0.0f) &&
+							(_uvc_data[fi[i]*2+j] != uv[i*2+j]);
+
+				if(need_face_copy)
+				{
+					for(std::size_t i=0; i!=4; ++i)
+					{
+						if(fi[i] != 0)
+						{
+							aps.push_back(_pos_data[fi[i]*3+0]);
+							aps.push_back(_pos_data[fi[i]*3+1]);
+							aps.push_back(_pos_data[fi[i]*3+2]);
+
+							ans.push_back(_nml_data[fi[i]*3+0]);
+							ans.push_back(_nml_data[fi[i]*3+1]);
+							ans.push_back(_nml_data[fi[i]*3+2]);
+
+							ats.push_back(uv[i*2+0]);
+							ats.push_back(uv[i*2+1]);
+
+							ais.push_back(
+								index_offset+
+								n_verts +
+								n_add_verts
+							);
+							++n_add_verts;
+						}
+					}
+					// primitive restart index
+					ais.push_back(0);
+				}
+				else
+				{
+					for(std::size_t i=0; i!=4; ++i)
+					{
+						if(fi[i] != 0)
+						{
+							for(std::size_t j=0; j!=2; ++j)
+								_uvc_data[fi[i]*2+j] = uv[i*2+j];
+							is[ii++] = fi[i];
+						}
+					}
+					// primitive restart index
+					is[ii++] = 0;
+				}
+			}
+			is.resize(ii);
+			// append the values
+			_idx_data.insert(_idx_data.end(), is.begin(), is.end());
+		}
+		else if(face_ptr)
 		{
 			auto face_data = blend_file[face_ptr];
 			// get the number of faces in the block
@@ -122,6 +247,7 @@ private:
 			auto face_v4_field = face_data.Field<int>("v4");
 			// make a vector of index data
 			std::vector<GLuint> is(5 * n_faces);
+			std::size_t ii = 0;
 			for(std::size_t f=0; f!=n_faces; ++f)
 			{
 				// get face vertex indices
@@ -130,12 +256,13 @@ private:
 				int v3 = face_v3_field.Get(f);
 				int v4 = face_v4_field.Get(f);
 
-				is[5*f+0] = v1+index_offset;
-				is[5*f+1] = v2+index_offset;
-				is[5*f+2] = v3+index_offset;
-				is[5*f+3] = v4?v4+index_offset:0;
-				is[5*f+4] = 0; // primitive restart index
+				is[ii++] = v1+index_offset;
+				is[ii++] = v2+index_offset;
+				is[ii++] = v3+index_offset;
+				if(v4) is[ii++] = v4+index_offset;
+				is[ii++] = 0; // primitive restart index
 			}
+			is.resize(ii);
 			// append the values
 			_idx_data.insert(_idx_data.end(), is.begin(), is.end());
 		}
@@ -144,6 +271,9 @@ private:
 		auto poly_ptr = object_mesh_data.TryGet<void*>("mpoly", nullptr);
 		// and the loop block pointer
 		auto loop_ptr = object_mesh_data.TryGet<void*>("mloop", nullptr);
+		//
+		// TODO: add loading of UV-coordinates here
+		//
 		// open the poly and loop blocks (if we have both)
 		if(poly_ptr && loop_ptr)
 		{
@@ -173,11 +303,22 @@ private:
 			// append the values
 			_idx_data.insert(_idx_data.end(), is.begin(), is.end());
 		}
-		index_offset += n_verts;
+
+		// if there is some additional vertex data and indices
+		if(n_add_verts)
+		{
+			// add it
+			_pos_data.insert(_pos_data.end(), aps.begin(), aps.end());
+			_nml_data.insert(_nml_data.end(), ans.begin(), ans.end());
+			_uvc_data.insert(_uvc_data.end(), ats.begin(), ats.end());
+			_idx_data.insert(_idx_data.end(), ais.begin(), ais.end());
+		}
+		index_offset += n_verts + n_add_verts;
 	}
 
 	// load a single object from a scene
 	void _load_object(
+		const _loading_options& opts,
 		imports::BlendFile& blend_file,
 		imports::BlendFileFlatStructBlockData& object_data,
 		imports::BlendFilePointer object_data_ptr,
@@ -220,6 +361,7 @@ private:
 			);
 
 			_load_mesh(
+				opts,
 				blend_file,
 				object_data_data,
 				obmat,
@@ -229,10 +371,8 @@ private:
 	}
 
 	void _load_meshes(
-		imports::BlendFile& blend_file,
-		bool load_normals,
-		bool load_texcoords,
-		const char* scene_name
+		const _loading_options& opts,
+		imports::BlendFile& blend_file
 	)
 	{
 		// the values at index 0 is unused
@@ -243,14 +383,14 @@ private:
 		_pos_data.push_back(0.0);
 		_pos_data.push_back(0.0);
 		// unused normal
-		if(load_normals)
+		if(opts.load_normals)
 		{
 			_nml_data.push_back(0.0);
 			_nml_data.push_back(0.0);
 			_nml_data.push_back(0.0);
 		}
 		// unused tex coord
-		if(load_texcoords)
+		if(opts.load_texcoords)
 		{
 			_uvc_data.push_back(0.0);
 			_uvc_data.push_back(0.0);
@@ -264,11 +404,7 @@ private:
 
 		// find the scene
 		imports::BlendFileFlatStructBlockData scene_data =
-			_find_scene(
-				blend_file,
-				glob_block,
-				scene_name
-			);
+			_find_scene(opts, blend_file, glob_block);
 		//
 		// get the pointer to the first object in the scene
 		imports::BlendFilePointer object_link_ptr =
@@ -295,6 +431,7 @@ private:
 				if(object_data_ptr)
 				{
 					_load_object(
+						opts,
 						blend_file,
 						object_data,
 						object_data_ptr,
@@ -314,12 +451,13 @@ public:
 		bool load_texcoords = true
 	)
 	{
-		_load_meshes(
-			blend_file,
-			load_normals,
-			load_texcoords,
-			nullptr // scene_name
-		);
+		_loading_options opts;
+		opts.scene_name = nullptr;
+		opts.load_normals = load_normals;
+		opts.load_texcoords = load_texcoords;
+
+		// do load the meshes
+		_load_meshes(opts, blend_file);
 	}
 
 	/// Returns the winding direction of faces
@@ -354,7 +492,7 @@ public:
 	{
 		dest.clear();
 		dest.insert(dest.end(), _uvc_data.begin(), _uvc_data.end());
-		return 3;
+		return 2;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
