@@ -26,6 +26,7 @@ protected:
 	const std::size_t _struct_index;
 
 	friend class BlendFile;
+	friend class BlendFileBlockData;
 	friend class BlendFileStructField;
 	friend class BlendFileFlatStructBlockData;
 

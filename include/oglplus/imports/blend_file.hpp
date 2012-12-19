@@ -284,6 +284,23 @@ public:
 		);
 	}
 
+	template <typename T>
+	BlendFileType Type(void) const
+	{
+		std::size_t type_index = _sdna->_find_type_index<T>();
+		if(type_index == _sdna->_invalid_type_index())
+		{
+			throw std::runtime_error(
+				"Unknown blender type"
+			);
+		}
+		return BlendFileType(
+			_sdna.get(),
+			type_index,
+			_sdna->_type_structs[type_index]
+		);
+	}
+
 	/// Returns the pointee type for a pointer
 	BlendFileType Pointee(const BlendFilePointer& pointer) const
 	{

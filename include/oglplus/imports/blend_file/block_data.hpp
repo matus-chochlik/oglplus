@@ -42,6 +42,26 @@ private:
 	{ }
 
 	template <unsigned Level>
+	BlendFilePointerTpl<Level> _do_make_pointer(
+		const char* pos,
+		std::size_t type_index
+	) const
+	{
+		if(_ptr_size == 4)
+			return BlendFilePointerTpl<Level>(ReorderToNative(
+				_byte_order,
+				*reinterpret_cast<const uint32_t*>(pos)
+			), type_index);
+		if(_ptr_size == 8)
+			return BlendFilePointerTpl<Level>(ReorderToNative(
+				_byte_order,
+				*reinterpret_cast<const uint64_t*>(pos)
+			), type_index);
+		assert(!"Invalid pointer size!");
+		return BlendFilePointerTpl<Level>();
+	}
+
+	template <unsigned Level>
 	BlendFilePointerTpl<Level> _do_get_pointer(
 		std::size_t type_index,
 		std::size_t field_offset,
@@ -56,19 +76,7 @@ private:
 			block_element * _struct_size +
 			field_element * _ptr_size +
 			field_offset;
-
-		if(_ptr_size == 4)
-			return BlendFilePointerTpl<Level>(ReorderToNative(
-				_byte_order,
-				*reinterpret_cast<const uint32_t*>(pos)
-			), type_index);
-		if(_ptr_size == 8)
-			return BlendFilePointerTpl<Level>(ReorderToNative(
-				_byte_order,
-				*reinterpret_cast<const uint64_t*>(pos)
-			), type_index);
-		assert(!"Invalid pointer size!");
-		return BlendFilePointerTpl<Level>();
+		return _do_make_pointer<Level>(pos, type_index);
 	}
 
 	template <unsigned Level>
@@ -102,6 +110,32 @@ public:
 	 , _ptr_size(tmp._ptr_size)
 	 , _struct_size(tmp._struct_size)
 	{ }
+
+	/// Returns the raw data of the block
+	const char* RawData(void) const
+	{
+		return _block_data.data();
+	}
+
+	/// returns the size (in bytes) of the raw data
+	std::size_t DataSize(void) const
+	{
+		return _block_data.size();
+	}
+
+	/// Returns a pointer at the specified index
+	BlendFilePointer AsPointerTo(
+		const BlendFileType& type,
+		std::size_t index = 0,
+		std::size_t data_offset = 0
+	) const
+	{
+		const char* pos =
+			_block_data.data() +
+			data_offset +
+			index * _ptr_size;
+		return _do_make_pointer<1>(pos, type._type_index);
+	}
 
 	/// Returns the value of the specified field as a pointer
 	BlendFilePointer GetPointer(
