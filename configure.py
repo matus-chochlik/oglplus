@@ -573,13 +573,16 @@ def main(argv):
 	if options.build:
 		cmake_build_tool = cmake_info.get("CMAKE_BUILD_TOOL")
 
-		build_tool_name = os.path.basename(cmake_build_tool)
+		if cmake_build_tool:
+			build_tool_name = os.path.basename(cmake_build_tool)
+		else:
+			build_tool_name = str()
 
-		if(build_tool_name in ("make")):
+		if build_tool_name in ("make",):
 			build_cmd_line = [cmake_build_tool];
 			if processor_count:
 				build_cmd_line += ["-j", str(processor_count+1)]
-		elif(build_tool_name in ("devenv.com", "devenv.exe")):
+		elif build_tool_name in ("devenv.com", "devenv.exe"):
 			build_cmd_line = [
 				cmake_build_tool,
 				os.path.join(options.build_dir, "OGLplus.sln"),
@@ -588,7 +591,8 @@ def main(argv):
 			]
 		else: build_cmd_line = None
 
-		if(build_cmd_line):
+		if build_cmd_line:
+			print(build_cmd_line)
 			try: subprocess.call(build_cmd_line,cwd=options.build_dir)
 			except OSError as os_error:
 				print( "# Build failed")
