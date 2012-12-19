@@ -53,7 +53,7 @@ inline std::size_t FindResourceFile(
 	const std::string apppath = Application::RelativePath();
 	std::string prefix;
 
-	for(std::size_t i=0; i!=3; ++i)
+	for(std::size_t i=0; i!=5; ++i)
 	{
 		std::size_t iext = aux::FindResourceFile(
 			file,

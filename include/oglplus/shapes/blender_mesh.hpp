@@ -21,7 +21,6 @@
 
 #include <vector>
 
-#include <iostream>
 namespace oglplus {
 namespace shapes {
 
@@ -180,15 +179,15 @@ private:
 					fv[3]?fv[3]+index_offset:0
 				};
 
-				bool need_face_copy = false;
+				bool needs_vertex_copy = false;
 				for(std::size_t i=0; i!=4; ++i)
 					for(std::size_t j=0; j!=2; ++j)
-						need_face_copy |=
+						needs_vertex_copy |=
 							(fi[i] != 0) &&
 							(_uvc_data[fi[i]*2+j] >= 0.0f) &&
 							(_uvc_data[fi[i]*2+j] != uv[i*2+j]);
 
-				if(need_face_copy)
+				if(needs_vertex_copy)
 				{
 					for(std::size_t i=0; i!=4; ++i)
 					{
@@ -198,9 +197,12 @@ private:
 							aps.push_back(_pos_data[fi[i]*3+1]);
 							aps.push_back(_pos_data[fi[i]*3+2]);
 
-							ans.push_back(_nml_data[fi[i]*3+0]);
-							ans.push_back(_nml_data[fi[i]*3+1]);
-							ans.push_back(_nml_data[fi[i]*3+2]);
+							if(opts.load_normals)
+							{
+								ans.push_back(_nml_data[fi[i]*3+0]);
+								ans.push_back(_nml_data[fi[i]*3+1]);
+								ans.push_back(_nml_data[fi[i]*3+2]);
+							}
 
 							ats.push_back(uv[i*2+0]);
 							ats.push_back(uv[i*2+1]);
@@ -298,7 +300,8 @@ private:
 					int v = loop_v_field.Get(ls+l);
 					is.push_back(v+index_offset);
 				}
-				is.push_back(0); // primitive restart index
+				// primitive restart index
+				is.push_back(0);
 			}
 			// append the values
 			_idx_data.insert(_idx_data.end(), is.begin(), is.end());
