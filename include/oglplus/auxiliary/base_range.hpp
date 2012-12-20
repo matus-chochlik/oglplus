@@ -15,6 +15,7 @@
 #include <cassert>
 #include <vector>
 #include <iterator>
+#include <type_traits>
 
 namespace oglplus {
 namespace aux {
