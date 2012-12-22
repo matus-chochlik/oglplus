@@ -20,6 +20,8 @@
 #include <oglplus/imports/blend_file.hpp>
 
 #include <vector>
+#include <array>
+#include <cassert>
 
 namespace oglplus {
 namespace shapes {
@@ -48,6 +50,10 @@ private:
 
 	// vectors with vertex indices
 	std::vector<GLuint> _idx_data;
+
+	// the index offsets and counts of individual meshes
+	std::vector<GLuint> _mesh_offsets;
+	std::vector<GLuint> _mesh_n_elems;
 
 	// find the scene by name or the default scene
 	imports::BlendFileFlatStructBlockData _find_scene(
@@ -362,8 +368,11 @@ private:
 	}
 
 	// load a single object from a scene
+	template <typename NameIter>
 	void _load_object(
 		const _loading_options& opts,
+		NameIter names_begin,
+		NameIter names_end,
 		imports::BlendFile& blend_file,
 		imports::BlendFileFlatStructBlockData& object_data,
 		imports::BlendFilePointer object_data_ptr,
@@ -377,6 +386,44 @@ private:
 		{
 			// get the object matrix field
 			auto object_obmat_field = object_data.Field<float>("obmat");
+			// and the object name field
+			auto object_name_field = object_data.Field<std::string>("id.name");
+			//
+			// find the index for the current mesh
+			assert(_mesh_offsets.size() == _mesh_n_elems.size());
+			std::size_t mesh_idx;
+			// if no names were specified
+			if(names_begin == names_end)
+			{
+				mesh_idx = _mesh_offsets.size();
+			}
+			// if names were specified
+			else
+			{
+				std::size_t mi = 0;
+				auto ni = names_begin;
+				while(ni != names_end)
+				{
+					std::string tmp("OB");
+					tmp.append(*ni);
+					if(tmp == object_name_field.Get().c_str())
+					{
+						mesh_idx = mi;
+						break;
+					}
+					++mi;
+					++ni;
+				}
+				// if the current mesh's name is not listed: quit
+				if(ni == names_end) return;
+			}
+
+			// resize the element offset and size arrays
+			if(_mesh_offsets.size() < mesh_idx+1)
+			{
+				_mesh_offsets.resize(mesh_idx+1);
+				_mesh_n_elems.resize(mesh_idx+1);
+			}
 			// make a transformation matrix
 			Mat4f obmat(
 				Vec4f(
@@ -405,6 +452,8 @@ private:
 				)
 			);
 
+			_mesh_offsets[mesh_idx] = _idx_data.size();
+
 			_load_mesh(
 				opts,
 				blend_file,
@@ -412,11 +461,17 @@ private:
 				obmat,
 				index_offset
 			);
+
+			_mesh_n_elems[mesh_idx] =
+				_idx_data.size() - _mesh_offsets[mesh_idx];
 		}
 	}
 
+	template <typename NameIter>
 	void _load_meshes(
 		const _loading_options& opts,
+		NameIter names_begin,
+		NameIter names_end,
 		imports::BlendFile& blend_file
 	)
 	{
@@ -482,6 +537,8 @@ private:
 				{
 					_load_object(
 						opts,
+						names_begin,
+						names_end,
 						blend_file,
 						object_data,
 						object_data_ptr,
@@ -501,22 +558,46 @@ private:
 		if(opts.load_materials)
 			assert(_pos_data.size()/3 == _mtl_data.size()/1);
 	}
-public:
-	BlenderMesh(
+
+	template <typename NameIter>
+	void _call_load_meshes(
 		imports::BlendFile& blend_file,
+		const char* scene_name,
+		NameIter names_begin,
+		NameIter names_end,
 		bool load_normals = true,
 		bool load_texcoords = true,
 		bool load_materials = true
 	)
 	{
 		_loading_options opts;
-		opts.scene_name = nullptr;
+		opts.scene_name = scene_name;
 		opts.load_normals = load_normals;
 		opts.load_texcoords = load_texcoords;
 		opts.load_materials = load_materials;
 
 		// do load the meshes
-		_load_meshes(opts, blend_file);
+		_load_meshes(opts, names_begin, names_end, blend_file);
+	}
+public:
+	template <typename NameStr, std::size_t NN>
+	BlenderMesh(
+		imports::BlendFile& blend_file,
+		const std::array<NameStr, NN>& names,
+		bool load_normals = true,
+		bool load_texcoords = true,
+		bool load_materials = true
+	)
+	{
+		_call_load_meshes(
+			blend_file,
+			nullptr,
+			names.begin(),
+			names.end(),
+			load_normals,
+			load_texcoords,
+			load_materials
+		);
 	}
 
 	/// Returns the winding direction of faces
@@ -629,14 +710,25 @@ public:
 	/// Returns the instructions for rendering of faces
 	DrawingInstructions Instructions(void) const
 	{
-		DrawOperation operation;
-		operation.method = DrawOperation::Method::DrawElements;
-		operation.mode = PrimitiveType::TriangleFan;
-		operation.first = 0;
-		operation.count = _idx_data.size();
-		operation.restart_index = 0;
-		operation.phase = 0;
-		return this->MakeInstructions(operation);
+		assert(_mesh_offsets.size() == _mesh_n_elems.size());
+
+		DrawingInstructions instructions = this->MakeInstructions();
+		std::size_t im = 0, nm = _mesh_offsets.size();
+
+		while(im != nm)
+		{
+			DrawOperation operation;
+			operation.method = DrawOperation::Method::DrawElements;
+			operation.mode = PrimitiveType::TriangleFan;
+			operation.first = _mesh_offsets[im];
+			operation.count = _mesh_n_elems[im];
+			operation.restart_index = 0;
+			operation.phase = GLuint(im);
+
+			this->AddInstruction(instructions, operation);
+			++im;
+		}
+		return instructions;
 	}
 };
 
