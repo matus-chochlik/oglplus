@@ -130,6 +130,7 @@ int main(int argc, char* argv[])
 
 	if(glewInit() == GLEW_OK) try
 	{
+		glGetError();
 		SingleExample example(width, height);
 		glutDisplayFunc(&SingleExample::Display);
 		glutMainLoop();

@@ -25,6 +25,7 @@ int main(int argc, char* argv[])
 
 	if(glewInit() == GLEW_OK) try
 	{
+		glGetError();
 		oglplus::ATI_meminfo ami;
 
 		oglplus::ATI_meminfo::AvailableMemory mem_info[3] = {

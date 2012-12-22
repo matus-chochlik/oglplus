@@ -204,6 +204,7 @@ int main(int argc, char* argv[])
 
 	if(glewInit() == GLEW_OK) try
 	{
+		glGetError();
 		using oglplus::SingleExample;
 
 		SingleExample example(width, height);

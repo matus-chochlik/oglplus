@@ -181,6 +181,7 @@ public:
 		oglContext.SetCurrent(*oglCanvas);
 		//
 		if(glewInit() != GLEW_OK) throw std::runtime_error("GLEW init error");
+		glGetError();
 		//
 		oglExample = new Example();
 		//

@@ -166,6 +166,7 @@ public:
 				(const char*)glewGetErrorString(res)
 			);
 		}
+		glGetError();
 	}
 };
 

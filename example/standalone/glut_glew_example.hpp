@@ -287,6 +287,7 @@ protected:
 				"GLEW initialization error"
 			);
 		}
+		glGetError();
 	}
 };
 

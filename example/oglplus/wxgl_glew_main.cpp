@@ -807,6 +807,7 @@ public:
 		SetStatus(wxT("Initializing GLEW"));
 		gl_context.SetCurrent(*tmp_canvas);
 		if(glewInit() != GLEW_OK) throw std::runtime_error("GLEW init error");
+		glGetError();
 		delete tmp_canvas;
 		SetStatus(wxT("Ready"));
 

@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
 
 	if(glewInit() == GLEW_OK) try
 	{
+		glGetError();
 		namespace se = oglplus::smart_enums;
 		oglplus::Context gl;
 		oglplus::AMD_performance_monitor apm;

@@ -29,6 +29,7 @@ int main(int argc, char* argv[])
 
 	if(glewInit() == GLEW_OK) try
 	{
+		glGetError();
 		using namespace oglplus;
 		Program prog;
 		ShaderType shader_type;
