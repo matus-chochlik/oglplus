@@ -34,6 +34,7 @@ private:
 		const char* scene_name;
 		bool load_normals;
 		bool load_texcoords;
+		bool load_materials;
 	};
 
 	// vertex positions
@@ -42,6 +43,8 @@ private:
 	std::vector<GLfloat> _nml_data;
 	// vertex tex coords
 	std::vector<GLfloat> _uvc_data;
+	// material numbers
+	std::vector<GLshort> _mtl_data;
 
 	// vectors with vertex indices
 	std::vector<GLuint> _idx_data;
@@ -87,6 +90,7 @@ private:
 			std::vector<GLfloat> ps(3 * n_verts);
 			std::vector<GLfloat> ns(opts.load_normals?3*n_verts:0);
 			std::vector<GLfloat> ts(opts.load_texcoords?2*n_verts:0,-1.0f);
+			std::vector<GLshort> ms(opts.load_materials?1*n_verts:0,-1);
 			for(std::size_t v=0; v!=n_verts; ++v)
 			{
 				// (transpose y and z axes)
@@ -125,6 +129,8 @@ private:
 				_nml_data.insert(_nml_data.end(), ns.begin(), ns.end());
 			if(opts.load_texcoords)
 				_uvc_data.insert(_uvc_data.end(), ts.begin(), ts.end());
+			if(opts.load_materials)
+				_mtl_data.insert(_mtl_data.end(), ms.begin(), ms.end());
 		}
 
 		// additional positions, normals and uv coords
@@ -132,6 +138,7 @@ private:
 		// loading uv-coordinates for vertices with the same
 		// positions/normals but different texture coordinates
 		std::vector<GLfloat> aps, ans, ats;
+		std::vector<GLshort> ams;
 		std::vector<GLuint> ais;
 
 		// get the face block pointer
@@ -140,7 +147,10 @@ private:
 		auto tface_ptr = object_mesh_data.Field<void*>("mtface").Get();
 		//
 		// if we wanted to load the uv-coordinates and they are available
-		if(face_ptr && tface_ptr && opts.load_texcoords)
+		if(
+			(opts.load_texcoords && face_ptr && tface_ptr) ||
+			(opts.load_materials && face_ptr)
+		)
 		{
 			auto face_data = blend_file[face_ptr];
 			auto tface_data = blend_file[tface_ptr];
@@ -154,6 +164,8 @@ private:
 			auto face_v4_field = face_data.Field<int>("v4");
 			// get the uv coords fields
 			auto tface_uv_field = tface_data.Field<float>("uv");
+			// get the mat_nr field
+			auto face_mat_nr_field = face_data.Field<short>("mat_nr");
 			// make a vector of index data
 			std::vector<GLuint> is(5 * n_faces);
 
@@ -172,6 +184,8 @@ private:
 				for(std::size_t i=0; i!=8; ++i)
 					uv[i] = tface_uv_field.Get(f, i);
 
+				short mat_nr = face_mat_nr_field.Get(f);
+
 				int fi[4] = {
 					fv[0]+index_offset,
 					fv[1]+index_offset,
@@ -181,11 +195,23 @@ private:
 
 				bool needs_vertex_copy = false;
 				for(std::size_t i=0; i!=4; ++i)
-					for(std::size_t j=0; j!=2; ++j)
+				{
+					if(opts.load_texcoords)
+					{
+						for(std::size_t j=0; j!=2; ++j)
+							needs_vertex_copy |=
+								(fi[i] != 0) &&
+								(_uvc_data[fi[i]*2+j] >= 0.0f) &&
+								(_uvc_data[fi[i]*2+j] != uv[i*2+j]);
+					}
+					if(opts.load_materials)
+					{
 						needs_vertex_copy |=
 							(fi[i] != 0) &&
-							(_uvc_data[fi[i]*2+j] >= 0.0f) &&
-							(_uvc_data[fi[i]*2+j] != uv[i*2+j]);
+							(_mtl_data[fi[i]] >= 0) &&
+							(_mtl_data[fi[i]] != mat_nr);
+					}
+				}
 
 				if(needs_vertex_copy)
 				{
@@ -204,8 +230,16 @@ private:
 								ans.push_back(_nml_data[fi[i]*3+2]);
 							}
 
-							ats.push_back(uv[i*2+0]);
-							ats.push_back(uv[i*2+1]);
+							if(opts.load_texcoords)
+							{
+								ats.push_back(uv[i*2+0]);
+								ats.push_back(uv[i*2+1]);
+							}
+
+							if(opts.load_materials)
+							{
+								ams.push_back(mat_nr);
+							}
 
 							ais.push_back(
 								index_offset+
@@ -224,8 +258,15 @@ private:
 					{
 						if(fi[i] != 0)
 						{
-							for(std::size_t j=0; j!=2; ++j)
-								_uvc_data[fi[i]*2+j] = uv[i*2+j];
+							if(opts.load_texcoords)
+							{
+								_uvc_data[fi[i]*2+0] = uv[i*2+0];
+								_uvc_data[fi[i]*2+1] = uv[i*2+1];
+							}
+							if(opts.load_materials)
+							{
+								_mtl_data[fi[i]] = mat_nr;
+							}
 							is[ii++] = fi[i];
 						}
 					}
@@ -274,7 +315,7 @@ private:
 		// and the loop block pointer
 		auto loop_ptr = object_mesh_data.TryGet<void*>("mloop", nullptr);
 		//
-		// TODO: add loading of UV-coordinates here
+		// TODO: add loading of UV-coordinates and material numbers here
 		//
 		// open the poly and loop blocks (if we have both)
 		if(poly_ptr && loop_ptr)
@@ -310,10 +351,11 @@ private:
 		// if there is some additional vertex data and indices
 		if(n_add_verts)
 		{
-			// add it
+			// add 'em
 			_pos_data.insert(_pos_data.end(), aps.begin(), aps.end());
 			_nml_data.insert(_nml_data.end(), ans.begin(), ans.end());
 			_uvc_data.insert(_uvc_data.end(), ats.begin(), ats.end());
+			_mtl_data.insert(_mtl_data.end(), ams.begin(), ams.end());
 			_idx_data.insert(_idx_data.end(), ais.begin(), ais.end());
 		}
 		index_offset += n_verts + n_add_verts;
@@ -398,6 +440,11 @@ private:
 			_uvc_data.push_back(0.0);
 			_uvc_data.push_back(0.0);
 		}
+		// unused material number
+		if(opts.load_materials)
+		{
+			_mtl_data.push_back(0);
+		}
 		//
 		// index offset starting at 1
 		GLuint index_offset = 1;
@@ -446,18 +493,27 @@ private:
 			object_link_ptr =
 				object_link_data.Field<void*>("next").Get();
 		}
+		assert(_pos_data.size() % 3 == 0);
+		if(opts.load_normals)
+			assert(_pos_data.size()/3 == _nml_data.size()/3);
+		if(opts.load_texcoords)
+			assert(_pos_data.size()/3 == _uvc_data.size()/2);
+		if(opts.load_materials)
+			assert(_pos_data.size()/3 == _mtl_data.size()/1);
 	}
 public:
 	BlenderMesh(
 		imports::BlendFile& blend_file,
 		bool load_normals = true,
-		bool load_texcoords = true
+		bool load_texcoords = true,
+		bool load_materials = true
 	)
 	{
 		_loading_options opts;
 		opts.scene_name = nullptr;
 		opts.load_normals = load_normals;
 		opts.load_texcoords = load_texcoords;
+		opts.load_materials = load_materials;
 
 		// do load the meshes
 		_load_meshes(opts, blend_file);
@@ -498,6 +554,14 @@ public:
 		return 2;
 	}
 
+	template <typename T>
+	GLuint MaterialNumbers(std::vector<T>& dest) const
+	{
+		dest.clear();
+		dest.insert(dest.end(), _mtl_data.begin(), _mtl_data.end());
+		return 1;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Vertex attribute information for this shape builder
 	/** BlenderMesh provides build functions for the following named
@@ -512,7 +576,8 @@ public:
 		std::tuple<
 			VertexPositionsTag,
 			VertexNormalsTag,
-			VertexTexCoordinatesTag
+			VertexTexCoordinatesTag,
+			VertexMaterialNumbersTag
 		>
 	> VertexAttribs;
 #endif
