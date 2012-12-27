@@ -211,13 +211,13 @@ public:
 			"	float as = (TexCoord.s + Time/vels)*3.1415*2.0;"
 			"	float at = (TexCoord.t + Time/velt)*3.1415*2.0;"
 
-			"	vec3 Binormal = cross(Normal, Tangent);"
+			"	vec3 Bitangent = cross(Normal, Tangent);"
 			"	vec2 Sin = vec2(sin(as*pers), sin(at*pert));"
 			"	vec2 Cos = vec2(cos(as*pers), cos(at*pert));"
 
 			"	vertNormal = normalize("
 			"		Normal - Tangent * cos(as*pers)*amps*5.0+"
-			"		Normal - Binormal* cos(at*pert)*ampt*5.0 "
+			"		Normal - Bitangent* cos(at*pert)*ampt*5.0 "
 			"	);"
 			"	gl_Position = vec4("
 			"		Position.xyz + Normal * ("

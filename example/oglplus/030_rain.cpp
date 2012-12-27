@@ -380,7 +380,7 @@ public:
 				"in vec3 Tangent;"
 				"in vec2 TexCoord;"
 
-				"out vec3 vertNormal, vertTangent, vertBinormal;"
+				"out vec3 vertNormal, vertTangent, vertBitangent;"
 				"out vec3 vertLightDir, vertViewDir;"
 				"out vec2 vertTexCoord;"
 
@@ -389,7 +389,7 @@ public:
 				"	gl_Position = Matrix * vec4(Position, 1.0);"
 				"	vertNormal = Normal;"
 				"	vertTangent = Tangent;"
-				"	vertBinormal = cross(Normal, Tangent);"
+				"	vertBitangent = cross(Normal, Tangent);"
 				"	vertLightDir = LightPosition - Position;"
 				"	vertViewDir = CameraPosition - Position;"
 				"	vertTexCoord = TexCoord * 16.0;"
@@ -405,7 +405,7 @@ public:
 				"uniform sampler2D RippleTex;"
 				"uniform samplerCube EnvTex;"
 
-				"in vec3 vertNormal, vertTangent, vertBinormal;"
+				"in vec3 vertNormal, vertTangent, vertBitangent;"
 				"in vec3 vertLightDir, vertViewDir;"
 				"in vec2 vertTexCoord;"
 
@@ -419,7 +419,7 @@ public:
 				"	vec4 texBump = texture(RippleTex, vertTexCoord);"
 				"	vec3 fragNormal = normalize("
 				"		texBump.x * vertTangent+"
-				"		texBump.y * vertBinormal+"
+				"		texBump.y * vertBitangent+"
 				"		texBump.z * vertNormal"
 				"	);"
 

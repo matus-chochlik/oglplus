@@ -57,7 +57,7 @@ public:
 
 			"out vec3 vertNormal;"
 			"out vec3 vertTangent;"
-			"out vec3 vertBinormal;"
+			"out vec3 vertBitangent;"
 			"out vec3 vertLightDir;"
 			"out vec2 vertTexCoord;"
 
@@ -75,7 +75,7 @@ public:
 			"		ModelMatrix *"
 			"		vec4(Tangent, 0.0)"
 			"	).xyz;"
-			"	vertBinormal = cross(vertNormal, vertTangent);"
+			"	vertBitangent = cross(vertNormal, vertTangent);"
 			"	vertTexCoord = TexCoord;"
 			"}")
 		));
@@ -92,13 +92,13 @@ public:
 
 			"in vec3 vertNormal[];"
 			"in vec3 vertTangent[];"
-			"in vec3 vertBinormal[];"
+			"in vec3 vertBitangent[];"
 			"in vec3 vertLightDir[];"
 			"in vec2 vertTexCoord[];"
 
 			"out vec3 geomNormal;"
 			"out vec3 geomTangent;"
-			"out vec3 geomBinormal;"
+			"out vec3 geomBitangent;"
 			"out vec3 geomLightDir;"
 			"out vec3 geomViewDir;"
 			"out vec3 geomColor;"
@@ -114,7 +114,7 @@ public:
 			"		{"
 			"			geomNormal = vertNormal[v];"
 			"			geomTangent = vertTangent[v];"
-			"			geomBinormal = vertBinormal[v];"
+			"			geomBitangent = vertBitangent[v];"
 			"			geomTexCoord = vertTexCoord[v];"
 			"			geomLightDir = vertLightDir[v];"
 			"			geomViewDir = "
@@ -136,7 +136,7 @@ public:
 			"uniform sampler2D MetalTexture;"
 			"in vec3 geomNormal;"
 			"in vec3 geomTangent;"
-			"in vec3 geomBinormal;"
+			"in vec3 geomBitangent;"
 			"in vec3 geomLightDir;"
 			"in vec3 geomViewDir;"
 			"in vec3 geomColor;"
@@ -152,7 +152,7 @@ public:
 			"	vec3 Normal = normalize("
 			"		2*geomNormal + "
 			"		(t.r - 0.5)*geomTangent + "
-			"		(t.g - 0.5)*geomBinormal"
+			"		(t.g - 0.5)*geomBitangent"
 			"	);"
 
 			"	vec3 LightRefl = reflect("

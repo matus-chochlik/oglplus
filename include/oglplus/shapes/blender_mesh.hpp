@@ -12,6 +12,7 @@
 #ifndef OGLPLUS_SHAPES_BLENDER_MESH_1206011111_HPP
 #define OGLPLUS_SHAPES_BLENDER_MESH_1206011111_HPP
 
+#include <oglplus/vector.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/shapes/draw.hpp>
 
@@ -23,6 +24,7 @@
 #include <array>
 #include <cassert>
 
+#include <iostream>
 namespace oglplus {
 namespace shapes {
 
@@ -35,6 +37,8 @@ private:
 	{
 		const char* scene_name;
 		bool load_normals;
+		bool load_tangents;
+		bool load_bitangents;
 		bool load_texcoords;
 		bool load_materials;
 	};
@@ -43,6 +47,10 @@ private:
 	std::vector<GLfloat> _pos_data;
 	// vertex normals
 	std::vector<GLfloat> _nml_data;
+	// vertex tangentials
+	std::vector<GLfloat> _tgt_data;
+	// vertex bitangentials
+	std::vector<GLfloat> _btg_data;
 	// vertex tex coords
 	std::vector<GLfloat> _uvc_data;
 	// material numbers
@@ -95,6 +103,7 @@ private:
 			// make two vectors of position and normal data
 			std::vector<GLfloat> ps(3 * n_verts);
 			std::vector<GLfloat> ns(opts.load_normals?3*n_verts:0);
+			std::vector<GLfloat> gs(opts.load_tangents?3*n_verts:0);
 			std::vector<GLfloat> ts(opts.load_texcoords?2*n_verts:0,-1.0f);
 			std::vector<GLshort> ms(opts.load_materials?1*n_verts:0,-1);
 			for(std::size_t v=0; v!=n_verts; ++v)
@@ -115,13 +124,12 @@ private:
 				// get the normals
 				if(opts.load_normals)
 				{
-					Vec4f normal(
+					Vec3f normal = Normalized(Vec3f(
 						vertex_no_field.Get(v, 0),
 						vertex_no_field.Get(v, 1),
-						vertex_no_field.Get(v, 2),
-						0.0f
-					);
-					Vec4f newnorm = mesh_matrix * normal;
+						vertex_no_field.Get(v, 2)
+					));
+					Vec4f newnorm = mesh_matrix * Vec4f(normal, 0.0f);
 					ns[3*v+0] = newnorm.x();
 					ns[3*v+1] = newnorm.z();
 					ns[3*v+2] =-newnorm.y();
@@ -133,6 +141,10 @@ private:
 			// normals
 			if(opts.load_normals)
 				_nml_data.insert(_nml_data.end(), ns.begin(), ns.end());
+			if(opts.load_tangents)
+				_tgt_data.insert(_tgt_data.end(), gs.begin(), gs.end());
+			if(opts.load_bitangents)
+				_btg_data.insert(_btg_data.end(), gs.begin(), gs.end());
 			if(opts.load_texcoords)
 				_uvc_data.insert(_uvc_data.end(), ts.begin(), ts.end());
 			if(opts.load_materials)
@@ -143,7 +155,7 @@ private:
 		// and indices that might be added due when
 		// loading uv-coordinates for vertices with the same
 		// positions/normals but different texture coordinates
-		std::vector<GLfloat> aps, ans, ats;
+		std::vector<GLfloat> aps, ans, ags, abs, ats;
 		std::vector<GLshort> ams;
 		std::vector<GLuint> ais;
 
@@ -155,6 +167,7 @@ private:
 		// if we wanted to load the uv-coordinates and they are available
 		if(
 			(opts.load_texcoords && face_ptr && tface_ptr) ||
+			(opts.load_tangents  && face_ptr && tface_ptr) ||
 			(opts.load_materials && face_ptr)
 		)
 		{
@@ -196,24 +209,23 @@ private:
 					fv[0]+index_offset,
 					fv[1]+index_offset,
 					fv[2]+index_offset,
-					fv[3]?fv[3]+index_offset:0
+					fv[3]+index_offset
 				};
+				std::size_t f_verts = fv[3]?4:3;
 
 				bool needs_vertex_copy = false;
-				for(std::size_t i=0; i!=4; ++i)
+				for(std::size_t i=0; i!=f_verts; ++i)
 				{
 					if(opts.load_texcoords)
 					{
 						for(std::size_t j=0; j!=2; ++j)
 							needs_vertex_copy |=
-								(fi[i] != 0) &&
 								(_uvc_data[fi[i]*2+j] >= 0.0f) &&
 								(_uvc_data[fi[i]*2+j] != uv[i*2+j]);
 					}
 					if(opts.load_materials)
 					{
 						needs_vertex_copy |=
-							(fi[i] != 0) &&
 							(_mtl_data[fi[i]] >= 0) &&
 							(_mtl_data[fi[i]] != mat_nr);
 					}
@@ -221,59 +233,114 @@ private:
 
 				if(needs_vertex_copy)
 				{
-					for(std::size_t i=0; i!=4; ++i)
+					for(std::size_t i=0; i!=f_verts; ++i)
 					{
-						if(fi[i] != 0)
+						aps.push_back(_pos_data[fi[i]*3+0]);
+						aps.push_back(_pos_data[fi[i]*3+1]);
+						aps.push_back(_pos_data[fi[i]*3+2]);
+
+						if(opts.load_normals)
 						{
-							aps.push_back(_pos_data[fi[i]*3+0]);
-							aps.push_back(_pos_data[fi[i]*3+1]);
-							aps.push_back(_pos_data[fi[i]*3+2]);
-
-							if(opts.load_normals)
-							{
-								ans.push_back(_nml_data[fi[i]*3+0]);
-								ans.push_back(_nml_data[fi[i]*3+1]);
-								ans.push_back(_nml_data[fi[i]*3+2]);
-							}
-
-							if(opts.load_texcoords)
-							{
-								ats.push_back(uv[i*2+0]);
-								ats.push_back(uv[i*2+1]);
-							}
-
-							if(opts.load_materials)
-							{
-								ams.push_back(mat_nr);
-							}
-
-							ais.push_back(
-								index_offset+
-								n_verts +
-								n_add_verts
-							);
-							++n_add_verts;
+							ans.push_back(_nml_data[fi[i]*3+0]);
+							ans.push_back(_nml_data[fi[i]*3+1]);
+							ans.push_back(_nml_data[fi[i]*3+2]);
 						}
+
+						if(opts.load_tangents)
+						{
+							ags.push_back(_tgt_data[fi[i]*3+0]);
+							ags.push_back(_tgt_data[fi[i]*3+1]);
+							ags.push_back(_tgt_data[fi[i]*3+2]);
+						}
+
+						if(opts.load_bitangents)
+						{
+							abs.push_back(_btg_data[fi[i]*3+0]);
+							abs.push_back(_btg_data[fi[i]*3+1]);
+							abs.push_back(_btg_data[fi[i]*3+2]);
+						}
+
+						if(opts.load_texcoords)
+						{
+							ats.push_back(uv[i*2+0]);
+							ats.push_back(uv[i*2+1]);
+						}
+
+						if(opts.load_materials)
+						{
+							ams.push_back(mat_nr);
+						}
+
+						ais.push_back(
+							index_offset+
+							n_verts +
+							n_add_verts
+						);
+						++n_add_verts;
 					}
 					// primitive restart index
 					ais.push_back(0);
 				}
 				else
 				{
-					for(std::size_t i=0; i!=4; ++i)
+					for(std::size_t i=0; i!=f_verts; ++i)
 					{
-						if(fi[i] != 0)
+						if(opts.load_texcoords)
 						{
-							if(opts.load_texcoords)
+							_uvc_data[fi[i]*2+0] = uv[i*2+0];
+							_uvc_data[fi[i]*2+1] = uv[i*2+1];
+						}
+						if(opts.load_materials)
+						{
+							_mtl_data[fi[i]] = mat_nr;
+						}
+						is[ii++] = fi[i];
+					}
+					if(opts.load_tangents || opts.load_bitangents)
+					{
+						for(std::size_t i=0; i!=f_verts; ++i)
+						{
+							std::size_t j[3] = {
+								i,
+								(i+1)%f_verts,
+								(i+f_verts-1)%f_verts
+							};
+
+							Vec3f p[3];
+							Vec2f uv[3];
+							for(size_t k=0; k!=3; ++k)
 							{
-								_uvc_data[fi[i]*2+0] = uv[i*2+0];
-								_uvc_data[fi[i]*2+1] = uv[i*2+1];
+								p[k] = Vec3f(
+									_pos_data[fi[j[k]]*3+0],
+									_pos_data[fi[j[k]]*3+1],
+									_pos_data[fi[j[k]]*3+2]
+								);
+								uv[k] = Vec2f(
+									_uvc_data[fi[j[k]]*2+0],
+									_uvc_data[fi[j[k]]*2+1]
+								);
 							}
-							if(opts.load_materials)
-							{
-								_mtl_data[fi[i]] = mat_nr;
-							}
-							is[ii++] = fi[i];
+
+							Vec3f v0 = p[1] - p[0];
+							Vec3f v1 = p[2] - p[0];
+
+							Vec2f duv0 = uv[1] - uv[0];
+							Vec2f duv1 = uv[2] - uv[0];
+
+							float d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
+							if(d != 0.0f) d = 1.0f/d;
+
+							Vec3f t = (duv1.y()*v0 - duv0.y()*v1)*d;
+							Vec3f nt = Normalized(t);
+							_tgt_data[fi[i]*3+0] = nt.x();
+							_tgt_data[fi[i]*3+1] = nt.y();
+							_tgt_data[fi[i]*3+2] = nt.z();
+
+							Vec3f b = (duv0.x()*v1 - duv1.x()*v0)*d;
+							Vec3f nb = Normalized(b);
+							_btg_data[fi[i]*3+0] = nb.x();
+							_btg_data[fi[i]*3+1] = nb.y();
+							_btg_data[fi[i]*3+2] = nb.z();
 						}
 					}
 					// primitive restart index
@@ -360,6 +427,8 @@ private:
 			// add 'em
 			_pos_data.insert(_pos_data.end(), aps.begin(), aps.end());
 			_nml_data.insert(_nml_data.end(), ans.begin(), ans.end());
+			_tgt_data.insert(_tgt_data.end(), ags.begin(), ags.end());
+			_btg_data.insert(_btg_data.end(), abs.begin(), abs.end());
 			_uvc_data.insert(_uvc_data.end(), ats.begin(), ats.end());
 			_mtl_data.insert(_mtl_data.end(), ams.begin(), ams.end());
 			_idx_data.insert(_idx_data.end(), ais.begin(), ais.end());
@@ -489,6 +558,20 @@ private:
 			_nml_data.push_back(0.0);
 			_nml_data.push_back(0.0);
 		}
+		// unused tangent
+		if(opts.load_tangents)
+		{
+			_tgt_data.push_back(0.0);
+			_tgt_data.push_back(0.0);
+			_tgt_data.push_back(0.0);
+		}
+		// unused bitangent
+		if(opts.load_bitangents)
+		{
+			_btg_data.push_back(0.0);
+			_btg_data.push_back(0.0);
+			_btg_data.push_back(0.0);
+		}
 		// unused tex coord
 		if(opts.load_texcoords)
 		{
@@ -565,15 +648,19 @@ private:
 		const char* scene_name,
 		NameIter names_begin,
 		NameIter names_end,
-		bool load_normals = true,
-		bool load_texcoords = true,
-		bool load_materials = true
+		bool load_normals,
+		bool load_tangents,
+		bool load_bitangents,
+		bool load_texcoords,
+		bool load_materials
 	)
 	{
 		_loading_options opts;
 		opts.scene_name = scene_name;
 		opts.load_normals = load_normals;
-		opts.load_texcoords = load_texcoords;
+		opts.load_tangents = load_tangents || load_bitangents;
+		opts.load_bitangents = load_bitangents;
+		opts.load_texcoords = load_texcoords || opts.load_tangents || load_materials;
 		opts.load_materials = load_materials;
 
 		// do load the meshes
@@ -585,6 +672,8 @@ public:
 		imports::BlendFile& blend_file,
 		const std::array<NameStr, NN>& names,
 		bool load_normals = true,
+		bool load_tangents = true,
+		bool load_bitangents = true,
 		bool load_texcoords = true,
 		bool load_materials = true
 	)
@@ -595,6 +684,8 @@ public:
 			names.begin(),
 			names.end(),
 			load_normals,
+			load_tangents,
+			load_bitangents,
 			load_texcoords,
 			load_materials
 		);
@@ -623,6 +714,24 @@ public:
 	{
 		dest.clear();
 		dest.insert(dest.end(), _nml_data.begin(), _nml_data.end());
+		return 3;
+	}
+
+	/// Makes the vertex tangents and returns the number of values per vertex
+	template <typename T>
+	GLuint Tangents(std::vector<T>& dest) const
+	{
+		dest.clear();
+		dest.insert(dest.end(), _tgt_data.begin(), _tgt_data.end());
+		return 3;
+	}
+
+	/// Makes the vertex bitangents and returns the number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		dest.clear();
+		dest.insert(dest.end(), _btg_data.begin(), _btg_data.end());
 		return 3;
 	}
 
@@ -657,6 +766,8 @@ public:
 		std::tuple<
 			VertexPositionsTag,
 			VertexNormalsTag,
+			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag,
 			VertexMaterialNumbersTag
 		>

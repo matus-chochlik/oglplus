@@ -103,7 +103,7 @@ public:
 		return Normalized(_u);
 	}
 
-	inline Vec3f Binormal(void) const
+	inline Vec3f Bitangential(void) const
 	{
 		return Normalized(_v);
 	}

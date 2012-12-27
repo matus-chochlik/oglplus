@@ -62,7 +62,7 @@ public:
 			"in vec3 Normal, Tangent;"
 			"in vec2 TexCoord;"
 
-			"out vec3 vertNormal, vertTangent, vertBinormal;"
+			"out vec3 vertNormal, vertTangent, vertBitangent;"
 			"out vec3 vertLightDir, vertViewDir;"
 			"out vec2 vertTexCoord;"
 			"void main(void)"
@@ -72,7 +72,7 @@ public:
 			"	vertViewDir = CameraPosition - gl_Position.xyz;"
 			"	vertNormal = Normal;"
 			"	vertTangent = Tangent;"
-			"	vertBinormal = cross(vertNormal, vertTangent);"
+			"	vertBitangent = cross(vertNormal, vertTangent);"
 			"	vertTexCoord = TexCoord * 100.0;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
@@ -87,7 +87,7 @@ public:
 			"uniform sampler2D MetalTex;"
 			"uniform float LightMultiplier;"
 
-			"in vec3 vertNormal, vertTangent, vertBinormal;"
+			"in vec3 vertNormal, vertTangent, vertBitangent;"
 			"in vec3 vertLightDir, vertViewDir;"
 			"in vec2 vertTexCoord;"
 
@@ -101,7 +101,7 @@ public:
 			"	vec3 Normal = normalize("
 			"		2.0*vertNormal + "
 			"		(Sample.r - 0.5)*vertTangent + "
-			"		(Sample.g - 0.5)*vertBinormal"
+			"		(Sample.g - 0.5)*vertBitangent"
 			"	);"
 
 			"	vec3 LightRefl = reflect("
