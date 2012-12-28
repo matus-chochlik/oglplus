@@ -1,3 +1,19 @@
+Version 0.23.0
+
+- The List function and ListOf template class that can be used
+  as a replacement for initializer lists were added.
+- The OGLPLUS_STD_VECTOR_INIT macro was replaced with List and ListOf
+  in the examples.
+- Some of the examples were backported to MSVC10 using ListOf and List.
+- Some optimizations were made in the error handling subsystem.
+- The GLUT/GLEW example 'harness' was updated.
+- Problems in the texture image loading utilities used by the examples
+  were fixed.
+- The BlenderMesh 'shape loader' for loading of meshes from Blender's
+  .blend files was added.
+- Other minor changes and bugfixes were made.
+- A couple of new examples were added.
+
 Version 0.22.0
 
 - The Optional<Object> template class allowing optionally initialized
