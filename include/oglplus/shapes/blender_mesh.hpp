@@ -209,7 +209,7 @@ private:
 
 				short mat_nr = face_mat_nr_field.Get(f);
 
-				int fi[4] = {
+				GLuint fi[4] = {
 					fv[0]+index_offset,
 					fv[1]+index_offset,
 					fv[2]+index_offset,

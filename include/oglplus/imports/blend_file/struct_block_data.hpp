@@ -17,18 +17,21 @@
 namespace oglplus {
 namespace imports {
 
-/// Helper class for direct access to a field's data from a specific block
 template <typename T>
-class BlendFileFlatStructTypedFieldData
+class BlendFileFlatStructTypedFieldData;
+
+template <typename T>
+class BlendFileFlatStructTypedFieldDataImpl
 {
 private:
 	BlendFileFlattenedStructField _flat_field;
 	const BlendFileBlockData* _block_data_ref;
 	std::size_t _offset;
 
-	friend class BlendFileFlatStructBlockData;
+	friend class BlendFileFlatStructTypedFieldData<T>;
 
-	BlendFileFlatStructTypedFieldData(
+protected:
+	BlendFileFlatStructTypedFieldDataImpl(
 		BlendFileFlattenedStructField&& flat_field,
 		const BlendFileBlockData& block_data_ref,
 		std::size_t offset
@@ -37,7 +40,12 @@ private:
 	 , _offset(offset)
 	{ }
 
-	static const BlendFileFlatStructTypedFieldData& _that(void);
+	BlendFileFlatStructTypedFieldDataImpl(
+		BlendFileFlatStructTypedFieldDataImpl&& tmp
+	): _flat_field(std::move(tmp._flat_field))
+	 , _block_data_ref(tmp._block_data_ref)
+	 , _offset(tmp._offset)
+	{ }
 
 	template <unsigned Level>
 	BlendFilePointerTpl<Level> _do_get(
@@ -155,13 +163,30 @@ private:
 			_offset
 		);
 	}
+};
+
+/// Helper class for direct access to a field's data from a specific block
+template <typename T>
+class BlendFileFlatStructTypedFieldData
+ : public BlendFileFlatStructTypedFieldDataImpl<T>
+{
+private:
+	typedef BlendFileFlatStructTypedFieldDataImpl<T> _Base;
+	static const _Base& _that(void);
+
+	friend class BlendFileFlatStructBlockData;
+
+	BlendFileFlatStructTypedFieldData(
+		BlendFileFlattenedStructField&& flat_field,
+		const BlendFileBlockData& block_data_ref,
+		std::size_t offset
+	): _Base(std::move(flat_field), block_data_ref, offset)
+	{ }
 public:
 	typedef decltype(_that()._do_get((T*)nullptr, 0, 0)) ValueType;
 
 	BlendFileFlatStructTypedFieldData(BlendFileFlatStructTypedFieldData&& tmp)
-	 : _flat_field(std::move(tmp._flat_field))
-	 , _block_data_ref(tmp._block_data_ref)
-	 , _offset(tmp._offset)
+	 : _Base(static_cast<_Base&&>(tmp))
 	{ }
 
 	/// Get the value of the field from the block
@@ -170,7 +195,7 @@ public:
 		std::size_t field_element = 0
 	) const
 	{
-		return _do_get((T*)nullptr, block_element, field_element);
+		return this->_do_get((T*)nullptr, block_element, field_element);
 	}
 
 	/// Get the value of the field from the block
