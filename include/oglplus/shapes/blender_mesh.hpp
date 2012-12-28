@@ -22,9 +22,9 @@
 
 #include <vector>
 #include <array>
+#include <stdexcept>
 #include <cassert>
 
-#include <iostream>
 namespace oglplus {
 namespace shapes {
 
@@ -164,6 +164,10 @@ private:
 		// get the face texture block pointer
 		auto tface_ptr = object_mesh_data.Field<void*>("mtface").Get();
 		//
+		if(opts.load_texcoords && face_ptr && !tface_ptr)
+			throw std::runtime_error("Unable to load UV coordinates.");
+		if(opts.load_tangents && face_ptr && !tface_ptr)
+			throw std::runtime_error("Unable to load tangent vectors.");
 		// if we wanted to load the uv-coordinates and they are available
 		if(
 			(opts.load_texcoords && face_ptr && tface_ptr) ||
@@ -667,6 +671,21 @@ private:
 		_load_meshes(opts, names_begin, names_end, blend_file);
 	}
 public:
+	BlenderMesh(imports::BlendFile& blend_file)
+	{
+		_call_load_meshes(
+			blend_file,
+			nullptr,
+			(const char**)nullptr,
+			(const char**)nullptr,
+			true,
+			true,
+			true,
+			true,
+			true
+		);
+	}
+
 	template <typename NameStr, std::size_t NN>
 	BlenderMesh(
 		imports::BlendFile& blend_file,
