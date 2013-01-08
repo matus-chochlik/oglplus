@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -192,6 +192,10 @@ private:
 			// make a vector of index data
 			std::vector<GLuint> is(5 * n_faces);
 
+			// index of flags indicating where we need to do the copy
+			// face vertices
+			std::vector<bool> needs_vertex_copy(n_faces, false);
+
 			std::size_t ii = 0;
 			for(std::size_t f=0; f!=n_faces; ++f)
 			{
@@ -217,25 +221,120 @@ private:
 				};
 				std::size_t f_verts = fv[3]?4:3;
 
-				bool needs_vertex_copy = false;
+				bool needs_vert_copy = false;
 				for(std::size_t i=0; i!=f_verts; ++i)
 				{
 					if(opts.load_texcoords)
 					{
 						for(std::size_t j=0; j!=2; ++j)
-							needs_vertex_copy |=
+							needs_vert_copy |=
 								(_uvc_data[fi[i]*2+j] >= 0.0f) &&
 								(_uvc_data[fi[i]*2+j] != uv[i*2+j]);
 					}
 					if(opts.load_materials)
 					{
-						needs_vertex_copy |=
+						needs_vert_copy |=
 							(_mtl_data[fi[i]] >= 0) &&
 							(_mtl_data[fi[i]] != mat_nr);
 					}
 				}
 
-				if(needs_vertex_copy)
+				if(needs_vert_copy) needs_vertex_copy[f] = true;
+				else
+				{
+					for(std::size_t i=0; i!=f_verts; ++i)
+					{
+						if(opts.load_texcoords)
+						{
+							_uvc_data[fi[i]*2+0] = uv[i*2+0];
+							_uvc_data[fi[i]*2+1] = uv[i*2+1];
+						}
+						if(opts.load_materials)
+						{
+							_mtl_data[fi[i]] = mat_nr;
+						}
+						is[ii++] = fi[i];
+					}
+					if(opts.load_tangents || opts.load_bitangents)
+					{
+						for(std::size_t i=0; i!=f_verts; ++i)
+						{
+							std::size_t j[3] = {
+								i,
+								(i+1)%f_verts,
+								(i+2)%f_verts
+							};
+
+							Vec3f p[3];
+							Vec2f uv[3];
+							for(size_t k=0; k!=3; ++k)
+							{
+								p[k] = Vec3f(
+									_pos_data[fi[j[k]]*3+0],
+									_pos_data[fi[j[k]]*3+1],
+									_pos_data[fi[j[k]]*3+2]
+								);
+								uv[k] = Vec2f(
+									_uvc_data[fi[j[k]]*2+0],
+									_uvc_data[fi[j[k]]*2+1]
+								);
+							}
+
+							Vec3f v0 = p[1] - p[0];
+							Vec3f v1 = p[2] - p[0];
+
+							Vec2f duv0 = uv[1] - uv[0];
+							Vec2f duv1 = uv[2] - uv[0];
+
+							float d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
+							if(d != 0.0f) d = 1.0f/d;
+
+							Vec3f t = (duv1.y()*v0 - duv0.y()*v1)*d;
+							Vec3f nt = Normalized(t);
+							_tgt_data[fi[i]*3+0] = nt.x();
+							_tgt_data[fi[i]*3+1] = nt.y();
+							_tgt_data[fi[i]*3+2] = nt.z();
+
+							Vec3f b = (duv0.x()*v1 - duv1.x()*v0)*d;
+							Vec3f nb = Normalized(b);
+							_btg_data[fi[i]*3+0] = nb.x();
+							_btg_data[fi[i]*3+1] = nb.y();
+							_btg_data[fi[i]*3+2] = nb.z();
+						}
+					}
+					// primitive restart index
+					is[ii++] = 0;
+				}
+			}
+			is.resize(ii);
+			// append the values
+			_idx_data.insert(_idx_data.end(), is.begin(), is.end());
+
+			for(std::size_t f=0; f!=n_faces; ++f)
+			{
+				// get face vertex indices
+				int fv[4] = {
+					face_v1_field.Get(f),
+					face_v2_field.Get(f),
+					face_v3_field.Get(f),
+					face_v4_field.Get(f)
+				};
+
+				float uv[8];
+				for(std::size_t i=0; i!=8; ++i)
+					uv[i] = tface_uv_field.Get(f, i);
+
+				short mat_nr = face_mat_nr_field.Get(f);
+
+				GLuint fi[4] = {
+					fv[0]+index_offset,
+					fv[1]+index_offset,
+					fv[2]+index_offset,
+					fv[3]+index_offset
+				};
+				std::size_t f_verts = fv[3]?4:3;
+
+				if(needs_vertex_copy[f])
 				{
 					for(std::size_t i=0; i!=f_verts; ++i)
 					{
@@ -285,75 +384,7 @@ private:
 					// primitive restart index
 					ais.push_back(0);
 				}
-				else
-				{
-					for(std::size_t i=0; i!=f_verts; ++i)
-					{
-						if(opts.load_texcoords)
-						{
-							_uvc_data[fi[i]*2+0] = uv[i*2+0];
-							_uvc_data[fi[i]*2+1] = uv[i*2+1];
-						}
-						if(opts.load_materials)
-						{
-							_mtl_data[fi[i]] = mat_nr;
-						}
-						is[ii++] = fi[i];
-					}
-					if(opts.load_tangents || opts.load_bitangents)
-					{
-						for(std::size_t i=0; i!=f_verts; ++i)
-						{
-							std::size_t j[3] = {
-								i,
-								(i+1)%f_verts,
-								(i+f_verts-1)%f_verts
-							};
-
-							Vec3f p[3];
-							Vec2f uv[3];
-							for(size_t k=0; k!=3; ++k)
-							{
-								p[k] = Vec3f(
-									_pos_data[fi[j[k]]*3+0],
-									_pos_data[fi[j[k]]*3+1],
-									_pos_data[fi[j[k]]*3+2]
-								);
-								uv[k] = Vec2f(
-									_uvc_data[fi[j[k]]*2+0],
-									_uvc_data[fi[j[k]]*2+1]
-								);
-							}
-
-							Vec3f v0 = p[1] - p[0];
-							Vec3f v1 = p[2] - p[0];
-
-							Vec2f duv0 = uv[1] - uv[0];
-							Vec2f duv1 = uv[2] - uv[0];
-
-							float d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
-							if(d != 0.0f) d = 1.0f/d;
-
-							Vec3f t = (duv1.y()*v0 - duv0.y()*v1)*d;
-							Vec3f nt = Normalized(t);
-							_tgt_data[fi[i]*3+0] = nt.x();
-							_tgt_data[fi[i]*3+1] = nt.y();
-							_tgt_data[fi[i]*3+2] = nt.z();
-
-							Vec3f b = (duv0.x()*v1 - duv1.x()*v0)*d;
-							Vec3f nb = Normalized(b);
-							_btg_data[fi[i]*3+0] = nb.x();
-							_btg_data[fi[i]*3+1] = nb.y();
-							_btg_data[fi[i]*3+2] = nb.z();
-						}
-					}
-					// primitive restart index
-					is[ii++] = 0;
-				}
 			}
-			is.resize(ii);
-			// append the values
-			_idx_data.insert(_idx_data.end(), is.begin(), is.end());
 		}
 		else if(face_ptr)
 		{
