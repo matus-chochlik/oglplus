@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/sl_data_type.txt' instead.
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -252,6 +252,99 @@ switch(value)
 #endif
 #if defined GL_UNSIGNED_INT_SAMPLER_2D_RECT
 	case GL_UNSIGNED_INT_SAMPLER_2D_RECT: return StrLit("UNSIGNED_INT_SAMPLER_2D_RECT");
+#endif
+#if defined GL_IMAGE_1D
+	case GL_IMAGE_1D: return StrLit("IMAGE_1D");
+#endif
+#if defined GL_IMAGE_2D
+	case GL_IMAGE_2D: return StrLit("IMAGE_2D");
+#endif
+#if defined GL_IMAGE_3D
+	case GL_IMAGE_3D: return StrLit("IMAGE_3D");
+#endif
+#if defined GL_IMAGE_2D_RECT
+	case GL_IMAGE_2D_RECT: return StrLit("IMAGE_2D_RECT");
+#endif
+#if defined GL_IMAGE_CUBE
+	case GL_IMAGE_CUBE: return StrLit("IMAGE_CUBE");
+#endif
+#if defined GL_IMAGE_BUFFER
+	case GL_IMAGE_BUFFER: return StrLit("IMAGE_BUFFER");
+#endif
+#if defined GL_IMAGE_1D_ARRAY
+	case GL_IMAGE_1D_ARRAY: return StrLit("IMAGE_1D_ARRAY");
+#endif
+#if defined GL_IMAGE_2D_ARRAY
+	case GL_IMAGE_2D_ARRAY: return StrLit("IMAGE_2D_ARRAY");
+#endif
+#if defined GL_IMAGE_2D_MULTISAMPLE
+	case GL_IMAGE_2D_MULTISAMPLE: return StrLit("IMAGE_2D_MULTISAMPLE");
+#endif
+#if defined GL_IMAGE_2D_MULTISAMPLE_ARRAY
+	case GL_IMAGE_2D_MULTISAMPLE_ARRAY: return StrLit("IMAGE_2D_MULTISAMPLE_ARRAY");
+#endif
+#if defined GL_INT_IMAGE_1D
+	case GL_INT_IMAGE_1D: return StrLit("INT_IMAGE_1D");
+#endif
+#if defined GL_INT_IMAGE_2D
+	case GL_INT_IMAGE_2D: return StrLit("INT_IMAGE_2D");
+#endif
+#if defined GL_INT_IMAGE_3D
+	case GL_INT_IMAGE_3D: return StrLit("INT_IMAGE_3D");
+#endif
+#if defined GL_INT_IMAGE_2D_RECT
+	case GL_INT_IMAGE_2D_RECT: return StrLit("INT_IMAGE_2D_RECT");
+#endif
+#if defined GL_INT_IMAGE_CUBE
+	case GL_INT_IMAGE_CUBE: return StrLit("INT_IMAGE_CUBE");
+#endif
+#if defined GL_INT_IMAGE_BUFFER
+	case GL_INT_IMAGE_BUFFER: return StrLit("INT_IMAGE_BUFFER");
+#endif
+#if defined GL_INT_IMAGE_1D_ARRAY
+	case GL_INT_IMAGE_1D_ARRAY: return StrLit("INT_IMAGE_1D_ARRAY");
+#endif
+#if defined GL_INT_IMAGE_2D_ARRAY
+	case GL_INT_IMAGE_2D_ARRAY: return StrLit("INT_IMAGE_2D_ARRAY");
+#endif
+#if defined GL_INT_IMAGE_2D_MULTISAMPLE
+	case GL_INT_IMAGE_2D_MULTISAMPLE: return StrLit("INT_IMAGE_2D_MULTISAMPLE");
+#endif
+#if defined GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY
+	case GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY: return StrLit("INT_IMAGE_2D_MULTISAMPLE_ARRAY");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_1D
+	case GL_UNSIGNED_INT_IMAGE_1D: return StrLit("UNSIGNED_INT_IMAGE_1D");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D
+	case GL_UNSIGNED_INT_IMAGE_2D: return StrLit("UNSIGNED_INT_IMAGE_2D");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_3D
+	case GL_UNSIGNED_INT_IMAGE_3D: return StrLit("UNSIGNED_INT_IMAGE_3D");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D_RECT
+	case GL_UNSIGNED_INT_IMAGE_2D_RECT: return StrLit("UNSIGNED_INT_IMAGE_2D_RECT");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_CUBE
+	case GL_UNSIGNED_INT_IMAGE_CUBE: return StrLit("UNSIGNED_INT_IMAGE_CUBE");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_BUFFER
+	case GL_UNSIGNED_INT_IMAGE_BUFFER: return StrLit("UNSIGNED_INT_IMAGE_BUFFER");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_1D_ARRAY
+	case GL_UNSIGNED_INT_IMAGE_1D_ARRAY: return StrLit("UNSIGNED_INT_IMAGE_1D_ARRAY");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D_ARRAY
+	case GL_UNSIGNED_INT_IMAGE_2D_ARRAY: return StrLit("UNSIGNED_INT_IMAGE_2D_ARRAY");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE
+	case GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE: return StrLit("UNSIGNED_INT_IMAGE_2D_MULTISAMPLE");
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY
+	case GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY: return StrLit("UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY");
+#endif
+#if defined GL_UNSIGNED_INT_ATOMIC_COUNTER
+	case GL_UNSIGNED_INT_ATOMIC_COUNTER: return StrLit("UNSIGNED_INT_ATOMIC_COUNTER");
 #endif
 #if defined GL_NONE
 	case GL_NONE: return StrLit("NONE");
