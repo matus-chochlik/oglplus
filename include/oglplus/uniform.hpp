@@ -988,7 +988,7 @@ public:
 	{ }
 
 	UniformTpl<T, aux::DirectUniformInit, SetOps>
-	operator[](GLint index) const
+	operator[](GLint index)
 	{
 		return UniformTpl<T, aux::DirectUniformInit, SetOps>(
 			this->_get_program(),

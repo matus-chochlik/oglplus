@@ -41,6 +41,57 @@ private:
 		bool load_bitangents;
 		bool load_texcoords;
 		bool load_materials;
+
+		_loading_options(bool load_all = true)
+		 : scene_name(nullptr)
+		{
+			All(load_all);
+		}
+
+		_loading_options& All(bool load_all = true)
+		{
+			load_normals = load_all;
+			load_tangents = load_all;
+			load_bitangents = load_all;
+			load_texcoords = load_all;
+			load_materials = load_all;
+			return *this;
+		}
+
+		_loading_options& Nothing(void)
+		{
+			return All(false);
+		}
+
+		_loading_options& Normals(bool load = true)
+		{
+			load_normals = load;
+			return *this;
+		}
+
+		_loading_options& Tangents(bool load = true)
+		{
+			load_tangents = load;
+			return *this;
+		}
+
+		_loading_options& Bitangents(bool load = true)
+		{
+			load_bitangents = load;
+			return *this;
+		}
+
+		_loading_options& TexCoords(bool load = true)
+		{
+			load_texcoords = load;
+			return *this;
+		}
+
+		_loading_options& Materials(bool load = true)
+		{
+			load_materials = load;
+			return *this;
+		}
 	};
 
 	// vertex positions
@@ -179,14 +230,14 @@ private:
 			auto tface_data = blend_file[tface_ptr];
 			// get the number of faces in the block
 			std::size_t n_faces = face_data.BlockElementCount();
-			assert(n_faces == tface_data.BlockElementCount());
+
+			if(opts.load_texcoords || opts.load_tangents)
+				assert(n_faces == tface_data.BlockElementCount());
 			// get the vertex index fields of the face
 			auto face_v1_field = face_data.Field<int>("v1");
 			auto face_v2_field = face_data.Field<int>("v2");
 			auto face_v3_field = face_data.Field<int>("v3");
 			auto face_v4_field = face_data.Field<int>("v4");
-			// get the uv coords fields
-			auto tface_uv_field = tface_data.Field<float>("uv");
 			// get the mat_nr field
 			auto face_mat_nr_field = face_data.Field<short>("mat_nr");
 			// make a vector of index data
@@ -208,8 +259,13 @@ private:
 				};
 
 				float uv[8];
-				for(std::size_t i=0; i!=8; ++i)
-					uv[i] = tface_uv_field.Get(f, i);
+				if(opts.load_texcoords)
+				{
+					// get the uv coords fields
+					auto tface_uv_field = tface_data.Field<float>("uv");
+					for(std::size_t i=0; i!=8; ++i)
+						uv[i] = tface_uv_field.Get(f, i);
+				}
 
 				short mat_nr = face_mat_nr_field.Get(f);
 
@@ -321,8 +377,13 @@ private:
 				};
 
 				float uv[8];
-				for(std::size_t i=0; i!=8; ++i)
-					uv[i] = tface_uv_field.Get(f, i);
+				if(opts.load_texcoords)
+				{
+					// get the uv coords fields
+					auto tface_uv_field = tface_data.Field<float>("uv");
+					for(std::size_t i=0; i!=8; ++i)
+						uv[i] = tface_uv_field.Get(f, i);
+				}
 
 				short mat_nr = face_mat_nr_field.Get(f);
 
@@ -683,25 +744,20 @@ private:
 		const char* scene_name,
 		NameIter names_begin,
 		NameIter names_end,
-		bool load_normals,
-		bool load_tangents,
-		bool load_bitangents,
-		bool load_texcoords,
-		bool load_materials
+		_loading_options opts
 	)
 	{
-		_loading_options opts;
 		opts.scene_name = scene_name;
-		opts.load_normals = load_normals;
-		opts.load_tangents = load_tangents || load_bitangents;
-		opts.load_bitangents = load_bitangents;
-		opts.load_texcoords = load_texcoords || opts.load_tangents || load_materials;
-		opts.load_materials = load_materials;
+		opts.load_tangents |= opts.load_bitangents;
+		opts.load_bitangents |= opts.load_tangents;
+		opts.load_texcoords |= opts.load_tangents;
 
 		// do load the meshes
 		_load_meshes(opts, names_begin, names_end, blend_file);
 	}
 public:
+	typedef _loading_options LoadingOptions;
+
 	BlenderMesh(imports::BlendFile& blend_file)
 	{
 		_call_load_meshes(
@@ -709,11 +765,7 @@ public:
 			nullptr,
 			(const char**)nullptr,
 			(const char**)nullptr,
-			true,
-			true,
-			true,
-			true,
-			true
+			LoadingOptions()
 		);
 	}
 
@@ -721,11 +773,7 @@ public:
 	BlenderMesh(
 		imports::BlendFile& blend_file,
 		const std::array<NameStr, NN>& names,
-		bool load_normals = true,
-		bool load_tangents = true,
-		bool load_bitangents = true,
-		bool load_texcoords = true,
-		bool load_materials = true
+		LoadingOptions opts = LoadingOptions()
 	)
 	{
 		_call_load_meshes(
@@ -733,11 +781,7 @@ public:
 			nullptr,
 			names.begin(),
 			names.end(),
-			load_normals,
-			load_tangents,
-			load_bitangents,
-			load_texcoords,
-			load_materials
+			opts
 		);
 	}
 
