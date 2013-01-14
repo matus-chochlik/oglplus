@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/sl_data_type.txt' instead.
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -787,6 +787,316 @@
 #  pragma pop_macro("UnsignedIntSampler2DRect")
 # else
    OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntSampler2DRect, GL_UNSIGNED_INT_SAMPLER_2D_RECT)
+# endif
+#endif
+#if defined GL_IMAGE_1D
+# if defined Image1D
+#  pragma push_macro("Image1D")
+#  undef Image1D
+   OGLPLUS_ENUM_CLASS_VALUE(Image1D, GL_IMAGE_1D)
+#  pragma pop_macro("Image1D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Image1D, GL_IMAGE_1D)
+# endif
+#endif
+#if defined GL_IMAGE_2D
+# if defined Image2D
+#  pragma push_macro("Image2D")
+#  undef Image2D
+   OGLPLUS_ENUM_CLASS_VALUE(Image2D, GL_IMAGE_2D)
+#  pragma pop_macro("Image2D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Image2D, GL_IMAGE_2D)
+# endif
+#endif
+#if defined GL_IMAGE_3D
+# if defined Image3D
+#  pragma push_macro("Image3D")
+#  undef Image3D
+   OGLPLUS_ENUM_CLASS_VALUE(Image3D, GL_IMAGE_3D)
+#  pragma pop_macro("Image3D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Image3D, GL_IMAGE_3D)
+# endif
+#endif
+#if defined GL_IMAGE_2D_RECT
+# if defined Image2DRect
+#  pragma push_macro("Image2DRect")
+#  undef Image2DRect
+   OGLPLUS_ENUM_CLASS_VALUE(Image2DRect, GL_IMAGE_2D_RECT)
+#  pragma pop_macro("Image2DRect")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Image2DRect, GL_IMAGE_2D_RECT)
+# endif
+#endif
+#if defined GL_IMAGE_CUBE
+# if defined ImageCube
+#  pragma push_macro("ImageCube")
+#  undef ImageCube
+   OGLPLUS_ENUM_CLASS_VALUE(ImageCube, GL_IMAGE_CUBE)
+#  pragma pop_macro("ImageCube")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ImageCube, GL_IMAGE_CUBE)
+# endif
+#endif
+#if defined GL_IMAGE_BUFFER
+# if defined ImageBuffer
+#  pragma push_macro("ImageBuffer")
+#  undef ImageBuffer
+   OGLPLUS_ENUM_CLASS_VALUE(ImageBuffer, GL_IMAGE_BUFFER)
+#  pragma pop_macro("ImageBuffer")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ImageBuffer, GL_IMAGE_BUFFER)
+# endif
+#endif
+#if defined GL_IMAGE_1D_ARRAY
+# if defined Image1DArray
+#  pragma push_macro("Image1DArray")
+#  undef Image1DArray
+   OGLPLUS_ENUM_CLASS_VALUE(Image1DArray, GL_IMAGE_1D_ARRAY)
+#  pragma pop_macro("Image1DArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Image1DArray, GL_IMAGE_1D_ARRAY)
+# endif
+#endif
+#if defined GL_IMAGE_2D_ARRAY
+# if defined Image2DArray
+#  pragma push_macro("Image2DArray")
+#  undef Image2DArray
+   OGLPLUS_ENUM_CLASS_VALUE(Image2DArray, GL_IMAGE_2D_ARRAY)
+#  pragma pop_macro("Image2DArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Image2DArray, GL_IMAGE_2D_ARRAY)
+# endif
+#endif
+#if defined GL_IMAGE_2D_MULTISAMPLE
+# if defined Image2DMultisample
+#  pragma push_macro("Image2DMultisample")
+#  undef Image2DMultisample
+   OGLPLUS_ENUM_CLASS_VALUE(Image2DMultisample, GL_IMAGE_2D_MULTISAMPLE)
+#  pragma pop_macro("Image2DMultisample")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Image2DMultisample, GL_IMAGE_2D_MULTISAMPLE)
+# endif
+#endif
+#if defined GL_IMAGE_2D_MULTISAMPLE_ARRAY
+# if defined Image2DMultisampleArray
+#  pragma push_macro("Image2DMultisampleArray")
+#  undef Image2DMultisampleArray
+   OGLPLUS_ENUM_CLASS_VALUE(Image2DMultisampleArray, GL_IMAGE_2D_MULTISAMPLE_ARRAY)
+#  pragma pop_macro("Image2DMultisampleArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Image2DMultisampleArray, GL_IMAGE_2D_MULTISAMPLE_ARRAY)
+# endif
+#endif
+#if defined GL_INT_IMAGE_1D
+# if defined IntImage1D
+#  pragma push_macro("IntImage1D")
+#  undef IntImage1D
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage1D, GL_INT_IMAGE_1D)
+#  pragma pop_macro("IntImage1D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage1D, GL_INT_IMAGE_1D)
+# endif
+#endif
+#if defined GL_INT_IMAGE_2D
+# if defined IntImage2D
+#  pragma push_macro("IntImage2D")
+#  undef IntImage2D
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2D, GL_INT_IMAGE_2D)
+#  pragma pop_macro("IntImage2D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2D, GL_INT_IMAGE_2D)
+# endif
+#endif
+#if defined GL_INT_IMAGE_3D
+# if defined IntImage3D
+#  pragma push_macro("IntImage3D")
+#  undef IntImage3D
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage3D, GL_INT_IMAGE_3D)
+#  pragma pop_macro("IntImage3D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage3D, GL_INT_IMAGE_3D)
+# endif
+#endif
+#if defined GL_INT_IMAGE_2D_RECT
+# if defined IntImage2DRect
+#  pragma push_macro("IntImage2DRect")
+#  undef IntImage2DRect
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2DRect, GL_INT_IMAGE_2D_RECT)
+#  pragma pop_macro("IntImage2DRect")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2DRect, GL_INT_IMAGE_2D_RECT)
+# endif
+#endif
+#if defined GL_INT_IMAGE_CUBE
+# if defined IntImageCube
+#  pragma push_macro("IntImageCube")
+#  undef IntImageCube
+   OGLPLUS_ENUM_CLASS_VALUE(IntImageCube, GL_INT_IMAGE_CUBE)
+#  pragma pop_macro("IntImageCube")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImageCube, GL_INT_IMAGE_CUBE)
+# endif
+#endif
+#if defined GL_INT_IMAGE_BUFFER
+# if defined IntImageBuffer
+#  pragma push_macro("IntImageBuffer")
+#  undef IntImageBuffer
+   OGLPLUS_ENUM_CLASS_VALUE(IntImageBuffer, GL_INT_IMAGE_BUFFER)
+#  pragma pop_macro("IntImageBuffer")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImageBuffer, GL_INT_IMAGE_BUFFER)
+# endif
+#endif
+#if defined GL_INT_IMAGE_1D_ARRAY
+# if defined IntImage1DArray
+#  pragma push_macro("IntImage1DArray")
+#  undef IntImage1DArray
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage1DArray, GL_INT_IMAGE_1D_ARRAY)
+#  pragma pop_macro("IntImage1DArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage1DArray, GL_INT_IMAGE_1D_ARRAY)
+# endif
+#endif
+#if defined GL_INT_IMAGE_2D_ARRAY
+# if defined IntImage2DArray
+#  pragma push_macro("IntImage2DArray")
+#  undef IntImage2DArray
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2DArray, GL_INT_IMAGE_2D_ARRAY)
+#  pragma pop_macro("IntImage2DArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2DArray, GL_INT_IMAGE_2D_ARRAY)
+# endif
+#endif
+#if defined GL_INT_IMAGE_2D_MULTISAMPLE
+# if defined IntImage2DMultisample
+#  pragma push_macro("IntImage2DMultisample")
+#  undef IntImage2DMultisample
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2DMultisample, GL_INT_IMAGE_2D_MULTISAMPLE)
+#  pragma pop_macro("IntImage2DMultisample")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2DMultisample, GL_INT_IMAGE_2D_MULTISAMPLE)
+# endif
+#endif
+#if defined GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY
+# if defined IntImage2DMultisampleArray
+#  pragma push_macro("IntImage2DMultisampleArray")
+#  undef IntImage2DMultisampleArray
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2DMultisampleArray, GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY)
+#  pragma pop_macro("IntImage2DMultisampleArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(IntImage2DMultisampleArray, GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_1D
+# if defined UnsignedIntImage1D
+#  pragma push_macro("UnsignedIntImage1D")
+#  undef UnsignedIntImage1D
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage1D, GL_UNSIGNED_INT_IMAGE_1D)
+#  pragma pop_macro("UnsignedIntImage1D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage1D, GL_UNSIGNED_INT_IMAGE_1D)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D
+# if defined UnsignedIntImage2D
+#  pragma push_macro("UnsignedIntImage2D")
+#  undef UnsignedIntImage2D
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2D, GL_UNSIGNED_INT_IMAGE_2D)
+#  pragma pop_macro("UnsignedIntImage2D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2D, GL_UNSIGNED_INT_IMAGE_2D)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_3D
+# if defined UnsignedIntImage3D
+#  pragma push_macro("UnsignedIntImage3D")
+#  undef UnsignedIntImage3D
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage3D, GL_UNSIGNED_INT_IMAGE_3D)
+#  pragma pop_macro("UnsignedIntImage3D")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage3D, GL_UNSIGNED_INT_IMAGE_3D)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D_RECT
+# if defined UnsignedIntImage2DRect
+#  pragma push_macro("UnsignedIntImage2DRect")
+#  undef UnsignedIntImage2DRect
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2DRect, GL_UNSIGNED_INT_IMAGE_2D_RECT)
+#  pragma pop_macro("UnsignedIntImage2DRect")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2DRect, GL_UNSIGNED_INT_IMAGE_2D_RECT)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_CUBE
+# if defined UnsignedIntImageCube
+#  pragma push_macro("UnsignedIntImageCube")
+#  undef UnsignedIntImageCube
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImageCube, GL_UNSIGNED_INT_IMAGE_CUBE)
+#  pragma pop_macro("UnsignedIntImageCube")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImageCube, GL_UNSIGNED_INT_IMAGE_CUBE)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_BUFFER
+# if defined UnsignedIntImageBuffer
+#  pragma push_macro("UnsignedIntImageBuffer")
+#  undef UnsignedIntImageBuffer
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImageBuffer, GL_UNSIGNED_INT_IMAGE_BUFFER)
+#  pragma pop_macro("UnsignedIntImageBuffer")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImageBuffer, GL_UNSIGNED_INT_IMAGE_BUFFER)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_1D_ARRAY
+# if defined UnsignedIntImage1DArray
+#  pragma push_macro("UnsignedIntImage1DArray")
+#  undef UnsignedIntImage1DArray
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage1DArray, GL_UNSIGNED_INT_IMAGE_1D_ARRAY)
+#  pragma pop_macro("UnsignedIntImage1DArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage1DArray, GL_UNSIGNED_INT_IMAGE_1D_ARRAY)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D_ARRAY
+# if defined UnsignedIntImage2DArray
+#  pragma push_macro("UnsignedIntImage2DArray")
+#  undef UnsignedIntImage2DArray
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2DArray, GL_UNSIGNED_INT_IMAGE_2D_ARRAY)
+#  pragma pop_macro("UnsignedIntImage2DArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2DArray, GL_UNSIGNED_INT_IMAGE_2D_ARRAY)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE
+# if defined UnsignedIntImage2DMultisample
+#  pragma push_macro("UnsignedIntImage2DMultisample")
+#  undef UnsignedIntImage2DMultisample
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2DMultisample, GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE)
+#  pragma pop_macro("UnsignedIntImage2DMultisample")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2DMultisample, GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY
+# if defined UnsignedIntImage2DMultisampleArray
+#  pragma push_macro("UnsignedIntImage2DMultisampleArray")
+#  undef UnsignedIntImage2DMultisampleArray
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2DMultisampleArray, GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY)
+#  pragma pop_macro("UnsignedIntImage2DMultisampleArray")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntImage2DMultisampleArray, GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY)
+# endif
+#endif
+#if defined GL_UNSIGNED_INT_ATOMIC_COUNTER
+# if defined UnsignedIntAtomicCounter
+#  pragma push_macro("UnsignedIntAtomicCounter")
+#  undef UnsignedIntAtomicCounter
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntAtomicCounter, GL_UNSIGNED_INT_ATOMIC_COUNTER)
+#  pragma pop_macro("UnsignedIntAtomicCounter")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(UnsignedIntAtomicCounter, GL_UNSIGNED_INT_ATOMIC_COUNTER)
 # endif
 #endif
 #if defined GL_NONE

@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/sl_data_type.txt' instead.
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -167,6 +167,68 @@ UnsignedIntSampler2DMultisampleArray,
 UnsignedIntSamplerBuffer,
 /// UNSIGNED_INT_SAMPLER_2D_RECT
 UnsignedIntSampler2DRect,
+/// IMAGE_1D
+Image1D,
+/// IMAGE_2D
+Image2D,
+/// IMAGE_3D
+Image3D,
+/// IMAGE_2D_RECT
+Image2DRect,
+/// IMAGE_CUBE
+ImageCube,
+/// IMAGE_BUFFER
+ImageBuffer,
+/// IMAGE_1D_ARRAY
+Image1DArray,
+/// IMAGE_2D_ARRAY
+Image2DArray,
+/// IMAGE_2D_MULTISAMPLE
+Image2DMultisample,
+/// IMAGE_2D_MULTISAMPLE_ARRAY
+Image2DMultisampleArray,
+/// INT_IMAGE_1D
+IntImage1D,
+/// INT_IMAGE_2D
+IntImage2D,
+/// INT_IMAGE_3D
+IntImage3D,
+/// INT_IMAGE_2D_RECT
+IntImage2DRect,
+/// INT_IMAGE_CUBE
+IntImageCube,
+/// INT_IMAGE_BUFFER
+IntImageBuffer,
+/// INT_IMAGE_1D_ARRAY
+IntImage1DArray,
+/// INT_IMAGE_2D_ARRAY
+IntImage2DArray,
+/// INT_IMAGE_2D_MULTISAMPLE
+IntImage2DMultisample,
+/// INT_IMAGE_2D_MULTISAMPLE_ARRAY
+IntImage2DMultisampleArray,
+/// UNSIGNED_INT_IMAGE_1D
+UnsignedIntImage1D,
+/// UNSIGNED_INT_IMAGE_2D
+UnsignedIntImage2D,
+/// UNSIGNED_INT_IMAGE_3D
+UnsignedIntImage3D,
+/// UNSIGNED_INT_IMAGE_2D_RECT
+UnsignedIntImage2DRect,
+/// UNSIGNED_INT_IMAGE_CUBE
+UnsignedIntImageCube,
+/// UNSIGNED_INT_IMAGE_BUFFER
+UnsignedIntImageBuffer,
+/// UNSIGNED_INT_IMAGE_1D_ARRAY
+UnsignedIntImage1DArray,
+/// UNSIGNED_INT_IMAGE_2D_ARRAY
+UnsignedIntImage2DArray,
+/// UNSIGNED_INT_IMAGE_2D_MULTISAMPLE
+UnsignedIntImage2DMultisample,
+/// UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY
+UnsignedIntImage2DMultisampleArray,
+/// UNSIGNED_INT_ATOMIC_COUNTER
+UnsignedIntAtomicCounter,
 /// NONE
 None
 

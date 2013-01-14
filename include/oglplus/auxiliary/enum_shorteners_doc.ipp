@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/.*.txt' instead.
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -8968,6 +8968,336 @@ template <typename Enum> friend bool operator==(Enum value, HorizontalLineTo);
 template <typename Enum> friend bool operator!=(Enum value, HorizontalLineTo);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Image1D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_1D}
+ *
+ *  @ingroup smart_enums
+ */
+struct Image1D {
+
+/// Conversion to any @p Enum type having the Image1D value.
+/** Instances of the @ref oglplus::smart_enums::Image1D "Image1D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Image1D value.
+ */
+template <typename Enum, Enum = Enum::Image1D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Image1D value.
+/** Instances of the @c smart_enums::Image1D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Image1D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Image1D);
+
+/// Non-equality comparison with any @p Enum type having the Image1D value.
+/** Instances of the @c smart_enums::Image1D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Image1D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Image1D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Image1DArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_1D_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct Image1DArray {
+
+/// Conversion to any @p Enum type having the Image1DArray value.
+/** Instances of the @ref oglplus::smart_enums::Image1DArray "Image1DArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Image1DArray value.
+ */
+template <typename Enum, Enum = Enum::Image1DArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Image1DArray value.
+/** Instances of the @c smart_enums::Image1DArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Image1DArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Image1DArray);
+
+/// Non-equality comparison with any @p Enum type having the Image1DArray value.
+/** Instances of the @c smart_enums::Image1DArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Image1DArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Image1DArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Image2D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_2D}
+ *
+ *  @ingroup smart_enums
+ */
+struct Image2D {
+
+/// Conversion to any @p Enum type having the Image2D value.
+/** Instances of the @ref oglplus::smart_enums::Image2D "Image2D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Image2D value.
+ */
+template <typename Enum, Enum = Enum::Image2D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Image2D value.
+/** Instances of the @c smart_enums::Image2D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Image2D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Image2D);
+
+/// Non-equality comparison with any @p Enum type having the Image2D value.
+/** Instances of the @c smart_enums::Image2D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Image2D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Image2D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Image2DArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_2D_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct Image2DArray {
+
+/// Conversion to any @p Enum type having the Image2DArray value.
+/** Instances of the @ref oglplus::smart_enums::Image2DArray "Image2DArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Image2DArray value.
+ */
+template <typename Enum, Enum = Enum::Image2DArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Image2DArray value.
+/** Instances of the @c smart_enums::Image2DArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Image2DArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Image2DArray);
+
+/// Non-equality comparison with any @p Enum type having the Image2DArray value.
+/** Instances of the @c smart_enums::Image2DArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Image2DArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Image2DArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Image2DMultisample value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_2D_MULTISAMPLE}
+ *
+ *  @ingroup smart_enums
+ */
+struct Image2DMultisample {
+
+/// Conversion to any @p Enum type having the Image2DMultisample value.
+/** Instances of the @ref oglplus::smart_enums::Image2DMultisample "Image2DMultisample"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Image2DMultisample value.
+ */
+template <typename Enum, Enum = Enum::Image2DMultisample> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Image2DMultisample value.
+/** Instances of the @c smart_enums::Image2DMultisample type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Image2DMultisample value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Image2DMultisample);
+
+/// Non-equality comparison with any @p Enum type having the Image2DMultisample value.
+/** Instances of the @c smart_enums::Image2DMultisample type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Image2DMultisample value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Image2DMultisample);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Image2DMultisampleArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_2D_MULTISAMPLE_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct Image2DMultisampleArray {
+
+/// Conversion to any @p Enum type having the Image2DMultisampleArray value.
+/** Instances of the @ref oglplus::smart_enums::Image2DMultisampleArray "Image2DMultisampleArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Image2DMultisampleArray value.
+ */
+template <typename Enum, Enum = Enum::Image2DMultisampleArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Image2DMultisampleArray value.
+/** Instances of the @c smart_enums::Image2DMultisampleArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Image2DMultisampleArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Image2DMultisampleArray);
+
+/// Non-equality comparison with any @p Enum type having the Image2DMultisampleArray value.
+/** Instances of the @c smart_enums::Image2DMultisampleArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Image2DMultisampleArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Image2DMultisampleArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Image2DRect value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_2D_RECT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Image2DRect {
+
+/// Conversion to any @p Enum type having the Image2DRect value.
+/** Instances of the @ref oglplus::smart_enums::Image2DRect "Image2DRect"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Image2DRect value.
+ */
+template <typename Enum, Enum = Enum::Image2DRect> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Image2DRect value.
+/** Instances of the @c smart_enums::Image2DRect type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Image2DRect value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Image2DRect);
+
+/// Non-equality comparison with any @p Enum type having the Image2DRect value.
+/** Instances of the @c smart_enums::Image2DRect type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Image2DRect value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Image2DRect);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Image3D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_3D}
+ *
+ *  @ingroup smart_enums
+ */
+struct Image3D {
+
+/// Conversion to any @p Enum type having the Image3D value.
+/** Instances of the @ref oglplus::smart_enums::Image3D "Image3D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Image3D value.
+ */
+template <typename Enum, Enum = Enum::Image3D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Image3D value.
+/** Instances of the @c smart_enums::Image3D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Image3D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Image3D);
+
+/// Non-equality comparison with any @p Enum type having the Image3D value.
+/** Instances of the @c smart_enums::Image3D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Image3D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Image3D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ImageBuffer value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_BUFFER}
+ *
+ *  @ingroup smart_enums
+ */
+struct ImageBuffer {
+
+/// Conversion to any @p Enum type having the ImageBuffer value.
+/** Instances of the @ref oglplus::smart_enums::ImageBuffer "ImageBuffer"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ImageBuffer value.
+ */
+template <typename Enum, Enum = Enum::ImageBuffer> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ImageBuffer value.
+/** Instances of the @c smart_enums::ImageBuffer type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ImageBuffer value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ImageBuffer);
+
+/// Non-equality comparison with any @p Enum type having the ImageBuffer value.
+/** Instances of the @c smart_enums::ImageBuffer type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ImageBuffer value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ImageBuffer);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ImageCube value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{IMAGE_CUBE}
+ *
+ *  @ingroup smart_enums
+ */
+struct ImageCube {
+
+/// Conversion to any @p Enum type having the ImageCube value.
+/** Instances of the @ref oglplus::smart_enums::ImageCube "ImageCube"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ImageCube value.
+ */
+template <typename Enum, Enum = Enum::ImageCube> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ImageCube value.
+/** Instances of the @c smart_enums::ImageCube type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ImageCube value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ImageCube);
+
+/// Non-equality comparison with any @p Enum type having the ImageCube value.
+/** Instances of the @c smart_enums::ImageCube type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ImageCube value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ImageCube);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IncompleteAttachment value.
 /**
  *  @see @ref oglplus::FramebufferStatus "FramebufferStatus"
@@ -9265,6 +9595,336 @@ template <typename Enum> friend bool operator==(Enum value, InterleavedAttribs);
  *  the @c InterleavedAttribs value.
  */
 template <typename Enum> friend bool operator!=(Enum value, InterleavedAttribs);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImage1D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_1D}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImage1D {
+
+/// Conversion to any @p Enum type having the IntImage1D value.
+/** Instances of the @ref oglplus::smart_enums::IntImage1D "IntImage1D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImage1D value.
+ */
+template <typename Enum, Enum = Enum::IntImage1D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImage1D value.
+/** Instances of the @c smart_enums::IntImage1D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImage1D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImage1D);
+
+/// Non-equality comparison with any @p Enum type having the IntImage1D value.
+/** Instances of the @c smart_enums::IntImage1D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImage1D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImage1D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImage1DArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_1D_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImage1DArray {
+
+/// Conversion to any @p Enum type having the IntImage1DArray value.
+/** Instances of the @ref oglplus::smart_enums::IntImage1DArray "IntImage1DArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImage1DArray value.
+ */
+template <typename Enum, Enum = Enum::IntImage1DArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImage1DArray value.
+/** Instances of the @c smart_enums::IntImage1DArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImage1DArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImage1DArray);
+
+/// Non-equality comparison with any @p Enum type having the IntImage1DArray value.
+/** Instances of the @c smart_enums::IntImage1DArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImage1DArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImage1DArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImage2D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_2D}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImage2D {
+
+/// Conversion to any @p Enum type having the IntImage2D value.
+/** Instances of the @ref oglplus::smart_enums::IntImage2D "IntImage2D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImage2D value.
+ */
+template <typename Enum, Enum = Enum::IntImage2D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImage2D value.
+/** Instances of the @c smart_enums::IntImage2D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImage2D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImage2D);
+
+/// Non-equality comparison with any @p Enum type having the IntImage2D value.
+/** Instances of the @c smart_enums::IntImage2D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImage2D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImage2D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImage2DArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_2D_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImage2DArray {
+
+/// Conversion to any @p Enum type having the IntImage2DArray value.
+/** Instances of the @ref oglplus::smart_enums::IntImage2DArray "IntImage2DArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImage2DArray value.
+ */
+template <typename Enum, Enum = Enum::IntImage2DArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImage2DArray value.
+/** Instances of the @c smart_enums::IntImage2DArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImage2DArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImage2DArray);
+
+/// Non-equality comparison with any @p Enum type having the IntImage2DArray value.
+/** Instances of the @c smart_enums::IntImage2DArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImage2DArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImage2DArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImage2DMultisample value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_2D_MULTISAMPLE}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImage2DMultisample {
+
+/// Conversion to any @p Enum type having the IntImage2DMultisample value.
+/** Instances of the @ref oglplus::smart_enums::IntImage2DMultisample "IntImage2DMultisample"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImage2DMultisample value.
+ */
+template <typename Enum, Enum = Enum::IntImage2DMultisample> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImage2DMultisample value.
+/** Instances of the @c smart_enums::IntImage2DMultisample type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImage2DMultisample value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImage2DMultisample);
+
+/// Non-equality comparison with any @p Enum type having the IntImage2DMultisample value.
+/** Instances of the @c smart_enums::IntImage2DMultisample type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImage2DMultisample value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImage2DMultisample);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImage2DMultisampleArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_2D_MULTISAMPLE_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImage2DMultisampleArray {
+
+/// Conversion to any @p Enum type having the IntImage2DMultisampleArray value.
+/** Instances of the @ref oglplus::smart_enums::IntImage2DMultisampleArray "IntImage2DMultisampleArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImage2DMultisampleArray value.
+ */
+template <typename Enum, Enum = Enum::IntImage2DMultisampleArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImage2DMultisampleArray value.
+/** Instances of the @c smart_enums::IntImage2DMultisampleArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImage2DMultisampleArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImage2DMultisampleArray);
+
+/// Non-equality comparison with any @p Enum type having the IntImage2DMultisampleArray value.
+/** Instances of the @c smart_enums::IntImage2DMultisampleArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImage2DMultisampleArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImage2DMultisampleArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImage2DRect value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_2D_RECT}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImage2DRect {
+
+/// Conversion to any @p Enum type having the IntImage2DRect value.
+/** Instances of the @ref oglplus::smart_enums::IntImage2DRect "IntImage2DRect"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImage2DRect value.
+ */
+template <typename Enum, Enum = Enum::IntImage2DRect> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImage2DRect value.
+/** Instances of the @c smart_enums::IntImage2DRect type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImage2DRect value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImage2DRect);
+
+/// Non-equality comparison with any @p Enum type having the IntImage2DRect value.
+/** Instances of the @c smart_enums::IntImage2DRect type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImage2DRect value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImage2DRect);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImage3D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_3D}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImage3D {
+
+/// Conversion to any @p Enum type having the IntImage3D value.
+/** Instances of the @ref oglplus::smart_enums::IntImage3D "IntImage3D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImage3D value.
+ */
+template <typename Enum, Enum = Enum::IntImage3D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImage3D value.
+/** Instances of the @c smart_enums::IntImage3D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImage3D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImage3D);
+
+/// Non-equality comparison with any @p Enum type having the IntImage3D value.
+/** Instances of the @c smart_enums::IntImage3D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImage3D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImage3D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImageBuffer value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_BUFFER}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImageBuffer {
+
+/// Conversion to any @p Enum type having the IntImageBuffer value.
+/** Instances of the @ref oglplus::smart_enums::IntImageBuffer "IntImageBuffer"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImageBuffer value.
+ */
+template <typename Enum, Enum = Enum::IntImageBuffer> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImageBuffer value.
+/** Instances of the @c smart_enums::IntImageBuffer type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImageBuffer value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImageBuffer);
+
+/// Non-equality comparison with any @p Enum type having the IntImageBuffer value.
+/** Instances of the @c smart_enums::IntImageBuffer type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImageBuffer value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImageBuffer);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntImageCube value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{INT_IMAGE_CUBE}
+ *
+ *  @ingroup smart_enums
+ */
+struct IntImageCube {
+
+/// Conversion to any @p Enum type having the IntImageCube value.
+/** Instances of the @ref oglplus::smart_enums::IntImageCube "IntImageCube"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IntImageCube value.
+ */
+template <typename Enum, Enum = Enum::IntImageCube> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IntImageCube value.
+/** Instances of the @c smart_enums::IntImageCube type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IntImageCube value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IntImageCube);
+
+/// Non-equality comparison with any @p Enum type having the IntImageCube value.
+/** Instances of the @c smart_enums::IntImageCube type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IntImageCube value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IntImageCube);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IntSampler1D value.
@@ -24840,6 +25500,369 @@ template <typename Enum> friend bool operator==(Enum value, UnsignedInt_8_8_8_8_
  *  the @c UnsignedInt_8_8_8_8_Rev value.
  */
 template <typename Enum> friend bool operator!=(Enum value, UnsignedInt_8_8_8_8_Rev);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntAtomicCounter value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_ATOMIC_COUNTER}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntAtomicCounter {
+
+/// Conversion to any @p Enum type having the UnsignedIntAtomicCounter value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntAtomicCounter "UnsignedIntAtomicCounter"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntAtomicCounter value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntAtomicCounter> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntAtomicCounter value.
+/** Instances of the @c smart_enums::UnsignedIntAtomicCounter type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntAtomicCounter value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntAtomicCounter);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntAtomicCounter value.
+/** Instances of the @c smart_enums::UnsignedIntAtomicCounter type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntAtomicCounter value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntAtomicCounter);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImage1D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_1D}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImage1D {
+
+/// Conversion to any @p Enum type having the UnsignedIntImage1D value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImage1D "UnsignedIntImage1D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImage1D value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImage1D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImage1D value.
+/** Instances of the @c smart_enums::UnsignedIntImage1D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage1D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImage1D);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImage1D value.
+/** Instances of the @c smart_enums::UnsignedIntImage1D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage1D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImage1D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImage1DArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_1D_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImage1DArray {
+
+/// Conversion to any @p Enum type having the UnsignedIntImage1DArray value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImage1DArray "UnsignedIntImage1DArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImage1DArray value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImage1DArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImage1DArray value.
+/** Instances of the @c smart_enums::UnsignedIntImage1DArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage1DArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImage1DArray);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImage1DArray value.
+/** Instances of the @c smart_enums::UnsignedIntImage1DArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage1DArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImage1DArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImage2D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_2D}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImage2D {
+
+/// Conversion to any @p Enum type having the UnsignedIntImage2D value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImage2D "UnsignedIntImage2D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImage2D value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImage2D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImage2D value.
+/** Instances of the @c smart_enums::UnsignedIntImage2D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImage2D);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImage2D value.
+/** Instances of the @c smart_enums::UnsignedIntImage2D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImage2D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImage2DArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_2D_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImage2DArray {
+
+/// Conversion to any @p Enum type having the UnsignedIntImage2DArray value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImage2DArray "UnsignedIntImage2DArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DArray value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImage2DArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImage2DArray value.
+/** Instances of the @c smart_enums::UnsignedIntImage2DArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImage2DArray);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImage2DArray value.
+/** Instances of the @c smart_enums::UnsignedIntImage2DArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImage2DArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImage2DMultisample value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_2D_MULTISAMPLE}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImage2DMultisample {
+
+/// Conversion to any @p Enum type having the UnsignedIntImage2DMultisample value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImage2DMultisample "UnsignedIntImage2DMultisample"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DMultisample value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImage2DMultisample> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImage2DMultisample value.
+/** Instances of the @c smart_enums::UnsignedIntImage2DMultisample type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DMultisample value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImage2DMultisample);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImage2DMultisample value.
+/** Instances of the @c smart_enums::UnsignedIntImage2DMultisample type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DMultisample value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImage2DMultisample);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImage2DMultisampleArray value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImage2DMultisampleArray {
+
+/// Conversion to any @p Enum type having the UnsignedIntImage2DMultisampleArray value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImage2DMultisampleArray "UnsignedIntImage2DMultisampleArray"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DMultisampleArray value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImage2DMultisampleArray> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImage2DMultisampleArray value.
+/** Instances of the @c smart_enums::UnsignedIntImage2DMultisampleArray type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DMultisampleArray value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImage2DMultisampleArray);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImage2DMultisampleArray value.
+/** Instances of the @c smart_enums::UnsignedIntImage2DMultisampleArray type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DMultisampleArray value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImage2DMultisampleArray);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImage2DRect value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_2D_RECT}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImage2DRect {
+
+/// Conversion to any @p Enum type having the UnsignedIntImage2DRect value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImage2DRect "UnsignedIntImage2DRect"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DRect value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImage2DRect> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImage2DRect value.
+/** Instances of the @c smart_enums::UnsignedIntImage2DRect type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DRect value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImage2DRect);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImage2DRect value.
+/** Instances of the @c smart_enums::UnsignedIntImage2DRect type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage2DRect value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImage2DRect);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImage3D value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_3D}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImage3D {
+
+/// Conversion to any @p Enum type having the UnsignedIntImage3D value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImage3D "UnsignedIntImage3D"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImage3D value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImage3D> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImage3D value.
+/** Instances of the @c smart_enums::UnsignedIntImage3D type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage3D value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImage3D);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImage3D value.
+/** Instances of the @c smart_enums::UnsignedIntImage3D type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImage3D value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImage3D);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImageBuffer value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_BUFFER}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImageBuffer {
+
+/// Conversion to any @p Enum type having the UnsignedIntImageBuffer value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImageBuffer "UnsignedIntImageBuffer"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImageBuffer value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImageBuffer> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImageBuffer value.
+/** Instances of the @c smart_enums::UnsignedIntImageBuffer type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImageBuffer value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImageBuffer);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImageBuffer value.
+/** Instances of the @c smart_enums::UnsignedIntImageBuffer type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImageBuffer value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImageBuffer);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntImageCube value.
+/**
+ *  @see @ref oglplus::SLDataType "SLDataType"
+ *
+ *  @glsymbols
+ *  @gldefref{UNSIGNED_INT_IMAGE_CUBE}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnsignedIntImageCube {
+
+/// Conversion to any @p Enum type having the UnsignedIntImageCube value.
+/** Instances of the @ref oglplus::smart_enums::UnsignedIntImageCube "UnsignedIntImageCube"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnsignedIntImageCube value.
+ */
+template <typename Enum, Enum = Enum::UnsignedIntImageCube> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnsignedIntImageCube value.
+/** Instances of the @c smart_enums::UnsignedIntImageCube type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnsignedIntImageCube value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnsignedIntImageCube);
+
+/// Non-equality comparison with any @p Enum type having the UnsignedIntImageCube value.
+/** Instances of the @c smart_enums::UnsignedIntImageCube type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnsignedIntImageCube value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnsignedIntImageCube);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnsignedIntSampler1D value.
