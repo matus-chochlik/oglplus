@@ -1040,6 +1040,22 @@ public:
 	{
 		return !IsActive();
 	}
+
+	SLDataType Type(void)
+	{
+		GLenum type = GL_NONE;
+		OGLPLUS_GLFUNC(GetActiveUniform)(
+			this->_get_program(),
+			this->_get_index(),
+			1,
+			nullptr,
+			nullptr,
+			&type,
+			nullptr
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniform));
+		return SLDataType(type);
+	}
 };
 
 /// Class encapsulating Uniform shader variable functionality
