@@ -1,8 +1,8 @@
 /**
- *  @example oglplus/017_blender_mesh.cpp
+ *  @example oglplus/022_blender_mesh.cpp
  *  @brief Shows how to use the BlenderMesh shape generator/loader
  *
- *  @oglplus_screenshot{017_blender_mesh}
+ *  @oglplus_screenshot{022_blender_mesh}
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -22,6 +22,49 @@
 #include "example.hpp"
 
 namespace oglplus {
+
+class DepthProgram
+ : public Program
+{
+private:
+	const Program& prog(void) const { return *this; }
+public:
+	LazyProgramUniform<Mat4f>
+		projection_matrix,
+		camera_matrix,
+		model_matrix;
+
+	DepthProgram(void)
+	 : projection_matrix(prog(), "ProjectionMatrix")
+	 , camera_matrix(prog(), "CameraMatrix")
+	 , model_matrix(prog(), "ModelMatrix")
+	{
+		VertexShader vs;
+		vs.Source(
+			"#version 330\n"
+			"uniform mat4  ProjectionMatrix,CameraMatrix,ModelMatrix;"
+
+			"in vec4 Position;"
+
+			"void main(void)"
+			"{"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * ModelMatrix * Position;"
+			"}"
+		);
+		vs.Compile();
+		AttachShader(vs);
+
+		FragmentShader fs;
+		fs.Source(
+			"#version 330\n"
+			"void main(void) { }"
+		);
+		fs.Compile();
+		AttachShader(fs);
+
+		Link();
+	}
+};
 
 class ShapeProgram
  : public Program
@@ -73,7 +116,10 @@ public:
 		fs.Source(
 			"#version 330\n"
 
+			"uniform sampler2DRect DepthTex;"
 			"uniform vec3 Colors[3];"
+
+			"in vec4 gl_FragCoord;"
 
 			"in vec3 vertLightDir;"
 			"in vec3 vertNormal;"
@@ -82,16 +128,33 @@ public:
 			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
+			"	float w = gl_FragCoord.w;"
+			"	float sum_bz = 0.0;"
+			"	const int nd = 2;"
+			"	float ns = 0.0;"
+			"	for(int dy=-nd; dy!=(nd+1); ++dy)"
+			"	for(int dx=-nd; dx!=(nd+1); ++dx)"
+			"	{"
+			"		ivec2 TexelCoord = ivec2(gl_FragCoord.xy)+ivec2(dx, dy);"
+			"		float bz = texelFetch(DepthTex, TexelCoord).x;"
+			"		if(bz < 1.0)"
+			"		{"
+			"			sum_bz += bz;"
+			"			ns += 1.0;"
+			"		}"
+			"	}"
+			"	float DepthDiff = (sum_bz/ns)/w - gl_FragCoord.z/w;"
+			"	DepthDiff = pow(mix(1.0, 0.0, DepthDiff*4.0), 3.0);"
 			"	vec3 Normal = normalize(vertNormal);"
 			"	vec3 LightDir = normalize(vertLightDir);"
-			"	float Ambi = 0.6;"
-			"	float Diff  = max(dot(LightDir, Normal)+0.1, 0.0);"
-			"	fragColor = (Ambi + Diff) * Colors[vertMaterial];"
+			"	float Ambi = 0.2;"
+			"	float Diff  = 0.4*max(dot(LightDir, Normal)+0.1, 0.0);"
+			"	fragColor = (Ambi + Diff + DepthDiff) * Colors[vertMaterial];"
 			"}"
 		);
 		fs.Compile();
-
 		AttachShader(fs);
+
 		Link();
 	}
 };
@@ -101,11 +164,12 @@ class BlenderMeshExample : public Example
 private:
 	Context gl;
 
-	ShapeProgram prog;
+	shapes::ShapeWrapper monkeys;
 
-	shapes::ShapeWrapper shape;
+	DepthProgram depth_prog;
+	ShapeProgram draw_prog;
 
-	static shapes::ShapeWrapper make_shape(const Program& prog)
+	static shapes::ShapeWrapper load_monkeys(void)
 	{
 		std::ifstream input;
 		OpenResourceFile(input, "models", "monkeys", ".blend");
@@ -119,48 +183,76 @@ private:
 				blend_file,
 				List("Monkey1")("Monkey2")("Monkey3").Get(),
 				shapes::BlenderMesh::LoadingOptions().Nothing().Normals().Materials()
-			),
-			prog
+			)
 		);
 	}
 
-	Texture tex;
+	VertexArray depth_vao, draw_vao;
+
+	Texture depth_tex;
+
+	GLuint width, height;
 public:
 	BlenderMeshExample(void)
-	 : prog()
-	 , shape(make_shape(prog))
+	 : gl()
+	 , monkeys(load_monkeys())
+	 , depth_prog()
+	 , draw_prog()
+	 , depth_vao(monkeys.VAOForProgram(depth_prog))
+	 , draw_vao(monkeys.VAOForProgram(draw_prog))
 	{
-		prog.Use();
+		UniformSampler(draw_prog, "DepthTex").Set(0);
+		Texture::Active(0);
+		depth_tex.Bind(Texture::Target::Rectangle);
 
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
+		gl.Enable(Capability::CullFace);
 	}
 
-	void Reshape(GLuint width, GLuint height)
+	void Reshape(GLuint vp_width, GLuint vp_height)
 	{
+		width = vp_width;
+		height = vp_height;
 		gl.Viewport(width, height);
-		prog.projection_matrix.Set(
+
+		Texture::Image2D(
+			Texture::Target::Rectangle,
+			0,
+			PixelDataInternalFormat::DepthComponent,
+			width,
+			height,
+			0,
+			PixelDataFormat::DepthComponent,
+			PixelDataType::Float,
+			nullptr
+		);
+
+		auto projection =
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
 				double(width)/height,
-				1, 100
-			)
-		);
+				1, 10
+			);
+		draw_prog.projection_matrix.Set(projection);
+		depth_prog.projection_matrix.Set(projection);
 	}
 
 	void Render(double time)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		prog.camera_matrix.Set(
+		auto camera =
 			CamMatrixf::Orbiting(
-				shape.BoundingSphereCenter(),
+				monkeys.BoundingSphereCenter(),
 				5.0,
 				FullCircles(time / 19.0),
 				Degrees(SineWave(time / 17.0) * 90)
-			)
-		);
+			);
+
+		depth_prog.camera_matrix.Set(camera);
+		draw_prog.camera_matrix.Set(camera);
 
 
 		const Vec3f colors[3][3] = {
@@ -182,15 +274,34 @@ public:
 			ModelMatrixf::TranslationZ(2.0)
 		};
 
-		shape.Draw(
-			// the phase is here the index of the mesh as listed
-			// when loading the blend file
-			// i.e. (0 = Monkey1, 1 = Monkey2, 2 = Monkey3)
-			[&prog, &colors, &rot_matrices, &pos_matrices](GLuint phase) -> bool
+		depth_prog.Use();
+		gl.CullFace(Face::Front);
+		monkeys.Draw(
+			[&depth_prog, &rot_matrices, &pos_matrices](GLuint phase) -> bool
+			{
+				depth_prog.model_matrix.Set(pos_matrices[phase]*rot_matrices[phase]);
+				return true;
+			}
+		);
+
+		Texture::CopyImage2D(
+			Texture::Target::Rectangle,
+			0,
+			PixelDataInternalFormat::DepthComponent,
+			0, 0,
+			width,
+			height,
+			0
+		);
+
+		draw_prog.Use();
+		gl.CullFace(Face::Back);
+		monkeys.Draw(
+			[&draw_prog, &colors, &rot_matrices, &pos_matrices](GLuint phase) -> bool
 			{
 				for(GLuint i=0; i!=3; ++i)
-					prog.colors[i].Set(colors[phase][i]);
-				prog.model_matrix.Set(pos_matrices[phase]*rot_matrices[phase]);
+					draw_prog.colors[i].Set(colors[phase][i]);
+				draw_prog.model_matrix.Set(pos_matrices[phase]*rot_matrices[phase]);
 				return true;
 			}
 		);
