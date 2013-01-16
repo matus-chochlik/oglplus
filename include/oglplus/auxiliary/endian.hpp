@@ -14,6 +14,7 @@
 
 #include <cassert>
 #include <algorithm>
+#include <cstdint>
 
 namespace oglplus {
 namespace aux {
@@ -28,8 +29,8 @@ class EndianHelper
 {
 private:
 	union {
-		uint32_t x;
-		uint8_t y[4];
+		std::uint32_t x;
+		std::uint8_t y[4];
 	} _hlp;
 public:
 	EndianHelper(void)
@@ -81,7 +82,7 @@ struct EndianDoReorder
 	{
 		union {
 			T x;
-			uint8_t y[sizeof(T)];
+			std::uint8_t y[sizeof(T)];
 		} _hlp;
 		_hlp.x = value;
 
