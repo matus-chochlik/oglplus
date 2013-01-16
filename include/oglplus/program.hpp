@@ -694,7 +694,8 @@ public:
 			GetStageIntParam(
 				GLenum(stage),
 				GL_ACTIVE_SUBROUTINE_MAX_LENGTH
-			)
+			),
+			GLenum(stage)
 		);
 	}
 
@@ -729,7 +730,8 @@ public:
 			GetStageIntParam(
 				GLenum(stage),
 				GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH
-			)
+			),
+			GLenum(stage)
 		);
 	}
 
