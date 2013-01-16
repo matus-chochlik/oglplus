@@ -578,6 +578,7 @@ public:
 	> ShaderRange;
 #endif // !OGLPLUS_DOCUMENTATION_ONLY
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	/// Returns the context for traversal of Program's active resources
 	/**
 	 *  @see ActiveResources
@@ -600,7 +601,6 @@ public:
 		return InterfaceContext(_name, length, GLenum(intf));
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	/// Returns a range allowing to do the traversal of interface's resources
 	/** This instance of Program must be kept alive during the whole
 	 *  lifetime of the returned range, i.e. the returned range must not
