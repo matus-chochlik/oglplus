@@ -38,14 +38,14 @@ protected:
 		return _program;
 	}
 
-	GLint _do_init_index(const GLchar* identifier) const
+	GLint _do_init_location(const GLchar* identifier) const
 	{
-		return Operations::_do_init_index(_program, identifier);
+		return Operations::_do_init_location(_program, identifier);
 	}
 
-	GLint _init_index(const GLchar* identifier) const
+	GLint _init_location(const GLchar* identifier) const
 	{
-		return Operations::_init_index(_program, identifier);
+		return Operations::_init_location(_program, identifier);
 	}
 };
 
@@ -54,18 +54,18 @@ class EagerUniformInitTpl
  : public UniformInitBaseTpl<Operations>
 {
 private:
-	GLint _index;
+	GLint _location;
 	typedef typename Operations::ParamType ParamType;
 	typedef UniformInitBaseTpl<Operations> InitBase;
 protected:
-	GLint _get_index(void) const
+	GLint _get_location(void) const
 	{
-		return _index;
+		return _location;
 	}
 
-	bool _try_init_index(void) const
+	bool _try_init_location(void) const
 	{
-		return (_index != GLint(-1));
+		return (_location != GLint(-1));
 	}
 
 	EagerUniformInitTpl(
@@ -73,7 +73,7 @@ protected:
 		const ParamType param,
 		const GLchar* identifier
 	): InitBase(program, param)
-	 , _index(InitBase::_init_index(identifier))
+	 , _location(InitBase::_init_location(identifier))
 	{ }
 
 	EagerUniformInitTpl(
@@ -81,7 +81,7 @@ protected:
 		const ParamType param,
 		const String& identifier
 	): InitBase(program, param)
-	 , _index(InitBase::_init_index(identifier.c_str()))
+	 , _location(InitBase::_init_location(identifier.c_str()))
 	{ }
 
 	EagerUniformInitTpl(
@@ -89,7 +89,7 @@ protected:
 		const ParamType param,
 		String&& identifier
 	): InitBase(program, param)
-	 , _index(InitBase::_init_index(identifier.c_str()))
+	 , _location(InitBase::_init_location(identifier.c_str()))
 	{ }
 };
 
@@ -99,30 +99,30 @@ class LazyUniformInitTpl
 {
 private:
 	String _identifier;
-	GLint _index;
+	GLint _location;
 	typedef typename Operations::ParamType ParamType;
 	typedef UniformInitBaseTpl<Operations> InitBase;
 protected:
-	bool _index_initialized(void) const
+	bool _location_initialized(void) const
 	{
-		return _index != GLint(-1);
+		return _location != GLint(-1);
 	}
 
-	bool _try_init_index(void)
+	bool _try_init_location(void)
 	{
-		if(!_index_initialized())
-			 _index = this->_do_init_index(_identifier.c_str());
-		return _index_initialized();
+		if(!_location_initialized())
+			 _location = this->_do_init_location(_identifier.c_str());
+		return _location_initialized();
 	}
 
-	GLint _get_index(void)
+	GLint _get_location(void)
 	{
-		if(!_index_initialized())
+		if(!_location_initialized())
 		{
-			_index = this->_init_index(_identifier.c_str());
+			_location = this->_init_location(_identifier.c_str());
 			_identifier.clear();
 		}
-		return _index;
+		return _location;
 	}
 
 	LazyUniformInitTpl(
@@ -131,7 +131,7 @@ protected:
 		const GLchar* identifier
 	): InitBase(program, param)
 	 , _identifier(identifier)
-	 , _index(GLint(-1))
+	 , _location(GLint(-1))
 	{ }
 
 	LazyUniformInitTpl(
@@ -140,7 +140,7 @@ protected:
 		const String& identifier
 	): InitBase(program, param)
 	 , _identifier(identifier)
-	 , _index(GLint(-1))
+	 , _location(GLint(-1))
 	{ }
 
 	LazyUniformInitTpl(
@@ -149,7 +149,7 @@ protected:
 		String&& identifier
 	): InitBase(program, param)
 	 , _identifier(std::move(identifier))
-	 , _index(GLint(-1))
+	 , _location(GLint(-1))
 	{ }
 };
 

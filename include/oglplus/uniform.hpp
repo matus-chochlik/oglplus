@@ -35,7 +35,7 @@ protected:
 	OptionalUniformInitOps(Nothing)
 	{ }
 
-	GLint _init_index(GLuint program, const GLchar* identifier) const
+	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
 		return OGLPLUS_GLFUNC(GetUniformLocation)(
 			program,
@@ -52,7 +52,7 @@ protected:
 	UniformInitOps(Nothing)
 	{ }
 
-	GLint _do_init_index(GLuint program, const GLchar* identifier) const
+	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
 		return OGLPLUS_GLFUNC(GetUniformLocation)(
 			program,
@@ -60,11 +60,11 @@ protected:
 		);
 	}
 
-	GLint _init_index(GLuint program, const GLchar* identifier) const
+	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
-		GLint index = _do_init_index(program, identifier);
+		GLint location = _do_init_location(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformLocation));
-		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
+		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
 			Error::AddPropertyValue(
@@ -85,7 +85,7 @@ protected:
 				std::move(props)
 			);
 		}
-		return index;
+		return location;
 	}
 };
 
@@ -103,16 +103,16 @@ class DirectUniformInit
 {
 private:
 	GLuint _program;
-	GLint _index;
+	GLint _location;
 protected:
-	DirectUniformInit(const ProgramOps& program, Nothing, GLint index)
+	DirectUniformInit(const ProgramOps& program, Nothing, GLint location)
 	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _index(index)
+	 , _location(location)
 	{ }
 
-	DirectUniformInit(GLuint program, Nothing, GLint index)
+	DirectUniformInit(GLuint program, Nothing, GLint location)
 	 : _program(program)
-	 , _index(index)
+	 , _location(location)
 	{ }
 
 	GLuint _get_program(void) const
@@ -120,9 +120,9 @@ protected:
 		return _program;
 	}
 
-	GLint _get_index(void) const
+	GLint _get_location(void) const
 	{
-		return _index;
+		return _location;
 	}
 };
 
@@ -139,8 +139,8 @@ protected:
 	 : Initializer(program, Nothing(), std::forward<StrOrInt>(name_or_idx))
 	{ }
 
-	UniformOps(GLuint program, GLint index)
-	 : Initializer(program, Nothing(), index)
+	UniformOps(GLuint program, GLint location)
+	 : Initializer(program, Nothing(), location)
 	{ }
 public:
 };
@@ -150,14 +150,14 @@ namespace aux {
 class UniformQueries
 {
 protected:
-	static String _query_name(GLuint program, GLuint index)
+	static String _query_name(GLuint program, GLuint location)
 	{
 #if GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
 		GLsizei max_length = 255, real_length;
 		GLchar buffer[256] = {GLchar(0)};
 		OGLPLUS_GLFUNC(GetActiveUniformName)(
 			program,
-			index,
+			location,
 			max_length,
 			&real_length,
 			buffer
@@ -256,8 +256,8 @@ protected:
 	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
 	{ }
 
-	UniformBase(GLuint program, GLint index)
-	 : UniformOps<IndexInit>(program, index)
+	UniformBase(GLuint program, GLint location)
+	 : UniformOps<IndexInit>(program, location)
 	{ }
 public:
 
@@ -271,7 +271,7 @@ public:
 	{
 		this->_do_set(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			value
 		);
 	}
@@ -286,7 +286,7 @@ public:
 	{
 		this->template _do_set_many<1>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			count,
 			v
 		);
@@ -302,7 +302,7 @@ public:
 	{
 		this->template _do_set_many<1>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			v.size(),
 			v.data()
 		);
@@ -326,7 +326,7 @@ public:
 		const T tmp[] = {v, p...};
 		this->template _do_set_many<1>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			sizeof(tmp)/sizeof(tmp[0]),
 			tmp
 		);
@@ -337,7 +337,7 @@ public:
 		const T tmp[] = {v0, v1};
 		this->template _do_set_many<1>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			2,
 			tmp
 		);
@@ -348,7 +348,7 @@ public:
 		const T tmp[] = {v0, v1, v2};
 		this->template _do_set_many<1>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			3,
 			tmp
 		);
@@ -359,7 +359,7 @@ public:
 		const T tmp[] = {v0, v1, v2, v3};
 		this->template _do_set_many<1>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			4,
 			tmp
 		);
@@ -397,7 +397,7 @@ public:
 	{
 		this->_do_set(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			v, p...
 		);
 	}
@@ -407,7 +407,7 @@ public:
 		const T tmp[] = {v0, v1};
 		this->template _do_set<2>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			tmp
 		);
 	}
@@ -417,7 +417,7 @@ public:
 		const T tmp[] = {v0, v1, v2};
 		this->template _do_set<3>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			tmp
 		);
 	}
@@ -427,7 +427,7 @@ public:
 		const T tmp[] = {v0, v1, v2, v3};
 		this->template _do_set<4>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			tmp
 		);
 	}
@@ -460,7 +460,7 @@ public:
 	{
 		this->template _do_set<Cols>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			v
 		);
 	}
@@ -489,7 +489,7 @@ public:
 	{
 		this->template _do_set_many<Cols>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			count,
 			v
 		);
@@ -519,7 +519,7 @@ public:
 	{
 		this->template _do_set_many<Cols>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			v.size(),
 			v.data()
 		);
@@ -538,7 +538,7 @@ public:
 	{
 		this->template _do_set_mat<Cols, Rows>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			count,
 			false,
 			v
@@ -559,7 +559,7 @@ public:
 	{
 		this->template _do_set_mat_p<Cols>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			false,
 			v, p...
 		);
@@ -579,8 +579,8 @@ protected:
 	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
 	{ }
 
-	UniformBase(GLuint program, GLint index)
-	 : UniformOps<IndexInit>(program, index)
+	UniformBase(GLuint program, GLint location)
+	 : UniformOps<IndexInit>(program, location)
 	{ }
 public:
 	/// Set the vector value of the uniform variable
@@ -593,7 +593,7 @@ public:
 	{
 		this->template _do_set<N>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			Data(vector)
 		);
 	}
@@ -608,7 +608,7 @@ public:
 	{
 		this->template _do_set<N>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			vector.Data()
 		);
 	}
@@ -660,7 +660,7 @@ public:
 			temp.insert(temp.end(), Data(*i), Data(*i)+N);
 		this->template _do_set_many<N>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			temp.size(),
 			temp.data()
 		);
@@ -681,7 +681,7 @@ public:
 			temp.insert(temp.end(), i->Data(), i->Data()+N);
 		this->template _do_set_many<N>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			temp.size(),
 			temp.data()
 		);
@@ -709,7 +709,7 @@ public:
 			temp.insert(temp.end(), Data(*i), Data(*i)+N);
 		this->template _do_set_many<N>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			temp.size(),
 			temp.data()
 		);
@@ -735,8 +735,8 @@ protected:
 	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
 	{ }
 
-	UniformBase(GLuint program, GLint index)
-	 : UniformOps<IndexInit>(program, index)
+	UniformBase(GLuint program, GLint location)
+	 : UniformOps<IndexInit>(program, location)
 	{ }
 public:
 	/// Set the matrix components of the uniform variable
@@ -749,7 +749,7 @@ public:
 	{
 		this->template _do_set_mat<Cols, Rows>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			1,
 			true,
 			Data(matrix)
@@ -766,7 +766,7 @@ public:
 	{
 		this->template _do_set_mat<Cols, Rows>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			1,
 			matrix.IsRowMajor(),
 			matrix.Data()
@@ -792,7 +792,7 @@ public:
 			temp.insert(temp.end(), Data(*i), Data(*i)+Rows*Cols);
 		this->template _do_set_mat<Cols, Rows>(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			range.size(),
 			true,
 			temp.data()
@@ -826,7 +826,7 @@ public:
 			}
 			this->template _do_set_mat<Cols, Rows>(
 				this->_get_program(),
-				this->_get_index(),
+				this->_get_location(),
 				range.size(),
 				is_row_major,
 				temp.data()
@@ -948,8 +948,8 @@ class UniformTpl
 private:
 	typedef UniformBase<T, IndexInit, SetOps> _base;
 public:
-	UniformTpl(GLuint program, GLint index)
-	 : _base(program, index)
+	UniformTpl(GLuint program, GLint location)
+	 : _base(program, location)
 	{ }
 
 	/// Reference a uniform identified by @p identifier in the @p program
@@ -983,16 +983,16 @@ public:
 	/**
 	 *  @glsymbols
 	 */
-	UniformTpl(const Program& program, GLint index)
-	 : _base(program, index)
+	UniformTpl(const Program& program, GLint location)
+	 : _base(program, location)
 	{ }
 
 	UniformTpl<T, aux::DirectUniformInit, SetOps>
-	operator[](GLint index)
+	operator[](GLint offset)
 	{
 		return UniformTpl<T, aux::DirectUniformInit, SetOps>(
 			this->_get_program(),
-			this->_get_index()+index
+			this->_get_location()+offset
 		);
 	}
 
@@ -1020,7 +1020,7 @@ public:
 	 */
 	bool IsActive(void)
 	{
-		return this->_try_init_index();
+		return this->_try_init_location();
 	}
 
 	/// Equivalent to IsActive()
@@ -1039,26 +1039,6 @@ public:
 	bool operator ! (void)
 	{
 		return !IsActive();
-	}
-
-	// Returns the GLSL type of the uniform variable
-	// TODO: find index for the current variable
-	// WARNING does not work currently
-	SLDataType Type(void)
-	{
-		GLenum type = GL_NONE;
-		GLint size = 0;
-		OGLPLUS_GLFUNC(GetActiveUniform)(
-			this->_get_program(),
-			this->_get_index(),
-			0,
-			nullptr,
-			&size,
-			&type,
-			nullptr
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniform));
-		return SLDataType(type);
 	}
 };
 

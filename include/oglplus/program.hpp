@@ -452,6 +452,10 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Information about a single active vertex attribute or uniform
+	/** Note that the Program's functions documented as returning instances
+	 *  of ActiveVariableInfo actually return types convertible to
+	 *  ActiveVariableInfo.
+	 */
 	class ActiveVariableInfo
 	{
 	public:
@@ -468,6 +472,19 @@ public:
 		const SLDataType Type(void) const;
 	};
 
+	/// Helper class for efficient iteration of Program interface items
+	/** Instances of this class are created by a program for its specific
+	 *  interfaces (uniform, vertex attributes, subroutines, etc.) or
+	 *  stages (vertex, geometry, fragment, etc.). Instances of an interface
+	 *  context can be used (mostly internally) for efficient iteration
+	 *  of individual items of a particular interface (uniforms, subroutines,
+	 *  etc.). Contexts for various programs and various interfaces are not
+	 *  interchangeable.
+	 *  The InterfaceContext type should be treated as opaque and only used
+	 *  with appropriate functions.
+	 */
+	typedef Unspecified InterfaceContext;
+
 	/// The type of the range for traversing program resource information
 	typedef Range<ProgramResource> ActiveResourceRange;
 
@@ -482,6 +499,8 @@ public:
 	/// The type of the range for traversing program's shaders
 	typedef Range<Managed<Shader> > ShaderRange;
 #else
+	typedef aux::ActiveVariableInfo ActiveVariableInfo;
+	typedef aux::ProgramInterfaceContext InterfaceContext;
 
 #if GL_VERSION_4_3
 	typedef aux::ContextElementRange<
@@ -557,7 +576,29 @@ public:
 			ShaderIterationContext,
 			ManagedShader
 	> ShaderRange;
-#endif
+#endif // !OGLPLUS_DOCUMENTATION_ONLY
+
+	/// Returns the context for traversal of Program's active resources
+	/**
+	 *  @see ActiveResources
+	 */
+	InterfaceContext ActiveResourceContext(ProgramInterface intf) const
+	{
+		// get the maximum string length of the longest identifier
+		GLint length = 0;
+		OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
+			_name,
+			GLenum(intf),
+			GL_MAX_NAME_LENGTH,
+			&length
+		);
+		// for some interfaces the call above is not applicable
+		// so GetError may return INVALID_OPERATION and we
+		// silently ignore it here
+		OGLPLUS_GLFUNC(GetError)();
+
+		return InterfaceContext(_name, length, GLenum(intf));
+	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
 	/// Returns a range allowing to do the traversal of interface's resources
@@ -582,28 +623,21 @@ public:
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramInterfaceiv));
 
-		// get the maximum string length of the longest identifier
-		GLint length = 0;
-		OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
-			_name,
-			GLenum(intf),
-			GL_MAX_NAME_LENGTH,
-			&length
-		);
-		// for some interfaces the call above is not applicable
-		// so GetError may return INVALID_OPERATION and we
-		// silently ignore it here
-		OGLPLUS_GLFUNC(GetError)();
-
-		return ActiveResourceRange(
-			aux::ProgramInterfaceContext(
-				_name,
-				length,
-				GLenum(intf)
-			), 0, count
-		);
+		return ActiveResourceRange(ActiveResourceContext(intf), count);
 	}
 #endif
+
+	/// Returns the context for traversal of Program's active vertex attributes
+	/**
+	 *  @see ActiveAttribs
+	 */
+	InterfaceContext ActiveAttribContext(void) const
+	{
+		return InterfaceContext(
+			_name,
+			GetIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH)
+		);
+	}
 
 	/// Returns a range allowing to do the traversal of active attributes
 	/** This instance of Program must be kept alive during the whole
@@ -614,14 +648,21 @@ public:
 	 */
 	ActiveAttribRange ActiveAttribs(void) const
 	{
-		// get the count of active attributes
-		GLint count = GetIntParam(GL_ACTIVE_ATTRIBUTES);
-		// get the maximum string length of the longest identifier
-		GLint length = GetIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH);
-
 		return ActiveAttribRange(
-			aux::ProgramInterfaceContext(_name, length),
-			0, count
+			ActiveAttribContext(),
+			GetIntParam(GL_ACTIVE_ATTRIBUTES)
+		);
+	}
+
+	/// Returns the context for traversal of Program's active uniforms
+	/**
+	 *  @see ActiveUniforms
+	 */
+	InterfaceContext ActiveUniformContext(void) const
+	{
+		return InterfaceContext(
+			_name,
+			GetIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH)
 		);
 	}
 
@@ -634,18 +675,29 @@ public:
 	 */
 	ActiveUniformRange ActiveUniforms(void) const
 	{
-		// get the count of active uniforms
-		GLint count  = GetIntParam(GL_ACTIVE_UNIFORMS);
-		// get the maximum string length of the longest identifier
-		GLint length = GetIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH);
-
 		return ActiveUniformRange(
-			aux::ProgramInterfaceContext(_name, length),
-			0, count
+			ActiveUniformContext(),
+			GetIntParam(GL_ACTIVE_UNIFORMS)
 		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
+
+	/// Returns the context for traversal of Program's active subroutines
+	/**
+	 *  @see ActiveSubroutines
+	 */
+	InterfaceContext ActiveSubroutineContext(ShaderType stage) const
+	{
+		return InterfaceContext(
+			_name,
+			GetStageIntParam(
+				GLenum(stage),
+				GL_ACTIVE_SUBROUTINE_MAX_LENGTH
+			)
+		);
+	}
+
 	/// Returns a range allowing to do the traversal of subroutines
 	/** This instance of Program must be kept alive during the whole
 	 *  lifetime of the returned range, i.e. the returned range must not
@@ -657,24 +709,27 @@ public:
 	 */
 	ActiveSubroutineRange ActiveSubroutines(ShaderType stage) const
 	{
-		// get the count of active subroutine uniforms
-		GLint count = GetStageIntParam(
-			GLenum(stage),
-			GL_ACTIVE_SUBROUTINES
-		);
-		// get the maximum string length of the longest identifier
-		GLint length = GetStageIntParam(
-			GLenum(stage),
-			GL_ACTIVE_SUBROUTINE_MAX_LENGTH
-		);
-
 		return ActiveSubroutineRange(
-			aux::ProgramInterfaceContext(
-				_name,
-				length,
-				GLenum(stage)
-			),
-			0, count
+			ActiveSubroutineContext(stage),
+			GetStageIntParam(
+				GLenum(stage),
+				GL_ACTIVE_SUBROUTINES
+			)
+		);
+	}
+
+	/// Returns the context for traversal of Program's active subr. uniforms
+	/**
+	 *  @see ActiveSubroutineUniforms
+	 */
+	InterfaceContext ActiveSubroutineUniformContext(ShaderType stage) const
+	{
+		return InterfaceContext(
+			_name,
+			GetStageIntParam(
+				GLenum(stage),
+				GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH
+			)
 		);
 	}
 
@@ -689,27 +744,27 @@ public:
 	 */
 	ActiveSubroutineUniformRange ActiveSubroutineUniforms(ShaderType stage) const
 	{
-		// get the count of active subroutine uniforms
-		GLint count = GetStageIntParam(
-			GLenum(stage),
-			GL_ACTIVE_SUBROUTINE_UNIFORMS
-		);
-		// get the maximum string length of the longest identifier
-		GLint length = GetStageIntParam(
-			GLenum(stage),
-			GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH
-		);
-
 		return ActiveSubroutineUniformRange(
-			aux::ProgramInterfaceContext(
-				_name,
-				length,
-				GLenum(stage)
-			),
-			0, count
+			ActiveSubroutineUniformContext(stage),
+			GetStageIntParam(
+				GLenum(stage),
+				GL_ACTIVE_SUBROUTINE_UNIFORMS
+			)
 		);
 	}
 #endif
+
+	/// Returns the context for traversal of Program's active TFB varyings
+	/**
+	 *  @see TransformFeedbackVaryings
+	 */
+	InterfaceContext TransformFeedbackVaryingContext(void) const
+	{
+		return InterfaceContext(
+			_name,
+			GetIntParam(GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH)
+		);
+	}
 
 	/// Returns a range allowing to do the traversal of feedback varyings
 	/** This instance of Program must be kept alive during the whole
@@ -720,15 +775,9 @@ public:
 	 */
 	TransformFeedbackVaryingRange TransformFeedbackVaryings(void) const
 	{
-		// get the count of transform feedback varyings
-		GLint count = GetIntParam(GL_TRANSFORM_FEEDBACK_VARYINGS);
-		GLint length = GetIntParam(
-			GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH
-		);
-
 		return TransformFeedbackVaryingRange(
-			aux::ProgramInterfaceContext(_name, length),
-			0, count
+			TransformFeedbackVaryingContext(),
+			GetIntParam(GL_TRANSFORM_FEEDBACK_VARYINGS)
 		);
 	}
 

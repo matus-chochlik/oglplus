@@ -36,7 +36,7 @@ protected:
 	UniformBlockInitOps(Nothing)
 	{ }
 
-	GLint _do_init_index(GLuint program, const GLchar* identifier) const
+	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
 		return OGLPLUS_GLFUNC(GetUniformBlockIndex)(
 			program,
@@ -44,11 +44,11 @@ protected:
 		);
 	}
 
-	GLint _init_index(GLuint program, const GLchar* identifier) const
+	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
-		GLint index = _do_init_index(program, identifier);
+		GLint location = _do_init_location(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
-		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
+		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
 			Error::AddPropertyValue(
@@ -69,7 +69,7 @@ protected:
 				std::move(props)
 			);
 		}
-		return index;
+		return location;
 	}
 
 	static GLenum _translate_ref(ShaderType shader_type)
@@ -190,7 +190,7 @@ public:
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			Initializer::_translate_ref(shader_type),
 			&result
 		);
@@ -208,7 +208,7 @@ public:
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			GL_UNIFORM_BLOCK_DATA_SIZE,
 			&result
 		);
@@ -221,7 +221,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(UniformBlockBinding)(
 			this->_get_program(),
-			this->_get_index(),
+			this->_get_location(),
 			GLuint(binding)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UniformBlockBinding));
@@ -232,7 +232,7 @@ public:
 /// Encapsulates uniform block operations
 /**
  *  The difference between UniformBlock and LazyUniformBlock is,
- *  that UniformBlock tries to get the location (index) of the GLSL
+ *  that UniformBlock tries to get the location of the GLSL
  *  uniform block variable in a Program during construction
  *  and LazyUniformBlock postpones this initialization until the value
  *  is actually needed at the cost of having to internally store
@@ -263,7 +263,7 @@ typedef UniformBlockTpl<aux::EagerUniformBlockInit> UniformBlock;
 /// Encapsulates lazily initialized uniform block operations
 /**
  *  The difference between UniformBlock and LazyUniformBlock is,
- *  that UniformBlock tries to get the location (index) of the GLSL
+ *  that UniformBlock tries to get the location of the GLSL
  *  uniform block variable in a Program during construction
  *  and LazyUniformBlock postpones this initialization until the value
  *  is actually needed at the cost of having to internally store

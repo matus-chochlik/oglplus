@@ -48,6 +48,12 @@ public:
 		assert(current <= count);
 	}
 
+	ContextElementRange(Context&& context, GLuint count)
+	 : _context(std::move(context))
+	 , _current(0)
+	 , _count(count)
+	{ }
+
 	ContextElementRange(ContextElementRange&& tmp)
 	 : _context(std::move(tmp._context))
 	 , _current(tmp._current)

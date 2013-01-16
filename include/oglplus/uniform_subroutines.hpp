@@ -41,7 +41,7 @@ protected:
 	 : _stage(stage)
 	{ }
 
-	GLint _do_init_index(GLuint program, const GLchar* identifier) const
+	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
 		return OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
 			program,
@@ -50,11 +50,11 @@ protected:
 		);
 	}
 
-	GLint _init_index(GLuint program, const GLchar* identifier) const
+	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
-		GLint index = _do_init_index(program, identifier);
+		GLint location = _do_init_location(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineUniformLocation));
-		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
+		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
 			Error::AddPropertyValue(
@@ -80,7 +80,7 @@ protected:
 				std::move(props)
 			);
 		}
-		return index;
+		return location;
 	}
 public:
 	/// Returns this subroutine uniform's program stage
@@ -134,7 +134,7 @@ public:
 	 */
 	bool IsActive(void)
 	{
-		return this->_try_init_index();
+		return this->_try_init_location();
 	}
 
 	/// Equivalent to IsActive()
@@ -160,7 +160,7 @@ public:
 /// Subroutine uniform variable
 /**
  *  The difference between SubroutineUniform and LazySubroutineUniform is,
- *  that SubroutineUniform tries to get the location (index) of the GLSL
+ *  that SubroutineUniform tries to get the location of the GLSL
  *  subroutine uniform variable in a Program during construction
  *  and LazySubroutineUniform postpones this initialization until
  *  the value is actually needed at the cost of having to internally
@@ -193,7 +193,7 @@ typedef SubroutineUniformTpl<aux::EagerSubroutineUniformInit>
 /// Lazy subroutine uniform variable
 /**
  *  The difference between SubroutineUniform and LazySubroutineUniform is,
- *  that SubroutineUniform tries to get the location (index) of the GLSL
+ *  that SubroutineUniform tries to get the location of the GLSL
  *  subroutine uniform variable in a Program during construction
  *  and LazySubroutineUniform postpones this initialization until
  *  the value is actually needed at the cost of having to internally
@@ -235,7 +235,7 @@ protected:
 	 : _stage(stage)
 	{ }
 
-	GLint _do_init_index(GLuint program, const GLchar* identifier) const
+	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
 		return OGLPLUS_GLFUNC(GetSubroutineIndex)(
 			program,
@@ -244,11 +244,11 @@ protected:
 		);
 	}
 
-	GLint _init_index(GLuint program, const GLchar* identifier) const
+	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
-		GLint index = _do_init_index(program, identifier);
+		GLint location = _do_init_location(program, identifier);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineIndex));
-		if(OGLPLUS_IS_ERROR(index == GLint(-1)))
+		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
 			Error::AddPropertyValue(
@@ -269,7 +269,7 @@ protected:
 				std::move(props)
 			);
 		}
-		return index;
+		return location;
 	}
 public:
 	/// Returns this subroutine's program stage
@@ -319,7 +319,7 @@ public:
 	 */
 	bool IsActive(void)
 	{
-		return this->_try_init_index();
+		return this->_try_init_location();
 	}
 
 	/// Equivalent to IsActive()
@@ -346,7 +346,7 @@ public:
 /// Subroutine variable
 /**
  *  The difference between Subroutine and LazySubroutine is,
- *  that Subroutine tries to get the location (index) of the GLSL
+ *  that Subroutine tries to get the location of the GLSL
  *  function declared as subroutine in a Program during construction
  *  and LazySubroutine postpones this initialization until
  *  the value is actually needed at the cost of having to internally
@@ -378,7 +378,7 @@ typedef SubroutineTpl<aux::EagerSubroutineInit> Subroutine;
 /// Lazy subroutine variable
 /**
  *  The difference between Subroutine and LazySubroutine is,
- *  that Subroutine tries to get the location (index) of the GLSL
+ *  that Subroutine tries to get the location of the GLSL
  *  function declared as subroutine in a Program during construction
  *  and LazySubroutine postpones this initialization until
  *  the value is actually needed at the cost of having to internally
@@ -421,7 +421,7 @@ private:
 	GLenum _stage;
 	std::vector<GLuint> _indices;
 
-	static GLsizei _get_index_count(
+	static GLsizei _get_location_count(
 		GLuint program,
 		GLenum stage
 	)
@@ -445,7 +445,7 @@ private:
 	std::vector<GLuint>& _get_indices(void)
 	{
 		if(_indices.empty())
-			_indices.resize(_get_index_count(_program, _stage), 0);
+			_indices.resize(_get_location_count(_program, _stage), 0);
 		return _indices;
 	}
 public:
@@ -481,9 +481,9 @@ public:
 		assert(subroutine._get_program() == _program);
 		assert(uniform.Stage() == ShaderType(_stage));
 		assert(subroutine.Stage() == ShaderType(_stage));
-		assert(uniform._get_index() <= GLint(_get_indices().size()));
+		assert(uniform._get_location() <= GLint(_get_indices().size()));
 
-		_get_indices()[uniform._get_index()] = subroutine._get_index();
+		_get_indices()[uniform._get_location()] = subroutine._get_location();
 		return *this;
 	}
 

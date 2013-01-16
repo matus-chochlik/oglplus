@@ -69,7 +69,7 @@ public:
 	}
 };
 
-// Information about a single active vertex attribute or uniform
+// Information about a single active vertex attribute, uniform, etc.
 class ActiveVariableInfo
 {
 private:
@@ -77,7 +77,23 @@ private:
 	GLint _size;
 	GLenum _type;
 	String _name;
+
+	ActiveVariableInfo(
+		GLuint index,
+		GLint size,
+		GLenum type,
+		const String& name
+	): _index(index)
+	 , _size(size)
+	 , _type(type)
+	 , _name(name)
+	{ }
+
+	friend class ActiveSubroutineInfo;
+	friend class ActiveSubroutineUniformInfo;
+	friend class ActiveUniformBlockInfo;
 protected:
+
 	ActiveVariableInfo(
 		ProgramInterfaceContext& context,
 		GLuint index,
@@ -140,12 +156,11 @@ public:
 	{
 		return SLDataType(_type);
 	}
-
-	/// TODO: convert to Uniform (if possible)
 };
 
-struct ActiveAttribInfo : ActiveVariableInfo
+class ActiveAttribInfo : public ActiveVariableInfo
 {
+public:
 	ActiveAttribInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
@@ -164,8 +179,9 @@ struct ActiveAttribInfo : ActiveVariableInfo
 	}
 };
 
-struct ActiveUniformInfo : ActiveVariableInfo
+class ActiveUniformInfo : public ActiveVariableInfo
 {
+public:
 	ActiveUniformInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
@@ -185,7 +201,7 @@ struct ActiveUniformInfo : ActiveVariableInfo
 };
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
-struct ActiveSubroutineInfo
+class ActiveSubroutineInfo
 {
 private:
 	GLuint _index;
@@ -223,9 +239,24 @@ public:
 	{
 		return _name;
 	}
+
+	GLint Size(void) const
+	{
+		return 0;
+	}
+
+	SLDataType Type(void) const
+	{
+		return SLDataType::None;
+	}
+
+	operator ActiveVariableInfo(void) const
+	{
+		return ActiveVariableInfo(_index, 0, GL_NONE, _name);
+	}
 };
 
-struct ActiveSubroutineUniformInfo
+class ActiveSubroutineUniformInfo
 {
 private:
 	GLuint _index;
@@ -289,11 +320,17 @@ public:
 	{
 		return SLDataType::None;
 	}
+
+	operator ActiveVariableInfo(void) const
+	{
+		return ActiveVariableInfo(_index, _size, GL_NONE, _name);
+	}
 };
 #endif
 
-struct TransformFeedbackVaryingInfo : ActiveVariableInfo
+class TransformFeedbackVaryingInfo : public ActiveVariableInfo
 {
+public:
 	TransformFeedbackVaryingInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
@@ -362,6 +399,21 @@ public:
 	const String& Name(void) const
 	{
 		return _name;
+	}
+
+	GLint Size(void) const
+	{
+		return 0;
+	}
+
+	SLDataType Type(void) const
+	{
+		return SLDataType::None;
+	}
+
+	operator ActiveVariableInfo(void) const
+	{
+		return ActiveVariableInfo(_index, 0, GL_NONE, _name);
 	}
 
 	// TODO: active uniform indices, etc.
