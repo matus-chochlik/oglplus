@@ -1041,15 +1041,19 @@ public:
 		return !IsActive();
 	}
 
+	// Returns the GLSL type of the uniform variable
+	// TODO: find index for the current variable
+	// WARNING does not work currently
 	SLDataType Type(void)
 	{
 		GLenum type = GL_NONE;
+		GLint size = 0;
 		OGLPLUS_GLFUNC(GetActiveUniform)(
 			this->_get_program(),
 			this->_get_index(),
-			1,
+			0,
 			nullptr,
-			nullptr,
+			&size,
 			&type,
 			nullptr
 		);

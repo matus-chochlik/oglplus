@@ -144,7 +144,7 @@ public:
 			"		}"
 			"	}"
 			"	float DepthDiff = (sum_bz/ns)/w - gl_FragCoord.z/w;"
-			"	DepthDiff = pow(mix(1.0, 0.0, DepthDiff*4.0), 3.0);"
+			"	DepthDiff =  clamp(pow(mix(1.0, 0.0, DepthDiff*4.0), 3.0), 0.0, 1.0);"
 			"	vec3 Normal = normalize(vertNormal);"
 			"	vec3 LightDir = normalize(vertLightDir);"
 			"	float Ambi = 0.2;"
@@ -277,9 +277,9 @@ public:
 		depth_prog.Use();
 		gl.CullFace(Face::Front);
 		monkeys.Draw(
-			[&depth_prog, &rot_matrices, &pos_matrices](GLuint phase) -> bool
+			[this, &rot_matrices, &pos_matrices](GLuint phase) -> bool
 			{
-				depth_prog.model_matrix.Set(pos_matrices[phase]*rot_matrices[phase]);
+				this->depth_prog.model_matrix.Set(pos_matrices[phase]*rot_matrices[phase]);
 				return true;
 			}
 		);
@@ -297,11 +297,11 @@ public:
 		draw_prog.Use();
 		gl.CullFace(Face::Back);
 		monkeys.Draw(
-			[&draw_prog, &colors, &rot_matrices, &pos_matrices](GLuint phase) -> bool
+			[this, &colors, &rot_matrices, &pos_matrices](GLuint phase) -> bool
 			{
 				for(GLuint i=0; i!=3; ++i)
-					draw_prog.colors[i].Set(colors[phase][i]);
-				draw_prog.model_matrix.Set(pos_matrices[phase]*rot_matrices[phase]);
+					this->draw_prog.colors[i].Set(colors[phase][i]);
+				this->draw_prog.model_matrix.Set(pos_matrices[phase]*rot_matrices[phase]);
 				return true;
 			}
 		);
