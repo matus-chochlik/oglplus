@@ -24,7 +24,7 @@ template <class Range>
 std::true_type IsRange(
 	const Range*,
 	bool (Range::*)(void) const = &Range::Empty,
-	size_t (Range::*)(void) const = &Range::Size,
+	std::size_t (Range::*)(void) const = &Range::Size,
 	void (Range::*)(void) = &Range::Next,
 	typename Range::ValueType (Range::*)(void) const = &Range::Front
 );
@@ -65,7 +65,7 @@ public:
 		return _current == _count;
 	}
 
-	size_t Size(void) const
+	std::size_t Size(void) const
 	{
 		return _count - _current;
 	}
@@ -80,6 +80,12 @@ public:
 	{
 		assert(!Empty());
 		return Element(_context, _current);
+	}
+
+	ValueType At(std::size_t offset)
+	{
+		assert(offset < Size());
+		return Element(_context, _current+offset);
 	}
 };
 
@@ -102,7 +108,7 @@ public:
 		return _pos == _end;
 	}
 
-	size_t Size(void) const
+	std::size_t Size(void) const
 	{
 		return _end - _pos;
 	}

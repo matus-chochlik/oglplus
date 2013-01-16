@@ -936,8 +936,9 @@ struct ProgramUniformSetOps<Matrix<T, Rows, Cols> >
 } // namespace aux
 
 /// Template for Uniform, ProgramUniform, LazyUniform and LazyProgramUniform
-/** @note Do not use directly, use Uniform, ProgramUniform, LazyUniform or
- *  LazyProgramUniform instead.
+/** @note Do not use directly, use Uniform, ProgramUniform, LazyUniform,
+ *  LazyProgramUniform, OptionalUniform, OptionalProgramUniform,
+ *  DirectUniform, DirectProgramUniform, etc. instead.
  *
  *  @ingroup shader_variables
  */
@@ -947,6 +948,27 @@ class UniformTpl
 {
 private:
 	typedef UniformBase<T, IndexInit, SetOps> _base;
+
+	Program::ActiveVariableInfo _find_uniform_avi(
+		GLuint prog_name,
+		GLint location
+	)
+	{
+		Managed<Program> program(prog_name);
+		auto aur = program.ActiveUniforms();
+		while(!aur.Empty())
+		{
+			GLint tmp_loc = OGLPLUS_GLFUNC(GetUniformLocation)(
+				prog_name,
+				aur.Front().Name().c_str()
+			);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetUniformLocation));
+			if(tmp_loc == location) break;
+			aur.Next();
+		}
+		assert(!aur.Empty());
+		return aur.Front();
+	}
 public:
 	UniformTpl(GLuint program, GLint location)
 	 : _base(program, location)
@@ -1040,6 +1062,18 @@ public:
 	{
 		return !IsActive();
 	}
+
+	/// Returns a Program::ActiveVariableInfo for this uniform
+	/** Note that this is a rather inefficient operation.
+	 */
+	Program::ActiveVariableInfo Info(void)
+	{
+		return _find_uniform_avi(
+			this->_get_program(),
+			this->_get_location()
+		);
+	}
+
 };
 
 /// Class encapsulating Uniform shader variable functionality
