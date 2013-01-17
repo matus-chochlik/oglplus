@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -60,12 +60,12 @@ class VertexAttribOps
  : public FriendOf<ProgramOps>
 {
 protected:
-	GLint _index;
+	GLint _location;
 
 	friend class FriendOf<VertexAttribOps>;
 
 	VertexAttribOps(VertexAttribSlot i)
-	 : _index(GLint(i))
+	 : _location(GLint(i))
 	{ }
 
 	static GLint _get_location(
@@ -99,8 +99,9 @@ protected:
 				"program",
 				DescriptionOf(program)
 			);
-			HandleError(
+			HandleShaderVariableError(
 				GL_INVALID_OPERATION,
+				result,
 				"Getting the location of inactive vertex attrib",
 				OGLPLUS_ERROR_INFO(GetAttribLocation),
 				std::move(props)
@@ -173,8 +174,9 @@ protected:
 				"identifier",
 				identifier
 			);
-			HandleError(
+			HandleShaderVariableError(
 				GL_INVALID_OPERATION,
+				GLint(location),
 				"Inconsistent location of a vertex "
 				"attribute in multiple programs",
 				OGLPLUS_ERROR_INFO(GetAttribLocation),
@@ -236,7 +238,7 @@ protected:
 	};
 
 	VertexAttribOps(const ProgramOps& program, const GLchar* identifier)
-	 : _index(_find_location(program, identifier))
+	 : _location(_find_location(program, identifier))
 	{ }
 public:
 	static VertexAttribSlot GetLocation(
@@ -552,7 +554,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
 			FriendOf<ProgramOps>::GetName(program),
-			_index,
+			_location,
 			identifier
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
@@ -573,7 +575,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
 			FriendOf<ProgramOps>::GetName(program),
-			_index,
+			_location,
 			identifier.c_str()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
@@ -589,7 +591,7 @@ public:
 	void Divisor(GLuint divisor) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribDivisor)(
-			_index,
+			_location,
 			divisor
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribDivisor));
@@ -605,35 +607,13 @@ void ProgramOps::BindLocation(
 {
 	OGLPLUS_GLFUNC(BindAttribLocation)(
 		_name,
-		FriendOf<VertexAttribOps>::GetIndex(vertex_attrib),
+		FriendOf<VertexAttribOps>::GetLocation(vertex_attrib),
 		identifier
 	);
 	OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
 }
 
 namespace aux {
-
-class VertexAttribQueries
-{
-protected:
-	static String _query_name(GLuint program, GLuint index)
-	{
-		GLsizei max_length = 255, real_length;
-		GLchar buffer[256] = {GLchar(0)};
-		GLint size;
-		GLenum type;
-		OGLPLUS_GLFUNC(GetActiveAttrib)(
-			program,
-			index,
-			max_length,
-			&real_length,
-			&size,
-			&type,
-			buffer
-		);
-		return String(buffer, real_length);
-	}
-};
 
 class VertexAttribSetters
 {
@@ -668,7 +648,6 @@ class VertexAttrib
  , public Unspecified
 #else
  , public aux::ShaderDataSetOps<
-	aux::VertexAttribQueries,
 	aux::VertexAttribSetters,
 	aux::ActiveProgramCallOps<T>,
 	16
@@ -676,13 +655,13 @@ class VertexAttrib
 #endif
 {
 public:
-	/// References the vertex attribute array at @p index
+	/// References the vertex attribute array at @p location
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(VertexAttribSlot i)
-	 : VertexAttribOps(i)
+	VertexAttrib(VertexAttribSlot location)
+	 : VertexAttribOps(location)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
@@ -706,7 +685,7 @@ public:
 	 */
 	void Set(T value) const
 	{
-		this->_do_set(0, _index, value);
+		this->_do_set(0, _location, value);
 	}
 
 	/// Set the value of the vertex attribute
@@ -724,20 +703,19 @@ template <typename T, std::size_t N>
 class VertexAttrib<Vector<T, N> >
  : public VertexAttribOps
  , public aux::ShaderDataSetOps<
-	aux::VertexAttribQueries,
 	aux::VertexAttribSetters,
 	aux::ActiveProgramCallOps<T>,
 	4
 >
 {
 public:
-	/// References the vertex attribute array at @p index
+	/// References the vertex attribute array at @p location
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(VertexAttribSlot i)
-	 : VertexAttribOps(i)
+	VertexAttrib(VertexAttribSlot location)
+	 : VertexAttribOps(location)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
@@ -761,7 +739,7 @@ public:
 	 */
 	void Set(const Vector<T, N>& value) const
 	{
-		this->_do_set<N>(0, _index, Data(value));
+		this->_do_set<N>(0, _location, Data(value));
 	}
 
 	/// Set the vector value of the vertex attribute
@@ -779,20 +757,19 @@ template <typename T, std::size_t Rows, std::size_t Cols>
 class VertexAttrib<Matrix<T, Rows, Cols> >
  : public VertexAttribOps
  , public aux::ShaderDataSetOps<
-	aux::VertexAttribQueries,
 	aux::VertexAttribSetters,
 	aux::ActiveProgramCallOps<T>,
 	16
 >
 {
 public:
-	/// References the vertex attribute array at @p index
+	/// References the vertex attribute array at @p location
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(VertexAttribSlot i)
-	 : VertexAttribOps(i)
+	VertexAttrib(VertexAttribSlot location)
+	 : VertexAttribOps(location)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
@@ -816,7 +793,7 @@ public:
 	 */
 	void Set(const Matrix<T, Rows, Cols>& value) const
 	{
-		this->_do_set<Rows*Cols>(0, _index, Data(value));
+		this->_do_set<Rows*Cols>(0, _location, Data(value));
 	}
 
 	/// Set the matrix value of the vertex attribute
@@ -876,13 +853,13 @@ private:
 		return ::oglplus::GetDataType((T*)nullptr);
 	}
 public:
-	/// References the vertex attribute array at @p index
+	/// References the vertex attribute array at @p location
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttribArray(VertexAttribSlot index)
-	 : VertexAttribOps(index)
+	VertexAttribArray(VertexAttribSlot location)
+	 : VertexAttribOps(location)
 	{ }
 
 	/// References the vertex attrib array @p identifier of the @p program
@@ -960,7 +937,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribPointer)(
-			_index,
+			_location,
 			values_per_vertex,
 			GLenum(data_type),
 			normalized ? GL_TRUE : GL_FALSE,
@@ -986,7 +963,7 @@ public:
 		if(data_type == DataType::Double)
 		{
 			OGLPLUS_GLFUNC(VertexAttribLPointer)(
-				_index,
+				_location,
 				values_per_vertex,
 				GLenum(data_type),
 				stride,
@@ -997,7 +974,7 @@ public:
 		else
 		{
 			OGLPLUS_GLFUNC(VertexAttribIPointer)(
-				_index,
+				_location,
 				values_per_vertex,
 				GLenum(data_type),
 				stride,
@@ -1021,7 +998,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribFormat)(
-			_index,
+			_location,
 			values_per_vertex,
 			GLenum(data_type),
 			normalized ? GL_TRUE : GL_FALSE,
@@ -1045,7 +1022,7 @@ public:
 		if(data_type == DataType::Double)
 		{
 			OGLPLUS_GLFUNC(VertexAttribLFormat)(
-				_index,
+				_location,
 				values_per_vertex,
 				GLenum(data_type),
 				relative_offset
@@ -1055,7 +1032,7 @@ public:
 		else
 		{
 			OGLPLUS_GLFUNC(VertexAttribIFormat)(
-				_index,
+				_location,
 				values_per_vertex,
 				GLenum(data_type),
 				relative_offset
@@ -1074,7 +1051,7 @@ public:
 	 */
 	void Enable(void) const
 	{
-		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_index);
+		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_location);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EnableVertexAttribArray));
 	}
 
@@ -1085,7 +1062,7 @@ public:
 	 */
 	void Disable(void) const
 	{
-		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_index);
+		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_location);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DisableVertexAttribArray));
 	}
 };
