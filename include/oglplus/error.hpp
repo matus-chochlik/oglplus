@@ -751,9 +751,41 @@ public:
 	{ }
 };
 
-/// Exception for exceeding implementation-defined limits
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Exception class for situations when a pointer to a GL function is invalid.
+/** @OGLplus optionally (based on the value of the #OGLPLUS_NO_GLFUNC_CHECKS
+ *  compile-time switch) checks, if pointers to OpenGL functions are valid
+ *  (i.e. not @c nullptr). OpenGL functions are usually called through pointers,
+ *  when using a library such as GLEW, which tries to find and get the addresses
+ *  of GL functions from the GL library dynamically at run-time. Sometimes
+ *  the pointers to several of the functions remain uninitialized and usually
+ *  result in a memory violation and program termination if called.
+ *
+ *  The MissingFunction exception class indicates that the usage
+ *  of such uninitialized function pointer was detected at run-time
+ *  and allows the application to terminate more gracefully.
+ *
+ *  @see #OGLPLUS_NO_GLFUNC_CHECKS
+ *
+ *  @ingroup error_handling
+ */
+class MissingFunction
+ : public Error
+{ };
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_GLFUNC_CHECKS
+class MissingFunction
+ : public Error
+{
+public:
+	MissingFunction(GLenum code, const char* msg, const ErrorInfo& info)
+	 : Error(code, msg, info, true)
+	{ }
+};
+#endif
+
+/// Exception indicating exceeded implementation-defined limits
 /** Instances of this class are thrown if an instance of a (usually unsigned
- *  integer) type is assigned a value that it is outside of a implementation
+ *  integer) type is assigned a value that it is outside of an implementation
  *  dependent range. This includes things like limits on the number of texture
  *  units of the GPU, the maximum texture dimensions, maximum number of draw
  *  buffers, vertex attributes, etc.
@@ -767,12 +799,13 @@ private:
 	GLuint _value;
 	GLuint _limit;
 public:
-	LimitError(GLuint value, GLuint limit, const ErrorInfo& info)
-	 : Error(
-		GL_INVALID_VALUE,
-		"OpenGL limited value out of range",
-		info
-	), _value(value)
+	LimitError(
+		GLuint value,
+		GLuint limit,
+		const GLchar* msg,
+		const ErrorInfo& info
+	): Error(GL_INVALID_VALUE, msg, info)
+	 , _value(value)
 	 , _limit(limit)
 	{ }
 
@@ -786,6 +819,39 @@ public:
 	GLuint Limit(void) const
 	{
 		return _limit;
+	}
+};
+
+/// Exception indicating shader variable-related error
+/** Instances of this class are thrown when an invalid shader variable-related
+ *  operation is performed, for example when a value of a invalid type is
+ *  assigned to a shader uniform variable or vertex attribute.
+ *
+ *  @ingroup error_handling
+ */
+class ShaderVariableError
+ : public Error
+{
+private:
+	GLint _location;
+public:
+	ShaderVariableError(
+		GLenum code,
+		GLint location,
+		const GLchar* msg,
+		const ErrorInfo& info,
+		Error::PropertyMapInit&& properties
+	): Error(code, msg, info, std::move(properties))
+	 , _location(location)
+	{ }
+
+	/// The location of the shader variable (uniform, vertex attribute)
+	/** This is the value either assigned by the GL or explicitly specified
+	 *  by the GLSL layout location specifier or bound by BindAttribLocation
+	 */
+	GLint Location(void) const
+	{
+		return _location;
 	}
 };
 
@@ -971,7 +1037,7 @@ inline void HandleBuildError(const String& msg, const ErrorInfo& info)
 	if(aux::_has_error_handler() && aux::_get_error_handler()(
 		ErrorData(
 			GL_INVALID_OPERATION,
-			0, 0,
+			0u, 0u,
 			msg.c_str(),
 			info,
 			Error::PropertyMapInit(),
@@ -985,15 +1051,47 @@ inline void HandleBuildError(const String& msg, const ErrorInfo& info)
 	throw Exception(msg, info);
 }
 
-template <class Exception>
+inline void HandleShaderVariableError(
+	GLenum code,
+	GLint location,
+	const GLchar* msg,
+	const ErrorInfo& info,
+	Error::PropertyMapInit&& properties
+)
+{
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			code,
+			0u, 0u,
+			msg,
+			info,
+			Error::PropertyMapInit(),
+			false,
+			false,
+			false,
+			false
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw ShaderVariableError(
+		code,
+		location,
+		msg,
+		info,
+		std::move(properties)
+	);
+}
+
 inline void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
 {
+	const GLchar* msg = "OpenGL limited value out of range";
 #if OGLPLUS_CUSTOM_ERROR_HANDLING
 	if(aux::_has_error_handler() && aux::_get_error_handler()(
 		ErrorData(
 			GL_INVALID_VALUE,
 			value, limit,
-			"OpenGL limited value out of range",
+			msg,
 			info,
 			Error::PropertyMapInit(),
 			false,
@@ -1003,7 +1101,7 @@ inline void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
 		)
 	)) return;
 #endif // OGLPLUS_CUSTOM_ERROR_HANDLING
-	throw Exception(value, limit, info);
+	throw LimitError(value, limit, msg, info);
 }
 
 template <class Exception, typename FBStatus>
@@ -1012,12 +1110,12 @@ inline void HandleIncompleteFramebuffer(
 	const ErrorInfo& info
 )
 {
-	const char* msg = "Framebuffer is incomplete";
+	const GLchar* msg = "Framebuffer is incomplete";
 #if OGLPLUS_CUSTOM_ERROR_HANDLING
 	if(aux::_has_error_handler() && aux::_get_error_handler()(
 		ErrorData(
 			GL_INVALID_FRAMEBUFFER_OPERATION,
-			0, 0,
+			0u, 0u,
 			msg,
 			info,
 			Error::PropertyMapInit(),
@@ -1031,7 +1129,7 @@ inline void HandleIncompleteFramebuffer(
 	throw Exception(status, msg, info);
 }
 
-template <class Exception>
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_GLFUNC_CHECKS
 inline void HandleMissingFunction(const ErrorInfo& info)
 {
 	const GLenum code = GL_INVALID_VALUE;
@@ -1051,8 +1149,9 @@ inline void HandleMissingFunction(const ErrorInfo& info)
 		)
 	)) return;
 #endif // OGLPLUS_CUSTOM_ERROR_HANDLING
-	throw Exception(code, msg, info);
+	throw MissingFunction(code, msg, info);
 }
+#endif // OGLPLUS_NO_VARIADIC_TEMPLATES || OGLPLUS_NO_GLFUNC_CHECKS
 
 inline void HandleError(
 	GLenum code,

@@ -510,7 +510,6 @@ public:
 	 , torus(transf_prog, shapes::WickerTorus())
 	 , shadow_tex_side(1024)
 	{
-
 		Program::UseNone();
 
 		shadow_pp.Bind();
