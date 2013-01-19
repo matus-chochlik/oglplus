@@ -38,16 +38,17 @@ protected:
 
 	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
-		return OGLPLUS_GLFUNC(GetUniformBlockIndex)(
+		GLint result = OGLPLUS_GLFUNC(GetUniformBlockIndex)(
 			program,
 			identifier
 		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
+		return result;
 	}
 
 	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
 		GLint location = _do_init_location(program, identifier);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
 		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
@@ -141,7 +142,7 @@ protected:
 typedef EagerUniformInitTpl<UniformBlockInitOps>
 	EagerUniformBlockInit;
 
-typedef LazyUniformInitTpl<UniformBlockInitOps>
+typedef LazyUniformInitTpl<UniformBlockInitOps, UniformNoTypecheck>
 	LazyUniformBlockInit;
 
 } // namespace aux
@@ -165,7 +166,12 @@ class UniformBlockTpl
 public:
 	template <class _String>
 	UniformBlockTpl(const Program& program, _String&& identifier)
-	 : Initializer(program, Nothing(), std::forward<_String>(identifier))
+	 : Initializer(
+		program,
+		Nothing(),
+		std::forward<_String>(identifier),
+		aux::UniformNoTypecheck()
+	)
 	{ }
 
 	/// Return the maximum number of uniform blocks for a @p shader_type

@@ -12,8 +12,12 @@
 #ifndef OGLPLUS_AUX_UNIFORM_INIT_1107121519_HPP
 #define OGLPLUS_AUX_UNIFORM_INIT_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
+
+#include <oglplus/auxiliary/uniform_typecheck.hpp>
+
 #include <cassert>
 
 namespace oglplus {
@@ -38,8 +42,10 @@ protected:
 		return Operations::_init_location(_program, identifier);
 	}
 
-	UniformInitBaseTpl(const ProgramOps& program, ParamType param)
-	 : Operations(param)
+	UniformInitBaseTpl(
+		const ProgramOps& program,
+		ParamType param
+	): Operations(param)
 	 , _program(FriendOf<ProgramOps>::GetName(program))
 	{ }
 public:
@@ -52,34 +58,43 @@ public:
 template <class Operations>
 class EagerUniformInitTpl
  : public UniformInitBaseTpl<Operations>
+ , public UniformInitTypecheckUtils
 {
 private:
-	GLint _location;
-	typedef typename Operations::ParamType ParamType;
 	typedef UniformInitBaseTpl<Operations> InitBase;
+	typedef typename Operations::ParamType ParamType;
+
+	GLint _location;
+
+	template <class Typechecker>
+	GLint _init_location(Typechecker& typechecker, const GLchar* identifier)
+	{
+		return UniformInitTypecheckUtils::_typecheck(
+			typechecker,
+			this->_get_program(),
+			InitBase::_init_location(identifier),
+			identifier
+		);
+	}
 public:
+	template <class Typechecker>
 	EagerUniformInitTpl(
 		const ProgramOps& program,
 		const ParamType param,
-		const GLchar* identifier
+		const GLchar* identifier,
+		Typechecker typechecker
 	): InitBase(program, param)
-	 , _location(InitBase::_init_location(identifier))
+	 , _location(_init_location(typechecker, identifier))
 	{ }
 
+	template <class Typechecker>
 	EagerUniformInitTpl(
 		const ProgramOps& program,
 		const ParamType param,
-		const String& identifier
+		const String& identifier,
+		Typechecker typechecker
 	): InitBase(program, param)
-	 , _location(InitBase::_init_location(identifier.c_str()))
-	{ }
-
-	EagerUniformInitTpl(
-		const ProgramOps& program,
-		const ParamType param,
-		String&& identifier
-	): InitBase(program, param)
-	 , _location(InitBase::_init_location(identifier.c_str()))
+	 , _location(_init_location(typechecker, identifier.c_str()))
 	{ }
 
 	GLint _get_location(void) const
@@ -93,15 +108,19 @@ public:
 	}
 };
 
-template <class Operations>
+template <class Operations, class Typechecker>
 class LazyUniformInitTpl
  : public UniformInitBaseTpl<Operations>
+ , public UniformInitTypecheckUtils
 {
 private:
+	typedef UniformInitBaseTpl<Operations> InitBase;
+	typedef typename Operations::ParamType ParamType;
+
 	String _identifier;
 	GLint _location;
-	typedef typename Operations::ParamType ParamType;
-	typedef UniformInitBaseTpl<Operations> InitBase;
+
+	Typechecker _typechecker;
 
 	bool _location_initialized(void) const
 	{
@@ -111,34 +130,45 @@ public:
 	LazyUniformInitTpl(
 		const ProgramOps& program,
 		const ParamType param,
-		const GLchar* identifier
+		const GLchar* identifier,
+		Typechecker typechecker
 	): InitBase(program, param)
 	 , _identifier(identifier)
 	 , _location(GLint(-1))
+	 , _typechecker(typechecker)
 	{ }
 
 	LazyUniformInitTpl(
 		const ProgramOps& program,
 		const ParamType param,
-		const String& identifier
+		const String& identifier,
+		Typechecker typechecker
 	): InitBase(program, param)
 	 , _identifier(identifier)
 	 , _location(GLint(-1))
+	 , _typechecker(typechecker)
 	{ }
 
 	LazyUniformInitTpl(
 		const ProgramOps& program,
 		const ParamType param,
-		String&& identifier
+		String&& identifier,
+		Typechecker typechecker
 	): InitBase(program, param)
 	 , _identifier(std::move(identifier))
 	 , _location(GLint(-1))
+	 , _typechecker(typechecker)
 	{ }
 
 	bool _try_init_location(void)
 	{
 		if(!_location_initialized())
-			 _location = this->_do_init_location(_identifier.c_str());
+			 _location = this->_typecheck(
+				_typechecker,
+				this->_get_program(),
+				this->_do_init_location(_identifier.c_str()),
+				_identifier.c_str()
+			);
 		return _location_initialized();
 	}
 
@@ -146,7 +176,12 @@ public:
 	{
 		if(!_location_initialized())
 		{
-			_location = this->_init_location(_identifier.c_str());
+			_location = this->_typecheck(
+				_typechecker,
+				this->_get_program(),
+				this->_init_location(_identifier.c_str()),
+				_identifier.c_str()
+			);
 			_identifier.clear();
 		}
 		return _location;
@@ -180,16 +215,17 @@ protected:
 
 	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
-		return OGLPLUS_GLFUNC(GetUniformLocation)(
+		GLint result = OGLPLUS_GLFUNC(GetUniformLocation)(
 			program,
 			identifier
 		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformLocation));
+		return result;
 	}
 
 	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
 		GLint location = _do_init_location(program, identifier);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformLocation));
 		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
@@ -216,31 +252,65 @@ protected:
 	}
 };
 
-typedef EagerUniformInitTpl<UniformInitOps>
-	EagerUniformInit;
+typedef EagerUniformInitTpl<UniformInitOps> EagerUniformInit;
+typedef EagerUniformInitTpl<OptionalUniformInitOps> OptionalUniformInit;
 
-typedef LazyUniformInitTpl<UniformInitOps>
-	LazyUniformInit;
-
-typedef EagerUniformInitTpl<OptionalUniformInitOps>
-	OptionalUniformInit;
-
+template <typename Typechecker>
+class LazyUniformInit
+ : public LazyUniformInitTpl<UniformInitOps, Typechecker>
+{
+public:
+	template <typename _String>
+	LazyUniformInit(
+		const ProgramOps& program,
+		const typename UniformInitOps::ParamType param,
+		_String&& identifier,
+		Typechecker typechecker
+	): LazyUniformInitTpl<UniformInitOps, Typechecker>(
+		program,
+		param,
+		std::forward<_String>(identifier),
+		typechecker
+	){ }
+};
 
 class DirectUniformInit
  : public FriendOf<ProgramOps>
+ , public UniformInitTypecheckUtils
 {
 private:
 	GLuint _program;
 	GLint _location;
+
+	template <class Typechecker>
+	GLint _init_location(Typechecker& typechecker, GLint location)
+	{
+		return UniformInitTypecheckUtils::_typecheck(
+			typechecker,
+			_program,
+			location,
+			"<N/A>"
+		);
+	}
 public:
-	DirectUniformInit(const ProgramOps& program, Nothing, GLint location)
-	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _location(location)
+	template <class Typechecker>
+	DirectUniformInit(
+		const ProgramOps& program,
+		Nothing,
+		GLint location,
+		Typechecker typechecker
+	): _program(FriendOf<ProgramOps>::GetName(program))
+	 , _location(_init_location(typechecker, location))
 	{ }
 
-	DirectUniformInit(GLuint program, Nothing, GLint location)
-	 : _program(program)
-	 , _location(location)
+	template <class Typechecker>
+	DirectUniformInit(
+		GLuint program,
+		Nothing,
+		GLint location,
+		Typechecker typechecker
+	): _program(program)
+	 , _location(_init_location(typechecker, location))
 	{ }
 
 	GLuint _get_program(void) const
