@@ -1570,6 +1570,55 @@ inline void SetProgramUniform(
 	ProgramUniform<T>(program, identifier).Set(value);
 }
 
+#endif // !GL_VERSION_4_1
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+
+/// Modifier template enabling typechecking on a uniform variable
+/**
+ *  @ingroup shader_variables
+ */
+template <typename Uniform>
+class Typechecked
+ : public Uniform
+{
+public:
+	/// Construction from a program and identifier
+	Typechecked(const Program& program, String identifier);
+
+	/// Construction from a program and location
+	Typechecked(const Program& program, GLint location);
+};
+#else
+template <class _Uniform>
+class Typechecked;
+
+template <
+	template <class, UniformTypecheckLevel> class _Uniform,
+	typename T,
+	UniformTypecheckLevel Level
+>
+class Typechecked<_Uniform<T, Level> >
+ : public _Uniform<T, UniformTypecheckLevel::Strict>
+{
+private:
+	typedef _Uniform<T, UniformTypecheckLevel::Strict> _base;
+public:
+	template <typename _String>
+	Typechecked(const Program& program, _String&& identifier)
+	 : _base(program, std::forward<_String>(identifier))
+	{ }
+
+	Typechecked(const Program& program, GLint location)
+	 : _base(program, location)
+	{ }
+
+	/// Set the value of the uniform variable
+	inline void operator = (const T& value)
+	{
+		this->Set(value);
+	}
+};
 #endif
 
 } // namespace oglplus

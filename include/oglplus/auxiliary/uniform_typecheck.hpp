@@ -33,9 +33,13 @@ namespace aux {
 template <UniformTypecheckLevel Level>
 class UniformTypecheck;
 
-// No typechecking
+#if OGLPLUS_NO_UNIFORM_TYPECHECK
+template <UniformTypecheckLevel Level>
+class UniformTypecheck
+#else
 template <>
 class UniformTypecheck<UniformTypecheckLevel::None>
+#endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
 {
 public:
 	inline UniformTypecheck(void)
@@ -61,6 +65,7 @@ public:
 typedef UniformTypecheck<UniformTypecheckLevel::None>
 	UniformNoTypecheck;
 
+#if !OGLPLUS_NO_UNIFORM_TYPECHECK
 template <typename T>
 struct CPPtoGLSLTypeMatcher
 {
@@ -380,6 +385,7 @@ public:
 		);
 	}
 };
+#endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
 
 class UniformInitTypecheckUtils
 {

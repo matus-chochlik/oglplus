@@ -425,7 +425,7 @@
  *  not called through pointers.
  *
  *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
- *  i.e. the function pointer checks are enabled, when not in low-profile mode.
+ *  i.e. the function pointer checks are enabled, when not in low-profile mode,
  *  and disabled otherwise. The check however requires variadic templates.
  *  If variadic templates are not available then the checks are disabled.
  *
@@ -435,6 +435,25 @@
 #else
 # ifndef OGLPLUS_NO_GLFUNC_CHECKS
 #  define OGLPLUS_NO_GLFUNC_CHECKS OGLPLUS_LOW_PROFILE
+# endif
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Compile-time switch entirely disabling typechecking of uniforms.
+/** Setting this preprocessor symbol to a nonzero value causes that
+ *  even the Uniform variables that are declared with UniformTypecheckingLevel
+ *  other than None, are not typechecked.
+ *
+ *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
+ *  i.e. typechecking of uniforms is enabled when not in low-profile mode,
+ *  and disabled otherwise.
+ *
+ *  @ingroup compile_time_config
+ */
+#define OGLPLUS_NO_UNIFORM_TYPECHECK
+#else
+# ifndef OGLPLUS_NO_UNIFORM_TYPECHECK
+#  define OGLPLUS_NO_UNIFORM_TYPECHECK OGLPLUS_LOW_PROFILE
 # endif
 #endif
 
