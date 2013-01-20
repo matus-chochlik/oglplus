@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -43,17 +43,18 @@ protected:
 
 	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
-		return OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
+		GLint result = OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
 			program,
 			GLenum(_stage),
 			identifier
 		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetSubroutineUniformLocation));
+		return result;
 	}
 
 	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
 		GLint location = _do_init_location(program, identifier);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineUniformLocation));
 		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
@@ -73,8 +74,9 @@ protected:
 				aux::ObjectDescRegistry<ProgramOps>::
 					_get_desc(program)
 			);
-			HandleError(
+			HandleShaderVariableError(
 				GL_INVALID_OPERATION,
+				location,
 				"Getting the location of inactive uniform",
 				OGLPLUS_ERROR_INFO(GetSubroutineUniformLocation),
 				std::move(props)
@@ -93,7 +95,7 @@ public:
 typedef EagerUniformInitTpl<SubroutineUniformInitOps>
 	EagerSubroutineUniformInit;
 
-typedef LazyUniformInitTpl<SubroutineUniformInitOps>
+typedef LazyUniformInitTpl<SubroutineUniformInitOps, UniformNoTypecheck>
 	LazySubroutineUniformInit;
 
 
@@ -119,7 +121,12 @@ public:
 		const Program& program,
 		const ShaderType stage,
 		_String&& identifier
-	): Initializer(program, stage, std::forward<_String>(identifier))
+	): Initializer(
+		program,
+		stage,
+		std::forward<_String>(identifier),
+		aux::UniformNoTypecheck()
+	)
 	{ }
 
 	/// Tests if this SubroutineUniform is active and can be used
@@ -237,17 +244,18 @@ protected:
 
 	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
-		return OGLPLUS_GLFUNC(GetSubroutineIndex)(
+		GLint result = OGLPLUS_GLFUNC(GetSubroutineIndex)(
 			program,
 			GLenum(_stage),
 			identifier
 		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetSubroutineIndex));
+		return result;
 	}
 
 	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
 		GLint location = _do_init_location(program, identifier);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetSubroutineIndex));
 		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
@@ -262,8 +270,9 @@ protected:
 				aux::ObjectDescRegistry<ProgramOps>::
 					_get_desc(program)
 			);
-			HandleError(
+			HandleShaderVariableError(
 				GL_INVALID_OPERATION,
+				location,
 				"Getting the location of inactive subroutine",
 				OGLPLUS_ERROR_INFO(GetSubroutineIndex),
 				std::move(props)
@@ -282,7 +291,7 @@ public:
 typedef EagerUniformInitTpl<SubroutineInitOps>
 	EagerSubroutineInit;
 
-typedef LazyUniformInitTpl<SubroutineInitOps>
+typedef LazyUniformInitTpl<SubroutineInitOps, UniformNoTypecheck>
 	LazySubroutineInit;
 
 } // namespace aux
@@ -304,7 +313,12 @@ public:
 		const Program& program,
 		const ShaderType stage,
 		String&& identifier
-	): Initializer(program, stage, std::forward<String>(identifier))
+	): Initializer(
+		program,
+		stage,
+		std::forward<String>(identifier),
+		aux::UniformNoTypecheck()
+	)
 	{ }
 
 	/// Tests if this Subroutine is active and can be used

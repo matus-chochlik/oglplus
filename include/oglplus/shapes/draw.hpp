@@ -247,12 +247,14 @@ private:
 
 	void _DrawArrays(void) const
 	{
+		_SetupPrimitiveRestart();
 		OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArrays));
 	}
 
 	void _DrawArrays(GLuint inst_count) const
 	{
+		_SetupPrimitiveRestart();
 		OGLPLUS_GLFUNC(DrawArraysInstanced)(
 			GLenum(mode),
 			first,

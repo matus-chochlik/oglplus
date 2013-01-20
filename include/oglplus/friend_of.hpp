@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -55,10 +55,10 @@ protected:
 		return FriendOf<Named>::GetName(object);
 	}
 
-	static GLuint GetIndex(const ObjectOps& object)
+	static GLuint GetLocation(const ObjectOps& object)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return object._index;
+		return object._location;
 	}
 public:
 	static const String& GetDescription(const ObjectOps& object)

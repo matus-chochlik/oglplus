@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -38,16 +38,17 @@ protected:
 
 	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
-		return OGLPLUS_GLFUNC(GetUniformBlockIndex)(
+		GLint result = OGLPLUS_GLFUNC(GetUniformBlockIndex)(
 			program,
 			identifier
 		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
+		return result;
 	}
 
 	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
 		GLint location = _do_init_location(program, identifier);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
 		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
 			Error::PropertyMapInit props;
@@ -62,8 +63,9 @@ protected:
 				aux::ObjectDescRegistry<ProgramOps>::
 						_get_desc(program)
 			);
-			HandleError(
+			HandleShaderVariableError(
 				GL_INVALID_OPERATION,
+				location,
 				"Getting the location of inactive uniform block",
 				OGLPLUS_ERROR_INFO(GetUniformBlockIndex),
 				std::move(props)
@@ -140,7 +142,7 @@ protected:
 typedef EagerUniformInitTpl<UniformBlockInitOps>
 	EagerUniformBlockInit;
 
-typedef LazyUniformInitTpl<UniformBlockInitOps>
+typedef LazyUniformInitTpl<UniformBlockInitOps, UniformNoTypecheck>
 	LazyUniformBlockInit;
 
 } // namespace aux
@@ -164,7 +166,12 @@ class UniformBlockTpl
 public:
 	template <class _String>
 	UniformBlockTpl(const Program& program, _String&& identifier)
-	 : Initializer(program, Nothing(), std::forward<_String>(identifier))
+	 : Initializer(
+		program,
+		Nothing(),
+		std::forward<_String>(identifier),
+		aux::UniformNoTypecheck()
+	)
 	{ }
 
 	/// Return the maximum number of uniform blocks for a @p shader_type

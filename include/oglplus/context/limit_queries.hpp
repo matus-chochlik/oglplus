@@ -89,7 +89,7 @@ public:
 	{
 		if(value > max_limit)
 		{
-			HandleLimitError<LimitError>(
+			HandleLimitError(
 				value,
 				max_limit,
 				OGLPLUS_ERROR_INFO_STR(

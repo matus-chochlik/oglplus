@@ -368,7 +368,7 @@ public:
 						for(unsigned f=0; f!=2; ++f)
 						{
 							dest[k++] = T(+vz*d_sign);
-							dest[k++] = T(T(0));
+							dest[k++] = T(0);
 							dest[k++] = T(-vx*d_sign);
 						}
 					}
@@ -376,7 +376,7 @@ public:
 				for(unsigned f=0; f!=2; ++f)
 				{
 					dest[k++] = T(+vz*d_sign);
-					dest[k++] = T(T(0));
+					dest[k++] = T(0);
 					dest[k++] = T(-vx*d_sign);
 				}
 			}
@@ -504,7 +504,7 @@ public:
 						for(unsigned d=0; d!=2; ++d)
 						{
 							dest[k++] = T(+vz*f_sign);
-							dest[k++] = T(T(0));
+							dest[k++] = T(0);
 							dest[k++] = T(-vx*f_sign);
 						}
 					}
@@ -512,7 +512,7 @@ public:
 				for(unsigned d=0; d!=2; ++d)
 				{
 					dest[k++] = T(+vz*f_sign);
-					dest[k++] = T(T(0));
+					dest[k++] = T(0);
 					dest[k++] = T(-vx*f_sign);
 				}
 			}
@@ -575,7 +575,7 @@ public:
 						for(unsigned d=0; d!=2; ++d)
 						{
 							dest[k++] = T(+vz*f_sign);
-							dest[k++] = T(T(0));
+							dest[k++] = T(0);
 							dest[k++] = T(-vx*f_sign);
 						}
 					}
@@ -586,7 +586,7 @@ public:
 				for(unsigned d=0; d!=2; ++d)
 				{
 					dest[k++] = T(+vz*f_sign);
-					dest[k++] = T(T(0));
+					dest[k++] = T(0);
 					dest[k++] = T(-vx*f_sign);
 				}
 			}
@@ -612,7 +612,7 @@ public:
 						for(unsigned f=0; f!=2; ++f)
 						{
 							dest[k++] = T(+vz*d_sign);
-							dest[k++] = T(T(0));
+							dest[k++] = T(0);
 							dest[k++] = T(-vx*d_sign);
 						}
 					}
@@ -623,7 +623,7 @@ public:
 				for(unsigned f=0; f!=2; ++f)
 				{
 					dest[k++] = T(+vz*d_sign);
-					dest[k++] = T(T(0));
+					dest[k++] = T(0);
 					dest[k++] = T(-vx*d_sign);
 				}
 			}

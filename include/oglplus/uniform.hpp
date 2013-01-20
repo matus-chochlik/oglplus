@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -27,148 +27,7 @@
 namespace oglplus {
 namespace aux {
 
-class OptionalUniformInitOps
-{
-protected:
-	typedef Nothing ParamType;
-
-	OptionalUniformInitOps(Nothing)
-	{ }
-
-	GLint _init_location(GLuint program, const GLchar* identifier) const
-	{
-		return OGLPLUS_GLFUNC(GetUniformLocation)(
-			program,
-			identifier
-		);
-	}
-};
-
-class UniformInitOps
-{
-protected:
-	typedef Nothing ParamType;
-
-	UniformInitOps(Nothing)
-	{ }
-
-	GLint _do_init_location(GLuint program, const GLchar* identifier) const
-	{
-		return OGLPLUS_GLFUNC(GetUniformLocation)(
-			program,
-			identifier
-		);
-	}
-
-	GLint _init_location(GLuint program, const GLchar* identifier) const
-	{
-		GLint location = _do_init_location(program, identifier);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformLocation));
-		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
-		{
-			Error::PropertyMapInit props;
-			Error::AddPropertyValue(
-				props,
-				"identifier",
-				identifier
-			);
-			Error::AddPropertyValue(
-				props,
-				"program",
-				aux::ObjectDescRegistry<ProgramOps>::
-						_get_desc(program)
-			);
-			HandleError(
-				GL_INVALID_OPERATION,
-				"Getting the location of inactive uniform",
-				OGLPLUS_ERROR_INFO(GetUniformLocation),
-				std::move(props)
-			);
-		}
-		return location;
-	}
-};
-
-typedef EagerUniformInitTpl<UniformInitOps>
-	EagerUniformInit;
-
-typedef LazyUniformInitTpl<UniformInitOps>
-	LazyUniformInit;
-
-typedef EagerUniformInitTpl<OptionalUniformInitOps>
-	OptionalUniformInit;
-
-class DirectUniformInit
- : public FriendOf<ProgramOps>
-{
-private:
-	GLuint _program;
-	GLint _location;
-protected:
-	DirectUniformInit(const ProgramOps& program, Nothing, GLint location)
-	 : _program(FriendOf<ProgramOps>::GetName(program))
-	 , _location(location)
-	{ }
-
-	DirectUniformInit(GLuint program, Nothing, GLint location)
-	 : _program(program)
-	 , _location(location)
-	{ }
-
-	GLuint _get_program(void) const
-	{
-		return _program;
-	}
-
-	GLint _get_location(void) const
-	{
-		return _location;
-	}
-};
-
-} // namespace aux
-
-// Helper class for Uniform
-template <class Initializer>
-class UniformOps
- : public Initializer
-{
-protected:
-	template <class StrOrInt>
-	UniformOps(const ProgramOps& program, StrOrInt&& name_or_idx)
-	 : Initializer(program, Nothing(), std::forward<StrOrInt>(name_or_idx))
-	{ }
-
-	UniformOps(GLuint program, GLint location)
-	 : Initializer(program, Nothing(), location)
-	{ }
-public:
-};
-
-namespace aux {
-
-class UniformQueries
-{
-protected:
-	static String _query_name(GLuint program, GLuint location)
-	{
-#if GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
-		GLsizei max_length = 255, real_length;
-		GLchar buffer[256] = {GLchar(0)};
-		OGLPLUS_GLFUNC(GetActiveUniformName)(
-			program,
-			location,
-			max_length,
-			&real_length,
-			buffer
-		);
-		return String(buffer, real_length);
-#else
-		return String();
-#endif
-	}
-};
-
+// collection of Uniform setter functions for basic types
 class UniformSetters
 {
 protected:
@@ -188,6 +47,7 @@ protected:
 #endif
 };
 
+// collection of Uniform setter function for matrices
 class UniformMatrixSetters
 {
 protected:
@@ -200,6 +60,8 @@ protected:
 };
 
 
+// collection of direct state access ProgramUniform
+// setter functions for basic types
 class ProgramUniformSetters
 {
 protected:
@@ -224,6 +86,8 @@ protected:
 #endif
 };
 
+// collection of direct state access ProgramUniform
+// setter functions for matrices
 class ProgramUniformMatrixSetters
 {
 protected:
@@ -237,27 +101,232 @@ protected:
 #endif
 };
 
+template <typename T>
+class UniformAllSetOps
+ : public aux::ShaderDataSetOps<
+	aux::UniformSetters,
+	aux::ActiveProgramCallOps<T>,
+	4
+>, public aux::ShaderMatrixSetOps<
+	aux::UniformMatrixSetters,
+	aux::ActiveProgramCallOps<T>
+>
+{ };
+
+template <typename T>
+struct UniformSetOps
+{
+	typedef UniformAllSetOps<T> type;
+};
+
+template <typename T, std::size_t N>
+struct UniformSetOps<Vector<T, N> >
+{
+	typedef aux::ShaderDataSetOps<
+		aux::UniformSetters,
+		aux::ActiveProgramCallOps<T>,
+		4
+	> type;
+};
+
+template <typename T, std::size_t Rows, std::size_t Cols>
+struct UniformSetOps<Matrix<T, Rows, Cols> >
+{
+	typedef aux::ShaderMatrixSetOps<
+		aux::UniformMatrixSetters,
+		aux::ActiveProgramCallOps<T>
+	> type;
+};
+
+template <typename T>
+class ProgramUniformAllSetOps
+ : public aux::ShaderDataSetOps<
+	aux::ProgramUniformSetters,
+	aux::SpecificProgramCallOps<T>,
+	4
+>, public aux::ShaderMatrixSetOps<
+	aux::ProgramUniformMatrixSetters,
+	aux::SpecificProgramCallOps<T>
+>
+{ };
+
+template <typename T>
+struct ProgramUniformSetOps
+{
+	typedef ProgramUniformAllSetOps<T> type;
+};
+
+template <typename T, std::size_t N>
+struct ProgramUniformSetOps<Vector<T, N> >
+{
+	typedef aux::ShaderDataSetOps<
+		aux::ProgramUniformSetters,
+		aux::SpecificProgramCallOps<T>,
+		4
+	> type;
+};
+
+template <typename T, std::size_t Rows, std::size_t Cols>
+struct ProgramUniformSetOps<Matrix<T, Rows, Cols> >
+{
+	typedef aux::ShaderMatrixSetOps<
+		aux::ProgramUniformMatrixSetters,
+		aux::SpecificProgramCallOps<T>
+	> type;
+};
+
+
+template <typename T>
+struct UniformAdjustType
+{
+	typedef T type;
+};
+
+template <>
+struct UniformAdjustType<bool>
+{
+	typedef GLuint type;
+};
+
+template <std::size_t N>
+struct UniformAdjustType<oglplus::Vector<bool, N> >
+{
+	typedef oglplus::Vector<GLuint, N> type;
+};
 
 } // namespace aux
 
-/// Base template for Uniform and ProgramUniform
+/// Common class implementing basic uniform operations
 /**
- *  @note Do not use this class directly use Uniform or ProgramUniform
- *  instead.
+ *  @note Do not use this class directly use Uniform, ProgramUniform
+ *  or one of the other derived uniform classes instead.
  */
-template <typename T, class IndexInit, class SpecOpsWrapper>
-class UniformBase
- : public UniformOps<IndexInit>
- , public SpecOpsWrapper::type
+template <class Initializer, class Typechecker>
+class UniformOps
 {
+private:
+	Initializer _initializer;
+
+	static Program::ActiveVariableInfo _find_uniform_avi(
+		GLuint prog_name,
+		GLint location
+	)
+	{
+		Managed<Program> program(prog_name);
+		auto aur = program.ActiveUniforms();
+		while(!aur.Empty())
+		{
+			GLint tmp_loc = OGLPLUS_GLFUNC(GetUniformLocation)(
+				prog_name,
+				aur.Front().Name().c_str()
+			);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetUniformLocation));
+			if(tmp_loc == location) break;
+			aur.Next();
+		}
+		assert(!aur.Empty());
+		return aur.Front();
+	}
 protected:
-	template <class StrOrInt>
-	UniformBase(const Program& program, StrOrInt&& name_or_idx)
-	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
+	template <typename T, class StrOrInt>
+	UniformOps(
+		T* type_selector,
+		const ProgramOps& program,
+		StrOrInt&& name_or_loc
+	): _initializer(
+		program,
+		Nothing(),
+		std::forward<StrOrInt>(name_or_loc),
+		Typechecker(type_selector)
+	)
 	{ }
 
-	UniformBase(GLuint program, GLint location)
-	 : UniformOps<IndexInit>(program, location)
+	template <typename T>
+	UniformOps(T* type_selector, GLuint program, GLint location)
+	 : _initializer(
+		program,
+		Nothing(),
+		location,
+		Typechecker(type_selector)
+	)
+	{ }
+
+	GLuint _get_program(void) const
+	{
+		return _initializer._get_program();
+	}
+
+	bool _try_init_location(void)
+	{
+		return _initializer._try_init_location();
+	}
+
+	GLint _get_location(void)
+	{
+		return _initializer._get_location();
+	}
+
+	GLint _get_location(void) const
+	{
+		return _initializer._get_location();
+	}
+public:
+	/// Tests if this Uniform is initialized and can be used
+	/**
+	 *  For Uniform and ProgramUniform this function always
+	 *  returns true as these cannot be in uninitialized state.
+	 *  For LazyUniform, LazyProgramUniform, OptionalUniform, etc.
+	 *  this function returns true if the uniform is active and can be
+	 *  used for subsequent value-setting operations.
+	 *  If this function returns false then trying to set a value
+	 *  or any other operation on the uniform besides destruction
+	 *  throws an exception.
+	 */
+	bool IsActive(void)
+	{
+		return _try_init_location();
+	}
+
+	/// Returns a Program::ActiveVariableInfo for this uniform
+	/** Note that this is a rather inefficient operation.
+	 */
+	Program::ActiveVariableInfo Info(void)
+	{
+		return _find_uniform_avi(
+			this->_get_program(),
+			this->_get_location()
+		);
+	}
+};
+
+/// Base template for Uniform and ProgramUniform
+/**
+ *  @note Do not use this class directly use Uniform, ProgramUniform
+ *  or one of the other derived uniform classes instead.
+ */
+template <
+	typename T,
+	typename S,
+	class LocationInit,
+	class Typechecker,
+	class SpecOpsWrapper
+>
+class UniformSpecOps
+ : public UniformOps<LocationInit, Typechecker>
+ , public SpecOpsWrapper::type
+{
+private:
+	typedef UniformOps<LocationInit, Typechecker> _base_ops;
+
+	static S* _type_sel(void) { return nullptr; }
+protected:
+	template <class StrOrInt>
+	UniformSpecOps(const Program& program, StrOrInt&& name_or_loc)
+	 : _base_ops(_type_sel(), program, std::forward<StrOrInt>(name_or_loc))
+	{ }
+
+	UniformSpecOps(GLuint program, GLint location)
+	 : _base_ops(_type_sel(), program, location)
 	{ }
 public:
 
@@ -568,19 +637,35 @@ public:
 };
 
 /// Specialization of uniform operations for Vector types
-template <typename T, std::size_t N, class IndexInit, class SpecOpsWrapper>
-class UniformBase<Vector<T, N>, IndexInit, SpecOpsWrapper>
- : public UniformOps<IndexInit>
+template <
+	typename T,
+	std::size_t N,
+	typename S,
+	class LocationInit,
+	class Typechecker,
+	class SpecOpsWrapper
+>
+class UniformSpecOps<
+	Vector<T, N>,
+	S,
+	LocationInit,
+	Typechecker,
+	SpecOpsWrapper
+>: public UniformOps<LocationInit, Typechecker>
  , public SpecOpsWrapper::type
 {
+private:
+	typedef UniformOps<LocationInit, Typechecker> _base_ops;
+
+	static S* _type_sel(void) { return nullptr; }
 protected:
 	template <class StrOrInt>
-	UniformBase(const Program& program, StrOrInt&& name_or_idx)
-	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
+	UniformSpecOps(const Program& program, StrOrInt&& name_or_loc)
+	 : _base_ops(_type_sel(), program, std::forward<StrOrInt>(name_or_loc))
 	{ }
 
-	UniformBase(GLuint program, GLint location)
-	 : UniformOps<IndexInit>(program, location)
+	UniformSpecOps(GLuint program, GLint location)
+	 : _base_ops(_type_sel(), program, location)
 	{ }
 public:
 	/// Set the vector value of the uniform variable
@@ -722,21 +807,32 @@ template <
 	typename T,
 	std::size_t Rows,
 	std::size_t Cols,
-	class IndexInit,
+	typename S,
+	class LocationInit,
+	class Typechecker,
 	class SpecOpsWrapper
 >
-class UniformBase<Matrix<T, Rows, Cols>, IndexInit, SpecOpsWrapper>
- : public UniformOps<IndexInit>
+class UniformSpecOps<
+	Matrix<T, Rows, Cols>,
+	S,
+	LocationInit,
+	Typechecker,
+	SpecOpsWrapper
+>: public UniformOps<LocationInit, Typechecker>
  , public SpecOpsWrapper::type
 {
+private:
+	typedef UniformOps<LocationInit, Typechecker> _base_ops;
+
+	static S* _type_sel(void) { return nullptr; }
 protected:
 	template <class StrOrInt>
-	UniformBase(const Program& program, StrOrInt&& name_or_idx)
-	 : UniformOps<IndexInit>(program, std::forward<StrOrInt>(name_or_idx))
+	UniformSpecOps(const Program& program, StrOrInt&& name_or_loc)
+	 : _base_ops(_type_sel(), program, std::forward<StrOrInt>(name_or_loc))
 	{ }
 
-	UniformBase(GLuint program, GLint location)
-	 : UniformOps<IndexInit>(program, location)
+	UniformSpecOps(GLuint program, GLint location)
+	 : _base_ops(_type_sel(), program, location)
 	{ }
 public:
 	/// Set the matrix components of the uniform variable
@@ -849,126 +945,31 @@ public:
 #endif
 };
 
-namespace aux {
-
-template <typename T>
-class UniformAllSetOps
- : public aux::ShaderDataSetOps<
-	aux::UniformQueries,
-	aux::UniformSetters,
-	aux::ActiveProgramCallOps<T>,
-	4
->, public aux::ShaderMatrixSetOps<
-	aux::UniformQueries,
-	aux::UniformMatrixSetters,
-	aux::ActiveProgramCallOps<T>
->
-{ };
-
-template <typename T>
-struct UniformSetOps
-{
-	typedef UniformAllSetOps<T> type;
-};
-
-template <typename T, std::size_t N>
-struct UniformSetOps<Vector<T, N> >
-{
-	typedef aux::ShaderDataSetOps<
-		aux::UniformQueries,
-		aux::UniformSetters,
-		aux::ActiveProgramCallOps<T>,
-		4
-	> type;
-};
-
-template <typename T, std::size_t Rows, std::size_t Cols>
-struct UniformSetOps<Matrix<T, Rows, Cols> >
-{
-	typedef aux::ShaderMatrixSetOps<
-		aux::UniformQueries,
-		aux::UniformMatrixSetters,
-		aux::ActiveProgramCallOps<T>
-	> type;
-};
-
-template <typename T>
-class ProgramUniformAllSetOps
- : public aux::ShaderDataSetOps<
-	aux::UniformQueries,
-	aux::ProgramUniformSetters,
-	aux::SpecificProgramCallOps<T>,
-	4
->, public aux::ShaderMatrixSetOps<
-	aux::UniformQueries,
-	aux::ProgramUniformMatrixSetters,
-	aux::SpecificProgramCallOps<T>
->
-{ };
-
-template <typename T>
-struct ProgramUniformSetOps
-{
-	typedef ProgramUniformAllSetOps<T> type;
-};
-
-template <typename T, std::size_t N>
-struct ProgramUniformSetOps<Vector<T, N> >
-{
-	typedef aux::ShaderDataSetOps<
-		aux::UniformQueries,
-		aux::ProgramUniformSetters,
-		aux::SpecificProgramCallOps<T>,
-		4
-	> type;
-};
-
-template <typename T, std::size_t Rows, std::size_t Cols>
-struct ProgramUniformSetOps<Matrix<T, Rows, Cols> >
-{
-	typedef aux::ShaderMatrixSetOps<
-		aux::UniformQueries,
-		aux::ProgramUniformMatrixSetters,
-		aux::SpecificProgramCallOps<T>
-	> type;
-};
-
-} // namespace aux
-
-/// Template for Uniform, ProgramUniform, LazyUniform and LazyProgramUniform
+/// Template for Uniform, ProgramUniform, LazyUniform, LazyProgramUniform, etc.
 /** @note Do not use directly, use Uniform, ProgramUniform, LazyUniform,
  *  LazyProgramUniform, OptionalUniform, OptionalProgramUniform,
  *  DirectUniform, DirectProgramUniform, etc. instead.
  *
  *  @ingroup shader_variables
  */
-template <typename T, class IndexInit, class SetOps>
+template <typename T, class LocationInit, class Typechecker, class SetOps>
 class UniformTpl
- : public UniformBase<T, IndexInit, SetOps>
+ : public UniformSpecOps<
+	typename aux::UniformAdjustType<T>::type,
+	T,
+	LocationInit,
+	Typechecker,
+	SetOps
+>
 {
 private:
-	typedef UniformBase<T, IndexInit, SetOps> _base;
-
-	Program::ActiveVariableInfo _find_uniform_avi(
-		GLuint prog_name,
-		GLint location
-	)
-	{
-		Managed<Program> program(prog_name);
-		auto aur = program.ActiveUniforms();
-		while(!aur.Empty())
-		{
-			GLint tmp_loc = OGLPLUS_GLFUNC(GetUniformLocation)(
-				prog_name,
-				aur.Front().Name().c_str()
-			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetUniformLocation));
-			if(tmp_loc == location) break;
-			aur.Next();
-		}
-		assert(!aur.Empty());
-		return aur.Front();
-	}
+	typedef UniformSpecOps<
+		typename aux::UniformAdjustType<T>::type,
+		T,
+		LocationInit,
+		Typechecker,
+		SetOps
+	> _base;
 public:
 	UniformTpl(GLuint program, GLint location)
 	 : _base(program, location)
@@ -1009,10 +1010,10 @@ public:
 	 : _base(program, location)
 	{ }
 
-	UniformTpl<T, aux::DirectUniformInit, SetOps>
+	UniformTpl<T, aux::DirectUniformInit, Typechecker, SetOps>
 	operator[](GLint offset)
 	{
-		return UniformTpl<T, aux::DirectUniformInit, SetOps>(
+		return UniformTpl<T, aux::DirectUniformInit,Typechecker,SetOps>(
 			this->_get_program(),
 			this->_get_location()+offset
 		);
@@ -1029,29 +1030,13 @@ public:
 		this->Set(value);
 	}
 
-	/// Tests if this Uniform is initialized and can be used
-	/**
-	 *  For Uniform and ProgramUniform this function always
-	 *  returns true as these cannot be in uninitialized state.
-	 *  For LazyUniform and LazyProgramUniform this function
-	 *  returns true if the uniform is active and can be referenced
-	 *  and used for subsequent value-setting operations.
-	 *  If this function returns false then trying to set a value
-	 *  or any other operation on the uniform besides destruction
-	 *  throws an exception.
-	 */
-	bool IsActive(void)
-	{
-		return this->_try_init_location();
-	}
-
 	/// Equivalent to IsActive()
 	/**
 	 *  @see IsActive
 	 */
 	operator bool (void)
 	{
-		return IsActive();
+		return this->IsActive();
 	}
 
 	/// Equivalent to !IsActive()
@@ -1060,20 +1045,8 @@ public:
 	 */
 	bool operator ! (void)
 	{
-		return !IsActive();
+		return !this->IsActive();
 	}
-
-	/// Returns a Program::ActiveVariableInfo for this uniform
-	/** Note that this is a rather inefficient operation.
-	 */
-	Program::ActiveVariableInfo Info(void)
-	{
-		return _find_uniform_avi(
-			this->_get_program(),
-			this->_get_location()
-		);
-	}
-
 };
 
 /// Class encapsulating Uniform shader variable functionality
@@ -1090,18 +1063,24 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T>
+template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
 class Uniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified>
+ : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<T, aux::EagerUniformInit, aux::UniformSetOps<T>>
+ : public UniformTpl<
+	T,
+	aux::EagerUniformInit,
+	aux::UniformTypecheck<Level>,
+	aux::UniformSetOps<T>
+>
 #endif
 {
 protected:
 	typedef UniformTpl<
 		T,
 		aux::EagerUniformInit,
+		aux::UniformTypecheck<Level>,
 		aux::UniformSetOps<T>
 	> _base;
 public:
@@ -1135,18 +1114,24 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T>
+template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
 class LazyUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified>
+ : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<T, aux::LazyUniformInit, aux::UniformSetOps<T>>
+ : public UniformTpl<
+	T,
+	aux::LazyUniformInit<aux::UniformTypecheck<Level>>,
+	aux::UniformTypecheck<Level>,
+	aux::UniformSetOps<T>
+>
 #endif
 {
 protected:
 	typedef UniformTpl<
 		T,
-		aux::LazyUniformInit,
+		aux::LazyUniformInit<aux::UniformTypecheck<Level>>,
+		aux::UniformTypecheck<Level>,
 		aux::UniformSetOps<T>
 	> _base;
 public:
@@ -1179,18 +1164,24 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T>
+template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
 class OptionalUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified>
+ : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<T, aux::OptionalUniformInit, aux::UniformSetOps<T>>
+ : public UniformTpl<
+	T,
+	aux::OptionalUniformInit,
+	aux::UniformTypecheck<Level>,
+	aux::UniformSetOps<T>
+>
 #endif
 {
 protected:
 	typedef UniformTpl<
 		T,
 		aux::OptionalUniformInit,
+		aux::UniformTypecheck<Level>,
 		aux::UniformSetOps<T>
 	> _base;
 public:
@@ -1225,18 +1216,24 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T>
+template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
 class DirectUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified>
+ : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<T, aux::DirectUniformInit, aux::UniformSetOps<T>>
+ : public UniformTpl<
+	T,
+	aux::DirectUniformInit,
+	aux::UniformTypecheck<Level>,
+	aux::UniformSetOps<T>
+>
 #endif
 {
 protected:
 	typedef UniformTpl<
 		T,
 		aux::DirectUniformInit,
+		aux::UniformTypecheck<Level>,
 		aux::UniformSetOps<T>
 	> _base;
 public:
@@ -1267,6 +1264,18 @@ typedef Uniform<GLint> UniformSampler;
  *  @ingroup shader_variables
  */
 typedef LazyUniform<GLint> LazyUniformSampler;
+
+/// Class that can be used to set sampler uniform variable values
+/**
+ *  @ingroup shader_variables
+ */
+typedef OptionalUniform<GLint> OptionalUniformSampler;
+
+/// Class that can be used to set sampler uniform variable values
+/**
+ *  @ingroup shader_variables
+ */
+typedef DirectUniform<GLint> DirectUniformSampler;
 
 /// Finds and sets the value of the variable identified by @p identifier in program
 /** This convenience function finds the uniform variable with the name
@@ -1318,20 +1327,26 @@ inline void SetUniform(
  *
  *  @glvoereq{4,1,ARB,separate_shader_objects}
  */
-template <typename T>
+template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
 class ProgramUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified>
+ : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<T, aux::EagerUniformInit, aux::ProgramUniformSetOps<T>>
+ : public UniformTpl<
+	T,
+	aux::EagerUniformInit,
+	aux::UniformTypecheck<Level>,
+	aux::ProgramUniformSetOps<T>
+>
 #endif
 {
 private:
 	typedef UniformTpl<
 		T,
 		aux::EagerUniformInit,
-		aux::ProgramUniformSetOps<T>>
-	_base;
+		aux::UniformTypecheck<Level>,
+		aux::ProgramUniformSetOps<T>
+	> _base;
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a const reference to @p program and an identifier
@@ -1363,20 +1378,26 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T>
+template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
 class LazyProgramUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified>
+ : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<T, aux::LazyUniformInit, aux::ProgramUniformSetOps<T>>
+ : public UniformTpl<
+	T,
+	aux::LazyUniformInit<aux::UniformTypecheck<Level>>,
+	aux::UniformTypecheck<Level>,
+	aux::ProgramUniformSetOps<T>
+>
 #endif
 {
 private:
 	typedef UniformTpl<
 		T,
-		aux::LazyUniformInit,
-		aux::ProgramUniformSetOps<T>>
-	_base;
+		aux::LazyUniformInit<aux::UniformTypecheck<Level>>,
+		aux::UniformTypecheck<Level>,
+		aux::ProgramUniformSetOps<T>
+	> _base;
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a const reference to @p program and an identifier
@@ -1407,18 +1428,24 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T>
+template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
 class OptionalProgramUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified>
+ : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<T, aux::OptionalUniformInit, aux::ProgramUniformSetOps<T>>
+ : public UniformTpl<
+	T,
+	aux::OptionalUniformInit,
+	aux::UniformTypecheck<Level>,
+	aux::ProgramUniformSetOps<T>
+>
 #endif
 {
 protected:
 	typedef UniformTpl<
 		T,
 		aux::OptionalUniformInit,
+		aux::UniformTypecheck<Level>,
 		aux::ProgramUniformSetOps<T>
 	> _base;
 public:
@@ -1452,18 +1479,24 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T>
+template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
 class DirectProgramUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified>
+ : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<T, aux::DirectUniformInit, aux::ProgramUniformSetOps<T>>
+ : public UniformTpl<
+	T,
+	aux::DirectUniformInit,
+	aux::UniformTypecheck<Level>,
+	aux::ProgramUniformSetOps<T>
+>
 #endif
 {
 protected:
 	typedef UniformTpl<
 		T,
 		aux::DirectUniformInit,
+		aux::UniformTypecheck<Level>,
 		aux::ProgramUniformSetOps<T>
 	> _base;
 public:
@@ -1495,6 +1528,18 @@ typedef ProgramUniform<GLint> ProgramUniformSampler;
  */
 typedef LazyProgramUniform<GLint> LazyProgramUniformSampler;
 
+/// Class that can be used to set sampler uniform variable values
+/**
+ *  @ingroup shader_variables
+ */
+typedef OptionalProgramUniform<GLint> OptionalProgramUniformSampler;
+
+/// Class that can be used to set sampler uniform variable values
+/**
+ *  @ingroup shader_variables
+ */
+typedef DirectProgramUniform<GLint> DirectProgramUniformSampler;
+
 /// Finds and sets the value of the variable identified by @p identifier in program
 /** This convenience function finds the uniform variable with the name
  *  @p identifier in the specified @p program and sets its @p value.
@@ -1525,6 +1570,55 @@ inline void SetProgramUniform(
 	ProgramUniform<T>(program, identifier).Set(value);
 }
 
+#endif // !GL_VERSION_4_1
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+
+/// Modifier template enabling typechecking on a uniform variable
+/**
+ *  @ingroup shader_variables
+ */
+template <typename Uniform>
+class Typechecked
+ : public Uniform
+{
+public:
+	/// Construction from a program and identifier
+	Typechecked(const Program& program, String identifier);
+
+	/// Construction from a program and location
+	Typechecked(const Program& program, GLint location);
+};
+#else
+template <class _Uniform>
+class Typechecked;
+
+template <
+	template <class, UniformTypecheckLevel> class _Uniform,
+	typename T,
+	UniformTypecheckLevel Level
+>
+class Typechecked<_Uniform<T, Level> >
+ : public _Uniform<T, UniformTypecheckLevel::Strict>
+{
+private:
+	typedef _Uniform<T, UniformTypecheckLevel::Strict> _base;
+public:
+	template <typename _String>
+	Typechecked(const Program& program, _String&& identifier)
+	 : _base(program, std::forward<_String>(identifier))
+	{ }
+
+	Typechecked(const Program& program, GLint location)
+	 : _base(program, location)
+	{ }
+
+	/// Set the value of the uniform variable
+	inline void operator = (const T& value)
+	{
+		this->Set(value);
+	}
+};
 #endif
 
 } // namespace oglplus
