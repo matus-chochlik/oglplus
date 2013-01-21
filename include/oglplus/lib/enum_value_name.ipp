@@ -100,6 +100,9 @@ OGLPLUS_ENUM_CLASS_FWD(MemoryBarrierBit, GLbitfield)
 OGLPLUS_ENUM_CLASS_FWD(ObjectType, GLenum)
 #include <oglplus/enums/object_type_names.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(PatchParameter, GLenum)
+#include <oglplus/enums/patch_parameter_names.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(PixelDataFormat, GLenum)
 #include <oglplus/enums/pixel_data_format_names.ipp>
 

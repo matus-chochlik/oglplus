@@ -592,7 +592,6 @@ def main(argv):
 		else: build_cmd_line = None
 
 		if build_cmd_line:
-			print(build_cmd_line)
 			try: subprocess.call(build_cmd_line,cwd=options.build_dir)
 			except OSError as os_error:
 				print( "# Build failed")

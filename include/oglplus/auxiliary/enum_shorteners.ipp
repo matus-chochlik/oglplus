@@ -2524,10 +2524,25 @@ template <typename Enum, Enum = Enum::PackSwapBytes> operator Enum (void) const{
 template <typename Enum> friend bool operator==(Enum value, PackSwapBytes){ return value == Enum::PackSwapBytes; }
 template <typename Enum> friend bool operator!=(Enum value, PackSwapBytes){ return value != Enum::PackSwapBytes; }
 };
+struct PatchDefaultInnerLevel {
+template <typename Enum, Enum = Enum::PatchDefaultInnerLevel> operator Enum (void) const{ return Enum::PatchDefaultInnerLevel; }
+template <typename Enum> friend bool operator==(Enum value, PatchDefaultInnerLevel){ return value == Enum::PatchDefaultInnerLevel; }
+template <typename Enum> friend bool operator!=(Enum value, PatchDefaultInnerLevel){ return value != Enum::PatchDefaultInnerLevel; }
+};
+struct PatchDefaultOuterLevel {
+template <typename Enum, Enum = Enum::PatchDefaultOuterLevel> operator Enum (void) const{ return Enum::PatchDefaultOuterLevel; }
+template <typename Enum> friend bool operator==(Enum value, PatchDefaultOuterLevel){ return value == Enum::PatchDefaultOuterLevel; }
+template <typename Enum> friend bool operator!=(Enum value, PatchDefaultOuterLevel){ return value != Enum::PatchDefaultOuterLevel; }
+};
 struct Patches {
 template <typename Enum, Enum = Enum::Patches> operator Enum (void) const{ return Enum::Patches; }
 template <typename Enum> friend bool operator==(Enum value, Patches){ return value == Enum::Patches; }
 template <typename Enum> friend bool operator!=(Enum value, Patches){ return value != Enum::Patches; }
+};
+struct PatchVertices {
+template <typename Enum, Enum = Enum::PatchVertices> operator Enum (void) const{ return Enum::PatchVertices; }
+template <typename Enum> friend bool operator==(Enum value, PatchVertices){ return value == Enum::PatchVertices; }
+template <typename Enum> friend bool operator!=(Enum value, PatchVertices){ return value != Enum::PatchVertices; }
 };
 struct Percentage {
 template <typename Enum, Enum = Enum::Percentage> operator Enum (void) const{ return Enum::Percentage; }
