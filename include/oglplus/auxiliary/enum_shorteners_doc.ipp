@@ -16691,6 +16691,72 @@ template <typename Enum> friend bool operator==(Enum value, PackSwapBytes);
 template <typename Enum> friend bool operator!=(Enum value, PackSwapBytes);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PatchDefaultInnerLevel value.
+/**
+ *  @see @ref oglplus::PatchParameter "PatchParameter"
+ *
+ *  @glsymbols
+ *  @gldefref{PATCH_DEFAULT_INNER_LEVEL}
+ *
+ *  @ingroup smart_enums
+ */
+struct PatchDefaultInnerLevel {
+
+/// Conversion to any @p Enum type having the PatchDefaultInnerLevel value.
+/** Instances of the @ref oglplus::smart_enums::PatchDefaultInnerLevel "PatchDefaultInnerLevel"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c PatchDefaultInnerLevel value.
+ */
+template <typename Enum, Enum = Enum::PatchDefaultInnerLevel> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the PatchDefaultInnerLevel value.
+/** Instances of the @c smart_enums::PatchDefaultInnerLevel type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c PatchDefaultInnerLevel value.
+ */
+template <typename Enum> friend bool operator==(Enum value, PatchDefaultInnerLevel);
+
+/// Non-equality comparison with any @p Enum type having the PatchDefaultInnerLevel value.
+/** Instances of the @c smart_enums::PatchDefaultInnerLevel type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c PatchDefaultInnerLevel value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, PatchDefaultInnerLevel);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PatchDefaultOuterLevel value.
+/**
+ *  @see @ref oglplus::PatchParameter "PatchParameter"
+ *
+ *  @glsymbols
+ *  @gldefref{PATCH_DEFAULT_OUTER_LEVEL}
+ *
+ *  @ingroup smart_enums
+ */
+struct PatchDefaultOuterLevel {
+
+/// Conversion to any @p Enum type having the PatchDefaultOuterLevel value.
+/** Instances of the @ref oglplus::smart_enums::PatchDefaultOuterLevel "PatchDefaultOuterLevel"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c PatchDefaultOuterLevel value.
+ */
+template <typename Enum, Enum = Enum::PatchDefaultOuterLevel> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the PatchDefaultOuterLevel value.
+/** Instances of the @c smart_enums::PatchDefaultOuterLevel type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c PatchDefaultOuterLevel value.
+ */
+template <typename Enum> friend bool operator==(Enum value, PatchDefaultOuterLevel);
+
+/// Non-equality comparison with any @p Enum type having the PatchDefaultOuterLevel value.
+/** Instances of the @c smart_enums::PatchDefaultOuterLevel type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c PatchDefaultOuterLevel value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, PatchDefaultOuterLevel);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Patches value.
 /**
  *  @see @ref oglplus::PrimitiveType "PrimitiveType"
@@ -16722,6 +16788,39 @@ template <typename Enum> friend bool operator==(Enum value, Patches);
  *  the @c Patches value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Patches);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PatchVertices value.
+/**
+ *  @see @ref oglplus::PatchParameter "PatchParameter"
+ *
+ *  @glsymbols
+ *  @gldefref{PATCH_VERTICES}
+ *
+ *  @ingroup smart_enums
+ */
+struct PatchVertices {
+
+/// Conversion to any @p Enum type having the PatchVertices value.
+/** Instances of the @ref oglplus::smart_enums::PatchVertices "PatchVertices"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c PatchVertices value.
+ */
+template <typename Enum, Enum = Enum::PatchVertices> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the PatchVertices value.
+/** Instances of the @c smart_enums::PatchVertices type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c PatchVertices value.
+ */
+template <typename Enum> friend bool operator==(Enum value, PatchVertices);
+
+/// Non-equality comparison with any @p Enum type having the PatchVertices value.
+/** Instances of the @c smart_enums::PatchVertices type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c PatchVertices value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, PatchVertices);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Percentage value.

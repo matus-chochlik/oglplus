@@ -16,6 +16,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/primitive_type.hpp>
+#include <oglplus/patch_parameter.hpp>
 #include <oglplus/data_type.hpp>
 
 namespace oglplus {
@@ -480,6 +481,17 @@ public:
 	{
 		OGLPLUS_GLFUNC(PrimitiveRestartIndex)(index);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PrimitiveRestartIndex));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_tessellation_shader || GL_VERSION_4_0
+	static void PatchParameter(
+		oglplus::PatchParameter parameter,
+		GLint value
+	)
+	{
+		OGLPLUS_GLFUNC(PatchParameteri)(GLenum(parameter), value);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PatchParameteri));
 	}
 #endif
 };
