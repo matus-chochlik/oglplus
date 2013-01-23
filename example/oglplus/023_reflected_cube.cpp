@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{023_reflected_cube}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -74,20 +74,11 @@ public:
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
+			"	gl_Position = ModelMatrix * Position;"
 			"	vertColor = Normal;"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	vertLight = LightPos - gl_Position.xyz;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		// compile it
@@ -103,10 +94,7 @@ public:
 			"void main(void)"
 			"{"
 			"	float l = dot(vertLight, vertLight);"
-			"	float d = l > 0.0 ? dot("
-			"		vertNormal, "
-			"		normalize(vertLight)"
-			"	) / l : 0.0;"
+			"	float d = l > 0.0 ? dot(vertNormal, normalize(vertLight)) / l : 0.0;"
 			"	float i = 0.2 + max(d * 2.2, 0.0);"
 			"	fragColor = vec4(abs(vertColor)*i, 1.0);"
 			"}"

@@ -87,14 +87,15 @@ public:
 			"uniform vec3 CameraPosition;"
 			"uniform mat4  ProjectionMatrix,CameraMatrix,ModelMatrix;"
 
-			"in vec3 Position, Normal;"
+			"in vec4 Position;"
+			"in vec3 Normal;"
 
 			"out vec3 vertNormal, vertViewRefl, vertLightDir;"
 
 			"void main(void)"
 			"{"
-			"	gl_Position = ModelMatrix * vec4(Position, 1.0);"
-			"	vertNormal = (ModelMatrix * vec4(Normal, 0.0)).xyz;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
 			"	vertViewRefl = reflect("
 			"		gl_Position.xyz - CameraPosition,"
 			"		vertNormal"

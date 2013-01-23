@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_depth_of_field}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -127,20 +127,10 @@ public:
 			"out vec3 vertNormal;"
 			"void main(void)"
 			"{"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
-			"	vertLightDir = normalize(("
-			"		vec4(LightPos, 0.0) - "
-			"		ModelMatrix *"
-			"		Position"
-			"	).xyz);"
-			"	vertNormal = normalize(("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz);"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertLightDir = normalize(LightPos - gl_Position.xyz);"
+			"	vertNormal = normalize(mat3(ModelMatrix)*Normal);"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		// compile it

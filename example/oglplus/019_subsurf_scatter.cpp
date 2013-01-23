@@ -1,10 +1,10 @@
 /**
  *  @example oglplus/019_subsurf_scatter.cpp
- *  @brief Shows how to draw a cube with a subsurface light scattering effect
+ *  @brief Shows a very simple subsurface scattering on a cube
  *
  *  @oglplus_screenshot{019_subsurf_scatter}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -89,32 +89,23 @@ public:
 			"		0.0, 0.0, sca, 0.0,"
 			"		0.0, 0.0, 0.0, 1.0 "
 			"	);"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertColor = Normal;"
+			"	vec3 wrap = Position.xyz - Normal;"
+			"	vertWrapNormal = "
+			"		mat3(ModelMatrix)*"
+			"		normalize(mix("
+			"			Normal,"
+			"			wrap,"
+			"			mix(0.5, 1.0, vertMult)"
+			"		));"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	vertLight = LightPos-gl_Position.xyz;"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
 			"		ScaleMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
-			"	vertColor = Normal;"
-			"	vec3 wrap = Position.xyz - Normal;"
-			"	vertWrapNormal = ("
-			"		ModelMatrix * vec4("
-			"			normalize(mix("
-			"				Normal,"
-			"				wrap,"
-			"				mix(0.5, 1.0, vertMult)"
-			"			)),"
-			"			0.0"
-			"		)"
-			"	).xyz;"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix*Position"
-			"	).xyz;"
+			"		gl_Position;"
 			"}"
 		);
 		// compile it

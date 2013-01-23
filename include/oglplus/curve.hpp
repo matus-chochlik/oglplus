@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -185,29 +185,28 @@ private:
 	{
 		std::size_t i = 0, n = points.size();
 		assert(n != 0);
-		std::vector<Type> result(points.size() * 3 + 1);
-		auto ir = result.begin(), er = result.end();
+		std::vector<Type> result(n * 3 + 1);
+		auto ir = result.begin();
 		while(i != n)
 		{
 			unsigned a = (n+i-1)%n;
 			unsigned b = i;
 			unsigned c = (i+1)%n;
 			unsigned d = (i+2)%n;
-			assert(ir != er);
+			assert(ir != result.end());
 			*ir = points[b];
 			++ir;
-			assert(ir != er);
+			assert(ir != result.end());
 			*ir = Type(points[b] + (points[c] - points[a])*r);
 			++ir;
-			assert(ir != er);
+			assert(ir != result.end());
 			*ir = Type(points[c] + (points[b] - points[d])*r);
 			++ir;
 			++i;
 		}
-		assert(ir != er);
+		assert(ir != result.end());
 		*ir = points[0]; ++ir;
-		OGLPLUS_FAKE_USE(er);
-		assert(ir == er);
+		assert(ir == result.end());
 		return result;
 	}
 public:

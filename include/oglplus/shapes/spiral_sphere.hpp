@@ -47,9 +47,9 @@ private:
 		GLdouble radius
 	) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
 		GLdouble b_step = b_leap / GLdouble(_divisions);
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLdouble m = sign * radius;
 
@@ -85,9 +85,9 @@ private:
 		GLdouble sign
 	) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
 		GLdouble b_step = b_leap / GLdouble(_divisions);
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLdouble m = sign;
 
@@ -143,9 +143,9 @@ private:
 	template <typename T>
 	void _make_side_verts(std::vector<T>& dest, unsigned& k) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
 		GLdouble b_slip = b_leap * _thickness * 0.5;
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLdouble m = _radius + _thickness * 0.5;
 		GLdouble g = -1.0;
@@ -176,8 +176,8 @@ private:
 	template <typename T>
 	void _make_side_norms(std::vector<T>& dest, unsigned& k) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLfloat m = 1.0;
 		for(unsigned b=0; b!=_bands*2; ++b)
@@ -205,8 +205,8 @@ private:
 	template <typename T>
 	void _make_side_tgts(std::vector<T>& dest, unsigned& k) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLfloat m = -1.0;
 		for(unsigned b=0; b!=_bands*2; ++b)

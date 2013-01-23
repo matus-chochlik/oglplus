@@ -53,8 +53,8 @@ private:
 
 	struct _Degrees { };
 	Angle(T val_deg, _Degrees)
-	OGLPLUS_NOEXCEPT_IF(T(val_deg * (math::pi() / T(180))))
-	 : _val_rad(T(val_deg * (math::pi() / T(180))))
+	OGLPLUS_NOEXCEPT_IF(T(val_deg * (math::Pi() / T(180))))
+	 : _val_rad(T(val_deg * (math::Pi() / T(180))))
 	{ }
 public:
 	/// Constructs a zero angle
@@ -90,7 +90,7 @@ public:
 	static inline Angle Degrees(T val_deg)
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(T(val_deg)) &&
-		OGLPLUS_NOEXCEPT(val_deg * (math::pi() / T(180)))
+		OGLPLUS_NOEXCEPT(val_deg * (math::Pi() / T(180)))
 	)
 	{
 		return Angle(val_deg, _Degrees());
@@ -105,9 +105,9 @@ public:
 
 	/// Returns the value of the angle in degrees
 	inline T ValueInDegrees(void) const
-	OGLPLUS_NOEXCEPT_IF(_val_rad * T(180 / math::pi()))
+	OGLPLUS_NOEXCEPT_IF(_val_rad * T(180 / math::Pi()))
 	{
-		return _val_rad * T(180 / math::pi());
+		return _val_rad * T(180 / math::Pi());
 	}
 
 	/// Equality comparison
@@ -308,9 +308,9 @@ OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Degrees(val_deg))
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> FullCircles(GLfloat value)
-OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 2.0)))
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::TwoPi())))
 {
-	return Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 2.0));
+	return Angle<GLfloat>::Radians(GLfloat(value * math::TwoPi()));
 }
 
 /// Creates a new angle from a value in "right angles" (i.e. 90 deg.)
@@ -337,9 +337,9 @@ OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 2.0)))
  *  @ingroup math_utils
  */
 inline Angle<GLfloat> RightAngles(GLfloat value)
-OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 0.5)))
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::HalfPi())))
 {
-	return Angle<GLfloat>::Radians(GLfloat(value * math::pi() * 0.5));
+	return Angle<GLfloat>::Radians(GLfloat(value * math::HalfPi()));
 }
 
 /// Creates a new angle using the arc sine function
@@ -439,7 +439,7 @@ OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(::std::atan2(y, x)))
 template <typename T>
 inline T SineWave(T t)
 {
-	return ::std::sin(T(2.0 * math::pi() * t));
+	return ::std::sin(T(math::TwoPi() * t));
 }
 
 /// Returns a value on a cosine wave at the specified point
@@ -463,7 +463,7 @@ inline T SineWave(T t)
 template <typename T>
 inline T CosineWave(T t)
 {
-	return ::std::cos(T(2.0 * math::pi() * t));
+	return ::std::cos(T(math::TwoPi() * t));
 }
 
 } // namespace oglplus

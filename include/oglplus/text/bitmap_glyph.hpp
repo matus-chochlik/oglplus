@@ -246,14 +246,24 @@ public:
 		return Layout(*this, font, max_len);
 	}
 
-	Layout MakeLayout(Font font, const StrLit& lit)
+	Layout MakeLayout(Font font, const GLchar* c_str, std::size_t size)
 	{
 		std::vector<CodePoint> cps;
-		UTF8ToCodePoints(lit.c_str(), lit.size(), cps);
+		UTF8ToCodePoints(c_str, size, cps);
 
-		Layout layout(MakeLayout(font, cps.size()));
+		Layout layout(MakeLayout(font, size));
 		layout.Set(cps);
 		return std::move(layout);
+	}
+
+	Layout MakeLayout(Font font, const StrLit& lit)
+	{
+		return MakeLayout(font, lit.c_str(), lit.size());
+	}
+
+	Layout MakeLayout(Font font, const String& str)
+	{
+		return MakeLayout(font, str.c_str(), str.size());
 	}
 };
 

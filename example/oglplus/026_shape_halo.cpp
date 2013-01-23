@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_shape_halo}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -90,23 +90,11 @@ public:
 			"out vec3 vertLight;"
 			"void main(void)"
 			"{"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertViewNormal = ("
-			"		CameraMatrix *"
-			"		vec4(vertNormal, 0.0)"
-			"	).xyz;"
-			"	vertLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	vertViewNormal = mat3(CameraMatrix)*vertNormal;"
+			"	vertLight = LightPos - gl_Position.xyz;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		vs_shape.Compile();

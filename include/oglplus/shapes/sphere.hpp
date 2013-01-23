@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -37,7 +37,7 @@ public:
 	 , _rings(12)
 	{ }
 
-	/// Creates a sphere with unit radius centered at the origin
+	/// Creates a sphere with specified radius centered at the origin
 	Sphere(GLdouble radius, unsigned sections, unsigned rings)
 	 : _radius(radius)
 	 , _sections(sections)
@@ -57,8 +57,8 @@ public:
 		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
 		unsigned k = 0;
 		//
-		GLdouble r_step = (1.0 * math::pi()) / GLdouble(_rings + 1);
-		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		GLdouble r_step = (1.0 * math::Pi()) / GLdouble(_rings + 1);
+		GLdouble s_step = (2.0 * math::Pi()) / GLdouble(_sections);
 
 		for(unsigned r=0; r!=(_rings+2);++r)
 		{
@@ -67,9 +67,9 @@ public:
 			// the sections
 			for(unsigned s=0; s!=(_sections+1);++s)
 			{
-				dest[k++] = T(r_rad * std::cos(s * s_step));
+				dest[k++] = T(r_rad *  std::cos(s*s_step));
 				dest[k++] = T(r_lat);
-				dest[k++] = T(r_rad * -std::sin(s * s_step));
+				dest[k++] = T(r_rad * -std::sin(s*s_step));
 			}
 		}
 		//
@@ -85,17 +85,50 @@ public:
 		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
 		unsigned k = 0;
 		//
-		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		GLdouble s_step = (2.0 * math::Pi()) / GLdouble(_sections);
 
 		for(unsigned r=0; r!=(_rings+2);++r)
 		{
 			for(unsigned s=0; s!=(_sections+1);++s)
 			{
-				GLdouble vx = std::cos(s*s_step);
-				GLdouble vz = std::sin(s*s_step);
-				dest[k++] = T(+vz);
-				dest[k++] = T(T(0));
-				dest[k++] = T(-vx);
+				dest[k++] = T(-std::sin(s*s_step));
+				dest[k++] = T(0);
+				dest[k++] = T(-std::cos(s*s_step));
+			}
+		}
+		//
+		assert(k == dest.size());
+		// 3 values per vertex
+		return 3;
+	}
+
+	/// Makes vertex bi-tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
+		unsigned k = 0;
+		//
+		GLdouble r_step = (1.0 * math::Pi()) / GLdouble(_rings + 1);
+		GLdouble s_step = (2.0 * math::Pi()) / GLdouble(_sections);
+
+		GLdouble ty = 0.0;
+		for(unsigned r=0; r!=(_rings+2);++r)
+		{
+			GLdouble r_lat = std::cos(r*r_step);
+			GLdouble r_rad = std::sin(r*r_step);
+			GLdouble ny = r_lat;
+			// the sections
+			for(unsigned s=0; s!=(_sections+1);++s)
+			{
+				GLdouble tx = -std::sin(s*s_step);
+				GLdouble tz = -std::cos(s*s_step);
+				GLdouble nx = -r_rad * tz;
+				GLdouble nz =  r_rad * tx;
+
+				dest[k++] = T(ny*tz-nz*ty);
+				dest[k++] = T(nz*tx-nx*tz);
+				dest[k++] = T(nx*ty-ny*tx);
 			}
 		}
 		//
@@ -146,6 +179,7 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 *  - "Normal" the vertex normal vectors (Normals)
 	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "Bitangents" the vertex bi-tangent vector (Bitangents)
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Sphere> VertexAttribs;
@@ -156,6 +190,7 @@ public:
 			VertexPositionsTag,
 			VertexNormalsTag,
 			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag
 		>
 	> VertexAttribs;

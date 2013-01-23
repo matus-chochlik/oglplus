@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{016_textured_cube}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -78,20 +78,11 @@ public:
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertLight = LightPos - gl_Position.xyz;"
 			"	vertTexCoord = TexCoord;"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		// compile it
@@ -108,10 +99,7 @@ public:
 			"void main(void)"
 			"{"
 			"	float l = length(vertLight);"
-			"	float d =  l > 0 ? dot("
-			"		vertNormal, "
-			"		normalize(vertLight)"
-			"	) / l : 0.0;"
+			"	float d = l > 0 ? dot(vertNormal, normalize(vertLight)) / l : 0.0;"
 			"	float i = 0.3 + 2.0*max(d, 0.0);"
 			"	vec4 t  = texture(TexUnit, vertTexCoord);"
 			"	fragColor = vec4(t.rgb*i, 1.0);"

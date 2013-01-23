@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{019_helium}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -135,24 +135,11 @@ private:
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertViewNormal = ("
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	vertViewNormal = mat3(CameraMatrix)*vertNormal;"
+			"	vertLight = LightPos - gl_Position.xyz;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		));
 

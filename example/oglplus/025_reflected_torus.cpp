@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{025_reflected_torus}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -78,20 +78,11 @@ public:
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
+			"	gl_Position = ModelMatrix * Position;"
 			"	geomColor = Normal;"
-			"	geomNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	geomLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
+			"	geomNormal = mat3(ModelMatrix)*Normal;"
+			"	geomLight = LightPos-gl_Position.xyz;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		// compile it
@@ -144,21 +135,15 @@ public:
 			"	for(int v=0; v!=gl_in.length(); ++v)"
 			"	{"
 			"		vec4 Position = gl_in[v].gl_Position;"
+			"		gl_Position = ModelMatrix * Position;"
+			"		geomColor = vertNormal[v];"
+			"		geomNormal = mat3(ModelMatrix)*vertNormal[v];"
+			"		geomLight = LightPos - gl_Position.xyz;"
 			"		gl_Position = "
 			"			ProjectionMatrix *"
 			"			CameraMatrix *"
 			"			ReflectionMatrix *"
-			"			ModelMatrix *"
-			"			Position;"
-			"		geomColor = vertNormal[v];"
-			"		geomNormal = ("
-			"			ModelMatrix *"
-			"			vec4(vertNormal[v], 0.0)"
-			"		).xyz;"
-			"		geomLight = ("
-			"			vec4(LightPos, 0.0)-"
-			"			ModelMatrix * Position"
-			"		).xyz;"
+			"			gl_Position;"
 			"		EmitVertex();"
 			"	}"
 			"	EndPrimitive();"

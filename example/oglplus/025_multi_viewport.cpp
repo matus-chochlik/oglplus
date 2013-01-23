@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{025_multi_viewport}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -88,22 +88,11 @@ public:
 
 			"void main(void)"
 			"{"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
 			"	vertTexCoord = Normal;"
-			"	vertLightDir = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
-			"	vertLightRefl = reflect("
-			"		-vertLightDir,"
-			"		vertNormal"
-			"	);"
-			"	gl_Position = "
-			"		ModelMatrix *"
-			"		Position;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertLightDir = LightPos-gl_Position.xyz;"
+			"	vertLightRefl = reflect(-vertLightDir, vertNormal);"
 			"}"
 		);
 		vs.Compile();

@@ -81,8 +81,8 @@ public:
 		unsigned k = 0;
 		//
 		const GLdouble t = _thickness / _radius_in;
-		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
 		const GLdouble s_slip = s_step * _s_slip_coef;
 		const GLdouble r1 = _radius_in;
@@ -312,11 +312,11 @@ public:
 		);
 		unsigned k = 0;
 		//
-		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
 		const GLdouble s_slip = s_step * _s_slip_coef;
-		const GLdouble s_slop = (1.0 * math::pi()) / 4.0;
+		const GLdouble s_slop = (math::Pi()) / 4.0;
 
 		for(unsigned f=0; f!=2; ++f)
 		{
@@ -485,10 +485,10 @@ public:
 		);
 		unsigned k = 0;
 		//
-		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
-		const GLdouble s_slop = (1.0 * math::pi()) / 4.0;
+		const GLdouble s_slop = (math::Pi()) / 4.0;
 
 		for(unsigned f=0; f!=2; ++f)
 		{

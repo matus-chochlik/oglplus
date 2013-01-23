@@ -80,19 +80,10 @@ public:
 			"out vec3 vertLight;"
 			"void main(void)"
 			"{"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	vertLight = LightPos - gl_Position.xyz;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		vs_object.Compile();
@@ -131,17 +122,9 @@ public:
 			"out float ld;"
 			"void main(void)"
 			"{"
-			"	gl_Position = "
-			"		ModelMatrix *"
-			"		Position;"
-			"	vec3 geomNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vec3 lightDir = ("
-			"		vec4(LightPos, 0.0)-"
-			"		gl_Position"
-			"	).xyz;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vec3 geomNormal = mat3(ModelMatrix)*Normal;"
+			"	vec3 lightDir = LightPos - gl_Position.xyz;"
 			"	ld = dot(geomNormal, normalize(lightDir));"
 			"}"
 		);
@@ -266,10 +249,10 @@ public:
 		plane_verts.Bind(Buffer::Target::Array);
 		{
 			GLfloat data[4*3] = {
-				-9.0f, 0.0f,  9.0f,
 				-9.0f, 0.0f, -9.0f,
-				 9.0f, 0.0f,  9.0f,
-				 9.0f, 0.0f, -9.0f
+				-9.0f, 0.0f,  9.0f,
+				 9.0f, 0.0f, -9.0f,
+				 9.0f, 0.0f,  9.0f
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();

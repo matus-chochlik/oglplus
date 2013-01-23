@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{021_wooden_crate}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -82,27 +82,16 @@ public:
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	vec3 fragNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vec3 fragTangent = ("
-			"		ModelMatrix *"
-			"		vec4(Tangent, 0.0)"
-			"	).xyz;"
+			"	vec3 fragNormal = mat3(ModelMatrix) * Normal;"
+			"	vec3 fragTangent = mat3(ModelMatrix) * Tangent;"
 			"	NormalMatrix[0] = fragTangent;"
 			"	NormalMatrix[1] = cross(fragNormal, fragTangent);"
 			"	NormalMatrix[2] = fragNormal;"
-			"	vertLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
+
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertLight = LightPos - gl_Position.xyz;"
 			"	vertTexCoord = TexCoord;"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		// compile it
