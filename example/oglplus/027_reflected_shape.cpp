@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_reflected_shape}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -96,14 +96,9 @@ public:
 			"out vec4 vertTexCoord;"
 			"void main(void)"
 			"{"
-			"	gl_Position = "
-			"		ModelMatrix* "
-			"		Position;"
+			"	gl_Position = ModelMatrix*Position;"
 			"	vertLightDir = LightPosition - gl_Position.xyz;"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		gl_Position;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"	vertTexCoord = gl_Position;"
 			"}"
 		);
@@ -121,10 +116,7 @@ public:
 			"const float blur = 0.15/n;"
 			"void main(void)"
 			"{"
-			"	float d = dot("
-			"		Normal, "
-			"		normalize(vertLightDir)"
-			"	);"
+			"	float d = dot(Normal, normalize(vertLightDir));"
 			"	float intensity = 0.5 + pow(1.4*d, 2.0);"
 			"	vec3 color = vec3(0.0, 0.0, 0.0);"
 			"	int n = 2;"
@@ -214,27 +206,16 @@ public:
 			"out vec3 vertColor;"
 			"void main(void)"
 			"{"
-			"	gl_Position = "
-			"		ModelMatrix *"
-			"		Position;"
+			"	gl_Position = ModelMatrix * Position;"
 			"	vertLightDir = LightPosition - gl_Position.xyz;"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
 			"	vertLightRefl = reflect("
 			"		-normalize(vertLightDir),"
 			"		normalize(vertNormal)"
 			"	);"
-			"	vertViewDir = ("
-			"		vec4(0.0, 0.0, 1.0, 1.0)*"
-			"		CameraMatrix"
-			"	).xyz;"
+			"	vertViewDir = (vec4(0.0, 0.0, 1.0, 1.0)*CameraMatrix).xyz;"
 			"	vertColor = vec3(1, 1, 1) - vertNormal;"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		gl_Position;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		shape_vs.Compile();

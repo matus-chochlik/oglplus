@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_shaded_objects}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -70,7 +70,7 @@ public:
 		// managed references to the VBOs
 		Managed<Buffer> vbo[n_attr] = {verts, normals, texcoords};
 		// vertex attribute identifiers from the shaders
-		const GLchar* ident[n_attr] = {"Vertex", "Normal", "TexCoord"};
+		const GLchar* ident[n_attr] = {"Position", "Normal", "TexCoord"};
 
 		for(GLuint i=0; i!=n_attr; ++i)
 		{
@@ -131,7 +131,7 @@ private:
 		shader.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
-			"in vec4 Vertex;"
+			"in vec4 Position;"
 			"in vec3 Normal;"
 			"in vec2 TexCoord;"
 			"out vec2 vertTexCoord;"
@@ -141,19 +141,10 @@ private:
 			"void main(void)"
 			"{"
 			"	vertTexCoord = TexCoord;"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertLight = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Vertex"
-			"	).xyz;"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Vertex;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	vertLight = LightPos - gl_Position.xyz;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 

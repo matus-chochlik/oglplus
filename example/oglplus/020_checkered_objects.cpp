@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_checkered_objects}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -47,10 +47,7 @@ protected:
 		"		ModelMatrix *"
 		"		Position;"
 		"	vertLightDir = LightPosition - gl_Position.xyz;"
-		"	vertNormal = ("
-		"		ModelMatrix *"
-		"		vec4(Normal, 0.0)"
-		"	).xyz;"
+		"	vertNormal = mat3(ModelMatrix)*Normal;"
 		"	vertLightRefl = reflect("
 		"		-normalize(vertLightDir),"
 		"		normalize(vertNormal)"

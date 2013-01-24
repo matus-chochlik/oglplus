@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -159,6 +159,26 @@ public:
 		return 3;
 	}
 
+	/// Makes vertex bi-tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		unsigned k = 0, n = _vertex_count();
+		dest.resize(n * 3);
+		Vec3f bitangent(Normalized(_v));
+
+		for(unsigned i=0; i!=n; ++i)
+		{
+			dest[k++] = T(bitangent.x());
+			dest[k++] = T(bitangent.y());
+			dest[k++] = T(bitangent.z());
+		}
+		//
+		assert(k == dest.size());
+		// 3 values per vertex
+		return 3;
+	}
+
 	/// Makes vertex coordinates and returns number of values per vertex
 	template <typename T>
 	GLuint Positions(std::vector<T>& dest) const
@@ -227,6 +247,7 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 *  - "Normal" the vertex normal vectors (Normals)
 	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Plane> VertexAttribs;
@@ -237,6 +258,7 @@ public:
 			VertexPositionsTag,
 			VertexNormalsTag,
 			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag
 		>
 	> VertexAttribs;

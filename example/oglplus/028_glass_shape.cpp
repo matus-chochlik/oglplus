@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{028_glass_shape}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -187,26 +187,14 @@ public:
 			"		ClipDirection* "
 			"		dot(ClipPlane, gl_Position);"
 			"	vertLightDir = LightPosition - gl_Position.xyz;"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
 			"	vertLightRefl = reflect("
 			"		-normalize(vertLightDir),"
 			"		normalize(vertNormal)"
 			"	);"
-			"	vertViewDir = ("
-			"		vec4(0.0, 0.0, 1.0, 1.0)*"
-			"		CameraMatrix"
-			"	).xyz;"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		gl_Position;"
-			"	vec3 TexOffs = ("
-			"		CameraMatrix *"
-			"		vec4(vertNormal, 0.0)"
-			"	).xyz * 0.05;"
+			"	vertViewDir = (vec4(0.0, 0.0, 1.0, 1.0)*CameraMatrix).xyz;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
+			"	vec3 TexOffs = mat3(CameraMatrix)*vertNormal*0.05;"
 			"	vertTexCoord = "
 			"		vec2(0.5, 0.5) +"
 			"		(gl_Position.xy/gl_Position.w)*0.5 +"

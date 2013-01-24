@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{021_cube_mapping}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -76,14 +76,9 @@ public:
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
-			"	vertNormal = ("
-			"		ModelMatrix *"
-			"		vec4(Normal, 0.0)"
-			"	).xyz;"
-			"	vertLightDir = ("
-			"		vec4(LightPos, 0.0)-"
-			"		ModelMatrix * Position"
-			"	).xyz;"
+			"	gl_Position = ModelMatrix * Position;"
+			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	vertLightDir = LightPos - gl_Position.xyz;"
 			"	vertLightRefl = reflect("
 			"		-normalize(vertLightDir),"
 			"		normalize(vertNormal)"
@@ -96,11 +91,7 @@ public:
 			"		normalize(vertViewDir),"
 			"		normalize(vertNormal)"
 			"	);"
-			"	gl_Position = "
-			"		ProjectionMatrix *"
-			"		CameraMatrix *"
-			"		ModelMatrix *"
-			"		Position;"
+			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
 		// compile it

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -49,7 +49,7 @@ public:
 	/// Returns the winding direction of faces
 	FaceOrientation FaceWinding(void) const
 	{
-		return FaceOrientation::CW;
+		return FaceOrientation::CCW;
 	}
 
 	/// Makes vertex coordinates and returns number of values per vertex
@@ -59,15 +59,15 @@ public:
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
 		unsigned k = 0;
 		//
-		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
 		GLdouble r1 = _radius_in;
 		GLdouble r2 = _radius_out - _radius_in;
 
 		for(unsigned r=0; r!=(_rings+1); ++r)
 		{
-			GLdouble vx = std::cos(r*r_step);
-			GLdouble vz = std::sin(r*r_step);
+			GLdouble vx =  std::cos(r*r_step);
+			GLdouble vz = -std::sin(r*r_step);
 			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
 				GLdouble vr = std::cos(s*s_step);
@@ -88,20 +88,20 @@ public:
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
 		unsigned k = 0;
 		//
-		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
 
 		for(unsigned r=0; r!=(_rings+1); ++r)
 		{
-			GLdouble vx = std::cos(r*r_step);
-			GLdouble vz = std::sin(r*r_step);
+			GLdouble nx =  std::cos(r*r_step);
+			GLdouble nz = -std::sin(r*r_step);
 			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
-				GLdouble vr = std::cos(s*s_step);
-				GLdouble vy = std::sin(s*s_step);
-				dest[k++] = T(vx*vr);
-				dest[k++] = T(vy);
-				dest[k++] = T(vz*vr);
+				GLdouble nr = std::cos(s*s_step);
+				GLdouble ny = std::sin(s*s_step);
+				dest[k++] = T(nx*nr);
+				dest[k++] = T(ny);
+				dest[k++] = T(nz*nr);
 			}
 		}
 		assert(k == dest.size());
@@ -115,17 +115,49 @@ public:
 		dest.resize((_rings + 1) * (_sections + 1) * 3);
 		unsigned k = 0;
 		//
-		GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
+		GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
 
 		for(unsigned r=0; r!=(_rings+1); ++r)
 		{
-			GLdouble vx = std::cos(r*r_step);
-			GLdouble vz = std::sin(r*r_step);
+			GLdouble tx = -std::sin(r*r_step);
+			GLdouble tz = -std::cos(r*r_step);
 			for(unsigned s=0; s!=(_sections+1); ++s)
 			{
-				dest[k++] = T(+vz);
-				dest[k++] = T(T(0));
-				dest[k++] = T(-vx);
+				dest[k++] = T(tx);
+				dest[k++] = T(0);
+				dest[k++] = T(tz);
+			}
+		}
+		assert(k == dest.size());
+		return 3;
+	}
+
+	/// Makes vertex bi-tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		dest.resize((_rings + 1) * (_sections + 1) * 3);
+		unsigned k = 0;
+		//
+		GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
+
+		GLdouble ty = 0.0;
+		for(unsigned r=0; r!=(_rings+1); ++r)
+		{
+			GLdouble tx = -std::sin(r*r_step);
+			GLdouble tz = -std::cos(r*r_step);
+
+			for(unsigned s=0; s!=(_sections+1); ++s)
+			{
+				GLdouble ny = std::sin(s*s_step);
+				GLdouble nr = std::cos(s*s_step);
+				GLdouble nx = -tz*nr;
+				GLdouble nz =  tx*nr;
+
+				dest[k++] = T(ny*tz-nz*ty);
+				dest[k++] = T(nz*tx-nx*tz);
+				dest[k++] = T(nx*ty-ny*tx);
 			}
 		}
 		assert(k == dest.size());
@@ -163,6 +195,7 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 *  - "Normal" the vertex normal vectors (Normals)
 	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<Torus> VertexAttribs;
@@ -173,6 +206,7 @@ public:
 			VertexPositionsTag,
 			VertexNormalsTag,
 			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag
 		>
 	> VertexAttribs;

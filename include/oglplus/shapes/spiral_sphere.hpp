@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -47,9 +47,9 @@ private:
 		GLdouble radius
 	) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
 		GLdouble b_step = b_leap / GLdouble(_divisions);
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLdouble m = sign * radius;
 
@@ -71,7 +71,7 @@ private:
 
 					dest[k++] = T(m* ss * cb);
 					dest[k++] = T(m* cs);
-					dest[k++] = T(m* ss * -sb);
+					dest[k++] = T(m* ss *-sb);
 					b_offs += ss * s_step;
 				}
 			}
@@ -85,9 +85,9 @@ private:
 		GLdouble sign
 	) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
 		GLdouble b_step = b_leap / GLdouble(_divisions);
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLdouble m = sign;
 
@@ -107,8 +107,55 @@ private:
 					GLdouble ss = std::sin(s_angle);
 
 					dest[k++] = T(m*-sb);
-					dest[k++] = T(T(0));
-					dest[k++] = T(m* cb);
+					dest[k++] = T(0);
+					dest[k++] = T(m*-cb);
+					b_offs += ss * s_step;
+				}
+			}
+		}
+	}
+
+	template <typename T>
+	void _make_bitangents(
+		std::vector<T>& dest,
+		unsigned& k,
+		GLdouble sign
+	) const
+	{
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
+		GLdouble b_step = b_leap / GLdouble(_divisions);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+
+		GLdouble m = sign;
+
+		for(unsigned b=0; b!=_bands; ++b)
+		{
+			for(unsigned d=0; d!=(_divisions+1); ++d)
+			{
+				GLdouble b_offs = 0.0;
+				for(unsigned s=0; s!=(_segments+1); ++s)
+				{
+					GLdouble b_angle =
+						2*b*b_leap + d*b_step + b_offs;
+					GLdouble cb = std::cos(b_angle);
+					GLdouble sb = std::sin(b_angle);
+
+					GLdouble s_angle = s*s_step;
+					GLdouble cs = std::cos(s_angle);
+					GLdouble ss = std::sin(s_angle);
+
+					GLdouble tx = m*-sb;
+					GLdouble ty = 0.0;
+					GLdouble tz = m*-cb;
+
+					GLdouble nx = m*ss* cb;
+					GLdouble ny = m*cs;
+					GLdouble nz = m*ss*-sb;
+
+					dest[k++] = T(ny*tz-nz*ty);
+					dest[k++] = T(nz*tx-nx*tz);
+					dest[k++] = T(nx*ty-ny*tx);
+
 					b_offs += ss * s_step;
 				}
 			}
@@ -143,9 +190,9 @@ private:
 	template <typename T>
 	void _make_side_verts(std::vector<T>& dest, unsigned& k) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
 		GLdouble b_slip = b_leap * _thickness * 0.5;
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLdouble m = _radius + _thickness * 0.5;
 		GLdouble g = -1.0;
@@ -176,8 +223,8 @@ private:
 	template <typename T>
 	void _make_side_norms(std::vector<T>& dest, unsigned& k) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLfloat m = 1.0;
 		for(unsigned b=0; b!=_bands*2; ++b)
@@ -193,8 +240,8 @@ private:
 				GLdouble s_angle = s*s_step;
 				GLdouble ss = std::sin(s_angle);
 
-				dest[k++] = T(m* -sb);
-				dest[k++] = T(T(0));
+				dest[k++] = T(m*-sb);
+				dest[k++] = T(0);
 				dest[k++] = T(m* cb);
 				b_offs += ss * s_step;
 			}
@@ -205,8 +252,8 @@ private:
 	template <typename T>
 	void _make_side_tgts(std::vector<T>& dest, unsigned& k) const
 	{
-		GLdouble b_leap = (math::pi()) / GLdouble(_bands);
-		GLdouble s_step = (math::pi()) / GLdouble(_segments);
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
 
 		GLfloat m = -1.0;
 		for(unsigned b=0; b!=_bands*2; ++b)
@@ -223,9 +270,48 @@ private:
 				GLdouble cs = std::cos(s_angle);
 				GLdouble ss = std::sin(s_angle);
 
-				dest[k++] = T(m* ss * cb);
-				dest[k++] = T(m* cs);
-				dest[k++] = T(m* ss * -sb);
+				dest[k++] = T(m*ss*-cb);
+				dest[k++] = T(m*cs);
+				dest[k++] = T(m*ss*-sb);
+				b_offs += ss * s_step;
+			}
+			m *= -1.0;
+		}
+	}
+
+	template <typename T>
+	void _make_side_btgs(std::vector<T>& dest, unsigned& k) const
+	{
+		GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
+		GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+
+		GLfloat m = 1.0;
+		for(unsigned b=0; b!=_bands*2; ++b)
+		{
+			GLdouble b_offs = 0.0;
+			for(unsigned s=0; s!=(_segments+1); ++s)
+			{
+				GLdouble b_angle =
+					b*b_leap + b_offs;
+				GLdouble cb = std::cos(b_angle);
+				GLdouble sb = std::sin(b_angle);
+
+				GLdouble s_angle = s*s_step;
+				GLdouble cs = std::cos(s_angle);
+				GLdouble ss = std::sin(s_angle);
+
+				GLdouble tx = m*ss*-cb;
+				GLdouble ty = m*cs;
+				GLdouble tz = m*ss*-sb;
+
+				GLdouble nx = m* sb;
+				GLdouble ny = 0.0;
+				GLdouble nz = m*-cb;
+
+				dest[k++] = T(ny*tz-nz*ty);
+				dest[k++] = T(nz*tx-nx*tz);
+				dest[k++] = T(nx*ty-ny*tx);
+
 				b_offs += ss * s_step;
 			}
 			m *= -1.0;
@@ -331,6 +417,22 @@ public:
 		return 3;
 	}
 
+	/// Makes vertex bi-tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		dest.resize(_vertex_count() * 3);
+		unsigned k = 0;
+		//
+		_make_bitangents(dest, k, -1.0);
+		_make_bitangents(dest, k,  1.0);
+		_make_side_btgs(dest, k);
+		//
+		assert(k == dest.size());
+		// 3 values per vertex
+		return 3;
+	}
+
 	/// Makes texture-coorinates and returns number of values per vertex
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
@@ -354,6 +456,7 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 *  - "Normal" the vertex normal vectors (Normals)
 	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<SpiralSphere> VertexAttribs;
@@ -364,6 +467,7 @@ public:
 			VertexPositionsTag,
 			VertexNormalsTag,
 			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag
 		>
 	> VertexAttribs;

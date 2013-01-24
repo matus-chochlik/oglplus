@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_furry_torus}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -55,10 +55,7 @@ public:
 		"		OldModelMatrix * "
 		"		Position"
 		"	).xyz;"
-		"	vertNormal = ("
-		"		NewModelMatrix * "
-		"		vec4(Normal, 0.0)"
-		"	).xyz;"
+		"	vertNormal = mat3(NewModelMatrix) * Normal;"
 		"	vertColor = texture(FurTex, TexCoord).rgb;"
 		"}")
 	)

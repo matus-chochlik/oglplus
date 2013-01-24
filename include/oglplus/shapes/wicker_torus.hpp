@@ -81,8 +81,8 @@ public:
 		unsigned k = 0;
 		//
 		const GLdouble t = _thickness / _radius_in;
-		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
 		const GLdouble s_slip = s_step * _s_slip_coef;
 		const GLdouble r1 = _radius_in;
@@ -312,11 +312,11 @@ public:
 		);
 		unsigned k = 0;
 		//
-		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
 		const GLdouble s_slip = s_step * _s_slip_coef;
-		const GLdouble s_slop = (1.0 * math::pi()) / 4.0;
+		const GLdouble s_slop = (math::Pi()) / 4.0;
 
 		for(unsigned f=0; f!=2; ++f)
 		{
@@ -485,10 +485,10 @@ public:
 		);
 		unsigned k = 0;
 		//
-		const GLdouble r_step = (2.0 * math::pi()) / GLdouble(_rings);
-		const GLdouble s_step = (2.0 * math::pi()) / GLdouble(_sections);
+		const GLdouble r_step = (math::TwoPi()) / GLdouble(_rings);
+		const GLdouble s_step = (math::TwoPi()) / GLdouble(_sections);
 		const GLdouble r_slip = r_step * _r_slip_coef;
-		const GLdouble s_slop = (1.0 * math::pi()) / 4.0;
+		const GLdouble s_slop = (math::Pi()) / 4.0;
 
 		for(unsigned f=0; f!=2; ++f)
 		{
@@ -627,6 +627,39 @@ public:
 					dest[k++] = T(-vx*d_sign);
 				}
 			}
+		}
+
+		assert(k == dest.size());
+		return 3;
+	}
+
+	/// Makes vertex bi-tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		std::vector<T> nmls, tgts;
+		Normals(nmls);
+		Tangents(tgts);
+		assert(nmls.size() == tgts.size());
+		assert(nmls.size() % 3 == 0);
+
+		dest.resize(nmls.size());
+
+		unsigned k = 0;
+
+		while(k != dest.size())
+		{
+			T nx = nmls[k+0];
+			T ny = nmls[k+1];
+			T nz = nmls[k+2];
+
+			T tx = tgts[k+0];
+			T ty = tgts[k+1];
+			T tz = tgts[k+2];
+
+			dest[k++] = T(ny*tz-nz*ty);
+			dest[k++] = T(nz*tx-nx*tz);
+			dest[k++] = T(nx*ty-ny*tx);
 		}
 
 		assert(k == dest.size());
@@ -799,6 +832,7 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 *  - "Normal" the vertex normal vectors (Normals)
 	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<WickerTorus> VertexAttribs;
@@ -809,6 +843,7 @@ public:
 			VertexPositionsTag,
 			VertexNormalsTag,
 			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag
 		>
 	> VertexAttribs;
