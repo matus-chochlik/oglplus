@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -264,6 +264,35 @@ public:
 		return 3;
 	}
 
+	/// Makes vertex bi-tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		dest.resize(_rings * _sections.size() * 3);
+		unsigned k = 0;
+
+		const Vector<Type, 3> tgt(0.0, 0.0, -1.0);
+
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		{
+			const auto angle = FullCircles(_sections[si]);
+			const auto mat = ModelMatrix<Type>::RotationY(angle);
+
+			for(unsigned r=0; r!=_rings; ++r)
+			{
+				const Vector<Type, 3> nml(_get_normal(r, si));
+				const Vector<Type, 4> in(Cross(nml, tgt), 0);
+				const auto out = mat * in;
+
+				dest[k++] = T(out.x());
+				dest[k++] = T(out.y());
+				dest[k++] = T(out.z());
+			}
+		}
+		assert(k == dest.size());
+		return 3;
+	}
+
 	/// Makes texture coordinates and returns number of values per vertex
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
@@ -296,6 +325,7 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 *  - "Normal" the vertex normal vectors (Normals)
 	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<RevolveY> VertexAttribs;
@@ -306,6 +336,7 @@ public:
 			VertexPositionsTag,
 			VertexNormalsTag,
 			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag
 		>
 	> VertexAttribs;

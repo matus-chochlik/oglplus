@@ -633,6 +633,39 @@ public:
 		return 3;
 	}
 
+	/// Makes vertex bi-tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		std::vector<T> nmls, tgts;
+		Normals(nmls);
+		Tangents(tgts);
+		assert(nmls.size() == tgts.size());
+		assert(nmls.size() % 3 == 0);
+
+		dest.resize(nmls.size());
+
+		unsigned k = 0;
+
+		while(k != dest.size())
+		{
+			T nx = nmls[k+0];
+			T ny = nmls[k+1];
+			T nz = nmls[k+2];
+
+			T tx = tgts[k+0];
+			T ty = tgts[k+1];
+			T tz = tgts[k+2];
+
+			dest[k++] = T(ny*tz-nz*ty);
+			dest[k++] = T(nz*tx-nx*tz);
+			dest[k++] = T(nx*ty-ny*tx);
+		}
+
+		assert(k == dest.size());
+		return 3;
+	}
+
 	/// Makes texture coorinates and returns number of values per vertex
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
@@ -799,6 +832,7 @@ public:
 	 *  - "Position" the vertex positions (Positions)
 	 *  - "Normal" the vertex normal vectors (Normals)
 	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
 	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
 	 */
 	typedef VertexAttribsInfo<WickerTorus> VertexAttribs;
@@ -809,6 +843,7 @@ public:
 			VertexPositionsTag,
 			VertexNormalsTag,
 			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag
 		>
 	> VertexAttribs;

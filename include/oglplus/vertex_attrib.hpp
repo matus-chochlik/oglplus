@@ -669,12 +669,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(const Program& program, const GLchar* identifier)
+	VertexAttrib(const ProgramOps& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
-	VertexAttrib(const Program& program, const String& identifier)
+	VertexAttrib(const ProgramOps& program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
@@ -723,12 +723,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(const Program& program, const GLchar* identifier)
+	VertexAttrib(const ProgramOps& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
-	VertexAttrib(const Program& program, const String& identifier)
+	VertexAttrib(const ProgramOps& program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
@@ -777,12 +777,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(const Program& program, const GLchar* identifier)
+	VertexAttrib(const ProgramOps& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
-	VertexAttrib(const Program& program, const String& identifier)
+	VertexAttrib(const ProgramOps& program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
@@ -867,7 +867,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttribArray(const Program& program, const GLchar* identifier)
+	VertexAttribArray(const ProgramOps& program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
@@ -876,7 +876,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttribArray(const Program& program, const String& identifier)
+	VertexAttribArray(const ProgramOps& program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 

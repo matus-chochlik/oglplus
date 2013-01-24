@@ -60,8 +60,13 @@ protected:
 	// the origin and radius of the bounding sphere
 	Vector<GLfloat, 4> _bounding_sphere;
 
-	template <class ShapeBuilder, typename Iterator>
-	void _init(const ShapeBuilder& builder, Iterator name, Iterator end)
+	template <class ShapeBuilder, class ShapeIndices, typename Iterator>
+	void _init(
+		const ShapeBuilder& builder,
+		const ShapeIndices& shape_indices,
+		Iterator name,
+		Iterator end
+	)
 	{
 		VertexArray::Unbind();
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
@@ -75,17 +80,16 @@ protected:
 			);
 			if(getter != nullptr)
 			{
-				// bind the VBO for the vertex attribute
 				_vbos[i].Bind(Buffer::Target::Array);
 				_npvs[i] = getter(builder, data);
 				_names[i] = *name;
-				// upload the data
+
 				Buffer::Data(Buffer::Target::Array, data);
 			}
 			++name;
 			++i;
 		}
-		auto shape_indices = builder.Indices();
+
 		if(!shape_indices.empty())
 		{
 			assert((i+1) == _npvs.size());
@@ -98,6 +102,7 @@ protected:
 				shape_indices
 			);
 		}
+
 		builder.BoundingSphere(_bounding_sphere);
 	}
 public:
@@ -113,7 +118,34 @@ public:
 	 , _npvs(std::distance(names_begin, names_end)+1, 0)
 	 , _names(std::distance(names_begin, names_end))
 	{
-		_init(builder, names_begin, names_end);
+		this->_init(
+			builder,
+			builder.Indices(),
+			names_begin,
+			names_end
+		);
+	}
+
+	template <typename Iterator, class ShapeBuilder, class ShapeIndices>
+	ShapeWrapperBase(
+		Iterator names_begin,
+		Iterator names_end,
+		const ShapeBuilder& builder,
+		const ShapeIndices& shape_indices,
+		shapes::DrawingInstructions&& shape_instr
+	): _face_winding(builder.FaceWinding())
+	 , _shape_instr(std::move(shape_instr))
+	 , _index_info(builder)
+	 , _vbos(std::distance(names_begin, names_end)+1)
+	 , _npvs(std::distance(names_begin, names_end)+1, 0)
+	 , _names(std::distance(names_begin, names_end))
+	{
+		this->_init(
+			builder,
+			shape_indices,
+			names_begin,
+			names_end
+		);
 	}
 
 	ShapeWrapperBase(ShapeWrapperBase&& temp)
@@ -135,7 +167,7 @@ private:
 public:
 #endif
 
-	VertexArray VAOForProgram(const Program& prog)
+	VertexArray VAOForProgram(const ProgramOps& prog)
 	{
 		VertexArray vao;
 		vao.Bind();
@@ -165,7 +197,7 @@ public:
 		return std::move(vao);
 	}
 
-	void UseInProgram(const Program& prog)
+	void UseInProgram(const ProgramOps& prog)
 	{
 		_vao.Assign(VAOForProgram(prog));
 	}
@@ -227,7 +259,7 @@ public:
 	ShapeWrapper(
 		const StdRange& names,
 		const ShapeBuilder& builder,
-		const Program& prog
+		const ProgramOps& prog
 	): ShapeWrapperBase(names.begin(), names.end(), builder)
 	{
 		UseInProgram(prog);
@@ -245,7 +277,7 @@ public:
 	ShapeWrapper(
 		const std::initializer_list<const GLchar*>& names,
 		const ShapeBuilder& builder,
-		const Program& prog
+		const ProgramOps& prog
 	): ShapeWrapperBase(names.begin(), names.end(), builder)
 	{
 		UseInProgram(prog);
@@ -265,8 +297,47 @@ public:
 		const GLchar** names,
 		unsigned name_count,
 		const ShapeBuilder& builder,
-		const Program& prog
+		const ProgramOps& prog
 	): ShapeWrapperBase(names, names+name_count, builder)
+	{
+		UseInProgram(prog);
+	}
+};
+
+/// Wraps instructions and VBOs and VAO used to render a shape built by a ShapeBuilder
+class ShapeWrapperWithAdjacency
+ : public ShapeWrapperBase
+{
+public:
+	ShapeWrapperWithAdjacency(ShapeWrapperWithAdjacency&& temp)
+	 : ShapeWrapperBase(static_cast<ShapeWrapperBase&&>(temp))
+	{ }
+
+	template <typename StdRange, class ShapeBuilder>
+	ShapeWrapperWithAdjacency(
+		const StdRange& names,
+		const ShapeBuilder& builder
+	): ShapeWrapperBase(
+		names.begin(),
+		names.end(),
+		builder,
+		builder.IndicesWithAdjacency(),
+		builder.InstructionsWithAdjacency()
+	)
+	{ }
+
+	template <typename StdRange, class ShapeBuilder>
+	ShapeWrapperWithAdjacency(
+		const StdRange& names,
+		const ShapeBuilder& builder,
+		const ProgramOps& prog
+	): ShapeWrapperBase(
+		names.begin(),
+		names.end(),
+		builder,
+		builder.IndicesWithAdjacency(),
+		builder.InstructionsWithAdjacency()
+	)
 	{
 		UseInProgram(prog);
 	}
