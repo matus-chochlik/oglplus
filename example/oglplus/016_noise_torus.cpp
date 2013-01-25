@@ -180,8 +180,8 @@ public:
 			Texture::SwizzleG(tex_tgt, TextureSwizzle::Red);
 			Texture::SwizzleB(tex_tgt, TextureSwizzle::Red);
 		}
-		//
-		Uniform<GLint>(prog, "TexUnit").Set(0);
+		// typechecked uniform with exact data type
+		Typechecked<Uniform<SLtoCpp<SLDataType::Sampler2D>>>(prog, "TexUnit").Set(0);
 		Uniform<Vec3f>(prog, "LightPos").Set(4.0f, 4.0f, -8.0f);
 
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);

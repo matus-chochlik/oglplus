@@ -103,10 +103,15 @@ public:
 		vert_attr.Setup(2, DataType::Float);
 		vert_attr.Enable();
 		//
-		Uniform<Vec3f>(prog, "Sun1").Set(0.95f, 0.85f, 0.60f);
-		Uniform<Vec3f>(prog, "Sun2").Set(0.90f, 0.80f, 0.20f);
-		Uniform<Vec3f>(prog, "Sky1").Set(0.90f, 0.80f, 0.50f);
-		Uniform<Vec3f>(prog, "Sky2").Set(0.80f, 0.60f, 0.40f);
+		// Uniforms can be typechecked
+		// but note that the typechecking is a relatively
+		// expensive operation
+		Typechecked<Uniform<Vec3f>>(prog, "Sun1").Set(0.95f, 0.85f, 0.60f);
+		Typechecked<Uniform<Vec3f>>(prog, "Sun2").Set(0.90f, 0.80f, 0.20f);
+
+		// and their type can be defined from GLSL data type
+		Uniform<SLtoCpp<SLDataType::FloatVec3>>(prog, "Sky1").Set(0.90f, 0.80f, 0.50f);
+		Uniform<SLtoCpp<SLDataType::FloatVec3>>(prog, "Sky2").Set(0.80f, 0.60f, 0.40f);
 		//
 		gl.ClearDepth(1.0f);
 	}

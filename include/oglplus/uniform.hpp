@@ -20,11 +20,17 @@
 #include <oglplus/auxiliary/shader_data.hpp>
 #include <oglplus/auxiliary/tp_mat_vec.hpp>
 #include <oglplus/auxiliary/uniform_init.hpp>
+#include <oglplus/auxiliary/glsl_to_cpp.hpp>
 
 #include <vector>
 #include <cassert>
 
 namespace oglplus {
+
+/// Tag template that can be used to declare an Uniform from SLDataType
+template <oglplus::SLDataType>
+struct SLtoCpp;
+
 namespace aux {
 
 // collection of Uniform setter functions for basic types
@@ -116,7 +122,7 @@ class UniformAllSetOps
 template <typename T>
 struct UniformSetOps
 {
-	typedef UniformAllSetOps<T> type;
+	typedef UniformAllSetOps<T> Type;
 };
 
 template <typename T, std::size_t N>
@@ -126,7 +132,7 @@ struct UniformSetOps<Vector<T, N> >
 		aux::UniformSetters,
 		aux::ActiveProgramCallOps<T>,
 		4
-	> type;
+	> Type;
 };
 
 template <typename T, std::size_t Rows, std::size_t Cols>
@@ -135,7 +141,7 @@ struct UniformSetOps<Matrix<T, Rows, Cols> >
 	typedef aux::ShaderMatrixSetOps<
 		aux::UniformMatrixSetters,
 		aux::ActiveProgramCallOps<T>
-	> type;
+	> Type;
 };
 
 template <typename T>
@@ -153,7 +159,7 @@ class ProgramUniformAllSetOps
 template <typename T>
 struct ProgramUniformSetOps
 {
-	typedef ProgramUniformAllSetOps<T> type;
+	typedef ProgramUniformAllSetOps<T> Type;
 };
 
 template <typename T, std::size_t N>
@@ -163,7 +169,7 @@ struct ProgramUniformSetOps<Vector<T, N> >
 		aux::ProgramUniformSetters,
 		aux::SpecificProgramCallOps<T>,
 		4
-	> type;
+	> Type;
 };
 
 template <typename T, std::size_t Rows, std::size_t Cols>
@@ -172,26 +178,32 @@ struct ProgramUniformSetOps<Matrix<T, Rows, Cols> >
 	typedef aux::ShaderMatrixSetOps<
 		aux::ProgramUniformMatrixSetters,
 		aux::SpecificProgramCallOps<T>
-	> type;
+	> Type;
 };
 
 
 template <typename T>
-struct UniformAdjustType
+struct AdjustUniformType
 {
-	typedef T type;
+	typedef T Type;
 };
 
 template <>
-struct UniformAdjustType<bool>
+struct AdjustUniformType<bool>
 {
-	typedef GLuint type;
+	typedef GLboolean Type;
 };
 
 template <std::size_t N>
-struct UniformAdjustType<oglplus::Vector<bool, N> >
+struct AdjustUniformType<oglplus::Vector<bool, N> >
 {
-	typedef oglplus::Vector<GLuint, N> type;
+	typedef oglplus::Vector<GLboolean, N> Type;
+};
+
+template <oglplus::SLDataType SLType>
+struct AdjustUniformType<SLtoCpp<SLType> >
+{
+	typedef typename aux::GLSL2Cpp<SLType>::Type Type;
 };
 
 } // namespace aux
@@ -207,7 +219,7 @@ class UniformOps
 private:
 	Initializer _initializer;
 
-	static Program::ActiveVariableInfo _find_uniform_avi(
+	static ProgramOps::ActiveVariableInfo _find_uniform_avi(
 		GLuint prog_name,
 		GLint location
 	)
@@ -306,27 +318,28 @@ public:
  */
 template <
 	typename T,
-	typename S,
 	class LocationInit,
 	class Typechecker,
 	class SpecOpsWrapper
 >
 class UniformSpecOps
  : public UniformOps<LocationInit, Typechecker>
- , public SpecOpsWrapper::type
+ , public SpecOpsWrapper::Type
 {
 private:
 	typedef UniformOps<LocationInit, Typechecker> _base_ops;
-
-	static S* _type_sel(void) { return nullptr; }
 protected:
-	template <class StrOrInt>
-	UniformSpecOps(const Program& program, StrOrInt&& name_or_loc)
-	 : _base_ops(_type_sel(), program, std::forward<StrOrInt>(name_or_loc))
+	template <typename TypeSel, class StrOrInt>
+	UniformSpecOps(
+		TypeSel* type_sel,
+		const ProgramOps& program,
+		StrOrInt&& name_or_loc
+	): _base_ops(type_sel, program, std::forward<StrOrInt>(name_or_loc))
 	{ }
 
-	UniformSpecOps(GLuint program, GLint location)
-	 : _base_ops(_type_sel(), program, location)
+	template <typename TypeSel>
+	UniformSpecOps(TypeSel* type_sel, GLuint program, GLint location)
+	 : _base_ops(type_sel, program, location)
 	{ }
 public:
 
@@ -640,32 +653,32 @@ public:
 template <
 	typename T,
 	std::size_t N,
-	typename S,
 	class LocationInit,
 	class Typechecker,
 	class SpecOpsWrapper
 >
 class UniformSpecOps<
 	Vector<T, N>,
-	S,
 	LocationInit,
 	Typechecker,
 	SpecOpsWrapper
 >: public UniformOps<LocationInit, Typechecker>
- , public SpecOpsWrapper::type
+ , public SpecOpsWrapper::Type
 {
 private:
 	typedef UniformOps<LocationInit, Typechecker> _base_ops;
-
-	static S* _type_sel(void) { return nullptr; }
 protected:
-	template <class StrOrInt>
-	UniformSpecOps(const Program& program, StrOrInt&& name_or_loc)
-	 : _base_ops(_type_sel(), program, std::forward<StrOrInt>(name_or_loc))
+	template <typename TypeSel, class StrOrInt>
+	UniformSpecOps(
+		TypeSel* type_sel,
+		const ProgramOps& program,
+		StrOrInt&& name_or_loc
+	): _base_ops(type_sel, program, std::forward<StrOrInt>(name_or_loc))
 	{ }
 
-	UniformSpecOps(GLuint program, GLint location)
-	 : _base_ops(_type_sel(), program, location)
+	template <typename TypeSel>
+	UniformSpecOps(TypeSel* type_sel, GLuint program, GLint location)
+	 : _base_ops(type_sel, program, location)
 	{ }
 public:
 	/// Set the vector value of the uniform variable
@@ -807,32 +820,32 @@ template <
 	typename T,
 	std::size_t Rows,
 	std::size_t Cols,
-	typename S,
 	class LocationInit,
 	class Typechecker,
 	class SpecOpsWrapper
 >
 class UniformSpecOps<
 	Matrix<T, Rows, Cols>,
-	S,
 	LocationInit,
 	Typechecker,
 	SpecOpsWrapper
 >: public UniformOps<LocationInit, Typechecker>
- , public SpecOpsWrapper::type
+ , public SpecOpsWrapper::Type
 {
 private:
 	typedef UniformOps<LocationInit, Typechecker> _base_ops;
-
-	static S* _type_sel(void) { return nullptr; }
 protected:
-	template <class StrOrInt>
-	UniformSpecOps(const Program& program, StrOrInt&& name_or_loc)
-	 : _base_ops(_type_sel(), program, std::forward<StrOrInt>(name_or_loc))
+	template <typename TypeSel, class StrOrInt>
+	UniformSpecOps(
+		TypeSel* type_sel,
+		const ProgramOps& program,
+		StrOrInt&& name_or_loc
+	): _base_ops(type_sel, program, std::forward<StrOrInt>(name_or_loc))
 	{ }
 
-	UniformSpecOps(GLuint program, GLint location)
-	 : _base_ops(_type_sel(), program, location)
+	template <typename TypeSel>
+	UniformSpecOps(TypeSel* type_sel, GLuint program, GLint location)
+	 : _base_ops(type_sel, program, location)
 	{ }
 public:
 	/// Set the matrix components of the uniform variable
@@ -952,27 +965,25 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T, class LocationInit, class Typechecker, class SetOps>
-class UniformTpl
- : public UniformSpecOps<
-	typename aux::UniformAdjustType<T>::type,
-	T,
-	LocationInit,
-	Typechecker,
-	SetOps
+template <
+	typename T,
+	typename S,
+	class LocationInit,
+	class Typechecker,
+	class SetOps
 >
+class UniformTpl
+ : public UniformSpecOps<T, LocationInit, Typechecker, SetOps>
 {
 private:
-	typedef UniformSpecOps<
-		typename aux::UniformAdjustType<T>::type,
-		T,
-		LocationInit,
-		Typechecker,
-		SetOps
-	> _base;
+	typedef UniformSpecOps<T, LocationInit, Typechecker, SetOps> _base;
+
+	static S* _type_sel(void) { return nullptr; }
 public:
+	typedef T AdjustedType;
+
 	UniformTpl(GLuint program, GLint location)
-	 : _base(program, location)
+	 : _base(_type_sel(), program, location)
 	{ }
 
 	/// Reference a uniform identified by @p identifier in the @p program
@@ -980,8 +991,8 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetUniformLocation}
 	 */
-	UniformTpl(const Program& program, const GLchar* identifier)
-	 : _base(program, identifier)
+	UniformTpl(const ProgramOps& program, const GLchar* identifier)
+	 : _base(_type_sel(), program, identifier)
 	{ }
 
 	/// Reference a uniform identified by @p identifier in the @p program
@@ -989,8 +1000,8 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetUniformLocation}
 	 */
-	UniformTpl(const Program& program, const String& identifier)
-	 : _base(program, identifier)
+	UniformTpl(const ProgramOps& program, const String& identifier)
+	 : _base(_type_sel(), program, identifier)
 	{ }
 
 	/// Reference a uniform identified by @p identifier in the @p program
@@ -998,22 +1009,22 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetUniformLocation}
 	 */
-	UniformTpl(const Program& program, String&& identifier)
-	 : _base(program, std::move(identifier))
+	UniformTpl(const ProgramOps& program, String&& identifier)
+	 : _base(_type_sel(), program, std::move(identifier))
 	{ }
 
 	/// Reference a uniform identified by @p location in the @p program
 	/**
 	 *  @glsymbols
 	 */
-	UniformTpl(const Program& program, GLint location)
-	 : _base(program, location)
+	UniformTpl(const ProgramOps& program, GLint location)
+	 : _base(_type_sel(), program, location)
 	{ }
 
-	UniformTpl<T, aux::DirectUniformInit, Typechecker, SetOps>
+	UniformTpl<T, S, aux::DirectUniformInit, Typechecker, SetOps>
 	operator[](GLint offset)
 	{
-		return UniformTpl<T, aux::DirectUniformInit,Typechecker,SetOps>(
+		return UniformTpl<T, S, aux::DirectUniformInit,Typechecker,SetOps>(
 			this->_get_program(),
 			this->_get_location()+offset
 		);
@@ -1049,6 +1060,47 @@ public:
 	}
 };
 
+/// Common base for Uniform, ProgramUniform, LazyUniform, LazyProgramUniform, etc.
+/** @note Do not use directly, use Uniform, ProgramUniform, LazyUniform,
+ *  LazyProgramUniform, OptionalUniform, OptionalProgramUniform,
+ *  DirectUniform, DirectProgramUniform, etc. instead.
+ *
+ *  @ingroup shader_variables
+ */
+template <
+	typename T,
+	class LocationInit,
+	class Typechecker,
+	template <class> class SetOpsTpl
+>
+class UniformCommon
+ : public UniformTpl<
+	typename aux::AdjustUniformType<T>::Type,
+	T,
+	LocationInit,
+	Typechecker,
+	SetOpsTpl<typename aux::AdjustUniformType<T>::Type>
+>
+{
+protected:
+	typedef UniformTpl<
+		typename aux::AdjustUniformType<T>::Type,
+		T,
+		LocationInit,
+		Typechecker,
+		SetOpsTpl<typename aux::AdjustUniformType<T>::Type>
+	> _base_tpl;
+public:
+	template <typename StrOrInt>
+	UniformCommon(const ProgramOps& program, StrOrInt&& id_or_loc)
+	 : _base_tpl(program, std::forward<StrOrInt>(id_or_loc))
+	{ }
+
+	UniformCommon(const _base_tpl& other)
+	 : _base_tpl(other)
+	{ }
+};
+
 /// Class encapsulating Uniform shader variable functionality
 /**
  *  The difference between Uniform and LazyUniform is, that Uniform
@@ -1063,39 +1115,38 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
+template <typename T, class Typecheck = NoTypecheck>
 class Uniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
+ : public UniformCommon<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<
+ : public UniformCommon<
 	T,
 	aux::EagerUniformInit,
-	aux::UniformTypecheck<Level>,
-	aux::UniformSetOps<T>
+	Typecheck,
+	aux::UniformSetOps
 >
 #endif
 {
-protected:
-	typedef UniformTpl<
+private:
+	typedef UniformCommon<
 		T,
 		aux::EagerUniformInit,
-		aux::UniformTypecheck<Level>,
-		aux::UniformSetOps<T>
+		Typecheck,
+		aux::UniformSetOps
 	> _base;
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a const reference to @p program and an identifier
-	Uniform(const Program& program, String identifier);
+	Uniform(const ProgramOps& program, String identifier);
 #else
 	template <typename _String>
-	Uniform(const Program& program, _String&& identifier)
+	Uniform(const ProgramOps& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
 #endif
 
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
@@ -1114,39 +1165,38 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
+template <typename T, class Typecheck = NoTypecheck>
 class LazyUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
+ : public UniformCommon<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<
+ : public UniformCommon<
 	T,
-	aux::LazyUniformInit<aux::UniformTypecheck<Level>>,
-	aux::UniformTypecheck<Level>,
-	aux::UniformSetOps<T>
+	aux::LazyUniformInit<Typecheck>,
+	Typecheck,
+	aux::UniformSetOps
 >
 #endif
 {
-protected:
-	typedef UniformTpl<
+private:
+	typedef UniformCommon<
 		T,
-		aux::LazyUniformInit<aux::UniformTypecheck<Level>>,
-		aux::UniformTypecheck<Level>,
-		aux::UniformSetOps<T>
+		aux::LazyUniformInit<Typecheck>,
+		Typecheck,
+		aux::UniformSetOps
 	> _base;
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a const reference to @p program and an identifier
-	LazyUniform(const Program& program, String identifier);
+	LazyUniform(const ProgramOps& program, String identifier);
 #else
 	template <typename _String>
-	LazyUniform(const Program& program, _String&& identifier)
+	LazyUniform(const ProgramOps& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
 #endif
 
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
@@ -1164,39 +1214,38 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
+template <typename T, class Typecheck = NoTypecheck>
 class OptionalUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
+ : public UniformCommon<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<
+ : public UniformCommon<
 	T,
 	aux::OptionalUniformInit,
-	aux::UniformTypecheck<Level>,
-	aux::UniformSetOps<T>
+	Typecheck,
+	aux::UniformSetOps
 >
 #endif
 {
-protected:
-	typedef UniformTpl<
+private:
+	typedef UniformCommon<
 		T,
 		aux::OptionalUniformInit,
-		aux::UniformTypecheck<Level>,
-		aux::UniformSetOps<T>
+		Typecheck,
+		aux::UniformSetOps
 	> _base;
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a const reference to @p program and an identifier
-	OptionalUniform(const Program& program, String identifier);
+	OptionalUniform(const ProgramOps& program, String identifier);
 #else
 	template <typename _String>
-	OptionalUniform(const Program& program, _String&& identifier)
+	OptionalUniform(const ProgramOps& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
 #endif
 
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
@@ -1216,38 +1265,37 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
+template <typename T, class Typecheck = NoTypecheck>
 class DirectUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
+ : public UniformCommon<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<
+ : public UniformCommon<
 	T,
 	aux::DirectUniformInit,
-	aux::UniformTypecheck<Level>,
-	aux::UniformSetOps<T>
+	Typecheck,
+	aux::UniformSetOps
 >
 #endif
 {
-protected:
-	typedef UniformTpl<
+private:
+	typedef UniformCommon<
 		T,
 		aux::DirectUniformInit,
-		aux::UniformTypecheck<Level>,
-		aux::UniformSetOps<T>
+		Typecheck,
+		aux::UniformSetOps
 	> _base;
 public:
 	/// Construction from a const reference to @p program and a @p location
-	DirectUniform(const Program& program, GLint location)
+	DirectUniform(const ProgramOps& program, GLint location)
 	 : _base(program, location)
 	{ }
 
-	DirectUniform(const _base& other)
+	DirectUniform(const typename _base::_base_tpl& other)
 	 : _base(other)
 	{ }
 
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
@@ -1299,7 +1347,7 @@ typedef DirectUniform<GLint> DirectUniformSampler;
  */
 template <typename T>
 inline void SetUniform(
-	const Program& program,
+	const ProgramOps& program,
 	const GLchar* identifier,
 	const T& value
 )
@@ -1327,39 +1375,38 @@ inline void SetUniform(
  *
  *  @glvoereq{4,1,ARB,separate_shader_objects}
  */
-template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
+template <typename T, class Typecheck = NoTypecheck>
 class ProgramUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
+ : public UniformCommon<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<
+ : public UniformCommon<
 	T,
 	aux::EagerUniformInit,
-	aux::UniformTypecheck<Level>,
-	aux::ProgramUniformSetOps<T>
+	Typecheck,
+	aux::ProgramUniformSetOps
 >
 #endif
 {
 private:
-	typedef UniformTpl<
+	typedef UniformCommon<
 		T,
 		aux::EagerUniformInit,
-		aux::UniformTypecheck<Level>,
-		aux::ProgramUniformSetOps<T>
+		Typecheck,
+		aux::ProgramUniformSetOps
 	> _base;
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a const reference to @p program and an identifier
-	ProgramUniform(const Program& program, String identifier);
+	ProgramUniform(const ProgramOps& program, String identifier);
 #else
 	template <typename _String>
-	ProgramUniform(const Program& program, _String&& identifier)
+	ProgramUniform(const ProgramOps& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
 #endif
 
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
@@ -1378,39 +1425,38 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
+template <typename T, class Typecheck = NoTypecheck>
 class LazyProgramUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
+ : public UniformCommon<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<
+ : public UniformCommon<
 	T,
-	aux::LazyUniformInit<aux::UniformTypecheck<Level>>,
-	aux::UniformTypecheck<Level>,
-	aux::ProgramUniformSetOps<T>
+	aux::LazyUniformInit<Typecheck>,
+	Typecheck,
+	aux::ProgramUniformSetOps
 >
 #endif
 {
 private:
-	typedef UniformTpl<
+	typedef UniformCommon<
 		T,
-		aux::LazyUniformInit<aux::UniformTypecheck<Level>>,
-		aux::UniformTypecheck<Level>,
-		aux::ProgramUniformSetOps<T>
+		aux::LazyUniformInit<Typecheck>,
+		Typecheck,
+		aux::ProgramUniformSetOps
 	> _base;
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a const reference to @p program and an identifier
-	LazyProgramUniform(const Program& program, String identifier);
+	LazyProgramUniform(const ProgramOps& program, String identifier);
 #else
 	template <typename _String>
-	LazyProgramUniform(const Program& program, _String&& identifier)
+	LazyProgramUniform(const ProgramOps& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
 #endif
 
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
@@ -1428,39 +1474,38 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
+template <typename T, class Typecheck = NoTypecheck>
 class OptionalProgramUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
+ : public UniformCommon<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<
+ : public UniformCommon<
 	T,
 	aux::OptionalUniformInit,
-	aux::UniformTypecheck<Level>,
-	aux::ProgramUniformSetOps<T>
+	Typecheck,
+	aux::ProgramUniformSetOps
 >
 #endif
 {
 protected:
-	typedef UniformTpl<
+	typedef UniformCommon<
 		T,
 		aux::OptionalUniformInit,
-		aux::UniformTypecheck<Level>,
-		aux::ProgramUniformSetOps<T>
+		Typecheck,
+		aux::ProgramUniformSetOps
 	> _base;
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a const reference to @p program and an identifier
-	OptionalProgramUniform(const Program& program, String identifier);
+	OptionalProgramUniform(const ProgramOps& program, String identifier);
 #else
 	template <typename _String>
-	OptionalProgramUniform(const Program& program, _String&& identifier)
+	OptionalProgramUniform(const ProgramOps& program, _String&& identifier)
 	 : _base(program, std::forward<_String>(identifier))
 	{ }
 #endif
 
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
@@ -1479,38 +1524,37 @@ public:
  *
  *  @ingroup shader_variables
  */
-template <typename T, UniformTypecheckLevel Level = UniformTypecheckLevel::None>
+template <typename T, class Typecheck = NoTypecheck>
 class DirectProgramUniform
 #if OGLPLUS_DOCUMENTATION_ONLY
- : public UniformTpl<T, Unspecified, Unspecified, Unspecified>
+ : public UniformCommon<T, Unspecified, Unspecified, Unspecified>
 #else
- : public UniformTpl<
+ : public UniformCommon<
 	T,
 	aux::DirectUniformInit,
-	aux::UniformTypecheck<Level>,
-	aux::ProgramUniformSetOps<T>
+	Typecheck,
+	aux::ProgramUniformSetOps
 >
 #endif
 {
-protected:
-	typedef UniformTpl<
+private:
+	typedef UniformCommon<
 		T,
 		aux::DirectUniformInit,
-		aux::UniformTypecheck<Level>,
-		aux::ProgramUniformSetOps<T>
+		Typecheck,
+		aux::ProgramUniformSetOps
 	> _base;
 public:
 	/// Construction from a const reference to @p program and a @p location
-	DirectProgramUniform(const Program& program, GLint location)
+	DirectProgramUniform(const ProgramOps& program, GLint location)
 	 : _base(program, location)
 	{ }
 
-	DirectProgramUniform(const _base& other)
+	DirectProgramUniform(const typename _base::_base_tpl& other)
 	 : _base(other)
 	{ }
 
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
@@ -1562,7 +1606,7 @@ typedef DirectProgramUniform<GLint> DirectProgramUniformSampler;
  */
 template <typename T>
 inline void SetProgramUniform(
-	const Program& program,
+	const ProgramOps& program,
 	const GLchar* identifier,
 	const T& value
 )
@@ -1584,37 +1628,32 @@ class Typechecked
 {
 public:
 	/// Construction from a program and identifier
-	Typechecked(const Program& program, String identifier);
+	Typechecked(const ProgramOps& program, String identifier);
 
 	/// Construction from a program and location
-	Typechecked(const Program& program, GLint location);
+	Typechecked(const ProgramOps& program, GLint location);
 };
 #else
 template <class _Uniform>
 class Typechecked;
 
 template <
-	template <class, UniformTypecheckLevel> class _Uniform,
-	typename T,
-	UniformTypecheckLevel Level
+	template <class, class> class _Uniform,
+	class T,
+	class Typecheck
 >
-class Typechecked<_Uniform<T, Level> >
- : public _Uniform<T, UniformTypecheckLevel::Strict>
+class Typechecked<_Uniform<T, Typecheck> >
+ : public _Uniform<T, DefaultTypecheck>
 {
 private:
-	typedef _Uniform<T, UniformTypecheckLevel::Strict> _base;
+	typedef _Uniform<T, DefaultTypecheck> _base;
 public:
-	template <typename _String>
-	Typechecked(const Program& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename StrOrInt>
+	Typechecked(const ProgramOps& program, StrOrInt&& id_or_loc)
+	 : _base(program, std::forward<StrOrInt>(id_or_loc))
 	{ }
 
-	Typechecked(const Program& program, GLint location)
-	 : _base(program, location)
-	{ }
-
-	/// Set the value of the uniform variable
-	inline void operator = (const T& value)
+	inline void operator = (const typename _base::AdjustedType& value)
 	{
 		this->Set(value);
 	}
