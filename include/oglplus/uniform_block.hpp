@@ -142,7 +142,7 @@ protected:
 typedef EagerUniformInitTpl<UniformBlockInitOps>
 	EagerUniformBlockInit;
 
-typedef LazyUniformInitTpl<UniformBlockInitOps, UniformNoTypecheck>
+typedef LazyUniformInitTpl<UniformBlockInitOps, NoUniformTypecheck>
 	LazyUniformBlockInit;
 
 } // namespace aux
@@ -170,7 +170,7 @@ public:
 		program,
 		Nothing(),
 		std::forward<_String>(identifier),
-		aux::UniformNoTypecheck()
+		NoTypecheck()
 	)
 	{ }
 

@@ -47,6 +47,8 @@ ShortEnumTempDir=$(mktemp -d)
 #  oglplus/enums/${InputName}_ese.ipp
 #  oglplus/enums/${InputName}_nse.ipp
 #  oglplus/enums/${InputName}_names.ipp
+function MakeEnumHeaders()
+{
 for InputFile in ${InputFiles}
 do
 	InputName="${InputFile#${InputDir}/}"
@@ -66,7 +68,7 @@ do
 	unset Comma
 	echo "#if OGLPLUS_DOCUMENTATION_ONLY"
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF OGLPLUS_DEF AQ DOCUMENTATION BQ QN
+	while read GL_DEF OGLPLUS_DEF AQ DOCUMENTATION BQ X
 	do
 		if [ "${OGLPLUS_DEF}" == "" ]
 		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
@@ -254,9 +256,11 @@ do
 
 	git add ${OutputPath}
 done
+} # MakeEnumHeaders()
 
 # Creates the oglplus/lib/enum_value_name.ipp file
-(
+function MakeEnumValueName()
+{(
 OutputFile="oglplus/lib/enum_value_name.ipp"
 OutputPath="${RootDir}/include/${OutputFile}"
 
@@ -281,10 +285,11 @@ done
 echo "#endif"
 
 git add ${OutputPath}
-)
+)} # MakeEnumValueName()
 
 # Creates the oglplus/lib/enum_value_range.ipp file
-(
+function MakeEnumValueRange()
+{(
 OutputFile="oglplus/lib/enum_value_range.ipp"
 OutputPath="${RootDir}/include/${OutputFile}"
 
@@ -309,8 +314,12 @@ done
 echo "#endif"
 
 git add ${OutputPath}
-)
+)} # MakeEnumValueRange
 
+
+# Creates the oglplus/auxiliary/enum_shorteners.ipp file
+function MakeEnumShorteners()
+{
 for InputFile in ${InputFiles}
 do
 (
@@ -421,9 +430,12 @@ done
 )
 
 rm -rf ${ShortEnumTempDir}
+} # MakeEnumShorteners()
 
 
 # the mapping of target def. to binding query def.
+function MakeEnumBQHeaders()
+{
 grep -c -e '^\([^:]*:\)\{4\}[^:]\+' ${InputFiles} |
 grep -v -e ':0$' |
 cut -d':' -f1 |
@@ -458,4 +470,84 @@ do
 
 	git add ${OutputPath}
 done
+} # MakeEnumBQHeaders()
 
+# specials
+#
+function MapGLSLtypeToCPPtype()
+{
+	case ${1} in
+		NONE) echo "void";;
+
+		BOOL) echo "GLboolean";;
+		INT) echo "GLint";;
+		UNSIGNED_INT) echo "GLuint";;
+		FLOAT) echo "GLfloat";;
+		DOUBLE) echo "GLdouble";;
+
+		*_VEC[234])
+			local ELEM=$(MapGLSLtypeToCPPtype ${1%_VEC[234]})
+			local N=${1#*_VEC}
+			echo "oglplus::Vector<${ELEM}, ${N}>";;
+
+		*_MAT[234])
+			local ELEM=$(MapGLSLtypeToCPPtype ${1%_MAT[234]})
+			local N=${1#*_MAT}
+			echo "oglplus::Matrix<${ELEM}, ${N}, ${N}>";;
+
+		*_MAT[234]x[234])
+			local ELEM=$(MapGLSLtypeToCPPtype ${1%_MAT[234]x[234]})
+			local D=${1#*_MAT}
+			local C=${D%x[234]}
+			local R=${D#[234]x}
+			echo "oglplus::Matrix<${ELEM}, ${R}, ${C}>";;
+
+		*SAMPLER*) echo "GLint";;
+		*IMAGE*) echo "GLint";;
+
+		*) echo "GLuint";;
+	esac
+}
+# sl_data_type -> C++ type mapping
+function MakeGLSLtoCPPtypeHeader()
+{
+InputFile="${RootDir}/source/enums/sl_data_type.txt"
+OutputFile="oglplus/auxiliary/glsl_to_cpp.ipp"
+OutputPath="${RootDir}/include/${OutputFile}"
+(
+	mkdir -p $(dirname ${OutputPath})
+	exec > ${OutputPath}
+	PrintFileHeader ${InputFile} ${OutputFile}
+	#
+	IFS=:
+
+	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
+	while read GL_DEF OGLPLUS_DEF X
+	do
+		if [ "${OGLPLUS_DEF}" == "" ]
+		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
+		fi
+
+		TYPE=$(MapGLSLtypeToCPPtype ${GL_DEF})
+
+		echo "#ifdef GL_${GL_DEF}"
+		echo "template <>"
+		echo "struct GLSL2Cpp<SLDataType::${OGLPLUS_DEF}>"
+		echo "{"
+		echo "	typedef ${TYPE} Type;"
+		echo "};"
+		echo "#endif // ${GL_DEF}"
+		echo
+	done
+	echo
+)
+git add ${OutputPath}
+
+} #MakeSLtoCPPtypeHeader()
+
+MakeEnumHeaders
+MakeEnumValueName
+MakeEnumValueRange
+MakeEnumShorteners
+MakeEnumBQHeaders
+MakeGLSLtoCPPtypeHeader

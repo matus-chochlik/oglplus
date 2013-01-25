@@ -95,7 +95,7 @@ public:
 typedef EagerUniformInitTpl<SubroutineUniformInitOps>
 	EagerSubroutineUniformInit;
 
-typedef LazyUniformInitTpl<SubroutineUniformInitOps, UniformNoTypecheck>
+typedef LazyUniformInitTpl<SubroutineUniformInitOps, NoUniformTypecheck>
 	LazySubroutineUniformInit;
 
 
@@ -125,7 +125,7 @@ public:
 		program,
 		stage,
 		std::forward<_String>(identifier),
-		aux::UniformNoTypecheck()
+		NoTypecheck()
 	)
 	{ }
 
@@ -291,7 +291,7 @@ public:
 typedef EagerUniformInitTpl<SubroutineInitOps>
 	EagerSubroutineInit;
 
-typedef LazyUniformInitTpl<SubroutineInitOps, UniformNoTypecheck>
+typedef LazyUniformInitTpl<SubroutineInitOps, NoUniformTypecheck>
 	LazySubroutineInit;
 
 } // namespace aux
@@ -317,7 +317,7 @@ public:
 		program,
 		stage,
 		std::forward<String>(identifier),
-		aux::UniformNoTypecheck()
+		NoTypecheck()
 	)
 	{ }
 

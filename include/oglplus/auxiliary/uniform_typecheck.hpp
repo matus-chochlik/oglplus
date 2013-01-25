@@ -15,39 +15,24 @@
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
+#include <oglplus/auxiliary/glsl_to_cpp.hpp>
 
 #include <vector>
 #include <cstring>
 #include <cassert>
 
 namespace oglplus {
-
-OGLPLUS_ENUM_CLASS_BEGIN(UniformTypecheckLevel, GLenum)
-OGLPLUS_ENUM_CLASS_VALUE(None, 0)
-OGLPLUS_ENUM_CLASS_COMMA
-OGLPLUS_ENUM_CLASS_VALUE(Strict, 1)
-OGLPLUS_ENUM_CLASS_END
-
 namespace aux {
 
-template <UniformTypecheckLevel Level>
-class UniformTypecheck;
-
-#if OGLPLUS_NO_UNIFORM_TYPECHECK
-template <UniformTypecheckLevel Level>
-class UniformTypecheck
-#else
-template <>
-class UniformTypecheck<UniformTypecheckLevel::None>
-#endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
+class NoUniformTypecheck
 {
 public:
-	inline UniformTypecheck(void)
+	inline NoUniformTypecheck(void)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
 	template <typename T>
-	inline UniformTypecheck(T* /*selector*/)
+	inline NoUniformTypecheck(T* /*selector*/)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
@@ -62,21 +47,106 @@ public:
 	}
 };
 
-typedef UniformTypecheck<UniformTypecheckLevel::None>
-	UniformNoTypecheck;
-
 #if !OGLPLUS_NO_UNIFORM_TYPECHECK
-template <typename T>
-struct CPPtoGLSLTypeMatcher
+
+class UniformTypecheckBase
 {
-	static bool _matches(GLenum sl_type)
+protected:
+	static GLenum _query_uniform_type(
+		GLuint program,
+		GLint /*location*/,
+		const GLchar* identifier
+	)
+	{
+		GLenum type, result = GL_NONE;
+		GLint size;
+		GLsizei length = 0;
+		const GLsizei id_len = std::strlen(identifier);
+		// The +2 is intentional
+		// to distinguish between the searched identifier
+		// and the udentifiers having the searched identifier
+		// as prefix
+		std::vector<GLchar> buffer(id_len+2);
+
+		GLint active_uniforms = 0;
+		OGLPLUS_GLFUNC(GetProgramiv)(
+			program,
+			GL_ACTIVE_UNIFORMS,
+			&active_uniforms
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramiv));
+
+		for(GLint index=0; index!=active_uniforms; ++index)
+		{
+			OGLPLUS_GLFUNC(GetActiveUniform)(
+				program,
+				index,
+				buffer.size(),
+				&length,
+				&size,
+				&type,
+				buffer.data()
+			);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniform));
+			if(id_len == length)
+			{
+				if(std::strncmp(
+					identifier,
+					buffer.data(),
+					length
+				) == 0)
+				{
+					result = type;
+					break;
+				}
+			}
+		}
+		return result;
+	}
+
+	bool (*_uniform_type_match)(GLenum);
+public:
+	UniformTypecheckBase(bool (*uniform_type_match)(GLenum))
+	 : _uniform_type_match(uniform_type_match)
+	{ }
+
+	bool operator()(
+		GLuint program,
+		GLint location,
+		const GLchar* identifier
+	) const
+	{
+		assert(_uniform_type_match);
+		return _uniform_type_match(
+			_query_uniform_type(
+				program,
+				location,
+				identifier
+			)
+		);
+	}
+};
+
+template <typename T>
+struct DefaultGLSLtoCppTypeMatcher
+{
+	static bool _matches(GLenum /*sl_type*/)
 	{
 		return false;
 	}
 };
 
+template <oglplus::SLDataType SLType>
+struct DefaultGLSLtoCppTypeMatcher<oglplus::SLtoCpp<SLType> >
+{
+	static bool _matches(GLenum sl_type)
+	{
+		return sl_type == GLenum(SLType);
+	}
+};
+
 template <>
-struct CPPtoGLSLTypeMatcher<bool>
+struct DefaultGLSLtoCppTypeMatcher<bool>
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -85,14 +155,15 @@ struct CPPtoGLSLTypeMatcher<bool>
 };
 
 template <>
-struct CPPtoGLSLTypeMatcher<GLint>
+struct DefaultGLSLtoCppTypeMatcher<GLint>
 {
 	static bool _matches(GLenum sl_type)
 	{
 		const GLenum allowed[] = {
 			GL_INT,
 			GL_BOOL,
-/* TODO
+
+#ifdef GL_IMAGE_1D
 			GL_IMAGE_1D,
 			GL_IMAGE_1D_ARRAY,
 			GL_IMAGE_2D,
@@ -103,6 +174,9 @@ struct CPPtoGLSLTypeMatcher<GLint>
 			GL_IMAGE_3D,
 			GL_IMAGE_BUFFER,
 			GL_IMAGE_CUBE,
+#endif
+
+#ifdef GL_INT_IMAGE_1D
 			GL_INT_IMAGE_1D,
 			GL_INT_IMAGE_1D_ARRAY,
 			GL_INT_IMAGE_2D,
@@ -113,6 +187,9 @@ struct CPPtoGLSLTypeMatcher<GLint>
 			GL_INT_IMAGE_3D,
 			GL_INT_IMAGE_BUFFER,
 			GL_INT_IMAGE_CUBE,
+#endif
+
+#ifdef GL_UNSIGNED_INT_IMAGE_CUBE
 			GL_UNSIGNED_INT_IMAGE_1D,
 			GL_UNSIGNED_INT_IMAGE_1D_ARRAY,
 			GL_UNSIGNED_INT_IMAGE_2D,
@@ -123,7 +200,8 @@ struct CPPtoGLSLTypeMatcher<GLint>
 			GL_UNSIGNED_INT_IMAGE_3D,
 			GL_UNSIGNED_INT_IMAGE_BUFFER,
 			GL_UNSIGNED_INT_IMAGE_CUBE,
-*/
+#endif
+
 			GL_INT_SAMPLER_1D,
 			GL_INT_SAMPLER_1D_ARRAY,
 			GL_INT_SAMPLER_2D,
@@ -174,7 +252,7 @@ struct CPPtoGLSLTypeMatcher<GLint>
 };
 
 template <>
-struct CPPtoGLSLTypeMatcher<GLuint>
+struct DefaultGLSLtoCppTypeMatcher<GLuint>
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -194,7 +272,7 @@ struct CPPtoGLSLTypeMatcher<GLuint>
 };
 
 template <>
-struct CPPtoGLSLTypeMatcher<GLfloat>
+struct DefaultGLSLtoCppTypeMatcher<GLfloat>
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -203,7 +281,7 @@ struct CPPtoGLSLTypeMatcher<GLfloat>
 };
 
 template <>
-struct CPPtoGLSLTypeMatcher<GLdouble>
+struct DefaultGLSLtoCppTypeMatcher<GLdouble>
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -212,7 +290,7 @@ struct CPPtoGLSLTypeMatcher<GLdouble>
 };
 
 template <typename T, std::size_t N>
-struct CPPtoGLSLTypeMatcher<oglplus::Vector<T, N> >
+struct DefaultGLSLtoCppTypeMatcher<oglplus::Vector<T, N> >
 {
 	static_assert(N <= 4, "Invalid vector size");
 
@@ -259,7 +337,7 @@ struct CPPtoGLSLTypeMatcher<oglplus::Vector<T, N> >
 };
 
 template <typename T, std::size_t Rows, std::size_t Cols>
-struct CPPtoGLSLTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
+struct DefaultGLSLtoCppTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
 {
 	static_assert(Rows >= 2, "Invalid matrix size");
 	static_assert(Cols >= 2, "Invalid matrix size");
@@ -309,81 +387,14 @@ struct CPPtoGLSLTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
 	}
 };
 
-template <>
-class UniformTypecheck<UniformTypecheckLevel::Strict>
+class DefaultUniformTypecheck
+ : public UniformTypecheckBase
 {
-private:
-	static GLenum _query_uniform_type(
-		GLuint program,
-		GLint /*location*/,
-		const GLchar* identifier
-	)
-	{
-		GLenum type, result = GL_NONE;
-		GLint size;
-		GLsizei length = 0;
-		const GLsizei id_len = std::strlen(identifier);
-		// The +2 is intentional
-		std::vector<GLchar> buffer(id_len+2);
-
-		GLint active_uniforms = 0;
-		OGLPLUS_GLFUNC(GetProgramiv)(
-			program,
-			GL_ACTIVE_UNIFORMS,
-			&active_uniforms
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramiv));
-
-		for(GLint index=0; index!=active_uniforms; ++index)
-		{
-			OGLPLUS_GLFUNC(GetActiveUniform)(
-				program,
-				index,
-				buffer.size(),
-				&length,
-				&size,
-				&type,
-				buffer.data()
-			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniform));
-			if(id_len == length)
-			{
-				if(std::strncmp(
-					identifier,
-					buffer.data(),
-					length
-				) == 0)
-				{
-					result = type;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-
-	bool (*_uniform_type_match)(GLenum);
 public:
-	template <typename T>
-	UniformTypecheck(T* /*selector*/)
-	 : _uniform_type_match(&CPPtoGLSLTypeMatcher<T>::_matches)
+	template <typename TypeSel>
+	DefaultUniformTypecheck(TypeSel* /*type_sel*/)
+	 : UniformTypecheckBase(&DefaultGLSLtoCppTypeMatcher<TypeSel>::_matches)
 	{ }
-
-	bool operator()(
-		GLuint program,
-		GLint location,
-		const GLchar* identifier
-	) const
-	{
-		assert(_uniform_type_match);
-		return _uniform_type_match(
-			_query_uniform_type(
-				program,
-				location,
-				identifier
-			)
-		);
-	}
 };
 #endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
 
@@ -425,6 +436,15 @@ protected:
 };
 
 } // namespace aux
+
+typedef aux::NoUniformTypecheck NoTypecheck;
+
+#if !OGLPLUS_NO_UNIFORM_TYPECHECK
+typedef aux::DefaultUniformTypecheck DefaultTypecheck;
+#else
+typedef aux::NoUniformTypecheck DefaultTypecheck;
+#endif
+
 } // namespace oglplus
 
 #endif // include guard

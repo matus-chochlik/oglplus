@@ -183,8 +183,8 @@ public:
 			for(int i=0; i!=6; ++i)
 				Texture::Image2D(Texture::CubeMapFace(i), image);
 		}
-		//
-		UniformSampler(prog, "TexUnit").Set(0);
+		// typechecked uniform with the exact sampler type
+		Typechecked<Uniform<SLtoCpp<SLDataType::SamplerCube>>>(prog, "TexUnit").Set(0);
 		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(3.0f, 5.0f, 4.0f));
 		//
 		gl.ClearColor(0.2f, 0.05f, 0.1f, 0.0f);
