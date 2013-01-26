@@ -15,6 +15,15 @@ Version 0.25.0
   glPatchParameteri function was added.
 - Several new examples were added.
 
+Version 0.24.0
+
+- Several problems in the BlenderMesh shape loader were fixed.
+- A new example showing the usage of shapes::BlenderMesh was added.
+- The Program interface traversal functions were updated.
+- A function for getting information (name, data type, program
+  interface index, etc.) about an uniform was added.
+- The SLDataType enumeration was updated.
+- Documentaion was updated.
 
 Version 0.23.0
 
