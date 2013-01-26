@@ -531,11 +531,9 @@ OutputPath="${RootDir}/include/${OutputFile}"
 		TYPE=$(MapGLSLtypeToCPPtype ${GL_DEF})
 
 		echo "#ifdef GL_${GL_DEF}"
-		echo "template <>"
-		echo "struct GLSL2Cpp<SLDataType::${OGLPLUS_DEF}>"
-		echo "{"
-		echo "	typedef ${TYPE} Type;"
-		echo "};"
+		echo "template <> struct GLSL2Cpp<"
+		echo "	OGLPLUS_CONST_ENUM_VALUE(SLDataType::${OGLPLUS_DEF})"
+		echo "> { typedef ${TYPE} Type; };"
 		echo "#endif // ${GL_DEF}"
 		echo
 	done

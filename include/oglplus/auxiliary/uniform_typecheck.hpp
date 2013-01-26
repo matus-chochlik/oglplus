@@ -136,7 +136,7 @@ struct DefaultGLSLtoCppTypeMatcher
 	}
 };
 
-template <oglplus::SLDataType SLType>
+template <typename EnumValueType<oglplus::SLDataType>::Type SLType>
 struct DefaultGLSLtoCppTypeMatcher<oglplus::SLtoCpp<SLType> >
 {
 	static bool _matches(GLenum sl_type)

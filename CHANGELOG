@@ -1,3 +1,20 @@
+Version 0.25.0
+
+- The implementation of Uniforms has been refactored and updated.
+- Support for Uniform typechecking was added.
+- Support for defining Uniforms from GLSL data types was added.
+- Mapping of GLSL data types to C++ types was added.
+- The ShaderVariableError exception was added.
+- Some problems in the shape builders were fixed.
+- Functions for generating bi-normal vectors for shape vertices
+  was added to some of the existing shape builders.
+- Fixed a bug related to primitive restarting in examples.
+- Fixed a minor problem with Matrix.
+- The ShapeWrapperWithAdjacency helper class was added.
+- The PatchParameter enumeration and a wrapper for the
+  glPatchParameteri function was added.
+- Several new examples were added.
+
 Version 0.24.0
 
 - Several problems in the BlenderMesh shape loader were fixed.
@@ -7,7 +24,6 @@ Version 0.24.0
   interface index, etc.) about an uniform was added.
 - The SLDataType enumeration was updated.
 - Documentaion was updated.
-
 
 Version 0.23.0
 

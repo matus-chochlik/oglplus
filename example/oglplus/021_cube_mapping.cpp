@@ -184,7 +184,14 @@ public:
 				Texture::Image2D(Texture::CubeMapFace(i), image);
 		}
 		// typechecked uniform with the exact sampler type
-		Typechecked<Uniform<SLtoCpp<SLDataType::SamplerCube>>>(prog, "TexUnit").Set(0);
+		// on compilers supporting strongly typed enums
+		// you can use:
+		//Typechecked<Uniform<SLtoCpp<SLDataType::SamplerCube>>>(prog, "TexUnit").Set(0);
+		// without strongly typed enums you need to do:
+		typedef SLtoCpp<OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCube)> GLSLsamplerCube;
+		Typechecked<Uniform<GLSLsamplerCube>>(prog, "TexUnit").Set(0);
+
+		//
 		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(3.0f, 5.0f, 4.0f));
 		//
 		gl.ClearColor(0.2f, 0.05f, 0.1f, 0.0f);
