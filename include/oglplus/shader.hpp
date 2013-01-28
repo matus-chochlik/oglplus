@@ -162,10 +162,15 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const GLchar** srcs, const GLint* lens, int count) const
+	const ShaderOps& Source(
+		const GLchar** srcs,
+		const GLint* lens,
+		int count
+	) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, lens);
+		return *this;
 	}
 
 	/// Set the source code of the shader
@@ -173,11 +178,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const String& source) const
+	const ShaderOps& Source(const String& source) const
 	{
 		const GLchar* srcs[1] = {source.c_str()};
 		GLint lens[1] = {GLint(source.size())};
-		Source(srcs, lens, 1);
+		return Source(srcs, lens, 1);
 	}
 
 	/// Set the source code of the shader
@@ -185,11 +190,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const StrLit& source) const
+	const ShaderOps& Source(const StrLit& source) const
 	{
 		const GLchar* srcs[1] = {source.c_str()};
 		GLint lens[1] = {GLint(source.size())};
-		Source(srcs, lens, 1);
+		return Source(srcs, lens, 1);
 	}
 
 	/// Set the source code of the shader
@@ -197,9 +202,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const GLchar* source) const
+	const ShaderOps& Source(const GLchar* source) const
 	{
-		Source(&source, nullptr, 1);
+		return Source(&source, nullptr, 1);
 	}
 
 	/// Set the source code of the shader
@@ -207,9 +212,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const GLchar** srcs, int count) const
+	const ShaderOps& Source(const GLchar** srcs, int count) const
 	{
-		Source(srcs, nullptr, count);
+		return Source(srcs, nullptr, count);
 	}
 
 	/// Set the source code of the shader
@@ -217,9 +222,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const std::vector<const GLchar*>& srcs) const
+	const ShaderOps& Source(const std::vector<const GLchar*>& srcs) const
 	{
-		Source(
+		return Source(
 			const_cast<const GLchar**>(srcs.data()),
 			nullptr,
 			srcs.size()
@@ -232,9 +237,11 @@ public:
 	 *  @glfunref{ShaderSource}
 	 */
 	template <std::size_t N>
-	void Source(const std::array<const GLchar*, N>& srcs) const
+	const ShaderOps& Source(
+		const std::array<const GLchar*, N>& srcs
+	) const
 	{
-		Source(
+		return Source(
 			const_cast<const GLchar**>(srcs.data()),
 			nullptr,
 			srcs.size()
@@ -246,9 +253,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	void Source(const GLSLSource& glsl_source) const
+	const ShaderOps& Source(const GLSLSource& glsl_source) const
 	{
-		Source(
+		return Source(
 			glsl_source.Parts(),
 			glsl_source.Lengths(),
 			glsl_source.Count()
@@ -305,7 +312,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShader}
 	 */
-	void Compile(void) const
+	const ShaderOps& Compile(void) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(CompileShader)(_name);
@@ -316,6 +323,7 @@ public:
 			_name
 		));
 		if(OGLPLUS_IS_ERROR(!IsCompiled()))
+		{
 			HandleBuildError<CompileError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
@@ -325,7 +333,10 @@ public:
 					_name
 				)
 			);
+		}
+		return *this;
 	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
 	/// Indicate that the resources associated with the compiler can be freed
 	/**

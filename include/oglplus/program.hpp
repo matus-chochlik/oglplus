@@ -269,7 +269,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{AttachShader}
 	 */
-	void AttachShader(const ShaderOps& shader)
+	const ProgramOps& AttachShader(const ShaderOps& shader) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(AttachShader)(
@@ -282,6 +282,7 @@ public:
 			nullptr,
 			_name
 		));
+		return *this;
 	}
 
 
@@ -290,7 +291,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DetachShader}
 	 */
-	void DetachShader(const ShaderOps& shader)
+	const ProgramOps& DetachShader(const ShaderOps& shader) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(DetachShader)(
@@ -303,6 +304,7 @@ public:
 			nullptr,
 			_name
 		));
+		return *this;
 	}
 
 	/// Returns true if the program is already linked, false otherwise
@@ -349,7 +351,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	void Link(void) const
+	const ProgramOps& Link(void) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(LinkProgram)(_name);
@@ -360,6 +362,7 @@ public:
 			_name
 		));
 		if(OGLPLUS_IS_ERROR(!IsLinked()))
+		{
 			HandleBuildError<LinkError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
@@ -369,6 +372,8 @@ public:
 					_name
 				)
 			);
+		}
+		return *this;
 	}
 
 	/// Returns true if the program is validated, false otherwise
@@ -394,7 +399,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	void Validate(void) const
+	const ProgramOps& Validate(void) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ValidateProgram)(_name);
@@ -405,6 +410,7 @@ public:
 			_name
 		));
 		if(OGLPLUS_IS_ERROR(!IsValid()))
+		{
 			HandleBuildError<ValidationError>(
 				GetInfoLog(),
 				OGLPLUS_OBJECT_ERROR_INFO(
@@ -414,6 +420,8 @@ public:
 					_name
 				)
 			);
+		}
+		return *this;
 	}
 
 	/// Uses this shading language program
@@ -426,7 +434,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{UseProgram}
 	 */
-	void Use(void) const
+	const ProgramOps& Use(void) const
 	{
 		assert(_name != 0);
 		assert(IsLinked());
@@ -437,6 +445,7 @@ public:
 			nullptr,
 			_name
 		));
+		return *this;
 	}
 
 	/// Deactivates the currently active/used program (if any)
@@ -913,7 +922,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	void MakeSeparable(bool para = true) const
+	const ProgramOps& MakeSeparable(bool para = true) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ProgramParameteri)(
@@ -927,6 +936,7 @@ public:
 			nullptr,
 			_name
 		));
+		return *this;
 	}
 #endif // separate shader objects
 
@@ -939,7 +949,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	void MakeRetrievable(bool para = true) const
+	const ProgramOps& MakeRetrievable(bool para = true) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ProgramParameteri)(
@@ -953,6 +963,7 @@ public:
 			nullptr,
 			_name
 		));
+		return *this;
 	}
 
 	/// Returns this programs binary representation
@@ -1160,10 +1171,12 @@ typedef Object<ProgramOps> Program;
 OGLPLUS_OBJECT_TYPE_ID(Program, 7)
 #endif
 
-inline Program& operator << (Program& program, const Shader& shader)
+inline const ProgramOps& operator << (
+	const ProgramOps& program,
+	const Shader& shader
+)
 {
-	program.AttachShader(shader);
-	return program;
+	return program.AttachShader(shader);
 }
 
 /// A Program that allows to attach shaders and links itself during construction

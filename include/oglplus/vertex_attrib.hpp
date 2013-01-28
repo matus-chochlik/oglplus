@@ -885,7 +885,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
 	 */
-	void Setup(
+	const VertexAttribArray& Setup(
 		GLint values_per_vertex,
 		DataType data_type,
 		bool normalized = false,
@@ -893,7 +893,7 @@ public:
 		void* pointer = nullptr
 	) const
 	{
-		Pointer(
+		return Pointer(
 			values_per_vertex,
 			data_type,
 			normalized,
@@ -908,13 +908,13 @@ public:
 	 *  @glfunref{VertexAttribPointer}
 	 */
 	template <typename T>
-	void Setup(
+	const VertexAttribArray& Setup(
 		bool normalized = false,
 		GLsizei stride = 0,
 		void* pointer = nullptr
 	) const
 	{
-		Pointer(
+		return Pointer(
 			_get_values_per_vertex((T*)nullptr),
 			_get_data_type((T*)nullptr),
 			normalized,
@@ -928,7 +928,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
 	 */
-	void Pointer(
+	const VertexAttribArray& Pointer(
 		GLint values_per_vertex,
 		DataType data_type,
 		bool normalized,
@@ -945,6 +945,7 @@ public:
 			pointer
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+		return *this;
 	}
 
 	/// Setup the properties of this vertex attribute array
@@ -953,7 +954,7 @@ public:
 	 *  @glfunref{VertexAttribIPointer}
 	 *  @glfunref{VertexAttribLPointer}
 	 */
-	void Pointer(
+	const VertexAttribArray& Pointer(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
@@ -982,6 +983,7 @@ public:
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIPointer));
 		}
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_vertex_attrib_binding
@@ -990,7 +992,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribFormat}
 	 */
-	void Format(
+	const VertexAttribArray& Format(
 		GLint values_per_vertex,
 		DataType data_type,
 		bool normalized,
@@ -1005,6 +1007,7 @@ public:
 			relative_offset
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribFormat));
+		return *this;
 	}
 
 	/// Setup the format of this vertex attribute array
@@ -1013,7 +1016,7 @@ public:
 	 *  @glfunref{VertexAttribIFormat}
 	 *  @glfunref{VertexAttribLFormat}
 	 */
-	void Format(
+	const VertexAttribArray& Format(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLuint relative_offset
@@ -1039,20 +1042,20 @@ public:
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIFormat));
 		}
+		return *this;
 	}
 #endif
-
-
 
 	/// Enables this vertex attribute array
 	/**
 	 *  @glsymbols
 	 *  @glfunref{EnableVertexAttribArray}
 	 */
-	void Enable(void) const
+	const VertexAttribArray& Enable(void) const
 	{
 		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_location);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EnableVertexAttribArray));
+		return *this;
 	}
 
 	/// Disables this vertex attribute array
@@ -1060,10 +1063,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DisableVertexAttribArray}
 	 */
-	void Disable(void) const
+	const VertexAttribArray& Disable(void) const
 	{
 		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_location);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DisableVertexAttribArray));
+		return *this;
 	}
 };
 

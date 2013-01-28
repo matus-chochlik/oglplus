@@ -72,8 +72,7 @@ public:
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the triangle
 		triangle.Bind();
@@ -86,7 +85,7 @@ public:
 		// bind the VBO for the triangle vertices
 		buffs[0].Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
+		Buffer::Data(Buffer::Target::Array, triangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(3, DataType::Float);
@@ -101,7 +100,7 @@ public:
 		// bind the VBO for the triangle colors
 		buffs[1].Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, 9, triangle_colors);
+		Buffer::Data(Buffer::Target::Array, triangle_colors);
 		// setup the vertex attribs array
 		VertexAttribArray color_attr(prog, "Color");
 		color_attr.Setup(3, DataType::Float);

@@ -58,7 +58,7 @@ public:
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	{
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
 		vs.Source(
 			"#version 330\n"
 			"in vec4 Position;"
@@ -66,11 +66,9 @@ public:
 			"{"
 			"	gl_Position = Position;"
 			"}"
-		);
-		// compile it
-		vs.Compile();
+		).Compile();
 
-		// Set the geometry shader source
+		// Set the geometry shader source and compile it
 		gs.Source(
 			"#version 330\n"
 			"layout(triangles) in;"
@@ -109,11 +107,9 @@ public:
 			"		EndPrimitive();"
 			"	}"
 			"}"
-		);
-		// compile it
-		gs.Compile();
+		).Compile();
 
-		// set the fragment shader source
+		// set the fragment shader source and compile it
 		fs.Source(
 			"#version 330\n"
 			"in vec3 vertColor;"
@@ -122,17 +118,12 @@ public:
 			"{"
 			"	fragColor = vec4(vertColor, 1.0);"
 			"}"
-		);
-		// compile it
-		fs.Compile();
+		).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(gs);
-		prog.AttachShader(fs);
+		prog << vs << gs << fs;
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the cube
 		cube.Bind();

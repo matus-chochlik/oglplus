@@ -31,12 +31,6 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Program
 	Program prog;
 
@@ -55,7 +49,8 @@ public:
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	{
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
+		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
@@ -74,11 +69,10 @@ public:
 			"		Position;"
 			"	vertColor = abs(normalize((ModelMatrix*Position).yxz));"
 			"}"
-		);
-		// compile it
-		vs.Compile();
+		).Compile();
 
-		// set the fragment shader source
+		// set the fragment shader source and compile it
+		FragmentShader fs;
 		fs.Source(
 			"#version 330\n"
 			"in vec3 vertColor;"
@@ -87,16 +81,13 @@ public:
 			"{"
 			"	fragColor = vec4(vertColor, 1.0);"
 			"}"
-		);
-		// compile it
-		fs.Compile();
+		).Compile();
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the cube
 		cube.Bind();

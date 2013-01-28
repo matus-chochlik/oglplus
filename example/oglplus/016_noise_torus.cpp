@@ -60,7 +60,7 @@ public:
 	 , camera_matrix(prog, "CameraMatrix")
 	 , model_matrix(prog, "ModelMatrix")
 	{
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -79,11 +79,9 @@ public:
 			"	vertTexCoord = TexCoord;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
-		);
-		// compile it
-		vs.Compile();
+		).Compile();
 
-		// set the fragment shader source
+		// set the fragment shader source and compile it
 		fs.Source(
 			"#version 330\n"
 			"uniform sampler2D TexUnit;"
@@ -101,16 +99,12 @@ public:
 			"	float i = 0.2 + 3.2*max(d, 0.0);"
 			"	fragColor = texture(TexUnit, vertTexCoord)*i;"
 			"}"
-		);
-		// compile it
-		fs.Compile();
+		).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
+		prog.AttachShader(vs).AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the torus
 		torus.Bind();

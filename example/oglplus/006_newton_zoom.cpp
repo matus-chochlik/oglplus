@@ -38,7 +38,7 @@ public:
 	{
 		// Vertex shader
 		VertexShader vs;
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
 		vs.Source(" \
 			#version 330\n \
 			uniform mat2 ZoomMatrix; \
@@ -49,13 +49,11 @@ public:
 				vertCoord = ZoomMatrix * Position; \
 				gl_Position = vec4(Position, 0.0, 1.0); \
 			} \
-		");
-		// compile it
-		vs.Compile();
+		").Compile();
 
 		// Fragment shader
 		FragmentShader fs;
-		// set the fragment shader source
+		// set the fragment shader source and compile it
 		fs.Source(" \
 			#version 330\n \
 			in vec2 vertCoord; \
@@ -106,16 +104,10 @@ public:
 					1.0 \
 				); \
 			} \
-		");
-		// compile it
-		fs.Compile();
+		").Compile();
 
-		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
-		// link and use it
-		prog.Link();
-		prog.Use();
+		// attach the shaders to the program, link and use it
+		prog.AttachShader(vs).AttachShader(fs).Link().Use();
 
 		// bind the VAO for the rectangle
 		rectangle.Bind();
@@ -129,7 +121,7 @@ public:
 		// bind the VBO for the rectangle vertices
 		verts.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
+		Buffer::Data(Buffer::Target::Array, rectangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(2, DataType::Float);

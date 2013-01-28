@@ -51,7 +51,7 @@ public:
 	RectangleExample(void)
 	 : color(prog, "Color")
 	{
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
 		vs.Source(
 			"#version 330\n"
 			"in vec4 Position;"
@@ -59,11 +59,9 @@ public:
 			"{"
 			"	gl_Position = Position;"
 			"}"
-		);
-		// compile it
-		vs.Compile();
+		).Compile();
 
-		// set the fragment shader source
+		// set the fragment shader source and compile it
 		fs.Source(
 			"#version 330\n"
 			"out vec4 fragColor;"
@@ -72,16 +70,11 @@ public:
 			"{"
 			"	fragColor = vec4(Color, 1.0);"
 			"}"
-		);
-		// compile it
-		fs.Compile();
+		).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.AttachShader(vs).AttachShader(fs).Link().Use();
 
 		// the series of cubic bezier curves
 		Vec2f bezier_cps[] = {

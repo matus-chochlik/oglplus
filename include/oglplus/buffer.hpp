@@ -527,6 +527,27 @@ public:
 		));
 	}
 
+	template <typename GLtype, std::size_t Count>
+	static void Data(
+		Target target,
+		GLtype (&data)[Count],
+		BufferUsage usage = BufferUsage::StaticDraw
+	)
+	{
+		OGLPLUS_GLFUNC(BufferData)(
+			GLenum(target),
+			Count * sizeof(GLtype),
+			data,
+			GLenum(usage)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			BufferData,
+			Buffer,
+			EnumValueName(target),
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
+	}
+
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p data.size() units of @c sizeof(GLtype)
 	 *  from the location pointed to by @p data.data() to the buffer bound
@@ -603,6 +624,27 @@ public:
 			GLenum(target),
 			offset * sizeof(GLtype),
 			count * sizeof(GLtype),
+			data
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			BufferSubData,
+			Buffer,
+			EnumValueName(target),
+			BindingQuery<BufferOps>::QueryBinding(target)
+		));
+	}
+
+	template <typename GLtype, std::size_t Count>
+	static void SubData(
+		Target target,
+		GLintptr offset,
+		GLtype (&data)[Count]
+	)
+	{
+		OGLPLUS_GLFUNC(BufferSubData)(
+			GLenum(target),
+			offset * sizeof(GLtype),
+			Count * sizeof(GLtype),
 			data
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(

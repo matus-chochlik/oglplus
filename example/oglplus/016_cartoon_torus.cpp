@@ -107,8 +107,7 @@ public:
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the torus
 		torus.Bind();
@@ -122,8 +121,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			attr.Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		// bind the VBO for the torus normals
@@ -135,8 +133,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			attr.Setup(n_per_vertex, DataType::Float).Enable();
 		}
 		//
 		// set the light position

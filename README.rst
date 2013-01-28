@@ -237,6 +237,7 @@ Acknowledgements
 - *Tolga Dalman* for helping to get started with CMake.
 - *Timo Keller* for contributing one of the examples.
 - *Denis Ovod* for constructive critique and suggestions.
+- *Per Nordlöw* for useful suggestions.
 
 
 .. [#req_cxx11_feats] OGLplus requires the following C++11 features:

@@ -126,7 +126,7 @@ public:
 		// bind the VBO for the rectangle vertices
 		verts.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
+		Buffer::Data(Buffer::Target::Array, rectangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
 		vert_attr.Setup(2, DataType::Float);
