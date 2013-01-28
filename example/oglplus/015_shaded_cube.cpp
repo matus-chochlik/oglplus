@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{015_shaded_cube}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -161,15 +161,9 @@ public:
 		// bind the VBO for the cube vertices
 		verts.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(
-			Buffer::Target::Array,
-			vertex_count * 3,
-			cube_vertices
-		);
+		Buffer::Data(Buffer::Target::Array, cube_vertices);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(3, DataType::Float);
-		vert_attr.Enable();
+		VertexAttribArray(prog, "Position").Setup<Vec3f>().Enable();
 
 		const GLfloat n[6][3] = {
 			{-1.0f,  0.0f,  0.0f},
@@ -187,15 +181,9 @@ public:
 		// bind the VBO for the cube normals
 		normals.Bind(Buffer::Target::Array);
 		// upload the data
-		Buffer::Data(
-			Buffer::Target::Array,
-			vertex_count * 3,
-			cube_normals
-		);
+		Buffer::Data(Buffer::Target::Array, cube_normals);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray normal_attr(prog, "Normal");
-		normal_attr.Setup(3, DataType::Float);
-		normal_attr.Enable();
+		VertexAttribArray(prog, "Normal").Setup<Vec3f>().Enable();
 		//
 		gl.ClearColor(0.03f, 0.03f, 0.03f, 0.0f);
 		gl.ClearDepth(1.0f);

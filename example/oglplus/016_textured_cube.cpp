@@ -151,9 +151,9 @@ public:
 			bound_tex.WrapS(se::Repeat());
 			bound_tex.WrapT(se::Repeat());
 		}
-		//
-		UniformSampler(prog, "TexUnit").Set(0);
-		Uniform<Vec3f>(prog, "LightPos").Set(1.0f, 2.0f, 3.0f);
+		// set the uniform values
+		(prog/"TexUnit") = 0;
+		(prog/"LightPos") = Vec3f(1.0f, 2.0f, 3.0f);
 		//
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);

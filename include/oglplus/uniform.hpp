@@ -1361,6 +1361,61 @@ inline void SetUniform(
 	Uniform<T>(program, identifier).Set(value);
 }
 
+
+/// Equivalent to OptionalUniform without the type information
+/**
+ *  @ingroup shader_variables
+ */
+class UntypedUniform
+ : public UniformOps<aux::OptionalUniformInit, aux::NoUniformTypecheck>
+{
+private:
+	typedef UniformOps<aux::OptionalUniformInit, aux::NoUniformTypecheck>
+		_base;
+public:
+	UntypedUniform(const ProgramOps& program, const GLchar* identifier)
+	 : _base((void*)0, program, identifier)
+	{ }
+
+
+	/// Set the value of the uniform variable
+	template <typename T>
+	void Set(T&& value) const
+	{
+		DirectUniform<T>(
+			Managed<Program>(this->_get_program()),
+			this->_get_location()
+		).Set(std::forward<T>(value));
+	}
+
+	/// Set the value of the uniform variable
+	template <typename T>
+	void operator = (T&& value) const
+	{
+		return Set(std::forward<T>(value));
+	}
+};
+
+/// Syntax sugar for creating instances of UntypedUniform
+/**
+ *  Usage:
+ *  @code
+ *  Program prog;
+ *  ...
+ *  (prog/"LightPosition") = Vec3f(100.0, 120.0, 80.0);
+ *  @endcode
+ *
+ *  @ingroup shader_variables
+ */
+template <std::size_t N>
+inline UntypedUniform operator / (
+	const ProgramOps& program,
+	const GLchar (&identifier)[N]
+)
+{
+	return UntypedUniform(program, identifier);
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_VERSION_4_1 || \
 	GL_ARB_separate_shader_objects || \

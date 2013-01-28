@@ -57,7 +57,7 @@ public:
 	 , camera_matrix(prog, "CameraMatrix")
 	 , model_matrix(prog, "ModelMatrix")
 	{
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -73,11 +73,9 @@ public:
 			"		ModelMatrix *"
 			"		Position;"
 			"}"
-		);
-		// compile it
-		vs.Compile();
+		).Compile();
 
-		// set the fragment shader source
+		// set the fragment shader source and compile it
 		fs.Source(
 			"#version 330\n"
 			"in vec3 vertNormal;"
@@ -99,13 +97,10 @@ public:
 			"	else"
 			"		fragColor = vec4(0.3, 0.2, 0.1, 1.0);"
 			"}"
-		);
-		// compile it
-		fs.Compile();
+		).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
+		prog << vs << fs;
 		// link and use it
 		prog.Link().Use();
 
@@ -120,8 +115,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"Position").Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		// bind the VBO for the torus normals
@@ -132,12 +126,12 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"Normal").Setup(n_per_vertex, DataType::Float).Enable();
 		}
 		//
 		// set the light position
-		Uniform<Vec3f>(prog, "LightPos").Set(4.0f, 4.0f, -8.0f);
+		(prog/"LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
+
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);

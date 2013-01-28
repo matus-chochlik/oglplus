@@ -104,7 +104,7 @@ public:
 			auto data = bezier.Approximate(25);
 			curve_n = data.size();
 			Bind(curve_verts, Buffer::Target::Array).Data(data);
-			(prog|"Position").Setup(2, DataType::Float).Enable();
+			(prog|"Position").Setup<Vec2f>().Enable();
 		}
 
 		control.Bind();
@@ -112,7 +112,7 @@ public:
 			auto data = bezier.ControlPoints();
 			ctrl_n = data.size();
 			Bind(ctrl_verts, Buffer::Target::Array).Data(data);
-			(prog|"Position").Setup(2, DataType::Float).Enable();
+			(prog|"Position").Setup<Vec2f>().Enable();
 		}
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 	}

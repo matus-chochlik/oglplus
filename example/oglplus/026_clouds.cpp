@@ -232,25 +232,21 @@ public:
 		pos_buffer.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
-			VertexAttribArray attr(cloud_prog, "Position");
-			attr.Setup(3, DataType::Float);
-			attr.Enable();
+			(cloud_prog|"Position").Setup(3, DataType::Float).Enable();
 		}
 
 		// bind the VBO for the cloud sizes
 		size_buffer.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, sizes);
-			VertexAttribArray attr(cloud_prog, "Size");
-			attr.Setup(1, DataType::Float);
-			attr.Enable();
+			(cloud_prog|"Size").Setup(1, DataType::Float).Enable();
 		}
 
 		// set the number of samples
-		Uniform<GLint>(cloud_prog, "SampleCount").Set(samples);
+		cloud_prog/"SampleCount" = GLint(samples);
 
 		Texture::Active(0);
-		UniformSampler(cloud_prog, "CloudTex").Set(0);
+		cloud_prog/"CloudTex" = 0;
 		for(std::size_t i=0, n=positions.size(); i!=n; ++i)
 		{
 			auto bound_tex = Bind(cloud_tex[i], Texture::Target::_3D);

@@ -113,7 +113,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, rectangle_verts);
 		// setup the vertex attribs array for the vertices
 		// (prog|"Position") is equivalent to VertexAttribArray(prog, "Position")
-		(prog|"Position").Setup(2, DataType::Float).Enable();
+		(prog|"Position").Setup<Vec2f>().Enable();
 
 		GLfloat rectangle_coords[8] = {
 			-1.5f, -0.5f,
@@ -127,7 +127,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, rectangle_coords);
 		// setup the vertex attribs array for the vertices
 		// (prog|"Coord") is equivalent to VertexAttribArray(prog, "Coord")
-		(prog|"Coord").Setup(2, DataType::Float).Enable();
+		(prog|"Coord").Setup<Vec2f>().Enable();
 		//
 		// color map used in the fragment shader to colorize the fractal
 		const std::size_t nclr = 5;
