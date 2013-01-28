@@ -123,9 +123,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(se::Array(), data);
-			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, se::Float());
-			attr.Enable();
+			(prog|"Position").Setup(n_per_vertex, se::Float()).Enable();
 		}
 
 		normals.Bind(se::Array());
@@ -133,9 +131,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(se::Array(), data);
-			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, se::Float());
-			attr.Enable();
+			(prog|"Normal").Setup(n_per_vertex, se::Float()).Enable();
 		}
 
 		texcoords.Bind(se::Array());
@@ -143,9 +139,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			Buffer::Data(se::Array(), data);
-			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, se::Float());
-			attr.Enable();
+			(prog|"TexCoord").Setup(n_per_vertex, se::Float()).Enable();
 		}
 
 		// setup the texture

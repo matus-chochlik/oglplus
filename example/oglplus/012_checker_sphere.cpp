@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{012_checker_sphere}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -53,12 +53,12 @@ public:
 	{
 		// Vertex shader
 		VertexShader vs;
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
-			"in vec4 Position;"
-			"in vec2 TexCoord;"
+			"layout(location = 0) in vec4 Position;"
+			"layout(location = 1) in vec2 TexCoord;"
 			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
@@ -68,13 +68,11 @@ public:
 			"		CameraMatrix *"
 			"		Position;"
 			"}"
-		);
-		// compile it
-		vs.Compile();
+		).Compile();
 
 		// Fragment shader
 		FragmentShader fs;
-		// set the fragment shader source
+		// set the fragment shader source and compile it
 		fs.Source(
 			"#version 330\n"
 			"in vec2 vertTexCoord;"
@@ -87,16 +85,12 @@ public:
 			"	) % 2;"
 			"	fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
 			"}"
-		);
-		// compile it
-		fs.Compile();
+		).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
+		prog.AttachShader(vs).AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the sphere
 		sphere.Bind();
@@ -109,9 +103,8 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			// (prog|0) is equivalent to VertexAttribArray(prog, VertexAtribSlot(0))
+			(prog|0).Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		// bind the VBO for the sphere UV-coordinates
@@ -122,9 +115,8 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			// (prog|1) is equivalent to VertexAttribArray(prog, VertexAtribSlot(1))
+			(prog|1).Setup(n_per_vertex, DataType::Float).Enable();
 		}
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);

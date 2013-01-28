@@ -299,6 +299,12 @@ public:
 		return _try_init_location();
 	}
 
+	/// Returns the location of this uniform in a program
+	GLint Location(void) const
+	{
+		return _get_location();
+	}
+
 	/// Returns a Program::ActiveVariableInfo for this uniform
 	/** Note that this is a rather inefficient operation.
 	 */

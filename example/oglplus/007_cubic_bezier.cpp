@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{007_cubic_bezier}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -104,9 +104,7 @@ public:
 			auto data = bezier.Approximate(25);
 			curve_n = data.size();
 			Bind(curve_verts, Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "Position");
-			attr.Setup(2, DataType::Float);
-			attr.Enable();
+			(prog|"Position").Setup(2, DataType::Float).Enable();
 		}
 
 		control.Bind();
@@ -114,9 +112,7 @@ public:
 			auto data = bezier.ControlPoints();
 			ctrl_n = data.size();
 			Bind(ctrl_verts, Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "Position");
-			attr.Setup(2, DataType::Float);
-			attr.Enable();
+			(prog|"Position").Setup(2, DataType::Float).Enable();
 		}
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 	}

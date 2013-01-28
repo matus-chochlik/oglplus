@@ -63,7 +63,7 @@ public:
 	 , model_matrix(prog, "ModelMatrix")
 	 , light_pos(prog, "LightPos")
 	{
-		// Set the vertex shader source
+		// Set the vertex shader source and compile it
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -113,11 +113,9 @@ public:
 			"	gl_Position = ProjectionMatrix *"
 			"		EyePos;"
 			"}"
-		);
-		// compile it
-		vs.Compile();
+		).Compile();
 
-		// set the fragment shader source
+		// set the fragment shader source and compile it
 		fs.Source(
 			"#version 330\n"
 			"uniform sampler2D BumpTex;"
@@ -177,16 +175,12 @@ public:
 			"	float i = 0.1 + 2.5*max(d, 0.0);"
 			"	fragColor = vec4(c*i, 1.0);"
 			"}"
-		);
-		// compile it
-		fs.Compile();
+		).Compile();
 
 		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
+		prog.AttachShader(vs).AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the cube
 		cube.Bind();
@@ -196,9 +190,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			(prog|"Position").Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		normals.Bind(Buffer::Target::Array);
@@ -206,9 +198,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			(prog|"Normal").Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		tangents.Bind(Buffer::Target::Array);
@@ -216,9 +206,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Tangents(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Tangent");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			(prog|"Tangent").Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		texcoords.Bind(Buffer::Target::Array);
@@ -226,9 +214,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			(prog|"TexCoord").Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		{

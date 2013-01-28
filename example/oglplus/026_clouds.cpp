@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_clouds}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -106,8 +106,7 @@ public:
 			"		CameraMatrix*"
 			"		vec4(Position*s + LightPos, 1.0);"
 			"}"
-		);
-		light_vs.Compile();
+		).Compile();
 
 		light_fs.Source(
 			"#version 330\n"
@@ -116,13 +115,10 @@ public:
 			"{"
 			"	fragLight = vec4(1.0, 1.0, 1.0, 1.0);"
 			"}"
-		);
-		light_fs.Compile();
+		).Compile();
 
-		light_prog.AttachShader(light_vs);
-		light_prog.AttachShader(light_fs);
-		light_prog.Link();
-		light_prog.Use();
+		light_prog << light_vs << light_fs;
+		light_prog.Link().Use();
 
 		light.Bind();
 
@@ -131,9 +127,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_sphere.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(light_prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			(light_prog|"Position").Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		cloud_vs.Source(
@@ -156,8 +150,7 @@ public:
 			"		1.0"
 			"	);"
 			"}"
-		);
-		cloud_vs.Compile();
+		).Compile();
 
 		cloud_gs.Source(
 			"#version 330\n"
@@ -196,8 +189,7 @@ public:
 			"	}"
 			"	EndPrimitive();"
 			"}"
-		);
-		cloud_gs.Compile();
+		).Compile();
 
 		cloud_fs.Source(
 			"#version 330\n"
@@ -228,14 +220,10 @@ public:
 			"	float i = mix(0.2, 1.0, o);"
 			"	fragColor = vec4(i, i, i, a);"
 			"}"
-		);
-		cloud_fs.Compile();
+		).Compile();
 
-		cloud_prog.AttachShader(cloud_vs);
-		cloud_prog.AttachShader(cloud_gs);
-		cloud_prog.AttachShader(cloud_fs);
-		cloud_prog.Link();
-		cloud_prog.Use();
+		cloud_prog << cloud_vs << cloud_gs << cloud_fs;
+		cloud_prog.Link().Use();
 
 		// bind the VAO for the clouds
 		clouds.Bind();

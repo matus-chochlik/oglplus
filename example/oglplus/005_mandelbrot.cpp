@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{005_mandelbrot}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -112,9 +112,8 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(2, DataType::Float);
-		vert_attr.Enable();
+		// (prog|"Position") is equivalent to VertexAttribArray(prog, "Position")
+		(prog|"Position").Setup(2, DataType::Float).Enable();
 
 		GLfloat rectangle_coords[8] = {
 			-1.5f, -0.5f,
@@ -127,9 +126,8 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, rectangle_coords);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray coord_attr(prog, "Coord");
-		coord_attr.Setup(2, DataType::Float);
-		coord_attr.Enable();
+		// (prog|"Coord") is equivalent to VertexAttribArray(prog, "Coord")
+		(prog|"Coord").Setup(2, DataType::Float).Enable();
 		//
 		// color map used in the fragment shader to colorize the fractal
 		const std::size_t nclr = 5;

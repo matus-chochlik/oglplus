@@ -137,8 +137,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
-			attr.Enable();
+			attr.Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);

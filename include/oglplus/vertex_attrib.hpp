@@ -241,6 +241,23 @@ protected:
 	 : _location(_find_location(program, identifier))
 	{ }
 public:
+	/// Returns the location of this vertex attribute in a program
+	/**
+	 *
+	 *  @see GetLocation
+	 *  @see GetCommonLocation
+	 *  @see QueryLocation
+	 *  @see BindLocation
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	VertexAttribSlot Location(void) const
+	{
+		return VertexAttribSlot(_location);
+	}
+
+
 	static VertexAttribSlot GetLocation(
 		const ProgramOps& program,
 		const GLchar* identifier
@@ -1070,6 +1087,36 @@ public:
 		return *this;
 	}
 };
+
+/// Syntax sugar for construction of a VertexAttribArray object
+/** Constructs an instance of VertexAttribArray for a vertex attribute
+ *  identified by @p identifier in a @p program.
+ *
+ *  @see VertexAttribArray
+ */
+template <std::size_t N>
+inline VertexAttribArray operator | (
+	const ProgramOps& program,
+	const GLchar (&identifier)[N]
+)
+{
+	return VertexAttribArray(program, identifier);
+}
+
+/// Syntax sugar for construction of a VertexAttribArray object
+/** Constructs an instance of VertexAttribArray for a vertex attribute
+ *  at the specified @p location in a @p program.
+ *
+ *  @see VertexAttribArray
+ */
+inline VertexAttribArray operator | (
+	const ProgramOps& program,
+	GLuint location
+)
+{
+	OGLPLUS_FAKE_USE(program);
+	return VertexAttribArray(VertexAttribSlot(location));
+}
 
 } // namespace oglplus
 
