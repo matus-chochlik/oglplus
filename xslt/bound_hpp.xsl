@@ -1,5 +1,5 @@
 <!--
-   - Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+   - Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
    - Software License, Version 1.0. (See accompanying file
    - LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
    -
@@ -110,6 +110,9 @@
 					<xsl:text> </xsl:text>
 					<xsl:value-of select="declname/text()"/>
 				</xsl:if>
+				<xsl:if test="type/ref">
+					<xsl:value-of select="type/ref/text()"/>
+				</xsl:if>
 				<xsl:if test="position() != last()">, </xsl:if>
 			</xsl:for-each>
 			<xsl:text>&gt;</xsl:text>
@@ -143,10 +146,21 @@
 		</xsl:choose>
 		
 		<xsl:for-each select="param">
-			<xsl:variable name="Type">
+			<xsl:variable name="RawType">
 				<xsl:for-each select="type/descendant-or-self::text()">
 					<xsl:value-of select="."/>
 				</xsl:for-each>
+			</xsl:variable>
+			<xsl:variable name="IsSpecRef" select="substring($RawType, string-length($RawType)-2) = '(&amp;)'"/>
+			<xsl:variable name="Type">
+				<xsl:choose>
+					<xsl:when test="$IsSpecRef">
+						<xsl:value-of select="substring-before($RawType, '(&amp;)')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$RawType"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:variable>
 			<xsl:variable name="TypePrefix">
 				<xsl:variable name="RefId" select="type/ref/@refid"/>
@@ -168,13 +182,18 @@
 				<xsl:text> </xsl:text>
 				<xsl:choose>
 					<xsl:when test="declname/text()">
+						<xsl:if test="$IsSpecRef">(&amp;</xsl:if>
 						<xsl:value-of select="declname/text()"/>
+						<xsl:if test="$IsSpecRef">)</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>_auto_param_</xsl:text>
 						<xsl:value-of select="position()"/>
 					</xsl:otherwise>
 				</xsl:choose>
+				<xsl:if test="array">
+					<xsl:value-of select="array/text()"/>
+				</xsl:if>
 				<xsl:if test="defval">
 					<xsl:text> = </xsl:text>
 					<xsl:value-of select="$TypePrefix"/>
@@ -193,7 +212,12 @@
 		<xsl:text>	{</xsl:text>
 		<xsl:call-template name="Newline"/>
 		<xsl:text>		</xsl:text>
-		<xsl:if test="type/text() != 'void'">
+
+		<xsl:variable name="ResultType">
+			<xsl:value-of select="type/ref/text()"/>
+			<xsl:value-of select="type/text()"/>
+		</xsl:variable>
+		<xsl:if test="$ResultType != 'void'">
 			<xsl:text>return </xsl:text>
 		</xsl:if>
 		<xsl:value-of select="$Object"/>

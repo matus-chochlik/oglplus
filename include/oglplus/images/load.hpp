@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,7 +25,7 @@
 namespace oglplus {
 namespace images {
 
-inline Image<GLubyte> LoadByName(
+inline Image LoadByName(
 	std::string category,
 	std::string name,
 	bool y_is_up,
@@ -51,7 +51,7 @@ inline Image<GLubyte> LoadByName(
 }
 
 /// Helper function for loading textures that come with @OGLplus in the examples
-inline Image<GLubyte> LoadTexture(
+inline Image LoadTexture(
 	std::string name,
 	bool y_is_up = true,
 	bool x_is_right = true

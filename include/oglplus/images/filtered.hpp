@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,43 +25,43 @@ namespace images {
  *  @note Do not use this class directly, use the derived filters instead.
  *  @ingroup image_load_gen
  */
-template <typename T, unsigned EPP>
+template <typename T, unsigned CH>
 class FilteredImage
- : public Image<T>
+ : public Image
 {
 private:
 	static_assert(
-		EPP > 0 && EPP <= 4,
-		"Number of Elements Per Pixel must be between 1 and 4"
+		CH > 0 && CH <= 4,
+		"Number of channels must be between 1 and 4"
 	);
 protected:
-	template <typename IT>
 	struct _sampler
 	{
 	private:
-		unsigned _width, _height, _iepp, _x, _y, _n;
-		const IT* _data;
+		unsigned _width, _height, _channels, _x, _y, _z;
+		const Image& _image;
 	public:
 		_sampler(
 			unsigned width,
 			unsigned height,
-			unsigned iepp,
+			unsigned /*depth*/,
+			unsigned channels,
 			unsigned x,
 			unsigned y,
 			unsigned z,
-			const IT* data
+			const Image& image
 		): _width(width)
 		 , _height(height)
-		 , _iepp(iepp)
+		 , _channels(channels)
 		 , _x(x)
 		 , _y(y)
-		 , _n(z*width*height)
-		 , _data(data)
+		 , _z(z)
+		 , _image(image)
 		{
-			assert(_iepp > 0 && _iepp <= 4);
+			assert(channels >= 1 && channels <= 4);
 		}
 
-		Vector<IT, 4> get(int xoffs, int yoffs) const
+		Vector<GLdouble, 4> get(int xoffs, int yoffs) const
 		{
 			assert(xoffs > int(-_width));
 			assert(yoffs > int(-_height));
@@ -76,42 +76,29 @@ protected:
 			if(ypos >= int(_height)) ypos %= _height;
 			if(ypos < 0) ypos = (ypos+_height)%_height;
 
-			unsigned offs = _n + ypos*_width + xpos;
-			const IT* p = _data + _iepp*offs;
-			return Vector<IT, 4>(
-				*p,
-				(_iepp > 1) ? *(p+1) : T(0),
-				(_iepp > 2) ? *(p+2) : T(0),
-				(_iepp > 3) ? *(p+3) : T(0)
-			);
+			return _image.Pixel(xpos, ypos, _z);
 		}
 	};
 private:
-	template <typename IT, typename Filter, typename Extractor>
+	template <typename Filter, typename Extractor>
 	void _calculate(
-		const Image<IT>& input,
+		const Image& input,
 		Filter filter,
 		Extractor extractor,
-		T one,
-		IT ione
+		T one
 	)
 	{
-		unsigned iepp = input.ElementsPerPixel();
-		auto p = this->_data.begin(), e = this->_data.end();
+		unsigned c = input.Channels();
+		auto p = this->_begin<T>(), e = this->_end<T>();
 		unsigned w = input.Width(), h = input.Height(), d = input.Depth();
-		const IT* data = input.Data();
 		for(unsigned k=0; k!=d; ++k)
 		for(unsigned j=0; j!=h; ++j)
 		for(unsigned i=0; i!=w; ++i)
 		{
-			_sampler<IT> sampler(w,h,iepp,i,j,k,data);
-			Vector<T, EPP> outv = filter(
-				extractor,
-				sampler,
-				one,
-				ione
-			);
-			for(unsigned c=0; c!= EPP; ++c)
+			_sampler sampler(w, h, d, c, i, j, k, input);
+			Vector<T, CH> outv = filter(extractor, sampler, one);
+
+			for(unsigned c=0; c!=CH; ++c)
 			{
 				assert(p != e);
 				*p = outv.At(c);
@@ -120,22 +107,6 @@ private:
 		}
 		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
-	}
-
-	static GLubyte _one(GLubyte*)
-	{
-		return 0xFF;
-	}
-
-	static GLfloat _one(GLfloat*)
-	{
-		return 1.0f;
-	}
-
-	template <typename _T>
-	static _T _one(void)
-	{
-		return _one((_T*)0);
 	}
 public:
 	/// Extractor that allows to specify which component to use as input
@@ -167,23 +138,14 @@ public:
 		}
 	};
 
-	template <typename IT, typename Filter, typename Extractor>
+	template <typename Filter, typename Extractor>
 	FilteredImage(
-		const Image<IT>& input,
+		const Image& input,
 		Filter filter,
 		Extractor extractor
-	): Image<T>(input.Width(), input.Height(), input.Depth())
+	): Image(input.Width(), input.Height(), input.Depth(), CH, (T*)0)
 	{
-		this->_data.resize(
-			input.Width()*
-			input.Height()*
-			input.Depth()*
-			EPP
-		);
-		assert(this->ElementsPerPixel() == EPP);
-		_calculate(input, filter, extractor, _one<T>(), _one<IT>());
-
-		this->_type = PixelDataType(oglplus::GetDataType((T*)0));
+		_calculate(input, filter, extractor, this->_one((T*)0));
 	}
 };
 

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,7 +26,6 @@ namespace images {
 namespace aux {
 
 class PNGLoader
- : public ImageInitializer<GLubyte>
 {
 private:
 	// reference to an input stream to read from
@@ -216,7 +215,7 @@ private:
 public:
 	PNGLoader(
 		std::istream& input,
-		Image<GLubyte>& image,
+		Image& image,
 		bool y_is_up,
 		bool x_is_right
 	): _input(input)
@@ -298,13 +297,16 @@ public:
 		}
 
 		GLenum gl_format = _translate_format(color_type, has_alpha);
-		this->InitImage(
-			image,
+		std::size_t size = data.size();
+
+		assert(size % (width*height) == 0);
+
+		image = Image(
 			width,
 			height,
 			1,
-			std::move(data),
-			PixelDataType::UnsignedByte,
+			channels,
+			data.data(),
 			PixelDataFormat(gl_format),
 			PixelDataInternalFormat(gl_format)
 		);
@@ -319,7 +321,7 @@ public:
  *  @ingroup image_load_gen
  */
 class PNG
- : public Image<GLubyte>
+ : public Image
 {
 public:
 	/// Load the image from a file with the specified @p file_path

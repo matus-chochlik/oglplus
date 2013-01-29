@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -35,18 +35,17 @@ private:
 		 : _matrix(matrix)
 		{ }
 
-		template <typename Extractor, typename Sampler, typename IT>
+		template <typename Extractor, typename Sampler>
 		Vector<T, 3> operator()(
 			const Extractor& extractor,
 			const Sampler& sampler,
-			T /*one*/,
-			IT /*ione*/
+			T /*one*/
 		) const
 		{
-			const Vector<T, 4> c(
+			const Vector<T, 4> c(Vector<GLdouble, 4>(
 				extractor(sampler.get(0,0)),
 				1.0
-			);
+			));
 			return (_matrix*c).xyz();
 		}
 	};
@@ -56,8 +55,7 @@ public:
 	/// Created a normal-map from the @p input height-map image
 	/**
 	 */
-	template <typename IT>
-	Transformed(const Image<IT>& input, const Mat4f& matrix)
+	Transformed(const Image& input, const Mat4f& matrix)
 	 : Filter(input, _filter(matrix), typename Filter::FromRGB())
 	{
 		this->_format = PixelDataFormat::RGB;

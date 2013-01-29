@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,7 +23,7 @@ namespace oglplus {
 namespace images {
 
 class SphereBumpMap
- : public Image<GLfloat>
+ : public Image
 {
 public:
 	SphereBumpMap(
@@ -31,11 +31,18 @@ public:
 		GLsizei height,
 		GLsizei xrep = 1,
 		GLsizei yrep = 1
-	): Image<GLfloat>(width, height, 1)
+	): Image(
+		width,
+		height,
+		1,
+		4,
+		(GLfloat*)0,
+		PixelDataFormat::RGBA,
+		PixelDataInternalFormat::RGBA16F
+	)
 	{
 		assert(width != 0 && height != 0);
 		assert(xrep != 0 && yrep != 0);
-		_data.resize(width*height*4);
 
 		typedef double number;
 		number one = number(1);
@@ -44,7 +51,7 @@ public:
 		GLsizei hi = number(width)/xrep;
 		GLsizei hj = number(height)/yrep;
 
-		auto p = _data.begin(), e = _data.end();
+		auto p = this->_begin<GLfloat>(), e = this->_end<GLfloat>();
 		for(GLsizei j=0; j!=height; ++j)
 		{
 			number y = number((j % hj) - hj/2)*invh;
@@ -68,9 +75,6 @@ public:
 		}
 		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
-		_type = PixelDataType::Float;
-		_format = PixelDataFormat::RGBA;
-		_internal = PixelDataInternalFormat::RGBA16F;
 	}
 };
 

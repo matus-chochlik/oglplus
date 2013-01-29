@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,7 +26,7 @@ namespace images {
  *  @ingroup image_load_gen
  */
 class LinearGradient
- : public Image<GLubyte>
+ : public Image
 {
 private:
 	template <
@@ -112,11 +112,10 @@ private:
 	template <typename T, std::size_t N>
 	static void _apply_gradient(
 		const std::vector<Vector<T, N>>& grad0,
-		std::vector<GLubyte>& data
+		GLubyte* dp,
+		GLubyte* de
 	)
 	{
-		auto dp = data.begin(), de = data.end();
-
 		auto gb0 = grad0.begin(), ge0 = grad0.end();
 
 		for(auto gp0=gb0; gp0!=ge0; ++gp0)
@@ -137,11 +136,10 @@ private:
 		Combine combine,
 		const std::vector<Vector<T, N>>& grad0,
 		const std::vector<Vector<T, N>>& grad1,
-		std::vector<GLubyte>& data
+		GLubyte* dp,
+		GLubyte* de
 	)
 	{
-		auto dp = data.begin(), de = data.end();
-
 		auto gb0 = grad0.begin(), ge0 = grad0.end();
 		auto gb1 = grad1.begin(), ge1 = grad1.end();
 
@@ -165,11 +163,10 @@ private:
 		const std::vector<Vector<T, N>>& grad0,
 		const std::vector<Vector<T, N>>& grad1,
 		const std::vector<Vector<T, N>>& grad2,
-		std::vector<GLubyte>& data
+		GLubyte* dp,
+		GLubyte* de
 	)
 	{
-		auto dp = data.begin(), de = data.end();
-
 		auto gb0 = grad0.begin(), ge0 = grad0.end();
 		auto gb1 = grad1.begin(), ge1 = grad1.end();
 		auto gb2 = grad2.begin(), ge2 = grad2.end();
@@ -187,32 +184,6 @@ private:
 		}
 		OGLPLUS_FAKE_USE(de);
 		assert(dp == de);
-	}
-
-	void _set_data_format(std::size_t N)
-	{
-		_type = PixelDataType::UnsignedByte;
-		if(N == 1)
-		{
-			_format = PixelDataFormat::Red;
-			_internal = PixelDataInternalFormat::Red;
-		}
-		else if(N == 2)
-		{
-			_format = PixelDataFormat::RG;
-			_internal = PixelDataInternalFormat::RG;
-		}
-		else if(N == 3)
-		{
-			_format = PixelDataFormat::RGB;
-			_internal = PixelDataInternalFormat::RGB;
-		}
-		else if(N == 4)
-		{
-			_format = PixelDataFormat::RGBA;
-			_internal = PixelDataInternalFormat::RGBA;
-		}
-		else assert(!"Too many color channels!");
 	}
 public:
 	struct AddComponents
@@ -242,10 +213,8 @@ public:
 		GLsizei width,
 		const Vector<T, N>& background,
 		const std::map<P, Vector<T, N>>& x_points
-	): Image<GLubyte>(width, 1, 1)
+	): Image(width, 1, 1, N, (GLubyte*0))
 	{
-		_data.resize(width*N);
-
 		std::vector<Vector<T, N>> x_gradient(width);
 		_make_gradient(
 			background,
@@ -253,10 +222,7 @@ public:
 			x_points,
 			x_gradient
 		);
-
-		_apply_gradient(x_gradient, _data);
-
-		_set_data_format(N);
+		_apply_gradient(x_gradient, _begin_ub(), _end_ub());
 	}
 
 	template <typename P, typename T, std::size_t N, typename Combine>
@@ -267,10 +233,8 @@ public:
 		const std::map<P, Vector<T, N>>& x_points,
 		const std::map<P, Vector<T, N>>& y_points,
 		Combine combine
-	): Image<GLubyte>(width, height, 1)
+	): Image(width, height, 1, N, (GLubyte*)0)
 	{
-		_data.resize(width*height*N);
-
 		std::vector<Vector<T, N>> y_gradient(height);
 		_make_gradient(
 			background,
@@ -291,10 +255,9 @@ public:
 			combine,
 			y_gradient,
 			x_gradient,
-			_data
+			_begin_ub(),
+			_end_ub()
 		);
-
-		_set_data_format(N);
 	}
 
 	template <typename P, typename T, std::size_t N, typename Combine>
@@ -307,10 +270,8 @@ public:
 		const std::map<P, Vector<T, N>>& y_points,
 		const std::map<P, Vector<T, N>>& z_points,
 		Combine combine
-	): Image<GLubyte>(width, height, depth)
+	): Image(width, height, depth, N, (GLubyte*)0)
 	{
-		_data.resize(width*height*depth*N);
-
 		std::vector<Vector<T, N>> z_gradient(depth);
 		_make_gradient(
 			background,
@@ -340,10 +301,9 @@ public:
 			z_gradient,
 			y_gradient,
 			x_gradient,
-			_data
+			_begin_ub(),
+			_end_ub()
 		);
-
-		_set_data_format(N);
 	}
 };
 

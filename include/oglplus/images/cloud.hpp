@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -31,7 +31,7 @@ namespace images {
  *  @ingroup image_load_gen
  */
 class Cloud
- : public Image<GLubyte>
+ : public Image
 {
 private:
 	GLfloat _sub_scale;
@@ -78,6 +78,7 @@ private:
 		Vec3f c = center*0.5f + Vec3f(0.5f, 0.5f, 0.5f);
 		GLfloat r = radius*0.5f;
 		GLsizei w = Width(), h = Height(), d = Depth();
+		GLubyte* data = _begin_ub();
 		for(GLsizei k=(c.z()-r)*d, ke=(c.z()+r)*d; k!=ke; ++k)
 		for(GLsizei j=(c.y()-r)*h, je=(c.y()+r)*h; j!=je; ++j)
 		for(GLsizei i=(c.x()-r)*w, ie=(c.x()+r)*w; i!=ie; ++i)
@@ -86,7 +87,7 @@ private:
 			assert(j >= 0 && j < h);
 			assert(i >= 0 && i < w);
 			GLsizei n = k*w*h + j*w + i;
-			GLubyte b = _data[n];
+			GLubyte b = data[n];
 			if(b != 0xFF)
 			{
 				GLfloat cd = GLfloat(b)/GLfloat(0xFF);
@@ -96,7 +97,7 @@ private:
 				nd = std::sqrt(nd);
 				nd += cd;
 				if(nd > 1.0f) nd = 1.0f;
-				_data[n] = GLubyte(0xFF * nd);
+				data[n] = GLubyte(0xFF * nd);
 				something_updated = true;
 			}
 		}
@@ -147,13 +148,12 @@ public:
 		GLfloat sub_scale = 0.333f,
 		GLfloat sub_variance = 0.5f,
 		GLfloat min_radius = 0.04f
-	): Image<GLubyte>(width, height, depth)
+	): Image(width, height, depth, 1, (GLubyte*)0)
 	 , _sub_scale(sub_scale)
 	 , _sub_variance(sub_variance)
 	 , _min_radius(min_radius)
 	{
-		_data.resize(width*height*depth);
-		auto p = _data.begin(), e = _data.end();
+		auto p = this->_begin_ub(), e = this->_end_ub();
 		for(GLsizei k=0; k!=depth; ++k)
 		for(GLsizei j=0; j!=height; ++j)
 		for(GLsizei i=0; i!=width; ++i)
@@ -165,22 +165,18 @@ public:
 		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
 		_make_spheres(origin, init_radius);
-		_type = PixelDataType::UnsignedByte;
-		_format = PixelDataFormat::Red;
-		_internal = PixelDataInternalFormat::Red;
 	}
 };
 
 class Cloud2D
- : public Image<GLubyte>
+ : public Image
 {
 private:
 public:
 	Cloud2D(const Cloud& cloud)
-	 : Image<GLubyte>(cloud.Width(), cloud.Height(), 1)
+	 : Image(cloud.Width(), cloud.Height(), 1, 1, (GLubyte*)0)
 	{
-		_data.resize(Width()*Height()*3);
-		auto p = _data.begin(), e = _data.end();
+		auto p = this->_begin_ub(), e = this->_end_ub();
 		GLsizei w = Width(), h = Height(), d = cloud.Depth();
 		for(GLsizei j=0; j!=h; ++j)
 		for(GLsizei i=0; i!=w; ++i)
@@ -190,7 +186,7 @@ public:
 			GLuint total_density = 0;
 			for(GLsizei k=0; k!=d; ++k)
 			{
-				GLubyte c = cloud.Component(i, j, k, 0);
+				GLubyte c = cloud.ComponentAs<GLubyte>(i, j, k, 0);
 				if(depth_near == 0)
 				{
 					if(c != 0)
@@ -218,9 +214,6 @@ public:
 		}
 		OGLPLUS_FAKE_USE(e);
 		assert(p == e);
-		_type = PixelDataType::UnsignedByte;
-		_format = PixelDataFormat::RGB;
-		_internal = PixelDataInternalFormat::RGB;
 	}
 };
 

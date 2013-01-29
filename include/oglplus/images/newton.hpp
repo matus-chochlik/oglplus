@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -43,7 +43,7 @@ namespace images {
  *  @ingroup image_load_gen
  */
 class NewtonFractal
- : public Image<GLfloat>
+ : public Image
 {
 private:
 	// complex number division
@@ -75,8 +75,7 @@ private:
 		Vector<float, N> c2
 	)
 	{
-		_data.resize(width*height*N);
-		auto p = _data.begin(), e = _data.end();
+		auto p = this->_begin<GLfloat>(), e = this->_end<GLfloat>();
 
 		for(GLsizei i=0; i!=width; ++i)
 		for(GLsizei j=0; j!=height; ++j)
@@ -213,12 +212,9 @@ public:
 		Vec2f rt = Vec2f( 1.0f,  1.0f),
 		Function func = Function(),
 		Mixer mixer = Mixer()
-	): Image<GLfloat>(width, height, 1)
+	): Image(width, height, 1, 3, (GLfloat*)0)
 	{
 		_make(width, height, func, mixer, lb, rt, c1, c2);
-		_type = PixelDataType::Float;
-		_format = PixelDataFormat::RGB;
-		_internal = PixelDataInternalFormat::RGB;
 	}
 
 	/// Creates a Red texture colorized from black to red
@@ -239,7 +235,7 @@ public:
 		GLsizei height,
 		Function func = Function(),
 		Mixer mixer = Mixer()
-	): Image<GLfloat>(width, height, 1)
+	): Image(width, height, 1, 1, (GLfloat*)0)
 	{
 		_make(
 			width, height,
@@ -248,9 +244,6 @@ public:
 			Vec2f(-1.0f, -1.0f), Vec2f(1.0f, 1.0f),
 			Vec1f(0.0f), Vec1f(1.0f)
 		);
-		_type = PixelDataType::Float;
-		_format = PixelDataFormat::Red;
-		_internal = PixelDataInternalFormat::Red;
 	}
 #else
 	template <typename Function, typename Mixer>
@@ -263,12 +256,26 @@ public:
 		Vec2f rt,
 		Function func,
 		Mixer mixer
-	): Image<GLfloat>(width, height, 1)
+	): Image(width, height, 1, 3, (GLfloat*)0)
 	{
 		_make(width, height, func, mixer, lb, rt, c1, c2);
-		_type = PixelDataType::Float;
-		_format = PixelDataFormat::RGB;
-		_internal = PixelDataInternalFormat::RGB;
+	}
+
+	template <typename Function, typename Mixer>
+	NewtonFractal(
+		GLsizei width,
+		GLsizei height,
+		Function func,
+		Mixer mixer
+	): Image(width, height, 1, 1, (GLfloat*)0)
+	{
+		_make(
+			width, height,
+			func,
+			mixer,
+			Vec2f(-1.0f, -1.0f), Vec2f(1.0f, 1.0f),
+			Vec1f(0.0f), Vec1f(1.0f)
+		);
 	}
 #endif
 };

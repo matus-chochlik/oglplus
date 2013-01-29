@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -871,10 +871,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage3D}
 	 */
-	template <typename T>
 	static void Image3D(
 		Target target,
-		const Image<T>& image,
+		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
 	)
@@ -944,10 +943,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage3D}
 	 */
-	template <typename T>
 	static void SubImage3D(
 		Target target,
-		const Image<T>& image,
+		const images::Image& image,
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
@@ -1016,10 +1014,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	template <typename T>
 	static void Image2D(
 		Target target,
-		const Image<T>& image,
+		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
 	)
@@ -1084,10 +1081,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage2D}
 	 */
-	template <typename T>
 	static void SubImage2D(
 		Target target,
-		const Image<T>& image,
+		const images::Image& image,
 		GLint xoffs,
 		GLint yoffs,
 		GLint level = 0
@@ -1151,10 +1147,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage1D}
 	 */
-	template <typename T>
 	static void Image1D(
 		Target target,
-		const Image<T>& image,
+		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
 	)
@@ -1214,10 +1209,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage1D}
 	 */
-	template <typename T>
 	static void SubImage1D(
 		Target target,
-		const Image<T>& image,
+		const images::Image& image,
 		GLint xoffs,
 		GLint level = 0
 	)

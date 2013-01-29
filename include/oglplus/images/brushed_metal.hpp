@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,7 +26,7 @@ namespace images {
  *  @ingroup image_load_gen
  */
 class BrushedMetalUByte
- : public Image<GLubyte>
+ : public Image
 {
 private:
 	static void _make_pixel(
@@ -126,10 +126,9 @@ public:
 		int s_disp_max,
 		int t_disp_min,
 		int t_disp_max
-	): Image<GLubyte>(width, height, 1)
+	): Image(width, height, 1, 3, (GLubyte*)0)
 	{
-		_data.resize(width*height*3, GLubyte(0));
-		GLubyte *p = _data.data(), *e = _data.data() + _data.size();
+		GLubyte *p = this->_begin_ub(), *e = this->_end_ub();
 		while(n_scratches--)
 		{
 			const GLuint n_segments = 1 + std::rand() % 4;
@@ -153,9 +152,6 @@ public:
 				y += dy;
 			}
 		}
-		_type = PixelDataType::UnsignedByte;
-		_format = PixelDataFormat::RGB;
-		_internal = PixelDataInternalFormat::RGB;
 	}
 };
 

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,19 +25,16 @@ class NormalMap
  : public FilteredImage<GLfloat, 4>
 {
 private:
-	typedef GLfloat T;
-
 	struct _filter
 	{
-		template <typename Extractor, typename Sampler, typename IT>
-		Vector<T, 4> operator()(
+		template <typename Extractor, typename Sampler>
+		Vector<GLfloat, 4> operator()(
 			const Extractor& extractor,
 			const Sampler& sampler,
-			T one,
-			IT ione
+			GLfloat one
 		) const
 		{
-			typedef float number;
+			typedef GLdouble number;
 			number s = 0.05;
 
 			number sc  = extractor(sampler.get( 0, 0));
@@ -45,10 +42,10 @@ private:
 			number spy = extractor(sampler.get( 0,+1));
 			number snx = extractor(sampler.get(-1, 0));
 			number sny = extractor(sampler.get( 0,-1));
-			Vector<number, 3> vpx(+s, 0, (spx-sc)/ione);
-			Vector<number, 3> vpy(0, +s, (spy-sc)/ione);
-			Vector<number, 3> vnx(-s, 0, (snx-sc)/ione);
-			Vector<number, 3> vny(0, -s, (sny-sc)/ione);
+			Vector<number, 3> vpx(+s, 0, (spx-sc));
+			Vector<number, 3> vpy(0, +s, (spy-sc));
+			Vector<number, 3> vnx(-s, 0, (snx-sc));
+			Vector<number, 3> vny(0, -s, (sny-sc));
 			return Vector<number, 4>(
 				Normalized(
 					Cross(vpx, vpy) +
@@ -56,12 +53,12 @@ private:
 					Cross(vnx, vny) +
 					Cross(vny, vpx)
 				),
-				(1.0 - sc/ione)
+				(1.0 - sc)
 			) * one;
 		}
 	};
 public:
-	typedef FilteredImage<T, 4> Filter;
+	typedef FilteredImage<GLfloat, 4> Filter;
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Creates a normal-map from the @p input height-map image
@@ -71,16 +68,16 @@ public:
 	 *    default the RED component of the image is used as the height-map
 	 *    value used in normal-map calculation).
 	 */
-	template <typename IT,  typename Extractor = typename Filter::FromRed>
-	NormalMap(const Image<IT>& input, Extractor extractor = Extractor());
+	template <typename Extractor = typename Filter::FromRed>
+	NormalMap(const Image& input, Extractor extractor = Extractor());
 #endif
 
 #if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
-	template <typename IT,  typename Extractor = typename Filter::FromRed>
-	NormalMap(const Image<IT>& input, Extractor extractor = Extractor())
+	template <typename Extractor = typename Filter::FromRed>
+	NormalMap(const Image& input, Extractor extractor = Extractor())
 #else
-	template <typename IT,  typename Extractor>
-	NormalMap(const Image<IT>& input, Extractor extractor)
+	template <typename Extractor>
+	NormalMap(const Image& input, Extractor extractor)
 #endif
 	 : Filter(input, _filter(), extractor)
 	{

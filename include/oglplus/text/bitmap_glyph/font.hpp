@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -34,7 +34,7 @@ private:
 		return BitmapGlyphFontPagePath(_parent,_font_name,page)+".png";
 	}
 
-	oglplus::Image<GLubyte> _load_page_bitmap(GLint page)
+	oglplus::images::Image _load_page_bitmap(GLint page)
 	{
 		return images::PNG(_page_bitmap_path(page).c_str());
 	}

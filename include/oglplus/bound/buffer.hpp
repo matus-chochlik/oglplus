@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -87,6 +87,23 @@ public:
 	/** Wrapper for Buffer::Data()
 	 *  @see Buffer::Data()
 	 */
+	template <typename GLtype, std::size_t Count>
+	void Data(
+		GLtype (&data)[Count],
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		BufferOps::Data(
+			this->BindTarget(),
+			data,
+			usage
+		);
+	}
+
+
+	/** Wrapper for Buffer::Data()
+	 *  @see Buffer::Data()
+	 */
 	template <typename GLtype>
 	void Data(
 		const std::vector< GLtype > & data,
@@ -104,7 +121,7 @@ public:
 	/** Wrapper for Buffer::Data()
 	 *  @see Buffer::Data()
 	 */
-	template <typename GLtype, size_t N>
+	template <typename GLtype, std::size_t N>
 	void Data(
 		const std::vector< Vector< GLtype, N > > & data,
 		BufferUsage usage = BufferUsage::StaticDraw
@@ -132,6 +149,23 @@ public:
 			this->BindTarget(),
 			offset,
 			count,
+			data
+		);
+	}
+
+
+	/** Wrapper for Buffer::SubData()
+	 *  @see Buffer::SubData()
+	 */
+	template <typename GLtype, std::size_t Count>
+	void SubData(
+		GLintptr offset,
+		GLtype (&data)[Count]
+	) const
+	{
+		BufferOps::SubData(
+			this->BindTarget(),
+			offset,
 			data
 		);
 	}

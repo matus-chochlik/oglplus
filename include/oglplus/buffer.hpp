@@ -377,7 +377,7 @@ public:
 		Type& At(GLuint index) const
 		{
 			assert(_ptr != nullptr);
-			assert(((index + 1) * sizeof(Type)) <= size_t(_size));
+			assert(((index+1)*sizeof(Type)) <= std::size_t(_size));
 			return ((Type*)_ptr)[index];
 		}
 	};
@@ -584,7 +584,7 @@ public:
 	 *  @see CopySubData
 	 *  @throws Error
 	 */
-	template <typename GLtype, size_t N>
+	template <typename GLtype, std::size_t N>
 	static void Data(
 		Target target,
 		const std::vector<Vector<GLtype, N> >& data,

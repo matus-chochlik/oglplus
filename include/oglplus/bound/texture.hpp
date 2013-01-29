@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -401,9 +401,8 @@ public:
 	/** Wrapper for Texture::Image3D()
 	 *  @see Texture::Image3D()
 	 */
-	template <typename T>
 	void Image3D(
-		const Image< T > & image,
+		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const
@@ -452,9 +451,8 @@ public:
 	/** Wrapper for Texture::SubImage3D()
 	 *  @see Texture::SubImage3D()
 	 */
-	template <typename T>
 	void SubImage3D(
-		const Image< T > & image,
+		const images::Image & image,
 		GLint xoffs,
 		GLint yoffs,
 		GLint zoffs,
@@ -503,9 +501,8 @@ public:
 	/** Wrapper for Texture::Image2D()
 	 *  @see Texture::Image2D()
 	 */
-	template <typename T>
 	void Image2D(
-		const Image< T > & image,
+		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const
@@ -550,9 +547,8 @@ public:
 	/** Wrapper for Texture::SubImage2D()
 	 *  @see Texture::SubImage2D()
 	 */
-	template <typename T>
 	void SubImage2D(
-		const Image< T > & image,
+		const images::Image & image,
 		GLint xoffs,
 		GLint yoffs,
 		GLint level = 0
@@ -597,9 +593,8 @@ public:
 	/** Wrapper for Texture::Image1D()
 	 *  @see Texture::Image1D()
 	 */
-	template <typename T>
 	void Image1D(
-		const Image< T > & image,
+		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const
@@ -640,9 +635,8 @@ public:
 	/** Wrapper for Texture::SubImage1D()
 	 *  @see Texture::SubImage1D()
 	 */
-	template <typename T>
 	void SubImage1D(
-		const Image< T > & image,
+		const images::Image & image,
 		GLint xoffs,
 		GLint level = 0
 	) const

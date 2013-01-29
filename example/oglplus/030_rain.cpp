@@ -16,7 +16,6 @@
 #include <oglplus/shapes/plane.hpp>
 
 #include <oglplus/images/load.hpp>
-#include <oglplus/images/brushed_metal.hpp>
 
 #include "example.hpp"
 
