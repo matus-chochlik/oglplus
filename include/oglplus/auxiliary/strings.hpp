@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -104,24 +104,25 @@ namespace aux {
 
 #if !OGLPLUS_NO_OBJECT_DESCS
 OGLPLUS_LIB_FUNC ::std::map<GLuint, String>& ObjectDescRegistryStorage(int id)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	static ::std::map<int, ::std::map<GLuint, String> > _maps;
 	return _maps[id];
 }
+#else
+;
 #endif
 
 OGLPLUS_LIB_FUNC ::std::map<GLuint, String>& ObjectDescRegistryArchive(int id)
-#if OGLPLUS_LINK_LIBRARY
-;
-#else
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	static ::std::map<int, ::std::map<GLuint, String> > _maps;
 	return _maps[id];
 }
+#else
+;
 #endif
+
 #endif
 
 template <class ObjectOps>

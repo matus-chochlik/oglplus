@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -81,58 +81,7 @@ public:
 	 *  @note The input stream must exist during the whole lifetime
 	 *  of an instance of BlendFile
 	 */
-	BlendFile(std::istream& input)
-	 : _reader(input)
-	 , _info(_reader)
-	 , _glob_block_index(std::size_t(-1))
-	{
-		std::size_t block_idx = 0;
-		while(!_eof(_reader))
-		{
-			std::array<char,4> code  = _read_array<4>(
-				_reader,
-				"Failed to read file block code"
-			);
-			if(_equal(code, "GLOB"))
-				_glob_block_index = block_idx;
-
-			if(_equal(code, "DNA1"))
-			{
-				_blocks.emplace_back(
-					_reader,
-					_info,
-					std::move(code),
-					false
-				);
-				_sdna = std::make_shared<BlendFileSDNA>(
-					_reader,
-					_info
-				);
-			}
-			else
-			{
-				_blocks.emplace_back(
-					_reader,
-					_info,
-					std::move(code),
-					true
-				);
-			}
-			_block_map[_blocks.back()._old_ptr] = block_idx++;
-		}
-		if(_glob_block_index == std::size_t(-1))
-		{
-			throw std::runtime_error(
-				"Blend file does not contain GLOB block"
-			);
-		}
-		if(!_sdna)
-		{
-			throw std::runtime_error(
-				"Blend file does not contain SDNA block"
-			);
-		}
-	}
+	BlendFile(std::istream& input);
 
 	/// Returns the basic file-level information
 	const BlendFileInfo& Info(void) const
@@ -290,9 +239,7 @@ public:
 		std::size_t type_index = _sdna->_find_type_index<T>();
 		if(type_index == _sdna->_invalid_type_index())
 		{
-			throw std::runtime_error(
-				"Unknown blender type"
-			);
+			throw std::runtime_error("Unknown blender type");
 		}
 		return BlendFileType(
 			_sdna.get(),
@@ -311,6 +258,58 @@ public:
 		);
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+BlendFile::BlendFile(std::istream& input)
+ : _reader(input)
+ , _info(_reader)
+ , _glob_block_index(std::size_t(-1))
+{
+	std::size_t block_idx = 0;
+	while(!_eof(_reader))
+	{
+		std::array<char,4> code  = _read_array<4>(
+			_reader,
+			"Failed to read file block code"
+		);
+		if(_equal(code, "GLOB"))
+			_glob_block_index = block_idx;
+
+		if(_equal(code, "DNA1"))
+		{
+			_blocks.emplace_back(
+				_reader,
+				_info,
+				std::move(code),
+				false
+			);
+			_sdna = std::make_shared<BlendFileSDNA>(
+				_reader,
+				_info
+			);
+		}
+		else
+		{
+			_blocks.emplace_back(
+				_reader,
+				_info,
+				std::move(code),
+				true
+			);
+		}
+		_block_map[_blocks.back()._old_ptr] = block_idx++;
+	}
+	if(_glob_block_index == std::size_t(-1))
+	{
+		throw std::runtime_error("Blend file does not contain GLOB block");
+	}
+	if(!_sdna)
+	{
+		throw std::runtime_error("Blend file does not contain SDNA block");
+	}
+}
+#endif
 
 } // imports
 } // oglplus

@@ -2,14 +2,12 @@
  *  .file example/frame_dump_main.cpp
  *  Implements GLX-based main function for saving rendered frames in raw RGBA
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/vector.hpp>
-#include <oglplus/curve.hpp>
 
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
@@ -19,13 +17,16 @@
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
 
-#include <oglplus/config.hpp>
-#include <oglplus/compile_error.hpp>
-#include <oglplus/opt/application.hpp>
-
 #if OGLPLUS_LINK_LIBRARY
 # include <oglplus/lib.hpp>
 #endif
+
+#include <oglplus/vector.hpp>
+#include <oglplus/curve.hpp>
+
+#include <oglplus/config.hpp>
+#include <oglplus/compile_error.hpp>
+#include <oglplus/opt/application.hpp>
 
 #include <stdexcept>
 #include <vector>

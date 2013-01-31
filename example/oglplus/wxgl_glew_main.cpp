@@ -2,7 +2,7 @@
  *  .file example/wxgl_glew_main.cpp
  *  Implements wxGL/GLEW-based program main function for running examples
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,14 +19,15 @@
 #include <iomanip>
 
 #include <oglplus/site_config.hpp>
-#include <oglplus/config.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/compile_error.hpp>
-#include <oglplus/glfunc.hpp>
 
 #if OGLPLUS_LINK_LIBRARY
 # include <oglplus/lib.hpp>
 #endif
+
+#include <oglplus/config.hpp>
+#include <oglplus/error.hpp>
+#include <oglplus/compile_error.hpp>
+#include <oglplus/glfunc.hpp>
 
 #include <oglplus/query.hpp>
 
