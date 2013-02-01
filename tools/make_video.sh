@@ -78,6 +78,6 @@ for job in $(jobs -p)
 do wait ${job}
 done
 
-avconv -y -f image2 -i "${prefix}-%06d.jpeg" -r 25 -vcodec mpeg4 -b 4000k ${prefix}.avi
+avconv -y -f image2 -i "${prefix}-%06d.jpeg" -r 25 -vcodec mpeg4 -b 8000k ${prefix}.avi
 mv ${prefix}.avi .
 rm -rf ${tmpdir}
