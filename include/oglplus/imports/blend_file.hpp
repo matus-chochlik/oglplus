@@ -95,40 +95,12 @@ public:
 		return BlendFileStructRange(_sdna.get());
 	}
 
-	/// Returns a block by its pointer
-	template <unsigned Level>
-	const BlendFileBlock& BlockByPointer(
-		BlendFilePointerTpl<Level> pointer,
-		bool allow_offset = false
-	) const
-	{
-		auto ptr = pointer.Value();
-		auto pos = _block_map.find(ptr);
-		if(allow_offset && (pos == _block_map.end()))
-		{
-			auto pos2 = _block_map.lower_bound(ptr);
-			if(pos2 != _block_map.end())
-			{
-				if(pos2 != _block_map.begin())
-				{
-					--pos2;
-					assert(pos2->first < ptr);
-					assert(pos2->second < _blocks.size());
-					std::size_t size = _blocks[pos2->second].Size();
-					if(ptr - pos2->first < size) pos = pos2;
-				}
-			}
-		}
-		if(pos == _block_map.end())
-		{
-			throw std::runtime_error(
-				"Unable to find block by pointer"
-			);
-		}
-		assert(pos->second < _blocks.size());
 
-		return _blocks[pos->second];
-	}
+	/// Returns a block by its pointer
+	const BlendFileBlock& BlockByPointer(
+		BlendFilePointerBase pointer,
+		bool allow_offset = false
+	) const;
 
 	/// Dereferences a pointer to pointer
 	template <unsigned Level>
@@ -150,23 +122,7 @@ public:
 		BlendFilePointer pointer,
 		bool allow_offset = false,
 		bool use_pointee_struct = false
-	)
-	{
-		auto block = BlockByPointer(pointer, allow_offset);
-		auto offset = pointer - block.Pointer();
-		auto block_data = BlockData(block);
-		auto flat_struct =
-			(use_pointee_struct)?
-			Pointee(pointer).AsStructure().Flattened():
-			BlockStructure(block).Flattened();
-
-		return BlendFileFlatStructBlockData(
-			std::move(flat_struct),
-			std::move(block),
-			std::move(block_data),
-			offset
-		);
-	}
+	);
 
 	/// Alias for StructuredBlockByPointer
 	BlendFileFlatStructBlockData operator[](BlendFilePointer pointer)
@@ -209,43 +165,14 @@ public:
 	}
 
 	/// Returns the data of a block
-	BlendFileBlockData BlockData(const BlendFileBlock& block)
-	{
-		std::vector<char> data;
-		if(block.Size())
-		{
-			data.resize(block.Size());
-			_go_to(_reader, block.DataPosition());
-			_raw_read(
-				_reader,
-				data.data(),
-				data.size(),
-				"Failed to read blend file block data"
-			);
-		}
-		return BlendFileBlockData(
-			std::move(data),
-			_info.ByteOrder(),
-			_info.PointerSize(),
-			_sdna->_type_sizes[
-				_sdna->_structs[block._sdna_index]._type_index
-			]
-		);
-	}
+	BlendFileBlockData BlockData(const BlendFileBlock& block);
+
+	BlendFileType TypeByIdx(std::size_t type_index) const;
 
 	template <typename T>
 	BlendFileType Type(void) const
 	{
-		std::size_t type_index = _sdna->_find_type_index<T>();
-		if(type_index == _sdna->_invalid_type_index())
-		{
-			throw std::runtime_error("Unknown blender type");
-		}
-		return BlendFileType(
-			_sdna.get(),
-			type_index,
-			_sdna->_type_structs[type_index]
-		);
+		return TypeByIdx(_sdna->_find_type_index<T>());
 	}
 
 	/// Returns the pointee type for a pointer
@@ -308,6 +235,102 @@ BlendFile::BlendFile(std::istream& input)
 	{
 		throw std::runtime_error("Blend file does not contain SDNA block");
 	}
+}
+
+OGLPLUS_LIB_FUNC
+const BlendFileBlock& BlendFile::BlockByPointer(
+	BlendFilePointerBase pointer,
+	bool allow_offset
+) const
+{
+	auto ptr = pointer.Value();
+	auto pos = _block_map.find(ptr);
+	if(allow_offset && (pos == _block_map.end()))
+	{
+		auto pos2 = _block_map.lower_bound(ptr);
+		if(pos2 != _block_map.end())
+		{
+			if(pos2 != _block_map.begin())
+			{
+				--pos2;
+				assert(pos2->first < ptr);
+				assert(pos2->second < _blocks.size());
+				std::size_t size = _blocks[pos2->second].Size();
+				if(ptr - pos2->first < size) pos = pos2;
+			}
+		}
+	}
+	if(pos == _block_map.end())
+	{
+		throw std::runtime_error(
+			"Unable to find block by pointer"
+		);
+	}
+	assert(pos->second < _blocks.size());
+
+	return _blocks[pos->second];
+}
+
+OGLPLUS_LIB_FUNC
+BlendFileFlatStructBlockData BlendFile::StructuredBlockByPointer(
+	BlendFilePointer pointer,
+	bool allow_offset,
+	bool use_pointee_struct
+)
+{
+	auto block = BlockByPointer(pointer, allow_offset);
+	auto offset = pointer - block.Pointer();
+	auto block_data = BlockData(block);
+	auto flat_struct =
+		(use_pointee_struct)?
+		Pointee(pointer).AsStructure().Flattened():
+		BlockStructure(block).Flattened();
+
+	return BlendFileFlatStructBlockData(
+		std::move(flat_struct),
+		std::move(block),
+		std::move(block_data),
+		offset
+	);
+}
+
+OGLPLUS_LIB_FUNC
+BlendFileBlockData BlendFile::BlockData(const BlendFileBlock& block)
+{
+	std::vector<char> data;
+	if(block.Size())
+	{
+		data.resize(block.Size());
+		_go_to(_reader, block.DataPosition());
+		_raw_read(
+			_reader,
+			data.data(),
+			data.size(),
+			"Failed to read blend file block data"
+		);
+	}
+	return BlendFileBlockData(
+		std::move(data),
+		_info.ByteOrder(),
+		_info.PointerSize(),
+		_sdna->_type_sizes[
+			_sdna->_structs[block._sdna_index]._type_index
+		]
+	);
+}
+
+OGLPLUS_LIB_FUNC
+BlendFileType BlendFile::TypeByIdx(std::size_t type_index) const
+{
+	if(type_index == _sdna->_invalid_type_index())
+	{
+		throw std::runtime_error("Unknown blender type");
+	}
+	return BlendFileType(
+		_sdna.get(),
+		type_index,
+		_sdna->_type_structs[type_index]
+	);
 }
 #endif
 

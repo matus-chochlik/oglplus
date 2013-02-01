@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -189,12 +189,6 @@ public:
 	> IsMultiObject;
 };
 
-template <typename Id>
-struct ObjectTypeById;
-
-template <typename ObjectOps>
-struct ObjectTypeId;
-
 template <typename Object>
 OGLPLUS_CONSTEXPR inline int GetObjectTypeId(const Object&)
 {
@@ -202,13 +196,6 @@ OGLPLUS_CONSTEXPR inline int GetObjectTypeId(const Object&)
 		typename ObjectBaseOps<Object>::Type
 	>::value;
 }
-
-#define OGLPLUS_OBJECT_TYPE_ID(OBJECT, ID) \
-template <> struct ObjectTypeId<OBJECT##Ops> \
- : public std::integral_constant<int, ID> { }; \
-template <> struct ObjectTypeById<std::integral_constant<int, ID> > \
-{ typedef OBJECT##Ops Type; };
-
 
 // Helper base class for OpenGL object wrappers
 /*

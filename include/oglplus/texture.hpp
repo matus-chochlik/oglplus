@@ -2608,7 +2608,6 @@ class Texture
 { };
 #else
 typedef Object<TextureOps> Texture;
-OGLPLUS_OBJECT_TYPE_ID(Texture, 3)
 #endif
 
 } // namespace oglplus

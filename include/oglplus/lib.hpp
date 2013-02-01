@@ -22,6 +22,8 @@
 
 #include <oglplus/auxiliary/strings.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
+#include <oglplus/auxiliary/uniform_typecheck.hpp>
+#include <oglplus/auxiliary/info_log.hpp>
 
 #include <oglplus/imports/blend_file.hpp>
 

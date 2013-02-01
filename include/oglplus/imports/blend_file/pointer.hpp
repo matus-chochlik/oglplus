@@ -17,16 +17,10 @@
 namespace oglplus {
 namespace imports {
 
-/// Helper type used as a template for pointers in of a .blend file
-template <unsigned Level>
-class BlendFilePointerTpl
+/// Helper type used as a base class for pointers in of a .blend file
+class BlendFilePointerBase
 {
 public:
-	BlendFilePointerTpl(void)
-	 : _value(0)
-	 , _type_index(0)
-	{ }
-
 	/// Type type return by the Value function
 	typedef uint64_t ValueType;
 
@@ -42,8 +36,8 @@ public:
 
 	/// Equality comparison
 	friend bool operator == (
-		const BlendFilePointerTpl& a,
-		const BlendFilePointerTpl& b
+		const BlendFilePointerBase& a,
+		const BlendFilePointerBase& b
 	)
 	{
 		return a._value == b._value;
@@ -51,8 +45,8 @@ public:
 
 	/// Inequality comparison
 	friend bool operator != (
-		const BlendFilePointerTpl& a,
-		const BlendFilePointerTpl& b
+		const BlendFilePointerBase& a,
+		const BlendFilePointerBase& b
 	)
 	{
 		return a._value != b._value;
@@ -63,21 +57,45 @@ public:
 	{
 		return _value;
 	}
+
+protected:
+	BlendFilePointerBase(void)
+	 : _value(0)
+	 , _type_index(0)
+	{ }
+
+	BlendFilePointerBase(ValueType value, std::size_t type_index)
+	 : _value(value)
+	 , _type_index(type_index)
+	{ }
 private:
+	friend class BlendFile;
+
 	uint64_t _value;
 	std::size_t _type_index;
+};
 
+/// Helper type used as a template for pointers in of a .blend file
+template <unsigned Level>
+class BlendFilePointerTpl
+ : public BlendFilePointerBase
+{
+protected:
 	friend class BlendFile;
 	friend class BlendFileBlock;
 	friend class BlendFileBlockData;
 	friend class BlendFileFlatStructBlockData;
 
-	BlendFilePointerTpl(ValueType value, std::size_t type_index)
-	 : _value(value)
-	 , _type_index(type_index)
+	BlendFilePointerTpl(void)
+	 : BlendFilePointerBase()
+	{ }
+
+	BlendFilePointerTpl(
+		BlendFilePointerBase::ValueType value,
+		std::size_t type_index
+	): BlendFilePointerBase(value, type_index)
 	{ }
 };
-
 
 /// Type representing a pointer in of a .blend file
 typedef BlendFilePointerTpl<1> BlendFilePointer;

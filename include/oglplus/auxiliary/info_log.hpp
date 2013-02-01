@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,18 +16,22 @@
 #include <oglplus/error.hpp>
 #include <oglplus/string.hpp>
 
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 #include <vector>
+#endif
 
 namespace oglplus {
 namespace aux {
 
-inline String GetInfoLog(
+OGLPLUS_LIB_FUNC
+String GetInfoLog(
 	GLuint object_name,
 	void (GLAPIENTRY *GetObjectiv)(GLuint, GLenum, GLint*),
 	void (GLAPIENTRY *GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
 	const char* name_GetObjectiv,
 	const char* name_GetObjectInfoLog
 )
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	int length = 0;
 	GetObjectiv(object_name, GL_INFO_LOG_LENGTH, &length);
@@ -47,6 +51,9 @@ inline String GetInfoLog(
 	}
 	else return String();
 }
+#else
+;
+#endif
 
 } // namespace aux
 } // namespace oglplus
