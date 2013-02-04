@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	HintTarget
 > EnumValueRange(HintTarget*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_HINTTARGET)
+#define OGLPLUS_IMPL_EVN_HINTTARGET
 {
 static const GLenum _values[] = {
 #if defined GL_LINE_SMOOTH_HINT
@@ -38,5 +38,7 @@ return aux::CastIterRange<
 	HintTarget
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

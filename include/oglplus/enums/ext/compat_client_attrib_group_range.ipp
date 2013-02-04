@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	CompatibilityClientAttributeGroup
 > EnumValueRange(CompatibilityClientAttributeGroup*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_COMPATIBILITYCLIENTATTRIBUTEGROUP)
+#define OGLPLUS_IMPL_EVN_COMPATIBILITYCLIENTATTRIBUTEGROUP
 {
 static const GLbitfield _values[] = {
 #if defined GL_CLIENT_VERTEX_ARRAY_BIT
@@ -35,5 +35,7 @@ return aux::CastIterRange<
 	CompatibilityClientAttributeGroup
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

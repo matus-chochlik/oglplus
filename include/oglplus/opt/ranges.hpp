@@ -96,12 +96,12 @@ private:
 	{
 		virtual ~_intf(void){ }
 
-		virtual _intf* Clone(void) const = 0;
+		virtual _intf* _clone(void) const = 0;
 
-		virtual bool Empty(void) const = 0;
-		virtual size_t Size(void) const = 0;
-		virtual void Next(void) = 0;
-		virtual Element Front(void) const = 0;
+		virtual bool _empty(void) const = 0;
+		virtual size_t _size(void) const = 0;
+		virtual void _next(void) = 0;
+		virtual Element _front(void) const = 0;
 	};
 
 	template <class Rng>
@@ -115,27 +115,27 @@ private:
 		 : _rng(rng)
 		{ }
 
-		_intf* Clone(void) const
+		_intf* _clone(void) const
 		{
 			return new _impl(*this);
 		}
 
-		bool Empty(void) const
+		bool _empty(void) const
 		{
 			return _rng.Empty();
 		}
 
-		size_t Size(void) const
+		size_t _size(void) const
 		{
 			return _rng.Size();
 		}
 
-		void Next(void)
+		void _next(void)
 		{
 			_rng.Next();
 		}
 
-		Element Front(void) const
+		Element _front(void) const
 		{
 			return _rng.Front();
 		}
@@ -146,7 +146,7 @@ private:
 	static _intf* _clone(_intf* pimpl)
 	{
 		assert(pimpl);
-		return pimpl->Clone();
+		return pimpl->_clone();
 	}
 public:
 	typedef Element ValueType;
@@ -202,28 +202,28 @@ public:
 	bool Empty(void) const
 	{
 		if(!_pimpl) return true;
-		return _pimpl->Empty();
+		return _pimpl->_empty();
 	}
 
 	/// Returns the number of Elements in the range
 	size_t Size(void) const
 	{
 		if(!_pimpl) return 0;
-		return _pimpl->Size();
+		return _pimpl->_size();
 	}
 
 	/// Goes to the next element in the range.
 	void Next(void)
 	{
 		assert(!Empty());
-		_pimpl->Next();
+		_pimpl->_next();
 	}
 
 	/// Returns the element at the front of the range
 	ValueType Front(void) const
 	{
 		assert(!Empty());
-		return _pimpl->Front();
+		return _pimpl->_front();
 	}
 };
 

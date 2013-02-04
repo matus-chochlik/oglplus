@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	PixelDataInternalFormat
 > EnumValueRange(PixelDataInternalFormat*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_PIXELDATAINTERNALFORMAT)
+#define OGLPLUS_IMPL_EVN_PIXELDATAINTERNALFORMAT
 {
 static const GLenum _values[] = {
 #if defined GL_DEPTH_COMPONENT
@@ -323,5 +323,7 @@ return aux::CastIterRange<
 	PixelDataInternalFormat
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

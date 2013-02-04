@@ -9,6 +9,10 @@
 
 #include <oglplus/gl.hpp>
 
+#if OGLPLUS_LINK_LIBRARY
+# include <oglplus/lib.hpp>
+#endif
+
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
 #include <oglplus/glx/version.hpp>
@@ -18,10 +22,6 @@
 #include <oglplus/x11/display.hpp>
 #include <oglplus/os/semaphore.hpp>
 #include <oglplus/os/steady_clock.hpp>
-
-#if OGLPLUS_LINK_LIBRARY
-# include <oglplus/lib.hpp>
-#endif
 
 #include <oglplus/config.hpp>
 #include <oglplus/compile_error.hpp>
@@ -195,7 +195,7 @@ void run(const x11::Display& display, const char* screenshot_path)
 		display,
 		vi,
 		x11::ColorMap(display, vi),
-		"oglplus example window",
+		"OGLplus example",
 		width, height
 	);
 	glx::Context ctx(display, fbc, 3, 3);

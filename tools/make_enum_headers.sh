@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+# Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -184,9 +184,9 @@ do
 	echo "	${EnumClass}*,"
 	echo "	GL${EnumBaseType} value"
 	echo ") OGLPLUS_NOEXCEPT(true)"
-	echo "#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)"
-	echo ";"
-	echo "#else"
+	echo "#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \\"
+	echo "	!defined(OGLPLUS_IMPL_EVN_${EnumClass^^})"
+	echo "#define OGLPLUS_IMPL_EVN_${EnumClass^^}"
 	echo "{"
 	echo "switch(value)"
 	echo "{"
@@ -204,6 +204,8 @@ do
 	echo "OGLPLUS_FAKE_USE(value);"
 	echo "return StrLit();"
 	echo "}"
+	echo "#else"
+	echo ";"
 	echo "#endif"
 	echo
 	)
@@ -229,9 +231,9 @@ do
 	echo "	${EnumClass}"
 	echo "> EnumValueRange(${EnumClass}*)"
 	echo "OGLPLUS_NOEXCEPT(true)"
-	echo "#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)"
-	echo ";"
-	echo "#else"
+	echo "#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \\"
+	echo "	!defined(OGLPLUS_IMPL_EVN_${EnumClass^^})"
+	echo "#define OGLPLUS_IMPL_EVN_${EnumClass^^}"
 	echo "{"
 	echo "static const GL${EnumBaseType} _values[] = {"
 	IFS=':'
@@ -250,6 +252,8 @@ do
 	echo "	${EnumClass}"
 	echo ">(_values, _values+sizeof(_values)/sizeof(_values[0])-1);"
 	echo "}"
+	echo "#else"
+	echo ";"
 	echo "#endif"
 	echo
 	)

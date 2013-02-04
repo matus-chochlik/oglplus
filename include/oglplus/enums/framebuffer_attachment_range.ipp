@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	FramebufferAttachment
 > EnumValueRange(FramebufferAttachment*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_FRAMEBUFFERATTACHMENT)
+#define OGLPLUS_IMPL_EVN_FRAMEBUFFERATTACHMENT
 {
 static const GLenum _values[] = {
 #if defined GL_COLOR_ATTACHMENT0
@@ -83,5 +83,7 @@ return aux::CastIterRange<
 	FramebufferAttachment
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

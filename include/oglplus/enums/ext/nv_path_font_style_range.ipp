@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	PathNVFontStyle
 > EnumValueRange(PathNVFontStyle*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_PATHNVFONTSTYLE)
+#define OGLPLUS_IMPL_EVN_PATHNVFONTSTYLE
 {
 static const GLbitfield _values[] = {
 #if defined GL_BOLD_BIT_NV
@@ -32,5 +32,7 @@ return aux::CastIterRange<
 	PathNVFontStyle
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

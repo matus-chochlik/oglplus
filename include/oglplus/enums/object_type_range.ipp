@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	ObjectType
 > EnumValueRange(ObjectType*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_OBJECTTYPE)
+#define OGLPLUS_IMPL_EVN_OBJECTTYPE
 {
 static const GLenum _values[] = {
 #if defined GL_BUFFER
@@ -59,5 +59,7 @@ return aux::CastIterRange<
 	ObjectType
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

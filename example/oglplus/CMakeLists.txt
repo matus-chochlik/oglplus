@@ -8,10 +8,10 @@ if(OGLPLUS_USE_WXGL)
 	set(OGLPLUS_EXAMPLE_HARNESS "wxgl")
 elseif(OGLPLUS_USE_GLUT)
 	set(OGLPLUS_EXAMPLE_HARNESS "glut")
+else(OGLPLUS_USE_GLX)
+	set(OGLPLUS_EXAMPLE_HARNESS "glx")
 elseif(OGLPLUS_FRAMEDUMP)
 	set(OGLPLUS_EXAMPLE_HARNESS "frame_dump")
-else()
-	set(OGLPLUS_EXAMPLE_HARNESS "glx")
 endif()
 
 # now setup the harness dependencies
@@ -41,7 +41,6 @@ elseif(
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR
 	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "frame_dump")
 )
-	find_package(X11)
 	if(NOT X11_FOUND)
 		message(FATAL_ERROR "X11 is required for this build configuration")
 		return()

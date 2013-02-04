@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	PathNVColorFormat
 > EnumValueRange(PathNVColorFormat*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_PATHNVCOLORFORMAT)
+#define OGLPLUS_IMPL_EVN_PATHNVCOLORFORMAT
 {
 static const GLenum _values[] = {
 #if defined GL_LUMINANCE
@@ -44,5 +44,7 @@ return aux::CastIterRange<
 	PathNVColorFormat
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	DebugOutputARBSource
 > EnumValueRange(DebugOutputARBSource*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_DEBUGOUTPUTARBSOURCE)
+#define OGLPLUS_IMPL_EVN_DEBUGOUTPUTARBSOURCE
 {
 static const GLenum _values[] = {
 #if defined GL_DEBUG_SOURCE_API_ARB
@@ -47,5 +47,7 @@ return aux::CastIterRange<
 	DebugOutputARBSource
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

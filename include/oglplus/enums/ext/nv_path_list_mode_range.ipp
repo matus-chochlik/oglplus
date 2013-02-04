@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	PathNVListMode
 > EnumValueRange(PathNVListMode*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_PATHNVLISTMODE)
+#define OGLPLUS_IMPL_EVN_PATHNVLISTMODE
 {
 static const GLenum _values[] = {
 #if defined GL_ACCUM_ADJACENT_PAIRS_NV
@@ -35,5 +35,7 @@ return aux::CastIterRange<
 	PathNVListMode
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

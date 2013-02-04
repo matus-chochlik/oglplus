@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	MemoryBarrierBit
 > EnumValueRange(MemoryBarrierBit*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_MEMORYBARRIERBIT)
+#define OGLPLUS_IMPL_EVN_MEMORYBARRIERBIT
 {
 static const GLbitfield _values[] = {
 #if defined GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT
@@ -68,5 +68,7 @@ return aux::CastIterRange<
 	MemoryBarrierBit
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

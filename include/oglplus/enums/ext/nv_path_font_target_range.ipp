@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	PathNVFontTarget
 > EnumValueRange(PathNVFontTarget*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_PATHNVFONTTARGET)
+#define OGLPLUS_IMPL_EVN_PATHNVFONTTARGET
 {
 static const GLenum _values[] = {
 #if defined GL_STANDARD_FONT_NAME_NV
@@ -35,5 +35,7 @@ return aux::CastIterRange<
 	PathNVFontTarget
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

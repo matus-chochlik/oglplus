@@ -13,6 +13,7 @@ option(OGLPLUS_FORCE_GL3W "Force use of the GL/gl3w.h header" Off)
 
 option(OGLPLUS_FORCE_WXGL "Force use of the wxGL library" Off)
 option(OGLPLUS_FORCE_GLUT "Force use of the GLUT library" Off)
+option(OGLPLUS_FORCE_GLX  "Force use of the GLX library" Off)
 
 option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
@@ -62,6 +63,8 @@ include(config/FindWXGL.cmake)
 include(config/FindGLM.cmake)
 include(config/FindPNG.cmake)
 include(config/FindPangoCairo.cmake)
+
+find_package(X11)
 
 # enable warnings on gcc
 if(${CMAKE_COMPILER_IS_GNUCXX})
@@ -142,12 +145,23 @@ elseif(${OGLPLUS_FORCE_WXGL})
 		return()
 	endif()
 
+# if wxGL was forced
+elseif(${OGLPLUS_FORCE_GLX})
+	if(X11_FOUND)
+		set(OGLPLUS_USE_GLX 1)
+	else()
+		message(FATAL_ERROR "The X11/GLX library requested but not found!")
+		return()
+	endif()
+
 # if the user didn't specify any preference
 else()
 	if(GLUT_FOUND)
 		set(OGLPLUS_USE_GLUT 1)
 	elseif(wxWidgets_FOUND)
 		set(OGLPLUS_USE_WXGL 1)
+	elseif(X11_FOUND)
+		set(OGLPLUS_USE_GLX 1)
 	else()
 		message(FATAL_ERROR "No OpenGL context initialization library found!")
 	endif()

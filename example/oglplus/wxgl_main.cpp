@@ -790,7 +790,7 @@ public:
 	 : wxFrame(
 		(wxWindow*)0,
 		wxID_ANY,
-		wxT("OGLplus + wxGL + GLEW"),
+		wxT("OGLplus example"),
 		wxDefaultPosition,
 		wxSize(300, 600)
 	), status_bar(new wxStatusBar(this))

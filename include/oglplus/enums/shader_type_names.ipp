@@ -13,9 +13,9 @@ OGLPLUS_LIB_FUNC StrLit EnumValueName(
 	ShaderType*,
 	GLenum value
 ) OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_SHADERTYPE)
+#define OGLPLUS_IMPL_EVN_SHADERTYPE
 {
 switch(value)
 {
@@ -42,5 +42,7 @@ switch(value)
 OGLPLUS_FAKE_USE(value);
 return StrLit();
 }
+#else
+;
 #endif
 

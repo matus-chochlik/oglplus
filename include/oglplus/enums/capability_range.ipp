@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	Capability
 > EnumValueRange(Capability*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_CAPABILITY)
+#define OGLPLUS_IMPL_EVN_CAPABILITY
 {
 static const GLenum _values[] = {
 #if defined GL_PRIMITIVE_RESTART
@@ -92,5 +92,7 @@ return aux::CastIterRange<
 	Capability
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

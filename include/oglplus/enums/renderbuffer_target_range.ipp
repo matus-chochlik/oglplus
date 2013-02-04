@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	RenderbufferTarget
 > EnumValueRange(RenderbufferTarget*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_RENDERBUFFERTARGET)
+#define OGLPLUS_IMPL_EVN_RENDERBUFFERTARGET
 {
 static const GLenum _values[] = {
 #if defined GL_RENDERBUFFER
@@ -29,5 +29,7 @@ return aux::CastIterRange<
 	RenderbufferTarget
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

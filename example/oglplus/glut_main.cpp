@@ -200,7 +200,7 @@ int main(int argc, char* argv[])
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(100,100);
-	glutCreateWindow(argv[0]);
+	glutCreateWindow("OGLplus example");
 
 	try
 	{

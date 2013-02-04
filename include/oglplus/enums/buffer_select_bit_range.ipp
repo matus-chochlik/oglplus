@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	BufferSelectBit
 > EnumValueRange(BufferSelectBit*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_BUFFERSELECTBIT)
+#define OGLPLUS_IMPL_EVN_BUFFERSELECTBIT
 {
 static const GLbitfield _values[] = {
 #if defined GL_COLOR_BUFFER_BIT
@@ -35,5 +35,7 @@ return aux::CastIterRange<
 	BufferSelectBit
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

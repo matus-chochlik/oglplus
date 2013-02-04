@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	LimitQuery
 > EnumValueRange(LimitQuery*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_LIMITQUERY)
+#define OGLPLUS_IMPL_EVN_LIMITQUERY
 {
 static const GLenum _values[] = {
 #if defined GL_MAX_3D_TEXTURE_SIZE
@@ -350,5 +350,7 @@ return aux::CastIterRange<
 	LimitQuery
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 

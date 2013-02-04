@@ -14,9 +14,9 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	PixelDataFormat
 > EnumValueRange(PixelDataFormat*)
 OGLPLUS_NOEXCEPT(true)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVN_PIXELDATAFORMAT)
+#define OGLPLUS_IMPL_EVN_PIXELDATAFORMAT
 {
 static const GLenum _values[] = {
 #if defined GL_STENCIL_INDEX
@@ -83,5 +83,7 @@ return aux::CastIterRange<
 	PixelDataFormat
 >(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
 }
+#else
+;
 #endif
 
