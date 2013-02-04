@@ -1,13 +1,13 @@
 /*
- *  .file example/wxgl_glew_main.cpp
- *  Implements wxGL/GLEW-based program main function for running examples
+ *  .file example/wxgl_main.cpp
+ *  Implements wxGL-based program main function for running examples
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#include <GL/glew.h>
+#include <oglplus/gl.hpp>
 
 #include <wx/wx.h>
 #include <wx/sizer.h>
@@ -770,7 +770,9 @@ private:
 		Layout();
 	}
 
-	ExampleFrame* example_frame;
+	oglplus::GLAPIInitializer *api_init;
+
+	ExampleFrame *example_frame;
 
 	void OnClose(wxCloseEvent& event)
 	{
@@ -801,14 +803,16 @@ public:
 			wxDefaultSize
 		)
 	), gl_context(tmp_canvas)
+	 , api_init(nullptr)
 	 , example_frame(nullptr)
 	{
 		InitComponents(example_name);
 		Show();
-		SetStatus(wxT("Initializing GLEW"));
+		SetStatus(wxT("Initializing GL"));
 		gl_context.SetCurrent(*tmp_canvas);
-		if(glewInit() != GLEW_OK) throw std::runtime_error("GLEW init error");
-		glGetError();
+
+		api_init = new oglplus::GLAPIInitializer();
+
 		delete tmp_canvas;
 		SetStatus(wxT("Ready"));
 
@@ -825,6 +829,11 @@ public:
 		);
 
 		SetStatus(wxT("Running"));
+	}
+
+	~MainFrame(void)
+	{
+		delete api_init;
 	}
 };
 

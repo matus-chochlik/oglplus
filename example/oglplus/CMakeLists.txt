@@ -1,15 +1,13 @@
-#  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 cmake_minimum_required(VERSION 2.8)
 
-if(OGLPLUS_USE_GLEW)
-	if(OGLPLUS_USE_WXGL)
-		set(OGLPLUS_EXAMPLE_HARNESS "wxgl_glew")
-	else()
-		set(OGLPLUS_EXAMPLE_HARNESS "glut_glew")
-	endif()
+if(OGLPLUS_USE_WXGL)
+	set(OGLPLUS_EXAMPLE_HARNESS "wxgl")
+elseif(OGLPLUS_USE_GLUT)
+	set(OGLPLUS_EXAMPLE_HARNESS "glut")
 elseif(OGLPLUS_FRAMEDUMP)
 	set(OGLPLUS_EXAMPLE_HARNESS "frame_dump")
 else()
@@ -19,7 +17,7 @@ endif()
 # now setup the harness dependencies
 #
 # the GLUT/GLEW combination
-if(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew"))
+if(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut"))
 	if(NOT GLUT_FOUND)
 		message(FATAL_ERROR "GLUT is required for this build configuration")
 		return()
@@ -29,7 +27,7 @@ if(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut_glew"))
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLUT_LIBRARIES})
 
 # the WXGL/GLEW combination
-elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "wxgl_glew"))
+elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "wxgl"))
 	if(NOT wxWidgets_FOUND)
 		message(FATAL_ERROR "wxGL is required for this build configuration")
 		return()

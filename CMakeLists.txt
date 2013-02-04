@@ -12,6 +12,7 @@ option(OGLPLUS_FORCE_GLEW "Force use of the GL/glew.h header" Off)
 option(OGLPLUS_FORCE_GL3W "Force use of the GL/gl3w.h header" Off)
 
 option(OGLPLUS_FORCE_WXGL "Force use of the wxGL library" Off)
+option(OGLPLUS_FORCE_GLUT "Force use of the GLUT library" Off)
 
 option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
@@ -115,22 +116,40 @@ else()
 		set(OGLPLUS_USE_GLEW 1)
 	elseif(GL3W_FOUND)
 		set(OGLPLUS_USE_GL3W 1)
+	else()
+		message(FATAL_ERROR "No OpenGL API library found!")
 	endif()
 endif()
 
+#
+# We'll also need a OpenGL context initialization/window-system library
+#
+# if GLUT was forced
+if(${OGLPLUS_FORCE_GLUT})
+	if(GLUT_FOUND)
+		set(OGLPLUS_USE_GLUT 1)
+	else()
+		message(FATAL_ERROR "The GLUT library requested but not found!")
+		return()
+	endif()
+
 # if wxGL was forced
-if(${OGLPLUS_FORCE_WXGL})
+elseif(${OGLPLUS_FORCE_WXGL})
 	if(wxWidgets_FOUND)
 		set(OGLPLUS_USE_WXGL 1)
 	else()
 		message(FATAL_ERROR "The wxGL library requested but not found!")
 		return()
 	endif()
+
+# if the user didn't specify any preference
 else()
 	if(GLUT_FOUND)
 		set(OGLPLUS_USE_GLUT 1)
 	elseif(wxWidgets_FOUND)
 		set(OGLPLUS_USE_WXGL 1)
+	else()
+		message(FATAL_ERROR "No OpenGL context initialization library found!")
 	endif()
 endif()
 

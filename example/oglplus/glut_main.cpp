@@ -1,15 +1,13 @@
 /*
- *  .file example/glut_glew_main.cpp
- *  Implements GLUT/GLEW-based program main function for running examples
+ *  .file example/glut_main.cpp
+ *  Implements GLUT-based program main function for running examples
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#include <GL/glew.h>
-
-#include <oglplus/site_config.hpp>
+#include <oglplus/gl.hpp>
 
 #if OGLPLUS_USE_FREEGLUT
 # include <GL/freeglut.h>
@@ -20,6 +18,8 @@
 #include <cassert>
 #include <iostream>
 #include <iomanip>
+
+#include <oglplus/site_config.hpp>
 
 #if OGLPLUS_LINK_LIBRARY
 # include <oglplus/lib.hpp>
@@ -200,11 +200,11 @@ int main(int argc, char* argv[])
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(100,100);
-	glutCreateWindow("OGLplus+GLUT+GLEW");
+	glutCreateWindow(argv[0]);
 
-	if(glewInit() == GLEW_OK) try
+	try
 	{
-		glGetError();
+		oglplus::GLAPIInitializer api_init;
 		using oglplus::SingleExample;
 
 		SingleExample example(width, height);

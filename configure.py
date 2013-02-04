@@ -252,13 +252,22 @@ def parse_arguments():
 		"--use-gl-window-lib",
 		dest="gl_window_lib",
 		type=str,
-		choices=["WXGL"],
+		choices=["GLUT", "WXGL"],
 		action="store",
 		default=None,
 		help="""
 			Forces the use of a specific window library which
 			initializes the default GL context. This option allows
 			to force a specific example 'harness'.
+		"""
+	)
+	argparser_gl_window_lib_group.add_argument(
+		"--use-glut",
+		dest="gl_window_lib",
+		action="store_const",
+		const="GLUT",
+		help="""
+			Equivalent to --use-gl-window-lib=GLUT.
 		"""
 	)
 	argparser_gl_window_lib_group.add_argument(
