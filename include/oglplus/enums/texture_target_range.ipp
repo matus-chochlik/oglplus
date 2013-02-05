@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(TextureTarget*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_TEXTURETARGET)
-#define OGLPLUS_IMPL_EVN_TEXTURETARGET
+	!defined(OGLPLUS_IMPL_EVR_TEXTURETARGET)
+#define OGLPLUS_IMPL_EVR_TEXTURETARGET
 {
 static const GLenum _values[] = {
 #if defined GL_TEXTURE_1D

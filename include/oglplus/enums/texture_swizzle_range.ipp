@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(TextureSwizzle*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_TEXTURESWIZZLE)
-#define OGLPLUS_IMPL_EVN_TEXTURESWIZZLE
+	!defined(OGLPLUS_IMPL_EVR_TEXTURESWIZZLE)
+#define OGLPLUS_IMPL_EVR_TEXTURESWIZZLE
 {
 static const GLenum _values[] = {
 #if defined GL_RED

@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(DataType*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_DATATYPE)
-#define OGLPLUS_IMPL_EVN_DATATYPE
+	!defined(OGLPLUS_IMPL_EVR_DATATYPE)
+#define OGLPLUS_IMPL_EVR_DATATYPE
 {
 static const GLenum _values[] = {
 #if defined GL_BYTE

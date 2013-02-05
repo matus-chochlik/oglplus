@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(ShaderType*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_SHADERTYPE)
-#define OGLPLUS_IMPL_EVN_SHADERTYPE
+	!defined(OGLPLUS_IMPL_EVR_SHADERTYPE)
+#define OGLPLUS_IMPL_EVR_SHADERTYPE
 {
 static const GLenum _values[] = {
 #if defined GL_VERTEX_SHADER

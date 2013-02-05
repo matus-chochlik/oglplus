@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(Functionality*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_FUNCTIONALITY)
-#define OGLPLUS_IMPL_EVN_FUNCTIONALITY
+	!defined(OGLPLUS_IMPL_EVR_FUNCTIONALITY)
+#define OGLPLUS_IMPL_EVR_FUNCTIONALITY
 {
 static const GLenum _values[] = {
 #if defined GL_CLIP_DISTANCE0

@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(SyncStatus*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_SYNCSTATUS)
-#define OGLPLUS_IMPL_EVN_SYNCSTATUS
+	!defined(OGLPLUS_IMPL_EVR_SYNCSTATUS)
+#define OGLPLUS_IMPL_EVR_SYNCSTATUS
 {
 static const GLenum _values[] = {
 #if defined GL_SIGNALED

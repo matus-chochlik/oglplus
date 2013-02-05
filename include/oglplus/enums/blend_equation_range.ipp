@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(BlendEquation*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_BLENDEQUATION)
-#define OGLPLUS_IMPL_EVN_BLENDEQUATION
+	!defined(OGLPLUS_IMPL_EVR_BLENDEQUATION)
+#define OGLPLUS_IMPL_EVR_BLENDEQUATION
 {
 static const GLenum _values[] = {
 #if defined GL_FUNC_ADD

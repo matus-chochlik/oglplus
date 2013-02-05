@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(BufferTarget*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_BUFFERTARGET)
-#define OGLPLUS_IMPL_EVN_BUFFERTARGET
+	!defined(OGLPLUS_IMPL_EVR_BUFFERTARGET)
+#define OGLPLUS_IMPL_EVR_BUFFERTARGET
 {
 static const GLenum _values[] = {
 #if defined GL_ARRAY_BUFFER

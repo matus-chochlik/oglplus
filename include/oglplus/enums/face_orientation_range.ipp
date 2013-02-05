@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(FaceOrientation*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_FACEORIENTATION)
-#define OGLPLUS_IMPL_EVN_FACEORIENTATION
+	!defined(OGLPLUS_IMPL_EVR_FACEORIENTATION)
+#define OGLPLUS_IMPL_EVR_FACEORIENTATION
 {
 static const GLenum _values[] = {
 #if defined GL_CW

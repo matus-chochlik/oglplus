@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(QueryTarget*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_QUERYTARGET)
-#define OGLPLUS_IMPL_EVN_QUERYTARGET
+	!defined(OGLPLUS_IMPL_EVR_QUERYTARGET)
+#define OGLPLUS_IMPL_EVR_QUERYTARGET
 {
 static const GLenum _values[] = {
 #if defined GL_TIME_ELAPSED

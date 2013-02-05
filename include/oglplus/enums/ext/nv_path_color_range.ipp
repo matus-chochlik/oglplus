@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(PathNVColor*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_PATHNVCOLOR)
-#define OGLPLUS_IMPL_EVN_PATHNVCOLOR
+	!defined(OGLPLUS_IMPL_EVR_PATHNVCOLOR)
+#define OGLPLUS_IMPL_EVR_PATHNVCOLOR
 {
 static const GLenum _values[] = {
 #if defined GL_PRIMARY_COLOR_NV

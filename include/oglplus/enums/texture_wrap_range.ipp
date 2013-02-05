@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(TextureWrap*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_TEXTUREWRAP)
-#define OGLPLUS_IMPL_EVN_TEXTUREWRAP
+	!defined(OGLPLUS_IMPL_EVR_TEXTUREWRAP)
+#define OGLPLUS_IMPL_EVR_TEXTUREWRAP
 {
 static const GLenum _values[] = {
 #if defined GL_CLAMP_TO_EDGE

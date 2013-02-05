@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(Face*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_FACE)
-#define OGLPLUS_IMPL_EVN_FACE
+	!defined(OGLPLUS_IMPL_EVR_FACE)
+#define OGLPLUS_IMPL_EVR_FACE
 {
 static const GLenum _values[] = {
 #if defined GL_FRONT

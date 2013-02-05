@@ -15,8 +15,8 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 > EnumValueRange(StringQuery*)
 OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
-	!defined(OGLPLUS_IMPL_EVN_STRINGQUERY)
-#define OGLPLUS_IMPL_EVN_STRINGQUERY
+	!defined(OGLPLUS_IMPL_EVR_STRINGQUERY)
+#define OGLPLUS_IMPL_EVR_STRINGQUERY
 {
 static const GLenum _values[] = {
 #if defined GL_RENDERER

@@ -232,8 +232,8 @@ do
 	echo "> EnumValueRange(${EnumClass}*)"
 	echo "OGLPLUS_NOEXCEPT(true)"
 	echo "#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \\"
-	echo "	!defined(OGLPLUS_IMPL_EVN_${EnumClass^^})"
-	echo "#define OGLPLUS_IMPL_EVN_${EnumClass^^}"
+	echo "	!defined(OGLPLUS_IMPL_EVR_${EnumClass^^})"
+	echo "#define OGLPLUS_IMPL_EVR_${EnumClass^^}"
 	echo "{"
 	echo "static const GL${EnumBaseType} _values[] = {"
 	IFS=':'
