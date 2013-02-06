@@ -173,7 +173,9 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 
 			add_dependencies(${TARGET_NAME} oglplus-textures)
 
-			if(NOT OGLPLUS_NO_SCREENSHOTS AND EXISTS ${SCREENSHOT_MAKER})
+		endif()
+		if(NOT OGLPLUS_NO_SCREENSHOTS AND EXISTS ${SCREENSHOT_MAKER})
+			if(EXAMPLE_CAN_BE_BUILT)
 				add_custom_command(
 					OUTPUT ${EXAMPLE_NAME}.png
 					COMMAND ${SCREENSHOT_MAKER}
@@ -182,10 +184,18 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 						${SCREENSHOT_CONVERT}
 					DEPENDS ${EXAMPLE_NAME}
 				)
-
-				add_custom_target("${EXAMPLE_NAME}-screenshot" DEPENDS ${EXAMPLE_NAME}.png)
-				add_dependencies("${PARENT_TARGET}-screenshots" "${EXAMPLE_NAME}-screenshot")
+			else()
+				add_custom_command(
+					OUTPUT ${EXAMPLE_NAME}.png
+					COMMAND ${SCREENSHOT_MAKER}
+						${EXAMPLE_NAME}
+						${EXAMPLE_NAME}.png
+						${SCREENSHOT_CONVERT}
+				)
 			endif()
+
+			add_custom_target("${EXAMPLE_NAME}-screenshot" DEPENDS ${EXAMPLE_NAME}.png)
+			add_dependencies("${PARENT_TARGET}-screenshots" "${EXAMPLE_NAME}-screenshot")
 		endif()
 	endforeach()
 endfunction(add_examples)

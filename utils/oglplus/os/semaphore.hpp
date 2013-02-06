@@ -35,17 +35,35 @@ private:
 		if(::semop(_sem, &param, 1) < 0)
 			throw std::runtime_error("Semaphore operation failed");
 	}
-public:
-	Semaphore(::key_t key, unsigned max = 1, bool master = false)
-	 : _sem(::semget(key, 1, 0644 | IPC_CREAT | (master?IPC_EXCL:0)))
-	 , _master(master)
+
+	static int _init_sem(::key_t key, int max, bool master)
 	{
-		if(_sem < 0)
-			throw std::runtime_error("Semaphore construction failed");
-		int initial = max;
-		if(::semctl(_sem, 0, SETVAL, initial) < 0)
-			throw std::runtime_error("Semaphore initialization failed");
+		int flg = 0600;
+		if(master) flg |= IPC_EXCL;
+		int result = ::semget(key, 1, flg);
+		if(result < 0)
+		{
+			result = ::semget(key, 1, flg | IPC_CREAT);
+			if(result < 0)
+			{
+				throw std::runtime_error(
+					"Semaphore construction failed"
+				);
+			}
+			if(::semctl(result, 0, SETVAL, max) < 0)
+			{
+				throw std::runtime_error(
+					"Semaphore initialization failed"
+				);
+			}
+		}
+		return result;
 	}
+public:
+	Semaphore(::key_t key, int max = 1, bool master = false)
+	 : _sem(_init_sem(key, max, master))
+	 , _master(master)
+	{ }
 
 	Semaphore(const Semaphore&) = delete;
 
@@ -69,14 +87,13 @@ class CriticalSection
 {
 private:
 	Semaphore _sem;
+	CriticalSection(const CriticalSection&);
 public:
 	CriticalSection(key_t key)
 	 : _sem(key)
 	{
 		_sem.Wait();
 	}
-
-	CriticalSection(const CriticalSection&) = delete;
 
 	~CriticalSection(void)
 	{

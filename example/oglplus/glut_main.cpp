@@ -36,6 +36,7 @@
 #include <oglplus/query.hpp>
 
 #include <oglplus/os/steady_clock.hpp>
+#include <oglplus/os/semaphore.hpp>
 
 #include "example.hpp"
 
@@ -237,6 +238,7 @@ public:
 
 int main(int argc, char* argv[])
 {
+	oglplus::os::CriticalSection cs(0x091);
 	oglplus::Application::ParseCommandLineOptions(argc, argv);
 
 	GLuint width = 800, height = 600;
