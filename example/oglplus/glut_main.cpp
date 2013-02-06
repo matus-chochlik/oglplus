@@ -15,9 +15,12 @@
 # include <GL/glut.h>
 #endif
 
+#include <cstring>
 #include <cassert>
+#include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <vector>
 
 #include <oglplus/site_config.hpp>
 
@@ -56,6 +59,8 @@ private:
 	std::unique_ptr<Example> _example;
 	std::unique_ptr<Query> _primitive_query;
 
+	const char* _screenshot_path;
+
 	SingleExample(const SingleExample&);
 public:
 
@@ -65,7 +70,7 @@ public:
 		return SingleInstance()->_example.get();
 	}
 
-	SingleExample(GLuint width, GLuint height)
+	SingleExample(GLuint width, GLuint height, const char* screenshot_path)
 	 : _fps_time(0.0)
 	 , _prim_count(0.0)
 	 , _frame_no(0)
@@ -74,6 +79,7 @@ public:
 	 , _params()
 	 , _example(makeExample(_params))
 	 , _primitive_query(new Query())
+	 , _screenshot_path(screenshot_path)
 	{
 		assert(!SingleInstance());
 		SingleInstance() = this;
@@ -81,12 +87,24 @@ public:
 		_example->Reshape(width, height);
 		_example->MouseMove(width/2, height/2, width, height);
 		_os_clock.reset();
+
+		if(_screenshot_path)
+			_clock.Update(_example->HeatUpTime());
 	}
 
 	~SingleExample(void)
 	{
 		assert(SingleInstance());
 		SingleInstance() = nullptr;
+	}
+
+	void Quit(void)
+	{
+#if OGLPLUS_USE_FREEGLUT
+		glutLeaveMainLoop();
+#else
+		exit(0);
+#endif
 	}
 
 	void Close(void)
@@ -142,6 +160,35 @@ public:
 		SingleInstance()->Display();
 	}
 
+	void Screenshot(void)
+	{
+		_example->Render(_clock);
+		if(_clock.Now().Seconds() >= _example->ScreenshotTime())
+		{
+			glFinish();
+			std::vector<char> pixels(_width * _height * 3);
+			glReadPixels(
+				0, 0,
+				_width,
+				_height,
+				GL_RGB,
+				GL_UNSIGNED_BYTE,
+				pixels.data()
+			);
+			std::ofstream output(_screenshot_path);
+			output.write(pixels.data(), pixels.size());
+			Quit();
+		}
+		glutSwapBuffers();
+		_clock.Advance(_example->FrameTime());
+	}
+
+	static void ScreenshotFunc(void)
+	{
+		assert(SingleInstance());
+		SingleInstance()->Screenshot();
+	}
+
 	void Reshape(int width, int height)
 	{
 		_width = width;
@@ -175,11 +222,8 @@ public:
 	{
 		if(k == 0x1B) // Escape
 		{
-#if OGLPLUS_USE_FREEGLUT
-			glutLeaveMainLoop();
-#else
-			exit(0);
-#endif
+			assert(SingleInstance());
+			SingleInstance()->Quit();
 		}
 		else
 		{
@@ -207,9 +251,21 @@ int main(int argc, char* argv[])
 		oglplus::GLAPIInitializer api_init;
 		using oglplus::SingleExample;
 
-		SingleExample example(width, height);
-		glutDisplayFunc(&SingleExample::DisplayFunc);
-		glutIdleFunc(&SingleExample::DisplayFunc);
+		const char* screenshot_path = nullptr;
+		if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+			screenshot_path = argv[2];
+
+		SingleExample example(width, height, screenshot_path);
+		if(screenshot_path)
+		{
+			glutDisplayFunc(&SingleExample::ScreenshotFunc);
+			glutIdleFunc(&SingleExample::ScreenshotFunc);
+		}
+		else
+		{
+			glutDisplayFunc(&SingleExample::DisplayFunc);
+			glutIdleFunc(&SingleExample::DisplayFunc);
+		}
 		glutReshapeFunc(&SingleExample::ReshapeFunc);
 
 		if(example->UsesMouseMotion())

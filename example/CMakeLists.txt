@@ -146,6 +146,18 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 
 	fetch_all_dependent_examples()
 
+	if(${WIN32})
+		set(SCREENSHOT_MAKER "${PROJECT_SOURCE_DIR}/config/make_screenshot.bat")
+	else()
+		set(SCREENSHOT_MAKER "${PROJECT_SOURCE_DIR}/config/make_screenshot.sh")
+	endif()
+
+	if(${ImageMagick_convert_FOUND})
+		set(SCREENSHOT_CONVERT ${ImageMagick_convert_EXECUTABLE})
+	else()
+		set(SCREENSHOT_CONVERT "")
+	endif()
+
 	foreach(EXAMPLE_PATH ${EXAMPLES})
 		get_filename_component(EXAMPLE_NAME "${EXAMPLE_PATH}" NAME_WE)
 		set(TARGET_NAME "${EXAMPLE_NAME}")
@@ -161,29 +173,18 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 
 			add_dependencies(${TARGET_NAME} oglplus-textures)
 
-			if(NOT OGLPLUS_NO_SCREENSHOTS)
+			if(NOT OGLPLUS_NO_SCREENSHOTS AND EXISTS ${SCREENSHOT_MAKER})
 				add_custom_command(
-					OUTPUT ${EXAMPLE_NAME}.rgb
-					COMMAND ${EXAMPLE_NAME} --screenshot ${EXAMPLE_NAME}.rgb
+					OUTPUT ${EXAMPLE_NAME}.png
+					COMMAND ${SCREENSHOT_MAKER}
+						${EXAMPLE_NAME}
+						${EXAMPLE_NAME}.png
+						${SCREENSHOT_CONVERT}
 					DEPENDS ${EXAMPLE_NAME}
 				)
 
-				if(${ImageMagick_convert_FOUND})
-					add_custom_command(
-						OUTPUT ${EXAMPLE_NAME}.png
-						COMMAND ${ImageMagick_convert_EXECUTABLE}
-							-depth 8
-							-size 800x600
-							${EXAMPLE_NAME}.rgb
-							-flip
-							-adaptive-resize 400x300
-							${EXAMPLE_NAME}.png
-						DEPENDS ${EXAMPLE_NAME}.rgb
-					)
-
-					add_custom_target("${EXAMPLE_NAME}-screenshot" DEPENDS ${EXAMPLE_NAME}.png)
-					add_dependencies("${PARENT_TARGET}-screenshots" "${EXAMPLE_NAME}-screenshot")
-				endif()
+				add_custom_target("${EXAMPLE_NAME}-screenshot" DEPENDS ${EXAMPLE_NAME}.png)
+				add_dependencies("${PARENT_TARGET}-screenshots" "${EXAMPLE_NAME}-screenshot")
 			endif()
 		endif()
 	endforeach()

@@ -118,6 +118,14 @@ public:
 		_curr_time = _past + (_real_time - _start) * _pace;
 	}
 
+	/// Advances the clock
+	void Advance(double seconds)
+	{
+		_prev_time = _curr_time;
+		_real_time += seconds;
+		_curr_time = _past + (_real_time - _start) * _pace;
+	}
+
 	/// Set the pace by which the sim. time advances compared to real-time
 	void Pace(double pace)
 	{
