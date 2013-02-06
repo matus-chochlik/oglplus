@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#pragma once
 #ifndef OGLPLUS_TEXT_BITMAP_GLYPH_PAGE_STORAGE_HPP
 #define OGLPLUS_TEXT_BITMAP_GLYPH_PAGE_STORAGE_HPP
 

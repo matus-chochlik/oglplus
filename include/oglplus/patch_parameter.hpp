@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#pragma once
 #ifndef OGLPLUS_PATCH_PARAMETER_1301211323_HPP
 #define OGLPLUS_PATCH_PARAMETER_1301211323_HPP
 

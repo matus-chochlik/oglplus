@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#pragma once
 #ifndef OGLPLUS_AUX_INFO_LOG_1107121519_HPP
 #define OGLPLUS_AUX_INFO_LOG_1107121519_HPP
 

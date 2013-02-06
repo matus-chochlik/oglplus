@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#pragma once
 #ifndef OGLPLUS_IMPORTS_BLEND_FILE_READER_CLIENT_1107121519_HPP
 #define OGLPLUS_IMPORTS_BLEND_FILE_READER_CLIENT_1107121519_HPP
 

@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#pragma once
 #ifndef OGLPLUS_SHAPES_BLENDER_MESH_1206011111_HPP
 #define OGLPLUS_SHAPES_BLENDER_MESH_1206011111_HPP
 

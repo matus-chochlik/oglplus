@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#pragma once
 #ifndef OGLPLUS_IMAGES_GRADIENT_1211090818_HPP
 #define OGLPLUS_IMAGES_GRADIENT_1211090818_HPP
 

@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#pragma once
 #ifndef OGLPLUS_EXT_NV_PATH_RENDERING_1203031902_HPP
 #define OGLPLUS_EXT_NV_PATH_RENDERING_1203031902_HPP
 
