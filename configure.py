@@ -252,7 +252,7 @@ def parse_arguments():
 		"--use-gl-window-lib",
 		dest="gl_window_lib",
 		type=str,
-		choices=["GLUT", "WXGL", "GLX"],
+		choices=["GLUT", "GLFW", "WXGL", "GLX"],
 		action="store",
 		default=None,
 		help="""
@@ -268,6 +268,15 @@ def parse_arguments():
 		const="GLUT",
 		help="""
 			Equivalent to --use-gl-window-lib=GLUT.
+		"""
+	)
+	argparser_gl_window_lib_group.add_argument(
+		"--use-glfw",
+		dest="gl_window_lib",
+		action="store_const",
+		const="GLFW",
+		help="""
+			Equivalent to --use-gl-window-lib=GLFW.
 		"""
 	)
 	argparser_gl_window_lib_group.add_argument(

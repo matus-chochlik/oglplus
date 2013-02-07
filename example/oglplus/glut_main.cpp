@@ -30,15 +30,13 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
-#include <oglplus/compile_error.hpp>
-#include <oglplus/opt/application.hpp>
 
 #include <oglplus/query.hpp>
 
 #include <oglplus/os/steady_clock.hpp>
-#include <oglplus/os/semaphore.hpp>
 
 #include "example.hpp"
+#include "example_main.hpp"
 
 namespace oglplus {
 
@@ -236,11 +234,8 @@ public:
 
 } // namespace oglplus
 
-int main(int argc, char* argv[])
+int glut_example_main(int argc, char ** argv)
 {
-	oglplus::os::CriticalSection cs(0x091);
-	oglplus::Application::ParseCommandLineOptions(argc, argv);
-
 	GLuint width = 800, height = 600;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
@@ -248,89 +243,47 @@ int main(int argc, char* argv[])
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("OGLplus example");
 
-	try
+	oglplus::GLAPIInitializer api_init;
+	using oglplus::SingleExample;
+
+	const char* screenshot_path = nullptr;
+	if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+		screenshot_path = argv[2];
+
+	SingleExample example(width, height, screenshot_path);
+	if(screenshot_path)
 	{
-		oglplus::GLAPIInitializer api_init;
-		using oglplus::SingleExample;
+		glutDisplayFunc(&SingleExample::ScreenshotFunc);
+		glutIdleFunc(&SingleExample::ScreenshotFunc);
+	}
+	else
+	{
+		glutDisplayFunc(&SingleExample::DisplayFunc);
+		glutIdleFunc(&SingleExample::DisplayFunc);
+	}
+	glutReshapeFunc(&SingleExample::ReshapeFunc);
 
-		const char* screenshot_path = nullptr;
-		if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
-			screenshot_path = argv[2];
+	if(example->UsesMouseMotion())
+	{
+		glutMotionFunc(&SingleExample::MotionFunc);
+		glutPassiveMotionFunc(&SingleExample::MotionFunc);
+	}
 
-		SingleExample example(width, height, screenshot_path);
-		if(screenshot_path)
-		{
-			glutDisplayFunc(&SingleExample::ScreenshotFunc);
-			glutIdleFunc(&SingleExample::ScreenshotFunc);
-		}
-		else
-		{
-			glutDisplayFunc(&SingleExample::DisplayFunc);
-			glutIdleFunc(&SingleExample::DisplayFunc);
-		}
-		glutReshapeFunc(&SingleExample::ReshapeFunc);
-
-		if(example->UsesMouseMotion())
-		{
-			glutMotionFunc(&SingleExample::MotionFunc);
-			glutPassiveMotionFunc(&SingleExample::MotionFunc);
-		}
-
-		glutKeyboardFunc(&SingleExample::KeyboardFunc);
+	glutKeyboardFunc(&SingleExample::KeyboardFunc);
 #if OGLPLUS_USE_FREEGLUT
-		glutSetOption(
-			GLUT_ACTION_ON_WINDOW_CLOSE,
-			GLUT_ACTION_GLUTMAINLOOP_RETURNS
-		);
-		glutCloseFunc(&SingleExample::CloseFunc);
+	glutSetOption(
+		GLUT_ACTION_ON_WINDOW_CLOSE,
+		GLUT_ACTION_GLUTMAINLOOP_RETURNS
+	);
+	glutCloseFunc(&SingleExample::CloseFunc);
 #endif
 
-		glutMainLoop();
-		return 0;
-	}
-	catch(oglplus::ProgramBuildError& pbe)
-	{
-		std::cerr <<
-			"Error (in " << pbe.GLSymbol() << ", " <<
-			pbe.ClassName() << " (" <<
-			pbe.BindTarget() << "): '" <<
-			pbe.ObjectDescription() << "'): " <<
-			pbe.what() << ": " <<
-			pbe.Log() <<
-			std::endl;
-		pbe.Cleanup();
-	}
-	catch(oglplus::LimitError& le)
-	{
-		std::cerr <<
-			"Limit error: ("<< le.Value() << ") exceeds (" <<
-			le.GLSymbol() << " == " << le.Limit() << ") " <<
-			" [" << le.File() << ":" << le.Line() << "] " <<
-			std::endl;
-		le.Cleanup();
-	}
-	catch(oglplus::Error& err)
-	{
-		std::cerr <<
-			"Error (in " << err.GLSymbol() << ", " <<
-			err.ClassName() << ": '" <<
-			err.ObjectDescription() << "' bound to '" <<
-			err.BindTarget() << "'): " <<
-			err.what() <<
-			" [" << err.File() << ":" << err.Line() << "] ";
-		auto i = err.Properties().begin(), e = err.Properties().end();
-		while(i != e)
-		{
-			std::cerr << "<" << i->first << "='" << i->second << "'>";
-			++i;
-		}
-		std::cerr <<std::endl;
-		err.Cleanup();
-	}
-	catch(std::exception& se)
-	{
-		std::cerr << "Error: " << se.what() << std::endl;
-	}
-	return 1;
+	glutMainLoop();
+	return 0;
+}
+
+int main(int argc, char* argv[])
+{
+	return oglplus::example_main(glut_example_main, argc, argv);
 }
 

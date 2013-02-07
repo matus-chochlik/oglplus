@@ -8,6 +8,8 @@ if(OGLPLUS_USE_WXGL)
 	set(OGLPLUS_EXAMPLE_HARNESS "wxgl")
 elseif(OGLPLUS_USE_GLUT)
 	set(OGLPLUS_EXAMPLE_HARNESS "glut")
+else(OGLPLUS_USE_GLFW)
+	set(OGLPLUS_EXAMPLE_HARNESS "glfw")
 else(OGLPLUS_USE_GLX)
 	set(OGLPLUS_EXAMPLE_HARNESS "glx")
 elseif(OGLPLUS_FRAMEDUMP)
@@ -16,7 +18,7 @@ endif()
 
 # now setup the harness dependencies
 #
-# the GLUT/GLEW combination
+# GLUT
 if(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut"))
 	if(NOT GLUT_FOUND)
 		message(FATAL_ERROR "GLUT is required for this build configuration")
@@ -26,7 +28,7 @@ if(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut"))
 	include_directories(${GLUT_INCLUDE_DIRS})
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLUT_LIBRARIES})
 
-# the WXGL/GLEW combination
+# WXGL
 elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "wxgl"))
 	if(NOT wxWidgets_FOUND)
 		message(FATAL_ERROR "wxGL is required for this build configuration")
@@ -35,6 +37,16 @@ elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "wxgl"))
 
 	include(${wxWidgets_USE_FILE})
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${wxWidgets_LIBRARIES})
+
+# GLFW
+elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glfw"))
+	if(NOT GLFW_FOUND)
+		message(FATAL_ERROR "GLFW is required for this build configuration")
+		return()
+	endif()
+
+	include_directories(${GLFW_INCLUDE_DIRS})
+	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLFW_LIBRARIES})
 
 # X11/GLX
 elseif(
