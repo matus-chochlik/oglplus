@@ -9,6 +9,10 @@
 
 #include <oglplus/gl.hpp>
 
+#if OGLPLUS_LINK_LIBRARY
+# include <oglplus/lib.hpp>
+#endif
+
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
 #include <oglplus/glx/version.hpp>
@@ -16,10 +20,6 @@
 #include <oglplus/x11/color_map.hpp>
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
-
-#if OGLPLUS_LINK_LIBRARY
-# include <oglplus/lib.hpp>
-#endif
 
 #include <oglplus/vector.hpp>
 #include <oglplus/curve.hpp>

@@ -39,6 +39,7 @@ endif()
 set(OGLPLUS_USE_GLCOREARB_H 0)
 set(OGLPLUS_USE_GL3_H 0)
 set(OGLPLUS_USE_GLEW 0)
+set(OGLPLUS_USE_GLFW 0)
 set(OGLPLUS_USE_GL3W 0)
 set(OGLPLUS_USE_FREEGLUT 0)
 
@@ -166,7 +167,7 @@ elseif(${OGLPLUS_FORCE_GLX})
 	endif()
 
 # if the user didn't specify any preference
-else()
+elseif(NOT ${OGLPLUS_FRAMEDUMP})
 	if(GLUT_FOUND)
 		set(OGLPLUS_USE_GLUT 1)
 	elseif(GLFW_FOUND)
