@@ -45,6 +45,17 @@ public:
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DispatchCompute));
 	}
+
+	/// Launches indirectly several work groups
+	/**
+	 *  @glsymbols
+	 *  @glfunref{DispatchComputeIndirect}
+	 */
+	static void DispatchComputeIndirect(GLintptr indirect)
+	{
+		OGLPLUS_GLFUNC(DispatchComputeIndirect)(indirect);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DispatchComputeIndirect));
+	}
 #endif
 };
 

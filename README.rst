@@ -13,6 +13,7 @@ OGLplus README
 .. _Inkscape: http://inkscape.org/
 .. _libPNG: http://www.libpng.org/
 .. _GLEW: http://glew.sourceforge.net/
+.. _GLFW: http://www.glfw.org/
 .. _FreeGLUT: http://freeglut.sourceforge.net/
 
 Introduction to OGLplus
@@ -106,13 +107,14 @@ Requirements
    pre-built textures). Building of the textures is optional, they are not
    necessary when the building of examples is disabled.
 
- - The ``GL3/gl3.h`` header or `GLEW`_. OGLplus does not define the OpenGL symbols
+ - The ``GL/glcorearb.h`` or ``GL3/gl3.h``  headers or `GLEW`_.
+   OGLplus does not define the OpenGL symbols
    (types, constants, functions, etc.) itself and therfore applications using
    it need to define them themselves (before including OGLplus). The examples
-   currently need GLEW (at least version 1.6) or the ``GL3/gl3.h`` header
+   currently need GLEW (at least version 1.6) or the ``GL/glcorearb.h`` header
    (available for download from http://www.opengl.org/registry/api/gl3.h) and
    a GL binary library exporting the OpenGL (3 or higher) functions.
-   The build system detects the presence of GLEW or ``GL3\gl3.h`` and configures
+   The build system detects the presence of GLEW or ``GL\glcorearb.h`` and configures
    compilation and linking of the examples accordingly. If both are installed
    and the user does not specify otherwise GLEW is used.
 
@@ -138,7 +140,7 @@ cmake (with the -D option. see cmake manual for details):
 
  * ``LIBRARY_SEARCH_PATHS`` *<empty>*: (semicolon-separated) list of paths
    to additional directories to search when looking for 3rd-party compiled
-   libraries like GL, GLEW, glut, png, etc.
+   libraries like GL, GLEW, GL3W, GLFW, glut, png, etc.
 
  * ``OGLPLUS_NO_EXAMPLES`` *Off*: Do not build the examples and the textures.
 
