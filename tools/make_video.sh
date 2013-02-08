@@ -60,7 +60,7 @@ function convert_single_frame()
 		${1%.rgba}.jpeg
 	if [ $? -ne 0 ]
 	then
-		frame_no=$(echo ${1} | sed "s/${prefix////\\/}-\([0-9]\+\).*/\1/")
+		frame_no=$(echo ${1} | sed "s/${prefix////\\/}-0*\([0-9]\+\).*/\1/")
 		prev_frame_no=$[${frame_no}-1]
 		prev_frame=$(printf "${prefix}-%06d.jpeg" ${prev_frame_no})
 		cp ${prev_frame} ${1%.rgba}.jpeg
