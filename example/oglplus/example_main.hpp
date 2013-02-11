@@ -70,7 +70,7 @@ inline int example_main(int (*main_func)(int, char**), int argc, char ** argv)
 	try
 	{
 		// this won't let multiple examples run at the same time
-		os::CriticalSection cs(0x091);
+		os::CriticalSection cs("OGLplus example");
 		// look at the options and extract useful things
 		Application::ParseCommandLineOptions(argc, argv);
 		//

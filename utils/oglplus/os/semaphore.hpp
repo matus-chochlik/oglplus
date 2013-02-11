@@ -12,13 +12,47 @@
 #ifndef UTILS_OGLPLUS_OS_SEMAPHORE_1203040931_HPP
 #define UTILS_OGLPLUS_OS_SEMAPHORE_1203040931_HPP
 
+#if defined(_WIN32) || defined(WIN32)
+
+#include <windows.h>
+
+#else
+
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <functional>
+
+#endif
+
 #include <stdexcept>
 
 namespace oglplus {
 namespace os {
+
+#if defined(_WIN32) || defined(WIN32)
+
+class Semaphore
+{
+public:
+	// TODO
+	Semaphore(const char* name, int max = 1, bool master = false)
+	{ }
+
+	~Semaphore(void)
+	{
+	}
+
+	void Wait(void) const
+	{
+	}
+
+	void Release(void) const
+	{
+	}
+};
+
+#else
 
 class Semaphore
 {
@@ -59,9 +93,15 @@ private:
 		}
 		return result;
 	}
+
+	static key_t _key_from_name(const char* name)
+	{
+		std::hash<std::string> str_hash;
+		return key_t(str_hash(name));
+	}
 public:
-	Semaphore(::key_t key, int max = 1, bool master = false)
-	 : _sem(_init_sem(key, max, master))
+	Semaphore(const char* name, int max = 1, bool master = false)
+	 : _sem(_init_sem(_key_from_name(name), max, master))
 	 , _master(master)
 	{ }
 
@@ -83,14 +123,16 @@ public:
 	}
 };
 
+#endif
+
 class CriticalSection
 {
 private:
 	Semaphore _sem;
 	CriticalSection(const CriticalSection&);
 public:
-	CriticalSection(key_t key)
-	 : _sem(key)
+	CriticalSection(const char* name)
+	 : _sem(name)
 	{
 		_sem.Wait();
 	}

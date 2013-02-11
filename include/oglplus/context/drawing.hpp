@@ -676,16 +676,16 @@ public:
 		const GLsizei* count,
 		DataType data_type,
 		GLsizei draw_count,
-		const int* base_vertex
+		const GLint* base_vertex
 	)
 	{
 		OGLPLUS_GLFUNC(MultiDrawElementsBaseVertex)(
 			GLenum(primitive),
-			count,
+			const_cast<GLsizei*>(count), //TODO remove const_cast
 			GLenum(data_type),
 			nullptr,
 			draw_count,
-			base_vertex
+			const_cast<GLint*>(base_vertex) //TODO remove const_cast
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MultiDrawElementsBaseVertex));
 	}
@@ -705,16 +705,16 @@ public:
 		const GLsizei* count,
 		T* const * indices,
 		GLsizei draw_count,
-		const int* base_vertex
+		const GLint* base_vertex
 	)
 	{
 		OGLPLUS_GLFUNC(MultiDrawElementsBaseVertex)(
 			GLenum(primitive),
-			count,
+			const_cast<GLsizei*>(count), //TODO remove const_cast
 			GLenum(GetDataType<T>()),
 			indices,
 			draw_count,
-			base_vertex
+			const_cast<GLint*>(base_vertex) //TODO remove const_cast
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MultiDrawElementsBaseVertex));
 	}
