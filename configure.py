@@ -252,7 +252,7 @@ def parse_arguments():
 		"--use-gl-window-lib",
 		dest="gl_window_lib",
 		type=str,
-		choices=["GLUT", "GLFW", "WXGL", "GLX"],
+		choices=["GLUT", "GLFW", "WXGL", "SDL", "GLX"],
 		action="store",
 		default=None,
 		help="""
@@ -286,6 +286,15 @@ def parse_arguments():
 		const="WXGL",
 		help="""
 			Equivalent to --use-gl-window-lib=WXGL.
+		"""
+	)
+	argparser_gl_window_lib_group.add_argument(
+		"--use-sdl",
+		dest="gl_window_lib",
+		action="store_const",
+		const="SDL",
+		help="""
+			Equivalent to --use-gl-window-lib=SDL.
 		"""
 	)
 	argparser_gl_window_lib_group.add_argument(

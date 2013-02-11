@@ -8,10 +8,10 @@ if(OGLPLUS_USE_WXGL)
 	set(OGLPLUS_EXAMPLE_HARNESS "wxgl")
 elseif(OGLPLUS_USE_GLUT)
 	set(OGLPLUS_EXAMPLE_HARNESS "glut")
-elseif(OGLPLUS_USE_FREEGLUT)
-	set(OGLPLUS_EXAMPLE_HARNESS "glut")
 elseif(OGLPLUS_USE_GLFW)
 	set(OGLPLUS_EXAMPLE_HARNESS "glfw")
+elseif(OGLPLUS_USE_SDL)
+	set(OGLPLUS_EXAMPLE_HARNESS "sdl")
 elseif(OGLPLUS_USE_GLX)
 	set(OGLPLUS_EXAMPLE_HARNESS "glx")
 elseif(OGLPLUS_FRAMEDUMP)
@@ -49,6 +49,16 @@ elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glfw"))
 
 	include_directories(${GLFW_INCLUDE_DIRS})
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLFW_LIBRARIES})
+
+# SDL
+elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "sdl"))
+	if(NOT SDL_FOUND)
+		message(FATAL_ERROR "SDL is required for this build configuration")
+		return()
+	endif()
+
+	include_directories(${SDL_INCLUDE_DIRS})
+	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${SDL_LIBRARIES})
 
 # X11/GLX
 elseif(

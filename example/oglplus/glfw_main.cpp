@@ -154,7 +154,12 @@ void run_example(const char* screenshot_path)
 	else
 	{
 		glfwSetWindowTitle("OGLplus example");
+		GLAPIInitializer api_init;
+
 		ExampleParams params;
+		setupExample(params);
+		params.Check();
+
 		std::unique_ptr<Example> example(makeExample(params));
 
 		example->Reshape(width, height);
