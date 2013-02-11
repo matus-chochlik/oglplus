@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/x11/color_map.hpp
- *  @brief Wrapper for X11 colormap class
+ *  @file oglplus/x11/pixmap.hpp
+ *  @brief Wrapper for X11 pixmap class
  *
  *  @author Matus Chochlik
  *
@@ -9,8 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef UTILS_OGLPLUS_X11_COLOR_MAP_1107121519_HPP
-#define UTILS_OGLPLUS_X11_COLOR_MAP_1107121519_HPP
+#ifndef UTILS_OGLPLUS_X11_PIXMAP_1107121519_HPP
+#define UTILS_OGLPLUS_X11_PIXMAP_1107121519_HPP
 
 #include <oglplus/x11/display.hpp>
 #include <oglplus/x11/visual_info.hpp>
@@ -21,21 +21,26 @@
 namespace oglplus {
 namespace x11 {
 
-class Colormap
- : public DisplayObject< ::Colormap>
+class Pixmap
+ : public DisplayObject< ::Pixmap>
 {
 public:
-	Colormap(const Display& display, const VisualInfo& vi)
-	 : DisplayObject< ::Colormap>(
+	Pixmap(
+		const Display& display,
+		const VisualInfo& vi,
+		unsigned width,
+		unsigned height
+	): DisplayObject< ::Pixmap>(
 		display,
-		::XCreateColormap(
+		::XCreatePixmap(
 			display,
 			RootWindow(display.Get(), vi->screen),
-			vi->visual,
-			AllocNone
+			width,
+			height,
+			vi->depth
 		),
-		::XFreeColormap,
-		"Error creating X Colormap"
+		::XFreePixmap,
+		"Error creating X Pixmap"
 	){ }
 };
 

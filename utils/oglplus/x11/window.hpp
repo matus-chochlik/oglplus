@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,7 +12,6 @@
 #ifndef UTILS_OGLPLUS_X11_WINDOW_1107121519_HPP
 #define UTILS_OGLPLUS_X11_WINDOW_1107121519_HPP
 
-#include <oglplus/friendly_to.hpp>
 #include <oglplus/x11/display.hpp>
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/color_map.hpp>
@@ -25,102 +24,59 @@ namespace oglplus {
 namespace x11 {
 
 class Window
- : public FriendlyTo<Display>
- , public FriendlyTo<VisualInfo>
- , public FriendlyTo<ColorMap>
+ : public DisplayObject< ::Window>
 {
 private:
-	const Display& _display;
-	ColorMap _cmap;
-	::Window _handle;
-
 	static ::Window make_window(
 		const Display& display,
 		const VisualInfo& vi,
-		const ColorMap& cmap,
+		const Colormap& cmap,
 		size_t width,
 		size_t height
 	)
 	{
 		::XSetWindowAttributes swa;
-		swa.colormap = FriendlyTo<ColorMap>::GetHandle(cmap);
+		swa.colormap = cmap.Handle();
 		swa.background_pixmap = None;
 		swa.border_pixel = 0;
 		swa.event_mask = StructureNotifyMask;
 		//
 		return ::XCreateWindow(
-			FriendlyTo<Display>::GetHandle(display),
-			RootWindow(
-				FriendlyTo<Display>::GetHandle(display),
-				FriendlyTo<VisualInfo>::GetHandle(vi)->screen
-			),
+			display,
+			RootWindow(display.Get(), vi->screen),
 			0, 0, width, height,
 			0,
-			FriendlyTo<VisualInfo>::GetHandle(vi)->depth,
+			vi->depth,
 			InputOutput,
-			FriendlyTo<VisualInfo>::GetHandle(vi)->visual,
+			vi->visual,
 			CWBorderPixel | CWColormap | CWEventMask,
 			&swa
 		);
 	}
-
-	friend class FriendlyTo<Window>;
 public:
 	Window(
 		const Display& display,
 		const VisualInfo& vi,
-		ColorMap&& cmap,
+		const Colormap& cmap,
 		const char* title,
 		size_t width,
 		size_t height
-	): _display(display)
-	 , _cmap(std::move(cmap))
-	 , _handle(make_window(_display, vi, _cmap, width, height))
+	): DisplayObject< ::Window>(
+		display,
+	 	make_window(display, vi, cmap, width, height),
+		::XDestroyWindow,
+		"Error creating X Window"
+	)
 	{
-		if(!_handle)
-		{
-			throw std::runtime_error(
-				"Error creating X window"
-			);
-		}
-		::XStoreName(
-			FriendlyTo<Display>::GetHandle(_display),
-			_handle,
-			title
-		);
-		::XMapWindow(
-			FriendlyTo<Display>::GetHandle(_display),
-			_handle
-		);
-	}
-
-	Window(const Window&) = delete;
-
-	Window(Window&& temp)
-	 : _display(temp._display)
-	 , _cmap(std::move(temp._cmap))
-	 , _handle(temp._handle)
-	{
-		temp._handle = 0;
-	}
-
-	~Window(void)
-	{
-		if(_handle)
-		{
-			::XDestroyWindow(
-				FriendlyTo<Display>::GetHandle(_display),
-				_handle
-			);
-		}
+		::XStoreName(display, this->Handle(), title);
+		::XMapWindow(display, this->Handle());
 	}
 
 	void SelectInput(long event_mask) const
 	{
-		assert(_handle);
 		::XSelectInput(
-			FriendlyTo<Display>::GetHandle(_display),
-			_handle,
+			this->DisplayRef(),
+			this->Handle(),
 			event_mask
 		);
 	}

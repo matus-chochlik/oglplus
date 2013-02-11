@@ -15,6 +15,7 @@
 # include <GL/glut.h>
 #endif
 
+#include <cstddef>
 #include <cstring>
 #include <cassert>
 #include <fstream>
@@ -54,7 +55,6 @@ private:
 	double _fps_time, _prim_count;
 	unsigned long _frame_no;
 	GLuint _width, _height;
-	ExampleParams _params;
 	std::unique_ptr<Example> _example;
 	std::unique_ptr<Query> _primitive_query;
 
@@ -69,20 +69,24 @@ public:
 		return SingleInstance()->_example.get();
 	}
 
-	SingleExample(GLuint width, GLuint height, const char* screenshot_path)
-	 : _fps_time(0.0)
+	SingleExample(
+		GLuint width,
+		GLuint height,
+		const ExampleParams& params,
+		const char* screenshot_path
+	): _fps_time(0.0)
 	 , _prim_count(0.0)
 	 , _frame_no(0)
 	 , _width(width)
 	 , _height(height)
-	 , _params()
-	 , _example(makeExample(_params))
+	 , _example(makeExample(params))
 	 , _primitive_query(new Query())
 	 , _screenshot_path(screenshot_path)
 	{
 		assert(!SingleInstance());
 		SingleInstance() = this;
 
+		assert(_example);
 		_example->Reshape(width, height);
 		_example->MouseMove(width/2, height/2, width, height);
 		_os_clock.reset();
@@ -243,14 +247,19 @@ int glut_example_main(int argc, char ** argv)
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("OGLplus example");
 
-	oglplus::GLAPIInitializer api_init;
-	using oglplus::SingleExample;
-
 	const char* screenshot_path = nullptr;
 	if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
 		screenshot_path = argv[2];
 
-	SingleExample example(width, height, screenshot_path);
+	oglplus::GLAPIInitializer api_init;
+
+	// The parameters for this example
+	oglplus::ExampleParams params;
+	setupExample(params);
+	params.Check();
+
+	using oglplus::SingleExample;
+	// The main window/rendering context
 	if(screenshot_path)
 	{
 		glutDisplayFunc(&SingleExample::ScreenshotFunc);
@@ -263,11 +272,8 @@ int glut_example_main(int argc, char ** argv)
 	}
 	glutReshapeFunc(&SingleExample::ReshapeFunc);
 
-	if(example->UsesMouseMotion())
-	{
-		glutMotionFunc(&SingleExample::MotionFunc);
-		glutPassiveMotionFunc(&SingleExample::MotionFunc);
-	}
+	glutMotionFunc(&SingleExample::MotionFunc);
+	glutPassiveMotionFunc(&SingleExample::MotionFunc);
 
 	glutKeyboardFunc(&SingleExample::KeyboardFunc);
 #if OGLPLUS_USE_FREEGLUT
@@ -278,6 +284,10 @@ int glut_example_main(int argc, char ** argv)
 	glutCloseFunc(&SingleExample::CloseFunc);
 #endif
 
+	// create the example
+	SingleExample example(width, height, params, screenshot_path);
+
+	// start the example main loop
 	glutMainLoop();
 	return 0;
 }

@@ -2,7 +2,7 @@
  *  @file oglplus/example.hpp
  *  @brief Declares a common base class for examples
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,15 +24,34 @@ struct ExampleParams
 	/// The quality of rendered image (0.0 = low, 0.5 = default, 1.0 = high)
 	float quality;
 
+	/// The number of available GPUs
+	unsigned num_gpus;
+
+	/// The number of offscreen rendering threads (not counting the main thread)
+	unsigned num_threads;
+
+	/// The maximum number of threads
+	unsigned max_threads;
+
 	ExampleParams(void)
 	 : quality(0.5f)
+	 , num_gpus(1)
+	 , num_threads(0)
+	 , max_threads(0)
 	{ }
+
+	void Check(void)
+	{
+		assert(num_threads <= max_threads);
+	}
 
 	bool HighQuality(void) const
 	{
 		return quality > 0.9f;
 	}
 };
+
+void setupExample(ExampleParams& params);
 
 /// A class measuring a time period in the examples
 class ExampleTimePeriod
@@ -162,9 +181,30 @@ public:
 	}
 };
 
-/// Base class for OGLplus examples
-struct Example
+/// Base class for OGLplus example offscreen rendering threads
+class ExampleThread
 {
+public:
+	virtual ~ExampleThread(void)
+	{ }
+
+	/// Rendering procedure with simple timing
+	virtual void Render(double /*time*/)
+	{
+		assert(!"Render must be overloaded by examples!");
+	}
+
+	/// Rendering procedure with advanced timing
+	virtual void Render(const ExampleClock& clock)
+	{
+		this->Render(clock.Now().Seconds());
+	}
+};
+
+/// Base class for OGLplus examples
+class Example
+{
+public:
 	virtual ~Example(void)
 	{ }
 
@@ -190,12 +230,6 @@ struct Example
 
 	/// Reshape event handler
 	virtual void Reshape(GLuint width, GLuint height) = 0;
-
-	/// Indicates if the example uses mouse motion events
-	virtual bool UsesMouseMotion(void) const
-	{
-		return false;
-	}
 
 	/// Mouse move event handler
 	virtual void MouseMoveNormalized(float x, float y, float aspect)

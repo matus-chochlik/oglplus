@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,7 +12,6 @@
 #ifndef UTILS_OGLPLUS_GLX_VERSION_1107121519_HPP
 #define UTILS_OGLPLUS_GLX_VERSION_1107121519_HPP
 
-#include <oglplus/friendly_to.hpp>
 #include <oglplus/x11/display.hpp>
 
 #include <GL/glx.h>
@@ -22,7 +21,6 @@ namespace oglplus {
 namespace glx {
 
 class Version
- : public FriendlyTo<x11::Display>
 {
 private:
 	int _major;
@@ -33,7 +31,7 @@ public:
 	 , _minor(0)
 	{
 		if(!::glXQueryVersion(
-			GetHandle(display),
+			display,
 			&_major,
 			&_minor
 		)) throw std::runtime_error("Error querying GLX version");

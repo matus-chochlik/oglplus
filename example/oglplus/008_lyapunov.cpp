@@ -6,7 +6,7 @@
  *  @author Timo Keller
  *  @author Matus Chochlik
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -193,6 +193,14 @@ public:
 		return time < 15.0;
 	}
 };
+
+void setupExample(ExampleParams& /*params*/){ }
+
+std::unique_ptr<ExampleThread> makeExampleThread(
+	Example* /*example*/,
+	unsigned /*thread_id*/,
+	const ExampleParams& /*params*/
+){ return std::unique_ptr<ExampleThread>(); }
 
 std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {

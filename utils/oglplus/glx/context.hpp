@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,7 +12,6 @@
 #ifndef UTILS_OGLPLUS_GLX_CONTEXT_1107121519_HPP
 #define UTILS_OGLPLUS_GLX_CONTEXT_1107121519_HPP
 
-#include <oglplus/friendly_to.hpp>
 #include <oglplus/x11/display.hpp>
 #include <oglplus/x11/window.hpp>
 #include <oglplus/glx/fb_config.hpp>
@@ -26,19 +25,15 @@ namespace oglplus {
 namespace glx {
 
 class Context
- : public FriendlyTo<x11::Display>
- , public FriendlyTo<x11::Window>
- , public FriendlyTo<FBConfig>
+ : public x11::DisplayObject< ::GLXContext, void(::Display*, ::GLXContext)>
 {
 private:
-	const x11::Display& _display;
-	::GLXContext _handle;
-
 	static ::GLXContext make_context(
 		const x11::Display& display,
 		const FBConfig& fbc,
 		int version_major,
-		int version_minor
+		int version_minor,
+		::GLXContext share_context = ::GLXContext(0)
 	)
 	{
 		typedef GLXContext (*glXCreateContextAttribsARBProc)(
@@ -46,7 +41,7 @@ private:
 			::GLXFBConfig,
 			::GLXContext,
 			Bool,
-			 const int*
+			const int*
 		);
 
 		glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
@@ -66,14 +61,13 @@ private:
 			None
 		};
 		::GLXContext res = glXCreateContextAttribsARB(
-			FriendlyTo<x11::Display>::GetHandle(display),
-			FriendlyTo<FBConfig>::GetHandle(fbc),
-			0, True, context_attribs
+			display,
+			fbc.Handle(),
+			share_context,
+			True,
+			context_attribs
 		);
-		::XSync(
-			FriendlyTo<x11::Display>::GetHandle(display),
-			False
-		);
+		::XSync(display, False);
 		return res;
 	}
 public:
@@ -82,60 +76,50 @@ public:
 		const FBConfig& fbc,
 		int version_major,
 		int version_minor
-	): _display(display)
-	 , _handle(make_context(_display, fbc, version_major, version_minor))
-	{
-		if(!_handle)
-		{
-			throw std::runtime_error(
-				"Error creating GLX context"
-			);
-		}
-	}
+	): x11::DisplayObject< ::GLXContext, void(::Display*, ::GLXContext)>(
+		display,
+		make_context(
+			display,
+			fbc,
+			version_major,
+			version_minor
+		),
+		::glXDestroyContext,
+		"Error creating glX context"
+	){ }
 
-	Context(const Context&) = delete;
-
-	Context(Context&& temp)
-	 : _display(temp._display)
-	 , _handle(temp._handle)
-	{
-		temp._handle = 0;
-	}
-
-	~Context(void)
-	{
-		if(_handle)
-		{
-			::glXDestroyContext(
-				FriendlyTo<x11::Display>::GetHandle(_display),
-				_handle
-			);
-		}
-	}
+	Context(
+		const x11::Display& display,
+		const FBConfig& fbc,
+		int version_major,
+		int version_minor,
+		Context& share_context
+	): x11::DisplayObject< ::GLXContext, void(::Display*, ::GLXContext)>(
+		display,
+		make_context(
+			display,
+			fbc,
+			version_major,
+			version_minor,
+			share_context.Handle()
+		),
+		::glXDestroyContext,
+		"Error creating sharing glX context"
+	){ }
 
 	void MakeCurrent(const x11::Window& window) const
 	{
-		::glXMakeCurrent(
-			FriendlyTo<x11::Display>::GetHandle(_display),
-			FriendlyTo<x11::Window>::GetHandle(window),
-			_handle
-		);
+		::glXMakeCurrent(this->DisplayRef(), window, this->Handle());
 	}
 
 	static void Release(const x11::Display& display)
 	{
-		::glXMakeCurrent(
-			FriendlyTo<x11::Display>::GetHandle(display),
-			0, 0
-		);
+		::glXMakeCurrent(display, 0, 0);
 	}
 
 	void SwapBuffers(const x11::Window& window) const
 	{
-		::glXSwapBuffers(
-			FriendlyTo<x11::Display>::GetHandle(_display),
-			FriendlyTo<x11::Window>::GetHandle(window)
-		);
+		::glXSwapBuffers(this->DisplayRef(), window);
 	}
 };
 

@@ -12,7 +12,6 @@
 #ifndef UTILS_OGLPLUS_X11_VISUAL_INFO_1107121519_HPP
 #define UTILS_OGLPLUS_X11_VISUAL_INFO_1107121519_HPP
 
-#include <oglplus/friendly_to.hpp>
 #include <oglplus/x11/display.hpp>
 #include <oglplus/glx/fb_config.hpp>
 
@@ -23,41 +22,15 @@ namespace oglplus {
 namespace x11 {
 
 class VisualInfo
- : public FriendlyTo<x11::Display>
- , public FriendlyTo<glx::FBConfig>
+ : public Object< ::XVisualInfo, int(void*)>
 {
-private:
-	::XVisualInfo* _handle;
-
-	friend class FriendlyTo<VisualInfo>;
 public:
 	VisualInfo(const Display& display, const glx::FBConfig& fbc)
-	 : _handle(
-		::glXGetVisualFromFBConfig(
-			FriendlyTo<Display>::GetHandle(display),
-			FriendlyTo<glx::FBConfig>::GetHandle(fbc)
-		)
-	)
-	{
-		if(!_handle)
-		{
-			throw std::runtime_error(
-				"Error Getting X VisualInfo from GLX FB config"
-			);
-		}
-	}
-
-	VisualInfo(const VisualInfo&) = delete;
-	VisualInfo(VisualInfo&& temp)
-	 : _handle(temp._handle)
-	{
-		temp._handle = 0;
-	}
-
-	~VisualInfo(void)
-	{
-		if(_handle) ::XFree(_handle);
-	}
+	 : Object< ::XVisualInfo, int(void*)>(
+		::glXGetVisualFromFBConfig(display, fbc),
+		::XFree,
+		"Error Getting X VisualInfo from GLX FB config"
+	){ }
 };
 
 } // namespace x11

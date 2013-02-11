@@ -16,10 +16,12 @@
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
 #include <oglplus/glx/version.hpp>
+#include <oglplus/glx/pixmap.hpp>
 #include <oglplus/x11/window.hpp>
 #include <oglplus/x11/color_map.hpp>
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
+
 #include <oglplus/os/semaphore.hpp>
 #include <oglplus/os/steady_clock.hpp>
 
@@ -83,19 +85,27 @@ void run_example_loop(
 #endif // GL_ARB_debug_output
 
 	win.SelectInput(
-		example->UsesMouseMotion()?
-		PointerMotionMask:
-		0
+		StructureNotifyMask|
+		PointerMotionMask|
+		KeyPressMask
 	);
+	::Atom wmDelete = ::XInternAtom(display, "WM_DELETE_WINDOW", True);
+	::XSetWMProtocols(display, win, &wmDelete, 1);
+
 	XEvent event;
 	os::steady_clock os_clock;
 	ExampleClock clock;
-	while(1)
+	bool done = false;
+	while(!done)
 	{
 		while(display.NextEvent(event))
 		{
 			switch(event.type)
 			{
+				case ClientMessage:
+				case DestroyNotify:
+					done = true;
+					break;
 				case MotionNotify:
 					example->MouseMove(
 						event.xmotion.x,
@@ -104,6 +114,12 @@ void run_example_loop(
 						width,
 						height
 					);
+					break;
+				case KeyPress:
+					if(::XLookupKeysym(
+						&event.xkey,
+						0
+					) == XK_Escape) done = true;
 					break;
 				default:;
 			}
@@ -193,16 +209,21 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 	x11::Window win(
 		display,
 		vi,
-		x11::ColorMap(display, vi),
+		x11::Colormap(display, vi),
 		"OGLplus example",
 		width, height
 	);
+
+	ExampleParams params;
+	setupExample(params);
+	params.Check();
+
 	glx::Context ctx(display, fbc, 3, 3);
 
-
 	ctx.MakeCurrent(win);
+
 	{
-		ExampleParams params;
+		oglplus::GLAPIInitializer api_init;
 		std::unique_ptr<Example> example(makeExample(params));
 
 		example->Reshape(width, height);

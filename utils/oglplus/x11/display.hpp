@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,53 +12,148 @@
 #ifndef UTILS_OGLPLUS_X11_DISPLAY_1107121519_HPP
 #define UTILS_OGLPLUS_X11_DISPLAY_1107121519_HPP
 
-#include <oglplus/friendly_to.hpp>
-
 #include <X11/Xlib.h>
 #include <stdexcept>
 
 namespace oglplus {
 namespace x11 {
 
-class Display
+template <typename ObjectType, typename Deleter = int(ObjectType*)>
+class Object
 {
 private:
-	::Display* _handle;
+	ObjectType* _pimpl;
 
-	friend class FriendlyTo<Display>;
+	Deleter* _deleter;
+protected:
+	Object(
+		ObjectType* pimpl,
+		Deleter* deleter,
+		const char* error_message
+	): _pimpl(pimpl)
+	 , _deleter(deleter)
+	{
+		assert(_deleter);
+		if(!_pimpl)
+		{
+			throw std::runtime_error(error_message);
+		}
+	}
+public:
+	Object(const Object&) = delete;
+	Object(Object&& temp)
+	 : _pimpl(temp._pimpl)
+	 , _deleter(temp._deleter)
+	{
+		temp._pimpl= 0;
+	}
 
+	~Object(void)
+	{
+		if(_pimpl) _deleter(_pimpl);
+	}
+
+	ObjectType* Get(void) const
+	{
+		assert(_pimpl);
+		return _pimpl;
+	}
+
+	operator ObjectType* (void) const
+	{
+		return Get();
+	}
+
+	ObjectType* operator -> (void) const
+	{
+		return Get();
+	}
+};
+
+class Display
+ : public Object< ::Display>
+{
+private:
 	static Bool _any_event(::Display*, ::XEvent*, ::XPointer)
 	{
 		return True;
 	}
 public:
 	Display(const char* name = 0)
-	 : _handle(::XOpenDisplay(name))
-	{
-		if(!_handle)
-			throw std::runtime_error("Failed to open X display");
-	}
-
-	Display(const Display&) = delete;
-	Display(Display&& temp)
-	 : _handle(temp._handle)
-	{
-		temp._handle = 0;
-	}
-
-	~Display(void)
-	{
-		if(_handle) ::XCloseDisplay(_handle);
-	}
+	 : Object< ::Display>(
+		::XOpenDisplay(name),
+		::XCloseDisplay,
+		"Error opening X Display"
+	){ }
 
 	bool NextEvent(XEvent& event) const
 	{
 		return ::XCheckIfEvent(
-			_handle,
+			this->Get(),
 			&event,
 			&_any_event,
 			::XPointer()
 		) == True;
+	}
+};
+
+template <typename HandleType, typename Deleter = int(::Display*, HandleType)>
+class DisplayObject
+{
+private:
+	const Display& _display;
+	HandleType _handle;
+
+	Deleter* _deleter;
+protected:
+
+	const Display& DisplayRef(void) const
+	{
+		return _display;
+	}
+
+	DisplayObject(
+		const Display& display,
+		HandleType handle,
+		Deleter* deleter,
+		const char* error_message
+	): _display(display)
+	 , _handle(handle)
+	 , _deleter(deleter)
+	{
+		assert(_deleter);
+		if(!_handle)
+		{
+			throw std::runtime_error(error_message);
+		}
+	}
+public:
+	DisplayObject(const DisplayObject&) = delete;
+
+	DisplayObject(DisplayObject&& temp)
+	 : _display(temp._display)
+	 , _handle(temp._handle)
+	 , _deleter(temp._deleter)
+	{
+		temp._handle = 0;
+	}
+
+	~DisplayObject(void)
+	{
+		if(_handle)
+		{
+			_deleter(_display, _handle);
+		}
+	}
+
+	HandleType Handle(void) const
+	{
+		return _handle;
+	}
+
+	operator HandleType(void) const
+	{
+		return Handle();
 	}
 };
 

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,7 +12,6 @@
 #ifndef UTILS_OGLPLUS_GLX_FB_CONFIGS_1107121519_HPP
 #define UTILS_OGLPLUS_GLX_FB_CONFIGS_1107121519_HPP
 
-#include <oglplus/friendly_to.hpp>
 #include <oglplus/glx/fb_config.hpp>
 #include <oglplus/x11/display.hpp>
 #include <oglplus/x11/visual_info.hpp>
@@ -25,8 +24,6 @@ namespace oglplus {
 namespace glx {
 
 class FBConfigs
- : public FriendlyTo<x11::Display>
- , public FriendlyTo<x11::VisualInfo>
 {
 private:
 	int _count;
@@ -36,8 +33,8 @@ public:
 	 : _count(0)
 	 , _handle(
 		::glXChooseFBConfig(
-			FriendlyTo<x11::Display>::GetHandle(display),
-			DefaultScreen(FriendlyTo<x11::Display>::GetHandle(display)),
+			display,
+			DefaultScreen(display.Get()),
 			visual_attribs,
 			&_count
 		)
@@ -75,13 +72,13 @@ public:
 			int sample_buf, samples;
 
 			::glXGetFBConfigAttrib(
-				FriendlyTo<x11::Display>::GetHandle(display),
+				display,
 				_handle[i],
 				GLX_SAMPLE_BUFFERS,
 				&sample_buf
 			);
 			::glXGetFBConfigAttrib(
-				FriendlyTo<x11::Display>::GetHandle(display),
+				display,
 				_handle[i],
 				GLX_SAMPLES,
 				&samples

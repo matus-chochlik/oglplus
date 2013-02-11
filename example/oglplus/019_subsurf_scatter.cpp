@@ -240,6 +240,14 @@ public:
 	}
 };
 
+void setupExample(ExampleParams& /*params*/){ }
+
+std::unique_ptr<ExampleThread> makeExampleThread(
+	Example* /*example*/,
+	unsigned /*thread_id*/,
+	const ExampleParams& /*params*/
+){ return std::unique_ptr<ExampleThread>(); }
+
 std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
 	return std::unique_ptr<Example>(new CubeExample);
