@@ -9,6 +9,12 @@
 
 #include <oglplus/gl.hpp>
 
+#include <oglplus/site_config.hpp>
+
+#if OGLPLUS_LINK_LIBRARY
+# include <oglplus/lib.hpp>
+#endif
+
 #include <wx/wx.h>
 #include <wx/sizer.h>
 #include <wx/recguard.h>
@@ -17,12 +23,6 @@
 #include <cassert>
 #include <iostream>
 #include <iomanip>
-
-#include <oglplus/site_config.hpp>
-
-#if OGLPLUS_LINK_LIBRARY
-# include <oglplus/lib.hpp>
-#endif
 
 #include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
