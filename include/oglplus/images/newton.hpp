@@ -76,7 +76,8 @@ private:
 		Vector<float, N> c2
 	)
 	{
-		auto p = this->_begin<GLfloat>(), e = this->_end<GLfloat>();
+		auto p = this->_begin<GLfloat>();
+		auto e = this->_end<GLfloat>();
 
 		for(GLsizei i=0; i!=width; ++i)
 		for(GLsizei j=0; j!=height; ++j)

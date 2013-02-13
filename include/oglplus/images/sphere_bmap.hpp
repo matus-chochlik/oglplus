@@ -52,7 +52,8 @@ public:
 		GLsizei hi = number(width)/xrep;
 		GLsizei hj = number(height)/yrep;
 
-		auto p = this->_begin<GLfloat>(), e = this->_end<GLfloat>();
+		auto p = this->_begin<GLfloat>();
+		auto e = this->_end<GLfloat>();
 		for(GLsizei j=0; j!=height; ++j)
 		{
 			number y = number((j % hj) - hj/2)*invh;
