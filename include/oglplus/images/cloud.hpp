@@ -175,9 +175,10 @@ class Cloud2D
 private:
 public:
 	Cloud2D(const Cloud& cloud)
-	 : Image(cloud.Width(), cloud.Height(), 1, 1, (GLubyte*)0)
+	 : Image(cloud.Width(), cloud.Height(), 1, 3, (GLubyte*)0)
 	{
-		auto p = this->_begin_ub(), e = this->_end_ub();
+		auto p = this->_begin_ub();
+		auto e = this->_end_ub();
 		GLsizei w = Width(), h = Height(), d = cloud.Depth();
 		for(GLsizei j=0; j!=h; ++j)
 		for(GLsizei i=0; i!=w; ++i)

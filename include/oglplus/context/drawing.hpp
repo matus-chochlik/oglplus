@@ -443,7 +443,7 @@ public:
 	/**
 	 *  @throws Error
 	 *
-	 *  @glverreq{4,0,ARB,GL_ARB_draw_indirect}
+	 *  @glvoereq{4,0,ARB,GL_ARB_draw_indirect}
 	 *  @glsymbols
 	 *  @glfunref{DrawElementsIndirect}
 	 */
