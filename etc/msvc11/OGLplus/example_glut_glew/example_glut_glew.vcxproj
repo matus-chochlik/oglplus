@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\example\oglplus\glut_glew_main.cpp" />
+    <ClCompile Include="..\..\..\..\example\oglplus\glut_main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C5C45C30-555A-D136-836E-6D126005AE6A}</ProjectGuid>
