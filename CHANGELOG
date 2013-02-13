@@ -1,3 +1,22 @@
+Version 0.26.0
+
+- The example "harnesses" were reimplemented, the GL context creation
+  libraries were separated from the GL API libraries and various
+  combinations of GLX/GLUT/GLFW/SDL/wxGL with gl3.h/glcorearb.h/GLEW/GL3W
+  are now supported.
+- Some of the other example "harnesses" now support making screenshots.
+- The build system was updated and some problems were fixed.
+- Support for multi-threaded rendering was added to the GLX "harness".
+- Several new examples were added including one showing multi-threaded
+  rendering.
+- The MSVC projects/solutions were updated.
+- The Screen shape builder was added.
+- The Image<T> template was reimplemented to the images::Image
+  class. The related image loading/generating classes were updated.
+- Many complex functions were updated to support compilation
+  into a library.
+- The Blender's .blend file parser was optimized.
+
 Version 0.25.0
 
 - The implementation of Uniforms has been refactored and updated.
