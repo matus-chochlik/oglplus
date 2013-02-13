@@ -1,4 +1,4 @@
-#  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -63,7 +63,9 @@ endif()
 if(GLUT_FOUND)
 	foreach(INCLUDE_DIR ${GLUT_INCLUDE_DIRS})
 		if(EXISTS "${INCLUDE_DIR}/GL/freeglut.h")
-			set(OGLPLUS_USE_FREEGLUT 1)
+			set(FREEGLUT_FOUND 1)
+		else()
+			set(FREEGLUT_FOUND 0)
 		endif()
 	endforeach()
 endif()

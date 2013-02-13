@@ -9,7 +9,7 @@
 
 #include <oglplus/gl.hpp>
 
-#if OGLPLUS_USE_FREEGLUT
+#if OGLPLUS_FREEGLUT_FOUND
 # include <GL/freeglut.h>
 #else
 # include <GL/glut.h>
@@ -103,7 +103,7 @@ public:
 
 	void Quit(void)
 	{
-#if OGLPLUS_USE_FREEGLUT
+#if OGLPLUS_FREEGLUT_FOUND
 		glutLeaveMainLoop();
 #else
 		exit(0);
@@ -276,7 +276,7 @@ int glut_example_main(int argc, char ** argv)
 	glutPassiveMotionFunc(&SingleExample::MotionFunc);
 
 	glutKeyboardFunc(&SingleExample::KeyboardFunc);
-#if OGLPLUS_USE_FREEGLUT
+#if OGLPLUS_FREEGLUT_FOUND
 	glutSetOption(
 		GLUT_ACTION_ON_WINDOW_CLOSE,
 		GLUT_ACTION_GLUTMAINLOOP_RETURNS

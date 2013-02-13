@@ -16,7 +16,7 @@
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
 #include <oglplus/glx/version.hpp>
-#include <oglplus/glx/pixmap.hpp>
+//#include <oglplus/glx/pixmap.hpp>
 #include <oglplus/x11/window.hpp>
 #include <oglplus/x11/color_map.hpp>
 #include <oglplus/x11/visual_info.hpp>
