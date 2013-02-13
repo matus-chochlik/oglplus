@@ -85,7 +85,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\example\oglplus\026_recursive_texture.cpp" />
+    <ClCompile Include="..\..\..\..\example\oglplus\025_recursive_texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\example_glut_glew\example_glut_glew.vcxproj">

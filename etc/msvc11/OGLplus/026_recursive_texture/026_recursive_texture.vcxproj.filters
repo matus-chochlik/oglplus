@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\example\oglplus\026_recursive_texture.cpp">
+    <ClCompile Include="..\..\..\..\example\oglplus\025_recursive_texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
