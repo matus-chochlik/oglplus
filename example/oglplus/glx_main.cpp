@@ -16,13 +16,12 @@
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>
 #include <oglplus/glx/version.hpp>
-//#include <oglplus/glx/pixmap.hpp>
+#include <oglplus/glx/pixmap.hpp>
 #include <oglplus/x11/window.hpp>
 #include <oglplus/x11/color_map.hpp>
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
 
-#include <oglplus/os/semaphore.hpp>
 #include <oglplus/os/steady_clock.hpp>
 
 #include <oglplus/config.hpp>
@@ -36,16 +35,150 @@
 #include <cstring>
 #include <cassert>
 
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
 #include "example.hpp"
 #include "example_main.hpp"
 
 namespace oglplus {
+
+class ThreadSemaphore
+{
+private:
+	unsigned _value;
+	std::mutex _mutex;
+	std::condition_variable _cv;
+
+	void _decr(void)
+	{
+		std::unique_lock<std::mutex> lock(_mutex);
+		while(_value == 0) _cv.wait(lock);
+		--_value;
+	}
+
+	void _incr(unsigned n)
+	{
+		std::unique_lock<std::mutex> lock(_mutex);
+		_value += n;
+	}
+public:
+	ThreadSemaphore(unsigned initial = 0)
+	 : _value(initial)
+	{ }
+
+	void Wait(unsigned n = 1)
+	{
+		while(n) { _decr(); --n; }
+	}
+
+	void Signal(unsigned n = 1)
+	{
+		_incr(n);
+		_cv.notify_all();
+	}
+};
+
+struct ExampleThreadData
+{
+	unsigned thread_index;
+	ExampleThread* example_thread;
+	std::string error_message;
+
+	struct Common
+	{
+		Example* example;
+		const ExampleParams& example_params;
+		const ExampleClock& clock;
+		const x11::Display& display;
+		const x11::VisualInfo& vi;
+		const glx::FBConfig& fbc;
+		const glx::Context& ctx;
+		ThreadSemaphore& thread_ready;
+		ThreadSemaphore& master_ready;
+		bool failure;
+		bool done;
+	}* _pcommon;
+	Common& common(void)
+	{
+		assert(_pcommon);
+		return *_pcommon;
+	}
+};
+
+void example_thread_main(ExampleThreadData& data)
+{
+	try
+	{
+		// initialize the pixelmaps and the sharing context
+		x11::Pixmap xpm(
+			data.common().display,
+			data.common().vi,
+			8, 8
+		);
+		glx::Pixmap gpm(
+			data.common().display,
+			data.common().vi,
+			xpm
+		);
+		glx::Context ctx(
+			data.common().display,
+			data.common().fbc,
+			data.common().ctx,
+			3, 3
+		);
+
+		ctx.MakeCurrent(gpm);
+
+		// signal that the context is created
+		data.common().thread_ready.Signal();
+
+		// wait for the example to be created
+		// in the main thread
+		data.common().master_ready.Wait();
+		// if something failed - quit
+		if(data.common().failure) return;
+
+		{
+			// call makeExampleThread
+			std::unique_ptr<ExampleThread> example_thread(
+				makeExampleThread(
+					data.common().example,
+					data.thread_index,
+					data.common().example_params
+				)
+			);
+			data.example_thread = example_thread.get();
+			// signal that it is created
+			data.common().thread_ready.Signal();
+			// wait for the main thread
+			data.common().master_ready.Wait();
+			// if something failed - quit
+			if(data.common().failure) return;
+
+			// start rendering
+			while(!data.common().done)
+			{
+				example_thread->Render(data.common().clock);
+				glFlush();
+			}
+		}
+		ctx.Release(data.common().display);
+	}
+	catch(std::exception& se)
+	{
+		data.error_message = se.what();
+		data.common().thread_ready.Signal();
+	}
+}
 
 void run_example_loop(
 	const x11::Display& display,
 	const x11::Window& win,
 	const glx::Context& ctx,
 	std::unique_ptr<Example>& example,
+	ExampleClock& clock,
 	GLuint width,
 	GLuint height
 )
@@ -94,7 +227,6 @@ void run_example_loop(
 
 	XEvent event;
 	os::steady_clock os_clock;
-	ExampleClock clock;
 	bool done = false;
 	while(!done)
 	{
@@ -137,6 +269,7 @@ void make_screenshot(
 	const x11::Window& win,
 	const glx::Context& ctx,
 	std::unique_ptr<Example>& example,
+	ExampleClock& clock,
 	GLuint width,
 	GLuint height,
 	const char* screenshot_path
@@ -148,7 +281,7 @@ void make_screenshot(
 	double t = example->ScreenshotTime();
 	double dt = example->FrameTime();
 
-	ExampleClock clock(s);
+	clock.Update(s);
 
 	// heat-up
 	while(true)
@@ -215,6 +348,7 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 	);
 
 	ExampleParams params;
+	params.max_threads = 128;
 	setupExample(params);
 	params.Check();
 
@@ -223,11 +357,89 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 	ctx.MakeCurrent(win);
 
 	{
+		// Initialize the GL API library (GLEW/GL3W/...)
 		oglplus::GLAPIInitializer api_init;
+
+		// The clock for animation timing
+		ExampleClock clock;
+
+		// things required for multi-threaded examples
+		std::vector<std::thread> threads;
+		std::vector<ExampleThreadData> thread_data;
+		ThreadSemaphore thread_ready, master_ready;
+		ExampleThreadData::Common example_thread_common_data = {
+			nullptr,
+			params,
+			clock,
+			display,
+			vi,
+			fbc,
+			ctx,
+			thread_ready,
+			master_ready,
+			false /*failure*/,
+			false /*done*/
+		};
+
+		// start the examples and let them
+		// create their own contexts shared with
+		// the main context
+		for(unsigned t=0; t!=params.num_threads; ++t)
+		{
+			ExampleThreadData example_thread_data = {
+				t, nullptr, std::string(),
+				&example_thread_common_data
+			};
+			thread_data.push_back(example_thread_data);
+			thread_data.back().thread_index = t;
+			threads.emplace_back(
+				example_thread_main,
+				std::ref(thread_data.back())
+			);
+			// wait for the thread to create
+			// an off-screen context
+			thread_ready.Wait();
+			// check for errors
+			if(!thread_data.back().error_message.empty())
+			{
+				example_thread_common_data.failure = true;
+				example_thread_common_data.master_ready.Signal(t);
+				throw std::runtime_error(
+					thread_data.back().error_message
+				);
+			}
+		}
+
+		// make the example
 		std::unique_ptr<Example> example(makeExample(params));
 
 		example->Reshape(width, height);
 		example->MouseMove(width/2, height/2, width, height);
+
+		// tell the threads about the example
+		// and let them call makeExampleThread
+		example_thread_common_data.example = example.get();
+		// signal that the example is ready
+		master_ready.Signal(params.num_threads);
+		// wait for the examples to call makeExampleThread
+		thread_ready.Wait(params.num_threads);
+		// and check for potential errors
+		for(unsigned t=0; t!=params.num_threads; ++t)
+		{
+			if(!thread_data[t].error_message.empty())
+			{
+				example_thread_common_data.failure = true;
+				example_thread_common_data.master_ready.Signal(
+					params.num_threads
+				);
+				throw std::runtime_error(
+					thread_data.back().error_message
+				);
+			}
+		}
+		// signal that the example thread may start
+		// rendering
+		master_ready.Signal(params.num_threads);
 
 		if(screenshot_path)
 		{
@@ -236,6 +448,7 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 				win,
 				ctx,
 				example,
+				clock,
 				width,
 				height,
 				screenshot_path
@@ -248,9 +461,22 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 				win,
 				ctx,
 				example,
+				clock,
 				width,
 				height
 			);
+		}
+		example_thread_common_data.done = true;
+		// cancel the example threads
+		for(unsigned t=0; t!=params.num_threads; ++t)
+		{
+			assert(thread_data[t].example_thread);
+			thread_data[t].example_thread->Cancel();
+		}
+		// join the example threads
+		for(unsigned t=0; t!=params.num_threads; ++t)
+		{
+			threads[t].join();
 		}
 	}
 	ctx.Release(display);
@@ -266,7 +492,6 @@ int glx_example_main(int argc, char ** argv)
 		screenshot_path = argv[2];
 	// run the main loop
 	oglplus::run_example(oglplus::x11::Display(), screenshot_path);
-	std::cout << "Done" << std::endl;
 	return 0;
 }
 

@@ -181,12 +181,21 @@ public:
 	}
 };
 
+class Example;
+
 /// Base class for OGLplus example offscreen rendering threads
 class ExampleThread
 {
 public:
 	virtual ~ExampleThread(void)
 	{ }
+
+	/// Notifies the thread that the example is closing
+	/** Implementations of ExampleThread should cancel
+	 *  all rendering operations and quit the Render
+	 *  function ASAP.
+	 */
+	virtual void Cancel(void){ }
 
 	/// Rendering procedure with simple timing
 	virtual void Render(double /*time*/)
@@ -200,6 +209,12 @@ public:
 		this->Render(clock.Now().Seconds());
 	}
 };
+
+std::unique_ptr<ExampleThread> makeExampleThread(
+	Example* example,
+	unsigned thread_id,
+	const ExampleParams& params
+);
 
 /// Base class for OGLplus examples
 class Example

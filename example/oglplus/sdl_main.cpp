@@ -130,7 +130,7 @@ void run_loop(
 			else if(event.type == SDL_KEYUP)
 			{
 				if(event.key.keysym.sym == SDLK_ESCAPE)
-					done = false;
+					done = true;
 			}
 			else if(event.type == SDL_VIDEORESIZE)
 			{

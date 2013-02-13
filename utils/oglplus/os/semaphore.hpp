@@ -36,18 +36,23 @@ class Semaphore
 {
 public:
 	// TODO
-	Semaphore(const char* name, int max = 1, bool master = false)
+	Semaphore(
+		const char* name,
+		unsigned max = 1,
+		unsigned initial = 1,
+		bool master = false
+	)
 	{ }
 
 	~Semaphore(void)
 	{
 	}
 
-	void Wait(void) const
+	void Wait(unsigned n = 1)
 	{
 	}
 
-	void Release(void) const
+	void Signal(unsigned n = 1)
 	{
 	}
 };
@@ -70,7 +75,12 @@ private:
 			throw std::runtime_error("Semaphore operation failed");
 	}
 
-	static int _init_sem(::key_t key, int max, bool master)
+	static int _init_sem(
+		::key_t key,
+		unsigned /*max*/,
+		unsigned initial,
+		bool master
+	)
 	{
 		int flg = 0600;
 		if(master) flg |= IPC_EXCL;
@@ -84,7 +94,7 @@ private:
 					"Semaphore construction failed"
 				);
 			}
-			if(::semctl(result, 0, SETVAL, max) < 0)
+			if(::semctl(result, 0, SETVAL, int(initial)) < 0)
 			{
 				throw std::runtime_error(
 					"Semaphore initialization failed"
@@ -100,8 +110,12 @@ private:
 		return key_t(str_hash(name));
 	}
 public:
-	Semaphore(const char* name, int max = 1, bool master = false)
-	 : _sem(_init_sem(_key_from_name(name), max, master))
+	Semaphore(
+		const char* name,
+		unsigned max = 1,
+		unsigned initial = 1,
+		bool master = false
+	): _sem(_init_sem(_key_from_name(name), max, initial, master))
 	 , _master(master)
 	{ }
 
@@ -112,14 +126,14 @@ public:
 		if(_master) ::semctl(_sem, 0, IPC_RMID);
 	}
 
-	void Wait(void) const
+	void Wait(unsigned n = 1)
 	{
-		_op(-1);
+		_op(int(-n));
 	}
 
-	void Release(void) const
+	void Signal(unsigned n = 1)
 	{
-		_op(+1);
+		_op(int(+n));
 	}
 };
 
@@ -139,7 +153,7 @@ public:
 
 	~CriticalSection(void)
 	{
-		_sem.Release();
+		_sem.Signal();
 	}
 };
 

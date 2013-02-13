@@ -14,6 +14,7 @@
 
 #include <oglplus/x11/display.hpp>
 #include <oglplus/x11/window.hpp>
+#include <oglplus/glx/drawable.hpp>
 #include <oglplus/glx/fb_config.hpp>
 
 #include <X11/Xlib.h>
@@ -91,9 +92,9 @@ public:
 	Context(
 		const x11::Display& display,
 		const FBConfig& fbc,
+		const Context& share_context,
 		int version_major,
-		int version_minor,
-		Context& share_context
+		int version_minor
 	): x11::DisplayObject< ::GLXContext, void(::Display*, ::GLXContext)>(
 		display,
 		make_context(
@@ -107,9 +108,9 @@ public:
 		"Error creating sharing glX context"
 	){ }
 
-	void MakeCurrent(const x11::Window& window) const
+	void MakeCurrent(const Drawable& drawable) const
 	{
-		::glXMakeCurrent(this->DisplayRef(), window, this->Handle());
+		::glXMakeCurrent(this->DisplayRef(), drawable, this->Handle());
 	}
 
 	static void Release(const x11::Display& display)
@@ -117,9 +118,9 @@ public:
 		::glXMakeCurrent(display, 0, 0);
 	}
 
-	void SwapBuffers(const x11::Window& window) const
+	void SwapBuffers(const Drawable& drawable) const
 	{
-		::glXSwapBuffers(this->DisplayRef(), window);
+		::glXSwapBuffers(this->DisplayRef(), drawable);
 	}
 };
 

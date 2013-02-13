@@ -157,6 +157,28 @@ public:
 	}
 };
 
+template <typename HandleType>
+class BaseDisplayObject
+{
+private:
+	HandleType _handle;
+public:
+	template <typename Derived, typename Deleter>
+	BaseDisplayObject(const DisplayObject<Derived, Deleter>& derived)
+	 : _handle(derived.Handle())
+	{ }
+
+	HandleType Handle(void) const
+	{
+		return _handle;
+	}
+
+	operator HandleType(void) const
+	{
+		return Handle();
+	}
+};
+
 } // namespace x11
 } // namespace oglplus
 

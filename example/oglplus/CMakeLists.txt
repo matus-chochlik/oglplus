@@ -71,7 +71,7 @@ elseif(
 	endif()
 
 	include_directories(${X11_INCLUDE_DIR})
-	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${X11_LIBRARIES})
+	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${X11_LIBRARIES} pthread)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/utils)
