@@ -1048,34 +1048,12 @@ private:
 		assert(i <= int(n_1));
 		assert(j <= int(n_1));
 
-		typedef int(*index_getter)(int,int,int);
-		index_getter get_x[6] = {
-			[](int n_1,int  ,int  )->int{return   n_1;},
-			[](int    ,int  ,int  )->int{return     0;},
-			[](int    ,int i,int  )->int{return     i;},
-			[](int    ,int i,int  )->int{return     i;},
-			[](int    ,int i,int  )->int{return     i;},
-			[](int n_1,int i,int  )->int{return n_1-i;}
-		};
-		index_getter get_y[6] = {
-			[](int    ,int  ,int j)->int{return     j;},
-			[](int    ,int  ,int j)->int{return     j;},
-			[](int n_1,int  ,int  )->int{return   n_1;},
-			[](int    ,int  ,int  )->int{return     0;},
-			[](int    ,int  ,int j)->int{return     j;},
-			[](int    ,int  ,int j)->int{return     j;}
-		};
-		index_getter get_z[6] = {
-			[](int n_1,int i,int  )->int{return n_1-i;},
-			[](int    ,int i,int  )->int{return     i;},
-			[](int n_1,int  ,int j)->int{return n_1-j;},
-			[](int    ,int  ,int j)->int{return     j;},
-			[](int n_1,int  ,int  )->int{return   n_1;},
-			[](int    ,int  ,int  )->int{return     0;}
-		};
-		int x = get_x[f](n_1, i, j);
-		int y = get_y[f](n_1, i, j);
-		int z = get_z[f](n_1, i, j);
+		int get_x[6] = { int(n_1), 0, i, i, i, int(n_1)-i };
+		int get_y[6] = { j, j, int(n_1), 0, j, j };
+		int get_z[6] = { int(n_1)-i, i, int(n_1)-j, j, int(n_1), 0 };
+		int x = get_x[f];
+		int y = get_y[f];
+		int z = get_z[f];
 
 
 		return z*n*n + y*n + x;
