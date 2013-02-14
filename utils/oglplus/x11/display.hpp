@@ -14,6 +14,9 @@
 
 #include <X11/Xlib.h>
 #include <stdexcept>
+#include <vector>
+#include <string>
+#include <cstdio>
 
 namespace oglplus {
 namespace x11 {
@@ -94,6 +97,41 @@ public:
 			&_any_event,
 			::XPointer()
 		) == True;
+	}
+};
+
+class ScreenNames
+ : public std::vector<std::string>
+{
+public:
+	ScreenNames(void)
+	{
+		char name[16];
+		int display = 0;
+		while(true)
+		{
+			int screen = 0;
+			while(true)
+			{
+				std::snprintf(
+					name,
+					sizeof(name)/sizeof(name[0]),
+					":%d.%d",
+					display,
+					screen
+				);
+				::Display* tmp = ::XOpenDisplay(name);
+				if(tmp)
+				{
+					push_back(name);
+					::XCloseDisplay(tmp);
+				}
+				else if(screen != 0) break;
+				else return;
+				++screen;
+			}
+			++display;
+		}
 	}
 };
 

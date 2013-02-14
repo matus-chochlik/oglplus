@@ -91,6 +91,7 @@ struct ExampleThreadData
 		Example* example;
 		const ExampleParams& example_params;
 		const ExampleClock& clock;
+		const x11::ScreenNames& screen_names;
 		const x11::Display& display;
 		const x11::VisualInfo& vi;
 		const glx::FBConfig& fbc;
@@ -109,67 +110,63 @@ struct ExampleThreadData
 
 void example_thread_main(ExampleThreadData& data)
 {
+	const ExampleThreadData::Common& common = data.common();
 	try
 	{
+		const x11::ScreenNames& sn = common.screen_names;
+		// pick one of the available display screens
+		// for this thread
+		std::size_t disp_idx = data.thread_index;
+		if(sn.size() > 1) ++disp_idx;
+		disp_idx %= sn.size();
+		// open the picked display
+		x11::Display display(sn[disp_idx].c_str());
 		// initialize the pixelmaps and the sharing context
-		x11::Pixmap xpm(
-			data.common().display,
-			data.common().vi,
-			8, 8
-		);
-		glx::Pixmap gpm(
-			data.common().display,
-			data.common().vi,
-			xpm
-		);
-		glx::Context ctx(
-			data.common().display,
-			data.common().fbc,
-			data.common().ctx,
-			3, 3
-		);
+		x11::Pixmap xpm(display, common.vi, 8, 8);
+		glx::Pixmap gpm(display, common.vi, xpm);
+		glx::Context ctx(display, common.fbc, common.ctx, 3, 3);
 
 		ctx.MakeCurrent(gpm);
 
 		// signal that the context is created
-		data.common().thread_ready.Signal();
+		common.thread_ready.Signal();
 
 		// wait for the example to be created
 		// in the main thread
-		data.common().master_ready.Wait();
+		common.master_ready.Wait();
 		// if something failed - quit
-		if(data.common().failure) return;
+		if(common.failure) return;
 
 		{
 			// call makeExampleThread
 			std::unique_ptr<ExampleThread> example_thread(
 				makeExampleThread(
-					data.common().example,
+					common.example,
 					data.thread_index,
-					data.common().example_params
+					common.example_params
 				)
 			);
 			data.example_thread = example_thread.get();
 			// signal that it is created
-			data.common().thread_ready.Signal();
+			common.thread_ready.Signal();
 			// wait for the main thread
-			data.common().master_ready.Wait();
+			common.master_ready.Wait();
 			// if something failed - quit
-			if(data.common().failure) return;
+			if(common.failure) return;
 
 			// start rendering
-			while(!data.common().done)
+			while(!common.done)
 			{
-				example_thread->Render(data.common().clock);
+				example_thread->Render(common.clock);
 				glFlush();
 			}
 		}
-		ctx.Release(data.common().display);
+		ctx.Release(display);
 	}
 	catch(std::exception& se)
 	{
 		data.error_message = se.what();
-		data.common().thread_ready.Signal();
+		common.thread_ready.Signal();
 	}
 }
 
@@ -347,8 +344,11 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 		width, height
 	);
 
+	x11::ScreenNames screen_names;
+
 	ExampleParams params;
 	params.max_threads = 128;
+	params.num_gpus = screen_names.size(); // TODO: something more reliable
 	setupExample(params);
 	params.Check();
 
@@ -371,6 +371,7 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 			nullptr,
 			params,
 			clock,
+			screen_names,
 			display,
 			vi,
 			fbc,
@@ -490,6 +491,7 @@ int glx_example_main(int argc, char ** argv)
 	const char* screenshot_path = 0;
 	if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
 		screenshot_path = argv[2];
+	//
 	// run the main loop
 	oglplus::run_example(oglplus::x11::Display(), screenshot_path);
 	return 0;
