@@ -19,6 +19,7 @@
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/patch_parameter.hpp>
 #include <oglplus/data_type.hpp>
+#include <oglplus/transform_feedback.hpp>
 
 namespace oglplus {
 namespace context {
@@ -28,6 +29,7 @@ namespace context {
  *  @ingroup ogl_context
  */
 class Drawing
+ : public FriendOf<TransformFeedbackOps>
 {
 public:
 	/// Draws @a count of primitives from the bound array buffers
@@ -787,6 +789,29 @@ public:
 				DrawElementsInstancedBaseVertexBaseInstance
 			)
 		);
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
+	static void DrawTransformFeedback(PrimitiveType primitive)
+	{
+		OGLPLUS_GLFUNC(DrawTransformFeedback)(
+			GLenum(primitive),
+			0
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawTransformFeedback));
+	}
+
+	static void DrawTransformFeedback(
+		PrimitiveType primitive,
+		const TransformFeedbackOps& xfb
+	)
+	{
+		OGLPLUS_GLFUNC(DrawTransformFeedback)(
+			GLenum(primitive),
+			FriendOf<TransformFeedbackOps>::GetName(xfb)
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawTransformFeedback));
 	}
 #endif
 

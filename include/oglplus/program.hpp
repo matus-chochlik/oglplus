@@ -830,6 +830,15 @@ public:
 		));
 	}
 
+	template <typename std::size_t N>
+	void TransformFeedbackVaryings(
+		const GLchar* (&varyings)[N],
+		TransformFeedbackMode mode
+	) const
+	{
+		TransformFeedbackVaryings(N, varyings, mode);
+	}
+
 	/// Sets the variables that will be captured during transform feedback
 	/**
 	 *  @throws Error

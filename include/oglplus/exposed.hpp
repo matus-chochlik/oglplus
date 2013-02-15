@@ -44,16 +44,13 @@ public:
 };
 
 #else
-template <class Object>
-class Exposed;
-
 template <class ObjectOps>
-class Exposed<Object<ObjectOps> >
- : public Managed<Object<ObjectOps> >
+class Exposed
+ : public Managed<ObjectOps>
 {
 public:
-	Exposed(const Object<ObjectOps>& object)
-	 : Managed<Object<ObjectOps> >(object)
+	Exposed(const ObjectOps& object)
+	 : Managed<ObjectOps>(object)
 	{ }
 
 	GLuint Name(void) const
@@ -78,9 +75,15 @@ public:
  *  @ingroup utility_classes
  */
 template <class ObjectOps>
-inline Exposed<Object<ObjectOps> > Expose(const Object<ObjectOps>& object)
+inline Exposed<ObjectOps> Expose(const Object<ObjectOps>& object)
 {
-	return Exposed<Object<ObjectOps> >(object);
+	return Exposed<ObjectOps>(object);
+}
+
+template <class ObjectOps>
+inline Exposed<ObjectOps> Expose(const Managed<Object<ObjectOps> >& object)
+{
+	return Exposed<ObjectOps>(object);
 }
 
 } // namespace oglplus

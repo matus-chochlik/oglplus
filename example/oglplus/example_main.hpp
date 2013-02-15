@@ -19,104 +19,131 @@
 
 namespace oglplus {
 
-inline void example_print_std_error_common(std::exception& error)
+inline void example_print_std_error_common(
+	std::exception& error,
+	std::ostream& errstr
+)
 {
-	std::cerr << " '" << error.what() << "'" << std::endl;
+	errstr << " '" << error.what() << "'" << std::endl;
 }
 
-inline void example_print_error_common(Error& error)
+inline void example_print_error_common(
+	Error& error,
+	std::ostream& errstr
+)
 {
-	example_print_std_error_common(error);
-	std::cerr << "in '" << error.GLSymbol() << "'" << std::endl;
-	std::cerr << "at [" << error.File() << ":" << error.Line() << "]" << std::endl;
+	example_print_std_error_common(error, errstr);
+	errstr << "in '" << error.GLSymbol() << "'" << std::endl;
+	errstr << "at [";
+	errstr << error.File() << ":" << error.Line();
+	errstr << "]" << std::endl;
 
 	bool nl = false;
 	if(std::strlen(error.ClassName()))
 	{
-		std::cerr << error.ClassName();
+		errstr << error.ClassName();
 		nl |= true;
 	}
 	if(!error.ObjectDescription().empty())
 	{
-		if(nl) std::cerr << " ";
-		std::cerr << "'" << error.ObjectDescription() << "'";
+		if(nl) errstr << " ";
+		errstr << "'" << error.ObjectDescription() << "'";
 		nl |= true;
 	}
 	if(std::strlen(error.BindTarget()))
 	{
-		if(!nl) std::cerr << "Object";
-		std::cerr << " bound to '" << error.BindTarget() << "'";
+		if(!nl) errstr << "Object";
+		errstr << " bound to '" << error.BindTarget() << "'";
 		nl |= true;
 	}
-	if(nl) std::cerr << std::endl;
+	if(nl) errstr << std::endl;
 
 	auto i = error.Properties().begin(), e = error.Properties().end();
 	if(i != e)
 	{
-		std::cerr << "Properties: " << std::endl;
+		errstr << "Properties: " << std::endl;
 		while(i != e)
 		{
-			std::cerr << "<" << i->first << "='" << i->second << "'>";
+			errstr << "<" << i->first << "='" << i->second << "'>";
 			++i;
-			if(i != e) std::cerr << ", ";
-			else std::cerr << ".";
+			if(i != e) errstr << ", ";
+			else errstr << ".";
 		}
-		std::cerr << std::endl;
+		errstr << std::endl;
 	}
 }
 
-inline int example_main(int (*main_func)(int, char**), int argc, char ** argv)
+template <typename Func>
+inline int example_guarded_exec(Func func, std::ostream& errstr)
 {
 	try
 	{
-		// this won't let multiple examples run at the same time
-		os::CriticalSection cs("OGLplus example");
-		// look at the options and extract useful things
-		Application::ParseCommandLineOptions(argc, argv);
-		//
-		return main_func(argc, argv);
+		func();
 	}
 	catch(ShaderVariableError& sve)
 	{
-		std::cerr << "Shader variable error";
-		example_print_error_common(sve);
+		errstr << "Shader variable error";
+		example_print_error_common(sve, errstr);
 		sve.Cleanup();
 	}
 	catch(ProgramBuildError& pbe)
 	{
-		std::cerr << "Program build error";
-		example_print_error_common(pbe);
-		std::cerr << "Build log:" << std::endl;
-		std::cerr << pbe.Log() << std::endl;
+		errstr << "Program build error";
+		example_print_error_common(pbe, errstr);
+		errstr << "Build log:" << std::endl;
+		errstr << pbe.Log() << std::endl;
 		pbe.Cleanup();
 	}
 	catch(LimitError& le)
 	{
-		std::cerr << "Limit error";
-		example_print_error_common(le);
-		std::cerr << "Value " << le.Value() << " exceeds limit ";
-		std::cerr << le.Limit() << std::endl;
+		errstr << "Limit error";
+		example_print_error_common(le, errstr);
+		errstr << "Value " << le.Value() << " exceeds limit ";
+		errstr << le.Limit() << std::endl;
 		le.Cleanup();
 	}
 	catch(Error& err)
 	{
-		std::cerr << "GL error";
-		example_print_error_common(err);
+		errstr << "GL error";
+		example_print_error_common(err, errstr);
 		err.Cleanup();
 	}
 	catch(std::runtime_error& rte)
 	{
-		std::cerr << "Runtime error";
-		example_print_std_error_common(rte);
-		std::cerr << std::endl;
+		errstr << "Runtime error";
+		example_print_std_error_common(rte, errstr);
+		errstr << std::endl;
 	}
 	catch(std::exception& se)
 	{
-		std::cerr << "Error";
-		example_print_std_error_common(se);
-		std::cerr << std::endl;
+		errstr << "Error";
+		example_print_std_error_common(se, errstr);
+		errstr << std::endl;
 	}
 	return 1;
+}
+
+inline int example_main(
+	int (*main_func)(int, char**),
+	int argc,
+	char ** argv
+)
+{
+	struct main_wrapper
+	{
+		int (*main_func)(int, char**);
+		int argc;
+		char** argv;
+
+		int operator()(void) const
+		{
+			os::CriticalSection cs("OGLplus example");
+			Application::ParseCommandLineOptions(argc, argv);
+			return main_func(argc, argv);
+		}
+	} wrapped_main = {main_func, argc, argv};
+
+	return example_guarded_exec(wrapped_main, std::cerr);
 }
 
 } // namespace oglplus

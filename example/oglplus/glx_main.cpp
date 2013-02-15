@@ -30,6 +30,7 @@
 
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include <stdexcept>
 #include <iostream>
 #include <cstring>
@@ -111,61 +112,77 @@ struct ExampleThreadData
 void example_thread_main(ExampleThreadData& data)
 {
 	const ExampleThreadData::Common& common = data.common();
-	try
+	const x11::ScreenNames& sn = common.screen_names;
+	// pick one of the available display screens
+	// for this thread
+	std::size_t disp_idx = data.thread_index;
+	if(sn.size() > 1) ++disp_idx;
+	disp_idx %= sn.size();
+	// open the picked display
+	x11::Display display(sn[disp_idx].c_str());
+	// initialize the pixelmaps and the sharing context
+	x11::Pixmap xpm(display, common.vi, 8, 8);
+	glx::Pixmap gpm(display, common.vi, xpm);
+	glx::Context ctx(display, common.fbc, common.ctx, 3, 3);
+
+	ctx.MakeCurrent(gpm);
+
+	// signal that the context is created
+	common.thread_ready.Signal();
+
+	// wait for the example to be created
+	// in the main thread
+	common.master_ready.Wait();
+	// if something failed - quit
+	if(common.failure) return;
+	else
 	{
-		const x11::ScreenNames& sn = common.screen_names;
-		// pick one of the available display screens
-		// for this thread
-		std::size_t disp_idx = data.thread_index;
-		if(sn.size() > 1) ++disp_idx;
-		disp_idx %= sn.size();
-		// open the picked display
-		x11::Display display(sn[disp_idx].c_str());
-		// initialize the pixelmaps and the sharing context
-		x11::Pixmap xpm(display, common.vi, 8, 8);
-		glx::Pixmap gpm(display, common.vi, xpm);
-		glx::Context ctx(display, common.fbc, common.ctx, 3, 3);
-
-		ctx.MakeCurrent(gpm);
-
-		// signal that the context is created
+		assert(common.example);
+		// call makeExampleThread
+		std::unique_ptr<ExampleThread> example_thread(
+			makeExampleThread(
+				*common.example,
+				data.thread_index,
+				common.example_params
+			)
+		);
+		data.example_thread = example_thread.get();
+		// signal that it is created
 		common.thread_ready.Signal();
-
-		// wait for the example to be created
-		// in the main thread
+		// wait for the main thread
 		common.master_ready.Wait();
 		// if something failed - quit
 		if(common.failure) return;
 
+		// start rendering
+		while(!common.done)
 		{
-			// call makeExampleThread
-			std::unique_ptr<ExampleThread> example_thread(
-				makeExampleThread(
-					common.example,
-					data.thread_index,
-					common.example_params
-				)
-			);
-			data.example_thread = example_thread.get();
-			// signal that it is created
-			common.thread_ready.Signal();
-			// wait for the main thread
-			common.master_ready.Wait();
-			// if something failed - quit
-			if(common.failure) return;
-
-			// start rendering
-			while(!common.done)
-			{
-				example_thread->Render(common.clock);
-				glFlush();
-			}
+			example_thread->Render(common.clock);
+			glFlush();
 		}
-		ctx.Release(display);
 	}
-	catch(std::exception& se)
+	ctx.Release(display);
+}
+
+void call_example_thread_main(ExampleThreadData& data)
+{
+	const ExampleThreadData::Common& common = data.common();
+	struct main_wrapper
 	{
-		data.error_message = se.what();
+		void (*main_func)(ExampleThreadData&);
+		ExampleThreadData& data;
+
+		int operator()(void) const
+		{
+			main_func(data);
+			return 0;
+		}
+	} wrapped_main = {example_thread_main, data};
+
+	std::stringstream errstr;
+	if(example_guarded_exec(wrapped_main, errstr) != 0)
+	{
+		data.error_message = errstr.str();
 		common.thread_ready.Signal();
 	}
 }
@@ -175,6 +192,7 @@ void run_example_loop(
 	const x11::Window& win,
 	const glx::Context& ctx,
 	std::unique_ptr<Example>& example,
+	ExampleThreadData::Common& common,
 	ExampleClock& clock,
 	GLuint width,
 	GLuint height
@@ -225,7 +243,7 @@ void run_example_loop(
 	XEvent event;
 	os::steady_clock os_clock;
 	bool done = false;
-	while(!done)
+	while(!done && !common.failure)
 	{
 		while(display.NextEvent(event))
 		{
@@ -356,31 +374,32 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 
 	ctx.MakeCurrent(win);
 
+	// The clock for animation timing
+	ExampleClock clock;
+
+	std::vector<std::thread> threads;
+	ThreadSemaphore thread_ready, master_ready;
+	ExampleThreadData::Common example_thread_common_data = {
+		nullptr,
+		params,
+		clock,
+		screen_names,
+		display,
+		vi,
+		fbc,
+		ctx,
+		thread_ready,
+		master_ready,
+		false /*failure*/,
+		false /*done*/
+	};
+	try
 	{
 		// Initialize the GL API library (GLEW/GL3W/...)
 		oglplus::GLAPIInitializer api_init;
 
-		// The clock for animation timing
-		ExampleClock clock;
-
 		// things required for multi-threaded examples
-		std::vector<std::thread> threads;
 		std::vector<ExampleThreadData> thread_data;
-		ThreadSemaphore thread_ready, master_ready;
-		ExampleThreadData::Common example_thread_common_data = {
-			nullptr,
-			params,
-			clock,
-			screen_names,
-			display,
-			vi,
-			fbc,
-			ctx,
-			thread_ready,
-			master_ready,
-			false /*failure*/,
-			false /*done*/
-		};
 
 		// start the examples and let them
 		// create their own contexts shared with
@@ -394,7 +413,7 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 			thread_data.push_back(example_thread_data);
 			thread_data.back().thread_index = t;
 			threads.emplace_back(
-				example_thread_main,
+				call_example_thread_main,
 				std::ref(thread_data.back())
 			);
 			// wait for the thread to create
@@ -422,9 +441,10 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 		example_thread_common_data.example = example.get();
 		// signal that the example is ready
 		master_ready.Signal(params.num_threads);
-		// wait for the examples to call makeExampleThread
+		// wait for the threads to call makeExampleThread
 		thread_ready.Wait(params.num_threads);
-		// and check for potential errors
+		// check for potential errors and let
+		// the example do additional thread-related preparations
 		for(unsigned t=0; t!=params.num_threads; ++t)
 		{
 			if(!thread_data[t].error_message.empty())
@@ -437,8 +457,10 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 					thread_data.back().error_message
 				);
 			}
+			assert(thread_data[t].example_thread);
+			example->PrepareThread(t,*thread_data[t].example_thread);
 		}
-		// signal that the example thread may start
+		// signal that the example threads may start
 		// rendering
 		master_ready.Signal(params.num_threads);
 
@@ -462,6 +484,7 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 				win,
 				ctx,
 				example,
+				example_thread_common_data,
 				clock,
 				width,
 				height
@@ -479,6 +502,13 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 		{
 			threads[t].join();
 		}
+	}
+	catch(...)
+	{
+		example_thread_common_data.failure = true;
+		master_ready.Signal(params.num_threads);
+		for(auto& thread : threads) thread.join();
+		throw;
 	}
 	ctx.Release(display);
 }

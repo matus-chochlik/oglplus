@@ -125,7 +125,7 @@ public:
 
 	// This is here just for consistency with Shape wrapper
 	template <typename T>
-	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	void BoundingSphere(Vector<T, 4>& /*center_and_radius*/) const
 	{
 	}
 

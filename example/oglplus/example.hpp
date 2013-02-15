@@ -211,7 +211,7 @@ public:
 };
 
 std::unique_ptr<ExampleThread> makeExampleThread(
-	Example* example,
+	Example& example,
 	unsigned thread_id,
 	const ExampleParams& params
 );
@@ -222,6 +222,15 @@ class Example
 public:
 	virtual ~Example(void)
 	{ }
+
+	/// Place to do additional thread-related initialization of example
+	/** This function is called in the context of the main thread
+	 *  after all example threads are created, before the rendering
+	 *  loop starts.
+	 */
+	virtual void PrepareThread(unsigned, ExampleThread&)
+	{
+	}
 
 	/// Hint for the main function whether to continue rendering
 	/** Implementations of the main function may choose to ignore

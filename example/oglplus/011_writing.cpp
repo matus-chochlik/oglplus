@@ -164,7 +164,7 @@ public:
 void setupExample(ExampleParams& /*params*/){ }
 
 std::unique_ptr<ExampleThread> makeExampleThread(
-	Example* /*example*/,
+	Example& /*example*/,
 	unsigned /*thread_id*/,
 	const ExampleParams& /*params*/
 ){ return std::unique_ptr<ExampleThread>(); }

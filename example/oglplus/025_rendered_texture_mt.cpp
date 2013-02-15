@@ -356,17 +356,17 @@ void setupExample(ExampleParams& params)
 }
 
 std::unique_ptr<ExampleThread> makeExampleThread(
-	Example* example,
+	Example& example,
 	unsigned thread_id,
 	const ExampleParams& /*params*/
 )
 {
 	assert(thread_id == 0);
-	assert(example);
-	assert(dynamic_cast<FBTexExample*>(example));
 
 	return std::unique_ptr<ExampleThread>(
-		new FBTexThread(*(FBTexExample*)example)
+		new FBTexThread(
+			dynamic_cast<FBTexExample&>(example)
+		)
 	);
 }
 
