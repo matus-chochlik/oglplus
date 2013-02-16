@@ -61,7 +61,7 @@ private:
 			"	vertTexCoord = TexCoord;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
-		);
+		).Compile();
 		prog.AttachShader(vertex_shader);
 
 		FragmentShader fs(ObjectDesc("Main fragment"));
