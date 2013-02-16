@@ -51,6 +51,16 @@ public:
 		return _storage.size();
 	}
 
+	const Object& front(void) const
+	{
+		return _storage.front();
+	}
+
+	const Object& back(void) const
+	{
+		return _storage.back();
+	}
+
 	const Object& at(GLuint index) const
 	{
 		return _storage[index];
@@ -137,6 +147,16 @@ public:
 	size_t size(void) const
 	{
 		return _names.size();
+	}
+
+	Managed<ObjectOps> front(void) const
+	{
+		return Managed<ObjectOps>(_names.front());
+	}
+
+	Managed<ObjectOps> back(void) const
+	{
+		return Managed<ObjectOps>(_names.back());
 	}
 
 	Managed<ObjectOps> at(GLuint index) const
