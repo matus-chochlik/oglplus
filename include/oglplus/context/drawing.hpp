@@ -793,15 +793,6 @@ public:
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-	static void DrawTransformFeedback(PrimitiveType primitive)
-	{
-		OGLPLUS_GLFUNC(DrawTransformFeedback)(
-			GLenum(primitive),
-			0
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawTransformFeedback));
-	}
-
 	static void DrawTransformFeedback(
 		PrimitiveType primitive,
 		const TransformFeedbackOps& xfb

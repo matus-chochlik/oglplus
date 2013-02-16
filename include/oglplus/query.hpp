@@ -256,6 +256,56 @@ public:
 		Result(result);
 	}
 
+	class Activator
+	 : public FriendOf<QueryOps>
+	{
+	protected:
+		GLuint _name;
+		typename QueryOps::Target _target;
+	private:
+		bool _alive;
+		Activator(const Activator&);
+
+		void _begin(void);
+		void _end(void);
+	public:
+		Activator(
+			const QueryOps& query,
+			typename QueryOps::Target target
+		): _name(FriendOf<QueryOps>::GetName(query))
+		 , _target(target)
+		 , _alive(false)
+		{
+			_begin();
+			_alive = true;
+		}
+
+		Activator(Activator&& temp)
+		 : _name(temp._name)
+		 , _target(temp._target)
+		 , _alive(temp._alive)
+		{
+			temp._alive = false;
+		}
+
+		~Activator(void)
+		{
+			try { Finish(); }
+			catch(...) { }
+		}
+
+		bool Finish(void)
+		{
+			if(_alive)
+			{
+				_end();
+				_alive = false;
+				return true;
+			}
+			else return false;
+		}
+	};
+
 	/// A helper class automatically executing a query
 	/** Instances of this class begin the query in the constructor
 	 *  and end the query in the destructor. It is more convenient
@@ -265,59 +315,31 @@ public:
 	 *  @see Execute
 	 */
 	template <typename ResultType>
-	class Execution
+	class Execution : public Activator
 	{
 	private:
-		typename QueryOps::Target _target;
-		const QueryOps& _query;
 		ResultType& _result;
-		bool _alive;
 	public:
 		Execution(
-			typename QueryOps::Target target,
 			const QueryOps& query,
+			typename QueryOps::Target target,
 			ResultType& result
-		): _target(target)
-		 , _query(query)
+		): Activator(query, target)
 		 , _result(result)
-		 , _alive(false)
-		{
-			_query.Begin(_target);
-			_alive = true;
-		}
-
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
-		Execution(const Execution&) = delete;
-#else
-	private:
-		Execution(const Execution&);
-	public:
-#endif
+		{ }
 
 		Execution(Execution&& temp)
-		 : _target(temp._target)
-		 , _query(temp._query)
+		 : Activator(static_cast<Activator&&>(temp))
 		 , _result(temp._result)
-		 , _alive(temp._alive)
-		{
-			temp._alive = false;
-		}
-
-		void Finish(void)
-		{
-			if(_alive)
-			{
-				_query.End(_target);
-				_query.WaitForResult(_result);
-				_alive = false;
-			}
-		}
+		{ }
 
 		~Execution(void)
 		{
-			try{ Finish(); }
-			catch(...){ }
+			try { WaitForResult(); }
+			catch(...) { }
 		}
+
+		void WaitForResult(void);
 	};
 
 	/// Executes the query on the specified @p target and gets the @p result
@@ -328,9 +350,26 @@ public:
 	template <typename ResultType>
 	Execution<ResultType> Execute(Target target, ResultType& result) const
 	{
-		return Execution<ResultType>(target, *this, result);
+		return Execution<ResultType>(*this, target, result);
 	}
 };
+
+
+inline void QueryOps::Activator::_begin(void)
+{
+	Managed<QueryOps>(_name).Begin(_target);
+}
+
+inline void QueryOps::Activator::_end(void)
+{
+	Managed<QueryOps>(_name).End(_target);
+}
+
+template <typename ResultType>
+inline void QueryOps::Execution<ResultType>::WaitForResult(void)
+{
+	Managed<QueryOps>(_name).WaitForResult(_result);
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL asynchronous query functionality

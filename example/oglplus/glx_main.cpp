@@ -155,7 +155,7 @@ void example_thread_main(ExampleThreadData& data)
 		if(common.failure) return;
 
 		// start rendering
-		while(!common.done)
+		while(!common.done && !common.failure)
 		{
 			example_thread->Render(common.clock);
 			glFlush();

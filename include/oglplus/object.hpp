@@ -651,15 +651,11 @@ class Managed
 private:
 	typedef typename ObjectBaseOps<_Object>::Type ObjectOps;
 
-public:
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
-	Managed(void) = delete;
-#else
-private:
+	ObjectOps& _base(void){ return *this; }
+
 	Managed(void)
 	{ }
 public:
-#endif
 	Managed(const ObjectOps& obj)
 	 : ObjectOps(obj)
 	{ }

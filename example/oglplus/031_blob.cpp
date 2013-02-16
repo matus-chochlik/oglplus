@@ -492,7 +492,7 @@ public:
 	 , plane(metal_prog)
 	{
 		std::srand(234);
-		for(GLuint i=0; i!=48; ++i)
+		for(GLuint i=0; i!=24; ++i)
 		{
 			GLuint j = 0, n = 3+std::rand()%3;
 			std::vector<Vec4f> points(n);
@@ -508,7 +508,6 @@ public:
 				++j;
 			}
 			ball_paths.push_back(CubicBezierLoop<Vec4f, double>(points));
-			++i;
 		}
 		//
 		Texture::Active(1);

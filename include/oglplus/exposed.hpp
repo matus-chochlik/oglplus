@@ -86,6 +86,12 @@ inline Exposed<ObjectOps> Expose(const Managed<Object<ObjectOps> >& object)
 	return Exposed<ObjectOps>(object);
 }
 
+template <class ObjectOps>
+inline Exposed<ObjectOps> Expose(const Managed<ObjectOps>& object)
+{
+	return Exposed<ObjectOps>(object);
+}
+
 } // namespace oglplus
 
 #endif // include guard

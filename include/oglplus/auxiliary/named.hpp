@@ -54,6 +54,10 @@ public:
 	Named(const Named&) = default;
 
 	Named(Named&&) = default;
+
+	Named& operator = (const Named&) = default;
+
+	Named& operator = (Named&&) = default;
 #endif
 };
 
