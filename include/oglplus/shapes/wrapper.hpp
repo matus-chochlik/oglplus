@@ -211,13 +211,25 @@ public:
 	void Draw(void)
 	{
 		_gl.FrontFace(_face_winding);
-		_shape_instr.Draw(_index_info, 1);
+		_shape_instr.Draw(_index_info, 1, 0);
+	}
+
+	void Draw(GLuint inst_count)
+	{
+		_gl.FrontFace(_face_winding);
+		_shape_instr.Draw(_index_info, inst_count, 0);
+	}
+
+	void Draw(GLuint inst_count, GLuint base_inst)
+	{
+		_gl.FrontFace(_face_winding);
+		_shape_instr.Draw(_index_info, inst_count, base_inst);
 	}
 
 	void Draw(const std::function<bool (GLuint)>& drawing_driver)
 	{
 		_gl.FrontFace(_face_winding);
-		_shape_instr.Draw(_index_info, 1, drawing_driver);
+		_shape_instr.Draw(_index_info, 1, 0, drawing_driver);
 	}
 
 	Vector<GLfloat, 4> BoundingSphere(void) const

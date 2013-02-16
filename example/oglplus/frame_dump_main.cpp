@@ -79,7 +79,7 @@ void run(const x11::Display& display, const char* prefix)
 	x11::Window win(
 		display,
 		vi,
-		x11::ColorMap(display, vi),
+		x11::Colormap(display, vi),
 		"oglplus example window",
 		width, height
 	);

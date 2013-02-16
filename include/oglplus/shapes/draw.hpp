@@ -143,13 +143,15 @@ struct DrawOperation
 
 	void Draw(
 		const ElementIndexInfo& index_info,
-		GLuint inst_count = 1
+		GLuint inst_count = 1,
+		GLuint base_inst = 0
 	) const
 	{
 		this->_Draw(
 			_IndexPtr(index_info),
 			index_info.DataType(),
-			inst_count
+			inst_count,
+			base_inst
 		);
 	}
 
@@ -157,13 +159,15 @@ struct DrawOperation
 	template <typename IT>
 	void Draw(
 		const std::vector<IT>& indices,
-		GLuint inst_count = 1
+		GLuint inst_count = 1,
+		GLuint base_inst = 0
 	) const
 	{
 		this->_Draw(
 			_IndexPtr(indices),
 			_IndexDataType(indices),
-			inst_count
+			inst_count,
+			base_inst
 		);
 	}
 private:
@@ -208,90 +212,116 @@ private:
 	void _Draw(
 		void* indices,
 		DataType index_data_type,
-		GLuint inst_count
+		GLuint inst_count,
+		GLuint base_inst
 	) const
 	{
+		switch(method)
+		{
+			case OGLPLUS_CONST_ENUM_VALUE(
+				Method::DrawArrays
+			): return _DrawArrays(
+				inst_count,
+				base_inst
+			);
+
+			case OGLPLUS_CONST_ENUM_VALUE(
+				Method::DrawElements
+			): return _DrawElements(
+				indices,
+				index_data_type,
+				inst_count,
+				base_inst
+			);
+		}
+	}
+
+	void _DrawArrays(GLuint inst_count, GLuint base_inst) const
+	{
+		_SetupPrimitiveRestart();
 		if(inst_count == 1)
 		{
-			switch(method)
-			{
-				case OGLPLUS_CONST_ENUM_VALUE(
-					Method::DrawArrays
-				): return _DrawArrays();
-
-				case OGLPLUS_CONST_ENUM_VALUE(
-					Method::DrawElements
-				): return _DrawElements(
-					indices,
-					index_data_type
-				);
-			}
+			OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArrays));
+		}
+		else if(base_inst == 0)
+		{
+			OGLPLUS_GLFUNC(DrawArraysInstanced)(
+				GLenum(mode),
+				first,
+				count,
+				inst_count
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
 		}
 		else
 		{
-			switch(method)
-			{
-				case OGLPLUS_CONST_ENUM_VALUE(
-					Method::DrawArrays
-				): return _DrawArrays(inst_count);
-
-				case OGLPLUS_CONST_ENUM_VALUE(
-					Method::DrawElements
-				): return _DrawElements(
-					indices,
-					index_data_type,
-					inst_count
-				);
-			}
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
+			OGLPLUS_GLFUNC(DrawArraysInstancedBaseInstance)(
+				GLenum(mode),
+				first,
+				count,
+				inst_count,
+				base_inst
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
+				DrawArraysInstancedBaseInstance
+			));
+#else
+			assert(!"DrawArraysInstancedBaseInstance required!")
+#endif
 		}
-	}
-
-	void _DrawArrays(void) const
-	{
-		_SetupPrimitiveRestart();
-		OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArrays));
-	}
-
-	void _DrawArrays(GLuint inst_count) const
-	{
-		_SetupPrimitiveRestart();
-		OGLPLUS_GLFUNC(DrawArraysInstanced)(
-			GLenum(mode),
-			first,
-			count,
-			inst_count
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
-	}
-
-	void _DrawElements(void* indices, DataType index_data_type) const
-	{
-		_SetupPrimitiveRestart();
-		OGLPLUS_GLFUNC(DrawElements)(
-			GLenum(mode),
-			count,
-			GLenum(index_data_type),
-			indices
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawElements));
 	}
 
 	void _DrawElements(
 		void* indices,
 		DataType index_data_type,
-		GLuint inst_count
+		GLuint inst_count,
+		GLuint base_inst
 	) const
 	{
 		_SetupPrimitiveRestart();
-		OGLPLUS_GLFUNC(DrawElementsInstanced)(
-			GLenum(mode),
-			count,
-			GLenum(index_data_type),
-			indices,
-			inst_count
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawElementsInstanced));
+		if(inst_count == 1)
+		{
+			OGLPLUS_GLFUNC(DrawElements)(
+				GLenum(mode),
+				count,
+				GLenum(index_data_type),
+				indices
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawElements));
+		}
+		else if(base_inst == 0)
+		{
+			OGLPLUS_GLFUNC(DrawElementsInstanced)(
+				GLenum(mode),
+				count,
+				GLenum(index_data_type),
+				indices,
+				inst_count
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
+				DrawElementsInstanced
+			));
+		}
+		else
+		{
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
+			OGLPLUS_GLFUNC(DrawElementsInstancedBaseInstance)(
+				GLenum(mode),
+				count,
+				GLenum(index_data_type),
+				indices,
+				inst_count,
+				base_inst
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
+				DrawElementsInstancedBaseInstance
+			));
+#else
+			assert(!"DrawElementsInstancedBaseInstance required!");
+#endif
+		}
 	}
 };
 
@@ -337,10 +367,11 @@ private:
 
 		void operator()(
 			const DrawOperation& op,
-			GLuint inst_count
+			GLuint inst_count,
+			GLuint base_inst
 		) const
 		{
-			op.Draw(_indices, inst_count);
+			op.Draw(_indices, inst_count, base_inst);
 		}
 	};
 
@@ -355,10 +386,11 @@ private:
 
 		void operator()(
 			const DrawOperation& op,
-			GLuint inst_count
+			GLuint inst_count,
+			GLuint base_inst
 		) const
 		{
-			op.Draw(_index_info, inst_count);
+			op.Draw(_index_info, inst_count, base_inst);
 		}
 	};
 
@@ -367,6 +399,7 @@ private:
 	void _Draw(
 		const DrawFun& draw_fun,
 		const GLuint inst_count,
+		const GLuint base_inst,
 		const Driver& driver
 	) const
 	{
@@ -377,7 +410,7 @@ private:
 			if(driver(i->phase))
 			{
 				do_draw = true;
-				draw_fun(*i, inst_count);
+				draw_fun(*i, inst_count, base_inst);
 			}
 			else do_draw = false;
 			GLuint prev_phase = i->phase;
@@ -390,7 +423,7 @@ private:
 					do_draw = driver(i->phase);
 					prev_phase = i->phase;
 				}
-				if(do_draw) draw_fun(*i, inst_count);
+				if(do_draw) draw_fun(*i, inst_count, base_inst);
 				++i;
 			}
 		}
@@ -417,22 +450,29 @@ public:
 	void Draw(
 		const std::vector<IT>& indices,
 		GLuint inst_count,
+		GLuint base_inst,
 		Driver driver
 	)
 	{
 		this->_Draw(
 			_DrawFromIndices<std::vector<IT>>(indices),
 			inst_count,
+			base_inst,
 			driver
 		);
 	}
 
 	template <typename IT>
-	void Draw(const std::vector<IT>& indices, GLuint inst_count = 1)
+	void Draw(
+		const std::vector<IT>& indices,
+		GLuint inst_count = 1,
+		GLuint base_inst = 0
+	)
 	{
 		this->_Draw(
 			_DrawFromIndices<std::vector<IT>>(indices),
 			inst_count,
+			base_inst,
 			DefaultDriver()
 		);
 	}
@@ -441,24 +481,28 @@ public:
 	void Draw(
 		const ElementIndexInfo& index_info,
 		GLuint inst_count,
+		GLuint base_inst,
 		Driver driver
 	)
 	{
 		this->_Draw(
 			_DrawFromIndexInfo(index_info),
 			inst_count,
+			base_inst,
 			driver
 		);
 	}
 
 	void Draw(
 		const ElementIndexInfo& index_info,
-		GLuint inst_count = 1
+		GLuint inst_count = 1,
+		GLuint base_inst = 0
 	)
 	{
 		this->_Draw(
 			_DrawFromIndexInfo(index_info),
 			inst_count,
+			base_inst,
 			DefaultDriver()
 		);
 	}

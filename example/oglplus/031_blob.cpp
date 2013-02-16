@@ -97,7 +97,8 @@ public:
 		"float find_t(const uint i1, const uint i2)"
 		"{"
 		"	float d = vertValue[i2] - vertValue[i1];"
-		"	return -vertValue[i1]/d;"
+		"	if(d == 0.0) return 0.5;"
+		"	else return -vertValue[i1]/d;"
 		"}"
 
 		"void make_vertex(const uint i1, const uint i2)"

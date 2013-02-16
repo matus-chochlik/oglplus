@@ -369,7 +369,7 @@ public:
 	{
 		vao.Bind();
 		gl.FrontFace(make_shape.FaceWinding());
-		shape_instr.Draw(shape_indices, 1, drawing_driver);
+		shape_instr.Draw(shape_indices, 1, 0, drawing_driver);
 	}
 
 	void DrawEdges(void)
