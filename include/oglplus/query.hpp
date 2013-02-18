@@ -261,7 +261,7 @@ public:
 	{
 	protected:
 		GLuint _name;
-		typename QueryOps::Target _target;
+		QueryOps::Target _target;
 	private:
 		bool _alive;
 		Activator(const Activator&);
@@ -271,7 +271,7 @@ public:
 	public:
 		Activator(
 			const QueryOps& query,
-			typename QueryOps::Target target
+			QueryOps::Target target
 		): _name(FriendOf<QueryOps>::GetName(query))
 		 , _target(target)
 		 , _alive(false)
