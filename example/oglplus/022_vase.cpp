@@ -295,9 +295,9 @@ public:
 	{
 		gl.Viewport(width, height);
 		vase_prog.projection_matrix = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(60),
 			double(width)/height,
-			1, 100
+			1, 30
 		);
 	}
 
@@ -307,7 +307,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0.0, 1.5, 0.0),
-			5.0 + SineWave(time / 11.0)*1.5,
+			7.0 + SineWave(time / 11.0)*2.5,
 			FullCircles(time / 19.0),
 			Degrees(SineWave(time / 20.0) * 30 + 35)
 		);

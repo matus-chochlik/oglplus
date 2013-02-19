@@ -405,9 +405,9 @@ public:
 		gl.Viewport(width, height);
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(50),
+				Degrees(70),
 				double(width)/height,
-				1, 100
+				1, 200
 			)
 		);
 		viewport_dimensions.Set(width, height);
@@ -441,6 +441,11 @@ public:
 			segments*4,
 			instances
 		);
+	}
+
+	bool Continue(double time)
+	{
+		return time < 60.0;
 	}
 };
 

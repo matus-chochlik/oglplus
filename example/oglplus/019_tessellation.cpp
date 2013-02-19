@@ -95,7 +95,7 @@ public:
 
 			"int tessLevel(float dist)"
 			"{"
-			"	return int(8.0 / sqrt(dist+0.1));"
+			"	return int(9.0 / sqrt(dist+0.1));"
 			"}"
 
 			"void main(void)"
@@ -296,9 +296,9 @@ public:
 		viewport_dimensions.Set(Vec2f(width, height));
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				double(width)/height,
-				1, 100
+				1, 40
 			)
 		);
 	}
@@ -309,7 +309,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			12.0 - SineWave(time / 13)*8.0,
+			14.0 - SineWave(time / 13)*8.0,
 			Degrees(time * 33),
 			Degrees(SineWave(time / 21.0) * 31)
 		);

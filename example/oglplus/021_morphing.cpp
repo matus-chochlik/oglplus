@@ -225,7 +225,7 @@ public:
 			CamMatrixf::PerspectiveX(
 				Degrees(48),
 				double(width)/height,
-				1, 100
+				1, 20
 			)
 		);
 	}
@@ -249,7 +249,7 @@ public:
 
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			4.5,
+			5.5,
 			FullCircles(clock.Now().Seconds() / 19.0),
 			Degrees(45 + SineWave(clock.Now().Seconds()/15.0) * 40)
 		);

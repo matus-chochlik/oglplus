@@ -284,9 +284,9 @@ public:
 	{
 		gl.Viewport(width, height);
 		Mat4f projection = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(65),
 			double(width)/height,
-			1, 100
+			1, 40
 		);
 		SetProgramUniform(prog_norm, "ProjectionMatrix", projection);
 		SetProgramUniform(prog_refl, "ProjectionMatrix", projection);
@@ -300,7 +300,7 @@ public:
 		// at radius of 3.5 with elevation between 15 and 90 degrees
 		Mat4f camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			4.5,
+			6.5,
 			Degrees(time * 135),
 			Degrees(15 + (-SineWave(0.25+time/12.5)+1.0)*0.5*75)
 		);

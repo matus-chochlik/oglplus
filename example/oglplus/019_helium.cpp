@@ -241,9 +241,9 @@ public:
 	{
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(60),
 			double(width)/height,
-			1, 100
+			1, 50
 		);
 		proton.SetProjection(projection);
 		neutron.SetProjection(projection);
@@ -259,7 +259,7 @@ public:
 		// make the matrix for camera orbiting the origin
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			19.0,
+			21.0,
 			Degrees(time * 15),
 			Degrees(SineWave(time*0.15) * 45)
 		);

@@ -1354,11 +1354,31 @@ public:
 		T m32 = -(T(2) * z_far * z_near) / (z_far - z_near);
 
 		OGLPLUS_AUX_MATRIX_INIT_DATA({
-			 m00, T(0), T(0), T(0),
-			T(0),  m11, T(0), T(0),
-			 m20,  m21,  m22,  m23,
-			T(0), T(0),  m32, T(0),
+			 m00, T(0),  m20, T(0),
+			T(0),  m11,  m21, T(0),
+			T(0), T(0),  m22,  m32,
+			T(0), T(0),  m23, T(0),
 		});
+	}
+
+	static inline CameraMatrix Perspective(
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top,
+		T z_near,
+		T z_far
+	)
+	{
+		return CameraMatrix(
+			_Perspective(),
+			x_left,
+			x_right,
+			y_bottom,
+			y_top,
+			z_near,
+			z_far
+		);
 	}
 
 	/// Constructs a perspective projection matrix

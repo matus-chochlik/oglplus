@@ -145,9 +145,9 @@ public:
 		prog.Use();
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(52),
+				Degrees(70),
 				double(width)/height,
-				1, 100
+				1, 70
 			)
 		);
 	}
@@ -156,10 +156,9 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		// set the matrix for camera orbiting the origin
 		camera_matrix.Set(
 			CamMatrixf::LookingAt(
-				Vec3f(1.5, 2.5, 1.5),
+				Vec3f(2.5, 3.5, 2.5),
 				Vec3f()
 			)
 		);

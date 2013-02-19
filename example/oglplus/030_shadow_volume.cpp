@@ -248,8 +248,8 @@ public:
 			CamMatrixf::PerspectiveX(
 				RightAngles(1.0),
 				1.0,
-				1.0,
-				100.0
+				0.1,
+				10.0
 			)
 		);
 
@@ -438,9 +438,9 @@ public:
 		width = vp_width;
 		height = vp_height;
 		Mat4f proj = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(60),
 			double(width)/height,
-			1, 100
+			1, 60
 		);
 		SetProgramUniform(shape_prog, "ProjectionMatrix", proj);
 		SetProgramUniform(light_prog, "ProjectionMatrix", proj);
@@ -452,7 +452,7 @@ public:
 		// the camera matrix
 		Mat4f camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			5.5 + SineWave(time / 16.0) * 1.5,
+			6.5 + SineWave(time / 16.0) * 1.5,
 			FullCircles(time / 12.0),
 			Degrees(SineWave(time / 30.0) * 90)
 		);

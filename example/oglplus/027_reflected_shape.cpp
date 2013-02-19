@@ -292,7 +292,7 @@ public:
 		float aspect = float(width)/height;
 
 		auto projection =
-			CamMatrixf::PerspectiveX(Degrees(48), aspect, 1, 100);
+			CamMatrixf::PerspectiveX(Degrees(60), aspect, 1, 20);
 
 		plane_projection_matrix.Set(projection);
 		shape_projection_matrix.Set(projection);
@@ -325,7 +325,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5,
+			4.5,
 			FullCircles(time / 10.0),
 			Degrees(45.0 - SineWave(time / 7.0)*35.0)
 		);

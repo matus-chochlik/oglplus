@@ -1459,9 +1459,9 @@ public:
 		gl.Viewport(width, height);
 
 		auto perspective = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(70),
 			double(width)/height,
-			1, 100
+			1, 200
 		);
 
 		metal_prog.projection_matrix.Set(perspective);

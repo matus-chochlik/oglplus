@@ -135,9 +135,9 @@ public:
 		prog.Use();
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(60),
+				Degrees(70),
 				double(width)/height,
-				1, 100
+				1, 20
 			)
 		);
 	}
@@ -150,7 +150,7 @@ public:
 		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				1.7,
+				2.7,
 				Degrees(time * 135),
 				Degrees(SineWave(time / 20.0) * 90)
 			)

@@ -726,14 +726,14 @@ public:
 		draw_fbo.Resize(width, height);
 
 		projection_0 = CamMatrixf::PerspectiveX(
-			Degrees(56),
+			Degrees(70),
 			float(width)/height,
-			1, 100
+			1, 20
 		);
 		projection_1 = CamMatrixf::PerspectiveX(
-			Degrees(16),
+			Degrees(24),
 			float(width)/height,
-			1, 100
+			1, 40
 		);
 	}
 
@@ -743,7 +743,7 @@ public:
 		Vec3f target_0 = Vec3f(0.0, 1.5, 0.0);
 		auto camera_0 = CamMatrixf::Orbiting(
 			target_0,
-			3.0 + SineWave(time / 11.0)*1.5,
+			4.0 + SineWave(time / 11.0)*2.0,
 			FullCircles(time / 19.0),
 			Degrees(SineWave(time / 20.0) * 30 + 35)
 		);
@@ -755,7 +755,7 @@ public:
 		Vec3f target_1 = Vec3f(0.0,-0.1, 0.1);
 		auto camera_1 = CamMatrixf::Orbiting(
 			target_1,
-			9.5,
+			12.5,
 			FullCircles(time / 37.0),
 			Degrees(SineWave(time / 11.0) * 85)
 		);

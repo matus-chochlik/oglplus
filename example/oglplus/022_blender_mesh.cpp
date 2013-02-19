@@ -235,7 +235,7 @@ public:
 			CamMatrixf::PerspectiveX(
 				Degrees(60),
 				double(width)/height,
-				1, 10
+				1, 20
 			);
 		draw_prog.projection_matrix.Set(projection);
 		depth_prog.projection_matrix.Set(projection);
@@ -248,7 +248,7 @@ public:
 		auto camera =
 			CamMatrixf::Orbiting(
 				monkeys.BoundingSphereCenter(),
-				5.0,
+				7.0,
 				FullCircles(time / 19.0),
 				Degrees(SineWave(time / 17.0) * 90)
 			);

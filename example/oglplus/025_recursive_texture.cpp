@@ -224,7 +224,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				2.0,
+				3.0,
 				Degrees(time * 35),
 				Degrees(SineWave(time / 20.0) * 60)
 			)
@@ -233,7 +233,7 @@ public:
 		model_matrix.Set(ModelMatrixf::RotationX(FullCircles(time * 0.25)));
 
 		projection_matrix.Set(
-			CamMatrixf::PerspectiveX(Degrees(28), 1.0, 1, 100)
+			CamMatrixf::PerspectiveX(Degrees(40), 1.0, 1, 40)
 		);
 
 		fbos[back].Bind(Framebuffer::Target::Draw);
@@ -251,7 +251,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				2.0,
+				3.0,
 				Degrees(time * 35),
 				Degrees(SineWave(time / 20.0) * 60)
 			)
@@ -259,9 +259,9 @@ public:
 
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(54),
+				Degrees(75),
 				double(width)/height,
-				1, 100
+				1, 40
 			)
 		);
 

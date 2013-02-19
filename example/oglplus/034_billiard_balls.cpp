@@ -205,12 +205,6 @@ public:
 		"	for(gl_Layer=0; gl_Layer!=6; ++gl_Layer)"
 		"	{"
 		"		mat4 TransformMatrix = "
-		"			mat4("
-		"				 2.0, 0.0, 0.0, 0.0,"
-		"				 0.0, 2.0, 0.0, 0.0,"
-		"				 0.0, 0.0, 2.0, 0.0,"
-		"				 0.0, 0.0, 0.0, 1.0 "
-		"			) *"
 		"			ProjectionMatrix *"
 		"			CubeFaceMatrix[gl_Layer] *"
 		"			CameraMatrix;"
@@ -950,7 +944,7 @@ public:
 		cmap_ball_pp.UseStages(ball_prog).Fragment();
 
 		cmap_geom_prog.projection_matrix.Set(
-			CamMatrixf::PerspectiveX(Degrees(90), 1.0, 1, 100)
+			CamMatrixf::PerspectiveX(Degrees(90), 1.0, 1, 80)
 		);
 		gl.Viewport(tex_side, tex_side);
 
@@ -1030,7 +1024,7 @@ public:
 		Vec3f camera_target(0.0, 2.2, 5.0);
 		auto camera = CamMatrixf::Orbiting(
 			camera_target,
-			14.0 - SineWave(time / 15.0)*12.0,
+			16.0 - SineWave(time / 15.0)*12.0,
 			FullCircles(time / 24.0),
 			Degrees(50 + SineWave(time / 20.0) * 35)
 		);
@@ -1048,9 +1042,9 @@ public:
 
 		geom_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				double(width)/height,
-				1, 100
+				1, 80
 			)
 		);
 	}

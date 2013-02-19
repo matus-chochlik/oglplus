@@ -49,7 +49,7 @@ public:
 			"out vec3 vertTexCoord;"
 			"void main(void)"
 			"{"
-			"	gl_Position = Matrix * vec4(Corner * 100.0, 1.0);"
+			"	gl_Position = Matrix * vec4(Corner * 10.0, 1.0);"
 			"	vertTexCoord = Corner;"
 			"}"
 		));

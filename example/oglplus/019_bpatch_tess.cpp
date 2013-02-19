@@ -172,7 +172,7 @@ public:
 		gl.Viewport(width, height);
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(50),
+				Degrees(70),
 				double(width)/height,
 				1, 100
 			)
@@ -186,7 +186,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				30.0 - SineWave(time / 17.0)*27.0,
+				30.0 - SineWave(time / 17.0)*25.0,
 				Degrees(time * 47),
 				Degrees(SineWave(time / 31.0) * 90)
 			)

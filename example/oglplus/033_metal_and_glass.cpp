@@ -735,16 +735,16 @@ public:
 		transf_prog.light_proj_matrix.Set(light_proj_matrix);
 
 		Mat4f perspective = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(60),
 			double(width)/height,
-			1, 100
+			1, 60
 		);
 
 		// setup the camera
 		Vec3f camera_target(0.0, 0.8, 0.0);
 		auto camera = CamMatrixf::Orbiting(
 			camera_target,
-			5.0 - SineWave(time / 15.0)*2.0,
+			8.0 - SineWave(time / 15.0)*3.0,
 			FullCircles(time / 24.0),
 			Degrees(45 + SineWave(time / 20.0) * 40)
 		);
@@ -826,7 +826,7 @@ public:
 			ModelMatrixf::RotationZ(FullCircles(time / 16.0));
 
 		const Mat4f light_proj_matrix =
-			CamMatrixf::PerspectiveX(Degrees(5), 1.0, 1, 100) *
+			CamMatrixf::PerspectiveX(Degrees(10), 1.0, 1, 80) *
 			CamMatrixf::LookingAt(light_position, torus_center);
 
 		transf_prog.light_position.Set(light_position);

@@ -230,9 +230,9 @@ public:
 		viewport_dimensions.Set(Vec2f(width, height));
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				double(width)/height,
-				1, 100
+				1, 20
 			)
 		);
 	}
@@ -246,7 +246,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				4.5 - SineWave(time / 27)*2.0,
+				5.5 - SineWave(time / 27)*2.0,
 				Degrees(time * 33),
 				Degrees(SineWave(time / 21.0) * 31)
 			)

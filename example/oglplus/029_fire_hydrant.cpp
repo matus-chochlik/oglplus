@@ -327,7 +327,7 @@ public:
 			bound_fbo.AttachRenderbuffer(FramebufferAttachment::Color, smap_rbo);
 		}
 		//
-		auto light_proj_mat = CamMatrixf::PerspectiveX(Degrees(30), 1.0f, 1.0f, 100.0f);
+		auto light_proj_mat = CamMatrixf::PerspectiveX(Degrees(40), 1.0f, 1.0f, 100.0f);
 		ProgramUniform<Mat4f>(shadow_prog, "LightProjMatrix").Set(light_proj_mat);
 		ProgramUniform<Mat4f>(draw_prog,   "LightProjMatrix").Set(light_proj_mat);
 		//
@@ -344,9 +344,9 @@ public:
 		height = vp_height;
 		draw_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(60),
+				Degrees(75),
 				double(width)/height,
-				1, 100
+				1, 40
 			)
 		);
 	}

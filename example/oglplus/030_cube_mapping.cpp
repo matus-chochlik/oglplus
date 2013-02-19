@@ -499,7 +499,7 @@ public:
 
 
 		Uniform<Mat4f>(cmap_prog, "ProjectionMatrix").Set(
-			CamMatrixf::PerspectiveX(Degrees(90), 1.0, 1, 10)
+			CamMatrixf::PerspectiveX(Degrees(90), 1.0, 1, 20)
 		);
 
 		// bind the VAO for the cube
@@ -659,9 +659,9 @@ public:
 		// Set the viewport and perspective matrix
 		gl.Viewport(width, height);
 		auto persp = CamMatrixf::PerspectiveX(
-			Degrees(50),
+			Degrees(70),
 			double(width)/height,
-			1, 10
+			1, 20
 		);
 		// clear it
 		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -670,7 +670,7 @@ public:
 		//
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.0,
+			4.0,
 			FullCircles(time / 16.0),
 			Degrees(SineWave(time / 20.0) * 30)
 		);

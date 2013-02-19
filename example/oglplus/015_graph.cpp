@@ -55,12 +55,12 @@ private:
 	static std::vector<Vec3f> make_cam_path_cps(void)
 	{
 		const Vec3f _points[6] = {
-			Vec3f(-30.0f, -40.0f, -40.0f),
-			Vec3f( 30.0f,   0.0f, -50.0f),
-			Vec3f( 50.0f,  20.0f,  40.0f),
-			Vec3f(-10.0f,  40.0f,  45.0f),
-			Vec3f(-20.0f,  20.0f,   0.0f),
-			Vec3f(-50.0f,   3.0f, -20.0f)
+			Vec3f(-40.0f, -50.0f, -50.0f),
+			Vec3f( 40.0f,   0.0f, -60.0f),
+			Vec3f( 60.0f,  30.0f,  50.0f),
+			Vec3f(-20.0f,  50.0f,  55.0f),
+			Vec3f(-30.0f,  30.0f,   0.0f),
+			Vec3f(-60.0f,   4.0f, -30.0f)
 		};
 		return std::vector<Vec3f>(_points, _points+6);
 	}
@@ -232,9 +232,9 @@ public:
 		prog.Use();
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(70),
 				double(width)/height,
-				1, 100
+				1, 200
 			)
 		);
 	}

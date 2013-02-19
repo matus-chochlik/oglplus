@@ -150,9 +150,9 @@ public:
 	{
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(60),
 			double(width)/height,
-			1, 100
+			1, 20
 		);
 		prog.Use();
 		projection_matrix.Set(projection);
@@ -164,7 +164,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5,
+			4.5,
 			Degrees(time * 35),
 			Degrees(SineWave(time / 30.0) * 60)
 		);

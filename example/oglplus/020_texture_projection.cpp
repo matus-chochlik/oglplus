@@ -185,9 +185,9 @@ public:
 		prog.Use();
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				double(width)/height,
-				1, 100
+				1, 20
 			)
 		);
 	}
@@ -201,7 +201,7 @@ public:
 		light_pos = lightPos;
 
 		tex_projection_matrix.Set(
-			CamMatrixf::PerspectiveX(Degrees(10), 1.0, 1, 100) *
+			CamMatrixf::PerspectiveX(Degrees(15), 1.0, 1, 20) *
 			CamMatrixf::LookingAt(lightPos, Vec3f())
 		);
 

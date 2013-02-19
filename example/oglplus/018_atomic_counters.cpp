@@ -189,9 +189,9 @@ public:
 		gl.Viewport(width, height);
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				double(width)/height,
-				1, 100
+				1, 20
 			)
 		);
 	}
@@ -203,7 +203,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(0.0f, 0.5f, 0.0f),
-				1.8,
+				2.8,
 				FullCircles(time / 90.0),
 				Degrees(85)
 			)

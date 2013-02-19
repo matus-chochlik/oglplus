@@ -277,9 +277,9 @@ public:
 	{
 		gl.Viewport(width, height);
 		Mat4f perspective = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(65),
 			double(width)/height,
-			1, 100
+			1, 40
 		);
 		SetProgramUniform(cloud_prog, "ProjectionMatrix", perspective);
 		SetProgramUniform(light_prog, "ProjectionMatrix", perspective);
@@ -292,7 +292,7 @@ public:
 		auto lightPos = light_path.Position(time * 0.05);
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5f,
+			4.5f,
 			Degrees(0),
 			Degrees(SineWave(time / 20.0) * 80)
 		);

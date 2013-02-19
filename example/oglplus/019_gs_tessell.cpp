@@ -241,9 +241,9 @@ public:
 		viewport_dimensions.Set(Vec2f(width, height));
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				double(width)/height,
-				1, 100
+				1, 50
 			)
 		);
 	}
@@ -254,7 +254,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			13.0 - SineWave(time / 13)*8.0,
+			15.0 - SineWave(time / 13)*8.0,
 			Degrees(time * 33),
 			Degrees(SineWave(time / 21.0) * 31)
 		);
@@ -274,7 +274,7 @@ public:
 				ModelMatrixf::Translation(offsets[i])*
 				ModelMatrixf::RotationZ(Degrees(time * (37+3*i)));
 
-			GLint level = GLint(12.0 / (Length((
+			GLint level = GLint(17.0 / (Length((
 				Inverse(model)*
 				Vec4f(camera.Position(), 1)
 			).xyz())+0.1));

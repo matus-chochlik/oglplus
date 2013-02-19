@@ -78,7 +78,7 @@ inline int example_guarded_exec(Func func, std::ostream& errstr)
 {
 	try
 	{
-		func();
+		return func();
 	}
 	catch(ShaderVariableError& sve)
 	{
@@ -107,6 +107,13 @@ inline int example_guarded_exec(Func func, std::ostream& errstr)
 		errstr << "GL error";
 		example_print_error_common(err, errstr);
 		err.Cleanup();
+	}
+	catch(std::system_error& sye)
+	{
+		errstr << "System error";
+		example_print_std_error_common(sye, errstr);
+		errstr << "Error code: " << sye.code() << std::endl;
+		errstr << std::endl;
 	}
 	catch(std::runtime_error& rte)
 	{

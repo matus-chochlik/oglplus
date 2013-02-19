@@ -191,9 +191,9 @@ public:
 		prog.Use();
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				double(width)/height,
-				1, 100
+				1, 20
 			)
 		);
 	}
@@ -206,7 +206,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				3.5,
+				5.0,
 				Degrees(time * 10),
 				Degrees(15 + (-SineWave(0.25+time/12.5)+1.0)*0.5*75)
 			)

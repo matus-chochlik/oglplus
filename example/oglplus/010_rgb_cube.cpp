@@ -177,7 +177,7 @@ public:
 		// set the matrix for camera at (1,1,1) looking at origin
 		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::LookingAt(
-				Vec3f(1.0f, 1.0f, 1.0f),
+				Vec3f(2.0f, 2.0f, 2.0f),
 				Vec3f()
 			)
 		);

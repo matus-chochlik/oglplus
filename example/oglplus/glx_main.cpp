@@ -63,6 +63,7 @@ private:
 	{
 		std::unique_lock<std::mutex> lock(_mutex);
 		_value += n;
+		_cv.notify_all();
 	}
 public:
 	ThreadSemaphore(unsigned initial = 0)
@@ -71,13 +72,12 @@ public:
 
 	void Wait(unsigned n = 1)
 	{
-		while(n) { _decr(); --n; }
+		while(n--) _decr();
 	}
 
 	void Signal(unsigned n = 1)
 	{
 		_incr(n);
-		_cv.notify_all();
 	}
 };
 
@@ -134,31 +134,44 @@ void example_thread_main(ExampleThreadData& data)
 	// in the main thread
 	common.master_ready.Wait();
 	// if something failed - quit
-	if(common.failure) return;
+	if(common.failure)
+	{
+		common.thread_ready.Signal();
+		return;
+	}
 	else
 	{
-		assert(common.example);
-		// call makeExampleThread
-		std::unique_ptr<ExampleThread> example_thread(
-			makeExampleThread(
-				*common.example,
-				data.thread_index,
-				common.example_params
-			)
-		);
-		data.example_thread = example_thread.get();
-		// signal that it is created
-		common.thread_ready.Signal();
-		// wait for the main thread
-		common.master_ready.Wait();
-		// if something failed - quit
-		if(common.failure) return;
-
-		// start rendering
-		while(!common.done && !common.failure)
+		try
 		{
-			example_thread->Render(common.clock);
-			glFlush();
+			assert(common.example);
+			// call makeExampleThread
+			std::unique_ptr<ExampleThread> example_thread(
+				makeExampleThread(
+					*common.example,
+					data.thread_index,
+					common.example_params
+				)
+			);
+			data.example_thread = example_thread.get();
+			// signal that it is created
+			common.thread_ready.Signal();
+			// wait for the main thread
+			common.master_ready.Wait();
+			// if something failed - quit
+			if(common.failure) return;
+
+			// start rendering
+			while(!common.done && !common.failure)
+			{
+				example_thread->Render(common.clock);
+				glFlush();
+			}
+			data.example_thread = nullptr;
+		}
+		catch(...)
+		{
+			data.example_thread = nullptr;
+			throw;
 		}
 	}
 	ctx.Release(display);
@@ -166,7 +179,7 @@ void example_thread_main(ExampleThreadData& data)
 
 void call_example_thread_main(ExampleThreadData& data)
 {
-	const ExampleThreadData::Common& common = data.common();
+	ExampleThreadData::Common& common = data.common();
 	struct main_wrapper
 	{
 		void (*main_func)(ExampleThreadData&);
@@ -182,6 +195,7 @@ void call_example_thread_main(ExampleThreadData& data)
 	std::stringstream errstr;
 	if(example_guarded_exec(wrapped_main, errstr) != 0)
 	{
+		common.failure = true;
 		data.error_message = errstr.str();
 		common.thread_ready.Signal();
 	}
@@ -401,9 +415,7 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 		// things required for multi-threaded examples
 		std::vector<ExampleThreadData> thread_data;
 
-		// start the examples and let them
-		// create their own contexts shared with
-		// the main context
+		// prepare the example data
 		for(unsigned t=0; t!=params.num_threads; ++t)
 		{
 			ExampleThreadData example_thread_data = {
@@ -411,21 +423,27 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 				&example_thread_common_data
 			};
 			thread_data.push_back(example_thread_data);
-			thread_data.back().thread_index = t;
+		}
+
+		// start the examples and let them
+		// create their own contexts shared with
+		// the main context
+		for(unsigned t=0; t!=params.num_threads; ++t)
+		{
 			threads.emplace_back(
 				call_example_thread_main,
-				std::ref(thread_data.back())
+				std::ref(thread_data[t])
 			);
 			// wait for the thread to create
 			// an off-screen context
 			thread_ready.Wait();
 			// check for errors
-			if(!thread_data.back().error_message.empty())
+			if(!thread_data[t].error_message.empty())
 			{
 				example_thread_common_data.failure = true;
 				example_thread_common_data.master_ready.Signal(t);
 				throw std::runtime_error(
-					thread_data.back().error_message
+					thread_data[t].error_message
 				);
 			}
 		}
@@ -433,16 +451,16 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 		// make the example
 		std::unique_ptr<Example> example(makeExample(params));
 
-		example->Reshape(width, height);
-		example->MouseMove(width/2, height/2, width, height);
-
 		// tell the threads about the example
 		// and let them call makeExampleThread
 		example_thread_common_data.example = example.get();
-		// signal that the example is ready
-		master_ready.Signal(params.num_threads);
-		// wait for the threads to call makeExampleThread
-		thread_ready.Wait(params.num_threads);
+		for(unsigned t=0; t!=params.num_threads; ++t)
+		{
+			// signal that the example is ready
+			master_ready.Signal();
+			// wait for the threads to call makeExampleThread
+			thread_ready.Wait();
+		}
 		// check for potential errors and let
 		// the example do additional thread-related preparations
 		for(unsigned t=0; t!=params.num_threads; ++t)
@@ -454,7 +472,7 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 					params.num_threads
 				);
 				throw std::runtime_error(
-					thread_data.back().error_message
+					thread_data[t].error_message
 				);
 			}
 			assert(thread_data[t].example_thread);
@@ -463,6 +481,9 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 		// signal that the example threads may start
 		// rendering
 		master_ready.Signal(params.num_threads);
+
+		example->Reshape(width, height);
+		example->MouseMove(width/2, height/2, width, height);
 
 		if(screenshot_path)
 		{
@@ -494,20 +515,29 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 		// cancel the example threads
 		for(unsigned t=0; t!=params.num_threads; ++t)
 		{
-			assert(thread_data[t].example_thread);
-			thread_data[t].example_thread->Cancel();
+			if(thread_data[t].example_thread)
+				thread_data[t].example_thread->Cancel();
 		}
 		// join the example threads
 		for(unsigned t=0; t!=params.num_threads; ++t)
 		{
 			threads[t].join();
 		}
+
+		for(unsigned t=0; t!=params.num_threads; ++t)
+		{
+			if(!thread_data[t].error_message.empty())
+				throw std::runtime_error(
+					thread_data[t].error_message
+				);
+		}
 	}
 	catch(...)
 	{
 		example_thread_common_data.failure = true;
 		master_ready.Signal(params.num_threads);
-		for(auto& thread : threads) thread.join();
+		try {for(auto& thread : threads) thread.join(); }
+		catch(...){ }
 		throw;
 	}
 	ctx.Release(display);

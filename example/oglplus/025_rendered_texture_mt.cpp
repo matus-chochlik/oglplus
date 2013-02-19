@@ -164,7 +164,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				2.0,
+				3.0,
 				Degrees(time * 35),
 				Degrees(SineWave(time / 20.0) * 60)
 			)
@@ -326,7 +326,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				2.5,
+				4.0,
 				Degrees(time * 25),
 				Degrees(SineWave(time / 30.0) * 90)
 			)

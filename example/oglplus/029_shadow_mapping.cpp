@@ -426,8 +426,8 @@ public:
 		shadow_pp.Bind();
 
 		const auto light_persp_matrix = CamMatrixf::PerspectiveX(
-			Degrees(48),
-			1.0, 1.0, 20.0
+			Degrees(70),
+			1.0, 1.0, 80.0
 		);
 		ProgramUniform<GLint>(vert_prog, "LightCount").Set(0);
 
@@ -494,9 +494,9 @@ public:
 
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(52),
+				Degrees(70),
 				double(width)/height,
-				1, 100
+				1, 80
 			)
 		);
 		camera_matrix.Set(

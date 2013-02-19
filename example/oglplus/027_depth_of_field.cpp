@@ -220,7 +220,7 @@ public:
 			"uniform uint SampleMult;"
 			"in vec2 vertTexCoord;"
 			"out vec4 fragColor;"
-			"const float strength = 32.0;"
+			"const float strength = 16.0;"
 			"void main(void)"
 			"{"
 			"	float fragDepth = texture(DepthTex, vertTexCoord).r;"
@@ -342,9 +342,9 @@ public:
 
 		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(30),
+				Degrees(65),
 				double(width)/height,
-				1.0, 5.0
+				4.0, 50.0
 			)
 		);
 
@@ -382,7 +382,7 @@ public:
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				18.5,
+				20.5,
 				FullCircles(time / 20.0),
 				Degrees(SineWave(time / 25.0) * 30)
 			)

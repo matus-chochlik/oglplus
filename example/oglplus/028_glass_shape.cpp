@@ -305,7 +305,7 @@ public:
 		Mat4f projection = CamMatrixf::PerspectiveX(
 			Degrees(48),
 			double(width)/height,
-			1, 100
+			1, 15
 		);
 		SetProgramUniform(plane_prog, "ProjectionMatrix", projection);
 		SetProgramUniform(shape_prog, "ProjectionMatrix", projection);
@@ -317,7 +317,7 @@ public:
 		//
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5,
+			5.5,
 			FullCircles(time / 10.0),
 			Degrees(45.0 + SineWave(time / 7.0)*30.0)
 		);

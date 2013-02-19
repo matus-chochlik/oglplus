@@ -415,9 +415,9 @@ public:
 
 		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				Aspect(),
-				1, 100
+				1, 70
 			)
 		);
 	}

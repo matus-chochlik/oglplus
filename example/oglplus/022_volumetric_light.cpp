@@ -150,7 +150,7 @@ public:
 
 		Vec3f lightPos(2.0f, 4.0f, -3.0f);
 		auto texProjMat =
-			CamMatrixf::PerspectiveX(Degrees(60), 1.0, 0.1, 10.0) *
+			CamMatrixf::PerspectiveX(Degrees(30), 1.0, 0.3, 20.0) *
 			CamMatrixf::LookingAt(lightPos, Vec3f(0, 0, 0));
 
 		Uniform<GLint>(volume_prog, "SampleCount").Set(samples);
@@ -252,9 +252,9 @@ public:
 	{
 		gl.Viewport(width, height);
 		auto perspective = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(60),
 			double(width)/height,
-			1, 100
+			1, 40
 		);
 		ProgramUniform<Mat4f>(
 			plane_prog,
@@ -272,7 +272,7 @@ public:
 
 		auto cameraMatrix = CamMatrixf::Orbiting(
 			Vec3f(0.0f, 3.0f, 0.0f),
-			6.5f,
+			8.0f,
 			FullCircles(time / 12.0),
 			Degrees(SineWave(time / 20.0) * 80)
 		);

@@ -408,9 +408,9 @@ public:
 		gl.Viewport(Width(), Height());
 		font_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				Width()/Height(),
-				1, 100
+				1, 60
 			)
 		);
 	}

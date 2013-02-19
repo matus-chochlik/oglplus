@@ -369,7 +369,7 @@ public:
 	{
 		gl.Viewport(width, height);
 		perspective = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(65),
 			double(width)/height,
 			1, 100
 		);
@@ -384,7 +384,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			3.0 - SineWave(time / 31.0),
+			5.0 - SineWave(time / 31.0),
 			FullCircles(time / 71.0),
 			Degrees(55 + SineWave(time / 27.0) * 30)
 		);

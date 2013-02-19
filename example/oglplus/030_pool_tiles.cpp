@@ -494,7 +494,7 @@ public:
 		ProgramUniform<GLfloat>(plane_prog, "Aspect").Set(aspect);
 
 		auto projection = CamMatrixf::PerspectiveX(
-			Degrees(48), aspect, 1, 100
+			Degrees(60), aspect, 1, 60
 		);
 		ProgramUniform<Mat4f>(
 			plane_prog,
@@ -518,7 +518,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			6.0 + SineWave(time / 12.0)*2.5,
+			7.0 + SineWave(time / 12.0)*2.5,
 			FullCircles(time / 10.0),
 			Degrees(45.0 - SineWave(time / 7.0)*35.0)
 		);

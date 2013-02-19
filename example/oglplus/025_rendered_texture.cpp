@@ -291,13 +291,13 @@ public:
 		torus_prog.Use();
 
 		torus_projection_matrix.Set(
-			CamMatrixf::PerspectiveX(Degrees(48), 1.0, 1, 100)
+			CamMatrixf::PerspectiveX(Degrees(60), 1.0, 1, 30)
 		);
 
 		torus_camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				2.5,
+				3.5,
 				Degrees(time * 25),
 				Degrees(SineWave(time / 30.0) * 90)
 			)
@@ -324,16 +324,16 @@ public:
 
 		cube_projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(54),
+				Degrees(70),
 				double(width)/height,
-				1, 100
+				1, 30
 			)
 		);
 
 		cube_camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				Vec3f(),
-				2.0,
+				3.0,
 				Degrees(time * 35),
 				Degrees(SineWave(time / 20.0) * 60)
 			)

@@ -550,7 +550,7 @@ public:
 
 		water_prog.projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
-				Degrees(48),
+				Degrees(60),
 				float(width)/float(height),
 				1.0, 100.0
 			)
@@ -568,7 +568,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			5.0 + SineWave(time / 31.0),
+			6.0 + SineWave(time / 31.0),
 			FullCircles(time / 17.0),
 			Degrees(50 + SineWave(time / 21.0) * 35)
 		);

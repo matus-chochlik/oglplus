@@ -387,14 +387,14 @@ public:
 		//
 
 		Mat4f perspective = CamMatrixf::PerspectiveX(
-			Degrees(48),
+			Degrees(65),
 			double(width)/height,
-			1, 100
+			1, 30
 		);
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			1.52 - SineWave(time / 14.0) * 0.1,
+			2.0 - SineWave(time / 14.0) * 0.2,
 			FullCircles(time / 19.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);

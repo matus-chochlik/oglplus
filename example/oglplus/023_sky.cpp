@@ -256,9 +256,9 @@ public:
 	{
 		gl.Viewport(width, height);
 		auto projection = CamMatrixf::PerspectiveX(
-			Degrees(50),
+			Degrees(70),
 			float(width)/height,
-			1, 100
+			1, 200
 		);
 		sky_box_projection_matrix.Set(projection);
 		shape_projection_matrix.Set(projection);
@@ -274,7 +274,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			4.0,
+			5.0,
 			FullCircles(-0.10-time / 27.0),
 			Degrees(-20 - SineWave(time / 17.0)*30)
 		);

@@ -272,9 +272,9 @@ public:
 		gl.ViewportArray(0, 4, viewports);
 
 		projection = CamMatrixf::PerspectiveX(
-			Degrees(52),
+			Degrees(65),
 			double(width)/height,
-			1, 10
+			1, 30
 		);
 
 		camera_matrix_0.Set(
@@ -282,7 +282,7 @@ public:
 			Mat4f(
 				 Vec4f(0, 0,-1, 0),
 				 Vec4f(0, 1, 0, 0),
-				 Vec4f(1, 0, 0,-2),
+				 Vec4f(1, 0, 0,-3),
 				 Vec4f(0, 0, 0, 1)
 			)
 		);
@@ -291,7 +291,7 @@ public:
 			Mat4f(
 				 Vec4f(1, 0, 0, 0),
 				 Vec4f(0, 0,-1, 0),
-				 Vec4f(0, 1, 0,-2),
+				 Vec4f(0, 1, 0,-3),
 				 Vec4f(0, 0, 0, 1)
 			)
 		);
@@ -300,7 +300,7 @@ public:
 			Mat4f(
 				 Vec4f(1, 0, 0, 0),
 				 Vec4f(0, 1, 0, 0),
-				 Vec4f(0, 0, 1,-2),
+				 Vec4f(0, 0, 1,-3),
 				 Vec4f(0, 0, 0, 1)
 			)
 		);
@@ -312,7 +312,7 @@ public:
 		//
 		CamMatrixf camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			3.5 - SineWave(time / 16.0) * 1.5,
+			4.5 - SineWave(time / 16.0) * 1.5,
 			FullCircles(time / 12.0),
 			Degrees(SineWave(time / 30.0) * 90)
 		);

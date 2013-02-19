@@ -606,7 +606,7 @@ public:
 
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(0, 0, 0),
-			3.0 - SineWave(time / 14.0),
+			4.0 - SineWave(time / 14.0),
 			FullCircles(time / 26.0),
 			Degrees(45 + SineWave(time / 17.0) * 40)
 		);

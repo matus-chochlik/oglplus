@@ -208,6 +208,11 @@ public:
 		_vao.Bind();
 	}
 
+	FaceOrientation FaceWinding(void) const
+	{
+		return _face_winding;
+	}
+
 	void Draw(void)
 	{
 		_gl.FrontFace(_face_winding);
