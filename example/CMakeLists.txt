@@ -114,6 +114,7 @@ macro(fetch_all_dependent_examples)
 
 	fetch_dependent_examples(PNG)
 
+	fetch_cxx11_using_examples(CHRONO)
 	fetch_cxx11_using_examples(LAMBDAS)
 	fetch_cxx11_using_examples(INITIALIZER_LISTS)
 	fetch_cxx11_using_examples(VARIADIC_TEMPLATES)
@@ -126,6 +127,7 @@ macro(require_all_dependencies EXE_NAME RESULT)
 
 	require_dependency(${EXE_NAME} ${RESULT} PNG)
 
+	require_cxx11_feature(${EXE_NAME} ${RESULT} CHRONO)
 	require_cxx11_feature(${EXE_NAME} ${RESULT} LAMBDAS)
 	require_cxx11_feature(${EXE_NAME} ${RESULT} INITIALIZER_LISTS)
 	require_cxx11_feature(${EXE_NAME} ${RESULT} VARIADIC_TEMPLATES)
