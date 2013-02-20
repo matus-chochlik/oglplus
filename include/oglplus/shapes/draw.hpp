@@ -268,7 +268,7 @@ private:
 				DrawArraysInstancedBaseInstance
 			));
 #else
-			assert(!"DrawArraysInstancedBaseInstance required!")
+			assert(!"DrawArraysInstancedBaseInstance required!");
 #endif
 		}
 	}
