@@ -267,6 +267,13 @@ void run_example_loop(
 				case DestroyNotify:
 					done = true;
 					break;
+				case ConfigureNotify:
+					width = event.xconfigure.width;
+					height = event.xconfigure.height;
+					example->Reshape(
+						width,
+						height
+					);
 				case MotionNotify:
 					example->MouseMove(
 						event.xmotion.x,

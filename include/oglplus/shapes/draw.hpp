@@ -209,6 +209,15 @@ private:
 		}
 	}
 
+	void _CleanupPrimitiveRestart(void) const
+	{
+		if(restart_index != NoRestartIndex())
+		{
+			OGLPLUS_GLFUNC(Disable)(GL_PRIMITIVE_RESTART);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+		}
+	}
+
 	void _Draw(
 		void* indices,
 		DataType index_data_type,
@@ -238,7 +247,6 @@ private:
 
 	void _DrawArrays(GLuint inst_count, GLuint base_inst) const
 	{
-		_SetupPrimitiveRestart();
 		if(inst_count == 1)
 		{
 			OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
@@ -322,6 +330,7 @@ private:
 			assert(!"DrawElementsInstancedBaseInstance required!");
 #endif
 		}
+		_CleanupPrimitiveRestart();
 	}
 };
 
