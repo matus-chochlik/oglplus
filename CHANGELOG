@@ -1,3 +1,12 @@
+Version 0.27.0
+
+- Bug in construction of perspective matrices was fixed.
+- Several bugs in the examples and example harnesses were fixed.
+- Added the Query::Activator class
+- The front() and back() functions were added to Array<Object>
+- Support for instanced rendering was added to the shape
+  generators/loaders.
+
 Version 0.26.0
 
 - The example "harnesses" were reimplemented, the GL context creation
