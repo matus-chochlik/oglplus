@@ -336,12 +336,6 @@ def parse_arguments():
 		"""
 	)
 	argparser.add_argument(
-		"--framedump",
-		default=False,
-		action="store_true",
-		help="""For internal use only."""
-	)
-	argparser.add_argument(
 		"--build",
 		default=False,
 		action="store_true",
@@ -529,10 +523,6 @@ def main(argv):
 	# disable example screenshots in the docs
 	if(not options.make_screenshots):
 		cmake_options.append("-DOGLPLUS_NO_SCREENSHOTS=On")
-
-	# use the framedump harness for examples
-	if(options.framedump):
-		cmake_options.append("-DOGLPLUS_FRAMEDUMP=On")
 
 	# disable building the docs
 	if(not options.build_docs):

@@ -25,6 +25,7 @@
 #include <oglplus/os/steady_clock.hpp>
 
 #include <oglplus/config.hpp>
+#include <oglplus/curve.hpp>
 
 #include <oglplus/ext/ARB_debug_output.hpp>
 
@@ -33,6 +34,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <iostream>
+#include <iomanip>
 #include <cstring>
 #include <cassert>
 
@@ -300,6 +302,129 @@ void run_example_loop(
 	std::cout << " `-[Done]" << std::endl;
 }
 
+void run_framedump_loop(
+	const x11::Display& display,
+	const x11::Window& win,
+	const glx::Context& ctx,
+	std::unique_ptr<Example>& example,
+	ExampleClock& clock,
+	GLuint width,
+	GLuint height,
+	const char* framedump_prefix
+)
+{
+	std::vector<char> txtbuf(1024);
+	std::cin.getline(txtbuf.data(), txtbuf.size());
+	if(std::strcmp(framedump_prefix, txtbuf.data()) != 0) return;
+
+	const std::size_t mouse_path_pts = 7;
+	std::vector<Vec2f> mouse_path_pos(mouse_path_pts);
+	std::vector<Vec2f> mouse_path_dir(mouse_path_pts);
+
+	for(std::size_t p=0; p!= mouse_path_pts; ++p)
+	{
+		mouse_path_pos[p] = Vec2f(
+			std::rand() % width,
+			std::rand() % height
+		);
+		mouse_path_dir[p] = Vec2f(
+			(std::rand()%2?1.0:-1.0)*10.0f*
+			(0.2+float(std::rand())/float(RAND_MAX)*0.8),
+			(std::rand()%2?1.0:-1.0)*10.0f*
+			(0.2+float(std::rand())/float(RAND_MAX)*0.8)
+		);
+	}
+
+	typedef CubicBezierLoop<Vec2f, double> Loop;
+
+	double t = 0.0;
+	double period = 1.0 / 25.0;
+	GLuint frame_no = 0;
+	std::vector<char> pixels(width * height * 4);
+
+	GLuint border = 32;
+
+	XEvent event;
+
+	while(true)
+	{
+		while(display.NextEvent(event));
+
+		Vec2f mouse_pos = Loop(mouse_path_pos).Position(t*0.2);
+
+		for(std::size_t p=0; p!= mouse_path_pts; ++p)
+		{
+			Vec2f dir = mouse_path_dir[p];
+			Vec2f pos = mouse_path_pos[p];
+
+			if((pos.x() < border) && (dir.x() < 0.0))
+				dir = Vec2f(-dir.x(), dir.y());
+			if((pos.y() < border) && (dir.y() < 0.0))
+				dir = Vec2f( dir.x(),-dir.y());
+			if((pos.x() > width-border) && (dir.x() > 0.0))
+				dir = Vec2f(-dir.x(), dir.y());
+			if((pos.y() >height-border) && (dir.y() > 0.0))
+				dir = Vec2f( dir.x(),-dir.y());
+
+			mouse_path_dir[p] = dir;
+			mouse_path_pos[p] = pos + dir;
+		}
+
+		float mouse_x = mouse_pos.x();
+		float mouse_y = mouse_pos.y();
+
+		if(mouse_x < 0.0f) mouse_x = 0.0f;
+		if(mouse_y < 0.0f) mouse_y = 0.0f;
+		if(mouse_x > width) mouse_x = width;
+		if(mouse_y > height) mouse_y = height;
+
+		example->MouseMove(
+			GLuint(mouse_x),
+			GLuint(mouse_y),
+			width,
+			height
+		);
+
+		t += period;
+		clock.Update(t);
+		if(!example->Continue(clock)) break;
+		example->Render(clock);
+		glFinish();
+		glReadPixels(
+			0, 0,
+			width,
+			height,
+			GL_RGBA,
+			GL_UNSIGNED_BYTE,
+			pixels.data()
+		);
+		glFinish();
+		ctx.SwapBuffers(win);
+		std::stringstream filename;
+		filename <<
+			framedump_prefix <<
+			std::setfill('0') << std::setw(6) <<
+			frame_no << ".rgba";
+		{
+			std::ofstream file(filename.str());
+			file.write(pixels.data(), pixels.size());
+			file.flush();
+		}
+		std::cout << filename.str() << std::endl;
+		++frame_no;
+
+		txtbuf.resize(filename.str().size()+1);
+		std::cin.getline(txtbuf.data(), txtbuf.size());
+
+		if(std::strncmp(
+			filename.str().c_str(),
+			txtbuf.data(),
+			txtbuf.size()
+		) != 0) break;
+	}
+	while(display.NextEvent(event));
+}
+
 void make_screenshot(
 	const x11::Display& display,
 	const x11::Window& win,
@@ -346,7 +471,11 @@ void make_screenshot(
 	ctx.SwapBuffers(win);
 }
 
-void run_example(const x11::Display& display, const char* screenshot_path)
+void run_example(
+	const x11::Display& display,
+	const char* screenshot_path,
+	const char* framedump_prefix
+)
 {
 	static int visual_attribs[] =
 	{
@@ -373,7 +502,8 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 
 	x11::VisualInfo vi(display, fbc);
 
-	const GLuint width = 800, height = 600;
+	const GLuint width = framedump_prefix?852:800;
+	const GLuint height = framedump_prefix?480:600;
 
 	x11::Window win(
 		display,
@@ -386,6 +516,7 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 	x11::ScreenNames screen_names;
 
 	ExampleParams params;
+	if(framedump_prefix) params.quality = 1.0;
 	params.max_threads = 128;
 	params.num_gpus = screen_names.size(); // TODO: something more reliable
 	setupExample(params);
@@ -505,6 +636,19 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 				screenshot_path
 			);
 		}
+		else if(framedump_prefix)
+		{
+			run_framedump_loop(
+				display,
+				win,
+				ctx,
+				example,
+				clock,
+				width,
+				height,
+				framedump_prefix
+			);
+		}
 		else
 		{
 			run_example_loop(
@@ -555,12 +699,20 @@ void run_example(const x11::Display& display, const char* screenshot_path)
 int glx_example_main(int argc, char ** argv)
 {
 	// check if we want to do a screenshot
-	const char* screenshot_path = 0;
+	// or run in the framedump mode
+	const char* screenshot_path = nullptr;
+	const char* framedump_prefix = nullptr;
 	if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
 		screenshot_path = argv[2];
+	if((argc == 3) && (std::strcmp(argv[1], "--frame-dump") == 0))
+		framedump_prefix = argv[2];
 	//
 	// run the main loop
-	oglplus::run_example(oglplus::x11::Display(), screenshot_path);
+	oglplus::run_example(
+		oglplus::x11::Display(),
+		screenshot_path,
+		framedump_prefix
+	);
 	return 0;
 }
 
