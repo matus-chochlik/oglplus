@@ -113,6 +113,24 @@ private:
 		}
 	};
 
+	struct _op_div_c
+	{
+		void operator()(
+			Vector& t,
+			const Vector& a,
+			T v
+		) const
+		OGLPLUS_NOEXCEPT_IF(
+			std::declval<T&>()=
+			std::declval<T>()*
+			std::declval<T>()
+		)
+		{
+			for(std::size_t i=0; i!=N; ++i)
+				t._elem[i] = a._elem[i] / v;
+		}
+	};
+
 	struct _op_perpend
 	{
 		void operator()(
@@ -682,6 +700,28 @@ public:
 	{
 		*this = Multiply(*this, v);
 		return *this;
+	}
+
+	/// Division by a scalar value
+	friend Vector Divide(const Vector& a, T v)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+	{
+		return Vector(a, v, _op_div_c());
+	}
+
+	/// Operator for division by a scalar value
+	friend Vector operator / (const Vector& a, T v)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+	{
+		return Divide(a, v);
 	}
 
 	/// Dot product of two vectors

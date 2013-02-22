@@ -8,11 +8,12 @@ build_dir=${PWD}/_build
 label="http://oglplus.org/"
 width=852
 height=480
+example="${1%.cpp}"
 #
 tmpdir=$(mktemp -d)
 mkdir -p ${tmpdir}
 #
-prefix="${tmpdir}/oglplus-$(basename ${1})"
+prefix="${tmpdir}/oglplus-$(basename ${example})"
 labelfile=${tmpdir}/label.png
 #
 filelist=${tmpdir}/filelist
@@ -37,12 +38,12 @@ convert \
 	-annotate 0 "${label}" \
 	${labelfile}
 
-if [ "${1}" == "" ]
+if [ "${example}" == "" ]
 then echo "No example specified" && exit 1
 fi
 
-if [ ! -f "${build_dir}/${1}" ]
-then echo "Unable to find built example '${1}' in '${PWD}'" && exit 1
+if [ ! -f "${build_dir}/${example}" ]
+then echo "Unable to find built example '${example}' in '${PWD}'" && exit 1
 fi
 #
 function convert_single_frame()
@@ -73,7 +74,7 @@ let frameno=0
 (
 cd ${build_dir}
 echo "${prefix}-" > ${filelist} &
-${build_dir}/${1} ${prefix}- < ${filelist} |
+${build_dir}/${example} --frame-dump ${prefix}- < ${filelist} |
 while read framepath
 do
 	echo "${framepath}"

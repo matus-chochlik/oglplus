@@ -17,8 +17,6 @@ option(OGLPLUS_FORCE_GLFW "Force use of the GLFW library" Off)
 option(OGLPLUS_FORCE_SDL  "Force use of the SDL library" Off)
 option(OGLPLUS_FORCE_GLX  "Force use of the GLX library" Off)
 
-option(OGLPLUS_FRAMEDUMP  "Internal use option" Off)
-
 option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
 option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
@@ -55,12 +53,6 @@ endif()
 
 if(NOT OGLPLUS_NO_SCREENSHOTS)
 	include(FindImageMagick)
-endif()
-
-if(OGLPLUS_FRAMEDUMP)
-	set(OGLPLUS_USE_GLCOREARB_H On)
-	set(OGLPLUS_NO_SCREENSHOTS On)
-	set(OGLPLUS_NO_DOCS On)
 endif()
 
 include(config/FindOpenGL.cmake)
@@ -183,7 +175,7 @@ elseif(${OGLPLUS_FORCE_GLX})
 	endif()
 
 # if the user didn't specify any preference
-elseif(NOT ${OGLPLUS_FRAMEDUMP})
+else()
 	if(GLUT_FOUND)
 		set(OGLPLUS_USE_GLUT 1)
 	elseif(GLFW_FOUND)

@@ -9,7 +9,6 @@ oglplus_forced_gl_header=""
 oglplus_forced_gl_init_lib=""
 oglplus_no_examples=false
 oglplus_no_screenshots=true
-oglplus_framedump=false
 oglplus_no_docs=false
 oglplus_use_cxxflags=false
 oglplus_use_ldflags=false
@@ -170,7 +169,6 @@ do
 
 	--no-examples) oglplus_no_examples=true;;
 	--screenshots) oglplus_no_screenshots=false;;
-	--framedump) oglplus_framedump=true;;
 	--no-docs) oglplus_no_docs=true;;
 
 	--use-cxxflags) oglplus_use_cxxflags=true;;
@@ -282,10 +280,6 @@ fi
 
 if [ "${oglplus_no_screenshots}" == "true" ]
 then oglplus_cmake_options="'-DOGLPLUS_NO_SCREENSHOTS=On' ${oglplus_cmake_options}"
-fi
-
-if [ "${oglplus_framedump}" == "true" ]
-then oglplus_cmake_options="'-DOGLPLUS_FRAMEDUMP=On' ${oglplus_cmake_options}"
 fi
 
 # pass the no-docs option

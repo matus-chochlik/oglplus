@@ -14,8 +14,6 @@ elseif(OGLPLUS_USE_SDL)
 	set(OGLPLUS_EXAMPLE_HARNESS "sdl")
 elseif(OGLPLUS_USE_GLX)
 	set(OGLPLUS_EXAMPLE_HARNESS "glx")
-elseif(OGLPLUS_FRAMEDUMP)
-	set(OGLPLUS_EXAMPLE_HARNESS "frame_dump")
 endif()
 
 # now setup the harness dependencies
@@ -61,10 +59,7 @@ elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "sdl"))
 	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${SDL_LIBRARIES})
 
 # X11/GLX
-elseif(
-	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx") OR
-	("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "frame_dump")
-)
+elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx"))
 	if(NOT X11_FOUND)
 		message(FATAL_ERROR "X11 is required for this build configuration")
 		return()
