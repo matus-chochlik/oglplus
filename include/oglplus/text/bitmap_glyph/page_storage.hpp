@@ -31,7 +31,7 @@ namespace text {
 class BitmapGlyphPageStorage
 {
 private:
-	BitmapGlyphRendering& _parent;
+	BitmapGlyphRenderingBase& _parent;
 
 	TextureUnitSelector _bitmap_tex_unit;
 	TextureUnitSelector _metric_tex_unit;
@@ -50,7 +50,7 @@ private:
 	std::vector<std::vector<GLfloat>> _metrics;
 public:
 	BitmapGlyphPageStorage(
-		BitmapGlyphRendering& parent,
+		BitmapGlyphRenderingBase& parent,
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
 		const GLint init_frame,
@@ -130,12 +130,12 @@ public:
 		LoadPage(init_frame, image, metrics);
 	}
 
-	TextureUnitSelector BitmapSampler(void) const
+	TextureUnitSelector BitmapTexUnit(void) const
 	{
 		return _bitmap_tex_unit;
 	}
 
-	TextureUnitSelector MetricSampler(void) const
+	TextureUnitSelector MetricTexUnit(void) const
 	{
 		return _metric_tex_unit;
 	}
@@ -154,6 +154,8 @@ public:
 		const std::vector<GLfloat>& metrics
 	)
 	{
+		// TODO add a parameter indicating how many rows
+		// of the image are really used and add InvalidateTexImage
 		assert(image.Width() == _width);
 		assert(image.Height() == _height);
 		// load the bitmap image
@@ -169,6 +171,7 @@ public:
 			image.Type(),
 			image.RawData()
 		);
+		//
 		Texture::GenerateMipmap(Texture::Target::_2DArray);
 
 		// load the metric values

@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/text/bitmap_glyph.hpp
+ *  @file oglplus/text/stb_truetype.hpp
  *  @brief Bitmap-font-based text rendering.
  *
  *  @author Matus Chochlik
@@ -10,21 +10,20 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXT_BITMAP_GLYPH_HPP
-#define OGLPLUS_TEXT_BITMAP_GLYPH_HPP
+#ifndef OGLPLUS_TEXT_STB_TRUETYPE_HPP
+#define OGLPLUS_TEXT_STB_TRUETYPE_HPP
 
 #include <oglplus/config.hpp>
 
 #include <oglplus/text/bitmap_glyph/rendering.hpp>
 #include <oglplus/text/bitmap_glyph/font.hpp>
-#include <oglplus/text/bitmap_glyph/font_essence.hpp>
+#include <oglplus/text/stb_truetype/font_essence.hpp>
 
 namespace oglplus {
 namespace text {
 
-typedef BitmapGlyphFontTpl<BitmapGlyphFontEssence> BitmapGlyphFont;
-typedef BitmapGlyphLayoutTpl<BitmapGlyphFont> BitmapGlyphLayout;
-typedef BitmapGlyphRenderingTpl<BitmapGlyphFont> BitmapGlyphRendering;
+typedef BitmapGlyphFontTpl<STBTTFontEssence> STBTrueTypeFont;
+typedef BitmapGlyphRenderingTpl<STBTrueTypeFont> STBTrueTypeRendering;
 
 } // namespace text
 } // namespace oglplus
