@@ -265,7 +265,7 @@ public:
 	void Reshape(GLuint width, GLuint height);
 	void Render(ExampleClock& clock);
 
-	bool Continue(double time) { return time < 300.0; }
+	bool Continue(double time) { return time < 120.0; }
 
 	GLuint CellConfigTexUnit(void) const { return 0; }
 	GLuint MetaballPosTexUnit(void) const { return 1; }
@@ -805,8 +805,8 @@ SurfaceLightMapRenderer::SurfaceLightMapRenderer(SurfaceExample& parent)
 	Texture::Active(parent.LightMapTexUnit());
 	{
 		auto bound_tex = Bind(parent.light_map, Texture::Target::Rectangle);
-		bound_tex.MinFilter(TextureMinFilter::Nearest);
-		bound_tex.MagFilter(TextureMagFilter::Nearest);
+		bound_tex.MinFilter(TextureMinFilter::Linear);
+		bound_tex.MagFilter(TextureMagFilter::Linear);
 		bound_tex.WrapS(TextureWrap::ClampToEdge);
 		bound_tex.WrapT(TextureWrap::ClampToEdge);
 	}
@@ -1336,15 +1336,15 @@ void SurfaceExample::Render(ExampleClock& clock)
 	surface_data.light = CamMatrixf::Orbiting(
 		Vec3f(),
 		20.0f,
-		FullCircles(time / 37.0),
-		Degrees(-CosineWave(time / 47.0) * 10)
+		FullCircles(time / 90.0)-RightAngles(1),
+		Degrees(-CosineWave(time / 37.0) * 10)
 	);
 	surface_data.light_position = surface_data.light.Position();
 
 	surface_data.camera = CamMatrixf::Orbiting(
 		Vec3f(),
 		3.0 - SineWave(time / 14.0),
-		FullCircles(time / 26.0),
+		FullCircles(time / 60),
 		Degrees(SineWave(time / 17.0) * 10)
 	);
 	surface_data.camera_position = surface_data.camera.Position();
