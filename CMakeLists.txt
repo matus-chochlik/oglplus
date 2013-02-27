@@ -242,6 +242,8 @@ add_subdirectory("source/textures" "textures")
 include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
 include_directories(${PROJECT_BINARY_DIR}/include)
+# include the third party headers
+include_directories(${PROJECT_SOURCE_DIR}/third_party/include)
 
 # GL extension detection
 include(config/GLExt.cmake)

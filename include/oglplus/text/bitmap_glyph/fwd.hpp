@@ -21,13 +21,25 @@ namespace oglplus {
 namespace text {
 
 // Forward declaration of the bitmap glyph rendering utility
-class BitmapGlyphRendering;
+class BitmapGlyphRenderingBase;
+
+template <class BitmapFont>
+class BitmapGlyphRenderingTpl;
 
 // Forward declaration of the renderer
 class BitmapGlyphRenderer;
 
+// Forward declarations of font essences
+class BitmapGlyphFontEssence;
+class STBTTFontEssence;
+
 // Forward declaration of the font
-class BitmapGlyphFont;
+template <typename Essence>
+class BitmapGlyphFontTpl;
+
+// Forward declaration of the layout
+template <typename BitmapFont>
+class BitmapGlyphLayoutTpl;
 
 // Forward declaration of layout storage
 class BitmapGlyphLayoutStorage;
@@ -36,40 +48,46 @@ class BitmapGlyphLayoutStorage;
 struct BitmapGlyphLayoutData;
 
 // Returns the number of glyphs per a font page
-unsigned BitmapGlyphGlyphsPerPage(const BitmapGlyphRendering&);
+unsigned BitmapGlyphGlyphsPerPage(const BitmapGlyphRenderingBase&);
 
 // Returns the number of font pages per a unicode plane
-unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRendering&);
+unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRenderingBase&);
 
 // Returns the number of planes supported by the bitmap font rendering utility
 // One plane consists of PagesPerPlane pages of GlyphsPerPage glyphs
-unsigned BitmapGlyphPlaneCount(const BitmapGlyphRendering&);
+unsigned BitmapGlyphPlaneCount(const BitmapGlyphRenderingBase&);
+
+std::string BitmapGlyphFontPath(
+	const BitmapGlyphRenderingBase& that,
+	const std::string& font_name
+);
 
 std::string BitmapGlyphFontPagePath(
-	const BitmapGlyphRendering& that,
+	const BitmapGlyphRenderingBase& that,
 	const std::string& font_name,
 	GLint font_page
 );
 
 void BitmapGlyphAllocateLayoutData(
-	BitmapGlyphRendering& parent,
+	BitmapGlyphRenderingBase& parent,
 	BitmapGlyphLayoutData& layout_data
 );
+template <typename BitmapFont>
 void BitmapGlyphInitializeLayoutData(
-	BitmapGlyphRendering& parent,
+	BitmapGlyphRenderingBase& parent,
 	BitmapGlyphLayoutData& layout_data,
-	BitmapGlyphFont& font,
+	BitmapFont& font,
 	const CodePoint* cps,
 	GLsizei length
 );
 void BitmapGlyphDeallocateLayoutData(
-	BitmapGlyphRendering& parent,
+	BitmapGlyphRenderingBase& parent,
 	BitmapGlyphLayoutData& layout_data
 );
 
 // Returns the page of the font containing the glyph for the specified codepoint
 inline GLint BitmapGlyphPageOfCP(
-	const BitmapGlyphRendering& parent,
+	const BitmapGlyphRenderingBase& parent,
 	CodePoint code_point
 )
 {
@@ -79,7 +97,7 @@ inline GLint BitmapGlyphPageOfCP(
 }
 
 inline GLint BitmapGlyphCellOfCP(
-	const BitmapGlyphRendering& parent,
+	const BitmapGlyphRenderingBase& parent,
 	CodePoint code_point
 )
 {
@@ -89,7 +107,7 @@ inline GLint BitmapGlyphCellOfCP(
 }
 
 inline std::string BitmapGlyphPageName(
-	const BitmapGlyphRendering& parent,
+	const BitmapGlyphRenderingBase& parent,
 	GLint page
 )
 {
@@ -108,6 +126,21 @@ inline std::string BitmapGlyphPageName(
 		hexdigit[(page_head >>  0) & 0x0F]
 	};
 	return std::string(result, 6);
+}
+
+inline GLuint BitmapGlyphDefaultPageTexSide(
+	const BitmapGlyphRenderingBase& /*parent*/,
+	GLuint pixel_height
+)
+{
+	GLuint h = pixel_height*16;
+	GLuint s = 128;
+	while(true)
+	{
+		if(s >= h) break;
+		s *= 2;
+	}
+	return s;
 }
 
 } // namespace text

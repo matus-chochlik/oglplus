@@ -1,8 +1,8 @@
 /**
- *  @example standalone/004_bitmap_text_rendering.cpp
+ *  @example standalone/004_stbttf_text_rendering.cpp
  *  @brief Shows the usage of OGLplus' text rendering utilities
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -11,19 +11,19 @@
 #include <oglplus/all.hpp>
 #include <oglplus/images/png.hpp>
 
-#include <oglplus/text/bitmap_glyph.hpp>
+#include <oglplus/text/stb_truetype.hpp>
 
 #include <sstream>
 #include <iomanip>
 
 
-class BitmapGlyphExample
+class STBTruetypeExample
  : public oglplus::StandaloneExample
 {
 private:
 	oglplus::Context gl;
 
-	typedef oglplus::text::BitmapGlyphRendering TextRendering;
+	typedef oglplus::text::STBTrueTypeRendering TextRendering;
 
 	TextRendering tr;
 
@@ -46,11 +46,14 @@ private:
 
 	oglplus::ProgramUniform<GLfloat>
 		rndr_time;
+
+	oglplus::ProgramUniform<GLint>
+		rndr_axis;
 public:
-	BitmapGlyphExample(int argc, const char** argv)
+	STBTruetypeExample(int argc, const char** argv)
 	 : gl()
 	 , tr((argc>1)?argv[1]:"./_font", 0, 1, 2)
-	 , font(tr.LoadFont((argc>2)?argv[2]:"Sans"))
+	 , font(tr.LoadFont((argc>2)?argv[2]:"FreeSans"))
 	 , oglp_layout(tr.MakeLayout(font, oglplus::StrLit("OGLplus")))
 	 , desc_layout(tr.MakeLayout(font, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
 	 , time_layout(tr.MakeLayout(font, 25))
@@ -70,6 +73,7 @@ public:
 				oglplus::ObjectDesc("Glyph transform"),
 				oglplus::StrLit("#version 330\n"
 				"uniform float Time;"
+				"uniform int Axis;"
 
 				"vec3 TransformGlyph("
 				"	vec4 LogicalMetrics,"
@@ -80,12 +84,41 @@ public:
 				"	int Idx"
 				")"
 				"{"
-				"	float a = Idx*0.7+Time*2.4;"
-				"	return vec3("
-				"		Pos.x+XOffs,"
-				"		Pos.y+sin(a)*0.1,"
-				"		cos(a)*0.05"
-				"	);"
+				"	float a = Idx*0.3+Time*2.4;"
+				"	float cx = cos(a);"
+				"	float sx = sin(a);"
+				"	mat3 m;"
+				"	vec3 v;"
+				"	vec3 o = vec3(XOffs, 0, 0);"
+				"	vec3 p = vec3(Pos, 0);"
+				"	if(Axis == 0)"
+				"	{"
+				"		m = mat3("
+				"			  1,  0,  0,"
+				"			  0, cx, sx,"
+				"			  0,-sx, cx "
+				"		);"
+				"		v = vec3(0, (InkMetrics.z-InkMetrics.w)*0.5, 0);"
+				"	}"
+				"	else if(Axis == 1)"
+				"	{"
+				"		m = mat3("
+				"			 cx,  0,-sx,"
+				"			  0,  1,  0,"
+				"			 sx,  0, cx "
+				"		);"
+				"		v = vec3((InkMetrics.y-InkMetrics.x)*0.5, 0, 0);"
+				"	}"
+				"	else if(Axis == 2)"
+				"	{"
+				"		m = mat3("
+				"			  1,  0,  0,"
+				"			  0,-cx,-sx,"
+				"			  0, sx,-cx "
+				"		);"
+				"		v = vec3(0, 0, 0);"
+				"	}"
+				"	return m*(p-v)+(o+v);"
 				"}")
 			),
 			oglplus::FragmentShader(
@@ -100,11 +133,11 @@ public:
 				"	float LayoutWidth"
 				")"
 				"{"
-				"	float g = GlyphXOffset / LayoutWidth - GlyphCoord.x;"
+				"	float g = GlyphXOffset / LayoutWidth;"
 				"	vec3 Color = mix("
-				"		vec3(1.0, 0.2+0.8*g, 0.2), "
-				"		vec3(0.2, 0.2+0.8*g, 1.0), "
-				"		(GlyphPosition.z+0.1)/0.2"
+				"		vec3(1.0, 0.2, 0.2), "
+				"		vec3(0.2, 0.4, 1.0), "
+				"		g"
 				"	);"
 				"	return vec4(Color, TexelColor.r);"
 				"}")
@@ -114,6 +147,7 @@ public:
 	 , rndr_camera_matrix(rndr.GetUniform<oglplus::Mat4f>("CameraMatrix"))
 	 , rndr_layout_matrix(rndr.GetUniform<oglplus::Mat4f>("LayoutMatrix"))
 	 , rndr_time(rndr.GetUniform<GLfloat>("Time"))
+	 , rndr_axis(rndr.GetUniform<GLint>("Axis"))
 	{
 		using namespace oglplus;
 
@@ -176,12 +210,15 @@ public:
 			)
 		);
 
+		rndr_axis.Set(0);
 		rndr_layout_matrix.Set(ModelMatrixf::Translation(-3.0f, 0.7f, 0.1f));
 		rndr.Render(oglp_layout);
 
+		rndr_axis.Set(1);
 		rndr_layout_matrix.Set(ModelMatrixf::Translation(-8.0f,-0.7f, 0.0f));
 		rndr.Render(desc_layout);
 
+		rndr_axis.Set(2);
 		rndr_layout_matrix.Set(
 			ModelMatrixf::Translation(-4.0f,-2.0f, 0.0f)*
 			ModelMatrixf::Scale(0.7f, 0.7f, 0.5f)
@@ -192,8 +229,8 @@ public:
 
 int main(int argc, char* argv[])
 {
-	return oglplus::GlutGlewMain<BitmapGlyphExample>(
-		"Example of usage of OGLplus' bitmap glyph text rendering",
+	return oglplus::GlutGlewMain<STBTruetypeExample>(
+		"Example of usage of OGLplus' truetype text rendering",
 		argc, argv
 	);
 }

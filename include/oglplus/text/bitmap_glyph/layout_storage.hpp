@@ -45,7 +45,7 @@ struct BitmapGlyphLayoutData
 class BitmapGlyphLayoutStorage
 {
 private:
-	BitmapGlyphRendering& _parent;
+	BitmapGlyphRenderingBase& _parent;
 	GLuint _list_head;
 	GLsizei _free;
 	const GLsizei _capacity;
@@ -63,7 +63,7 @@ private:
 	BitmapGlyphLayoutStorage(BitmapGlyphLayoutStorage&&);
 public:
 	BitmapGlyphLayoutStorage(
-		BitmapGlyphRendering& parent,
+		BitmapGlyphRenderingBase& parent,
 		GLsizei capacity,
 		GLsizei alloc_unit = 4
 	): _parent(parent)
@@ -347,7 +347,8 @@ public:
 
 	void Initialize(
 		BitmapGlyphLayoutData& layout_data,
-		BitmapGlyphFont& font,
+		GLfloat width,
+		const std::vector<GLfloat>& x_offsets,
 		const CodePoint* cps,
 		GLsizei length
 	)
@@ -366,8 +367,7 @@ public:
 			code_points.data()
 		);
 		// upload the x-offsets
-		std::vector<GLfloat> x_offsets;
-		layout_data._width = font.QueryXOffsets(cps, length, x_offsets);
+		layout_data._width = width;
 		_x_offsets.Bind(Buffer::Target::Array);
 		Buffer::SubData(
 			Buffer::Target::Array,

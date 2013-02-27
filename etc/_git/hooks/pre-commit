@@ -52,6 +52,7 @@ if [ $(
 git diff-index $against |
 sed "${git_diff_output_transform}" |
 grep -v -e "${grep_file_type_filter}" |
+grep -v -e "third_party/" |
 xargs cat |
 grep -e "${whitespace_error_pattern1}" -e "${whitespace_error_pattern2}" -c
 ) -ne 0 ]

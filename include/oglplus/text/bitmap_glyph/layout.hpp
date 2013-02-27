@@ -26,14 +26,15 @@
 namespace oglplus {
 namespace text {
 
-class BitmapGlyphLayout
+template <typename BitmapFont>
+class BitmapGlyphLayoutTpl
 {
 private:
 	// reference to the parent rendering system
-	BitmapGlyphRendering& _parent;
+	BitmapGlyphRenderingBase& _parent;
 
 	// the font used by this layout
-	BitmapGlyphFont _font;
+	BitmapFont _font;
 
 	// layout data used by a renderer
 	BitmapGlyphLayoutData _data;
@@ -51,9 +52,9 @@ private:
 			(_data._storage);
 	}
 public:
-	BitmapGlyphLayout(
-		BitmapGlyphRendering& parent,
-		const BitmapGlyphFont& font,
+	BitmapGlyphLayoutTpl(
+		BitmapGlyphRenderingBase& parent,
+		const BitmapFont& font,
 		GLsizei max_len
 	): _parent(parent)
 	 , _font(font)
@@ -63,7 +64,7 @@ public:
 		assert(_is_ok());
 	}
 
-	BitmapGlyphLayout(const BitmapGlyphLayout& other)
+	BitmapGlyphLayoutTpl(const BitmapGlyphLayoutTpl& other)
 	 : _parent(other._parent)
 	 , _font(other._font)
 	 , _data(other._data._capacity)
@@ -73,7 +74,7 @@ public:
 		assert(_is_ok());
 	}
 
-	BitmapGlyphLayout(BitmapGlyphLayout&& tmp)
+	BitmapGlyphLayoutTpl(BitmapGlyphLayoutTpl&& tmp)
 	 : _parent(tmp._parent)
 	 , _font(std::move(tmp._font))
 	 , _data(std::move(tmp._data))
@@ -83,7 +84,7 @@ public:
 		assert(_is_ok());
 	}
 
-	~BitmapGlyphLayout(void)
+	~BitmapGlyphLayoutTpl(void)
 	{
 		if(_data._storage)
 			BitmapGlyphDeallocateLayoutData(_parent, _data);

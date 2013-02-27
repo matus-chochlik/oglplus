@@ -29,7 +29,7 @@ class BitmapGlyphPager
 {
 private:
 	// reference to the parent rendering system
-	BitmapGlyphRendering& _parent;
+	BitmapGlyphRenderingBase& _parent;
 
 	// the frames into which pages are loaded
 	std::vector<GLint> _frames;
@@ -146,7 +146,7 @@ private:
 	}
 public:
 	BitmapGlyphPager(
-		BitmapGlyphRendering& parent,
+		BitmapGlyphRenderingBase& parent,
 		TextureUnitSelector pg_map_tex_unit,
 		GLsizei frame_count
 	): _parent(parent)
@@ -185,7 +185,7 @@ public:
 		return _frames.size();
 	}
 
-	TextureUnitSelector PageMapSampler(void) const
+	TextureUnitSelector PageMapTexUnit(void) const
 	{
 		return _pg_map_tex_unit;
 	}

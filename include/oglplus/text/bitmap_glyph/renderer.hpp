@@ -26,7 +26,7 @@ namespace text {
 class BitmapGlyphRenderer
 {
 private:
-	BitmapGlyphRendering& _parent;
+	BitmapGlyphRenderingBase& _parent;
 
 	Program _program;
 
@@ -38,15 +38,17 @@ private:
 	LazyProgramUniform<GLfloat> _layout_width;
 	bool _layout_width_active;
 
-	const BitmapGlyphFontEssence* _prev_font_essence;
-	void _use_font(const BitmapGlyphFontEssence& essence)
+	const void* _prev_font_essence;
+
+	template <typename BitmapFontEssence>
+	void _use_font(const BitmapFontEssence& essence)
 	{
-		if(_prev_font_essence != &essence)
+		if(_prev_font_essence != (const void*)&essence)
 		{
 			essence.Use();
-			_bitmap_sampler.Set(GLint(essence.BitmapSampler()));
-			_metric_sampler.Set(GLint(essence.MetricSampler()));
-			_pg_map_sampler.Set(GLint(essence.PageMapSampler()));
+			_bitmap_sampler.Set(GLint(essence.BitmapTexUnit()));
+			_metric_sampler.Set(GLint(essence.MetricTexUnit()));
+			_pg_map_sampler.Set(GLint(essence.PageMapTexUnit()));
 			_prev_font_essence = &essence;
 		}
 	}
@@ -69,7 +71,7 @@ protected:
 	}
 public:
 	BitmapGlyphRenderer(
-		BitmapGlyphRendering& parent,
+		BitmapGlyphRenderingBase& parent,
 		const GeometryShader& layout_transform_shader,
 		const GeometryShader& glyph_transform_shader,
 		const FragmentShader& pixel_color_shader
@@ -267,7 +269,8 @@ public:
 		return ProgramUniform<T>(_program, name);
 	}
 
-	void Render(const BitmapGlyphLayout& layout)
+	template <class BitmapFont>
+	void Render(const BitmapGlyphLayoutTpl<BitmapFont>& layout)
 	{
 		// we'll need the layout font's essence
 		assert(layout._font._essence);
@@ -301,7 +304,7 @@ class BitmapGlyphDefaultRenderer
 {
 public:
 	BitmapGlyphDefaultRenderer(
-		BitmapGlyphRendering& parent,
+		BitmapGlyphRenderingBase& parent,
 		const FragmentShader& pixel_color_shader
 	): DefaultRendererTpl<BitmapGlyphRenderer>(
 		parent,
