@@ -420,6 +420,7 @@ private:
 	}
 public:
 	ExampleFrame(
+		wxApp& app,
 		wxWindow* parent,
 		const wxString& title,
 		ExampleInfoDisplay* info_disp,
@@ -476,7 +477,8 @@ public:
 
 		gl_context->SetCurrent(*gl_canvas);
 
-		oglplus::ExampleParams params;
+		// TODO: this won't work very well in "UNICODE" builds
+		oglplus::ExampleParams params(app.argc, (char**)app.argv);
 		example = oglplus::makeExample(params);
 		os_clock.reset();
 
@@ -786,8 +788,10 @@ private:
 		else Destroy();
 	}
 public:
-	MainFrame(const wxString& example_name)
-	 : wxFrame(
+	MainFrame(
+		wxApp& app,
+		const wxString& example_name
+	): wxFrame(
 		(wxWindow*)0,
 		wxID_ANY,
 		wxT("OGLplus example"),
@@ -822,6 +826,7 @@ public:
 		);
 
 		example_frame = new ExampleFrame(
+			app,
 			(wxWindow*)this,
 			example_name,
 			(ExampleInfoDisplay*)this,
@@ -845,7 +850,7 @@ public:
 		bool result = false;
 		try
 		{
-			SetTopWindow(new MainFrame(GetAppName()));
+			SetTopWindow(new MainFrame(*this, GetAppName()));
 			result = true;
 		}
 		catch(oglplus::MissingFunction& mfe) { HandleError(mfe); }

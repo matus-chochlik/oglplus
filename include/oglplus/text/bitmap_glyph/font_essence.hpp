@@ -286,7 +286,7 @@ public:
 		assert(offs % 4 == 0);
 		GLfloat buf[4];
 		_page_storage.QueryGlyphMetrics(frame, cell, offs, 4, buf);
-		return Rectangle(buf[0], buf[1], buf[3], buf[2]);
+		return Rectangle(buf[0], buf[1],-buf[3], buf[2]);
 	}
 };
 

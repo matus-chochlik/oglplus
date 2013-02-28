@@ -95,6 +95,12 @@ if(GLUT_FOUND AND GLEW_FOUND)
 
 	include_directories(${PNG_INCLUDE_DIRS})
 	standalone_example_common(
+		004_any_text_rendering
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARIES}
+	)
+
+	include_directories(${PNG_INCLUDE_DIRS})
+	standalone_example_common(
 		004_stbttf_text_rendering
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${PNG_LIBRARIES}
 	)

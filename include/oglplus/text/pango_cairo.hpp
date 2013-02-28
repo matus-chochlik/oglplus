@@ -113,6 +113,30 @@ public:
 		return Layout(*this, font, capacity);
 	}
 
+	Layout MakeLayout(
+		const Font& font,
+		const GLchar* c_str,
+		std::size_t size
+	)
+	{
+		std::vector<CodePoint> cps;
+		UTF8ToCodePoints(c_str, size, cps);
+
+		Layout layout(MakeLayout(font, size));
+		layout.Set(cps.data(), cps.size());
+		return std::move(layout);
+	}
+
+	Layout MakeLayout(const Font& font, const StrLit& lit)
+	{
+		return MakeLayout(font, lit.c_str(), lit.size());
+	}
+
+	Layout MakeLayout(const Font& font, const String& str)
+	{
+		return MakeLayout(font, str.c_str(), str.size());
+	}
+
 	typedef PangoCairoDefaultRenderer Renderer;
 
 	Renderer GetRenderer(const FragmentShader& fragment_shader)

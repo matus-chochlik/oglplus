@@ -138,7 +138,11 @@ void run_loop(
 	}
 }
 
-void run_example(const char* screenshot_path)
+void run_example(
+	const char* screenshot_path,
+	int argc,
+	char** argv
+)
 {
 	GLFWInitializer glfw_initializer;
 
@@ -156,7 +160,7 @@ void run_example(const char* screenshot_path)
 		glfwSetWindowTitle("OGLplus example");
 		GLAPIInitializer api_init;
 
-		ExampleParams params;
+		ExampleParams params(argc, argv);
 		setupExample(params);
 		params.Check();
 
@@ -183,10 +187,15 @@ void run_example(const char* screenshot_path)
 int glfw_example_main (int argc, char ** argv)
 {
 	const char* screenshot_path = 0;
-	if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+	if((argc >= 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+	{
 		screenshot_path = argv[2];
+		for(int a=3; a<argc; ++a)
+			argv[a-2] = argv[a];
+		argc -= 2;
+	}
 
-	oglplus::run_example(screenshot_path);
+	oglplus::run_example(screenshot_path, argc, argv);
 	std::cout << "Done" << std::endl;
 	return 0;
 }

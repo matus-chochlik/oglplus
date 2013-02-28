@@ -274,18 +274,18 @@ public:
 		return strlit.end();
 	}
 
-	/// Equivalent to the empty() function
+	/// Equivalent to @c !empty()
 	operator bool (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return empty();
+		return !empty();
 	}
 
-	/// Equivalent to @c !empty()
+	/// Equivalent to the empty() function
 	bool operator ! (void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return !empty();
+		return empty();
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY

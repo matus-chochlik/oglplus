@@ -248,13 +248,18 @@ int glut_example_main(int argc, char ** argv)
 	glutCreateWindow("OGLplus example");
 
 	const char* screenshot_path = nullptr;
-	if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+	if((argc >= 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+	{
 		screenshot_path = argv[2];
+		for(int a=3; a<argc; ++a)
+			argv[a-2] = argv[a];
+		argc -= 2;
+	}
 
 	oglplus::GLAPIInitializer api_init;
 
 	// The parameters for this example
-	oglplus::ExampleParams params;
+	oglplus::ExampleParams params(argc, argv);
 	setupExample(params);
 	params.Check();
 

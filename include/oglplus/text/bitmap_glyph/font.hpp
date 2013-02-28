@@ -56,7 +56,7 @@ public:
 		const CodePoint* cps,
 		GLsizei size,
 		std::vector<GLfloat>& x_offsets
-	) const
+	)
 	{
 		return _essence->QueryXOffsets(cps, size, x_offsets);
 	}

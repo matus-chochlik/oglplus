@@ -21,6 +21,12 @@ namespace oglplus {
 /// Run-time parameters for example instances
 struct ExampleParams
 {
+	/// the number of arguments passed on command-line
+	int argc;
+
+	/// the arguments strings
+	char ** argv;
+
 	/// The quality of rendered image (0.0 = low, 0.5 = default, 1.0 = high)
 	float quality;
 
@@ -33,8 +39,10 @@ struct ExampleParams
 	/// The maximum number of threads
 	unsigned max_threads;
 
-	ExampleParams(void)
-	 : quality(0.5f)
+	ExampleParams(int argn, char ** args)
+	 : argc(argn)
+	 , argv(args)
+	 , quality(0.5f)
 	 , num_gpus(1)
 	 , num_threads(0)
 	 , max_threads(0)

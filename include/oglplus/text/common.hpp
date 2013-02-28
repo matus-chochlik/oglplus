@@ -70,28 +70,40 @@ public:
 /**
  *  @ingroup text_rendering
  */
-enum class Alignment
-{
+OGLPLUS_ENUM_CLASS_BEGIN(Alignment, int)
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Glyphs are placed to the right of the layout origin
 	Left,
 	/// Glyphs are placed to the both sided of the layout origin
 	Center,
 	/// Glyphs are placed to the left of the layout origin
 	Right
-};
+#else
+	OGLPLUS_ENUM_CLASS_VALUE(Left, -1)
+	OGLPLUS_ENUM_CLASS_COMMA
+	OGLPLUS_ENUM_CLASS_VALUE(Center, 0)
+	OGLPLUS_ENUM_CLASS_COMMA
+	OGLPLUS_ENUM_CLASS_VALUE(Right, 1)
+#endif
+OGLPLUS_ENUM_CLASS_END
 
 /// Enumeration specifying the writing direction when rendering layouts
 /**
  *  @ingroup text_rendering
  */
-enum class Direction
-{
+OGLPLUS_ENUM_CLASS_BEGIN(Direction, int)
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Left-to-right writing direction
 	LeftToRight,
 	/// Right-to-left writing direction
 	RightToLeft
 	// TODO TopDown?
-};
+#else
+	OGLPLUS_ENUM_CLASS_VALUE(LeftToRight, 1)
+	OGLPLUS_ENUM_CLASS_COMMA
+	OGLPLUS_ENUM_CLASS_VALUE(RightToLeft, -1)
+#endif
+OGLPLUS_ENUM_CLASS_END
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
@@ -134,6 +146,13 @@ class UnspecifiedFont
 public:
 	/// Returns the logical metrics for the specified glyph
 	Rectangle GlyphLogicalMetrics(CodePoint code_point);
+
+	/// Query the x-offsets (advance) of the individual glyphs
+	GLfloat QueryXOffsets(
+		const CodePoint* cps,
+		GLsizei size,
+		std::vector<GLfloat>& x_offsets
+	);
 };
 
 
@@ -297,6 +316,11 @@ public:
 	 *  @see SetAlignment()
 	 */
 	void SetDirection(Direction direction);
+
+	/// Use the renderer
+	/** Call this function before using the renderer
+	 */
+	void Use(void);
 
 	/// Transforms and renders the specified @p layout
 	/** The currently set alignment and matrices are used
