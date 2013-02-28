@@ -91,12 +91,14 @@ private:
 		assert(_pimpl);
 		return _pimpl->_clone();
 	}
-public:
+
 	template <class Font>
 	AnyFont(const Font& font)
 	 : _pimpl(new _impl<Font>(font))
 	{ }
 
+	friend class AnyRendering;
+public:
 	AnyFont(const AnyFont& that)
 	 : _pimpl(that._clone())
 	{ }
@@ -225,13 +227,13 @@ private:
 	 : _pimpl(pimpl)
 	{ }
 
-	friend class AnyRenderer;
-public:
 	template <class Layout>
 	AnyLayout(Layout&& layout)
 	 : _pimpl(new _impl<Layout>(std::move(layout)))
 	{ }
 
+	friend class AnyRendering;
+public:
 	AnyLayout(AnyLayout&& tmp)
 	 : _pimpl(tmp._pimpl)
 	{
@@ -355,12 +357,14 @@ private:
 	};
 
 	_intf* _pimpl;
-public:
+
 	template <class Renderer, class Layout>
 	AnyRenderer(Renderer&& renderer, Layout*)
 	 : _pimpl(new _impl<Renderer, Layout>(std::move(renderer)))
 	{ }
 
+	friend class AnyRendering;
+public:
 	AnyRenderer(AnyRenderer&& tmp)
 	 : _pimpl(tmp._pimpl)
 	{
