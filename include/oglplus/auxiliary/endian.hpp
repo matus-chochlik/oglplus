@@ -20,11 +20,18 @@
 namespace oglplus {
 namespace aux {
 
-enum class Endian : bool
-{
-	Little = false,
-	Big = true
-};
+OGLPLUS_ENUM_CLASS_BEGIN(Endian, bool)
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Indicates little endian byte order
+	Little,
+	/// Indicates big endian byte order
+	Big
+#else
+	OGLPLUS_ENUM_CLASS_VALUE(Little, false)
+	OGLPLUS_ENUM_CLASS_COMMA
+	OGLPLUS_ENUM_CLASS_VALUE(Big, true)
+#endif
+OGLPLUS_ENUM_CLASS_END
 
 class EndianHelper
 {

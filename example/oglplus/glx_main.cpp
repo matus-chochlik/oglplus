@@ -474,7 +474,9 @@ void make_screenshot(
 void run_example(
 	const x11::Display& display,
 	const char* screenshot_path,
-	const char* framedump_prefix
+	const char* framedump_prefix,
+	int argc,
+	char ** argv
 )
 {
 	static int visual_attribs[] =
@@ -515,7 +517,7 @@ void run_example(
 
 	x11::ScreenNames screen_names;
 
-	ExampleParams params;
+	ExampleParams params(argc, argv);
 	if(framedump_prefix) params.quality = 1.0;
 	params.max_threads = 128;
 	params.num_gpus = screen_names.size(); // TODO: something more reliable
@@ -706,12 +708,21 @@ int glx_example_main(int argc, char ** argv)
 		screenshot_path = argv[2];
 	if((argc == 3) && (std::strcmp(argv[1], "--frame-dump") == 0))
 		framedump_prefix = argv[2];
+
+	if(screenshot_path || framedump_prefix)
+	{
+		for(int a=3; a<argc; ++a)
+			argv[a-2] = argv[a];
+		argc -= 2;
+	}
 	//
 	// run the main loop
 	oglplus::run_example(
 		oglplus::x11::Display(),
 		screenshot_path,
-		framedump_prefix
+		framedump_prefix,
+		argc,
+		argv
 	);
 	return 0;
 }

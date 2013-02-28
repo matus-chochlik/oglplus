@@ -47,7 +47,7 @@ struct BitmapGlyphRenderingConfig
 	/// Number of glyphs per single page
 	unsigned glyphs_per_page;
 
-	/// Max number of glyps in a single layout storage unit
+	/// Max number of glyphs in a single layout storage unit
 	unsigned layout_storage_page;
 
 	/// Minimal allocation unit for a layout storage unit
@@ -286,12 +286,16 @@ public:
 
 	typedef BitmapGlyphLayoutTpl<BitmapFont> Layout;
 
-	Layout MakeLayout(Font font, GLsizei max_len)
+	Layout MakeLayout(const Font& font, GLsizei max_len)
 	{
 		return Layout(*this, font, max_len);
 	}
 
-	Layout MakeLayout(Font font, const GLchar* c_str, std::size_t size)
+	Layout MakeLayout(
+		const Font& font,
+		const GLchar* c_str,
+		std::size_t size
+	)
 	{
 		std::vector<CodePoint> cps;
 		UTF8ToCodePoints(c_str, size, cps);
@@ -301,12 +305,12 @@ public:
 		return std::move(layout);
 	}
 
-	Layout MakeLayout(Font font, const StrLit& lit)
+	Layout MakeLayout(const Font& font, const StrLit& lit)
 	{
 		return MakeLayout(font, lit.c_str(), lit.size());
 	}
 
-	Layout MakeLayout(Font font, const String& str)
+	Layout MakeLayout(const Font& font, const String& str)
 	{
 		return MakeLayout(font, str.c_str(), str.size());
 	}
