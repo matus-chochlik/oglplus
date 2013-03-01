@@ -899,45 +899,48 @@ public:
 	{ }
 
 	/// Setup the properties of this vertex attribute array
-	/**
+	/** Equivalent to Pointer(valuer_per_vertex, data_type, false, 0, NULL)
+	 *
+	 *  @see Pointer
+	 *
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
+	 *  @glfunref{VertexAttribIPointer}
+	 *  @glfunref{VertexAttribLPointer}
 	 */
 	const VertexAttribArray& Setup(
 		GLint values_per_vertex,
-		DataType data_type,
-		bool normalized = false,
-		GLsizei stride = 0,
-		void* pointer = nullptr
+		DataType data_type
 	) const
 	{
 		return Pointer(
 			values_per_vertex,
 			data_type,
-			normalized,
-			stride,
-			pointer
+			false,
+			0,
+			nullptr
 		);
 	}
 
 	/// Setup the properties of this vertex attribute array
 	/**
+	 *
+	 *  @see Pointer
+	 *
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
+	 *  @glfunref{VertexAttribIPointer}
+	 *  @glfunref{VertexAttribLPointer}
 	 */
 	template <typename T>
-	const VertexAttribArray& Setup(
-		bool normalized = false,
-		GLsizei stride = 0,
-		void* pointer = nullptr
-	) const
+	const VertexAttribArray& Setup(void) const
 	{
 		return Pointer(
 			_get_values_per_vertex((T*)nullptr),
 			_get_data_type((T*)nullptr),
-			normalized,
-			stride,
-			pointer
+			false,
+			0,
+			nullptr
 		);
 	}
 
@@ -945,6 +948,8 @@ public:
 	/**
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
+	 *  @glfunref{VertexAttribIPointer}
+	 *  @glfunref{VertexAttribLPointer}
 	 */
 	const VertexAttribArray& Pointer(
 		GLint values_per_vertex,
@@ -954,32 +959,19 @@ public:
 		void* pointer
 	) const
 	{
-		OGLPLUS_GLFUNC(VertexAttribPointer)(
-			_location,
-			values_per_vertex,
-			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
-			stride,
-			pointer
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
-		return *this;
-	}
-
-	/// Setup the properties of this vertex attribute array
-	/**
-	 *  @glsymbols
-	 *  @glfunref{VertexAttribIPointer}
-	 *  @glfunref{VertexAttribLPointer}
-	 */
-	const VertexAttribArray& Pointer(
-		GLint values_per_vertex,
-		DataType data_type,
-		GLsizei stride,
-		void* pointer
-	) const
-	{
-		if(data_type == DataType::Double)
+		if(data_type == DataType::Float)
+		{
+			OGLPLUS_GLFUNC(VertexAttribPointer)(
+				_location,
+				values_per_vertex,
+				GLenum(data_type),
+				normalized ? GL_TRUE : GL_FALSE,
+				stride,
+				pointer
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+		}
+		else if(data_type == DataType::Double)
 		{
 			OGLPLUS_GLFUNC(VertexAttribLPointer)(
 				_location,
@@ -1009,6 +1001,8 @@ public:
 	/**
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribFormat}
+	 *  @glfunref{VertexAttribIFormat}
+	 *  @glfunref{VertexAttribLFormat}
 	 */
 	const VertexAttribArray& Format(
 		GLint values_per_vertex,
@@ -1017,30 +1011,18 @@ public:
 		GLuint relative_offset
 	) const
 	{
-		OGLPLUS_GLFUNC(VertexAttribFormat)(
-			_location,
-			values_per_vertex,
-			GLenum(data_type),
-			normalized ? GL_TRUE : GL_FALSE,
-			relative_offset
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribFormat));
-		return *this;
-	}
-
-	/// Setup the format of this vertex attribute array
-	/**
-	 *  @glsymbols
-	 *  @glfunref{VertexAttribIFormat}
-	 *  @glfunref{VertexAttribLFormat}
-	 */
-	const VertexAttribArray& Format(
-		GLint values_per_vertex,
-		DataType data_type,
-		GLuint relative_offset
-	) const
-	{
-		if(data_type == DataType::Double)
+		if(data_type == DataType::Float)
+		{
+			OGLPLUS_GLFUNC(VertexAttribFormat)(
+				_location,
+				values_per_vertex,
+				GLenum(data_type),
+				normalized ? GL_TRUE : GL_FALSE,
+				relative_offset
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribFormat));
+		}
+		else if(data_type == DataType::Double)
 		{
 			OGLPLUS_GLFUNC(VertexAttribLFormat)(
 				_location,

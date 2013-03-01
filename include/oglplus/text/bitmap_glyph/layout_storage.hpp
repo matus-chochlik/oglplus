@@ -93,7 +93,7 @@ public:
 
 			VertexAttribSlot location(0);
 			VertexAttribArray attr(location);
-			attr.Pointer(1, GetDataType<GLuint>(), 0, nullptr);
+			attr.Setup(1, GetDataType<GLuint>());
 			attr.Enable();
 		}
 		{
@@ -106,7 +106,7 @@ public:
 
 			VertexAttribSlot location(1);
 			VertexAttribArray attr(location);
-			attr.Pointer(1, GetDataType<GLfloat>(), false, 0, nullptr);
+			attr.Setup(1, GetDataType<GLfloat>());
 			attr.Enable();
 		}
 
