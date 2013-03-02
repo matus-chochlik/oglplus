@@ -916,7 +916,6 @@ public:
 		return Pointer(
 			values_per_vertex,
 			data_type,
-			false,
 			0,
 			nullptr
 		);
@@ -938,10 +937,34 @@ public:
 		return Pointer(
 			_get_values_per_vertex((T*)nullptr),
 			_get_data_type((T*)nullptr),
-			false,
 			0,
 			nullptr
 		);
+	}
+
+	/// Setup the properties of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribPointer}
+	 */
+	const VertexAttribArray& Pointer(
+		GLint values_per_vertex,
+		DataType data_type,
+		bool normalized,
+		GLsizei stride,
+		void* pointer
+	) const
+	{
+		OGLPLUS_GLFUNC(VertexAttribPointer)(
+			_location,
+			values_per_vertex,
+			GLenum(data_type),
+			normalized ? GL_TRUE : GL_FALSE,
+			stride,
+			pointer
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+		return *this;
 	}
 
 	/// Setup the properties of this vertex attribute array
@@ -954,7 +977,6 @@ public:
 	const VertexAttribArray& Pointer(
 		GLint values_per_vertex,
 		DataType data_type,
-		bool normalized,
 		GLsizei stride,
 		void* pointer
 	) const
@@ -965,7 +987,7 @@ public:
 				_location,
 				values_per_vertex,
 				GLenum(data_type),
-				normalized ? GL_TRUE : GL_FALSE,
+				GL_FALSE,
 				stride,
 				pointer
 			);
@@ -1001,13 +1023,35 @@ public:
 	/**
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribFormat}
+	 */
+	const VertexAttribArray& Format(
+		GLint values_per_vertex,
+		DataType data_type,
+		bool normalized,
+		GLuint relative_offset
+	) const
+	{
+		OGLPLUS_GLFUNC(VertexAttribFormat)(
+			_location,
+			values_per_vertex,
+			GLenum(data_type),
+			normalized ? GL_TRUE : GL_FALSE,
+			relative_offset
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribFormat));
+		return *this;
+	}
+
+	/// Setup the format of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribFormat}
 	 *  @glfunref{VertexAttribIFormat}
 	 *  @glfunref{VertexAttribLFormat}
 	 */
 	const VertexAttribArray& Format(
 		GLint values_per_vertex,
 		DataType data_type,
-		bool normalized,
 		GLuint relative_offset
 	) const
 	{
@@ -1017,7 +1061,7 @@ public:
 				_location,
 				values_per_vertex,
 				GLenum(data_type),
-				normalized ? GL_TRUE : GL_FALSE,
+				GL_FALSE,
 				relative_offset
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribFormat));
