@@ -328,7 +328,7 @@ public:
 	/// Load the image from a file with the specified @p file_path
 	PNG(const char* file_path, bool y_is_up = true, bool x_is_right = true)
 	{
-		std::ifstream  file(file_path);
+		std::ifstream  file(file_path, std::ios::binary);
 		aux::PNGLoader(file, *this, y_is_up, x_is_right);
 	}
 

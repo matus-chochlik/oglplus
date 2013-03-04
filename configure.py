@@ -346,6 +346,14 @@ def parse_arguments():
 		"""
 	)
 	argparser.add_argument(
+		"--with-tests",
+		default=False,
+		action="store_true",
+		help="""
+			Configure the testsuite.
+		"""
+	)
+	argparser.add_argument(
 		"--cmake",
 		dest="cmake_options",
 		nargs=argparse.REMAINDER,
@@ -547,6 +555,10 @@ def main(argv):
 	# remove the build dir if it was requested
 	if(options.from_scratch and os.path.exists(options.build_dir)):
 		shutil.rmtree(options.build_dir)
+
+	# configure the test suite
+	if(options.with_tests):
+		cmake_options.append("-DOGLPLUS_WITH_TESTS=On")
 
 	# create the build directory if necessary
 	if(not os.path.isdir(options.build_dir)):

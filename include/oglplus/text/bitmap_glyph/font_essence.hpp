@@ -103,7 +103,10 @@ private:
 
 	std::vector<GLfloat> _load_page_metric(GLint page)
 	{
-		std::ifstream input(_page_metric_path(page).c_str());
+		std::ifstream input(
+			_page_metric_path(page).c_str(),
+			std::ios::in
+		);
 		if(!input.good())
 		{
 			std::string msg("Unable to open file '");

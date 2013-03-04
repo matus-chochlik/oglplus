@@ -1,4 +1,4 @@
-#  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -20,6 +20,8 @@ option(OGLPLUS_FORCE_GLX  "Force use of the GLX library" Off)
 option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
 option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
+
+option(OGLPLUS_WITH_TESTS "Configure the testsuire" Off)
 
 # The low-profile setting
 option(OGLPLUS_CONFIG_SET_LOW_PROFILE "Set the OGLPLUS_LOW_PROFILE switch in site_config.hpp" Off)
@@ -259,6 +261,10 @@ install(
 	DIRECTORY ${PROJECT_SOURCE_DIR}/include/
 	DESTINATION include
 )
+
+if(OGLPLUS_WITH_TESTS)
+	add_subdirectory("test")
+endif()
 
 if(NOT OGLPLUS_NO_DOCS)
 	# install the docs

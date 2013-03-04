@@ -187,7 +187,7 @@ private:
 	}
 public:
 	FileGLSLSrcWrap(const char* path)
-	 : _file(path)
+	 : _file(path, std::ios::binary)
 	 , _size(_check_and_get_size(path, _file))
 	 , _storage(_size+1, GLchar(0))
 	 , _pdata(_storage.data())

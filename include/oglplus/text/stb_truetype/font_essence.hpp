@@ -237,7 +237,7 @@ public:
 		GLint default_page,
 		GLuint pixel_height
 	): _parent(parent)
-	 , _tt_font(std::ifstream(_page_font_path(font_name)))
+	 , _tt_font(std::ifstream(_page_font_path(font_name), std::ios::binary))
 	 , _font_resolution(pixel_height)
 	 , _tex_side(BitmapGlyphDefaultPageTexSide(parent, _font_resolution))
 	 , _pager(

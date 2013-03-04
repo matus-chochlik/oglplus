@@ -214,6 +214,18 @@ public:
 		return Multiply(a, mult);
 	}
 
+	/// Division by constant
+	friend Angle Divide(const Angle& a, T div)
+	{
+		return Angle(a._val_rad / div, _Radians());
+	}
+
+	/// Division by constant operator
+	friend Angle operator / (const Angle& a, T div)
+	{
+		return Divide(a, div);
+	}
+
 	/// Returns the sine of the angle
 	friend inline T Sin(const Angle& a)
 	OGLPLUS_NOEXCEPT_IF(T(std::sin(std::declval<T>())))
