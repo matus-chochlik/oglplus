@@ -482,6 +482,21 @@ public:
 		return Vector::At<I>(*this);
 	}
 
+	/// Returns the value of the I-th coordinate of the vector with fallback
+	/** This function returns either the value of the I-th cooordinate of
+	 *  the vector if I is between 0 and N-1 or the fallback @c value
+	 *  otherwise.
+	 *
+	 *  @tparam I the index of the coordinate to be retrieved
+	 *  @param value the fallback value if I is not between 0 and N-1
+	 */
+	template <std::size_t I>
+	T At(T value) const
+	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
+	{
+		return Vector::At<I>(*this, value);
+	}
+
 	/// Returns the value of the I-th coordinate of the vector
 	/**
 	 *  @param i the index of the coordinate to be retrieved
@@ -501,6 +516,17 @@ public:
 	{
 		static_assert(I < N, "Index too high for this vector type");
 		return a._elem[I];
+	}
+
+	/// Returns a reference to the I-th coordinate of the vector
+	/**
+	 *  @param i the index of the coordinate to be retrieved
+	 */
+	template <std::size_t I>
+	T& Ref(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return Vector::Ref<I>(*this);
 	}
 
 	/// Equality comparison

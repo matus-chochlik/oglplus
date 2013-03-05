@@ -17,6 +17,11 @@
 
 BOOST_AUTO_TEST_SUITE(math)
 
+BOOST_AUTO_TEST_CASE(math_Pi)
+{
+	BOOST_CHECK_CLOSE(oglplus::math::Pi(), 3.14159265, 0.0001);
+}
+
 BOOST_AUTO_TEST_CASE(math_2Pi_eq_TwoPi)
 {
 	BOOST_CHECK(2*oglplus::math::Pi() == oglplus::math::TwoPi());
