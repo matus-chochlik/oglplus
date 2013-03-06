@@ -48,6 +48,9 @@ For the impatient:
  # open the generated MSVC solution in the _build directory
  # or use some variant of make if available
 
+ # On platforms with python
+ $> python configure.py --build
+
 For the busy:
 -------------
 
@@ -150,10 +153,13 @@ cmake (with the -D option. see cmake manual for details):
 User-friendly configuration script
 ----------------------------------
 
-The configuration script comes in two flawors:
+The configuration script comes in three flawors:
 
 1. ``configure.sh`` -- For platforms with bash.
 2. ``configure.bat`` -- For windows.
+3. ``configure.py`` -- For platforms with python (recommended). This version
+                       of the script is the most portable and supports most
+                       features.
 
 The ``configure`` script is a more user-friendly way to invoke cmake and specify
 additional parameters for the configuration process.
