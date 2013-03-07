@@ -117,7 +117,7 @@ public:
 		template <typename IT>
 		IT operator()(const Vector<IT, 4>& v) const
 		{
-			return v.template At<I>();
+			return v.At(I);
 		}
 	};
 

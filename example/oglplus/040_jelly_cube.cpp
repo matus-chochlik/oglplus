@@ -398,7 +398,7 @@ public:
 
 	CamMatrixf Matrix(void) const
 	{
-		return CamMatrixf::LookingAt(cam_pos.xyz(), tgt_pos.xyz());
+		return CamMatrixf::LookingAt(cam_pos, tgt_pos);
 	}
 };
 
