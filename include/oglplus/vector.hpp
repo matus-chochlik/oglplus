@@ -542,7 +542,7 @@ inline Vector<T, Rows> operator * (
 		tmp[r] = T(0);
 		for(std::size_t c=0; c!=N; ++c)
 		{
-			tmp[c] += m.At(r, c) * v.At(c);
+			tmp[r] += m.At(r, c) * v.At(c);
 		}
 	}
 	return Vector<T, Rows>(tmp);

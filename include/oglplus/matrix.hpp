@@ -271,24 +271,24 @@ protected:
 		}
 	};
 
-	template <std::size_t R, std::size_t C, std::size_t I, std::size_t J>
+	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
 	struct _op_extract
 	{
-		const Matrix<T, R, C>& a;
+		const Matrix& a;
 
-		void operator()(Matrix& t) const
+		void operator()(Matrix<T, R, C>& t) const
 		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 		{
 			static_assert(
-				I+Rows <= R,
+				I+R<= Rows,
 				"Invalid row for this matrix type"
 			);
 			static_assert(
-				J+Cols <= C,
+				J+C<= Cols ,
 				"Invalid column for this matrix type"
 			);
-			for(std::size_t i=0; i!=Rows; ++i)
-			for(std::size_t j=0; j!=Cols; ++j)
+			for(std::size_t i=0; i!=R; ++i)
+			for(std::size_t j=0; j!=C; ++j)
 				t._m._elem[i][j] = a.At(I+i, J+j);
 		}
 	};
@@ -349,6 +349,11 @@ public:
 		std::copy(data, data+Rows*Cols, _m._data);
 	}
 
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Matrix(const Matrix&) = default;
+	Matrix& operator = (const Matrix&) = default;
+#endif
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Initializing constructor
 	/** Allows to explicitly initialize all elements of the matrix.
@@ -358,6 +363,16 @@ public:
 	 */
 	template <typename ... P>
 	explicit Matrix(P ... p);
+
+	/// Initialization from row vectors
+	/** Allows to initialize the matrix from row vectors
+	 *  The number of vectors must be Rows, each vector must
+	 *  have Cols components.
+	 *
+	 *  @pre (sizeof...(C) == Rows) && (C == Cols)...
+	 */
+	template <typename ... C>
+	explicit Matrix(const Vector<T, C> ... row);
 #elif !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
 
 #include <oglplus/auxiliary/matrix_n_ctr.ipp>
@@ -395,6 +410,12 @@ public:
 
 	/// Returns the number of elements of the matrix
 	friend std::size_t Size(const Matrix& matrix);
+
+	/// Returns the number of rows of the matrix
+	friend std::size_t Rows(const Matrix& matrix);
+
+	/// Returns the number of columns of the matrix
+	friend std::size_t Cols(const Matrix& matrix);
 #endif
 
 	/// Returns the value of the element at position i, j
@@ -420,39 +441,28 @@ public:
 	}
 
 	/// Returns the i-th row of this matrix
+	/**
+	 *  @pre (i < Rows)
+	 */
 	Vector<T, Cols> Row(std::size_t i) const
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
     	{
+		assert(i < Rows);
 		return Vector<T, Cols>(this->_m._elem[i], Cols);
 	}
 
-	/// Returns the I-th row of this matrix
-	template <std::size_t I>
-	Vector<T, Cols> Row(void) const
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-    	{
-		static_assert(I < Rows, "Invalid row for this matrix");
-		return Row(I);
-	}
-
-
 	/// Return the j-th column of this matrix
+	/**
+	 *  @pre (j < Cols)
+	 */
 	Vector<T, Rows> Col(std::size_t j) const
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
+		assert(j < Cols);
 		T v[Rows];
 		for(std::size_t i=0; i!= Rows; ++i)
 			v[i] = this->_m._elem[i][j];
 		return Vector<T, Rows>(v, Rows);
-	}
-
-	/// Returns the J-th column of this matrix
-	template <std::size_t J>
-	Vector<T, Rows> Col(void) const
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-    	{
-		static_assert(J < Cols, "Invalid column for this matrix");
-		return Col(J);
 	}
 
 	/// Equality comparison function
@@ -612,6 +622,14 @@ public:
 		return Matrix(_spec_ctr(), init);
 	}
 
+	/// Submatrix extraction
+	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
+	friend Matrix<T, R, C> Extracted(const Matrix& a)
+	{
+		_op_extract<I, J, R, C> init = {a};
+		return Matrix<T, R, C>(_spec_ctr(), init);
+	}
+
 	/// Swaps two rows of the Matrix
 	friend void RowSwap(Matrix& m, std::size_t a, std::size_t b)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
@@ -751,6 +769,20 @@ inline OGLPLUS_CONSTEXPR std::size_t Size(const Matrix<T, R, C>&)
 OGLPLUS_NOEXCEPT(true)
 {
 	return R * C;
+}
+
+template <typename T, std::size_t R, std::size_t C>
+inline OGLPLUS_CONSTEXPR std::size_t Rows(const Matrix<T, R, C>&)
+OGLPLUS_NOEXCEPT(true)
+{
+	return R;
+}
+
+template <typename T, std::size_t R, std::size_t C>
+inline OGLPLUS_CONSTEXPR std::size_t Cols(const Matrix<T, R, C>&)
+OGLPLUS_NOEXCEPT(true)
+{
+	return C;
 }
 
 template <typename T, std::size_t R, std::size_t C>
@@ -1061,7 +1093,7 @@ public:
 
 	Vector<T, 3> Position(void) const
 	{
-		return Vector<T,3>(Inverse(*this).template Col<3>().Data(), 3);
+		return Vector<T,3>(Inverse(*this).Col(3).Data(), 3);
 	}
 
 	struct _Perspective { };

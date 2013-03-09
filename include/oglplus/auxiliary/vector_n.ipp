@@ -239,6 +239,7 @@ public:
 
 	/// Returns the value of the i-th coordinate of the vector
 	/**
+	 *  @param vector the vector to operate on
 	 *  @param i the index of the coordinate to be retrieved
 	 *  @pre (i < Size())
 	 */
