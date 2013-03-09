@@ -143,17 +143,17 @@ BOOST_AUTO_TEST_CASE(vector_at_1)
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
 	oglplus::Vector<float, 4> vec4f(1.0f, 2.0f, 3.0f, 4.0f);
 
-	BOOST_CHECK_EQUAL(vec2f.At<0>(), 1.0f);
-	BOOST_CHECK_EQUAL(vec2f.At<1>(), 2.0f);
+	BOOST_CHECK_EQUAL(vec2f.At(0), 1.0f);
+	BOOST_CHECK_EQUAL(vec2f.At(1), 2.0f);
 
-	BOOST_CHECK_EQUAL(vec3f.At<0>(), 1.0f);
-	BOOST_CHECK_EQUAL(vec3f.At<1>(), 2.0f);
-	BOOST_CHECK_EQUAL(vec3f.At<2>(), 3.0f);
+	BOOST_CHECK_EQUAL(vec3f.At(0), 1.0f);
+	BOOST_CHECK_EQUAL(vec3f.At(1), 2.0f);
+	BOOST_CHECK_EQUAL(vec3f.At(2), 3.0f);
 
-	BOOST_CHECK_EQUAL(vec4f.At<0>(), 1.0f);
-	BOOST_CHECK_EQUAL(vec4f.At<1>(), 2.0f);
-	BOOST_CHECK_EQUAL(vec4f.At<2>(), 3.0f);
-	BOOST_CHECK_EQUAL(vec4f.At<3>(), 4.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(0), 1.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(1), 2.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(2), 3.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(3), 4.0f);
 }
 
 BOOST_AUTO_TEST_CASE(vector_at_2)
@@ -162,20 +162,20 @@ BOOST_AUTO_TEST_CASE(vector_at_2)
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
 	oglplus::Vector<float, 4> vec4f(1.0f, 2.0f, 3.0f, 4.0f);
 
-	BOOST_CHECK_EQUAL(vec2f.At<0>(5.0f), 1.0f);
-	BOOST_CHECK_EQUAL(vec2f.At<1>(5.0f), 2.0f);
-	BOOST_CHECK_EQUAL(vec2f.At<2>(5.0f), 5.0f);
+	BOOST_CHECK_EQUAL(vec2f.At(0, 5.0f), 1.0f);
+	BOOST_CHECK_EQUAL(vec2f.At(1, 5.0f), 2.0f);
+	BOOST_CHECK_EQUAL(vec2f.At(2, 5.0f), 5.0f);
 
-	BOOST_CHECK_EQUAL(vec3f.At<0>(5.0f), 1.0f);
-	BOOST_CHECK_EQUAL(vec3f.At<1>(5.0f), 2.0f);
-	BOOST_CHECK_EQUAL(vec3f.At<2>(5.0f), 3.0f);
-	BOOST_CHECK_EQUAL(vec3f.At<3>(5.0f), 5.0f);
+	BOOST_CHECK_EQUAL(vec3f.At(0, 5.0f), 1.0f);
+	BOOST_CHECK_EQUAL(vec3f.At(1, 5.0f), 2.0f);
+	BOOST_CHECK_EQUAL(vec3f.At(2, 5.0f), 3.0f);
+	BOOST_CHECK_EQUAL(vec3f.At(3, 5.0f), 5.0f);
 
-	BOOST_CHECK_EQUAL(vec4f.At<0>(5.0f), 1.0f);
-	BOOST_CHECK_EQUAL(vec4f.At<1>(5.0f), 2.0f);
-	BOOST_CHECK_EQUAL(vec4f.At<2>(5.0f), 3.0f);
-	BOOST_CHECK_EQUAL(vec4f.At<3>(5.0f), 4.0f);
-	BOOST_CHECK_EQUAL(vec4f.At<4>(5.0f), 5.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(0, 5.0f), 1.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(1, 5.0f), 2.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(2, 5.0f), 3.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(3, 5.0f), 4.0f);
+	BOOST_CHECK_EQUAL(vec4f.At(4, 5.0f), 5.0f);
 }
 
 BOOST_AUTO_TEST_CASE(vector_ref)
@@ -184,41 +184,41 @@ BOOST_AUTO_TEST_CASE(vector_ref)
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
 	oglplus::Vector<float, 4> vec4f(1.0f, 2.0f, 3.0f, 4.0f);
 
-	BOOST_CHECK_EQUAL(vec2f.Ref<0>(), 1.0f);
-	BOOST_CHECK_EQUAL(vec2f.Ref<1>(), 2.0f);
+	BOOST_CHECK_EQUAL(vec2f[0], 1.0f);
+	BOOST_CHECK_EQUAL(vec2f[1], 2.0f);
 
-	BOOST_CHECK_EQUAL(vec3f.Ref<0>(), 1.0f);
-	BOOST_CHECK_EQUAL(vec3f.Ref<1>(), 2.0f);
-	BOOST_CHECK_EQUAL(vec3f.Ref<2>(), 3.0f);
+	BOOST_CHECK_EQUAL(vec3f[0], 1.0f);
+	BOOST_CHECK_EQUAL(vec3f[1], 2.0f);
+	BOOST_CHECK_EQUAL(vec3f[2], 3.0f);
 
-	BOOST_CHECK_EQUAL(vec4f.Ref<0>(), 1.0f);
-	BOOST_CHECK_EQUAL(vec4f.Ref<1>(), 2.0f);
-	BOOST_CHECK_EQUAL(vec4f.Ref<2>(), 3.0f);
-	BOOST_CHECK_EQUAL(vec4f.Ref<3>(), 4.0f);
+	BOOST_CHECK_EQUAL(vec4f[0], 1.0f);
+	BOOST_CHECK_EQUAL(vec4f[1], 2.0f);
+	BOOST_CHECK_EQUAL(vec4f[2], 3.0f);
+	BOOST_CHECK_EQUAL(vec4f[3], 4.0f);
 
-	vec2f.Ref<0>() = 10.0f;
-	vec2f.Ref<1>() = 20.0f;
+	vec2f[0] = 10.0f;
+	vec2f[1] = 20.0f;
 
-	vec3f.Ref<0>() = 10.0f;
-	vec3f.Ref<1>() = 20.0f;
-	vec3f.Ref<2>() = 30.0f;
+	vec3f[0] = 10.0f;
+	vec3f[1] = 20.0f;
+	vec3f[2] = 30.0f;
 
-	vec4f.Ref<0>() = 10.0f;
-	vec4f.Ref<1>() = 20.0f;
-	vec4f.Ref<2>() = 30.0f;
-	vec4f.Ref<3>() = 40.0f;
+	vec4f[0] = 10.0f;
+	vec4f[1] = 20.0f;
+	vec4f[2] = 30.0f;
+	vec4f[3] = 40.0f;
 
-	BOOST_CHECK_EQUAL(vec2f.Ref<0>(), 10.0f);
-	BOOST_CHECK_EQUAL(vec2f.Ref<1>(), 20.0f);
+	BOOST_CHECK_EQUAL(vec2f[0], 10.0f);
+	BOOST_CHECK_EQUAL(vec2f[1], 20.0f);
 
-	BOOST_CHECK_EQUAL(vec3f.Ref<0>(), 10.0f);
-	BOOST_CHECK_EQUAL(vec3f.Ref<1>(), 20.0f);
-	BOOST_CHECK_EQUAL(vec3f.Ref<2>(), 30.0f);
+	BOOST_CHECK_EQUAL(vec3f[0], 10.0f);
+	BOOST_CHECK_EQUAL(vec3f[1], 20.0f);
+	BOOST_CHECK_EQUAL(vec3f[2], 30.0f);
 
-	BOOST_CHECK_EQUAL(vec4f.Ref<0>(), 10.0f);
-	BOOST_CHECK_EQUAL(vec4f.Ref<1>(), 20.0f);
-	BOOST_CHECK_EQUAL(vec4f.Ref<2>(), 30.0f);
-	BOOST_CHECK_EQUAL(vec4f.Ref<3>(), 40.0f);
+	BOOST_CHECK_EQUAL(vec4f[0], 10.0f);
+	BOOST_CHECK_EQUAL(vec4f[1], 20.0f);
+	BOOST_CHECK_EQUAL(vec4f[2], 30.0f);
+	BOOST_CHECK_EQUAL(vec4f[3], 40.0f);
 }
 
 BOOST_AUTO_TEST_CASE(vector_comparison)
