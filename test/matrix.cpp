@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(matrix_construction_1)
 {
 	float mat_init[16] = {
 		0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f,
-		9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15
+		9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f
 	};
 	oglplus::Matrix<float, 2, 2> mat2(mat_init, 4);
 	oglplus::Matrix<float, 2, 3> mat2x3(mat_init, 6);
@@ -188,6 +188,85 @@ BOOST_AUTO_TEST_CASE(matrix_construction_4)
 		oglplus::Vector<float, 4>(8.0f, 9.0f, 10.f, 11.f),
 		oglplus::Vector<float, 4>(12.f, 13.f, 14.f, 15.f)
 	);
+}
+
+BOOST_AUTO_TEST_CASE(matrix_copy_construction_1)
+{
+	oglplus::Matrix<float, 2, 2> mat2(
+		0.0f, 1.0f,
+		2.0f, 3.0f
+	);
+	oglplus::Matrix<float, 2, 3> mat2x3(
+		0.0f, 1.0f, 2.0f,
+		3.0f, 4.0f, 5.0f
+	);
+	oglplus::Matrix<float, 2, 4> mat2x4(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f
+	);
+	oglplus::Matrix<float, 3, 2> mat3x2(
+		0.0f, 1.0f,
+		2.0f, 3.0f,
+		4.0f, 5.0f
+	);
+	oglplus::Matrix<float, 3, 3> mat3(
+		0.0f, 1.0f, 2.0f,
+		3.0f, 4.0f, 5.0f,
+		6.0f, 7.0f, 8.0f
+	);
+	oglplus::Matrix<float, 3, 4> mat3x4(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f,
+		8.0f, 9.0f, 10.f, 11.f
+	);
+	oglplus::Matrix<float, 4, 2> mat4x2(
+		0.0f, 1.0f,
+		2.0f, 3.0f,
+		4.0f, 5.0f,
+		6.0f, 7.0f
+	);
+	oglplus::Matrix<float, 4, 3> mat4x3(
+		0.0f, 1.0f, 2.0f,
+		3.0f, 4.0f, 5.0f,
+		6.0f, 7.0f, 8.0f,
+		9.0f, 10.f, 11.f
+	);
+	oglplus::Matrix<float, 4, 4> mat4(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f,
+		8.0f, 9.0f, 10.f, 11.f,
+		12.f, 13.f, 14.f, 15.f
+	);
+
+	oglplus::Matrix<float, 2, 2> mat2c(mat2);
+	oglplus::Matrix<float, 2, 3> mat2x3c(mat2x3);
+	oglplus::Matrix<float, 2, 4> mat2x4c(mat2x4);
+	oglplus::Matrix<float, 3, 2> mat3x2c(mat3x2);
+	oglplus::Matrix<float, 3, 3> mat3c(mat3);
+	oglplus::Matrix<float, 3, 4> mat3x4c(mat3x4);
+	oglplus::Matrix<float, 4, 2> mat4x2c(mat4x2);
+	oglplus::Matrix<float, 4, 3> mat4x3c(mat4x3);
+	oglplus::Matrix<float, 4, 4> mat4c(mat4);
+}
+
+BOOST_AUTO_TEST_CASE(matrix_copy_construction_2)
+{
+	oglplus::Matrix<double, 4, 4> mat4(
+		0.0, 1.0, 2.0, 3.0,
+		4.0, 5.0, 6.0, 7.0,
+		8.0, 9.0, 10., 11.,
+		12., 13., 14., 15.
+	);
+
+	oglplus::Matrix<float, 2, 2> mat2c(mat4);
+	oglplus::Matrix<float, 2, 3> mat2x3c(mat4);
+	oglplus::Matrix<float, 2, 4> mat2x4c(mat4);
+	oglplus::Matrix<float, 3, 2> mat3x2c(mat4);
+	oglplus::Matrix<float, 3, 3> mat3c(mat4);
+	oglplus::Matrix<float, 3, 4> mat3x4c(mat4);
+	oglplus::Matrix<float, 4, 2> mat4x2c(mat4);
+	oglplus::Matrix<float, 4, 3> mat4x3c(mat4);
+	oglplus::Matrix<float, 4, 4> mat4c(mat4);
 }
 
 BOOST_AUTO_TEST_CASE(matrix_dimensions)
@@ -634,6 +713,249 @@ BOOST_AUTO_TEST_CASE(matrix_row)
 	do_test_matrix_row(mat4x3);
 	do_test_matrix_row(mat4);
 }
+
+template <typename T, std::size_t R, std::size_t C>
+void do_test_matrix_col(oglplus::Matrix<T, R, C>& m)
+{
+	std::size_t k = 20;
+	do_test_matrix_set(m, k);
+
+	BOOST_CHECK_EQUAL(Rows(m), R);
+	BOOST_CHECK_EQUAL(Cols(m), C);
+
+	for(std::size_t i=0; i!=R; ++i)
+	{
+		for(std::size_t j=0; j!=C; ++j)
+		{
+			oglplus::Vector<T, R> col = m.Col(j);
+			BOOST_CHECK_EQUAL(col[i], T(k++));
+		}
+	}
+}
+
+BOOST_AUTO_TEST_CASE(matrix_col)
+{
+	oglplus::Matrix<float, 2, 2> mat2;
+	oglplus::Matrix<float, 2, 3> mat2x3;
+	oglplus::Matrix<float, 2, 4> mat2x4;
+	oglplus::Matrix<float, 3, 2> mat3x2;
+	oglplus::Matrix<float, 3, 3> mat3;
+	oglplus::Matrix<float, 3, 4> mat3x4;
+	oglplus::Matrix<float, 4, 2> mat4x2;
+	oglplus::Matrix<float, 4, 3> mat4x3;
+	oglplus::Matrix<float, 4, 4> mat4;
+
+	do_test_matrix_col(mat2);
+	do_test_matrix_col(mat2x3);
+	do_test_matrix_col(mat2x4);
+	do_test_matrix_col(mat3x2);
+	do_test_matrix_col(mat3);
+	do_test_matrix_col(mat3x4);
+	do_test_matrix_col(mat4x2);
+	do_test_matrix_col(mat4x3);
+	do_test_matrix_col(mat4);
+}
+
+BOOST_AUTO_TEST_CASE(matrix_comparison_1)
+{
+	oglplus::Matrix<float, 2, 2> mat2(
+		0.0f, 1.0f,
+		4.0f, 5.0f
+	);
+	oglplus::Matrix<float, 2, 3> mat2x3(
+		0.0f, 1.0f, 2.0f,
+		4.0f, 5.0f, 6.0f
+	);
+	oglplus::Matrix<float, 2, 4> mat2x4(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f
+	);
+	oglplus::Matrix<float, 3, 2> mat3x2(
+		0.0f, 1.0f,
+		4.0f, 5.0f,
+		8.0f, 9.0f
+	);
+	oglplus::Matrix<float, 3, 3> mat3(
+		0.0f, 1.0f, 2.0f,
+		4.0f, 5.0f, 6.0f,
+		8.0f, 9.0f, 10.f
+	);
+	oglplus::Matrix<float, 3, 4> mat3x4(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f,
+		8.0f, 9.0f, 10.f, 11.f
+	);
+	oglplus::Matrix<float, 4, 2> mat4x2(
+		0.0f, 1.0f,
+		4.0f, 5.0f,
+		8.0f, 9.0f,
+		12.f, 13.f
+	);
+	oglplus::Matrix<float, 4, 3> mat4x3(
+		0.0f, 1.0f, 2.0f,
+		4.0f, 5.0f, 6.0f,
+		8.0f, 9.0f, 10.f,
+		12.f, 13.f, 14.f
+	);
+	oglplus::Matrix<float, 4, 4> mat4(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f,
+		8.0f, 9.0f, 10.f, 11.f,
+		12.f, 13.f, 14.f, 15.f
+	);
+
+	oglplus::Matrix<float, 2, 2> mat2c(mat4);
+	oglplus::Matrix<float, 2, 3> mat2x3c(mat4);
+	oglplus::Matrix<float, 2, 4> mat2x4c(mat4);
+	oglplus::Matrix<float, 3, 2> mat3x2c(mat4);
+	oglplus::Matrix<float, 3, 3> mat3c(mat4);
+	oglplus::Matrix<float, 3, 4> mat3x4c(mat4);
+	oglplus::Matrix<float, 4, 2> mat4x2c(mat4);
+	oglplus::Matrix<float, 4, 3> mat4x3c(mat4);
+	oglplus::Matrix<float, 4, 4> mat4c(mat4);
+
+	BOOST_CHECK(mat2 == mat2c);
+	BOOST_CHECK(mat2x3 == mat2x3c);
+	BOOST_CHECK(mat2x4 == mat2x4c);
+	BOOST_CHECK(mat3x2 == mat3x2c);
+	BOOST_CHECK(mat3 == mat3c);
+	BOOST_CHECK(mat3x4 == mat3x4c);
+	BOOST_CHECK(mat4x2 == mat4x2c);
+	BOOST_CHECK(mat4x3 == mat4x3c);
+	BOOST_CHECK(mat4 == mat4c);
+}
+
+// TODO
+
+BOOST_AUTO_TEST_CASE(matrix_submatrix)
+{
+	oglplus::Matrix<float, 4, 4> mat4(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f,
+		8.0f, 9.0f, 10.f, 11.f,
+		12.f, 13.f, 14.f, 15.f
+	);
+
+	oglplus::Matrix<float, 2, 2> mat2c(mat4);
+	oglplus::Matrix<float, 2, 3> mat2x3c(mat4);
+	oglplus::Matrix<float, 2, 4> mat2x4c(mat4);
+	oglplus::Matrix<float, 3, 2> mat3x2c(mat4);
+	oglplus::Matrix<float, 3, 3> mat3c(mat4);
+	oglplus::Matrix<float, 3, 4> mat3x4c(mat4);
+	oglplus::Matrix<float, 4, 2> mat4x2c(mat4);
+	oglplus::Matrix<float, 4, 3> mat4x3c(mat4);
+	oglplus::Matrix<float, 4, 4> mat4c(mat4);
+
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 2, 2>(mat4) == mat2c));
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 2, 3>(mat4) == mat2x3c));
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 2, 4>(mat4) == mat2x4c));
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 3, 2>(mat4) == mat3x2c));
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 3, 3>(mat4) == mat3c));
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 3, 4>(mat4) == mat3x4c));
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 4, 2>(mat4) == mat4x2c));
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 4, 3>(mat4) == mat4x3c));
+	BOOST_CHECK((oglplus::Submatrix<0, 0, 4, 4>(mat4) == mat4c));
+
+	BOOST_CHECK((
+		oglplus::Submatrix<0, 1, 2, 2>(mat4) ==
+		oglplus::Matrix<float, 2, 2>(
+			1.0f, 2.0f,
+			5.0f, 6.0f
+		)
+	));
+
+	BOOST_CHECK((
+		oglplus::Submatrix<1, 0, 2, 2>(mat4) ==
+		oglplus::Matrix<float, 2, 2>(
+			4.0f, 5.0f,
+			8.0f, 9.0f
+		)
+	));
+
+	BOOST_CHECK((
+		oglplus::Submatrix<1, 1, 2, 2>(mat4) ==
+		oglplus::Matrix<float, 2, 2>(
+			5.0f, 6.0f,
+			9.0f, 10.f
+		)
+	));
+
+	BOOST_CHECK((
+		oglplus::Submatrix<2, 2, 2, 2>(mat4) ==
+		oglplus::Matrix<float, 2, 2>(
+			10.f, 11.f,
+			14.f, 15.f
+		)
+	));
+
+	BOOST_CHECK((
+		oglplus::Submatrix<1, 1, 3, 3>(mat4) ==
+		oglplus::Matrix<float, 3, 3>(
+			5.0f, 6.0f, 7.0f,
+			9.0f, 10.f, 11.f,
+			13.f, 14.f, 15.f
+		)
+	));
+}
+
+BOOST_AUTO_TEST_CASE(matrix_negation)
+{
+	oglplus::Matrix<float, 4, 4> mat4(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f,
+		8.0f, 9.0f, 10.f, 11.f,
+		12.f, 13.f, 14.f, 15.f
+	);
+	oglplus::Matrix<float, 4, 4> mat4n(
+		-0.0f,-1.0f,-2.0f,-3.0f,
+		-4.0f,-5.0f,-6.0f,-7.0f,
+		-8.0f,-9.0f,-10.f,-11.f,
+		-12.f,-13.f,-14.f,-15.f
+	);
+
+	BOOST_CHECK(mat4 != mat4n);
+	BOOST_CHECK(mat4 == -mat4n);
+	BOOST_CHECK(-mat4 == mat4n);
+	BOOST_CHECK(mat4 == -(-mat4));
+	BOOST_CHECK(mat4n == -(-mat4n));
+}
+
+// TODO multiplication, addition, subtraction, ...
+
+
+BOOST_AUTO_TEST_CASE(matrix_inverse)
+{
+	double eps = 1.0;
+	for(unsigned i=0; i!=1000; ++i)
+	{
+		typedef oglplus::Vector<double, 2> vec2;
+		typedef oglplus::Vector<double, 3> vec3;
+		typedef oglplus::Vector<double, 4> vec4;
+		typedef oglplus::Matrix<double, 4, 4> mat4;
+
+		vec2 v0(
+			+1.0f+float(std::rand())/RAND_MAX,
+			-1.0f-float(std::rand())/RAND_MAX
+		);
+		vec2 v1(Perpendicular(v0));
+
+		vec3 v2(Cross(vec3(v0, 0.0), vec3(v1, 0.0)));
+
+		mat4 e;
+		mat4 m(
+			vec4(v0, 0.0, float(std::rand())/RAND_MAX),
+			vec4(v1, 0.0, float(std::rand())/RAND_MAX),
+			vec4(v2,      float(std::rand())/RAND_MAX),
+			vec4(0.0f, 0.0f, 0.0f, 1.0f)
+		);
+		mat4 i(Inverse(m));
+
+		BOOST_CHECK(oglplus::Close(m*i, e, eps));
+		BOOST_CHECK(oglplus::Close(Inverse(i), m, eps));
+	}
+}
+
+// TODO
 
 BOOST_AUTO_TEST_SUITE_END()
 

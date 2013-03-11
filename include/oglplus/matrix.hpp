@@ -141,6 +141,10 @@ typedef Matrix<GLdouble, 4, 3> Mat4x3d;
  */
 typedef Matrix<GLdouble, 4, 4> Mat4d;
 
+namespace aux {
+struct Matrix_spec_ctr_tag { };
+} // namespace aux
+
 /// Base template for Matrix
 template <typename T, std::size_t Rows, std::size_t Cols>
 class Matrix
@@ -151,7 +155,7 @@ protected:
 		T _elem[Rows][Cols];
 	} _m;
 
-	struct _spec_ctr { };
+	typedef aux::Matrix_spec_ctr_tag _spec_ctr;
 
 	struct _op_negate
 	{
@@ -289,16 +293,31 @@ protected:
 			);
 			for(std::size_t i=0; i!=R; ++i)
 			for(std::size_t j=0; j!=C; ++j)
-				t._m._elem[i][j] = a.At(I+i, J+j);
+				t.Set(i, j, a.At(I+i, J+j));
 		}
 	};
 
-	template <typename InitOp>
-	inline Matrix(_spec_ctr, InitOp& init)
-	OGLPLUS_NOEXCEPT_IF(init(std::declval<Matrix&>()))
+	template <typename U, std::size_t R, std::size_t C>
+	struct _op_copy
 	{
-		init(*this);
-	}
+		const Matrix<U, R, C>& a;
+
+		void operator()(Matrix& t) const
+		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<U>()))
+		{
+			static_assert(
+				Rows <= R,
+				"Invalid row for this matrix type"
+			);
+			static_assert(
+				Cols <= C ,
+				"Invalid column for this matrix type"
+			);
+			for(std::size_t i=0; i!=Rows; ++i)
+			for(std::size_t j=0; j!=Cols; ++j)
+				t._m._elem[i][j] = T(a.At(i, j));
+		}
+	};
 
 	void _init_row(std::size_t r, const T* data, std::size_t cols)
 	{
@@ -311,21 +330,19 @@ protected:
 		std::copy(row.Data(), row.Data()+Cols, _m._elem[r]);
 	}
 
-	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
-	explicit Matrix(
-		std::integral_constant<std::size_t, I>,
-		std::integral_constant<std::size_t, J>,
-		const Matrix<T, R, C>& source
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-	}
-
 	// No initialization
 	Matrix(std::nullptr_t)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
 public:
+	template <typename InitOp>
+	explicit Matrix(_spec_ctr, InitOp& init)
+	OGLPLUS_NOEXCEPT_IF(init(std::declval<Matrix&>()))
+	{
+		init(*this);
+	}
+
 	/// Default construction (identity matrix)
 	Matrix(void)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
@@ -343,7 +360,7 @@ public:
 	}
 
 	/// Constructuion from static array
-	Matrix(const T (&data)[Rows*Cols])
+	explicit Matrix(const T (&data)[Rows*Cols])
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		std::copy(data, data+Rows*Cols, _m._data);
@@ -353,6 +370,14 @@ public:
 	Matrix(const Matrix&) = default;
 	Matrix& operator = (const Matrix&) = default;
 #endif
+
+	template <typename U, std::size_t R, std::size_t C>
+	explicit Matrix(const Matrix<U, R, C>& other)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<U>()))
+	{
+		_op_copy<U, R, C> init = {other};
+		init(*this);
+	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Initializing constructor
@@ -630,6 +655,28 @@ public:
 		return Matrix<T, R, C>(_spec_ctr(), init);
 	}
 
+	/// Submatrix extraction
+	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
+	friend Matrix<T, R, C> Submatrix(const Matrix& a)
+	{
+		_op_extract<I, J, R, C> init = {a};
+		return Matrix<T, R, C>(_spec_ctr(), init);
+	}
+
+	/// 2x2 submatrix extraction
+	friend Matrix<T, 2, 2> Sub2x2(const Matrix& a)
+	{
+		_op_extract<0, 0, 2, 2> init = {a};
+		return Matrix<T, 2, 2>(_spec_ctr(), init);
+	}
+
+	/// 3x3 submatrix extraction
+	friend Matrix<T, 3, 3> Sub3x3(const Matrix& a)
+	{
+		_op_extract<0, 0, 3, 3> init = {a};
+		return Matrix<T, 3, 3>(_spec_ctr(), init);
+	}
+
 	/// Swaps two rows of the Matrix
 	friend void RowSwap(Matrix& m, std::size_t a, std::size_t b)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
@@ -726,6 +773,29 @@ public:
 		return true;
 	}
 };
+
+template <typename T, std::size_t R, std::size_t C>
+inline bool Close(
+	const Matrix<T, R, C>& a,
+	const Matrix<T, R, C>& b,
+	T eps
+)
+{
+	assert(eps >= T(0));
+	for(std::size_t i=0; i!=R; ++i)
+	for(std::size_t j=0; j!=C; ++j)
+	{
+		T u = a.At(i, j);
+		T v = b.At(i, j);
+		T d = std::abs(u-v);
+std::cout << "[" << i << "; " << j << "]: |" << u << " - " << v << "| = " << d;
+std::cout << " " << std::abs(u)*eps << ";" << std::abs(v)*eps << std::endl;
+		bool a = d <= std::abs(u)*eps;
+		bool b = d <= std::abs(v)*eps;
+		if(!a && !b) return false;
+	}
+	return true;
+}
 
 template <typename T>
 inline void InitMatrix4x4(
