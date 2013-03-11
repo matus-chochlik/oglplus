@@ -289,12 +289,12 @@ private:
 
 	void CopyFeedback(Buffer& src, Buffer& dst)
 	{
-		src.Bind(se::TransformFeedback());
-		dst.Bind(se::Array());
+		src.Bind(se::CopyRead());
+		dst.Bind(se::CopyWrite());
 
 		Buffer::CopySubData(
-			se::TransformFeedback(),
-			se::Array(),
+			se::CopyRead(),
+			se::CopyWrite(),
 			0, 0,
 			2 * 4 * sizeof(GLfloat)
 		);
@@ -827,12 +827,12 @@ private:
 
 	void CopyFeedback(Buffer& src, Buffer& dst)
 	{
-		src.Bind(se::TransformFeedback());
-		dst.Bind(se::Array());
+		src.Bind(se::CopyRead());
+		dst.Bind(se::CopyWrite());
 
 		Buffer::CopySubData(
-			se::TransformFeedback(),
-			se::Array(),
+			se::CopyRead(),
+			se::CopyWrite(),
 			0, 0,
 			vertex_count * 4 * sizeof(GLfloat)
 		);
