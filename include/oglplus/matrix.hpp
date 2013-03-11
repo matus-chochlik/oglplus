@@ -29,900 +29,8 @@
 
 namespace oglplus {
 
-/// Basic template for matrix types
-/**
- *  @tparam T the matrix element value type
- *  @tparam Rows the number of rows of the matrix
- *  @tparam Cols the number of columns of the matrix
- *
- *  @ingroup math_utils
- */
 template <typename T, std::size_t Rows, std::size_t Cols>
-class Matrix
-{
-protected:
-	union {
-		T _data[Rows * Cols];
-		T _elem[Rows][Cols];
-	} _m;
-private:
-
-	struct _op_negate
-	{
-		void operator()(Matrix& t, const Matrix& a)
-		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
-		{
-			for(std::size_t i=0; i!=Rows; ++i)
-			for(std::size_t j=0; j!=Cols; ++j)
-				t._m._elem[i][j] = -a._m._elem[i][j];
-		}
-	};
-
-	struct _op_add
-	{
-		void operator()(Matrix& t, const Matrix& a, const Matrix& b)
-		OGLPLUS_NOEXCEPT_IF(
-			std::declval<T&>()=
-			std::declval<T>()+
-			std::declval<T>()
-		)
-		{
-			for(std::size_t i=0; i!=Rows; ++i)
-			for(std::size_t j=0; j!=Cols; ++j)
-				t._m._elem[i][j] =
-					a._m._elem[i][j]+
-					b._m._elem[i][j];
-		}
-	};
-
-	struct _op_subtract
-	{
-		void operator()(Matrix& t, const Matrix& a, const Matrix& b)
-		OGLPLUS_NOEXCEPT_IF(
-			std::declval<T&>()=
-			std::declval<T>()-
-			std::declval<T>()
-		)
-		{
-			for(std::size_t i=0; i!=Rows; ++i)
-			for(std::size_t j=0; j!=Cols; ++j)
-				t._m._elem[i][j] =
-					a._m._elem[i][j]-
-					b._m._elem[i][j];
-		}
-	};
-
-	struct _op_mult_c
-	{
-		void operator()(Matrix& t, const Matrix& a, const T& v)
-		OGLPLUS_NOEXCEPT_IF(
-			std::declval<T&>()=
-			std::declval<T>()*
-			std::declval<T>()
-		)
-		{
-			for(std::size_t i=0; i!=Rows; ++i)
-			for(std::size_t j=0; j!=Cols; ++j)
-				t._m._elem[i][j] = a._m._elem[i][j] * v;
-		}
-	};
-
-	struct _op_transpose
-	{
-		void operator()(Matrix& t, const Matrix<T, Cols, Rows>& a)
-		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-		{
-			for(std::size_t i=0; i!=Rows; ++i)
-			for(std::size_t j=0; j!=Cols; ++j)
-				t._m._elem[i][j] = a._m._elem[j][i];
-		}
-	};
-
-	struct _op_multiply { };
-
-	template <typename Op>
-	inline Matrix(const Matrix& a, Op init)
-	OGLPLUS_NOEXCEPT_IF(init(std::declval<Matrix&>(), a))
-	{
-		init(*this, a);
-	}
-
-	template <typename Op>
-	inline Matrix(const Matrix& a, T v, Op init)
-	OGLPLUS_NOEXCEPT_IF(init(std::declval<Matrix&>(), a, v))
-	{
-		init(*this, a, v);
-	}
-
-	template <typename Op>
-	inline Matrix(const Matrix& a, const T* dv, Op init)
-	OGLPLUS_NOEXCEPT_IF(init(std::declval<Matrix&>(), a, dv))
-	{
-		init(*this, a, dv);
-	}
-
-	template <typename Op>
-	inline Matrix(const Matrix& a, const Matrix& b, Op init)
-	OGLPLUS_NOEXCEPT_IF(init(std::declval<Matrix&>(), a, b))
-	{
-		init(*this, a, b);
-	}
-
-	inline Matrix(const Matrix<T, Cols, Rows>& a, _op_transpose init)
-	OGLPLUS_NOEXCEPT_IF(init(std::declval<Matrix&>(), a))
-	{
-		init(*this, a);
-	}
-
-	template <std::size_t N>
-	inline Matrix(
-		const Matrix<T, Rows, N>& a,
-		const Matrix<T, N, Cols>& b,
-		_op_multiply,
-		_op_multiply
-	)
-	OGLPLUS_NOEXCEPT(
-		OGLPLUS_NOEXCEPT(
-			std::declval<T&>()=
-			T(std::declval<T>())*
-			T(std::declval<T>())
-		) && OGLPLUS_NOEXCEPT(
-			std::declval<T&>()+=
-			T(std::declval<T>())*
-			T(std::declval<T>())
-		)
-	)
-	{
-		for(std::size_t i=0; i!=Rows; ++i)
-		for(std::size_t j=0; j!=Cols; ++j)
-		{
-			_m._elem[i][j] = a.At(i, 0)* b.At(0, j);
-			for(std::size_t k=1; k!=N; ++k)
-				_m._elem[i][j] += a.At(i, k)* b.At(k, j);
-		}
-	}
-
-	inline Matrix(T* data, std::size_t size)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		assert(size == Rows*Cols);
-		for(std::size_t k=0; k!=Rows*Cols; ++k)
-			_m._data[k] = data[k];
-	}
-
-	template <std::size_t R>
-	inline void _init_row(const Vector<T, Cols>& row)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		for(std::size_t c=0; c!=Cols; ++c)
-			this->_m._elem[R][c] = row.At(c);
-	}
-
-	template <std::size_t R>
-	inline void _init_rows(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{ }
-
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <std::size_t R, std::size_t ... C>
-	inline void _init_rows(
-		const Vector<T, Cols>& row,
-		const Vector<T, C>&... rows
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		_init_row<R>(row);
-		_init_rows<R+1>(rows...);
-	}
-#else
-	inline void _init_rows(
-		const Vector<T, Cols>& row0,
-		const Vector<T, Cols>& row1
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		static_assert(
-			Rows == 2,
-			"Invalid number of rows for this matrix type"
-		);
-		_init_row<0>(row0);
-		_init_row<1>(row1);
-	}
-
-	inline void _init_rows(
-		const Vector<T, Cols>& row0,
-		const Vector<T, Cols>& row1,
-		const Vector<T, Cols>& row2
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		static_assert(
-			Rows == 3,
-			"Invalid number of rows for this matrix type"
-		);
-		_init_row<0>(row0);
-		_init_row<1>(row1);
-		_init_row<2>(row2);
-	}
-
-	inline void _init_rows(
-		const Vector<T, Cols>& row0,
-		const Vector<T, Cols>& row1,
-		const Vector<T, Cols>& row2,
-		const Vector<T, Cols>& row3
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		static_assert(
-			Rows == 4,
-			"Invalid number of rows for this matrix type"
-		);
-		_init_row<0>(row0);
-		_init_row<1>(row1);
-		_init_row<2>(row2);
-		_init_row<3>(row3);
-	}
-#endif
-
-	friend class Vector<T, Rows>;
-	friend class Vector<T, Cols>;
-
-
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <typename X>
-	static void _eat(const X&...)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
-#endif
-
-protected:
-
-
-#if !OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX && \
-	!OGLPLUS_NO_INITIALIZER_LISTS
-	void _init_data(std::initializer_list<T> data)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		std::copy(data.begin(), data.end(), this->_m._data);
-	}
-#define OGLPLUS_AUX_MATRIX_INIT_DATA(...) \
-	this->_init_data(__VA_ARGS__);
-#else
-	void _init_data(const T* data, std::size_t size)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		std::copy(data, data+size, this->_m._data);
-	}
-#define OGLPLUS_AUX_MATRIX_INIT_DATA(...) \
-	const T __LINE__ ## data[] = __VA_ARGS__; \
-	this->_init_data( \
-		__LINE__ ## data, \
-		sizeof(__LINE__ ## data)/  \
-		sizeof(__LINE__ ## data[0])\
-	);
-#endif
-
-public:
-	struct NoInit { };
-
-	/// Constructs an uninitialized matrix
-	Matrix(NoInit)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
-
-	struct Zero { };
-
-	/// Constructs zero a matrix
-	Matrix(Zero)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		for(std::size_t r=0; r!=Rows; ++r)
-			for(std::size_t c=0; c!=Cols; ++c)
-				this->_m._elem[r][c] = T(0);
-	}
-
-	/// Constructs a identity matrix
-	Matrix(void)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		for(std::size_t r=0; r!=Rows; ++r)
-			for(std::size_t c=0; c!=Cols; ++c)
-				this->_m._elem[r][c] = r == c ? T(1) : T(0);
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-	/// Initializing constructor
-	/** Allows to explicitly initialize all elements of the matrix.
-	 *  The number of parameters of this constructor must be Rows * Cols.
-	 */
-	template <typename ... P>
-	Matrix(T v, P ... p);
-#endif
-
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES && \
-	!OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
-	template <typename ... P>
-	Matrix(T v, P ... p)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		static_assert(
-			Rows * Cols == sizeof...(P) + 1,
-			"Invalid number of elements for this matrix type"
-		);
-		OGLPLUS_AUX_MATRIX_INIT_DATA({v, T(p)...});
-	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-	/// Initializing from row vectors
-	/** Allows to initialize all rows of the matrix from individual
-	 *  vectors. The number of vectors must be Rows and each vector
-	 *  must have exactly Cols elements.
-	 */
-	template <std::size_t ... C>
-	Matrix(const Vector<T, C>& ... rows);
-#endif
-
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <std::size_t ... C>
-	Matrix(const Vector<T, C>& ... rows)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		static_assert(
-			sizeof...(C) == Rows,
-			"Invalid number of rows for this matrix type"
-		);
-		this->_init_rows<0>(rows...);
-	}
-#else
-	Matrix(
-		const Vector<T, Cols>& row0,
-		const Vector<T, Cols>& row1
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		this->_init_rows(row0, row1);
-	}
-
-	Matrix(
-		const Vector<T, Cols>& row0,
-		const Vector<T, Cols>& row1,
-		const Vector<T, Cols>& row2
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		this->_init_rows(row0, row1, row2);
-	}
-
-	Matrix(
-		const Vector<T, Cols>& row0,
-		const Vector<T, Cols>& row1,
-		const Vector<T, Cols>& row2,
-		const Vector<T, Cols>& row3
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		this->_init_rows(row0, row1, row2, row3);
-	}
-#endif
-
-	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
-	Matrix(
-		std::integral_constant<std::size_t, I>,
-		std::integral_constant<std::size_t, J>,
-		const Matrix<T, R, C>& source
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		static_assert(I+Rows <= R, "Invalid row for this matrix type");
-		static_assert(J+Cols <= C, "Invalid column for this matrix type");
-		for(std::size_t i=0; i!=Rows; ++i)
-			for(std::size_t j=0; j!=Cols; ++j)
-				this->_m._elem[i][j] = source.At(I+i, J+j);
-	}
-
-	/// Returns an iterator to the matrix elements in row major order
-	const T* Data(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return this->_m._data;
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-	/// Returns an iterator to the matrix elements in row major order
-	friend const T* Data(const Matrix& matrix);
-#endif
-
-	/// Returns the number of elements of the matrix
-	std::size_t Size(void) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return Rows*Cols;
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-	/// Returns the number of elements of the matrix
-	friend std::size_t Size(const Matrix& matrix);
-#endif
-
-	/// Equality comparison function
-	friend bool Equal(const Matrix& a, const Matrix& b)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
-	{
-		for(std::size_t i=0; i!=Rows; ++i)
-		for(std::size_t j=0; j!=Cols; ++j)
-			if(a._m._elem[i][j] != b._m._elem[i][j])
-				return false;
-		return true;
-	}
-
-	/// Equality comparison operator
-	friend bool operator == (const Matrix& a, const Matrix& b)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
-	{
-		return Equal(a, b);
-	}
-
-	/// Inequality comparison operator
-	friend bool operator != (const Matrix& a, const Matrix& b)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
-	{
-		return !Equal(a, b);
-	}
-
-	/// Returns the value of the element at position I,J
-	template <std::size_t I, std::size_t J>
-	friend T ElementAt(const Matrix& matrix)
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
-	{
-		static_assert(
-			I < Rows &&
-			J < Cols,
-			"Invalid value of I or J for this matrix type"
-		);
-		return matrix._m._elem[I][J];
-	}
-
-	/// Returns the value of the element at position I,J
-	template <std::size_t I, std::size_t J>
-	T At(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
-	{
-		static_assert(
-			I < Rows &&
-			J < Cols,
-			"Invalid value of I or J for this matrix type"
-		);
-		return this->_m._elem[I][J];
-	}
-
-	/// Returns the value of the element at position i,j
-	T At(std::size_t i, std::size_t j) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
-	{
-		assert((i < Rows) && (j < Cols));
-		return this->_m._elem[i][j];
-	}
-
-	/// Element negation function
-	friend Matrix Negated(const Matrix& a)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
-	{
-		return Matrix(a, _op_negate());
-	}
-
-	/// Element negation operator
-	friend Matrix operator - (const Matrix& a)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
-	{
-		return Negated(a);
-	}
-
-	/// Matrix addition
-	friend Matrix Add(const Matrix& a, const Matrix& b)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()+
-		std::declval<T>()
-	)
-	{
-		return Matrix(a, b, _op_add());
-	}
-
-	/// Matrix addition operator
-	friend Matrix operator + (const Matrix& a, const Matrix& b)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()+
-		std::declval<T>()
-	)
-	{
-		return Add(a, b);
-	}
-
-	/// Matrix subtraction
-	friend Matrix Subtract(const Matrix& a, const Matrix& b)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()-
-		std::declval<T>()
-	)
-	{
-		return Matrix(a, b, _op_subtract());
-	}
-
-	/// Matrix subtraction operator
-	friend Matrix operator - (const Matrix& a, const Matrix& b)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()-
-		std::declval<T>()
-	)
-	{
-		return Subtract(a, b);
-	}
-
-	/// Matrix multiplication
-	template <std::size_t N>
-	friend Matrix Multiply(
-		const Matrix<T, Rows, N>& a,
-		const Matrix<T, N, Cols>& b
-	) OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	)
-	{
-		return Matrix(a, b, _op_multiply(), _op_multiply());
-	}
-
-	/// Matrix multiplication operator
-	template <std::size_t N>
-	friend Matrix operator * (
-		const Matrix<T, Rows, N>& a,
-		const Matrix<T, N, Cols>& b
-	) OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	)
-	{
-		return Multiply(a, b);
-	}
-
-	/// Multiplication by scalar value
-	friend Matrix Multiply(const Matrix& a, T m)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	)
-	{
-		return Matrix(a, m, _op_mult_c());
-	}
-
-	/// Multiplication by scalar value operator
-	friend Matrix operator * (const Matrix& a, T m)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	)
-	{
-		return Multiply(a, m);
-	}
-
-	/// Multiplication by scalar value operator
-	friend Matrix operator * (T m, const Matrix& a)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	)
-	{
-		return Multiply(a, m);
-	}
-
-	/// Matrix transposition
-	friend Matrix Transposed(const Matrix<T, Cols, Rows>& a)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		return Matrix(a, _op_transpose());
-	}
-
-	/// Swaps two rows of the Matrix
-	friend Matrix& RowSwap(Matrix& m, std::size_t a, std::size_t b)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		assert(a < Rows);
-		assert(b < Rows);
-		::std::swap_ranges(
-			m._m._elem[a],
-			m._m._elem[a]+Cols,
-			m._m._elem[b]
-		);
-		return m;
-	}
-
-	/// Multiplies row @a i with coeficient @a k
-	friend Matrix& RowMultiply(Matrix& m, std::size_t i, T k)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() *= std::declval<T>())
-	{
-		assert(i < Rows);
-		for(std::size_t j=0; j!=Cols; ++j)
-			m._m._elem[i][j] *= k;
-		return m;
-	}
-
-	/// Adds row @a b multipled by coeficient @a k to row @a a
-	friend Matrix RowAdd(Matrix& m, std::size_t a, std::size_t b, T k)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()+=
-		std::declval<T>()*
-		std::declval<T>()
-	)
-	{
-		assert(a < Rows);
-		assert(b < Rows);
-		for(std::size_t j=0; j!=Cols; ++j)
-			m._m._elem[a][j] += m._m._elem[b][j] * k;
-		return m;
-	}
-
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <std::size_t ... C>
-	friend bool Gauss(Matrix& a, Matrix<T, Rows, C>&... b)
-	OGLPLUS_NOEXCEPT(
-		OGLPLUS_NOEXCEPT(std::declval<T>()!=T(1)) &&
-		OGLPLUS_NOEXCEPT(std::declval<T>()==T(0)) &&
-		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
-		OGLPLUS_NOEXCEPT(std::declval<T&>()*= std::declval<T>()) &&
-		OGLPLUS_NOEXCEPT(
-			std::declval<T&>()+=
-			std::declval<T>()*
-			std::declval<T>()
-		)
-	)
-	{
-		const T zero(0), one(1);
-		for(std::size_t i=0; i!=Rows; ++i)
-		{
-			T d = a._m._elem[i][i];
-			if(d == zero)
-			{
-				for(std::size_t k=i+1; k!=Rows; ++k)
-				{
-					if(a._m._elem[k][i] != zero)
-					{
-						RowSwap(a, i, k);
-						_eat(RowSwap(b, i, k)...);
-						break;
-					}
-				}
-				d = a._m._elem[i][i];
-			}
-			if(d == zero) return false;
-
-			RowMultiply(a, i, one / d);
-			_eat(RowMultiply(b, i, one / d)...);
-
-			for(std::size_t k=i+1; k!=Rows; ++k)
-			{
-				T c = a._m._elem[k][i];
-				if(c != zero)
-				{
-					RowAdd(a, k, i, -c);
-					_eat(RowAdd(b, k, i, -c)...);
-				}
-			}
-		}
-		return true;
-	}
-#else
-	template <std::size_t C>
-	friend bool Gauss(Matrix& a, Matrix<T, Rows, C>& b)
-	{
-		const T zero(0), one(1);
-		for(std::size_t i=0; i!=Rows; ++i)
-		{
-			T d = a._m._elem[i][i];
-			if(d == zero)
-			{
-				for(std::size_t k=i+1; k!=Rows; ++k)
-				{
-					if(a._m._elem[k][i] != zero)
-					{
-						RowSwap(a, i, k);
-						RowSwap(b, i, k);
-						break;
-					}
-				}
-				d = a._m._elem[i][i];
-			}
-			if(d == zero) return false;
-
-			RowMultiply(a, i, one / d);
-			RowMultiply(b, i, one / d);
-
-			for(std::size_t k=i+1; k!=Rows; ++k)
-			{
-				T c = a._m._elem[k][i];
-				if(c != zero)
-				{
-					RowAdd(a, k, i, -c);
-					RowAdd(b, k, i, -c);
-				}
-			}
-		}
-		return true;
-	}
-#endif
-
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <std::size_t ... C>
-	friend bool GaussJordan(Matrix& a, Matrix<T, Rows, C>&... b)
-	OGLPLUS_NOEXCEPT(
-		OGLPLUS_NOEXCEPT(std::declval<T>()!=T(1)) &&
-		OGLPLUS_NOEXCEPT(std::declval<T>()==T(0)) &&
-		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
-		OGLPLUS_NOEXCEPT(std::declval<T&>()*= std::declval<T>()) &&
-		OGLPLUS_NOEXCEPT(
-			std::declval<T&>()+=
-			std::declval<T>()*
-			std::declval<T>()
-		)
-	)
-	{
-		if(!Gauss(a, b...)) return false;
-		const T zero(0);
-		for(std::size_t i=Rows-1; i!=0; --i)
-		{
-			for(std::size_t k=0; k!=i; ++k)
-			{
-				T c = a._m._elem[k][i];
-				if(c != zero)
-				{
-					RowAdd(a, k, i, -c);
-					_eat(RowAdd(b, k, i, -c)...);
-				}
-			}
-		}
-		return true;
-	}
-#else
-	template <std::size_t  C>
-	friend bool GaussJordan(Matrix& a, Matrix<T, Rows, C>& b)
-	{
-		if(!Gauss(a, b)) return false;
-		const T zero(0);
-		for(std::size_t i=Rows-1; i!=0; --i)
-		{
-			for(std::size_t k=0; k!=i; ++k)
-			{
-				T c = a._m._elem[k][i];
-				if(c != zero)
-				{
-					RowAdd(a, k, i, -c);
-					RowAdd(b, k, i, -c);
-				}
-			}
-		}
-		return true;
-	}
-#endif
-
-	/// Finds inverse matrix if m is square matrix and T supports fractions
-	friend Matrix Inverse(Matrix m)
-	OGLPLUS_NOEXCEPT(
-		OGLPLUS_NOEXCEPT(std::declval<T>()!=T(1)) &&
-		OGLPLUS_NOEXCEPT(std::declval<T>()==T(0)) &&
-		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
-		OGLPLUS_NOEXCEPT(std::declval<T&>()*= std::declval<T>()) &&
-		OGLPLUS_NOEXCEPT(
-			std::declval<T&>()+=
-			std::declval<T>()*
-			std::declval<T>()
-		)
-	)
-	{
-		Matrix i;
-		if(GaussJordan(m, i)) return i;
-		else return Matrix(Zero());
-	}
-
-	template <std::size_t I>
-	Vector<T, Cols> Row(void) const
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-    	{
-		static_assert(I < Rows, "Invalid index for this matrix");
-		return Vector<T, Cols>(this->_m._elem[I], Cols);
-	}
-
-	/// Row vector getter
-	template <std::size_t I>
-	friend Vector<T, Cols> Row(const Matrix& m)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		return m.template Row<I>();
-	}
-
-	template <std::size_t J>
-	Vector<T, Rows> Col(void) const
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		static_assert(J < Cols, "Invalid index for this matrix");
-		T v[Rows];
-		for(std::size_t i=0; i!= Rows; ++i)
-			v[i] = this->_m._elem[i][J];
-		return Vector<T, Rows>(v, Rows);
-	}
-
-	/// Column vector getter
-	template <std::size_t J>
-	friend Vector<T, Rows> Col(const Matrix& m)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		return m.template Col<J>();
-	}
-
-	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
-	Matrix<T, R, C> Submatrix(void) const
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	{
-		static_assert(I < Rows, "Invalid row for this matrix");
-		static_assert(J < Cols, "Invalid column for this matrix");
-		static_assert(I+R <= Rows, "Invalid number of rows");
-		static_assert(J+C <= Cols, "Invalid number of columns");
-
-		typedef Matrix<T, R, C> Result;
-		return Result(
-			std::integral_constant<std::size_t, I>(),
-			std::integral_constant<std::size_t, J>(),
-			*this
-		);
-	}
-
-	/// Submatrix getter
-	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
-	friend Matrix<T, R, C> Submatrix(const Matrix& m)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		return m.template Submatrix<I, J, R, C>();
-	}
-
-	/// Submatrix 2x2
-	friend Matrix<T, 2, 2> Sub2x2(const Matrix& m)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		return m.template Submatrix<0, 0, 2, 2>();
-	}
-
-	/// Submatrix 3x3
-	friend Matrix<T, 3, 3> Sub3x3(const Matrix& m)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
-	{
-		return m.template Submatrix<0, 0, 3, 3>();
-	}
-
-	// TODO: throw this out
-	template <typename Out>
-	void _print(Out& out) const
-	{
-		for(std::size_t i=0; i!=Rows; ++i)
-		{
-			out << "|" << _m._elem[i][0];
-			for(std::size_t j=1; j!= Cols; ++j)
-				out << ", " << _m._elem[i][j];
-			out << "|\n";
-		}
-	}
-};
-
-template <typename T, std::size_t Rows, std::size_t Cols>
-inline const T* Data(const Matrix<T, Rows, Cols>& matrix)
-OGLPLUS_NOEXCEPT(true)
-{
-	return matrix.Data();
-}
-
-template <typename T, std::size_t Rows, std::size_t Cols>
-inline OGLPLUS_CONSTEXPR std::size_t Size(const Matrix<T, Rows, Cols>&)
-OGLPLUS_NOEXCEPT(true)
-{
-	return Rows * Cols;
-}
+class Matrix;
 
 /// 2x2 float matrix
 /**
@@ -1033,6 +141,669 @@ typedef Matrix<GLdouble, 4, 3> Mat4x3d;
  */
 typedef Matrix<GLdouble, 4, 4> Mat4d;
 
+/// Base template for Matrix
+template <typename T, std::size_t Rows, std::size_t Cols>
+class Matrix
+{
+protected:
+	union {
+		T _data[Rows * Cols];
+		T _elem[Rows][Cols];
+	} _m;
+
+	struct _spec_ctr { };
+
+	struct _op_negate
+	{
+		const Matrix& a;
+
+		void operator()(Matrix& t) const
+		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
+		{
+			for(std::size_t i=0; i!=Rows; ++i)
+			for(std::size_t j=0; j!=Cols; ++j)
+				t._m._elem[i][j] = -a._m._elem[i][j];
+		}
+	};
+
+	struct _op_add
+	{
+		const Matrix& a;
+		const Matrix& b;
+
+		void operator()(Matrix& t) const
+		OGLPLUS_NOEXCEPT_IF(
+			std::declval<T&>()=
+			std::declval<T>()+
+			std::declval<T>()
+		)
+		{
+			for(std::size_t i=0; i!=Rows; ++i)
+			for(std::size_t j=0; j!=Cols; ++j)
+				t._m._elem[i][j] =
+					a._m._elem[i][j]+
+					b._m._elem[i][j];
+		}
+	};
+
+	struct _op_subtract
+	{
+		const Matrix& a;
+		const Matrix& b;
+
+		void operator()(Matrix& t) const
+		OGLPLUS_NOEXCEPT_IF(
+			std::declval<T&>()=
+			std::declval<T>()-
+			std::declval<T>()
+		)
+		{
+			for(std::size_t i=0; i!=Rows; ++i)
+			for(std::size_t j=0; j!=Cols; ++j)
+				t._m._elem[i][j] =
+					a._m._elem[i][j]-
+					b._m._elem[i][j];
+		}
+	};
+
+	template <std::size_t N>
+	struct _op_multiply
+	{
+		const Matrix<T, Rows, N>& a;
+		const Matrix<T, N, Cols>& b;
+
+		void operator()(Matrix& t) const
+		OGLPLUS_NOEXCEPT(
+			OGLPLUS_NOEXCEPT(
+				std::declval<T&>()=
+				T(std::declval<T>())*
+				T(std::declval<T>())
+			) && OGLPLUS_NOEXCEPT(
+				std::declval<T&>()+=
+				T(std::declval<T>())*
+				T(std::declval<T>())
+			)
+		)
+		{
+			for(std::size_t i=0; i!=Rows; ++i)
+			for(std::size_t j=0; j!=Cols; ++j)
+			{
+				t._m._elem[i][j] = a.At(i, 0)* b.At(0, j);
+				for(std::size_t k=1; k!=N; ++k)
+				{
+					t._m._elem[i][j] +=
+						a.At(i, k)*
+						b.At(k, j);
+				}
+			}
+		}
+	};
+
+	struct _op_mult_c
+	{
+		void operator()(
+			Matrix& t,
+			const Matrix& a,
+			const T& v
+		)
+		OGLPLUS_NOEXCEPT_IF(
+			std::declval<T&>()=
+			std::declval<T>()*
+			std::declval<T>()
+		)
+		{
+			for(std::size_t i=0; i!=Rows; ++i)
+			for(std::size_t j=0; j!=Cols; ++j)
+				t._m._elem[i][j] = a._m._elem[i][j] * v;
+		}
+	};
+
+	struct _op_transpose
+	{
+		const Matrix<T, Cols, Rows>& a;
+
+		void operator()(Matrix& t) const
+		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+		{
+			for(std::size_t i=0; i!=Rows; ++i)
+			for(std::size_t j=0; j!=Cols; ++j)
+				t._m._elem[i][j] = a._m._elem[j][i];
+		}
+	};
+
+	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
+	struct _op_extract
+	{
+		const Matrix& a;
+
+		void operator()(Matrix<T, R, C>& t) const
+		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+		{
+			static_assert(
+				I+R<= Rows,
+				"Invalid row for this matrix type"
+			);
+			static_assert(
+				J+C<= Cols ,
+				"Invalid column for this matrix type"
+			);
+			for(std::size_t i=0; i!=R; ++i)
+			for(std::size_t j=0; j!=C; ++j)
+				t._m._elem[i][j] = a.At(I+i, J+j);
+		}
+	};
+
+	template <typename InitOp>
+	inline Matrix(_spec_ctr, InitOp& init)
+	OGLPLUS_NOEXCEPT_IF(init(std::declval<Matrix&>()))
+	{
+		init(*this);
+	}
+
+	void _init_row(std::size_t r, const T* data, std::size_t cols)
+	{
+		assert(cols == Cols);
+		std::copy(data, data+cols, _m._elem[r]);
+	}
+
+	void _init_row(std::size_t r, const Vector<T, Cols>& row)
+	{
+		std::copy(row.Data(), row.Data()+Cols, _m._elem[r]);
+	}
+
+	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
+	explicit Matrix(
+		std::integral_constant<std::size_t, I>,
+		std::integral_constant<std::size_t, J>,
+		const Matrix<T, R, C>& source
+	) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
+	{
+	}
+
+	// No initialization
+	Matrix(std::nullptr_t)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+public:
+	/// Default construction (identity matrix)
+	Matrix(void)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		std::fill(_m._data, _m._data+Rows*Cols, T(0));
+		for(std::size_t i=0, n=Rows<Cols?Rows:Cols; i!=n; ++i)
+			this->_m._elem[i][i] = T(1);
+	}
+
+	/// Constructuion from raw data
+	Matrix(const T* data, std::size_t n)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		std::copy(data, data+n, _m._data);
+	}
+
+	/// Constructuion from static array
+	Matrix(const T (&data)[Rows*Cols])
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		std::copy(data, data+Rows*Cols, _m._data);
+	}
+
+#if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
+	Matrix(const Matrix&) = default;
+	Matrix& operator = (const Matrix&) = default;
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Initializing constructor
+	/** Allows to explicitly initialize all elements of the matrix.
+	 *  The number of parameters of this constructor must be Rows * Cols.
+	 *
+	 *  @pre (sizeof...(P) == Rows*Cols)
+	 */
+	template <typename ... P>
+	explicit Matrix(P ... p);
+
+	/// Initialization from row vectors
+	/** Allows to initialize the matrix from row vectors
+	 *  The number of vectors must be Rows, each vector must
+	 *  have Cols components.
+	 *
+	 *  @pre (sizeof...(C) == Rows) && (C == Cols)...
+	 */
+	template <typename ... C>
+	explicit Matrix(const Vector<T, C> ... row);
+#elif !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
+
+#include <oglplus/auxiliary/matrix_n_ctr.ipp>
+
+#else
+
+#include <oglplus/auxiliary/matrix_2_ctr.ipp>
+#include <oglplus/auxiliary/matrix_3_ctr.ipp>
+#include <oglplus/auxiliary/matrix_4_ctr.ipp>
+
+#endif
+
+	void Fill(T value)
+	{
+		std::fill(_m._data, _m._data+Rows*Cols, value);
+	}
+
+	/// Returns a pointer to the matrix elements in row major order
+	const T* Data(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return this->_m._data;
+	}
+
+	/// Returns the number of elements of the matrix
+	OGLPLUS_CONSTEXPR std::size_t Size(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return Rows * Cols;
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Returns apointer to the matrix elements in row major order
+	friend const T* Data(const Matrix& matrix);
+
+	/// Returns the number of elements of the matrix
+	friend std::size_t Size(const Matrix& matrix);
+
+	/// Returns the number of rows of the matrix
+	friend std::size_t Rows(const Matrix& matrix);
+
+	/// Returns the number of columns of the matrix
+	friend std::size_t Cols(const Matrix& matrix);
+#endif
+
+	/// Returns the value of the element at position i, j
+	/**
+	 *  @pre (i < Rows) && (j < Cols)
+	 */
+	T At(std::size_t i, std::size_t j) const
+	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
+	{
+		assert((i < Rows) && (j < Cols));
+		return this->_m._elem[i][j];
+	}
+
+	/// Sets the value of the element at position i, j
+	/**
+	 *  @pre (i < Rows) && (j < Cols)
+	 */
+	void Set(std::size_t i, std::size_t j, T v)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert((i < Rows) && (j < Cols));
+		this->_m._elem[i][j] = v;
+	}
+
+	/// Returns the i-th row of this matrix
+	/**
+	 *  @pre (i < Rows)
+	 */
+	Vector<T, Cols> Row(std::size_t i) const
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
+    	{
+		assert(i < Rows);
+		return Vector<T, Cols>(this->_m._elem[i], Cols);
+	}
+
+	/// Return the j-th column of this matrix
+	/**
+	 *  @pre (j < Cols)
+	 */
+	Vector<T, Rows> Col(std::size_t j) const
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		assert(j < Cols);
+		T v[Rows];
+		for(std::size_t i=0; i!= Rows; ++i)
+			v[i] = this->_m._elem[i][j];
+		return Vector<T, Rows>(v, Rows);
+	}
+
+	/// Equality comparison function
+	friend bool Equal(const Matrix& a, const Matrix& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
+	{
+		for(std::size_t i=0; i!=Rows; ++i)
+		for(std::size_t j=0; j!=Cols; ++j)
+			if(a._m._elem[i][j] != b._m._elem[i][j])
+				return false;
+		return true;
+	}
+
+	/// Equality comparison operator
+	friend bool operator == (const Matrix& a, const Matrix& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
+	{
+		return Equal(a, b);
+	}
+
+	/// Unequality comparison operator
+	friend bool operator != (const Matrix& a, const Matrix& b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
+	{
+		return !Equal(a, b);
+	}
+
+	/// Element negation function
+	friend Matrix Negated(const Matrix& a)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
+	{
+		_op_negate init = {a};
+		return Matrix(_spec_ctr(), init);
+	}
+
+	/// Element negation operator
+	friend Matrix operator - (const Matrix& a)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
+	{
+		return Negated(a);
+	}
+
+	/// Matrix addition
+	friend Matrix Added(const Matrix& a, const Matrix& b)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()+
+		std::declval<T>()
+	)
+	{
+		_op_add init = {a, b};
+		return Matrix(_spec_ctr(), init);
+	}
+
+	/// Matrix addition operator
+	friend Matrix operator + (const Matrix& a, const Matrix& b)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()+
+		std::declval<T>()
+	)
+	{
+		return Added(a, b);
+	}
+
+	/// Matrix subtraction
+	friend Matrix Subtracted(const Matrix& a, const Matrix& b)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()-
+		std::declval<T>()
+	)
+	{
+		_op_subtract init = {a, b};
+		return Matrix(_spec_ctr(), init);
+	}
+
+	/// Matrix subtraction operator
+	friend Matrix operator - (const Matrix& a, const Matrix& b)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()-
+		std::declval<T>()
+	)
+	{
+		return Subtracted(a, b);
+	}
+
+	/// Matrix multiplication
+	template <std::size_t N>
+	friend Matrix Multiplied(
+		const Matrix<T, Rows, N>& a,
+		const Matrix<T, N, Cols>& b
+	) OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+	{
+		_op_multiply<N> init = {a, b};
+		return Matrix(_spec_ctr(), init);
+	}
+
+	/// Matrix multiplication operator
+	template <std::size_t N>
+	friend Matrix operator * (
+		const Matrix<T, Rows, N>& a,
+		const Matrix<T, N, Cols>& b
+	) OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+	{
+		return Multiplied(a, b);
+	}
+
+	/// Multiplication by scalar value
+	friend Matrix Multiplied(const Matrix& a, T m)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+	{
+		_op_mult_c init = {a, m};
+		return Matrix(_spec_ctr(), init);
+	}
+
+	/// Multiplication by scalar value operator
+	friend Matrix operator * (const Matrix& a, T m)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+	{
+		return Multiplied(a, m);
+	}
+
+	/// Multiplication by scalar value operator
+	friend Matrix operator * (T m, const Matrix& a)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+	{
+		return Multiplied(a, m);
+	}
+
+	/// Matrix transposition
+	friend Matrix Transposed(const Matrix<T, Cols, Rows>& a)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		_op_transpose init = {a};
+		return Matrix(_spec_ctr(), init);
+	}
+
+	/// Submatrix extraction
+	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
+	friend Matrix<T, R, C> Extracted(const Matrix& a)
+	{
+		_op_extract<I, J, R, C> init = {a};
+		return Matrix<T, R, C>(_spec_ctr(), init);
+	}
+
+	/// Swaps two rows of the Matrix
+	friend void RowSwap(Matrix& m, std::size_t a, std::size_t b)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
+	{
+		assert(a < Rows);
+		assert(b < Rows);
+		::std::swap_ranges(
+			m._m._elem[a],
+			m._m._elem[a]+Cols,
+			m._m._elem[b]
+		);
+	}
+
+	/// Multiplies row @a i with coeficient @a k
+	friend void RowMultiply(Matrix& m, std::size_t i, T k)
+	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() *= std::declval<T>())
+	{
+		assert(i < Rows);
+		for(std::size_t j=0; j!=Cols; ++j)
+			m._m._elem[i][j] *= k;
+	}
+
+	/// Adds row @a b multipled by coeficient @a k to row @a a
+	friend void RowAdd(Matrix& m, std::size_t a, std::size_t b, T k)
+	OGLPLUS_NOEXCEPT_IF(
+		std::declval<T&>()+=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+	{
+		assert(a < Rows);
+		assert(b < Rows);
+		for(std::size_t j=0; j!=Cols; ++j)
+			m._m._elem[a][j] += m._m._elem[b][j] * k;
+	}
+
+	/// The gaussian matrix elimination
+	template <std::size_t C>
+	friend bool Gauss(Matrix& a, Matrix<T, Rows, C>& b)
+	{
+		const T zero(0), one(1);
+		for(std::size_t i=0; i!=Rows; ++i)
+		{
+			T d = a._m._elem[i][i];
+			if(d == zero)
+			{
+				for(std::size_t k=i+1; k!=Rows; ++k)
+				{
+					if(a._m._elem[k][i] != zero)
+					{
+						RowSwap(a, i, k);
+						RowSwap(b, i, k);
+						break;
+					}
+				}
+				d = a._m._elem[i][i];
+			}
+			if(d == zero) return false;
+
+			RowMultiply(a, i, one / d);
+			RowMultiply(b, i, one / d);
+
+			for(std::size_t k=i+1; k!=Rows; ++k)
+			{
+				T c = a._m._elem[k][i];
+				if(c != zero)
+				{
+					RowAdd(a, k, i, -c);
+					RowAdd(b, k, i, -c);
+				}
+			}
+		}
+		return true;
+	}
+
+	/// The Gauss-Jordan matrix elimination
+	template <std::size_t C>
+	friend bool GaussJordan(Matrix& a, Matrix<T, Rows, C>& b)
+	{
+		if(!Gauss(a, b)) return false;
+		const T zero(0);
+		for(std::size_t i=Rows-1; i!=0; --i)
+		{
+			for(std::size_t k=0; k!=i; ++k)
+			{
+				T c = a._m._elem[k][i];
+				if(c != zero)
+				{
+					RowAdd(a, k, i, -c);
+					RowAdd(b, k, i, -c);
+				}
+			}
+		}
+		return true;
+	}
+};
+
+template <typename T>
+inline void InitMatrix4x4(
+	Matrix<T, 4, 4>& matrix,
+	T v00, T v01, T v02, T v03,
+	T v10, T v11, T v12, T v13,
+	T v20, T v21, T v22, T v23,
+	T v30, T v31, T v32, T v33
+)
+{
+	matrix.Set(0, 0, v00);
+	matrix.Set(0, 1, v01);
+	matrix.Set(0, 2, v02);
+	matrix.Set(0, 3, v03);
+
+	matrix.Set(1, 0, v10);
+	matrix.Set(1, 1, v11);
+	matrix.Set(1, 2, v12);
+	matrix.Set(1, 3, v13);
+
+	matrix.Set(2, 0, v20);
+	matrix.Set(2, 1, v21);
+	matrix.Set(2, 2, v22);
+	matrix.Set(2, 3, v23);
+
+	matrix.Set(3, 0, v30);
+	matrix.Set(3, 1, v31);
+	matrix.Set(3, 2, v32);
+	matrix.Set(3, 3, v33);
+}
+
+template <typename T, std::size_t R, std::size_t C>
+inline const T* Data(const Matrix<T, R, C>& matrix)
+OGLPLUS_NOEXCEPT(true)
+{
+	return matrix.Data();
+}
+
+template <typename T, std::size_t R, std::size_t C>
+inline OGLPLUS_CONSTEXPR std::size_t Size(const Matrix<T, R, C>&)
+OGLPLUS_NOEXCEPT(true)
+{
+	return R * C;
+}
+
+template <typename T, std::size_t R, std::size_t C>
+inline OGLPLUS_CONSTEXPR std::size_t Rows(const Matrix<T, R, C>&)
+OGLPLUS_NOEXCEPT(true)
+{
+	return R;
+}
+
+template <typename T, std::size_t R, std::size_t C>
+inline OGLPLUS_CONSTEXPR std::size_t Cols(const Matrix<T, R, C>&)
+OGLPLUS_NOEXCEPT(true)
+{
+	return C;
+}
+
+template <typename T, std::size_t R, std::size_t C>
+inline Matrix<T, R, C> Inverse(Matrix<T, R, C> m)
+OGLPLUS_NOEXCEPT(
+	OGLPLUS_NOEXCEPT(std::declval<T>()!=T(1)) &&
+	OGLPLUS_NOEXCEPT(std::declval<T>()==T(0)) &&
+	OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
+	OGLPLUS_NOEXCEPT(std::declval<T&>()*= std::declval<T>()) &&
+	OGLPLUS_NOEXCEPT(
+		std::declval<T&>()+=
+		std::declval<T>()*
+		std::declval<T>()
+	)
+)
+{
+	Matrix<T, R, C> i;
+	if(!GaussJordan(m, i)) i.Fill(T(0));
+	return i;
+}
+
 /// Class implementing model transformation matrix named constructors
 /** The static member functions of this class can be used to construct
  *  various model transformation matrices.
@@ -1057,31 +828,19 @@ public:
 	 : Base(base)
 	{ }
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	/// Initializing constructor
-	template <typename ... P>
-	ModelMatrix(T v, P ... p)
-	 : Base(v, T(p)...)
-	{
-		static_assert(
-			sizeof...(P) + 1 == 4*4,
-			"Invalid number of values for 4x4 matrix initialation"
-		);
-	}
-#endif
-
 	struct _Translation { };
 
 	ModelMatrix(_Translation, T dx, T dy, T dz)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(typename Base::NoInit())
+	 : Base(nullptr)
 	{
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			T(1), T(0), T(0),   dx,
 			T(0), T(1), T(0),   dy,
 			T(0), T(0), T(1),   dz,
 			T(0), T(0), T(0), T(1)
-		});
+		);
 	}
 
 	/// Constructs a translation matrix
@@ -1123,14 +882,15 @@ public:
 
 	ModelMatrix(_Scale, T sx, T sy, T sz)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(typename Base::NoInit())
+	 : Base(nullptr)
 	{
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			  sx, T(0), T(0), T(0),
 			T(0),   sy, T(0), T(0),
 			T(0), T(0),   sz, T(0),
 			T(0), T(0), T(0), T(1)
-		});
+		);
 	}
 
 	/// Constructs a scale matrix
@@ -1144,17 +904,18 @@ public:
 
 	ModelMatrix(_Reflection, bool rx, bool ry, bool rz)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(typename Base::NoInit())
+	 : Base(nullptr)
 	{
 		const T _rx = rx ?-T(1):T(1);
 		const T _ry = ry ?-T(1):T(1);
 		const T _rz = rz ?-T(1):T(1);
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 _rx, T(0), T(0), T(0),
 			T(0),  _ry, T(0), T(0),
 			T(0), T(0),  _rz, T(0),
 			T(0), T(0), T(0), T(1)
-		});
+		);
 	}
 
 	/// Constructs a reflection matrix
@@ -1170,16 +931,17 @@ public:
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
 		OGLPLUS_NOEXCEPT(Sin(angle) - Cos(angle))
-	): Base(typename Base::NoInit())
+	): Base(nullptr)
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 T(1),  T(0),  T(0),  T(0),
 			 T(0),  cosx, -sinx,  T(0),
 			 T(0),  sinx,  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		});
+		);
 	}
 
 	/// Constructs a X-axis rotation matrix
@@ -1198,16 +960,17 @@ public:
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
 		OGLPLUS_NOEXCEPT(Sin(angle) - Cos(angle))
-	): Base(typename Base::NoInit())
+	): Base(nullptr)
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 cosx,  T(0),  sinx,  T(0),
 			 T(0),  T(1),  T(0),  T(0),
 			-sinx,  T(0),  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		});
+		);
 	}
 
 	/// Constructs a Y-axis rotation matrix
@@ -1226,16 +989,17 @@ public:
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
 		OGLPLUS_NOEXCEPT(Sin(angle) - Cos(angle))
-	): Base(typename Base::NoInit())
+	): Base(nullptr)
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 cosx, -sinx,  T(0),  T(0),
 			 sinx,  cosx,  T(0),  T(0),
 			 T(0),  T(0),  T(1),  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		});
+		);
 	}
 
 	/// Constructs a Z-axis rotation matrix
@@ -1254,7 +1018,7 @@ public:
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
 		OGLPLUS_NOEXCEPT(Sin(angle) - Cos(angle))
-	): Base(typename Base::NoInit())
+	): Base(nullptr)
 	{
 		const Vector<T, 3> a = Normalized(axis);
 		const T sf = Sin(angle);
@@ -1262,12 +1026,13 @@ public:
 		const T _cf = T(1) - cf;
 		const T x = a.At(0), y = a.At(1), z = a.At(2);
 		const T xx= x*x, xy= x*y, xz= x*z, yy= y*y, yz= y*z, zz= z*z;
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			cf + xx*_cf,    xy*_cf - z*sf,  xz*_cf + y*sf,  T(0),
 			xy*_cf + z*sf,  cf + yy*_cf,    yz*_cf - x*sf,  T(0),
 			xz*_cf - y*sf,  yz*_cf + x*sf,  cf + zz*_cf,    T(0),
 			T(0),           T(0),           T(0),           T(1)
-		});
+		);
 	}
 
 	/// Constructs a rotation matrix from a vector and angle
@@ -1328,7 +1093,7 @@ public:
 
 	Vector<T, 3> Position(void) const
 	{
-		return Vector<T,3>(Inverse(*this).template Col<3>().Data(), 3);
+		return Vector<T,3>(Inverse(*this).Col(3).Data(), 3);
 	}
 
 	struct _Perspective { };
@@ -1341,7 +1106,7 @@ public:
 		T y_top,
 		T z_near,
 		T z_far
-	): Base(typename Base::NoInit())
+	): Base(nullptr)
 	{
 		T m00 = (T(2) * z_near) / (x_right - x_left);
 		T m11 = (T(2) * z_near) / (y_top - y_bottom);
@@ -1353,12 +1118,13 @@ public:
 
 		T m32 = -(T(2) * z_far * z_near) / (z_far - z_near);
 
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 m00, T(0),  m20, T(0),
 			T(0),  m11,  m21, T(0),
 			T(0), T(0),  m22,  m32,
-			T(0), T(0),  m23, T(0),
-		});
+			T(0), T(0),  m23, T(0)
+		);
 	}
 
 	static inline CameraMatrix Perspective(
@@ -1453,7 +1219,7 @@ public:
 		T y_top,
 		T z_near,
 		T z_far
-	): Base(typename Base::NoInit())
+	): Base(nullptr)
 	{
 		T m00 =  T(2) / (x_right - x_left);
 		T m11 =  T(2) / (y_top - y_bottom);
@@ -1463,12 +1229,13 @@ public:
 		T m31 = -(y_top + y_bottom) / (y_top - y_bottom);
 		T m32 = -(z_far + z_near)   / (z_far - z_near);
 
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 m00, T(0), T(0),  m30,
 			T(0),  m11, T(0),  m31,
 			T(0), T(0),  m22,  m32,
-			T(0), T(0), T(0), T(1),
-		});
+			T(0), T(0), T(0), T(1)
+		);
 	}
 
 	/// Constructs an orthographic projection matrix
@@ -1563,34 +1330,29 @@ public:
 		_LookingAt,
 		const Vector<T, 3>& eye,
 		const Vector<T, 3>& target
-	): Base(typename Base::NoInit())
+	): Base(nullptr)
 	{
 		assert(eye != target);
 		Vector<T, 3> z = Normalized(eye - target);
-		T zx = z.template At<0>();
-		T zz = z.template At<2>();
+		T zx = z[0];
+		T zz = z[2];
 		Vector<T, 3> t(zz, T(0), -zx);
 		Vector<T, 3> y = Normalized(Cross(z, t));
 		Vector<T, 3> x = Cross(y, z);
 
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
-			x.template At<0>(),
-			x.template At<1>(),
-			x.template At<2>(),
+		InitMatrix4x4(
+			*this,
+			x[0], x[1], x[2],
 			-Dot(eye, x),
 
-			y.template At<0>(),
-			y.template At<1>(),
-			y.template At<2>(),
+			y[0], y[1], y[2],
 			-Dot(eye, y),
 
-			z.template At<0>(),
-			z.template At<1>(),
-			z.template At<2>(),
+			z[0], z[1], z[2],
 			-Dot(eye, z),
 
 			T(0), T(0), T(0), T(1)
-		});
+		);
 	}
 
 	/// Constructs a 'look-at' matrix from eye and target positions
@@ -1624,24 +1386,19 @@ public:
 		);
 		Vector<T, 3> y = Cross(z, x);
 
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
-			x.template At<0>(),
-			x.template At<1>(),
-			x.template At<2>(),
+		InitMatrix4x4(
+			*this,
+			x[0], x[1], x[2],
 			Dot(x, z) * -radius - Dot(x, target),
 
-			y.template At<0>(),
-			y.template At<1>(),
-			y.template At<2>(),
+			y[0], y[1], y[2],
 			Dot(y, z) * -radius - Dot(y, target),
 
-			z.template At<0>(),
-			z.template At<1>(),
-			z.template At<2>(),
+			z[0], z[1], z[2],
 			Dot(z, z) * -radius - Dot(z, target),
 
 			T(0), T(0), T(0), T(1)
-		});
+		);
 
 	}
 
@@ -1665,16 +1422,17 @@ public:
 	struct _Pitch { };
 
 	CameraMatrix(_Pitch, Angle<T> angle)
-	 : Base(typename Base::NoInit())
+	 : Base(nullptr)
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 T(1),  T(0),  T(0),  T(0),
 			 T(0),  cosx, -sinx,  T(0),
 			 T(0),  sinx,  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		});
+		);
 	}
 
 	/// Constructs a X-axis rotation (Pitch/Elevation) matrix
@@ -1691,16 +1449,17 @@ public:
 	struct _Yaw { };
 
 	CameraMatrix(_Yaw, Angle<T> angle)
-	 : Base(typename Base::NoInit())
+	 : Base(nullptr)
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 cosx,  T(0),  sinx,  T(0),
 			 T(0),  T(1),  T(0),  T(0),
 			-sinx,  T(0),  cosx,  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		});
+		);
 	}
 
 	/// Constructs a Y-axis rotation (Heading/Yaw) matrix
@@ -1717,16 +1476,17 @@ public:
 	struct _Roll { };
 
 	CameraMatrix(_Roll, Angle<T> angle)
-	 : Base(typename Base::NoInit())
+	 : Base(nullptr)
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
-		OGLPLUS_AUX_MATRIX_INIT_DATA({
+		InitMatrix4x4(
+			*this,
 			 cosx, -sinx,  T(0),  T(0),
 			 sinx,  cosx,  T(0),  T(0),
 			 T(0),  T(0),  T(1),  T(0),
 			 T(0),  T(0),  T(0),  T(1)
-		});
+		);
 	}
 
 	/// Constructs a Z-axis rotation (Bank/Roll) matrix
@@ -1752,73 +1512,6 @@ typedef CameraMatrix<GLfloat> CamMatrixf;
  *  @ingroup math_utils
  */
 typedef CameraMatrix<GLdouble> CamMatrixd;
-
-// implementation of Vector's constructors, conversions and operations
-template <typename T, std::size_t N>
-template <std::size_t M>
-Vector<T, N>::Vector(
-	const typename ::std::enable_if<
-		(M == N && N > 1),
-		Matrix<T, 1, M>
-	>::type& matrix
-) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-{
-	for(std::size_t i=0; i!=N; ++i)
-		_elem[i] = matrix._m._elem[0][i];
-}
-
-template <typename T, std::size_t N>
-template <std::size_t M>
-Vector<T, N>::Vector(
-	const typename ::std::enable_if<
-		(M == N && N > 1),
-		Matrix<T, M, 1>
-	>::type& matrix
-) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-{
-	for(std::size_t i=0; i!=N; ++i)
-		_elem[i] = matrix._m._elem[i][0];
-}
-
-template <typename T, std::size_t N>
-template <std::size_t Rows>
-Vector<T, N>::Vector(
-	const Vector<T, Rows>& v,
-	const Matrix<T, Rows, N>& m,
-	_op_multiply
-) OGLPLUS_NOEXCEPT_IF(
-	std::declval<T&>() =
-	std::declval<T>()*
-	std::declval<T>()
-)
-{
-	for(std::size_t j=0; j!=N; ++j)
-	{
-		_elem[j] = v._elem[0]*m._m._elem[0][j];
-		for(std::size_t i=1; i!=Rows; ++i)
-			_elem[j] += v._elem[i]*m._m._elem[i][j];
-	}
-}
-
-template <typename T, std::size_t N>
-template <std::size_t Cols>
-Vector<T, N>::Vector(
-	const Matrix<T, N, Cols>& m,
-	const Vector<T, Cols>& v,
-	_op_multiply
-) OGLPLUS_NOEXCEPT_IF(
-	std::declval<T&>() =
-	std::declval<T>()*
-	std::declval<T>()
-)
-{
-	for(std::size_t i=0; i!=N; ++i)
-	{
-		_elem[i] = m._m._elem[i][0]*v._elem[0];
-		for(std::size_t j=1; j!=Cols; ++j)
-			_elem[i] += m._m._elem[i][j]*v._elem[j];
-	}
-}
 
 } // namespace oglplus
 

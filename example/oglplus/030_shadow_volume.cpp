@@ -501,9 +501,9 @@ public:
 		gl.Enable(Capability::Blend);
 
 		light_prog.Use();
-		SetUniform(light_prog, "ViewX", camera.Row<0>().xyz());
-		SetUniform(light_prog, "ViewY", camera.Row<1>().xyz());
-		SetUniform(light_prog, "ViewZ", camera.Row<2>().xyz());
+		SetUniform(light_prog, "ViewX", camera.Row(0).xyz());
+		SetUniform(light_prog, "ViewY", camera.Row(1).xyz());
+		SetUniform(light_prog, "ViewZ", camera.Row(2).xyz());
 
 		light.Bind();
 		gl.DrawArraysInstanced(

@@ -1,5 +1,5 @@
 /**
- *  @example standalone/004_stbttf_text_rendering.cpp
+ *  @example standalone/004_any_text_rendering.cpp
  *  @brief Shows the usage of OGLplus' text rendering utilities
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost

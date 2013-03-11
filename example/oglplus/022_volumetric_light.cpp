@@ -289,13 +289,13 @@ public:
 		volume_prog.Use();
 		Uniform<Mat4f>(volume_prog, "CameraMatrix").Set(cameraMatrix);
 		Uniform<Vec3f>(volume_prog, "ViewX").Set(
-			cameraMatrix.Row<0>().xyz()
+			cameraMatrix.Row(0).xyz()
 		);
 		Uniform<Vec3f>(volume_prog, "ViewY").Set(
-			cameraMatrix.Row<1>().xyz()
+			cameraMatrix.Row(1).xyz()
 		);
 		Uniform<Vec3f>(volume_prog, "ViewZ").Set(
-			cameraMatrix.Row<2>().xyz()
+			cameraMatrix.Row(2).xyz()
 		);
 		gl.DrawArraysInstanced(
 			PrimitiveType::Points,
