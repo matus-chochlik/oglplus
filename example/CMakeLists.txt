@@ -205,4 +205,4 @@ endfunction(add_examples)
 
 add_subdirectory("oglplus")
 add_subdirectory("standalone")
-add_subdirectory("advanced")
+#add_subdirectory("advanced")
