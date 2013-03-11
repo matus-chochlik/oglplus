@@ -788,8 +788,6 @@ inline bool Close(
 		T u = a.At(i, j);
 		T v = b.At(i, j);
 		T d = std::abs(u-v);
-std::cout << "[" << i << "; " << j << "]: |" << u << " - " << v << "| = " << d;
-std::cout << " " << std::abs(u)*eps << ";" << std::abs(v)*eps << std::endl;
 		bool a = d <= std::abs(u)*eps;
 		bool b = d <= std::abs(v)*eps;
 		if(!a && !b) return false;
