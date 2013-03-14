@@ -28,12 +28,6 @@ AllShaders
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/program_pipeline_stage_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/program_pipeline_stage_ese.ipp>
-# endif
+#include <oglplus/enums/program_pipeline_stage_def.ipp>
 
 #endif

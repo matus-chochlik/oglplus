@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -10,6 +10,7 @@ import os, sys, getopt, shutil, subprocess
 
 def parse_arguments():
 	import argparse
+	import datetime
 
 	def BoolArgValue(arg):
 		if(arg in ("True", "true", "Yes", "yes", "Y", "On", "1")):
@@ -26,11 +27,11 @@ def parse_arguments():
 		prog="configure",
 		description="Configuration script for the OGLplus library",
 		epilog="""
-			Copyright (c) 2008 - 2012 Matúš Chochlík.
+			Copyright (c) 2008 - %(year)d Matúš Chochlík.
 			Permission is granted to copy, distribute and/or modify this document
 			under the terms of the Boost Software License, Version 1.0.
 			(See a copy at http://www.boost.org/LICENSE_1_0.txt)
-		"""
+		""" % {"year": datetime.datetime.now().year}
 	)
 	argparser.add_argument(
 		"--prefix",

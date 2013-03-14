@@ -58,12 +58,6 @@ FramebufferSrgb
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/capability_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/capability_ese.ipp>
-# endif
+#include <oglplus/enums/capability_def.ipp>
 
 #endif

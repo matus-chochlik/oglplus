@@ -52,12 +52,6 @@ OneMinusSrc1Alpha
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/blend_function_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/blend_function_ese.ipp>
-# endif
+#include <oglplus/enums/blend_function_def.ipp>
 
 #endif

@@ -24,12 +24,6 @@ Max
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/blend_equation_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/blend_equation_ese.ipp>
-# endif
+#include <oglplus/enums/blend_equation_def.ipp>
 
 #endif

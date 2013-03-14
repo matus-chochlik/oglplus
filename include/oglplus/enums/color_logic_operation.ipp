@@ -46,12 +46,6 @@ Set
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/color_logic_operation_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/color_logic_operation_ese.ipp>
-# endif
+#include <oglplus/enums/color_logic_operation_def.ipp>
 
 #endif

@@ -54,12 +54,6 @@ ShaderStorageBlock
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/program_interface_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/program_interface_ese.ipp>
-# endif
+#include <oglplus/enums/program_interface_def.ipp>
 
 #endif

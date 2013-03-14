@@ -161,22 +161,19 @@ public:
 	}
 };
 
-class FileGLSLSrcWrap
+class InputStreamGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
-	std::ifstream _file;
 	GLint _size;
 	std::vector<GLchar> _storage;
 	GLchar* _pdata;
 
-	static GLint _check_and_get_size(const char* path, std::istream& in)
+	static GLint _check_and_get_size(std::istream& in)
 	{
 		if(!in.good())
 		{
-			std::string msg("Failed to open file '");
-			msg.append(path);
-			msg.append("' for reading.");
+			std::string msg("Failed to read GLSL input stream.");
 			throw std::runtime_error(msg);
 		}
 		std::streampos begin = in.tellg();
@@ -186,14 +183,12 @@ private:
 		return GLint(end - begin);
 	}
 public:
-	FileGLSLSrcWrap(const char* path)
-	 : _file(path, std::ios::binary)
-	 , _size(_check_and_get_size(path, _file))
+	InputStreamGLSLSrcWrap(std::istream& input)
+	 : _size(_check_and_get_size(input))
 	 , _storage(_size+1, GLchar(0))
 	 , _pdata(_storage.data())
 	{
-		_file.read(_pdata, _size);
-		_file.close();
+		input.read(_pdata, _size);
 	}
 
 	GLsizei Count(void) const
@@ -212,6 +207,37 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return &_size;
+	}
+};
+
+class FileGLSLSrcWrapOpener
+{
+protected:
+	std::ifstream _file;
+
+	FileGLSLSrcWrapOpener(const char* path)
+	 : _file(path, std::ios::in)
+	{
+		if(!_file.good())
+		{
+			std::string msg("Failed to open file '");
+			msg.append(path);
+			msg.append("' for reading.");
+			throw std::runtime_error(msg);
+		}
+	}
+};
+
+class FileGLSLSrcWrap
+ : public FileGLSLSrcWrapOpener
+ , public InputStreamGLSLSrcWrap
+{
+public:
+	FileGLSLSrcWrap(const char* path)
+	 : FileGLSLSrcWrapOpener(path)
+	 , InputStreamGLSLSrcWrap(_file)
+	{
+		_file.close();
 	}
 };
 

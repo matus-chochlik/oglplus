@@ -28,6 +28,10 @@
 
 namespace oglplus {
 
+#ifdef Status
+#undef Status
+#endif
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Type for the framebuffer color attachment (implementation-dependent) number
 class FramebufferColorAttachmentNumber

@@ -20,12 +20,6 @@ Equal
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/tess_gen_primitive_spacing_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/tess_gen_primitive_spacing_ese.ipp>
-# endif
+#include <oglplus/enums/tess_gen_primitive_spacing_def.ipp>
 
 #endif

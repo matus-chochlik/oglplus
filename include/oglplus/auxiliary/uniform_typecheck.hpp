@@ -307,6 +307,7 @@ struct DefaultGLSLtoCppTypeMatcher<GLfloat>
 	}
 };
 
+#if defined(GL_DOUBLE)
 template <>
 struct DefaultGLSLtoCppTypeMatcher<GLdouble>
 {
@@ -315,6 +316,7 @@ struct DefaultGLSLtoCppTypeMatcher<GLdouble>
 		return sl_type == GL_DOUBLE;
 	}
 };
+#endif
 
 struct DefaultGLSLtoCppTypeMatcher_Vec
 {
@@ -339,7 +341,7 @@ bool DefaultGLSLtoCppTypeMatcher_Vec::_does_match(
 	std::size_t dim
 )
 {
-	const GLenum allowed[5][4] = {
+	const GLenum allowed[][4] = {
 		{
 			GL_BOOL,
 			GL_BOOL_VEC2,
@@ -360,12 +362,15 @@ bool DefaultGLSLtoCppTypeMatcher_Vec::_does_match(
 			GL_FLOAT_VEC2,
 			GL_FLOAT_VEC3,
 			GL_FLOAT_VEC4
-		}, {
+		}
+#if defined(GL_DOUBLE) && defined(GL_DOUBLE_VEC2)
+		 , {
 			GL_DOUBLE,
 			GL_DOUBLE_VEC2,
 			GL_DOUBLE_VEC3,
 			GL_DOUBLE_VEC4
 		}
+#endif
 	};
 	return sl_type == allowed[type_idx][dim-1];
 }
@@ -411,7 +416,7 @@ bool DefaultGLSLtoCppTypeMatcher_Mat::_does_match(
 	std::size_t cols
 )
 {
-	const GLenum allowed[2][3][3] = {
+	const GLenum allowed[][3][3] = {
 		{
 			{
 				GL_FLOAT_MAT2,
@@ -426,7 +431,9 @@ bool DefaultGLSLtoCppTypeMatcher_Mat::_does_match(
 				GL_FLOAT_MAT3x4,
 				GL_FLOAT_MAT4
 			}
-		}, {
+		}
+#if defined(GL_DOUBLE_MAT4)
+		 , {
 			{
 				GL_DOUBLE_MAT2,
 				GL_DOUBLE_MAT3x2,
@@ -440,6 +447,7 @@ bool DefaultGLSLtoCppTypeMatcher_Mat::_does_match(
 				GL_DOUBLE_MAT3x4,
 				GL_DOUBLE_MAT4
 			}
+#endif
 		}
 	};
 	return sl_type==allowed[type_idx][rows-2][cols-2];

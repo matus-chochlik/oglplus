@@ -34,12 +34,6 @@ FrontAndBack
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/color_buffer_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/color_buffer_ese.ipp>
-# endif
+#include <oglplus/enums/color_buffer_def.ipp>
 
 #endif

@@ -30,12 +30,6 @@ Never
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/compare_function_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/compare_function_ese.ipp>
-# endif
+#include <oglplus/enums/compare_function_def.ipp>
 
 #endif

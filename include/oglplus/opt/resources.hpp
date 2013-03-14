@@ -18,6 +18,7 @@
 #include <oglplus/opt/application.hpp>
 #include <oglplus/auxiliary/filesystem.hpp>
 
+#include <fstream>
 #include <cassert>
 
 namespace oglplus {

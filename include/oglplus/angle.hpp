@@ -196,6 +196,13 @@ public:
 		return Subtract(a, b);
 	}
 
+	/// Subtraction operator
+	Angle& operator -= (const Angle& b)
+	{
+		*this = Subtract(*this, b);
+		return *this;
+	}
+
 	/// Multiplication by constant
 	friend Angle Multiply(const Angle& a, T mult)
 	{
@@ -247,6 +254,8 @@ public:
 		return ::std::tan(a._val_rad);
 	}
 };
+
+typedef Angle<GLfloat> Anglef;
 
 /// Creates a new angle from a value in radians
 /** This function creates a new instance of @c Angle<GLfloat>
@@ -326,6 +335,12 @@ OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::TwoPi())))
 	return Angle<GLfloat>::Radians(GLfloat(value * math::TwoPi()));
 }
 
+inline Angle<GLfloat> FullCircle(void)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(math::TwoPi())))
+{
+	return Angle<GLfloat>::Radians(GLfloat(math::TwoPi()));
+}
+
 /// Creates a new angle from a value in "right angles" (i.e. 90 deg.)
 /** This function creates a new angle from a value specifying the fraction
  *  of a quarter 90 degree (pi/2 radians) angle. For example the following
@@ -353,6 +368,12 @@ inline Angle<GLfloat> RightAngles(GLfloat value)
 OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(value * math::HalfPi())))
 {
 	return Angle<GLfloat>::Radians(GLfloat(value * math::HalfPi()));
+}
+
+inline Angle<GLfloat> RightAngle(void)
+OGLPLUS_NOEXCEPT_IF(Angle<GLfloat>::Radians(GLfloat(math::HalfPi())))
+{
+	return Angle<GLfloat>::Radians(GLfloat(math::HalfPi()));
 }
 
 /// Creates a new angle using the arc sine function

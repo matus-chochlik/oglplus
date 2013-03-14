@@ -10,6 +10,7 @@ oglplus_archive_items="
 	example
 	include
 	source
+	test
 	utils
 	xslt
 	LICENSE_1_0.txt

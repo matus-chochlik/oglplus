@@ -247,9 +247,13 @@ public:
 	}
 
 	SLDataType Type(void) const
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 	{
 		return SLDataType::None;
 	}
+#else
+;
+#endif
 
 	operator ActiveVariableInfo(void) const
 	{
@@ -318,9 +322,13 @@ public:
 	}
 
 	SLDataType Type(void) const
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 	{
 		return SLDataType::None;
 	}
+#else
+;
+#endif
 
 	operator ActiveVariableInfo(void) const
 	{
@@ -408,9 +416,13 @@ public:
 	}
 
 	SLDataType Type(void) const
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 	{
 		return SLDataType::None;
 	}
+#else
+;
+#endif
 
 	operator ActiveVariableInfo(void) const
 	{

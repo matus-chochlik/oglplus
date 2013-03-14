@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_SHAPES_DRAW_1107121519_HPP
 #define OGLPLUS_SHAPES_DRAW_1107121519_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/string.hpp>
 #include <oglplus/primitive_type.hpp>
@@ -461,7 +462,7 @@ public:
 		GLuint inst_count,
 		GLuint base_inst,
 		Driver driver
-	)
+	) const
 	{
 		this->_Draw(
 			_DrawFromIndices<std::vector<IT>>(indices),
@@ -476,7 +477,7 @@ public:
 		const std::vector<IT>& indices,
 		GLuint inst_count = 1,
 		GLuint base_inst = 0
-	)
+	) const
 	{
 		this->_Draw(
 			_DrawFromIndices<std::vector<IT>>(indices),
@@ -492,7 +493,7 @@ public:
 		GLuint inst_count,
 		GLuint base_inst,
 		Driver driver
-	)
+	) const
 	{
 		this->_Draw(
 			_DrawFromIndexInfo(index_info),
@@ -506,7 +507,7 @@ public:
 		const ElementIndexInfo& index_info,
 		GLuint inst_count = 1,
 		GLuint base_inst = 0
-	)
+	) const
 	{
 		this->_Draw(
 			_DrawFromIndexInfo(index_info),

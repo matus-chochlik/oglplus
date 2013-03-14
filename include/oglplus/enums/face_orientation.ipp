@@ -18,12 +18,6 @@ CCW
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/face_orientation_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/face_orientation_ese.ipp>
-# endif
+#include <oglplus/enums/face_orientation_def.ipp>
 
 #endif

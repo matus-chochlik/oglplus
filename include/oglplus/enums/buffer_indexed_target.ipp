@@ -22,12 +22,6 @@ Uniform
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/buffer_indexed_target_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/buffer_indexed_target_ese.ipp>
-# endif
+#include <oglplus/enums/buffer_indexed_target_def.ipp>
 
 #endif

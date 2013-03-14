@@ -20,12 +20,6 @@ FirstToRest
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/ext/nv_path_list_mode_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/ext/nv_path_list_mode_ese.ipp>
-# endif
+#include <oglplus/enums/ext/nv_path_list_mode_def.ipp>
 
 #endif

@@ -111,6 +111,17 @@ public:
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(std::move(source)))
 	{ }
 
+	struct _FromStream { };
+
+	GLSLSource(std::istream& input, _FromStream)
+	 : _impl(make_impl<aux::InputStreamGLSLSrcWrap>(input))
+	{ }
+
+	static GLSLSource FromStream(std::istream& input)
+	{
+		return GLSLSource(input, _FromStream());
+	}
+
 	struct _FromFile { };
 
 	GLSLSource(const char* path, _FromFile)

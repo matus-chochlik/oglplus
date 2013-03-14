@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_SHAPES_WRAPPER_1202020923_HPP
 #define OGLPLUS_SHAPES_WRAPPER_1202020923_HPP
 
+#include <oglplus/config.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/buffer.hpp>
@@ -168,7 +169,7 @@ private:
 public:
 #endif
 
-	VertexArray VAOForProgram(const ProgramOps& prog)
+	VertexArray VAOForProgram(const ProgramOps& prog) const
 	{
 		VertexArray vao;
 		vao.Bind();
@@ -213,25 +214,25 @@ public:
 		return _face_winding;
 	}
 
-	void Draw(void)
+	void Draw(void) const
 	{
 		_gl.FrontFace(_face_winding);
 		_shape_instr.Draw(_index_info, 1, 0);
 	}
 
-	void Draw(GLuint inst_count)
+	void Draw(GLuint inst_count) const
 	{
 		_gl.FrontFace(_face_winding);
 		_shape_instr.Draw(_index_info, inst_count, 0);
 	}
 
-	void Draw(GLuint inst_count, GLuint base_inst)
+	void Draw(GLuint inst_count, GLuint base_inst) const
 	{
 		_gl.FrontFace(_face_winding);
 		_shape_instr.Draw(_index_info, inst_count, base_inst);
 	}
 
-	void Draw(const std::function<bool (GLuint)>& drawing_driver)
+	void Draw(const std::function<bool (GLuint)>& drawing_driver) const
 	{
 		_gl.FrontFace(_face_winding);
 		_shape_instr.Draw(_index_info, 1, 0, drawing_driver);

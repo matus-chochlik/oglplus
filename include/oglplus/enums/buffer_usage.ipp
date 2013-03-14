@@ -32,12 +32,6 @@ DynamicCopy
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/buffer_usage_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/buffer_usage_ese.ipp>
-# endif
+#include <oglplus/enums/buffer_usage_def.ipp>
 
 #endif

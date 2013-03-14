@@ -20,6 +20,10 @@
 
 namespace oglplus {
 
+#ifdef Status
+#undef Status
+#endif
+
 /// The synchronization condition enumeration
 /**
  *  @ingroup enumerations

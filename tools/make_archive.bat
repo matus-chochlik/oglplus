@@ -12,6 +12,7 @@ SET oglplus_archive_items=^
 	include ^
 	utils ^
 	source ^
+	test ^
 	LICENSE_1_0.txt ^
 	README.rst ^
 	CHANGELOG ^

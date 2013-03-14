@@ -36,12 +36,6 @@ VertexArray
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/object_type_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/object_type_ese.ipp>
-# endif
+#include <oglplus/enums/object_type_def.ipp>
 
 #endif

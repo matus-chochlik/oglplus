@@ -16,12 +16,6 @@ Renderbuffer
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/renderbuffer_target_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/renderbuffer_target_ese.ipp>
-# endif
+#include <oglplus/enums/renderbuffer_target_def.ipp>
 
 #endif

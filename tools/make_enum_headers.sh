@@ -44,8 +44,7 @@ ShortEnumTempDir=$(mktemp -d)
 
 # Creates the following files:
 #  oglplus/enums/${InputName}.ipp
-#  oglplus/enums/${InputName}_ese.ipp
-#  oglplus/enums/${InputName}_nse.ipp
+#  oglplus/enums/${InputName}_def.ipp
 #  oglplus/enums/${InputName}_names.ipp
 function MakeEnumHeaders()
 {
@@ -83,20 +82,14 @@ do
 	echo
 	echo "#else // !OGLPLUS_DOCUMENTATION_ONLY"
 	echo
-	echo "# if !OGLPLUS_NO_SCOPED_ENUMS"
-	echo "// native scoped enums"
-	echo "# include <oglplus/enums/${InputName}_nse.ipp>"
-	echo "# else"
-	echo "// emulated scoped enums"
-	echo "# include <oglplus/enums/${InputName}_ese.ipp>"
-	echo "# endif"
+	echo "#include <oglplus/enums/${InputName}_def.ipp>"
 	echo
 	echo "#endif"
 	)
 	git add ${OutputPath}
 
 	#
-	OutputFile="oglplus/enums/${InputName}_nse.ipp"
+	OutputFile="oglplus/enums/${InputName}_def.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
@@ -119,9 +112,18 @@ do
 
 		echo "#if defined GL_${GL_DEF}"
 		echo "# if OGLPLUS_LIST_NEEDS_COMMA"
-		echo "   ,"
+		echo "   OGLPLUS_ENUM_CLASS_COMMA"
 		echo "# endif"
-		echo "  OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
+
+		echo "# if defined ${OGLPLUS_DEF}"
+		echo "#  pragma push_macro(\"${OGLPLUS_DEF}\")"
+		echo "#  undef ${OGLPLUS_DEF}"
+		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
+		echo "#  pragma pop_macro(\"${OGLPLUS_DEF}\")"
+		echo "# else"
+		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
+		echo "# endif"
+
 		echo "# ifndef OGLPLUS_LIST_NEEDS_COMMA"
 		echo "#  define OGLPLUS_LIST_NEEDS_COMMA 1"
 		echo "# endif"
@@ -134,37 +136,6 @@ do
 	)
 	git add ${OutputPath}
 
-	#
-	OutputFile="oglplus/enums/${InputName}_ese.ipp"
-	OutputPath="${RootDir}/include/${OutputFile}"
-
-	[[ ${InputFile} -ot ${OutputPath} ]] ||
-	(
-	exec > ${OutputPath}
-	PrintFileHeader ${InputFile} ${OutputFile}
-
-	#
-	IFS=':'
-	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF OGLPLUS_DEF X
-	do
-		if [ "${OGLPLUS_DEF}" == "" ]
-		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
-		fi
-
-		echo "#if defined GL_${GL_DEF}"
-		echo "# if defined ${OGLPLUS_DEF}"
-		echo "#  pragma push_macro(\"${OGLPLUS_DEF}\")"
-		echo "#  undef ${OGLPLUS_DEF}"
-		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
-		echo "#  pragma pop_macro(\"${OGLPLUS_DEF}\")"
-		echo "# else"
-		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
-		echo "# endif"
-		echo "#endif"
-	done
-	)
-	git add ${OutputPath}
 
 	OutputFile="oglplus/enums/${InputName}_names.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
@@ -535,9 +506,18 @@ OutputPath="${RootDir}/include/${OutputFile}"
 		TYPE=$(MapGLSLtypeToCPPtype ${GL_DEF})
 
 		echo "#ifdef GL_${GL_DEF}"
+		echo "# ifdef ${OGLPLUS_DEF}"
+		echo "# pragma push_macro(\"${OGLPLUS_DEF}\")"
+		echo "# undef ${OGLPLUS_DEF}"
 		echo "template <> struct GLSL2Cpp<"
 		echo "	OGLPLUS_CONST_ENUM_VALUE(SLDataType::${OGLPLUS_DEF})"
 		echo "> { typedef ${TYPE} Type; };"
+		echo "# pragma pop_macro(\"${OGLPLUS_DEF}\")"
+		echo "# else"
+		echo "template <> struct GLSL2Cpp<"
+		echo "	OGLPLUS_CONST_ENUM_VALUE(SLDataType::${OGLPLUS_DEF})"
+		echo "> { typedef ${TYPE} Type; };"
+		echo "# endif"
 		echo "#endif // ${GL_DEF}"
 		echo
 	done

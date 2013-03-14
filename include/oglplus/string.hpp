@@ -77,7 +77,7 @@ public:
 		return _left.empty() && _right.empty();
 	}
 
-	size_t size(void) const
+	std::size_t size(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _left.size() + _right.size();
@@ -123,7 +123,7 @@ class StrLit
 private:
 	const GLchar* _lit;
 #if !OGLPLUS_LAZY_STR_LIT
-	size_t _size;
+	std::size_t _size;
 #endif
 
 	void _check(void) const
@@ -162,7 +162,7 @@ public:
 	 */
 	explicit StrLit(const GLchar* literal);
 #elif !OGLPLUS_LAZY_STR_LIT
-	template <size_t N>
+	template <std::size_t N>
 	explicit StrLit(const GLchar (&lit)[N])
 	OGLPLUS_NOEXCEPT(true)
 	 : _lit(lit)
@@ -181,7 +181,7 @@ public:
 	 *
 	 *  @see #OGLPLUS_NO_UTF8_CHECKS
 	 */
-	explicit StrLit(const GLchar* lit, size_t size)
+	explicit StrLit(const GLchar* lit, std::size_t size)
 	OGLPLUS_NOEXCEPT(true)
 	 : _lit(lit)
 #if !OGLPLUS_LAZY_STR_LIT
@@ -219,7 +219,7 @@ public:
 	}
 
 	/// Returns the size (in GLchars) of the literal
-	size_t size(void) const
+	std::size_t size(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 #if !OGLPLUS_LAZY_STR_LIT

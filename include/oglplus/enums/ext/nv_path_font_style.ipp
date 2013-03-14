@@ -18,12 +18,6 @@ Italic
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/ext/nv_path_font_style_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/ext/nv_path_font_style_ese.ipp>
-# endif
+#include <oglplus/enums/ext/nv_path_font_style_def.ipp>
 
 #endif

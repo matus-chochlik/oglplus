@@ -22,12 +22,6 @@ Percentage
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/ext/amd_perf_monitor_type_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/ext/amd_perf_monitor_type_ese.ipp>
-# endif
+#include <oglplus/enums/ext/amd_perf_monitor_type_def.ipp>
 
 #endif

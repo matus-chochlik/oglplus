@@ -92,12 +92,6 @@ R8SNorm
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 
-# if !OGLPLUS_NO_SCOPED_ENUMS
-// native scoped enums
-# include <oglplus/enums/image_unit_format_nse.ipp>
-# else
-// emulated scoped enums
-# include <oglplus/enums/image_unit_format_ese.ipp>
-# endif
+#include <oglplus/enums/image_unit_format_def.ipp>
 
 #endif
