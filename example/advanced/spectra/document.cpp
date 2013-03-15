@@ -11,44 +11,64 @@
 
 #include "document.hpp"
 
-SpectraDocument::SpectraDocument(
+class SpectraTestDocument
+ : public SpectraDocument
+{
+public:
+	SpectraTestDocument(void)
+	{ }
+
+	GLuint SamplesPerSecond(void) const
+	{
+		return 1024;
+	}
+
+	GLuint SpectrumSize(void) const
+	{
+		return 256;
+	}
+
+	GLfloat MaxTime(void) const
+	{
+		return 4.7f;
+	}
+
+	wxString Name(void) const
+	{
+		return wxT("Test document");
+	}
+};
+
+std::unique_ptr<SpectraDocument> SpectraOpenTestDoc(void)
+{
+	return std::unique_ptr<SpectraDocument>(
+		new SpectraTestDocument()
+	);
+}
+
+SpectraDocumentVis::SpectraDocumentVis(
 	SpectraApp& app,
 	wxGLCanvas* canvas,
 	wxGLContext* parent_ctxt,
-	const wxString& doc_path
+	std::unique_ptr<SpectraDocument>&& doc
 ): parent_app(app)
  , gl_context(canvas, parent_ctxt)
- , document_path(doc_path)
-{
-}
+ , document(std::move(doc))
+{ }
 
-wxString SpectraDocument::GetName(void) const
-{
-	//TODO
-	return document_path;
-}
-
-wxGLContext& SpectraDocument::GLContext(void)
+wxGLContext& SpectraDocumentVis::GLContext(void)
 {
 	return gl_context;
 }
 
-// DocumentOpener
-SpectraDocument::DocumentOpener::DocumentOpener(const wxString& path)
- : document_path(path)
-{ }
-
-std::shared_ptr<SpectraDocument> SpectraDocument::DocumentOpener::operator()(
-	SpectraApp& app,
-	wxGLCanvas* canvas,
-	wxGLContext* parent_ctxt
-) const
+SpectraDocument& SpectraDocumentVis::Document(void)
 {
-	return std::make_shared<SpectraDocument>(
-		app,
-		canvas,
-		parent_ctxt,
-		document_path
-	);
+	assert(document);
+	return *document;
+}
+
+wxString SpectraDocumentVis::Name(void)
+{
+	return Document().Name();
 }
 

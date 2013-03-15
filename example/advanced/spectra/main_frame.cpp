@@ -203,22 +203,31 @@ void SpectraMainFrame::DoShowAboutDialog(wxCommandEvent&)
 
 void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 {
-	wxString doc_path(wxT("TODO: get document path"));
-	doc_frames.insert(
-		new SpectraDocumentFrame(
-			parent_app,
-			this,
-			&this->gl_context,
-			SpectraDocument::DocumentOpener(doc_path),
-			std::make_shared<
-				SpectraDefaultRenderer,
-				SpectraApp&,
-				const std::shared_ptr<SpectraSharedObjects>&,
-				const std::shared_ptr<SpectraDocument>&,
-				wxGLCanvas*
-			>
-		)
-	);
+	try
+	{
+		//wxString doc_path(wxT("TODO: get document path"));
+		doc_frames.insert(
+			new SpectraDocumentFrame(
+				parent_app,
+				this,
+				&this->gl_context,
+				SpectraOpenTestDoc(), //TODO
+				std::make_shared<
+					SpectraDefaultRenderer,
+					SpectraApp&,
+					const std::shared_ptr<SpectraSharedObjects>&,
+					const std::shared_ptr<SpectraDocumentVis>&,
+					wxGLCanvas*
+				>
+			)
+		);
+	}
+	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe); }
+	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe); }
+	catch(oglplus::LimitError& le) { parent_app.HandleError(le); }
+	catch(oglplus::OutOfMemory& oom) { parent_app.HandleError(oom); }
+	catch(oglplus::Error& err) { parent_app.HandleError(err); }
+	catch(const std::exception& se) { parent_app.HandleError(se); }
 }
 
 void SpectraMainFrame::ForgetDocument(SpectraDocumentFrame* doc_frame)

@@ -33,5 +33,9 @@ SpectraDocumentCanvas::SpectraDocumentCanvas(
 		wxEVT_MOTION,
 		wxMouseEventHandler(SpectraDocumentCanvas::OnMouseEvent)
 	);
+	Connect(
+		wxEVT_MOUSEWHEEL,
+		wxMouseEventHandler(SpectraDocumentCanvas::OnMouseEvent)
+	);
 }
 

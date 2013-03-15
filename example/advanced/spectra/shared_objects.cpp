@@ -14,6 +14,7 @@
 #include <oglplus/opt/resources.hpp>
 
 #include <oglplus/shapes/grid.hpp>
+#include <oglplus/shapes/plane.hpp>
 
 #include "shared_objects.hpp"
 
@@ -93,12 +94,21 @@ oglplus::Program SpectraSharedObjects::BuildProgram(const char* prog_name)
 }
 
 SpectraSharedObjects::SpectraSharedObjects(void)
- : unit_grid(
+ : ground_unit_grid(
 	oglplus::List("Position").Get(),
 	oglplus::shapes::Grid(
-		oglplus::Vec3f(0.0f, 0.0f, 0.0f),
-		oglplus::Vec3f(1.0f, 0.0f, 0.0f),
-		oglplus::Vec3f(0.0f, 0.0f,-1.0f),
+		oglplus::Vec3f(0.5f, 0.0f, 0.5f),
+		oglplus::Vec3f(0.5f, 0.0f, 0.0f),
+		oglplus::Vec3f(0.0f, 0.0f, 0.5f),
+		10,
+		10
+	)
+), wall_unit_grid(
+	oglplus::List("Position").Get(),
+	oglplus::shapes::Grid(
+		oglplus::Vec3f(0.5f, 0.5f, 0.0f),
+		oglplus::Vec3f(0.5f, 0.0f, 0.0f),
+		oglplus::Vec3f(0.0f, 0.5f, 0.0f),
 		10,
 		10
 	)
@@ -106,8 +116,42 @@ SpectraSharedObjects::SpectraSharedObjects(void)
 {
 }
 
-const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::UnitGrid(void)
+const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::GroundUnitGrid(void)
 {
-	return unit_grid;
+	return ground_unit_grid;
+}
+
+const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::WallUnitGrid(void)
+{
+	return wall_unit_grid;
+}
+
+const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::SpectrumPlane(
+	GLuint samples_per_sec,
+	GLuint spectrum_size
+)
+{
+	std::pair<GLuint, GLuint> key(samples_per_sec, spectrum_size);
+
+	spectrum_plane_map::iterator pos = spectrum_planes.find(key);
+	if(pos == spectrum_planes.end())
+	{
+		pos = spectrum_planes.insert(
+			spectrum_plane_map::value_type(
+				key,
+				oglplus::shapes::ShapeWrapper(
+					oglplus::List("Position")("TexCoord").Get(),
+					oglplus::shapes::Plane(
+						oglplus::Vec3f(0.5f, 0.0f, 0.5f),
+						oglplus::Vec3f(0.5f, 0.0f, 0.0f),
+						oglplus::Vec3f(0.0f, 0.0f, 0.5f),
+						samples_per_sec,
+						spectrum_size
+					)
+				)
+			)
+		).first;
+	}
+	return pos->second;
 }
 

@@ -23,39 +23,42 @@
 #include <memory>
 #include <functional>
 
-class SpectraDocument
+struct SpectraDocument
+{
+	~SpectraDocument(void){ }
+
+	virtual GLuint SamplesPerSecond(void) const = 0;
+
+	virtual GLuint SpectrumSize(void) const = 0;
+
+	virtual GLfloat MaxTime(void) const = 0;
+
+	virtual wxString Name(void) const = 0;
+};
+
+extern std::unique_ptr<SpectraDocument> SpectraOpenTestDoc(void);
+
+class SpectraDocumentVis
 {
 private:
 	SpectraApp& parent_app;
 
 	wxGLContext gl_context;
 
-	wxString document_path;
+	std::unique_ptr<SpectraDocument> document;
 public:
-	class DocumentOpener
-	{
-	private:
-		wxString document_path;
-	public:
-		DocumentOpener(const wxString& path);
-
-		std::shared_ptr<SpectraDocument> operator()(
-			SpectraApp& app,
-			wxGLCanvas* canvas,
-			wxGLContext* parent_ctxt
-		) const;
-	};
-
-	SpectraDocument(
+	SpectraDocumentVis(
 		SpectraApp& app,
 		wxGLCanvas* canvas,
 		wxGLContext* parent_ctxt,
-		const wxString& doc_path
+		std::unique_ptr<SpectraDocument>&& doc
 	);
 
-	wxString GetName(void) const;
-
 	wxGLContext& GLContext(void);
+
+	SpectraDocument& Document(void);
+
+	wxString Name(void);
 };
 
 #endif // include guard

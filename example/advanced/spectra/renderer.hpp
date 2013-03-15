@@ -34,17 +34,19 @@ protected:
 
 	SpectraSharedObjects& Common(void);
 
-	std::shared_ptr<SpectraDocument> document;
+	std::shared_ptr<SpectraDocumentVis> document_vis;
 
-	SpectraDocument& Document(void);
+	SpectraDocumentVis& DocVis(void);
 
 	SpectraRenderer(
 		SpectraApp& app,
 		const std::shared_ptr<SpectraSharedObjects>& sh_obj,
-		const std::shared_ptr<SpectraDocument>& doc,
+		const std::shared_ptr<SpectraDocumentVis>& doc_vis,
 		wxGLCanvas* canvas
 	);
 public:
+	virtual void ReinitStyle(void);
+
 	virtual void Render(
 		SpectraDocumentView& view,
 		wxGLCanvas* canvas
@@ -55,19 +57,40 @@ class SpectraDefaultRenderer
  : public SpectraRenderer
 {
 private:
-	oglplus::Program vis_cue_prog;
-	oglplus::Uniform<oglplus::Mat4f> vis_cue_projection_matrix;
-	oglplus::Uniform<oglplus::Mat4f> vis_cue_camera_matrix;
-	oglplus::VertexArray grid_vao;
+	GLfloat clear_r, clear_g, clear_b;
+	GLfloat color_r, color_g, color_b;
 
+	oglplus::Program doc_vis_prog;
+	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_projection_matrix;
+	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_camera_matrix;
+	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_stretch_matrix;
+	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_transf_matrix;
+
+	const oglplus::shapes::ShapeWrapper& spectrum_plane_wrap;
+	oglplus::VertexArray spectrum_plane_vao;
+
+	oglplus::Program vis_cue_prog;
+	oglplus::OptionalUniform<oglplus::Mat4f> vis_cue_projection_matrix;
+	oglplus::OptionalUniform<oglplus::Mat4f> vis_cue_camera_matrix;
+	oglplus::OptionalUniform<oglplus::Mat4f> vis_cue_stretch_matrix;
+	oglplus::OptionalUniform<oglplus::Mat4f> vis_cue_transf_matrix;
+	oglplus::OptionalUniform<oglplus::Vec3f> vis_cue_color;
+	oglplus::OptionalUniform<GLfloat> vis_cue_alpha;
+
+	oglplus::VertexArray ground_grid_vao, wall_grid_vao;
+
+	void CacheBgColor(void);
+	void RenderSpectrum(SpectraDocumentView& view);
 	void RenderVisualCues(SpectraDocumentView& view);
 public:
 	SpectraDefaultRenderer(
 		SpectraApp& app,
 		const std::shared_ptr<SpectraSharedObjects>& sh_obj,
-		const std::shared_ptr<SpectraDocument>& doc,
+		const std::shared_ptr<SpectraDocumentVis>& doc_vis,
 		wxGLCanvas* canvas
 	);
+
+	void ReinitStyle(void);
 
 	void Render(
 		SpectraDocumentView& view,

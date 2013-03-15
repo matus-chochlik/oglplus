@@ -1,9 +1,12 @@
 #version 330
 
+uniform vec3 Color;
+uniform float Alpha;
+
 out vec4 fragColor;
 
 void main(void)
 {
-	 fragColor = vec4(1.0, 1.0, 1.0, 0.5);
+	fragColor = vec4(Color, Alpha);
 }
 

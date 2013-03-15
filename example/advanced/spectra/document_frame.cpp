@@ -44,8 +44,16 @@ void SpectraDocumentFrame::ConnectEventHandlers(void)
 		wxCloseEventHandler(SpectraDocumentFrame::OnClose)
 	);
 	Connect(
+		wxEVT_SYS_COLOUR_CHANGED,
+		wxSysColourChangedEventHandler(SpectraDocumentFrame::OnSysColorChange)
+	);
+	Connect(
 		wxEVT_MOTION,
 		wxMouseEventHandler(SpectraDocumentFrame::OnMouseMotionEvent)
+	);
+	Connect(
+		wxEVT_MOUSEWHEEL,
+		wxMouseEventHandler(SpectraDocumentFrame::OnMouseWheelEvent)
 	);
 	Connect(
 		wxEVT_SIZE,
@@ -106,7 +114,6 @@ void SpectraDocumentFrame::OnResize(wxSizeEvent& event)
 		HandleResize();
 		Update();
 		event.Skip();
-		return;
 	}
 	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
 	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
@@ -114,6 +121,27 @@ void SpectraDocumentFrame::OnResize(wxSizeEvent& event)
 	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
 	catch(const std::exception& se) { parent_app.HandleError(se, this); }
 }
+
+void SpectraDocumentFrame::HandleSysColorChange(void)
+{
+	renderer->ReinitStyle();
+}
+
+void SpectraDocumentFrame::OnSysColorChange(wxSysColourChangedEvent& event)
+{
+	try
+	{
+		HandleSysColorChange();
+		Update();
+		event.Skip();
+	}
+	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
+	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
+	catch(oglplus::LimitError& le) { parent_app.HandleError(le, this); }
+	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
+	catch(const std::exception& se) { parent_app.HandleError(se, this); }
+}
+
 
 GLint SpectraDocumentFrame::ClampMouseCoord(GLint c, GLint m)
 {
@@ -129,47 +157,48 @@ void SpectraDocumentFrame::HandleMouseMotion(const wxMouseEvent& event)
 
 	if(event.Dragging())
 	{
-		if(event.LeftIsDown())
-		{
-			document_view.Slide(
-				ClampMouseCoord(new_mouse_position.x, size.GetWidth()),
-				ClampMouseCoord(new_mouse_position.y, size.GetHeight()),
-				ClampMouseCoord(old_mouse_position.x, size.GetWidth()),
-				ClampMouseCoord(old_mouse_position.y, size.GetHeight())
-			);
-		}
-		else if(event.RightIsDown())
-		{
-			document_view.Orbit(
-				ClampMouseCoord(new_mouse_position.x, size.GetWidth()),
-				ClampMouseCoord(new_mouse_position.y, size.GetHeight()),
-				ClampMouseCoord(old_mouse_position.x, size.GetWidth()),
-				ClampMouseCoord(old_mouse_position.y, size.GetHeight())
-			);
-		}
+		int new_x = ClampMouseCoord(new_mouse_position.x, size.GetWidth());
+		int new_y = ClampMouseCoord(new_mouse_position.y, size.GetHeight());
+		int old_x = ClampMouseCoord(old_mouse_position.x, size.GetWidth());
+		int old_y = ClampMouseCoord(old_mouse_position.y, size.GetHeight());
 
+		if(event.CmdDown())
+		{
+			if(event.LeftIsDown())
+			{
+				if(event.AltDown())
+				{
+					document_view.StretchRange(new_x, new_y, old_x, old_y);
+				}
+				else
+				{
+					document_view.StretchDomain(new_x, new_y, old_x, old_y);
+				}
+			}
+		}
+		else
+		{
+			if(event.LeftIsDown())
+			{
+				if(event.AltDown())
+				{
+					document_view.Elevate(new_x, new_y, old_x, old_y);
+				}
+				else
+				{
+					document_view.Slide(new_x, new_y, old_x, old_y);
+				}
+			}
+			else if(event.MiddleIsDown())
+			{
+				document_view.Scale(new_x, new_y, old_x, old_y);
+			}
+			else if(event.RightIsDown())
+			{
+				document_view.Orbit(new_x, new_y, old_x, old_y);
+			}
+		}
 	}
-/*
-	assert(example);
-
-	wxSize size = gl_canvas->GetSize();
-	if(position.x < 0) position.x = 0;
-	if(position.y < 0) position.y = 0;
-	if(position.x > size.GetWidth())  position.x = size.GetWidth();
-	if(position.y > size.GetHeight()) position.y = size.GetHeight();
-	example->MouseMove(
-		position.x,
-		size.GetHeight()-
-		position.y,
-		size.GetWidth(),
-		size.GetHeight()
-	);
-	info_display->MouseMove(
-		position.x,
-		size.GetHeight()-
-		position.y
-	);
-*/
 }
 
 void SpectraDocumentFrame::OnMouseMotionEvent(wxMouseEvent& event)
@@ -180,7 +209,30 @@ void SpectraDocumentFrame::OnMouseMotionEvent(wxMouseEvent& event)
 		event.Skip();
 		Update();
 		old_mouse_position = event.GetPosition();
-		return;
+	}
+	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
+	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
+	catch(oglplus::LimitError& le) { parent_app.HandleError(le, this); }
+	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
+	catch(const std::exception& se) { parent_app.HandleError(se, this); }
+}
+
+void SpectraDocumentFrame::HandleMouseWheel(const wxMouseEvent& event)
+{
+	document_view.Zoom(
+		GLfloat(event.GetLinesPerAction())*
+		GLfloat(event.GetWheelRotation())/
+		GLfloat(event.GetWheelDelta())
+	);
+}
+
+void SpectraDocumentFrame::OnMouseWheelEvent(wxMouseEvent& event)
+{
+	try
+	{
+		HandleMouseWheel(event);
+		event.Skip();
+		Update();
 	}
 	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
 	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
@@ -226,18 +278,12 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 	SpectraApp& app,
 	SpectraMainFrame* parent,
 	wxGLContext* parent_context,
+	std::unique_ptr<SpectraDocument>&& doc,
 	const std::function<
-		std::shared_ptr<SpectraDocument> (
-			SpectraApp&,
-			wxGLCanvas*,
-			wxGLContext*
-		)
-	>& get_document,
-	const std::function<
-		std::shared_ptr<SpectraRenderer> (
+		std::shared_ptr<SpectraRenderer>(
 			SpectraApp&,
 			const std::shared_ptr<SpectraSharedObjects>&,
-			const std::shared_ptr<SpectraDocument>&,
+			const std::shared_ptr<SpectraDocumentVis>&,
 			wxGLCanvas*
 		)
 	>& get_renderer
@@ -263,7 +309,7 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 		(wxEvtHandler*)this,
 		(wxWindow*)main_panel
 	)
-), document(nullptr)
+), document_vis(nullptr)
  , renderer(nullptr)
  , idle_call_count(0)
 {
@@ -273,27 +319,29 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 	InitComponents();
 	Show();
 
-	document = get_document(
+	document_vis = std::make_shared<SpectraDocumentVis>(
 		parent_app,
 		gl_canvas,
-		parent_context
+		parent_context,
+		std::move(doc)
 	);
-	assert(document);
+	assert(document_vis);
 
 	renderer = get_renderer(
 		parent_app,
 		parent_frame->shared_objects,
-		document,
+		document_vis,
 		gl_canvas
 	);
 	assert(renderer);
 
+	document_view.SetMaxTime(document_vis->Document().MaxTime());
 
 	ConnectEventHandlers();
 
 	HandleResize();
 
-	SetTitle(document->GetName());
+	SetTitle(document_vis->Name());
 	SetStatus(wxT("TODO: short document info"));
 }
 

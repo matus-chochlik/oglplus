@@ -1,0 +1,2 @@
+VERTEX_SHADER:default_doc_vis.vs
+FRAGMENT_SHADER:default_doc_vis.fs

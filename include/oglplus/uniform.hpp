@@ -1252,9 +1252,14 @@ public:
 	{ }
 #endif
 
+	void TrySet(const typename _base::AdjustedType& value)
+	{
+		if(this->IsActive()) this->Set(value);
+	}
+
 	inline void operator = (const typename _base::AdjustedType& value)
 	{
-		this->Set(value);
+		TrySet(value);
 	}
 };
 

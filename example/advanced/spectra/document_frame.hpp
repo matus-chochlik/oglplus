@@ -25,6 +25,7 @@
 
 class SpectraMainFrame;
 class SpectraDocument;
+class SpectraDocumentVis;
 class SpectraRenderer;
 
 class SpectraDocumentFrame
@@ -43,7 +44,7 @@ private:
 
 	SpectraDocumentCanvas* gl_canvas;
 
-	std::shared_ptr<SpectraDocument> document;
+	std::shared_ptr<SpectraDocumentVis> document_vis;
 	std::shared_ptr<SpectraRenderer> renderer;
 
 	SpectraDocumentView document_view;
@@ -58,10 +59,15 @@ private:
 	void HandleResize(void);
 	void OnResize(wxSizeEvent& event);
 
+	void HandleSysColorChange(void);
+	void OnSysColorChange(wxSysColourChangedEvent&);
+
 	wxPoint old_mouse_position;
 	GLint ClampMouseCoord(GLint c, GLint m);
 	void HandleMouseMotion(const wxMouseEvent& event);
 	void OnMouseMotionEvent(wxMouseEvent& event);
+	void HandleMouseWheel(const wxMouseEvent& event);
+	void OnMouseWheelEvent(wxMouseEvent& event);
 
 	int idle_call_count;
 	void Update(void);
@@ -71,18 +77,12 @@ public:
 		SpectraApp& app,
 		SpectraMainFrame* parent,
 		wxGLContext* parent_ctxt,
-		const std::function<
-			std::shared_ptr<SpectraDocument> (
-				SpectraApp&,
-				wxGLCanvas*,
-				wxGLContext*
-			)
-		>& get_document,
+		std::unique_ptr<SpectraDocument>&& document,
 		const std::function<
 			std::shared_ptr<SpectraRenderer> (
 				SpectraApp&,
 				const std::shared_ptr<SpectraSharedObjects>&,
-				const std::shared_ptr<SpectraDocument>&,
+				const std::shared_ptr<SpectraDocumentVis>&,
 				wxGLCanvas*
 			)
 		>& get_renderer

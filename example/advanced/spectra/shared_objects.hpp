@@ -21,17 +21,30 @@
 #include <wx/wx.h>
 #include <wx/glcanvas.h>
 
+#include <map>
 
 class SpectraSharedObjects
 {
 private:
-	oglplus::shapes::ShapeWrapper unit_grid;
+	oglplus::shapes::ShapeWrapper ground_unit_grid, wall_unit_grid;
+
+	typedef std::map<
+		std::pair<GLuint, GLuint>,
+		oglplus::shapes::ShapeWrapper
+	> spectrum_plane_map;
+
+	spectrum_plane_map spectrum_planes;
 public:
 	oglplus::Program BuildProgram(const char* prog_name);
 
 	SpectraSharedObjects(void);
 
-	const oglplus::shapes::ShapeWrapper& UnitGrid(void);
+	const oglplus::shapes::ShapeWrapper& GroundUnitGrid(void);
+	const oglplus::shapes::ShapeWrapper& WallUnitGrid(void);
+	const oglplus::shapes::ShapeWrapper& SpectrumPlane(
+		GLuint samples_per_sec,
+		GLuint spectrum_size
+	);
 };
 
 #endif // include guard

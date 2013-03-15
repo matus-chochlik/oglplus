@@ -1,11 +1,13 @@
 #version 330
 
-uniform mat4 ProjectionMatrix, CameraMatrix;
+uniform mat4 TransfMatrix;
 
 in vec4 Position;
 
 void main(void)
 {
-	 gl_Position = ProjectionMatrix* CameraMatrix* Position;
+	vec4 OffsPos = Position;
+	OffsPos.x += gl_InstanceID;
+	gl_Position = TransfMatrix * OffsPos;
 }
 
