@@ -56,6 +56,7 @@ public:
 
 	void Reshape(GLuint w, GLuint h);
 
+	oglplus::Vec3f ScreenToWorld(GLint x, GLint y);
 	oglplus::Vec3f PickOnPlane(unsigned vn, GLint x, GLint y);
 	oglplus::Vec3f PickOnGround(GLint x, GLint y);
 	oglplus::Vec3f PickOnWall(GLint x, GLint y);

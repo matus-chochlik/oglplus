@@ -83,7 +83,7 @@ void SpectraDocumentView::Reshape(GLuint w, GLuint h)
 	RecalcProjection();
 }
 
-oglplus::Vec3f SpectraDocumentView::PickOnPlane(unsigned vn, GLint x, GLint y)
+oglplus::Vec3f SpectraDocumentView::ScreenToWorld(GLint x, GLint y)
 {
 	GLfloat u = -1.0f+GLfloat(2*x)/GLfloat(width);
 	GLfloat v = +1.0f-GLfloat(2*y)/GLfloat(height);
@@ -93,8 +93,13 @@ oglplus::Vec3f SpectraDocumentView::PickOnPlane(unsigned vn, GLint x, GLint y)
 
 	oglplus::Vec4f wsc = inv_view_matrix * ndc;
 
+	return wsc.xyz() / wsc.w();
+}
+
+oglplus::Vec3f SpectraDocumentView::PickOnPlane(unsigned vn, GLint x, GLint y)
+{
 	oglplus::Vec3f cam = camera_matrix.Position();
-	oglplus::Vec3f ray = Normalized(wsc.xyz()/wsc.w() - cam);
+	oglplus::Vec3f ray = Normalized(ScreenToWorld(x, y) - cam);
 
 	if(ray[vn] != 0)
 	{
@@ -116,17 +121,9 @@ oglplus::Vec3f SpectraDocumentView::PickOnWall(GLint x, GLint y)
 
 oglplus::Vec3f SpectraDocumentView::PickOnSphere(GLint x, GLint y)
 {
-	GLfloat u = -1.0f+GLfloat(2*x)/GLfloat(width);
-	GLfloat v = +1.0f-GLfloat(2*y)/GLfloat(height);
-	GLfloat w = 1.0f;
-
-	oglplus::Vec4f ndc(u, v, w, 1.0f);
-
-	oglplus::Vec4f wsc = inv_view_matrix * ndc;
-
 	oglplus::Vec3f ori(target_x, target_y, target_z);
 	oglplus::Vec3f cam = camera_matrix.Position();
-	oglplus::Vec3f ray = Normalized(wsc.xyz()/wsc.w() - cam);
+	oglplus::Vec3f ray = Normalized(ScreenToWorld(x, y) - cam);
 	oglplus::Vec3f ofs = (cam-ori);
 	GLfloat rad = camera_distance*Tan(camera_xfov*0.5f);
 
@@ -173,21 +170,21 @@ void SpectraDocumentView::Orbit(GLint new_x, GLint new_y, GLint old_x, GLint old
 	oglplus::Anglef fc = oglplus::FullCircle();
 	oglplus::Anglef ra = oglplus::RightAngle()-oglplus::Degrees(1);
 
-	oglplus::Vec3f ns = Normalized(PickOnSphere(new_x, new_y));
-	oglplus::Vec3f os = Normalized(PickOnSphere(old_x, old_y));
+	oglplus::Vec3f ns = Normalized(ScreenToWorld(new_x, new_y));
+	oglplus::Vec3f os = Normalized(ScreenToWorld(old_x, old_y));
 
 	if(Length(ns) > 0.0f && Length(os) > 0.0f)
 	{
-		camera_azimuth -= 4.0f*oglplus::Radians(
+		camera_azimuth += oglplus::Radians(
 			std::atan2(-ns.z(), ns.x())-
 			std::atan2(-os.z(), os.x())
-		)/(1.0f-std::fabs(ns.y()-os.y()));
+		);
 		while(camera_azimuth > fc)
 			camera_azimuth -= fc;
 		while(camera_azimuth < -fc)
 			camera_azimuth += fc;
 
-		camera_elevation -= 4.0f*(ns.y()-os.y())*ra;
+		camera_elevation -= (ns.y()-os.y())*ra;
 
 		if(camera_elevation > ra)
 			camera_elevation = ra;
