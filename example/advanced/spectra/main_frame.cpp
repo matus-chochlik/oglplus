@@ -10,13 +10,66 @@
  */
 
 #include "main_frame.hpp"
+#include "coroutine.hpp"
 #include "document_frame.hpp"
 #include "document.hpp"
-#include "renderer.hpp"
+#include "default_renderer.hpp"
 
 #include <wx/stockitem.h>
 #include <wx/aboutdlg.h>
 
+// -- SpectraMainFrameDocumentLoader --
+class SpectraMainFrameDocumentLoader
+ : public SpectraCoroutine
+{
+private:
+	SpectraMainFrame* main_frame;
+	std::shared_ptr<SpectraDocument> document;
+public:
+	SpectraMainFrameDocumentLoader(
+		SpectraMainFrame* frame,
+		const std::shared_ptr<SpectraDocument>& doc
+	);
+
+	wxString Description(void) const;
+
+	bool DoWork(void);
+
+	int PercentDone(void);
+};
+
+SpectraMainFrameDocumentLoader::SpectraMainFrameDocumentLoader(
+	SpectraMainFrame* frame,
+	const std::shared_ptr<SpectraDocument>& doc
+): main_frame(frame)
+ , document(doc)
+{
+	assert(main_frame);
+	assert(document);
+}
+
+wxString SpectraMainFrameDocumentLoader::Description(void) const
+{
+	return wxGetTranslation(wxT("Loading document"));
+}
+
+bool SpectraMainFrameDocumentLoader::DoWork(void)
+{
+	if(document->FinishLoading())
+	{
+		main_frame->OpenLoadedDocument(document);
+		return true;
+	}
+	else return false;
+}
+
+int SpectraMainFrameDocumentLoader::PercentDone(void)
+{
+	return document->PercentLoaded();
+}
+
+
+//-- SpectraMainFrame --
 void SpectraMainFrame::SetStatus(const wxString& status_text)
 {
 	status_bar->SetStatusText(status_text);
@@ -95,6 +148,12 @@ void SpectraMainFrame::ConnectEventHandlers(void)
 		wxEVT_CLOSE_WINDOW,
 		wxCloseEventHandler(SpectraMainFrame::OnClose)
 	);
+	SetExtraStyle(wxWS_EX_PROCESS_IDLE);
+	wxIdleEvent::SetMode(wxIDLE_PROCESS_SPECIFIED);
+	Connect(
+		wxEVT_IDLE,
+		wxIdleEventHandler(SpectraMainFrame::OnIdle)
+	);
 }
 
 void SpectraMainFrame::InitComponents(void)
@@ -166,6 +225,14 @@ void SpectraMainFrame::InitComponents(void)
 	Layout();
 }
 
+void SpectraMainFrame::OnIdle(wxIdleEvent& event)
+{
+	if(!coroutine_exec->DoWork())
+		event.RequestMore();
+	for(auto* doc_frame : doc_frames)
+		doc_frame->OnIdle(event);
+}
+
 void SpectraMainFrame::DoClose(wxCommandEvent&)
 {
 	Close();
@@ -206,20 +273,17 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 	try
 	{
 		//wxString doc_path(wxT("TODO: get document path"));
-		doc_frames.insert(
-			new SpectraDocumentFrame(
-				parent_app,
+		coroutine_exec->Start(
+			std::make_shared<SpectraMainFrameDocumentLoader>(
 				this,
-				&this->gl_context,
-				SpectraOpenTestDoc(), //TODO
-				std::make_shared<
-					SpectraDefaultRenderer,
-					SpectraApp&,
-					const std::shared_ptr<SpectraSharedObjects>&,
-					const std::shared_ptr<SpectraDocumentVis>&,
-					wxGLCanvas*
-				>
-			)
+				SpectraOpenTestDoc(
+					[](float x) -> float { return std::sin(x*x); },
+					2200,
+					256,
+					4.71
+				) //TODO
+			),
+			false
 		);
 	}
 	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe); }
@@ -228,6 +292,19 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 	catch(oglplus::OutOfMemory& oom) { parent_app.HandleError(oom); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err); }
 	catch(const std::exception& se) { parent_app.HandleError(se); }
+}
+
+void SpectraMainFrame::OpenLoadedDocument(const std::shared_ptr<SpectraDocument>& document)
+{
+	this->doc_frames.insert(
+		new SpectraDocumentFrame(
+			this->parent_app,
+			this,
+			&this->gl_context,
+			document,
+			SpectraMakeDefaultRenderer
+		)
+	);
 }
 
 void SpectraMainFrame::ForgetDocument(SpectraDocumentFrame* doc_frame)
@@ -268,10 +345,16 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 ), gl_context(tmp_canvas)
  , api_init(nullptr)
  , shared_objects(nullptr)
+ , coroutine_exec(nullptr)
 {
 	InitMainMenu();
 	InitComponents();
 	Show();
+
+	coroutine_exec = std::make_shared<SpectraCoroutineExecutor>(
+		parent_app,
+		this //TODO progress panel + sizer
+	);
 
 	SetStatus(wxGetTranslation(wxT("Initializing GL"), wxT("Status")));
 

@@ -23,7 +23,10 @@
 #include <memory>
 #include <set>
 
+class SpectraDocument;
 class SpectraDocumentFrame;
+class SpectraCoroutineExecutor;
+class SpectraMainFrameDocumentLoader;
 
 class SpectraMainFrame
  : public wxFrame
@@ -50,9 +53,13 @@ private:
 	wxStaticText* gl_version;
 	wxStaticText* sl_version;
 
+	std::shared_ptr<SpectraCoroutineExecutor> coroutine_exec;
+
 	void InitMainMenu(void);
 	void InitComponents(void);
 	void ConnectEventHandlers(void);
+
+	void OnIdle(wxIdleEvent& event);
 
 	void DoClose(wxCommandEvent&);
 	void OnClose(wxCloseEvent&);
@@ -63,6 +70,8 @@ private:
 public:
 	SpectraMainFrame(SpectraApp& app);
 	~SpectraMainFrame(void);
+
+	void OpenLoadedDocument(const std::shared_ptr<SpectraDocument>&);
 
 	void ForgetDocument(SpectraDocumentFrame*);
 };

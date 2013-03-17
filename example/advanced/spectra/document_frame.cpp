@@ -59,12 +59,12 @@ void SpectraDocumentFrame::ConnectEventHandlers(void)
 		wxEVT_SIZE,
 		wxSizeEventHandler(SpectraDocumentFrame::OnResize)
 	);
-	SetExtraStyle(wxWS_EX_PROCESS_IDLE);
-	wxIdleEvent::SetMode(wxIDLE_PROCESS_SPECIFIED);
+/*
 	Connect(
 		wxEVT_IDLE,
 		wxIdleEventHandler(SpectraDocumentFrame::OnIdle)
 	);
+*/
 }
 
 void SpectraDocumentFrame::InitComponents(void)
@@ -249,8 +249,7 @@ void SpectraDocumentFrame::Update(void)
 	gl_canvas->SwapBuffers();
 }
 
-
-void SpectraDocumentFrame::OnIdle(wxIdleEvent& event)
+void SpectraDocumentFrame::OnIdle(wxIdleEvent& /*event*/)
 {
 	try
 	{
@@ -258,7 +257,6 @@ void SpectraDocumentFrame::OnIdle(wxIdleEvent& event)
 		{
 			idle_call_count++;
 			Update();
-			event.RequestMore();
 			idle_call_count--;
 		}
 		return;
@@ -278,12 +276,12 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 	SpectraApp& app,
 	SpectraMainFrame* parent,
 	wxGLContext* parent_context,
-	std::unique_ptr<SpectraDocument>&& doc,
+	const std::shared_ptr<SpectraDocument>& doc,
 	const std::function<
 		std::shared_ptr<SpectraRenderer>(
 			SpectraApp&,
 			const std::shared_ptr<SpectraSharedObjects>&,
-			const std::shared_ptr<SpectraDocumentVis>&,
+			const std::shared_ptr<SpectraVisualisation>&,
 			wxGLCanvas*
 		)
 	>& get_renderer
@@ -319,11 +317,11 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 	InitComponents();
 	Show();
 
-	document_vis = std::make_shared<SpectraDocumentVis>(
+	document_vis = std::make_shared<SpectraVisualisation>(
 		parent_app,
 		gl_canvas,
 		parent_context,
-		std::move(doc)
+		doc
 	);
 	assert(document_vis);
 
@@ -347,4 +345,8 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 
 SpectraDocumentFrame::~SpectraDocumentFrame(void)
 {
+	// this ensures that the GL objects from the context
+	// are cleaned up properly in case this is the
+	// last reference to this instance of doc. vis.
+	gl_canvas->SetCurrent(document_vis->GLContext());
 }

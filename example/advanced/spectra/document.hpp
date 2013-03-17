@@ -12,53 +12,50 @@
 #ifndef OGLPLUS_EXAMPLE_SPECTRA_DOCUMENT_HPP
 #define OGLPLUS_EXAMPLE_SPECTRA_DOCUMENT_HPP
 
-#include <oglplus/gl.hpp>
-
-#include "spectra_app.hpp"
-#include "document_canvas.hpp"
-
 #include <wx/wx.h>
-#include <wx/glcanvas.h>
+#include <wx/string.h>
 
 #include <memory>
 #include <functional>
 
 struct SpectraDocument
 {
-	~SpectraDocument(void){ }
+	virtual ~SpectraDocument(void) { }
 
-	virtual GLuint SamplesPerSecond(void) const = 0;
+	virtual bool FinishLoading(void) = 0;
 
-	virtual GLuint SpectrumSize(void) const = 0;
+	virtual int PercentLoaded(void) const = 0;
 
-	virtual GLfloat MaxTime(void) const = 0;
+	virtual std::size_t SamplesPerSecond(void) const = 0;
+
+	virtual std::size_t SpectrumSize(void) const = 0;
+
+	virtual std::size_t SignalSampleCount(void) const = 0;
+
+	virtual float MaxTime(void) const = 0;
 
 	virtual wxString Name(void) const = 0;
+
+	virtual std::size_t QuerySignalSamples(
+		float* buffer,
+		std::size_t bufsize,
+		std::size_t start,
+		std::size_t end
+	) = 0;
+
+	virtual std::size_t QuerySpectrumSamples(
+		float* buffer,
+		std::size_t bufsize,
+		std::size_t start_row,
+		std::size_t end_row
+	) = 0;
 };
 
-extern std::unique_ptr<SpectraDocument> SpectraOpenTestDoc(void);
-
-class SpectraDocumentVis
-{
-private:
-	SpectraApp& parent_app;
-
-	wxGLContext gl_context;
-
-	std::unique_ptr<SpectraDocument> document;
-public:
-	SpectraDocumentVis(
-		SpectraApp& app,
-		wxGLCanvas* canvas,
-		wxGLContext* parent_ctxt,
-		std::unique_ptr<SpectraDocument>&& doc
-	);
-
-	wxGLContext& GLContext(void);
-
-	SpectraDocument& Document(void);
-
-	wxString Name(void);
-};
+extern std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(
+	const std::function<float (float)>& signal_func,
+	std::size_t samples_per_second,
+	std::size_t spectrum_size,
+	float max_time
+);
 
 #endif // include guard

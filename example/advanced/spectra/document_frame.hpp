@@ -25,7 +25,7 @@
 
 class SpectraMainFrame;
 class SpectraDocument;
-class SpectraDocumentVis;
+class SpectraVisualisation;
 class SpectraRenderer;
 
 class SpectraDocumentFrame
@@ -44,7 +44,7 @@ private:
 
 	SpectraDocumentCanvas* gl_canvas;
 
-	std::shared_ptr<SpectraDocumentVis> document_vis;
+	std::shared_ptr<SpectraVisualisation> document_vis;
 	std::shared_ptr<SpectraRenderer> renderer;
 
 	SpectraDocumentView document_view;
@@ -71,18 +71,19 @@ private:
 
 	int idle_call_count;
 	void Update(void);
-	void OnIdle(wxIdleEvent& event);
 public:
+	void OnIdle(wxIdleEvent& event);
+
 	SpectraDocumentFrame(
 		SpectraApp& app,
 		SpectraMainFrame* parent,
 		wxGLContext* parent_ctxt,
-		std::unique_ptr<SpectraDocument>&& document,
+		const std::shared_ptr<SpectraDocument>& document,
 		const std::function<
 			std::shared_ptr<SpectraRenderer> (
 				SpectraApp&,
 				const std::shared_ptr<SpectraSharedObjects>&,
-				const std::shared_ptr<SpectraDocumentVis>&,
+				const std::shared_ptr<SpectraVisualisation>&,
 				wxGLCanvas*
 			)
 		>& get_renderer

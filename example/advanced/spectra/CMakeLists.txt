@@ -22,11 +22,15 @@ if(wxWidgets_FOUND)
 			spectra_app.cpp
 			shared_objects.cpp
 			main_frame.cpp
+			coroutine.cpp
 			document_frame.cpp
 			document_canvas.cpp
 			document_view.cpp
 			document.cpp
+			visualisation.cpp
 			renderer.cpp
+			default_renderer.cpp
+			calculator.cpp
 	)
 
 	target_link_libraries(spectra ${wxWidgets_LIBRARIES})
