@@ -14,6 +14,9 @@
 
 #include <wx/utils.h>
 
+#include <vector>
+#include <cmath>
+
 class SpectraTestDocument
  : public SpectraDocument
 {
@@ -22,7 +25,7 @@ private:
 	const std::size_t samples_per_second;
 	const std::size_t spectrum_size;
 	const float max_time;
-	int percent_loaded;
+	std::shared_ptr<SpectraCalculator> spectra_calc;
 public:
 	SpectraTestDocument(
 		std::function<float (float)> sig_fn,
@@ -52,7 +55,7 @@ public:
 		std::size_t end
 	);
 
-	std::size_t QuerySpectrumSamples(
+	std::size_t QuerySpectrumValues(
 		float* buffer,
 		std::size_t bufsize,
 		std::size_t start_row,
@@ -69,24 +72,19 @@ SpectraTestDocument::SpectraTestDocument(
  , samples_per_second(sps)
  , spectrum_size(ss)
  , max_time(mt)
- , percent_loaded(0)
-{ }
+ , spectra_calc(SpectraGetDefaultFourierTransf(spectrum_size))
+{
+	assert(spectra_calc);
+}
 
 bool SpectraTestDocument::FinishLoading(void)
 {
-	// Simulation of loading
-	if(percent_loaded < 100)
-	{
-		wxMilliSleep(5);
-		++percent_loaded;
-	}
-	return percent_loaded >= 100;
+	return true;
 }
-
 
 int SpectraTestDocument::PercentLoaded(void) const
 {
-	return percent_loaded;
+	return 100;
 }
 
 std::size_t SpectraTestDocument::SamplesPerSecond(void) const
@@ -143,7 +141,7 @@ std::size_t SpectraTestDocument::QuerySignalSamples(
 	return 0;
 }
 
-std::size_t SpectraTestDocument::QuerySpectrumSamples(
+std::size_t SpectraTestDocument::QuerySpectrumValues(
 	float* buffer,
 	std::size_t bufsize,
 	std::size_t start_row,
@@ -151,8 +149,26 @@ std::size_t SpectraTestDocument::QuerySpectrumSamples(
 )
 {
 	std::size_t n = end_row-start_row;
-	assert(bufsize >= n*n);
-	return 0; //TODO
+	assert(bufsize >= n*spectrum_size);
+
+	std::vector<float> signal(spectra_calc->InputSize()+n-1);
+
+	QuerySignalSamples(
+		signal.data(),
+		signal.size(),
+		start_row,
+		end_row+spectra_calc->InputSize()-1
+	);
+	for(std::size_t i=0; i!=n; ++i)
+	{
+		spectra_calc->Transform(
+			signal.data()+i,
+			spectra_calc->InputSize(),
+			buffer+i*spectrum_size,
+			spectrum_size
+		);
+	}
+	return n;
 }
 
 std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(

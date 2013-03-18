@@ -27,9 +27,11 @@ public:
 
 	wxString Description(void) const;
 
+	void Cancel(void);
+
 	bool DoWork(void);
 
-	int PercentDone(void);
+	int PercentDone(void) const;
 };
 
 SpectraCoroutineExecution::SpectraCoroutineExecution(
@@ -52,9 +54,14 @@ wxString SpectraCoroutineExecution::Description(void) const
 	return coroutine->Description();
 }
 
-int SpectraCoroutineExecution::PercentDone(void)
+int SpectraCoroutineExecution::PercentDone(void) const
 {
 	return coroutine->PercentDone();
+}
+
+void SpectraCoroutineExecution::Cancel(void)
+{
+	coroutine->Cancel();
 }
 
 bool SpectraCoroutineExecution::DoWork(void)

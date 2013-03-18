@@ -3589,11 +3589,6 @@ template <typename Enum, Enum = Enum::Texture> operator Enum (void) const{ retur
 template <typename Enum> friend bool operator==(Enum value, Texture){ return value == Enum::Texture; }
 template <typename Enum> friend bool operator!=(Enum value, Texture){ return value != Enum::Texture; }
 };
-struct TextureBuffer {
-template <typename Enum, Enum = Enum::TextureBuffer> operator Enum (void) const{ return Enum::TextureBuffer; }
-template <typename Enum> friend bool operator==(Enum value, TextureBuffer){ return value == Enum::TextureBuffer; }
-template <typename Enum> friend bool operator!=(Enum value, TextureBuffer){ return value != Enum::TextureBuffer; }
-};
 struct TextureCompression {
 template <typename Enum, Enum = Enum::TextureCompression> operator Enum (void) const{ return Enum::TextureCompression; }
 template <typename Enum> friend bool operator==(Enum value, TextureCompression){ return value == Enum::TextureCompression; }

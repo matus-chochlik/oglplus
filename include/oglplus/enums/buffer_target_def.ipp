@@ -177,13 +177,13 @@
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined TextureBuffer
-#  pragma push_macro("TextureBuffer")
-#  undef TextureBuffer
-   OGLPLUS_ENUM_CLASS_VALUE(TextureBuffer, GL_TEXTURE_BUFFER)
-#  pragma pop_macro("TextureBuffer")
+# if defined Texture
+#  pragma push_macro("Texture")
+#  undef Texture
+   OGLPLUS_ENUM_CLASS_VALUE(Texture, GL_TEXTURE_BUFFER)
+#  pragma pop_macro("Texture")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(TextureBuffer, GL_TEXTURE_BUFFER)
+   OGLPLUS_ENUM_CLASS_VALUE(Texture, GL_TEXTURE_BUFFER)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1

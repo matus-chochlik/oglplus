@@ -22,6 +22,7 @@
 #include <oglplus/limited_value.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/vector.hpp>
+#include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 

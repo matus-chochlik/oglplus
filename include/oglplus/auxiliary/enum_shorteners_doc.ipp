@@ -23762,12 +23762,14 @@ template <typename Enum> friend bool operator!=(Enum value, TessEvaluationSubrou
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Texture value.
 /**
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::CompatibilityAttributeGroup "CompatibilityAttributeGroup"
  *  @see @ref oglplus::ObjectType "ObjectType"
  *
  *  @glsymbols
  *  @gldefref{TEXTURE}
  *  @gldefref{TEXTURE_BIT}
+ *  @gldefref{TEXTURE_BUFFER}
  *
  *  @ingroup smart_enums
  */
@@ -23793,39 +23795,6 @@ template <typename Enum> friend bool operator==(Enum value, Texture);
  *  the @c Texture value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Texture);
-};
-
-/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TextureBuffer value.
-/**
- *  @see @ref oglplus::BufferTarget "BufferTarget"
- *
- *  @glsymbols
- *  @gldefref{TEXTURE_BUFFER}
- *
- *  @ingroup smart_enums
- */
-struct TextureBuffer {
-
-/// Conversion to any @p Enum type having the TextureBuffer value.
-/** Instances of the @ref oglplus::smart_enums::TextureBuffer "TextureBuffer"
- *  type are convertible to instances of any enumeration type having
- *  the @c TextureBuffer value.
- */
-template <typename Enum, Enum = Enum::TextureBuffer> operator Enum (void) const;
-
-/// Equality comparison with any @p Enum type having the TextureBuffer value.
-/** Instances of the @c smart_enums::TextureBuffer type can be compared
- *  for equality to instances of any enumeration type having
- *  the @c TextureBuffer value.
- */
-template <typename Enum> friend bool operator==(Enum value, TextureBuffer);
-
-/// Non-equality comparison with any @p Enum type having the TextureBuffer value.
-/** Instances of the @c smart_enums::TextureBuffer type can be compared
- *  for non-equality to instances of any enumeration type having
- *  the @c TextureBuffer value.
- */
-template <typename Enum> friend bool operator!=(Enum value, TextureBuffer);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TextureCompression value.

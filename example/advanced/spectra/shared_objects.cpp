@@ -143,10 +143,10 @@ const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::SpectrumPlane(
 					oglplus::List("Position")("TexCoord").Get(),
 					oglplus::shapes::Plane(
 						oglplus::Vec3f(0.5f, 0.0f, 0.5f),
-						oglplus::Vec3f(0.5f, 0.0f, 0.0f),
 						oglplus::Vec3f(0.0f, 0.0f, 0.5f),
-						samples_per_sec,
-						spectrum_size
+						oglplus::Vec3f(0.5f, 0.0f, 0.0f),
+						spectrum_size-1,
+						samples_per_sec-1
 					)
 				)
 			)

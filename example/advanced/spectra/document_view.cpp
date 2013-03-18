@@ -20,10 +20,10 @@ const GLfloat min_target_z = -0.5f;
 const GLfloat max_target_z =  1.0f;
 
 const GLfloat min_camera_distance = 2.0f;
-const GLfloat max_camera_distance = 30.0f;
+const GLfloat max_camera_distance = 50.0f;
 
 const GLfloat min_stretch_x = 0.5f;
-const GLfloat max_stretch_x = 20.0f;
+const GLfloat max_stretch_x = 100.0f;
 const GLfloat min_stretch_y = 0.5f;
 const GLfloat max_stretch_y = 20.0f;
 const GLfloat min_stretch_z = 0.5f;
@@ -43,7 +43,7 @@ SpectraDocumentView::SpectraDocumentView(void)
  , target_x(0.5f)
  , target_y(0.5f)
  , target_z(0.5f)
- , stretch_x(1.0f)
+ , stretch_x(10.f)
  , stretch_y(1.0f)
  , stretch_z(1.0f)
  , camera_azimuth(oglplus::Degrees(215))
@@ -263,7 +263,7 @@ void SpectraDocumentView::RecalcProjection(void)
 		camera_xfov,
 		double(width)/height,
 		0.1f,
-		100.0f
+		10000.0f
 	);
 	RecalcTransf();
 }

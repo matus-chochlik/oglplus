@@ -25,9 +25,11 @@ struct SpectraCoroutine
 
 	virtual wxString Description(void) const = 0;
 
+	virtual void Cancel(void) = 0;
+
 	virtual bool DoWork(void) = 0;
 
-	virtual int PercentDone(void) = 0;
+	virtual int PercentDone(void) const = 0;
 };
 
 class SpectraCoroutineExecutor

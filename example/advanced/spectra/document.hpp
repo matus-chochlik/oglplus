@@ -43,7 +43,7 @@ struct SpectraDocument
 		std::size_t end
 	) = 0;
 
-	virtual std::size_t QuerySpectrumSamples(
+	virtual std::size_t QuerySpectrumValues(
 		float* buffer,
 		std::size_t bufsize,
 		std::size_t start_row,

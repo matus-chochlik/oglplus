@@ -30,6 +30,9 @@ private:
 	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_camera_matrix;
 	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_stretch_matrix;
 	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_transf_matrix;
+	oglplus::OptionalUniform<GLint> doc_vis_spectrum_tex;
+	oglplus::OptionalUniform<GLint> doc_vis_spectrum_size;
+	oglplus::OptionalUniform<GLint> doc_vis_samples_per_unit;
 
 	const oglplus::shapes::ShapeWrapper& spectrum_plane_wrap;
 	oglplus::VertexArray spectrum_plane_vao;
@@ -57,10 +60,7 @@ public:
 
 	void ReinitStyle(void);
 
-	void Render(
-		SpectraDocumentView& view,
-		wxGLCanvas* canvas
-	);
+	void Render(SpectraDocumentView& view, wxGLCanvas* canvas);
 };
 
 std::shared_ptr<SpectraRenderer> SpectraMakeDefaultRenderer(
@@ -89,10 +89,13 @@ SpectraDefaultRenderer::SpectraDefaultRenderer(
  , doc_vis_camera_matrix(doc_vis_prog, "CameraMatrix")
  , doc_vis_stretch_matrix(doc_vis_prog, "StretchMatrix")
  , doc_vis_transf_matrix(doc_vis_prog, "TransfMatrix")
+ , doc_vis_spectrum_tex(doc_vis_prog, "SpectrumTex")
+ , doc_vis_spectrum_size(doc_vis_prog, "SpectrumSize")
+ , doc_vis_samples_per_unit(doc_vis_prog, "SamplesPerUnit")
  , spectrum_plane_wrap(
 	Common().SpectrumPlane(
-		DocVis().Document().SamplesPerSecond(),
-		DocVis().Document().SpectrumSize()
+		DocVis().GridSamples(),
+		DocVis().SignalSpectrumSize()
 	)
 ), spectrum_plane_vao(spectrum_plane_wrap.VAOForProgram(doc_vis_prog))
  , vis_cue_prog(Common().BuildProgram("default_vis_cue.prog"))
@@ -112,12 +115,12 @@ void SpectraDefaultRenderer::CacheBgColor(void)
 {
 	GLfloat s = 1.0f/255.f;
 
-	wxColor bg = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW);
+	wxColor bg = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
 	clear_r = bg.Red()*s;
 	clear_g = bg.Green()*s;
 	clear_b = bg.Blue()*s;
 
-	wxColor lc = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
+	wxColor lc = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW);
 	color_r = lc.Red()*s;
 	color_g = lc.Green()*s;
 	color_b = lc.Blue()*s;
@@ -130,6 +133,13 @@ void SpectraDefaultRenderer::RenderSpectrum(SpectraDocumentView& view)
 	doc_vis_camera_matrix.TrySet(view.CameraMatrix());
 	doc_vis_stretch_matrix.TrySet(view.StretchMatrix());
 	doc_vis_transf_matrix.TrySet(view.TransfMatrix());
+
+	oglplus::Texture::Active(0);
+	DocVis().SpectrumTex().Bind(oglplus::Texture::Target::Buffer);
+	doc_vis_spectrum_tex.TrySet(0);
+	doc_vis_spectrum_size.TrySet(DocVis().SignalSpectrumSize());
+	doc_vis_samples_per_unit.TrySet(DocVis().SignalSamplesPerGrid());
+
 
 	spectrum_plane_vao.Bind();
 	spectrum_plane_wrap.Draw(view.SegmentCount());

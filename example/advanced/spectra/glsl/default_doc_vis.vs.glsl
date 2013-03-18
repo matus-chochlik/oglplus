@@ -1,4 +1,11 @@
+/*
+ *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
 #version 330
+
+float SpectrumValue(vec3 coord);
 
 uniform mat4 TransfMatrix;
 
@@ -10,11 +17,11 @@ out float vertValue;
 
 void main(void)
 {
+	vertTexCoord = vec3(TexCoord, gl_InstanceID);
 	vec4 OffsPos = Position;
 	OffsPos.x += gl_InstanceID;
-	OffsPos.y += sin(OffsPos.x*12.0+OffsPos.z*8)*0.1+0.5;
+	OffsPos.y = SpectrumValue(vertTexCoord);
 	gl_Position = TransfMatrix * OffsPos;
-	vertTexCoord = vec3(TexCoord, gl_InstanceID);
 	vertValue = OffsPos.y;
 }
 

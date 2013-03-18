@@ -59,12 +59,6 @@ void SpectraDocumentFrame::ConnectEventHandlers(void)
 		wxEVT_SIZE,
 		wxSizeEventHandler(SpectraDocumentFrame::OnResize)
 	);
-/*
-	Connect(
-		wxEVT_IDLE,
-		wxIdleEventHandler(SpectraDocumentFrame::OnIdle)
-	);
-*/
 }
 
 void SpectraDocumentFrame::InitComponents(void)
@@ -94,7 +88,7 @@ void SpectraDocumentFrame::DoClose(wxCommandEvent&)
 	Close();
 }
 
-void SpectraDocumentFrame::OnClose(wxCloseEvent& /*event*/)
+void SpectraDocumentFrame::OnClose(wxCloseEvent&)
 {
 	assert(parent_frame);
 	parent_frame->ForgetDocument(this);
@@ -249,7 +243,7 @@ void SpectraDocumentFrame::Update(void)
 	gl_canvas->SwapBuffers();
 }
 
-void SpectraDocumentFrame::OnIdle(wxIdleEvent& /*event*/)
+void SpectraDocumentFrame::OnIdle(wxIdleEvent&)
 {
 	try
 	{
@@ -319,6 +313,7 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 
 	document_vis = std::make_shared<SpectraVisualisation>(
 		parent_app,
+		parent_frame,
 		gl_canvas,
 		parent_context,
 		doc

@@ -32,7 +32,7 @@ PixelUnpack,
 /// SHADER_STORAGE_BUFFER
 ShaderStorage,
 /// TEXTURE_BUFFER
-TextureBuffer,
+Texture,
 /// TRANSFORM_FEEDBACK_BUFFER
 TransformFeedback,
 /// UNIFORM_BUFFER

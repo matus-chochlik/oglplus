@@ -12,6 +12,10 @@
 #ifndef OGLPLUS_EXAMPLE_SPECTRA_VISUALISATION_HPP
 #define OGLPLUS_EXAMPLE_SPECTRA_VISUALISATION_HPP
 
+#include <oglplus/gl.hpp>
+#include <oglplus/buffer.hpp>
+#include <oglplus/texture.hpp>
+
 #include "spectra_app.hpp"
 #include "document.hpp"
 
@@ -19,31 +23,62 @@
 #include <wx/glcanvas.h>
 
 #include <memory>
-#include <functional>
+
+class SpectraMainFrame;
+class SpectraVisDataUploader;
+
+class SpectraGLContext
+ : public wxGLContext
+{
+public:
+	SpectraGLContext(
+		wxGLCanvas* canvas,
+		wxGLContext* parent_ctxt
+	);
+};
 
 class SpectraVisualisation
 {
 private:
 	SpectraApp& parent_app;
+	SpectraMainFrame* main_frame;
 
-	wxGLContext gl_context;
+	SpectraGLContext gl_context;
 
 	std::shared_ptr<SpectraDocument> document;
+
+	oglplus::Buffer spectrum_data;
+	oglplus::Texture spectrum_tex;
+
+	std::weak_ptr<SpectraVisDataUploader> uploader_ref;
 public:
 	SpectraVisualisation(
 		SpectraApp& app,
+		SpectraMainFrame* frame,
 		wxGLCanvas* canvas,
 		wxGLContext* parent_ctxt,
 		const std::shared_ptr<SpectraDocument>& doc
 	);
 
+	~SpectraVisualisation(void);
+
 	bool FinishLoading(void);
 
 	wxGLContext& GLContext(void);
 
-	SpectraDocument& Document(void);
+	oglplus::Managed<oglplus::Texture> SpectrumTex(void);
 
 	wxString Name(void);
+
+	const SpectraDocument& Document(void) const;
+
+	std::size_t SignalSpectrumSize(void) const;
+
+	std::size_t SignalSamplesPerGrid(void) const;
+
+	std::size_t SignalSamplesPerGridPatch(void) const;
+
+	std::size_t GridSamples(void) const;
 };
 
 #endif // include guard

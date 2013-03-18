@@ -33,9 +33,11 @@ public:
 
 	wxString Description(void) const;
 
+	void Cancel(void);
+
 	bool DoWork(void);
 
-	int PercentDone(void);
+	int PercentDone(void) const;
 };
 
 SpectraMainFrameDocumentLoader::SpectraMainFrameDocumentLoader(
@@ -53,6 +55,10 @@ wxString SpectraMainFrameDocumentLoader::Description(void) const
 	return wxGetTranslation(wxT("Loading document"));
 }
 
+void SpectraMainFrameDocumentLoader::Cancel(void)
+{
+}
+
 bool SpectraMainFrameDocumentLoader::DoWork(void)
 {
 	if(document->FinishLoading())
@@ -63,7 +69,7 @@ bool SpectraMainFrameDocumentLoader::DoWork(void)
 	else return false;
 }
 
-int SpectraMainFrameDocumentLoader::PercentDone(void)
+int SpectraMainFrameDocumentLoader::PercentDone(void) const
 {
 	return document->PercentLoaded();
 }
@@ -259,7 +265,7 @@ void SpectraMainFrame::DoShowAboutDialog(wxCommandEvent&)
 {
     wxAboutDialogInfo info;
     info.SetName(wxGetTranslation(wxT("OGLplus spectra")));
-    info.SetVersion(wxGetTranslation(wxT("0.1.0 Beta")));
+    info.SetVersion(wxGetTranslation(wxT("0.0.1 Alpha")));
     info.SetDescription(wxGetTranslation(wxT("3D viewer of signal Fourier spectra.")));
     info.SetCopyright(wxGetTranslation(wxT("(C) 2013 Matus Chochlik")));
     info.SetWebSite(wxGetTranslation(wxT("http://oglplus.org/")));
@@ -273,12 +279,16 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 	try
 	{
 		//wxString doc_path(wxT("TODO: get document path"));
-		coroutine_exec->Start(
+		StartCoroutine(
 			std::make_shared<SpectraMainFrameDocumentLoader>(
 				this,
 				SpectraOpenTestDoc(
-					[](float x) -> float { return std::sin(x*x); },
-					2200,
+					[](float x) -> float {
+						return sin(3.1415*10.0*(sin(x)+2.0+x*x))*
+							std::rand()/float(RAND_MAX)*
+							std::rand()/float(RAND_MAX);
+					},
+					11000,
 					256,
 					4.71
 				) //TODO
@@ -292,6 +302,19 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 	catch(oglplus::OutOfMemory& oom) { parent_app.HandleError(oom); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err); }
 	catch(const std::exception& se) { parent_app.HandleError(se); }
+}
+
+void SpectraMainFrame::StartCoroutine(const std::shared_ptr<SpectraCoroutine>& coroutine)
+{
+	coroutine_exec->Start(coroutine, false); //TODO: get value of quiet from settings
+}
+
+void SpectraMainFrame::StartCoroutine(
+	const std::shared_ptr<SpectraCoroutine>& coroutine,
+	bool quiet
+)
+{
+	coroutine_exec->Start(coroutine, quiet);
 }
 
 void SpectraMainFrame::OpenLoadedDocument(const std::shared_ptr<SpectraDocument>& document)

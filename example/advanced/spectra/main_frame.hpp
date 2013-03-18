@@ -25,6 +25,7 @@
 
 class SpectraDocument;
 class SpectraDocumentFrame;
+class SpectraCoroutine;
 class SpectraCoroutineExecutor;
 class SpectraMainFrameDocumentLoader;
 
@@ -70,6 +71,9 @@ private:
 public:
 	SpectraMainFrame(SpectraApp& app);
 	~SpectraMainFrame(void);
+
+	void StartCoroutine(const std::shared_ptr<SpectraCoroutine>&, bool);
+	void StartCoroutine(const std::shared_ptr<SpectraCoroutine>&);
 
 	void OpenLoadedDocument(const std::shared_ptr<SpectraDocument>&);
 

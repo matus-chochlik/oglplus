@@ -23,16 +23,19 @@ struct SpectraCalculator
 
 	virtual wxString Name(void) const = 0;
 
-	virtual std::size_t Size(void) const = 0;
+	virtual std::size_t InputSize(void) const = 0;
+
+	virtual std::size_t OutputSize(void) const = 0;
 
 	virtual void Transform(
 		const float* input,
+		std::size_t inbufsize,
 		float* output,
-		std::size_t bufsize
+		std::size_t outbufsize
 	) = 0;
 };
 
 extern std::shared_ptr<SpectraCalculator>
-SpectraMakeDefaultFourierTransf(std::size_t size);
+SpectraGetDefaultFourierTransf(std::size_t spectrum_size);
 
 #endif // include guard

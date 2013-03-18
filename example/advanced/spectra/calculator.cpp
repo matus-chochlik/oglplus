@@ -20,50 +20,63 @@ class SpectraDefaultMatrixTransf
  : public SpectraCalculator
 {
 protected:
+	const std::size_t in_size, out_size;
 	std::vector<double> mat;
 	wxString name;
 public:
 	template <typename Generator>
 	SpectraDefaultMatrixTransf(
-		std::size_t size,
+		std::size_t in_sz,
+		std::size_t out_sz,
 		const wxString& transf_name,
 		Generator gen
 	);
 
-	std::size_t Size(void) const;
+	std::size_t InputSize(void) const;
+
+	std::size_t OutputSize(void) const;
 
 	wxString Name(void) const;
 
 	void Transform(
 		const float* input,
+		std::size_t inbufsize,
 		float* output,
-		std::size_t bufsize
+		std::size_t outbufsize
 	);
 };
 
 template <typename Generator>
 SpectraDefaultMatrixTransf::SpectraDefaultMatrixTransf(
-	std::size_t size,
+	std::size_t in_sz,
+	std::size_t out_sz,
 	const wxString& transf_name,
 	Generator gen
-): mat(size*size)
+): in_size(in_sz)
+ , out_size(out_sz)
+ , mat(in_size*out_size)
  , name(transf_name)
 {
 	auto m = mat.begin();
-	for(std::size_t row=0; row!=size; ++row)
+	for(std::size_t row=0; row!=out_size; ++row)
 	{
-		for(std::size_t col=0; col!=size; ++col)
+		for(std::size_t col=0; col!=in_size; ++col)
 		{
-			*m = gen(row, col, size);
+			*m = gen(col, row, in_size, out_size);
 			++m;
 		}
 	}
 	assert(m == mat.end());
 }
 
-std::size_t SpectraDefaultMatrixTransf::Size(void) const
+std::size_t SpectraDefaultMatrixTransf::InputSize(void) const
 {
-	return std::size_t(mat.size());
+	return in_size;
+}
+
+std::size_t SpectraDefaultMatrixTransf::OutputSize(void) const
+{
+	return out_size;
 }
 
 wxString SpectraDefaultMatrixTransf::Name(void) const
@@ -73,20 +86,21 @@ wxString SpectraDefaultMatrixTransf::Name(void) const
 
 void SpectraDefaultMatrixTransf::Transform(
 	const float* input,
+	std::size_t inbufsize,
 	float* output,
-	std::size_t bufsize
+	std::size_t outbufsize
 )
 {
-	std::size_t n = mat.size();
-	assert(bufsize >= n);
+	assert(inbufsize >= in_size);
+	assert(outbufsize >= out_size);
 
 	float* o = output;
-	for(std::size_t row=0; row!=n; ++row)
+	for(std::size_t row=0; row!=out_size; ++row)
 	{
 		const float* i = input;
-		auto m = mat.begin()+row*n;
+		auto m = mat.begin()+row*out_size;
 		double sum = 0.0;
-		for(std::size_t col=0; col!=n; ++col)
+		for(std::size_t col=0; col!=in_size; ++col)
 		{
 			sum += (*m++) * (*i++);
 		}
@@ -96,18 +110,41 @@ void SpectraDefaultMatrixTransf::Transform(
 
 struct SpectraFourierMatrixGen
 {
-	double operator()(std::size_t i, std::size_t k, std::size_t n) const
+	double inv_n;
+	double inv_sqrt_n;
+	std::size_t half_m;
+
+	SpectraFourierMatrixGen(std::size_t n, std::size_t m)
+	 : inv_n(1.0/n)
+	 , inv_sqrt_n(1.0/std::sqrt(double(n)))
+	 , half_m(m/2)
+	{ }
+
+	double operator()(
+		std::size_t i,
+		std::size_t k,
+		std::size_t /*n*/,
+		std::size_t /*m*/
+	) const
 	{
-		return std::cos((oglplus::math::TwoPi()*k*i)/double(n));
+		const double twopi = oglplus::math::TwoPi();
+		if(k == 0) return inv_n;
+		else if(k < half_m)
+			return std::cos(twopi*k*i*inv_n)*inv_sqrt_n;
+		else return std::sin(twopi*(k-half_m)*i*inv_n)*inv_sqrt_n;
 	}
 };
 
 std::shared_ptr<SpectraCalculator>
-SpectraMakeDefaultFourierTransf(std::size_t size)
+SpectraGetDefaultFourierTransf(std::size_t spectrum_size)
 {
+	// TODO: share instances
+	assert(spectrum_size % 2 == 0);
+	std::size_t in_size = spectrum_size-2;
 	return std::make_shared<SpectraDefaultMatrixTransf>(
-		size,
-		wxT("Fourier"),
-		SpectraFourierMatrixGen()
+		in_size,
+		spectrum_size,
+		wxT("Discrete real Fourier"),
+		SpectraFourierMatrixGen(in_size, spectrum_size)
 	);
 }
