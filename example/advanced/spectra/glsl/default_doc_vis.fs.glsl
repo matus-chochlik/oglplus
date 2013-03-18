@@ -14,6 +14,6 @@ out vec3 fragColor;
 
 void main(void)
 {
-	fragColor = vec3(vertValue, vertTexCoord.y*0.1, -vertValue);
+	fragColor = vec3(vertTexCoord.y*0.1, vertValue, -vertValue);
 }
 

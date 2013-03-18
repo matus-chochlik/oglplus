@@ -112,12 +112,10 @@ struct SpectraFourierMatrixGen
 {
 	double inv_n;
 	double inv_sqrt_n;
-	std::size_t half_m;
 
-	SpectraFourierMatrixGen(std::size_t n, std::size_t m)
+	SpectraFourierMatrixGen(std::size_t n, std::size_t)
 	 : inv_n(1.0/n)
 	 , inv_sqrt_n(1.0/std::sqrt(double(n)))
-	 , half_m(m/2)
 	{ }
 
 	double operator()(
@@ -129,9 +127,9 @@ struct SpectraFourierMatrixGen
 	{
 		const double twopi = oglplus::math::TwoPi();
 		if(k == 0) return inv_n;
-		else if(k < half_m)
-			return std::cos(twopi*k*i*inv_n)*inv_sqrt_n;
-		else return std::sin(twopi*(k-half_m)*i*inv_n)*inv_sqrt_n;
+		else if(k % 2 == 0)
+			return std::cos(twopi*(k/2)*i*inv_n)*inv_sqrt_n;
+		else return std::sin(twopi*(k/2)*i*inv_n)*inv_sqrt_n;
 	}
 };
 

@@ -166,8 +166,12 @@ SpectraVisualisation::SpectraVisualisation(
 
 SpectraVisualisation::~SpectraVisualisation(void)
 {
-	std::shared_ptr<SpectraVisDataUploader> data_uploader(uploader_ref);
-	if(data_uploader) data_uploader->Cancel();
+	if(!uploader_ref.expired())
+	{
+		std::shared_ptr<SpectraVisDataUploader>
+			data_uploader(uploader_ref.lock());
+		if(data_uploader) data_uploader->Cancel();
+	}
 }
 
 wxGLContext& SpectraVisualisation::GLContext(void)

@@ -181,9 +181,8 @@ class ObjectInitializer;
 template <bool MultiObject>
 class BaseObject
 {
-protected:
-	typedef std::false_type _noexcept_constructor;
 public:
+	typedef std::false_type _noexcept_constructor;
 	typedef std::integral_constant<
 		bool,
 		MultiObject
