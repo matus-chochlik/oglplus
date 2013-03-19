@@ -1,0 +1,83 @@
+/**
+ *  @file oglplus/fwd.hpp
+ *  @brief Forward declarations
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#pragma once
+#ifndef OGLPLUS_FWD_1107121519_HPP
+#define OGLPLUS_FWD_1107121519_HPP
+
+#include <oglplus/config.hpp>
+#include <type_traits>
+#include <cstddef>
+
+namespace oglplus {
+
+struct Nothing { typedef int _value_type; };
+
+template <typename T, std::size_t N>
+class Vector;
+
+template <typename T, std::size_t Rows, std::size_t Cols>
+class Matrix;
+
+template <typename ObjectOps>
+struct ObjectTypeId;
+
+template <typename Id>
+struct ObjectTypeById;
+
+#define OGLPLUS_OBJECT_TYPE_ID(OBJECT, ID) \
+template <> struct ObjectTypeId<OBJECT##Ops> \
+ : public std::integral_constant<int, ID> { }; \
+template <> struct ObjectTypeById<std::integral_constant<int, ID> > \
+{ typedef OBJECT##Ops Type; };
+
+class RenderbufferOps;
+OGLPLUS_OBJECT_TYPE_ID(Renderbuffer, 1)
+
+class FramebufferOps;
+OGLPLUS_OBJECT_TYPE_ID(Framebuffer, 2)
+
+class TextureOps;
+OGLPLUS_OBJECT_TYPE_ID(Texture, 3)
+
+class BufferOps;
+OGLPLUS_OBJECT_TYPE_ID(Buffer, 4)
+
+class QueryOps;
+OGLPLUS_OBJECT_TYPE_ID(Query, 5)
+
+class ProgramPipelineOps;
+OGLPLUS_OBJECT_TYPE_ID(ProgramPipeline, 6)
+
+class ProgramOps;
+OGLPLUS_OBJECT_TYPE_ID(Program, 7)
+
+class TransformFeedbackOps;
+OGLPLUS_OBJECT_TYPE_ID(TransformFeedback, 8)
+
+class SamplerOps;
+OGLPLUS_OBJECT_TYPE_ID(Sampler, 9)
+
+class VertexArrayOps;
+OGLPLUS_OBJECT_TYPE_ID(VertexArray, 10)
+
+class ShaderOps;
+OGLPLUS_OBJECT_TYPE_ID(Shader, 11)
+
+class PerfMonitorAMDOps;
+OGLPLUS_OBJECT_TYPE_ID(PerfMonitorAMD, 12)
+
+class PathNVOps;
+OGLPLUS_OBJECT_TYPE_ID(PathNV, 13)
+
+} // namespace oglplus
+
+#endif // include guard

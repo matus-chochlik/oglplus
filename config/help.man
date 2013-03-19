@@ -1,0 +1,164 @@
+.TH CONFIGURE 1 "2012-08-12" "Configuration script for OGLplus."
+.SH "NAME"
+configure \- Configuration script for the OGLplus library.
+.SH "SYNOPSIS"
+.B configure.sh
+[
+.I options
+]
+.SH "DESCRIPTION"
+This script is a more user-friendly way how to invoke the
+cmake-based build system of \fBOGLplus\fR.
+.SH "OPTIONS"
+
+.TP
+.B \-h --help
+Prints this help screen.
+
+.TP
+.B --prefix <PATH>
+Specifies the installation prefix. The path
+must be absolute or relative to the curren
+working directory from which configure is
+invoked.
+
+.TP
+.B --build-dir <PATH>
+Specifies the work directory for \fBcmake\fR,
+where the cached files, generated makefiles
+and the intermediate build files will be
+placed [_build].
+The specified path must be either absolute
+or relative to the current working directory
+from which configure is invoked.
+
+.TP
+.B --include-dir <PATH>
+Specifies additional directory to search
+when looking for external headers like
+\fIGL/glew.h\fR or \fIGL3/gl3.h\fR.
+The specified path must be absolute or
+relative to the current working directory
+from which configure is invoked.
+This option may be specified multiple times
+to add multiple directories to the search list.
+
+.TP
+.B --library-dir <PATH>
+Specifies additional directory to search
+when looking for compiled libraries like
+\fBGL\fR, \fBGLEW\fR, \fBglut\fR, \fBpng\fR, etc.
+The specified path must be absolute or relative
+to the current working directory from which
+configure is invoked.
+This option may be specified multiple times
+to add multiple directories to the search list.
+
+.TP
+.B \- --cmake
+Everything following this option will be
+passed to \fBcmake\fR verbatim.
+
+.TP
+.B --dry-run
+Only print the commands that would be executed
+without actually executing them.
+
+.TP
+.B --from-scratch
+Remove any previous cached and intermediate files
+and run the configuration process from scratch.
+
+.TP
+.B --use-gl3-h
+Force use of the GL3/gl3.h header. If this option is used,
+then this header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
+and \fI--use-gl3w\fR
+options are mutually exclusive.
+
+.TP
+.B --use-glcorearb-h
+Force use of the GL/glcorearb.h header. If this option is used,
+then this header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
+and \fI--use-gl3w\fR
+options are mutually exclusive.
+
+.TP
+.B --use-glew
+Force use of the GLEW library. If this option is used, then
+GLEW and the \fIGL/glew.h\fR header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
+and \fI--use-gl3w\fR
+options are mutually exclusive.
+
+.TP
+.B --use-gl3w
+Force use of the GL3W library. If this option is used, then
+GL3W and the \fIGL/gl3w.h\fR header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+The \fI--use-glcorearb-h\fR, \fI--use-gl3-h\fR, \fI--use-glew\fR
+and \fI--use-gl3w\fR
+options are mutually exclusive.
+
+
+.TP
+.B --use-wxgl
+Force use of the wxGL library. If this option is used, then
+wxWidgets and the \fIwx/glcanvas.h\fR header must be installed somewhere
+in the system include directories or in directories
+specified with \fI--include-dir\fR.
+
+.TP
+.B --no-examples
+Do not build the examples and the textures.
+
+.TP
+.B --screenshots
+Also make screenshots from the example applications
+for the documentation.  This is still experimental
+and currently works only with \fIGL3/gl3.h\fR + \fBGLX\fR.
+
+.TP
+.B --framedump
+Build the examples in a mode where the individual
+frames have fixed timing and are dumped into separate
+files which can be later encoded into a video sequence.
+This is still experimental and currently works only
+with \fIGL3/gl3.h\fR + \fBGLX\fR.
+
+.TP
+.B --no-docs
+Do not build and install the documentation.
+
+.TP
+.B --quiet
+Do not print regular messages, errors are still
+printed to stderr. Also any \fBcmake\fR output
+is still printed.
+
+.TP
+.B --build-and-install
+If the configuration process is successful, also
+run the commands to build and install OGLplus
+automatically.
+
+.SH "AUTHOR"
+Matus Chochlik, chochlik@gmail.com
+
+
+.SH "COPYRIGHT"
+Copyright (c) 2008, 2009, 2010, 2011, 2012 Matus Chochlik
+.PP
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the Boost Software License, Version 1.0.
+(See a copy at http://www.boost.org/LICENSE_1_0.txt)
+

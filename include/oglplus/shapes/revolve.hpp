@@ -1,0 +1,426 @@
+/**
+ *  @file oglplus/shapes/revolve.hpp
+ *  @brief Shape builders revolving splines in full circles
+ *
+ *  @author Matus Chochlik
+ *
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#pragma once
+#ifndef OGLPLUS_SHAPES_REVOLVE_1107121519_HPP
+#define OGLPLUS_SHAPES_REVOLVE_1107121519_HPP
+
+#include <oglplus/shapes/draw.hpp>
+#include <oglplus/face_mode.hpp>
+
+#include <oglplus/shapes/vert_attr_info.hpp>
+
+#include <oglplus/vector.hpp>
+#include <oglplus/matrix.hpp>
+
+#include <cmath>
+
+namespace oglplus {
+namespace shapes {
+
+/// Class providing attributes and instructions for rendering of a revolved shape
+template <typename Type>
+class RevolveY
+ : public DrawingInstructionWriter
+{
+private:
+	const std::vector<Type> _sections, _section_factors;
+	const unsigned _rings;
+
+	const std::vector<Vector<Type, 3>> _positions_0, _positions_1;
+	const std::vector<Vector<Type, 3>> _normals_0, _normals_1;
+	const std::vector<Vector<Type, 3>> _tex_coords_0, _tex_coords_1;
+
+	Type _radius;
+
+	static Vector<Type, 3> _mix(
+		const Vector<Type, 3>& a,
+		const Vector<Type, 3>& b,
+		Type factor
+	)
+	{
+		if(factor < Type(0)) factor = Type(0);
+		if(factor > Type(1)) factor = Type(1);
+		return a * (Type(1) - factor) + b * factor;
+	}
+
+	Vector<Type, 3> _get_position(unsigned ring, unsigned section) const
+	{
+		return _mix(
+			_positions_0[ring],
+			_positions_1[ring],
+			_section_factors[section]
+		);
+	}
+
+	Vector<Type, 3> _get_normal(unsigned ring, unsigned section) const
+	{
+		return _mix(
+			_normals_0[ring],
+			_normals_1[ring],
+			_section_factors[section]
+		);
+	}
+
+	Vector<Type, 3> _get_tex_coord(unsigned ring, unsigned section) const
+	{
+		return _mix(
+			_tex_coords_0[ring],
+			_tex_coords_1[ring],
+			_section_factors[section]
+		);
+	}
+
+	static std::vector<Type> _make_default_sections(unsigned sections)
+	{
+		std::vector<Type> result(sections + 1);
+		const Type s_step = Type(1) / Type(sections);
+		Type s = Type(0);
+		for(auto i=result.begin(), e=result.end(); i!=e; ++i, s+=s_step)
+			*i = s;
+		return result;
+	}
+
+	static std::vector<Vector<Type, 3>> _calculate_normals(
+		const std::vector<Vector<Type, 3>>& pos,
+		const std::vector<Vector<Type, 3>>& nml
+	)
+	{
+		if(!nml.empty())
+		{
+			assert(pos.size() == nml.size());
+			return nml;
+		}
+		std::vector<Vector<Type, 3>> result(pos.size());
+
+		const unsigned n = result.size()-1;
+		const Vec3f tgnt(0.0, 0.0, -1.0);
+
+		result[0] = Normalized(Cross(tgnt, pos[1] - pos[0]));
+		for(unsigned i=1; i!=n; ++i)
+			result[i] = Normalized(Cross(tgnt, pos[i+1]-pos[i-1]));
+		result[n] = Normalized(Cross(tgnt, pos[n] - pos[n-1]));
+		return result;
+	}
+
+	void _check(void)
+	{
+		assert(_rings > 1);
+		assert(_sections.size() > 2);
+		assert(_sections.size() == _section_factors.size());
+
+		assert(_positions_0.size() == _rings);
+		assert(_positions_1.size() == _rings);
+		assert(_normals_0.size() == _rings);
+		assert(_normals_1.size() == _rings);
+		assert(_tex_coords_0.size() == _rings);
+		assert(_tex_coords_1.size() == _rings);
+	}
+
+	void _calc_radius(void)
+	{
+		_radius = Type(0);
+		Type l;
+		for(unsigned i=0; i!=_rings; ++i)
+		{
+			l = Length(_positions_0[i]);
+			if(_radius < l) _radius = l;
+			l = Length(_positions_1[i]);
+			if(_radius < l) _radius = l;
+		}
+	}
+public:
+	/// Creates a shape by revolving curve approximation around the y-axis
+	RevolveY(
+		unsigned sections,
+		const std::vector<Vector<Type, 3>>& positions,
+		const std::vector<Vector<Type, 3>>& normals,
+		const std::vector<Vector<Type, 3>>& tex_coords
+	): _sections(_make_default_sections(sections))
+	 , _section_factors(_sections.size(), Type(0))
+	 , _rings(positions.size())
+	 , _positions_0(positions)
+	 , _positions_1(_positions_0)
+	 , _normals_0(_calculate_normals(_positions_0, normals))
+	 , _normals_1(_normals_0)
+	 , _tex_coords_0(tex_coords)
+	 , _tex_coords_1(_tex_coords_0)
+	{
+		_check();
+		_calc_radius();
+	}
+
+	/// Creates a shape by revolving curve approximation around the y-axis
+	RevolveY(
+		const std::vector<Type>& section_factors,
+		const std::vector<Vector<Type, 3>>& positions_0,
+		const std::vector<Vector<Type, 3>>& positions_1,
+		const std::vector<Vector<Type, 3>>& normals_0,
+		const std::vector<Vector<Type, 3>>& normals_1,
+		const std::vector<Vector<Type, 3>>& tex_coords_0,
+		const std::vector<Vector<Type, 3>>& tex_coords_1
+	): _sections(_make_default_sections(section_factors.size()-1))
+	 , _section_factors(section_factors)
+	 , _rings(positions_0.size())
+	 , _positions_0(positions_0)
+	 , _positions_1(positions_1)
+	 , _normals_0(_calculate_normals(_positions_0, normals_0))
+	 , _normals_1(_calculate_normals(_positions_1, normals_1))
+	 , _tex_coords_0(tex_coords_0)
+	 , _tex_coords_1(tex_coords_1)
+	{
+		_check();
+		_calc_radius();
+	}
+
+	/// Returns the winding direction of faces
+	FaceOrientation FaceWinding(void) const
+	{
+		return FaceOrientation::CW;
+	}
+
+	/// Makes vertex coordinates and returns number of values per vertex
+	template <typename T>
+	GLuint Positions(std::vector<T>& dest) const
+	{
+		dest.resize(_rings * _sections.size() * 3);
+		unsigned k = 0;
+		//
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		{
+			const auto angle = FullCircles(_sections[si]);
+			const auto mat = ModelMatrix<Type>::RotationY(angle);
+
+			for(unsigned r=0; r!=_rings; ++r)
+			{
+				const Vector<Type, 4> in(_get_position(r, si), 1);
+				const Vector<Type, 4> out = mat * in;
+
+				dest[k++] = T(out.x());
+				dest[k++] = T(out.y());
+				dest[k++] = T(out.z());
+			}
+		}
+		assert(k == dest.size());
+		return 3;
+	}
+
+	/// Makes vertex normals and returns number of values per vertex
+	template <typename T>
+	GLuint Normals(std::vector<T>& dest) const
+	{
+		dest.resize(_rings * _sections.size() * 3);
+		unsigned k = 0;
+		//
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		{
+			const auto angle = FullCircles(_sections[si]);
+			const auto mat = ModelMatrix<Type>::RotationY(angle);
+
+			for(unsigned r=0; r!=_rings; ++r)
+			{
+				const Vector<Type, 4> in(_get_normal(r, si), 0);
+				const Vector<Type, 4> out = mat * in;
+
+				dest[k++] = T(out.x());
+				dest[k++] = T(out.y());
+				dest[k++] = T(out.z());
+			}
+		}
+		assert(k == dest.size());
+		return 3;
+	}
+
+	/// Makes vertex tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Tangents(std::vector<T>& dest) const
+	{
+		dest.resize(_rings * _sections.size() * 3);
+		unsigned k = 0;
+
+		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
+
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		{
+			const auto angle = FullCircles(_sections[si]);
+			const auto mat = ModelMatrix<Type>::RotationY(angle);
+			const auto out = mat * in;
+
+			for(unsigned r=0; r!=_rings; ++r)
+			{
+				dest[k++] = T(out.x());
+				dest[k++] = T(out.y());
+				dest[k++] = T(out.z());
+			}
+		}
+		assert(k == dest.size());
+		return 3;
+	}
+
+	/// Makes vertex bi-tangents and returns number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		dest.resize(_rings * _sections.size() * 3);
+		unsigned k = 0;
+
+		const Vector<Type, 3> tgt(0.0, 0.0, -1.0);
+
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		{
+			const auto angle = FullCircles(_sections[si]);
+			const auto mat = ModelMatrix<Type>::RotationY(angle);
+
+			for(unsigned r=0; r!=_rings; ++r)
+			{
+				const Vector<Type, 3> nml(_get_normal(r, si));
+				const Vector<Type, 4> in(Cross(nml, tgt), 0);
+				const auto out = mat * in;
+
+				dest[k++] = T(out.x());
+				dest[k++] = T(out.y());
+				dest[k++] = T(out.z());
+			}
+		}
+		assert(k == dest.size());
+		return 3;
+	}
+
+	/// Makes texture coordinates and returns number of values per vertex
+	template <typename T>
+	GLuint TexCoordinates(std::vector<T>& dest) const
+	{
+		dest.resize(_rings * _sections.size() * 3);
+		unsigned k = 0;
+		//
+		const Vector<Type, 4> in(0.0, 0.0, -1.0, 0.0);
+
+		for(unsigned si=0, sn=_sections.size(); si!=sn; ++si)
+		{
+			const T u_mult = _sections[si];
+
+			for(unsigned r=0; r!=_rings; ++r)
+			{
+				auto tc = _get_tex_coord(r, si);
+				dest[k++] = T(tc.x()*u_mult);
+				dest[k++] = T(tc.y());
+				dest[k++] = T(tc.z());
+			}
+		}
+		assert(k == dest.size());
+		return 3;
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Vertex attribute information for this shape builder
+	/** Torus provides build functions for the following named
+	 *  vertex attributes:
+	 *  - "Position" the vertex positions (Positions)
+	 *  - "Normal" the vertex normal vectors (Normals)
+	 *  - "Tangent" the vertex tangent vector (Tangents)
+	 *  - "Bitangent" the vertex bi-tangent vector (Bitangents)
+	 *  - "TexCoord" the ST texture coordinates (TexCoordinates)
+	 */
+	typedef VertexAttribsInfo<RevolveY> VertexAttribs;
+#else
+	typedef VertexAttribsInfo<
+		RevolveY,
+		std::tuple<
+			VertexPositionsTag,
+			VertexNormalsTag,
+			VertexTangentsTag,
+			VertexBitangentsTag,
+			VertexTexCoordinatesTag
+		>
+	> VertexAttribs;
+#endif
+
+	/// Queries the bounding sphere coordinates and dimensions
+	template <typename T>
+	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	{
+		center_and_radius = Vector<T, 4>(
+			T(0),
+			T(0),
+			T(0),
+			T(_radius)
+		);
+	}
+
+	/// The type of index container returned by Indices()
+	typedef std::vector<GLuint> IndexArray;
+
+	/// Returns element indices that are used with the drawing instructions
+	IndexArray Indices(void) const
+	{
+		const unsigned sn = _sections.size() - 1;
+		const unsigned n = sn * (2 * _rings + 1);
+		//
+		IndexArray indices(n);
+		unsigned k = 0;
+		unsigned offs = 0;
+		// the triangle strips
+		for(unsigned s=0; s!=sn; ++s)
+		{
+			for(unsigned r=0; r!=_rings; ++r)
+			{
+				indices[k++] = offs + r + _rings;
+				indices[k++] = offs + r;
+			}
+			// primitive restart index
+			indices[k++] = n;
+			offs += _rings;
+		}
+		assert(k == indices.size());
+		//
+		// return the indices
+		return indices;
+	}
+
+	/// Returns element indices that are used with the drawing instructions
+/* TODO
+	IndexArray IndicesWithAdjacency(void) const
+	{
+	}
+*/
+
+	/// Returns the instructions for rendering
+	DrawingInstructions Instructions(void) const
+	{
+		auto instructions = this->MakeInstructions();
+		const unsigned sn = _sections.size() - 1;
+		const unsigned n = sn * (2 * _rings + 1);
+
+		DrawOperation operation;
+		operation.method = DrawOperation::Method::DrawElements;
+		operation.mode = PrimitiveType::TriangleStrip;
+		operation.first = GLuint(0);
+		operation.count = GLuint(n);
+		operation.restart_index = GLuint(n);
+		operation.phase = 0;
+
+		this->AddInstruction(instructions, operation);
+
+		return instructions;
+	}
+
+	/// Returns the instructions for rendering
+/* TODO
+	DrawingInstructions InstructionsWithAdjacency(void) const
+	{
+	}
+*/
+};
+
+} // shapes
+} // oglplus
+
+#endif // include guard

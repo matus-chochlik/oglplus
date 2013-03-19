@@ -1,0 +1,152 @@
+CONFIGURE(1)                                                      CONFIGURE(1)
+
+
+
+NNAAMMEE
+       configure - Configuration script for the OGLplus library.
+
+SSYYNNOOPPSSIISS
+       ccoonnffiigguurree..sshh [ _o_p_t_i_o_n_s ]
+
+DDEESSCCRRIIPPTTIIOONN
+       This  script  is a more user-friendly way how to invoke the cmake-based
+       build system of OOGGLLpplluuss.
+
+OOPPTTIIOONNSS
+       --hh ----hheellpp
+              Prints this help screen.
+
+
+       ----pprreeffiixx <<PPAATTHH>>
+              Specifies the installation prefix. The path must be absolute  or
+              relative to the curren working directory from which configure is
+              invoked.
+
+
+       ----bbuuiilldd--ddiirr <<PPAATTHH>>
+              Specifies the work directory for ccmmaakkee, where the cached  files,
+              generated  makefiles  and  the  intermediate build files will be
+              placed [_build].  The specified path must be either absolute  or
+              relative  to  the current working directory from which configure
+              is invoked.
+
+
+       ----iinncclluuddee--ddiirr <<PPAATTHH>>
+              Specifies additional directory to search when looking for exter-
+              nal  headers  like  _G_L_/_g_l_e_w_._h  or _G_L_3_/_g_l_3_._h.  The specified path
+              must be absolute or relative to the  current  working  directory
+              from  which  configure is invoked.  This option may be specified
+              multiple times to add multiple directories to the search list.
+
+
+       ----lliibbrraarryy--ddiirr <<PPAATTHH>>
+              Specifies additional directory to search when looking  for  com-
+              piled  libraries  like  GGLL, GGLLEEWW, gglluutt, ppnngg, etc.  The specified
+              path must be absolute or relative to the current working  direc-
+              tory from which configure is invoked.  This option may be speci-
+              fied multiple times to add multiple directories  to  the  search
+              list.
+
+
+       -- ----ccmmaakkee
+              Everything  following this option will be passed to ccmmaakkee verba-
+              tim.
+
+
+       ----ddrryy--rruunn
+              Only print the commands that would be executed without  actually
+              executing them.
+
+
+       ----ffrroomm--ssccrraattcchh
+              Remove  any  previous  cached and intermediate files and run the
+              configuration process from scratch.
+
+
+       ----uussee--ggll33--hh
+              Force use of the GL3/gl3.h header. If this option is used,  then
+              this  header  must  be installed somewhere in the system include
+              directories or in directories specified with _-_-_i_n_c_l_u_d_e_-_d_i_r.  The
+              _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h,   _-_-_u_s_e_-_g_l_3_-_h,   _-_-_u_s_e_-_g_l_e_w   and  _-_-_u_s_e_-_g_l_3_w
+              options are mutually exclusive.
+
+
+       ----uussee--ggllccoorreeaarrbb--hh
+              Force use of the GL/glcorearb.h header. If this option is  used,
+              then  this  header  must  be  installed  somewhere in the system
+              include directories or in directories specified with  _-_-_i_n_c_l_u_d_e_-
+              _d_i_r.   The _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w and _-_-_u_s_e_-
+              _g_l_3_w options are mutually exclusive.
+
+
+       ----uussee--gglleeww
+              Force use of the GLEW library. If this option is used, then GLEW
+              and the _G_L_/_g_l_e_w_._h header must be installed somewhere in the sys-
+              tem  include  directories  or  in  directories  specified   with
+              _-_-_i_n_c_l_u_d_e_-_d_i_r.   The  _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w
+              and _-_-_u_s_e_-_g_l_3_w options are mutually exclusive.
+
+
+       ----uussee--ggll33ww
+              Force use of the GL3W library. If this option is used, then GL3W
+              and the _G_L_/_g_l_3_w_._h header must be installed somewhere in the sys-
+              tem  include  directories  or  in  directories  specified   with
+              _-_-_i_n_c_l_u_d_e_-_d_i_r.   The  _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w
+              and _-_-_u_s_e_-_g_l_3_w options are mutually exclusive.
+
+
+
+       ----uussee--wwxxggll
+              Force use of the wxGL library. If  this  option  is  used,  then
+              wxWidgets  and  the _w_x_/_g_l_c_a_n_v_a_s_._h header must be installed some-
+              where in the system include directories or in directories speci-
+              fied with _-_-_i_n_c_l_u_d_e_-_d_i_r.
+
+
+       ----nnoo--eexxaammpplleess
+              Do not build the examples and the textures.
+
+
+       ----ssccrreeeennsshhoottss
+              Also make screenshots from the example applications for the doc-
+              umentation.  This is still experimental and currently works only
+              with _G_L_3_/_g_l_3_._h + GGLLXX.
+
+
+       ----ffrraammeedduummpp
+              Build  the  examples  in a mode where the individual frames have
+              fixed timing and are dumped into separate  files  which  can  be
+              later encoded into a video sequence.  This is still experimental
+              and currently works only with _G_L_3_/_g_l_3_._h + GGLLXX.
+
+
+       ----nnoo--ddooccss
+              Do not build and install the documentation.
+
+
+       ----qquuiieett
+              Do not print regular  messages,  errors  are  still  printed  to
+              stderr. Also any ccmmaakkee output is still printed.
+
+
+       ----bbuuiilldd--aanndd--iinnssttaallll
+              If  the  configuration  process is successful, also run the com-
+              mands to build and install OGLplus automatically.
+
+
+AAUUTTHHOORR
+       Matus Chochlik, chochlik@gmail.com
+
+
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (c) 2008, 2009, 2010, 2011, 2012 Matus Chochlik
+
+       Permission is granted to copy, distribute and/or modify  this  document
+       under  the  terms  of  the Boost Software License, Version 1.0.  (See a
+       copy at http://www.boost.org/LICENSE_1_0.txt)
+
+
+
+
+Configuration script for OGLplus. 2012-08-12                      CONFIGURE(1)
