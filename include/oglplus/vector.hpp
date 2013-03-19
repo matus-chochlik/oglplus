@@ -14,6 +14,7 @@
 #define OGLPLUS_VECTOR_1107121519_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/fwd.hpp>
 #include <cassert>
 #include <cmath>
 #include <cstddef>
@@ -88,7 +89,7 @@ class VectorBase
 protected:
 	T _elem[N];
 
-	VectorBase(std::nullptr_t)
+	VectorBase(oglplus::Nothing)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 

@@ -25,7 +25,7 @@ void SpectraDocumentFrame::SetStatus(const wxString& status_text)
 void SpectraDocumentFrame::InitMainMenu(void)
 {
 	wxMenu* file_menu = new wxMenu();
-	file_menu->Append(wxID_ADD);
+	file_menu->Append(wxID_ADD, wxGetTranslation(wxT("New &view")));
 	file_menu->AppendSeparator();
 	file_menu->Append(wxID_CLOSE);
 
@@ -345,8 +345,8 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 		(wxEvtHandler*)this,
 		(wxWindow*)main_panel
 	)
-), document_vis(nullptr)
- , renderer(nullptr)
+), document_vis()
+ , renderer()
  , idle_call_count(0)
 {
 	assert(gl_canvas);

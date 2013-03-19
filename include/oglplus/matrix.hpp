@@ -331,7 +331,7 @@ protected:
 	}
 
 	// No initialization
-	Matrix(std::nullptr_t)
+	Matrix(oglplus::Nothing)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
@@ -900,7 +900,7 @@ public:
 
 	ModelMatrix(_Translation, T dx, T dy, T dz)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		InitMatrix4x4(
 			*this,
@@ -950,7 +950,7 @@ public:
 
 	ModelMatrix(_Scale, T sx, T sy, T sz)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		InitMatrix4x4(
 			*this,
@@ -972,7 +972,7 @@ public:
 
 	ModelMatrix(_Reflection, bool rx, bool ry, bool rz)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		const T _rx = rx ?-T(1):T(1);
 		const T _ry = ry ?-T(1):T(1);
@@ -999,7 +999,7 @@ public:
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
 		OGLPLUS_NOEXCEPT(Sin(angle) - Cos(angle))
-	): Base(nullptr)
+	): Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
@@ -1028,7 +1028,7 @@ public:
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
 		OGLPLUS_NOEXCEPT(Sin(angle) - Cos(angle))
-	): Base(nullptr)
+	): Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
@@ -1057,7 +1057,7 @@ public:
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
 		OGLPLUS_NOEXCEPT(Sin(angle) - Cos(angle))
-	): Base(nullptr)
+	): Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(angle);
 		const T sinx = Sin(angle);
@@ -1086,7 +1086,7 @@ public:
 	OGLPLUS_NOEXCEPT(
 		OGLPLUS_NOEXCEPT(std::declval<T&>() = std::declval<T>()) &&
 		OGLPLUS_NOEXCEPT(Sin(angle) - Cos(angle))
-	): Base(nullptr)
+	): Base(oglplus::Nothing())
 	{
 		const Vector<T, 3> a = Normalized(axis);
 		const T sf = Sin(angle);
@@ -1174,7 +1174,7 @@ public:
 		T y_top,
 		T z_near,
 		T z_far
-	): Base(nullptr)
+	): Base(oglplus::Nothing())
 	{
 		T m00 = (T(2) * z_near) / (x_right - x_left);
 		T m11 = (T(2) * z_near) / (y_top - y_bottom);
@@ -1287,7 +1287,7 @@ public:
 		T y_top,
 		T z_near,
 		T z_far
-	): Base(nullptr)
+	): Base(oglplus::Nothing())
 	{
 		T m00 =  T(2) / (x_right - x_left);
 		T m11 =  T(2) / (y_top - y_bottom);
@@ -1398,7 +1398,7 @@ public:
 		_LookingAt,
 		const Vector<T, 3>& eye,
 		const Vector<T, 3>& target
-	): Base(nullptr)
+	): Base(oglplus::Nothing())
 	{
 		assert(eye != target);
 		Vector<T, 3> z = Normalized(eye - target);
@@ -1490,7 +1490,7 @@ public:
 	struct _Pitch { };
 
 	CameraMatrix(_Pitch, Angle<T> angle)
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
@@ -1517,7 +1517,7 @@ public:
 	struct _Yaw { };
 
 	CameraMatrix(_Yaw, Angle<T> angle)
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);
@@ -1544,7 +1544,7 @@ public:
 	struct _Roll { };
 
 	CameraMatrix(_Roll, Angle<T> angle)
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(-angle);
 		const T sinx = Sin(-angle);

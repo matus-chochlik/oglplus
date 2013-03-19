@@ -43,7 +43,7 @@ public:
 
 	Vector(T v0, T v1, T v2, T v3)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		this->_elem[0] = v0;
 		this->_elem[1] = v1;
@@ -53,7 +53,7 @@ public:
 
 	Vector(const Vector<T, 1>& v, T v1, T v2, T v3)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		this->_elem[0] = v[0];
 		this->_elem[1] = v1;
@@ -63,7 +63,7 @@ public:
 
 	Vector(const Vector<T, 2>& v, T v2, T v3)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		this->_elem[0] = v[0];
 		this->_elem[1] = v[1];
@@ -73,7 +73,7 @@ public:
 
 	Vector(const Vector<T, 3>& v, T v3)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		this->_elem[0] = v[0];
 		this->_elem[1] = v[1];

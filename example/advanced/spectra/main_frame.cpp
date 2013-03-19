@@ -280,15 +280,21 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 	try
 	{
 		//wxString doc_path(wxT("TODO: get document path"));
+		struct TestSignal
+		{
+			float operator()(float x) const
+			{
+				return sin(3.1415*10.0*(sin(x)+2.0+x*x))*
+					std::rand()/float(RAND_MAX)*
+					std::rand()/float(RAND_MAX);
+			}
+		};
+
 		StartCoroutine(
 			std::make_shared<SpectraMainFrameDocumentLoader>(
 				this,
 				SpectraOpenTestDoc(
-					[](float x) -> float {
-						return sin(3.1415*10.0*(sin(x)+2.0+x*x))*
-							std::rand()/float(RAND_MAX)*
-							std::rand()/float(RAND_MAX);
-					},
+					TestSignal(),
 					11000,
 					256,
 					4.71
@@ -434,9 +440,9 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 		wxDefaultSize
 	)
 ), gl_context(tmp_canvas)
- , api_init(nullptr)
- , shared_objects(nullptr)
- , coroutine_exec(nullptr)
+ , api_init()
+ , shared_objects()
+ , coroutine_exec()
 {
 	InitMainMenu();
 	InitComponents();

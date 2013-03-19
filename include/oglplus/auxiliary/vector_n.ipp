@@ -191,7 +191,7 @@ public:
 	template <typename ... P>
 	Vector(T v0, T v1, P ... vn)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		static_assert(
 			2+sizeof...(P) == N,
@@ -209,7 +209,7 @@ public:
 	template <typename ... P>
 	Vector(const Vector<T, N-1-sizeof...(P)>& a, T v, P ... p)
 	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
-	 : Base(nullptr)
+	 : Base(oglplus::Nothing())
 	{
 		const std::size_t M = N-1-sizeof...(P);
 		for(std::size_t i=0; i!=M; ++i)
