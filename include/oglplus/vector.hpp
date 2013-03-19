@@ -495,7 +495,7 @@ inline typename std::enable_if<
 >::type operator * (V v, const Vector<T, N>& a)
 OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<V>()) * std::declval<T>())
 {
-	return Multiplied(a, v);
+	return Multiplied(a, T(v));
 }
 
 
