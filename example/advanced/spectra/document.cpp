@@ -48,6 +48,9 @@ public:
 
 	wxString Name(void) const;
 
+	std::size_t SpectrumRowsPerLoadHint(void) const;
+
+
 	std::size_t QuerySignalSamples(
 		float* buffer,
 		std::size_t bufsize,
@@ -110,6 +113,11 @@ float SpectraTestDocument::MaxTime(void) const
 wxString SpectraTestDocument::Name(void) const
 {
 	return wxT("Test document");
+}
+
+std::size_t SpectraTestDocument::SpectrumRowsPerLoadHint(void) const
+{
+	return 256;
 }
 
 std::size_t SpectraTestDocument::QuerySignalSamples(

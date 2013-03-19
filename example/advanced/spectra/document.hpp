@@ -36,6 +36,8 @@ struct SpectraDocument
 
 	virtual wxString Name(void) const = 0;
 
+	virtual std::size_t SpectrumRowsPerLoadHint(void) const = 0;
+
 	virtual std::size_t QuerySignalSamples(
 		float* buffer,
 		std::size_t bufsize,

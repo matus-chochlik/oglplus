@@ -23,6 +23,7 @@
 #include <wx/glcanvas.h>
 
 #include <memory>
+#include <set>
 
 class SpectraMainFrame;
 class SpectraVisDataUploader;
@@ -43,12 +44,17 @@ private:
 	SpectraApp& parent_app;
 	SpectraMainFrame* main_frame;
 
+	float selected_time;
+
 	SpectraGLContext gl_context;
+	std::shared_ptr<std::set<wxGLCanvas*>> gl_canvases;
 
 	std::shared_ptr<SpectraDocument> document;
 
 	oglplus::Buffer spectrum_data;
 	oglplus::Texture spectrum_tex;
+
+	std::size_t signal_samples_per_grid;
 
 	std::weak_ptr<SpectraVisDataUploader> uploader_ref;
 public:
@@ -61,6 +67,9 @@ public:
 	);
 
 	~SpectraVisualisation(void);
+
+	void AddCanvas(wxGLCanvas*);
+	void RemoveCanvas(wxGLCanvas*);
 
 	bool FinishLoading(void);
 
@@ -79,6 +88,10 @@ public:
 	std::size_t SignalSamplesPerGridPatch(void) const;
 
 	std::size_t GridSamples(void) const;
+
+	void SelectedTime(float time);
+
+	float SelectedTime(void) const;
 };
 
 #endif // include guard

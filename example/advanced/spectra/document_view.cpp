@@ -295,6 +295,11 @@ void SpectraDocumentView::RecalcTransf(void)
 	inv_view_matrix = Inverse(projection_matrix * camera_matrix);
 }
 
+float SpectraDocumentView::TimeStretch(void) const
+{
+	return stretch_x;
+}
+
 const oglplus::Mat4f& SpectraDocumentView::ProjectionMatrix(void) const
 {
 	return projection_matrix;

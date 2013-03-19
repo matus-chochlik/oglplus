@@ -14,6 +14,7 @@
 #include "document_frame.hpp"
 #include "document.hpp"
 #include "default_renderer.hpp"
+#include "visualisation.hpp"
 
 #include <wx/stockitem.h>
 #include <wx/aboutdlg.h>
@@ -319,18 +320,85 @@ void SpectraMainFrame::StartCoroutine(
 
 void SpectraMainFrame::OpenLoadedDocument(const std::shared_ptr<SpectraDocument>& document)
 {
-	this->doc_frames.insert(
+	struct DocVisMaker
+	{
+		const std::shared_ptr<SpectraDocument>& doc_ref;
+
+		std::shared_ptr<SpectraVisualisation> operator()(
+			SpectraApp& parent_app,
+			SpectraMainFrame* main_frame,
+			wxGLCanvas* tmp_canvas,
+			wxGLContext* parent_context
+		) const
+		{
+			return std::make_shared<SpectraVisualisation>(
+				parent_app,
+				main_frame,
+				tmp_canvas,
+				parent_context,
+				doc_ref
+			);
+		}
+	} doc_vis_maker = { document };
+
+	RegisterDocumentFrame(
 		new SpectraDocumentFrame(
 			this->parent_app,
 			this,
 			&this->gl_context,
-			document,
-			SpectraMakeDefaultRenderer
+			doc_vis_maker,
+			LazyRendererPicker()
 		)
 	);
 }
 
-void SpectraMainFrame::ForgetDocument(SpectraDocumentFrame* doc_frame)
+std::shared_ptr<SpectraRenderer> SpectraMainFrame::PickRenderer(
+	SpectraApp& parent_app,
+	SpectraMainFrame* main_frame,
+	const std::shared_ptr<SpectraVisualisation>& doc_vis,
+	wxGLCanvas* canvas
+)
+{
+	assert(main_frame == this);
+	// TODO support for other renderers
+	return SpectraMakeDefaultRenderer(
+		parent_app,
+		main_frame->shared_objects,
+		doc_vis,
+		canvas
+	);
+}
+
+SpectraMainFrame::RendererGetter SpectraMainFrame::LazyRendererPicker(void)
+{
+	struct RendererPicker
+	{
+		std::shared_ptr<SpectraRenderer> operator()(
+			SpectraApp& parent_app,
+			SpectraMainFrame* main_frame,
+			const std::shared_ptr<SpectraVisualisation>& doc_vis,
+			wxGLCanvas* canvas
+		)
+		{
+			assert(main_frame);
+			return main_frame->PickRenderer(
+				parent_app,
+				main_frame,
+				doc_vis,
+				canvas
+			);
+		}
+	};
+
+	return RendererPicker();
+}
+
+void SpectraMainFrame::RegisterDocumentFrame(SpectraDocumentFrame* doc_frame)
+{
+	doc_frames.insert(doc_frame);
+}
+
+void SpectraMainFrame::ForgetDocumentFrame(SpectraDocumentFrame* doc_frame)
 {
 	doc_frames.erase(doc_frame);
 }

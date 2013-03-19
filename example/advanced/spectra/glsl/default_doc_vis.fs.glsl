@@ -9,11 +9,16 @@ float SpectrumValue(vec3 coord);
 
 in vec3 vertTexCoord;
 in float vertValue;
+in float vertHighlight;
 
 out vec3 fragColor;
 
 void main(void)
 {
-	fragColor = vec3(vertTexCoord.y*0.1, vertValue, -vertValue);
+	fragColor = mix(
+		vec3(vertTexCoord.y*0.1, vertValue, -vertValue),
+		vec3(1.0, 1.0, 1.0),
+		vertHighlight
+	);
 }
 

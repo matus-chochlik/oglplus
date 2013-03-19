@@ -70,6 +70,8 @@ public:
 	void StretchDomain(GLint new_x, GLint new_y, GLint old_x, GLint old_y);
 	void StretchRange(GLint new_x, GLint new_y, GLint old_x, GLint old_y);
 
+	float TimeStretch(void) const;
+
 	const oglplus::Mat4f& ProjectionMatrix(void) const;
 
 	const oglplus::Mat4f& CameraMatrix(void) const;

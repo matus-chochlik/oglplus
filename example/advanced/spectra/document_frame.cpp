@@ -25,6 +25,8 @@ void SpectraDocumentFrame::SetStatus(const wxString& status_text)
 void SpectraDocumentFrame::InitMainMenu(void)
 {
 	wxMenu* file_menu = new wxMenu();
+	file_menu->Append(wxID_ADD);
+	file_menu->AppendSeparator();
 	file_menu->Append(wxID_CLOSE);
 
 	main_menu->Append(file_menu, wxGetStockLabel(wxID_FILE));
@@ -38,6 +40,11 @@ void SpectraDocumentFrame::ConnectEventHandlers(void)
 		wxID_CLOSE,
 		wxEVT_COMMAND_MENU_SELECTED,
 		wxCommandEventHandler(SpectraDocumentFrame::DoClose)
+	);
+	Connect(
+		wxID_ADD,
+		wxEVT_COMMAND_MENU_SELECTED,
+		wxCommandEventHandler(SpectraDocumentFrame::DoDuplicate)
 	);
 	Connect(
 		wxEVT_CLOSE_WINDOW,
@@ -90,9 +97,37 @@ void SpectraDocumentFrame::DoClose(wxCommandEvent&)
 
 void SpectraDocumentFrame::OnClose(wxCloseEvent&)
 {
-	assert(parent_frame);
-	parent_frame->ForgetDocument(this);
+	assert(main_frame);
+	main_frame->ForgetDocumentFrame(this);
 	Destroy();
+}
+
+void SpectraDocumentFrame::DoDuplicate(wxCommandEvent&)
+{
+	struct DocVisGetter
+	{
+		std::shared_ptr<SpectraVisualisation> doc_vis;
+
+		std::shared_ptr<SpectraVisualisation> operator()(
+			SpectraApp&,
+			SpectraMainFrame*,
+			wxGLCanvas*,
+			wxGLContext*
+		) const
+		{
+			return doc_vis;
+		}
+	} doc_vis_getter = { document_vis };
+
+	main_frame->RegisterDocumentFrame(
+		new SpectraDocumentFrame(
+			parent_app,
+			main_frame,
+			parent_context,
+			doc_vis_getter,
+			main_frame->LazyRendererPicker()
+		)
+	);
 }
 
 void SpectraDocumentFrame::HandleResize(void)
@@ -149,10 +184,10 @@ void SpectraDocumentFrame::HandleMouseMotion(const wxMouseEvent& event)
 	wxSize size = gl_canvas->GetSize();
 	wxPoint new_mouse_position = event.GetPosition();
 
+	int new_x = ClampMouseCoord(new_mouse_position.x, size.GetWidth());
+	int new_y = ClampMouseCoord(new_mouse_position.y, size.GetHeight());
 	if(event.Dragging())
 	{
-		int new_x = ClampMouseCoord(new_mouse_position.x, size.GetWidth());
-		int new_y = ClampMouseCoord(new_mouse_position.y, size.GetHeight());
 		int old_x = ClampMouseCoord(old_mouse_position.x, size.GetWidth());
 		int old_y = ClampMouseCoord(old_mouse_position.y, size.GetHeight());
 
@@ -192,6 +227,21 @@ void SpectraDocumentFrame::HandleMouseMotion(const wxMouseEvent& event)
 				document_view.Orbit(new_x, new_y, old_x, old_y);
 			}
 		}
+	}
+	else
+	{
+		float t = 0.0f;
+		if(event.AltDown())
+		{
+			t = document_view.PickOnWall(new_x, new_y).x();
+		}
+		else
+		{
+			t = document_view.PickOnGround(new_x, new_y).x();
+		}
+		t /= document_view.TimeStretch();
+		SetStatus(wxString::Format(wxGetTranslation(wxT("Time: %f [s]")), t));
+		document_vis->SelectedTime(t);
 	}
 }
 
@@ -269,16 +319,9 @@ void SpectraDocumentFrame::OnIdle(wxIdleEvent&)
 SpectraDocumentFrame::SpectraDocumentFrame(
 	SpectraApp& app,
 	SpectraMainFrame* parent,
-	wxGLContext* parent_context,
-	const std::shared_ptr<SpectraDocument>& doc,
-	const std::function<
-		std::shared_ptr<SpectraRenderer>(
-			SpectraApp&,
-			const std::shared_ptr<SpectraSharedObjects>&,
-			const std::shared_ptr<SpectraVisualisation>&,
-			wxGLCanvas*
-		)
-	>& get_renderer
+	wxGLContext* parent_ctxt,
+	const SpectraDocumentFrame::VisualisationGetter& get_doc_vis,
+	const SpectraDocumentFrame::RendererGetter& get_renderer
 ): wxFrame(
 	(wxWindow*)parent,
 	wxID_ANY,
@@ -286,7 +329,7 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 	wxDefaultPosition,
 	wxDefaultSize
 ), parent_app(app)
- , parent_frame(parent)
+ , main_frame(parent)
  , main_menu(new wxMenuBar())
  , main_panel(
 	new wxPanel(
@@ -296,6 +339,7 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 		wxDefaultSize
 	)
 ), status_bar(new wxStatusBar(this))
+ , parent_context(parent_ctxt)
  , gl_canvas(
 	new SpectraDocumentCanvas(
 		(wxEvtHandler*)this,
@@ -311,18 +355,18 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 	InitComponents();
 	Show();
 
-	document_vis = std::make_shared<SpectraVisualisation>(
+	document_vis = get_doc_vis(
 		parent_app,
-		parent_frame,
+		main_frame,
 		gl_canvas,
-		parent_context,
-		doc
+		parent_context
 	);
 	assert(document_vis);
+	document_vis->AddCanvas(gl_canvas);
 
 	renderer = get_renderer(
 		parent_app,
-		parent_frame->shared_objects,
+		main_frame,
 		document_vis,
 		gl_canvas
 	);
@@ -344,4 +388,5 @@ SpectraDocumentFrame::~SpectraDocumentFrame(void)
 	// are cleaned up properly in case this is the
 	// last reference to this instance of doc. vis.
 	gl_canvas->SetCurrent(document_vis->GLContext());
+	document_vis->RemoveCanvas(gl_canvas);
 }

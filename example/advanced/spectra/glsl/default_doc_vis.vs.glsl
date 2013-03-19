@@ -8,12 +8,14 @@
 float SpectrumValue(vec3 coord);
 
 uniform mat4 TransfMatrix;
+uniform float SelectedTime;
 
 in vec4 Position;
 in vec2 TexCoord;
 
 out vec3 vertTexCoord;
 out float vertValue;
+out float vertHighlight;
 
 void main(void)
 {
@@ -23,5 +25,6 @@ void main(void)
 	OffsPos.y = SpectrumValue(vertTexCoord);
 	gl_Position = TransfMatrix * OffsPos;
 	vertValue = OffsPos.y;
+	vertHighlight = pow(exp(-abs(SelectedTime-OffsPos.x)*250.0), 4.0);
 }
 

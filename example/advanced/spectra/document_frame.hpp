@@ -33,7 +33,7 @@ class SpectraDocumentFrame
 {
 private:
 	SpectraApp& parent_app;
-	SpectraMainFrame* parent_frame;
+	SpectraMainFrame* main_frame;
 
 	wxMenuBar* main_menu;
 
@@ -42,6 +42,7 @@ private:
 	wxStatusBar* status_bar;
 	void SetStatus(const wxString& status_text);
 
+	wxGLContext* parent_context;
 	SpectraDocumentCanvas* gl_canvas;
 
 	std::shared_ptr<SpectraVisualisation> document_vis;
@@ -55,6 +56,8 @@ private:
 
 	void DoClose(wxCommandEvent&);
 	void OnClose(wxCloseEvent&);
+
+	void DoDuplicate(wxCommandEvent&);
 
 	void HandleResize(void);
 	void OnResize(wxSizeEvent& event);
@@ -74,19 +77,30 @@ private:
 public:
 	void OnIdle(wxIdleEvent& event);
 
+	typedef std::function<
+		std::shared_ptr<SpectraVisualisation> (
+			SpectraApp&,
+			SpectraMainFrame*,
+			wxGLCanvas*,
+			wxGLContext*
+		)
+	> VisualisationGetter;
+
+	typedef std::function<
+		std::shared_ptr<SpectraRenderer> (
+			SpectraApp&,
+			SpectraMainFrame*,
+			const std::shared_ptr<SpectraVisualisation>&,
+			wxGLCanvas*
+		)
+	> RendererGetter;
+
 	SpectraDocumentFrame(
 		SpectraApp& app,
 		SpectraMainFrame* parent,
 		wxGLContext* parent_ctxt,
-		const std::shared_ptr<SpectraDocument>& document,
-		const std::function<
-			std::shared_ptr<SpectraRenderer> (
-				SpectraApp&,
-				const std::shared_ptr<SpectraSharedObjects>&,
-				const std::shared_ptr<SpectraVisualisation>&,
-				wxGLCanvas*
-			)
-		>& get_renderer
+		const VisualisationGetter& get_doc_vis,
+		const RendererGetter& get_renderer
 	);
 
 	~SpectraDocumentFrame(void);

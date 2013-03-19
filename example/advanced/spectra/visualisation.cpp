@@ -20,8 +20,11 @@ class SpectraVisDataUploader
  : public SpectraCoroutine
 {
 private:
-	wxGLCanvas* gl_canvas;
 	wxGLContext* gl_context;
+	std::shared_ptr<std::set<wxGLCanvas*>> gl_canvases;
+
+	bool SetCurrent(void);
+
 	std::shared_ptr<SpectraDocument> document;
 
 	std::size_t spectrum_size;
@@ -34,8 +37,8 @@ private:
 	std::vector<GLfloat> data_buf;
 public:
 	SpectraVisDataUploader(
-		wxGLCanvas* canvas,
 		wxGLContext* context,
+		const std::shared_ptr<std::set<wxGLCanvas*>>& canvases,
 		const std::shared_ptr<SpectraDocument>& doc,
 		oglplus::Buffer& spect_data
 	);
@@ -50,19 +53,19 @@ public:
 };
 
 SpectraVisDataUploader::SpectraVisDataUploader(
-	wxGLCanvas* canvas,
 	wxGLContext* context,
+	const std::shared_ptr<std::set<wxGLCanvas*>>& canvases,
 	const std::shared_ptr<SpectraDocument>& doc,
 	oglplus::Buffer& spect_data
-): gl_canvas(canvas)
- , gl_context(context)
+): gl_context(context)
+ , gl_canvases(canvases)
  , document(doc)
  , current_row(0)
- , rows_per_load(256)
+ , rows_per_load(document->SpectrumRowsPerLoadHint())
  , spectrum_data(spect_data)
 {
-	assert(gl_canvas);
 	assert(gl_context);
+	assert(gl_canvases);
 	assert(document);
 
 	spectrum_size = document->SpectrumSize();
@@ -70,11 +73,22 @@ SpectraVisDataUploader::SpectraVisDataUploader(
 
 	data_buf.resize(spectrum_size*rows_per_load);
 
-	gl_canvas->SetCurrent(*gl_context);
+	if(SetCurrent())
+	{
+		std::vector<GLfloat> init_data(spectrum_size*row_count, 0.0f);
+		spectrum_data.Bind(oglplus::Buffer::Target::Texture);
+		oglplus::Buffer::Data(oglplus::Buffer::Target::Texture, init_data);
+	}
+}
 
-	std::vector<GLfloat> init_data(spectrum_size*row_count, 0.0f);
-	spectrum_data.Bind(oglplus::Buffer::Target::Texture);
-	oglplus::Buffer::Data(oglplus::Buffer::Target::Texture, init_data);
+bool SpectraVisDataUploader::SetCurrent(void)
+{
+	assert(gl_canvases);
+	if(gl_canvases->empty()) return false;
+	wxGLCanvas* gl_canvas = *gl_canvases->begin();
+	assert(gl_canvas);
+	gl_canvas->SetCurrent(*gl_context);
+	return true;
 }
 
 wxString SpectraVisDataUploader::Description(void) const
@@ -89,9 +103,8 @@ void SpectraVisDataUploader::Cancel(void)
 
 bool SpectraVisDataUploader::DoWork(void)
 {
-	if(current_row < row_count)
+	if((current_row < row_count) && SetCurrent())
 	{
-		gl_canvas->SetCurrent(*gl_context);
 		spectrum_data.Bind(oglplus::Buffer::Target::Texture);
 		std::size_t n = rows_per_load;
 
@@ -142,13 +155,28 @@ SpectraVisualisation::SpectraVisualisation(
 	const std::shared_ptr<SpectraDocument>& doc
 ): parent_app(app)
  , main_frame(frame)
+ , selected_time(0.0f)
  , gl_context(canvas, parent_ctxt)
+ , gl_canvases(std::make_shared<std::set<wxGLCanvas*>>())
  , document(doc)
+ , signal_samples_per_grid(1)
 {
+	std::size_t sps = Document().SamplesPerSecond();
+	std::size_t max = 4096;
+	if(sps / signal_samples_per_grid > max)
+	{
+		signal_samples_per_grid = 2;
+		while(sps / signal_samples_per_grid > max)
+			signal_samples_per_grid += 2;
+	}
+
+	assert(gl_canvases);
+	gl_canvases->insert(canvas);
+
 	std::shared_ptr<SpectraVisDataUploader> data_uploader(
 		std::make_shared<SpectraVisDataUploader>(
-			canvas,
 			&gl_context,
+			gl_canvases,
 			document,
 			spectrum_data
 		)
@@ -172,6 +200,16 @@ SpectraVisualisation::~SpectraVisualisation(void)
 			data_uploader(uploader_ref.lock());
 		if(data_uploader) data_uploader->Cancel();
 	}
+}
+
+void SpectraVisualisation::AddCanvas(wxGLCanvas* canvas)
+{
+	gl_canvases->insert(canvas);
+}
+
+void SpectraVisualisation::RemoveCanvas(wxGLCanvas* canvas)
+{
+	gl_canvases->erase(canvas);
 }
 
 wxGLContext& SpectraVisualisation::GLContext(void)
@@ -207,11 +245,21 @@ std::size_t SpectraVisualisation::SignalSamplesPerGrid(void) const
 
 std::size_t SpectraVisualisation::SignalSamplesPerGridPatch(void) const
 {
-	return 10; // TODO make this more adaptive
+	return signal_samples_per_grid;
 }
 
 std::size_t SpectraVisualisation::GridSamples(void) const
 {
 	return SignalSamplesPerGrid() / SignalSamplesPerGridPatch();
+}
+
+void SpectraVisualisation::SelectedTime(float time)
+{
+	selected_time = time;
+}
+
+float SpectraVisualisation::SelectedTime(void) const
+{
+	return selected_time;
 }
 

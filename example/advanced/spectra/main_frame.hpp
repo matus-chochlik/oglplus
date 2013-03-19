@@ -28,13 +28,13 @@ class SpectraDocumentFrame;
 class SpectraCoroutine;
 class SpectraCoroutineExecutor;
 class SpectraMainFrameDocumentLoader;
+class SpectraRenderer;
+class SpectraVisualisation;
 
 class SpectraMainFrame
  : public wxFrame
 {
 private:
-	friend class SpectraDocumentFrame;
-
 	SpectraApp& parent_app;
 	wxMenuBar* main_menu;
 
@@ -77,7 +77,26 @@ public:
 
 	void OpenLoadedDocument(const std::shared_ptr<SpectraDocument>&);
 
-	void ForgetDocument(SpectraDocumentFrame*);
+	void RegisterDocumentFrame(SpectraDocumentFrame*);
+	void ForgetDocumentFrame(SpectraDocumentFrame*);
+
+	std::shared_ptr<SpectraRenderer> PickRenderer(
+		SpectraApp& parent_app,
+		SpectraMainFrame* main_frame,
+		const std::shared_ptr<SpectraVisualisation>& doc_vis,
+		wxGLCanvas* canvas
+	);
+
+	typedef std::function<
+		std::shared_ptr<SpectraRenderer> (
+			SpectraApp&,
+			SpectraMainFrame*,
+			const std::shared_ptr<SpectraVisualisation>&,
+			wxGLCanvas*
+		)
+	> RendererGetter;
+
+	RendererGetter LazyRendererPicker(void);
 };
 
 #endif // include guard
