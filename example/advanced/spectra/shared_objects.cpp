@@ -93,8 +93,12 @@ oglplus::Program SpectraSharedObjects::BuildProgram(const char* prog_name)
 	return std::move(prog);
 }
 
-SpectraSharedObjects::SpectraSharedObjects(void)
- : ground_unit_grid(
+SpectraSharedObjects::SpectraSharedObjects(
+	wxGLContext* context,
+	wxGLCanvas* canvas
+): gl_context(context)
+ , gl_canvas(canvas)
+ , ground_unit_grid(
 	oglplus::List("Position").Get(),
 	oglplus::shapes::Grid(
 		oglplus::Vec3f(0.5f, 0.0f, 0.5f),
@@ -114,6 +118,16 @@ SpectraSharedObjects::SpectraSharedObjects(void)
 	)
 )
 {
+}
+
+wxGLContext* SpectraSharedObjects::GLContext(void)
+{
+	return gl_context;
+}
+
+wxGLCanvas* SpectraSharedObjects::GLCanvas(void)
+{
+	return gl_canvas;
 }
 
 const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::GroundUnitGrid(void)
@@ -148,6 +162,26 @@ const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::SpectrumPlane(
 						spectrum_size-1,
 						samples_per_sec-1
 					)
+				)
+			)
+		).first;
+	}
+	return pos->second;
+}
+
+std::shared_ptr<SpectraCalculator> SpectraSharedObjects::SpectrumCalculator(
+	std::size_t spectrum_size
+)
+{
+	spectrum_calculator_map::iterator pos = spectrum_calculators.find(spectrum_size);
+	if(pos == spectrum_calculators.end())
+	{
+		pos = spectrum_calculators.insert(
+			spectrum_calculator_map::value_type(
+				spectrum_size,
+				SpectraGetDefaultSignalTransform(
+					*this,
+					spectrum_size
 				)
 			)
 		).first;

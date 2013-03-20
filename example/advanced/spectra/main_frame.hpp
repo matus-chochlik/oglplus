@@ -41,7 +41,7 @@ private:
 	wxStatusBar* status_bar;
 	void SetStatus(const wxString& status_text);
 
-	wxGLCanvas* tmp_canvas;
+	wxGLCanvas* gl_canvas;
 	wxGLContext gl_context;
 	std::unique_ptr<oglplus::GLAPIInitializer> api_init;
 

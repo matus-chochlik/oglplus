@@ -53,7 +53,10 @@ struct SpectraDocument
 	) = 0;
 };
 
+class SpectraSharedObjects;
+
 extern std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(
+	SpectraSharedObjects& shared_objects,
 	const std::function<float (float)>& signal_func,
 	std::size_t samples_per_second,
 	std::size_t spectrum_size,

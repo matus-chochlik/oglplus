@@ -294,6 +294,7 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 			std::make_shared<SpectraMainFrameDocumentLoader>(
 				this,
 				SpectraOpenTestDoc(
+					*shared_objects,
 					TestSignal(),
 					11000,
 					256,
@@ -333,14 +334,14 @@ void SpectraMainFrame::OpenLoadedDocument(const std::shared_ptr<SpectraDocument>
 		std::shared_ptr<SpectraVisualisation> operator()(
 			SpectraApp& parent_app,
 			SpectraMainFrame* main_frame,
-			wxGLCanvas* tmp_canvas,
+			wxGLCanvas* canvas,
 			wxGLContext* parent_context
 		) const
 		{
 			return std::make_shared<SpectraVisualisation>(
 				parent_app,
 				main_frame,
-				tmp_canvas,
+				canvas,
 				parent_context,
 				doc_ref
 			);
@@ -431,7 +432,7 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 ), parent_app(app)
  , main_menu(new wxMenuBar())
  , status_bar(new wxStatusBar(this))
- , tmp_canvas(
+ , gl_canvas(
 	new wxGLCanvas(
 		(wxWindow*)this,
 		wxID_ANY,
@@ -439,7 +440,7 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 		wxDefaultPosition,
 		wxDefaultSize
 	)
-), gl_context(tmp_canvas)
+), gl_context(gl_canvas)
  , api_init()
  , shared_objects()
  , coroutine_exec()
@@ -455,10 +456,9 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 
 	SetStatus(wxGetTranslation(wxT("Initializing GL"), wxT("Status")));
 
-	gl_context.SetCurrent(*tmp_canvas);
+	gl_context.SetCurrent(*gl_canvas);
 	api_init.reset(new oglplus::GLAPIInitializer());
-	delete tmp_canvas;
-	tmp_canvas = nullptr;
+	gl_canvas->Hide();
 
 	gl_vendor->SetLabel(wxString(
 		(const char*)glGetString(GL_VENDOR),
@@ -479,7 +479,7 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 
 	SetStatus(wxGetTranslation(wxT("Creating shared objects"), wxT("Status")));
 
-	shared_objects = std::make_shared<SpectraSharedObjects>();
+	shared_objects = std::make_shared<SpectraSharedObjects>(&gl_context, gl_canvas);
 
 	SetStatus(wxGetTranslation(wxT("Ready"), wxT("Status")));
 

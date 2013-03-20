@@ -31,6 +31,8 @@ if(wxWidgets_FOUND)
 			renderer.cpp
 			default_renderer.cpp
 			calculator.cpp
+			calculator_cpu.cpp
+			calculator_gpu.cpp
 	)
 
 	target_link_libraries(spectra ${wxWidgets_LIBRARIES})
