@@ -18,6 +18,11 @@ from_scratch=false
 quiet=false
 build_and_install=false
 #
+function temp_file()
+{
+	mktemp -t oglplus-configure.XXXXXXXX
+}
+#
 function echoerror()
 {
 	echo "$@" 1>&2
@@ -243,7 +248,7 @@ fi
 #
 # let cmake dump some system information into a temp file
 # in a form usable by bash
-cmake_info_file=$(mktemp)
+cmake_info_file=temp_file
 cmake --system-information ${oglplus_cmake_options} |
 grep -e "CMAKE_BUILD_TOOL" -e "CMAKE_INSTALL_PREFIX" |
 tr ' ' '=' > ${cmake_info_file}
@@ -313,7 +318,7 @@ then oglplus_cmake_options="'-DCMAKE_INSTALL_PREFIX=${oglplus_prefix}' ${oglplus
 fi
 
 # temporary file where the commands to be executed are stored
-command_file=$(mktemp)
+command_file=temp_file
 # make the configuration commands
 (
 	exec > ${command_file}
@@ -340,7 +345,7 @@ fi
 
 if [ ${configure_result:-0} -eq 0 ]
 then
-	build_script=$(mktemp)
+	build_script=temp_file
 	(
 		echo
 		echo "# Configuration completed successfully."
