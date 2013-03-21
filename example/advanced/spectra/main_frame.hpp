@@ -23,9 +23,9 @@
 #include <memory>
 #include <set>
 
-class SpectraDocument;
+struct SpectraDocument;
+struct SpectraCoroutine;
 class SpectraDocumentFrame;
-class SpectraCoroutine;
 class SpectraCoroutineExecutor;
 class SpectraMainFrameDocumentLoader;
 class SpectraRenderer;

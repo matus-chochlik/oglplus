@@ -35,7 +35,7 @@ if(wxWidgets_FOUND)
 			calculator_gpu.cpp
 	)
 
-	target_link_libraries(spectra ${wxWidgets_LIBRARIES})
+	target_link_libraries(spectra ${wxWidgets_LIBRARIES} ${OGLPLUS_GL_LIBS})
 	add_dependencies(oglplus-advanced-example-spectra spectra)
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-spectra)
 endif()

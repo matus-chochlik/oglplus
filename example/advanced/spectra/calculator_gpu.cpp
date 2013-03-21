@@ -53,8 +53,7 @@ public:
 	SpectraDefaultGPUMatrixTransf(
 		wxGLContext* context,
 		wxGLCanvas* canvas,
-		std::size_t in_sz,
-		std::size_t out_sz,
+		std::size_t size,
 		const std::string& transf_name,
 		const std::function<
 			std::complex<double>(
@@ -154,8 +153,7 @@ oglplus::Program SpectraDefaultGPUMatrixTransf::MakeTransfProg(void)
 SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
 	wxGLContext* context,
 	wxGLCanvas* canvas,
-	std::size_t in_sz,
-	std::size_t out_sz,
+	std::size_t size,
 	const std::string& transf_name,
 	const std::function<
 		std::complex<double>(
@@ -169,8 +167,8 @@ SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
  , gl_canvas(canvas)
  , max_transforms(4)
  , current_transform(0)
- , in_size(in_sz)
- , out_size(out_sz)
+ , in_size(size)
+ , out_size(size)
  , name(transf_name)
  , transf_prog(MakeTransfProg())
  , prog_input_offs(transf_prog, "InputOffs")
@@ -356,7 +354,6 @@ SpectraGetDefaultGPUFourierTransf(
 	return std::make_shared<SpectraDefaultGPUMatrixTransf>(
 		shared_objects.GLContext(),
 		shared_objects.GLCanvas(),
-		spectrum_size,
 		spectrum_size,
 		"Discrete Complex Fourier Transform",
 		SpectraFourierMatrixGen(spectrum_size, spectrum_size)

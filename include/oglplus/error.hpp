@@ -773,7 +773,7 @@ public:
 class MissingFunction
  : public Error
 { };
-#elif !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_GLFUNC_CHECKS
+#else
 class MissingFunction
  : public Error
 {
