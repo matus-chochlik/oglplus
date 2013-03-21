@@ -490,4 +490,6 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 
 SpectraMainFrame::~SpectraMainFrame(void)
 {
+	gl_context.SetCurrent(*gl_canvas);
+	shared_objects.reset();
 }
