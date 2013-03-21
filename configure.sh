@@ -1,5 +1,5 @@
 #!/bin/bash
-#  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -18,7 +18,7 @@ from_scratch=false
 quiet=false
 build_and_install=false
 #
-function temp_file()
+function oglplus_make_temp_file()
 {
 	mktemp -t oglplus-configure.XXXXXXXX
 }
@@ -248,7 +248,7 @@ fi
 #
 # let cmake dump some system information into a temp file
 # in a form usable by bash
-cmake_info_file=temp_file
+cmake_info_file=$(oglplus_make_temp_file)
 cmake --system-information ${oglplus_cmake_options} |
 grep -e "CMAKE_BUILD_TOOL" -e "CMAKE_INSTALL_PREFIX" |
 tr ' ' '=' > ${cmake_info_file}
@@ -318,7 +318,7 @@ then oglplus_cmake_options="'-DCMAKE_INSTALL_PREFIX=${oglplus_prefix}' ${oglplus
 fi
 
 # temporary file where the commands to be executed are stored
-command_file=temp_file
+command_file=$(oglplus_make_temp_file)
 # make the configuration commands
 (
 	exec > ${command_file}
@@ -345,7 +345,7 @@ fi
 
 if [ ${configure_result:-0} -eq 0 ]
 then
-	build_script=temp_file
+	build_script=$(oglplus_make_temp_file)
 	(
 		echo
 		echo "# Configuration completed successfully."
