@@ -8,7 +8,7 @@ import os, sys, getopt, shutil, subprocess
 
 # initial values for the configuration options
 
-def parse_arguments():
+def get_argument_parser():
 	import argparse
 	import datetime
 
@@ -21,17 +21,30 @@ def parse_arguments():
 			msg = "'%s' is not a valid boolean value" % str(arg)
 			raise argparse.ArgumentTypeError(msg)
 
+	version_file = os.path.join(os.path.dirname(sys.argv[0]), "VERSION")
+	try: version = open(version_file, "r").read().strip()
+	except: version = str("<unknown>")
 
 
 	argparser = argparse.ArgumentParser(
 		prog="configure",
-		description="Configuration script for the OGLplus library",
+		description="""
+			Configuration script for the OGLplus library (version %(version)s)
+		""" % { "version" : version },
 		epilog="""
 			Copyright (c) 2008 - %(year)d Matúš Chochlík.
 			Permission is granted to copy, distribute and/or modify this document
 			under the terms of the Boost Software License, Version 1.0.
 			(See a copy at http://www.boost.org/LICENSE_1_0.txt)
-		""" % {"year": datetime.datetime.now().year}
+		""" % { "year": datetime.datetime.now().year }
+	)
+	argparser.add_argument(
+		"--generate-bash-complete",
+		action="store_true",
+		help="""
+			Generates bash completion script for this configure script and quits.
+			For internal use only.
+		"""
 	)
 	argparser.add_argument(
 		"--prefix",
@@ -362,7 +375,7 @@ def parse_arguments():
 		help="""Everything following this option will be passed to cmake verbatim."""
 	)
 
-	return argparser.parse_args()
+	return argparser
 
 # returns the common valid prefix for the specified paths
 def common_path_prefix(paths):
@@ -371,7 +384,7 @@ def common_path_prefix(paths):
 		if prefix != path:
 			suffix = path[len(prefix):]
 			if not suffix.startswith(os.path.sep):
-				return op.path.dirname(prefix)
+				return os.path.dirname(prefix)
 	return prefix
 
 
@@ -486,11 +499,161 @@ def cmake_system_info(cmake_args):
 
 	return result
 
+#TODO
+def print_bash_complete_script(argparser):
+
+	import argparse
+	import datetime
+
+	year = datetime.datetime.now().year
+	print('#  Copyright 2010-%(year)s Matus Chochlik.' % {"year" : year})
+	print('#  Distributed under the Boost Software License, Version 1.0.')
+	print('#  (See accompanying file #  LICENSE_1_0.txt or copy at')
+	print('#  http://www.boost.org/LICENSE_1_0.txt)')
+	print('#')
+	print('#  Automatically generated file. Do NOT modify manually,')
+	print('#  edit %(self)s instead' % {"self" : os.path.basename(sys.argv[0])})
+	print(str())
+	print('function _configure_oglplus()')
+	print('{')
+	print('	COMPREPLY=()')
+	print('	local curr="${COMP_WORDS[COMP_CWORD]}"')
+	print('	local prev="${COMP_WORDS[COMP_CWORD-1]}"')
+	print(str())
+
+	options_with_path=list()
+	for action in argparser._actions:
+		if action.type == os.path.abspath:
+			options_with_path += action.option_strings
+
+	print('	case "${prev}" in')
+	print('		-h|--help)')
+	print('			return 0;;')
+	print('		%s)' % str("|").join(options_with_path))
+	print('			COMPREPLY=($(compgen -f "${curr}"))')
+	print('			return 0;;')
+
+	for action in argparser._actions:
+		if action.choices is not None:
+			print('		%s)' % str("|").join(action.option_strings))
+			ch = str(" ").join([str(c) for c in action.choices])
+			print('			COMPREPLY=($(compgen -W "%s" -- "${curr}"))' % ch)
+			print('			return 0;;')
+
+	print('		*)')
+	print('	esac')
+	print(str())
+
+	print('	local only_once_opts=" \\')
+	for action in argparser._actions:
+		if type(action) != argparse._AppendAction:
+			print('		%s \\' % str(" ").join(action.option_strings))
+	print('	"')
+	print(str())
+
+	muog_list = list()
+	muog_id = 0
+	for group in argparser._mutually_exclusive_groups:
+		print('	local muog_%d=" \\' % muog_id)
+		for action in group._group_actions:
+			print('		%s \\' % str(" ").join(action.option_strings))
+		print('	"')
+		print(str())
+		muog_list.append('muog_%d' % muog_id)
+		muog_id += 1
+
+	print('	local repeated_opts=" \\')
+	for action in argparser._actions:
+		if type(action) == argparse._AppendAction:
+			print('		%s \\' % str(" ").join(action.option_strings))
+	print('	"')
+	print(str())
+	print('	local opts="${repeated_opts}"')
+	print(str())
+	print('	for opt in ${only_once_opts}')
+	print('	do')
+	print('		local opt_used=false')
+	print('		for pre in ${COMP_WORDS[@]}')
+	print('		do')
+	print('			if [ "${opt}" == "${pre}" ]')
+	print('			then opt_used=true && break')
+	print('			fi')
+	print('		done')
+	print('		if [ "${opt_used}" == "false" ]')
+	print('		then')
+	print('			for muog in "${%s}"' % str('}" "${').join(muog_list))
+	print('			do')
+	print('				local is_muo=false')
+	print('				for muo in ${muog}')
+	print('				do')
+	print('					if [ "${opt}" == "${muo}" ]')
+	print('					then is_muo=true && break')
+	print('					fi')
+	print('				done')
+	print('				if [ "${is_muo}" == "true" ]')
+	print('				then')
+	print('					for pre in ${COMP_WORDS[@]}')
+	print('					do')
+	print('						for muo in ${muog}')
+	print('						do')
+	print('							if [ "${pre}" == "${muo}" ]')
+	print('							then opt_used=true && break')
+	print('							fi')
+	print('						done')
+	print('					done')
+	print('				fi')
+	print('			done')
+	print(str())
+	print('			if [ "${opt_used}" == "false" ]')
+	print('			then opts="${opts} ${opt}"')
+	print('			fi')
+	print('		fi')
+	print('	done')
+	print(str())
+	print('	if [ ${COMP_CWORD} -le 1 ]')
+	print('	then opts="--help ${opts}"')
+	print('	fi')
+	print(str())
+	print('	COMPREPLY=($(compgen -W "${opts}" -- "${curr}"))')
+	print('}')
+	#print('complete -F _configure_oglplus -o nospace ./configure-oglplus')
+	print('complete -F _configure_oglplus ./configure-oglplus')
+
+	#print(dir(argparser))
+	#print("=======")
+	#for x in argparser._actions:
+	#	print(type(x))
+	#	print(x)
+	#	print(str(x.option_strings) + " " + str(x.nargs))
+	#	print(str())
+	#print("=======")
+	#for x in argparser._mutually_exclusive_groups:
+	#	for y in x._group_actions:
+	#		print(y.option_strings)
+	#		print(str())
+	#	print(str())
+	#	print("-------")
+	#print("=======")
+	#for x in argparser._actions:
+	#	print(x)
+	#	print(str())
+	#print("-------")
+	#for x in argparser._actions:
+	#	print(str(x.option_strings) + " " + str(x.nargs) + " " + str(x.type))
+	#	if x.type == os.path.abspath:
+	#		print("PATH")
+
 # the main function
 def main(argv):
 
 	# parse and process the command-line arguments
-	options = parse_arguments()
+	argparser = get_argument_parser()
+	options = argparser.parse_args()
+
+	# if we just wanted to generate the bash completion script
+	if options.generate_bash_complete:
+		print_bash_complete_script(argparser)
+		return 0
 
 	# if we are in quiet mode we may also go to quick mode
 	if options.quiet: options.quick = True
