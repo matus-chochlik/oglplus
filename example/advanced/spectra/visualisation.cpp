@@ -69,7 +69,11 @@ SpectraVisDataUploader::SpectraVisDataUploader(
 	assert(document);
 
 	spectrum_size = document->SpectrumSize();
-	row_count = document->SignalSampleCount()-spectrum_size;
+	row_count = document->SignalSampleCount();
+
+	if(row_count < spectrum_size)
+		row_count = 0;
+	else row_count -= spectrum_size;
 
 	data_buf.resize(spectrum_size*rows_per_load);
 

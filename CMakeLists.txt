@@ -67,6 +67,7 @@ include(config/FindSDL.cmake)
 include(config/FindGLM.cmake)
 include(config/FindPNG.cmake)
 include(config/FindPangoCairo.cmake)
+include(config/FindOpenAL.cmake)
 
 find_package(X11)
 

@@ -43,7 +43,7 @@ struct EnumValueType
 template <typename Enum>
 struct EnumBaseType
 {
-	typedef GLenum Type;
+	typedef unsigned int Type;
 };
 
 // no native strongly typed enums
