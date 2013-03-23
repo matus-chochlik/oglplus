@@ -12,7 +12,7 @@ find_path(
 	NO_DEFAULT_PATH
 )
 # if that didn't work try the system directories
-if(NOT EXISTS ${OPENGL_GL3_H_DIR})
+if((NOT OPENGL_GL3_H_DIR) OR (NOT EXISTS ${OPENGL_GL3_H_DIR}))
 	find_path(OPENGL_GL3_H_DIR GL3/gl3.h)
 endif()
 # if found append it to the include directories
@@ -29,7 +29,7 @@ find_path(
 	NO_DEFAULT_PATH
 )
 # if that didn't work try the system directories
-if(NOT EXISTS ${OPENGL_GLCOREARB_H_DIR})
+if((NOT OPENGL_GLCOREARB_H_DIR) OR (NOT EXISTS ${OPENGL_GLCOREARB_H_DIR}))
 	find_path(OPENGL_GLCOREARB_H_DIR GL/glcorearb.h)
 endif()
 #
