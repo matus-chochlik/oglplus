@@ -2,7 +2,7 @@
  *  .file oglplus/enums/compare_function_names.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/compare_function.txt' instead.
+ *  edit 'source/enums/oglplus/compare_function.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

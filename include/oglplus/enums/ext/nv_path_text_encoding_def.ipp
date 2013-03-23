@@ -2,7 +2,7 @@
  *  .file oglplus/enums/ext/nv_path_text_encoding_def.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/ext/nv_path_text_encoding.txt' instead.
+ *  edit 'source/enums/oglplus/ext/nv_path_text_encoding.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

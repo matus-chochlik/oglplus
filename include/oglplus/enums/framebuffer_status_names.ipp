@@ -2,7 +2,7 @@
  *  .file oglplus/enums/framebuffer_status_names.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/framebuffer_status.txt' instead.
+ *  edit 'source/enums/oglplus/framebuffer_status.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

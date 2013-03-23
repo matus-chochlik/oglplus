@@ -2,7 +2,7 @@
  *  .file oglplus/enums/provoke_mode_names.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/provoke_mode.txt' instead.
+ *  edit 'source/enums/oglplus/provoke_mode.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

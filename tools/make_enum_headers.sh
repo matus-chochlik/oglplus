@@ -5,7 +5,6 @@
 #
 RootDir=${1:-${PWD}}
 InputDir="${RootDir}/source/enums"
-InputFiles="${InputDir}/*.txt ${InputDir}/ext/*.txt"
 
 function PrintFileHeader()
 {
@@ -43,17 +42,26 @@ function MakeEnumBaseType()
 ShortEnumTempDir=$(mktemp -d)
 
 # Creates the following files:
-#  oglplus/enums/${InputName}.ipp
-#  oglplus/enums/${InputName}_def.ipp
-#  oglplus/enums/${InputName}_names.ipp
+#  ${LibName}/enums/${InputName}.ipp
+#  ${LibName}/enums/${InputName}_def.ipp
+#  ${LibName}/enums/${InputName}_names.ipp
 function MakeEnumHeaders()
 {
+LibPrefixUC="${1}"
+LibNameLC="${2}"
+LibNameUC=${LibNameLC^^}
+local InputFiles="${InputDir}/${LibNameLC}/*.txt"
+shift 2
+for SubDir
+do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
+done
+
 for InputFile in ${InputFiles}
 do
-	InputName="${InputFile#${InputDir}/}"
+	InputName="${InputFile#${InputDir}/${LibNameLC}/}"
 	InputName=${InputName%.txt}
 
-	OutputFile="oglplus/enums/${InputName}.ipp"
+	OutputFile="${LibNameLC}/enums/${InputName}.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
@@ -65,31 +73,31 @@ do
 
 	IFS=':'
 	unset Comma
-	echo "#if OGLPLUS_DOCUMENTATION_ONLY"
+	echo "#if ${LibNameUC}_DOCUMENTATION_ONLY"
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF OGLPLUS_DEF AQ DOCUMENTATION BQ X
+	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ X
 	do
-		if [ "${OGLPLUS_DEF}" == "" ]
-		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
+		if [ "${OXLPLUS_DEF}" == "" ]
+		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
 		fi
 
 		echo "${Comma}"
-		echo "/// ${GL_DEF}${DOCUMENTATION:+: }${DOCUMENTATION}"
-		echo -n "${OGLPLUS_DEF}"
+		echo "/// ${XL_DEF}${DOCUMENTATION:+: }${DOCUMENTATION}"
+		echo -n "${OXLPLUS_DEF}"
 		Comma=","
 	done
 	echo
 	echo
-	echo "#else // !OGLPLUS_DOCUMENTATION_ONLY"
+	echo "#else // !${LibNameUC}_DOCUMENTATION_ONLY"
 	echo
-	echo "#include <oglplus/enums/${InputName}_def.ipp>"
+	echo "#include <${LibNameLC}/enums/${InputName}_def.ipp>"
 	echo
 	echo "#endif"
 	)
 	git add ${OutputPath}
 
 	#
-	OutputFile="oglplus/enums/${InputName}_def.ipp"
+	OutputFile="${LibNameLC}/enums/${InputName}_def.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
@@ -97,47 +105,47 @@ do
 	exec > ${OutputPath}
 	PrintFileHeader ${InputFile} ${OutputFile}
 
-	echo "#ifdef OGLPLUS_LIST_NEEDS_COMMA"
-	echo "# undef OGLPLUS_LIST_NEEDS_COMMA"
+	echo "#ifdef ${LibNameUC}_LIST_NEEDS_COMMA"
+	echo "# undef ${LibNameUC}_LIST_NEEDS_COMMA"
 	echo "#endif"
 	echo
 	#
 	IFS=':'
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF OGLPLUS_DEF X
+	while read XL_DEF OXLPLUS_DEF X
 	do
-		if [ "${OGLPLUS_DEF}" == "" ]
-		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
+		if [ "${OXLPLUS_DEF}" == "" ]
+		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
 		fi
 
-		echo "#if defined GL_${GL_DEF}"
-		echo "# if OGLPLUS_LIST_NEEDS_COMMA"
-		echo "   OGLPLUS_ENUM_CLASS_COMMA"
+		echo "#if defined ${LibPrefixUC}_${XL_DEF}"
+		echo "# if ${LibNameUC}_LIST_NEEDS_COMMA"
+		echo "   ${LibNameUC}_ENUM_CLASS_COMMA"
 		echo "# endif"
 
-		echo "# if defined ${OGLPLUS_DEF}"
-		echo "#  pragma push_macro(\"${OGLPLUS_DEF}\")"
-		echo "#  undef ${OGLPLUS_DEF}"
-		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
-		echo "#  pragma pop_macro(\"${OGLPLUS_DEF}\")"
+		echo "# if defined ${OXLPLUS_DEF}"
+		echo "#  pragma push_macro(\"${OXLPLUS_DEF}\")"
+		echo "#  undef ${OXLPLUS_DEF}"
+		echo "   ${LibNameUC}_ENUM_CLASS_VALUE(${OXLPLUS_DEF}, ${LibPrefixUC}_${XL_DEF})"
+		echo "#  pragma pop_macro(\"${OXLPLUS_DEF}\")"
 		echo "# else"
-		echo "   OGLPLUS_ENUM_CLASS_VALUE(${OGLPLUS_DEF}, GL_${GL_DEF})"
+		echo "   ${LibNameUC}_ENUM_CLASS_VALUE(${OXLPLUS_DEF}, ${LibPrefixUC}_${XL_DEF})"
 		echo "# endif"
 
-		echo "# ifndef OGLPLUS_LIST_NEEDS_COMMA"
-		echo "#  define OGLPLUS_LIST_NEEDS_COMMA 1"
+		echo "# ifndef ${LibNameUC}_LIST_NEEDS_COMMA"
+		echo "#  define ${LibNameUC}_LIST_NEEDS_COMMA 1"
 		echo "# endif"
 		echo "#endif"
 	done
-	echo "#ifdef OGLPLUS_LIST_NEEDS_COMMA"
-	echo "# undef OGLPLUS_LIST_NEEDS_COMMA"
+	echo "#ifdef ${LibNameUC}_LIST_NEEDS_COMMA"
+	echo "# undef ${LibNameUC}_LIST_NEEDS_COMMA"
 	echo "#endif"
 	echo
 	)
 	git add ${OutputPath}
 
 
-	OutputFile="oglplus/enums/${InputName}_names.ipp"
+	OutputFile="${LibNameLC}/enums/${InputName}_names.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
@@ -151,28 +159,28 @@ do
 	EnumClass=$(MakeEnumClass ${InputFile})
 	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 	#
-	echo "OGLPLUS_LIB_FUNC StrLit EnumValueName("
+	echo "${LibNameUC}_LIB_FUNC StrLit EnumValueName("
 	echo "	${EnumClass}*,"
-	echo "	GL${EnumBaseType} value"
-	echo ") OGLPLUS_NOEXCEPT(true)"
-	echo "#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \\"
-	echo "	!defined(OGLPLUS_IMPL_EVN_${EnumClass^^})"
-	echo "#define OGLPLUS_IMPL_EVN_${EnumClass^^}"
+	echo "	${LibPrefixUC}${EnumBaseType} value"
+	echo ") ${LibNameUC}_NOEXCEPT(true)"
+	echo "#if (!${LibNameUC}_LINK_LIBRARY || defined(${LibNameUC}_IMPLEMENTING_LIBRARY)) && \\"
+	echo "	!defined(${LibNameUC}_IMPL_EVN_${EnumClass^^})"
+	echo "#define ${LibNameUC}_IMPL_EVN_${EnumClass^^}"
 	echo "{"
 	echo "switch(value)"
 	echo "{"
 	IFS=':'
 	unset Comma
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF X
+	while read XL_DEF X
 	do
-		echo "#if defined GL_${GL_DEF}"
-		echo "	case GL_${GL_DEF}: return StrLit(\"${GL_DEF}\");"
+		echo "#if defined ${LibPrefixUC}_${XL_DEF}"
+		echo "	case ${LibPrefixUC}_${XL_DEF}: return StrLit(\"${XL_DEF}\");"
 		echo "#endif"
 	done
 	echo "	default:;"
 	echo "}"
-	echo "OGLPLUS_FAKE_USE(value);"
+	echo "${LibNameUC}_FAKE_USE(value);"
 	echo "return StrLit();"
 	echo "}"
 	echo "#else"
@@ -183,7 +191,7 @@ do
 
 	git add ${OutputPath}
 
-	OutputFile="oglplus/enums/${InputName}_range.ipp"
+	OutputFile="${LibNameLC}/enums/${InputName}_range.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
@@ -197,29 +205,29 @@ do
 	EnumClass=$(MakeEnumClass ${InputFile})
 	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 	#
-	echo "OGLPLUS_LIB_FUNC aux::CastIterRange<"
-	echo "	const GL${EnumBaseType}*,"
+	echo "${LibNameUC}_LIB_FUNC aux::CastIterRange<"
+	echo "	const ${LibPrefixUC}${EnumBaseType}*,"
 	echo "	${EnumClass}"
 	echo "> EnumValueRange(${EnumClass}*)"
-	echo "OGLPLUS_NOEXCEPT(true)"
-	echo "#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \\"
-	echo "	!defined(OGLPLUS_IMPL_EVR_${EnumClass^^})"
-	echo "#define OGLPLUS_IMPL_EVR_${EnumClass^^}"
+	echo "${LibNameUC}_NOEXCEPT(true)"
+	echo "#if (!${LibNameUC}_LINK_LIBRARY || defined(${LibNameUC}_IMPLEMENTING_LIBRARY)) && \\"
+	echo "	!defined(${LibNameUC}_IMPL_EVR_${EnumClass^^})"
+	echo "#define ${LibNameUC}_IMPL_EVR_${EnumClass^^}"
 	echo "{"
-	echo "static const GL${EnumBaseType} _values[] = {"
+	echo "static const ${LibPrefixUC}${EnumBaseType} _values[] = {"
 	IFS=':'
 	unset Comma
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF X
+	while read XL_DEF X
 	do
-		echo "#if defined GL_${GL_DEF}"
-		echo "GL_${GL_DEF},"
+		echo "#if defined ${LibPrefixUC}_${XL_DEF}"
+		echo "${LibPrefixUC}_${XL_DEF},"
 		echo "#endif"
 	done
 	echo "0"
 	echo "};"
 	echo "return aux::CastIterRange<"
-	echo "	const GL${EnumBaseType}*,"
+	echo "	const ${LibPrefixUC}${EnumBaseType}*,"
 	echo "	${EnumClass}"
 	echo ">(_values, _values+sizeof(_values)/sizeof(_values[0])-1);"
 	echo "}"
@@ -233,28 +241,37 @@ do
 done
 } # MakeEnumHeaders()
 
-# Creates the oglplus/lib/enum_value_name.ipp file
+# Creates the ${LibName}/lib/enum_value_name.ipp file
 function MakeEnumValueName()
 {(
-OutputFile="oglplus/lib/enum_value_name.ipp"
+LibPrefixUC="${1}"
+LibNameLC="${2}"
+LibNameUC=${LibNameLC^^}
+local InputFiles="${InputDir}/${LibNameLC}/*.txt"
+shift 2
+for SubDir
+do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
+done
+
+OutputFile="${LibNameLC}/lib/enum_value_name.ipp"
 OutputPath="${RootDir}/include/${OutputFile}"
 
 mkdir -p $(dirname ${OutputPath})
 exec > ${OutputPath}
 
-PrintFileHeader "${RootDir}/source/enums/.*.txt" ${OutputFile}
+PrintFileHeader "${RootDir}/source/enums/${LibNameLC}/.*.txt" ${OutputFile}
 
-echo "#if !OGLPLUS_NO_ENUM_VALUE_NAMES"
+echo "#if !${LibNameUC}_NO_ENUM_VALUE_NAMES"
 for InputFile in ${InputFiles}
 do
-	InputName="${InputFile#${InputDir}/}"
+	InputName="${InputFile#${InputDir}/${LibNameLC}/}"
 	InputName=${InputName%.txt}
 
 	EnumClass=$(MakeEnumClass ${InputFile})
 	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 
-	echo "OGLPLUS_ENUM_CLASS_FWD(${EnumClass}, GL${EnumBaseType})"
-	echo "#include <oglplus/enums/${InputName}_names.ipp>"
+	echo "${LibNameUC}_ENUM_CLASS_FWD(${EnumClass}, ${LibPrefixUC}${EnumBaseType})"
+	echo "#include <${LibNameLC}/enums/${InputName}_names.ipp>"
 	echo
 done
 echo "#endif"
@@ -262,28 +279,37 @@ echo "#endif"
 git add ${OutputPath}
 )} # MakeEnumValueName()
 
-# Creates the oglplus/lib/enum_value_range.ipp file
+# Creates the ${1}/lib/enum_value_range.ipp file
 function MakeEnumValueRange()
 {(
-OutputFile="oglplus/lib/enum_value_range.ipp"
+LibPrefixUC="${1}"
+LibNameLC="${2}"
+LibNameUC=${LibNameLC^^}
+local InputFiles="${InputDir}/${LibNameLC}/*.txt"
+shift 2
+for SubDir
+do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
+done
+
+OutputFile="${LibNameLC}/lib/enum_value_range.ipp"
 OutputPath="${RootDir}/include/${OutputFile}"
 
 mkdir -p $(dirname ${OutputPath})
 exec > ${OutputPath}
 
-PrintFileHeader "${RootDir}/source/enums/.*.txt" ${OutputFile}
+PrintFileHeader "${RootDir}/source/enums/${LibNameLC}/.*.txt" ${OutputFile}
 
-echo "#if !OGLPLUS_NO_ENUM_VALUE_RANGES"
+echo "#if !${LibNameUC}_NO_ENUM_VALUE_RANGES"
 for InputFile in ${InputFiles}
 do
-	InputName="${InputFile#${InputDir}/}"
+	InputName="${InputFile#${InputDir}/${LibNameLC}/}"
 	InputName=${InputName%.txt}
 
 	EnumClass=$(MakeEnumClass ${InputFile})
 	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 
-	echo "OGLPLUS_ENUM_CLASS_FWD(${EnumClass}, GL${EnumBaseType})"
-	echo "#include <oglplus/enums/${InputName}_range.ipp>"
+	echo "${LibNameUC}_ENUM_CLASS_FWD(${EnumClass}, ${LibPrefixUC}${EnumBaseType})"
+	echo "#include <${LibNameLC}/enums/${InputName}_range.ipp>"
 	echo
 done
 echo "#endif"
@@ -292,9 +318,18 @@ git add ${OutputPath}
 )} # MakeEnumValueRange
 
 
-# Creates the oglplus/auxiliary/enum_shorteners.ipp file
+# Creates the ${LibName}/auxiliary/enum_shorteners.ipp file
 function MakeEnumShorteners()
 {
+LibPrefixUC="${1}"
+LibNameLC="${2}"
+LibNameUC=${LibNameLC^^}
+local InputFiles="${InputDir}/${LibNameLC}/*.txt"
+shift 2
+for SubDir
+do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
+done
+
 for InputFile in ${InputFiles}
 do
 (
@@ -303,44 +338,44 @@ do
 	IFS=':'
 
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF OGLPLUS_DEF X
+	while read XL_DEF OXLPLUS_DEF X
 	do
-		if [ "${OGLPLUS_DEF}" == "" ]
-		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
+		if [ "${OXLPLUS_DEF}" == "" ]
+		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
 		fi
 
 		mkdir -p ${ShortEnumTempDir}
-		echo "${GL_DEF}:${EnumClass}" >> ${ShortEnumTempDir}/${OGLPLUS_DEF}
+		echo "${XL_DEF}:${EnumClass}" >> ${ShortEnumTempDir}/${OXLPLUS_DEF}
 	done
 )
 done
 
 (
 	# first the real-deal
-	OutputFile="oglplus/auxiliary/enum_shorteners.ipp"
+	OutputFile="${LibNameLC}/auxiliary/enum_shorteners.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
-	PrintFileHeader "${RootDir}/source/enums/.*.txt" ${OutputFile}
+	PrintFileHeader "${RootDir}/source/enums/${LibNameLC}/.*.txt" ${OutputFile}
 
 	# the enumeration name shorteners
 	find ${ShortEnumTempDir}/ -mindepth 1 -maxdepth 1 -type f |
 	sort |
 	while read InputFile
 	do
-		OGLPLUS_DEF=$(basename ${InputFile})
+		OXLPLUS_DEF=$(basename ${InputFile})
 
-		echo -n "struct ${OGLPLUS_DEF} {"
+		echo -n "struct ${OXLPLUS_DEF} {"
 		echo
-		echo -n "template <typename Enum, Enum = Enum::${OGLPLUS_DEF}> operator Enum (void) const"
-		echo -n "{ return Enum::${OGLPLUS_DEF}; }"
+		echo -n "template <typename Enum, Enum = Enum::${OXLPLUS_DEF}> operator Enum (void) const"
+		echo -n "{ return Enum::${OXLPLUS_DEF}; }"
 		echo
-		echo -n "template <typename Enum> friend bool operator==(Enum value, ${OGLPLUS_DEF})"
-		echo -n "{ return value == Enum::${OGLPLUS_DEF}; }"
+		echo -n "template <typename Enum> friend bool operator==(Enum value, ${OXLPLUS_DEF})"
+		echo -n "{ return value == Enum::${OXLPLUS_DEF}; }"
 		echo
-		echo -n "template <typename Enum> friend bool operator!=(Enum value, ${OGLPLUS_DEF})"
-		echo -n "{ return value != Enum::${OGLPLUS_DEF}; }"
+		echo -n "template <typename Enum> friend bool operator!=(Enum value, ${OXLPLUS_DEF})"
+		echo -n "{ return value != Enum::${OXLPLUS_DEF}; }"
 		echo
 		echo "};"
 	done
@@ -348,55 +383,55 @@ done
 	git add ${OutputPath}
 
 	# now the documentation
-	OutputFile="oglplus/auxiliary/enum_shorteners_doc.ipp"
+	OutputFile="${LibNameLC}/auxiliary/enum_shorteners_doc.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
-	PrintFileHeader "${RootDir}/source/enums/.*.txt" ${OutputFile}
+	PrintFileHeader "${RootDir}/source/enums/${LibNameLC}/.*.txt" ${OutputFile}
 
 	# the enumeration name shorteners
 	find ${ShortEnumTempDir}/ -mindepth 1 -maxdepth 1 -type f |
 	sort |
 	while read InputFile
 	do
-		OGLPLUS_DEF=$(basename ${InputFile})
+		OXLPLUS_DEF=$(basename ${InputFile})
 
-		echo "/// @ref oglplus_smart_enums \"Smart enum\" for enumerations with the @c ${OGLPLUS_DEF} value."
+		echo "/// @ref ${LibNameLC}_smart_enums \"Smart enum\" for enumerations with the @c ${OXLPLUS_DEF} value."
 		echo "/**"
-		for OGLPLUS_ENUM in $(cut -d':' -f2 < ${InputFile} | sort | uniq)
-		do echo " *  @see @ref oglplus::${OGLPLUS_ENUM} \"${OGLPLUS_ENUM}\""
+		for OXLPLUS_ENUM in $(cut -d':' -f2 < ${InputFile} | sort | uniq)
+		do echo " *  @see @ref ${LibNameLC}::${OXLPLUS_ENUM} \"${OXLPLUS_ENUM}\""
 		done
 		echo " *"
-		echo " *  @glsymbols"
-		for GL_DEF in $(cut -d':' -f1 < ${InputFile} | sort | uniq)
-		do echo " *  @gldefref{${GL_DEF}}"
+		echo " *  @${LibPrefixUC,,}symbols"
+		for XL_DEF in $(cut -d':' -f1 < ${InputFile} | sort | uniq)
+		do echo " *  @${LibPrefixUC,,}defref{${XL_DEF}}"
 		done
 		echo " *"
 		echo " *  @ingroup smart_enums"
 		echo " */"
-		echo "struct ${OGLPLUS_DEF} {"
+		echo "struct ${OXLPLUS_DEF} {"
 		echo
-		echo "/// Conversion to any @p Enum type having the ${OGLPLUS_DEF} value."
-		echo "/** Instances of the @ref oglplus::smart_enums::${OGLPLUS_DEF} \"${OGLPLUS_DEF}\""
+		echo "/// Conversion to any @p Enum type having the ${OXLPLUS_DEF} value."
+		echo "/** Instances of the @ref ${LibNameLC}::smart_enums::${OXLPLUS_DEF} \"${OXLPLUS_DEF}\""
 		echo " *  type are convertible to instances of any enumeration type having"
-		echo " *  the @c ${OGLPLUS_DEF} value."
+		echo " *  the @c ${OXLPLUS_DEF} value."
 		echo " */"
-		echo "template <typename Enum, Enum = Enum::${OGLPLUS_DEF}> operator Enum (void) const;"
+		echo "template <typename Enum, Enum = Enum::${OXLPLUS_DEF}> operator Enum (void) const;"
 		echo
-		echo "/// Equality comparison with any @p Enum type having the ${OGLPLUS_DEF} value."
-		echo "/** Instances of the @c smart_enums::${OGLPLUS_DEF} type can be compared"
+		echo "/// Equality comparison with any @p Enum type having the ${OXLPLUS_DEF} value."
+		echo "/** Instances of the @c smart_enums::${OXLPLUS_DEF} type can be compared"
 		echo " *  for equality to instances of any enumeration type having"
-		echo " *  the @c ${OGLPLUS_DEF} value."
+		echo " *  the @c ${OXLPLUS_DEF} value."
 		echo " */"
-		echo "template <typename Enum> friend bool operator==(Enum value, ${OGLPLUS_DEF});"
+		echo "template <typename Enum> friend bool operator==(Enum value, ${OXLPLUS_DEF});"
 		echo
-		echo "/// Non-equality comparison with any @p Enum type having the ${OGLPLUS_DEF} value."
-		echo "/** Instances of the @c smart_enums::${OGLPLUS_DEF} type can be compared"
+		echo "/// Non-equality comparison with any @p Enum type having the ${OXLPLUS_DEF} value."
+		echo "/** Instances of the @c smart_enums::${OXLPLUS_DEF} type can be compared"
 		echo " *  for non-equality to instances of any enumeration type having"
-		echo " *  the @c ${OGLPLUS_DEF} value."
+		echo " *  the @c ${OXLPLUS_DEF} value."
 		echo " */"
-		echo "template <typename Enum> friend bool operator!=(Enum value, ${OGLPLUS_DEF});"
+		echo "template <typename Enum> friend bool operator!=(Enum value, ${OXLPLUS_DEF});"
 		echo "};"
 		echo
 	done
@@ -411,15 +446,24 @@ rm -rf ${ShortEnumTempDir}
 # the mapping of target def. to binding query def.
 function MakeEnumBQHeaders()
 {
+LibPrefixUC="${1}"
+LibNameLC="${2}"
+LibNameUC=${LibNameLC^^}
+local InputFiles="${InputDir}/${LibNameLC}/*.txt"
+shift 2
+for SubDir
+do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
+done
+
 grep -c -e '^\([^:]*:\)\{4\}[^:]\+' ${InputFiles} |
 grep -v -e ':0$' |
 cut -d':' -f1 |
 while read InputFile
 do
-	InputName="${InputFile#${InputDir}/}"
+	InputName="${InputFile#${InputDir}/${LibNameLC}/}"
 	InputName=${InputName%.txt}
 
-	OutputFile="oglplus/enums/${InputName}_bq.ipp"
+	OutputFile="${LibNameLC}/enums/${InputName}_bq.ipp"
 	OutputPath="${RootDir}/include/${OutputFile}"
 	[[ ${InputFile} -nt ${OutputPath} ]] || continue
 	echo "${InputName}" 1>&2
@@ -430,13 +474,13 @@ do
 	#
 	IFS=:
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF OGL_DEF AQ DOC BINDING_QUERY_DEF X
+	while read XL_DEF OXL_DEF AQ DOC BINDING_QUERY_DEF X
 	do
 		if [ "${BINDING_QUERY_DEF}" != "" ]
 		then
-			echo "#if defined GL_${GL_DEF} && defined GL_${BINDING_QUERY_DEF}"
-			echo "case GL_${GL_DEF}:"
-			echo "	return GL_${BINDING_QUERY_DEF};"
+			echo "#if defined ${LibPrefixUC}_${XL_DEF} && defined ${LibPrefixUC}_${BINDING_QUERY_DEF}"
+			echo "case ${LibPrefixUC}_${XL_DEF}:"
+			echo "	return ${LibPrefixUC}_${BINDING_QUERY_DEF};"
 			echo "#endif"
 		fi
 	done
@@ -451,43 +495,48 @@ done
 #
 function MapGLSLtypeToCPPtype()
 {
+	LibPrefixUC="${1}"
+	LibNameLC="${2}"
+	shift 2
 	case ${1} in
 		NONE) echo "void";;
 
-		BOOL) echo "GLboolean";;
-		INT) echo "GLint";;
-		UNSIGNED_INT) echo "GLuint";;
-		FLOAT) echo "GLfloat";;
-		DOUBLE) echo "GLdouble";;
+		BOOL) echo "${LibPrefixUC}boolean";;
+		INT) echo "${LibPrefixUC}int";;
+		UNSIGNED_INT) echo "${LibPrefixUC}uint";;
+		FLOAT) echo "${LibPrefixUC}float";;
+		DOUBLE) echo "${LibPrefixUC}double";;
 
 		*_VEC[234])
-			local ELEM=$(MapGLSLtypeToCPPtype ${1%_VEC[234]})
+			local ELEM=$(MapGLSLtypeToCPPtype ${LibPrefixUC} ${LibNameLC} ${1%_VEC[234]})
 			local N=${1#*_VEC}
-			echo "oglplus::Vector<${ELEM}, ${N}>";;
+			echo "${LibNameLC}::Vector<${ELEM}, ${N}>";;
 
 		*_MAT[234])
-			local ELEM=$(MapGLSLtypeToCPPtype ${1%_MAT[234]})
+			local ELEM=$(MapGLSLtypeToCPPtype ${LibPrefixUC} ${LibNameLC} ${1%_MAT[234]})
 			local N=${1#*_MAT}
-			echo "oglplus::Matrix<${ELEM}, ${N}, ${N}>";;
+			echo "${LibNameLC}::Matrix<${ELEM}, ${N}, ${N}>";;
 
 		*_MAT[234]x[234])
-			local ELEM=$(MapGLSLtypeToCPPtype ${1%_MAT[234]x[234]})
+			local ELEM=$(MapGLSLtypeToCPPtype ${LibPrefixUC} ${LibNameLC} ${1%_MAT[234]x[234]})
 			local D=${1#*_MAT}
 			local C=${D%x[234]}
 			local R=${D#[234]x}
-			echo "oglplus::Matrix<${ELEM}, ${R}, ${C}>";;
+			echo "${LibNameLC}::Matrix<${ELEM}, ${R}, ${C}>";;
 
-		*SAMPLER*) echo "GLint";;
-		*IMAGE*) echo "GLint";;
+		*SAMPLER*) echo "${LibPrefixUC}int";;
+		*IMAGE*) echo "${LibPrefixUC}int";;
 
-		*) echo "GLuint";;
+		*) echo "${LibPrefixUC}uint";;
 	esac
 }
 # sl_data_type -> C++ type mapping
 function MakeGLSLtoCPPtypeHeader()
 {
-InputFile="${RootDir}/source/enums/sl_data_type.txt"
-OutputFile="oglplus/auxiliary/glsl_to_cpp.ipp"
+LibPrefixUC="${1}"
+LibNameLC="${2}"
+InputFile="${RootDir}/source/enums/${LibNameLC}/sl_data_type.txt"
+OutputFile="${LibNameLC}/auxiliary/glsl_to_cpp.ipp"
 OutputPath="${RootDir}/include/${OutputFile}"
 (
 	mkdir -p $(dirname ${OutputPath})
@@ -497,28 +546,28 @@ OutputPath="${RootDir}/include/${OutputFile}"
 	IFS=:
 
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read GL_DEF OGLPLUS_DEF X
+	while read XL_DEF OXLPLUS_DEF X
 	do
-		if [ "${OGLPLUS_DEF}" == "" ]
-		then OGLPLUS_DEF=$(echo ${GL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
+		if [ "${OXLPLUS_DEF}" == "" ]
+		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
 		fi
 
-		TYPE=$(MapGLSLtypeToCPPtype ${GL_DEF})
+		TYPE=$(MapGLSLtypeToCPPtype ${LibPrefixUC} ${LibNameLC} ${XL_DEF})
 
-		echo "#ifdef GL_${GL_DEF}"
-		echo "# ifdef ${OGLPLUS_DEF}"
-		echo "# pragma push_macro(\"${OGLPLUS_DEF}\")"
-		echo "# undef ${OGLPLUS_DEF}"
+		echo "#ifdef ${LibPrefixUC}_${XL_DEF}"
+		echo "# ifdef ${OXLPLUS_DEF}"
+		echo "# pragma push_macro(\"${OXLPLUS_DEF}\")"
+		echo "# undef ${OXLPLUS_DEF}"
 		echo "template <> struct GLSL2Cpp<"
-		echo "	OGLPLUS_CONST_ENUM_VALUE(SLDataType::${OGLPLUS_DEF})"
+		echo "	${LibNameUC}_CONST_ENUM_VALUE(SLDataType::${OXLPLUS_DEF})"
 		echo "> { typedef ${TYPE} Type; };"
-		echo "# pragma pop_macro(\"${OGLPLUS_DEF}\")"
+		echo "# pragma pop_macro(\"${OXLPLUS_DEF}\")"
 		echo "# else"
 		echo "template <> struct GLSL2Cpp<"
-		echo "	OGLPLUS_CONST_ENUM_VALUE(SLDataType::${OGLPLUS_DEF})"
+		echo "	${LibNameUC}_CONST_ENUM_VALUE(SLDataType::${OXLPLUS_DEF})"
 		echo "> { typedef ${TYPE} Type; };"
 		echo "# endif"
-		echo "#endif // ${GL_DEF}"
+		echo "#endif // ${XL_DEF}"
 		echo
 	done
 	echo
@@ -527,9 +576,9 @@ git add ${OutputPath}
 
 } #MakeSLtoCPPtypeHeader()
 
-MakeEnumHeaders
-MakeEnumValueName
-MakeEnumValueRange
-MakeEnumShorteners
-MakeEnumBQHeaders
-MakeGLSLtoCPPtypeHeader
+MakeEnumHeaders GL oglplus ext
+MakeEnumValueName GL oglplus ext
+MakeEnumValueRange GL oglplus ext
+MakeEnumShorteners GL oglplus ext
+MakeEnumBQHeaders GL oglplus ext
+MakeGLSLtoCPPtypeHeader GL oglplus

@@ -2,7 +2,7 @@
  *  .file oglplus/enums/framebuffer_color_attachment_def.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/framebuffer_color_attachment.txt' instead.
+ *  edit 'source/enums/oglplus/framebuffer_color_attachment.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

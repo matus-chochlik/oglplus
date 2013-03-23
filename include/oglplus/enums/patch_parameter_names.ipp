@@ -2,7 +2,7 @@
  *  .file oglplus/enums/patch_parameter_names.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/patch_parameter.txt' instead.
+ *  edit 'source/enums/oglplus/patch_parameter.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
