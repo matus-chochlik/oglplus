@@ -6,14 +6,17 @@ cmake_minimum_required(VERSION 2.8)
 
 
 if(Boost_FOUND)
+
 	include(./oglplus_testing.cmake)
 
-	oglplus_exec_test(boost_utfw)
-	oglplus_build_test(config)
-	oglplus_exec_test(math)
-	oglplus_exec_test(angle)
-	oglplus_exec_test(vector)
-	oglplus_exec_test(matrix)
+	oglplus_exec_test_no_fixture(boost_utfw)
+	oglplus_build_test_no_fixture(config)
+	oglplus_exec_test_no_fixture(math)
+	oglplus_exec_test_no_fixture(angle)
+	oglplus_exec_test_no_fixture(vector)
+	oglplus_exec_test_no_fixture(matrix)
+
+	oglplus_exec_test(buffer "${OGLPLUS_TEST_LIBS}")
 else()
 	message(WARNING "Boost.Test required for testing but not found")
 endif()

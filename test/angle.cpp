@@ -9,21 +9,21 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE OGLPLUS_angle
+#define BOOST_TEST_MODULE OGLPLUS_Angle
 #include <boost/test/unit_test.hpp>
 
 #include <oglplus/gl.hpp>
 #include <oglplus/angle.hpp>
 
-BOOST_AUTO_TEST_SUITE(angle)
+BOOST_AUTO_TEST_SUITE(Angle)
 
-BOOST_AUTO_TEST_CASE(angle_default_construction)
+BOOST_AUTO_TEST_CASE(Angle_default_construction)
 {
 	oglplus::Angle<float> af;
 	oglplus::Angle<double> ad;
 }
 
-BOOST_AUTO_TEST_CASE(angle_construction)
+BOOST_AUTO_TEST_CASE(Angle_construction)
 {
 	typedef oglplus::Angle<float> Anglef;
 	Anglef a1 = Anglef::Degrees(90);
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(angle_construction)
 	Anglef a7 = a6;
 }
 
-BOOST_AUTO_TEST_CASE(angle_value)
+BOOST_AUTO_TEST_CASE(Angle_value)
 {
 	typedef oglplus::Angle<float> Anglef;
 
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(angle_value)
 	BOOST_CHECK_EQUAL(a3.ValueInDegrees(), a5.ValueInDegrees());
 }
 
-BOOST_AUTO_TEST_CASE(angle_cmp)
+BOOST_AUTO_TEST_CASE(Angle_cmp)
 {
 	typedef oglplus::Angle<float> Anglef;
 
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(angle_cmp)
 	BOOST_CHECK(a2 == a4);
 }
 
-BOOST_AUTO_TEST_CASE(angle_addition)
+BOOST_AUTO_TEST_CASE(Angle_addition)
 {
 	typedef oglplus::Angle<double> Angled;
 
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(angle_addition)
 	BOOST_CHECK((a1+a1+a1+a1) == a3);
 }
 
-BOOST_AUTO_TEST_CASE(angle_subtraction)
+BOOST_AUTO_TEST_CASE(Angle_subtraction)
 {
 	typedef oglplus::Angle<double> Angled;
 
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(angle_subtraction)
 	BOOST_CHECK(-(-a1-a1-a2) == a3);
 }
 
-BOOST_AUTO_TEST_CASE(angle_multiplication)
+BOOST_AUTO_TEST_CASE(Angle_multiplication)
 {
 	typedef oglplus::Angle<double> Angled;
 
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(angle_multiplication)
 	BOOST_CHECK((oglplus::math::TwoPi()*a1) == (a2*oglplus::math::Pi()));
 }
 
-BOOST_AUTO_TEST_CASE(angle_division)
+BOOST_AUTO_TEST_CASE(Angle_division)
 {
 	typedef oglplus::Angle<double> Angled;
 
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_CASE(angle_division)
 	BOOST_CHECK((a1/oglplus::math::Pi()) == (a2/oglplus::math::TwoPi()));
 }
 
-BOOST_AUTO_TEST_CASE(angle_arithmetic)
+BOOST_AUTO_TEST_CASE(Angle_arithmetic)
 {
 	typedef oglplus::Angle<double> Angled;
 
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(angle_arithmetic)
 	BOOST_CHECK((9*a1-4*a2)*3.0+a1 == a3);
 }
 
-BOOST_AUTO_TEST_CASE(angle_sin_cos)
+BOOST_AUTO_TEST_CASE(Angle_sin_cos)
 {
 	typedef oglplus::Angle<double> Angled;
 
@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_CASE(angle_sin_cos)
 	BOOST_CHECK(Cos(a2+a1) == Cos(a3-a1));
 }
 
-BOOST_AUTO_TEST_CASE(angle_sin_cos_2)
+BOOST_AUTO_TEST_CASE(Angle_sin_cos_2)
 {
 	typedef oglplus::Angle<double> Angled;
 	Angled a3 = Angled::Radians(oglplus::math::TwoPi());
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_CASE(angle_sin_cos_2)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(angle_tan)
+BOOST_AUTO_TEST_CASE(Angle_tan)
 {
 	typedef oglplus::Angle<double> Angled;
 
@@ -230,7 +230,7 @@ BOOST_AUTO_TEST_CASE(angle_tan)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(angle_arc)
+BOOST_AUTO_TEST_CASE(Angle_arc)
 {
 	using oglplus::ArcSin;
 	using oglplus::ArcCos;
