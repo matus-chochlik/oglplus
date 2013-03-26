@@ -508,7 +508,7 @@ def print_bash_complete_script(argparser):
 	year = datetime.datetime.now().year
 	print('#  Copyright 2010-%(year)s Matus Chochlik.' % {"year" : year})
 	print('#  Distributed under the Boost Software License, Version 1.0.')
-	print('#  (See accompanying file #  LICENSE_1_0.txt or copy at')
+	print('#  (See accompanying file LICENSE_1_0.txt or copy at')
 	print('#  http://www.boost.org/LICENSE_1_0.txt)')
 	print('#')
 	print('#  Automatically generated file. Do NOT modify manually,')
@@ -616,32 +616,7 @@ def print_bash_complete_script(argparser):
 	print(str())
 	print('	COMPREPLY=($(compgen -W "${opts}" -- "${curr}"))')
 	print('}')
-	#print('complete -F _configure_oglplus -o nospace ./configure-oglplus')
 	print('complete -F _configure_oglplus ./configure-oglplus')
-
-	#print(dir(argparser))
-	#print("=======")
-	#for x in argparser._actions:
-	#	print(type(x))
-	#	print(x)
-	#	print(str(x.option_strings) + " " + str(x.nargs))
-	#	print(str())
-	#print("=======")
-	#for x in argparser._mutually_exclusive_groups:
-	#	for y in x._group_actions:
-	#		print(y.option_strings)
-	#		print(str())
-	#	print(str())
-	#	print("-------")
-	#print("=======")
-	#for x in argparser._actions:
-	#	print(x)
-	#	print(str())
-	#print("-------")
-	#for x in argparser._actions:
-	#	print(str(x.option_strings) + " " + str(x.nargs) + " " + str(x.type))
-	#	if x.type == os.path.abspath:
-	#		print("PATH")
 
 # the main function
 def main(argv):
