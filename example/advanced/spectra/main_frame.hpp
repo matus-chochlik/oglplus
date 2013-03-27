@@ -38,6 +38,8 @@ private:
 	SpectraApp& parent_app;
 	wxMenuBar* main_menu;
 
+	wxMenu* renderer_menu;
+
 	wxStatusBar* status_bar;
 	void SetStatus(const wxString& status_text);
 
@@ -68,6 +70,7 @@ private:
 	void DoShowAboutDialog(wxCommandEvent&);
 
 	void DoOpenDocument(wxCommandEvent&);
+	void DoGenerateDocument(wxCommandEvent&);
 public:
 	SpectraMainFrame(SpectraApp& app);
 	~SpectraMainFrame(void);

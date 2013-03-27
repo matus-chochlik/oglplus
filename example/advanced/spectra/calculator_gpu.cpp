@@ -15,6 +15,7 @@
 #include <oglplus/transform_feedback.hpp>
 #include <oglplus/query.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/context.hpp>
 
 #include "calculator.hpp"
 #include "shared_objects.hpp"
@@ -45,12 +46,12 @@ private:
 	oglplus::Array<oglplus::Buffer> output_bufs;
 	oglplus::Array<oglplus::TransformFeedback> xfbs;
 	oglplus::Array<oglplus::Query> queries;
-	oglplus::Buffer matrix_buf, input_buf;
+	oglplus::Buffer matrix_buf, input_buf, init_buf;
 	oglplus::Texture matrix_tex, input_tex;
 
-	oglplus::Program MakeTransfProg(void);
 public:
 	SpectraDefaultGPUMatrixTransf(
+		SpectraSharedObjects&,
 		wxGLContext* context,
 		wxGLCanvas* canvas,
 		std::size_t size,
@@ -91,66 +92,8 @@ public:
 	);
 };
 
-
-oglplus::Program SpectraDefaultGPUMatrixTransf::MakeTransfProg(void)
-{
-	using namespace oglplus;
-	Program prog(ObjectDesc("Spectra GPU matrix transform"));
-
-	VertexShader xfbs(ObjectDesc("Spectra GPU matrix transform"));
-	xfbs.Source(
-		"#version 330\n"
-		//"#extension GL_ARB_gpu_shader_fp64 : enable\n" TODO
-		"#define complex vec2\n"
-
-		"uniform int InputOffs, InputSize;"
-		"uniform samplerBuffer InputData, MatrixData;"
-		"out float Output;"
-
-		"complex Input(int j)"
-		"{"
-		"	return complex(texelFetch(InputData, InputOffs+j).r, 0.0);"
-		"}"
-
-		"complex Matrix(int i, int j)"
-		"{"
-		"	return complex(texelFetch(MatrixData, i*InputSize+j).rg);"
-		"}"
-
-		"complex Multiply(complex a, complex b)"
-		"{"
-		"	return complex("
-		"		a.x*b.x-a.y*b.y,"
-		"		(a.x+a.y)*(b.x+b.y)-a.x*b.x-a.y*b.y"
-		"	);"
-		"}"
-
-		"void main(void)"
-		"{"
-		"	complex sum = complex(0.0, 0.0);"
-		"	int i = gl_VertexID;"
-		"	for(int j=0; j!=InputSize; ++j)"
-		"	{"
-		"		sum += Multiply(Matrix(i, j), Input(j));"
-		"	}"
-		"	Output = float(length(sum));"
-		"}"
-	).Compile();
-
-	prog.AttachShader(xfbs);
-
-	const char* xfb_name = "Output";
-	prog.TransformFeedbackVaryings(
-		1, &xfb_name,
-		TransformFeedbackMode::SeparateAttribs
-	);
-
-	prog.Link().Use();
-
-	return std::move(prog);
-}
-
 SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
+	SpectraSharedObjects& shared_objects,
 	wxGLContext* context,
 	wxGLCanvas* canvas,
 	std::size_t size,
@@ -170,7 +113,7 @@ SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
  , in_size(size)
  , out_size(size)
  , name(transf_name)
- , transf_prog(MakeTransfProg())
+ , transf_prog(shared_objects.BuildProgramWithXFB("xfb_matrix_transf.prog", "Output"))
  , prog_input_offs(transf_prog, "InputOffs")
  , prog_input_size(transf_prog, "InputSize")
  , prog_input_data(transf_prog, "InputData")
@@ -207,9 +150,7 @@ SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
 		matrix_buf
 	);
 
-	std::vector<GLfloat> init_data(in_size*max_transforms);
-	vao.Bind();
-	VertexArray::Unbind();
+	std::vector<GLfloat> init_data(in_size*max_transforms, 0.0f);
 
 	input_buf.Bind(Buffer::Target::Texture);
 	Buffer::Data(Buffer::Target::Texture, init_data);
@@ -221,14 +162,29 @@ SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
 		input_buf
 	);
 
-	init_data.resize(out_size);
+	init_data.resize(out_size, 0.0f);
+
+	vao.Bind();
+	init_buf.Bind(Buffer::Target::Array);
+	Buffer::Data(Buffer::Target::Array, init_data);
+	(transf_prog|"Initial").Setup<GLfloat>().Enable();
+
+	VertexArray::Unbind();
+
 	for(GLuint t=0; t!=max_transforms; ++t)
 	{
 		xfbs[t].Bind();
 
 		output_bufs[t].Bind(Buffer::Target::TransformFeedback);
-		output_bufs[t].BindBase(Buffer::IndexedTarget::TransformFeedback, 0);
-		Buffer::Data(Buffer::Target::TransformFeedback, init_data);
+		Buffer::Data(
+			Buffer::Target::TransformFeedback,
+			init_data,
+			Buffer::Property::Usage::DynamicCopy
+		);
+		output_bufs[t].BindBase(
+			Buffer::IndexedTarget::TransformFeedback,
+			0
+		);
 	}
 }
 
@@ -269,11 +225,17 @@ void SpectraDefaultGPUMatrixTransf::BeginBatch(void)
 	prog_input_size.Set(in_size);
 
 	vao.Bind();
+
+	Context gl;
+	gl.Enable(Capability::RasterizerDiscard);
 }
 
 void SpectraDefaultGPUMatrixTransf::FinishBatch(void)
 {
-	oglplus::VertexArray::Unbind();
+	using namespace oglplus;
+	Context gl;
+	gl.Disable(Capability::RasterizerDiscard);
+	VertexArray::Unbind();
 }
 
 unsigned SpectraDefaultGPUMatrixTransf::BeginTransform(
@@ -331,16 +293,16 @@ void SpectraDefaultGPUMatrixTransf::FinishTransform(
 
 	assert(tid < MaxConcurrentTransforms());
 	assert(outbufsize >= out_size);
-	GLuint count;
+	GLuint count = 0;
 	queries[tid].WaitForResult(count);
-	assert(count == out_size);
+	assert(count <= out_size);
 
 	output_bufs[tid].Bind(Buffer::Target::TransformFeedback);
 	Buffer::TypedMap<GLfloat> map(
 		Buffer::Target::TransformFeedback,
 		BufferMapAccess::Read
 	);
-	std::copy(map.Data(), map.Data()+out_size, output);
+	std::copy(map.Data(), map.Data()+count, output);
 }
 
 std::shared_ptr<SpectraCalculator>
@@ -352,10 +314,11 @@ SpectraGetDefaultGPUFourierTransf(
 	shared_objects.GLCanvas()->SetCurrent(*shared_objects.GLContext());
 	assert(spectrum_size > 2);
 	return std::make_shared<SpectraDefaultGPUMatrixTransf>(
+		shared_objects,
 		shared_objects.GLContext(),
 		shared_objects.GLCanvas(),
 		spectrum_size,
-		"Discrete Complex Fourier Transform",
+		"Discrete Complex Fourier Transform (GPU)",
 		SpectraFourierMatrixGen(spectrum_size, spectrum_size)
 	);
 }

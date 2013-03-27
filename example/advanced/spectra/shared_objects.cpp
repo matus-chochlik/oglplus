@@ -24,7 +24,12 @@
 #include <cctype>
 #include <stdexcept>
 
-oglplus::Program SpectraSharedObjects::BuildProgram(const char* prog_name)
+oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
+	const char* prog_name,
+	const char** xfb_varyings,
+	std::size_t xfb_var_count,
+	bool separate_attribs
+)
 {
 	using namespace oglplus;
 
@@ -89,8 +94,38 @@ oglplus::Program SpectraSharedObjects::BuildProgram(const char* prog_name)
 		prog.AttachShader(shader);
 	}
 
+	if(xfb_varyings && xfb_var_count)
+	{
+		prog.TransformFeedbackVaryings(
+			xfb_var_count,
+			xfb_varyings,
+			separate_attribs
+			?TransformFeedbackMode::SeparateAttribs
+			:TransformFeedbackMode::InterleavedAttribs
+		);
+	}
+
 	prog.Link().Use();
 	return std::move(prog);
+}
+
+oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
+	const char* prog_name,
+	const char* xfb_varying,
+	bool separate_attribs
+)
+{
+	return BuildProgramWithXFB(
+		prog_name,
+		&xfb_varying,
+		1,
+		separate_attribs
+	);
+}
+
+oglplus::Program SpectraSharedObjects::BuildProgram(const char* prog_name)
+{
+	return BuildProgramWithXFB(prog_name, nullptr, 0, true);
 }
 
 SpectraSharedObjects::SpectraSharedObjects(

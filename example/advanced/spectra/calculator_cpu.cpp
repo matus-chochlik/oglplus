@@ -206,7 +206,7 @@ SpectraGetDefaultCPUFourierTransf(
 	return std::make_shared<Transf>(
 		spectrum_size,
 		spectrum_size,
-		"Discrete Complex Fourier Transform",
+		"Discrete Complex Fourier Transform (CPU)",
 		SpectraFourierMatrixGen(spectrum_size, spectrum_size)
 	);
 }

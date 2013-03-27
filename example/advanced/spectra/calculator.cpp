@@ -45,6 +45,7 @@ SpectraGetDefaultGPUFourierTransf(
 	std::size_t spectrum_size
 );
 
+
 std::shared_ptr<SpectraCalculator>
 SpectraGetDefaultSignalTransform(
 	SpectraSharedObjects& shared_objects,

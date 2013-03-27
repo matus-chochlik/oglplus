@@ -46,6 +46,8 @@ public:
 
 	virtual void ReinitStyle(void);
 
+	virtual bool Interactive(void) = 0;
+
 	virtual void Render(
 		SpectraDocumentView& view,
 		wxGLCanvas* canvas

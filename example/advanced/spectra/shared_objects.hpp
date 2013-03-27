@@ -55,6 +55,17 @@ public:
 	wxGLContext* GLContext(void);
 	wxGLCanvas* GLCanvas(void);
 
+	oglplus::Program BuildProgramWithXFB(
+		const char* prog_name,
+		const char** xfb_varyings,
+		std::size_t xfb_var_count,
+		bool separate_attrib = true
+	);
+	oglplus::Program BuildProgramWithXFB(
+		const char* prog_name,
+		const char* xfb_varying,
+		bool separate_attrib = true
+	);
 	oglplus::Program BuildProgram(const char* prog_name);
 
 	const oglplus::shapes::ShapeWrapper& GroundUnitGrid(void);

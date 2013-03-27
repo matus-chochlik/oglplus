@@ -326,12 +326,12 @@ public:
 
 		// setup position buffer
 		positions.Bind(se::Array());
-
 		tfb_positions.Bind(se::TransformFeedback());
-		tfb_positions.BindBase(se::TransformFeedback(), 0);
 
 		Buffer::Data(se::Array(), pos_data);
 		Buffer::Data(se::TransformFeedback(), pos_data);
+
+		tfb_positions.BindBase(se::TransformFeedback(), 0);
 
 		VertexAttribArray pos_vert_attr(cam_prog, "Position");
 		pos_vert_attr.Setup(4, se::Float());
@@ -340,10 +340,11 @@ public:
 		// setup velocity buffer
 		velocities.Bind(se::Array());
 		tfb_velocities.Bind(se::TransformFeedback());
-		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
 		Buffer::Data(se::Array(), vel_data);
 		Buffer::Data(se::TransformFeedback(), vel_data);
+
+		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
 		VertexAttribArray vel_vert_attr(cam_prog, "Velocity");
 		vel_vert_attr.Setup(4, se::Float());
@@ -884,13 +885,13 @@ private:
 		assert(pi == pe);
 
 		positions.Bind(se::Array());
-		positions.BindBase(se::Uniform(), 0);
-
 		tfb_positions.Bind(se::TransformFeedback());
-		tfb_positions.BindBase(se::TransformFeedback(), 0);
 
 		Buffer::Data(se::Array(), pos_data);
 		Buffer::Data(se::TransformFeedback(), pos_data);
+
+		positions.BindBase(se::Uniform(), 0);
+		tfb_positions.BindBase(se::TransformFeedback(), 0);
 
 		draw_vao.Bind();
 		VertexAttribArray draw_vert_attr(draw_prog, "Position");
@@ -934,10 +935,11 @@ private:
 		velocities.Bind(se::Array());
 
 		tfb_velocities.Bind(se::TransformFeedback());
-		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
 		Buffer::Data(se::Array(), vel_data);
 		Buffer::Data(se::TransformFeedback(), vel_data);
+
+		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
 		phys_vao.Bind();
 		VertexAttribArray vert_attr(phys_prog, "Velocity");
@@ -1243,9 +1245,10 @@ private:
 		assert(ii == ie);
 
 		springs.Bind(se::Uniform());
-		springs.BindBase(se::Uniform(), 1);
 
 		Buffer::Data(se::Uniform(), indices);
+
+		springs.BindBase(se::Uniform(), 1);
 
 		phys_prog.Use();
 		UniformBlock(phys_prog, "SpringIndexBlock").Binding(1);

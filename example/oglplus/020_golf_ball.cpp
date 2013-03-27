@@ -155,10 +155,6 @@ public:
 		hole_verts.Bind(Buffer::Target::Array);
 		// and the VBO for the transformed hole vertices captured by tfb
 		transf_hole_verts.Bind(Buffer::Target::TransformFeedback);
-		transf_hole_verts.BindBase(
-			Buffer::IndexedTarget::TransformFeedback,
-			0
-		);
 		{
 			std::vector<GLfloat> data;
 			make_hole_data(data, hole_count);
@@ -168,7 +164,10 @@ public:
 			attr.Setup(3, DataType::Float);
 			attr.Enable();
 		}
-
+		transf_hole_verts.BindBase(
+			Buffer::IndexedTarget::TransformFeedback,
+			0
+		);
 
 		// Set the vertex shader source
 		vs.Source(
