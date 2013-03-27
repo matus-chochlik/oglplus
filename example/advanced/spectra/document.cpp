@@ -10,6 +10,7 @@
  */
 
 #include "document_with_calc.hpp"
+#include "openal_document.hpp"
 #include "shared_objects.hpp"
 #include "calculator.hpp"
 
@@ -160,22 +161,10 @@ std::shared_ptr<SpectraDocument> SpectraLoadDocFromFile(
 	std::size_t spectrum_size
 )
 {
-	//TODO
-	struct TestSignal
-	{
-		float operator()(float x) const
-		{
-			return sin(3.1415*10.0*(sin(x)+2.0+x*x))*
-				std::rand()/float(RAND_MAX)*
-				std::rand()/float(RAND_MAX);
-		}
-	} signal_func;
-	return SpectraOpenTestDoc(
+	return SpectraOpenOpenALDoc(
 		shared_objects,
-		signal_func,
-		11000,
-		spectrum_size,
-		1.41f
+		file_path,
+		spectrum_size
 	);
 }
 

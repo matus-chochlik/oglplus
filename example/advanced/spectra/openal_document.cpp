@@ -87,7 +87,7 @@ bool SpectraOpenALDocument::FinishLoading(void)
 	oalplus::ALUtilityToolkit alut(false, 1, &arg);
 
 	samples = alut.LoadMemoryFromFile(
-		"/usr/lib/libreoffice/share/gallery/sounds/train.wav",
+		(const char*)file_path.mb_str(wxConvUTF8),
 		&format,
 		&frequency
 	);
@@ -147,8 +147,8 @@ std::size_t SpectraOpenALDocument::QuerySignalSamples(
 
 std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(
 	SpectraSharedObjects& shared_objects,
-	std::size_t spectrum_size,
-	const wxString& file_path
+	const wxString& file_path,
+	std::size_t spectrum_size
 )
 {
 	return std::make_shared<SpectraOpenALDocument>(
@@ -162,8 +162,8 @@ std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(
 
 std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(
 	SpectraSharedObjects& shared_objects,
-	std::size_t spectrum_size,
-	const wxString& file_path
+	const wxString& file_path,
+	std::size_t spectrum_size
 )
 {
 	throw std::runtime_error("OpenAL documents not supported");

@@ -13,7 +13,6 @@
 #include "coroutine.hpp"
 #include "document_frame.hpp"
 #include "document.hpp"
-#include "openal_document.hpp"
 #include "default_renderer.hpp"
 #include "xsection_renderer.hpp"
 #include "visualisation.hpp"
@@ -372,20 +371,13 @@ void SpectraMainFrame::DoGenerateDocument(wxCommandEvent&)
 		StartCoroutine(
 			std::make_shared<SpectraMainFrameDocumentLoader>(
 				this,
-				SpectraOpenOpenALDoc(
-					*shared_objects,
-					256,
-					wxEmptyString
-				)
-/*
 				SpectraOpenTestDoc(
 					*shared_objects,
 					TestSignal(),
 					11000,
 					256,
 					4.71
-				) //TODO
-*/
+				)
 			),
 			false
 		);

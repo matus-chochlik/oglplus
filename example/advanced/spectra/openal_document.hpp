@@ -23,8 +23,8 @@ class SpectraSharedObjects;
 
 extern std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(
 	SpectraSharedObjects& shared_objects,
-	std::size_t spectrum_size,
-	const wxString& file_path
+	const wxString& file_path,
+	std::size_t spectrum_size
 );
 
 #endif // include guard
