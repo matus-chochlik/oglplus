@@ -9,13 +9,13 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE OGLPLUS_matrix
+#define BOOST_TEST_MODULE OGLPLUS_Matrix
 #include <boost/test/unit_test.hpp>
 
 #include <oglplus/gl.hpp>
 #include <oglplus/matrix.hpp>
 
-BOOST_AUTO_TEST_SUITE(matrix)
+BOOST_AUTO_TEST_SUITE(Matrix)
 
 template <typename T>
 void do_test_matrix_default_construction(void)
@@ -31,13 +31,13 @@ void do_test_matrix_default_construction(void)
 	oglplus::Matrix<T, 4, 4> mat4;
 }
 
-BOOST_AUTO_TEST_CASE(matrix_default_construction)
+BOOST_AUTO_TEST_CASE(Matrix_default_construction)
 {
 	do_test_matrix_default_construction<float>();
 	do_test_matrix_default_construction<double>();
 }
 
-BOOST_AUTO_TEST_CASE(matrix_construction_1)
+BOOST_AUTO_TEST_CASE(Matrix_construction_1)
 {
 	float mat_init[16] = {
 		0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f,
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(matrix_construction_1)
 	oglplus::Matrix<float, 4, 4> mat4(mat_init, 16);
 }
 
-BOOST_AUTO_TEST_CASE(matrix_construction_2)
+BOOST_AUTO_TEST_CASE(Matrix_construction_2)
 {
 	float mat_init_4[4] = {
 		0.0f, 1.0f, 2.0f, 3.0f
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(matrix_construction_2)
 	oglplus::Matrix<float, 4, 4> mat4(mat_init_16);
 }
 
-BOOST_AUTO_TEST_CASE(matrix_construction_3)
+BOOST_AUTO_TEST_CASE(Matrix_construction_3)
 {
 	oglplus::Matrix<float, 2, 2> mat2(
 		0.0f, 1.0f,
@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_CASE(matrix_construction_3)
 	);
 }
 
-BOOST_AUTO_TEST_CASE(matrix_construction_4)
+BOOST_AUTO_TEST_CASE(Matrix_construction_4)
 {
 	oglplus::Matrix<float, 2, 2> mat2(
 		oglplus::Vector<float, 2>(0.0f, 1.0f),
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE(matrix_construction_4)
 	);
 }
 
-BOOST_AUTO_TEST_CASE(matrix_copy_construction_1)
+BOOST_AUTO_TEST_CASE(Matrix_copy_construction_1)
 {
 	oglplus::Matrix<float, 2, 2> mat2(
 		0.0f, 1.0f,
@@ -249,7 +249,7 @@ BOOST_AUTO_TEST_CASE(matrix_copy_construction_1)
 	oglplus::Matrix<float, 4, 4> mat4c(mat4);
 }
 
-BOOST_AUTO_TEST_CASE(matrix_copy_construction_2)
+BOOST_AUTO_TEST_CASE(Matrix_copy_construction_2)
 {
 	oglplus::Matrix<double, 4, 4> mat4(
 		0.0, 1.0, 2.0, 3.0,
@@ -269,7 +269,7 @@ BOOST_AUTO_TEST_CASE(matrix_copy_construction_2)
 	oglplus::Matrix<float, 4, 4> mat4c(mat4);
 }
 
-BOOST_AUTO_TEST_CASE(matrix_dimensions)
+BOOST_AUTO_TEST_CASE(Matrix_dimensions)
 {
 	oglplus::Matrix<float, 2, 2> mat2;
 	oglplus::Matrix<float, 2, 3> mat2x3;
@@ -349,7 +349,7 @@ void do_test_matrix_data_1(const oglplus::Matrix<T, R, C>& m)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(matrix_data_1)
+BOOST_AUTO_TEST_CASE(Matrix_data_1)
 {
 	oglplus::Matrix<float, 2, 2> mat2;
 	oglplus::Matrix<float, 2, 3> mat2x3;
@@ -389,7 +389,7 @@ void do_test_matrix_data_i(const oglplus::Matrix<T, R, C>& m)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(matrix_data_2)
+BOOST_AUTO_TEST_CASE(Matrix_data_2)
 {
 	float mat_init_4[4] = {
 		0.0f, 1.0f, 2.0f, 3.0f
@@ -438,7 +438,7 @@ BOOST_AUTO_TEST_CASE(matrix_data_2)
 }
 
 
-BOOST_AUTO_TEST_CASE(matrix_data_3)
+BOOST_AUTO_TEST_CASE(Matrix_data_3)
 {
 	oglplus::Matrix<float, 2, 2> mat2(
 		0.0f, 1.0f,
@@ -498,7 +498,7 @@ BOOST_AUTO_TEST_CASE(matrix_data_3)
 }
 
 
-BOOST_AUTO_TEST_CASE(matrix_data_4)
+BOOST_AUTO_TEST_CASE(Matrix_data_4)
 {
 	oglplus::Matrix<float, 2, 2> mat2(
 		oglplus::Vector<float, 2>(0.0f, 1.0f),
@@ -572,7 +572,7 @@ void do_test_matrix_at(const oglplus::Matrix<T, R, C>& m, std::size_t k = 0)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(matrix_at)
+BOOST_AUTO_TEST_CASE(Matrix_at)
 {
 	oglplus::Matrix<float, 2, 2> mat2(
 		0.0f, 1.0f,
@@ -649,7 +649,7 @@ void do_test_matrix_set(oglplus::Matrix<T, R, C>& m, std::size_t n = 10)
 	do_test_matrix_at(m, n);
 }
 
-BOOST_AUTO_TEST_CASE(matrix_set)
+BOOST_AUTO_TEST_CASE(Matrix_set)
 {
 	oglplus::Matrix<float, 2, 2> mat2;
 	oglplus::Matrix<float, 2, 3> mat2x3;
@@ -691,7 +691,7 @@ void do_test_matrix_row(oglplus::Matrix<T, R, C>& m)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(matrix_row)
+BOOST_AUTO_TEST_CASE(Matrix_row)
 {
 	oglplus::Matrix<float, 2, 2> mat2;
 	oglplus::Matrix<float, 2, 3> mat2x3;
@@ -733,7 +733,7 @@ void do_test_matrix_col(oglplus::Matrix<T, R, C>& m)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(matrix_col)
+BOOST_AUTO_TEST_CASE(Matrix_col)
 {
 	oglplus::Matrix<float, 2, 2> mat2;
 	oglplus::Matrix<float, 2, 3> mat2x3;
@@ -756,7 +756,7 @@ BOOST_AUTO_TEST_CASE(matrix_col)
 	do_test_matrix_col(mat4);
 }
 
-BOOST_AUTO_TEST_CASE(matrix_comparison_1)
+BOOST_AUTO_TEST_CASE(Matrix_comparison_1)
 {
 	oglplus::Matrix<float, 2, 2> mat2(
 		0.0f, 1.0f,
@@ -827,7 +827,7 @@ BOOST_AUTO_TEST_CASE(matrix_comparison_1)
 
 // TODO
 
-BOOST_AUTO_TEST_CASE(matrix_submatrix)
+BOOST_AUTO_TEST_CASE(Matrix_submatrix)
 {
 	oglplus::Matrix<float, 4, 4> mat4(
 		0.0f, 1.0f, 2.0f, 3.0f,
@@ -898,7 +898,7 @@ BOOST_AUTO_TEST_CASE(matrix_submatrix)
 	));
 }
 
-BOOST_AUTO_TEST_CASE(matrix_negation)
+BOOST_AUTO_TEST_CASE(Matrix_negation)
 {
 	oglplus::Matrix<float, 4, 4> mat4(
 		0.0f, 1.0f, 2.0f, 3.0f,
@@ -923,7 +923,7 @@ BOOST_AUTO_TEST_CASE(matrix_negation)
 // TODO multiplication, addition, subtraction, ...
 
 
-BOOST_AUTO_TEST_CASE(matrix_inverse)
+BOOST_AUTO_TEST_CASE(Matrix_inverse)
 {
 	double eps = 1.0;
 	for(unsigned i=0; i!=1000; ++i)

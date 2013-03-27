@@ -61,6 +61,8 @@ public:
 
 	void ReinitStyle(void);
 
+	bool Interactive(void);
+
 	void Render(SpectraDocumentView& view, wxGLCanvas* canvas);
 };
 
@@ -184,6 +186,11 @@ void SpectraDefaultRenderer::RenderVisualCues(SpectraDocumentView& view)
 void SpectraDefaultRenderer::ReinitStyle(void)
 {
 	CacheBgColor();
+}
+
+bool SpectraDefaultRenderer::Interactive(void)
+{
+	return true;
 }
 
 void SpectraDefaultRenderer::Render(

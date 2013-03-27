@@ -15,9 +15,11 @@
 #include "document.hpp"
 #include "openal_document.hpp"
 #include "default_renderer.hpp"
+#include "xsection_renderer.hpp"
 #include "visualisation.hpp"
 
 #include <wx/stockitem.h>
+#include <wx/filedlg.h>
 #include <wx/aboutdlg.h>
 
 // -- SpectraMainFrameDocumentLoader --
@@ -78,6 +80,14 @@ int SpectraMainFrameDocumentLoader::PercentDone(void) const
 
 
 //-- SpectraMainFrame --
+
+int SpectraMainFrameID_MenuFile = wxID_HIGHEST+1;
+int SpectraMainFrameID_GenerateDoc = SpectraMainFrameID_MenuFile+1;
+
+int SpectraMainFrameID_MenuView = wxID_HIGHEST+100;
+int SpectraMainFrameID_DefaultRenderer = SpectraMainFrameID_MenuView+1;
+int SpectraMainFrameID_XSectionRenderer = SpectraMainFrameID_MenuView+2;
+
 void SpectraMainFrame::SetStatus(const wxString& status_text)
 {
 	status_bar->SetStatusText(status_text);
@@ -122,15 +132,48 @@ void SpectraMainFrame::InitMainMenu(void)
 {
 	wxMenu* file_menu = new wxMenu();
 	file_menu->Append(wxID_OPEN);
+	file_menu->Append(
+		SpectraMainFrameID_GenerateDoc,
+		wxGetTranslation(wxT("&Generate"), wxT("Document"))
+	);
 	file_menu->AppendSeparator();
 	file_menu->Append(wxID_EXIT);
 
-	main_menu->Append(file_menu, wxGetStockLabel(wxID_FILE));
+	main_menu->Append(
+		file_menu,
+		wxGetStockLabel(wxID_FILE)
+	);
+
+	wxMenu* view_menu = new wxMenu();
+
+	renderer_menu = new wxMenu();
+	renderer_menu->AppendRadioItem(
+		SpectraMainFrameID_DefaultRenderer, 
+		wxGetTranslation(wxT("&Default renderer"), wxT("Menu"))
+	);
+
+	renderer_menu->AppendRadioItem(
+		SpectraMainFrameID_XSectionRenderer,
+		wxGetTranslation(wxT("&Cross-section renderer"), wxT("Menu"))
+	);
+
+	view_menu->AppendSubMenu(
+		renderer_menu,
+		wxGetTranslation(wxT("&Renderer"), wxT("Menu"))
+	);
+
+	main_menu->Append(
+		view_menu,
+		wxGetTranslation(wxT("&View"), wxT("Menu"))
+	);
 
 	wxMenu* help_menu = new wxMenu();
 	help_menu->Append(wxID_ABOUT);
 
-	main_menu->Append(help_menu, wxGetStockLabel(wxID_HELP));
+	main_menu->Append(
+		help_menu,
+		wxGetStockLabel(wxID_HELP)
+	);
 
 	SetMenuBar(main_menu);
 }
@@ -146,6 +189,11 @@ void SpectraMainFrame::ConnectEventHandlers(void)
 		wxID_OPEN,
 		wxEVT_COMMAND_MENU_SELECTED,
 		wxCommandEventHandler(SpectraMainFrame::DoOpenDocument)
+	);
+	Connect(
+		SpectraMainFrameID_GenerateDoc,
+		wxEVT_COMMAND_MENU_SELECTED,
+		wxCommandEventHandler(SpectraMainFrame::DoGenerateDocument)
 	);
 	Connect(
 		wxID_ABOUT,
@@ -278,9 +326,39 @@ void SpectraMainFrame::DoShowAboutDialog(wxCommandEvent&)
 
 void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 {
+	wxString doc_path = wxLoadFileSelector(
+		wxGetTranslation(wxT("Select file to load"), wxT("Dialog")),
+		wxT(".wav"),
+		(const wxChar*)0,
+		this
+	); // TODO a customized dialog
+	std::size_t spectrum_width = 256; // TODO let the user select spectrum width
 	try
 	{
-		//wxString doc_path(wxT("TODO: get document path"));
+		StartCoroutine(
+			std::make_shared<SpectraMainFrameDocumentLoader>(
+				this,
+				SpectraLoadDocFromFile(
+					*shared_objects,
+					doc_path,
+					spectrum_width
+				)
+			),
+			false
+		);
+	}
+	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe); }
+	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe); }
+	catch(oglplus::LimitError& le) { parent_app.HandleError(le); }
+	catch(oglplus::OutOfMemory& oom) { parent_app.HandleError(oom); }
+	catch(oglplus::Error& err) { parent_app.HandleError(err); }
+	catch(const std::exception& se) { parent_app.HandleError(se); }
+}
+
+void SpectraMainFrame::DoGenerateDocument(wxCommandEvent&)
+{
+	try
+	{
 		struct TestSignal
 		{
 			float operator()(float x) const
@@ -375,13 +453,27 @@ std::shared_ptr<SpectraRenderer> SpectraMainFrame::PickRenderer(
 )
 {
 	assert(main_frame == this);
+	std::shared_ptr<SpectraRenderer> result;
+	if(renderer_menu->IsChecked(SpectraMainFrameID_XSectionRenderer))
+	{
+		result = SpectraMakeXSectionRenderer(
+			parent_app,
+			main_frame->shared_objects,
+			doc_vis,
+			canvas
+		);
+	}
+	else
+	{
+		result = SpectraMakeDefaultRenderer(
+			parent_app,
+			main_frame->shared_objects,
+			doc_vis,
+			canvas
+		);
+	}
 	// TODO support for other renderers
-	return SpectraMakeDefaultRenderer(
-		parent_app,
-		main_frame->shared_objects,
-		doc_vis,
-		canvas
-	);
+	return result;
 }
 
 SpectraMainFrame::RendererGetter SpectraMainFrame::LazyRendererPicker(void)

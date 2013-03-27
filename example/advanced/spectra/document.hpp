@@ -63,4 +63,10 @@ extern std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(
 	float max_time
 );
 
+extern std::shared_ptr<SpectraDocument> SpectraLoadDocFromFile(
+	SpectraSharedObjects& shared_objects,
+	const wxString& file_path,
+	std::size_t spectrum_size
+);
+
 #endif // include guard

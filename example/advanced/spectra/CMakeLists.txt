@@ -36,6 +36,7 @@ if(wxWidgets_FOUND)
 			visualisation.cpp
 			renderer.cpp
 			default_renderer.cpp
+			xsection_renderer.cpp
 			calculator.cpp
 			calculator_cpu.cpp
 			calculator_gpu.cpp

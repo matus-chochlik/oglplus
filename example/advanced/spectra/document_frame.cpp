@@ -249,7 +249,8 @@ void SpectraDocumentFrame::OnMouseMotionEvent(wxMouseEvent& event)
 {
 	try
 	{
-		HandleMouseMotion(event);
+		if(renderer->Interactive())
+			HandleMouseMotion(event);
 		event.Skip();
 		Update();
 		old_mouse_position = event.GetPosition();

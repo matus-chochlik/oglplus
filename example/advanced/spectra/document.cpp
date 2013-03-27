@@ -154,3 +154,28 @@ std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(
 	);
 }
 
+std::shared_ptr<SpectraDocument> SpectraLoadDocFromFile(
+	SpectraSharedObjects& shared_objects,
+	const wxString& file_path,
+	std::size_t spectrum_size
+)
+{
+	//TODO
+	struct TestSignal
+	{
+		float operator()(float x) const
+		{
+			return sin(3.1415*10.0*(sin(x)+2.0+x*x))*
+				std::rand()/float(RAND_MAX)*
+				std::rand()/float(RAND_MAX);
+		}
+	} signal_func;
+	return SpectraOpenTestDoc(
+		shared_objects,
+		signal_func,
+		11000,
+		spectrum_size,
+		1.41f
+	);
+}
+

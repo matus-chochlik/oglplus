@@ -9,15 +9,15 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE OGLPLUS_vector
+#define BOOST_TEST_MODULE OGLPLUS_Vector
 #include <boost/test/unit_test.hpp>
 
 #include <oglplus/gl.hpp>
 #include <oglplus/vector.hpp>
 
-BOOST_AUTO_TEST_SUITE(vector)
+BOOST_AUTO_TEST_SUITE(Vector)
 
-BOOST_AUTO_TEST_CASE(vector_default_construction)
+BOOST_AUTO_TEST_CASE(Vector_default_construction)
 {
 	oglplus::Vector<float, 2> vec2f;
 	oglplus::Vector<float, 3> vec3f;
@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(vector_default_construction)
 	oglplus::Vector<double, 4> vec4d;
 }
 
-BOOST_AUTO_TEST_CASE(vector_construction)
+BOOST_AUTO_TEST_CASE(Vector_construction)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(vector_construction)
 	oglplus::Vector<double, 4> vec4d(1.0, 2.0, 3.0, 4.0);
 }
 
-BOOST_AUTO_TEST_CASE(vector_construction_2)
+BOOST_AUTO_TEST_CASE(Vector_construction_2)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(vec2f, 3.0f);
@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(vector_construction_2)
 	oglplus::Vector<float, 4> vec4f2(vec2f, 3.0f, 4.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_construction_3)
+BOOST_AUTO_TEST_CASE(Vector_construction_3)
 {
 	float data[4] = {1.0f, 2.0f, 3.0f, 4.0f};
 	oglplus::Vector<float, 2> vec2f(data, 2);
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_CASE(vector_construction_3)
 	oglplus::Vector<float, 4> vec4f(data, 4);
 }
 
-BOOST_AUTO_TEST_CASE(vector_construction_4)
+BOOST_AUTO_TEST_CASE(Vector_construction_4)
 {
 	float data_2[2] = {1.0f, 2.0f};
 	oglplus::Vector<float, 2> vec2f(data_2);
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(vector_construction_4)
 	oglplus::Vector<float, 4> vec4f(data_4);
 }
 
-BOOST_AUTO_TEST_CASE(vector_construction_5)
+BOOST_AUTO_TEST_CASE(Vector_construction_5)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(vector_construction_5)
 	oglplus::Vector<double, 4> vec4d(vec4f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_construction_6)
+BOOST_AUTO_TEST_CASE(Vector_construction_6)
 {
 	oglplus::Vector<double, 2> vec2d(1.0, 2.0);
 	oglplus::Vector<double, 3> vec3d(1.0, 2.0, 3.0);
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(vector_construction_6)
 	oglplus::Vector<float, 4> vec4f(vec4d);
 }
 
-BOOST_AUTO_TEST_CASE(vector_copy_construction)
+BOOST_AUTO_TEST_CASE(Vector_copy_construction)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(vector_copy_construction)
 	oglplus::Vector<float, 4> vec4f2(vec4f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_assignment)
+BOOST_AUTO_TEST_CASE(Vector_assignment)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(vector_assignment)
 	vec4f2 = vec4f;
 }
 
-BOOST_AUTO_TEST_CASE(vector_size)
+BOOST_AUTO_TEST_CASE(Vector_size)
 {
 	oglplus::Vector<float, 2> vec2f;
 	oglplus::Vector<float, 3> vec3f;
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE(vector_size)
 	BOOST_CHECK_EQUAL(Size(vec4f), 4);
 }
 
-BOOST_AUTO_TEST_CASE(vector_data)
+BOOST_AUTO_TEST_CASE(Vector_data)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_CASE(vector_data)
 	BOOST_CHECK_EQUAL(vec4f.Data()[3], 4.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_at_1)
+BOOST_AUTO_TEST_CASE(Vector_at_1)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_CASE(vector_at_1)
 	BOOST_CHECK_EQUAL(vec4f.At(3), 4.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_at_2)
+BOOST_AUTO_TEST_CASE(Vector_at_2)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE(vector_at_2)
 	BOOST_CHECK_EQUAL(vec4f.At(4, 5.0f), 5.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_subscript)
+BOOST_AUTO_TEST_CASE(Vector_subscript)
 {
 	oglplus::Vector<float, 2> vec2f(1.0f, 2.0f);
 	oglplus::Vector<float, 3> vec3f(1.0f, 2.0f, 3.0f);
@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_CASE(vector_subscript)
 	BOOST_CHECK_EQUAL(vec4f[3], 40.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_comparison)
+BOOST_AUTO_TEST_CASE(Vector_comparison)
 {
 	oglplus::Vector<float, 4> v1(1.0f, 2.0f, 3.0f, 4.0f);
 	oglplus::Vector<float, 4> v2(2.0f, 3.0f, 4.0f, 5.0f);
@@ -263,7 +263,7 @@ BOOST_AUTO_TEST_CASE(vector_comparison)
 	BOOST_CHECK(!Equal(v1, v3) == (v1 != v3));
 }
 
-BOOST_AUTO_TEST_CASE(vector_negation_2)
+BOOST_AUTO_TEST_CASE(Vector_negation_2)
 {
 	oglplus::Vector<float, 2> v1( 1.0f, 2.0f);
 	oglplus::Vector<float, 2> v2(-1.0f,-2.0f);
@@ -274,7 +274,7 @@ BOOST_AUTO_TEST_CASE(vector_negation_2)
 	BOOST_CHECK(v2 ==-(-v2));
 }
 
-BOOST_AUTO_TEST_CASE(vector_negation_3)
+BOOST_AUTO_TEST_CASE(Vector_negation_3)
 {
 	oglplus::Vector<float, 3> v1( 1.0f, 2.0f, 3.0f);
 	oglplus::Vector<float, 3> v2(-1.0f,-2.0f,-3.0f);
@@ -285,7 +285,7 @@ BOOST_AUTO_TEST_CASE(vector_negation_3)
 	BOOST_CHECK(v2 ==-(-v2));
 }
 
-BOOST_AUTO_TEST_CASE(vector_negation_4)
+BOOST_AUTO_TEST_CASE(Vector_negation_4)
 {
 	oglplus::Vector<float, 4> v1( 1.0f, 2.0f, 3.0f, 4.0f);
 	oglplus::Vector<float, 4> v2(-1.0f,-2.0f,-3.0f,-4.0f);
@@ -296,7 +296,7 @@ BOOST_AUTO_TEST_CASE(vector_negation_4)
 	BOOST_CHECK(v2 ==-(-v2));
 }
 
-BOOST_AUTO_TEST_CASE(vector_addition_2)
+BOOST_AUTO_TEST_CASE(Vector_addition_2)
 {
 	oglplus::Vector<float, 2> v0(0.0f, 0.0f);
 	oglplus::Vector<float, 2> v1(1.0f, 2.0f);
@@ -310,7 +310,7 @@ BOOST_AUTO_TEST_CASE(vector_addition_2)
 	BOOST_CHECK((v1+v2+v3) == (v3+v2+v1));
 }
 
-BOOST_AUTO_TEST_CASE(vector_addition_3)
+BOOST_AUTO_TEST_CASE(Vector_addition_3)
 {
 	oglplus::Vector<float, 3> v0(0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 3> v1(1.0f, 2.0f, 3.0f);
@@ -324,7 +324,7 @@ BOOST_AUTO_TEST_CASE(vector_addition_3)
 	BOOST_CHECK((v1+v2+v3) == (v3+v2+v1));
 }
 
-BOOST_AUTO_TEST_CASE(vector_addition_4)
+BOOST_AUTO_TEST_CASE(Vector_addition_4)
 {
 	oglplus::Vector<float, 4> v0(0.0f, 0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 4> v1(1.0f, 2.0f, 3.0f, 4.0f);
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_CASE(vector_addition_4)
 	BOOST_CHECK((v1+v2+v3) == (v3+v2+v1));
 }
 
-BOOST_AUTO_TEST_CASE(vector_subtraction_2)
+BOOST_AUTO_TEST_CASE(Vector_subtraction_2)
 {
 	oglplus::Vector<float, 2> v0(0.0f, 0.0f);
 	oglplus::Vector<float, 2> v1(1.0f, 2.0f);
@@ -352,7 +352,7 @@ BOOST_AUTO_TEST_CASE(vector_subtraction_2)
 	BOOST_CHECK((v3-v2-v1) == v0);
 }
 
-BOOST_AUTO_TEST_CASE(vector_subtraction_3)
+BOOST_AUTO_TEST_CASE(Vector_subtraction_3)
 {
 	oglplus::Vector<float, 3> v0(0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 3> v1(1.0f, 2.0f, 3.0f);
@@ -366,7 +366,7 @@ BOOST_AUTO_TEST_CASE(vector_subtraction_3)
 	BOOST_CHECK((v3-v2-v1) == v0);
 }
 
-BOOST_AUTO_TEST_CASE(vector_subtraction_4)
+BOOST_AUTO_TEST_CASE(Vector_subtraction_4)
 {
 	oglplus::Vector<float, 4> v0(0.0f, 0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 4> v1(1.0f, 2.0f, 3.0f, 4.0f);
@@ -380,7 +380,7 @@ BOOST_AUTO_TEST_CASE(vector_subtraction_4)
 	BOOST_CHECK((v3-v2-v1) == v0);
 }
 
-BOOST_AUTO_TEST_CASE(vector_multiplication_2)
+BOOST_AUTO_TEST_CASE(Vector_multiplication_2)
 {
 	oglplus::Vector<float, 2> v0(0.0f, 0.0f);
 	oglplus::Vector<float, 2> v1(1.0f, 2.0f);
@@ -392,7 +392,7 @@ BOOST_AUTO_TEST_CASE(vector_multiplication_2)
 	BOOST_CHECK(6*v1 == 3*v2);
 }
 
-BOOST_AUTO_TEST_CASE(vector_multiplication_3)
+BOOST_AUTO_TEST_CASE(Vector_multiplication_3)
 {
 	oglplus::Vector<float, 3> v0(0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 3> v1(1.0f, 2.0f, 3.0f);
@@ -404,7 +404,7 @@ BOOST_AUTO_TEST_CASE(vector_multiplication_3)
 	BOOST_CHECK(6*v1 == 3*v2);
 }
 
-BOOST_AUTO_TEST_CASE(vector_multiplication_4)
+BOOST_AUTO_TEST_CASE(Vector_multiplication_4)
 {
 	oglplus::Vector<float, 4> v0(0.0f, 0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 4> v1(1.0f, 2.0f, 3.0f, 4.0f);
@@ -416,7 +416,7 @@ BOOST_AUTO_TEST_CASE(vector_multiplication_4)
 	BOOST_CHECK(6*v1 == 3*v2);
 }
 
-BOOST_AUTO_TEST_CASE(vector_division_2)
+BOOST_AUTO_TEST_CASE(Vector_division_2)
 {
 	oglplus::Vector<float, 2> v0(0.0f, 0.0f);
 	oglplus::Vector<float, 2> v1(1.0f, 2.0f);
@@ -427,7 +427,7 @@ BOOST_AUTO_TEST_CASE(vector_division_2)
 	BOOST_CHECK(v1 == v2/2.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_division_3)
+BOOST_AUTO_TEST_CASE(Vector_division_3)
 {
 	oglplus::Vector<float, 3> v0(0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 3> v1(1.0f, 2.0f, 3.0f);
@@ -438,7 +438,7 @@ BOOST_AUTO_TEST_CASE(vector_division_3)
 	BOOST_CHECK(v1 == v2/2.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_division_4)
+BOOST_AUTO_TEST_CASE(Vector_division_4)
 {
 	oglplus::Vector<float, 4> v0(0.0f, 0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 4> v1(1.0f, 2.0f, 3.0f, 4.0f);
@@ -449,7 +449,7 @@ BOOST_AUTO_TEST_CASE(vector_division_4)
 	BOOST_CHECK(v1 == v2/2.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_dot_2)
+BOOST_AUTO_TEST_CASE(Vector_dot_2)
 {
 	oglplus::Vector<float, 2> v0(0.0f, 0.0f);
 	oglplus::Vector<float, 2> v1(1.0f, 1.0f);
@@ -467,7 +467,7 @@ BOOST_AUTO_TEST_CASE(vector_dot_2)
 	BOOST_CHECK_EQUAL(Dot(v3, v4), 0.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_dot_3)
+BOOST_AUTO_TEST_CASE(Vector_dot_3)
 {
 	oglplus::Vector<float, 3> v0(0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 3> v1(1.0f, 1.0f, 1.0f);
@@ -485,7 +485,7 @@ BOOST_AUTO_TEST_CASE(vector_dot_3)
 	BOOST_CHECK_EQUAL(Dot(v3, v4), 0.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_dot_4)
+BOOST_AUTO_TEST_CASE(Vector_dot_4)
 {
 	oglplus::Vector<float, 4> v0(0.0f, 0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 4> v1(1.0f, 1.0f, 1.0f, 1.0f);
@@ -503,7 +503,7 @@ BOOST_AUTO_TEST_CASE(vector_dot_4)
 	BOOST_CHECK_EQUAL(Dot(v3, v4), 0.0f);
 }
 
-BOOST_AUTO_TEST_CASE(vector_perpendicular)
+BOOST_AUTO_TEST_CASE(Vector_perpendicular)
 {
 	float eps = 1e-4;
 
@@ -524,7 +524,7 @@ BOOST_AUTO_TEST_CASE(vector_perpendicular)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(vector_cross)
+BOOST_AUTO_TEST_CASE(Vector_cross)
 {
 	float eps = 1e-4;
 
@@ -554,7 +554,7 @@ BOOST_AUTO_TEST_CASE(vector_cross)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(vector_normalized)
+BOOST_AUTO_TEST_CASE(Vector_normalized)
 {
 	float eps = 1e-4;
 
@@ -586,7 +586,7 @@ BOOST_AUTO_TEST_CASE(vector_normalized)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(vector_length_4)
+BOOST_AUTO_TEST_CASE(Vector_length_4)
 {
 	oglplus::Vector<float, 4> v0(0.0f, 0.0f, 0.0f, 0.0f);
 	oglplus::Vector<float, 4> v1(1.0f, 1.0f, 1.0f, 1.0f);
