@@ -17,6 +17,7 @@
 #include <vector>
 #include <string>
 #include <cstdio>
+#include <cassert>
 
 namespace oglplus {
 namespace x11 {

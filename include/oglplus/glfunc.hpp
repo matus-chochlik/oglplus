@@ -41,14 +41,18 @@ inline auto _checked_glfunc(
 	return *ppfn;
 }
 
+#ifndef OGLPLUS_GLFUNC
 #define OGLPLUS_GLFUNC(FUNCNAME) \
 	::oglplus::_checked_glfunc( \
 		&::gl##FUNCNAME, \
 		OGLPLUS_ERROR_INFO(FUNCNAME) \
 	)
+#endif
 #else
+#ifndef OGLPLUS_GLFUNC
 #define OGLPLUS_GLFUNC(FUNCNAME) \
 	::gl##FUNCNAME
+#endif
 #endif
 
 
