@@ -67,6 +67,42 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 typedef GLuint TransformFeedbackBufferBindingPoint;
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Type for the atomic counter buffer binding point index
+class AtomicCounterBufferBindingPoint
+ : public LimitedCount
+{
+public:
+	/// Construction from a @c GLuint
+	AtomicCounterBufferBindingPoint(GLuint count);
+};
+#elif GL_VERSION_4_2 || GL_ARB_shader_atomic_counters
+OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
+	AtomicCounterBufferBindingPoint,
+	MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
+)
+#else
+typedef GLuint AtomicCounterBufferBindingPoint;
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Type for the shader storage buffer binding point index
+class ShaderStorageBufferBindingPoint
+ : public LimitedCount
+{
+public:
+	/// Construction from a @c GLuint
+	ShaderStorageBufferBindingPoint(GLuint count);
+};
+#elif GL_VERSION_4_3 || GL_ARB_shader_storage_buffer_object
+OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
+	ShaderStorageBufferBindingPoint,
+	MAX_SHADER_STORAGE_BUFFER_BINDINGS
+)
+#else
+typedef GLuint ShaderStorageBufferBindingPoint;
+#endif
+
 /// Buffer usage enumeration
 /**
  *  @ingroup enumerations
@@ -442,6 +478,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback3
 	/// Bind this buffer to the specified uniform buffer binding point
 	/**
 	 *  @throws Error
@@ -450,7 +487,9 @@ public:
 	{
 		BindBase(IndexedTarget::Uniform, GLuint(index));
 	}
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback3
 	/// Bind this buffer to the specified TFB buffer binding point
 	/**
 	 *  @throws Error
@@ -461,6 +500,33 @@ public:
 	{
 		BindBase(IndexedTarget::TransformFeedback, GLuint(index));
 	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_shader_atomic_counters
+	/// Bind this buffer to the specified atomic counter buffer binding point
+	/**
+	 *  @throws Error
+	 */
+	void BindBaseAtomicCounter(
+		AtomicCounterBufferBindingPoint index
+	) const
+	{
+		BindBase(IndexedTarget::AtomicCounter, GLuint(index));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_shader_storage_buffer_object
+	/// Bind this buffer to the specified shader storage buffer binding point
+	/**
+	 *  @throws Error
+	 */
+	void BindBaseShaderStorage(
+		ShaderStorageBufferBindingPoint index
+	) const
+	{
+		BindBase(IndexedTarget::ShaderStorage, GLuint(index));
+	}
+#endif
 
 	/// Unbind the current buffer from the specified indexed target
 	/**

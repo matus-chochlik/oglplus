@@ -13,7 +13,7 @@
 #define __OGLPLUS_TEST_TEST_1303270827_HPP__
 
 #define OGLPLUS_GLFUNC(FUNCNAME) \
-	BOOST_TEST_MESSAGE("gl" #FUNCNAME), \
+	BOOST_TEST_CHECKPOINT("gl" #FUNCNAME), \
 	::gl##FUNCNAME
 
 #endif // include guard
