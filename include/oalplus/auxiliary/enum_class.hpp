@@ -36,7 +36,6 @@
 namespace oalplus {
 
 using oglplus::EnumValueType;
-using oglplus::EnumBaseType;
 
 } // namespace oalplus
 

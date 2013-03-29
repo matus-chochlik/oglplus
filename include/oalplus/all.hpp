@@ -17,4 +17,9 @@
 #include <oalplus/fwd.hpp>
 #include <oalplus/error.hpp>
 
+#include <oalplus/data_format.hpp>
+#include <oalplus/string_query.hpp>
+#include <oalplus/distance_model.hpp>
+#include <oalplus/source_state.hpp>
+
 #endif // include guard

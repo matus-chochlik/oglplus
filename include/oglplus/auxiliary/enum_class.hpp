@@ -41,10 +41,7 @@ struct EnumValueType
 };
 
 template <typename Enum>
-struct EnumBaseType
-{
-	typedef unsigned int Type;
-};
+struct EnumBaseType;
 
 // no native strongly typed enums
 #else
