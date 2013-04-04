@@ -331,7 +331,7 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 		(const wxChar*)0,
 		this
 	); // TODO a customized dialog
-	std::size_t spectrum_width = 256; // TODO let the user select spectrum width
+	std::size_t spectrum_width = 128; // TODO let the user select spectrum width
 	try
 	{
 		StartCoroutine(
@@ -375,7 +375,7 @@ void SpectraMainFrame::DoGenerateDocument(wxCommandEvent&)
 					*shared_objects,
 					TestSignal(),
 					11000,
-					256,
+					128,
 					4.71
 				) //TODO
 			),
