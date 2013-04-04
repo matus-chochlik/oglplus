@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_VECTOR_1107121519_HPP
 #define OGLPLUS_VECTOR_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config_compiler.hpp>
 #include <oglplus/fwd.hpp>
 #include <cassert>
 #include <cmath>
@@ -27,8 +27,7 @@ template <typename T, std::size_t Rows, std::size_t Cols>
 class Matrix;
 
 template<typename T, std::size_t R, std::size_t C>
-T At(const Matrix<T, R, C>&, std::size_t r, std::size_t c)
-OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()));
+T At(const Matrix<T, R, C>&, std::size_t r, std::size_t c);
 
 template <typename T, std::size_t N>
 class Vector;
@@ -90,29 +89,24 @@ protected:
 	T _elem[N];
 
 	VectorBase(oglplus::Nothing)
-	OGLPLUS_NOEXCEPT(true)
 	{ }
 
 	VectorBase(void)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(0))
 	{
 		std::fill(_elem, _elem+N, T(0));
 	}
 
 	VectorBase(T v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		std::fill(_elem, _elem+N, v);
 	}
 
 	VectorBase(const T (&v)[N])
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		std::copy(v, v+N, _elem);
 	}
 
 	VectorBase(const T* v, std::size_t n)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		OGLPLUS_FAKE_USE(n);
 		assert(n >= N);
@@ -122,14 +116,12 @@ protected:
 
 	template <typename U>
 	VectorBase(const VectorBase<U, N>& vector)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<U>()))
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] = T(vector.At(i));
 	}
 
 	explicit VectorBase(const Matrix<T, 1, N>& matrix)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] = At(matrix, 0, i);
@@ -140,7 +132,6 @@ protected:
 		const Matrix<T, M, 1>& matrix,
 		typename std::enable_if<M != 1 && M == N, void>::type* = nullptr
 	)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] = At(matrix, i, 0);
@@ -157,15 +148,13 @@ public:
 #endif
 
 	/// The size (the number of components) of this vector
-	static OGLPLUS_CONSTEXPR std::size_t Size(void)
-	OGLPLUS_NOEXCEPT(true)
+	static std::size_t Size(void)
 	{
 		return N;
 	}
 
 	/// Pointer to the components of this vector
 	const T* Data(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return this->_elem;
 	}
@@ -174,7 +163,6 @@ public:
 	 *  @pre (i < Size())
 	 */
 	T At(std::size_t i) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		assert(i < N);
 		return _elem[i];
@@ -185,7 +173,6 @@ public:
 	 *  greater than or equal to Size().
 	 */
 	T At(std::size_t i, T fallback) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		if(i < N) return _elem[i];
 		else return fallback;
@@ -196,7 +183,6 @@ public:
 	 *  @pre (i < Size())
 	 */
 	T& operator [](std::size_t i)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(i < N);
 		return _elem[i];
@@ -207,7 +193,6 @@ public:
 	 *  @pre (i < Size())
 	 */
 	const T& operator [](std::size_t i) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		assert(i < N);
 		return _elem[i];
@@ -215,7 +200,6 @@ public:
 
 	/// Equality comparison
 	friend bool Equal(const VectorBase& a, const VectorBase& b)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T>() != std::declval<T>())
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			if(a._elem[i] != b._elem[i])
@@ -225,7 +209,6 @@ public:
 
 	/// Adds @p v to this vector
 	void Add(const VectorBase& v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() += std::declval<T>())
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] += v._elem[i];
@@ -233,7 +216,6 @@ public:
 
 	/// Subtracts @p v from this vector
 	void Subtract(const VectorBase& v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() -= std::declval<T>())
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] -= v._elem[i];
@@ -241,7 +223,6 @@ public:
 
 	/// Multiplies this vector by a scalar value
 	void MultiplyBy(T v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() *= std::declval<T>())
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] *= v;
@@ -249,7 +230,6 @@ public:
 
 	/// Divides this vector by a scalar value
 	void DivideBy(T v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() *= std::declval<T>())
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] /= v;
@@ -257,11 +237,6 @@ public:
 
 	/// Computes the dot product of vectors @p a and @p b
 	static T DotProduct(const VectorBase& a, const VectorBase& b)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	)
 	{
 		T result = (a._elem[0] * b._elem[0]);
 		for(std::size_t i=1; i!=N; ++i)
@@ -284,28 +259,24 @@ public:
 
 template <typename T, std::size_t N>
 inline const T* Data(const Vector<T, N>& a)
-OGLPLUS_NOEXCEPT(true)
 {
 	return a.Data();
 }
 
 template <typename T, std::size_t N>
-inline OGLPLUS_CONSTEXPR std::size_t Size(const Vector<T, N>&)
-OGLPLUS_NOEXCEPT(true)
+inline std::size_t Size(const Vector<T, N>&)
 {
 	return N;
 }
 
 template <typename T, std::size_t N>
 inline T At(const Vector<T, N>& a, std::size_t i)
-OGLPLUS_NOEXCEPT_IF(T(std::declval<T&>()))
 {
 	return a.At(i);
 }
 
 template <typename T, std::size_t N>
 inline T At(const Vector<T, N>& a, std::size_t i, T fallback)
-OGLPLUS_NOEXCEPT_IF(T(std::declval<T&>()))
 {
 	return a.At(i, fallback);
 }
@@ -354,24 +325,12 @@ inline Vector<T, 4> Extract(
 
 template <typename T, std::size_t N>
 inline T Dot(const Vector<T, N>& a, const Vector<T, N>& b)
-OGLPLUS_NOEXCEPT_IF(
-	std::declval<T&>()=
-	std::declval<T>()*std::declval<T>()+
-	std::declval<T>()*std::declval<T>()
-)
 {
 	return Vector<T, N>::DotProduct(a, b);
 }
 
 template <typename T, std::size_t N>
 inline T Length(const Vector<T, N>& a)
-OGLPLUS_NOEXCEPT(
-	OGLPLUS_NOEXCEPT(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	) && OGLPLUS_NOEXCEPT(sqrt(std::declval<T>()))
-)
 {
 	return std::sqrt(Dot(a, a));
 }
@@ -379,37 +338,12 @@ OGLPLUS_NOEXCEPT(
 
 template <typename T, std::size_t N>
 inline T Distance(const Vector<T, N>& a, const Vector<T, N>& b)
-OGLPLUS_NOEXCEPT(
-	OGLPLUS_NOEXCEPT(
-		std::declval<T&>()=
-		std::declval<T>()-
-		std::declval<T>()
-	) && OGLPLUS_NOEXCEPT(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	) && OGLPLUS_NOEXCEPT(sqrt(std::declval<T>()))
-)
 {
 	return Length(Subtracted(a, b));
 }
 
 template <typename T, std::size_t N>
 inline Vector<T, N> Normalized(Vector<T, N> a)
-OGLPLUS_NOEXCEPT(
-	OGLPLUS_NOEXCEPT(
-		std::declval<T&>()=
-		std::declval<T>()-
-		std::declval<T>()
-	) && OGLPLUS_NOEXCEPT(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	) && OGLPLUS_NOEXCEPT(
-		std::declval<T>()!=
-		std::declval<T>()
-	) && OGLPLUS_NOEXCEPT(sqrt(std::declval<T>()))
-)
 {
 	T l = Length(a);
 	if(l != T(0) && l != T(1))
@@ -419,22 +353,12 @@ OGLPLUS_NOEXCEPT(
 
 template <typename T>
 inline Vector<T, 2> Perpendicular(const Vector<T, 2>& a)
-OGLPLUS_NOEXCEPT_IF(
-	std::declval<T&>() =
-	std::declval<T>()*std::declval<T>()-
-	std::declval<T>()*std::declval<T>()
-)
 {
 	return Vector<T, 2>(-a[1], a[0]);
 }
 
 template <typename T>
 inline Vector<T, 3> Cross(const Vector<T, 3>& a, const Vector<T, 3>& b)
-OGLPLUS_NOEXCEPT_IF(
-	std::declval<T&>() =
-	std::declval<T>()*std::declval<T>()-
-	std::declval<T>()*std::declval<T>()
-)
 {
 	return Vector<T, 3>(
 		a[1] * b[2] - a[2] * b[1],
@@ -445,35 +369,30 @@ OGLPLUS_NOEXCEPT_IF(
 
 template <typename T, std::size_t N>
 inline bool operator == (const Vector<T, N>& a, const Vector<T, N>& b)
-OGLPLUS_NOEXCEPT_IF(std::declval<T&>() == std::declval<T&>())
 {
 	return Equal(a, b);
 }
 
 template <typename T, std::size_t N>
 inline bool operator != (const Vector<T, N>& a, const Vector<T, N>& b)
-OGLPLUS_NOEXCEPT_IF(std::declval<T&>() != std::declval<T&>())
 {
 	return !Equal(a, b);
 }
 
 template <typename T, std::size_t N>
 inline Vector<T, N> operator - (const Vector<T, N>& v)
-OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
 {
 	return Negated(v);
 }
 
 template <typename T, std::size_t N>
 inline Vector<T, N> operator + (const Vector<T, N>& a, const Vector<T, N>& b)
-OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>() + std::declval<T>())
 {
 	return Added(a, b);
 }
 
 template <typename T, std::size_t N>
 inline Vector<T, N> operator - (const Vector<T, N>& a, const Vector<T, N>& b)
-OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>() - std::declval<T>())
 {
 	return Subtracted(a, b);
 }
@@ -483,7 +402,6 @@ inline typename std::enable_if<
 	std::is_convertible<V, T>::value,
 	Vector<T, N>
 >::type operator * (const Vector<T, N>& a, V v)
-OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>() * T(std::declval<V>()))
 {
 	return Multiplied(a, T(v));
 }
@@ -493,7 +411,6 @@ inline typename std::enable_if<
 	std::is_convertible<V, T>::value,
 	Vector<T, N>
 >::type operator * (V v, const Vector<T, N>& a)
-OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<V>()) * std::declval<T>())
 {
 	return Multiplied(a, T(v));
 }
@@ -504,7 +421,6 @@ inline typename std::enable_if<
 	std::is_convertible<V, T>::value,
 	Vector<T, N>
 >::type operator / (const Vector<T, N>& a, V v)
-OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>() / std::declval<T>())
 {
 	return Divided(a, v);
 }
@@ -513,10 +429,6 @@ template <typename T, std::size_t N, std::size_t Cols>
 inline Vector<T, Cols> operator * (
 	const Vector<T, N>& v,
 	const Matrix<T, N, Cols>& m
-) OGLPLUS_NOEXCEPT(
-	OGLPLUS_NOEXCEPT(
-		std::declval<T&>() = std::declval<T>()*std::declval<T>()
-	) && OGLPLUS_NOEXCEPT(std::declval<T&>() += std::declval<T>())
 )
 {
 	T tmp[Cols];
@@ -535,7 +447,7 @@ template <typename T, std::size_t N, std::size_t Rows>
 inline Vector<T, Rows> operator * (
 	const Matrix<T, Rows, N>& m,
 	const Vector<T, N>& v
-) OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>()* std::declval<T>())
+)
 {
 	T tmp[Rows];
 	for(std::size_t r=0; r!=Rows; ++r)

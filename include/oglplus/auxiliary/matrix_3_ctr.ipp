@@ -13,7 +13,6 @@
 		T v02, T v03,
 		T v04, T v05
 	)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		static_assert(
 			(Rows == 3 && Cols == 2) ||
@@ -33,7 +32,6 @@
 		T v03, T v04, T v05,
 		T v06, T v07, T v08
 	)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		static_assert(
 			(Rows == 3 && Cols == 3),
@@ -55,7 +53,6 @@
 		const Vector<T, Cols>& row1,
 		const Vector<T, Cols>& row2
 	)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
 		this->_init_row(0, row0);
 		this->_init_row(1, row1);

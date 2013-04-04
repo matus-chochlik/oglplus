@@ -13,7 +13,6 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	SyncWaitResult
 > EnumValueRange(SyncWaitResult*)
-OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_SYNCWAITRESULT)
 #define OGLPLUS_IMPL_EVR_SYNCWAITRESULT

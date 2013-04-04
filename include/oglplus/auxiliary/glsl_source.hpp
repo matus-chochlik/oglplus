@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_AUX_GLSL_SOURCE_1207111232_HPP
 #define OGLPLUS_AUX_GLSL_SOURCE_1207111232_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/string.hpp>
 
@@ -29,11 +28,11 @@ struct GLSLSourceWrapper
 {
 	virtual ~GLSLSourceWrapper(void){ }
 
-	virtual GLsizei Count(void) const OGLPLUS_NOEXCEPT(true) = 0;
+	virtual GLsizei Count(void) const = 0;
 
-	virtual const GLchar** Parts(void) const OGLPLUS_NOEXCEPT(true) = 0;
+	virtual const GLchar** Parts(void) const = 0;
 
-	virtual const GLint* Lengths(void) const OGLPLUS_NOEXCEPT(true) = 0;
+	virtual const GLint* Lengths(void) const = 0;
 };
 
 class LitGLSLSrcWrap
@@ -44,7 +43,6 @@ private:
 	const GLint _size;
 public:
 	LitGLSLSrcWrap(const StrLit& source)
-	OGLPLUS_NOEXCEPT(true)
 	 : _ptr(source.c_str())
 	 , _size(GLint(source.size()))
 	{
@@ -52,19 +50,16 @@ public:
 	}
 
 	GLsizei Count(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return GLsizei(1);
 	}
 
 	const GLchar** Parts(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return const_cast<const GLchar**>(&_ptr);
 	}
 
 	const GLint* Lengths(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return &_size;
 	}
@@ -98,19 +93,16 @@ public:
 	}
 
 	GLsizei Count(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return GLsizei(_ptrs.size());
 	}
 
 	const GLchar** Parts(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return const_cast<const GLchar**>(_ptrs.data());
 	}
 
 	const GLint* Lengths(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _sizes.data();
 	}
@@ -125,7 +117,6 @@ private:
 	const GLint _size;
 public:
 	StrGLSLSrcWrap(const String& source)
-	OGLPLUS_NOEXCEPT_IF(String(source))
 	 : _storage(source)
 	 , _ptr(_storage.c_str())
 	 , _size(GLint(_storage.size()))
@@ -134,7 +125,6 @@ public:
 	}
 
 	StrGLSLSrcWrap(String&& source)
-	OGLPLUS_NOEXCEPT_IF(String(std::move(source)))
 	 : _storage(std::move(source))
 	 , _ptr(_storage.c_str())
 	 , _size(GLint(_storage.size()))
@@ -143,19 +133,16 @@ public:
 	}
 
 	GLsizei Count(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return GLsizei(1);
 	}
 
 	const GLchar** Parts(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return const_cast<const GLchar**>(&_ptr);
 	}
 
 	const GLint* Lengths(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return &_size;
 	}
@@ -192,19 +179,16 @@ public:
 	}
 
 	GLsizei Count(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return GLsizei(1);
 	}
 
 	const GLchar** Parts(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return const_cast<const GLchar**>(&_pdata);
 	}
 
 	const GLint* Lengths(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return &_size;
 	}

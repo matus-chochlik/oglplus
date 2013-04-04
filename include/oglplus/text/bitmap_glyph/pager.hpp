@@ -77,17 +77,17 @@ private:
 
 	typedef unsigned long age_t;
 
-	static OGLPLUS_CONSTEXPR age_t _zero_age(void)
+	static age_t _zero_age(void)
 	{
 		return age_t(0);
 	}
 
-	static OGLPLUS_CONSTEXPR age_t _full_age(void)
+	static age_t _full_age(void)
 	{
 		return ~_zero_age();
 	}
 
-	static OGLPLUS_CONSTEXPR age_t _init_age(void)
+	static age_t _init_age(void)
 	{
 		return ~(_full_age() >> 1);
 	}
@@ -98,7 +98,7 @@ private:
 
 	typedef GLubyte gpu_frame_t;
 
-	static OGLPLUS_CONSTEXPR gpu_frame_t _invalid_gpu_frame(void)
+	static gpu_frame_t _invalid_gpu_frame(void)
 	{
 		return ~gpu_frame_t(0);
 	}

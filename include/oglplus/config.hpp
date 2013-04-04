@@ -33,133 +33,7 @@
 #include <boost/config.hpp>
 #endif
 
-// ------- C++11 feature availability detection -------
-
-#ifndef OGLPLUS_NO_SCOPED_ENUMS
-#ifdef BOOST_NO_SCOPED_ENUMS
-#define OGLPLUS_NO_SCOPED_ENUMS 1
-#else
-#define OGLPLUS_NO_SCOPED_ENUMS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_VARIADIC_MACROS
-#ifdef BOOST_NO_VARIADIC_MACROS
-#define OGLPLUS_NO_VARIADIC_MACROS 1
-#else
-#define OGLPLUS_NO_VARIADIC_MACROS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_VARIADIC_TEMPLATES
-#ifdef BOOST_NO_VARIADIC_TEMPLATES
-#define OGLPLUS_NO_VARIADIC_TEMPLATES 1
-#else
-#define OGLPLUS_NO_VARIADIC_TEMPLATES 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
-#ifdef BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX
-#define OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX 1
-#else
-#define OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_INITIALIZER_LISTS
-#ifdef BOOST_NO_INITIALIZER_LISTS
-#define OGLPLUS_NO_INITIALIZER_LISTS 1
-#else
-#define OGLPLUS_NO_INITIALIZER_LISTS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_DEFAULTED_FUNCTIONS
-#ifdef BOOST_NO_DEFAULTED_FUNCTIONS
-#define OGLPLUS_NO_DEFAULTED_FUNCTIONS 1
-#else
-#define OGLPLUS_NO_DEFAULTED_FUNCTIONS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_DELETED_FUNCTIONS
-#ifdef BOOST_NO_DELETED_FUNCTIONS
-#define OGLPLUS_NO_DELETED_FUNCTIONS 1
-#else
-#define OGLPLUS_NO_DELETED_FUNCTIONS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
-#ifdef BOOST_NO_EXPLICIT_CONVERSION_OPERATORS
-#define OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS 1
-#else
-#define OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
-#ifdef BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
-#define OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS 1
-#else
-#define OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_USER_DEFINED_LITERALS
-/* TODO this macro is not (yet) available in Boost.
- * Update this if/when it is implemented
- */
-#ifdef BOOST_NO_USER_DEFINED_LITERALS
-#define OGLPLUS_NO_USER_DEFINED_LITERALS 1
-#else
-#define OGLPLUS_NO_USER_DEFINED_LITERALS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_CONSTEXPR
-#ifdef BOOST_NO_CONSTEXPR
-#define OGLPLUS_NO_CONSTEXPR 1
-#else
-#define OGLPLUS_NO_CONSTEXPR 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_NOEXCEPT
-#ifdef BOOST_NO_NOEXCEPT
-#define OGLPLUS_NO_NOEXCEPT 1
-#else
-#define OGLPLUS_NO_NOEXCEPT 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_LAMBDAS
-#ifdef BOOST_NO_LAMBDAS
-#define OGLPLUS_NO_LAMBDAS 1
-#else
-#define OGLPLUS_NO_LAMBDAS 0
-#endif
-#endif
-
-#ifndef OGLPLUS_NO_NULLPTR
-#ifdef BOOST_NO_NULLPTR
-#define OGLPLUS_NO_NULLPTR 1
-#else
-#define OGLPLUS_NO_NULLPTR 0
-#endif
-#endif
-
-
-#ifndef OGLPLUS_NO_CHRONO
-#ifdef BOOST_NO_CXX11_HDR_CHRONO
-#define OGLPLUS_NO_CHRONO 1
-#else
-#define OGLPLUS_NO_CHRONO 0
-#endif
-#endif
-
-// ------- C++11 feature availability detection -------
+#include <oglplus/config_compiler.hpp>
 
 #if OGLPLUS_NO_NULLPTR
 #define nullptr 0
@@ -214,14 +88,6 @@
  *  using the @c -D compiler option (or its equivalent for defining
  *  preprocessor symbols on the command-line).
  */
-
-#ifndef OGLPLUS_DOCUMENTATION_ONLY
-#define OGLPLUS_DOCUMENTATION_ONLY 0
-#endif
-
-// helper macro that marks unused parameters
-// so that the compiler does not complain
-#define OGLPLUS_FAKE_USE(X) (void)X
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time option enabling the low-profile mode
