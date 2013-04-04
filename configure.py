@@ -438,12 +438,14 @@ def search_cxxflags():
 	try:
 		import shlex
 
-		flagiter = iter(shlex.split(os.environ.get("CXXFLAGS")))
-		for flag in flagiter:
-			if flag == "-I":
-				cxxflags_include_dirs.append(flagiter.next())
-			elif flag.startswith("-I"):
-				cxxflags_include_dirs.append(flag[2:])
+		cxxflags = os.environ.get("CXXFLAGS")
+		if cxxflags is not None:
+			flagiter = iter(shlex.split(cxxflags))
+			for flag in flagiter:
+				if flag == "-I":
+					cxxflags_include_dirs.append(flagiter.next())
+				elif flag.startswith("-I"):
+					cxxflags_include_dirs.append(flag[2:])
 	except: pass
 	return cxxflags_include_dirs
 
@@ -454,12 +456,14 @@ def search_ldflags():
 	try:
 		import shlex
 
-		flagiter = iter(shlex.split(os.environ.get("LDFLAGS")))
-		for flag in flagiter:
-			if flag == "-L":
-				ldflags_library_dirs.append(flagiter.next())
-			elif flag.startswith("-L"):
-				ldflags_library_dirs.append(flag[2:])
+		ldflags = os.environ.get("LDFLAGS")
+		if ldflags is not None:
+			flagiter = iter(shlex.split())
+			for flag in flagiter:
+				if flag == "-L":
+					ldflags_library_dirs.append(flagiter.next())
+				elif flag.startswith("-L"):
+					ldflags_library_dirs.append(flag[2:])
 	except: pass
 	return ldflags_library_dirs
 
