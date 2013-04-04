@@ -54,7 +54,8 @@ public:
 		SpectraSharedObjects&,
 		wxGLContext* context,
 		wxGLCanvas* canvas,
-		std::size_t size,
+		std::size_t in_sz,
+		std::size_t out_sz,
 		const std::string& transf_name,
 		const std::function<
 			std::complex<double>(
@@ -96,7 +97,8 @@ SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
 	SpectraSharedObjects& shared_objects,
 	wxGLContext* context,
 	wxGLCanvas* canvas,
-	std::size_t size,
+	std::size_t in_sz,
+	std::size_t out_sz,
 	const std::string& transf_name,
 	const std::function<
 		std::complex<double>(
@@ -110,8 +112,8 @@ SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
  , gl_canvas(canvas)
  , max_transforms(4)
  , current_transform(0)
- , in_size(size)
- , out_size(size)
+ , in_size(in_sz)
+ , out_size(out_sz)
  , name(transf_name)
  , transf_prog(shared_objects.BuildProgramWithXFB("xfb_matrix_transf.prog", "Output"))
  , prog_input_offs(transf_prog, "InputOffs")
@@ -311,15 +313,17 @@ SpectraGetDefaultGPUFourierTransf(
 	std::size_t spectrum_size
 )
 {
+	std::size_t frame_size = spectrum_size*2+1;
 	shared_objects.GLCanvas()->SetCurrent(*shared_objects.GLContext());
 	assert(spectrum_size > 2);
 	return std::make_shared<SpectraDefaultGPUMatrixTransf>(
 		shared_objects,
 		shared_objects.GLContext(),
 		shared_objects.GLCanvas(),
+		frame_size,
 		spectrum_size,
 		"Discrete Complex Fourier Transform (GPU)",
-		SpectraFourierMatrixGen(spectrum_size, spectrum_size)
+		SpectraFourierMatrixGen(frame_size, spectrum_size)
 	);
 }
 
