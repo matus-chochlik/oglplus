@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_CONTEXT_POLY_RASTERIZE_1201040722_HPP
 #define OGLPLUS_CONTEXT_POLY_RASTERIZE_1201040722_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/face_mode.hpp>

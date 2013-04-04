@@ -13,7 +13,6 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	TextureSwizzleCoord
 > EnumValueRange(TextureSwizzleCoord*)
-OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_TEXTURESWIZZLECOORD)
 #define OGLPLUS_IMPL_EVR_TEXTURESWIZZLECOORD

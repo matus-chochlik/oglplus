@@ -19,6 +19,12 @@
 
 namespace oglplus {
 
+template <GLenum Query>
+class LimitedCount;
+
+template <GLenum Query>
+GLuint LimitedCountMax(const LimitedCount<Query>& lim_count);
+
 /// Base class for limited implementation-dependent numeric values
 /** This class checks if the given unsigned int value is in the
  *  implementation-dependent range of allowed valued and throws
@@ -84,10 +90,7 @@ public:
 		return Type(_value);
 	}
 
-	friend GLuint Max(const LimitedCount& count)
-	{
-		return _limit();
-	}
+	friend GLuint LimitedCountMax<Query>(const LimitedCount&);
 
 	friend bool operator == (LimitedCount a, LimitedCount b)
 	{
@@ -119,6 +122,17 @@ public:
 		return a._value >  b._value;
 	}
 };
+
+template <GLenum Query>
+inline GLuint LimitedCountMax(const LimitedCount<Query>& lim_count)
+{
+	return lim_count._limit();
+}
+
+inline GLuint LimitedCountMax(GLuint lim_count)
+{
+	return lim_count;
+}
 
 #define OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(NAME, QUERY) \
 class NAME \

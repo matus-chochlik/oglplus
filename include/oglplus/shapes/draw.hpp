@@ -36,14 +36,12 @@ private:
 
 	template <typename IT>
 	static size_t _do_get_sizeof_index(const std::vector<IT>*)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return sizeof(IT);
 	}
 
 	template <class ShapeBuilder>
 	static size_t _get_sizeof_index(const ShapeBuilder&)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _do_get_sizeof_index(
 			(typename ShapeBuilder::IndexArray*)nullptr
@@ -52,14 +50,12 @@ private:
 
 	template <typename IT>
 	static oglplus::DataType _do_get_index_data_type(const std::vector<IT>*)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return oglplus::GetDataType<IT>();
 	}
 
 	template <class ShapeBuilder>
 	static oglplus::DataType _get_index_data_type(const ShapeBuilder&)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _do_get_index_data_type(
 			(typename ShapeBuilder::IndexArray*)nullptr
@@ -68,21 +64,18 @@ private:
 public:
 	template <class ShapeBuilder>
 	ElementIndexInfo(const ShapeBuilder& builder)
-	OGLPLUS_NOEXCEPT(true)
 	 : _sizeof_index(_get_sizeof_index(builder))
 	 , _index_data_type(_get_index_data_type(builder))
 	{ }
 
 	/// Returns the size (in bytes) of index type used by ShapeBuilder
 	size_t Size(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _sizeof_index;
 	}
 
 	/// Returns the GL datatype of index type used by ShapeBuilder
 	oglplus::DataType DataType(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _index_data_type;
 	}
@@ -122,7 +115,7 @@ struct DrawOperation
 	GLuint count;
 
 	/// Special constant for disabling primitive restart
-	static OGLPLUS_CONSTEXPR GLuint NoRestartIndex(void)
+	static GLuint NoRestartIndex(void)
 	{
 		return ~GLuint(0);
 	}
@@ -175,21 +168,18 @@ private:
 
 	template <typename IT>
 	static DataType _IndexDataType(const std::vector<IT>&)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return GetDataType<IT>();
 	}
 
 	template <typename IT>
 	void* _IndexPtr(const std::vector<IT>& indices) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		const IT* base = indices.empty() ? nullptr : indices.data();
 		return (void*)(base + first);
 	}
 
 	void* _IndexPtr(const ElementIndexInfo& index_info) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return (void*)(first * index_info.Size());
 	}
@@ -356,7 +346,6 @@ private:
 	DrawOperationSeq _ops;
 
 	DrawingInstructions(void)
-	OGLPLUS_NOEXCEPT(true)
 	{ }
 
 	DrawingInstructions(DrawOperationSeq&& ops)
@@ -450,7 +439,6 @@ public:
 	struct DefaultDriver
 	{
 		inline bool operator()(GLuint /*phase*/) const
-		OGLPLUS_NOEXCEPT(true)
 		{
 			return true;
 		}

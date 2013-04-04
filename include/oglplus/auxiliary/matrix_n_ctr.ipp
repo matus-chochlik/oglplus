@@ -11,7 +11,6 @@
 
 	template <typename ... P>
 	explicit Matrix(T v, P ... p)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		static_assert(
 			1 + sizeof...(P) == Rows * Cols,
@@ -36,7 +35,6 @@ private:
 public:
 	template <std::size_t ... C>
 	explicit Matrix(const Vector<T, Cols>& row, const Vector<T, C>& ... rows)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<T>()))
 	{
 		static_assert(
 			1 + sizeof...(C) == Rows,

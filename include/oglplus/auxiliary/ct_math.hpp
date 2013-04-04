@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_AUX_CT_MATH_1107121519_HPP
 #define OGLPLUS_AUX_CT_MATH_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config_compiler.hpp>
 #include <type_traits>
 
 namespace oglplus {
@@ -42,15 +42,13 @@ struct Binomial
 };
 
 template <typename T>
-static OGLPLUS_CONSTEXPR T Pow(T, std::integral_constant<unsigned, 0u>)
-OGLPLUS_NOEXCEPT_IF(T(1))
+static T Pow(T, std::integral_constant<unsigned, 0u>)
 {
 	return T(1);
 }
 
 template <typename T, unsigned N>
-static OGLPLUS_CONSTEXPR T Pow(T v, std::integral_constant<unsigned, N>)
-OGLPLUS_NOEXCEPT_IF(v * T(1))
+static T Pow(T v, std::integral_constant<unsigned, N>)
 {
 	return v * Pow<T>(v, std::integral_constant<unsigned, N-1>());
 }
@@ -69,11 +67,6 @@ private:
 		std::integral_constant<unsigned, I>,
 		P t
 	)
-	OGLPLUS_NOEXCEPT_IF(
-		Binomial<M, I>::value *
-		Pow<P>(t, std::integral_constant<unsigned, I>()) *
-		Pow<P>(P(1)-t, std::integral_constant<unsigned, M-I>())
-	)
 	{
 		return Binomial<M, I>::value *
 			Pow<P>(t, std::integral_constant<unsigned, I>()) *
@@ -87,8 +80,6 @@ private:
 		std::integral_constant<unsigned, I> i,
 		const T* v,
 		P t
-	) OGLPLUS_NOEXCEPT_IF(
-		Bezier::_bi(std::integral_constant<unsigned, N>(), i, t) * v[I]
 	)
 	{
 		std::integral_constant<unsigned, N> n;
@@ -103,9 +94,6 @@ private:
 		std::integral_constant<unsigned, I> i,
 		const T* v,
 		P t
-	) OGLPLUS_NOEXCEPT_IF(
-		Bezier::_bi(std::integral_constant<unsigned, N-1>(), i, t)*
-		N * (v[I+1] - v[I])
 	)
 	{
 		std::integral_constant<unsigned, N-1> n_1;
@@ -120,9 +108,6 @@ private:
 		std::integral_constant<unsigned, I> i,
 		const T* v,
 		P t
-	) OGLPLUS_NOEXCEPT_IF(
-		Bezier::_bi(std::integral_constant<unsigned, N-2>(), i, t)*
-		N*(N - 1) * (v[I+2] - 2*v[I+1] + v[I])
 	)
 	{
 		std::integral_constant<unsigned, N-2> n_2;
@@ -135,7 +120,7 @@ private:
 		std::integral_constant<unsigned, 0> i,
 		const T* v,
 		P t
-	) OGLPLUS_NOEXCEPT_IF(Bezier::_f(d, i, v, t))
+	)
 	{
 		return _f(d, i, v, t);
 	}
@@ -146,7 +131,7 @@ private:
 		std::integral_constant<unsigned, I> i,
 		const T* v,
 		P t
-	) OGLPLUS_NOEXCEPT_IF(std::declval<T>() + Bezier::_f(d, i, v, t))
+	)
 	{
 		std::integral_constant<unsigned, I-1> i_1;
 		return _sum(d, i_1, v, t) + _f(d, i, v, t);
@@ -159,8 +144,6 @@ public:
 		const T* v,
 		size_t s,
 		P t
-	) OGLPLUS_NOEXCEPT_IF(
-		Bezier::_sum(d, std::integral_constant<unsigned, N-D>(), v, t)
 	)
 	{
 		OGLPLUS_FAKE_USE(s);
@@ -170,21 +153,18 @@ public:
 	}
 
 	static T Position(const T* v, size_t s, P t)
-	OGLPLUS_NOEXCEPT_IF(B(std::integral_constant<unsigned, 0>(), v, s, t))
 	{
 		std::integral_constant<unsigned, 0> d;
 		return B(d, v, s, t);
 	}
 
 	static T Derivative1(const T* v, size_t s, P t)
-	OGLPLUS_NOEXCEPT_IF(B(std::integral_constant<unsigned, 1>(), v, s, t))
 	{
 		std::integral_constant<unsigned, 1> d;
 		return B(d, v, s, t);
 	}
 
 	static T Derivative2(const T* v, size_t s, P t)
-	OGLPLUS_NOEXCEPT_IF(B(std::integral_constant<unsigned, 2>(), v, s, t))
 	{
 		std::integral_constant<unsigned, 2> d;
 		return B(d, v, s, t);

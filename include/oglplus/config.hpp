@@ -89,14 +89,6 @@
  *  preprocessor symbols on the command-line).
  */
 
-#ifndef OGLPLUS_DOCUMENTATION_ONLY
-#define OGLPLUS_DOCUMENTATION_ONLY 0
-#endif
-
-// helper macro that marks unused parameters
-// so that the compiler does not complain
-#define OGLPLUS_FAKE_USE(X) (void)X
-
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time option enabling the low-profile mode
 /** In the low-profile mode some features (like object descriptions,

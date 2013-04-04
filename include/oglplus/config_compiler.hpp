@@ -13,6 +13,14 @@
 #ifndef OGLPLUS_CONFIG_COMPILER_1107121519_HPP
 #define OGLPLUS_CONFIG_COMPILER_1107121519_HPP
 
+#ifndef OGLPLUS_NO_SITE_CONFIG
+#include <oglplus/site_config.hpp>
+#endif
+
+#if OGLPLUS_USE_BOOST_CONFIG
+#include <boost/config.hpp>
+#endif
+
 
 // ------- C++11 feature availability detection -------
 
@@ -141,5 +149,13 @@
 #endif
 
 // ------- C++11 feature availability detection -------
+
+#ifndef OGLPLUS_DOCUMENTATION_ONLY
+#define OGLPLUS_DOCUMENTATION_ONLY 0
+#endif
+
+// helper macro that marks unused parameters
+// so that the compiler does not complain
+#define OGLPLUS_FAKE_USE(X) (void)X
 
 #endif // include guard

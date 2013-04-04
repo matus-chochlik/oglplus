@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_CONTEXT_STRING_QUERIES_1202210920_HPP
 #define OGLPLUS_CONTEXT_STRING_QUERIES_1202210920_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/string_query.hpp>

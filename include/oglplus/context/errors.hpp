@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_CONTEXT_ERRORS_1201040722_HPP
 #define OGLPLUS_CONTEXT_ERRORS_1201040722_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config_compiler.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/glfunc.hpp>
 
