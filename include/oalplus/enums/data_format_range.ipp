@@ -13,7 +13,6 @@ OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	DataFormat
 > EnumValueRange(DataFormat*)
-OALPLUS_NOEXCEPT(true)
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_DATAFORMAT)
 #define OALPLUS_IMPL_EVR_DATAFORMAT

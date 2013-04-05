@@ -22,4 +22,6 @@
 #include <oalplus/distance_model.hpp>
 #include <oalplus/source_state.hpp>
 
+#include <oalplus/listener.hpp>
+
 #endif // include guard

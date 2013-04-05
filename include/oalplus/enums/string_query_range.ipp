@@ -13,7 +13,6 @@ OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	StringQuery
 > EnumValueRange(StringQuery*)
-OALPLUS_NOEXCEPT(true)
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_STRINGQUERY)
 #define OALPLUS_IMPL_EVR_STRINGQUERY
