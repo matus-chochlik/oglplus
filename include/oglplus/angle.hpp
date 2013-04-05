@@ -236,10 +236,17 @@ public:
 	}
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
+/// Instantiation of Angle using GL floating-point as underlying type
 typedef Angle<GLfloat> Anglef;
 
+typedef GLfloat AngleValueType;
+#else
+typedef double AngleValueType;
+#endif
+
 /// Creates a new angle from a value in radians
-/** This function creates a new instance of @c Angle<GLfloat>
+/** This function creates a new instance of @c Angle<T>
  *  from a floating-point value in radians.
  *
  *  @param val_rad a value in radians
@@ -253,13 +260,13 @@ typedef Angle<GLfloat> Anglef;
  *
  *  @ingroup math_utils
  */
-inline Angle<GLfloat> Radians(GLfloat val_rad)
+inline Angle<AngleValueType> Radians(AngleValueType val_rad)
 {
-	return Angle<GLfloat>::Radians(val_rad);
+	return Angle<AngleValueType>::Radians(val_rad);
 }
 
 /// Creates a new angle from a value in degrees
-/** This function creates a new instance of @c Angle<GLfloat>
+/** This function creates a new instance of @c Angle<AngleValueType>
  *  from a floating-point value in degrees.
  *  Examples:
  *  @code
@@ -280,9 +287,9 @@ inline Angle<GLfloat> Radians(GLfloat val_rad)
  *
  *  @ingroup math_utils
  */
-inline Angle<GLfloat> Degrees(GLfloat val_deg)
+inline Angle<AngleValueType> Degrees(AngleValueType val_deg)
 {
-	return Angle<GLfloat>::Degrees(val_deg);
+	return Angle<AngleValueType>::Degrees(val_deg);
 }
 
 /// Creates a new angle from a value in "full circles" (i.e. 360 degrees)
@@ -308,14 +315,16 @@ inline Angle<GLfloat> Degrees(GLfloat val_deg)
  *
  *  @ingroup math_utils
  */
-inline Angle<GLfloat> FullCircles(GLfloat value)
+inline Angle<AngleValueType> FullCircles(AngleValueType value)
 {
-	return Angle<GLfloat>::Radians(GLfloat(value * math::TwoPi()));
+	return Angle<AngleValueType>::Radians(
+		AngleValueType(value * math::TwoPi())
+	);
 }
 
-inline Angle<GLfloat> FullCircle(void)
+inline Angle<AngleValueType> FullCircle(void)
 {
-	return Angle<GLfloat>::Radians(GLfloat(math::TwoPi()));
+	return Angle<AngleValueType>::Radians(AngleValueType(math::TwoPi()));
 }
 
 /// Creates a new angle from a value in "right angles" (i.e. 90 deg.)
@@ -341,14 +350,16 @@ inline Angle<GLfloat> FullCircle(void)
  *
  *  @ingroup math_utils
  */
-inline Angle<GLfloat> RightAngles(GLfloat value)
+inline Angle<AngleValueType> RightAngles(AngleValueType value)
 {
-	return Angle<GLfloat>::Radians(GLfloat(value * math::HalfPi()));
+	return Angle<AngleValueType>::Radians(
+		AngleValueType(value * math::HalfPi())
+	);
 }
 
-inline Angle<GLfloat> RightAngle(void)
+inline Angle<AngleValueType> RightAngle(void)
 {
-	return Angle<GLfloat>::Radians(GLfloat(math::HalfPi()));
+	return Angle<AngleValueType>::Radians(AngleValueType(math::HalfPi()));
 }
 
 /// Creates a new angle using the arc sine function
@@ -364,10 +375,10 @@ inline Angle<GLfloat> RightAngle(void)
  *
  *  @ingroup math_utils
  */
-inline Angle<GLfloat> ArcSin(GLfloat x)
+inline Angle<AngleValueType> ArcSin(AngleValueType x)
 {
 	assert(-1.0f <= x && x <= 1.0f);
-	return Angle<GLfloat>::Radians(::std::asin(x));
+	return Angle<AngleValueType>::Radians(::std::asin(x));
 }
 
 /// Creates a new angle using the arc cosine function
@@ -383,10 +394,10 @@ inline Angle<GLfloat> ArcSin(GLfloat x)
  *
  *  @ingroup math_utils
  */
-inline Angle<GLfloat> ArcCos(GLfloat x)
+inline Angle<AngleValueType> ArcCos(AngleValueType x)
 {
-	assert(-1.0f <= x && x <= 1.0f);
-	return Angle<GLfloat>::Radians(::std::acos(x));
+	assert(AngleValueType(-1) <= x && x <= AngleValueType(1));
+	return Angle<AngleValueType>::Radians(::std::acos(x));
 }
 
 /// Creates a new angle using the arc tangent function
@@ -401,9 +412,9 @@ inline Angle<GLfloat> ArcCos(GLfloat x)
  *
  *  @ingroup math_utils
  */
-inline Angle<GLfloat> ArcTan(GLfloat x)
+inline Angle<AngleValueType> ArcTan(AngleValueType x)
 {
-	return Angle<GLfloat>::Radians(::std::atan(x));
+	return Angle<AngleValueType>::Radians(::std::atan(x));
 }
 
 /// Creates a new angle using the arc tangent function with 2 parameters
@@ -418,9 +429,9 @@ inline Angle<GLfloat> ArcTan(GLfloat x)
  *
  *  @ingroup math_utils
  */
-inline Angle<GLfloat> ArcTan(GLfloat y, GLfloat x)
+inline Angle<AngleValueType> ArcTan(AngleValueType y, AngleValueType x)
 {
-	return Angle<GLfloat>::Radians(::std::atan2(y, x));
+	return Angle<AngleValueType>::Radians(::std::atan2(y, x));
 }
 
 /// Returns a value on a sine wave at the specified point

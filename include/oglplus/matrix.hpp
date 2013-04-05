@@ -32,6 +32,7 @@ namespace oglplus {
 template <typename T, std::size_t Rows, std::size_t Cols>
 class Matrix;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// 2x2 float matrix
 /**
  *  @ingroup math_utils
@@ -85,8 +86,9 @@ typedef Matrix<GLfloat, 4, 3> Mat4x3f;
  *  @ingroup math_utils
  */
 typedef Matrix<GLfloat, 4, 4> Mat4f;
+#endif
 
-
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
 /// 2x2 double-precision matrix
 /**
  *  @ingroup math_utils
@@ -140,6 +142,7 @@ typedef Matrix<GLdouble, 4, 3> Mat4x3d;
  *  @ingroup math_utils
  */
 typedef Matrix<GLdouble, 4, 4> Mat4d;
+#endif
 
 namespace aux {
 struct Matrix_spec_ctr_tag { };
@@ -971,17 +974,21 @@ public:
 
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// Model transformation float matrix
 /**
  *  @ingroup math_utils
  */
 typedef ModelMatrix<GLfloat> ModelMatrixf;
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
 /// Model transformation double precision matrix
 /**
  *  @ingroup math_utils
  */
 typedef ModelMatrix<GLdouble> ModelMatrixd;
+#endif
 
 /// Class implementing camera matrix named constructors
 /** The static methods of this class can be used for the construction
@@ -1422,17 +1429,21 @@ public:
 	}
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// Camera matrix using float numbers
 /**
  *  @ingroup math_utils
  */
 typedef CameraMatrix<GLfloat> CamMatrixf;
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
 /// Camera matrix using double precition numbers
 /**
  *  @ingroup math_utils
  */
 typedef CameraMatrix<GLdouble> CamMatrixd;
+#endif
 
 } // namespace oglplus
 

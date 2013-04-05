@@ -32,17 +32,12 @@ T At(const Matrix<T, R, C>&, std::size_t r, std::size_t c);
 template <typename T, std::size_t N>
 class Vector;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// 1D float (degenerate) vector
 /**
  *  @ingroup math_utils
  */
 typedef Vector<GLfloat, 1> Vec1f;
-
-/// 1D double-precision (degenerate) vector
-/**
- *  @ingroup math_utils
- */
-typedef Vector<GLdouble, 1> Vec1d;
 
 /// 2D float vector
 /**
@@ -50,17 +45,31 @@ typedef Vector<GLdouble, 1> Vec1d;
  */
 typedef Vector<GLfloat, 2> Vec2f;
 
-/// 2D double-precision vector
-/**
- *  @ingroup math_utils
- */
-typedef Vector<GLdouble, 2> Vec2d;
-
 /// 3D float vector
 /**
  *  @ingroup math_utils
  */
 typedef Vector<GLfloat, 3> Vec3f;
+
+/// 4D float vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLfloat, 4> Vec4f;
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
+/// 1D double-precision (degenerate) vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLdouble, 1> Vec1d;
+
+/// 2D double-precision vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLdouble, 2> Vec2d;
 
 /// 3D double-precision vector
 /**
@@ -68,17 +77,12 @@ typedef Vector<GLfloat, 3> Vec3f;
  */
 typedef Vector<GLdouble, 3> Vec3d;
 
-/// 4D float vector
-/**
- *  @ingroup math_utils
- */
-typedef Vector<GLfloat, 4> Vec4f;
-
 /// 4D double-precision vector
 /**
  *  @ingroup math_utils
  */
 typedef Vector<GLdouble, 4> Vec4d;
+#endif
 
 
 /// Common base class for vectors
