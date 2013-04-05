@@ -24,4 +24,6 @@
 
 #include <oalplus/listener.hpp>
 
+#include <oalplus/buffer.hpp>
+
 #endif // include guard

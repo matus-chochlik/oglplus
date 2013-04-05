@@ -660,7 +660,7 @@ inline void HandleError(
 		)
 	)) return;
 #endif // OALPLUS_CUSTOM_ERROR_HANDLING
-	throw Error(code, msg, info, assertion);
+	throw Error(code, msg?msg:"Unknown error", info, assertion);
 }
 
 inline void HandleALError(ALenum code, const ErrorInfo& info, bool assertion)
@@ -748,7 +748,7 @@ inline void HandleALUTError(ALenum code, const ErrorInfo& info, bool assertion)
 	ALenum error_code = ::alcGetError(DEVICE); \
 	if(error_code != ALC_NO_ERROR) HandleALCError(error_code, PARAM, true); \
 }
-#define OALPLUS_VERIFY_ALUT(PARAM,DEVICE) { \
+#define OALPLUS_VERIFY_ALUT(PARAM) { \
 	ALenum error_code = ::alutGetError(); \
 	if(error_code != AL_NO_ERROR) HandleALUTError(error_code, PARAM, true); \
 }

@@ -17,8 +17,11 @@
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
 #include <oalplus/error.hpp>
+#include <oalplus/string.hpp>
 
 #include <oalplus/data_format.hpp>
+
+#include <oalplus/buffer.hpp>
 
 #include <vector>
 
@@ -142,6 +145,27 @@ private:
 		return std::move(result);
 	}
 public:
+	Buffer CreateBufferHelloWorld(void) const
+	{
+		assert(_initialized);
+		ALuint name = OALPLUS_ALFUNC(alut,CreateBufferHelloWorld)();
+		OALPLUS_VERIFY_ALUT(OALPLUS_ERROR_INFO(alut, CreateBufferHelloWorld));
+		return Buffer::FromRawName(name);
+	}
+
+	Buffer CreateBufferFromFile(const ALchar* file_path) const
+	{
+		assert(_initialized);
+		ALuint name = OALPLUS_ALFUNC(alut,CreateBufferFromFile)(file_path);
+		OALPLUS_VERIFY_ALUT(OALPLUS_ERROR_INFO(alut, CreateBufferFromFile));
+		return Buffer::FromRawName(name);
+	}
+
+	Buffer CreateBufferFromFile(const String& file_path) const
+	{
+		return CreateBufferFromFile(file_path.c_str());
+	}
+
 	std::vector<ALfloat> LoadMemoryHelloWorld(
 		DataFormat* data_format,
 		ALfloat* frequency
@@ -180,6 +204,19 @@ public:
 		if(data_format) *data_format = DataFormat(format);
 
 		return _load_memory(ptr, format, size);
+	}
+
+	std::vector<ALfloat> LoadMemoryFromFile(
+		const String& file_path,
+		DataFormat* data_format,
+		ALfloat* frequency
+	) const
+	{
+		return LoadMemoryFromFile(
+			file_path.c_str(),
+			data_format,
+			frequency
+		);
 	}
 };
 

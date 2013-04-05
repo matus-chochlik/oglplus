@@ -51,6 +51,8 @@ struct SpectraDocument
 		std::size_t start_row,
 		std::size_t end_row
 	) = 0;
+
+	virtual bool Play(float from, float to) = 0;
 };
 
 class SpectraSharedObjects;

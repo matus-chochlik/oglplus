@@ -56,6 +56,8 @@ public:
 		std::size_t start,
 		std::size_t end
 	);
+
+	bool Play(float from, float to);
 };
 
 SpectraTestDocument::SpectraTestDocument(
@@ -134,6 +136,11 @@ std::size_t SpectraTestDocument::QuerySignalSamples(
 		return se-start;
 	}
 	return 0;
+}
+
+bool SpectraTestDocument::Play(float, float)
+{
+	return false;
 }
 
 std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(

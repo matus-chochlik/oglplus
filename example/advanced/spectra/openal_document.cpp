@@ -11,6 +11,7 @@
 #include <oalplus/al.hpp>
 #include <oalplus/device.hpp>
 #include <oalplus/context.hpp>
+#include <oalplus/listener.hpp>
 #include <oalplus/alut.hpp>
 
 #include <oalplus/all.hpp> //TODO
@@ -34,6 +35,11 @@ private:
 	oalplus::DataFormat format;
 	::ALfloat frequency;
 	std::vector<float> samples;
+
+	oalplus::Device device;
+	oalplus::CurrentContext context;
+	oalplus::Listener listener;
+	oalplus::Buffer sound_buf;
 public:
 	SpectraOpenALDocument(
 		SpectraSharedObjects& shared_objects,
@@ -61,6 +67,8 @@ public:
 		std::size_t start,
 		std::size_t end
 	);
+
+	bool Play(float from, float to);
 };
 
 
@@ -72,22 +80,28 @@ SpectraOpenALDocument::SpectraOpenALDocument(
  , file_path(path)
  , spectrum_size(ss)
  , frequency(1024)
+ , device()
+ , context(device)
 {
+	listener.Position(0.0f, 0.0f, 0.0f);
+	listener.Velocity(0.0f, 0.0f, 0.0f);
+	listener.Orientation(0.0f, 0.0f,-1.0f, 0.0f, 1.0f, 0.0f);
 }
 
 bool SpectraOpenALDocument::FinishLoading(void)
 {
-	oalplus::Device device;
-	oalplus::Context context(device);
-
 	context.MakeCurrent();
 
 	char buf[2] = {'\0'};
 	char* arg = buf;
 	oalplus::ALUtilityToolkit alut(false, 1, &arg);
 
+	std::string utf8_file_path((const char*)file_path.mb_str(wxConvUTF8));
+
+	sound_buf = alut.CreateBufferFromFile(utf8_file_path);
+
 	samples = alut.LoadMemoryFromFile(
-		(const char*)file_path.mb_str(wxConvUTF8),
+		utf8_file_path,
 		&format,
 		&frequency
 	);
@@ -143,6 +157,11 @@ std::size_t SpectraOpenALDocument::QuerySignalSamples(
 
 	std::copy(samples.data()+start, samples.data()+start+n, buffer);
 	return n;
+}
+
+bool SpectraOpenALDocument::Play(float from, float to)
+{
+	return true;
 }
 
 std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(

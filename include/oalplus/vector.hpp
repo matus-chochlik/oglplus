@@ -19,7 +19,7 @@
 namespace oalplus {
 
 using oglplus::Vector;
-using oglplus::Vec3f;
+typedef Vector<ALfloat, 3> Vec3f;
 
 } // namespace oalplus
 

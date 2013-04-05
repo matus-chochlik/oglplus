@@ -125,6 +125,24 @@ public:
 	}
 };
 
+// A context that is made current right after construction
+class CurrentContext
+ : public Context
+{
+public:
+	CurrentContext(const DeviceOps& device)
+	 : Context(device)
+	{
+		MakeCurrent();
+	}
+
+	CurrentContext(CurrentContext&& tmp)
+	 : Context(static_cast<Context&&>(tmp))
+	{
+		if(_context) MakeCurrent();
+	}
+};
+
 } // namespace oalplus
 
 #endif // include guard
