@@ -161,6 +161,8 @@ SpectraVisualisation::SpectraVisualisation(
 ): parent_app(app)
  , main_frame(frame)
  , selected_time(0.0f)
+ , selection_begin(0.0f)
+ , selection_end(1.0f)
  , gl_context(canvas, parent_ctxt)
  , gl_canvases(std::make_shared<std::set<wxGLCanvas*>>())
  , document(doc)
@@ -238,6 +240,12 @@ const SpectraDocument& SpectraVisualisation::Document(void) const
 	return *document;
 }
 
+void SpectraVisualisation::Play(void)
+{
+	assert(document);
+	document->Play(SelectionBegin(), SelectionEnd());
+}
+
 std::size_t SpectraVisualisation::SignalSpectrumSize(void) const
 {
 	return Document().SpectrumSize();
@@ -266,5 +274,39 @@ void SpectraVisualisation::SelectedTime(float time)
 float SpectraVisualisation::SelectedTime(void) const
 {
 	return selected_time;
+}
+
+void SpectraVisualisation::DragSelection(float time, float delta)
+{
+	float eps = (selection_end - selection_begin)*0.2;
+	if(time-delta <= selection_begin+eps)
+	{
+		selection_begin = time;
+	}
+	else if(time-delta >= selection_end-eps)
+	{
+		selection_end = time;
+	}
+	else
+	{
+		selection_begin += delta;
+		selection_end += delta;
+	}
+	if(selection_begin > selection_end)
+		selection_begin = selection_end;
+	if(selection_begin < 0.0f)
+		selection_begin = 0.0f;
+	if(selection_end > Document().MaxTime())
+		selection_end = Document().MaxTime();
+}
+
+float SpectraVisualisation::SelectionBegin(void) const
+{
+	return selection_begin;
+}
+
+float SpectraVisualisation::SelectionEnd(void) const
+{
+	return selection_end;
 }
 

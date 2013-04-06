@@ -57,7 +57,9 @@ public:
 		std::size_t end
 	);
 
-	bool Play(float from, float to);
+	bool CanPlay(void) const;
+
+	void Play(float from, float to);
 };
 
 SpectraTestDocument::SpectraTestDocument(
@@ -138,9 +140,14 @@ std::size_t SpectraTestDocument::QuerySignalSamples(
 	return 0;
 }
 
-bool SpectraTestDocument::Play(float, float)
+bool SpectraTestDocument::CanPlay(void) const
 {
-	return false;
+	return true;
+}
+
+void SpectraTestDocument::Play(float, float)
+{
+	wxBell();
 }
 
 std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(

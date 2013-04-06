@@ -71,7 +71,9 @@ public:
 		std::size_t end
 	);
 
-	bool Play(float from, float to);
+	bool CanPlay(void) const;
+
+	void Play(float from, float to);
 };
 
 
@@ -160,9 +162,13 @@ std::size_t SpectraOpenALDocument::QuerySignalSamples(
 	return n;
 }
 
-bool SpectraOpenALDocument::Play(float from, float to)
+bool SpectraOpenALDocument::CanPlay(void) const
 {
 	return true;
+}
+
+void SpectraOpenALDocument::Play(float from, float to)
+{
 }
 
 std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(

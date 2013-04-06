@@ -22,10 +22,18 @@ void SpectraDocumentFrame::SetStatus(const wxString& status_text)
 	status_bar->SetStatusText(status_text);
 }
 
+int SpectraDocFrameID_MenuFile = wxID_HIGHEST+1001;
+int SpectraDocFrameID_Play = SpectraDocFrameID_MenuFile+1;
+
 void SpectraDocumentFrame::InitMainMenu(void)
 {
 	wxMenu* file_menu = new wxMenu();
-	file_menu->Append(wxID_ADD, wxGetTranslation(wxT("New &view")));
+	file_menu->Append(wxID_ADD, wxGetTranslation(wxT("New &view\tCtrl-N")));
+	file_menu->AppendSeparator();
+	play_menu_item = file_menu->Append(
+		SpectraDocFrameID_Play,
+		wxGetTranslation(wxT("&Play\tCtrl-P"))
+	);
 	file_menu->AppendSeparator();
 	file_menu->Append(wxID_CLOSE);
 
@@ -65,6 +73,12 @@ void SpectraDocumentFrame::ConnectEventHandlers(void)
 	Connect(
 		wxEVT_SIZE,
 		wxSizeEventHandler(SpectraDocumentFrame::OnResize)
+	);
+
+	Connect(
+		SpectraDocFrameID_Play,
+		wxEVT_COMMAND_MENU_SELECTED,
+		wxCommandEventHandler(SpectraDocumentFrame::DoPlay)
 	);
 }
 
@@ -171,6 +185,11 @@ void SpectraDocumentFrame::OnSysColorChange(wxSysColourChangedEvent& event)
 	catch(const std::exception& se) { parent_app.HandleError(se, this); }
 }
 
+void SpectraDocumentFrame::DoPlay(wxCommandEvent&)
+{
+	assert(document_vis);
+	document_vis->Play();
+}
 
 GLint SpectraDocumentFrame::ClampMouseCoord(GLint c, GLint m)
 {
@@ -191,7 +210,25 @@ void SpectraDocumentFrame::HandleMouseMotion(const wxMouseEvent& event)
 		int old_x = ClampMouseCoord(old_mouse_position.x, size.GetWidth());
 		int old_y = ClampMouseCoord(old_mouse_position.y, size.GetHeight());
 
-		if(event.CmdDown())
+		if(event.ShiftDown())
+		{
+			if(event.LeftIsDown())
+			{
+				float new_t = document_view.PickOnGround(new_x, new_y).x();
+				float old_t = document_view.PickOnGround(old_x, old_y).x();
+				new_t /= document_view.TimeStretch();
+				old_t /= document_view.TimeStretch();
+				document_vis->DragSelection(new_t, new_t-old_t);
+				SetStatus(
+					wxString::Format(
+						wxGetTranslation(wxT("Selection: <%f, %f> [s]")),
+						document_vis->SelectionBegin(),
+						document_vis->SelectionEnd()
+					)
+				);
+			}
+		}
+		else if(event.CmdDown())
 		{
 			if(event.LeftIsDown())
 			{
@@ -364,6 +401,8 @@ SpectraDocumentFrame::SpectraDocumentFrame(
 	);
 	assert(document_vis);
 	document_vis->AddCanvas(gl_canvas);
+	assert(play_menu_item);
+	play_menu_item->Enable(document_vis->Document().CanPlay());
 
 	renderer = get_renderer(
 		parent_app,
