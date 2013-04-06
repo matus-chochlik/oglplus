@@ -187,8 +187,16 @@ void SpectraDocumentFrame::OnSysColorChange(wxSysColourChangedEvent& event)
 
 void SpectraDocumentFrame::DoPlay(wxCommandEvent&)
 {
-	assert(document_vis);
-	document_vis->Play();
+	try
+	{
+		assert(document_vis);
+		document_vis->Play();
+	}
+	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
+	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
+	catch(oglplus::LimitError& le) { parent_app.HandleError(le, this); }
+	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
+	catch(const std::exception& se) { parent_app.HandleError(se, this); }
 }
 
 GLint SpectraDocumentFrame::ClampMouseCoord(GLint c, GLint m)
