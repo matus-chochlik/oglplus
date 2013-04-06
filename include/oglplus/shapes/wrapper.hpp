@@ -20,6 +20,7 @@
 #include <oglplus/array.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/context.hpp>
+#include <oglplus/optional.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/string.hpp>
 

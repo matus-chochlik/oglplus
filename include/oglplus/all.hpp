@@ -51,4 +51,6 @@
 
 #include <oglplus/sync.hpp>
 
+#include <oglplus/optional.hpp>
+
 #endif // include guard
