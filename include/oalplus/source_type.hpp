@@ -1,6 +1,6 @@
 /**
- *  @file oalplus/source_state.hpp
- *  @brief OpenAL source execution state enumeration
+ *  @file oalplus/source_type.hpp
+ *  @brief OpenAL Source type enumeration
  *
  *  @author Matus Chochlik
  *
@@ -10,27 +10,27 @@
  */
 
 #pragma once
-#ifndef OALPLUS_SOURCE_STATE_1303292057_HPP
-#define OALPLUS_SOURCE_STATE_1303292057_HPP
+#ifndef OALPLUS_SOURCE_TYPE_1303292057_HPP
+#define OALPLUS_SOURCE_TYPE_1303292057_HPP
 
 #include <oalplus/enumerations.hpp>
 
 namespace oalplus {
 
-/// OpenAL source execution state enumeration
+/// OpenAL source type enumeration
 /**
  *  @ingroup enumerations
  */
-OALPLUS_ENUM_CLASS_BEGIN(SourceState, ALenum)
-#include <oalplus/enums/source_state.ipp>
+OALPLUS_ENUM_CLASS_BEGIN(SourceType, ALenum)
+#include <oalplus/enums/source_type.ipp>
 OALPLUS_ENUM_CLASS_END
 
 #if !OALPLUS_NO_ENUM_VALUE_NAMES
-#include <oalplus/enums/source_state_names.ipp>
+#include <oalplus/enums/source_type_names.ipp>
 #endif
 
 #if !OALPLUS_ENUM_VALUE_RANGES
-#include <oalplus/enums/source_state_range.ipp>
+#include <oalplus/enums/source_type_range.ipp>
 #endif
 
 } // namespace oglplus

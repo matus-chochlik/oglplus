@@ -21,9 +21,13 @@
 #include <oalplus/string_query.hpp>
 #include <oalplus/distance_model.hpp>
 #include <oalplus/source_state.hpp>
+#include <oalplus/source_type.hpp>
 
 #include <oalplus/listener.hpp>
 
 #include <oalplus/buffer.hpp>
+#include <oalplus/source.hpp>
+
+#include <oalplus/optional.hpp>
 
 #endif // include guard

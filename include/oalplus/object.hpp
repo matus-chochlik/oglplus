@@ -150,6 +150,12 @@ protected:
 		}
 	}
 
+	struct _Uninitialized { };
+
+	Object(_Uninitialized)
+	OALPLUS_NOEXCEPT(true)
+	{ }
+
 	struct _FromRawName { };
 
 	Object(ALuint name, _FromRawName)
@@ -177,16 +183,19 @@ public:
 #endif
 
 	Object(Object&& temp)
+	OALPLUS_NOEXCEPT(true)
 	{
 		_move_in(std::move(temp));
 	}
 
 	~Object(void)
+	OALPLUS_NOEXCEPT(true)
 	{
 		_cleanup_if_needed();
 	}
 
 	Object& operator = (Object&& temp)
+	OALPLUS_NOEXCEPT(true)
 	{
 		_cleanup_if_needed();
 		_move_in(std::move(temp));

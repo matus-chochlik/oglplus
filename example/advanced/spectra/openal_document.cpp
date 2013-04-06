@@ -12,6 +12,8 @@
 #include <oalplus/device.hpp>
 #include <oalplus/context.hpp>
 #include <oalplus/listener.hpp>
+#include <oalplus/source.hpp>
+#include <oalplus/optional.hpp>
 #include <oalplus/alut.hpp>
 
 #include <oalplus/all.hpp> //TODO
@@ -39,7 +41,8 @@ private:
 	oalplus::Device device;
 	oalplus::CurrentContext context;
 	oalplus::Listener listener;
-	oalplus::Buffer sound_buf;
+	oalplus::Optional<oalplus::Buffer> sound_buf;
+	oalplus::Source sound_src;
 public:
 	SpectraOpenALDocument(
 		SpectraSharedObjects& shared_objects,
@@ -86,6 +89,8 @@ SpectraOpenALDocument::SpectraOpenALDocument(
 	listener.Position(0.0f, 0.0f, 0.0f);
 	listener.Velocity(0.0f, 0.0f, 0.0f);
 	listener.Orientation(0.0f, 0.0f,-1.0f, 0.0f, 1.0f, 0.0f);
+
+	sound_src.Position(0.0f, 0.0f,-1.0f);
 }
 
 bool SpectraOpenALDocument::FinishLoading(void)
@@ -96,12 +101,8 @@ bool SpectraOpenALDocument::FinishLoading(void)
 	char* arg = buf;
 	oalplus::ALUtilityToolkit alut(false, 1, &arg);
 
-	std::string utf8_file_path((const char*)file_path.mb_str(wxConvUTF8));
-
-	sound_buf = alut.CreateBufferFromFile(utf8_file_path);
-
 	samples = alut.LoadMemoryFromFile(
-		utf8_file_path,
+		(const char*)file_path.mb_str(wxConvUTF8),
 		&format,
 		&frequency
 	);

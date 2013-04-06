@@ -43,6 +43,17 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listener3f));
 	}
 
+	static Vec3f Position(void)
+	{
+		ALfloat result[3];
+		OALPLUS_ALFUNC(al,GetListenerfv)(
+			AL_POSITION,
+			result
+		);
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		return Vec3f(result);
+	}
+
 	static void Velocity(const Vec3f& velocity)
 	{
 		OALPLUS_ALFUNC(al,Listenerfv)(
@@ -61,10 +72,21 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listener3f));
 	}
 
-	static void Orientation(const Vec3f& forward, const Vec3f& up)
+	static Vec3f Velocity(void)
+	{
+		ALfloat result[3];
+		OALPLUS_ALFUNC(al,GetListenerfv)(
+			AL_VELOCITY,
+			result
+		);
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		return Vec3f(result);
+	}
+
+	static void Orientation(const Vec3f& at, const Vec3f& up)
 	{
 		ALfloat v[6] = {
-			forward[0], forward[1], forward[2],
+			at[0], at[1], at[2],
 			up[0], up[1], up[2],
 		};
 		OALPLUS_ALFUNC(al,Listenerfv)(AL_ORIENTATION, v);
@@ -72,17 +94,25 @@ public:
 	}
 
 	static void Orientation(
-		ALfloat fw_x,
-		ALfloat fw_y,
-		ALfloat fw_z,
+		ALfloat at_x,
+		ALfloat at_y,
+		ALfloat at_z,
 		ALfloat up_x,
 		ALfloat up_y,
 		ALfloat up_z
 	)
 	{
-		ALfloat v[6] = {fw_x, fw_y, fw_z, up_x, up_y, up_z};
+		ALfloat v[6] = {at_x, at_y, at_z, up_x, up_y, up_z};
 		OALPLUS_ALFUNC(al,Listenerfv)(AL_ORIENTATION, v);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
+	}
+
+	static Vec3f OrientationAt(void)
+	{
+		ALfloat v[6];
+		OALPLUS_ALFUNC(al,GetListenerfv)(AL_ORIENTATION, v);
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		return Vec3f(v, 3);
 	}
 
 	static void Gain(ALfloat value)
@@ -92,6 +122,17 @@ public:
 			value
 		);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerf));
+	}
+
+	static ALfloat Gain(void)
+	{
+		ALfloat result;
+		OALPLUS_ALFUNC(al,GetListenerfv)(
+			AL_VELOCITY,
+			&result
+		);
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		return result;
 	}
 };
 
