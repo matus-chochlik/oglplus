@@ -36,6 +36,7 @@ private:
 	SpectraMainFrame* main_frame;
 
 	wxMenuBar* main_menu;
+	wxMenuItem* play_menu_item;
 
 	wxPanel* main_panel;
 
@@ -64,6 +65,8 @@ private:
 
 	void HandleSysColorChange(void);
 	void OnSysColorChange(wxSysColourChangedEvent&);
+
+	void DoPlay(wxCommandEvent&);
 
 	wxPoint old_mouse_position;
 	GLint ClampMouseCoord(GLint c, GLint m);

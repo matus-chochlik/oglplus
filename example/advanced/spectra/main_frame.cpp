@@ -133,7 +133,7 @@ void SpectraMainFrame::InitMainMenu(void)
 	file_menu->Append(wxID_OPEN);
 	file_menu->Append(
 		SpectraMainFrameID_GenerateDoc,
-		wxGetTranslation(wxT("&Generate"), wxT("Document"))
+		wxGetTranslation(wxT("&Generate\tCtrl-Shift-G"), wxT("Document"))
 	);
 	file_menu->AppendSeparator();
 	file_menu->Append(wxID_EXIT);
@@ -147,7 +147,7 @@ void SpectraMainFrame::InitMainMenu(void)
 
 	renderer_menu = new wxMenu();
 	renderer_menu->AppendRadioItem(
-		SpectraMainFrameID_DefaultRenderer, 
+		SpectraMainFrameID_DefaultRenderer,
 		wxGetTranslation(wxT("&Default renderer"), wxT("Menu"))
 	);
 

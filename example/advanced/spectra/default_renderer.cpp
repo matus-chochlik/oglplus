@@ -34,6 +34,8 @@ private:
 	oglplus::OptionalUniform<GLint> doc_vis_spectrum_size;
 	oglplus::OptionalUniform<GLint> doc_vis_samples_per_unit;
 	oglplus::OptionalUniform<GLfloat> doc_vis_selected_time;
+	oglplus::OptionalUniform<GLfloat> doc_vis_selection_begin;
+	oglplus::OptionalUniform<GLfloat> doc_vis_selection_end;
 
 	const oglplus::shapes::ShapeWrapper& spectrum_plane_wrap;
 	oglplus::VertexArray spectrum_plane_vao;
@@ -96,6 +98,8 @@ SpectraDefaultRenderer::SpectraDefaultRenderer(
  , doc_vis_spectrum_size(doc_vis_prog, "SpectrumSize")
  , doc_vis_samples_per_unit(doc_vis_prog, "SamplesPerUnit")
  , doc_vis_selected_time(doc_vis_prog, "SelectedTime")
+ , doc_vis_selection_begin(doc_vis_prog, "SelectionBegin")
+ , doc_vis_selection_end(doc_vis_prog, "SelectionEnd")
  , spectrum_plane_wrap(
 	Common().SpectrumPlane(
 		DocVis().GridSamples(),
@@ -144,6 +148,8 @@ void SpectraDefaultRenderer::RenderSpectrum(SpectraDocumentView& view)
 	doc_vis_spectrum_size.TrySet(DocVis().SignalSpectrumSize());
 	doc_vis_samples_per_unit.TrySet(DocVis().SignalSamplesPerGrid());
 	doc_vis_selected_time.TrySet(DocVis().SelectedTime());
+	doc_vis_selection_begin.TrySet(DocVis().SelectionBegin());
+	doc_vis_selection_end.TrySet(DocVis().SelectionEnd());
 
 
 	spectrum_plane_vao.Bind();
