@@ -69,7 +69,7 @@ private:
 	}
 
 	template <typename T>
-	void _do_load_memory(
+	void _do_load_mem_norm(
 		std::vector<ALfloat>& result,
 		T*,
 		::ALvoid* raw_data,
@@ -85,27 +85,27 @@ private:
 		}
 	}
 
-	std::vector<ALfloat> _load_memory(
+	struct _free_on_scope_exit
+	{
+		::ALvoid* ptr;
+
+		~_free_on_scope_exit(void)
+		{
+			free(ptr);
+		}
+	};
+
+	std::vector<ALfloat> _load_mem_norm(
 		::ALvoid* raw_data,
 		::ALenum format,
 		::ALsizei size
 	) const
 	{
-		struct _free_on_scope_exit
-		{
-			::ALvoid* ptr;
-
-			~_free_on_scope_exit(void)
-			{
-				free(ptr);
-			}
-		} cleaner = { raw_data };
-
 		std::vector<ALfloat> result;
 
 		if(format == AL_FORMAT_MONO8)
 		{
-			_do_load_memory(
+			_do_load_mem_norm(
 				result,
 				(::ALubyte*)nullptr,
 				raw_data,
@@ -114,7 +114,7 @@ private:
 		}
 		else if(format == AL_FORMAT_MONO16)
 		{
-			_do_load_memory(
+			_do_load_mem_norm(
 				result,
 				(::ALshort*)nullptr,
 				raw_data,
@@ -123,7 +123,7 @@ private:
 		}
 		else if(format == AL_FORMAT_STEREO8)
 		{
-			_do_load_memory(
+			_do_load_mem_norm(
 				result,
 				(::ALubyte*)nullptr,
 				raw_data,
@@ -132,7 +132,7 @@ private:
 		}
 		else if(format == AL_FORMAT_STEREO16)
 		{
-			_do_load_memory(
+			_do_load_mem_norm(
 				result,
 				(::ALshort*)nullptr,
 				raw_data,
@@ -140,9 +140,16 @@ private:
 			);
 		}
 
-		OALPLUS_FAKE_USE(cleaner);
-
 		return std::move(result);
+	};
+
+	std::vector<ALubyte> _load_memory(
+		::ALvoid* raw_data,
+		::ALsizei size
+	) const
+	{
+		::ALubyte* data = (::ALubyte*)raw_data;
+		return std::vector<ALubyte>(data, data+size);
 	}
 public:
 	Buffer CreateBufferHelloWorld(void) const
@@ -161,12 +168,7 @@ public:
 		return Buffer::FromRawName(name);
 	}
 
-	Buffer CreateBufferFromFile(const String& file_path) const
-	{
-		return CreateBufferFromFile(file_path.c_str());
-	}
-
-	std::vector<ALfloat> LoadMemoryHelloWorld(
+	std::vector<ALfloat> LoadMemoryHelloWorldNormalized(
 		DataFormat* data_format,
 		ALfloat* frequency
 	) const
@@ -180,12 +182,15 @@ public:
 		);
 		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, LoadMemoryHelloWorld));
 
+		_free_on_scope_exit cleaner = { ptr };
+		OALPLUS_FAKE_USE(cleaner);
+
 		if(data_format) *data_format = DataFormat(format);
 
-		return _load_memory(ptr, format, size);
+		return _load_mem_norm(ptr, format, size);
 	}
 
-	std::vector<ALfloat> LoadMemoryFromFile(
+	std::vector<ALfloat> LoadMemoryFromFileNormalized(
 		const ALchar* file_path,
 		DataFormat* data_format,
 		ALfloat* frequency
@@ -201,22 +206,63 @@ public:
 		);
 		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, LoadMemoryFromFile));
 
+		_free_on_scope_exit cleaner = { ptr };
+		OALPLUS_FAKE_USE(cleaner);
+
 		if(data_format) *data_format = DataFormat(format);
 
-		return _load_memory(ptr, format, size);
+		return _load_mem_norm(ptr, format, size);
 	}
 
-	std::vector<ALfloat> LoadMemoryFromFile(
-		const String& file_path,
+	std::vector<ALubyte> LoadMemoryFromFile(
+		const ALchar* file_path,
 		DataFormat* data_format,
 		ALfloat* frequency
 	) const
 	{
-		return LoadMemoryFromFile(
-			file_path.c_str(),
-			data_format,
+		::ALenum format = 0;
+		::ALsizei size = 0;
+		::ALvoid* ptr = OALPLUS_ALFUNC(alut,LoadMemoryFromFile)(
+			file_path,
+			&format,
+			&size,
 			frequency
 		);
+		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, LoadMemoryFromFile));
+
+		_free_on_scope_exit cleaner = { ptr };
+		OALPLUS_FAKE_USE(cleaner);
+
+		if(data_format) *data_format = DataFormat(format);
+
+		return _load_memory(ptr, size);
+	}
+
+	void LoadMemoryFromFile(
+		std::vector<ALubyte>& raw,
+		std::vector<ALfloat>& norm,
+		const ALchar* file_path,
+		DataFormat* data_format,
+		ALfloat* frequency
+	) const
+	{
+		::ALenum format = 0;
+		::ALsizei size = 0;
+		::ALvoid* ptr = OALPLUS_ALFUNC(alut,LoadMemoryFromFile)(
+			file_path,
+			&format,
+			&size,
+			frequency
+		);
+		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, LoadMemoryFromFile));
+
+		_free_on_scope_exit cleaner = { ptr };
+		OALPLUS_FAKE_USE(cleaner);
+
+		if(data_format) *data_format = DataFormat(format);
+
+		raw = _load_memory(ptr, size);
+		norm = _load_mem_norm(ptr, format, size);
 	}
 };
 

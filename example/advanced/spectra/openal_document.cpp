@@ -36,12 +36,14 @@ private:
 	const std::size_t spectrum_size;
 	oalplus::DataFormat format;
 	::ALfloat frequency;
-	std::vector<float> samples;
+
+	std::vector<ALubyte> raw_data;
+	std::vector<ALfloat> samples;
 
 	oalplus::Device device;
 	oalplus::CurrentContext context;
 	oalplus::Listener listener;
-	oalplus::Optional<oalplus::Buffer> sound_buf;
+	oalplus::Buffer sound_buf;
 	oalplus::Source sound_src;
 public:
 	SpectraOpenALDocument(
@@ -103,7 +105,9 @@ bool SpectraOpenALDocument::FinishLoading(void)
 	char* arg = buf;
 	oalplus::ALUtilityToolkit alut(false, 1, &arg);
 
-	samples = alut.LoadMemoryFromFile(
+	alut.LoadMemoryFromFile(
+		raw_data,
+		samples,
 		(const char*)file_path.mb_str(wxConvUTF8),
 		&format,
 		&frequency
@@ -169,6 +173,39 @@ bool SpectraOpenALDocument::CanPlay(void) const
 
 void SpectraOpenALDocument::Play(float from, float to)
 {
+	if(from < 0.0f) from = 0.0f;
+	if(from < to)
+	{
+		std::size_t mult = 1;
+		switch(format)
+		{
+			case oalplus::DataFormat::Mono16:
+			case oalplus::DataFormat::Stereo8:
+				mult = 2;
+				break;
+			case oalplus::DataFormat::Stereo16:
+				mult = 4;
+				break;
+			default:break;
+		}
+
+		std::size_t begin = std::size_t(frequency*from*mult);
+		std::size_t end = std::size_t(frequency*to*mult);
+
+		if(end > raw_data.size())
+			end = raw_data.size();
+		if(begin < end)
+		{
+			sound_buf.Data(
+				format,
+				raw_data.data()+begin,
+				end-begin,
+				frequency
+			);
+			sound_src.Buffer(sound_buf);
+			sound_src.Play();
+		}
+	}
 }
 
 std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(
