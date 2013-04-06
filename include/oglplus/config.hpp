@@ -35,26 +35,6 @@
 
 #include <oglplus/config_compiler.hpp>
 
-#if OGLPLUS_NO_NULLPTR
-#define nullptr 0
-#endif
-
-#if !OGLPLUS_NO_CONSTEXPR
-#define OGLPLUS_CONSTEXPR constexpr
-#else
-#define OGLPLUS_CONSTEXPR const
-#endif
-
-#if !OGLPLUS_NO_NOEXCEPT
-#define OGLPLUS_NOEXCEPT(...) noexcept(__VA_ARGS__)
-#define OGLPLUS_NOEXCEPT_IF(...) noexcept(noexcept(__VA_ARGS__))
-#else
-#define OGLPLUS_NOEXCEPT(...)
-#define OGLPLUS_NOEXCEPT_IF(...)
-#endif
-
-// ------- C++11 feature availability detection -------
-
 // define GLAPIENTRY
 #ifdef GLAPIENTRY
 #undef GLAPIENTRY
