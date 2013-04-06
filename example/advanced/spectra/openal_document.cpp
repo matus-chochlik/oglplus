@@ -189,13 +189,14 @@ void SpectraOpenALDocument::Play(float from, float to)
 			default:break;
 		}
 
-		std::size_t begin = std::size_t(frequency*from*mult);
-		std::size_t end = std::size_t(frequency*to*mult);
+		std::size_t begin = std::size_t(frequency*from)*mult;
+		std::size_t end = std::size_t(frequency*to)*mult;
 
 		if(end > raw_data.size())
 			end = raw_data.size();
 		if(begin < end)
 		{
+			sound_src.DetachBuffers();
 			sound_buf.Data(
 				format,
 				raw_data.data()+begin,

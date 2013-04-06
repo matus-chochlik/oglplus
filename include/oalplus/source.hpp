@@ -161,12 +161,22 @@ public:
 		return result == AL_TRUE;
 	}
 
-	void Buffer(const BufferOps& buffer) const
+	void Buffer(const BufferOps& buffer)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
 			_name,
 			AL_BUFFER,
 			FriendOf<BufferOps>::GetName(buffer)
+		);
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
+	}
+
+	void DetachBuffers(void)
+	{
+		OALPLUS_ALFUNC(al,Sourcei)(
+			_name,
+			AL_BUFFER,
+			0
 		);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
 	}
