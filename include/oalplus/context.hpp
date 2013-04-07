@@ -17,6 +17,7 @@
 #include <oalplus/device.hpp>
 #include <oalplus/error.hpp>
 #include <oalplus/alfunc.hpp>
+#include <oalplus/distance_model.hpp>
 
 namespace oalplus {
 
@@ -86,6 +87,23 @@ public:
 			OALPLUS_ERROR_INFO(alc,SuspendContext),
 			_device
 		);
+	}
+
+	static void DistanceModel(oalplus::DistanceModel dist_model)
+	{
+		OALPLUS_ALFUNC(al,DistanceModel(ALenum(dist_model)));
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,DistanceModel));
+	}
+
+	static oalplus::DistanceModel DistanceModel(void)
+	{
+		ALint result;
+		OALPLUS_ALFUNC(al,GetIntegerv(
+			AL_DISTANCE_MODEL,
+			&result
+		));
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetIntegerv));
+		return oalplus::DistanceModel(result);
 	}
 };
 
