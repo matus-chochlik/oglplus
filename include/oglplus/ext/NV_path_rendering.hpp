@@ -386,20 +386,7 @@ class PathNVOps
  , public BaseObject<true>
 {
 protected:
-	static void _init(GLsizei count, GLuint* _name, std::true_type)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		try
-		{
-			GLuint base = OGLPLUS_GLFUNC(GenPathsNV)(count);
-			for(GLsizei i=0; i!=count; ++i)
-				_name[i] = base+i;
-		}
-		catch(...){ }
-	}
-
-	static void _init(GLsizei count, GLuint* _name, std::false_type)
+	static void _init(GLsizei count, GLuint* _name)
 	{
 		assert(_name != nullptr);
 		GLuint base = OGLPLUS_GLFUNC(GenPathsNV)(count);

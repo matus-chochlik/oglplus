@@ -188,17 +188,7 @@ class ProgramOps
  , public FriendOf<VertexAttribOps>
 {
 protected:
-	static void _init(GLsizei _count, GLuint* _name, std::true_type)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		OGLPLUS_FAKE_USE(_count);
-		assert(_count == 1);
-		assert(_name != nullptr);
-		try{*_name = OGLPLUS_GLFUNC(CreateProgram)();}
-		catch(...){ }
-	}
-
-	static void _init(GLsizei _count, GLuint* _name, std::false_type)
+	static void _init(GLsizei _count, GLuint* _name)
 	{
 		OGLPLUS_FAKE_USE(_count);
 		assert(_count == 1);

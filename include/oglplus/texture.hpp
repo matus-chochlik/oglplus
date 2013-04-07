@@ -221,15 +221,7 @@ public:
 	 */
 	typedef TextureTarget Target;
 protected:
-	static void _init(GLsizei count, GLuint* _name, std::true_type)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		try{OGLPLUS_GLFUNC(GenTextures)(count, _name);}
-		catch(...){ }
-	}
-
-	static void _init(GLsizei count, GLuint* _name, std::false_type)
+	static void _init(GLsizei count, GLuint* _name)
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenTextures)(count, _name);
