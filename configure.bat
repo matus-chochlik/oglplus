@@ -1,5 +1,5 @@
 @echo off
-:: Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+:: Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 :: Software License, Version 1.0. (See accompanying file
 :: LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -221,6 +221,10 @@ GOTO :eof
 ::
 :print_usage
 	ECHO:configure: OGLplus cmake configuration script
+	ECHO.
+	ECHO:NOTE: Consider using the configure.py Python script if possible.
+	ECHO:      configure.py is more versatile, robust and up to date.
+	ECHO:      Run `configure.py --help' to display full help screen.
 	ECHO.
 	ECHO:Synopsis
 	ECHO:configure.bat [config-options] [^<--cmake^> [cmake-options]]
