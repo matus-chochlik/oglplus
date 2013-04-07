@@ -19,11 +19,11 @@
 namespace oglplus {
 namespace aux {
 
-template <typename Element>
+template <typename Element, typename NameType>
 class BaseIter
 {
 private:
-	typedef std::vector<GLuint>::const_iterator iterator;
+	typedef typename std::vector<NameType>::const_iterator iterator;
 	iterator _pos;
 
 	Element _elem;

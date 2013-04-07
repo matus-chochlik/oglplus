@@ -169,7 +169,7 @@ public:
 		return at(index);
 	}
 
-	typedef aux::BaseIter<Managed<ObjectOps> > const_iterator;
+	typedef aux::BaseIter<Managed<ObjectOps>, GLuint> const_iterator;
 	typedef const_iterator iterator;
 
 	iterator begin(void) const
