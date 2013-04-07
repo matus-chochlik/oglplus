@@ -49,6 +49,9 @@ class Managed
 class Managed;
 #endif
 
+template <class Object>
+class ObjectInitializer;
+
 // Helper base class for OpenAL object wrappers
 /*
  *  @note Do not use this class directly, use the derived classes instead.
@@ -60,6 +63,8 @@ class Object
  : public ObjectOps
 {
 private:
+	friend class ObjectInitializer<Object>;
+
 	ALuint _release(void)
 	{
 		ALuint res = this->_name;
@@ -200,6 +205,52 @@ public:
 		_cleanup_if_needed();
 		_move_in(std::move(temp));
 		return *this;
+	}
+};
+
+template <class ObjectOps>
+class ObjectInitializer<Object<ObjectOps> >
+{
+protected:
+	static inline bool _type_ok(ALuint _name)
+	OALPLUS_NOEXCEPT(true)
+	{
+		return Object<ObjectOps>::_type_ok(_name);
+	}
+
+	static inline void _init(ALsizei _c, ALuint* _n)
+	{
+		Object<ObjectOps>::_do_init(_c, _n);
+	}
+
+	static inline void _cleanup(ALsizei _c, ALuint* _n)
+	OALPLUS_NOEXCEPT(true)
+	{
+		Object<ObjectOps>::_do_cleanup(_c, _n);
+	}
+};
+
+template <typename ObjectOps>
+class Managed
+ : public ObjectOps
+ , public FriendOf<ObjectOps>
+{
+private:
+	Managed(void)
+	{ }
+public:
+	Managed(const ObjectOps& obj)
+	 : ObjectOps(obj)
+	{ }
+
+	Managed(ALuint _name)
+	{
+		FriendOf<ObjectOps>::SetName(*this, _name);
+	}
+
+	~Managed(void)
+	{
+		FriendOf<ObjectOps>::SetName(*this, 0);
 	}
 };
 

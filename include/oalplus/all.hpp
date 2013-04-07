@@ -29,5 +29,6 @@
 #include <oalplus/source.hpp>
 
 #include <oalplus/optional.hpp>
+#include <oalplus/array.hpp>
 
 #endif // include guard

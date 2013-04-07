@@ -20,6 +20,7 @@
 #include <oalplus/angle.hpp>
 #include <oalplus/vector.hpp>
 #include <oalplus/object.hpp>
+#include <oalplus/array.hpp>
 #include <oalplus/buffer.hpp>
 #include <oalplus/friend_of.hpp>
 #include <oalplus/source_state.hpp>
@@ -32,6 +33,7 @@ namespace oalplus {
 class SourceOps
  : public Named
  , public FriendOf<BufferOps>
+ , public FriendOf<Array<Buffer> >
 {
 protected:
 	friend class FriendOf<SourceOps>;
@@ -179,6 +181,30 @@ public:
 			0
 		);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
+	}
+
+	void QueueBuffers(const Array<oalplus::Buffer>& buffers)
+	{
+		OALPLUS_ALFUNC(al,SourceQueueBuffers)(
+			_name,
+			FriendOf<Array<oalplus::Buffer> >::GetSize(buffers),
+			const_cast<ALuint*>(
+			FriendOf<Array<oalplus::Buffer> >::GetNames(buffers)
+			)
+		);
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceQueueBuffers));
+	}
+
+	void UnqueueBuffers(const Array<oalplus::Buffer>& buffers)
+	{
+		OALPLUS_ALFUNC(al,SourceUnqueueBuffers)(
+			_name,
+			FriendOf<Array<oalplus::Buffer> >::GetSize(buffers),
+			const_cast<ALuint*>(
+			FriendOf<Array<oalplus::Buffer> >::GetNames(buffers)
+			)
+		);
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceUnqueueBuffers));
 	}
 
 	void Gain(ALfloat value) const

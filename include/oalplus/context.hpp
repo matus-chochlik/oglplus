@@ -105,6 +105,40 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetIntegerv));
 		return oalplus::DistanceModel(result);
 	}
+
+	static void DopplerFactor(ALfloat doppler_factor)
+	{
+		OALPLUS_ALFUNC(al,DopplerFactor(doppler_factor));
+		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,DopplerFactor));
+	}
+
+	static ALfloat DopplerFactor(void)
+	{
+		ALfloat result;
+		OALPLUS_ALFUNC(al,GetFloatv(
+			AL_DOPPLER_FACTOR,
+			&result
+		));
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetFloatv));
+		return result;
+	}
+
+	static void SpeedOfSound(ALfloat speed_of_sound)
+	{
+		OALPLUS_ALFUNC(al,SpeedOfSound(speed_of_sound));
+		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,SpeedOfSound));
+	}
+
+	static ALfloat SpeedOfSound(void)
+	{
+		ALfloat result;
+		OALPLUS_ALFUNC(al,GetFloatv(
+			AL_SPEED_OF_SOUND,
+			&result
+		));
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetFloatv));
+		return result;
+	}
 };
 
 class Context

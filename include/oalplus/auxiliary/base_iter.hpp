@@ -1,6 +1,6 @@
 /**
- *  .file oalplus/auxiliary/base_range.hpp
- *  .brief Base class for ranges
+ *  .file oalplus/auxiliary/base_iter.hpp
+ *  .brief Base classes for iterators
  *
  *  @author Matus Chochlik
  *
@@ -10,16 +10,15 @@
  */
 
 #pragma once
-#ifndef OALPLUS_AUX_BASE_RANGE_1303292017_HPP
-#define OALPLUS_AUX_BASE_RANGE_1303292017_HPP
+#ifndef OALPLUS_AUX_BASE_ITER_1303292017_HPP
+#define OALPLUS_AUX_BASE_ITER_1303292017_HPP
 
-#include <oglplus/auxiliary/base_range.hpp>
+#include <oglplus/auxiliary/base_iter.hpp>
 
 namespace oalplus {
 namespace aux {
 
-using oglplus::aux::CastIterRange;
-using oglplus::aux::ArrayRange;
+using oglplus::aux::BaseIter;
 
 } // namespace aux
 } // namespace oalplus
