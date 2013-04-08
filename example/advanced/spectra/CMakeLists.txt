@@ -4,8 +4,6 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-add_custom_target(oglplus-advanced-examples ALL)
-
 if(wxWidgets_FOUND)
 	add_definitions(-DOGLPLUS_LINK_LIBRARY=1)
 
