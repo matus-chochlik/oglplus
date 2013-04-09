@@ -19,6 +19,15 @@
 #include <oglplus/memory_barrier.hpp>
 #include <oglplus/bitfield.hpp>
 
+// NOTE: winnt.h apparantly defines this symbol
+// using the preprocessor. To avoid any sort of
+// problems here it is necessary to observe correct order
+// of header includes or you gotta keep 'em separated
+// (in different translation units)
+#ifdef MemoryBarrier
+#undef MemoryBarrier
+#endif
+
 namespace oglplus {
 namespace context {
 
