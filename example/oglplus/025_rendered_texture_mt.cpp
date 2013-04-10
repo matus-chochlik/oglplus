@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_cxx11{CHRONO}
+ *  @oglplus_example_uses_cxx11{THREADS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>

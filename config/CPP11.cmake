@@ -49,6 +49,7 @@ cpp11_feature_detection(NOEXCEPT)
 cpp11_feature_detection(LAMBDAS)
 cpp11_feature_detection(NULLPTR)
 cpp11_feature_detection(CHRONO)
+cpp11_feature_detection(THREADS)
 
 # explicit configuration
 if(

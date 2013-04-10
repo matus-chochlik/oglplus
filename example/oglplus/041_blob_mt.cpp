@@ -11,6 +11,7 @@
  *
  *  @oglplus_example_uses_cxx11{LAMBDAS}
  *  @oglplus_example_uses_cxx11{CHRONO}
+ *  @oglplus_example_uses_cxx11{THREADS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
