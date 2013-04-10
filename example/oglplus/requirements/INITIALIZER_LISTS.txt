@@ -1,2 +1,0 @@
-027_smoke_trails.cpp
-034_billiard_balls.cpp
