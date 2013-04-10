@@ -25,7 +25,7 @@ void main(void)
 	OffsPos.x += gl_InstanceID;
 	OffsPos.y = SpectrumValue(vertTexCoord);
 	gl_Position = TransfMatrix * OffsPos;
-	vertValue = OffsPos.y;
+	vertValue = OffsPos.y*2.0;
 	vertHighlight = clamp(pow(exp(-abs(SelectedTime-OffsPos.x)*250.0), 4.0), 0.0, 1.0);
 	vertSelection = exp(-250.0*(OffsPos.x-SelectionBegin)*(OffsPos.x-SelectionEnd));
 	vertSelection = pow(clamp(vertSelection, 0.0, 1.0), 4.0);

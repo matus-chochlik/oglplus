@@ -16,14 +16,20 @@ out vec3 fragColor;
 
 void main(void)
 {
+	float Light = clamp(0.2+sqrt(vertValue), 0.0, 2.0);
+	float Strips = (int(vertTexCoord.y)%2)*0.1+(int(vertTexCoord.y*10)%2)*0.2;
 	fragColor = mix(
 		mix(
-			vec3(0.0, vertTexCoord.y*0.3, 1.0),
-			vec3(1.0, vertTexCoord.y*0.3, 0.0),
-			vertValue
-		),
+			mix(
+				vec3(0.2, 0.1+Strips, 1.0),
+				vec3(1.0, 0.1+Strips, 0.2),
+				vertValue
+			),
+			vec3(1.0, 1.0, 1.0),
+			vertSelection*0.2
+		)*Light,
 		vec3(1.0, 1.0, 1.0),
-		vertHighlight+vertSelection*0.2
+		vertHighlight
 	);
 }
 

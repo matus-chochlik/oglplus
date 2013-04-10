@@ -197,7 +197,7 @@ SpectraGetDefaultCPUFourierTransf(
 	std::size_t spectrum_size
 )
 {
-	std::size_t frame_size = spectrum_size*2+1;
+	std::size_t frame_size = spectrum_size*2-1;
 	assert(spectrum_size > 2);
 	typedef SpectraDefaultMatrixTransf<
 		std::complex<double>,
