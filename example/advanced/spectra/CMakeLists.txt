@@ -34,6 +34,9 @@ if(wxWidgets_FOUND)
 			calculator_cpu.cpp
 			calculator_gpu.cpp
 	)
+	if(${WIN32})
+		set_property(TARGET spectra PROPERTY WIN32_EXECUTABLE true)
+	endif()
 
 	target_link_libraries(spectra ${wxWidgets_LIBRARIES} ${OGLPLUS_GL_LIBS})
 	add_dependencies(oglplus-advanced-example-spectra spectra)
