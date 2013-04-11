@@ -712,7 +712,14 @@ def main(argv):
 	cmake_cmd_line = ["cmake"] + cmake_options + options.cmake_options + [workdir]
 
 	# call cmake
-	try: subprocess.call(cmake_cmd_line,cwd=options.build_dir)
+	try: 
+		ret = subprocess.call(cmake_cmd_line,cwd=options.build_dir)
+		if ret < 0:
+			print("# Configuration killed by signal %d" % -ret)
+			sys.exit(-ret)
+		elif ret > 0:
+			print("# Configuration failed with code %d" % ret)
+			sys.exit(ret)
 	# handle errors
 	except OSError as os_error:
 		print( "# Configuration failed")

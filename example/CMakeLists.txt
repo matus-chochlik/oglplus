@@ -30,7 +30,7 @@ macro(require_all_dependencies EXE_NAME RESULT)
 				message(
 					STATUS
 					"Skipping '${EXE_NAME}' "
-					"because ${DEPENDENCY} not found"
+					"because '${DEPENDENCY}' not found."
 				)
 				set(${RESULT} false)
 			endif()
@@ -48,7 +48,7 @@ macro(require_all_dependencies EXE_NAME RESULT)
 				message(
 					STATUS
 					"Skipping '${EXE_NAME}' "
-					"because ${REQUIREMENT} not implemented"
+					"because '${REQUIREMENT}' not implemented properly."
 				)
 				set(${RESULT} false)
 			endif()
@@ -61,6 +61,11 @@ endmacro(require_all_dependencies)
 # also creates a dependency between the exe
 # and any textures it is using
 macro(add_all_dependencies EXE_NAME)
+	if("${ARGN}" STREQUAL "")
+		set(TARGET_NAME "${EXE_NAME}")
+	else()
+		set(TARGET_NAME "${ARGN}")
+	endif()
 	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/${EXE_NAME}.txt")
 		file(STRINGS
 			"${CMAKE_CURRENT_SOURCE_DIR}/dependencies/${EXE_NAME}.txt"
@@ -68,7 +73,7 @@ macro(add_all_dependencies EXE_NAME)
 		)
 		foreach(DEPENDENCY ${EXE_DEPENDENCIES})
 			if(${DEPENDENCY}_LIBRARIES)
-				target_link_libraries(${EXE_NAME} ${${DEPENDENCY}_LIBRARIES})
+				target_link_libraries(${TARGET_NAME} ${${DEPENDENCY}_LIBRARIES})
 			endif()
 		endforeach()
 	endif()
@@ -79,7 +84,7 @@ macro(add_all_dependencies EXE_NAME)
 			EXE_TEXTURES
 		)
 		foreach(TEXTURE ${EXE_TEXTURES})
-			add_dependencies("${EXE_NAME}" "texture-${TEXTURE}")
+			add_dependencies("${TARGET_NAME}" "texture-${TEXTURE}")
 		endforeach()
 	endif()
 endmacro(add_all_dependencies)

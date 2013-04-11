@@ -16,59 +16,20 @@ elseif(OGLPLUS_USE_GLX)
 	set(OGLPLUS_EXAMPLE_HARNESS "glx")
 endif()
 
-# now setup the harness dependencies
-#
-# GLUT
-if(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glut"))
-	if(NOT GLUT_FOUND)
-		message(FATAL_ERROR "GLUT is required for this build configuration")
-		return()
-	endif()
-
-	include_directories(${GLUT_INCLUDE_DIRS})
-	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLUT_LIBRARIES})
-
-# WXGL
-elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "wxgl"))
-	if(NOT wxWidgets_FOUND)
-		message(FATAL_ERROR "wxGL is required for this build configuration")
-		return()
-	endif()
-
-	include(${wxWidgets_USE_FILE})
-	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${wxWidgets_LIBRARIES})
-
-# GLFW
-elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glfw"))
-	if(NOT GLFW_FOUND)
-		message(FATAL_ERROR "GLFW is required for this build configuration")
-		return()
-	endif()
-
-	include_directories(${GLFW_INCLUDE_DIRS})
-	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${GLFW_LIBRARIES})
-
-# SDL
-elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "sdl"))
-	if(NOT SDL_FOUND)
-		message(FATAL_ERROR "SDL is required for this build configuration")
-		return()
-	endif()
-
-	include_directories(${SDL_INCLUDE_DIRS})
-	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${SDL_LIBRARIES})
-
-# X11/GLX
-elseif(("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx"))
-	if(NOT X11_FOUND)
-		message(FATAL_ERROR "X11 is required for this build configuration")
-		return()
-	endif()
-
-	include_directories(${X11_INCLUDE_DIR})
-	set(OGLPLUS_EXAMPLE_HARNESS_LIBS ${X11_LIBRARIES} pthread)
+# check the harness dependencies and requirements
+set(HARNESS_CAN_BE_BUILT true)
+require_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main HARNESS_CAN_BE_BUILT)
+if(NOT ${HARNESS_CAN_BE_BUILT})
+	message(
+		FATAL_ERROR 
+		"Some of the requirements for the '${OGLPLUS_EXAMPLE_HARNESS}' "
+		"example harness were not met. Please choose a different build "
+		"configuration or install the required libraries or use "
+		"a different compiler."
+	)
+	return()
 endif()
-
+	
 include_directories(${PROJECT_SOURCE_DIR}/utils)
 
 # add a target for the examples
@@ -85,6 +46,8 @@ add_library(
 	EXCLUDE_FROM_ALL
 	${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.cpp
 )
+# add the dependencies for the harness
+add_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main oglplus_example_harness)
 
 # make a list of libraries that we're going to link to
 set(EXAMPLE_LIBS
