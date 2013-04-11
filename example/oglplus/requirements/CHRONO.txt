@@ -1,2 +1,0 @@
-025_rendered_texture_mt.cpp
-041_blob_mt.cpp

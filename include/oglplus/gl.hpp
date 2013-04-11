@@ -13,7 +13,9 @@
 #ifndef OGLPLUS_GL_1107121519_HPP
 #define OGLPLUS_GL_1107121519_HPP
 
+#ifndef OGLPLUS_NO_SITE_CONFIG
 #include <oglplus/site_config.hpp>
+#endif
 
 #ifndef OGLPLUS_USE_GLCOREARB_H
 #define OGLPLUS_USE_GLCOREARB_H 1

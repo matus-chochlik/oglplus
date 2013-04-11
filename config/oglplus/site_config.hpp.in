@@ -90,4 +90,8 @@
 #define OGLPLUS_NO_CHRONO @OGLPLUS_NO_CHRONO@
 #endif
 
+#ifndef OGLPLUS_NO_THREADS
+#define OGLPLUS_NO_THREADS @OGLPLUS_NO_THREADS@
+#endif
+
 #endif
