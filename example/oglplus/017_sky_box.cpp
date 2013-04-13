@@ -14,6 +14,8 @@
  *  @oglplus_example_uses_texture{cloudy_day-cm_3}
  *  @oglplus_example_uses_texture{cloudy_day-cm_4}
  *  @oglplus_example_uses_texture{cloudy_day-cm_5}
+ *
+ *  @oglplus_example_uses_gl{GL_VERSION_3_1}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>

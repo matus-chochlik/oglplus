@@ -10,6 +10,8 @@
  *
  *  @oglplus_example_uses_cxx11{LAMBDAS}
  *  @oglplus_example_uses_cxx11{FUNCTION_TEMPLATE_DEFAULT_ARGS}
+ *
+ *  @oglplus_example_uses_gl{GL_VERSION_4_1}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
