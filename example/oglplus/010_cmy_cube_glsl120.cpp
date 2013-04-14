@@ -58,7 +58,7 @@ public:
 		// set the fragment shader source
 		// (uses the absolute value of normal as color)
 		fs.Source(
-			"#version 330\n"
+			"#version 120\n"
 			"varying vec3 vertNormal;"
 			"void main(void)"
 			"{"
