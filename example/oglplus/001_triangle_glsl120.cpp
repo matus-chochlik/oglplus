@@ -2,7 +2,7 @@
  *  @example oglplus/001_triangle_glsl.cpp
  *  @brief Shows the basic usage of OGLplus by drawing a blue triangle (using GLSL 120).
  *
- *  @oglplus_screenshot{001_triangle}
+ *  @oglplus_screenshot{001_triangle_glsl120}
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
