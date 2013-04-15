@@ -23,8 +23,8 @@
 #include <memory>
 #include <functional>
 
+struct SpectraDocument;
 class SpectraMainFrame;
-class SpectraDocument;
 class SpectraVisualisation;
 class SpectraRenderer;
 

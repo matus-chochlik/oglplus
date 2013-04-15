@@ -248,6 +248,8 @@ include_directories(${PROJECT_BINARY_DIR}/include)
 # include the third party headers
 include_directories(${PROJECT_SOURCE_DIR}/third_party/include)
 
+# GL version detection
+include(config/GLVer.cmake)
 # GL extension detection
 include(config/GLExt.cmake)
 

@@ -9,6 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_cxx11{THREADS}
+ *
+ *  @oglplus_example_uses_gl{GL_VERSION_3_2}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
