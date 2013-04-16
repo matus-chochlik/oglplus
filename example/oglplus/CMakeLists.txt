@@ -21,7 +21,7 @@ set(HARNESS_CAN_BE_BUILT true)
 require_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main HARNESS_CAN_BE_BUILT)
 if(NOT ${HARNESS_CAN_BE_BUILT})
 	message(
-		FATAL_ERROR 
+		FATAL_ERROR
 		"Some of the requirements for the '${OGLPLUS_EXAMPLE_HARNESS}' "
 		"example harness were not met. Please choose a different build "
 		"configuration or install the required libraries or use "
@@ -29,7 +29,7 @@ if(NOT ${HARNESS_CAN_BE_BUILT})
 	)
 	return()
 endif()
-	
+
 include_directories(${PROJECT_SOURCE_DIR}/utils)
 
 # add a target for the examples
@@ -48,6 +48,11 @@ add_library(
 )
 # add the dependencies for the harness
 add_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main oglplus_example_harness)
+
+# TODO
+if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx")
+	target_link_libraries(oglplus_example_harness pthread)
+endif()
 
 # make a list of libraries that we're going to link to
 set(EXAMPLE_LIBS
