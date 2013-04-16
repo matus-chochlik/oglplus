@@ -2,7 +2,7 @@
  *  .file oglplus/enums/program_pipeline_stage_range.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/program_pipeline_stage.txt' instead.
+ *  edit 'source/enums/oglplus/program_pipeline_stage.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -13,7 +13,6 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLbitfield*,
 	ProgramPipelineStage
 > EnumValueRange(ProgramPipelineStage*)
-OGLPLUS_NOEXCEPT(true)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PROGRAMPIPELINESTAGE)
 #define OGLPLUS_IMPL_EVR_PROGRAMPIPELINESTAGE

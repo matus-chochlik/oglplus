@@ -13,20 +13,55 @@
 #ifndef OGLPLUS_FWD_1107121519_HPP
 #define OGLPLUS_FWD_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config_compiler.hpp>
 #include <type_traits>
 #include <cstddef>
 
 namespace oglplus {
 
+// Nothing
 struct Nothing { typedef int _value_type; };
 
+// Angle
+template <typename T>
+class Angle;
+
+// Vector
 template <typename T, std::size_t N>
 class Vector;
 
+template <typename T, std::size_t N>
+const T* Data(const Vector<T, N>& a);
+
+template <typename T, std::size_t N>
+std::size_t Size(const Vector<T, N>&);
+
+template <typename T, std::size_t N>
+T At(const Vector<T, N>& a, std::size_t i);
+
+template <typename T, std::size_t N>
+T At(const Vector<T, N>& a, std::size_t i, T fallback);
+
+// Matrix
 template <typename T, std::size_t Rows, std::size_t Cols>
 class Matrix;
 
+template <typename T, std::size_t R, std::size_t C>
+const T* Data(const Matrix<T, R, C>& matrix);
+
+template <typename T, std::size_t R, std::size_t C>
+std::size_t Size(const Matrix<T, R, C>&);
+
+template <typename T, std::size_t R, std::size_t C>
+std::size_t Rows(const Matrix<T, R, C>&);
+
+template <typename T, std::size_t R, std::size_t C>
+std::size_t Cols(const Matrix<T, R, C>&);
+
+template <typename T, std::size_t R, std::size_t C>
+T At(const Matrix<T, R, C>& matrix, std::size_t i, std::size_t j);
+
+// ObjectTypeId
 template <typename ObjectOps>
 struct ObjectTypeId;
 

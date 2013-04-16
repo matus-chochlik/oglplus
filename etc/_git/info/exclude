@@ -6,8 +6,8 @@
 # *~
 /_build
 /_prebuilt
-/out
-/bld
+/_font
+/models
 .*.swp
 *.sdf
 *.user

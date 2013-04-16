@@ -51,13 +51,26 @@ struct SpectraDocument
 		std::size_t start_row,
 		std::size_t end_row
 	) = 0;
+
+	virtual bool CanPlay(void) const = 0;
+
+	virtual void Play(float from, float to) = 0;
 };
 
+class SpectraSharedObjects;
+
 extern std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(
+	SpectraSharedObjects& shared_objects,
 	const std::function<float (float)>& signal_func,
 	std::size_t samples_per_second,
 	std::size_t spectrum_size,
 	float max_time
+);
+
+extern std::shared_ptr<SpectraDocument> SpectraLoadDocFromFile(
+	SpectraSharedObjects& shared_objects,
+	const wxString& file_path,
+	std::size_t spectrum_size
 );
 
 #endif // include guard

@@ -121,7 +121,9 @@ public:
 	}
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 typedef Plane<GLfloat> Planef;
+#endif
 
 } // namespace oglplus
 

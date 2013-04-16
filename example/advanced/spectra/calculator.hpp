@@ -15,27 +15,60 @@
 #include <wx/string.h>
 
 #include <cstdint>
+#include <complex>
 #include <memory>
 
 struct SpectraCalculator
 {
 	virtual ~SpectraCalculator(void) { }
 
-	virtual wxString Name(void) const = 0;
+	virtual const char* Name(void) const = 0;
 
 	virtual std::size_t InputSize(void) const = 0;
 
 	virtual std::size_t OutputSize(void) const = 0;
 
-	virtual void Transform(
+	virtual unsigned MaxConcurrentTransforms(void) const = 0;
+
+	virtual void BeginBatch(void) = 0;
+
+	virtual void FinishBatch(void) = 0;
+
+	virtual unsigned BeginTransform(
 		const float* input,
 		std::size_t inbufsize,
 		float* output,
 		std::size_t outbufsize
 	) = 0;
+
+	virtual void FinishTransform(
+		unsigned tid,
+		float* output,
+		std::size_t outbufsize
+	) = 0;
 };
 
+class SpectraSharedObjects;
+
 extern std::shared_ptr<SpectraCalculator>
-SpectraGetDefaultFourierTransf(std::size_t spectrum_size);
+SpectraGetDefaultSignalTransform(
+	SpectraSharedObjects& shared_objects,
+	std::size_t spectrum_size
+);
+
+struct SpectraFourierMatrixGen
+{
+	double inv_n;
+	std::complex<double> inv_sqrt_n;
+
+	SpectraFourierMatrixGen(std::size_t n, std::size_t);
+
+	std::complex<double> operator()(
+		std::size_t i,
+		std::size_t k,
+		std::size_t n,
+		std::size_t m
+	) const;
+};
 
 #endif // include guard

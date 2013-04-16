@@ -2,7 +2,7 @@
  *  .file oglplus/enums/face_def.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/face.txt' instead.
+ *  edit 'source/enums/oglplus/face.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

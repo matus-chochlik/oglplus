@@ -23,9 +23,9 @@
 #include <memory>
 #include <set>
 
-class SpectraDocument;
+struct SpectraDocument;
+struct SpectraCoroutine;
 class SpectraDocumentFrame;
-class SpectraCoroutine;
 class SpectraCoroutineExecutor;
 class SpectraMainFrameDocumentLoader;
 class SpectraRenderer;
@@ -38,10 +38,12 @@ private:
 	SpectraApp& parent_app;
 	wxMenuBar* main_menu;
 
+	wxMenu* renderer_menu;
+
 	wxStatusBar* status_bar;
 	void SetStatus(const wxString& status_text);
 
-	wxGLCanvas* tmp_canvas;
+	wxGLCanvas* gl_canvas;
 	wxGLContext gl_context;
 	std::unique_ptr<oglplus::GLAPIInitializer> api_init;
 
@@ -68,6 +70,7 @@ private:
 	void DoShowAboutDialog(wxCommandEvent&);
 
 	void DoOpenDocument(wxCommandEvent&);
+	void DoGenerateDocument(wxCommandEvent&);
 public:
 	SpectraMainFrame(SpectraApp& app);
 	~SpectraMainFrame(void);

@@ -2,7 +2,7 @@
  *  .file oglplus/enums/ext/compat_client_attrib_group.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/ext/compat_client_attrib_group.txt' instead.
+ *  edit 'source/enums/oglplus/ext/compat_client_attrib_group.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

@@ -65,26 +65,7 @@ class ShaderOps
  , public BaseObject<false>
 {
 protected:
-	static void _init(
-		GLsizei _count,
-		GLuint* _name,
-		ShaderType type,
-		std::true_type
-	) OGLPLUS_NOEXCEPT(true)
-	{
-		OGLPLUS_FAKE_USE(_count);
-		assert(_count == 1);
-		assert(_name != nullptr);
-		try{*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));}
-		catch(...){ }
-	}
-
-	static void _init(
-		GLsizei _count,
-		GLuint* _name,
-		ShaderType type,
-		std::false_type
-	)
+	static void _init(GLsizei _count, GLuint* _name, ShaderType type)
 	{
 		OGLPLUS_FAKE_USE(_count);
 		assert(_count == 1);

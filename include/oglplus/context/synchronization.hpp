@@ -13,11 +13,20 @@
 #ifndef OGLPLUS_CONTEXT_SYNCHRONIZATION_1201040722_HPP
 #define OGLPLUS_CONTEXT_SYNCHRONIZATION_1201040722_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/memory_barrier.hpp>
 #include <oglplus/bitfield.hpp>
+
+// NOTE: winnt.h apparantly defines this symbol
+// using the preprocessor. To avoid any sort of
+// problems here it is necessary to observe correct order
+// of header includes or you gotta keep 'em separated
+// (in different translation units)
+#ifdef MemoryBarrier
+#undef MemoryBarrier
+#endif
 
 namespace oglplus {
 namespace context {

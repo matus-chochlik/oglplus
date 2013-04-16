@@ -2,7 +2,7 @@
  *  .file oglplus/enums/access_specifier.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/access_specifier.txt' instead.
+ *  edit 'source/enums/oglplus/access_specifier.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

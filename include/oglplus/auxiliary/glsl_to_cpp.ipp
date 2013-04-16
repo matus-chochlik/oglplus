@@ -2,7 +2,7 @@
  *  .file oglplus/auxiliary/glsl_to_cpp.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/sl_data_type.txt' instead.
+ *  edit 'source/enums/oglplus/sl_data_type.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

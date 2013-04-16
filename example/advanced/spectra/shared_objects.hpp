@@ -18,6 +18,8 @@
 #include <oglplus/uniform.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
+#include "calculator.hpp"
+
 #include <wx/wx.h>
 #include <wx/glcanvas.h>
 
@@ -26,6 +28,9 @@
 class SpectraSharedObjects
 {
 private:
+	wxGLContext* gl_context;
+	wxGLCanvas* gl_canvas;
+
 	oglplus::shapes::ShapeWrapper ground_unit_grid, wall_unit_grid;
 
 	typedef std::map<
@@ -34,16 +39,44 @@ private:
 	> spectrum_plane_map;
 
 	spectrum_plane_map spectrum_planes;
-public:
-	oglplus::Program BuildProgram(const char* prog_name);
 
-	SpectraSharedObjects(void);
+	typedef std::map<
+		std::size_t,
+		std::shared_ptr<SpectraCalculator>
+	> spectrum_calculator_map;
+
+	spectrum_calculator_map spectrum_calculators;
+public:
+	SpectraSharedObjects(
+		wxGLContext* context,
+		wxGLCanvas* canvas
+	);
+
+	wxGLContext* GLContext(void);
+	wxGLCanvas* GLCanvas(void);
+
+	oglplus::Program BuildProgramWithXFB(
+		const char* prog_name,
+		const char** xfb_varyings,
+		std::size_t xfb_var_count,
+		bool separate_attrib = true
+	);
+	oglplus::Program BuildProgramWithXFB(
+		const char* prog_name,
+		const char* xfb_varying,
+		bool separate_attrib = true
+	);
+	oglplus::Program BuildProgram(const char* prog_name);
 
 	const oglplus::shapes::ShapeWrapper& GroundUnitGrid(void);
 	const oglplus::shapes::ShapeWrapper& WallUnitGrid(void);
 	const oglplus::shapes::ShapeWrapper& SpectrumPlane(
 		GLuint samples_per_sec,
 		GLuint spectrum_size
+	);
+
+	std::shared_ptr<SpectraCalculator> SpectrumCalculator(
+		std::size_t spectrum_size
 	);
 };
 

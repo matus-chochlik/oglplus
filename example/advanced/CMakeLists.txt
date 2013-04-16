@@ -45,4 +45,6 @@ macro(add_resource_directory DIRNAME PARENT_TARGET)
 	)
 endmacro(add_resource_directory)
 
+add_custom_target(oglplus-advanced-examples ALL)
+
 add_subdirectory("spectra")

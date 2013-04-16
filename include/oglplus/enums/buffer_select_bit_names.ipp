@@ -2,7 +2,7 @@
  *  .file oglplus/enums/buffer_select_bit_names.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/buffer_select_bit.txt' instead.
+ *  edit 'source/enums/oglplus/buffer_select_bit.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -12,7 +12,7 @@
 OGLPLUS_LIB_FUNC StrLit EnumValueName(
 	BufferSelectBit*,
 	GLbitfield value
-) OGLPLUS_NOEXCEPT(true)
+)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVN_BUFFERSELECTBIT)
 #define OGLPLUS_IMPL_EVN_BUFFERSELECTBIT

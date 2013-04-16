@@ -1,3 +1,28 @@
+Version 0.29.0
+
+- The build system was updated and several problems were fixed:
+  - A check if a standard threads implementation is available was added.
+  - The management of example and test case dependencies and
+    requirements was reimplemented.
+  - Available GL version detection was added and the detection of GL
+    extensions was updated.
+  - A problem with standalone examples depending on libPNG was fixed,
+    they are now built only if libPNG is available.
+  - Some problems in the configure.py script were fixed and new features
+    were added.
+- The test suite for oglplus was moved to test/oglplus/.
+- A test case checking if all configured examples build properly was added.
+- The AtomicCounterBindingPoint and ShaderStorageBufferBindingPoint
+  types were added.
+- The BindBaseAtomicCounter and BindBaseShaderStorage functions were
+  added to Buffer.
+- The preprocessor symbols related to compiler capabilities were
+  moved into a separate header file.
+- Header dependencies were updated in several files.
+- Several new examples showing the usage with GL 3.0 and GLSL 1.2
+  (working with Mesa 3D 9.0) were added.
+- Some of the existing examples were updated.
+
 Version 0.28.0
 
 - The VertexAttribute setup functions were reimplemented.

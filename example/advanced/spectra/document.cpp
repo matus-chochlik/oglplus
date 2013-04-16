@@ -9,7 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#include "document.hpp"
+#include "document_with_calc.hpp"
+#include "shared_objects.hpp"
 #include "calculator.hpp"
 
 #include <wx/utils.h>
@@ -18,16 +19,16 @@
 #include <cmath>
 
 class SpectraTestDocument
- : public SpectraDocument
+ : public SpectraDocumentWithCalculator
 {
 private:
 	std::function<float (float)> signal_func;
 	const std::size_t samples_per_second;
 	const std::size_t spectrum_size;
 	const float max_time;
-	std::shared_ptr<SpectraCalculator> spectra_calc;
 public:
 	SpectraTestDocument(
+		SpectraSharedObjects& shared_objects,
 		std::function<float (float)> sig_fn,
 		std::size_t sps,
 		std::size_t ss,
@@ -48,9 +49,6 @@ public:
 
 	wxString Name(void) const;
 
-	std::size_t SpectrumRowsPerLoadHint(void) const;
-
-
 	std::size_t QuerySignalSamples(
 		float* buffer,
 		std::size_t bufsize,
@@ -58,26 +56,23 @@ public:
 		std::size_t end
 	);
 
-	std::size_t QuerySpectrumValues(
-		float* buffer,
-		std::size_t bufsize,
-		std::size_t start_row,
-		std::size_t end_row
-	);
+	bool CanPlay(void) const;
+
+	void Play(float from, float to);
 };
 
 SpectraTestDocument::SpectraTestDocument(
+	SpectraSharedObjects& shared_objects,
 	std::function<float (float)> sig_fn,
 	std::size_t sps,
 	std::size_t ss,
 	float mt
-): signal_func(sig_fn)
+): SpectraDocumentWithCalculator(shared_objects.SpectrumCalculator(ss))
+ , signal_func(sig_fn)
  , samples_per_second(sps)
  , spectrum_size(ss)
  , max_time(mt)
- , spectra_calc(SpectraGetDefaultFourierTransf(spectrum_size))
 {
-	assert(spectra_calc);
 }
 
 bool SpectraTestDocument::FinishLoading(void)
@@ -115,11 +110,6 @@ wxString SpectraTestDocument::Name(void) const
 	return wxT("Test document");
 }
 
-std::size_t SpectraTestDocument::SpectrumRowsPerLoadHint(void) const
-{
-	return 256;
-}
-
 std::size_t SpectraTestDocument::QuerySignalSamples(
 	float* buffer,
 	std::size_t bufsize,
@@ -149,37 +139,18 @@ std::size_t SpectraTestDocument::QuerySignalSamples(
 	return 0;
 }
 
-std::size_t SpectraTestDocument::QuerySpectrumValues(
-	float* buffer,
-	std::size_t bufsize,
-	std::size_t start_row,
-	std::size_t end_row
-)
+bool SpectraTestDocument::CanPlay(void) const
 {
-	std::size_t n = end_row-start_row;
-	assert(bufsize >= n*spectrum_size);
+	return true;
+}
 
-	std::vector<float> signal(spectra_calc->InputSize()+n-1);
-
-	QuerySignalSamples(
-		signal.data(),
-		signal.size(),
-		start_row,
-		end_row+spectra_calc->InputSize()-1
-	);
-	for(std::size_t i=0; i!=n; ++i)
-	{
-		spectra_calc->Transform(
-			signal.data()+i,
-			spectra_calc->InputSize(),
-			buffer+i*spectrum_size,
-			spectrum_size
-		);
-	}
-	return n;
+void SpectraTestDocument::Play(float, float)
+{
+	wxBell();
 }
 
 std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(
+	SpectraSharedObjects& shared_objects,
 	const std::function<float (float)>& signal_func,
 	std::size_t samples_per_second,
 	std::size_t spectrum_size,
@@ -188,11 +159,37 @@ std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(
 {
 	return std::shared_ptr<SpectraDocument>(
 		new SpectraTestDocument(
+			shared_objects,
 			signal_func,
 			samples_per_second,
 			spectrum_size,
 			max_time
 		)
+	);
+}
+
+std::shared_ptr<SpectraDocument> SpectraLoadDocFromFile(
+	SpectraSharedObjects& shared_objects,
+	const wxString& file_path,
+	std::size_t spectrum_size
+)
+{
+	//TODO
+	struct TestSignal
+	{
+		float operator()(float x) const
+		{
+			return sin(3.1415*10.0*(sin(x)+2.0+x*x))*
+				std::rand()/float(RAND_MAX)*
+				std::rand()/float(RAND_MAX);
+		}
+	} signal_func;
+	return SpectraOpenTestDoc(
+		shared_objects,
+		signal_func,
+		11000,
+		spectrum_size,
+		1.41f
 	);
 }
 

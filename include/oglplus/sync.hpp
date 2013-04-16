@@ -20,6 +20,11 @@
 
 namespace oglplus {
 
+// NOTE: Xlib.h defines this symbol
+// using the preprocessor. To avoid any sort of
+// problems here it is necessary to observe correct order
+// of header includes or you gotta keep 'em separated
+// (in different translation units)
 #ifdef Status
 #undef Status
 #endif
