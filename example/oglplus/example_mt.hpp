@@ -30,6 +30,23 @@ public:
 	 : cancelled(false)
 	{ }
 
+	ExampleSyncQueue(ExampleSyncQueue&& tmp)
+	 : sync_queue(std::move(tmp.sync_queue))
+	 , sync_mutex()
+	 , sync_cv()
+	 , cancelled(tmp.cancelled)
+	{
+		tmp.cancelled = true;
+	}
+
+	ExampleSyncQueue& operator = (ExampleSyncQueue&& tmp)
+	{
+		sync_queue = std::move(tmp.sync_queue);
+		cancelled = tmp.cancelled;
+		tmp.cancelled = true;
+		return *this;
+	}
+
 	~ExampleSyncQueue(void)
 	{
 		Cancel();
@@ -86,6 +103,25 @@ public:
 	ExampleFrameSyncQueue(void)
 	 : cancelled(false)
 	{ }
+
+	ExampleFrameSyncQueue(ExampleFrameSyncQueue&& tmp)
+	 : sync_mutex()
+	 , sync_cv()
+	 , sync_queue(std::move(tmp.sync_queue))
+	 , value_queue(std::move(tmp.value_queue))
+	 , cancelled(tmp.cancelled)
+	{
+		tmp.cancelled = true;
+	}
+
+	ExampleFrameSyncQueue& operator = (ExampleFrameSyncQueue&& tmp)
+	{
+			sync_queue = std::move(tmp.sync_queue);
+			value_queue = std::move(tmp.value_queue);
+			cancelled = tmp.cancelled;
+			tmp.cancelled = true;
+			return *this;
+	}
 
 	~ExampleFrameSyncQueue(void)
 	{

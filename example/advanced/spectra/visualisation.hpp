@@ -44,7 +44,7 @@ private:
 	SpectraApp& parent_app;
 	SpectraMainFrame* main_frame;
 
-	float selected_time;
+	float selected_time, selection_begin, selection_end;
 
 	SpectraGLContext gl_context;
 	std::shared_ptr<std::set<wxGLCanvas*>> gl_canvases;
@@ -80,6 +80,7 @@ public:
 	wxString Name(void);
 
 	const SpectraDocument& Document(void) const;
+	void Play(void);
 
 	std::size_t SignalSpectrumSize(void) const;
 
@@ -92,6 +93,11 @@ public:
 	void SelectedTime(float time);
 
 	float SelectedTime(void) const;
+
+	void DragSelection(float time, float delta);
+
+	float SelectionBegin(void) const;
+	float SelectionEnd(void) const;
 };
 
 #endif // include guard

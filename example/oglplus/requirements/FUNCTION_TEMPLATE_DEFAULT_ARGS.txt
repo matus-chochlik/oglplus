@@ -1,4 +1,0 @@
-016_textured_cube.cpp
-021_wooden_crate.cpp
-025_reflected_torus.cpp
-040_jelly_cube.cpp

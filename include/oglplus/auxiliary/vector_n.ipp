@@ -38,32 +38,18 @@ private:
 
 	template <typename Op>
 	Vector(_spec_ctr, const Vector& a, Op init)
-	OGLPLUS_NOEXCEPT_IF(init(
-		std::declval<Vector&>(),
-		std::declval<Vector>()
-	))
 	{
 		init(*this, a);
 	}
 
 	template <typename Op>
 	Vector(_spec_ctr, const Vector& a, const Vector& b, Op init)
-	OGLPLUS_NOEXCEPT_IF(init(
-		std::declval<Vector&>(),
-		std::declval<Vector>(),
-		std::declval<Vector>()
-	))
 	{
 		init(*this, a, b);
 	}
 
 	template <typename Op>
 	Vector(_spec_ctr, const Vector& a, T v, Op init)
-	OGLPLUS_NOEXCEPT_IF(init(
-		std::declval<Vector&>(),
-		std::declval<Vector>(),
-		std::declval<T>()
-	))
 	{
 		init(*this, a, v);
 	}
@@ -74,7 +60,6 @@ private:
 			Vector& t,
 			const Vector& a
 		) const
-		OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
 		{
 			for(std::size_t i=0; i!=N; ++i)
 				t._elem[i] = -a._elem[i];
@@ -88,11 +73,6 @@ private:
 			const Vector& a,
 			const Vector& b
 		) const
-		OGLPLUS_NOEXCEPT_IF(
-			std::declval<T&>()=
-			std::declval<T>()+
-			std::declval<T>()
-		)
 		{
 			for(std::size_t i=0; i!=N; ++i)
 				t._elem[i] = a._elem[i] + b._elem[i];
@@ -106,11 +86,6 @@ private:
 			const Vector& a,
 			const Vector& b
 		) const
-		OGLPLUS_NOEXCEPT_IF(
-			std::declval<T&>()=
-			std::declval<T>()-
-			std::declval<T>()
-		)
 		{
 			for(std::size_t i=0; i!=N; ++i)
 				t._elem[i] = a._elem[i] - b._elem[i];
@@ -124,11 +99,6 @@ private:
 			const Vector& a,
 			T v
 		) const
-		OGLPLUS_NOEXCEPT_IF(
-			std::declval<T&>()=
-			std::declval<T>()*
-			std::declval<T>()
-		)
 		{
 			for(std::size_t i=0; i!=N; ++i)
 				t._elem[i] = a._elem[i] * v;
@@ -142,11 +112,6 @@ private:
 			const Vector& a,
 			T v
 		) const
-		OGLPLUS_NOEXCEPT_IF(
-			std::declval<T&>()=
-			std::declval<T>()*
-			std::declval<T>()
-		)
 		{
 			for(std::size_t i=0; i!=N; ++i)
 				t._elem[i] = a._elem[i] / v;
@@ -155,31 +120,26 @@ private:
 public:
 	/// Default construction, initializes all components to zero
 	Vector(void)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(0))
 	{ }
 
 	/// Copy construction from a vector with different element type
 	template <typename U>
 	Vector(const Vector<U, N>& vector)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = T(std::declval<U>()))
 	 : Base(vector)
 	{ }
 
 	/// Initialization from C-array
 	Vector(const T (&v)[N])
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	 : Base(v)
 	{ }
 
 	/// Initialization from pointer and size
 	Vector(const T* v, std::size_t n)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	 : Base(v, n)
 	{ }
 
 	/// Initialization of all components by @p v
 	explicit Vector(T v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	 : Base(v)
 	{ }
 
@@ -190,7 +150,6 @@ public:
 #else
 	template <typename ... P>
 	Vector(T v0, T v1, P ... vn)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	 : Base(oglplus::Nothing())
 	{
 		static_assert(
@@ -208,7 +167,6 @@ public:
 #else
 	template <typename ... P>
 	Vector(const Vector<T, N-1-sizeof...(P)>& a, T v, P ... p)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	 : Base(oglplus::Nothing())
 	{
 		const std::size_t M = N-1-sizeof...(P);
@@ -220,19 +178,17 @@ public:
 
 	/// Construction from to Matrix-1xN
 	explicit Vector(const Matrix<T, 1, N>& matrix)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	 : Base(matrix)
 	{ }
 
 	/// Construction from to Matrix-Nx1
 	explicit Vector(const Matrix<T, N, 1>& matrix)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	 : Base(matrix)
 	{ }
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the dimension of the vector
-	friend OGLPLUS_CONSTEXPR std::size_t Size(const Vector& a);
+	friend std::size_t Size(const Vector& a);
 
 	/// Returns a pointer to an array containing the vectors coordinates
 	friend const T* Data(const Vector& vector);
@@ -248,49 +204,42 @@ public:
 
 	/// Returns the 0-th component
 	T x(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T&>()))
 	{
 		return this->At(0);
 	}
 
 	/// Returns the 1-st component
 	T y(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T&>()))
 	{
 		return this->At(1);
 	}
 
 	/// Returns the 2-nd component
 	T z(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T&>()))
 	{
 		return this->At(2);
 	}
 
 	/// Returns the 3-nd component
 	T w(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T&>()))
 	{
 		return this->At(3);
 	}
 
 	/// Returns a subvector with the first two components
 	Vector<T, 2> xy(void) const
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		return Vector<T, 2>(this->At(0), this->At(1));
 	}
 
 	/// Returns a subvector with the first three components
 	Vector<T, 3> xyz(void) const
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = std::declval<T>())
 	{
 		return Vector<T, 3>(this->At(0), this->At(1), this->At(2));
 	}
 
 	/// Returns a new vector that is a negation of vector @p a
 	friend Vector Negated(const Vector& a)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() = -std::declval<T>())
 	{
 		return Vector(_spec_ctr(), a, _op_negate());
 	}
@@ -302,11 +251,6 @@ public:
 
 	/// Adds two vectors
 	friend Vector Added(const Vector& a, const Vector& b)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()+
-		std::declval<T>()
-	)
 	{
 		return Vector(_spec_ctr(), a, b, _op_add());
 	}
@@ -318,7 +262,6 @@ public:
 
 	/// Adds a vector to this vector
 	Vector& operator += (const Vector& v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() += std::declval<T>())
 	{
 		this->Add(v);
 		return *this;
@@ -326,11 +269,6 @@ public:
 
 	/// Subtracts two vectors
 	friend Vector Subtracted(const Vector& a, const Vector& b)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()-
-		std::declval<T>()
-	)
 	{
 		return Vector(_spec_ctr(), a, b, _op_subtract());
 	}
@@ -342,7 +280,6 @@ public:
 
 	/// Subtracts a vector from this vector
 	Vector& operator -= (const Vector& v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() -= std::declval<T>())
 	{
 		this->Subtract(v);
 		return *this;
@@ -350,11 +287,6 @@ public:
 
 	/// Multiples a vector by a scalar value
 	friend Vector Multiplied(const Vector& a, T v)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()*
-		std::declval<T>()
-	)
 	{
 		return Vector(_spec_ctr(), a, v, _op_mult_c());
 	}
@@ -369,7 +301,6 @@ public:
 
 	/// Multiples this vector by a scalar value
 	Vector& operator *= (T v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() *= std::declval<T>())
 	{
 		this->MultiplyBy(v);
 		return *this;
@@ -377,11 +308,6 @@ public:
 
 	/// Divides a vector by a scalar value
 	friend Vector Divided(const Vector& a, T v)
-	OGLPLUS_NOEXCEPT_IF(
-		std::declval<T&>()=
-		std::declval<T>()/
-		std::declval<T>()
-	)
 	{
 		return Vector(_spec_ctr(), a, v, _op_div_c());
 	}
@@ -393,7 +319,6 @@ public:
 
 	/// Divides this vector by a scalar value
 	Vector& operator /= (T v)
-	OGLPLUS_NOEXCEPT_IF(std::declval<T&>() /= std::declval<T>())
 	{
 		this->DivideBy(v);
 		return *this;

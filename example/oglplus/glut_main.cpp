@@ -129,11 +129,24 @@ public:
 		_frame_no++;
 
 		GLuint primitives_per_frame = 0;
+		if(_primitive_query)
 		{
-			auto query_exec = _primitive_query->Execute(
-				Query::Target::PrimitivesGenerated,
-				primitives_per_frame
-			);
+			try
+			{
+				auto query_exec = _primitive_query->Execute(
+					Query::Target::PrimitivesGenerated,
+					primitives_per_frame
+				);
+				_example->Render(_clock);
+				glutSwapBuffers();
+			}
+			catch(Error&)
+			{
+				_primitive_query.reset();
+			}
+		}
+		else
+		{
 			_example->Render(_clock);
 			glutSwapBuffers();
 		}

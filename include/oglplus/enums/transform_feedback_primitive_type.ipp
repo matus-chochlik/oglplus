@@ -2,7 +2,7 @@
  *  .file oglplus/enums/transform_feedback_primitive_type.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/transform_feedback_primitive_type.txt' instead.
+ *  edit 'source/enums/oglplus/transform_feedback_primitive_type.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

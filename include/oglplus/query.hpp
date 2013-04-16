@@ -53,15 +53,7 @@ class QueryOps
  , public BaseObject<true>
 {
 protected:
-	static void _init(GLsizei count, GLuint* _name, std::true_type)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		try{OGLPLUS_GLFUNC(GenQueries)(count, _name);}
-		catch(...){ }
-	}
-
-	static void _init(GLsizei count, GLuint* _name, std::false_type)
+	static void _init(GLsizei count, GLuint* _name)
 	{
 		assert(_name != nullptr);
 		OGLPLUS_GLFUNC(GenQueries)(count, _name);

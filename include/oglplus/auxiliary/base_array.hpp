@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_AUX_BASE_ARRAY_1206141447_HPP
 #define OGLPLUS_AUX_BASE_ARRAY_1206141447_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/auxiliary/base_iter.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
@@ -170,7 +169,7 @@ public:
 		return at(index);
 	}
 
-	typedef aux::BaseIter<Managed<ObjectOps> > const_iterator;
+	typedef aux::BaseIter<Managed<ObjectOps>, GLuint> const_iterator;
 	typedef const_iterator iterator;
 
 	iterator begin(void) const

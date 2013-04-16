@@ -1,9 +1,11 @@
-#  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
-#  Software License, Version 1.0. (See accompanying file
-#  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#  Copyright 2010-2013 Matus Chochlik.
+#  Distributed under the Boost Software License, Version 1.0.
+#  (See accompanying file LICENSE_1_0.txt or copy at
+#  http://www.boost.org/LICENSE_1_0.txt)
 #
-# bash completion function for the parameters of the configure-oglplus
-# script that calls configure.sh
+#  Automatically generated file. Do NOT modify manually,
+#  edit configure.py instead
+
 function _configure_oglplus()
 {
 	COMPREPLY=()
@@ -11,45 +13,105 @@ function _configure_oglplus()
 	local prev="${COMP_WORDS[COMP_CWORD-1]}"
 
 	case "${prev}" in
-		--include-dir|--library-dir|--build-dir|--prefix)
+		-h|--help)
+			return 0;;
+		--prefix|--build-dir|--include-dir|-I|--library-dir|-L)
 			COMPREPLY=($(compgen -f "${curr}"))
+			return 0;;
+		--low-profile)
+			COMPREPLY=($(compgen -W "True False" -- "${curr}"))
+			return 0;;
+		--build-examples)
+			COMPREPLY=($(compgen -W "True False" -- "${curr}"))
+			return 0;;
+		--build-docs)
+			COMPREPLY=($(compgen -W "True False" -- "${curr}"))
+			return 0;;
+		--make-screenshots)
+			COMPREPLY=($(compgen -W "True False" -- "${curr}"))
+			return 0;;
+		--use-gl-header-lib)
+			COMPREPLY=($(compgen -W "GLCOREARB_H GL3_H GLEW GL3W" -- "${curr}"))
+			return 0;;
+		--use-gl-window-lib)
+			COMPREPLY=($(compgen -W "GLUT GLFW WXGL SDL GLX" -- "${curr}"))
 			return 0;;
 		*)
 	esac
-	local opts_only_once=" \
-		--quiet \
+
+	local only_once_opts=" \
+		-h --help \
+		--generate-bash-complete \
 		--prefix \
 		--build-dir \
-		--dry-run \
-		--from-scratch \
+		--use-cxxflags \
+		--use-ldflags \
+		--low-profile \
+		--build-examples \
+		--no-examples \
+		--build-docs \
+		--no-docs \
+		--make-screenshots \
+		--screenshots \
+		--use-gl-header-lib \
 		--use-glcorearb-h \
 		--use-gl3-h \
 		--use-glew \
 		--use-gl3w \
+		--use-gl-window-lib \
+		--use-glut \
+		--use-glfw \
 		--use-wxgl \
-		--no-examples \
-		--no-docs \
-		--screenshots \
-		--framedump \
-		--build-and-install \
-		--use-cxxflags \
-		--use-ldflags \
+		--use-sdl \
+		--use-glx \
+		--from-scratch \
+		--quiet \
+		--quick \
+		--build \
+		--with-tests \
+		--cmake \
 	"
-	local gl_header_opts=" \
+
+	local muog_0=" \
+		--build-examples \
+		--no-examples \
+	"
+
+	local muog_1=" \
+		--build-docs \
+		--no-docs \
+	"
+
+	local muog_2=" \
+		--make-screenshots \
+		--screenshots \
+	"
+
+	local muog_3=" \
+		--use-gl-header-lib \
 		--use-glcorearb-h \
 		--use-gl3-h \
 		--use-glew \
 		--use-gl3w \
 	"
 
+	local muog_4=" \
+		--use-gl-window-lib \
+		--use-glut \
+		--use-glfw \
+		--use-wxgl \
+		--use-sdl \
+		--use-glx \
+	"
+
 	local repeated_opts=" \
-		--include-dir \
-		--library-dir \
+		--include-dir -I \
+		--library-dir -L \
 	"
 
 	local opts="${repeated_opts}"
 
-	for opt in ${opts_only_once}
+	for opt in ${only_once_opts}
 	do
 		local opt_used=false
 		for pre in ${COMP_WORDS[@]}
@@ -60,36 +122,39 @@ function _configure_oglplus()
 		done
 		if [ "${opt_used}" == "false" ]
 		then
-			local is_muo=false
-			for muo in ${gl_header_opts}
+			for muog in "${muog_0}" "${muog_1}" "${muog_2}" "${muog_3}" "${muog_4}"
 			do
-				if [ "${opt}" == "${muo}" ]
-				then is_muo=true && break
+				local is_muo=false
+				for muo in ${muog}
+				do
+					if [ "${opt}" == "${muo}" ]
+					then is_muo=true && break
+					fi
+				done
+				if [ "${is_muo}" == "true" ]
+				then
+					for pre in ${COMP_WORDS[@]}
+					do
+						for muo in ${muog}
+						do
+							if [ "${pre}" == "${muo}" ]
+							then opt_used=true && break
+							fi
+						done
+					done
 				fi
 			done
-			if [ "${is_muo}" == "true" ]
-			then
-				for pre in ${COMP_WORDS[@]}
-				do
-					for muo in ${gl_header_opts}
-					do
-						if [ "${pre}" == "${muo}" ]
-						then opt_used=true && break
-						fi
-					done
-				done
-			fi
 
 			if [ "${opt_used}" == "false" ]
 			then opts="${opts} ${opt}"
 			fi
 		fi
 	done
+
 	if [ ${COMP_CWORD} -le 1 ]
 	then opts="--help ${opts}"
 	fi
 
 	COMPREPLY=($(compgen -W "${opts}" -- "${curr}"))
 }
-complete -F _configure_oglplus -o nospace ./configure-oglplus
-
+complete -F _configure_oglplus ./configure-oglplus

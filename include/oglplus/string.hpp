@@ -66,19 +66,16 @@ private:
 	Right _right;
 public:
 	StrLitCat(Left left, Right right)
-	OGLPLUS_NOEXCEPT(true)
 	 : _left(left)
 	 , _right(right)
 	{ }
 
 	bool empty(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _left.empty() && _right.empty();
 	}
 
 	std::size_t size(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _left.size() + _right.size();
 	}
@@ -164,13 +161,11 @@ public:
 #elif !OGLPLUS_LAZY_STR_LIT
 	template <std::size_t N>
 	explicit StrLit(const GLchar (&lit)[N])
-	OGLPLUS_NOEXCEPT(true)
 	 : _lit(lit)
 	 , _size(N-1)
 	{ _check(); }
 #else
 	explicit StrLit(const GLchar* lit)
-	OGLPLUS_NOEXCEPT(true)
 	 : _lit(lit)
 	{ _check(); }
 #endif
@@ -182,7 +177,6 @@ public:
 	 *  @see #OGLPLUS_NO_UTF8_CHECKS
 	 */
 	explicit StrLit(const GLchar* lit, std::size_t size)
-	OGLPLUS_NOEXCEPT(true)
 	 : _lit(lit)
 #if !OGLPLUS_LAZY_STR_LIT
 	 , _size(size)
@@ -213,14 +207,12 @@ public:
 
 	/// Returns the c-string literal
 	const GLchar* c_str(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return _lit;
 	}
 
 	/// Returns the size (in GLchars) of the literal
 	std::size_t size(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 #if !OGLPLUS_LAZY_STR_LIT
 		return _size;
@@ -231,7 +223,6 @@ public:
 
 	/// Returns true if the literal is empty
 	bool empty(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 #if !OGLPLUS_LAZY_STR_LIT
 		return _size == 0;
@@ -248,42 +239,36 @@ public:
 
 	/// returns a const iterator to the first character in the literal
 	const_iterator begin(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return c_str();
 	}
 
 	/// returns a const iterator past the last character in the literal
 	const_iterator end(void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return c_str()+size();
 	}
 
 	/// returns a const iterator to the first character in the literal
 	friend const_iterator begin(const StrLit& strlit)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return strlit.begin();
 	}
 
 	/// returns a const iterator past the last character in the literal
 	friend const_iterator end(const StrLit& strlit)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return strlit.end();
 	}
 
 	/// Equivalent to @c !empty()
 	operator bool (void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return !empty();
 	}
 
 	/// Equivalent to the empty() function
 	bool operator ! (void) const
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return empty();
 	}
@@ -296,7 +281,6 @@ public:
 #endif
 
 	friend aux::StrLitCat<StrLit, StrLit> operator + (StrLit a, StrLit b)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return aux::StrLitCat<StrLit, StrLit>(a, b);
 	}
@@ -304,7 +288,6 @@ public:
 	template <typename Left, typename Right>
 	friend aux::StrLitCat<aux::StrLitCat<Left, Right>, StrLit>
 	operator + (aux::StrLitCat<Left, Right> a, StrLit b)
-	OGLPLUS_NOEXCEPT(true)
 	{
 		return aux::StrLitCat<aux::StrLitCat<Left, Right>,StrLit>(a, b);
 	}

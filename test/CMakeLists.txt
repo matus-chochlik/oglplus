@@ -4,16 +4,10 @@
 #
 cmake_minimum_required(VERSION 2.8)
 
+include(../config/ExeRequirements.cmake)
 
 if(Boost_FOUND)
-	include(./oglplus_testing.cmake)
-
-	oglplus_exec_test(boost_utfw)
-	oglplus_build_test(config)
-	oglplus_exec_test(math)
-	oglplus_exec_test(angle)
-	oglplus_exec_test(vector)
-	oglplus_exec_test(matrix)
+	add_subdirectory("oglplus")
 else()
 	message(WARNING "Boost.Test required for testing but not found")
 endif()

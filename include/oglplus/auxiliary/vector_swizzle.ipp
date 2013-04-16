@@ -19,25 +19,21 @@ public:
 	{ }
 
 	T x(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return this->template At<0>();
 	}
 
 	T y(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return this->template At<1>();
 	}
 
 	T z(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return this->template At<2>();
 	}
 
 	T w(void) const
-	OGLPLUS_NOEXCEPT_IF(T(std::declval<T>()))
 	{
 		return this->template At<3>();
 	}

@@ -15,9 +15,14 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
-#include <oglplus/error.hpp>
 
-#include <oglplus/array.hpp>
+#include <oglplus/angle.hpp>
+#include <oglplus/vector.hpp>
+#include <oglplus/matrix.hpp>
+#include <oglplus/plane.hpp>
+#include <oglplus/curve.hpp>
+
+#include <oglplus/error.hpp>
 
 #include <oglplus/context.hpp>
 
@@ -26,6 +31,7 @@
 
 #include <oglplus/exposed.hpp>
 
+#include <oglplus/array.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
@@ -45,10 +51,6 @@
 
 #include <oglplus/sync.hpp>
 
-#include <oglplus/angle.hpp>
-#include <oglplus/vector.hpp>
-#include <oglplus/matrix.hpp>
-#include <oglplus/plane.hpp>
-#include <oglplus/curve.hpp>
+#include <oglplus/optional.hpp>
 
 #endif // include guard

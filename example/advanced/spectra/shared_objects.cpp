@@ -24,7 +24,12 @@
 #include <cctype>
 #include <stdexcept>
 
-oglplus::Program SpectraSharedObjects::BuildProgram(const char* prog_name)
+oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
+	const char* prog_name,
+	const char** xfb_varyings,
+	std::size_t xfb_var_count,
+	bool separate_attribs
+)
 {
 	using namespace oglplus;
 
@@ -89,12 +94,46 @@ oglplus::Program SpectraSharedObjects::BuildProgram(const char* prog_name)
 		prog.AttachShader(shader);
 	}
 
+	if(xfb_varyings && xfb_var_count)
+	{
+		prog.TransformFeedbackVaryings(
+			xfb_var_count,
+			xfb_varyings,
+			separate_attribs
+			?TransformFeedbackMode::SeparateAttribs
+			:TransformFeedbackMode::InterleavedAttribs
+		);
+	}
+
 	prog.Link().Use();
 	return std::move(prog);
 }
 
-SpectraSharedObjects::SpectraSharedObjects(void)
- : ground_unit_grid(
+oglplus::Program SpectraSharedObjects::BuildProgramWithXFB(
+	const char* prog_name,
+	const char* xfb_varying,
+	bool separate_attribs
+)
+{
+	return BuildProgramWithXFB(
+		prog_name,
+		&xfb_varying,
+		1,
+		separate_attribs
+	);
+}
+
+oglplus::Program SpectraSharedObjects::BuildProgram(const char* prog_name)
+{
+	return BuildProgramWithXFB(prog_name, nullptr, 0, true);
+}
+
+SpectraSharedObjects::SpectraSharedObjects(
+	wxGLContext* context,
+	wxGLCanvas* canvas
+): gl_context(context)
+ , gl_canvas(canvas)
+ , ground_unit_grid(
 	oglplus::List("Position").Get(),
 	oglplus::shapes::Grid(
 		oglplus::Vec3f(0.5f, 0.0f, 0.5f),
@@ -114,6 +153,16 @@ SpectraSharedObjects::SpectraSharedObjects(void)
 	)
 )
 {
+}
+
+wxGLContext* SpectraSharedObjects::GLContext(void)
+{
+	return gl_context;
+}
+
+wxGLCanvas* SpectraSharedObjects::GLCanvas(void)
+{
+	return gl_canvas;
 }
 
 const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::GroundUnitGrid(void)
@@ -148,6 +197,26 @@ const oglplus::shapes::ShapeWrapper& SpectraSharedObjects::SpectrumPlane(
 						spectrum_size-1,
 						samples_per_sec-1
 					)
+				)
+			)
+		).first;
+	}
+	return pos->second;
+}
+
+std::shared_ptr<SpectraCalculator> SpectraSharedObjects::SpectrumCalculator(
+	std::size_t spectrum_size
+)
+{
+	spectrum_calculator_map::iterator pos = spectrum_calculators.find(spectrum_size);
+	if(pos == spectrum_calculators.end())
+	{
+		pos = spectrum_calculators.insert(
+			spectrum_calculator_map::value_type(
+				spectrum_size,
+				SpectraGetDefaultSignalTransform(
+					*this,
+					spectrum_size
 				)
 			)
 		).first;

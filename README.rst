@@ -15,6 +15,8 @@ OGLplus README
 .. _GLEW: http://glew.sourceforge.net/
 .. _GLFW: http://www.glfw.org/
 .. _FreeGLUT: http://freeglut.sourceforge.net/
+.. _SDL: www.libsdl.org/
+.. _wxGL: www.wxwidgets.org/
 
 Introduction to OGLplus
 =======================
@@ -96,38 +98,59 @@ Requirements
    * ``MSVC 2010`` - with some limitations due to the lack of support for
      some C++11 features
 
-   * ``MSVC 11`` - with some limitations due to the lack of support for
+   * ``MSVC 2012`` - with some limitations due to the lack of support for
      some C++11 features
 
 
- - `CMake`_
+ - `CMake`_ (required)
 
- - `Doxygen`_ is required to build the documentation.
+ - `Doxygen`_ (optional) is required to build the documentation. This can be disabled
+   with the ``--no-docs`` command line option of the ``configure`` script (see below).
 
- - `Inkscape`_ is required  to convert textures used in examples from SVG to PNG.
+ - `Inkscape`_ (optional) is used to convert textures for the examples from SVG to PNG.
    This is required only if the textures are not pre-built (typically
    when checked out from the repository, packaged releases are shipped with
    pre-built textures). Building of the textures is optional, they are not
    necessary when the building of examples is disabled.
 
- - The ``GL/glcorearb.h`` or ``GL3/gl3.h``  headers or `GLEW`_.
-   OGLplus does not define the OpenGL symbols
-   (types, constants, functions, etc.) itself and therfore applications using
+ - A libary defining the OpenGL API (required) -- the ``GL/glcorearb.h`` or ``GL3/gl3.h``
+   headers or `GLEW`_ .  OGLplus does not define the OpenGL symbols
+   (types, constants, functions, etc.), therfore applications using
    it need to define them themselves (before including OGLplus). The examples
-   currently need GLEW (at least version 1.6) or the ``GL/glcorearb.h`` header
-   (available for download from http://www.opengl.org/registry/api/gl3.h) and
+   currently need GLEW (at least version 1.9) or the ``GL/glcorearb.h`` header
+   (available for download from www.opengl.org/registry/api/glcorearb.h) and
    a GL binary library exporting the OpenGL (3 or higher) functions.
-   The build system detects the presence of GLEW or ``GL\glcorearb.h`` and configures
-   compilation and linking of the examples accordingly. If both are installed
-   and the user does not specify otherwise GLEW is used.
+   The build system detects the presence of GLEW or ``GL/glcorearb.h`` and configures
+   compilation and linking of the examples accordingly.
+   The library to be used can be explicitly specified with the ``--use-gl-header-lib``
+   option of the ``configure`` script (see below).
 
- - `FreeGLUT`_ -- Necessary on platforms without X server and GLX.
+ - A library initializing the default rendering context (required) -- Currently 
+   the examples can be built if at least one of the following libraries is
+   installed on the system: X11+GLX, `FreeGLUT`_, `GLFW`_, `SDL`_ or `wxGL`_.
+   The build system detects the presence these libraries and configures
+   compilation and linking of the examples accordingly.
+   The library to be used can be explicitly specified with the ``--use-gl-header-lib``
+   option of the ``configure`` script (see below).
+   
 
- - `libPNG`_ -- Some examples and some classes provided by OGLplus use libPNG to load
+ - `libPNG`_ (optional) -- Some examples and some classes provided by OGLplus use libPNG to load
    PNG files. These are however not required for the general use of OGLplus,
    applications may use other means to load binary image files. The build system
    tries to detect the availability of libPNG and if not found the examples
    using it are not built.
+
+
+On Linux distributions with the ``apt`` package manager, the following should
+be enough to install the most of the dependencies:
+
+::
+
+ sudo apt-get install doxygen cmake g++ libglew1.9-dev freeglut3-dev libpng12-dev
+
+
+Of course other combinations of the 'GL-API' and 'GL-Context' libraries
+are supported and may be used as explained above.
 
 
 CMake-based build configuration
@@ -157,11 +180,11 @@ The configuration script comes in three flawors:
 
 1. ``configure.sh`` -- For platforms with bash.
 2. ``configure.bat`` -- For windows.
-3. ``configure.py`` -- For platforms with python (recommended). This version
-                       of the script is the most portable and supports most
-                       features.
+3. ``configure.py`` -- For platforms with python (recommended).
+                       This version of the script is the most portable
+                       and supports most features.
 
-The ``configure`` script is a more user-friendly way to invoke cmake and specify
+The ``configure`` script is a more user-friendly way to invoke cmake and to specify
 additional parameters for the configuration process.
 
 Some of the more important command-line options are described below:
@@ -172,28 +195,31 @@ Some of the more important command-line options are described below:
                     the value of the CMAKE_INSTALL_PREFIX variable).
                     If this option is not specified, cmake's default prefix is used.
 
---include-dir PATH  This options allows to specify additional directiories
-                    to search when looking for header files. It may be used multiple
-                    times to specify multiple directories.
+--include-dir PATH    This options allows to specify additional directiories
+                      to search when looking for header files. It may be used multiple
+                      times to specify multiple directories.
 
---library-dir PATH  This options allows to specify additional directiories
-                    to search when looking for compiled libraries. It may be used
-                    multiple times to specify multiple directories.
+--library-dir PATH    This options allows to specify additional directiories
+                      to search when looking for compiled libraries. It may be used
+                      multiple times to specify multiple directories.
 
 --no-docs  Do not build the documentation.
 
 See the ``--help`` option for the full description and detailed info on the usage
-of this script.
+of this script. Bash users can also do ``source config/configure.bash_complete``
+to install a bash completion extension that allows to TAB-complete the command
+line arguments for the ``configure-oglplus`` configuration script that invokes
+``configure.py``.
 
 
 Other build environments
 ========================
 
-Microsoft Visual Studio 2010, 11 Beta and 2012
+Microsoft Visual Studio 2010 and 2012
 ----------------------------------------------
 
 OGLplus contains two solution files and a set of project files for building
-some of the examples in MSVC 2010 and 11.
+some of the examples in MSVC 2010 and 2012.
 The solutions are located at the following paths:
 
 - ``$(OGLplusRoot)/etc/msvc10/OGLplus/OGLplus.sln``

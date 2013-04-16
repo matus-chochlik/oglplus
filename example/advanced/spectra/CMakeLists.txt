@@ -4,8 +4,6 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-add_custom_target(oglplus-advanced-examples ALL)
-
 if(wxWidgets_FOUND)
 	add_definitions(-DOGLPLUS_LINK_LIBRARY=1)
 
@@ -27,13 +25,20 @@ if(wxWidgets_FOUND)
 			document_canvas.cpp
 			document_view.cpp
 			document.cpp
+			document_with_calc.cpp
 			visualisation.cpp
 			renderer.cpp
 			default_renderer.cpp
+			xsection_renderer.cpp
 			calculator.cpp
+			calculator_cpu.cpp
+			calculator_gpu.cpp
 	)
+	if(${WIN32})
+		set_property(TARGET spectra PROPERTY WIN32_EXECUTABLE true)
+	endif()
 
-	target_link_libraries(spectra ${wxWidgets_LIBRARIES})
+	target_link_libraries(spectra ${wxWidgets_LIBRARIES} ${OGLPLUS_GL_LIBS})
 	add_dependencies(oglplus-advanced-example-spectra spectra)
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-spectra)
 endif()

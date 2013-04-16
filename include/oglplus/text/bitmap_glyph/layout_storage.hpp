@@ -51,7 +51,7 @@ private:
 	const GLsizei _capacity;
 	const GLsizei _alloc_unit;
 
-	static OGLPLUS_CONSTEXPR GLuint _list_nil(void)
+	static inline GLuint _list_nil(void)
 	{
 		return GLuint(-1);
 	}

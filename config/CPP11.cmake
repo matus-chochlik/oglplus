@@ -5,13 +5,13 @@
 
 # we need C++11
 if(${CMAKE_COMPILER_IS_GNUCXX})
-	set(CPP11_COMPILER_SWITCH -std=c++0x)
+	set(OGLPLUS_CPP11_COMPILER_SWITCH -std=c++0x)
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set(CPP11_COMPILER_SWITCH -std=c++0x -stdlib=libc++ -DOGLPLUS_NO_NOEXCEPT=1)
+	set(OGLPLUS_CPP11_COMPILER_SWITCH -std=c++0x -stdlib=libc++ -DOGLPLUS_NO_NOEXCEPT=1)
 endif()
 # TODO add support for other compilers
 
-add_definitions(${CPP11_COMPILER_SWITCH})
+add_definitions(${OGLPLUS_CPP11_COMPILER_SWITCH})
 
 function(cpp11_feature_detection FEATURE_NAME)
 	configure_file(
@@ -23,7 +23,7 @@ function(cpp11_feature_detection FEATURE_NAME)
 		OGLPLUS_HAS_${FEATURE_NAME}
 		${PROJECT_BINARY_DIR}/cpp11
 		${PROJECT_BINARY_DIR}/cpp11/has_${FEATURE_NAME}.cpp
-		COMPILE_DEFINITIONS ${CPP11_COMPILER_SWITCH}
+		COMPILE_DEFINITIONS ${OGLPLUS_CPP11_COMPILER_SWITCH}
 	)
 	message(STATUS "Detecting support for c++11 feature '${FEATURE_NAME}': ${OGLPLUS_HAS_${FEATURE_NAME}}")
 	if(OGLPLUS_HAS_${FEATURE_NAME})
@@ -49,6 +49,7 @@ cpp11_feature_detection(NOEXCEPT)
 cpp11_feature_detection(LAMBDAS)
 cpp11_feature_detection(NULLPTR)
 cpp11_feature_detection(CHRONO)
+cpp11_feature_detection(THREADS)
 
 # explicit configuration
 if(
@@ -56,5 +57,3 @@ if(
 )
 	set(OGLPLUS_NO_CHRONO 1)
 endif()
-
-unset(CPP11_COMPILER_SWITCH)

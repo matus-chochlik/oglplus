@@ -2,7 +2,7 @@
  *  .file oglplus/enums/sync_status.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/sync_status.txt' instead.
+ *  edit 'source/enums/oglplus/sync_status.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

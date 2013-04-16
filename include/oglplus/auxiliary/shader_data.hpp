@@ -269,9 +269,7 @@ private:
 	typedef std::true_type  _set_cont;
 
 	template <std::size_t N>
-	static OGLPLUS_CONSTEXPR
-	std::integral_constant<bool,  (N > 4)> _set_mode(void)
-	OGLPLUS_NOEXCEPT(true)
+	static std::integral_constant<bool,  (N > 4)> _set_mode(void)
 	{
 		return std::integral_constant<bool, (N > 4)>();
 	}

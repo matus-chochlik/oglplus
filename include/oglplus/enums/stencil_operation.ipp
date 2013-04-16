@@ -2,7 +2,7 @@
  *  .file oglplus/enums/stencil_operation.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/stencil_operation.txt' instead.
+ *  edit 'source/enums/oglplus/stencil_operation.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

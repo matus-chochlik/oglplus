@@ -2,7 +2,7 @@
  *  .file oglplus/enums/shader_type_def.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
- *  edit 'source/enums/shader_type.txt' instead.
+ *  edit 'source/enums/oglplus/shader_type.txt' instead.
  *
  *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file

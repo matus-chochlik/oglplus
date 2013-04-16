@@ -10,6 +10,22 @@
  *
  *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
  *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
+ *
+ *  @oglplus_example_uses_texture{pool_ball_1}
+ *  @oglplus_example_uses_texture{pool_ball_2}
+ *  @oglplus_example_uses_texture{pool_ball_3}
+ *  @oglplus_example_uses_texture{pool_ball_4}
+ *  @oglplus_example_uses_texture{pool_ball_5}
+ *  @oglplus_example_uses_texture{pool_ball_6}
+ *  @oglplus_example_uses_texture{pool_ball_7}
+ *  @oglplus_example_uses_texture{pool_ball_8}
+ *  @oglplus_example_uses_texture{pool_ball_9}
+ *  @oglplus_example_uses_texture{pool_ball_10}
+ *  @oglplus_example_uses_texture{pool_ball_11}
+ *  @oglplus_example_uses_texture{pool_ball_12}
+ *  @oglplus_example_uses_texture{pool_ball_13}
+ *  @oglplus_example_uses_texture{pool_ball_14}
+ *  @oglplus_example_uses_texture{pool_ball_15}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>

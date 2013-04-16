@@ -13,8 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_1107121317_HPP
 #define OGLPLUS_CONTEXT_1107121317_HPP
 
-#include <oglplus/context/synchronization.hpp>
-
 #include <oglplus/context/errors.hpp>
 #include <oglplus/context/capabilities.hpp>
 #include <oglplus/context/viewport.hpp>
@@ -30,6 +28,7 @@
 #include <oglplus/context/logical_ops.hpp>
 #include <oglplus/context/scissor_test.hpp>
 #include <oglplus/context/pixel_ops.hpp>
+#include <oglplus/context/synchronization.hpp>
 #include <oglplus/context/hints.hpp>
 #include <oglplus/context/limit_queries.hpp>
 #include <oglplus/context/string_queries.hpp>
