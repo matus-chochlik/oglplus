@@ -52,7 +52,6 @@ add_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main oglplus_example_harness)
 # make a list of libraries that we're going to link to
 set(EXAMPLE_LIBS
 	oglplus_example_harness
-	${OGLPLUS_EXAMPLE_HARNESS_LIBS}
 	${OGLPLUS_GL_LIBS}
 )
 
