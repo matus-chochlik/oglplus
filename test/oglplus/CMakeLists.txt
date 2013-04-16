@@ -7,6 +7,13 @@ cmake_minimum_required(VERSION 2.8)
 
 include(./oglplus_testing.cmake)
 
+add_test(
+	build-oglplus-examples 
+	"${CMAKE_COMMAND}"
+	--build "${CMAKE_BINARY_DIR}"
+	--target oglplus-examples
+)
+
 oglplus_exec_test_no_fixture(boost_utfw)
 oglplus_build_test_no_fixture(config)
 oglplus_exec_test_no_fixture(math)

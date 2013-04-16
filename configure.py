@@ -777,7 +777,7 @@ def main(argv):
 				"/Build",
 				"Release"
 			]
-		else: build_cmd_line = None
+		else: build_cmd_line = [ "cmake", "--build", options.build_dir ]
 
 		if build_cmd_line:
 			try: subprocess.call(build_cmd_line,cwd=options.build_dir)

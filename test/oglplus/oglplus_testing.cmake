@@ -19,59 +19,18 @@ elseif(OGLPLUS_USE_GLX)
 	set(OGLPLUS_TEST_FIXTURE "glx")
 endif()
 
-#
-# GLUT
-if(("${OGLPLUS_TEST_FIXTURE}" STREQUAL "glut"))
-	if(NOT GLUT_FOUND)
-		message(FATAL_ERROR "GLUT is required")
-		return()
-	endif()
-
-	include_directories(${GLUT_INCLUDE_DIRS})
-	set(OGLPLUS_TEST_FIXTURE_LIBS ${GLUT_LIBRARIES})
-
-# WXGL
-elseif(("${OGLPLUS_TEST_FIXTURE}" STREQUAL "wxgl"))
-	# TODO
-	message(FATAL_ERROR "wxGL fixture is not implemented")
-
-	if(NOT wxWidgets_FOUND)
-		message(FATAL_ERROR "wxGL is required")
-		return()
-	endif()
-
-	include(${wxWidgets_USE_FILE})
-	set(OGLPLUS_TEST_FIXTURE_LIBS ${wxWidgets_LIBRARIES})
-
-# GLFW
-elseif(("${OGLPLUS_TEST_FIXTURE}" STREQUAL "glfw"))
-	if(NOT GLFW_FOUND)
-		message(FATAL_ERROR "GLFW is required")
-		return()
-	endif()
-
-	include_directories(${GLFW_INCLUDE_DIRS})
-	set(OGLPLUS_TEST_FIXTURE_LIBS ${GLFW_LIBRARIES})
-
-# SDL
-elseif(("${OGLPLUS_TEST_FIXTURE}" STREQUAL "sdl"))
-	if(NOT SDL_FOUND)
-		message(FATAL_ERROR "SDL is required")
-		return()
-	endif()
-
-	include_directories(${SDL_INCLUDE_DIRS})
-	set(OGLPLUS_TEST_FIXTURE_LIBS ${SDL_LIBRARIES})
-
-# X11/GLX
-elseif(("${OGLPLUS_TEST_FIXTURE}" STREQUAL "glx"))
-	if(NOT X11_FOUND)
-		message(FATAL_ERROR "X11 is required")
-		return()
-	endif()
-
-	include_directories(${X11_INCLUDE_DIR})
-	set(OGLPLUS_TEST_FIXTURE_LIBS ${X11_LIBRARIES} pthread)
+# check the harness dependencies and requirements
+set(FIXTURE_CAN_BE_BUILT true)
+require_all_dependencies(${OGLPLUS_TEST_FIXTURE}_main FIXTURE_CAN_BE_BUILT)
+if(NOT ${FIXTURE_CAN_BE_BUILT})
+	message(
+		FATAL_ERROR 
+		"Some of the requirements for the '${OGLPLUS_TEST_FIXTURE}' "
+		"test fixture were not met. Please choose a different build "
+		"configuration or install the required libraries or use "
+		"a different compiler."
+	)
+	return()
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/utils)
@@ -82,10 +41,12 @@ add_library(
 	EXCLUDE_FROM_ALL
 	${CMAKE_CURRENT_SOURCE_DIR}/fixture_${OGLPLUS_TEST_FIXTURE}.cpp
 )
+# add the dependencies for the fixture
+add_all_dependencies(fixture_${OGLPLUS_TEST_FIXTURE} oglplus_test_fixture)
 
+# make a list of libraries that we're going to link to
 set(OGLPLUS_TEST_LIBS
 	oglplus_test_fixture
-	${OGLPLUS_TEST_FIXTURE_LIBS}
 	${OGLPLUS_GL_LIBS}
 )
 
