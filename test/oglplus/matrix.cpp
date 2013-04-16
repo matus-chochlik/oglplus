@@ -948,10 +948,10 @@ BOOST_AUTO_TEST_CASE(Matrix_inverse)
 			vec4(v2,      float(std::rand())/RAND_MAX),
 			vec4(0.0f, 0.0f, 0.0f, 1.0f)
 		);
-		mat4 i(Inverse(m));
+		mat4 inv(Inverse(m));
 
-		BOOST_CHECK(oglplus::Close(m*i, e, eps));
-		BOOST_CHECK(oglplus::Close(Inverse(i), m, eps));
+		BOOST_CHECK(oglplus::Close(m*inv, e, eps));
+		BOOST_CHECK(oglplus::Close(Inverse(inv), m, eps));
 	}
 }
 
