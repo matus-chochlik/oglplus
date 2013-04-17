@@ -134,6 +134,7 @@ ALIASES                += OGLplus="@em OGLplus"
 ALIASES                += oglplus_example{2}="<a href='\1_2\2_8cpp-example.html'><code>\1/\2.cpp</code></a>"
 ALIASES                += oglplus_example_uses_texture{1}=""
 ALIASES                += oglplus_example_uses_cxx11{1}=""
+ALIASES                += oglplus_example_uses_gl{1}=""
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C
 # sources only. Doxygen will then generate output that is more tailored for C.

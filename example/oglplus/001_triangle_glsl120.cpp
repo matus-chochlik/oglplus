@@ -1,5 +1,5 @@
 /**
- *  @example oglplus/001_triangle_glsl.cpp
+ *  @example oglplus/001_triangle_glsl120.cpp
  *  @brief Shows the basic usage of OGLplus by drawing a blue triangle (using GLSL 120).
  *
  *  @oglplus_screenshot{001_triangle_glsl120}
