@@ -561,17 +561,9 @@ public:
 
 	/// Submatrix extraction
 	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
-	friend Matrix<T, R, C> Extracted(const Matrix& a)
+	Matrix<T, R, C> Submatrix(void) const
 	{
-		_op_extract<I, J, R, C> init = {a};
-		return Matrix<T, R, C>(_spec_ctr(), init);
-	}
-
-	/// Submatrix extraction
-	template <std::size_t I, std::size_t J, std::size_t R, std::size_t C>
-	friend Matrix<T, R, C> Submatrix(const Matrix& a)
-	{
-		_op_extract<I, J, R, C> init = {a};
+		_op_extract<I, J, R, C> init = {*this};
 		return Matrix<T, R, C>(_spec_ctr(), init);
 	}
 
@@ -678,6 +670,19 @@ public:
 		return true;
 	}
 };
+
+template <
+	std::size_t I,
+	std::size_t J,
+	std::size_t R,
+	std::size_t C,
+	typename T,
+	std::size_t Rows,
+	std::size_t Cols
+> inline Matrix<T, R, C> Submatrix(const Matrix<T, Rows, Cols>& a)
+{
+	return a.template Submatrix<I, J, R, C>();
+}
 
 template <typename T, std::size_t R, std::size_t C>
 inline bool Close(

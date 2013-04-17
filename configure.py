@@ -697,7 +697,9 @@ def main(argv):
 
 	# remove the build dir if it was requested
 	if(options.from_scratch and os.path.exists(options.build_dir)):
-		shutil.rmtree(options.build_dir)
+		try: shutil.rmtree(options.build_dir)
+		except OSError as os_error:
+			print("Warning failed to remove build directory")
 
 	# configure the test suite
 	if(options.with_tests):
