@@ -69,3 +69,8 @@ ALIASES                += glvoereq{4}=" <em>Requires OpenGL \1.\2 or the <a href
 
 GENERATE_HTML = YES
 GENERATE_XML = NO
+
+TAGFILES = \
+	../../_build/doc/oalplus.doxygen.tags=../../oalplus/html
+
+GENERATE_TAGFILE = ../../_build/doc/oglplus.doxygen.tags
