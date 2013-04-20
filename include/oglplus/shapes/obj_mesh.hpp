@@ -22,9 +22,13 @@
 
 #include <vector>
 #include <iostream>
-#include <sstream>
 #include <cctype>
 #include <string>
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <algorithm>
+#include <sstream>
+#endif
 
 namespace oglplus {
 namespace shapes {
@@ -97,21 +101,27 @@ private:
 	std::vector<double> _pos_data;
 	// vertex normals
 	std::vector<double> _nml_data;
+	// vertex tangents
+	std::vector<double> _tgt_data;
 	// vertex tex coords
 	std::vector<double> _tex_data;
 	// material numbers
-	std::vector<GLshort> _mtl_data;
+	std::vector<GLuint> _mtl_data;
+	// material names
+	std::vector<std::string> _mtl_names;
 
 	struct _vert_indices
 	{
 		GLuint _pos;
 		GLuint _nml;
 		GLuint _tex;
+		GLuint _mtl;
 
 		_vert_indices(void)
 		 : _pos(0)
 		 , _nml(0)
 		 , _tex(0)
+		 , _mtl(0)
 		{ }
 	};
 
@@ -198,6 +208,15 @@ public:
 		return 3;
 	}
 
+	/// Makes the vertex tangents and returns the number of values per vertex
+	template <typename T>
+	GLuint Tangents(std::vector<T>& dest) const
+	{
+		dest.clear();
+		dest.insert(dest.begin(), _tgt_data.begin(), _tgt_data.end());
+		return 3;
+	}
+
 	/// Makes the texture coordinates returns the number of values per vertex
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
@@ -207,13 +226,30 @@ public:
 		return 3;
 	}
 
+	/// Makes the material numbers returns the number of values per vertex
+	template <typename T>
+	GLuint MaterialNumbers(std::vector<T>& dest) const
+	{
+		dest.clear();
+		dest.insert(dest.begin(), _mtl_data.begin(), _mtl_data.end());
+		return 1;
+	}
+
+	/// Returns the name of the i-th material
+	const std::string& MaterialName(GLuint mat_num) const
+	{
+		return _mtl_names[mat_num];
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Vertex attribute information for this shape builder
 	/** ObjMesh provides build functions for the following named
 	 *  vertex attributes:
 	 *  - "Position" the vertex positions
 	 *  - "Normal" the vertex normals
+	 *  - "Tangent" the vertex tangents
 	 *  - "TexCoords" the vertex texture coordinates
+	 *  - "Material" the vertex material numbers
 	 */
 	typedef VertexAttribsInfo<ObjMesh> VertexAttribs;
 #else
@@ -222,7 +258,9 @@ public:
 		std::tuple<
 			VertexPositionsTag,
 			VertexNormalsTag,
-			VertexTexCoordinatesTag
+			VertexTangentsTag,
+			VertexTexCoordinatesTag,
+			VertexMaterialNumbersTag
 		>
 	> VertexAttribs;
 #endif
@@ -352,7 +390,7 @@ bool ObjMesh::_load_indices(
 
 OGLPLUS_LIB_FUNC
 void ObjMesh::_load_meshes(
-	const _loading_options& /*opts*/, //TODO
+	const _loading_options& opts, //TODO
 	aux::AnyInputIter<const char*> names_begin,
 	aux::AnyInputIter<const char*> names_end,
 	std::istream& input
@@ -374,12 +412,16 @@ void ObjMesh::_load_meshes(
 	std::vector<double> mtl_data(1, 0);
 	// unused index
 	std::vector<_vert_indices> idx_data(1, _vert_indices());
+	_mtl_names.push_back(std::string());
 
 	std::vector<std::string> mesh_names;
 	std::vector<GLuint> mesh_offsets;
 	std::vector<GLuint> mesh_counts;
 
-	std::string vert_tags(" tnp");
+	GLuint curr_mtl = 0;
+	std::string mtllib;
+
+	const std::string vert_tags(" tnp");
  	std::string line;
 	while(std::getline(input, line))
 	{
@@ -391,8 +433,48 @@ void ObjMesh::_load_meshes(
 		// skip comments
 		if(*i == '#') continue;
 		//
+		// if it is a material library statement
+		if(*i == 'm')
+		{
+			const char* s = "mtllib";
+			if(std::find_end(i, e, s, s+6) != i)
+			{
+				throw std::runtime_error(
+					"Obj file loader: Unknown tag at line: "+
+					line
+				);
+			}
+			i += 6;
+			while((i != e) && std::isspace(*i)) ++i;
+			std::string::const_iterator f = i;
+			while((f != e) && !std::isspace(*f)) ++f;
+			mtllib = std::string(i, f);
+		}
+		// if it is a use material statement
+		else if(*i == 'u')
+		{
+			const char* s = "usemtl";
+			if(std::find_end(i, e, s, s+6) != i)
+			{
+				throw std::runtime_error(
+					"Obj file loader: Unknown tag at line: "+
+					line
+				);
+			}
+			i += 6;
+			while((i != e) && std::isspace(*i)) ++i;
+			std::string::const_iterator f = i;
+			while((f != e) && !std::isspace(*f)) ++f;
+
+			std::string material;
+			if(!mtllib.empty()) material = mtllib + '#';
+			material.append(std::string(i, f));
+
+			curr_mtl = GLuint(_mtl_names.size());
+			_mtl_names.push_back(material);
+		}
 		// if the line contains vertex data
-		if(*i == 'v')
+		else if(*i == 'v')
 		{
 			++i;
 			if(i == e)
@@ -431,11 +513,13 @@ void ObjMesh::_load_meshes(
 						line
 					);
 				}
+				vi1[n]._mtl = curr_mtl;
 			}
 			idx_data.insert(idx_data.end(), vi1, vi1+3);
 			_vert_indices vi2[3] = {vi1[0], vi1[2], _vert_indices()};
 			while(_load_indices(vi2[2], i, e))
 			{
+				vi2[2]._mtl = curr_mtl;
 				idx_data.insert(idx_data.end(), vi2, vi2+3);
 				vi2[1] = vi2[2];
 			}
@@ -474,7 +558,7 @@ void ObjMesh::_load_meshes(
 	assert(mesh_names.size() == mesh_offsets.size());
 	assert(mesh_names.size() == mesh_counts.size());
 
-	std::size_t ni = idx_data.size();
+	std::size_t ni = idx_data.size()-1;
 	std::size_t mo = 0;
 
 	_pos_data.resize(ni*3);
@@ -526,12 +610,65 @@ void ObjMesh::_load_meshes(
 				_nml_data[oi] = nml_data[idx_data[ii]._nml*3+c];
 				_tex_data[oi] = tex_data[idx_data[ii]._tex*3+c];
 			}
-			_mtl_data[ii] = 0; // TODO
+			_mtl_data[ii-1] = idx_data[ii]._mtl;
 			++ii;
 		}
 		_mesh_offsets.push_back(mo);
 		_mesh_counts.push_back(mc);
 		mo += mc;
+	}
+
+	assert(_pos_data.size() % 9 == 0);
+	assert(_pos_data.size() == _tex_data.size());
+	_tgt_data.resize(_pos_data.size());
+
+	if(opts.load_tangents)
+	{
+		for(std::size_t f=0, nf = _tgt_data.size()/9; f != nf; ++f)
+		{
+			for(std::size_t v=0; v!=3; ++v)
+			{
+				std::size_t j[3] = {
+					v,
+					(v+1)%3,
+					(v+2)%3
+				};
+
+				Vec3f p[3];
+				Vec2f uv[3];
+				for(size_t k=0; k!=3; ++k)
+				{
+					p[k] = Vec3f(
+						_pos_data[f*9+j[k]*3+0],
+						_pos_data[f*9+j[k]*3+1],
+						_pos_data[f*9+j[k]*3+2]
+					);
+					uv[k] = Vec2f(
+						_tex_data[f*9+j[k]*3+0],
+						_tex_data[f*9+j[k]*3+1]
+					);
+				}
+
+				Vec3f v0 = p[1] - p[0];
+				Vec3f v1 = p[2] - p[0];
+
+				Vec2f duv0 = uv[1] - uv[0];
+				Vec2f duv1 = uv[2] - uv[0];
+
+				float d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
+				if(d != 0.0f) d = 1.0f/d;
+
+				Vec3f t = (duv1.y()*v0 - duv0.y()*v1)*d;
+				Vec3f nt = Normalized(t);
+
+				for(std::size_t v=0; v!=3; ++v)
+				{
+					_tgt_data[f*9+v*3+0] = nt.x();
+					_tgt_data[f*9+v*3+1] = nt.y();
+					_tgt_data[f*9+v*3+2] = nt.z();
+				}
+			}
+		}
 	}
 }
 
