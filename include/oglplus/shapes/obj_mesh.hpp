@@ -103,6 +103,8 @@ private:
 	std::vector<double> _nml_data;
 	// vertex tangents
 	std::vector<double> _tgt_data;
+	// vertex bitangents
+	std::vector<double> _btg_data;
 	// vertex tex coords
 	std::vector<double> _tex_data;
 	// material numbers
@@ -217,6 +219,15 @@ public:
 		return 3;
 	}
 
+	/// Makes the vertex bi-tangents and returns the number of values per vertex
+	template <typename T>
+	GLuint Bitangents(std::vector<T>& dest) const
+	{
+		dest.clear();
+		dest.insert(dest.begin(), _btg_data.begin(), _btg_data.end());
+		return 3;
+	}
+
 	/// Makes the texture coordinates returns the number of values per vertex
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
@@ -259,6 +270,7 @@ public:
 			VertexPositionsTag,
 			VertexNormalsTag,
 			VertexTangentsTag,
+			VertexBitangentsTag,
 			VertexTexCoordinatesTag,
 			VertexMaterialNumbersTag
 		>
@@ -620,11 +632,14 @@ void ObjMesh::_load_meshes(
 
 	assert(_pos_data.size() % 9 == 0);
 	assert(_pos_data.size() == _tex_data.size());
-	_tgt_data.resize(_pos_data.size());
 
 	if(opts.load_tangents)
 	{
-		for(std::size_t f=0, nf = _tgt_data.size()/9; f != nf; ++f)
+		if(opts.load_tangents)
+			_tgt_data.resize(_pos_data.size());
+		if(opts.load_bitangents)
+			_btg_data.resize(_pos_data.size());
+		for(std::size_t f=0, nf = _pos_data.size()/9; f != nf; ++f)
 		{
 			for(std::size_t v=0; v!=3; ++v)
 			{
@@ -658,14 +673,30 @@ void ObjMesh::_load_meshes(
 				float d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
 				if(d != 0.0f) d = 1.0f/d;
 
-				Vec3f t = (duv1.y()*v0 - duv0.y()*v1)*d;
-				Vec3f nt = Normalized(t);
-
-				for(std::size_t v=0; v!=3; ++v)
+				if(opts.load_tangents)
 				{
-					_tgt_data[f*9+v*3+0] = nt.x();
-					_tgt_data[f*9+v*3+1] = nt.y();
-					_tgt_data[f*9+v*3+2] = nt.z();
+					Vec3f t = (duv1.y()*v0 - duv0.y()*v1)*d;
+					Vec3f nt = Normalized(t);
+
+					for(std::size_t v=0; v!=3; ++v)
+					{
+						_tgt_data[f*9+v*3+0] = nt.x();
+						_tgt_data[f*9+v*3+1] = nt.y();
+						_tgt_data[f*9+v*3+2] = nt.z();
+					}
+				}
+
+				if(opts.load_bitangents)
+				{
+					Vec3f b = (duv0.x()*v1 - duv1.x()*v0)*d;
+					Vec3f nb = Normalized(b);
+
+					for(std::size_t v=0; v!=3; ++v)
+					{
+						_btg_data[f*9+v*3+0] = nb.x();
+						_btg_data[f*9+v*3+1] = nb.y();
+						_btg_data[f*9+v*3+2] = nb.z();
+					}
 				}
 			}
 		}
