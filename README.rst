@@ -273,6 +273,13 @@ Acknowledgements
 - *Denis Ovod* for constructive critique and suggestions.
 - *Per Nordlöw* for useful suggestions.
 
+License
+=======
+
+Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+Software License, Version 1.0. (See accompanying file
+LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 
 .. [#req_cxx11_feats] OGLplus requires the following C++11 features:
    The ``type_traits`` and ``tuple`` librares, variadic preprocessor macros, r-value
