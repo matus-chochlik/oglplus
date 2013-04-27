@@ -1,32 +1,38 @@
-#  Copyright 2009-2012 Matus Chochlik. Distributed under the Boost
+#  Copyright 2009-2013 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-@INCLUDE = ./Doxyfile.common
+@INCLUDE = ../Doxyfile.common
 
 PROJECT_NAME           = "OGLplus"
 
 SORT_BY_SCOPE_NAME     = YES
 HIDE_SCOPE_NAMES       = NO
 
-OUTPUT_DIRECTORY       = ../../_build/doc/doxygen/oglplus
+OUTPUT_DIRECTORY       = ../../../_build/doc/doxygen/oglplus
 
 INPUT = \
-	../tutorial \
-	../../include/oglplus \
-	../../include/oglplus/bound \
-	../../include/oglplus/context \
-	../../include/oglplus/ext \
-	../../include/oglplus/opt \
-	../../include/oglplus/shapes \
-	../../include/oglplus/images \
-	../../example/standalone \
-	../../example/oglplus
+	../../tutorial/oglplus \
+	../../../include/oglplus \
+	../../../include/oglplus/bound \
+	../../../include/oglplus/context \
+	../../../include/oglplus/ext \
+	../../../include/oglplus/opt \
+	../../../include/oglplus/shapes \
+	../../../include/oglplus/images \
+	../../../example/standalone \
+	../../../example/oglplus
 
-EXAMPLE_PATH = ../tutorial ../../example ../../_build
+INCLUDE_PATH = ../../../include/ ../../../example
+
+EXAMPLE_PATH = \
+	../../tutorial/oglplus \
+	../../../example \
+	../../../_build \
+	../../../_build/doc/doxygen/oglplus
 
 PREDEFINED             = \
 	"OGLPLUS_NO_SITE_CONFIG=1" \

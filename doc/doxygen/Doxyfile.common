@@ -922,11 +922,6 @@ EXPAND_ONLY_PREDEF     = YES
 
 SEARCH_INCLUDES        = YES
 
-# The INCLUDE_PATH tag can be used to specify one or more directories that
-# contain include files that are not input files but should be processed by
-# the preprocessor.
-
-INCLUDE_PATH           = ../../include/ ../../example
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
