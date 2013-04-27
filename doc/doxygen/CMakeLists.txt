@@ -30,7 +30,14 @@ if(DOXYGEN_FOUND)
 	file(GLOB OGLPLUS_EXAMPLES "${PROJECT_SOURCE_DIR}/example/oglplus/[0-9][0-9][0-9]_*.cpp")
 	foreach(EXAMPLE ${OGLPLUS_EXAMPLES})
 		get_filename_component(EXE_NAME "${EXAMPLE}" NAME_WE)
-		file(APPEND ${GALLERY_HTML} "<img src='${EXE_NAME}.png' title='Example ${EXE_NAME}.cpp' longdesc='oglplus_2${EXE_NAME}_8cpp-example.html'/>\n")
+		file(
+			APPEND ${GALLERY_HTML}
+			"<img "
+			"src='${EXE_NAME}.png' "
+			"title='Example ${EXE_NAME}.cpp' "
+			"longdesc='oglplus_2${EXE_NAME}_8cpp-example.html'"
+			"/>\n"
+		)
 	endforeach()
 
 	file(APPEND ${GALLERY_HTML} "</div>\n")
@@ -49,7 +56,7 @@ if(DOXYGEN_FOUND)
 	file(READ ${PROJECT_SOURCE_DIR}/VERSION OGLPLUS_VERSION_STR)
 
 	# doxyfile for building html docs
-	set(DOXYFILE ${PROJECT_BINARY_DIR}/Doxyfile.html)
+	set(DOXYFILE ${PROJECT_BINARY_DIR}/Doxyfile.oglplus.html)
 	file(WRITE ${DOXYFILE} "@INCLUDE = ${DOXYGEN_WD}/Doxyfile.oglplus\n")
 	file(APPEND ${DOXYFILE} "IMAGE_PATH += ../logo/ \n")
 	if(NOT OGLPLUS_NO_EXAMPLES)
@@ -68,7 +75,7 @@ if(DOXYGEN_FOUND)
 		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
 		COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-		COMMENT "Generating HTML documentation"
+		COMMENT "Generating OGLplus HTML documentation"
 	)
 
 	add_custom_target(
@@ -82,9 +89,9 @@ if(DOXYGEN_FOUND)
 	# docs may or may not be built by default
 	# based on the user preferences
 	if(OGLPLUS_NO_DOCS)
-		add_custom_target(doc DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
+		add_custom_target(oglplus-doc DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
 	else()
-		add_custom_target(doc ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
+		add_custom_target(oglplus-doc ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html)
 	endif()
 
 	unset(DOC_DEPENDS)
