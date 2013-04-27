@@ -65,7 +65,7 @@ add_examples("[0-9][0-9][0-9]*" oglplus-examples "${EXAMPLE_LIBS}")
 
 if(NOT OGLPLUS_NO_DOCS)
 	if(NOT OGLPLUS_NO_SCREENSHOTS)
-		add_dependencies(doc oglplus-examples-screenshots)
+		add_dependencies(oglplus-doc oglplus-examples-screenshots)
 	endif()
 endif()
 
