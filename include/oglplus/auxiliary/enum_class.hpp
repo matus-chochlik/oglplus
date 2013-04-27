@@ -19,6 +19,9 @@
 #define OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
 enum class NAME : TYPE; \
 
+#define OGLPLUS_ENUM_CLASS_FWD_EVT(NAME, TYPE) \
+	OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE)
+
 #define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
 enum class NAME : TYPE {
 
@@ -48,6 +51,14 @@ struct EnumBaseType;
 
 #define OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
 class NAME;
+
+#define OGLPLUS_ENUM_CLASS_FWD_EVT(NAME, TYPE) \
+OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
+template <> \
+struct EnumValueType<NAME> \
+{ \
+	typedef TYPE Type; \
+};
 
 #define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
 class NAME { \

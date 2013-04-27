@@ -239,6 +239,7 @@ install(
 
 add_subdirectory("doc/doxygen")
 add_subdirectory("source/textures" "textures")
+add_subdirectory("source/models" "models")
 
 
 # include the oglplus headers

@@ -10,7 +10,6 @@
  *
  *  @oglplus_example_uses_cxx11{FUNCTION_TEMPLATE_DEFAULT_ARGS}
  *  @oglplus_example_uses_cxx11{LAMBDAS}
- *  @oglplus_example_uses_texture{concrete_block}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>

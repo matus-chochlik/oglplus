@@ -73,6 +73,8 @@ echo "--------------------0--|OpenGL Version|----------------------"
 make_example_req_list requirements gl "@oglplus_example_uses_gl"
 echo "--------------------------|Textures|--------------------------"
 make_example_req_list resources tex "@oglplus_example_uses_texture"
+echo "---------------------------|Models|---------------------------"
+make_example_req_list resources model "@oglplus_example_uses_model"
 echo "-------------------------|Libraries|--------------------------"
 make_example_dep_lists png.h:PNG
 
