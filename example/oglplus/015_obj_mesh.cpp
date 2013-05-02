@@ -66,14 +66,11 @@ public:
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
-			"in vec2 TexCoord;"
 
 			"out vec3 vertNormal;"
-			"out vec2 vertTexCoord;"
 			"void main(void)"
 			"{"
 			"	vertNormal = Normal;"
-			"	vertTexCoord = TexCoord;"
 			"	gl_Position = "
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
@@ -85,17 +82,11 @@ public:
 		fs.Source(
 			"#version 330\n"
 			"in vec3 vertNormal;"
-			"in vec2 vertTexCoord;"
 			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
-			"	float i = ("
-			"		1 +"
-			"		int(vertTexCoord.x*32) % 2+"
-			"		int(vertTexCoord.y*32) % 2"
-			"	) % 2;"
 			"	vec3 c = normalize(vec3(1, 1, 1) - vertNormal);"
-			"	fragColor = c*i;"
+			"	fragColor = c;"
 			"}"
 		).Compile();
 
@@ -120,13 +111,6 @@ public:
 			(prog|"Normal").Setup(n_per_vertex, DataType::Float).Enable();
 		}
 
-		texcoords.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = load_mesh.TexCoordinates(data);
-			Buffer::Data(Buffer::Target::Array, data);
-			(prog|"TexCoord").Setup(n_per_vertex, DataType::Float).Enable();
-		}
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
