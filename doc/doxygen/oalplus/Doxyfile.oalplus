@@ -5,7 +5,7 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-@INCLUDE = ./Doxyfile.common
+@INCLUDE = ../Doxyfile.common
 
 PROJECT_NAME           = "OALplus"
 
@@ -50,6 +50,6 @@ GENERATE_HTML = YES
 GENERATE_XML = NO
 
 TAGFILES = \
-	../../_build/doc/oglplus.doxygen.tags=../../galplus/html
+	../../_build/doc/oglplus.doxygen.tags=../../oglplus/html
 
 GENERATE_TAGFILE = ../../_build/doc/oalplus.doxygen.tags

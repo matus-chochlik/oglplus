@@ -76,7 +76,7 @@ add_custom_command(
 )
 
 add_custom_target(
-	rebuild_doc
+	rebuild-oglplus-doc
 	COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
