@@ -11,7 +11,6 @@
  */
 
 
-#pragma once
 #ifndef OGLPLUS_BOUND_BUFFER_1107121519_HPP
 #define OGLPLUS_BOUND_BUFFER_1107121519_HPP
 
@@ -233,6 +232,17 @@ public:
 		);
 	}
 #endif // GL_VERSION_4_3
+
+
+	/** Wrapper for Buffer::Size()
+	 *  @see Buffer::Size()
+	 */
+	GLsizei Size(void) const
+	{
+		return BufferOps::Size(
+			this->BindTarget()
+		);
+	}
 
 
 	/** Wrapper for Buffer::Usage()

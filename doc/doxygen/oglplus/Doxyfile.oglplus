@@ -73,5 +73,9 @@ ALIASES                += glextref{2}=" <a href='http://www.opengl.org/registry/
 ALIASES                += glverreq{2}=" <em>Requires OpenGL \1.\2.</em>"
 ALIASES                += glvoereq{4}=" <em>Requires OpenGL \1.\2 or the <a href='http://www.opengl.org/registry/specs/\3/\4.txt'>GL_\3_\4</a> extension.</em>"
 
+HTML_HEADER            = header.html
+HTML_FOOTER            = footer.html
+HTML_STYLESHEET        = oglplus.css
+
 GENERATE_HTML = YES
 GENERATE_XML = NO
