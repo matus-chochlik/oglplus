@@ -845,6 +845,19 @@ public:
 	}
 #endif
 
+	/// Returns the buffer size
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetBufferParameter}
+	 *  @gldefref{BUFFER_SIZE}
+	 *
+	 *  @throws Error
+	 */
+	static GLsizei Size(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_BUFFER_SIZE));
+	}
+
 	/// Returns the buffer usage
 	/**
 	 *  @see Access

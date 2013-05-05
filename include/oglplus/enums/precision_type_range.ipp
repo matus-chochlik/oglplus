@@ -1,0 +1,49 @@
+/*
+ *  .file oglplus/enums/precision_type_range.ipp
+ *
+ *  Automatically generated header file. DO NOT modify manually,
+ *  edit 'source/enums/oglplus/precision_type.txt' instead.
+ *
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+OGLPLUS_LIB_FUNC aux::CastIterRange<
+	const GLenum*,
+	PrecisionType
+> EnumValueRange(PrecisionType*)
+#if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
+	!defined(OGLPLUS_IMPL_EVR_PRECISIONTYPE)
+#define OGLPLUS_IMPL_EVR_PRECISIONTYPE
+{
+static const GLenum _values[] = {
+#if defined GL_LOW_FLOAT
+GL_LOW_FLOAT,
+#endif
+#if defined GL_MEDIUM_FLOAT
+GL_MEDIUM_FLOAT,
+#endif
+#if defined GL_HIGH_FLOAT
+GL_HIGH_FLOAT,
+#endif
+#if defined GL_LOW_INT
+GL_LOW_INT,
+#endif
+#if defined GL_MEDIUM_INT
+GL_MEDIUM_INT,
+#endif
+#if defined GL_HIGH_INT
+GL_HIGH_INT,
+#endif
+0
+};
+return aux::CastIterRange<
+	const GLenum*,
+	PrecisionType
+>(_values, _values+sizeof(_values)/sizeof(_values[0])-1);
+}
+#else
+;
+#endif
+

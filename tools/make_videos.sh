@@ -7,7 +7,7 @@
 build_dir=_build
 (
 	cd $(dirname $0)/../
-	./configure.sh --from-scratch --use-cxxflags --use-ldflags --use-glx --use-glcorearb-h --build-dir ${build_dir}
+	./configure.py --from-scratch --use-cxxflags --use-ldflags --use-glx --use-glcorearb-h --build-dir ${build_dir}
 	cd ./${build_dir}/ && make -j 4
 )
 
