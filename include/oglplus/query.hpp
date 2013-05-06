@@ -366,7 +366,7 @@ inline void QueryOps::Execution<ResultType>::WaitForResult(void)
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL asynchronous query functionality
 /**
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class Query
  : public QueryOps

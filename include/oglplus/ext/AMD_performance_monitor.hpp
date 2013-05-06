@@ -440,7 +440,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the performance monitor functionality
 /**
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  *
  *  @glsymbols
  *  @glextref{AMD,performance_monitor}

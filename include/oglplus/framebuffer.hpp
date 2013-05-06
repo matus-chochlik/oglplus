@@ -603,7 +603,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 /**
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class Framebuffer
  : public FramebufferOps
