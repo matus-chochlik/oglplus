@@ -892,7 +892,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality
 /**
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class Buffer
  : public BufferOps

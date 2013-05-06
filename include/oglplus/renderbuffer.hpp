@@ -359,7 +359,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
 /**
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class Renderbuffer
  : public RenderbufferOps

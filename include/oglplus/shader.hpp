@@ -405,7 +405,7 @@ protected:
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class VertexShader
  : public Shader
@@ -423,7 +423,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class GeometryShader
  : public Shader
@@ -441,7 +441,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class FragmentShader
  : public Shader
@@ -459,7 +459,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class TessControlShader
  : public Shader
@@ -477,7 +477,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class TessEvaluationShader
  : public Shader
@@ -495,7 +495,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class ComputeShader
  : public Shader
