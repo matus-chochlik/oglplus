@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/alfunc.hpp
+ *  @file oalplus/alfunc.hpp
  *  @brief Helper macro expanding into OpenAL function name
  *
  *  @author Matus Chochlik

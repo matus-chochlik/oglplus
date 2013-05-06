@@ -26,7 +26,44 @@ namespace oalplus {
 template <class Object>
 class Array;
 
-/** For obvious reasons @ref oglplus_object "objects" are not copyable,
+/** @defgroup oalplus_objects OALplus objects
+ *
+ *  An @ref oalplus_object is a class wrapping around OpenAL objects
+ *  like sources, buffer, listeners, etc. It is using the RAII technique
+ *  to provide automated resource management for these OpenAL resources.
+ *  They also wrap operations related to these objects and provide
+ *  additional type safety and more robust error handling. Look
+ *  @ref oalplus_object "here" for more details.
+ */
+
+/** @page oalplus_object OALplus object
+ *
+ *  @OALplus defines classes like @ref oalplus::Buffer "Buffer",
+ *  @ref oalplus::Source "Source", @ref oalplus::Listener "Listener",
+ *  and many others, wrapping around OpenAL
+ *  "objects". Such classes have, besides the object-type-specific functions,
+ *  several common constuctors and members as shown by the following pseudo
+ *  code. (The @c Object class does not actually exist, the following declaration
+ *  is just a sort of template).
+ *
+ *  @code
+ *  class Object
+ *  {
+ *  public:
+ *    // Objects are default constructible
+ *    Object(void);
+ *
+ *    // Objects are not copy constructible
+ *    Object(const Object&) = delete;
+ *
+ *    // Objects are move constructible
+ *    Object(Object&&);
+ *
+ *  };
+ *  @endcode
+ */
+
+/** For obvious reasons @ref oalplus_object "objects" are not copyable,
  *  only movable. There may however be situations where a temporary copy
  *  of the "master" object (with the knowledge that the original will
  *  be kept alive during the whole lifetime of the copy) is needed.
@@ -36,7 +73,7 @@ class Array;
  *  instance is not destroyed before the managed copy.
  *
  *  Managed instances are may for be example created when accessing or iterating
- *  through the elements of an @ref oglplus::Array "Array".
+ *  through the elements of an @ref oalplus::Array "Array".
  *
  *  @ingroup modifier_classes
  */
@@ -56,7 +93,7 @@ class ObjectInitializer;
 /*
  *  @note Do not use this class directly, use the derived classes instead.
  *
- *  @ingroup objects
+ *  @ingroup oalplus_objects
  */
 template <class ObjectOps>
 class Object
@@ -254,6 +291,6 @@ public:
 	}
 };
 
-} // namespace oglplus
+} // namespace oalplus
 
 #endif // include guard

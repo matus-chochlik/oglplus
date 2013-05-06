@@ -12,10 +12,13 @@ PROJECT_NAME           = "OALplus"
 SORT_BY_SCOPE_NAME     = YES
 HIDE_SCOPE_NAMES       = NO
 
-OUTPUT_DIRECTORY       = ../../_build/doc/doxygen/oalplus
+OUTPUT_DIRECTORY       = ../../../_build/doc/doxygen/oalplus
 
 INPUT = \
-	../../include/oalplus
+	../../../include/oalplus/enums \
+	../../../include/oalplus
+
+INCLUDE_PATH = ../../../include/ ../../../example
 
 EXAMPLE_PATH = 
 
@@ -42,14 +45,15 @@ PREDEFINED             = \
 	"OALPLUS_ENUM_CLASS_BEGIN(NAME,TYPE)=enum class NAME : TYPE {" \
 	"OALPLUS_ENUM_CLASS_END=};"
 
+ALIASES                += OALplus="@em OALplus"
 ALIASES                += alsymbols="@par Related OpenAL symbols:"
 ALIASES                += alfunref{1}=" <code>al\1</code>"
 ALIASES                += aldefref{1}=" <code>AL_\1</code>"
 
+HTML_HEADER            = header.html
+HTML_FOOTER            = footer.html
+HTML_STYLESHEET        = oalplus.css
+
 GENERATE_HTML = YES
 GENERATE_XML = NO
 
-TAGFILES = \
-	../../_build/doc/oglplus.doxygen.tags=../../oglplus/html
-
-GENERATE_TAGFILE = ../../_build/doc/oalplus.doxygen.tags

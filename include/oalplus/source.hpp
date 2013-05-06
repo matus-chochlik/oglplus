@@ -30,6 +30,12 @@
 
 namespace oalplus {
 
+/// Wrapper for OpenAL source operations
+/**
+ *  @note Do not use this class directly, use Source instead
+ *
+ *  @see Source
+ */
 class SourceOps
  : public Named
  , public FriendOf<BufferOps>
@@ -555,7 +561,17 @@ public:
 
 };
 
+#if OALPLUS_DOCUMENTATION_ONLY
+/// An @ref oalplus_object encapsulating the OpenAL source functionality
+/**
+ *  @ingroup oalplus_objects
+ */
+class Source
+ : public SourceOps
+{ };
+#else
 typedef Object<SourceOps> Source;
+#endif
 
 } // namespace oalplus
 

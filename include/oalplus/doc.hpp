@@ -30,7 +30,8 @@ namespace oalplus {
  *  resource and object management and make the use of OpenAL
  *  in C++ safer and easier.
  *
- *  It is currently distributed as a part of <A HREF="../index.html">OGLplus</A>.
+ *  It is currently distributed as a part of
+ *  <A HREF="../../oglplus/html/index.html">OGLplus</A>.
  */
 
 } // namespace oglplus

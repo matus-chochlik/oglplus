@@ -24,6 +24,12 @@
 
 namespace oalplus {
 
+/// Wrapper for OpenAL buffer operations
+/**
+ *  @note Do not use this class directly, use Buffer instead
+ *
+ *  @see Buffer
+ */
 class BufferOps
  : public Named
 {
@@ -129,7 +135,17 @@ public:
 	}
 };
 
+#if OALPLUS_DOCUMENTATION_ONLY
+/// An @ref oalplus_object encapsulating the OpenAL buffer functionality
+/**
+ *  @ingroup oalplus_objects
+ */
+class Buffer
+ : public BufferOps
+{ };
+#else
 typedef Object<BufferOps> Buffer;
+#endif
 
 } // namespace oalplus
 

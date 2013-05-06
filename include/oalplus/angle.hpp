@@ -1,5 +1,5 @@
 /**
- *  @file oalplus/vector.hpp
+ *  @file oalplus/angle.hpp
  *  @brief Implementation of angle.
  *
  *  @author Matus Chochlik

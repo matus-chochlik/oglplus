@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/al.hpp
+ *  @file oalplus/al.hpp
  *  @brief Includes AL/al.h and AL/alut.h
  *
  *  @author Matus Chochlik

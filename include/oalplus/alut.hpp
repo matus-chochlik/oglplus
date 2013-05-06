@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/alut.hpp
+ *  @file oalplus/alut.hpp
  *  @brief Wrapper around ALUT
  *
  *  @author Matus Chochlik
