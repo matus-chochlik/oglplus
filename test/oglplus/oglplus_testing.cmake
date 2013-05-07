@@ -21,7 +21,7 @@ endif()
 
 # check the harness dependencies and requirements
 set(FIXTURE_CAN_BE_BUILT true)
-if(EXISTS ${OGLPLUS_TEST_FIXTURE}_main)
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/fixture_${OGLPLUS_TEST_FIXTURE}.cpp)
 	require_all_dependencies(${OGLPLUS_TEST_FIXTURE}_main FIXTURE_CAN_BE_BUILT)
 else()
 	message(
