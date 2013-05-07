@@ -845,6 +845,19 @@ public:
 	}
 #endif
 
+	/// Returns the buffer size
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetBufferParameter}
+	 *  @gldefref{BUFFER_SIZE}
+	 *
+	 *  @throws Error
+	 */
+	static GLsizei Size(Target target)
+	{
+		return GLsizei(GetIntParam(target, GL_BUFFER_SIZE));
+	}
+
 	/// Returns the buffer usage
 	/**
 	 *  @see Access
@@ -879,7 +892,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality
 /**
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class Buffer
  : public BufferOps

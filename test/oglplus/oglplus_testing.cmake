@@ -21,10 +21,19 @@ endif()
 
 # check the harness dependencies and requirements
 set(FIXTURE_CAN_BE_BUILT true)
-require_all_dependencies(${OGLPLUS_TEST_FIXTURE}_main FIXTURE_CAN_BE_BUILT)
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/fixture_${OGLPLUS_TEST_FIXTURE}.cpp)
+	require_all_dependencies(${OGLPLUS_TEST_FIXTURE}_main FIXTURE_CAN_BE_BUILT)
+else()
+	message(
+		FATAL_ERROR
+		"A test fixture using '${OGLPLUS_TEST_FIXTURE}' is not implemented. "
+		"Either disable the building of tests or choose another implementation."
+	)
+	set(FIXTURE_CAN_BE_BUILT false)
+endif()
 if(NOT ${FIXTURE_CAN_BE_BUILT})
 	message(
-		FATAL_ERROR 
+		FATAL_ERROR
 		"Some of the requirements for the '${OGLPLUS_TEST_FIXTURE}' "
 		"test fixture were not met. Please choose a different build "
 		"configuration or install the required libraries or use "

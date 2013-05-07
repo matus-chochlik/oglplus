@@ -85,5 +85,15 @@ macro(add_all_dependencies EXE_NAME)
 			add_dependencies("${TARGET_NAME}" "texture-${TEXTURE}")
 		endforeach()
 	endif()
+
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/resources/${EXE_NAME}.model.txt")
+		file(STRINGS
+			"${CMAKE_CURRENT_SOURCE_DIR}/resources/${EXE_NAME}.model.txt"
+			EXE_MODELS
+		)
+		foreach(MODEL ${EXE_MODELS})
+			add_dependencies("${TARGET_NAME}" "model-${MODEL}")
+		endforeach()
+	endif()
 endmacro(add_all_dependencies)
 

@@ -23,7 +23,7 @@
 
 namespace oglplus {
 
-/** @defgroup objects OGLplus objects
+/** @defgroup oglplus_objects OGLplus objects
  *
  *  An @ref oglplus_object is a class wrapping around OpenGL objects
  *  like shaders, programs, textures, etc. It is using the RAII technique
@@ -200,7 +200,7 @@ OGLPLUS_CONSTEXPR inline int GetObjectTypeId(const Object&)
 /*
  *  @note Do not use this class directly, use the derived classes instead.
  *
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 template <class ObjectOps>
 class Object

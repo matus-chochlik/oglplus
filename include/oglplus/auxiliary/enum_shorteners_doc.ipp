@@ -8902,6 +8902,72 @@ template <typename Enum> friend bool operator==(Enum value, High);
 template <typename Enum> friend bool operator!=(Enum value, High);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c HighFloat value.
+/**
+ *  @see @ref oglplus::PrecisionType "PrecisionType"
+ *
+ *  @glsymbols
+ *  @gldefref{HIGH_FLOAT}
+ *
+ *  @ingroup smart_enums
+ */
+struct HighFloat {
+
+/// Conversion to any @p Enum type having the HighFloat value.
+/** Instances of the @ref oglplus::smart_enums::HighFloat "HighFloat"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c HighFloat value.
+ */
+template <typename Enum, Enum = Enum::HighFloat> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the HighFloat value.
+/** Instances of the @c smart_enums::HighFloat type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c HighFloat value.
+ */
+template <typename Enum> friend bool operator==(Enum value, HighFloat);
+
+/// Non-equality comparison with any @p Enum type having the HighFloat value.
+/** Instances of the @c smart_enums::HighFloat type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c HighFloat value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, HighFloat);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c HighInt value.
+/**
+ *  @see @ref oglplus::PrecisionType "PrecisionType"
+ *
+ *  @glsymbols
+ *  @gldefref{HIGH_INT}
+ *
+ *  @ingroup smart_enums
+ */
+struct HighInt {
+
+/// Conversion to any @p Enum type having the HighInt value.
+/** Instances of the @ref oglplus::smart_enums::HighInt "HighInt"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c HighInt value.
+ */
+template <typename Enum, Enum = Enum::HighInt> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the HighInt value.
+/** Instances of the @c smart_enums::HighInt type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c HighInt value.
+ */
+template <typename Enum> friend bool operator==(Enum value, HighInt);
+
+/// Non-equality comparison with any @p Enum type having the HighInt value.
+/** Instances of the @c smart_enums::HighInt type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c HighInt value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, HighInt);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Hint value.
 /**
  *  @see @ref oglplus::CompatibilityAttributeGroup "CompatibilityAttributeGroup"
@@ -11325,6 +11391,72 @@ template <typename Enum> friend bool operator==(Enum value, Low);
  *  the @c Low value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Low);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c LowFloat value.
+/**
+ *  @see @ref oglplus::PrecisionType "PrecisionType"
+ *
+ *  @glsymbols
+ *  @gldefref{LOW_FLOAT}
+ *
+ *  @ingroup smart_enums
+ */
+struct LowFloat {
+
+/// Conversion to any @p Enum type having the LowFloat value.
+/** Instances of the @ref oglplus::smart_enums::LowFloat "LowFloat"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c LowFloat value.
+ */
+template <typename Enum, Enum = Enum::LowFloat> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the LowFloat value.
+/** Instances of the @c smart_enums::LowFloat type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c LowFloat value.
+ */
+template <typename Enum> friend bool operator==(Enum value, LowFloat);
+
+/// Non-equality comparison with any @p Enum type having the LowFloat value.
+/** Instances of the @c smart_enums::LowFloat type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c LowFloat value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, LowFloat);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c LowInt value.
+/**
+ *  @see @ref oglplus::PrecisionType "PrecisionType"
+ *
+ *  @glsymbols
+ *  @gldefref{LOW_INT}
+ *
+ *  @ingroup smart_enums
+ */
+struct LowInt {
+
+/// Conversion to any @p Enum type having the LowInt value.
+/** Instances of the @ref oglplus::smart_enums::LowInt "LowInt"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c LowInt value.
+ */
+template <typename Enum, Enum = Enum::LowInt> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the LowInt value.
+/** Instances of the @c smart_enums::LowInt type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c LowInt value.
+ */
+template <typename Enum> friend bool operator==(Enum value, LowInt);
+
+/// Non-equality comparison with any @p Enum type having the LowInt value.
+/** Instances of the @c smart_enums::LowInt type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c LowInt value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, LowInt);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Luminance value.
@@ -14891,6 +15023,72 @@ template <typename Enum> friend bool operator==(Enum value, Medium);
  *  the @c Medium value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Medium);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MediumFloat value.
+/**
+ *  @see @ref oglplus::PrecisionType "PrecisionType"
+ *
+ *  @glsymbols
+ *  @gldefref{MEDIUM_FLOAT}
+ *
+ *  @ingroup smart_enums
+ */
+struct MediumFloat {
+
+/// Conversion to any @p Enum type having the MediumFloat value.
+/** Instances of the @ref oglplus::smart_enums::MediumFloat "MediumFloat"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MediumFloat value.
+ */
+template <typename Enum, Enum = Enum::MediumFloat> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MediumFloat value.
+/** Instances of the @c smart_enums::MediumFloat type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MediumFloat value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MediumFloat);
+
+/// Non-equality comparison with any @p Enum type having the MediumFloat value.
+/** Instances of the @c smart_enums::MediumFloat type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MediumFloat value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MediumFloat);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MediumInt value.
+/**
+ *  @see @ref oglplus::PrecisionType "PrecisionType"
+ *
+ *  @glsymbols
+ *  @gldefref{MEDIUM_INT}
+ *
+ *  @ingroup smart_enums
+ */
+struct MediumInt {
+
+/// Conversion to any @p Enum type having the MediumInt value.
+/** Instances of the @ref oglplus::smart_enums::MediumInt "MediumInt"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MediumInt value.
+ */
+template <typename Enum, Enum = Enum::MediumInt> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MediumInt value.
+/** Instances of the @c smart_enums::MediumInt type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MediumInt value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MediumInt);
+
+/// Non-equality comparison with any @p Enum type having the MediumInt value.
+/** Instances of the @c smart_enums::MediumInt type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MediumInt value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MediumInt);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Min value.

@@ -29,6 +29,7 @@
 #include <oglplus/imports/blend_file.hpp>
 
 #include <oglplus/shapes/blender_mesh.hpp>
+#include <oglplus/shapes/obj_mesh.hpp>
 
 namespace oglplus {
 

@@ -118,6 +118,9 @@ OGLPLUS_ENUM_CLASS_FWD(PixelStorageMode, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(PolygonMode, GLenum)
 #include <oglplus/enums/polygon_mode_names.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(PrecisionType, GLenum)
+#include <oglplus/enums/precision_type_names.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(PrimitiveType, GLenum)
 #include <oglplus/enums/primitive_type_names.ipp>
 

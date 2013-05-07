@@ -1815,6 +1815,42 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_3 ||GL_ARB_texture_view
+	/// References and reinteprets a subset of the data of another texture
+	/**
+	 *  @glvoereq{4,3,ARB,texture_view}
+	 *  @glsymbols
+	 *  @glfunref{TextureView}
+	 */
+	void View(
+		Target target,
+		const TextureOps& orig_texture,
+		PixelDataInternalFormat internal_format,
+		GLuint min_level,
+		GLuint num_levels,
+		GLuint min_layer,
+		GLuint num_layers
+	)
+	{
+		OGLPLUS_GLFUNC(TextureView)(
+			_name,
+			GLenum(target),
+			orig_texture._name,
+			GLenum(internal_format),
+			min_level,
+			num_levels,
+			min_layer,
+			num_layers
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureView,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+	}
+#endif
+
 #if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_2 ||GL_ARB_shader_image_load_store
 	/// Binds a @p level of this texture to an image @p unit
 	/**
@@ -2594,7 +2630,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL texture functionality
 /**
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class Texture
  : public TextureOps

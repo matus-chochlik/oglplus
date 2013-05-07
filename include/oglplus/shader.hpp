@@ -20,6 +20,7 @@
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/compile_error.hpp>
+#include <oglplus/precision_type.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/string.hpp>
 #include <oglplus/enumerations.hpp>
@@ -332,6 +333,30 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
 	}
 #endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
+	/// Get the shader precision format
+	/**
+	 *  @glvoereq{4,1,ARB,ES2_compatibility}
+	 *  @glsymbols
+	 *  @glfunref{GetShaderPrecisionFormat}
+	 */
+	static void PrecisionFormat(
+		ShaderType shader_type,
+		PrecisionType precision_type,
+		GLint* range_log_2,
+		GLint* precision_log_2
+	)
+	{
+		OGLPLUS_GLFUNC(GetShaderPrecisionFormat)(
+			GLenum(shader_type),
+			GLenum(precision_type),
+			range_log_2,
+			precision_log_2
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetShaderPrecisionFormat));
+	}
+#endif
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -380,7 +405,7 @@ protected:
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class VertexShader
  : public Shader
@@ -398,7 +423,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class GeometryShader
  : public Shader
@@ -416,7 +441,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class FragmentShader
  : public Shader
@@ -434,7 +459,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class TessControlShader
  : public Shader
@@ -452,7 +477,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class TessEvaluationShader
  : public Shader
@@ -470,7 +495,7 @@ typedef Specialized<
 /**
  *  @see Shader
  *  @see Program
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class ComputeShader
  : public Shader

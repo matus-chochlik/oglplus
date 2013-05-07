@@ -24,7 +24,7 @@
 
 namespace oglplus {
 
-OGLPLUS_ENUM_CLASS_FWD(SLDataType, GLenum)
+OGLPLUS_ENUM_CLASS_FWD_EVT(SLDataType, GLenum)
 
 template <typename EnumValueType<oglplus::SLDataType>::Type>
 struct SLtoCpp;
