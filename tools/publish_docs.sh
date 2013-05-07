@@ -9,7 +9,7 @@ doc_host="kifri.fri.uniza.sk"
 doc_home="./public_html/oglplus"
 doc_base="${doc_home}/html"
 # local path to docs
-doc_src="$(dirname $0)/../_build/doc/doxygen/html"
+doc_src="$(dirname $0)/../_build/doc/doxygen/oglplus/html"
 doc_web="$(dirname $0)/../web"
 #
 (cd _build && make doc -j 4) &&
