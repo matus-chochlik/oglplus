@@ -1,3 +1,18 @@
+Version 0.30.0
+
+- An .obj file loader was added.
+- 2 new examples showing the usage of the .obj loader were added.
+- Added several new simple .obj models used by the examples.
+- The build system was updated:
+  - Updated example dependencies/requirements.
+  - Added instructions for building .obj models.
+  - Updated and fixed some problems in documentation building.
+- Problem with scoped enums emulation in uniform_typecheck.hpp was fixed.
+- A wrapper for glTextureView was added to Texture.
+- A wrapper for glGetShaderPrecisionFormat was added to Shader.
+- The Size function was added to Buffer and Bound<Buffer>.
+- A problem with generating of the bound/*.hpp was fixed.
+
 Version 0.29.0
 
 - The build system was updated and several problems were fixed:
