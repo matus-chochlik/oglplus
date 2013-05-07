@@ -105,7 +105,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
 /**
- *  @ingroup objects
+ *  @ingroup oglplus_objects
  */
 class VertexArray
  : public VertexArrayOps

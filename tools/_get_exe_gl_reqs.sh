@@ -3,8 +3,8 @@
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-lib_name=libGL.so
 exe_path=${1}
+lib_name=${2:-libGL.so}
 
 if [ ${#exe_path} -eq 0 ]
 then echo "Usage: $(basename $0) <path-to-executable>" && exit 1
@@ -43,7 +43,7 @@ kill ${exe_pid}
 cut -d'(' -f1 "${tmp_file}" |
 uniq | sort | uniq |
 while read gl_sym
-do $(dirname $0)/_get_gl_sym_ver.sh "${gl_sym}" | grep "${gl_sym}:"
+do $(dirname $0)/_get_gl_sym_ver.sh "${gl_sym}" ${3} | grep "${gl_sym}:"
 done |
 sed -n 's/^.*GL_VERSION_\([1-9]_[0-9]\).*$/\1/p' |
 uniq | sort | uniq |

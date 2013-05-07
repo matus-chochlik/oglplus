@@ -11,7 +11,6 @@
  */
 
 
-#pragma once
 #ifndef OGLPLUS_BOUND_TEXTURE_1107121519_HPP
 #define OGLPLUS_BOUND_TEXTURE_1107121519_HPP
 
@@ -1701,6 +1700,32 @@ public:
 			this->BindTarget()
 		);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_texture_view
+
+	/** Wrapper for Texture::View()
+	 *  @see Texture::View()
+	 */
+	void View(
+		const TextureOps & orig_texture,
+		PixelDataInternalFormat internal_format,
+		GLuint min_level,
+		GLuint num_levels,
+		GLuint min_layer,
+		GLuint num_layers
+	) const
+	{
+		TextureOps::View(
+			this->BindTarget(),
+			orig_texture,
+			internal_format,
+			min_level,
+			num_levels,
+			min_layer,
+			num_layers
+		);
+	}
+#endif // GL_VERSION_4_3 || GL_ARB_texture_view
 
 
 }; // class BoundTemplate
