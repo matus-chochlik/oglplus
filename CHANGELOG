@@ -7,6 +7,7 @@ Version 0.30.0
   - Updated example dependencies/requirements.
   - Added instructions for building .obj models.
   - Updated and fixed some problems in documentation building.
+  - Fixed a problem with building of the test fixtures.
 - Problem with scoped enums emulation in uniform_typecheck.hpp was fixed.
 - A wrapper for glTextureView was added to Texture.
 - A wrapper for glGetShaderPrecisionFormat was added to Shader.
