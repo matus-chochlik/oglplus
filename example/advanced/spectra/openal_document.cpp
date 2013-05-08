@@ -101,9 +101,7 @@ bool SpectraOpenALDocument::FinishLoading(void)
 {
 	context.MakeCurrent();
 
-	char buf[2] = {'\0'};
-	char* arg = buf;
-	oalplus::ALUtilityToolkit alut(false, 1, &arg);
+	oalplus::ALUtilityToolkit alut(false);
 
 	alut.LoadMemoryFromFile(
 		raw_data,

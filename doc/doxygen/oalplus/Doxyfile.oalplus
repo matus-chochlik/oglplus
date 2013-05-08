@@ -16,11 +16,13 @@ OUTPUT_DIRECTORY       = ../../../_build/doc/doxygen/oalplus
 
 INPUT = \
 	../../../include/oalplus/enums \
-	../../../include/oalplus
+	../../../include/oalplus \
+	../../../example/oalplus
 
 INCLUDE_PATH = ../../../include/ ../../../example
 
-EXAMPLE_PATH = 
+EXAMPLE_PATH = \
+	../../../example/oalplus
 
 PREDEFINED             = \
 	"OGLPLUS_NO_SITE_CONFIG=1" \

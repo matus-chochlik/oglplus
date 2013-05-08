@@ -23,6 +23,9 @@
 #include <oalplus/source_state.hpp>
 #include <oalplus/source_type.hpp>
 
+#include <oalplus/device.hpp>
+#include <oalplus/context.hpp>
+
 #include <oalplus/listener.hpp>
 
 #include <oalplus/buffer.hpp>

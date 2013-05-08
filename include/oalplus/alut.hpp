@@ -32,16 +32,31 @@ class ALUtilityToolkit
 private:
 	bool _initialized;
 	ALUtilityToolkit(const ALUtilityToolkit&);
-public:
-	ALUtilityToolkit(bool with_context, int argc = 0, char** argv = nullptr)
-	 : _initialized(
-		with_context
-		?(OALPLUS_ALFUNC(alut,Init)(&argc, argv) == AL_TRUE)
-		:(OALPLUS_ALFUNC(alut,InitWithoutContext)(&argc, argv)==AL_TRUE)
-	)
+
+	static bool _initialize(bool with_context, int argc, char** argv)
 	{
+		bool result = with_context
+		?(OALPLUS_ALFUNC(alut,Init)(&argc, argv) == AL_TRUE)
+		:(OALPLUS_ALFUNC(alut,InitWithoutContext)(&argc, argv)==AL_TRUE);
 		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, Init));
+		return result;
+
 	}
+
+	static bool _initialize(bool with_context)
+	{
+		char buf[2] = {'\0'};
+		char* arg = buf;
+		return _initialize(with_context, 1, &arg);
+	}
+public:
+	ALUtilityToolkit(bool with_context, int argc, char** argv)
+	 : _initialized(_initialize(with_context, argc, argv))
+	{ }
+
+	ALUtilityToolkit(bool with_context)
+	 : _initialized(_initialize(with_context))
+	{ }
 
 	ALUtilityToolkit(ALUtilityToolkit&& tmp)
 	 : _initialized(tmp._initialized)
