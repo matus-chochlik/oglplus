@@ -17,6 +17,10 @@
 #include <oalplus/fwd.hpp>
 #include <oalplus/error.hpp>
 
+#include <oalplus/curve.hpp>
+#include <oalplus/vector.hpp>
+#include <oalplus/angle.hpp>
+
 #include <oalplus/data_format.hpp>
 #include <oalplus/string_query.hpp>
 #include <oalplus/distance_model.hpp>
