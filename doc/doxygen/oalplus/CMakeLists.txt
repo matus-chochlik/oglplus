@@ -30,6 +30,11 @@ add_custom_command(
 	COMMENT "Generating OALplus HTML documentation"
 )
 
+add_custom_target(
+	oalplus-doc-index-html
+	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
+)
+
 set(COPIED_FILES tab_a.png tab_b.png tab_h.png tab_s.png tabs.css)
 set(COPIED_FILES_TARGETS "")
 
@@ -40,7 +45,7 @@ foreach(COPIED_FILE ${COPIED_FILES})
 			"${CMAKE_CURRENT_SOURCE_DIR}/${COPIED_FILE}"
 			"${CMAKE_CURRENT_BINARY_DIR}/html/${COPIED_FILE}"
 		COMMENT "Copying file ${COPIED_FILE}"
-		DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
+		DEPENDS oalplus-doc-index-html
 	)
 	set(COPIED_FILES_TARGETS
 		"${COPIED_FILES_TARGETS}"
@@ -58,9 +63,7 @@ unset(DOXYFILE)
 
 add_custom_target(
 	oalplus-doc
-	DEPENDS
-		${CMAKE_CURRENT_BINARY_DIR}/html/index.html
-		${COPIED_FILES_TARGETS}
+	DEPENDS ${COPIED_FILES_TARGETS}
 )
 
 unset(DOC_DEPENDS)
