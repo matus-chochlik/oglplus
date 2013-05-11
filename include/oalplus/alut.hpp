@@ -27,6 +27,7 @@
 
 namespace oalplus {
 
+/// Wrapper for the ALUT library
 class ALUtilityToolkit
 {
 private:
@@ -50,20 +51,24 @@ private:
 		return _initialize(with_context, 1, &arg);
 	}
 public:
+	/// Initializes the alut library, optionally with a context
 	ALUtilityToolkit(bool with_context, int argc, char** argv)
 	 : _initialized(_initialize(with_context, argc, argv))
 	{ }
 
+	/// Initializes the alut library, optionally with a context
 	ALUtilityToolkit(bool with_context)
 	 : _initialized(_initialize(with_context))
 	{ }
 
+	/// Move construction
 	ALUtilityToolkit(ALUtilityToolkit&& tmp)
 	 : _initialized(tmp._initialized)
 	{
 		tmp._initialized = false;
 	}
 
+	/// Cleans up the ALUT library
 	~ALUtilityToolkit(void)
 	{
 		if(_initialized)
@@ -167,6 +172,10 @@ private:
 		return std::vector<ALubyte>(data, data+size);
 	}
 public:
+	/// Create a buffer containing the samples of a 'Hello World' sound
+	/**
+	 *  @see CreateBufferFromFile
+	 */
 	Buffer CreateBufferHelloWorld(void) const
 	{
 		assert(_initialized);
@@ -175,6 +184,10 @@ public:
 		return Buffer::FromRawName(name);
 	}
 
+	/// Create a buffer containing the samples from a specified sound file
+	/**
+	 *  @see CreateBufferHelloWorld
+	 */
 	Buffer CreateBufferFromFile(const ALchar* file_path) const
 	{
 		assert(_initialized);
@@ -183,6 +196,11 @@ public:
 		return Buffer::FromRawName(name);
 	}
 
+	/// Loads samples of a 'Hello World' sound into a buffer
+	/** This version normalizes the sound samples.
+	 *
+	 *  @see LoadMemoryFromFileNormalized
+	 */
 	std::vector<ALfloat> LoadMemoryHelloWorldNormalized(
 		DataFormat* data_format,
 		ALfloat* frequency
@@ -205,6 +223,12 @@ public:
 		return _load_mem_norm(ptr, format, size);
 	}
 
+	/// Loads samples from a sound file into a buffer
+	/** This version normalizes the sound samples.
+	 *
+	 *  @see LoadMemoryHelloWorldNormalized
+	 *  @see LoadMemoryFromFile
+	 */
 	std::vector<ALfloat> LoadMemoryFromFileNormalized(
 		const ALchar* file_path,
 		DataFormat* data_format,
@@ -229,6 +253,11 @@ public:
 		return _load_mem_norm(ptr, format, size);
 	}
 
+	/// Loads samples from a sound file into a buffer
+	/** 
+	 *  @see LoadMemoryFromFileNormalized
+	 *  @see LoadMemoryHelloWorldNormalized
+	 */
 	std::vector<ALubyte> LoadMemoryFromFile(
 		const ALchar* file_path,
 		DataFormat* data_format,
@@ -253,6 +282,14 @@ public:
 		return _load_memory(ptr, size);
 	}
 
+	/// Loads samples from a sound file into a buffer
+	/** This version loads both the raw data and the normalized samples
+	 *  into two buffers and also returns the format and the sampling
+	 *  frequency.
+	 *
+	 *  @see LoadMemoryFromFileNormalized
+	 *  @see LoadMemoryHelloWorldNormalized
+	 */
 	void LoadMemoryFromFile(
 		std::vector<ALubyte>& raw,
 		std::vector<ALfloat>& norm,
