@@ -22,8 +22,8 @@
 #include <cassert>
 
 namespace oalplus {
-namespace aux {
 
+/// A range for iteration through the device specifier strings
 class DeviceSpecRange
 {
 private:
@@ -35,31 +35,37 @@ private:
 	 : _ptr(ptr)
 	{ }
 public:
+	/// Returns true when the range is empty (at the end of traversal)
 	bool Empty(void) const
 	{
 		return !_ptr || !(*_ptr);
 	}
 
+	/// Returns the specifier string at the front of the range
 	const ALchar* Front(void) const
 	{
 		assert(!Empty());
 		return _ptr;
 	}
 
+	/// Goes to the next specifier in the range
 	void Next(void)
 	{
 		assert(!Empty());
 		_ptr += std::strlen(_ptr)+1;
 	}
 
+	/// A synonym for Next
 	void StepFront(void)
 	{
 		Next();
 	}
 };
 
-} // namespace aux
-
+/// Class implementing audio device-specific operations
+/**
+ *  @note Do not use this class directly, use Device instead.
+ */
 class DeviceOps
 {
 protected:
@@ -74,31 +80,35 @@ protected:
 		assert(_device);
 	}
 public:
-	static aux::DeviceSpecRange Specifiers(void)
+	/// Returns a range of specifier strings for available audio devices
+	static DeviceSpecRange Specifiers(void)
 	{
 		const ALchar* ptr = OALPLUS_ALFUNC(alc,GetString)(
 			nullptr,
 			ALC_DEVICE_SPECIFIER
 		);
-		return aux::DeviceSpecRange(ptr);
+		return DeviceSpecRange(ptr);
 	}
 
-	static aux::DeviceSpecRange CaptureSpecifiers(void)
+	/// Returns a range of specifier strings for available capture devices
+	static DeviceSpecRange CaptureSpecifiers(void)
 	{
 		const ALchar* ptr = OALPLUS_ALFUNC(alc,GetString)(
 			nullptr,
 			ALC_CAPTURE_DEVICE_SPECIFIER
 		);
-		return aux::DeviceSpecRange(ptr);
+		return DeviceSpecRange(ptr);
 	}
 };
 
+/// A wrapper for audio device-related operations
 class Device
  : public DeviceOps
 {
 private:
 	Device(const Device&);
 public:
+	/// Constructs an object referencing the default audio device
 	Device(void)
 	 : DeviceOps(OALPLUS_ALFUNC(alc,OpenDevice)(nullptr))
 	{
@@ -108,6 +118,7 @@ public:
 		);
 	}
 
+	/// Constructs an object referencing the specified audio device
 	Device(const ALchar* dev_spec)
 	 : DeviceOps(OALPLUS_ALFUNC(alc,OpenDevice)(dev_spec))
 	{
@@ -117,6 +128,7 @@ public:
 		);
 	}
 
+	/// Device is movable
 	Device(Device&& tmp)
 	 : DeviceOps(tmp._device)
 	{

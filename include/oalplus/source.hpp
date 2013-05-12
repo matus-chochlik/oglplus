@@ -67,30 +67,35 @@ protected:
 		return AL_FALSE;
 	}
 public:
+	/// Starts the audio playback
 	void Play(void)
 	{
 		OALPLUS_ALFUNC(al,SourcePlay)(_name);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourcePlay));
 	}
 
+	/// Pauses the audio playback
 	void Pause(void)
 	{
 		OALPLUS_ALFUNC(al,SourcePause)(_name);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourcePause));
 	}
 
+	/// Stops the audio playback
 	void Stop(void)
 	{
 		OALPLUS_ALFUNC(al,SourceStop)(_name);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceStop));
 	}
 
+	/// Rewinds the audio track
 	void Rewind(void)
 	{
 		OALPLUS_ALFUNC(al,SourceRewind)(_name);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceRewind));
 	}
 
+	/// Returns the source state
 	SourceState State(void) const
 	{
 		ALint result = 0;
@@ -103,6 +108,7 @@ public:
 		return SourceState(result);
 	}
 
+	/// Sets the source to relative or absoulte state
 	void Relative(bool value)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -113,6 +119,7 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
 	}
 
+	/// Returns true if the source is relative
 	bool Relative(void) const
 	{
 		ALint result;
@@ -125,6 +132,7 @@ public:
 		return result == AL_TRUE;
 	}
 
+	/// Sets the source type
 	void Type(SourceType type)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -135,6 +143,7 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
 	}
 
+	/// Returns the source type
 	SourceType Type(void) const
 	{
 		ALint result;
@@ -147,6 +156,7 @@ public:
 		return SourceType(ALenum(result));
 	}
 
+	/// Sets the looping mode
 	void Looping(bool value)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -157,6 +167,7 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
 	}
 
+	/// Returns true if the source is in looping mode
 	bool Looping(void) const
 	{
 		ALint result;
@@ -169,6 +180,7 @@ public:
 		return result == AL_TRUE;
 	}
 
+	/// Assings an audio buffer to the source
 	void Buffer(const BufferOps& buffer)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -179,6 +191,7 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
 	}
 
+	/// Detaches all queued buffers from the source
 	void DetachBuffers(void)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -189,6 +202,7 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
 	}
 
+	/// Enqueues multiple buffers to the source
 	void QueueBuffers(const Array<oalplus::Buffer>& buffers)
 	{
 		OALPLUS_ALFUNC(al,SourceQueueBuffers)(
@@ -201,6 +215,7 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceQueueBuffers));
 	}
 
+	/// Removes multiple buffers from the sources queue
 	void UnqueueBuffers(const Array<oalplus::Buffer>& buffers)
 	{
 		OALPLUS_ALFUNC(al,SourceUnqueueBuffers)(
@@ -213,6 +228,7 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceUnqueueBuffers));
 	}
 
+	/// Sets the value of gain
 	void Gain(ALfloat value) const
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -223,6 +239,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the value of gain
 	ALfloat Gain(void) const
 	{
 		ALfloat result;
@@ -235,6 +252,7 @@ public:
 		return result;
 	}
 
+	/// Sets the minimal value of gain
 	void MinGain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -245,6 +263,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the minimal value of gain
 	ALfloat MinGain(void) const
 	{
 		ALfloat result;
@@ -257,6 +276,7 @@ public:
 		return result;
 	}
 
+	/// Sets the maximum value of gain
 	void MaxGain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -267,6 +287,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the maximum value of gain
 	ALfloat MaxGain(void) const
 	{
 		ALfloat result;
@@ -279,6 +300,7 @@ public:
 		return result;
 	}
 
+	/// Sets the reference distance
 	void ReferenceDistance(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -289,7 +311,8 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
-	ALfloat ReferenceDisntace(void) const
+	/// Returns the reference distance
+	ALfloat ReferenceDistance(void) const
 	{
 		ALfloat result;
 		OALPLUS_ALFUNC(al,GetSourcefv)(
@@ -301,6 +324,7 @@ public:
 		return result;
 	}
 
+	/// Sets the value of rolloff factor
 	void RolloffFactor(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -311,6 +335,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the value of rolloff factor
 	ALfloat RolloffFactor(void) const
 	{
 		ALfloat result;
@@ -323,6 +348,7 @@ public:
 		return result;
 	}
 
+	/// Sets the value of max distance used with some distance models
 	void MaxDistance(ALfloat value) const
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -333,6 +359,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the value of max distance used with some distance models
 	ALfloat MaxDistance(void) const
 	{
 		ALfloat result;
@@ -345,6 +372,7 @@ public:
 		return result;
 	}
 
+	/// Sets the value of pitch
 	void Pitch(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -355,6 +383,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the value of pitch
 	ALfloat Pitch(void) const
 	{
 		ALfloat result;
@@ -367,6 +396,7 @@ public:
 		return result;
 	}
 
+	/// Sets the position of the source
 	void Position(const Vec3f& dir)
 	{
 		OALPLUS_ALFUNC(al,Sourcefv)(
@@ -377,6 +407,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcefv));
 	}
 
+	/// Sets the position of the source
 	void Position(ALfloat x, ALfloat y, ALfloat z)
 	{
 		OALPLUS_ALFUNC(al,Source3f)(
@@ -387,6 +418,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Source3f));
 	}
 
+	/// Returns the position of the source
 	Vec3f Position(void) const
 	{
 		ALfloat result[3];
@@ -399,6 +431,7 @@ public:
 		return Vec3f(result);
 	}
 
+	/// Sets the velocity of the source
 	void Velocity(const Vec3f& dir)
 	{
 		OALPLUS_ALFUNC(al,Sourcefv)(
@@ -409,6 +442,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcefv));
 	}
 
+	/// Sets the velocity of the source
 	void Velocity(ALfloat x, ALfloat y, ALfloat z)
 	{
 		OALPLUS_ALFUNC(al,Source3f)(
@@ -419,6 +453,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Source3f));
 	}
 
+	/// Returns the velocity of the source
 	Vec3f Velocity(void) const
 	{
 		ALfloat result[3];
@@ -431,6 +466,7 @@ public:
 		return Vec3f(result);
 	}
 
+	/// Sets the direction of the source
 	void Direction(const Vec3f& dir)
 	{
 		OALPLUS_ALFUNC(al,Sourcefv)(
@@ -441,6 +477,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcefv));
 	}
 
+	/// Sets the direction of the source
 	void Direction(ALfloat x, ALfloat y, ALfloat z)
 	{
 		OALPLUS_ALFUNC(al,Source3f)(
@@ -451,6 +488,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Source3f));
 	}
 
+	/// Returns the direction of the source
 	Vec3f Direction(void) const
 	{
 		ALfloat result[3];
@@ -463,6 +501,7 @@ public:
 		return Vec3f(result);
 	}
 
+	/// Sets the sound cone's inner angle
 	void ConeInnerAngle(Anglef angle)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -473,6 +512,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the sound cone's inner angle
 	Anglef ConeInnerAngle(void) const
 	{
 		ALfloat result;
@@ -485,6 +525,7 @@ public:
 		return Anglef::Degrees(result);
 	}
 
+	/// Sets the sound cone's outer angle
 	void ConeOuterAngle(Anglef angle)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -495,6 +536,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the sound cone's outer angle
 	Anglef ConeOuterAngle(void) const
 	{
 		ALfloat result;
@@ -507,6 +549,7 @@ public:
 		return Anglef::Degrees(result);
 	}
 
+	/// Sets the sound cone's outer gain value
 	void ConeOuterGain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -517,6 +560,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Returns the sound cone's outer gain value
 	ALfloat ConeOuterGain(void) const
 	{
 		ALfloat result;
@@ -529,6 +573,7 @@ public:
 		return result;
 	}
 
+	/// Sets the Sec-offset value
 	void SecOffset(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -539,6 +584,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Sets the sample-offset value
 	void SampleOffset(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -549,6 +595,7 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
 	}
 
+	/// Sets the byte-offset value
 	void ByteOffset(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(

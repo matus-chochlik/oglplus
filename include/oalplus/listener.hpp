@@ -25,6 +25,12 @@ namespace oalplus {
 class Listener
 {
 public:
+	/// Specifies the position of the listener
+	/**
+	 *  @see Velocity
+	 *  @see Orientation
+	 *  @throws Error
+	 */
 	static void Position(const Vec3f& position)
 	{
 		OALPLUS_ALFUNC(al,Listenerfv)(
@@ -34,7 +40,14 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
 	}
 
+	/// Specifies the position of the listener
+	/**
+	 *  @see Velocity
+	 *  @see Orientation
+	 *  @throws Error
+	 */
 	static void Position(ALfloat x, ALfloat y, ALfloat z)
+
 	{
 		OALPLUS_ALFUNC(al,Listener3f)(
 			AL_POSITION,
@@ -43,6 +56,11 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listener3f));
 	}
 
+	/// Returns the positin of the listener
+	/**
+	 *  @see Velocity
+	 *  @see Orientation
+	 */
 	static Vec3f Position(void)
 	{
 		ALfloat result[3];
@@ -54,6 +72,12 @@ public:
 		return Vec3f(result);
 	}
 
+	/// Specifies the velocity vector of the listener
+	/**
+	 *  @see Position 
+	 *  @see Orientation
+	 *  @throws Error
+	 */
 	static void Velocity(const Vec3f& velocity)
 	{
 		OALPLUS_ALFUNC(al,Listenerfv)(
@@ -63,6 +87,12 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
 	}
 
+	/// Specifies the velocity vector of the listener
+	/**
+	 *  @see Position 
+	 *  @see Orientation
+	 *  @throws Error
+	 */
 	static void Velocity(ALfloat x, ALfloat y, ALfloat z)
 	{
 		OALPLUS_ALFUNC(al,Listener3f)(
@@ -72,6 +102,11 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listener3f));
 	}
 
+	/// Returns the velocity vector of the listener
+	/**
+	 *  @see Position 
+	 *  @see Orientation
+	 */
 	static Vec3f Velocity(void)
 	{
 		ALfloat result[3];
@@ -83,6 +118,12 @@ public:
 		return Vec3f(result);
 	}
 
+	/// Specifies the orientation vector of the listener
+	/**
+	 *  @see Position 
+	 *  @see Velocity
+	 *  @throws Error
+	 */
 	static void Orientation(const Vec3f& at, const Vec3f& up)
 	{
 		ALfloat v[6] = {
@@ -93,6 +134,14 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
 	}
 
+	/// Specifies the orientation vector of the listener
+	/**
+	 *  @see Position 
+	 *  @see Velocity
+	 *  @throws Error
+	 *  @see OrientationAt
+	 *  @see OrientationUp
+	 */
 	static void Orientation(
 		ALfloat at_x,
 		ALfloat at_y,
@@ -107,6 +156,13 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
 	}
 
+	/// Returns the orientation vector of the listener
+	/**
+	 *  @see Position 
+	 *  @see Velocity
+	 *  @see Orientation
+	 *  @see OrientationUp
+	 */
 	static Vec3f OrientationAt(void)
 	{
 		ALfloat v[6];
@@ -115,6 +171,21 @@ public:
 		return Vec3f(v, 3);
 	}
 
+	/// Returns the orientation up vector of the listener
+	/**
+	 *  @see Position 
+	 *  @see Velocity
+	 *  @see OrientationAt
+	 */
+	static Vec3f OrientationUp(void)
+	{
+		ALfloat v[6];
+		OALPLUS_ALFUNC(al,GetListenerfv)(AL_ORIENTATION, v);
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		return Vec3f(v+3, 3);
+	}
+
+	/// Specifies the value of gain of the listener
 	static void Gain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Listenerf)(
@@ -124,6 +195,7 @@ public:
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerf));
 	}
 
+	/// Returns the current value of gain of the listener
 	static ALfloat Gain(void)
 	{
 		ALfloat result;
