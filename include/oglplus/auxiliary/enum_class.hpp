@@ -13,16 +13,21 @@
 #ifndef OGLPLUS_AUX_ENUM_CLASS_1207191556_HPP
 #define OGLPLUS_AUX_ENUM_CLASS_1207191556_HPP
 
+namespace oglplus {
+
 // if we have native strongly typed enums
 #if !OGLPLUS_NO_SCOPED_ENUMS
 
 #define OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
+namespace enums { \
 enum class NAME : TYPE; \
+} using enums::NAME;
 
 #define OGLPLUS_ENUM_CLASS_FWD_EVT(NAME, TYPE) \
 	OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE)
 
 #define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
+namespace enums { \
 enum class NAME : TYPE {
 
 #define OGLPLUS_ENUM_CLASS_VALUE(ITEM, VALUE) \
@@ -33,9 +38,11 @@ enum class NAME : TYPE {
 
 #define OGLPLUS_ENUM_CLASS_COMMA ,
 
-#define OGLPLUS_ENUM_CLASS_END };
+#define OGLPLUS_ENUM_CLASS_END(NAME) \
+}; } \
+using enums::NAME;
 
-namespace oglplus {
+namespace enums {
 
 template <typename Enum>
 struct EnumValueType
@@ -49,19 +56,24 @@ struct EnumBaseType
 	typedef GLenum Type;
 };
 
+} // namespace enums
+
 // no native strongly typed enums
 #else
 
 #define OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
-class NAME;
+namespace enums { class NAME; }
+
 
 #define OGLPLUS_ENUM_CLASS_FWD_EVT(NAME, TYPE) \
 OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE) \
+namespace enums { \
 template <> \
 struct EnumValueType<NAME> \
 { \
 	typedef TYPE Type; \
-};
+}; \
+}
 
 #define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
 class NAME { \
@@ -84,9 +96,9 @@ public: typedef TYPE _value_type; \
 
 #define OGLPLUS_ENUM_CLASS_COMMA
 
-#define OGLPLUS_ENUM_CLASS_END };
+#define OGLPLUS_ENUM_CLASS_END(NAME) };
 
-namespace oglplus {
+namespace enums {
 
 template <typename Enum>
 struct EnumValueType
@@ -99,6 +111,8 @@ struct EnumBaseType
 {
 	typedef typename Enum::_value_type Type;
 };
+
+} // namespace enums
 
 #endif
 

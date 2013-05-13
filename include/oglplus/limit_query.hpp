@@ -26,7 +26,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(LimitQuery, GLenum)
 #include <oglplus/enums/limit_query.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(LimitQuery)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/limit_query_names.ipp>

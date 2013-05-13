@@ -54,6 +54,8 @@ Range<Enum> EnumValueRange(void);
 
 #else
 
+namespace enums {
+
 template <typename Enum>
 struct EnumBaseType;
 
@@ -62,7 +64,7 @@ inline StrLit EnumValueName(EnumType enum_value)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
-	return EnumValueName(
+	return _ValueName(
 		(EnumType*)nullptr,
 		BaseType(enum_value)
 	);
@@ -79,9 +81,9 @@ inline aux::CastIterRange<
 > EnumValueRange(void)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_RANGES
-	return EnumValueRange((EnumType*)nullptr);
+	return _ValueRange((EnumType*)nullptr);
 #else
-	const typename EnumBaseType<EnumType>::Type* x = nullptr;
+	const typename EnumBaseType<EnumType>::Type *x = nullptr;
 	return aux::CastIterRange<
 		const typename EnumBaseType<EnumType>::Type*,
 		EnumType
@@ -89,6 +91,10 @@ inline aux::CastIterRange<
 
 #endif
 }
+
+} // namespace enums
+using enums::EnumValueName;
+using enums::EnumValueRange;
 
 #endif // OGLPLUS_DOCUMENTATION_ONLY
 

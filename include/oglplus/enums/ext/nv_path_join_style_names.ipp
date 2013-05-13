@@ -9,7 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-OGLPLUS_LIB_FUNC StrLit EnumValueName(
+namespace enums {
+OGLPLUS_LIB_FUNC StrLit _ValueName(
 	PathNVJoinStyle*,
 	GLenum value
 )
@@ -42,4 +43,5 @@ return StrLit();
 #else
 ;
 #endif
+} // namespace enums
 

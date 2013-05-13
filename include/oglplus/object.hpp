@@ -78,7 +78,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ObjectType, GLenum)
 #include <oglplus/enums/object_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ObjectType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/object_type_names.ipp>
@@ -147,7 +147,7 @@ struct ObjectTypeOrTarget
 		typename ObjectWithTarget<Object>::Target
 	>::type Type;
 
-	typedef typename EnumValueType<Type>::Type ValueType;
+	typedef typename enums::EnumValueType<Type>::Type ValueType;
 };
 
 /// Allows to make managed copies of instances of Object
@@ -646,9 +646,9 @@ public:
 	 : ObjectOps(obj)
 	{ }
 
-	Managed(GLuint _name)
+	Managed(GLuint name)
 	{
-		FriendOf<ObjectOps>::SetName(*this, _name);
+		FriendOf<ObjectOps>::SetName(*this, name);
 	}
 
 	~Managed(void)

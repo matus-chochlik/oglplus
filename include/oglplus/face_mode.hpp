@@ -29,7 +29,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(Face, GLenum)
 #include <oglplus/enums/face.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(Face)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/face_names.ipp>
@@ -48,7 +48,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(FaceOrientation, GLenum)
 #include <oglplus/enums/face_orientation.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(FaceOrientation)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/face_orientation_names.ipp>

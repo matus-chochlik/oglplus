@@ -30,7 +30,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(QueryTarget, GLenum)
 #include <oglplus/enums/query_target.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(QueryTarget)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/query_target_names.ipp>

@@ -29,7 +29,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(CompareFunction)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/compare_function_names.ipp>

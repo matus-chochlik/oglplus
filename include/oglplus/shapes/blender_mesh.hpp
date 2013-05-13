@@ -545,7 +545,7 @@ void BlenderMesh::_load_mesh(
 						};
 
 						Vec3f p[3];
-						Vec2f uv[3];
+						Vec2f uvvec[3];
 						for(size_t k=0; k!=3; ++k)
 						{
 							p[k] = Vec3f(
@@ -553,7 +553,7 @@ void BlenderMesh::_load_mesh(
 								_pos_data[fi[j[k]]*3+1],
 								_pos_data[fi[j[k]]*3+2]
 							);
-							uv[k] = Vec2f(
+							uvvec[k] = Vec2f(
 								_uvc_data[fi[j[k]]*2+0],
 								_uvc_data[fi[j[k]]*2+1]
 							);
@@ -562,8 +562,8 @@ void BlenderMesh::_load_mesh(
 						Vec3f v0 = p[1] - p[0];
 						Vec3f v1 = p[2] - p[0];
 
-						Vec2f duv0 = uv[1] - uv[0];
-						Vec2f duv1 = uv[2] - uv[0];
+						Vec2f duv0 = uvvec[1] - uvvec[0];
+						Vec2f duv1 = uvvec[2] - uvvec[0];
 
 						float d = duv0.x()*duv1.y()-duv0.y()*duv1.x();
 						if(d != 0.0f) d = 1.0f/d;

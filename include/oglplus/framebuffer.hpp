@@ -58,7 +58,7 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
  */
 OGLPLUS_ENUM_CLASS_BEGIN(FramebufferAttachment, GLenum)
 #include <oglplus/enums/framebuffer_attachment.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(FramebufferAttachment)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/framebuffer_attachment_names.ipp>
@@ -74,7 +74,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(FramebufferColorAttachment, GLenum)
 #include <oglplus/enums/framebuffer_color_attachment.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(FramebufferColorAttachment)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/framebuffer_color_attachment_names.ipp>
@@ -90,7 +90,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(FramebufferStatus, GLenum)
 #include <oglplus/enums/framebuffer_status.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(FramebufferStatus)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/framebuffer_status_names.ipp>
@@ -106,7 +106,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(FramebufferTarget, GLenum)
 #include <oglplus/enums/framebuffer_target.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(FramebufferTarget)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/framebuffer_target_names.ipp>

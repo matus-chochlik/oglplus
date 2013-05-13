@@ -72,7 +72,7 @@ find_package(X11)
 
 # enable warnings on gcc
 if(${CMAKE_COMPILER_IS_GNUCXX})
-	add_definitions(-pedantic -Wall -Wextra)
+	add_definitions(-pedantic -Wall -Wextra -Wshadow)
 endif()
 #
 # we need one of the headers including the OpenGL C-API

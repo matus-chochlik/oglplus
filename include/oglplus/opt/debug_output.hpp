@@ -33,7 +33,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputSeverity, GLenum)
 #include <oglplus/enums/debug_output_severity.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(DebugOutputSeverity)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/debug_output_severity_names.ipp>
@@ -50,7 +50,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputSource, GLenum)
 #include <oglplus/enums/debug_output_source.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(DebugOutputSource)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/debug_output_source_names.ipp>
@@ -66,7 +66,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputType, GLenum)
 #include <oglplus/enums/debug_output_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(DebugOutputType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/debug_output_type_names.ipp>

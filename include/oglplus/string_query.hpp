@@ -26,7 +26,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(StringQuery, GLenum)
 #include <oglplus/enums/string_query.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(StringQuery)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/string_query_names.ipp>

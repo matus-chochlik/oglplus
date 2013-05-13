@@ -45,7 +45,7 @@ private:
 
 	Program make_prog(void)
 	{
-		Program prog(ObjectDesc("Main"));
+		Program result(ObjectDesc("Main"));
 
 		vertex_shader.Source(
 			"#version 330\n"
@@ -66,7 +66,7 @@ private:
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		).Compile();
-		prog.AttachShader(vertex_shader);
+		result.AttachShader(vertex_shader);
 
 		FragmentShader fs(ObjectDesc("Main fragment"));
 		fs.Source(
@@ -84,11 +84,11 @@ private:
 			"}"
 		);
 		fs.Compile();
-		prog.AttachShader(fs);
+		result.AttachShader(fs);
 
-		prog.Link().Use();
+		result.Link().Use();
 
-		return std::move(prog);
+		return std::move(result);
 	}
 
 	// Handle for matrix uniforms

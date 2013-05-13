@@ -28,7 +28,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PrimitiveType, GLenum)
 #include <oglplus/enums/primitive_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PrimitiveType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/primitive_type_names.ipp>
@@ -44,7 +44,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TessGenPrimitiveType, GLenum)
 #include <oglplus/enums/tess_gen_primitive_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TessGenPrimitiveType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/tess_gen_primitive_type_names.ipp>
@@ -60,7 +60,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TessGenPrimitiveSpacing, GLenum)
 #include <oglplus/enums/tess_gen_primitive_spacing.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TessGenPrimitiveSpacing)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/tess_gen_primitive_spacing_names.ipp>

@@ -26,7 +26,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ColorLogicOperation, GLenum)
 #include <oglplus/enums/color_logic_operation.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ColorLogicOperation)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/color_logic_operation_names.ipp>
