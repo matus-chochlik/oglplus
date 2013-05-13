@@ -9,10 +9,11 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+namespace enums {
 OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	DistanceModel
-> EnumValueRange(DistanceModel*)
+> _ValueRange(DistanceModel*)
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_DISTANCEMODEL)
 #define OALPLUS_IMPL_EVR_DISTANCEMODEL
@@ -49,4 +50,5 @@ return aux::CastIterRange<
 #else
 ;
 #endif
+} // namespace enums
 

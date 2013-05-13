@@ -23,7 +23,7 @@ namespace oalplus {
  */
 OALPLUS_ENUM_CLASS_BEGIN(SourceState, ALenum)
 #include <oalplus/enums/source_state.ipp>
-OALPLUS_ENUM_CLASS_END
+OALPLUS_ENUM_CLASS_END(SourceState)
 
 #if !OALPLUS_NO_ENUM_VALUE_NAMES
 #include <oalplus/enums/source_state_names.ipp>

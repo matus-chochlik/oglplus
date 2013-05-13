@@ -119,10 +119,10 @@ public:
 #endif
 
 	/// Construction from a c-string @p and a length
-	explicit StrLit(const ALchar* lit, std::size_t size)
+	explicit StrLit(const ALchar* lit, std::size_t lit_size)
 	OALPLUS_NOEXCEPT(true)
 	 : _lit(lit)
-	 , _size(size)
+	 , _size(lit_size)
 	{
 		_check();
 	}

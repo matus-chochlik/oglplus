@@ -23,7 +23,7 @@ namespace oalplus {
  */
 OALPLUS_ENUM_CLASS_BEGIN(DistanceModel, ALenum)
 #include <oalplus/enums/distance_model.ipp>
-OALPLUS_ENUM_CLASS_END
+OALPLUS_ENUM_CLASS_END(DistanceModel)
 
 #if !OALPLUS_NO_ENUM_VALUE_NAMES
 #include <oalplus/enums/distance_model_names.ipp>

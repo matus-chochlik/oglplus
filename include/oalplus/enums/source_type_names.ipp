@@ -9,7 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-OALPLUS_LIB_FUNC StrLit EnumValueName(
+namespace enums {
+OALPLUS_LIB_FUNC StrLit _ValueName(
 	SourceType*,
 	ALenum value
 )
@@ -36,4 +37,5 @@ return StrLit();
 #else
 ;
 #endif
+} // namespace enums
 

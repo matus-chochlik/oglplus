@@ -24,7 +24,7 @@ namespace oalplus {
  */
 OALPLUS_ENUM_CLASS_BEGIN(DataFormat, ALenum)
 #include <oalplus/enums/data_format.ipp>
-OALPLUS_ENUM_CLASS_END
+OALPLUS_ENUM_CLASS_END(DataFormat)
 
 
 #if !OALPLUS_NO_ENUM_VALUE_NAMES

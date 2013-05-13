@@ -23,7 +23,7 @@ namespace oalplus {
  */
 OALPLUS_ENUM_CLASS_BEGIN(StringQuery, ALenum)
 #include <oalplus/enums/string_query.ipp>
-OALPLUS_ENUM_CLASS_END
+OALPLUS_ENUM_CLASS_END(StringQuery)
 
 #if !OALPLUS_NO_ENUM_VALUE_NAMES
 #include <oalplus/enums/string_query_names.ipp>

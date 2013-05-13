@@ -30,12 +30,12 @@
 #define OALPLUS_ENUM_CLASS_COMMA \
 	OGLPLUS_ENUM_CLASS_COMMA
 
-#define OALPLUS_ENUM_CLASS_END \
-	OGLPLUS_ENUM_CLASS_END
+#define OALPLUS_ENUM_CLASS_END(NAME) \
+	OGLPLUS_ENUM_CLASS_END(NAME)
 
 namespace oalplus {
 
-using oglplus::EnumValueType;
+using oglplus::enums::EnumValueType;
 
 } // namespace oalplus
 

@@ -9,10 +9,11 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+namespace enums {
 OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	StringQuery
-> EnumValueRange(StringQuery*)
+> _ValueRange(StringQuery*)
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_STRINGQUERY)
 #define OALPLUS_IMPL_EVR_STRINGQUERY
@@ -40,4 +41,5 @@ return aux::CastIterRange<
 #else
 ;
 #endif
+} // namespace enums
 
