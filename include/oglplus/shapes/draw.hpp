@@ -89,7 +89,7 @@ OGLPLUS_ENUM_CLASS_BEGIN(ShapeDrawOperationMethod, GLuint)
 	OGLPLUS_ENUM_CLASS_COMMA
 	OGLPLUS_ENUM_CLASS_VALUE(DrawElements, 1)
 	// TODO
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ShapeDrawOperationMethod)
 
 namespace shapes {
 

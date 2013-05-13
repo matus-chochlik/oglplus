@@ -99,10 +99,10 @@ private:
 			_sampler sampler(w, h, d, c, i, j, k, input);
 			Vector<T, CH> outv = filter(extractor, sampler, one);
 
-			for(unsigned c=0; c!=CH; ++c)
+			for(unsigned ci=0; ci!=CH; ++ci)
 			{
 				assert(p != e);
-				*p = outv.At(c);
+				*p = outv.At(ci);
 				++p;
 			}
 		}

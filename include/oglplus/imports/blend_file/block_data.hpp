@@ -49,12 +49,12 @@ private:
 	) const
 	{
 		if(_ptr_size == 4)
-			return BlendFilePointerTpl<Level>(ReorderToNative(
+			return BlendFilePointerTpl<Level>(aux::ReorderToNative(
 				_byte_order,
 				*reinterpret_cast<const uint32_t*>(pos)
 			), type_index);
 		if(_ptr_size == 8)
-			return BlendFilePointerTpl<Level>(ReorderToNative(
+			return BlendFilePointerTpl<Level>(aux::ReorderToNative(
 				_byte_order,
 				*reinterpret_cast<const uint64_t*>(pos)
 			), type_index);
@@ -185,7 +185,7 @@ public:
 			block_element * _struct_size +
 			field_element * sizeof(Int) +
 			field_offset;
-		return ReorderToNative(
+		return aux::ReorderToNative(
 			_byte_order,
 			*reinterpret_cast<const Int*>(pos)
 		);

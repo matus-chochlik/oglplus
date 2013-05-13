@@ -32,7 +32,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityPrimitiveType, GLenum)
 #include <oglplus/enums/ext/compat_prim_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(CompatibilityPrimitiveType)
 
 /// Shorter name for CompatibilityPrimitiveType
 typedef CompatibilityPrimitiveType CompatPrimType;
@@ -55,7 +55,7 @@ typedef CompatibilityPrimitiveType CompatPrimType;
  */
 OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityMatrixMode, GLenum)
 #include <oglplus/enums/ext/compat_matrix_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(CompatibilityMatrixMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/compat_matrix_mode_names.ipp>
@@ -76,7 +76,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityAttributeGroup, GLbitfield)
 #include <oglplus/enums/ext/compat_attrib_group.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(CompatibilityAttributeGroup)
 
 OGLPLUS_MAKE_BITFIELD(CompatibilityAttributeGroup)
 
@@ -99,7 +99,7 @@ OGLPLUS_MAKE_BITFIELD(CompatibilityAttributeGroup)
  */
 OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityClientAttributeGroup, GLbitfield)
 #include <oglplus/enums/ext/compat_client_attrib_group.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(CompatibilityClientAttributeGroup)
 
 OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
 

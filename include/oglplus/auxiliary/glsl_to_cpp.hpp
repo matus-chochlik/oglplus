@@ -19,15 +19,21 @@
 namespace oglplus {
 namespace aux {
 
-template <typename EnumValueType<oglplus::SLDataType>::Type>
-struct GLSL2Cpp;
+template <
+	typename oglplus::enums::EnumValueType<
+		oglplus::enums::SLDataType
+	>::Type
+> struct GLSL2Cpp;
 
 #include <oglplus/auxiliary/glsl_to_cpp.ipp>
 
 } // namespace aux
 
-template <typename EnumValueType<oglplus::SLDataType>::Type>
-struct SLtoCpp;
+template <
+	typename oglplus::enums::EnumValueType<
+		oglplus::enums::SLDataType
+	>::Type
+> struct SLtoCpp;
 
 } // namespace oglplus
 

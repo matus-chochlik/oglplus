@@ -26,7 +26,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(AccessSpecifier, GLenum)
 #include <oglplus/enums/access_specifier.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(AccessSpecifier)
 
 /// Alternate name for AccessSpecifier
 /**

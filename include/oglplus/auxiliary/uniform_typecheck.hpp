@@ -26,7 +26,7 @@ namespace oglplus {
 
 OGLPLUS_ENUM_CLASS_FWD_EVT(SLDataType, GLenum)
 
-template <typename EnumValueType<oglplus::SLDataType>::Type>
+template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type>
 struct SLtoCpp;
 
 namespace aux {
@@ -153,7 +153,7 @@ struct DefaultGLSLtoCppTypeMatcher
 	}
 };
 
-template <typename EnumValueType<oglplus::SLDataType>::Type SLType>
+template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type SLType>
 struct DefaultGLSLtoCppTypeMatcher<oglplus::SLtoCpp<SLType> >
 {
 	static bool _matches(GLenum sl_type)

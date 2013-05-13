@@ -28,7 +28,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PixelDataType, GLenum)
 #include <oglplus/enums/pixel_data_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PixelDataType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/pixel_data_type_names.ipp>
@@ -49,7 +49,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PixelDataFormat, GLenum)
 #include <oglplus/enums/pixel_data_format.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PixelDataFormat)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/pixel_data_format_names.ipp>
@@ -72,7 +72,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PixelDataInternalFormat, GLenum)
 #include <oglplus/enums/pixel_data_internal_format.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PixelDataInternalFormat)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/pixel_data_internal_format_names.ipp>
@@ -91,7 +91,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ImageUnitFormat, GLenum)
 #include <oglplus/enums/image_unit_format.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ImageUnitFormat)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/image_unit_format_names.ipp>

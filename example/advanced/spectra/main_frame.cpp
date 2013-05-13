@@ -438,7 +438,7 @@ void SpectraMainFrame::OpenLoadedDocument(const std::shared_ptr<SpectraDocument>
 }
 
 std::shared_ptr<SpectraRenderer> SpectraMainFrame::PickRenderer(
-	SpectraApp& parent_app,
+	SpectraApp& app,
 	SpectraMainFrame* main_frame,
 	const std::shared_ptr<SpectraVisualisation>& doc_vis,
 	wxGLCanvas* canvas
@@ -449,7 +449,7 @@ std::shared_ptr<SpectraRenderer> SpectraMainFrame::PickRenderer(
 	if(renderer_menu->IsChecked(SpectraMainFrameID_XSectionRenderer))
 	{
 		result = SpectraMakeXSectionRenderer(
-			parent_app,
+			app,
 			main_frame->shared_objects,
 			doc_vis,
 			canvas
@@ -458,7 +458,7 @@ std::shared_ptr<SpectraRenderer> SpectraMainFrame::PickRenderer(
 	else
 	{
 		result = SpectraMakeDefaultRenderer(
-			parent_app,
+			app,
 			main_frame->shared_objects,
 			doc_vis,
 			canvas

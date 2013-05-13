@@ -28,7 +28,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(BufferSelectBit, GLbitfield)
 #include <oglplus/enums/buffer_select_bit.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(BufferSelectBit)
 
 OGLPLUS_MAKE_BITFIELD(BufferSelectBit)
 

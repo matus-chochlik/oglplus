@@ -876,7 +876,7 @@ public:
 
 		LightmapProgram prog;
 
-		Shape<shapes::Plane> plane(prog, shapes::Plane(plane_u, plane_v));
+		Shape<shapes::Plane> tmp_plane(prog, shapes::Plane(plane_u, plane_v));
 
 
 		GLfloat i_u = Length(plane_u);
@@ -896,7 +896,7 @@ public:
 
 		gl.Disable(Capability::DepthTest);
 
-		plane.Draw();
+		tmp_plane.Draw();
 
 		gl.Enable(Capability::DepthTest);
 

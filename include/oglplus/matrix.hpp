@@ -698,9 +698,9 @@ inline bool Close(
 		T u = a.At(i, j);
 		T v = b.At(i, j);
 		T d = std::abs(u-v);
-		bool a = d <= std::abs(u)*eps;
-		bool b = d <= std::abs(v)*eps;
-		if(!a && !b) return false;
+		bool ca = d <= std::abs(u)*eps;
+		bool cb = d <= std::abs(v)*eps;
+		if(!ca && !cb) return false;
 	}
 	return true;
 }

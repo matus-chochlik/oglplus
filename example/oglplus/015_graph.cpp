@@ -155,8 +155,8 @@ public:
 		// bind the VBO for cube edge indices
 		edges.Bind(Buffer::Target::ElementArray);
 		{
-			std::vector<GLuint> edges;
-			edges.reserve(node_count * 6);
+			std::vector<GLuint> edge_data;
+			edge_data.reserve(node_count * 6);
 			for(GLuint i=0; i!=node_count; ++i)
 			{
 				Vec3f pi(
@@ -195,8 +195,8 @@ public:
 						float x = dist/min_dist;
 						if(std::pow(nrand(), 2.0) >= x)
 						{
-							edges.push_back(i);
-							edges.push_back(j);
+							edge_data.push_back(i);
+							edge_data.push_back(j);
 							++done;
 						}
 					}
@@ -205,14 +205,14 @@ public:
 				{
 					if(i != m)
 					{
-						edges.push_back(i);
-						edges.push_back(m);
+						edge_data.push_back(i);
+						edge_data.push_back(m);
 					}
 				}
 			}
-			Buffer::Data(Buffer::Target::ElementArray, edges);
-			assert(edges.size() % 2 == 0);
-			edge_count = edges.size();
+			Buffer::Data(Buffer::Target::ElementArray, edge_data);
+			assert(edge_data.size() % 2 == 0);
+			edge_count = edge_data.size();
 			positions.clear();
 		}
 

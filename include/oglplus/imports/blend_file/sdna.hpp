@@ -536,7 +536,7 @@ BlendFileSDNA::_struct_flatten_fields(std::size_t struct_index)
 		const std::string& fd = _names[si._field_name_indices[f]];
 		//
 		// extract the name from definition
-		std::string fn(_field_name_from_def(fd));
+		std::string fldn(_field_name_from_def(fd));
 
 		// check if the field type is a pointer
 		bool is_ptr =
@@ -563,7 +563,7 @@ BlendFileSDNA::_struct_flatten_fields(std::size_t struct_index)
 			// describing the structure after flattenning
 			//
 			// the full field name
-			result->_field_names[field_index] = fn;
+			result->_field_names[field_index] = fldn;
 			// update the field map
 			result->_field_map[
 				&result->_field_names[field_index]
@@ -606,7 +606,7 @@ BlendFileSDNA::_struct_flatten_fields(std::size_t struct_index)
 			// processed field
 			for(std::size_t e=0; e!=elem_count; ++e)
 			{
-				std::string efn = fn;
+				std::string efn = fldn;
 				if(e) efn.append(_elem_field_suffix(e));
 				for(std::size_t g=0; g!=gn ; ++g)
 				{
@@ -646,14 +646,14 @@ BlendFileSDNA::_struct_flatten_fields(std::size_t struct_index)
 					uint16_t nfec = _structs[nfs].
 							_field_elem_counts[nfi];
 					// check if it is a pointer
-					bool is_ptr = _structs[nfs].
-							_field_ptr_flags[nfi];
 					bool is_ptr2 = _structs[nfs].
+							_field_ptr_flags[nfi];
+					bool is_ptr3 = _structs[nfs].
 							_field_ptr2_flags[nfi];
 
 					// calculate the size
 					std::size_t size;
-					if(is_ptr || is_ptr2)
+					if(is_ptr2 || is_ptr3)
 						size = _ptr_size;
 					else size = _type_sizes[nfti];
 

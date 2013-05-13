@@ -40,7 +40,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ShaderType, GLenum)
 #include <oglplus/enums/shader_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ShaderType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/shader_type_names.ipp>

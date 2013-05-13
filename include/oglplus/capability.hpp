@@ -34,7 +34,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(Capability, GLenum)
 #include <oglplus/enums/capability.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(Capability)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/capability_names.ipp>
@@ -55,7 +55,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(Functionality, GLenum)
 #include <oglplus/enums/functionality.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(Functionality)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/functionality_names.ipp>
