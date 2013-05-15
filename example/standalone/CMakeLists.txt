@@ -123,6 +123,14 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		)
 	endif()
 
+	if(OPENAL_FOUND)
+		include_directories(${OPENAL_INCLUDE_DIRS})
+		standalone_example_common(
+			020_oglplus_oalplus
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${OPENAL_LIBRARIES}
+		)
+	endif()
+
 	if(PNG_FOUND)
 		include_directories(${PNG_INCLUDE_DIRS})
 		standalone_example_common(
