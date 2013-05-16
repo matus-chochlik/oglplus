@@ -334,6 +334,7 @@ public:
 
 	/// Links this shading language program
 	/**
+	 *  @post IsLinked()
 	 *  @throws Error LinkError
 	 *  @see IsLinked
 	 *
@@ -382,6 +383,7 @@ public:
 
 	/// Validates this shading language program
 	/**
+	 *  @post IsValid()
 	 *  @throws Error ValidationError
 	 *  @see Link
 	 *
@@ -418,6 +420,8 @@ public:
 	/// Uses this shading language program
 	/**
 	 *  @note The program must be linked before it is used.
+	 *  @pre IsLinked()
+	 *  @pre IsValid()
 	 *
 	 *  @see IsLinked
 	 *  @see Link

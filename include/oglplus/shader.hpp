@@ -289,6 +289,7 @@ public:
 
 	/// Compiles the shader
 	/**
+	 *  @post IsCompiled()
 	 *  @throws Error CompileError
 	 *  @see IsCompiled
 	 *
