@@ -65,6 +65,7 @@ PREDEFINED             = \
 	"OGLPLUS_ENUM_CLASS_BEGIN(NAME,TYPE)=enum class NAME : TYPE {" \
 	"OGLPLUS_ENUM_CLASS_END=};"
 
+ALIASES                += OGLplus="@em OGLplus"
 ALIASES                += oglplus_screenshot{1}="@image html \1.png"
 ALIASES                += glsymbols="@par Related OpenGL symbols:"
 ALIASES                += glfunref{1}=" <a href='http://www.opengl.org/sdk/docs/man4/xhtml/gl\1.xml'>gl\1</a>"
@@ -79,3 +80,4 @@ HTML_STYLESHEET        = oglplus.css
 
 GENERATE_HTML = YES
 GENERATE_XML = NO
+

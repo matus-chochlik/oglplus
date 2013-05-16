@@ -377,7 +377,7 @@ void SpectraMainFrame::DoGenerateDocument(wxCommandEvent&)
 					11000,
 					128,
 					4.71
-				) //TODO
+				)
 			),
 			false
 		);

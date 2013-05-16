@@ -56,8 +56,13 @@ Range<Enum> EnumValueRange(void);
 
 namespace enums {
 
+#if !OGLPLUS_NO_SCOPED_ENUMS
 template <typename Enum>
-struct EnumBaseType;
+struct EnumBaseType
+{
+	typedef GLenum Type;
+};
+#endif
 
 template <typename EnumType>
 inline StrLit EnumValueName(EnumType enum_value)

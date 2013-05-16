@@ -51,10 +51,7 @@ struct EnumValueType
 };
 
 template <typename Enum>
-struct EnumBaseType
-{
-	typedef GLenum Type;
-};
+struct EnumBaseType;
 
 } // namespace enums
 

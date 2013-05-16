@@ -585,3 +585,6 @@ MakeEnumValueRange GL oglplus ext
 MakeEnumShorteners GL oglplus ext
 MakeEnumBQHeaders GL oglplus ext
 MakeGLSLtoCPPtypeHeader GL oglplus
+
+
+MakeEnumHeaders AL oalplus

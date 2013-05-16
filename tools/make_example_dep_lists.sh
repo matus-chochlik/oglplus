@@ -3,7 +3,8 @@
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-oglplus_example_dir=./$(dirname $0)/../example/oglplus
+oglplus_lib=${1:-oglplus}
+oglplus_example_dir=./$(dirname $0)/../example/${oglplus_lib}
 oglplus_examples=${oglplus_example_dir}/[0-9][0-9][0-9]*.cpp
 
 function make_example_req_list()
@@ -39,11 +40,11 @@ function make_example_dep_lists()
 	pushd ${PWD} > /dev/null
 	cd $(dirname $0)/../
 	#
-	for example_path in example/oglplus/[0-9][0-9][0-9]*.cpp
+	for example_path in example/${oglplus_lib}/[0-9][0-9][0-9]*.cpp
 	do
 		example_name=$(basename ${example_path} .cpp)
 		echo ${example_name}
-		dependency_file=example/oglplus/dependencies/${example_name}.txt
+		dependency_file=example/${oglplus_lib}/dependencies/${example_name}.txt
 
 		g++ --std=c++0x ${example_path} ${CXXFLAGS} -Iinclude -DOGLPLUS_NO_SITE_CONFIG=1 -DOGLPLUS_NO_GL=1 -E -M -o ${temp_file}
 
@@ -68,13 +69,13 @@ function make_example_dep_lists()
 )}
 
 echo "----------------------|C++ 2011 features|---------------------"
-make_example_req_list requirements cpp "@oglplus_example_uses_cxx11"
+make_example_req_list requirements cpp "@${oglplus_lib}_example_uses_cxx11"
 echo "--------------------0--|OpenGL Version|----------------------"
-make_example_req_list requirements gl "@oglplus_example_uses_gl"
+make_example_req_list requirements gl "@${oglplus_lib}_example_uses_gl"
 echo "--------------------------|Textures|--------------------------"
-make_example_req_list resources tex "@oglplus_example_uses_texture"
+make_example_req_list resources tex "@${oglplus_lib}_example_uses_texture"
 echo "---------------------------|Models|---------------------------"
-make_example_req_list resources model "@oglplus_example_uses_model"
+make_example_req_list resources model "@${oglplus_lib}_example_uses_model"
 echo "-------------------------|Libraries|--------------------------"
 make_example_dep_lists png.h:PNG
 
