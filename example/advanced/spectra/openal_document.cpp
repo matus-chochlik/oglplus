@@ -18,9 +18,7 @@
 
 #include <oalplus/all.hpp> //TODO
 
-#include "document_with_calc.hpp"
 #include "openal_document.hpp"
-#include "shared_objects.hpp"
 
 #include <vector>
 #include <stdexcept>
@@ -29,11 +27,10 @@
 #if OGLPLUS_OPENAL_FOUND
 
 class SpectraOpenALDocument
- : public SpectraDocumentWithCalculator
+ : public SpectraDocument
 {
 private:
 	const wxString file_path;
-	const std::size_t spectrum_size;
 	oalplus::DataFormat format;
 	::ALfloat frequency;
 
@@ -46,19 +43,13 @@ private:
 	oalplus::Buffer sound_buf;
 	oalplus::Source sound_src;
 public:
-	SpectraOpenALDocument(
-		SpectraSharedObjects& shared_objects,
-		const wxString& path,
-		std::size_t ss
-	);
+	SpectraOpenALDocument(const wxString& path);
 
 	bool FinishLoading(void);
 
 	int PercentLoaded(void) const;
 
 	std::size_t SamplesPerSecond(void) const;
-
-	std::size_t SpectrumSize(void) const;
 
 	std::size_t SignalSampleCount(void) const;
 
@@ -79,13 +70,8 @@ public:
 };
 
 
-SpectraOpenALDocument::SpectraOpenALDocument(
-	SpectraSharedObjects& shared_objects,
-	const wxString& path,
-	std::size_t ss
-): SpectraDocumentWithCalculator(shared_objects.SpectrumCalculator(ss))
- , file_path(path)
- , spectrum_size(ss)
+SpectraOpenALDocument::SpectraOpenALDocument(const wxString& path)
+ : file_path(path)
  , frequency(1024)
  , device()
  , context(device)
@@ -122,11 +108,6 @@ int SpectraOpenALDocument::PercentLoaded(void) const
 std::size_t SpectraOpenALDocument::SamplesPerSecond(void) const
 {
 	return std::size_t(frequency);
-}
-
-std::size_t SpectraOpenALDocument::SpectrumSize(void) const
-{
-	return spectrum_size;
 }
 
 std::size_t SpectraOpenALDocument::SignalSampleCount(void) const
@@ -208,24 +189,16 @@ void SpectraOpenALDocument::Play(float from, float to)
 }
 
 std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(
-	SpectraSharedObjects& shared_objects,
-	const wxString& file_path,
-	std::size_t spectrum_size
+	const wxString& file_path
 )
 {
-	return std::make_shared<SpectraOpenALDocument>(
-		shared_objects,
-		file_path,
-		spectrum_size
-	);
+	return std::make_shared<SpectraOpenALDocument>(file_path);
 }
 
 #else
 
 std::shared_ptr<SpectraDocument> SpectraOpenOpenALDoc(
-	SpectraSharedObjects& shared_objects,
-	const wxString& file_path,
-	std::size_t spectrum_size
+	const wxString& /*file_path*/
 )
 {
 	throw std::runtime_error("OpenAL documents not supported");

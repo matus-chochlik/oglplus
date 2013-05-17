@@ -25,20 +25,31 @@ private:
 
 	bool SetCurrent(void);
 
+	std::shared_ptr<SpectraCalculator> spectra_calc;
+	std::vector<unsigned> transform_ids;
+
 	std::shared_ptr<SpectraDocument> document;
 
 	std::size_t spectrum_size;
 	std::size_t current_row;
 	std::size_t row_count;
-	const std::size_t rows_per_load;
+	std::size_t rows_per_load;
 
 	oglplus::Buffer& spectrum_data;
 
 	std::vector<GLfloat> data_buf;
+
+	std::size_t QuerySpectrumValues(
+		float* buffer,
+		std::size_t bufsize,
+		std::size_t start_row,
+		std::size_t end_row
+	);
 public:
 	SpectraVisDataUploader(
 		wxGLContext* context,
 		const std::shared_ptr<std::set<wxGLCanvas*>>& canvases,
+		const std::shared_ptr<SpectraCalculator>& calc,
 		const std::shared_ptr<SpectraDocument>& doc,
 		oglplus::Buffer& spect_data
 	);
@@ -55,21 +66,26 @@ public:
 SpectraVisDataUploader::SpectraVisDataUploader(
 	wxGLContext* context,
 	const std::shared_ptr<std::set<wxGLCanvas*>>& canvases,
+	const std::shared_ptr<SpectraCalculator>& calc,
 	const std::shared_ptr<SpectraDocument>& doc,
 	oglplus::Buffer& spect_data
 ): gl_context(context)
  , gl_canvases(canvases)
+ , spectra_calc(calc)
  , document(doc)
  , current_row(0)
- , rows_per_load(document->SpectrumRowsPerLoadHint())
  , spectrum_data(spect_data)
 {
 	assert(gl_context);
 	assert(gl_canvases);
 	assert(document);
+	assert(spectra_calc);
+	assert(spectra_calc->MaxConcurrentTransforms() > 0);
 
-	spectrum_size = document->SpectrumSize();
+	transform_ids.resize(spectra_calc->MaxConcurrentTransforms());
+	spectrum_size = spectra_calc->OutputSize();
 	row_count = document->SignalSampleCount();
+	rows_per_load = 256*spectra_calc->MaxConcurrentTransforms();
 
 	if(row_count < spectrum_size)
 		row_count = 0;
@@ -83,6 +99,58 @@ SpectraVisDataUploader::SpectraVisDataUploader(
 		spectrum_data.Bind(oglplus::Buffer::Target::Texture);
 		oglplus::Buffer::Data(oglplus::Buffer::Target::Texture, init_data);
 	}
+}
+
+std::size_t SpectraVisDataUploader::QuerySpectrumValues(
+	float* buffer,
+	std::size_t bufsize,
+	std::size_t start_row,
+	std::size_t end_row
+)
+{
+	std::size_t n = end_row-start_row;
+	std::size_t m = transform_ids.size();
+	assert(bufsize >= n*spectrum_size);
+
+	std::vector<float> signal(spectra_calc->InputSize()+n-1);
+
+	document->QuerySignalSamples(
+		signal.data(),
+		signal.size(),
+		start_row,
+		end_row+spectra_calc->InputSize()-1
+	);
+	spectra_calc->BeginBatch();
+	for(std::size_t i=0; i!=m; ++i)
+	{
+		transform_ids[i] = spectra_calc->BeginTransform(
+			signal.data()+i,
+			spectra_calc->InputSize(),
+			buffer+i*spectrum_size,
+			spectrum_size
+		);
+	}
+
+	for(std::size_t i=0; i!=n; ++i)
+	{
+		spectra_calc->FinishTransform(
+			transform_ids[i%m],
+			buffer+i*spectrum_size,
+			spectrum_size
+		);
+		std::size_t j=i+m;
+		if(j<n)
+		{
+			transform_ids[i%m] = spectra_calc->BeginTransform(
+				signal.data()+j,
+				spectra_calc->InputSize(),
+				buffer+j*spectrum_size,
+				spectrum_size
+			);
+		}
+	}
+	spectra_calc->FinishBatch();
+	return n;
 }
 
 bool SpectraVisDataUploader::SetCurrent(void)
@@ -115,7 +183,7 @@ bool SpectraVisDataUploader::DoWork(void)
 		if(current_row+n > row_count)
 			n = row_count - current_row;
 
-		document->QuerySpectrumValues(
+		this->QuerySpectrumValues(
 			data_buf.data(),
 			data_buf.size(),
 			current_row,
@@ -153,13 +221,12 @@ SpectraGLContext::SpectraGLContext(
 
 // SpectraVisualisation
 SpectraVisualisation::SpectraVisualisation(
-	SpectraApp& app,
 	SpectraMainFrame* frame,
 	wxGLCanvas* canvas,
 	wxGLContext* parent_ctxt,
+	const std::shared_ptr<SpectraCalculator>& calculator,
 	const std::shared_ptr<SpectraDocument>& doc
-): parent_app(app)
- , main_frame(frame)
+): main_frame(frame)
  , selected_time(0.0f)
  , selection_begin(0.0f)
  , selection_end(1.0f)
@@ -168,6 +235,11 @@ SpectraVisualisation::SpectraVisualisation(
  , document(doc)
  , signal_samples_per_grid(1)
 {
+	assert(document);
+	assert(calculator);
+
+	spectrum_size = calculator->OutputSize();
+
 	std::size_t sps = Document().SamplesPerSecond();
 	std::size_t max = 4096;
 	if(sps / signal_samples_per_grid > max)
@@ -184,6 +256,7 @@ SpectraVisualisation::SpectraVisualisation(
 		std::make_shared<SpectraVisDataUploader>(
 			&gl_context,
 			gl_canvases,
+			calculator,
 			document,
 			spectrum_data
 		)
@@ -248,7 +321,7 @@ void SpectraVisualisation::Play(void)
 
 std::size_t SpectraVisualisation::SignalSpectrumSize(void) const
 {
-	return Document().SpectrumSize();
+	return spectrum_size;
 }
 
 std::size_t SpectraVisualisation::SignalSamplesPerGrid(void) const

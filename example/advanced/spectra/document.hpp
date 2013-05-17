@@ -28,15 +28,7 @@ struct SpectraDocument
 
 	virtual std::size_t SamplesPerSecond(void) const = 0;
 
-	virtual std::size_t SpectrumSize(void) const = 0;
-
 	virtual std::size_t SignalSampleCount(void) const = 0;
-
-	virtual float MaxTime(void) const = 0;
-
-	virtual wxString Name(void) const = 0;
-
-	virtual std::size_t SpectrumRowsPerLoadHint(void) const = 0;
 
 	virtual std::size_t QuerySignalSamples(
 		float* buffer,
@@ -45,12 +37,9 @@ struct SpectraDocument
 		std::size_t end
 	) = 0;
 
-	virtual std::size_t QuerySpectrumValues(
-		float* buffer,
-		std::size_t bufsize,
-		std::size_t start_row,
-		std::size_t end_row
-	) = 0;
+	virtual float MaxTime(void) const = 0;
+
+	virtual wxString Name(void) const = 0;
 
 	virtual bool CanPlay(void) const = 0;
 
@@ -60,17 +49,13 @@ struct SpectraDocument
 class SpectraSharedObjects;
 
 extern std::shared_ptr<SpectraDocument> SpectraOpenTestDoc(
-	SpectraSharedObjects& shared_objects,
 	const std::function<float (float)>& signal_func,
 	std::size_t samples_per_second,
-	std::size_t spectrum_size,
 	float max_time
 );
 
 extern std::shared_ptr<SpectraDocument> SpectraLoadDocFromFile(
-	SpectraSharedObjects& shared_objects,
-	const wxString& file_path,
-	std::size_t spectrum_size
+	const wxString& file_path
 );
 
 #endif // include guard

@@ -29,7 +29,6 @@ if(wxWidgets_FOUND)
 			document_canvas.cpp
 			document_view.cpp
 			document.cpp
-			document_with_calc.cpp
 			openal_document.cpp
 			visualisation.cpp
 			renderer.cpp
