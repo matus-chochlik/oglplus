@@ -29,9 +29,20 @@ namespace oalplus {
  *  C-language API. It provides wrappers which automate
  *  resource and object management and make the use of OpenAL
  *  in C++ safer and easier.
+
+ *  - @ref oalplus_getting_started
+ *    - @ref oalplus_tutorials
  *
  *  It is currently distributed as a part of
  *  <A HREF="../../oglplus/html/index.html">OGLplus</A>.
+
+ *  @section oalplus_getting_started Getting started
+ *
+ *  One of the best ways how to get yourself acquainted with the library is to
+ *  look at the examples and to browse through the reference. Many of the examples
+ *  are thoroughly commented and for some of them step-by-step
+ *  @ref oalplus_tutorials "tutorials" are being added. Some of the standalone
+ *  examples show the usage of @OALplus with @OGLplus.
  */
 
 } // namespace oglplus

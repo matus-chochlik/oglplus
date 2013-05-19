@@ -21,6 +21,12 @@
 
 namespace oalplus {
 
+/// Base wrapper for OpenAL context operations
+/**
+ *  @note Do not use this class directly, use Context instead
+ *
+ *  @see Context
+ */
 class ContextOps
 {
 protected:
@@ -37,6 +43,7 @@ protected:
 		assert(_context);
 	}
 public:
+	/// Returns the current OpenAL context
 	static ContextOps Current(void)
 	{
 		::ALCcontext* context =
@@ -56,11 +63,13 @@ public:
 		return ContextOps(device, context);
 	}
 
+	/// Returns the device of this context
 	DeviceOps ContextsDevice(void) const
 	{
 		return DeviceOps(_device);
 	}
 
+	/// Makes this context current
 	bool MakeCurrent(void)
 	{
 		bool result = OALPLUS_ALFUNC(alc,MakeContextCurrent)(_context);
@@ -71,6 +80,7 @@ public:
 		return result;
 	}
 
+	/// Processes this context
 	void Process(void)
 	{
 		OALPLUS_ALFUNC(alc,ProcessContext)(_context);
@@ -80,6 +90,7 @@ public:
 		);
 	}
 
+	/// Suspends this context
 	void Suspend(void)
 	{
 		OALPLUS_ALFUNC(alc,SuspendContext)(_context);
@@ -89,12 +100,14 @@ public:
 		);
 	}
 
+	/// Sets the distance model to be used by the current context
 	static void DistanceModel(oalplus::DistanceModel dist_model)
 	{
 		OALPLUS_ALFUNC(al,DistanceModel(ALenum(dist_model)));
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,DistanceModel));
 	}
 
+	/// Returns the distance model used by the current context
 	static oalplus::DistanceModel DistanceModel(void)
 	{
 		ALint result;
@@ -106,12 +119,14 @@ public:
 		return oalplus::DistanceModel(result);
 	}
 
+	/// Sets the doppler factor for the current context
 	static void DopplerFactor(ALfloat doppler_factor)
 	{
 		OALPLUS_ALFUNC(al,DopplerFactor(doppler_factor));
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,DopplerFactor));
 	}
 
+	/// Returns the doppler factor used by the current context
 	static ALfloat DopplerFactor(void)
 	{
 		ALfloat result;
@@ -123,12 +138,14 @@ public:
 		return result;
 	}
 
+	/// Sets the value of speed of sound for the current context
 	static void SpeedOfSound(ALfloat speed_of_sound)
 	{
 		OALPLUS_ALFUNC(al,SpeedOfSound(speed_of_sound));
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,SpeedOfSound));
 	}
 
+	/// Returns the value of speed of sound used by the current context
 	static ALfloat SpeedOfSound(void)
 	{
 		ALfloat result;
@@ -141,12 +158,14 @@ public:
 	}
 };
 
+/// Wrapper for OpenAL context operations
 class Context
  : public ContextOps
 {
 private:
 	Context(const Context&);
 public:
+	/// Construct a context using the specified device
 	Context(const DeviceOps& device)
 	 : ContextOps(
 		device._device,
@@ -161,6 +180,7 @@ public:
 
 	// TODO creation with attributes
 
+	/// Contexts are move-only
 	Context(Context&& tmp)
 	 : ContextOps(tmp._device, tmp._context)
 	{
@@ -177,11 +197,12 @@ public:
 	}
 };
 
-// A context that is made current right after construction
+/// A context that is made current right after construction
 class CurrentContext
  : public Context
 {
 public:
+	/// Creates a new context and makes it current
 	CurrentContext(const DeviceOps& device)
 	 : Context(device)
 	{
