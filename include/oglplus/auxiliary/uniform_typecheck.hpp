@@ -447,8 +447,8 @@ bool DefaultGLSLtoCppTypeMatcher_Mat::_does_match(
 				GL_DOUBLE_MAT3x4,
 				GL_DOUBLE_MAT4
 			}
-#endif
 		}
+#endif
 	};
 	return sl_type==allowed[type_idx][rows-2][cols-2];
 }
