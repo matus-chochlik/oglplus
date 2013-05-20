@@ -13,7 +13,10 @@ find_path(
 )
 # if that didn't work try the system directories
 if((NOT OPENGL_GL3_H_DIR) OR (NOT EXISTS ${OPENGL_GL3_H_DIR}))
-	find_path(OPENGL_GL3_H_DIR GL3/gl3.h)
+	find_path(
+		OPENGL_GL3_H_DIR
+		NAMES GL3/gl3.h OpenGL/gl3.h
+	)
 endif()
 # if found append it to the include directories
 if((OPENGL_GL3_H_DIR) AND (EXISTS ${OPENGL_GL3_H_DIR}))
