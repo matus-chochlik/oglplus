@@ -324,6 +324,10 @@ public:
 		return instructions;
 	}
 
+	// Pathces are only available in OpenGL 4.2
+	// TODO: Make this depend on PrimitiveType not on OpenGL version.
+	//       Or maybe fake patches with triangles?
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
 	/// Returns element indices that are used with the drawing instructions
 	IndexArray PatchIndices(void) const
 	{
@@ -366,6 +370,7 @@ public:
 		this->AddInstruction(instructions, operation);
 		return instructions;
 	}
+#endif
 
 	/// Returns edge element indices that are used with the drawing instructions
 	IndexArray EdgeIndices(void) const
