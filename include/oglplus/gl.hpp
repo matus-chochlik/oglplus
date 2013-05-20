@@ -52,7 +52,11 @@ struct GLAPIInitializer
 
 # elif OGLPLUS_USE_GL3_H
 #  define GL3_PROTOTYPES
-#  include <GL3/gl3.h>
+#  ifdef __APPLE__
+#   include <OpenGL/gl3.h>
+#  else
+#   include <GL3/gl3.h>
+#  endif
 #  define __gl_h__
 #  define __glext_h__
 
