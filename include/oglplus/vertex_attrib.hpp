@@ -993,6 +993,7 @@ public:
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 		}
+#if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
 		else if(data_type == DataType::Double)
 		{
 			OGLPLUS_GLFUNC(VertexAttribLPointer)(
@@ -1004,6 +1005,7 @@ public:
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLPointer));
 		}
+#endif
 		else
 		{
 			OGLPLUS_GLFUNC(VertexAttribIPointer)(
