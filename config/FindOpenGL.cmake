@@ -48,7 +48,7 @@ find_library(
 	NO_DEFAULT_PATH
 )
 if(NOT OPENGL_LIBRARIES)
-	find_library(OPENGL_LIBRARIES NAMES GL OpenGL32)
+	find_library(OPENGL_LIBRARIES NAMES GL OpenGL OpenGL32)
 endif()
 
 #if we have not found the library
