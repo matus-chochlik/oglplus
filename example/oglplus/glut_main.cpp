@@ -255,9 +255,15 @@ public:
 
 int glut_example_main(int argc, char ** argv)
 {
+#if __APPLE__
+	int const profile = GLUT_3_2_CORE_PROFILE;
+#else
+	int const profile = 0;
+#endif
+
 	GLuint width = 800, height = 600;
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL | profile);
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(100,100);
 	glutCreateWindow("OGLplus example");
