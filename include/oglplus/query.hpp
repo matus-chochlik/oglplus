@@ -360,7 +360,10 @@ inline void QueryOps::Activator::_end(void)
 template <typename ResultType>
 inline void QueryOps::Execution<ResultType>::WaitForResult(void)
 {
-	Managed<QueryOps>(_name).WaitForResult(_result);
+	if(this->Finish())
+	{
+		Managed<QueryOps>(_name).WaitForResult(_result);
+	}
 }
 
 #if OGLPLUS_DOCUMENTATION_ONLY

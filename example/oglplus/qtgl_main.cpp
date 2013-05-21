@@ -39,7 +39,9 @@ OGLplusExampleGLWidget::OGLplusExampleGLWidget(
  , argc(argn)
  , argv(args)
  , screenshot_path(ss_path)
-{ }
+{
+	setMouseTracking(true);
+}
 
 OGLplusExampleGLWidget::~OGLplusExampleGLWidget(void)
 {
@@ -200,6 +202,7 @@ OGLplusExampleWindow::OGLplusExampleWindow(
 	setLayout(top_layout);
 
 	resize(sizeHint());
+	gl_widget->updateGeometry();
 }
 
 void OGLplusExampleWindow::updateGLInfo(void)

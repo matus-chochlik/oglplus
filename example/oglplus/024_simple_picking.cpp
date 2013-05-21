@@ -47,6 +47,9 @@ private:
 	// VBO for the values returned by transform feedback
 	Buffer picked_instances;
 
+	// The query object used to get count of picked objects
+	Query count_query;
+
 	// the pair of picked instance depth and id
 	typedef std::pair<const GLfloat, GLint> DepthAndID;
 public:
@@ -267,18 +270,21 @@ public:
 		// query the number of values written to the feedabck buffer
 		GLuint picked_count = 0;
 		{
-			Query count_query;
-			auto query_exec = count_query.Execute(
+			Query::Execution<GLuint> query_exec(
+				count_query,
 				Query::Target::
 				TransformFeedbackPrimitivesWritten,
 				picked_count
 			);
-			TransformFeedback::Activator activates_tfb(
+			TransformFeedback::Activator xfb_act(
 				TransformFeedbackPrimitiveType::Points
 			);
 			// draw 36 instances of the cube
 			// the vertex shader will take care of their placement
 			cube_instr.Draw(cube_indices, 36);
+			//
+			xfb_act.Finish();
+			query_exec.WaitForResult();
 		}
 
 		std::map<GLfloat, GLint> picked_objs;
