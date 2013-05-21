@@ -1,5 +1,5 @@
 /*
- *  .file example/wxgl_main.cpp
+ *  .file example/oglplus/wxgl_main.cpp
  *  Implements wxGL-based program main function for running examples
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost

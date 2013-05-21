@@ -6,6 +6,8 @@ cmake_minimum_required(VERSION 2.8)
 
 if(OGLPLUS_USE_WXGL)
 	set(OGLPLUS_EXAMPLE_HARNESS "wxgl")
+elseif(OGLPLUS_USE_QTGL)
+	set(OGLPLUS_EXAMPLE_HARNESS "qtgl")
 elseif(OGLPLUS_USE_GLUT)
 	set(OGLPLUS_EXAMPLE_HARNESS "glut")
 elseif(OGLPLUS_USE_GLFW)
@@ -40,16 +42,26 @@ add_custom_target(oglplus-examples-screenshots)
 
 add_definitions(-DOGLPLUS_LINK_LIBRARY=1)
 
+if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qtgl")
+	QT4_WRAP_CPP(
+		OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES
+		"${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.hpp"
+	)
+else()
+	set(OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES "")
+endif()
+
 # build the code common to all the examples into this library
 add_library(
 	oglplus_example_harness STATIC
 	EXCLUDE_FROM_ALL
-	${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.cpp
+	"${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.cpp"
+	"${OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES}"
 )
 # add the dependencies for the harness
 add_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main oglplus_example_harness)
 
-# TODO
+# TODO: try to find some better solution for this
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx")
 	target_link_libraries(oglplus_example_harness pthread)
 endif()
