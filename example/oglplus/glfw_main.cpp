@@ -1,5 +1,5 @@
 /*
- *  .file example/glfw_main.cpp
+ *  .file example/oglplus/glfw_main.cpp
  *  Implements GLFW-based program main function for running examples
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost

@@ -266,7 +266,7 @@ def get_argument_parser():
 		"--use-gl-window-lib",
 		dest="gl_window_lib",
 		type=str,
-		choices=["GLUT", "GLFW", "WXGL", "SDL", "GLX"],
+		choices=["GLUT", "GLFW", "WXGL", "SDL", "GLX", "QTGL"],
 		action="store",
 		default=None,
 		help="""
@@ -300,6 +300,15 @@ def get_argument_parser():
 		const="WXGL",
 		help="""
 			Equivalent to --use-gl-window-lib=WXGL.
+		"""
+	)
+	argparser_gl_window_lib_group.add_argument(
+		"--use-qtgl",
+		dest="gl_window_lib",
+		action="store_const",
+		const="QTGL",
+		help="""
+			Equivalent to --use-gl-window-lib=QTGL.
 		"""
 	)
 	argparser_gl_window_lib_group.add_argument(
