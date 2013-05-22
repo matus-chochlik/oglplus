@@ -129,7 +129,7 @@ Requirements
  - A library initializing the default rendering context (required) -- Currently 
    the examples can be built if at least one of the following libraries is
    installed on the system: X11+GLX, `FreeGLUT`_, `GLFW`_, `SDL`_, `wxGL`_ or `Qt`_.
-   The build system detects the presence these libraries and configures
+   The build system detects the presence of these libraries and configures
    compilation and linking of the examples accordingly.
    The library to be used can be explicitly specified with the ``--use-gl-header-lib``
    option of the ``configure`` script (see below).
@@ -273,7 +273,7 @@ Acknowledgements
 - *Timo Keller* for contributing one of the examples.
 - *Denis Ovod* for constructive critique and suggestions.
 - *Per Nordlöw* for useful suggestions.
-- *Dmitry Yakimenko* (detunized) for several patches.
+- *Dmitry Yakimenko (detunized)* for several patches.
 
 License
 =======
@@ -283,12 +283,16 @@ Software License, Version 1.0. (See accompanying file
 LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
-.. [#oglplus_link_library] Although, OGLplus is generally a header-only library,
-   some parts of it (mostly some complex functions or functions with static data)
+.. [#oglplus_link_library] Although OGLplus is generally a header-only library,
+   several parts of it (mostly some complex functions or functions with static data)
    can optionally be built separately and linked to applications, which can lead
    to improved build times especially for larger projects.
    See the documentation for the ``OGLPLUS_LINK_LIBRARY`` preprocessor configuration
-   option for more details.
+   option for more details. Generally if ``OGLPLUS_LINK_LIBRARY`` is set to zero
+   then everything is inlined, otherwise some functions are only declared, but not
+   defined and the ``oglplus/lib.hpp`` header that contains the definition
+   of all such functions must be included in one of the translation
+   units that are linked into the final application.
 
 .. [#req_cxx11_feats] OGLplus requires the following C++11 features:
    The ``type_traits`` and ``tuple`` librares, variadic preprocessor macros, r-value
