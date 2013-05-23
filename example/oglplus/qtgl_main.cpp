@@ -116,6 +116,10 @@ void OGLplusExampleGLWidget::paintGL(void)
 		if(!example->Continue(clock))
 			emit exampleFinished();
 		else example->Render(clock);
+		emit timeUpdated(
+			clock.Now().Seconds(),
+			clock.RealTime().Seconds()
+		);
 	}
 	update();
 }
@@ -147,6 +151,11 @@ void OGLplusExampleGLWidget::mouseMoveEvent(QMouseEvent *mouse_event)
 		width(),
 		height()
 	);
+	emit mouseMoved(
+		mouse_event->x(),
+		height()-
+		mouse_event->y()
+	);
 }
 
 
@@ -163,9 +172,28 @@ OGLplusExampleWindow::OGLplusExampleWindow(
 
 	QHBoxLayout *main_layout = new QHBoxLayout();
 
-	gl_widget=new OGLplusExampleGLWidget(this, argc, argv, screenshot_path);
-	connect(gl_widget, SIGNAL(updatedGL()), this, SLOT(updateGLInfo()));
-	connect(gl_widget, SIGNAL(exampleFinished()), this, SLOT(close()));
+	gl_widget = new OGLplusExampleGLWidget(
+		this,
+		argc,
+		argv,
+		screenshot_path
+	);
+	connect(
+		gl_widget, SIGNAL(updatedGL()),
+		this, SLOT(updateGLInfo())
+	);
+	connect(
+		gl_widget, SIGNAL(mouseMoved(int, int)),
+		this, SLOT(updateMouseInfo(int, int))
+	);
+	connect(
+		gl_widget, SIGNAL(timeUpdated(double, double)),
+		this, SLOT(updateTimeInfo(double, double))
+	);
+	connect(
+		gl_widget, SIGNAL(exampleFinished()),
+		this, SLOT(close())
+	);
 	main_layout->addWidget(gl_widget, 1);
 
 
@@ -190,6 +218,22 @@ OGLplusExampleWindow::OGLplusExampleWindow(
 	info_gl_height = new QLabel(this);
 	info_gl_height->setAlignment(Qt::AlignRight);
 	form_layout->addRow(tr("Viewport height"), info_gl_height);
+
+	info_mouse_x = new QLabel(this);
+	info_mouse_x->setAlignment(Qt::AlignRight);
+	form_layout->addRow(tr("Mouse X"), info_mouse_x);
+
+	info_mouse_y = new QLabel(this);
+	info_mouse_y->setAlignment(Qt::AlignRight);
+	form_layout->addRow(tr("Mouse Y"), info_mouse_y);
+
+	info_sim_time = new QLabel(this);
+	info_sim_time->setAlignment(Qt::AlignRight);
+	form_layout->addRow(tr("Sim. time [s]"), info_sim_time);
+
+	info_real_time = new QLabel(this);
+	info_real_time->setAlignment(Qt::AlignRight);
+	form_layout->addRow(tr("Real time [s]"), info_real_time);
 
 	main_layout->addLayout(form_layout);
 	main_layout->addSpacing(4);
@@ -218,6 +262,22 @@ void OGLplusExampleWindow::updateGLInfo(void)
 	info_gl_width->setText(QString::number(gl_widget->width()));
 	assert(info_gl_height);
 	info_gl_height->setText(QString::number(gl_widget->height()));
+}
+
+void OGLplusExampleWindow::updateMouseInfo(int mouse_x, int mouse_y)
+{
+	assert(info_mouse_x);
+	info_mouse_x->setText(QString::number(mouse_x));
+	assert(info_mouse_y);
+	info_mouse_y->setText(QString::number(mouse_y));
+}
+
+void OGLplusExampleWindow::updateTimeInfo(double sim_time, double real_time)
+{
+	assert(info_sim_time);
+	info_sim_time->setText(QString::number(sim_time));
+	assert(info_real_time);
+	info_real_time->setText(QString::number(real_time));
 }
 
 void OGLplusExampleWindow::keyPressEvent(QKeyEvent *e)
