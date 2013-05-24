@@ -9,6 +9,8 @@ include(CTest)
 
 if(OGLPLUS_USE_WXGL)
 	set(OGLPLUS_TEST_FIXTURE "wxgl")
+elseif(OGLPLUS_USE_QTGL)
+	set(OGLPLUS_TEST_FIXTURE "qtgl")
 elseif(OGLPLUS_USE_GLUT)
 	set(OGLPLUS_TEST_FIXTURE "glut")
 elseif(OGLPLUS_USE_GLFW)

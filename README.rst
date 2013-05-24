@@ -15,13 +15,14 @@ OGLplus README
 .. _GLEW: http://glew.sourceforge.net/
 .. _GLFW: http://www.glfw.org/
 .. _FreeGLUT: http://freeglut.sourceforge.net/
-.. _SDL: www.libsdl.org/
-.. _wxGL: www.wxwidgets.org/
+.. _SDL: http://www.libsdl.org/
+.. _wxGL: http://www.wxwidgets.org/
+.. _Qt: http://qt.digia.com/
 
 Introduction to OGLplus
 =======================
 
-`OGLplus`_ is a open-source header-only library which implements a thin
+`OGLplus`_ is a portable open-source header-only library which implements a thin
 object-oriented facade over the `OpenGL`_  (version 3 and higher) C-language API.
 It provides wrappers which automate resource and object management and make
 the use of OpenGL in C++ safer and easier.
@@ -65,8 +66,8 @@ Overview
 --------
 
 OGLplus uses a CMake-based build/configuration system. The library itself
-is header only, which means that applications using it do not need to link
-to a compiled library, but need just to include the header files.
+is header-only, which means that applications using it do not need to link
+to a compiled library, but need just to include the header files [#oglplus_link_library]_.
 
 The build system handles several important tasks:
 
@@ -127,8 +128,8 @@ Requirements
 
  - A library initializing the default rendering context (required) -- Currently 
    the examples can be built if at least one of the following libraries is
-   installed on the system: X11+GLX, `FreeGLUT`_, `GLFW`_, `SDL`_ or `wxGL`_.
-   The build system detects the presence these libraries and configures
+   installed on the system: X11+GLX, `FreeGLUT`_, `GLFW`_, `SDL`_, `wxGL`_ or `Qt`_.
+   The build system detects the presence of these libraries and configures
    compilation and linking of the examples accordingly.
    The library to be used can be explicitly specified with the ``--use-gl-header-lib``
    option of the ``configure`` script (see below).
@@ -272,6 +273,7 @@ Acknowledgements
 - *Timo Keller* for contributing one of the examples.
 - *Denis Ovod* for constructive critique and suggestions.
 - *Per Nordlöw* for useful suggestions.
+- *Dmitry Yakimenko (detunized)* for several patches.
 
 License
 =======
@@ -281,6 +283,17 @@ Software License, Version 1.0. (See accompanying file
 LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
+.. [#oglplus_link_library] Although OGLplus is generally a header-only library,
+   several parts of it (mostly some complex functions or functions with static data)
+   can optionally be built separately and linked to applications, which can lead
+   to improved build times especially for larger projects.
+   See the documentation for the ``OGLPLUS_LINK_LIBRARY`` preprocessor configuration
+   option for more details. Generally if ``OGLPLUS_LINK_LIBRARY`` is set to zero
+   then everything is inlined, otherwise some functions are only declared, but not
+   defined and the ``oglplus/lib.hpp`` header that contains the definition
+   of all such functions must be included in one of the translation
+   units that are linked into the final application.
+
 .. [#req_cxx11_feats] OGLplus requires the following C++11 features:
    The ``type_traits`` and ``tuple`` librares, variadic preprocessor macros, r-value
    references and move-constructors.
@@ -289,4 +302,3 @@ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
    Strongly typed enumerations, variadic templates, initializer lists, lambdas,
    defaulted and deleted functions, function template default arguments,
    constexpr, noexcept, nullptr, explicit conversion operators.
-
