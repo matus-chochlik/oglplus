@@ -467,7 +467,7 @@ def search_ldflags():
 
 		ldflags = os.environ.get("LDFLAGS")
 		if ldflags is not None:
-			flagiter = iter(shlex.split())
+			flagiter = iter(shlex.split(ldflags))
 			for flag in flagiter:
 				if flag == "-L":
 					ldflags_library_dirs.append(flagiter.next())

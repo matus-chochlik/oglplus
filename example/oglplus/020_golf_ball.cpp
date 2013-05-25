@@ -80,11 +80,11 @@ private:
 			}
 			else if(na > 1)
 			{
-				float elev = el[e] * M_PI;
+				float elev = el[e] * math::Pi();
 				float a_step = 1.0f / na;
 				for(GLuint a=0; a!=na; ++a)
 				{
-					float azim = si[s]*ao[e]+a*a_step*2*M_PI;
+					float azim = si[s]*ao[e]+a*a_step*math::TwoPi();
 					data[k++] = std::cos(elev)*std::cos(azim);
 					data[k++] = std::sin(elev * si[s]);
 					data[k++] = std::cos(elev)*std::sin(azim);
