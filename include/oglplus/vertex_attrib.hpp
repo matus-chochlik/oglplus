@@ -993,9 +993,9 @@ public:
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 		}
-#if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
 		else if(data_type == DataType::Double)
 		{
+#if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
 			OGLPLUS_GLFUNC(VertexAttribLPointer)(
 				_location,
 				values_per_vertex,
@@ -1004,8 +1004,14 @@ public:
 				pointer
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLPointer));
-		}
+#else
+			assert(!
+				"The glVertexAttribLPointer function is "
+				"required but not available! Double-precision "
+				"vertex attribute values are not supported."
+			);
 #endif
+		}
 		else
 		{
 			OGLPLUS_GLFUNC(VertexAttribIPointer)(

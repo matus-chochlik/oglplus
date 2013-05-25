@@ -8,6 +8,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
+ *  @oglplus_example_uses_gl{GL_VERSION_3_0}
  *  @oglplus_example_uses_cxx11{FUNCTION_TEMPLATE_DEFAULT_ARGS}
  *  @oglplus_example_uses_texture{wooden_crate}
  *  @oglplus_example_uses_texture{wooden_crate-hmap}

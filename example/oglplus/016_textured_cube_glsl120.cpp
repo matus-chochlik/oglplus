@@ -8,6 +8,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
+ *  @oglplus_example_uses_gl{GL_VERSION_3_0}
  *  @oglplus_example_uses_cxx11{FUNCTION_TEMPLATE_DEFAULT_ARGS}
  *  @oglplus_example_uses_cxx11{LAMBDAS}
  */
@@ -93,7 +94,7 @@ public:
 			"	float l = length(vertLight);"
 			"	float d = l > 0 ? dot(vertNormal, normalize(vertLight)) / l : 0.0;"
 			"	float i = 0.3 + 2.0*max(d, 0.0);"
-			"	vec4 t = texture(TexUnit, vertTexCoord);"
+			"	vec4 t = texture2D(TexUnit, vertTexCoord);"
 			"	gl_FragColor = vec4(t.rgb*i, 1.0);"
 			"}"
 		).Compile();
