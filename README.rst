@@ -273,7 +273,7 @@ Acknowledgements
 - *Timo Keller* for contributing one of the examples.
 - *Denis Ovod* for constructive critique and suggestions.
 - *Per Nordlöw* for useful suggestions.
-- *Dmitry Yakimenko (detunized)* for several patches.
+- *Dmitry Yakimenko (detunized)* for several patches and porting to MacOS X.
 
 License
 =======
