@@ -1,5 +1,5 @@
 /*
- *  .file test/fixture_glx.cpp
+ *  .file test/oglplus/fixture_glx.cpp
  *  Implements GLX-based test fixture
  *
  *  Copyright 2011-2013 Matus Chochlik. Distributed under the Boost

@@ -1,5 +1,5 @@
 /**
- *  .file test/test.hpp
+ *  .file test/oglplus/test.hpp
  *  .brief Testing-related setup
  *
  *  .author Matus Chochlik

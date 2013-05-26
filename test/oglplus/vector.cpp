@@ -1,5 +1,5 @@
 /**
- *  .file test/vector.cpp
+ *  .file test/oglplus/vector.cpp
  *  .brief Test case for Vector class and related functionality.
  *
  *  .author Matus Chochlik

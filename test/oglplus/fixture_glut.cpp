@@ -1,5 +1,5 @@
 /*
- *  .file test/fixture_glut.cpp
+ *  .file test/oglplus/fixture_glut.cpp
  *  Implements GLUT-based test fixture
  *
  *  Copyright 2011-2013 Matus Chochlik. Distributed under the Boost
