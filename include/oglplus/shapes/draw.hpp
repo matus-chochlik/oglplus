@@ -20,6 +20,7 @@
 #include <oglplus/data_type.hpp>
 
 #include <vector>
+#include <cassert>
 
 namespace oglplus {
 namespace shapes {
@@ -186,6 +187,7 @@ private:
 
 	void _SetupPrimitiveRestart(void) const
 	{
+#if GL_VERSION_3_1
 		if(restart_index == NoRestartIndex())
 		{
 			OGLPLUS_GLFUNC(Disable)(GL_PRIMITIVE_RESTART);
@@ -198,6 +200,12 @@ private:
 			OGLPLUS_GLFUNC(PrimitiveRestartIndex)(restart_index);
 			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PrimitiveRestartIndex));
 		}
+#else
+		assert(!
+			"Primitive restarting required, "
+			"but not supported by the used version of OpenGL!"
+		);
+#endif
 	}
 
 	void _CleanupPrimitiveRestart(void) const
@@ -245,6 +253,7 @@ private:
 		}
 		else if(base_inst == 0)
 		{
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 			OGLPLUS_GLFUNC(DrawArraysInstanced)(
 				GLenum(mode),
 				first,
@@ -252,6 +261,12 @@ private:
 				inst_count
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
+#else
+			assert(!
+				"DrawArraysInstanced required, "
+				"but not supported by the used version of OpenGL!"
+			);
+#endif
 		}
 		else
 		{
@@ -267,7 +282,10 @@ private:
 				DrawArraysInstancedBaseInstance
 			));
 #else
-			assert(!"DrawArraysInstancedBaseInstance required!");
+			assert(!
+				"DrawArraysInstancedBaseInstance required, "
+				"but not supported by the used version of OpenGL!"
+			);
 #endif
 		}
 	}
@@ -292,6 +310,7 @@ private:
 		}
 		else if(base_inst == 0)
 		{
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 			OGLPLUS_GLFUNC(DrawElementsInstanced)(
 				GLenum(mode),
 				count,
@@ -302,6 +321,12 @@ private:
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
 				DrawElementsInstanced
 			));
+#else
+			assert(!
+				"DrawElementsInstanced required, "
+				"but not supported by the used version of OpenGL!"
+			);
+#endif
 		}
 		else
 		{
@@ -318,7 +343,10 @@ private:
 				DrawElementsInstancedBaseInstance
 			));
 #else
-			assert(!"DrawElementsInstancedBaseInstance required!");
+			assert(!
+				"DrawElementsInstancedBaseInstance required, "
+				"but not supported by the used version of OpenGL!"
+			);
 #endif
 		}
 		_CleanupPrimitiveRestart();

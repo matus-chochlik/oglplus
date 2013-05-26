@@ -385,6 +385,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Attach a @p texture to the @p attachment point of @p target
 	/**
 	 *  @see AttachRenderbuffer
@@ -452,6 +453,7 @@ public:
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
+#endif
 
 	/// Attach a 1D @p texture to the @p attachment point of @p target
 	/**
@@ -464,7 +466,7 @@ public:
 	 *  @see AttachTextureLayer
 	 *
 	 *  @glsymbols
-	 *  @glfunref{FramebufferTexture}
+	 *  @glfunref{FramebufferTexture1D}
 	 */
 	static void AttachTexture1D(
 		Target target,
@@ -500,7 +502,7 @@ public:
 	 *  @see AttachTextureLayer
 	 *
 	 *  @glsymbols
-	 *  @glfunref{FramebufferTexture}
+	 *  @glfunref{FramebufferTexture2D}
 	 */
 	static void AttachTexture2D(
 		Target target,
@@ -536,7 +538,7 @@ public:
 	 *  @see AttachTextureLayer
 	 *
 	 *  @glsymbols
-	 *  @glfunref{FramebufferTexture}
+	 *  @glfunref{FramebufferTexture3D}
 	 */
 	static void AttachTexture3D(
 		Target target,
