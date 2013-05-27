@@ -27,7 +27,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(MemoryBarrierBit, GLbitfield)
 #include <oglplus/enums/memory_barrier_bit.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(MemoryBarrierBit)
 
 OGLPLUS_MAKE_BITFIELD(MemoryBarrierBit)
 

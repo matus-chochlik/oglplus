@@ -678,7 +678,7 @@ void ObjMesh::_load_meshes(
 					Vec3f t = (duv1.y()*v0 - duv0.y()*v1)*d;
 					Vec3f nt = Normalized(t);
 
-					for(std::size_t v=0; v!=3; ++v)
+					for(std::size_t tv=0; tv!=3; ++tv)
 					{
 						_tgt_data[f*9+v*3+0] = nt.x();
 						_tgt_data[f*9+v*3+1] = nt.y();
@@ -691,7 +691,7 @@ void ObjMesh::_load_meshes(
 					Vec3f b = (duv0.x()*v1 - duv1.x()*v0)*d;
 					Vec3f nb = Normalized(b);
 
-					for(std::size_t v=0; v!=3; ++v)
+					for(std::size_t tv=0; tv!=3; ++tv)
 					{
 						_btg_data[f*9+v*3+0] = nb.x();
 						_btg_data[f*9+v*3+1] = nb.y();

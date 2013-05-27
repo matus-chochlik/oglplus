@@ -27,7 +27,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PixelStorageMode, GLenum)
 #include <oglplus/enums/pixel_storage_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PixelStorageMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/pixel_storage_mode_names.ipp>

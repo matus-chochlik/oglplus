@@ -8,7 +8,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_gl{GL_VERSION_3_1}
+ *  @oglplus_example_uses_gl{GL_VERSION_4_0}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -80,11 +80,11 @@ private:
 			}
 			else if(na > 1)
 			{
-				float elev = el[e] * M_PI;
+				float elev = el[e] * math::Pi();
 				float a_step = 1.0f / na;
 				for(GLuint a=0; a!=na; ++a)
 				{
-					float azim = si[s]*ao[e]+a*a_step*2*M_PI;
+					float azim = si[s]*ao[e]+a*a_step*math::TwoPi();
 					data[k++] = std::cos(elev)*std::cos(azim);
 					data[k++] = std::sin(elev * si[s]);
 					data[k++] = std::cos(elev)*std::sin(azim);

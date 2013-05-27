@@ -1,5 +1,5 @@
 /**
- *  .file test/buffer.cpp
+ *  .file test/oglplus/buffer.cpp
  *  .brief Test case for Buffer class and related functionality.
  *
  *  .author Matus Chochlik

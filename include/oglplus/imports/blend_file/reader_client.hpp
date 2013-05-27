@@ -126,7 +126,7 @@ protected:
 		Int values;
 		char* buffer = reinterpret_cast<char*>(&values);
 		reader._raw_read(buffer, sizeof(Int), error_message);
-		return ReorderToNative(file_byte_order, values);
+		return aux::ReorderToNative(file_byte_order, values);
 	}
 
 	// skips the specified number of bytes in input

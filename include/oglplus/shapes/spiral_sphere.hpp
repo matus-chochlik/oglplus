@@ -496,7 +496,7 @@ public:
 			(1 << (sizeof(GLushort) * 8)) - 1 >=
 			_vertex_count()
 		);
-		const unsigned n =
+		const unsigned m =
 			(_bands * 2)*
 			(_divisions * 2)*
 			(_segments + 1)+
@@ -504,7 +504,7 @@ public:
 			(_segments + 1)
 		;
 		//
-		IndexArray indices(n);
+		IndexArray indices(m);
 		unsigned k = 0;
 		unsigned eoffs, offs = 0;
 		const unsigned edge = _segments + 1;

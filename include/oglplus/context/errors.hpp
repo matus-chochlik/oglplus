@@ -28,7 +28,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ErrorCode, GLenum)
 #include <oglplus/enums/error_code.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ErrorCode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/error_code_names.ipp>

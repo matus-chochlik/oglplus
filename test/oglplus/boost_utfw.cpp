@@ -1,5 +1,5 @@
 /**
- *  .file test/boost_utfw.cpp
+ *  .file test/oglplus/boost_utfw.cpp
  *  .brief Test case checking if Boost unit test framework works
  *
  *  .author Matus Chochlik

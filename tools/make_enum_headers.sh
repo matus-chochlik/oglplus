@@ -159,7 +159,8 @@ do
 	EnumClass=$(MakeEnumClass ${InputFile})
 	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 	#
-	echo "${LibNameUC}_LIB_FUNC StrLit EnumValueName("
+	echo "namespace enums {"
+	echo "${LibNameUC}_LIB_FUNC StrLit _ValueName("
 	echo "	${EnumClass}*,"
 	echo "	${LibPrefixUC}${EnumBaseType} value"
 	echo ")"
@@ -186,6 +187,7 @@ do
 	echo "#else"
 	echo ";"
 	echo "#endif"
+	echo "} // namespace enums"
 	echo
 	)
 
@@ -205,10 +207,11 @@ do
 	EnumClass=$(MakeEnumClass ${InputFile})
 	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 	#
+	echo "namespace enums {"
 	echo "${LibNameUC}_LIB_FUNC aux::CastIterRange<"
 	echo "	const ${LibPrefixUC}${EnumBaseType}*,"
 	echo "	${EnumClass}"
-	echo "> EnumValueRange(${EnumClass}*)"
+	echo "> _ValueRange(${EnumClass}*)"
 	echo "#if (!${LibNameUC}_LINK_LIBRARY || defined(${LibNameUC}_IMPLEMENTING_LIBRARY)) && \\"
 	echo "	!defined(${LibNameUC}_IMPL_EVR_${EnumClass^^})"
 	echo "#define ${LibNameUC}_IMPL_EVR_${EnumClass^^}"
@@ -233,6 +236,7 @@ do
 	echo "#else"
 	echo ";"
 	echo "#endif"
+	echo "} // namespace enums"
 	echo
 	)
 
@@ -581,3 +585,6 @@ MakeEnumValueRange GL oglplus ext
 MakeEnumShorteners GL oglplus ext
 MakeEnumBQHeaders GL oglplus ext
 MakeGLSLtoCPPtypeHeader GL oglplus
+
+
+MakeEnumHeaders AL oalplus

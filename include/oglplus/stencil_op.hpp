@@ -26,7 +26,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(StencilOperation, GLenum)
 #include <oglplus/enums/stencil_operation.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(StencilOperation)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/stencil_operation_names.ipp>

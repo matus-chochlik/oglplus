@@ -89,7 +89,9 @@ public:
 
 // helper macro used to define bitfield-related functions
 #define OGLPLUS_MAKE_BITFIELD(BITS) \
+namespace enums { \
 template <> struct EnumBaseType<BITS> { typedef GLbitfield Type; }; \
+} \
 inline oglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
 { \
 	return Bitfield<BITS>(b1, b2); \

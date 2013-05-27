@@ -42,7 +42,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureCompareMode, GLenum)
 #include <oglplus/enums/texture_compare_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TextureCompareMode)
 
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
@@ -64,7 +64,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureMagFilter, GLenum)
 #include <oglplus/enums/texture_mag_filter.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TextureMagFilter)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/texture_mag_filter_names.ipp>
@@ -85,7 +85,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureMinFilter, GLenum)
 #include <oglplus/enums/texture_min_filter.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TextureMinFilter)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/texture_min_filter_names.ipp>
@@ -105,7 +105,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzleCoord, GLenum)
 #include <oglplus/enums/texture_swizzle_coord.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TextureSwizzleCoord)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/texture_swizzle_coord_names.ipp>
@@ -128,7 +128,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzle, GLenum)
 #include <oglplus/enums/texture_swizzle.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TextureSwizzle)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/texture_swizzle_names.ipp>
@@ -148,7 +148,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureWrapCoord, GLenum)
 #include <oglplus/enums/texture_wrap_coord.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TextureWrapCoord)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/texture_wrap_coord_names.ipp>
@@ -171,7 +171,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureWrap, GLenum)
 #include <oglplus/enums/texture_wrap.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TextureWrap)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/texture_wrap_names.ipp>
@@ -190,7 +190,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureTarget, GLenum)
 #include <oglplus/enums/texture_target.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TextureTarget)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/texture_target_names.ipp>

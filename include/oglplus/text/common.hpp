@@ -85,7 +85,7 @@ OGLPLUS_ENUM_CLASS_BEGIN(Alignment, int)
 	OGLPLUS_ENUM_CLASS_COMMA
 	OGLPLUS_ENUM_CLASS_VALUE(Right, 1)
 #endif
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(Alignment)
 
 /// Enumeration specifying the writing direction when rendering layouts
 /**
@@ -103,7 +103,7 @@ OGLPLUS_ENUM_CLASS_BEGIN(Direction, int)
 	OGLPLUS_ENUM_CLASS_COMMA
 	OGLPLUS_ENUM_CLASS_VALUE(RightToLeft, -1)
 #endif
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(Direction)
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 

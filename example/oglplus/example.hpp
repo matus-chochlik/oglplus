@@ -266,9 +266,7 @@ public:
 	/// Mouse move event handler
 	virtual void MouseMoveNormalized(float x, float y, float aspect)
 	{
-		OGLPLUS_FAKE_USE(x);
-		OGLPLUS_FAKE_USE(y);
-		OGLPLUS_FAKE_USE(aspect);
+		(void)(x+y+aspect);
 	}
 
 	/// Mouse move event handler

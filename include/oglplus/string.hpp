@@ -176,13 +176,13 @@ public:
 	 *
 	 *  @see #OGLPLUS_NO_UTF8_CHECKS
 	 */
-	explicit StrLit(const GLchar* lit, std::size_t size)
+	explicit StrLit(const GLchar* lit, std::size_t lit_size)
 	 : _lit(lit)
 #if !OGLPLUS_LAZY_STR_LIT
-	 , _size(size)
+	 , _size(lit_size)
 #endif
 	{
-		OGLPLUS_FAKE_USE(size);
+		OGLPLUS_FAKE_USE(lit_size);
 		_check();
 	}
 

@@ -12,8 +12,6 @@
 #ifndef __OGLPLUS_AUX_UTF8_1102101236_HPP
 #define __OGLPLUS_AUX_UTF8_1102101236_HPP
 
-#include <oglplus/config.hpp>
-
 #if !OGLPLUS_NO_UTF8_CHECKS
 #include <oglplus/auxiliary/utf8/validator.hpp>
 #endif

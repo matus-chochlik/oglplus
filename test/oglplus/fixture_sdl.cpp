@@ -1,5 +1,5 @@
 /*
- *  .file test/fixture_sdl.cpp
+ *  .file test/oglplus/fixture_sdl.cpp
  *  Implements SDL-based test fixture
  *
  *  Copyright 2011-2013 Matus Chochlik. Distributed under the Boost

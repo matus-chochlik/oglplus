@@ -8,6 +8,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
+ *  @oglplus_example_uses_gl{GL_VERSION_4_1}
  *  @oglplus_example_uses_cxx11{INITIALIZER_LISTS}
  *  @oglplus_example_uses_cxx11{VARIADIC_TEMPLATES}
  *
@@ -20,12 +21,12 @@
  *  @oglplus_example_uses_texture{pool_ball_7}
  *  @oglplus_example_uses_texture{pool_ball_8}
  *  @oglplus_example_uses_texture{pool_ball_9}
- *  @oglplus_example_uses_texture{pool_ball_10}
- *  @oglplus_example_uses_texture{pool_ball_11}
- *  @oglplus_example_uses_texture{pool_ball_12}
- *  @oglplus_example_uses_texture{pool_ball_13}
- *  @oglplus_example_uses_texture{pool_ball_14}
- *  @oglplus_example_uses_texture{pool_ball_15}
+ *  @oglplus_example_uses_texture{pool_ball10}
+ *  @oglplus_example_uses_texture{pool_ball11}
+ *  @oglplus_example_uses_texture{pool_ball12}
+ *  @oglplus_example_uses_texture{pool_ball13}
+ *  @oglplus_example_uses_texture{pool_ball14}
+ *  @oglplus_example_uses_texture{pool_ball15}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -876,7 +877,7 @@ public:
 
 		LightmapProgram prog;
 
-		Shape<shapes::Plane> plane(prog, shapes::Plane(plane_u, plane_v));
+		Shape<shapes::Plane> tmp_plane(prog, shapes::Plane(plane_u, plane_v));
 
 
 		GLfloat i_u = Length(plane_u);
@@ -896,7 +897,7 @@ public:
 
 		gl.Disable(Capability::DepthTest);
 
-		plane.Draw();
+		tmp_plane.Draw();
 
 		gl.Enable(Capability::DepthTest);
 

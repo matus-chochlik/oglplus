@@ -37,11 +37,11 @@ class ContextElementRange
 {
 private:
 	Context _context;
-	GLuint _current, _count;
+	unsigned _current, _count;
 public:
 	typedef Element ValueType;
 
-	ContextElementRange(Context&& context, GLuint current, GLuint count)
+	ContextElementRange(Context&& context, unsigned current, unsigned count)
 	 : _context(std::move(context))
 	 , _current(current)
 	 , _count(count)
@@ -49,7 +49,7 @@ public:
 		assert(current <= count);
 	}
 
-	ContextElementRange(Context&& context, GLuint count)
+	ContextElementRange(Context&& context, unsigned count)
 	 : _context(std::move(context))
 	 , _current(0)
 	 , _count(count)
@@ -147,12 +147,12 @@ public:
 template <typename Element>
 class ArrayRange
  : public CastIterRange<
-	std::vector<GLuint>::const_iterator,
+	std::vector<unsigned>::const_iterator,
 	Element
 >
 {
 private:
-	typedef std::vector<GLuint>::const_iterator iterator;
+	typedef std::vector<unsigned>::const_iterator iterator;
 	typedef CastIterRange<iterator, Element> _base;
 public:
 	ArrayRange(iterator i, iterator e)

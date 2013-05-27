@@ -8,6 +8,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
+ *  @oglplus_example_uses_gl{GL_VERSION_4_1}
  *  @oglplus_example_uses_texture{zebra_fur}
  */
 #include <oglplus/gl.hpp>

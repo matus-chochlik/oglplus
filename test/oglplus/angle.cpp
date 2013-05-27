@@ -1,5 +1,5 @@
 /**
- *  .file test/angle.cpp
+ *  .file test/oglplus/angle.cpp
  *  .brief Test case for Angle class and related functionality.
  *
  *  .author Matus Chochlik

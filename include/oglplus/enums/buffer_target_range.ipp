@@ -9,10 +9,11 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	BufferTarget
-> EnumValueRange(BufferTarget*)
+> _ValueRange(BufferTarget*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_BUFFERTARGET)
 #define OGLPLUS_IMPL_EVR_BUFFERTARGET
@@ -73,4 +74,5 @@ return aux::CastIterRange<
 #else
 ;
 #endif
+} // namespace enums
 

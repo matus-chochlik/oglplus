@@ -31,10 +31,10 @@ private:
 	String _log;
 public:
 	ProgramBuildError(
-		const char* what,
+		const char* message,
 		const String& log,
 		const ErrorInfo& info
-	): Error(0, what, info)
+	): Error(0, message, info)
 	 , _log(log)
 	{ }
 

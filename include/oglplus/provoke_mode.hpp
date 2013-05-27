@@ -26,7 +26,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ProvokeMode, GLenum)
 #include <oglplus/enums/provoke_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ProvokeMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/provoke_mode_names.ipp>

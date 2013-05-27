@@ -47,7 +47,9 @@ if(GLUT_LIBRARIES)
 	set(TMP_GLUT_LIBRARIES ${GLUT_LIBRARIES})
 	set(GLUT_LIBRARIES "")
 	foreach(LIB ${TMP_GLUT_LIBRARIES})
-		if(EXISTS ${LIB})
+		# Check if library exists or it's an OS X framework.
+		# On OS X it doesn't contain a path, but rather a string like "-framework GLUT".
+		if((EXISTS ${LIB}) OR (${LIB} MATCHES "^-framework .*$"))
 			list(APPEND GLUT_LIBRARIES ${LIB})
 		endif()
 	endforeach()

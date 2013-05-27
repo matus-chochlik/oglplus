@@ -61,6 +61,7 @@ if(NOT OGLPLUS_NO_EXAMPLES)
 endif()
 file(APPEND ${DOXYFILE} "OUTPUT_DIRECTORY = ${CMAKE_CURRENT_BINARY_DIR}\n")
 file(APPEND ${DOXYFILE} "GENERATE_TAGFILE = ${CMAKE_CURRENT_BINARY_DIR}/doxygen.tags\n")
+file(APPEND ${DOXYFILE} "TAGFILES = ${CMAKE_CURRENT_BINARY_DIR}/../oalplus/doxygen.tags\n")
 file(APPEND ${DOXYFILE} "PROJECT_NUMBER = ${OGLPLUS_VERSION_STR}\n")
 file(APPEND ${DOXYFILE} "QUIET = YES\n")
 
@@ -76,7 +77,7 @@ add_custom_command(
 )
 
 add_custom_target(
-	rebuild_doc
+	rebuild-oglplus-doc
 	COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
