@@ -232,11 +232,11 @@ private:
 	friend class BlendFileFlattenedStructField;
 
 	BlendFileStruct(
-		BlendFileSDNA* _sdna,
+		BlendFileSDNA* sdna,
 		std::size_t struct_index
 	): BlendFileType(
-		_sdna,
-		_sdna->_structs[struct_index]._type_index,
+		sdna,
+		sdna->_structs[struct_index]._type_index,
 		struct_index
 	)
 	{ }

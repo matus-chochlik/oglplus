@@ -18,6 +18,7 @@
 
 #include "spectra_app.hpp"
 #include "document.hpp"
+#include "calculator.hpp"
 
 #include <wx/wx.h>
 #include <wx/glcanvas.h>
@@ -41,7 +42,6 @@ public:
 class SpectraVisualisation
 {
 private:
-	SpectraApp& parent_app;
 	SpectraMainFrame* main_frame;
 
 	float selected_time, selection_begin, selection_end;
@@ -54,15 +54,16 @@ private:
 	oglplus::Buffer spectrum_data;
 	oglplus::Texture spectrum_tex;
 
+	std::size_t spectrum_size;
 	std::size_t signal_samples_per_grid;
 
 	std::weak_ptr<SpectraVisDataUploader> uploader_ref;
 public:
 	SpectraVisualisation(
-		SpectraApp& app,
 		SpectraMainFrame* frame,
 		wxGLCanvas* canvas,
 		wxGLContext* parent_ctxt,
+		const std::shared_ptr<SpectraCalculator>& calc,
 		const std::shared_ptr<SpectraDocument>& doc
 	);
 

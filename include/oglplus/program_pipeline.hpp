@@ -36,7 +36,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ProgramPipelineStage, GLbitfield)
 #include <oglplus/enums/program_pipeline_stage.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ProgramPipelineStage)
 
 OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
 

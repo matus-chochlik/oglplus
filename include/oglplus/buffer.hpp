@@ -109,7 +109,7 @@ typedef GLuint ShaderStorageBufferBindingPoint;
  */
 OGLPLUS_ENUM_CLASS_BEGIN(BufferUsage, GLenum)
 #include <oglplus/enums/buffer_usage.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(BufferUsage)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/buffer_usage_names.ipp>
@@ -138,7 +138,7 @@ OGLPLUS_ENUM_CLASS_BEGIN(BufferMapAccess, GLbitfield)
 	OGLPLUS_ENUM_CLASS_COMMA
 	OGLPLUS_ENUM_CLASS_VALUE(ReadWrite, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT)
 #endif
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(BufferMapAccess)
 
 /// Buffer bind target
 /**
@@ -146,7 +146,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(BufferTarget, GLenum)
 #include <oglplus/enums/buffer_target.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(BufferTarget)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/buffer_target_names.ipp>
@@ -163,7 +163,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(BufferIndexedTarget, GLenum)
 #include <oglplus/enums/buffer_indexed_target.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(BufferIndexedTarget)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/buffer_indexed_target_names.ipp>

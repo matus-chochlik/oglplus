@@ -324,7 +324,11 @@ public:
 		return instructions;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
 	/// Returns element indices that are used with the drawing instructions
+	/**
+	 *  glverreq{4,2}
+	 */
 	IndexArray PatchIndices(void) const
 	{
 		unsigned k = 0;
@@ -351,6 +355,9 @@ public:
 	}
 
 	/// Returns the instructions for rendering
+	/**
+	 *  glverreq{4,2}
+	 */
 	DrawingInstructions PatchInstructions(void) const
 	{
 		auto instructions = this->MakeInstructions();
@@ -366,6 +373,7 @@ public:
 		this->AddInstruction(instructions, operation);
 		return instructions;
 	}
+#endif
 
 	/// Returns edge element indices that are used with the drawing instructions
 	IndexArray EdgeIndices(void) const

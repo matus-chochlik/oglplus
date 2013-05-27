@@ -35,7 +35,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PerfMonitorAMDType, GLenum)
 #include <oglplus/enums/ext/amd_perf_monitor_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PerfMonitorAMDType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/amd_perf_monitor_type_names.ipp>

@@ -7,6 +7,8 @@
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ *
+ *  @oglplus_example_uses_gl{GL_VERSION_3_0}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -176,8 +178,8 @@ public:
 		GLfloat cube_normals[vertex_count * 3];
 		for(GLuint f=0;f!=6;++f)
 			for(GLuint v=0;v!=6;++v)
-				for(GLuint c=0;c!=3;++c)
-					cube_normals[(f*6+v)*3+c] = n[f][c];
+				for(GLuint ci=0;ci!=3;++ci)
+					cube_normals[(f*6+v)*3+ci] = n[f][ci];
 		// bind the VBO for the cube normals
 		normals.Bind(Buffer::Target::Array);
 		// upload the data

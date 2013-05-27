@@ -26,7 +26,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(BlendFunction, GLenum)
 #include <oglplus/enums/blend_function.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(BlendFunction)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/blend_function_names.ipp>
@@ -48,7 +48,7 @@ typedef BlendFunction BlendFn;
  */
 OGLPLUS_ENUM_CLASS_BEGIN(BlendEquation, GLenum)
 #include <oglplus/enums/blend_equation.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(BlendEquation)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/blend_equation_names.ipp>

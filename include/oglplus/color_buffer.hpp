@@ -27,7 +27,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ColorBuffer, GLenum)
 #include <oglplus/enums/color_buffer.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ColorBuffer)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/color_buffer_names.ipp>

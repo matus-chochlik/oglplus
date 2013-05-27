@@ -331,17 +331,12 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 		(const wxChar*)0,
 		this
 	); // TODO a customized dialog
-	std::size_t spectrum_width = 128; // TODO let the user select spectrum width
 	try
 	{
 		StartCoroutine(
 			std::make_shared<SpectraMainFrameDocumentLoader>(
 				this,
-				SpectraLoadDocFromFile(
-					*shared_objects,
-					doc_path,
-					spectrum_width
-				)
+				SpectraLoadDocFromFile(doc_path)
 			),
 			false
 		);
@@ -372,12 +367,10 @@ void SpectraMainFrame::DoGenerateDocument(wxCommandEvent&)
 			std::make_shared<SpectraMainFrameDocumentLoader>(
 				this,
 				SpectraOpenTestDoc(
-					*shared_objects,
 					TestSignal(),
 					11000,
-					128,
 					4.71
-				) //TODO
+				)
 			),
 			false
 		);
@@ -407,24 +400,30 @@ void SpectraMainFrame::OpenLoadedDocument(const std::shared_ptr<SpectraDocument>
 {
 	struct DocVisMaker
 	{
-		const std::shared_ptr<SpectraDocument>& doc_ref;
+		std::shared_ptr<SpectraCalculator> calc;
+		std::shared_ptr<SpectraDocument> doc;
 
 		std::shared_ptr<SpectraVisualisation> operator()(
-			SpectraApp& parent_app,
+			SpectraApp& /*parent_app*/,
 			SpectraMainFrame* main_frame,
 			wxGLCanvas* canvas,
 			wxGLContext* parent_context
 		) const
 		{
 			return std::make_shared<SpectraVisualisation>(
-				parent_app,
 				main_frame,
 				canvas,
 				parent_context,
-				doc_ref
+				calc,
+				doc
 			);
 		}
-	} doc_vis_maker = { document };
+	} doc_vis_maker = {
+		// let the use pick the sliding window size
+		// or spectrum with and the spectrum calculator
+		shared_objects->SpectrumCalculator(128),
+		document
+	};
 
 	RegisterDocumentFrame(
 		new SpectraDocumentFrame(
@@ -438,7 +437,7 @@ void SpectraMainFrame::OpenLoadedDocument(const std::shared_ptr<SpectraDocument>
 }
 
 std::shared_ptr<SpectraRenderer> SpectraMainFrame::PickRenderer(
-	SpectraApp& parent_app,
+	SpectraApp& app,
 	SpectraMainFrame* main_frame,
 	const std::shared_ptr<SpectraVisualisation>& doc_vis,
 	wxGLCanvas* canvas
@@ -449,7 +448,7 @@ std::shared_ptr<SpectraRenderer> SpectraMainFrame::PickRenderer(
 	if(renderer_menu->IsChecked(SpectraMainFrameID_XSectionRenderer))
 	{
 		result = SpectraMakeXSectionRenderer(
-			parent_app,
+			app,
 			main_frame->shared_objects,
 			doc_vis,
 			canvas
@@ -458,7 +457,7 @@ std::shared_ptr<SpectraRenderer> SpectraMainFrame::PickRenderer(
 	else
 	{
 		result = SpectraMakeDefaultRenderer(
-			parent_app,
+			app,
 			main_frame->shared_objects,
 			doc_vis,
 			canvas

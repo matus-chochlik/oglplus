@@ -131,11 +131,14 @@ TAB_SIZE               = 4
 # You can put \n's in the value part of an alias to insert newlines.
 
 ALIASES                += OGLplus="@em OGLplus"
+ALIASES                += OALplus="@em OALplus"
 ALIASES                += oglplus_example{2}="<a href='\1_2\2_8cpp-example.html'><code>\1/\2.cpp</code></a>"
 ALIASES                += oglplus_example_uses_texture{1}=""
 ALIASES                += oglplus_example_uses_model{1}=""
 ALIASES                += oglplus_example_uses_cxx11{1}=""
 ALIASES                += oglplus_example_uses_gl{1}=""
+ALIASES                += oalplus_example{2}="<a href='\1_2\2_8cpp-example.html'><code>\1/\2.cpp</code></a>"
+ALIASES                += oalplus_example_uses_cxx11{1}=""
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C
 # sources only. Doxygen will then generate output that is more tailored for C.

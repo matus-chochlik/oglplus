@@ -30,7 +30,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackMode, GLenum)
 #include <oglplus/enums/transform_feedback_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TransformFeedbackMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/transform_feedback_mode_names.ipp>
@@ -47,7 +47,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackPrimitiveType, GLenum)
 #include <oglplus/enums/transform_feedback_primitive_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TransformFeedbackPrimitiveType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/transform_feedback_primitive_type_names.ipp>
@@ -62,7 +62,7 @@ OGLPLUS_ENUM_CLASS_END
 /// Transform feedback bind targets
 OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackTarget, GLenum)
 #include <oglplus/enums/transform_feedback_target.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(TransformFeedbackTarget)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/transform_feedback_target_names.ipp>

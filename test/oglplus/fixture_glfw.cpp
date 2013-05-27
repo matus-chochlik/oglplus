@@ -1,5 +1,5 @@
 /*
- *  .file test/fixture_glfw.cpp
+ *  .file test/oglplus/fixture_glfw.cpp
  *  Implements GLFW-based test fixture
  *
  *  Copyright 2011-2013 Matus Chochlik. Distributed under the Boost

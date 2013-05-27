@@ -1,5 +1,5 @@
 /**
- *  .file test/fixture.hpp
+ *  .file test/oglplus/fixture.hpp
  *  .brief Declaration of test fixture class.
  *
  *  .author Matus Chochlik

@@ -113,27 +113,27 @@ int main(int argc, char* argv[])
 		{
 			ProgramInterface intf = interfaces.Front();
 			interfaces.Next();
-			bool last = interfaces.Empty();
+			bool last_intf = interfaces.Empty();
 
 			auto resources = prog.ActiveResources(intf);
 			bool empty = resources.Empty();
 
-			if(last) std::cout << " `-";
+			if(last_intf) std::cout << " `-";
 			else std::cout << " +-";
 			if(empty) std::cout << "--";
 			else std::cout << "+-";
 			std::cout << "[" << EnumValueName(intf).c_str() << "]" << std::endl;
 
 			if(!empty) std::cout << " | |" << std::endl;
-			else if(!last) std::cout << " |" << std::endl;
+			else if(!last_intf) std::cout << " |" << std::endl;
 
 			if(!empty) while(true)
 			{
 				auto res = resources.Front();
 				resources.Next();
-				bool last = resources.Empty();
+				bool last_res = resources.Empty();
 
-				if(last) std::cout << " | `-";
+				if(last_res) std::cout << " | `-";
 				else std::cout << " | +-";
 
 				bool has_type = res.HasType();
@@ -146,11 +146,11 @@ int main(int argc, char* argv[])
 
 				if(has_type)
 				{
-					if(last) std::cout << " |  ";
+					if(last_res) std::cout << " |  ";
 					else std::cout << " | |";
 					std::cout << " |" << std::endl;
 
-					if(last) std::cout << " |  ";
+					if(last_res) std::cout << " |  ";
 					else std::cout << " | |";
 					if(has_name) std::cout << " +-";
 					else std::cout << " `-";
@@ -161,24 +161,24 @@ int main(int argc, char* argv[])
 
 				if(has_name)
 				{
-					if(last) std::cout << " |  ";
+					if(last_res) std::cout << " |  ";
 					else std::cout << " | |";
 					std::cout << " |" << std::endl;
 
-					if(last) std::cout << " |  ";
+					if(last_res) std::cout << " |  ";
 					else std::cout << " | |";
 					std::cout << " `---[Name: ";
 					std::cout << res.Name();
 					std::cout << "]" << std::endl;
 				}
 
-				if(last) std::cout << " |" << std::endl;
+				if(last_res) std::cout << " |" << std::endl;
 				else std::cout << " | |" << std::endl;
 
-				if(last) break;
+				if(last_res) break;
 			}
 
-			if(last) break;
+			if(last_intf) break;
 		}
 
 		return 0;

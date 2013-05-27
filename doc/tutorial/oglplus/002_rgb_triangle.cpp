@@ -1,9 +1,9 @@
 /*
- *  .file doc/tutorial/002_rgb_triangle.cpp
+ *  .file doc/tutorial/oglplus/002_rgb_triangle.cpp
  *
  *  .author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -131,13 +131,12 @@
  *  Then we use a oglplus::VertexAttribArray object referencing the @c Position
  *  input variable in the @c prog program, to tell OpenGL about the structure
  *  of the data in the currently bound VBO and to enable this vertex attribute.
- *  @skipline VertexAttribArray vert_attr
- *  @until vert_attr.Enable
+ *  @skipline VertexAttribArray(prog
  *
  *  Now we repeat the steps above, for the second vertex attribute, specifying
  *  the colors of the individual vertices:
  *  @skipline GLfloat triangle_colors
- *  @until color_attr.Enable
+ *  @until VertexAttribArray(prog
  *
  *  That's it for the vertex data specification. As the last step of initialization
  *  we specify the clear values for the color buffer and depth buffer.

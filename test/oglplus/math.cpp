@@ -1,5 +1,5 @@
 /**
- *  .file test/math.cpp
+ *  .file test/oglplus/math.cpp
  *  .brief Test case for math utilities.
  *
  *  .author Matus Chochlik

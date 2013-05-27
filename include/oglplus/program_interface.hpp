@@ -32,7 +32,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(ProgramInterface, GLenum)
 #include <oglplus/enums/program_interface.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(ProgramInterface)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/program_interface_names.ipp>

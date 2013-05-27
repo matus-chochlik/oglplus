@@ -1,5 +1,5 @@
 /**
- *  .file test/config.cpp
+ *  .file test/oglplus/config.cpp
  *  .brief Build test for OGLplus configuration header.
  *
  *  .author Matus Chochlik

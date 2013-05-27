@@ -26,7 +26,7 @@ namespace oglplus {
 
 OGLPLUS_ENUM_CLASS_FWD_EVT(SLDataType, GLenum)
 
-template <typename EnumValueType<oglplus::SLDataType>::Type>
+template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type>
 struct SLtoCpp;
 
 namespace aux {
@@ -153,7 +153,7 @@ struct DefaultGLSLtoCppTypeMatcher
 	}
 };
 
-template <typename EnumValueType<oglplus::SLDataType>::Type SLType>
+template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type SLType>
 struct DefaultGLSLtoCppTypeMatcher<oglplus::SLtoCpp<SLType> >
 {
 	static bool _matches(GLenum sl_type)
@@ -234,7 +234,11 @@ bool DefaultGLSLtoCppTypeMatcher<GLint>::_matches(GLenum sl_type)
 		GL_INT_SAMPLER_3D,
 		GL_INT_SAMPLER_BUFFER,
 		GL_INT_SAMPLER_CUBE,
+
+#ifdef GL_INT_SAMPLER_CUBE_MAP_ARRAY
 		GL_INT_SAMPLER_CUBE_MAP_ARRAY,
+#endif
+
 		GL_UNSIGNED_INT_SAMPLER_1D,
 		GL_UNSIGNED_INT_SAMPLER_1D_ARRAY,
 		GL_UNSIGNED_INT_SAMPLER_2D,
@@ -245,7 +249,11 @@ bool DefaultGLSLtoCppTypeMatcher<GLint>::_matches(GLenum sl_type)
 		GL_UNSIGNED_INT_SAMPLER_3D,
 		GL_UNSIGNED_INT_SAMPLER_BUFFER,
 		GL_UNSIGNED_INT_SAMPLER_CUBE,
+
+#ifdef GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY
 		GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY,
+#endif
+
 		GL_SAMPLER_1D,
 		GL_SAMPLER_1D_ARRAY,
 		GL_SAMPLER_1D_ARRAY_SHADOW,
@@ -261,8 +269,15 @@ bool DefaultGLSLtoCppTypeMatcher<GLint>::_matches(GLenum sl_type)
 		GL_SAMPLER_3D,
 		GL_SAMPLER_BUFFER,
 		GL_SAMPLER_CUBE,
+
+#ifdef GL_SAMPLER_CUBE_MAP_ARRAY
 		GL_SAMPLER_CUBE_MAP_ARRAY,
+#endif
+
+#ifdef GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW
 		GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW,
+#endif
+
 		GL_SAMPLER_CUBE_SHADOW
 	};
 	std::size_t i=0, n=sizeof(allowed)/sizeof(allowed[0]);
@@ -447,8 +462,8 @@ bool DefaultGLSLtoCppTypeMatcher_Mat::_does_match(
 				GL_DOUBLE_MAT3x4,
 				GL_DOUBLE_MAT4
 			}
-#endif
 		}
+#endif
 	};
 	return sl_type==allowed[type_idx][rows-2][cols-2];
 }

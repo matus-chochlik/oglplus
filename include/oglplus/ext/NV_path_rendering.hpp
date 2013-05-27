@@ -36,7 +36,7 @@ namespace oglplus {
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVCommand, GLubyte)
 #include <oglplus/enums/ext/nv_path_command.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVCommand)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_command_names.ipp>
@@ -55,7 +55,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVFormat, GLenum)
 #include <oglplus/enums/ext/nv_path_format.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVFormat)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_format_names.ipp>
@@ -74,7 +74,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVFillMode, GLenum)
 #include <oglplus/enums/ext/nv_path_fill_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVFillMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_fill_mode_names.ipp>
@@ -93,7 +93,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVFillCoverMode, GLenum)
 #include <oglplus/enums/ext/nv_path_fill_cover_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVFillCoverMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_fill_cover_mode_names.ipp>
@@ -112,7 +112,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVStrokeCoverMode, GLenum)
 #include <oglplus/enums/ext/nv_path_stroke_cover_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVStrokeCoverMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_stroke_cover_mode_names.ipp>
@@ -131,7 +131,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVJoinStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_join_style.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVJoinStyle)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_join_style_names.ipp>
@@ -150,7 +150,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVCapStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_cap_style.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVCapStyle)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_cap_style_names.ipp>
@@ -169,7 +169,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVDashOffsetReset, GLenum)
 #include <oglplus/enums/ext/nv_path_dash_offset_reset.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVDashOffsetReset)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_dash_offset_reset_names.ipp>
@@ -188,7 +188,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVColor, GLenum)
 #include <oglplus/enums/ext/nv_path_color.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVColor)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_color_names.ipp>
@@ -207,7 +207,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVColorFormat, GLenum)
 #include <oglplus/enums/ext/nv_path_color_format.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVColorFormat)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_color_format_names.ipp>
@@ -226,7 +226,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVGenMode, GLenum)
 #include <oglplus/enums/ext/nv_path_gen_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVGenMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_gen_mode_names.ipp>
@@ -245,7 +245,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVTransformType, GLenum)
 #include <oglplus/enums/ext/nv_path_transform_type.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVTransformType)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_transform_type_names.ipp>
@@ -264,7 +264,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVFontTarget, GLenum)
 #include <oglplus/enums/ext/nv_path_font_target.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVFontTarget)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_font_target_names.ipp>
@@ -283,7 +283,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVMissingGlyph, GLenum)
 #include <oglplus/enums/ext/nv_path_missing_glyph.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVMissingGlyph)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_missing_glyph_names.ipp>
@@ -302,7 +302,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVListMode, GLenum)
 #include <oglplus/enums/ext/nv_path_list_mode.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVListMode)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_list_mode_names.ipp>
@@ -321,7 +321,7 @@ OGLPLUS_ENUM_CLASS_END
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVFontStyle, GLbitfield)
 #include <oglplus/enums/ext/nv_path_font_style.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVFontStyle)
 
 OGLPLUS_MAKE_BITFIELD(PathNVFontStyle)
 
@@ -342,7 +342,7 @@ OGLPLUS_MAKE_BITFIELD(PathNVFontStyle)
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVMetricQuery, GLbitfield)
 #include <oglplus/enums/ext/nv_path_metric_query.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVMetricQuery)
 
 OGLPLUS_MAKE_BITFIELD(PathNVMetricQuery)
 
@@ -363,7 +363,7 @@ OGLPLUS_MAKE_BITFIELD(PathNVMetricQuery)
  */
 OGLPLUS_ENUM_CLASS_BEGIN(PathNVTextEncoding, GLenum)
 #include <oglplus/enums/ext/nv_path_text_encoding.ipp>
-OGLPLUS_ENUM_CLASS_END
+OGLPLUS_ENUM_CLASS_END(PathNVTextEncoding)
 
 #if !OGLPLUS_NO_ENUM_VALUE_NAMES
 #include <oglplus/enums/ext/nv_path_text_encoding_names.ipp>

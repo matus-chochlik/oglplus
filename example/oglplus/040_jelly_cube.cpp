@@ -1152,9 +1152,9 @@ private:
 
 	void InitSprings(const JellyPhysProgram& phys_prog, const GLuint n)
 	{
-		std::vector<GLint> indices(vertex_count * (4*8));
+		std::vector<GLint> idx_data(vertex_count * (4*8));
 
-		auto ii = indices.begin(), ie = indices.end();
+		auto ii = idx_data.begin(), ie = idx_data.end();
 
 		for(GLuint z=0; z!=n; ++z)
 		{
@@ -1248,7 +1248,7 @@ private:
 
 		springs.Bind(se::Uniform());
 
-		Buffer::Data(se::Uniform(), indices);
+		Buffer::Data(se::Uniform(), idx_data);
 
 		springs.BindBase(se::Uniform(), 1);
 

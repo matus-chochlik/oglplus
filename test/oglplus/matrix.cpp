@@ -1,5 +1,5 @@
 /**
- *  .file test/matrix.cpp
+ *  .file test/oglplus/matrix.cpp
  *  .brief Test case for Matrix class and related functionality.
  *
  *  .author Matus Chochlik
