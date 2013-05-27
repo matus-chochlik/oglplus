@@ -12,7 +12,7 @@ do
 	doc_home="./public_html/${lib_name}"
 	doc_base="${doc_home}/html"
 	# local path to docs
-	doc_src="$(dirname $0)/../_build/doc/doxygen/${libname}/html"
+	doc_src="$(dirname $0)/../_build/doc/doxygen/${lib_name}/html"
 	#
 	(cd _build && make doc -j 4) &&
 	(cd _build && make rebuild-doc) &&
