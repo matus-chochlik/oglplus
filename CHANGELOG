@@ -1,3 +1,25 @@
+Version 0.31.0
+
+- Merged the OALplus library into the main development branch
+  - OALplus is a wrapper aroung OpenAL similar to what OGLplus
+    is to OpenGL.
+- Documentation updates and fixups.
+  - A new tutorial for OALplus was added.
+  - Some problems in the existing tutorials were fixed.
+  - The readme file was updated.
+- Updates in the build system
+  - A problem with the dependencies for GLFW-based test fixture was fixed.
+  - A Qt4/OpenGL-based example harness was added.
+  - A bug in parsing of LDFLAGS in the configure.py was fixed.
+  - The require_all_dependencies cmake function was updated to include
+    the <LIBRARY>_USE_FILE if it is available for a dependency.
+- A bug in the Query::Execution class was fixed.
+- Several other minor bugs were fixed.
+- Compatilitity with MacOS X and other systems using older versions
+  of OpenGL was improved.
+- New utility scripts were added.
+- Several new examples were added.
+
 Version 0.30.0
 
 - An .obj file loader was added.
