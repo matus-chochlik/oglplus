@@ -4,12 +4,10 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-if(wxWidgets_FOUND)
+if((wxWidgets_FOUND) AND (OPENAL_FOUND))
 	add_definitions(-DOGLPLUS_LINK_LIBRARY=1)
 
-	if(OPENAL_FOUND)
-		include_directories(${OPENAL_INCLUDE_DIRS})
-	endif()
+	include_directories(${OPENAL_INCLUDE_DIRS})
 
 	include_directories(${wxWidgets_INCLUDE_DIRS})
 	include(${wxWidgets_USE_FILE})
