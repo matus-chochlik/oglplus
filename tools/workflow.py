@@ -78,7 +78,11 @@ def git_command(parameters, root_dir=get_root_dir(), simulate=None):
 
 # returns the name of the current git branch
 def git_current_branch(root_dir=get_root_dir()):
-	return git_command(["rev-parse", "--abbrev-ref", "HEAD"], root_dir, False)
+	return git_command(
+		["rev-parse", "--abbrev-ref", "HEAD"],
+		root_dir,
+		False
+	).strip()
 
 # returns true if the specified branch exists
 def git_has_branch(branch_name, root_dir=get_root_dir):
