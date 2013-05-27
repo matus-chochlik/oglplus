@@ -53,8 +53,7 @@ def write_file(file_path, contents, simulate=None):
 	if simulate:
 		print("echo '"+contents+"' > "+file_path)
 	else:
-		open(file_path).write(contents)
-		pass
+		open(file_path, 'w').write(contents)
 
 # executes a command in a subprocess
 def execute_command(cmd_line, root_dir=get_root_dir(), simulate=None):
