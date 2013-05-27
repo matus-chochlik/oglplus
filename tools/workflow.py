@@ -113,7 +113,7 @@ def action_mirror_master():
 	git_command(["checkout", "master-with-history"], root_dir)
 	git_command(["merge", "master"], root_dir)
 	git_command(["push", "origin", "master-with-history"], root_dir)
-	git_command(["push", "sf", "master-with-history:master"], root_dir)
+	git_command(["push", "sourceforge", "master-with-history:master"], root_dir)
 
 # Begins a new release
 def action_begin_release():
@@ -144,12 +144,12 @@ def action_finish_release():
 		)
 	git_command(["checkout", "master"], root_dir)
 	git_command(["merge", "--no-ff", release_branch], root_dir)
-	git_command(["tag", "-a", release_version], root_dir)
+	git_command(["tag", "-a", release_version, "-m", "Tagged release "+release_version], root_dir)
 	git_command(["push", "origin", "master"], root_dir)
 	git_command(["checkout", "develop"], root_dir)
 	git_command(["merge", "--no-ff", release_branch], root_dir)
 	git_command(["push", "origin", ":"+release_branch], root_dir)
-	git_command(["branch", "-d", release_branch], root_dir)
+	git_command(["branch", "-D", release_branch], root_dir)
 	git_command(["push", "origin", "develop"], root_dir)
 
 
@@ -181,12 +181,12 @@ def action_finish_hotfix():
 		)
 	git_command(["checkout", "master"], root_dir)
 	git_command(["merge", "--no-ff", hotfix_branch], root_dir)
-	git_command(["tag", "-a", hotfix_version], root_dir)
+	git_command(["tag", "-a", hotfix_version, "-m", "Tagged hotfix "+hotfix_version], root_dir)
 	git_command(["push", "origin", "master"], root_dir)
 	git_command(["checkout", "develop"], root_dir)
 	git_command(["merge", "--no-ff", hotfix_branch], root_dir)
 	git_command(["push", "origin", ":"+hotfix_branch], root_dir)
-	git_command(["branch", "-d", hotfix_branch], root_dir)
+	git_command(["branch", "-D", hotfix_branch], root_dir)
 	git_command(["push", "origin", "develop"], root_dir)
 
 
