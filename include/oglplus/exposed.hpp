@@ -44,22 +44,23 @@ public:
 };
 
 #else
-template <class ObjectOps>
+template <class _ObjectOps>
 class Exposed
- : public Managed<ObjectOps>
+ : public Managed<_ObjectOps>
 {
 public:
-	Exposed(const ObjectOps& object)
-	 : Managed<ObjectOps>(object)
+	Exposed(const _ObjectOps& object)
+	 : Managed<_ObjectOps>(object)
 	{ }
 
 	GLuint Name(void) const
 	{
-		return FriendOf<ObjectOps>::GetName(*this);
+		return FriendOf<_ObjectOps>::GetName(*this);
 	}
 };
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 /// Function that creates an Exposed wrapper for the object passed as argument
 /** This function provides a more convenient way of exposing an Object's name
  *  than manually instantiating the Exposed class.
@@ -74,22 +75,26 @@ public:
  *
  *  @ingroup utility_classes
  */
-template <class ObjectOps>
-inline Exposed<ObjectOps> Expose(const Object<ObjectOps>& object)
+template <class Object>
+inline Exposed<Object> Expose(const Object& object)
+#endif
+
+template <class _ObjectOps>
+inline Exposed<_ObjectOps> Expose(const Object<_ObjectOps>& object)
 {
-	return Exposed<ObjectOps>(object);
+	return Exposed<_ObjectOps>(object);
 }
 
-template <class ObjectOps>
-inline Exposed<ObjectOps> Expose(const Managed<Object<ObjectOps> >& object)
+template <class _ObjectOps>
+inline Exposed<_ObjectOps> Expose(const Managed<Object<_ObjectOps> >& object)
 {
-	return Exposed<ObjectOps>(object);
+	return Exposed<_ObjectOps>(object);
 }
 
-template <class ObjectOps>
-inline Exposed<ObjectOps> Expose(const Managed<ObjectOps>& object)
+template <class _ObjectOps>
+inline Exposed<_ObjectOps> Expose(const Managed<_ObjectOps>& object)
 {
-	return Exposed<ObjectOps>(object);
+	return Exposed<_ObjectOps>(object);
 }
 
 } // namespace oglplus
