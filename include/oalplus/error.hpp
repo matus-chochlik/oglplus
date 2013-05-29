@@ -317,8 +317,7 @@ inline const char* ErrorClassName(const ErrorInfo& info)
 /// Exception class for general OpenAL errors
 /** Instances of this exception class are throws whenever an error is detected
  *  during the execution of OpenAL API calls in the @OALplus code. There are several
- *  other classes derived for more specific error types, like AL shading language
- *  compilation and linking errors, out-of-memory errors, etc.
+ *  other classes derived for more specific error types like out-of-memory errors, etc.
  *  This class is derived from the standard runtime_error exception and thus
  *  the basic error message can be obtained by calling its @c what() member function.
  *
