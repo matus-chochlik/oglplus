@@ -257,13 +257,13 @@
 # if EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined MaxPbufferWidth
-#  pragma push_macro("MaxPbufferWidth")
-#  undef MaxPbufferWidth
-   EGLPLUS_ENUM_CLASS_VALUE(MaxPbufferWidth, EGL_MAX_PBUFFER_WIDTH)
-#  pragma pop_macro("MaxPbufferWidth")
+# if defined MaxPBufferWidth
+#  pragma push_macro("MaxPBufferWidth")
+#  undef MaxPBufferWidth
+   EGLPLUS_ENUM_CLASS_VALUE(MaxPBufferWidth, EGL_MAX_PBUFFER_WIDTH)
+#  pragma pop_macro("MaxPBufferWidth")
 # else
-   EGLPLUS_ENUM_CLASS_VALUE(MaxPbufferWidth, EGL_MAX_PBUFFER_WIDTH)
+   EGLPLUS_ENUM_CLASS_VALUE(MaxPBufferWidth, EGL_MAX_PBUFFER_WIDTH)
 # endif
 # ifndef EGLPLUS_LIST_NEEDS_COMMA
 #  define EGLPLUS_LIST_NEEDS_COMMA 1
@@ -273,13 +273,13 @@
 # if EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined MaxPbufferHeight
-#  pragma push_macro("MaxPbufferHeight")
-#  undef MaxPbufferHeight
-   EGLPLUS_ENUM_CLASS_VALUE(MaxPbufferHeight, EGL_MAX_PBUFFER_HEIGHT)
-#  pragma pop_macro("MaxPbufferHeight")
+# if defined MaxPBufferHeight
+#  pragma push_macro("MaxPBufferHeight")
+#  undef MaxPBufferHeight
+   EGLPLUS_ENUM_CLASS_VALUE(MaxPBufferHeight, EGL_MAX_PBUFFER_HEIGHT)
+#  pragma pop_macro("MaxPBufferHeight")
 # else
-   EGLPLUS_ENUM_CLASS_VALUE(MaxPbufferHeight, EGL_MAX_PBUFFER_HEIGHT)
+   EGLPLUS_ENUM_CLASS_VALUE(MaxPBufferHeight, EGL_MAX_PBUFFER_HEIGHT)
 # endif
 # ifndef EGLPLUS_LIST_NEEDS_COMMA
 #  define EGLPLUS_LIST_NEEDS_COMMA 1
@@ -289,13 +289,13 @@
 # if EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined MaxPbufferPixels
-#  pragma push_macro("MaxPbufferPixels")
-#  undef MaxPbufferPixels
-   EGLPLUS_ENUM_CLASS_VALUE(MaxPbufferPixels, EGL_MAX_PBUFFER_PIXELS)
-#  pragma pop_macro("MaxPbufferPixels")
+# if defined MaxPBufferPixels
+#  pragma push_macro("MaxPBufferPixels")
+#  undef MaxPBufferPixels
+   EGLPLUS_ENUM_CLASS_VALUE(MaxPBufferPixels, EGL_MAX_PBUFFER_PIXELS)
+#  pragma pop_macro("MaxPBufferPixels")
 # else
-   EGLPLUS_ENUM_CLASS_VALUE(MaxPbufferPixels, EGL_MAX_PBUFFER_PIXELS)
+   EGLPLUS_ENUM_CLASS_VALUE(MaxPBufferPixels, EGL_MAX_PBUFFER_PIXELS)
 # endif
 # ifndef EGLPLUS_LIST_NEEDS_COMMA
 #  define EGLPLUS_LIST_NEEDS_COMMA 1

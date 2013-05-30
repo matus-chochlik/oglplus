@@ -42,11 +42,11 @@ DepthSize,
 /// LEVEL
 Level,
 /// MAX_PBUFFER_WIDTH
-MaxPbufferWidth,
+MaxPBufferWidth,
 /// MAX_PBUFFER_HEIGHT
-MaxPbufferHeight,
+MaxPBufferHeight,
 /// MAX_PBUFFER_PIXELS
-MaxPbufferPixels,
+MaxPBufferPixels,
 /// MAX_SWAP_INTERVAL
 MaxSwapInterval,
 /// MIN_SWAP_INTERVAL
