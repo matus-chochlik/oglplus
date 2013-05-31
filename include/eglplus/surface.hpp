@@ -15,6 +15,7 @@
 
 #include <eglplus/eglfunc.hpp>
 #include <eglplus/error.hpp>
+#include <eglplus/display.hpp>
 #include <eglplus/friend_of.hpp>
 #include <eglplus/attrib_list.hpp>
 #include <eglplus/surface_attrib.hpp>
@@ -48,7 +49,7 @@ private:
 
 	struct _PBuffer { };
 
-	::EGLSurface _init(
+	static ::EGLSurface _init(
 		_PBuffer,
 		const Display& display,
 		const Config& config,
@@ -73,9 +74,39 @@ private:
 	 , _handle(_init(sel, _display, config, attribs))
 	{ }
 
+	struct _Pixmap{ };
+
+	static ::EGLSurface _init(
+		_Pixmap,
+		const Display& display,
+		const Config& config,
+		EGLNativePixmapType pixmap,
+		const SurfaceAttribs& attribs
+	)
+	{
+		::EGLSurface result = EGLPLUS_EGLFUNC(CreatePixmapSurface)(
+			FriendOf<Display>::GetHandle(display),
+			FriendOf<Config>::GetHandle(config),
+			pixmap,
+			attribs.Get()
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(CreatePixmapSurface));
+		return result;
+	}
+
+	Surface(
+		_Pixmap sel,
+		const Display& display,
+		const Config& config,
+		EGLNativePixmapType pixmap,
+		const SurfaceAttribs& attribs
+	): _display(display)
+	 , _handle(_init(sel, _display, config, pixmap, attribs))
+	{ }
+
 	struct _Window { };
 
-	::EGLSurface _init(
+	static ::EGLSurface _init(
 		_Window,
 		const Display& display,
 		const Config& config,
@@ -111,6 +142,11 @@ public:
 		tmp._handle = EGL_NO_SURFACE;
 	}
 
+	/// Destroys the wrapped surface
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{DestroySurface}
+	 */
 	~Surface(void)
 	{
 		if(_handle != EGL_NO_SURFACE)
@@ -161,6 +197,48 @@ public:
 		);
 	}
 
+	/// Creates a Pixmap surface
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{CreatePixmapSurface}
+	 */
+	static Surface Pixmap(
+		const Display& display,
+		const Config& config,
+		EGLNativePixmapType pixmap,
+		SurfaceAttribs& attribs
+	)
+	{
+		return Surface(
+			_Pixmap(),
+			display,
+			config,
+			pixmap,
+			attribs.Finish()
+		);
+	}
+
+	/// Creates a PBuffer surface
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{CreatePixmapSurface}
+	 */
+	static Surface Pixmap(
+		const Display& display,
+		const Config& config,
+		EGLNativePixmapType pixmap,
+		SurfaceAttribs&& attribs
+	)
+	{
+		return Surface(
+			_Pixmap(),
+			display,
+			config,
+			pixmap,
+			attribs.Finish()
+		);
+	}
+
 	/// Creates a Window surface
 	/**
 	 *  @eglsymbols
@@ -201,6 +279,37 @@ public:
 			window,
 			attribs.Finish()
 		);
+	}
+
+	/// Swap buffers
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{SwapBuffers}
+	 */
+	bool SwapBuffers(void)
+	{
+		bool result = EGLPLUS_EGLFUNC(SwapBuffers)(
+			FriendOf<Display>::GetHandle(_display),
+			_handle
+		);
+		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(SwapBuffers));
+		return result;
+	}
+
+	/// Copy buffer to native pixmap
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{CopyBuffers}
+	 */
+	bool CopyBuffers(EGLNativePixmapType target)
+	{
+		bool result = EGLPLUS_EGLFUNC(CopyBuffers)(
+			FriendOf<Display>::GetHandle(_display),
+			_handle,
+			target
+		);
+		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(CopyBuffers));
+		return result;
 	}
 
 	/// Sets the value of the specified attribute

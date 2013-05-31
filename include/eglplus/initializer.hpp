@@ -183,6 +183,9 @@ public:
 #endif
 };
 
+/// Alternate name for EGLInitializer
+typedef EGLInitializer LibEGL;
+
 } // namespace eglplus
 
 #endif // include guard
