@@ -20,6 +20,9 @@
 #include <eglplus/config_caveat.hpp>
 #include <eglplus/renderable_type.hpp>
 #include <eglplus/surface_type.hpp>
+#include <eglplus/attrib_list.hpp>
+
+#include <cassert>
 
 namespace eglplus {
 
@@ -295,6 +298,9 @@ public:
 	}
 };
 
+/// Attribute list for configuration attributes
+typedef AttributeList<ConfigAttrib> ConfigAttribs;
+
 /// A provides access to all configurations of a Display
 class Configs
  : public FriendOf<Display>
@@ -316,10 +322,8 @@ private:
 			return Config(_display, handle);
 		}
 	};
-public:
-	/// Gets the configurations for the specified display
-	Configs(const Display& display)
-	 : _display(display)
+
+	void _get_all(const Display& display)
 	{
 		EGLint num = 0;
 		EGLPLUS_EGLFUNC(GetConfigs)(
@@ -329,14 +333,63 @@ public:
 			&num
 		);
 		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(GetConfigs));
-		_configs.resize(num);
-		EGLPLUS_EGLFUNC(GetConfigs)(
+		if(num)
+		{
+			_configs.resize(num);
+			EGLPLUS_EGLFUNC(GetConfigs)(
+				FriendOf<Display>::GetHandle(_display),
+				_configs.data(),
+				num,
+				&num
+			);
+			EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(GetConfigs));
+		}
+	}
+
+	void _choose(const Display& display, const ConfigAttribs& attribs)
+	{
+		EGLint num = 0;
+		EGLPLUS_EGLFUNC(ChooseConfig)(
 			FriendOf<Display>::GetHandle(_display),
-			_configs.data(),
-			num,
+			attribs.Get(),
+			nullptr,
+			0,
 			&num
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(GetConfigs));
+		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(ChooseConfig));
+		if(num)
+		{
+			_configs.resize(num);
+			EGLPLUS_EGLFUNC(ChooseConfig)(
+				FriendOf<Display>::GetHandle(_display),
+				attribs.Get(),
+				_configs.data(),
+				num,
+				&num
+			);
+			EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(ChooseConfig));
+		}
+	}
+public:
+	/// Gets the configurations for the specified display
+	Configs(const Display& display)
+	 : _display(display)
+	{
+		_get_all(display);
+	}
+
+	/// Gets configurations matching the specified attribute values
+	Configs(const Display& display, ConfigAttribs& attribs)
+	 : _display(display)
+	{
+		_choose(display, attribs.Finish());
+	}
+
+	/// Gets configurations matching the specified attribute values
+	Configs(const Display& display, ConfigAttribs&& attribs)
+	 : _display(display)
+	{
+		_choose(display, attribs.Finish());
 	}
 
 	typedef aux::ConvIterRange<
@@ -353,6 +406,22 @@ public:
 			_configs.begin(),
 			_configs.end()
 		);
+	}
+
+	/// Returns true if there are no matching configs
+	bool Empty(void) const
+	{
+		return _configs.empty();
+	}
+
+	/// Returns the first config in this set of configurations
+	/**
+	 *  @pre !Empty()
+	 */
+	Config First(void) const
+	{
+		assert(!Empty());
+		return Config(_display, _configs.front());
 	}
 };
 

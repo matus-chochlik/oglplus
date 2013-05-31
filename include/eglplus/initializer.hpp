@@ -98,6 +98,12 @@ public:
 		return _display;
 	}
 
+	/// Returns a reference to the associated display
+	const Display& Disp(void) const
+	{
+		return _display;
+	}
+
 	/// Returns the major version number
 	/**
 	 *  @eglsymbols
@@ -132,6 +138,28 @@ public:
 		);
 		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(QueryString));
 		return result;
+	}
+
+	/// Returns the vendor name
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{QueryString}
+	 *  @egldefref{EGL_VENDOR}
+	 */
+	const char* Vendor(void) const
+	{
+		return QueryString(StringQuery::Vendor);
+	}
+
+	/// Returns the version string
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{QueryString}
+	 *  @egldefref{EGL_VERSION}
+	 */
+	const char* Version(void) const
+	{
+		return QueryString(StringQuery::Version);
 	}
 
 #if EGLPLUS_DOCUMENTATION_ONLY
