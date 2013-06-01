@@ -690,7 +690,7 @@ inline void HandleEGLError(EGLint code, const ErrorInfo& info, bool assertion)
 			msg =	"Argument does not name a valid EGLConfig";
 			break;
 		case EGL_BAD_CURRENT_SURFACE:
-			msg =	"The current surface of the calling thread is ";
+			msg =	"The current surface of the calling thread is "
 				"a window, pbuffer, or pixmap that is no longer "
 				"valid";
 			break;

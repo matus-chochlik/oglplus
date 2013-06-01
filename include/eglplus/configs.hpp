@@ -323,7 +323,7 @@ private:
 		}
 	};
 
-	void _get_all(const Display& display)
+	void _get_all(void)
 	{
 		EGLint num = 0;
 		EGLPLUS_EGLFUNC(GetConfigs)(
@@ -346,7 +346,7 @@ private:
 		}
 	}
 
-	void _choose(const Display& display, const ConfigAttribs& attribs)
+	void _choose(const ConfigAttribs& attribs)
 	{
 		EGLint num = 0;
 		EGLPLUS_EGLFUNC(ChooseConfig)(
@@ -375,21 +375,21 @@ public:
 	Configs(const Display& display)
 	 : _display(display)
 	{
-		_get_all(display);
+		_get_all();
 	}
 
 	/// Gets configurations matching the specified attribute values
 	Configs(const Display& display, ConfigAttribs& attribs)
 	 : _display(display)
 	{
-		_choose(display, attribs.Finish());
+		_choose(attribs.Finish());
 	}
 
 	/// Gets configurations matching the specified attribute values
 	Configs(const Display& display, ConfigAttribs&& attribs)
 	 : _display(display)
 	{
-		_choose(display, attribs.Finish());
+		_choose(attribs.Finish());
 	}
 
 	typedef aux::ConvIterRange<
