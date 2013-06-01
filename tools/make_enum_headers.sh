@@ -588,3 +588,5 @@ MakeGLSLtoCPPtypeHeader GL oglplus
 
 
 MakeEnumHeaders AL oalplus
+MakeEnumValueName AL oalplus
+MakeEnumValueRange AL oalplus
