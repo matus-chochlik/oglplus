@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(ContextAttrib, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(ContextAttrib, EGLenum)
 #include <eglplus/enums/context_attrib.ipp>
 EGLPLUS_ENUM_CLASS_END(ContextAttrib)
 

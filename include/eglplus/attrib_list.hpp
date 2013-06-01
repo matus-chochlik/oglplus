@@ -45,7 +45,7 @@ public:
 	AttributeList& Add(AttribKind attrib, EGLint value)
 	{
 		assert(!Finished());
-		_attribs.push_back(EGLint(attrib));
+		_attribs.push_back(EGLint(EGLenum(attrib)));
 		_attribs.push_back(value);
 		return *this;
 	}
@@ -57,7 +57,7 @@ public:
 	AttributeList& Add(AttribKind attrib, bool value)
 	{
 		assert(!Finished());
-		_attribs.push_back(EGLint(attrib));
+		_attribs.push_back(EGLint(EGLenum(attrib)));
 		_attribs.push_back(value?EGL_TRUE:EGL_FALSE);
 		return *this;
 	}
@@ -69,7 +69,7 @@ public:
 	AttributeList& DontCare(AttribKind attrib)
 	{
 		assert(!Finished());
-		_attribs.push_back(EGLint(attrib));
+		_attribs.push_back(EGLint(EGLenum(attrib)));
 		_attribs.push_back(EGL_DONT_CARE);
 		return *this;
 	}

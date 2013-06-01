@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(VGAlphaFormat, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(VGAlphaFormat, EGLenum)
 #include <eglplus/enums/vg_alpha_format.ipp>
 EGLPLUS_ENUM_CLASS_END(VGAlphaFormat)
 

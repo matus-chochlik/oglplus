@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(RenderBuffer, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(RenderBuffer, EGLenum)
 #include <eglplus/enums/render_buffer.ipp>
 EGLPLUS_ENUM_CLASS_END(RenderBuffer)
 

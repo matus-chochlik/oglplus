@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(MultisampleResolve, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(MultisampleResolve, EGLenum)
 #include <eglplus/enums/multisample_resolve.ipp>
 EGLPLUS_ENUM_CLASS_END(MultisampleResolve)
 

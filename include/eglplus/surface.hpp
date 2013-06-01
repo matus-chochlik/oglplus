@@ -322,7 +322,7 @@ public:
 		bool result = EGLPLUS_EGLFUNC(SurfaceAttrib)(
 			FriendOf<Display>::GetHandle(_display),
 			_handle,
-			EGLint(attrib),
+			EGLint(EGLenum(attrib)),
 			value
 		);
 		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(SurfaceAttrib));
@@ -339,7 +339,7 @@ public:
 		bool result = EGLPLUS_EGLFUNC(QuerySurface)(
 			FriendOf<Display>::GetHandle(_display),
 			_handle,
-			EGLint(attrib),
+			EGLint(EGLenum(attrib)),
 			&value
 		);
 		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(QuerySurface));
@@ -416,7 +416,7 @@ public:
 	eglplus::MultisampleResolve MultisampleResolve(void) const
 	{
 		return eglplus::MultisampleResolve(
-			GetAttrib(SurfaceAttrib::MultisampleResolve)
+			EGLenum(GetAttrib(SurfaceAttrib::MultisampleResolve))
 		);
 	}
 
@@ -443,7 +443,7 @@ public:
 	eglplus::SwapBehavior SwapBehavior(void) const
 	{
 		return eglplus::SwapBehavior(
-			GetAttrib(SurfaceAttrib::SwapBehavior)
+			EGLenum(GetAttrib(SurfaceAttrib::SwapBehavior))
 		);
 	}
 
@@ -470,7 +470,7 @@ public:
 	eglplus::TextureTarget TextureTarget(void) const
 	{
 		return eglplus::TextureTarget(
-			GetAttrib(SurfaceAttrib::TextureTarget)
+			EGLenum(GetAttrib(SurfaceAttrib::TextureTarget))
 		);
 	}
 
@@ -483,7 +483,7 @@ public:
 	eglplus::TextureFormat TextureFormat(void) const
 	{
 		return eglplus::TextureFormat(
-			GetAttrib(SurfaceAttrib::TextureFormat)
+			EGLenum(GetAttrib(SurfaceAttrib::TextureFormat))
 		);
 	}
 
@@ -496,7 +496,7 @@ public:
 	eglplus::VGColorspace VGColorspace(void) const
 	{
 		return eglplus::VGColorspace(
-			GetAttrib(SurfaceAttrib::VGColorspace)
+			EGLenum(GetAttrib(SurfaceAttrib::VGColorspace))
 		);
 	}
 
@@ -509,7 +509,7 @@ public:
 	eglplus::VGAlphaFormat VGAlphaFormat(void) const
 	{
 		return eglplus::VGAlphaFormat(
-			GetAttrib(SurfaceAttrib::VGAlphaFormat)
+			EGLenum(GetAttrib(SurfaceAttrib::VGAlphaFormat))
 		);
 	}
 };

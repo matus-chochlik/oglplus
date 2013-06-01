@@ -24,7 +24,7 @@ namespace eglplus {
 template <typename Enum>
 struct EnumBaseType
 {
-	typedef EGLint Type;
+	typedef EGLenum Type;
 };
 #else
 using oglplus::EnumBaseType;

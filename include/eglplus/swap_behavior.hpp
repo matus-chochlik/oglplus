@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(SwapBehavior, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(SwapBehavior, EGLenum)
 #include <eglplus/enums/swap_behavior.ipp>
 EGLPLUS_ENUM_CLASS_END(SwapBehavior)
 

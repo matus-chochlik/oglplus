@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(TransparentType, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(TransparentType, EGLenum)
 #include <eglplus/enums/transparent_type.ipp>
 EGLPLUS_ENUM_CLASS_END(TransparentType)
 

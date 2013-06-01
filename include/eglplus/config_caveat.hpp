@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(ConfigCaveat, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(ConfigCaveat, EGLenum)
 #include <eglplus/enums/config_caveat.ipp>
 EGLPLUS_ENUM_CLASS_END(ConfigCaveat)
 

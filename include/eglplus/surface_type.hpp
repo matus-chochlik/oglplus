@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(SurfaceTypeBit, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(SurfaceTypeBit, EGLenum)
 #include <eglplus/enums/surface_type_bit.ipp>
 EGLPLUS_ENUM_CLASS_END(SurfaceTypeBit)
 

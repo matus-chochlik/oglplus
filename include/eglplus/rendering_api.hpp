@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(RenderingAPI, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(RenderingAPI, EGLenum)
 #include <eglplus/enums/rendering_api.ipp>
 EGLPLUS_ENUM_CLASS_END(RenderingAPI)
 
@@ -40,7 +40,7 @@ EGLPLUS_ENUM_CLASS_END(RenderingAPI)
  */
 inline bool BindAPI(RenderingAPI api)
 {
-	bool result = EGLPLUS_EGLFUNC(BindAPI)(EGLint(api));
+	bool result = EGLPLUS_EGLFUNC(BindAPI)(EGLenum(api));
 	EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(BindAPI));
 	return result;
 }
@@ -52,7 +52,7 @@ inline bool BindAPI(RenderingAPI api)
  */
 inline RenderingAPI QueryAPI(void)
 {
-	EGLint result = EGLPLUS_EGLFUNC(QueryAPI)();
+	EGLenum result = EGLPLUS_EGLFUNC(QueryAPI)();
 	EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(QueryAPI));
 	return RenderingAPI(result);
 }

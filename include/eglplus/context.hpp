@@ -160,7 +160,7 @@ public:
 		EGLBoolean result = EGLPLUS_EGLFUNC(QueryContext)(
 			FriendOf<Display>::GetHandle(_display),
 			_handle,
-			EGLint(attrib),
+			EGLint(EGLenum(attrib)),
 			&value
 		);
 		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(QueryContext));

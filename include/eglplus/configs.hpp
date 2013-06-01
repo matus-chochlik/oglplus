@@ -52,7 +52,7 @@ public:
 		EGLPLUS_EGLFUNC(GetConfigAttrib)(
 			FriendOf<Display>::GetHandle(_display),
 			this->_handle,
-			EGLint(attrib),
+			EGLint(EGLenum(attrib)),
 			&result
 		);
 		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(GetConfigAttrib));
@@ -189,7 +189,7 @@ public:
 	eglplus::ConfigCaveat ConfigCaveat(void) const
 	{
 		return eglplus::ConfigCaveat(
-			GetAttrib(ConfigAttrib::ConfigCaveat)
+			EGLenum(GetAttrib(ConfigAttrib::ConfigCaveat))
 		);
 	}
 
@@ -202,7 +202,7 @@ public:
 	eglplus::ColorBufferType ColorBufferType(void) const
 	{
 		return eglplus::ColorBufferType(
-			GetAttrib(ConfigAttrib::ColorBufferType)
+			EGLenum(GetAttrib(ConfigAttrib::ColorBufferType))
 		);
 	}
 
@@ -215,7 +215,7 @@ public:
 	eglplus::TransparentType TransparentType(void) const
 	{
 		return eglplus::TransparentType(
-			GetAttrib(ConfigAttrib::TransparentType)
+			EGLenum(GetAttrib(ConfigAttrib::TransparentType))
 		);
 	}
 
@@ -228,7 +228,7 @@ public:
 	Bitfield<eglplus::RenderableTypeBit> RenderableTypes(void) const
 	{
 		return Bitfield<eglplus::RenderableTypeBit>(
-			GetAttrib(ConfigAttrib::RenderableType)
+			EGLenum(GetAttrib(ConfigAttrib::RenderableType))
 		);
 	}
 
@@ -240,8 +240,8 @@ public:
 	 */
 	bool HasRenderableType(eglplus::RenderableTypeBit type) const
 	{
-		EGLint a = GetAttrib(ConfigAttrib::RenderableType);
-		EGLint b = EGLint(type);
+		EGLenum a = GetAttrib(ConfigAttrib::RenderableType);
+		EGLenum b = EGLenum(type);
 		return (a & b) == b;
 	}
 
@@ -254,7 +254,7 @@ public:
 	Bitfield<eglplus::SurfaceTypeBit> SurfaceTypes(void) const
 	{
 		return Bitfield<eglplus::SurfaceTypeBit>(
-			GetAttrib(ConfigAttrib::SurfaceType)
+			EGLenum(GetAttrib(ConfigAttrib::SurfaceType))
 		);
 	}
 
@@ -266,8 +266,8 @@ public:
 	 */
 	bool HasSurfaceType(eglplus::SurfaceTypeBit type) const
 	{
-		EGLint a = GetAttrib(ConfigAttrib::SurfaceType);
-		EGLint b = EGLint(type);
+		EGLenum a = GetAttrib(ConfigAttrib::SurfaceType);
+		EGLenum b = EGLenum(type);
 		return (a & b) == b;
 	}
 
@@ -292,8 +292,8 @@ public:
 	 */
 	bool IsConformantTo(eglplus::RenderableTypeBit type) const
 	{
-		EGLint a = GetAttrib(ConfigAttrib::Conformant);
-		EGLint b = EGLint(type);
+		EGLenum a = GetAttrib(ConfigAttrib::Conformant);
+		EGLenum b = EGLenum(type);
 		return (a & b) == b;
 	}
 };

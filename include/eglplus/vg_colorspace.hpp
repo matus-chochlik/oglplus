@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(VGColorspace, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(VGColorspace, EGLenum)
 #include <eglplus/enums/vg_colorspace.ipp>
 EGLPLUS_ENUM_CLASS_END(VGColorspace)
 

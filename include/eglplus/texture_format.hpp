@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(TextureFormat, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(TextureFormat, EGLenum)
 #include <eglplus/enums/texture_format.ipp>
 EGLPLUS_ENUM_CLASS_END(TextureFormat)
 

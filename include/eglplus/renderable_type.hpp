@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(RenderableTypeBit, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(RenderableTypeBit, EGLenum)
 #include <eglplus/enums/renderable_type_bit.ipp>
 EGLPLUS_ENUM_CLASS_END(RenderableTypeBit)
 

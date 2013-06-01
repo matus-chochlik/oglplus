@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(TextureTarget, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(TextureTarget, EGLenum)
 #include <eglplus/enums/texture_target.ipp>
 EGLPLUS_ENUM_CLASS_END(TextureTarget)
 

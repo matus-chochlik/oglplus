@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(ColorBufferType, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(ColorBufferType, EGLenum)
 #include <eglplus/enums/color_buffer_type.ipp>
 EGLPLUS_ENUM_CLASS_END(ColorBufferType)
 

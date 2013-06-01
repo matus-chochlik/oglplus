@@ -24,7 +24,7 @@ namespace eglplus {
 /// This template serves as a wrapper for EGL bitfields
 /**
  */
-template <typename Bit, typename BF = EGLint>
+template <typename Bit, typename BF = EGLenum>
 class Bitfield
 {
 private:
@@ -86,7 +86,7 @@ public:
 // helper macro used to define bitfield-related functions
 #define EGLPLUS_MAKE_BITFIELD(BITS) \
 namespace enums { \
-template <> struct EnumBaseType<BITS> { typedef EGLint Type; }; \
+template <> struct EnumBaseType<BITS> { typedef EGLenum Type; }; \
 } \
 inline eglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
 { \

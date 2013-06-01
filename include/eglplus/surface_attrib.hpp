@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(SurfaceAttrib, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(SurfaceAttrib, EGLenum)
 #include <eglplus/enums/surface_attrib.ipp>
 EGLPLUS_ENUM_CLASS_END(SurfaceAttrib)
 

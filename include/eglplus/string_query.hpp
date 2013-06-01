@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(StringQuery, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(StringQuery, EGLenum)
 #include <eglplus/enums/string_query.ipp>
 EGLPLUS_ENUM_CLASS_END(StringQuery)
 

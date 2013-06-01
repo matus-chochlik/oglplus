@@ -21,7 +21,7 @@ namespace eglplus {
 /**
  *  @ingroup eglplus_enumerations
  */
-EGLPLUS_ENUM_CLASS_BEGIN(ErrorCode, EGLint)
+EGLPLUS_ENUM_CLASS_BEGIN(ErrorCode, EGLenum)
 #include <eglplus/enums/error_code.ipp>
 EGLPLUS_ENUM_CLASS_END(ErrorCode)
 
