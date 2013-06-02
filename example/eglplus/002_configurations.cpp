@@ -1,5 +1,5 @@
 /**
- *  @example eglplus/001_configurations.cpp
+ *  @example eglplus/002_configurations.cpp
  *  @brief Shows basic usage of EGLplus by printing configuration information
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
