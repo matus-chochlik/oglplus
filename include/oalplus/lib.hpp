@@ -22,6 +22,7 @@
 #include <oalplus/fwd.hpp>
 
 #include <oalplus/auxiliary/base_range.hpp>
+#include <oalplus/auxiliary/enum_class.hpp>
 
 namespace oalplus {
 
