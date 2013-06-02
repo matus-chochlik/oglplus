@@ -599,4 +599,6 @@ fi
 if [ $# -eq 0 ] || [ "${1}" == "eglplus" ]
 then
 	MakeEnumHeaders EGL eglplus
+	MakeEnumValueName EGL eglplus
+	MakeEnumValueRange EGL eglplus
 fi
