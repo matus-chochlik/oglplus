@@ -592,6 +592,8 @@ fi
 if [ $# -eq 0 ] || [ "${1}" == "oalplus" ]
 then
 	MakeEnumHeaders AL oalplus
+	MakeEnumValueName AL oalplus
+	MakeEnumValueRange AL oalplus
 fi
 
 if [ $# -eq 0 ] || [ "${1}" == "eglplus" ]
