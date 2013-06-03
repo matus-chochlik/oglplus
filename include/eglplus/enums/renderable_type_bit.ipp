@@ -17,6 +17,8 @@ OpenGL,
 OpenGL_ES,
 /// OPENGL_ES2_BIT
 OpenGL_ES2,
+/// OPENGL_ES3_BIT_KHR
+OpenGL_ES3,
 /// OPENVG_BIT
 OpenVG
 
