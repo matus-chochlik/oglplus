@@ -21,13 +21,13 @@ function(standalone_example_common EXAMPLE_NAME)
 	target_link_libraries(${EXAMPLE_NAME} ${OPENGL_LIBRARIES} ${ARGN})
 endfunction()
 
-if(EGL_FOUND AND GLEW_FOUND)
+if(EGL_FOUND AND OPENGL_FOUND)
 	include_directories(${EGL_INCLUDE_DIRS})
-	include_directories(${GLEW_INCLUDE_DIRS})
+	include_directories(${OPENGL_INCLUDE_DIRS})
 
 	standalone_example_common(
 		001_triangle_screenshot
-		${EGL_LIBRARIES} ${GLEW_LIBRARIES}
+		${EGL_LIBRARIES} ${OPENGL_LIBRARIES}
 	)
 endif()
 

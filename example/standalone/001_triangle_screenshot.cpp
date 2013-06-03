@@ -1,5 +1,5 @@
 /**
- *  @example standalone/001_triangle_scereenshot.cpp
+ *  @example standalone/001_triangle_screenshot.cpp
  *  @brief Shows the basic usage of OGLplus with EGLplus
  *
  *  @oglplus_screenshot{001_triangle}
@@ -12,11 +12,10 @@
 #include <iostream>
 #include <fstream>
 
-#include <GL/glew.h>
+#include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <EGL/egl.h>
-#include <EGL/eglext.h>
+#include <eglplus/egl.hpp>
 #define EGL_CONTEXT_MINOR_VERSION_KHR 0x30FB
 #include <eglplus/all.hpp>
 
@@ -141,20 +140,13 @@ void make_screenshot(unsigned width, unsigned height, const char* screenshot_pat
 
 	context.MakeCurrent(surface);
 
-	GLenum err = glewInit();
-	if(err == GLEW_OK)
-	{
-		render_frame();
+	oglplus::GLAPIInitializer api_init;
 
-		context.WaitGL();
+	render_frame();
 
-		save_frame(width, height, screenshot_path);
-	}
-	else throw std::runtime_error(
-		std::string("GLEW initialization error '")+
-		std::string((const char*)glewGetErrorString(err))+
-		std::string("'")
-	);
+	context.WaitGL();
+
+	save_frame(width, height, screenshot_path);
 }
 
 int main(int argc, char* argv[])
