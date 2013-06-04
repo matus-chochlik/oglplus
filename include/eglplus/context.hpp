@@ -59,7 +59,7 @@ private:
 			share_context,
 			attribs
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(DestroyContext));
+		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(CreateContext));
 		return result;
 	}
 public:
@@ -94,6 +94,33 @@ public:
 		const Context& shared_context
 	): _display(display)
 	 , _handle(_init(display, config, shared_context._handle, nullptr))
+	{ }
+
+	/// Construct a non-sharing context with attributes
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{CreateContext}
+	 */
+	Context(
+		const Display& display,
+		const Config& config,
+		const ContextAttribs& attribs
+	): _display(display)
+	 , _handle(_init(display, config, EGL_NO_CONTEXT, attribs.Get()))
+	{ }
+
+	/// Construct a sharing context without any attributes
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{CreateContext}
+	 */
+	Context(
+		const Display& display,
+		const Config& config,
+		const Context& shared_context,
+		const ContextAttribs& attribs
+	): _display(display)
+	 , _handle(_init(display, config, shared_context._handle, attribs.Get()))
 	{ }
 
 	/// Destroys the wrapped context

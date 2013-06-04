@@ -61,6 +61,22 @@
 #  define EGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined EGL_OPENGL_ES3_BIT_KHR
+# if EGLPLUS_LIST_NEEDS_COMMA
+   EGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined OpenGL_ES3
+#  pragma push_macro("OpenGL_ES3")
+#  undef OpenGL_ES3
+   EGLPLUS_ENUM_CLASS_VALUE(OpenGL_ES3, EGL_OPENGL_ES3_BIT_KHR)
+#  pragma pop_macro("OpenGL_ES3")
+# else
+   EGLPLUS_ENUM_CLASS_VALUE(OpenGL_ES3, EGL_OPENGL_ES3_BIT_KHR)
+# endif
+# ifndef EGLPLUS_LIST_NEEDS_COMMA
+#  define EGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined EGL_OPENVG_BIT
 # if EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA

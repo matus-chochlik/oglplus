@@ -29,6 +29,9 @@ switch(value)
 #if defined EGL_OPENGL_ES2_BIT
 	case EGL_OPENGL_ES2_BIT: return StrLit("OPENGL_ES2_BIT");
 #endif
+#if defined EGL_OPENGL_ES3_BIT_KHR
+	case EGL_OPENGL_ES3_BIT_KHR: return StrLit("OPENGL_ES3_BIT_KHR");
+#endif
 #if defined EGL_OPENVG_BIT
 	case EGL_OPENVG_BIT: return StrLit("OPENVG_BIT");
 #endif
