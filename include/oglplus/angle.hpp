@@ -137,20 +137,29 @@ public:
 		return a._val_rad >=  b._val_rad;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Negation
-	friend Angle Negated(const Angle& angle)
+	friend Angle Negate(const Angle& angle);
+#endif
+
+	/// Negation
+	Angle Negated(void) const
 	{
-		return Angle(-angle._val_rad, _Radians());
+		return Angle(-this->_val_rad, _Radians());
 	}
 
 	/// Negation operator
 	friend Angle operator - (const Angle& angle)
 	{
-		return Negated(angle);
+		return angle.Negated();
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Addition
-	friend Angle Add(const Angle& a, const Angle& b)
+	friend Angle Add(const Angle& a, const Angle& b);
+#endif
+
+	static Angle Added(const Angle& a, const Angle& b)
 	{
 		return Angle(a._val_rad + b._val_rad, _Radians());
 	}
@@ -158,7 +167,7 @@ public:
 	/// Addition operator
 	friend Angle operator + (const Angle& a, const Angle& b)
 	{
-		return Add(a, b);
+		return Added(a, b);
 	}
 
 	/// Addition operator
@@ -168,8 +177,12 @@ public:
 		return *this;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Subtraction
-	friend Angle Subtract(const Angle& a, const Angle& b)
+	friend Angle Subtract(const Angle& a, const Angle& b);
+#endif
+
+	static Angle Subtracted(const Angle& a, const Angle& b)
 	{
 		return Angle(a._val_rad - b._val_rad, _Radians());
 	}
@@ -177,18 +190,22 @@ public:
 	/// Subtraction operator
 	friend Angle operator - (const Angle& a, const Angle& b)
 	{
-		return Subtract(a, b);
+		return Subtracted(a, b);
 	}
 
 	/// Subtraction operator
 	Angle& operator -= (const Angle& b)
 	{
-		*this = Subtract(*this, b);
+		*this = Subtracted(*this, b);
 		return *this;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Multiplication by constant
-	friend Angle Multiply(const Angle& a, T mult)
+	friend Angle Multiply(const Angle& a, T mult);
+#endif
+
+	static Angle Multiplied(const Angle& a, T mult)
 	{
 		return Angle(a._val_rad * mult, _Radians());
 	}
@@ -196,17 +213,21 @@ public:
 	/// Multiplication by constant operator
 	friend Angle operator * (const Angle& a, T mult)
 	{
-		return Multiply(a, mult);
+		return Multiplied(a, mult);
 	}
 
 	/// Multiplication by constant operator
 	friend Angle operator * (T mult, const Angle& a)
 	{
-		return Multiply(a, mult);
+		return Multiplied(a, mult);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Division by constant
 	friend Angle Divide(const Angle& a, T div)
+#endif
+
+	static Angle Divided(const Angle& a, T div)
 	{
 		return Angle(a._val_rad / div, _Radians());
 	}
@@ -214,27 +235,90 @@ public:
 	/// Division by constant operator
 	friend Angle operator / (const Angle& a, T div)
 	{
-		return Divide(a, div);
+		return Divided(a, div);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Returns the sine of the angle
+	friend inline T Sin(const Angle& a);
+#endif
 
 	/// Returns the sine of the angle
-	friend inline T Sin(const Angle& a)
+	T Sin(void) const
 	{
-		return ::std::sin(a._val_rad);
+		return ::std::sin(this->_val_rad);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Returns the cosine of the angle
+	friend inline T Cos(const Angle& a);
+#endif
 
 	/// Returns the cosine of the angle
-	friend inline T Cos(const Angle& a)
+	T Cos(void) const
 	{
-		return ::std::cos(a._val_rad);
+		return ::std::cos(this->_val_rad);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Returns the tangent of the angle
-	friend inline T Tan(const Angle& a)
+	friend inline T Tan(const Angle& a);
+#endif
+
+	/// Returns the tangent of the angle
+	T Tan(void) const
 	{
-		return ::std::tan(a._val_rad);
+		return ::std::tan(this->_val_rad);
 	}
 };
+
+template <typename T>
+inline Angle<T> Negate(const Angle<T>& a)
+{
+	return a.Negated();
+}
+
+template <typename T>
+inline Angle<T> Add(const Angle<T>& a, const Angle<T>& b)
+{
+	return Angle<T>::Added(a, b);
+}
+
+template <typename T>
+inline Angle<T> Subtract(const Angle<T>& a, const Angle<T>& b)
+{
+	return Angle<T>::Subtracted(a, b);
+}
+
+template <typename T>
+inline Angle<T> Multiply(const Angle<T>& a, T v)
+{
+	return Angle<T>::Multiplied(a, v);
+}
+
+template <typename T>
+inline Angle<T> Divide(const Angle<T>& a, T v)
+{
+	return Angle<T>::Divided(a, v);
+}
+
+template <typename T>
+inline T Sin(const Angle<T>& a)
+{
+	return a.Sin();
+}
+
+template <typename T>
+inline T Cos(const Angle<T>& a)
+{
+	return a.Cos();
+}
+
+template <typename T>
+inline T Tan(const Angle<T>& a)
+{
+	return a.Tan();
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// Instantiation of Angle using GL floating-point as underlying type
