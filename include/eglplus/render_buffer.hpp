@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(RenderBuffer)
 #include <eglplus/enums/render_buffer_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

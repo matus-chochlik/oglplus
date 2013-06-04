@@ -38,12 +38,12 @@ int main(void)
 			cfg.AlphaSize() << std::endl;
 		std::cout << "\tDepth size:        " << std::setw(w) <<
 			cfg.DepthSize() << std::endl;
-		std::cout << "\tMax PBuffer width: " << std::setw(w) <<
-			cfg.MaxPBufferWidth() << std::endl;
-		std::cout << "\tMax PBuffer height:" << std::setw(w) <<
-			cfg.MaxPBufferHeight() << std::endl;
-		std::cout << "\tMax PBuffer pixels:" << std::setw(w) <<
-			cfg.MaxPBufferPixels() << std::endl;
+		std::cout << "\tMax Pbuffer width: " << std::setw(w) <<
+			cfg.MaxPbufferWidth() << std::endl;
+		std::cout << "\tMax Pbuffer height:" << std::setw(w) <<
+			cfg.MaxPbufferHeight() << std::endl;
+		std::cout << "\tMax Pbuffer pixels:" << std::setw(w) <<
+			cfg.MaxPbufferPixels() << std::endl;
 
 		std::cout << "\tConfig caveat:     " << std::setw(w) <<
 			eglplus::EnumValueName(cfg.ConfigCaveat()).c_str() << std::endl;

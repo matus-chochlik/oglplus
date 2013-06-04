@@ -22,8 +22,17 @@
 
 namespace eglplus {
 
+
+struct ContextValueTypeToContextAttrib
+{
+};
+
+
 /// Attribute list for context attributes
-typedef AttributeList<ContextAttrib> ContextAttribs;
+typedef AttributeList<
+	ContextAttrib,
+	ContextValueTypeToContextAttrib
+> ContextAttribs;
 
 /// Wrapper around EGLContext
 class Context

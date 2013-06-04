@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(MultisampleResolve)
 #include <eglplus/enums/multisample_resolve_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

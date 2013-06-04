@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(TextureFormat)
 #include <eglplus/enums/texture_format_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

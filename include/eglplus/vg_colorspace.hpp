@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(VGColorspace)
 #include <eglplus/enums/vg_colorspace_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

@@ -16,7 +16,7 @@ Window,
 /// PIXMAP_BIT
 Pixmal,
 /// PBUFFER_BIT
-PBuffer,
+Pbuffer,
 /// MULTISAMPLE_RESOLVE_BOX_BIT
 MultisampleResolveBox,
 /// SWAP_BEHAVIOR_PRESERVED_BIT

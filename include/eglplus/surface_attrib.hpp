@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(SurfaceAttrib)
 #include <eglplus/enums/surface_attrib_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

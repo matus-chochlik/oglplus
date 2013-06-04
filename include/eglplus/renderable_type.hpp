@@ -33,6 +33,8 @@ EGLPLUS_ENUM_CLASS_END(RenderableTypeBit)
 #include <eglplus/enums/renderable_type_bit_range.ipp>
 #endif
 
-} // namespace oglplus
+EGLPLUS_MAKE_BITFIELD(RenderableTypeBit)
+
+} // namespace eglplus
 
 #endif // include guard

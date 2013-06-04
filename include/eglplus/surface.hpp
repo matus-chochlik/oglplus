@@ -30,8 +30,49 @@
 
 namespace eglplus {
 
+struct SurfaceValueTypeToSurfaceAttrib
+{
+	SurfaceAttrib operator()(RenderBuffer) const
+	{
+		return SurfaceAttrib::RenderBuffer;
+	}
+
+	SurfaceAttrib operator()(MultisampleResolve) const
+	{
+		return SurfaceAttrib::MultisampleResolve;
+	}
+
+	SurfaceAttrib operator()(SwapBehavior) const
+	{
+		return SurfaceAttrib::SwapBehavior;
+	}
+
+	SurfaceAttrib operator()(TextureTarget) const
+	{
+		return SurfaceAttrib::TextureTarget;
+	}
+
+	SurfaceAttrib operator()(TextureFormat) const
+	{
+		return SurfaceAttrib::TextureFormat;
+	}
+
+	SurfaceAttrib operator()(VGColorspace) const
+	{
+		return SurfaceAttrib::VGColorspace;
+	}
+
+	SurfaceAttrib operator()(VGAlphaFormat) const
+	{
+		return SurfaceAttrib::VGAlphaFormat;
+	}
+};
+
 /// Attribute list for surface attributes
-typedef AttributeList<SurfaceAttrib> SurfaceAttribs;
+typedef AttributeList<
+	SurfaceAttrib,
+	SurfaceValueTypeToSurfaceAttrib
+> SurfaceAttribs;
 
 /// Wrapper for EGLSurfaces
 class Surface
@@ -47,10 +88,10 @@ private:
 	Surface(const Surface&);
 
 
-	struct _PBuffer { };
+	struct _Pbuffer { };
 
 	static ::EGLSurface _init(
-		_PBuffer,
+		_Pbuffer,
 		const Display& display,
 		const Config& config,
 		const SurfaceAttribs& attribs
@@ -66,7 +107,7 @@ private:
 	}
 
 	Surface(
-		_PBuffer sel,
+		_Pbuffer sel,
 		const Display& display,
 		const Config& config,
 		const SurfaceAttribs& attribs
@@ -159,38 +200,38 @@ public:
 		}
 	}
 
-	/// Creates a PBuffer surface
+	/// Creates a Pbuffer surface
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{CreatePbufferSurface}
 	 */
-	static Surface PBuffer(
+	static Surface Pbuffer(
 		const Display& display,
 		const Config& config,
 		SurfaceAttribs& attribs
 	)
 	{
 		return Surface(
-			_PBuffer(),
+			_Pbuffer(),
 			display,
 			config,
 			attribs.Finish()
 		);
 	}
 
-	/// Creates a PBuffer surface
+	/// Creates a Pbuffer surface
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{CreatePbufferSurface}
 	 */
-	static Surface PBuffer(
+	static Surface Pbuffer(
 		const Display& display,
 		const Config& config,
 		SurfaceAttribs&& attribs
 	)
 	{
 		return Surface(
-			_PBuffer(),
+			_Pbuffer(),
 			display,
 			config,
 			attribs.Finish()
@@ -218,7 +259,7 @@ public:
 		);
 	}
 
-	/// Creates a PBuffer surface
+	/// Creates a Pbuffer surface
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{CreatePixmapSurface}
@@ -260,7 +301,7 @@ public:
 		);
 	}
 
-	/// Creates a PBuffer surface
+	/// Creates a Pbuffer surface
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{CreateWindowSurface}

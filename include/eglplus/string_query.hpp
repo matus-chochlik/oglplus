@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(StringQuery)
 #include <eglplus/enums/string_query_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

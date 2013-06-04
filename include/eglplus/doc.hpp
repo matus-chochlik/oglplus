@@ -41,7 +41,7 @@ namespace eglplus {
  *  look at the examples and to browse through the reference.
  */
 
-} // namespace oglplus
+} // namespace eglplus
 #endif // EGLPLUS_DOCUMENTATION_ONLY
 
 #endif // include guard

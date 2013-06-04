@@ -3,7 +3,7 @@
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 WINDOW_BIT:Window
 PIXMAP_BIT:Pixmal
-PBUFFER_BIT:PBuffer
+PBUFFER_BIT:Pbuffer
 MULTISAMPLE_RESOLVE_BOX_BIT:MultisampleResolveBox
 SWAP_BEHAVIOR_PRESERVED_BIT:SwapBehaviorPreserved
 VG_COLORSPACE_LINEAR_BIT:VGColorspaceLinear

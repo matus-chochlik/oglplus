@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(VGAlphaFormat)
 #include <eglplus/enums/vg_alpha_format_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

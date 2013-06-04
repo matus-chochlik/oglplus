@@ -147,37 +147,37 @@ public:
 		return GetAttrib(ConfigAttrib::DepthSize);
 	}
 
-	/// Returns the maximum width of PBuffers in pixels
+	/// Returns the maximum width of Pbuffers in pixels
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{MAX_PBUFFER_WIDTH}
 	 */
-	EGLint MaxPBufferWidth(void) const
+	EGLint MaxPbufferWidth(void) const
 	{
-		return GetAttrib(ConfigAttrib::MaxPBufferWidth);
+		return GetAttrib(ConfigAttrib::MaxPbufferWidth);
 	}
 
-	/// Returns the maximum height of PBuffers in pixels
+	/// Returns the maximum height of Pbuffers in pixels
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{MAX_PBUFFER_HEIGHT}
 	 */
-	EGLint MaxPBufferHeight(void) const
+	EGLint MaxPbufferHeight(void) const
 	{
-		return GetAttrib(ConfigAttrib::MaxPBufferHeight);
+		return GetAttrib(ConfigAttrib::MaxPbufferHeight);
 	}
 
-	/// Returns the maximum size (number of pixels) of PBuffers
+	/// Returns the maximum size (number of pixels) of Pbuffers
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{GetConfigAttrib}
 	 *  @egldefref{MAX_PBUFFER_PIXELS}
 	 */
-	EGLint MaxPBufferPixels(void) const
+	EGLint MaxPbufferPixels(void) const
 	{
-		return GetAttrib(ConfigAttrib::MaxPBufferPixels);
+		return GetAttrib(ConfigAttrib::MaxPbufferPixels);
 	}
 
 	/// Returns the caveat for this config
@@ -298,8 +298,39 @@ public:
 	}
 };
 
+struct ConfigValueTypeToConfigAttrib
+{
+	ConfigAttrib operator()(ColorBufferType) const
+	{
+		return ConfigAttrib::ColorBufferType;
+	}
+
+	ConfigAttrib operator()(ConfigCaveat) const
+	{
+		return ConfigAttrib::ConfigCaveat;
+	}
+
+	ConfigAttrib operator()(RenderableTypeBit) const
+	{
+		return ConfigAttrib::RenderableType;
+	}
+
+	ConfigAttrib operator()(SurfaceTypeBit) const
+	{
+		return ConfigAttrib::SurfaceType;
+	}
+
+	ConfigAttrib operator()(TransparentType) const
+	{
+		return ConfigAttrib::TransparentType;
+	}
+};
+
 /// Attribute list for configuration attributes
-typedef AttributeList<ConfigAttrib> ConfigAttribs;
+typedef AttributeList<
+	ConfigAttrib,
+	ConfigValueTypeToConfigAttrib
+> ConfigAttribs;
 
 /// A provides access to all configurations of a Display
 class Configs
@@ -425,6 +456,6 @@ public:
 	}
 };
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

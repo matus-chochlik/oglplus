@@ -33,6 +33,8 @@ EGLPLUS_ENUM_CLASS_END(SurfaceTypeBit)
 #include <eglplus/enums/surface_type_bit_range.ipp>
 #endif
 
-} // namespace oglplus
+EGLPLUS_MAKE_BITFIELD(SurfaceTypeBit)
+
+} // namespace eglplus
 
 #endif // include guard

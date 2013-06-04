@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(ColorBufferType)
 #include <eglplus/enums/color_buffer_type_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

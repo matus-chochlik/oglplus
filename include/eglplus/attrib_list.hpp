@@ -13,29 +13,25 @@
 #ifndef EGLPLUS_ATTRIB_LIST_1303292057_HPP
 #define EGLPLUS_ATTRIB_LIST_1303292057_HPP
 
+#include <eglplus/bitfield.hpp>
+
 #include <cassert>
 #include <vector>
 
 namespace eglplus {
 
 /// Specifies the list of attribute values for configuration selection
-template <typename AttribKind>
+template <typename AttribKind, class ValueToAttribMap>
 class AttributeList
 {
 private:
 	std::vector<EGLint> _attribs;
+	ValueToAttribMap _value_to_attrib_map;
 public:
 	/// Creates an empty list of attributes
 	AttributeList(void)
 	{
 		_attribs.reserve(2*10+1);
-	}
-
-	/// Creates a list with a single attribute/value pair
-	AttributeList(AttribKind attrib, EGLint value)
-	{
-		_attribs.reserve(2*10+1);
-		Add(attrib, value);
 	}
 
 	/// Adds a new attribute/value pair
@@ -60,6 +56,28 @@ public:
 		_attribs.push_back(EGLint(EGLenum(attrib)));
 		_attribs.push_back(value?EGL_TRUE:EGL_FALSE);
 		return *this;
+	}
+
+	/// Adds a new enumerated attribute value
+	/**
+	 *  @pre !Finished()
+	 */
+	template <typename AttribValueType>
+	AttributeList& Add(AttribValueType value)
+	{
+		return Add(
+			_value_to_attrib_map(value),
+			EGLint(EGLenum(value))
+		);
+	}
+
+	template <typename AttribValueType>
+	AttributeList& Add(Bitfield<AttribValueType> bits)
+	{
+		return Add(
+			_value_to_attrib_map(AttribValueType()),
+			EGLint(EGLenum(bits))
+		);
 	}
 
 	/// Sets the attribute value value to don't care
@@ -116,8 +134,6 @@ public:
 	}
 };
 
-typedef AttributeList<ConfigAttrib> ConfigAttribs;
-
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

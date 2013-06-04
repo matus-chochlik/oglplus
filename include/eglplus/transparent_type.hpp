@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(TransparentType)
 #include <eglplus/enums/transparent_type_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

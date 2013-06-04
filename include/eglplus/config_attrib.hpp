@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(ConfigAttrib)
 #include <eglplus/enums/config_attrib_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

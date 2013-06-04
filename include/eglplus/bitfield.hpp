@@ -85,9 +85,10 @@ public:
 
 // helper macro used to define bitfield-related functions
 #define EGLPLUS_MAKE_BITFIELD(BITS) \
+} namespace oglplus { \
 namespace enums { \
-template <> struct EnumBaseType<BITS> { typedef EGLenum Type; }; \
-} \
+template <> struct EnumBaseType<eglplus::BITS> { typedef EGLenum Type; }; \
+} } namespace eglplus { \
 inline eglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
 { \
 	return Bitfield<BITS>(b1, b2); \

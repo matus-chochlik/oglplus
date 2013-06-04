@@ -113,13 +113,16 @@ void make_screenshot(unsigned width, unsigned height, const char* screenshot_pat
 			.Add(ConfigAttrib::GreenSize, 8)
 			.Add(ConfigAttrib::BlueSize, 8)
 			.Add(ConfigAttrib::DepthSize, 24)
-			.Add(eglplus::ConfigAttrib::StencilSize, 8)
+			.Add(ConfigAttrib::StencilSize, 8)
+			.Add(ColorBufferType::RGBBuffer)
+			.Add(RenderableTypeBit::OpenGL)
+			.Add(SurfaceTypeBit::Pbuffer)
 			.Finish()
 	);
 
 	Config config = configs.First();
 
-	Surface surface = Surface::PBuffer(
+	Surface surface = Surface::Pbuffer(
 		display,
 		config,
 		SurfaceAttribs()

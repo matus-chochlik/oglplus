@@ -49,13 +49,13 @@
 # if EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined PBuffer
-#  pragma push_macro("PBuffer")
-#  undef PBuffer
-   EGLPLUS_ENUM_CLASS_VALUE(PBuffer, EGL_PBUFFER_BIT)
-#  pragma pop_macro("PBuffer")
+# if defined Pbuffer
+#  pragma push_macro("Pbuffer")
+#  undef Pbuffer
+   EGLPLUS_ENUM_CLASS_VALUE(Pbuffer, EGL_PBUFFER_BIT)
+#  pragma pop_macro("Pbuffer")
 # else
-   EGLPLUS_ENUM_CLASS_VALUE(PBuffer, EGL_PBUFFER_BIT)
+   EGLPLUS_ENUM_CLASS_VALUE(Pbuffer, EGL_PBUFFER_BIT)
 # endif
 # ifndef EGLPLUS_LIST_NEEDS_COMMA
 #  define EGLPLUS_LIST_NEEDS_COMMA 1

@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(SwapBehavior)
 #include <eglplus/enums/swap_behavior_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

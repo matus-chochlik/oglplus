@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(ErrorCode)
 #include <eglplus/enums/error_code_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

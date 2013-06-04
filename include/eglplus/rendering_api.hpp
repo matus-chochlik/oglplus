@@ -57,6 +57,6 @@ inline RenderingAPI QueryAPI(void)
 	return RenderingAPI(result);
 }
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard

@@ -33,6 +33,6 @@ EGLPLUS_ENUM_CLASS_END(TextureTarget)
 #include <eglplus/enums/texture_target_range.ipp>
 #endif
 
-} // namespace oglplus
+} // namespace eglplus
 
 #endif // include guard
