@@ -82,8 +82,10 @@ public:
 	ProgramUniform<Vec3f> camera_position, light_position;
 
 	TransformProgram(void)
-	 : HardwiredTupleProgram<std::tuple<CommonVertShader>>(ObjectDesc("Transform"), true)
-	 , camera_matrix(prog(), "CameraMatrix")
+	 : HardwiredTupleProgram<std::tuple<CommonVertShader>>(
+		ObjectDesc("Transform"),
+		std::true_type()
+	), camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , light_proj_matrix(prog(), "LightProjMatrix")
 	 , texture_matrix(prog(), "TextureMatrix")
@@ -116,8 +118,10 @@ class ShadowProgram
 {
 public:
 	ShadowProgram(void)
-	 : HardwiredTupleProgram<std::tuple<ShadowFragShader>>(ObjectDesc("Shadow"), true)
-	{ }
+	 : HardwiredTupleProgram<std::tuple<ShadowFragShader>>(
+		ObjectDesc("Shadow"),
+		std::true_type()
+	){ }
 };
 
 class LineGeomShader
@@ -205,7 +209,10 @@ class LineProgram
 {
 public:
 	LineProgram(void)
-	 : HardwiredTupleProgram<std::tuple<LineGeomShader, LineFragShader>>(ObjectDesc("Line"), true)
+	 : HardwiredTupleProgram<std::tuple<LineGeomShader, LineFragShader>>(
+		ObjectDesc("Line"),
+		std::true_type()
+	)
 	{ }
 };
 
@@ -295,8 +302,10 @@ public:
 	ProgramUniformSampler sketch_tex, shadow_tex;
 
 	SketchProgram(void)
-	 : HardwiredTupleProgram<std::tuple<SketchFragShader>>(ObjectDesc("Sketch"), true)
-	 , sketch_tex(prog(), "SketchTex")
+	 : HardwiredTupleProgram<std::tuple<SketchFragShader>>(
+		ObjectDesc("Sketch"),
+		std::true_type()
+	), sketch_tex(prog(), "SketchTex")
 	 , shadow_tex(prog(), "ShadowTex")
 	{ }
 };

@@ -120,7 +120,7 @@ public:
 
 	CheckerProgram(void)
 	 : CheckerShaders()
-	 , QuickProgram(false, vertex_shader, fragment_shader)
+	 , QuickProgram(std::false_type(), vertex_shader, fragment_shader)
 	 , light_position(prog(), "LightPosition")
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")

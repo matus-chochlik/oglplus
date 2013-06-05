@@ -273,7 +273,7 @@ public:
 	ProgramUniform<GLfloat> time;
 
 	LiquidProgram(void)
-	 : _base_program(false)
+	 : _base_program(std::false_type())
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")

@@ -257,7 +257,7 @@ public:
 	ProgramUniform<Vec3f> camera_position, light_position;
 
 	VertexProgram(void)
-	 : HardwiredProgram<CommonVertShader>("Vertex", true)
+	 : HardwiredProgram<CommonVertShader>("Vertex", std::true_type())
 	 , model_matrix(prog(), "ModelMatrix")
 	 , texture_matrix(prog(), "TextureMatrix")
 	 , camera_position(prog(), "CameraPosition")
@@ -274,7 +274,7 @@ public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
 
 	GeometryProgram(const GeometryShader& shader)
-	 : QuickProgram("Geometry", true, shader)
+	 : QuickProgram("Geometry", std::true_type(), shader)
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	{ }
@@ -354,7 +354,7 @@ public:
 	ProgramUniformSampler light_map;
 
 	ClothProgram(void)
-	 : HardwiredProgram<ClothFragmentShader>("Cloth", true)
+	 : HardwiredProgram<ClothFragmentShader>("Cloth", std::true_type())
 	 , color_1(prog(), "Color1")
 	 , color_2(prog(), "Color2")
 	 , cloth_tex(prog(), "ClothTex")
@@ -440,7 +440,7 @@ public:
 	ProgramUniform<GLint> ball_idx;
 
 	BallProgram(void)
-	 : HardwiredProgram<BallFragmentShader>("Ball", true)
+	 : HardwiredProgram<BallFragmentShader>("Ball", std::true_type())
 	 , color_1(prog(), "Color1")
 	 , color_2(prog(), "Color2")
 	 , number_tex(prog(), "NumberTex")
