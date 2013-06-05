@@ -19,12 +19,35 @@
 #include <eglplus/friend_of.hpp>
 #include <eglplus/attrib_list.hpp>
 #include <eglplus/context_attrib.hpp>
+#include <eglplus/context_flag.hpp>
+#include <eglplus/opengl_profile_bit.hpp>
+#include <eglplus/opengl_rns.hpp>
 
 namespace eglplus {
 
 
 struct ContextValueTypeToContextAttrib
 {
+#ifdef EGL_CONTEXT_FLAGS_KHR
+	ContextAttrib operator()(ContextFlag) const
+	{
+		return ContextAttrib::Flags;
+	}
+#endif
+
+#ifdef EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
+	ContextAttrib operator()(OpenGLProfileBit) const
+	{
+		return ContextAttrib::OpenGLProfileMask;
+	}
+#endif
+
+#ifdef EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
+	ContextAttrib operator()(OpenGLResetNotificationStrategy) const
+	{
+		return ContextAttrib::OpenGLResetNotificationStrategy;
+	}
+#endif
 };
 
 

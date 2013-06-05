@@ -17,6 +17,19 @@
 
 #include <eglplus/egl.hpp>
 #define EGL_CONTEXT_MINOR_VERSION_KHR 0x30FB
+
+#define EGL_CONTEXT_FLAGS_KHR                   0x30FC
+#define EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR     0x30FD
+#define EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR  0x31BD
+#define EGL_OPENGL_ES3_BIT_KHR                  0x0040
+#define EGL_NO_RESET_NOTIFICATION_KHR           0x31BE
+#define EGL_LOSE_CONTEXT_ON_RESET_KHR           0x31BF
+#define EGL_CONTEXT_OPENGL_DEBUG_BIT_KHR               0x00000001
+#define EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE_BIT_KHR  0x00000002
+#define EGL_CONTEXT_OPENGL_ROBUST_ACCESS_BIT_KHR       0x00000004
+#define EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT_KHR          0x00000001
+#define EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT_KHR 0x00000002
+
 #include <eglplus/all.hpp>
 
 void render_frame(void)
@@ -138,6 +151,9 @@ void make_screenshot(unsigned width, unsigned height, const char* screenshot_pat
 		ContextAttribs()
 			.Add(ContextAttrib::ClientVersion, 3)
 			.Add(ContextAttrib::MinorVersion, 0)
+			.Add(ContextFlag::OpenGLRobustAccess|ContextFlag::OpenGLDebug)
+			.Add(OpenGLProfileBit::Core|OpenGLProfileBit::Compatibility)
+			.Add(OpenGLResetNotificationStrategy::NoResetNotification)
 			.Finish()
 	);
 

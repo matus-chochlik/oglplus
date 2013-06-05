@@ -22,11 +22,20 @@ EGLPLUS_ENUM_CLASS_FWD(ConfigCaveat, EGLenum)
 EGLPLUS_ENUM_CLASS_FWD(ContextAttrib, EGLenum)
 #include <eglplus/enums/context_attrib_range.ipp>
 
+EGLPLUS_ENUM_CLASS_FWD(ContextFlag, EGLenum)
+#include <eglplus/enums/context_flag_range.ipp>
+
 EGLPLUS_ENUM_CLASS_FWD(ErrorCode, EGLenum)
 #include <eglplus/enums/error_code_range.ipp>
 
 EGLPLUS_ENUM_CLASS_FWD(MultisampleResolve, EGLenum)
 #include <eglplus/enums/multisample_resolve_range.ipp>
+
+EGLPLUS_ENUM_CLASS_FWD(OpenGLProfileBit, EGLenum)
+#include <eglplus/enums/opengl_profile_bit_range.ipp>
+
+EGLPLUS_ENUM_CLASS_FWD(OpenGLResetNotificationStrategy, EGLenum)
+#include <eglplus/enums/opengl_rns_range.ipp>
 
 EGLPLUS_ENUM_CLASS_FWD(RenderableTypeBit, EGLenum)
 #include <eglplus/enums/renderable_type_bit_range.ipp>
