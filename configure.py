@@ -23,8 +23,9 @@ def get_argument_parser():
 
 	def OpenGLVersionValue(arg):
 		import re
-		match = re.match("[3-9]_[0-9]", arg)
-		if match: return arg
+		match = re.match("^([3-9]).([0-9])$", arg)
+		if match:
+			return match.group(1)+"_"+match.group(2)
 		else:
 			msg = "'%s' is not a supported OpenGL version" % str(arg)
 			raise argparse.ArgumentTypeError(msg)
