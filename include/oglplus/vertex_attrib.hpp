@@ -853,7 +853,7 @@ private:
 		return Rows*Cols;
 	}
 
-	// Functions for autodetection of data type
+	// Functions for autodetection of GL data type
 	template <typename T>
 	static DataType _get_data_type(T* p)
 	{
@@ -871,6 +871,16 @@ private:
 	{
 		return ::oglplus::GetDataType((T*)nullptr);
 	}
+
+	// Functions for autodetection of c++ data type
+	template <typename T>
+	static T _get_cpp_type(T* p);
+
+	template <typename T, std::size_t N>
+	static T _get_cpp_type(Vector<T, N>*);
+
+	template <typename T, std::size_t Rows, std::size_t Cols>
+	static T _get_cpp_type(Matrix<T, Rows, Cols>*);
 public:
 	/// References the vertex attribute array at @p location
 	/**
@@ -901,6 +911,16 @@ public:
 
 	/// Setup the properties of this vertex attribute array
 	/** Equivalent to Pointer(valuer_per_vertex, data_type, false, 0, NULL)
+	 *
+	 *  @note Consider using the templated version of Setup(), because
+	 *  it is more portable. For example instead of:
+	 *  @code
+	 *  attr.Setup(3, DataType::Float);
+	 *  @endcode
+	 *  use
+	 *  @code
+	 *  attr.Setup<Vec3f>();
+	 *  @endcode
 	 *
 	 *  @see Pointer
 	 *
@@ -940,7 +960,10 @@ public:
 			_get_data_type((T*)nullptr),
 			0,
 			nullptr,
-			typename std::is_same<T, GLdouble>::type()
+			typename std::is_same<
+				decltype(_get_cpp_type((T*)nullptr)),
+				GLdouble
+			>::type()
 		);
 	}
 
@@ -969,13 +992,53 @@ public:
 		return *this;
 	}
 
-	template <typename BoolType>
 	const VertexAttribArray& _PointerWithOptDouble(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
 		void* pointer,
-		BoolType support_double
+		std::false_type /*support_double*/
+	) const
+	{
+		if(data_type == DataType::Float)
+		{
+			OGLPLUS_GLFUNC(VertexAttribPointer)(
+				_location,
+				values_per_vertex,
+				GLenum(data_type),
+				GL_FALSE,
+				stride,
+				pointer
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+		}
+		else if(data_type == DataType::Double)
+		{
+			assert(!
+				"Logic error. This version of Pointer "
+				"does not support double data type"
+			);
+		}
+		else
+		{
+			OGLPLUS_GLFUNC(VertexAttribIPointer)(
+				_location,
+				values_per_vertex,
+				GLenum(data_type),
+				stride,
+				pointer
+			);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIPointer));
+		}
+		return *this;
+	}
+
+	const VertexAttribArray& _PointerWithOptDouble(
+		GLint values_per_vertex,
+		DataType data_type,
+		GLsizei stride,
+		void* pointer,
+		std::true_type support_double
 	) const
 	{
 		if(data_type == DataType::Float)
