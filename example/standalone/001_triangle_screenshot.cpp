@@ -17,7 +17,6 @@
 
 #include <eglplus/egl.hpp>
 #define EGL_CONTEXT_MINOR_VERSION_KHR 0x30FB
-
 #define EGL_CONTEXT_FLAGS_KHR                   0x30FC
 #define EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR     0x30FD
 #define EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR  0x31BD
@@ -38,11 +37,10 @@ void render_frame(void)
 
 	Context gl;
 
-
 	VertexShader vs;
 	vs.Source(" \
-		#version 330\n \
-		in vec3 Position; \
+		#version 120\n \
+		attribute vec3 Position; \
 		void main(void) \
 		{ \
 			gl_Position = vec4(Position, 1.0); \
@@ -52,11 +50,10 @@ void render_frame(void)
 
 	FragmentShader fs;
 	fs.Source(" \
-		#version 330\n \
-		out vec4 fragColor; \
+		#version 120\n \
 		void main(void) \
 		{ \
-			fragColor = vec4(1.0, 0.0, 0.0, 1.0); \
+			gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0); \
 		} \
 	");
 	fs.Compile();
@@ -71,9 +68,9 @@ void render_frame(void)
 	triangle.Bind();
 
 	GLfloat triangle_verts[9] = {
-		0.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f
+		 0.0f, 0.0f, 0.0f,
+		-1.0f, 0.0f, 0.0f,
+		 0.0f, 1.0f, 0.0f
 	};
 
 	oglplus::Buffer verts;
