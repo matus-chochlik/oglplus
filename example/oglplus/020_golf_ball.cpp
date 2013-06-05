@@ -163,7 +163,7 @@ public:
 			Buffer::Data(Buffer::Target::TransformFeedback, data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(prog_tfb, "Hole");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 		transf_hole_verts.BindBase(
@@ -251,7 +251,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -264,7 +264,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 

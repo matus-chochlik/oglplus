@@ -134,7 +134,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float).Enable();
+			attr.Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		// bind the VBO for the torus normals
@@ -146,7 +146,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float).Enable();
+			attr.Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		// setup the color gradient

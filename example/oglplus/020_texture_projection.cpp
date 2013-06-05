@@ -144,7 +144,7 @@ public:
 			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -154,7 +154,7 @@ public:
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 

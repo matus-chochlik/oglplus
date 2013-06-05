@@ -308,7 +308,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, data);
 		// setup the vertex attribs array
 		VertexAttribArray attr(prog, "Position");
-		attr.Setup(n_per_vertex, DataType::Float);
+		attr.Setup<GLfloat>(n_per_vertex);
 		attr.Enable();
 
 		// bind the VBO for the tetrahedron indices

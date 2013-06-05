@@ -184,7 +184,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			VertexAttribArray attr(transf_prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -195,7 +195,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			VertexAttribArray attr(transf_prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -206,7 +206,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			VertexAttribArray attr(transf_prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 

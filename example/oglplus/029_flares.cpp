@@ -385,7 +385,7 @@ public:
 				Buffer::Data(Buffer::Target::Array, data);
 				// setup the vertex attribs array
 				VertexAttribArray attr(prog, name);
-				attr.Setup(npv, DataType::Float);
+				attr.Setup<GLfloat>(npv);
 				attr.Enable();
 			}
 			catch(Error& error)
@@ -485,12 +485,12 @@ public:
 
 			light_prog.Use();
 			VertexAttribArray light_attr(light_prog, "Position");
-			light_attr.Setup(3, DataType::Float);
+			light_attr.Setup<Vec3f>();
 			light_attr.Enable();
 
 			flare_prog.Use();
 			VertexAttribArray flare_attr(flare_prog, "Position");
-			flare_attr.Setup(3, DataType::Float);
+			flare_attr.Setup<Vec3f>();
 			flare_attr.Enable();
 		}
 		catch(Error& error)

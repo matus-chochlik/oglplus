@@ -84,7 +84,7 @@ public:
 		);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(3, DataType::Float);
+		vert_attr.Setup<GLfloat>(3);
 		vert_attr.Enable();
 
 		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);

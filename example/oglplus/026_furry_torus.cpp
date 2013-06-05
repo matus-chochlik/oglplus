@@ -232,7 +232,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, pos);
 
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 
@@ -241,7 +241,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, nms);
 
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 
@@ -250,7 +250,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, tcs);
 
 			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(2, DataType::Float);
+			attr.Setup<Vec2f>();
 			attr.Enable();
 		}
 	}

@@ -181,7 +181,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(main_prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -192,7 +192,7 @@ public:
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(main_prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -266,7 +266,7 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 8, screen_verts);
 			VertexAttribArray attr(dof_prog, "Position");
-			attr.Setup(2, DataType::Float);
+			attr.Setup<Vec2f>();
 			attr.Enable();
 		}
 

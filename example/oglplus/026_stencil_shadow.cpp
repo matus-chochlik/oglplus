@@ -228,7 +228,7 @@ public:
 					shadow_prog
 				)
 			);
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -241,7 +241,7 @@ public:
 
 			object_prog.Use();
 			VertexAttribArray attr(object_prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 		// bind the VAO for the plane
@@ -259,7 +259,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();
 			VertexAttribArray attr(object_prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
 
@@ -275,7 +275,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();
 			VertexAttribArray attr(object_prog, "Normal");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
 

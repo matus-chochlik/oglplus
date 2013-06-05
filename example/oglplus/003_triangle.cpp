@@ -90,7 +90,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, triangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(3, DataType::Float);
+		vert_attr.Setup<Vec3f>();
 		vert_attr.Enable();
 		//
 
@@ -105,7 +105,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, triangle_colors);
 		// setup the vertex attribs array
 		VertexAttribArray color_attr(prog, "Color");
-		color_attr.Setup(3, DataType::Float);
+		color_attr.Setup<Vec3f>();
 		color_attr.Enable();
 
 		// set the transformation matrix

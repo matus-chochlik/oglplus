@@ -101,7 +101,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = load_mesh.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			(prog|"Position").Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"Position").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		normals.Bind(Buffer::Target::Array);
@@ -109,7 +109,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = load_mesh.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			(prog|"Normal").Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"Normal").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		//

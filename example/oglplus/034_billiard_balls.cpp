@@ -577,7 +577,7 @@ public:
 				Buffer::Data(Buffer::Target::Array, data);
 				// setup the vertex attribs array
 				VertexAttribArray attr(prog, name);
-				attr.Setup(npv, DataType::Float);
+				attr.Setup<GLfloat>(npv);
 				attr.Enable();
 			}
 			catch(Error& error)

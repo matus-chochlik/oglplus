@@ -322,7 +322,7 @@ public:
 			).In(shape_prog).And(halo_prog))
 			{
 				VertexAttribArray attr(location);
-				attr.Setup(n_per_vertex, DataType::Float);
+				attr.Setup<GLfloat>(n_per_vertex);
 				attr.Enable();
 			}
 			else assert(!"Inconsistent 'Position' location");
@@ -337,7 +337,7 @@ public:
 
 			shape_prog.Use();
 			VertexAttribArray attr(shape_prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -356,7 +356,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			plane_prog.Use();
 			VertexAttribArray attr(plane_prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 
@@ -372,7 +372,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			plane_prog.Use();
 			VertexAttribArray attr(plane_prog, "Normal");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 

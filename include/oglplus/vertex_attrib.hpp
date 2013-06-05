@@ -853,34 +853,15 @@ private:
 		return Rows*Cols;
 	}
 
-	// Functions for autodetection of GL data type
+	// Functions for autodetection of element type
 	template <typename T>
-	static DataType _get_data_type(T* p)
-	{
-		return ::oglplus::GetDataType(p);
-	}
+	static T _get_element_type(T* p);
 
 	template <typename T, std::size_t N>
-	static DataType _get_data_type(Vector<T, N>*)
-	{
-		return ::oglplus::GetDataType((T*)nullptr);
-	}
+	static T _get_element_type(Vector<T, N>*);
 
 	template <typename T, std::size_t Rows, std::size_t Cols>
-	static DataType _get_data_type(Matrix<T, Rows, Cols>*)
-	{
-		return ::oglplus::GetDataType((T*)nullptr);
-	}
-
-	// Functions for autodetection of c++ data type
-	template <typename T>
-	static T _get_cpp_type(T* p);
-
-	template <typename T, std::size_t N>
-	static T _get_cpp_type(Vector<T, N>*);
-
-	template <typename T, std::size_t Rows, std::size_t Cols>
-	static T _get_cpp_type(Matrix<T, Rows, Cols>*);
+	static T _get_element_type(Matrix<T, Rows, Cols>*);
 public:
 	/// References the vertex attribute array at @p location
 	/**
@@ -910,7 +891,19 @@ public:
 	{ }
 
 	/// Setup the properties of this vertex attribute array
-	/** Equivalent to Pointer(valuer_per_vertex, data_type, false, 0, NULL)
+	/** Equivalent to
+	 *  @code
+	 *  Pointer(valuer_per_vertex, data_type, false, 0, NULL)
+	 *  @endcode
+	 *  if @p data_type is DataType::Float or to
+	 *  @code
+	 *  LPointer(valuer_per_vertex, data_type, 0, NULL)
+	 *  @endcode
+	 *  if @p data_type is DataType::Double or to
+	 *  @code
+	 *  IPointer(valuer_per_vertex, data_type, 0, NULL)
+	 *  @endcode
+	 *  otherwise.
 	 *
 	 *  @note Consider using the templated version of Setup(), because
 	 *  it is more portable. For example instead of:
@@ -921,8 +914,14 @@ public:
 	 *  @code
 	 *  attr.Setup<Vec3f>();
 	 *  @endcode
+	 *  or
+	 *  @code
+	 *  attr.Setup<GLfloat>(3);
+	 *  @endcode
 	 *
 	 *  @see Pointer
+	 *  @see IPointer
+	 *  @see LPointer
 	 *
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
@@ -934,9 +933,73 @@ public:
 		DataType data_type
 	) const
 	{
+		if(data_type == DataType::Float)
+		{
+			Pointer(
+				values_per_vertex,
+				data_type,
+				false,
+				0,
+				nullptr
+			);
+		}
+		else if(data_type == DataType::Double)
+		{
+			LPointer(
+				values_per_vertex,
+				data_type,
+				0,
+				nullptr
+			);
+		}
+		else
+		{
+			IPointer(
+				values_per_vertex,
+				data_type,
+				0,
+				nullptr
+			);
+		}
+		return *this;
+	}
+
+	const VertexAttribArray& Setup(
+		GLint values_per_vertex,
+		std::integral_constant<DataType, DataType::Float> data_type_ct
+	) const
+	{
 		return Pointer(
 			values_per_vertex,
-			data_type,
+			data_type_ct,
+			false,
+			0,
+			nullptr
+		);
+	}
+
+	const VertexAttribArray& Setup(
+		GLint values_per_vertex,
+		std::integral_constant<DataType, DataType::Double> data_type_ct
+	) const
+	{
+		return LPointer(
+			values_per_vertex,
+			data_type_ct,
+			0,
+			nullptr
+		);
+	}
+
+	template <DataType DataTypeValue>
+	const VertexAttribArray& Setup(
+		GLint values_per_vertex,
+		std::integral_constant<DataType, DataTypeValue> data_type_ct
+	) const
+	{
+		return IPointer(
+			values_per_vertex,
+			data_type_ct,
 			0,
 			nullptr
 		);
@@ -944,8 +1007,9 @@ public:
 
 	/// Setup the properties of this vertex attribute array
 	/**
-	 *
 	 *  @see Pointer
+	 *  @see IPointer
+	 *  @see LPointer
 	 *
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
@@ -953,17 +1017,13 @@ public:
 	 *  @glfunref{VertexAttribLPointer}
 	 */
 	template <typename T>
-	const VertexAttribArray& Setup(void) const
+	const VertexAttribArray& Setup(GLuint n = 1) const
 	{
-		return _PointerWithOptDouble(
-			_get_values_per_vertex((T*)nullptr),
-			_get_data_type((T*)nullptr),
-			0,
-			nullptr,
-			typename std::is_same<
-				decltype(_get_cpp_type((T*)nullptr)),
-				GLdouble
-			>::type()
+		typedef decltype(_get_element_type((T*)nullptr)) elem_type;
+
+		return Setup(
+			_get_values_per_vertex((T*)nullptr)*n,
+			typename DataTypeCT<elem_type>::type()
 		);
 	}
 
@@ -992,121 +1052,53 @@ public:
 		return *this;
 	}
 
-	const VertexAttribArray& _PointerWithOptDouble(
-		GLint values_per_vertex,
-		DataType data_type,
-		GLsizei stride,
-		void* pointer,
-		std::false_type /*support_double*/
-	) const
-	{
-		if(data_type == DataType::Float)
-		{
-			OGLPLUS_GLFUNC(VertexAttribPointer)(
-				_location,
-				values_per_vertex,
-				GLenum(data_type),
-				GL_FALSE,
-				stride,
-				pointer
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
-		}
-		else if(data_type == DataType::Double)
-		{
-			assert(!
-				"Logic error. This version of Pointer "
-				"does not support double data type"
-			);
-		}
-		else
-		{
-			OGLPLUS_GLFUNC(VertexAttribIPointer)(
-				_location,
-				values_per_vertex,
-				GLenum(data_type),
-				stride,
-				pointer
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIPointer));
-		}
-		return *this;
-	}
-
-	const VertexAttribArray& _PointerWithOptDouble(
-		GLint values_per_vertex,
-		DataType data_type,
-		GLsizei stride,
-		void* pointer,
-		std::true_type support_double
-	) const
-	{
-		if(data_type == DataType::Float)
-		{
-			OGLPLUS_GLFUNC(VertexAttribPointer)(
-				_location,
-				values_per_vertex,
-				GLenum(data_type),
-				GL_FALSE,
-				stride,
-				pointer
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
-		}
-		else if(support_double && (data_type == DataType::Double))
-		{
-#if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
-			OGLPLUS_GLFUNC(VertexAttribLPointer)(
-				_location,
-				values_per_vertex,
-				GLenum(data_type),
-				stride,
-				pointer
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLPointer));
-#else
-			assert(!
-				"The glVertexAttribLPointer function is "
-				"required but not available! Double-precision "
-				"vertex attribute values are not supported."
-			);
-#endif
-		}
-		else
-		{
-			OGLPLUS_GLFUNC(VertexAttribIPointer)(
-				_location,
-				values_per_vertex,
-				GLenum(data_type),
-				stride,
-				pointer
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIPointer));
-		}
-		return *this;
-	}
-
 	/// Setup the properties of this vertex attribute array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{VertexAttribPointer}
 	 *  @glfunref{VertexAttribIPointer}
-	 *  @glfunref{VertexAttribLPointer}
 	 */
-	const VertexAttribArray& Pointer(
-		GLint values_per_vertex,
+	const VertexAttribArray& IPointer(
+		GLuint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
 		void* pointer
 	) const
 	{
-		return _PointerWithOptDouble(
+		OGLPLUS_GLFUNC(VertexAttribIPointer)(
+			_location,
 			values_per_vertex,
-			data_type,
+			GLenum(data_type),
 			stride,
-			pointer,
-			std::true_type()
+			pointer
 		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIPointer));
+		return *this;
+	}
+
+	const VertexAttribArray& LPointer(
+		GLuint values_per_vertex,
+		DataType data_type,
+		GLsizei stride,
+		void* pointer
+	) const
+	{
+#if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
+		OGLPLUS_GLFUNC(VertexAttribLPointer)(
+			_location,
+			values_per_vertex,
+			GLenum(data_type),
+			stride,
+			pointer
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLPointer));
+#else
+		assert(!
+			"The glVertexAttribLPointer function is "
+			"required but not available! Double-precision "
+			"vertex attribute values are not supported."
+		);
+#endif
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_vertex_attrib_binding
@@ -1136,47 +1128,42 @@ public:
 	/// Setup the format of this vertex attribute array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{VertexAttribFormat}
 	 *  @glfunref{VertexAttribIFormat}
-	 *  @glfunref{VertexAttribLFormat}
 	 */
-	const VertexAttribArray& Format(
+	const VertexAttribArray& IFormat(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLuint relative_offset
 	) const
 	{
-		if(data_type == DataType::Float)
-		{
-			OGLPLUS_GLFUNC(VertexAttribFormat)(
-				_location,
-				values_per_vertex,
-				GLenum(data_type),
-				GL_FALSE,
-				relative_offset
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribFormat));
-		}
-		else if(data_type == DataType::Double)
-		{
-			OGLPLUS_GLFUNC(VertexAttribLFormat)(
-				_location,
-				values_per_vertex,
-				GLenum(data_type),
-				relative_offset
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLFormat));
-		}
-		else
-		{
-			OGLPLUS_GLFUNC(VertexAttribIFormat)(
-				_location,
-				values_per_vertex,
-				GLenum(data_type),
-				relative_offset
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIFormat));
-		}
+		OGLPLUS_GLFUNC(VertexAttribIFormat)(
+			_location,
+			values_per_vertex,
+			GLenum(data_type),
+			relative_offset
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIFormat));
+		return *this;
+	}
+
+	/// Setup the format of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribLFormat}
+	 */
+	const VertexAttribArray& LFormat(
+		GLint values_per_vertex,
+		DataType data_type,
+		GLuint relative_offset
+	) const
+	{
+		OGLPLUS_GLFUNC(VertexAttribLFormat)(
+			_location,
+			values_per_vertex,
+			GLenum(data_type),
+			relative_offset
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLFormat));
 		return *this;
 	}
 #endif

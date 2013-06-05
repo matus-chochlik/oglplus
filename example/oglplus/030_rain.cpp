@@ -337,7 +337,7 @@ public:
 				GLuint npv = getter(make_shape, data);
 				Buffer::Data(Buffer::Target::Array, data);
 				VertexAttribArray attr(prog, name);
-				attr.Setup(npv, DataType::Float);
+				attr.Setup<GLfloat>(npv);
 				attr.Enable();
 			}
 			catch(Error& error)

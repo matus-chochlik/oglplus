@@ -458,7 +458,7 @@ public:
 				Buffer::Data(Buffer::Target::Array, data);
 				// setup the vertex attribs array
 				VertexAttribArray attr(prog, name);
-				attr.Setup(n_per_vertex, DataType::Float);
+				attr.Setup<GLfloat>(n_per_vertex);
 				attr.Enable();
 			}
 		}
