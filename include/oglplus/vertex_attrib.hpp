@@ -26,6 +26,7 @@
 #include <oglplus/vector.hpp>
 #include <oglplus/string.hpp>
 
+#include <type_traits>
 
 namespace oglplus {
 
@@ -934,11 +935,12 @@ public:
 	template <typename T>
 	const VertexAttribArray& Setup(void) const
 	{
-		return Pointer(
+		return _PointerWithOptDouble(
 			_get_values_per_vertex((T*)nullptr),
 			_get_data_type((T*)nullptr),
 			0,
-			nullptr
+			nullptr,
+			typename std::is_same<T, GLdouble>::type()
 		);
 	}
 
@@ -967,18 +969,13 @@ public:
 		return *this;
 	}
 
-	/// Setup the properties of this vertex attribute array
-	/**
-	 *  @glsymbols
-	 *  @glfunref{VertexAttribPointer}
-	 *  @glfunref{VertexAttribIPointer}
-	 *  @glfunref{VertexAttribLPointer}
-	 */
-	const VertexAttribArray& Pointer(
+	template <typename BoolType>
+	const VertexAttribArray& _PointerWithOptDouble(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
-		void* pointer
+		void* pointer,
+		BoolType support_double
 	) const
 	{
 		if(data_type == DataType::Float)
@@ -993,7 +990,7 @@ public:
 			);
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
 		}
-		else if(data_type == DataType::Double)
+		else if(support_double && (data_type == DataType::Double))
 		{
 #if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
 			OGLPLUS_GLFUNC(VertexAttribLPointer)(
@@ -1024,6 +1021,29 @@ public:
 			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIPointer));
 		}
 		return *this;
+	}
+
+	/// Setup the properties of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribPointer}
+	 *  @glfunref{VertexAttribIPointer}
+	 *  @glfunref{VertexAttribLPointer}
+	 */
+	const VertexAttribArray& Pointer(
+		GLint values_per_vertex,
+		DataType data_type,
+		GLsizei stride,
+		void* pointer
+	) const
+	{
+		return _PointerWithOptDouble(
+			values_per_vertex,
+			data_type,
+			stride,
+			pointer,
+			std::true_type()
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_vertex_attrib_binding
