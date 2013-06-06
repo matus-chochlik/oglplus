@@ -157,38 +157,6 @@
 #  define EGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined EGL_BAD_DISPLAY
-# if EGLPLUS_LIST_NEEDS_COMMA
-   EGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if defined BadDisplay
-#  pragma push_macro("BadDisplay")
-#  undef BadDisplay
-   EGLPLUS_ENUM_CLASS_VALUE(BadDisplay, EGL_BAD_DISPLAY)
-#  pragma pop_macro("BadDisplay")
-# else
-   EGLPLUS_ENUM_CLASS_VALUE(BadDisplay, EGL_BAD_DISPLAY)
-# endif
-# ifndef EGLPLUS_LIST_NEEDS_COMMA
-#  define EGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
-#if defined EGL_BAD_SURFACE
-# if EGLPLUS_LIST_NEEDS_COMMA
-   EGLPLUS_ENUM_CLASS_COMMA
-# endif
-# if defined BadSurface
-#  pragma push_macro("BadSurface")
-#  undef BadSurface
-   EGLPLUS_ENUM_CLASS_VALUE(BadSurface, EGL_BAD_SURFACE)
-#  pragma pop_macro("BadSurface")
-# else
-   EGLPLUS_ENUM_CLASS_VALUE(BadSurface, EGL_BAD_SURFACE)
-# endif
-# ifndef EGLPLUS_LIST_NEEDS_COMMA
-#  define EGLPLUS_LIST_NEEDS_COMMA 1
-# endif
-#endif
 #if defined EGL_BAD_MATCH
 # if EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA

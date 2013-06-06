@@ -47,12 +47,6 @@ switch(value)
 #if defined EGL_BAD_SURFACE
 	case EGL_BAD_SURFACE: return StrLit("BAD_SURFACE");
 #endif
-#if defined EGL_BAD_DISPLAY
-	case EGL_BAD_DISPLAY: return StrLit("BAD_DISPLAY");
-#endif
-#if defined EGL_BAD_SURFACE
-	case EGL_BAD_SURFACE: return StrLit("BAD_SURFACE");
-#endif
 #if defined EGL_BAD_MATCH
 	case EGL_BAD_MATCH: return StrLit("BAD_MATCH");
 #endif

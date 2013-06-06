@@ -46,12 +46,6 @@ EGL_BAD_DISPLAY,
 #if defined EGL_BAD_SURFACE
 EGL_BAD_SURFACE,
 #endif
-#if defined EGL_BAD_DISPLAY
-EGL_BAD_DISPLAY,
-#endif
-#if defined EGL_BAD_SURFACE
-EGL_BAD_SURFACE,
-#endif
 #if defined EGL_BAD_MATCH
 EGL_BAD_MATCH,
 #endif

@@ -29,10 +29,6 @@ BadCurrentSurface,
 BadDisplay,
 /// BAD_SURFACE
 BadSurface,
-/// BAD_DISPLAY
-BadDisplay,
-/// BAD_SURFACE
-BadSurface,
 /// BAD_MATCH
 BadMatch,
 /// BAD_PARAMETER
