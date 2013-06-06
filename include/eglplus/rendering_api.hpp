@@ -14,6 +14,8 @@
 #define EGLPLUS_RENDERING_API_1303292057_HPP
 
 #include <eglplus/enumerations.hpp>
+#include <eglplus/eglfunc.hpp>
+#include <eglplus/error.hpp>
 
 namespace eglplus {
 

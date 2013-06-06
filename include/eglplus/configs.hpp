@@ -18,8 +18,8 @@
 #include <eglplus/color_buffer_type.hpp>
 #include <eglplus/transparent_type.hpp>
 #include <eglplus/config_caveat.hpp>
-#include <eglplus/renderable_type.hpp>
-#include <eglplus/surface_type.hpp>
+#include <eglplus/renderable_type_bit.hpp>
+#include <eglplus/surface_type_bit.hpp>
 #include <eglplus/attrib_list.hpp>
 
 #include <cassert>

@@ -14,6 +14,7 @@
 #define EGLPLUS_OPENGL_PROFILE_BIT_1303292057_HPP
 
 #include <eglplus/enumerations.hpp>
+#include <eglplus/bitfield.hpp>
 
 namespace eglplus {
 
