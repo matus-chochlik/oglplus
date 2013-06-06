@@ -21,6 +21,7 @@ option(OGLPLUS_FORCE_GLX  "Force use of the GLX library" Off)
 option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
 option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
+option(OGLPLUS_NO_BINDINGS "Don't build python bindings" Off)
 
 option(OGLPLUS_WITH_TESTS "Configure the testsuite" Off)
 
@@ -258,7 +259,6 @@ add_subdirectory("doc/doxygen")
 add_subdirectory("source/textures" "textures")
 add_subdirectory("source/models" "models")
 
-
 # include the oglplus headers
 include_directories(${PROJECT_SOURCE_DIR}/include)
 # include the generated headers
@@ -275,6 +275,11 @@ if(NOT OGLPLUS_NO_EXAMPLES)
 	# add this to enable M_PI on some platforms
 	add_definitions(-D_USE_MATH_DEFINES)
 	add_subdirectory("example")
+endif()
+
+# bindings
+if(NOT OGLPLUS_NO_BINDINGS)
+	add_subdirectory("source/bindings" "bindings")
 endif()
 
 # install the "regular" headers

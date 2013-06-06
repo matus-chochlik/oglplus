@@ -579,6 +579,91 @@ git add ${OutputPath}
 
 } #MakeSLtoCPPtypeHeader()
 
+# Creates the source/bindings/python/${1}/enum.cpp file
+function MakeEnumPythonExport()
+{(
+LibPrefixUC="${1}"
+LibNameLC="${2}"
+LibNameUC=${LibNameLC^^}
+
+local InputFiles="${InputDir}/${LibNameLC}/?*.txt"
+shift 2
+for SubDir
+do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
+done
+
+CommonFileDecl="${LibNameLC}/_enums_decl.ipp"
+CommonPathDecl="${RootDir}/source/bindings/python/${CommonFileDecl}"
+PrintFileHeader "${InputFiles}" ${CommonFileDecl} > ${CommonPathDecl}
+
+CommonFileCall="${LibNameLC}/_enums_call.ipp"
+CommonPathCall="${RootDir}/source/bindings/python/${CommonFileCall}"
+PrintFileHeader "${InputFiles}" ${CommonFileCall} > ${CommonPathCall}
+
+for InputFile in ${InputFiles}
+do
+	InputName="${InputFile#${InputDir}/${LibNameLC}/}"
+	InputName=${InputName%.txt}
+
+	OutputFile="${LibNameLC}/${InputName}.cpp"
+	OutputPath="${RootDir}/source/bindings/python/${OutputFile}"
+
+	[[ ${InputFile} -ot ${OutputPath} ]] ||
+	(
+	echo "${InputName}" 1>&2
+	mkdir -p $(dirname ${OutputPath})
+	exec > ${OutputPath}
+	PrintFileHeader ${InputFile} ${OutputFile}
+
+	echo "#include <eglplus/egl.hpp>"
+	echo "#include <eglplus/${InputName}.hpp>"
+	echo
+	echo "#include <boost/python.hpp>"
+	echo
+	echo "void eglplus_py_${InputName}(void)"
+	echo "void eglplus_py_${InputName}(void);" >> ${CommonPathDecl}
+	echo "eglplus_py_${InputName}();" >> ${CommonPathCall}
+	echo "{"
+
+	EnumClass=$(MakeEnumClass ${InputFile})
+
+	echo "	boost::python::enum_<${LibNameLC}::${EnumClass}>(\"${EnumClass}\")"
+	IFS=':'
+	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
+	while read XL_DEF OXLPLUS_DEF X
+	do
+		if [ "${OXLPLUS_DEF}" == "" ]
+		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
+		fi
+
+		echo "#if defined ${LibPrefixUC}_${XL_DEF}"
+
+		echo "# if defined ${OXLPLUS_DEF}"
+		echo "#  pragma push_macro(\"${OXLPLUS_DEF}\")"
+		echo "#  undef ${OXLPLUS_DEF}"
+		echo "	.value(\"${OXLPLUS_DEF}\", ${LibNameLC}::${EnumClass}::${OXLPLUS_DEF})"
+		echo "#  pragma pop_macro(\"${OXLPLUS_DEF}\")"
+		echo "# else"
+		echo "	.value(\"${OXLPLUS_DEF}\", ${LibNameLC}::${EnumClass}::${OXLPLUS_DEF})"
+		echo "# endif"
+
+		echo "#endif"
+	done
+	echo "	;"
+	echo
+	echo "	eglplus::StrLit (*PEnumValueName)(${LibNameLC}::${EnumClass}) ="
+	echo "		&${LibNameLC}::EnumValueName;"
+	echo "	boost::python::def(\"EnumValueName\", PEnumValueName);"
+	echo "}"
+
+	)
+	git add ${OutputPath}
+done
+git add ${CommonPathDecl}
+git add ${CommonPathCall}
+
+)} # MakeEnumPythonExport
+
 if [ $# -eq 0 ] || [ "${1}" == "oglplus" ]
 then
 	MakeEnumHeaders GL oglplus ext
@@ -601,4 +686,5 @@ then
 	MakeEnumHeaders EGL eglplus
 	MakeEnumValueName EGL eglplus
 	MakeEnumValueRange EGL eglplus
+	MakeEnumPythonExport EGL eglplus
 fi
