@@ -21,6 +21,7 @@
 #include <eglplus/renderable_type_bit.hpp>
 #include <eglplus/surface_type_bit.hpp>
 #include <eglplus/attrib_list.hpp>
+#include <eglplus/display.hpp>
 
 #include <cassert>
 
