@@ -32,36 +32,50 @@ namespace eglplus {
 
 struct SurfaceValueTypeToSurfaceAttrib
 {
+	static RenderBuffer
+	ValueType(std::integral_constant<int, 0>);
 	SurfaceAttrib operator()(RenderBuffer) const
 	{
 		return SurfaceAttrib::RenderBuffer;
 	}
 
+	static MultisampleResolve
+	ValueType(std::integral_constant<int, 1>);
 	SurfaceAttrib operator()(MultisampleResolve) const
 	{
 		return SurfaceAttrib::MultisampleResolve;
 	}
 
+	static SwapBehavior
+	ValueType(std::integral_constant<int, 2>);
 	SurfaceAttrib operator()(SwapBehavior) const
 	{
 		return SurfaceAttrib::SwapBehavior;
 	}
 
+	static TextureTarget
+	ValueType(std::integral_constant<int, 3>);
 	SurfaceAttrib operator()(TextureTarget) const
 	{
 		return SurfaceAttrib::TextureTarget;
 	}
 
+	static TextureFormat
+	ValueType(std::integral_constant<int, 4>);
 	SurfaceAttrib operator()(TextureFormat) const
 	{
 		return SurfaceAttrib::TextureFormat;
 	}
 
+	static VGColorspace
+	ValueType(std::integral_constant<int, 5>);
 	SurfaceAttrib operator()(VGColorspace) const
 	{
 		return SurfaceAttrib::VGColorspace;
 	}
 
+	static VGAlphaFormat
+	ValueType(std::integral_constant<int, 6>);
 	SurfaceAttrib operator()(VGAlphaFormat) const
 	{
 		return SurfaceAttrib::VGAlphaFormat;

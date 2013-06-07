@@ -301,26 +301,36 @@ public:
 
 struct ConfigValueTypeToConfigAttrib
 {
+	static ColorBufferType
+	ValueType(std::integral_constant<int, 0>);
 	ConfigAttrib operator()(ColorBufferType) const
 	{
 		return ConfigAttrib::ColorBufferType;
 	}
 
+	static ConfigCaveat
+	ValueType(std::integral_constant<int, 1>);
 	ConfigAttrib operator()(ConfigCaveat) const
 	{
 		return ConfigAttrib::ConfigCaveat;
 	}
 
+	static RenderableTypeBit
+	ValueType(std::integral_constant<int, 2>);
 	ConfigAttrib operator()(RenderableTypeBit) const
 	{
 		return ConfigAttrib::RenderableType;
 	}
 
+	static SurfaceTypeBit
+	ValueType(std::integral_constant<int, 3>);
 	ConfigAttrib operator()(SurfaceTypeBit) const
 	{
 		return ConfigAttrib::SurfaceType;
 	}
 
+	static TransparentType
+	ValueType(std::integral_constant<int, 4>);
 	ConfigAttrib operator()(TransparentType) const
 	{
 		return ConfigAttrib::TransparentType;
