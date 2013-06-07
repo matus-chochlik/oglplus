@@ -29,6 +29,8 @@ namespace eglplus {
 struct ContextValueTypeToContextAttrib
 {
 #ifdef EGL_CONTEXT_FLAGS_KHR
+	static ContextFlag
+	ValueType(std::integral_constant<int, 0>);
 	ContextAttrib operator()(ContextFlag) const
 	{
 		return ContextAttrib::Flags;
@@ -36,6 +38,8 @@ struct ContextValueTypeToContextAttrib
 #endif
 
 #ifdef EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
+	static OpenGLProfileBit
+	ValueType(std::integral_constant<int, 1>);
 	ContextAttrib operator()(OpenGLProfileBit) const
 	{
 		return ContextAttrib::OpenGLProfileMask;
@@ -43,6 +47,8 @@ struct ContextValueTypeToContextAttrib
 #endif
 
 #ifdef EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
+	static OpenGLResetNotificationStrategy
+	ValueType(std::integral_constant<int, 2>);
 	ContextAttrib operator()(OpenGLResetNotificationStrategy) const
 	{
 		return ContextAttrib::OpenGLResetNotificationStrategy;
