@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_config_attrib(void)
 {
 	boost::python::enum_<eglplus::ConfigAttrib>("ConfigAttrib")
@@ -342,4 +344,19 @@ void eglplus_py_config_attrib(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::ConfigAttrib) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::ConfigAttrib
+		>
+	>("aux_CastIterRange_ConfigAttrib");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::ConfigAttrib
+	> (*PEnumValueRange)(eglplus::ConfigAttrib) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

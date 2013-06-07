@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_stencil_operation(void)
 {
 	boost::python::enum_<oglplus::StencilOperation>("StencilOperation")
@@ -102,4 +104,19 @@ void oglplus_py_stencil_operation(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::StencilOperation) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::StencilOperation
+		>
+	>("aux_CastIterRange_StencilOperation");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::StencilOperation
+	> (*PEnumValueRange)(oglplus::StencilOperation) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

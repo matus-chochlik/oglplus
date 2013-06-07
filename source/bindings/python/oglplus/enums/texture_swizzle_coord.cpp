@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_texture_swizzle_coord(void)
 {
 	boost::python::enum_<oglplus::TextureSwizzleCoord>("TextureSwizzleCoord")
@@ -72,4 +74,19 @@ void oglplus_py_texture_swizzle_coord(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::TextureSwizzleCoord) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::TextureSwizzleCoord
+		>
+	>("aux_CastIterRange_TextureSwizzleCoord");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::TextureSwizzleCoord
+	> (*PEnumValueRange)(oglplus::TextureSwizzleCoord) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

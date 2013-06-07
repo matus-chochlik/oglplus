@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_transform_feedback_primitive_type(void)
 {
 	boost::python::enum_<oglplus::TransformFeedbackPrimitiveType>("TransformFeedbackPrimitiveType")
@@ -52,4 +54,19 @@ void oglplus_py_transform_feedback_primitive_type(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::TransformFeedbackPrimitiveType) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::TransformFeedbackPrimitiveType
+		>
+	>("aux_CastIterRange_TransformFeedbackPrimitiveType");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::TransformFeedbackPrimitiveType
+	> (*PEnumValueRange)(oglplus::TransformFeedbackPrimitiveType) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_sync_wait_result(void)
 {
 	boost::python::enum_<oglplus::SyncWaitResult>("SyncWaitResult")
@@ -62,4 +64,19 @@ void oglplus_py_sync_wait_result(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::SyncWaitResult) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::SyncWaitResult
+		>
+	>("aux_CastIterRange_SyncWaitResult");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::SyncWaitResult
+	> (*PEnumValueRange)(oglplus::SyncWaitResult) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

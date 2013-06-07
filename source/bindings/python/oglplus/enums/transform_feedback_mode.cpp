@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_transform_feedback_mode(void)
 {
 	boost::python::enum_<oglplus::TransformFeedbackMode>("TransformFeedbackMode")
@@ -42,4 +44,19 @@ void oglplus_py_transform_feedback_mode(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::TransformFeedbackMode) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::TransformFeedbackMode
+		>
+	>("aux_CastIterRange_TransformFeedbackMode");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::TransformFeedbackMode
+	> (*PEnumValueRange)(oglplus::TransformFeedbackMode) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

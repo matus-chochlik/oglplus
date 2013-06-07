@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_color_logic_operation(void)
 {
 	boost::python::enum_<oglplus::ColorLogicOperation>("ColorLogicOperation")
@@ -182,4 +184,19 @@ void oglplus_py_color_logic_operation(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::ColorLogicOperation) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::ColorLogicOperation
+		>
+	>("aux_CastIterRange_ColorLogicOperation");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::ColorLogicOperation
+	> (*PEnumValueRange)(oglplus::ColorLogicOperation) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

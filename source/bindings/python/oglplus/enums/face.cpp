@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_face(void)
 {
 	boost::python::enum_<oglplus::Face>("Face")
@@ -52,4 +54,19 @@ void oglplus_py_face(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::Face) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::Face
+		>
+	>("aux_CastIterRange_Face");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::Face
+	> (*PEnumValueRange)(oglplus::Face) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

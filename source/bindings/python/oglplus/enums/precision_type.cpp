@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_precision_type(void)
 {
 	boost::python::enum_<oglplus::PrecisionType>("PrecisionType")
@@ -82,4 +84,19 @@ void oglplus_py_precision_type(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::PrecisionType) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::PrecisionType
+		>
+	>("aux_CastIterRange_PrecisionType");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::PrecisionType
+	> (*PEnumValueRange)(oglplus::PrecisionType) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

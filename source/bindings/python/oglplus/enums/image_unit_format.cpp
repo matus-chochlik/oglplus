@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_image_unit_format(void)
 {
 	boost::python::enum_<oglplus::ImageUnitFormat>("ImageUnitFormat")
@@ -412,4 +414,19 @@ void oglplus_py_image_unit_format(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::ImageUnitFormat) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::ImageUnitFormat
+		>
+	>("aux_CastIterRange_ImageUnitFormat");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::ImageUnitFormat
+	> (*PEnumValueRange)(oglplus::ImageUnitFormat) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

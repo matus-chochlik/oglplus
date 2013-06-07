@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_string_query(void)
 {
 	boost::python::enum_<eglplus::StringQuery>("StringQuery")
@@ -62,4 +64,19 @@ void eglplus_py_string_query(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::StringQuery) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::StringQuery
+		>
+	>("aux_CastIterRange_StringQuery");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::StringQuery
+	> (*PEnumValueRange)(eglplus::StringQuery) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

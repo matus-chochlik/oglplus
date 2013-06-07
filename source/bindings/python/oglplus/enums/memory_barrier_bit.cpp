@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_memory_barrier_bit(void)
 {
 	boost::python::enum_<oglplus::MemoryBarrierBit>("MemoryBarrierBit")
@@ -162,4 +164,19 @@ void oglplus_py_memory_barrier_bit(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::MemoryBarrierBit) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLbitfield*,
+			oglplus::MemoryBarrierBit
+		>
+	>("aux_CastIterRange_MemoryBarrierBit");
+
+	oglplus::aux::CastIterRange<
+		const GLbitfield*,
+		oglplus::MemoryBarrierBit
+	> (*PEnumValueRange)(oglplus::MemoryBarrierBit) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

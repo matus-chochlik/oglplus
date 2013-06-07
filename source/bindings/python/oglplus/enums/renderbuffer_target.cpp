@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_renderbuffer_target(void)
 {
 	boost::python::enum_<oglplus::RenderbufferTarget>("RenderbufferTarget")
@@ -32,4 +34,19 @@ void oglplus_py_renderbuffer_target(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::RenderbufferTarget) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::RenderbufferTarget
+		>
+	>("aux_CastIterRange_RenderbufferTarget");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::RenderbufferTarget
+	> (*PEnumValueRange)(oglplus::RenderbufferTarget) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

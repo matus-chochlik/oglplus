@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_swap_behavior(void)
 {
 	boost::python::enum_<eglplus::SwapBehavior>("SwapBehavior")
@@ -42,4 +44,19 @@ void eglplus_py_swap_behavior(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::SwapBehavior) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::SwapBehavior
+		>
+	>("aux_CastIterRange_SwapBehavior");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::SwapBehavior
+	> (*PEnumValueRange)(eglplus::SwapBehavior) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

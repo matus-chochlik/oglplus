@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_opengl_rns(void)
 {
 	boost::python::enum_<eglplus::OpenGLResetNotificationStrategy>("OpenGLResetNotificationStrategy")
@@ -42,4 +44,19 @@ void eglplus_py_opengl_rns(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::OpenGLResetNotificationStrategy) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::OpenGLResetNotificationStrategy
+		>
+	>("aux_CastIterRange_OpenGLResetNotificationStrategy");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::OpenGLResetNotificationStrategy
+	> (*PEnumValueRange)(eglplus::OpenGLResetNotificationStrategy) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

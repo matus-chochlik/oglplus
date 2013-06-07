@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_compare_function(void)
 {
 	boost::python::enum_<oglplus::CompareFunction>("CompareFunction")
@@ -102,4 +104,19 @@ void oglplus_py_compare_function(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::CompareFunction) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::CompareFunction
+		>
+	>("aux_CastIterRange_CompareFunction");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::CompareFunction
+	> (*PEnumValueRange)(oglplus::CompareFunction) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

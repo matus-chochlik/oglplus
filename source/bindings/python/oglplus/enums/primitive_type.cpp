@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_primitive_type(void)
 {
 	boost::python::enum_<oglplus::PrimitiveType>("PrimitiveType")
@@ -142,4 +144,19 @@ void oglplus_py_primitive_type(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::PrimitiveType) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::PrimitiveType
+		>
+	>("aux_CastIterRange_PrimitiveType");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::PrimitiveType
+	> (*PEnumValueRange)(oglplus::PrimitiveType) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

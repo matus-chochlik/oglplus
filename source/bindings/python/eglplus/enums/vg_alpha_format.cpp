@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_vg_alpha_format(void)
 {
 	boost::python::enum_<eglplus::VGAlphaFormat>("VGAlphaFormat")
@@ -42,4 +44,19 @@ void eglplus_py_vg_alpha_format(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::VGAlphaFormat) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::VGAlphaFormat
+		>
+	>("aux_CastIterRange_VGAlphaFormat");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::VGAlphaFormat
+	> (*PEnumValueRange)(eglplus::VGAlphaFormat) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

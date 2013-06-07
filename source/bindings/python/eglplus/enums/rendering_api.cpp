@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_rendering_api(void)
 {
 	boost::python::enum_<eglplus::RenderingAPI>("RenderingAPI")
@@ -62,4 +64,19 @@ void eglplus_py_rendering_api(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::RenderingAPI) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::RenderingAPI
+		>
+	>("aux_CastIterRange_RenderingAPI");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::RenderingAPI
+	> (*PEnumValueRange)(eglplus::RenderingAPI) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

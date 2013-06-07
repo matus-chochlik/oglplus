@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_color_buffer(void)
 {
 	boost::python::enum_<oglplus::ColorBuffer>("ColorBuffer")
@@ -122,4 +124,19 @@ void oglplus_py_color_buffer(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::ColorBuffer) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::ColorBuffer
+		>
+	>("aux_CastIterRange_ColorBuffer");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::ColorBuffer
+	> (*PEnumValueRange)(oglplus::ColorBuffer) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

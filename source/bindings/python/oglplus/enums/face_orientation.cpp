@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_face_orientation(void)
 {
 	boost::python::enum_<oglplus::FaceOrientation>("FaceOrientation")
@@ -42,4 +44,19 @@ void oglplus_py_face_orientation(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::FaceOrientation) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::FaceOrientation
+		>
+	>("aux_CastIterRange_FaceOrientation");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::FaceOrientation
+	> (*PEnumValueRange)(oglplus::FaceOrientation) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

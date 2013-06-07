@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_patch_parameter(void)
 {
 	boost::python::enum_<oglplus::PatchParameter>("PatchParameter")
@@ -52,4 +54,19 @@ void oglplus_py_patch_parameter(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::PatchParameter) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::PatchParameter
+		>
+	>("aux_CastIterRange_PatchParameter");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::PatchParameter
+	> (*PEnumValueRange)(oglplus::PatchParameter) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

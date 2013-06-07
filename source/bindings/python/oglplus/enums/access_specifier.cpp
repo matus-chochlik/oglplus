@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_access_specifier(void)
 {
 	boost::python::enum_<oglplus::AccessSpecifier>("AccessSpecifier")
@@ -52,4 +54,19 @@ void oglplus_py_access_specifier(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::AccessSpecifier) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::AccessSpecifier
+		>
+	>("aux_CastIterRange_AccessSpecifier");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::AccessSpecifier
+	> (*PEnumValueRange)(oglplus::AccessSpecifier) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

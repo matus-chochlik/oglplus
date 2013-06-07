@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_blit_filter(void)
 {
 	boost::python::enum_<oglplus::BlitFilter>("BlitFilter")
@@ -42,4 +44,19 @@ void oglplus_py_blit_filter(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::BlitFilter) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::BlitFilter
+		>
+	>("aux_CastIterRange_BlitFilter");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::BlitFilter
+	> (*PEnumValueRange)(oglplus::BlitFilter) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

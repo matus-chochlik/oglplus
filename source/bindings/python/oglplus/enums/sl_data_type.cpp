@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_sl_data_type(void)
 {
 	boost::python::enum_<oglplus::SLDataType>("SLDataType")
@@ -1122,4 +1124,19 @@ void oglplus_py_sl_data_type(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::SLDataType) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::SLDataType
+		>
+	>("aux_CastIterRange_SLDataType");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::SLDataType
+	> (*PEnumValueRange)(oglplus::SLDataType) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

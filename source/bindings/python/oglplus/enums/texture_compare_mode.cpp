@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_texture_compare_mode(void)
 {
 	boost::python::enum_<oglplus::TextureCompareMode>("TextureCompareMode")
@@ -42,4 +44,19 @@ void oglplus_py_texture_compare_mode(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::TextureCompareMode) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::TextureCompareMode
+		>
+	>("aux_CastIterRange_TextureCompareMode");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::TextureCompareMode
+	> (*PEnumValueRange)(oglplus::TextureCompareMode) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

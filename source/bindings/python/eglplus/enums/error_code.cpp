@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_error_code(void)
 {
 	boost::python::enum_<eglplus::ErrorCode>("ErrorCode")
@@ -162,4 +164,19 @@ void eglplus_py_error_code(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::ErrorCode) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::ErrorCode
+		>
+	>("aux_CastIterRange_ErrorCode");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::ErrorCode
+	> (*PEnumValueRange)(eglplus::ErrorCode) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

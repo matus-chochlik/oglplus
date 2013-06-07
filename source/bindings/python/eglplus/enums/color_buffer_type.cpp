@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_color_buffer_type(void)
 {
 	boost::python::enum_<eglplus::ColorBufferType>("ColorBufferType")
@@ -42,4 +44,19 @@ void eglplus_py_color_buffer_type(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::ColorBufferType) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::ColorBufferType
+		>
+	>("aux_CastIterRange_ColorBufferType");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::ColorBufferType
+	> (*PEnumValueRange)(eglplus::ColorBufferType) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

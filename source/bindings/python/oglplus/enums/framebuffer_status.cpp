@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_framebuffer_status(void)
 {
 	boost::python::enum_<oglplus::FramebufferStatus>("FramebufferStatus")
@@ -92,4 +94,19 @@ void oglplus_py_framebuffer_status(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::FramebufferStatus) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::FramebufferStatus
+		>
+	>("aux_CastIterRange_FramebufferStatus");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::FramebufferStatus
+	> (*PEnumValueRange)(oglplus::FramebufferStatus) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_buffer_usage(void)
 {
 	boost::python::enum_<oglplus::BufferUsage>("BufferUsage")
@@ -112,4 +114,19 @@ void oglplus_py_buffer_usage(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::BufferUsage) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::BufferUsage
+		>
+	>("aux_CastIterRange_BufferUsage");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::BufferUsage
+	> (*PEnumValueRange)(oglplus::BufferUsage) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

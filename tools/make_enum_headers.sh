@@ -611,7 +611,7 @@ do
 
 
 
-	#[[ ${InputFile} -ot ${OutputPath} ]] ||
+	[[ ${InputFile} -ot ${OutputPath} ]] ||
 	(
 	echo "${InputName}" 1>&2
 	mkdir -p $(dirname ${OutputPath})
@@ -635,12 +635,15 @@ do
 	echo
 	echo "#include <boost/python.hpp>"
 	echo
+	echo "#include \"../_py_range_adapt.hpp\""
+	echo
 	echo "void ${LibNameLC}_py_${InputName}(void)"
 	echo "void ${LibNameLC}_py_${InputName}(void);" >> ${CommonPathDecl}
 	echo "${LibNameLC}_py_${InputName}();" >> ${CommonPathCall}
 	echo "{"
 
 	EnumClass=$(MakeEnumClass ${InputFile})
+	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 
 	echo "	boost::python::enum_<${LibNameLC}::${EnumClass}>(\"${EnumClass}\")"
 	IFS=':'
@@ -669,6 +672,21 @@ do
 	echo "	${LibNameLC}::StrLit (*PEnumValueName)(${LibNameLC}::${EnumClass}) ="
 	echo "		&${LibNameLC}::EnumValueName;"
 	echo "	boost::python::def(\"EnumValueName\", PEnumValueName);"
+	echo
+	echo "	${LibNameLC}_py_export_range<"
+	echo "		${LibNameLC}::aux::CastIterRange<"
+	echo "			const ${LibPrefixUC}${EnumBaseType}*,"
+	echo "			${LibNameLC}::${EnumClass}"
+	echo "		>"
+	echo "	>(\"aux_CastIterRange_${EnumClass}\");"
+	echo
+	echo "	${LibNameLC}::aux::CastIterRange<"
+	echo "		const ${LibPrefixUC}${EnumBaseType}*,"
+	echo "		${LibNameLC}::${EnumClass}"
+	echo "	> (*PEnumValueRange)(${LibNameLC}::${EnumClass}) ="
+	echo "		&${LibNameLC}::EnumValueRange;"
+	echo "	boost::python::def(\"EnumValueRange\", PEnumValueRange);"
+	echo
 	echo "}"
 
 	)
@@ -681,12 +699,12 @@ git add ${CommonPathCall}
 
 if [ $# -eq 0 ] || [ "${1}" == "oglplus" ]
 then
-	#MakeEnumHeaders GL oglplus ext
-	#MakeEnumValueName GL oglplus ext
-	#MakeEnumValueRange GL oglplus ext
-	#MakeEnumShorteners GL oglplus ext
-	#MakeEnumBQHeaders GL oglplus ext
-	#MakeGLSLtoCPPtypeHeader GL oglplus
+	MakeEnumHeaders GL oglplus ext
+	MakeEnumValueName GL oglplus ext
+	MakeEnumValueRange GL oglplus ext
+	MakeEnumShorteners GL oglplus ext
+	MakeEnumBQHeaders GL oglplus ext
+	MakeGLSLtoCPPtypeHeader GL oglplus
 	MakeEnumPythonExport GL oglplus
 fi
 

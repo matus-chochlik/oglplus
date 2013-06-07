@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_opengl_profile_bit(void)
 {
 	boost::python::enum_<eglplus::OpenGLProfileBit>("OpenGLProfileBit")
@@ -42,4 +44,19 @@ void eglplus_py_opengl_profile_bit(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::OpenGLProfileBit) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::OpenGLProfileBit
+		>
+	>("aux_CastIterRange_OpenGLProfileBit");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::OpenGLProfileBit
+	> (*PEnumValueRange)(eglplus::OpenGLProfileBit) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

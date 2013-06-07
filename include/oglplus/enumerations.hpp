@@ -83,7 +83,7 @@ template <typename EnumType>
 inline aux::CastIterRange<
 	const typename EnumBaseType<EnumType>::Type*,
 	EnumType
-> EnumValueRange(void)
+> EnumValueRange(EnumType)
 {
 #if !OGLPLUS_NO_ENUM_VALUE_RANGES
 	return _ValueRange((EnumType*)nullptr);
@@ -95,6 +95,15 @@ inline aux::CastIterRange<
 	>(x, x);
 
 #endif
+}
+
+template <typename EnumType>
+inline aux::CastIterRange<
+	const typename EnumBaseType<EnumType>::Type*,
+	EnumType
+> EnumValueRange()
+{
+	return EnumValueRange(EnumType());
 }
 
 } // namespace enums

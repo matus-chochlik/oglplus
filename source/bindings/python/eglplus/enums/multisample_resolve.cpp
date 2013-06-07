@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_multisample_resolve(void)
 {
 	boost::python::enum_<eglplus::MultisampleResolve>("MultisampleResolve")
@@ -42,4 +44,19 @@ void eglplus_py_multisample_resolve(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::MultisampleResolve) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::MultisampleResolve
+		>
+	>("aux_CastIterRange_MultisampleResolve");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::MultisampleResolve
+	> (*PEnumValueRange)(eglplus::MultisampleResolve) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

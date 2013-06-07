@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_vg_colorspace(void)
 {
 	boost::python::enum_<eglplus::VGColorspace>("VGColorspace")
@@ -42,4 +44,19 @@ void eglplus_py_vg_colorspace(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::VGColorspace) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::VGColorspace
+		>
+	>("aux_CastIterRange_VGColorspace");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::VGColorspace
+	> (*PEnumValueRange)(eglplus::VGColorspace) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

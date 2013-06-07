@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_sync_condition(void)
 {
 	boost::python::enum_<oglplus::SyncCondition>("SyncCondition")
@@ -32,4 +34,19 @@ void oglplus_py_sync_condition(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::SyncCondition) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::SyncCondition
+		>
+	>("aux_CastIterRange_SyncCondition");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::SyncCondition
+	> (*PEnumValueRange)(oglplus::SyncCondition) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

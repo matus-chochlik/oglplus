@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_debug_output_severity(void)
 {
 	boost::python::enum_<oglplus::DebugOutputSeverity>("DebugOutputSeverity")
@@ -72,4 +74,19 @@ void oglplus_py_debug_output_severity(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::DebugOutputSeverity) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::DebugOutputSeverity
+		>
+	>("aux_CastIterRange_DebugOutputSeverity");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::DebugOutputSeverity
+	> (*PEnumValueRange)(oglplus::DebugOutputSeverity) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_string_query(void)
 {
 	boost::python::enum_<oglplus::StringQuery>("StringQuery")
@@ -62,4 +64,19 @@ void oglplus_py_string_query(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::StringQuery) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::StringQuery
+		>
+	>("aux_CastIterRange_StringQuery");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::StringQuery
+	> (*PEnumValueRange)(oglplus::StringQuery) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

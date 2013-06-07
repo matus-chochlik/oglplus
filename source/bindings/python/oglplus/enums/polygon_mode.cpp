@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_polygon_mode(void)
 {
 	boost::python::enum_<oglplus::PolygonMode>("PolygonMode")
@@ -52,4 +54,19 @@ void oglplus_py_polygon_mode(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::PolygonMode) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::PolygonMode
+		>
+	>("aux_CastIterRange_PolygonMode");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::PolygonMode
+	> (*PEnumValueRange)(oglplus::PolygonMode) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

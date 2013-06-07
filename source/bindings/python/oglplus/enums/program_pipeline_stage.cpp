@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_program_pipeline_stage(void)
 {
 	boost::python::enum_<oglplus::ProgramPipelineStage>("ProgramPipelineStage")
@@ -92,4 +94,19 @@ void oglplus_py_program_pipeline_stage(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::ProgramPipelineStage) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLbitfield*,
+			oglplus::ProgramPipelineStage
+		>
+	>("aux_CastIterRange_ProgramPipelineStage");
+
+	oglplus::aux::CastIterRange<
+		const GLbitfield*,
+		oglplus::ProgramPipelineStage
+	> (*PEnumValueRange)(oglplus::ProgramPipelineStage) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

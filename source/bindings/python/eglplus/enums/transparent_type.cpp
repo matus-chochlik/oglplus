@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_transparent_type(void)
 {
 	boost::python::enum_<eglplus::TransparentType>("TransparentType")
@@ -42,4 +44,19 @@ void eglplus_py_transparent_type(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::TransparentType) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::TransparentType
+		>
+	>("aux_CastIterRange_TransparentType");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::TransparentType
+	> (*PEnumValueRange)(eglplus::TransparentType) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

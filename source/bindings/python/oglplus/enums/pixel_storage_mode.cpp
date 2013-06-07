@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_pixel_storage_mode(void)
 {
 	boost::python::enum_<oglplus::PixelStorageMode>("PixelStorageMode")
@@ -262,4 +264,19 @@ void oglplus_py_pixel_storage_mode(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::PixelStorageMode) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::PixelStorageMode
+		>
+	>("aux_CastIterRange_PixelStorageMode");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::PixelStorageMode
+	> (*PEnumValueRange)(oglplus::PixelStorageMode) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

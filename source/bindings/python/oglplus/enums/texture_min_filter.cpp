@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_texture_min_filter(void)
 {
 	boost::python::enum_<oglplus::TextureMinFilter>("TextureMinFilter")
@@ -82,4 +84,19 @@ void oglplus_py_texture_min_filter(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::TextureMinFilter) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::TextureMinFilter
+		>
+	>("aux_CastIterRange_TextureMinFilter");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::TextureMinFilter
+	> (*PEnumValueRange)(oglplus::TextureMinFilter) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

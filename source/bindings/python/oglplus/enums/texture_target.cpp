@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_texture_target(void)
 {
 	boost::python::enum_<oglplus::TextureTarget>("TextureTarget")
@@ -192,4 +194,19 @@ void oglplus_py_texture_target(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::TextureTarget) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::TextureTarget
+		>
+	>("aux_CastIterRange_TextureTarget");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::TextureTarget
+	> (*PEnumValueRange)(oglplus::TextureTarget) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

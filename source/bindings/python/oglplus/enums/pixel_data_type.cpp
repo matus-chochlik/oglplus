@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_pixel_data_type(void)
 {
 	boost::python::enum_<oglplus::PixelDataType>("PixelDataType")
@@ -262,4 +264,19 @@ void oglplus_py_pixel_data_type(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::PixelDataType) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::PixelDataType
+		>
+	>("aux_CastIterRange_PixelDataType");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::PixelDataType
+	> (*PEnumValueRange)(oglplus::PixelDataType) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

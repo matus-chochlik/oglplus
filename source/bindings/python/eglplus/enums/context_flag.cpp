@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_context_flag(void)
 {
 	boost::python::enum_<eglplus::ContextFlag>("ContextFlag")
@@ -52,4 +54,19 @@ void eglplus_py_context_flag(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::ContextFlag) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::ContextFlag
+		>
+	>("aux_CastIterRange_ContextFlag");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::ContextFlag
+	> (*PEnumValueRange)(eglplus::ContextFlag) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

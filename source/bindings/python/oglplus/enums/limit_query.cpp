@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_limit_query(void)
 {
 	boost::python::enum_<oglplus::LimitQuery>("LimitQuery")
@@ -1102,4 +1104,19 @@ void oglplus_py_limit_query(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::LimitQuery) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::LimitQuery
+		>
+	>("aux_CastIterRange_LimitQuery");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::LimitQuery
+	> (*PEnumValueRange)(oglplus::LimitQuery) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

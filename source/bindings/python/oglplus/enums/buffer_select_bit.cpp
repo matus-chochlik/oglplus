@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_buffer_select_bit(void)
 {
 	boost::python::enum_<oglplus::BufferSelectBit>("BufferSelectBit")
@@ -52,4 +54,19 @@ void oglplus_py_buffer_select_bit(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::BufferSelectBit) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLbitfield*,
+			oglplus::BufferSelectBit
+		>
+	>("aux_CastIterRange_BufferSelectBit");
+
+	oglplus::aux::CastIterRange<
+		const GLbitfield*,
+		oglplus::BufferSelectBit
+	> (*PEnumValueRange)(oglplus::BufferSelectBit) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

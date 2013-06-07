@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_surface_attrib(void)
 {
 	boost::python::enum_<eglplus::SurfaceAttrib>("SurfaceAttrib")
@@ -182,4 +184,19 @@ void eglplus_py_surface_attrib(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::SurfaceAttrib) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::SurfaceAttrib
+		>
+	>("aux_CastIterRange_SurfaceAttrib");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::SurfaceAttrib
+	> (*PEnumValueRange)(eglplus::SurfaceAttrib) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

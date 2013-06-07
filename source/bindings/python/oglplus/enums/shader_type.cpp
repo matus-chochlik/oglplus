@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_shader_type(void)
 {
 	boost::python::enum_<oglplus::ShaderType>("ShaderType")
@@ -82,4 +84,19 @@ void oglplus_py_shader_type(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::ShaderType) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::ShaderType
+		>
+	>("aux_CastIterRange_ShaderType");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::ShaderType
+	> (*PEnumValueRange)(oglplus::ShaderType) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

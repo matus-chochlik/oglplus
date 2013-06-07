@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_framebuffer_color_attachment(void)
 {
 	boost::python::enum_<oglplus::FramebufferColorAttachment>("FramebufferColorAttachment")
@@ -182,4 +184,19 @@ void oglplus_py_framebuffer_color_attachment(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::FramebufferColorAttachment) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::FramebufferColorAttachment
+		>
+	>("aux_CastIterRange_FramebufferColorAttachment");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::FramebufferColorAttachment
+	> (*PEnumValueRange)(oglplus::FramebufferColorAttachment) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

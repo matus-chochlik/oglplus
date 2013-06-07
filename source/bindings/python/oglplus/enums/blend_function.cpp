@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_blend_function(void)
 {
 	boost::python::enum_<oglplus::BlendFunction>("BlendFunction")
@@ -212,4 +214,19 @@ void oglplus_py_blend_function(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::BlendFunction) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::BlendFunction
+		>
+	>("aux_CastIterRange_BlendFunction");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::BlendFunction
+	> (*PEnumValueRange)(oglplus::BlendFunction) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

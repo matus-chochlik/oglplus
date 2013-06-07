@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_renderable_type_bit(void)
 {
 	boost::python::enum_<eglplus::RenderableTypeBit>("RenderableTypeBit")
@@ -72,4 +74,19 @@ void eglplus_py_renderable_type_bit(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::RenderableTypeBit) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::RenderableTypeBit
+		>
+	>("aux_CastIterRange_RenderableTypeBit");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::RenderableTypeBit
+	> (*PEnumValueRange)(eglplus::RenderableTypeBit) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

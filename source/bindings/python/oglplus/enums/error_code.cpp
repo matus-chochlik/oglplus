@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_error_code(void)
 {
 	boost::python::enum_<oglplus::ErrorCode>("ErrorCode")
@@ -112,4 +114,19 @@ void oglplus_py_error_code(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::ErrorCode) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::ErrorCode
+		>
+	>("aux_CastIterRange_ErrorCode");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::ErrorCode
+	> (*PEnumValueRange)(oglplus::ErrorCode) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

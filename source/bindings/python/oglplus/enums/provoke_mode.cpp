@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_provoke_mode(void)
 {
 	boost::python::enum_<oglplus::ProvokeMode>("ProvokeMode")
@@ -42,4 +44,19 @@ void oglplus_py_provoke_mode(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::ProvokeMode) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::ProvokeMode
+		>
+	>("aux_CastIterRange_ProvokeMode");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::ProvokeMode
+	> (*PEnumValueRange)(oglplus::ProvokeMode) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

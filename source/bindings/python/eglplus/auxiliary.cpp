@@ -18,6 +18,6 @@ void eglplus_py_Auxiliary(void)
 	namespace bpy = ::boost::python;
 	using namespace eglplus;
 
-	eglplus_py_export_range<aux::SepStrRange>("aux::SepStrRange");
+	eglplus_py_export_range<aux::SepStrRange>("aux_SepStrRange");
 }
 

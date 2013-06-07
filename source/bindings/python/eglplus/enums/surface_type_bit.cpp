@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_surface_type_bit(void)
 {
 	boost::python::enum_<eglplus::SurfaceTypeBit>("SurfaceTypeBit")
@@ -92,4 +94,19 @@ void eglplus_py_surface_type_bit(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::SurfaceTypeBit) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::SurfaceTypeBit
+		>
+	>("aux_CastIterRange_SurfaceTypeBit");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::SurfaceTypeBit
+	> (*PEnumValueRange)(eglplus::SurfaceTypeBit) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

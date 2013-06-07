@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void oglplus_py_tess_gen_primitive_spacing(void)
 {
 	boost::python::enum_<oglplus::TessGenPrimitiveSpacing>("TessGenPrimitiveSpacing")
@@ -52,4 +54,19 @@ void oglplus_py_tess_gen_primitive_spacing(void)
 	oglplus::StrLit (*PEnumValueName)(oglplus::TessGenPrimitiveSpacing) =
 		&oglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	oglplus_py_export_range<
+		oglplus::aux::CastIterRange<
+			const GLenum*,
+			oglplus::TessGenPrimitiveSpacing
+		>
+	>("aux_CastIterRange_TessGenPrimitiveSpacing");
+
+	oglplus::aux::CastIterRange<
+		const GLenum*,
+		oglplus::TessGenPrimitiveSpacing
+	> (*PEnumValueRange)(oglplus::TessGenPrimitiveSpacing) =
+		&oglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }

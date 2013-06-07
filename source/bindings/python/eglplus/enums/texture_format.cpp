@@ -14,6 +14,8 @@
 
 #include <boost/python.hpp>
 
+#include "../_py_range_adapt.hpp"
+
 void eglplus_py_texture_format(void)
 {
 	boost::python::enum_<eglplus::TextureFormat>("TextureFormat")
@@ -52,4 +54,19 @@ void eglplus_py_texture_format(void)
 	eglplus::StrLit (*PEnumValueName)(eglplus::TextureFormat) =
 		&eglplus::EnumValueName;
 	boost::python::def("EnumValueName", PEnumValueName);
+
+	eglplus_py_export_range<
+		eglplus::aux::CastIterRange<
+			const EGLenum*,
+			eglplus::TextureFormat
+		>
+	>("aux_CastIterRange_TextureFormat");
+
+	eglplus::aux::CastIterRange<
+		const EGLenum*,
+		eglplus::TextureFormat
+	> (*PEnumValueRange)(eglplus::TextureFormat) =
+		&eglplus::EnumValueRange;
+	boost::python::def("EnumValueRange", PEnumValueRange);
+
 }
