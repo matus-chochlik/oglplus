@@ -36,9 +36,6 @@ OGLPLUS_ENUM_CLASS_END(LimitQuery)
 #include <oglplus/enums/limit_query_range.ipp>
 #endif
 
-/// Alternate name for the ColorLogicOperation enumeration
-typedef ColorLogicOperation ColorLogicOp;
-
 } // namespace oglplus
 
 #endif // include guard
