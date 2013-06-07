@@ -583,6 +583,7 @@ git add ${OutputPath}
 function MakeEnumPythonExport()
 {(
 LibPrefixUC="${1}"
+LibPrefixLC="${LibPrefixUC,,}"
 LibNameLC="${2}"
 LibNameUC=${LibNameLC^^}
 
@@ -605,24 +606,38 @@ do
 	InputName="${InputFile#${InputDir}/${LibNameLC}/}"
 	InputName=${InputName%.txt}
 
-	OutputFile="${LibNameLC}/${InputName}.cpp"
+	OutputFile="${LibNameLC}/enums/${InputName}.cpp"
 	OutputPath="${RootDir}/source/bindings/python/${OutputFile}"
 
-	[[ ${InputFile} -ot ${OutputPath} ]] ||
+
+
+	#[[ ${InputFile} -ot ${OutputPath} ]] ||
 	(
 	echo "${InputName}" 1>&2
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
 	PrintFileHeader ${InputFile} ${OutputFile}
 
-	echo "#include <eglplus/egl.hpp>"
-	echo "#include <eglplus/${InputName}.hpp>"
+	echo "#include <${LibNameLC}/${LibPrefixLC}.hpp>"
+
+	if [ -f "${RootDir}/include/${LibNameLC}/${InputName}.hpp" ]
+	then echo "${LibNameLC}/${InputName}.hpp"
+	else
+		find ${RootDir}/include/${LibNameLC} -name '*.hpp' -exec \
+		grep -H -c -e "#include <${LibNameLC}/enums/${InputName}.ipp>" {} \; |
+		grep -v -e ':0$' |
+		sed "s|^${RootDir}/include/\(.*\):[0-9]\+$|\1|"
+	fi |
+	while read IncludeFile
+	do echo "#include <${IncludeFile}>"
+	done
+
 	echo
 	echo "#include <boost/python.hpp>"
 	echo
-	echo "void eglplus_py_${InputName}(void)"
-	echo "void eglplus_py_${InputName}(void);" >> ${CommonPathDecl}
-	echo "eglplus_py_${InputName}();" >> ${CommonPathCall}
+	echo "void ${LibNameLC}_py_${InputName}(void)"
+	echo "void ${LibNameLC}_py_${InputName}(void);" >> ${CommonPathDecl}
+	echo "${LibNameLC}_py_${InputName}();" >> ${CommonPathCall}
 	echo "{"
 
 	EnumClass=$(MakeEnumClass ${InputFile})
@@ -651,7 +666,7 @@ do
 	done
 	echo "	;"
 	echo
-	echo "	eglplus::StrLit (*PEnumValueName)(${LibNameLC}::${EnumClass}) ="
+	echo "	${LibNameLC}::StrLit (*PEnumValueName)(${LibNameLC}::${EnumClass}) ="
 	echo "		&${LibNameLC}::EnumValueName;"
 	echo "	boost::python::def(\"EnumValueName\", PEnumValueName);"
 	echo "}"
@@ -666,12 +681,13 @@ git add ${CommonPathCall}
 
 if [ $# -eq 0 ] || [ "${1}" == "oglplus" ]
 then
-	MakeEnumHeaders GL oglplus ext
-	MakeEnumValueName GL oglplus ext
-	MakeEnumValueRange GL oglplus ext
-	MakeEnumShorteners GL oglplus ext
-	MakeEnumBQHeaders GL oglplus ext
-	MakeGLSLtoCPPtypeHeader GL oglplus
+	#MakeEnumHeaders GL oglplus ext
+	#MakeEnumValueName GL oglplus ext
+	#MakeEnumValueRange GL oglplus ext
+	#MakeEnumShorteners GL oglplus ext
+	#MakeEnumBQHeaders GL oglplus ext
+	#MakeGLSLtoCPPtypeHeader GL oglplus
+	MakeEnumPythonExport GL oglplus
 fi
 
 if [ $# -eq 0 ] || [ "${1}" == "oalplus" ]

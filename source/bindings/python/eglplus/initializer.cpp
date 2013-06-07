@@ -7,7 +7,7 @@
  */
 
 #include <eglplus/egl.hpp>
-#include <eglplus/all.hpp>
+#include <eglplus/initializer.hpp>
 
 #include <boost/python.hpp>
 

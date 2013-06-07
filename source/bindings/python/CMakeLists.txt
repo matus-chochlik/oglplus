@@ -12,7 +12,11 @@ macro(add_python_module MODULE BASE_LIB)
 		endif()
 		include_directories(${BASE_LIB}_INCLUDE_DIRS)
 
-		file(GLOB MODULE_SOURCES "${MODULE}/*.cpp")
+		file(
+			GLOB MODULE_SOURCES
+			"${MODULE}/*.cpp"
+			"${MODULE}/enums/*.cpp"
+		)
 
 		set(MODULE_INT ${MODULE}_pymod)
 
@@ -55,6 +59,7 @@ IF(Boost_FOUND)
 	find_package(PythonLibs)
 	include_directories(${PYTHON_INCLUDE_DIRS})
 
+	add_python_module(oglplus OPENGL)
 	add_python_module(eglplus EGL)
 
 else()
