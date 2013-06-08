@@ -343,6 +343,9 @@ typedef AttributeList<
 	ConfigValueTypeToConfigAttrib
 > ConfigAttribs;
 
+/// Finished list of configuration attribute values
+typedef FinishedAttributeList<ConfigAttrib> FinishedConfigAttribs;
+
 /// A provides access to all configurations of a Display
 class Configs
  : public FriendOf<Display>
@@ -388,7 +391,7 @@ private:
 		}
 	}
 
-	void _choose(const ConfigAttribs& attribs)
+	void _choose(const FinishedConfigAttribs& attribs)
 	{
 		EGLint num = 0;
 		EGLPLUS_EGLFUNC(ChooseConfig)(
@@ -421,17 +424,10 @@ public:
 	}
 
 	/// Gets configurations matching the specified attribute values
-	Configs(const Display& display, ConfigAttribs& attribs)
+	Configs(const Display& display, const FinishedConfigAttribs& attribs)
 	 : _display(display)
 	{
-		_choose(attribs.Finish());
-	}
-
-	/// Gets configurations matching the specified attribute values
-	Configs(const Display& display, ConfigAttribs&& attribs)
-	 : _display(display)
-	{
-		_choose(attribs.Finish());
+		_choose(attribs);
 	}
 
 	typedef aux::ConvIterRange<

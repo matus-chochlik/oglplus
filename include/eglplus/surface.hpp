@@ -88,6 +88,9 @@ typedef AttributeList<
 	SurfaceValueTypeToSurfaceAttrib
 > SurfaceAttribs;
 
+/// Finished list of surface attribute values
+typedef FinishedAttributeList<SurfaceAttrib> FinishedSurfaceAttribs;
+
 /// Wrapper for EGLSurfaces
 class Surface
  : public FriendOf<Display>
@@ -108,7 +111,7 @@ private:
 		_Pbuffer,
 		const Display& display,
 		const Config& config,
-		const SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	)
 	{
 		::EGLSurface result = EGLPLUS_EGLFUNC(CreatePbufferSurface)(
@@ -124,7 +127,7 @@ private:
 		_Pbuffer sel,
 		const Display& display,
 		const Config& config,
-		const SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	): _display(display)
 	 , _handle(_init(sel, _display, config, attribs))
 	{ }
@@ -136,7 +139,7 @@ private:
 		const Display& display,
 		const Config& config,
 		EGLNativePixmapType pixmap,
-		const SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	)
 	{
 		::EGLSurface result = EGLPLUS_EGLFUNC(CreatePixmapSurface)(
@@ -154,7 +157,7 @@ private:
 		const Display& display,
 		const Config& config,
 		EGLNativePixmapType pixmap,
-		const SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	): _display(display)
 	 , _handle(_init(sel, _display, config, pixmap, attribs))
 	{ }
@@ -166,7 +169,7 @@ private:
 		const Display& display,
 		const Config& config,
 		EGLNativeWindowType window,
-		const SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	)
 	{
 		::EGLSurface result = EGLPLUS_EGLFUNC(CreateWindowSurface)(
@@ -184,7 +187,7 @@ private:
 		const Display& display,
 		const Config& config,
 		EGLNativeWindowType window,
-		const SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	): _display(display)
 	 , _handle(_init(sel, _display, config, window, attribs))
 	{ }
@@ -222,33 +225,14 @@ public:
 	static Surface Pbuffer(
 		const Display& display,
 		const Config& config,
-		SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	)
 	{
 		return Surface(
 			_Pbuffer(),
 			display,
 			config,
-			attribs.Finish()
-		);
-	}
-
-	/// Creates a Pbuffer surface
-	/**
-	 *  @eglsymbols
-	 *  @eglfunref{CreatePbufferSurface}
-	 */
-	static Surface Pbuffer(
-		const Display& display,
-		const Config& config,
-		SurfaceAttribs&& attribs
-	)
-	{
-		return Surface(
-			_Pbuffer(),
-			display,
-			config,
-			attribs.Finish()
+			attribs
 		);
 	}
 
@@ -261,7 +245,7 @@ public:
 		const Display& display,
 		const Config& config,
 		EGLNativePixmapType pixmap,
-		SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	)
 	{
 		return Surface(
@@ -269,28 +253,7 @@ public:
 			display,
 			config,
 			pixmap,
-			attribs.Finish()
-		);
-	}
-
-	/// Creates a Pbuffer surface
-	/**
-	 *  @eglsymbols
-	 *  @eglfunref{CreatePixmapSurface}
-	 */
-	static Surface Pixmap(
-		const Display& display,
-		const Config& config,
-		EGLNativePixmapType pixmap,
-		SurfaceAttribs&& attribs
-	)
-	{
-		return Surface(
-			_Pixmap(),
-			display,
-			config,
-			pixmap,
-			attribs.Finish()
+			attribs
 		);
 	}
 
@@ -303,7 +266,7 @@ public:
 		const Display& display,
 		const Config& config,
 		EGLNativeWindowType window,
-		SurfaceAttribs& attribs
+		const FinishedSurfaceAttribs& attribs
 	)
 	{
 		return Surface(
@@ -311,28 +274,7 @@ public:
 			display,
 			config,
 			window,
-			attribs.Finish()
-		);
-	}
-
-	/// Creates a Pbuffer surface
-	/**
-	 *  @eglsymbols
-	 *  @eglfunref{CreateWindowSurface}
-	 */
-	static Surface Window(
-		const Display& display,
-		const Config& config,
-		EGLNativeWindowType window,
-		SurfaceAttribs&& attribs
-	)
-	{
-		return Surface(
-			_Window(),
-			display,
-			config,
-			window,
-			attribs.Finish()
+			attribs
 		);
 	}
 

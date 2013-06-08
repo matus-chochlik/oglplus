@@ -63,6 +63,9 @@ typedef AttributeList<
 	ContextValueTypeToContextAttrib
 > ContextAttribs;
 
+/// Finished list of context attribute values
+typedef FinishedAttributeList<ContextAttrib> FinishedContextAttribs;
+
 /// Wrapper around EGLContext
 class Context
  : public FriendOf<Display>
@@ -142,7 +145,7 @@ public:
 	Context(
 		const Display& display,
 		const Config& config,
-		const ContextAttribs& attribs
+		const FinishedContextAttribs& attribs
 	): _display(display)
 	 , _handle(_init(display, config, EGL_NO_CONTEXT, attribs.Get()))
 	{ }
@@ -156,7 +159,7 @@ public:
 		const Display& display,
 		const Config& config,
 		const Context& shared_context,
-		const ContextAttribs& attribs
+		const FinishedContextAttribs& attribs
 	): _display(display)
 	 , _handle(_init(display, config, shared_context._handle, attribs.Get()))
 	{ }
