@@ -43,6 +43,10 @@ public:
 		);
 	}
 
+	FinishedAttributeList(const FinishedAttributeList& that)
+	 : _attribs(that._attribs)
+	{ }
+
 	FinishedAttributeList(FinishedAttributeList&& tmp)
 	 : _attribs(std::move(tmp._attribs))
 	{ }
