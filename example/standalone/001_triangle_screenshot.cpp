@@ -127,7 +127,7 @@ void make_screenshot(unsigned width, unsigned height, const char* screenshot_pat
 			.Add(ColorBufferType::RGBBuffer)
 			.Add(RenderableTypeBit::OpenGL)
 			.Add(SurfaceTypeBit::Pbuffer)
-			.Finish()
+			.Get()
 	);
 
 	Config config = configs.First();
@@ -138,7 +138,7 @@ void make_screenshot(unsigned width, unsigned height, const char* screenshot_pat
 		SurfaceAttribs()
 			.Add(SurfaceAttrib::Width, int(width))
 			.Add(SurfaceAttrib::Height, int(height))
-			.Finish()
+			.Get()
 	);
 
 	BindAPI(RenderingAPI::OpenGL);
@@ -151,7 +151,7 @@ void make_screenshot(unsigned width, unsigned height, const char* screenshot_pat
 			.Add(ContextFlag::OpenGLRobustAccess|ContextFlag::OpenGLDebug)
 			.Add(OpenGLProfileBit::Core|OpenGLProfileBit::Compatibility)
 			.Add(OpenGLResetNotificationStrategy::NoResetNotification)
-			.Finish()
+			.Get()
 	);
 
 	context.MakeCurrent(surface);

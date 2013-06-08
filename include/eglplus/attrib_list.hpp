@@ -20,6 +20,40 @@
 
 namespace eglplus {
 
+/// Stores a finished attribute list create by AttributeList
+template <typename AttribKind> // <- do not remove this is intentional
+class FinishedAttributeList
+{
+private:
+	std::vector<EGLint> _attribs;
+public:
+	FinishedAttributeList(const std::vector<EGLint>& attribs)
+	 : _attribs(attribs)
+	{
+		if(!_attribs.empty() && (_attribs.back() != EGL_NONE))
+		{
+			_attribs.push_back(EGL_NONE);
+		}
+
+		assert(
+			(_attribs.empty()) || (
+				(_attribs.size() % 2 == 1) &&
+				(_attribs.back() == EGL_NONE)
+			)
+		);
+	}
+
+	FinishedAttributeList(FinishedAttributeList&& tmp)
+	 : _attribs(std::move(tmp._attribs))
+	{ }
+
+	/// Returns the terminated array of attribute/value pairs
+	const EGLint* Get(void) const
+	{
+		return _attribs.data();
+	}
+};
+
 /// Specifies the list of attribute values for configuration selection
 template <typename AttribKind, class ValueToAttribMap>
 class AttributeList
@@ -113,24 +147,14 @@ public:
 		return *this;
 	}
 
-	/// Returns the terminated array of attribute/value pairs
+	/// Returns a finished attribute list
 	/**
-	 *  @post Finished()
+	 *  @note this function does not call the Finish function
+	 *  on this attribute list
 	 */
-	const EGLint* Get(void)
+	FinishedAttributeList<AttribKind> Get(void) const
 	{
-		Finish();
-		return _attribs.data();
-	}
-
-	/// Returns the terminated array of attribute/value pairs
-	/**
-	 *  @pre Finished()
-	 */
-	const EGLint* Get(void) const
-	{
-		assert(Finished());
-		return _attribs.data();
+		return FinishedAttributeList<AttribKind>(_attribs);
 	}
 };
 
