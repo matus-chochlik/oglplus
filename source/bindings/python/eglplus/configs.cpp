@@ -11,6 +11,7 @@
 
 #include <boost/python.hpp>
 
+#include "_py_range_adapt.hpp"
 #include "attrib_list.hpp"
 
 void eglplus_py_Configs(void)
@@ -20,7 +21,35 @@ void eglplus_py_Configs(void)
 
 	eglplus_py_export_AttributeList<eglplus::ConfigAttribs>("ConfigAttribs");
 
-	bpy::class_<eglplus::Config>("Config", bpy::no_init)
+	bpy::class_<Config>("Config", bpy::no_init)
+		.def("GetAttrib", &Config::GetAttrib)
+		.def("ConfigId", &Config::ConfigId)
+		.def("BufferSize", &Config::BufferSize)
+		.def("RedSize", &Config::RedSize)
+		.def("GreenSize", &Config::GreenSize)
+		.def("BlueSize", &Config::BlueSize)
+		.def("AlphaSize", &Config::AlphaSize)
+		.def("DepthSize", &Config::DepthSize)
+		.def("LuminanceSize", &Config::LuminanceSize)
+		.def("MaxPbufferWidth", &Config::MaxPbufferWidth)
+		.def("MaxPbufferHeight", &Config::MaxPbufferHeight)
+		.def("MaxPbufferPixels", &Config::MaxPbufferPixels)
+		.def("ConfigCaveat", &Config::ConfigCaveat)
+		.def("ColorBufferType", &Config::ColorBufferType)
+		.def("TransparentType", &Config::TransparentType)
+		.def("RenderableTypes", &Config::RenderableTypes)
+		.def("SurfaceTypes", &Config::SurfaceTypes)
+		.def("Conformant", &Config::Conformant)
+	;
+
+	eglplus_py_export_range<Configs::ConfigRange>("ConfigRange");
+
+	bpy::class_<Configs>("Configs", bpy::no_init)
+		.def(bpy::init<const eglplus::Display&>())
+		.def(bpy::init<const eglplus::Display&, ConfigAttribs&>())
+		.def("Empty", &Configs::Empty)
+		.def("First", &Configs::First)
+		.def("All", &Configs::All)
 	;
 }
 

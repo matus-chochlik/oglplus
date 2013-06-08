@@ -14,6 +14,7 @@
 
 void eglplus_py_Auxiliary(void);
 void eglplus_py_String(void);
+void eglplus_py_Bitfields(void);
 void eglplus_py_Display(void);
 void eglplus_py_Initializer(void);
 void eglplus_py_Configs(void);
@@ -24,6 +25,7 @@ BOOST_PYTHON_MODULE(eglplus)
 
 	eglplus_py_Auxiliary();
 	eglplus_py_String();
+	eglplus_py_Bitfields();
 	eglplus_py_Display();
 	eglplus_py_Initializer();
 	eglplus_py_Configs();
