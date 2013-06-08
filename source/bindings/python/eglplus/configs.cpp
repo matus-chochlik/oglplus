@@ -46,7 +46,7 @@ void eglplus_py_Configs(void)
 
 	bpy::class_<Configs>("Configs", bpy::no_init)
 		.def(bpy::init<const eglplus::Display&>())
-		.def(bpy::init<const eglplus::Display&, ConfigAttribs&>())
+		.def(bpy::init<const eglplus::Display&, const FinishedConfigAttribs&>())
 		.def("Empty", &Configs::Empty)
 		.def("First", &Configs::First)
 		.def("All", &Configs::All)

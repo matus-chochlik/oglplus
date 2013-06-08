@@ -50,12 +50,20 @@ eglplus_py_export_AttributeList_Add(
 
 template <typename AttribKind, class ValueToAttribMap>
 inline void eglplus_py_export_AttributeList(
-	const char* name,
+	const std::string& name,
 	eglplus::AttributeList<AttribKind, ValueToAttribMap>*
 )
 {
 	namespace bpy = ::boost::python;
 	using namespace eglplus;
+
+	typedef eglplus::FinishedAttributeList<AttribKind>
+		FinishedAttribList;
+
+	bpy::class_<FinishedAttribList>(
+		("Finished"+name).c_str(),
+		bpy::no_init
+	);
 
 	typedef eglplus::AttributeList<AttribKind, ValueToAttribMap>
 		AttribList;
@@ -67,7 +75,7 @@ inline void eglplus_py_export_AttributeList(
 
 	bpy::return_internal_reference<1> bpy_rvp;
 
-	bpy::class_<AttribList> cls(name, bpy::init<>());
+	bpy::class_<AttribList> cls(name.c_str(), bpy::init<>());
 	std::integral_constant<int, 0> zero;
 
 
@@ -77,6 +85,7 @@ inline void eglplus_py_export_AttributeList(
 		.def("DontCare", &AttribList::DontCare, bpy_rvp)
 		.def("Finish", &AttribList::Finish, bpy_rvp)
 		.def("Finished", &AttribList::Finished)
+		.def("Get", &AttribList::Get)
 	;
 }
 
