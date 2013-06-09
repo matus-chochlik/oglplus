@@ -54,6 +54,8 @@ struct ContextValueTypeToContextAttrib
 		return ContextAttrib::OpenGLResetNotificationStrategy;
 	}
 #endif
+
+	static std::integral_constant<int, 2> MaxValueType(void);
 };
 
 

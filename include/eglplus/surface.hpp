@@ -81,6 +81,8 @@ struct SurfaceValueTypeToSurfaceAttrib
 	{
 		return SurfaceAttrib::VGAlphaFormat;
 	}
+
+	static std::integral_constant<int, 6> MaxValueType(void);
 };
 
 /// Attribute list for surface attributes

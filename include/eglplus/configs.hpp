@@ -335,6 +335,8 @@ struct ConfigValueTypeToConfigAttrib
 	{
 		return ConfigAttrib::TransparentType;
 	}
+
+	static std::integral_constant<int, 4> MaxValueType(void);
 };
 
 /// Attribute list for configuration attributes
