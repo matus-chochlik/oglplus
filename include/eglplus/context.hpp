@@ -16,6 +16,8 @@
 #include <eglplus/eglfunc.hpp>
 #include <eglplus/error.hpp>
 #include <eglplus/display.hpp>
+#include <eglplus/configs.hpp>
+#include <eglplus/surface.hpp>
 #include <eglplus/friend_of.hpp>
 #include <eglplus/attrib_list.hpp>
 #include <eglplus/context_attrib.hpp>
