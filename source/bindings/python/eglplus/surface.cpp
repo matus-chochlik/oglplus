@@ -21,11 +21,6 @@ void eglplus_py_Surface(void)
 
 	eglplus_py_export_AttributeList<eglplus::SurfaceAttribs>("SurfaceAttribs");
 
-	EGLint (Surface::*GetWidth)(void) const = &Surface::Width;
-	EGLint (Surface::*GetHeight)(void) const = &Surface::Height;
-	RenderBuffer (Surface::*GetRenderBuffer)(void) const = &Surface::RenderBuffer;
-	void (Surface::*SetRenderBuffer)(RenderBuffer) = &Surface::RenderBuffer;
-
 	bpy::class_<Surface, boost::noncopyable>("Surface", bpy::no_init)
 		.def("Pbuffer", &Surface::Pbuffer).staticmethod("Pbuffer")
 		.def("Pixmap", &Surface::Pixmap).staticmethod("Pixmap")
@@ -34,10 +29,18 @@ void eglplus_py_Surface(void)
 		.def("CopyBuffers", &Surface::CopyBuffers)
 		.def("Attrib", &Surface::Attrib)
 		.def("GetAttrib", &Surface::GetAttrib)
-		.def("Width", GetWidth)
-		.def("Height", GetHeight)
-		.def("RenderBuffer", GetRenderBuffer)
-		.def("RenderBuffer", SetRenderBuffer)
+		.def("Width",  (EGLint (Surface::*)(void) const)&Surface::Width)
+		.def("Height", (EGLint (Surface::*)(void) const)&Surface::Height)
+		.def("RenderBuffer", (RenderBuffer(Surface::*)(void) const)&Surface::RenderBuffer)
+		.def("RenderBuffer", (void (Surface::*)(RenderBuffer))&Surface::RenderBuffer)
+		.def("MultisampleResolve", (MultisampleResolve(Surface::*)(void) const)&Surface::MultisampleResolve)
+		.def("MultisampleResolve", (void (Surface::*)(MultisampleResolve))&Surface::MultisampleResolve)
+		.def("SwapBehavior", (SwapBehavior(Surface::*)(void) const)&Surface::SwapBehavior)
+		.def("SwapBehavior", (void (Surface::*)(SwapBehavior))&Surface::SwapBehavior)
+		.def("TextureTarget", (TextureTarget(Surface::*)(void) const)&Surface::TextureTarget)
+		.def("TextureFormat", (TextureFormat(Surface::*)(void) const)&Surface::TextureFormat)
+		.def("VGColorspace", (VGColorspace(Surface::*)(void) const)&Surface::VGColorspace)
+		.def("VGAlphaFormat", (VGAlphaFormat(Surface::*)(void) const)&Surface::VGAlphaFormat)
 	;
 }
 

@@ -19,6 +19,7 @@ void eglplus_py_Display(void);
 void eglplus_py_Initializer(void);
 void eglplus_py_Configs(void);
 void eglplus_py_Surface(void);
+void eglplus_py_Context(void);
 
 BOOST_PYTHON_MODULE(eglplus)
 {
@@ -31,4 +32,5 @@ BOOST_PYTHON_MODULE(eglplus)
 	eglplus_py_Initializer();
 	eglplus_py_Configs();
 	eglplus_py_Surface();
+	eglplus_py_Context();
 }
