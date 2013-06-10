@@ -15,11 +15,19 @@
 
 #include <oglplus/config_compiler.hpp>
 
+#include <type_traits>
+
 #if !OGLPLUS_NO_INITIALIZER_LISTS
 #include <initializer_list>
 #endif
 
 namespace oglplus {
+
+namespace enums {
+template <typename Enum>
+struct EnumBaseType;
+
+} // namespace enums
 
 /// This template serves as a wrapper for OpenGL bitfields
 /**
@@ -38,12 +46,18 @@ namespace oglplus {
  *  gl.Clear({ClearBit::ColorBuffer, ClearBit::StencilBuffer});
  *  @endcode
  */
-template <typename Bit, typename BF = GLbitfield>
+template <typename Bit>
 class Bitfield
 {
 private:
+	typedef typename enums::EnumBaseType<Bit>::Type BF;
 	BF _bits;
 public:
+	/// Construct a bitfield from the underlying type
+	Bitfield(BF bits)
+	 : _bits(bits)
+	{ }
+
 	/// Construct a bitfield from a single strongly-typed enumeration value
 	Bitfield(Bit _bit)
 	 : _bits(BF(_bit))
@@ -52,6 +66,31 @@ public:
 	Bitfield(Bit _bit_a, Bit _bit_b)
 	 : _bits(BF(_bit_a) | BF(_bit_b))
 	{ }
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Construction from a pair of iterators through Bit(s)
+	template <typename Iter>
+	Bitfield(Iter pos, Iter end);
+#else
+	template <typename Iter>
+	Bitfield(
+		Iter pos,
+		Iter end,
+		typename std::enable_if<
+			std::is_convertible<
+				decltype(*std::declval<Iter>()),
+				Bit
+			>::value
+		>::type* = nullptr
+	): _bits(BF(0))
+	{
+		while(pos != end)
+		{
+			_bits |= BF(*pos);
+			++pos;
+		}
+	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_INITIALIZER_LISTS
 	/// Construct a bitfield from an initializer list of enumeration values
@@ -75,6 +114,12 @@ public:
 	{
 		this->_bits |= BF(b);
 		return *this;
+	}
+
+	/// Test if a specified bit is set
+	bool Test(Bit b) const
+	{
+		return (this->_bits & BF(b)) == BF(b);
 	}
 
 #if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
