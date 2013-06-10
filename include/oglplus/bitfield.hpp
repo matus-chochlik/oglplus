@@ -59,6 +59,11 @@ private:
 	typedef typename enums::EnumBaseType<Bit>::Type BF;
 	BF _bits;
 public:
+	/// Constructs an empty bitfield
+	Bitfield(void)
+	 : _bits(0)
+	{ }
+
 	/// Construct a bitfield from the underlying type
 	Bitfield(BF bits)
 	 : _bits(bits)
