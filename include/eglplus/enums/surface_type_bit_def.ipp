@@ -33,13 +33,13 @@
 # if EGLPLUS_LIST_NEEDS_COMMA
    EGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined Pixmal
-#  pragma push_macro("Pixmal")
-#  undef Pixmal
-   EGLPLUS_ENUM_CLASS_VALUE(Pixmal, EGL_PIXMAP_BIT)
-#  pragma pop_macro("Pixmal")
+# if defined Pixmap
+#  pragma push_macro("Pixmap")
+#  undef Pixmap
+   EGLPLUS_ENUM_CLASS_VALUE(Pixmap, EGL_PIXMAP_BIT)
+#  pragma pop_macro("Pixmap")
 # else
-   EGLPLUS_ENUM_CLASS_VALUE(Pixmal, EGL_PIXMAP_BIT)
+   EGLPLUS_ENUM_CLASS_VALUE(Pixmap, EGL_PIXMAP_BIT)
 # endif
 # ifndef EGLPLUS_LIST_NEEDS_COMMA
 #  define EGLPLUS_LIST_NEEDS_COMMA 1
