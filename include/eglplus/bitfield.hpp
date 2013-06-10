@@ -29,6 +29,7 @@ using ::oglplus::Bitfield;
 } namespace oglplus { \
 namespace enums { \
 template <> struct EnumBaseType<eglplus::BITS> { typedef EGLenum Type; }; \
+template <> struct IsBitfieldBit<eglplus::BITS> { typedef std::true_type Type; }; \
 } } namespace eglplus { \
 inline eglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
 { \

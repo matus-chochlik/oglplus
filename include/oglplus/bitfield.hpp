@@ -27,6 +27,12 @@ namespace enums {
 template <typename Enum>
 struct EnumBaseType;
 
+template <typename Enum>
+struct IsBitfieldBit
+{
+	typedef std::false_type Type;
+};
+
 } // namespace enums
 
 /// This template serves as a wrapper for OpenGL bitfields
@@ -136,6 +142,7 @@ public:
 #define OGLPLUS_MAKE_BITFIELD(BITS) \
 namespace enums { \
 template <> struct EnumBaseType<BITS> { typedef GLbitfield Type; }; \
+template <> struct IsBitfieldBit<BITS> { typedef std::true_type Type; }; \
 } \
 inline oglplus::Bitfield<BITS> operator | (BITS b1, BITS b2) \
 { \
