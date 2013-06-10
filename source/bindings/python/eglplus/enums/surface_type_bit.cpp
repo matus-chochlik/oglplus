@@ -14,7 +14,7 @@
 
 #include <boost/python.hpp>
 
-#include "../_py_range_adapt.hpp"
+#include "../range.hpp"
 
 void eglplus_py_surface_type_bit(void)
 {
@@ -30,13 +30,13 @@ void eglplus_py_surface_type_bit(void)
 # endif
 #endif
 #if defined EGL_PIXMAP_BIT
-# if defined Pixmal
-#  pragma push_macro("Pixmal")
-#  undef Pixmal
-	.value("Pixmal", eglplus::SurfaceTypeBit::Pixmal)
-#  pragma pop_macro("Pixmal")
+# if defined Pixmap
+#  pragma push_macro("Pixmap")
+#  undef Pixmap
+	.value("Pixmap", eglplus::SurfaceTypeBit::Pixmap)
+#  pragma pop_macro("Pixmap")
 # else
-	.value("Pixmal", eglplus::SurfaceTypeBit::Pixmal)
+	.value("Pixmap", eglplus::SurfaceTypeBit::Pixmap)
 # endif
 #endif
 #if defined EGL_PBUFFER_BIT

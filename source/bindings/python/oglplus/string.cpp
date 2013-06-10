@@ -45,6 +45,17 @@ struct oglplus_String_from_python_str
 		new (storage) oglplus::String(value);
 		data->convertible = storage;
 	}
+
+	static void do_export(void)
+	{
+		namespace bpy = ::boost::python;
+
+		bpy::converter::registry::push_back(
+			&oglplus_String_from_python_str::convertible,
+			&oglplus_String_from_python_str::construct,
+			bpy::type_id<oglplus::String>()
+		);
+	}
 };
 
 struct oglplus_StrLit_to_python_str
@@ -67,11 +78,7 @@ void oglplus_py_String(void)
 		oglplus_String_to_python_str
 	>();
 
-	bpy::converter::registry::push_back(
-		&oglplus_String_from_python_str::convertible,
-		&oglplus_String_from_python_str::construct,
-		bpy::type_id<oglplus::String>()
-	);
+	oglplus_String_from_python_str::do_export();
 
 	// StrLit
 	bpy::to_python_converter<

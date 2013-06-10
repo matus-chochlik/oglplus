@@ -14,7 +14,7 @@
 
 #include <boost/python.hpp>
 
-#include "../_py_range_adapt.hpp"
+#include "../range.hpp"
 
 void oglplus_py_framebuffer_status(void)
 {

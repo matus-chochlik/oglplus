@@ -10,6 +10,7 @@
 
 #include <eglplus/egl.hpp>
 #include <eglplus/attrib_list.hpp>
+#include <eglplus/bitfield.hpp>
 
 #include <boost/python.hpp>
 
@@ -25,6 +26,39 @@ eglplus_py_export_AttributeList_Add(
 	return al_class;
 }
 
+template <typename VT, typename AttribList>
+inline boost::python::class_<AttribList>&
+eglplus_py_do_export_AttributeList_Add(
+	boost::python::class_<AttribList>& al_class,
+	std::false_type
+)
+{
+	boost::python::return_internal_reference<1> bpy_rvp;
+
+	AttribList& (AttribList::*PAdd)(VT) = &AttribList::Add;
+
+	return al_class.def("Add", PAdd, bpy_rvp);
+}
+
+
+template <typename VT, typename AttribList>
+inline boost::python::class_<AttribList>&
+eglplus_py_do_export_AttributeList_Add(
+	boost::python::class_<AttribList>& al_class,
+	std::true_type
+)
+{
+	boost::python::return_internal_reference<1> bpy_rvp;
+
+	AttribList& (AttribList::*PAdd)(eglplus::Bitfield<VT>) = &AttribList::Add;
+
+	return eglplus_py_do_export_AttributeList_Add<VT>(
+		al_class,
+		std::false_type()
+	).def("Add", PAdd, bpy_rvp);
+}
+
+
 template <typename AK, typename VTAM, int I>
 boost::python::class_<eglplus::AttributeList<AK, VTAM> >&
 eglplus_py_export_AttributeList_Add(
@@ -36,14 +70,12 @@ eglplus_py_export_AttributeList_Add(
 )
 {
 	typedef decltype(VTAM::ValueType(std::integral_constant<int, I>())) VT;
-	eglplus::AttributeList<AK, VTAM>&
-	(eglplus::AttributeList<AK, VTAM>::*PAdd)(VT) =
-		&eglplus::AttributeList<AK, VTAM>::Add;
-
-	boost::python::return_internal_reference<1> bpy_rvp;
 
 	return eglplus_py_export_AttributeList_Add(
-		al_class.def("Add", PAdd, bpy_rvp),
+		eglplus_py_do_export_AttributeList_Add<VT>(
+			al_class,
+			typename oglplus::enums::IsBitfieldBit<VT>::Type()
+		),
 		std::integral_constant<int, I+1>()
 	);
 }
@@ -68,9 +100,9 @@ inline void eglplus_py_export_AttributeList(
 	typedef eglplus::AttributeList<AttribKind, ValueToAttribMap>
 		AttribList;
 
-	AttribList& (AttribList::*Add1)(AttribKind, EGLint) =
+	AttribList& (AttribList::*PAdd1)(AttribKind, EGLint) =
 		&AttribList::Add;
-	AttribList& (AttribList::*Add2)(AttribKind, bool) =
+	AttribList& (AttribList::*PAdd2)(AttribKind, bool) =
 		&AttribList::Add;
 
 	bpy::return_internal_reference<1> bpy_rvp;
@@ -80,8 +112,8 @@ inline void eglplus_py_export_AttributeList(
 
 
 	eglplus_py_export_AttributeList_Add(cls, zero)
-		.def("Add", Add1, bpy_rvp)
-		.def("Add", Add2, bpy_rvp)
+		.def("Add", PAdd1, bpy_rvp)
+		.def("Add", PAdd2, bpy_rvp)
 		.def("DontCare", &AttribList::DontCare, bpy_rvp)
 		.def("Finish", &AttribList::Finish, bpy_rvp)
 		.def("Finished", &AttribList::Finished)

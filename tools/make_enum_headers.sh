@@ -635,7 +635,7 @@ do
 	echo
 	echo "#include <boost/python.hpp>"
 	echo
-	echo "#include \"../_py_range_adapt.hpp\""
+	echo "#include \"../range.hpp\""
 	echo
 	echo "void ${LibNameLC}_py_${InputName}(void)"
 	echo "void ${LibNameLC}_py_${InputName}(void);" >> ${CommonPathDecl}

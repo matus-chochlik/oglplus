@@ -14,7 +14,7 @@
 
 #include <boost/python.hpp>
 
-#include "../_py_range_adapt.hpp"
+#include "../range.hpp"
 
 void eglplus_py_opengl_profile_bit(void)
 {

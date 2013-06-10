@@ -14,7 +14,7 @@
 
 #include <boost/python.hpp>
 
-#include "../_py_range_adapt.hpp"
+#include "../range.hpp"
 
 void eglplus_py_renderable_type_bit(void)
 {

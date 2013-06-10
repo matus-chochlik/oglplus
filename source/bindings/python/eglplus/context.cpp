@@ -11,7 +11,7 @@
 
 #include <boost/python.hpp>
 
-#include "_py_range_adapt.hpp"
+#include "range.hpp"
 #include "attrib_list.hpp"
 
 void eglplus_py_Context(void)

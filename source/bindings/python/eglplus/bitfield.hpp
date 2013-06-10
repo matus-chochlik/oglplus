@@ -11,35 +11,12 @@
 #include <eglplus/egl.hpp>
 #include <eglplus/bitfield.hpp>
 
-#include <boost/python.hpp>
-
-#include <type_traits>
-
-template <typename Bit, typename BF>
-inline void eglplus_py_export_Bitfield(
-	const char* name,
-	eglplus::Bitfield<Bit, BF>*
-)
-{
-	namespace bpy = ::boost::python;
-	using namespace eglplus;
-
-	typedef eglplus::Bitfield<Bit, BF> Bitfield;
-
-	bpy::class_<Bitfield>(name, bpy::no_init)
-		.def(bpy::init<Bit>())
-		.def(bpy::init<Bit, Bit>())
-		.def(bpy::self | Bit())
-		.def("Test", &Bitfield::Test)
-		.def("__contains__", &Bitfield::Test)
-	;
-
-}
+#include "../oglplus/bitfield.hpp"
 
 template <typename Bitfield>
 inline void eglplus_py_export_Bitfield(const char* name)
 {
-	eglplus_py_export_Bitfield(name, (Bitfield*)nullptr);
+	oglplus_py_export_Bitfield<Bitfield>(name);
 }
 
 #endif
