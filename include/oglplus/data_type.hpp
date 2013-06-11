@@ -121,13 +121,13 @@ inline DataType GetDataType(void)
 namespace aux {
 
 template <typename T>
-std::true_type _get_is_gl_data_type(T, typename DataTypeCT<T>::type* = nullptr);
+std::true_type _get_is_gl_data_type(T*, typename DataTypeCT<T>::type* = nullptr);
 std::false_type _get_is_gl_data_type(...);
 
 template <typename T>
 struct _is_gl_data_type
 {
-	typedef decltype(_get_is_gl_data_type(T())) type;
+	typedef decltype(_get_is_gl_data_type((T*)0)) type;
 };
 
 } // namespace aux
