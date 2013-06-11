@@ -113,7 +113,7 @@ struct DataTypeCT<GLdouble>
 
 /// Returns the DataType for the specified type @p T
 template <typename T>
-inline DataType GetDataType(T* = nullptr)
+inline DataType GetDataType(void)
 {
 	return DataTypeCT<T>::value;
 }

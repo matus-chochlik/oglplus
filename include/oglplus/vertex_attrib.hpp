@@ -969,12 +969,12 @@ public:
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
 			OGLPLUS_CONST_ENUM_VALUE(DataType::Float)
-		> data_type_ct
+		>
 	) const
 	{
 		return Pointer(
 			values_per_vertex,
-			data_type_ct,
+			DataType::Float,
 			false,
 			0,
 			nullptr
@@ -986,12 +986,12 @@ public:
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
 			OGLPLUS_CONST_ENUM_VALUE(DataType::Double)
-		> data_type_ct
+		>
 	) const
 	{
 		return LPointer(
 			values_per_vertex,
-			data_type_ct,
+			DataType::Double,
 			0,
 			nullptr
 		);
@@ -1005,12 +1005,12 @@ public:
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
 			DataTypeValue
-		> data_type_ct
+		>
 	) const
 	{
 		return IPointer(
 			values_per_vertex,
-			data_type_ct,
+			DataTypeValue,
 			0,
 			nullptr
 		);
