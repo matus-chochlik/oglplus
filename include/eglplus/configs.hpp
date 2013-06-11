@@ -149,7 +149,7 @@ public:
 		return GetAttrib(ConfigAttrib::AlphaSize);
 	}
 
-	/// Returns the number of bits of the depth component
+	/// Returns the number of bits of the depth buffer
 	/**
 	 *  @eglsymbols
 	 *  @eglfunref{GetConfigAttrib}
@@ -158,6 +158,17 @@ public:
 	EGLint DepthSize(void) const
 	{
 		return GetAttrib(ConfigAttrib::DepthSize);
+	}
+
+	/// Returns the number of bits of the stencil buffer
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{GetConfigAttrib}
+	 *  @egldefref{STENCIL_SIZE}
+	 */
+	EGLint StencilSize(void) const
+	{
+		return GetAttrib(ConfigAttrib::StencilSize);
 	}
 
 	/// Returns the maximum width of Pbuffers in pixels
