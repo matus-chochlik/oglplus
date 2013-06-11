@@ -192,7 +192,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			(prog|"Position").Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"Position").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		normals.Bind(Buffer::Target::Array);
@@ -200,7 +200,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			(prog|"Normal").Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"Normal").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		tangents.Bind(Buffer::Target::Array);
@@ -208,7 +208,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Tangents(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			(prog|"Tangent").Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"Tangent").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		texcoords.Bind(Buffer::Target::Array);
@@ -216,7 +216,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			(prog|"TexCoord").Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"TexCoord").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		{

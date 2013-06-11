@@ -165,12 +165,45 @@ do
 		library_search_paths="${library_search_paths}${option_path};"
 		unset option_path;;
 
+	--use-gl-header-lib)
+		shift
+		case "${1}" in
+		GLCOREARB_H|GL3_H|GLEW|GL3W)oglplus_forced_gl_header=${1};;
+		*) echoerror "Unknown GL header lib '${1}'" && exit 1;;
+		esac
+		;;
+	--use-gl-header-lib=*)
+		case "${1##*=}" in
+		GLCOREARB_H|GL3_H|GLEW|GL3W)oglplus_forced_gl_header=${1##*=};;
+		*) echoerror "Unknown GL header lib '${1##*=}'" && exit 1;;
+		esac
+		;;
+
 	--use-glcorearb-h) oglplus_forced_gl_header=GLCOREARB_H;;
 	--use-gl3-h) oglplus_forced_gl_header=GL3_H;;
 	--use-glew) oglplus_forced_gl_header=GLEW;;
 	--use-gl3w) oglplus_forced_gl_header=GL3W;;
 
+	--use-gl-window-lib)
+		shift
+		case "${1}" in
+		GLX|GLUT|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1};;
+		*) echoerror "Unknown GL initialization lib '${1}'" && exit 1;;
+		esac
+		;;
+	--use-gl-window-lib=*)
+		case "${1##*=}" in
+		GLX|GLUT|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1##*=};;
+		*) echoerror "Unknown GL initialization lib '${1##*=}'" && exit 1;;
+		esac
+		;;
+
+	--use-glx) oglplus_forced_gl_init_lib=GLX;;
+	--use-glut) oglplus_forced_gl_init_lib=GLUT;;
+	--use-glfw) oglplus_forced_gl_init_lib=GLFW;;
+	--use-sdl) oglplus_forced_gl_init_lib=SDL;;
 	--use-wxgl) oglplus_forced_gl_init_lib=WXGL;;
+	--use-qtgl) oglplus_forced_gl_init_lib=QTGL;;
 
 	--no-examples) oglplus_no_examples=true;;
 	--screenshots) oglplus_no_screenshots=false;;

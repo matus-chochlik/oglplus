@@ -21,6 +21,16 @@ function(standalone_example_common EXAMPLE_NAME)
 	target_link_libraries(${EXAMPLE_NAME} ${OPENGL_LIBRARIES} ${ARGN})
 endfunction()
 
+if(EGL_FOUND AND OPENGL_FOUND)
+	include_directories(${EGL_INCLUDE_DIRS})
+	include_directories(${OPENGL_INCLUDE_DIRS})
+
+	standalone_example_common(
+		001_triangle_screenshot
+		${EGL_LIBRARIES} ${OGLPLUS_GL_LIBS}
+	)
+endif()
+
 if(GLUT_FOUND AND GLEW_FOUND)
 	include_directories(${GLEW_INCLUDE_DIRS})
 	include_directories(${GLUT_INCLUDE_DIRS})

@@ -43,98 +43,100 @@ OGLPLUS_ENUM_CLASS_END(DataType)
 #include <oglplus/enums/data_type_range.ipp>
 #endif
 
-inline DataType GetDataType(GLbyte*)
-{
-	return DataType::Byte;
-}
-
-inline DataType GetDataType(GLshort*)
-{
-	return DataType::Short;
-}
-
-inline DataType GetDataType(GLint*)
-{
-	return DataType::Int;
-}
-
-inline DataType GetDataType(GLubyte*)
-{
-	return DataType::UnsignedByte;
-}
-
-inline DataType GetDataType(GLushort*)
-{
-	return DataType::UnsignedShort;
-}
-
-inline DataType GetDataType(GLuint*)
-{
-	return DataType::UnsignedInt;
-}
-
-inline DataType GetDataType(GLfloat*)
-{
-	return DataType::Float;
-}
-
-inline DataType GetDataType(GLdouble*)
-{
-	return DataType::Double;
-}
-
+// Compile-time data type getter
 template <typename T>
-struct IsGLDataType
- : public std::false_type
+struct DataTypeCT;
+
+template <>
+struct DataTypeCT<GLbyte>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Byte)
+>
 { };
 
 template <>
-struct IsGLDataType<GLbyte>
- : public std::true_type
+struct DataTypeCT<GLshort>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Short)
+>
 { };
 
 template <>
-struct IsGLDataType<GLshort>
- : public std::true_type
+struct DataTypeCT<GLint>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Int)
+>
 { };
 
 template <>
-struct IsGLDataType<GLint>
- : public std::true_type
+struct DataTypeCT<GLubyte>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedByte)
+>
 { };
 
 template <>
-struct IsGLDataType<GLubyte>
- : public std::true_type
+struct DataTypeCT<GLushort>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedShort)
+>
 { };
 
 template <>
-struct IsGLDataType<GLushort>
- : public std::true_type
+struct DataTypeCT<GLuint>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedInt)
+>
 { };
 
 template <>
-struct IsGLDataType<GLuint>
- : public std::true_type
+struct DataTypeCT<GLfloat>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Float)
+>
 { };
 
 template <>
-struct IsGLDataType<GLfloat>
- : public std::true_type
-{ };
-
-template <>
-struct IsGLDataType<GLdouble>
- : public std::true_type
+struct DataTypeCT<GLdouble>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Double)
+>
 { };
 
 /// Returns the DataType for the specified type @p T
 template <typename T>
 inline DataType GetDataType(void)
 {
-	return GetDataType((T*)nullptr);
+	return DataType(DataTypeCT<T>::value);
 }
 
+namespace aux {
+
+template <typename T>
+std::true_type _get_is_gl_data_type(T*, typename DataTypeCT<T>::type* = nullptr);
+std::false_type _get_is_gl_data_type(...);
+
+template <typename T>
+struct _is_gl_data_type
+{
+	typedef decltype(_get_is_gl_data_type((T*)0)) type;
+};
+
+} // namespace aux
+
+// Checks if type T is an OpenGL data type
+template <typename T>
+struct IsGLDataType
+ : public aux::_is_gl_data_type<T>::type
+{ };
 
 /// OpenGL Shading Language data type enumeration
 /**

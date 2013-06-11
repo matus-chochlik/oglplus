@@ -8,19 +8,33 @@ find_package(Doxygen)
 if(DOXYGEN_FOUND)
 	add_subdirectory(oglplus)
 	add_subdirectory(oalplus)
+	add_subdirectory(eglplus)
 
 	# docs may or may not be built by default
 	# based on the user preferences
 	if(OGLPLUS_NO_DOCS)
-		add_custom_target(doc DEPENDS oglplus-doc oalplus-doc)
+		add_custom_target(
+			doc
+			DEPENDS
+				oglplus-doc
+				oalplus-doc
+				eglplus-doc
+		)
 	else()
-		add_custom_target(doc ALL DEPENDS oglplus-doc oalplus-doc)
+		add_custom_target(
+			doc ALL
+			DEPENDS
+				oglplus-doc
+				oalplus-doc
+				eglplus-doc
+		)
 	endif()
 	add_custom_target(
 		rebuild-doc
 		DEPENDS
 			rebuild-oglplus-doc
 			rebuild-oalplus-doc
+			rebuild-eglplus-doc
 	)
 else()
 	set(OGLPLUS_NO_DOCS On PARENT_SCOPE)

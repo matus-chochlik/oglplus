@@ -91,7 +91,7 @@ public:
 	ProgramUniform<GLfloat> status;
 
 	PointProgram(void)
-	 : _base_program("Point program")
+	 : _base_program(ObjectDesc("Point program"))
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
@@ -133,7 +133,7 @@ protected:
 		Buffer::Data(Buffer::Target::Array, data);
 
 		VertexAttribArray attr(prog, name);
-		attr.Setup(3, DataType::Float);
+		attr.Setup<Vec3f>();
 		attr.Enable();
 	}
 
@@ -156,7 +156,7 @@ protected:
 		Buffer::Data(Buffer::Target::Array, data);
 
 		VertexAttribArray attr(prog, name);
-		attr.Setup(3, DataType::Float);
+		attr.Setup<Vec3f>();
 		attr.Enable();
 	}
 
@@ -170,7 +170,7 @@ protected:
 		Buffer::Data(Buffer::Target::Array, data);
 
 		VertexAttribArray attr(prog, name);
-		attr.Setup(1, DataType::Float);
+		attr.Setup<GLfloat>();
 		attr.Enable();
 	}
 public:

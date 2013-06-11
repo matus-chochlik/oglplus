@@ -153,7 +153,7 @@ public:
 			GLuint n_per_vertex = make_plane.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(plane_prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -163,7 +163,7 @@ public:
 			GLuint n_per_vertex = make_plane.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(plane_prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -258,7 +258,7 @@ public:
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(shape_prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -268,7 +268,7 @@ public:
 			GLuint n_per_vertex = make_shape.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(shape_prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 		//

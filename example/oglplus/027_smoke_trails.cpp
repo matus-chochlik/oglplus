@@ -338,7 +338,7 @@ public:
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 
@@ -347,7 +347,7 @@ public:
 		{
 			Buffer::Data(Buffer::Target::Array, ages);
 			VertexAttribArray attr(prog, "Age");
-			attr.Setup(1, DataType::Float);
+			attr.Setup<GLfloat>();
 			attr.Enable();
 		}
 
@@ -356,7 +356,7 @@ public:
 		{
 			Buffer::Data(Buffer::Target::Array, ids);
 			VertexAttribArray attr(prog, "Id");
-			attr.Setup(1, DataType::Int);
+			attr.Setup<GLint>();
 			attr.Enable();
 		}
 

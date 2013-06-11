@@ -166,7 +166,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(torus_prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -179,7 +179,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(torus_prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -246,7 +246,7 @@ public:
 				// upload the data
 				Buffer::Data(Buffer::Target::Array, data);
 				VertexAttribArray attr(plane_prog, "Position");
-				attr.Setup(n, DataType::Float);
+				attr.Setup<GLfloat>(n);
 				attr.Enable();
 			}
 			{

@@ -22,7 +22,7 @@ option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
 option(OGLPLUS_NO_DOCS "Don't build and install the documentation" Off)
 
-option(OGLPLUS_WITH_TESTS "Configure the testsuire" Off)
+option(OGLPLUS_WITH_TESTS "Configure the testsuite" Off)
 
 # The low-profile setting
 option(OGLPLUS_CONFIG_SET_LOW_PROFILE "Set the OGLPLUS_LOW_PROFILE switch in site_config.hpp" Off)
@@ -67,12 +67,15 @@ include(config/FindGLUT.cmake)
 include(config/FindWXGL.cmake)
 include(config/FindQTGL.cmake)
 include(config/FindSDL.cmake)
+include(config/FindGLX.cmake)
+
+include(config/FindOpenAL.cmake)
+
+include(config/FindEGL.cmake)
+
 include(config/FindGLM.cmake)
 include(config/FindPNG.cmake)
 include(config/FindPangoCairo.cmake)
-include(config/FindOpenAL.cmake)
-
-find_package(X11)
 
 # enable warnings on gcc
 if(${CMAKE_COMPILER_IS_GNUCXX})

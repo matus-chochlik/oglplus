@@ -10,8 +10,11 @@
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/lib.hpp>
 #include <oglplus/opt/application.hpp>
+#include <oglplus/lib.hpp>
+
+#include <oalplus/al.hpp>
+#include <oalplus/lib.hpp>
 
 #include "spectra_app.hpp"
 #include "main_frame.hpp"

@@ -1193,11 +1193,19 @@ class QuickProgram
  : public Program
 {
 private:
-	void _do_initialize(bool separable)
+	void _do_make_separable(std::true_type)
 	{
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-		if(separable) MakeSeparable();
+		MakeSeparable();
 #endif
+	}
+
+	static void _do_make_separable(std::false_type) { }
+
+	template <bool Separable>
+	void _do_initialize(std::integral_constant<bool, Separable> separable)
+	{
+		_do_make_separable(separable);
 		Link();
 		Use();
 	}
@@ -1224,8 +1232,11 @@ private:
 		);
 	}
 
-	template <typename Tuple>
-	void _initialize_tuple(bool separable, const Tuple& tuple)
+	template <bool Separable, typename Tuple>
+	void _initialize_tuple(
+		std::integral_constant<bool, Separable> separable,
+		const Tuple& tuple
+	)
 	{
 		std::integral_constant<size_t, 0> i;
 		std::integral_constant<size_t, std::tuple_size<Tuple>::value> n;
@@ -1246,8 +1257,11 @@ private:
 		_attach(shaders...);
 	}
 
-	template <typename ... Shaders>
-	void _initialize(bool separable, const Shaders& ... shaders)
+	template <bool Separable, typename ... Shaders>
+	void _initialize(
+		std::integral_constant<bool, Separable> separable,
+		const Shaders& ... shaders
+	)
 	{
 		_attach(shaders...);
 		_do_initialize(separable);
@@ -1257,9 +1271,9 @@ private:
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Build a optionally separable program using the specified @c shaders
-	template <typename ... Shaders>
+	template <bool Separable, typename ... Shaders>
 	QuickProgram(
-		bool separable,
+		std::integral_constant<bool, Separable> separable,
 		const Shader& shader,
 		const Shaders& ... shaders
 	): Program()
@@ -1268,10 +1282,10 @@ public:
 	}
 
 	/// Build a program with @c description using the specified @c shaders
-	template <typename ... Shaders>
+	template <bool Separable, typename ... Shaders>
 	QuickProgram(
 		ObjectDesc&& description,
-		bool separable,
+		std::integral_constant<bool, Separable> separable,
 		const Shader& shader,
 		const Shaders& ... shaders
 	): Program(std::move(description))
@@ -1280,9 +1294,9 @@ public:
 	}
 
 	/// Build a optionally separable program using the specified @c shaders
-	template <typename ... Shaders>
+	template <bool Separable, typename ... Shaders>
 	QuickProgram(
-		bool separable,
+		std::integral_constant<bool, Separable> separable,
 		const std::tuple<Shaders...>& shaders
 	): Program()
 	{
@@ -1290,43 +1304,55 @@ public:
 	}
 
 	/// Build a program with @c description using the specified @c shaders
-	template <typename ... Shaders>
+	template <bool Separable, typename ... Shaders>
 	QuickProgram(
 		ObjectDesc&& description,
-		bool separable,
+		std::integral_constant<bool, Separable> separable,
 		const std::tuple<Shaders...>& shaders
 	): Program(std::move(description))
 	{
 		_initialize_tuple(separable, shaders);
 	}
 #else
-	template <typename StdTuple>
+	template <bool Separable, typename StdTuple>
 	QuickProgram(
 		ObjectDesc&& description,
-		bool separable,
+		std::integral_constant<bool, Separable> separable,
 		const StdTuple& shaders
 	): Program(std::move(description))
 	{
 		_initialize_tuple(separable, shaders);
 	}
 
-	QuickProgram(bool separable, const Shader& s0)
-	 : Program()
+	template <bool Separable>
+	QuickProgram(
+		std::integral_constant<bool, Separable> separable,
+		const Shader& s0
+	): Program()
 	{
 		this->AttachShader(s0);
 		_do_initialize(separable);
 	}
 
-	QuickProgram(bool separable, const Shader& s0, const Shader& s1)
-	 : Program()
+	template <bool Separable>
+	QuickProgram(
+		std::integral_constant<bool, Separable> separable,
+		const Shader& s0,
+		const Shader& s1
+	): Program()
 	{
 		this->AttachShader(s0);
 		this->AttachShader(s1);
 		_do_initialize(separable);
 	}
 
-	QuickProgram(bool separable, const Shader& s0, const Shader& s1, const Shader& s2)
-	 : Program()
+	template <bool Separable>
+	QuickProgram(
+		std::integral_constant<bool, Separable> separable,
+		const Shader& s0,
+		const Shader& s1,
+		const Shader& s2
+	): Program()
 	{
 		this->AttachShader(s0);
 		this->AttachShader(s1);
@@ -1352,26 +1378,30 @@ private:
 public:
 	/// Create an instance of the hardwired program
 	HardwiredProgram(void)
-	 : QuickProgram(false, _single_shader((Shaders*)0)...)
+	 : QuickProgram(std::false_type(), _single_shader((Shaders*)0)...)
 	{ }
 
 	/// Create an instance of the hardwired program with a @c description
 	HardwiredProgram(ObjectDesc&& description)
 	 : QuickProgram(
 		std::move(description),
-		false,
+		std::false_type(),
 		_single_shader((Shaders*)0)...
 	)
 	{ }
 
 	/// Create an instance of the hardwired program, possibly @c separable
-	HardwiredProgram(bool separable)
+	template <bool Separable>
+	HardwiredProgram(std::integral_constant<bool, Separable> separable)
 	 : QuickProgram(separable, _single_shader((Shaders*)0)...)
 	{ }
 
 	/// Create an instance of the hardwired program with a @c description
-	HardwiredProgram(ObjectDesc&& description, bool separable)
-	 : QuickProgram(
+	template <bool Separable>
+	HardwiredProgram(
+		ObjectDesc&& description,
+		std::integral_constant<bool, Separable> separable
+	): QuickProgram(
 		std::move(description),
 		separable,
 		_single_shader((Shaders*)0)...
@@ -1405,15 +1435,31 @@ private:
 		return *((StdTuple*)this);
 	}
 public:
+	/// Create an instance of the hardwired program
+	HardwiredTupleProgram(void)
+	 : QuickProgram(ObjectDesc(), std::false_type(), _base_shaders())
+	{ }
+
 	/// Create an instance of the hardwired program, possibly @c separable
-	HardwiredTupleProgram(bool separable)
+	template <bool Separable>
+	HardwiredTupleProgram(std::integral_constant<bool, Separable> separable)
 	 : QuickProgram(ObjectDesc(), separable, _base_shaders())
 	{ }
 
 	/// Create an instance of the hardwired program with a @c description
+	HardwiredTupleProgram(ObjectDesc&& description)
+	 : QuickProgram(
+		std::move(description),
+		std::false_type(),
+		_base_shaders()
+	)
+	{ }
+
+	/// Create an instance of the hardwired program with a @c description
+	template <bool Separable>
 	HardwiredTupleProgram(
 		ObjectDesc&& description,
-		bool separable
+		std::integral_constant<bool, Separable> separable
 	): QuickProgram(std::move(description), separable, _base_shaders())
 	{ }
 };

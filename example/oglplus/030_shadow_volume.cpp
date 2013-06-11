@@ -273,7 +273,7 @@ public:
 			))
 			{
 				VertexAttribArray shape_attr(location);
-				shape_attr.Setup(n_per_vertex, DataType::Float);
+				shape_attr.Setup<GLfloat>(n_per_vertex);
 				shape_attr.Enable();
 			}
 			else assert(!"Inconsistent 'Position' location");
@@ -287,7 +287,7 @@ public:
 
 			shape_prog.Use();
 			VertexAttribArray attr(shape_prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -377,7 +377,7 @@ public:
 			GLfloat position[3] = {0.0, 0.0, 0.0};
 			Buffer::Data(Buffer::Target::Array, 3, position);
 			VertexAttribArray attr(light_prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 

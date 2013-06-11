@@ -624,7 +624,7 @@ public:
 					prog1, prog2
 				)
 			);
-			attr.Setup(2, DataType::Float);
+			attr.Setup<Vec2f>();
 			attr.Enable();
 		}
 	}

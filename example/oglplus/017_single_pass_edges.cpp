@@ -210,7 +210,7 @@ public:
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 
 			indices.Bind(Buffer::Target::ElementArray);

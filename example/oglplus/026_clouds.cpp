@@ -129,7 +129,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_sphere.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			(light_prog|"Position").Setup(n_per_vertex, DataType::Float).Enable();
+			(light_prog|"Position").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		cloud_vs.Source(
@@ -234,14 +234,14 @@ public:
 		pos_buffer.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
-			(cloud_prog|"Position").Setup(3, DataType::Float).Enable();
+			(cloud_prog|"Position").Setup<Vec3f>().Enable();
 		}
 
 		// bind the VBO for the cloud sizes
 		size_buffer.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, sizes);
-			(cloud_prog|"Size").Setup(1, DataType::Float).Enable();
+			(cloud_prog|"Size").Setup<GLfloat>().Enable();
 		}
 
 		// set the number of samples

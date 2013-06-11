@@ -353,13 +353,13 @@ public:
 		ink_data.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, metrics.InkData());
 		VertexAttribArray ink_attr(VertexAttribSlot(0));
-		ink_attr.Setup(4, DataType::Float);
+		ink_attr.Setup<GLfloat>(4);
 		ink_attr.Enable();
 
 		tex_data.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, metrics.TexData());
 		VertexAttribArray tex_attr(VertexAttribSlot(1));
-		tex_attr.Setup(4, DataType::Float);
+		tex_attr.Setup<GLfloat>(4);
 		tex_attr.Enable();
 	}
 

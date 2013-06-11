@@ -53,6 +53,7 @@ function _configure_oglplus()
 		--no-docs \
 		--make-screenshots \
 		--screenshots \
+		--max-gl-version \
 		--use-gl-header-lib \
 		--use-glcorearb-h \
 		--use-gl3-h \

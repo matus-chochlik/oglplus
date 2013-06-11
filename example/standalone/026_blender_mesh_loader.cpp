@@ -355,7 +355,7 @@ public:
 		{
 			Buffer::Data(Buffer::Target::Array, pos_data);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
 
@@ -363,7 +363,7 @@ public:
 		{
 			Buffer::Data(Buffer::Target::Array, nml_data);
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
 

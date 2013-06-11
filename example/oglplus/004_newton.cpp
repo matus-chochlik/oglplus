@@ -131,7 +131,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, rectangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(2, DataType::Float);
+		vert_attr.Setup<Vec2f>();
 		vert_attr.Enable();
 		//
 		Uniform<GLfloat>(prog, "Color1").SetVector(0.2f, 0.02f, 0.05f);

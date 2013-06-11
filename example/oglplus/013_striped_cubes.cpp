@@ -113,7 +113,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float).Enable();
+			attr.Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		// bind the VBO for the cube UV-coordinates
@@ -125,7 +125,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float).Enable();
+			attr.Setup<GLfloat>(n_per_vertex).Enable();
 		}
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);

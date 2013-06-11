@@ -148,7 +148,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, rectangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(2, DataType::Float).Enable();
+		vert_attr.Setup<Vec2f>().Enable();
 		//
 		Texture::Active(0);
 		UniformSampler(prog, "Metaballs").Set(0);

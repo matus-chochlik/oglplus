@@ -24,7 +24,7 @@
 #include <functional>
 #endif
 
-// Define a macro that initializes the _glsym member of ErrorInfo
+// Define a macro that initializes the _alsym member of ErrorInfo
 #if OALPLUS_ERROR_INFO_NO_AL_SYMBOL
 #define OALPLUS_ERROR_INFO_INIT_ALSYM(SYMBOL)
 #else
@@ -108,7 +108,7 @@ struct ErrorInfo
 	const size_t _dummy;
 
 #if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
-	const char* _glsym;
+	const char* _alsym;
 #endif
 
 #if !OALPLUS_ERROR_INFO_NO_FILE
@@ -130,7 +130,7 @@ struct ErrorInfo
 	inline ErrorInfo(
 		const size_t dummy
 #if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
-		, const char* glsym
+		, const char* alsym
 #endif
 
 #if !OALPLUS_ERROR_INFO_NO_FILE
@@ -152,7 +152,7 @@ struct ErrorInfo
 	): _dummy(dummy)
 
 #if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
-	 , _glsym(glsym)
+	 , _alsym(alsym)
 #endif
 
 #if !OALPLUS_ERROR_INFO_NO_FILE
@@ -197,7 +197,7 @@ struct ErrorInfo
 inline const char* ErrorALSymbol(const ErrorInfo& info)
 {
 #if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
-	return info._glsym;
+	return info._alsym;
 #else
 	return "";
 #endif
@@ -317,8 +317,7 @@ inline const char* ErrorClassName(const ErrorInfo& info)
 /// Exception class for general OpenAL errors
 /** Instances of this exception class are throws whenever an error is detected
  *  during the execution of OpenAL API calls in the @OALplus code. There are several
- *  other classes derived for more specific error types, like AL shading language
- *  compilation and linking errors, out-of-memory errors, etc.
+ *  other classes derived for more specific error types like out-of-memory errors, etc.
  *  This class is derived from the standard runtime_error exception and thus
  *  the basic error message can be obtained by calling its @c what() member function.
  *

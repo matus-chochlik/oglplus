@@ -143,7 +143,7 @@ public:
 			curve_n = data.size();
 			Bind(curve_verts, Buffer::Target::Array).Data(data);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(2, DataType::Float);
+			attr.Setup<Vec2f>();
 			attr.Enable();
 		}
 

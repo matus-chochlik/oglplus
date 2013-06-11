@@ -220,7 +220,7 @@ public:
 
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray draw_attr(draw_prog, "Position");
-			draw_attr.Setup(n_per_vertex, DataType::Float);
+			draw_attr.Setup<GLfloat>(n_per_vertex);
 			draw_attr.Enable();
 		}
 
