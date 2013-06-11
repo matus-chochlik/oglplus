@@ -1,5 +1,5 @@
 /**
- *  @file eglplus/surface_type.hpp
+ *  @file eglplus/surface_type_bit.hpp
  *  @brief EGL surface type enumeration
  *
  *  @author Matus Chochlik

@@ -7,7 +7,7 @@
 doc_user=${USER}
 doc_host="kifri.fri.uniza.sk"
 
-for lib_name in oglplus oalplus
+for lib_name in oglplus oalplus eglplus
 do
 	doc_home="./public_html/${lib_name}"
 	doc_base="${doc_home}/html"
