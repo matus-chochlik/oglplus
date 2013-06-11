@@ -966,7 +966,10 @@ public:
 
 	const VertexAttribArray& Setup(
 		GLint values_per_vertex,
-		std::integral_constant<DataType, DataType::Float> data_type_ct
+		std::integral_constant<
+			typename enums::EnumValueType<DataType>::Type,
+			OGLPLUS_CONST_ENUM_VALUE(DataType::Float)
+		> data_type_ct
 	) const
 	{
 		return Pointer(
@@ -980,7 +983,10 @@ public:
 
 	const VertexAttribArray& Setup(
 		GLint values_per_vertex,
-		std::integral_constant<DataType, DataType::Double> data_type_ct
+		std::integral_constant<
+			typename enums::EnumValueType<DataType>::Type,
+			OGLPLUS_CONST_ENUM_VALUE(DataType::Double)
+		> data_type_ct
 	) const
 	{
 		return LPointer(
@@ -991,10 +997,15 @@ public:
 		);
 	}
 
-	template <DataType DataTypeValue>
+	template <
+		typename enums::EnumValueType<DataType>::Type DataTypeValue
+	>
 	const VertexAttribArray& Setup(
 		GLint values_per_vertex,
-		std::integral_constant<DataType, DataTypeValue> data_type_ct
+		std::integral_constant<
+			typename enums::EnumValueType<DataType>::Type,
+			DataTypeValue
+		> data_type_ct
 	) const
 	{
 		return IPointer(
