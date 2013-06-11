@@ -84,16 +84,8 @@ public:
 	Bitfield(Iter pos, Iter end);
 #else
 	template <typename Iter>
-	Bitfield(
-		Iter pos,
-		Iter end,
-		typename std::enable_if<
-			std::is_convertible<
-				decltype(*std::declval<Iter>()),
-				Bit
-			>::value
-		>::type* = nullptr
-	): _bits(BF(0))
+	Bitfield(Iter pos, Iter end)
+	 : _bits(BF(0))
 	{
 		while(pos != end)
 		{
