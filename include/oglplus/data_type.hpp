@@ -115,7 +115,7 @@ struct DataTypeCT<GLdouble>
 template <typename T>
 inline DataType GetDataType(void)
 {
-	return DataTypeCT<T>::value;
+	return DataType(DataTypeCT<T>::value);
 }
 
 namespace aux {
