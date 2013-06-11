@@ -97,7 +97,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		(prog|"Position").Setup(2, DataType::Float).Enable();
+		(prog|"Position").Setup<Vec2f>().Enable();
 		//
 		// Uniforms can be typechecked
 		// but note that the typechecking is a relatively

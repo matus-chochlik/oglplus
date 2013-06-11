@@ -3,7 +3,7 @@
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-RootDir=${1:-${PWD}}
+RootDir=${PWD}/$(dirname ${0})/..
 InputDir="${RootDir}/source/enums"
 
 function PrintFileHeader()
@@ -579,12 +579,26 @@ git add ${OutputPath}
 
 } #MakeSLtoCPPtypeHeader()
 
-MakeEnumHeaders GL oglplus ext
-MakeEnumValueName GL oglplus ext
-MakeEnumValueRange GL oglplus ext
-MakeEnumShorteners GL oglplus ext
-MakeEnumBQHeaders GL oglplus ext
-MakeGLSLtoCPPtypeHeader GL oglplus
+if [ $# -eq 0 ] || [ "${1}" == "oglplus" ]
+then
+	MakeEnumHeaders GL oglplus ext
+	MakeEnumValueName GL oglplus ext
+	MakeEnumValueRange GL oglplus ext
+	MakeEnumShorteners GL oglplus ext
+	MakeEnumBQHeaders GL oglplus ext
+	MakeGLSLtoCPPtypeHeader GL oglplus
+fi
 
+if [ $# -eq 0 ] || [ "${1}" == "oalplus" ]
+then
+	MakeEnumHeaders AL oalplus
+	MakeEnumValueName AL oalplus
+	MakeEnumValueRange AL oalplus
+fi
 
-MakeEnumHeaders AL oalplus
+if [ $# -eq 0 ] || [ "${1}" == "eglplus" ]
+then
+	MakeEnumHeaders EGL eglplus
+	MakeEnumValueName EGL eglplus
+	MakeEnumValueRange EGL eglplus
+fi

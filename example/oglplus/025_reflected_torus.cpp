@@ -207,7 +207,7 @@ public:
 
 			assert(loc_norm == loc_refl);
 			VertexAttribArray attr(loc_norm);
-			attr.Setup(n_per_vertex, se::Float());
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -227,7 +227,7 @@ public:
 
 			assert(loc_norm == loc_refl);
 			VertexAttribArray attr(loc_norm);
-			attr.Setup(n_per_vertex, se::Float());
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -248,7 +248,7 @@ public:
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "Position");
-			attr.Setup(3, se::Float());
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 
@@ -266,7 +266,7 @@ public:
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
 			VertexAttribArray attr(prog_norm, "Normal");
-			attr.Setup(3, se::Float());
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 		VertexArray::Unbind();

@@ -147,7 +147,7 @@ public:
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
 		positions.reserve(particle_count);
@@ -158,7 +158,7 @@ public:
 		{
 			Buffer::Data(Buffer::Target::Array, ages);
 			VertexAttribArray attr(prog, "Age");
-			attr.Setup(1, DataType::Float);
+			attr.Setup<GLfloat>(1);
 			attr.Enable();
 		}
 		ages.reserve(particle_count);

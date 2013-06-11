@@ -184,7 +184,7 @@ public:
 				{
 					_vbos[i].Bind(Buffer::Target::Array);
 					VertexAttribArray attr(prog, _names[i]);
-					attr.Setup(_npvs[i], DataType::Float);
+					attr.Setup<GLfloat>(_npvs[i]);
 					attr.Enable();
 				}
 				catch(Error&){ }

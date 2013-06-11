@@ -102,7 +102,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			(prog|"Position").Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|"Position").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		// make the matrices

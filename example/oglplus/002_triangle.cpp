@@ -89,7 +89,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray(prog, "Position").Setup(3, DataType::Float).Enable();
+		VertexAttribArray(prog, "Position").Setup<GLfloat>(3).Enable();
 		//
 
 		GLfloat triangle_colors[9] = {
@@ -102,7 +102,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 9, triangle_colors);
 		// setup the vertex attribs array
-		VertexAttribArray(prog, "Color").Setup(3, DataType::Float).Enable();
+		VertexAttribArray(prog, "Color").Setup<GLfloat>(3).Enable();
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearDepth(1.0f);

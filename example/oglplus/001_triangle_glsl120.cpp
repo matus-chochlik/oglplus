@@ -78,7 +78,7 @@ public:
 		// it is not necessary to specify its element count
 		Buffer::Data(Buffer::Target::Array, triangle_verts);
 		// setup the vertex attribs array for the vertices
-		(prog|"Position").Setup(3, DataType::Float).Enable();
+		(prog|"Position").Setup<Vec3f>().Enable();
 
 		gl.ClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		gl.ClearDepth(1.0f);

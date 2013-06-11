@@ -142,7 +142,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(2, DataType::Float);
+		vert_attr.Setup<GLfloat>(2);
 		vert_attr.Enable();
 
 		GLfloat min = 3.0f;
@@ -159,7 +159,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_coords);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray coord_attr(prog, "Coord");
-		coord_attr.Setup(2, DataType::Float);
+		coord_attr.Setup<GLfloat>(2);
 		coord_attr.Enable();
 		//
 		// color map used in the fragment shader to colorize the fractal

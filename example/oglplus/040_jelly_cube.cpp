@@ -336,7 +336,7 @@ public:
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
 
 		VertexAttribArray pos_vert_attr(cam_prog, "Position");
-		pos_vert_attr.Setup(4, se::Float());
+		pos_vert_attr.Setup<Vec4f>();
 		pos_vert_attr.Enable();
 
 		// setup velocity buffer
@@ -349,7 +349,7 @@ public:
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
 		VertexAttribArray vel_vert_attr(cam_prog, "Velocity");
-		vel_vert_attr.Setup(4, se::Float());
+		vel_vert_attr.Setup<Vec4f>();
 		vel_vert_attr.Enable();
 
 		// setup the uniforms
@@ -897,17 +897,17 @@ private:
 
 		draw_vao.Bind();
 		VertexAttribArray draw_vert_attr(draw_prog, "Position");
-		draw_vert_attr.Setup(4, se::Float());
+		draw_vert_attr.Setup<Vec4f>();
 		draw_vert_attr.Enable();
 
 		phys_vao.Bind();
 		VertexAttribArray phys_vert_attr(phys_prog, "Position");
-		phys_vert_attr.Setup(4, se::Float());
+		phys_vert_attr.Setup<Vec4f>();
 		phys_vert_attr.Enable();
 
 		shadow_vao.Bind();
 		VertexAttribArray shadow_vert_attr(shadow_prog, "Position");
-		shadow_vert_attr.Setup(4, se::Float());
+		shadow_vert_attr.Setup<Vec4f>();
 		shadow_vert_attr.Enable();
 
 		phys_prog.Use();
@@ -945,7 +945,7 @@ private:
 
 		phys_vao.Bind();
 		VertexAttribArray vert_attr(phys_prog, "Velocity");
-		vert_attr.Setup(4, se::Float());
+		vert_attr.Setup<Vec4f>();
 		vert_attr.Enable();
 	}
 

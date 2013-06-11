@@ -141,7 +141,7 @@ public:
 			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(cube_prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -151,7 +151,7 @@ public:
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(cube_prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -161,7 +161,7 @@ public:
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(cube_prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -203,7 +203,7 @@ public:
 			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(torus_prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -213,7 +213,7 @@ public:
 			GLuint n_per_vertex = make_torus.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(torus_prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -223,7 +223,7 @@ public:
 			GLuint n_per_vertex = make_torus.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
 			VertexAttribArray attr(torus_prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 

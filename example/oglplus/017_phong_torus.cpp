@@ -130,7 +130,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -143,7 +143,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 

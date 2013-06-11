@@ -316,12 +316,12 @@ public:
 
 		positions.Bind(Buffer::Target::Array);
 		VertexAttribArray pos_attr(prog, "PosAndOffs");
-		pos_attr.Setup(4, DataType::Float);
+		pos_attr.Setup<Vec4f>();
 		pos_attr.Enable();
 
 		normals.Bind(Buffer::Target::Array);
 		VertexAttribArray nml_attr(prog, "Normal");
-		nml_attr.Setup(3, DataType::Float);
+		nml_attr.Setup<Vec3f>();
 		nml_attr.Enable();
 
 		indices.Bind(Buffer::Target::ElementArray);

@@ -160,7 +160,7 @@ public:
 		positions.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, 16*3, patch_cp_pos);
 		VertexAttribArray position_attr(prog, "Position");
-		position_attr.Setup(3, DataType::Float);
+		position_attr.Setup<Vec3f>();
 		position_attr.Enable();
 
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);

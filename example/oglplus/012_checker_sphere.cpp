@@ -106,7 +106,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			// (prog|0) is equivalent to VertexAttribArray(prog, VertexAtribSlot(0))
-			(prog|0).Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|0).Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
 		// bind the VBO for the sphere UV-coordinates
@@ -118,7 +118,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			// (prog|1) is equivalent to VertexAttribArray(prog, VertexAtribSlot(1))
-			(prog|1).Setup(n_per_vertex, DataType::Float).Enable();
+			(prog|1).Setup<GLfloat>(n_per_vertex).Enable();
 		}
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);

@@ -90,7 +90,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(2, DataType::Float).Enable();
+		vert_attr.Setup<Vec2f>().Enable();
 
 		GLfloat rectangle_colors[12] = {
 			1.0f, 1.0f, 1.0f,
@@ -104,7 +104,7 @@ public:
 		Buffer::Data(Buffer::Target::Array, 12, rectangle_colors);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray color_attr(prog, "Color");
-		color_attr.Setup(3, DataType::Float).Enable();
+		color_attr.Setup<Vec3f>().Enable();
 		//
 
 		gl.ClearDepth(1.0f);

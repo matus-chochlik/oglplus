@@ -144,6 +144,26 @@ public:
 	}
 };
 
+template <typename Iterator, typename Element, typename Converter>
+class ConvIterRange
+ : public IterRange<Iterator>
+{
+private:
+	Converter _conv;
+public:
+	typedef Element ValueType;
+
+	ConvIterRange(Converter conv, Iterator begin, Iterator end)
+	 : IterRange<Iterator>(begin, end)
+	 , _conv(conv)
+	{ }
+
+	Element Front(void) const
+	{
+		return _conv(IterRange<Iterator>::Front());
+	}
+};
+
 template <typename Element>
 class ArrayRange
  : public CastIterRange<

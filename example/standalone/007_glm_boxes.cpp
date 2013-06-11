@@ -121,7 +121,7 @@ public:
 			oglplus::Buffer::Data(oglplus::Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			oglplus::VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, oglplus::DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -134,7 +134,7 @@ public:
 			oglplus::Buffer::Data(oglplus::Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			oglplus::VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, oglplus::DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 

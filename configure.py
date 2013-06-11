@@ -21,6 +21,15 @@ def get_argument_parser():
 			msg = "'%s' is not a valid boolean value" % str(arg)
 			raise argparse.ArgumentTypeError(msg)
 
+	def OpenGLVersionValue(arg):
+		import re
+		match = re.match("^([3-9]).([0-9])$", arg)
+		if match:
+			return match.group(1)+"_"+match.group(2)
+		else:
+			msg = "'%s' is not a supported OpenGL version" % str(arg)
+			raise argparse.ArgumentTypeError(msg)
+
 	version_file = os.path.join(os.path.dirname(sys.argv[0]), "VERSION")
 	try: version = open(version_file, "r").read().strip()
 	except: version = str("<unknown>")
@@ -196,6 +205,19 @@ def get_argument_parser():
 		action="store_true",
 		help="""
 			Equivalent to --make-screenshots=True.
+		"""
+	)
+	argparser.add_argument(
+		"--max-gl-version",
+		dest="max_gl_version",
+		type=OpenGLVersionValue,
+		action="store",
+		default=None,
+		help="""
+			Sets the maximum OpenGL version to be used. The cmake OpenGL
+			version detection is only rudimentary and not 100% reliable
+			and may return a higher OpenGL version than actually available.
+			This option can be used to limit the maximal version number.
 		"""
 	)
 	argparser_gl_header_lib_group = argparser.add_mutually_exclusive_group()
@@ -688,6 +710,10 @@ def main(argv):
 	if(not options.build_docs):
 		cmake_options.append("-DOGLPLUS_NO_DOCS=On")
 
+	# limit the GL version
+	if(options.max_gl_version):
+		cmake_options.append("-DOGLPLUS_MAX_GL_VERSION="+options.max_gl_version)
+
 	# force the GL header to be used
 	if(options.gl_header_lib):
 		cmake_options.append("-DOGLPLUS_FORCE_"+options.gl_header_lib+"=On")
@@ -723,7 +749,7 @@ def main(argv):
 	cmake_cmd_line = ["cmake"] + cmake_options + options.cmake_options + [workdir]
 
 	# call cmake
-	try: 
+	try:
 		ret = subprocess.call(cmake_cmd_line,cwd=options.build_dir)
 		if ret < 0:
 			print("# Configuration killed by signal %d" % -ret)

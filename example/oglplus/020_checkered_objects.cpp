@@ -120,7 +120,7 @@ public:
 
 	CheckerProgram(void)
 	 : CheckerShaders()
-	 , QuickProgram(false, vertex_shader, fragment_shader)
+	 , QuickProgram(std::false_type(), vertex_shader, fragment_shader)
 	 , light_position(prog(), "LightPosition")
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
@@ -170,7 +170,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -183,7 +183,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -196,7 +196,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, DataType::Float);
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 	}

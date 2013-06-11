@@ -229,7 +229,7 @@ public:
 			// setup the vertex attribs array for the vertices
 			vert_prog.Use();
 			VertexAttribArray attr(vert_prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 
@@ -247,7 +247,7 @@ public:
 			// setup the vertex attribs array for the normals
 			vert_prog.Use();
 			VertexAttribArray attr(vert_prog, "Normal");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 
@@ -264,7 +264,7 @@ public:
 			// setup the vertex attribs array for the vertices
 			vert_prog.Use();
 			VertexAttribArray cube_attr(vert_prog, "Position");
-			cube_attr.Setup(n_per_vertex, DataType::Float);
+			cube_attr.Setup<GLfloat>(n_per_vertex);
 			cube_attr.Enable();
 		}
 
@@ -278,7 +278,7 @@ public:
 			// setup the vertex attribs array for the vertices
 			vert_prog.Use();
 			VertexAttribArray cube_attr(vert_prog, "Normal");
-			cube_attr.Setup(n_per_vertex, DataType::Float);
+			cube_attr.Setup<GLfloat>(n_per_vertex);
 			cube_attr.Enable();
 		}
 

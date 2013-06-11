@@ -141,7 +141,7 @@ public:
 			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(n_per_vertex, se::Float());
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -151,7 +151,7 @@ public:
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "Normal");
-			attr.Setup(n_per_vertex, se::Float());
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -161,7 +161,7 @@ public:
 			GLuint n_per_vertex = make_cube.Tangents(data);
 			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "Tangent");
-			attr.Setup(n_per_vertex, se::Float());
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
@@ -171,7 +171,7 @@ public:
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			Buffer::Data(se::Array(), data);
 			VertexAttribArray attr(prog, "TexCoord");
-			attr.Setup(n_per_vertex, se::Float());
+			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 

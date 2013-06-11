@@ -373,25 +373,25 @@ public:
 		positions.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, pos_data);
 		VertexAttribArray position_attr(prog, "Position");
-		position_attr.Setup(3, DataType::Float);
+		position_attr.Setup<Vec3f>();
 		position_attr.Enable();
 
 		prev_cps.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, pcp_data);
 		VertexAttribArray prev_cp_attr(prog, "PrevCP");
-		prev_cp_attr.Setup(3, DataType::Float);
+		prev_cp_attr.Setup<Vec3f>();
 		prev_cp_attr.Enable();
 
 		next_cps.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, ncp_data);
 		VertexAttribArray next_cp_attr(prog, "NextCP");
-		next_cp_attr.Setup(3, DataType::Float);
+		next_cp_attr.Setup<Vec3f>();
 		next_cp_attr.Enable();
 
 		tess_levels.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, ptl_data);
 		VertexAttribArray tess_lvl_attr(prog, "TessLevel");
-		tess_lvl_attr.Setup(2, DataType::Float);
+		tess_lvl_attr.Setup<Vec2f>();
 		tess_lvl_attr.Enable();
 
 		Uniform<GLfloat>(prog, "Step").Set(step);

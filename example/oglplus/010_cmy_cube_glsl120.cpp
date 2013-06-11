@@ -140,7 +140,7 @@ public:
 		);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray vert_attr(prog, "Position");
-		vert_attr.Setup(3, DataType::Float);
+		vert_attr.Setup<Vec3f>();
 		vert_attr.Enable();
 
 		const GLfloat n[6][3] = {
@@ -166,7 +166,7 @@ public:
 		);
 		// setup the vertex attribs array for the vertices
 		VertexAttribArray normal_attr(prog, "Normal");
-		normal_attr.Setup(3, DataType::Float);
+		normal_attr.Setup<Vec3f>();
 		normal_attr.Enable();
 		//
 		// set the matrix for camera at (1,1,1) looking at origin

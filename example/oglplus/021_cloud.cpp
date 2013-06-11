@@ -179,7 +179,7 @@ public:
 			GLfloat positions[3] = {0.5f, 0.1f, 0.2f};
 			Buffer::Data(Buffer::Target::Array, 3, positions);
 			VertexAttribArray attr(prog, "Position");
-			attr.Setup(3, DataType::Float);
+			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
 
