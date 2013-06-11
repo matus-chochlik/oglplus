@@ -91,7 +91,7 @@ public:
 	ProgramUniform<GLfloat> status;
 
 	PointProgram(void)
-	 : _base_program("Point program")
+	 : _base_program(ObjectDesc("Point program"))
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")

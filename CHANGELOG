@@ -1,7 +1,40 @@
+Version 0.32.0
+
+- Merged the EGLplus library into the main development branch
+  - EGLplus is a wrapper around EGL similar to what OGLplus
+    is to OpenGL.
+  - Four new examples showing the usage of EGL were added.
+- Updates to the build system
+  - The X11/GLX detection was refactored.
+  - Options for forcing GL header and context initialization library
+    were added to the configure.sh bash script.
+  - Support for building some parts of OALplus and EGLplus into
+    a library was added.
+  - The `--max-gl-version' option that allows to limit the maximum GL version
+    to be used was added to the configure.py script.
+- The friend functions of Angle<T> were re-implemented.
+- The Pointer* and Setup* functions of VertexAttrib were reimplemented
+  - NOTE: this is an interface breaking change.
+  - The former Pointer function was split into Pointer/IPointer/LPointer.
+  - The former Format function was split into Format/IFormat/LFormat.
+  - The Setup functions were reimplemented.
+    - The examples were updated to use the templated VertexAttrib::Setup.
+    - This changes should minimize the link failures due to unresolved
+      references to glVertexAttribLPointer.
+- Reimplemented Quick/HardwiredProgram.
+  - NOTE: this is an interface breaking change.
+  - The separable attribute is now true_type or false_type instead of bool.
+  - This change allows to use non-separable Quick/Hardwired programs
+     with lower versions of GL than 4.1.
+- Update of Bitfield
+  - Updated OGLplus Bitfield so that it can be used with enumerations
+    from EGLplus and OALplus.
+- Other minor changes and updates.
+
 Version 0.31.0
 
 - Merged the OALplus library into the main development branch
-  - OALplus is a wrapper aroung OpenAL similar to what OGLplus
+  - OALplus is a wrapper around OpenAL similar to what OGLplus
     is to OpenGL.
 - Documentation updates and fixups.
   - A new tutorial for OALplus was added.

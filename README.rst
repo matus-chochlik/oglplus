@@ -7,6 +7,8 @@ OGLplus README
 .. contents::
 
 .. _OpenGL: http://opengl.org/
+.. _OpenAL: http://openal.org/
+.. _EGL: http://www.khronos.org/egl
 .. _OGLplus: http://oglplus.org/
 .. _CMake: http://www.cmake.org/
 .. _Doxygen: http://www.doxygen.org/
@@ -22,10 +24,11 @@ OGLplus README
 Introduction to OGLplus
 =======================
 
-`OGLplus`_ is a portable open-source header-only library which implements a thin
-object-oriented facade over the `OpenGL`_  (version 3 and higher) C-language API.
+`OGLplus`_ is collection of portable open-source libraries which implement thin
+object-oriented facades over the `OpenGL`_  (version 3 and higher),
+`OpenAL`_ (version 1.1) and `EGL`_ (version 1.4) C-language APIs.
 It provides wrappers which automate resource and object management and make
-the use of OpenGL in C++ safer and easier.
+the use of OpenGL, OpenAL and EGL in C++ safer and easier.
 
 
 
