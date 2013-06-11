@@ -1,5 +1,5 @@
 /**
- *  @file eglplus/renderable_type.hpp
+ *  @file eglplus/renderable_type_bit.hpp
  *  @brief EGL renderable type enumeration
  *
  *  @author Matus Chochlik

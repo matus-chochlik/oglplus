@@ -27,7 +27,7 @@ if(EGL_FOUND AND OPENGL_FOUND)
 
 	standalone_example_common(
 		001_triangle_screenshot
-		${EGL_LIBRARIES} ${OPENGL_LIBRARIES}
+		${EGL_LIBRARIES} ${OGLPLUS_GL_LIBS}
 	)
 endif()
 
