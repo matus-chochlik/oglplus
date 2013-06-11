@@ -71,6 +71,18 @@ public:
 		return GetAttrib(ConfigAttrib::ConfigId);
 	}
 
+	/// Get the unique configuration identifier
+	/** Synonym for ConfigId()
+	 *
+	 *  @eglsymbols
+	 *  @eglfunref{GetConfigAttrib}
+	 *  @egldefref{CONFIG_ID}
+	 */
+	EGLint Id(void) const
+	{
+		return ConfigId();
+	}
+
 	/// Return the total component bits of the color buffer
 	/**
 	 *  @eglsymbols
@@ -192,6 +204,18 @@ public:
 		return eglplus::ConfigCaveat(
 			EGLenum(GetAttrib(ConfigAttrib::ConfigCaveat))
 		);
+	}
+
+	/// Returns the caveat for this config
+	/** Synonym for ConfigCaveat()
+	 *
+	 *  @eglsymbols
+	 *  @eglfunref{GetConfigAttrib}
+	 *  @egldefref{CONFIG_CAVEAT}
+	 */
+	eglplus::ConfigCaveat Caveat(void) const
+	{
+		return this->ConfigCaveat();
 	}
 
 	/// Returns the color buffer type
