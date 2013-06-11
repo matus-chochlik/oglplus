@@ -48,6 +48,8 @@ int main(void)
 		std::cout << "\tAlpha size:        " << std::setw(w) <<
 			cfg.AlphaSize() << std::endl;
 		std::cout << "\tDepth size:        " << std::setw(w) <<
+			cfg.StencilSize() << std::endl;
+		std::cout << "\tStencil size:      " << std::setw(w) <<
 			cfg.DepthSize() << std::endl;
 		std::cout << "\tMax Pbuffer width: " << std::setw(w) <<
 			cfg.MaxPbufferWidth() << std::endl;
