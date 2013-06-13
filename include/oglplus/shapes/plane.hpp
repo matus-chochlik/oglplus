@@ -324,10 +324,10 @@ public:
 		return instructions;
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Returns element indices that are used with the drawing instructions
 	/**
-	 *  glverreq{4,2}
+	 *  glverreq{4,0}
 	 */
 	IndexArray PatchIndices(void) const
 	{
@@ -356,7 +356,7 @@ public:
 
 	/// Returns the instructions for rendering
 	/**
-	 *  glverreq{4,2}
+	 *  glverreq{4,0}
 	 */
 	DrawingInstructions PatchInstructions(void) const
 	{

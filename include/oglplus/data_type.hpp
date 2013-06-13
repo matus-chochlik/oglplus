@@ -49,61 +49,85 @@ struct DataTypeCT;
 
 template <>
 struct DataTypeCT<GLbyte>
- : public std::integral_constant<DataType, DataType::Byte>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Byte)
+>
 { };
 
 template <>
 struct DataTypeCT<GLshort>
- : public std::integral_constant<DataType, DataType::Short>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Short)
+>
 { };
 
 template <>
 struct DataTypeCT<GLint>
- : public std::integral_constant<DataType, DataType::Int>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Int)
+>
 { };
 
 template <>
 struct DataTypeCT<GLubyte>
- : public std::integral_constant<DataType, DataType::UnsignedByte>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedByte)
+>
 { };
 
 template <>
 struct DataTypeCT<GLushort>
- : public std::integral_constant<DataType, DataType::UnsignedShort>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedShort)
+>
 { };
 
 template <>
 struct DataTypeCT<GLuint>
- : public std::integral_constant<DataType, DataType::UnsignedInt>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::UnsignedInt)
+>
 { };
 
 template <>
 struct DataTypeCT<GLfloat>
- : public std::integral_constant<DataType, DataType::Float>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Float)
+>
 { };
 
 template <>
 struct DataTypeCT<GLdouble>
- : public std::integral_constant<DataType, DataType::Double>
+ : public std::integral_constant<
+	typename enums::EnumValueType<DataType>::Type,
+	OGLPLUS_CONST_ENUM_VALUE(DataType::Double)
+>
 { };
 
 /// Returns the DataType for the specified type @p T
 template <typename T>
-inline DataType GetDataType(T* = nullptr)
+inline DataType GetDataType(void)
 {
-	return DataTypeCT<T>::value;
+	return DataType(DataTypeCT<T>::value);
 }
 
 namespace aux {
 
 template <typename T>
-std::true_type _get_is_gl_data_type(T, typename DataTypeCT<T>::type* = nullptr);
+std::true_type _get_is_gl_data_type(T*, typename DataTypeCT<T>::type* = nullptr);
 std::false_type _get_is_gl_data_type(...);
 
 template <typename T>
 struct _is_gl_data_type
 {
-	typedef decltype(_get_is_gl_data_type(T())) type;
+	typedef decltype(_get_is_gl_data_type((T*)0)) type;
 };
 
 } // namespace aux
