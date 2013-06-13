@@ -60,6 +60,7 @@ IF(Boost_FOUND)
 	include_directories(${PYTHON_INCLUDE_DIRS})
 
 	add_python_module(oglplus OPENGL)
+	add_python_module(oalplus OPENAL)
 	add_python_module(eglplus EGL)
 
 else()

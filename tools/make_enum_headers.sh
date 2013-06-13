@@ -713,6 +713,7 @@ then
 	MakeEnumHeaders AL oalplus
 	MakeEnumValueName AL oalplus
 	MakeEnumValueRange AL oalplus
+	MakeEnumPythonExport AL oalplus
 fi
 
 if [ $# -eq 0 ] || [ "${1}" == "eglplus" ]
