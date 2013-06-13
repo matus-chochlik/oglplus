@@ -180,7 +180,7 @@ public:
 		return result == AL_TRUE;
 	}
 
-	/// Assings an audio buffer to the source
+	/// Assigns an audio buffer to the source
 	void Buffer(const BufferOps& buffer)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -349,7 +349,7 @@ public:
 	}
 
 	/// Sets the value of max distance used with some distance models
-	void MaxDistance(ALfloat value) const
+	void MaxDistance(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
 			_name,
