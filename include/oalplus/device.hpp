@@ -35,6 +35,8 @@ private:
 	 : _ptr(ptr)
 	{ }
 public:
+	typedef const ALchar* ValueType;
+
 	/// Returns true when the range is empty (at the end of traversal)
 	bool Empty(void) const
 	{
