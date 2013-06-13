@@ -18,6 +18,9 @@
 #include <oalplus/error.hpp>
 #include <oalplus/alfunc.hpp>
 #include <oalplus/distance_model.hpp>
+#include <oalplus/string_query.hpp>
+
+#include <oalplus/auxiliary/sep_str_range.hpp>
 
 namespace oalplus {
 
@@ -62,6 +65,45 @@ public:
 		);
 		return ContextOps(device, context);
 	}
+
+	/// Queries a string from the current OpenAL context
+	static const ALchar* GetString(StringQuery query)
+	{
+		const ALchar* str = OALPLUS_ALFUNC(al,GetString)(ALenum(query));
+		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetString));
+		return str;
+	}
+
+	/// Returns the vendor name
+	static const char* Vendor(void)
+	{
+		return (const char*)GetString(StringQuery::Vendor);
+	}
+
+	/// Returns the version string
+	static const char* Version(void)
+	{
+		return (const char*)GetString(StringQuery::Version);
+	}
+
+	/// Returns the renderer name
+	static const char* Renderer(void)
+	{
+		return (const char*)GetString(StringQuery::Renderer);
+	}
+
+#if EGLPLUS_DOCUMENTATION_ONLY
+	/// Returns a range of extension strings
+	Range<String> Extensions(void) const;
+#else
+	aux::SepStrRange Extensions(void) const
+	{
+		return aux::SepStrRange(
+			(const char*)GetString(StringQuery::Extensions)
+		);
+	}
+#endif
+
 
 	/// Returns the device of this context
 	DeviceOps ContextsDevice(void) const
