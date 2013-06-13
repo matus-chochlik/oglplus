@@ -94,9 +94,9 @@ public:
 
 #if EGLPLUS_DOCUMENTATION_ONLY
 	/// Returns a range of extension strings
-	Range<String> Extensions(void) const;
+	static Range<String> Extensions(void);
 #else
-	aux::SepStrRange Extensions(void) const
+	static aux::SepStrRange Extensions(void)
 	{
 		return aux::SepStrRange(
 			(const char*)GetString(StringQuery::Extensions)
