@@ -229,7 +229,7 @@ public:
 	}
 
 	/// Sets the value of gain
-	void Gain(ALfloat value) const
+	void Gain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
 			_name,
