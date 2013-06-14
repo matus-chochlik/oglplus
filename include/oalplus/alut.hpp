@@ -52,11 +52,21 @@ private:
 	}
 public:
 	/// Initializes the alut library, optionally with a context
+	/**
+	 *  @alsymbols
+	 *  @alutfunref{Init}
+	 *  @alutfunref{InitWithoutContext}
+	 */
 	ALUtilityToolkit(bool with_context, int argc, char** argv)
 	 : _initialized(_initialize(with_context, argc, argv))
 	{ }
 
 	/// Initializes the alut library, optionally with a context
+	/**
+	 *  @alsymbols
+	 *  @alutfunref{Init}
+	 *  @alutfunref{InitWithoutContext}
+	 */
 	ALUtilityToolkit(bool with_context)
 	 : _initialized(_initialize(with_context))
 	{ }
@@ -69,6 +79,10 @@ public:
 	}
 
 	/// Cleans up the ALUT library
+	/**
+	 *  @alsymbols
+	 *  @alutfunref{Exit}
+	 */
 	~ALUtilityToolkit(void)
 	{
 		if(_initialized)
@@ -175,6 +189,9 @@ public:
 	/// Create a buffer containing the samples of a 'Hello World' sound
 	/**
 	 *  @see CreateBufferFromFile
+	 *
+	 *  @alsymbols
+	 *  @alutfunref{CreateBufferHelloWorld}
 	 */
 	Buffer CreateBufferHelloWorld(void) const
 	{
@@ -187,6 +204,9 @@ public:
 	/// Create a buffer containing the samples from a specified sound file
 	/**
 	 *  @see CreateBufferHelloWorld
+	 *
+	 *  @alsymbols
+	 *  @alutfunref{CreateBufferFromFile}
 	 */
 	Buffer CreateBufferFromFile(const ALchar* file_path) const
 	{
@@ -200,6 +220,9 @@ public:
 	/** This version normalizes the sound samples.
 	 *
 	 *  @see LoadMemoryFromFileNormalized
+	 *
+	 *  @alsymbols
+	 *  @alutfunref{LoadMemoryHelloWorld}
 	 */
 	std::vector<ALfloat> LoadMemoryHelloWorldNormalized(
 		DataFormat* data_format,
@@ -228,6 +251,9 @@ public:
 	 *
 	 *  @see LoadMemoryHelloWorldNormalized
 	 *  @see LoadMemoryFromFile
+	 *
+	 *  @alsymbols
+	 *  @alutfunref{LoadMemoryFromFile}
 	 */
 	std::vector<ALfloat> LoadMemoryFromFileNormalized(
 		const ALchar* file_path,
@@ -254,9 +280,12 @@ public:
 	}
 
 	/// Loads samples from a sound file into a buffer
-	/** 
+	/**
 	 *  @see LoadMemoryFromFileNormalized
 	 *  @see LoadMemoryHelloWorldNormalized
+	 *
+	 *  @alsymbols
+	 *  @alutfunref{LoadMemoryFromFile}
 	 */
 	std::vector<ALubyte> LoadMemoryFromFile(
 		const ALchar* file_path,
@@ -289,6 +318,9 @@ public:
 	 *
 	 *  @see LoadMemoryFromFileNormalized
 	 *  @see LoadMemoryHelloWorldNormalized
+	 *
+	 *  @alsymbols
+	 *  @alutfunref{LoadMemoryFromFile}
 	 */
 	void LoadMemoryFromFile(
 		std::vector<ALubyte>& raw,

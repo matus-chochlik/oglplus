@@ -29,6 +29,11 @@ namespace oalplus {
  *  @note Do not use this class directly, use Buffer instead
  *
  *  @see Buffer
+ *
+ *  @alsymbols
+ *  @alfunref{GenBuffers}
+ *  @alfunref{DeleteBuffers}
+ *  @alfunref{IsBuffer}
  */
 class BufferOps
  : public Named
@@ -59,6 +64,11 @@ protected:
 		return AL_FALSE;
 	}
 public:
+	/// Specifies the buffer data
+	/**
+	 *  @alsymbols
+	 *  @alfunref{BufferData}
+	 */
 	void Data(
 		DataFormat format,
 		const ALvoid* data,
@@ -76,6 +86,12 @@ public:
 		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,BufferData));
 	}
 
+	/// Returns the sampling frequency of the data stored in this buffer
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetBuffer}
+	 *  @aldefref{FREQUENCY}
+	 */
 	ALsizei Frequency(void) const
 	{
 		ALint result = 0;
@@ -88,6 +104,12 @@ public:
 		return ALsizei(result);
 	}
 
+	/// Returns the size of the data stored in this buffer
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetBuffer}
+	 *  @aldefref{SIZE}
+	 */
 	ALsizei Size(void) const
 	{
 		ALint result = 0;
@@ -100,6 +122,12 @@ public:
 		return ALsizei(result);
 	}
 
+	/// Returns the number of bits of the data stored in this buffer
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetBuffer}
+	 *  @aldefref{BITS}
+	 */
 	ALsizei Bits(void) const
 	{
 		ALint result = 0;
@@ -112,6 +140,12 @@ public:
 		return ALsizei(result);
 	}
 
+	/// Returns the number of channels of the data stored in this buffer
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetBuffer}
+	 *  @aldefref{CHANNELS}
+	 */
 	ALsizei Channels(void) const
 	{
 		ALint result = 0;
@@ -124,6 +158,15 @@ public:
 		return ALsizei(result);
 	}
 
+	/// Returns the duration of the sound stored in this buffer
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetBuffer}
+	 *  @aldefref{SIZE}
+	 *  @aldefref{FREQUENCY}
+	 *  @aldefref{BITS}
+	 *  @aldefref{CHANNELS}
+	 */
 	ALfloat Duration(void) const
 	{
 		ALfloat s = Size();
