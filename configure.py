@@ -56,6 +56,14 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--generate-manual",
+		action="store_true",
+		help="""
+			Generates a man-compatible manual.
+			For internal use only.
+		"""
+	)
+	argparser.add_argument(
 		"--prefix",
 		dest="install_prefix",
 		type=os.path.abspath,
@@ -215,7 +223,7 @@ def get_argument_parser():
 		default=None,
 		help="""
 			Sets the maximum OpenGL version to be used. The cmake OpenGL
-			version detection is only rudimentary and not 100% reliable
+			version detection is only rudimentary and not 100%% reliable
 			and may return a higher OpenGL version than actually available.
 			This option can be used to limit the maximal version number.
 		"""
@@ -534,7 +542,6 @@ def cmake_system_info(cmake_args):
 
 	return result
 
-#TODO
 def print_bash_complete_script(argparser):
 
 	import argparse
@@ -653,6 +660,59 @@ def print_bash_complete_script(argparser):
 	print('}')
 	print('complete -F _configure_oglplus ./configure-oglplus')
 
+def print_manual(argparser):
+	import argparse
+	import datetime
+
+	now = datetime.datetime.now()
+	print(
+		'.TH CONFIGURE-OGLPLUS 1 "%s" "Configuration script for OGLplus."' %
+		str(now.date())
+	)
+	print('.SH "NAME"')
+	print('configure-oglplus \\- configuration script for the OGLplus library.')
+	print('.SH "SYNOPSIS"')
+	print('.B configure-oglplus')
+	print('[')
+	print('OPTIONS')
+	print(']')
+
+	print('.SH "DESCRIPTION"')
+	print('This script is a more user-friendly way to invoke the cmake-based')
+	print('build system of \\fBOGLplus\\fR.')
+
+
+	print('.SH "OPTIONS"')
+
+	for action in argparser._actions:
+		print(".TP")
+		opt_info = str()
+		for opt_str in action.option_strings:
+			if opt_info:
+				opt_info += ", "
+			opt_info += '\\fB'+opt_str+'\\fR'
+			if action.type == os.path.abspath:
+				opt_info += ' <\\fI'+str(action.dest).upper()+'\\fR>';
+		print(opt_info)
+		print(
+			str(' ').join(action.help.split()) % {
+				"prog": "\\fBconfigure-oglplus\\fR",
+				"default": "\\fB"+str(action.default)+"\\fR"
+			}
+		)
+
+
+	print('.SH "AUTHOR"')
+	print('Matus Chochlik, chochlik@gmail.com')
+
+	print('.SH "COPYRIGHT"')
+	print('Copyright (c) 2008-%(year)s Matus Chochlik' % {"year": now.year})
+
+	print(".PP")
+	print("Permission is granted to copy, distribute and/or modify this document")
+	print("under the terms of the Boost Software License, Version 1.0.")
+	print("(See a copy at http://www.boost.org/LICENSE_1_0.txt)")
+
 # the main function
 def main(argv):
 
@@ -663,6 +723,11 @@ def main(argv):
 	# if we just wanted to generate the bash completion script
 	if options.generate_bash_complete:
 		print_bash_complete_script(argparser)
+		return 0
+
+	# if we just wanted to generate the bash completion script
+	if options.generate_manual:
+		print_manual(argparser)
 		return 0
 
 	# if we are in quiet mode we may also go to quick mode
