@@ -660,6 +660,15 @@ def print_bash_complete_script(argparser):
 	print('}')
 	print('complete -F _configure_oglplus ./configure-oglplus')
 
+def man_highlight(info_text):
+	import re
+
+	return re.sub(
+		r'(OGLPLUS_[A-Z0-9_]+|CXXFLAGS|LDFLAGS|GL.*/[A-Za-z0-9_]+.h)',
+		r'\\fI\1\\fR',
+		info_text
+	)
+
 def print_manual(argparser):
 	import argparse
 	import datetime
@@ -693,9 +702,13 @@ def print_manual(argparser):
 			opt_info += '\\fB'+opt_str+'\\fR'
 			if action.type == os.path.abspath:
 				opt_info += ' <\\fI'+str(action.dest).upper()+'\\fR>';
+			if action.choices is not None:
+				opt_info += ' {\\fB'
+				opt_info += '\\fR,\\fB'.join(map(str, action.choices))
+				opt_info += '\\fR}'
 		print(opt_info)
 		print(
-			str(' ').join(action.help.split()) % {
+			str(' ').join(man_highlight(action.help).split()) % {
 				"prog": "\\fBconfigure-oglplus\\fR",
 				"default": "\\fB"+str(action.default)+"\\fR"
 			}
