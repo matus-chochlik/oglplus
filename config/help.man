@@ -1,4 +1,4 @@
-.TH CONFIGURE-OGLPLUS 1 "2013-06-17" "Configuration script for OGLplus."
+.TH CONFIGURE-OGLPLUS 1 "2013-06-18" "Configuration script for OGLplus."
 .SH "NAME"
 configure-oglplus \- configuration script for the OGLplus library.
 .SH "SYNOPSIS"
@@ -77,26 +77,26 @@ Force use of the GLEW library. If this option is used, then GLEW and the \fIGL/g
 \fB--use-gl3w\fR
 Force use of the GL3W library. If this option is used, then GL3W and the \fIGL/gl3w.h\fR header must be installed somewhere in the system include directories or in directories specified with --include-dir. Equivalent to --use-gl-header-lib=GL3W.
 .TP
-\fB--use-gl-window-lib\fR {\fBGLUT\fR,\fBGLFW\fR,\fBWXGL\fR,\fBSDL\fR,\fBGLX\fR,\fBQTGL\fR}
+\fB--use-gl-init-lib\fR {\fBGLUT\fR,\fBGLFW\fR,\fBWXGL\fR,\fBSDL\fR,\fBGLX\fR,\fBQTGL\fR}
 Forces the use of a specific window library which initializes the default GL context. This option allows to force a specific example 'harness'.
 .TP
 \fB--use-glut\fR
-Equivalent to --use-gl-window-lib=GLUT.
+Forces the use of the GLUT library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=GLUT.
 .TP
 \fB--use-glfw\fR
-Equivalent to --use-gl-window-lib=GLFW.
+Forces the use of the GLFW library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=GLFW.
 .TP
 \fB--use-wxgl\fR
-Equivalent to --use-gl-window-lib=WXGL.
-.TP
-\fB--use-qtgl\fR
-Equivalent to --use-gl-window-lib=QTGL.
+Forces the use of the wxGL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=WXGL.
 .TP
 \fB--use-sdl\fR
-Equivalent to --use-gl-window-lib=SDL.
+Forces the use of the SDL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=SDL.
 .TP
 \fB--use-glx\fR
-Equivalent to --use-gl-window-lib=GLX.
+Forces the use of the glX library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=GLX.
+.TP
+\fB--use-qtgl\fR
+Forces the use of the QtGL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=QTGL.
 .TP
 \fB--from-scratch\fR
 Remove any previous cached and intermediate files and run the configuration process from scratch. Specifying this option causes the build directory to be deleted and recreated.

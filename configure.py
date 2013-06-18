@@ -228,12 +228,14 @@ def get_argument_parser():
 			This option can be used to limit the maximal version number.
 		"""
 	)
+
+	gl_header_libs = ["GLCOREARB_H", "GL3_H", "GLEW", "GL3W"]
 	argparser_gl_header_lib_group = argparser.add_mutually_exclusive_group()
 	argparser_gl_header_lib_group.add_argument(
 		"--use-gl-header-lib",
 		dest="gl_header_lib",
 		type=str,
-		choices=["GLCOREARB_H", "GL3_H", "GLEW", "GL3W"],
+		choices=gl_header_libs,
 		action="store",
 		default=None,
 		help="""
@@ -291,12 +293,14 @@ def get_argument_parser():
 			Equivalent to --use-gl-header-lib=GL3W.
 		"""
 	)
-	argparser_gl_window_lib_group = argparser.add_mutually_exclusive_group()
-	argparser_gl_window_lib_group.add_argument(
-		"--use-gl-window-lib",
-		dest="gl_window_lib",
+
+	gl_init_libs = ["GLUT", "GLFW", "wxGL", "SDL", "glX", "QtGL"]
+	argparser_gl_init_lib_group = argparser.add_mutually_exclusive_group()
+	argparser_gl_init_lib_group.add_argument(
+		"--use-gl-init-lib",
+		dest="gl_init_lib",
 		type=str,
-		choices=["GLUT", "GLFW", "WXGL", "SDL", "GLX", "QTGL"],
+		choices=[lib.upper() for lib in gl_init_libs],
 		action="store",
 		default=None,
 		help="""
@@ -305,60 +309,23 @@ def get_argument_parser():
 			to force a specific example 'harness'.
 		"""
 	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-glut",
-		dest="gl_window_lib",
-		action="store_const",
-		const="GLUT",
-		help="""
-			Equivalent to --use-gl-window-lib=GLUT.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-glfw",
-		dest="gl_window_lib",
-		action="store_const",
-		const="GLFW",
-		help="""
-			Equivalent to --use-gl-window-lib=GLFW.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-wxgl",
-		dest="gl_window_lib",
-		action="store_const",
-		const="WXGL",
-		help="""
-			Equivalent to --use-gl-window-lib=WXGL.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-qtgl",
-		dest="gl_window_lib",
-		action="store_const",
-		const="QTGL",
-		help="""
-			Equivalent to --use-gl-window-lib=QTGL.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-sdl",
-		dest="gl_window_lib",
-		action="store_const",
-		const="SDL",
-		help="""
-			Equivalent to --use-gl-window-lib=SDL.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-glx",
-		dest="gl_window_lib",
-		action="store_const",
-		const="GLX",
-		help="""
-			Equivalent to --use-gl-window-lib=GLX.
-		"""
-	)
+
+	for gl_init_lib in gl_init_libs:
+		argparser_gl_init_lib_group.add_argument(
+			"--use-%(lib_lc)s" % { "lib_lc" : gl_init_lib.lower() },
+			dest="gl_init_lib",
+			action="store_const",
+			const=gl_init_lib.upper(),
+			help="""
+				Forces the use of the %(lib)s library to create
+				the window and initialize the GL context in
+				OGLplus examples.
+				Equivalent to --use-gl-init-lib=%(lib_uc)s.
+			""" % {
+				"lib" : gl_init_lib,
+				"lib_uc" : gl_init_lib.upper()
+			}
+		)
 
 	argparser.add_argument(
 		"--from-scratch",
@@ -797,8 +764,8 @@ def main(argv):
 		cmake_options.append("-DOGLPLUS_FORCE_"+options.gl_header_lib+"=On")
 
 	# force the GL initialization library to be used
-	if(options.gl_window_lib):
-		cmake_options.append("-DOGLPLUS_FORCE_"+options.gl_window_lib+"=On")
+	if(options.gl_init_lib):
+		cmake_options.append("-DOGLPLUS_FORCE_GL_INIT_LIB="+options.gl_init_lib)
 
 	# add paths for header lookop
 	if(options.include_dirs):
