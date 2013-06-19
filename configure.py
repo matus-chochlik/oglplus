@@ -294,7 +294,7 @@ def get_argument_parser():
 		"""
 	)
 
-	gl_init_libs = ["GLUT", "GLFW", "wxGL", "SDL", "glX", "QtGL"]
+	gl_init_libs = ["GLUT", "GLFW", "wxGL", "SDL", "glX", "QtGL", "EGL"]
 	argparser_gl_init_lib_group = argparser.add_mutually_exclusive_group()
 	argparser_gl_init_lib_group.add_argument(
 		"--use-gl-init-lib",

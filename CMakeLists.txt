@@ -12,7 +12,7 @@ option(OGLPLUS_FORCE_GLEW "Force use of the GL/glew.h header" Off)
 option(OGLPLUS_FORCE_GL3W "Force use of the GL/gl3w.h header" Off)
 
 # The GL context initialization library
-set(OGLPLUS_GL_INIT_LIBS GLX GLUT GLFW SDL WXGL QTGL)
+set(OGLPLUS_GL_INIT_LIBS GLX GLUT GLFW SDL WXGL QTGL EGL)
 set(OGLPLUS_FORCE_GL_INIT_LIB "NONE" CACHE STRING "The GL context initialization library to be used.")
 set_property(CACHE OGLPLUS_FORCE_GL_INIT_LIB PROPERTY STRINGS ${OGLPLUS_GL_INIT_LIBS})
 
