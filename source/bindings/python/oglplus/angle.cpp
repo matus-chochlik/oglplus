@@ -11,16 +11,19 @@
 
 #include <boost/python.hpp>
 
-void oglplus_py_Angle(void)
+template <typename T>
+void oglplus_py_export_Angle(oglplus::Angle<T>*, const char* name)
 {
 	namespace bpy = ::boost::python;
 	using namespace oglplus;
 
-	bpy::class_<Anglef>("Anglef")
-		.def("Radians", &Anglef::Radians).staticmethod("Radians")
-		.def("Degrees", &Anglef::Degrees).staticmethod("Degrees")
-		.def("Value", &Anglef::Value)
-		.def("ValueInDegrees", &Anglef::ValueInDegrees)
+	typedef oglplus::Angle<T> Angle;
+
+	bpy::class_<Angle>(name)
+		.def("Radians", &Angle::Radians).staticmethod("Radians")
+		.def("Degrees", &Angle::Degrees).staticmethod("Degrees")
+		.def("Value", &Angle::Value)
+		.def("ValueInDegrees", &Angle::ValueInDegrees)
 		.def(bpy::self == bpy::self)
 		.def(bpy::self != bpy::self)
 		.def(bpy::self <  bpy::self)
@@ -30,28 +33,36 @@ void oglplus_py_Angle(void)
 		.def(-bpy::self)
 		.def(bpy::self + bpy::self)
 		.def(bpy::self - bpy::self)
-		.def(float() * bpy::self)
-		.def(bpy::self * float())
-		.def(bpy::self / float())
+		.def(T() * bpy::self)
+		.def(bpy::self * T())
+		.def(bpy::self / T())
 	;
 
-	Anglef (*_ptr_oglplus_Negate_Anglef)(const Anglef&) = &Negate;
-	bpy::def("Negate", _ptr_oglplus_Negate_Anglef);
-	Anglef (*_ptr_oglplus_Add_Anglef)(const Anglef&, const Anglef&) = &Add;
-	bpy::def("Add", _ptr_oglplus_Add_Anglef);
-	Anglef (*_ptr_oglplus_Subtract_Anglef)(const Anglef&, const Anglef&) = &Subtract;
-	bpy::def("Subtract", _ptr_oglplus_Subtract_Anglef);
-	Anglef (*_ptr_oglplus_Multiply_Anglef)(const Anglef&, float) = &Multiply;
-	bpy::def("Multiply", _ptr_oglplus_Multiply_Anglef);
-	Anglef (*_ptr_oglplus_Divide_Anglef)(const Anglef&, float) = &Divide;
-	bpy::def("Divide", _ptr_oglplus_Divide_Anglef);
+	Angle (*_ptr_oglplus_Negate_Angle)(const Angle&) = &Negate;
+	bpy::def("Negate", _ptr_oglplus_Negate_Angle);
+	Angle (*_ptr_oglplus_Add_Angle)(const Angle&, const Angle&) = &Add;
+	bpy::def("Add", _ptr_oglplus_Add_Angle);
+	Angle (*_ptr_oglplus_Subtract_Angle)(const Angle&, const Angle&) = &Subtract;
+	bpy::def("Subtract", _ptr_oglplus_Subtract_Angle);
+	Angle (*_ptr_oglplus_Multiply_Angle)(const Angle&, T) = &Multiply;
+	bpy::def("Multiply", _ptr_oglplus_Multiply_Angle);
+	Angle (*_ptr_oglplus_Divide_Angle)(const Angle&, T) = &Divide;
+	bpy::def("Divide", _ptr_oglplus_Divide_Angle);
 
-	float (*_ptr_oglplus_Sin_Anglef)(const Anglef&) = &Sin;
-	bpy::def("Sin", _ptr_oglplus_Sin_Anglef);
-	float (*_ptr_oglplus_Cos_Anglef)(const Anglef&) = &Cos;
-	bpy::def("Cos", _ptr_oglplus_Cos_Anglef);
-	float (*_ptr_oglplus_Tan_Anglef)(const Anglef&) = &Tan;
-	bpy::def("Tan", _ptr_oglplus_Tan_Anglef);
+	T (*_ptr_oglplus_Sin_Angle)(const Angle&) = &Sin;
+	bpy::def("Sin", _ptr_oglplus_Sin_Angle);
+	T (*_ptr_oglplus_Cos_Angle)(const Angle&) = &Cos;
+	bpy::def("Cos", _ptr_oglplus_Cos_Angle);
+	T (*_ptr_oglplus_Tan_Angle)(const Angle&) = &Tan;
+	bpy::def("Tan", _ptr_oglplus_Tan_Angle);
+}
+
+void oglplus_py_Angle(void)
+{
+	namespace bpy = ::boost::python;
+	using namespace oglplus;
+
+	oglplus_py_export_Angle((Anglef*)0, "Anglef");
 
 	bpy::def("Degrees", Degrees);
 	bpy::def("Radians", Radians);

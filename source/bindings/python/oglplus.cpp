@@ -15,6 +15,8 @@
 void oglplus_py_Auxiliary(void);
 void oglplus_py_String(void);
 void oglplus_py_Angle(void);
+void oglplus_py_Vector(void);
+void oglplus_py_Plane(void);
 
 BOOST_PYTHON_MODULE(oglplus)
 {
@@ -23,4 +25,6 @@ BOOST_PYTHON_MODULE(oglplus)
 	oglplus_py_Auxiliary();
 	oglplus_py_String();
 	oglplus_py_Angle();
+	oglplus_py_Vector();
+	oglplus_py_Plane();
 }
