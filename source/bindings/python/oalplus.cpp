@@ -13,6 +13,7 @@
 
 #include "oalplus/_enums_decl.ipp"
 
+void oalplus_py_Auxiliary(void);
 void oalplus_py_Device(void);
 void oalplus_py_Context(void);
 void oalplus_py_Buffer(void);
@@ -21,6 +22,7 @@ BOOST_PYTHON_MODULE(oalplus)
 {
 #include "oalplus/_enums_call.ipp"
 
+	oalplus_py_Auxiliary();
 	oalplus_py_Device();
 	oalplus_py_Context();
 	oalplus_py_Buffer();
