@@ -83,6 +83,11 @@ protected:
 	}
 public:
 	/// Returns a range of specifier strings for available audio devices
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{GetString}
+	 *  @alcdefref{DEVICE_SPECIFIER}
+	 */
 	static DeviceSpecRange Specifiers(void)
 	{
 		const ALchar* ptr = OALPLUS_ALFUNC(alc,GetString)(
@@ -93,6 +98,11 @@ public:
 	}
 
 	/// Returns a range of specifier strings for available capture devices
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{GetString}
+	 *  @alcdefref{CAPTURE_DEVICE_SPECIFIER}
+	 */
 	static DeviceSpecRange CaptureSpecifiers(void)
 	{
 		const ALchar* ptr = OALPLUS_ALFUNC(alc,GetString)(
@@ -111,6 +121,10 @@ private:
 	Device(const Device&);
 public:
 	/// Constructs an object referencing the default audio device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{OpenDevice}
+	 */
 	Device(void)
 	 : DeviceOps(OALPLUS_ALFUNC(alc,OpenDevice)(nullptr))
 	{
@@ -121,6 +135,10 @@ public:
 	}
 
 	/// Constructs an object referencing the specified audio device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{OpenDevice}
+	 */
 	Device(const ALchar* dev_spec)
 	 : DeviceOps(OALPLUS_ALFUNC(alc,OpenDevice)(dev_spec))
 	{
@@ -137,6 +155,11 @@ public:
 		tmp._device = nullptr;
 	}
 
+	/// Closes this device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CloseDevice}
+	 */
 	~Device(void)
 	{
 		if(_device)

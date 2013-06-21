@@ -56,6 +56,14 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--generate-manual",
+		action="store_true",
+		help="""
+			Generates a man-compatible manual.
+			For internal use only.
+		"""
+	)
+	argparser.add_argument(
 		"--prefix",
 		dest="install_prefix",
 		type=os.path.abspath,
@@ -215,17 +223,19 @@ def get_argument_parser():
 		default=None,
 		help="""
 			Sets the maximum OpenGL version to be used. The cmake OpenGL
-			version detection is only rudimentary and not 100% reliable
+			version detection is only rudimentary and not 100%% reliable
 			and may return a higher OpenGL version than actually available.
 			This option can be used to limit the maximal version number.
 		"""
 	)
+
+	gl_header_libs = ["GLCOREARB_H", "GL3_H", "GLEW", "GL3W"]
 	argparser_gl_header_lib_group = argparser.add_mutually_exclusive_group()
 	argparser_gl_header_lib_group.add_argument(
 		"--use-gl-header-lib",
 		dest="gl_header_lib",
 		type=str,
-		choices=["GLCOREARB_H", "GL3_H", "GLEW", "GL3W"],
+		choices=gl_header_libs,
 		action="store",
 		default=None,
 		help="""
@@ -283,12 +293,14 @@ def get_argument_parser():
 			Equivalent to --use-gl-header-lib=GL3W.
 		"""
 	)
-	argparser_gl_window_lib_group = argparser.add_mutually_exclusive_group()
-	argparser_gl_window_lib_group.add_argument(
-		"--use-gl-window-lib",
-		dest="gl_window_lib",
+
+	gl_init_libs = ["GLUT", "GLFW", "wxGL", "SDL", "glX", "QtGL", "EGL"]
+	argparser_gl_init_lib_group = argparser.add_mutually_exclusive_group()
+	argparser_gl_init_lib_group.add_argument(
+		"--use-gl-init-lib",
+		dest="gl_init_lib",
 		type=str,
-		choices=["GLUT", "GLFW", "WXGL", "SDL", "GLX", "QTGL"],
+		choices=[lib.upper() for lib in gl_init_libs],
 		action="store",
 		default=None,
 		help="""
@@ -297,60 +309,23 @@ def get_argument_parser():
 			to force a specific example 'harness'.
 		"""
 	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-glut",
-		dest="gl_window_lib",
-		action="store_const",
-		const="GLUT",
-		help="""
-			Equivalent to --use-gl-window-lib=GLUT.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-glfw",
-		dest="gl_window_lib",
-		action="store_const",
-		const="GLFW",
-		help="""
-			Equivalent to --use-gl-window-lib=GLFW.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-wxgl",
-		dest="gl_window_lib",
-		action="store_const",
-		const="WXGL",
-		help="""
-			Equivalent to --use-gl-window-lib=WXGL.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-qtgl",
-		dest="gl_window_lib",
-		action="store_const",
-		const="QTGL",
-		help="""
-			Equivalent to --use-gl-window-lib=QTGL.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-sdl",
-		dest="gl_window_lib",
-		action="store_const",
-		const="SDL",
-		help="""
-			Equivalent to --use-gl-window-lib=SDL.
-		"""
-	)
-	argparser_gl_window_lib_group.add_argument(
-		"--use-glx",
-		dest="gl_window_lib",
-		action="store_const",
-		const="GLX",
-		help="""
-			Equivalent to --use-gl-window-lib=GLX.
-		"""
-	)
+
+	for gl_init_lib in gl_init_libs:
+		argparser_gl_init_lib_group.add_argument(
+			"--use-%(lib_lc)s" % { "lib_lc" : gl_init_lib.lower() },
+			dest="gl_init_lib",
+			action="store_const",
+			const=gl_init_lib.upper(),
+			help="""
+				Forces the use of the %(lib)s library to create
+				the window and initialize the GL context in
+				OGLplus examples.
+				Equivalent to --use-gl-init-lib=%(lib_uc)s.
+			""" % {
+				"lib" : gl_init_lib,
+				"lib_uc" : gl_init_lib.upper()
+			}
+		)
 
 	argparser.add_argument(
 		"--from-scratch",
@@ -534,7 +509,6 @@ def cmake_system_info(cmake_args):
 
 	return result
 
-#TODO
 def print_bash_complete_script(argparser):
 
 	import argparse
@@ -653,6 +627,72 @@ def print_bash_complete_script(argparser):
 	print('}')
 	print('complete -F _configure_oglplus ./configure-oglplus')
 
+def man_highlight(info_text):
+	import re
+
+	return re.sub(
+		r'(OGLPLUS_[A-Z0-9_]+|CXXFLAGS|LDFLAGS|GL.*/[A-Za-z0-9_]+.h)',
+		r'\\fI\1\\fR',
+		info_text
+	)
+
+def print_manual(argparser):
+	import argparse
+	import datetime
+
+	now = datetime.datetime.now()
+	print(
+		'.TH CONFIGURE-OGLPLUS 1 "%s" "Configuration script for OGLplus."' %
+		str(now.date())
+	)
+	print('.SH "NAME"')
+	print('configure-oglplus \\- configuration script for the OGLplus library.')
+	print('.SH "SYNOPSIS"')
+	print('.B configure-oglplus')
+	print('[')
+	print('OPTIONS')
+	print(']')
+
+	print('.SH "DESCRIPTION"')
+	print('This script is a more user-friendly way to invoke the cmake-based')
+	print('build system of \\fBOGLplus\\fR.')
+
+
+	print('.SH "OPTIONS"')
+
+	for action in argparser._actions:
+		print(".TP")
+		opt_info = str()
+		for opt_str in action.option_strings:
+			if opt_info:
+				opt_info += ", "
+			opt_info += '\\fB'+opt_str+'\\fR'
+			if action.type == os.path.abspath:
+				opt_info += ' <\\fI'+str(action.dest).upper()+'\\fR>';
+			if action.choices is not None:
+				opt_info += ' {\\fB'
+				opt_info += '\\fR,\\fB'.join(map(str, action.choices))
+				opt_info += '\\fR}'
+		print(opt_info)
+		print(
+			str(' ').join(man_highlight(action.help).split()) % {
+				"prog": "\\fBconfigure-oglplus\\fR",
+				"default": "\\fB"+str(action.default)+"\\fR"
+			}
+		)
+
+
+	print('.SH "AUTHOR"')
+	print('Matus Chochlik, chochlik@gmail.com')
+
+	print('.SH "COPYRIGHT"')
+	print('Copyright (c) 2008-%(year)s Matus Chochlik' % {"year": now.year})
+
+	print(".PP")
+	print("Permission is granted to copy, distribute and/or modify this document")
+	print("under the terms of the Boost Software License, Version 1.0.")
+	print("(See a copy at http://www.boost.org/LICENSE_1_0.txt)")
+
 # the main function
 def main(argv):
 
@@ -663,6 +703,11 @@ def main(argv):
 	# if we just wanted to generate the bash completion script
 	if options.generate_bash_complete:
 		print_bash_complete_script(argparser)
+		return 0
+
+	# if we just wanted to generate the bash completion script
+	if options.generate_manual:
+		print_manual(argparser)
 		return 0
 
 	# if we are in quiet mode we may also go to quick mode
@@ -719,8 +764,8 @@ def main(argv):
 		cmake_options.append("-DOGLPLUS_FORCE_"+options.gl_header_lib+"=On")
 
 	# force the GL initialization library to be used
-	if(options.gl_window_lib):
-		cmake_options.append("-DOGLPLUS_FORCE_"+options.gl_window_lib+"=On")
+	if(options.gl_init_lib):
+		cmake_options.append("-DOGLPLUS_FORCE_GL_INIT_LIB="+options.gl_init_lib)
 
 	# add paths for header lookop
 	if(options.include_dirs):

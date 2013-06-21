@@ -4,3 +4,6 @@
 #
 find_package(Qt4 COMPONENTS QtCore QtGui QtOpenGL)
 
+if(QT_FOUND)
+	set(QTGL_FOUND True)
+endif()

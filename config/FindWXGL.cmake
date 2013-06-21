@@ -6,3 +6,7 @@ set(wxWidgets_USE_UNICODE Off)
 
 find_package(wxWidgets COMPONENTS gl core base adv)
 
+if(wxWidgets_FOUND)
+	set(WXGL_FOUND True)
+endif()
+

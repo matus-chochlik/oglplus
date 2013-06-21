@@ -47,6 +47,11 @@ protected:
 	}
 public:
 	/// Returns the current OpenAL context
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{GetCurrentContext}
+	 *  @alcfunref{GetContextsDevice}
+	 */
 	static ContextOps Current(void)
 	{
 		::ALCcontext* context =
@@ -67,6 +72,10 @@ public:
 	}
 
 	/// Queries a string from the current OpenAL context
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetString}
+	 */
 	static const ALchar* GetString(StringQuery query)
 	{
 		const ALchar* str = OALPLUS_ALFUNC(al,GetString)(ALenum(query));
@@ -75,18 +84,33 @@ public:
 	}
 
 	/// Returns the vendor name
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetString}
+	 *  @aldefref{VENDOR}
+	 */
 	static const char* Vendor(void)
 	{
 		return (const char*)GetString(StringQuery::Vendor);
 	}
 
 	/// Returns the version string
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetString}
+	 *  @aldefref{VERSION}
+	 */
 	static const char* Version(void)
 	{
 		return (const char*)GetString(StringQuery::Version);
 	}
 
 	/// Returns the renderer name
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetString}
+	 *  @aldefref{RENDERER}
+	 */
 	static const char* Renderer(void)
 	{
 		return (const char*)GetString(StringQuery::Renderer);
@@ -94,9 +118,14 @@ public:
 
 #if EGLPLUS_DOCUMENTATION_ONLY
 	/// Returns a range of extension strings
-	Range<String> Extensions(void) const;
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetString}
+	 *  @aldefref{EXTENSIONS}
+	 */
+	static Range<String> Extensions(void);
 #else
-	aux::SepStrRange Extensions(void) const
+	static aux::SepStrRange Extensions(void)
 	{
 		return aux::SepStrRange(
 			(const char*)GetString(StringQuery::Extensions)
@@ -112,6 +141,10 @@ public:
 	}
 
 	/// Makes this context current
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{MakeContextCurrent}
+	 */
 	bool MakeCurrent(void)
 	{
 		bool result = OALPLUS_ALFUNC(alc,MakeContextCurrent)(_context);
@@ -123,6 +156,10 @@ public:
 	}
 
 	/// Processes this context
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{ProcessContext}
+	 */
 	void Process(void)
 	{
 		OALPLUS_ALFUNC(alc,ProcessContext)(_context);
@@ -133,6 +170,10 @@ public:
 	}
 
 	/// Suspends this context
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{SuspendContext}
+	 */
 	void Suspend(void)
 	{
 		OALPLUS_ALFUNC(alc,SuspendContext)(_context);
@@ -143,6 +184,10 @@ public:
 	}
 
 	/// Sets the distance model to be used by the current context
+	/**
+	 *  @alsymbols
+	 *  @alfunref{DistanceModel}
+	 */
 	static void DistanceModel(oalplus::DistanceModel dist_model)
 	{
 		OALPLUS_ALFUNC(al,DistanceModel(ALenum(dist_model)));
@@ -150,6 +195,11 @@ public:
 	}
 
 	/// Returns the distance model used by the current context
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetIntegerv}
+	 *  @aldefref{DISTANCE_MODEL}
+	 */
 	static oalplus::DistanceModel DistanceModel(void)
 	{
 		ALint result;
@@ -162,6 +212,10 @@ public:
 	}
 
 	/// Sets the doppler factor for the current context
+	/**
+	 *  @alsymbols
+	 *  @alfunref{DopplerFactor}
+	 */
 	static void DopplerFactor(ALfloat doppler_factor)
 	{
 		OALPLUS_ALFUNC(al,DopplerFactor(doppler_factor));
@@ -169,6 +223,11 @@ public:
 	}
 
 	/// Returns the doppler factor used by the current context
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetFloatv}
+	 *  @aldefref{DOPPLER_FACTOR}
+	 */
 	static ALfloat DopplerFactor(void)
 	{
 		ALfloat result;
@@ -181,6 +240,10 @@ public:
 	}
 
 	/// Sets the value of speed of sound for the current context
+	/**
+	 *  @alsymbols
+	 *  @alfunref{SpeedOfSound}
+	 */
 	static void SpeedOfSound(ALfloat speed_of_sound)
 	{
 		OALPLUS_ALFUNC(al,SpeedOfSound(speed_of_sound));
@@ -188,6 +251,11 @@ public:
 	}
 
 	/// Returns the value of speed of sound used by the current context
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetFloatv}
+	 *  @aldefref{SPEED_OF_SOUND}
+	 */
 	static ALfloat SpeedOfSound(void)
 	{
 		ALfloat result;
@@ -208,6 +276,10 @@ private:
 	Context(const Context&);
 public:
 	/// Construct a context using the specified device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CreateContext}
+	 */
 	Context(const DeviceOps& device)
 	 : ContextOps(
 		device._device,
@@ -229,6 +301,12 @@ public:
 		tmp._context = nullptr;
 	}
 
+	/// Destroys this context
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{MakeContextCurrent}
+	 *  @alcfunref{DestroyContext}
+	 */
 	~Context(void)
 	{
 		if(_context)
