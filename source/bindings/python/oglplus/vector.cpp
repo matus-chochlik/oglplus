@@ -11,8 +11,6 @@
 
 #include <boost/python.hpp>
 
-#include <cstdint>
-
 std::size_t oglplus_py_Vector_adjusted_index(std::size_t N, int index)
 {
 	if(index < 0) index += N;

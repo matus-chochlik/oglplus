@@ -5,10 +5,6 @@
 #
 RootDir=${1:-${PWD}}
 
-HeaderDir="${RootDir}/include/oglplus/auxiliary"
-mkdir -p ${HeaderDir}
-Output="${HeaderDir}/vector_swizzle.ipp"
-
 
 function PrintFileHeader()
 {
@@ -83,6 +79,46 @@ function MakeSwizzle()
 	echo "}"
 }
 
+function MakeSwizzlePythonBindings()
+{
+	local Coords=${1}
+	local MaxN=${#Coords}
+
+	for N in $(seq 1 ${MaxN})
+	do
+		echo
+		echo "template <typename T>"
+		echo "void oglplus_py_export_Vector_Swizzle_xyzw("
+		echo "	oglplus::Vector<T, ${N}>*,"
+		echo "	const char* name"
+		echo ")"
+		echo "{"
+		echo "	namespace bpy = ::boost::python;"
+		echo "	using namespace oglplus;"
+		echo
+		echo "	typedef oglplus::Swizzled_${Coords}<T, ${N}> Swizzled;"
+		echo "	typedef oglplus::Vector<T, ${N}> Vector;"
+		echo "	bpy::class_<Swizzled, bpy::bases<Vector> >(name, bpy::init<Vector>())"
+		for I in $(seq 1 ${N})
+		do echo "		.def(\"${Coords:$[I-1]:1}\", &Swizzled::${Coords:$[I-1]:1})"
+		done
+		for I in $(seq 2 ${N})
+		do
+			for Comb in $(Combinations ${Coords:0:${N}} ${I})
+			do echo "		.def(\"${Comb}\", &Swizzled::${Comb})"
+			done
+		done
+		echo "	;"
+		echo "	bpy::def(\"Swizzle_${Coords}\", &Swizzle_${Coords}<T, ${N}>);"
+		echo "}"
+	done
+}
+
+# C++
+OutputDir="${RootDir}/include/oglplus/auxiliary"
+mkdir -p ${OutputDir}
+Output="${OutputDir}/vector_swizzle.ipp"
+
 (
 	exec > ${Output}
 	PrintFileHeader tools/$(basename $0) ${Output}
@@ -93,5 +129,19 @@ function MakeSwizzle()
 	echo "{"
 	echo "	return Swizzled_xyzw<T, N>(v);"
 	echo "}"
-)
+) &&
 git add ${Output}
+
+# Python bindings
+OutputDir="${RootDir}/source/bindings/python/oglplus"
+mkdir -p ${OutputDir}
+Output="${OutputDir}/vector_swizzle.ipp"
+
+(
+	exec > ${Output}
+	PrintFileHeader tools/$(basename $0) ${Output}
+	MakeSwizzlePythonBindings xyzw
+) &&
+git add ${Output}
+
+
