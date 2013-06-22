@@ -18,7 +18,9 @@
 
 namespace oalplus {
 
+/// Reused Angle<T> template from OGLplus
 using oglplus::Angle;
+/// Instantiation of Angle using float as data type
 typedef Angle<ALfloat> Anglef;
 
 } // namespace oalplus

@@ -18,6 +18,7 @@
 
 namespace oalplus {
 
+/// Reused Optional<Object> from OGLplus
 using oglplus::Optional;
 
 } // namespace oalplus

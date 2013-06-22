@@ -18,7 +18,9 @@
 
 namespace oalplus {
 
+/// Reused sequence of BezierCurves from OGLplus
 using oglplus::BezierCurves;
+/// Reused CubicBezierLoop from OGLplus
 using oglplus::CubicBezierLoop;
 
 } // namespace oalplus

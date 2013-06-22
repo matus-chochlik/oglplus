@@ -323,12 +323,22 @@ class CurrentContext
 {
 public:
 	/// Creates a new context and makes it current
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CreateContext}
+	 *  @alcfunref{MakeContextCurrent}
+	 */
 	CurrentContext(const DeviceOps& device)
 	 : Context(device)
 	{
 		MakeCurrent();
 	}
 
+	/// CurrentContext is move-constructible
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{MakeContextCurrent}
+	 */
 	CurrentContext(CurrentContext&& tmp)
 	 : Context(static_cast<Context&&>(tmp))
 	{
