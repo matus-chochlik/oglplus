@@ -23,6 +23,15 @@ using oglplus::Angle;
 /// Instantiation of Angle using float as data type
 typedef Angle<ALfloat> Anglef;
 
+using oglplus::Radians;
+using oglplus::Degrees;
+using oglplus::FullCircle;
+using oglplus::FullCircles;
+using oglplus::RightAngles;
+using oglplus::ArcSin;
+using oglplus::ArcCos;
+using oglplus::ArcTan;
+
 } // namespace oalplus
 
 #endif // include guard

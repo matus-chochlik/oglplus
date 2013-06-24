@@ -325,6 +325,8 @@ inline T Tan(const Angle<T>& a)
 typedef Angle<GLfloat> Anglef;
 
 typedef GLfloat AngleValueType;
+#elif defined(AL_FLOAT)
+typedef ALfloat AngleValueType;
 #else
 typedef double AngleValueType;
 #endif
