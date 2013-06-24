@@ -30,7 +30,7 @@ inline void oalplus_py_do_export_Array(
 	typedef Array<Object<ObjectOps> > Array;
 
 	bpy::class_<Array, boost::noncopyable>(name, bpy::init<ALsizei>())
-		//.def("all", &Array::all)
+		.def("all", &Array::all)
 	;
 }
 

@@ -20,6 +20,8 @@ void oalplus_py_Angle(void);
 void oalplus_py_Vector(void);
 void oalplus_py_Buffer(void);
 void oalplus_py_Listener(void);
+void oalplus_py_Source(void);
+void oalplus_py_ALUT(void);
 
 BOOST_PYTHON_MODULE(oalplus)
 {
@@ -32,4 +34,6 @@ BOOST_PYTHON_MODULE(oalplus)
 	oalplus_py_Vector();
 	oalplus_py_Buffer();
 	oalplus_py_Listener();
+	oalplus_py_Source();
+	oalplus_py_ALUT();
 }
