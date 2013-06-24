@@ -11,10 +11,14 @@
 
 #include <boost/python.hpp>
 
+#include "./array.hpp"
+
 void oalplus_py_Source(void)
 {
 	namespace bpy = ::boost::python;
 	using namespace oalplus;
+
+	oalplus_py_export_Array<Array<Buffer> >("BufferArray");
 
 	bpy::class_<SourceOps>("SourceOps", bpy::no_init)
 		.def("Play", &SourceOps::Play)
@@ -30,8 +34,8 @@ void oalplus_py_Source(void)
 		.def("Looping", (bool (SourceOps::*)(void) const)&SourceOps::Looping)
 		.def("Buffer", &SourceOps::Buffer)
 		.def("DetachBuffers", &SourceOps::DetachBuffers)
-		//.def("QueueBuffers", &SourceOps::QueueBuffers)
-		//.def("UnqueueBuffers", &SourceOps::UnqueueBuffers)
+		.def("QueueBuffers", &SourceOps::QueueBuffers)
+		.def("UnqueueBuffers", &SourceOps::UnqueueBuffers)
 		.def("Gain", (void (SourceOps::*)(ALfloat))&SourceOps::Gain)
 		.def("Gain", (ALfloat (SourceOps::*)(void) const)&SourceOps::Gain)
 		.def("MinGain", (void (SourceOps::*)(ALfloat))&SourceOps::MinGain)

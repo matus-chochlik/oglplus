@@ -16,7 +16,10 @@
 void oalplus_py_Auxiliary(void);
 void oalplus_py_Device(void);
 void oalplus_py_Context(void);
+void oalplus_py_Angle(void);
+void oalplus_py_Vector(void);
 void oalplus_py_Buffer(void);
+void oalplus_py_Listener(void);
 
 BOOST_PYTHON_MODULE(oalplus)
 {
@@ -25,5 +28,8 @@ BOOST_PYTHON_MODULE(oalplus)
 	oalplus_py_Auxiliary();
 	oalplus_py_Device();
 	oalplus_py_Context();
+	oalplus_py_Angle();
+	oalplus_py_Vector();
 	oalplus_py_Buffer();
+	oalplus_py_Listener();
 }
