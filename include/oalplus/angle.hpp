@@ -28,6 +28,7 @@ using oglplus::Degrees;
 using oglplus::FullCircle;
 using oglplus::FullCircles;
 using oglplus::RightAngles;
+using oglplus::RightAngle;
 using oglplus::ArcSin;
 using oglplus::ArcCos;
 using oglplus::ArcTan;
