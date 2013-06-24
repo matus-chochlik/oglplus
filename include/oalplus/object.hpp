@@ -280,9 +280,9 @@ public:
 	 : ObjectOps(obj)
 	{ }
 
-	Managed(ALuint _name)
+	Managed(ALuint name)
 	{
-		FriendOf<ObjectOps>::SetName(*this, _name);
+		FriendOf<ObjectOps>::SetName(*this, name);
 	}
 
 	~Managed(void)
