@@ -410,11 +410,15 @@ struct ConfigValueTypeToConfigAttrib
 /// Attribute list for configuration attributes
 typedef AttributeList<
 	ConfigAttrib,
-	ConfigValueTypeToConfigAttrib
+	ConfigValueTypeToConfigAttrib,
+	AttributeListTraits
 > ConfigAttribs;
 
 /// Finished list of configuration attribute values
-typedef FinishedAttributeList<ConfigAttrib> FinishedConfigAttribs;
+typedef FinishedAttributeList<
+	ConfigAttrib,
+	AttributeListTraits
+> FinishedConfigAttribs;
 
 /// A provides access to all configurations of a Display
 class Configs

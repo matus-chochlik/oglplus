@@ -112,13 +112,14 @@ do
 	#
 	IFS=':'
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXLPLUS_DEF X
+	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
 	do
 		if [ "${OXLPLUS_DEF}" == "" ]
 		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
 		fi
 
-		echo "#if defined ${LibPrefixUC}_${XL_DEF}"
+		LibPrefix=${PREFIX:-${LibPrefixUC}}
+		echo "#if defined ${LibPrefix}_${XL_DEF}"
 		echo "# if ${LibNameUC}_LIST_NEEDS_COMMA"
 		echo "   ${LibNameUC}_ENUM_CLASS_COMMA"
 		echo "# endif"
@@ -126,10 +127,10 @@ do
 		echo "# if defined ${OXLPLUS_DEF}"
 		echo "#  pragma push_macro(\"${OXLPLUS_DEF}\")"
 		echo "#  undef ${OXLPLUS_DEF}"
-		echo "   ${LibNameUC}_ENUM_CLASS_VALUE(${OXLPLUS_DEF}, ${LibPrefixUC}_${XL_DEF})"
+		echo "   ${LibNameUC}_ENUM_CLASS_VALUE(${OXLPLUS_DEF}, ${LibPrefix}_${XL_DEF})"
 		echo "#  pragma pop_macro(\"${OXLPLUS_DEF}\")"
 		echo "# else"
-		echo "   ${LibNameUC}_ENUM_CLASS_VALUE(${OXLPLUS_DEF}, ${LibPrefixUC}_${XL_DEF})"
+		echo "   ${LibNameUC}_ENUM_CLASS_VALUE(${OXLPLUS_DEF}, ${LibPrefix}_${XL_DEF})"
 		echo "# endif"
 
 		echo "# ifndef ${LibNameUC}_LIST_NEEDS_COMMA"
@@ -173,10 +174,11 @@ do
 	IFS=':'
 	unset Comma
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF X
+	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
 	do
-		echo "#if defined ${LibPrefixUC}_${XL_DEF}"
-		echo "	case ${LibPrefixUC}_${XL_DEF}: return StrLit(\"${XL_DEF}\");"
+		LibPrefix=${PREFIX:-${LibPrefixUC}}
+		echo "#if defined ${LibPrefix}_${XL_DEF}"
+		echo "	case ${LibPrefix}_${XL_DEF}: return StrLit(\"${XL_DEF}\");"
 		echo "#endif"
 	done
 	echo "	default:;"
@@ -220,10 +222,11 @@ do
 	IFS=':'
 	unset Comma
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF X
+	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
 	do
-		echo "#if defined ${LibPrefixUC}_${XL_DEF}"
-		echo "${LibPrefixUC}_${XL_DEF},"
+		LibPrefix=${PREFIX:-${LibPrefixUC}}
+		echo "#if defined ${LibPrefix}_${XL_DEF}"
+		echo "${LibPrefix}_${XL_DEF},"
 		echo "#endif"
 	done
 	echo "0"
@@ -477,13 +480,14 @@ do
 	#
 	IFS=:
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXL_DEF AQ DOC BINDING_QUERY_DEF X
+	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
 	do
 		if [ "${BINDING_QUERY_DEF}" != "" ]
 		then
-			echo "#if defined ${LibPrefixUC}_${XL_DEF} && defined ${LibPrefixUC}_${BINDING_QUERY_DEF}"
-			echo "case ${LibPrefixUC}_${XL_DEF}:"
-			echo "	return ${LibPrefixUC}_${BINDING_QUERY_DEF};"
+			LibPrefix=${PREFIX:-${LibPrefixUC}}
+			echo "#if defined ${LibPrefix}_${XL_DEF} && defined ${LibPrefix}_${BINDING_QUERY_DEF}"
+			echo "case ${LibPrefix}_${XL_DEF}:"
+			echo "	return ${LibPrefix}_${BINDING_QUERY_DEF};"
 			echo "#endif"
 		fi
 	done
@@ -549,15 +553,16 @@ OutputPath="${RootDir}/include/${OutputFile}"
 	IFS=:
 
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXLPLUS_DEF X
+	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
 	do
 		if [ "${OXLPLUS_DEF}" == "" ]
 		then OXLPLUS_DEF=$(echo ${XL_DEF} | sed 's/\([A-Z]\)\([A-Z0-9]*\)_\?/\1\L\2/g')
 		fi
 
-		TYPE=$(MapGLSLtypeToCPPtype ${LibPrefixUC} ${LibNameLC} ${XL_DEF})
+		LibPrefix=${PREFIX:-${LibPrefixUC}}
+		TYPE=$(MapGLSLtypeToCPPtype ${LibPrefix} ${LibNameLC} ${XL_DEF})
 
-		echo "#ifdef ${LibPrefixUC}_${XL_DEF}"
+		echo "#ifdef ${LibPrefix}_${XL_DEF}"
 		echo "# ifdef ${OXLPLUS_DEF}"
 		echo "# pragma push_macro(\"${OXLPLUS_DEF}\")"
 		echo "# undef ${OXLPLUS_DEF}"

@@ -1,6 +1,6 @@
 /**
- *  @file eglplus/attrib_list.hpp
- *  @brief Template for EGL surface and configuration attribute list
+ *  @file oalplus/attrib_list.hpp
+ *  @brief Template for OpenAL context attribute list
  *
  *  @author Matus Chochlik
  *
@@ -10,15 +10,15 @@
  */
 
 #pragma once
-#ifndef EGLPLUS_ATTRIB_LIST_1303292057_HPP
-#define EGLPLUS_ATTRIB_LIST_1303292057_HPP
+#ifndef OALPLUS_ATTRIB_LIST_1303292057_HPP
+#define OALPLUS_ATTRIB_LIST_1303292057_HPP
 
 #include <oglplus/attrib_list.hpp>
 
 #include <cassert>
 #include <vector>
 
-namespace eglplus {
+namespace oalplus {
 
 /// Reused FinishedAttributeList from OGLplus
 using oglplus::FinishedAttributeList;
@@ -28,20 +28,20 @@ using oglplus::AttributeList;
 
 struct AttributeListTraits
 {
-	typedef EGLint Int;
+	typedef ALint Int;
 
 	template <typename Enum>
 	struct EnumBaseType
 	{
-		typedef typename eglplus::enums::EnumBaseType<Enum>::Type Type;
+		typedef typename oalplus::enums::EnumBaseType<Enum>::Type Type;
 	};
 
-	static EGLint ListEnd(void) { return EGL_NONE; }
-	static EGLint TrueValue(void) { return EGL_TRUE; }
-	static EGLint FalseValue(void) { return EGL_FALSE; }
-	static EGLint DontCare(void) { return EGL_DONT_CARE; }
+	static ALint ListEnd(void) { return 0; }
+	static ALint TrueValue(void) { return AL_TRUE; }
+	static ALint FalseValue(void) { return AL_FALSE; }
+	static ALint DontCare(void) { return 0; }
 };
 
-} // namespace eglplus
+} // namespace oalplus
 
 #endif // include guard

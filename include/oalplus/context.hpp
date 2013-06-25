@@ -18,11 +18,32 @@
 #include <oalplus/error.hpp>
 #include <oalplus/alfunc.hpp>
 #include <oalplus/distance_model.hpp>
+#include <oalplus/context_attrib.hpp>
 #include <oalplus/string_query.hpp>
+#include <oalplus/attrib_list.hpp>
 
 #include <oalplus/auxiliary/sep_str_range.hpp>
 
 namespace oalplus {
+
+struct ContextValueTypeToContextAttrib
+{
+	static std::integral_constant<int, -1> MaxValueType(void);
+};
+
+
+/// Attribute list for context attributes
+typedef AttributeList<
+	ContextAttrib,
+	ContextValueTypeToContextAttrib,
+	AttributeListTraits
+> ContextAttribs;
+
+/// Finished list of context attribute values
+typedef FinishedAttributeList<
+	ContextAttrib,
+	AttributeListTraits
+> FinishedContextAttribs;
 
 /// Base wrapper for OpenAL context operations
 /**
@@ -292,7 +313,27 @@ public:
 		);
 	}
 
-	// TODO creation with attributes
+	/// Construct a context with the specified attributes using the device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CreateContext}
+	 */
+	Context(
+		const DeviceOps& device,
+		const FinishedContextAttribs& attribs
+	): ContextOps(
+		device._device,
+		OALPLUS_ALFUNC(alc,CreateContext)(
+			device._device,
+			attribs.Get()
+		)
+	)
+	{
+		OALPLUS_CHECK_ALC(
+			OALPLUS_ERROR_INFO(alc,CreateContext),
+			_device
+		);
+	}
 
 	/// Contexts are move-only
 	Context(Context&& tmp)
