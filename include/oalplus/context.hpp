@@ -375,6 +375,20 @@ public:
 		MakeCurrent();
 	}
 
+	/// Creates a new context and makes it current
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CreateContext}
+	 *  @alcfunref{MakeContextCurrent}
+	 */
+	CurrentContext(
+		const DeviceOps& device,
+		const FinishedContextAttribs& attribs
+	): Context(device, attribs)
+	{
+		MakeCurrent();
+	}
+
 	/// CurrentContext is move-constructible
 	/**
 	 *  @alsymbols
