@@ -261,7 +261,7 @@ public:
 			"in vec3 geomPosition;"
 			"in vec3 geomTexCoord;"
 
-			"out vec4 fragColor;"
+			"out vec3 fragColor;"
 
 			"vec3 vcdiv(vec3 a, vec3 b)"
 			"{"
@@ -281,30 +281,23 @@ public:
 			"	vec2 ts = textureSize(BumpMap, 0);"
 			"	vec2 dtc = abs(tc1.xy - tc0.xy)*max(ts.x, ts.y);"
 
-			"	vec3 p = p0;"
-			"	vec3 tc = tc0;"
-			"	vec4 bm = texture(BumpMap, tc.xy);"
-			"	bool hit = false;"
-			"	vec3 result;"
 
-			"	int nsam = int(max(dtc.x, dtc.y))+1;"
+			"	int nsam = max(int(max(dtc.x, dtc.y)), 1);"
 			"	float step = 1.0 / nsam;"
-			"	for(int s=0; s<nsam; ++s)"
+			"	for(int s=0; s<=nsam; ++s)"
 			"	{"
-			"		tc = mix(tc0, tc1, s*step);"
-			"		bm = texture(BumpMap, tc.xy);"
-			"		if(tc.z+0.01 < bm.w)"
+			"		vec3 tc = mix(tc1, tc0, s*step);"
+			"		vec4 bm = texture(BumpMap, tc.xy);"
+			"		if(tc.z <= bm.w)"
 			"		{"
-			"			p = mix(p0, p1, s*step);"
+			"			vec3 p = mix(p1, p0, s*step);"
 			"			vec3 ldir = normalize(LightPosition - p);"
 			"			float l = max(dot(ldir, bm.xzy), 0.0)*1.3;"
-			"			result = texture(ColorMap, tc.xy).rgb*l;"
-			"			hit = true;"
+			"			fragColor = texture(ColorMap, tc.xy).rgb*l;"
+			"			return;"
 			"		}"
 			"	}"
-
-			"	if(!hit) discard;"
-			"	fragColor = vec4(result, 1.0);"
+			"	discard;"
 			"}"
 		)).Compile();
 		prog.AttachShader(fs);
