@@ -278,11 +278,12 @@ public:
 			"	vec3 p1 = (geomPositionFront*bzfv)/dot(one,bzfv);"
 			"	vec3 tc0 = geomTexCoord;"
 			"	vec3 tc1 = (geomTexCoordFront*bzfv)/dot(one,bzfv);"
-			"	vec2 ts = textureSize(BumpMap, 0);"
-			"	vec2 dtc = abs(tc1.xy - tc0.xy)*max(ts.x, ts.y);"
+			"	ivec2 ts = textureSize(BumpMap, 0);"
+			"	int mts = max(ts.x, ts.y);"
+			"	vec2 dtc = tc1.xy - tc0.xy;"
+			"	float mdtc = max(abs(dtc.x), abs(dtc.y));"
 
-
-			"	int nsam = max(int(max(dtc.x, dtc.y)), 1);"
+			"	int nsam = max(min(int(mdtc*mts), mts/2), 1);"
 			"	float step = 1.0 / nsam;"
 			"	for(int s=0; s<=nsam; ++s)"
 			"	{"
