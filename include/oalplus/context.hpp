@@ -137,7 +137,7 @@ public:
 		return (const char*)GetString(StringQuery::Renderer);
 	}
 
-#if EGLPLUS_DOCUMENTATION_ONLY
+#if OALPLUS_DOCUMENTATION_ONLY
 	/// Returns a range of extension strings
 	/**
 	 *  @alsymbols

@@ -36,6 +36,11 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	include_directories(${GLUT_INCLUDE_DIRS})
 
 	standalone_example_common(
+		001_gl_info
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+	)
+
+	standalone_example_common(
 		001_triangle_glut_glew
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
