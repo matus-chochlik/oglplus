@@ -76,9 +76,11 @@ div#frame {
 }
 
 div#top {
-	height: @logo-height;
-	width: @frame-width - @logo-width;
-	background-color: #D8D8F0;
+	height: @logo-height - @main-padding * 2;
+	width: @frame-width - @logo-width - @main-padding * 2;
+	background-color: #E8E8F8;
+	padding: @main-padding;
+	box-shadow: inset 1px 1px 2px 1px #404040;
 	.thick-border;
 	overflow: hidden;
 }
