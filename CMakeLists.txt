@@ -47,6 +47,8 @@ if(OGLPLUS_NO_EXAMPLES)
 	set(OGLPLUS_NO_SCREENSHOTS On)
 endif()
 
+set(HEADER_SEARCH_PATHS ${HEADER_SEARCH_PATHS};${PROJECT_SOURCE_DIR}/third_party/include)
+
 if(NOT OGLPLUS_NO_SCREENSHOTS)
 	include(FindImageMagick)
 endif()
