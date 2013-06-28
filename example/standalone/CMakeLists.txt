@@ -41,6 +41,11 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	)
 
 	standalone_example_common(
+		001_gl_limits
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+	)
+
+	standalone_example_common(
 		001_triangle_glut_glew
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
