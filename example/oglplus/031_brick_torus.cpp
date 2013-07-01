@@ -374,6 +374,7 @@ public:
 
 		StrLit fs_src(
 			"#version 330\n"
+			"#extension GL_EXT_gpu_shader4_1 : enable\n"
 
 			"uniform float Time;"
 			"uniform sampler2D ColorMap;"
@@ -419,7 +420,8 @@ public:
 			"	vec3 tc0 = geomTexCoord;"
 			"	vec3 tc1 = (geomTexCoordFront*bzfv)*idobzfv;"
 
-			"	ivec2 ts = textureSize(BumpMap, 0);"
+			"	float tl = textureQueryLod(BumpMap, tc1.xy).x;"
+			"	ivec2 ts = textureSize(BumpMap, int(tl));"
 			"	int mts = max(ts.x, ts.y);"
 			"	vec2 dtc = tc1.xy - tc0.xy;"
 			"	float mdtc = max(abs(dtc.x), abs(dtc.y));"
