@@ -1060,6 +1060,10 @@ public:
 		);
 	}
 
+	/// Constructs a perspective projection matrix
+	/** Creates a new perspective matrix from @p x_left, @p x_right,
+	 *  @p y_botton, @p y_top, @p z_near and @p z_far values.
+	 */
 	static inline CameraMatrix Perspective(
 		T x_left,
 		T x_right,
@@ -1369,7 +1373,7 @@ public:
 	}
 
 	/// Constructs a X-axis rotation (Pitch/Elevation) matrix
-	/** The initial heading is the negative Z-axix, y_top is the Y-axis,
+	/** The initial heading is the negative Z-axis, y_top is the Y-axis,
 	 *  x_right is X-axis.
 	 *  Positive angle values do counter-clockwise rotation (looking up),
 	 *  negative angles cause clockwise changes in pitch (looking down).
@@ -1426,7 +1430,7 @@ public:
 	/** The initial position is that y_top is the Y-axis,
 	 *  heading in the negative Z-axis direction, x_right is X-axis.
 	 *  Positive angle values do counter-clockwise banking, negative
-	 *  angles to clockwise banking.
+	 *  angles do clockwise banking.
 	 */
 	static inline CameraMatrix Roll(Angle<T> angle)
 	{
