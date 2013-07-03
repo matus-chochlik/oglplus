@@ -441,7 +441,7 @@ public:
 
 			"			vec3 ldir = normalize(LightPosition - p);"
 			"			vec3 nml = normalize(t*bm.x+b*bm.y+n*bm.z);"
-			"			float l = max(dot(ldir, nml), 0.0)*max(dot(ldir, n)+0.3, 0.0)+0.1;"
+			"			float l = max(dot(ldir, nml), 0.0)*max(dot(ldir, n)+0.3, 0.0)+0.2;"
 			"			fragColor = texture(ColorMap, tc.xy).rgb*l;"
 			"			return;"
 			"		}"
@@ -515,20 +515,26 @@ public:
 		);
 	}
 
-	void Render(double time)
+	void Render(ExampleClock& clock)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		auto langle = FullCircles(-time / 23.0);
+		double time = clock.Now().Seconds();
+
+		auto langle = FullCircles(time / 23.0);
 		light_position.Set(
 			Cos(langle)*20.0f,
 			(1.2+Sin(langle))*15.0f,
 			Sin(langle)*20.0f
 		);
 
+		double x = SineWave(time / 13.0);
+		if(x+0.93 < 0.0) clock.Pace(0.2);
+		else clock.Pace(1.0);
+
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			9.5 + SineWave(time / 13.0)*5.1,
+			9.5 + x*5.1,
 			FullCircles(time / 17.0),
 			Degrees(SineWave(time / 20.0) * 89)
 		);
