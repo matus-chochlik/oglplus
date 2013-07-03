@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_1}
- *  @oglplus_example_uses_texture{stones_color_hmap}
+ *  @oglplus_example_uses_texture{bricks_color_hmap}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -458,7 +458,7 @@ public:
 
 		shape.UseInProgram(prog);
 
-		auto tex_image = images::LoadTexture("stones_color_hmap");
+		auto tex_image = images::LoadTexture("bricks_color_hmap");
 
 		Texture::Active(0);
 		try
@@ -519,9 +519,16 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
+		auto langle = FullCircles(-time / 23.0);
+		light_position.Set(
+			Cos(langle)*20.0f,
+			(1.2+Sin(langle))*15.0f,
+			Sin(langle)*20.0f
+		);
+
 		auto camera = CamMatrixf::Orbiting(
 			Vec3f(),
-			2.9,
+			9.5 + SineWave(time / 13.0)*5.1,
 			FullCircles(time / 17.0),
 			Degrees(SineWave(time / 20.0) * 89)
 		);
@@ -529,15 +536,16 @@ public:
 		camera_matrix.Set(camera);
 		camera_position.Set(camera.Position());
 
-		model_matrix.Set(ModelMatrixf::RotationX(FullCircles(time / 13.0)));
-
-		auto langle = FullCircles(time / 31.0);
-		light_position.Set(
-			Cos(langle)*20.0f,
-			(1.2+Sin(langle))*15.0f,
-			Sin(langle)*20.0f
+		model_matrix.Set(
+			ModelMatrixf::TranslationX(+2.0f)*
+			ModelMatrixf::RotationX(FullCircles(time / 13.0))
 		);
+		shape.Draw();
 
+		model_matrix.Set(
+			ModelMatrixf::TranslationX(-2.0f)*
+			ModelMatrixf::RotationZ(FullCircles(time / 11.0))
+		);
 		shape.Draw();
 	}
 
