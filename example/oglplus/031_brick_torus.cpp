@@ -559,6 +559,11 @@ public:
 	{
 		return time < 60.0;
 	}
+
+	double ScreenshotTime(void) const
+	{
+		return 9.0;
+	}
 };
 
 void setupExample(ExampleParams& /*params*/){ }
