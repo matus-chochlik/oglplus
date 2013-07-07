@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_cxx11{LAMBDAS}
- *  @oglplus_example_uses_gl{GL_VERSION_3_0}
+ *  @oglplus_example_uses_gl{GL_VERSION_3_2}
  *  @oglplus_example_uses_model{large_fan}
  */
 #include <oglplus/gl.hpp>
