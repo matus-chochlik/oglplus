@@ -1301,6 +1301,47 @@ public:
 		return CameraMatrix(_LookingAt(), eye, target);
 	}
 
+	CameraMatrix(
+		_LookingAt,
+		const Vector<T, 3>& eye,
+		const Vector<T, 3>& target,
+		const Vector<T, 3>& up
+	): Base(oglplus::Nothing())
+	{
+		assert(eye != target);
+		Vector<T, 3> z = Normalized(eye - target);
+		Vector<T, 3> y = Normalized(
+			Dot(up, z) != 0.0?
+			up-z*(Dot(up, z)):
+			up
+		);
+		Vector<T, 3> x = Cross(y, z);
+
+		InitMatrix4x4(
+			*this,
+			x[0], x[1], x[2],
+			-Dot(eye, x),
+
+			y[0], y[1], y[2],
+			-Dot(eye, y),
+
+			z[0], z[1], z[2],
+			-Dot(eye, z),
+
+			T(0), T(0), T(0), T(1)
+		);
+	}
+
+	/// Constructs 'look-at' matrix from eye and target positions and up vector
+	static inline CameraMatrix LookingAt(
+		const Vector<T, 3>& eye,
+		const Vector<T, 3>& target,
+		const Vector<T, 3>& up
+	)
+	{
+		return CameraMatrix(_LookingAt(), eye, target, up);
+	}
+
 	struct _Orbiting { };
 
 	CameraMatrix(
