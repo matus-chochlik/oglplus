@@ -1310,9 +1310,11 @@ public:
 	{
 		assert(eye != target);
 		Vector<T, 3> z = Normalized(eye - target);
+		T dupz = Dot(up, z);
+		assert(dupz < 0.9 && dupz >-0.9);
 		Vector<T, 3> y = Normalized(
-			Dot(up, z) != 0.0?
-			up-z*(Dot(up, z)):
+			dupz != 0.0?
+			up-z*dupz:
 			up
 		);
 		Vector<T, 3> x = Cross(y, z);
