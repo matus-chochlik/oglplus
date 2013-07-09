@@ -1377,6 +1377,31 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MaxLevel()
+	 *  @see Texture::MaxLevel()
+	 */
+	GLint MaxLevel(void) const
+	{
+		return TextureOps::MaxLevel(
+			this->BindTarget()
+		);
+	}
+
+
+	/** Wrapper for Texture::MaxLevel()
+	 *  @see Texture::MaxLevel()
+	 */
+	void MaxLevel(
+		GLint value
+	) const
+	{
+		TextureOps::MaxLevel(
+			this->BindTarget(),
+			value
+		);
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::Swizzle()

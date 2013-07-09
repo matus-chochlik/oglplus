@@ -480,7 +480,7 @@ do
 	#
 	IFS=:
 	grep -v -e '^\s*$' -e '^\s*#.*$' ${InputFile} |
-	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BQ PREFIX X
+	while read XL_DEF OXLPLUS_DEF AQ DOCUMENTATION BINDING_QUERY_DEF PREFIX X
 	do
 		if [ "${BINDING_QUERY_DEF}" != "" ]
 		then
