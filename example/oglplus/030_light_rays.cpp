@@ -458,15 +458,16 @@ public:
 
 		Uniform<Mat4f>* model_matrix = nullptr;
 
+		GLuint drawing_fan = fan_index;
 		auto drawing_driver =
 			[
 				&model_matrix,
 				&mm_identity,
 				&mm_rotation,
-				&fan_index
+				&drawing_fan
 			](GLuint phase) -> bool
 			{
-				if(phase == fan_index)
+				if(phase == drawing_fan)
 					model_matrix->Set(mm_rotation);
 				else model_matrix->Set(mm_identity);
 				return true;
