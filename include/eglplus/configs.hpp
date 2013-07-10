@@ -204,6 +204,39 @@ public:
 		return GetAttrib(ConfigAttrib::MaxPbufferPixels);
 	}
 
+	/// Returns the minimum swap interval
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{GetConfigAttrib}
+	 *  @egldefref{MIN_SWAP_INTERVAL}
+	 */
+	EGLint MinSwapInterval(void) const
+	{
+		return GetAttrib(ConfigAttrib::MinSwapInterval);
+	}
+
+	/// Returns the maximum swap interval
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{GetConfigAttrib}
+	 *  @egldefref{MAX_SWAP_INTERVAL}
+	 */
+	EGLint MaxSwapInterval(void) const
+	{
+		return GetAttrib(ConfigAttrib::MaxSwapInterval);
+	}
+
+	/// Returns true if native rendering API can render to surface
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{GetConfigAttrib}
+	 *  @egldefref{NATIVE_RENDERABLE}
+	 */
+	EGLint NativeRenderable(void) const
+	{
+		return GetAttrib(ConfigAttrib::NativeRenderable);
+	}
+
 	/// Returns the caveat for this config
 	/**
 	 *  @eglsymbols
@@ -377,11 +410,15 @@ struct ConfigValueTypeToConfigAttrib
 /// Attribute list for configuration attributes
 typedef AttributeList<
 	ConfigAttrib,
-	ConfigValueTypeToConfigAttrib
+	ConfigValueTypeToConfigAttrib,
+	AttributeListTraits
 > ConfigAttribs;
 
 /// Finished list of configuration attribute values
-typedef FinishedAttributeList<ConfigAttrib> FinishedConfigAttribs;
+typedef FinishedAttributeList<
+	ConfigAttrib,
+	AttributeListTraits
+> FinishedConfigAttribs;
 
 /// A provides access to all configurations of a Display
 class Configs

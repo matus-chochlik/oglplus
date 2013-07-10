@@ -31,6 +31,8 @@
 #include <oglplus/shapes/blender_mesh.hpp>
 #include <oglplus/shapes/obj_mesh.hpp>
 
+#include <oglplus/opt/resources.hpp>
+
 namespace oglplus {
 
 // EnumValueName implementations

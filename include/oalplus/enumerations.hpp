@@ -19,6 +19,7 @@
 #include <oalplus/auxiliary/base_range.hpp>
 
 namespace oalplus {
+namespace enums {
 
 #if !OGLPLUS_NO_SCOPED_ENUMS
 template <typename Enum>
@@ -62,6 +63,11 @@ inline aux::CastIterRange<
 
 #endif
 }
+
+} // namespace enums
+
+using enums::EnumValueName;
+using enums::EnumValueRange;
 
 } // namespace oalplus
 

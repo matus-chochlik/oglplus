@@ -127,7 +127,7 @@ public:
 		_check();
 	}
 
-	/// Effictient conversion to String
+	/// Efficient conversion to String
 	String str(void) const
 	{
 		return String(_lit, _lit+_size);

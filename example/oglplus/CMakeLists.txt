@@ -4,19 +4,7 @@
 #
 cmake_minimum_required(VERSION 2.8)
 
-if(OGLPLUS_USE_WXGL)
-	set(OGLPLUS_EXAMPLE_HARNESS "wxgl")
-elseif(OGLPLUS_USE_QTGL)
-	set(OGLPLUS_EXAMPLE_HARNESS "qtgl")
-elseif(OGLPLUS_USE_GLUT)
-	set(OGLPLUS_EXAMPLE_HARNESS "glut")
-elseif(OGLPLUS_USE_GLFW)
-	set(OGLPLUS_EXAMPLE_HARNESS "glfw")
-elseif(OGLPLUS_USE_SDL)
-	set(OGLPLUS_EXAMPLE_HARNESS "sdl")
-elseif(OGLPLUS_USE_GLX)
-	set(OGLPLUS_EXAMPLE_HARNESS "glx")
-endif()
+string(TOLOWER ${OGLPLUS_GL_INIT_LIB} OGLPLUS_EXAMPLE_HARNESS)
 
 # check the harness dependencies and requirements
 set(HARNESS_CAN_BE_BUILT true)

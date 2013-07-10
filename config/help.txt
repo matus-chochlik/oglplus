@@ -1,152 +1,200 @@
-CONFIGURE(1)                                                      CONFIGURE(1)
+CONFIGURE-OGLPLUS(1)                                      CONFIGURE-OGLPLUS(1)
 
 
 
 NNAAMMEE
-       configure - Configuration script for the OGLplus library.
+       configure-oglplus - configuration script for the OGLplus library.
 
 SSYYNNOOPPSSIISS
-       ccoonnffiigguurree..sshh [ _o_p_t_i_o_n_s ]
+       ccoonnffiigguurree--ooggllpplluuss [ OPTIONS ]
 
 DDEESSCCRRIIPPTTIIOONN
-       This  script  is a more user-friendly way how to invoke the cmake-based
-       build system of OOGGLLpplluuss.
+       This script is a more user-friendly way to invoke the cmake-based build
+       system of OOGGLLpplluuss.
 
 OOPPTTIIOONNSS
-       --hh ----hheellpp
-              Prints this help screen.
+       --hh, ----hheellpp
+              show this help message and exit
 
+       ----ggeenneerraattee--bbaasshh--ccoommpplleettee
+              Generates bash completion script for this configure  script  and
+              quits. For internal use only.
 
-       ----pprreeffiixx <<PPAATTHH>>
-              Specifies the installation prefix. The path must be absolute  or
-              relative to the curren working directory from which configure is
-              invoked.
+       ----ggeenneerraattee--mmaannuuaall
+              Generates a man-compatible manual. For internal use only.
 
+       ----pprreeffiixx <_I_N_S_T_A_L_L___P_R_E_F_I_X>
+              Specifies  the installation prefix. The path must be absolute or
+              relative to the current working directory from which  ccoonnffiigguurree--
+              ooggllpplluuss is invoked.
 
-       ----bbuuiilldd--ddiirr <<PPAATTHH>>
-              Specifies the work directory for ccmmaakkee, where the cached  files,
-              generated  makefiles  and  the  intermediate build files will be
-              placed [_build].  The specified path must be either absolute  or
-              relative  to  the current working directory from which configure
-              is invoked.
+       ----bbuuiilldd--ddiirr <_B_U_I_L_D___D_I_R>
+              Specifies  the work directory for cmake, where the cached files,
+              generated makefiles and the intermediate  build  files  will  be
+              placed.  The  specified path must be either absolute or relative
+              to the current working directory from which ccoonnffiigguurree--ooggllpplluuss is
+              invoked (default = '__bbuuiilldd').
 
-
-       ----iinncclluuddee--ddiirr <<PPAATTHH>>
-              Specifies additional directory to search when looking for exter-
-              nal  headers  like  _G_L_/_g_l_e_w_._h  or _G_L_3_/_g_l_3_._h.  The specified path
-              must be absolute or relative to the  current  working  directory
-              from  which  configure is invoked.  This option may be specified
+       ----iinncclluuddee--ddiirr <_I_N_C_L_U_D_E___D_I_R_S>, --II <_I_N_C_L_U_D_E___D_I_R_S>
+              Specifies additional directory to search when looking for exter‐
+              nal headers like _G_L_/_g_l_e_w_._h _o_r _G_L_3_/_g_l_3_._h. The specified path must
+              be  absolute  or  relative to the current working directory from
+              which ccoonnffiigguurree--ooggllpplluuss is invoked. This option may be specified
               multiple times to add multiple directories to the search list.
 
-
-       ----lliibbrraarryy--ddiirr <<PPAATTHH>>
-              Specifies additional directory to search when looking  for  com-
-              piled  libraries  like  GGLL, GGLLEEWW, gglluutt, ppnngg, etc.  The specified
-              path must be absolute or relative to the current working  direc-
-              tory from which configure is invoked.  This option may be speci-
-              fied multiple times to add multiple directories  to  the  search
+       ----lliibbrraarryy--ddiirr <_L_I_B_R_A_R_Y___D_I_R_S>, --LL <_L_I_B_R_A_R_Y___D_I_R_S>
+              Specifies  additional  directory to search when looking for com‐
+              piled libraries like GL, GLEW, glut,  png,  etc.  The  specified
+              path  must be absolute or relative to the current working direc‐
+              tory from which configure is invoked. This option may be  speci‐
+              fied  multiple  times  to add multiple directories to the search
               list.
 
+       ----uussee--ccxxxxffllaaggss
+              Uses the directories specified by the -I options in _C_X_X_F_L_A_G_S (if
+              available)  and  adds them to the values specified by --include-
+              dir.
 
-       -- ----ccmmaakkee
-              Everything  following this option will be passed to ccmmaakkee verba-
-              tim.
+       ----uussee--llddffllaaggss
+              Uses the directories specified by the -L options in _L_D_F_L_A_G_S  (if
+              available)  and  adds them to the values specified by --library-
+              dir.
 
+       ----llooww--pprrooffiillee {TTrruuee,FFaallssee}
+              Enables or disables the low profile mode (see the  documentation
+              for the _O_G_L_P_L_U_S___L_O_W___P_R_O_F_I_L_E compile-time switch). If this option
+              is  used,  then  the  specified  value   is   written   to   the
+              oglplus/site_config.hpp file, otherwise it is set to the default
+              value in oglplus/config.hpp and may be overriden in  sources  by
+              defining  this  preprocessor  symbol or by using the appropriate
+              compiler command-line switch or build environment setting.
 
-       ----ddrryy--rruunn
-              Only print the commands that would be executed without  actually
-              executing them.
+       ----bbuuiilldd--eexxaammpplleess {TTrruuee,FFaallssee}
+              Determines whether the  examples  should  be  built  (default  =
+              TTrruuee).
 
+       ----nnoo--eexxaammpplleess
+              Do  not  build  the  examples  and  the  textures. Equivalent to
+              --build-examples=False.
 
-       ----ffrroomm--ssccrraattcchh
-              Remove  any  previous  cached and intermediate files and run the
-              configuration process from scratch.
+       ----bbuuiilldd--ddooccss {TTrruuee,FFaallssee}
+              Determines whether the documentation should be built (default  =
+              TTrruuee).
 
+       ----nnoo--ddooccss
+              Do   not   build   the  documentation.  Equivalent  to  --build-
+              docs=False.
 
-       ----uussee--ggll33--hh
-              Force use of the GL3/gl3.h header. If this option is used,  then
-              this  header  must  be installed somewhere in the system include
-              directories or in directories specified with _-_-_i_n_c_l_u_d_e_-_d_i_r.  The
-              _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h,   _-_-_u_s_e_-_g_l_3_-_h,   _-_-_u_s_e_-_g_l_e_w   and  _-_-_u_s_e_-_g_l_3_w
-              options are mutually exclusive.
+       ----mmaakkee--ssccrreeeennsshhoottss {TTrruuee,FFaallssee}
+              Determines whether screenshots from OGLplus examples  should  be
+              made when building the documentation (default = FFaallssee).
 
+       ----ssccrreeeennsshhoottss
+              Equivalent to --make-screenshots=True.
+
+       ----mmaaxx--ggll--vveerrssiioonn
+              Sets  the  maximum  OpenGL  version to be used. The cmake OpenGL
+              version detection is only rudimentary and not 100% reliable  and
+              may return a higher OpenGL version than actually available. This
+              option can be used to limit the maximal version number.
+
+       ----uussee--ggll--hheeaaddeerr--lliibb {GGLLCCOORREEAARRBB__HH,GGLL33__HH,GGLLEEWW,GGLL33WW}
+              Forces the use of a specific header or library which defines the
+              GL symbols.
 
        ----uussee--ggllccoorreeaarrbb--hh
-              Force use of the GL/glcorearb.h header. If this option is  used,
-              then  this  header  must  be  installed  somewhere in the system
-              include directories or in directories specified with  _-_-_i_n_c_l_u_d_e_-
-              _d_i_r.   The _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w and _-_-_u_s_e_-
-              _g_l_3_w options are mutually exclusive.
+              Force  use of the _G_L_/_g_l_c_o_r_e_a_r_b_._h header. If this option is used,
+              then this header must  be  installed  somewhere  in  the  system
+              include  directories or in directories specified with --include-
+              dir. Equivalent to --use-gl-header-lib=GLCOREARB_H.
 
+       ----uussee--ggll33--hh
+              Force use of the _G_L_3_/_g_l_3_._h header. If this option is used,  then
+              this  header  must  be installed somewhere in the system include
+              directories or  in  directories  specified  with  --include-dir.
+              Equivalent to --use-gl-header-lib=GL3_H.
 
        ----uussee--gglleeww
               Force use of the GLEW library. If this option is used, then GLEW
-              and the _G_L_/_g_l_e_w_._h header must be installed somewhere in the sys-
-              tem  include  directories  or  in  directories  specified   with
-              _-_-_i_n_c_l_u_d_e_-_d_i_r.   The  _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w
-              and _-_-_u_s_e_-_g_l_3_w options are mutually exclusive.
-
+              and the _G_L_/_g_l_e_w_._h header must be installed somewhere in the sys‐
+              tem   include  directories  or  in  directories  specified  with
+              --include-dir. Equivalent to --use-gl-header-lib=GLEW.
 
        ----uussee--ggll33ww
               Force use of the GL3W library. If this option is used, then GL3W
-              and the _G_L_/_g_l_3_w_._h header must be installed somewhere in the sys-
+              and the _G_L_/_g_l_3_w_._h header must be installed somewhere in the sys‐
               tem  include  directories  or  in  directories  specified   with
-              _-_-_i_n_c_l_u_d_e_-_d_i_r.   The  _-_-_u_s_e_-_g_l_c_o_r_e_a_r_b_-_h, _-_-_u_s_e_-_g_l_3_-_h, _-_-_u_s_e_-_g_l_e_w
-              and _-_-_u_s_e_-_g_l_3_w options are mutually exclusive.
+              --include-dir. Equivalent to --use-gl-header-lib=GL3W.
 
+       ----uussee--ggll--iinniitt--lliibb {GGLLUUTT,GGLLFFWW,WWXXGGLL,SSDDLL,GGLLXX,QQTTGGLL}
+              Forces  the  use  of a specific window library which initializes
+              the default GL context. This option allows to force  a  specific
+              example 'harness'.
 
+       ----uussee--gglluutt
+              Forces the use of the GLUT library to create the window and ini‐
+              tialize the GL context in OGLplus examples. Equivalent to --use-
+              gl-init-lib=GLUT.
+
+       ----uussee--ggllffww
+              Forces the use of the GLFW library to create the window and ini‐
+              tialize the GL context in OGLplus examples. Equivalent to --use-
+              gl-init-lib=GLFW.
 
        ----uussee--wwxxggll
-              Force use of the wxGL library. If  this  option  is  used,  then
-              wxWidgets  and  the _w_x_/_g_l_c_a_n_v_a_s_._h header must be installed some-
-              where in the system include directories or in directories speci-
-              fied with _-_-_i_n_c_l_u_d_e_-_d_i_r.
+              Forces the use of the wxGL library to create the window and ini‐
+              tialize the GL context in OGLplus examples. Equivalent to --use-
+              gl-init-lib=WXGL.
 
+       ----uussee--ssddll
+              Forces  the use of the SDL library to create the window and ini‐
+              tialize the GL context in OGLplus examples. Equivalent to --use-
+              gl-init-lib=SDL.
 
-       ----nnoo--eexxaammpplleess
-              Do not build the examples and the textures.
+       ----uussee--ggllxx
+              Forces  the use of the glX library to create the window and ini‐
+              tialize the GL context in OGLplus examples. Equivalent to --use-
+              gl-init-lib=GLX.
 
+       ----uussee--qqttggll
+              Forces the use of the QtGL library to create the window and ini‐
+              tialize the GL context in OGLplus examples. Equivalent to --use-
+              gl-init-lib=QTGL.
 
-       ----ssccrreeeennsshhoottss
-              Also make screenshots from the example applications for the doc-
-              umentation.  This is still experimental and currently works only
-              with _G_L_3_/_g_l_3_._h + GGLLXX.
-
-
-       ----ffrraammeedduummpp
-              Build  the  examples  in a mode where the individual frames have
-              fixed timing and are dumped into separate  files  which  can  be
-              later encoded into a video sequence.  This is still experimental
-              and currently works only with _G_L_3_/_g_l_3_._h + GGLLXX.
-
-
-       ----nnoo--ddooccss
-              Do not build and install the documentation.
-
+       ----ffrroomm--ssccrraattcchh
+              Remove  any  previous  cached and intermediate files and run the
+              configuration  process  from  scratch.  Specifying  this  option
+              causes the build directory to be deleted and recreated.
 
        ----qquuiieett
-              Do not print regular  messages,  errors  are  still  printed  to
-              stderr. Also any ccmmaakkee output is still printed.
+              Do  not  print  regular  messages,  errors  are still printed to
+              stderr. Also any cmake output is still printed.
 
+       ----qquuiicckk
+              Skips some optional steps in the configuration process.
 
-       ----bbuuiilldd--aanndd--iinnssttaallll
-              If  the  configuration  process is successful, also run the com-
-              mands to build and install OGLplus automatically.
+       ----bbuuiilldd
+              If possible, after running cmake also invoke the build tool  and
+              build  the project. This is currently supported only for certain
+              build tools.
 
+       ----wwiitthh--tteessttss
+              Configure the testsuite.
+
+       ----ccmmaakkee
+              Everything following this option will be passed to cmake  verba‐
+              tim.
 
 AAUUTTHHOORR
        Matus Chochlik, chochlik@gmail.com
 
-
-
 CCOOPPYYRRIIGGHHTT
-       Copyright (c) 2008, 2009, 2010, 2011, 2012 Matus Chochlik
+       Copyright (c) 2008-2013 Matus Chochlik
 
-       Permission is granted to copy, distribute and/or modify  this  document
-       under  the  terms  of  the Boost Software License, Version 1.0.  (See a
+       Permission  is  granted to copy, distribute and/or modify this document
+       under the terms of the Boost Software License,  Version  1.0.   (See  a
        copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
 
-
-Configuration script for OGLplus. 2012-08-12                      CONFIGURE(1)
+Configuration script for OGLplus. 2013-06-18              CONFIGURE-OGLPLUS(1)

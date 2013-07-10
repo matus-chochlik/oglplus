@@ -186,7 +186,7 @@ public:
 		_check();
 	}
 
-	/// Effictient conversion to String
+	/// Efficient conversion to String
 	String str(void) const
 	{
 #if !OGLPLUS_LAZY_STR_LIT

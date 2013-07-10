@@ -11,12 +11,10 @@ option(OGLPLUS_FORCE_GLCOREARB_H "Force use of the GL/glcorearb.h header" Off)
 option(OGLPLUS_FORCE_GLEW "Force use of the GL/glew.h header" Off)
 option(OGLPLUS_FORCE_GL3W "Force use of the GL/gl3w.h header" Off)
 
-option(OGLPLUS_FORCE_WXGL "Force use of the wxGL library" Off)
-option(OGLPLUS_FORCE_QTGL "Force use of the QtGL library" Off)
-option(OGLPLUS_FORCE_GLUT "Force use of the GLUT library" Off)
-option(OGLPLUS_FORCE_GLFW "Force use of the GLFW library" Off)
-option(OGLPLUS_FORCE_SDL  "Force use of the SDL library" Off)
-option(OGLPLUS_FORCE_GLX  "Force use of the GLX library" Off)
+# The GL context initialization library
+set(OGLPLUS_GL_INIT_LIBS GLX GLUT GLFW SDL WXGL QTGL EGL)
+set(OGLPLUS_FORCE_GL_INIT_LIB "NONE" CACHE STRING "The GL context initialization library to be used.")
+set_property(CACHE OGLPLUS_FORCE_GL_INIT_LIB PROPERTY STRINGS ${OGLPLUS_GL_INIT_LIBS})
 
 option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
@@ -43,17 +41,13 @@ endif()
 set(OGLPLUS_USE_GLCOREARB_H 0)
 set(OGLPLUS_USE_GL3_H 0)
 set(OGLPLUS_USE_GLEW 0)
-set(OGLPLUS_USE_GLFW 0)
 set(OGLPLUS_USE_GL3W 0)
-set(OGLPLUS_USE_GLUT 0)
-set(OGLPLUS_USE_QTGL 0)
-set(OGLPLUS_USE_WXGL 0)
-set(OGLPLUS_USE_GLX 0)
-set(OGLPLUS_USE_SDL 0)
 
 if(OGLPLUS_NO_EXAMPLES)
 	set(OGLPLUS_NO_SCREENSHOTS On)
 endif()
+
+set(HEADER_SEARCH_PATHS ${HEADER_SEARCH_PATHS};${PROJECT_SOURCE_DIR}/third_party/include)
 
 if(NOT OGLPLUS_NO_SCREENSHOTS)
 	include(FindImageMagick)
@@ -122,7 +116,9 @@ elseif(${OGLPLUS_FORCE_GL3W})
 
 # if the user didn't specify any preference
 else()
-	if((OPENGL_FOUND) AND (EXISTS ${OPENGL_GLCOREARB_H_DIR}))
+	if((${WIN32}) AND (GLEW_FOUND))
+		set(OGLPLUS_USE_GLEW 1)
+	elseif((OPENGL_FOUND) AND (EXISTS ${OPENGL_GLCOREARB_H_DIR}))
 		set(OGLPLUS_USE_GLCOREARB_H 1)
 	elseif((OPENGL_FOUND) AND (EXISTS ${OPENGL_GL3_H_DIR}))
 		set(OGLPLUS_USE_GL3_H 1)
@@ -137,81 +133,35 @@ endif()
 
 #
 # We'll also need a OpenGL context initialization/window-system library
-#
-# if GLUT was forced
-if(${OGLPLUS_FORCE_GLUT})
-	if(GLUT_FOUND)
-		set(OGLPLUS_USE_GLUT 1)
-	else()
-		message(FATAL_ERROR "The GLUT library requested but not found!")
-		return()
-	endif()
-
-# if QtGL was forced
-elseif(${OGLPLUS_FORCE_QTGL})
-	if(QT_FOUND)
-		set(OGLPLUS_USE_QTGL 1)
-	else()
-		message(FATAL_ERROR "The QtGL library requested but not found!")
-		return()
-	endif()
-
-# if wxGL was forced
-elseif(${OGLPLUS_FORCE_WXGL})
-	if(wxWidgets_FOUND)
-		set(OGLPLUS_USE_WXGL 1)
-	else()
-		message(FATAL_ERROR "The wxGL library requested but not found!")
-		return()
-	endif()
-
-# if GLFW was forced
-elseif(${OGLPLUS_FORCE_GLFW})
-	if(GLFW_FOUND)
-		set(OGLPLUS_USE_GLFW 1)
-	else()
-		message(FATAL_ERROR "The GLFW library requested but not found!")
-		return()
-	endif()
-
-# if SDL was forced
-elseif(${OGLPLUS_FORCE_SDL})
-	if(SDL_FOUND)
-		set(OGLPLUS_USE_SDL 1)
-	else()
-		message(FATAL_ERROR "The SDL library requested but not found!")
-		return()
-	endif()
-
-# if glX was forced
-elseif(${OGLPLUS_FORCE_GLX})
-	if(X11_FOUND)
-		set(OGLPLUS_USE_GLX 1)
-	else()
-		message(FATAL_ERROR "The X11/GLX library requested but not found!")
-		return()
-	endif()
-
-# if the user didn't specify any preference
+if((NOT OGLPLUS_FORCE_GL_INIT_LIB) OR (${OGLPLUS_FORCE_GL_INIT_LIB} STREQUAL "NONE"))
+	foreach(GL_INIT_LIB ${OGLPLUS_GL_INIT_LIBS})
+		if(${GL_INIT_LIB}_FOUND)
+			set(OGLPLUS_GL_INIT_LIB ${GL_INIT_LIB})
+			break()
+		endif()
+	endforeach()
 else()
-	if(GLUT_FOUND)
-		set(OGLPLUS_USE_GLUT 1)
-	elseif(GLFW_FOUND)
-		set(OGLPLUS_USE_GLFW 1)
-	elseif(QT_FOUND)
-		set(OGLPLUS_USE_QTGL 1)
-	elseif(wxWidgets_FOUND)
-		set(OGLPLUS_USE_WXGL 1)
-	elseif(SDL_FOUND)
-		set(OGLPLUS_USE_SDL 1)
-	elseif(X11_FOUND)
-		set(OGLPLUS_USE_GLX 1)
-	else()
-		message(FATAL_ERROR "No OpenGL context initialization library found!")
-	endif()
+	foreach(GL_INIT_LIB ${OGLPLUS_GL_INIT_LIBS})
+		if(${OGLPLUS_FORCE_GL_INIT_LIB} STREQUAL ${GL_INIT_LIB})
+			if(${GL_INIT_LIB}_FOUND)
+				set(OGLPLUS_GL_INIT_LIB ${GL_INIT_LIB})
+				break()
+			else()
+				message(
+					FATAL_ERROR
+					"The '${GL_INIT_LIB}' library requested but not found"
+				)
+				return()
+			endif()
+		endif()
+	endforeach()
 endif()
 
-
+if(NOT OGLPLUS_GL_INIT_LIB)
+	message(FATAL_ERROR "No OpenGL context initialization library found!")
+else()
+	message(STATUS "Using ${OGLPLUS_GL_INIT_LIB} for GL context initialization.")
+endif()
 
 unset(OGLPLUS_GL_INCLUDE_DIRS)
 

@@ -28,7 +28,7 @@ int main(void)
 	for(auto r=egl.ClientAPIs(); !r.Empty(); r.Next())
 		std::cout << '\t' << r.Front() << std::endl;
 	//
-	std::cout << "Extensions :" << std::endl;
+	std::cout << "Extensions:" << std::endl;
 	for(auto r=egl.Extensions(); !r.Empty(); r.Next())
 		std::cout << '\t' << r.Front() << std::endl;
 	//

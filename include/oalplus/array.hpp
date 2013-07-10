@@ -122,7 +122,10 @@ public:
 
 	aux::ArrayRange<Managed<ObjectOps> > all(void) const
 	{
-		return aux::ArrayRange<Managed<ObjectOps> >(begin(), end());
+		return aux::ArrayRange<Managed<ObjectOps> >(
+			_names.begin(),
+			_names.end()
+		);
 	}
 };
 

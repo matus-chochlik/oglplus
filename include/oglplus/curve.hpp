@@ -106,9 +106,8 @@ public:
 		const Parameter zero(0);
 		const Parameter one(1);
 
-		OGLPLUS_FAKE_USE(zero);
-		OGLPLUS_FAKE_USE(one);
-		assert(t >= zero && t <= one);
+		if(t == one) t = zero;
+		assert(t >= zero && t < one);
 
 		Parameter toffs = t*SegmentCount();
 		unsigned poffs = unsigned(toffs) * Order;

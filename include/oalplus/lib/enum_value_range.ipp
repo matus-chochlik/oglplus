@@ -10,6 +10,9 @@
  */
 
 #if !OALPLUS_NO_ENUM_VALUE_RANGES
+OALPLUS_ENUM_CLASS_FWD(ContextAttrib, ALenum)
+#include <oalplus/enums/context_attrib_range.ipp>
+
 OALPLUS_ENUM_CLASS_FWD(DataFormat, ALenum)
 #include <oalplus/enums/data_format_range.ipp>
 

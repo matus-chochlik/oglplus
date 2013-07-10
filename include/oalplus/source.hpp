@@ -35,6 +35,11 @@ namespace oalplus {
  *  @note Do not use this class directly, use Source instead
  *
  *  @see Source
+ *
+ *  @alsymbols
+ *  @alfunref{GenSources}
+ *  @alfunref{DeleteSources}
+ *  @alfunref{IsSource}
  */
 class SourceOps
  : public Named
@@ -68,6 +73,10 @@ protected:
 	}
 public:
 	/// Starts the audio playback
+	/**
+	 *  @alsymbols
+	 *  @alfunref{SourcePlay}
+	 */
 	void Play(void)
 	{
 		OALPLUS_ALFUNC(al,SourcePlay)(_name);
@@ -75,6 +84,10 @@ public:
 	}
 
 	/// Pauses the audio playback
+	/**
+	 *  @alsymbols
+	 *  @alfunref{SourcePause}
+	 */
 	void Pause(void)
 	{
 		OALPLUS_ALFUNC(al,SourcePause)(_name);
@@ -82,6 +95,10 @@ public:
 	}
 
 	/// Stops the audio playback
+	/**
+	 *  @alsymbols
+	 *  @alfunref{SourceStop}
+	 */
 	void Stop(void)
 	{
 		OALPLUS_ALFUNC(al,SourceStop)(_name);
@@ -89,6 +106,10 @@ public:
 	}
 
 	/// Rewinds the audio track
+	/**
+	 *  @alsymbols
+	 *  @alfunref{SourceRewind}
+	 */
 	void Rewind(void)
 	{
 		OALPLUS_ALFUNC(al,SourceRewind)(_name);
@@ -96,6 +117,11 @@ public:
 	}
 
 	/// Returns the source state
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourceiv}
+	 *  @aldefref{SOURCE_STATE}
+	 */
 	SourceState State(void) const
 	{
 		ALint result = 0;
@@ -109,6 +135,11 @@ public:
 	}
 
 	/// Sets the source to relative or absoulte state
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcei}
+	 *  @aldefref{SOURCE_RELATIVE}
+	 */
 	void Relative(bool value)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -120,6 +151,11 @@ public:
 	}
 
 	/// Returns true if the source is relative
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourceiv}
+	 *  @aldefref{SOURCE_RELATIVE}
+	 */
 	bool Relative(void) const
 	{
 		ALint result;
@@ -133,6 +169,11 @@ public:
 	}
 
 	/// Sets the source type
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcei}
+	 *  @aldefref{SOURCE_TYPE}
+	 */
 	void Type(SourceType type)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -144,6 +185,11 @@ public:
 	}
 
 	/// Returns the source type
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourceiv}
+	 *  @aldefref{SOURCE_TYPE}
+	 */
 	SourceType Type(void) const
 	{
 		ALint result;
@@ -157,6 +203,11 @@ public:
 	}
 
 	/// Sets the looping mode
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcei}
+	 *  @aldefref{LOOPING}
+	 */
 	void Looping(bool value)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -168,6 +219,11 @@ public:
 	}
 
 	/// Returns true if the source is in looping mode
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourceiv}
+	 *  @aldefref{LOOPING}
+	 */
 	bool Looping(void) const
 	{
 		ALint result;
@@ -180,7 +236,12 @@ public:
 		return result == AL_TRUE;
 	}
 
-	/// Assings an audio buffer to the source
+	/// Assigns an audio buffer to the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcei}
+	 *  @aldefref{BUFFER}
+	 */
 	void Buffer(const BufferOps& buffer)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -192,6 +253,11 @@ public:
 	}
 
 	/// Detaches all queued buffers from the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcei}
+	 *  @aldefref{BUFFER}
+	 */
 	void DetachBuffers(void)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
@@ -203,6 +269,10 @@ public:
 	}
 
 	/// Enqueues multiple buffers to the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{SourceQueueBuffers}
+	 */
 	void QueueBuffers(const Array<oalplus::Buffer>& buffers)
 	{
 		OALPLUS_ALFUNC(al,SourceQueueBuffers)(
@@ -216,6 +286,10 @@ public:
 	}
 
 	/// Removes multiple buffers from the sources queue
+	/**
+	 *  @alsymbols
+	 *  @alfunref{SourceUnqueueBuffers}
+	 */
 	void UnqueueBuffers(const Array<oalplus::Buffer>& buffers)
 	{
 		OALPLUS_ALFUNC(al,SourceUnqueueBuffers)(
@@ -229,7 +303,12 @@ public:
 	}
 
 	/// Sets the value of gain
-	void Gain(ALfloat value) const
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{GAIN}
+	 */
+	void Gain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
 			_name,
@@ -240,6 +319,11 @@ public:
 	}
 
 	/// Returns the value of gain
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{GAIN}
+	 */
 	ALfloat Gain(void) const
 	{
 		ALfloat result;
@@ -253,6 +337,11 @@ public:
 	}
 
 	/// Sets the minimal value of gain
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{MIN_GAIN}
+	 */
 	void MinGain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -264,6 +353,11 @@ public:
 	}
 
 	/// Returns the minimal value of gain
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{MIN_GAIN}
+	 */
 	ALfloat MinGain(void) const
 	{
 		ALfloat result;
@@ -277,6 +371,11 @@ public:
 	}
 
 	/// Sets the maximum value of gain
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{MAX_GAIN}
+	 */
 	void MaxGain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -288,6 +387,11 @@ public:
 	}
 
 	/// Returns the maximum value of gain
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{MAX_GAIN}
+	 */
 	ALfloat MaxGain(void) const
 	{
 		ALfloat result;
@@ -301,6 +405,11 @@ public:
 	}
 
 	/// Sets the reference distance
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{REFERENCE_DISTANCE}
+	 */
 	void ReferenceDistance(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -312,6 +421,11 @@ public:
 	}
 
 	/// Returns the reference distance
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{REFERENCE_DISTANCE}
+	 */
 	ALfloat ReferenceDistance(void) const
 	{
 		ALfloat result;
@@ -325,6 +439,11 @@ public:
 	}
 
 	/// Sets the value of rolloff factor
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{ROLLOFF_FACTOR}
+	 */
 	void RolloffFactor(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -336,6 +455,11 @@ public:
 	}
 
 	/// Returns the value of rolloff factor
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{ROLLOFF_FACTOR}
+	 */
 	ALfloat RolloffFactor(void) const
 	{
 		ALfloat result;
@@ -349,7 +473,12 @@ public:
 	}
 
 	/// Sets the value of max distance used with some distance models
-	void MaxDistance(ALfloat value) const
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{MAX_DISTANCE}
+	 */
+	void MaxDistance(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
 			_name,
@@ -360,6 +489,11 @@ public:
 	}
 
 	/// Returns the value of max distance used with some distance models
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{MAX_DISTANCE}
+	 */
 	ALfloat MaxDistance(void) const
 	{
 		ALfloat result;
@@ -373,6 +507,11 @@ public:
 	}
 
 	/// Sets the value of pitch
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{PITCH}
+	 */
 	void Pitch(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -384,6 +523,11 @@ public:
 	}
 
 	/// Returns the value of pitch
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{PITCH}
+	 */
 	ALfloat Pitch(void) const
 	{
 		ALfloat result;
@@ -397,6 +541,11 @@ public:
 	}
 
 	/// Sets the position of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcefv}
+	 *  @aldefref{POSITION}
+	 */
 	void Position(const Vec3f& dir)
 	{
 		OALPLUS_ALFUNC(al,Sourcefv)(
@@ -408,6 +557,11 @@ public:
 	}
 
 	/// Sets the position of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Source3f}
+	 *  @aldefref{POSITION}
+	 */
 	void Position(ALfloat x, ALfloat y, ALfloat z)
 	{
 		OALPLUS_ALFUNC(al,Source3f)(
@@ -419,6 +573,11 @@ public:
 	}
 
 	/// Returns the position of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{POSITION}
+	 */
 	Vec3f Position(void) const
 	{
 		ALfloat result[3];
@@ -432,6 +591,11 @@ public:
 	}
 
 	/// Sets the velocity of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcefv}
+	 *  @aldefref{VELOCITY}
+	 */
 	void Velocity(const Vec3f& dir)
 	{
 		OALPLUS_ALFUNC(al,Sourcefv)(
@@ -443,6 +607,11 @@ public:
 	}
 
 	/// Sets the velocity of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Source3f}
+	 *  @aldefref{VELOCITY}
+	 */
 	void Velocity(ALfloat x, ALfloat y, ALfloat z)
 	{
 		OALPLUS_ALFUNC(al,Source3f)(
@@ -454,6 +623,11 @@ public:
 	}
 
 	/// Returns the velocity of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{VELOCITY}
+	 */
 	Vec3f Velocity(void) const
 	{
 		ALfloat result[3];
@@ -467,6 +641,11 @@ public:
 	}
 
 	/// Sets the direction of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcefv}
+	 *  @aldefref{DIRECTION}
+	 */
 	void Direction(const Vec3f& dir)
 	{
 		OALPLUS_ALFUNC(al,Sourcefv)(
@@ -478,6 +657,11 @@ public:
 	}
 
 	/// Sets the direction of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Source3f}
+	 *  @aldefref{DIRECTION}
+	 */
 	void Direction(ALfloat x, ALfloat y, ALfloat z)
 	{
 		OALPLUS_ALFUNC(al,Source3f)(
@@ -489,6 +673,11 @@ public:
 	}
 
 	/// Returns the direction of the source
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{DIRECTION}
+	 */
 	Vec3f Direction(void) const
 	{
 		ALfloat result[3];
@@ -502,6 +691,11 @@ public:
 	}
 
 	/// Sets the sound cone's inner angle
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{CONE_INNER_ANGLE}
+	 */
 	void ConeInnerAngle(Anglef angle)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -513,6 +707,11 @@ public:
 	}
 
 	/// Returns the sound cone's inner angle
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{CONE_INNER_ANGLE}
+	 */
 	Anglef ConeInnerAngle(void) const
 	{
 		ALfloat result;
@@ -526,6 +725,11 @@ public:
 	}
 
 	/// Sets the sound cone's outer angle
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{CONE_OUTER_ANGLE}
+	 */
 	void ConeOuterAngle(Anglef angle)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -537,6 +741,11 @@ public:
 	}
 
 	/// Returns the sound cone's outer angle
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{CONE_OUTER_ANGLE}
+	 */
 	Anglef ConeOuterAngle(void) const
 	{
 		ALfloat result;
@@ -550,6 +759,11 @@ public:
 	}
 
 	/// Sets the sound cone's outer gain value
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{CONE_OUTER_GAIN}
+	 */
 	void ConeOuterGain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -561,6 +775,11 @@ public:
 	}
 
 	/// Returns the sound cone's outer gain value
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetSourcefv}
+	 *  @aldefref{CONE_OUTER_GAIN}
+	 */
 	ALfloat ConeOuterGain(void) const
 	{
 		ALfloat result;
@@ -574,6 +793,11 @@ public:
 	}
 
 	/// Sets the Sec-offset value
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{SEC_OFFSET}
+	 */
 	void SecOffset(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -585,6 +809,11 @@ public:
 	}
 
 	/// Sets the sample-offset value
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{SAMPLE_OFFSET}
+	 */
 	void SampleOffset(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(
@@ -596,6 +825,11 @@ public:
 	}
 
 	/// Sets the byte-offset value
+	/**
+	 *  @alsymbols
+	 *  @alfunref{Sourcef}
+	 *  @aldefref{BYTE_OFFSET}
+	 */
 	void ByteOffset(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Sourcef)(

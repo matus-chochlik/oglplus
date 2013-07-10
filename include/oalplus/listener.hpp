@@ -30,6 +30,10 @@ public:
 	 *  @see Velocity
 	 *  @see Orientation
 	 *  @throws Error
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{POSITION}
 	 */
 	static void Position(const Vec3f& position)
 	{
@@ -45,6 +49,10 @@ public:
 	 *  @see Velocity
 	 *  @see Orientation
 	 *  @throws Error
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listener3f}
+	 *  @aldefref{POSITION}
 	 */
 	static void Position(ALfloat x, ALfloat y, ALfloat z)
 
@@ -60,6 +68,10 @@ public:
 	/**
 	 *  @see Velocity
 	 *  @see Orientation
+	 *
+	 *  @alsymbols
+	 *  @alfunref{GetListenerfv}
+	 *  @aldefref{POSITION}
 	 */
 	static Vec3f Position(void)
 	{
@@ -74,9 +86,13 @@ public:
 
 	/// Specifies the velocity vector of the listener
 	/**
-	 *  @see Position 
+	 *  @see Position
 	 *  @see Orientation
 	 *  @throws Error
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{VELOCITY}
 	 */
 	static void Velocity(const Vec3f& velocity)
 	{
@@ -89,9 +105,13 @@ public:
 
 	/// Specifies the velocity vector of the listener
 	/**
-	 *  @see Position 
+	 *  @see Position
 	 *  @see Orientation
 	 *  @throws Error
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listener3f}
+	 *  @aldefref{VELOCITY}
 	 */
 	static void Velocity(ALfloat x, ALfloat y, ALfloat z)
 	{
@@ -104,8 +124,12 @@ public:
 
 	/// Returns the velocity vector of the listener
 	/**
-	 *  @see Position 
+	 *  @see Position
 	 *  @see Orientation
+	 *
+	 *  @alsymbols
+	 *  @alfunref{GetListenerfv}
+	 *  @aldefref{VELOCITY}
 	 */
 	static Vec3f Velocity(void)
 	{
@@ -120,9 +144,13 @@ public:
 
 	/// Specifies the orientation vector of the listener
 	/**
-	 *  @see Position 
+	 *  @see Position
 	 *  @see Velocity
 	 *  @throws Error
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{ORIENTATION}
 	 */
 	static void Orientation(const Vec3f& at, const Vec3f& up)
 	{
@@ -136,11 +164,15 @@ public:
 
 	/// Specifies the orientation vector of the listener
 	/**
-	 *  @see Position 
+	 *  @see Position
 	 *  @see Velocity
 	 *  @throws Error
 	 *  @see OrientationAt
 	 *  @see OrientationUp
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{ORIENTATION}
 	 */
 	static void Orientation(
 		ALfloat at_x,
@@ -158,10 +190,14 @@ public:
 
 	/// Returns the orientation vector of the listener
 	/**
-	 *  @see Position 
+	 *  @see Position
 	 *  @see Velocity
 	 *  @see Orientation
 	 *  @see OrientationUp
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{ORIENTATION}
 	 */
 	static Vec3f OrientationAt(void)
 	{
@@ -173,9 +209,13 @@ public:
 
 	/// Returns the orientation up vector of the listener
 	/**
-	 *  @see Position 
+	 *  @see Position
 	 *  @see Velocity
 	 *  @see OrientationAt
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerfv}
+	 *  @aldefref{ORIENTATION}
 	 */
 	static Vec3f OrientationUp(void)
 	{
@@ -186,6 +226,12 @@ public:
 	}
 
 	/// Specifies the value of gain of the listener
+	/**
+	 *
+	 *  @alsymbols
+	 *  @alfunref{Listenerf}
+	 *  @aldefref{GAIN}
+	 */
 	static void Gain(ALfloat value)
 	{
 		OALPLUS_ALFUNC(al,Listenerf)(
@@ -196,11 +242,17 @@ public:
 	}
 
 	/// Returns the current value of gain of the listener
+	/**
+	 *
+	 *  @alsymbols
+	 *  @alfunref{GetListenerfv}
+	 *  @aldefref{GAIN}
+	 */
 	static ALfloat Gain(void)
 	{
 		ALfloat result;
 		OALPLUS_ALFUNC(al,GetListenerfv)(
-			AL_VELOCITY,
+			AL_GAIN,
 			&result
 		);
 		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
