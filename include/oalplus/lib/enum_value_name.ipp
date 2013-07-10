@@ -10,6 +10,9 @@
  */
 
 #if !OALPLUS_NO_ENUM_VALUE_NAMES
+OALPLUS_ENUM_CLASS_FWD(ContextAttrib, ALenum)
+#include <oalplus/enums/context_attrib_names.ipp>
+
 OALPLUS_ENUM_CLASS_FWD(DataFormat, ALenum)
 #include <oalplus/enums/data_format_names.ipp>
 

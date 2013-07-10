@@ -72,15 +72,18 @@ function convert_single_frame()
 let frameno=0
 # start the example
 (
+xkill &
+xkill_pid=$!
 cd ${build_dir}
 echo "${prefix}-" > ${filelist} &
-${build_dir}/${example} --frame-dump ${prefix}- < ${filelist} |
+nice -19 ${build_dir}/${example} --frame-dump ${prefix}- < ${filelist} |
 while read framepath
 do
 	echo "${framepath}"
 	convert_single_frame "${framepath}" > /dev/null
 done > ${filelist}
 )
+kill -INT ${xkill_pid}
 
 for job in $(jobs -p)
 do wait ${job}

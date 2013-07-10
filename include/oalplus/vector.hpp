@@ -18,7 +18,9 @@
 
 namespace oalplus {
 
+/// Reused Vector<T, N> template from OGLplus
 using oglplus::Vector;
+/// 3D Vector class
 typedef Vector<ALfloat, 3> Vec3f;
 
 } // namespace oalplus

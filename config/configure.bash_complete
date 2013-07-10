@@ -33,7 +33,7 @@ function _configure_oglplus()
 		--use-gl-header-lib)
 			COMPREPLY=($(compgen -W "GLCOREARB_H GL3_H GLEW GL3W" -- "${curr}"))
 			return 0;;
-		--use-gl-window-lib)
+		--use-gl-init-lib)
 			COMPREPLY=($(compgen -W "GLUT GLFW WXGL SDL GLX QTGL" -- "${curr}"))
 			return 0;;
 		*)
@@ -42,6 +42,7 @@ function _configure_oglplus()
 	local only_once_opts=" \
 		-h --help \
 		--generate-bash-complete \
+		--generate-manual \
 		--prefix \
 		--build-dir \
 		--use-cxxflags \
@@ -59,13 +60,13 @@ function _configure_oglplus()
 		--use-gl3-h \
 		--use-glew \
 		--use-gl3w \
-		--use-gl-window-lib \
+		--use-gl-init-lib \
 		--use-glut \
 		--use-glfw \
 		--use-wxgl \
-		--use-qtgl \
 		--use-sdl \
 		--use-glx \
+		--use-qtgl \
 		--from-scratch \
 		--quiet \
 		--quick \
@@ -98,13 +99,13 @@ function _configure_oglplus()
 	"
 
 	local muog_4=" \
-		--use-gl-window-lib \
+		--use-gl-init-lib \
 		--use-glut \
 		--use-glfw \
 		--use-wxgl \
-		--use-qtgl \
 		--use-sdl \
 		--use-glx \
+		--use-qtgl \
 	"
 
 	local repeated_opts=" \

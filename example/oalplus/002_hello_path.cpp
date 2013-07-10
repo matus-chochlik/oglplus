@@ -23,7 +23,12 @@ int main(int argc, char** argv)
 	// open the default device
 	oalplus::Device device;
 	// create a context using the device and make it current
-	oalplus::CurrentContext context(device);
+	oalplus::CurrentContext context(
+		device,
+		oalplus::ContextAttribs()
+			.Add(oalplus::ContextAttrib::MonoSources, 1)
+			.Get()
+	);
 	// create an instance of ALUT
 	oalplus::ALUtilityToolkit alut(false, argc, argv);
 	// create a listener and set its position, velocity and orientation

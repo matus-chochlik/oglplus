@@ -179,6 +179,11 @@ OGLPLUS_ENUM_CLASS_END(BufferIndexedTarget)
  *  @note Do not use this class directly, use Buffer instead
  *
  *  @see Buffer
+ *
+ *  @glsymbols
+ *  @glfunref{GenBuffers}
+ *  @glfunref{DeleteBuffers}
+ *  @glfunref{IsBuffer}
  */
 class BufferOps
  : public Named

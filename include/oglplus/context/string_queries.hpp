@@ -18,7 +18,49 @@
 #include <oglplus/error.hpp>
 #include <oglplus/string_query.hpp>
 
+#include <cassert>
+
 namespace oglplus {
+namespace aux {
+
+class ExtStrRange
+{
+private:
+	GLuint _index, _count;
+public:
+	typedef String ValueType;
+
+	ExtStrRange(GLuint n)
+	 : _index(0)
+	 , _count(n)
+	{ }
+
+	bool Empty(void) const
+	{
+		assert(_index <= _count);
+		return _index == _count;
+	}
+
+	String Front(void) const
+	{
+		assert(!Empty());
+		const GLubyte* result = OGLPLUS_GLFUNC(GetStringi)(
+			GL_EXTENSIONS,
+			_index
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetStringi));
+		return String((const GLchar*)result);
+	}
+
+	void Next(void)
+	{
+		assert(!Empty());
+		++_index;
+	}
+};
+
+} // namespace aux
+
 namespace context {
 
 /// Wrapper for the GL string-query-related operations
@@ -40,6 +82,50 @@ public:
 		const GLubyte* result = OGLPLUS_GLFUNC(GetString)(GLenum(query));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetString));
 		return result;
+	}
+
+	/// Returns the vendor name
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetString}
+	 *  @gldefref{VENDOR}
+	 */
+	static const char* Vendor(void)
+	{
+		return (const char*)GetString(StringQuery::Vendor);
+	}
+
+	/// Returns the version string
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetString}
+	 *  @gldefref{VERSION}
+	 */
+	static const char* Version(void)
+	{
+		return (const char*)GetString(StringQuery::Version);
+	}
+
+	/// Returns the shading language version string
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetString}
+	 *  @gldefref{SHADING_LANGUAGE_VERSION}
+	 */
+	static const char* ShadingLanguageVersion(void)
+	{
+		return (const char*)GetString(StringQuery::ShadingLanguageVersion);
+	}
+
+	/// Returns the renderer name
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetString}
+	 *  @gldefref{RENDERER}
+	 */
+	static const char* Renderer(void)
+	{
+		return (const char*)GetString(StringQuery::Renderer);
 	}
 
 	/// Queries the major version number
@@ -116,6 +202,21 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetStringi));
 		return result;
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Returns a range of extension strings
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetString}
+	 *  @gldefref{EXTENSIONS}
+	 */
+	static Range<String> Extensions(void);
+#else
+	static aux::ExtStrRange Extensions(void)
+	{
+		return aux::ExtStrRange(NumExtensions());
+	}
+#endif
 };
 
 } // namespace context

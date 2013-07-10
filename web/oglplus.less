@@ -76,11 +76,32 @@ div#frame {
 }
 
 div#top {
-	height: @logo-height;
-	width: @frame-width - @logo-width;
-	background-color: #D8D8F0;
+	height: @logo-height - @main-padding * 2;
+	width: @frame-width - @logo-width - @main-padding * 2;
+	background-color: #D0D0E8;
+	padding: @main-padding;
+	box-shadow: inset 1px 1px 2px 1px #404040;
 	.thick-border;
 	overflow: hidden;
+}
+
+div#addthis-box {
+	position: relative;
+	top: -20px;
+	left: 144px;
+}
+
+div#flattr-box {
+	position: relative;
+}
+
+hr.top-div {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #A0A0AF;
+	margin-top: 1.0em;
+	margin-bottom: 1.6em;
 }
 
 div#logo {
@@ -97,8 +118,10 @@ div#right {
 	top: @logo-height + @half-border + @half-border / 2;
 	bottom: @footer-height + @half-border * 6 + @half-border / 2;
 	left: @frame-width + @half-border + @half-border/2 - @logo-width;
-	width: @logo-width;
+	width: @logo-width - @main-padding * 2;
 	background-color: #70A0FF;
+	padding: @main-padding;
+	box-shadow: inset 1px 1px 2px 1px #404040;
 	.thick-border;
 	overflow: hidden;
 }

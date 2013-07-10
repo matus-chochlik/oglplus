@@ -64,11 +64,15 @@ struct ContextValueTypeToContextAttrib
 /// Attribute list for context attributes
 typedef AttributeList<
 	ContextAttrib,
-	ContextValueTypeToContextAttrib
+	ContextValueTypeToContextAttrib,
+	AttributeListTraits
 > ContextAttribs;
 
 /// Finished list of context attribute values
-typedef FinishedAttributeList<ContextAttrib> FinishedContextAttribs;
+typedef FinishedAttributeList<
+	ContextAttrib,
+	AttributeListTraits
+> FinishedContextAttribs;
 
 /// Wrapper around EGLContext
 class Context

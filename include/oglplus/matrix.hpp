@@ -1060,6 +1060,10 @@ public:
 		);
 	}
 
+	/// Constructs a perspective projection matrix
+	/** Creates a new perspective matrix from @p x_left, @p x_right,
+	 *  @p y_botton, @p y_top, @p z_near and @p z_far values.
+	 */
 	static inline CameraMatrix Perspective(
 		T x_left,
 		T x_right,
@@ -1297,6 +1301,49 @@ public:
 		return CameraMatrix(_LookingAt(), eye, target);
 	}
 
+	CameraMatrix(
+		_LookingAt,
+		const Vector<T, 3>& eye,
+		const Vector<T, 3>& target,
+		const Vector<T, 3>& up
+	): Base(oglplus::Nothing())
+	{
+		assert(eye != target);
+		Vector<T, 3> z = Normalized(eye - target);
+		T dupz = Dot(up, z);
+		assert(dupz < 0.9 && dupz >-0.9);
+		Vector<T, 3> y = Normalized(
+			dupz != 0.0?
+			up-z*dupz:
+			up
+		);
+		Vector<T, 3> x = Cross(y, z);
+
+		InitMatrix4x4(
+			*this,
+			x[0], x[1], x[2],
+			-Dot(eye, x),
+
+			y[0], y[1], y[2],
+			-Dot(eye, y),
+
+			z[0], z[1], z[2],
+			-Dot(eye, z),
+
+			T(0), T(0), T(0), T(1)
+		);
+	}
+
+	/// Constructs 'look-at' matrix from eye and target positions and up vector
+	static inline CameraMatrix LookingAt(
+		const Vector<T, 3>& eye,
+		const Vector<T, 3>& target,
+		const Vector<T, 3>& up
+	)
+	{
+		return CameraMatrix(_LookingAt(), eye, target, up);
+	}
+
 	struct _Orbiting { };
 
 	CameraMatrix(
@@ -1369,7 +1416,7 @@ public:
 	}
 
 	/// Constructs a X-axis rotation (Pitch/Elevation) matrix
-	/** The initial heading is the negative Z-axix, y_top is the Y-axis,
+	/** The initial heading is the negative Z-axis, y_top is the Y-axis,
 	 *  x_right is X-axis.
 	 *  Positive angle values do counter-clockwise rotation (looking up),
 	 *  negative angles cause clockwise changes in pitch (looking down).
@@ -1426,7 +1473,7 @@ public:
 	/** The initial position is that y_top is the Y-axis,
 	 *  heading in the negative Z-axis direction, x_right is X-axis.
 	 *  Positive angle values do counter-clockwise banking, negative
-	 *  angles to clockwise banking.
+	 *  angles do clockwise banking.
 	 */
 	static inline CameraMatrix Roll(Angle<T> angle)
 	{

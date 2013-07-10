@@ -2253,7 +2253,7 @@ public:
 		));
 	}
 
-	/// Gets maximal LOD value (TEXTURE_MAX_LOD)
+	/// Gets maximum LOD value (TEXTURE_MAX_LOD)
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
@@ -2264,7 +2264,7 @@ public:
 		return GetFloatParam(target, GL_TEXTURE_MAX_LOD);
 	}
 
-	/// Sets maximal LOD value (TEXTURE_MAX_LOD)
+	/// Sets maximum LOD value (TEXTURE_MAX_LOD)
 	/**
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
@@ -2279,6 +2279,38 @@ public:
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameterf,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Gets maximum level value (TEXTURE_MAX_LEVEL)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAX_LEVEL}
+	 */
+	static GLint MaxLevel(Target target)
+	{
+		return GetIntParam(target, GL_TEXTURE_MAX_LEVEL);
+	}
+
+	/// Sets maximum level value (TEXTURE_MAX_LEVEL)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAX_LEVEL}
+	 */
+	static void MaxLevel(Target target, GLint value)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_MAX_LEVEL,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
 			Texture,
 			EnumValueName(target),
 			BindingQuery<TextureOps>::QueryBinding(target)

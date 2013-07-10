@@ -1,3 +1,36 @@
+Version 0.33.0
+
+- OGLplus changes
+  - The MaxLevel getter and setter functions were added to Texture.
+  - A new CamMatrix::LookingAt constructor function was added.
+  - Minor changes were made to the shapes::ObjMesh loader.
+  - The shapes::Cube generator was reimplemented.
+  - An EGL harness for off-screen screenshot and video rendering was added.
+  - The SepStrRange helper class was moved to OGLplus and re-used in both
+    OALplus and EGLplus.
+  - The normal map image generator was changed - the height value is now inverted.
+  - Range-based traversal of GL extensions was added to Context.
+  - An example showing extension string traversal was added.
+  - An example printing the various GL implementation limits was added.
+  - Two new examples showing shell-based parallax mapping were added.
+  - The glcorearb.h header was added to the third_party includes for convenience.
+- OALplus changes
+  - String queries were added to Context.
+  - Const qualifiers were removed from Source::Gain and Source::MaxDistance
+    setter functions.
+  - Static specifier was added to Context::Extensions.
+  - Re-used the Angle template from OGLplus.
+  - Minor problem in the Array template was fixed.
+  - Support for construction with attributes was added to CurrentContext.
+  - Two new examples were added and the existing ones were updated.
+- EGLplus changes
+  - Three new getter functions were added to Config.
+- Changes in the build system and configuration script
+  - The GL context intialization was re-implemented.
+  - The --use-gl-window-lib option was renamed to --use-gl-init-lib.
+- Minor updates and typo fixes were made to the doxygen documentation.
+
+
 Version 0.32.0
 
 - Merged the EGLplus library into the main development branch

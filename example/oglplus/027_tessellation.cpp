@@ -297,6 +297,8 @@ public:
 		std::vector<GLfloat> ncp_data(pos_data.size());
 		std::vector<GLfloat> ptl_data(segments*4*2);
 
+		GLfloat kpa = (4.0f/segments)*(4.0f/3.0f)*(sqrt(2.0f)-1.0f)/sqrt(2.0f);
+
 		GLuint k_pos=0, k_pcp=0, k_ncp=0, k_ptl=0;
 		for(GLuint s=0; s!=segments;++s)
 		{
@@ -310,9 +312,9 @@ public:
 			pos_data[k_pos++] = 0.0f;
 			pos_data[k_pos++] = -r_min*Sin(a1);
 
-			pcp_data[k_pcp++] = (+r_min*Cos(a2)-r_min*Cos(a0))/5.0f;
+			pcp_data[k_pcp++] = (+r_min*Cos(a2)-r_min*Cos(a0))*kpa;
 			pcp_data[k_pcp++] = 0.0f;
-			pcp_data[k_pcp++] = (-r_min*Sin(a2)+r_min*Sin(a0))/5.0f;
+			pcp_data[k_pcp++] = (-r_min*Sin(a2)+r_min*Sin(a0))*kpa;
 
 			ncp_data[k_ncp++] = (+r_max*Cos(a1)-r_min*Cos(a1))/3.0f;
 			ncp_data[k_ncp++] = 0.0f;
@@ -330,9 +332,9 @@ public:
 			pcp_data[k_pcp++] = 0.0f;
 			pcp_data[k_pcp++] = (-r_min*Sin(a1)+r_max*Sin(a1))/3.0f;
 
-			ncp_data[k_ncp++] = (+r_max*Cos(a2)-r_max*Cos(a0))/5.0f;
+			ncp_data[k_ncp++] = (+r_max*Cos(a2)-r_max*Cos(a0))*kpa;
 			ncp_data[k_ncp++] = 0.0f;
-			ncp_data[k_ncp++] = (-r_max*Sin(a2)+r_max*Sin(a0))/5.0f;
+			ncp_data[k_ncp++] = (-r_max*Sin(a2)+r_max*Sin(a0))*kpa;
 
 			ptl_data[k_ptl++] = 20.0*r_max/r_min;
 			ptl_data[k_ptl++] = 10.0*r_max/r_min;
@@ -342,9 +344,9 @@ public:
 			pos_data[k_pos++] = 0.0f;
 			pos_data[k_pos++] = -r_max*Sin(a2);
 
-			pcp_data[k_pcp++] = (+r_max*Cos(a1)-r_max*Cos(a3))/5.0f;
+			pcp_data[k_pcp++] = (+r_max*Cos(a1)-r_max*Cos(a3))*kpa;
 			pcp_data[k_pcp++] = 0.0f;
-			pcp_data[k_pcp++] = (-r_max*Sin(a1)+r_max*Sin(a3))/5.0f;
+			pcp_data[k_pcp++] = (-r_max*Sin(a1)+r_max*Sin(a3))*kpa;
 
 			ncp_data[k_ncp++] = (+r_min*Cos(a2)-r_max*Cos(a2))/3.0f;
 			ncp_data[k_ncp++] = 0.0f;
@@ -362,9 +364,9 @@ public:
 			pcp_data[k_pcp++] = 0.0f;
 			pcp_data[k_pcp++] = (-r_max*Sin(a2)+r_min*Sin(a2))/3.0f;
 
-			ncp_data[k_ncp++] = (+r_min*Cos(a1)-r_min*Cos(a3))/5.0f;
+			ncp_data[k_ncp++] = (+r_min*Cos(a1)-r_min*Cos(a3))*kpa;
 			ncp_data[k_ncp++] = 0.0f;
-			ncp_data[k_ncp++] = (-r_min*Sin(a1)+r_min*Sin(a3))/5.0f;
+			ncp_data[k_ncp++] = (-r_min*Sin(a1)+r_min*Sin(a3))*kpa;
 
 			ptl_data[k_ptl++] = 20.0;
 			ptl_data[k_ptl++] = 10.0;

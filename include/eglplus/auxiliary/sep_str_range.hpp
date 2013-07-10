@@ -14,49 +14,12 @@
 #define EGLPLUS_AUX_SEP_STR_RANGE_1305291314_HPP
 
 #include <eglplus/string.hpp>
-#include <algorithm>
+#include <oglplus/auxiliary/sep_str_range.hpp>
 
 namespace eglplus {
 namespace aux {
 
-class SepStrRange
-{
-private:
-	String _values;
-	String::iterator _i, _e;
-public:
-	typedef String ValueType;
-
-	SepStrRange(const char* str, char sep = ' ')
-	 : _values(str)
-	 , _i(_values.begin())
-	 , _e(_values.end())
-	{
-		std::replace(_i, _e, sep, '\0');
-	}
-
-	bool Empty(void) const
-	{
-		return _i == _e;
-	}
-
-	String Front(void) const
-	{
-		assert(!Empty());
-		String::iterator p = std::find(_i, _e, '\0');
-		return String(_i, p);
-	}
-
-	void Next(void)
-	{
-		assert(!Empty());
-		_i = std::find(_i, _e, '\0');
-		assert(_i != _e);
-		++_i;
-		if((_i != _e) && (*_i == '\0'))
-			_i = _e;
-	}
-};
+typedef oglplus::aux::SepStrRangeTpl<String> SepStrRange;
 
 } // namespace aux
 } // namespace eglplus

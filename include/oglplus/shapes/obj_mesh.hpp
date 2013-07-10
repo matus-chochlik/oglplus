@@ -252,6 +252,12 @@ public:
 		return _mtl_names[mat_num];
 	}
 
+	/// Queries the index of the mesh with the specified name
+	bool QueryMeshIndex(const std::string& name, GLuint& index) const;
+
+	/// Gets the index of the mesh with the specified name, throws on error
+	GLuint GetMeshIndex(const std::string& name) const;
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Vertex attribute information for this shape builder
 	/** ObjMesh provides build functions for the following named
@@ -716,6 +722,30 @@ void ObjMesh::_call_load_meshes(
 	opts.load_texcoords |= opts.load_tangents;
 
 	_load_meshes(opts, names_begin, names_end, input);
+}
+
+OGLPLUS_LIB_FUNC
+bool ObjMesh::QueryMeshIndex(const std::string& name, GLuint& index) const
+{
+	auto p = std::find(_mesh_names.begin(), _mesh_names.end(), name);
+	if(p == _mesh_names.end()) return false;
+	index = GLuint(std::distance(_mesh_names.begin(), p));
+	return true;
+}
+
+OGLPLUS_LIB_FUNC
+GLuint ObjMesh::GetMeshIndex(const std::string& name) const
+{
+	GLuint result = 0;
+	if(!QueryMeshIndex(name, result))
+	{
+		throw std::runtime_error(
+			"ObjMesh: Unable to find index of mesh '"+
+			name +
+			"'"
+		);
+	}
+	return result;
 }
 
 #endif // OGLPLUS_LINK_LIBRARY
