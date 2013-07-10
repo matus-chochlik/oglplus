@@ -36,17 +36,17 @@ OOPPTTIIOONNSS
               invoked (default = '__bbuuiilldd').
 
        ----iinncclluuddee--ddiirr <_I_N_C_L_U_D_E___D_I_R_S>, --II <_I_N_C_L_U_D_E___D_I_R_S>
-              Specifies additional directory to search when looking for exter‐
+              Specifies additional directory to search when looking for exter-
               nal headers like _G_L_/_g_l_e_w_._h _o_r _G_L_3_/_g_l_3_._h. The specified path must
               be  absolute  or  relative to the current working directory from
               which ccoonnffiigguurree--ooggllpplluuss is invoked. This option may be specified
               multiple times to add multiple directories to the search list.
 
        ----lliibbrraarryy--ddiirr <_L_I_B_R_A_R_Y___D_I_R_S>, --LL <_L_I_B_R_A_R_Y___D_I_R_S>
-              Specifies  additional  directory to search when looking for com‐
+              Specifies  additional  directory to search when looking for com-
               piled libraries like GL, GLEW, glut,  png,  etc.  The  specified
-              path  must be absolute or relative to the current working direc‐
-              tory from which configure is invoked. This option may be  speci‐
+              path  must be absolute or relative to the current working direc-
+              tory from which configure is invoked. This option may be  speci-
               fied  multiple  times  to add multiple directories to the search
               list.
 
@@ -68,6 +68,11 @@ OOPPTTIIOONNSS
               value in oglplus/config.hpp and may be overriden in  sources  by
               defining  this  preprocessor  symbol or by using the appropriate
               compiler command-line switch or build environment setting.
+
+       ----iinnffoo--oonnllyy
+              With this option configure only generates a python  script  con-
+              taining  information  about  the available configurations on the
+              current machine.
 
        ----bbuuiilldd--eexxaammpplleess {TTrruuee,FFaallssee}
               Determines whether the  examples  should  be  built  (default  =
@@ -98,68 +103,71 @@ OOPPTTIIOONNSS
               may return a higher OpenGL version than actually available. This
               option can be used to limit the maximal version number.
 
-       ----uussee--ggll--hheeaaddeerr--lliibb {GGLLCCOORREEAARRBB__HH,GGLL33__HH,GGLLEEWW,GGLL33WW}
+       ----uussee--ggll--aappii--lliibb {GGLLEEWW,GGLL33WW,GGLLCCOORREEAARRBB__HH,GGLL33__HH}
               Forces the use of a specific header or library which defines the
-              GL symbols.
-
-       ----uussee--ggllccoorreeaarrbb--hh
-              Force  use of the _G_L_/_g_l_c_o_r_e_a_r_b_._h header. If this option is used,
-              then this header must  be  installed  somewhere  in  the  system
+              GL  symbols (types, functions, defines, etc.). If this option is
+              used then the header must be installed somewhere in  the  system
               include  directories or in directories specified with --include-
-              dir. Equivalent to --use-gl-header-lib=GLCOREARB_H.
-
-       ----uussee--ggll33--hh
-              Force use of the _G_L_3_/_g_l_3_._h header. If this option is used,  then
-              this  header  must  be installed somewhere in the system include
-              directories or  in  directories  specified  with  --include-dir.
-              Equivalent to --use-gl-header-lib=GL3_H.
+              dir and the corresponding binary libraries must be installed  in
+              system  library directories or in directories specified with the
+              --library-dir option.
 
        ----uussee--gglleeww
-              Force use of the GLEW library. If this option is used, then GLEW
-              and the _G_L_/_g_l_e_w_._h header must be installed somewhere in the sys‐
-              tem   include  directories  or  in  directories  specified  with
-              --include-dir. Equivalent to --use-gl-header-lib=GLEW.
+              Forces the use of the GLEW library to define the GL symbols used
+              in OGLplus examples. Equivalent to --use-gl-api-lib=GLEW.
 
        ----uussee--ggll33ww
-              Force use of the GL3W library. If this option is used, then GL3W
-              and the _G_L_/_g_l_3_w_._h header must be installed somewhere in the sys‐
-              tem  include  directories  or  in  directories  specified   with
-              --include-dir. Equivalent to --use-gl-header-lib=GL3W.
+              Forces the use of the GL3W library to define the GL symbols used
+              in OGLplus examples. Equivalent to --use-gl-api-lib=GL3W.
 
-       ----uussee--ggll--iinniitt--lliibb {GGLLUUTT,GGLLFFWW,WWXXGGLL,SSDDLL,GGLLXX,QQTTGGLL}
+       ----uussee--ggllccoorreeaarrbb--hh
+              Forces the use of the _G_L_/_g_l_c_o_r_e_a_r_b_._h header  to  define  the  GL
+              symbols  used  in  OGLplus examples. Equivalent to --use-gl-api-
+              lib=GLCOREARB_H.
+
+       ----uussee--ggll33--hh
+              Forces the use of the _G_L_3_/_g_l_3_._h header to define the GL  symbols
+              used in OGLplus examples. Equivalent to --use-gl-api-lib=GL3_H.
+
+       ----uussee--ggll--iinniitt--lliibb {GGLLUUTT,GGLLFFWW,WWXXGGLL,SSDDLL,GGLLXX,QQTTGGLL,EEGGLL}
               Forces  the  use  of a specific window library which initializes
               the default GL context. This option allows to force  a  specific
               example 'harness'.
 
        ----uussee--gglluutt
-              Forces the use of the GLUT library to create the window and ini‐
+              Forces the use of the GLUT library to create the window and ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=GLUT.
 
        ----uussee--ggllffww
-              Forces the use of the GLFW library to create the window and ini‐
+              Forces the use of the GLFW library to create the window and ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=GLFW.
 
        ----uussee--wwxxggll
-              Forces the use of the wxGL library to create the window and ini‐
+              Forces the use of the wxGL library to create the window and ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=WXGL.
 
        ----uussee--ssddll
-              Forces  the use of the SDL library to create the window and ini‐
+              Forces  the use of the SDL library to create the window and ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=SDL.
 
        ----uussee--ggllxx
-              Forces  the use of the glX library to create the window and ini‐
+              Forces  the use of the glX library to create the window and ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=GLX.
 
        ----uussee--qqttggll
-              Forces the use of the QtGL library to create the window and ini‐
+              Forces the use of the QtGL library to create the window and ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=QTGL.
+
+       ----uussee--eeggll
+              Forces  the use of the EGL library to create the window and ini-
+              tialize the GL context in OGLplus examples. Equivalent to --use-
+              gl-init-lib=EGL.
 
        ----ffrroomm--ssccrraattcchh
               Remove  any  previous  cached and intermediate files and run the
@@ -182,7 +190,7 @@ OOPPTTIIOONNSS
               Configure the testsuite.
 
        ----ccmmaakkee
-              Everything following this option will be passed to cmake  verba‐
+              Everything following this option will be passed to cmake  verba-
               tim.
 
 AAUUTTHHOORR
@@ -197,4 +205,4 @@ CCOOPPYYRRIIGGHHTT
 
 
 
-Configuration script for OGLplus. 2013-06-18              CONFIGURE-OGLPLUS(1)
+Configuration script for OGLplus. 2013-07-10              CONFIGURE-OGLPLUS(1)
