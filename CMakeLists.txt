@@ -116,7 +116,9 @@ elseif(${OGLPLUS_FORCE_GL3W})
 
 # if the user didn't specify any preference
 else()
-	if((OPENGL_FOUND) AND (EXISTS ${OPENGL_GLCOREARB_H_DIR}))
+	if((${WIN32}) AND (GLEW_FOUND))
+		set(OGLPLUS_USE_GLEW 1)
+	elseif((OPENGL_FOUND) AND (EXISTS ${OPENGL_GLCOREARB_H_DIR}))
 		set(OGLPLUS_USE_GLCOREARB_H 1)
 	elseif((OPENGL_FOUND) AND (EXISTS ${OPENGL_GL3_H_DIR}))
 		set(OGLPLUS_USE_GL3_H 1)
