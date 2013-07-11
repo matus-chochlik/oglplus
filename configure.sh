@@ -402,7 +402,7 @@ then
 	) > ${build_script}
 
 	if ${build}
-	then less ${build_script} #(source ${build_script})
+	then (source ${build_script})
 	elif ! ${quiet}
 	then cat ${build_script}
 	fi
