@@ -11,7 +11,6 @@ import os, sys, getopt, shutil, subprocess
 def get_argument_parser():
 	import argparse
 	import datetime
-	from string import maketrans
 
 	def BoolArgValue(arg):
 		if(arg in ("True", "true", "Yes", "yes", "Y", "On", "1")):
@@ -254,7 +253,7 @@ def get_argument_parser():
 		"--use-gl-api-lib",
 		dest="gl_api_lib",
 		type=str,
-		choices=[lib.upper().translate(maketrans('.','_')) for lib in gl_api_libs.keys() ],
+		choices=[lib.upper().replace('.', '_') for lib in gl_api_libs.keys() ],
 		action="store",
 		default=None,
 		help="""
@@ -268,8 +267,8 @@ def get_argument_parser():
 		"""
 	)
 	for gl_api_lib, gl_api_lib_name in gl_api_libs.items():
-		lib_lc = gl_api_lib.lower().translate(maketrans('.','-'))
-		lib_uc = gl_api_lib.upper().translate(maketrans('.','_'))
+		lib_lc = gl_api_lib.lower().replace('.', '-')
+		lib_uc = gl_api_lib.upper().replace('.', '_')
 		argparser_gl_api_lib_group.add_argument(
 			"--use-%(lib_lc)s" % { "lib_lc" : lib_lc },
 			dest="gl_api_lib",
