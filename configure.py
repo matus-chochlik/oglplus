@@ -31,6 +31,8 @@ def get_argument_parser():
 			msg = "'%s' is not a supported OpenGL version" % str(arg)
 			raise argparse.ArgumentTypeError(msg)
 
+	CMakeGeneratorValue = str
+
 	version_file = os.path.join(os.path.dirname(sys.argv[0]), "VERSION")
 	try: version = open(version_file, "r").read().strip()
 	except: version = str("<unknown>")
@@ -364,6 +366,15 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--generator",
+		type=CMakeGeneratorValue,
+		default=None,
+		action="store",
+		help="""
+			Specify the cmake generator to be used.
+		"""
+	)
+	argparser.add_argument(
 		"--cmake",
 		dest="cmake_options",
 		nargs=argparse.REMAINDER,
@@ -528,9 +539,26 @@ def print_bash_complete_script(argparser):
 	print('	case "${prev}" in')
 	print('		-h|--help)')
 	print('			return 0;;')
+	print('		--generator)')
+	print('			OLDIFS=${IFS}')
+	print('			IFS=$\'\\r\\n\'')
+	print('			COMPREPLY=($(')
+	print('				cmake --help |')
+	print('				sed -n \'/^Generators\s*$/,$p\' |')
+	print('				tail -n +4 |')
+	print('				grep -v -e \'^\s\+=\' |')
+	print('				grep -v -e \'^\s*$\' |')
+	print('				cut -d= -f 1 |')
+	print('				sed \'s/^\s*\([^ ].\+[^ ]\)\s*$/\\1/\' |')
+	print('				grep -e "^${curr}" |')
+	print('				sed \'s/ /\\\\ /g\'')
+	print('			))')
+	print('			IFS=${OLDIFS}')
+	print('			return 0;;')
 	print('		%s)' % str("|").join(options_with_path))
 	print('			COMPREPLY=($(compgen -f "${curr}"))')
 	print('			return 0;;')
+
 
 	for action in argparser._actions:
 		if action.choices is not None:
@@ -780,6 +808,10 @@ def main(argv):
 	# configure the test suite
 	if(options.with_tests):
 		cmake_options.append("-DOGLPLUS_WITH_TESTS=On")
+
+	# set the generator if specified
+	if(options.generator):
+		cmake_options+['-G', options.generator]
 
 	# create the build directory if necessary
 	if(not os.path.isdir(options.build_dir)):

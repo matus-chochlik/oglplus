@@ -15,6 +15,22 @@ function _configure_oglplus()
 	case "${prev}" in
 		-h|--help)
 			return 0;;
+		--generator)
+			OLDIFS=${IFS}
+			IFS=$'\r\n'
+			COMPREPLY=($(
+				cmake --help |
+				sed -n '/^Generators\s*$/,$p' |
+				tail -n +4 |
+				grep -v -e '^\s\+=' |
+				grep -v -e '^\s*$' |
+				cut -d= -f 1 |
+				sed 's/^\s*\([^ ].\+[^ ]\)\s*$/\1/' |
+				grep -e "^${curr}" |
+				sed 's/ /\\ /g'
+			))
+			IFS=${OLDIFS}
+			return 0;;
 		--prefix|--build-dir|--include-dir|-I|--library-dir|-L)
 			COMPREPLY=($(compgen -f "${curr}"))
 			return 0;;
@@ -74,6 +90,7 @@ function _configure_oglplus()
 		--quick \
 		--build \
 		--with-tests \
+		--generator \
 		--cmake \
 	"
 

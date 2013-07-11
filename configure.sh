@@ -145,7 +145,10 @@ do
 		do oglplus_cmake_options="${oglplus_cmake_options} '${arg}'"
 		done
 		break;;
-
+	--generator)
+		shift
+		oglplus_cmake_options="${oglplus_cmake_options} -G ${1// /\ }"
+		break;;
 	--prefix*)
 		parse_path_spec_option "--prefix" "${1}" "${2}" || shift
 		oglplus_prefix=${option_path}
@@ -283,8 +286,11 @@ fi
 #
 # let cmake dump some system information into a temp file
 # in a form usable by bash
+# temporary file where the commands to be executed are stored
+command_file=$(oglplus_make_temp_file)
 cmake_info_file=$(oglplus_make_temp_file)
-cmake --system-information ${oglplus_cmake_options} |
+echo "cmake --system-information ${oglplus_cmake_options}" > ${command_file}
+(. ${command_file}) |
 grep -e "CMAKE_BUILD_TOOL" -e "CMAKE_INSTALL_PREFIX" |
 tr ' ' '=' > ${cmake_info_file}
 #
@@ -352,8 +358,6 @@ if [ "${oglplus_prefix}" != "" ]
 then oglplus_cmake_options="'-DCMAKE_INSTALL_PREFIX=${oglplus_prefix}' ${oglplus_cmake_options}"
 fi
 
-# temporary file where the commands to be executed are stored
-command_file=$(oglplus_make_temp_file)
 # make the configuration commands
 (
 	exec > ${command_file}
@@ -386,14 +390,14 @@ then
 		echo
 		echo "# Configuration completed successfully."
 		echo -n "# To build "
-		if [[ ${install} ]]
+		if ${install}
 		then echo -n "and install "
 		fi
 		echo "OGLplus do the following:"
 		echo
 		echo "cd $(shortest_path_from_to "${PWD}" "${oglplus_build_dir}") &&"
 		echo -n "${CMAKE_BUILD_TOOL} -j ${num_jobs}"
-		if [[ ${install} ]]
+		if ${install}
 		then echo -e " &&\n${CMAKE_BUILD_TOOL} install"
 		else echo
 		fi
