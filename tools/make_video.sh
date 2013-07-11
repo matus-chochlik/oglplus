@@ -10,11 +10,13 @@ width=852
 height=480
 example="${1%.cpp}"
 #
+rootdir="$(dirname $0)/.."
 tmpdir=$(mktemp -d)
 mkdir -p ${tmpdir}
 #
 prefix="${tmpdir}/oglplus-$(basename ${example})"
 labelfile=${tmpdir}/label.png
+logofile=${tmpdir}/logo.png
 #
 filelist=${tmpdir}/filelist
 rm -f ${filelist}
@@ -22,7 +24,7 @@ mkfifo ${filelist}
 
 # make the label
 convert \
-	-size $[${width}/2]x24 xc:none \
+	-size $[${width}/2]x28 xc:none \
 	-background none \
 	-pointsize 28 \
 	-gravity center \
@@ -37,6 +39,24 @@ convert \
 	-fill white \
 	-annotate 0 "${label}" \
 	${labelfile}
+
+# make the logo
+convert \
+	-size 144x144 xc:none \
+	-background none \
+	-gravity center \
+	-stroke black \
+	-fill black \
+	-draw 'circle 72,72, 72,144' \
+	-blur 2x2 \
+	-shadow ${width}x7 \
+	+repage \
+	"${rootdir}/doc/logo/oglplus_circular.png" \
+	-composite \
+	-adaptive-resize 72x72 \
+	-border 16x0 \
+	"${logofile}"
+
 
 if [ "${example}" == "" ]
 then echo "No example specified" && exit 1
@@ -56,6 +76,9 @@ function convert_single_frame()
 		-alpha Off \
 		-gravity SouthEast \
 		${labelfile} \
+		-composite \
+		-gravity SouthEast \
+		${logofile} \
 		-composite \
 		-quality 100 \
 		${1%.rgba}.jpeg
