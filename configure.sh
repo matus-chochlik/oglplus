@@ -16,7 +16,8 @@ oglplus_use_ldflags=false
 dry_run=false
 from_scratch=false
 quiet=false
-build_and_install=false
+build=false
+install=false
 #
 function oglplus_make_temp_file()
 {
@@ -165,14 +166,14 @@ do
 		library_search_paths="${library_search_paths}${option_path};"
 		unset option_path;;
 
-	--use-gl-header-lib)
+	--use-gl-api-lib)
 		shift
 		case "${1}" in
 		GLCOREARB_H|GL3_H|GLEW|GL3W)oglplus_forced_gl_header=${1};;
 		*) echoerror "Unknown GL header lib '${1}'" && exit 1;;
 		esac
 		;;
-	--use-gl-header-lib=*)
+	--use-gl-api-lib=*)
 		case "${1##*=}" in
 		GLCOREARB_H|GL3_H|GLEW|GL3W)oglplus_forced_gl_header=${1##*=};;
 		*) echoerror "Unknown GL header lib '${1##*=}'" && exit 1;;
@@ -184,14 +185,14 @@ do
 	--use-glew) oglplus_forced_gl_header=GLEW;;
 	--use-gl3w) oglplus_forced_gl_header=GL3W;;
 
-	--use-gl-window-lib)
+	--use-gl-init-lib)
 		shift
 		case "${1}" in
 		GLX|GLUT|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1};;
 		*) echoerror "Unknown GL initialization lib '${1}'" && exit 1;;
 		esac
 		;;
-	--use-gl-window-lib=*)
+	--use-gl-init-lib=*)
 		case "${1##*=}" in
 		GLX|GLUT|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1##*=};;
 		*) echoerror "Unknown GL initialization lib '${1##*=}'" && exit 1;;
@@ -215,7 +216,8 @@ do
 	--dry-run) dry_run=true;;
 	--from-scratch) from_scratch=true;;
 	--quiet) quiet=true;;
-	--build-and-install) build_and_install=true;;
+	--build) build=true;;
+	--install) build=true && install=true;;
 
 	-h|--help) print_help && exit 0;;
 	*) print_short_help ${1} && exit 1;;
@@ -327,12 +329,12 @@ fi
 
 # pass the forced GL header option to cmake
 if [ "${oglplus_forced_gl_header}" != "" ]
-then oglplus_cmake_options="'-DOGLPLUS_FORCE_${oglplus_forced_gl_header}=On' ${oglplus_cmake_options}"
+then oglplus_cmake_options="'-DOGLPLUS_FORCE_GL_API_LIB=${oglplus_forced_gl_header}' ${oglplus_cmake_options}"
 fi
 
 # pass the forced GL initializer library option to cmake
 if [ "${oglplus_forced_gl_init_lib}" != "" ]
-then oglplus_cmake_options="'-DOGLPLUS_FORCE_${oglplus_forced_gl_init_lib}=On' ${oglplus_cmake_options}"
+then oglplus_cmake_options="'-DOGLPLUS_FORCE_GL_INIT_LIB=${oglplus_forced_gl_init_lib}' ${oglplus_cmake_options}"
 fi
 
 # pass the list of paths to search for libraries to cmake
@@ -365,35 +367,43 @@ command_file=$(oglplus_make_temp_file)
 	echo "cd '${PWD}'"
 )
 
-if [ "${dry_run}" == false ]
-then source ${command_file}
-else cat ${command_file}
+if ${dry_run}
+then cat ${command_file}
+else source ${command_file}
 fi
 
 rm -f ${command_file}
 
-if [ "${dry_run}" != false ]
+if ${dry_run}
 then exit
 fi
 
 if [ ${configure_result:-0} -eq 0 ]
 then
+	num_jobs=$(($(grep -c ^processor /proc/cpuinfo)+1))
 	build_script=$(oglplus_make_temp_file)
 	(
 		echo
 		echo "# Configuration completed successfully."
-		echo "# To build OGLplus do the following:"
+		echo -n "# To build "
+		if [[ ${install} ]]
+		then echo -n "and install "
+		fi
+		echo "OGLplus do the following:"
 		echo
 		echo "cd $(shortest_path_from_to "${PWD}" "${oglplus_build_dir}") &&"
-		echo "${CMAKE_BUILD_TOOL} &&"
-		echo "${CMAKE_BUILD_TOOL} install"
+		echo -n "${CMAKE_BUILD_TOOL} -j ${num_jobs}"
+		if [[ ${install} ]]
+		then echo -e " &&\n${CMAKE_BUILD_TOOL} install"
+		else echo
+		fi
 		echo
 		echo "# NOTE: installing may require administrative privilegues"
 	) > ${build_script}
 
-	if [ "${build_and_install}" == "true" ]
-	then (source ${build_script})
-	elif [ "${quiet}" != "true" ]
+	if ${build}
+	then less ${build_script} #(source ${build_script})
+	elif ! ${quiet}
 	then cat ${build_script}
 	fi
 	rm -f "${build_script}"
