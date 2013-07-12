@@ -332,6 +332,8 @@ public:
 		);
 	}
 
+	void HandleLinkError(void) const;
+
 	/// Links this shading language program
 	/**
 	 *  @post IsLinked()
@@ -355,15 +357,7 @@ public:
 		));
 		if(OGLPLUS_IS_ERROR(!IsLinked()))
 		{
-			HandleBuildError<LinkError>(
-				GetInfoLog(),
-				OGLPLUS_OBJECT_ERROR_INFO(
-					LinkProgram,
-					Program,
-					nullptr,
-					_name
-				)
-			);
+			HandleLinkError();
 		}
 		return *this;
 	}
@@ -1161,6 +1155,22 @@ public:
 	) const;
 
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void ProgramOps::HandleLinkError(void) const
+{
+	HandleBuildError<LinkError>(
+		GetInfoLog(),
+		OGLPLUS_OBJECT_ERROR_INFO(
+			LinkProgram,
+			Program,
+			nullptr,
+			_name
+		)
+	);
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL shading language program functionality

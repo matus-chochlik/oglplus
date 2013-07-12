@@ -16,6 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
+#include <oglplus/program.hpp>
 
 #include <oglplus/auxiliary/uniform_typecheck.hpp>
 
@@ -224,34 +225,52 @@ protected:
 		return result;
 	}
 
+	void _handle_error(
+		GLuint program,
+		const GLchar* identifier,
+		GLint location
+	) const;
+
 	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
 		GLint location = _do_init_location(program, identifier);
 		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
-			Error::PropertyMapInit props;
-			Error::AddPropertyValue(
-				props,
-				"identifier",
-				identifier
-			);
-			Error::AddPropertyValue(
-				props,
-				"program",
-				aux::ObjectDescRegistry<ProgramOps>::
-						_get_desc(program)
-			);
-			HandleShaderVariableError(
-				GL_INVALID_OPERATION,
-				location,
-				"Getting the location of inactive uniform",
-				OGLPLUS_ERROR_INFO(GetUniformLocation),
-				std::move(props)
-			);
+			_handle_error(program, identifier, location);
 		}
 		return location;
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void UniformInitOps::_handle_error(
+	GLuint program,
+	const GLchar* identifier,
+	GLint location
+) const
+{
+	Error::PropertyMapInit props;
+	Error::AddPropertyValue(
+		props,
+		"identifier",
+		identifier
+	);
+	Error::AddPropertyValue(
+		props,
+		"program",
+		aux::ObjectDescRegistry<ProgramOps>::
+				_get_desc(program)
+	);
+	HandleShaderVariableError(
+		GL_INVALID_OPERATION,
+		location,
+		"Getting the location of inactive uniform",
+		OGLPLUS_ERROR_INFO(GetUniformLocation),
+		std::move(props)
+	);
+}
+#endif // OGLPLUS_LIB_FUNC
 
 typedef EagerUniformInitTpl<UniformInitOps> EagerUniformInit;
 typedef EagerUniformInitTpl<OptionalUniformInitOps> OptionalUniformInit;

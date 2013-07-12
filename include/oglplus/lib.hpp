@@ -26,8 +26,17 @@
 #include <oglplus/auxiliary/uniform_typecheck.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/glsl_source.hpp>
+#include <oglplus/auxiliary/shader_data.hpp>
+#include <oglplus/auxiliary/uniform_init.hpp>
 
 #include <oglplus/error.hpp>
+#include <oglplus/vertex_attrib.hpp>
+#include <oglplus/uniform_block.hpp>
+#include <oglplus/uniform_subroutines.hpp>
+#include <oglplus/framebuffer.hpp>
+#include <oglplus/shader.hpp>
+#include <oglplus/program.hpp>
+#include <oglplus/program_pipeline.hpp>
 
 #include <oglplus/imports/blend_file.hpp>
 

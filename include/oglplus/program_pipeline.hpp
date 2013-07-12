@@ -251,6 +251,8 @@ public:
 		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
 	}
 
+	void HandleValidationError(void) const;
+
 	/// Validates this program pipeline
 	/**
 	 *  @throws Error ValidationError
@@ -270,15 +272,7 @@ public:
 			_name
 		));
 		if(OGLPLUS_IS_ERROR(!IsValid()))
-			HandleBuildError<ValidationError>(
-				GetInfoLog(),
-				OGLPLUS_OBJECT_ERROR_INFO(
-					ValidateProgramPipeline,
-					ProgramPipeline,
-					nullptr,
-					_name
-				)
-			);
+			HandleValidationError();
 	}
 
 	/// Make the @p program active for this program pipeline
@@ -327,6 +321,22 @@ public:
 		return Managed<ProgramOps>(GetIntParam(GLenum(shader_type)));
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void ProgramPipelineOps::HandleValidationError(void) const
+{
+	HandleBuildError<ValidationError>(
+		GetInfoLog(),
+		OGLPLUS_OBJECT_ERROR_INFO(
+			ValidateProgramPipeline,
+			ProgramPipeline,
+			nullptr,
+			_name
+		)
+	);
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL program pipeline functionality
