@@ -11,6 +11,10 @@ function(gl_lib_ver_detection GL_LIB VERSION)
 		set(GLEW_FOUND 1)
 	endif()
 
+	if(NOT DEFINED OGLPLUS_CONFIG_STRICT_VERSION_CHECK)
+		set(OGLPLUS_CONFIG_STRICT_VERSION_CHECK 0)
+	endif()
+
 	# if there is a specific file for the detection of extension availability
 	if(EXISTS ${PROJECT_SOURCE_DIR}/config/gl_ver/has_${GL_LIB}_${VERSION}.cpp)
 		# use it
