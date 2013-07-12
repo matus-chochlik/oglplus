@@ -6,13 +6,60 @@
 
 #include <oglplus/gl.hpp>
 
-#if !defined @OGLPLUS_CONFIG_QUERY_GL_VER@
-#  error OpenGL version @OGLPLUS_CONFIG_QUERY_GL_VER@ not supported
-#elif !@OGLPLUS_CONFIG_QUERY_GL_VER@
-#  error OpenGL version @OGLPLUS_CONFIG_QUERY_GL_VER@ not supported
+#if @GLUT_FOUND@
+#include <GL/glut.h>
 #endif
+
+int gl_compare_versions(GLint req_major, GLint req_minor)
+{
+	GLint sup_major = 0, sup_minor = 0;
+	glGetIntegerv(GL_MAJOR_VERSION, &sup_major);
+	glGetIntegerv(GL_MINOR_VERSION, &sup_minor);
+
+	if(sup_major >  req_major)
+		return 0;
+	if((sup_major == req_major) && (sup_minor >= req_minor))
+		return 0;
+	return 1;
+}
+
+int gl_version_is_supported_GLUT(GLint major, GLint minor)
+{
+#if @GLUT_FOUND@
+	int argc = 0;
+	char** argv = nullptr;
+	glutInit(&argc, argv);
+	glutInitDisplayMode(
+		GLUT_DOUBLE|
+		GLUT_RGBA|
+		GLUT_DEPTH|
+		GLUT_STENCIL
+	);
+	glutInitWindowSize(64, 64);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow("GL version detection");
+
+	return gl_compare_versions(major, minor);
+#else
+	return 0;
+#endif
+}
+
+int gl_version_is_supported(GLint major, GLint minor)
+{
+	return gl_version_is_supported_GLUT(major, minor);
+}
 
 int main(void)
 {
-	return 0;
+#if !defined @OGLPLUS_CONFIG_QUERY_GL_VER@
+	return 1;
+#elif !@OGLPLUS_CONFIG_QUERY_GL_VER@
+	return 1;
+#else
+	return gl_version_is_supported(
+		@OGLPLUS_CONFIG_QUERY_GL_VER_MAJOR@,
+		@OGLPLUS_CONFIG_QUERY_GL_VER_MINOR@
+	);
+#endif
 }

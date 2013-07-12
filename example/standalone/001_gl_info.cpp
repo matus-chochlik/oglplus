@@ -32,6 +32,8 @@ int main(int argc, char* argv[])
 		//
 		std::cout << "Vendor: " << context.Vendor() << std::endl;
 		std::cout << "Version: " << context.Version() << std::endl;
+		std::cout << "Major version: " << context.MajorVersion() << std::endl;
+		std::cout << "Minor version: " << context.MinorVersion() << std::endl;
 		std::cout << "GLSL Version: " << context.ShadingLanguageVersion() << std::endl;
 		std::cout << "Renderer: " << context.Renderer() << std::endl;
 		std::cout << "Extensions:" << std::endl;
