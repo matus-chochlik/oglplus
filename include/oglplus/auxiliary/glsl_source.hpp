@@ -16,6 +16,8 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/string.hpp>
 
+#include <oglplus/auxiliary/any_iter.hpp>
+
 #include <vector>
 #include <cassert>
 #include <fstream>
@@ -72,25 +74,10 @@ private:
 	std::vector<const GLchar*> _ptrs;
 	std::vector<GLint> _sizes;
 public:
-	template <typename Iterator>
-	LitsGLSLSrcWrap(Iterator i, Iterator e)
-	 : _ptrs(std::distance(i, e))
-	 , _sizes(std::distance(i, e))
-	{
-		auto pptr = _ptrs.begin();
-		auto psize = _sizes.begin();
-		while(i != e)
-		{
-			assert(pptr != _ptrs.end());
-			assert(psize != _sizes.end());
-			*pptr = i->c_str();
-			*psize = i->size();
-			++i;
-			++pptr;
-			++psize;
-		}
-		assert(_ptrs.size() == _sizes.size());
-	}
+	LitsGLSLSrcWrap(
+		AnyInputIter<StrLit>&& i,
+		AnyInputIter<StrLit>&& e
+	);
 
 	GLsizei Count(void) const
 	{
@@ -107,6 +94,30 @@ public:
 		return _sizes.data();
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+LitsGLSLSrcWrap::LitsGLSLSrcWrap(
+	AnyInputIter<StrLit>&& i,
+	AnyInputIter<StrLit>&& e
+): _ptrs(distance(i, e))
+ , _sizes(distance(i, e))
+{
+	auto pptr = _ptrs.begin();
+	auto psize = _sizes.begin();
+	while(i != e)
+	{
+		assert(pptr != _ptrs.end());
+		assert(psize != _sizes.end());
+		*pptr = i->c_str();
+		*psize = i->size();
+		++i;
+		++pptr;
+		++psize;
+	}
+	assert(_ptrs.size() == _sizes.size());
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 class StrGLSLSrcWrap
  : public GLSLSourceWrapper
@@ -156,27 +167,9 @@ private:
 	std::vector<GLchar> _storage;
 	GLchar* _pdata;
 
-	static GLint _check_and_get_size(std::istream& in)
-	{
-		if(!in.good())
-		{
-			std::string msg("Failed to read GLSL input stream.");
-			throw std::runtime_error(msg);
-		}
-		std::streampos begin = in.tellg();
-		in.seekg(0, std::ios::end);
-		std::streampos end = in.tellg();
-		in.seekg(0, std::ios::beg);
-		return GLint(end - begin);
-	}
+	static GLint _check_and_get_size(std::istream& in);
 public:
-	InputStreamGLSLSrcWrap(std::istream& input)
-	 : _size(_check_and_get_size(input))
-	 , _storage(_size+1, GLchar(0))
-	 , _pdata(_storage.data())
-	{
-		input.read(_pdata, _size);
-	}
+	InputStreamGLSLSrcWrap(std::istream& input);
 
 	GLsizei Count(void) const
 	{
@@ -194,36 +187,71 @@ public:
 	}
 };
 
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
+{
+	if(!in.good())
+	{
+		std::string msg("Failed to read GLSL input stream.");
+		throw std::runtime_error(msg);
+	}
+	std::streampos begin = in.tellg();
+	in.seekg(0, std::ios::end);
+	std::streampos end = in.tellg();
+	in.seekg(0, std::ios::beg);
+	return GLint(end - begin);
+}
+
+InputStreamGLSLSrcWrap::InputStreamGLSLSrcWrap(std::istream& input)
+ : _size(_check_and_get_size(input))
+ , _storage(_size+1, GLchar(0))
+ , _pdata(_storage.data())
+{
+	input.read(_pdata, _size);
+}
+#endif // OGLPLUS_LINK_LIBRARY
+
 class FileGLSLSrcWrapOpener
 {
 protected:
 	std::ifstream _file;
 
-	FileGLSLSrcWrapOpener(const char* path)
-	 : _file(path, std::ios::in)
-	{
-		if(!_file.good())
-		{
-			std::string msg("Failed to open file '");
-			msg.append(path);
-			msg.append("' for reading.");
-			throw std::runtime_error(msg);
-		}
-	}
+	FileGLSLSrcWrapOpener(const char* path);
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+FileGLSLSrcWrapOpener::FileGLSLSrcWrapOpener(const char* path)
+ : _file(path, std::ios::in)
+{
+	if(!_file.good())
+	{
+		std::string msg("Failed to open file '");
+		msg.append(path);
+		msg.append("' for reading.");
+		throw std::runtime_error(msg);
+	}
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 class FileGLSLSrcWrap
  : public FileGLSLSrcWrapOpener
  , public InputStreamGLSLSrcWrap
 {
 public:
-	FileGLSLSrcWrap(const char* path)
-	 : FileGLSLSrcWrapOpener(path)
-	 , InputStreamGLSLSrcWrap(_file)
-	{
-		_file.close();
-	}
+	FileGLSLSrcWrap(const char* path);
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+FileGLSLSrcWrap::FileGLSLSrcWrap(const char* path)
+ : FileGLSLSrcWrapOpener(path)
+ , InputStreamGLSLSrcWrap(_file)
+{
+	_file.close();
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 } // namespace aux
 } // namespace oglplus

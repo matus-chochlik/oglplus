@@ -977,11 +977,16 @@ typedef std::function<bool (const ErrorData&)> ErrorHandlerFunc;
 
 namespace aux {
 
-inline std::stack<ErrorHandlerFunc>& _error_handlers(void)
+OGLPLUS_LIB_FUNC
+std::stack<ErrorHandlerFunc>& _error_handlers(void)
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	static std::stack<ErrorHandlerFunc> _handlers;
 	return _handlers;
 }
+#else
+;
+#endif
 
 inline bool _has_error_handler(void)
 {
@@ -1052,59 +1057,6 @@ inline void HandleBuildError(const String& msg, const ErrorInfo& info)
 	throw Exception(msg, info);
 }
 
-inline void HandleShaderVariableError(
-	GLenum code,
-	GLint location,
-	const GLchar* msg,
-	const ErrorInfo& info,
-	Error::PropertyMapInit&& properties
-)
-{
-#if OGLPLUS_CUSTOM_ERROR_HANDLING
-	if(aux::_has_error_handler() && aux::_get_error_handler()(
-		ErrorData(
-			code,
-			0u, 0u,
-			msg,
-			info,
-			Error::PropertyMapInit(),
-			false,
-			false,
-			false,
-			false
-		)
-	)) return;
-#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
-	throw ShaderVariableError(
-		code,
-		location,
-		msg,
-		info,
-		std::move(properties)
-	);
-}
-
-inline void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
-{
-	const GLchar* msg = "OpenGL limited value out of range";
-#if OGLPLUS_CUSTOM_ERROR_HANDLING
-	if(aux::_has_error_handler() && aux::_get_error_handler()(
-		ErrorData(
-			GL_INVALID_VALUE,
-			value, limit,
-			msg,
-			info,
-			Error::PropertyMapInit(),
-			false,
-			false,
-			false,
-			true
-		)
-	)) return;
-#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
-	throw LimitError(value, limit, msg, info);
-}
-
 template <class Exception, typename FBStatus>
 inline void HandleIncompleteFramebuffer(
 	FBStatus status,
@@ -1130,8 +1082,73 @@ inline void HandleIncompleteFramebuffer(
 	throw Exception(status, msg, info);
 }
 
+OGLPLUS_LIB_FUNC
+void HandleShaderVariableError(
+	GLenum code,
+	GLint location,
+	const GLchar* msg,
+	const ErrorInfo& info,
+	Error::PropertyMapInit&& properties
+)
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+{
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			code,
+			0u, 0u,
+			msg,
+			info,
+			Error::PropertyMapInit(),
+			false,
+			false,
+			false,
+			false
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw ShaderVariableError(
+		code,
+		location,
+		msg,
+		info,
+		std::move(properties)
+	);
+}
+#else
+;
+#endif // OGLPLUS_LINK_LIBRARY
+
+OGLPLUS_LIB_FUNC
+void HandleLimitError(GLuint value, GLuint limit, const ErrorInfo& info)
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+{
+	const GLchar* msg = "OpenGL limited value out of range";
+#if OGLPLUS_CUSTOM_ERROR_HANDLING
+	if(aux::_has_error_handler() && aux::_get_error_handler()(
+		ErrorData(
+			GL_INVALID_VALUE,
+			value, limit,
+			msg,
+			info,
+			Error::PropertyMapInit(),
+			false,
+			false,
+			false,
+			true
+		)
+	)) return;
+#endif // OGLPLUS_CUSTOM_ERROR_HANDLING
+	throw LimitError(value, limit, msg, info);
+}
+#else
+;
+#endif // OGLPLUS_LINK_LIBRARY
+
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_GLFUNC_CHECKS
-inline void HandleMissingFunction(const ErrorInfo& info)
+OGLPLUS_LIB_FUNC
+void HandleMissingFunction(const ErrorInfo& info)
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	const GLenum code = GL_INVALID_VALUE;
 	const char* msg = "Function called through an invalid pointer";
@@ -1152,14 +1169,19 @@ inline void HandleMissingFunction(const ErrorInfo& info)
 #endif // OGLPLUS_CUSTOM_ERROR_HANDLING
 	throw MissingFunction(code, msg, info);
 }
+#else
+;
+#endif // OGLPLUS_LINK_LIBRARY
 #endif // OGLPLUS_NO_VARIADIC_TEMPLATES || OGLPLUS_NO_GLFUNC_CHECKS
 
-inline void HandleError(
+OGLPLUS_LIB_FUNC
+void HandleError(
 	GLenum code,
 	const GLchar* msg,
 	const ErrorInfo& info,
 	Error::PropertyMapInit&& properties
 )
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 #if OGLPLUS_CUSTOM_ERROR_HANDLING
 	if(aux::_has_error_handler() && aux::_get_error_handler()(
@@ -1183,8 +1205,13 @@ inline void HandleError(
 		std::move(properties)
 	);
 }
+#else
+;
+#endif // OGLPLUS_LINK_LIBRARY
 
-inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
+OGLPLUS_LIB_FUNC
+void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	const GLchar* msg = "Unknown error";
 	switch(code)
@@ -1240,6 +1267,9 @@ inline void HandleError(GLenum code, const ErrorInfo& info, bool assertion)
 #endif // OGLPLUS_CUSTOM_ERROR_HANDLING
 	throw Error(code, msg, info, assertion);
 }
+#else
+;
+#endif // OGLPLUS_LINK_LIBRARY
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// This macro decides if error handling should be done
