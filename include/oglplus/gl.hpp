@@ -132,7 +132,9 @@ public:
 #  error "Some library including OpenGL symbols is required!"
 # endif // OGLPLUS_USE_*
 
+#ifndef GL_VERTEX_ARRAY 
 #define GL_VERTEX_ARRAY 0x8074
+#endif
 
 #endif // OGLPLUS_NO_GL
 
