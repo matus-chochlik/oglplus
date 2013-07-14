@@ -130,6 +130,9 @@ OGLPLUS_ENUM_CLASS_FWD(ProgramInterface, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(ProgramPipelineStage, GLbitfield)
 #include <oglplus/enums/program_pipeline_stage_names.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(ProgramResourceProperty, GLenum)
+#include <oglplus/enums/program_resource_property_names.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(ProvokeMode, GLenum)
 #include <oglplus/enums/provoke_mode_names.ipp>
 

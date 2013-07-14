@@ -93,10 +93,10 @@ private:
 		return res;
 	}
 
-	bool HasParam(GLenum property) const
+	bool HasProp(GLenum property) const
 	{
 		GLint res;
-		QueryParams(property, 1, nullptr, &res);
+		QueryParams(GLenum(property), 1, nullptr, &res);
 		return OGLPLUS_GLFUNC(GetError)() == GL_NO_ERROR;
 	}
 public:
@@ -124,6 +124,36 @@ public:
 		}
 	}
 
+	/// Gets the value of a single property (as an GLint)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 */
+	GLint GetIntParam(ProgramResourceProperty property) const
+	{
+		return GetParam(GLenum(property));
+	}
+
+	/// Gets the value of a single property (as a boolean value)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 */
+	bool GetBoolParam(ProgramResourceProperty property) const
+	{
+		return GetParam(GLenum(property)) == GL_TRUE;
+	}
+
+	/// Checks if this resource has the specified property
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 */
+	bool Has(ProgramResourceProperty property) const
+	{
+		return HasProp(GLenum(property));
+	}
+
 	/// Returns the interface of the resource
 	ProgramInterface Interface(void) const
 	{
@@ -131,6 +161,10 @@ public:
 	}
 
 	/// Returns the name of the resource
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResourceName}
+	 */
 	const String& Name(void) const
 	{
 		return _name;
@@ -145,30 +179,125 @@ public:
 	/// Returns true if the resource has a type
 	bool HasType(void) const
 	{
-		return HasParam(GL_TYPE);
+		return HasProp(GL_TYPE);
 	}
 
 	/// Returns the data type of the resource (if applicable)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 *  @gldefref{TYPE}
+	 */
 	SLDataType Type(void) const
 	{
 		return SLDataType(GetParam(GL_TYPE));
 	}
 
+	/// Returns the program resource location (if applicable)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 *  @gldefref{LOCATION}
+	 */
+	GLint Location(void) const
+	{
+		return GetParam(GL_LOCATION);
+	}
+
+	/// Returns the program resource location index (if applicable)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 *  @gldefref{LOCATION_INDEX}
+	 */
+	GLint LocationIndex(void) const
+	{
+		return GetParam(GL_LOCATION_INDEX);
+	}
+
 	/// Returns the array size of the resource (if applicable)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 *  @gldefref{ARRAY_SIZE}
+	 */
 	GLint ArraySize(void) const
 	{
 		return GetParam(GL_ARRAY_SIZE);
 	}
 
+	/// Returns true if the resource is_referenced by shader (if applicable)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 *  @gldefref{REFERENCED_BY_VERTEX_SHADER}
+	 *  @gldefref{REFERENCED_BY_TESS_CONTROL_SHADER}
+	 *  @gldefref{REFERENCED_BY_TESS_EVALUATION_SHADER}
+	 *  @gldefref{REFERENCED_BY_GEOMETRY_SHADER}
+	 *  @gldefref{REFERENCED_BY_FRAGMENT_SHADER}
+	 *  @gldefref{REFERENCED_BY_CONTROL_SHADER}
+	 */
+	bool ReferencedBy(ShaderType shader_type) const;
+
 	/// Returns true if the resource is per-patch (if applicable)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetProgramResource}
+	 *  @gldefref{IS_PER_PATCH}
+	 */
 	bool IsPerPatch(void) const
 	{
-		return GetParam(GL_IS_PER_PATCH) != 0;
+		return GetParam(GL_IS_PER_PATCH) == GL_TRUE;
 	}
 
 	// TODO: finish this
 };
-#endif
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+bool ProgramResource::ReferencedBy(ShaderType shader_type) const
+{
+	if(shader_type == ShaderType::Vertex)
+	{
+		return GetParam(
+			GL_REFERENCED_BY_VERTEX_SHADER
+		) == GL_TRUE;
+	}
+	if(shader_type == ShaderType::TessControl)
+	{
+		return GetParam(
+			GL_REFERENCED_BY_TESS_CONTROL_SHADER
+		) == GL_TRUE;
+	}
+	if(shader_type == ShaderType::TessEvaluation)
+	{
+		return GetParam(
+			GL_REFERENCED_BY_TESS_EVALUATION_SHADER
+		) == GL_TRUE;
+	}
+	if(shader_type == ShaderType::Geometry)
+	{
+		return GetParam(
+			GL_REFERENCED_BY_GEOMETRY_SHADER
+		) == GL_TRUE;
+	}
+	if(shader_type == ShaderType::Fragment)
+	{
+		return GetParam(
+			GL_REFERENCED_BY_FRAGMENT_SHADER
+		) == GL_TRUE;
+	}
+	if(shader_type == ShaderType::Compute)
+	{
+		return GetParam(
+			GL_REFERENCED_BY_COMPUTE_SHADER
+		) == GL_TRUE;
+	}
+	return false;
+}
+#endif // OGLPLUS_LINK_LIB
+
+#endif // GL_VERSION_4_3
 
 /// Program operations wrapper helper class
 /** This class implements OpenGL shading language program operations.
