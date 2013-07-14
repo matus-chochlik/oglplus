@@ -226,6 +226,8 @@ public:
 		return GetParam(GL_ARRAY_SIZE);
 	}
 
+	GLenum ReferencedByProperty(ShaderType type) const;
+
 	/// Returns true if the resource is_referenced by shader (if applicable)
 	/**
 	 *  @glsymbols
@@ -237,7 +239,10 @@ public:
 	 *  @gldefref{REFERENCED_BY_FRAGMENT_SHADER}
 	 *  @gldefref{REFERENCED_BY_CONTROL_SHADER}
 	 */
-	bool ReferencedBy(ShaderType shader_type) const;
+	bool ReferencedBy(ShaderType shader_type) const
+	{
+		return GetParam(ReferencedByProperty(shader_type)) == GL_TRUE;
+	}
 
 	/// Returns true if the resource is per-patch (if applicable)
 	/**
@@ -255,45 +260,33 @@ public:
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 OGLPLUS_LIB_FUNC
-bool ProgramResource::ReferencedBy(ShaderType shader_type) const
+GLenum ProgramResource::ReferencedByProperty(ShaderType shader_type) const
 {
 	if(shader_type == ShaderType::Vertex)
 	{
-		return GetParam(
-			GL_REFERENCED_BY_VERTEX_SHADER
-		) == GL_TRUE;
+		return GL_REFERENCED_BY_VERTEX_SHADER;
 	}
 	if(shader_type == ShaderType::TessControl)
 	{
-		return GetParam(
-			GL_REFERENCED_BY_TESS_CONTROL_SHADER
-		) == GL_TRUE;
+		return GL_REFERENCED_BY_TESS_CONTROL_SHADER;
 	}
 	if(shader_type == ShaderType::TessEvaluation)
 	{
-		return GetParam(
-			GL_REFERENCED_BY_TESS_EVALUATION_SHADER
-		) == GL_TRUE;
+		return GL_REFERENCED_BY_TESS_EVALUATION_SHADER;
 	}
 	if(shader_type == ShaderType::Geometry)
 	{
-		return GetParam(
-			GL_REFERENCED_BY_GEOMETRY_SHADER
-		) == GL_TRUE;
+		return GL_REFERENCED_BY_GEOMETRY_SHADER;
 	}
 	if(shader_type == ShaderType::Fragment)
 	{
-		return GetParam(
-			GL_REFERENCED_BY_FRAGMENT_SHADER
-		) == GL_TRUE;
+		return GL_REFERENCED_BY_FRAGMENT_SHADER;
 	}
 	if(shader_type == ShaderType::Compute)
 	{
-		return GetParam(
-			GL_REFERENCED_BY_COMPUTE_SHADER
-		) == GL_TRUE;
+		return GL_REFERENCED_BY_COMPUTE_SHADER;
 	}
-	return false;
+	return GL_NONE;
 }
 #endif // OGLPLUS_LINK_LIB
 
