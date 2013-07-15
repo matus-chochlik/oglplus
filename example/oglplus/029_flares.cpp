@@ -152,7 +152,7 @@ public:
 	ProgramUniformSampler metal_tex;
 
 	ShapeProgram(void)
-	 : HardwiredTupleProgram<std::tuple<ShapeVertShader, ShapeFragShader>>("Shape program")
+	 : HardwiredTupleProgram<std::tuple<ShapeVertShader, ShapeFragShader>>(ObjectDesc("Shape program"))
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
@@ -214,7 +214,7 @@ public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
 
 	LightProgram(void)
-	 : HardwiredTupleProgram<std::tuple<LightVertShader, LightFragShader>>("Light program")
+	 : HardwiredTupleProgram<std::tuple<LightVertShader, LightFragShader>>(ObjectDesc("Light program"))
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	{ }
@@ -325,7 +325,7 @@ public:
 	ProgramUniformSampler flare_tex;
 
 	FlareProgram(void)
-	 : HardwiredTupleProgram<std::tuple<FlareVertShader, FlareGeomShader, FlareFragShader>>("Flare")
+	 : HardwiredTupleProgram<std::tuple<FlareVertShader, FlareGeomShader, FlareFragShader>>(ObjectDesc("Flare"))
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , samples(prog(), "Samples")

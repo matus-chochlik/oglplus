@@ -171,7 +171,7 @@ public:
 	ProgramUniformSampler fur_tex;
 
 	FurProgram(void)
-	 : Base("Fur")
+	 : Base(ObjectDesc("Fur"))
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , new_model_matrix(prog(), "NewModelMatrix")
 	 , old_model_matrix(prog(), "OldModelMatrix")
@@ -315,7 +315,7 @@ public:
 	ProgramUniform<Mat4f> camera_matrix, model_matrix;
 
 	TorusProgram(void)
-	 : Base("Torus")
+	 : Base(ObjectDesc("Torus"))
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	{ }
