@@ -140,10 +140,17 @@ public:
 	{ }
 };
 
-class ShapeProgram
- : public HardwiredTupleProgram<std::tuple<ShapeVertShader, ShapeFragShader>>
+class ShapeProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Shape program"));
+		prog.AttachShader(ShapeVertShader());
+		prog.AttachShader(ShapeFragShader());
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
@@ -152,7 +159,7 @@ public:
 	ProgramUniformSampler metal_tex;
 
 	ShapeProgram(void)
-	 : HardwiredTupleProgram<std::tuple<ShapeVertShader, ShapeFragShader>>(ObjectDesc("Shape program"))
+	 : Program(make())
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
@@ -205,16 +212,23 @@ public:
 
 };
 
-class LightProgram
- : public HardwiredTupleProgram<std::tuple<LightVertShader, LightFragShader>>
+class LightProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Light program"));
+		prog.AttachShader(LightVertShader());
+		prog.AttachShader(LightFragShader());
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
 
 	LightProgram(void)
-	 : HardwiredTupleProgram<std::tuple<LightVertShader, LightFragShader>>(ObjectDesc("Light program"))
+	 : Program(make())
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	{ }
@@ -314,10 +328,18 @@ public:
 
 };
 
-class FlareProgram
- : public HardwiredTupleProgram<std::tuple<FlareVertShader, FlareGeomShader, FlareFragShader>>
+class FlareProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Flare"));
+		prog.AttachShader(FlareVertShader());
+		prog.AttachShader(FlareGeomShader());
+		prog.AttachShader(FlareFragShader());
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
@@ -325,7 +347,7 @@ public:
 	ProgramUniformSampler flare_tex;
 
 	FlareProgram(void)
-	 : HardwiredTupleProgram<std::tuple<FlareVertShader, FlareGeomShader, FlareFragShader>>(ObjectDesc("Flare"))
+	 : Program(make())
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , samples(prog(), "Samples")

@@ -233,15 +233,28 @@ public:
 	{ }
 };
 
+struct LiquidProgramShaders
+{
+	LiquidVertShader vertex;
+	LiquidGeomShader geometry;
+	LiquidFragShader fragment;
+};
+
 class LiquidProgram
- : public HardwiredTupleProgram<
-	std::tuple<LiquidVertShader, LiquidGeomShader, LiquidFragShader>
->
+ : public LiquidProgramShaders
+ , public Program
 {
 private:
-	typedef HardwiredTupleProgram<
-		std::tuple<LiquidVertShader, LiquidGeomShader, LiquidFragShader>
-	> _base_program;
+	const LiquidProgramShaders& shaders(void) const { return *this; }
+	static Program make(const LiquidProgramShaders& shaders)
+	{
+		Program prog;
+		prog.AttachShader(shaders.vertex);
+		prog.AttachShader(shaders.geometry);
+		prog.AttachShader(shaders.fragment);
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix;
@@ -250,7 +263,7 @@ public:
 	ProgramUniformSampler configurations;
 
 	LiquidProgram(void)
-	 : _base_program()
+	 : Program(make(shaders()))
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")

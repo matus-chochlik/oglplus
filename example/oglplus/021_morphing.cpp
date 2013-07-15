@@ -78,12 +78,17 @@ public:
 	{ }
 };
 
-class PointProgram
- : public HardwiredTupleProgram<std::tuple<PointVertShader, PointFragShader> >
+class PointProgram : public Program
 {
 private:
-	typedef HardwiredTupleProgram<std::tuple<PointVertShader, PointFragShader> >
-		_base_program;
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Point program"));
+		prog.AttachShader(PointVertShader());
+		prog.AttachShader(PointFragShader());
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
@@ -91,7 +96,7 @@ public:
 	ProgramUniform<GLfloat> status;
 
 	PointProgram(void)
-	 : _base_program(ObjectDesc("Point program"))
+	 : Program(make())
 	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")

@@ -1547,6 +1547,9 @@ template <class StdTuple>
 class HardwiredTupleProgram;
 
 /// A Program that has its shaders statically hardcoded via a std::tuple
+/**
+ *  @deprecated This class will be removed in release 0.35.0.
+ */
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 template <class ... Shaders>
 class HardwiredTupleProgram<std::tuple<Shaders...> >

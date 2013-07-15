@@ -250,12 +250,28 @@ public:
 	{ }
 };
 
+class BlobProgramShaders
+{
+protected:
+	BlobVertShader vs;
+	BlobGeomShader gs;
+	BlobFragShader fs;
+};
+
 class BlobProgram
- : public HardwiredTupleProgram<std::tuple<BlobVertShader, BlobGeomShader, BlobFragShader>>
+ : public BlobProgramShaders
+ , public Program
 {
 private:
-	typedef HardwiredTupleProgram<std::tuple<BlobVertShader, BlobGeomShader, BlobFragShader>>
-		Base;
+	static Program make(const Shader& vs, const Shader& gs, const Shader& fs)
+	{
+		Program prog(ObjectDesc("Blob"));
+		prog.AttachShader(vs);
+		prog.AttachShader(gs);
+		prog.AttachShader(fs);
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix;
@@ -264,7 +280,7 @@ public:
 	ProgramUniformSampler configurations;
 
 	BlobProgram(void)
-	 : Base(ObjectDesc("Blob"))
+	 : Program(make(vs, gs, fs))
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")
@@ -421,11 +437,17 @@ public:
 	{ }
 };
 
-class MetalProgram
- : public HardwiredTupleProgram<std::tuple<MetalVertShader, MetalFragShader>>
+class MetalProgram : public Program
 {
 private:
-	typedef HardwiredTupleProgram<std::tuple<MetalVertShader, MetalFragShader>> Base;
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Metal program"));
+		prog.AttachShader(MetalVertShader());
+		prog.AttachShader(MetalFragShader());
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix;
@@ -433,7 +455,7 @@ public:
 	ProgramUniformSampler metal_tex;
 
 	MetalProgram(void)
-	 : Base(ObjectDesc("Metal program"))
+	 : Program(make())
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , camera_position(prog(), "CameraPosition")
 	 , light_position(prog(), "LightPosition")
