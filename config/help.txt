@@ -181,16 +181,22 @@ OOPPTTIIOONNSS
        ----qquuiicckk
               Skips some optional steps in the configuration process.
 
+       ----jjoobbss Specifies the number of parallel  build  jobs  to  be  used,  if
+              applicable for the used build tool.
+
        ----bbuuiilldd
-              If possible, after running cmake also invoke the build tool  and
-              build  the project. This is currently supported only for certain
+              If  possible, after running cmake also invoke the build tool and
+              build the project. This is currently supported only for  certain
               build tools.
 
        ----wwiitthh--tteessttss
               Configure the testsuite.
 
+       ----ggeenneerraattoorr
+              Specify the cmake generator to be used.
+
        ----ccmmaakkee
-              Everything following this option will be passed to cmake  verba-
+              Everything  following this option will be passed to cmake verba-
               tim.
 
 AAUUTTHHOORR
@@ -199,10 +205,10 @@ AAUUTTHHOORR
 CCOOPPYYRRIIGGHHTT
        Copyright (c) 2008-2013 Matus Chochlik
 
-       Permission  is  granted to copy, distribute and/or modify this document
-       under the terms of the Boost Software License,  Version  1.0.   (See  a
+       Permission is granted to copy, distribute and/or modify  this  document
+       under  the  terms  of  the Boost Software License, Version 1.0.  (See a
        copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
 
-Configuration script for OGLplus. 2013-07-10              CONFIGURE-OGLPLUS(1)
+Configuration script for OGLplus. 2013-07-15              CONFIGURE-OGLPLUS(1)

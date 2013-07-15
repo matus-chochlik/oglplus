@@ -88,6 +88,7 @@ function _configure_oglplus()
 		--from-scratch \
 		--quiet \
 		--quick \
+		--jobs \
 		--build \
 		--with-tests \
 		--generator \

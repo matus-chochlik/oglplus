@@ -21,6 +21,18 @@ def get_argument_parser():
 			msg = "'%s' is not a valid boolean value" % str(arg)
 			raise argparse.ArgumentTypeError(msg)
 
+	def JobCountValue(arg):
+		msg_fmt = "'%s' is not a valid process count value"
+		try:
+			if int(arg) < 0:
+				msg = msg_fmt % str(arg)
+				raise argparse.ArgumentTypeError(msg)
+			else:
+				return int(arg)
+		except:
+			msg = msg_fmt % str(arg)
+			raise argparse.ArgumentTypeError(msg)
+
 	def OpenGLVersionValue(arg):
 		import re
 		match = re.match("^([3-9]).([0-9])$", arg)
@@ -344,6 +356,16 @@ def get_argument_parser():
 		action="store_true",
 		help="""
 			Skips some optional steps in the configuration process.
+		"""
+	)
+	argparser.add_argument(
+		"--jobs",
+		type=JobCountValue,
+		default=None,
+		action="store",
+		help="""
+			Specifies the number of parallel build jobs to be used,
+			if applicable for the used build tool.
 		"""
 	)
 	argparser.add_argument(
@@ -838,11 +860,15 @@ def main(argv):
 		})
 		sys.exit(3)
 
-	# try to get the processor count (use below)
-	try:
-		import multiprocessing
-		processor_count = multiprocessing.cpu_count()
-	except: processor_count = None
+	# use the specified number of jobs
+	if options.jobs is not None:
+		job_count = options.jobs
+	else:
+		# else try to get the processor count (use below)
+		try:
+			import multiprocessing
+			job_count = multiprocessing.cpu_count()+1
+		except: job_count = None
 
 	# print some info if not supressed
 	if not options.quiet and not options.info_only:
@@ -858,10 +884,10 @@ def main(argv):
 					print("# To build OGLplus do the following:")
 					print(str())
 					print("cd "+ path_to_build_dir)
-					if processor_count:
+					if job_count:
 						print("%(tool)s -j %(jobs)d" % {
 							"tool": cmake_build_tool,
-							"jobs": processor_count+1
+							"jobs": job_count
 						})
 					else: print(cmake_build_tool)
 					print(cmake_build_tool + " install")
@@ -877,8 +903,8 @@ def main(argv):
 
 		if build_tool_name in ("make",):
 			build_cmd_line = [cmake_build_tool];
-			if processor_count:
-				build_cmd_line += ["-j", str(processor_count+1)]
+			if job_count:
+				build_cmd_line += ["-j", str(job_count)]
 		elif build_tool_name in ("devenv.com", "devenv.exe"):
 			build_cmd_line = [
 				cmake_build_tool,

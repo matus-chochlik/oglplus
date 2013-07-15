@@ -18,6 +18,7 @@ from_scratch=false
 quiet=false
 build=false
 install=false
+num_jobs=""
 #
 function oglplus_make_temp_file()
 {
@@ -221,6 +222,13 @@ do
 	--quiet) quiet=true;;
 	--build) build=true;;
 	--install) build=true && install=true;;
+	--jobs)
+		shift
+		if [[ "${1}" =~ ^[1-9][0-9]*$ ]]
+		then num_jobs=${1}
+		else echoerror "'${1}' is not a valid job count" && exit 1
+		fi
+		;;
 
 	-h|--help) print_help && exit 0;;
 	*) print_short_help ${1} && exit 1;;
@@ -384,7 +392,9 @@ fi
 
 if [ ${configure_result:-0} -eq 0 ]
 then
-	num_jobs=$(($(grep -c ^processor /proc/cpuinfo)+1))
+	if [ ${#num_jobs} -eq 0 ]
+	then num_jobs=$(($(grep -c ^processor /proc/cpuinfo)+1))
+	fi
 	build_script=$(oglplus_make_temp_file)
 	(
 		echo

@@ -1,4 +1,4 @@
-.TH CONFIGURE-OGLPLUS 1 "2013-07-10" "Configuration script for OGLplus."
+.TH CONFIGURE-OGLPLUS 1 "2013-07-15" "Configuration script for OGLplus."
 .SH "NAME"
 configure-oglplus \- configuration script for the OGLplus library.
 .SH "SYNOPSIS"
@@ -113,11 +113,17 @@ Do not print regular messages, errors are still printed to stderr. Also any cmak
 \fB--quick\fR
 Skips some optional steps in the configuration process.
 .TP
+\fB--jobs\fR
+Specifies the number of parallel build jobs to be used, if applicable for the used build tool.
+.TP
 \fB--build\fR
 If possible, after running cmake also invoke the build tool and build the project. This is currently supported only for certain build tools.
 .TP
 \fB--with-tests\fR
 Configure the testsuite.
+.TP
+\fB--generator\fR
+Specify the cmake generator to be used.
 .TP
 \fB--cmake\fR
 Everything following this option will be passed to cmake verbatim.
