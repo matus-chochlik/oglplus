@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_AUX_ENDIAN_1210241959_HPP
 #define OGLPLUS_AUX_ENDIAN_1210241959_HPP
 
+#include <oglplus/auxiliary/enum_class.hpp>
 #include <cassert>
 #include <algorithm>
 #include <cstdint>
@@ -128,7 +129,10 @@ inline T ReorderToNative(Endian from, T value)
 	return ReorderFromTo(from, NativeByteOrder(), value);
 }
 
-template <Endian From, Endian To>
+template <
+	typename oglplus::enums::EnumValueType<Endian>::Type From,
+	typename oglplus::enums::EnumValueType<Endian>::Type To
+>
 struct EndianReorderer;
 
 template <>
@@ -159,10 +163,13 @@ struct EndianReorderer<
 >: EndianDoReorder
 { };
 
-template <Endian From>
+template <typename oglplus::enums::EnumValueType<Endian>::Type From>
 struct Reorder
 {
-	template <Endian To, typename T>
+	template <
+		typename oglplus::enums::EnumValueType<Endian>::Type To,
+		typename T
+	>
 	static inline T As(T value)
 	{
 		return EndianReorderer<From, To>::Reorder(value);
