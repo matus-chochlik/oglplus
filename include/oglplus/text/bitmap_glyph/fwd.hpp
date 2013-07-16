@@ -57,17 +57,6 @@ unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRenderingBase&);
 // One plane consists of PagesPerPlane pages of GlyphsPerPage glyphs
 unsigned BitmapGlyphPlaneCount(const BitmapGlyphRenderingBase&);
 
-std::string BitmapGlyphFontPath(
-	const BitmapGlyphRenderingBase& that,
-	const std::string& font_name
-);
-
-std::string BitmapGlyphFontPagePath(
-	const BitmapGlyphRenderingBase& that,
-	const std::string& font_name,
-	GLint font_page
-);
-
 void BitmapGlyphAllocateLayoutData(
 	BitmapGlyphRenderingBase& parent,
 	BitmapGlyphLayoutData& layout_data

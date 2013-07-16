@@ -19,6 +19,7 @@
 #include <oglplus/text/bitmap_glyph/pager.hpp>
 
 #include <oglplus/image.hpp>
+#include <oglplus/opt/resources.hpp>
 #include <oglplus/auxiliary/stb_ttf.hpp>
 
 #include <cctype>
@@ -35,11 +36,6 @@ private:
 	const aux::STBTTFont _tt_font;
 	const GLuint _font_resolution;
 	const GLuint _tex_side;
-
-	inline std::string _page_font_path(const std::string& font_name)
-	{
-		return BitmapGlyphFontPath(_parent, font_name)+".ttf";
-	}
 
 	void _do_make_page_bitmap_and_metric(
 		GLint page,
@@ -237,7 +233,7 @@ public:
 		GLint default_page,
 		GLuint pixel_height
 	): _parent(parent)
-	 , _tt_font(std::ifstream(_page_font_path(font_name), std::ios::binary))
+	 , _tt_font(ResourceFile("fonts", font_name, ".ttf"))
 	 , _font_resolution(pixel_height)
 	 , _tex_side(BitmapGlyphDefaultPageTexSide(parent, _font_resolution))
 	 , _pager(

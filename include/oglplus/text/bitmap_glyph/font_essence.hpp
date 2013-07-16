@@ -17,6 +17,8 @@
 #include <oglplus/text/bitmap_glyph/fwd.hpp>
 #include <oglplus/text/bitmap_glyph/page_storage.hpp>
 #include <oglplus/text/bitmap_glyph/pager.hpp>
+#include <oglplus/opt/resources.hpp>
+#include <oglplus/auxiliary/filesystem.hpp>
 
 namespace oglplus {
 namespace text {
@@ -27,19 +29,15 @@ private:
 	BitmapGlyphRenderingBase& _parent;
 	const std::string _font_name;
 
-	inline std::string _page_bitmap_path(GLint page)
-	{
-		return BitmapGlyphFontPagePath(_parent,_font_name,page)+".png";
-	}
-
 	oglplus::images::Image _load_page_bitmap(GLint page)
 	{
-		return images::PNG(_page_bitmap_path(page).c_str());
-	}
-
-	inline std::string _page_metric_path(GLint page)
-	{
-		return BitmapGlyphFontPagePath(_parent,_font_name,page)+".bgm";
+		ResourceFile input(
+			"fonts",
+			_font_name + aux::FilesysPathSep() +
+			BitmapGlyphPageName(_parent, page),
+			".png"
+		);
+		return images::PNG(input);
 	}
 
 	static void _check_input(std::istream& input)
@@ -103,18 +101,12 @@ private:
 
 	std::vector<GLfloat> _load_page_metric(GLint page)
 	{
-		std::ifstream input(
-			_page_metric_path(page).c_str(),
-			std::ios::in
+		ResourceFile input(
+			"fonts",
+			_font_name + aux::FilesysPathSep() +
+			BitmapGlyphPageName(_parent, page),
+			".bgm"
 		);
-		if(!input.good())
-		{
-			std::string msg("Unable to open file '");
-			msg.append(_page_metric_path(page));
-			msg.append("' for reading.");
-			throw std::runtime_error(msg);
-		}
-
 		// 4 values * 3
 		//
 		// x - logical rectangle left bearing

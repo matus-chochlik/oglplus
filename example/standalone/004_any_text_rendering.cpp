@@ -43,8 +43,8 @@ private:
 public:
 	STBTruetypeExample(int argc, const char** argv)
 	 : gl()
-	 , tr(oglplus::text::STBTrueTypeRendering((argc>1)?argv[1]:"./_font", 0, 1, 2))
-	 , font(tr.LoadFont((argc>2)?argv[2]:"FreeSans"))
+	 , tr(oglplus::text::STBTrueTypeRendering(0, 1, 2))
+	 , font(tr.LoadFont((argc>1)?argv[1]:"FreeSans"))
 	 , oglp_layout(tr.MakeLayout(font, oglplus::StrLit("OGLplus")))
 	 , desc_layout(tr.MakeLayout(font, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
 	 , time_layout(tr.MakeLayout(font, 25))
