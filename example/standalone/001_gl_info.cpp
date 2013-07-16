@@ -1,5 +1,5 @@
 /**
- *  @example oglplus/001_gl_info.cpp
+ *  @example standalone/001_gl_info.cpp
  *  @brief Shows the basic usage of OGLplus by printing some info
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
