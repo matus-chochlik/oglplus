@@ -13,6 +13,12 @@
 #ifndef OGLPLUS_LIB_1208310818_HPP
 #define OGLPLUS_LIB_1208310818_HPP
 
+#ifdef None
+# pragma push_macro("None")
+# undef None
+# define OGLPLUS_None_WAS_DEFINED
+#endif
+
 #ifndef OGLPLUS_IMPLEMENTING_LIBRARY
 #define OGLPLUS_IMPLEMENTING_LIBRARY 1
 #endif
@@ -59,5 +65,9 @@ namespace oglplus {
 } // namespace oglplus
 
 #undef OGLPLUS_IMPLEMENTING_LIBRARY
+
+#ifdef OGLPLUS_None_WAS_DEFINED
+# pragma pop_macro("None")
+#endif
 
 #endif // include guard
