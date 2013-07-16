@@ -15,6 +15,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/text/unicode.hpp>
+#include <oglplus/uniform.hpp>
 
 namespace oglplus {
 

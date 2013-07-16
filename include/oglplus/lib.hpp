@@ -43,6 +43,10 @@
 #include <oglplus/shapes/blender_mesh.hpp>
 #include <oglplus/shapes/obj_mesh.hpp>
 
+#include <oglplus/text/unicode.hpp>
+#include <oglplus/text/bitmap_glyph.hpp>
+#include <oglplus/text/stb_truetype.hpp>
+
 #include <oglplus/opt/resources.hpp>
 
 namespace oglplus {
