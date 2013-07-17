@@ -16,6 +16,9 @@
 <link rel="stylesheet/less" type="text/css" href="oglplus.less"/>
 <script src="less.js" type="text/javascript"></script>
 
+
+<link href="http://oglplus.org/news.rss" rel="alternate" type="application/rss+xml" title="OGLplus news feed" />
+
 <script type="text/javascript">
 (function() {
     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -214,6 +217,19 @@
 
 		</div>
 		<div id="right">
+			<?php
+				$xml = new DOMDocument();
+				$xml->load('news.rss');
+
+				$xsl = new DOMDocument;
+				$xsl->load('rss2html.xsl');
+
+				$proc = new XSLTProcessor();
+				$proc->importStyleSheet($xsl);
+				$proc->setParameter('', 'feed-name', 'news.rss');
+
+				echo $proc->transformToXML($xml);
+			?>
 		</div>
 	</div>
 	<div id="footer">

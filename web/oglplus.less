@@ -161,6 +161,49 @@ div#right {
 	overflow: hidden;
 }
 
+div.rss-feed {
+	display: block;
+}
+
+div.rss-item {
+	background-color: #6D9DFD;
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 1px solid #6090E0;
+}
+
+.rss-item a:link {
+	color: black;
+	text-decoration: none;
+}
+
+.rss-item a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+.rss-item p {
+	text-align: justify;
+	word-break: break-all;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+
+.rss-item-date {
+	color: #202050;
+	font-size: 80%;
+	font-weight: bold;
+	word-break: keep-all;
+}
+
+.rss-item-link {
+	color: #303050;
+	font-size: 90%;
+	font-style: oblique;
+	word-break: keep-all;
+}
+
 div#main {
 	position: relative;
 	width: @frame-width - @logo-width - 2 * @main-padding;
