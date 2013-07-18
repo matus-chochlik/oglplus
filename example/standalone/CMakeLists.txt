@@ -31,6 +31,8 @@ if(EGL_FOUND AND OPENGL_FOUND)
 	)
 endif()
 
+standalone_example_common(001_text2d)
+
 if(GLUT_FOUND AND GLEW_FOUND)
 	include_directories(${GLEW_INCLUDE_DIRS})
 	include_directories(${GLUT_INCLUDE_DIRS})

@@ -14,13 +14,13 @@
 #define OGLPLUS_TEXT_STB_TRUETYPE_FONT_ESSENCE_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/text/stb_truetype/font2d.hpp>
 #include <oglplus/text/bitmap_glyph/fwd.hpp>
 #include <oglplus/text/bitmap_glyph/page_storage.hpp>
 #include <oglplus/text/bitmap_glyph/pager.hpp>
 
 #include <oglplus/image.hpp>
 #include <oglplus/opt/resources.hpp>
-#include <oglplus/auxiliary/stb_ttf.hpp>
 
 #include <cctype>
 #include <string>
@@ -33,7 +33,7 @@ class STBTTFontEssence
 {
 private:
 	BitmapGlyphRenderingBase& _parent;
-	const aux::STBTTFont _tt_font;
+	const STBTTFont2D _tt_font;
 	const GLuint _font_resolution;
 	const GLuint _tex_side;
 
@@ -166,17 +166,17 @@ void STBTTFontEssence::_do_make_page_bitmap_and_metric(
 	int x0, y0, x1, y1, lb, width, asc, dsc, lg;
 	for(unsigned g=0; g!=glyphs_per_page; ++g)
 	{
-		int code_point = glyphs_per_page*page+g;
+		CodePoint code_point = CodePoint(glyphs_per_page*page+g);
 		auto glyph = _tt_font.GetGlyph(code_point);
 
 		if(std::isspace(code_point))
 			tmp[g%2]=std::vector<unsigned char>(px*px,0x00);
-		glyph.MakeBitmap(tmp[g%2].data(), px, px, px, scale);
+		glyph.Render(tmp[g%2].data(), px, px, px, scale);
 
 		// if this glyph is not the same as the previous
 		if((g == 0) || (tmp[0] != tmp[1]))
 		{
-			glyph.GetBitmapBox(x0, y0, x1, y1);
+			glyph.GetBitmapBox(1, 1, x0, y0, x1, y1);
 			glyph.GetVMetrics(asc, dsc, lg);
 			glyph.GetHMetrics(lb, width);
 
@@ -195,7 +195,7 @@ void STBTTFontEssence::_do_make_page_bitmap_and_metric(
 
 			if(bmp_data)
 			{
-				glyph.MakeBitmap(
+				glyph.Render(
 					bmp_data+ts*yoffs+xoffs,
 					advance,
 					px,
@@ -327,7 +327,7 @@ GLfloat STBTTFontEssence::QueryXOffsets(
 
 	float scale = _tt_font.ScaleForPixelHeight(_font_resolution);
 	scale /= _font_resolution;
-	aux::STBTTFontGlyph g = _tt_font.GetGlyph(cps[0]);
+	STBTTFont2DGlyph g = _tt_font.GetGlyph(cps[0]);
 
 	GLfloat sum = g.LeftBearing()*scale;
 	x_offsets[0] = sum;
@@ -338,10 +338,10 @@ GLfloat STBTTFontEssence::QueryXOffsets(
 	{
 		sum += g.Width()*scale;
 
-		aux::STBTTFontGlyph pg = g;
+		STBTTFont2DGlyph pg = g;
 		g = _tt_font.GetGlyph(cps[i]);
 
-		sum += KernAdvance(pg, g)*scale;
+		sum += STBTTFont2D::KernAdvance(pg, g)*scale;
 
 		x_offsets[i] = sum;
 	}
@@ -352,7 +352,7 @@ OGLPLUS_LIB_FUNC
 Rectangle STBTTFontEssence::GetGlyphMetrics(CodePoint code_point, GLint offs) const
 {
 	int asc, dsc, lg, lb, wi;
-	auto glyph = _tt_font.GetGlyph(int(code_point));
+	auto glyph = _tt_font.GetGlyph(code_point);
 	glyph.GetVMetrics(asc, dsc, lg);
 	glyph.GetHMetrics(lb, wi);
 	float scale = _tt_font.ScaleForPixelHeight(_font_resolution);

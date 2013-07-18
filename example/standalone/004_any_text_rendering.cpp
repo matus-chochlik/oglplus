@@ -12,7 +12,7 @@
 #include <oglplus/images/png.hpp>
 
 #include <oglplus/text/stb_truetype.hpp>
-#include <oglplus/text/type_erased.hpp>
+#include <oglplus/text/any.hpp>
 
 #include <sstream>
 #include <iomanip>

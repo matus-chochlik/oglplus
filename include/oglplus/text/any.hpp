@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/text/type_erased.hpp
+ *  @file oglplus/text/any.hpp
  *  @brief A type erasure for various implementation of text rendering
  *
  *  @author Matus Chochlik
@@ -10,12 +10,11 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXT_TYPE_ERSASED_HPP
-#define OGLPLUS_TEXT_TYPE_ERSASED_HPP
+#ifndef OGLPLUS_TEXT_ANY_HPP
+#define OGLPLUS_TEXT_ANY_HPP
 
 #include <oglplus/config.hpp>
 #include <oglplus/text/unicode.hpp>
-#include <oglplus/text/type_erased.hpp>
 
 #include <memory>
 #include <cassert>
