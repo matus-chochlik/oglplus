@@ -11,7 +11,7 @@
 #include <iostream>
 
 #include <oglplus/opt/resources.hpp>
-#include <oglplus/text/stb_truetype/font2d.hpp>
+#include <oglplus/text/font2d.hpp>
 
 #include <iostream>
 #include <vector>
@@ -19,16 +19,17 @@
 int main(int argc, char* argv[])
 {
 	oglplus::ResourceFile font_file("fonts", (argc>1)?argv[1]:"FreeSans", ".ttf");
-	oglplus::text::STBTTFont2D font(font_file);
+	oglplus::text::Font2D font(font_file);
 
 	oglplus::text::CodePoints code_points = oglplus::text::UTF8ToCodePoints(u8"OGLplus");
-	oglplus::text::STBTTFont2D::Layout layout = font.MakeLayout(code_points);
+	oglplus::text::Font2D::Layout layout = font.MakeLayout(code_points);
 
 	std::size_t width = 90;
 	std::size_t height = 26;
+	std::size_t font_size = 25;
 	std::vector<unsigned char> buffer(width*height, 0x00);
 
-	font.Render(25, layout, buffer.data(), buffer.size(), width);
+	font.Render(font_size, layout, buffer.data(), buffer.size(), width);
 
 	for(std::size_t j=0; j!=height; ++j)
 	{

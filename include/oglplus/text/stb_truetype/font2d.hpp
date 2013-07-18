@@ -264,22 +264,53 @@ public:
 	typedef std::vector<Glyph> Layout;
 
 	/// Makes a glyph sequence from code points
-	Layout MakeLayout(const CodePoint* code_points, const std::size_t cp_n);
+	Layout MakeLayout(
+		const CodePoint* code_points,
+		const std::size_t cp_n
+	) const;
 
 	/// Makes a glyph sequence from code points
-	Layout MakeLayout(const CodePoints& code_points)
+	Layout MakeLayout(const CodePoints& code_points) const
 	{
 		return MakeLayout(code_points.data(), code_points.size());
 	}
 
+	/// Get the base line for the layout in pixels
+	float Baseline(
+		std::size_t size_in_pixels,
+		const Layout& /*layout*/
+	) const
+	{
+		int result = 0;
+		::stbtt_GetFontVMetrics(&_font, &result, nullptr, nullptr);
+		return result*ScaleForPixelHeight(size_in_pixels);
+	}
+
+	/// Get the height of the layout in pixels
+	float Height(
+		std::size_t size_in_pixels,
+		const Layout& /*layout*/
+	) const
+	{
+		int asc = 0, dsc = 0;
+		::stbtt_GetFontVMetrics(&_font, &asc, &dsc, nullptr);
+		return (asc - dsc)*ScaleForPixelHeight(size_in_pixels);
+	}
+
+	/// Get the width of the layout in pixels
+	float Width(
+		std::size_t size_in_pixels,
+		const Layout& layout
+	) const;
+
 	/// Render the specified text into a buffer
 	void Render(
-		std::size_t height_in_pixels,
+		std::size_t size_in_pixels,
 		const Layout& layout,
 		unsigned char* buffer_start,
 		std::size_t buffer_size,
 		std::size_t buffer_stride
-	);
+	) const;
 };
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
@@ -315,7 +346,7 @@ OGLPLUS_LIB_FUNC
 STBTTFont2D::Layout STBTTFont2D::MakeLayout(
 	const CodePoint* code_points,
 	const std::size_t cp_n
-)
+) const
 {
 	Layout layout(cp_n, Glyph(this->_font));
 	for(std::size_t cp=0; cp!=cp_n; ++cp)
@@ -326,22 +357,38 @@ STBTTFont2D::Layout STBTTFont2D::MakeLayout(
 }
 
 OGLPLUS_LIB_FUNC
+float STBTTFont2D::Width(
+	std::size_t size_in_pixels,
+	const Layout& layout
+) const
+{
+	float scale = ScaleForPixelHeight(float(size_in_pixels));
+	float width = 0.0f;
+	for(auto i=layout.begin(), p=i, e=layout.end(); i!=e; ++i)
+	{
+		if(p != i) width += KernAdvance(*p, *i);
+		width += i->Width();
+	}
+	return width*scale;
+}
+
+OGLPLUS_LIB_FUNC
 void STBTTFont2D::Render(
-	std::size_t height_in_pixels,
+	std::size_t size_in_pixels,
 	const STBTTFont2D::Layout& layout,
 	unsigned char* buffer_start,
 	std::size_t buffer_size,
 	std::size_t buffer_stride
-)
+) const
 {
 	OGLPLUS_FAKE_USE(buffer_size);
-	assert(buffer_stride*height_in_pixels <= buffer_size);
+	assert(buffer_stride*size_in_pixels <= buffer_size);
 
 	std::vector<unsigned char> tmp_buffer;
-	std::size_t tmp_height = height_in_pixels;
+	std::size_t tmp_height = size_in_pixels;
 	std::size_t tmp_width = 0;
 
-	float scale = ScaleForPixelHeight(float(height_in_pixels));
+	float scale = ScaleForPixelHeight(float(size_in_pixels));
 
 	float xoffset = 0.0f;
 	for(auto i=layout.begin(), p=i, e=layout.end(); i!=e; ++i)
