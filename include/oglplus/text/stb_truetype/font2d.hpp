@@ -382,8 +382,9 @@ void STBTTFont2D::Render(
 
 		std::size_t xo = std::size_t(std::floor(xoffset));
 		std::size_t gb = 0;
-		std::size_t gw = tmp_width;
-		std::size_t gy = 0;
+		std::size_t gw = std::size_t(1.0f+(x1-x0)*scale);
+		if(gw > tmp_width) gw = tmp_width;
+		std::size_t gy = std::size_t(std::floor(yshift));
 		std::size_t gh = tmp_height;
 
 		while(gy < gh)
@@ -392,12 +393,15 @@ void STBTTFont2D::Render(
 			while(gx < gw)
 			{
 				std::size_t si = gy*tmp_width+gx;
-				std::size_t di = gy*buffer_stride+gx+xo;
-
 				unsigned src = tmp_buffer[si];
-				unsigned dst = buffer_start[di]+src;
-				if(dst > 0xFF) dst = 0xFF;
-				buffer_start[di] = dst & 0xFF;
+				if(src != 0)
+				{
+					std::size_t di = gy*buffer_stride+gx+xo;
+					unsigned dst = buffer_start[di]+src;
+
+					if(dst > 0xFF) dst = 0xFF;
+					buffer_start[di] = dst & 0xFF;
+				}
 				++gx;
 			}
 			++gy;
