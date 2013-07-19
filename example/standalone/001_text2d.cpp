@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 	std::size_t font_size = 25;
 	std::vector<unsigned char> buffer(width*height, 0x00);
 
-	font.Render(font_size, layout, buffer.data(), buffer.size(), width);
+	font.Render(font_size, layout, buffer.data(), width, height);
 
 	for(std::size_t j=0; j!=height; ++j)
 	{

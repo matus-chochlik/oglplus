@@ -308,8 +308,10 @@ public:
 		std::size_t size_in_pixels,
 		const Layout& layout,
 		unsigned char* buffer_start,
-		std::size_t buffer_size,
-		std::size_t buffer_stride
+		const std::size_t buffer_width,
+		const std::size_t buffer_height,
+		const int xposition = 0,
+		const int yposition = 0
 	) const;
 };
 
@@ -377,24 +379,38 @@ void STBTTFont2D::Render(
 	std::size_t size_in_pixels,
 	const STBTTFont2D::Layout& layout,
 	unsigned char* buffer_start,
-	std::size_t buffer_size,
-	std::size_t buffer_stride
+	const std::size_t buffer_width,
+	const std::size_t buffer_height,
+	const int xposition,
+	const int yposition
 ) const
 {
-	OGLPLUS_FAKE_USE(buffer_size);
-	assert(buffer_stride*size_in_pixels <= buffer_size);
+	if(int(size_in_pixels) <   yposition) return;
+	if(int(size_in_pixels) <= -yposition) return;
 
 	std::vector<unsigned char> tmp_buffer;
-	std::size_t tmp_height = size_in_pixels;
-	std::size_t tmp_width = 0;
+	int tmp_height = int(size_in_pixels);
+	int tmp_width = 0;
 
 	float scale = ScaleForPixelHeight(float(size_in_pixels));
 
 	float xoffset = 0.0f;
 	for(auto i=layout.begin(), p=i, e=layout.end(); i!=e; ++i)
 	{
-		std::size_t width_in_pixels =
-			std::size_t(std::ceil(i->Width()*scale));
+		const int xo = int(std::floor(xoffset))+xposition;
+		const float advance = i->Width()*scale;
+		
+		int width_in_pixels = int(std::ceil(advance));
+
+		if(xo >= int(buffer_width))
+		{
+			break;
+		}
+		if(xo+width_in_pixels < 0)
+		{
+			xoffset += advance;
+			continue;
+		}
 
 		if(tmp_width < width_in_pixels)
 		{
@@ -404,7 +420,7 @@ void STBTTFont2D::Render(
 		std::fill(tmp_buffer.begin(), tmp_buffer.end(), 0x00);
 
 		if(p != i) xoffset += KernAdvance(*p, *i)*scale;
-		float xshift = xoffset - std::floor(xoffset);
+		const float xshift = xoffset - std::floor(xoffset);
 		int x0, y0, x1, y1;
 		i->GetBitmapBoxSubpixel(
 			1, 1,
@@ -412,14 +428,15 @@ void STBTTFont2D::Render(
 			x0, y0,
 			x1, y1
 		);
-		float yshift = (i->Ascent()+y0)*scale-1;
+		const float yshift = (i->Ascent()+y0)*scale-1;
+		const int yo = yposition;
 
 		::stbtt_MakeGlyphBitmapSubpixel(
 			&_font,
 			tmp_buffer.data(),
-			int(tmp_width),
-			int(tmp_height),
-			int(tmp_width),
+			tmp_width,
+			tmp_height,
+			tmp_width,
 			scale,
 			scale,
 			xshift,
@@ -427,23 +444,25 @@ void STBTTFont2D::Render(
 			i->_index
 		);
 
-		std::size_t xo = std::size_t(std::floor(xoffset));
-		std::size_t gb = 0;
-		std::size_t gw = std::size_t(1.0f+(x1-x0)*scale);
+		int gb = xo<0?-xo:0;
+		int gw = int(1.0f+(x1-x0)*scale);
 		if(gw > tmp_width) gw = tmp_width;
-		std::size_t gy = std::size_t(std::floor(yshift));
-		std::size_t gh = tmp_height;
+		if(gw > int(buffer_width-xo)) gw = int(buffer_width-xo);
+		int gy = (std::floor(yshift));
+		if(gy < -yo) gy = -yo;
+		int gh = tmp_height;
+		if(gh > int(buffer_height-yo)) gh = int(buffer_height-yo);
 
 		while(gy < gh)
 		{
-			std::size_t gx = gb;
+			int gx = gb;
 			while(gx < gw)
 			{
-				std::size_t si = gy*tmp_width+gx;
+				int si = gy*tmp_width+gx;
 				unsigned src = tmp_buffer[si];
 				if(src != 0)
 				{
-					std::size_t di = gy*buffer_stride+gx+xo;
+					int di = (gy+yo)*buffer_width+gx+xo;
 					unsigned dst = buffer_start[di]+src;
 
 					if(dst > 0xFF) dst = 0xFF;
@@ -455,7 +474,7 @@ void STBTTFont2D::Render(
 		}
 
 		p = i;
-		xoffset += i->Width()*scale;
+		xoffset += advance;
 	}
 }
 #endif // OGLPLUS_LINK_LIBRARY
