@@ -385,7 +385,7 @@ void STBTTFont2D::Render(
 	const int yposition
 ) const
 {
-	if(int(size_in_pixels) <   yposition) return;
+	if(int(buffer_height)  <   yposition) return;
 	if(int(size_in_pixels) <= -yposition) return;
 
 	std::vector<unsigned char> tmp_buffer;
@@ -399,7 +399,7 @@ void STBTTFont2D::Render(
 	{
 		const int xo = int(std::floor(xoffset))+xposition;
 		const float advance = i->Width()*scale;
-		
+
 		int width_in_pixels = int(std::ceil(advance));
 
 		if(xo >= int(buffer_width))
