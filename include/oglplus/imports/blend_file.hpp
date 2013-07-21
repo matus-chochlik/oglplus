@@ -206,11 +206,13 @@ BlendFile::BlendFile(std::istream& input)
 
 		if(_equal(code, "DNA1"))
 		{
-			_blocks.emplace_back(
-				_reader,
-				_info,
-				std::move(code),
-				false
+			_blocks.push_back(
+				BlendFileBlock(
+					_reader,
+					_info,
+					std::move(code),
+					false
+				)
 			);
 			_sdna = std::make_shared<BlendFileSDNA>(
 				_reader,
@@ -219,11 +221,13 @@ BlendFile::BlendFile(std::istream& input)
 		}
 		else
 		{
-			_blocks.emplace_back(
-				_reader,
-				_info,
-				std::move(code),
-				true
+			_blocks.push_back(
+				BlendFileBlock(
+					_reader,
+					_info,
+					std::move(code),
+					true
+				)
 			);
 		}
 		_block_map[_blocks.back()._old_ptr] = block_idx++;

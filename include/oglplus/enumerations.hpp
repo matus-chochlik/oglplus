@@ -62,6 +62,17 @@ struct EnumBaseType
 {
 	typedef GLenum Type;
 };
+#else
+// No scoped enums -> no enum value names/ranges
+#ifdef OGLPLUS_NO_ENUM_VALUE_NAMES
+#undef OGLPLUS_NO_ENUM_VALUE_NAMES
+#endif
+#define OGLPLUS_NO_ENUM_VALUE_NAMES  1
+
+#ifdef OGLPLUS_NO_ENUM_VALUE_RANGES
+#undef OGLPLUS_NO_ENUM_VALUE_RANGES
+#endif
+#define OGLPLUS_NO_ENUM_VALUE_RANGES 1
 #endif
 
 template <typename EnumType>

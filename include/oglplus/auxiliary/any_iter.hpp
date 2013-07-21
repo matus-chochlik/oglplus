@@ -33,7 +33,9 @@ private:
 
 		virtual void _incr(void) = 0;
 
-		virtual bool _equal(const _intf* that) = 0;
+		virtual bool _equal(const _intf* that) const = 0;
+
+		virtual std::ptrdiff_t _dist(const _intf* that) const = 0;
 	};
 
 	template <typename Iter>
@@ -71,11 +73,18 @@ private:
 			++_iter;
 		}
 
-		bool _equal(const _intf* that)
+		bool _equal(const _intf* that) const
 		{
 			const _impl* i = dynamic_cast<const _impl*>(that);
 			assert(i != nullptr);
 			return _iter == i->_iter;
+		}
+
+		std::ptrdiff_t _dist(const _intf* that) const
+		{
+			const _impl* i = dynamic_cast<const _impl*>(that);
+			assert(i != nullptr);
+			return std::distance(_iter, i->_iter);
 		}
 	};
 
@@ -137,6 +146,12 @@ public:
 		return _pimpl->_deref();
 	}
 
+	const T* operator -> (void) const
+	{
+		assert(_pimpl != nullptr);
+		return &_pimpl->_deref();
+	}
+
 	AnyInputIter& operator ++ (void)
 	{
 		assert(_pimpl != nullptr);
@@ -165,7 +180,23 @@ public:
 		assert(b._pimpl != nullptr);
 		return !a._pimpl->_equal(b._pimpl);
 	}
+
+	friend std::ptrdiff_t operator - (
+		const AnyInputIter& a,
+		const AnyInputIter& b
+	)
+	{
+		assert(a._pimpl != nullptr);
+		assert(b._pimpl != nullptr);
+		return b._pimpl->_dist(a._pimpl);
+	}
 };
+
+template <typename T>
+std::ptrdiff_t distance(const AnyInputIter<T>& from, const AnyInputIter<T>& to)
+{
+	return to - from;
+}
 
 } // aux
 } // oglplus

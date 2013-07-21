@@ -302,21 +302,14 @@ public:
 		return Status(target) == FramebufferStatus::Complete;
 	}
 
+	static void HandleIncompleteError(Target target, FramebufferStatus status);
+
 	/// Throws an exception if the framebuffer is not complete
 	static void Complete(Target target)
 	{
 		FramebufferStatus status = Status(target);
 		if(OGLPLUS_IS_ERROR(status != FramebufferStatus::Complete))
-			HandleIncompleteFramebuffer<IncompleteFramebuffer>(
-				status,
-				OGLPLUS_OBJECT_ERROR_INFO(
-					CheckFramebufferStatus,
-					Framebuffer,
-					EnumValueName(target),
-					BindingQuery<FramebufferOps>::
-					QueryBinding(target)
-				)
-			);
+			HandleIncompleteError(target, status);
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of @p target
@@ -601,6 +594,26 @@ public:
 		));
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void FramebufferOps::HandleIncompleteError(
+	Target target,
+	FramebufferStatus status
+)
+{
+	HandleIncompleteFramebuffer<IncompleteFramebuffer>(
+		status,
+		OGLPLUS_OBJECT_ERROR_INFO(
+			CheckFramebufferStatus,
+			Framebuffer,
+			EnumValueName(target),
+			BindingQuery<FramebufferOps>::
+			QueryBinding(target)
+		)
+	);
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality

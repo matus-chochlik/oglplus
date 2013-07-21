@@ -54,7 +54,7 @@ private:
 					Cross(vnx, vny) +
 					Cross(vny, vpx)
 				),
-				(1.0 - sc)
+				sc
 			) * one;
 		}
 	};

@@ -287,6 +287,8 @@ public:
 		);
 	}
 
+	void HandleCompileError(void) const;
+
 	/// Compiles the shader
 	/**
 	 *  @post IsCompiled()
@@ -308,15 +310,7 @@ public:
 		));
 		if(OGLPLUS_IS_ERROR(!IsCompiled()))
 		{
-			HandleBuildError<CompileError>(
-				GetInfoLog(),
-				OGLPLUS_OBJECT_ERROR_INFO(
-					CompileShader,
-					Shader,
-					EnumValueName(Type()),
-					_name
-				)
-			);
+			HandleCompileError();
 		}
 		return *this;
 	}
@@ -359,6 +353,22 @@ public:
 	}
 #endif
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void ShaderOps::HandleCompileError(void) const
+{
+	HandleBuildError<CompileError>(
+		GetInfoLog(),
+		OGLPLUS_OBJECT_ERROR_INFO(
+			CompileShader,
+			Shader,
+			EnumValueName(Type()),
+			_name
+		)
+	);
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An object encasulating the shading language shader functionality

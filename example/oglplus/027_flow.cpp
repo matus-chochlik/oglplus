@@ -11,6 +11,7 @@
  *  @oglplus_example_uses_texture{flow_map}
  *  @oglplus_example_uses_texture{flower_glass}
  *
+ *  @oglplus_example_uses_cxx11{SCOPED_ENUMS}
  *  @oglplus_example_uses_gl{GL_VERSION_3_2}
  */
 #include <oglplus/gl.hpp>

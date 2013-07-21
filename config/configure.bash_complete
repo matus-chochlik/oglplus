@@ -15,6 +15,22 @@ function _configure_oglplus()
 	case "${prev}" in
 		-h|--help)
 			return 0;;
+		--generator)
+			OLDIFS=${IFS}
+			IFS=$'\r\n'
+			COMPREPLY=($(
+				cmake --help |
+				sed -n '/^Generators\s*$/,$p' |
+				tail -n +4 |
+				grep -v -e '^\s\+=' |
+				grep -v -e '^\s*$' |
+				cut -d= -f 1 |
+				sed 's/^\s*\([^ ].\+[^ ]\)\s*$/\1/' |
+				grep -e "^${curr}" |
+				sed 's/ /\\ /g'
+			))
+			IFS=${OLDIFS}
+			return 0;;
 		--prefix|--build-dir|--include-dir|-I|--library-dir|-L)
 			COMPREPLY=($(compgen -f "${curr}"))
 			return 0;;
@@ -30,11 +46,11 @@ function _configure_oglplus()
 		--make-screenshots)
 			COMPREPLY=($(compgen -W "True False" -- "${curr}"))
 			return 0;;
-		--use-gl-header-lib)
-			COMPREPLY=($(compgen -W "GLCOREARB_H GL3_H GLEW GL3W" -- "${curr}"))
+		--use-gl-api-lib)
+			COMPREPLY=($(compgen -W "GLEW GL3W GLCOREARB_H GL3_H" -- "${curr}"))
 			return 0;;
 		--use-gl-init-lib)
-			COMPREPLY=($(compgen -W "GLUT GLFW WXGL SDL GLX QTGL" -- "${curr}"))
+			COMPREPLY=($(compgen -W "GLUT GLFW WXGL SDL GLX QTGL EGL" -- "${curr}"))
 			return 0;;
 		*)
 	esac
@@ -48,6 +64,7 @@ function _configure_oglplus()
 		--use-cxxflags \
 		--use-ldflags \
 		--low-profile \
+		--info-only \
 		--build-examples \
 		--no-examples \
 		--build-docs \
@@ -55,11 +72,11 @@ function _configure_oglplus()
 		--make-screenshots \
 		--screenshots \
 		--max-gl-version \
-		--use-gl-header-lib \
-		--use-glcorearb-h \
-		--use-gl3-h \
+		--use-gl-api-lib \
 		--use-glew \
 		--use-gl3w \
+		--use-glcorearb-h \
+		--use-gl3-h \
 		--use-gl-init-lib \
 		--use-glut \
 		--use-glfw \
@@ -67,11 +84,14 @@ function _configure_oglplus()
 		--use-sdl \
 		--use-glx \
 		--use-qtgl \
+		--use-egl \
 		--from-scratch \
 		--quiet \
 		--quick \
+		--jobs \
 		--build \
 		--with-tests \
+		--generator \
 		--cmake \
 	"
 
@@ -91,11 +111,11 @@ function _configure_oglplus()
 	"
 
 	local muog_3=" \
-		--use-gl-header-lib \
-		--use-glcorearb-h \
-		--use-gl3-h \
+		--use-gl-api-lib \
 		--use-glew \
 		--use-gl3w \
+		--use-glcorearb-h \
+		--use-gl3-h \
 	"
 
 	local muog_4=" \
@@ -106,6 +126,7 @@ function _configure_oglplus()
 		--use-sdl \
 		--use-glx \
 		--use-qtgl \
+		--use-egl \
 	"
 
 	local repeated_opts=" \

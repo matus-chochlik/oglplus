@@ -57,17 +57,6 @@ unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRenderingBase&);
 // One plane consists of PagesPerPlane pages of GlyphsPerPage glyphs
 unsigned BitmapGlyphPlaneCount(const BitmapGlyphRenderingBase&);
 
-std::string BitmapGlyphFontPath(
-	const BitmapGlyphRenderingBase& that,
-	const std::string& font_name
-);
-
-std::string BitmapGlyphFontPagePath(
-	const BitmapGlyphRenderingBase& that,
-	const std::string& font_name,
-	GLint font_page
-);
-
 void BitmapGlyphAllocateLayoutData(
 	BitmapGlyphRenderingBase& parent,
 	BitmapGlyphLayoutData& layout_data
@@ -106,10 +95,12 @@ inline GLint BitmapGlyphCellOfCP(
 	return code_point % BitmapGlyphGlyphsPerPage(parent);
 }
 
-inline std::string BitmapGlyphPageName(
+OGLPLUS_LIB_FUNC
+std::string BitmapGlyphPageName(
 	const BitmapGlyphRenderingBase& parent,
 	GLint page
 )
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	const char hexdigit[16] = {
 		'0','1','2','3','4',
@@ -127,11 +118,16 @@ inline std::string BitmapGlyphPageName(
 	};
 	return std::string(result, 6);
 }
+#else
+;
+#endif // OGLPLUS_LINK_LIBRARY
 
-inline GLuint BitmapGlyphDefaultPageTexSide(
+OGLPLUS_LIB_FUNC
+GLuint BitmapGlyphDefaultPageTexSide(
 	const BitmapGlyphRenderingBase& /*parent*/,
 	GLuint pixel_height
 )
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	GLuint h = pixel_height*16;
 	GLuint s = 128;
@@ -142,6 +138,9 @@ inline GLuint BitmapGlyphDefaultPageTexSide(
 	}
 	return s;
 }
+#else
+;
+#endif // OGLPLUS_LINK_LIBRARY
 
 } // namespace text
 } // namespace oglplus

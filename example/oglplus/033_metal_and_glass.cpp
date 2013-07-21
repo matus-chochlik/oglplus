@@ -81,10 +81,16 @@ public:
 	{ }
 };
 
-class TransformProgram
- : public HardwiredTupleProgram<std::tuple<CommonVertShader>>
+class TransformProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Transform"));
+		prog.AttachShader(CommonVertShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix, model_matrix, light_proj_matrix;
@@ -94,10 +100,8 @@ public:
 	ProgramUniform<GLfloat> clip_direction;
 
 	TransformProgram(void)
-	 : HardwiredTupleProgram<std::tuple<CommonVertShader>>(
-		ObjectDesc("Transform"),
-		std::true_type()
-	), camera_matrix(prog(), "CameraMatrix")
+	 : Program(make())
+	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , light_proj_matrix(prog(), "LightProjMatrix")
 	 , texture_matrix(prog(), "TextureMatrix")
@@ -131,15 +135,19 @@ public:
 	{ }
 };
 
-class ShadowProgram
- : public HardwiredTupleProgram<std::tuple<ShadowFragmentShader>>
+class ShadowProgram : public Program
 {
+private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Shadow"));
+		prog.AttachShader(ShadowFragmentShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 public:
 	ShadowProgram(void)
-	 : HardwiredTupleProgram<std::tuple<ShadowFragmentShader>>(
-		ObjectDesc("Shadow"),
-		std::true_type()
-	)
+	 : Program(make())
 	{ }
 };
 
@@ -173,19 +181,23 @@ public:
 	{ }
 };
 
-class LightProgram
- : public HardwiredTupleProgram<std::tuple<LightFragmentShader>>
+class LightProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Light"));
+		prog.AttachShader(LightFragmentShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Vec3f> color;
 
 	LightProgram(void)
-	 : HardwiredTupleProgram<std::tuple<LightFragmentShader>>(
-		ObjectDesc("Light"),
-		std::true_type()
-	), color(prog(), "Color")
+	 : Program(make())
+	 , color(prog(), "Color")
 	{ }
 };
 
@@ -268,20 +280,24 @@ public:
 	{ }
 };
 
-class GlassProgram
- : public HardwiredTupleProgram<std::tuple<GlassFragmentShader>>
+class GlassProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Glass"));
+		prog.AttachShader(GlassFragmentShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Vec3f> color;
 	ProgramUniformSampler frame_shadow_tex;
 
 	GlassProgram(void)
-	 : HardwiredTupleProgram<std::tuple<GlassFragmentShader>>(
-		ObjectDesc("Glass"),
-		std::true_type()
-	), color(prog(), "Color")
+	 : Program(make())
+	 , color(prog(), "Color")
 	 , frame_shadow_tex(prog(), "FrameShadowTex")
 	{ }
 };
@@ -394,10 +410,16 @@ public:
 	{ }
 };
 
-class MetalProgram
- : public HardwiredTupleProgram<std::tuple<MetalFragmentShader>>
+class MetalProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Metal"));
+		prog.AttachShader(MetalFragmentShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Vec3f> color_1, color_2;
@@ -405,10 +427,8 @@ public:
 	ProgramUniform<GLint> with_glass_shadow;
 
 	MetalProgram(void)
-	 : HardwiredTupleProgram<std::tuple<MetalFragmentShader>>(
-		ObjectDesc("Metal"),
-		std::true_type()
-	), color_1(prog(), "Color1")
+	 : Program(make())
+	 , color_1(prog(), "Color1")
 	 , color_2(prog(), "Color2")
 	 , metal_tex(prog(), "MetalTex")
 	 , frame_shadow_tex(prog(), "FrameShadowTex")

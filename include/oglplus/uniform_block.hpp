@@ -47,30 +47,18 @@ protected:
 		return result;
 	}
 
+	void _handle_error(
+		GLuint program,
+		const GLchar* identifier,
+		GLint location
+	) const;
+
 	GLint _init_location(GLuint program, const GLchar* identifier) const
 	{
 		GLint location = _do_init_location(program, identifier);
 		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
 		{
-			Error::PropertyMapInit props;
-			Error::AddPropertyValue(
-				props,
-				"identifier",
-				identifier
-			);
-			Error::AddPropertyValue(
-				props,
-				"program",
-				aux::ObjectDescRegistry<ProgramOps>::
-						_get_desc(program)
-			);
-			HandleShaderVariableError(
-				GL_INVALID_OPERATION,
-				location,
-				"Getting the location of inactive uniform block",
-				OGLPLUS_ERROR_INFO(GetUniformBlockIndex),
-				std::move(props)
-			);
+			_handle_error(program, identifier, location);
 		}
 		return location;
 	}
@@ -139,6 +127,36 @@ protected:
 		return 0;
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void UniformBlockInitOps::_handle_error(
+	GLuint program,
+	const GLchar* identifier,
+	GLint location
+) const
+{
+	Error::PropertyMapInit props;
+	Error::AddPropertyValue(
+		props,
+		"identifier",
+		identifier
+	);
+	Error::AddPropertyValue(
+		props,
+		"program",
+		aux::ObjectDescRegistry<ProgramOps>::
+				_get_desc(program)
+	);
+	HandleShaderVariableError(
+		GL_INVALID_OPERATION,
+		location,
+		"Getting the location of inactive uniform block",
+		OGLPLUS_ERROR_INFO(GetUniformBlockIndex),
+		std::move(props)
+	);
+}
+#endif  // OGLPLUS_LINK_LIBRARY
 
 typedef EagerUniformInitTpl<UniformBlockInitOps>
 	EagerUniformBlockInit;

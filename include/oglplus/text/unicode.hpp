@@ -14,7 +14,6 @@
 #define OGLPLUS_TEXT_UNICODE_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/string.hpp>
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 #include <oglplus/auxiliary/utf8/conversion.hpp>
@@ -32,6 +31,9 @@ namespace text {
  */
 typedef oglplus::aux::UnicodeCP CodePoint;
 
+/// A sequence of CodePoints
+typedef std::vector<CodePoint> CodePoints;
+
 /// Converts a UTF-8 range to a vector of unicode code points
 /**
  *  @ingroup text_rendering
@@ -39,7 +41,7 @@ typedef oglplus::aux::UnicodeCP CodePoint;
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 	const char* begin,
 	const char* end,
-	std::vector<CodePoint>& result
+	CodePoints& result
 )
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
@@ -56,7 +58,7 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 	const char* c_str,
 	std::size_t length,
-	std::vector<CodePoint>& result
+	CodePoints& result
 )
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
@@ -66,23 +68,31 @@ OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
 ;
 #endif
 
-inline std::vector<CodePoint> UTF8ToCodePoints(
+inline CodePoints UTF8ToCodePoints(
 	const char* begin,
 	const char* end
 )
 {
-	std::vector<CodePoint> result;
+	CodePoints result;
 	UTF8ToCodePoints(begin, end, result);
 	return result;
 }
 
-inline std::vector<CodePoint> UTF8ToCodePoints(
+inline CodePoints UTF8ToCodePoints(
 	const char* c_str,
 	std::size_t length
 )
 {
-	std::vector<CodePoint> result;
+	CodePoints result;
 	UTF8ToCodePoints(c_str, length, result);
+	return result;
+}
+
+template <std::size_t N>
+inline CodePoints UTF8ToCodePoints(const char (&c_str_lit)[N])
+{
+	CodePoints result;
+	UTF8ToCodePoints(c_str_lit, N>0?N-1:0, result);
 	return result;
 }
 

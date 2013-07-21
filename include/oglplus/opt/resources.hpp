@@ -13,23 +13,28 @@
 #ifndef OGLPLUS_OPT_RESOURCES_1107121519_HPP
 #define OGLPLUS_OPT_RESOURCES_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/config_basic.hpp>
 #include <oglplus/opt/application.hpp>
 #include <oglplus/auxiliary/filesystem.hpp>
 
-#include <fstream>
-#include <cassert>
+# include <fstream>
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+# include <stdexcept>
+#endif
 
 namespace oglplus {
 namespace aux {
 
-inline std::size_t FindResourceFile(
+
+OGLPLUS_LIB_FUNC
+std::size_t FindResourceFile(
 	std::ifstream& file,
 	const std::string& path,
 	const char** exts,
 	std::size_t nexts
 )
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	for(std::size_t e=0; e!=nexts; ++e)
 	{
@@ -38,16 +43,21 @@ inline std::size_t FindResourceFile(
 	}
 	return nexts;
 }
+#else
+;
+#endif
 
 } // namespace aux
 
-inline std::size_t FindResourceFile(
+OGLPLUS_LIB_FUNC
+std::size_t FindResourceFile(
 	std::ifstream& file,
 	const std::string& category,
 	const std::string& name,
 	const char** exts,
 	unsigned nexts
 )
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	const std::string dirsep = aux::FilesysPathSep();
 	const std::string pardir(aux::FilesysPathParDir() + dirsep);
@@ -68,6 +78,9 @@ inline std::size_t FindResourceFile(
 	}
 	return nexts;
 }
+#else
+;
+#endif
 
 inline bool OpenResourceFile(
 	std::ifstream& file,
@@ -84,6 +97,44 @@ inline bool OpenResourceFile(
 		1
 	) == 0;
 }
+
+class ResourceFile
+ : public std::ifstream
+{
+public:
+	std::ifstream& stream(void) { return *this; }
+
+	ResourceFile(
+		const std::string& category,
+		const std::string& name,
+		const char* ext
+	);
+};
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+
+OGLPLUS_LIB_FUNC
+ResourceFile::ResourceFile(
+	const std::string& category,
+	const std::string& name,
+	const char* ext
+)
+{
+	if(!OpenResourceFile(stream(), category, name, ext) || !good())
+	{
+		throw std::runtime_error(
+			std::string("Failed to open resource file '")+
+			category +
+			aux::FilesysPathSep() +
+			name +
+			aux::FilesysPathSep()+
+			ext +
+			std::string("'")
+		);
+	}
+}
+
+#endif
 
 } // namespace oglplus
 

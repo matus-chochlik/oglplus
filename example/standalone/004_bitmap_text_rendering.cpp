@@ -49,8 +49,8 @@ private:
 public:
 	BitmapGlyphExample(int argc, const char** argv)
 	 : gl()
-	 , tr((argc>1)?argv[1]:"./_font", 0, 1, 2)
-	 , font(tr.LoadFont((argc>2)?argv[2]:"Sans"))
+	 , tr(0, 1, 2)
+	 , font(tr.LoadFont((argc>1)?argv[1]:"Sans"))
 	 , oglp_layout(tr.MakeLayout(font, oglplus::StrLit("OGLplus")))
 	 , desc_layout(tr.MakeLayout(font, oglplus::StrLit(u8"a C++ wrapper for OpenGL©")))
 	 , time_layout(tr.MakeLayout(font, 25))

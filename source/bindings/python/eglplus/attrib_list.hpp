@@ -16,10 +16,10 @@
 
 #include <type_traits>
 
-template <typename AK, typename VTAM>
-inline boost::python::class_<eglplus::AttributeList<AK, VTAM> >&
+template <typename AK, typename VTAM, typename Traits>
+inline boost::python::class_<eglplus::AttributeList<AK, VTAM, Traits> >&
 eglplus_py_export_AttributeList_Add(
-	boost::python::class_<eglplus::AttributeList<AK, VTAM> >& al_class,
+	boost::python::class_<eglplus::AttributeList<AK, VTAM, Traits> >& al_class,
 	...
 )
 {
@@ -59,10 +59,10 @@ eglplus_py_do_export_AttributeList_Add(
 }
 
 
-template <typename AK, typename VTAM, int I>
-boost::python::class_<eglplus::AttributeList<AK, VTAM> >&
+template <typename AK, typename VTAM, typename Traits, int I>
+boost::python::class_<eglplus::AttributeList<AK, VTAM, Traits> >&
 eglplus_py_export_AttributeList_Add(
-	boost::python::class_<eglplus::AttributeList<AK, VTAM> >& al_class,
+	boost::python::class_<eglplus::AttributeList<AK, VTAM, Traits> >& al_class,
 	std::integral_constant<int, I>,
 	AK (VTAM::*)(
 		decltype(VTAM::ValueType(std::integral_constant<int, I>()))
@@ -80,16 +80,16 @@ eglplus_py_export_AttributeList_Add(
 	);
 }
 
-template <typename AttribKind, class ValueToAttribMap>
+template <typename AttribKind, class ValueToAttribMap, typename Traits>
 inline void eglplus_py_export_AttributeList(
 	const std::string& name,
-	eglplus::AttributeList<AttribKind, ValueToAttribMap>*
+	eglplus::AttributeList<AttribKind, ValueToAttribMap, Traits>*
 )
 {
 	namespace bpy = ::boost::python;
 	using namespace eglplus;
 
-	typedef eglplus::FinishedAttributeList<AttribKind>
+	typedef eglplus::FinishedAttributeList<AttribKind, Traits>
 		FinishedAttribList;
 
 	bpy::class_<FinishedAttribList>(
@@ -97,7 +97,7 @@ inline void eglplus_py_export_AttributeList(
 		bpy::no_init
 	);
 
-	typedef eglplus::AttributeList<AttribKind, ValueToAttribMap>
+	typedef eglplus::AttributeList<AttribKind, ValueToAttribMap, Traits>
 		AttribList;
 
 	AttribList& (AttribList::*PAdd1)(AttribKind, EGLint) =

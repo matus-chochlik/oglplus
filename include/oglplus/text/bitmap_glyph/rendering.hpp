@@ -19,8 +19,6 @@
 #include <oglplus/text/bitmap_glyph/layout.hpp>
 #include <oglplus/text/bitmap_glyph/renderer.hpp>
 
-#include <oglplus/auxiliary/filesystem.hpp>
-
 #include <oglplus/program.hpp>
 #include <oglplus/uniform.hpp>
 
@@ -66,32 +64,6 @@ struct BitmapGlyphRenderingConfig
 class BitmapGlyphRenderingBase
 {
 protected:
-	// path to the directory where the font files are stored
-	std::string _font_dir;
-
-	friend std::string BitmapGlyphFontPath(
-		const BitmapGlyphRenderingBase& that,
-		const std::string& font_name
-	)
-	{
-		std::string dirsep = oglplus::aux::FilesysPathSep();
-		return that._font_dir+dirsep+font_name;
-	}
-
-	friend std::string BitmapGlyphFontPagePath(
-		const BitmapGlyphRenderingBase& that,
-		const std::string& font_name,
-		GLint font_page
-	)
-	{
-		std::string dirsep = oglplus::aux::FilesysPathSep();
-		return that._font_dir+
-			dirsep+
-			font_name+
-			dirsep+
-			BitmapGlyphPageName(that, font_page);
-	}
-
 	TextureUnitSelector _bitmap_tex_unit;
 	TextureUnitSelector _metric_tex_unit;
 	TextureUnitSelector _pg_map_tex_unit;
@@ -189,13 +161,11 @@ protected:
 	}
 
 	BitmapGlyphRenderingBase(
-		const std::string& font_dir,
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
 		TextureUnitSelector pg_map_tex_unit,
 		const BitmapGlyphRenderingConfig& config
-	): _font_dir(font_dir)
-	 , _bitmap_tex_unit(bitmap_tex_unit)
+	): _bitmap_tex_unit(bitmap_tex_unit)
 	 , _metric_tex_unit(metric_tex_unit)
 	 , _pg_map_tex_unit(pg_map_tex_unit)
 	 , _config(config)
@@ -233,13 +203,11 @@ class BitmapGlyphRenderingTpl
 {
 public:
 	BitmapGlyphRenderingTpl(
-		const std::string& font_dir,
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
 		TextureUnitSelector pg_map_tex_unit,
 		const Config& config = Config()
 	): BitmapGlyphRenderingBase(
-		font_dir,
 		bitmap_tex_unit,
 		metric_tex_unit,
 		pg_map_tex_unit,
@@ -297,7 +265,7 @@ public:
 		std::size_t size
 	)
 	{
-		std::vector<CodePoint> cps;
+		CodePoints cps;
 		UTF8ToCodePoints(c_str, size, cps);
 
 		Layout layout(MakeLayout(font, size));

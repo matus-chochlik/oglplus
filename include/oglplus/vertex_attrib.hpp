@@ -81,6 +81,12 @@ protected:
 		);
 	}
 
+	static void _handle_inactive(
+		const ProgramOps& program,
+		const GLchar* identifier,
+		GLint result
+	);
+
 	static GLint _find_location(
 		const ProgramOps& program,
 		const GLchar* identifier
@@ -90,24 +96,7 @@ protected:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
 		if(OGLPLUS_IS_ERROR(result == GLint(-1)))
 		{
-			Error::PropertyMapInit props;
-			Error::AddPropertyValue(
-				props,
-				"identifier",
-				identifier
-			);
-			Error::AddPropertyValue(
-				props,
-				"program",
-				DescriptionOf(program)
-			);
-			HandleShaderVariableError(
-				GL_INVALID_OPERATION,
-				result,
-				"Getting the location of inactive vertex attrib",
-				OGLPLUS_ERROR_INFO(GetAttribLocation),
-				std::move(props)
-			);
+			_handle_inactive(program, identifier, result);
 		}
 		return result;
 	}
@@ -155,6 +144,11 @@ protected:
 		return false;
 	}
 
+	static void _handle_inconsistent_location(
+		const GLchar* identifier,
+		VertexAttribSlot location
+	);
+
 	template <typename Iterator>
 	static VertexAttribSlot _get_common_location(
 		Iterator pprogram_begin,
@@ -170,20 +164,7 @@ protected:
 			location
 		)))
 		{
-			Error::PropertyMapInit props;
-			Error::AddPropertyValue(
-				props,
-				"identifier",
-				identifier
-			);
-			HandleShaderVariableError(
-				GL_INVALID_OPERATION,
-				GLint(location),
-				"Inconsistent location of a vertex "
-				"attribute in multiple programs",
-				OGLPLUS_ERROR_INFO(GetAttribLocation),
-				std::move(props)
-			);
+			_handle_inconsistent_location(identifier, location);
 		}
 		return location;
 	}
@@ -617,6 +598,58 @@ public:
 	}
 #endif
 };
+
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void VertexAttribOps::_handle_inactive(
+	const ProgramOps& program,
+	const GLchar* identifier,
+	GLint result
+)
+{
+	Error::PropertyMapInit props;
+	Error::AddPropertyValue(
+		props,
+		"identifier",
+		identifier
+	);
+	Error::AddPropertyValue(
+		props,
+		"program",
+		DescriptionOf(program)
+	);
+	HandleShaderVariableError(
+		GL_INVALID_OPERATION,
+		result,
+		"Getting the location of inactive vertex attrib",
+		OGLPLUS_ERROR_INFO(GetAttribLocation),
+		std::move(props)
+	);
+}
+
+OGLPLUS_LIB_FUNC
+void VertexAttribOps::_handle_inconsistent_location(
+	const GLchar* identifier,
+	VertexAttribSlot location
+)
+{
+	Error::PropertyMapInit props;
+	Error::AddPropertyValue(
+		props,
+		"identifier",
+		identifier
+	);
+	HandleShaderVariableError(
+		GL_INVALID_OPERATION,
+		GLint(location),
+		"Inconsistent location of a vertex "
+		"attribute in multiple programs",
+		OGLPLUS_ERROR_INFO(GetAttribLocation),
+		std::move(props)
+	);
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 // Things from to Program related to vertex attributes
 void ProgramOps::BindLocation(

@@ -39,8 +39,8 @@ private:
 public:
 	BitmapGlyphExample(int argc, const char** argv)
 	 : gl()
-	 , tr((argc>1)?argv[1]:"./_font", 0, 1, 2)
-	 , font(tr.LoadFont((argc>2)?argv[2]:"Sans"))
+	 , tr(0, 1, 2)
+	 , font(tr.LoadFont((argc>1)?argv[1]:"Sans"))
 	 , layout(tr.MakeLayout(font, 128))
 	 , rndr(tr.GetRenderer(
 			oglplus::FragmentShader(

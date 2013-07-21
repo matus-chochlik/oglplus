@@ -16,7 +16,9 @@ oglplus_use_ldflags=false
 dry_run=false
 from_scratch=false
 quiet=false
-build_and_install=false
+build=false
+install=false
+num_jobs=""
 #
 function oglplus_make_temp_file()
 {
@@ -144,7 +146,10 @@ do
 		do oglplus_cmake_options="${oglplus_cmake_options} '${arg}'"
 		done
 		break;;
-
+	--generator)
+		shift
+		oglplus_cmake_options="${oglplus_cmake_options} -G ${1// /\ }"
+		break;;
 	--prefix*)
 		parse_path_spec_option "--prefix" "${1}" "${2}" || shift
 		oglplus_prefix=${option_path}
@@ -165,14 +170,14 @@ do
 		library_search_paths="${library_search_paths}${option_path};"
 		unset option_path;;
 
-	--use-gl-header-lib)
+	--use-gl-api-lib)
 		shift
 		case "${1}" in
 		GLCOREARB_H|GL3_H|GLEW|GL3W)oglplus_forced_gl_header=${1};;
 		*) echoerror "Unknown GL header lib '${1}'" && exit 1;;
 		esac
 		;;
-	--use-gl-header-lib=*)
+	--use-gl-api-lib=*)
 		case "${1##*=}" in
 		GLCOREARB_H|GL3_H|GLEW|GL3W)oglplus_forced_gl_header=${1##*=};;
 		*) echoerror "Unknown GL header lib '${1##*=}'" && exit 1;;
@@ -184,14 +189,14 @@ do
 	--use-glew) oglplus_forced_gl_header=GLEW;;
 	--use-gl3w) oglplus_forced_gl_header=GL3W;;
 
-	--use-gl-window-lib)
+	--use-gl-init-lib)
 		shift
 		case "${1}" in
 		GLX|GLUT|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1};;
 		*) echoerror "Unknown GL initialization lib '${1}'" && exit 1;;
 		esac
 		;;
-	--use-gl-window-lib=*)
+	--use-gl-init-lib=*)
 		case "${1##*=}" in
 		GLX|GLUT|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1##*=};;
 		*) echoerror "Unknown GL initialization lib '${1##*=}'" && exit 1;;
@@ -215,7 +220,15 @@ do
 	--dry-run) dry_run=true;;
 	--from-scratch) from_scratch=true;;
 	--quiet) quiet=true;;
-	--build-and-install) build_and_install=true;;
+	--build) build=true;;
+	--install) build=true && install=true;;
+	--jobs)
+		shift
+		if [[ "${1}" =~ ^[1-9][0-9]*$ ]]
+		then num_jobs=${1}
+		else echoerror "'${1}' is not a valid job count" && exit 1
+		fi
+		;;
 
 	-h|--help) print_help && exit 0;;
 	*) print_short_help ${1} && exit 1;;
@@ -281,8 +294,11 @@ fi
 #
 # let cmake dump some system information into a temp file
 # in a form usable by bash
+# temporary file where the commands to be executed are stored
+command_file=$(oglplus_make_temp_file)
 cmake_info_file=$(oglplus_make_temp_file)
-cmake --system-information ${oglplus_cmake_options} |
+echo "cmake --system-information ${oglplus_cmake_options}" > ${command_file}
+(. ${command_file}) |
 grep -e "CMAKE_BUILD_TOOL" -e "CMAKE_INSTALL_PREFIX" |
 tr ' ' '=' > ${cmake_info_file}
 #
@@ -327,12 +343,12 @@ fi
 
 # pass the forced GL header option to cmake
 if [ "${oglplus_forced_gl_header}" != "" ]
-then oglplus_cmake_options="'-DOGLPLUS_FORCE_${oglplus_forced_gl_header}=On' ${oglplus_cmake_options}"
+then oglplus_cmake_options="'-DOGLPLUS_FORCE_GL_API_LIB=${oglplus_forced_gl_header}' ${oglplus_cmake_options}"
 fi
 
 # pass the forced GL initializer library option to cmake
 if [ "${oglplus_forced_gl_init_lib}" != "" ]
-then oglplus_cmake_options="'-DOGLPLUS_FORCE_${oglplus_forced_gl_init_lib}=On' ${oglplus_cmake_options}"
+then oglplus_cmake_options="'-DOGLPLUS_FORCE_GL_INIT_LIB=${oglplus_forced_gl_init_lib}' ${oglplus_cmake_options}"
 fi
 
 # pass the list of paths to search for libraries to cmake
@@ -350,8 +366,6 @@ if [ "${oglplus_prefix}" != "" ]
 then oglplus_cmake_options="'-DCMAKE_INSTALL_PREFIX=${oglplus_prefix}' ${oglplus_cmake_options}"
 fi
 
-# temporary file where the commands to be executed are stored
-command_file=$(oglplus_make_temp_file)
 # make the configuration commands
 (
 	exec > ${command_file}
@@ -365,35 +379,45 @@ command_file=$(oglplus_make_temp_file)
 	echo "cd '${PWD}'"
 )
 
-if [ "${dry_run}" == false ]
-then source ${command_file}
-else cat ${command_file}
+if ${dry_run}
+then cat ${command_file}
+else source ${command_file}
 fi
 
 rm -f ${command_file}
 
-if [ "${dry_run}" != false ]
+if ${dry_run}
 then exit
 fi
 
 if [ ${configure_result:-0} -eq 0 ]
 then
+	if [ ${#num_jobs} -eq 0 ]
+	then num_jobs=$(($(grep -c ^processor /proc/cpuinfo)+1))
+	fi
 	build_script=$(oglplus_make_temp_file)
 	(
 		echo
 		echo "# Configuration completed successfully."
-		echo "# To build OGLplus do the following:"
+		echo -n "# To build "
+		if ${install}
+		then echo -n "and install "
+		fi
+		echo "OGLplus do the following:"
 		echo
 		echo "cd $(shortest_path_from_to "${PWD}" "${oglplus_build_dir}") &&"
-		echo "${CMAKE_BUILD_TOOL} &&"
-		echo "${CMAKE_BUILD_TOOL} install"
+		echo -n "${CMAKE_BUILD_TOOL} -j ${num_jobs}"
+		if ${install}
+		then echo -e " &&\n${CMAKE_BUILD_TOOL} install"
+		else echo
+		fi
 		echo
 		echo "# NOTE: installing may require administrative privilegues"
 	) > ${build_script}
 
-	if [ "${build_and_install}" == "true" ]
+	if ${build}
 	then (source ${build_script})
-	elif [ "${quiet}" != "true" ]
+	elif ! ${quiet}
 	then cat ${build_script}
 	fi
 	rm -f "${build_script}"

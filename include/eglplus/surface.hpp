@@ -88,11 +88,15 @@ struct SurfaceValueTypeToSurfaceAttrib
 /// Attribute list for surface attributes
 typedef AttributeList<
 	SurfaceAttrib,
-	SurfaceValueTypeToSurfaceAttrib
+	SurfaceValueTypeToSurfaceAttrib,
+	AttributeListTraits
 > SurfaceAttribs;
 
 /// Finished list of surface attribute values
-typedef FinishedAttributeList<SurfaceAttrib> FinishedSurfaceAttribs;
+typedef FinishedAttributeList<
+	SurfaceAttrib,
+	AttributeListTraits
+> FinishedSurfaceAttribs;
 
 /// Wrapper for EGLSurfaces
 class Surface

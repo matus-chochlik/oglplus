@@ -16,6 +16,9 @@
 <link rel="stylesheet/less" type="text/css" href="oglplus.less"/>
 <script src="less.js" type="text/javascript"></script>
 
+
+<link href="http://oglplus.org/news.rss" rel="alternate" type="application/rss+xml" title="OGLplus news feed" />
+
 <script type="text/javascript">
 (function() {
     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -24,6 +27,16 @@
 })();
 </script>
 <link href="https://plus.google.com/111370363075881134099/" rel="publisher" />
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+	var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+	s.type = 'text/javascript';
+	s.async = true;
+	s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+	t.parentNode.insertBefore(s, t);
+})();
+/* ]]> */</script>
 </head>
 <body>
 <div id="main-title">
@@ -33,8 +46,6 @@
 <div id="frame">
 	<div id="head">
 		<div id="top">
-
-			<div id="social">
 				Visit the <em>OGLplus</em> pages on
 				<a href="https://plus.google.com/111370363075881134099/?prsrc=3" style="text-decoration: none;">
 					<img src="https://ssl.gstatic.com/images/icons/gplus-32.png"
@@ -42,12 +53,14 @@
 						style="border: 0;"
 						alt="OGLplus page on Google+"
 					/>
-				</a>, <a href="https://github.com/matus-chochlik/oglplus" style="text-decoration: none;">
+				</a>
+				<a href="https://github.com/matus-chochlik/oglplus" style="text-decoration: none;">
 					<img src="http://github.com/favicon.ico"
 						style="border: 0;"
 						alt="OGLplus on GitHub"
 					/>
-				</a> or <a href="http://www.linkedin.com/groups/OGLplus-4592626" style="text-decoration: none;">
+				</a>
+				<a href="http://www.linkedin.com/groups/OGLplus-4592626" style="text-decoration: none;">
 					<img src="http://www.linkedin.com/img/webpromo/btn_in_20x15.png"
 						width="20" height="15"
 						style="border: 0;"
@@ -56,9 +69,13 @@
 				</a>
 
 				for recent news and more info.
-				<hr/>
+				<hr class="top-div"/>
+				<!-- Flattr box -->
+				<div id="flattr-box">
+					<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://oglplus.org/"></a>
+				</div>
 				<!-- AddThis Button BEGIN -->
-				<div class="addthis_toolbox addthis_default_style ">
+				<div id="addthis-box" class="addthis_toolbox addthis_default_style ">
 				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 				<a class="addthis_button_tweet"></a>
 				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
@@ -66,7 +83,6 @@
 				</div>
 				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f35537052d88ff3"></script>
 				<!-- AddThis Button END -->
-			</div>
 		</div>
 		<div id="logo">
 			<img src="oglplus/html/oglplus.png"/>
@@ -75,13 +91,14 @@
 
 	<div id="content">
 		<div id="main">
-			<h3>Introduction</h3>
-			<p><em>OGLplus</em> is a collection of open-source, cross-platform libraries which implement an object-oriented facade over the OpenGL® (version 3 and higher) and also OpenAL® (version 1.1) and EGL (version 1.4) C-language APIs. It provides wrappers which automate resource and object management and make the use of these libraries in C++ safer and more convenient. <a href="oglplus/html/index.html">Read more...</a></p>
+			<div class="content-section">
+				<h3>Introduction</h3>
+				<p><em>OGLplus</em> is a collection of open-source, cross-platform libraries which implement an object-oriented facade over the OpenGL® (version 3 and higher) and also OpenAL® (version 1.1) and EGL (version 1.4) C-language APIs. It provides wrappers which automate resource and object management and make the use of these libraries in C++ safer and more convenient. <a href="oglplus/html/index.html">Read more...</a></p>
+			</div>
 
-			<div id="quick-links">
-				<h3>Quick links</h3>
-				<ul>
-					<li><b>Get OGLplus</b>
+			<div class="content-section">
+				<div id="quick-links" class="content-column-1">
+					<h3>Get OGLplus</h3>
 					<ul>
 						<li id="direct-download"><a href="http://sourceforge.net/projects/oglplus/files/latest/download">Direct download</a></li>
 						<li id="download"><a href="http://sourceforge.net/projects/oglplus/files/">All releases</a></li>
@@ -89,8 +106,7 @@
 
 						<li id="git-repo"><a href="https://github.com/matus-chochlik/oglplus">GIT repository</a></li>
 					</ul>
-					</li>
-					<li><b>Components</b>
+					<h3>Components</h3>
 					<ul>
 						<li><b>OGLplus</b> - a wrapper for OpenGL (version 3.0 and higher)
 						<ul>
@@ -122,43 +138,41 @@
 						</ul>
 						</li>
 					</ul>
-					</li>
-					<li>Media
+				</div>
+
+				<div id="features" class="content-column-2">
+					<h3>Features</h3>
+					<ul>
+						<li><a href="oglplus/html/index.html#feat_auto_resource_management">Automatic resource management</a></li>
+						<li><a href="oglplus/html/index.html#feat_type_safety">Type safety</a></li>
+						<li><a href="oglplus/html/index.html#feat_error_handling">Error handling and diagnostic</a></li>
+						<li><a href="oglplus/html/index.html#feat_interoperability_with_opengl">Interoperability with OpenGL C API</a></li>
+						<li><a href="oglplus/html/index.html#feat_related_classes">Additional CG-related classes</a></li>
+						<li><a href="oglplus/html/index.html#oglplus_object_description">Optional description of objects and resources</a></li>
+						<li><a href="oglplus/html/index.html#oglplus_configurability">Configurability</a></li>
+						<li>Utilities
+						<ul>
+							<li>Text rendering utilities</li>
+							<li>Mesh loaders / generators</li>
+							<li>Image loaders / generators</li>
+						</ul>
+						</li>
+					</ul>
+					<h3>Media</h3>
 					<ul>
 						<li id="screenshots"><a href="oglplus/html/oglplus_screenshot_gallery.html">Screenshots</a></li>
 						<li id="videos"><a href="https://plus.google.com/u/0/111370363075881134099/videos">Videos</a></li>
 					</ul>
-					</li>
-					<li>Follow OGLplus
+					<h3>Follow OGLplus</h3>
 					<ul>
 						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
 						<li id="sourceforge"><a href="http://sourceforge.net/projects/oglplus/">Sourceforge</a></li>
 						<li id="freecode"><a href="http://freecode.com/projects/oglplus">Freecode</a></li>
 						<li id="g-plus"><a href="https://plus.google.com/111370363075881134099/?prsrc=3">Google+ news page</a></li>
 						<li id="linkedin"><a href="http://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
+						<li id="ohloh"><a href="http://www.ohloh.net/p/oglplus">Ohloh</a></li>
 					</ul>
-					</li>
-				</ul>
-			</div>
-
-			<div id="features">
-				<h3>Features</h3>
-				<ul>
-					<li><a href="oglplus/html/index.html#feat_auto_resource_management">Automatic resource management</a></li>
-					<li><a href="oglplus/html/index.html#feat_type_safety">Type safety</a></li>
-					<li><a href="oglplus/html/index.html#feat_error_handling">Error handling and diagnostic</a></li>
-					<li><a href="oglplus/html/index.html#feat_interoperability_with_opengl">Interoperability with OpenGL C API</a></li>
-					<li><a href="oglplus/html/index.html#feat_related_classes">Additional CG-related classes</a></li>
-					<li><a href="oglplus/html/index.html#oglplus_object_description">Optional description of objects and resources</a></li>
-					<li><a href="oglplus/html/index.html#oglplus_configurability">Configurability</a></li>
-					<li>Utilities
-					<ul>
-						<li>Text rendering utilities</li>
-						<li>Mesh loaders / generators</li>
-						<li>Image loaders / generators</li>
-					</ul>
-					</li>
-				</ul>
+				</div>
 			</div>
 
 			<div id="screenshot-gallery">
@@ -174,7 +188,6 @@
 					<img src="oglplus/html/023_sky.png"/>
 					<img src="oglplus/html/023_waves.png"/>
 					<img src="oglplus/html/024_extruded_torus.png"/>
-					<img src="oglplus/html/025_multi_viewport.png"/>
 					<img src="oglplus/html/026_clouds.png"/>
 					<img src="oglplus/html/026_furry_torus.png"/>
 					<img src="oglplus/html/026_shape_halo.png"/>
@@ -184,8 +197,8 @@
 					<img src="oglplus/html/028_ripples.png"/>
 					<img src="oglplus/html/029_fire_hydrant.png"/>
 					<img src="oglplus/html/029_shadow_mapping.png"/>
-					<img src="oglplus/html/030_cube_mapping.png"/>
-					<img src="oglplus/html/031_blob.png"/>
+					<img src="oglplus/html/030_light_rays.png"/>
+					<img src="oglplus/html/031_brick_torus.png"/>
 					<img src="oglplus/html/031_sketch.png"/>
 					<img src="oglplus/html/032_bar_grid.png"/>
 					<img src="oglplus/html/033_metal_and_glass.png"/>
@@ -201,13 +214,22 @@
 				</script>
 			</div>
 
-			<div id="stats">
-				<script type="text/javascript" src="http://www.ohloh.net/p/585195/widgets/project_basic_stats.js">
-				</script>
-			</div>
 
 		</div>
 		<div id="right">
+			<?php
+				$xml = new DOMDocument();
+				$xml->load('news.rss');
+
+				$xsl = new DOMDocument;
+				$xsl->load('rss2html.xsl');
+
+				$proc = new XSLTProcessor();
+				$proc->importStyleSheet($xsl);
+				$proc->setParameter('', 'feed-name', 'news.rss');
+
+				echo $proc->transformToXML($xml);
+			?>
 		</div>
 	</div>
 	<div id="footer">

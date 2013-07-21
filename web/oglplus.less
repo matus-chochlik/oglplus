@@ -37,6 +37,41 @@ body {
 	font-size: 12px;
 }
 
+ul,li {
+	margin-left: 0px;
+	padding-left: 0.8em;
+	padding-right: 0.4em;
+}
+
+div.content-section {
+	float: left;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+div.content-column-1,
+div.content-column-2 {
+	float: left;
+	position: relative;
+}
+
+div.content-column-1 {
+	left: 2%;
+	width: 52%;
+}
+
+div.content-column-2 {
+	left: 6%;
+	width: 40%;
+}
+
+div.content-column {
+	float:left;
+	width:100%;
+	position:relative;
+}
+
 div#main-title {
 	position: absolute;
 	left: @frame-left;
@@ -76,11 +111,32 @@ div#frame {
 }
 
 div#top {
-	height: @logo-height;
-	width: @frame-width - @logo-width;
-	background-color: #D8D8F0;
+	height: @logo-height - @main-padding * 2;
+	width: @frame-width - @logo-width - @main-padding * 2;
+	background-color: #D0D0E8;
+	padding: @main-padding;
+	box-shadow: inset 1px 1px 2px 1px #404040;
 	.thick-border;
 	overflow: hidden;
+}
+
+div#addthis-box {
+	position: relative;
+	top: -20px;
+	left: 144px;
+}
+
+div#flattr-box {
+	position: relative;
+}
+
+hr.top-div {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #A0A0AF;
+	margin-top: 1.0em;
+	margin-bottom: 1.6em;
 }
 
 div#logo {
@@ -97,10 +153,55 @@ div#right {
 	top: @logo-height + @half-border + @half-border / 2;
 	bottom: @footer-height + @half-border * 6 + @half-border / 2;
 	left: @frame-width + @half-border + @half-border/2 - @logo-width;
-	width: @logo-width;
+	width: @logo-width - @main-padding * 2;
 	background-color: #70A0FF;
+	padding: @main-padding;
+	box-shadow: inset 1px 1px 2px 1px #404040;
 	.thick-border;
 	overflow: hidden;
+}
+
+div.rss-feed {
+	display: block;
+}
+
+div.rss-item {
+	background-color: #6D9DFD;
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 1px solid #6090E0;
+}
+
+.rss-item a:link {
+	color: black;
+	text-decoration: none;
+}
+
+.rss-item a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+.rss-item p {
+	text-align: justify;
+	word-break: break-all;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+
+.rss-item-date {
+	color: #202050;
+	font-size: 80%;
+	font-weight: bold;
+	word-break: keep-all;
+}
+
+.rss-item-link {
+	color: #303050;
+	font-size: 90%;
+	font-style: oblique;
+	word-break: keep-all;
 }
 
 div#main {

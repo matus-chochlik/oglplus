@@ -6,15 +6,15 @@ cmake_minimum_required(VERSION 2.8)
 
 project(OGLplus)
 
-option(OGLPLUS_FORCE_GL3_H "Force use of the GL3/gl3.h header" Off)
-option(OGLPLUS_FORCE_GLCOREARB_H "Force use of the GL/glcorearb.h header" Off)
-option(OGLPLUS_FORCE_GLEW "Force use of the GL/glew.h header" Off)
-option(OGLPLUS_FORCE_GL3W "Force use of the GL/gl3w.h header" Off)
+include(config/CommonDefs.cmake)
 
 # The GL context initialization library
-set(OGLPLUS_GL_INIT_LIBS GLX GLUT GLFW SDL WXGL QTGL EGL)
 set(OGLPLUS_FORCE_GL_INIT_LIB "NONE" CACHE STRING "The GL context initialization library to be used.")
 set_property(CACHE OGLPLUS_FORCE_GL_INIT_LIB PROPERTY STRINGS ${OGLPLUS_GL_INIT_LIBS})
+
+# The GL API declaration library
+set(OGLPLUS_FORCE_GL_API_LIB "NONE" CACHE STRING "The GL API definition library to be used.")
+set_property(CACHE OGLPLUS_FORCE_GL_API_LIB PROPERTY STRINGS ${OGLPLUS_GL_API_LIBS})
 
 option(OGLPLUS_NO_EXAMPLES "Don't build examples and textures" Off)
 option(OGLPLUS_NO_SCREENSHOTS "Don't make example screenshots for the docs" Off)
@@ -44,13 +44,7 @@ set(OGLPLUS_USE_GL3_H 0)
 set(OGLPLUS_USE_GLEW 0)
 set(OGLPLUS_USE_GL3W 0)
 
-if(OGLPLUS_NO_EXAMPLES)
-	set(OGLPLUS_NO_SCREENSHOTS On)
-endif()
-
-if(NOT OGLPLUS_NO_SCREENSHOTS)
-	include(FindImageMagick)
-endif()
+set(HEADER_SEARCH_PATHS ${HEADER_SEARCH_PATHS};${PROJECT_SOURCE_DIR}/third_party/include)
 
 include(config/FindOpenGL.cmake)
 include(config/FindGLEW.cmake)
@@ -70,89 +64,41 @@ include(config/FindGLM.cmake)
 include(config/FindPNG.cmake)
 include(config/FindPangoCairo.cmake)
 
-# enable warnings on gcc
-if(${CMAKE_COMPILER_IS_GNUCXX})
-	add_definitions(-pedantic -Wall -Wextra -Wshadow)
-endif()
-#
-# we need one of the headers including the OpenGL C-API
-#
-# if GL/glcorearb.h was forced
-if(${OGLPLUS_FORCE_GLCOREARB_H})
-	if((OPENGL_FOUND) AND (EXISTS ${OPENGL_GLCOREARB_H_DIR}))
-		set(OGLPLUS_USE_GLCOREARB_H 1)
-	else()
-		message(FATAL_ERROR "The GL/glcorearb.h header requested but not found!")
-		return()
-	endif()
+# compiler options
+include(config/Compiler.cmake)
+# c++11-related compiler options
+include(config/CPP11.cmake)
+# check if Boost.Config is available
+include(config/FindBoost.cmake)
 
-# if GL3/gl3.h was forced
-elseif(${OGLPLUS_FORCE_GL3_H})
-	if((OPENGL_FOUND) AND (EXISTS ${OPENGL_GL3_H_DIR}))
-		set(OGLPLUS_USE_GL3_H 1)
-	else()
-		message(FATAL_ERROR "The GL3/gl3.h header requested but not found!")
-		return()
-	endif()
-
-# if GL/glew.h was forced
-elseif(${OGLPLUS_FORCE_GLEW})
-	if(GLEW_FOUND)
-		set(OGLPLUS_USE_GLEW 1)
-	else()
-		message(FATAL_ERROR "The GLEW library requested but not found!")
-		return()
-	endif()
-
-# if GL/gl3w.h was forced
-elseif(${OGLPLUS_FORCE_GL3W})
-	if(GL3W_FOUND)
-		set(OGLPLUS_USE_GL3W 1)
-	else()
-		message(FATAL_ERROR "The GL3W library requested but not found!")
-		return()
-	endif()
-
-# if the user didn't specify any preference
-else()
-	if((OPENGL_FOUND) AND (EXISTS ${OPENGL_GLCOREARB_H_DIR}))
-		set(OGLPLUS_USE_GLCOREARB_H 1)
-	elseif((OPENGL_FOUND) AND (EXISTS ${OPENGL_GL3_H_DIR}))
-		set(OGLPLUS_USE_GL3_H 1)
-	elseif(GLEW_FOUND)
-		set(OGLPLUS_USE_GLEW 1)
-	elseif(GL3W_FOUND)
-		set(OGLPLUS_USE_GL3W 1)
-	else()
-		message(FATAL_ERROR "No OpenGL API library found!")
-	endif()
-endif()
-
-#
-# We'll also need a OpenGL context initialization/window-system library
-if((NOT OGLPLUS_FORCE_GL_INIT_LIB) OR (${OGLPLUS_FORCE_GL_INIT_LIB} STREQUAL "NONE"))
-	foreach(GL_INIT_LIB ${OGLPLUS_GL_INIT_LIBS})
-		if(${GL_INIT_LIB}_FOUND)
-			set(OGLPLUS_GL_INIT_LIB ${GL_INIT_LIB})
-			break()
-		endif()
-	endforeach()
-else()
-	foreach(GL_INIT_LIB ${OGLPLUS_GL_INIT_LIBS})
-		if(${OGLPLUS_FORCE_GL_INIT_LIB} STREQUAL ${GL_INIT_LIB})
-			if(${GL_INIT_LIB}_FOUND)
-				set(OGLPLUS_GL_INIT_LIB ${GL_INIT_LIB})
+# We'll need OpenGL API and context initialization/window-system library
+foreach(KIND API INIT)
+	if((NOT OGLPLUS_FORCE_GL_${KIND}_LIB) OR (${OGLPLUS_FORCE_GL_${KIND}_LIB} STREQUAL "NONE"))
+		foreach(GL_${KIND}_LIB ${OGLPLUS_GL_${KIND}_LIBS})
+			if(${GL_${KIND}_LIB}_FOUND)
+				set(OGLPLUS_GL_${KIND}_LIB ${GL_${KIND}_LIB})
+				set(OGLPLUS_USE_${GL_${KIND}_LIB} 1)
 				break()
-			else()
-				message(
-					FATAL_ERROR
-					"The '${GL_INIT_LIB}' library requested but not found"
-				)
-				return()
 			endif()
-		endif()
-	endforeach()
-endif()
+		endforeach()
+	else()
+		foreach(GL_${KIND}_LIB ${OGLPLUS_GL_${KIND}_LIBS})
+			if(${OGLPLUS_FORCE_GL_${KIND}_LIB} STREQUAL ${GL_${KIND}_LIB})
+				if(${GL_${KIND}_LIB}_FOUND)
+					set(OGLPLUS_GL_${KIND}_LIB ${GL_${KIND}_LIB})
+					set(OGLPLUS_USE_${GL_${KIND}_LIB} true)
+					break()
+				else()
+					message(
+						FATAL_ERROR
+						"The '${GL_${KIND}_LIB}' library requested but not found"
+					)
+					return()
+				endif()
+			endif()
+		endforeach()
+	endif()
+endforeach()
 
 if(NOT OGLPLUS_GL_INIT_LIB)
 	message(FATAL_ERROR "No OpenGL context initialization library found!")
@@ -181,14 +127,9 @@ else()
 	return()
 endif()
 
-# check if Boost.Config is available
-include(config/FindBoost.cmake)
 if(${BoostConfig_FOUND})
 	include_directories(BEFORE SYSTEM BoostConfig_INCLUDE_DIRS)
 endif()
-
-# c++11-related compiler flags
-include(config/CPP11.cmake)
 
 # now create the site-configuration header
 configure_file(
@@ -200,10 +141,6 @@ install(
 	FILES ${PROJECT_BINARY_DIR}/include/oglplus/site_config.hpp
 	DESTINATION include/oglplus
 )
-
-add_subdirectory("doc/doxygen")
-add_subdirectory("source/textures" "textures")
-add_subdirectory("source/models" "models")
 
 # include the oglplus headers
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -217,9 +154,23 @@ include(config/GLVer.cmake)
 # GL extension detection
 include(config/GLExt.cmake)
 
+# the configuration info
+add_subdirectory(config)
+
+if(OGLPLUS_NO_EXAMPLES)
+	set(OGLPLUS_NO_SCREENSHOTS On)
+endif()
+if(NOT OGLPLUS_NO_SCREENSHOTS)
+	include(FindImageMagick)
+endif()
+
+if(NOT OGLPLUS_NO_DOCS)
+	add_subdirectory("doc/doxygen")
+endif()
+
 if(NOT OGLPLUS_NO_EXAMPLES)
-	# add this to enable M_PI on some platforms
-	add_definitions(-D_USE_MATH_DEFINES)
+	add_subdirectory("source/textures" "textures")
+	add_subdirectory("source/models" "models")
 	add_subdirectory("example")
 endif()
 

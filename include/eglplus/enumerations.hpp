@@ -19,6 +19,7 @@
 #include <eglplus/auxiliary/base_range.hpp>
 
 namespace eglplus {
+namespace enums {
 
 #if !OGLPLUS_NO_SCOPED_ENUMS
 template <typename Enum>
@@ -27,6 +28,16 @@ struct EnumBaseType
 	typedef EGLenum Type;
 };
 #else
+// No scoped enums -> no enum value names/ranges
+#ifdef EGLPLUS_NO_ENUM_VALUE_NAMES
+#undef EGLPLUS_NO_ENUM_VALUE_NAMES
+#endif
+#define EGLPLUS_NO_ENUM_VALUE_NAMES  1
+
+#ifdef EGLPLUS_NO_ENUM_VALUE_RANGES
+#undef EGLPLUS_NO_ENUM_VALUE_RANGES
+#endif
+#define EGLPLUS_NO_ENUM_VALUE_RANGES 1
 using oglplus::EnumBaseType;
 #endif
 
@@ -49,7 +60,7 @@ template <typename EnumType>
 inline aux::CastIterRange<
 	const typename EnumBaseType<EnumType>::Type*,
 	EnumType
-> EnumValueRange(EnumType)
+> EnumValueRange(EnumType = EnumType())
 {
 #if !EGLPLUS_NO_ENUM_VALUE_RANGES
 	return _ValueRange((EnumType*)nullptr);
@@ -63,14 +74,10 @@ inline aux::CastIterRange<
 #endif
 }
 
-template <typename EnumType>
-inline aux::CastIterRange<
-	const typename EnumBaseType<EnumType>::Type*,
-	EnumType
-> EnumValueRange(void)
-{
-	return EnumValueRange(EnumType());
-}
+} // namespace enums
+
+using enums::EnumValueName;
+using enums::EnumValueRange;
 
 } // namespace eglplus
 
