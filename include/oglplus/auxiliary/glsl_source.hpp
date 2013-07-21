@@ -203,6 +203,7 @@ GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
 	return GLint(end - begin);
 }
 
+OGLPLUS_LIB_FUNC
 InputStreamGLSLSrcWrap::InputStreamGLSLSrcWrap(std::istream& input)
  : _size(_check_and_get_size(input))
  , _storage(_size+1, GLchar(0))
