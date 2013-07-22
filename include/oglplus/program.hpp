@@ -940,6 +940,21 @@ public:
 		));
 	}
 
+	/// Sets the variable that will be captured during transform feedback
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TransformFeedbackVaryings}
+	 */
+	void TransformFeedbackVarying(const GLchar* varying) const
+	{
+		TransformFeedbackVaryings(
+			1, &varying,
+			TransformFeedbackMode::SeparateAttribs
+		);
+	}
+
 	template <typename std::size_t N>
 	void TransformFeedbackVaryings(
 		const GLchar* (&varyings)[N],
