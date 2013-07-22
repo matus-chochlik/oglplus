@@ -29,7 +29,7 @@ namespace text {
 /**
  *  @ingroup text_rendering
  */
-typedef oglplus::aux::UnicodeCP CodePoint;
+typedef char32_t CodePoint;
 
 /// A sequence of CodePoints
 typedef std::vector<CodePoint> CodePoints;

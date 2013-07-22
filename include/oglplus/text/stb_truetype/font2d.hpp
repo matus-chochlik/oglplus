@@ -247,7 +247,7 @@ public:
 	static int KernAdvance(const Glyph& glyph1, const Glyph& glyph2)
 	{
 		assert(glyph1._font == glyph2._font);
-		return ::stbtt_GetCodepointKernAdvance(
+		return ::stbtt_GetGlyphKernAdvance(
 			glyph1._font,
 			glyph1._index,
 			glyph2._index
@@ -366,7 +366,7 @@ float STBTTFont2D::Width(
 {
 	float scale = ScaleForPixelHeight(float(size_in_pixels));
 	float width = 0.0f;
-	for(auto i=layout.begin(), p=i, e=layout.end(); i!=e; ++i)
+	for(auto i=layout.begin(), p=i, e=layout.end(); i!=e; p = i, ++i)
 	{
 		if(p != i) width += KernAdvance(*p, *i);
 		width += i->Width();
@@ -428,8 +428,7 @@ void STBTTFont2D::Render(
 			x0, y0,
 			x1, y1
 		);
-		const float yshift = (i->Ascent()+y0)*scale-1;
-		const int yo = yposition;
+		const float yshift = std::floor((i->Ascent()+y0)*scale);
 
 		::stbtt_MakeGlyphBitmapSubpixel(
 			&_font,
@@ -444,8 +443,10 @@ void STBTTFont2D::Render(
 			i->_index
 		);
 
+		const int yo = yposition;
+
 		int gb = xo<0?-xo:0;
-		int gw = int(1.0f+(x1-x0)*scale);
+		int gw = int(gb+1+std::ceil((x1-x0)*scale));
 		if(gw > tmp_width) gw = tmp_width;
 		if(gw > int(buffer_width-xo)) gw = int(buffer_width-xo);
 		int gy = (std::floor(yshift));
