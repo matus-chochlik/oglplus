@@ -423,12 +423,12 @@ void STBTTFont2D::Render(
 		const float xshift = xoffset - std::floor(xoffset);
 		int x0, y0, x1, y1;
 		i->GetBitmapBoxSubpixel(
-			1, 1,
+			scale, scale,
 			xshift, 0,
 			x0, y0,
 			x1, y1
 		);
-		const float yshift = std::floor((i->Ascent()+y0)*scale);
+		const float yshift = std::floor((i->Ascent()*scale+y0));
 
 		::stbtt_MakeGlyphBitmapSubpixel(
 			&_font,
@@ -446,7 +446,7 @@ void STBTTFont2D::Render(
 		const int yo = yposition;
 
 		int gb = xo<0?-xo:0;
-		int gw = int(gb+1+std::ceil((x1-x0)*scale));
+		int gw = int(gb+1+(x1-x0));
 		if(gw > tmp_width) gw = tmp_width;
 		if(gw > int(buffer_width-xo)) gw = int(buffer_width-xo);
 		int gy = (std::floor(yshift));
@@ -463,7 +463,7 @@ void STBTTFont2D::Render(
 				unsigned src = tmp_buffer[si];
 				if(src != 0)
 				{
-					int di = (gy+yo)*buffer_width+gx+xo;
+					int di = (gy+yo)*buffer_width+gx+xo+x0;
 					unsigned dst = buffer_start[di]+src;
 
 					if(dst > 0xFF) dst = 0xFF;
