@@ -12,7 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/torus.hpp>
+#include <oglplus/shapes/twisted_torus.hpp>
 
 #include <cmath>
 
@@ -24,11 +24,11 @@ class TorusExample : public Example
 {
 private:
 	// helper object building torus vertex attributes
-	shapes::Torus make_torus;
+	shapes::TwistedTorus make_torus;
 	// helper object encapsulating torus drawing instructions
 	shapes::DrawingInstructions torus_instr;
 	// indices pointing to torus primitive elements
-	shapes::Torus::IndexArray torus_indices;
+	shapes::TwistedTorus::IndexArray torus_indices;
 
 	// wrapper around the current OpenGL context
 	Context gl;
@@ -49,7 +49,7 @@ private:
 	Buffer verts, normals;
 public:
 	TorusExample(void)
-	 : make_torus(1.0, 0.5, 72, 48)
+	 : make_torus()
 	 , torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
 	{

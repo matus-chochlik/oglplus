@@ -12,7 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/torus.hpp>
+#include <oglplus/shapes/twisted_torus.hpp>
 #include <oglplus/shapes/plane.hpp>
 
 #include <sstream>
@@ -25,11 +25,11 @@ class TorusExample : public Example
 {
 private:
 	// helper object building torus vertex attributes
-	shapes::Torus make_torus;
+	shapes::TwistedTorus make_torus;
 	// helper object encapsulating torus drawing instructions
 	shapes::DrawingInstructions torus_instr;
 	// indices pointing to torus primitive elements
-	shapes::Torus::IndexArray torus_indices;
+	shapes::TwistedTorus::IndexArray torus_indices;
 
 	// similar helpers for the X-,Y- and Z-plane
 	std::vector<shapes::Plane> make_plane;
@@ -82,7 +82,7 @@ private:
 	Array<Buffer> plane_positions;
 public:
 	TorusExample(void)
-	 : make_torus(1.0, 0.5, 36, 24)
+	 : make_torus()
 	 , torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
 	 , make_plane(make_plane_builders())

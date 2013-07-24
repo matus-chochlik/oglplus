@@ -15,7 +15,7 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/opt/smart_enums.hpp>
-#include <oglplus/shapes/torus.hpp>
+#include <oglplus/shapes/twisted_torus.hpp>
 
 #include <cmath>
 
@@ -27,9 +27,9 @@ class ReflectionExample : public Example
 {
 private:
 	// the torus vertex attribute builder
-	shapes::Torus make_torus;
+	shapes::TwistedTorus make_torus;
 	// here will be stored the indices used by the drawing instructions
-	shapes::Torus::IndexArray torus_indices;
+	shapes::TwistedTorus::IndexArray torus_indices;
 	// the instructions for drawing the torus
 	shapes::DrawingInstructions torus_instr;
 
