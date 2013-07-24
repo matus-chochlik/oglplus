@@ -791,7 +791,7 @@ public:
 	 */
 	void Set(const Vector<T, N>& value) const
 	{
-		this->_do_set<N>(0, _location, Data(value));
+		this->template _do_set<N>(0, _location, Data(value));
 	}
 
 	/// Set the vector value of the vertex attribute
@@ -845,7 +845,7 @@ public:
 	 */
 	void Set(const Matrix<T, Rows, Cols>& value) const
 	{
-		this->_do_set<Rows*Cols>(0, _location, Data(value));
+		this->template _do_set<Rows*Cols>(0, _location, Data(value));
 	}
 
 	/// Set the matrix value of the vertex attribute
