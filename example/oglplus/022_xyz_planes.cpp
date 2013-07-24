@@ -102,11 +102,12 @@ public:
 	 , plane_positions(make_plane.size())
 	{
 		std::stringstream plane_count_def;
-		plane_count_def <<"#define PlaneCount "<<plane.size()<<'\n';
+		plane_count_def << "#define PlaneCount " << plane.size() << '\n';
+		std::string plane_count_def_str = plane_count_def.str();
 
 		const GLchar* torus_vs_source[3] = {
 			"#version 330\n",
-			plane_count_def.str().c_str(),
+			plane_count_def_str.c_str(),
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 			"uniform float ClipSign[PlaneCount];"
 			"uniform vec4 ClipPlane[PlaneCount];"
@@ -185,7 +186,7 @@ public:
 
 		const GLchar* plane_vs_source[3] = {
 			"#version 330\n",
-			plane_count_def.str().c_str(),
+			plane_count_def_str.c_str(),
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform float ClipSign[PlaneCount];"
 			"uniform vec4 ClipPlane[PlaneCount];"
