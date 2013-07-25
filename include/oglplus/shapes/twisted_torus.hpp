@@ -20,8 +20,6 @@
 
 #include <oglplus/math.hpp>
 
-#include <iostream> // TODO
-
 namespace oglplus {
 namespace shapes {
 
