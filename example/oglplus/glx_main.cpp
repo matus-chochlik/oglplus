@@ -251,7 +251,7 @@ public:
 	}
 };
 
-void run_example_loop(
+void do_run_example_loop(
 	const x11::Display& display,
 	const x11::Window& win,
 	const glx::Context& ctx,
@@ -262,30 +262,6 @@ void run_example_loop(
 	GLuint height
 )
 {
-#if GL_ARB_debug_output
-	ARB_debug_output dbg(false); // don't throw
-	if(dbg.Available())
-	{
-		ExampleDebugCallback dbgcb(std::cerr);
-		ARB_debug_output::LogSink sink(dbgcb);
-
-		dbg.Control(
-			DebugOutputARBSource::DontCare,
-			DebugOutputARBType::DontCare,
-			DebugOutputARBSeverity::Low,
-			true
-		);
-
-		dbg.InsertMessage(
-			DebugOutputARBSource::Application,
-			DebugOutputARBType::Other,
-			0,
-			DebugOutputARBSeverity::Low,
-			"Starting main loop"
-		);
-	}
-#endif // GL_ARB_debug_output
-
 	win.SelectInput(
 		StructureNotifyMask|
 		PointerMotionMask|
@@ -336,6 +312,65 @@ void run_example_loop(
 		if(!example->Continue(clock)) break;
 		example->Render(clock);
 		ctx.SwapBuffers(win);
+	}
+}
+
+void run_example_loop(
+	const x11::Display& display,
+	const x11::Window& win,
+	const glx::Context& ctx,
+	std::unique_ptr<Example>& example,
+	ExampleThreadData::Common& common,
+	ExampleClock& clock,
+	GLuint width,
+	GLuint height
+)
+{
+#if GL_ARB_debug_output
+	ARB_debug_output dbg(false); // don't throw
+	if(dbg.Available())
+	{
+		ExampleDebugCallback dbgcb(std::cerr);
+		ARB_debug_output::LogSink sink(dbgcb);
+
+		dbg.Control(
+			DebugOutputARBSource::DontCare,
+			DebugOutputARBType::DontCare,
+			DebugOutputARBSeverity::Low,
+			true
+		);
+
+		dbg.InsertMessage(
+			DebugOutputARBSource::Application,
+			DebugOutputARBType::Other,
+			0,
+			DebugOutputARBSeverity::Low,
+			"Starting main loop"
+		);
+		do_run_example_loop(
+			display,
+			win,
+			ctx,
+			example,
+			common,
+			clock,
+			width,
+			height
+		);
+	}
+	else
+#endif // GL_ARB_debug_output
+	{
+		do_run_example_loop(
+			display,
+			win,
+			ctx,
+			example,
+			common,
+			clock,
+			width,
+			height
+		);
 	}
 }
 
