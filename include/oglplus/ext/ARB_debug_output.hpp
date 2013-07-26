@@ -93,7 +93,7 @@ OGLPLUS_ENUM_CLASS_END(DebugOutputARBType)
  *  @glsymbols
  *  @glextref{ARB,debug_output}
  *
- *  @ingroup extensions
+ *  @ingroup gl_extensions
  */
 class ARB_debug_output
 {

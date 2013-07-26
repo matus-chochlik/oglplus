@@ -15,10 +15,11 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
+#include <oglplus/context/string_queries.hpp>
 
 namespace oglplus {
 
-/** @defgroup extensions Extension wrappers
+/** @defgroup gl_extensions Extension wrappers
  *
  * Classes in this group implement wrappers around OpenGL extensions.
  */
@@ -42,8 +43,19 @@ inline void RequireExtension(const GLchar* name, bool available)
 	(GLEW_ ## VENDOR ## _ ## EXTENSION == GL_TRUE) \
 )
 #else
-// TODO
-#define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) true
+inline bool HasExtension(const GLchar* name)
+{
+	auto er = oglplus::context::StringQueries::Extensions();
+	while(!er.Empty())
+	{
+		if(er.Front() == name) return true;
+		er.Next();
+	}
+	return false;
+}
+#define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
+	HasExtension("GL_" #VENDOR #EXTENSION) \
+)
 #endif
 
 #define OGLPLUS_REQUIRE_EXTENSION(VENDOR, EXTENSION) \
@@ -53,14 +65,33 @@ inline void RequireExtension(const GLchar* name, bool available)
 	)
 
 #define OGLPLUS_EXTENSION_CLASS(VENDOR, EXTENSION) \
-	VENDOR ## _ ## EXTENSION(void) \
+	VENDOR ## _ ## EXTENSION(bool throw_if_unavailable = true) \
 	{ \
-		OGLPLUS_REQUIRE_EXTENSION(VENDOR, EXTENSION); \
+		if(throw_if_unavailable) \
+			OGLPLUS_REQUIRE_EXTENSION(VENDOR, EXTENSION); \
 	} \
 	static bool Available(void) \
 	{ \
 		return OGLPLUS_EXTENSION_AVAILABLE(VENDOR, EXTENSION); \
 	}
+
+/// Allows to check is the specified extension is available
+/**
+ *  Example of usage:
+ *  @code
+ *  if(OGLPLUS_HAS_GL_EXT(ARB,debug_info))
+ *  {
+ *    // the extension is available
+ *  }
+ *  else
+ *  {
+ *    // the extension is not available
+ *  }
+ *  @endcode
+ *  @ingroup gl_extensions
+ */
+#define OGLPLUS_HAS_GL_EXT(VENDOR,EXTENSION) \
+	OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION)
 
 } // namespace oglplus
 

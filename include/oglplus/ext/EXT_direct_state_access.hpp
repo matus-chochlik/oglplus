@@ -877,7 +877,7 @@ struct DSATextureEXT
  *  @glsymbols
  *  @glextref{EXT,direct_state_access}
  *
- *  @ingroup extensions
+ *  @ingroup gl_extensions
  */
 class EXT_direct_state_access
  : public DSAContextEXT

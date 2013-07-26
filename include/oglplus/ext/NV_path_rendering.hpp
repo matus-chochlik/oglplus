@@ -1710,7 +1710,7 @@ public:
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  *
- *  @ingroup extensions
+ *  @ingroup gl_extensions
  */
 class NV_path_rendering
 {

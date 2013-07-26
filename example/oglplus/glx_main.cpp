@@ -203,6 +203,36 @@ void call_example_thread_main(ExampleThreadData& data)
 	}
 }
 
+class ExampleDebugCallback
+{
+private:
+	std::ostream& dbgout;
+public:
+	ExampleDebugCallback(std::ostream& out)
+	 : dbgout(out)
+	{
+		dbgout << "-+-[Begin]" << std::endl;
+	}
+
+	~ExampleDebugCallback(void)
+	{
+		dbgout << " `-[Done]" << std::endl;
+	}
+
+	void operator()(const ARB_debug_output::CallbackData& data)
+	{
+		dbgout << " |" << std::endl;
+		dbgout << " +-+-[" << data.id << "] '" <<
+			data.message << "'" << std::endl;
+		dbgout << " | +---[source]   '" <<
+			EnumValueName(data.source).c_str()  << "'" << std::endl;
+		dbgout << " | +---[type]     '" <<
+			EnumValueName(data.type).c_str()  << "'" << std::endl;
+		dbgout << " | `---[severity] '" <<
+			EnumValueName(data.severity).c_str()  << "'" << std::endl;
+	}
+};
+
 void run_example_loop(
 	const x11::Display& display,
 	const x11::Window& win,
@@ -214,38 +244,28 @@ void run_example_loop(
 	GLuint height
 )
 {
-	std::cout << "-+-[Begin]" << std::endl;
-#if GL_ARB_debug_output && !OGLPLUS_NO_LAMBDAS
-	ARB_debug_output dbg;
-	ARB_debug_output::LogSink sink(
-		[](const ARB_debug_output::CallbackData& data) -> void
-		{
-			std::cout << " |" << std::endl;
-			std::cout << " +-+-[" << data.id << "] '" <<
-				data.message << "'" << std::endl;
-			std::cout << " | +---[source]   '" <<
-				EnumValueName(data.source).c_str()  << "'" << std::endl;
-			std::cout << " | +---[type]     '" <<
-				EnumValueName(data.type).c_str()  << "'" << std::endl;
-			std::cout << " | `---[severity] '" <<
-				EnumValueName(data.severity).c_str()  << "'" << std::endl;
-		}
-	);
+#if GL_ARB_debug_output
+	ARB_debug_output dbg(false); // don't throw
+	if(dbg.Available())
+	{
+		ExampleDebugCallback dbgcb(std::cerr);
+		ARB_debug_output::LogSink sink(dbgcb);
 
-	dbg.Control(
-		DebugOutputARBSource::DontCare,
-		DebugOutputARBType::DontCare,
-		DebugOutputARBSeverity::Low,
-		true
-	);
+		dbg.Control(
+			DebugOutputARBSource::DontCare,
+			DebugOutputARBType::DontCare,
+			DebugOutputARBSeverity::Low,
+			true
+		);
 
-	dbg.InsertMessage(
-		DebugOutputARBSource::Application,
-		DebugOutputARBType::Other,
-		0,
-		DebugOutputARBSeverity::Low,
-		"Starting main loop"
-	);
+		dbg.InsertMessage(
+			DebugOutputARBSource::Application,
+			DebugOutputARBType::Other,
+			0,
+			DebugOutputARBSeverity::Low,
+			"Starting main loop"
+		);
+	}
 #endif // GL_ARB_debug_output
 
 	win.SelectInput(
@@ -299,7 +319,6 @@ void run_example_loop(
 		example->Render(clock);
 		ctx.SwapBuffers(win);
 	}
-	std::cout << " `-[Done]" << std::endl;
 }
 
 void run_framedump_loop(
