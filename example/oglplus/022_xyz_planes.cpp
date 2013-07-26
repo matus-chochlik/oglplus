@@ -307,21 +307,21 @@ public:
 		GLfloat sign = ((camera*normal).z() >= 0.0f)? 1.0f: -1.0f;
 		bool at_leaf = p+1 == plane.size();
 
-		gl.Enable(Functionality::ClipDistance, p);
+		+(Functionality::ClipDistance|p);
 		torus_clip_signs[p].Set(-sign);
 		plane_clip_signs[p].Set(-sign);
 		if(at_leaf) RenderTorus();
 		else BSP(camera, p+1);
-		gl.Disable(Functionality::ClipDistance, p);
+		-(Functionality::ClipDistance|p);
 
 		RenderPlane(p);
 
-		gl.Enable(Functionality::ClipDistance, p);
+		+(Functionality::ClipDistance|p);
 		torus_clip_signs[p].Set(+sign);
 		plane_clip_signs[p].Set(+sign);
 		if(at_leaf) RenderTorus();
 		else BSP(camera, p+1);
-		gl.Disable(Functionality::ClipDistance, p);
+		-(Functionality::ClipDistance|p);
 
 	}
 

@@ -44,9 +44,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Enable}
 	 */
-	static void Enable(Functionality functionality, GLuint offset)
+	static void Enable(Functionality functionality, GLuint number)
 	{
-		OGLPLUS_GLFUNC(Enable)(GLenum(functionality)+offset);
+		OGLPLUS_GLFUNC(Enable)(GLenum(functionality)+number);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
 	}
 
@@ -66,9 +66,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{Disable}
 	 */
-	static void Disable(Functionality functionality, GLuint offset)
+	static void Disable(Functionality functionality, GLuint number)
 	{
-		OGLPLUS_GLFUNC(Disable)(GLenum(functionality)+offset);
+		OGLPLUS_GLFUNC(Disable)(GLenum(functionality)+number);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
 	}
 
@@ -89,11 +89,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{IsEnabled}
 	 */
-	static bool IsEnabled(Functionality functionality, GLuint offset)
+	static bool IsEnabled(Functionality functionality, GLuint number)
 	{
 		GLboolean result = OGLPLUS_GLFUNC(IsEnabled)(
 			GLenum(functionality)+
-			offset
+			number
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsEnabled));
 		return result == GL_TRUE;

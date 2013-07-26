@@ -345,12 +345,14 @@ public:
 
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
-		gl.Enable(Capability::DepthTest);
-		gl.Disable(Capability::CullFace);
 
-		gl.Enable(Functionality::ClipDistance, 0);
-		gl.Enable(Functionality::ClipDistance, 1);
-		gl.Enable(Functionality::ClipDistance, 2);
+
+		(Capability::DepthTest)<< true;
+		(Capability::CullFace) << false;
+
+		(Functionality::ClipDistance|0) << true;
+		(Functionality::ClipDistance|1) << true;
+		(Functionality::ClipDistance|2) << true;
 	}
 
 	void Reshape(GLuint width, GLuint height)

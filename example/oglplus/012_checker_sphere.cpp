@@ -123,7 +123,7 @@ public:
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
-		gl.Enable(Capability::DepthTest);
+		Capability::DepthTest << true;
 	}
 
 	void Reshape(GLuint width, GLuint height)
