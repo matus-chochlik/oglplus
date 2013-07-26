@@ -203,23 +203,26 @@ void call_example_thread_main(ExampleThreadData& data)
 	}
 }
 
-class ExampleDebugCallback
+class ExampleDebugCallbackEssence
 {
 private:
 	std::ostream& dbgout;
+
+	ExampleDebugCallbackEssence(const ExampleDebugCallbackEssence&);
 public:
-	ExampleDebugCallback(std::ostream& out)
+	ExampleDebugCallbackEssence(std::ostream& out)
 	 : dbgout(out)
 	{
 		dbgout << "-+-[Begin]" << std::endl;
 	}
 
-	~ExampleDebugCallback(void)
+	~ExampleDebugCallbackEssence(void)
 	{
 		dbgout << " `-[Done]" << std::endl;
 	}
 
-	void operator()(const ARB_debug_output::CallbackData& data)
+
+	void Call(const ARB_debug_output::CallbackData& data)
 	{
 		dbgout << " |" << std::endl;
 		dbgout << " +-+-[" << data.id << "] '" <<
@@ -230,6 +233,21 @@ public:
 			EnumValueName(data.type).c_str()  << "'" << std::endl;
 		dbgout << " | `---[severity] '" <<
 			EnumValueName(data.severity).c_str()  << "'" << std::endl;
+	}
+};
+
+class ExampleDebugCallback
+{
+private:
+	std::shared_ptr<ExampleDebugCallbackEssence> ess;
+public:
+	ExampleDebugCallback(std::ostream& out)
+	 : ess(std::make_shared<ExampleDebugCallbackEssence>(out))
+	{ }
+
+	void operator()(const ARB_debug_output::CallbackData& data)
+	{
+		ess->Call(data);
 	}
 };
 

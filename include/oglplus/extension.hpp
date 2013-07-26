@@ -54,7 +54,7 @@ inline bool HasExtension(const GLchar* name)
 	return false;
 }
 #define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
-	HasExtension("GL_" #VENDOR #EXTENSION) \
+	HasExtension("GL_" #VENDOR "_" #EXTENSION) \
 )
 #endif
 
