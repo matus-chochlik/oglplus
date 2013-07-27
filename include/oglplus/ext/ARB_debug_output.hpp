@@ -121,11 +121,22 @@ public:
 	/// Structure containing data passed to Callback functor
 	struct CallbackData
 	{
+		/// The source of the debug message
 		DebugOutputARBSource source;
+
+		/// The type of the debug message
 		DebugOutputARBType type;
+
+		/// The id of the debug message
 		GLuint id;
+
+		/// The severity of the debug message
 		DebugOutputARBSeverity severity;
+
+		/// The length of th debug message
 		GLsizei length;
+
+		/// The debug message
 		const GLchar* message;
 	};
 
