@@ -62,11 +62,11 @@ private:
 	Buffer torus_verts, torus_normals, torus_texcoords;
 
 	/// The FBO and RBO for offscreen rendering
-	Framebuffer fbo;
-	Renderbuffer rbo;
+	SafeAutoBind<Framebuffer> fbo;
+	SafeAutoBind<Renderbuffer> rbo;
 
 	// The dynamically rendered texture
-	Texture tex;
+	SafeAutoBind<Texture> tex;
 	GLuint tex_side;
 
 	GLuint width, height;
@@ -86,6 +86,9 @@ public:
 	 , cube_projection_matrix(cube_prog, "ProjectionMatrix")
 	 , cube_camera_matrix(cube_prog, "CameraMatrix")
 	 , cube_model_matrix(cube_prog, "ModelMatrix")
+	 , fbo(Framebuffer::Target::Draw)
+	 , rbo(Renderbuffer::Target::Renderbuffer)
+	 , tex(Texture::Target::_2D)
 	 , tex_side(512)
 	 , width(tex_side)
 	 , height(tex_side)
@@ -229,47 +232,34 @@ public:
 
 		Uniform<Vec3f>(torus_prog, "LightPos").Set(2.0f, 3.0f, 4.0f);
 
-		{
-			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::RGBA,
-				tex_side, tex_side,
-				0,
-				PixelDataFormat::RGBA,
-				PixelDataType::UnsignedByte,
-				nullptr
-			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		tex.Image2D(
+			0,
+			PixelDataInternalFormat::RGBA,
+			tex_side, tex_side,
+			0,
+			PixelDataFormat::RGBA,
+			PixelDataType::UnsignedByte,
+			nullptr
+		);
+		tex.MinFilter(TextureMinFilter::Linear);
+		tex.MagFilter(TextureMagFilter::Linear);
+		tex.WrapS(TextureWrap::Repeat);
+		tex.WrapT(TextureWrap::Repeat);
 
-		{
-			auto bound_fbo = Bind(
-				fbo,
-				Framebuffer::Target::Draw
-			);
-			auto bound_rbo = Bind(
-				rbo,
-				Renderbuffer::Target::Renderbuffer
-			);
-			bound_rbo.Storage(
-				PixelDataInternalFormat::DepthComponent,
-				tex_side,
-				tex_side
-			);
-			bound_fbo.AttachTexture(
-				FramebufferAttachment::Color,
-				tex,
-				0
-			);
-			bound_fbo.AttachRenderbuffer(
-				FramebufferAttachment::Depth,
-				rbo
-			);
-		}
+		rbo.Storage(
+			PixelDataInternalFormat::DepthComponent,
+			tex_side,
+			tex_side
+		);
+		fbo.AttachTexture(
+			FramebufferAttachment::Color,
+			tex,
+			0
+		);
+		fbo.AttachRenderbuffer(
+			FramebufferAttachment::Depth,
+			rbo
+		);
 
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::CullFace);
@@ -285,7 +275,7 @@ public:
 	void Render(double time)
 	{
 		// render into the texture
-		fbo.Bind(Framebuffer::Target::Draw);
+		fbo.Bind();
 		gl.Viewport(tex_side, tex_side);
 		gl.ClearDepth(1.0f);
 		gl.ClearColor(0.4f, 0.9f, 0.4f, 1.0f);

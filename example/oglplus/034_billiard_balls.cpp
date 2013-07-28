@@ -863,7 +863,7 @@ public:
 
 	void PrerenderLightmap(const Vec3f& light_position, GLuint tex_side)
 	{
-		AutoBind<Framebuffer> table_light_fbo(Framebuffer::Target::Draw);
+		SafeAutoBind<Framebuffer> table_light_fbo(Framebuffer::Target::Draw);
 
 		table_light_fbo.AttachTexture(
 			FramebufferAttachment::Color,
@@ -912,7 +912,7 @@ public:
 	{
 		Texture::Active(4);
 
-		AutoBind<Texture> z_buffer(Texture::Target::CubeMap);
+		SafeAutoBind<Texture> z_buffer(Texture::Target::CubeMap);
 		z_buffer.MinFilter(TextureMinFilter::Nearest);
 		z_buffer.MagFilter(TextureMagFilter::Nearest);
 		z_buffer.WrapS(TextureWrap::ClampToEdge);
@@ -935,7 +935,7 @@ public:
 
 		Texture::Active(3);
 
-		AutoBind<Framebuffer> fbo(Framebuffer::Target::Draw);
+		SafeAutoBind<Framebuffer> fbo(Framebuffer::Target::Draw);
 
 		fbo.AttachTexture(
 			FramebufferAttachment::Depth,
