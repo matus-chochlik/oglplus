@@ -29,6 +29,8 @@
 
 #include <oglplus/ext/ARB_debug_output.hpp>
 
+#include <map>
+#include <set>
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -208,6 +210,45 @@ class ExampleDebugCallbackEssence
 private:
 	std::ostream& dbgout;
 
+	std::map<
+		GLuint /* id */,
+		std::map<
+			GLsizei /* length */,
+			std::map<
+				GLuint, /* 'hash' */
+				std::set<String>
+			>
+		>
+	> already_done;
+
+	GLuint _cstrhash(const GLchar* str, const GLsizei len, int n = 3)
+	{
+		// TODO: something better ?
+		GLsizei a = (len-1) / 3;
+		GLsizei b = 2*a;
+		GLuint result = GLuint(str[a]) + GLuint(str[b]);
+		if(n > 0)
+		{
+			n *= 256;
+			n += _cstrhash(str+a, len - b, n-1);
+			n += _cstrhash(str+b, len - a, n-1);
+		}
+		return result;
+	}
+
+	void Print(const ARB_debug_output::CallbackData& data)
+	{
+		dbgout << " |" << std::endl;
+		dbgout << " +-+-[" << data.id << "] '" <<
+			data.message << "'" << std::endl;
+		dbgout << " | +---[source]   '" <<
+			EnumValueName(data.source).c_str()  << "'" << std::endl;
+		dbgout << " | +---[type]     '" <<
+			EnumValueName(data.type).c_str()  << "'" << std::endl;
+		dbgout << " | `---[severity] '" <<
+			EnumValueName(data.severity).c_str()  << "'" << std::endl;
+	}
+
 	ExampleDebugCallbackEssence(const ExampleDebugCallbackEssence&);
 public:
 	ExampleDebugCallbackEssence(std::ostream& out)
@@ -224,15 +265,42 @@ public:
 
 	void Call(const ARB_debug_output::CallbackData& data)
 	{
-		dbgout << " |" << std::endl;
-		dbgout << " +-+-[" << data.id << "] '" <<
-			data.message << "'" << std::endl;
-		dbgout << " | +---[source]   '" <<
-			EnumValueName(data.source).c_str()  << "'" << std::endl;
-		dbgout << " | +---[type]     '" <<
-			EnumValueName(data.type).c_str()  << "'" << std::endl;
-		dbgout << " | `---[severity] '" <<
-			EnumValueName(data.severity).c_str()  << "'" << std::endl;
+		bool new_message = true;
+		GLuint sh = _cstrhash(data.message, data.length);
+		auto iid = already_done.find(data.id);
+		if(iid == already_done.end())
+		{
+			already_done[data.id][data.length][sh].insert(data.message);
+		}
+		else
+		{
+			auto ilen = iid->second.find(data.length);
+			if(ilen == iid->second.end())
+			{
+				iid->second[data.length][sh].insert(data.message);
+			}
+			else
+			{
+				auto ish = ilen->second.find(sh);
+				if(ish == ilen->second.end())
+				{
+					ilen->second[sh].insert(data.message);
+				}
+				else
+				{
+					auto imsg = ish->second.find(data.message);
+					if(imsg == ish->second.end())
+					{
+						ish->second.insert(data.message);
+					}
+					else
+					{
+						new_message = false;
+					}
+				}
+			}
+		}
+		if(new_message) Print(data);
 	}
 };
 
