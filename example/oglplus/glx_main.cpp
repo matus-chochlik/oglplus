@@ -29,8 +29,7 @@
 
 #include <oglplus/ext/ARB_debug_output.hpp>
 
-#include <map>
-#include <set>
+#include <unordered_set>
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -210,31 +209,8 @@ class ExampleDebugCallbackEssence
 private:
 	std::ostream& dbgout;
 
-	std::map<
-		GLuint /* id */,
-		std::map<
-			GLsizei /* length */,
-			std::map<
-				GLuint, /* 'hash' */
-				std::set<String>
-			>
-		>
-	> already_done;
-
-	GLuint _cstrhash(const GLchar* str, const GLsizei len, int n = 3)
-	{
-		// TODO: something better ?
-		GLsizei a = (len-1) / 3;
-		GLsizei b = 2*a;
-		GLuint result = GLuint(str[a]) + GLuint(str[b]);
-		if(n > 0)
-		{
-			n *= 256;
-			n += _cstrhash(str+a, len - b, n-1);
-			n += _cstrhash(str+b, len - a, n-1);
-		}
-		return result;
-	}
+	String buffer;
+	std::unordered_set<String> already_done;
 
 	void Print(const ARB_debug_output::CallbackData& data)
 	{
@@ -265,42 +241,17 @@ public:
 
 	void Call(const ARB_debug_output::CallbackData& data)
 	{
-		bool new_message = true;
-		GLuint sh = _cstrhash(data.message, data.length);
-		auto iid = already_done.find(data.id);
-		if(iid == already_done.end())
+		if(buffer.capacity() < data.length)
 		{
-			already_done[data.id][data.length][sh].insert(data.message);
+			buffer.resize(data.length);
 		}
-		else
+		buffer.assign(data.message, data.length);
+		if(already_done.find(buffer) == already_done.end())
 		{
-			auto ilen = iid->second.find(data.length);
-			if(ilen == iid->second.end())
-			{
-				iid->second[data.length][sh].insert(data.message);
-			}
-			else
-			{
-				auto ish = ilen->second.find(sh);
-				if(ish == ilen->second.end())
-				{
-					ilen->second[sh].insert(data.message);
-				}
-				else
-				{
-					auto imsg = ish->second.find(data.message);
-					if(imsg == ish->second.end())
-					{
-						ish->second.insert(data.message);
-					}
-					else
-					{
-						new_message = false;
-					}
-				}
-			}
+			already_done.insert(buffer);
+			Print(data);
+			
 		}
-		if(new_message) Print(data);
 	}
 };
 
