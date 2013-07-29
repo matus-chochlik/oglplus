@@ -60,6 +60,13 @@ public:
 
 
 	BoundTemplate(
+		const TextureOps& bindable,
+		TextureOps::Target target,
+		GLuint tex_unit
+	): _Base(bindable, target, tex_unit)
+	{ }
+
+	BoundTemplate(
 		TextureOps::Target target,
 		GLuint tex_unit
 	): _Base(target, tex_unit)

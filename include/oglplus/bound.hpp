@@ -129,6 +129,15 @@ inline Bound<ObjectOps> Bind(
 {
 	return Bound<ObjectOps>(bindable, target);
 }
+
+template <class ObjectOps>
+inline Bound<ObjectOps> Bind(
+	const Managed<Object<ObjectOps> >& bindable,
+	typename ObjectOps::Target target
+)
+{
+	return Bound<ObjectOps>(bindable, target);
+}
 #endif
 
 } // namespace oglplus

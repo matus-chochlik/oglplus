@@ -337,6 +337,13 @@ public:
 <xsl:if test="$object='texture'">
 <xsl:text>
 	BoundTemplate(
+		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
+		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target,
+		GLuint tex_unit
+	): _Base(bindable, target, tex_unit)
+	{ }
+
+	BoundTemplate(
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target,
 		GLuint tex_unit
 	): _Base(target, tex_unit)

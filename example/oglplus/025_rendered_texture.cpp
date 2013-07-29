@@ -62,11 +62,11 @@ private:
 	Buffer torus_verts, torus_normals, torus_texcoords;
 
 	/// The FBO and RBO for offscreen rendering
-	SafeAutoBind<Framebuffer> fbo;
-	SafeAutoBind<Renderbuffer> rbo;
+	AutoBind<Framebuffer> fbo;
+	AutoBind<Renderbuffer> rbo;
 
 	// The dynamically rendered texture
-	SafeAutoBind<Texture> tex;
+	AutoBind<Texture> tex;
 	GLuint tex_side;
 
 	GLuint width, height;

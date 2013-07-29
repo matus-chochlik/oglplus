@@ -102,9 +102,9 @@ public:
 	}
 };
 
-template <typename ObjectOps>
-class BaseArray<Object<ObjectOps>, true>
- : public ObjectInitializer<Object<ObjectOps> >
+template <typename Object>
+class BaseArray<Object, true>
+ : public ObjectInitializer<Object>
 {
 private:
 	std::vector<GLuint> _names;
@@ -118,6 +118,15 @@ private:
 		}
 		return true;
 	}
+
+	void _init_names(void)
+	{
+		if(!_names.empty())
+		{
+			this->_init(_names.size(), _names.data());
+			assert(_names_ok());
+		}
+	}
 protected:
 	GLuint _get_name(size_t index) const
 	{
@@ -127,11 +136,14 @@ protected:
 	BaseArray(GLsizei c)
 	 : _names(c, 0)
 	{
-		if(!_names.empty())
-		{
-			this->_init(_names.size(), _names.data());
-			assert(_names_ok());
-		}
+		_init_names();
+	}
+
+	template <typename Init>
+	BaseArray(GLsizei c)
+	 : _names(c, 0)
+	{
+		_init_names();
 	}
 
 	BaseArray(BaseArray&& temp)
@@ -150,8 +162,8 @@ protected:
 		}
 	}
 public:
-	typedef Managed<ObjectOps> reference;
-	typedef Managed<ObjectOps> const_reference;
+	typedef Managed<Object> reference;
+	typedef Managed<Object> const_reference;
 
 	bool empty(void) const
 	{
@@ -163,28 +175,28 @@ public:
 		return _names.size();
 	}
 
-	Managed<ObjectOps> front(void) const
+	const_reference front(void) const
 	{
-		return Managed<ObjectOps>(_names.front());
+		return const_reference(_names.front());
 	}
 
-	Managed<ObjectOps> back(void) const
+	const_reference back(void) const
 	{
-		return Managed<ObjectOps>(_names.back());
+		return const_reference(_names.back());
 	}
 
-	Managed<ObjectOps> at(GLuint index) const
+	const_reference at(GLuint index) const
 	{
 		assert(index < GLuint(size()));
-		return Managed<ObjectOps>(_names[index]);
+		return const_reference(_names[index]);
 	}
 
-	Managed<ObjectOps> operator [](GLuint index) const
+	const_reference operator [](GLuint index) const
 	{
 		return at(index);
 	}
 
-	typedef aux::BaseIter<Managed<ObjectOps>, GLuint> const_iterator;
+	typedef aux::BaseIter<const_reference, GLuint> const_iterator;
 	typedef const_iterator iterator;
 
 	iterator begin(void) const
@@ -197,9 +209,9 @@ public:
 		return iterator(_names.end());
 	}
 
-	aux::ArrayRange<Managed<ObjectOps> > all(void) const
+	aux::ArrayRange<const_reference> all(void) const
 	{
-		return aux::ArrayRange<Managed<ObjectOps> >(begin(), end());
+		return aux::ArrayRange<const_reference>(begin(), end());
 	}
 };
 

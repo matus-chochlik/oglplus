@@ -14,139 +14,73 @@
 #define OGLPLUS_AUTO_BIND_1201190831_HPP
 
 #include <oglplus/bound.hpp>
+#include <oglplus/auxiliary/base_array.hpp>
+#include <type_traits>
 
 namespace oglplus {
+namespace aux {
 
-template <class Bindable, class BindableOps>
-class SafeAutoBindBase
- : public Bindable
- , public FriendOf<Bindable>
+template <class Bindable, class BindableOps, bool Safe>
+class AutoBindUnit
+{
+protected:
+	static void _select_unit_if_necessary(void){ }
+};
+
+template <class Bindable>
+class AutoBindUnit<Bindable, TextureOps, true>
 {
 private:
-	typedef typename Bindable::Target Target;
-
-	static bool _is_bound(
-		const Bindable& bindable,
-		Target target
-	)
-	{
-		auto name = FriendOf<Bindable>::GetName(bindable);
-		auto sname = BindingQuery<BindableOps>::QueryBinding(target);
-		return name == sname;
-	}
-
-	static void _bind_if_necessary(
-		const Bindable& bindable,
-		Target target
-	)
-	{
-		if(!_is_bound(bindable, target))
-			bindable.Bind(target);
-	}
-
-	Target _bind_target;
+	GLuint _tex_unit;
 protected:
-	SafeAutoBindBase(Target target)
-	 : _bind_target(target)
-	{ }
-public:
-	SafeAutoBindBase(SafeAutoBindBase&& tmp)
-	 : Bindable(static_cast<Bindable&&>(tmp))
-	 , _bind_target(tmp._bind_target)
+	AutoBindUnit(GLuint unit)
+	 : _tex_unit(unit)
 	{ }
 
-	void Bind(void) const
+	void _select_unit_if_necessary(void) const
 	{
-		_bind_if_necessary(*this, _bind_target);
-	}
-
-	typename Bindable::Target BindTarget(void) const
-	{
-		_bind_if_necessary(*this, _bind_target);
-		return _bind_target;
+		if(GLuint(TextureOps::Active()) != _tex_unit)
+			TextureOps::Active(_tex_unit);
 	}
 };
 
 template <class Bindable>
-class SafeAutoBindBase<Bindable, TextureOps>
- : public Bindable
- , public FriendOf<Bindable>
+class AutoBindUnit<Bindable, TextureOps, false>
 {
 private:
-	typedef typename Bindable::Target Target;
-
-	static bool _is_bound(
-		const Bindable& bindable,
-		Target target
-	)
-	{
-		auto name = FriendOf<Bindable>::GetName(bindable);
-		auto sname = BindingQuery<TextureOps>::QueryBinding(target);
-		return name == sname;
-	}
-
-	static void _bind_if_necessary(
-		const Bindable& bindable,
-		Target target,
-		GLuint tex_unit
-	)
-	{
-		if(GLuint(TextureOps::Active()) != tex_unit)
-			TextureOps::Active(tex_unit);
-		if(!_is_bound(bindable, target))
-			bindable.Bind(target);
-	}
-
-	Target _bind_target;
 	GLuint _tex_unit;
+
+	static GLuint& _current_tex_unit(void)
+	{
+		GLuint tu = 0;
+		return tu;
+	}
 protected:
-	SafeAutoBindBase(Target target)
-	 : _bind_target(target)
-	 , _tex_unit(0)
+	AutoBindUnit(GLuint unit)
+	 : _tex_unit(unit)
 	{ }
 
-	SafeAutoBindBase(Target target, GLuint tex_unit)
-	 : _bind_target(target)
-	 , _tex_unit(tex_unit)
-	{ }
-public:
-	SafeAutoBindBase(SafeAutoBindBase&& tmp)
-	 : Bindable(static_cast<Bindable&&>(tmp))
-	 , _bind_target(tmp._bind_target)
-	 , _tex_unit(tmp._tex_unit)
-	{ }
-
-	void Bind(void) const
+	void _select_unit_if_necessary(void) const
 	{
-		_bind_if_necessary(*this, _bind_target, _tex_unit);
-	}
-
-	typename Bindable::Target BindTarget(void) const
-	{
-		_bind_if_necessary(*this, _bind_target, _tex_unit);
-		return _bind_target;
-	}
-
-	void TextureUnit(GLuint tex_unit)
-	{
-		_tex_unit = tex_unit;
-		_bind_if_necessary(*this, _bind_target, _tex_unit);
-	}
-
-	GLuint TexureUnit(void)
-	{
-		_bind_if_necessary(*this, _bind_target, _tex_unit);
-		return _tex_unit;
+		if(_current_tex_unit() != _tex_unit)
+		{
+			TextureOps::Active(_tex_unit);
+			_current_tex_unit() = _tex_unit;
+		}
 	}
 };
 
-template <class Bindable, class BindableOps>
-class FastAutoBindBase
+template <class Bindable, class BindableOps, bool Safe>
+class AutoBindBase
  : public Bindable
  , public FriendOf<Bindable>
+ , public AutoBindUnit<Bindable, BindableOps, Safe>
 {
 private:
+	typedef AutoBindUnit<Bindable, BindableOps, Safe> _UnitSel;
 	typedef typename Bindable::Target Target;
+	typedef std::integral_constant<bool, Safe> _IsSafe;
+
 	static GLuint& _currently_bound(void)
 	{
 		static GLuint cb = 0;
@@ -155,7 +89,19 @@ private:
 
 	static bool _is_bound(
 		const Bindable& bindable,
-		Target target
+		Target target,
+		std::true_type /*is_safe*/
+	)
+	{
+		auto name = FriendOf<Bindable>::GetName(bindable);
+		auto sname = BindingQuery<BindableOps>::QueryBinding(target);
+		return name == sname;
+	}
+
+	static bool _is_bound(
+		const Bindable& bindable,
+		Target target,
+		std::false_type /*is_fast*/
 	)
 	{
 		auto name = FriendOf<Bindable>::GetName(bindable);
@@ -163,24 +109,64 @@ private:
 		return name == sname;
 	}
 
-	static void _bind_if_necessary(
+	static void _do_bind(
 		const Bindable& bindable,
-		Target target
+		Target target,
+		std::true_type /*is_safe*/
 	)
 	{
-		if(!_is_bound(bindable, target))
+		bindable.Bind(target);
+	}
+
+	static void _do_bind(
+		const Bindable& bindable,
+		Target target,
+		std::false_type /*is_fast*/
+	)
+	{
+		bindable.Bind(target);
+		_currently_bound() = FriendOf<Bindable>::GetName(bindable);
+	}
+
+	void _bind_if_necessary(
+		const Bindable& bindable,
+		Target target
+	) const
+	{
+		_UnitSel::_select_unit_if_necessary();
+		_IsSafe is_safe;
+		if(!_is_bound(bindable, target, is_safe))
 		{
-			bindable.Bind(target);
-			_currently_bound() =
-				FriendOf<Bindable>::GetName(bindable);
+			_do_bind(bindable, target, is_safe);
 		}
 	}
 
 	Target _bind_target;
 protected:
-	FastAutoBindBase(Target target)
+	AutoBindBase(Target target)
 	 : _bind_target(target)
 	{ }
+
+	AutoBindBase(Target target, GLuint unit)
+	 : _UnitSel(unit)
+	 , _bind_target(target)
+	{ }
+
+	AutoBindBase(const BindableOps& bindable, Target target)
+	 : _bind_target(bindable, target)
+	{ }
+
+	AutoBindBase(const BindableOps& bindable, Target target, GLuint unit)
+	 : _UnitSel(unit)
+	 , _bind_target(bindable, target)
+	{ }
+
+	AutoBindBase(AutoBindBase&& tmp)
+	 : Bindable(static_cast<Bindable&&>(tmp))
+	 , _UnitSel(static_cast<_UnitSel&&>(tmp))
+	 , _bind_target(tmp._bind_target)
+	{ }
+
 public:
 	void Bind(void) const
 	{
@@ -194,11 +180,150 @@ public:
 	}
 };
 
-template <class Bindable>
-class SafeAutoBind;
 
-template <class Bindable>
-class FastAutoBind;
+template <bool Safe>
+struct AutoBindBaseSelect
+{
+	template <class Bindable, class BindableOps>
+	class Result
+	 : public AutoBindBase<Bindable, BindableOps, Safe>
+	{
+	private:
+		typedef typename Bindable::Target Target;
+		typedef AutoBindBase<Bindable, BindableOps, Safe> _Base;
+	protected:
+		Result(Target target)
+		 : _Base(target)
+		{ }
+
+		Result(Target target, GLuint unit)
+		 : _Base(target, unit)
+		{ }
+
+		Result(const BindableOps& bindable, Target target)
+		 : _Base(bindable, target)
+		{ }
+
+		Result(const BindableOps& bindable, Target target, GLuint unit)
+		 : _Base(bindable, target, unit)
+		{ }
+
+		Result(Result&& tmp)
+		 : _Base(static_cast<_Base&&>(tmp))
+		{ }
+	};
+};
+
+} // namespace aux
+
+template <typename Object, bool Safe = true>
+class AutoBind;
+
+template <class BindableOps, bool Safe>
+class AutoBind<Object<BindableOps>, Safe>
+ : public BoundTemplate<
+	aux::AutoBindBaseSelect<Safe>::template Result,
+	Object<BindableOps>,
+	BindableOps
+>
+{
+private:
+	typedef BoundTemplate<
+		aux::AutoBindBaseSelect<Safe>::template Result,
+		Object<BindableOps>,
+		BindableOps
+	> _Base;
+public:
+	AutoBind(typename BindableOps::Target target)
+	 : _Base(target)
+	{ }
+
+	template <typename _Target>
+	AutoBind(
+		_Target target,
+		typename std::enable_if<
+			std::is_same<
+				typename TextureOps::Target,
+				_Target
+			>::value,
+			GLuint
+		>::type tex_unit
+	): _Base(target, tex_unit)
+	{ }
+
+	AutoBind(AutoBind&& tmp)
+	 : _Base(std::move(tmp))
+	{ }
+};
+
+template <class BindableOps, bool Safe>
+class AutoBind<Managed<BindableOps>, Safe>
+ : public BoundTemplate<
+	aux::AutoBindBaseSelect<Safe>::template Result,
+	Managed<BindableOps>,
+	BindableOps
+>
+{
+private:
+	typedef BoundTemplate<
+		aux::AutoBindBaseSelect<Safe>::template Result,
+		Managed<BindableOps>,
+		BindableOps
+	> _Base;
+public:
+	AutoBind(
+		const BindableOps& bindable,
+		typename BindableOps::Target target
+	): _Base(bindable, target)
+	{ }
+
+	template <typename _Target>
+	AutoBind(
+		const BindableOps& bindable,
+		_Target target,
+		typename std::enable_if<
+			std::is_same<
+				typename TextureOps::Target,
+				_Target
+			>::value,
+			GLuint
+		>::type tex_unit
+	): _Base(bindable, target, tex_unit)
+	{ }
+
+	AutoBind(AutoBind&& tmp)
+	 : _Base(static_cast<_Base&&>(tmp))
+	{ }
+};
+
+/* TODO
+template <typename Object>
+class Array;
+
+template <typename ObjectOps, bool Safe>
+class Array<AutoBind<Object<ObjectOps>, Safe> >
+ : public aux::BaseArray<
+	SafeAutoBind<Object<ObjectOps> >,
+	ObjectOps::IsMultiObject::value
+>
+{
+private:
+	typedef aux::BaseArray<
+		AutoBind<Object<ObjectOps>, Safe>,
+		ObjectOps::IsMultiObject::value
+	> BaseArray;
+
+	Array(const Array&);
+public:
+	Array(GLsizei c, typename ObjectOps::Target target)
+	 : BaseArray(c, target)
+	{ }
+
+	Array(Array&& tmp)
+	 : BaseArray(static_cast<BaseArray&&>(tmp))
+	{ }
+};
+*/
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// A wraper that automatically binds @ref oglplus_object "objects" to a target
@@ -213,8 +338,8 @@ class FastAutoBind;
  *
  *  @ingroup utility_classes
  */
-template <class Bindable>
-class SafeAutoBind
+template <class Bindable, bool Safe = true>
+class AutoBind
  : public Bindable
 {
 public:
@@ -222,50 +347,7 @@ public:
 	/**
 	 *  @see Bound
 	 */
-	SafeAutoBind(typename Bindable::Target target);
-};
-#else
-template <class BindableOps>
-class SafeAutoBind<Object<BindableOps> >
- : public BoundTemplate<SafeAutoBindBase, Object<BindableOps>, BindableOps>
-{
-private:
-	typedef BoundTemplate<
-		SafeAutoBindBase,
-		Object<BindableOps>,
-		BindableOps
-	> _Base;
-public:
-	SafeAutoBind(typename BindableOps::Target target)
-	 : _Base(target)
-	{ }
-
-	template <typename _Target>
-	SafeAutoBind(
-		_Target target,
-		typename std::enable_if<
-			std::is_same<
-				typename TextureOps::Target,
-				_Target
-			>::value,
-			GLuint
-		>::type tex_unit
-	): _Base(target, tex_unit)
-	{ }
-
-	SafeAutoBind(SafeAutoBind&& tmp)
-	 : _Base(std::move(tmp))
-	{ }
-};
-
-template <class Bindable>
-class FastAutoBind<Object<Bindable> >
- : public BoundTemplate<FastAutoBindBase, Object<Bindable>, Bindable>
-{
-public:
-	FastAutoBind(typename Bindable::Target target)
-	 : BoundTemplate<FastAutoBindBase, Object<Bindable>, Bindable>(target)
-	{ }
+	AutoBind(typename Bindable::Target target);
 };
 #endif
 
