@@ -23,7 +23,7 @@ namespace oglplus {
  *
  *  @ingroup modifier_classes
  */
-template <class Bindable>
+template <class Bindable, class BindableOps>
 class BoundBase
 {
 private:
@@ -52,13 +52,13 @@ public:
  *
  *  @ingroup utility_classes
  */
-template <template <class> class Base, class BaseParam, class Bindable>
+template <template <class, class> class Base, class BaseParam, class BindableOps>
 class BoundTemplate
- : public Base<BaseParam>
+ : public Base<BaseParam, BindableOps>
 {
 };
 #else
-template <template <class> class Base, class BaseParam, class Bindable>
+template <template <class, class> class Base, class BaseParam, class Bindable>
 class BoundTemplate;
 #endif
 

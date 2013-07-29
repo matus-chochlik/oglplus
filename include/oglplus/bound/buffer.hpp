@@ -37,20 +37,25 @@ namespace oglplus {
  *
  *  @ingroup utility_classes
  */
-template <template <class> class Base, class BaseParam>
+template <template <class, class> class Base, class BaseParam>
 class BoundTemplate<Base, BaseParam, BufferOps>
- : public Base<BaseParam>
+ : public Base<BaseParam, BufferOps>
 {
+private:
+	typedef Base<
+		BaseParam,
+		BufferOps
+	> _Base;
 public:
 	BoundTemplate(
 		const BufferOps& bindable,
 		BufferOps::Target target
-	): Base<BufferOps>(bindable, target)
+	): _Base(bindable, target)
 	{ }
 
 	BoundTemplate(
 		BufferOps::Target target
-	): Base<BaseParam>(target)
+	): _Base(target)
 	{ }
 
 

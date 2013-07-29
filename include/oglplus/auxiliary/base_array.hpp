@@ -40,6 +40,9 @@ protected:
 	 : _storage(std::move(tmp.storage))
 	{ }
 public:
+	typedef Object& reference;
+	typedef const Object& const_reference;
+
 	bool empty(void) const
 	{
 		return _storage.empty();
@@ -60,12 +63,22 @@ public:
 		return _storage.back();
 	}
 
-	const Object& at(GLuint index) const
+	reference at(GLuint index)
 	{
 		return _storage[index];
 	}
 
-	const Object& operator[](GLuint index) const
+	const_reference at(GLuint index) const
+	{
+		return _storage[index];
+	}
+
+	reference operator[](GLuint index)
+	{
+		return _storage[index];
+	}
+
+	const_reference operator[](GLuint index) const
 	{
 		return _storage[index];
 	}
@@ -137,6 +150,8 @@ protected:
 		}
 	}
 public:
+	typedef Managed<ObjectOps> reference;
+	typedef Managed<ObjectOps> const_reference;
 
 	bool empty(void) const
 	{

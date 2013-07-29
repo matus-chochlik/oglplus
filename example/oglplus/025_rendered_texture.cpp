@@ -88,7 +88,7 @@ public:
 	 , cube_model_matrix(cube_prog, "ModelMatrix")
 	 , fbo(Framebuffer::Target::Draw)
 	 , rbo(Renderbuffer::Target::Renderbuffer)
-	 , tex(Texture::Target::_2D)
+	 , tex(Texture::Target::_2D, 0)
 	 , tex_side(512)
 	 , width(tex_side)
 	 , height(tex_side)
