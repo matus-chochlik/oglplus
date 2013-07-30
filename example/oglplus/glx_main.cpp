@@ -241,7 +241,7 @@ public:
 
 	void Call(const ARB_debug_output::CallbackData& data)
 	{
-		if(buffer.capacity() < data.length)
+		if(GLsizei(buffer.capacity()) < data.length)
 		{
 			buffer.resize(data.length);
 		}
