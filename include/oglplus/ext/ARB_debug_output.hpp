@@ -205,7 +205,7 @@ public:
 			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(GetPointerv));
 
 			OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
-				&LogSink::_gl_debug_proc,
+				GLDEBUGPROCARB(&LogSink::_gl_debug_proc),
 				static_cast<void*>(this)
 			);
 			OGLPLUS_VERIFY(
