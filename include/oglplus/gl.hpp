@@ -40,6 +40,7 @@
 #  define GLCOREARB_PROTOTYPES
 #  define GL_GLEXT_PROTOTYPES
 #  include <GL/glcorearb.h>
+#  include <GL/glext.h>
 
 namespace oglplus {
 struct GLAPIInitializer

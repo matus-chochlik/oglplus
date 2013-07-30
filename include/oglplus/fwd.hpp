@@ -113,6 +113,9 @@ OGLPLUS_OBJECT_TYPE_ID(PerfMonitorAMD, 12)
 class PathNVOps;
 OGLPLUS_OBJECT_TYPE_ID(PathNV, 13)
 
+class DSATextureEXTOps;
+OGLPLUS_OBJECT_TYPE_ID(DSATextureEXT, 14)
+
 } // namespace oglplus
 
 #endif // include guard

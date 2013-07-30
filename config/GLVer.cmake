@@ -79,7 +79,7 @@ if(NOT(OGLPLUS_MAX_GL_VERSION))
 	set(OGLPLUS_MAX_GL_VERSION 9_9)
 endif()
 
-foreach(GL_VERSION 4_3 4_2 4_1 4_0 3_3 3_2 3_1)
+foreach(GL_VERSION 4_4 4_3 4_2 4_1 4_0 3_3 3_2 3_1)
 	if(NOT("${GL_VERSION}" STRGREATER "${OGLPLUS_MAX_GL_VERSION}"))
 		gl_lib_ver_detection(GL ${GL_VERSION})
 		if(${HAS_GL_${GL_VERSION}})
