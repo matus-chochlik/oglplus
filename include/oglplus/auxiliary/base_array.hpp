@@ -103,12 +103,12 @@ public:
 };
 
 template <typename Object>
-class BaseArray<Object, true>
+class MultiObjectBaseArray
  : public ObjectInitializer<Object>
 {
-private:
+protected:
 	std::vector<GLuint> _names;
-
+private:
 	bool _names_ok(void) const
 	{
 		for(auto i=_names.begin(), e=_names.end(); i!=e; ++i)
@@ -128,32 +128,20 @@ private:
 		}
 	}
 protected:
-	GLuint _get_name(size_t index) const
-	{
-		return _names[index];
-	}
-
-	BaseArray(GLsizei c)
+	MultiObjectBaseArray(GLsizei c)
 	 : _names(c, 0)
 	{
 		_init_names();
 	}
 
-	template <typename Init>
-	BaseArray(GLsizei c)
-	 : _names(c, 0)
-	{
-		_init_names();
-	}
-
-	BaseArray(BaseArray&& temp)
+	MultiObjectBaseArray(MultiObjectBaseArray&& temp)
 	 : _names(std::move(temp._names))
 	{
 		assert(_names_ok());
 		assert(temp._names.empty());
 	}
 
-	~BaseArray(void)
+	~MultiObjectBaseArray(void)
 	{
 		if(!_names.empty())
 		{
@@ -162,9 +150,6 @@ protected:
 		}
 	}
 public:
-	typedef Managed<Object> reference;
-	typedef Managed<Object> const_reference;
-
 	bool empty(void) const
 	{
 		return _names.empty();
@@ -174,21 +159,40 @@ public:
 	{
 		return _names.size();
 	}
+};
+
+template <typename Object>
+class BaseArray<Object, true>
+ : public MultiObjectBaseArray<Object>
+{
+private:
+	typedef MultiObjectBaseArray<Object> _Base;
+protected:
+	BaseArray(GLsizei c)
+	 : _Base(c)
+	{ }
+
+	BaseArray(BaseArray&& temp)
+	 : _Base(static_cast<_Base&&>(temp))
+	{ }
+public:
+	typedef Managed<Object> reference;
+	typedef Managed<Object> const_reference;
 
 	const_reference front(void) const
 	{
-		return const_reference(_names.front());
+		return const_reference(this->_names.front());
 	}
 
 	const_reference back(void) const
 	{
-		return const_reference(_names.back());
+		return const_reference(this->_names.back());
 	}
 
 	const_reference at(GLuint index) const
 	{
-		assert(index < GLuint(size()));
-		return const_reference(_names[index]);
+		assert(index < GLuint(this->size()));
+		return const_reference(this->_names[index]);
 	}
 
 	const_reference operator [](GLuint index) const
@@ -201,12 +205,12 @@ public:
 
 	iterator begin(void) const
 	{
-		return iterator(_names.begin(), _names.end());
+		return iterator(this->_names.begin(), this->_names.end());
 	}
 
 	iterator end(void) const
 	{
-		return iterator(_names.end());
+		return iterator(this->_names.end());
 	}
 
 	aux::ArrayRange<const_reference> all(void) const

@@ -16,6 +16,7 @@
 #include <oglplus/bound.hpp>
 #include <oglplus/auxiliary/base_array.hpp>
 #include <type_traits>
+#include <map>
 
 namespace oglplus {
 namespace aux {
@@ -52,7 +53,7 @@ private:
 
 	static GLuint& _current_tex_unit(void)
 	{
-		GLuint tu = 0;
+		static GLuint tu = 0;
 		return tu;
 	}
 protected:
@@ -81,10 +82,10 @@ private:
 	typedef typename Bindable::Target Target;
 	typedef std::integral_constant<bool, Safe> _IsSafe;
 
-	static GLuint& _currently_bound(void)
+	static GLuint& _currently_bound(Target target)
 	{
-		static GLuint cb = 0;
-		return cb;
+		static std::map<Target, GLuint> cb;
+		return cb[target];
 	}
 
 	static bool _is_bound(
@@ -105,7 +106,7 @@ private:
 	)
 	{
 		auto name = FriendOf<Bindable>::GetName(bindable);
-		auto sname = _currently_bound();
+		auto sname = _currently_bound(target);
 		return name == sname;
 	}
 
@@ -125,7 +126,7 @@ private:
 	)
 	{
 		bindable.Bind(target);
-		_currently_bound() = FriendOf<Bindable>::GetName(bindable);
+		_currently_bound(target) = FriendOf<Bindable>::GetName(bindable);
 	}
 
 	void _bind_if_necessary(
@@ -153,12 +154,14 @@ protected:
 	{ }
 
 	AutoBindBase(const BindableOps& bindable, Target target)
-	 : _bind_target(bindable, target)
+	 : Bindable(bindable)
+	 , _bind_target(target)
 	{ }
 
 	AutoBindBase(const BindableOps& bindable, Target target, GLuint unit)
-	 : _UnitSel(unit)
-	 , _bind_target(bindable, target)
+	 : Bindable(bindable)
+	 , _UnitSel(unit)
+	 , _bind_target(target)
 	{ }
 
 	AutoBindBase(AutoBindBase&& tmp)
@@ -296,34 +299,162 @@ public:
 	{ }
 };
 
-/* TODO
 template <typename Object>
 class Array;
 
 template <typename ObjectOps, bool Safe>
 class Array<AutoBind<Object<ObjectOps>, Safe> >
- : public aux::BaseArray<
-	SafeAutoBind<Object<ObjectOps> >,
-	ObjectOps::IsMultiObject::value
->
+ : public aux::MultiObjectBaseArray<Object<ObjectOps> >
 {
 private:
-	typedef aux::BaseArray<
-		AutoBind<Object<ObjectOps>, Safe>,
-		ObjectOps::IsMultiObject::value
-	> BaseArray;
+	typedef aux::MultiObjectBaseArray<Object<ObjectOps> > _Base;
+	typedef typename ObjectOps::Target Target;
 
-	Array(const Array&);
+	Target _target;
 public:
-	Array(GLsizei c, typename ObjectOps::Target target)
-	 : BaseArray(c, target)
+	Array(GLsizei c, Target target)
+	 : _Base(c)
+	 , _target(target)
 	{ }
 
-	Array(Array&& tmp)
-	 : BaseArray(static_cast<BaseArray&&>(tmp))
+	Array(Array&& temp)
+	 : _Base(static_cast<_Base&&>(temp))
+	 , _target(temp.target)
 	{ }
-};
+
+	typedef AutoBind<Managed<ObjectOps>, Safe> reference;
+	typedef AutoBind<Managed<ObjectOps>, Safe> const_reference;
+
+	const_reference front(void) const
+	{
+		return const_reference(
+			Managed<ObjectOps>(this->_names.front()),
+			_target
+		);
+	}
+
+	const_reference back(void) const
+	{
+		return const_reference(
+			Managed<ObjectOps>(this->_names.back()),
+			_target
+		);
+	}
+
+	const_reference at(GLuint index) const
+	{
+		assert(index < GLuint(this->size()));
+		return const_reference(
+			Managed<ObjectOps>(this->_names[index]),
+			_target
+		);
+	}
+
+	const_reference operator [](GLuint index) const
+	{
+		return at(index);
+	}
+
+/* TODO
+	typedef aux::BaseIter<const_reference, GLuint> const_iterator;
+	typedef const_iterator iterator;
+
+	iterator begin(void) const
+	{
+		return iterator(this->_names.begin(), this->_names.end());
+	}
+
+	iterator end(void) const
+	{
+		return iterator(this->_names.end());
+	}
+
+	aux::ArrayRange<const_reference> all(void) const
+	{
+		return aux::ArrayRange<const_reference>(begin(), end());
+	}
 */
+};
+
+template <bool Safe>
+class Array<AutoBind<Object<TextureOps>, Safe> >
+ : public aux::MultiObjectBaseArray<Object<TextureOps> >
+{
+private:
+	typedef aux::MultiObjectBaseArray<Object<TextureOps> > _Base;
+	typedef typename TextureOps::Target Target;
+
+	Target _target;
+	GLuint _tex_unit;
+public:
+	Array(GLsizei c, Target target, GLuint base_tex_unit)
+	 : _Base(c)
+	 , _target(target)
+	 , _tex_unit(base_tex_unit)
+	{ }
+
+	Array(Array&& temp)
+	 : _Base(static_cast<_Base&&>(temp))
+	 , _target(temp._target)
+	 , _tex_unit(temp._tex_unit)
+	{ }
+
+	typedef AutoBind<Managed<TextureOps>, Safe> reference;
+	typedef AutoBind<Managed<TextureOps>, Safe> const_reference;
+
+	const_reference front(void) const
+	{
+		return const_reference(
+			Managed<TextureOps>(this->_names.front()),
+			_target,
+			_tex_unit
+		);
+	}
+
+	const_reference back(void) const
+	{
+		return const_reference(
+			Managed<TextureOps>(this->_names.back()),
+			_target,
+			_tex_unit+this->size()-1
+		);
+	}
+
+	const_reference at(GLuint index) const
+	{
+		assert(index < GLuint(this->size()));
+		return const_reference(
+			Managed<TextureOps>(this->_names[index]),
+			_target,
+			_tex_unit+index
+		);
+	}
+
+	const_reference operator [](GLuint index) const
+	{
+		return at(index);
+	}
+
+/* TODO
+	typedef aux::BaseIter<const_reference, GLuint> const_iterator;
+	typedef const_iterator iterator;
+
+	iterator begin(void) const
+	{
+		return iterator(this->_names.begin(), this->_names.end());
+	}
+
+	iterator end(void) const
+	{
+		return iterator(this->_names.end());
+	}
+
+	aux::ArrayRange<const_reference> all(void) const
+	{
+		return aux::ArrayRange<const_reference>(begin(), end());
+	}
+*/
+};
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// A wraper that automatically binds @ref oglplus_object "objects" to a target

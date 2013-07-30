@@ -72,59 +72,22 @@ protected:
 
 	// the number of frames (texture images) that are used to store
 	// active glyph pages for rendering
-	friend unsigned BitmapGlyphPageFrames(
-		const BitmapGlyphRenderingBase& that
-	)
-	{
-		return that._config.page_frames;
-	}
+	friend unsigned BitmapGlyphPageFrames(const BitmapGlyphRenderingBase&);
+
+	friend unsigned BitmapGlyphPlaneCount(const BitmapGlyphRenderingBase&);
 
 
-	friend unsigned BitmapGlyphPlaneCount(
-		const BitmapGlyphRenderingBase& that
-	)
-	{
-		return that._config.plane_count;
-	}
+	friend unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRenderingBase&);
 
 
-	friend unsigned BitmapGlyphPagesPerPlane(
-		const BitmapGlyphRenderingBase& that
-	)
-	{
-		return that._config.pages_per_plane;
-	}
-
-
-	friend unsigned BitmapGlyphGlyphsPerPage(
-		const BitmapGlyphRenderingBase& that
-	)
-	{
-		return that._config.glyphs_per_page;
-	}
-
+	friend unsigned BitmapGlyphGlyphsPerPage(const BitmapGlyphRenderingBase&);
 
 	std::list<BitmapGlyphLayoutStorage> _layout_storage;
 
 	friend void BitmapGlyphAllocateLayoutData(
 		BitmapGlyphRenderingBase& that,
 		BitmapGlyphLayoutData& layout_data
-	)
-	{
-		auto	i = that._layout_storage.begin(),
-			e = that._layout_storage.end();
-		while(i != e)
-		{
-			if(i->Allocate(layout_data)) return;
-			++i;
-		}
-		that._layout_storage.emplace_back(
-			that,
-			that._config.layout_storage_page,
-			that._config.layout_storage_unit
-		);
-		that._layout_storage.back().Allocate(layout_data);
-	}
+	);
 
 	template <typename BitmapFont>
 	friend void BitmapGlyphInitializeLayoutData(
@@ -133,32 +96,12 @@ protected:
 		BitmapFont& font,
 		const CodePoint* cps,
 		GLsizei length
-	)
-	{
-		OGLPLUS_FAKE_USE(that);
-		assert(layout_data._storage);
-		BitmapGlyphLayoutStorage& _storage = *layout_data._storage;
-		std::vector<GLfloat> x_offsets;
-		GLfloat width = font.QueryXOffsets(cps, length, x_offsets);
-		_storage.Initialize(
-			layout_data,
-			width,
-			x_offsets,
-			cps,
-			length
-		);
-	}
+	);
 
 	friend void BitmapGlyphDeallocateLayoutData(
 		BitmapGlyphRenderingBase& that,
 		BitmapGlyphLayoutData& layout_data
-	)
-	{
-		OGLPLUS_FAKE_USE(that);
-		assert(layout_data._storage);
-		BitmapGlyphLayoutStorage& _storage = *layout_data._storage;
-		_storage.Deallocate(layout_data);
-	}
+	);
 
 	BitmapGlyphRenderingBase(
 		TextureUnitSelector bitmap_tex_unit,
@@ -196,6 +139,83 @@ public:
 		return Renderer(*this, pixel_color_shader);
 	}
 };
+
+inline unsigned BitmapGlyphPageFrames(const BitmapGlyphRenderingBase& that)
+{
+	return that._config.page_frames;
+}
+
+
+inline unsigned BitmapGlyphPlaneCount(const BitmapGlyphRenderingBase& that)
+{
+	return that._config.plane_count;
+}
+
+
+inline unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRenderingBase& that)
+{
+	return that._config.pages_per_plane;
+}
+
+
+inline unsigned BitmapGlyphGlyphsPerPage(const BitmapGlyphRenderingBase& that)
+{
+	return that._config.glyphs_per_page;
+}
+
+inline void BitmapGlyphAllocateLayoutData(
+	BitmapGlyphRenderingBase& that,
+	BitmapGlyphLayoutData& layout_data
+)
+{
+	auto	i = that._layout_storage.begin(),
+		e = that._layout_storage.end();
+	while(i != e)
+	{
+		if(i->Allocate(layout_data)) return;
+		++i;
+	}
+	that._layout_storage.emplace_back(
+		that,
+		that._config.layout_storage_page,
+		that._config.layout_storage_unit
+	);
+	that._layout_storage.back().Allocate(layout_data);
+}
+
+template <typename BitmapFont>
+inline void BitmapGlyphInitializeLayoutData(
+	BitmapGlyphRenderingBase& that,
+	BitmapGlyphLayoutData& layout_data,
+	BitmapFont& font,
+	const CodePoint* cps,
+	GLsizei length
+)
+{
+	OGLPLUS_FAKE_USE(that);
+	assert(layout_data._storage);
+	BitmapGlyphLayoutStorage& _storage = *layout_data._storage;
+	std::vector<GLfloat> x_offsets;
+	GLfloat width = font.QueryXOffsets(cps, length, x_offsets);
+	_storage.Initialize(
+		layout_data,
+		width,
+		x_offsets,
+		cps,
+		length
+	);
+}
+
+inline void BitmapGlyphDeallocateLayoutData(
+	BitmapGlyphRenderingBase& /*that*/,
+	BitmapGlyphLayoutData& layout_data
+)
+{
+	assert(layout_data._storage);
+	BitmapGlyphLayoutStorage& _storage = *layout_data._storage;
+	_storage.Deallocate(layout_data);
+}
+
 
 template <class BitmapFont>
 class BitmapGlyphRenderingTpl
