@@ -83,6 +83,13 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		)
 	endif()
 
+	if(HAS_GLEW_EXT_direct_state_access)
+		standalone_example_common(
+			003_dsa_texture
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
+	endif()
+
 	if(HAS_GLEW_ARB_compatibility AND HAS_GLEW_NV_path_rendering)
 		standalone_example_common(
 			002_simple_path
