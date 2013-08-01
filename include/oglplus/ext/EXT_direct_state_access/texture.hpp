@@ -1898,6 +1898,62 @@ public:
 		));
 	}
 
+	/// Gets the maximum anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{MAX_TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	GLfloat MaxAnisotropy(void) const
+	{
+#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		return GetFloatParam(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+#else
+		return Glfloat(1);
+#endif
+	}
+
+	/// Gets the current anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	GLfloat Anisotropy(void) const
+	{
+#ifdef  GL_TEXTURE_MAX_ANISOTROPY_EXT
+		return GetFloatParam(GL_TEXTURE_MAX_ANISOTROPY_EXT);
+#else
+		return Glfloat(1);
+#endif
+	}
+
+	/// Sets the anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	void Anisotropy(GLfloat value)
+	{
+#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		OGLPLUS_GLFUNC(TextureParameterfEXT)(
+			_name,
+			GLenum(target),
+			GL_TEXTURE_MAX_ANISOTROPY_EXT,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureParameterfEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+#else
+		OGLPLUS_FAKE_USE(value);
+#endif
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_*)
 	/**

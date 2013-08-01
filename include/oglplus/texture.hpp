@@ -2317,6 +2317,67 @@ public:
 		));
 	}
 
+	/// Gets the maximum anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{MAX_TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	static GLfloat MaxAnisotropy(Target target)
+	{
+#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		return GetFloatParam(
+			target,
+			GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		);
+#else
+		return Glfloat(1);
+#endif
+	}
+
+	/// Gets the current anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	static GLfloat Anisotropy(Target target)
+	{
+#ifdef  GL_TEXTURE_MAX_ANISOTROPY_EXT
+		return GetFloatParam(
+			target,
+			GL_TEXTURE_MAX_ANISOTROPY_EXT
+		);
+#else
+		return Glfloat(1);
+#endif
+	}
+
+	/// Sets the anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	static void Anisotropy(Target target, GLfloat value)
+	{
+#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		OGLPLUS_GLFUNC(TexParameterf)(
+			GLenum(target),
+			GL_TEXTURE_MAX_ANISOTROPY_EXT,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterf,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+#else
+		OGLPLUS_FAKE_USE(value);
+#endif
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_*)
 	/**

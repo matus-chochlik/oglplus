@@ -103,6 +103,7 @@ public:
 		checker.GenerateMipmap();
 		checker.MinFilter(TextureMinFilter::LinearMipmapLinear);
 		checker.MagFilter(TextureMagFilter::Linear);
+		checker.Anisotropy(2.0);
 		checker.WrapS(TextureWrap::Repeat);
 		checker.WrapT(TextureWrap::Repeat);
 		checker.Bind();

@@ -1421,6 +1421,42 @@ public:
 		);
 	}
 
+
+	/** Wrapper for Texture::MaxAnisotropy()
+	 *  @see Texture::MaxAnisotropy()
+	 */
+	GLfloat MaxAnisotropy(void) const
+	{
+		return TextureOps::MaxAnisotropy(
+			this->BindTarget()
+		);
+	}
+
+
+	/** Wrapper for Texture::Anisotropy()
+	 *  @see Texture::Anisotropy()
+	 */
+	GLfloat Anisotropy(void) const
+	{
+		return TextureOps::Anisotropy(
+			this->BindTarget()
+		);
+	}
+
+
+	/** Wrapper for Texture::Anisotropy()
+	 *  @see Texture::Anisotropy()
+	 */
+	void Anisotropy(
+		GLfloat value
+	) const
+	{
+		TextureOps::Anisotropy(
+			this->BindTarget(),
+			value
+		);
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::Swizzle()

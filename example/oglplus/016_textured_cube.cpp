@@ -150,6 +150,7 @@ public:
 			bound_tex.Image2D(images::LoadTexture("concrete_block"));
 			bound_tex.MinFilter(se::Linear());
 			bound_tex.MagFilter(se::Linear());
+			bound_tex.Anisotropy(2.0f);
 			bound_tex.WrapS(se::Repeat());
 			bound_tex.WrapT(se::Repeat());
 		}
