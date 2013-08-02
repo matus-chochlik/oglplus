@@ -373,9 +373,9 @@ private:
 			"	float n = texture(Noise, vertTexCoord).r;"
 			"	n -= 0.5;"
 			"	float z = pow(texture(Depth, vertTexCoord).r, 4);"
-			"	z = pow(clamp((z-0.4-0.06*n)*(2.5+0.4*n), 0.0, 1.0), 8);"
+			"	z = pow(clamp((z-0.35-0.1*n)*(2.5+0.5*n), 0.0, 1.0), 8);"
 			"	int nsam = int(1+z*(Samples-1));"
-			"	float inv_nsam = 1.0 / (1.0 + nsam);"
+			"	float wsum = 0.0;"
 
 			"	for(int i=0; i!=nsam; ++i)"
 			"	{"
@@ -390,9 +390,11 @@ private:
 			"		vec3 fd = vec3(d, d, d);"
 			"		float s = (0.3*t.r + 0.59*t.g + 0.11*t.b);"
 			"		vec3 fs = vec3(s, s, s);"
-			"		fragColor += mix(t, mix(fd, fs, sz*(1.0-sz)), z*sz);"
+			"		float w = 1.0-abs(z-sz);"
+			"		fragColor += w*mix(t, mix(fd, fs, sz*(1.0-sz)), z*sz);"
+			"		wsum += w;"
 			"	}"
-			"	fragColor *= inv_nsam;"
+			"	fragColor /= wsum;"
 			"}"
 		).Compile();
 
@@ -682,8 +684,6 @@ public:
 		// render the noise sky box
 		fog_buffers.BindSkyFBO();
 
-		gl.Clear().ColorBuffer();
-
 		gl.DepthMask(false);
 		gl.Disable(Capability::DepthTest);
 		gl.Disable(Capability::CullFace);
@@ -717,8 +717,10 @@ public:
 
 		fog_prog.Use();
 
+		gl.DepthMask(false);
 		screen.Use();
 		screen.Draw();
+		gl.DepthMask(true);
 	}
 
 	bool Continue(double time)
