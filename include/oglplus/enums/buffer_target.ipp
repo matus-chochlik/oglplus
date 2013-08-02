@@ -37,7 +37,7 @@ Texture,
 TransformFeedback,
 /// UNIFORM_BUFFER
 Uniform,
-/// QUERY_BUFFER_AMD
+/// QUERY_BUFFER
 Query,
 /// EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 ExternalVirtualMemory

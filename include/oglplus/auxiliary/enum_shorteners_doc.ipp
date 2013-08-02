@@ -18625,7 +18625,7 @@ template <typename Enum> friend bool operator!=(Enum value, QuadStrip);
  *
  *  @glsymbols
  *  @gldefref{QUERY}
- *  @gldefref{QUERY_BUFFER_AMD}
+ *  @gldefref{QUERY_BUFFER}
  *
  *  @ingroup smart_enums
  */

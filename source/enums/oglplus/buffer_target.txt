@@ -1,4 +1,4 @@
-# Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+# Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ARRAY_BUFFER:Array:::ARRAY_BUFFER_BINDING:
@@ -14,5 +14,5 @@ SHADER_STORAGE_BUFFER:ShaderStorage:::SHADER_STORAGE_BUFFER_BINDING:
 TEXTURE_BUFFER:Texture:::TEXTURE_BUFFER_BINDING:
 TRANSFORM_FEEDBACK_BUFFER:TransformFeedback:::TRANSFORM_FEEDBACK_BUFFER_BINDING:
 UNIFORM_BUFFER:Uniform:::UNIFORM_BUFFER_BINDING:
-QUERY_BUFFER_AMD:Query:::QUERY_BUFFER_BINDING_AMD:
+QUERY_BUFFER:Query:::QUERY_BUFFER_BINDING:
 EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD:ExternalVirtualMemory
