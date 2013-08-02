@@ -28,7 +28,7 @@
 
 namespace oglplus {
 
-class TriangleExample : public Example
+class ParallaxExample : public Example
 {
 private:
 	Context gl;
@@ -42,7 +42,7 @@ private:
 
 	Texture color_tex, bump_tex;
 public:
-	TriangleExample(void)
+	ParallaxExample(void)
 	 : projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	 , camera_position(prog, "CameraPosition")
@@ -407,7 +407,7 @@ std::unique_ptr<ExampleThread> makeExampleThread(
 
 std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
-	return std::unique_ptr<Example>(new TriangleExample);
+	return std::unique_ptr<Example>(new ParallaxExample);
 }
 
 } // namespace oglplus
