@@ -19,8 +19,6 @@
 #include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/matrix.hpp>
 
-#include <iostream> // TODO
-
 namespace oglplus {
 namespace shapes {
 
@@ -45,8 +43,6 @@ private:
 			M( 1, 0, 0,  0, 1, 0,  0, 0, 1),//[4]+z
 			M(-1, 0, 0,  0, 1, 0,  0, 0,-1) //[5]-z
 		};
-//std::cout << face << std::endl; // TODO
-//assert(Cross(m[face].Row(0), m[face].Row(1)) == m[face].Row(2));
 		return m[face];
 	}
 
@@ -117,14 +113,9 @@ private:
 public:
 	/// Constructs a unit cage centered at the origin
 	Cage(void)
-	 : _size(1, 1.25, 1.5)
-	 , _barw(0.15, 0.15, 0.15)
-	 , _divs(4, 5, 6)
-/*
 	 : _size(1, 1, 1)
 	 , _barw(0.15, 0.15, 0.15)
 	 , _divs(4, 4, 4)
-*/
 	{ }
 
 	/// Constructs a cage with width, height, depth
@@ -592,7 +583,6 @@ public:
 			}
 
 			GLuint dy = _face_divs(f, 1);
-std::cout << f << ": " << dx << "|" << dy << std::endl;
 			for(GLuint s=0; s!=2; ++s)
 			{
 				for(GLuint y=1; y!=dy; ++y)
@@ -621,8 +611,6 @@ std::cout << f << ": " << dx << "|" << dy << std::endl;
 				}
 			}
 		}
-std::cout << std::distance(indices.begin(), i) << std::endl;
-std::cout << std::distance(indices.begin(), indices.end()) << std::endl;
 		assert(i == indices.end());
 		return indices;
 	}
