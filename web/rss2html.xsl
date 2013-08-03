@@ -23,14 +23,16 @@
 				<xsl:value-of select="description/text()"/>
 			</xsl:if>
 			<br/>
-			<span class="rss-item-link">
-				<xsl:element name="a">
-					<xsl:attribute name="href">
-						<xsl:value-of select="link/text()"/>
-					</xsl:attribute>
-					more>>>
-				</xsl:element>
-			</span>
+			<xsl:if test="link">
+				<span class="rss-item-link">
+					<xsl:element name="a">
+						<xsl:attribute name="href">
+							<xsl:value-of select="link/text()"/>
+						</xsl:attribute>
+						more>>>
+					</xsl:element>
+				</span>
+			</xsl:if>
 		</p>
 	</div>
 </xsl:template>
