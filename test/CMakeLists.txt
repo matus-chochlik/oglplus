@@ -4,8 +4,6 @@
 #
 cmake_minimum_required(VERSION 2.8)
 
-include(../config/ExeRequirements.cmake)
-
 if(Boost_FOUND)
 	add_subdirectory("oglplus")
 else()

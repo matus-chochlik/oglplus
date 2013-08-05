@@ -3,11 +3,11 @@
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 # checks if an EXE can be built and adds required include directories
-macro(require_all_dependencies EXE_NAME RESULT)
+macro(do_require_all_dependencies EXE_DIR EXE_NAME RESULT)
 
-	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/${EXE_NAME}.txt")
+	if(EXISTS "${EXE_DIR}/dependencies/${EXE_NAME}.txt")
 		file(STRINGS
-			"${CMAKE_CURRENT_SOURCE_DIR}/dependencies/${EXE_NAME}.txt"
+			"${EXE_DIR}/dependencies/${EXE_NAME}.txt"
 			EXE_DEPENDENCIES
 		)
 		foreach(DEPENDENCY ${EXE_DEPENDENCIES})
@@ -35,15 +35,13 @@ macro(require_all_dependencies EXE_NAME RESULT)
 				)
 				set(${RESULT} false)
 			endif()
-			
 		endforeach()
 	endif()
 
-	file(GLOB REQ_FILES "${CMAKE_CURRENT_SOURCE_DIR}/requirements/${EXE_NAME}.*.txt")
+	file(GLOB REQ_FILES "${EXE_DIR}/requirements/${EXE_NAME}.*.txt")
 
 	foreach(REQ_FILE ${REQ_FILES})
 		file(STRINGS "${REQ_FILE}" EXE_REQUIREMENTS)
-		
 		foreach(REQUIREMENT ${EXE_REQUIREMENTS})
 			if(${OGLPLUS_NO_${REQUIREMENT}})
 				message(
@@ -56,6 +54,14 @@ macro(require_all_dependencies EXE_NAME RESULT)
 		endforeach()
 	endforeach()
 
+endmacro(do_require_all_dependencies)
+
+macro(require_all_dependencies EXE_NAME RESULT)
+	do_require_all_dependencies(
+		"${CMAKE_CURRENT_SOURCE_DIR}"
+		"${EXE_NAME}"
+		"${RESULT}"
+	)
 endmacro(require_all_dependencies)
 
 # adds all required libraries to an exe

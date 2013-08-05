@@ -70,14 +70,27 @@ include(config/CPP11.cmake)
 # check if Boost.Config is available
 include(config/FindBoost.cmake)
 
+# macro for checking executable requirements
+include(config/ExeRequirements.cmake)
+
 # We'll need OpenGL API and context initialization/window-system library
 foreach(KIND API INIT)
 	if((NOT OGLPLUS_FORCE_GL_${KIND}_LIB) OR (${OGLPLUS_FORCE_GL_${KIND}_LIB} STREQUAL "NONE"))
 		foreach(GL_${KIND}_LIB ${OGLPLUS_GL_${KIND}_LIBS})
 			if(${GL_${KIND}_LIB}_FOUND)
-				set(OGLPLUS_GL_${KIND}_LIB ${GL_${KIND}_LIB})
-				set(OGLPLUS_USE_${GL_${KIND}_LIB} 1)
-				break()
+				set(GL_LIB_HAS_ALL_DEPS true)
+				string(TOLOWER ${GL_${KIND}_LIB} LIB_LC)
+				do_require_all_dependencies(
+					"${CMAKE_CURRENT_SOURCE_DIR}/example/oglplus"
+					"${LIB_LC}_main"
+					GL_LIB_HAS_ALL_DEPS
+				)
+				unset(LIB_LC)
+				if(${GL_LIB_HAS_ALL_DEPS})
+					set(OGLPLUS_GL_${KIND}_LIB ${GL_${KIND}_LIB})
+					set(OGLPLUS_USE_${GL_${KIND}_LIB} 1)
+					break()
+				endif()
 			endif()
 		endforeach()
 	else()
