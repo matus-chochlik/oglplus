@@ -45,7 +45,7 @@ private:
 
 	wxGLCanvas* gl_canvas;
 	wxGLContext gl_context;
-	std::unique_ptr<oglplus::GLAPIInitializer> api_init;
+	std::unique_ptr<oglplus::GLAPIInitializer> gl_api_init;
 
 	std::shared_ptr<SpectraSharedObjects> shared_objects;
 
