@@ -16,7 +16,7 @@
 #include <oglplus/all.hpp>
 
 #include <oglplus/shapes/cube.hpp>
-#include <oglplus/shapes/wicker_torus.hpp>
+#include <oglplus/shapes/twisted_torus.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
 #include <oglplus/bound/texture.hpp>
@@ -257,7 +257,7 @@ public:
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	 , model_matrix(prog, "ModelMatrix")
-	 , shape(List("Position")("Normal")("TexCoord").Get(), shapes::WickerTorus(), prog)
+	 , shape(List("Position")("Normal")("TexCoord").Get(), shapes::TwistedTorus(), prog)
 	 , tex_side(512)
 	 , parent_ready(example.parent_ready)
 	{

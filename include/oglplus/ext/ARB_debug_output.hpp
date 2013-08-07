@@ -93,7 +93,7 @@ OGLPLUS_ENUM_CLASS_END(DebugOutputARBType)
  *  @glsymbols
  *  @glextref{ARB,debug_output}
  *
- *  @ingroup extensions
+ *  @ingroup gl_extensions
  */
 class ARB_debug_output
 {
@@ -121,11 +121,22 @@ public:
 	/// Structure containing data passed to Callback functor
 	struct CallbackData
 	{
+		/// The source of the debug message
 		DebugOutputARBSource source;
+
+		/// The type of the debug message
 		DebugOutputARBType type;
+
+		/// The id of the debug message
 		GLuint id;
+
+		/// The severity of the debug message
 		DebugOutputARBSeverity severity;
+
+		/// The length of th debug message
 		GLsizei length;
+
+		/// The debug message
 		const GLchar* message;
 	};
 
@@ -194,7 +205,7 @@ public:
 			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(GetPointerv));
 
 			OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
-				&LogSink::_gl_debug_proc,
+				GLDEBUGPROCARB(&LogSink::_gl_debug_proc),
 				static_cast<void*>(this)
 			);
 			OGLPLUS_VERIFY(

@@ -78,16 +78,17 @@ add_custom_command(
 )
 
 add_custom_target(
-	rebuild-oglplus-doc
-	COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	oglplus-prebuild-doc
+	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
 )
-
-unset(DOXYFILE)
 
 add_custom_target(
 	oglplus-doc
-	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
+	COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	DEPENDS oglplus-prebuild-doc
 )
+
+unset(DOXYFILE)
 
 unset(DOC_DEPENDS)

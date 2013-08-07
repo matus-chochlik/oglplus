@@ -37,20 +37,39 @@ namespace oglplus {
  *
  *  @ingroup utility_classes
  */
-template <template <class> class Base, class BaseParam>
+template <template <class, class> class Base, class BaseParam>
 class BoundTemplate<Base, BaseParam, TextureOps>
- : public Base<BaseParam>
+ : public Base<BaseParam, TextureOps>
 {
+private:
+	typedef Base<
+		BaseParam,
+		TextureOps
+	> _Base;
 public:
 	BoundTemplate(
 		const TextureOps& bindable,
 		TextureOps::Target target
-	): Base<TextureOps>(bindable, target)
+	): _Base(bindable, target)
 	{ }
 
 	BoundTemplate(
 		TextureOps::Target target
-	): Base<BaseParam>(target)
+	): _Base(target)
+	{ }
+
+
+	BoundTemplate(
+		const TextureOps& bindable,
+		TextureOps::Target target,
+		GLuint tex_unit
+	): _Base(bindable, target, tex_unit)
+	{ }
+
+	BoundTemplate(
+		TextureOps::Target target,
+		GLuint tex_unit
+	): _Base(target, tex_unit)
 	{ }
 
 
@@ -1397,6 +1416,42 @@ public:
 	) const
 	{
 		TextureOps::MaxLevel(
+			this->BindTarget(),
+			value
+		);
+	}
+
+
+	/** Wrapper for Texture::MaxAnisotropy()
+	 *  @see Texture::MaxAnisotropy()
+	 */
+	GLfloat MaxAnisotropy(void) const
+	{
+		return TextureOps::MaxAnisotropy(
+			this->BindTarget()
+		);
+	}
+
+
+	/** Wrapper for Texture::Anisotropy()
+	 *  @see Texture::Anisotropy()
+	 */
+	GLfloat Anisotropy(void) const
+	{
+		return TextureOps::Anisotropy(
+			this->BindTarget()
+		);
+	}
+
+
+	/** Wrapper for Texture::Anisotropy()
+	 *  @see Texture::Anisotropy()
+	 */
+	void Anisotropy(
+		GLfloat value
+	) const
+	{
+		TextureOps::Anisotropy(
 			this->BindTarget(),
 			value
 		);

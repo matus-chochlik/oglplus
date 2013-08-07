@@ -46,7 +46,7 @@ function make_example_dep_lists()
 		echo ${example_name}
 		dependency_file=example/${oglplus_lib}/dependencies/${example_name}.txt
 
-		g++ --std=c++0x ${example_path} ${CXXFLAGS} -Iinclude -DOGLPLUS_NO_SITE_CONFIG=1 -DOGLPLUS_NO_GL=1 -E -M -o ${temp_file}
+		g++ --std=c++0x ${example_path} ${CXXFLAGS} -Iinclude -Ithird_party/include -DOGLPLUS_NO_SITE_CONFIG=1 -DOGLPLUS_NO_GL=1 -E -M -o ${temp_file}
 
 		for dep_data
 		do
@@ -70,7 +70,7 @@ function make_example_dep_lists()
 
 echo "----------------------|C++ 2011 features|---------------------"
 make_example_req_list requirements cpp "@${oglplus_lib}_example_uses_cxx11"
-echo "--------------------0--|OpenGL Version|----------------------"
+echo "------------------------|OpenGL Version|----------------------"
 make_example_req_list requirements gl "@${oglplus_lib}_example_uses_gl"
 echo "--------------------------|Textures|--------------------------"
 make_example_req_list resources tex "@${oglplus_lib}_example_uses_texture"

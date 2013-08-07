@@ -19,8 +19,6 @@
 #include <oglplus/text/bitmap_glyph/layout.hpp>
 #include <oglplus/text/bitmap_glyph/renderer.hpp>
 
-#include <oglplus/auxiliary/filesystem.hpp>
-
 #include <oglplus/program.hpp>
 #include <oglplus/uniform.hpp>
 
@@ -66,32 +64,6 @@ struct BitmapGlyphRenderingConfig
 class BitmapGlyphRenderingBase
 {
 protected:
-	// path to the directory where the font files are stored
-	std::string _font_dir;
-
-	friend std::string BitmapGlyphFontPath(
-		const BitmapGlyphRenderingBase& that,
-		const std::string& font_name
-	)
-	{
-		std::string dirsep = oglplus::aux::FilesysPathSep();
-		return that._font_dir+dirsep+font_name;
-	}
-
-	friend std::string BitmapGlyphFontPagePath(
-		const BitmapGlyphRenderingBase& that,
-		const std::string& font_name,
-		GLint font_page
-	)
-	{
-		std::string dirsep = oglplus::aux::FilesysPathSep();
-		return that._font_dir+
-			dirsep+
-			font_name+
-			dirsep+
-			BitmapGlyphPageName(that, font_page);
-	}
-
 	TextureUnitSelector _bitmap_tex_unit;
 	TextureUnitSelector _metric_tex_unit;
 	TextureUnitSelector _pg_map_tex_unit;
@@ -100,59 +72,22 @@ protected:
 
 	// the number of frames (texture images) that are used to store
 	// active glyph pages for rendering
-	friend unsigned BitmapGlyphPageFrames(
-		const BitmapGlyphRenderingBase& that
-	)
-	{
-		return that._config.page_frames;
-	}
+	friend unsigned BitmapGlyphPageFrames(const BitmapGlyphRenderingBase&);
+
+	friend unsigned BitmapGlyphPlaneCount(const BitmapGlyphRenderingBase&);
 
 
-	friend unsigned BitmapGlyphPlaneCount(
-		const BitmapGlyphRenderingBase& that
-	)
-	{
-		return that._config.plane_count;
-	}
+	friend unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRenderingBase&);
 
 
-	friend unsigned BitmapGlyphPagesPerPlane(
-		const BitmapGlyphRenderingBase& that
-	)
-	{
-		return that._config.pages_per_plane;
-	}
-
-
-	friend unsigned BitmapGlyphGlyphsPerPage(
-		const BitmapGlyphRenderingBase& that
-	)
-	{
-		return that._config.glyphs_per_page;
-	}
-
+	friend unsigned BitmapGlyphGlyphsPerPage(const BitmapGlyphRenderingBase&);
 
 	std::list<BitmapGlyphLayoutStorage> _layout_storage;
 
 	friend void BitmapGlyphAllocateLayoutData(
 		BitmapGlyphRenderingBase& that,
 		BitmapGlyphLayoutData& layout_data
-	)
-	{
-		auto	i = that._layout_storage.begin(),
-			e = that._layout_storage.end();
-		while(i != e)
-		{
-			if(i->Allocate(layout_data)) return;
-			++i;
-		}
-		that._layout_storage.emplace_back(
-			that,
-			that._config.layout_storage_page,
-			that._config.layout_storage_unit
-		);
-		that._layout_storage.back().Allocate(layout_data);
-	}
+	);
 
 	template <typename BitmapFont>
 	friend void BitmapGlyphInitializeLayoutData(
@@ -161,41 +96,19 @@ protected:
 		BitmapFont& font,
 		const CodePoint* cps,
 		GLsizei length
-	)
-	{
-		OGLPLUS_FAKE_USE(that);
-		assert(layout_data._storage);
-		BitmapGlyphLayoutStorage& _storage = *layout_data._storage;
-		std::vector<GLfloat> x_offsets;
-		GLfloat width = font.QueryXOffsets(cps, length, x_offsets);
-		_storage.Initialize(
-			layout_data,
-			width,
-			x_offsets,
-			cps,
-			length
-		);
-	}
+	);
 
 	friend void BitmapGlyphDeallocateLayoutData(
 		BitmapGlyphRenderingBase& that,
 		BitmapGlyphLayoutData& layout_data
-	)
-	{
-		OGLPLUS_FAKE_USE(that);
-		assert(layout_data._storage);
-		BitmapGlyphLayoutStorage& _storage = *layout_data._storage;
-		_storage.Deallocate(layout_data);
-	}
+	);
 
 	BitmapGlyphRenderingBase(
-		const std::string& font_dir,
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
 		TextureUnitSelector pg_map_tex_unit,
 		const BitmapGlyphRenderingConfig& config
-	): _font_dir(font_dir)
-	 , _bitmap_tex_unit(bitmap_tex_unit)
+	): _bitmap_tex_unit(bitmap_tex_unit)
 	 , _metric_tex_unit(metric_tex_unit)
 	 , _pg_map_tex_unit(pg_map_tex_unit)
 	 , _config(config)
@@ -227,19 +140,94 @@ public:
 	}
 };
 
+inline unsigned BitmapGlyphPageFrames(const BitmapGlyphRenderingBase& that)
+{
+	return that._config.page_frames;
+}
+
+
+inline unsigned BitmapGlyphPlaneCount(const BitmapGlyphRenderingBase& that)
+{
+	return that._config.plane_count;
+}
+
+
+inline unsigned BitmapGlyphPagesPerPlane(const BitmapGlyphRenderingBase& that)
+{
+	return that._config.pages_per_plane;
+}
+
+
+inline unsigned BitmapGlyphGlyphsPerPage(const BitmapGlyphRenderingBase& that)
+{
+	return that._config.glyphs_per_page;
+}
+
+inline void BitmapGlyphAllocateLayoutData(
+	BitmapGlyphRenderingBase& that,
+	BitmapGlyphLayoutData& layout_data
+)
+{
+	auto	i = that._layout_storage.begin(),
+		e = that._layout_storage.end();
+	while(i != e)
+	{
+		if(i->Allocate(layout_data)) return;
+		++i;
+	}
+	that._layout_storage.emplace_back(
+		that,
+		that._config.layout_storage_page,
+		that._config.layout_storage_unit
+	);
+	that._layout_storage.back().Allocate(layout_data);
+}
+
+template <typename BitmapFont>
+inline void BitmapGlyphInitializeLayoutData(
+	BitmapGlyphRenderingBase& that,
+	BitmapGlyphLayoutData& layout_data,
+	BitmapFont& font,
+	const CodePoint* cps,
+	GLsizei length
+)
+{
+	OGLPLUS_FAKE_USE(that);
+	assert(layout_data._storage);
+	BitmapGlyphLayoutStorage& _storage = *layout_data._storage;
+	std::vector<GLfloat> x_offsets;
+	GLfloat width = font.QueryXOffsets(cps, length, x_offsets);
+	_storage.Initialize(
+		layout_data,
+		width,
+		x_offsets,
+		cps,
+		length
+	);
+}
+
+inline void BitmapGlyphDeallocateLayoutData(
+	BitmapGlyphRenderingBase& /*that*/,
+	BitmapGlyphLayoutData& layout_data
+)
+{
+	assert(layout_data._storage);
+	BitmapGlyphLayoutStorage& _storage = *layout_data._storage;
+	_storage.Deallocate(layout_data);
+}
+
+
 template <class BitmapFont>
 class BitmapGlyphRenderingTpl
  : public BitmapGlyphRenderingBase
 {
 public:
 	BitmapGlyphRenderingTpl(
-		const std::string& font_dir,
 		TextureUnitSelector bitmap_tex_unit,
 		TextureUnitSelector metric_tex_unit,
 		TextureUnitSelector pg_map_tex_unit,
 		const Config& config = Config()
 	): BitmapGlyphRenderingBase(
-		font_dir,
 		bitmap_tex_unit,
 		metric_tex_unit,
 		pg_map_tex_unit,
@@ -297,7 +285,7 @@ public:
 		std::size_t size
 	)
 	{
-		std::vector<CodePoint> cps;
+		CodePoints cps;
 		UTF8ToCodePoints(c_str, size, cps);
 
 		Layout layout(MakeLayout(font, size));

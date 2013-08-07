@@ -12,7 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/cube.hpp>
+#include <oglplus/shapes/cage.hpp>
 
 #include <cmath>
 
@@ -24,9 +24,9 @@ class ReflectionExample : public Example
 {
 private:
 	// the cube vertex attribute builder
-	shapes::Cube make_cube;
+	shapes::Cage make_cube;
 	// here will be stored the indices used by the drawing instructions
-	shapes::Cube::IndexArray cube_indices;
+	shapes::Cage::IndexArray cube_indices;
 	// the instructions for drawing the cube
 	shapes::DrawingInstructions cube_instr;
 
@@ -56,7 +56,8 @@ private:
 	Buffer plane_verts, plane_normals;
 public:
 	ReflectionExample(void)
-	 : cube_indices(make_cube.Indices())
+	 : make_cube(0.5,0.5,0.5, 0.1,0.1,0.1, 3,3,3)
+	 , cube_indices(make_cube.Indices())
 	 , cube_instr(make_cube.Instructions())
 	 , vs(ObjectDesc("Vertex"))
 	 , fs(ObjectDesc("Fragment"))
@@ -77,7 +78,7 @@ public:
 			"void main(void)"
 			"{"
 			"	gl_Position = ModelMatrix * Position;"
-			"	vertColor = Normal;"
+			"	vertColor = abs(normalize(Normal+vec3(1, 1, 1)));"
 			"	vertNormal = mat3(ModelMatrix)*Normal;"
 			"	vertLight = LightPos - gl_Position.xyz;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
@@ -97,8 +98,8 @@ public:
 			"{"
 			"	float l = dot(vertLight, vertLight);"
 			"	float d = l > 0.0 ? dot(vertNormal, normalize(vertLight)) / l : 0.0;"
-			"	float i = 0.2 + max(d * 2.2, 0.0);"
-			"	fragColor = vec4(abs(vertColor)*i, 1.0);"
+			"	float i = 0.2 + max(d*3.2, 0.0);"
+			"	fragColor = vec4(vertColor*i, 1.0);"
 			"}"
 		);
 		// compile it
@@ -209,7 +210,7 @@ public:
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				5.0,
-				Degrees(time * 10),
+				Degrees(time * 11),
 				Degrees(15 + (-SineWave(0.25+time/12.5)+1.0)*0.5*75)
 			)
 		);
@@ -217,10 +218,9 @@ public:
 		// make the model transformation matrix
 		ModelMatrixf model =
 			ModelMatrixf::Translation(0.0f, 1.5f, 0.0) *
-			ModelMatrixf::RotationA(
-				Vec3f(1.0f, 1.0f, 1.0f),
-				Degrees(time * 90)
-			);
+			ModelMatrixf::RotationZ(Degrees(time * 43))*
+			ModelMatrixf::RotationY(Degrees(time * 63))*
+			ModelMatrixf::RotationX(Degrees(time * 79));
 		// make the reflection matrix
 		auto reflection = ModelMatrixf::Reflection(false, true, false);
 		//
@@ -261,7 +261,7 @@ public:
 
 	bool Continue(double time)
 	{
-		return time < 30.0;
+		return time < 60.0;
 	}
 };
 

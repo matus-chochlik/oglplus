@@ -221,17 +221,17 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_QUERY_BUFFER_AMD
+#if defined GL_QUERY_BUFFER
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
 # if defined Query
 #  pragma push_macro("Query")
 #  undef Query
-   OGLPLUS_ENUM_CLASS_VALUE(Query, GL_QUERY_BUFFER_AMD)
+   OGLPLUS_ENUM_CLASS_VALUE(Query, GL_QUERY_BUFFER)
 #  pragma pop_macro("Query")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(Query, GL_QUERY_BUFFER_AMD)
+   OGLPLUS_ENUM_CLASS_VALUE(Query, GL_QUERY_BUFFER)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1

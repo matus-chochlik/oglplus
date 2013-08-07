@@ -90,7 +90,7 @@ private:
 	)
 	{
 		unsigned c = input.Channels();
-		auto p = this->_begin<T>(), e = this->_end<T>();
+		auto p = this->_begin<T>();
 		unsigned w = input.Width(), h = input.Height(), d = input.Depth();
 		for(unsigned k=0; k!=d; ++k)
 		for(unsigned j=0; j!=h; ++j)
@@ -101,13 +101,12 @@ private:
 
 			for(unsigned ci=0; ci!=CH; ++ci)
 			{
-				assert(p != e);
+				assert(p != this->_end<T>());
 				*p = outv.At(ci);
 				++p;
 			}
 		}
-		OGLPLUS_FAKE_USE(e);
-		assert(p == e);
+		assert(p == this->_end<T>());
 	}
 public:
 	/// Extractor that allows to specify which component to use as input

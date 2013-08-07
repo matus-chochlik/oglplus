@@ -257,15 +257,18 @@ public:
 	{ }
 };
 
-class LiquidProgram
- : public HardwiredTupleProgram<
-	std::tuple<LiquidVertShader, LiquidGeomShader, LiquidFragShader>
->
+class LiquidProgram : public Program
 {
 private:
-	typedef HardwiredTupleProgram<
-		std::tuple<LiquidVertShader, LiquidGeomShader, LiquidFragShader>
-	> _base_program;
+	static Program make(void)
+	{
+		Program prog;
+		prog.AttachShader(LiquidVertShader());
+		prog.AttachShader(LiquidGeomShader());
+		prog.AttachShader(LiquidFragShader());
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix;
@@ -273,7 +276,7 @@ public:
 	ProgramUniform<GLfloat> time;
 
 	LiquidProgram(void)
-	 : _base_program(std::false_type())
+	 : Program(make())
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")

@@ -5,38 +5,78 @@
 #
 cd $(dirname $0)/../
 build_dir=${PWD}/_build
-label="http://oglplus.org/"
+example="${1%.cpp}"
+urllabel="http://oglplus.org/"
+exelabel="$(basename ${example})"
 width=852
 height=480
-example="${1%.cpp}"
 #
+rootdir="$(dirname $0)/.."
 tmpdir=$(mktemp -d)
 mkdir -p ${tmpdir}
 #
 prefix="${tmpdir}/oglplus-$(basename ${example})"
-labelfile=${tmpdir}/label.png
+urllabelfile=${tmpdir}/url_label.png
+exelabelfile=${tmpdir}/exe_label.png
+logofile=${tmpdir}/logo.png
 #
 filelist=${tmpdir}/filelist
 rm -f ${filelist}
 mkfifo ${filelist}
 
-# make the label
+# make the oglplus url label
 convert \
-	-size $[${width}/2]x24 xc:none \
+	-size $[${width}/2]x28 xc:none \
 	-background none \
 	-pointsize 28 \
 	-gravity center \
 	-stroke black \
 	-strokewidth 8 \
-	-annotate 0 "${label}" \
+	-annotate 0 "${urllabel}" \
 	-blur 0x4 \
 	-shadow ${width}x7+2+2 \
 	+repage \
 	-stroke none \
 	-strokewidth 1 \
 	-fill white \
-	-annotate 0 "${label}" \
-	${labelfile}
+	-annotate 0 "${urllabel}" \
+	${urllabelfile}
+
+# make the example name label
+convert \
+	-size $[${width}/3+${#exelabel}*4]x90 xc:none \
+	-background none \
+	-pointsize 16 \
+	-gravity center \
+	-stroke black \
+	-strokewidth 2 \
+	-annotate 0 "${exelabel}" \
+	-blur 0x4 \
+	-shadow $((width/4))x4+1+1 \
+	+repage \
+	-stroke none \
+	-strokewidth 1 \
+	-fill white \
+	-annotate 0 "${exelabel}" \
+	${exelabelfile}
+
+# make the logo
+convert \
+	-size 144x144 xc:none \
+	-background none \
+	-gravity center \
+	-stroke black \
+	-fill black \
+	-draw 'circle 72,72, 72,144' \
+	-blur 2x2 \
+	-shadow ${width}x7 \
+	+repage \
+	"${rootdir}/doc/logo/oglplus_circular.png" \
+	-composite \
+	-adaptive-resize 72x72 \
+	-border 16x0 \
+	"${logofile}"
+
 
 if [ "${example}" == "" ]
 then echo "No example specified" && exit 1
@@ -55,7 +95,13 @@ function convert_single_frame()
 		-flip \
 		-alpha Off \
 		-gravity SouthEast \
-		${labelfile} \
+		${urllabelfile} \
+		-composite \
+		-gravity SouthEast \
+		${exelabelfile} \
+		-composite \
+		-gravity SouthEast \
+		${logofile} \
 		-composite \
 		-quality 100 \
 		${1%.rgba}.jpeg

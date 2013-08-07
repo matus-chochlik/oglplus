@@ -29,6 +29,7 @@
 
 #include <oglplus/ext/ARB_debug_output.hpp>
 
+#include <unordered_set>
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -203,7 +204,73 @@ void call_example_thread_main(ExampleThreadData& data)
 	}
 }
 
-void run_example_loop(
+class ExampleDebugCallbackEssence
+{
+private:
+	std::ostream& dbgout;
+
+	String buffer;
+	std::unordered_set<String> already_done;
+
+	void Print(const ARB_debug_output::CallbackData& data)
+	{
+		dbgout << " |" << std::endl;
+		dbgout << " +-+-[" << data.id << "] '" <<
+			data.message << "'" << std::endl;
+		dbgout << " | +---[source]   '" <<
+			EnumValueName(data.source).c_str()  << "'" << std::endl;
+		dbgout << " | +---[type]     '" <<
+			EnumValueName(data.type).c_str()  << "'" << std::endl;
+		dbgout << " | `---[severity] '" <<
+			EnumValueName(data.severity).c_str()  << "'" << std::endl;
+	}
+
+	ExampleDebugCallbackEssence(const ExampleDebugCallbackEssence&);
+public:
+	ExampleDebugCallbackEssence(std::ostream& out)
+	 : dbgout(out)
+	{
+		dbgout << "-+-[Begin]" << std::endl;
+	}
+
+	~ExampleDebugCallbackEssence(void)
+	{
+		dbgout << " `-[Done]" << std::endl;
+	}
+
+
+	void Call(const ARB_debug_output::CallbackData& data)
+	{
+		if(GLsizei(buffer.capacity()) < data.length)
+		{
+			buffer.resize(data.length);
+		}
+		buffer.assign(data.message, data.length);
+		if(already_done.find(buffer) == already_done.end())
+		{
+			already_done.insert(buffer);
+			Print(data);
+			
+		}
+	}
+};
+
+class ExampleDebugCallback
+{
+private:
+	std::shared_ptr<ExampleDebugCallbackEssence> ess;
+public:
+	ExampleDebugCallback(std::ostream& out)
+	 : ess(std::make_shared<ExampleDebugCallbackEssence>(out))
+	{ }
+
+	void operator()(const ARB_debug_output::CallbackData& data)
+	{
+		ess->Call(data);
+	}
+};
+
+void do_run_example_loop(
 	const x11::Display& display,
 	const x11::Window& win,
 	const glx::Context& ctx,
@@ -214,40 +281,6 @@ void run_example_loop(
 	GLuint height
 )
 {
-	std::cout << "-+-[Begin]" << std::endl;
-#if GL_ARB_debug_output && !OGLPLUS_NO_LAMBDAS
-	ARB_debug_output dbg;
-	ARB_debug_output::LogSink sink(
-		[](const ARB_debug_output::CallbackData& data) -> void
-		{
-			std::cout << " |" << std::endl;
-			std::cout << " +-+-[" << data.id << "] '" <<
-				data.message << "'" << std::endl;
-			std::cout << " | +---[source]   '" <<
-				EnumValueName(data.source).c_str()  << "'" << std::endl;
-			std::cout << " | +---[type]     '" <<
-				EnumValueName(data.type).c_str()  << "'" << std::endl;
-			std::cout << " | `---[severity] '" <<
-				EnumValueName(data.severity).c_str()  << "'" << std::endl;
-		}
-	);
-
-	dbg.Control(
-		DebugOutputARBSource::DontCare,
-		DebugOutputARBType::DontCare,
-		DebugOutputARBSeverity::Low,
-		true
-	);
-
-	dbg.InsertMessage(
-		DebugOutputARBSource::Application,
-		DebugOutputARBType::Other,
-		0,
-		DebugOutputARBSeverity::Low,
-		"Starting main loop"
-	);
-#endif // GL_ARB_debug_output
-
 	win.SelectInput(
 		StructureNotifyMask|
 		PointerMotionMask|
@@ -299,7 +332,65 @@ void run_example_loop(
 		example->Render(clock);
 		ctx.SwapBuffers(win);
 	}
-	std::cout << " `-[Done]" << std::endl;
+}
+
+void run_example_loop(
+	const x11::Display& display,
+	const x11::Window& win,
+	const glx::Context& ctx,
+	std::unique_ptr<Example>& example,
+	ExampleThreadData::Common& common,
+	ExampleClock& clock,
+	GLuint width,
+	GLuint height
+)
+{
+#if GL_ARB_debug_output
+	ARB_debug_output dbg(false); // don't throw
+	if(dbg.Available())
+	{
+		ExampleDebugCallback dbgcb(std::cerr);
+		ARB_debug_output::LogSink sink(dbgcb);
+
+		dbg.Control(
+			DebugOutputARBSource::DontCare,
+			DebugOutputARBType::DontCare,
+			DebugOutputARBSeverity::Low,
+			true
+		);
+
+		dbg.InsertMessage(
+			DebugOutputARBSource::Application,
+			DebugOutputARBType::Other,
+			0,
+			DebugOutputARBSeverity::Low,
+			"Starting main loop"
+		);
+		do_run_example_loop(
+			display,
+			win,
+			ctx,
+			example,
+			common,
+			clock,
+			width,
+			height
+		);
+	}
+	else
+#endif // GL_ARB_debug_output
+	{
+		do_run_example_loop(
+			display,
+			win,
+			ctx,
+			example,
+			common,
+			clock,
+			width,
+			height
+		);
+	}
 }
 
 void run_framedump_loop(

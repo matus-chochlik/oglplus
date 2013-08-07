@@ -28,6 +28,16 @@ struct EnumBaseType
 	typedef ALenum Type;
 };
 #else
+// No scoped enums -> no enum value names/ranges
+#ifdef OALPLUS_NO_ENUM_VALUE_NAMES
+#undef OALPLUS_NO_ENUM_VALUE_NAMES
+#endif
+#define OALPLUS_NO_ENUM_VALUE_NAMES  1
+
+#ifdef OALPLUS_NO_ENUM_VALUE_RANGES
+#undef OALPLUS_NO_ENUM_VALUE_RANGES
+#endif
+#define OALPLUS_NO_ENUM_VALUE_RANGES 1
 using oglplus::EnumBaseType;
 #endif
 

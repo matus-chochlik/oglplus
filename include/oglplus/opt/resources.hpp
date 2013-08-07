@@ -13,8 +13,7 @@
 #ifndef OGLPLUS_OPT_RESOURCES_1107121519_HPP
 #define OGLPLUS_OPT_RESOURCES_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/config_basic.hpp>
 #include <oglplus/opt/application.hpp>
 #include <oglplus/auxiliary/filesystem.hpp>
 
@@ -125,7 +124,11 @@ ResourceFile::ResourceFile(
 	{
 		throw std::runtime_error(
 			std::string("Failed to open resource file '")+
-			category + '/' + name + '/' + ext +
+			category +
+			aux::FilesysPathSep() +
+			name +
+			aux::FilesysPathSep()+
+			ext +
 			std::string("'")
 		);
 	}

@@ -23,8 +23,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "007_cubic_bezier", "007_cub
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010_rgb_cube", "010_rgb_cube\010_rgb_cube.vcxproj", "{969BFFC6-1F51-EA75-939A-F588B10BFA4E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012_checker_cube", "012_checker_cube\012_checker_cube.vcxproj", "{FC95D2CC-B3A2-424E-3B21-179E65291828}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "015_graph", "015_graph\015_graph.vcxproj", "{2F87930F-C2E8-DD53-724D-50448619072C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "014_multi_cube_gs", "014_multi_cube_gs\014_multi_cube_gs.vcxproj", "{3020FF58-2126-A1AC-599C-6E8DB15BCF04}"

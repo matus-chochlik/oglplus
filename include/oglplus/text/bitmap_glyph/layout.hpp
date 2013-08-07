@@ -120,7 +120,7 @@ public:
 		BitmapGlyphInitializeLayoutData(_parent,_data,_font, cps, size);
 	}
 
-	void Set(const std::vector<CodePoint>& cps)
+	void Set(const CodePoints& cps)
 	{
 		Set(cps.data(), GLsizei(cps.size()));
 	}

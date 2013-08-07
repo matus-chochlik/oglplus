@@ -310,23 +310,47 @@ namespace oglplus {
  *
  *  @ingroup utility_classes
  */
-template &lt;template &lt;class&gt; class Base, class BaseParam&gt;
+template &lt;template &lt;class, class&gt; class Base, class BaseParam&gt;
 class BoundTemplate&lt;Base, BaseParam, </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
- : public Base&lt;BaseParam&gt;
+ : public Base&lt;BaseParam, </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
 {
+private:
+	typedef Base&lt;
+		BaseParam,
+		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops
+	&gt; _Base;
 public:
 	BoundTemplate(
 		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
-	): Base&lt;</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;(bindable, target)
+	): _Base(bindable, target)
 	{ }
 
 	BoundTemplate(
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
-	): Base&lt;BaseParam&gt;(target)
+	): _Base(target)
 	{ }
 
 </xsl:text>
+
+<!-- some customizations based on object type -->
+<xsl:if test="$object='texture'">
+<xsl:text>
+	BoundTemplate(
+		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
+		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target,
+		GLuint tex_unit
+	): _Base(bindable, target, tex_unit)
+	{ }
+
+	BoundTemplate(
+		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target,
+		GLuint tex_unit
+	): _Base(target, tex_unit)
+	{ }
+
+</xsl:text>
+</xsl:if>
 	<xsl:for-each select="sectiondef/memberdef[
 		@kind='function' and
 		@prot='public' and

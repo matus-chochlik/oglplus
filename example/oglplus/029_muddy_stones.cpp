@@ -10,6 +10,7 @@
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_1}
  *  @oglplus_example_uses_texture{stones_color_hmap}
+ *  @oglplus_example_uses_cxx11{SCOPED_ENUMS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -28,7 +29,7 @@
 
 namespace oglplus {
 
-class TriangleExample : public Example
+class ParallaxExample : public Example
 {
 private:
 	Context gl;
@@ -42,7 +43,7 @@ private:
 
 	Texture color_tex, bump_tex;
 public:
-	TriangleExample(void)
+	ParallaxExample(void)
 	 : projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	 , camera_position(prog, "CameraPosition")
@@ -345,12 +346,14 @@ public:
 
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
-		gl.Enable(Capability::DepthTest);
-		gl.Disable(Capability::CullFace);
 
-		gl.Enable(Functionality::ClipDistance, 0);
-		gl.Enable(Functionality::ClipDistance, 1);
-		gl.Enable(Functionality::ClipDistance, 2);
+
+		(Capability::DepthTest)<< true;
+		(Capability::CullFace) << false;
+
+		(Functionality::ClipDistance|0) << true;
+		(Functionality::ClipDistance|1) << true;
+		(Functionality::ClipDistance|2) << true;
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -405,7 +408,7 @@ std::unique_ptr<ExampleThread> makeExampleThread(
 
 std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
-	return std::unique_ptr<Example>(new TriangleExample);
+	return std::unique_ptr<Example>(new ParallaxExample);
 }
 
 } // namespace oglplus

@@ -12,7 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/torus.hpp>
+#include <oglplus/shapes/twisted_torus.hpp>
 
 #include <cmath>
 
@@ -24,11 +24,11 @@ class TorusExample : public Example
 {
 private:
 	// helper object building torus vertex attributes
-	shapes::Torus make_torus;
+	shapes::TwistedTorus make_torus;
 	// helper object encapsulating torus drawing instructions
 	shapes::DrawingInstructions torus_instr;
 	// indices pointing to torus primitive elements
-	shapes::Torus::IndexArray torus_indices;
+	shapes::TwistedTorus::IndexArray torus_indices;
 
 	// wrapper around the current OpenGL context
 	Context gl;
@@ -45,11 +45,11 @@ private:
 	// A vertex array object for the rendered torus
 	VertexArray torus;
 
-	// VBOs for the torus's vertices and normals
-	Buffer verts, normals;
+	// VBOs for the torus's vertex positions, normals and colors
+	Buffer positions, normals, colors;
 public:
 	TorusExample(void)
-	 : make_torus(1.0, 0.5, 72, 48)
+	 : make_torus()
 	 , torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
 	{
@@ -59,10 +59,13 @@ public:
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
+			"in vec3 Color;"
+			"out vec3 vertColor;"
 			"out vec3 vertNormal;"
 			"out vec3 vertViewDir;"
 			"void main(void)"
 			"{"
+			"	vertColor = normalize(vec3(1,1,1)-Color);"
 			"	vertNormal = Normal;"
 			"	vertViewDir = ("
 			"		vec4(0.0, 0.0, 1.0, 1.0)*"
@@ -80,6 +83,7 @@ public:
 		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
+			"in vec3 vertColor;"
 			"in vec3 vertNormal;"
 			"in vec3 vertViewDir;"
 			"out vec4 fragColor;"
@@ -104,7 +108,7 @@ public:
 			"		), 32.0 * dot(r, r));"
 			"	}"
 			"	fragColor = "
-			"		vec4(1.0, 0.1, 0.3, 1.0)*(amb+diff)+"
+			"		vec4(vertColor, 1.0)*(amb+diff)+"
 			"		vec4(1.0, 1.0, 1.0, 1.0)*spec;"
 			"}"
 		);
@@ -121,8 +125,8 @@ public:
 		// bind the VAO for the torus
 		torus.Bind();
 
-		// bind the VBO for the torus vertices
-		verts.Bind(Buffer::Target::Array);
+		// bind the VBO for the torus vertex positions
+		positions.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Positions(data);
@@ -147,10 +151,23 @@ public:
 			attr.Enable();
 		}
 
+		// bind the VBO for the torus colors
+		colors.Bind(Buffer::Target::Array);
+		{
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = make_torus.Tangents(data);
+			// upload the data
+			Buffer::Data(Buffer::Target::Array, data);
+			// setup the vertex attribs array for the vertices
+			VertexAttribArray attr(prog, "Color");
+			attr.Setup<GLfloat>(n_per_vertex);
+			attr.Enable();
+		}
+
 		// set the light positions
 		Uniform<Vec3f> light_pos(prog, "LightPos");
 		light_pos[0].Set(Vec3f(2.0f,-1.0f, 0.0f));
-		light_pos[1].Set(Vec3f(0.0f, 3.0f, 0.0f));
+		light_pos[1].Set(Vec3f(0.0f, 3.0f,-1.0f));
 		light_pos[2].Set(Vec3f(0.0f,-1.0f, 4.0f));
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
@@ -183,8 +200,8 @@ public:
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				5.0,
-				Degrees(time * 135),
-				Degrees(SineWave(time / 20.0) * 90)
+				FullCircles(time / 17.0),
+				Degrees(SineWave(time / 19.0) * 90)
 			)
 		);
 

@@ -28,43 +28,34 @@ add_custom_command(
 	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
 	COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-	COMMENT "Generating OALplus HTML documentation"
+	COMMENT "Generating EGLplus HTML documentation"
 )
 
 add_custom_target(
-	eglplus-doc-index-html
+	eglplus-prebuild-doc
 	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
 )
 
+add_custom_target(
+	eglplus-doc
+	COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	DEPENDS oglplus-prebuild-doc
+)
+
 set(COPIED_FILES tab_a.png tab_b.png tab_h.png tab_s.png tabs.css)
-set(COPIED_FILES_TARGETS "")
 
 foreach(COPIED_FILE ${COPIED_FILES})
-	add_custom_target(
-		"oglplus-doc-doxygen-eglplus-copy-${COPIED_FILE}"
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	add_custom_command(
+		TARGET eglplus-doc
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
 			"${CMAKE_CURRENT_SOURCE_DIR}/${COPIED_FILE}"
 			"${CMAKE_CURRENT_BINARY_DIR}/html/${COPIED_FILE}"
 		COMMENT "Copying file ${COPIED_FILE}"
-		DEPENDS eglplus-doc-index-html
-	)
-	set(COPIED_FILES_TARGETS
-		"${COPIED_FILES_TARGETS}"
-		"oglplus-doc-doxygen-eglplus-copy-${COPIED_FILE}"
 	)
 endforeach()
 
-add_custom_target(
-	rebuild-eglplus-doc
-	COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
 unset(DOXYFILE)
-
-add_custom_target(
-	eglplus-doc
-	DEPENDS ${COPIED_FILES_TARGETS}
-)
 
 unset(DOC_DEPENDS)

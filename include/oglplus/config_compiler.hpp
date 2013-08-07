@@ -96,6 +96,14 @@
 #endif
 #endif
 
+#ifndef OGLPLUS_NO_UNICODE_LITERALS
+#ifdef BOOST_NO_UNICODE_LITERALS
+#define OGLPLUS_NO_UNICODE_LITERALS 1
+#else
+#define OGLPLUS_NO_UNICODE_LITERALS 0
+#endif
+#endif
+
 #ifndef OGLPLUS_NO_USER_DEFINED_LITERALS
 /* TODO this macro is not (yet) available in Boost.
  * Update this if/when it is implemented

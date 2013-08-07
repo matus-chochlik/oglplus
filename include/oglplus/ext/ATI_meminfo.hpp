@@ -23,7 +23,7 @@ namespace oglplus {
  *  @glsymbols
  *  @glextref{ATI,meminfo}
  *
- *  @ingroup extensions
+ *  @ingroup gl_extensions
  */
 class ATI_meminfo
 {

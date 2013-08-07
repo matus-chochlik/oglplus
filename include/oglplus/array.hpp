@@ -36,7 +36,13 @@ class Array;
 template <class Object>
 class Array
 {
-public:
+public
+	/// Unspecified type usable as reference to Object
+	typedef Unspecified reference;
+
+	/// Unspecified type usable as const reference to Object
+	typedef Unspecified const_reference;
+
 	/// Constructor specifying the number of instance in the array
 	Array(GLsizei c);
 
@@ -47,10 +53,16 @@ public:
 	size_t size(void) const;
 
 	/// Returns a reference to the i-th instance in the array
-	const Object& at(GLuint index) const;
+	reference at(GLuint index);
+
+	/// Returns a const reference to the i-th instance in the array
+	const_reference at(GLuint index) const;
 
 	/// Returns a reference to the i-th instance in the array
-	const Object& operator[](GLuint index) const;
+	reference operator[](GLuint index);
+
+	/// Returns a const reference to the i-th instance in the array
+	const_reference operator[](GLuint index) const;
 
 	/// Iterator type
 	typedef ForwardIterator iterator;

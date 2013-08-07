@@ -13,7 +13,7 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/plane.hpp>
-#include <oglplus/shapes/spiral_sphere.hpp>
+#include <oglplus/shapes/twisted_torus.hpp>
 
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
@@ -34,7 +34,7 @@ private:
 
 
 	// helper object building and storing shape drawing instructions
-	typedef shapes::SpiralSphere Shape;
+	typedef shapes::TwistedTorus Shape;
 	Shape make_shape;
 	shapes::DrawingInstructions shape_instr;
 	Shape::IndexArray shape_indices;
@@ -337,7 +337,7 @@ public:
 		gl.FrontFace(make_shape.FaceWinding());
 
 		shape_model_matrix =
-			ModelMatrixf::Translation(0.0f, 0.6f, 0.0f) *
+			ModelMatrixf::Translation(0.0f, 1.1f, 0.0f) *
 			ModelMatrixf::RotationX(FullCircles(time / 12.0));
 
 

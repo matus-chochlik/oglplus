@@ -1,5 +1,5 @@
 /**
- *  @example oglplus/001_gl_info.cpp
+ *  @example standalone/001_gl_info.cpp
  *  @brief Shows the basic usage of OGLplus by printing some info
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
@@ -32,6 +32,8 @@ int main(int argc, char* argv[])
 		//
 		std::cout << "Vendor: " << context.Vendor() << std::endl;
 		std::cout << "Version: " << context.Version() << std::endl;
+		std::cout << "Major version: " << context.MajorVersion() << std::endl;
+		std::cout << "Minor version: " << context.MinorVersion() << std::endl;
 		std::cout << "GLSL Version: " << context.ShadingLanguageVersion() << std::endl;
 		std::cout << "Renderer: " << context.Renderer() << std::endl;
 		std::cout << "Extensions:" << std::endl;

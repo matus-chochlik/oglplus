@@ -22,6 +22,7 @@ endif()
 if((OPENGL_GL3_H_DIR) AND (EXISTS ${OPENGL_GL3_H_DIR}))
 	set(OPENGL_INCLUDE_DIRS ${OPENGL_INCLUDE_DIRS} ${OPENGL_GL3_H_DIR})
 	set(OPENGL_FOUND true)
+	set(GL3_H_FOUND true)
 endif()
 #
 #
@@ -39,6 +40,7 @@ endif()
 if((OPENGL_GLCOREARB_H_DIR) AND (EXISTS ${OPENGL_GLCOREARB_H_DIR}))
 	set(OPENGL_INCLUDE_DIRS ${OPENGL_INCLUDE_DIRS} ${OPENGL_GLCOREARB_H_DIR})
 	set(OPENGL_FOUND true)
+	set(GLCOREARB_H_FOUND true)
 endif()
 
 # try to find the GL library

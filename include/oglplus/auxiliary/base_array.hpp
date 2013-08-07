@@ -40,6 +40,9 @@ protected:
 	 : _storage(std::move(tmp.storage))
 	{ }
 public:
+	typedef Object& reference;
+	typedef const Object& const_reference;
+
 	bool empty(void) const
 	{
 		return _storage.empty();
@@ -60,12 +63,22 @@ public:
 		return _storage.back();
 	}
 
-	const Object& at(GLuint index) const
+	reference at(GLuint index)
 	{
 		return _storage[index];
 	}
 
-	const Object& operator[](GLuint index) const
+	const_reference at(GLuint index) const
+	{
+		return _storage[index];
+	}
+
+	reference operator[](GLuint index)
+	{
+		return _storage[index];
+	}
+
+	const_reference operator[](GLuint index) const
 	{
 		return _storage[index];
 	}
@@ -89,13 +102,13 @@ public:
 	}
 };
 
-template <typename ObjectOps>
-class BaseArray<Object<ObjectOps>, true>
- : public ObjectInitializer<Object<ObjectOps> >
+template <typename Object>
+class MultiObjectBaseArray
+ : public ObjectInitializer<Object>
 {
-private:
+protected:
 	std::vector<GLuint> _names;
-
+private:
 	bool _names_ok(void) const
 	{
 		for(auto i=_names.begin(), e=_names.end(); i!=e; ++i)
@@ -105,14 +118,8 @@ private:
 		}
 		return true;
 	}
-protected:
-	GLuint _get_name(size_t index) const
-	{
-		return _names[index];
-	}
 
-	BaseArray(GLsizei c)
-	 : _names(c, 0)
+	void _init_names(void)
 	{
 		if(!_names.empty())
 		{
@@ -120,15 +127,21 @@ protected:
 			assert(_names_ok());
 		}
 	}
+protected:
+	MultiObjectBaseArray(GLsizei c)
+	 : _names(c, 0)
+	{
+		_init_names();
+	}
 
-	BaseArray(BaseArray&& temp)
+	MultiObjectBaseArray(MultiObjectBaseArray&& temp)
 	 : _names(std::move(temp._names))
 	{
 		assert(_names_ok());
 		assert(temp._names.empty());
 	}
 
-	~BaseArray(void)
+	~MultiObjectBaseArray(void)
 	{
 		if(!_names.empty())
 		{
@@ -137,7 +150,6 @@ protected:
 		}
 	}
 public:
-
 	bool empty(void) const
 	{
 		return _names.empty();
@@ -147,44 +159,63 @@ public:
 	{
 		return _names.size();
 	}
+};
 
-	Managed<ObjectOps> front(void) const
+template <typename Object>
+class BaseArray<Object, true>
+ : public MultiObjectBaseArray<Object>
+{
+private:
+	typedef MultiObjectBaseArray<Object> _Base;
+protected:
+	BaseArray(GLsizei c)
+	 : _Base(c)
+	{ }
+
+	BaseArray(BaseArray&& temp)
+	 : _Base(static_cast<_Base&&>(temp))
+	{ }
+public:
+	typedef Managed<Object> reference;
+	typedef Managed<Object> const_reference;
+
+	const_reference front(void) const
 	{
-		return Managed<ObjectOps>(_names.front());
+		return const_reference(this->_names.front());
 	}
 
-	Managed<ObjectOps> back(void) const
+	const_reference back(void) const
 	{
-		return Managed<ObjectOps>(_names.back());
+		return const_reference(this->_names.back());
 	}
 
-	Managed<ObjectOps> at(GLuint index) const
+	const_reference at(GLuint index) const
 	{
-		assert(index < GLuint(size()));
-		return Managed<ObjectOps>(_names[index]);
+		assert(index < GLuint(this->size()));
+		return const_reference(this->_names[index]);
 	}
 
-	Managed<ObjectOps> operator [](GLuint index) const
+	const_reference operator [](GLuint index) const
 	{
 		return at(index);
 	}
 
-	typedef aux::BaseIter<Managed<ObjectOps>, GLuint> const_iterator;
+	typedef aux::BaseIter<const_reference, GLuint> const_iterator;
 	typedef const_iterator iterator;
 
 	iterator begin(void) const
 	{
-		return iterator(_names.begin(), _names.end());
+		return iterator(this->_names.begin(), this->_names.end());
 	}
 
 	iterator end(void) const
 	{
-		return iterator(_names.end());
+		return iterator(this->_names.end());
 	}
 
-	aux::ArrayRange<Managed<ObjectOps> > all(void) const
+	aux::ArrayRange<const_reference> all(void) const
 	{
-		return aux::ArrayRange<Managed<ObjectOps> >(begin(), end());
+		return aux::ArrayRange<const_reference>(begin(), end());
 	}
 };
 

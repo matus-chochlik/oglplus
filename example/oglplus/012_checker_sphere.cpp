@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_1}
+ *  @oglplus_example_uses_cxx11{SCOPED_ENUMS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -123,7 +124,7 @@ public:
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
 		gl.ClearDepth(1.0f);
-		gl.Enable(Capability::DepthTest);
+		Capability::DepthTest << true;
 	}
 
 	void Reshape(GLuint width, GLuint height)

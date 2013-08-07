@@ -4,8 +4,6 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-include(../config/ExeRequirements.cmake)
-
 add_subdirectory("oglplus")
 add_subdirectory("standalone")
 add_subdirectory("advanced")

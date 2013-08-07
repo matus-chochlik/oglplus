@@ -1,3 +1,44 @@
+Version 0.34.0
+
+- OGLplus changes: 
+  - The DSATextureEXT class - a direct-state-access replacement for Texture was
+    added and can be used where the EXT_direct_state_access extension is
+    available. 
+  - Support for anisotropic filtering was added to Texture and DSATextureEXT.
+  - The PointAndVector, TwistedTorus and the Cage parametric shape vertex
+    attribute builders were added.
+  - The Buffer::Target::Query value is now initialized from core GL instead of
+    the AMD extension.
+  - The AutoBind<Object> template was reimplemented and the Array<Object> template
+    was specialized for AutoBind.
+  - Some syntax-sugar operators were added to the Capability and Functionality
+    enumerations for a more convenient enabling/disabling of GL capabilities.
+  - The text rendering utilities were updated and a simple SW 2D text rendering
+    utility was added.
+  - The ValueInRightAngles and ValueInFullCircles getter functions were added
+    to the Angle<T> template class.
+- Updates to examples:
+  - Several new examples were added and some of the existing examples were updated 
+    to show the new OGLplus features.
+  - Several old examples were removed.
+  - The ARB_debug_output in the GLX example 'harness' was updated to remove 
+    duplicate messages.
+  - Several minor tweaks and optimizations were made to the existing examples.
+- Updates to the build system:
+  - The --generator option that allows to specify the cmake generator was added
+    to the configure scripts.
+  - The --with-msvc option was added to the configure.bat script.
+  - The --jobs option was added to the configure scripts.
+  - The automatic selection of the GL initialization library was improved.
+  - GL version detection was improved, GL 4.4 is now supported by the build system.
+  - GL extension detection was improved.
+  - Several other minor bugs were fixed.
+  - The glcorearb.h and glext.h headers were added to the third_party includes
+    and are used as fallback if no other GL API library is available.
+  - A problem in OpenAL detection/configuration was fixed.
+  - The requirements/dependencies for examples were updated.
+  - Detection of the UNICODE_LITERALS C++11 feature was added.
+
 Version 0.33.0
 
 - OGLplus changes

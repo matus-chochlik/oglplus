@@ -9,10 +9,11 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_4_1}
+ *  @oglplus_example_uses_cxx11{SCOPED_ENUMS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/torus.hpp>
+#include <oglplus/shapes/twisted_torus.hpp>
 #include <oglplus/shapes/plane.hpp>
 
 #include <sstream>
@@ -25,11 +26,11 @@ class TorusExample : public Example
 {
 private:
 	// helper object building torus vertex attributes
-	shapes::Torus make_torus;
+	shapes::TwistedTorus make_torus;
 	// helper object encapsulating torus drawing instructions
 	shapes::DrawingInstructions torus_instr;
 	// indices pointing to torus primitive elements
-	shapes::Torus::IndexArray torus_indices;
+	shapes::TwistedTorus::IndexArray torus_indices;
 
 	// similar helpers for the X-,Y- and Z-plane
 	std::vector<shapes::Plane> make_plane;
@@ -82,7 +83,7 @@ private:
 	Array<Buffer> plane_positions;
 public:
 	TorusExample(void)
-	 : make_torus(1.0, 0.5, 36, 24)
+	 : make_torus()
 	 , torus_instr(make_torus.Instructions())
 	 , torus_indices(make_torus.Indices())
 	 , make_plane(make_plane_builders())
@@ -102,11 +103,12 @@ public:
 	 , plane_positions(make_plane.size())
 	{
 		std::stringstream plane_count_def;
-		plane_count_def <<"#define PlaneCount "<<plane.size()<<'\n';
+		plane_count_def << "#define PlaneCount " << plane.size() << '\n';
+		std::string plane_count_def_str = plane_count_def.str();
 
 		const GLchar* torus_vs_source[3] = {
 			"#version 330\n",
-			plane_count_def.str().c_str(),
+			plane_count_def_str.c_str(),
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 			"uniform float ClipSign[PlaneCount];"
 			"uniform vec4 ClipPlane[PlaneCount];"
@@ -185,7 +187,7 @@ public:
 
 		const GLchar* plane_vs_source[3] = {
 			"#version 330\n",
-			plane_count_def.str().c_str(),
+			plane_count_def_str.c_str(),
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform float ClipSign[PlaneCount];"
 			"uniform vec4 ClipPlane[PlaneCount];"
@@ -306,21 +308,21 @@ public:
 		GLfloat sign = ((camera*normal).z() >= 0.0f)? 1.0f: -1.0f;
 		bool at_leaf = p+1 == plane.size();
 
-		gl.Enable(Functionality::ClipDistance, p);
+		+(Functionality::ClipDistance|p);
 		torus_clip_signs[p].Set(-sign);
 		plane_clip_signs[p].Set(-sign);
 		if(at_leaf) RenderTorus();
 		else BSP(camera, p+1);
-		gl.Disable(Functionality::ClipDistance, p);
+		-(Functionality::ClipDistance|p);
 
 		RenderPlane(p);
 
-		gl.Enable(Functionality::ClipDistance, p);
+		+(Functionality::ClipDistance|p);
 		torus_clip_signs[p].Set(+sign);
 		plane_clip_signs[p].Set(+sign);
 		if(at_leaf) RenderTorus();
 		else BSP(camera, p+1);
-		gl.Disable(Functionality::ClipDistance, p);
+		-(Functionality::ClipDistance|p);
 
 	}
 

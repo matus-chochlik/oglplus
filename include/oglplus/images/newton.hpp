@@ -77,7 +77,6 @@ private:
 	)
 	{
 		auto p = this->_begin<GLfloat>();
-		auto e = this->_end<GLfloat>();
 
 		for(GLsizei i=0; i!=width; ++i)
 		for(GLsizei j=0; j!=height; ++j)
@@ -103,13 +102,12 @@ private:
 			);
 			for(n=0; n!=N; ++n)
 			{
-				assert(p != e);
+				assert(p != this->_end<GLfloat>());
 				*p = c.At(n);
 				++p;
 			}
 		}
-		OGLPLUS_FAKE_USE(e);
-		assert(p == e);
+		assert(p == this->_end<GLfloat>());
 	}
 public:
 	/// The X^3-1 function and its derivation

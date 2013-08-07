@@ -1,4 +1,4 @@
-.TH CONFIGURE-OGLPLUS 1 "2013-06-18" "Configuration script for OGLplus."
+.TH CONFIGURE-OGLPLUS 1 "2013-07-15" "Configuration script for OGLplus."
 .SH "NAME"
 configure-oglplus \- configuration script for the OGLplus library.
 .SH "SYNOPSIS"
@@ -41,6 +41,9 @@ Uses the directories specified by the -L options in \fILDFLAGS\fR (if available)
 \fB--low-profile\fR {\fBTrue\fR,\fBFalse\fR}
 Enables or disables the low profile mode (see the documentation for the \fIOGLPLUS_LOW_PROFILE\fR compile-time switch). If this option is used, then the specified value is written to the oglplus/site_config.hpp file, otherwise it is set to the default value in oglplus/config.hpp and may be overriden in sources by defining this preprocessor symbol or by using the appropriate compiler command-line switch or build environment setting.
 .TP
+\fB--info-only\fR
+With this option configure only generates a python script containing information about the available configurations on the current machine.
+.TP
 \fB--build-examples\fR {\fBTrue\fR,\fBFalse\fR}
 Determines whether the examples should be built (default = \fBTrue\fR).
 .TP
@@ -62,22 +65,22 @@ Equivalent to --make-screenshots=True.
 \fB--max-gl-version\fR
 Sets the maximum OpenGL version to be used. The cmake OpenGL version detection is only rudimentary and not 100% reliable and may return a higher OpenGL version than actually available. This option can be used to limit the maximal version number.
 .TP
-\fB--use-gl-header-lib\fR {\fBGLCOREARB_H\fR,\fBGL3_H\fR,\fBGLEW\fR,\fBGL3W\fR}
-Forces the use of a specific header or library which defines the GL symbols.
-.TP
-\fB--use-glcorearb-h\fR
-Force use of the \fIGL/glcorearb.h\fR header. If this option is used, then this header must be installed somewhere in the system include directories or in directories specified with --include-dir. Equivalent to --use-gl-header-lib=GLCOREARB_H.
-.TP
-\fB--use-gl3-h\fR
-Force use of the \fIGL3/gl3.h\fR header. If this option is used, then this header must be installed somewhere in the system include directories or in directories specified with --include-dir. Equivalent to --use-gl-header-lib=GL3_H.
+\fB--use-gl-api-lib\fR {\fBGLEW\fR,\fBGL3W\fR,\fBGLCOREARB_H\fR,\fBGL3_H\fR}
+Forces the use of a specific header or library which defines the GL symbols (types, functions, defines, etc.). If this option is used then the header must be installed somewhere in the system include directories or in directories specified with --include-dir and the corresponding binary libraries must be installed in system library directories or in directories specified with the --library-dir option.
 .TP
 \fB--use-glew\fR
-Force use of the GLEW library. If this option is used, then GLEW and the \fIGL/glew.h\fR header must be installed somewhere in the system include directories or in directories specified with --include-dir. Equivalent to --use-gl-header-lib=GLEW.
+Forces the use of the GLEW library to define the GL symbols used in OGLplus examples. Equivalent to --use-gl-api-lib=GLEW.
 .TP
 \fB--use-gl3w\fR
-Force use of the GL3W library. If this option is used, then GL3W and the \fIGL/gl3w.h\fR header must be installed somewhere in the system include directories or in directories specified with --include-dir. Equivalent to --use-gl-header-lib=GL3W.
+Forces the use of the GL3W library to define the GL symbols used in OGLplus examples. Equivalent to --use-gl-api-lib=GL3W.
 .TP
-\fB--use-gl-init-lib\fR {\fBGLUT\fR,\fBGLFW\fR,\fBWXGL\fR,\fBSDL\fR,\fBGLX\fR,\fBQTGL\fR}
+\fB--use-glcorearb-h\fR
+Forces the use of the \fIGL/glcorearb.h\fR header to define the GL symbols used in OGLplus examples. Equivalent to --use-gl-api-lib=GLCOREARB_H.
+.TP
+\fB--use-gl3-h\fR
+Forces the use of the \fIGL3/gl3.h\fR header to define the GL symbols used in OGLplus examples. Equivalent to --use-gl-api-lib=GL3_H.
+.TP
+\fB--use-gl-init-lib\fR {\fBGLUT\fR,\fBGLFW\fR,\fBWXGL\fR,\fBSDL\fR,\fBGLX\fR,\fBQTGL\fR,\fBEGL\fR}
 Forces the use of a specific window library which initializes the default GL context. This option allows to force a specific example 'harness'.
 .TP
 \fB--use-glut\fR
@@ -98,6 +101,9 @@ Forces the use of the glX library to create the window and initialize the GL con
 \fB--use-qtgl\fR
 Forces the use of the QtGL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=QTGL.
 .TP
+\fB--use-egl\fR
+Forces the use of the EGL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=EGL.
+.TP
 \fB--from-scratch\fR
 Remove any previous cached and intermediate files and run the configuration process from scratch. Specifying this option causes the build directory to be deleted and recreated.
 .TP
@@ -107,11 +113,17 @@ Do not print regular messages, errors are still printed to stderr. Also any cmak
 \fB--quick\fR
 Skips some optional steps in the configuration process.
 .TP
+\fB--jobs\fR
+Specifies the number of parallel build jobs to be used, if applicable for the used build tool.
+.TP
 \fB--build\fR
 If possible, after running cmake also invoke the build tool and build the project. This is currently supported only for certain build tools.
 .TP
 \fB--with-tests\fR
 Configure the testsuite.
+.TP
+\fB--generator\fR
+Specify the cmake generator to be used.
 .TP
 \fB--cmake\fR
 Everything following this option will be passed to cmake verbatim.

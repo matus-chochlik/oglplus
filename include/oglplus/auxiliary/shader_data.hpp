@@ -220,6 +220,13 @@ protected:
 
 class ShaderDataSetUtils
 {
+private:
+	static void _handle_error(
+		const oglplus::ErrorInfo& error_info,
+		GLuint program,
+		GLuint location,
+		GLenum result
+	);
 protected:
 	static void _do_handle_if_error(
 		const oglplus::ErrorInfo& error_info,
@@ -230,23 +237,36 @@ protected:
 		GLenum result = OGLPLUS_GLFUNC(GetError)();
 		if(OGLPLUS_IS_ERROR(result != GL_NO_ERROR))
 		{
-			Error::PropertyMapInit props;
-			Error::AddPropertyValue(
-				props,
-				"program",
-				ObjectDescRegistry<ProgramOps>::
-					_get_desc(program)
-			);
-			HandleShaderVariableError(
-				result,
-				location,
-				"Error setting shading program variable value",
-				error_info,
-				std::move(props)
-			);
+			_handle_error(error_info, program, location, result);
 		}
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void ShaderDataSetUtils::_handle_error(
+	const oglplus::ErrorInfo& error_info,
+	GLuint program,
+	GLuint location,
+	GLenum result
+)
+{
+	Error::PropertyMapInit props;
+	Error::AddPropertyValue(
+		props,
+		"program",
+		ObjectDescRegistry<ProgramOps>::
+			_get_desc(program)
+	);
+	HandleShaderVariableError(
+		result,
+		location,
+		"Error setting shading program variable value",
+		error_info,
+		std::move(props)
+	);
+}
+#endif // OGLPLUS_LINK_LIBRARY
 
 template <class Setters, class Callers, std::size_t MaxCount>
 class ShaderDataSetOps

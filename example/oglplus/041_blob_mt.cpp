@@ -268,6 +268,7 @@ public:
 
 	void Reshape(GLuint width, GLuint height);
 	void Render(ExampleClock& clock);
+	double ScreenshotTime(void) const { return 50.8; }
 
 	bool Continue(double time) { return time < 120.0; }
 

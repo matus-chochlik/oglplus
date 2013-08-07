@@ -1029,6 +1029,11 @@ public:
 		return Vector<T,3>(Inverse(*this).Col(3).Data(), 3);
 	}
 
+	Vector<T, 3> Direction(void) const
+	{
+		return -Vector<T, 3>(this->Row(2).Data(), 3);
+	}
+
 	struct _Perspective { };
 
 	CameraMatrix(
