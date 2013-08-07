@@ -4,7 +4,7 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-if((wxWidgets_FOUND) AND (OPENAL_FOUND))
+if((wxWidgets_FOUND) AND (OPENAL_FOUND) AND (PNG_FOUND))
 	add_definitions(-DOGLPLUS_LINK_LIBRARY=1)
 	add_definitions(-DOALPLUS_LINK_LIBRARY=1)
 
@@ -41,8 +41,10 @@ if((wxWidgets_FOUND) AND (OPENAL_FOUND))
 		set_property(TARGET spectra PROPERTY WIN32_EXECUTABLE true)
 	endif()
 
-	target_link_libraries(spectra ${wxWidgets_LIBRARIES} ${OGLPLUS_GL_LIBS})
+	target_link_libraries(spectra ${wxWidgets_LIBRARIES})
+	target_link_libraries(spectra ${OGLPLUS_GL_LIBS})
 	target_link_libraries(spectra ${OPENAL_LIBRARIES})
+	target_link_libraries(spectra ${PNG_LIBRARIES})
 	add_dependencies(oglplus-advanced-example-spectra spectra)
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-spectra)
 endif()

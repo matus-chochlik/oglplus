@@ -12,6 +12,7 @@
  *  @oglplus_example_uses_model{suzanne}
  *  @oglplus_example_uses_font{FreeSans}
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
+ *  @oglplus_example_uses_cxx11{UNICODE_LITERALS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
