@@ -10,6 +10,7 @@
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_1}
  *  @oglplus_example_uses_texture{stones_color_hmap}
+ *  @oglplus_example_uses_cxx11{SCOPED_ENUMS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
