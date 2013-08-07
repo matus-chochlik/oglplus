@@ -71,10 +71,16 @@ public:
 	{ }
 };
 
-class TransformProgram
- : public HardwiredTupleProgram<std::tuple<CommonVertShader>>
+class TransformProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Transform"));
+		prog.AttachShader(CommonVertShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix, model_matrix, light_proj_matrix;
@@ -82,10 +88,8 @@ public:
 	ProgramUniform<Vec3f> camera_position, light_position;
 
 	TransformProgram(void)
-	 : HardwiredTupleProgram<std::tuple<CommonVertShader>>(
-		ObjectDesc("Transform"),
-		std::true_type()
-	), camera_matrix(prog(), "CameraMatrix")
+	 : Program(make())
+	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , light_proj_matrix(prog(), "LightProjMatrix")
 	 , texture_matrix(prog(), "TextureMatrix")
@@ -113,15 +117,20 @@ public:
 	{ }
 };
 
-class ShadowProgram
- : public HardwiredTupleProgram<std::tuple<ShadowFragShader>>
+class ShadowProgram : public Program
 {
+private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Shadow"));
+		prog.AttachShader(ShadowFragShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 public:
 	ShadowProgram(void)
-	 : HardwiredTupleProgram<std::tuple<ShadowFragShader>>(
-		ObjectDesc("Shadow"),
-		std::true_type()
-	){ }
+	 : Program(make())
+	{ }
 };
 
 class LineGeomShader
@@ -204,15 +213,20 @@ public:
 	{ }
 };
 
-class LineProgram
- : public HardwiredTupleProgram<std::tuple<LineGeomShader, LineFragShader>>
+class LineProgram : public Program
 {
+private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Line"));
+		prog.AttachShader(LineGeomShader());
+		prog.AttachShader(LineFragShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 public:
 	LineProgram(void)
-	 : HardwiredTupleProgram<std::tuple<LineGeomShader, LineFragShader>>(
-		ObjectDesc("Line"),
-		std::true_type()
-	)
+	 : Program(make())
 	{ }
 };
 
@@ -293,19 +307,23 @@ public:
 	{ }
 };
 
-class SketchProgram
- : public HardwiredTupleProgram<std::tuple<SketchFragShader>>
+class SketchProgram : public Program
 {
 private:
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Sketch"));
+		prog.AttachShader(SketchFragShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniformSampler sketch_tex, shadow_tex;
 
 	SketchProgram(void)
-	 : HardwiredTupleProgram<std::tuple<SketchFragShader>>(
-		ObjectDesc("Sketch"),
-		std::true_type()
-	), sketch_tex(prog(), "SketchTex")
+	 : Program(make())
+	 , sketch_tex(prog(), "SketchTex")
 	 , shadow_tex(prog(), "ShadowTex")
 	{ }
 };

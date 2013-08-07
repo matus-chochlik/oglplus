@@ -867,6 +867,39 @@ template <typename Enum> friend bool operator==(Enum value, AccumBuffer);
 template <typename Enum> friend bool operator!=(Enum value, AccumBuffer);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ActiveVariables value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{ACTIVE_VARIABLES}
+ *
+ *  @ingroup smart_enums
+ */
+struct ActiveVariables {
+
+/// Conversion to any @p Enum type having the ActiveVariables value.
+/** Instances of the @ref oglplus::smart_enums::ActiveVariables "ActiveVariables"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ActiveVariables value.
+ */
+template <typename Enum, Enum = Enum::ActiveVariables> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ActiveVariables value.
+/** Instances of the @c smart_enums::ActiveVariables type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ActiveVariables value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ActiveVariables);
+
+/// Non-equality comparison with any @p Enum type having the ActiveVariables value.
+/** Instances of the @c smart_enums::ActiveVariables type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ActiveVariables value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ActiveVariables);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Add value.
 /**
  *  @see @ref oglplus::BlendEquation "BlendEquation"
@@ -1468,6 +1501,72 @@ template <typename Enum> friend bool operator==(Enum value, Array);
 template <typename Enum> friend bool operator!=(Enum value, Array);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ArraySize value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{ARRAY_SIZE}
+ *
+ *  @ingroup smart_enums
+ */
+struct ArraySize {
+
+/// Conversion to any @p Enum type having the ArraySize value.
+/** Instances of the @ref oglplus::smart_enums::ArraySize "ArraySize"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ArraySize value.
+ */
+template <typename Enum, Enum = Enum::ArraySize> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ArraySize value.
+/** Instances of the @c smart_enums::ArraySize type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ArraySize value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ArraySize);
+
+/// Non-equality comparison with any @p Enum type having the ArraySize value.
+/** Instances of the @c smart_enums::ArraySize type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ArraySize value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ArraySize);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ArrayStride value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{ARRAY_STRIDE}
+ *
+ *  @ingroup smart_enums
+ */
+struct ArrayStride {
+
+/// Conversion to any @p Enum type having the ArrayStride value.
+/** Instances of the @ref oglplus::smart_enums::ArrayStride "ArrayStride"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ArrayStride value.
+ */
+template <typename Enum, Enum = Enum::ArrayStride> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ArrayStride value.
+/** Instances of the @c smart_enums::ArrayStride type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ArrayStride value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ArrayStride);
+
+/// Non-equality comparison with any @p Enum type having the ArrayStride value.
+/** Instances of the @c smart_enums::ArrayStride type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ArrayStride value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ArrayStride);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c AtomicCounter value.
 /**
  *  @see @ref oglplus::BufferIndexedTarget "BufferIndexedTarget"
@@ -1535,6 +1634,39 @@ template <typename Enum> friend bool operator==(Enum value, AtomicCounterBuffer)
  *  the @c AtomicCounterBuffer value.
  */
 template <typename Enum> friend bool operator!=(Enum value, AtomicCounterBuffer);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c AtomicCounterBufferIndex value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{ATOMIC_COUNTER_BUFFER_INDEX}
+ *
+ *  @ingroup smart_enums
+ */
+struct AtomicCounterBufferIndex {
+
+/// Conversion to any @p Enum type having the AtomicCounterBufferIndex value.
+/** Instances of the @ref oglplus::smart_enums::AtomicCounterBufferIndex "AtomicCounterBufferIndex"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c AtomicCounterBufferIndex value.
+ */
+template <typename Enum, Enum = Enum::AtomicCounterBufferIndex> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the AtomicCounterBufferIndex value.
+/** Instances of the @c smart_enums::AtomicCounterBufferIndex type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c AtomicCounterBufferIndex value.
+ */
+template <typename Enum> friend bool operator==(Enum value, AtomicCounterBufferIndex);
+
+/// Non-equality comparison with any @p Enum type having the AtomicCounterBufferIndex value.
+/** Instances of the @c smart_enums::AtomicCounterBufferIndex type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c AtomicCounterBufferIndex value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, AtomicCounterBufferIndex);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c B value.
@@ -1866,6 +1998,39 @@ template <typename Enum> friend bool operator==(Enum value, Blend);
  *  the @c Blend value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Blend);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c BlockIndex value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{BLOCK_INDEX}
+ *
+ *  @ingroup smart_enums
+ */
+struct BlockIndex {
+
+/// Conversion to any @p Enum type having the BlockIndex value.
+/** Instances of the @ref oglplus::smart_enums::BlockIndex "BlockIndex"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c BlockIndex value.
+ */
+template <typename Enum, Enum = Enum::BlockIndex> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the BlockIndex value.
+/** Instances of the @c smart_enums::BlockIndex type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c BlockIndex value.
+ */
+template <typename Enum> friend bool operator==(Enum value, BlockIndex);
+
+/// Non-equality comparison with any @p Enum type having the BlockIndex value.
+/** Instances of the @c smart_enums::BlockIndex type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c BlockIndex value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, BlockIndex);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Blue value.
@@ -2201,6 +2366,72 @@ template <typename Enum> friend bool operator==(Enum value, Buffer);
  *  the @c Buffer value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Buffer);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c BufferBinding value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{BUFFER_BINDING}
+ *
+ *  @ingroup smart_enums
+ */
+struct BufferBinding {
+
+/// Conversion to any @p Enum type having the BufferBinding value.
+/** Instances of the @ref oglplus::smart_enums::BufferBinding "BufferBinding"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c BufferBinding value.
+ */
+template <typename Enum, Enum = Enum::BufferBinding> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the BufferBinding value.
+/** Instances of the @c smart_enums::BufferBinding type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c BufferBinding value.
+ */
+template <typename Enum> friend bool operator==(Enum value, BufferBinding);
+
+/// Non-equality comparison with any @p Enum type having the BufferBinding value.
+/** Instances of the @c smart_enums::BufferBinding type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c BufferBinding value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, BufferBinding);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c BufferDataSize value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{BUFFER_DATA_SIZE}
+ *
+ *  @ingroup smart_enums
+ */
+struct BufferDataSize {
+
+/// Conversion to any @p Enum type having the BufferDataSize value.
+/** Instances of the @ref oglplus::smart_enums::BufferDataSize "BufferDataSize"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c BufferDataSize value.
+ */
+template <typename Enum, Enum = Enum::BufferDataSize> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the BufferDataSize value.
+/** Instances of the @c smart_enums::BufferDataSize type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c BufferDataSize value.
+ */
+template <typename Enum> friend bool operator==(Enum value, BufferDataSize);
+
+/// Non-equality comparison with any @p Enum type having the BufferDataSize value.
+/** Instances of the @c smart_enums::BufferDataSize type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c BufferDataSize value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, BufferDataSize);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c BufferUpdate value.
@@ -3259,6 +3490,39 @@ template <typename Enum> friend bool operator==(Enum value, CompareRefToTexture)
  *  the @c CompareRefToTexture value.
  */
 template <typename Enum> friend bool operator!=(Enum value, CompareRefToTexture);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompatibleSubroutines value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{COMPATIBLE_SUBROUTINES}
+ *
+ *  @ingroup smart_enums
+ */
+struct CompatibleSubroutines {
+
+/// Conversion to any @p Enum type having the CompatibleSubroutines value.
+/** Instances of the @ref oglplus::smart_enums::CompatibleSubroutines "CompatibleSubroutines"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c CompatibleSubroutines value.
+ */
+template <typename Enum, Enum = Enum::CompatibleSubroutines> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the CompatibleSubroutines value.
+/** Instances of the @c smart_enums::CompatibleSubroutines type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c CompatibleSubroutines value.
+ */
+template <typename Enum> friend bool operator==(Enum value, CompatibleSubroutines);
+
+/// Non-equality comparison with any @p Enum type having the CompatibleSubroutines value.
+/** Instances of the @c smart_enums::CompatibleSubroutines type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c CompatibleSubroutines value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, CompatibleSubroutines);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Complete value.
@@ -10655,6 +10919,72 @@ template <typename Enum> friend bool operator==(Enum value, Isolines);
 template <typename Enum> friend bool operator!=(Enum value, Isolines);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IsPerPatch value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{IS_PER_PATCH}
+ *
+ *  @ingroup smart_enums
+ */
+struct IsPerPatch {
+
+/// Conversion to any @p Enum type having the IsPerPatch value.
+/** Instances of the @ref oglplus::smart_enums::IsPerPatch "IsPerPatch"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IsPerPatch value.
+ */
+template <typename Enum, Enum = Enum::IsPerPatch> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IsPerPatch value.
+/** Instances of the @c smart_enums::IsPerPatch type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IsPerPatch value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IsPerPatch);
+
+/// Non-equality comparison with any @p Enum type having the IsPerPatch value.
+/** Instances of the @c smart_enums::IsPerPatch type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IsPerPatch value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IsPerPatch);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c IsRowMajor value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{IS_ROW_MAJOR}
+ *
+ *  @ingroup smart_enums
+ */
+struct IsRowMajor {
+
+/// Conversion to any @p Enum type having the IsRowMajor value.
+/** Instances of the @ref oglplus::smart_enums::IsRowMajor "IsRowMajor"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c IsRowMajor value.
+ */
+template <typename Enum, Enum = Enum::IsRowMajor> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the IsRowMajor value.
+/** Instances of the @c smart_enums::IsRowMajor type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c IsRowMajor value.
+ */
+template <typename Enum> friend bool operator==(Enum value, IsRowMajor);
+
+/// Non-equality comparison with any @p Enum type having the IsRowMajor value.
+/** Instances of the @c smart_enums::IsRowMajor type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c IsRowMajor value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, IsRowMajor);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Italic value.
 /**
  *  @see @ref oglplus::PathNVFontStyle "PathNVFontStyle"
@@ -10917,6 +11247,39 @@ template <typename Enum> friend bool operator==(Enum value, Less);
  *  the @c Less value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Less);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c LevelArrayStride value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{LEVEL_ARRAY_STRIDE}
+ *
+ *  @ingroup smart_enums
+ */
+struct LevelArrayStride {
+
+/// Conversion to any @p Enum type having the LevelArrayStride value.
+/** Instances of the @ref oglplus::smart_enums::LevelArrayStride "LevelArrayStride"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c LevelArrayStride value.
+ */
+template <typename Enum, Enum = Enum::LevelArrayStride> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the LevelArrayStride value.
+/** Instances of the @c smart_enums::LevelArrayStride type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c LevelArrayStride value.
+ */
+template <typename Enum> friend bool operator==(Enum value, LevelArrayStride);
+
+/// Non-equality comparison with any @p Enum type having the LevelArrayStride value.
+/** Instances of the @c smart_enums::LevelArrayStride type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c LevelArrayStride value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, LevelArrayStride);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Lighting value.
@@ -11358,6 +11721,72 @@ template <typename Enum> friend bool operator==(Enum value, List);
 template <typename Enum> friend bool operator!=(Enum value, List);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Location value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{LOCATION}
+ *
+ *  @ingroup smart_enums
+ */
+struct Location {
+
+/// Conversion to any @p Enum type having the Location value.
+/** Instances of the @ref oglplus::smart_enums::Location "Location"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Location value.
+ */
+template <typename Enum, Enum = Enum::Location> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Location value.
+/** Instances of the @c smart_enums::Location type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Location value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Location);
+
+/// Non-equality comparison with any @p Enum type having the Location value.
+/** Instances of the @c smart_enums::Location type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Location value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Location);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c LocationIndex value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{LOCATION_INDEX}
+ *
+ *  @ingroup smart_enums
+ */
+struct LocationIndex {
+
+/// Conversion to any @p Enum type having the LocationIndex value.
+/** Instances of the @ref oglplus::smart_enums::LocationIndex "LocationIndex"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c LocationIndex value.
+ */
+template <typename Enum, Enum = Enum::LocationIndex> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the LocationIndex value.
+/** Instances of the @c smart_enums::LocationIndex type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c LocationIndex value.
+ */
+template <typename Enum> friend bool operator==(Enum value, LocationIndex);
+
+/// Non-equality comparison with any @p Enum type having the LocationIndex value.
+/** Instances of the @c smart_enums::LocationIndex type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c LocationIndex value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, LocationIndex);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Low value.
 /**
  *  @see @ref oglplus::DebugOutputARBSeverity "DebugOutputARBSeverity"
@@ -11556,6 +11985,39 @@ template <typename Enum> friend bool operator==(Enum value, Marker);
  *  the @c Marker value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Marker);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MatrixStride value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{MATRIX_STRIDE}
+ *
+ *  @ingroup smart_enums
+ */
+struct MatrixStride {
+
+/// Conversion to any @p Enum type having the MatrixStride value.
+/** Instances of the @ref oglplus::smart_enums::MatrixStride "MatrixStride"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MatrixStride value.
+ */
+template <typename Enum, Enum = Enum::MatrixStride> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MatrixStride value.
+/** Instances of the @c smart_enums::MatrixStride type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MatrixStride value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MatrixStride);
+
+/// Non-equality comparison with any @p Enum type having the MatrixStride value.
+/** Instances of the @c smart_enums::MatrixStride type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MatrixStride value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MatrixStride);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Max value.
@@ -15958,6 +16420,72 @@ template <typename Enum> friend bool operator==(Enum value, Notification);
 template <typename Enum> friend bool operator!=(Enum value, Notification);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c NumActiveVariables value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{NUM_ACTIVE_VARIABLES}
+ *
+ *  @ingroup smart_enums
+ */
+struct NumActiveVariables {
+
+/// Conversion to any @p Enum type having the NumActiveVariables value.
+/** Instances of the @ref oglplus::smart_enums::NumActiveVariables "NumActiveVariables"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c NumActiveVariables value.
+ */
+template <typename Enum, Enum = Enum::NumActiveVariables> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the NumActiveVariables value.
+/** Instances of the @c smart_enums::NumActiveVariables type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c NumActiveVariables value.
+ */
+template <typename Enum> friend bool operator==(Enum value, NumActiveVariables);
+
+/// Non-equality comparison with any @p Enum type having the NumActiveVariables value.
+/** Instances of the @c smart_enums::NumActiveVariables type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c NumActiveVariables value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, NumActiveVariables);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c NumCompatibleSubroutines value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{NUM_COMPATIBLE_SUBROUTINES}
+ *
+ *  @ingroup smart_enums
+ */
+struct NumCompatibleSubroutines {
+
+/// Conversion to any @p Enum type having the NumCompatibleSubroutines value.
+/** Instances of the @ref oglplus::smart_enums::NumCompatibleSubroutines "NumCompatibleSubroutines"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c NumCompatibleSubroutines value.
+ */
+template <typename Enum, Enum = Enum::NumCompatibleSubroutines> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the NumCompatibleSubroutines value.
+/** Instances of the @c smart_enums::NumCompatibleSubroutines type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c NumCompatibleSubroutines value.
+ */
+template <typename Enum> friend bool operator==(Enum value, NumCompatibleSubroutines);
+
+/// Non-equality comparison with any @p Enum type having the NumCompatibleSubroutines value.
+/** Instances of the @c smart_enums::NumCompatibleSubroutines type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c NumCompatibleSubroutines value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, NumCompatibleSubroutines);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ObjectBoundingBox value.
 /**
  *  @see @ref oglplus::PathNVGenMode "PathNVGenMode"
@@ -16022,6 +16550,39 @@ template <typename Enum> friend bool operator==(Enum value, ObjectLinear);
  *  the @c ObjectLinear value.
  */
 template <typename Enum> friend bool operator!=(Enum value, ObjectLinear);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Offset value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{OFFSET}
+ *
+ *  @ingroup smart_enums
+ */
+struct Offset {
+
+/// Conversion to any @p Enum type having the Offset value.
+/** Instances of the @ref oglplus::smart_enums::Offset "Offset"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Offset value.
+ */
+template <typename Enum, Enum = Enum::Offset> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Offset value.
+/** Instances of the @c smart_enums::Offset type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Offset value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Offset);
+
+/// Non-equality comparison with any @p Enum type having the Offset value.
+/** Instances of the @c smart_enums::Offset type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Offset value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Offset);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c One value.
@@ -18064,7 +18625,7 @@ template <typename Enum> friend bool operator!=(Enum value, QuadStrip);
  *
  *  @glsymbols
  *  @gldefref{QUERY}
- *  @gldefref{QUERY_BUFFER_AMD}
+ *  @gldefref{QUERY_BUFFER}
  *
  *  @ingroup smart_enums
  */
@@ -18866,6 +19427,204 @@ template <typename Enum> friend bool operator==(Enum value, RedInteger);
  *  the @c RedInteger value.
  */
 template <typename Enum> friend bool operator!=(Enum value, RedInteger);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ReferencedByComputeShader value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{REFERENCED_BY_COMPUTE_SHADER}
+ *
+ *  @ingroup smart_enums
+ */
+struct ReferencedByComputeShader {
+
+/// Conversion to any @p Enum type having the ReferencedByComputeShader value.
+/** Instances of the @ref oglplus::smart_enums::ReferencedByComputeShader "ReferencedByComputeShader"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ReferencedByComputeShader value.
+ */
+template <typename Enum, Enum = Enum::ReferencedByComputeShader> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ReferencedByComputeShader value.
+/** Instances of the @c smart_enums::ReferencedByComputeShader type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ReferencedByComputeShader value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ReferencedByComputeShader);
+
+/// Non-equality comparison with any @p Enum type having the ReferencedByComputeShader value.
+/** Instances of the @c smart_enums::ReferencedByComputeShader type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ReferencedByComputeShader value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ReferencedByComputeShader);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ReferencedByFragmentShader value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{REFERENCED_BY_FRAGMENT_SHADER}
+ *
+ *  @ingroup smart_enums
+ */
+struct ReferencedByFragmentShader {
+
+/// Conversion to any @p Enum type having the ReferencedByFragmentShader value.
+/** Instances of the @ref oglplus::smart_enums::ReferencedByFragmentShader "ReferencedByFragmentShader"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ReferencedByFragmentShader value.
+ */
+template <typename Enum, Enum = Enum::ReferencedByFragmentShader> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ReferencedByFragmentShader value.
+/** Instances of the @c smart_enums::ReferencedByFragmentShader type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ReferencedByFragmentShader value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ReferencedByFragmentShader);
+
+/// Non-equality comparison with any @p Enum type having the ReferencedByFragmentShader value.
+/** Instances of the @c smart_enums::ReferencedByFragmentShader type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ReferencedByFragmentShader value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ReferencedByFragmentShader);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ReferencedByGeometryShader value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{REFERENCED_BY_GEOMETRY_SHADER}
+ *
+ *  @ingroup smart_enums
+ */
+struct ReferencedByGeometryShader {
+
+/// Conversion to any @p Enum type having the ReferencedByGeometryShader value.
+/** Instances of the @ref oglplus::smart_enums::ReferencedByGeometryShader "ReferencedByGeometryShader"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ReferencedByGeometryShader value.
+ */
+template <typename Enum, Enum = Enum::ReferencedByGeometryShader> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ReferencedByGeometryShader value.
+/** Instances of the @c smart_enums::ReferencedByGeometryShader type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ReferencedByGeometryShader value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ReferencedByGeometryShader);
+
+/// Non-equality comparison with any @p Enum type having the ReferencedByGeometryShader value.
+/** Instances of the @c smart_enums::ReferencedByGeometryShader type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ReferencedByGeometryShader value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ReferencedByGeometryShader);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ReferencedByTessControlShader value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{REFERENCED_BY_TESS_CONTROL_SHADER}
+ *
+ *  @ingroup smart_enums
+ */
+struct ReferencedByTessControlShader {
+
+/// Conversion to any @p Enum type having the ReferencedByTessControlShader value.
+/** Instances of the @ref oglplus::smart_enums::ReferencedByTessControlShader "ReferencedByTessControlShader"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ReferencedByTessControlShader value.
+ */
+template <typename Enum, Enum = Enum::ReferencedByTessControlShader> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ReferencedByTessControlShader value.
+/** Instances of the @c smart_enums::ReferencedByTessControlShader type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ReferencedByTessControlShader value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ReferencedByTessControlShader);
+
+/// Non-equality comparison with any @p Enum type having the ReferencedByTessControlShader value.
+/** Instances of the @c smart_enums::ReferencedByTessControlShader type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ReferencedByTessControlShader value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ReferencedByTessControlShader);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ReferencedByTessEvaluationShader value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{REFERENCED_BY_TESS_EVALUATION_SHADER}
+ *
+ *  @ingroup smart_enums
+ */
+struct ReferencedByTessEvaluationShader {
+
+/// Conversion to any @p Enum type having the ReferencedByTessEvaluationShader value.
+/** Instances of the @ref oglplus::smart_enums::ReferencedByTessEvaluationShader "ReferencedByTessEvaluationShader"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ReferencedByTessEvaluationShader value.
+ */
+template <typename Enum, Enum = Enum::ReferencedByTessEvaluationShader> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ReferencedByTessEvaluationShader value.
+/** Instances of the @c smart_enums::ReferencedByTessEvaluationShader type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ReferencedByTessEvaluationShader value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ReferencedByTessEvaluationShader);
+
+/// Non-equality comparison with any @p Enum type having the ReferencedByTessEvaluationShader value.
+/** Instances of the @c smart_enums::ReferencedByTessEvaluationShader type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ReferencedByTessEvaluationShader value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ReferencedByTessEvaluationShader);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ReferencedByVertexShader value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{REFERENCED_BY_VERTEX_SHADER}
+ *
+ *  @ingroup smart_enums
+ */
+struct ReferencedByVertexShader {
+
+/// Conversion to any @p Enum type having the ReferencedByVertexShader value.
+/** Instances of the @ref oglplus::smart_enums::ReferencedByVertexShader "ReferencedByVertexShader"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ReferencedByVertexShader value.
+ */
+template <typename Enum, Enum = Enum::ReferencedByVertexShader> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ReferencedByVertexShader value.
+/** Instances of the @c smart_enums::ReferencedByVertexShader type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ReferencedByVertexShader value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ReferencedByVertexShader);
+
+/// Non-equality comparison with any @p Enum type having the ReferencedByVertexShader value.
+/** Instances of the @c smart_enums::ReferencedByVertexShader type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ReferencedByVertexShader value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ReferencedByVertexShader);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c RelativeArcTo value.
@@ -24259,6 +25018,39 @@ template <typename Enum> friend bool operator==(Enum value, Timestamp);
  *  the @c Timestamp value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Timestamp);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TopLevelArraySize value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{TOP_LEVEL_ARRAY_SIZE}
+ *
+ *  @ingroup smart_enums
+ */
+struct TopLevelArraySize {
+
+/// Conversion to any @p Enum type having the TopLevelArraySize value.
+/** Instances of the @ref oglplus::smart_enums::TopLevelArraySize "TopLevelArraySize"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c TopLevelArraySize value.
+ */
+template <typename Enum, Enum = Enum::TopLevelArraySize> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the TopLevelArraySize value.
+/** Instances of the @c smart_enums::TopLevelArraySize type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c TopLevelArraySize value.
+ */
+template <typename Enum> friend bool operator==(Enum value, TopLevelArraySize);
+
+/// Non-equality comparison with any @p Enum type having the TopLevelArraySize value.
+/** Instances of the @c smart_enums::TopLevelArraySize type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c TopLevelArraySize value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, TopLevelArraySize);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Transform value.

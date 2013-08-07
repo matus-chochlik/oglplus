@@ -3,7 +3,7 @@
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 unset(OPENAL_INCLUDE_DIRS)
-set(OPENAL_FOUND false)
+set(OPENAL_FOUND 0)
 #
 # try to find AL/al.h
 find_path(
@@ -68,6 +68,6 @@ endif()
 
 if(OPENAL_AL_H_FOUND AND OPENAL_ALUT_H_FOUND)
 	if(${OPENAL_AL_H_FOUND} AND ${OPENAL_ALUT_H_FOUND})
-		set(OPENAL_FOUND true)
+		set(OPENAL_FOUND 1)
 	endif()
 endif()

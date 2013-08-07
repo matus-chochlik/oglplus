@@ -176,6 +176,7 @@ public:
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
+			bound_tex.Anisotropy(2);
 			bound_tex.WrapS(TextureWrap::MirroredRepeat);
 			bound_tex.WrapT(TextureWrap::MirroredRepeat);
 		}

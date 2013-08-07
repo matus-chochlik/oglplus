@@ -117,7 +117,7 @@ OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
  *  @glsymbols
  *  @glextref{ARB,compatibility}
  *
- *  @ingroup extensions
+ *  @ingroup gl_extensions
  */
 class ARB_compatibility
 {

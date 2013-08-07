@@ -1099,7 +1099,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(PathGlyphsNV)(
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(font_target),
 			(const void*)font_name,
 			GLbitfield(font_style),
@@ -1130,7 +1130,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(PathGlyphsNV)(
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(font_target),
 			(const void*)font_name,
 			GLbitfield(font_style),
@@ -1160,7 +1160,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(PathGlyphsNV)(
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(font_target),
 			(const void*)font_name,
 			GLbitfield(font_style),
@@ -1191,7 +1191,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(PathGlyphRangeNV)(
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(font_target),
 			(const void*)font_name,
 			GLbitfield(font_style),
@@ -1225,7 +1225,7 @@ public:
 			num_indices,
 			GLenum(GetDataType<IndexType>()),
 			(const void*)indices,
-			this->_get_name(0),
+			this->_names[0],
 			advance_scale,
 			kerning_scale,
 			GLenum(transform_type),
@@ -1254,7 +1254,7 @@ public:
 			GLsizei(indices.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)indices.data(),
-			this->_get_name(0),
+			this->_names[0],
 			advance_scale,
 			kerning_scale,
 			GLenum(transform_type),
@@ -1282,7 +1282,7 @@ public:
 			GLsizei(indices.size()+1), //include null terminator
 			GL_UTF8_NV,
 			(const void*)indices.c_str(),
-			this->_get_name(0),
+			this->_names[0],
 			advance_scale,
 			kerning_scale,
 			GLenum(transform_type),
@@ -1310,7 +1310,7 @@ public:
 			num_indices,
 			GLenum(GetDataType<IndexType>()),
 			(const void*)indices,
-			this->_get_name(0),
+			this->_names[0],
 			stride,
 			returned_values
 		);
@@ -1335,7 +1335,7 @@ public:
 			GLsizei(indices.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)indices.data(),
-			this->_get_name(0),
+			this->_names[0],
 			stride,
 			returned_values
 		);
@@ -1359,7 +1359,7 @@ public:
 			GLsizei(indices.size()+1),
 			GL_UTF8_NV,
 			(const void*)indices.c_str(),
-			this->_get_name(0),
+			this->_names[0],
 			stride,
 			returned_values
 		);
@@ -1380,7 +1380,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(GetPathMetricRangeNV)(
 			GLbitfield(query_mask),
-			this->_get_name(0),
+			this->_names[0],
 			num_paths,
 			stride,
 			returned_values
@@ -1407,7 +1407,7 @@ public:
 			num_paths,
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths,
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			mask,
 			GLenum(transform_type),
@@ -1436,7 +1436,7 @@ public:
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths.data(),
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			mask,
 			GLenum(transform_type),
@@ -1464,7 +1464,7 @@ public:
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
 			(const void*)paths.c_str(),
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			mask,
 			GLenum(transform_type),
@@ -1491,7 +1491,7 @@ public:
 			num_paths,
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths,
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
 			transform_values
@@ -1516,7 +1516,7 @@ public:
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths.data(),
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
 			transform_values.data()
@@ -1540,7 +1540,7 @@ public:
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
 			(const void*)paths.c_str(),
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
 			transform_values.data()
@@ -1567,7 +1567,7 @@ public:
 			num_paths,
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths,
-			this->_get_name(0),
+			this->_names[0],
 			reference,
 			mask,
 			GLenum(transform_type),
@@ -1594,7 +1594,7 @@ public:
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths.data(),
-			this->_get_name(0),
+			this->_names[0],
 			reference,
 			mask,
 			GLenum(transform_type),
@@ -1620,7 +1620,7 @@ public:
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
 			(const void*)paths.c_str(),
-			this->_get_name(0),
+			this->_names[0],
 			reference,
 			mask,
 			GLenum(transform_type),
@@ -1647,7 +1647,7 @@ public:
 			num_paths,
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths,
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
 			transform_values
@@ -1672,7 +1672,7 @@ public:
 			GLsizei(paths.size()),
 			GLenum(GetDataType<IndexType>()),
 			(const void*)paths.data(),
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
 			transform_values.data()
@@ -1696,7 +1696,7 @@ public:
 			GLsizei(paths.size()),
 			GL_UTF8_NV,
 			(const void*)paths.c_str(),
-			this->_get_name(0),
+			this->_names[0],
 			GLenum(mode),
 			GLenum(transform_type),
 			transform_values.data()
@@ -1710,7 +1710,7 @@ public:
  *  @glsymbols
  *  @glextref{NV,path_rendering}
  *
- *  @ingroup extensions
+ *  @ingroup gl_extensions
  */
 class NV_path_rendering
 {

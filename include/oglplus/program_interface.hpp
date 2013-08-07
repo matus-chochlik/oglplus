@@ -42,6 +42,28 @@ OGLPLUS_ENUM_CLASS_END(ProgramInterface)
 #include <oglplus/enums/program_interface_range.ipp>
 #endif
 
+/// Program resource property enumeration
+/**
+ *  @ingroup enumerations
+ *
+ *  @see Program
+ *  @see ProgramResource
+ *
+ *  @glsymbols
+ *  @glfunref{GetProgramInterface}
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(ProgramResourceProperty, GLenum)
+#include <oglplus/enums/program_resource_property.ipp>
+OGLPLUS_ENUM_CLASS_END(ProgramResourceProperty)
+
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/enums/program_resource_property_names.ipp>
+#endif
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/program_resource_property_range.ipp>
+#endif
+
 } // namespace oglplus
 
 #endif // include guard

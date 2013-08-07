@@ -31,6 +31,8 @@ if(EGL_FOUND AND OPENGL_FOUND)
 	)
 endif()
 
+standalone_example_common(001_text2d)
+
 if(GLUT_FOUND AND GLEW_FOUND)
 	include_directories(${GLEW_INCLUDE_DIRS})
 	include_directories(${GLUT_INCLUDE_DIRS})
@@ -77,6 +79,13 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	if(HAS_GLEW_ARB_compatibility AND HAS_GLEW_ARB_debug_output)
 		standalone_example_common(
 			002_triangle_compatibility
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
+	endif()
+
+	if(HAS_GLEW_EXT_direct_state_access)
+		standalone_example_common(
+			003_dsa_texture
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 		)
 	endif()

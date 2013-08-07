@@ -306,15 +306,18 @@ public:
 	{ }
 };
 
-class SurfaceProgram
- : public HardwiredTupleProgram<
-	std::tuple<SurfaceVertShader, SurfaceGeomShader, SurfaceFragShader>
->
+class SurfaceProgram : public Program
 {
 private:
-	typedef HardwiredTupleProgram<
-		std::tuple<SurfaceVertShader, SurfaceGeomShader, SurfaceFragShader>
-	> _base_program;
+	static Program make(void)
+	{
+		Program prog;
+		prog.AttachShader(SurfaceVertShader());
+		prog.AttachShader(SurfaceGeomShader());
+		prog.AttachShader(SurfaceFragShader());
+		prog.Link().Use();
+		return prog;
+	}
 	const Program& prog(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> camera_matrix;
@@ -323,7 +326,7 @@ public:
 	ProgramUniform<GLfloat> time;
 
 	SurfaceProgram(void)
-	 : _base_program()
+	 : Program(make())
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , grid_offset(prog(), "GridOffset")
 	 , camera_position(prog(), "CameraPosition")

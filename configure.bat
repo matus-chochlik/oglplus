@@ -103,6 +103,18 @@ IF DEFINED OGLPLUS_DEP_LIBRARY_DIRS (
 	)
 
 	::
+	:: Set the cmake msvc generator
+	::
+	IF "%~1" == "--for-msvc" (
+		IF [%2] == [] ECHO Missing MSVC version after '--for-msvc' ! && EXIT /B 2
+
+		SET OGLPLUS_CMAKE_OPTIONS=%OGLPLUS_CMAKE_OPTIONS% -G "Visual Studio %~2"
+
+		SHIFT
+		GOTO :shift_cmd_line_args
+	)
+
+	::
 	:: If --cmake option is found gather the rest of the command line
 	::
 	IF "%~1" == "--cmake" (
@@ -257,6 +269,10 @@ GOTO :eof
 	ECHO:                         invoked.
 	ECHO:                         This option may be specified multiple times
 	ECHO:                         to add multiple directories to the search list.
+	ECHO.
+	ECHO:  --for-msvc VERSION:    Equivalent to --cmake -G "Visual Studio VERSION":
+	ECHO:                         Uses the cmake generator for Microsoft Visual studio
+	ECHO:                         with the specified VERSION.
 	ECHO.
 	ECHO:  --cmake [options]:     Everything following the --cmake option will
 	ECHO:                         be passed to cmake verbatim.

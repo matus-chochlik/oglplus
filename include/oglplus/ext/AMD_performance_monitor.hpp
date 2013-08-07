@@ -457,7 +457,7 @@ typedef Object<PerfMonitorAMDOps> PerfMonitorAMD;
  *  @glsymbols
  *  @glextref{AMD,performance_monitor}
  *
- *  @ingroup extensions
+ *  @ingroup gl_extensions
  */
 class AMD_performance_monitor
 {

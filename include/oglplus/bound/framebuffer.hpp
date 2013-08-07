@@ -37,20 +37,25 @@ namespace oglplus {
  *
  *  @ingroup utility_classes
  */
-template <template <class> class Base, class BaseParam>
+template <template <class, class> class Base, class BaseParam>
 class BoundTemplate<Base, BaseParam, FramebufferOps>
- : public Base<BaseParam>
+ : public Base<BaseParam, FramebufferOps>
 {
+private:
+	typedef Base<
+		BaseParam,
+		FramebufferOps
+	> _Base;
 public:
 	BoundTemplate(
 		const FramebufferOps& bindable,
 		FramebufferOps::Target target
-	): Base<FramebufferOps>(bindable, target)
+	): _Base(bindable, target)
 	{ }
 
 	BoundTemplate(
 		FramebufferOps::Target target
-	): Base<BaseParam>(target)
+	): _Base(target)
 	{ }
 
 
@@ -83,6 +88,20 @@ public:
 	{
 		return FramebufferOps::IsComplete(
 			this->BindTarget()
+		);
+	}
+
+
+	/** Wrapper for Framebuffer::HandleIncompleteError()
+	 *  @see Framebuffer::HandleIncompleteError()
+	 */
+	void HandleIncompleteError(
+		FramebufferStatus status
+	) const
+	{
+		FramebufferOps::HandleIncompleteError(
+			this->BindTarget(),
+			status
 		);
 	}
 

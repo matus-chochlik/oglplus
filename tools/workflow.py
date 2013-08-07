@@ -205,7 +205,7 @@ def get_argument_parser():
 			raise argparse.ArgumentTypeError(msg)
 
 	argparser = argparse.ArgumentParser(
-		prog="configure",
+		prog="workflow",
 		description="""
 			Git Workflow utility script
 		""",

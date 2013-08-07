@@ -119,7 +119,7 @@ public:
 		std::size_t size
 	)
 	{
-		std::vector<CodePoint> cps;
+		CodePoints cps;
 		UTF8ToCodePoints(c_str, size, cps);
 
 		Layout layout(MakeLayout(font, size));

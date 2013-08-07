@@ -910,9 +910,7 @@ public:
 		GLuint tex_side
 	)
 	{
-		Texture::Active(4);
-
-		AutoBind<Texture> z_buffer(Texture::Target::CubeMap);
+		AutoBind<Texture> z_buffer(Texture::Target::CubeMap, 4);
 		z_buffer.MinFilter(TextureMinFilter::Nearest);
 		z_buffer.MagFilter(TextureMagFilter::Nearest);
 		z_buffer.WrapS(TextureWrap::ClampToEdge);

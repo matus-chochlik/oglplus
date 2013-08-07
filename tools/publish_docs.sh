@@ -15,7 +15,6 @@ do
 	doc_src="$(dirname $0)/../_build/doc/doxygen/${lib_name}/html"
 	#
 	(cd _build && make doc -j 4) &&
-	(cd _build && make rebuild-doc) &&
 	# remove the old files
 	ssh ${doc_user}@${doc_host} "rm -rf ${doc_base}/*" &&
 	# tar stream and untar the new files

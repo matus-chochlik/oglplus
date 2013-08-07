@@ -23,8 +23,8 @@ if(NOT PNG_LIBRARIES)
 endif()
 
 if(EXISTS ${PNG_INCLUDE_DIRS})
-	set(PNG_FOUND true)
+	set(PNG_FOUND 1)
 else()
-	set(PNG_FOUND false)
+	set(PNG_FOUND 0)
 endif()
 

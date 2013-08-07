@@ -25,8 +25,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "010_rgb_cube", "010_rgb_cub
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011_writing", "011_writing\011_writing.vcxproj", "{B8AFF93D-3D47-49FA-8F5A-23DF2F36E3B7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "012_checker_cube", "012_checker_cube\012_checker_cube.vcxproj", "{A5DF913B-BA48-4133-BE6B-2E55DAC14189}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013_spiral_sphere", "013_spiral_sphere\013_spiral_sphere.vcxproj", "{BE87FD82-2140-4FA4-92F0-2EE27E6FC899}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013_striped_cubes", "013_striped_cubes\013_striped_cubes.vcxproj", "{7C5C3E4D-6254-4573-8DCA-A2AAF257D428}"

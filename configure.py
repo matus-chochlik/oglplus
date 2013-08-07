@@ -21,6 +21,18 @@ def get_argument_parser():
 			msg = "'%s' is not a valid boolean value" % str(arg)
 			raise argparse.ArgumentTypeError(msg)
 
+	def JobCountValue(arg):
+		msg_fmt = "'%s' is not a valid process count value"
+		try:
+			if int(arg) < 0:
+				msg = msg_fmt % str(arg)
+				raise argparse.ArgumentTypeError(msg)
+			else:
+				return int(arg)
+		except:
+			msg = msg_fmt % str(arg)
+			raise argparse.ArgumentTypeError(msg)
+
 	def OpenGLVersionValue(arg):
 		import re
 		match = re.match("^([3-9]).([0-9])$", arg)
@@ -29,6 +41,8 @@ def get_argument_parser():
 		else:
 			msg = "'%s' is not a supported OpenGL version" % str(arg)
 			raise argparse.ArgumentTypeError(msg)
+
+	CMakeGeneratorValue = str
 
 	version_file = os.path.join(os.path.dirname(sys.argv[0]), "VERSION")
 	try: version = open(version_file, "r").read().strip()
@@ -152,6 +166,16 @@ def get_argument_parser():
 			compiler command-line switch or build environment setting.
 		"""
 	)
+	argparser.add_argument(
+		"--info-only",
+		dest="info_only",
+		action="store_true",
+		default=False,
+		help="""
+			With this option configure only generates a python script containing
+			information about the available configurations on the current machine.
+		"""
+	)
 	argparser_build_examples_group = argparser.add_mutually_exclusive_group()
 	argparser_build_examples_group.add_argument(
 		"--build-examples",
@@ -229,70 +253,49 @@ def get_argument_parser():
 		"""
 	)
 
-	gl_header_libs = ["GLCOREARB_H", "GL3_H", "GLEW", "GL3W"]
-	argparser_gl_header_lib_group = argparser.add_mutually_exclusive_group()
-	argparser_gl_header_lib_group.add_argument(
-		"--use-gl-header-lib",
-		dest="gl_header_lib",
+	gl_api_libs = {
+		"glcorearb.h" : "GL/glcorearb.h header",
+		"gl3.h" : "GL3/gl3.h header",
+		"GLEW" : "GLEW library",
+		"GL3W" : "GL3W library"
+	}
+
+	argparser_gl_api_lib_group = argparser.add_mutually_exclusive_group()
+	argparser_gl_api_lib_group.add_argument(
+		"--use-gl-api-lib",
+		dest="gl_api_lib",
 		type=str,
-		choices=gl_header_libs,
+		choices=[lib.upper().replace('.', '_') for lib in gl_api_libs.keys() ],
 		action="store",
 		default=None,
 		help="""
 			Forces the use of a specific header or library which
-			defines the GL symbols.
+			defines the GL symbols (types, functions, defines, etc.).
+			If this option is used then the header must be installed somewhere
+			in the system include directories or in directories specified
+			with --include-dir and the corresponding binary libraries
+			must be installed in system library directories or in directories
+			specified with the --library-dir option.
 		"""
 	)
-	argparser_gl_header_lib_group.add_argument(
-		"--use-glcorearb-h",
-		dest="gl_header_lib",
-		action="store_const",
-		const="GLCOREARB_H",
-		help="""
-			Force use of the GL/glcorearb.h header. If this option is used,
-			then this header must be installed somewhere in the system
-			include directories or in directories specified with --include-dir.
-			Equivalent to --use-gl-header-lib=GLCOREARB_H.
-		"""
-	)
-	argparser_gl_header_lib_group.add_argument(
-		"--use-gl3-h",
-		dest="gl_header_lib",
-		action="store_const",
-		const="GL3_H",
-		help="""
-			Force use of the GL3/gl3.h header. If this option is used,
-			then this header must be installed somewhere in the system
-			include directories or in directories specified with --include-dir.
-			Equivalent to --use-gl-header-lib=GL3_H.
-		"""
-	)
-	argparser_gl_header_lib_group.add_argument(
-		"--use-glew",
-		dest="gl_header_lib",
-		action="store_const",
-		const="GLEW",
-		help="""
-			Force use of the GLEW library. If this option is used, then GLEW
-			and the GL/glew.h header must be installed somewhere in the system
-			include directories or in directories specified with
-			--include-dir.
-			Equivalent to --use-gl-header-lib=GLEW.
-		"""
-	)
-	argparser_gl_header_lib_group.add_argument(
-		"--use-gl3w",
-		dest="gl_header_lib",
-		action="store_const",
-		const="GL3W",
-		help="""
-			Force use of the GL3W library. If this option is used, then GL3W
-			and the GL/gl3w.h header must be installed somewhere in the system
-			include directories or in directories specified with
-			--include-dir.
-			Equivalent to --use-gl-header-lib=GL3W.
-		"""
-	)
+	for gl_api_lib, gl_api_lib_name in gl_api_libs.items():
+		lib_lc = gl_api_lib.lower().replace('.', '-')
+		lib_uc = gl_api_lib.upper().replace('.', '_')
+		argparser_gl_api_lib_group.add_argument(
+			"--use-%(lib_lc)s" % { "lib_lc" : lib_lc },
+			dest="gl_api_lib",
+			action="store_const",
+			const=lib_uc,
+			help="""
+				Forces the use of the %(lib_name)s to define the GL symbols
+				used in OGLplus examples.
+				Equivalent to --use-gl-api-lib=%(lib_uc)s.
+			""" % {
+				"lib" : gl_api_lib,
+				"lib_name" : gl_api_lib_name,
+				"lib_uc" : lib_uc
+			}
+		)
 
 	gl_init_libs = ["GLUT", "GLFW", "wxGL", "SDL", "glX", "QtGL", "EGL"]
 	argparser_gl_init_lib_group = argparser.add_mutually_exclusive_group()
@@ -356,6 +359,16 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--jobs",
+		type=JobCountValue,
+		default=None,
+		action="store",
+		help="""
+			Specifies the number of parallel build jobs to be used,
+			if applicable for the used build tool.
+		"""
+	)
+	argparser.add_argument(
 		"--build",
 		default=False,
 		action="store_true",
@@ -371,6 +384,15 @@ def get_argument_parser():
 		action="store_true",
 		help="""
 			Configure the testsuite.
+		"""
+	)
+	argparser.add_argument(
+		"--generator",
+		type=CMakeGeneratorValue,
+		default=None,
+		action="store",
+		help="""
+			Specify the cmake generator to be used.
 		"""
 	)
 	argparser.add_argument(
@@ -538,9 +560,26 @@ def print_bash_complete_script(argparser):
 	print('	case "${prev}" in')
 	print('		-h|--help)')
 	print('			return 0;;')
+	print('		--generator)')
+	print('			OLDIFS=${IFS}')
+	print('			IFS=$\'\\r\\n\'')
+	print('			COMPREPLY=($(')
+	print('				cmake --help |')
+	print('				sed -n \'/^Generators\s*$/,$p\' |')
+	print('				tail -n +4 |')
+	print('				grep -v -e \'^\s\+=\' |')
+	print('				grep -v -e \'^\s*$\' |')
+	print('				cut -d= -f 1 |')
+	print('				sed \'s/^\s*\([^ ].\+[^ ]\)\s*$/\\1/\' |')
+	print('				grep -e "^${curr}" |')
+	print('				sed \'s/ /\\\\ /g\'')
+	print('			))')
+	print('			IFS=${OLDIFS}')
+	print('			return 0;;')
 	print('		%s)' % str("|").join(options_with_path))
 	print('			COMPREPLY=($(compgen -f "${curr}"))')
 	print('			return 0;;')
+
 
 	for action in argparser._actions:
 		if action.choices is not None:
@@ -743,6 +782,12 @@ def main(argv):
 		else:
 			cmake_options.append("-DOGLPLUS_LOW_PROFILE=Off")
 
+	if(options.info_only):
+		options.build_examples = False
+		options.make_screenshots = False
+		options.build_docs = False
+		options.build = False
+
 	# disable building the examples
 	if(not options.build_examples):
 		cmake_options.append("-DOGLPLUS_NO_EXAMPLES=On")
@@ -760,8 +805,8 @@ def main(argv):
 		cmake_options.append("-DOGLPLUS_MAX_GL_VERSION="+options.max_gl_version)
 
 	# force the GL header to be used
-	if(options.gl_header_lib):
-		cmake_options.append("-DOGLPLUS_FORCE_"+options.gl_header_lib+"=On")
+	if(options.gl_api_lib):
+		cmake_options.append("-DOGLPLUS_FORCE_GL_API_LIB="+options.gl_api_lib)
 
 	# force the GL initialization library to be used
 	if(options.gl_init_lib):
@@ -784,6 +829,10 @@ def main(argv):
 	# configure the test suite
 	if(options.with_tests):
 		cmake_options.append("-DOGLPLUS_WITH_TESTS=On")
+
+	# set the generator if specified
+	if(options.generator):
+		cmake_options+['-G', options.generator]
 
 	# create the build directory if necessary
 	if(not os.path.isdir(options.build_dir)):
@@ -811,14 +860,18 @@ def main(argv):
 		})
 		sys.exit(3)
 
-	# try to get the processor count (use below)
-	try:
-		import multiprocessing
-		processor_count = multiprocessing.cpu_count()
-	except: processor_count = None
+	# use the specified number of jobs
+	if options.jobs is not None:
+		job_count = options.jobs
+	else:
+		# else try to get the processor count (use below)
+		try:
+			import multiprocessing
+			job_count = multiprocessing.cpu_count()+1
+		except: job_count = None
 
 	# print some info if not supressed
-	if not options.quiet:
+	if not options.quiet and not options.info_only:
 		print("# Configuration completed successfully.")
 
 		cmake_build_tool = cmake_info.get("CMAKE_BUILD_TOOL")
@@ -831,10 +884,10 @@ def main(argv):
 					print("# To build OGLplus do the following:")
 					print(str())
 					print("cd "+ path_to_build_dir)
-					if processor_count:
+					if job_count:
 						print("%(tool)s -j %(jobs)d" % {
 							"tool": cmake_build_tool,
-							"jobs": processor_count+1
+							"jobs": job_count
 						})
 					else: print(cmake_build_tool)
 					print(cmake_build_tool + " install")
@@ -850,8 +903,8 @@ def main(argv):
 
 		if build_tool_name in ("make",):
 			build_cmd_line = [cmake_build_tool];
-			if processor_count:
-				build_cmd_line += ["-j", str(processor_count+1)]
+			if job_count:
+				build_cmd_line += ["-j", str(job_count)]
 		elif build_tool_name in ("devenv.com", "devenv.exe"):
 			build_cmd_line = [
 				cmake_build_tool,
@@ -873,8 +926,30 @@ def main(argv):
 		else: print("# --build is not supported with the current build tool")
 
 
+	# print the configuration info if requested
+	if options.info_only:
+		try:
+			info_py_path=os.path.join(options.build_dir, 'config', 'info.py')
+			info_py=open(info_py_path).read()
+			exec(info_py) in locals()
+
+			key_descs = {
+				"GL_INIT_LIBS": "Possible values for --gl-init-lib",
+				"GL_API_LIBS": "Possible values for --gl-api-lib",
+			}
+			for key, value in oglplus_config_info.items():
+
+				try: desc=key_descs[key]
+				except: desc=key
+
+				if type(value) == list:
+					value = "\n\t".join(value)
+
+				print("%(desc)s:\n\t%(value)s" % {"desc": desc, "value": value})
+		except: pass
+
 	# print additional info if not supressed
-	if not options.quiet:
+	elif not options.quiet:
 
 		if not options.install_prefix:
 			options.install_prefix = cmake_info.get("CMAKE_INSTALL_PREFIX")

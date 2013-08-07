@@ -101,6 +101,18 @@ public:
 		return _val_rad * T(180 / math::Pi());
 	}
 
+	/// Returns the value of the angle in number of right angles
+	inline T ValueInRightAngles(void) const
+	{
+		return _val_rad * T(2.0 / math::Pi());
+	}
+
+	/// Returns the value of the angle in number of full circles
+	inline T ValueInFullCircles(void) const
+	{
+		return _val_rad * T(0.5 / math::Pi());
+	}
+
 	/// Equality comparison
 	friend bool operator == (const Angle& a, const Angle& b)
 	{

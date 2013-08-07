@@ -53,7 +53,6 @@ public:
 		GLsizei hj = number(height)/yrep;
 
 		auto p = this->_begin<GLfloat>();
-		auto e = this->_end<GLfloat>();
 		for(GLsizei j=0; j!=height; ++j)
 		{
 			number y = number((j % hj) - hj/2)*invh;
@@ -68,15 +67,14 @@ public:
 					z:
 					Normalized(z+n);
 				if(l >= one) d = 0;
-				assert(p != e);
+				assert(p != this->_end<GLfloat>());
 				*p = v.x(); ++p;
 				*p = v.y(); ++p;
 				*p = v.z(); ++p;
 				*p = d; ++p;
 			}
 		}
-		OGLPLUS_FAKE_USE(e);
-		assert(p == e);
+		assert(p == this->_end<GLfloat>());
 	}
 };
 

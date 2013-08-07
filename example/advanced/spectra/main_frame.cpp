@@ -532,7 +532,7 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 		wxDefaultSize
 	)
 ), gl_context(gl_canvas)
- , api_init()
+ , gl_api_init()
  , shared_objects()
  , coroutine_exec()
 {
@@ -548,7 +548,7 @@ SpectraMainFrame::SpectraMainFrame(SpectraApp& app)
 	SetStatus(wxGetTranslation(wxT("Initializing GL"), wxT("Status")));
 
 	gl_context.SetCurrent(*gl_canvas);
-	api_init.reset(new oglplus::GLAPIInitializer());
+	gl_api_init.reset(new oglplus::GLAPIInitializer());
 	gl_canvas->Hide();
 
 	gl_vendor->SetLabel(wxString(
