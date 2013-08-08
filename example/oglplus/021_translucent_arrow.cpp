@@ -36,10 +36,10 @@ private:
 	{
 		VertexShader vs;
 		vs.Source(
-			"#version 120\n"
+			"#version 330\n"
 			"uniform mat4  ProjectionMatrix,CameraMatrix,ModelMatrix;"
 
-			"attribute vec4 Position;"
+			"in vec4 Position;"
 
 			"void main(void)"
 			"{"
@@ -49,7 +49,7 @@ private:
 
 		FragmentShader fs;
 		fs.Source(
-			"#version 120\n"
+			"#version 330\n"
 			"void main(void) { }"
 		).Compile();
 
