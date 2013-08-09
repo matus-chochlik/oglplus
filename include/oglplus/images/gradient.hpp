@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_IMAGES_GRADIENT_1211090818_HPP
 #define OGLPLUS_IMAGES_GRADIENT_1211090818_HPP
 
-#include <oglplus/image.hpp>
+#include <oglplus/images/image.hpp>
 #include <oglplus/texture.hpp>
 
 #include <cassert>

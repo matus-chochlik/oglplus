@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/image.hpp
+ *  @file oglplus/images/image.hpp
  *  @brief Image data wrapper
  *
  *  @author Matus Chochlik
@@ -12,165 +12,16 @@
 #pragma once
 #ifndef OGLPLUS_IMAGES_IMAGE_1107121519_HPP
 #define OGLPLUS_IMAGES_IMAGE_1107121519_HPP
+
 #include <limits>
 #include <cassert>
 #include <cstddef>
 #include <cstring>
 #include <oglplus/data_type.hpp>
+#include <oglplus/auxiliary/aligned_pod_array.hpp>
 
 namespace oglplus {
 namespace images {
-
-// Helper class for storing (image) PO data
-class AlignedPODArray
-{
-private:
-	std::size_t _count;
-	std::size_t _sizeof;
-
-	void* _data;
-
-	void (*_delete)(void*);
-	void* (*_dup)(const void*, std::size_t);
-
-	template <typename T>
-	static void _do_delete(void* ptr)
-	{
-		delete[] static_cast<T*>(ptr);
-	}
-
-	template <typename T>
-	static void* _do_dup(const void* src, std::size_t count)
-	{
-		T* dst = new T[count];
-		if(src != nullptr) std::memcpy(dst, src, count*sizeof(T));
-		return static_cast<void*>(dst);
-	}
-
-	void* _data_copy(void) const
-	{
-		if(_dup) return _dup(_data, _count);
-		assert(!_data && !_count);
-		return nullptr;
-	}
-
-	void* _release_data(void)
-	{
-		void* result = _data;
-		_data = nullptr;
-		_count = 0;
-		return result;
-	}
-
-	void _cleanup(void)
-	{
-		if(_data)
-		{
-			assert(_delete);
-			_delete(_data);
-		}
-	}
-public:
-	AlignedPODArray(void)
-	 : _count(0)
-	 , _sizeof(0)
-	 , _data(nullptr)
-	 , _delete(nullptr)
-	 , _dup(nullptr)
-	{ }
-
-	template <typename T>
-	AlignedPODArray(const T* data, std::size_t count)
-	 : _count(count)
-	 , _sizeof(sizeof(T))
-	 , _data(_do_dup<T>(static_cast<const void*>(data), count))
-	 , _delete(&_do_delete<T>)
-	 , _dup(&_do_dup<T>)
-	{ }
-
-	AlignedPODArray(AlignedPODArray&& tmp)
-	 : _count(tmp._count)
-	 , _sizeof(tmp._sizeof)
-	 , _data(tmp._release_data())
-	 , _delete(tmp._delete)
-	 , _dup(tmp._dup)
-	{ }
-
-	AlignedPODArray(const AlignedPODArray& that)
-	 : _count(that._count)
-	 , _sizeof(that._sizeof)
-	 , _data(that._data_copy())
-	 , _delete(that._delete)
-	 , _dup(that._dup)
-	{ }
-
-	~AlignedPODArray(void)
-	{
-		_cleanup();
-	}
-
-	AlignedPODArray& operator = (AlignedPODArray&& tmp)
-	{
-		_cleanup();
-		_count = tmp._count;
-		_sizeof = tmp._sizeof;
-		_data = tmp._release_data();
-		_delete = tmp._delete;
-		_dup = tmp._dup;
-		return *this;
-	}
-
-	AlignedPODArray& operator = (const AlignedPODArray& that)
-	{
-		void* tmp_data = that._data_copy();
-		_cleanup();
-		_count = that._count;
-		_sizeof = that._sizeof;
-		_data = tmp_data;
-		_delete = that._delete;
-		_dup = that._dup;
-		return *this;
-	}
-
-	void* Begin(void) const
-	{
-		return const_cast<void*>(_data);
-	}
-
-	void* End(void) const
-	{
-		typedef unsigned char byte;
-		return static_cast<void*>(static_cast<byte*>(Begin())+Size());
-	}
-
-	void* At(std::size_t offs) const
-	{
-		assert(!Empty());
-		typedef unsigned char byte;
-		std::size_t boffs = offs*_sizeof;
-		return static_cast<void*>(static_cast<byte*>(Begin())+boffs);
-	}
-
-	std::size_t Count(void) const
-	{
-		return _count;
-	}
-
-	std::size_t ElemSize(void) const
-	{
-		return _sizeof;
-	}
-
-	std::size_t Size(void) const
-	{
-		return Count()*ElemSize();
-	}
-
-	bool Empty(void) const
-	{
-		return _data == nullptr;
-	}
-};
 
 /** @defgroup image_load_gen Image loaders and generators
  *
@@ -194,7 +45,7 @@ class Image
 private:
 	GLsizei _width, _height, _depth, _channels;
 	PixelDataType _type;
-	AlignedPODArray _storage;
+	aux::AlignedPODArray _storage;
 	GLdouble (*_convert)(void*);
 
 	template <typename T>
@@ -206,30 +57,10 @@ private:
 		return v / n;
 	}
 
-	bool _is_initialized(void) const
-	{
-		return (!_storage.Empty()) && (_convert != nullptr);
-	}
+	bool _is_initialized(void) const;
 
-	static PixelDataFormat _get_def_pdf(std::size_t N)
-	{
-		if(N == 1) return PixelDataFormat::Red;
-		else if(N == 2) return PixelDataFormat::RG;
-		else if(N == 3) return PixelDataFormat::RGB;
-		else if(N == 4) return PixelDataFormat::RGBA;
-		else assert(!"Too many color channels!");
-		return PixelDataFormat::Red;
-	}
-
-	static PixelDataInternalFormat _get_def_pdif(std::size_t N)
-	{
-		if(N == 1) return PixelDataInternalFormat::Red;
-		else if(N == 2) return PixelDataInternalFormat::RG;
-		else if(N == 3) return PixelDataInternalFormat::RGB;
-		else if(N == 4) return PixelDataInternalFormat::RGBA;
-		else assert(!"Too many color channels!");
-		return PixelDataInternalFormat::Red;
-	}
+	static PixelDataFormat _get_def_pdf(std::size_t N);
+	static PixelDataInternalFormat _get_def_pdif(std::size_t N);
 
 protected:
 	PixelDataFormat _format;
@@ -262,7 +93,7 @@ protected:
 	{
 		assert(_is_initialized());
 		assert(_type_ok<T>());
-		return static_cast<T*>(_storage.Begin());
+		return static_cast<T*>(_storage.begin());
 	}
 
 	GLubyte* _begin_ub(void)
@@ -275,7 +106,7 @@ protected:
 	{
 		assert(_is_initialized());
 		assert(_type_ok<T>());
-		return static_cast<T*>(_storage.End());
+		return static_cast<T*>(_storage.end());
 	}
 
 	GLubyte* _end_ub(void)
@@ -328,7 +159,7 @@ public:
 	 , _depth(depth)
 	 , _channels(channels)
 	 , _type(PixelDataType(GetDataType<T>()))
-	 , _storage(AlignedPODArray(data, _width*_height*_depth*_channels))
+	 , _storage(aux::AlignedPODArray(data, _width*_height*_depth*_channels))
 	 , _convert(&_do_convert<T>)
 	 , _format(_get_def_pdf(channels))
 	 , _internal(_get_def_pdif(channels))
@@ -348,7 +179,7 @@ public:
 	 , _depth(depth)
 	 , _channels(channels)
 	 , _type(PixelDataType(GetDataType<T>()))
-	 , _storage(AlignedPODArray(data, _width*_height*_depth*_channels))
+	 , _storage(aux::AlignedPODArray(data, _width*_height*_depth*_channels))
 	 , _convert(&_do_convert<T>)
 	 , _format(format)
 	 , _internal(internal)
@@ -419,21 +250,21 @@ public:
 	{
 		assert(_is_initialized());
 		assert(_type_ok<T>());
-		return static_cast<T*>(_storage.Begin());
+		return static_cast<T*>(_storage.begin());
 	}
 
 	/// Returns an untyped pointer to the data
 	const void* RawData(void) const
 	{
 		assert(_is_initialized());
-		return _storage.Begin();
+		return _storage.begin();
 	}
 
 	/// Returns the size of data in bytes
 	std::size_t DataSize(void) const
 	{
 		assert(_is_initialized());
-		return _storage.Size();
+		return _storage.size();
 	}
 
 	std::size_t PixelPos(
@@ -460,10 +291,10 @@ public:
 		assert(_convert);
 		std::size_t ppos = PixelPos(width, height, depth);
 		return Vector<GLdouble, 4>(
-			_convert(_storage.At(ppos+0)),
-			_convert(_storage.At(ppos+1)),
-			_convert(_storage.At(ppos+2)),
-			_convert(_storage.At(ppos+3))
+			_convert(_storage.at(ppos+0)),
+			_convert(_storage.at(ppos+1)),
+			_convert(_storage.at(ppos+2)),
+			_convert(_storage.at(ppos+3))
 		);
 	}
 
@@ -488,7 +319,7 @@ public:
 	{
 		if(component >= Channels()) return 0.0;
 		assert(_convert);
-		return _convert(_storage.At(ComponentPos(
+		return _convert(_storage.at(ComponentPos(
 			width,
 			height,
 			depth,
@@ -507,7 +338,7 @@ public:
 	{
 		assert(_type_ok<T>());
 		if(component >= Channels()) return T(0);
-		return *static_cast<T*>(_storage.At(ComponentPos(
+		return *static_cast<T*>(_storage.at(ComponentPos(
 			width,
 			height,
 			depth,
@@ -515,6 +346,36 @@ public:
 		)));
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+bool Image::_is_initialized(void) const
+{
+	return (!_storage.empty()) && (_convert != nullptr);
+}
+
+OGLPLUS_LIB_FUNC
+PixelDataFormat Image::_get_def_pdf(std::size_t N)
+{
+	if(N == 1) return PixelDataFormat::Red;
+	else if(N == 2) return PixelDataFormat::RG;
+	else if(N == 3) return PixelDataFormat::RGB;
+	else if(N == 4) return PixelDataFormat::RGBA;
+	else assert(!"Too many color channels!");
+	return PixelDataFormat::Red;
+}
+
+OGLPLUS_LIB_FUNC
+PixelDataInternalFormat Image::_get_def_pdif(std::size_t N)
+{
+	if(N == 1) return PixelDataInternalFormat::Red;
+	else if(N == 2) return PixelDataInternalFormat::RG;
+	else if(N == 3) return PixelDataInternalFormat::RGB;
+	else if(N == 4) return PixelDataInternalFormat::RGBA;
+	else assert(!"Too many color channels!");
+	return PixelDataInternalFormat::Red;
+}
+#endif
 
 } // namespace images
 } // namespace oglplus

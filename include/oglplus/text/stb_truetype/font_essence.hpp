@@ -19,7 +19,7 @@
 #include <oglplus/text/bitmap_glyph/page_storage.hpp>
 #include <oglplus/text/bitmap_glyph/pager.hpp>
 
-#include <oglplus/image.hpp>
+#include <oglplus/images/image.hpp>
 #include <oglplus/opt/resources.hpp>
 
 #include <cctype>

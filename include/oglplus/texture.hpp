@@ -24,7 +24,7 @@
 #include <oglplus/access_specifier.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/texture_unit.hpp>
-#include <oglplus/image.hpp>
+#include <oglplus/images/image.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
