@@ -36,9 +36,7 @@ Image LoadByName(
 	bool y_is_up,
 	bool x_is_right
 )
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	std::ifstream file;
 	const char* exts[] = {".png"};
@@ -57,6 +55,8 @@ Image LoadByName(
 	assert(iext == 0);
 	return PNG(file, y_is_up, x_is_right);
 }
+#else
+;
 #endif
 
 /// Helper function for loading textures that come with @OGLplus in the examples
