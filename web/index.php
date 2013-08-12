@@ -8,7 +8,7 @@
 <meta name="keywords" content="C++ OpenGL Graphics"/>
 <meta name="description" content="C++ wrapper for the OpenGL&reg; C API"/>
 
-<title>OGLplus - a C++ wrapper for OpenGL® version 3 and higher.</title>
+<title>OGLplus - a C++ wrapper for modern OpenGL®.</title>
 
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
@@ -40,8 +40,7 @@
 </head>
 <body>
 <div id="main-title">
-<h1>OGLplus: a C++ wrapper for OpenGL&copy;</h1>
-<h2>(version 3 and higher)</h2>
+<h1>OGLplus: a C++ wrapper for modern OpenGL&copy;</h1>
 </div>
 <div id="frame">
 	<div id="head">
@@ -179,7 +178,7 @@
 				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 				<script src="galleria/galleria-1.2.5.min.js"></script>
 				<div id="gallery">
-					<img src="oglplus/html/018_stained_glass_cube.png"/>
+					<img src="oglplus/html/020_octree.png"/>
 					<img src="oglplus/html/021_translucent_arrow.png"/>
 					<img src="oglplus/html/021_wooden_crate.png"/>
 					<img src="oglplus/html/022_blender_mesh.png"/>
@@ -187,7 +186,6 @@
 					<img src="oglplus/html/022_parallax_map.png"/>
 					<img src="oglplus/html/023_sky.png"/>
 					<img src="oglplus/html/023_waves.png"/>
-					<img src="oglplus/html/024_extruded_torus.png"/>
 					<img src="oglplus/html/026_clouds.png"/>
 					<img src="oglplus/html/026_furry_torus.png"/>
 					<img src="oglplus/html/026_shape_halo.png"/>
@@ -199,6 +197,7 @@
 					<img src="oglplus/html/029_shadow_mapping.png"/>
 					<img src="oglplus/html/030_light_rays.png"/>
 					<img src="oglplus/html/031_brick_torus.png"/>
+					<img src="oglplus/html/031_fog.png"/>
 					<img src="oglplus/html/031_sketch.png"/>
 					<img src="oglplus/html/032_bar_grid.png"/>
 					<img src="oglplus/html/033_metal_and_glass.png"/>
