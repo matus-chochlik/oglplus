@@ -1,4 +1,4 @@
-#  Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -23,8 +23,8 @@ if(NOT GL3W_LIBRARIES)
 endif()
 
 if(EXISTS ${GL3W_INCLUDE_DIRS})
-	set(GL3W_FOUND true)
+	set(GL3W_FOUND 1)
 else()
-	set(GL3W_FOUND false)
+	set(GL3W_FOUND 0)
 endif()
 

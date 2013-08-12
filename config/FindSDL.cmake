@@ -23,8 +23,8 @@ if(NOT SDL_LIBRARIES)
 endif()
 
 if(EXISTS ${SDL_INCLUDE_DIRS})
-	set(SDL_FOUND true)
+	set(SDL_FOUND 1)
 else()
-	set(SDL_FOUND false)
+	set(SDL_FOUND 0)
 endif()
 

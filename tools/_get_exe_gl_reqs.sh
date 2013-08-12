@@ -5,6 +5,7 @@
 #
 exe_path=${1}
 lib_name=${2:-libGL.so}
+lib_hdr=${3:-$(dirname ${0})/../third_party/include/GL/glcorearb.h}
 
 if [ ${#exe_path} -eq 0 ]
 then echo "Usage: $(basename $0) <path-to-executable>" && exit 1
@@ -42,11 +43,12 @@ kill ${exe_pid}
 
 cut -d'(' -f1 "${tmp_file}" |
 uniq | sort | uniq |
+grep -e '^gl' |
 while read gl_sym
-do $(dirname $0)/_get_gl_sym_ver.sh "${gl_sym}" ${3} | grep "${gl_sym}:"
-done |
-sed -n 's/^.*GL_VERSION_\([1-9]_[0-9]\).*$/\1/p' |
-uniq | sort | uniq |
-tail -1
+do $(dirname $0)/_get_gl_sym_ver.sh "${gl_sym}" ${lib_hdr} #| grep "${gl_sym}:"
+done #|
+#sed -n 's/^.*GL_VERSION_\([1-9]_[0-9]\).*$/\1/p' |
+#uniq | sort | uniq |
+#tail -1
 
 rm -f ${tmp_file}

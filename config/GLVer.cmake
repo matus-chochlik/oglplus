@@ -4,15 +4,9 @@
 #
 
 function(gl_lib_ver_detection GL_LIB VERSION)
-	if(GLUT_FOUND)
-		set(GLUT_FOUND 1)
-	endif()
-	if(GLEW_FOUND)
-		set(GLEW_FOUND 1)
-	endif()
 
 	if(NOT DEFINED OGLPLUS_CONFIG_STRICT_VERSION_CHECK)
-		set(OGLPLUS_CONFIG_STRICT_VERSION_CHECK 0)
+		set(OGLPLUS_CONFIG_STRICT_VERSION_CHECK 1)
 	endif()
 
 	# if there is a specific file for the detection of extension availability
