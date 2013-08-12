@@ -249,7 +249,14 @@ public:
 	SLDataType Type(void) const
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 	{
+#ifdef None
+#pragma push_macro("None")
+#undef None
 		return SLDataType::None;
+#pragma pop_macro("None")
+#else
+		return SLDataType::None;
+#endif // None
 	}
 #else
 ;
@@ -324,7 +331,14 @@ public:
 	SLDataType Type(void) const
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 	{
+#ifdef None
+#pragma push_macro("None")
+#undef None
 		return SLDataType::None;
+#pragma pop_macro("None")
+#else
+		return SLDataType::None;
+#endif // None
 	}
 #else
 ;
@@ -418,7 +432,14 @@ public:
 	SLDataType Type(void) const
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 	{
+#ifdef None
+#pragma push_macro("None")
+#undef None
 		return SLDataType::None;
+#pragma pop_macro("None")
+#else
+		return SLDataType::None;
+#endif // None
 	}
 #else
 ;
