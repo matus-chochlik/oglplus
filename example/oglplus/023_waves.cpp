@@ -8,7 +8,8 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_gl{GL_VERSION_4_0}
+ *  @oglplus_example_uses_gl{GL_VERSION_3_3}
+ *  @oglplus_example_uses_gl{GL_ARB_tessellation_shader}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -60,7 +61,7 @@ public:
 	{
 		VertexShader vs(ObjectDesc("Vertex"));
 		vs.Source(StrLit(
-			"#version 410\n"
+			"#version 330\n"
 
 			"uniform vec3 CameraPosition;"
 
@@ -80,7 +81,8 @@ public:
 
 		TessControlShader cs(ObjectDesc("TessControl"));
 		cs.Source(
-			"#version 410\n"
+			"#version 330\n"
+			"#extension ARB_tessellation_shader : enable\n"
 
 			"layout(vertices = 3) out;"
 
@@ -126,7 +128,8 @@ public:
 
 		TessEvaluationShader es(ObjectDesc("TessEvaluation"));
 		es.Source(
-			"#version 410\n"
+			"#version 330\n"
+			"#extension ARB_tessellation_shader : enable\n"
 			"#define MaxWaves 5\n"
 
 			"layout(triangles, equal_spacing, ccw) in;"
@@ -191,7 +194,7 @@ public:
 
 		FragmentShader fs(ObjectDesc("Fragment"));
 		fs.Source(StrLit(
-			"#version 410\n"
+			"#version 330\n"
 
 			"uniform samplerCube EnvMap;"
 
