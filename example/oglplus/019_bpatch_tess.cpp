@@ -8,7 +8,8 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_gl{GL_VERSION_4_0}
+ *  @oglplus_example_uses_gl{GL_VERSION_3_3}
+ *  @oglplus_example_uses_gl{GL_ARB_tessellation_shader}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -37,7 +38,7 @@ public:
 	{
 		VertexShader vert(ObjectDesc("Vertex"));
 		vert.Source(StrLit(
-			"#version 410\n"
+			"#version 330\n"
 			"uniform mat4 CameraMatrix;"
 
 			"in vec4 Position;"
@@ -53,7 +54,8 @@ public:
 
 		TessControlShader teco(ObjectDesc("TessControl"));
 		teco.Source(StrLit(
-			"#version 410\n"
+			"#version 330\n"
+			"#extension ARB_tessellation_shader: enable\n"
 			"layout(vertices = 16) out;"
 
 			"in vec4 vertPosition[];"
@@ -80,7 +82,8 @@ public:
 
 		TessEvaluationShader teev(ObjectDesc("TessEvaluation"));
 		teev.Source(StrLit(
-			"#version 410\n"
+			"#version 330\n"
+			"#extension ARB_tessellation_shader: enable\n"
 			"layout(quads, equal_spacing, ccw) in;"
 			"uniform mat4 ProjectionMatrix;"
 			"patch in vec3 tecoPosition[16];"
@@ -124,7 +127,7 @@ public:
 
 		FragmentShader frag(ObjectDesc("Fragment"));
 		frag.Source(StrLit(
-			"#version 410\n"
+			"#version 330\n"
 			"out vec3 fragColor;"
 			"void main(void)"
 			"{"

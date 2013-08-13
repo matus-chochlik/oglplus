@@ -70,6 +70,7 @@ function(gl_lib_ext_detection GL_LIB EXTENSION_VENDOR EXTENSION_NAME)
 endfunction()
 
 
+gl_lib_ext_detection(GL ARB tessellation_shader)
 gl_lib_ext_detection(GL ARB separate_shader_objects)
 gl_lib_ext_detection(GL ARB transform_feedback2)
 gl_lib_ext_detection(GL ARB viewport_array)
