@@ -19,6 +19,8 @@ void oglplus_py_Vector(void);
 void oglplus_py_Vector_Swizzle(void);
 void oglplus_py_Plane(void);
 
+void oglplus_py_Buffer(void);
+
 BOOST_PYTHON_MODULE(oglplus)
 {
 #include "oglplus/_enums_call.ipp"
@@ -29,4 +31,6 @@ BOOST_PYTHON_MODULE(oglplus)
 	oglplus_py_Vector();
 	oglplus_py_Vector_Swizzle();
 	oglplus_py_Plane();
+
+	oglplus_py_Buffer();
 }
