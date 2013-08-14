@@ -45,7 +45,7 @@ class Image
 private:
 	GLsizei _width, _height, _depth, _channels;
 	PixelDataType _type;
-	aux::AlignedPODArray _storage;
+	oglplus::aux::AlignedPODArray _storage;
 	GLdouble (*_convert)(void*);
 
 	template <typename T>
@@ -159,7 +159,7 @@ public:
 	 , _depth(depth)
 	 , _channels(channels)
 	 , _type(PixelDataType(GetDataType<T>()))
-	 , _storage(aux::AlignedPODArray(data, _width*_height*_depth*_channels))
+	 , _storage(oglplus::aux::AlignedPODArray(data, _width*_height*_depth*_channels))
 	 , _convert(&_do_convert<T>)
 	 , _format(_get_def_pdf(channels))
 	 , _internal(_get_def_pdif(channels))
@@ -179,7 +179,7 @@ public:
 	 , _depth(depth)
 	 , _channels(channels)
 	 , _type(PixelDataType(GetDataType<T>()))
-	 , _storage(aux::AlignedPODArray(data, _width*_height*_depth*_channels))
+	 , _storage(oglplus::aux::AlignedPODArray(data, _width*_height*_depth*_channels))
 	 , _convert(&_do_convert<T>)
 	 , _format(format)
 	 , _internal(internal)
