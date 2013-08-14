@@ -99,7 +99,8 @@
 				<div id="quick-links" class="content-column-1">
 					<h3>Get OGLplus</h3>
 					<ul>
-						<li id="direct-download"><a href="http://sourceforge.net/projects/oglplus/files/latest/download">Direct download</a></li>
+						<li id="direct-download-stable"><a href="http://sourceforge.net/projects/oglplus/files/latest/download">Direct download</a> (latest stable)</li>
+						<li id="direct-download-devel"><a href="http://github.com/matus-chochlik/oglplus/archive/develop.zip">Direct download</a> (development)</li>
 						<li id="download"><a href="http://sourceforge.net/projects/oglplus/files/">All releases</a></li>
 						<li id="assets"><a href="http://sourceforge.net/projects/oglplus/files/assets/">Assets (models, textures) used in examples</a></li>
 
