@@ -66,7 +66,6 @@ function(gl_lib_ext_detection GL_LIB EXTENSION_VENDOR EXTENSION_NAME)
 		unset(RUNS_WITH_${GL_LIB_EXTENSION})
 		unset(COMPILED_WITH_${GL_LIB_EXTENSION})
 	endif()
-
 endfunction()
 
 
