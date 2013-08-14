@@ -28,7 +28,7 @@ add_custom_target(oglplus-examples ALL)
 # add a target for the screenshots
 add_custom_target(oglplus-examples-screenshots)
 
-add_definitions(-DOGLPLUS_LINK_LIBRARY=1)
+add_definitions(-DOGLPLUS_LINK_LIBRARY=${OGLPLUS_LINK_LIBRARY})
 
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qtgl")
 	QT4_WRAP_CPP(
@@ -38,6 +38,7 @@ if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qtgl")
 else()
 	set(OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES "")
 endif()
+
 
 # build the code common to all the examples into this library
 add_library(

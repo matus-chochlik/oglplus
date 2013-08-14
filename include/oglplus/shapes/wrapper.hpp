@@ -170,35 +170,7 @@ private:
 public:
 #endif
 
-	VertexArray VAOForProgram(const ProgramOps& prog) const
-	{
-		VertexArray vao;
-		vao.Bind();
-		prog.Use();
-		size_t i=0, n = _names.size();
-		while(i != n)
-		{
-			if(_npvs[i] != 0)
-			{
-				try
-				{
-					_vbos[i].Bind(Buffer::Target::Array);
-					VertexAttribArray attr(prog, _names[i]);
-					attr.Setup<GLfloat>(_npvs[i]);
-					attr.Enable();
-				}
-				catch(Error&){ }
-			}
-			++i;
-		}
-		assert((i+1) == _npvs.size());
-		if(_npvs[i] != 0)
-		{
-			assert((i+1) == _vbos.size());
-			_vbos[i].Bind(Buffer::Target::ElementArray);
-		}
-		return std::move(vao);
-	}
+	VertexArray VAOForProgram(const ProgramOps& prog) const;
 
 	void UseInProgram(const ProgramOps& prog)
 	{
@@ -246,11 +218,7 @@ public:
 
 	Vector<GLfloat, 3> BoundingSphereCenter(void) const
 	{
-		return Vector<GLfloat, 3>(
-			_bounding_sphere.x(),
-			_bounding_sphere.y(),
-			_bounding_sphere.z()
-		);
+		return Vector<GLfloat, 3>(_bounding_sphere.Data(), 3);
 	}
 
 	GLfloat BoundingSphereRadius(void) const
@@ -258,6 +226,40 @@ public:
 		return _bounding_sphere.w();
 	}
 };
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+
+OGLPLUS_LIB_FUNC
+VertexArray ShapeWrapperBase::VAOForProgram(const ProgramOps& prog) const
+{
+	VertexArray vao;
+	vao.Bind();
+	prog.Use();
+	size_t i=0, n = _names.size();
+	while(i != n)
+	{
+		if(_npvs[i] != 0)
+		{
+			try
+			{
+				_vbos[i].Bind(Buffer::Target::Array);
+				VertexAttribArray attr(prog, _names[i]);
+				attr.Setup<GLfloat>(_npvs[i]);
+				attr.Enable();
+			}
+			catch(Error&){ }
+		}
+		++i;
+	}
+	assert((i+1) == _npvs.size());
+	if(_npvs[i] != 0)
+	{
+		assert((i+1) == _vbos.size());
+		_vbos[i].Bind(Buffer::Target::ElementArray);
+	}
+	return std::move(vao);
+}
+#endif
 
 /// Wraps instructions and VBOs and VAO used to render a shape built by a ShapeBuilder
 class ShapeWrapper

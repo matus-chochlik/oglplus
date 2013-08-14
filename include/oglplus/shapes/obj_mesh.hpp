@@ -283,39 +283,13 @@ public:
 	> VertexAttribs;
 #endif
 
+	Vec4f MakeBoundingSphere(void) const;
+
 	/// Queries the bounding sphere coordinates and dimensions
 	template <typename T>
 	void BoundingSphere(Vector<T, 4>& center_and_radius) const
 	{
-		GLfloat min_x = _pos_data[3], max_x = _pos_data[3];
-		GLfloat min_y = _pos_data[4], max_y = _pos_data[4];
-		GLfloat min_z = _pos_data[5], max_z = _pos_data[5];
-		for(std::size_t v=0, vn=_pos_data.size()/3; v!=vn; ++v)
-		{
-			GLfloat x = _pos_data[v*3+0];
-			GLfloat y = _pos_data[v*3+1];
-			GLfloat z = _pos_data[v*3+2];
-
-			if(min_x > x) min_x = x;
-			if(min_y > y) min_y = y;
-			if(min_z > z) min_z = z;
-			if(max_x < x) max_x = x;
-			if(max_y < y) max_y = y;
-			if(max_z < z) max_z = z;
-		}
-
-		Vector<T, 3> c(
-			T((min_x + max_x) * 0.5),
-			T((min_y + max_y) * 0.5),
-			T((min_z + max_z) * 0.5)
-		);
-
-		center_and_radius = Vector<T, 4>(
-			c.x(),
-			c.y(),
-			c.z(),
-			Distance(c, Vector<T, 3>(T(min_x), T(min_y), T(min_z)))
-		);
+		center_and_radius = Vector<T, 4>(MakeBoundingSphere());
 	}
 
 	/// The type of the index container returned by Indices()
@@ -747,6 +721,39 @@ GLuint ObjMesh::GetMeshIndex(const std::string& name) const
 	}
 	return result;
 }
+
+OGLPLUS_LIB_FUNC
+Vec4f ObjMesh::MakeBoundingSphere(void) const
+{
+	GLfloat min_x = _pos_data[3], max_x = _pos_data[3];
+	GLfloat min_y = _pos_data[4], max_y = _pos_data[4];
+	GLfloat min_z = _pos_data[5], max_z = _pos_data[5];
+	for(std::size_t v=0, vn=_pos_data.size()/3; v!=vn; ++v)
+	{
+		GLfloat x = _pos_data[v*3+0];
+		GLfloat y = _pos_data[v*3+1];
+		GLfloat z = _pos_data[v*3+2];
+
+		if(min_x > x) min_x = x;
+		if(min_y > y) min_y = y;
+		if(min_z > z) min_z = z;
+		if(max_x < x) max_x = x;
+		if(max_y < y) max_y = y;
+		if(max_z < z) max_z = z;
+	}
+
+	Vec3f c(
+		(min_x + max_x) * 0.5f,
+		(min_y + max_y) * 0.5f,
+		(min_z + max_z) * 0.5f
+	);
+
+	return Vec4f(
+		c.x(), c.y(), c.z(),
+		Distance(c, Vec3f(min_x, min_y, min_z))
+	);
+}
+
 
 #endif // OGLPLUS_LINK_LIBRARY
 

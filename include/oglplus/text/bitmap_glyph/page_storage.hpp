@@ -15,7 +15,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/texture.hpp>
-#include <oglplus/image.hpp>
+#include <oglplus/images/image.hpp>
 #include <oglplus/text/common.hpp>
 #include <oglplus/text/unicode.hpp>
 #include <oglplus/text/bitmap_glyph/fwd.hpp>

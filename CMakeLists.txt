@@ -166,6 +166,8 @@ include(config/GLVer.cmake)
 # GL extension detection
 include(config/GLExt.cmake)
 
+include(config/OGLplusLib.cmake)
+
 # the configuration info
 add_subdirectory(config)
 

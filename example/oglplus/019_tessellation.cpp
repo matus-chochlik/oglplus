@@ -8,7 +8,8 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_gl{GL_VERSION_4_0}
+ *  @oglplus_example_uses_gl{GL_VERSION_3_3}
+ *  @oglplus_example_uses_gl{GL_ARB_tessellation_shader}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -68,7 +69,7 @@ public:
 	 , viewport_dimensions(prog, "ViewportDimensions")
 	{
 		vs.Source(
-			"#version 410\n"
+			"#version 330\n"
 
 			"uniform vec3 ViewPosition;"
 
@@ -86,7 +87,8 @@ public:
 		vs.Compile();
 
 		cs.Source(
-			"#version 410\n"
+			"#version 330\n"
+			"#extension ARB_tessellation_shader : enable\n"
 
 			"layout(vertices = 3) out;"
 
@@ -130,7 +132,8 @@ public:
 		cs.Compile();
 
 		es.Source(
-			"#version 410\n"
+			"#version 330\n"
+			"#extension ARB_tessellation_shader : enable\n"
 
 			"layout(triangles, equal_spacing, ccw) in;"
 
@@ -163,7 +166,7 @@ public:
 		es.Compile();
 
 		gs.Source(
-			"#version 410\n"
+			"#version 330\n"
 			"layout (triangles) in;"
 			"layout (triangle_strip, max_vertices = 3) out;"
 
@@ -232,7 +235,7 @@ public:
 		gs.Compile();
 
 		fs.Source(
-			"#version 410\n"
+			"#version 330\n"
 
 			"noperspective in vec3 geomDist;"
 			"flat in vec3 geomNormal;"

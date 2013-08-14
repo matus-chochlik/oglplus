@@ -184,7 +184,10 @@ private:
 	): _Base(std::move(flat_field), block_data_ref, offset)
 	{ }
 public:
-	typedef decltype(_that()._do_get((T*)nullptr, 0, 0)) ValueType;
+	typedef decltype(_that()._do_get((T*)nullptr, 0, 0)) _ValueType;
+	// this is a workaround for MSVC 12
+	typedef typename BlendFileFlatStructTypedFieldData<T>::_ValueType
+		ValueType;
 
 	BlendFileFlatStructTypedFieldData(BlendFileFlatStructTypedFieldData&& tmp)
 	 : _Base(static_cast<_Base&&>(tmp))

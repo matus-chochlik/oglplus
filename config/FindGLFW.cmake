@@ -23,8 +23,8 @@ if(NOT GLFW_LIBRARIES)
 endif()
 
 if(EXISTS ${GLFW_INCLUDE_DIRS})
-	set(GLFW_FOUND true)
+	set(GLFW_FOUND 1)
 else()
-	set(GLFW_FOUND false)
+	set(GLFW_FOUND 0)
 endif()
 

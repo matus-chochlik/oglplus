@@ -10,7 +10,8 @@
  *
  *  @oglplus_example_uses_cxx11{LAMBDAS}
  *
- *  @oglplus_example_uses_gl{GL_VERSION_4_1}
+ *  @oglplus_example_uses_gl{GL_VERSION_3_3}
+ *  @oglplus_example_uses_gl{GL_ARB_viewport_array}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>

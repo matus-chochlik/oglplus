@@ -13,25 +13,30 @@
 #ifndef OGLPLUS_IMAGES_LOAD_1107121519_HPP
 #define OGLPLUS_IMAGES_LOAD_1107121519_HPP
 
-#include <oglplus/opt/application.hpp>
-#include <oglplus/opt/resources.hpp>
-#include <oglplus/image.hpp>
-#include <oglplus/texture.hpp>
+#include <oglplus/images/image.hpp>
 #include <oglplus/images/png.hpp>
 
-#include <string>
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/opt/application.hpp>
+#include <oglplus/opt/resources.hpp>
+
 #include <fstream>
 #include <stdexcept>
+#endif // OGLPLUS_LINK_LIBRARY
+
+#include <string>
 
 namespace oglplus {
 namespace images {
 
-inline Image LoadByName(
+OGLPLUS_LIB_FUNC
+Image LoadByName(
 	std::string category,
 	std::string name,
 	bool y_is_up,
 	bool x_is_right
 )
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 {
 	std::ifstream file;
 	const char* exts[] = {".png"};
@@ -50,6 +55,9 @@ inline Image LoadByName(
 	assert(iext == 0);
 	return PNG(file, y_is_up, x_is_right);
 }
+#else
+;
+#endif
 
 /// Helper function for loading textures that come with @OGLplus in the examples
 inline Image LoadTexture(
