@@ -70,6 +70,8 @@ function(gl_lib_ext_detection GL_LIB EXTENSION_VENDOR EXTENSION_NAME)
 endfunction()
 
 
+gl_lib_ext_detection(GL ARB shader_subroutine)
+gl_lib_ext_detection(GL ARB shader_atomic_counters)
 gl_lib_ext_detection(GL ARB tessellation_shader)
 gl_lib_ext_detection(GL ARB separate_shader_objects)
 gl_lib_ext_detection(GL ARB transform_feedback2)
