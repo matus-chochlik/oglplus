@@ -12,8 +12,12 @@ function(gl_lib_ext_detection GL_LIB EXTENSION_VENDOR EXTENSION_NAME)
 
 	if(NOT DEFINED HAS_${GL_LIB_EXTENSION})
 		# if there is a specific file for the detection of extension availability
-		if(EXISTS ${PROJECT_SOURCE_DIR}/config/gl_ext/has_${GL_LIB_EXTENSION}.cpp)
-			# use it
+		if(EXISTS ${PROJECT_SOURCE_DIR}/config/gl_ext/has_${GL_LIB_EXTENSION}.cpp.in)
+			configure_file(
+				${PROJECT_SOURCE_DIR}/config/gl_ext/has_${GL_LIB_EXTENSION}.cpp.in
+				${PROJECT_BINARY_DIR}/gl_ext/has_${GL_LIB_EXTENSION}.cpp
+			)
+		elseif(EXISTS ${PROJECT_SOURCE_DIR}/config/gl_ext/has_${GL_LIB_EXTENSION}.cpp)
 			configure_file(
 				${PROJECT_SOURCE_DIR}/config/gl_ext/has_${GL_LIB_EXTENSION}.cpp
 				${PROJECT_BINARY_DIR}/gl_ext/has_${GL_LIB_EXTENSION}.cpp
