@@ -12,7 +12,7 @@ Version 0.35.0
 - Changes to the build system
   - The detection of GL version and GL extensions was reimplemented
     to be more robust and reliable.
-  - The dependencies/requirements for mose examples were updated accordingly.
+  - The dependencies/requirements for most examples were updated accordingly.
   - Detection if the OGLplus library can be built was added.
   - The detection of C++11 variadic templates was updated to be more reliable.
 
