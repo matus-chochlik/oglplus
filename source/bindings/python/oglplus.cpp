@@ -20,6 +20,8 @@ void oglplus_py_Vector_Swizzle(void);
 void oglplus_py_Plane(void);
 
 void oglplus_py_Buffer(void);
+void oglplus_py_Shader(void);
+void oglplus_py_Program(void);
 
 BOOST_PYTHON_MODULE(oglplus)
 {
@@ -33,4 +35,6 @@ BOOST_PYTHON_MODULE(oglplus)
 	oglplus_py_Plane();
 
 	oglplus_py_Buffer();
+	oglplus_py_Shader();
+	oglplus_py_Program();
 }
