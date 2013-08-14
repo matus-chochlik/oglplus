@@ -424,7 +424,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		GLfloat a = std::pow(SineWave(time / 51.7), 3.0f);
+		GLfloat a = std::pow(SineWave(float(time) / 51.7f), 3.0f);
 		GLfloat b = SineWave(time / 31.1);
 
 		camera_matrix.Set(
