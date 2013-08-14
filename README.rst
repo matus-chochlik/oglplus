@@ -277,7 +277,7 @@ Acknowledgements
 - *Denis Ovod* for constructive critique and suggestions.
 - *Per Nordlöw* for useful suggestions.
 - *Dmitry Yakimenko (detunized)* for several patches and porting to MacOS X.
-
+- *Csala Tamás* for useful feedback and help with the fixing of several bugs.
 License
 =======
 

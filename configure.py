@@ -252,6 +252,20 @@ def get_argument_parser():
 			This option can be used to limit the maximal version number.
 		"""
 	)
+	argparser.add_argument(
+		"--strict-gl-version-detection",
+		dest="strict_gl_version_detection",
+		type=BoolArgValue,
+		action="store",
+		default=True,
+		help="""
+			Enables (or disables) strict GL version and extension detection.
+			In relaxed (non-strict) mode the only thing that is detected is
+			whether specific GL symbols are defined like GL_VERSION_x_y or
+			GL_EXT_extension_name. In strict mode a GL context is initialized
+			and the GL version and extension list is queried and processed.
+		"""
+	)
 
 	gl_api_libs = {
 		"glcorearb.h" : "GL/glcorearb.h header",
@@ -393,6 +407,15 @@ def get_argument_parser():
 		action="store",
 		help="""
 			Specify the cmake generator to be used.
+		"""
+	)
+	argparser.add_argument(
+		"--debug-config",
+		dest="debug_config",
+		default=False,
+		action="store_true",
+		help="""
+			Enable debugging of the cmake build system.
 		"""
 	)
 	argparser.add_argument(
@@ -804,6 +827,11 @@ def main(argv):
 	if(options.max_gl_version):
 		cmake_options.append("-DOGLPLUS_MAX_GL_VERSION="+options.max_gl_version)
 
+	# enable/disable strict version detection
+	if(options.strict_gl_version_detection is not None):
+		value = int(options.strict_gl_version_detection)
+		cmake_options.append("-DOGLPLUS_CONFIG_STRICT_VERSION_CHECK="+str(value))
+
 	# force the GL header to be used
 	if(options.gl_api_lib):
 		cmake_options.append("-DOGLPLUS_FORCE_GL_API_LIB="+options.gl_api_lib)
@@ -832,7 +860,11 @@ def main(argv):
 
 	# set the generator if specified
 	if(options.generator):
-		cmake_options+['-G', options.generator]
+		cmake_options += ['-G', options.generator]
+
+	# put cmake in debug mode if specified
+	if(options.debug_config):
+		cmake_options += ["--debug-output", "--debug-trycompile"]
 
 	# create the build directory if necessary
 	if(not os.path.isdir(options.build_dir)):

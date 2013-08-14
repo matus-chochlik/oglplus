@@ -42,14 +42,22 @@ macro(do_require_all_dependencies EXE_DIR EXE_NAME RESULT)
 
 	foreach(REQ_FILE ${REQ_FILES})
 		file(STRINGS "${REQ_FILE}" EXE_REQUIREMENTS)
-		foreach(REQUIREMENT ${EXE_REQUIREMENTS})
-			if(${OGLPLUS_NO_${REQUIREMENT}})
+		foreach(REQUIREMENT_LIST ${EXE_REQUIREMENTS})
+			set(ONE_OF_REQUIREMENTS_FOUND false)
+			foreach(REQUIREMENT ${REQUIREMENT_LIST})
+				if(NOT (OGLPLUS_NO_${REQUIREMENT}) OR (NOT ${OGLPLUS_NO_${REQUIREMENT}}))
+					set(ONE_OF_REQUIREMENTS_FOUND true)
+				endif()
+			endforeach()
+
+			if(NOT ${ONE_OF_REQUIREMENTS_FOUND})
 				message(
 					STATUS
 					"Skipping '${EXE_NAME}' "
-					"because '${REQUIREMENT}' not implemented properly."
+					"because '${REQUIREMENT_LIST}' not implemented properly."
 				)
 				set(${RESULT} false)
+				break()
 			endif()
 		endforeach()
 	endforeach()

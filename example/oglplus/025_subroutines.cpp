@@ -8,7 +8,8 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_gl{GL_VERSION_4_0}
+ *  @oglplus_example_uses_gl{GL_VERSION_3_3}
+ *  @oglplus_example_uses_gl{GL_ARB_shader_subroutine}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>

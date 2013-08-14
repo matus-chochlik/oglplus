@@ -57,10 +57,12 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
 
-	standalone_example_common(
-		001_program_resources
-		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-	)
+	if(HAS_GL_VERSION_4_3)
+		standalone_example_common(
+			001_program_resources
+			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		)
+	endif()
 
 	if(HAS_GLEW_ATI_meminfo)
 		standalone_example_common(

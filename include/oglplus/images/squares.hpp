@@ -13,11 +13,12 @@
 #ifndef OGLPLUS_IMAGES_SQUARES_1107121519_HPP
 #define OGLPLUS_IMAGES_SQUARES_1107121519_HPP
 
-#include <oglplus/image.hpp>
-#include <oglplus/texture.hpp>
+#include <oglplus/images/image.hpp>
 
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 #include <cassert>
 #include <cmath>
+#endif
 
 namespace oglplus {
 namespace images {
@@ -32,30 +33,44 @@ public:
 		GLfloat ratio = 0.8f,
 		GLsizei xrep = 2,
 		GLsizei yrep = 2
-	): Image(width, height, 1, 1, (GLubyte*)0)
-	{
-		assert(width != 0 && height != 0);
-		assert(ratio > 0.0f && ratio <= 1.0f);
-		assert(xrep != 0 && yrep != 0);
-
-		auto p = this->_begin_ub();
-
-		float rmin = (1.0f - ratio) * 0.5f;
-		float rmax = rmin + ratio;
-
-		for(GLsizei y=0; y!=height; ++y)
-		for(GLsizei x=0; x!=width;  ++x)
-		{
-			float vx = float((x * xrep)% width)/width;
-			float vy = float((y * yrep)%height)/height;
-			bool outside =
-				((vx < rmin) || (vx > rmax)) ||
-				((vy < rmin) || (vy > rmax));
-			*p++ = outside?0x00:0xFF;
-		}
-		assert(p == this->_end_ub());
-	}
+	);
 };
+
+// Implementation
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+
+OGLPLUS_LIB_FUNC
+Squares::Squares(
+	GLsizei width,
+	GLsizei height,
+	GLfloat ratio,
+	GLsizei xrep,
+	GLsizei yrep
+): Image(width, height, 1, 1, (GLubyte*)0)
+{
+	assert(width != 0 && height != 0);
+	assert(ratio > 0.0f && ratio <= 1.0f);
+	assert(xrep != 0 && yrep != 0);
+
+	auto p = this->_begin_ub();
+
+	float rmin = (1.0f - ratio) * 0.5f;
+	float rmax = rmin + ratio;
+
+	for(GLsizei y=0; y!=height; ++y)
+	for(GLsizei x=0; x!=width;  ++x)
+	{
+		float vx = float((x * xrep)% width)/width;
+		float vy = float((y * yrep)%height)/height;
+		bool outside =
+			((vx < rmin) || (vx > rmax)) ||
+			((vy < rmin) || (vy > rmax));
+		*p++ = outside?0x00:0xFF;
+	}
+	assert(p == this->_end_ub());
+}
+
+#endif // OGLPLUS_LINK_LIBRARY
 
 } // images
 } // oglplus

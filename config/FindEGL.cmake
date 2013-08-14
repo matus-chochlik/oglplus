@@ -3,7 +3,7 @@
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 unset(EGL_INCLUDE_DIRS)
-set(EGL_FOUND false)
+set(EGL_FOUND 0)
 #
 # try to find EGL/egl.h
 find_path(
@@ -18,7 +18,7 @@ endif()
 # if found append it to the include directories
 if((EGL_EGL_H_DIR) AND (EXISTS ${EGL_EGL_H_DIR}))
 	set(EGL_INCLUDE_DIRS ${EGL_INCLUDE_DIRS} ${EGL_EGL_H_DIR})
-	set(EGL_EGL_H_FOUND true)
+	set(EGL_EGL_H_FOUND 1)
 endif()
 #
 # try to find the EGL library
@@ -38,6 +38,6 @@ endif()
 
 if(EGL_EGL_H_FOUND AND EGL_LIBRARY)
 	if(${EGL_EGL_H_FOUND} AND EXISTS ${EGL_LIBRARY})
-		set(EGL_FOUND true)
+		set(EGL_FOUND 1)
 	endif()
 endif()

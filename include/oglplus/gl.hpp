@@ -73,7 +73,6 @@ struct GLAPIInitializer
 } // namespace oglplus
 
 # elif OGLPLUS_USE_GLEW
-#  define GL3_PROTOTYPES
 #  include <GL/glew.h>
 #  include <stdexcept>
 
@@ -86,7 +85,8 @@ public:
 		int /*gl_ver_minor*/ = 3
 	)
 	{
-		auto init_result = glewInit();
+		glewExperimental = GL_TRUE;
+		GLenum init_result = glewInit();
 		glGetError();
 		if(init_result != GLEW_OK)
 		{

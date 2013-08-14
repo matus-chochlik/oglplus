@@ -72,6 +72,7 @@ function _configure_oglplus()
 		--make-screenshots \
 		--screenshots \
 		--max-gl-version \
+		--strict-gl-version-detection \
 		--use-gl-api-lib \
 		--use-glew \
 		--use-gl3w \
@@ -92,6 +93,7 @@ function _configure_oglplus()
 		--build \
 		--with-tests \
 		--generator \
+		--debug-config \
 		--cmake \
 	"
 

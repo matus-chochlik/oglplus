@@ -13,8 +13,7 @@
 #ifndef OGLPLUS_IMAGES_NEWTON_1107121519_HPP
 #define OGLPLUS_IMAGES_NEWTON_1107121519_HPP
 
-#include <oglplus/image.hpp>
-#include <oglplus/texture.hpp>
+#include <oglplus/images/image.hpp>
 #include <oglplus/vector.hpp>
 
 #include <cassert>
