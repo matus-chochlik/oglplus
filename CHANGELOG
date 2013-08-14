@@ -1,9 +1,27 @@
+Version 0.35.0
+
+- Mostly a bugfix release.
+- OGLplus changes:
+  - The all-in-one 'library' header file was update, some of the functions
+    from ObjMesh and from the image generators were moved into the lib.
+  - The oglplus/image.hpp header was moved to oglplus/images/image.hpp.
+  - A problem with 'None' being defined as a PP symbol on some plattforms
+    was fixed in the implementation of Program.
+- Changes to examples:
+  - Some minor bugs were fixed in the OGLplus examples.
+- Changes to the build system
+  - The detection of GL version and GL extensions was reimplemented
+    to be more robust and reliable.
+  - The dependencies/requirements for mose examples were updated accordingly.
+  - Detection if the OGLplus library can be built was added.
+  - The detection of C++11 variadic templates was updated to be more reliable.
+
 Version 0.34.0
 
-- OGLplus changes: 
+- OGLplus changes:
   - The DSATextureEXT class - a direct-state-access replacement for Texture was
     added and can be used where the EXT_direct_state_access extension is
-    available. 
+    available.
   - Support for anisotropic filtering was added to Texture and DSATextureEXT.
   - The PointAndVector, TwistedTorus and the Cage parametric shape vertex
     attribute builders were added.
@@ -18,10 +36,10 @@ Version 0.34.0
   - The ValueInRightAngles and ValueInFullCircles getter functions were added
     to the Angle<T> template class.
 - Updates to examples:
-  - Several new examples were added and some of the existing examples were updated 
+  - Several new examples were added and some of the existing examples were updated
     to show the new OGLplus features.
   - Several old examples were removed.
-  - The ARB_debug_output in the GLX example 'harness' was updated to remove 
+  - The ARB_debug_output in the GLX example 'harness' was updated to remove
     duplicate messages.
   - Several minor tweaks and optimizations were made to the existing examples.
 - Updates to the build system:
