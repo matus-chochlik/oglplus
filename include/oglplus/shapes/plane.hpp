@@ -48,7 +48,19 @@ public:
 	 , _vdiv(2)
 	{ }
 
-	/// Creates a plane with going through origin specified by @p u and @p v
+	/// Creates a default plane with udiv and vdiv divisions
+	Plane(unsigned udiv, unsigned vdiv)
+	 : _point(0.0f, 0.0f, 0.0f)
+	 , _u(1.0f, 0.0f, 0.0f)
+	 , _v(0.0f, 0.0f,-1.0f)
+	 , _udiv(udiv)
+	 , _vdiv(vdiv)
+	{
+		assert(udiv > 1);
+		assert(vdiv > 1);
+	}
+
+	/// Creates a plane going through origin specified by @p u and @p v
 	Plane(const Vec3f u, const Vec3f v)
 	 : _point(0.0f, 0.0f, 0.0f)
 	 , _u(u)
@@ -60,7 +72,7 @@ public:
 		assert(Length(_v) > 0.0f);
 	}
 
-	/// Creates a plane with going through @p p specified by @p u and @p v
+	/// Creates a plane going through @p p specified by @p u and @p v
 	Plane(
 		const Vec3f p,
 		const Vec3f u,

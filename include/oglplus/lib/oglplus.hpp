@@ -50,6 +50,7 @@
 #include <oglplus/shapes/obj_mesh.hpp>
 #include <oglplus/shapes/draw.hpp>
 #include <oglplus/shapes/wrapper.hpp>
+#include <oglplus/shapes/analyzer.hpp>
 
 #include <oglplus/images/image.hpp>
 #include <oglplus/images/brushed_metal.hpp>

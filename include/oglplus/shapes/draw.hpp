@@ -492,6 +492,11 @@ public:
 	 : _ops(other._ops)
 	{ }
 
+	const std::vector<DrawOperation>& Operations(void) const
+	{
+		return _ops;
+	}
+
 	struct DefaultDriver
 	{
 		inline bool operator()(GLuint /*phase*/) const
