@@ -20,6 +20,7 @@
 
 #include <oglplus/auxiliary/any_iter.hpp>
 
+#include <array>
 #include <vector>
 #include <iostream>
 #include <cctype>
