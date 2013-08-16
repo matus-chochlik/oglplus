@@ -1,6 +1,12 @@
 /**
- *  @example standalone/000_test.cpp
- *  @brief Devel/test of the mesh analyzer tool
+ *  @example standalone/002_shape2dot.cpp
+ *  @brief Shows the basic usage of the mesh analyzer tool
+ *
+ *  Can be used with graphviz neato to render an image
+ *  of the generated adjacency graph:
+ *  @code
+ *  ./001_shape2dot | neato -T png > 001_shape2dot.png
+ *  @endcode
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -11,59 +17,22 @@
 #include <iostream>
 
 #include <GL/glew.h>
-#include <GL/glut.h>
-
-#include <iostream>
 
 #include <oglplus/shapes/analyzer.hpp>
-
-#include <oglplus/shapes/cube.hpp>
-#include <oglplus/shapes/plane.hpp>
-#include <oglplus/shapes/screen.hpp>
-#include <oglplus/shapes/sphere.hpp>
 #include <oglplus/shapes/icosahedron.hpp>
-#include <oglplus/shapes/twisted_torus.hpp>
-#include <oglplus/shapes/obj_mesh.hpp>
 
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>
 
 #include <oglplus/matrix.hpp>
 
-namespace oglplus {
-namespace shapes {
-
-
-} // namespace shapes
-} // namespace oglplus
-
-int main(int argc, char* argv[])
+int main(void)
 {
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitWindowSize(800, 600);
-	glutInitWindowPosition(100,100);
-	glutCreateWindow("OGLplus+GLUT+GLEW");
-
-	if(glewInit() == GLEW_OK) try
+	try
 	{
-		glGetError();
-
 		using namespace oglplus;
 
-		//shapes::Cube s;
-		shapes::Plane s(3, 3);
-		//shapes::Screen s;
-		//shapes::Sphere s;
-		//shapes::Icosahedron s;
-		//shapes::TwistedTorus s;
-/*
-		ResourceFile input("models", "arrow_z", ".obj");
-		shapes::ObjMesh s(
-			input,
-			shapes::ObjMesh::LoadingOptions(false).Normals().Materials()
-		);
-*/
+		shapes::Icosahedron s;
 		shapes::ShapeAnalyzer a(s);
 
 		std::cout << "graph Shape {" << std::endl;
@@ -71,8 +40,10 @@ int main(int argc, char* argv[])
 		std::cout << "\tsplines=true;" << std::endl;
 		std::cout << "\tnode [shape=box];" << std::endl;
 
-		auto tm = CamMatrixd::PerspectiveX(Angle<double>::Degrees(80), 1, 1, 20)*
-			CamMatrixd::LookingAt(Vec3d(0, 10, 10), Vec3d());
+		auto tm =
+			ModelMatrixd::Scale(5, 5, 5)*
+			CamMatrixd::PerspectiveX(Angle<double>::Degrees(80), 1, 1, 20)*
+			CamMatrixd::LookingAt(Vec3d(5, 5, 5), Vec3d());
 
 		for(GLuint f=0; f!=a.FaceCount(); ++f)
 		{
@@ -81,14 +52,12 @@ int main(int argc, char* argv[])
 			Vec4d v1 = face.Vert(1).MainAttrib();
 			Vec4d v2 = face.Vert(2).MainAttrib();
 
-			Vec4d v = (v0+v1+v2)/3.0;
+			Vec4d v = tm*Vec4d((v0+v1+v2).xyz()/3.0, 1.0);
 			std::cout
 				<< "\tf" << f
-				<< " [label=\"" << f
-				<< "\", pos=\""
-				<< v.x()*8 << "," << v.z()*8
-				<< "\", pin=true]"
-				<< ";" << std::endl;
+				<< " [label=\"" << f << "\""
+				<< ", pos=\"" << v.x() << "," << v.y() << "\""
+				<< "];" << std::endl;
 		}
 
 		std::cout

@@ -21,6 +21,7 @@
 #include <cstddef>
 #include <cassert>
 #include <vector>
+#include <cmath>
 
 
 namespace oglplus {
@@ -70,6 +71,8 @@ public:
 	std::vector<GLdouble> _main_va;
 	// number of values per vertex for the main attribute
 	GLuint _main_vpv;
+	// epsilon value for comparisons
+	GLdouble _eps;
 
 	// index pointing to the start of face vertices
 	std::vector<GLuint> _face_index;
@@ -94,6 +97,7 @@ public:
 	 , _index(_adapt(builder.Indices()))
 	 , _main_va()
 	 , _main_vpv(builder.Positions(_main_va))
+	 , _eps(1.0e-9)
 	{
 		_initialize();
 	}
@@ -205,9 +209,55 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 
 OGLPLUS_LIB_FUNC
 void ShapeAnalyzerGraphData::
-_init_dr_ar_triangle_fan(const DrawOperation& /*draw_op*/)
+_init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 {
-	// TODO
+	assert((draw_op.count == 0) || (draw_op.count >= 3));
+	GLuint i=0;
+	GLuint v=0;
+
+	_face_index.push_back(_face_verts.size());
+	_face_phase.push_back(draw_op.phase);
+
+	_face_verts.push_back(draw_op.first+i++);
+	_face_verts.push_back(draw_op.first+i++);
+	_face_verts.push_back(draw_op.first+i++);
+
+	_face_adj_f.push_back(_nil_face());
+	_face_adj_f.push_back(_nil_face());
+	_face_adj_f.push_back(_nil_face());
+
+	_face_adj_e.push_back(0);
+	_face_adj_e.push_back(0);
+	_face_adj_e.push_back(0);
+
+	v+=3;
+
+	while(i != draw_op.count)
+	{
+		_face_index.push_back(_face_verts.size());
+		_face_phase.push_back(draw_op.phase);
+
+		_face_verts.push_back(draw_op.first);
+		_face_verts.push_back(draw_op.first+i-1);
+		_face_verts.push_back(draw_op.first+i+0);
+
+		_face_adj_f.push_back(_nil_face());
+		_face_adj_f.push_back(_nil_face());
+		_face_adj_f.push_back(_nil_face());
+
+		_face_adj_f[v-1] = _face_index.size()-1;
+		_face_adj_f[v+0] = _face_index.size()-2;
+
+		_face_adj_e.push_back(0);
+		_face_adj_e.push_back(0);
+		_face_adj_e.push_back(0);
+
+		_face_adj_e[v-1] = 0;
+		_face_adj_e[v+0] = 2;
+
+		++i;
+		v+=3;
+	}
 }
 
 OGLPLUS_LIB_FUNC
@@ -338,7 +388,7 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 				_face_adj_f.push_back(_nil_face());
 
 				_face_adj_f[v-1] = _face_index.size()-1;
-				_face_adj_f[v] = _face_index.size()-2;
+				_face_adj_f[v+0] = _face_index.size()-2;
 
 				_face_adj_e.push_back(0);
 				_face_adj_e.push_back(0);
@@ -355,9 +405,70 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 
 OGLPLUS_LIB_FUNC
 void ShapeAnalyzerGraphData::
-_init_dr_el_triangle_fan(const DrawOperation& /*draw_op*/)
+_init_dr_el_triangle_fan(const DrawOperation& draw_op)
 {
-	//TODO
+	assert((draw_op.count == 0) || (draw_op.count >= 3));
+	GLuint i=0;
+	GLuint v=0;
+
+	while(i != draw_op.count)
+	{
+		if(_index[draw_op.first+i] == draw_op.restart_index)
+		{
+			++i;
+			continue;
+		}
+
+		_face_index.push_back(_face_verts.size());
+		_face_phase.push_back(draw_op.phase);
+
+		_face_verts.push_back(_index[draw_op.first+i++]);
+		_face_verts.push_back(_index[draw_op.first+i++]);
+		_face_verts.push_back(_index[draw_op.first+i++]);
+
+		_face_adj_f.push_back(_nil_face());
+		_face_adj_f.push_back(_nil_face());
+		_face_adj_f.push_back(_nil_face());
+
+		_face_adj_e.push_back(0);
+		_face_adj_e.push_back(0);
+		_face_adj_e.push_back(0);
+
+		v+=3;
+
+		while(i != draw_op.count)
+		{
+			if(_index[draw_op.first+i] == draw_op.restart_index)
+			{
+				++i;
+				break;
+			}
+
+			_face_index.push_back(_face_verts.size());
+			_face_phase.push_back(draw_op.phase);
+
+			_face_verts.push_back(_index[draw_op.first+i]);
+			_face_verts.push_back(_index[draw_op.first+i-1]);
+			_face_verts.push_back(_index[draw_op.first+i+0]);
+
+			_face_adj_f.push_back(_nil_face());
+			_face_adj_f.push_back(_nil_face());
+			_face_adj_f.push_back(_nil_face());
+
+			_face_adj_f[v-1] = _face_index.size()-1;
+			_face_adj_f[v+0] = _face_index.size()-2;
+
+			_face_adj_e.push_back(0);
+			_face_adj_e.push_back(0);
+			_face_adj_e.push_back(0);
+
+			_face_adj_e[v-1] = 0;
+			_face_adj_e[v+0] = 2;
+
+			++i;
+			v+=3;
+		}
+	}
 }
 
 OGLPLUS_LIB_FUNC
@@ -467,15 +578,20 @@ _adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
 	if((va0 == vb0) && (va1 == vb1)) return true;
 	if((va0 == vb1) && (va1 == vb0)) return true;
 
+	va0 *= _main_vpv;
+	va1 *= _main_vpv;
+	vb0 *= _main_vpv;
+	vb1 *= _main_vpv;
+
 	bool equal = true;
 	for(GLuint c=0; c!=_main_vpv; ++c)
 	{
-		if(_main_va[va0*_main_vpv+c] != _main_va[vb0*_main_vpv+c])
+		if(std::fabs(_main_va[va0+c] - _main_va[vb0+c]) > _eps)
 		{
 			equal = false;
 			break;
 		}
-		if(_main_va[va1*_main_vpv+c] != _main_va[vb1*_main_vpv+c])
+		if(std::fabs(_main_va[va1+c] - _main_va[vb1+c]) > _eps)
 		{
 			equal = false;
 			break;
@@ -486,12 +602,12 @@ _adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
 
 	for(GLuint c=0; c!=_main_vpv; ++c)
 	{
-		if(_main_va[va0*_main_vpv+c] != _main_va[vb1*_main_vpv+c])
+		if(std::fabs(_main_va[va0+c] - _main_va[vb1+c]) > _eps)
 		{
 			equal = false;
 			break;
 		}
-		if(_main_va[va1*_main_vpv+c] != _main_va[vb0*_main_vpv+c])
+		if(std::fabs(_main_va[va1+c] - _main_va[vb0+c]) > _eps)
 		{
 			equal = false;
 			break;
