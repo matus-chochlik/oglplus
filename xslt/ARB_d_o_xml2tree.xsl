@@ -36,7 +36,7 @@
 		<xsl:if test="$message != ''">
 			<xsl:choose>
 				<xsl:when test="$first = 1">
-					<xsl:text> ┃ ├──┤</xsl:text>
+					<xsl:text> ┠─┬──┤</xsl:text>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:text> ┃ │  │</xsl:text>
@@ -70,12 +70,7 @@
 		<xsl:text> ┃</xsl:text>
 		<xsl:call-template name="newline"/>
 
-		<xsl:text> ┠─┬──[</xsl:text>
-		<xsl:value-of select="id/text()"/>
-		<xsl:text>]</xsl:text>
-		<xsl:call-template name="newline"/>
-
-		<xsl:text> ┃ │  ┌</xsl:text>
+		<xsl:text> ┃    ┌</xsl:text>
 		<xsl:call-template name="print-padding">
 			<xsl:with-param name="char" select="'─'"/>
 			<xsl:with-param name="count" select="$width - 9"/>
@@ -94,6 +89,10 @@
 			<xsl:with-param name="count" select="$width - 9"/>
 		</xsl:call-template>
 		<xsl:text>┘</xsl:text>
+		<xsl:call-template name="newline"/>
+
+		<xsl:text> ┃ ├──[Id]       </xsl:text>
+		<xsl:value-of select="id/text()"/>
 		<xsl:call-template name="newline"/>
 
 		<xsl:text> ┃ ├──[Source]   </xsl:text>
