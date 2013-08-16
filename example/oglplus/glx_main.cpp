@@ -283,7 +283,7 @@ void run_example_loop(
 	ARB_debug_output dbg(false); // don't throw
 	if(dbg.Available())
 	{
-		ARB_debug_output_ToXML dbgprn(std::cerr);
+		ARB_debug_output_ToXML dbgprn(std::cout);
 		ARB_debug_output_Unique dbgcb(dbgprn);
 		ARB_debug_output::LogSink sink(dbgcb);
 
