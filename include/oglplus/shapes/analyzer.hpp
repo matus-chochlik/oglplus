@@ -634,7 +634,8 @@ void ShapeAnalyzerGraphData::_detect_adjacent(void)
 		GLuint fien = _face_arity(fi-fb);
 		for(GLuint fie=0; fie!=fien; ++fie)
 		{
-			if(_face_adj_f[*fi+fie] == _nil_face())
+			GLuint i=*fi+fie;
+			if(_face_adj_f[i] == _nil_face())
 			{
 				auto fj = fi+1;
 				while(fj != fe)
@@ -642,15 +643,19 @@ void ShapeAnalyzerGraphData::_detect_adjacent(void)
 					GLuint fjen = _face_arity(fj-fb);
 					for(GLuint fje=0; fje!=fjen; ++fje)
 					{
-						if(_adjacent_faces(
+						GLuint j=*fj+fje;
+						bool nadj = (
+							_face_adj_f[j] ==
+							_nil_face()
+						);
+						bool adjf = _adjacent_faces(
 							fi-fb,
 							fie,
 							fj-fb,
 							fje
-						))
+						);
+						if(nadj && adjf)
 						{
-							GLuint i=*fi+fie;
-							GLuint j=*fj+fje;
 							_face_adj_f[i]=fj-fb;
 							_face_adj_f[j]=fi-fb;
 
