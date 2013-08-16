@@ -204,72 +204,6 @@ void call_example_thread_main(ExampleThreadData& data)
 	}
 }
 
-class ExampleDebugCallbackEssence
-{
-private:
-	std::ostream& dbgout;
-
-	String buffer;
-	std::unordered_set<String> already_done;
-
-	void Print(const ARB_debug_output::CallbackData& data)
-	{
-		dbgout << " |" << std::endl;
-		dbgout << " +-+-[" << data.id << "] '" <<
-			data.message << "'" << std::endl;
-		dbgout << " | +---[source]   '" <<
-			EnumValueName(data.source).c_str()  << "'" << std::endl;
-		dbgout << " | +---[type]     '" <<
-			EnumValueName(data.type).c_str()  << "'" << std::endl;
-		dbgout << " | `---[severity] '" <<
-			EnumValueName(data.severity).c_str()  << "'" << std::endl;
-	}
-
-	ExampleDebugCallbackEssence(const ExampleDebugCallbackEssence&);
-public:
-	ExampleDebugCallbackEssence(std::ostream& out)
-	 : dbgout(out)
-	{
-		dbgout << "-+-[Begin]" << std::endl;
-	}
-
-	~ExampleDebugCallbackEssence(void)
-	{
-		dbgout << " `-[Done]" << std::endl;
-	}
-
-
-	void Call(const ARB_debug_output::CallbackData& data)
-	{
-		if(GLsizei(buffer.capacity()) < data.length)
-		{
-			buffer.resize(data.length);
-		}
-		buffer.assign(data.message, data.length);
-		if(already_done.find(buffer) == already_done.end())
-		{
-			already_done.insert(buffer);
-			Print(data);
-			
-		}
-	}
-};
-
-class ExampleDebugCallback
-{
-private:
-	std::shared_ptr<ExampleDebugCallbackEssence> ess;
-public:
-	ExampleDebugCallback(std::ostream& out)
-	 : ess(std::make_shared<ExampleDebugCallbackEssence>(out))
-	{ }
-
-	void operator()(const ARB_debug_output::CallbackData& data)
-	{
-		ess->Call(data);
-	}
-};
-
 void do_run_example_loop(
 	const x11::Display& display,
 	const x11::Window& win,
@@ -349,7 +283,8 @@ void run_example_loop(
 	ARB_debug_output dbg(false); // don't throw
 	if(dbg.Available())
 	{
-		ExampleDebugCallback dbgcb(std::cerr);
+		ARB_debug_output_ToXML dbgprn(std::cerr);
+		ARB_debug_output_Unique dbgcb(dbgprn);
 		ARB_debug_output::LogSink sink(dbgcb);
 
 		dbg.Control(

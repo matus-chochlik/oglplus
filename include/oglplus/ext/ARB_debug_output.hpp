@@ -23,6 +23,8 @@
 #include <stack>
 #include <functional>
 #include <memory>
+#include <unordered_set>
+#include <iostream>
 
 namespace oglplus {
 
@@ -295,7 +297,191 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
 	}
 };
-#endif
+
+template <typename Essence>
+class ARB_debug_output_CallbackWithEssence
+{
+private:
+	std::shared_ptr<Essence> essence;
+public:
+	typedef typename ARB_debug_output::Callback Callback;
+
+	ARB_debug_output_CallbackWithEssence(
+		typename Essence::CtrParam param
+	): essence(std::make_shared<Essence>(param))
+	{ }
+
+	void operator()(const ARB_debug_output::CallbackData& data)
+	{
+		essence->Call(data);
+	}
+
+	operator Callback (void) const
+	{
+		return Callback(*this);
+	}
+};
+
+class ARB_debug_output_UniqueEssence
+{
+private:
+	typedef ARB_debug_output::Callback Callback;
+	Callback _callback;
+
+	String buffer;
+	std::unordered_set<String> already_done;
+
+	ARB_debug_output_UniqueEssence(const ARB_debug_output_UniqueEssence&);
+public:
+	typedef const Callback& CtrParam;
+
+	ARB_debug_output_UniqueEssence(const Callback& callback)
+	 : _callback(callback)
+	{ }
+
+	void Call(const ARB_debug_output::CallbackData& data);
+};
+
+typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_UniqueEssence>
+	ARB_debug_output_Unique;
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+void ARB_debug_output_UniqueEssence::
+Call(const ARB_debug_output::CallbackData& data)
+{
+	if(GLsizei(buffer.capacity()) < data.length)
+	{
+		buffer.resize(data.length);
+	}
+	buffer.assign(data.message, data.length);
+	if(already_done.find(buffer) == already_done.end())
+	{
+		already_done.insert(buffer);
+		_callback(data);
+	}
+}
+#endif // OGLPLUS_LINK_LIBRARY
+
+class ARB_debug_output_TreeEssence
+{
+private:
+	std::ostream& dbgout;
+
+	ARB_debug_output_TreeEssence(const ARB_debug_output_TreeEssence&);
+public:
+	typedef std::ostream& CtrParam;
+
+	ARB_debug_output_TreeEssence(std::ostream& out);
+	~ARB_debug_output_TreeEssence(void);
+
+	void Call(const ARB_debug_output::CallbackData& data);
+};
+
+typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_TreeEssence>
+	ARB_debug_output_Tree;
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+ARB_debug_output_TreeEssence::
+ARB_debug_output_TreeEssence(std::ostream& out)
+ : dbgout(out)
+{
+	dbgout << "-+-[Begin]" << std::endl;
+}
+
+OGLPLUS_LIB_FUNC
+ARB_debug_output_TreeEssence::
+~ARB_debug_output_TreeEssence(void)
+{
+	dbgout << " `-[Done]" << std::endl;
+}
+
+
+OGLPLUS_LIB_FUNC
+void ARB_debug_output_TreeEssence::
+Call(const ARB_debug_output::CallbackData& data)
+{
+	dbgout << " |" << std::endl;
+	dbgout << " +-+-[" << data.id << "] '" <<
+		data.message << "'" << std::endl;
+	dbgout << " | +---[source]   '" <<
+		EnumValueName(data.source).c_str()  << "'" << std::endl;
+	dbgout << " | +---[type]     '" <<
+		EnumValueName(data.type).c_str()  << "'" << std::endl;
+	dbgout << " | `---[severity] '" <<
+		EnumValueName(data.severity).c_str()  << "'" << std::endl;
+}
+#endif // OGLPLUS_LINK_LIBRARY
+
+class ARB_debug_output_ToXMLEssence
+{
+private:
+	std::ostream& dbgout;
+
+	ARB_debug_output_ToXMLEssence(const ARB_debug_output_ToXMLEssence&);
+public:
+	typedef std::ostream& CtrParam;
+
+	ARB_debug_output_ToXMLEssence(std::ostream& out);
+	~ARB_debug_output_ToXMLEssence(void);
+
+	void Call(const ARB_debug_output::CallbackData& data);
+};
+
+typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_ToXMLEssence>
+	ARB_debug_output_ToXML;
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+OGLPLUS_LIB_FUNC
+ARB_debug_output_ToXMLEssence::
+ARB_debug_output_ToXMLEssence(std::ostream& out)
+ : dbgout(out)
+{
+	dbgout << "<?xml version='1.0' encoding='UTF-8'?>" << std::endl;
+	dbgout << "<ARB_debug_output>" << std::endl;
+}
+
+OGLPLUS_LIB_FUNC
+ARB_debug_output_ToXMLEssence::
+~ARB_debug_output_ToXMLEssence(void)
+{
+	dbgout << "</ARB_debug_output>" << std::endl;
+}
+
+
+OGLPLUS_LIB_FUNC
+void ARB_debug_output_ToXMLEssence::
+Call(const ARB_debug_output::CallbackData& data)
+{
+	dbgout << "<entry>" << std::endl;
+	dbgout << "<id>" << data.id << "</id>" << std::endl;
+	dbgout
+		<< "<message>"
+		<< data.message
+		<< "</message>"
+		<< std::endl;
+	dbgout
+		<< "<source>"
+		<< EnumValueName(data.source).c_str()
+		<< "</source>"
+		<< std::endl;
+	dbgout
+		<< "<type>"
+		<< EnumValueName(data.type).c_str()
+		<< "</type>"
+		<< std::endl;
+	dbgout
+		<< "<severity>"
+		<< EnumValueName(data.severity).c_str()
+		<< "</severity>"
+		<< std::endl;
+
+	dbgout << "</entry>" << std::endl;
+}
+#endif // OGLPLUS_LINK_LIBRARY
+
+#endif // ARB_debug_output
 
 } // namespace oglplus
 

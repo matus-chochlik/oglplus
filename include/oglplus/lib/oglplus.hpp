@@ -68,6 +68,8 @@
 
 #include <oglplus/opt/resources.hpp>
 
+#include <oglplus/ext/ARB_debug_output.hpp>
+
 namespace oglplus {
 
 // EnumValueName implementations
