@@ -14,8 +14,10 @@
 #define OGLPLUS_SHAPES_ANALYZER_1308151449_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/vector.hpp>
 
 #include <oglplus/shapes/draw.hpp>
+
 #include <cstddef>
 #include <cassert>
 #include <vector>
@@ -63,12 +65,6 @@ private:
 public:
 	DrawingInstructions _instr;
 	std::vector<GLuint> _index;
-/* TODO
-	GLuint first;
-	GLuint count;
-	GLuint restart_index;
-	GLuint phase;
- */
 
 	// main vertex attribute (usually position)
 	std::vector<GLdouble> _main_va;
@@ -361,6 +357,7 @@ OGLPLUS_LIB_FUNC
 void ShapeAnalyzerGraphData::
 _init_dr_el_triangle_fan(const DrawOperation& /*draw_op*/)
 {
+	//TODO
 }
 
 OGLPLUS_LIB_FUNC
@@ -467,14 +464,6 @@ _adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
 	GLuint vb0 = _face_verts[_face_index[fb]+eb];
 	GLuint vb1 = _face_verts[_face_index[fb]+(eb+1)%_face_arity(fb)];
 
-/* TODO
-std::cout << "Adjacent: " << fa << "[" << ea << "] | " << fb << "[" << eb << "]" << std::endl;
-std::cout << "(" << va0 << " | " << va1 << ")";
-std::cout << " | ";
-std::cout << "(" << vb0 << " | " << vb1 << ")";
-std::cout << std::endl;
-*/
-
 	if((va0 == vb0) && (va1 == vb1)) return true;
 	if((va0 == vb1) && (va1 == vb0)) return true;
 
@@ -563,7 +552,40 @@ void ShapeAnalyzerGraphData::_detect_adjacent(void)
 }
 #endif // OGLPLUS_LINK_LIBRARY
 
+class ShapeAnalyzerVert;
+class ShapeAnalyzerEdge;
 class ShapeAnalyzerFace;
+
+class ShapeAnalyzerVert
+{
+private:
+	const ShapeAnalyzerGraphData& _data;
+	GLuint _face_index;
+	GLuint _vert_index;
+
+	friend class ShapeAnalyzer;
+	friend class ShapeAnalyzerEdge;
+	friend class ShapeAnalyzerFace;
+public:
+	ShapeAnalyzerVert(
+		const ShapeAnalyzerGraphData& data,
+		GLuint face_index,
+		GLuint vert_index
+	): _data(data)
+	 , _face_index(face_index)
+	 , _vert_index(vert_index)
+	{
+		assert(_face_index < data._face_index.size());
+		assert(_vert_index < data._face_arity(_face_index));
+	}
+
+	GLuint Index(void) const
+	{
+		return _vert_index;
+	}
+
+	Vec4d MainAttrib(void) const;
+};
 
 class ShapeAnalyzerEdge
 {
@@ -624,6 +646,8 @@ public:
 		return _data._face_arity(_index);
 	}
 
+	ShapeAnalyzerVert Vert(GLuint vert_index) const;
+
 	ShapeAnalyzerEdge Edge(GLuint edge_index) const;
 
 	bool HasAdjacentFace(GLuint edge_index) const;
@@ -634,6 +658,14 @@ public:
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 
 OGLPLUS_LIB_FUNC
+Vec4d ShapeAnalyzerVert::MainAttrib(void) const
+{
+	GLuint fi = _data._face_index[_face_index];
+	GLuint vi = _data._face_verts[fi+_vert_index];
+	return Vec4d(_data._main_va.data()+vi*_data._main_vpv, 4);
+}
+
+OGLPLUS_LIB_FUNC
 ShapeAnalyzerFace ShapeAnalyzerEdge::
 Face(void) const
 {
@@ -641,16 +673,14 @@ Face(void) const
 }
 
 OGLPLUS_LIB_FUNC
-bool ShapeAnalyzerEdge::
-HasAdjacentEdge(void) const
+bool ShapeAnalyzerEdge::HasAdjacentEdge(void) const
 {
 	GLuint i = _data._face_index[_face_index]+_edge_index;
 	return _data._face_adj_f[i] != _data._nil_face();
 }
 
 OGLPLUS_LIB_FUNC
-ShapeAnalyzerEdge ShapeAnalyzerEdge::
-AdjacentEdge(void) const
+ShapeAnalyzerEdge ShapeAnalyzerEdge::AdjacentEdge(void) const
 {
 	GLuint i = _data._face_index[_face_index]+_edge_index;
 	return ShapeAnalyzerEdge(
@@ -661,8 +691,17 @@ AdjacentEdge(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ShapeAnalyzerEdge ShapeAnalyzerFace::
-Edge(GLuint edge_index) const
+ShapeAnalyzerVert ShapeAnalyzerFace::Vert(GLuint vert_index) const
+{
+	return ShapeAnalyzerVert(
+		_data,
+		_index,
+		vert_index
+	);
+}
+
+OGLPLUS_LIB_FUNC
+ShapeAnalyzerEdge ShapeAnalyzerFace::Edge(GLuint edge_index) const
 {
 	return ShapeAnalyzerEdge(
 		_data,
@@ -672,8 +711,7 @@ Edge(GLuint edge_index) const
 }
 
 OGLPLUS_LIB_FUNC
-bool ShapeAnalyzerFace::
-HasAdjacentFace(GLuint edge_index) const
+bool ShapeAnalyzerFace::HasAdjacentFace(GLuint edge_index) const
 {
 	return _data._face_adj_f[
 		_data._face_index[_index]+
@@ -682,8 +720,7 @@ HasAdjacentFace(GLuint edge_index) const
 }
 
 OGLPLUS_LIB_FUNC
-ShapeAnalyzerFace ShapeAnalyzerFace::
-AdjacentFace(GLuint edge_index) const
+ShapeAnalyzerFace ShapeAnalyzerFace::AdjacentFace(GLuint edge_index) const
 {
 	return ShapeAnalyzerFace(
 		_data,

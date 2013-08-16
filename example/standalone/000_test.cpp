@@ -21,11 +21,14 @@
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/shapes/screen.hpp>
 #include <oglplus/shapes/sphere.hpp>
+#include <oglplus/shapes/icosahedron.hpp>
 #include <oglplus/shapes/twisted_torus.hpp>
 #include <oglplus/shapes/obj_mesh.hpp>
 
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>
+
+#include <oglplus/matrix.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -46,34 +49,51 @@ int main(int argc, char* argv[])
 	{
 		glGetError();
 
-		//oglplus::shapes::Cube s;
-		//oglplus::shapes::Plane s(3, 3);
-		//oglplus::shapes::Screen s;
-		//oglplus::shapes::Sphere s;
-		//oglplus::shapes::TwistedTorus s;
-		oglplus::ResourceFile input("models", "arrow_z", ".obj");
-		oglplus::shapes::ObjMesh s(
+		using namespace oglplus;
+
+		//shapes::Cube s;
+		shapes::Plane s(3, 3);
+		//shapes::Screen s;
+		//shapes::Sphere s;
+		//shapes::Icosahedron s;
+		//shapes::TwistedTorus s;
+/*
+		ResourceFile input("models", "arrow_z", ".obj");
+		shapes::ObjMesh s(
 			input,
-			oglplus::shapes::ObjMesh::LoadingOptions(false).Normals().Materials()
+			shapes::ObjMesh::LoadingOptions(false).Normals().Materials()
 		);
-		oglplus::shapes::ShapeAnalyzer a(s);
+*/
+		shapes::ShapeAnalyzer a(s);
 
 		std::cout << "graph Shape {" << std::endl;
 
+		std::cout << "\tsplines=true;" << std::endl;
 		std::cout << "\tnode [shape=box];" << std::endl;
+
+		auto tm = CamMatrixd::PerspectiveX(Angle<double>::Degrees(80), 1, 1, 20)*
+			CamMatrixd::LookingAt(Vec3d(0, 10, 10), Vec3d());
+
 		for(GLuint f=0; f!=a.FaceCount(); ++f)
 		{
+			auto face = a.Face(f);
+			Vec4d v0 = face.Vert(0).MainAttrib();
+			Vec4d v1 = face.Vert(1).MainAttrib();
+			Vec4d v2 = face.Vert(2).MainAttrib();
+
+			Vec4d v = (v0+v1+v2)/3.0;
 			std::cout
 				<< "\tf" << f
-				<< " [label=\"" << f << "\"]"
+				<< " [label=\"" << f
+				<< "\", pos=\""
+				<< v.x()*8 << "," << v.z()*8
+				<< "\", pin=true]"
 				<< ";" << std::endl;
 		}
 
 		std::cout
 			<< "\tnode ["
 			<< "shape=circle,"
-			<< "fixedsize=true,"
-			<< "width=0.3,"
 			<< "style=filled,"
 			<< "fillcolor=\"#00FF00\""
 			<< "];" << std::endl;
