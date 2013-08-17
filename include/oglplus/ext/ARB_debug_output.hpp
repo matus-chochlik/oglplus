@@ -342,8 +342,28 @@ public:
 	void Call(const ARB_debug_output::CallbackData& data);
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Filter for ARB_debug_output removing duplicate messages
+/** An implementation of ARB_debug_output::Callback that removes duplicate
+ *  messages, and passes them to another callback, i.e. every unique message
+ *  from the debug_output is passed only once to another callback internally
+ *  referenced by instances of this class.
+ *
+ *  @ingroup gl_extensions
+ */
+class ARB_debug_output_Unique
+{
+public:
+	/// Construction takes another callback implementation
+	ARB_debug_output_Unique(ARB_debug_output::Callback);
+
+	/// Conversion to Callback type for the ARB_debug_output ext wrapper
+	operator ARB_debug_output::Callback (void) const;
+};
+#else
 typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_UniqueEssence>
 	ARB_debug_output_Unique;
+#endif
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 OGLPLUS_LIB_FUNC
@@ -378,8 +398,27 @@ public:
 	void Call(const ARB_debug_output::CallbackData& data);
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Filter for ARB_debug_output printing a simple tree to a standard output.
+/** An implementation of ARB_debug_output::Callback that prints the debug
+ *  messages formatted as a simple tree, where the individual messages and
+ *  their properties are represented as branches.
+ *
+ *  @ingroup gl_extensions
+ */
+class ARB_debug_output_Tree
+{
+public:
+	/// Constructor takes a reference to standard output stream
+	ARB_debug_output_Tree(std::ostream&);
+
+	/// Conversion to Callback type for the ARB_debug_output ext wrapper
+	operator ARB_debug_output::Callback (void) const;
+};
+#else
 typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_TreeEssence>
 	ARB_debug_output_Tree;
+#endif
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 OGLPLUS_LIB_FUNC
@@ -429,8 +468,26 @@ public:
 	void Call(const ARB_debug_output::CallbackData& data);
 };
 
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Filter for ARB_debug_output formatting the debug output into XML
+/** An implementation of ARB_debug_output::Callback that prints the debug
+ *  messages formatted as an XML document.
+ *
+ *  @ingroup gl_extensions
+ */
+class ARB_debug_output_ToXML
+{
+public:
+	/// Constructor takes a reference to standard output stream
+	ARB_debug_output_ToXML(std::ostream&);
+
+	/// Conversion to Callback type for the ARB_debug_output ext wrapper
+	operator ARB_debug_output::Callback (void) const;
+};
+#else
 typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_ToXMLEssence>
 	ARB_debug_output_ToXML;
+#endif
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 OGLPLUS_LIB_FUNC
