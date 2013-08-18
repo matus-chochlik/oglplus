@@ -143,6 +143,12 @@ public:
 	};
 
 	/// Type of a callback functor processing debug output
+	/** OGLplus implements several callbacks that can be used
+	 *  with this extension:
+	 *  @see ARB_debug_output_Unique
+	 *  @see ARB_debug_output_Tree
+	 *  @see ARB_debug_output_ToXML
+	 */
 	typedef std::function<void (const CallbackData&)> Callback;
 
 	/// Installs a custom callback processing the debug output
