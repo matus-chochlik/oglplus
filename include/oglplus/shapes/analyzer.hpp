@@ -81,6 +81,10 @@ public:
 	std::vector<GLuint> _face_verts;
 	std::vector<GLuint> _face_adj_f;
 	std::vector<GLuint> _face_adj_e;
+	std::vector<GLuint> _face_edge_flags;
+
+	static const GLuint _flg_strip_edge = 0x1;
+	static const GLuint _flg_fan_edge = 0x2;
 
 	static GLuint _face_arity(GLuint /*face*/)
 	{
@@ -130,6 +134,10 @@ _init_dr_ar_triangles(const DrawOperation& draw_op)
 		_face_adj_e.push_back(0);
 		_face_adj_e.push_back(0);
 		_face_adj_e.push_back(0);
+
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
 	}
 }
 
@@ -156,6 +164,10 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 	_face_adj_e.push_back(0);
 	_face_adj_e.push_back(0);
 
+	_face_edge_flags.push_back(0);
+	_face_edge_flags.push_back(0);
+	_face_edge_flags.push_back(0);
+
 	v+=3;
 
 	while(i != draw_op.count)
@@ -181,6 +193,13 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 
 			_face_adj_e[v-2] = 0;
 			_face_adj_e[v+0] = 1;
+
+			_face_edge_flags.push_back(0);
+			_face_edge_flags.push_back(0);
+			_face_edge_flags.push_back(0);
+
+			_face_edge_flags[v-2] |= _flg_strip_edge;
+			_face_edge_flags[v+0] |= _flg_strip_edge;
 		}
 		else
 		{
@@ -201,6 +220,13 @@ _init_dr_ar_triangle_strip(const DrawOperation& draw_op)
 
 			_face_adj_e[v-1] = 0;
 			_face_adj_e[v+0] = 2;
+
+			_face_edge_flags.push_back(0);
+			_face_edge_flags.push_back(0);
+			_face_edge_flags.push_back(0);
+
+			_face_edge_flags[v-1] |= _flg_strip_edge;
+			_face_edge_flags[v+0] |= _flg_strip_edge;
 		}
 		++i;
 		v+=3;
@@ -230,6 +256,10 @@ _init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 	_face_adj_e.push_back(0);
 	_face_adj_e.push_back(0);
 
+	_face_edge_flags.push_back(0);
+	_face_edge_flags.push_back(0);
+	_face_edge_flags.push_back(0);
+
 	v+=3;
 
 	while(i != draw_op.count)
@@ -254,6 +284,13 @@ _init_dr_ar_triangle_fan(const DrawOperation& draw_op)
 
 		_face_adj_e[v-1] = 0;
 		_face_adj_e[v+0] = 2;
+
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
+
+		_face_edge_flags[v-1] = _flg_fan_edge;
+		_face_edge_flags[v+0] = _flg_fan_edge;
 
 		++i;
 		v+=3;
@@ -310,6 +347,10 @@ _init_dr_el_triangles(const DrawOperation& draw_op)
 		_face_adj_e.push_back(0);
 		_face_adj_e.push_back(0);
 		_face_adj_e.push_back(0);
+
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
 	}
 }
 
@@ -344,6 +385,10 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 		_face_adj_e.push_back(0);
 		_face_adj_e.push_back(0);
 
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
+
 		v+=3;
 
 		while(i != draw_op.count)
@@ -376,6 +421,13 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 
 				_face_adj_e[v-2] = 0;
 				_face_adj_e[v+0] = 1;
+
+				_face_edge_flags.push_back(0);
+				_face_edge_flags.push_back(0);
+				_face_edge_flags.push_back(0);
+
+				_face_edge_flags[v-2] = _flg_strip_edge;
+				_face_edge_flags[v+0] = _flg_strip_edge;
 			}
 			else
 			{
@@ -396,6 +448,13 @@ _init_dr_el_triangle_strip(const DrawOperation& draw_op)
 
 				_face_adj_e[v-1] = 0;
 				_face_adj_e[v+0] = 2;
+
+				_face_edge_flags.push_back(0);
+				_face_edge_flags.push_back(0);
+				_face_edge_flags.push_back(0);
+
+				_face_edge_flags[v-1] = _flg_strip_edge;
+				_face_edge_flags[v+0] = _flg_strip_edge;
 			}
 			++i;
 			v+=3;
@@ -434,6 +493,10 @@ _init_dr_el_triangle_fan(const DrawOperation& draw_op)
 		_face_adj_e.push_back(0);
 		_face_adj_e.push_back(0);
 
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
+		_face_edge_flags.push_back(0);
+
 		v+=3;
 
 		while(i != draw_op.count)
@@ -464,6 +527,13 @@ _init_dr_el_triangle_fan(const DrawOperation& draw_op)
 
 			_face_adj_e[v-1] = 0;
 			_face_adj_e[v+0] = 2;
+
+			_face_edge_flags.push_back(0);
+			_face_edge_flags.push_back(0);
+			_face_edge_flags.push_back(0);
+
+			_face_edge_flags[v-1] = _flg_fan_edge;
+			_face_edge_flags[v+0] = _flg_fan_edge;
 
 			++i;
 			v+=3;
@@ -548,6 +618,7 @@ void ShapeAnalyzerGraphData::_initialize(void)
 	_face_verts.reserve(vc);
 	_face_adj_f.reserve(vc);
 	_face_adj_e.reserve(vc);
+	_face_edge_flags.reserve(vc);
 
 	for(auto i=draw_ops.begin(), e=draw_ops.end(); i!=e; ++i)
 	{
@@ -770,6 +841,20 @@ public:
 	 *  @pre HasAdjacentEdge()
 	 */
 	ShapeAnalyzerEdge AdjacentEdge(void) const;
+
+	bool HasFlag(GLuint flag) const;
+
+	/// Returns true if the edge is a connecting edge of a triangle strip
+	bool IsStripEdge(void) const
+	{
+		return HasFlag(ShapeAnalyzerGraphData::_flg_strip_edge);
+	}
+
+	/// Returns true if the edge is a connecting edge of a triangle fan
+	bool IsFanEdge(void) const
+	{
+		return HasFlag(ShapeAnalyzerGraphData::_flg_fan_edge);
+	}
 };
 
 
@@ -853,8 +938,7 @@ public:
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 
 OGLPLUS_LIB_FUNC
-ShapeAnalyzerFace ShapeAnalyzerVert::
-Face(void) const
+ShapeAnalyzerFace ShapeAnalyzerVert::Face(void) const
 {
 	return ShapeAnalyzerFace(_data, _face_index);
 }
@@ -868,8 +952,7 @@ Vec4d ShapeAnalyzerVert::MainAttrib(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ShapeAnalyzerFace ShapeAnalyzerEdge::
-Face(void) const
+ShapeAnalyzerFace ShapeAnalyzerEdge::Face(void) const
 {
 	return ShapeAnalyzerFace(_data, _face_index);
 }
@@ -890,6 +973,13 @@ ShapeAnalyzerEdge ShapeAnalyzerEdge::AdjacentEdge(void) const
 		_data._face_adj_f[i],
 		_data._face_adj_e[i]
 	);
+}
+
+OGLPLUS_LIB_FUNC
+bool ShapeAnalyzerEdge::HasFlag(GLuint flag) const
+{
+	GLuint i = _data._face_index[_face_index]+_edge_index;
+	return (_data._face_edge_flags[i] & flag) == flag;
 }
 
 OGLPLUS_LIB_FUNC

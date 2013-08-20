@@ -19,7 +19,7 @@
 #include <GL/glew.h>
 
 #include <oglplus/shapes/analyzer.hpp>
-#include <oglplus/shapes/icosahedron.hpp>
+#include <oglplus/shapes/sphere.hpp>
 
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>
@@ -32,7 +32,7 @@ int main(void)
 	{
 		using namespace oglplus;
 
-		shapes::Icosahedron s;
+		shapes::Sphere s(1.0, 3, 4);
 		shapes::ShapeAnalyzer a(s);
 
 		std::cout << "graph Shape {" << std::endl;
@@ -103,8 +103,16 @@ int main(void)
 							<< "\tf" << f
 							<< "e" << e
 							<< " -- f" << af
-							<< "e" << ae
-							<< std::endl;
+							<< "e" << ae;
+						if(!edge.IsStripEdge())
+						{
+							std::cout << " [style=dotted]";
+						}
+						else
+						{
+							std::cout << " [style=bold]";
+						}
+						std::cout << std::endl;
 					}
 				}
 			}
