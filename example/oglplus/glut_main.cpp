@@ -170,6 +170,11 @@ public:
 			_frame_no = 0;
 			_prim_count = 0.0;
 		}
+
+		if(!_example->Continue(_clock))
+		{
+			Quit();
+		}
 	}
 
 	static void DisplayFunc(void)
@@ -269,12 +274,39 @@ int glut_example_main(int argc, char ** argv)
 	glutCreateWindow("OGLplus example");
 
 	const char* screenshot_path = nullptr;
-	if((argc >= 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+
+	for(int a=1; a!=argc;)
 	{
-		screenshot_path = argv[2];
-		for(int a=3; a<argc; ++a)
-			argv[a-2] = argv[a];
-		argc -= 2;
+		int aoffs = 0;
+		if(std::strcmp(argv[a], "--fullscreen") == 0)
+		{
+			glutFullScreen();
+			aoffs = 1;
+		}
+
+		if(std::strcmp(argv[a], "--screenshot") == 0)
+		{
+			if((a+1) < argc)
+			{
+				screenshot_path = argv[a+1];
+				aoffs = 2;
+			}
+			else
+			{
+				screenshot_path = "screenshot.rgb";
+				aoffs = 1;
+			}
+		}
+
+		if(aoffs > 0)
+		{
+			for(int ao=a+aoffs; ao!=argc; ++ao)
+			{
+				argv[ao-aoffs] = argv[ao];
+			}
+			argc -= aoffs;
+		}
+		else ++a;
 	}
 
 	oglplus::GLAPIInitializer api_init;

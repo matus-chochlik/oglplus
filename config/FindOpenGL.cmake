@@ -45,7 +45,7 @@ endif()
 
 # try to find the GL library
 find_library(
-	OPENGL_LIBRARIES NAMES GL OpenGL32
+	OPENGL_LIBRARIES NAMES GL OpenGL OpenGL32
 	PATHS ${LIBRARY_SEARCH_PATHS}
 	NO_DEFAULT_PATH
 )
