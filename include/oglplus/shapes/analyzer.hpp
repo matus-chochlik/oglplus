@@ -83,8 +83,9 @@ public:
 	std::vector<GLuint> _face_adj_e;
 	std::vector<GLuint> _face_edge_flags;
 
-	static const GLuint _flg_strip_edge = 0x1;
-	static const GLuint _flg_fan_edge = 0x2;
+	static const GLuint _flg_smooth_edge = 0x4;
+	static const GLuint _flg_strip_edge = 0x5;
+	static const GLuint _flg_fan_edge = 0x6;
 
 	static GLuint _face_arity(GLuint /*face*/)
 	{
@@ -843,6 +844,12 @@ public:
 	ShapeAnalyzerEdge AdjacentEdge(void) const;
 
 	bool HasFlag(GLuint flag) const;
+
+	/// Returns true if the edge is smooth
+	bool IsSmoothEdge(void) const
+	{
+		return HasFlag(ShapeAnalyzerGraphData::_flg_smooth_edge);
+	}
 
 	/// Returns true if the edge is a connecting edge of a triangle strip
 	bool IsStripEdge(void) const

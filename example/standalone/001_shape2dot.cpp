@@ -104,13 +104,13 @@ int main(void)
 							<< "e" << e
 							<< " -- f" << af
 							<< "e" << ae;
-						if(!edge.IsStripEdge())
+						if(edge.IsStripEdge())
 						{
-							std::cout << " [style=dotted]";
+							std::cout << " [style=bold]";
 						}
 						else
 						{
-							std::cout << " [style=bold]";
+							std::cout << " [style=dotted]";
 						}
 						std::cout << std::endl;
 					}
