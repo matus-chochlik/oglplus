@@ -10,6 +10,7 @@ SET oglplus_archive_items=^
 	etc ^
 	example ^
 	include ^
+	implement ^
 	utils ^
 	source ^
 	third_party ^

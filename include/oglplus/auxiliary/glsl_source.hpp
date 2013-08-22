@@ -21,7 +21,6 @@
 #include <vector>
 #include <cassert>
 #include <fstream>
-#include <stdexcept>
 
 namespace oglplus {
 namespace aux {
@@ -95,30 +94,6 @@ public:
 	}
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-LitsGLSLSrcWrap::LitsGLSLSrcWrap(
-	AnyInputIter<StrLit>&& i,
-	AnyInputIter<StrLit>&& e
-): _ptrs(distance(i, e))
- , _sizes(distance(i, e))
-{
-	auto pptr = _ptrs.begin();
-	auto psize = _sizes.begin();
-	while(i != e)
-	{
-		assert(pptr != _ptrs.end());
-		assert(psize != _sizes.end());
-		*pptr = i->c_str();
-		*psize = i->size();
-		++i;
-		++pptr;
-		++psize;
-	}
-	assert(_ptrs.size() == _sizes.size());
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 class StrGLSLSrcWrap
  : public GLSLSourceWrapper
 {
@@ -187,32 +162,6 @@ public:
 	}
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
-{
-	if(!in.good())
-	{
-		std::string msg("Failed to read GLSL input stream.");
-		throw std::runtime_error(msg);
-	}
-	std::streampos begin = in.tellg();
-	in.seekg(0, std::ios::end);
-	std::streampos end = in.tellg();
-	in.seekg(0, std::ios::beg);
-	return GLint(end - begin);
-}
-
-OGLPLUS_LIB_FUNC
-InputStreamGLSLSrcWrap::InputStreamGLSLSrcWrap(std::istream& input)
- : _size(_check_and_get_size(input))
- , _storage(_size+1, GLchar(0))
- , _pdata(_storage.data())
-{
-	input.read(_pdata, _size);
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 class FileGLSLSrcWrapOpener
 {
 protected:
@@ -220,21 +169,6 @@ protected:
 
 	FileGLSLSrcWrapOpener(const char* path);
 };
-
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-FileGLSLSrcWrapOpener::FileGLSLSrcWrapOpener(const char* path)
- : _file(path, std::ios::in)
-{
-	if(!_file.good())
-	{
-		std::string msg("Failed to open file '");
-		msg.append(path);
-		msg.append("' for reading.");
-		throw std::runtime_error(msg);
-	}
-}
-#endif // OGLPLUS_LINK_LIBRARY
 
 class FileGLSLSrcWrap
  : public FileGLSLSrcWrapOpener
@@ -244,17 +178,11 @@ public:
 	FileGLSLSrcWrap(const char* path);
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-FileGLSLSrcWrap::FileGLSLSrcWrap(const char* path)
- : FileGLSLSrcWrapOpener(path)
- , InputStreamGLSLSrcWrap(_file)
-{
-	_file.close();
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 } // namespace aux
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/auxiliary/glsl_source.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

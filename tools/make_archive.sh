@@ -9,6 +9,7 @@ oglplus_archive_items="
 	doc
 	example
 	include
+	implement
 	source
 	third_party
 	test

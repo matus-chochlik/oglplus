@@ -160,6 +160,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)
 # include the third party headers
 include_directories(${PROJECT_SOURCE_DIR}/third_party/include)
+# include the oglplus implementation
+include_directories(${PROJECT_SOURCE_DIR}/implement)
 
 # GL version detection
 include(config/GLVer.cmake)

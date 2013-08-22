@@ -20,8 +20,6 @@
 
 #include <oglplus/auxiliary/uniform_typecheck.hpp>
 
-#include <cassert>
-
 namespace oglplus {
 namespace aux {
 
@@ -242,36 +240,6 @@ protected:
 	}
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void UniformInitOps::_handle_error(
-	GLuint program,
-	const GLchar* identifier,
-	GLint location
-) const
-{
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	Error::AddPropertyValue(
-		props,
-		"program",
-		aux::ObjectDescRegistry<ProgramOps>::
-				_get_desc(program)
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		location,
-		"Getting the location of inactive uniform",
-		OGLPLUS_ERROR_INFO(GetUniformLocation),
-		std::move(props)
-	);
-}
-#endif // OGLPLUS_LIB_FUNC
-
 typedef EagerUniformInitTpl<UniformInitOps> EagerUniformInit;
 typedef EagerUniformInitTpl<OptionalUniformInitOps> OptionalUniformInit;
 
@@ -351,5 +319,9 @@ public:
 
 } // namespace aux
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/auxiliary/uniform_init.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

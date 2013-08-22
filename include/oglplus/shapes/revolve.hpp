@@ -385,13 +385,6 @@ public:
 		return indices;
 	}
 
-	/// Returns element indices that are used with the drawing instructions
-/* TODO
-	IndexArray IndicesWithAdjacency(void) const
-	{
-	}
-*/
-
 	/// Returns the instructions for rendering
 	DrawingInstructions Instructions(void) const
 	{
@@ -411,13 +404,6 @@ public:
 
 		return instructions;
 	}
-
-	/// Returns the instructions for rendering
-/* TODO
-	DrawingInstructions InstructionsWithAdjacency(void) const
-	{
-	}
-*/
 };
 
 } // shapes

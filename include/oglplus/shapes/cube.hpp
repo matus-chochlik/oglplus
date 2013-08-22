@@ -52,79 +52,28 @@ public:
 
 	typedef GLuint (Cube::*VertexAttribFunc)(std::vector<GLfloat>&) const;
 
+	std::vector<GLfloat> _positions(void) const;
+
+	GLuint Positions(std::vector<GLfloat>& dest) const
+	{
+		dest = _positions();
+		return 3;
+	}
+
 	/// Makes the vertices and returns the number of values per vertex
 	template <typename T>
 	GLuint Positions(std::vector<T>& dest) const
 	{
-		/*
-		 *   (E)-----(A)
-		 *   /|      /|
-		 *  / |     / |
-		 *(F)-----(B) |
-		 * | (H)---|-(D)
-		 * | /     | /
-		 * |/      |/
-		 *(G)-----(C)
-		 *
-		 */
-		const T half_x = T(_x)/T(2);
-		const T half_y = T(_y)/T(2);
-		const T half_z = T(_z)/T(2);
-		const T c[8][3] = {
-			{+half_x, +half_y, -half_z}, //(A)
-			{+half_x, +half_y, +half_z}, //(B)
-			{+half_x, -half_y, +half_z}, //(C)
-			{+half_x, -half_y, -half_z}, //(D)
-			{-half_x, +half_y, -half_z}, //(E)
-			{-half_x, +half_y, +half_z}, //(F)
-			{-half_x, -half_y, +half_z}, //(G)
-			{-half_x, -half_y, -half_z}  //(H)
-		};
-		const unsigned A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7;
-		const T _positions[108] = {
-			c[A][0], c[A][1], c[A][2],
-			c[D][0], c[D][1], c[D][2],
-			c[B][0], c[B][1], c[B][2],
-			c[C][0], c[C][1], c[C][2],
-			c[B][0], c[B][1], c[B][2],
-			c[D][0], c[D][1], c[D][2],
+		auto v = _positions();
+		dest.assign(v.begin(), v.end());
+		return 3;
+	}
 
-			c[A][0], c[A][1], c[A][2],
-			c[B][0], c[B][1], c[B][2],
-			c[E][0], c[E][1], c[E][2],
-			c[F][0], c[F][1], c[F][2],
-			c[E][0], c[E][1], c[E][2],
-			c[B][0], c[B][1], c[B][2],
+	std::vector<GLfloat> _normals(void) const;
 
-			c[B][0], c[B][1], c[B][2],
-			c[C][0], c[C][1], c[C][2],
-			c[F][0], c[F][1], c[F][2],
-			c[G][0], c[G][1], c[G][2],
-			c[F][0], c[F][1], c[F][2],
-			c[C][0], c[C][1], c[C][2],
-
-			c[F][0], c[F][1], c[F][2],
-			c[G][0], c[G][1], c[G][2],
-			c[E][0], c[E][1], c[E][2],
-			c[H][0], c[H][1], c[H][2],
-			c[E][0], c[E][1], c[E][2],
-			c[G][0], c[G][1], c[G][2],
-
-			c[H][0], c[H][1], c[H][2],
-			c[G][0], c[G][1], c[G][2],
-			c[D][0], c[D][1], c[D][2],
-			c[C][0], c[C][1], c[C][2],
-			c[D][0], c[D][1], c[D][2],
-			c[G][0], c[G][1], c[G][2],
-
-			c[E][0], c[E][1], c[E][2],
-			c[H][0], c[H][1], c[H][2],
-			c[A][0], c[A][1], c[A][2],
-			c[D][0], c[D][1], c[D][2],
-			c[A][0], c[A][1], c[A][2],
-			c[H][0], c[H][1], c[H][2]
-		};
-		dest.assign(_positions, _positions+108);
+	GLuint Normals(std::vector<GLfloat>& dest) const
+	{
+		dest = _normals();
 		return 3;
 	}
 
@@ -132,27 +81,16 @@ public:
 	template <typename T>
 	GLuint Normals(std::vector<T>& dest) const
 	{
-		const T n[6][3] = {
-			{+T(1),  T(0),  T(0)},
-			{ T(0), +T(1),  T(0)},
-			{ T(0),  T(0), +T(1)},
-			{-T(1),  T(0),  T(0)},
-			{ T(0), -T(1),  T(0)},
-			{ T(0),  T(0), -T(1)}
-		};
-		dest.resize(108);
-		typename std::vector<T>::iterator vi=dest.begin();
-		for(int f=0; f!=6; ++f)
-		{
-			for(int v=0; v!=6; ++v)
-			{
-				for(int c=0; c!=3; ++c)
-				{
-					*vi++ = n[f][c];
-				}
-			}
-		}
-		assert(vi == dest.end());
+		auto v = _normals();
+		dest.assign(v.begin(), v.end());
+		return 3;
+	}
+
+	std::vector<GLfloat> _tangents(void) const;
+
+	GLuint Tangents(std::vector<GLfloat>& dest) const
+	{
+		dest = _tangents();
 		return 3;
 	}
 
@@ -160,27 +98,16 @@ public:
 	template <typename T>
 	GLuint Tangents(std::vector<T>& dest) const
 	{
-		const T n[6][3] = {
-			{ T(0),  T(0), -T(1)},
-			{+T(1),  T(0),  T(0)},
-			{+T(1),  T(0),  T(0)},
-			{ T(0),  T(0), +T(1)},
-			{-T(1),  T(0),  T(0)},
-			{-T(1),  T(0),  T(0)}
-		};
-		dest.resize(108);
-		typename std::vector<T>::iterator vi=dest.begin();
-		for(int f=0; f!=6; ++f)
-		{
-			for(int v=0; v!=6; ++v)
-			{
-				for(int c=0; c!=3; ++c)
-				{
-					*vi++ = n[f][c];
-				}
-			}
-		}
-		assert(vi == dest.end());
+		auto v = _tangents();
+		dest.assign(v.begin(), v.end());
+		return 3;
+	}
+
+	std::vector<GLfloat> _tex_coords(void) const;
+
+	GLuint TexCoordinates(std::vector<GLfloat>& dest) const
+	{
+		dest = _tex_coords();
 		return 3;
 	}
 
@@ -188,28 +115,8 @@ public:
 	template <typename T>
 	GLuint TexCoordinates(std::vector<T>& dest) const
 	{
-		const T n[6][2] = {
-			{+T(1), +T(1)},
-			{+T(1),  T(0)},
-			{ T(0), +T(1)},
-			{ T(0),  T(0)},
-			{ T(0), +T(1)},
-			{+T(1),  T(0)}
-		};
-		dest.resize(108);
-		typename std::vector<T>::iterator vi=dest.begin();
-		for(int f=0; f!=6; ++f)
-		{
-			for(int v=0; v!=6; ++v)
-			{
-				for(int c=0; c!=2; ++c)
-				{
-					*vi++ = n[v][c];
-				}
-				*vi++ = f;
-			}
-		}
-		assert(vi == dest.end());
+		auto v = _tex_coords();
+		dest.assign(v.begin(), v.end());
 		return 3;
 	}
 
@@ -257,66 +164,20 @@ public:
 	}
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
-	{
-		DrawOperation operation;
-		operation.method = DrawOperation::Method::DrawArrays;
-		operation.mode = PrimitiveType::Triangles;
-		operation.first = 0;
-		operation.count = 36;
-		operation.restart_index = DrawOperation::NoRestartIndex();
-		operation.phase = 0;
-
-		return this->MakeInstructions(operation);
-	}
+	DrawingInstructions Instructions(void) const;
 
 	/// Returns element indices for the Cube's edges
-	IndexArray EdgeIndices(void) const
-	{
-		/*
-		 *   (E)-----(A)
-		 *   /|      /|
-		 *  / |     / |
-		 *(F)-----(B) |
-		 * | (H)---|-(D)
-		 * | /     | /
-		 * |/      |/
-		 *(G)-----(C)
-		 *
-		 */
-		GLushort _indices[24] = {
-			 0,  1,  5,  2, //+x
-			19, 22, 23, 18, //-x
-			 6,  7, 10, 11, //+y
-			26, 29, 24, 25, //-y
-			12, 13, 16, 17, //+z
-			31, 35, 32, 30  //-z
-		};
-		IndexArray indices(_indices, _indices+24);
-		return indices;
-	}
+	IndexArray EdgeIndices(void) const;
 
 	/// Returns the instructions for rendering of edges
-	DrawingInstructions EdgeInstructions(void) const
-	{
-		auto instructions = this->MakeInstructions();
-		for(unsigned r=0; r!=6; ++r)
-		{
-			DrawOperation operation;
-			operation.method = DrawOperation::Method::DrawElements;
-			operation.mode = PrimitiveType::LineLoop;
-			operation.first = GLuint(r*4);
-			operation.count = GLuint(4);
-			operation.restart_index = DrawOperation::NoRestartIndex();
-			operation.phase = 0;
-
-			this->AddInstruction(instructions, operation);
-		}
-		return instructions;
-	}
+	DrawingInstructions EdgeInstructions(void) const;
 };
 
 } // shapes
 } // oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/shapes/cube.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

@@ -104,26 +104,8 @@ public:
 namespace aux {
 
 #if !OGLPLUS_NO_OBJECT_DESCS
-OGLPLUS_LIB_FUNC ::std::map<GLuint, String>& ObjectDescRegistryStorage(int id)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	static ::std::map<int, ::std::map<GLuint, String> > _maps;
-	return _maps[id];
-}
-#else
-;
-#endif
-
-OGLPLUS_LIB_FUNC ::std::map<GLuint, String>& ObjectDescRegistryArchive(int id)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	static ::std::map<int, ::std::map<GLuint, String> > _maps;
-	return _maps[id];
-}
-#else
-;
-#endif
-
+::std::map<GLuint, String>& ObjectDescRegistryStorage(int id);
+::std::map<GLuint, String>& ObjectDescRegistryArchive(int id);
 #endif
 
 template <class ObjectOps>
@@ -212,5 +194,9 @@ public:
 
 } // namespace aux
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/auxiliary/strings.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

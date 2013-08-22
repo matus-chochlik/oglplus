@@ -371,23 +371,6 @@ typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_UniqueEssence>
 	ARB_debug_output_Unique;
 #endif
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void ARB_debug_output_UniqueEssence::
-Call(const ARB_debug_output::CallbackData& data)
-{
-	if(GLsizei(buffer.capacity()) < data.length)
-	{
-		buffer.resize(data.length);
-	}
-	buffer.assign(data.message, data.length);
-	if(already_done.find(buffer) == already_done.end())
-	{
-		already_done.insert(buffer);
-		_callback(data);
-	}
-}
-#endif // OGLPLUS_LINK_LIBRARY
 
 class ARB_debug_output_TreeEssence
 {
@@ -426,38 +409,6 @@ typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_TreeEssence>
 	ARB_debug_output_Tree;
 #endif
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-ARB_debug_output_TreeEssence::
-ARB_debug_output_TreeEssence(std::ostream& out)
- : dbgout(out)
-{
-	dbgout << "-+-[Begin]" << std::endl;
-}
-
-OGLPLUS_LIB_FUNC
-ARB_debug_output_TreeEssence::
-~ARB_debug_output_TreeEssence(void)
-{
-	dbgout << " `-[Done]" << std::endl;
-}
-
-
-OGLPLUS_LIB_FUNC
-void ARB_debug_output_TreeEssence::
-Call(const ARB_debug_output::CallbackData& data)
-{
-	dbgout << " |" << std::endl;
-	dbgout << " +-+-[" << data.id << "] '" <<
-		data.message << "'" << std::endl;
-	dbgout << " | +---[source]   '" <<
-		EnumValueName(data.source).c_str()  << "'" << std::endl;
-	dbgout << " | +---[type]     '" <<
-		EnumValueName(data.type).c_str()  << "'" << std::endl;
-	dbgout << " | `---[severity] '" <<
-		EnumValueName(data.severity).c_str()  << "'" << std::endl;
-}
-#endif // OGLPLUS_LINK_LIBRARY
 
 class ARB_debug_output_ToXMLEssence
 {
@@ -495,57 +446,12 @@ typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_ToXMLEssence>
 	ARB_debug_output_ToXML;
 #endif
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-ARB_debug_output_ToXMLEssence::
-ARB_debug_output_ToXMLEssence(std::ostream& out)
- : dbgout(out)
-{
-	dbgout << "<?xml version='1.0' encoding='UTF-8'?>" << std::endl;
-	dbgout << "<ARB_debug_output>" << std::endl;
-}
-
-OGLPLUS_LIB_FUNC
-ARB_debug_output_ToXMLEssence::
-~ARB_debug_output_ToXMLEssence(void)
-{
-	dbgout << "</ARB_debug_output>" << std::endl;
-}
-
-
-OGLPLUS_LIB_FUNC
-void ARB_debug_output_ToXMLEssence::
-Call(const ARB_debug_output::CallbackData& data)
-{
-	dbgout << "<entry>" << std::endl;
-	dbgout << "<id>" << data.id << "</id>" << std::endl;
-	dbgout
-		<< "<message>"
-		<< data.message
-		<< "</message>"
-		<< std::endl;
-	dbgout
-		<< "<source>"
-		<< EnumValueName(data.source).c_str()
-		<< "</source>"
-		<< std::endl;
-	dbgout
-		<< "<type>"
-		<< EnumValueName(data.type).c_str()
-		<< "</type>"
-		<< std::endl;
-	dbgout
-		<< "<severity>"
-		<< EnumValueName(data.severity).c_str()
-		<< "</severity>"
-		<< std::endl;
-
-	dbgout << "</entry>" << std::endl;
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 #endif // ARB_debug_output
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/ext/ARB_debug_output.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard
