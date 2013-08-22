@@ -23,11 +23,11 @@ class TessellationExample : public Example
 {
 private:
 	// helper object building shape vertex attributes
-	shapes::Icosahedron make_shape;
+	shapes::SimpleIcosahedron make_shape;
 	// helper object encapsulating shape drawing instructions
 	shapes::DrawingInstructions shape_instr;
 	// indices pointing to shape primitive elements
-	shapes::Icosahedron::IndexArray shape_indices;
+	shapes::SimpleIcosahedron::IndexArray shape_indices;
 
 	// wrapper around the current OpenGL context
 	Context gl;

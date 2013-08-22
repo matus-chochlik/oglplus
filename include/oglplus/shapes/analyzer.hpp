@@ -62,7 +62,17 @@ private:
 	void _init_dr_el_triangle_fan(const DrawOperation& draw_op);
 
 	void _detect_adjacent(void);
+	bool _same_va_values(
+		GLuint fa,
+		GLuint ea,
+		GLuint fb,
+		GLuint eb,
+		GLuint attr_vpv,
+		const std::vector<GLdouble>& vert_attr
+	);
 	bool _adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb);
+	bool _smooth_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb);
+	bool _contin_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb);
 public:
 	DrawingInstructions _instr;
 	std::vector<GLuint> _index;
@@ -71,6 +81,17 @@ public:
 	std::vector<GLdouble> _main_va;
 	// number of values per vertex for the main attribute
 	GLuint _main_vpv;
+
+	// vertex attribute used to detect smoothing (usually normal)
+	std::vector<GLdouble> _smooth_va;
+	// number of values per vertex for the smooting attribute
+	GLuint _smooth_vpv;
+
+	// other vertex attributes
+	std::vector<std::vector<GLdouble> > _other_vas;
+	// number of values per vertex for the other attributes
+	std::vector<GLuint> _other_vpvs;
+
 	// epsilon value for comparisons
 	GLdouble _eps;
 
@@ -83,9 +104,16 @@ public:
 	std::vector<GLuint> _face_adj_e;
 	std::vector<GLuint> _face_edge_flags;
 
-	static const GLuint _flg_smooth_edge = 0x4;
-	static const GLuint _flg_strip_edge = 0x5;
-	static const GLuint _flg_fan_edge = 0x6;
+	static const GLuint _flg_contin_edge = 0x0001;
+	static const GLuint _flg_smooth_edge = 0x0002;
+	static const GLuint _flg_strip_edge =
+		_flg_smooth_edge|
+		_flg_contin_edge|
+		0x0004;
+	static const GLuint _flg_fan_edge =
+		_flg_smooth_edge|
+		_flg_contin_edge|
+		0x0008;
 
 	static GLuint _face_arity(GLuint /*face*/)
 	{
@@ -102,6 +130,8 @@ public:
 	 , _index(_adapt(builder.Indices()))
 	 , _main_va()
 	 , _main_vpv(builder.Positions(_main_va))
+	 , _smooth_va()
+	 , _smooth_vpv(builder.Normals(_smooth_va))
 	 , _eps(1.0e-9)
 	{
 		_initialize();
@@ -638,8 +668,14 @@ void ShapeAnalyzerGraphData::_initialize(void)
 }
 
 OGLPLUS_LIB_FUNC
-bool ShapeAnalyzerGraphData::
-_adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
+bool ShapeAnalyzerGraphData::_same_va_values(
+	GLuint fa,
+	GLuint ea,
+	GLuint fb,
+	GLuint eb,
+	GLuint attr_vpv,
+	const std::vector<GLdouble>& vert_attr
+)
 {
 	GLuint va0 = _face_verts[_face_index[fa]+ea];
 	GLuint va1 = _face_verts[_face_index[fa]+(ea+1)%_face_arity(fa)];
@@ -650,20 +686,20 @@ _adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
 	if((va0 == vb0) && (va1 == vb1)) return true;
 	if((va0 == vb1) && (va1 == vb0)) return true;
 
-	va0 *= _main_vpv;
-	va1 *= _main_vpv;
-	vb0 *= _main_vpv;
-	vb1 *= _main_vpv;
+	va0 *= attr_vpv;
+	va1 *= attr_vpv;
+	vb0 *= attr_vpv;
+	vb1 *= attr_vpv;
 
 	bool equal = true;
-	for(GLuint c=0; c!=_main_vpv; ++c)
+	for(GLuint c=0; c!=attr_vpv; ++c)
 	{
-		if(std::fabs(_main_va[va0+c] - _main_va[vb0+c]) > _eps)
+		if(std::fabs(vert_attr[va0+c] - vert_attr[vb0+c]) > _eps)
 		{
 			equal = false;
 			break;
 		}
-		if(std::fabs(_main_va[va1+c] - _main_va[vb1+c]) > _eps)
+		if(std::fabs(vert_attr[va1+c] - vert_attr[vb1+c]) > _eps)
 		{
 			equal = false;
 			break;
@@ -672,14 +708,14 @@ _adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
 	if(equal) return true;
 	else equal = true;
 
-	for(GLuint c=0; c!=_main_vpv; ++c)
+	for(GLuint c=0; c!=attr_vpv; ++c)
 	{
-		if(std::fabs(_main_va[va0+c] - _main_va[vb1+c]) > _eps)
+		if(std::fabs(vert_attr[va0+c] - vert_attr[vb1+c]) > _eps)
 		{
 			equal = false;
 			break;
 		}
-		if(std::fabs(_main_va[va1+c] - _main_va[vb0+c]) > _eps)
+		if(std::fabs(vert_attr[va1+c] - vert_attr[vb0+c]) > _eps)
 		{
 			equal = false;
 			break;
@@ -690,6 +726,37 @@ _adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
 	return false;
 }
 
+OGLPLUS_LIB_FUNC
+bool ShapeAnalyzerGraphData::
+_adjacent_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
+{
+	return _same_va_values(fa, ea, fb, eb, _main_vpv, _main_va);
+}
+
+OGLPLUS_LIB_FUNC
+bool ShapeAnalyzerGraphData::
+_smooth_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
+{
+	return _same_va_values(fa, ea, fb, eb, _smooth_vpv, _smooth_va);
+}
+
+OGLPLUS_LIB_FUNC
+bool ShapeAnalyzerGraphData::
+_contin_faces(GLuint fa, GLuint ea, GLuint fb, GLuint eb)
+{
+	std::size_t n = _other_vas.size();
+	assert(n == _other_vpvs.size());
+	bool result = true;
+	for(std::size_t i=0; i!=n; ++i)
+	{
+		result |= _same_va_values(
+			fa, ea, fb, eb,
+			_other_vpvs[i],
+			_other_vas[i]
+		);
+	}
+	return result;
+}
 
 OGLPLUS_LIB_FUNC
 void ShapeAnalyzerGraphData::_detect_adjacent(void)
@@ -726,6 +793,18 @@ void ShapeAnalyzerGraphData::_detect_adjacent(void)
 							fj-fb,
 							fje
 						);
+						bool smtf = adjf&&_smooth_faces(
+							fi-fb,
+							fie,
+							fj-fb,
+							fje
+						);
+						bool cntf = adjf&&_contin_faces(
+							fi-fb,
+							fie,
+							fj-fb,
+							fje
+						);
 						if(nadj && adjf)
 						{
 							_face_adj_f[i]=fj-fb;
@@ -733,6 +812,20 @@ void ShapeAnalyzerGraphData::_detect_adjacent(void)
 
 							_face_adj_e[i]=fje;
 							_face_adj_e[j]=fie;
+						}
+						if(nadj && smtf)
+						{
+							_face_edge_flags[i] |=
+								_flg_smooth_edge;
+							_face_edge_flags[j] |=
+								_flg_smooth_edge;
+						}
+						if(nadj && cntf)
+						{
+							_face_edge_flags[i] |=
+								_flg_contin_edge;
+							_face_edge_flags[j] |=
+								_flg_contin_edge;
 						}
 					}
 					++fj;
@@ -844,6 +937,12 @@ public:
 	ShapeAnalyzerEdge AdjacentEdge(void) const;
 
 	bool HasFlag(GLuint flag) const;
+
+	/// Returns true if the edge is continuous
+	bool IsContinuousEdge(void) const
+	{
+		return HasFlag(ShapeAnalyzerGraphData::_flg_contin_edge);
+	}
 
 	/// Returns true if the edge is smooth
 	bool IsSmoothEdge(void) const
