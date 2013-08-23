@@ -13,11 +13,11 @@ namespace oglplus {
 namespace shapes {
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions SimpleIcosahedron::Instructions(void) const
+DrawingInstructions SimpleIcosahedron::Instructions(PrimitiveType mode) const
 {
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawElements;
-	operation.mode = PrimitiveType::Triangles;
+	operation.mode = mode;
 	operation.first = 0;
 	operation.count = 20*3;
 	operation.restart_index = DrawOperation::NoRestartIndex();
@@ -27,11 +27,11 @@ DrawingInstructions SimpleIcosahedron::Instructions(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Icosahedron::Instructions(void) const
+DrawingInstructions Icosahedron::Instructions(PrimitiveType mode) const
 {
 	DrawOperation operation;
 	operation.method = DrawOperation::Method::DrawArrays;
-	operation.mode = PrimitiveType::Triangles;
+	operation.mode = mode;
 	operation.first = 0;
 	operation.count = 20*3;
 	operation.restart_index = DrawOperation::NoRestartIndex();

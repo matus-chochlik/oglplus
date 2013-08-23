@@ -83,8 +83,13 @@ public:
 		return IndexArray(i, i+20*3);
 	}
 
+	DrawingInstructions Instructions(PrimitiveType mode) const;
+
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(void) const
+	{
+		return Instructions(PrimitiveType::Triangles);
+	}
 };
 
 /// Class providing vertex attributes and instructions for drawing of a icosahedron
@@ -184,8 +189,13 @@ public:
 		return IndexArray();
 	}
 
+	DrawingInstructions Instructions(PrimitiveType mode) const;
+
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(void) const
+	{
+		return Instructions(PrimitiveType::Triangles);
+	}
 };
 
 } // shapes
