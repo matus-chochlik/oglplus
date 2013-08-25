@@ -958,8 +958,6 @@ public:
 	 *
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
-	 *  @glfunref{VertexAttribIPointer}
-	 *  @glfunref{VertexAttribLPointer}
 	 */
 	const VertexAttribArray& Setup(
 		GLint values_per_vertex,
@@ -1057,8 +1055,6 @@ public:
 	 *
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
-	 *  @glfunref{VertexAttribIPointer}
-	 *  @glfunref{VertexAttribLPointer}
 	 */
 	template <typename T>
 	const VertexAttribArray& Setup(GLuint n = 1) const
@@ -1081,7 +1077,7 @@ public:
 		DataType data_type,
 		bool normalized,
 		GLsizei stride,
-		void* pointer
+		const void* pointer
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribPointer)(
@@ -1099,13 +1095,13 @@ public:
 	/// Setup the properties of this vertex attribute array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{VertexAttribIPointer}
+	 *  @glfunref{VertexAttribPointer}
 	 */
 	const VertexAttribArray& IPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
-		void* pointer
+		const void* pointer
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribIPointer)(
@@ -1119,11 +1115,17 @@ public:
 		return *this;
 	}
 
+
+	/// Setup the properties of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribPointer}
+	 */
 	const VertexAttribArray& LPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
-		void* pointer
+		const void* pointer
 	) const
 	{
 #if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
