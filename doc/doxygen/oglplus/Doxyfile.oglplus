@@ -15,6 +15,7 @@ HIDE_SCOPE_NAMES       = NO
 OUTPUT_DIRECTORY       = ../../../_build/doc/doxygen/oglplus
 
 INPUT = \
+	../../include/oglplus \
 	../../tutorial/oglplus \
 	../../../include/oglplus \
 	../../../include/oglplus/bound \
@@ -26,7 +27,7 @@ INPUT = \
 	../../../example/standalone \
 	../../../example/oglplus
 
-INCLUDE_PATH = ../../../include/ ../../../example
+INCLUDE_PATH = ../../../include/ ../../include/oglplus ../../../example
 
 EXAMPLE_PATH = \
 	../../tutorial/oglplus \

@@ -942,31 +942,7 @@ public:
 	void TransformFeedbackVaryings(
 		const std::vector<String>& varyings,
 		TransformFeedbackMode mode
-	) const
-	{
-		std::vector<const GLchar*> tmp(varyings.size());
-		auto i = varyings.begin(), e = varyings.end();
-		auto t = tmp.begin();
-		while(i != e)
-		{
-			assert(t != tmp.end());
-			*t = i->c_str();
-			++i;
-			++t;
-		}
-		OGLPLUS_GLFUNC(TransformFeedbackVaryings)(
-			_name,
-			GLsizei(tmp.size()),
-			tmp.data(),
-			GLenum(mode)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TransformFeedbackVaryings,
-			Program,
-			nullptr,
-			_name
-		));
-	}
+	) const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Information about a active uniform block
@@ -1080,29 +1056,7 @@ public:
 	 *  @glfunref{GetProgramBinary}
 	 *  @gldefref{PROGRAM_BINARY_LENGTH}
 	 */
-	void GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
-	{
-		assert(_name != 0);
-		GLint size = GetIntParam(GL_PROGRAM_BINARY_LENGTH);
-		if(size > 0)
-		{
-			GLsizei len = 0;
-			binary.resize(size);
-			OGLPLUS_GLFUNC(GetProgramBinary)(
-				_name,
-				size,
-				&len,
-				&format,
-				binary.data()
-			);
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-				GetProgramBinary,
-				Program,
-				nullptr,
-				_name
-			));
-		}
-	}
+	void GetBinary(std::vector<GLubyte>& binary, GLenum& format) const;
 
 	/// Allows to specify to program code in binary form
 	/**
