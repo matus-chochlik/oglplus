@@ -95,52 +95,15 @@ inline GLint BitmapGlyphCellOfCP(
 	return code_point % BitmapGlyphGlyphsPerPage(parent);
 }
 
-OGLPLUS_LIB_FUNC
 std::string BitmapGlyphPageName(
 	const BitmapGlyphRenderingBase& parent,
 	GLint page
-)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	const char hexdigit[16] = {
-		'0','1','2','3','4',
-		'5','6','7','8','9',
-		'A','B','C','D','E','F'
-	};
-	GLint page_head = page*BitmapGlyphGlyphsPerPage(parent);
-	const char result[6] = {
-		hexdigit[(page_head >> 20) & 0x0F],
-		hexdigit[(page_head >> 16) & 0x0F],
-		hexdigit[(page_head >> 12) & 0x0F],
-		hexdigit[(page_head >>  8) & 0x0F],
-		hexdigit[(page_head >>  4) & 0x0F],
-		hexdigit[(page_head >>  0) & 0x0F]
-	};
-	return std::string(result, 6);
-}
-#else
-;
-#endif // OGLPLUS_LINK_LIBRARY
+);
 
-OGLPLUS_LIB_FUNC
 GLuint BitmapGlyphDefaultPageTexSide(
-	const BitmapGlyphRenderingBase& /*parent*/,
+	const BitmapGlyphRenderingBase& parent,
 	GLuint pixel_height
-)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	GLuint h = pixel_height*16;
-	GLuint s = 128;
-	while(true)
-	{
-		if(s >= h) break;
-		s *= 2;
-	}
-	return s;
-}
-#else
-;
-#endif // OGLPLUS_LINK_LIBRARY
+);
 
 } // namespace text
 } // namespace oglplus
