@@ -599,58 +599,6 @@ public:
 #endif
 };
 
-
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void VertexAttribOps::_handle_inactive(
-	const ProgramOps& program,
-	const GLchar* identifier,
-	GLint result
-)
-{
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	Error::AddPropertyValue(
-		props,
-		"program",
-		DescriptionOf(program)
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		result,
-		"Getting the location of inactive vertex attrib",
-		OGLPLUS_ERROR_INFO(GetAttribLocation),
-		std::move(props)
-	);
-}
-
-OGLPLUS_LIB_FUNC
-void VertexAttribOps::_handle_inconsistent_location(
-	const GLchar* identifier,
-	VertexAttribSlot location
-)
-{
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		GLint(location),
-		"Inconsistent location of a vertex "
-		"attribute in multiple programs",
-		OGLPLUS_ERROR_INFO(GetAttribLocation),
-		std::move(props)
-	);
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 // Things from to Program related to vertex attributes
 void ProgramOps::BindLocation(
 	const VertexAttribOps& vertex_attrib,
@@ -1270,5 +1218,9 @@ inline VertexAttribArray operator | (
 }
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/vertex_attrib.ipp>
+#endif
 
 #endif // include guard

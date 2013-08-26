@@ -258,38 +258,6 @@ public:
 	// TODO: finish this
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-GLenum ProgramResource::ReferencedByProperty(ShaderType shader_type) const
-{
-	if(shader_type == ShaderType::Vertex)
-	{
-		return GL_REFERENCED_BY_VERTEX_SHADER;
-	}
-	if(shader_type == ShaderType::TessControl)
-	{
-		return GL_REFERENCED_BY_TESS_CONTROL_SHADER;
-	}
-	if(shader_type == ShaderType::TessEvaluation)
-	{
-		return GL_REFERENCED_BY_TESS_EVALUATION_SHADER;
-	}
-	if(shader_type == ShaderType::Geometry)
-	{
-		return GL_REFERENCED_BY_GEOMETRY_SHADER;
-	}
-	if(shader_type == ShaderType::Fragment)
-	{
-		return GL_REFERENCED_BY_FRAGMENT_SHADER;
-	}
-	if(shader_type == ShaderType::Compute)
-	{
-		return GL_REFERENCED_BY_COMPUTE_SHADER;
-	}
-	return GL_NONE;
-}
-#endif // OGLPLUS_LINK_LIB
-
 #endif // GL_VERSION_4_3
 
 /// Program operations wrapper helper class
@@ -1293,22 +1261,6 @@ public:
 
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void ProgramOps::HandleLinkError(void) const
-{
-	HandleBuildError<LinkError>(
-		GetInfoLog(),
-		OGLPLUS_OBJECT_ERROR_INFO(
-			LinkProgram,
-			Program,
-			nullptr,
-			_name
-		)
-	);
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
 /**
@@ -1558,63 +1510,10 @@ public:
 
 #endif // NO_VARIADIC_TEMPLATES
 
-template <class StdTuple>
-class HardwiredTupleProgram;
-
-/// A Program that has its shaders statically hardcoded via a std::tuple
-/**
- *  @deprecated This class will be removed in release 0.35.0.
- */
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-template <class ... Shaders>
-class HardwiredTupleProgram<std::tuple<Shaders...> >
- : protected std::tuple<Shaders...>
-#else
-template <class StdTuple>
-class HardwiredTupleProgram
- : protected StdTuple
-#endif
- , public QuickProgram
-{
-private:
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	typedef std::tuple<Shaders...> StdTuple;
-#endif
-	const StdTuple& _base_shaders(void) const
-	{
-		return *((StdTuple*)this);
-	}
-public:
-	/// Create an instance of the hardwired program
-	HardwiredTupleProgram(void)
-	 : QuickProgram(ObjectDesc(), std::false_type(), _base_shaders())
-	{ }
-
-	/// Create an instance of the hardwired program, possibly @c separable
-	template <bool Separable>
-	HardwiredTupleProgram(std::integral_constant<bool, Separable> separable)
-	 : QuickProgram(ObjectDesc(), separable, _base_shaders())
-	{ }
-
-	/// Create an instance of the hardwired program with a @c description
-	HardwiredTupleProgram(ObjectDesc&& description)
-	 : QuickProgram(
-		std::move(description),
-		std::false_type(),
-		_base_shaders()
-	)
-	{ }
-
-	/// Create an instance of the hardwired program with a @c description
-	template <bool Separable>
-	HardwiredTupleProgram(
-		ObjectDesc&& description,
-		std::integral_constant<bool, Separable> separable
-	): QuickProgram(std::move(description), separable, _base_shaders())
-	{ }
-};
-
-
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/program.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard
