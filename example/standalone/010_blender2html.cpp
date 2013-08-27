@@ -425,6 +425,32 @@ void blend_to_html(const std::string& filename, const std::string& work_dir)
 	index << "</table>" << std::endl;
 	index << "</body>" << std::endl;
 	index << "</html>" << std::endl;
+
+	index.close();
+
+	std::ofstream stylesheet(work_dir+"/blend.css");
+	if(!stylesheet.good())
+	{
+		throw std::runtime_error(
+			"Error opening file 'blend.css' "
+			"in '"+work_dir+"'."
+		);
+	}
+
+	stylesheet
+		<< "body { font-family: 'Courier New', Courier, monospace; }"
+		<< std::endl;
+	stylesheet
+		<< "table { border-collapse: collapse; }"
+		<< std::endl;
+	stylesheet
+		<< "table, th, td { border: 1px solid black; }"
+		<< std::endl;
+	stylesheet
+		<< "th { background-color: navy; color: white; }"
+		<< std::endl;
+
+	stylesheet.close();
 }
 
 int main(int argc, const char* argv[])
