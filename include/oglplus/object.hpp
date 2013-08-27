@@ -250,6 +250,36 @@ private:
 		>::type();
 	}
 
+	template <
+		typename _ObjectOps,
+		oglplus::ObjectType (*Get)(void)
+	> struct _hlp_object_type { };
+
+	template <typename _ObjectOps>
+	static oglplus::ObjectType _get_object_type(
+		_hlp_object_type<_ObjectOps, &_ObjectOps::_object_type>*
+	) OGLPLUS_NOEXCEPT(true)
+	{
+		return _ObjectOps::_object_type();
+	}
+
+	// calling this means that the _object_type function is not implemented
+	// by ObjectOps which means that some GL symbols are not properly
+	// defined by the used GL header
+	template <typename _ObjectOps>
+	static oglplus::ObjectType _get_object_type(...)
+	OGLPLUS_NOEXCEPT(true)
+	{
+#ifdef None
+#pragma push_macro("None")
+#undef None
+		return oglplus::ObjectType::None;
+#pragma pop_macro("None")
+#else
+		return oglplus::ObjectType::None;
+#endif
+	}
+
 	static inline bool _type_ok(GLuint _name)
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -288,14 +318,27 @@ private:
 		ObjectDesc&& description
 	) OGLPLUS_NOEXCEPT(true)
 	{
-		try{that->_register_desc(that->_name, std::move(description));}
+		try
+		{
+			that->_register_desc(
+				GLenum(_get_object_type<ObjectOps>(nullptr)),
+				that->_name,
+				std::move(description)
+			);
+		}
 		catch(...){ }
 	}
 
 	static inline void _undescribe(const Object* that)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		try{that->_unregister_desc(that->_name);}
+		try
+		{
+			that->_unregister_desc(
+				GLenum(_get_object_type<ObjectOps>(nullptr)),
+				that->_name
+			);
+		}
 		catch(...){ }
 	}
 
@@ -473,27 +516,11 @@ public:
 		_move_in(std::move(temp));
 		return *this;
 	}
-private:
-	template <typename _ObjectOps>
-	static oglplus::ObjectType _get_object_type(
-		_ObjectOps*,
-		oglplus::ObjectType (*get)(void) = _ObjectOps::_object_type
-	) OGLPLUS_NOEXCEPT(true)
-	{
-		assert(get);
-		return get();
-	}
 
-	// calling this means that the _object_type function is not implemented
-	// by ObjectOps which means that some GL symbols are not properly
-	// defined by the used GL header
-	static oglplus::ObjectType _get_object_type(...)
-	OGLPLUS_NOEXCEPT(true);
-public:
 	static oglplus::ObjectType ObjectType(void)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return _get_object_type((ObjectOps*)nullptr);
+		return _get_object_type<ObjectOps>(nullptr);
 	}
 
 	const String& Description(void) const

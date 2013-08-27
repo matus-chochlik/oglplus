@@ -1369,6 +1369,7 @@ template <typename Enum> friend bool operator!=(Enum value, AnySamplesPassed);
 /**
  *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
+ *  @see @ref oglplus::DebugSource "DebugSource"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SOURCE_API}
@@ -1404,6 +1405,7 @@ template <typename Enum> friend bool operator!=(Enum value, API);
 /**
  *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
+ *  @see @ref oglplus::DebugSource "DebugSource"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SOURCE_APPLICATION}
@@ -5279,6 +5281,7 @@ template <typename Enum> friend bool operator!=(Enum value, DecrWrap);
 /**
  *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_TYPE_DEPRECATED_BEHAVIOR}
@@ -5752,6 +5755,9 @@ template <typename Enum> friend bool operator!=(Enum value, Dither);
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugSeverity "DebugSeverity"
+ *  @see @ref oglplus::DebugSource "DebugSource"
+ *  @see @ref oglplus::DebugType "DebugType"
  *  @see @ref oglplus::HintOption "HintOption"
  *
  *  @glsymbols
@@ -6649,6 +6655,7 @@ template <typename Enum> friend bool operator!=(Enum value, Equiv);
 /**
  *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_TYPE_ERROR}
@@ -9135,6 +9142,7 @@ template <typename Enum> friend bool operator!=(Enum value, HalfFloat);
 /**
  *  @see @ref oglplus::DebugOutputARBSeverity "DebugOutputARBSeverity"
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
+ *  @see @ref oglplus::DebugSeverity "DebugSeverity"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SEVERITY_HIGH}
@@ -11791,6 +11799,7 @@ template <typename Enum> friend bool operator!=(Enum value, LocationIndex);
 /**
  *  @see @ref oglplus::DebugOutputARBSeverity "DebugOutputARBSeverity"
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
+ *  @see @ref oglplus::DebugSeverity "DebugSeverity"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SEVERITY_LOW}
@@ -11957,6 +11966,7 @@ template <typename Enum> friend bool operator!=(Enum value, LuminanceAlpha);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Marker value.
 /**
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_TYPE_MARKER}
@@ -15456,6 +15466,7 @@ template <typename Enum> friend bool operator!=(Enum value, MaxViewports);
 /**
  *  @see @ref oglplus::DebugOutputARBSeverity "DebugOutputARBSeverity"
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
+ *  @see @ref oglplus::DebugSeverity "DebugSeverity"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SEVERITY_MEDIUM}
@@ -16253,6 +16264,7 @@ template <typename Enum> friend bool operator!=(Enum value, NoError);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c None value.
 /**
  *  @see @ref oglplus::ColorBuffer "ColorBuffer"
+ *  @see @ref oglplus::ObjectType "ObjectType"
  *  @see @ref oglplus::PathNVGenMode "PathNVGenMode"
  *  @see @ref oglplus::PathNVJoinStyle "PathNVJoinStyle"
  *  @see @ref oglplus::PathNVTransformType "PathNVTransformType"
@@ -16390,6 +16402,7 @@ template <typename Enum> friend bool operator!=(Enum value, NotEqual);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Notification value.
 /**
  *  @see @ref oglplus::DebugOutputSeverity "DebugOutputSeverity"
+ *  @see @ref oglplus::DebugSeverity "DebugSeverity"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SEVERITY_NOTIFICATION}
@@ -16988,6 +17001,8 @@ template <typename Enum> friend bool operator!=(Enum value, OrReverse);
  *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugSource "DebugSource"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SOURCE_OTHER}
@@ -17619,6 +17634,7 @@ template <typename Enum> friend bool operator!=(Enum value, Percentage);
 /**
  *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_TYPE_PERFORMANCE}
@@ -18090,6 +18106,7 @@ template <typename Enum> friend bool operator!=(Enum value, PolygonStipple);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PopGroup value.
 /**
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_TYPE_POP_GROUP}
@@ -18124,6 +18141,7 @@ template <typename Enum> friend bool operator!=(Enum value, PopGroup);
 /**
  *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_TYPE_PORTABILITY}
@@ -18488,6 +18506,7 @@ template <typename Enum> friend bool operator!=(Enum value, PS);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PushGroup value.
 /**
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_TYPE_PUSH_GROUP}
@@ -23163,6 +23182,7 @@ template <typename Enum> friend bool operator!=(Enum value, Shader);
 /**
  *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
+ *  @see @ref oglplus::DebugSource "DebugSource"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SOURCE_SHADER_COMPILER}
@@ -24890,6 +24910,7 @@ template <typename Enum> friend bool operator!=(Enum value, TextureUpdate);
 /**
  *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
+ *  @see @ref oglplus::DebugSource "DebugSource"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SOURCE_THIRD_PARTY}
@@ -25629,6 +25650,7 @@ template <typename Enum> friend bool operator!=(Enum value, Undefined);
 /**
  *  @see @ref oglplus::DebugOutputARBType "DebugOutputARBType"
  *  @see @ref oglplus::DebugOutputType "DebugOutputType"
+ *  @see @ref oglplus::DebugType "DebugType"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_TYPE_UNDEFINED_BEHAVIOR}
@@ -28118,6 +28140,7 @@ template <typename Enum> friend bool operator!=(Enum value, WaitFailed);
 /**
  *  @see @ref oglplus::DebugOutputARBSource "DebugOutputARBSource"
  *  @see @ref oglplus::DebugOutputSource "DebugOutputSource"
+ *  @see @ref oglplus::DebugSource "DebugSource"
  *
  *  @glsymbols
  *  @gldefref{DEBUG_SOURCE_WINDOW_SYSTEM}

@@ -108,12 +108,47 @@ namespace aux {
 ::std::map<GLuint, String>& ObjectDescRegistryArchive(int id);
 #endif
 
+#if !OGLPLUS_NO_OBJECT_DESCS
+class ObjectDescRegistryBase
+{
+private:
+	typedef ::std::map<GLuint, String> _desc_map;
+protected:
+	static void _do_register_desc(
+		_desc_map& storage,
+		GLenum type,
+		GLuint name,
+		ObjectDesc&& desc
+	);
+
+	static void _do_unregister_desc(
+		_desc_map& storage,
+		_desc_map& archive,
+		GLenum type,
+		GLuint name
+	);
+
+	static void _do_purge_archive(_desc_map& archive);
+
+	static const String& _do_get_desc(
+		_desc_map& storage,
+		_desc_map& archive,
+		GLuint name
+	);
+};
+#endif // !OGLPLUS_NO_OBJECT_DESCS
+
 template <class ObjectOps>
 class ObjectDescRegistry
+#if !OGLPLUS_NO_OBJECT_DESCS
+ : public ObjectDescRegistryBase
+#endif
 {
 private:
 #if !OGLPLUS_NO_OBJECT_DESCS
+	typedef ObjectDescRegistryBase _Base;
 	typedef ::std::map<GLuint, String> _desc_map;
+
 	static _desc_map& _storage(void)
 	{
 		return ObjectDescRegistryStorage(ObjectTypeId<ObjectOps>::value);
@@ -125,71 +160,54 @@ private:
 	}
 #endif
 protected:
-	static void _register_desc(GLuint name, ObjectDesc&& desc)
+	static void _register_desc(GLenum type, GLuint name, ObjectDesc&& desc)
 #if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true)
-#endif
+	OGLPLUS_NOEXCEPT(true) { (void)type; (void)name; (void)desc; }
+#else
 	{
-		OGLPLUS_FAKE_USE(name);
-		OGLPLUS_FAKE_USE(desc);
-#if !OGLPLUS_NO_OBJECT_DESCS
-		assert(name != 0);
-		assert(_storage().find(name) == _storage().end());
-		_storage().insert(
-			typename _desc_map::value_type(
-				name,
-				desc.Release()
-			)
+		_Base::_do_register_desc(
+			_storage(),
+			type,
+			name,
+			std::move(desc)
 		);
-#endif
 	}
+#endif
 
-	static void _unregister_desc(GLuint name)
+	static void _unregister_desc(GLenum type, GLuint name)
 #if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true)
-#endif
+	OGLPLUS_NOEXCEPT(true) { (void)type; (void)name; }
+#else
 	{
-		OGLPLUS_FAKE_USE(name);
-#if !OGLPLUS_NO_OBJECT_DESCS
-		assert(name != 0);
-		auto pos = _storage().find(name);
-		if(pos != _storage().end())
-		{
-			if(std::uncaught_exception())
-				_archive().insert(*pos);
-			_storage().erase(pos);
-		}
-#endif
+		_Base::_do_unregister_desc(
+			_storage(),
+			_archive(),
+			type,
+			name
+		);
 	}
+#endif
 
 public:
 	// internal implementation detail. do not use directly
 	static void _purge_archive(void)
 #if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true)
-#endif
+	OGLPLUS_NOEXCEPT(true) { }
+#else
 	{
-#if !OGLPLUS_NO_OBJECT_DESCS
-		_archive().clear();
-#endif
+		_Base::_do_purge_archive(_archive());
 	}
+#endif
 
 	// internal implementation detail. do not use directly
 	static const String& _get_desc(GLuint name)
 #if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true)
-#endif
+	OGLPLUS_NOEXCEPT(true) { (void)name; return aux::EmptyString(); }
+#else
 	{
-		OGLPLUS_FAKE_USE(name);
-#if !OGLPLUS_NO_OBJECT_DESCS
-		assert(name != 0);
-		auto pos = _storage().find(name);
-		if(pos != _storage().end()) return pos->second;
-		pos = _archive().find(name);
-		if(pos != _archive().end()) return pos->second;
-#endif
-		return aux::EmptyString();
+		return _Base::_do_get_desc(_storage(), _archive(), name);
 	}
+#endif
 };
 
 } // namespace aux

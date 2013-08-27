@@ -17,6 +17,7 @@ void FramebufferOps::HandleIncompleteError(
 	FramebufferStatus status
 )
 {
+	OGLPLUS_FAKE_USE(target);
 	HandleIncompleteFramebuffer<IncompleteFramebuffer>(
 		status,
 		OGLPLUS_OBJECT_ERROR_INFO(

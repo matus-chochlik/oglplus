@@ -16,6 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/error.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/data_type.hpp>
 

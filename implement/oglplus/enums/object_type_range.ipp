@@ -52,6 +52,9 @@ GL_TRANSFORM_FEEDBACK,
 #if defined GL_VERTEX_ARRAY
 GL_VERTEX_ARRAY,
 #endif
+#if defined GL_NONE
+GL_NONE,
+#endif
 0
 };
 return aux::CastIterRange<

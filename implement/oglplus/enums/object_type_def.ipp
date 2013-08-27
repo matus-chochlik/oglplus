@@ -189,6 +189,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_NONE
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined None
+#  pragma push_macro("None")
+#  undef None
+   OGLPLUS_ENUM_CLASS_VALUE(None, GL_NONE)
+#  pragma pop_macro("None")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(None, GL_NONE)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif

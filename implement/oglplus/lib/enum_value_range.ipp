@@ -229,6 +229,15 @@ OGLPLUS_ENUM_CLASS_FWD(DebugOutputARBSource, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(DebugOutputARBType, GLenum)
 #include <oglplus/enums/ext/debug_output_type_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(DebugSeverity, GLenum)
+#include <oglplus/enums/ext/debug_severity_range.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(DebugSource, GLenum)
+#include <oglplus/enums/ext/debug_source_range.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(DebugType, GLenum)
+#include <oglplus/enums/ext/debug_type_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(PathNVCapStyle, GLenum)
 #include <oglplus/enums/ext/nv_path_cap_style_range.ipp>
 

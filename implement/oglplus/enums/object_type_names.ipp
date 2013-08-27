@@ -53,6 +53,9 @@ switch(value)
 #if defined GL_VERTEX_ARRAY
 	case GL_VERTEX_ARRAY: return StrLit("VERTEX_ARRAY");
 #endif
+#if defined GL_NONE
+	case GL_NONE: return StrLit("NONE");
+#endif
 	default:;
 }
 OGLPLUS_FAKE_USE(value);
