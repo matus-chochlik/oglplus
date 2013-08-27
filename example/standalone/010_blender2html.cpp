@@ -127,6 +127,7 @@ void blend_to_html(const std::string& filename, const std::string& work_dir)
 
 	index	<< "<html>" << std::endl;
 	index	<< "<head>" << std::endl;
+	index	<< "<link rel='stylesheet' type='text/css' href='blend.css'/>";
 	index	<< "</head>" << std::endl;
 	index	<< "<body>" << std::endl;
 	index	<< "<h2>File: '"<< filename << "'</h2>" << std::endl;
@@ -176,6 +177,7 @@ void blend_to_html(const std::string& filename, const std::string& work_dir)
 
 		output	<< "<html>" << std::endl;
 		output	<< "<head>" << std::endl;
+		output	<< "<link rel='stylesheet' type='text/css' href='blend.css'/>";
 		output	<< "</head>" << std::endl;
 		output	<< "<body>" << std::endl;
 
@@ -269,6 +271,7 @@ void blend_to_html(const std::string& filename, const std::string& work_dir)
 
 		output	<< "<html>" << std::endl;
 		output	<< "<head>" << std::endl;
+		output	<< "<link rel='stylesheet' type='text/css' href='blend.css'/>";
 		output	<< "</head>" << std::endl;
 		output	<< "<body>" << std::endl;
 		output	<< "<h2>Block information</h2>" << std::endl;
