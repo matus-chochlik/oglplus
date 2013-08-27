@@ -159,6 +159,8 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		)
 	endif()
 
+	standalone_example_common(010_blender2html)
+
 	if(OPENAL_FOUND)
 		include_directories(${OPENAL_INCLUDE_DIRS})
 		standalone_example_common(
