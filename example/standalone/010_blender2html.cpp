@@ -453,11 +453,27 @@ void blend_to_html(const std::string& filename, const std::string& work_dir)
 	stylesheet.close();
 }
 
+void print_usage(std::ostream& output)
+{
+	output
+		<< "Usage: 010_blender2html "
+		<< "[input-file.blend] [output-directory]"
+		<< std::endl;
+	output
+		<< "Note: The output directory must exist and must be writable"
+		<< std::endl;
+	output	<< std::endl;
+}
+
 int main(int argc, const char* argv[])
 {
 	try
 	{
-		blend_to_html(
+		if((argc>1) && (std::strcmp(argv[1], "--help") == 0))
+		{
+			print_usage(std::cout);
+		}
+		else blend_to_html(
 			argc>1?argv[1]:"test.blend",     // input file path
 			argc>2?argv[2]:"oglp-blend-file" // output dir path
 		);
@@ -468,7 +484,10 @@ int main(int argc, const char* argv[])
 			<< "Error: "
 			<< error.what()
 			<< std::endl;
+		print_usage(std::cerr);
+		return 1;
 	}
+	return 0;
 }
 
 
