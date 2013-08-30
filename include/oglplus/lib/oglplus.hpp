@@ -27,6 +27,7 @@
 #include <oglplus/string.hpp>
 #include <oglplus/fwd.hpp>
 
+#include <oglplus/auxiliary/utf8.hpp>
 #include <oglplus/auxiliary/strings.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/auxiliary/uniform_typecheck.hpp>

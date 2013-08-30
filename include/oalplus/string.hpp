@@ -15,7 +15,7 @@
 
 #include <oalplus/config.hpp>
 
-#include <oglplus/auxiliary/utf8/validator.hpp>
+#include <oglplus/auxiliary/utf8.hpp>
 
 #include <string>
 #include <cassert>
@@ -96,7 +96,7 @@ private:
 
 	void _check(void) const
 	{
-		oglplus::aux::UTF8Validator<const ALchar*> valid_utf8;
+		oglplus::aux::UTF8Validator valid_utf8;
 		assert(valid_utf8(begin(), end()));
 	}
 public:

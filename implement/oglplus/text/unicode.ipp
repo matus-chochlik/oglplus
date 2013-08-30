@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#include <oglplus/auxiliary/utf8/conversion.hpp>
+#include <oglplus/auxiliary/utf8.hpp>
 
 namespace oglplus {
 namespace text {

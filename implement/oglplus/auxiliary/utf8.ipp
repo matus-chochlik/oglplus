@@ -1,26 +1,20 @@
 /**
- *  .file oglplus/auxiliary/utf8/conversion.hpp
- *  .brief Helper utf8-conversion functions
+ *  .file oglplus/auxiliary/utf8.ipp
+ *  .brief Helper utf8-related tools
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2011-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-
-#ifndef __OGLPLUS_AUX_UTF8_CONVERSION_1102101236_HPP
-#define __OGLPLUS_AUX_UTF8_CONVERSION_1102101236_HPP
-
-#include <cassert>
-#include <vector>
+#include <oglplus/config_basic.hpp>
 
 namespace oglplus {
 namespace aux {
 
-typedef char32_t UnicodeCP;
-
-inline size_t UTF8BytesRequired(const UnicodeCP* cp_str, size_t len)
+OGLPLUS_LIB_FUNC
+size_t UTF8BytesRequired(const UnicodeCP* cp_str, size_t len)
 {
 	size_t result = 0;
 	for(size_t i=0; i!=len; ++i)
@@ -43,7 +37,8 @@ inline size_t UTF8BytesRequired(const UnicodeCP* cp_str, size_t len)
 	return result;
 }
 
-inline void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len)
+OGLPLUS_LIB_FUNC
+void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len)
 {
 	// 7-bits -> one byte
 	if((cp & ~0x0000007F) == 0)
@@ -99,7 +94,8 @@ inline void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len)
 	else assert(!"Invalid code point");
 }
 
-inline void ConvertCodePointsToUTF8(
+OGLPLUS_LIB_FUNC
+void ConvertCodePointsToUTF8(
 	const UnicodeCP* cps,
 	size_t len,
 	std::vector<char>& result
@@ -122,7 +118,8 @@ inline void ConvertCodePointsToUTF8(
 	assert(u8len == 0);
 }
 
-inline size_t CodePointsRequired(const char* str, size_t len)
+OGLPLUS_LIB_FUNC
+size_t CodePointsRequired(const char* str, size_t len)
 {
 	assert(sizeof(char) == sizeof(unsigned char));
 	const unsigned char* pb=reinterpret_cast<const unsigned char*>(str);
@@ -153,7 +150,8 @@ inline size_t CodePointsRequired(const char* str, size_t len)
 	return result;
 }
 
-inline UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len, size_t& cp_len)
+OGLPLUS_LIB_FUNC
+UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len, size_t& cp_len)
 {
 	assert(sizeof(char) == sizeof(unsigned char));
 	const unsigned char* bytes=reinterpret_cast<const unsigned char*>(str);
@@ -238,7 +236,8 @@ inline UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len, size_t& cp_
 	return UnicodeCP();
 }
 
-inline void ConvertUTF8ToCodePoints(
+OGLPLUS_LIB_FUNC
+void ConvertUTF8ToCodePoints(
 	const char* str,
 	size_t len,
 	std::vector<UnicodeCP>& result
@@ -261,7 +260,86 @@ inline void ConvertUTF8ToCodePoints(
 	assert(ulen == 0);
 }
 
+OGLPLUS_LIB_FUNC
+bool UTF8Validator::_S_is_valid_ptr(const char* _s)
+{
+	return _s != nullptr;
+}
+
+OGLPLUS_LIB_FUNC
+unsigned char UTF8Validator::byte(const char* _i)
+{
+	assert(_S_is_valid_ptr(_i));
+	return static_cast<unsigned char>(*_i);
+}
+
+OGLPLUS_LIB_FUNC
+const char* UTF8Validator::_S_validate(const char* _s, const char* _end)
+{
+	unsigned short bytes = 0;
+	assert(_S_is_valid_ptr(_s));
+	while((_s != _end) && (byte(_s) != 0x00))
+	{
+		// there are remaining bytes in the sequence
+		if(bytes)
+		{
+			// the byte must be 10xxxxxx
+			if((byte(_s) & 0xC0) != 0x80)
+				return nullptr;
+			// but not 10000000
+			if(byte(_s) == 0x80)
+				return nullptr;
+			--bytes;
+		}
+		// this is _a beginning of a new sequence
+		else if(byte(_s) & 0x80)
+		{
+			// 110xxxxx
+			if((byte(_s) & 0xE0) == 0xC0)
+			{
+				// but not 11000000
+				if(byte(_s) == 0xC0)
+					return nullptr;
+				bytes = 1;
+			}
+			// 1110xxxx
+			else if((byte(_s) & 0xF0) == 0xE0)
+			{
+				// but not 11100000
+				if(byte(_s) == 0xE0)
+					return nullptr;
+				bytes = 2;
+			}
+			// 11110xxx
+			else if((byte(_s) & 0xF8) == 0xF0)
+			{
+				// but not 11110000
+				if(byte(_s) == 0xF0)
+					return nullptr;
+				bytes = 3;
+			}
+			// 111110xx
+			else if((byte(_s) & 0xFC) == 0xF8)
+			{
+				// but not 11111000
+				if(byte(_s) == 0xF8)
+					return nullptr;
+				bytes = 4;
+			}
+			// 1111110x
+			else if((byte(_s) & 0xFE) == 0xFC)
+			{
+				// but not 11111100
+				if(byte(_s) == 0xFC)
+					return nullptr;
+				bytes = 5;
+			}
+		}
+		++_s;
+	}
+	return _s;
+}
+
 } // namespace aux
 } // namespace oglplus
 
-#endif // include guard
