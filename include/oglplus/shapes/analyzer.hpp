@@ -65,11 +65,22 @@ public:
 		return _vert_index;
 	}
 
-	/// Returns the parent face of the edge
+	/// Returns the parent face of the vertex
 	ShapeAnalyzerFace Face(void) const;
 
 	/// Returns the value of the main vertex attribute at the vertex
+	/** The main vertex attribute is usually the vertex position, but
+	 *  for some analyses it may be something else, the UV coordinate
+	 *  for example.
+	 */
 	Vec4d MainAttrib(void) const;
+
+	/// Returns the value of the 'smooth' vertex attribute at the vertex
+	/** This vertex attribute is used to detect if edges are 'smooth'
+	 *  it is usually the vertex normal, but for some analyses it may be
+	 *  something else.
+	 */
+	Vec4d SmoothAttrib(void) const;
 };
 
 /// Class storing information about a single edge of a generated/loaded mesh
@@ -120,6 +131,15 @@ public:
 	 *  @pre HasAdjacentEdge()
 	 */
 	ShapeAnalyzerEdge AdjacentEdge(void) const;
+
+	/// Returns true if this edge has an opposite vertex (triangles only)
+	bool HasOppositeVert(void) const;
+
+	/// Returns the opposite vertex (if any)
+	/**
+	 *  @pre HasOppositeVert()
+	 */
+	ShapeAnalyzerVert OppositeVert(void) const;
 
 	bool HasFlag(GLuint flag) const;
 
