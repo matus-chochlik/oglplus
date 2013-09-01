@@ -32,6 +32,7 @@
 
 	<xsl:template name="print-message">
 		<xsl:param name="message"/>
+		<xsl:param name="box-width"/>
 		<xsl:param name="first"/>
 		<xsl:if test="$message != ''">
 			<xsl:choose>
@@ -42,13 +43,13 @@
 					<xsl:text> ┃ │  │</xsl:text>
 				</xsl:otherwise>
 			</xsl:choose>
-			<xsl:value-of select="substring($message, 1, $width - 9)"/>
+			<xsl:value-of select="substring($message, 1, $box-width - 9)"/>
 
 			<xsl:call-template name="print-padding">
 				<xsl:with-param name="char" select="' '"/>
 				<xsl:with-param
 					name="count"
-					select="$width - 9 - string-length($message)"
+					select="$box-width - 9 - string-length($message)"
 				/>
 			</xsl:call-template>
 
@@ -58,8 +59,9 @@
 			<xsl:call-template name="print-message">
 				<xsl:with-param
 					name="message"
-					select="substring($message, $width - 8)"
+					select="substring($message, $box-width - 8)"
 				/>
+				<xsl:with-param name="box-width" select="$box-width"/>
 				<xsl:with-param name="first" select="0"/>
 			</xsl:call-template>
 		</xsl:if>
@@ -70,23 +72,35 @@
 		<xsl:text> ┃</xsl:text>
 		<xsl:call-template name="newline"/>
 
+		<xsl:variable name="box-width">
+			<xsl:choose>
+				<xsl:when test="$width > string-length(message/text())">
+					<xsl:value-of select="string-length(message/text())+9"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$width"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+
 		<xsl:text> ┃    ┌</xsl:text>
 		<xsl:call-template name="print-padding">
 			<xsl:with-param name="char" select="'─'"/>
-			<xsl:with-param name="count" select="$width - 9"/>
+			<xsl:with-param name="count" select="$box-width - 9"/>
 		</xsl:call-template>
 		<xsl:text>┐</xsl:text>
 		<xsl:call-template name="newline"/>
 
 		<xsl:call-template name="print-message">
 			<xsl:with-param name="message" select="message/text()"/>
+			<xsl:with-param name="box-width" select="$box-width"/>
 			<xsl:with-param name="first" select="1"/>
 		</xsl:call-template>
 
 		<xsl:text> ┃ │  └</xsl:text>
 		<xsl:call-template name="print-padding">
 			<xsl:with-param name="char" select="'─'"/>
-			<xsl:with-param name="count" select="$width - 9"/>
+			<xsl:with-param name="count" select="$box-width - 9"/>
 		</xsl:call-template>
 		<xsl:text>┘</xsl:text>
 		<xsl:call-template name="newline"/>
@@ -132,7 +146,7 @@
 		<xsl:call-template name="newline"/>
 	</xsl:template>
 
-	<xsl:template match="ARB_debug_output">
+	<xsl:template match="ARB_debug_output|KHR_debug">
 		<xsl:text>━┳━━[Begin]</xsl:text>
 		<xsl:call-template name="newline"/>
 
