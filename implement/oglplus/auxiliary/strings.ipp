@@ -40,7 +40,7 @@ void ObjectDescRegistryBase::_do_register_desc(
 	assert(name != 0);
 	assert(storage.find(name) == storage.end());
 	storage.insert(
-		typename _desc_map::value_type(
+		_desc_map::value_type(
 			name,
 			desc.Release()
 		)
