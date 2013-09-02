@@ -98,7 +98,7 @@ foreach(KIND API INIT)
 			if(${OGLPLUS_FORCE_GL_${KIND}_LIB} STREQUAL ${GL_${KIND}_LIB})
 				if(${GL_${KIND}_LIB}_FOUND)
 					set(OGLPLUS_GL_${KIND}_LIB ${GL_${KIND}_LIB})
-					set(OGLPLUS_USE_${GL_${KIND}_LIB} true)
+					set(OGLPLUS_USE_${GL_${KIND}_LIB} 1)
 					break()
 				else()
 					message(
@@ -160,6 +160,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_BINARY_DIR}/include)
 # include the third party headers
 include_directories(${PROJECT_SOURCE_DIR}/third_party/include)
+# include the oglplus implementation
+include_directories(${PROJECT_SOURCE_DIR}/implement)
 
 # GL version detection
 include(config/GLVer.cmake)

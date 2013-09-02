@@ -2331,7 +2331,8 @@ public:
 			GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
 		);
 #else
-		return Glfloat(1);
+		OGLPLUS_FAKE_USE(target);
+		return GLfloat(1);
 #endif
 	}
 
@@ -2349,7 +2350,8 @@ public:
 			GL_TEXTURE_MAX_ANISOTROPY_EXT
 		);
 #else
-		return Glfloat(1);
+		OGLPLUS_FAKE_USE(target);
+		return GLfloat(1);
 #endif
 	}
 
@@ -2374,6 +2376,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 #else
+		OGLPLUS_FAKE_USE(target);
 		OGLPLUS_FAKE_USE(value);
 #endif
 	}

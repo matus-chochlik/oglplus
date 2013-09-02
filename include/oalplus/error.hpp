@@ -585,11 +585,7 @@ typedef std::function<bool (const ErrorData&)> ErrorHandlerFunc;
 
 namespace aux {
 
-inline std::stack<ErrorHandlerFunc>& _error_handlers(void)
-{
-	static std::stack<ErrorHandlerFunc> _handlers;
-	return _handlers;
-}
+std::stack<ErrorHandlerFunc>& _error_handlers(void);
 
 inline bool _has_error_handler(void)
 {
@@ -639,28 +635,12 @@ public:
 
 #endif // OALPLUS_CUSTOM_ERROR_HANDLING
 
-inline void HandleError(
+void HandleError(
 	ALenum code,
 	const ALchar* msg,
 	const ErrorInfo& info,
 	bool assertion
-)
-{
-#if OALPLUS_CUSTOM_ERROR_HANDLING
-	if(aux::_has_error_handler() && aux::_get_error_handler()(
-		ErrorData(
-			code,
-			msg,
-			info,
-			assertion,
-			code == AL_OUT_OF_MEMORY,
-			false,
-			false
-		)
-	)) return;
-#endif // OALPLUS_CUSTOM_ERROR_HANDLING
-	throw Error(code, msg?msg:"Unknown error", info, assertion);
-}
+);
 
 inline void HandleALError(ALenum code, const ErrorInfo& info, bool assertion)
 {
@@ -672,38 +652,7 @@ inline void HandleALCError(ALenum code, const ErrorInfo& info, bool assertion)
 	HandleError(code, ::alcGetString(nullptr, code), info, assertion);
 }
 
-inline void HandleALUTError(ALenum code, const ErrorInfo& info, bool assertion)
-{
-	const ALchar* msg = "Unknown error";
-	switch(code)
-	{
-		case ALUT_ERROR_OUT_OF_MEMORY:
-			msg = "ALUT out of memory";
-			break;
-		case ALUT_ERROR_INVALID_OPERATION:
-			msg = "Invalid ALUT operation";
-			break;
-		case ALUT_ERROR_NO_CURRENT_CONTEXT:
-			msg = "There is no current AL context";
-			break;
-		case ALUT_ERROR_AL_ERROR_ON_ENTRY:
-			msg = "An AL error on entry to ALUT call";
-			break;
-		case ALUT_ERROR_ALC_ERROR_ON_ENTRY:
-			msg = "An ALC error on entry to ALUT call";
-			break;
-		case ALUT_ERROR_UNSUPPORTED_FILE_TYPE:
-			msg = "Unsupported file type";
-			break;
-		case ALUT_ERROR_UNSUPPORTED_FILE_SUBTYPE:
-			msg = "Unsupported mode within an otherwise usable file type";
-			break;
-		case ALUT_ERROR_CORRUPT_OR_TRUNCATED_DATA:
-			msg = "The sound data was corrupt or truncatd";
-			break;
-	}
-	HandleError(code, msg, info, assertion);
-}
+void HandleALUTError(ALenum code, const ErrorInfo& info, bool assertion);
 
 #if OALPLUS_DOCUMENTATION_ONLY
 /// Macro checking and possibly handling run-time errors in previous call to AL
@@ -761,5 +710,9 @@ inline void HandleALUTError(ALenum code, const ErrorInfo& info, bool assertion)
 #define OALPLUS_IGNORE(LIB,PARAM) ::alGetError();
 
 } // namespace oalplus
+
+#if !OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)
+#include <oalplus/error.ipp>
+#endif
 
 #endif // include guard

@@ -11,6 +11,7 @@ configure_file(
 set(OGLPLUS_CONFIG_REQUIRED_INCLUDE_DIRS
 	"${OGLPLUS_GL_INCLUDE_DIRS};"
 	"${PROJECT_SOURCE_DIR}/include;"
+	"${PROJECT_SOURCE_DIR}/implement;"
 	"${PROJECT_SOURCE_DIR}/third_party/include;"
 	"${PROJECT_BINARY_DIR}/include"
 )
@@ -40,6 +41,7 @@ if((COMPILED_WITH_OGLPLUS_LIB) AND (RUNS_WITH_OGLPLUS_LIB EQUAL 0))
 	message(STATUS "OGLplus library can be built")
 else()
 	set(OGLPLUS_LINK_LIBRARY 0)
+	message(WARNING "OGLplus library cannot be built!")
 endif()
 unset(RUNS_WITH_OGLPLUS_LIB)
 unset(COMPILED_WITH_OGLPLUS_LIB)

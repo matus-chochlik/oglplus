@@ -16,6 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/error.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/data_type.hpp>
 
@@ -205,182 +206,6 @@ private:
 	) const;
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-
-OGLPLUS_LIB_FUNC
-void DrawOperation::_SetupPrimitiveRestart(void) const
-{
-#if GL_VERSION_3_1
-	if(restart_index == NoRestartIndex())
-	{
-		OGLPLUS_GLFUNC(Disable)(GL_PRIMITIVE_RESTART);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
-	}
-	else
-	{
-		OGLPLUS_GLFUNC(Enable)(GL_PRIMITIVE_RESTART);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
-		OGLPLUS_GLFUNC(PrimitiveRestartIndex)(restart_index);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PrimitiveRestartIndex));
-	}
-#else
-	assert(!
-		"Primitive restarting required, "
-		"but not supported by the used version of OpenGL!"
-	);
-#endif
-}
-
-OGLPLUS_LIB_FUNC
-void DrawOperation::_CleanupPrimitiveRestart(void) const
-{
-	if(restart_index != NoRestartIndex())
-	{
-		OGLPLUS_GLFUNC(Disable)(GL_PRIMITIVE_RESTART);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
-	}
-}
-
-OGLPLUS_LIB_FUNC
-void DrawOperation::_Draw(
-	void* indices,
-	DataType index_data_type,
-	GLuint inst_count,
-	GLuint base_inst
-) const
-{
-	switch(method)
-	{
-		case OGLPLUS_CONST_ENUM_VALUE(
-			Method::DrawArrays
-		): return _DrawArrays(
-			inst_count,
-			base_inst
-		);
-
-		case OGLPLUS_CONST_ENUM_VALUE(
-			Method::DrawElements
-		): return _DrawElements(
-			indices,
-			index_data_type,
-			inst_count,
-			base_inst
-		);
-	}
-}
-
-
-OGLPLUS_LIB_FUNC
-void DrawOperation::_DrawArrays(GLuint inst_count, GLuint base_inst) const
-{
-	if(inst_count == 1)
-	{
-		OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArrays));
-	}
-	else if(base_inst == 0)
-	{
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
-		OGLPLUS_GLFUNC(DrawArraysInstanced)(
-			GLenum(mode),
-			first,
-			count,
-			inst_count
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
-#else
-		assert(!
-			"DrawArraysInstanced required, "
-			"but not supported by the used version of OpenGL!"
-		);
-#endif
-	}
-	else
-	{
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
-		OGLPLUS_GLFUNC(DrawArraysInstancedBaseInstance)(
-			GLenum(mode),
-			first,
-			count,
-			inst_count,
-			base_inst
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
-			DrawArraysInstancedBaseInstance
-		));
-#else
-		assert(!
-			"DrawArraysInstancedBaseInstance required, "
-			"but not supported by the used version of OpenGL!"
-		);
-#endif
-	}
-}
-
-OGLPLUS_LIB_FUNC
-void DrawOperation::_DrawElements(
-	void* indices,
-	DataType index_data_type,
-	GLuint inst_count,
-	GLuint base_inst
-) const
-{
-	_SetupPrimitiveRestart();
-	if(inst_count == 1)
-	{
-		OGLPLUS_GLFUNC(DrawElements)(
-			GLenum(mode),
-			count,
-			GLenum(index_data_type),
-			indices
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawElements));
-	}
-	else if(base_inst == 0)
-	{
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
-		OGLPLUS_GLFUNC(DrawElementsInstanced)(
-			GLenum(mode),
-			count,
-			GLenum(index_data_type),
-			indices,
-			inst_count
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
-			DrawElementsInstanced
-		));
-#else
-		assert(!
-			"DrawElementsInstanced required, "
-			"but not supported by the used version of OpenGL!"
-		);
-#endif
-	}
-	else
-	{
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2
-		OGLPLUS_GLFUNC(DrawElementsInstancedBaseInstance)(
-			GLenum(mode),
-			count,
-			GLenum(index_data_type),
-			indices,
-			inst_count,
-			base_inst
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
-			DrawElementsInstancedBaseInstance
-		));
-#else
-		assert(!
-			"DrawElementsInstancedBaseInstance required, "
-			"but not supported by the used version of OpenGL!"
-		);
-#endif
-	}
-	_CleanupPrimitiveRestart();
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 class DrawingInstructionWriter;
 
 /// Class encapsulating the instructions for drawing of a shape
@@ -492,6 +317,11 @@ public:
 	 : _ops(other._ops)
 	{ }
 
+	const std::vector<DrawOperation>& Operations(void) const
+	{
+		return _ops;
+	}
+
 	struct DefaultDriver
 	{
 		inline bool operator()(GLuint /*phase*/) const
@@ -598,5 +428,9 @@ protected:
 
 } // shapes
 } // oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/shapes/draw.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

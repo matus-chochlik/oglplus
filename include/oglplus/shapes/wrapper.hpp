@@ -227,40 +227,6 @@ public:
 	}
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-
-OGLPLUS_LIB_FUNC
-VertexArray ShapeWrapperBase::VAOForProgram(const ProgramOps& prog) const
-{
-	VertexArray vao;
-	vao.Bind();
-	prog.Use();
-	size_t i=0, n = _names.size();
-	while(i != n)
-	{
-		if(_npvs[i] != 0)
-		{
-			try
-			{
-				_vbos[i].Bind(Buffer::Target::Array);
-				VertexAttribArray attr(prog, _names[i]);
-				attr.Setup<GLfloat>(_npvs[i]);
-				attr.Enable();
-			}
-			catch(Error&){ }
-		}
-		++i;
-	}
-	assert((i+1) == _npvs.size());
-	if(_npvs[i] != 0)
-	{
-		assert((i+1) == _vbos.size());
-		_vbos[i].Bind(Buffer::Target::ElementArray);
-	}
-	return std::move(vao);
-}
-#endif
-
 /// Wraps instructions and VBOs and VAO used to render a shape built by a ShapeBuilder
 class ShapeWrapper
  : public ShapeWrapperBase
@@ -367,5 +333,9 @@ public:
 
 } // shapes
 } // oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/shapes/wrapper.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

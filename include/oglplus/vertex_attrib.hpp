@@ -599,58 +599,6 @@ public:
 #endif
 };
 
-
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void VertexAttribOps::_handle_inactive(
-	const ProgramOps& program,
-	const GLchar* identifier,
-	GLint result
-)
-{
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	Error::AddPropertyValue(
-		props,
-		"program",
-		DescriptionOf(program)
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		result,
-		"Getting the location of inactive vertex attrib",
-		OGLPLUS_ERROR_INFO(GetAttribLocation),
-		std::move(props)
-	);
-}
-
-OGLPLUS_LIB_FUNC
-void VertexAttribOps::_handle_inconsistent_location(
-	const GLchar* identifier,
-	VertexAttribSlot location
-)
-{
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		GLint(location),
-		"Inconsistent location of a vertex "
-		"attribute in multiple programs",
-		OGLPLUS_ERROR_INFO(GetAttribLocation),
-		std::move(props)
-	);
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 // Things from to Program related to vertex attributes
 void ProgramOps::BindLocation(
 	const VertexAttribOps& vertex_attrib,
@@ -958,8 +906,6 @@ public:
 	 *
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
-	 *  @glfunref{VertexAttribIPointer}
-	 *  @glfunref{VertexAttribLPointer}
 	 */
 	const VertexAttribArray& Setup(
 		GLint values_per_vertex,
@@ -1057,8 +1003,6 @@ public:
 	 *
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
-	 *  @glfunref{VertexAttribIPointer}
-	 *  @glfunref{VertexAttribLPointer}
 	 */
 	template <typename T>
 	const VertexAttribArray& Setup(GLuint n = 1) const
@@ -1081,7 +1025,7 @@ public:
 		DataType data_type,
 		bool normalized,
 		GLsizei stride,
-		void* pointer
+		const void* pointer
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribPointer)(
@@ -1099,13 +1043,13 @@ public:
 	/// Setup the properties of this vertex attribute array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{VertexAttribIPointer}
+	 *  @glfunref{VertexAttribPointer}
 	 */
 	const VertexAttribArray& IPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
-		void* pointer
+		const void* pointer
 	) const
 	{
 		OGLPLUS_GLFUNC(VertexAttribIPointer)(
@@ -1119,11 +1063,17 @@ public:
 		return *this;
 	}
 
+
+	/// Setup the properties of this vertex attribute array
+	/**
+	 *  @glsymbols
+	 *  @glfunref{VertexAttribPointer}
+	 */
 	const VertexAttribArray& LPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
-		void* pointer
+		const void* pointer
 	) const
 	{
 #if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
@@ -1268,5 +1218,9 @@ inline VertexAttribArray operator | (
 }
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/vertex_attrib.ipp>
+#endif
 
 #endif // include guard

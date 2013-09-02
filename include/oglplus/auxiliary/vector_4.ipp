@@ -32,6 +32,10 @@ public:
 	 : Base(v, n)
 	{ }
 
+	Vector(const T* v, std::size_t n, T def)
+	 : Base(v, n, def)
+	{ }
+
 	explicit Vector(T v0)
 	 : Base(v0)
 	{ }

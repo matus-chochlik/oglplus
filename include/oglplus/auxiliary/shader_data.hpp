@@ -242,32 +242,6 @@ protected:
 	}
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void ShaderDataSetUtils::_handle_error(
-	const oglplus::ErrorInfo& error_info,
-	GLuint program,
-	GLuint location,
-	GLenum result
-)
-{
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"program",
-		ObjectDescRegistry<ProgramOps>::
-			_get_desc(program)
-	);
-	HandleShaderVariableError(
-		result,
-		location,
-		"Error setting shading program variable value",
-		error_info,
-		std::move(props)
-	);
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 template <class Setters, class Callers, std::size_t MaxCount>
 class ShaderDataSetOps
  : public Setters
@@ -594,8 +568,11 @@ protected:
 #endif //NO_VARIADIC_TEMPLATES
 };
 
-
 } // namespace aux
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/auxiliary/shader_data.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

@@ -29,6 +29,7 @@ add_custom_target(oglplus-examples ALL)
 add_custom_target(oglplus-examples-screenshots)
 
 add_definitions(-DOGLPLUS_LINK_LIBRARY=${OGLPLUS_LINK_LIBRARY})
+add_definitions(-DEGLPLUS_LINK_LIBRARY=1)
 
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qtgl")
 	QT4_WRAP_CPP(
@@ -59,6 +60,7 @@ endif()
 function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 
 	file(GLOB EXAMPLES "${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE_PATTERN}.cpp")
+	file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/examples.txt" "")
 
 	if(${WIN32})
 		set(SCREENSHOT_MAKER "${PROJECT_SOURCE_DIR}/config/make_screenshot.bat")
@@ -84,6 +86,7 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 			target_link_libraries(${TARGET_NAME} ${COMMON_LIBS})
 			add_all_dependencies(${TARGET_NAME})
 			add_dependencies("${PARENT_TARGET}" ${TARGET_NAME})
+			file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/examples.txt" "${EXAMPLE_NAME}\n")
 		endif()
 		if(NOT OGLPLUS_NO_SCREENSHOTS AND EXISTS ${SCREENSHOT_MAKER})
 			if(EXAMPLE_CAN_BE_BUILT)

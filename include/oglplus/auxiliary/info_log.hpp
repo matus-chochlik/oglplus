@@ -17,46 +17,22 @@
 #include <oglplus/error.hpp>
 #include <oglplus/string.hpp>
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <vector>
-#endif
-
 namespace oglplus {
 namespace aux {
 
-OGLPLUS_LIB_FUNC
 String GetInfoLog(
 	GLuint object_name,
 	void (GLAPIENTRY *GetObjectiv)(GLuint, GLenum, GLint*),
 	void (GLAPIENTRY *GetObjectInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*),
 	const char* name_GetObjectiv,
 	const char* name_GetObjectInfoLog
-)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	int length = 0;
-	GetObjectiv(object_name, GL_INFO_LOG_LENGTH, &length);
-	OGLPLUS_CHECK(OGLPLUS_ERROR_INFO_STR(name_GetObjectiv));
-	if(length > 0)
-	{
-		GLsizei real_length = 0;
-		std::vector<GLchar> buffer(length);
-		GetObjectInfoLog(
-			object_name,
-			buffer.size(),
-			&real_length,
-			buffer.data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO_STR(name_GetObjectInfoLog));
-		return String(buffer.data(), buffer.size());
-	}
-	else return String();
-}
-#else
-;
-#endif
+);
 
 } // namespace aux
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/auxiliary/info_log.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

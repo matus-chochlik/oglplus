@@ -27,6 +27,7 @@
 #include <oglplus/string.hpp>
 #include <oglplus/fwd.hpp>
 
+#include <oglplus/auxiliary/utf8.hpp>
 #include <oglplus/auxiliary/strings.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/auxiliary/uniform_typecheck.hpp>
@@ -46,10 +47,24 @@
 
 #include <oglplus/imports/blend_file.hpp>
 
+#include <oglplus/shapes/cage.hpp>
+#include <oglplus/shapes/cube.hpp>
+#include <oglplus/shapes/grid.hpp>
+#include <oglplus/shapes/icosahedron.hpp>
+#include <oglplus/shapes/plane.hpp>
+#include <oglplus/shapes/torus.hpp>
+#include <oglplus/shapes/sphere.hpp>
+#include <oglplus/shapes/spiral_sphere.hpp>
+#include <oglplus/shapes/tetrahedrons.hpp>
+#include <oglplus/shapes/twisted_torus.hpp>
+#include <oglplus/shapes/wicker_torus.hpp>
+
 #include <oglplus/shapes/blender_mesh.hpp>
 #include <oglplus/shapes/obj_mesh.hpp>
+
 #include <oglplus/shapes/draw.hpp>
 #include <oglplus/shapes/wrapper.hpp>
+#include <oglplus/shapes/analyzer.hpp>
 
 #include <oglplus/images/image.hpp>
 #include <oglplus/images/brushed_metal.hpp>
@@ -66,6 +81,8 @@
 #endif //OGLPLUS_NO_VARIADIC_TEMPLATES
 
 #include <oglplus/opt/resources.hpp>
+
+#include <oglplus/ext/ARB_debug_output.hpp>
 
 namespace oglplus {
 

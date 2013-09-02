@@ -202,7 +202,7 @@
 					<img src="oglplus/html/031_sketch.png"/>
 					<img src="oglplus/html/032_bar_grid.png"/>
 					<img src="oglplus/html/033_metal_and_glass.png"/>
-					<img src="oglplus/html/041_blob_mt.png"/>
+					<img src="oglplus/html/040_jelly_cube.png"/>
 				</div>
 				<script>
 					Galleria.loadTheme("galleria/themes/classic/galleria.classic.min.js");

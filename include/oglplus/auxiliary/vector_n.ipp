@@ -138,6 +138,11 @@ public:
 	 : Base(v, n)
 	{ }
 
+	/// Initialization from poiner, size and a default value
+	Vector(const T* v, std::size_t n, T def)
+	 : Base(v, n, def)
+	{ }
+
 	/// Initialization of all components by @p v
 	explicit Vector(T v)
 	 : Base(v)
