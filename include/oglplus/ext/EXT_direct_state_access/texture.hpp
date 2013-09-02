@@ -1909,7 +1909,7 @@ public:
 #ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
 		return GetFloatParam(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 #else
-		return Glfloat(1);
+		return GLfloat(1);
 #endif
 	}
 
@@ -1924,7 +1924,7 @@ public:
 #ifdef  GL_TEXTURE_MAX_ANISOTROPY_EXT
 		return GetFloatParam(GL_TEXTURE_MAX_ANISOTROPY_EXT);
 #else
-		return Glfloat(1);
+		return GLfloat(1);
 #endif
 	}
 

@@ -20,7 +20,10 @@ INPUT = \
 	../../../include/oalplus \
 	../../../example/oalplus
 
-INCLUDE_PATH = ../../../include/ ../../../example
+INCLUDE_PATH = \
+	../../../include/ \
+	../../../implement/ \
+	../../../example
 
 EXAMPLE_PATH = \
 	../../tutorial/oalplus \

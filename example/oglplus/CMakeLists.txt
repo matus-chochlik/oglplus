@@ -29,6 +29,7 @@ add_custom_target(oglplus-examples ALL)
 add_custom_target(oglplus-examples-screenshots)
 
 add_definitions(-DOGLPLUS_LINK_LIBRARY=${OGLPLUS_LINK_LIBRARY})
+add_definitions(-DEGLPLUS_LINK_LIBRARY=1)
 
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qtgl")
 	QT4_WRAP_CPP(

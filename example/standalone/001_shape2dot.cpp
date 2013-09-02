@@ -1,5 +1,5 @@
 /**
- *  @example standalone/002_shape2dot.cpp
+ *  @example standalone/001_shape2dot.cpp
  *  @brief Shows the basic usage of the mesh analyzer tool
  *
  *  Can be used with graphviz neato to render an image
