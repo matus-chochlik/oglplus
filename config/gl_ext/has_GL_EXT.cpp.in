@@ -5,7 +5,6 @@
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/context/string_queries.hpp>
 
 #include <cstring>
 #include <cstddef>

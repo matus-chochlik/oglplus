@@ -15,10 +15,6 @@
 
 #include <oglplus/config.hpp>
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/utf8.hpp>
-#endif
-
 #include <string>
 #include <cassert>
 
@@ -38,14 +34,7 @@ namespace oglplus {
 /**
  *  @ingroup oglplus_strings
  */
-OGLPLUS_LIB_FUNC bool ValidString(const GLchar* begin, const GLchar* end)
-#if OGLPLUS_LINK_LIBRARY && !defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-;
-#else
-{
-	return aux::ValidUTF8(begin, end);
-}
-#endif
+bool ValidString(const GLchar* begin, const GLchar* end);
 
 /// String class
 /**
@@ -294,5 +283,9 @@ public:
 };
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/string.ipp>
+#endif
 
 #endif // include guard

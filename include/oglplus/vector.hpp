@@ -118,6 +118,13 @@ protected:
 		std::copy(v, v+N, _elem);
 	}
 
+	VectorBase(const T* v, std::size_t n, T def)
+	{
+		if(n > N) n = N;
+		std::copy(v, v+n, _elem);
+		std::fill(_elem+n, _elem+N, def);
+	}
+
 	template <typename U>
 	VectorBase(const VectorBase<U, N>& vector)
 	{

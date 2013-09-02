@@ -23,6 +23,7 @@
 #endif
 
 #include <oglplus/config_compiler.hpp>
+#include <oglplus/config_basic.hpp>
 
 #ifdef  OGLPLUS_DOCUMENTATION_ONLY
 #define OALPLUS_DOCUMENTATION_ONLY OGLPLUS_DOCUMENTATION_ONLY
@@ -30,7 +31,16 @@
 #define OALPLUS_DOCUMENTATION_ONLY 0
 #endif
 
-#define OALPLUS_LIB_FUNC inline
+#ifndef OALPLUS_LINK_LIBRARY
+# define OALPLUS_LINK_LIBRARY OGLPLUS_LINK_LIBRARY
+#endif
+
+#if OALPLUS_LINK_LIBRARY
+# define OALPLUS_LIB_FUNC
+#else
+# define OALPLUS_LIB_FUNC inline
+#endif
+
 
 #ifdef OGLPLUS_NO_OBJECT_DESCS
 #define OALPLUS_NO_OBJECT_DESCS OGLPLUS_NO_OBJECT_DESCS

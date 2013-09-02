@@ -595,26 +595,6 @@ public:
 	}
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void FramebufferOps::HandleIncompleteError(
-	Target target,
-	FramebufferStatus status
-)
-{
-	HandleIncompleteFramebuffer<IncompleteFramebuffer>(
-		status,
-		OGLPLUS_OBJECT_ERROR_INFO(
-			CheckFramebufferStatus,
-			Framebuffer,
-			EnumValueName(target),
-			BindingQuery<FramebufferOps>::
-			QueryBinding(target)
-		)
-	);
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 /**
@@ -628,5 +608,9 @@ typedef Object<FramebufferOps> Framebuffer;
 #endif
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/framebuffer.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

@@ -354,22 +354,6 @@ public:
 #endif
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void ShaderOps::HandleCompileError(void) const
-{
-	HandleBuildError<CompileError>(
-		GetInfoLog(),
-		OGLPLUS_OBJECT_ERROR_INFO(
-			CompileShader,
-			Shader,
-			EnumValueName(Type()),
-			_name
-		)
-	);
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An object encasulating the shading language shader functionality
 /**
@@ -520,5 +504,9 @@ typedef Specialized<
 #endif
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/shader.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

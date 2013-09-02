@@ -53,6 +53,11 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	)
 
 	standalone_example_common(
+		001_shape2dot
+		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+	)
+
+	standalone_example_common(
 		002_rectangle_glut_glew
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
@@ -153,6 +158,8 @@ if(GLUT_FOUND AND GLEW_FOUND)
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 		)
 	endif()
+
+	standalone_example_common(010_blender2html)
 
 	if(OPENAL_FOUND)
 		include_directories(${OPENAL_INCLUDE_DIRS})

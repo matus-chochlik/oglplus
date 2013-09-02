@@ -15,10 +15,7 @@
 
 #include <oglplus/config.hpp>
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/utf8/conversion.hpp>
-#endif
-
+#include <vector>
 #include <cassert>
 
 namespace oglplus {
@@ -38,35 +35,21 @@ typedef std::vector<CodePoint> CodePoints;
 /**
  *  @ingroup text_rendering
  */
-OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
+void UTF8ToCodePoints(
 	const char* begin,
 	const char* end,
 	CodePoints& result
-)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	aux::ConvertUTF8ToCodePoints(begin, end-begin, result);
-}
-#else
-;
-#endif
+);
 
 /// Converts a UTF-8 range to a vector of unicode code points
 /**
  *  @ingroup text_rendering
  */
-OGLPLUS_LIB_FUNC void UTF8ToCodePoints(
+void UTF8ToCodePoints(
 	const char* c_str,
 	std::size_t length,
 	CodePoints& result
-)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	aux::ConvertUTF8ToCodePoints(c_str, length, result);
-}
-#else
-;
-#endif
+);
 
 inline CodePoints UTF8ToCodePoints(
 	const char* begin,
@@ -100,35 +83,21 @@ inline CodePoints UTF8ToCodePoints(const char (&c_str_lit)[N])
 /**
  *  @ingroup text_rendering
  */
-OGLPLUS_LIB_FUNC void CodePointsToUTF8(
+void CodePointsToUTF8(
 	const CodePoint* begin,
 	const CodePoint* end,
 	std::vector<char>& result
-)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	aux::ConvertCodePointsToUTF8(begin, end-begin, result);
-}
-#else
-;
-#endif
+);
 
 /// Converts a range of unicode code points to a UTF8 sequence
 /**
  *  @ingroup text_rendering
  */
-OGLPLUS_LIB_FUNC void CodePointsToUTF8(
+void CodePointsToUTF8(
 	const CodePoint* c_str,
 	std::size_t length,
 	std::vector<char>& result
-)
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-{
-	aux::ConvertCodePointsToUTF8(c_str, length, result);
-}
-#else
-;
-#endif
+);
 
 inline std::vector<char> CodePointsToUTF8(
 	const CodePoint* begin,
@@ -152,5 +121,9 @@ inline std::vector<char> CodePointsToUTF8(
 
 } // namespace text
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+# include <oglplus/text/unicode.ipp>
+#endif
 
 #endif // include guard

@@ -32,7 +32,9 @@ Texture,
 /// TRANSFORM_FEEDBACK
 TransformFeedback,
 /// VERTEX_ARRAY
-VertexArray
+VertexArray,
+/// NONE
+None
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

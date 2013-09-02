@@ -308,4 +308,8 @@ public:
 } // namespace text
 } // namespace oglplus
 
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+# include <oglplus/text/bitmap_glyph/rendering.ipp>
+#endif
+
 #endif // include guard

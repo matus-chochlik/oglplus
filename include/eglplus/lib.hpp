@@ -21,6 +21,8 @@
 #include <eglplus/string.hpp>
 #include <eglplus/fwd.hpp>
 
+#include <eglplus/error.hpp>
+
 #include <eglplus/auxiliary/base_range.hpp>
 #include <eglplus/auxiliary/enum_class.hpp>
 

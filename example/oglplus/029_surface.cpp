@@ -430,11 +430,21 @@ public:
 		liquid_prog.viewport_dimensions = Vec2f(width, height);
 	}
 
-	void Render(double time)
+	void Render(ExampleClock& clock)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
+
+		double time = clock.Now().Seconds();
 		//
 		liquid_prog.time = time;
+
+		double t = SineWave(time / 13.0);
+		if(t+0.95 < 0.0) clock.Pace(0.05);
+		else if(t+0.91 < 0.0) clock.Pace(0.10);
+		else if(t+0.87 < 0.0) clock.Pace(0.15);
+		else if(t+0.83 < 0.0) clock.Pace(0.20);
+		else if(t+0.81 < 0.0) clock.Pace(0.50);
+		else clock.Pace(1.0);
 
 
 		auto camera = CamMatrixf::Orbiting(

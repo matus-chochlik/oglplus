@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(OGLPLUS_DEP_INCLUDE_DIRS);$(SolutionDir);$(SolutionDir)\..\..\..\include;$(SolutionDir)\..\..\..\utils</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OGLPLUS_DEP_INCLUDE_DIRS);$(SolutionDir);$(SolutionDir)\..\..\..\include;$(SolutionDir)\..\..\..\implement;$(SolutionDir)\..\..\..\utils</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USE_MATH_DEFINES;$(OGLPLUS_PP_DEFS);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

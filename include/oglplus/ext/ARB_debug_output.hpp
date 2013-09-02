@@ -23,6 +23,8 @@
 #include <stack>
 #include <functional>
 #include <memory>
+#include <unordered_set>
+#include <iostream>
 
 namespace oglplus {
 
@@ -141,6 +143,12 @@ public:
 	};
 
 	/// Type of a callback functor processing debug output
+	/** OGLplus implements several callbacks that can be used
+	 *  with this extension:
+	 *  @see ARB_debug_output_Unique
+	 *  @see ARB_debug_output_Tree
+	 *  @see ARB_debug_output_ToXML
+	 */
 	typedef std::function<void (const CallbackData&)> Callback;
 
 	/// Installs a custom callback processing the debug output
@@ -295,8 +303,155 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
 	}
 };
+
+template <typename Essence>
+class ARB_debug_output_CallbackWithEssence
+{
+private:
+	std::shared_ptr<Essence> essence;
+public:
+	typedef typename ARB_debug_output::Callback Callback;
+
+	ARB_debug_output_CallbackWithEssence(
+		typename Essence::CtrParam param
+	): essence(std::make_shared<Essence>(param))
+	{ }
+
+	void operator()(const ARB_debug_output::CallbackData& data)
+	{
+		essence->Call(data);
+	}
+
+	operator Callback (void) const
+	{
+		return Callback(*this);
+	}
+};
+
+class ARB_debug_output_UniqueEssence
+{
+private:
+	typedef ARB_debug_output::Callback Callback;
+	Callback _callback;
+
+	String buffer;
+	std::unordered_set<String> already_done;
+
+	ARB_debug_output_UniqueEssence(const ARB_debug_output_UniqueEssence&);
+public:
+	typedef const Callback& CtrParam;
+
+	ARB_debug_output_UniqueEssence(const Callback& callback)
+	 : _callback(callback)
+	{ }
+
+	void Call(const ARB_debug_output::CallbackData& data);
+};
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Filter for ARB_debug_output removing duplicate messages
+/** An implementation of ARB_debug_output::Callback that removes duplicate
+ *  messages, and passes them to another callback, i.e. every unique message
+ *  from the debug_output is passed only once to another callback internally
+ *  referenced by instances of this class.
+ *
+ *  @ingroup gl_extensions
+ */
+class ARB_debug_output_Unique
+{
+public:
+	/// Construction takes another callback implementation
+	ARB_debug_output_Unique(ARB_debug_output::Callback);
+
+	/// Conversion to Callback type for the ARB_debug_output ext wrapper
+	operator ARB_debug_output::Callback (void) const;
+};
+#else
+typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_UniqueEssence>
+	ARB_debug_output_Unique;
 #endif
 
+
+class ARB_debug_output_TreeEssence
+{
+private:
+	std::ostream& dbgout;
+
+	ARB_debug_output_TreeEssence(const ARB_debug_output_TreeEssence&);
+public:
+	typedef std::ostream& CtrParam;
+
+	ARB_debug_output_TreeEssence(std::ostream& out);
+	~ARB_debug_output_TreeEssence(void);
+
+	void Call(const ARB_debug_output::CallbackData& data);
+};
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Filter for ARB_debug_output printing a simple tree to a standard output.
+/** An implementation of ARB_debug_output::Callback that prints the debug
+ *  messages formatted as a simple tree, where the individual messages and
+ *  their properties are represented as branches.
+ *
+ *  @ingroup gl_extensions
+ */
+class ARB_debug_output_Tree
+{
+public:
+	/// Constructor takes a reference to standard output stream
+	ARB_debug_output_Tree(std::ostream&);
+
+	/// Conversion to Callback type for the ARB_debug_output ext wrapper
+	operator ARB_debug_output::Callback (void) const;
+};
+#else
+typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_TreeEssence>
+	ARB_debug_output_Tree;
+#endif
+
+
+class ARB_debug_output_ToXMLEssence
+{
+private:
+	std::ostream& dbgout;
+
+	ARB_debug_output_ToXMLEssence(const ARB_debug_output_ToXMLEssence&);
+public:
+	typedef std::ostream& CtrParam;
+
+	ARB_debug_output_ToXMLEssence(std::ostream& out);
+	~ARB_debug_output_ToXMLEssence(void);
+
+	void Call(const ARB_debug_output::CallbackData& data);
+};
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+/// Filter for ARB_debug_output formatting the debug output into XML
+/** An implementation of ARB_debug_output::Callback that prints the debug
+ *  messages formatted as an XML document.
+ *
+ *  @ingroup gl_extensions
+ */
+class ARB_debug_output_ToXML
+{
+public:
+	/// Constructor takes a reference to standard output stream
+	ARB_debug_output_ToXML(std::ostream&);
+
+	/// Conversion to Callback type for the ARB_debug_output ext wrapper
+	operator ARB_debug_output::Callback (void) const;
+};
+#else
+typedef ARB_debug_output_CallbackWithEssence<ARB_debug_output_ToXMLEssence>
+	ARB_debug_output_ToXML;
+#endif
+
+#endif // ARB_debug_output
+
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/ext/ARB_debug_output.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

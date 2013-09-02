@@ -322,22 +322,6 @@ public:
 	}
 };
 
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-OGLPLUS_LIB_FUNC
-void ProgramPipelineOps::HandleValidationError(void) const
-{
-	HandleBuildError<ValidationError>(
-		GetInfoLog(),
-		OGLPLUS_OBJECT_ERROR_INFO(
-			ValidateProgramPipeline,
-			ProgramPipeline,
-			nullptr,
-			_name
-		)
-	);
-}
-#endif // OGLPLUS_LINK_LIBRARY
-
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL program pipeline functionality
 /**
@@ -353,5 +337,9 @@ typedef Object<ProgramPipelineOps> ProgramPipeline;
 #endif // program pipeline
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/program_pipeline.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

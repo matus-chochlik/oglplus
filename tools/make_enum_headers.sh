@@ -98,7 +98,7 @@ do
 
 	#
 	OutputFile="${LibNameLC}/enums/${InputName}_def.ipp"
-	OutputPath="${RootDir}/include/${OutputFile}"
+	OutputPath="${RootDir}/implement/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
 	(
@@ -147,7 +147,7 @@ do
 
 
 	OutputFile="${LibNameLC}/enums/${InputName}_names.ipp"
-	OutputPath="${RootDir}/include/${OutputFile}"
+	OutputPath="${RootDir}/implement/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
 	(
@@ -196,7 +196,7 @@ do
 	git add ${OutputPath}
 
 	OutputFile="${LibNameLC}/enums/${InputName}_range.ipp"
-	OutputPath="${RootDir}/include/${OutputFile}"
+	OutputPath="${RootDir}/implement/${OutputFile}"
 
 	[[ ${InputFile} -ot ${OutputPath} ]] ||
 	(
@@ -260,7 +260,7 @@ do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
 done
 
 OutputFile="${LibNameLC}/lib/enum_value_name.ipp"
-OutputPath="${RootDir}/include/${OutputFile}"
+OutputPath="${RootDir}/implement/${OutputFile}"
 
 mkdir -p $(dirname ${OutputPath})
 exec > ${OutputPath}
@@ -298,7 +298,7 @@ do InputFiles="${InputFiles} ${InputDir}/${LibNameLC}/${SubDir}/*.txt"
 done
 
 OutputFile="${LibNameLC}/lib/enum_value_range.ipp"
-OutputPath="${RootDir}/include/${OutputFile}"
+OutputPath="${RootDir}/implement/${OutputFile}"
 
 mkdir -p $(dirname ${OutputPath})
 exec > ${OutputPath}
@@ -359,7 +359,7 @@ done
 (
 	# first the real-deal
 	OutputFile="${LibNameLC}/auxiliary/enum_shorteners.ipp"
-	OutputPath="${RootDir}/include/${OutputFile}"
+	OutputPath="${RootDir}/implement/${OutputFile}"
 
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
@@ -390,7 +390,7 @@ done
 
 	# now the documentation
 	OutputFile="${LibNameLC}/auxiliary/enum_shorteners_doc.ipp"
-	OutputPath="${RootDir}/include/${OutputFile}"
+	OutputPath="${RootDir}/doc/include/${OutputFile}"
 
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}
@@ -470,7 +470,7 @@ do
 	InputName=${InputName%.txt}
 
 	OutputFile="${LibNameLC}/enums/${InputName}_bq.ipp"
-	OutputPath="${RootDir}/include/${OutputFile}"
+	OutputPath="${RootDir}/implement/${OutputFile}"
 	[[ ${InputFile} -nt ${OutputPath} ]] || continue
 	echo "${InputName}" 1>&2
 	(
@@ -544,7 +544,7 @@ LibPrefixUC="${1}"
 LibNameLC="${2}"
 InputFile="${RootDir}/source/enums/${LibNameLC}/sl_data_type.txt"
 OutputFile="${LibNameLC}/auxiliary/glsl_to_cpp.ipp"
-OutputPath="${RootDir}/include/${OutputFile}"
+OutputPath="${RootDir}/implement/${OutputFile}"
 (
 	mkdir -p $(dirname ${OutputPath})
 	exec > ${OutputPath}

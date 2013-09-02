@@ -88,21 +88,19 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PolygonMode));
 	}
 
-	// Returns the face culling mode
-	/* TODO
+	/// Returns the face culling mode
+	/**
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{POLYGON_MODE}
 	 */
-/*
 	static oglplus::PolygonMode PolygonMode(void)
 	{
-		GLint result;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, &result);
+		GLint result[2];
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, result);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
-		return oglplus::PolygonMode(result);
+		return oglplus::PolygonMode(result[1]);
 	}
-*/
 
 	/// Sets the polygon depth offset
 	/**
