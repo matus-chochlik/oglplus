@@ -98,7 +98,7 @@ foreach(KIND API INIT)
 			if(${OGLPLUS_FORCE_GL_${KIND}_LIB} STREQUAL ${GL_${KIND}_LIB})
 				if(${GL_${KIND}_LIB}_FOUND)
 					set(OGLPLUS_GL_${KIND}_LIB ${GL_${KIND}_LIB})
-					set(OGLPLUS_USE_${GL_${KIND}_LIB} true)
+					set(OGLPLUS_USE_${GL_${KIND}_LIB} 1)
 					break()
 				else()
 					message(
