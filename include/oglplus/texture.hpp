@@ -2376,6 +2376,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 #else
+		OGLPLUS_FAKE_USE(target);
 		OGLPLUS_FAKE_USE(value);
 #endif
 	}
