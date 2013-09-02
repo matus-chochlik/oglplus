@@ -1,3 +1,23 @@
+Version 0.36.0
+
+- General code cleanup was performed - implementations of larger functions
+  were moved into separate files in the /implement/ directory and its subdirs.
+  This should make the headers less cluttered and more readable.
+  Some functions were also moved into the library.
+- Support for fullscreen mode was added to the GLUT-based example harness.
+- Reusable filters for the ARB_debug_output extension wrappers were added.
+- A wrapper for the KHR_debug extension was added.
+- An XSLT template for formatting the XML output from the ARB_debug_output or
+  KHR_debug wrappers was added.
+- PolygonMode getter was added to OGLplus context.
+- The oglplus shapes::ShapeAnalyzer utility was added.
+- An example showing the usage of the ShapeAnalyzer was added.
+- An example showing the usage of the Blender file parser was added.
+- Ambuguity in the CamMatrix::Perspective function was fixed.
+- A new constructor was added to some specializations of Vector.
+- Typos in the MaxAnisotropy and Anisotropy getters of Texture were fixed.
+- The documentation was updated.
+
 Version 0.35.0
 
 - Mostly a bugfix release.
