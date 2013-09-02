@@ -59,7 +59,9 @@ struct GLAPIInitializer
 #  else
 #   include <GL3/gl3.h>
 #  endif
+#  define __gl_h_
 #  define __gl_h__
+#  define __glext_h_
 #  define __glext_h__
 
 namespace oglplus {
