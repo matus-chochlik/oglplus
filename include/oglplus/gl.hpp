@@ -178,6 +178,9 @@ public:
 #define GL_RENDERBUFFER 0x8D41
 #endif
 
+#ifndef GL_POLYGON_MODE
+#define GL_POLYGON_MODE 0x0B40
+#endif
 
 #endif // OGLPLUS_NO_GL
 
