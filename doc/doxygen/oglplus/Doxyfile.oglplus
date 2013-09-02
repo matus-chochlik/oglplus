@@ -27,7 +27,11 @@ INPUT = \
 	../../../example/standalone \
 	../../../example/oglplus
 
-INCLUDE_PATH = ../../../include/ ../../include/oglplus ../../../example
+INCLUDE_PATH = \
+	../../include/ \
+	../../../include/ \
+	../../../implement/ \
+	../../../example
 
 EXAMPLE_PATH = \
 	../../tutorial/oglplus \
