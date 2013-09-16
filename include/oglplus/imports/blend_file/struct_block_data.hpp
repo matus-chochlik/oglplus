@@ -172,8 +172,8 @@ class BlendFileFlatStructTypedFieldData
  : public BlendFileFlatStructTypedFieldDataImpl<T>
 {
 private:
-	typedef BlendFileFlatStructTypedFieldDataImpl<T> _Base;
-	static const _Base& _that(void);
+	typedef BlendFileFlatStructTypedFieldDataImpl<T> _base;
+	static const _base& _that(void);
 
 	friend class BlendFileFlatStructBlockData;
 
@@ -181,16 +181,16 @@ private:
 		BlendFileFlattenedStructField&& flat_field,
 		const BlendFileBlockData& block_data_ref,
 		std::size_t offset
-	): _Base(std::move(flat_field), block_data_ref, offset)
+	): _base(std::move(flat_field), block_data_ref, offset)
 	{ }
 public:
-	typedef decltype(_that()._do_get((T*)nullptr, 0, 0)) _ValueType;
+	typedef decltype(_that()._do_get((T*)nullptr, 0, 0)) _value_type;
 	// this is a workaround for MSVC 12
-	typedef typename BlendFileFlatStructTypedFieldData<T>::_ValueType
+	typedef typename BlendFileFlatStructTypedFieldData<T>::_value_type
 		ValueType;
 
 	BlendFileFlatStructTypedFieldData(BlendFileFlatStructTypedFieldData&& tmp)
-	 : _Base(static_cast<_Base&&>(tmp))
+	 : _base(static_cast<_base&&>(tmp))
 	{ }
 
 	/// Get the value of the field from the block

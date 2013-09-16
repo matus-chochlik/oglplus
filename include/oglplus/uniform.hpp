@@ -1151,9 +1151,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	Uniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	Uniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	Uniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1201,9 +1201,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	LazyUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	LazyUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	LazyUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1250,9 +1250,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	OptionalUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	OptionalUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	OptionalUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1471,9 +1471,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	ProgramUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	ProgramUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	ProgramUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1521,9 +1521,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	LazyProgramUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	LazyProgramUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	LazyProgramUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1570,9 +1570,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	OptionalProgramUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	OptionalProgramUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	OptionalProgramUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1705,19 +1705,19 @@ public:
 	Typechecked(const ProgramOps& program, GLint location);
 };
 #else
-template <class _Uniform>
+template <class Uniform_>
 class Typechecked;
 
 template <
-	template <class, class> class _Uniform,
+	template <class, class> class Uniform_,
 	class T,
 	class Typecheck
 >
-class Typechecked<_Uniform<T, Typecheck> >
- : public _Uniform<T, DefaultTypecheck>
+class Typechecked<Uniform_<T, Typecheck> >
+ : public Uniform_<T, DefaultTypecheck>
 {
 private:
-	typedef _Uniform<T, DefaultTypecheck> _base;
+	typedef Uniform_<T, DefaultTypecheck> _base;
 public:
 	template <typename StrOrInt>
 	Typechecked(const ProgramOps& program, StrOrInt&& id_or_loc)

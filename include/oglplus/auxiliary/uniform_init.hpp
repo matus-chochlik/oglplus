@@ -248,16 +248,16 @@ class LazyUniformInit
  : public LazyUniformInitTpl<UniformInitOps, Typechecker>
 {
 public:
-	template <typename _String>
+	template <typename String_>
 	LazyUniformInit(
 		const ProgramOps& program,
 		const typename UniformInitOps::ParamType param,
-		_String&& identifier,
+		String_&& identifier,
 		Typechecker typechecker
 	): LazyUniformInitTpl<UniformInitOps, Typechecker>(
 		program,
 		param,
-		std::forward<_String>(identifier),
+		std::forward<String_>(identifier),
 		typechecker
 	){ }
 };
