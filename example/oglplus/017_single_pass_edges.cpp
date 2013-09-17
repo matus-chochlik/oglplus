@@ -18,7 +18,7 @@
 
 namespace oglplus {
 
-class IcosahedronExample : public Example
+class SinglePassEdgeExample : public Example
 {
 private:
 	// helper object building shape vertex attributes
@@ -54,7 +54,7 @@ private:
 	// VBOs for the shape's vertices and element indices
 	Buffer verts, indices;
 public:
-	IcosahedronExample(void)
+	SinglePassEdgeExample(void)
 	 : make_shape(1, shapes::SubdivSphereInitialShape::Octohedron)
 	 , shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
@@ -280,7 +280,7 @@ std::unique_ptr<ExampleThread> makeExampleThread(
 
 std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
-	return std::unique_ptr<Example>(new IcosahedronExample);
+	return std::unique_ptr<Example>(new SinglePassEdgeExample);
 }
 
 } // namespace oglplus
