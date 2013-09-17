@@ -12,7 +12,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/icosahedron.hpp>
+#include <oglplus/shapes/subdiv_sphere.hpp>
 
 #include "example.hpp"
 
@@ -22,11 +22,11 @@ class IcosahedronExample : public Example
 {
 private:
 	// helper object building shape vertex attributes
-	shapes::SimpleIcosahedron make_shape;
+	shapes::SimpleSubdivSphere make_shape;
 	// helper object encapsulating shape drawing instructions
 	shapes::DrawingInstructions shape_instr;
 	// indices pointing to shape primitive elements
-	shapes::SimpleIcosahedron::IndexArray shape_indices;
+	shapes::SimpleSubdivSphere::IndexArray shape_indices;
 
 	// wrapper around the current OpenGL context
 	Context gl;
@@ -55,7 +55,8 @@ private:
 	Buffer verts, indices;
 public:
 	IcosahedronExample(void)
-	 : shape_instr(make_shape.Instructions())
+	 : make_shape(1, shapes::SubdivSphereInitialShape::Octohedron)
+	 , shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
 	 , vs(ObjectDesc("Vertex"))
 	 , gs(ObjectDesc("Geometry"))
@@ -222,6 +223,10 @@ public:
 		gl.ClearColor(0.8f, 0.8f, 0.8f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
+
+		gl.Enable(Capability::CullFace);
+		gl.CullFace(Face::Back);
+		gl.FrontFace(make_shape.FaceWinding());
 
 		prog.Use();
 	}
