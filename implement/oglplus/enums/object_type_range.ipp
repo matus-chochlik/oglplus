@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	ObjectType
-> _ValueRange(ObjectType*)
+> ValueRange_(ObjectType*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_OBJECTTYPE)
 #define OGLPLUS_IMPL_EVR_OBJECTTYPE

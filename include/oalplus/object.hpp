@@ -192,22 +192,22 @@ protected:
 		}
 	}
 
-	struct _Uninitialized { };
+	struct Uninitialized_ { };
 
-	Object(_Uninitialized)
+	Object(Uninitialized_)
 	OALPLUS_NOEXCEPT(true)
 	{ }
 
-	struct _FromRawName { };
+	struct FromRawName_ { };
 
-	Object(ALuint name, _FromRawName)
+	Object(ALuint name, FromRawName_)
 	{
 		this->_name = name;
 	}
 public:
 	static Object FromRawName(ALuint name)
 	{
-		return Object(name, _FromRawName());
+		return Object(name, FromRawName_());
 	}
 
 	Object(void)

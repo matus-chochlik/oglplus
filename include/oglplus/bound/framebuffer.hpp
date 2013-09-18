@@ -45,17 +45,17 @@ private:
 	typedef Base<
 		BaseParam,
 		FramebufferOps
-	> _Base;
+	> _base;
 public:
 	BoundTemplate(
 		const FramebufferOps& bindable,
 		FramebufferOps::Target target
-	): _Base(bindable, target)
+	): _base(bindable, target)
 	{ }
 
 	BoundTemplate(
 		FramebufferOps::Target target
-	): _Base(target)
+	): _base(target)
 	{ }
 
 

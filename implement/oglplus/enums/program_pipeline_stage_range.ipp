@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLbitfield*,
 	ProgramPipelineStage
-> _ValueRange(ProgramPipelineStage*)
+> ValueRange_(ProgramPipelineStage*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PROGRAMPIPELINESTAGE)
 #define OGLPLUS_IMPL_EVR_PROGRAMPIPELINESTAGE

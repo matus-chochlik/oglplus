@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	StringQuery
-> _ValueRange(StringQuery*)
+> ValueRange_(StringQuery*)
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_STRINGQUERY)
 #define EGLPLUS_IMPL_EVR_STRINGQUERY

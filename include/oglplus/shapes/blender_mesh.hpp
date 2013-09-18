@@ -277,13 +277,13 @@ public:
 	> VertexAttribs;
 #endif
 
-	Vec4f _GetBoundingSphere(void) const;
+	Vec4f GetBoundingSphere(void) const;
 
 	/// Queries the bounding sphere coordinates and dimensions
 	template <typename T>
 	void BoundingSphere(Vector<T, 4>& center_and_radius) const
 	{
-		center_and_radius = Vector<T, 4>(_GetBoundingSphere());
+		center_and_radius = Vector<T, 4>(GetBoundingSphere());
 	}
 
 	/// The type of the index container returned by Indices()

@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	StringQuery
-> _ValueRange(StringQuery*)
+> ValueRange_(StringQuery*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_STRINGQUERY)
 #define OGLPLUS_IMPL_EVR_STRINGQUERY

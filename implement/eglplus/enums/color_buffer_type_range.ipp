@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	ColorBufferType
-> _ValueRange(ColorBufferType*)
+> ValueRange_(ColorBufferType*)
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_COLORBUFFERTYPE)
 #define EGLPLUS_IMPL_EVR_COLORBUFFERTYPE

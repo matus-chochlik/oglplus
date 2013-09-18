@@ -318,17 +318,17 @@ private:
 	typedef Base&lt;
 		BaseParam,
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops
-	&gt; _Base;
+	&gt; _base;
 public:
 	BoundTemplate(
 		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
-	): _Base(bindable, target)
+	): _base(bindable, target)
 	{ }
 
 	BoundTemplate(
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
-	): _Base(target)
+	): _base(target)
 	{ }
 
 </xsl:text>
@@ -340,13 +340,13 @@ public:
 		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target,
 		GLuint tex_unit
-	): _Base(bindable, target, tex_unit)
+	): _base(bindable, target, tex_unit)
 	{ }
 
 	BoundTemplate(
 		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target,
 		GLuint tex_unit
-	): _Base(target, tex_unit)
+	): _base(target, tex_unit)
 	{ }
 
 </xsl:text>

@@ -236,47 +236,47 @@ public:
 	}
 
 private:
-	static void _Vertex(GLint x, GLint y)
+	static void Vertex_(GLint x, GLint y)
 	{
 		OGLPLUS_GLFUNC(Vertex2i)(x, y);
 	}
 
-	static void _Vertex(GLint x, GLint y, GLint z)
+	static void Vertex_(GLint x, GLint y, GLint z)
 	{
 		OGLPLUS_GLFUNC(Vertex3i)(x, y, z);
 	}
 
-	static void _Vertex(GLint x, GLint y, GLint z, GLint w)
+	static void Vertex_(GLint x, GLint y, GLint z, GLint w)
 	{
 		OGLPLUS_GLFUNC(Vertex4i)(x, y, z, w);
 	}
 
-	static void _Vertex(GLfloat x, GLfloat y)
+	static void Vertex_(GLfloat x, GLfloat y)
 	{
 		OGLPLUS_GLFUNC(Vertex2f)(x, y);
 	}
 
-	static void _Vertex(GLfloat x, GLfloat y, GLfloat z)
+	static void Vertex_(GLfloat x, GLfloat y, GLfloat z)
 	{
 		OGLPLUS_GLFUNC(Vertex3f)(x, y, z);
 	}
 
-	static void _Vertex(GLfloat x, GLfloat y, GLfloat z, GLfloat w)
+	static void Vertex_(GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 	{
 		OGLPLUS_GLFUNC(Vertex4f)(x, y, z, w);
 	}
 
-	static void _Vertex(GLdouble x, GLdouble y)
+	static void Vertex_(GLdouble x, GLdouble y)
 	{
 		OGLPLUS_GLFUNC(Vertex2d)(x, y);
 	}
 
-	static void _Vertex(GLdouble x, GLdouble y, GLdouble z)
+	static void Vertex_(GLdouble x, GLdouble y, GLdouble z)
 	{
 		OGLPLUS_GLFUNC(Vertex3d)(x, y, z);
 	}
 
-	static void _Vertex(GLdouble x, GLdouble y, GLdouble z, GLdouble w)
+	static void Vertex_(GLdouble x, GLdouble y, GLdouble z, GLdouble w)
 	{
 		OGLPLUS_GLFUNC(Vertex4d)(x, y, z, w);
 	}
@@ -289,7 +289,7 @@ public:
 	template <typename Type>
 	static void Vertex(Type x, Type y)
 	{
-		_Vertex(x, y);
+		Vertex_(x, y);
 	}
 
 	/// Specifies vertex position x,y,z coordinates
@@ -300,7 +300,7 @@ public:
 	template <typename Type>
 	static void Vertex(Type x, Type y, Type z)
 	{
-		_Vertex(x, y, z);
+		Vertex_(x, y, z);
 	}
 
 	/// Specifies vertex position x,y,z,w coordinates
@@ -311,66 +311,66 @@ public:
 	template <typename Type>
 	static void Vertex(Type x, Type y, Type z, Type w)
 	{
-		_Vertex(x, y, z, w);
+		Vertex_(x, y, z, w);
 	}
 
 private:
-	static void _TexCoord(GLint s)
+	static void TexCoord_(GLint s)
 	{
 		OGLPLUS_GLFUNC(TexCoord1i)(s);
 	}
 
-	static void _TexCoord(GLint s, GLint t)
+	static void TexCoord_(GLint s, GLint t)
 	{
 		OGLPLUS_GLFUNC(TexCoord2i)(s, t);
 	}
 
-	static void _TexCoord(GLint s, GLint t, GLint r)
+	static void TexCoord_(GLint s, GLint t, GLint r)
 	{
 		OGLPLUS_GLFUNC(TexCoord3i)(s, t, r);
 	}
 
-	static void _TexCoord(GLint s, GLint t, GLint r, GLint q)
+	static void TexCoord_(GLint s, GLint t, GLint r, GLint q)
 	{
 		OGLPLUS_GLFUNC(TexCoord4i)(s, t, r, q);
 	}
 
-	static void _TexCoord(GLfloat s)
+	static void TexCoord_(GLfloat s)
 	{
 		OGLPLUS_GLFUNC(TexCoord1f)(s);
 	}
 
-	static void _TexCoord(GLfloat s, GLfloat t)
+	static void TexCoord_(GLfloat s, GLfloat t)
 	{
 		OGLPLUS_GLFUNC(TexCoord2f)(s, t);
 	}
 
-	static void _TexCoord(GLfloat s, GLfloat t, GLfloat r)
+	static void TexCoord_(GLfloat s, GLfloat t, GLfloat r)
 	{
 		OGLPLUS_GLFUNC(TexCoord3f)(s, t, r);
 	}
 
-	static void _TexCoord(GLfloat s, GLfloat t, GLfloat r, GLfloat q)
+	static void TexCoord_(GLfloat s, GLfloat t, GLfloat r, GLfloat q)
 	{
 		OGLPLUS_GLFUNC(TexCoord4f)(s, t, r, q);
 	}
 
-	static void _TexCoord(GLdouble s)
+	static void TexCoord_(GLdouble s)
 	{
 		OGLPLUS_GLFUNC(TexCoord1d)(s);
 	}
 
-	static void _TexCoord(GLdouble s, GLdouble t)
+	static void TexCoord_(GLdouble s, GLdouble t)
 	{
 		OGLPLUS_GLFUNC(TexCoord2d)(s, t);
 	}
 
-	static void _TexCoord(GLdouble s, GLdouble t, GLdouble r)
+	static void TexCoord_(GLdouble s, GLdouble t, GLdouble r)
 	{
 		OGLPLUS_GLFUNC(TexCoord3d)(s, t, r);
 	}
 
-	static void _TexCoord(GLdouble s, GLdouble t, GLdouble r, GLdouble q)
+	static void TexCoord_(GLdouble s, GLdouble t, GLdouble r, GLdouble q)
 	{
 		OGLPLUS_GLFUNC(TexCoord4d)(s, t, r, q);
 	}
@@ -383,7 +383,7 @@ public:
 	template <typename Type>
 	static void TexCoord(Type s)
 	{
-		_TexCoord(s);
+		TexCoord_(s);
 	}
 
 	/// Specifies vertex position s,t coordinates
@@ -394,7 +394,7 @@ public:
 	template <typename Type>
 	static void TexCoord(Type s, Type t)
 	{
-		_TexCoord(s, t);
+		TexCoord_(s, t);
 	}
 
 	/// Specifies vertex position s,t,r coordinates
@@ -405,7 +405,7 @@ public:
 	template <typename Type>
 	static void TexCoord(Type s, Type t, Type r)
 	{
-		_TexCoord(s, t, r);
+		TexCoord_(s, t, r);
 	}
 
 	/// Specifies vertex position s,t,r,q coordinates
@@ -416,21 +416,21 @@ public:
 	template <typename Type>
 	static void TexCoord(Type s, Type t, Type r, Type q)
 	{
-		_TexCoord(s, t, r, q);
+		TexCoord_(s, t, r, q);
 	}
 
 private:
-	static void _MultiTexCoord(GLenum tex_unit, GLint s)
+	static void MultiTexCoord_(GLenum tex_unit, GLint s)
 	{
 		OGLPLUS_GLFUNC(MultiTexCoord1i)(tex_unit, s);
 	}
 
-	static void _MultiTexCoord(GLenum tex_unit, GLint s, GLint t)
+	static void MultiTexCoord_(GLenum tex_unit, GLint s, GLint t)
 	{
 		OGLPLUS_GLFUNC(MultiTexCoord2i)(tex_unit, s, t);
 	}
 
-	static void _MultiTexCoord(
+	static void MultiTexCoord_(
 		GLenum tex_unit,
 		GLint s,
 		GLint t,
@@ -440,7 +440,7 @@ private:
 		OGLPLUS_GLFUNC(MultiTexCoord3i)(tex_unit, s, t, r);
 	}
 
-	static void _MultiTexCoord(
+	static void MultiTexCoord_(
 		GLenum tex_unit,
 		GLint s,
 		GLint t,
@@ -451,17 +451,17 @@ private:
 		OGLPLUS_GLFUNC(MultiTexCoord4i)(tex_unit, s, t, r, q);
 	}
 
-	static void _MultiTexCoord(GLenum tex_unit, GLfloat s)
+	static void MultiTexCoord_(GLenum tex_unit, GLfloat s)
 	{
 		OGLPLUS_GLFUNC(MultiTexCoord1f)(tex_unit, s);
 	}
 
-	static void _MultiTexCoord(GLenum tex_unit, GLfloat s, GLfloat t)
+	static void MultiTexCoord_(GLenum tex_unit, GLfloat s, GLfloat t)
 	{
 		OGLPLUS_GLFUNC(MultiTexCoord2f)(tex_unit, s, t);
 	}
 
-	static void _MultiTexCoord(
+	static void MultiTexCoord_(
 		GLenum tex_unit,
 		GLfloat s,
 		GLfloat t,
@@ -471,7 +471,7 @@ private:
 		OGLPLUS_GLFUNC(MultiTexCoord3f)(tex_unit, s, t, r);
 	}
 
-	static void _MultiTexCoord(
+	static void MultiTexCoord_(
 		GLenum tex_unit,
 		GLfloat s,
 		GLfloat t,
@@ -482,17 +482,17 @@ private:
 		OGLPLUS_GLFUNC(MultiTexCoord4f)(tex_unit, s, t, r, q);
 	}
 
-	static void _MultiTexCoord(GLenum tex_unit, GLdouble s)
+	static void MultiTexCoord_(GLenum tex_unit, GLdouble s)
 	{
 		OGLPLUS_GLFUNC(MultiTexCoord1d)(tex_unit, s);
 	}
 
-	static void _MultiTexCoord(GLenum tex_unit, GLdouble s, GLdouble t)
+	static void MultiTexCoord_(GLenum tex_unit, GLdouble s, GLdouble t)
 	{
 		OGLPLUS_GLFUNC(MultiTexCoord2d)(tex_unit, s, t);
 	}
 
-	static void _MultiTexCoord(
+	static void MultiTexCoord_(
 		GLenum tex_unit,
 		GLdouble s,
 		GLdouble t,
@@ -502,7 +502,7 @@ private:
 		OGLPLUS_GLFUNC(MultiTexCoord3d)(tex_unit, s, t, r);
 	}
 
-	static void _MultiTexCoord(
+	static void MultiTexCoord_(
 		GLenum tex_unit,
 		GLdouble s,
 		GLdouble t,
@@ -524,7 +524,7 @@ public:
 		Type s
 	)
 	{
-		_MultiTexCoord(
+		MultiTexCoord_(
 			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
 			s
 		);
@@ -542,7 +542,7 @@ public:
 		Type t
 	)
 	{
-		_MultiTexCoord(
+		MultiTexCoord_(
 			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
 			s, t
 		);
@@ -560,7 +560,7 @@ public:
 		Type r
 	)
 	{
-		_MultiTexCoord(
+		MultiTexCoord_(
 			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
 			s, t, r
 		);
@@ -580,24 +580,24 @@ public:
 		Type q
 	)
 	{
-		_MultiTexCoord(
+		MultiTexCoord_(
 			GLenum(GL_TEXTURE0 + GLuint(tex_unit)),
 			s, t, r, q
 		);
 	}
 
 private:
-	static void _Normal(GLint x, GLint y, GLint z)
+	static void Normal_(GLint x, GLint y, GLint z)
 	{
 		OGLPLUS_GLFUNC(Normal3i)(x, y, z);
 	}
 
-	static void _Normal(GLfloat x, GLfloat y, GLfloat z)
+	static void Normal_(GLfloat x, GLfloat y, GLfloat z)
 	{
 		OGLPLUS_GLFUNC(Normal3f)(x, y, z);
 	}
 
-	static void _Normal(GLdouble x, GLdouble y, GLdouble z)
+	static void Normal_(GLdouble x, GLdouble y, GLdouble z)
 	{
 		OGLPLUS_GLFUNC(Normal3d)(x, y, z);
 	}
@@ -610,16 +610,16 @@ public:
 	template <typename Type>
 	static void Normal(Type x, Type y, Type z)
 	{
-		_Normal(x, y, z);
+		Normal_(x, y, z);
 	}
 
 private:
-	static void _FogCoord(GLfloat c)
+	static void FogCoord_(GLfloat c)
 	{
 		OGLPLUS_GLFUNC(FogCoordf)(c);
 	}
 
-	static void _FogCoord(GLdouble c)
+	static void FogCoord_(GLdouble c)
 	{
 		OGLPLUS_GLFUNC(FogCoordd)(c);
 	}
@@ -632,46 +632,46 @@ public:
 	template <typename Type>
 	static void FogCoord(Type c)
 	{
-		_FogCoord(c);
+		FogCoord_(c);
 	}
 
 private:
-	static void _Color(GLubyte r, GLubyte g, GLubyte b)
+	static void Color_(GLubyte r, GLubyte g, GLubyte b)
 	{
 		OGLPLUS_GLFUNC(Color3ub)(r, g, b);
 	}
 
-	static void _Color(GLubyte r, GLubyte g, GLubyte b, GLubyte a)
+	static void Color_(GLubyte r, GLubyte g, GLubyte b, GLubyte a)
 	{
 		OGLPLUS_GLFUNC(Color4ub)(r, g, b, a);
 	}
 
-	static void _Color(GLint r, GLint g, GLint b)
+	static void Color_(GLint r, GLint g, GLint b)
 	{
 		OGLPLUS_GLFUNC(Color3i)(r, g, b);
 	}
 
-	static void _Color(GLint r, GLint g, GLint b, GLint a)
+	static void Color_(GLint r, GLint g, GLint b, GLint a)
 	{
 		OGLPLUS_GLFUNC(Color4i)(r, g, b, a);
 	}
 
-	static void _Color(GLfloat r, GLfloat g, GLfloat b)
+	static void Color_(GLfloat r, GLfloat g, GLfloat b)
 	{
 		OGLPLUS_GLFUNC(Color3f)(r, g, b);
 	}
 
-	static void _Color(GLfloat r, GLfloat g, GLfloat b, GLfloat a)
+	static void Color_(GLfloat r, GLfloat g, GLfloat b, GLfloat a)
 	{
 		OGLPLUS_GLFUNC(Color4f)(r, g, b, a);
 	}
 
-	static void _Color(GLdouble r, GLdouble g, GLdouble b)
+	static void Color_(GLdouble r, GLdouble g, GLdouble b)
 	{
 		OGLPLUS_GLFUNC(Color3d)(r, g, b);
 	}
 
-	static void _Color(GLdouble r, GLdouble g, GLdouble b, GLdouble a)
+	static void Color_(GLdouble r, GLdouble g, GLdouble b, GLdouble a)
 	{
 		OGLPLUS_GLFUNC(Color4d)(r, g, b, a);
 	}
@@ -684,7 +684,7 @@ public:
 	template <typename Type>
 	static void Color(Type r, Type g, Type b)
 	{
-		_Color(r, g, b);
+		Color_(r, g, b);
 	}
 
 	/// Specifies vertex r,g,b,a color components
@@ -695,26 +695,26 @@ public:
 	template <typename Type>
 	static void Color(Type r, Type g, Type b, Type a)
 	{
-		_Color(r, g, b, a);
+		Color_(r, g, b, a);
 	}
 
 private:
-	static void _SColor(GLubyte r, GLubyte g, GLubyte b)
+	static void SColor_(GLubyte r, GLubyte g, GLubyte b)
 	{
 		OGLPLUS_GLFUNC(SecondaryColor3ub)(r, g, b);
 	}
 
-	static void _SColor(GLint r, GLint g, GLint b)
+	static void SColor_(GLint r, GLint g, GLint b)
 	{
 		OGLPLUS_GLFUNC(SecondaryColor3i)(r, g, b);
 	}
 
-	static void _SColor(GLfloat r, GLfloat g, GLfloat b)
+	static void SColor_(GLfloat r, GLfloat g, GLfloat b)
 	{
 		OGLPLUS_GLFUNC(SecondaryColor3f)(r, g, b);
 	}
 
-	static void _SColor(GLdouble r, GLdouble g, GLdouble b)
+	static void SColor_(GLdouble r, GLdouble g, GLdouble b)
 	{
 		OGLPLUS_GLFUNC(SecondaryColor3d)(r, g, b);
 	}
@@ -727,21 +727,21 @@ public:
 	template <typename Type>
 	static void SecondaryColor(Type r, Type g, Type b)
 	{
-		_SColor(r, g, b);
+		SColor_(r, g, b);
 	}
 
 private:
-	static void _Index(GLint i)
+	static void Index_(GLint i)
 	{
 		OGLPLUS_GLFUNC(Indexi)(i);
 	}
 
-	static void _Index(GLfloat i)
+	static void Index_(GLfloat i)
 	{
 		OGLPLUS_GLFUNC(Indexf)(i);
 	}
 
-	static void _Index(GLdouble i)
+	static void Index_(GLdouble i)
 	{
 		OGLPLUS_GLFUNC(Indexd)(i);
 	}
@@ -754,7 +754,7 @@ public:
 	template <typename Type>
 	static void Index(Type i)
 	{
-		_Index(i);
+		Index_(i);
 	}
 };
 #endif

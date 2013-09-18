@@ -143,8 +143,8 @@ struct DrawOperation
 		GLuint base_inst = 0
 	) const
 	{
-		this->_Draw(
-			_IndexPtr(index_info),
+		this->Draw_(
+			IndexPtr_(index_info),
 			index_info.DataType(),
 			inst_count,
 			base_inst
@@ -159,9 +159,9 @@ struct DrawOperation
 		GLuint base_inst = 0
 	) const
 	{
-		this->_Draw(
-			_IndexPtr(indices),
-			_IndexDataType(indices),
+		this->Draw_(
+			IndexPtr_(indices),
+			IndexDataType_(indices),
 			inst_count,
 			base_inst
 		);
@@ -169,36 +169,36 @@ struct DrawOperation
 private:
 
 	template <typename IT>
-	static DataType _IndexDataType(const std::vector<IT>&)
+	static DataType IndexDataType_(const std::vector<IT>&)
 	{
 		return GetDataType<IT>();
 	}
 
 	template <typename IT>
-	void* _IndexPtr(const std::vector<IT>& indices) const
+	void* IndexPtr_(const std::vector<IT>& indices) const
 	{
 		const IT* base = indices.empty() ? nullptr : indices.data();
 		return (void*)(base + first);
 	}
 
-	void* _IndexPtr(const ElementIndexInfo& index_info) const
+	void* IndexPtr_(const ElementIndexInfo& index_info) const
 	{
 		return (void*)(first * index_info.Size());
 	}
 
-	void _SetupPrimitiveRestart(void) const;
-	void _CleanupPrimitiveRestart(void) const;
+	void SetupPrimitiveRestart_(void) const;
+	void CleanupPrimitiveRestart_(void) const;
 
-	void _Draw(
+	void Draw_(
 		void* indices,
 		DataType index_data_type,
 		GLuint inst_count,
 		GLuint base_inst
 	) const;
 
-	void _DrawArrays(GLuint inst_count, GLuint base_inst) const;
+	void DrawArrays_(GLuint inst_count, GLuint base_inst) const;
 
-	void _DrawElements(
+	void DrawElements_(
 		void* indices,
 		DataType index_data_type,
 		GLuint inst_count,
@@ -235,13 +235,13 @@ private:
 
 	friend class DrawingInstructionWriter;
 
-	// helper functor used as DrawFun in _Draw
+	// helper functor used as DrawFun in Draw_
 	template <class IndexArray>
-	struct _DrawFromIndices
+	struct DrawFromIndices_
 	{
 		const IndexArray& _indices;
 
-		_DrawFromIndices(const IndexArray& indices)
+		DrawFromIndices_(const IndexArray& indices)
 		 : _indices(indices)
 		{ }
 
@@ -255,12 +255,12 @@ private:
 		}
 	};
 
-	// helper functor used as DrawFun in _Draw
-	struct _DrawFromIndexInfo
+	// helper functor used as DrawFun in Draw_
+	struct DrawFromIndexInfo_
 	{
 		ElementIndexInfo _index_info;
 
-		_DrawFromIndexInfo(const ElementIndexInfo& index_info)
+		DrawFromIndexInfo_(const ElementIndexInfo& index_info)
 		 : _index_info(index_info)
 		{ }
 
@@ -276,7 +276,7 @@ private:
 
 	/// Draw the shape from data in currently bound VBOs indexed by indices
 	template <typename DrawFun, typename Driver>
-	void _Draw(
+	void Draw_(
 		const DrawFun& draw_fun,
 		const GLuint inst_count,
 		const GLuint base_inst,
@@ -338,8 +338,8 @@ public:
 		Driver driver
 	) const
 	{
-		this->_Draw(
-			_DrawFromIndices<std::vector<IT>>(indices),
+		this->Draw_(
+			DrawFromIndices_<std::vector<IT>>(indices),
 			inst_count,
 			base_inst,
 			driver
@@ -353,8 +353,8 @@ public:
 		GLuint base_inst = 0
 	) const
 	{
-		this->_Draw(
-			_DrawFromIndices<std::vector<IT>>(indices),
+		this->Draw_(
+			DrawFromIndices_<std::vector<IT>>(indices),
 			inst_count,
 			base_inst,
 			DefaultDriver()
@@ -369,8 +369,8 @@ public:
 		Driver driver
 	) const
 	{
-		this->_Draw(
-			_DrawFromIndexInfo(index_info),
+		this->Draw_(
+			DrawFromIndexInfo_(index_info),
 			inst_count,
 			base_inst,
 			driver
@@ -383,8 +383,8 @@ public:
 		GLuint base_inst = 0
 	) const
 	{
-		this->_Draw(
-			_DrawFromIndexInfo(index_info),
+		this->Draw_(
+			DrawFromIndexInfo_(index_info),
 			inst_count,
 			base_inst,
 			DefaultDriver()
