@@ -15,6 +15,7 @@ HIDE_SCOPE_NAMES       = NO
 OUTPUT_DIRECTORY       = ../../../_build/doc/doxygen/oalplus
 
 INPUT = \
+	../../include/oalplus \
 	../../tutorial/oalplus \
 	../../../include/oalplus/enums \
 	../../../include/oalplus \
