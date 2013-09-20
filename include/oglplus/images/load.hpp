@@ -14,7 +14,6 @@
 #define OGLPLUS_IMAGES_LOAD_1107121519_HPP
 
 #include <oglplus/images/image.hpp>
-#include <oglplus/images/png.hpp>
 
 #include <string>
 

@@ -17,6 +17,7 @@
 #include <oglplus/shapes/blender_mesh.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
+#include <oglplus/images/png.hpp>
 #include <oglplus/images/load.hpp>
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>

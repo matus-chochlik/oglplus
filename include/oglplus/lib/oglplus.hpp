@@ -74,6 +74,7 @@
 #include <oglplus/images/squares.hpp>
 #include <oglplus/images/sphere_bmap.hpp>
 #include <oglplus/images/random.hpp>
+#include <oglplus/images/load.hpp>
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>
