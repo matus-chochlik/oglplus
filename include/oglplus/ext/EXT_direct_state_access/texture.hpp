@@ -94,6 +94,9 @@ public:
 		/// Texture swizzle value
 		typedef TextureSwizzle Swizzle;
 
+		/// Texture swizzle tuple
+		typedef TextureSwizzleTuple SwizzleTuple;
+
 		/// Texture wrap mode for coordinate
 		typedef TextureWrapCoord WrapCoord;
 
@@ -2096,9 +2099,22 @@ public:
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	TextureSwizzle SwizzleRGBA(void) const
+	TextureSwizzleTuple SwizzleRGBA(void) const
 	{
-		return Swizzle(TextureSwizzleCoord::RGBA);
+		TextureSwizzleTuple result;
+		OGLPLUS_GLFUNC(GetTextureParameterivEXT)(
+			_name,
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			result._values
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTextureParameterivEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+		return result;
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
@@ -2110,7 +2126,77 @@ public:
 	 */
 	void SwizzleRGBA(TextureSwizzle mode)
 	{
-		Swizzle(TextureSwizzleCoord::RGBA, mode);
+		GLint m = GLint(GLenum(mode));
+		GLint params[4] = {m, m, m, m};
+		OGLPLUS_GLFUNC(TextureParameterivEXT)(
+			_name,
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			params
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureParameterivEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+	}
+
+	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
+	 */
+	void SwizzleRGBA(
+		TextureSwizzle mode_r,
+		TextureSwizzle mode_g,
+		TextureSwizzle mode_b,
+		TextureSwizzle mode_a
+	)
+	{
+		GLint params[4] = {
+			GLint(GLenum(mode_r)),
+			GLint(GLenum(mode_g)),
+			GLint(GLenum(mode_b)),
+			GLint(GLenum(mode_a))
+		};
+		OGLPLUS_GLFUNC(TextureParameterivEXT)(
+			_name,
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			params
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureParameterivEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+	}
+
+	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
+	 */
+	void SwizzleRGBA(const TextureSwizzleTuple& modes)
+	{
+		OGLPLUS_GLFUNC(TextureParameterivEXT)(
+			_name,
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			modes._values
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureParameterivEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
 	}
 #endif // texture swizzle
 

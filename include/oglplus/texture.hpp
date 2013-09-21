@@ -122,9 +122,10 @@ OGLPLUS_ENUM_CLASS_END(TextureSwizzleCoord)
  *  @glsymbols
  *  @glfunref{TexParameter}
  *  @glfunref{GetTexParameter}
- *  @gldefref{TEXTURE_SWIZZLE_S}
- *  @gldefref{TEXTURE_SWIZZLE_T}
  *  @gldefref{TEXTURE_SWIZZLE_R}
+ *  @gldefref{TEXTURE_SWIZZLE_G}
+ *  @gldefref{TEXTURE_SWIZZLE_B}
+ *  @gldefref{TEXTURE_SWIZZLE_A}
  */
 OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzle, GLenum)
 #include <oglplus/enums/texture_swizzle.ipp>
@@ -136,6 +137,126 @@ OGLPLUS_ENUM_CLASS_END(TextureSwizzle)
 
 #if !OGLPLUS_ENUM_VALUE_RANGES
 #include <oglplus/enums/texture_swizzle_range.ipp>
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+/// A tuple of swizzle values for all texture components
+class TextureSwizzleTuple
+{
+private:
+	GLint _values[4];
+
+	friend class TextureOps;
+	friend class DSATextureEXTOps;
+public:
+	/// Default construction
+	TextureSwizzleTuple(void)
+	{
+		_values[0] = GL_RED;
+		_values[1] = GL_GREEN;
+		_values[2] = GL_BLUE;
+		_values[3] = GL_ALPHA;
+	}
+
+	/// Specifies modes for all components/coords
+	TextureSwizzleTuple(
+		TextureSwizzle mode_r,
+		TextureSwizzle mode_g,
+		TextureSwizzle mode_b,
+		TextureSwizzle mode_a
+	)
+	{
+		_values[0] = GLint(GLenum(mode_r));
+		_values[1] = GLint(GLenum(mode_g));
+		_values[2] = GLint(GLenum(mode_b));
+		_values[3] = GLint(GLenum(mode_a));
+	}
+
+	/// Sets the swizzle value for red component
+	void SwizzleR(TextureSwizzle mode)
+	{
+		_values[0] = GLint(GLenum(mode));
+	}
+
+	/// Returns the swizzle value for red component
+	TextureSwizzle SwizzleR(void) const
+	{
+		return TextureSwizzle(_values[0]);
+	}
+
+	/// Sets the swizzle value for green component
+	void SwizzleG(TextureSwizzle mode)
+	{
+		_values[1] = GLint(GLenum(mode));
+	}
+
+	/// Returns the swizzle value for green component
+	TextureSwizzle SwizzleG(void) const
+	{
+		return TextureSwizzle(_values[1]);
+	}
+
+	/// Sets the swizzle value for blue component
+	void SwizzleB(TextureSwizzle mode)
+	{
+		_values[2] = GLint(GLenum(mode));
+	}
+
+	/// Returns the swizzle value for blue component
+	TextureSwizzle SwizzleB(void) const
+	{
+		return TextureSwizzle(_values[2]);
+	}
+
+	/// Sets the swizzle value for alpha component
+	void SwizzleA(TextureSwizzle mode)
+	{
+		_values[3] = GLint(GLenum(mode));
+	}
+
+	/// Returns the swizzle value for alpha component
+	TextureSwizzle SwizzleA(void) const
+	{
+		return TextureSwizzle(_values[3]);
+	}
+
+	/// Sets the swizzle value for the specified component/coord
+	void Swizzle(TextureSwizzleCoord coord, TextureSwizzle mode)
+	{
+		switch(GLenum(coord))
+		{
+			case GL_TEXTURE_SWIZZLE_R:
+				SwizzleR(mode);
+				break;
+			case GL_TEXTURE_SWIZZLE_G:
+				SwizzleG(mode);
+				break;
+			case GL_TEXTURE_SWIZZLE_B:
+				SwizzleB(mode);
+				break;
+			case GL_TEXTURE_SWIZZLE_A:
+				SwizzleA(mode);
+				break;
+		}
+	}
+
+	/// Returns the swizzle value for the specified component/coord
+	TextureSwizzle Swizzle(TextureSwizzleCoord coord) const
+	{
+		switch(GLenum(coord))
+		{
+			case GL_TEXTURE_SWIZZLE_R:
+				return SwizzleR();
+			case GL_TEXTURE_SWIZZLE_G:
+				return SwizzleG();
+			case GL_TEXTURE_SWIZZLE_B:
+				return SwizzleB();
+			case GL_TEXTURE_SWIZZLE_A:
+				return SwizzleA();
+		}
+		return TextureSwizzle();
+	}
+};
 #endif
 
 /// Texture wrap parameter coordinate enumeration
@@ -296,6 +417,9 @@ public:
 
 		/// Texture swizzle value
 		typedef TextureSwizzle Swizzle;
+
+		/// Texture swizzle tuple
+		typedef TextureSwizzleTuple SwizzleTuple;
 
 		/// Texture wrap mode for coordinate
 		typedef TextureWrapCoord WrapCoord;
@@ -2524,12 +2648,24 @@ public:
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	static TextureSwizzle SwizzleRGBA(Target target)
+	static TextureSwizzleTuple SwizzleRGBA(Target target)
 	{
-		return Swizzle(target, TextureSwizzleCoord::RGBA);
+		TextureSwizzleTuple result;
+		OGLPLUS_GLFUNC(GetTexParameteriv)(
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			result._values
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameteriv,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		return result;
 	}
 
-	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
+	/// Sets the RGBA swizzle parameter (TEXTURE_SWIZZLE_RGBA)
 	/**
 	 *  @glvoereq{3,3,ARB,texture_swizzle}
 	 *  @glsymbols
@@ -2538,7 +2674,77 @@ public:
 	 */
 	static void SwizzleRGBA(Target target, TextureSwizzle mode)
 	{
-		Swizzle(target, TextureSwizzleCoord::RGBA, mode);
+		GLint m = GLint(GLenum(mode));
+		GLint params[4] = {m, m, m, m};
+
+		OGLPLUS_GLFUNC(TexParameteriv)(
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			params
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteriv,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Sets the RGBA swizzle parameters (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
+	 */
+	static void SwizzleRGBA(
+		Target target,
+		TextureSwizzle mode_r,
+		TextureSwizzle mode_g,
+		TextureSwizzle mode_b,
+		TextureSwizzle mode_a
+	)
+	{
+		GLint params[4] = {
+			GLint(GLenum(mode_r)),
+			GLint(GLenum(mode_g)),
+			GLint(GLenum(mode_b)),
+			GLint(GLenum(mode_a))
+		};
+
+		OGLPLUS_GLFUNC(TexParameteriv)(
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			params
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteriv,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Sets the RGBA swizzle parameters (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
+	 */
+	static void SwizzleRGBA(Target target, const TextureSwizzleTuple& modes)
+	{
+		OGLPLUS_GLFUNC(TexParameteriv)(
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			modes._values
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteriv,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
 	}
 #endif // texture swizzle
 
