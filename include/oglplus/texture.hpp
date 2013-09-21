@@ -184,6 +184,19 @@ public:
 		return TextureSwizzle(_values[0]);
 	}
 
+	/// Synonym for SwizzleR
+	void Red(TextureSwizzle mode)
+	{
+		SwizzleR(mode);
+	}
+
+	/// Synonym for SwizzleR
+	TextureSwizzle Red(void) const
+	{
+		return SwizzleR();
+	}
+	
+
 	/// Sets the swizzle value for green component
 	void SwizzleG(TextureSwizzle mode)
 	{
@@ -194,6 +207,18 @@ public:
 	TextureSwizzle SwizzleG(void) const
 	{
 		return TextureSwizzle(_values[1]);
+	}
+
+	/// Synonym for SwizzleG
+	void Green(TextureSwizzle mode)
+	{
+		SwizzleG(mode);
+	}
+
+	/// Synonym for SwizzleG
+	TextureSwizzle Green(void) const
+	{
+		return SwizzleG();
 	}
 
 	/// Sets the swizzle value for blue component
@@ -208,6 +233,18 @@ public:
 		return TextureSwizzle(_values[2]);
 	}
 
+	/// Synonym for SwizzleB
+	void Blue(TextureSwizzle mode)
+	{
+		SwizzleB(mode);
+	}
+
+	/// Synonym for SwizzleB
+	TextureSwizzle Blue(void) const
+	{
+		return SwizzleB();
+	}
+
 	/// Sets the swizzle value for alpha component
 	void SwizzleA(TextureSwizzle mode)
 	{
@@ -218,6 +255,18 @@ public:
 	TextureSwizzle SwizzleA(void) const
 	{
 		return TextureSwizzle(_values[3]);
+	}
+
+	/// Synonym for SwizzleA
+	void Alpha(TextureSwizzle mode)
+	{
+		SwizzleA(mode);
+	}
+
+	/// Synonym for SwizzleA
+	TextureSwizzle Alpha(void) const
+	{
+		return SwizzleA();
 	}
 
 	/// Sets the swizzle value for the specified component/coord
