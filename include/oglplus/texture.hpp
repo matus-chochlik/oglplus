@@ -173,9 +173,10 @@ public:
 	}
 
 	/// Sets the swizzle value for red component
-	void SwizzleR(TextureSwizzle mode)
+	TextureSwizzleTuple& SwizzleR(TextureSwizzle mode)
 	{
 		_values[0] = GLint(GLenum(mode));
+		return *this;
 	}
 
 	/// Returns the swizzle value for red component
@@ -185,9 +186,9 @@ public:
 	}
 
 	/// Synonym for SwizzleR
-	void Red(TextureSwizzle mode)
+	TextureSwizzleTuple& Red(TextureSwizzle mode)
 	{
-		SwizzleR(mode);
+		return SwizzleR(mode);
 	}
 
 	/// Synonym for SwizzleR
@@ -198,9 +199,10 @@ public:
 	
 
 	/// Sets the swizzle value for green component
-	void SwizzleG(TextureSwizzle mode)
+	TextureSwizzleTuple& SwizzleG(TextureSwizzle mode)
 	{
 		_values[1] = GLint(GLenum(mode));
+		return *this;
 	}
 
 	/// Returns the swizzle value for green component
@@ -210,9 +212,9 @@ public:
 	}
 
 	/// Synonym for SwizzleG
-	void Green(TextureSwizzle mode)
+	TextureSwizzleTuple& Green(TextureSwizzle mode)
 	{
-		SwizzleG(mode);
+		return SwizzleG(mode);
 	}
 
 	/// Synonym for SwizzleG
@@ -222,9 +224,10 @@ public:
 	}
 
 	/// Sets the swizzle value for blue component
-	void SwizzleB(TextureSwizzle mode)
+	TextureSwizzleTuple& SwizzleB(TextureSwizzle mode)
 	{
 		_values[2] = GLint(GLenum(mode));
+		return *this;
 	}
 
 	/// Returns the swizzle value for blue component
@@ -234,9 +237,9 @@ public:
 	}
 
 	/// Synonym for SwizzleB
-	void Blue(TextureSwizzle mode)
+	TextureSwizzleTuple& Blue(TextureSwizzle mode)
 	{
-		SwizzleB(mode);
+		return SwizzleB(mode);
 	}
 
 	/// Synonym for SwizzleB
@@ -246,9 +249,10 @@ public:
 	}
 
 	/// Sets the swizzle value for alpha component
-	void SwizzleA(TextureSwizzle mode)
+	TextureSwizzleTuple& SwizzleA(TextureSwizzle mode)
 	{
 		_values[3] = GLint(GLenum(mode));
+		return *this;
 	}
 
 	/// Returns the swizzle value for alpha component
@@ -258,9 +262,9 @@ public:
 	}
 
 	/// Synonym for SwizzleA
-	void Alpha(TextureSwizzle mode)
+	TextureSwizzleTuple& Alpha(TextureSwizzle mode)
 	{
-		SwizzleA(mode);
+		return SwizzleA(mode);
 	}
 
 	/// Synonym for SwizzleA
@@ -270,7 +274,10 @@ public:
 	}
 
 	/// Sets the swizzle value for the specified component/coord
-	void Swizzle(TextureSwizzleCoord coord, TextureSwizzle mode)
+	TextureSwizzleTuple& Swizzle(
+		TextureSwizzleCoord coord,
+		TextureSwizzle mode
+	)
 	{
 		switch(GLenum(coord))
 		{
@@ -287,6 +294,7 @@ public:
 				SwizzleA(mode);
 				break;
 		}
+		return *this;
 	}
 
 	/// Returns the swizzle value for the specified component/coord
