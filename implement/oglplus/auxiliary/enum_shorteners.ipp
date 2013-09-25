@@ -2639,6 +2639,11 @@ template <typename Enum, Enum = Enum::PackSwapBytes> operator Enum (void) const{
 template <typename Enum> friend bool operator==(Enum value, PackSwapBytes){ return value == Enum::PackSwapBytes; }
 template <typename Enum> friend bool operator!=(Enum value, PackSwapBytes){ return value != Enum::PackSwapBytes; }
 };
+struct Parameter {
+template <typename Enum, Enum = Enum::Parameter> operator Enum (void) const{ return Enum::Parameter; }
+template <typename Enum> friend bool operator==(Enum value, Parameter){ return value == Enum::Parameter; }
+template <typename Enum> friend bool operator!=(Enum value, Parameter){ return value != Enum::Parameter; }
+};
 struct PatchDefaultInnerLevel {
 template <typename Enum, Enum = Enum::PatchDefaultInnerLevel> operator Enum (void) const{ return Enum::PatchDefaultInnerLevel; }
 template <typename Enum> friend bool operator==(Enum value, PatchDefaultInnerLevel){ return value == Enum::PatchDefaultInnerLevel; }

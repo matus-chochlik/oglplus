@@ -237,6 +237,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_PARAMETER_BUFFER_ARB
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined Parameter
+#  pragma push_macro("Parameter")
+#  undef Parameter
+   OGLPLUS_ENUM_CLASS_VALUE(Parameter, GL_PARAMETER_BUFFER_ARB)
+#  pragma pop_macro("Parameter")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Parameter, GL_PARAMETER_BUFFER_ARB)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA

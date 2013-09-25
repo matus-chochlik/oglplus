@@ -17465,6 +17465,39 @@ template <typename Enum> friend bool operator==(Enum value, PackSwapBytes);
 template <typename Enum> friend bool operator!=(Enum value, PackSwapBytes);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Parameter value.
+/**
+ *  @see @ref oglplus::BufferTarget "BufferTarget"
+ *
+ *  @glsymbols
+ *  @gldefref{PARAMETER_BUFFER_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct Parameter {
+
+/// Conversion to any @p Enum type having the Parameter value.
+/** Instances of the @ref oglplus::smart_enums::Parameter "Parameter"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Parameter value.
+ */
+template <typename Enum, Enum = Enum::Parameter> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Parameter value.
+/** Instances of the @c smart_enums::Parameter type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Parameter value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Parameter);
+
+/// Non-equality comparison with any @p Enum type having the Parameter value.
+/** Instances of the @c smart_enums::Parameter type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Parameter value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Parameter);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PatchDefaultInnerLevel value.
 /**
  *  @see @ref oglplus::PatchParameter "PatchParameter"
