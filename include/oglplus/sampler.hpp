@@ -90,7 +90,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BindSampler}
 	 */
-	void Bind(TextureUnitSelector unit) const
+	void Bind(TextureUnitSelector unit)
 	{
 		_bind(_name, unit);
 	}
@@ -112,7 +112,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLfloat, 4> color) const
+	void BorderColor(Vector<GLfloat, 4> color)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterfv)(
 			_name,
@@ -128,7 +128,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLint, 4> color) const
+	void BorderColor(Vector<GLint, 4> color)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterIiv)(
 			_name,
@@ -144,7 +144,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLuint, 4> color) const
+	void BorderColor(Vector<GLuint, 4> color)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterIuiv)(
 			_name,
@@ -160,7 +160,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
-	void CompareMode(TextureCompareMode mode) const
+	void CompareMode(TextureCompareMode mode)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
@@ -176,7 +176,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
-	void CompareFunc(CompareFunction func) const
+	void CompareFunc(CompareFunction func)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
@@ -192,7 +192,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
-	void LODBias(GLfloat value) const
+	void LODBias(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterf)(
 			_name,
@@ -208,7 +208,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	void MagFilter(TextureMagFilter filter) const
+	void MagFilter(TextureMagFilter filter)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
@@ -224,7 +224,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
-	void MinFilter(TextureMinFilter filter) const
+	void MinFilter(TextureMinFilter filter)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
@@ -240,7 +240,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
-	void MinLOD(GLfloat value) const
+	void MinLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterf)(
 			_name,
@@ -256,7 +256,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
-	void MaxLOD(GLfloat value) const
+	void MaxLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(SamplerParameterf)(
 			_name,
@@ -271,7 +271,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{SamplerParameter}
 	 */
-	void Wrap(TextureWrapCoord coord, TextureWrap mode) const
+	void Wrap(TextureWrapCoord coord, TextureWrap mode)
 	{
 		OGLPLUS_GLFUNC(SamplerParameteri)(
 			_name,
@@ -287,7 +287,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
-	void WrapS(TextureWrap mode) const
+	void WrapS(TextureWrap mode)
 	{
 		Wrap(TextureWrapCoord::S, mode);
 	}
@@ -298,7 +298,7 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
-	void WrapT(TextureWrap mode) const
+	void WrapT(TextureWrap mode)
 	{
 		Wrap(TextureWrapCoord::T, mode);
 	}
@@ -309,10 +309,28 @@ public:
 	 *  @glfunref{SamplerParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
-	void WrapR(TextureWrap mode) const
+	void WrapR(TextureWrap mode)
 	{
 		Wrap(TextureWrapCoord::R, mode);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
+	/// Sets the seamless cubemap setting
+	/**
+	 *  @glsymbols
+	 *  @glfunref{SamplerParameter}
+	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
+	 */
+	void Seamless(bool enable)
+	{
+		OGLPLUS_GLFUNC(SamplerParameteri)(
+			_name,
+			GL_TEXTURE_CUBE_MAP_SEAMLESS,
+			enable?GL_TRUE:GL_FALSE
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(SamplerParameteri));
+	}
+#endif
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY

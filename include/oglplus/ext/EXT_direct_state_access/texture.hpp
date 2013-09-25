@@ -2339,6 +2339,41 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
+	/// Gets the seamless cubemap setting value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
+	 */
+	bool Seamless(void) const
+	{
+		return GetIntParam(GL_TEXTURE_CUBE_MAP_SEAMLESS) == GL_TRUE;
+	}
+
+	/// Sets the seamless cubemap setting
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
+	 */
+	void Seamless(bool enable)
+	{
+		OGLPLUS_GLFUNC(TextureParameteriEXT)(
+			GLenum(target),
+			_name,
+			GL_TEXTURE_CUBE_MAP_SEAMLESS,
+			enable?GL_TRUE:GL_FALSE
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureParameteriEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+	}
+#endif
+
 	/// Generate mipmap for the texture bound to the specified target
 	/**
 	 *  @glsymbols

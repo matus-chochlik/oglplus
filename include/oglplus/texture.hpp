@@ -2924,7 +2924,7 @@ public:
 		));
 	}
 
-	/// Sets the swizzle parameter (DEPTH_STENCIL_TEXTURE_MODE)
+	/// Sets the depth stencil mode (DEPTH_STENCIL_TEXTURE_MODE)
 	/**
 	 *  @glverreq{4,3}
 	 *  @glsymbols
@@ -2940,6 +2940,43 @@ public:
 			GLenum(target),
 			GL_DEPTH_STENCIL_TEXTURE_MODE,
 			GLenum(mode)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
+	/// Gets the seamless cubemap setting value
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
+	 */
+	static bool Seamless(Target target)
+	{
+		return GetIntParam(
+			target,
+			GL_TEXTURE_CUBE_MAP_SEAMLESS
+		) == GL_TRUE;
+	}
+
+	/// Sets the seamless cubemap setting
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
+	 */
+	static void Seamless(Target target, bool enable)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_CUBE_MAP_SEAMLESS,
+			enable?GL_TRUE:GL_FALSE
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TexParameteri,
