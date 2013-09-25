@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 2.8)
 project(OGLplus)
 
 include(config/CommonDefs.cmake)
+file(READ VERSION OGLPLUS_VERSION)
 
 # The GL context initialization library
 set(OGLPLUS_FORCE_GL_INIT_LIB "NONE" CACHE STRING "The GL context initialization library to be used.")
@@ -190,18 +191,23 @@ if(NOT OGLPLUS_NO_EXAMPLES)
 	add_subdirectory("example")
 endif()
 
+if(OGLPLUS_WITH_TESTS)
+	add_subdirectory("test")
+endif()
+
 # install the "regular" headers
 install(
 	DIRECTORY ${PROJECT_SOURCE_DIR}/include/
 	DESTINATION include
 )
+# install the implementation inline files
+install(
+	DIRECTORY ${PROJECT_SOURCE_DIR}/implement/
+	DESTINATION include
+)
 
-if(OGLPLUS_WITH_TESTS)
-	add_subdirectory("test")
-endif()
-
+# install the docs if they are enabled
 if(NOT OGLPLUS_NO_DOCS)
-	# install the docs
 	install(
 		DIRECTORY ${PROJECT_BINARY_DIR}/doc/doxygen/html
 		DESTINATION share/oglplus/doc
