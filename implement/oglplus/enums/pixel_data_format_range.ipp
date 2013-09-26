@@ -28,6 +28,9 @@ GL_DEPTH_COMPONENT,
 #if defined GL_DEPTH_STENCIL
 GL_DEPTH_STENCIL,
 #endif
+#if defined GL_STENCIL_INDEX
+GL_STENCIL_INDEX,
+#endif
 #if defined GL_RED
 GL_RED,
 #endif

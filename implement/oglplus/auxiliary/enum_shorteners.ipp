@@ -3644,6 +3644,11 @@ template <typename Enum, Enum = Enum::StencilIndex> operator Enum (void) const{ 
 template <typename Enum> friend bool operator==(Enum value, StencilIndex){ return value == Enum::StencilIndex; }
 template <typename Enum> friend bool operator!=(Enum value, StencilIndex){ return value != Enum::StencilIndex; }
 };
+struct StencilIndex8 {
+template <typename Enum, Enum = Enum::StencilIndex8> operator Enum (void) const{ return Enum::StencilIndex8; }
+template <typename Enum> friend bool operator==(Enum value, StencilIndex8){ return value == Enum::StencilIndex8; }
+template <typename Enum> friend bool operator!=(Enum value, StencilIndex8){ return value != Enum::StencilIndex8; }
+};
 struct StencilTest {
 template <typename Enum, Enum = Enum::StencilTest> operator Enum (void) const{ return Enum::StencilTest; }
 template <typename Enum> friend bool operator==(Enum value, StencilTest){ return value == Enum::StencilTest; }

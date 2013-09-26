@@ -29,6 +29,9 @@ switch(value)
 #if defined GL_DEPTH_STENCIL
 	case GL_DEPTH_STENCIL: return StrLit("DEPTH_STENCIL");
 #endif
+#if defined GL_STENCIL_INDEX
+	case GL_STENCIL_INDEX: return StrLit("STENCIL_INDEX");
+#endif
 #if defined GL_RED
 	case GL_RED: return StrLit("RED");
 #endif

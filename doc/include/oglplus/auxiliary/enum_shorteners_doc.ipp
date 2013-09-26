@@ -24176,6 +24176,39 @@ template <typename Enum> friend bool operator==(Enum value, StencilIndex);
 template <typename Enum> friend bool operator!=(Enum value, StencilIndex);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c StencilIndex8 value.
+/**
+ *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
+ *
+ *  @glsymbols
+ *  @gldefref{STENCIL_INDEX8}
+ *
+ *  @ingroup smart_enums
+ */
+struct StencilIndex8 {
+
+/// Conversion to any @p Enum type having the StencilIndex8 value.
+/** Instances of the @ref oglplus::smart_enums::StencilIndex8 "StencilIndex8"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c StencilIndex8 value.
+ */
+template <typename Enum, Enum = Enum::StencilIndex8> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the StencilIndex8 value.
+/** Instances of the @c smart_enums::StencilIndex8 type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c StencilIndex8 value.
+ */
+template <typename Enum> friend bool operator==(Enum value, StencilIndex8);
+
+/// Non-equality comparison with any @p Enum type having the StencilIndex8 value.
+/** Instances of the @c smart_enums::StencilIndex8 type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c StencilIndex8 value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, StencilIndex8);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c StencilTest value.
 /**
  *  @see @ref oglplus::Capability "Capability"
