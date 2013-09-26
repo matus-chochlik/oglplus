@@ -19,9 +19,6 @@ OGLPLUS_LIB_FUNC aux::CastIterRange<
 #define OGLPLUS_IMPL_EVR_PIXELDATAFORMAT
 {
 static const GLenum _values[] = {
-#if defined GL_STENCIL_INDEX
-GL_STENCIL_INDEX,
-#endif
 #if defined GL_DEPTH_COMPONENT
 GL_DEPTH_COMPONENT,
 #endif

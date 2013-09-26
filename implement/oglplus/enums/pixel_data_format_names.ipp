@@ -20,9 +20,6 @@ OGLPLUS_LIB_FUNC StrLit ValueName_(
 {
 switch(value)
 {
-#if defined GL_STENCIL_INDEX
-	case GL_STENCIL_INDEX: return StrLit("STENCIL_INDEX");
-#endif
 #if defined GL_DEPTH_COMPONENT
 	case GL_DEPTH_COMPONENT: return StrLit("DEPTH_COMPONENT");
 #endif

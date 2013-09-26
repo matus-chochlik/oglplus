@@ -2384,6 +2384,11 @@ template <typename Enum, Enum = Enum::MinSampleShadingValue> operator Enum (void
 template <typename Enum> friend bool operator==(Enum value, MinSampleShadingValue){ return value == Enum::MinSampleShadingValue; }
 template <typename Enum> friend bool operator!=(Enum value, MinSampleShadingValue){ return value != Enum::MinSampleShadingValue; }
 };
+struct MirrorClampToEdge {
+template <typename Enum, Enum = Enum::MirrorClampToEdge> operator Enum (void) const{ return Enum::MirrorClampToEdge; }
+template <typename Enum> friend bool operator==(Enum value, MirrorClampToEdge){ return value == Enum::MirrorClampToEdge; }
+template <typename Enum> friend bool operator!=(Enum value, MirrorClampToEdge){ return value != Enum::MirrorClampToEdge; }
+};
 struct MirroredRepeat {
 template <typename Enum, Enum = Enum::MirroredRepeat> operator Enum (void) const{ return Enum::MirroredRepeat; }
 template <typename Enum> friend bool operator==(Enum value, MirroredRepeat){ return value == Enum::MirroredRepeat; }

@@ -31,6 +31,9 @@ GL_CLAMP_TO_BORDER,
 #if defined GL_MIRRORED_REPEAT
 GL_MIRRORED_REPEAT,
 #endif
+#if defined GL_MIRROR_CLAMP_TO_EDGE
+GL_MIRROR_CLAMP_TO_EDGE,
+#endif
 0
 };
 return aux::CastIterRange<

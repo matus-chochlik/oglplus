@@ -15762,6 +15762,39 @@ template <typename Enum> friend bool operator==(Enum value, MinSampleShadingValu
 template <typename Enum> friend bool operator!=(Enum value, MinSampleShadingValue);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MirrorClampToEdge value.
+/**
+ *  @see @ref oglplus::TextureWrap "TextureWrap"
+ *
+ *  @glsymbols
+ *  @gldefref{MIRROR_CLAMP_TO_EDGE}
+ *
+ *  @ingroup smart_enums
+ */
+struct MirrorClampToEdge {
+
+/// Conversion to any @p Enum type having the MirrorClampToEdge value.
+/** Instances of the @ref oglplus::smart_enums::MirrorClampToEdge "MirrorClampToEdge"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MirrorClampToEdge value.
+ */
+template <typename Enum, Enum = Enum::MirrorClampToEdge> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MirrorClampToEdge value.
+/** Instances of the @c smart_enums::MirrorClampToEdge type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MirrorClampToEdge value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MirrorClampToEdge);
+
+/// Non-equality comparison with any @p Enum type having the MirrorClampToEdge value.
+/** Instances of the @c smart_enums::MirrorClampToEdge type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MirrorClampToEdge value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MirrorClampToEdge);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MirroredRepeat value.
 /**
  *  @see @ref oglplus::TextureWrap "TextureWrap"
