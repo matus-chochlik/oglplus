@@ -31,6 +31,8 @@ class TextureHandleARB
 private:
 	GLuint64 _handle;
 
+	friend class FriendOf<TextureHandleARB>;
+
 	template <typename ObjectOps>
 	static GLuint _nameof(const ObjectOps& obj)
 	{
@@ -78,12 +80,25 @@ public:
 	}
 };
 
+template <>
+class FriendOf<TextureHandleARB>
+{
+protected:
+	static GLuint64 GetHandle(const TextureHandleARB& th)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return th._handle;
+	}
+};
+
 /// A handle for a bindless texture image
 class ImageHandleARB
  : public FriendOf<TextureOps>
 {
 private:
 	GLuint64 _handle;
+
+	friend class FriendOf<ImageHandleARB>;
 
 	template <typename ObjectOps>
 	static GLuint _nameof(const ObjectOps& obj)
@@ -133,6 +148,17 @@ public:
 			OGLPLUS_GLFUNC(IsImageHandleResidentARB)(_handle);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsImageHandleResidentARB));
 		return result == GL_TRUE;
+	}
+};
+
+template <>
+class FriendOf<ImageHandleARB>
+{
+protected:
+	static GLuint64 GetHandle(const ImageHandleARB& ih)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ih._handle;
 	}
 };
 
