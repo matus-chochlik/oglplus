@@ -116,6 +116,9 @@ OGLPLUS_OBJECT_TYPE_ID(PathNV, 13)
 class DSATextureEXTOps;
 OGLPLUS_OBJECT_TYPE_ID(DSATextureEXT, 14)
 
+class DSABufferEXTOps;
+OGLPLUS_OBJECT_TYPE_ID(DSABufferEXT, 15)
+
 } // namespace oglplus
 
 #endif // include guard

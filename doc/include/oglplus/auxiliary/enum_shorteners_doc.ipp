@@ -2767,6 +2767,72 @@ template <typename Enum> friend bool operator==(Enum value, Clear);
 template <typename Enum> friend bool operator!=(Enum value, Clear);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ClientMappedBuffer value.
+/**
+ *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CLIENT_MAPPED_BUFFER_BARRIER_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct ClientMappedBuffer {
+
+/// Conversion to any @p Enum type having the ClientMappedBuffer value.
+/** Instances of the @ref oglplus::smart_enums::ClientMappedBuffer "ClientMappedBuffer"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ClientMappedBuffer value.
+ */
+template <typename Enum, Enum = Enum::ClientMappedBuffer> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ClientMappedBuffer value.
+/** Instances of the @c smart_enums::ClientMappedBuffer type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ClientMappedBuffer value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ClientMappedBuffer);
+
+/// Non-equality comparison with any @p Enum type having the ClientMappedBuffer value.
+/** Instances of the @c smart_enums::ClientMappedBuffer type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ClientMappedBuffer value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ClientMappedBuffer);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ClientStorage value.
+/**
+ *  @see @ref oglplus::BufferStorageBit "BufferStorageBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CLIENT_STORAGE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct ClientStorage {
+
+/// Conversion to any @p Enum type having the ClientStorage value.
+/** Instances of the @ref oglplus::smart_enums::ClientStorage "ClientStorage"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ClientStorage value.
+ */
+template <typename Enum, Enum = Enum::ClientStorage> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ClientStorage value.
+/** Instances of the @c smart_enums::ClientStorage type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ClientStorage value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ClientStorage);
+
+/// Non-equality comparison with any @p Enum type having the ClientStorage value.
+/** Instances of the @c smart_enums::ClientStorage type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ClientStorage value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ClientStorage);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ClipDistance value.
 /**
  *  @see @ref oglplus::Functionality "Functionality"
@@ -2831,6 +2897,39 @@ template <typename Enum> friend bool operator==(Enum value, Close);
  *  the @c Close value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Close);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Coherent value.
+/**
+ *  @see @ref oglplus::BufferMapAccess "BufferMapAccess"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_COHERENT_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Coherent {
+
+/// Conversion to any @p Enum type having the Coherent value.
+/** Instances of the @ref oglplus::smart_enums::Coherent "Coherent"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Coherent value.
+ */
+template <typename Enum, Enum = Enum::Coherent> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Coherent value.
+/** Instances of the @c smart_enums::Coherent type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Coherent value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Coherent);
+
+/// Non-equality comparison with any @p Enum type having the Coherent value.
+/** Instances of the @c smart_enums::Coherent type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Coherent value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Coherent);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Color value.
@@ -6514,6 +6613,39 @@ template <typename Enum> friend bool operator==(Enum value, DynamicRead);
  *  the @c DynamicRead value.
  */
 template <typename Enum> friend bool operator!=(Enum value, DynamicRead);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c DynamicStorage value.
+/**
+ *  @see @ref oglplus::BufferStorageBit "BufferStorageBit"
+ *
+ *  @glsymbols
+ *  @gldefref{DYNAMIC_STORAGE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct DynamicStorage {
+
+/// Conversion to any @p Enum type having the DynamicStorage value.
+/** Instances of the @ref oglplus::smart_enums::DynamicStorage "DynamicStorage"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c DynamicStorage value.
+ */
+template <typename Enum, Enum = Enum::DynamicStorage> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the DynamicStorage value.
+/** Instances of the @c smart_enums::DynamicStorage type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c DynamicStorage value.
+ */
+template <typename Enum> friend bool operator==(Enum value, DynamicStorage);
+
+/// Non-equality comparison with any @p Enum type having the DynamicStorage value.
+/** Instances of the @c smart_enums::DynamicStorage type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c DynamicStorage value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, DynamicStorage);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ElementArray value.
@@ -11961,6 +12093,138 @@ template <typename Enum> friend bool operator==(Enum value, LuminanceAlpha);
  *  the @c LuminanceAlpha value.
  */
 template <typename Enum> friend bool operator!=(Enum value, LuminanceAlpha);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MapCoherent value.
+/**
+ *  @see @ref oglplus::BufferStorageBit "BufferStorageBit"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_COHERENT_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct MapCoherent {
+
+/// Conversion to any @p Enum type having the MapCoherent value.
+/** Instances of the @ref oglplus::smart_enums::MapCoherent "MapCoherent"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MapCoherent value.
+ */
+template <typename Enum, Enum = Enum::MapCoherent> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MapCoherent value.
+/** Instances of the @c smart_enums::MapCoherent type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MapCoherent value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MapCoherent);
+
+/// Non-equality comparison with any @p Enum type having the MapCoherent value.
+/** Instances of the @c smart_enums::MapCoherent type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MapCoherent value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MapCoherent);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MapPersistent value.
+/**
+ *  @see @ref oglplus::BufferStorageBit "BufferStorageBit"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_PERSISTENT_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct MapPersistent {
+
+/// Conversion to any @p Enum type having the MapPersistent value.
+/** Instances of the @ref oglplus::smart_enums::MapPersistent "MapPersistent"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MapPersistent value.
+ */
+template <typename Enum, Enum = Enum::MapPersistent> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MapPersistent value.
+/** Instances of the @c smart_enums::MapPersistent type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MapPersistent value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MapPersistent);
+
+/// Non-equality comparison with any @p Enum type having the MapPersistent value.
+/** Instances of the @c smart_enums::MapPersistent type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MapPersistent value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MapPersistent);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MapRead value.
+/**
+ *  @see @ref oglplus::BufferStorageBit "BufferStorageBit"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_READ_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct MapRead {
+
+/// Conversion to any @p Enum type having the MapRead value.
+/** Instances of the @ref oglplus::smart_enums::MapRead "MapRead"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MapRead value.
+ */
+template <typename Enum, Enum = Enum::MapRead> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MapRead value.
+/** Instances of the @c smart_enums::MapRead type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MapRead value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MapRead);
+
+/// Non-equality comparison with any @p Enum type having the MapRead value.
+/** Instances of the @c smart_enums::MapRead type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MapRead value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MapRead);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c MapWrite value.
+/**
+ *  @see @ref oglplus::BufferStorageBit "BufferStorageBit"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_WRITE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct MapWrite {
+
+/// Conversion to any @p Enum type having the MapWrite value.
+/** Instances of the @ref oglplus::smart_enums::MapWrite "MapWrite"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c MapWrite value.
+ */
+template <typename Enum, Enum = Enum::MapWrite> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the MapWrite value.
+/** Instances of the @c smart_enums::MapWrite type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c MapWrite value.
+ */
+template <typename Enum> friend bool operator==(Enum value, MapWrite);
+
+/// Non-equality comparison with any @p Enum type having the MapWrite value.
+/** Instances of the @c smart_enums::MapWrite type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c MapWrite value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, MapWrite);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Marker value.
@@ -17732,6 +17996,39 @@ template <typename Enum> friend bool operator==(Enum value, Performance);
 template <typename Enum> friend bool operator!=(Enum value, Performance);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Persistent value.
+/**
+ *  @see @ref oglplus::BufferMapAccess "BufferMapAccess"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_PERSISTENT_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Persistent {
+
+/// Conversion to any @p Enum type having the Persistent value.
+/** Instances of the @ref oglplus::smart_enums::Persistent "Persistent"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Persistent value.
+ */
+template <typename Enum, Enum = Enum::Persistent> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Persistent value.
+/** Instances of the @c smart_enums::Persistent type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Persistent value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Persistent);
+
+/// Non-equality comparison with any @p Enum type having the Persistent value.
+/** Instances of the @c smart_enums::Persistent type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Persistent value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Persistent);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PixelBuffer value.
 /**
  *  @see @ref oglplus::MemoryBarrierBit "MemoryBarrierBit"
@@ -19283,9 +19580,11 @@ template <typename Enum> friend bool operator!=(Enum value, RasterizerDiscard);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Read value.
 /**
+ *  @see @ref oglplus::BufferMapAccess "BufferMapAccess"
  *  @see @ref oglplus::FramebufferTarget "FramebufferTarget"
  *
  *  @glsymbols
+ *  @gldefref{MAP_READ_BIT}
  *  @gldefref{READ_FRAMEBUFFER}
  *
  *  @ingroup smart_enums
@@ -28269,6 +28568,39 @@ template <typename Enum> friend bool operator==(Enum value, WindowSystem);
  *  the @c WindowSystem value.
  */
 template <typename Enum> friend bool operator!=(Enum value, WindowSystem);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Write value.
+/**
+ *  @see @ref oglplus::BufferMapAccess "BufferMapAccess"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_WRITE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Write {
+
+/// Conversion to any @p Enum type having the Write value.
+/** Instances of the @ref oglplus::smart_enums::Write "Write"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Write value.
+ */
+template <typename Enum, Enum = Enum::Write> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Write value.
+/** Instances of the @c smart_enums::Write type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Write value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Write);
+
+/// Non-equality comparison with any @p Enum type having the Write value.
+/** Instances of the @c smart_enums::Write type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Write value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Write);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c WriteOnly value.

@@ -424,6 +424,16 @@ template <typename Enum, Enum = Enum::Clear> operator Enum (void) const{ return 
 template <typename Enum> friend bool operator==(Enum value, Clear){ return value == Enum::Clear; }
 template <typename Enum> friend bool operator!=(Enum value, Clear){ return value != Enum::Clear; }
 };
+struct ClientMappedBuffer {
+template <typename Enum, Enum = Enum::ClientMappedBuffer> operator Enum (void) const{ return Enum::ClientMappedBuffer; }
+template <typename Enum> friend bool operator==(Enum value, ClientMappedBuffer){ return value == Enum::ClientMappedBuffer; }
+template <typename Enum> friend bool operator!=(Enum value, ClientMappedBuffer){ return value != Enum::ClientMappedBuffer; }
+};
+struct ClientStorage {
+template <typename Enum, Enum = Enum::ClientStorage> operator Enum (void) const{ return Enum::ClientStorage; }
+template <typename Enum> friend bool operator==(Enum value, ClientStorage){ return value == Enum::ClientStorage; }
+template <typename Enum> friend bool operator!=(Enum value, ClientStorage){ return value != Enum::ClientStorage; }
+};
 struct ClipDistance {
 template <typename Enum, Enum = Enum::ClipDistance> operator Enum (void) const{ return Enum::ClipDistance; }
 template <typename Enum> friend bool operator==(Enum value, ClipDistance){ return value == Enum::ClipDistance; }
@@ -433,6 +443,11 @@ struct Close {
 template <typename Enum, Enum = Enum::Close> operator Enum (void) const{ return Enum::Close; }
 template <typename Enum> friend bool operator==(Enum value, Close){ return value == Enum::Close; }
 template <typename Enum> friend bool operator!=(Enum value, Close){ return value != Enum::Close; }
+};
+struct Coherent {
+template <typename Enum, Enum = Enum::Coherent> operator Enum (void) const{ return Enum::Coherent; }
+template <typename Enum> friend bool operator==(Enum value, Coherent){ return value == Enum::Coherent; }
+template <typename Enum> friend bool operator!=(Enum value, Coherent){ return value != Enum::Coherent; }
 };
 struct Color {
 template <typename Enum, Enum = Enum::Color> operator Enum (void) const{ return Enum::Color; }
@@ -988,6 +1003,11 @@ struct DynamicRead {
 template <typename Enum, Enum = Enum::DynamicRead> operator Enum (void) const{ return Enum::DynamicRead; }
 template <typename Enum> friend bool operator==(Enum value, DynamicRead){ return value == Enum::DynamicRead; }
 template <typename Enum> friend bool operator!=(Enum value, DynamicRead){ return value != Enum::DynamicRead; }
+};
+struct DynamicStorage {
+template <typename Enum, Enum = Enum::DynamicStorage> operator Enum (void) const{ return Enum::DynamicStorage; }
+template <typename Enum> friend bool operator==(Enum value, DynamicStorage){ return value == Enum::DynamicStorage; }
+template <typename Enum> friend bool operator!=(Enum value, DynamicStorage){ return value != Enum::DynamicStorage; }
 };
 struct ElementArray {
 template <typename Enum, Enum = Enum::ElementArray> operator Enum (void) const{ return Enum::ElementArray; }
@@ -1808,6 +1828,26 @@ struct LuminanceAlpha {
 template <typename Enum, Enum = Enum::LuminanceAlpha> operator Enum (void) const{ return Enum::LuminanceAlpha; }
 template <typename Enum> friend bool operator==(Enum value, LuminanceAlpha){ return value == Enum::LuminanceAlpha; }
 template <typename Enum> friend bool operator!=(Enum value, LuminanceAlpha){ return value != Enum::LuminanceAlpha; }
+};
+struct MapCoherent {
+template <typename Enum, Enum = Enum::MapCoherent> operator Enum (void) const{ return Enum::MapCoherent; }
+template <typename Enum> friend bool operator==(Enum value, MapCoherent){ return value == Enum::MapCoherent; }
+template <typename Enum> friend bool operator!=(Enum value, MapCoherent){ return value != Enum::MapCoherent; }
+};
+struct MapPersistent {
+template <typename Enum, Enum = Enum::MapPersistent> operator Enum (void) const{ return Enum::MapPersistent; }
+template <typename Enum> friend bool operator==(Enum value, MapPersistent){ return value == Enum::MapPersistent; }
+template <typename Enum> friend bool operator!=(Enum value, MapPersistent){ return value != Enum::MapPersistent; }
+};
+struct MapRead {
+template <typename Enum, Enum = Enum::MapRead> operator Enum (void) const{ return Enum::MapRead; }
+template <typename Enum> friend bool operator==(Enum value, MapRead){ return value == Enum::MapRead; }
+template <typename Enum> friend bool operator!=(Enum value, MapRead){ return value != Enum::MapRead; }
+};
+struct MapWrite {
+template <typename Enum, Enum = Enum::MapWrite> operator Enum (void) const{ return Enum::MapWrite; }
+template <typename Enum> friend bool operator==(Enum value, MapWrite){ return value == Enum::MapWrite; }
+template <typename Enum> friend bool operator!=(Enum value, MapWrite){ return value != Enum::MapWrite; }
 };
 struct Marker {
 template <typename Enum, Enum = Enum::Marker> operator Enum (void) const{ return Enum::Marker; }
@@ -2678,6 +2718,11 @@ struct Performance {
 template <typename Enum, Enum = Enum::Performance> operator Enum (void) const{ return Enum::Performance; }
 template <typename Enum> friend bool operator==(Enum value, Performance){ return value == Enum::Performance; }
 template <typename Enum> friend bool operator!=(Enum value, Performance){ return value != Enum::Performance; }
+};
+struct Persistent {
+template <typename Enum, Enum = Enum::Persistent> operator Enum (void) const{ return Enum::Persistent; }
+template <typename Enum> friend bool operator==(Enum value, Persistent){ return value == Enum::Persistent; }
+template <typename Enum> friend bool operator!=(Enum value, Persistent){ return value != Enum::Persistent; }
 };
 struct PixelBuffer {
 template <typename Enum, Enum = Enum::PixelBuffer> operator Enum (void) const{ return Enum::PixelBuffer; }
@@ -4258,6 +4303,11 @@ struct WindowSystem {
 template <typename Enum, Enum = Enum::WindowSystem> operator Enum (void) const{ return Enum::WindowSystem; }
 template <typename Enum> friend bool operator==(Enum value, WindowSystem){ return value == Enum::WindowSystem; }
 template <typename Enum> friend bool operator!=(Enum value, WindowSystem){ return value != Enum::WindowSystem; }
+};
+struct Write {
+template <typename Enum, Enum = Enum::Write> operator Enum (void) const{ return Enum::Write; }
+template <typename Enum> friend bool operator==(Enum value, Write){ return value == Enum::Write; }
+template <typename Enum> friend bool operator!=(Enum value, Write){ return value != Enum::Write; }
 };
 struct WriteOnly {
 template <typename Enum, Enum = Enum::WriteOnly> operator Enum (void) const{ return Enum::WriteOnly; }
