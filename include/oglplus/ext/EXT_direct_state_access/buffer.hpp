@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/buffer.hpp
- *  @brief Buffer wrappers
+ *  @file oglplus/ext/EXT_direct_state_access/buffer.hpp
+ *  @brief Buffer wrappers with direct state access
  *
  *  @author Matus Chochlik
  *
@@ -10,203 +10,34 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_BUFFER_1107121519_HPP
-#define OGLPLUS_BUFFER_1107121519_HPP
+#ifndef OGLPLUS_BUFFER_DSA_1309301821_HPP
+#define OGLPLUS_BUFFER_DSA_1309301821_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
-#include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/object.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/bitfield.hpp>
-#include <oglplus/limited_value.hpp>
-#include <oglplus/enumerations.hpp>
-#include <oglplus/vector.hpp>
-#include <oglplus/data_type.hpp>
-#include <oglplus/pixel_data.hpp>
-#include <oglplus/auxiliary/binding_query.hpp>
-
-#include <vector>
-#include <cassert>
+#include <oglplus/buffer.hpp>
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the uniform buffer binding point index
-class UniformBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	UniformBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	UniformBufferBindingPoint,
-	MAX_UNIFORM_BUFFER_BINDINGS
-)
-#else
-typedef GLuint UniformBufferBindingPoint;
-#endif
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the transform feedback buffer binding point index
-class TransformFeedbackBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	TransformFeedbackBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_4_0 || GL_ARB_transform_feedback3
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	TransformFeedbackBufferBindingPoint,
-	MAX_TRANSFORM_FEEDBACK_BUFFERS
-)
-#else
-typedef GLuint TransformFeedbackBufferBindingPoint;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the atomic counter buffer binding point index
-class AtomicCounterBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	AtomicCounterBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_4_2 || GL_ARB_shader_atomic_counters
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	AtomicCounterBufferBindingPoint,
-	MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
-)
-#else
-typedef GLuint AtomicCounterBufferBindingPoint;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the shader storage buffer binding point index
-class ShaderStorageBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	ShaderStorageBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_4_3 || GL_ARB_shader_storage_buffer_object
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	ShaderStorageBufferBindingPoint,
-	MAX_SHADER_STORAGE_BUFFER_BINDINGS
-)
-#else
-typedef GLuint ShaderStorageBufferBindingPoint;
-#endif
-
-/// Buffer usage enumeration
+/// Wrapper for direct state access buffer operations
 /**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferUsage, GLenum)
-#include <oglplus/enums/buffer_usage.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferUsage)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_usage_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_usage_range.ipp>
-#endif
-
-/// Buffer map access enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferMapAccess, GLbitfield)
-#include <oglplus/enums/buffer_map_access.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferMapAccess)
-OGLPLUS_MAKE_BITFIELD(BufferMapAccess)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_map_access_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_map_access_range.ipp>
-#endif
-
-/// Buffer storage flags/bits
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferStorageBit, GLbitfield)
-#include <oglplus/enums/buffer_storage_bit.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferStorageBit)
-
-OGLPLUS_MAKE_BITFIELD(BufferStorageBit)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_storage_bit_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_storage_bit_range.ipp>
-#endif
-
-/// Buffer bind target
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferTarget, GLenum)
-#include <oglplus/enums/buffer_target.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_target_range.ipp>
-#endif
-
-
-/// Buffer indexed bind target
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferIndexedTarget, GLenum)
-#include <oglplus/enums/buffer_indexed_target.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferIndexedTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_indexed_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_indexed_target_range.ipp>
-#endif
-
-
-/// Wrapper for OpenGL buffer operations
-/**
- *  @note Do not use this class directly, use Buffer instead
+ *  @note Do not use this class directly, use DSABufferEXT instead
  *
- *  @see Buffer
+ *  @see DSABufferEXT
  *
  *  @glsymbols
  *  @glfunref{GenBuffers}
  *  @glfunref{DeleteBuffers}
  *  @glfunref{IsBuffer}
  */
-class BufferOps
+class DSABufferEXTOps
  : public Named
  , public BaseObject<true>
 {
 public:
 	/// Buffer bind targets
 	typedef BufferTarget Target;
+	Target target;
 
 	/// Buffer indexed bind targets
 	typedef BufferIndexedTarget IndexedTarget;
@@ -244,19 +75,7 @@ protected:
 	}
 #endif
 
-	static void _bind(GLuint _name, Target target)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindBuffer,
-			Buffer,
-			EnumValueName(target),
-			_name
-		));
-	}
-
-	friend class FriendOf<BufferOps>;
+	friend class FriendOf<DSABufferEXTOps>;
 
 	static GLenum _binding_query(Target target)
 	{
@@ -267,17 +86,17 @@ protected:
 		}
 		return 0;
 	}
-	friend class BindingQuery<BufferOps>;
+	friend class BindingQuery<DSABufferEXTOps>;
 
-	static GLint GetIntParam(Target target, GLenum query)
+	GLint GetIntParam(GLenum query) const
 	{
 		GLint value = 0;
-		OGLPLUS_GLFUNC(GetBufferParameteriv)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(GetNamedBufferParameterivEXT)(
+			_name,
 			query,
 			&value
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetNamedBufferParameterivEXT));
 		return value;
 	}
 
@@ -295,22 +114,25 @@ public:
 	/// Typed mapping of the buffer to the client address space
 	template <typename Type>
 	class TypedMap
+	 : public FriendOf<DSABufferEXTOps>
 	{
 	private:
 		const GLintptr _offset;
 		GLsizeiptr _size;
 		GLvoid* _ptr;
-		const Target _target;
+		const GLuint _name;
 
-		static GLsizeiptr _get_size(Target target)
+		static GLsizeiptr _get_size(GLuint name)
 		{
 			GLint value = 0;
-			OGLPLUS_GLFUNC(GetBufferParameteriv)(
-				GLenum(target),
+			OGLPLUS_GLFUNC(GetNamedBufferParameterivEXT)(
+				name,
 				GL_BUFFER_SIZE,
 				&value
 			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+			OGLPLUS_CHECK(
+				OGLPLUS_ERROR_INFO(GetNamedBufferParameterivEXT)
+			);
 			return GLsizeiptr(value);
 		}
 
@@ -338,22 +160,22 @@ public:
 		 *  @throws Error
 		 */
 		TypedMap(
-			Target target,
+			const DSABufferEXTOps& buffer,
 			GLintptr offset,
 			GLsizeiptr size,
 			Bitfield<BufferMapAccess> access
 		): _offset(offset * sizeof(Type))
 		 , _size(size * sizeof(Type))
 		 , _ptr(
-			OGLPLUS_GLFUNC(MapBufferRange)(
-				GLenum(target),
+			OGLPLUS_GLFUNC(MapNamedBufferRangeEXT)(
+				FriendOf<DSABufferEXTOps>::GetName(buffer),
 				offset,
 				size,
 				GLbitfield(access)
 			)
-		), _target(target)
+		), _name(FriendOf<DSABufferEXTOps>::GetName(buffer))
 		{
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBufferRange));
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapNamedBufferRangeEXT));
 		}
 
 		/// Maps the whole buffer
@@ -365,17 +187,19 @@ public:
 		 *
 		 *  @throws Error
 		 */
-		TypedMap(Target target, Bitfield<BufferMapAccess> access)
-		 : _offset(0)
-		 , _size(_get_size(target))
+		TypedMap(
+			const DSABufferEXTOps& buffer,
+			Bitfield<BufferMapAccess> access
+		): _offset(0)
+		 , _size(_get_size(FriendOf<DSABufferEXTOps>::GetName(buffer)))
 		 , _ptr(
-			OGLPLUS_GLFUNC(MapBuffer)(
-				GLenum(target),
+			OGLPLUS_GLFUNC(MapNamedBufferEXT)(
+				FriendOf<DSABufferEXTOps>::GetName(buffer),
 				_translate(GLbitfield(access))
 			)
-		), _target(target)
+		), _name(FriendOf<DSABufferEXTOps>::GetName(buffer))
 		{
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBuffer));
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapNamedBufferEXT));
 		}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -391,7 +215,7 @@ public:
 		 : _offset(temp._offset)
 		 , _size(temp._size)
 		 , _ptr(temp._ptr)
-		 , _target(temp._target)
+		 , _name(temp._name)
 		{
 			temp._ptr = nullptr;
 		}
@@ -400,8 +224,10 @@ public:
 		{
 			if(_ptr != nullptr)
 			{
-				OGLPLUS_GLFUNC(UnmapBuffer)(GLenum(_target));
-				OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(UnmapBuffer));
+				OGLPLUS_GLFUNC(UnmapNamedBufferEXT)(_name);
+				OGLPLUS_IGNORE(
+					OGLPLUS_ERROR_INFO(UnmapNamedBufferEXT)
+				);
 			}
 		}
 
@@ -444,33 +270,40 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static bool Mapped(Target target)
+	bool Mapped(void) const
 	{
-		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
+		return GetIntParam(GL_BUFFER_MAPPED) == GL_TRUE;
 	}
 
-	/// Bind this buffer to the specified target
+	/// Bind this buffer to the current target
 	/**
 	 *  @throws Error
 	 */
-	void Bind(Target target) const
+	void Bind(void) const
 	{
-		_bind(_name, target);
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffer,
+			Buffer,
+			EnumValueName(target),
+			_name
+		));
 	}
 
-	/// Unbind the current buffer from the specified target
+	/// Unbind the current buffer from its current target
 	/** This function binds the name 0 to the specified @p target.
 	 *
 	 *  @throws Error
 	 */
-	static void Unbind(Target target)
+	void Unbind(void) const
 	{
 		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), 0);
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
@@ -478,10 +311,10 @@ public:
 	/**
 	 *  @throws Error
 	 */
-	void BindBase(IndexedTarget target, GLuint index) const
+	void BindBase(IndexedTarget idx_target, GLuint index) const
 	{
 		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, _name);
+		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(idx_target), index, _name);
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferBase,
 			Buffer,
@@ -555,7 +388,7 @@ public:
 	 *  @throws Error
 	 */
 	void BindRange(
-		IndexedTarget target,
+		IndexedTarget idx_target,
 		GLuint index,
 		GLintptr offset,
 		GLsizeiptr size
@@ -563,7 +396,7 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindBufferRange)(
-			GLenum(target),
+			GLenum(idx_target),
 			index,
 			_name,
 			offset,
@@ -587,45 +420,43 @@ public:
 	 *  @throws Error
 	 */
 	template <typename GLtype>
-	static void Data(
-		Target target,
+	void Data(
 		GLsizei count,
 		GLtype* data,
 		BufferUsage usage = BufferUsage::StaticDraw
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(BufferData)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+			_name,
 			count * sizeof(GLtype),
 			data,
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BufferData,
+			NamedBufferDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
 	template <typename GLtype, std::size_t Count>
-	static void Data(
-		Target target,
+	void Data(
 		GLtype (&data)[Count],
 		BufferUsage usage = BufferUsage::StaticDraw
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(BufferData)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+			_name,
 			Count * sizeof(GLtype),
 			data,
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BufferData,
+			NamedBufferDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
@@ -639,23 +470,22 @@ public:
 	 *  @throws Error
 	 */
 	template <typename GLtype>
-	static void Data(
-		Target target,
+	void Data(
 		const std::vector<GLtype>& data,
 		BufferUsage usage = BufferUsage::StaticDraw
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(BufferData)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+			_name,
 			data.size() * sizeof(GLtype),
 			data.data(),
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BufferData,
+			NamedBufferDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
@@ -666,24 +496,23 @@ public:
 	 *  @throws Error
 	 */
 	template <typename GLtype, std::size_t N>
-	static void Data(
-		Target target,
+	void Data(
 		const std::vector<Vector<GLtype, N> >& data,
 		BufferUsage usage = BufferUsage::StaticDraw
-	)
+	) const
 	{
 		//TODO: is this a good idea ?
-		OGLPLUS_GLFUNC(BufferData)(
+		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
 			GLenum(target),
 			data.size() * sizeof(GLtype) * N,
 			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BufferData,
+			NamedBufferDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
@@ -694,45 +523,43 @@ public:
 	 *  @throws Error
 	 */
 	template <typename GLtype>
-	static void SubData(
-		Target target,
+	void SubData(
 		GLintptr offset,
 		GLsizei count,
 		GLtype* data
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(BufferSubData)(
+		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
 			GLenum(target),
 			offset * sizeof(GLtype),
 			count * sizeof(GLtype),
 			data
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BufferSubData,
+			NamedBufferSubDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
 	template <typename GLtype, std::size_t Count>
-	static void SubData(
-		Target target,
+	void SubData(
 		GLintptr offset,
 		GLtype (&data)[Count]
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(BufferSubData)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
+			_name,
 			offset * sizeof(GLtype),
 			Count * sizeof(GLtype),
 			data
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BufferSubData,
+			NamedBufferSubDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
@@ -743,23 +570,22 @@ public:
 	 *  @throws Error
 	 */
 	template <typename GLtype>
-	static void SubData(
-		Target target,
+	void SubData(
 		GLintptr offset,
 		const std::vector<GLtype>& data
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(BufferSubData)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
+			_name,
 			offset * sizeof(GLtype),
 			data.size() * sizeof(GLtype),
 			data.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BufferSubData,
+			NamedBufferSubDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
@@ -772,22 +598,22 @@ public:
 	 *
 	 *  @glvoereq{3,1,ARB,copy_buffer}
 	 */
-	static inline void CopySubData(
-		BufferOps::Target readtarget,
-		BufferOps::Target writetarget,
+	static void CopySubData(
+		const DSABufferEXTOps& readbuffer,
+		const DSABufferEXTOps& writebuffer,
 		GLintptr readoffset,
 		GLintptr writeoffset,
 		GLsizeiptr size
 	)
 	{
-		OGLPLUS_GLFUNC(CopyBufferSubData)(
-			GLenum(readtarget),
-			GLenum(writetarget),
+		OGLPLUS_GLFUNC(NamedCopyBufferSubDataEXT)(
+			readbuffer._name,
+			writebuffer._name,
 			readoffset,
 			writeoffset,
 			size
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CopyBufferSubData));
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(NamedCopyBufferSubDataEXT));
 	}
 #endif // copy buffer
 
@@ -804,25 +630,24 @@ public:
 	 *  @glverreq{4,3}
 	 */
 	template <typename GLtype>
-	static void ClearData(
-		Target target,
+	void ClearData(
 		PixelDataInternalFormat internal_format,
 		PixelDataFormat format,
 		const GLtype* data
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(ClearBufferData)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(ClearNamedBufferDataEXT)(
+			_name,
 			GLenum(internal_format),
 			GLenum(format),
 			GLenum(GetDataType<GLtype>()),
 			data
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			ClearBufferData,
+			ClearNamedBufferDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
@@ -838,17 +663,16 @@ public:
 	 *  @glverreq{4,3}
 	 */
 	template <typename GLtype>
-	static void ClearSubData(
-		Target target,
+	void ClearSubData(
 		PixelDataInternalFormat internal_format,
 		GLintptr offset,
 		GLsizeiptr size,
 		PixelDataFormat format,
 		const GLtype* data
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(ClearBufferSubData)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(ClearNamedBufferSubDataEXT)(
+			_name,
 			GLenum(internal_format),
 			offset,
 			size,
@@ -857,10 +681,10 @@ public:
 			data
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			ClearBufferSubData,
+			ClearNamedBufferSubDataEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 #endif
@@ -879,24 +703,23 @@ public:
 	 *  @glfunref{BufferStorage}
 	 */
 	template <typename GLtype>
-	static void Storage(
-		Target target,
+	void Storage(
 		GLsizeiptr size,
 		const void* data,
 		Bitfield<BufferStorageBit> flags
-	)
+	) const
 	{
-		OGLPLUS_GLFUNC(BufferStorage)(
-			GLenum(target),
+		OGLPLUS_GLFUNC(NamedBufferStorageEXT)(
+			_name,
 			size,
 			data,
 			GLbitfield(flags)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BufferStorage,
+			NamedBufferStorageEXT,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_name
 		));
 	}
 
@@ -908,9 +731,9 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static bool ImmutableStorage(Target target)
+	bool ImmutableStorage(void) const
 	{
-		return GLsizei(GetIntParam(target, GL_BUFFER_IMMUTABLE_STORAGE));
+		return GLsizei(GetIntParam(GL_BUFFER_IMMUTABLE_STORAGE));
 	}
 
 	/// Returns the buffer storage flags
@@ -921,10 +744,10 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static Bitfield<BufferStorageBit> StorageFlags(Target target)
+	Bitfield<BufferStorageBit> StorageFlags(void) const
 	{
 		return Bitfield<BufferStorageBit>(GLbitfield(
-			GetIntParam(target, GL_BUFFER_STORAGE_FLAGS)
+			GetIntParam(GL_BUFFER_STORAGE_FLAGS)
 		));
 	}
 #endif
@@ -937,9 +760,9 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static GLsizei Size(Target target)
+	GLsizei Size(void) const
 	{
-		return GLsizei(GetIntParam(target, GL_BUFFER_SIZE));
+		return GLsizei(GetIntParam(GL_BUFFER_SIZE));
 	}
 
 	/// Returns the buffer usage
@@ -952,9 +775,9 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static BufferUsage Usage(Target target)
+	BufferUsage Usage(void) const
 	{
-		return BufferUsage(GetIntParam(target, GL_BUFFER_USAGE));
+		return BufferUsage(GetIntParam(GL_BUFFER_USAGE));
 	}
 
 	/// Returns the buffer usage
@@ -967,10 +790,10 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	static Bitfield<BufferMapAccess> Access(Target target)
+	Bitfield<BufferMapAccess> Access(void) const
 	{
 		return Bitfield<BufferMapAccess>(
-			GLbitfield(GetIntParam(target, GL_BUFFER_ACCESS))
+			GLbitfield(GetIntParam(GL_BUFFER_ACCESS))
 		);
 	}
 };
@@ -980,12 +803,14 @@ public:
 /**
  *  @ingroup oglplus_objects
  */
-class Buffer
- : public BufferOps
+class DSABufferEXT
+ : public DSABufferEXTOps
 { };
 #else
-typedef Object<BufferOps> Buffer;
+typedef Object<DSABufferEXTOps> DSABufferEXT;
 #endif
+
+#endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
 
