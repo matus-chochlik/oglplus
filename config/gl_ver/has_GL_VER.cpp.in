@@ -23,6 +23,7 @@ bool gl_compare_versions(GLint req_major, GLint req_minor)
 	return false;
 }
 
+#if @GLUT_FOUND@
 bool gl_version_is_supported_GLUT(GLint major, GLint minor)
 {
 	int argc = 0;
@@ -42,6 +43,7 @@ bool gl_version_is_supported_GLUT(GLint major, GLint minor)
 
 	return gl_compare_versions(major, minor);
 }
+#endif
 
 bool gl_version_is_supported(GLint major, GLint minor)
 {
