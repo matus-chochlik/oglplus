@@ -6,7 +6,9 @@
 
 #include <oglplus/gl.hpp>
 
-#if @GLFW_FOUND@
+#if @GLFW3_FOUND@
+#include <GLFW/glfw3.h>
+#elif @GLFW_FOUND@
 #include <GL/glfw.h>
 #elif @GLUT_FOUND@
 #include <GL/glut.h>
@@ -25,7 +27,31 @@ bool gl_compare_versions(GLint req_major, GLint req_minor)
 	return false;
 }
 
-#if @GLFW_FOUND@
+#if @GLFW3_FOUND@
+bool gl_version_is_supported_GLFW3(GLint major, GLint minor)
+{
+	if(!glfwInit()) return true;
+
+	GLFWwindow* win = glfwCreateWindow(
+		64, 64,
+		"GL version detection",
+		NULL, NULL
+	);
+	if(!win)
+	{
+		glfwTerminate();
+		return true;
+	}
+	glfwMakeContextCurrent(win);
+	oglplus::GLAPIInitializer gl_api(major, minor);
+
+	bool result = gl_compare_versions(major, minor);
+
+	glfwTerminate();
+
+	return result;
+}
+#elif @GLFW_FOUND@
 bool gl_version_is_supported_GLFW(GLint major, GLint minor)
 {
 	if(!glfwInit()) return true;
@@ -74,7 +100,9 @@ bool gl_version_is_supported_GLUT(GLint major, GLint minor)
 
 bool gl_version_is_supported(GLint major, GLint minor)
 {
-#if @GLFW_FOUND@
+#if @GLFW3_FOUND@
+	return gl_version_is_supported_GLFW3(major, minor);
+#elif @GLFW_FOUND@
 	return gl_version_is_supported_GLFW(major, minor);
 #elif @GLUT_FOUND@
 	return gl_version_is_supported_GLUT(major, minor);

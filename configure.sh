@@ -192,19 +192,20 @@ do
 	--use-gl-init-lib)
 		shift
 		case "${1}" in
-		GLX|GLUT|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1};;
+		GLX|GLUT|GLFW3|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1};;
 		*) echoerror "Unknown GL initialization lib '${1}'" && exit 1;;
 		esac
 		;;
 	--use-gl-init-lib=*)
 		case "${1##*=}" in
-		GLX|GLUT|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1##*=};;
+		GLX|GLUT|GLFW3|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1##*=};;
 		*) echoerror "Unknown GL initialization lib '${1##*=}'" && exit 1;;
 		esac
 		;;
 
 	--use-glx) oglplus_forced_gl_init_lib=GLX;;
 	--use-glut) oglplus_forced_gl_init_lib=GLUT;;
+	--use-glfw3) oglplus_forced_gl_init_lib=GLFW3;;
 	--use-glfw) oglplus_forced_gl_init_lib=GLFW;;
 	--use-sdl) oglplus_forced_gl_init_lib=SDL;;
 	--use-wxgl) oglplus_forced_gl_init_lib=WXGL;;

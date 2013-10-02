@@ -41,6 +41,7 @@ bool gl_has_extension(const char* ext_vendor, const char* ext_name)
 	return false;
 }
 
+#if @GLUT_FOUND@
 bool gl_extension_is_available_GLUT(const char* ext_vendor, const char* ext_name)
 {
 	int argc = 0;
@@ -60,6 +61,7 @@ bool gl_extension_is_available_GLUT(const char* ext_vendor, const char* ext_name
 
 	return gl_has_extension(ext_vendor, ext_name);
 }
+#endif
 
 bool gl_extension_is_available(const char* ext_vendor, const char* ext_name)
 {

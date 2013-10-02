@@ -35,6 +35,7 @@ bool gl_has_ARB_transform_feedback2(void)
 	return true;
 }
 
+#if @GLUT_FOUND@
 bool gl_extension_is_available_GLUT(void)
 {
 	int argc = 0;
@@ -54,6 +55,7 @@ bool gl_extension_is_available_GLUT(void)
 
 	return gl_has_ARB_transform_feedback2();
 }
+#endif
 
 bool gl_extension_is_available(void)
 {

@@ -18,6 +18,9 @@ macro(do_require_all_dependencies EXE_DIR EXE_NAME RESULT)
 				if(${DEPENDENCY}_INCLUDE_DIRS)
 					include_directories(${${DEPENDENCY}_INCLUDE_DIRS})
 				endif()
+				if(${DEPENDENCY}_LIBRARY_DIRS)
+					include_directories(${${DEPENDENCY}_LIBRARY_DIRS})
+				endif()
 				if(${DEPENDENCY}_DEFINITIONS)
 					set_property(
 						SOURCE "${EXE_NAME}.cpp" APPEND PROPERTY
