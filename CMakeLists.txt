@@ -47,6 +47,8 @@ set(OGLPLUS_USE_GL3W 0)
 set(HEADER_SEARCH_PATHS ${HEADER_SEARCH_PATHS};${PROJECT_SOURCE_DIR}/third_party/include)
 
 include(FindPkgConfig)
+include(config/CommonFindMod.cmake)
+
 include(config/FindOpenGL.cmake)
 include(config/FindGLEW.cmake)
 include(config/FindGL3W.cmake)

@@ -6,7 +6,7 @@
 unset(PANGO_CAIRO_FOUND)
 
 if(PKG_CONFIG_FOUND)
-	pkg_check_modules(PANGO_CAIRO pangocairo)
+	pkg_check_modules(PANGO_CAIRO QUIET pangocairo)
 
 	if(PANGO_CAIRO_FOUND)
 		message(STATUS "Found Pango/Cairo")
