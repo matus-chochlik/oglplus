@@ -56,11 +56,46 @@ macro(oglplus_common_find_module PREFIX PC_NAME HEADER LIBRARY)
 		find_library(${PREFIX}_LIBRARIES NAMES ${LIBRARY})
 	endif()
 
+	set(${PREFIX}_FOUND 0)
 	if((EXISTS "${${PREFIX}_INCLUDE_DIRS}"))
-		set(${PREFIX}_FOUND 1)
-		message(STATUS "Found ${PREFIX}: ${${PREFIX}_INCLUDE_DIRS} ${${PREFIX}_LIBRARIES}")
+
+		if(EXISTS ${PROJECT_SOURCE_DIR}/config/ext_lib/test_${PREFIX}.cpp)
+			configure_file(
+				${PROJECT_SOURCE_DIR}/config/ext_lib/test_${PREFIX}.cpp
+				${PROJECT_BINARY_DIR}/ext_lib/test_${PREFIX}.cpp
+			)
+			try_run(
+				RUNS_WITH_${PREFIX} COMPILES_WITH_${PREFIX}
+				"${PROJECT_BINARY_DIR}/ext_lib"
+				"${PROJECT_BINARY_DIR}/ext_lib/test_${PREFIX}.cpp"
+				COMPILE_DEFINITIONS
+					"${OGLPLUS_CPP11_COMPILER_SWITCH} ${${PREFIX}_DEFINITIONS}"
+				CMAKE_FLAGS
+					"-DINCLUDE_DIRECTORIES:STRING=${${PREFIX}_INCLUDE_DIRS} "
+					"-DLIBRARY_DIRECTORIES:STRING=${${PREFIX}_LIBRARY_DIRS} "
+					"-DLINK_LIBRARIES:STRING=${${PREFIX}_LIBRARIES} "
+			)
+			if(COMPILES_WITH_${PREFIX})
+				if(RUNS_WITH_${PREFIX} EQUAL 0)
+					set(${PREFIX}_FOUND 1)
+					message(STATUS
+						"Found ${PREFIX}: "
+						"${${PREFIX}_INCLUDE_DIRS} "
+						"${${PREFIX}_LIBRARIES}"
+					)
+				else()
+					message(STATUS "Could NOT execute with ${PREFIX}")
+				endif()
+			else()
+				message(STATUS "Could NOT compile or link with ${PREFIX}")
+			endif()
+			unset(RUNS_WITH_${PREFIX})
+			unset(COMPILES_WITH_${PREFIX})
+		else()
+			set(${PREFIX}_FOUND 1)
+			message(STATUS "Found ${PREFIX}: ${${PREFIX}_INCLUDE_DIRS} ${${PREFIX}_LIBRARIES}")
+		endif()
 	else()
-		set(${PREFIX}_FOUND 0)
 		message(STATUS "Could NOT find ${PREFIX}")
 	endif()
 endmacro()

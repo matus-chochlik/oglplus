@@ -168,6 +168,8 @@ include_directories(${PROJECT_SOURCE_DIR}/third_party/include)
 # include the oglplus implementation
 include_directories(${PROJECT_SOURCE_DIR}/implement)
 
+# common functions for GL version and extension detection
+include(config/GLVerExt.cmake)
 # GL version detection
 include(config/GLVer.cmake)
 # GL extension detection
