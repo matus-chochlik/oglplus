@@ -54,6 +54,7 @@
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/shapes/torus.hpp>
 #include <oglplus/shapes/sphere.hpp>
+#include <oglplus/shapes/subdiv_sphere.hpp>
 #include <oglplus/shapes/spiral_sphere.hpp>
 #include <oglplus/shapes/tetrahedrons.hpp>
 #include <oglplus/shapes/twisted_torus.hpp>
@@ -73,6 +74,7 @@
 #include <oglplus/images/squares.hpp>
 #include <oglplus/images/sphere_bmap.hpp>
 #include <oglplus/images/random.hpp>
+#include <oglplus/images/load.hpp>
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>

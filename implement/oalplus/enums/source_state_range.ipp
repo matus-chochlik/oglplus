@@ -13,7 +13,7 @@ namespace enums {
 OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	SourceState
-> _ValueRange(SourceState*)
+> ValueRange_(SourceState*)
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_SOURCESTATE)
 #define OALPLUS_IMPL_EVR_SOURCESTATE

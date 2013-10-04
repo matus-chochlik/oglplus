@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OALPLUS_LIB_FUNC StrLit _ValueName(
+OALPLUS_LIB_FUNC StrLit ValueName_(
 	DataFormat*,
 	ALenum value
 )

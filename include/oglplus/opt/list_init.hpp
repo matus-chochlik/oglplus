@@ -83,7 +83,7 @@ class ListInitializer
  : public ListInitializerBase<T, I>
 {
 private:
-	typedef ListInitializerBase<T, I> _Base;
+	typedef ListInitializerBase<T, I> _base;
 
 	friend class ListInitializer<T, I-1>;
 
@@ -126,15 +126,15 @@ private:
 	ListInitializer(const ListInitializer&);
 
 	ListInitializer(T value, const ListInitializer<T, I-1>* prev)
-	 : _Base(value, prev)
+	 : _base(value, prev)
 	{ }
 public:
 	ListInitializer(T value)
-	 : _Base(value)
+	 : _base(value)
 	{ }
 
 	ListInitializer(ListInitializer&& temp)
-	 : _Base(temp)
+	 : _base(temp)
 	{ }
 
 	ListInitializer<T, I+1> operator()(T value) const

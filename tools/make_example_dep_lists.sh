@@ -46,7 +46,7 @@ function make_example_dep_lists()
 		echo ${example_name}
 		dependency_file=example/${oglplus_lib}/dependencies/${example_name}.txt
 
-		g++ --std=c++0x ${example_path} ${CXXFLAGS} -Iinclude -Ithird_party/include -DOGLPLUS_NO_SITE_CONFIG=1 -DOGLPLUS_NO_GL=1 -E -M -o ${temp_file}
+		g++ --std=c++0x ${example_path} ${CXXFLAGS} -Iinclude -Iimplement -Ithird_party/include -DOGLPLUS_NO_SITE_CONFIG=1 -DOGLPLUS_NO_GL=1 -E -M -o ${temp_file}
 
 		for dep_data
 		do

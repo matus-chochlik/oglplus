@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	PathNVFontTarget
-> _ValueRange(PathNVFontTarget*)
+> ValueRange_(PathNVFontTarget*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PATHNVFONTTARGET)
 #define OGLPLUS_IMPL_EVR_PATHNVFONTTARGET

@@ -45,17 +45,17 @@ private:
 	typedef Base<
 		BaseParam,
 		BufferOps
-	> _Base;
+	> _base;
 public:
 	BoundTemplate(
 		const BufferOps& bindable,
 		BufferOps::Target target
-	): _Base(bindable, target)
+	): _base(bindable, target)
 	{ }
 
 	BoundTemplate(
 		BufferOps::Target target
-	): _Base(target)
+	): _base(target)
 	{ }
 
 

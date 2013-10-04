@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/shapes/sphere.hpp
- *  @brief Sphere builder
+ *  @brief UV-Sphere builder
  *
  *  @author Matus Chochlik
  *

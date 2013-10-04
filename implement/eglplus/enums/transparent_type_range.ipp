@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	TransparentType
-> _ValueRange(TransparentType*)
+> ValueRange_(TransparentType*)
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_TRANSPARENTTYPE)
 #define EGLPLUS_IMPL_EVR_TRANSPARENTTYPE

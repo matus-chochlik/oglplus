@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLbitfield*,
 	PathNVMetricQuery
-> _ValueRange(PathNVMetricQuery*)
+> ValueRange_(PathNVMetricQuery*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PATHNVMETRICQUERY)
 #define OGLPLUS_IMPL_EVR_PATHNVMETRICQUERY

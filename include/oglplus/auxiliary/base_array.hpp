@@ -166,14 +166,14 @@ class BaseArray<Object, true>
  : public MultiObjectBaseArray<Object>
 {
 private:
-	typedef MultiObjectBaseArray<Object> _Base;
+	typedef MultiObjectBaseArray<Object> _base;
 protected:
 	BaseArray(GLsizei c)
-	 : _Base(c)
+	 : _base(c)
 	{ }
 
 	BaseArray(BaseArray&& temp)
-	 : _Base(static_cast<_Base&&>(temp))
+	 : _base(static_cast<_base&&>(temp))
 	{ }
 public:
 	typedef Managed<Object> reference;

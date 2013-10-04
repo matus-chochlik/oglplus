@@ -77,6 +77,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_MIRROR_CLAMP_TO_EDGE
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined MirrorClampToEdge
+#  pragma push_macro("MirrorClampToEdge")
+#  undef MirrorClampToEdge
+   OGLPLUS_ENUM_CLASS_VALUE(MirrorClampToEdge, GL_MIRROR_CLAMP_TO_EDGE)
+#  pragma pop_macro("MirrorClampToEdge")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(MirrorClampToEdge, GL_MIRROR_CLAMP_TO_EDGE)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif

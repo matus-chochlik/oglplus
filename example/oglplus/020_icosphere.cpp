@@ -1,17 +1,25 @@
 /**
- *  @example oglplus/021_cube_mapping.cpp
- *  @brief Shows how to draw an object with cube mapped surface
+ *  @example oglplus/020_icosphere.cpp
+ *  @brief Shows a cube-mapped icosphere.
  *
- *  @oglplus_screenshot{021_cube_mapping}
+ *  @oglplus_screenshot{020_icosphere}
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ *
+ *  @oglplus_example_uses_gl{GL_VERSION_3_0}
+ *  @oglplus_example_uses_texture{cube_0_right}
+ *  @oglplus_example_uses_texture{cube_1_left}
+ *  @oglplus_example_uses_texture{cube_2_top}
+ *  @oglplus_example_uses_texture{cube_3_bottom}
+ *  @oglplus_example_uses_texture{cube_4_front}
+ *  @oglplus_example_uses_texture{cube_5_back}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/spiral_sphere.hpp>
-#include <oglplus/images/newton.hpp>
+#include <oglplus/shapes/subdiv_sphere.hpp>
+#include <oglplus/images/load.hpp>
 #include <oglplus/bound/texture.hpp>
 
 #include <cmath>
@@ -24,22 +32,19 @@ class CubeMapExample : public Example
 {
 private:
 	// helper object building shape vertex attributes
-	shapes::SpiralSphere make_shape;
+	shapes::SimpleSubdivSphere make_shape;
 	// helper object encapsulating shape drawing instructions
 	shapes::DrawingInstructions shape_instr;
 	// indices pointing to shape primitive elements
-	shapes::SpiralSphere::IndexArray shape_indices;
+	shapes::SimpleSubdivSphere::IndexArray shape_indices;
 
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
 	VertexShader vs;
-
-	// Fragment shader
+	GeometryShader gs;
 	FragmentShader fs;
 
-	// Program
 	Program prog;
 
 	// Uniforms
@@ -49,90 +54,120 @@ private:
 	VertexArray shape;
 
 	// VBOs for the shape's vertex attributes
-	Buffer verts, normals;
+	Buffer positions;
 
 	// The environment cube map
 	Texture tex;
 public:
 	CubeMapExample(void)
-	 : shape_instr(make_shape.Instructions())
+	 : make_shape(4)
+	 , shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	 , model_matrix(prog, "ModelMatrix")
 	{
-		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
 			"in vec4 Position;"
-			"in vec3 Normal;"
-			"in vec2 TexCoord;"
 			"out vec3 vertNormal;"
+			"out vec3 vertTexCoord;"
 			"out vec3 vertLightDir;"
-			"out vec3 vertLightRefl;"
 			"out vec3 vertViewDir;"
-			"out vec3 vertViewRefl;"
 			"uniform vec3 LightPos;"
 			"void main(void)"
 			"{"
+			"	vec3 Normal = Position.xyz;"
 			"	gl_Position = ModelMatrix * Position;"
 			"	vertNormal = mat3(ModelMatrix)*Normal;"
+			"	vertTexCoord = Normal;"
 			"	vertLightDir = LightPos - gl_Position.xyz;"
-			"	vertLightRefl = reflect("
-			"		-normalize(vertLightDir),"
-			"		normalize(vertNormal)"
-			"	);"
-			"	vertViewDir = ("
-			"		vec4(0.0, 0.0, 1.0, 1.0)*"
-			"		CameraMatrix"
-			"	).xyz;"
-			"	vertViewRefl = reflect("
-			"		normalize(vertViewDir),"
-			"		normalize(vertNormal)"
-			"	);"
+			"	vertViewDir = (vec4(0.0, 0.0, 1.0, 1.0)*CameraMatrix).xyz;"
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
-		// compile it
 		vs.Compile();
 
-		// set the fragment shader source
+		gs.Source(
+			"#version 330\n"
+			"layout (triangles) in;"
+			"layout (triangle_strip, max_vertices = 3) out;"
+
+			"in vec3 vertNormal[3];"
+			"in vec3 vertTexCoord[3];"
+			"in vec3 vertLightDir[3];"
+			"in vec3 vertViewDir[3];"
+
+			"out vec3 geomNormal;"
+			"out vec3 geomTexCoord;"
+			"out vec3 geomLightDir;"
+			"out vec3 geomLightRefl;"
+			"out vec3 geomViewDir;"
+
+			"void main(void)"
+			"{"
+			"	vec3 FaceNormal = 0.333333*("
+			"		vertNormal[0]+"
+			"		vertNormal[1]+"
+			"		vertNormal[2] "
+			"	);"
+			"	for(int v=0; v!=3; ++v)"
+			"	{"
+			"		gl_Position = gl_in[v].gl_Position;"
+			"		geomNormal = 0.5*(vertNormal[v]+FaceNormal);"
+			"		geomTexCoord = vertTexCoord[v];"
+			"		geomLightDir = vertLightDir[v];"
+			"		geomLightRefl = reflect("
+			"			-normalize(geomLightDir),"
+			"			normalize(FaceNormal)"
+			"		);"
+			"		geomViewDir = vertViewDir[v];"
+			"		EmitVertex();"
+			"	}"
+			"	EndPrimitive();"
+			"}"
+		);
+		gs.Compile();
+
 		fs.Source(
 			"#version 330\n"
 			"uniform samplerCube TexUnit;"
-			"in vec3 vertNormal;"
-			"in vec3 vertLightDir;"
-			"in vec3 vertLightRefl;"
-			"in vec3 vertViewDir;"
-			"in vec3 vertViewRefl;"
-			"out vec4 fragColor;"
+			"in vec3 geomNormal;"
+			"in vec3 geomTexCoord;"
+			"in vec3 geomLightDir;"
+			"in vec3 geomLightRefl;"
+			"in vec3 geomViewDir;"
+			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
-			"	float l = length(vertLightDir);"
-			"	float d = dot("
-			"		normalize(vertNormal), "
-			"		normalize(vertLightDir)"
-			"	) / l;"
-			"	float s = dot("
-			"		normalize(vertLightRefl),"
-			"		normalize(vertViewDir)"
-			"	);"
 			"	vec3 lt = vec3(1.0, 1.0, 1.0);"
-			"	vec3 env = texture(TexUnit, vertViewRefl).rgb;"
-			"	fragColor = vec4("
-			"		env * 0.4 + "
-			"		(lt + env) * 1.5 * max(d, 0.0) + "
-			"		lt * pow(max(s, 0.0), 64), "
-			"		1.0"
+			"	vec3 tex = texture(TexUnit, geomTexCoord).rgb;"
+			"	float d = dot("
+			"		normalize(geomNormal), "
+			"		normalize(geomLightDir)"
 			"	);"
+			"	float s = dot("
+			"		normalize(geomLightRefl),"
+			"		normalize(geomViewDir)"
+			"	);"
+			"	float b = 1.0-sqrt(max(dot("
+			"		normalize(geomNormal),"
+			"		normalize(geomViewDir)"
+			"	), 0.0));"
+			"	float ea = clamp(tex.b*(-d+0.2), 0.0, 1.0);"
+			"	float sr = 1.0-tex.b*0.8;"
+
+			"	fragColor = "
+			"		tex * (0.3*ea + 0.6*b + 0.8*max(d, 0.0)) + "
+			"		(tex+lt) * 0.8*sr*pow(clamp(s+0.05, 0.0, 1.0), 32);"
 			"}"
 		);
-		// compile it
 		fs.Compile();
 
 		// attach the shaders to the program
 		prog.AttachShader(vs);
+		prog.AttachShader(gs);
 		prog.AttachShader(fs);
 		// link and use it
 		prog.Link();
@@ -141,7 +176,7 @@ public:
 		// bind the VAO for the shape
 		shape.Bind();
 
-		verts.Bind(Buffer::Target::Array);
+		positions.Bind(Buffer::Target::Array);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Positions(data);
@@ -151,28 +186,8 @@ public:
 			attr.Enable();
 		}
 
-		normals.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Normals(data);
-			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Normal");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
-
 		// setup the texture
 		{
-			GLuint tex_side = 256;
-			auto image = images::NewtonFractal(
-				tex_side, tex_side,
-				Vec3f(0.3f, 0.1f, 0.2f),
-				Vec3f(1.0f, 0.8f, 0.9f),
-				Vec2f(-1.0f, -1.0f),
-				Vec2f( 1.0f,  1.0f),
-				images::NewtonFractal::X4Minus1(),
-				images::NewtonFractal::DefaultMixer()
-			);
 			auto bound_tex = Bind(tex, Texture::Target::CubeMap);
 			bound_tex.MinFilter(TextureMinFilter::Linear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);
@@ -180,21 +195,28 @@ public:
 			bound_tex.WrapT(TextureWrap::ClampToEdge);
 			bound_tex.WrapR(TextureWrap::ClampToEdge);
 
-			for(int i=0; i!=6; ++i)
-				Texture::Image2D(Texture::CubeMapFace(i), image);
+			const char* tex_name[6] = {
+				"cube_0_right",
+				"cube_1_left",
+				"cube_2_top",
+				"cube_3_bottom",
+				"cube_4_front",
+				"cube_5_back"
+			};
+			for(GLuint i=0; i!=6; ++i)
+			{
+				Texture::Image2D(
+					Texture::CubeMapFace(i),
+					images::LoadTexture(tex_name[i], false, true)
+				);
+			}
 		}
-		// typechecked uniform with the exact sampler type
-		// on compilers supporting strongly typed enums
-		// you can use:
-		//Typechecked<Uniform<SLtoCpp<SLDataType::SamplerCube>>>(prog, "TexUnit").Set(0);
-		// without strongly typed enums you need to do:
-		typedef SLtoCpp<OGLPLUS_CONST_ENUM_VALUE(SLDataType::SamplerCube)> GLSLsamplerCube;
-		Typechecked<Uniform<GLSLsamplerCube>>(prog, "TexUnit").Set(0);
+		UniformSampler(prog, "TexUnit").Set(0);
 
 		//
 		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(3.0f, 5.0f, 4.0f));
 		//
-		gl.ClearColor(0.2f, 0.05f, 0.1f, 0.0f);
+		gl.ClearColor(0.05f, 0.2f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 

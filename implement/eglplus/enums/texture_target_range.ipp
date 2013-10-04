@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	TextureTarget
-> _ValueRange(TextureTarget*)
+> ValueRange_(TextureTarget*)
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_TEXTURETARGET)
 #define EGLPLUS_IMPL_EVR_TEXTURETARGET

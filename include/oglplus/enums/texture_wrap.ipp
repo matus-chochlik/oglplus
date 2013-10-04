@@ -18,7 +18,9 @@ Repeat,
 /// CLAMP_TO_BORDER
 ClampToBorder,
 /// MIRRORED_REPEAT
-MirroredRepeat
+MirroredRepeat,
+/// MIRROR_CLAMP_TO_EDGE
+MirrorClampToEdge
 
 #else // !OGLPLUS_DOCUMENTATION_ONLY
 

@@ -38,7 +38,7 @@ public:
 	/// Returns the winding direction of faces
 	FaceOrientation FaceWinding(void) const
 	{
-		return FaceOrientation::CW;
+		return FaceOrientation::CCW;
 	}
 
 	typedef GLuint (SimpleIcosahedron::*VertexAttribFunc)(std::vector<GLfloat>&) const;

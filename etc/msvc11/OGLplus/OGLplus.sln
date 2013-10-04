@@ -89,7 +89,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "024_particle_trails", "024_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "026_shape_halo", "026_shape_halo\026_shape_halo.vcxproj", "{758C7CC8-3FFD-755B-3D7A-9DD57694B169}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "021_cube_mapping", "021_cube_mapping\021_cube_mapping.vcxproj", "{3261DB39-3C5D-54BF-68C9-01B6D5938573}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_cube_mapping", "020_cube_mapping\020_cube_mapping.vcxproj", "{3261DB39-3C5D-54BF-68C9-01B6D5938573}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "030_cube_mapping", "030_cube_mapping\030_cube_mapping.vcxproj", "{C7A625A3-3F0E-2D44-D24F-823F3796786C}"
 EndProject

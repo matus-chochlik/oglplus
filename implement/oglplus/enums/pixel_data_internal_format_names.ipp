@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit _ValueName(
+OGLPLUS_LIB_FUNC StrLit ValueName_(
 	PixelDataInternalFormat*,
 	GLenum value
 )
@@ -25,6 +25,9 @@ switch(value)
 #endif
 #if defined GL_DEPTH_STENCIL
 	case GL_DEPTH_STENCIL: return StrLit("DEPTH_STENCIL");
+#endif
+#if defined GL_STENCIL_INDEX8
+	case GL_STENCIL_INDEX8: return StrLit("STENCIL_INDEX8");
 #endif
 #if defined GL_RED
 	case GL_RED: return StrLit("RED");

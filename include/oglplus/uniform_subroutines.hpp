@@ -100,15 +100,15 @@ class SubroutineUniformTpl
 private:
 	friend class UniformSubroutines;
 public:
-	template <typename _String>
+	template <typename String_>
 	SubroutineUniformTpl(
 		const Program& program,
 		const ShaderType stage,
-		_String&& identifier
+		String_&& identifier
 	): Initializer(
 		program,
 		stage,
-		std::forward<_String>(identifier),
+		std::forward<String_>(identifier),
 		NoTypecheck()
 	)
 	{ }

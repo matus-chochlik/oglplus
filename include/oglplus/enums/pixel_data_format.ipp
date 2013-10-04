@@ -11,12 +11,12 @@
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 
-/// STENCIL_INDEX
-StencilIndex,
 /// DEPTH_COMPONENT
 DepthComponent,
 /// DEPTH_STENCIL
 DepthStencil,
+/// STENCIL_INDEX
+StencilIndex,
 /// RED
 Red,
 /// GREEN

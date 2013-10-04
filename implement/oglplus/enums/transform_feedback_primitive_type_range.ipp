@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	TransformFeedbackPrimitiveType
-> _ValueRange(TransformFeedbackPrimitiveType*)
+> ValueRange_(TransformFeedbackPrimitiveType*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_TRANSFORMFEEDBACKPRIMITIVETYPE)
 #define OGLPLUS_IMPL_EVR_TRANSFORMFEEDBACKPRIMITIVETYPE

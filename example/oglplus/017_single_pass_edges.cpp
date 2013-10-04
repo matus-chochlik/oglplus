@@ -12,21 +12,21 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/shapes/icosahedron.hpp>
+#include <oglplus/shapes/subdiv_sphere.hpp>
 
 #include "example.hpp"
 
 namespace oglplus {
 
-class IcosahedronExample : public Example
+class SinglePassEdgeExample : public Example
 {
 private:
 	// helper object building shape vertex attributes
-	shapes::SimpleIcosahedron make_shape;
+	shapes::SimpleSubdivSphere make_shape;
 	// helper object encapsulating shape drawing instructions
 	shapes::DrawingInstructions shape_instr;
 	// indices pointing to shape primitive elements
-	shapes::SimpleIcosahedron::IndexArray shape_indices;
+	shapes::SimpleSubdivSphere::IndexArray shape_indices;
 
 	// wrapper around the current OpenGL context
 	Context gl;
@@ -54,8 +54,9 @@ private:
 	// VBOs for the shape's vertices and element indices
 	Buffer verts, indices;
 public:
-	IcosahedronExample(void)
-	 : shape_instr(make_shape.Instructions())
+	SinglePassEdgeExample(void)
+	 : make_shape(1, shapes::SubdivSphereInitialShape::Octohedron)
+	 , shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
 	 , vs(ObjectDesc("Vertex"))
 	 , gs(ObjectDesc("Geometry"))
@@ -223,6 +224,10 @@ public:
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);
 
+		gl.Enable(Capability::CullFace);
+		gl.CullFace(Face::Back);
+		gl.FrontFace(make_shape.FaceWinding());
+
 		prog.Use();
 	}
 
@@ -275,7 +280,7 @@ std::unique_ptr<ExampleThread> makeExampleThread(
 
 std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
-	return std::unique_ptr<Example>(new IcosahedronExample);
+	return std::unique_ptr<Example>(new SinglePassEdgeExample);
 }
 
 } // namespace oglplus

@@ -37,6 +37,8 @@ TransformFeedback,
 AtomicCounter,
 /// SHADER_STORAGE_BARRIER_BIT
 ShaderStorage,
+/// CLIENT_MAPPED_BUFFER_BARRIER_BIT
+ClientMappedBuffer,
 /// ALL_BARRIER_BITS
 All
 

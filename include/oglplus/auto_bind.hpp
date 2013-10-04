@@ -78,9 +78,9 @@ class AutoBindBase
  , public AutoBindUnit<Bindable, BindableOps, Safe>
 {
 private:
-	typedef AutoBindUnit<Bindable, BindableOps, Safe> _UnitSel;
+	typedef AutoBindUnit<Bindable, BindableOps, Safe> UnitSel_;
 	typedef typename Bindable::Target Target;
-	typedef std::integral_constant<bool, Safe> _IsSafe;
+	typedef std::integral_constant<bool, Safe> IsSafe_;
 
 	static GLuint& _currently_bound(Target target)
 	{
@@ -134,8 +134,8 @@ private:
 		Target target
 	) const
 	{
-		_UnitSel::_select_unit_if_necessary();
-		_IsSafe is_safe;
+		UnitSel_::_select_unit_if_necessary();
+		IsSafe_ is_safe;
 		if(!_is_bound(bindable, target, is_safe))
 		{
 			_do_bind(bindable, target, is_safe);
@@ -149,7 +149,7 @@ protected:
 	{ }
 
 	AutoBindBase(Target target, GLuint unit)
-	 : _UnitSel(unit)
+	 : UnitSel_(unit)
 	 , _bind_target(target)
 	{ }
 
@@ -160,13 +160,13 @@ protected:
 
 	AutoBindBase(const BindableOps& bindable, Target target, GLuint unit)
 	 : Bindable(bindable)
-	 , _UnitSel(unit)
+	 , UnitSel_(unit)
 	 , _bind_target(target)
 	{ }
 
 	AutoBindBase(AutoBindBase&& tmp)
 	 : Bindable(static_cast<Bindable&&>(tmp))
-	 , _UnitSel(static_cast<_UnitSel&&>(tmp))
+	 , UnitSel_(static_cast<UnitSel_&&>(tmp))
 	 , _bind_target(tmp._bind_target)
 	{ }
 
@@ -193,26 +193,26 @@ struct AutoBindBaseSelect
 	{
 	private:
 		typedef typename Bindable::Target Target;
-		typedef AutoBindBase<Bindable, BindableOps, Safe> _Base;
+		typedef AutoBindBase<Bindable, BindableOps, Safe> _base;
 	protected:
 		Result(Target target)
-		 : _Base(target)
+		 : _base(target)
 		{ }
 
 		Result(Target target, GLuint unit)
-		 : _Base(target, unit)
+		 : _base(target, unit)
 		{ }
 
 		Result(const BindableOps& bindable, Target target)
-		 : _Base(bindable, target)
+		 : _base(bindable, target)
 		{ }
 
 		Result(const BindableOps& bindable, Target target, GLuint unit)
-		 : _Base(bindable, target, unit)
+		 : _base(bindable, target, unit)
 		{ }
 
 		Result(Result&& tmp)
-		 : _Base(static_cast<_Base&&>(tmp))
+		 : _base(static_cast<_base&&>(tmp))
 		{ }
 	};
 };
@@ -235,27 +235,27 @@ private:
 		aux::AutoBindBaseSelect<Safe>::template Result,
 		Object<BindableOps>,
 		BindableOps
-	> _Base;
+	> _base;
 public:
 	AutoBind(typename BindableOps::Target target)
-	 : _Base(target)
+	 : _base(target)
 	{ }
 
-	template <typename _Target>
+	template <typename Target_>
 	AutoBind(
-		_Target target,
+		Target_ target,
 		typename std::enable_if<
 			std::is_same<
 				typename TextureOps::Target,
-				_Target
+				Target_
 			>::value,
 			GLuint
 		>::type tex_unit
-	): _Base(target, tex_unit)
+	): _base(target, tex_unit)
 	{ }
 
 	AutoBind(AutoBind&& tmp)
-	 : _Base(std::move(tmp))
+	 : _base(std::move(tmp))
 	{ }
 };
 
@@ -272,30 +272,30 @@ private:
 		aux::AutoBindBaseSelect<Safe>::template Result,
 		Managed<BindableOps>,
 		BindableOps
-	> _Base;
+	> _base;
 public:
 	AutoBind(
 		const BindableOps& bindable,
 		typename BindableOps::Target target
-	): _Base(bindable, target)
+	): _base(bindable, target)
 	{ }
 
-	template <typename _Target>
+	template <typename Target_>
 	AutoBind(
 		const BindableOps& bindable,
-		_Target target,
+		Target_ target,
 		typename std::enable_if<
 			std::is_same<
 				typename TextureOps::Target,
-				_Target
+				Target_
 			>::value,
 			GLuint
 		>::type tex_unit
-	): _Base(bindable, target, tex_unit)
+	): _base(bindable, target, tex_unit)
 	{ }
 
 	AutoBind(AutoBind&& tmp)
-	 : _Base(static_cast<_Base&&>(tmp))
+	 : _base(static_cast<_base&&>(tmp))
 	{ }
 };
 
@@ -307,18 +307,18 @@ class Array<AutoBind<Object<ObjectOps>, Safe> >
  : public aux::MultiObjectBaseArray<Object<ObjectOps> >
 {
 private:
-	typedef aux::MultiObjectBaseArray<Object<ObjectOps> > _Base;
+	typedef aux::MultiObjectBaseArray<Object<ObjectOps> > _base;
 	typedef typename ObjectOps::Target Target;
 
 	Target _target;
 public:
 	Array(GLsizei c, Target target)
-	 : _Base(c)
+	 : _base(c)
 	 , _target(target)
 	{ }
 
 	Array(Array&& temp)
-	 : _Base(static_cast<_Base&&>(temp))
+	 : _base(static_cast<_base&&>(temp))
 	 , _target(temp.target)
 	{ }
 
@@ -381,20 +381,20 @@ class Array<AutoBind<Object<TextureOps>, Safe> >
  : public aux::MultiObjectBaseArray<Object<TextureOps> >
 {
 private:
-	typedef aux::MultiObjectBaseArray<Object<TextureOps> > _Base;
+	typedef aux::MultiObjectBaseArray<Object<TextureOps> > _base;
 	typedef typename TextureOps::Target Target;
 
 	Target _target;
 	GLuint _tex_unit;
 public:
 	Array(GLsizei c, Target target, GLuint base_tex_unit)
-	 : _Base(c)
+	 : _base(c)
 	 , _target(target)
 	 , _tex_unit(base_tex_unit)
 	{ }
 
 	Array(Array&& temp)
-	 : _Base(static_cast<_Base&&>(temp))
+	 : _base(static_cast<_base&&>(temp))
 	 , _target(temp._target)
 	 , _tex_unit(temp._tex_unit)
 	{ }

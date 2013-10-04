@@ -221,6 +221,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined ClientMappedBuffer
+#  pragma push_macro("ClientMappedBuffer")
+#  undef ClientMappedBuffer
+   OGLPLUS_ENUM_CLASS_VALUE(ClientMappedBuffer, GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT)
+#  pragma pop_macro("ClientMappedBuffer")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(ClientMappedBuffer, GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined GL_ALL_BARRIER_BITS
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA

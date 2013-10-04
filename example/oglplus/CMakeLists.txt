@@ -19,6 +19,9 @@ if(NOT ${HARNESS_CAN_BE_BUILT})
 	)
 	return()
 endif()
+# optional dependencies for the harness with library
+require_oglplus_lib_dependencies()
+
 
 include_directories(${PROJECT_SOURCE_DIR}/utils)
 
@@ -50,6 +53,8 @@ add_library(
 )
 # add the dependencies for the harness
 add_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main oglplus_example_harness)
+# optional dependencies for the harness with library
+add_oglplus_lib_dependencies(oglplus_example_harness)
 
 # TODO: try to find some better solution for this
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx")

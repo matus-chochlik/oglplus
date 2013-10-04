@@ -1,0 +1,98 @@
+/**
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#include <oglplus/gl.hpp>
+
+#if @GLFW3_FOUND@
+#include <GLFW/glfw3.h>
+#elif @GLFW_FOUND@
+#include <GL/glfw.h>
+#elif @GLUT_FOUND@
+#include <GL/glut.h>
+#endif
+
+bool do_query_gl(void);
+
+static const char* title = "GL feature detection";
+
+#if @GLFW3_FOUND@
+bool query_gl_GLFW3(void)
+{
+	if(!glfwInit()) return true;
+
+	GLFWwindow* win = glfwCreateWindow(64, 64, title, NULL, NULL);
+	if(!win)
+	{
+		glfwTerminate();
+		return true;
+	}
+	glfwMakeContextCurrent(win);
+	oglplus::GLAPIInitializer gl_api;
+
+	bool result = do_query_gl();
+
+	glfwTerminate();
+
+	return result;
+}
+#elif @GLFW_FOUND@
+bool query_gl_GLFW(void)
+{
+	if(!glfwInit()) return true;
+
+	if(!glfwOpenWindow(64, 64, 8, 8, 8, 8, 32, 8, GLFW_WINDOW))
+	{
+		glfwTerminate();
+		return true;
+	}
+	glfwSetWindowTitle(title);
+	oglplus::GLAPIInitializer gl_api;
+
+	bool result = do_query_gl();
+
+	glfwTerminate();
+
+	return result;
+}
+#elif @GLUT_FOUND@
+bool query_gl_GLUT(void)
+{
+	int argc = 0;
+	char** argv = nullptr;
+	glutInit(&argc, argv);
+	glutInitDisplayMode(
+		GLUT_DOUBLE|
+		GLUT_RGBA|
+		GLUT_DEPTH|
+		GLUT_STENCIL
+	);
+	glutInitWindowSize(64, 64);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow(title);
+
+	oglplus::GLAPIInitializer gl_api;
+
+	return do_query_gl();
+}
+#endif
+
+bool query_gl(void)
+{
+#if @GLFW3_FOUND@
+	return query_gl_GLFW3();
+#elif @GLFW_FOUND@
+	return query_gl_GLFW();
+#elif @GLUT_FOUND@
+	return query_gl_GLUT();
+#else
+	return true;
+#endif
+}
+
+int main(void)
+{
+	return query_gl()?0:1;
+}

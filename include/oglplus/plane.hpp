@@ -39,10 +39,10 @@ public:
 	 : _equation(v)
 	{ }
 
-	struct _FromTriangle { };
+	struct FromTriangle_ { };
 
 	Plane(
-		_FromTriangle,
+		FromTriangle_,
 		const Vector<T, 3>& p0,
 		const Vector<T, 3>& p1,
 		const Vector<T, 3>& p2
@@ -61,15 +61,15 @@ public:
 	)
 	{
 		return Plane(
-			_FromTriangle(),
+			FromTriangle_(),
 			p0, p1, p2
 		);
 	}
 
-	struct _FromPointAndVectors { };
+	struct FromPointAndVectors_ { };
 
 	Plane(
-		_FromPointAndVectors,
+		FromPointAndVectors_,
 		const Vector<T, 3>& p,
 		const Vector<T, 3>& v1,
 		const Vector<T, 3>& v2
@@ -87,27 +87,27 @@ public:
 	)
 	{
 		return Plane(
-			_FromPointAndVectors(),
+			FromPointAndVectors_(),
 			p, v1, v2
 		);
 	}
 
-	struct _FromNormal { };
+	struct FromNormal_ { };
 
-	Plane(_FromNormal, const Vector<T, 3>& normal)
+	Plane(FromNormal_, const Vector<T, 3>& normal)
 	 : _equation(normal, T(0))
 	{ }
 
 	/// Constructs a plane going through the origin from its normal vector
 	static inline Plane FromNormal(const Vector<T, 3>& normal)
 	{
-		return Plane(_FromNormal(), normal);
+		return Plane(FromNormal_(), normal);
 	}
 
-	struct _FromPointAndNormal { };
+	struct FromPointAndNormal_ { };
 
 	Plane(
-		_FromPointAndNormal,
+		FromPointAndNormal_,
 		const Vector<T, 3>& point,
 		const Vector<T, 3>& normal
 	): _equation(normal, -Dot(normal, point))
@@ -119,7 +119,7 @@ public:
 		const Vector<T, 3>& normal
 	)
 	{
-		return Plane(_FromPointAndNormal(), point, normal);
+		return Plane(FromPointAndNormal_(), point, normal);
 	}
 
 	/// Retuns the plane's equation parameters

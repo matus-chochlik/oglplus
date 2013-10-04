@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	TextureWrap
-> _ValueRange(TextureWrap*)
+> ValueRange_(TextureWrap*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_TEXTUREWRAP)
 #define OGLPLUS_IMPL_EVR_TEXTUREWRAP
@@ -30,6 +30,9 @@ GL_CLAMP_TO_BORDER,
 #endif
 #if defined GL_MIRRORED_REPEAT
 GL_MIRRORED_REPEAT,
+#endif
+#if defined GL_MIRROR_CLAMP_TO_EDGE
+GL_MIRROR_CLAMP_TO_EDGE,
 #endif
 0
 };

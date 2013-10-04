@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit _ValueName(
+OGLPLUS_LIB_FUNC StrLit ValueName_(
 	TextureWrap*,
 	GLenum value
 )
@@ -31,6 +31,9 @@ switch(value)
 #endif
 #if defined GL_MIRRORED_REPEAT
 	case GL_MIRRORED_REPEAT: return StrLit("MIRRORED_REPEAT");
+#endif
+#if defined GL_MIRROR_CLAMP_TO_EDGE
+	case GL_MIRROR_CLAMP_TO_EDGE: return StrLit("MIRROR_CLAMP_TO_EDGE");
 #endif
 	default:;
 }

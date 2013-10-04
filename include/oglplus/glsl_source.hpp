@@ -111,31 +111,31 @@ public:
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(std::move(source)))
 	{ }
 
-	struct _FromStream { };
+	struct FromStream_ { };
 
-	GLSLSource(std::istream& input, _FromStream)
+	GLSLSource(std::istream& input, FromStream_)
 	 : _impl(make_impl<aux::InputStreamGLSLSrcWrap>(input))
 	{ }
 
 	static GLSLSource FromStream(std::istream& input)
 	{
-		return GLSLSource(input, _FromStream());
+		return GLSLSource(input, FromStream_());
 	}
 
-	struct _FromFile { };
+	struct FromFile_ { };
 
-	GLSLSource(const char* path, _FromFile)
+	GLSLSource(const char* path, FromFile_)
 	 : _impl(make_impl<aux::FileGLSLSrcWrap>(path))
 	{ }
 
 	static GLSLSource FromFile(const char* path)
 	{
-		return GLSLSource(path, _FromFile());
+		return GLSLSource(path, FromFile_());
 	}
 
 	static GLSLSource FromFile(const String& path)
 	{
-		return GLSLSource(path.c_str(), _FromFile());
+		return GLSLSource(path.c_str(), FromFile_());
 	}
 
 	/// Count of buffers storing the individual parts of the source

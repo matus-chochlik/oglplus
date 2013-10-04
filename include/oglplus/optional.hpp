@@ -28,9 +28,9 @@ namespace oglplus {
  *
  *  @ingroup modifier_classes
  */
-template <class _Object>
+template <class Object_>
 class Optional
- : public _Object
+ : public Object_
 {
 public:
 	/// Construction of an uninitialized instance
@@ -44,7 +44,7 @@ public:
 	 */
 	Optional(void)
 	OGLPLUS_NOEXCEPT(true)
-	 : _Object(typename _Object::_Uninitialized())
+	 : Object_(typename Object_::Uninitialized_())
 	{ }
 
 	/// Construction of an initialized instance
@@ -55,17 +55,17 @@ public:
 	 *  @see IsInitialized
 	 *  @see Clear
 	 */
-	Optional(_Object&& temp)
+	Optional(Object_&& temp)
 	OGLPLUS_NOEXCEPT(true)
-	 : _Object(std::move(temp))
+	 : Object_(std::move(temp))
 	{ }
 
 	/// Move constructor
 	Optional(Optional&& temp)
 	OGLPLUS_NOEXCEPT(true)
-	 : _Object(typename _Object::_Uninitialized())
+	 : Object_(typename Object_::Uninitialized_())
 	{
-		this->_move_in_uninit(static_cast<_Object&&>(temp));
+		this->_move_in_uninit(static_cast<Object_&&>(temp));
 	}
 
 	/// Returns true if the object is initialized, false otherwise
@@ -91,7 +91,7 @@ public:
 	 *  @see Clear
 	 *  @see IsInitialized
 	 */
-	void Assign(_Object&& temp)
+	void Assign(Object_&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		this->_cleanup_if_needed();

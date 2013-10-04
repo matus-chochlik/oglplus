@@ -13,20 +13,20 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	PixelDataFormat
-> _ValueRange(PixelDataFormat*)
+> ValueRange_(PixelDataFormat*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PIXELDATAFORMAT)
 #define OGLPLUS_IMPL_EVR_PIXELDATAFORMAT
 {
 static const GLenum _values[] = {
-#if defined GL_STENCIL_INDEX
-GL_STENCIL_INDEX,
-#endif
 #if defined GL_DEPTH_COMPONENT
 GL_DEPTH_COMPONENT,
 #endif
 #if defined GL_DEPTH_STENCIL
 GL_DEPTH_STENCIL,
+#endif
+#if defined GL_STENCIL_INDEX
+GL_STENCIL_INDEX,
 #endif
 #if defined GL_RED
 GL_RED,

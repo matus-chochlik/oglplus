@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit _ValueName(
+OGLPLUS_LIB_FUNC StrLit ValueName_(
 	BufferTarget*,
 	GLenum value
 )
@@ -61,6 +61,9 @@ switch(value)
 #endif
 #if defined GL_QUERY_BUFFER
 	case GL_QUERY_BUFFER: return StrLit("QUERY_BUFFER");
+#endif
+#if defined GL_PARAMETER_BUFFER_ARB
+	case GL_PARAMETER_BUFFER_ARB: return StrLit("PARAMETER_BUFFER_ARB");
 #endif
 #if defined GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 	case GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD: return StrLit("EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD");

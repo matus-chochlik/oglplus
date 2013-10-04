@@ -51,11 +51,11 @@ void ConvertUTF8ToCodePoints(
 class UTF8Validator
 {
 protected:
-	static bool _S_is_valid_ptr(const char* _s);
+	static bool _is_valid_ptr(const char* _s);
 	static unsigned char byte(const char* _i);
 
 	template <int N>
-	static void _S_check_seq_tail(const char* _s)
+	static void _check_seq_tail(const char* _s)
 	{
 		for(int i=1; i!=N; ++i)
 		{
@@ -66,11 +66,11 @@ protected:
 	}
 
 	// Validates the utf8 string, returns _end or nullptr
-	static const char* _S_validate(const char* _s, const char* _end);
+	static const char* _validate(const char* _s, const char* _end);
 public:
 	bool operator()(const char* begin, const char* end) const
 	{
-		return _S_validate(begin, end) == end;
+		return _validate(begin, end) == end;
 	}
 };
 #endif

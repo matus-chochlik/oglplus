@@ -146,7 +146,7 @@ class ObjectDescRegistry
 {
 private:
 #if !OGLPLUS_NO_OBJECT_DESCS
-	typedef ObjectDescRegistryBase _Base;
+	typedef ObjectDescRegistryBase _base;
 	typedef ::std::map<GLuint, String> _desc_map;
 
 	static _desc_map& _storage(void)
@@ -165,7 +165,7 @@ protected:
 	OGLPLUS_NOEXCEPT(true) { (void)type; (void)name; (void)desc; }
 #else
 	{
-		_Base::_do_register_desc(
+		_base::_do_register_desc(
 			_storage(),
 			type,
 			name,
@@ -179,7 +179,7 @@ protected:
 	OGLPLUS_NOEXCEPT(true) { (void)type; (void)name; }
 #else
 	{
-		_Base::_do_unregister_desc(
+		_base::_do_unregister_desc(
 			_storage(),
 			_archive(),
 			type,
@@ -195,7 +195,7 @@ public:
 	OGLPLUS_NOEXCEPT(true) { }
 #else
 	{
-		_Base::_do_purge_archive(_archive());
+		_base::_do_purge_archive(_archive());
 	}
 #endif
 
@@ -205,7 +205,7 @@ public:
 	OGLPLUS_NOEXCEPT(true) { (void)name; return aux::EmptyString(); }
 #else
 	{
-		return _Base::_do_get_desc(_storage(), _archive(), name);
+		return _base::_do_get_desc(_storage(), _archive(), name);
 	}
 #endif
 };

@@ -25,8 +25,14 @@ OGLPLUS_ENUM_CLASS_FWD(BlitFilter, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(BufferIndexedTarget, GLenum)
 #include <oglplus/enums/buffer_indexed_target_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(BufferMapAccess, GLbitfield)
+#include <oglplus/enums/buffer_map_access_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(BufferSelectBit, GLbitfield)
 #include <oglplus/enums/buffer_select_bit_range.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(BufferStorageBit, GLbitfield)
+#include <oglplus/enums/buffer_storage_bit_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(BufferTarget, GLenum)
 #include <oglplus/enums/buffer_target_range.ipp>

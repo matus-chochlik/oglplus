@@ -92,12 +92,12 @@ class UniformBlockTpl
  : public Initializer
 {
 public:
-	template <class _String>
-	UniformBlockTpl(const Program& program, _String&& identifier)
+	template <class String_>
+	UniformBlockTpl(const Program& program, String_&& identifier)
 	 : Initializer(
 		program,
 		Nothing(),
-		std::forward<_String>(identifier),
+		std::forward<String_>(identifier),
 		NoTypecheck()
 	)
 	{ }

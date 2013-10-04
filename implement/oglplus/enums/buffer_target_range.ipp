@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	BufferTarget
-> _ValueRange(BufferTarget*)
+> ValueRange_(BufferTarget*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_BUFFERTARGET)
 #define OGLPLUS_IMPL_EVR_BUFFERTARGET
@@ -60,6 +60,9 @@ GL_UNIFORM_BUFFER,
 #endif
 #if defined GL_QUERY_BUFFER
 GL_QUERY_BUFFER,
+#endif
+#if defined GL_PARAMETER_BUFFER_ARB
+GL_PARAMETER_BUFFER_ARB,
 #endif
 #if defined GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD,

@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	OpenGLProfileBit
-> _ValueRange(OpenGLProfileBit*)
+> ValueRange_(OpenGLProfileBit*)
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_OPENGLPROFILEBIT)
 #define EGLPLUS_IMPL_EVR_OPENGLPROFILEBIT
