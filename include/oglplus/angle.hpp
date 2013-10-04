@@ -46,13 +46,13 @@ private:
 	// the angle value in radians
 	T _val_rad;
 
-	struct _Radians { };
-	Angle(T val_rad, _Radians)
+	struct Radians_ { };
+	Angle(T val_rad, Radians_)
 	 : _val_rad(val_rad)
 	{ }
 
-	struct _Degrees { };
-	Angle(T val_deg, _Degrees)
+	struct Degrees_ { };
+	Angle(T val_deg, Degrees_)
 	 : _val_rad(T(val_deg * (math::Pi() / T(180))))
 	{ }
 public:
@@ -80,13 +80,13 @@ public:
 	/// Constructs a new angle from value in radians
 	static inline Angle Radians(T val_rad)
 	{
-		return Angle(val_rad, _Radians());
+		return Angle(val_rad, Radians_());
 	}
 
 	/// Constructs a new angle from value in degrees
 	static inline Angle Degrees(T val_deg)
 	{
-		return Angle(val_deg, _Degrees());
+		return Angle(val_deg, Degrees_());
 	}
 
 	/// Returns the value of the angle in radians
@@ -157,7 +157,7 @@ public:
 	/// Negation
 	Angle Negated(void) const
 	{
-		return Angle(-this->_val_rad, _Radians());
+		return Angle(-this->_val_rad, Radians_());
 	}
 
 	/// Negation operator
@@ -173,7 +173,7 @@ public:
 
 	static Angle Added(const Angle& a, const Angle& b)
 	{
-		return Angle(a._val_rad + b._val_rad, _Radians());
+		return Angle(a._val_rad + b._val_rad, Radians_());
 	}
 
 	/// Addition operator
@@ -196,7 +196,7 @@ public:
 
 	static Angle Subtracted(const Angle& a, const Angle& b)
 	{
-		return Angle(a._val_rad - b._val_rad, _Radians());
+		return Angle(a._val_rad - b._val_rad, Radians_());
 	}
 
 	/// Subtraction operator
@@ -219,7 +219,7 @@ public:
 
 	static Angle Multiplied(const Angle& a, T mult)
 	{
-		return Angle(a._val_rad * mult, _Radians());
+		return Angle(a._val_rad * mult, Radians_());
 	}
 
 	/// Multiplication by constant operator
@@ -241,7 +241,7 @@ public:
 
 	static Angle Divided(const Angle& a, T div)
 	{
-		return Angle(a._val_rad / div, _Radians());
+		return Angle(a._val_rad / div, Radians_());
 	}
 
 	/// Division by constant operator

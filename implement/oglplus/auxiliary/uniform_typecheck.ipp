@@ -232,6 +232,8 @@ bool DefaultGLSLtoCppTypeMatcher_Vec::_does_match(
 		}
 #endif
 	};
+	if(type_idx >= sizeof(allowed)/sizeof(allowed[0]))
+		return false;
 	return sl_type == allowed[type_idx][dim-1];
 }
 
@@ -277,6 +279,8 @@ bool DefaultGLSLtoCppTypeMatcher_Mat::_does_match(
 		}
 #endif
 	};
+	if(type_idx >= sizeof(allowed)/sizeof(allowed[0]))
+		return false;
 	return sl_type==allowed[type_idx][rows-2][cols-2];
 }
 

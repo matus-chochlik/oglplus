@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-EGLPLUS_LIB_FUNC StrLit _ValueName(
+EGLPLUS_LIB_FUNC StrLit ValueName_(
 	TextureTarget*,
 	EGLenum value
 )

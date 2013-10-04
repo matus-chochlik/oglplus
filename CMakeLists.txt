@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 2.8)
 project(OGLplus)
 
 include(config/CommonDefs.cmake)
+file(READ VERSION OGLPLUS_VERSION)
 
 # The GL context initialization library
 set(OGLPLUS_FORCE_GL_INIT_LIB "NONE" CACHE STRING "The GL context initialization library to be used.")
@@ -45,10 +46,14 @@ set(OGLPLUS_USE_GL3W 0)
 
 set(HEADER_SEARCH_PATHS ${HEADER_SEARCH_PATHS};${PROJECT_SOURCE_DIR}/third_party/include)
 
+include(FindPkgConfig)
+include(config/CommonFindMod.cmake)
+
 include(config/FindOpenGL.cmake)
 include(config/FindGLEW.cmake)
 include(config/FindGL3W.cmake)
 include(config/FindGLFW.cmake)
+include(config/FindGLFW3.cmake)
 include(config/FindGLUT.cmake)
 include(config/FindWXGL.cmake)
 include(config/FindQTGL.cmake)
@@ -126,14 +131,14 @@ if((${OGLPLUS_USE_GLCOREARB_H}) OR (${OGLPLUS_USE_GL3_H}))
 	include_directories(BEFORE SYSTEM ${OPENGL_INCLUDE_DIRS})
 	set(OGLPLUS_GL_LIBS ${OPENGL_LIBRARIES})
 
-	message(STATUS "Using native OpenGL")
+	message(STATUS "Using native OpenGL API library")
 elseif(${OGLPLUS_USE_GLEW})
 
 	set(OGLPLUS_GL_INCLUDE_DIRS ${GLEW_INCLUDE_DIRS})
 	include_directories(BEFORE SYSTEM ${GLEW_INCLUDE_DIRS})
 	set(OGLPLUS_GL_LIBS ${GLEW_LIBRARIES} ${OPENGL_LIBRARIES})
 
-	message(STATUS "Using GLEW")
+	message(STATUS "Using GLEW as GL API library")
 else()
 	message(FATAL_ERROR "A library including OpenGL symbols is required for OGLplus")
 	return()
@@ -163,6 +168,8 @@ include_directories(${PROJECT_SOURCE_DIR}/third_party/include)
 # include the oglplus implementation
 include_directories(${PROJECT_SOURCE_DIR}/implement)
 
+# common functions for GL version and extension detection
+include(config/GLVerExt.cmake)
 # GL version detection
 include(config/GLVer.cmake)
 # GL extension detection
@@ -190,18 +197,23 @@ if(NOT OGLPLUS_NO_EXAMPLES)
 	add_subdirectory("example")
 endif()
 
+if(OGLPLUS_WITH_TESTS)
+	add_subdirectory("test")
+endif()
+
 # install the "regular" headers
 install(
 	DIRECTORY ${PROJECT_SOURCE_DIR}/include/
 	DESTINATION include
 )
+# install the implementation inline files
+install(
+	DIRECTORY ${PROJECT_SOURCE_DIR}/implement/
+	DESTINATION include
+)
 
-if(OGLPLUS_WITH_TESTS)
-	add_subdirectory("test")
-endif()
-
+# install the docs if they are enabled
 if(NOT OGLPLUS_NO_DOCS)
-	# install the docs
 	install(
 		DIRECTORY ${PROJECT_BINARY_DIR}/doc/doxygen/html
 		DESTINATION share/oglplus/doc

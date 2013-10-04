@@ -146,6 +146,17 @@ struct DefaultGLSLtoCppTypeMatcher<GLdouble>
 };
 #endif
 
+#if defined(GL_UNSIGNED_INT64_ARB)
+template <>
+struct DefaultGLSLtoCppTypeMatcher<GLuint64>
+{
+	static bool _matches(GLenum sl_type)
+	{
+		return sl_type == GL_UNSIGNED_INT64_ARB;
+	}
+};
+#endif
+
 struct DefaultGLSLtoCppTypeMatcher_Vec
 {
 	static std::size_t _type_idx(bool*) { return 0; }

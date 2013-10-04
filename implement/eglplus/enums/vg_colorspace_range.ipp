@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	VGColorspace
-> _ValueRange(VGColorspace*)
+> ValueRange_(VGColorspace*)
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_VGCOLORSPACE)
 #define EGLPLUS_IMPL_EVR_VGCOLORSPACE

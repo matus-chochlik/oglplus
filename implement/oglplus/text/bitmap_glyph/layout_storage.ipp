@@ -82,7 +82,7 @@ bool BitmapGlyphLayoutStorage::Allocate(BitmapGlyphLayoutData& layout_data)
 	_code_points.Bind(Buffer::Target::Array);
 	Buffer::TypedMap<GLuint> map(
 		Buffer::Target::Array,
-		BufferMapAccess::ReadWrite
+		BufferMapAccess::Read|BufferMapAccess::Write
 	);
 	//
 	// the position in the linked list
@@ -188,7 +188,7 @@ void BitmapGlyphLayoutStorage::Deallocate(BitmapGlyphLayoutData& layout_data)
 	_code_points.Bind(Buffer::Target::Array);
 	Buffer::TypedMap<GLuint> map(
 		Buffer::Target::Array,
-		BufferMapAccess::ReadWrite
+		BufferMapAccess::Read|BufferMapAccess::Write
 	);
 	// if the storage is completelly full
 	if(_list_head == _list_nil())

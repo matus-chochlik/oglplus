@@ -251,22 +251,22 @@ private:
 	}
 
 	template <
-		typename _ObjectOps,
+		typename ObjectOps_,
 		oglplus::ObjectType (*Get)(void)
 	> struct _hlp_object_type { };
 
-	template <typename _ObjectOps>
+	template <typename ObjectOps_>
 	static oglplus::ObjectType _get_object_type(
-		_hlp_object_type<_ObjectOps, &_ObjectOps::_object_type>*
+		_hlp_object_type<ObjectOps_, &ObjectOps_::_object_type>*
 	) OGLPLUS_NOEXCEPT(true)
 	{
-		return _ObjectOps::_object_type();
+		return ObjectOps_::_object_type();
 	}
 
 	// calling this means that the _object_type function is not implemented
 	// by ObjectOps which means that some GL symbols are not properly
 	// defined by the used GL header
-	template <typename _ObjectOps>
+	template <typename ObjectOps_>
 	static oglplus::ObjectType _get_object_type(...)
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -454,9 +454,9 @@ protected:
 		}
 	}
 
-	struct _Uninitialized { };
+	struct Uninitialized_ { };
 
-	Object(_Uninitialized)
+	Object(Uninitialized_)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 public:
@@ -656,13 +656,13 @@ struct ObjectBaseOps<Specialized<Object<ObjectOps>, TypeOrTarget, Initializer>>
 	typedef ObjectOps Type;
 };
 
-template <class _Object>
+template <class Object_>
 class Managed
- : public ObjectBaseOps<_Object>::Type
- , public FriendOf<typename ObjectBaseOps<_Object>::Type>
+ : public ObjectBaseOps<Object_>::Type
+ , public FriendOf<typename ObjectBaseOps<Object_>::Type>
 {
 private:
-	typedef typename ObjectBaseOps<_Object>::Type ObjectOps;
+	typedef typename ObjectBaseOps<Object_>::Type ObjectOps;
 
 	ObjectOps& _base(void){ return *this; }
 
@@ -684,17 +684,17 @@ public:
 	}
 };
 
-template <class _Object>
-struct ObjectBaseOps<Managed<_Object> >
+template <class Object_>
+struct ObjectBaseOps<Managed<Object_> >
 {
-	typedef typename ObjectBaseOps<_Object>::Type Type;
+	typedef typename ObjectBaseOps<Object_>::Type Type;
 };
 
-template <class _Object>
-static const String& DescriptionOf(const _Object& object)
+template <class Object_>
+static const String& DescriptionOf(const Object_& object)
 {
 	return FriendOf<
-		typename ObjectBaseOps<_Object>::Type
+		typename ObjectBaseOps<Object_>::Type
 	>::GetDescription(object);
 }
 #endif

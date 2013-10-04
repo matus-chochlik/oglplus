@@ -39,6 +39,8 @@ TransformFeedback,
 Uniform,
 /// QUERY_BUFFER
 Query,
+/// PARAMETER_BUFFER_ARB
+Parameter,
 /// EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD
 ExternalVirtualMemory
 

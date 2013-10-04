@@ -10,7 +10,7 @@
  */
 
 namespace enums {
-OGLPLUS_LIB_FUNC StrLit _ValueName(
+OGLPLUS_LIB_FUNC StrLit ValueName_(
 	MemoryBarrierBit*,
 	GLbitfield value
 )
@@ -58,6 +58,9 @@ switch(value)
 #endif
 #if defined GL_SHADER_STORAGE_BARRIER_BIT
 	case GL_SHADER_STORAGE_BARRIER_BIT: return StrLit("SHADER_STORAGE_BARRIER_BIT");
+#endif
+#if defined GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT
+	case GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT: return StrLit("CLIENT_MAPPED_BUFFER_BARRIER_BIT");
 #endif
 #if defined GL_ALL_BARRIER_BITS
 	case GL_ALL_BARRIER_BITS: return StrLit("ALL_BARRIER_BITS");

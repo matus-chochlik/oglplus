@@ -320,11 +320,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	template <typename ... _ProgramOps>
+	template <typename ... ProgramOps_>
 	static VertexAttribSlot GetCommonLocation(
 		const GLchar* identifier,
-		const  ProgramOps& program,
-		const _ProgramOps& ... programs
+		const ProgramOps & program,
+		const ProgramOps_& ... programs
 	)
 	{
 		const ProgramOps* pprogs[] = {
@@ -486,12 +486,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	template <typename ... _ProgramOps>
+	template <typename ... ProgramOps_>
 	static bool QueryCommonLocation(
 		const GLchar* identifier,
 		VertexAttribSlot& location,
-		const  ProgramOps& program,
-		const _ProgramOps& ... programs
+		const ProgramOps & program,
+		const ProgramOps_& ... programs
 	)
 	{
 		const ProgramOps* pprogs[] = {

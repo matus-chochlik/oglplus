@@ -45,17 +45,17 @@ private:
 	typedef Base<
 		BaseParam,
 		TextureOps
-	> _Base;
+	> _base;
 public:
 	BoundTemplate(
 		const TextureOps& bindable,
 		TextureOps::Target target
-	): _Base(bindable, target)
+	): _base(bindable, target)
 	{ }
 
 	BoundTemplate(
 		TextureOps::Target target
-	): _Base(target)
+	): _base(target)
 	{ }
 
 
@@ -63,13 +63,13 @@ public:
 		const TextureOps& bindable,
 		TextureOps::Target target,
 		GLuint tex_unit
-	): _Base(bindable, target, tex_unit)
+	): _base(bindable, target, tex_unit)
 	{ }
 
 	BoundTemplate(
 		TextureOps::Target target,
 		GLuint tex_unit
-	): _Base(target, tex_unit)
+	): _base(target, tex_unit)
 	{ }
 
 

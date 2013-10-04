@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\example\oglplus\021_cube_mapping.cpp">
+    <ClCompile Include="..\..\..\..\example\oglplus\020_cube_mapping.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

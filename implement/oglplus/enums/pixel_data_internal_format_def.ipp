@@ -45,6 +45,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_STENCIL_INDEX8
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined StencilIndex8
+#  pragma push_macro("StencilIndex8")
+#  undef StencilIndex8
+   OGLPLUS_ENUM_CLASS_VALUE(StencilIndex8, GL_STENCIL_INDEX8)
+#  pragma pop_macro("StencilIndex8")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(StencilIndex8, GL_STENCIL_INDEX8)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined GL_RED
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA

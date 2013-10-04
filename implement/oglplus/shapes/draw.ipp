@@ -13,7 +13,7 @@ namespace oglplus {
 namespace shapes {
 
 OGLPLUS_LIB_FUNC
-void DrawOperation::_SetupPrimitiveRestart(void) const
+void DrawOperation::SetupPrimitiveRestart_(void) const
 {
 #if GL_VERSION_3_1
 	if(restart_index == NoRestartIndex())
@@ -37,7 +37,7 @@ void DrawOperation::_SetupPrimitiveRestart(void) const
 }
 
 OGLPLUS_LIB_FUNC
-void DrawOperation::_CleanupPrimitiveRestart(void) const
+void DrawOperation::CleanupPrimitiveRestart_(void) const
 {
 	if(restart_index != NoRestartIndex())
 	{
@@ -47,7 +47,7 @@ void DrawOperation::_CleanupPrimitiveRestart(void) const
 }
 
 OGLPLUS_LIB_FUNC
-void DrawOperation::_Draw(
+void DrawOperation::Draw_(
 	void* indices,
 	DataType index_data_type,
 	GLuint inst_count,
@@ -58,14 +58,14 @@ void DrawOperation::_Draw(
 	{
 		case OGLPLUS_CONST_ENUM_VALUE(
 			Method::DrawArrays
-		): return _DrawArrays(
+		): return DrawArrays_(
 			inst_count,
 			base_inst
 		);
 
 		case OGLPLUS_CONST_ENUM_VALUE(
 			Method::DrawElements
-		): return _DrawElements(
+		): return DrawElements_(
 			indices,
 			index_data_type,
 			inst_count,
@@ -76,7 +76,7 @@ void DrawOperation::_Draw(
 
 
 OGLPLUS_LIB_FUNC
-void DrawOperation::_DrawArrays(GLuint inst_count, GLuint base_inst) const
+void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 {
 	if(inst_count == 1)
 	{
@@ -123,14 +123,14 @@ void DrawOperation::_DrawArrays(GLuint inst_count, GLuint base_inst) const
 }
 
 OGLPLUS_LIB_FUNC
-void DrawOperation::_DrawElements(
+void DrawOperation::DrawElements_(
 	void* indices,
 	DataType index_data_type,
 	GLuint inst_count,
 	GLuint base_inst
 ) const
 {
-	_SetupPrimitiveRestart();
+	SetupPrimitiveRestart_();
 	if(inst_count == 1)
 	{
 		OGLPLUS_GLFUNC(DrawElements)(
@@ -182,7 +182,7 @@ void DrawOperation::_DrawElements(
 		);
 #endif
 	}
-	_CleanupPrimitiveRestart();
+	CleanupPrimitiveRestart_();
 }
 
 } // shapes

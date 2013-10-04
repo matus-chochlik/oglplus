@@ -261,7 +261,7 @@ void ConvertUTF8ToCodePoints(
 }
 
 OGLPLUS_LIB_FUNC
-bool UTF8Validator::_S_is_valid_ptr(const char* _s)
+bool UTF8Validator::_is_valid_ptr(const char* _s)
 {
 	return _s != nullptr;
 }
@@ -269,15 +269,15 @@ bool UTF8Validator::_S_is_valid_ptr(const char* _s)
 OGLPLUS_LIB_FUNC
 unsigned char UTF8Validator::byte(const char* _i)
 {
-	assert(_S_is_valid_ptr(_i));
+	assert(_is_valid_ptr(_i));
 	return static_cast<unsigned char>(*_i);
 }
 
 OGLPLUS_LIB_FUNC
-const char* UTF8Validator::_S_validate(const char* _s, const char* _end)
+const char* UTF8Validator::_validate(const char* _s, const char* _end)
 {
 	unsigned short bytes = 0;
-	assert(_S_is_valid_ptr(_s));
+	assert(_is_valid_ptr(_s));
 	while((_s != _end) && (byte(_s) != 0x00))
 	{
 		// there are remaining bytes in the sequence

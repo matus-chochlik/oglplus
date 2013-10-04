@@ -12,6 +12,10 @@
 #include <oglplus/opt/application.hpp>
 #include <oglplus/opt/resources.hpp>
 
+#if OGLPLUS_PNG_FOUND
+#include <oglplus/images/png.hpp>
+#endif
+
 #include <fstream>
 #include <stdexcept>
 
@@ -41,7 +45,13 @@ Image LoadByName(
 		throw std::runtime_error("Unable to open image: "+name);
 	// TODO switch on extension
 	assert(iext == 0);
+#if OGLPLUS_PNG_FOUND
 	return PNG(file, y_is_up, x_is_right);
+#else
+	OGLPLUS_FAKE_USE(y_is_up);
+	OGLPLUS_FAKE_USE(x_is_right);
+#endif
+	throw std::runtime_error("Unable to open this image type");
 }
 
 } // images

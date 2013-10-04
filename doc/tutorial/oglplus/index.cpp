@@ -29,6 +29,7 @@
  *  is acquainted with the basic concepts and with the workings of the OpenGL
  *  rendering pipeline, which were explained in the earlier tutorials.
  *
+ *  - @subpage oglplus_tut_000_build_lib
  *  - @subpage oglplus_tut_001_glut_glew
  *  - @subpage oglplus_tut_002_rgb_triangle
  *  - @subpage oglplus_tut_004_newton_fractal

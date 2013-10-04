@@ -44,18 +44,18 @@ public:
 };
 
 #else
-template <class _ObjectOps>
+template <class ObjectOps_>
 class Exposed
- : public Managed<_ObjectOps>
+ : public Managed<ObjectOps_>
 {
 public:
-	Exposed(const _ObjectOps& object)
-	 : Managed<_ObjectOps>(object)
+	Exposed(const ObjectOps_& object)
+	 : Managed<ObjectOps_>(object)
 	{ }
 
 	GLuint Name(void) const
 	{
-		return FriendOf<_ObjectOps>::GetName(*this);
+		return FriendOf<ObjectOps_>::GetName(*this);
 	}
 };
 #endif
@@ -79,22 +79,22 @@ template <class Object>
 inline Exposed<Object> Expose(const Object& object)
 #endif
 
-template <class _ObjectOps>
-inline Exposed<_ObjectOps> Expose(const Object<_ObjectOps>& object)
+template <class ObjectOps_>
+inline Exposed<ObjectOps_> Expose(const Object<ObjectOps_>& object)
 {
-	return Exposed<_ObjectOps>(object);
+	return Exposed<ObjectOps_>(object);
 }
 
-template <class _ObjectOps>
-inline Exposed<_ObjectOps> Expose(const Managed<Object<_ObjectOps> >& object)
+template <class ObjectOps_>
+inline Exposed<ObjectOps_> Expose(const Managed<Object<ObjectOps_> >& object)
 {
-	return Exposed<_ObjectOps>(object);
+	return Exposed<ObjectOps_>(object);
 }
 
-template <class _ObjectOps>
-inline Exposed<_ObjectOps> Expose(const Managed<_ObjectOps>& object)
+template <class ObjectOps_>
+inline Exposed<ObjectOps_> Expose(const Managed<ObjectOps_>& object)
 {
-	return Exposed<_ObjectOps>(object);
+	return Exposed<ObjectOps_>(object);
 }
 
 } // namespace oglplus

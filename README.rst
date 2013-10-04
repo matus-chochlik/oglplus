@@ -63,7 +63,7 @@ For the busy:
 ::
 
  # linux and similar *nix systems
- $> ./configure.sh [--prefix=/path/to/install] [--no-docs] --no-examples --build-and-install
+ $> ./configure.sh [--prefix=/path/to/install] [--no-docs] --no-examples --build --install
 
 Overview
 --------

@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	SurfaceTypeBit
-> _ValueRange(SurfaceTypeBit*)
+> ValueRange_(SurfaceTypeBit*)
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_SURFACETYPEBIT)
 #define EGLPLUS_IMPL_EVR_SURFACETYPEBIT

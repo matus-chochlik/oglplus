@@ -42,12 +42,18 @@ protected:
 
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
+#if GL_ARB_bindless_texture
+	OGLPLUS_AUX_VARPARA_FNC(Uniform, Handle, ui64ARB, t, GLuint64, 1)
+#endif
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, f, t, GLfloat)
 #if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, d, t, GLdouble)
 #endif
 
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, iv, v, GLint)
+#if GL_ARB_bindless_texture
+	OGLPLUS_AUX_VARPARA_FNC(Uniform, Handle, ui64vARB, v, GLuint64, 1)
+#endif
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, fv, v, GLfloat)
 #if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, dv, v, GLdouble)
@@ -77,10 +83,16 @@ protected:
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, i, t, GLint)
+#if GL_ARB_bindless_texture
+	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, Handle, ui64ARB, t, GLuint64, 1)
+#endif
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, d, t, GLdouble)
 
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, iv, v, GLint)
+#if GL_ARB_bindless_texture
+	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, Handle, ui64vARB, v, GLuint64, 1)
+#endif
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, dv, v, GLdouble)
 #elif GL_EXT_direct_state_access
@@ -1151,9 +1163,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	Uniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	Uniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	Uniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1201,9 +1213,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	LazyUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	LazyUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	LazyUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1250,9 +1262,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	OptionalUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	OptionalUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	OptionalUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1471,9 +1483,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	ProgramUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	ProgramUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	ProgramUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1521,9 +1533,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	LazyProgramUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	LazyProgramUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	LazyProgramUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1570,9 +1582,9 @@ public:
 	/// Construction from a const reference to @p program and an identifier
 	OptionalProgramUniform(const ProgramOps& program, String identifier);
 #else
-	template <typename _String>
-	OptionalProgramUniform(const ProgramOps& program, _String&& identifier)
-	 : _base(program, std::forward<_String>(identifier))
+	template <typename String_>
+	OptionalProgramUniform(const ProgramOps& program, String_&& identifier)
+	 : _base(program, std::forward<String_>(identifier))
 	{ }
 #endif
 
@@ -1705,19 +1717,19 @@ public:
 	Typechecked(const ProgramOps& program, GLint location);
 };
 #else
-template <class _Uniform>
+template <class Uniform_>
 class Typechecked;
 
 template <
-	template <class, class> class _Uniform,
+	template <class, class> class Uniform_,
 	class T,
 	class Typecheck
 >
-class Typechecked<_Uniform<T, Typecheck> >
- : public _Uniform<T, DefaultTypecheck>
+class Typechecked<Uniform_<T, Typecheck> >
+ : public Uniform_<T, DefaultTypecheck>
 {
 private:
-	typedef _Uniform<T, DefaultTypecheck> _base;
+	typedef Uniform_<T, DefaultTypecheck> _base;
 public:
 	template <typename StrOrInt>
 	Typechecked(const ProgramOps& program, StrOrInt&& id_or_loc)

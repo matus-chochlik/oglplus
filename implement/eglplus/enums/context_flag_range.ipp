@@ -13,7 +13,7 @@ namespace enums {
 EGLPLUS_LIB_FUNC aux::CastIterRange<
 	const EGLenum*,
 	ContextFlag
-> _ValueRange(ContextFlag*)
+> ValueRange_(ContextFlag*)
 #if (!EGLPLUS_LINK_LIBRARY || defined(EGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(EGLPLUS_IMPL_EVR_CONTEXTFLAG)
 #define EGLPLUS_IMPL_EVR_CONTEXTFLAG

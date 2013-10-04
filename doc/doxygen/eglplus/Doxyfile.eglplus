@@ -15,6 +15,7 @@ HIDE_SCOPE_NAMES       = NO
 OUTPUT_DIRECTORY       = ../../../_build/doc/doxygen/eglplus
 
 INPUT = \
+	../../include/eglplus \
 	../../tutorial/eglplus \
 	../../../include/eglplus/enums \
 	../../../include/eglplus \

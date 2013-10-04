@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	PathNVStrokeCoverMode
-> _ValueRange(PathNVStrokeCoverMode*)
+> ValueRange_(PathNVStrokeCoverMode*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PATHNVSTROKECOVERMODE)
 #define OGLPLUS_IMPL_EVR_PATHNVSTROKECOVERMODE

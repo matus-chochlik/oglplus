@@ -1,3 +1,29 @@
+Version 0.37.0
+
+
+- The DSABufferEXT class, a wrapper for direct state access buffer operations
+  was added.
+- The BufferMapAccess enumeration was reimplemented.
+- The BufferStorageBit enumeration was added.
+- Support for ARB_buffer_storage was added.
+- Support for ARB_bindless_texture was added.
+- Support for ARB_seamless_cubemap_per_texture, ARB_texture_stencil8 and
+  ARB_texture_mirror_clamp_to_edge was added.
+- The BufferTarget enumeration was updated.
+- A problem in the Texture::Swizzle* functions was fixed.
+- The SimpleSubdivSphere and SubdivSphere shape parameteric builders were added.
+- The GL version and extension detection in the build system was refactored and
+  partialy reimplemented.
+- The code for finding various third-party libraries in the build system was
+  refactored and updated.
+- Identifiers reserved by standard C++ starting with underscore and an uppercase
+  letter were replaced.
+- Support for GLFW-3 was added to the build system and a GLFW-3-based example
+  harness was added.
+- Several new examples showing the new features were added.
+- The documentation has been updated - a tutorial explaining how the library can
+  be built and used was added.
+
 Version 0.36.0
 
 - General code cleanup was performed - implementations of larger functions

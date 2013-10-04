@@ -13,7 +13,7 @@ namespace enums {
 OALPLUS_LIB_FUNC aux::CastIterRange<
 	const ALenum*,
 	ContextAttrib
-> _ValueRange(ContextAttrib*)
+> ValueRange_(ContextAttrib*)
 #if (!OALPLUS_LINK_LIBRARY || defined(OALPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OALPLUS_IMPL_EVR_CONTEXTATTRIB)
 #define OALPLUS_IMPL_EVR_CONTEXTATTRIB

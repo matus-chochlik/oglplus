@@ -46,7 +46,7 @@ inline StrLit EnumValueName(EnumType enum_value)
 {
 #if !OALPLUS_NO_ENUM_VALUE_NAMES
 	typedef typename EnumBaseType<EnumType>::Type BaseType;
-	return _ValueName(
+	return ValueName_(
 		(EnumType*)nullptr,
 		BaseType(enum_value)
 	);
@@ -63,7 +63,7 @@ inline aux::CastIterRange<
 > EnumValueRange(void)
 {
 #if !OALPLUS_NO_ENUM_VALUE_RANGES
-	return _ValueRange((EnumType*)nullptr);
+	return ValueRange_((EnumType*)nullptr);
 #else
 	const typename EnumBaseType<EnumType>::Type* x = nullptr;
 	return aux::CastIterRange<

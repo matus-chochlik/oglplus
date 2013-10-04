@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLbitfield*,
 	MemoryBarrierBit
-> _ValueRange(MemoryBarrierBit*)
+> ValueRange_(MemoryBarrierBit*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_MEMORYBARRIERBIT)
 #define OGLPLUS_IMPL_EVR_MEMORYBARRIERBIT
@@ -57,6 +57,9 @@ GL_ATOMIC_COUNTER_BARRIER_BIT,
 #endif
 #if defined GL_SHADER_STORAGE_BARRIER_BIT
 GL_SHADER_STORAGE_BARRIER_BIT,
+#endif
+#if defined GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT
+GL_CLIENT_MAPPED_BUFFER_BARRIER_BIT,
 #endif
 #if defined GL_ALL_BARRIER_BITS
 GL_ALL_BARRIER_BITS,

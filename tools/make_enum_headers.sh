@@ -161,7 +161,7 @@ do
 	EnumBaseType=$(MakeEnumBaseType ${InputFile})
 	#
 	echo "namespace enums {"
-	echo "${LibNameUC}_LIB_FUNC StrLit _ValueName("
+	echo "${LibNameUC}_LIB_FUNC StrLit ValueName_("
 	echo "	${EnumClass}*,"
 	echo "	${LibPrefixUC}${EnumBaseType} value"
 	echo ")"
@@ -213,7 +213,7 @@ do
 	echo "${LibNameUC}_LIB_FUNC aux::CastIterRange<"
 	echo "	const ${LibPrefixUC}${EnumBaseType}*,"
 	echo "	${EnumClass}"
-	echo "> _ValueRange(${EnumClass}*)"
+	echo "> ValueRange_(${EnumClass}*)"
 	echo "#if (!${LibNameUC}_LINK_LIBRARY || defined(${LibNameUC}_IMPLEMENTING_LIBRARY)) && \\"
 	echo "	!defined(${LibNameUC}_IMPL_EVR_${EnumClass^^})"
 	echo "#define ${LibNameUC}_IMPL_EVR_${EnumClass^^}"

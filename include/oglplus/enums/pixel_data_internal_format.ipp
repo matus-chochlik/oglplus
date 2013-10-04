@@ -15,6 +15,8 @@
 DepthComponent,
 /// DEPTH_STENCIL
 DepthStencil,
+/// STENCIL_INDEX8
+StencilIndex8,
 /// RED
 Red,
 /// RG

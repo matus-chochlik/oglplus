@@ -13,7 +13,7 @@ namespace enums {
 OGLPLUS_LIB_FUNC aux::CastIterRange<
 	const GLenum*,
 	PixelDataInternalFormat
-> _ValueRange(PixelDataInternalFormat*)
+> ValueRange_(PixelDataInternalFormat*)
 #if (!OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)) && \
 	!defined(OGLPLUS_IMPL_EVR_PIXELDATAINTERNALFORMAT)
 #define OGLPLUS_IMPL_EVR_PIXELDATAINTERNALFORMAT
@@ -24,6 +24,9 @@ GL_DEPTH_COMPONENT,
 #endif
 #if defined GL_DEPTH_STENCIL
 GL_DEPTH_STENCIL,
+#endif
+#if defined GL_STENCIL_INDEX8
+GL_STENCIL_INDEX8,
 #endif
 #if defined GL_RED
 GL_RED,

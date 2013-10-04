@@ -795,9 +795,9 @@ public:
 	 : Base(base)
 	{ }
 
-	struct _Translation { };
+	struct Translation_ { };
 
-	ModelMatrix(_Translation, T dx, T dy, T dz)
+	ModelMatrix(Translation_, T dx, T dy, T dz)
 	 : Base(oglplus::Nothing())
 	{
 		InitMatrix4x4(
@@ -812,36 +812,36 @@ public:
 	/// Constructs a translation matrix
 	static inline ModelMatrix Translation(T dx, T dy, T dz)
 	{
-		return ModelMatrix(_Translation(), dx, dy, dz);
+		return ModelMatrix(Translation_(), dx, dy, dz);
 	}
 
 	/// Constructs a translation matrix
 	static inline ModelMatrix TranslationX(T dx)
 	{
-		return ModelMatrix(_Translation(), dx, T(0), T(0));
+		return ModelMatrix(Translation_(), dx, T(0), T(0));
 	}
 
 	/// Constructs a translation matrix
 	static inline ModelMatrix TranslationY(T dy)
 	{
-		return ModelMatrix(_Translation(), T(0), dy, T(0));
+		return ModelMatrix(Translation_(), T(0), dy, T(0));
 	}
 
 	/// Constructs a translation matrix
 	static inline ModelMatrix TranslationZ(T dz)
 	{
-		return ModelMatrix(_Translation(), T(0), T(0), dz);
+		return ModelMatrix(Translation_(), T(0), T(0), dz);
 	}
 
 	/// Constructs a translation matrix
 	static inline ModelMatrix Translation(const Vector<T, 3>& dp)
 	{
-		return ModelMatrix(_Translation(), dp.x(), dp.y(), dp.z());
+		return ModelMatrix(Translation_(), dp.x(), dp.y(), dp.z());
 	}
 
-	struct _Scale { };
+	struct Scale_ { };
 
-	ModelMatrix(_Scale, T sx, T sy, T sz)
+	ModelMatrix(Scale_, T sx, T sy, T sz)
 	 : Base(oglplus::Nothing())
 	{
 		InitMatrix4x4(
@@ -856,12 +856,12 @@ public:
 	/// Constructs a scale matrix
 	static inline ModelMatrix Scale(T sx, T sy, T sz)
 	{
-		return ModelMatrix(_Scale(), sx, sy, sz);
+		return ModelMatrix(Scale_(), sx, sy, sz);
 	}
 
-	struct _Reflection { };
+	struct Reflection_ { };
 
-	ModelMatrix(_Reflection, bool rx, bool ry, bool rz)
+	ModelMatrix(Reflection_, bool rx, bool ry, bool rz)
 	 : Base(oglplus::Nothing())
 	{
 		const T _rx = rx ?-T(1):T(1);
@@ -879,12 +879,12 @@ public:
 	/// Constructs a reflection matrix
 	static inline ModelMatrix Reflection(bool rx, bool ry, bool rz)
 	{
-		return ModelMatrix(_Reflection(), rx, ry, rz);
+		return ModelMatrix(Reflection_(), rx, ry, rz);
 	}
 
-	struct _RotationX { };
+	struct RotationX_ { };
 
-	ModelMatrix(_RotationX, Angle<T> angle)
+	ModelMatrix(RotationX_, Angle<T> angle)
 	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(angle);
@@ -901,12 +901,12 @@ public:
 	/// Constructs a X-axis rotation matrix
 	static inline ModelMatrix RotationX(Angle<T> angle)
 	{
-		return ModelMatrix(_RotationX(), angle);
+		return ModelMatrix(RotationX_(), angle);
 	}
 
-	struct _RotationY { };
+	struct RotationY_ { };
 
-	ModelMatrix(_RotationY, Angle<T> angle)
+	ModelMatrix(RotationY_, Angle<T> angle)
 	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(angle);
@@ -923,12 +923,12 @@ public:
 	/// Constructs a Y-axis rotation matrix
 	static inline ModelMatrix RotationY(Angle<T> angle)
 	{
-		return ModelMatrix(_RotationY(), angle);
+		return ModelMatrix(RotationY_(), angle);
 	}
 
-	struct _RotationZ { };
+	struct RotationZ_ { };
 
-	ModelMatrix(_RotationZ, Angle<T> angle)
+	ModelMatrix(RotationZ_, Angle<T> angle)
 	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(angle);
@@ -945,12 +945,12 @@ public:
 	/// Constructs a Z-axis rotation matrix
 	static inline ModelMatrix RotationZ(Angle<T> angle)
 	{
-		return ModelMatrix(_RotationZ(), angle);
+		return ModelMatrix(RotationZ_(), angle);
 	}
 
-	struct _RotationA { };
+	struct RotationA_ { };
 
-	ModelMatrix(_RotationA, const Vector<T,3>& axis, Angle<T> angle)
+	ModelMatrix(RotationA_, const Vector<T,3>& axis, Angle<T> angle)
 	 : Base(oglplus::Nothing())
 	{
 		const Vector<T, 3> a = Normalized(axis);
@@ -974,7 +974,7 @@ public:
 		Angle<T> angle
 	)
 	{
-		return ModelMatrix(_RotationA(), axis, angle);
+		return ModelMatrix(RotationA_(), axis, angle);
 	}
 
 };
@@ -1034,10 +1034,10 @@ public:
 		return -Vector<T, 3>(this->Row(2).Data(), 3);
 	}
 
-	struct _Perspective { };
+	struct Perspective_ { };
 
 	CameraMatrix(
-		_Perspective,
+		Perspective_,
 		T x_left,
 		T x_right,
 		T y_bottom,
@@ -1079,7 +1079,7 @@ public:
 	)
 	{
 		return CameraMatrix(
-			_Perspective(),
+			Perspective_(),
 			x_left,
 			x_right,
 			y_bottom,
@@ -1110,7 +1110,7 @@ public:
 		T y_top = x_right / aspect;
 
 		return CameraMatrix(
-			_Perspective(),
+			Perspective_(),
 			x_left,
 			x_right,
 			y_bottom,
@@ -1141,7 +1141,7 @@ public:
 		T x_right = y_top * aspect;
 
 		return CameraMatrix(
-			_Perspective(),
+			Perspective_(),
 			x_left,
 			x_right,
 			y_bottom,
@@ -1151,10 +1151,10 @@ public:
 		);
 	}
 
-	struct _Ortho { };
+	struct Ortho_ { };
 
 	CameraMatrix(
-		_Ortho,
+		Ortho_,
 		T x_left,
 		T x_right,
 		T y_bottom,
@@ -1194,7 +1194,7 @@ public:
 	)
 	{
 		return CameraMatrix(
-			_Ortho(),
+			Ortho_(),
 			x_left,
 			x_right,
 			y_bottom,
@@ -1225,7 +1225,7 @@ public:
 		T y_top = x_right / aspect;
 
 		return CameraMatrix(
-			_Ortho(),
+			Ortho_(),
 			x_left,
 			x_right,
 			y_bottom,
@@ -1256,7 +1256,7 @@ public:
 		T x_right = y_top * aspect;
 
 		return CameraMatrix(
-			_Ortho(),
+			Ortho_(),
 			x_left,
 			x_right,
 			y_bottom,
@@ -1266,10 +1266,10 @@ public:
 		);
 	}
 
-	struct _LookingAt { };
+	struct LookingAt_ { };
 
 	CameraMatrix(
-		_LookingAt,
+		LookingAt_,
 		const Vector<T, 3>& eye,
 		const Vector<T, 3>& target
 	): Base(oglplus::Nothing())
@@ -1303,11 +1303,11 @@ public:
 		const Vector<T, 3>& target
 	)
 	{
-		return CameraMatrix(_LookingAt(), eye, target);
+		return CameraMatrix(LookingAt_(), eye, target);
 	}
 
 	CameraMatrix(
-		_LookingAt,
+		LookingAt_,
 		const Vector<T, 3>& eye,
 		const Vector<T, 3>& target,
 		const Vector<T, 3>& up
@@ -1346,13 +1346,13 @@ public:
 		const Vector<T, 3>& up
 	)
 	{
-		return CameraMatrix(_LookingAt(), eye, target, up);
+		return CameraMatrix(LookingAt_(), eye, target, up);
 	}
 
-	struct _Orbiting { };
+	struct Orbiting_ { };
 
 	CameraMatrix(
-		_Orbiting,
+		Orbiting_,
 		const Vector<T, 3>& target,
 		T radius,
 		Angle<T> azimuth,
@@ -1396,7 +1396,7 @@ public:
 	)
 	{
 		return CameraMatrix(
-			_Orbiting(),
+			Orbiting_(),
 			target,
 			radius,
 			azimuth,
@@ -1404,9 +1404,9 @@ public:
 		);
 	}
 
-	struct _Pitch { };
+	struct Pitch_ { };
 
-	CameraMatrix(_Pitch, Angle<T> angle)
+	CameraMatrix(Pitch_, Angle<T> angle)
 	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(-angle);
@@ -1428,12 +1428,12 @@ public:
 	 */
 	static inline CameraMatrix Pitch(Angle<T> angle)
 	{
-		return CameraMatrix(_Pitch(), angle);
+		return CameraMatrix(Pitch_(), angle);
 	}
 
-	struct _Yaw { };
+	struct Yaw_ { };
 
-	CameraMatrix(_Yaw, Angle<T> angle)
+	CameraMatrix(Yaw_, Angle<T> angle)
 	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(-angle);
@@ -1455,12 +1455,12 @@ public:
 	 */
 	static inline CameraMatrix Yaw(Angle<T> angle)
 	{
-		return CameraMatrix(_Yaw(), angle);
+		return CameraMatrix(Yaw_(), angle);
 	}
 
-	struct _Roll { };
+	struct Roll_ { };
 
-	CameraMatrix(_Roll, Angle<T> angle)
+	CameraMatrix(Roll_, Angle<T> angle)
 	 : Base(oglplus::Nothing())
 	{
 		const T cosx = Cos(-angle);
@@ -1482,7 +1482,7 @@ public:
 	 */
 	static inline CameraMatrix Roll(Angle<T> angle)
 	{
-		return CameraMatrix(_Roll(), angle);
+		return CameraMatrix(Roll_(), angle);
 	}
 };
 

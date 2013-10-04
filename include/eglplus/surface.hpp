@@ -112,10 +112,10 @@ private:
 	Surface(const Surface&);
 
 
-	struct _Pbuffer { };
+	struct Pbuffer_ { };
 
 	static ::EGLSurface _init(
-		_Pbuffer,
+		Pbuffer_,
 		const Display& display,
 		const Config& config,
 		const FinishedSurfaceAttribs& attribs
@@ -131,7 +131,7 @@ private:
 	}
 
 	Surface(
-		_Pbuffer sel,
+		Pbuffer_ sel,
 		const Display& display,
 		const Config& config,
 		const FinishedSurfaceAttribs& attribs
@@ -139,10 +139,10 @@ private:
 	 , _handle(_init(sel, _display, config, attribs))
 	{ }
 
-	struct _Pixmap{ };
+	struct Pixmap_{ };
 
 	static ::EGLSurface _init(
-		_Pixmap,
+		Pixmap_,
 		const Display& display,
 		const Config& config,
 		EGLNativePixmapType pixmap,
@@ -160,7 +160,7 @@ private:
 	}
 
 	Surface(
-		_Pixmap sel,
+		Pixmap_ sel,
 		const Display& display,
 		const Config& config,
 		EGLNativePixmapType pixmap,
@@ -169,10 +169,10 @@ private:
 	 , _handle(_init(sel, _display, config, pixmap, attribs))
 	{ }
 
-	struct _Window { };
+	struct Window_ { };
 
 	static ::EGLSurface _init(
-		_Window,
+		Window_,
 		const Display& display,
 		const Config& config,
 		EGLNativeWindowType window,
@@ -190,7 +190,7 @@ private:
 	}
 
 	Surface(
-		_Window sel,
+		Window_ sel,
 		const Display& display,
 		const Config& config,
 		EGLNativeWindowType window,
@@ -236,7 +236,7 @@ public:
 	)
 	{
 		return Surface(
-			_Pbuffer(),
+			Pbuffer_(),
 			display,
 			config,
 			attribs
@@ -256,7 +256,7 @@ public:
 	)
 	{
 		return Surface(
-			_Pixmap(),
+			Pixmap_(),
 			display,
 			config,
 			pixmap,
@@ -277,7 +277,7 @@ public:
 	)
 	{
 		return Surface(
-			_Window(),
+			Window_(),
 			display,
 			config,
 			window,

@@ -199,21 +199,21 @@ private:
 		ShapeBuilder,
 		VertexAttribTags,
 		std::tuple_size<VertexAttribTags>::value
-	> _Base;
+	> _base;
 public:
 	bool MakesVertexAttrib(const String& name) const
 	{
-		return _Base::_has_vertex_attrib(name);
+		return _base::_has_vertex_attrib(name);
 	}
 
 	template <typename T>
-	static typename _Base::template _getter_proc<T>::type
+	static typename _base::template _getter_proc<T>::type
 	VertexAttribGetter(
 		const std::vector<T>& /*selector*/,
 		const String& name
 	)
 	{
-		return _Base::_find_getter((T*)nullptr, name);
+		return _base::_find_getter((T*)nullptr, name);
 	}
 };
 #endif

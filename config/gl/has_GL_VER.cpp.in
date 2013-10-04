@@ -1,0 +1,32 @@
+/**
+ *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Software License, Version 1.0. (See accompanying file
+ *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ */
+
+#include "init_GL.ipp"
+
+bool do_query_gl(void)
+{
+#if !@OGLPLUS_CONFIG_STRICT_VERSION_CHECK@
+	return true;
+#elif !defined @OGLPLUS_CONFIG_QUERY_GL_VER@
+	return false;
+#elif !@OGLPLUS_CONFIG_QUERY_GL_VER@
+	return false;
+#else
+	GLint req_major = @OGLPLUS_CONFIG_QUERY_GL_VER_MAJOR@;
+	GLint req_minor = @OGLPLUS_CONFIG_QUERY_GL_VER_MINOR@;
+	GLint sup_major = 0;
+	GLint sup_minor = 0;
+	glGetIntegerv(GL_MAJOR_VERSION, &sup_major);
+	glGetIntegerv(GL_MINOR_VERSION, &sup_minor);
+
+	if(sup_major >  req_major)
+		return true;
+	if((sup_major == req_major) && (sup_minor >= req_minor))
+		return true;
+	return false;
+#endif
+}
+

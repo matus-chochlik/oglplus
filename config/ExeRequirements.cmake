@@ -18,6 +18,9 @@ macro(do_require_all_dependencies EXE_DIR EXE_NAME RESULT)
 				if(${DEPENDENCY}_INCLUDE_DIRS)
 					include_directories(${${DEPENDENCY}_INCLUDE_DIRS})
 				endif()
+				if(${DEPENDENCY}_LIBRARY_DIRS)
+					include_directories(${${DEPENDENCY}_LIBRARY_DIRS})
+				endif()
 				if(${DEPENDENCY}_DEFINITIONS)
 					set_property(
 						SOURCE "${EXE_NAME}.cpp" APPEND PROPERTY
@@ -72,6 +75,19 @@ macro(require_all_dependencies EXE_NAME RESULT)
 	)
 endmacro(require_all_dependencies)
 
+macro(require_oglplus_lib_dependencies)
+	if(OGLPLUS_LINK_LIBRARY)
+		file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/oglplus_lib.txt" OPT_DEPENDENCIES)
+		foreach(DEPENDENCY ${OPT_DEPENDENCIES})
+			if(${DEPENDENCY}_FOUND)
+				if(${DEPENDENCY}_INCLUDE_DIRS)
+					include_directories(${${DEPENDENCY}_INCLUDE_DIRS})
+				endif()
+			endif()
+		endforeach()
+	endif()
+endmacro()
+
 # adds all required libraries to an exe
 # also creates a dependency between the exe
 # and any textures it is using
@@ -113,4 +129,18 @@ macro(add_all_dependencies EXE_NAME)
 		endforeach()
 	endif()
 endmacro(add_all_dependencies)
+
+# adds the dependencies used by the oglplus library to an executable
+macro(add_oglplus_lib_dependencies EXE_NAME)
+	if(OGLPLUS_LINK_LIBRARY)
+		file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/oglplus_lib.txt" OPT_DEPENDENCIES)
+		foreach(DEPENDENCY ${OPT_DEPENDENCIES})
+			if(${DEPENDENCY}_FOUND)
+				if(${DEPENDENCY}_LIBRARIES)
+					target_link_libraries(${EXE_NAME} ${${DEPENDENCY}_LIBRARIES})
+				endif()
+			endif()
+		endforeach()
+	endif()
+endmacro(add_oglplus_lib_dependencies)
 
