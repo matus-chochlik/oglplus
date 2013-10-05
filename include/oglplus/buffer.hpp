@@ -18,6 +18,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/array.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/bitfield.hpp>
 #include <oglplus/limited_value.hpp>
@@ -550,6 +551,44 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindBufferBase));
 	}
 
+	static void MultiBindBase(
+		BufferIndexedTarget target,
+		GLuint first,
+		GLsizei count,
+		const GLuint* names
+	)
+	{
+#if GL_VERSION_4_4 || GL_ARB_multi_bind
+		OGLPLUS_GLFUNC(BindBuffersBase)(
+			GLenum(target),
+			first,
+			count,
+			names
+		);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffersBase,
+			Buffer,
+			EnumValueName(target),
+			0
+		));
+#else
+		for(GLsizei i=0; i!=count; ++i)
+		{
+			OGLPLUS_GLFUNC(BindBufferBase)(
+				GLenum(target),
+				first+i,
+				names[i]
+			);
+			OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+				BindBufferBase,
+				Buffer,
+				EnumValueName(target),
+				names[i]
+			));
+		}
+#endif
+	}
+
 	/// Bind a range in this buffer to the specified indexed target
 	/**
 	 *  @throws Error
@@ -985,6 +1024,80 @@ class Buffer
 { };
 #else
 typedef Object<BufferOps> Buffer;
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+template <>
+class Group<Buffer>
+ : public BaseGroup<Buffer>
+{
+public:
+	/// Constructs an empty group of Buffers
+	Group(void)
+	{ }
+
+	/// Constructs an empty group and reserves space for @c n Buffers
+	Group(std::size_t n)
+	 : BaseGroup<Buffer>(n)
+	{ }
+
+	/// Bind the buffers in this group to the specified indexed targets
+	/**
+	 *  @throws Error
+	 */
+	void BindBase(BufferIndexedTarget target, GLuint first) const
+	{
+		if(!this->empty())
+		{
+			BufferOps::MultiBindBase(
+				target,
+				first,
+				GLsizei(this->size()),
+				this->_names.data()
+			);
+		}
+	}
+};
+
+template <>
+class Array<Buffer>
+ : public aux::BaseArray<
+	Buffer,
+	Buffer::IsMultiObject::value
+>
+{
+private:
+	typedef aux::BaseArray<
+		Buffer,
+		Buffer::IsMultiObject::value
+	> BaseArray;
+public:
+	/// Constructs an Array of @c c Buffers
+	Array(GLsizei c)
+	 : BaseArray(c)
+	{ }
+
+	Array(Array&& tmp)
+	 : BaseArray(std::move(tmp))
+	{ }
+
+	/// Bind the buffers in this array to the specified indexed targets
+	/**
+	 *  @throws Error
+	 */
+	void BindBase(BufferIndexedTarget target, GLuint first) const
+	{
+		if(!this->empty())
+		{
+			BufferOps::MultiBindBase(
+				target,
+				first,
+				GLsizei(this->size()),
+				this->_names.data()
+			);
+		}
+	}
+};
 #endif
 
 } // namespace oglplus
