@@ -643,7 +643,7 @@ void BlenderMesh::_call_load_meshes(
 }
 
 OGLPLUS_LIB_FUNC
-Vec4f BlenderMesh::GetBoundingSphere(void) const
+Spheref BlenderMesh::GetBoundingSphere(void) const
 {
 	GLfloat min_x = _pos_data[3], max_x = _pos_data[3];
 	GLfloat min_y = _pos_data[4], max_y = _pos_data[4];
@@ -668,7 +668,7 @@ Vec4f BlenderMesh::GetBoundingSphere(void) const
 		((min_z + max_z) * 0.5f)
 	);
 
-	return Vec4f(
+	return Spheref(
 		c.x(),
 		c.y(),
 		c.z(),

@@ -40,6 +40,17 @@ public:
 	 , _radius(T(1))
 	{ }
 
+	/// Constructs a sphere at the specified position and the specified radius
+	/**
+	 *  @pre r >= 0
+	 */
+	Sphere(T x, T y, T z, T r)
+	 : _center(x, y, z)
+	 , _radius(r)
+	{
+		assert(_radius >= T(0));
+	}
+
 	/// Constructs a sphere with the specified radius at the position
 	/**
 	 *  @pre radius >= 0
@@ -81,7 +92,7 @@ public:
 	/// Transforms the spheres origin by the specified matrix
 	void Transform(const Matrix<T, 4, 4>& matrix)
 	{
-		_center = matrix * _center;
+		_center = (matrix * Vector<T, 4>(_center, 1)).xyz();
 	}
 
 	/// Returns true if the sphere is degenerate (has zero radius)

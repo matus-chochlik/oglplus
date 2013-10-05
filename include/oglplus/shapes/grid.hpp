@@ -18,6 +18,7 @@
 #include <oglplus/face_mode.hpp>
 
 #include <oglplus/shapes/vert_attr_info.hpp>
+#include <oglplus/sphere.hpp>
 
 #include <cmath>
 #include <cassert>
@@ -214,9 +215,9 @@ public:
 
 	/// Queries the bounding sphere coordinates and dimensions
 	template <typename T>
-	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	void BoundingSphere(oglplus::Sphere<T>& bounding_sphere) const
 	{
-		center_and_radius = Vector<T, 4>(
+		bounding_sphere = oglplus::Sphere<T>(
 			T(_point.x()),
 			T(_point.y()),
 			T(_point.z()),

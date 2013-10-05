@@ -21,6 +21,7 @@
 #include <oglplus/matrix.hpp>
 #include <oglplus/plane.hpp>
 #include <oglplus/curve.hpp>
+#include <oglplus/sphere.hpp>
 
 #include <oglplus/error.hpp>
 

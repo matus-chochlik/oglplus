@@ -23,6 +23,7 @@
 #include <oglplus/optional.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/sphere.hpp>
 
 #include <oglplus/shapes/draw.hpp>
 #include <oglplus/shapes/vert_attr_info.hpp>
@@ -61,7 +62,7 @@ protected:
 	std::vector<String> _names;
 
 	// the origin and radius of the bounding sphere
-	Vector<GLfloat, 4> _bounding_sphere;
+	Spheref _bounding_sphere;
 
 	template <class ShapeBuilder, class ShapeIndices, typename Iterator>
 	void _init(
@@ -211,19 +212,9 @@ public:
 		_shape_instr.Draw(_index_info, 1, 0, drawing_driver);
 	}
 
-	Vector<GLfloat, 4> BoundingSphere(void) const
+	const Spheref& BoundingSphere(void) const
 	{
 		return _bounding_sphere;
-	}
-
-	Vector<GLfloat, 3> BoundingSphereCenter(void) const
-	{
-		return Vector<GLfloat, 3>(_bounding_sphere.Data(), 3);
-	}
-
-	GLfloat BoundingSphereRadius(void) const
-	{
-		return _bounding_sphere.w();
 	}
 };
 
