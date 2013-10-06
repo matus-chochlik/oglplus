@@ -551,14 +551,14 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindBufferBase));
 	}
 
-	static void MultiBindBase(
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	static void BindBase(
 		BufferIndexedTarget target,
 		GLuint first,
 		GLsizei count,
 		const GLuint* names
 	)
 	{
-#if GL_VERSION_4_4 || GL_ARB_multi_bind
 		OGLPLUS_GLFUNC(BindBuffersBase)(
 			GLenum(target),
 			first,
@@ -571,23 +571,8 @@ public:
 			EnumValueName(target),
 			0
 		));
-#else
-		for(GLsizei i=0; i!=count; ++i)
-		{
-			OGLPLUS_GLFUNC(BindBufferBase)(
-				GLenum(target),
-				first+i,
-				names[i]
-			);
-			OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-				BindBufferBase,
-				Buffer,
-				EnumValueName(target),
-				names[i]
-			));
-		}
-#endif
 	}
+#endif
 
 	/// Bind a range in this buffer to the specified indexed target
 	/**
@@ -615,6 +600,33 @@ public:
 			_name
 		));
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	static void BindRange(
+		BufferIndexedTarget target,
+		GLuint first,
+		GLsizei count,
+		const GLuint* names,
+		const GLintptr* offsets,
+		const GLsizeiptr* sizes
+	)
+	{
+		OGLPLUS_GLFUNC(BindBuffersRange)(
+			GLenum(target),
+			first,
+			count,
+			names,
+			offsets,
+			sizes
+		);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffersRange,
+			Buffer,
+			EnumValueName(target),
+			0
+		));
+	}
+#endif
 
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
@@ -1026,7 +1038,6 @@ class Buffer
 typedef Object<BufferOps> Buffer;
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
 template <>
 class Group<Buffer>
  : public BaseGroup<Buffer>
@@ -1041,15 +1052,18 @@ public:
 	 : BaseGroup<Buffer>(n)
 	{ }
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
 	/// Bind the buffers in this group to the specified indexed targets
 	/**
 	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
 	 */
 	void BindBase(BufferIndexedTarget target, GLuint first) const
 	{
 		if(!this->empty())
 		{
-			BufferOps::MultiBindBase(
+			BufferOps::BindBase(
 				target,
 				first,
 				GLsizei(this->size()),
@@ -1057,6 +1071,33 @@ public:
 			);
 		}
 	}
+
+	/// Bind ranges of the buffers in this group to the specified targets
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	void BindRange(
+		BufferIndexedTarget target,
+		GLuint first,
+		const GLintptr* offsets,
+		const GLsizeiptr* sizes
+	) const
+	{
+		if(!this->empty())
+		{
+			BufferOps::BindRange(
+				target,
+				first,
+				GLsizei(this->size()),
+				this->_names.data(),
+				offsets,
+				sizes
+			);
+		}
+	}
+#endif
 };
 
 template <>
@@ -1081,15 +1122,18 @@ public:
 	 : BaseArray(std::move(tmp))
 	{ }
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
 	/// Bind the buffers in this array to the specified indexed targets
 	/**
 	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
 	 */
 	void BindBase(BufferIndexedTarget target, GLuint first) const
 	{
 		if(!this->empty())
 		{
-			BufferOps::MultiBindBase(
+			BufferOps::BindBase(
 				target,
 				first,
 				GLsizei(this->size()),
@@ -1097,8 +1141,34 @@ public:
 			);
 		}
 	}
-};
+
+	/// Bind ranges of the buffers in this group to the specified targets
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	void BindRange(
+		BufferIndexedTarget target,
+		GLuint first,
+		const GLintptr* offsets,
+		const GLsizeiptr* sizes
+	) const
+	{
+		if(!this->empty())
+		{
+			BufferOps::BindRange(
+				target,
+				first,
+				GLsizei(this->size()),
+				this->_names.data(),
+				offsets,
+				sizes
+			);
+		}
+	}
 #endif
+};
 
 } // namespace oglplus
 
