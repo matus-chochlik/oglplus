@@ -691,6 +691,145 @@ struct ObjectBaseOps<Managed<Object_> >
 };
 
 template <class Object_>
+class BaseGroup
+ : public FriendOf<typename ObjectBaseOps<Object_>::Type>
+{
+protected:
+	typedef typename ObjectBaseOps<Object_>::Type ObjectOps;
+
+	std::vector<GLuint> _names;
+public:
+	typedef Managed<Object_> value_type;
+
+	/// Constructs an empty group
+	BaseGroup(void)
+	{ }
+
+	/// Constructs an empty group and reserves space for @c n objects
+	BaseGroup(std::size_t n)
+	{
+		_names.reserve(n);
+	}
+
+	/// Returns true if the group is empty
+	bool empty(void) const
+	{
+		return _names.empty();
+	}
+
+	/// Returns the current size of the group
+	std::size_t size(void) const
+	{
+		return _names.size();
+	}
+
+	/// Reserves space for the specified number of elements
+	void reserve(std::size_t n)
+	{
+		_names.reserve(n);
+	}
+
+	/// Returns the capacity of the currently allocated storage
+	std::size_t capacity(void) const
+	{
+		return _names.capacity();
+	}
+
+	/// Returns the managed object at the specified index
+	value_type at(std::size_t i) const
+	{
+		assert(i < _names.size());
+		return value_type(_names.at(i));
+	}
+
+	/// Returns the managed object at the specified index
+	value_type operator[](std::size_t i) const
+	{
+		return at(i);
+	}
+
+	/// Returns the managed object at the front of the group
+	value_type front(void) const
+	{
+		return value_type(_names.front());
+	}
+
+	/// Returns the managed object at the back of the group
+	value_type back(void) const
+	{
+		return value_type(_names.back());
+	}
+
+	/// Clears the group
+	void clear(void)
+	{
+		_names.clear();
+	}
+
+	/// Pushes an object to the back of the group
+	void push_back(const ObjectOps& object)
+	{
+		_names.push_back(FriendOf<ObjectOps>::GetName(object));
+	}
+
+	/// Pops an object from the back of the group
+	void pop_back(void)
+	{
+		_names.pop_back();
+	}
+
+	/// Removes the object at the specified position from the group
+	void remove(std::size_t position)
+	{
+		_names.erase(_names.begin()+position);
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// equivalent to push_back
+	friend BaseGroup& operator << (BaseGroup& group, const ObjectOps& object);
+#endif
+};
+
+template <typename Object_>
+BaseGroup<Object_>& operator << (
+	BaseGroup<Object_>& group,
+	const typename ObjectBaseOps<Object_>::Type& object
+)
+{
+	group.push_back(object);
+	return group;
+}
+
+/// A mutable group of externally managed Objects that logically belong together
+/**
+ *  Group allows to perform certain operations like binding multiple objects
+ *  in a single call efficiently and conveniently.
+ *
+ *  Unlike @c Array<Object>, @c Group<Object> does not manage the lifetime
+ *  of the Objects it stores. The objects are created either separatelly or as
+ *  a part of an @c Array and are (re-)ordered and tied together by @c Group.
+ *  This implies that the application must ensure, that the lifetime of the objects
+ *  in Group exceeds the lifetime of the Group or that they are not referenced
+ *  after they are destroyed.
+ *
+ *  @ingroup modifier_classes
+ */
+template <typename Object_>
+class Group
+ : public BaseGroup<Object_>
+{
+public:
+	/// Constructs an empty group
+	Group(void)
+	{ }
+
+	/// Constructs an empty group and reserves space for @c n objects
+	Group(std::size_t n)
+	 : BaseGroup<Object_>(n)
+	{ }
+};
+
+template <class Object_>
 static const String& DescriptionOf(const Object_& object)
 {
 	return FriendOf<
