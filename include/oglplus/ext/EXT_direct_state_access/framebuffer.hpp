@@ -21,7 +21,7 @@ namespace oglplus {
 
 /// Wrapper for OpenGL framebuffer operations
 /**
- *  @note Do not use this class directly, use FrameBuffer instead
+ *  @note Do not use this class directly, use DSAFrameBufferEXT instead
  *
  *  @see Framebuffer
  *
@@ -176,7 +176,7 @@ public:
 	void AttachRenderbuffer(
 		Property::Attachment attachment,
 		const RenderbufferOps& renderbuffer
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
 			_name,
@@ -208,7 +208,7 @@ public:
 	void AttachColorRenderbuffer(
 		FramebufferColorAttachmentNumber attachment_no,
 		const RenderbufferOps& renderbuffer
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
 			_name,
@@ -242,7 +242,7 @@ public:
 		Property::Attachment attachment,
 		const TextureOps& texture,
 		GLint level
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureEXT)(
 			_name,
@@ -275,7 +275,7 @@ public:
 		FramebufferColorAttachmentNumber attachment_no,
 		const TextureOps& texture,
 		GLint level
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureEXT)(
 			_name,
@@ -310,7 +310,7 @@ public:
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTexture1DEXT)(
 			_name,
@@ -345,7 +345,7 @@ public:
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTexture2DEXT)(
 			_name,
@@ -381,7 +381,7 @@ public:
 		const TextureOps& texture,
 		GLint level,
 		GLint layer
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTexture3DEXT)(
 			_name,
@@ -417,7 +417,7 @@ public:
 		const TextureOps& texture,
 		GLint level,
 		GLint layer
-	) const
+	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureLayerEXT)(
 			_name,
@@ -448,7 +448,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DrawBuffer}
 	 */
-	void DrawBuffer(ColorBuffer buffer) const
+	void DrawBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(FramebufferDrawBufferEXT)(
 			_name,
@@ -468,7 +468,7 @@ public:
 	 *  @glfunref{DrawBuffers}
 	 */
 	template <unsigned N>
-	void DrawBuffers(ColorBuffer (&buffers)[N]) const
+	void DrawBuffers(ColorBuffer (&buffers)[N])
 	{
 		if(sizeof(buffers) == sizeof(GLenum [N]))
 		{
@@ -495,7 +495,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ReadBuffer}
 	 */
-	void ReadBuffer(ColorBuffer buffer) const
+	void ReadBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(FramebufferReadBufferEXT)(_name, GLenum(buffer));
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
