@@ -112,6 +112,24 @@ public:
 		));
 	}
 
+	/// Binds the default framebuffer to this Framebuffer's target
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindFramebuffer}
+	 */
+	void BindDefault(void) const
+	{
+		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindFramebuffer,
+			Framebuffer,
+			EnumValueName(target),
+			0
+		));
+	}
+
 	/// Checks the status of the framebuffer
 	/** Returns one of the values in the @c FramebufferStatus enumeration.
 	 *  For complete framebuffers this member function returns
@@ -518,6 +536,28 @@ class DSAFramebufferEXT
 #else
 typedef Object<DSAFramebufferEXTOps> DSAFramebufferEXT;
 #endif
+
+template <>
+struct NonDSAtoDSA<FramebufferOps>
+{
+	typedef DSAFramebufferEXTOps Type;
+};
+
+template <>
+struct DSAtoNonDSA<DSAFramebufferEXTOps>
+{
+	typedef FramebufferOps Type;
+};
+
+template <>
+class ConvertibleObjectBaseOps<FramebufferOps, DSAFramebufferEXTOps>
+ : public std::true_type
+{ };
+
+template <>
+class ConvertibleObjectBaseOps<DSAFramebufferEXTOps, FramebufferOps>
+ : public std::true_type
+{ };
 
 #endif // GL_EXT_direct_state_access
 

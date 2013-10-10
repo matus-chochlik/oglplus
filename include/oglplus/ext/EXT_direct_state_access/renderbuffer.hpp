@@ -101,7 +101,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
-	/// Bind the name 0 to the @p target
+	/// Bind the name 0 to this Renderbuffer's target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindRenderbuffer}
@@ -327,6 +327,28 @@ class DSARenderbufferEXT
 #else
 typedef Object<DSARenderbufferEXTOps> DSARenderbufferEXT;
 #endif
+
+template <>
+struct NonDSAtoDSA<RenderbufferOps>
+{
+	typedef DSARenderbufferEXTOps Type;
+};
+
+template <>
+struct DSAtoNonDSA<DSARenderbufferEXTOps>
+{
+	typedef RenderbufferOps Type;
+};
+
+template <>
+class ConvertibleObjectBaseOps<RenderbufferOps, DSARenderbufferEXTOps>
+ : public std::true_type
+{ };
+
+template <>
+class ConvertibleObjectBaseOps<DSARenderbufferEXTOps, RenderbufferOps>
+ : public std::true_type
+{ };
 
 #endif // GL_EXT_direct_state_access
 

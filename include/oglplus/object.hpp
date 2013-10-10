@@ -656,6 +656,16 @@ struct ObjectBaseOps<Specialized<Object<ObjectOps>, TypeOrTarget, Initializer>>
 	typedef ObjectOps Type;
 };
 
+template <typename ObjectOps1, typename ObjectOps2>
+class ConvertibleObjectBaseOps
+ : public std::is_convertible<ObjectOps1, ObjectOps2>
+{ };
+
+template <typename ObjectOps_>
+class ConvertibleObjectBaseOps<ObjectOps_, ObjectOps_>
+ : public std::true_type
+{ };
+
 template <class Object_>
 class Managed
  : public ObjectBaseOps<Object_>::Type
@@ -666,12 +676,48 @@ private:
 
 	ObjectOps& _base(void){ return *this; }
 
+	template <typename Object2>
+	struct _convertible
+	 : public FriendOf<typename ObjectBaseOps<Object2>::Type>
+	 , public std::integral_constant<
+		bool,
+		ConvertibleObjectBaseOps<
+			typename ObjectBaseOps<Object_>::Type,
+			typename ObjectBaseOps<Object2>::Type
+		>::value &&
+		!std::is_same<Object_, Object2>::value &&
+		!std::is_same<Managed, Object2>::value
+	>
+	{
+		typedef typename ObjectBaseOps<Object2>::Type ObjectOps2;
+
+		static GLuint _name(const ObjectOps2& obj)
+		{
+			return FriendOf<ObjectOps2>::GetName(obj);
+		}
+	};
+
 	Managed(void)
 	{ }
 public:
 	Managed(const ObjectOps& obj)
 	 : ObjectOps(obj)
 	{ }
+
+	template <typename Object2>
+	Managed(
+		const Object2& obj,
+		typename std::enable_if<
+			_convertible<Object2>::value
+		>::type* = nullptr
+	)
+	{
+		typedef typename ObjectBaseOps<Object2>::Type ObjectOps2;
+		FriendOf<ObjectOps>::SetName(
+			*this,
+			_convertible<ObjectOps2>::_name(obj)
+		);
+	}
 
 	Managed(GLuint name)
 	{
@@ -828,6 +874,12 @@ public:
 	 : BaseGroup<Object_>(n)
 	{ }
 };
+
+template <typename ObjectOps>
+struct NonDSAtoDSA;
+
+template <typename ObjectOps>
+struct DSAtoNonDSA;
 
 template <class Object_>
 static const String& DescriptionOf(const Object_& object)

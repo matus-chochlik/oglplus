@@ -77,17 +77,6 @@ protected:
 
 	friend class FriendOf<DSABufferEXTOps>;
 
-	static GLenum _binding_query(Target target)
-	{
-		switch(GLenum(target))
-		{
-#include <oglplus/enums/buffer_target_bq.ipp>
-			default:;
-		}
-		return 0;
-	}
-	friend class BindingQuery<DSABufferEXTOps>;
-
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint value = 0;
@@ -291,8 +280,8 @@ public:
 		));
 	}
 
-	/// Unbind the current buffer from its current target
-	/** This function binds the name 0 to the specified @p target.
+	/// Unbind the current buffer from this Buffer's target
+	/** This function binds the name 0 to the @p target.
 	 *
 	 *  @throws Error
 	 */
@@ -303,7 +292,7 @@ public:
 			BindBuffer,
 			Buffer,
 			EnumValueName(target),
-			_name
+			0
 		));
 	}
 
@@ -809,6 +798,28 @@ class DSABufferEXT
 #else
 typedef Object<DSABufferEXTOps> DSABufferEXT;
 #endif
+
+template <>
+struct NonDSAtoDSA<BufferOps>
+{
+	typedef DSABufferEXTOps Type;
+};
+
+template <>
+struct DSAtoNonDSA<DSABufferEXTOps>
+{
+	typedef BufferOps Type;
+};
+
+template <>
+class ConvertibleObjectBaseOps<BufferOps, DSABufferEXTOps>
+ : public std::true_type
+{ };
+
+template <>
+class ConvertibleObjectBaseOps<DSABufferEXTOps, BufferOps>
+ : public std::true_type
+{ };
 
 #endif // GL_EXT_direct_state_access
 

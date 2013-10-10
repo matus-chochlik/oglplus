@@ -150,6 +150,22 @@ public:
 		));
 	}
 
+	/// Unbinds the current texture from its target
+	/**
+	 *  @throws Error
+	 *
+	 *  @see Active
+	 *  @see Bind
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindTexture}
+	 */
+	void Unbind(void) const
+	{
+		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
+	}
+
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result = 0;
@@ -2423,8 +2439,29 @@ class DSATextureEXT
 { };
 #else
 typedef Object<DSATextureEXTOps> DSATextureEXT;
-
 #endif
+
+template <>
+struct NonDSAtoDSA<TextureOps>
+{
+	typedef DSATextureEXTOps Type;
+};
+
+template <>
+struct DSAtoNonDSA<DSATextureEXTOps>
+{
+	typedef TextureOps Type;
+};
+
+template <>
+class ConvertibleObjectBaseOps<TextureOps, DSATextureEXTOps>
+ : public std::true_type
+{ };
+
+template <>
+class ConvertibleObjectBaseOps<DSATextureEXTOps, TextureOps>
+ : public std::true_type
+{ };
 
 #endif // GL_EXT_direct_state_access
 
