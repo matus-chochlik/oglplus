@@ -23,5 +23,6 @@ foreach(SRC_OBJ_FILE ${OGLPLUS_OBJ_MODELS})
 
 	add_custom_target(model-${MODEL_NAME} DEPENDS ${DST_OBJ_FILE})
 	add_dependencies(oglplus-models model-${MODEL_NAME})
+	set_property(TARGET model-${MODEL_NAME} PROPERTY FOLDER "Models")
 endforeach(SRC_OBJ_FILE)
 

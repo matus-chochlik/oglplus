@@ -3,6 +3,7 @@
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 cmake_minimum_required(VERSION 2.8)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 string(TOLOWER ${OGLPLUS_GL_INIT_LIB} OGLPLUS_EXAMPLE_HARNESS)
 
@@ -55,6 +56,8 @@ add_library(
 add_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main oglplus_example_harness)
 # optional dependencies for the harness with library
 add_oglplus_lib_dependencies(oglplus_example_harness)
+# set the solution folder
+set_property(TARGET oglplus_example_harness PROPERTY FOLDER "Example/OGLplus")
 
 # TODO: try to find some better solution for this
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx")
@@ -91,6 +94,7 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 			target_link_libraries(${TARGET_NAME} ${COMMON_LIBS})
 			add_all_dependencies(${TARGET_NAME})
 			add_dependencies("${PARENT_TARGET}" ${TARGET_NAME})
+			set_property(TARGET ${TARGET_NAME} PROPERTY FOLDER "Example/OGLplus")
 			file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/examples.txt" "${EXAMPLE_NAME}\n")
 		endif()
 		if(NOT OGLPLUS_NO_SCREENSHOTS AND EXISTS ${SCREENSHOT_MAKER})
