@@ -14,6 +14,7 @@
 #define OGLPLUS_TEXTURE_DSA_1107121519_HPP
 
 #include <oglplus/texture.hpp>
+#include <oglplus/ext/EXT_direct_state_access/buffer.hpp>
 
 namespace oglplus {
 
@@ -30,7 +31,7 @@ namespace oglplus {
 class DSATextureEXTOps
  : public Named
  , public BaseObject<true>
- , public FriendOf<BufferOps>
+ , public FriendOf<DSABufferEXTOps>
 {
 public:
 	/// Texture bind and image specification targets
@@ -1387,14 +1388,14 @@ public:
 	 */
 	void Buffer(
 		PixelDataInternalFormat internal_format,
-		const BufferOps& buffer
+		const DSABufferEXTOps& buffer
 	)
 	{
 		OGLPLUS_GLFUNC(TextureBufferEXT)(
 			_name,
 			GLenum(target),
 			GLenum(internal_format),
-			FriendOf<BufferOps>::GetName(buffer)
+			FriendOf<DSABufferEXTOps>::GetName(buffer)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TextureBufferEXT,
@@ -1402,6 +1403,14 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void Buffer(
+		PixelDataInternalFormat internal_format,
+		const BufferOps& buffer
+	)
+	{
+		Buffer(internal_format, Managed<DSABufferEXTOps>(buffer));
 	}
 #endif
 

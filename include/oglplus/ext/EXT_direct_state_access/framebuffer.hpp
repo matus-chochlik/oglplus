@@ -14,6 +14,8 @@
 #define OGLPLUS_FRAMEBUFFER_DSA_1310090720_HPP
 
 #include <oglplus/framebuffer.hpp>
+#include <oglplus/ext/EXT_direct_state_access/renderbuffer.hpp>
+#include <oglplus/ext/EXT_direct_state_access/texture.hpp>
 
 namespace oglplus {
 
@@ -33,8 +35,8 @@ namespace oglplus {
 class DSAFramebufferEXTOps
  : public Named
  , public BaseObject<true>
- , public FriendOf<RenderbufferOps>
- , public FriendOf<TextureOps>
+ , public FriendOf<DSARenderbufferEXTOps>
+ , public FriendOf<DSATextureEXTOps>
 {
 public:
 	/// Framebuffer bind target
@@ -130,6 +132,18 @@ public:
 		));
 	}
 
+	/// Binds the default framebuffer to this Framebuffer's target
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindFramebuffer}
+	 */
+	void Unbind(void) const
+	{
+		BindDefault();
+	}
+
 	/// Checks the status of the framebuffer
 	/** Returns one of the values in the @c FramebufferStatus enumeration.
 	 *  For complete framebuffers this member function returns
@@ -193,14 +207,14 @@ public:
 	 */
 	void AttachRenderbuffer(
 		Property::Attachment attachment,
-		const RenderbufferOps& renderbuffer
+		const DSARenderbufferEXTOps& renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
 			_name,
 			GLenum(attachment),
 			GL_RENDERBUFFER,
-			FriendOf<RenderbufferOps>::GetName(renderbuffer)
+			FriendOf<DSARenderbufferEXTOps>::GetName(renderbuffer)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferRenderbufferEXT,
@@ -208,6 +222,17 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachRenderbuffer(
+		Property::Attachment attachment,
+		const RenderbufferOps& renderbuffer
+	)
+	{
+		AttachRenderbuffer(
+			attachment,
+			Managed<DSARenderbufferEXTOps>(renderbuffer)
+		);
 	}
 
 	/// Attach a @p renderbuffer to the color @p attachment_no of @p target
@@ -225,14 +250,14 @@ public:
 	 */
 	void AttachColorRenderbuffer(
 		FramebufferColorAttachmentNumber attachment_no,
-		const RenderbufferOps& renderbuffer
+		const DSARenderbufferEXTOps& renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
 			_name,
 			GL_COLOR_ATTACHMENT0 + GLuint(attachment_no),
 			GL_RENDERBUFFER,
-			FriendOf<RenderbufferOps>::GetName(renderbuffer)
+			FriendOf<DSARenderbufferEXTOps>::GetName(renderbuffer)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferRenderbufferEXT,
@@ -240,6 +265,17 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachColorRenderbuffer(
+		FramebufferColorAttachmentNumber attachment_no,
+		const RenderbufferOps& renderbuffer
+	)
+	{
+		AttachColorRenderbuffer(
+			attachment_no,
+			Managed<DSARenderbufferEXTOps>(renderbuffer)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
@@ -258,14 +294,14 @@ public:
 	 */
 	void AttachTexture(
 		Property::Attachment attachment,
-		const TextureOps& texture,
+		const DSATextureEXTOps& texture,
 		GLint level
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureEXT)(
 			_name,
 			GLenum(attachment),
-			FriendOf<TextureOps>::GetName(texture),
+			FriendOf<DSATextureEXTOps>::GetName(texture),
 			level
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
@@ -274,6 +310,19 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachTexture(
+		Property::Attachment attachment,
+		const TextureOps& texture,
+		GLint level
+	)
+	{
+		AttachTexture(
+			attachment,
+			Managed<DSATextureEXTOps>(texture),
+			level
+		);
 	}
 
 	/// Attach a @p texture to the color @p attachment point of @p target
@@ -291,14 +340,14 @@ public:
 	 */
 	void AttachColorTexture(
 		FramebufferColorAttachmentNumber attachment_no,
-		const TextureOps& texture,
+		const DSATextureEXTOps& texture,
 		GLint level
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureEXT)(
 			_name,
 			GL_COLOR_ATTACHMENT0 + GLenum(attachment_no),
-			FriendOf<TextureOps>::GetName(texture),
+			FriendOf<DSATextureEXTOps>::GetName(texture),
 			level
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
@@ -307,6 +356,19 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachColorTexture(
+		FramebufferColorAttachmentNumber attachment_no,
+		const TextureOps& texture,
+		GLint level
+	)
+	{
+		AttachColorTexture(
+			attachment_no,
+			Managed<DSATextureEXTOps>(texture),
+			level
+		);
 	}
 #endif
 
@@ -326,7 +388,7 @@ public:
 	void AttachTexture1D(
 		Property::Attachment attachment,
 		Texture::Target textarget,
-		const TextureOps& texture,
+		const DSATextureEXTOps& texture,
 		GLint level
 	)
 	{
@@ -334,7 +396,7 @@ public:
 			_name,
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<TextureOps>::GetName(texture),
+			FriendOf<DSATextureEXTOps>::GetName(texture),
 			level
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
@@ -343,6 +405,21 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachTexture1D(
+		Property::Attachment attachment,
+		Texture::Target textarget,
+		const TextureOps& texture,
+		GLint level
+	)
+	{
+		AttachTexture1D(
+			attachment,
+			textarget,
+			Managed<DSATextureEXTOps>(texture),
+			level
+		);
 	}
 
 	/// Attach a 2D @p texture to the @p attachment point of @p target
@@ -361,7 +438,7 @@ public:
 	void AttachTexture2D(
 		Property::Attachment attachment,
 		Texture::Target textarget,
-		const TextureOps& texture,
+		const DSATextureEXTOps& texture,
 		GLint level
 	)
 	{
@@ -369,7 +446,7 @@ public:
 			_name,
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<TextureOps>::GetName(texture),
+			FriendOf<DSATextureEXTOps>::GetName(texture),
 			level
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
@@ -378,6 +455,21 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachTexture2D(
+		Property::Attachment attachment,
+		Texture::Target textarget,
+		const TextureOps& texture,
+		GLint level
+	)
+	{
+		AttachTexture2D(
+			attachment,
+			textarget,
+			Managed<DSATextureEXTOps>(texture),
+			level
+		);
 	}
 
 	/// Attach a 3D @p texture to the @p attachment point of @p target
@@ -396,7 +488,7 @@ public:
 	void AttachTexture3D(
 		Property::Attachment attachment,
 		Texture::Target textarget,
-		const TextureOps& texture,
+		const DSATextureEXTOps& texture,
 		GLint level,
 		GLint layer
 	)
@@ -405,7 +497,7 @@ public:
 			_name,
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<TextureOps>::GetName(texture),
+			FriendOf<DSATextureEXTOps>::GetName(texture),
 			level,
 			layer
 		);
@@ -415,6 +507,23 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachTexture3D(
+		Property::Attachment attachment,
+		Texture::Target textarget,
+		const TextureOps& texture,
+		GLint level,
+		GLint layer
+	)
+	{
+		AttachTexture3D(
+			attachment,
+			textarget,
+			Managed<DSATextureEXTOps>(texture),
+			level,
+			layer
+		);
 	}
 
 	/// Attach a @p texture layer to the @p attachment point of @p target
@@ -432,7 +541,7 @@ public:
 	 */
 	void AttachTextureLayer(
 		Property::Attachment attachment,
-		const TextureOps& texture,
+		const DSATextureEXTOps& texture,
 		GLint level,
 		GLint layer
 	)
@@ -440,7 +549,7 @@ public:
 		OGLPLUS_GLFUNC(NamedFramebufferTextureLayerEXT)(
 			_name,
 			GLenum(attachment),
-			FriendOf<TextureOps>::GetName(texture),
+			FriendOf<DSATextureEXTOps>::GetName(texture),
 			level,
 			layer
 		);
@@ -450,6 +559,21 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachTextureLayer(
+		Property::Attachment attachment,
+		const TextureOps& texture,
+		GLint level,
+		GLint layer
+	)
+	{
+		AttachTextureLayer(
+			attachment,
+			Managed<DSATextureEXTOps>(texture),
+			level,
+			layer
+		);
 	}
 
 	/// Color buffer specification type
