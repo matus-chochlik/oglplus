@@ -401,8 +401,8 @@ public:
 
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
-	 *  from the location pointed to by @p data to the buffer bound
-	 *  to the specified @p target using the @p usage as hint.
+	 *  from the location pointed to by @p data to this buffer
+	 *  using the @p usage as hint.
 	 *
 	 *  @see SubData
 	 *  @see CopySubData
@@ -451,8 +451,8 @@ public:
 
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p data.size() units of @c sizeof(GLtype)
-	 *  from the location pointed to by @p data.data() to the buffer bound
-	 *  to the specified @p target using the @p usage as hint.
+	 *  from the location pointed to by @p data.data() to this buffer
+	 *  using the @p usage as hint.
 	 *
 	 *  @see SubData
 	 *  @see CopySubData
@@ -492,7 +492,7 @@ public:
 	{
 		//TODO: is this a good idea ?
 		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
-			GLenum(target),
+			_name,
 			data.size() * sizeof(GLtype) * N,
 			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
@@ -519,7 +519,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
-			GLenum(target),
+			_name,
 			offset * sizeof(GLtype),
 			count * sizeof(GLtype),
 			data

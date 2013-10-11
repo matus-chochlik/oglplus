@@ -192,7 +192,7 @@ public:
 			HandleIncompleteError(status);
 	}
 
-	/// Attach a @p renderbuffer to the @p attachment point of @p target
+	/// Attach a @p renderbuffer to the @p attachment point of this FBO
 	/**
 	 *  @see AttachColorRenderbuffer
 	 *  @see AttachTexture
@@ -235,7 +235,7 @@ public:
 		);
 	}
 
-	/// Attach a @p renderbuffer to the color @p attachment_no of @p target
+	/// Attach a @p renderbuffer to the color @p attachment_no of this FBO
 	/**
 	 *  @see AttachRenderbuffer
 	 *  @see AttachTexture
@@ -279,7 +279,7 @@ public:
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
-	/// Attach a @p texture to the @p attachment point of @p target
+	/// Attach a @p texture to the @p attachment point of this FBO
 	/**
 	 *  @see AttachRenderbuffer
 	 *  @see AttachColorRenderbuffer
@@ -325,7 +325,7 @@ public:
 		);
 	}
 
-	/// Attach a @p texture to the color @p attachment point of @p target
+	/// Attach a @p texture to the color @p attachment point of this FBO
 	/**
 	 *  @see AttachRenderbuffer
 	 *  @see AttachColorRenderbuffer
@@ -372,7 +372,7 @@ public:
 	}
 #endif
 
-	/// Attach a 1D @p texture to the @p attachment point of @p target
+	/// Attach a 1D @p texture to the @p attachment point of this FBO
 	/**
 	 *  @see AttachRenderbuffer
 	 *  @see AttachColorRenderbuffer
@@ -422,7 +422,7 @@ public:
 		);
 	}
 
-	/// Attach a 2D @p texture to the @p attachment point of @p target
+	/// Attach a 2D @p texture to the @p attachment point of this FBO
 	/**
 	 *  @see AttachRenderbuffer
 	 *  @see AttachColorRenderbuffer
@@ -472,7 +472,7 @@ public:
 		);
 	}
 
-	/// Attach a 3D @p texture to the @p attachment point of @p target
+	/// Attach a 3D @p texture to the @p attachment point of this FBO
 	/**
 	 *  @see AttachRenderbuffer
 	 *  @see AttachColorRenderbuffer
@@ -526,7 +526,7 @@ public:
 		);
 	}
 
-	/// Attach a @p texture layer to the @p attachment point of @p target
+	/// Attach a @p texture layer to the @p attachment point of this FBO
 	/**
 	 *  @see AttachRenderbuffer
 	 *  @see AttachColorRenderbuffer
