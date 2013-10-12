@@ -678,69 +678,6 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
-	/// Creates a data store for a buffer object
-	/**
-	 *  @see Data
-	 *  @see SubData
-	 *  @see CopySubData
-	 *
-	 *  @throws Error
-	 *
-	 *  @glverreq{4,4}
-	 *  @glsymbols
-	 *  @glfunref{BufferStorage}
-	 */
-	template <typename GLtype>
-	void Storage(
-		GLsizeiptr size,
-		const void* data,
-		Bitfield<BufferStorageBit> flags
-	) const
-	{
-		OGLPLUS_GLFUNC(NamedBufferStorageEXT)(
-			_name,
-			size,
-			data,
-			GLbitfield(flags)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			NamedBufferStorageEXT,
-			Buffer,
-			EnumValueName(target),
-			_name
-		));
-	}
-
-	/// Returns true if the buffer storage is immutable
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetBufferParameter}
-	 *  @gldefref{BUFFER_IMMUTABLE_STORAGE}
-	 *
-	 *  @throws Error
-	 */
-	bool ImmutableStorage(void) const
-	{
-		return GLsizei(GetIntParam(GL_BUFFER_IMMUTABLE_STORAGE));
-	}
-
-	/// Returns the buffer storage flags
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetBufferParameter}
-	 *  @gldefref{BUFFER_STORAGE_FLAGS}
-	 *
-	 *  @throws Error
-	 */
-	Bitfield<BufferStorageBit> StorageFlags(void) const
-	{
-		return Bitfield<BufferStorageBit>(GLbitfield(
-			GetIntParam(GL_BUFFER_STORAGE_FLAGS)
-		));
-	}
-#endif
-
 	/// Returns the buffer size
 	/**
 	 *  @glsymbols
