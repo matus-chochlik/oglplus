@@ -21,7 +21,7 @@ namespace oglplus {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
 /// Wrapper for texture and texture unit-related operations
-/** @note Do not use this class directly, use Texture instead.
+/** @note Do not use this class directly, use DSATextureEXT instead.
  *
  *  @glsymbols
  *  @glfunref{GenTextures}

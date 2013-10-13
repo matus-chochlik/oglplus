@@ -24,6 +24,8 @@
 #include <oglplus/texture_dsa.hpp>
 #include <oglplus/framebuffer_dsa.hpp>
 #include <oglplus/renderbuffer_dsa.hpp>
+#include <oglplus/vertex_array_dsa.hpp>
+#include <oglplus/vertex_attrib_dsa.hpp>
 
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/random.hpp>
@@ -62,7 +64,7 @@ private:
 	LazyUniform<Mat4f> plane_camera_matrix, shape_camera_matrix;
 	LazyUniform<Vec3f> plane_camera_position;
 
-	VertexArray plane, shape;
+	DSAVertexArray plane, shape;
 
 	DSABuffer plane_verts, plane_texcoords;
 	DSABuffer shape_verts, shape_normals;
@@ -207,29 +209,20 @@ public:
 			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f)
 		);
 
-		plane.Bind();
+		std::vector<GLfloat> data;
+		GLuint n_per_vertex;
 
-		plane_verts.target = Buffer::Target::Array;
-		plane_verts.Bind();
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_plane.Positions(data);
-			plane_verts.Data(data);
-			VertexAttribArray attr(plane_prog, "Position");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
+		n_per_vertex = make_plane.Positions(data);
+		plane_verts.Data(data);
+		DSAVertexArrayAttrib(plane, plane_prog, "Position")
+			.Setup<GLfloat>(plane_verts, n_per_vertex)
+			.Enable();
 
-		plane_texcoords.target = Buffer::Target::Array;
-		plane_texcoords.Bind();
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_plane.TexCoordinates(data);
-			plane_texcoords.Data(data);
-			VertexAttribArray attr(plane_prog, "TexCoord");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
+		n_per_vertex = make_plane.TexCoordinates(data);
+		plane_texcoords.Data(data);
+		DSAVertexArrayAttrib(plane, plane_prog, "TexCoord")
+			.Setup<GLfloat>(plane_texcoords, n_per_vertex)
+			.Enable();
 
 		//
 		rand_tex.target = Texture::Target::_2D;
@@ -442,29 +435,18 @@ public:
 		UniformSampler(shape_prog, "TileTex").Set(1);
 		Uniform<GLuint>(shape_prog, "TileCount").Set(tile_tex_side);
 
-		shape.Bind();
 
-		shape_verts.target = Buffer::Target::Array;
-		shape_verts.Bind();
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Positions(data);
-			shape_verts.Data(data);
-			VertexAttribArray attr(shape_prog, "Position");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
+		n_per_vertex = make_shape.Positions(data);
+		shape_verts.Data(data);
+		DSAVertexArrayAttrib(shape, shape_prog, "Position")
+			.Setup<GLfloat>(shape_verts, n_per_vertex)
+			.Enable();
 
-		shape_normals.target = Buffer::Target::Array;
-		shape_normals.Bind();
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Normals(data);
-			shape_normals.Data(data);
-			VertexAttribArray attr(shape_prog, "Normal");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
+		n_per_vertex = make_shape.Normals(data);
+		shape_normals.Data(data);
+		DSAVertexArrayAttrib(shape, shape_prog, "Normal")
+			.Setup<GLfloat>(shape_normals, n_per_vertex)
+			.Enable();
 		//
 		gl.ClearColor(0.5f, 0.5f, 0.4f, 0.0f);
 		gl.ClearDepth(1.0f);
