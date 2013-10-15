@@ -5,6 +5,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 add_custom_target(oglplus-models)
+set_property(TARGET oglplus-models PROPERTY FOLDER "Models")
 
 # OBJ -> OBJ
 file(GLOB OGLPLUS_OBJ_MODELS "./*.obj")

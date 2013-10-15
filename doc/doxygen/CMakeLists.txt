@@ -36,6 +36,8 @@ if(DOXYGEN_FOUND)
 			rebuild-oalplus-doc
 			rebuild-eglplus-doc
 	)
+	set_property(TARGET doc PROPERTY FOLDER "Example/Documentation")
+	set_property(TARGET rebuild-doc PROPERTY FOLDER "Example/Documentation")
 else()
 	set(OGLPLUS_NO_DOCS On PARENT_SCOPE)
 endif()

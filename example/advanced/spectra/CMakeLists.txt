@@ -14,6 +14,10 @@ if((wxWidgets_FOUND) AND (OPENAL_FOUND) AND (PNG_FOUND))
 	include(${wxWidgets_USE_FILE})
 
 	add_custom_target(oglplus-advanced-example-spectra)
+	set_property(
+		TARGET oglplus-advanced-example-spectra
+		PROPERTY FOLDER "Example/Advanced/spectra"
+	)
 
 	add_resource_directory(glsl oglplus-advanced-example-spectra)
 
@@ -40,6 +44,10 @@ if((wxWidgets_FOUND) AND (OPENAL_FOUND) AND (PNG_FOUND))
 	if(${WIN32})
 		set_property(TARGET spectra PROPERTY WIN32_EXECUTABLE true)
 	endif()
+	set_property(
+		TARGET spectra
+		PROPERTY FOLDER "Example/Advanced/spectra"
+	)
 
 	target_link_libraries(spectra ${wxWidgets_LIBRARIES})
 	target_link_libraries(spectra ${OGLPLUS_GL_LIBS})
