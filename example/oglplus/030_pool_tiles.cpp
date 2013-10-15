@@ -12,16 +12,20 @@
  *  @oglplus_example_uses_texture{small_tile}
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
- *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects;GL_EXT_direct_state_access}
+ *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects}
+ *  @oglplus_example_uses_gl{GL_EXT_direct_state_access}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/shapes/spiral_sphere.hpp>
 
-#include <oglplus/bound/texture.hpp>
-#include <oglplus/bound/framebuffer.hpp>
-#include <oglplus/bound/renderbuffer.hpp>
+#include <oglplus/buffer_dsa.hpp>
+#include <oglplus/texture_dsa.hpp>
+#include <oglplus/framebuffer_dsa.hpp>
+#include <oglplus/renderbuffer_dsa.hpp>
+#include <oglplus/vertex_array_dsa.hpp>
+#include <oglplus/vertex_attrib_dsa.hpp>
 
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/random.hpp>
@@ -60,18 +64,18 @@ private:
 	LazyUniform<Mat4f> plane_camera_matrix, shape_camera_matrix;
 	LazyUniform<Vec3f> plane_camera_position;
 
-	VertexArray plane, shape;
+	DSAVertexArray plane, shape;
 
-	Buffer plane_verts, plane_texcoords;
-	Buffer shape_verts, shape_normals;
+	DSABuffer plane_verts, plane_texcoords;
+	DSABuffer shape_verts, shape_normals;
 
 	// plane textures
-	Texture rand_tex, pict_tex, tile_tex, norm_tex;
+	DSATexture rand_tex, pict_tex, tile_tex, norm_tex;
 	// Texture user for the simulation of reflection
-	Texture reflect_tex;
+	DSATexture reflect_tex;
 
-	Framebuffer fbo;
-	Renderbuffer rbo;
+	DSAFramebuffer fbo;
+	DSARenderbuffer rbo;
 
 	GLuint width, height, refl_tex_side, tile_tex_side;
 
@@ -205,135 +209,119 @@ public:
 			ModelMatrixf::Translation(0.0f, -0.5f, 0.0f)
 		);
 
-		plane.Bind();
+		std::vector<GLfloat> data;
+		GLuint n_per_vertex;
 
-		plane_verts.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_plane.Positions(data);
-			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(plane_prog, "Position");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
+		n_per_vertex = make_plane.Positions(data);
+		plane_verts.Data(data);
+		DSAVertexArrayAttrib(plane, plane_prog, "Position")
+			.Setup<GLfloat>(plane_verts, n_per_vertex)
+			.Enable();
 
-		plane_texcoords.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_plane.TexCoordinates(data);
-			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(plane_prog, "TexCoord");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
+		n_per_vertex = make_plane.TexCoordinates(data);
+		plane_texcoords.Data(data);
+		DSAVertexArrayAttrib(plane, plane_prog, "TexCoord")
+			.Setup<GLfloat>(plane_texcoords, n_per_vertex)
+			.Enable();
+
 		//
+		rand_tex.target = Texture::Target::_2D;
+		rand_tex.Image2D(
+			images::RandomRedUByte(
+				tile_tex_side,
+				tile_tex_side
+			)
+		);
+		rand_tex.MinFilter(TextureMinFilter::Nearest);
+		rand_tex.MagFilter(TextureMagFilter::Nearest);
+		rand_tex.WrapS(TextureWrap::Repeat);
+		rand_tex.WrapT(TextureWrap::Repeat);
 		Texture::Active(0);
 		UniformSampler(plane_prog, "RandTex").Set(0);
-		{
-			auto bound_tex = Bind(rand_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
-				images::RandomRedUByte(
-					tile_tex_side,
-					tile_tex_side
-				)
-			);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		rand_tex.Bind();
+
 		//
+		pict_tex.target = Texture::Target::_2D;
+		pict_tex.Image2D(images::LoadTexture("pool_pictogram"));
+		pict_tex.MinFilter(TextureMinFilter::Linear);
+		pict_tex.MagFilter(TextureMagFilter::Linear);
+		pict_tex.WrapS(TextureWrap::Repeat);
+		pict_tex.WrapT(TextureWrap::Repeat);
 		Texture::Active(1);
 		UniformSampler(plane_prog, "PictTex").Set(1);
-		{
-			auto bound_tex = Bind(pict_tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("pool_pictogram"));
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		pict_tex.Bind();
 		//
-		auto tileImage = images::LoadTexture("small_tile");
+		auto tile_image = images::LoadTexture("small_tile");
+		//
+		tile_tex.target = Texture::Target::_2D;
+		tile_tex.Image2D(tile_image);
+		tile_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+		tile_tex.MagFilter(TextureMagFilter::Linear);
+		tile_tex.WrapS(TextureWrap::Repeat);
+		tile_tex.WrapT(TextureWrap::Repeat);
+		tile_tex.GenerateMipmap();
 		Texture::Active(2);
 		UniformSampler(plane_prog, "TileTex").Set(2);
-		{
-			auto bound_tex = Bind(tile_tex, Texture::Target::_2D);
-			bound_tex.Image2D(tileImage);
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-			bound_tex.GenerateMipmap();
-		}
+		tile_tex.Bind();
 		//
+		norm_tex.target =  Texture::Target::_2D;
+		norm_tex.Image2D(
+			images::Transformed<GLfloat>(
+				images::NormalMap(
+					tile_image,
+					images::NormalMap::Filter::FromRed()
+				),
+				Mat4f(
+					Vec4f(1.0, 0.0, 0.0, 0.0),
+					Vec4f(0.0, 0.0, 1.0, 0.0),
+					Vec4f(0.0,-1.0, 0.0, 0.0),
+					Vec4f(0.0, 0.0, 0.0, 1.0)
+				)
+			)
+		);
+		norm_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+		norm_tex.MagFilter(TextureMagFilter::Linear);
+		norm_tex.WrapS(TextureWrap::Repeat);
+		norm_tex.WrapT(TextureWrap::Repeat);
+		norm_tex.GenerateMipmap();
 		Texture::Active(3);
 		UniformSampler(plane_prog, "NormTex").Set(3);
-		{
-			auto bound_tex = Bind(norm_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
-				images::Transformed<GLfloat>(
-					images::NormalMap(
-						tileImage,
-						images::NormalMap::Filter::FromRed()
-					),
-					Mat4f(
-						Vec4f(1.0, 0.0, 0.0, 0.0),
-						Vec4f(0.0, 0.0, 1.0, 0.0),
-						Vec4f(0.0,-1.0, 0.0, 0.0),
-						Vec4f(0.0, 0.0, 0.0, 1.0)
-					)
-				)
-			);
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-			bound_tex.GenerateMipmap();
-		}
+		norm_tex.Bind();
 		//
+		reflect_tex.target = Texture::Target::_2D;
+		reflect_tex.Image2D(
+			0,
+			PixelDataInternalFormat::RGB,
+			refl_tex_side, refl_tex_side,
+			0,
+			PixelDataFormat::RGB,
+			PixelDataType::UnsignedByte,
+			nullptr
+		);
+		reflect_tex.MinFilter(TextureMinFilter::Linear);
+		reflect_tex.MagFilter(TextureMagFilter::Linear);
+		reflect_tex.WrapS(TextureWrap::ClampToEdge);
+		reflect_tex.WrapT(TextureWrap::ClampToEdge);
 		Texture::Active(4);
 		UniformSampler(plane_prog, "ReflectTex").Set(4);
-		{
-			auto bound_tex = Bind(reflect_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::RGB,
-				refl_tex_side, refl_tex_side,
-				0,
-				PixelDataFormat::RGB,
-				PixelDataType::UnsignedByte,
-				nullptr
-			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-		}
-		{
-			auto bound_fbo = Bind(
-				fbo,
-				Framebuffer::Target::Draw
-			);
-			auto bound_rbo = Bind(
-				rbo,
-				Renderbuffer::Target::Renderbuffer
-			);
-			bound_rbo.Storage(
-				PixelDataInternalFormat::DepthComponent,
-				refl_tex_side,
-				refl_tex_side
-			);
-			bound_fbo.AttachTexture(
-				FramebufferAttachment::Color,
-				reflect_tex,
-				0
-			);
-			bound_fbo.AttachRenderbuffer(
-				FramebufferAttachment::Depth,
-				rbo
-			);
-		}
+		reflect_tex.Bind();
+
+		rbo.target = Renderbuffer::Target::Renderbuffer;
+		rbo.Storage(
+			PixelDataInternalFormat::DepthComponent,
+			refl_tex_side,
+			refl_tex_side
+		);
+		fbo.target = Framebuffer::Target::Draw;
+		fbo.AttachTexture(
+			FramebufferAttachment::Color,
+			reflect_tex,
+			0
+		);
+		fbo.AttachRenderbuffer(
+			FramebufferAttachment::Depth,
+			rbo
+		);
 
 		shape_vs.Source(
 			"#version 330\n"
@@ -447,27 +435,18 @@ public:
 		UniformSampler(shape_prog, "TileTex").Set(1);
 		Uniform<GLuint>(shape_prog, "TileCount").Set(tile_tex_side);
 
-		shape.Bind();
 
-		shape_verts.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Positions(data);
-			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(shape_prog, "Position");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
+		n_per_vertex = make_shape.Positions(data);
+		shape_verts.Data(data);
+		DSAVertexArrayAttrib(shape, shape_prog, "Position")
+			.Setup<GLfloat>(shape_verts, n_per_vertex)
+			.Enable();
 
-		shape_normals.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_shape.Normals(data);
-			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(shape_prog, "Normal");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
+		n_per_vertex = make_shape.Normals(data);
+		shape_normals.Data(data);
+		DSAVertexArrayAttrib(shape, shape_prog, "Normal")
+			.Setup<GLfloat>(shape_normals, n_per_vertex)
+			.Enable();
 		//
 		gl.ClearColor(0.5f, 0.5f, 0.4f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -480,8 +459,7 @@ public:
 		height = vp_height;
 		refl_tex_side = width > height ? height : width;
 
-		auto bound_tex = Bind(reflect_tex, Texture::Target::_2D);
-		bound_tex.Image2D(
+		reflect_tex.Image2D(
 			0,
 			PixelDataInternalFormat::RGB,
 			refl_tex_side, refl_tex_side,
@@ -490,8 +468,7 @@ public:
 			PixelDataType::UnsignedByte,
 			nullptr
 		);
-		auto bound_rbo = Bind(rbo, Renderbuffer::Target::Renderbuffer);
-		bound_rbo.Storage(
+		rbo.Storage(
 			PixelDataInternalFormat::DepthComponent,
 			refl_tex_side, refl_tex_side
 		);
@@ -502,15 +479,8 @@ public:
 		auto projection = CamMatrixf::PerspectiveX(
 			Degrees(60), aspect, 1, 60
 		);
-		ProgramUniform<Mat4f>(
-			plane_prog,
-			"ProjectionMatrix"
-		).Set(projection);
-
-		ProgramUniform<Mat4f>(
-			shape_prog,
-			"ProjectionMatrix"
-		).Set(projection);
+		ProgramUniform<Mat4f>(plane_prog, "ProjectionMatrix").Set(projection);
+		ProgramUniform<Mat4f>(shape_prog, "ProjectionMatrix").Set(projection);
 	}
 
 	void Render(double time)
@@ -536,7 +506,7 @@ public:
 		gl.FrontFace(make_shape.FaceWinding());
 
 		// render into the off-screen framebuffer
-		fbo.Bind(Framebuffer::Target::Draw);
+		fbo.Bind();
 		gl.Viewport(
 			(width - refl_tex_side) / 2,
 			(height - refl_tex_side) / 2,
@@ -553,7 +523,7 @@ public:
 		gl.CullFace(Face::Front);
 		shape_instr.Draw(shape_indices);
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		fbo.Unbind();
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
@@ -572,7 +542,6 @@ public:
 		plane_camera_position.Set(camera.Position());
 
 		plane_instr.Draw(plane_indices);
-
 	}
 
 	bool Continue(double time)

@@ -32,6 +32,10 @@ macro(synchronize_directories SRC_DIR DST_DIR DIRNAME PARENT_TARGET)
 				${PARENT_TARGET}
 				copy-${PARENT_TARGET}-${DIRNAME}-${DIR_ENTRY}
 			)
+			set_property(
+				TARGET copy-${PARENT_TARGET}-${DIRNAME}-${DIR_ENTRY}
+				PROPERTY FOLDER "Example/Advanced/${DIRNAME}"
+			)
 		endif()
 	endforeach(DIR_ENTRY)
 endmacro(synchronize_directories)
@@ -46,5 +50,6 @@ macro(add_resource_directory DIRNAME PARENT_TARGET)
 endmacro(add_resource_directory)
 
 add_custom_target(oglplus-advanced-examples ALL)
+set_property(TARGET oglplus-advanced-examples PROPERTY FOLDER "Example/Advanced")
 
 add_subdirectory("spectra")

@@ -220,6 +220,35 @@ protected:
 		}
 	};
 
+	// Functions for autodetection of values-per-vertex
+	template <typename T>
+	static GLint _get_values_per_vertex(T*)
+	{
+		return 1;
+	}
+
+	template <typename T, std::size_t N>
+	static GLint _get_values_per_vertex(Vector<T, N>*)
+	{
+		return N;
+	}
+
+	template <typename T, std::size_t Rows, std::size_t Cols>
+	static GLint _get_values_per_vertex(Matrix<T, Rows, Cols>*)
+	{
+		return Rows*Cols;
+	}
+
+	// Functions for autodetection of element type
+	template <typename T>
+	static T _get_element_type(T* p);
+
+	template <typename T, std::size_t N>
+	static T _get_element_type(Vector<T, N>*);
+
+	template <typename T, std::size_t Rows, std::size_t Cols>
+	static T _get_element_type(Matrix<T, Rows, Cols>*);
+
 	VertexAttribOps(const ProgramOps& program, const GLchar* identifier)
 	 : _location(_find_location(program, identifier))
 	{ }
@@ -815,34 +844,6 @@ class VertexAttribArray
  : public VertexAttribOps
 {
 private:
-	// Functions for autodetection of values-per-vertex
-	template <typename T>
-	static GLint _get_values_per_vertex(T*)
-	{
-		return 1;
-	}
-
-	template <typename T, std::size_t N>
-	static GLint _get_values_per_vertex(Vector<T, N>*)
-	{
-		return N;
-	}
-
-	template <typename T, std::size_t Rows, std::size_t Cols>
-	static GLint _get_values_per_vertex(Matrix<T, Rows, Cols>*)
-	{
-		return Rows*Cols;
-	}
-
-	// Functions for autodetection of element type
-	template <typename T>
-	static T _get_element_type(T* p);
-
-	template <typename T, std::size_t N>
-	static T _get_element_type(Vector<T, N>*);
-
-	template <typename T, std::size_t Rows, std::size_t Cols>
-	static T _get_element_type(Matrix<T, Rows, Cols>*);
 public:
 	/// References the vertex attribute array at @p location
 	/**

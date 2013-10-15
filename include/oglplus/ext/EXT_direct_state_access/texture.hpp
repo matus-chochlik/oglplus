@@ -14,13 +14,14 @@
 #define OGLPLUS_TEXTURE_DSA_1107121519_HPP
 
 #include <oglplus/texture.hpp>
+#include <oglplus/ext/EXT_direct_state_access/buffer.hpp>
 
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
 /// Wrapper for texture and texture unit-related operations
-/** @note Do not use this class directly, use Texture instead.
+/** @note Do not use this class directly, use DSATextureEXT instead.
  *
  *  @glsymbols
  *  @glfunref{GenTextures}
@@ -30,7 +31,7 @@ namespace oglplus {
 class DSATextureEXTOps
  : public Named
  , public BaseObject<true>
- , public FriendOf<BufferOps>
+ , public FriendOf<DSABufferEXTOps>
 {
 public:
 	/// Texture bind and image specification targets
@@ -148,6 +149,22 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	/// Unbinds the current texture from its target
+	/**
+	 *  @throws Error
+	 *
+	 *  @see Active
+	 *  @see Bind
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindTexture}
+	 */
+	void Unbind(void) const
+	{
+		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
 	}
 
 	GLint GetIntParam(GLenum query) const
@@ -1371,14 +1388,14 @@ public:
 	 */
 	void Buffer(
 		PixelDataInternalFormat internal_format,
-		const BufferOps& buffer
+		const DSABufferEXTOps& buffer
 	)
 	{
 		OGLPLUS_GLFUNC(TextureBufferEXT)(
 			_name,
 			GLenum(target),
 			GLenum(internal_format),
-			FriendOf<BufferOps>::GetName(buffer)
+			FriendOf<DSABufferEXTOps>::GetName(buffer)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TextureBufferEXT,
@@ -1386,6 +1403,14 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void Buffer(
+		PixelDataInternalFormat internal_format,
+		const BufferOps& buffer
+	)
+	{
+		Buffer(internal_format, Managed<DSABufferEXTOps>(buffer));
 	}
 #endif
 
@@ -2423,8 +2448,29 @@ class DSATextureEXT
 { };
 #else
 typedef Object<DSATextureEXTOps> DSATextureEXT;
-
 #endif
+
+template <>
+struct NonDSAtoDSA<TextureOps>
+{
+	typedef DSATextureEXTOps Type;
+};
+
+template <>
+struct DSAtoNonDSA<DSATextureEXTOps>
+{
+	typedef TextureOps Type;
+};
+
+template <>
+class ConvertibleObjectBaseOps<TextureOps, DSATextureEXTOps>
+ : public std::true_type
+{ };
+
+template <>
+class ConvertibleObjectBaseOps<DSATextureEXTOps, TextureOps>
+ : public std::true_type
+{ };
 
 #endif // GL_EXT_direct_state_access
 

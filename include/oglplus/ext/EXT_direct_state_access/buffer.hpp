@@ -77,17 +77,6 @@ protected:
 
 	friend class FriendOf<DSABufferEXTOps>;
 
-	static GLenum _binding_query(Target target)
-	{
-		switch(GLenum(target))
-		{
-#include <oglplus/enums/buffer_target_bq.ipp>
-			default:;
-		}
-		return 0;
-	}
-	friend class BindingQuery<DSABufferEXTOps>;
-
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint value = 0;
@@ -291,8 +280,8 @@ public:
 		));
 	}
 
-	/// Unbind the current buffer from its current target
-	/** This function binds the name 0 to the specified @p target.
+	/// Unbind the current buffer from this Buffer's target
+	/** This function binds the name 0 to the @p target.
 	 *
 	 *  @throws Error
 	 */
@@ -303,7 +292,7 @@ public:
 			BindBuffer,
 			Buffer,
 			EnumValueName(target),
-			_name
+			0
 		));
 	}
 
@@ -412,8 +401,8 @@ public:
 
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
-	 *  from the location pointed to by @p data to the buffer bound
-	 *  to the specified @p target using the @p usage as hint.
+	 *  from the location pointed to by @p data to this buffer
+	 *  using the @p usage as hint.
 	 *
 	 *  @see SubData
 	 *  @see CopySubData
@@ -462,8 +451,8 @@ public:
 
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p data.size() units of @c sizeof(GLtype)
-	 *  from the location pointed to by @p data.data() to the buffer bound
-	 *  to the specified @p target using the @p usage as hint.
+	 *  from the location pointed to by @p data.data() to this buffer
+	 *  using the @p usage as hint.
 	 *
 	 *  @see SubData
 	 *  @see CopySubData
@@ -503,7 +492,7 @@ public:
 	{
 		//TODO: is this a good idea ?
 		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
-			GLenum(target),
+			_name,
 			data.size() * sizeof(GLtype) * N,
 			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
@@ -530,7 +519,7 @@ public:
 	) const
 	{
 		OGLPLUS_GLFUNC(NamedBufferSubDataEXT)(
-			GLenum(target),
+			_name,
 			offset * sizeof(GLtype),
 			count * sizeof(GLtype),
 			data
@@ -689,69 +678,6 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
-	/// Creates a data store for a buffer object
-	/**
-	 *  @see Data
-	 *  @see SubData
-	 *  @see CopySubData
-	 *
-	 *  @throws Error
-	 *
-	 *  @glverreq{4,4}
-	 *  @glsymbols
-	 *  @glfunref{BufferStorage}
-	 */
-	template <typename GLtype>
-	void Storage(
-		GLsizeiptr size,
-		const void* data,
-		Bitfield<BufferStorageBit> flags
-	) const
-	{
-		OGLPLUS_GLFUNC(NamedBufferStorageEXT)(
-			_name,
-			size,
-			data,
-			GLbitfield(flags)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			NamedBufferStorageEXT,
-			Buffer,
-			EnumValueName(target),
-			_name
-		));
-	}
-
-	/// Returns true if the buffer storage is immutable
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetBufferParameter}
-	 *  @gldefref{BUFFER_IMMUTABLE_STORAGE}
-	 *
-	 *  @throws Error
-	 */
-	bool ImmutableStorage(void) const
-	{
-		return GLsizei(GetIntParam(GL_BUFFER_IMMUTABLE_STORAGE));
-	}
-
-	/// Returns the buffer storage flags
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetBufferParameter}
-	 *  @gldefref{BUFFER_STORAGE_FLAGS}
-	 *
-	 *  @throws Error
-	 */
-	Bitfield<BufferStorageBit> StorageFlags(void) const
-	{
-		return Bitfield<BufferStorageBit>(GLbitfield(
-			GetIntParam(GL_BUFFER_STORAGE_FLAGS)
-		));
-	}
-#endif
-
 	/// Returns the buffer size
 	/**
 	 *  @glsymbols
@@ -809,6 +735,28 @@ class DSABufferEXT
 #else
 typedef Object<DSABufferEXTOps> DSABufferEXT;
 #endif
+
+template <>
+struct NonDSAtoDSA<BufferOps>
+{
+	typedef DSABufferEXTOps Type;
+};
+
+template <>
+struct DSAtoNonDSA<DSABufferEXTOps>
+{
+	typedef BufferOps Type;
+};
+
+template <>
+class ConvertibleObjectBaseOps<BufferOps, DSABufferEXTOps>
+ : public std::true_type
+{ };
+
+template <>
+class ConvertibleObjectBaseOps<DSABufferEXTOps, BufferOps>
+ : public std::true_type
+{ };
 
 #endif // GL_EXT_direct_state_access
 

@@ -20,6 +20,8 @@
 
 #include <oglplus/auxiliary/any_iter.hpp>
 
+#include <oglplus/sphere.hpp>
+
 #include <array>
 #include <vector>
 #include <iostream>
@@ -279,13 +281,13 @@ public:
 	> VertexAttribs;
 #endif
 
-	Vec4f MakeBoundingSphere(void) const;
+	Spheref MakeBoundingSphere(void) const;
 
 	/// Queries the bounding sphere coordinates and dimensions
 	template <typename T>
-	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	void BoundingSphere(oglplus::Sphere<T>& bounding_sphere) const
 	{
-		center_and_radius = Vector<T, 4>(MakeBoundingSphere());
+		bounding_sphere = oglplus::Sphere<T>(MakeBoundingSphere());
 	}
 
 	/// The type of the index container returned by Indices()

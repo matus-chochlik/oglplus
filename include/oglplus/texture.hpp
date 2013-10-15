@@ -196,7 +196,6 @@ public:
 	{
 		return SwizzleR();
 	}
-	
 
 	/// Sets the swizzle value for green component
 	TextureSwizzleTuple& SwizzleG(TextureSwizzle mode)
@@ -548,6 +547,28 @@ public:
 		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the specified textures to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	static void Bind(
+		GLuint first,
+		GLsizei count,
+		const GLuint* names
+	)
+	{
+		OGLPLUS_GLFUNC(BindTextures)(
+			first,
+			count,
+			names
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTextures));
+	}
+#endif
 
 	static GLint GetIntParam(Target target, GLenum query)
 	{
@@ -2066,6 +2087,28 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the specified texture images to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	static void BindImage(
+		GLuint first,
+		GLsizei count,
+		const GLuint* names
+	)
+	{
+		OGLPLUS_GLFUNC(BindImageTextures)(
+			first,
+			count,
+			names
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindImageTextures));
+	}
+#endif
+
 	/// Returns the texture base level (TEXTURE_BASE_LEVEL)
 	/**
 	 *  @glsymbols
@@ -3034,6 +3077,120 @@ class Texture
 #else
 typedef Object<TextureOps> Texture;
 #endif
+
+template <>
+class Group<Texture>
+ : public BaseGroup<Texture>
+{
+public:
+	/// Constructs an empty group of Textures
+	Group(void)
+	{ }
+
+	/// Constructs an empty group and reserves space for @c n Textures
+	Group(std::size_t n)
+	 : BaseGroup<Texture>(n)
+	{ }
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the textures in this group to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	void Bind(GLuint first) const
+	{
+		if(!this->empty())
+		{
+			TextureOps::Bind(
+				first,
+				GLsizei(this->size()),
+				this->_names.data()
+			);
+		}
+	}
+
+	/// Bind the images in this group to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	void BindImage(GLuint first) const
+	{
+		if(!this->empty())
+		{
+			TextureOps::BindImage(
+				first,
+				GLsizei(this->size()),
+				this->_names.data()
+			);
+		}
+	}
+#endif
+};
+
+template <>
+class Array<Texture>
+ : public aux::BaseArray<
+	Texture,
+	Texture::IsMultiObject::value
+>
+{
+private:
+	typedef aux::BaseArray<
+		Texture,
+		Texture::IsMultiObject::value
+	> BaseArray;
+public:
+	/// Constructs an Array of @c c Textures
+	Array(GLsizei c)
+	 : BaseArray(c)
+	{ }
+
+	Array(Array&& tmp)
+	 : BaseArray(std::move(tmp))
+	{ }
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the textures in this array to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	void Bind(GLuint first) const
+	{
+		if(!this->empty())
+		{
+			TextureOps::Bind(
+				first,
+				GLsizei(this->size()),
+				this->_names.data()
+			);
+		}
+	}
+
+	/// Bind the images in this group to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	void BindImage(GLuint first) const
+	{
+		if(!this->empty())
+		{
+			TextureOps::BindImage(
+				first,
+				GLsizei(this->size()),
+				this->_names.data()
+			);
+		}
+	}
+#endif
+};
 
 } // namespace oglplus
 

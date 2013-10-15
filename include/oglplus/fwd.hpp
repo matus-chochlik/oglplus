@@ -119,6 +119,15 @@ OGLPLUS_OBJECT_TYPE_ID(DSATextureEXT, 14)
 class DSABufferEXTOps;
 OGLPLUS_OBJECT_TYPE_ID(DSABufferEXT, 15)
 
+class DSAFramebufferEXTOps;
+OGLPLUS_OBJECT_TYPE_ID(DSAFramebufferEXT, 16)
+
+class DSARenderbufferEXTOps;
+OGLPLUS_OBJECT_TYPE_ID(DSARenderbufferEXT, 17)
+
+class DSAVertexArrayEXTOps;
+OGLPLUS_OBJECT_TYPE_ID(DSAVertexArrayEXT, 18)
+
 } // namespace oglplus
 
 #endif // include guard

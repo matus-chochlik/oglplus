@@ -20,7 +20,7 @@
 
 namespace oglplus {
 
-class Sphere
+class Particle
 {
 private:
 	// helper object building sphere's vertex attributes
@@ -42,7 +42,7 @@ private:
 	// VBOs for the sphere's vertices and normals
 	Buffer verts, normals;
 public:
-	Sphere(const VertexShader& vs, FragmentShader&& frag)
+	Particle(const VertexShader& vs, FragmentShader&& frag)
 	 : sphere_instr(make_sphere.Instructions())
 	 , sphere_indices(make_sphere.Indices())
 	 , fs(std::forward<FragmentShader>(frag))
@@ -224,9 +224,9 @@ private:
 		return shader;
 	}
 
-	Sphere proton;
-	Sphere neutron;
-	Sphere electron;
+	Particle proton;
+	Particle neutron;
+	Particle electron;
 public:
 	SphereExample(void)
 	 : vs(make_vs())

@@ -10,6 +10,7 @@ if(NOT(${CMAKE_COMPILER_IS_GNUCXX}))
 endif()
 
 add_custom_target(standalone-examples ALL)
+set_property(TARGET standalone-examples PROPERTY FOLDER "Example/Standalone")
 
 function(standalone_example_common EXAMPLE_NAME)
 	add_executable(
@@ -19,6 +20,7 @@ function(standalone_example_common EXAMPLE_NAME)
 	)
 	add_dependencies(standalone-examples ${EXAMPLE_NAME})
 	target_link_libraries(${EXAMPLE_NAME} ${OPENGL_LIBRARIES} ${ARGN})
+	set_property(TARGET ${EXAMPLE_NAME} PROPERTY FOLDER "Example/Standalone")
 endfunction()
 
 if(EGL_FOUND AND OPENGL_FOUND)

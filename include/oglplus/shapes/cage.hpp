@@ -18,6 +18,7 @@
 
 #include <oglplus/shapes/vert_attr_info.hpp>
 #include <oglplus/matrix.hpp>
+#include <oglplus/sphere.hpp>
 
 namespace oglplus {
 namespace shapes {
@@ -201,9 +202,9 @@ public:
 
 	/// Queries the bounding sphere coordinates and dimensions
 	template <typename T>
-	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	void BoundingSphere(oglplus::Sphere<T>& bounding_sphere) const
 	{
-		center_and_radius = Vector<T, 4>(
+		bounding_sphere = oglplus::Sphere<T>(
 			T(0),
 			T(0),
 			T(0),

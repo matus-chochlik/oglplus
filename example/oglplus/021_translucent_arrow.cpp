@@ -248,8 +248,8 @@ public:
 
 		auto camera =
 			CamMatrixf::Orbiting(
-				objects.BoundingSphereCenter(),
-				objects.BoundingSphereRadius()*2.8,
+				objects.BoundingSphere().Center(),
+				objects.BoundingSphere().Radius()*2.8,
 				FullCircles(time / 19.0),
 				Degrees(SineWave(time / 17.0) * 90)
 			);

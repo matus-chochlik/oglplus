@@ -3,6 +3,7 @@
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 cmake_minimum_required(VERSION 2.8)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 project(OGLplus)
 

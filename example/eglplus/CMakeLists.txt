@@ -20,6 +20,10 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 			target_link_libraries(${TARGET_NAME} ${COMMON_LIBS})
 			add_all_dependencies(${TARGET_NAME})
 			add_dependencies("${PARENT_TARGET}" ${TARGET_NAME})
+			set_property(
+				TARGET ${TARGET_NAME}
+				PROPERTY FOLDER "Example/EGLplus"
+			)
 		endif()
 	endforeach()
 endfunction(add_examples)
@@ -30,6 +34,7 @@ if(EGL_FOUND)
 	set(EXAMPLE_LIBS ${EGL_LIBRARIES})
 
 	add_custom_target(eglplus-examples ALL)
+	set_property(TARGET eglplus-examples PROPERTY FOLDER "Example/EGLplus")
 
 	add_examples("[0-9][0-9][0-9]*" eglplus-examples "${EXAMPLE_LIBS}")
 endif(EGL_FOUND)

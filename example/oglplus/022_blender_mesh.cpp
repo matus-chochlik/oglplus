@@ -250,7 +250,7 @@ public:
 
 		auto camera =
 			CamMatrixf::Orbiting(
-				monkeys.BoundingSphereCenter(),
+				monkeys.BoundingSphere().Center(),
 				7.0,
 				FullCircles(time / 19.0),
 				Degrees(SineWave(time / 17.0) * 90)

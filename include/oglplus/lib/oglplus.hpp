@@ -85,6 +85,7 @@
 #include <oglplus/opt/resources.hpp>
 
 #include <oglplus/ext/ARB_debug_output.hpp>
+#include <oglplus/ext/EXT_direct_state_access/framebuffer.hpp>
 
 namespace oglplus {
 

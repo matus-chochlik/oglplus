@@ -5,6 +5,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 add_custom_target(oglplus-textures)
+set_property(TARGET oglplus-textures PROPERTY FOLDER "Textures")
 
 set(NOT_AVAILABLE_PNG ${CMAKE_CURRENT_SOURCE_DIR}/not_available.png)
 
@@ -47,6 +48,7 @@ foreach(SVG_FILE ${OGLPLUS_SVG_TEXTURES})
 
 	add_custom_target(texture-${TEXTURE_NAME} DEPENDS ${PNG_FILE})
 	add_dependencies(oglplus-textures texture-${TEXTURE_NAME})
+	set_property(TARGET texture-${TEXTURE_NAME} PROPERTY FOLDER "Textures")
 endforeach(SVG_FILE)
 
 # POV -> PNG
@@ -111,5 +113,6 @@ foreach(POV_FILE ${OGLPLUS_POV_TEXTURES})
 
 	add_custom_target(texture-${TEXTURE_NAME} DEPENDS ${PNG_FILE})
 	add_dependencies(oglplus-textures texture-${TEXTURE_NAME})
+	set_property(TARGET texture-${TEXTURE_NAME} PROPERTY FOLDER "Textures")
 endforeach(POV_FILE)
 

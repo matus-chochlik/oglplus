@@ -27,9 +27,11 @@ include_directories(${PROJECT_SOURCE_DIR}/utils)
 
 # add a target for the examples
 add_custom_target(oglplus-examples ALL)
+set_property(TARGET oglplus-examples PROPERTY FOLDER "Example/OGLplus")
 
 # add a target for the screenshots
 add_custom_target(oglplus-examples-screenshots)
+set_property(TARGET oglplus-examples-screenshots PROPERTY FOLDER "Example/Screenshots")
 
 add_definitions(-DOGLPLUS_LINK_LIBRARY=${OGLPLUS_LINK_LIBRARY})
 add_definitions(-DEGLPLUS_LINK_LIBRARY=1)
@@ -55,6 +57,8 @@ add_library(
 add_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main oglplus_example_harness)
 # optional dependencies for the harness with library
 add_oglplus_lib_dependencies(oglplus_example_harness)
+# set the solution folder
+set_property(TARGET oglplus_example_harness PROPERTY FOLDER "Example/OGLplus")
 
 # TODO: try to find some better solution for this
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx")
@@ -91,6 +95,10 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 			target_link_libraries(${TARGET_NAME} ${COMMON_LIBS})
 			add_all_dependencies(${TARGET_NAME})
 			add_dependencies("${PARENT_TARGET}" ${TARGET_NAME})
+			set_property(
+				TARGET ${TARGET_NAME}
+				PROPERTY FOLDER "Example/OGLplus"
+			)
 			file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/examples.txt" "${EXAMPLE_NAME}\n")
 		endif()
 		if(NOT OGLPLUS_NO_SCREENSHOTS AND EXISTS ${SCREENSHOT_MAKER})
@@ -115,6 +123,10 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 
 			add_custom_target("${EXAMPLE_NAME}-screenshot" DEPENDS ${EXAMPLE_NAME}.png)
 			add_dependencies("${PARENT_TARGET}-screenshots" "${EXAMPLE_NAME}-screenshot")
+			set_property(
+				TARGET "${EXAMPLE_NAME}-screenshot"
+				PROPERTY FOLDER "Example/Screenshots"
+			)
 		endif()
 	endforeach()
 endfunction(add_examples)
