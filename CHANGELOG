@@ -1,3 +1,22 @@
+Version 0.38.0
+
+- The Group<Object> class template for grouping externally managed objects
+  was added, together with specializations implementing ARB_multi_bind
+  operations on Buffer, Sampler and Texture.
+- The DSAFramebufferEXT, DSARenderbufferEXT and DSAVertexArrayEXT classes
+  implementing direct-state-access operations were added.
+- Forwarding headers defining the DSATexture, DSABuffer, DSAFrameBuffer,
+  DSARenderbuffer, DSAVertexArray and DSAVertexArrayAttrib were added.
+- The Managed<Object> class template was updated to be compatible with
+  the direct-state-access objects.
+- A new example was added and one of the older examples was updated to show
+  the usage of the direct-state-access classes.
+- The BoundingSphere functions in the shape builders were updated to use
+  the Sphere class instead of Vector for the return value.
+- The FOLDER properties were added to the build system to put targets
+  into solution folders when they are supported.
+
+
 Version 0.37.0
 
 

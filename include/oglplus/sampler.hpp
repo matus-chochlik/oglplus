@@ -41,7 +41,7 @@ class SamplerOps
  , public BaseObject<true>
 {
 public:
-	typedef TextureUnitSelector Target;
+	typedef Nothing Target;
 protected:
 	static void _init(GLsizei count, GLuint* _name)
 	{

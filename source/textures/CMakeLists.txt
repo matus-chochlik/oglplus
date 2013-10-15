@@ -5,6 +5,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 add_custom_target(oglplus-textures)
+set_property(TARGET oglplus-textures PROPERTY FOLDER "Textures")
 
 set(NOT_AVAILABLE_PNG ${CMAKE_CURRENT_SOURCE_DIR}/not_available.png)
 
