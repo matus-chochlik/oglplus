@@ -111,6 +111,7 @@ def git_has_remote_branch(branch_name, root_dir=get_root_dir):
 def action_mirror_master():
 	root_dir = get_root_dir()
 	git_command(["checkout", "master-with-history"], root_dir)
+	git_command(["pull", "origin", "master-with-history"], root_dir)
 	git_command(["merge", "master"], root_dir)
 	git_command(["push", "origin", "master-with-history"], root_dir)
 	git_command(["push", "sourceforge", "master-with-history:master"], root_dir)
@@ -136,13 +137,16 @@ def action_finish_release():
 		release_branch = "release-"+release_version
 		if git_has_branch(release_branch, root_dir):
 			git_command(["checkout", release_branch], root_dir)
+			git_command(["pull", "origin", release_branch], root_dir)
 		elif git_has_remote_branch(release_branch, root_dir):
 			git_command(["checkout", "-b", release_branch, "origin/"+release_branch], root_dir)
+			git_command(["pull", "origin", release_branch], root_dir)
 		else: raise RuntimeError(
 			"Release branch '"+release_branch+"' does not exist. "
 			"Re-run with --begin-release to start a new release."
 		)
 	git_command(["checkout", "master"], root_dir)
+	git_command(["pull", "origin", "master"], root_dir)
 	git_command(["merge", "--no-ff", release_branch], root_dir)
 	git_command(["tag", "-a", release_version, "-m", "Tagged release "+release_version], root_dir)
 	git_command(["push", "origin", "master"], root_dir)
@@ -174,17 +178,21 @@ def action_finish_hotfix():
 		hotfix_branch = "hotfix-"+hotfix_version
 		if git_has_branch(hotfix_branch, root_dir):
 			git_command(["checkout", hotfix_branch], root_dir)
+			git_command(["pull", "origin", hotfix_branch], root_dir)
 		elif git_has_remote_branch(hotfix_branch, root_dir):
 			git_command(["checkout", "-b", hotfix_branch, "origin/"+hotfix_branch], root_dir)
+			git_command(["pull", "origin", hotfix_branch], root_dir)
 		else: raise RuntimeError(
 			"Hotfix branch '"+hotfix_branch+"' does not exist. "
 			"Re-run with --begin-hotfix to start a new hotfix."
 		)
 	git_command(["checkout", "master"], root_dir)
+	git_command(["pull", "origin", "master"], root_dir)
 	git_command(["merge", "--no-ff", hotfix_branch], root_dir)
 	git_command(["tag", "-a", hotfix_version, "-m", "Tagged hotfix "+hotfix_version], root_dir)
 	git_command(["push", "origin", "master"], root_dir)
 	git_command(["checkout", "develop"], root_dir)
+	git_command(["pull", "origin", "develop"], root_dir)
 	git_command(["merge", "--no-ff", hotfix_branch], root_dir)
 	git_command(["push", "origin", ":"+hotfix_branch], root_dir)
 	git_command(["branch", "-D", hotfix_branch], root_dir)
