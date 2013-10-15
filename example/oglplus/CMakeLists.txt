@@ -124,7 +124,7 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 			add_custom_target("${EXAMPLE_NAME}-screenshot" DEPENDS ${EXAMPLE_NAME}.png)
 			add_dependencies("${PARENT_TARGET}-screenshots" "${EXAMPLE_NAME}-screenshot")
 			set_property(
-				TARGET "${EXAMPLE_NAME}-screenshots"
+				TARGET "${EXAMPLE_NAME}-screenshot"
 				PROPERTY FOLDER "Example/Screenshots"
 			)
 		endif()
