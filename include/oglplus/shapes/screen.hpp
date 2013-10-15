@@ -19,6 +19,8 @@
 
 #include <oglplus/shapes/vert_attr_info.hpp>
 
+#include <oglplus/sphere.hpp>
+
 #include <cmath>
 #include <cassert>
 
@@ -164,9 +166,9 @@ public:
 
 	/// Queries the bounding sphere coordinates and dimensions
 	template <typename T>
-	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	void BoundingSphere(oglplus::Sphere<T>& bounding_sphere) const
 	{
-		center_and_radius = Vector<T, 4>(T(0), T(0), T(0), T(1));
+		bounding_sphere = oglplus::Sphere<T>(T(0), T(0), T(0), T(1));
 	}
 
 	/// The type of index container returned by Indices()

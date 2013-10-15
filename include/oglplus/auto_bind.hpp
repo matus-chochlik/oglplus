@@ -222,6 +222,14 @@ struct AutoBindBaseSelect
 template <typename Object, bool Safe = true>
 class AutoBind;
 
+#if !OGLPLUS_DOCUMENTATION_ONLY && !OGLPLUS_DOXYGEN_PARSE
+template <class Object, bool Safe>
+struct ObjectBaseOps<AutoBind<Object, Safe> >
+{
+	typedef typename ObjectBaseOps<Object>::Type Type;
+};
+#endif
+
 template <class BindableOps, bool Safe>
 class AutoBind<Object<BindableOps>, Safe>
  : public BoundTemplate<

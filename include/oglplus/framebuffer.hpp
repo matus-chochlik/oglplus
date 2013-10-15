@@ -265,6 +265,18 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindFramebuffer));
 	}
 
+	/// Binds the default framebuffer to the specified target
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindFramebuffer}
+	 */
+	static void Unbind(Target target)
+	{
+		BindDefault(target);
+	}
+
 	/// Checks the status of the framebuffer
 	/** Returns one of the values in the @c FramebufferStatus enumeration.
 	 *  For complete framebuffers this member function returns

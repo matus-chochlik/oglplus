@@ -268,6 +268,24 @@ into to the directory where you have cloned the repo or use the cmake
 build system and build them that way.
 
 
+Assets used in examples
+=======================
+
+Many of the examples use binary media files which are not suitable
+for inclusion to the source repository mainly because of their size.
+OGLplus examples use texture bitmaps, fonts and models, OALplus examples use sounds,
+etc. Some of these media files can be generated from textual representations
+(for example SVG files converted or POVray sources rendered to bitmaps).
+Assets for which there is a textual source and its size does not exceed
+certain limits are included in the repository and are rendered into their
+binary form by the build system. This may however require some third-party
+application and the rendering process can be very time-consuming.
+
+Because of this, some of the medium-sized assets are pre-built and shipped
+with the release packages (in the ``_prebuilt/`` directory) and the larger
+assets can be downloaded individually from
+http://sourceforge.net/projects/oglplus/files/assets/
+
 
 Acknowledgements
 ================

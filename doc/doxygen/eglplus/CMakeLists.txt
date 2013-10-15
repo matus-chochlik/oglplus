@@ -35,6 +35,7 @@ add_custom_target(
 	eglplus-prebuild-doc
 	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
 )
+set_property(TARGET eglplus-prebuild-doc PROPERTY FOLDER "Example/Documentation")
 
 add_custom_target(
 	eglplus-doc
@@ -42,6 +43,7 @@ add_custom_target(
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	DEPENDS oglplus-prebuild-doc
 )
+set_property(TARGET eglplus-doc PROPERTY FOLDER "Example/Documentation")
 
 set(COPIED_FILES tab_a.png tab_b.png tab_h.png tab_s.png tabs.css)
 

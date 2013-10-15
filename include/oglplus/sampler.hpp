@@ -41,7 +41,7 @@ class SamplerOps
  , public BaseObject<true>
 {
 public:
-	typedef TextureUnitSelector Target;
+	typedef Nothing Target;
 protected:
 	static void _init(GLsizei count, GLuint* _name)
 	{
@@ -110,6 +110,28 @@ public:
 		OGLPLUS_GLFUNC(BindSampler)(GLuint(unit), 0);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindSampler));
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the specified samplers to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	static void Bind(
+		GLuint first,
+		GLsizei count,
+		const GLuint* names
+	)
+	{
+		OGLPLUS_GLFUNC(BindSamplers)(
+			first,
+			count,
+			names
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindSamplers));
+	}
+#endif
 
 	GLint GetIntParam(GLenum query) const
 	{
@@ -646,6 +668,84 @@ class Sampler
 #else
 typedef Object<SamplerOps> Sampler;
 #endif
+
+template <>
+class Group<Sampler>
+ : public BaseGroup<Sampler>
+{
+public:
+	/// Constructs an empty group of Samplers
+	Group(void)
+	{ }
+
+	/// Constructs an empty group and reserves space for @c n Samplers
+	Group(std::size_t n)
+	 : BaseGroup<Sampler>(n)
+	{ }
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the samplers in this group to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	void Bind(GLuint first) const
+	{
+		if(!this->empty())
+		{
+			SamplerOps::Bind(
+				first,
+				GLsizei(this->size()),
+				this->_names.data()
+			);
+		}
+	}
+#endif
+};
+
+template <>
+class Array<Sampler>
+ : public aux::BaseArray<
+	Sampler,
+	Sampler::IsMultiObject::value
+>
+{
+private:
+	typedef aux::BaseArray<
+		Sampler,
+		Sampler::IsMultiObject::value
+	> BaseArray;
+public:
+	/// Constructs an Array of @c c Samplers
+	Array(GLsizei c)
+	 : BaseArray(c)
+	{ }
+
+	Array(Array&& tmp)
+	 : BaseArray(std::move(tmp))
+	{ }
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the in this array to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	void Bind(GLuint first) const
+	{
+		if(!this->empty())
+		{
+			SamplerOps::Bind(
+				first,
+				GLsizei(this->size()),
+				this->_names.data()
+			);
+		}
+	}
+#endif
+};
 
 #endif // sampler object
 

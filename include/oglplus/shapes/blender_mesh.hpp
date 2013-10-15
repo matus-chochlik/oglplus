@@ -15,6 +15,7 @@
 
 #include <oglplus/vector.hpp>
 #include <oglplus/matrix.hpp>
+#include <oglplus/sphere.hpp>
 #include <oglplus/face_mode.hpp>
 
 #include <oglplus/shapes/draw.hpp>
@@ -277,13 +278,13 @@ public:
 	> VertexAttribs;
 #endif
 
-	Vec4f GetBoundingSphere(void) const;
+	Spheref GetBoundingSphere(void) const;
 
 	/// Queries the bounding sphere coordinates and dimensions
 	template <typename T>
-	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	void BoundingSphere(oglplus::Sphere<T>& bounding_sphere) const
 	{
-		center_and_radius = Vector<T, 4>(GetBoundingSphere());
+		bounding_sphere = oglplus::Sphere<T>(GetBoundingSphere());
 	}
 
 	/// The type of the index container returned by Indices()

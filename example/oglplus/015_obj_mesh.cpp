@@ -47,7 +47,7 @@ private:
 	LazyUniform<Mat4f> camera_matrix;
 
 	VertexArray mesh;
-	Vec4f mesh_bs;
+	Spheref mesh_bs;
 
 	Buffer positions;
 	Buffer normals;
@@ -137,8 +137,8 @@ public:
 		//
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
-				mesh_bs.xyz(),
-				mesh_bs.w()*1.4+1.0,
+				mesh_bs.Center(),
+				mesh_bs.Radius()*1.4+1.0,
 				FullCircles(time / 13.0),
 				Degrees(SineWave(time / 17.0) * 90)
 			)
