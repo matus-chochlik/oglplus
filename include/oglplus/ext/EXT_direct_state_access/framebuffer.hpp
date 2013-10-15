@@ -409,6 +409,20 @@ public:
 
 	void AttachTexture1D(
 		Property::Attachment attachment,
+		const DSATextureEXTOps& texture,
+		GLint level
+	)
+	{
+		AttachTexture1D(
+			attachment,
+			texture.target,
+			texture,
+			level
+		);
+	}
+
+	void AttachTexture1D(
+		Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps& texture,
 		GLint level
@@ -455,6 +469,20 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachTexture2D(
+		Property::Attachment attachment,
+		const DSATextureEXTOps& texture,
+		GLint level
+	)
+	{
+		AttachTexture2D(
+			attachment,
+			texture.target,
+			texture,
+			level
+		);
 	}
 
 	void AttachTexture2D(
@@ -507,6 +535,22 @@ public:
 			EnumValueName(target),
 			_name
 		));
+	}
+
+	void AttachTexture3D(
+		Property::Attachment attachment,
+		const DSATextureEXTOps& texture,
+		GLint level,
+		GLint layer
+	)
+	{
+		AttachTexture3D(
+			attachment,
+			texture.target,
+			texture,
+			level,
+			layer
+		);
 	}
 
 	void AttachTexture3D(
