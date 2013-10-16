@@ -280,6 +280,17 @@ public:
 		));
 	}
 
+
+	/// Bind this buffer to the specified target
+	/**
+	 *  @throws Error
+	 */
+	void Bind(Target new_target)
+	{
+		target = new_target;
+		Bind();
+	}
+
 	/// Unbind the current buffer from this Buffer's target
 	/** This function binds the name 0 to the @p target.
 	 *
