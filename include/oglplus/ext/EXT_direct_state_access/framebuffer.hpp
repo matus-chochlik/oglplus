@@ -114,6 +114,16 @@ public:
 		));
 	}
 
+	/// Bind this framebuffer to the specified target
+	/**
+	 *  @throws Error
+	 */
+	void Bind(Target new_target)
+	{
+		target = new_target;
+		Bind();
+	}
+
 	/// Binds the default framebuffer to this Framebuffer's target
 	/**
 	 *  @throws Error
