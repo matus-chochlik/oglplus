@@ -173,7 +173,7 @@ public:
 		};
 		Uniform<GLfloat>(prog, "clrs").SetVectors<4>(nclr, colormap);
 		//
-		gl.ClearDepth(1.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -183,7 +183,7 @@ public:
 
 	void Render(double time)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.Clear().ColorBuffer();
 
 		scroll_factor = 1.0f / (0.005 * time + 1.0f);
 
