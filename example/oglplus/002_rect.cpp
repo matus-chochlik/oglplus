@@ -106,8 +106,7 @@ public:
 		VertexAttribArray color_attr(prog, "Color");
 		color_attr.Setup<Vec3f>().Enable();
 		//
-
-		gl.ClearDepth(1.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -117,8 +116,6 @@ public:
 
 	void Render(double)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
-
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 };

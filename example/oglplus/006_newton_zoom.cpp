@@ -130,7 +130,7 @@ public:
 		(prog/"Color1").Set(Vec3f(0.2f, 0.02f, 0.05f));
 		(prog/"Color2").Set(Vec3f(1.0f, 0.95f, 0.98f));
 		//
-		gl.ClearDepth(1.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -140,7 +140,7 @@ public:
 
 	void Render(double time)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.Clear().ColorBuffer();
 
 		GLfloat scale = 1.0f / (3.0 * time + 1.0f);
 		Angle<GLfloat> angle = FullCircles(time * 0.1);

@@ -169,7 +169,7 @@ public:
 			bound_tex.WrapS(TextureWrap::MirroredRepeat);
 		}
 
-		gl.ClearDepth(1.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -199,7 +199,6 @@ public:
 			PixelDataType::Float,
 			metaballs.data()
 		);
-		gl.Clear().DepthBuffer();
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
 
