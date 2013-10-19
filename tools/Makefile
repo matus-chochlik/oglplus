@@ -1,15 +1,21 @@
-# Copyright 2010-2012 Matus Chochlik. Distributed under the Boost
+# Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-TOOLS = make_bitmap_font
+TOOLS = make_bitmap_font reshape_raw_cube
 
 all: $(TOOLS)
 
 .PHONY: clean
 clean:
-	rm -f $(TESTS)
+	rm -f $(TOOLS)
 
+.INTERMEDIATE: reshape_raw_cube.o
+%.o: %.cpp
+	g++ -c -o $@ $< --std=c++0x 
+
+reshape_raw_cube: reshape_raw_cube.o
+	g++ -o $@ $< --std=c++0x 
 
 .INTERMEDIATE: make_bitmap_font.o
 make_bitmap_font.o: make_bitmap_font.cpp
