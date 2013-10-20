@@ -107,14 +107,12 @@ public:
 
 		coords.Unbind();
 
-		gl.ClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Render(void)
 	{
 		using namespace oglplus;
-
-		gl.Clear().ColorBuffer().DepthBuffer();
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}
