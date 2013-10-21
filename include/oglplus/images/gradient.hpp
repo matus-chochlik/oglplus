@@ -214,7 +214,7 @@ public:
 		GLsizei width,
 		const Vector<T, N>& background,
 		const std::map<P, Vector<T, N>>& x_points
-	): Image(width, 1, 1, N, (GLubyte*0))
+	): Image(width, 1, 1, N, (GLubyte*)0)
 	{
 		std::vector<Vector<T, N>> x_gradient(width);
 		_make_gradient(
