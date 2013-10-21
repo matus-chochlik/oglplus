@@ -118,9 +118,12 @@ struct reshape_info
 	byte nullbyte;
 };
 
-byte translate_input(byte value)
+byte translate_input(
+	const reshape_info& r,
+	byte value
+)
 {
-	if(value == 0xFF) value = 0x00;
+	if(value == 0xFF) value = r.nullbyte;
 	return value;
 }
 
@@ -136,7 +139,7 @@ byte sample_input(
 
 	int i = z*r.ori_w*r.ori_h + y*r.ori_w + x;
 
-	return translate_input(input_data[i]);
+	return translate_input(r, input_data[i]);
 }
 
 void reshape_raw_cube(
