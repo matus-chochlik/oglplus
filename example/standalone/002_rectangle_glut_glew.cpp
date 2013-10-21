@@ -85,16 +85,11 @@ public:
 		// link and use it
 		prog.Link();
 		prog.Use();
-
-		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		gl.ClearDepth(1.0f);
 	}
 
 	void Display(void)
 	{
 		using namespace oglplus;
-
-		gl.Clear().ColorBuffer().DepthBuffer();
 
 		gl.DrawArrays(PrimitiveType::Points, 0, 1);
 	}
