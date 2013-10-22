@@ -556,6 +556,12 @@ inline T SineWave(T t)
 	return ::std::sin(T(math::TwoPi() * t));
 }
 
+template <typename T>
+inline T SineWave01(T t)
+{
+	return (SineWave(t)+T(1))/T(2);
+}
+
 /// Returns a value on a cosine wave at the specified point
 /** This function returns the value of cos(2.PI.@p t), i.e.
  *  integer values of @p t are the ends of the previous full
@@ -578,6 +584,12 @@ template <typename T>
 inline T CosineWave(T t)
 {
 	return ::std::cos(T(math::TwoPi() * t));
+}
+
+template <typename T>
+inline T CosineWave01(T t)
+{
+	return (CosineWave(t)+T(1))/T(2);
 }
 
 } // namespace oglplus
