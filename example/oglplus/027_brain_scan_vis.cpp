@@ -244,11 +244,11 @@ private:
 	DSABuffer coords;
 
 	DSATexture palette, volume_tex;
-	GLuint volume_tex_side;
+	GLuint cube_side;
 
 public:
 	RaytraceExample(void)
-	 : volume_tex_side(512)
+	 : cube_side(512)
 	{
 		GLfloat grid_coords[3] = {0.5f, 0.5f, 0.5f};
 
@@ -264,17 +264,17 @@ public:
 		// Volume Tex
 		Texture::Active(0);
 		ProgramUniformSampler(prog, "VolumeTex").Set(0);
-		ProgramUniform<GLint>(prog, "VolumeTexSide").Set(volume_tex_side);
+		ProgramUniform<GLint>(prog, "VolumeTexSide").Set(cube_side);
 		volume_tex.Bind(Texture::Target::_3D);
 
 		std::ifstream image_file;
 		OpenResourceFile(image_file, "textures", "brain_scan_512", ".raw");
-		std::vector<GLubyte> image(512*512*512);
+		std::vector<GLubyte> image(cube_side*cube_side*cube_side);
 		image_file.read((char*)image.data(), image.size());
 		volume_tex.Image3D(
 			0,
 			PixelDataInternalFormat::R8,
-			512, 512, 512,
+			cube_side, cube_side, cube_side,
 			0,
 			PixelDataFormat::Red,
 			PixelDataType::UnsignedByte,
