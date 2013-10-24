@@ -1,0 +1,10 @@
+/_build
+/_prebuilt
+/fonts
+/models
+/textures
+.*.swp
+*.sdf
+*.user
+*.opensdf
+*.suo
