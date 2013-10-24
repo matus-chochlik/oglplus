@@ -18,7 +18,7 @@
 
 #include <pango/pangocairo.h>
 
-#include <oglplus/auxiliary/utf8/conversion.hpp>
+#include <oglplus/auxiliary/utf8.hpp>
 
 void render_glyph(
 	cairo_t* cr,
@@ -31,7 +31,7 @@ void render_glyph(
 	const double tex_size,
 	const int ascent,
 	const int descent,
-	std::ostream& bfm_out
+	std::ostream& bgm_out
 )
 {
 	PangoLayout *layout = pango_cairo_create_layout(cr);
@@ -55,52 +55,52 @@ void render_glyph(
 	);
 
 	// code point number
-	bfm_out << code_point << std::endl;
+	bgm_out << code_point << std::endl;
 	// hex representation of the number
-	bfm_out	<< std::hex
+	bgm_out	<< std::hex
 		<< "0x"
 		<< code_point
 		<< std::dec
 		<< std::endl;
 	// the utf-8 sequence
-	bfm_out << "'" << str << "'" << std::endl;
+	bgm_out << "'" << str << "'" << std::endl;
 	//
 	// vertex[0] logical rectangle metrics
 	//
 	// Left bearing (x)
-	bfm_out << PANGO_LBEARING(log_rect)/font_size << std::endl;
+	bgm_out << PANGO_LBEARING(log_rect)/font_size << std::endl;
 	// Right bearing (x+width)
-	bfm_out << PANGO_RBEARING(log_rect)/font_size << std::endl;
+	bgm_out << PANGO_RBEARING(log_rect)/font_size << std::endl;
 	// Ascent
-	bfm_out << (baseline-log_rect.y)/font_size << std::endl;
+	bgm_out << (baseline-log_rect.y)/font_size << std::endl;
 	// Descent
-	bfm_out << (log_rect.height+log_rect.y-baseline)/font_size << std::endl;
+	bgm_out << (log_rect.height+log_rect.y-baseline)/font_size << std::endl;
 	//
 	// vertex[1] ink rectangle metrics
 	//
 	// Left bearing (x)
-	bfm_out << PANGO_LBEARING(ink_rect)/font_size << std::endl;
+	bgm_out << PANGO_LBEARING(ink_rect)/font_size << std::endl;
 	// Right bearing (x+width)
-	bfm_out << PANGO_RBEARING(ink_rect)/font_size << std::endl;
+	bgm_out << PANGO_RBEARING(ink_rect)/font_size << std::endl;
 	// Ascent
-	bfm_out << (baseline-ink_rect.y)/font_size << std::endl;
+	bgm_out << (baseline-ink_rect.y)/font_size << std::endl;
 	// Descent
-	bfm_out << (ink_rect.y+ink_rect.height-baseline)/font_size << std::endl;
+	bgm_out << (ink_rect.y+ink_rect.height-baseline)/font_size << std::endl;
 	//
 	// vertex[2] texture coordinates
 	//
 	// Origin X
-	bfm_out << (cell_x*cell_size+ink_rect.x*inv_ps)/tex_size << std::endl;
+	bgm_out << (cell_x*cell_size+ink_rect.x*inv_ps)/tex_size << std::endl;
 	// Origin Y
-	bfm_out << 1.0-(cell_y*cell_size+baseline*inv_ps)/tex_size << std::endl;
+	bgm_out << 1.0-(cell_y*cell_size+baseline*inv_ps)/tex_size << std::endl;
 	// Width
-	bfm_out << ((ink_rect.width)*inv_ps)/tex_size << std::endl;
+	bgm_out << ((ink_rect.width)*inv_ps)/tex_size << std::endl;
 	// Height
-	bfm_out << ((ink_rect.height)*inv_ps)/tex_size << std::endl;
+	bgm_out << ((ink_rect.height)*inv_ps)/tex_size << std::endl;
 
 
 	// separating newline
-	bfm_out << std::endl;
+	bgm_out << std::endl;
 
 	cairo_new_path(cr);
 	cairo_move_to(cr, cell_x*cell_size, cell_y*cell_size);
@@ -138,8 +138,8 @@ int main(int argc, const char* argv[])
 	);
 	PangoFontMetrics* font_metrics = pango_font_get_metrics(font, nullptr);
 
-	// The Bitmap Font Metrics file
-	std::ofstream bfm((argc>5) ? argv[5] : "out.bfm");
+	// The Bitmap Glyph Metrics file
+	std::ofstream bgm((argc>5) ? argv[5] : "out.bgm");
 	unsigned step = tex_side / 16;
 	for(unsigned y=0; y!=16; ++y)
 	{
@@ -155,11 +155,11 @@ int main(int argc, const char* argv[])
 				tex_side,
 				pango_font_metrics_get_ascent(font_metrics),
 				pango_font_metrics_get_descent(font_metrics),
-				bfm
+				bgm
 			);
 		}
 	}
-	bfm.close();
+	bgm.close();
 
 	pango_font_metrics_unref(font_metrics);
 	pango_font_description_free(font_desc);

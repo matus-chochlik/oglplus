@@ -22,6 +22,7 @@ make_bitmap_font.o: make_bitmap_font.cpp
 	g++ -c -o $@ $< \
 		--std=c++0x \
 		-I../include \
+		-I../implement \
 		$(shell pkg-config --cflags pango pangocairo)
 
 make_bitmap_font: make_bitmap_font.o
