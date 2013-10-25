@@ -280,8 +280,7 @@ public:
 			PixelDataType::UnsignedByte,
 			image.data()
 		);
-		volume_tex.GenerateMipmap();
-		volume_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
+		volume_tex.MinFilter(TextureMinFilter::Linear);
 		volume_tex.MagFilter(TextureMagFilter::Linear);
 		volume_tex.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f));
 		volume_tex.WrapS(TextureWrap::ClampToBorder);
