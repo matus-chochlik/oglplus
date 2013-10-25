@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+# Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -10,6 +10,7 @@ urllabel="http://oglplus.org/"
 exelabel="$(basename ${example})"
 width=852
 height=480
+[[ "${2}" == "--hd" ]] && width=1280 && height=720
 #
 rootdir="$(dirname $0)/.."
 tmpdir=$(mktemp -d)
@@ -122,7 +123,7 @@ xkill &
 xkill_pid=$!
 cd ${build_dir}
 echo "${prefix}-" > ${filelist} &
-nice -19 ${build_dir}/${example} --frame-dump ${prefix}- < ${filelist} |
+nice -19 ${build_dir}/${example} --frame-dump ${prefix}- --width ${width} --height ${height} < ${filelist} |
 while read framepath
 do
 	echo "${framepath}"
