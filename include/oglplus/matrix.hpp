@@ -1266,6 +1266,50 @@ public:
 		);
 	}
 
+	struct ScreenStretch_ { };
+
+	CameraMatrix(
+		ScreenStretch_,
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top
+	): Base(oglplus::Nothing())
+	{
+		assert((x_right - x_left) != T(0));
+		assert((y_top - y_bottom) != T(0));
+
+		T m00 =  T(2) / (x_right - x_left);
+		T m11 =  T(2) / (y_top - y_bottom);
+
+		T m30 = -(x_right + x_left) / (x_right - x_left);
+		T m31 = -(y_top + y_bottom) / (y_top - y_bottom);
+
+		InitMatrix4x4(
+			*this,
+			 m00, T(0), T(0),  m30,
+			T(0),  m11, T(0),  m31,
+			T(0), T(0), T(1), T(0),
+			T(0), T(0), T(0), T(1)
+		);
+	}
+
+	static inline CameraMatrix ScreenStretch(
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top
+	)
+	{
+		return CameraMatrix(
+			ScreenStretch_(),
+			x_left,
+			x_right,
+			y_bottom,
+			y_top
+		);
+	}
+
 	struct LookingAt_ { };
 
 	CameraMatrix(
