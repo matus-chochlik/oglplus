@@ -1294,6 +1294,10 @@ public:
 		);
 	}
 
+	/// Constructs a matrix for stretching NDCs after projection
+	/** ScreenStretch constructs a matrix that can be used to stretch
+	 *  the normalized device coordinates after projection is applied.
+	 */
 	static inline CameraMatrix ScreenStretch(
 		T x_left,
 		T x_right,
@@ -1307,6 +1311,32 @@ public:
 			x_right,
 			y_bottom,
 			y_top
+		);
+	}
+
+	/// Constructs a matrix for stretching NDCs after projection
+	/** ScreenTile constructs a matrix, that divides the screen into
+	 *  rectangular tiles with the specified divisions and stretches
+	 *  the normalized device coordinates to show the specified tile.
+	 *
+	 *  @pre (x >= 0) && (nx > 0) && (y >= 0) && (ny >= 0)
+	 */
+	static inline CameraMatrix ScreenTile(
+		unsigned x,
+		unsigned y,
+		unsigned nx,
+		unsigned ny
+	)
+	{
+		assert(x < nx);
+		assert(y < ny);
+
+		return CameraMatrix(
+			ScreenStretch_(),
+			-T(1)+T(2*(x+0))/T(nx),
+			-T(1)+T(2*(x+1))/T(nx),
+			-T(1)+T(2*(y+0))/T(ny),
+			-T(1)+T(2*(y+1))/T(ny)
 		);
 	}
 
