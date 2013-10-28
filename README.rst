@@ -83,7 +83,8 @@ The build system handles several important tasks:
 
  * Installs all header files to a directory specified by the install prefix
 
- * Builds the examples and textures used by the examples (optional)
+ * Builds the example executables and assets (textures, models, etc.)
+   used by the examples (optional)
 
  * Builds and installs the documentation (optional)
 
@@ -166,13 +167,13 @@ cmake (with the -D option. see cmake manual for details):
 
  * ``HEADER_SEARCH_PATHS`` *<empty>*: (semicolon-separated) list of paths
    to additional directories to search when looking for 3rd-party headers
-   like GL/glew.h, GL3/gl3.h, etc.
+   like GL/glew.h, GL3/gl3.h, GL/glcorearb.h, etc.
 
  * ``LIBRARY_SEARCH_PATHS`` *<empty>*: (semicolon-separated) list of paths
-   to additional directories to search when looking for 3rd-party compiled
-   libraries like GL, GLEW, GL3W, GLFW, glut, png, etc.
+   to additional directories to search when looking for 3rd-party binary
+   libraries like GL, GLEW, GL3W, GLFW, SDL, glut, png, etc.
 
- * ``OGLPLUS_NO_EXAMPLES`` *Off*: Do not build the examples and the textures.
+ * ``OGLPLUS_NO_EXAMPLES`` *Off*: Do not build the examples nor the assets.
 
  * ``OGLPLUS_NO_DOCS`` *Off*: Do not build and install the documentation.
 
@@ -279,7 +280,7 @@ etc. Some of these media files can be generated from textual representations
 Assets for which there is a textual source and its size does not exceed
 certain limits are included in the repository and are rendered into their
 binary form by the build system. This may however require some third-party
-application and the rendering process can be very time-consuming.
+applications and the rendering process can be very time-consuming.
 
 Because of this, some of the medium-sized assets are pre-built and shipped
 with the release packages (in the ``_prebuilt/`` directory) and the larger
@@ -322,4 +323,5 @@ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
    and/or functions if the features are not available):
    Strongly typed enumerations, variadic templates, initializer lists, lambdas,
    defaulted and deleted functions, function template default arguments,
-   constexpr, noexcept, nullptr, explicit conversion operators.
+   constexpr, noexcept, nullptr, explicit conversion operators, unicode literals
+   and user-defined literals.
