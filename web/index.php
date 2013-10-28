@@ -192,10 +192,10 @@
 					<img src="oglplus/html/026_shape_halo.png"/>
 					<img src="oglplus/html/026_stencil_shadow.png"/>
 					<img src="oglplus/html/027_reflected_shape.png"/>
+					<img src="oglplus/html/028_depth_map_sss.png"/>
 					<img src="oglplus/html/028_glass_shape.png"/>
 					<img src="oglplus/html/028_ripples.png"/>
 					<img src="oglplus/html/029_fire_hydrant.png"/>
-					<img src="oglplus/html/029_shadow_mapping.png"/>
 					<img src="oglplus/html/030_light_rays.png"/>
 					<img src="oglplus/html/031_brick_torus.png"/>
 					<img src="oglplus/html/031_fog.png"/>
