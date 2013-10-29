@@ -9,6 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/auxiliary/xml_utils.hpp>
+
 namespace oglplus {
 
 #if GL_ARB_debug_output
@@ -84,8 +86,8 @@ Call(const ARB_debug_output::CallbackData& data)
 	dbgout << "<entry>" << std::endl;
 	dbgout << "<id>" << data.id << "</id>" << std::endl;
 	dbgout
-		<< "<message>"
-		<< data.message
+		<< "<message>";
+	aux::xml_text_to_stream(data.message, data.length, dbgout)
 		<< "</message>"
 		<< std::endl;
 	dbgout
