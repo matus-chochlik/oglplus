@@ -234,6 +234,13 @@ public:
 		return Multiplied(a, mult);
 	}
 
+	/// Multiplication by constant operator
+	Angle& operator *= (T mult)
+	{
+		*this = Multiplied(*this, mult);
+		return *this;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Division by constant
 	friend Angle Divide(const Angle& a, T div)
@@ -241,6 +248,7 @@ public:
 
 	static Angle Divided(const Angle& a, T div)
 	{
+		assert(div != T(0));
 		return Angle(a._val_rad / div, Radians_());
 	}
 
@@ -248,6 +256,13 @@ public:
 	friend Angle operator / (const Angle& a, T div)
 	{
 		return Divided(a, div);
+	}
+
+	/// Division by constant operator
+	Angle& operator /= (T div)
+	{
+		*this = Divided(*this, div);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY

@@ -148,6 +148,8 @@ protected:
 			_elem[i] = At(matrix, i, 0);
 	}
 public:
+	struct Unit_ { };
+
 #if !OGLPLUS_NO_DEFAULTED_FUNCTIONS
 	VectorBase(const VectorBase&) = default;
 
@@ -244,6 +246,20 @@ public:
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] /= v;
+	}
+
+	/// Returns the lenght of this vector
+	T Length(void) const
+	{
+		return std::sqrt(DotProduct(*this, *this));
+	}
+
+	/// Normalizes this vector
+	void Normalize(void)
+	{
+		T l = Length();
+		if(l != T(0) && l != T(1))
+			 MultiplyBy(T(1) / l);
 	}
 
 	/// Computes the dot product of vectors @p a and @p b
