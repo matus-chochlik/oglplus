@@ -168,11 +168,11 @@ public:
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
-	/// Quaternion conjugation
+	/// Conjugate quaternion
 	friend Quaternion Conjugate(const Quaternion& q1);
 #endif
 
-	static Quaternion Conjugated(const Quaternion& q1)
+	static Quaternion Conjugate(const Quaternion& q1)
 	{
 		return Quaternion(q1._a,-q1._x,-q1._y,-q1._z);
 	}
@@ -180,7 +180,25 @@ public:
 	/// Conjugation
 	friend Quaternion operator ~ (const Quaternion& q1)
 	{
-		return Conjugated(q1);
+		return Conjugate(q1);
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Inverse quaternion
+	friend Quaternion Inverse(const Quaternion& q1);
+#endif
+
+	static Quaternion Inverse(const Quaternion& q1)
+	{
+		T id = DotProduct(q1, q1);
+		assert(id != T(0));
+		id *= T(1)/id;
+		return Quaternion(
+			+q1._a*id,
+			-q1._x*id,
+			-q1._y*id,
+			-q1._z*id
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -238,7 +256,7 @@ public:
 		const Vector<T, 3>& v
 	)
 	{
-		return (q*Quaternion(T(0), v)*Conjugated(q)).Imag();
+		return (q*Quaternion(T(0), v)*Conjugate(q)).Imag();
 	}
 };
 
@@ -257,7 +275,13 @@ inline T Magnitude(const Quaternion<T>& q1)
 template <typename T>
 inline Quaternion<T> Conjugate(const Quaternion<T>& q1)
 {
-	return Quaternion<T>::Conjugated(q1);
+	return Quaternion<T>::Conjugate(q1);
+}
+
+template <typename T>
+inline Quaternion<T> Inverse(const Quaternion<T>& q1)
+{
+	return Quaternion<T>::Inverse(q1);
 }
 
 template <typename T>

@@ -55,4 +55,23 @@ BOOST_AUTO_TEST_CASE(Quaternion_equality)
 	BOOST_CHECK(q3 != q2);
 }
 
+BOOST_AUTO_TEST_CASE(Quaternion_dot)
+{
+	typedef oglplus::Quaternion<float> Quatf;
+	Quatf q0(1, 2, 3, 4);
+	Quatf q1(1, 0, 0, 0);
+	Quatf q2(0, 1, 0, 0);
+	Quatf q3(0, 0, 1, 0);
+	Quatf q4(0, 0, 0, 1);
+	BOOST_CHECK(Dot(q0, q0) == 1*1+2*2+3*3+4*4);
+	BOOST_CHECK(Dot(q0, q1) == 1);
+	BOOST_CHECK(Dot(q0, q2) == 2);
+	BOOST_CHECK(Dot(q0, q3) == 3);
+	BOOST_CHECK(Dot(q0, q4) == 4);
+	BOOST_CHECK(Dot(q1, q2) == 0);
+	BOOST_CHECK(Dot(q2, q3) == 0);
+	BOOST_CHECK(Dot(q3, q4) == 0);
+	BOOST_CHECK(Dot(q4, q1) == 0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
