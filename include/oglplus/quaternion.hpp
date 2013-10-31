@@ -210,9 +210,9 @@ public:
 	{
 		return Quaternion(
 			q1._a+q2._a,
-			q1._x*q2._x,
-			q1._y*q2._y,
-			q1._z*q2._z
+			q1._x+q2._x,
+			q1._y+q2._y,
+			q1._z+q2._z
 		);
 	}
 

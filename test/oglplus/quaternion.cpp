@@ -74,4 +74,92 @@ BOOST_AUTO_TEST_CASE(Quaternion_dot)
 	BOOST_CHECK(Dot(q4, q1) == 0);
 }
 
+BOOST_AUTO_TEST_CASE(Quaternion_is_degenerate)
+{
+	typedef oglplus::Quaternion<float> Quatf;
+	BOOST_CHECK(Quatf(0, 0, 0, 0).IsDegenerate());
+}
+
+BOOST_AUTO_TEST_CASE(Quaternion_is_normal)
+{
+	typedef oglplus::Quaternion<float> Quatf;
+	using oglplus::Vec3f;
+	using oglplus::Degrees;
+	int deg[5] = {0, 90, 180, 270, 360};
+	float eps = 1e-7f;
+	for(int i=0; i!=5; ++i)
+	{
+		BOOST_CHECK(Quatf(Vec3f::Unit(0), Degrees(deg[i])).IsNormal(eps));
+		BOOST_CHECK(Quatf(Vec3f::Unit(1), Degrees(deg[i])).IsNormal(eps));
+		BOOST_CHECK(Quatf(Vec3f::Unit(2), Degrees(deg[i])).IsNormal(eps));
+	}
+	for(int i=0; i!=500; ++i)
+	{
+		float rdeg = (float(std::rand())/RAND_MAX-0.5f);
+		BOOST_CHECK(Quatf(Vec3f::Unit(0), Degrees(rdeg)).IsNormal(eps));
+		BOOST_CHECK(Quatf(Vec3f::Unit(1), Degrees(rdeg)).IsNormal(eps));
+		BOOST_CHECK(Quatf(Vec3f::Unit(2), Degrees(rdeg)).IsNormal(eps));
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Quaternion_normalize)
+{
+	typedef oglplus::Quaternion<double> Quatd;
+	double eps = 1e-15;
+	for(int i=0; i<1000; ++i)
+	{
+		Quatd q(
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5)
+		);
+		if(!q.IsDegenerate())
+		{
+			q.Normalize();
+			BOOST_CHECK(q.IsNormal(eps));
+		}
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Quaternion_conjugate)
+{
+	typedef oglplus::Quaternion<float> Quatf;
+	for(int i=0; i<1000; ++i)
+	{
+		Quatf q(
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f)
+		);
+		BOOST_CHECK(q.Real() ==  Conjugate(q).Real());
+		BOOST_CHECK(q.Imag() == -Conjugate(q).Imag());
+		BOOST_CHECK(Equal(q, ~~q));
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Quaternion_addition)
+{
+	typedef oglplus::Quaternion<float> Quatf;
+	for(int i=0; i<1000; ++i)
+	{
+		Quatf q1(
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f)
+		);
+		Quatf q2(
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f),
+			(float(std::rand())/RAND_MAX-0.5f)
+		);
+		BOOST_CHECK((q1+q2).Real() ==  (q1.Real()+q2.Real()));
+		BOOST_CHECK((q1+q2).Imag() ==  (q1.Imag()+q2.Imag()));
+		BOOST_CHECK((q1+q2) == (q2+q1));
+	}
+}
+
 BOOST_AUTO_TEST_SUITE_END()
