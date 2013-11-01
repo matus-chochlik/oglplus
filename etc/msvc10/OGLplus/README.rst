@@ -33,10 +33,10 @@ directory) can be used. Either edit the file in a text editor or use MSVC's
 on your system.
 
 :Note: the ``OGLplus-site.props`` file already
-defines variables like the above, but with appended underscore;
-(for example ``OGLPLUS_DEP_INCLUDE_DIRS_``, etc.). To set the variables,
-you can open the file in a text editor, remove the underscores and set
-the values to match your system configuration.
+  defines variables like the above, but with appended underscore;
+  (for example ``OGLPLUS_DEP_INCLUDE_DIRS_``, etc.). To set the variables,
+  you can open the file in a text editor, remove the underscores and set
+  the values to match your system configuration.
 
 Also note that when building the examples via the MSVC solutions
 the ``$(OGLplusRoot)/_prebuilt/`` directory is required. This directory
