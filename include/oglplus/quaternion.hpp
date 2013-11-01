@@ -88,6 +88,15 @@ public:
 		return Vector<T, 3>(_x, _y, _z);
 	}
 
+	T At(std::size_t index) const
+	{
+		assert(index < 4);
+		if(index == 0) return _a;
+		if(index == 1) return _x;
+		if(index == 2) return _y;
+		if(index == 3) return _z;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	friend T Dot(const Quaternion& q1, const Quaternion& q2);
 #endif
@@ -153,6 +162,21 @@ public:
 			(q1._x == q2._x) &&
 			(q1._y == q2._y) &&
 			(q1._z == q2._z);
+	}
+
+	/// Near-equality comparison
+	friend bool Close(const Quaternion& q1, const Quaternion& q2, T eps)
+	{
+		for(std::size_t i=0; i!=4; ++i)
+		{
+			T u = q1.At(i);
+			T v = q2.At(i);
+			T d = std::abs(u-v);
+			bool ca = d <= std::abs(u)*eps;
+			bool cb = d <= std::abs(v)*eps;
+			if(!ca && !cb) return false;
+		}
+		return true;
 	}
 
 	/// Equality comparison

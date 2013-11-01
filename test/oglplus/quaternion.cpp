@@ -37,6 +37,17 @@ BOOST_AUTO_TEST_CASE(Quaternion_real_imag)
 	BOOST_CHECK(q.Imag().z() == 4);
 }
 
+BOOST_AUTO_TEST_CASE(Quaternion_real_imag_at)
+{
+	typedef oglplus::Quaternion<float> Quatf;
+	Quatf q(1, 2, 3, 4);
+
+	BOOST_CHECK(q.Real() == q.At(0));
+	BOOST_CHECK(q.Imag().x() == q.At(1));
+	BOOST_CHECK(q.Imag().y() == q.At(2));
+	BOOST_CHECK(q.Imag().z() == q.At(3));
+}
+
 BOOST_AUTO_TEST_CASE(Quaternion_equality)
 {
 	typedef oglplus::Quaternion<float> Quatf;
@@ -93,7 +104,7 @@ BOOST_AUTO_TEST_CASE(Quaternion_is_normal)
 		BOOST_CHECK(Quatf(Vec3f::Unit(1), Degrees(deg[i])).IsNormal(eps));
 		BOOST_CHECK(Quatf(Vec3f::Unit(2), Degrees(deg[i])).IsNormal(eps));
 	}
-	for(int i=0; i!=500; ++i)
+	for(int i=0; i!=1000; ++i)
 	{
 		float rdeg = (float(std::rand())/RAND_MAX-0.5f);
 		BOOST_CHECK(Quatf(Vec3f::Unit(0), Degrees(rdeg)).IsNormal(eps));
@@ -159,6 +170,41 @@ BOOST_AUTO_TEST_CASE(Quaternion_addition)
 		BOOST_CHECK((q1+q2).Real() ==  (q1.Real()+q2.Real()));
 		BOOST_CHECK((q1+q2).Imag() ==  (q1.Imag()+q2.Imag()));
 		BOOST_CHECK((q1+q2) == (q2+q1));
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Quaternion_multiplication)
+{
+	typedef oglplus::Quaternion<double> Quatd;
+	double eps = 1e-11;
+	for(int i=0; i<1000; ++i)
+	{
+		Quatd q1(
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5)
+		);
+		Quatd q2(
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5)
+		);
+		Quatd q3(
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5)
+		);
+		Quatd q4(
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5),
+			(double(std::rand())/RAND_MAX-0.5)
+		);
+		BOOST_CHECK(Close(q1*q2*q3*q4, (q1*q2)*(q3*q4), eps));
+		BOOST_CHECK(Close(q1*q2*q3*q4, q1*(q2*q3)*q4, eps));
 	}
 }
 
