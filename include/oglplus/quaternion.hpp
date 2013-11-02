@@ -22,12 +22,16 @@ namespace oglplus {
 template <typename T>
 class Quaternion;
 
+template <typename T>
+class QuaternionSLERP;
+
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// Float quaternion
 /**
  *  @ingroup math_utils
  */
 typedef Quaternion<GLfloat> Quatf;
+typedef QuaternionSLERP<GLfloat> QuatfSLERP;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_DOUBLE)
@@ -36,6 +40,7 @@ typedef Quaternion<GLfloat> Quatf;
  *  @ingroup math_utils
  */
 typedef Quaternion<GLdouble> Quatd;
+typedef QuaternionSLERP<GLfloat> QuatdSLERP;
 #endif
 
 /// Template class for quaternions
@@ -95,6 +100,7 @@ public:
 		if(index == 1) return _x;
 		if(index == 2) return _y;
 		if(index == 3) return _z;
+		return T(0);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -267,6 +273,23 @@ public:
 		return Multiplied(q1, q2);
 	}
 
+	static Quaternion Multiplied(const Quaternion& q1, T t)
+	{
+		return Quaternion(q1._a*t, q1._x*t, q1._y*t, q1._z*t);
+	}
+
+	/// Multiplication by scalar operator
+	friend Quaternion operator * (const Quaternion& q1, T t)
+	{
+		return Multiplied(q1, t);
+	}
+
+	/// Multiplication by scalar operator
+	friend Quaternion operator * (T t, const Quaternion& q1)
+	{
+		return Multiplied(q1, t);
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Rotate a vector by this quaternion
 	/**
@@ -325,6 +348,66 @@ inline Vector<T, 3> Rotate(const Quaternion<T>& q, const Vector<T, 3>& v)
 {
 	return Quaternion<T>::RotateVector(q, v);
 }
+
+template <typename T>
+class QuaternionSLERP
+{
+private:
+	Quaternion<T> _q1, _q2;
+	Angle<T> _omega;
+	T _inv_sin_omega;
+
+	Quaternion<T> _first(T) const
+	{
+		return _q1;
+	}
+
+	Quaternion<T> _lerp(T t) const
+	{
+		return _q1*(T(1)-t) + _q2*t;
+	}
+
+	Quaternion<T> _slerp(T t) const
+	{
+		return	_q1*Sin((T(1)-t)*_omega)*_inv_sin_omega+
+			_q2*Sin(t*_omega)*_inv_sin_omega;
+	}
+
+	Quaternion<T> (QuaternionSLERP::*_func)(T) const;
+public:
+	/// Constructs a SLERP functor from two unit quaternions
+	/**
+	 *  @pre q1.IsNormal() && q2.IsNormal()
+	 */
+	QuaternionSLERP(
+		const Quaternion<T>& q1,
+		const Quaternion<T>& q2,
+		T eps = 0.001
+	): _q1(q1)
+	 , _q2(q2)
+	 , _omega(Angle<T>::ArcCos(Dot(_q1, _q2)))
+	 , _inv_sin_omega(Sin(_omega))
+	 , _func(nullptr)
+	{
+		if(_inv_sin_omega == T(0))
+			_func = &QuaternionSLERP::_first;
+		else if(std::abs(_inv_sin_omega) < eps)
+			_func = &QuaternionSLERP::_lerp;
+		else
+			_func = &QuaternionSLERP::_slerp;
+		assert(_func);
+		_inv_sin_omega = T(1)/_inv_sin_omega;
+	}
+
+	/// Interpolates between the quaternions
+	/**
+	 *  @pre (param >= 0) && (param <= 1)
+	 */
+	Quaternion<T> operator()(T param) const
+	{
+		return (this->*_func)(param);
+	}
+};
 
 } // namespace oglplus
 

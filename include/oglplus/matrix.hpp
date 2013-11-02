@@ -16,6 +16,7 @@
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/angle.hpp>
+#include <oglplus/quaternion.hpp>
 
 #if !OGLPLUS_NO_INITIALIZER_LISTS
 #include <initializer_list>
@@ -975,6 +976,29 @@ public:
 	)
 	{
 		return ModelMatrix(RotationA_(), axis, angle);
+	}
+
+	ModelMatrix(RotationA_, Quaternion<T> quat)
+	 : Base(oglplus::Nothing())
+	{
+		quat.Normalize();
+		const T a = quat.At(0);
+		const T x = quat.At(1);
+		const T y = quat.At(2);
+		const T z = quat.At(3);
+		InitMatrix4x4(
+			*this,
+			1-2*y*y-2*z*z,  2*x*y-2*a*z,    2*x*z+2*a*y,    T(0),
+			2*x*y+2*a*z,    1-2*x*x-2*z*z,  2*y*z-2*a*x,    T(0),
+			2*x*z-2*a*y,    2*y*z+2*a*x,    1-2*x*x-2*y*y,  T(0),
+			T(0),           T(0),           T(0),           T(1)
+		);
+	}
+
+	/// Constructs a rotation matrix from a quaternion
+	static inline ModelMatrix RotationQ(const Quaternion<T>& quat)
+	{
+		return ModelMatrix(RotationA_(), quat);
 	}
 
 };

@@ -957,5 +957,32 @@ BOOST_AUTO_TEST_CASE(Matrix_inverse)
 
 // TODO
 
+
+BOOST_AUTO_TEST_CASE(Matrix_rotation)
+{
+	double eps = 1e-9;
+	for(unsigned i=0; i!=1000; ++i)
+	{
+		oglplus::Vector<double, 3> axis(
+			double(std::rand())/RAND_MAX-0.5,
+			double(std::rand())/RAND_MAX-0.5,
+			double(std::rand())/RAND_MAX-0.5
+		);
+		axis.Normalize();
+		oglplus::Angle<double> angle =
+			oglplus::Angle<double>::Degrees(std::rand()*0.001-1000.0);
+
+		oglplus::Quaternion<double> quat(axis, angle);
+
+		
+		auto m1 = oglplus::ModelMatrix<double>::RotationA(axis, angle);
+		auto m2 = oglplus::ModelMatrix<double>::RotationQ(quat);
+
+		BOOST_CHECK(oglplus::Close(m1, m2, eps));
+	}
+}
+
+// TODO
+
 BOOST_AUTO_TEST_SUITE_END()
 

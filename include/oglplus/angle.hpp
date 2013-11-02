@@ -89,6 +89,20 @@ public:
 		return Angle(val_deg, Degrees_());
 	}
 
+	/// Constructs a new angle using arc sine
+	static inline Angle ArcSin(T x)
+	{
+		assert(-1.0f <= x && x <= 1.0f);
+		return Angle(::std::asin(x), Radians_());
+	}
+
+	/// Constructs a new angle using arc cosine
+	static inline Angle ArcCos(T x)
+	{
+		assert(-1.0f <= x && x <= 1.0f);
+		return Angle(::std::acos(x), Radians_());
+	}
+
 	/// Returns the value of the angle in radians
 	inline T Value(void) const
 	{
@@ -490,8 +504,7 @@ inline Angle<AngleValueType> RightAngle(void)
  */
 inline Angle<AngleValueType> ArcSin(AngleValueType x)
 {
-	assert(-1.0f <= x && x <= 1.0f);
-	return Angle<AngleValueType>::Radians(::std::asin(x));
+	return Angle<AngleValueType>::ArcSin(x);
 }
 
 /// Creates a new angle using the arc cosine function
@@ -509,8 +522,7 @@ inline Angle<AngleValueType> ArcSin(AngleValueType x)
  */
 inline Angle<AngleValueType> ArcCos(AngleValueType x)
 {
-	assert(AngleValueType(-1) <= x && x <= AngleValueType(1));
-	return Angle<AngleValueType>::Radians(::std::acos(x));
+	return Angle<AngleValueType>::ArcCos(x);
 }
 
 /// Creates a new angle using the arc tangent function

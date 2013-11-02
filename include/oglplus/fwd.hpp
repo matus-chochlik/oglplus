@@ -42,6 +42,10 @@ T At(const Vector<T, N>& a, std::size_t i);
 template <typename T, std::size_t N>
 T At(const Vector<T, N>& a, std::size_t i, T fallback);
 
+// Quaternion
+template <typename T>
+class Quaternion;
+
 // Matrix
 template <typename T, std::size_t Rows, std::size_t Cols>
 class Matrix;
