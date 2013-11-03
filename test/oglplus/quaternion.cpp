@@ -153,6 +153,7 @@ BOOST_AUTO_TEST_CASE(Quaternion_conjugate)
 BOOST_AUTO_TEST_CASE(Quaternion_addition)
 {
 	typedef oglplus::Quaternion<float> Quatf;
+	float eps = 1e-11;
 	for(int i=0; i<1000; ++i)
 	{
 		Quatf q1(
@@ -167,8 +168,8 @@ BOOST_AUTO_TEST_CASE(Quaternion_addition)
 			(float(std::rand())/RAND_MAX-0.5f),
 			(float(std::rand())/RAND_MAX-0.5f)
 		);
-		BOOST_CHECK((q1+q2).Real() ==  (q1.Real()+q2.Real()));
-		BOOST_CHECK((q1+q2).Imag() ==  (q1.Imag()+q2.Imag()));
+		BOOST_CHECK_CLOSE((q1+q2).Real(), (q1.Real()+q2.Real()), eps);
+		BOOST_CHECK((q1+q2).Imag() == (q1.Imag()+q2.Imag()));
 		BOOST_CHECK((q1+q2) == (q2+q1));
 	}
 }

@@ -920,8 +920,206 @@ BOOST_AUTO_TEST_CASE(Matrix_negation)
 	BOOST_CHECK(mat4n == -(-mat4n));
 }
 
-// TODO multiplication, addition, subtraction, ...
+template <typename T, std::size_t R, std::size_t C>
+void do_test_matrix_addition(void)
+{
+	const T eps = 1e-9;
+	for(unsigned y=0; y!=1000; ++y)
+	{
+		T data_1[R*C];
+		T data_2[R*C];
+		for(std::size_t x=0; x!=R*C; ++x)
+		{
+			data_1[x] = T(std::rand())/RAND_MAX;
+			data_2[x] = T(std::rand())/RAND_MAX;
+		}
 
+		oglplus::Matrix<T, R, C> mat_1(data_1, R*C);
+		oglplus::Matrix<T, R, C> mat_2(data_2, R*C);
+		oglplus::Matrix<T, R, C> mat_3 = mat_1+mat_2;
+
+		for(std::size_t i=0; i!=R; ++i)
+		{
+			for(std::size_t j=0; j!=C; ++j)
+			{
+				BOOST_CHECK_CLOSE(
+					mat_3.At(i, j),
+					mat_2.At(i, j)+
+					mat_1.At(i, j),
+					eps
+				);
+			}
+		}
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Matrix_addition)
+{
+	oglplus::Matrix<float, 4, 4> mat4a(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f,
+		8.0f, 9.0f, 10.f, 11.f,
+		12.f, 13.f, 14.f, 15.f
+	);
+	oglplus::Matrix<float, 4, 4> mat4b(
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f
+	);
+
+	oglplus::Matrix<float, 4, 4> mat4c(
+		1.0f, 2.0f, 3.0f, 4.0f,
+		5.0f, 6.0f, 7.0f, 8.0f,
+		9.0f, 10.f, 11.f, 12.f,
+		13.f, 14.f, 15.f, 16.f
+	);
+
+	BOOST_CHECK(mat4a+mat4b == mat4c);
+	BOOST_CHECK(mat4b+mat4a == mat4c);
+
+	do_test_matrix_addition<float, 2, 2>();
+	do_test_matrix_addition<float, 2, 3>();
+	do_test_matrix_addition<float, 2, 4>();
+	do_test_matrix_addition<float, 3, 2>();
+	do_test_matrix_addition<float, 3, 3>();
+	do_test_matrix_addition<float, 3, 4>();
+	do_test_matrix_addition<float, 4, 2>();
+	do_test_matrix_addition<float, 4, 3>();
+	do_test_matrix_addition<float, 4, 4>();
+}
+
+template <typename T, std::size_t R, std::size_t C>
+void do_test_matrix_subtraction(void)
+{
+	const T eps = 1e-9;
+	for(unsigned y=0; y!=1000; ++y)
+	{
+		T data_1[R*C];
+		T data_2[R*C];
+		T data_3[R*C];
+		for(std::size_t x=0; x!=R*C; ++x)
+		{
+			data_1[x] = T(std::rand())/RAND_MAX;
+			data_2[x] = T(std::rand())/RAND_MAX;
+			data_3[x] = data_1[x] + data_2[x];
+		}
+
+		oglplus::Matrix<T, R, C> mat_1(data_1, R*C);
+		oglplus::Matrix<T, R, C> mat_2(data_2, R*C);
+		oglplus::Matrix<T, R, C> mat_3(data_3, R*C);
+		oglplus::Matrix<T, R, C> mat_4 = mat_3-mat_1;
+		oglplus::Matrix<T, R, C> mat_5 = mat_3-mat_2;
+
+		for(std::size_t i=0; i!=R; ++i)
+		{
+			for(std::size_t j=0; j!=C; ++j)
+			{
+				BOOST_CHECK_CLOSE(
+					mat_4.At(i, j),
+					mat_2.At(i, j),
+					eps
+				);
+				BOOST_CHECK_CLOSE(
+					mat_5.At(i, j),
+					mat_1.At(i, j),
+					eps
+				);
+			}
+		}
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Matrix_subtraction)
+{
+	oglplus::Matrix<float, 4, 4> mat4a(
+		0.0f, 1.0f, 2.0f, 3.0f,
+		4.0f, 5.0f, 6.0f, 7.0f,
+		8.0f, 9.0f, 10.f, 11.f,
+		12.f, 13.f, 14.f, 15.f
+	);
+	oglplus::Matrix<float, 4, 4> mat4b(
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f
+	);
+
+	oglplus::Matrix<float, 4, 4> mat4c(
+		1.0f, 2.0f, 3.0f, 4.0f,
+		5.0f, 6.0f, 7.0f, 8.0f,
+		9.0f, 10.f, 11.f, 12.f,
+		13.f, 14.f, 15.f, 16.f
+	);
+
+	BOOST_CHECK(mat4c-mat4a == mat4b);
+	BOOST_CHECK(mat4c-mat4b == mat4a);
+
+	do_test_matrix_subtraction<double, 2, 2>();
+	do_test_matrix_subtraction<double, 2, 3>();
+	do_test_matrix_subtraction<double, 2, 4>();
+	do_test_matrix_subtraction<double, 3, 2>();
+	do_test_matrix_subtraction<double, 3, 3>();
+	do_test_matrix_subtraction<double, 3, 4>();
+	do_test_matrix_subtraction<double, 4, 2>();
+	do_test_matrix_subtraction<double, 4, 3>();
+	do_test_matrix_subtraction<double, 4, 4>();
+}
+
+template <typename T, std::size_t M, std::size_t N, std::size_t K, std::size_t L>
+void do_test_matrix_multiplication(void)
+{
+	const T eps = 1e-9;
+	for(unsigned y=0; y!=1000; ++y)
+	{
+		T data_1[M*N];
+		for(std::size_t x=0; x!=M*N; ++x)
+			data_1[x] = T(std::rand())/RAND_MAX-0.5;
+		oglplus::Matrix<T, M, N> mat_1(data_1, M*N);
+
+		T data_2[N*K];
+		for(std::size_t x=0; x!=N*K; ++x)
+			data_2[x] = T(std::rand())/RAND_MAX-0.5;
+		oglplus::Matrix<T, N, K> mat_2(data_2, N*K);
+
+		T data_3[K*L];
+		for(std::size_t x=0; x!=K*L; ++x)
+			data_3[x] = T(std::rand())/RAND_MAX-0.5;
+		oglplus::Matrix<T, K, L> mat_3(data_3, K*L);
+
+		T data_4[L*M];
+		for(std::size_t x=0; x!=L*M; ++x)
+			data_4[x] = T(std::rand())/RAND_MAX-0.5;
+		oglplus::Matrix<T, L, M> mat_4(data_4, L*M);
+
+		BOOST_CHECK(Close(
+			 mat_1 * mat_2 * mat_3 * mat_4,
+			 mat_1 *(mat_2 * mat_3)* mat_4,
+			 eps
+		));
+
+		BOOST_CHECK(Close(
+			 mat_1 * mat_2 * mat_3 * mat_4,
+			(mat_1 * mat_2)*(mat_3 * mat_4),
+			 eps
+		));
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Matrix_multiplication)
+{
+	do_test_matrix_multiplication<double, 2, 2, 2, 2>();
+	do_test_matrix_multiplication<double, 2, 3, 4, 2>();
+	do_test_matrix_multiplication<double, 2, 4, 4, 2>();
+	do_test_matrix_multiplication<double, 3, 3, 3, 3>();
+	do_test_matrix_multiplication<double, 3, 2, 4, 2>();
+	do_test_matrix_multiplication<double, 3, 4, 3, 4>();
+	do_test_matrix_multiplication<double, 4, 2, 2, 4>();
+	do_test_matrix_multiplication<double, 4, 2, 3, 4>();
+	do_test_matrix_multiplication<double, 4, 3, 2, 4>();
+	do_test_matrix_multiplication<double, 4, 3, 3, 4>();
+	do_test_matrix_multiplication<double, 4, 4, 4, 4>();
+}
 
 BOOST_AUTO_TEST_CASE(Matrix_inverse)
 {
@@ -974,7 +1172,6 @@ BOOST_AUTO_TEST_CASE(Matrix_rotation)
 
 		oglplus::Quaternion<double> quat(axis, angle);
 
-		
 		auto m1 = oglplus::ModelMatrix<double>::RotationA(axis, angle);
 		auto m2 = oglplus::ModelMatrix<double>::RotationQ(quat);
 
