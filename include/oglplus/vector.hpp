@@ -254,6 +254,12 @@ public:
 		return std::sqrt(DotProduct(*this, *this));
 	}
 
+	/// Returns true if the vector is normal
+	bool IsNormal(T eps = T(0)) const
+	{
+		return std::abs(DotProduct(*this, *this) - T(1)) <= eps;
+	}
+
 	/// Normalizes this vector
 	void Normalize(void)
 	{

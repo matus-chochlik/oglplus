@@ -16,6 +16,7 @@
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/angle.hpp>
 #include <oglplus/vector.hpp>
+#include <oglplus/slerp.hpp>
 
 namespace oglplus {
 
@@ -349,31 +350,16 @@ inline Vector<T, 3> Rotate(const Quaternion<T>& q, const Vector<T, 3>& v)
 	return Quaternion<T>::RotateVector(q, v);
 }
 
+/// Functor template for quaternion spherical-linear interpolation
+/** QuaternionSLERP can be used to smoothly interpolate between two
+ *  unit quaternions.
+ *
+ *  @ingroup math_utils
+ */
 template <typename T>
 class QuaternionSLERP
+ : public BaseSLERP<Quaternion<T>, T>
 {
-private:
-	Quaternion<T> _q1, _q2;
-	Angle<T> _omega;
-	T _inv_sin_omega;
-
-	Quaternion<T> _first(T) const
-	{
-		return _q1;
-	}
-
-	Quaternion<T> _lerp(T t) const
-	{
-		return _q1*(T(1)-t) + _q2*t;
-	}
-
-	Quaternion<T> _slerp(T t) const
-	{
-		return	_q1*Sin((T(1)-t)*_omega)*_inv_sin_omega+
-			_q2*Sin(t*_omega)*_inv_sin_omega;
-	}
-
-	Quaternion<T> (QuaternionSLERP::*_func)(T) const;
 public:
 	/// Constructs a SLERP functor from two unit quaternions
 	/**
@@ -383,30 +369,8 @@ public:
 		const Quaternion<T>& q1,
 		const Quaternion<T>& q2,
 		T eps = 0.001
-	): _q1(q1)
-	 , _q2(q2)
-	 , _omega(Angle<T>::ArcCos(Dot(_q1, _q2)))
-	 , _inv_sin_omega(Sin(_omega))
-	 , _func(nullptr)
-	{
-		if(_inv_sin_omega == T(0))
-			_func = &QuaternionSLERP::_first;
-		else if(std::abs(_inv_sin_omega) < eps)
-			_func = &QuaternionSLERP::_lerp;
-		else
-			_func = &QuaternionSLERP::_slerp;
-		assert(_func);
-		_inv_sin_omega = T(1)/_inv_sin_omega;
-	}
-
-	/// Interpolates between the quaternions
-	/**
-	 *  @pre (param >= 0) && (param <= 1)
-	 */
-	Quaternion<T> operator()(T param) const
-	{
-		return (this->*_func)(param);
-	}
+	): BaseSLERP<Quaternion<T>, T>(q1, q2, eps)
+	{ }
 };
 
 } // namespace oglplus
