@@ -215,8 +215,10 @@ install(
 
 # install the docs if they are enabled
 if(NOT OGLPLUS_NO_DOCS)
-	install(
-		DIRECTORY ${PROJECT_BINARY_DIR}/doc/doxygen/html
-		DESTINATION share/oglplus/doc
-	)
+	foreach(LIB oglplus oalplus eglplus)
+		install(
+			DIRECTORY ${PROJECT_BINARY_DIR}/doc/doxygen/${LIB}/html
+			DESTINATION share/${LIB}/doc
+		)
+	endforeach()
 endif()
