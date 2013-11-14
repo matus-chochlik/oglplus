@@ -15,6 +15,7 @@ OGLplus README
 .. _Inkscape: http://inkscape.org/
 .. _libPNG: http://www.libpng.org/
 .. _GLEW: http://glew.sourceforge.net/
+.. _GL3W: http://github.com/shakesoda/gl3w
 .. _GLFW: http://www.glfw.org/
 .. _FreeGLUT: http://freeglut.sourceforge.net/
 .. _SDL: http://www.libsdl.org/
@@ -119,7 +120,7 @@ Requirements
    necessary when the building of examples is disabled.
 
  - A libary defining the OpenGL API (required) -- the ``GL/glcorearb.h`` or ``GL3/gl3.h``
-   headers or `GLEW`_ .  OGLplus does not define the OpenGL symbols
+   headers or `GLEW`_, `GL3W`_, etc.  OGLplus does not define the OpenGL symbols
    (types, constants, functions, etc.), therfore applications using
    it need to define them themselves (before including OGLplus). The examples
    currently need GLEW (at least version 1.9) or the ``GL/glcorearb.h`` header
@@ -147,15 +148,24 @@ Requirements
 
 
 On Linux distributions with the ``apt`` package manager, the following should
-be enough to install the most of the dependencies:
+be enough to install most of the dependencies for the FreeGLUT+GLEW configuration:
 
 ::
 
- sudo apt-get install doxygen cmake g++ libglew1.9-dev freeglut3-dev libpng12-dev
+ sudo apt-get install doxygen cmake g++ libglew-dev freeglut3-dev libpng12-dev
 
+For the configuration using GLFW+GLEW you would need the following:
 
+::
+
+ sudo apt-get install doxygen cmake g++ libglew-dev glfw-dev libpng12-dev
+
+These two configs mentioned above are usually the ones that work on most systems.
 Of course other combinations of the 'GL-API' and 'GL-Context' libraries
 are supported and may be used as explained above.
+For other configurations using SDL, Qt4, wxWidgets, etc. you need to install
+the appropriate packages (the names vary wildly between distrubutions or even
+between versions of the same distribution so they are not listed here).
 
 
 CMake-based build configuration
