@@ -194,8 +194,9 @@ public:
 		const FragmentShader& pixel_color_fs
 	): DefaultRendererTpl<PangoCairoRenderer>(
 		parent,
-		pixel_color_fs,
-		Group<Shader>(GeometryShader(
+		Group<Shader>(
+			pixel_color_fs,
+			GeometryShader(
 			ObjectDesc("PangoCairoRenderer - Layout transform"),
 			StrLit("#version 330\n"
 			"uniform mat4 "
@@ -212,7 +213,8 @@ public:
 			"	return Matrix * vec4(LayoutPosition, 1.0);"
 			"}")
 			)
-		))
+		)
+	)
 	{ }
 };
 
