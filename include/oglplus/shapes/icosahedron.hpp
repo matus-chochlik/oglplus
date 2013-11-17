@@ -140,9 +140,21 @@ public:
 
 		for(GLuint f=0; f!=20; ++f)
 		{
-			Vector<T, 3> v0(p+i[f*3+0]*3, 3);
-			Vector<T, 3> v1(p+i[f*3+1]*3, 3);
-			Vector<T, 3> v2(p+i[f*3+2]*3, 3);
+			Vector<T, 3> v0(
+				p[i[f*3+0]*3+0],
+				p[i[f*3+0]*3+1],
+				p[i[f*3+0]*3+2]
+			);
+			Vector<T, 3> v1(
+				p[i[f*3+1]*3+0],
+				p[i[f*3+1]*3+1],
+				p[i[f*3+1]*3+2]
+			);
+			Vector<T, 3> v2(
+				p[i[f*3+2]*3+0],
+				p[i[f*3+2]*3+1],
+				p[i[f*3+2]*3+2]
+			);
 			Vector<T, 3> fn(Normalized(Cross(v1-v0, v2-v0)));
 
 			for(GLuint v=0; v!=3; ++v)
@@ -176,9 +188,9 @@ public:
 
 	/// Queries the bounding sphere coordinates and dimensions
 	template <typename T>
-	void BoundingSphere(Vector<T, 4>& center_and_radius) const
+	void BoundingSphere(Sphere<T>& center_and_radius) const
 	{
-		center_and_radius = Vector<T, 4>(T(0), T(0), T(0), T(1));
+		center_and_radius = Sphere<T>(T(0), T(0), T(0), T(1));
 	}
 
 	/// The type of the index container returned by Indices()
