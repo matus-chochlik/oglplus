@@ -40,7 +40,7 @@ public:
 		GLsizei frames,
 		GLint default_page,
 		GLuint pixel_height
-	): _essence(std::make_shared<Essence>(
+	): _essence(new Essence(
 		parent,
 		bitmap_tex_unit,
 		metric_tex_unit,
