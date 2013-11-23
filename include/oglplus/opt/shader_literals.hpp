@@ -36,42 +36,42 @@ inline Shader ShaderFromLiteral(
 } // namespace aux
 
 #ifdef GL_VERTEX_SHADER
-Shader operator "" _glsl_vs(const char* str, size_t size)
+inline Shader operator "" _glsl_vs(const char* str, size_t size)
 {
 	return aux::ShaderFromLiteral(ShaderType::Vertex, str, size);
 }
 #endif
 
 #ifdef GL_TESS_CONTROL_SHADER
-Shader operator "" _glsl_tcs(const char* str, size_t size)
+inline Shader operator "" _glsl_tcs(const char* str, size_t size)
 {
 	return aux::ShaderFromLiteral(ShaderType::TessControl, str, size);
 }
 #endif
 
 #ifdef GL_TESS_EVALUATION_SHADER
-Shader operator "" _glsl_tes(const char* str, size_t size)
+inline Shader operator "" _glsl_tes(const char* str, size_t size)
 {
 	return aux::ShaderFromLiteral(ShaderType::TessEvaluation, str, size);
 }
 #endif
 
 #ifdef GL_GEOMETRY_SHADER
-Shader operator "" _glsl_gs(const char* str, size_t size)
+inline Shader operator "" _glsl_gs(const char* str, size_t size)
 {
 	return aux::ShaderFromLiteral(ShaderType::Geometry, str, size);
 }
 #endif
 
 #ifdef GL_FRAGMENT_SHADER
-Shader operator "" _glsl_fs(const char* str, size_t size)
+inline Shader operator "" _glsl_fs(const char* str, size_t size)
 {
 	return aux::ShaderFromLiteral(ShaderType::Fragment, str, size);
 }
 #endif
 
 #ifdef GL_COMPUTE_SHADER
-Shader operator "" _glsl_cs(const char* str, size_t size)
+inline Shader operator "" _glsl_cs(const char* str, size_t size)
 {
 	return aux::ShaderFromLiteral(ShaderType::Compute, str, size);
 }
