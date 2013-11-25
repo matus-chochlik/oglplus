@@ -65,21 +65,28 @@ public:
 	 , _func(nullptr)
 	{
 		if(_inv_sin_omega == T(0))
+		{
 			_func = &BaseSLERP::_first;
+		}
 		else if(std::abs(_inv_sin_omega) < eps)
+		{
 			_func = &BaseSLERP::_lerp;
+		}
 		else
+		{
 			_func = &BaseSLERP::_slerp;
-		assert(_func);
-		_inv_sin_omega = T(1)/_inv_sin_omega;
+			_inv_sin_omega = T(1)/_inv_sin_omega;
+		}
+		assert(_func != nullptr);
 	}
 
-	/// Interpolates between the quaternions
+	/// Interpolates between the values passed to constructor
 	/**
 	 *  @pre (param >= 0) && (param <= 1)
 	 */
 	Value operator()(T param) const
 	{
+		assert(_func != nullptr);
 		return (this->*_func)(param);
 	}
 };

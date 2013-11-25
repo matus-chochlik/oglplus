@@ -337,7 +337,12 @@ public:
 			tmp._paused = false;
 		}
 
-		void Finish(void)
+		/// Explicitly resumes transform feedback
+		/**
+		 *  @glsymbols
+		 *  @glfunref{ResumeTransformFeedback}
+		 */
+		void Resume(void)
 		{
 			if(_paused)
 			{
@@ -354,7 +359,7 @@ public:
 		 */
 		~Pauser(void)
 		{
-			try{ Finish(); }
+			try{ Resume(); }
 			catch(...){ }
 		}
 	};

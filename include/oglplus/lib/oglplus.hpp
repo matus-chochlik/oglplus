@@ -38,6 +38,8 @@
 #include <oglplus/auxiliary/uniform_init.hpp>
 
 #include <oglplus/error.hpp>
+#include <oglplus/compile_error.hpp>
+#include <oglplus/link_error.hpp>
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>

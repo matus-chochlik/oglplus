@@ -56,15 +56,13 @@ class CompileError
  : public ProgramBuildError
 {
 public:
-	CompileError(const String& log, const ErrorInfo& info)
-	 : ProgramBuildError(
-		"OpenGL shading language compilation error",
-		log,
-		info
-	)
-	{ }
+	CompileError(const String& log, const ErrorInfo& info);
 };
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/compile_error.ipp>
+#endif
 
 #endif // include guard
