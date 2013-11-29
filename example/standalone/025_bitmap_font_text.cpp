@@ -27,7 +27,7 @@ public:
 
 		std::ifstream png_stream(png_path);
 
-		auto image = images::PNG(png_stream);
+		auto image = images::PNGImage(png_stream);
 
 		auto bound_tex = oglplus::Bind(*this, Texture::Target::_2D);
 

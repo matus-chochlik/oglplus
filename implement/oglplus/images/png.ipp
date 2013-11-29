@@ -9,6 +9,10 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <stdexcept>
+#include <fstream>
+#include <cassert>
+
 namespace oglplus {
 namespace images {
 namespace aux {
@@ -292,14 +296,14 @@ PNGLoader::PNGLoader(
 } // namespace aux
 
 OGLPLUS_LIB_FUNC
-PNG::PNG(const char* file_path, bool y_is_up, bool x_is_right)
+PNGImage::PNGImage(const char* file_path, bool y_is_up, bool x_is_right)
 {
 	std::ifstream  file(file_path, std::ios::binary);
 	aux::PNGLoader(file, *this, y_is_up, x_is_right);
 }
 
 OGLPLUS_LIB_FUNC
-PNG::PNG(std::istream& input, bool y_is_up, bool x_is_right)
+PNGImage::PNGImage(std::istream& input, bool y_is_up, bool x_is_right)
 {
 	aux::PNGLoader(input, *this, y_is_up, x_is_right);
 }

@@ -14,7 +14,6 @@
 #define OGLPLUS_IMAGES_GRADIENT_1211090818_HPP
 
 #include <oglplus/images/image.hpp>
-#include <oglplus/texture.hpp>
 
 #include <cassert>
 #include <map>

@@ -14,12 +14,8 @@
 #define OGLPLUS_IMAGES_PNG_1107121519_HPP
 
 #include <oglplus/images/image.hpp>
-#include <oglplus/texture.hpp>
 
 #include <istream>
-#include <fstream>
-#include <stdexcept>
-#include <cassert>
 #include <png.h>
 
 namespace oglplus {
@@ -101,15 +97,15 @@ public:
 /**
  *  @ingroup image_load_gen
  */
-class PNG
+class PNGImage
  : public Image
 {
 public:
 	/// Load the image from a file with the specified @p file_path
-	PNG(const char* file_path, bool y_is_up = true, bool x_is_right = true);
+	PNGImage(const char* file_path, bool y_is_up = true, bool x_is_right = true);
 
 	/// Load the image from the specified @p input stream
-	PNG(std::istream& input, bool y_is_up = true, bool x_is_right = true);
+	PNGImage(std::istream& input, bool y_is_up = true, bool x_is_right = true);
 };
 
 } // images
