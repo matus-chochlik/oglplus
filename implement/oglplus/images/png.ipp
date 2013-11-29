@@ -12,10 +12,80 @@
 #include <stdexcept>
 #include <fstream>
 #include <cassert>
+#include <png.h>
 
 namespace oglplus {
 namespace images {
 namespace aux {
+
+class PNGLoader;
+
+struct PNGHeaderValidator
+{
+	PNGHeaderValidator(std::istream& input);
+};
+
+// structure managing the png_struct pointer
+struct PNGReadStruct
+{
+	::png_structp _read;
+
+	// Error handling function
+	static void _png_handle_error(::png_structp /*sp*/, const char* msg);
+
+	// Warning handling function
+	static void _png_handle_warning(::png_structp/*sp*/, const char* /*msg*/);
+
+	PNGReadStruct(PNGLoader& /*loader*/);
+	~PNGReadStruct(void);
+};
+
+// structure managing the first png_info pointer
+struct PNGReadInfoStruct : PNGReadStruct
+{
+	::png_infop _info;
+
+	PNGReadInfoStruct(PNGLoader& loader);
+	~PNGReadInfoStruct(void);
+};
+
+struct PNGReadInfoEndStruct : PNGReadInfoStruct
+{
+	::png_infop _end;
+
+	// data read callback
+	static void _png_read_data(::png_structp, ::png_bytep, ::png_size_t);
+	static int _png_read_user_chunk(::png_structp, ::png_unknown_chunkp);
+
+	PNGReadInfoEndStruct(PNGLoader& loader);
+	~PNGReadInfoEndStruct(void);
+};
+
+class PNGLoader
+{
+private:
+	// reference to an input stream to read from
+	::std::istream& _input;
+
+	PNGHeaderValidator _validate_header;
+
+	friend class PNGReadInfoEndStruct;
+
+	// data read functions
+	void _read_data(::png_bytep data, ::png_size_t size);
+	int _read_user_chunk(::png_unknown_chunkp /*chunk*/);
+
+	PNGReadInfoEndStruct _png;
+
+	static GLenum _translate_format(GLuint color_type, bool /*has_alpha*/);
+public:
+	PNGLoader(
+		std::istream& input,
+		Image& image,
+		bool y_is_up,
+		bool x_is_right
+	);
+};
 
 OGLPLUS_LIB_FUNC
 PNGHeaderValidator::PNGHeaderValidator(std::istream& input)
