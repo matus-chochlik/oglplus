@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/images/png.hpp
- *  @brief PNG image loader (based on libpng)
+ *  @brief XPM (X Pix Map) image loader
  *
  *  @author Matus Chochlik
  *
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_IMAGES_PNG_1107121519_HPP
-#define OGLPLUS_IMAGES_PNG_1107121519_HPP
+#ifndef OGLPLUS_IMAGES_XPM_1107121519_HPP
+#define OGLPLUS_IMAGES_XPM_1107121519_HPP
 
 #include <oglplus/images/image.hpp>
 
@@ -19,24 +19,20 @@
 
 namespace oglplus {
 namespace images {
+namespace aux {
 
-/// Loader of images in the PNG (Portable network graphics) format
+} // namespace aux
+
+/// Loader of images in the XPM (X Pix Map) format
 /**
  *  @ingroup image_load_gen
  */
-class PNGImage
+class XPMImage
  : public Image
 {
 public:
-	/// Load the image from a file with the specified @p file_path
-	PNGImage(
-		const char* file_path,
-		bool y_is_up = true,
-		bool x_is_right = true
-	);
-
 	/// Load the image from the specified @p input stream
-	PNGImage(
+	XPMImage(
 		std::istream& input,
 		bool y_is_up = true,
 		bool x_is_right = true
@@ -47,7 +43,7 @@ public:
 } // oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/images/png.ipp>
+#include <oglplus/images/xpm.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard
