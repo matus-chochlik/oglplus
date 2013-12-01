@@ -84,26 +84,43 @@ bool xpm_load_parse_palette_entry(
 }
 
 OGLPLUS_LIB_FUNC
-std::size_t xpm_load_color_code_bipp(const char* begin, const char* end)
+std::size_t xpm_load_color_code_bipp(
+	const std::string& color,
+	const std::map<std::string, std::string>& color_names
+)
 {
-	if(begin >= end) return 0;
+	if(color.empty()) return 0;
 
-	if(*begin == '#')
+	if(color.front() == '#')
 	{
-		++begin;
-		return (end-begin)*4;
+		return (color.size()-1)*4;
 	}
-	else if(
-		(std::strncmp(begin, "none", end-begin) == 0)
-	) { return 32; }
-	else { return 24; }
-
+	else
+	{
+		auto p = color_names.find(color);
+		if(p != color_names.end())
+		{
+			return xpm_load_color_code_bipp(
+				p->second,
+				color_names
+			);
+		}
+		else
+		{
+			throw std::runtime_error(
+				"Unknown color name '"+
+				color +
+				"' in XPM palette"
+			);
+		}
+	}
 	return 0;
 }
 
 OGLPLUS_LIB_FUNC
 void xpm_load_preload_col_ents(
 	const std::map<std::string, std::string>& col_ents,
+	const std::map<std::string, std::string>& color_names,
 	std::size_t& chpp,
 	std::size_t& bipp
 )
@@ -136,12 +153,12 @@ void xpm_load_preload_col_ents(
 			if(v == j)
 			{
 				throw std::runtime_error(
-					"Missing color code in XPM colors"
+					"Missing color name in XPM color entry"
 				);
 			}
 			std::size_t cbipp = xpm_load_color_code_bipp(
-				val.data()+v,
-				val.data()+j
+				std::string(val.data()+v, val.data()+j),
+				color_names
 			);
 			if(ebipp < cbipp)
 			{
@@ -187,7 +204,9 @@ unsigned char xpm_load_convert_color_channel(const char*& begin, const char* end
 	if(end - begin < 2)
 	{
 		throw std::runtime_error(
-			"Too few hex digits for color value in XPM palette"
+			"Too few hex digits for color value '" +
+			std::string(begin, end) +
+			"' in XPM palette"
 		);
 	}
 	unsigned char up = xpm_load_convert_hex_digit(*begin++);
@@ -197,41 +216,47 @@ unsigned char xpm_load_convert_color_channel(const char*& begin, const char* end
 
 OGLPLUS_LIB_FUNC
 bool xpm_load_convert_color(
-	const char* begin,
-	const char* end,
+	const std::string& color,
+	const std::map<std::string, std::string>& color_names,
 	const std::size_t bipp,
-	std::array<unsigned char, 4>& color
+	std::array<unsigned char, 4>& color_buf
 )
 {
-	if(begin >= end) return false;
+	if(color.empty()) return false;
+
 	assert(bipp % 8 == 0);
 	std::size_t bpp = bipp/8;
 
-	if(*begin == '#')
+	if(color.front() == '#')
 	{
-		++begin;
-		std::size_t ebipp = (end-begin)*4;
+		std::size_t ebipp = (color.size()-1)*4;
+		const char* begin = color.data()+1;
+		const char* end  = color.data()+color.size();
 
 		if(bipp == ebipp)
 		{
 			for(std::size_t b=0; b!=bpp; ++b)
 			{
-				color[b] = xpm_load_convert_color_channel(
+				color_buf[b] = xpm_load_convert_color_channel(
 					begin,
 					end
 				);
+			}
+			for(std::size_t b=bpp; b!=4; ++b)
+			{
+				color_buf[b] = 0xFF;
 			}
 		}
 		else if((bipp == 32) && (ebipp == 24))
 		{
 			for(std::size_t b=0; b!=3; ++b)
 			{
-				color[b] = xpm_load_convert_color_channel(
+				color_buf[b] = xpm_load_convert_color_channel(
 					begin,
 					end
 				);
 			}
-			color[3] = 0xFF;
+			color_buf[3] = 0xFF;
 		}
 		else if((bipp >= 24) && (ebipp == 8))
 		{
@@ -239,55 +264,34 @@ bool xpm_load_convert_color(
 				begin,
 				end
 			);
-			color[0] = c;
-			color[1] = c;
-			color[2] = c;
-			if(bipp == 32) color[3] = 0xFF;
+			color_buf[0] = c;
+			color_buf[1] = c;
+			color_buf[2] = c;
+			color_buf[3] = 0xFF;
 		}
 		else return false;
 	}
-	else if(std::strncmp(begin, "none", end-begin) == 0)
+	else
 	{
-		color[0] = 0x00;
-		if(bipp >  8) color[1] = 0x00;
-		if(bipp > 16) color[2] = 0x00;
-		if(bipp > 24) color[3] = 0x00;
+		auto p = color_names.find(color);
+		if(p != color_names.end())
+		{
+			return xpm_load_convert_color(
+				p->second,
+				color_names,
+				bipp,
+				color_buf
+			);
+		}
+		else return false;
 	}
-	else if(std::strncmp(begin, "white", end-begin) == 0)
-	{
-		color[0] = 0xFF;
-		if(bipp >  8) color[1] = 0xFF;
-		if(bipp > 16) color[2] = 0xFF;
-		if(bipp > 24) color[3] = 0xFF;
-	}
-	else if(std::strncmp(begin, "red", end-begin) == 0)
-	{
-		color[0] = 0xFF;
-		color[1] = 0x00;
-		color[2] = 0x00;
-		if(bipp > 24) color[3] = 0xFF;
-	}
-	else if(std::strncmp(begin, "green", end-begin) == 0)
-	{
-		color[0] = 0x00;
-		color[1] = 0xFF;
-		color[2] = 0x00;
-		if(bipp > 24) color[3] = 0xFF;
-	}
-	else if(std::strncmp(begin, "blue", end-begin) == 0)
-	{
-		color[0] = 0x00;
-		color[1] = 0x00;
-		color[2] = 0xFF;
-		if(bipp > 24) color[3] = 0xFF;
-	}
-	else return false;
 	return true;
 }
 
 OGLPLUS_LIB_FUNC
 void xpm_load_make_palette(
 	const std::map<std::string, std::string>& col_ents,
+	const std::map<std::string, std::string>& color_names,
 	std::map<std::string, std::array<unsigned char, 4>>& palette,
 	const std::size_t bipp
 )
@@ -318,8 +322,8 @@ void xpm_load_make_palette(
 			assert(v != j);
 
 			if(xpm_load_convert_color(
-				val.data()+v,
-				val.data()+j,
+				std::string(val.data()+v, val.data()+j),
+				color_names,
 				bipp,
 				pal_color
 			))
@@ -336,7 +340,9 @@ void xpm_load_make_palette(
 		if(!best_type)
 		{
 			throw std::runtime_error(
-				"Failed to load XPM palette color entry"
+				"Failed to load XPM palette color entry '" +
+				i->second +
+				"'"
 			);
 		}
 		palette[i->first] = pal_color;
@@ -347,6 +353,7 @@ OGLPLUS_LIB_FUNC
 void xpm_load(
 	std::istream& input,
 	Image& image,
+	const std::map<std::string, std::string>& color_names,
 	bool y_is_up,
 	bool x_is_right
 )
@@ -431,18 +438,22 @@ void xpm_load(
 
 		if(col_ents.find(color_code) != col_ents.end())
 		{
-			throw std::runtime_error("Duplicate XPM palette entry code");
+			throw std::runtime_error(
+				"Duplicate XPM palette entry code '"+
+				color_code +
+				"'"
+			);
 		}
 
 		col_ents[color_code] = color_value;
 	}
 	assert(col_ents.size() == colors);
 
-	xpm_load_preload_col_ents(col_ents, chpp, bipp);
+	xpm_load_preload_col_ents(col_ents, color_names, chpp, bipp);
 
 	std::map<std::string, std::array<unsigned char, 4>> palette;
 
-	xpm_load_make_palette(col_ents, palette, bipp);
+	xpm_load_make_palette(col_ents, color_names, palette, bipp);
 
 	assert(palette.size() == colors);
 	assert(bipp % 8 == 0);
@@ -498,7 +509,9 @@ void xpm_load(
 			if(p == palette.end())
 			{
 				throw std::runtime_error(
-					"Color code not found in XPM palette"
+					"Color code '" +
+					code +
+					"' not found in XPM palette"
 				);
 			}
 			for(std::size_t c=0; c!=channels; ++c)
@@ -524,7 +537,17 @@ void xpm_load(
 OGLPLUS_LIB_FUNC
 XPMImage::XPMImage(std::istream& input, bool y_is_up, bool x_is_right)
 {
-	aux::xpm_load(input, *this, y_is_up, x_is_right);
+	std::map<std::string, std::string> color_names;
+	color_names["black"] = "#000000";
+	color_names["gray"] = "#808080";
+	color_names["white"] = "#FFFFFF";
+	color_names["red"] = "#FF0000";
+	color_names["green"] = "#00FF00";
+	color_names["blue"] = "#0000FF";
+	color_names["yellow"] = "#FFFF00";
+	color_names["magenta"] = "#FF00FF";
+	color_names["cyan"] = "#00FFFF";
+	aux::xpm_load(input, *this, color_names, y_is_up, x_is_right);
 }
 
 } // images
