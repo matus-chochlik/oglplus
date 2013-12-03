@@ -151,6 +151,16 @@ public:
 		));
 	}
 
+	/// Bind this texture to the specified target
+	/**
+	 *  @throws Error
+	 */
+	void Bind(Target new_target)
+	{
+		target = new_target;
+		Bind();
+	}
+
 	/// Unbinds the current texture from its target
 	/**
 	 *  @throws Error

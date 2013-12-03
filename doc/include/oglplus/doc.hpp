@@ -20,7 +20,7 @@
 /// All definitions of OGLplus are nested in the oglplus namespace
 namespace oglplus {
 
-/** @mainpage OGLplus - a C++ wrapper for OpenGL® version 3 and higher.
+/** @mainpage OGLplus - a C++ wrapper for modern OpenGL®.
  *
  *  @image html oglplus.png
  *
@@ -212,13 +212,13 @@ namespace oglplus {
  *     pre-built textures). Building of the textures is optional, they are not
  *     necessary when the building of examples is disabled.
  *
- *   - The GL3/gl3.h header or GLEW. OGLplus does not define the OpenGL symbols
+ *   - The GL/glcorearb.h header or GLEW. OGLplus does not define the OpenGL symbols
  *     (types, constants, functions, etc.) itself and therfore applications using
  *     it need to define them themselves (before including OGLplus). The examples
- *     currently need GLEW (at least version 1.6) or the GL3/gl3.h header (available
- *     for download from http://www.opengl.org/registry/api/gl3.h) and a GL binary
+ *     currently need GLEW (at least version 1.9) or the GL/glcorearb.h header (available
+ *     for download from http://www.opengl.org/registry/api/glcorearb.h) and a GL binary
  *     library exporting the OpenGL (3 or higher) functions.
- *     The build system detects the presence of GLEW or gl3.h and configures
+ *     The build system detects the presence of GLEW or glcorearb.h and configures
  *     compilation and linking of the examples accordingly. If both are installed
  *     and the user does not specify otherwise GLEW is used.
  *
@@ -235,10 +235,7 @@ namespace oglplus {
  *
  *   - HEADER_SEARCH_PATHS [empty]: (semicolon-separated) list of paths
  *     to additional directories to search when looking for 3rd-party headers
- *     like GL/glew.h, GL3/gl3.h, etc.
- *
- *   - OGLPLUS_WITHOUT_GLEW [Off]: Do not use GLEW even if it is available,
- *     this requires GL3/gl3.h to be installed.
+ *     like GL/glew.h, GL/glcorearb.h, GL3/gl3.h, etc.
  *
  *   - OGLPLUS_NO_EXAMPLES [Off]: Do not build the examples and the textures.
  *
@@ -247,7 +244,6 @@ namespace oglplus {
  *
  *   @section oglplus_config_script User-friendly configuration script
  *
- *  (Currently available only for platforms with @c bash - 'configure.sh')
  *  The 'configure' script is a more user-friendly way to invoke cmake and specify
  *  additional parameters for the configuration process.
  *
@@ -261,7 +257,9 @@ namespace oglplus {
  *     to search when looking for header files. It may be used multiple times
  *     to specify multiple directories.
  *
- *  - @c --without-glew: Do not use GLEW even if it is available.
+ *  - @c --library-dir PATH: This options allows to specify additional directiories
+ *     to search when looking for binary libraries. It may be used multiple times
+ *     to specify multiple directories.
  *
  *  See the @c --help option for the full description and detailed info on the usage
  *  of this script.
@@ -278,8 +276,8 @@ namespace oglplus {
  *  preprocessor symbols, etc. are defined before including any @OGLplus header.
  *
  *  There are several different ways how to do this; one of the most convenient
- *  is to download the @c gl3.h header file from
- *  <A HREF="http://www.opengl.org/registry/api/gl3.h">www.opengl.org/registry/api/gl3.h</A>
+ *  is to download the @c GL/glcorearb.h header file from
+ *  <A HREF="http://www.opengl.org/registry/api/glcorearb.h">www.opengl.org/registry/api/glcorearb.h</A>
  *  and place it to a directory implicitly searched by the compiler or to add the
  *  @c -I/path/to/include directive to your @c CXXFLAGS. If the OpengGL dynamic library
  *  or shared object is located in a nonstandard location also update the @c LDFLAGS.
@@ -288,27 +286,27 @@ namespace oglplus {
  *  the following to your ~/.bashrc file:
  *
  *  @code
- *  # if GL3/gl3.h is in $HOME/include
+ *  # if GL/glcorearb.h is in $HOME/include
  *  export CXXFLAGS="$CXXFLAGS -I$HOME/include"
  *  # if libGL.so is in $HOME/lib
  *  export LDFLAGS="$LDFLAGS -L$HOME/lib"
  *  @endcode
  *
  *  Some other alternatives include using GLEW or a similar library or framework
- *  which includes gl3.h or defines the necessary symbols itself. See the standalone
+ *  which includes glcorearb.h or defines the necessary symbols itself. See the standalone
  *  examples for working applications using these alternative libraries.
  *
  *  @section oglplus_supported_compilers Supported compilers
  *
  *  @OGLplus is known to work with the following compilers:
  *  - GCC (versions 4.5.1, 4.6.0, 4.6.1).
- *  - MSVC 11 Beta with some features (mostly related to variadic templates
+ *  - MSVC 10 with some features (mostly related to variadic templates,
+ *     initializer lists, and some others) disabled.
+ *  - MSVC 11 with some features (mostly related to variadic templates
  *     and initializer lists) disabled.
+ *  - MSVC 12 beta with some features disabled.
  *
- *  Currently the limiting factor seems to be the support for C++11 features
- *  by the various compilers. Since C++11 is now an official standard
- *  we expect that the compiler vendors will implement these new features
- *  soon.
+ *  @note Please refer to the README.rst file for more up-to-date version of this page.
  */
 
 /** @page oglplus_example_rationale Example rationale
@@ -375,6 +373,67 @@ struct Unspecified
 /** @page oglplus_screenshot_gallery Screenshot gallery
  *
  *  @htmlinclude gallery.html
+ */
+
+/** @page dsa_objects Direct-State-Access (DSA) objects
+ *
+ *  DSA objects allow to use @ref oglplus_object "objects" that
+ *  can to be bound to a OpenGL binding point or "target" without binding them.
+ *  This includes objects like @ref oglplus::Buffer "Buffer,"
+ *  @ref oglplus::Texture "Texture", @ref oglplus::Renderbuffer "Renderbuffer"
+ *  or @ref oglplus::Framebuffer "Framebuffer"
+ *  which have a target to which individual
+ *  instances can be bound and operated on through the binding point.
+ *  DSA objects implement (mostly) the same functions as their non-DSA counterparts
+ *  but without the target parameter and the operations are invoked on the instances
+ *  themselves.
+ *
+ *  For example to setup a texture object one might need to do the following:
+ *  @code
+ *  // create the texture
+ *  Texture tex;
+ *  // the binding point we'll be using to setup the texture
+ *  Texture::Target tex_tgt = Texture::Target::_2D;
+ *  tex.Bind(tex_tgt);
+ *  {
+ *    Texture::Image2D(tex_tgt, ...);
+ *    Texture::GenerateMipmap(tex_tgt);
+ *    Texture::MinFilter(tex_tgt, TextureMinFilter::Linear);
+ *    Texture::MagFilter(tex_tgt, TextureMagFilter::Linear);
+ *    Texture::WrapS(tex_tgt, TextureWrap::Repeat);
+ *    Texture::WrapT(tex_tgt, TextureWrap::Repeat);
+ *    Texture::SwizzleG(tex_tgt, TextureSwizzle::Red);
+ *    Texture::SwizzleB(tex_tgt, TextureSwizzle::Red);
+ *  }
+ *  @endcode
+ *
+ *  The @c DSATexture class allows to do things more conveniently:
+ *  @code
+ *  // create the texture
+ *  DSATexture dsa_tex;
+ *  // specify the default target for this texture
+ *  dsa_tex.target = Texture::Target::_2D;
+ *  dsa_tex.Image2D(...);
+ *  dsa_tex.GenerateMipmap();
+ *  dsa_tex.MinFilter(TextureMinFilter::Linear);
+ *  dsa_tex.MagFilter(TextureMagFilter::Linear);
+ *  dsa_tex.WrapS(TextureWrap::Repeat);
+ *  dsa_tex.WrapT(TextureWrap::Repeat);
+ *  dsa_tex.SwizzleG(TextureSwizzle::Red);
+ *  dsa_tex.SwizzleB(TextureSwizzle::Red);
+ *  dsa_tex.Bind();
+ *  @endcode
+ *
+ *  In order to be able to use the DSA objects it is necessary to include
+ *  the appropriate header:
+ *
+ *  @code
+ *  #include <oglplus/texture_dsa.hpp> // DSATexture
+ *  #include <oglplus/buffer_dsa.hpp> // DSABuffer
+ *  #include <oglplus/framebuffer_dsa.hpp> // DSAFramebuffer
+ *  #include <oglplus/renderbuffer_dsa.hpp> // DSARenderbuffer
+ *  #include <oglplus/vertex_array_dsa.hpp> // DSAVertexArray
+ *  @endcode
  */
 
 /** @page bound_objects Bound objects

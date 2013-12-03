@@ -12,6 +12,7 @@ oglplus_build_test_no_fixture(config)
 oglplus_exec_test_no_fixture(math)
 oglplus_exec_test_no_fixture(angle)
 oglplus_exec_test_no_fixture(vector)
+oglplus_exec_test_no_fixture(quaternion)
 oglplus_exec_test_no_fixture(matrix)
 
 oglplus_exec_test(buffer "${OGLPLUS_TEST_LIBS}")

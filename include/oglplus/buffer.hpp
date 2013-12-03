@@ -641,7 +641,7 @@ public:
 	static void Data(
 		Target target,
 		GLsizei count,
-		GLtype* data,
+		const GLtype* data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
@@ -662,7 +662,7 @@ public:
 	template <typename GLtype, std::size_t Count>
 	static void Data(
 		Target target,
-		GLtype (&data)[Count],
+		const GLtype (&data)[Count],
 		BufferUsage usage = BufferUsage::StaticDraw
 	)
 	{
@@ -749,7 +749,7 @@ public:
 		Target target,
 		GLintptr offset,
 		GLsizei count,
-		GLtype* data
+		const GLtype* data
 	)
 	{
 		OGLPLUS_GLFUNC(BufferSubData)(
@@ -770,7 +770,7 @@ public:
 	static void SubData(
 		Target target,
 		GLintptr offset,
-		GLtype (&data)[Count]
+		const GLtype (&data)[Count]
 	)
 	{
 		OGLPLUS_GLFUNC(BufferSubData)(

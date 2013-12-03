@@ -126,9 +126,11 @@ public:
 	{
 		return CustomRenderer(
 			*this,
-			layout_transform_shader,
-			glyph_transform_shader,
-			pixel_color_shader
+			Group<Shader>(
+				layout_transform_shader,
+				glyph_transform_shader,
+				pixel_color_shader
+			)
 		);
 	}
 

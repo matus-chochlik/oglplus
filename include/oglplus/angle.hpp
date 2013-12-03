@@ -89,6 +89,20 @@ public:
 		return Angle(val_deg, Degrees_());
 	}
 
+	/// Constructs a new angle using arc sine
+	static inline Angle ArcSin(T x)
+	{
+		assert(-1.0f <= x && x <= 1.0f);
+		return Angle(::std::asin(x), Radians_());
+	}
+
+	/// Constructs a new angle using arc cosine
+	static inline Angle ArcCos(T x)
+	{
+		assert(-1.0f <= x && x <= 1.0f);
+		return Angle(::std::acos(x), Radians_());
+	}
+
 	/// Returns the value of the angle in radians
 	inline T Value(void) const
 	{
@@ -234,6 +248,13 @@ public:
 		return Multiplied(a, mult);
 	}
 
+	/// Multiplication by constant operator
+	Angle& operator *= (T mult)
+	{
+		*this = Multiplied(*this, mult);
+		return *this;
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Division by constant
 	friend Angle Divide(const Angle& a, T div)
@@ -241,6 +262,7 @@ public:
 
 	static Angle Divided(const Angle& a, T div)
 	{
+		assert(div != T(0));
 		return Angle(a._val_rad / div, Radians_());
 	}
 
@@ -248,6 +270,13 @@ public:
 	friend Angle operator / (const Angle& a, T div)
 	{
 		return Divided(a, div);
+	}
+
+	/// Division by constant operator
+	Angle& operator /= (T div)
+	{
+		*this = Divided(*this, div);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -475,8 +504,7 @@ inline Angle<AngleValueType> RightAngle(void)
  */
 inline Angle<AngleValueType> ArcSin(AngleValueType x)
 {
-	assert(-1.0f <= x && x <= 1.0f);
-	return Angle<AngleValueType>::Radians(::std::asin(x));
+	return Angle<AngleValueType>::ArcSin(x);
 }
 
 /// Creates a new angle using the arc cosine function
@@ -494,8 +522,7 @@ inline Angle<AngleValueType> ArcSin(AngleValueType x)
  */
 inline Angle<AngleValueType> ArcCos(AngleValueType x)
 {
-	assert(AngleValueType(-1) <= x && x <= AngleValueType(1));
-	return Angle<AngleValueType>::Radians(::std::acos(x));
+	return Angle<AngleValueType>::ArcCos(x);
 }
 
 /// Creates a new angle using the arc tangent function
@@ -548,12 +575,42 @@ inline Angle<AngleValueType> ArcTan(AngleValueType y, AngleValueType x)
  *
  *  @param t the point for which to calculate the value on the wave.
  *
+ *  @see SineWave01
+ *  @see CosineWave
+ *
  *  @ingroup math_utils
  */
 template <typename T>
 inline T SineWave(T t)
 {
 	return ::std::sin(T(math::TwoPi() * t));
+}
+
+/// Returns a value on a sine wave transformed to range <0, 1>
+/** This function returns the value of (sin(2.PI.@p t)+1)/2, i.e.
+ *  integer values of @p t are the ends of the previous full
+ *  sine wave and the begining of the next "iteration".
+ *  The following is true:
+ *  @code
+ *  SineWave01(t) == (sin(2.0*PI*t)+1)/2;
+ *  SineWave01(0.00) ==  0.5;
+ *  SineWave01(0.25) ==  1.0;
+ *  SineWave01(0.50) ==  0.5;
+ *  SineWave01(0.75) ==  0.0;
+ *  SineWave01(1.00) ==  0.5;
+ *  @endcode
+ *
+ *  @param t the point for which to calculate the value on the wave.
+ *
+ *  @see SineWave
+ *  @see CosineWave01
+ *
+ *  @ingroup math_utils
+ */
+template <typename T>
+inline T SineWave01(T t)
+{
+	return (SineWave(t)+T(1))/T(2);
 }
 
 /// Returns a value on a cosine wave at the specified point
@@ -572,12 +629,42 @@ inline T SineWave(T t)
  *
  *  @param t the point for which to calculate the value on the wave.
  *
+ *  @see SineWave
+ *  @see CosineWave01
+ *
  *  @ingroup math_utils
  */
 template <typename T>
 inline T CosineWave(T t)
 {
 	return ::std::cos(T(math::TwoPi() * t));
+}
+
+/// Returns a value on a cosine wave transformed to range <0, 1>
+/** This function returns the value of (cos(2.PI.@p t)+1)/2, i.e.
+ *  integer values of @p t are the ends of the previous full
+ *  cosine wave and the begining of the next "iteration".
+ *  The following is true:
+ *  @code
+ *  CosineWave(t) == (cos(2.0*PI*t)+1)/2;
+ *  CosineWave(0.00) ==  1.0;
+ *  CosineWave(0.25) ==  0.5;
+ *  CosineWave(0.50) ==  0.0;
+ *  CosineWave(0.75) ==  0.5;
+ *  CosineWave(1.00) ==  1.0;
+ *  @endcode
+ *
+ *  @param t the point for which to calculate the value on the wave.
+ *
+ *  @see CosineWave
+ *  @see SineWave01
+ *
+ *  @ingroup math_utils
+ */
+template <typename T>
+inline T CosineWave01(T t)
+{
+	return (CosineWave(t)+T(1))/T(2);
 }
 
 } // namespace oglplus

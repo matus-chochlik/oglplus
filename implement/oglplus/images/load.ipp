@@ -15,6 +15,7 @@
 #if OGLPLUS_PNG_FOUND
 #include <oglplus/images/png.hpp>
 #endif
+#include <oglplus/images/xpm.hpp>
 
 #include <fstream>
 #include <stdexcept>
@@ -31,7 +32,7 @@ Image LoadByName(
 )
 {
 	std::ifstream file;
-	const char* exts[] = {".png"};
+	const char* exts[] = {".png", ".xpm"};
 	std::size_t nexts = sizeof(exts)/sizeof(exts[0]);
 	std::size_t iext = oglplus::FindResourceFile(
 		file,
@@ -43,14 +44,19 @@ Image LoadByName(
 
 	if(!file.good())
 		throw std::runtime_error("Unable to open image: "+name);
-	// TODO switch on extension
-	assert(iext == 0);
+	if(iext == 0) //.png
+	{
 #if OGLPLUS_PNG_FOUND
-	return PNG(file, y_is_up, x_is_right);
+		return PNGImage(file, y_is_up, x_is_right);
 #else
-	OGLPLUS_FAKE_USE(y_is_up);
-	OGLPLUS_FAKE_USE(x_is_right);
+		OGLPLUS_FAKE_USE(y_is_up);
+		OGLPLUS_FAKE_USE(x_is_right);
 #endif
+	}
+	else if(iext == 1) //.xpm
+	{
+		return XPMImage(file, y_is_up, x_is_right);
+	}
 	throw std::runtime_error("Unable to open this image type");
 }
 

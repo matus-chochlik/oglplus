@@ -15,6 +15,7 @@ class Vector<T, 4>
 {
 private:
 	typedef VectorBase<T, 4> Base;
+	typedef typename Base::Unit_ Unit_;
 public:
 	Vector(void)
 	{ }
@@ -74,6 +75,17 @@ public:
 		this->_elem[1] = v[1];
 		this->_elem[2] = v[2];
 		this->_elem[3] = v3;
+	}
+
+	Vector(Unit_, std::size_t axis)
+	{
+		assert(axis < 4);
+		this->_elem[axis] = T(1);
+	}
+
+	static Vector Unit(std::size_t axis)
+	{
+		return Vector(Unit_(), axis);
 	}
 
 	explicit Vector(const Matrix<T, 1, 4>& matrix)

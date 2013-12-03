@@ -60,6 +60,9 @@ macro(oglplus_common_find_module PREFIX PC_NAME HEADER LIBRARY)
 	if((EXISTS "${${PREFIX}_INCLUDE_DIRS}"))
 
 		if(EXISTS ${PROJECT_SOURCE_DIR}/config/ext_lib/test_${PREFIX}.cpp)
+			if(NOT ${PREFIX}_LIBRARIES)
+				set(${PREFIX}_LIBRARIES "")
+			endif()
 			configure_file(
 				${PROJECT_SOURCE_DIR}/config/ext_lib/test_${PREFIX}.cpp
 				${PROJECT_BINARY_DIR}/ext_lib/test_${PREFIX}.cpp

@@ -66,7 +66,7 @@ public:
 			"{"
 			"	vec2 v = vertPos - SunPos;"
 			"	float l = length(v);"
-			"	float a = atan(v.y, v.x)/3.1415;"
+			"	float a = (sin(l)+atan(v.y, v.x))/3.1415;"
 			"	if(l < 0.1)"
 			"		fragColor = Sun1;"
 			"	else if(int(18*(Time*0.1 + 1.0 + a)) % 2 == 0)"
@@ -107,7 +107,7 @@ public:
 		Typechecked<Uniform<Vec3f>>(prog, "Sky1").Set(0.90f, 0.80f, 0.50f);
 		Typechecked<Uniform<Vec3f>>(prog, "Sky2").Set(0.80f, 0.60f, 0.40f);
 		//
-		gl.ClearDepth(1.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -117,7 +117,7 @@ public:
 
 	void Render(double time)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.Clear().ColorBuffer();
 
 		auto angle = FullCircles(GLfloat(time * 0.05f));
 		Uniform<GLfloat>(prog, "Time").Set(GLfloat(time));

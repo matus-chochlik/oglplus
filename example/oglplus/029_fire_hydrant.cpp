@@ -292,7 +292,7 @@ public:
 			Texture::Active(t);
 
 			auto bound_tex = Bind(tex[t], Texture::Target::_2D);
-			bound_tex.Image2D(images::PNG(input));
+			bound_tex.Image2D(images::PNGImage(input));
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);

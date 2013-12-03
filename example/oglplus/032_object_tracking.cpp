@@ -26,8 +26,6 @@
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/shapes/obj_mesh.hpp>
 
-#include <oglplus/images/checker.hpp>
-
 #include <oglplus/text/font2d.hpp>
 
 #include <oglplus/opt/list_init.hpp>

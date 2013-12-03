@@ -15,9 +15,7 @@ namespace text {
 OGLPLUS_LIB_FUNC
 BitmapGlyphRenderer::BitmapGlyphRenderer(
 	BitmapGlyphRenderingBase& parent,
-	const GeometryShader& layout_transform_shader,
-	const GeometryShader& glyph_transform_shader,
-	const FragmentShader& pixel_color_shader
+	const Group<Shader>& shaders
 ): _parent(parent)
  , _program(ObjectDesc("BitmapGlyphRenderer"))
  , _bitmap_sampler(_program, "oglpBitmap")
@@ -70,9 +68,6 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	));
 	vs.Compile();
 	_program.AttachShader(vs);
-
-	_program.AttachShader(layout_transform_shader);
-	_program.AttachShader(glyph_transform_shader);
 
 	GeometryShader gs(ObjectDesc("BitmapGlyphRenderer - Geometry"));
 	gs.Source(StrLit(
@@ -154,8 +149,6 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	gs.Compile();
 	_program.AttachShader(gs);
 
-	_program.AttachShader(pixel_color_shader);
-
 	FragmentShader fs(ObjectDesc("BitmapGlyphRenderer - Fragment"));
 	fs.Source(StrLit(
 		"#version 330\n"
@@ -193,6 +186,7 @@ BitmapGlyphRenderer::BitmapGlyphRenderer(
 	));
 	fs.Compile();
 	_program.AttachShader(fs);
+	_program.AttachShaders(shaders);
 
 	_program.Link();
 	ProgramUniform<GLuint>(_program, "GlyphsPerPage").Set(
@@ -207,52 +201,54 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 	const FragmentShader& pixel_color_shader
 ): DefaultRendererTpl<BitmapGlyphRenderer>(
 	parent,
-	pixel_color_shader,
-	GeometryShader(
-		ObjectDesc("BitmapGlyphRenderer - Layout transform"),
-		StrLit("#version 330\n"
-		"uniform mat4 "
-		"	oglpProjectionMatrix,"
-		"	oglpCameraMatrix,"
-		"	oglpLayoutMatrix;"
-		"mat4 Matrix = "
-		"	oglpProjectionMatrix*"
-		"	oglpCameraMatrix*"
-		"	oglpLayoutMatrix;"
+	Group<Shader>(
+		GeometryShader(
+			ObjectDesc("BitmapGlyphRenderer - Layout transform"),
+			StrLit("#version 330\n"
+			"uniform mat4 "
+			"	oglpProjectionMatrix,"
+			"	oglpCameraMatrix,"
+			"	oglpLayoutMatrix;"
+			"mat4 Matrix = "
+			"	oglpProjectionMatrix*"
+			"	oglpCameraMatrix*"
+			"	oglpLayoutMatrix;"
 
-		"vec4 TransformLayout(vec3 GlyphPosition)"
-		"{"
-		"	return Matrix * vec4(GlyphPosition, 1.0);"
-		"}")
-	),
-	GeometryShader(
-		ObjectDesc("BitmapGlyphRenderer - Glyph transform"),
-		StrLit("#version 330\n"
-		"uniform float oglpAlignCoef;"
-		"uniform float oglpDirCoef;"
+			"vec4 TransformLayout(vec3 GlyphPosition)"
+			"{"
+			"	return Matrix * vec4(GlyphPosition, 1.0);"
+			"}")
+		),
+		GeometryShader(
+			ObjectDesc("BitmapGlyphRenderer - Glyph transform"),
+			StrLit("#version 330\n"
+			"uniform float oglpAlignCoef;"
+			"uniform float oglpDirCoef;"
 
-		"float oglpAlignCoef2 = 0.5*oglpDirCoef-oglpAlignCoef;"
-		"float oglpDirCoef2 = min(oglpDirCoef, 0.0);"
+			"float oglpAlignCoef2 = 0.5*oglpDirCoef-oglpAlignCoef;"
+			"float oglpDirCoef2 = min(oglpDirCoef, 0.0);"
 
-		"vec3 TransformGlyph("
-		"	vec4 LogMetrics,"
-		"	vec4 InkMetrics,"
-		"	vec2 Pos,"
-		"	float XOffs,"
-		"	float LayoutWidth,"
-		"	int Idx"
-		")"
-		"{"
-		"	float LogWidth = LogMetrics.y - LogMetrics.x;"
-		"	XOffs = oglpDirCoef * XOffs+"
-		"		oglpDirCoef2* LogWidth-"
-		"		oglpAlignCoef2*LayoutWidth;"
-		"	return vec3("
-		"		Pos.x+XOffs,"
-		"		Pos.y,"
-		"		0.0"
-		"	);"
-		"}")
+			"vec3 TransformGlyph("
+			"	vec4 LogMetrics,"
+			"	vec4 InkMetrics,"
+			"	vec2 Pos,"
+			"	float XOffs,"
+			"	float LayoutWidth,"
+			"	int Idx"
+			")"
+			"{"
+			"	float LogWidth = LogMetrics.y - LogMetrics.x;"
+			"	XOffs = oglpDirCoef * XOffs+"
+			"		oglpDirCoef2* LogWidth-"
+			"		oglpAlignCoef2*LayoutWidth;"
+			"	return vec3("
+			"		Pos.x+XOffs,"
+			"		Pos.y,"
+			"		0.0"
+			"	);"
+			"}")
+		),
+		pixel_color_shader
 	)
 )
 { }

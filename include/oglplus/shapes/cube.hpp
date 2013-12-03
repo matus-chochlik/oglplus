@@ -30,20 +30,43 @@ class Cube
  : public DrawingInstructionWriter
 {
 private:
-	GLdouble _x, _y, _z;
+	GLdouble _sx, _sy, _sz;
+	GLdouble _ox, _oy, _oz;
 public:
 	/// Constructs a unit cube centered at the origin
 	Cube(void)
-	 : _x(1.0)
-	 , _y(1.0)
-	 , _z(1.0)
+	 : _sx(1.0)
+	 , _sy(1.0)
+	 , _sz(1.0)
+	 , _ox(0.0)
+	 , _oy(0.0)
+	 , _oz(0.0)
 	{ }
 
 	/// Constructs a cube with width, height, depth
 	Cube(GLdouble w, GLdouble h, GLdouble d)
-	 : _x(w)
-	 , _y(h)
-	 , _z(d)
+	 : _sx(w)
+	 , _sy(h)
+	 , _sz(d)
+	 , _ox(0.0)
+	 , _oy(0.0)
+	 , _oz(0.0)
+	{ }
+
+	/// Constructs a cube with width, height, depth and x,y and z offsets
+	Cube(
+		GLdouble w,
+		GLdouble h,
+		GLdouble d,
+		GLdouble x,
+		GLdouble y,
+		GLdouble z
+	): _sx(w)
+	 , _sy(h)
+	 , _sz(d)
+	 , _ox(x)
+	 , _oy(y)
+	 , _oz(z)
 	{ }
 
 	/// Returns the winding direction of faces
@@ -149,10 +172,10 @@ public:
 	void BoundingSphere(oglplus::Sphere<T>& bounding_sphere) const
 	{
 		bounding_sphere = oglplus::Sphere<T>(
-			T(0),
-			T(0),
-			T(0),
-			T(std::sqrt(_x*_x + _y*_y + _z*_z))
+			T(_ox),
+			T(_oy),
+			T(_oz),
+			T(std::sqrt(_sx*_sx + _sy*_sy + _sz*_sz))
 		);
 	}
 

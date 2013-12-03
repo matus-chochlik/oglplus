@@ -395,6 +395,54 @@ protected:
 };
 
 
+template <>
+class Group<Shader>
+ : public BaseGroup<Shader>
+{
+public:
+	/// Constructs an empty group of Shaders
+	Group(void)
+	{ }
+
+	/// Constructs an empty group and reserves space for @c n Shaders
+	Group(std::size_t n)
+	 : BaseGroup<Shader>(n)
+	{ }
+
+	/// Constructs a group initially storing references to one Shader
+	Group(
+		const ShaderOps& shader1,
+		std::size_t n = 1
+	): BaseGroup<Shader>(n<1?1:n)
+	{
+		this->push_back(shader1);
+	}
+
+	/// Constructs a group initially storing references to two Shaders
+	Group(
+		const ShaderOps& shader1,
+		const ShaderOps& shader2,
+		std::size_t n = 2
+	): BaseGroup<Shader>(n<2?2:n)
+	{
+		this->push_back(shader1);
+		this->push_back(shader2);
+	}
+
+	/// Constructs a group initially storing references to three Shaders
+	Group(
+		const ShaderOps& shader1,
+		const ShaderOps& shader2,
+		const ShaderOps& shader3,
+		std::size_t n = 3
+	): BaseGroup<Shader>(n<3?3:n)
+	{
+		this->push_back(shader1);
+		this->push_back(shader2);
+		this->push_back(shader3);
+	}
+};
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Vertex shader wrapper
 /**

@@ -15,6 +15,7 @@ OGLplus README
 .. _Inkscape: http://inkscape.org/
 .. _libPNG: http://www.libpng.org/
 .. _GLEW: http://glew.sourceforge.net/
+.. _GL3W: http://github.com/shakesoda/gl3w
 .. _GLFW: http://www.glfw.org/
 .. _FreeGLUT: http://freeglut.sourceforge.net/
 .. _SDL: http://www.libsdl.org/
@@ -83,7 +84,8 @@ The build system handles several important tasks:
 
  * Installs all header files to a directory specified by the install prefix
 
- * Builds the examples and textures used by the examples (optional)
+ * Builds the example executables and assets (textures, models, etc.)
+   used by the examples (optional)
 
  * Builds and installs the documentation (optional)
 
@@ -118,7 +120,7 @@ Requirements
    necessary when the building of examples is disabled.
 
  - A libary defining the OpenGL API (required) -- the ``GL/glcorearb.h`` or ``GL3/gl3.h``
-   headers or `GLEW`_ .  OGLplus does not define the OpenGL symbols
+   headers or `GLEW`_, `GL3W`_, etc.  OGLplus does not define the OpenGL symbols
    (types, constants, functions, etc.), therfore applications using
    it need to define them themselves (before including OGLplus). The examples
    currently need GLEW (at least version 1.9) or the ``GL/glcorearb.h`` header
@@ -146,15 +148,24 @@ Requirements
 
 
 On Linux distributions with the ``apt`` package manager, the following should
-be enough to install the most of the dependencies:
+be enough to install most of the dependencies for the FreeGLUT+GLEW configuration:
 
 ::
 
- sudo apt-get install doxygen cmake g++ libglew1.9-dev freeglut3-dev libpng12-dev
+ sudo apt-get install doxygen cmake g++ libglew-dev freeglut3-dev libpng12-dev
 
+For the configuration using GLFW+GLEW you would need the following:
 
+::
+
+ sudo apt-get install doxygen cmake g++ libglew-dev glfw-dev libpng12-dev
+
+These two configs mentioned above are usually the ones that work on most systems.
 Of course other combinations of the 'GL-API' and 'GL-Context' libraries
 are supported and may be used as explained above.
+For other configurations using SDL, Qt4, wxWidgets, etc. you need to install
+the appropriate packages (the names vary wildly between distrubutions or even
+between versions of the same distribution so they are not listed here).
 
 
 CMake-based build configuration
@@ -166,13 +177,13 @@ cmake (with the -D option. see cmake manual for details):
 
  * ``HEADER_SEARCH_PATHS`` *<empty>*: (semicolon-separated) list of paths
    to additional directories to search when looking for 3rd-party headers
-   like GL/glew.h, GL3/gl3.h, etc.
+   like GL/glew.h, GL3/gl3.h, GL/glcorearb.h, etc.
 
  * ``LIBRARY_SEARCH_PATHS`` *<empty>*: (semicolon-separated) list of paths
-   to additional directories to search when looking for 3rd-party compiled
-   libraries like GL, GLEW, GL3W, GLFW, glut, png, etc.
+   to additional directories to search when looking for 3rd-party binary
+   libraries like GL, GLEW, GL3W, GLFW, SDL, glut, png, etc.
 
- * ``OGLPLUS_NO_EXAMPLES`` *Off*: Do not build the examples and the textures.
+ * ``OGLPLUS_NO_EXAMPLES`` *Off*: Do not build the examples nor the assets.
 
  * ``OGLPLUS_NO_DOCS`` *Off*: Do not build and install the documentation.
 
@@ -279,7 +290,7 @@ etc. Some of these media files can be generated from textual representations
 Assets for which there is a textual source and its size does not exceed
 certain limits are included in the repository and are rendered into their
 binary form by the build system. This may however require some third-party
-application and the rendering process can be very time-consuming.
+applications and the rendering process can be very time-consuming.
 
 Because of this, some of the medium-sized assets are pre-built and shipped
 with the release packages (in the ``_prebuilt/`` directory) and the larger
@@ -296,6 +307,7 @@ Acknowledgements
 - *Per Nordlöw* for useful suggestions.
 - *Dmitry Yakimenko (detunized)* for several patches and porting to MacOS X.
 - *Csala Tamás* for useful feedback and help with the fixing of several bugs.
+- *David McFarland* for several patches.
 License
 =======
 
@@ -322,4 +334,5 @@ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
    and/or functions if the features are not available):
    Strongly typed enumerations, variadic templates, initializer lists, lambdas,
    defaulted and deleted functions, function template default arguments,
-   constexpr, noexcept, nullptr, explicit conversion operators.
+   constexpr, noexcept, nullptr, explicit conversion operators, unicode literals
+   and user-defined literals.

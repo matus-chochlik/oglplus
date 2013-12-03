@@ -44,7 +44,7 @@ private:
 
 	Program prog;
 
-	LazyUniform<Mat4f> camera_matrix;
+	LazyUniform<Mat4f> camera_matrix, projection_matrix, stretch_matrix;
 
 	VertexArray mesh;
 	Spheref mesh_bs;
@@ -58,13 +58,15 @@ public:
 	 , mesh_instr(load_mesh.Instructions())
 	 , mesh_indices(load_mesh.Indices())
 	 , camera_matrix(prog, "CameraMatrix")
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , stretch_matrix(prog, "StretchMatrix")
 	{
 		load_mesh.BoundingSphere(mesh_bs);
 
 		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
-			"uniform mat4 ProjectionMatrix, CameraMatrix;"
+			"uniform mat4 StretchMatrix, ProjectionMatrix, CameraMatrix;"
 			"in vec4 Position;"
 			"in vec3 Normal;"
 
@@ -73,6 +75,7 @@ public:
 			"{"
 			"	vertNormal = Normal;"
 			"	gl_Position = "
+			"		StretchMatrix *"
 			"		ProjectionMatrix *"
 			"		CameraMatrix *"
 			"		Position;"
@@ -121,8 +124,7 @@ public:
 	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
-		prog.Use();
-		Uniform<Mat4f>(prog, "ProjectionMatrix").Set(
+		projection_matrix.Set(
 			CamMatrixf::PerspectiveX(
 				Degrees(70),
 				double(width)/height,
@@ -135,12 +137,23 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
+		int x=0, y=0, nx=1, ny=1;
+		switch(int(time / 3.0) % 5)
+		{
+			case 1: x=1; y=1; nx=4; ny=4; break;
+			case 2: x=2; y=1; nx=4; ny=4; break;
+			case 3: x=1; y=2; nx=4; ny=4; break;
+			case 4: x=2; y=2; nx=4; ny=4; break;
+			default:;
+		}
+		stretch_matrix.Set(CamMatrixf::ScreenTile(x, y, nx, ny));
+
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
 				mesh_bs.Center(),
 				mesh_bs.Radius()*1.4+1.0,
-				FullCircles(time / 13.0),
-				Degrees(SineWave(time / 17.0) * 90)
+				FullCircles(-time / 13.0),
+				Degrees(SineWave(time / 17.0) * 80)
 			)
 		);
 
@@ -150,6 +163,11 @@ public:
 	bool Continue(double time)
 	{
 		return time < 30.0;
+	}
+
+	double ScreenshotTime(void) const
+	{
+		return 2.5;
 	}
 };
 

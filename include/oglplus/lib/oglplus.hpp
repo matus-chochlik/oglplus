@@ -27,6 +27,7 @@
 #include <oglplus/string.hpp>
 #include <oglplus/fwd.hpp>
 
+#include <oglplus/auxiliary/xml_utils.hpp>
 #include <oglplus/auxiliary/utf8.hpp>
 #include <oglplus/auxiliary/strings.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
@@ -37,6 +38,8 @@
 #include <oglplus/auxiliary/uniform_init.hpp>
 
 #include <oglplus/error.hpp>
+#include <oglplus/compile_error.hpp>
+#include <oglplus/link_error.hpp>
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
@@ -74,6 +77,7 @@
 #include <oglplus/images/squares.hpp>
 #include <oglplus/images/sphere_bmap.hpp>
 #include <oglplus/images/random.hpp>
+#include <oglplus/images/xpm.hpp>
 #include <oglplus/images/load.hpp>
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES

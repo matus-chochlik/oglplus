@@ -366,6 +366,15 @@ public:
 		return *this;
 	}
 
+	const ProgramOps& AttachShaders(const Group<Shader>& shaders) const
+	{
+		for(std::size_t i=0, n=shaders.size(); i!=n; ++i)
+		{
+			this->AttachShader(shaders[i]);
+		}
+		return *this;
+	}
+
 
 	/// Detaches the shader to this program
 	/**

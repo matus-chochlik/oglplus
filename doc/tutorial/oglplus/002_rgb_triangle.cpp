@@ -139,7 +139,7 @@
  *  @until VertexAttribArray(prog
  *
  *  That's it for the vertex data specification. As the last step of initialization
- *  we specify the clear values for the color buffer and depth buffer.
+ *  we specify the clear value for the color buffer and disable the depth test.
  *  @until }
  *
  *  The @c Reshape function get called when the window is created and everytime
@@ -149,7 +149,7 @@
  *  @until }
  *
  *  This function redraws our scene and is basically the same as in the previous
- *  tutorial; we clear the color and depth buffer and we tell the GL to draw
+ *  tutorial; we clear the color buffer and we tell the GL to draw
  *  triangle from the vertex data stored in the buffer objects tied to the currently
  *  bound VAO, which is still @c triangle, because we didn't bind any other VAO since
  *  initialization. More preciselly we draw the triangle composed from 3 vertices

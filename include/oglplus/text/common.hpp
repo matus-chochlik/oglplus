@@ -400,16 +400,12 @@ private:
 
 	typedef ConcreteRenderer Base;
 public:
-	template <class ConcreteRenderingImpl, class ... Params>
+	template <class ConcreteRenderingImpl>
 	DefaultRendererTpl(
 		ConcreteRenderingImpl& parent,
-		const FragmentShader& pixel_color_shader,
-		const Params& ... params
-	): ConcreteRenderer(
-		parent,
-		params ...,
-		pixel_color_shader
-	), _projection_matrix(Base::_get_program(), "oglpProjectionMatrix")
+		const Group<Shader>& shaders
+	): ConcreteRenderer(parent, shaders)
+	 , _projection_matrix(Base::_get_program(), "oglpProjectionMatrix")
 	 , _camera_matrix(Base::_get_program(), "oglpCameraMatrix")
 	 , _layout_matrix(Base::_get_program(), "oglpLayoutMatrix")
 	 , _align_coef(Base::_get_program(), "oglpAlignCoef")

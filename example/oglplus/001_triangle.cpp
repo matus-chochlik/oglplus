@@ -88,7 +88,7 @@ public:
 		vert_attr.Enable();
 
 		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		gl.ClearDepth(1.0f);
+		gl.Disable(Capability::DepthTest);
 	}
 
 	void Reshape(GLuint width, GLuint height)
@@ -98,7 +98,7 @@ public:
 
 	void Render(double)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.Clear().ColorBuffer();
 
 		gl.DrawArrays(PrimitiveType::Triangles, 0, 3);
 	}

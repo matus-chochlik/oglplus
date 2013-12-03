@@ -81,7 +81,7 @@ add_custom_target(
 	oglplus-prebuild-doc
 	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
 )
-set_property(TARGET oglplus-prebuild-doc PROPERTY FOLDER "Example/Documentation")
+set_property(TARGET oglplus-prebuild-doc PROPERTY FOLDER "Documentation/OGLplus")
 
 add_custom_target(
 	oglplus-doc
@@ -89,7 +89,7 @@ add_custom_target(
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	DEPENDS oglplus-prebuild-doc
 )
-set_property(TARGET oglplus-doc PROPERTY FOLDER "Example/Documentation")
+set_property(TARGET oglplus-doc PROPERTY FOLDER "Documentation/OGLplus")
 
 unset(DOXYFILE)
 

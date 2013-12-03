@@ -101,6 +101,16 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
+	/// Bind this renderbuffer to the specified target
+	/**
+	 *  @throws Error
+	 */
+	void Bind(Target new_target)
+	{
+		target = new_target;
+		Bind();
+	}
+
 	/// Bind the name 0 to this Renderbuffer's target
 	/**
 	 *  @glsymbols
