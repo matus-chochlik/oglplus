@@ -16,6 +16,7 @@
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/angle.hpp>
+#include <oglplus/quaternion.hpp>
 
 #if !OGLPLUS_NO_INITIALIZER_LISTS
 #include <initializer_list>
@@ -977,6 +978,29 @@ public:
 		return ModelMatrix(RotationA_(), axis, angle);
 	}
 
+	ModelMatrix(RotationA_, Quaternion<T> quat)
+	 : Base(oglplus::Nothing())
+	{
+		quat.Normalize();
+		const T a = quat.At(0);
+		const T x = quat.At(1);
+		const T y = quat.At(2);
+		const T z = quat.At(3);
+		InitMatrix4x4(
+			*this,
+			1-2*y*y-2*z*z,  2*x*y-2*a*z,    2*x*z+2*a*y,    T(0),
+			2*x*y+2*a*z,    1-2*x*x-2*z*z,  2*y*z-2*a*x,    T(0),
+			2*x*z-2*a*y,    2*y*z+2*a*x,    1-2*x*x-2*y*y,  T(0),
+			T(0),           T(0),           T(0),           T(1)
+		);
+	}
+
+	/// Constructs a rotation matrix from a quaternion
+	static inline ModelMatrix RotationQ(const Quaternion<T>& quat)
+	{
+		return ModelMatrix(RotationA_(), quat);
+	}
+
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
@@ -1263,6 +1287,80 @@ public:
 			y_top,
 			z_near,
 			z_far
+		);
+	}
+
+	struct ScreenStretch_ { };
+
+	CameraMatrix(
+		ScreenStretch_,
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top
+	): Base(oglplus::Nothing())
+	{
+		assert((x_right - x_left) != T(0));
+		assert((y_top - y_bottom) != T(0));
+
+		T m00 =  T(2) / (x_right - x_left);
+		T m11 =  T(2) / (y_top - y_bottom);
+
+		T m30 = -(x_right + x_left) / (x_right - x_left);
+		T m31 = -(y_top + y_bottom) / (y_top - y_bottom);
+
+		InitMatrix4x4(
+			*this,
+			 m00, T(0), T(0),  m30,
+			T(0),  m11, T(0),  m31,
+			T(0), T(0), T(1), T(0),
+			T(0), T(0), T(0), T(1)
+		);
+	}
+
+	/// Constructs a matrix for stretching NDCs after projection
+	/** ScreenStretch constructs a matrix that can be used to stretch
+	 *  the normalized device coordinates after projection is applied.
+	 */
+	static inline CameraMatrix ScreenStretch(
+		T x_left,
+		T x_right,
+		T y_bottom,
+		T y_top
+	)
+	{
+		return CameraMatrix(
+			ScreenStretch_(),
+			x_left,
+			x_right,
+			y_bottom,
+			y_top
+		);
+	}
+
+	/// Constructs a matrix for stretching NDCs after projection
+	/** ScreenTile constructs a matrix, that divides the screen into
+	 *  rectangular tiles with the specified divisions and stretches
+	 *  the normalized device coordinates to show the specified tile.
+	 *
+	 *  @pre (x >= 0) && (nx > 0) && (y >= 0) && (ny >= 0)
+	 */
+	static inline CameraMatrix ScreenTile(
+		unsigned x,
+		unsigned y,
+		unsigned nx,
+		unsigned ny
+	)
+	{
+		assert(x < nx);
+		assert(y < ny);
+
+		return CameraMatrix(
+			ScreenStretch_(),
+			-T(1)+T(2*(x+0))/T(nx),
+			-T(1)+T(2*(x+1))/T(nx),
+			-T(1)+T(2*(y+0))/T(ny),
+			-T(1)+T(2*(y+1))/T(ny)
 		);
 	}
 

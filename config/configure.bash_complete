@@ -50,7 +50,7 @@ function _configure_oglplus()
 			COMPREPLY=($(compgen -W "GLEW GL3W GLCOREARB_H GL3_H" -- "${curr}"))
 			return 0;;
 		--use-gl-init-lib)
-			COMPREPLY=($(compgen -W "GLUT GLFW WXGL SDL GLX QTGL EGL" -- "${curr}"))
+			COMPREPLY=($(compgen -W "GLUT GLFW3 GLFW WXGL SDL GLX QTGL EGL" -- "${curr}"))
 			return 0;;
 		*)
 	esac
@@ -80,6 +80,7 @@ function _configure_oglplus()
 		--use-gl3-h \
 		--use-gl-init-lib \
 		--use-glut \
+		--use-glfw3 \
 		--use-glfw \
 		--use-wxgl \
 		--use-sdl \
@@ -123,6 +124,7 @@ function _configure_oglplus()
 	local muog_4=" \
 		--use-gl-init-lib \
 		--use-glut \
+		--use-glfw3 \
 		--use-glfw \
 		--use-wxgl \
 		--use-sdl \

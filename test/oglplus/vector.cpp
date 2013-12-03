@@ -263,6 +263,56 @@ BOOST_AUTO_TEST_CASE(Vector_comparison)
 	BOOST_CHECK(!Equal(v1, v3) == (v1 != v3));
 }
 
+BOOST_AUTO_TEST_CASE(Vector_unit_1)
+{
+	BOOST_CHECK(Equal(
+		oglplus::Vec1f::Unit(0),
+		oglplus::Vec1f(1.f)
+	));
+}
+
+BOOST_AUTO_TEST_CASE(Vector_unit_2)
+{
+	BOOST_CHECK(Equal(oglplus::Vec2f::Unit(0), oglplus::Vec2f(1.f, 0.f)));
+	BOOST_CHECK(Equal(oglplus::Vec2f::Unit(1), oglplus::Vec2f(0.f, 1.f)));
+}
+
+BOOST_AUTO_TEST_CASE(Vector_unit_3)
+{
+	BOOST_CHECK(Equal(
+		oglplus::Vec3f::Unit(0),
+		oglplus::Vec3f(1.f, 0.f, 0.f)
+	));
+	BOOST_CHECK(Equal(
+		oglplus::Vec3f::Unit(1),
+		oglplus::Vec3f(0.f, 1.f, 0.f)
+	));
+	BOOST_CHECK(Equal(
+		oglplus::Vec3f::Unit(2),
+		oglplus::Vec3f(0.f, 0.f, 1.f)
+	));
+}
+
+BOOST_AUTO_TEST_CASE(Vector_unit_4)
+{
+	BOOST_CHECK(Equal(
+		oglplus::Vec4f::Unit(0),
+		oglplus::Vec4f(1.f, 0.f, 0.f, 0.f)
+	));
+	BOOST_CHECK(Equal(
+		oglplus::Vec4f::Unit(1),
+		oglplus::Vec4f(0.f, 1.f, 0.f, 0.f)
+	));
+	BOOST_CHECK(Equal(
+		oglplus::Vec4f::Unit(2),
+		oglplus::Vec4f(0.f, 0.f, 1.f, 0.f)
+	));
+	BOOST_CHECK(Equal(
+		oglplus::Vec4f::Unit(3),
+		oglplus::Vec4f(0.f, 0.f, 0.f, 1.f)
+	));
+}
+
 BOOST_AUTO_TEST_CASE(Vector_negation_2)
 {
 	oglplus::Vector<float, 2> v1( 1.0f, 2.0f);

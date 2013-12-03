@@ -43,8 +43,7 @@ protected:
 public:
 	PangoCairoRenderer(
 		PangoCairoRendering& parent,
-		const GeometryShader& layout_transform_gs,
-		const FragmentShader& pixel_color_fs
+		const Group<Shader>& shaders
 	): _parent(parent)
 	 , _program()
 	 , _bitmap(_program, "oglpBitmap")
@@ -67,8 +66,6 @@ public:
 		));
 		vs.Compile();
 		_program.AttachShader(vs);
-
-		_program.AttachShader(layout_transform_gs);
 
 		GeometryShader gs(ObjectDesc("PangoCairoRenderer - Geometry"));
 		gs.Source(StrLit(
@@ -123,7 +120,6 @@ public:
 		gs.Compile();
 		_program.AttachShader(gs);
 
-		_program.AttachShader(pixel_color_fs);
 
 		FragmentShader fs(ObjectDesc("PangoCairoRenderer - Fragment"));
 		fs.Source(StrLit(
@@ -162,6 +158,7 @@ public:
 		));
 		fs.Compile();
 		_program.AttachShader(fs);
+		_program.AttachShaders(shaders);
 		_program.Link();
 		_program.Use();
 		Uniform<GLfloat>(_program, "oglpAlignCoef").Set(0.5f);
@@ -197,8 +194,9 @@ public:
 		const FragmentShader& pixel_color_fs
 	): DefaultRendererTpl<PangoCairoRenderer>(
 		parent,
-		pixel_color_fs,
-		GeometryShader(
+		Group<Shader>(
+			pixel_color_fs,
+			GeometryShader(
 			ObjectDesc("PangoCairoRenderer - Layout transform"),
 			StrLit("#version 330\n"
 			"uniform mat4 "
@@ -214,6 +212,7 @@ public:
 			"{"
 			"	return Matrix * vec4(LayoutPosition, 1.0);"
 			"}")
+			)
 		)
 	)
 	{ }

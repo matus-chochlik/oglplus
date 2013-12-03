@@ -24,6 +24,7 @@ class Vector
 {
 private:
 	typedef VectorBase<T, N> Base;
+	typedef typename Base::Unit_ Unit_;
 
 	void _init_by_pack(std::size_t) { }
 
@@ -180,6 +181,18 @@ public:
 		_init_by_pack(M, v, p...);
 	}
 #endif
+
+	Vector(Unit_, std::size_t axis)
+	{
+		assert(axis < N);
+		this->_elem[axis] = T(1);
+	}
+
+	/// Construction of a unit vector aligned with the specified @p axis
+	static Vector Unit(std::size_t axis)
+	{
+		return Vector(Unit_(), axis);
+	}
 
 	/// Construction from to Matrix-1xN
 	explicit Vector(const Matrix<T, 1, N>& matrix)

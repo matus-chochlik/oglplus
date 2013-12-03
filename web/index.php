@@ -110,7 +110,7 @@
 					<ul>
 						<li><b>OGLplus</b> - a wrapper for OpenGL (version 3.0 and higher)
 						<ul>
-							<li id="readme"><a href="frame.php?document=README">README</a></li>
+							<li id="readme"><a href="http://github.com/matus-chochlik/oglplus#oglplus-readme">README</a></li>
 							<li id="oglplus-doc-n-ref"><a href="oglplus/html/index.html">Documentation and reference</a></li>
 							<li id="oglplus-latest-doc"><a href="http://kifri.fri.uniza.sk/~chochlik/oglplus/html/index.html">Latest documentation</a></li>
 							<li id="oglplus-examples"><a href="oglplus/html/examples.html">Examples</a></li>
@@ -181,21 +181,18 @@
 				<div id="gallery">
 					<img src="oglplus/html/020_octree.png"/>
 					<img src="oglplus/html/021_translucent_arrow.png"/>
-					<img src="oglplus/html/021_wooden_crate.png"/>
 					<img src="oglplus/html/022_blender_mesh.png"/>
 					<img src="oglplus/html/022_vase.png"/>
 					<img src="oglplus/html/022_parallax_map.png"/>
 					<img src="oglplus/html/023_sky.png"/>
-					<img src="oglplus/html/023_waves.png"/>
-					<img src="oglplus/html/026_clouds.png"/>
 					<img src="oglplus/html/026_furry_torus.png"/>
 					<img src="oglplus/html/026_shape_halo.png"/>
 					<img src="oglplus/html/026_stencil_shadow.png"/>
+					<img src="oglplus/html/027_brain_scan_vis.png"/>
 					<img src="oglplus/html/027_reflected_shape.png"/>
-					<img src="oglplus/html/028_glass_shape.png"/>
+					<img src="oglplus/html/028_depth_map_sss.png"/>
 					<img src="oglplus/html/028_ripples.png"/>
 					<img src="oglplus/html/029_fire_hydrant.png"/>
-					<img src="oglplus/html/029_shadow_mapping.png"/>
 					<img src="oglplus/html/030_light_rays.png"/>
 					<img src="oglplus/html/031_brick_torus.png"/>
 					<img src="oglplus/html/031_fog.png"/>

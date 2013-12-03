@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/link_error.hpp
- *  @brief Program linking end validation rror exception
+ *  @brief Program linking and validation error exceptions
  *
  *  @author Matus Chochlik
  *
@@ -16,8 +16,6 @@
 #include <oglplus/compile_error.hpp>
 #include <oglplus/string.hpp>
 
-#include <cassert>
-
 namespace oglplus {
 
 /// Exception class for OpenGL shading language program link error
@@ -28,13 +26,7 @@ class LinkError
  : public ProgramBuildError
 {
 public:
-	LinkError(const String& log, const ErrorInfo& info)
-	 : ProgramBuildError(
-		"OpenGL shading language program link error",
-		log,
-		info
-	)
-	{ }
+	LinkError(const String& log, const ErrorInfo& info);
 };
 
 /// Exception class for OpenGL shading language program validation error
@@ -45,15 +37,13 @@ class ValidationError
  : public ProgramBuildError
 {
 public:
-	ValidationError(const String& log, const ErrorInfo& info)
-	 : ProgramBuildError(
-		"OpenGL shading language program validation error",
-		log,
-		info
-	)
-	{ }
+	ValidationError(const String& log, const ErrorInfo& info);
 };
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/link_error.ipp>
+#endif
 
 #endif // include guard

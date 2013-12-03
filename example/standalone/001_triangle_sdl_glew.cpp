@@ -88,14 +88,13 @@ public:
 		vert_attr.Enable();
 
 		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		gl.ClearDepth(1.0f);
 	}
 
 	void Display(void)
 	{
 		using namespace oglplus;
 
-		gl.Clear().ColorBuffer().DepthBuffer();
+		gl.Clear().ColorBuffer();
 
 		gl.DrawArrays(PrimitiveType::Triangles, 0, 3);
 	}

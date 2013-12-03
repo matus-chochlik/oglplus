@@ -18,6 +18,7 @@
 
 #include <oglplus/angle.hpp>
 #include <oglplus/vector.hpp>
+#include <oglplus/quaternion.hpp>
 #include <oglplus/matrix.hpp>
 #include <oglplus/plane.hpp>
 #include <oglplus/curve.hpp>

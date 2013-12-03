@@ -37,6 +37,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstring>
+#include <cstdlib>
 #include <cassert>
 
 #include <thread>
@@ -369,13 +370,12 @@ void run_example(
 	const eglplus::Display& display,
 	const char* screenshot_path,
 	const char* framedump_prefix,
+	const GLuint width,
+	const GLuint height,
 	int argc,
 	char ** argv
 )
 {
-	const GLuint width = framedump_prefix?852:800;
-	const GLuint height = framedump_prefix?480:600;
-
 	eglplus::Configs configs(
 		display,
 		eglplus::ConfigAttribs()
@@ -583,16 +583,38 @@ int egl_example_main(int argc, char ** argv)
 {
 	const char* screenshot_path = nullptr;
 	const char* framedump_prefix = nullptr;
-	if((argc == 3) && (std::strcmp(argv[1], "--screenshot") == 0))
+	if((argc >= 3) && (std::strcmp(argv[1], "--screenshot") == 0))
 		screenshot_path = argv[2];
-	if((argc == 3) && (std::strcmp(argv[1], "--frame-dump") == 0))
+	if((argc >= 3) && (std::strcmp(argv[1], "--frame-dump") == 0))
 		framedump_prefix = argv[2];
+
+	GLuint width = 0, height = 0;
 
 	if(screenshot_path || framedump_prefix)
 	{
 		for(int a=3; a<argc; ++a)
 			argv[a-2] = argv[a];
 		argc -= 2;
+
+		int a=1;
+		while(a<argc)
+		{
+			if(std::strcmp(argv[a], "--width") == 0 && (a+1<argc))
+			{
+				width = std::atoi(argv[a+1]);
+				for(int b=a+1; b<argc; ++b)
+					argv[b-2] = argv[b];
+				argc -= 2;
+			}
+			else if(std::strcmp(argv[a], "--height") == 0 && (a+1<argc))
+			{
+				height = std::atoi(argv[a+1]);
+				for(int b=a+1; b<argc; ++b)
+					argv[b-2] = argv[b];
+				argc -= 2;
+			}
+			else ++a;
+		}
 	}
 	else
 	{
@@ -602,6 +624,9 @@ int egl_example_main(int argc, char ** argv)
 			std::endl;
 		return 1;
 	}
+
+	if(!width) width = 800;
+	if(!height) height = 600;
 	//
 	eglplus::Display display;
 	eglplus::LibEGL egl(display);
@@ -610,6 +635,8 @@ int egl_example_main(int argc, char ** argv)
 		display,
 		screenshot_path,
 		framedump_prefix,
+		width,
+		height,
 		argc,
 		argv
 	);

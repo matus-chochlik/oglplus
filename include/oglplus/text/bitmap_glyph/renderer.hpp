@@ -71,11 +71,13 @@ protected:
 		return _program;
 	}
 public:
+	/*
+	 *  @note the shaders group must contain a layout-transform-shader,
+	 *  glyph-transform-shader and glyph-pixel-shader
+	 */
 	BitmapGlyphRenderer(
 		BitmapGlyphRenderingBase& parent,
-		const GeometryShader& layout_transform_shader,
-		const GeometryShader& glyph_transform_shader,
-		const FragmentShader& pixel_color_shader
+		const Group<Shader>& shaders
 	);
 
 	void Use(void)

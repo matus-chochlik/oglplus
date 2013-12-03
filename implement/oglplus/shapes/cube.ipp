@@ -27,18 +27,18 @@ std::vector<GLfloat> Cube::_positions(void) const
 	 *
 	 */
 	typedef GLdouble T;
-	const T half_x = T(_x)/T(2);
-	const T half_y = T(_y)/T(2);
-	const T half_z = T(_z)/T(2);
+	const T half_x = T(_sx)/T(2);
+	const T half_y = T(_sy)/T(2);
+	const T half_z = T(_sz)/T(2);
 	const T c[8][3] = {
-		{+half_x, +half_y, -half_z}, //(A)
-		{+half_x, +half_y, +half_z}, //(B)
-		{+half_x, -half_y, +half_z}, //(C)
-		{+half_x, -half_y, -half_z}, //(D)
-		{-half_x, +half_y, -half_z}, //(E)
-		{-half_x, +half_y, +half_z}, //(F)
-		{-half_x, -half_y, +half_z}, //(G)
-		{-half_x, -half_y, -half_z}  //(H)
+		{_ox+half_x, _oy+half_y, _oz-half_z}, //(A)
+		{_ox+half_x, _oy+half_y, _oz+half_z}, //(B)
+		{_ox+half_x, _oy-half_y, _oz+half_z}, //(C)
+		{_ox+half_x, _oy-half_y, _oz-half_z}, //(D)
+		{_ox-half_x, _oy+half_y, _oz-half_z}, //(E)
+		{_ox-half_x, _oy+half_y, _oz+half_z}, //(F)
+		{_ox-half_x, _oy-half_y, _oz+half_z}, //(G)
+		{_ox-half_x, _oy-half_y, _oz-half_z}  //(H)
 	};
 	const unsigned A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7;
 

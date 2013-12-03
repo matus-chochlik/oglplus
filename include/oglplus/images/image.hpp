@@ -18,6 +18,7 @@
 #include <cstddef>
 #include <cstring>
 #include <oglplus/data_type.hpp>
+#include <oglplus/pixel_data.hpp>
 #include <oglplus/auxiliary/aligned_pod_array.hpp>
 
 namespace oglplus {

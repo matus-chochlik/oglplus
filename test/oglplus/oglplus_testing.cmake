@@ -42,6 +42,7 @@ add_library(
 )
 # add the dependencies for the fixture
 add_all_dependencies(fixture_${OGLPLUS_TEST_FIXTURE} oglplus_test_fixture)
+set_property(TARGET oglplus_test_fixture PROPERTY FOLDER "Test/OGLplus")
 
 # make a list of libraries that we're going to link to
 set(OGLPLUS_TEST_LIBS
@@ -54,6 +55,7 @@ function(add_oglplus_test TEST_NAME TEST_LIBRARIES BUILD_ONLY)
 
 	add_executable(${TEST_NAME} EXCLUDE_FROM_ALL ${TEST_NAME}.cpp)
 	target_link_libraries(${TEST_NAME} ${TEST_LIBRARIES})
+	set_property(TARGET ${TEST_NAME} PROPERTY FOLDER "Test/OGLplus")
 
 	if(NOT BUILD_ONLY)
 		target_link_libraries(
@@ -69,6 +71,11 @@ function(add_oglplus_test TEST_NAME TEST_LIBRARIES BUILD_ONLY)
 		--build ${CMAKE_BINARY_DIR}
 		--target ${TEST_NAME}
 	)
+	set_tests_properties(
+		build-test-${TEST_NAME}
+		PROPERTIES FOLDER
+		"Test/OGLplus"
+	)
 
 	if(NOT BUILD_ONLY)
 		add_test(exec-test-${TEST_NAME} ${TEST_NAME})
@@ -76,6 +83,11 @@ function(add_oglplus_test TEST_NAME TEST_LIBRARIES BUILD_ONLY)
 			exec-test-${TEST_NAME}
 			PROPERTIES DEPENDS
 			build-test-${TEST_NAME}
+		)
+		set_tests_properties(
+			exec-test-${TEST_NAME}
+			PROPERTIES FOLDER
+			"Test/OGLplus"
 		)
 	endif()
 endfunction()
