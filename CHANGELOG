@@ -1,3 +1,30 @@
+Version 0.39.0
+
+- The PNG class was renamed to PNGImage.
+- The XPMImage class was added.
+- The Quaternion<T> template class was added.
+- The SLERP functor for Quaternion and Vector was added.
+- The Vector::Unit constructor function was added.
+- The Vector::Normalize function was added.
+- The CameraMatrix::ScreenStretch constructor function was added.
+- The Angle::ArcSin and Angle::ArcCos constructor functions were added.
+- The *= and /= operators were added to Angle.
+- Overloads of the Bind function were added to the DSATexture, DSARenderbuffer
+  and DSABuffer.
+- A bug in the LinearGradient class was fixed.
+- A bug in the pango/cairo text renderer was fixed.
+- The bitmap glyph-based text renderer was made compatible with MSVC11.
+- The inline keyword was added to the shader user-defined literals.
+- The const specifier was added to the data pointer parameters in Buffer::Data
+  and Buffer::SubData.
+- Cleanup and minor optimizations were made in the oglplus and standalone
+  examples.
+- The video frame output was updated in the example harnesses to support
+  custom resolutions.
+- A problem with the XML debug output was fixed.
+- Several updates to the build system were made, the FOLDER property was added.
+- The documentation was updated.
+
 Version 0.38.0
 
 - The Group<Object> class template for grouping externally managed objects
