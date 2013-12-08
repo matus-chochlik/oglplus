@@ -1107,6 +1107,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Returns the number of vertices that the geometry shader will output
 	/**
 	 *  @glsymbols
@@ -1117,6 +1118,7 @@ public:
 	{
 		return GetIntParam(GL_GEOMETRY_VERTICES_OUT);
 	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_gpu_shader5
 

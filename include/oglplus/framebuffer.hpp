@@ -20,6 +20,7 @@
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
+#include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/enumerations.hpp>
@@ -35,53 +36,6 @@ namespace oglplus {
 // (in different translation units)
 #ifdef Status
 #undef Status
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the framebuffer color attachment (implementation-dependent) number
-class FramebufferColorAttachmentNumber
- : public LimitedCount
-{
-public:
-	FramebufferColorAttachmentNumber(GLuint count);
-};
-#else
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	FramebufferColorAttachmentNumber,
-	MAX_COLOR_ATTACHMENTS
-)
-#endif
-
-/// Framebuffer attachment points
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(FramebufferAttachment, GLenum)
-#include <oglplus/enums/framebuffer_attachment.ipp>
-OGLPLUS_ENUM_CLASS_END(FramebufferAttachment)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/framebuffer_attachment_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/framebuffer_attachment_range.ipp>
-#endif
-
-/// Framebuffer color attachment points
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(FramebufferColorAttachment, GLenum)
-#include <oglplus/enums/framebuffer_color_attachment.ipp>
-OGLPLUS_ENUM_CLASS_END(FramebufferColorAttachment)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/framebuffer_color_attachment_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/framebuffer_color_attachment_range.ipp>
 #endif
 
 /// Framebuffer status enumeration
@@ -460,6 +414,7 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Attach a 1D @p texture to the @p attachment point of @p target
 	/**
 	 *  @see AttachRenderbuffer
@@ -495,6 +450,7 @@ public:
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
+#endif
 
 	/// Attach a 2D @p texture to the @p attachment point of @p target
 	/**
@@ -532,6 +488,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Attach a 3D @p texture to the @p attachment point of @p target
 	/**
 	 *  @see AttachRenderbuffer
@@ -569,6 +526,7 @@ public:
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
+#endif
 
 	/// Attach a @p texture layer to the @p attachment point of @p target
 	/**

@@ -293,6 +293,7 @@ public:
 		typedef BufferMapAccess MapAccess;
 	};
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Typed mapping of the buffer to the client address space
 	template <typename Type>
 	class TypedMap
@@ -449,6 +450,7 @@ public:
 	{
 		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
 	}
+#endif // GL_VERSION_3_0
 
 	/// Bind this buffer to the specified target
 	/**
@@ -1008,6 +1010,7 @@ public:
 		return BufferUsage(GetIntParam(target, GL_BUFFER_USAGE));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Returns the buffer usage
 	/**
 	 *  @see Usage
@@ -1024,6 +1027,7 @@ public:
 			GLbitfield(GetIntParam(target, GL_BUFFER_ACCESS))
 		);
 	}
+#endif
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY

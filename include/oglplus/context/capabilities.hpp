@@ -99,6 +99,7 @@ public:
 		return result == GL_TRUE;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Enable a @p capability for an indexed target
 	/**
 	 *  @glsymbols
@@ -135,6 +136,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsEnabledi));
 		return result == GL_TRUE;
 	}
+#endif // GL_VERSION_3_0
 };
 
 } // namespace context

@@ -47,21 +47,21 @@ private:
 	GLsizei _width, _height, _depth, _channels;
 	PixelDataType _type;
 	oglplus::aux::AlignedPODArray _storage;
-	GLdouble (*_convert)(void*);
+	double (*_convert)(void*);
 
 	template <typename T>
-	static GLdouble _do_convert(GLvoid* ptr)
+	static double _do_convert(void* ptr)
 	{
 		assert(ptr != nullptr);
-		const GLdouble v = GLdouble(*static_cast<T*>(ptr));
-		const GLdouble n = GLdouble(_one((T*)nullptr));
+		const double v = double(*static_cast<T*>(ptr));
+		const double n = double(_one((T*)nullptr));
 		return v / n;
 	}
 
 	bool _is_initialized(void) const;
 
-	static PixelDataFormat _get_def_pdf(std::size_t N);
-	static PixelDataInternalFormat _get_def_pdif(std::size_t N);
+	static PixelDataFormat _get_def_pdf(unsigned N);
+	static PixelDataInternalFormat _get_def_pdif(unsigned N);
 
 protected:
 	PixelDataFormat _format;
@@ -73,12 +73,12 @@ protected:
 		return std::numeric_limits<T>::max();
 	}
 
-	static GLfloat _one(GLfloat*)
+	static float _one(float*)
 	{
 		return 1.0f;
 	}
 
-	static GLdouble _one(GLdouble*)
+	static double _one(double*)
 	{
 		return 1.0;
 	}
@@ -97,9 +97,9 @@ protected:
 		return static_cast<T*>(_storage.begin());
 	}
 
-	GLubyte* _begin_ub(void)
+	unsigned char* _begin_ub(void)
 	{
-		return _begin<GLubyte>();
+		return _begin<unsigned char>();
 	}
 
 	template <typename T>
@@ -110,9 +110,9 @@ protected:
 		return static_cast<T*>(_storage.end());
 	}
 
-	GLubyte* _end_ub(void)
+	unsigned char* _end_ub(void)
 	{
-		return _end<GLubyte>();
+		return _end<unsigned char>();
 	}
 
 	Image(void)
@@ -283,7 +283,7 @@ public:
 	}
 
 	/// Returns the pixel at the specified coordinates
-	Vector<GLdouble, 4> Pixel(
+	Vector<double, 4> Pixel(
 		GLsizei width,
 		GLsizei height,
 		GLsizei depth
@@ -291,7 +291,7 @@ public:
 	{
 		assert(_convert);
 		std::size_t ppos = PixelPos(width, height, depth);
-		return Vector<GLdouble, 4>(
+		return Vector<double, 4>(
 			_convert(_storage.at(ppos+0)),
 			_convert(_storage.at(ppos+1)),
 			_convert(_storage.at(ppos+2)),
@@ -311,7 +311,7 @@ public:
 	}
 
 	/// Returns the component of the pixel at the specified coordinates
-	GLdouble Component(
+	double Component(
 		GLsizei width,
 		GLsizei height,
 		GLsizei depth,

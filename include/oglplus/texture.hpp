@@ -474,8 +474,10 @@ public:
 		/// Texture swizzle value
 		typedef TextureSwizzle Swizzle;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 		/// Texture swizzle tuple
 		typedef TextureSwizzleTuple SwizzleTuple;
+#endif
 
 		/// Texture wrap mode for coordinate
 		typedef TextureWrapCoord WrapCoord;
@@ -604,6 +606,7 @@ public:
 		return result;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	static GLint GetIntParam(Target target, GLint level, GLenum query)
 	{
 		GLint result = 0;
@@ -962,6 +965,7 @@ public:
 			GL_TEXTURE_INTERNAL_FORMAT
 		));
 	}
+#endif // GL_VERSION_3_0
 
 /*
 	template <typename T>
@@ -984,6 +988,7 @@ public:
 	}
 */
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
 	 *  the specified texture @p target with the specified @p level
@@ -1022,6 +1027,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Specifies a three dimensional texture image
 	/**
@@ -1303,6 +1309,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Specifies a one dimensional texture image
 	/**
 	 *  @glsymbols
@@ -1427,6 +1434,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Copies a two dimensional texture image from the framebuffer
 	/**
@@ -1462,6 +1470,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Copies a one dimensional texture image from the framebuffer
 	/**
 	 *  @glsymbols
@@ -1493,6 +1502,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Copies a three dimensional texture sub image from the framebuffer
 	/**
@@ -1564,6 +1574,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Copies a one dimensional texture sub image from the framebuffer
 	/**
 	 *  @glsymbols
@@ -1593,6 +1604,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Specifies a three dimensional compressed texture image
 	/**
@@ -1664,6 +1676,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Specifies a one dimensional compressed texture image
 	/**
 	 *  @glsymbols
@@ -1695,6 +1708,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Specifies a three dimensional compressed texture sub image
 	/**
@@ -1772,6 +1786,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Specifies a one dimensional compressed texture sub image
 	/**
 	 *  @glsymbols
@@ -1803,6 +1818,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
 	/// Sets-up a three dimensional multisample texture
@@ -2141,6 +2157,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
 	/**
 	 *  @glsymbols
@@ -2272,6 +2289,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Gets the compare mode (TEXTURE_COMPARE_MODE)
 	/**
@@ -2343,6 +2361,7 @@ public:
 		));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Gets the LOD bias value (TEXTURE_LOD_BIAS)
 	/**
 	 *  @glsymbols
@@ -2374,6 +2393,7 @@ public:
 			BindingQuery<TextureOps>::QueryBinding(target)
 		));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
 	/**

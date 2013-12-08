@@ -95,8 +95,10 @@ public:
 		/// Texture swizzle value
 		typedef TextureSwizzle Swizzle;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 		/// Texture swizzle tuple
 		typedef TextureSwizzleTuple SwizzleTuple;
+#endif
 
 		/// Texture wrap mode for coordinate
 		typedef TextureWrapCoord WrapCoord;

@@ -75,6 +75,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ColorMask));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the color mask for a particular @p buffer
 	/**
 	 *  @glsymbols
@@ -91,6 +92,7 @@ public:
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ColorMaski));
 	}
+#endif
 
 	/// Sets the depth @p mask
 	/**

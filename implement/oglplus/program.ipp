@@ -89,6 +89,7 @@ void ProgramOps::TransformFeedbackVaryings(
 	));
 }
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_get_program_binary
 OGLPLUS_LIB_FUNC
 void ProgramOps::GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 {
@@ -113,6 +114,7 @@ void ProgramOps::GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 		));
 	}
 }
+#endif
 
 } // namespace oglplus
 

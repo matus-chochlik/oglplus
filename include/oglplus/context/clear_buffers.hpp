@@ -197,6 +197,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearColor));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the clear depth
 	/**
 	 *  @throws Error
@@ -209,6 +210,13 @@ public:
 		OGLPLUS_GLFUNC(ClearDepth)(d);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearDepth));
 	}
+#else
+	static void ClearDepth(GLfloat d)
+	{
+		OGLPLUS_GLFUNC(ClearDepthf)(d);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearDepthf));
+	}
+#endif
 
 	/// Sets the clear stencil buffer value
 	/**
