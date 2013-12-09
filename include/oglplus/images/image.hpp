@@ -200,6 +200,24 @@ public:
 		return *this;
 	}
 
+	/// Returns the i-th dimension of the image
+	/**
+	 *  0: Width
+	 *  1: Height
+	 *  2: Depth
+	 *  3: Channels
+	 */
+	GLsizei Dimension(std::size_t i) const
+	{
+		if(i == 0) return Width();
+		if(i == 1) return Height();
+		if(i == 2) return Depth();
+		if(i == 3) return Channels();
+		assert(!"Invalid image dimension specified");
+		return -1;
+	}
+
+
 	/// Returns the width of the image
 	GLsizei Width(void) const
 	{
@@ -275,6 +293,9 @@ public:
 	) const
 	{
 		assert(_is_initialized());
+		assert(width >= 0);
+		assert(height >= 0);
+		assert(depth >= 0);
 		assert(width < Width());
 		assert(height < Height());
 		assert(depth < Depth());
@@ -290,12 +311,13 @@ public:
 	) const
 	{
 		assert(_convert);
+
 		std::size_t ppos = PixelPos(width, height, depth);
 		return Vector<double, 4>(
-			_convert(_storage.at(ppos+0)),
-			_convert(_storage.at(ppos+1)),
-			_convert(_storage.at(ppos+2)),
-			_convert(_storage.at(ppos+3))
+			_channels>0?_convert(_storage.at(ppos+0)):0.0,
+			_channels>1?_convert(_storage.at(ppos+1)):0.0,
+			_channels>2?_convert(_storage.at(ppos+2)):0.0,
+			_channels>3?_convert(_storage.at(ppos+3)):0.0
 		);
 	}
 
