@@ -46,14 +46,16 @@ private:
 		T one
 	)
 	{
-		unsigned c = input.Channels();
+		sampler.SetInput(input);
 		auto p = this->_begin<T>();
 		unsigned w = input.Width(), h = input.Height(), d = input.Depth();
+
 		for(unsigned k=0; k!=d; ++k)
 		for(unsigned j=0; j!=h; ++j)
 		for(unsigned i=0; i!=w; ++i)
 		{
-			sampler._reinit(input, w, h, d, c, i, j, k);
+			sampler.SetOrigin(i, j, k);
+
 			Vector<T, CH> outv = filter(extractor, sampler, one);
 
 			for(unsigned ci=0; ci!=CH; ++ci)
@@ -75,7 +77,7 @@ public:
 			T one
 		) const
 		{
-			return Vector<T, CH>(extractor(sampler.get(0, 0, 0))*one);
+			return Vector<T, CH>(extractor(sampler.Get(0, 0, 0))*one);
 		}
 	};
 
@@ -146,7 +148,6 @@ public:
 		SampleFunc _sample;
 
 		const Image* _image;
-		unsigned _width, _height, _depth, _channels;
 		int _ori_x, _ori_y, _ori_z;
 	public:
 		SamplerTpl(
@@ -155,61 +156,50 @@ public:
 		): _transf(transf)
 		 , _sample(sample)
 		 , _image(nullptr)
-		 , _width(0)
-		 , _height(0)
-		 , _depth(0)
-		 , _channels(0)
 		 , _ori_x(0)
 		 , _ori_y(0)
 		 , _ori_z(0)
 		{ }
 
-		void _reinit(
-			const Image& image,
-			unsigned width,
-			unsigned height,
-			unsigned depth,
-			unsigned channels,
+		void SetInput(const Image& image)
+		{
+			_image = &image;
+		}
+
+		void SetOrigin(
 			unsigned x,
 			unsigned y,
 			unsigned z
 		)
 		{
-			_image = &image;
-
-			_width = width;
-			_height = height;
-			_depth = depth;
-			_channels = channels;
-
 			_ori_x = int(x);
 			_ori_y = int(y);
 			_ori_z = int(z);
 
-			assert(_width  > 0);
-			assert(_height > 0);
-			assert(_depth  > 0);
-			assert(_channels > 0);
-			assert(_channels < 5);
+			assert(_image);
 
 			_transf(
 				_ori_x,
 				_ori_y,
 				_ori_z,
-				_width,
-				_height,
-				_depth
+				_image->Width(),
+				_image->Height(),
+				_image->Depth()
 			);
 		}
 
-		Vector<GLdouble, 4> get(int xoffs, int yoffs, int zoffs) const
+		Vector<GLdouble, 4> operator()(
+			int xoffs,
+			int yoffs,
+			int zoffs
+		) const
 		{
 			assert(_image != nullptr);
 			return _sample(
 				*_image,
-				_width,
-				_height,
-				_depth,
+				_image->Width(),
+				_image->Height(),
+				_image->Depth(),
 				_ori_x+xoffs,
 				_ori_y+yoffs,
 				_ori_z+zoffs

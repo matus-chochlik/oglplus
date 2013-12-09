@@ -38,11 +38,11 @@ private:
 			typedef GLdouble number;
 			number s = 0.05;
 
-			number sc  = extractor(sampler.get( 0, 0, 0));
-			number spx = extractor(sampler.get(+1, 0, 0));
-			number spy = extractor(sampler.get( 0,+1, 0));
-			number snx = extractor(sampler.get(-1, 0, 0));
-			number sny = extractor(sampler.get( 0,-1, 0));
+			number sc  = extractor(sampler( 0, 0, 0));
+			number spx = extractor(sampler(+1, 0, 0));
+			number spy = extractor(sampler( 0,+1, 0));
+			number snx = extractor(sampler(-1, 0, 0));
+			number sny = extractor(sampler( 0,-1, 0));
 			Vector<number, 3> vpx(+s, 0, (spx-sc));
 			Vector<number, 3> vpy(0, +s, (spy-sc));
 			Vector<number, 3> vnx(-s, 0, (snx-sc));
