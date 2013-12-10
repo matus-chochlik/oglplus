@@ -77,7 +77,7 @@ public:
 			T one
 		) const
 		{
-			return Vector<T, CH>(extractor(sampler.Get(0, 0, 0))*one);
+			return Vector<T, CH>(extractor(sampler(0, 0, 0))*one);
 		}
 	};
 
