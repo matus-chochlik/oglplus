@@ -559,26 +559,43 @@ public:
 		));
 	}
 
-/*
+	/// Allows to obtain the texture image in uncompressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in uncompressed form into the @p dest buffer.
+	 *
+	 *  @note This function, unlike @c GetCompressedImage, does NOT
+	 *  automatically resize the destination buffer so that
+	 *  it can accomodate the texture data. The caller is responsible
+	 *  for keeping track or querying the type of the texture, its
+	 *  dimensions and current pixel transfer settings and resize
+	 *  the @c dest buffer accordingly.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexImage}
+	 */
 	template <typename T>
-	static void GetImage(
-		Target target,
+	void GetImage(
 		GLint level,
 		PixelDataFormat format,
 		std::vector<T>& dest
-	)
+	) const
 	{
-		dest.resize(...); TODO (see ReadPixel &co.)
-		and/or ARB_robustness
-		OGLPLUS_GLFUNC(GetTexImage)(
+		OGLPLUS_GLFUNC(GetTextureImageEXT)(
+			_name,
 			GLenum(target),
 			level,
 			GLenum(format),
 			GLenum(GetDataType<T>()),
 			dest.data()
 		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTextureImageEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
 	}
-*/
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
