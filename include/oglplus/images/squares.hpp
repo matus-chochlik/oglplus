@@ -18,10 +18,15 @@
 namespace oglplus {
 namespace images {
 
+/// Creates a Red (one components per pixel) 2D image with repeating squares
+/**
+ *  @ingroup image_load_gen
+ */
 class Squares
  : public Image
 {
 public:
+	/// Creates an image with specified dimensions and pattern repeats
 	Squares(
 		GLsizei width,
 		GLsizei height,

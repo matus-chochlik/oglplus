@@ -67,6 +67,10 @@ public:
 	}
 };
 
+/// A filter flipping/reorienting image axes
+/**
+ *  @ingroup image_load_gen
+ */
 template <typename T, std::size_t N>
 class FlipImageAxes
  : public FilteredImage<T, N>
