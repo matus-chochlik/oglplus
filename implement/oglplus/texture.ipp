@@ -226,6 +226,8 @@ void TextureOps::SubImage2D(
 	));
 }
 
+#if GL_VERSION_3_0
+
 OGLPLUS_LIB_FUNC
 void TextureOps::Image1D(
 	Target target,
@@ -276,6 +278,8 @@ void TextureOps::SubImage1D(
 		BindingQuery<TextureOps>::QueryBinding(target)
 	));
 }
+
+#endif // GL_VERSION_3_0
 
 } // namespace oglplus
 
