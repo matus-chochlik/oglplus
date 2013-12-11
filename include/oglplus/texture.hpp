@@ -23,340 +23,17 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>
 #include <oglplus/buffer.hpp>
+#include <oglplus/texture_compare.hpp>
+#include <oglplus/texture_filter.hpp>
+#include <oglplus/texture_swizzle.hpp>
+#include <oglplus/texture_wrap.hpp>
 #include <oglplus/texture_unit.hpp>
-#include <oglplus/images/image.hpp>
+#include <oglplus/images/fwd.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
-
-/// Texture compare mode enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{TexParameter}
- *  @glfunref{GetTexParameter}
- *  @gldefref{TEXTURE_COMPARE_MODE}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TextureCompareMode, GLenum)
-#include <oglplus/enums/texture_compare_mode.ipp>
-OGLPLUS_ENUM_CLASS_END(TextureCompareMode)
-
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/texture_compare_mode_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/texture_compare_mode_range.ipp>
-#endif
-
-/// Texture magnification filter enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{TexParameter}
- *  @glfunref{GetTexParameter}
- *  @gldefref{TEXTURE_MAG_FILTER}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TextureMagFilter, GLenum)
-#include <oglplus/enums/texture_mag_filter.ipp>
-OGLPLUS_ENUM_CLASS_END(TextureMagFilter)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/texture_mag_filter_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/texture_mag_filter_range.ipp>
-#endif
-
-/// Texture minification filter enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{TexParameter}
- *  @glfunref{GetTexParameter}
- *  @gldefref{TEXTURE_MIN_FILTER}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TextureMinFilter, GLenum)
-#include <oglplus/enums/texture_min_filter.ipp>
-OGLPLUS_ENUM_CLASS_END(TextureMinFilter)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/texture_min_filter_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/texture_min_filter_range.ipp>
-#endif
-
-/// Texture swizzle parameter coordinate enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{TexParameter}
- *  @glfunref{GetTexParameter}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzleCoord, GLenum)
-#include <oglplus/enums/texture_swizzle_coord.ipp>
-OGLPLUS_ENUM_CLASS_END(TextureSwizzleCoord)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/texture_swizzle_coord_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/texture_swizzle_coord_range.ipp>
-#endif
-
-/// Texture swizzle enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{TexParameter}
- *  @glfunref{GetTexParameter}
- *  @gldefref{TEXTURE_SWIZZLE_R}
- *  @gldefref{TEXTURE_SWIZZLE_G}
- *  @gldefref{TEXTURE_SWIZZLE_B}
- *  @gldefref{TEXTURE_SWIZZLE_A}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TextureSwizzle, GLenum)
-#include <oglplus/enums/texture_swizzle.ipp>
-OGLPLUS_ENUM_CLASS_END(TextureSwizzle)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/texture_swizzle_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/texture_swizzle_range.ipp>
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
-/// A tuple of swizzle values for all texture components
-class TextureSwizzleTuple
-{
-private:
-	GLint _values[4];
-
-	friend class TextureOps;
-	friend class DSATextureEXTOps;
-public:
-	/// Default construction
-	TextureSwizzleTuple(void)
-	{
-		_values[0] = GL_RED;
-		_values[1] = GL_GREEN;
-		_values[2] = GL_BLUE;
-		_values[3] = GL_ALPHA;
-	}
-
-	/// Specifies modes for all components/coords
-	TextureSwizzleTuple(
-		TextureSwizzle mode_r,
-		TextureSwizzle mode_g,
-		TextureSwizzle mode_b,
-		TextureSwizzle mode_a
-	)
-	{
-		_values[0] = GLint(GLenum(mode_r));
-		_values[1] = GLint(GLenum(mode_g));
-		_values[2] = GLint(GLenum(mode_b));
-		_values[3] = GLint(GLenum(mode_a));
-	}
-
-	/// Sets the swizzle value for red component
-	TextureSwizzleTuple& SwizzleR(TextureSwizzle mode)
-	{
-		_values[0] = GLint(GLenum(mode));
-		return *this;
-	}
-
-	/// Returns the swizzle value for red component
-	TextureSwizzle SwizzleR(void) const
-	{
-		return TextureSwizzle(_values[0]);
-	}
-
-	/// Synonym for SwizzleR
-	TextureSwizzleTuple& Red(TextureSwizzle mode)
-	{
-		return SwizzleR(mode);
-	}
-
-	/// Synonym for SwizzleR
-	TextureSwizzle Red(void) const
-	{
-		return SwizzleR();
-	}
-
-	/// Sets the swizzle value for green component
-	TextureSwizzleTuple& SwizzleG(TextureSwizzle mode)
-	{
-		_values[1] = GLint(GLenum(mode));
-		return *this;
-	}
-
-	/// Returns the swizzle value for green component
-	TextureSwizzle SwizzleG(void) const
-	{
-		return TextureSwizzle(_values[1]);
-	}
-
-	/// Synonym for SwizzleG
-	TextureSwizzleTuple& Green(TextureSwizzle mode)
-	{
-		return SwizzleG(mode);
-	}
-
-	/// Synonym for SwizzleG
-	TextureSwizzle Green(void) const
-	{
-		return SwizzleG();
-	}
-
-	/// Sets the swizzle value for blue component
-	TextureSwizzleTuple& SwizzleB(TextureSwizzle mode)
-	{
-		_values[2] = GLint(GLenum(mode));
-		return *this;
-	}
-
-	/// Returns the swizzle value for blue component
-	TextureSwizzle SwizzleB(void) const
-	{
-		return TextureSwizzle(_values[2]);
-	}
-
-	/// Synonym for SwizzleB
-	TextureSwizzleTuple& Blue(TextureSwizzle mode)
-	{
-		return SwizzleB(mode);
-	}
-
-	/// Synonym for SwizzleB
-	TextureSwizzle Blue(void) const
-	{
-		return SwizzleB();
-	}
-
-	/// Sets the swizzle value for alpha component
-	TextureSwizzleTuple& SwizzleA(TextureSwizzle mode)
-	{
-		_values[3] = GLint(GLenum(mode));
-		return *this;
-	}
-
-	/// Returns the swizzle value for alpha component
-	TextureSwizzle SwizzleA(void) const
-	{
-		return TextureSwizzle(_values[3]);
-	}
-
-	/// Synonym for SwizzleA
-	TextureSwizzleTuple& Alpha(TextureSwizzle mode)
-	{
-		return SwizzleA(mode);
-	}
-
-	/// Synonym for SwizzleA
-	TextureSwizzle Alpha(void) const
-	{
-		return SwizzleA();
-	}
-
-	/// Sets the swizzle value for the specified component/coord
-	TextureSwizzleTuple& Swizzle(
-		TextureSwizzleCoord coord,
-		TextureSwizzle mode
-	)
-	{
-		switch(GLenum(coord))
-		{
-			case GL_TEXTURE_SWIZZLE_R:
-				SwizzleR(mode);
-				break;
-			case GL_TEXTURE_SWIZZLE_G:
-				SwizzleG(mode);
-				break;
-			case GL_TEXTURE_SWIZZLE_B:
-				SwizzleB(mode);
-				break;
-			case GL_TEXTURE_SWIZZLE_A:
-				SwizzleA(mode);
-				break;
-		}
-		return *this;
-	}
-
-	/// Returns the swizzle value for the specified component/coord
-	TextureSwizzle Swizzle(TextureSwizzleCoord coord) const
-	{
-		switch(GLenum(coord))
-		{
-			case GL_TEXTURE_SWIZZLE_R:
-				return SwizzleR();
-			case GL_TEXTURE_SWIZZLE_G:
-				return SwizzleG();
-			case GL_TEXTURE_SWIZZLE_B:
-				return SwizzleB();
-			case GL_TEXTURE_SWIZZLE_A:
-				return SwizzleA();
-		}
-		return TextureSwizzle();
-	}
-};
-#endif
-
-/// Texture wrap parameter coordinate enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{TexParameter}
- *  @glfunref{GetTexParameter}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TextureWrapCoord, GLenum)
-#include <oglplus/enums/texture_wrap_coord.ipp>
-OGLPLUS_ENUM_CLASS_END(TextureWrapCoord)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/texture_wrap_coord_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/texture_wrap_coord_range.ipp>
-#endif
-
-/// Texture wrap enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{TexParameter}
- *  @glfunref{GetTexParameter}
- *  @gldefref{TEXTURE_WRAP_S}
- *  @gldefref{TEXTURE_WRAP_T}
- *  @gldefref{TEXTURE_WRAP_R}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TextureWrap, GLenum)
-#include <oglplus/enums/texture_wrap.ipp>
-OGLPLUS_ENUM_CLASS_END(TextureWrap)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/texture_wrap_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/texture_wrap_range.ipp>
-#endif
 
 /// Texture bind and image specification targets
 /** @note Not all of the values enumerated here are valid
@@ -1115,27 +792,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TexImage3D)(
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			image.Height(),
-			image.Depth(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexImage3D,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
+	);
 
 	/// Specifies a three dimensional texture sub image
 	/**
@@ -1189,28 +846,7 @@ public:
 		GLint yoffs,
 		GLint zoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TexSubImage3D)(
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			zoffs,
-			image.Width(),
-			image.Height(),
-			image.Depth(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexSubImage3D,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
+	);
 
 	/// Specifies a two dimensional texture image
 	/**
@@ -1258,26 +894,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TexImage2D)(
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			image.Height(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexImage2D,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
+	);
 
 	/// Specifies a two dimensional texture sub image
 	/**
@@ -1326,26 +943,7 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TexSubImage2D)(
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			image.Width(),
-			image.Height(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexSubImage2D,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
+	);
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Specifies a one dimensional texture image
@@ -1392,25 +990,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TexImage1D)(
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexImage1D,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
+	);
 
 	/// Specifies a one dimensional texture sub image
 	/**
@@ -1454,24 +1034,7 @@ public:
 		const images::Image& image,
 		GLint xoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TexSubImage1D)(
-			GLenum(target),
-			level,
-			xoffs,
-			image.Width(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexSubImage1D,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
+	);
 #endif // GL_VERSION_3_0
 
 	/// Copies a two dimensional texture image from the framebuffer
@@ -3188,6 +2751,14 @@ public:
 	}
 #endif
 };
+
+} // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/texture.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
+
+namespace oglplus {
 
 template <>
 class Array<Texture>

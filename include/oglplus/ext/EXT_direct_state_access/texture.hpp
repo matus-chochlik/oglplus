@@ -674,28 +674,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage3DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			image.Height(),
-			image.Depth(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureImage3DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a three dimensional texture sub image
 	/**
@@ -748,29 +727,7 @@ public:
 		GLint yoffs,
 		GLint zoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage3DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			zoffs,
-			image.Width(),
-			image.Height(),
-			image.Depth(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureSubImage3DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a two dimensional texture image
 	/**
@@ -817,27 +774,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage2DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			image.Height(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureImage2DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a two dimensional texture sub image
 	/**
@@ -885,27 +822,7 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage2DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			image.Width(),
-			image.Height(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureSubImage2DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a one dimensional texture image
 	/**
@@ -950,26 +867,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage1DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureImage1DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a one dimensional texture sub image
 	/**
@@ -1012,25 +910,7 @@ public:
 		const images::Image& image,
 		GLint xoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage1DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			xoffs,
-			image.Width(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureSubImage1DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Copies a two dimensional texture image from the framebuffer
 	/**
@@ -2504,5 +2384,9 @@ class ConvertibleObjectBaseOps<DSATextureEXTOps, TextureOps>
 #endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/ext/EXT_direct_state_access/texture.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

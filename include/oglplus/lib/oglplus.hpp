@@ -44,6 +44,7 @@
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/framebuffer.hpp>
+#include <oglplus/texture.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/program_pipeline.hpp>
@@ -90,6 +91,7 @@
 
 #include <oglplus/ext/ARB_debug_output.hpp>
 #include <oglplus/ext/EXT_direct_state_access/framebuffer.hpp>
+#include <oglplus/ext/EXT_direct_state_access/texture.hpp>
 
 namespace oglplus {
 

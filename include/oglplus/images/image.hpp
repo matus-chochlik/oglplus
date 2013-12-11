@@ -86,7 +86,7 @@ protected:
 	template <typename T>
 	bool _type_ok(void) const
 	{
-		return _type == PixelDataType(oglplus::GetDataType<T>());
+		return _type == PixelDataType(GetDataType<T>());
 	}
 
 	template <typename T>
