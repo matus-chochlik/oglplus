@@ -12,7 +12,69 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if GL_EXT_direct_state_access
+
+OGLPLUS_LIB_FUNC
+void DSATextureEXTOps::GetImage(
+	GLint level,
+	PixelDataFormat format,
+	PixelDataType type,
+	GLsizei size,
+	GLvoid* buffer
+) const
+{
+	OGLPLUS_FAKE_USE(size);
+	OGLPLUS_GLFUNC(GetTextureImageEXT)(
+		_name,
+		GLenum(target),
+		level,
+		GLenum(format),
+		GLenum(type),
+		buffer
+	);
+	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		GetTextureImageEXT,
+		Texture,
+		EnumValueName(target),
+		_name
+	));
+}
+
+OGLPLUS_LIB_FUNC
+void DSATextureEXTOps::GetCompressedImage(
+	GLint level,
+	GLsizei size,
+	GLubyte* buffer
+) const
+{
+	OGLPLUS_FAKE_USE(size);
+	OGLPLUS_GLFUNC(GetCompressedTextureImageEXT)(
+		_name,
+		GLenum(target),
+		level,
+		buffer
+	);
+	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		GetCompressedTextureImageEXT,
+		Texture,
+		EnumValueName(target),
+		_name
+	));
+}
+
+OGLPLUS_LIB_FUNC
+void DSATextureEXTOps::GetCompressedImage(
+	GLint level,
+	std::vector<GLubyte>& dest
+) const
+{
+	dest.resize(CompressedImageSize(level));
+	GetCompressedImage(
+		level,
+		dest.size()*sizeof(GLubyte),
+		dest.data()
+	);
+}
 
 OGLPLUS_LIB_FUNC
 void DSATextureEXTOps::Image3D(

@@ -12,6 +12,106 @@
 
 namespace oglplus {
 
+#if GL_VERSION_3_0
+
+OGLPLUS_LIB_FUNC
+void TextureOps::GetImage(
+	Target target,
+	GLint level,
+	PixelDataFormat format,
+	PixelDataType type,
+	GLsizei size,
+	GLvoid* buffer
+)
+{
+#if GL_ARB_robustness
+	OGLPLUS_GLFUNC(GetnTexImageARB)(
+		GLenum(target),
+		level,
+		GLenum(format),
+		GLenum(type),
+		size,
+		buffer
+	);
+	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		GetnTexImageARB,
+		Texture,
+		EnumValueName(target),
+		BindingQuery<TextureOps>::QueryBinding(target)
+	));
+#else
+	OGLPLUS_FAKE_USE(size);
+	OGLPLUS_GLFUNC(GetTexImage)(
+		GLenum(target),
+		level,
+		GLenum(format),
+		GLenum(type),
+		buffer
+	);
+	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		GetTexImage,
+		Texture,
+		EnumValueName(target),
+		BindingQuery<TextureOps>::QueryBinding(target)
+	));
+#endif
+}
+
+OGLPLUS_LIB_FUNC
+void TextureOps::GetCompressedImage(
+	Target target,
+	GLint level,
+	GLsizei size,
+	GLubyte* buffer
+)
+{
+#if GL_ARB_robustness
+	OGLPLUS_GLFUNC(GetnCompressedTexImageARB)(
+		GLenum(target),
+		level,
+		size,
+		buffer
+	);
+	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		GetnCompressedTexImageARB,
+		Texture,
+		EnumValueName(target),
+		BindingQuery<TextureOps>::QueryBinding(target)
+	));
+#else
+	OGLPLUS_FAKE_USE(size);
+	OGLPLUS_GLFUNC(GetCompressedTexImage)(
+		GLenum(target),
+		level,
+		buffer
+	);
+	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		GetCompressedTexImage,
+		Texture,
+		EnumValueName(target),
+		BindingQuery<TextureOps>::QueryBinding(target)
+	));
+#endif
+}
+
+OGLPLUS_LIB_FUNC
+void TextureOps::GetCompressedImage(
+	Target target,
+	GLint level,
+	std::vector<GLubyte>& dest
+)
+{
+	dest.resize(CompressedImageSize(target, level));
+	GetCompressedImage(
+		target,
+		level,
+		dest.size()*sizeof(GLubyte),
+		dest.data()
+	);
+}
+
+#endif
+
 OGLPLUS_LIB_FUNC
 void TextureOps::Image3D(
 	Target target,

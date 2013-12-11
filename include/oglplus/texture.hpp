@@ -658,6 +658,30 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetTexImage}
 	 */
+	static void GetImage(
+		Target target,
+		GLint level,
+		PixelDataFormat format,
+		PixelDataType type,
+		GLsizei size,
+		GLvoid* buffer
+	);
+
+	/// Allows to obtain the texture image in uncompressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in uncompressed form into the @p dest buffer.
+	 *
+	 *  @note This function, unlike @c GetCompressedImage, does NOT
+	 *  automatically resize the destination buffer so that
+	 *  it can accomodate the texture data. The caller is responsible
+	 *  for keeping track or querying the type of the texture, its
+	 *  dimensions and current pixel transfer settings and resize
+	 *  the @c dest buffer accordingly.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexImage}
+	 */
 	template <typename T>
 	static void GetImage(
 		Target target,
@@ -666,37 +690,33 @@ public:
 		std::vector<T>& dest
 	)
 	{
-#if GL_ARB_robustness
-		OGLPLUS_GLFUNC(GetnTexImageARB)(
-			GLenum(target),
+		GetImage(
+			target,
 			level,
-			GLenum(format),
-			GLenum(GetDataType<T>()),
+			format,
+			GetDataType<T>(),
 			dest.data()*sizeof(T),
 			dest.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetnTexImageARB,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-#else
-		OGLPLUS_GLFUNC(GetTexImage)(
-			GLenum(target),
-			level,
-			GLenum(format),
-			GLenum(GetDataType<T>()),
-			dest.data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetTexImage,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-#endif
 	}
+
+
+	/// Allows to obtain the texture image in compressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in compressed form into the @p dest buffer.
+	 *  This function automatically resizes the buffer so that
+	 *  it can accomodate the texture data.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetCompressedTexImage}
+	 */
+	static void GetCompressedImage(
+		Target target,
+		GLint level,
+		GLsizei size,
+		GLubyte* buffer
+	);
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
@@ -712,36 +732,7 @@ public:
 		Target target,
 		GLint level,
 		std::vector<GLubyte>& dest
-	)
-	{
-		dest.resize(CompressedImageSize(target, level));
-#if GL_ARB_robustness
-		OGLPLUS_GLFUNC(GetnCompressedTexImageARB)(
-			GLenum(target),
-			level,
-			dest.size()*sizeof(GLubyte),
-			dest.data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetnCompressedTexImageARB,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-#else
-		OGLPLUS_GLFUNC(GetCompressedTexImage)(
-			GLenum(target),
-			level,
-			dest.data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetCompressedTexImage,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-#endif
-	}
+	);
 #endif // GL_VERSION_3_0
 
 	/// Specifies a three dimensional texture image
