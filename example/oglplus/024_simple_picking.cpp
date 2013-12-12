@@ -293,7 +293,7 @@ public:
 		std::map<GLfloat, GLint> picked_objs;
 		{
 			picked_instances.Bind(Buffer::Target::TransformFeedback);
-			Buffer::TypedMap<DepthAndID> picked_instances_map(
+			BufferTypedMap<DepthAndID> picked_instances_map(
 				Buffer::Target::TransformFeedback,
 				BufferMapAccess::Read
 			);
