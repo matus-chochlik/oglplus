@@ -47,6 +47,7 @@
 #include <oglplus/texture.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
+#include <oglplus/program_resource.hpp>
 #include <oglplus/program_pipeline.hpp>
 
 #include <oglplus/imports/blend_file.hpp>
