@@ -21,7 +21,6 @@
 #include <map>
 
 #if OGLPLUS_CUSTOM_ERROR_HANDLING
-#include <stack>
 #include <functional>
 #endif
 
@@ -298,14 +297,7 @@ struct ErrorInfo
  *
  *  @ingroup error_handling
  */
-inline const char* ErrorGLSymbol(const ErrorInfo& info)
-{
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
-	return info._glsym;
-#else
-	return "";
-#endif
-}
+const char* ErrorGLSymbol(const ErrorInfo& info);
 
 /// Returns the path of the source file where the exception originated
 /**
@@ -324,15 +316,7 @@ inline const char* ErrorGLSymbol(const ErrorInfo& info)
  *
  *  @ingroup error_handling
  */
-inline const char* ErrorFile(const ErrorInfo& info)
-{
-#if !OGLPLUS_ERROR_INFO_NO_FILE
-	return info._file;
-#else
-	OGLPLUS_FAKE_USE(info);
-	return "";
-#endif
-}
+const char* ErrorFile(const ErrorInfo& info);
 
 /// Returns the name of the function where the exception originated
 /**
@@ -351,15 +335,7 @@ inline const char* ErrorFile(const ErrorInfo& info)
  *
  *  @ingroup error_handling
  */
-inline const char* ErrorFunc(const ErrorInfo& info)
-{
-#if !OGLPLUS_ERROR_INFO_NO_FUNC
-	return info._func;
-#else
-	OGLPLUS_FAKE_USE(info);
-	return "";
-#endif
-}
+const char* ErrorFunc(const ErrorInfo& info);
 
 /// Returns the line in the source file where the exception originated
 /**
@@ -378,15 +354,7 @@ inline const char* ErrorFunc(const ErrorInfo& info)
  *
  *  @ingroup error_handling
  */
-inline unsigned ErrorLine(const ErrorInfo& info)
-{
-#if !OGLPLUS_ERROR_INFO_NO_LINE
-	return info._line;
-#else
-	OGLPLUS_FAKE_USE(info);
-	return 0;
-#endif
-}
+unsigned ErrorLine(const ErrorInfo& info);
 
 /// Returns the name of the class of the object where the exception originated
 /**
@@ -405,17 +373,7 @@ inline unsigned ErrorLine(const ErrorInfo& info)
  *
  *  @ingroup error_handling
  */
-inline const char* ErrorClassName(const ErrorInfo& info)
-{
-#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
-	return (info._cls_name && *info._cls_name) ?
-		info._cls_name :
-		"UnknownClass";
-#else
-	OGLPLUS_FAKE_USE(info);
-	return "UnknownClass";
-#endif
-}
+const char* ErrorClassName(const ErrorInfo& info);
 
 /// Returns the name of the binding point the object where the exception originated
 /**
@@ -434,16 +392,7 @@ inline const char* ErrorClassName(const ErrorInfo& info)
  *
  *  @ingroup error_handling
  */
-inline const char* ErrorBindTarget(const ErrorInfo& info)
-{
-	OGLPLUS_FAKE_USE(info);
-	return
-#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-	(info._bind_tgt) ?
-		info._bind_tgt.c_str() :
-#endif
-		"UnknownTarget";
-}
+const char* ErrorBindTarget(const ErrorInfo& info);
 
 /// Returns the optional description of the object related to the error
 /**
@@ -462,15 +411,7 @@ inline const char* ErrorBindTarget(const ErrorInfo& info)
  *
  *  @ingroup error_handling
  */
-inline const String& ErrorObjectDescription(const ErrorInfo& info)
-{
-	OGLPLUS_FAKE_USE(info);
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
-	if((info._get_obj_desc != 0) && (info._obj_name != 0))
-		return info._get_obj_desc(info._obj_name);
-#endif
-	return aux::EmptyString();
-}
+const String& ErrorObjectDescription(const ErrorInfo& info);
 
 /// Exception class for general OpenGL errors
 /** Instances of this exception class are throws whenever an error is detected
@@ -514,29 +455,14 @@ public:
 		const char* desc,
 		const ErrorInfo& info,
 		bool assertion = false
-	): std::runtime_error(desc)
-	 , _code(code)
-	 , _info(info)
-	 , _assertion(assertion)
-	{ }
+	);
 
 	Error(
 		GLenum code,
 		const char* desc,
 		const ErrorInfo& info,
 		PropertyMapInit&& properties
-	): std::runtime_error(desc)
-	 , _code(code)
-	 , _info(info)
-#if !OGLPLUS_ERROR_NO_PROPERTIES
-	 , _properties(std::move(properties))
-#endif
-	 , _assertion(false)
-	{
-#if OGLPLUS_ERROR_NO_PROPERTIES
-		OGLPLUS_FAKE_USE(properties);
-#endif
-	}
+	);
 
 	inline ~Error(void) throw()
 	{ }
@@ -687,15 +613,7 @@ public:
 #endif
 
 	/// Set a property key/value to the exception
-	void SetPropertyValue(const String& key, const String& value)
-	{
-#if !OGLPLUS_ERROR_NO_PROPERTIES
-		_properties[key] = value;
-#else
-		OGLPLUS_FAKE_USE(key);
-		OGLPLUS_FAKE_USE(value);
-#endif
-	}
+	void SetPropertyValue(const String& key, const String& value);
 
 #if OGLPLUS_DOCUMENTATION_ONLY || OGLPLUS_ERROR_NO_PROPAGATION_INFO
 	/// Returns a list of ErrorInfo objects marking exception trace points
@@ -713,28 +631,9 @@ public:
 	}
 #endif
 
-	void Trace(const ErrorInfo& info)
-	{
-#if !OGLPLUS_ERROR_NO_PROPAGATION_INFO
-		_propagation.push_back(info);
-#else
-		OGLPLUS_FAKE_USE(info);
-#endif
-		throw;
-	}
+	void Trace(const ErrorInfo& info);
 
-	void Cleanup(void) const
-	{
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
-		if(_info._purge_archive != 0)
-			_info._purge_archive();
-		for(auto i=_propagation.begin(),e=_propagation.end();i!=e;++i)
-		{
-			if(i->_purge_archive != 0)
-				i->_purge_archive();
-		}
-#endif
-	}
+	void Cleanup(void) const;
 };
 
 /// Exception class for out-of-memory OpenGL errors
@@ -788,7 +687,7 @@ public:
 /** Instances of this class are thrown if an instance of a (usually unsigned
  *  integer) type is assigned a value that it is outside of an implementation
  *  dependent range. This includes things like limits on the number of texture
- *  units of the GPU, the maximum texture dimensions, maximum number of draw
+ *  units of the GPU, maximum texture dimensions, maximum number of draw
  *  buffers, vertex attributes, etc.
  *
  *  @ingroup error_handling
@@ -977,18 +876,8 @@ typedef std::function<bool (const ErrorData&)> ErrorHandlerFunc;
 
 namespace aux {
 
-std::stack<ErrorHandlerFunc>& _error_handlers(void);
-
-inline bool _has_error_handler(void)
-{
-	return !_error_handlers().empty();
-}
-
-inline ErrorHandlerFunc& _get_error_handler(void)
-{
-	assert(!_error_handlers().empty());
-	return _error_handlers().top();
-}
+bool _has_error_handler(void);
+ErrorHandlerFunc& _get_error_handler(void);
 
 } // namespace aux
 
@@ -997,32 +886,22 @@ inline ErrorHandlerFunc& _get_error_handler(void)
  *  Available only if the #OGLPLUS_CUSTOM_ERROR_HANDLING compile-time switch
  *  is set to a nonzero value.
  *
+ *  @note This class is non-copyable.
+ *
  *  @ingroup error_handling
  */
 class LocalErrorHandler
 {
 private:
 	size_t _installed;
+
+	LocalErrorHandler(const LocalErrorHandler&);
 public:
 	/// Installs the specified error @p handler
-	LocalErrorHandler(ErrorHandlerFunc handler)
-	{
-		aux::_error_handlers().push(handler);
-		_installed = aux::_error_handlers().size();
-	}
-
-	/// This class is non-copyable
-	LocalErrorHandler(const LocalErrorHandler&) = delete;
+	LocalErrorHandler(ErrorHandlerFunc handler);
 
 	/// Uninstalls the previously installed handler
-	~LocalErrorHandler(void)
-	{
-		if(_installed)
-		{
-			assert(aux::_error_handlers().size() == _installed);
-			aux::_error_handlers().pop();
-		}
-	}
+	~LocalErrorHandler(void);
 };
 
 #endif // OGLPLUS_CUSTOM_ERROR_HANDLING
