@@ -166,15 +166,7 @@ protected:
 
 	friend class FriendOf<FramebufferOps>;
 
-	static GLenum _binding_query(Target target)
-	{
-		switch(GLenum(target))
-		{
-#include <oglplus/enums/framebuffer_target_bq.ipp>
-			default:;
-		}
-		return 0;
-	}
+	static GLenum _binding_query(Target target);
 	friend class BindingQuery<FramebufferOps>;
 public:
 

@@ -44,7 +44,10 @@
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/framebuffer.hpp>
+#include <oglplus/renderbuffer.hpp>
+#include <oglplus/buffer.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/transform_feedback.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/program_resource.hpp>

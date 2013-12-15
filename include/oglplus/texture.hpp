@@ -122,15 +122,7 @@ protected:
 
 	friend class FriendOf<TextureOps>;
 
-	static GLenum _binding_query(Target target)
-	{
-		switch(GLenum(target))
-		{
-#include <oglplus/enums/texture_target_bq.ipp>
-			default:;
-		}
-		return 0;
-	}
+	static GLenum _binding_query(Target target);
 	friend class BindingQuery<TextureOps>;
 public:
 	/// Types related to Texture

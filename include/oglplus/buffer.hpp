@@ -105,15 +105,7 @@ protected:
 
 	friend class FriendOf<BufferOps>;
 
-	static GLenum _binding_query(Target target)
-	{
-		switch(GLenum(target))
-		{
-#include <oglplus/enums/buffer_target_bq.ipp>
-			default:;
-		}
-		return 0;
-	}
+	static GLenum _binding_query(Target target);
 	friend class BindingQuery<BufferOps>;
 
 	static GLint GetIntParam(Target target, GLenum query)
@@ -880,5 +872,9 @@ public:
 };
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/buffer.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

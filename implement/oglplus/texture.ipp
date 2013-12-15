@@ -12,6 +12,17 @@
 
 namespace oglplus {
 
+OGLPLUS_LIB_FUNC
+GLenum TextureOps::_binding_query(Target target)
+{
+	switch(GLenum(target))
+	{
+#include <oglplus/enums/texture_target_bq.ipp>
+		default:;
+	}
+	return 0;
+}
+
 #if GL_VERSION_3_0
 
 OGLPLUS_LIB_FUNC
