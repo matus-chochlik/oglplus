@@ -13,6 +13,7 @@
 
 #include <oglplus/all.hpp>
 
+#define GL_GLEXT_LEGACY 1
 #include <GL/glut.h>
 
 class Example

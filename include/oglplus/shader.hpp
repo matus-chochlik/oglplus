@@ -314,7 +314,10 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_ES_VERSION_3_0 || \
+	GL_VERSION_4_1 || \
+	GL_ARB_ES2_compatibility
 	/// Get the shader precision format
 	/**
 	 *  @glvoereq{4,1,ARB,ES2_compatibility}
