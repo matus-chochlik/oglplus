@@ -66,6 +66,9 @@ public:
 		// compile it
 		fs.Compile();
 
+		// release the shader compiler
+		Shader::ReleaseCompiler();
+
 		// attach the shaders to the program
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
