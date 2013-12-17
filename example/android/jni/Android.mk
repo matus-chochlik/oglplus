@@ -3,7 +3,7 @@
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 LOCAL_PATH:= $(call my-dir)
-OGLPLUS_ROOT := /home/chochlik/devel/oglplus
+OGLPLUS_ROOT := ../../..
 
 include $(CLEAR_VARS)
 
