@@ -3,7 +3,7 @@
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 LOCAL_PATH:= $(call my-dir)
-OGLPLUS_ROOT := ../../..
+OGLPLUS_ROOT := $(LOCAL_PATH)/../../..
 
 include $(CLEAR_VARS)
 
@@ -13,8 +13,8 @@ LOCAL_CXXFLAGS := \
 	-std=c++0x \
 	-frtti \
 	-fexceptions \
-	-I/$(OGLPLUS_ROOT)/third_party/include \
-	-I/$(OGLPLUS_ROOT)/include \
+	-I$(OGLPLUS_ROOT)/third_party/include \
+	-I$(OGLPLUS_ROOT)/include \
 	-I$(OGLPLUS_ROOT)/implement
 
 LOCAL_SRC_FILES := android_001_triangle.cpp
