@@ -15,5 +15,6 @@
 
 #include <oglplus/lib/oglplus.hpp>
 #include <oglplus/lib/images_png.hpp>
+#include <oglplus/lib/text_pango_cairo.hpp>
 
 #endif // include guard

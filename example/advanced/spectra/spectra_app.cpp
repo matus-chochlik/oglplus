@@ -11,7 +11,7 @@
 
 #include <oglplus/gl.hpp>
 #include <oglplus/opt/application.hpp>
-#include <oglplus/lib.hpp>
+#include <oglplus/lib/oglplus.hpp>
 
 #include <oalplus/al.hpp>
 #include <oalplus/lib.hpp>

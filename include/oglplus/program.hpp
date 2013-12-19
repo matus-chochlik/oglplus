@@ -196,16 +196,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	String GetInfoLog(void) const
-	{
-		assert(_name != 0);
-		return aux::GetInfoLog(
-			_name, OGLPLUS_GLFUNC(GetProgramiv),
-			OGLPLUS_GLFUNC(GetProgramInfoLog),
-			"GetProgramiv",
-			"GetProgramInfoLog"
-		);
-	}
+	String GetInfoLog(void) const;
 
 	void HandleLinkError(void) const;
 

@@ -88,26 +88,7 @@ public:
 	ProgramResource(
 		aux::ProgramInterfaceContext& context,
 		GLuint index
-	): _program(context.Program())
-	 , _interface(context.Interface())
-	 , _index(index)
-	{
-		GLsizei bufsize = context.Buffer().size();
-		if(bufsize != 0)
-		{
-			GLsizei length = 0;
-			OGLPLUS_GLFUNC(GetProgramResourceName)(
-				_program,
-				_interface,
-				_index,
-				bufsize,
-				&length,
-				context.Buffer().data()
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceName));
-			_name.assign(context.Buffer().data(), length);
-		}
-	}
+	);
 
 	/// Gets the value of a single property (as an GLint)
 	/**

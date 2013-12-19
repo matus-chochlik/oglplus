@@ -43,6 +43,31 @@ GLenum ProgramResource::ReferencedByProperty(ShaderType shader_type) const
 	return GL_NONE;
 }
 
+OGLPLUS_LIB_FUNC
+ProgramResource::ProgramResource(
+	aux::ProgramInterfaceContext& context,
+	GLuint index
+): _program(context.Program())
+ , _interface(context.Interface())
+ , _index(index)
+{
+	GLsizei bufsize = context.Buffer().size();
+	if(bufsize != 0)
+	{
+		GLsizei length = 0;
+		OGLPLUS_GLFUNC(GetProgramResourceName)(
+			_program,
+			_interface,
+			_index,
+			bufsize,
+			&length,
+			context.Buffer().data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceName));
+		_name.assign(context.Buffer().data(), length);
+	}
+}
+
 #endif // GL_VERSION_4_3
 
 } // namespace oglplus

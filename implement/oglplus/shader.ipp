@@ -12,6 +12,18 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
+String ShaderOps::GetInfoLog(void) const
+{
+	assert(_name != 0);
+	return aux::GetInfoLog(
+		_name, OGLPLUS_GLFUNC(GetShaderiv),
+		OGLPLUS_GLFUNC(GetShaderInfoLog),
+		"GetShaderiv",
+		"GetShaderInfoLog"
+	);
+}
+
+OGLPLUS_LIB_FUNC
 void ShaderOps::HandleCompileError(void) const
 {
 	HandleBuildError<CompileError>(

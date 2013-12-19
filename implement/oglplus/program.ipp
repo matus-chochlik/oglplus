@@ -12,6 +12,18 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
+String ProgramOps::GetInfoLog(void) const
+{
+	assert(_name != 0);
+	return aux::GetInfoLog(
+		_name, OGLPLUS_GLFUNC(GetProgramiv),
+		OGLPLUS_GLFUNC(GetProgramInfoLog),
+		"GetProgramiv",
+		"GetProgramInfoLog"
+	);
+}
+
+OGLPLUS_LIB_FUNC
 void ProgramOps::HandleLinkError(void) const
 {
 	HandleBuildError<LinkError>(
