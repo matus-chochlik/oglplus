@@ -8,6 +8,7 @@
  */
 
 #include <oglplus/gl.hpp>
+#include <oglplus/fix_gl_version.hpp>
 
 #include <oglplus/site_config.hpp>
 
