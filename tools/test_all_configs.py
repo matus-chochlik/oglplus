@@ -92,7 +92,7 @@ def get_argument_parser():
 	return argparser
 
 def main():
-	import os
+	import os, sys
 	try:
 		# parse and process the command-line arguments
 		argparser = get_argument_parser()
@@ -115,10 +115,12 @@ def main():
 		# process the configurations
 		for gl_api_lib in oglplus_config_info['GL_API_LIBS']:
 			for gl_init_lib in oglplus_config_info['GL_INIT_LIBS']:
-				print("Building with %(api)s+%(init)s" % {
+				conf_msg = "Building with %(api)s+%(init)s\n" % {
 					'api': gl_api_lib,
 					'init': gl_init_lib
-				})
+				}
+				sys.stdout.write(conf_msg)
+				sys.stderr.write(conf_msg)
 				execute_configure(options.config_options+[
 					"--from-scratch",
 					"--use-gl-api-lib="+gl_api_lib,
