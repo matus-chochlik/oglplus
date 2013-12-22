@@ -1,6 +1,6 @@
 /*
- *  .file example/oglplus/qtgl_main.cpp
- *  Implements Qt-GL-based program main function for running examples
+ *  .file example/oglplus/qt4gl_main.cpp
+ *  Implements Qt4-GL-based program main function for running examples
  *
  *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
@@ -17,7 +17,7 @@
 #include "example_main.hpp"
 
 #include <QtGui>
-#include "qtgl_main.hpp"
+#include "qt4gl_main.hpp"
 
 #include <vector>
 #include <fstream>
