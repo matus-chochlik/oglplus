@@ -83,12 +83,9 @@
 #include <oglplus/images/sphere_bmap.hpp>
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/xpm.hpp>
-#include <oglplus/images/load.hpp>
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>
-#include <oglplus/text/bitmap_glyph.hpp>
-#include <oglplus/text/stb_truetype.hpp>
 #endif //OGLPLUS_NO_VARIADIC_TEMPLATES
 
 #include <oglplus/opt/resources.hpp>

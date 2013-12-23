@@ -28,7 +28,10 @@ macro(do_require_all_dependencies EXE_DIR EXE_NAME RESULT)
 					)
 				endif()
 				if(${DEPENDENCY}_CXX_FLAGS)
-					set(CMAKE_CXXFLAGS ${CMAKE_CXX_FLAGS} ${${DEPENDENCY}_CXX_FLAGS})
+					set(
+						CMAKE_CXX_FLAGS
+						"${CMAKE_CXX_FLAGS} ${${DEPENDENCY}_CXX_FLAGS}"
+					)
 				endif()
 			else()
 				message(

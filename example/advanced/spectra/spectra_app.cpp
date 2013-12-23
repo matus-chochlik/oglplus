@@ -10,6 +10,7 @@
  */
 
 #include <oglplus/gl.hpp>
+#include <oglplus/fix_gl_version.hpp>
 #include <oglplus/opt/application.hpp>
 #include <oglplus/lib/oglplus.hpp>
 

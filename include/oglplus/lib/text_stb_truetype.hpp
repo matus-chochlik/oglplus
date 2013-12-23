@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/lib/text_pango_cairo.hpp
- *  @brief All-in-one include file for the separatelly-built pango/cairo functions
+ *  @file oglplus/lib/text_stb_truetype.hpp
+ *  @brief All-in-one include file for the separatelly-built STBTT functions
  *
  *  @author Matus Chochlik
  *
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_LIB_TEXT_PANGO_CAIRO_1208310818_HPP
-#define OGLPLUS_LIB_TEXT_PANGO_CAIRO_1208310818_HPP
+#ifndef OGLPLUS_LIB_TEXT_STB_TRUETYPE_1208310818_HPP
+#define OGLPLUS_LIB_TEXT_STB_TRUETYPE_1208310818_HPP
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 
@@ -20,9 +20,7 @@
 #endif
 
 #include <oglplus/config.hpp>
-#if OGLPLUS_PANGO_CAIRO_FOUND
-#include <oglplus/text/pango_cairo.hpp>
-#endif
+#include <oglplus/text/stb_truetype.hpp>
 
 #undef OGLPLUS_IMPLEMENTING_LIBRARY
 

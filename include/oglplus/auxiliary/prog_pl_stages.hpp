@@ -19,7 +19,7 @@
 
 namespace oglplus {
 
-#if GL_VERSION_4_1 || GL_ARB_separate_program_objects
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
 class ProgramPipelineOps;
 

@@ -9,6 +9,7 @@
  */
 
 #include <oglplus/gl.hpp>
+#include <oglplus/fix_gl_version.hpp>
 #include <eglplus/egl.hpp>
 #define EGL_CONTEXT_MINOR_VERSION_KHR 0x30FB
 #define EGL_CONTEXT_FLAGS_KHR                   0x30FC

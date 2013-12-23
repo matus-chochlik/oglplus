@@ -1,1 +1,2 @@
 PNG
+PANGO_CAIRO
