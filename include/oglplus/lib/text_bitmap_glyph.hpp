@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/lib/text_pango_cairo.hpp
- *  @brief All-in-one include file for the separatelly-built pango/cairo functions
+ *  @file oglplus/lib/text_bitmap_glyph.hpp
+ *  @brief All-in-one include file for the separatelly-built bitmap glyph functions
  *
  *  @author Matus Chochlik
  *
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_LIB_TEXT_PANGO_CAIRO_1208310818_HPP
-#define OGLPLUS_LIB_TEXT_PANGO_CAIRO_1208310818_HPP
+#ifndef OGLPLUS_LIB_TEXT_BITMAP_GLYPH_1208310818_HPP
+#define OGLPLUS_LIB_TEXT_BITMAP_GLYPH_1208310818_HPP
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 
@@ -20,9 +20,7 @@
 #endif
 
 #include <oglplus/config.hpp>
-#if OGLPLUS_PANGO_CAIRO_FOUND
-#include <oglplus/text/pango_cairo.hpp>
-#endif
+#include <oglplus/text/bitmap_glyph.hpp>
 
 #undef OGLPLUS_IMPLEMENTING_LIBRARY
 

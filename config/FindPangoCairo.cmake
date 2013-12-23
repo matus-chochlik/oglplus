@@ -10,5 +10,8 @@ if(PKG_CONFIG_FOUND)
 
 	if(PANGO_CAIRO_FOUND)
 		message(STATUS "Found Pango/Cairo")
+		set(PANGO_CAIRO_FOUND 1)
+	else()
+		set(PANGO_CAIRO_FOUND 0)
 	endif()
 endif(PKG_CONFIG_FOUND)
