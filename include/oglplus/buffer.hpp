@@ -660,7 +660,10 @@ public:
 	 */
 	static bool ImmutableStorage(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_BUFFER_IMMUTABLE_STORAGE));
+		return GetIntParam(
+			target,
+			GL_BUFFER_IMMUTABLE_STORAGE
+		) == GL_TRUE;
 	}
 
 	/// Returns the buffer storage flags
