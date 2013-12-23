@@ -228,16 +228,7 @@ public:
 	 *  @glfunref{GetProgramPipeline}
 	 *  @glfunref{GetProgramPipelineInfoLog}
 	 */
-	String GetInfoLog(void) const
-	{
-		assert(_name != 0);
-		return aux::GetInfoLog(
-			_name, OGLPLUS_GLFUNC(GetProgramPipelineiv),
-			OGLPLUS_GLFUNC(GetProgramPipelineInfoLog),
-			"GetProgramPipelineiv",
-			"GetProgramPipelineInfoLog"
-		);
-	}
+	String GetInfoLog(void) const;
 
 	/// Returns true if the pipeline is validated, false otherwise
 	/**

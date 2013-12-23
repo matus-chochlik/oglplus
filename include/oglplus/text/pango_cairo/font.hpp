@@ -39,25 +39,7 @@ private:
 
 	PangoCairoFontEssence(const PangoCairoFontEssence&);
 public:
-	PangoCairoFontEssence(
-		const char* font_name
-	): _font_desc(
-		::pango_font_description_from_string(font_name),
-		::pango_font_description_free
-	), _font_map(
-		::pango_cairo_font_map_get_default(),
-		::g_object_unref
-	), _context(
-		::pango_font_map_create_context(_font_map),
-		::g_object_unref
-	), _font(
-		::pango_font_map_load_font(_font_map, _context, _font_desc),
-		::g_object_unref
-	), _font_metrics(
-		::pango_font_get_metrics(_font, nullptr),
-		::pango_font_metrics_unref
-	)
-	{ }
+	PangoCairoFontEssence(const char* font_name);
 
 	int Ascent(void)
 	{
@@ -98,5 +80,9 @@ public:
 
 } // namespace text
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/text/pango_cairo/font.ipp>
+#endif
 
 #endif // include guard

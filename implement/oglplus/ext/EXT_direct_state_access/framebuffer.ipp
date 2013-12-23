@@ -11,7 +11,7 @@
 
 namespace oglplus {
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
+#if GL_EXT_direct_state_access
 
 OGLPLUS_LIB_FUNC
 void DSAFramebufferEXTOps::HandleIncompleteError(

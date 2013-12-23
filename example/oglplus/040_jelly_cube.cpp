@@ -383,8 +383,8 @@ public:
 			CopyFeedback(tfb_velocities, velocities);
 		}
 		tfb_positions.Bind(se::TransformFeedback());
-		Buffer::TypedMap<Vec4f> map(
-			Buffer::Target::TransformFeedback,
+		BufferTypedMap<Vec4f> map(
+			BufferTarget::TransformFeedback,
 			BufferMapAccess::Read
 		);
 		cam_pos = map.At(0).xyz();

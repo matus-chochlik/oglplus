@@ -103,6 +103,7 @@ struct DataTypeCT<GLfloat>
 >
 { };
 
+#ifdef GL_DOUBLE
 template <>
 struct DataTypeCT<GLdouble>
  : public std::integral_constant<
@@ -110,6 +111,7 @@ struct DataTypeCT<GLdouble>
 	OGLPLUS_CONST_ENUM_VALUE(DataType::Double)
 >
 { };
+#endif
 
 /// Returns the DataType for the specified type @p T
 template <typename T>

@@ -16,8 +16,8 @@ OGLPLUS_LIB_FUNC
 bool BitmapGlyphPager::_frames_consistent(void) const
 {
 	_gpu_page_map.Bind(Buffer::Target::Uniform);
-	Buffer::TypedMap<gpu_frame_t> page_frame_map(
-		Buffer::Target::Uniform,
+	BufferTypedMap<gpu_frame_t> page_frame_map(
+		BufferTarget::Uniform,
 		BufferMapAccess::Read
 	);
 	const std::size_t n = _frames.size();
@@ -60,8 +60,8 @@ void BitmapGlyphPager::_replace_page(GLint frame, GLint page)
 	//
 	// we'll need to update the page map on gpu
 	_gpu_page_map.Bind(Buffer::Target::Uniform);
-	Buffer::TypedMap<gpu_frame_t> page_frame_map(
-		Buffer::Target::Uniform,
+	BufferTypedMap<gpu_frame_t> page_frame_map(
+		BufferTarget::Uniform,
 		BufferMapAccess::Write
 	);
 	if(previous >= 0)

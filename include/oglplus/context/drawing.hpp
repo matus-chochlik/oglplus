@@ -127,6 +127,7 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Draws @a primcount ranges of primitives from the bound array buffers
 	/**
 	 *  @throws Error
@@ -151,6 +152,7 @@ public:
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MultiDrawArrays));
 	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_multi_draw_indirect
 	/// Draws multiple sets of primitives from an indirect buffer
@@ -336,6 +338,7 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Draws a sequence of primitives from the bound element array buffers
 	/**
 	 *  @throws Error
@@ -385,6 +388,7 @@ public:
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MultiDrawElements));
 	}
+#endif
 
 	/// Draws a sequence of primitives from the bound element array buffers
 	/**

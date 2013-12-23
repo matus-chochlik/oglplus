@@ -61,6 +61,14 @@ public:
 		this->_elem[2] = v2;
 	}
 
+	Vector(const Vector<T, 4>& v)
+	 : Base(oglplus::Nothing())
+	{
+		this->_elem[0] = v[0];
+		this->_elem[1] = v[1];
+		this->_elem[2] = v[2];
+	}
+
 	Vector(Unit_, std::size_t axis)
 	{
 		assert(axis < 3);

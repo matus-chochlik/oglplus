@@ -296,8 +296,8 @@ void SpectraDefaultGPUMatrixTransf::FinishTransform(
 	assert(count <= out_size);
 
 	output_bufs[tid].Bind(Buffer::Target::TransformFeedback);
-	Buffer::TypedMap<GLfloat> map(
-		Buffer::Target::TransformFeedback,
+	BufferTypedMap<GLfloat> map(
+		BufferTarget::TransformFeedback,
 		BufferMapAccess::Read
 	);
 	std::copy(map.Data(), map.Data()+count, output);

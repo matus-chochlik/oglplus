@@ -8,6 +8,7 @@
  */
 
 #include <oglplus/gl.hpp>
+#include <oglplus/fix_gl_version.hpp>
 
 #if OGLPLUS_FREEGLUT_FOUND
 # include <GL/freeglut.h>

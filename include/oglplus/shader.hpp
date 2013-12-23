@@ -23,7 +23,7 @@
 #include <oglplus/precision_type.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/string.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
 
 #include <array>
@@ -31,24 +31,6 @@
 #include <cassert>
 
 namespace oglplus {
-
-/// The type of a Shader
-/**
- *  @ingroup enumerations
- *
- *  @see Shader::Type()
- */
-OGLPLUS_ENUM_CLASS_BEGIN(ShaderType, GLenum)
-#include <oglplus/enums/shader_type.ipp>
-OGLPLUS_ENUM_CLASS_END(ShaderType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/shader_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/shader_type_range.ipp>
-#endif
 
 /// Shader operations wrapper helper class
 /**
@@ -276,16 +258,7 @@ public:
 	 *  @glfunref{GetShader}
 	 *  @glfunref{GetShaderInfoLog}
 	 */
-	String GetInfoLog(void) const
-	{
-		assert(_name != 0);
-		return aux::GetInfoLog(
-			_name, OGLPLUS_GLFUNC(GetShaderiv),
-			OGLPLUS_GLFUNC(GetShaderInfoLog),
-			"GetShaderiv",
-			"GetShaderInfoLog"
-		);
-	}
+	String GetInfoLog(void) const;
 
 	void HandleCompileError(void) const;
 
@@ -315,7 +288,10 @@ public:
 		return *this;
 	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_ES_VERSION_3_0 || \
+	GL_VERSION_4_1 || \
+	GL_ARB_ES2_compatibility
 	/// Indicate that the resources associated with the compiler can be freed
 	/**
 	 *  @glvoereq{4,1,ARB,ES2_compatibility}
@@ -329,7 +305,10 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_ES_VERSION_3_0 || \
+	GL_VERSION_4_1 || \
+	GL_ARB_ES2_compatibility
 	/// Get the shader precision format
 	/**
 	 *  @glvoereq{4,1,ARB,ES2_compatibility}

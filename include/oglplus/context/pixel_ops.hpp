@@ -32,6 +32,7 @@ namespace context {
 class PixelOps
 {
 public:
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the @p value of a pixel storage @p parameter
 	/**
 	 *  @glsymbols
@@ -53,6 +54,7 @@ public:
 		OGLPLUS_GLFUNC(PixelStorei)(GLenum(parameter), value);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PixelStorei));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Sets the @p value of a pixel storage @p parameter
 	/**

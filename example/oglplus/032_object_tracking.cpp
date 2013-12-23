@@ -595,8 +595,8 @@ public:
 		GLuint count = 0;
 		track_query.WaitForResult(count);
 		track_buffer.Bind(Buffer::Target::TransformFeedback);
-		Buffer::TypedMap<Vec4f> xfb_map(
-			Buffer::Target::TransformFeedback,
+		BufferTypedMap<Vec4f> xfb_map(
+			BufferTarget::TransformFeedback,
 			BufferMapAccess::Read
 		);
 

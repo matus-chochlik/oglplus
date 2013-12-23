@@ -183,7 +183,10 @@ public:
 	}
 
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_ES2_compatibility
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_ES_VERSION_3_0 || \
+	GL_VERSION_4_1 || \
+	GL_ARB_ES2_compatibility
 	/// Sets the @p near_val / @p far_val depth range of the default viewport
 	/**
 	 *  @throws Error
@@ -198,6 +201,7 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the @p near_val / @p far_val depth range of the default viewport
 	/**
 	 *  @throws Error
@@ -210,6 +214,7 @@ public:
 		OGLPLUS_GLFUNC(DepthRange)(near_val, far_val);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRange));
 	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
 	/// Returns the number of available viewports

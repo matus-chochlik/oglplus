@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/images/png.hpp
+ *  @file oglplus/images/xpm.hpp
  *  @brief XPM (X Pix Map) image loader
  *
  *  @author Matus Chochlik

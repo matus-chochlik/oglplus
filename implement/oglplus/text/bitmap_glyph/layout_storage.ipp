@@ -80,8 +80,8 @@ bool BitmapGlyphLayoutStorage::Allocate(BitmapGlyphLayoutData& layout_data)
 	// now traverse the linked list (stored in the free
 	// space in _code_points) to find the best chunk
 	_code_points.Bind(Buffer::Target::Array);
-	Buffer::TypedMap<GLuint> map(
-		Buffer::Target::Array,
+	BufferTypedMap<GLuint> map(
+		BufferTarget::Array,
 		BufferMapAccess::Read|BufferMapAccess::Write
 	);
 	//
@@ -186,8 +186,8 @@ void BitmapGlyphLayoutStorage::Deallocate(BitmapGlyphLayoutData& layout_data)
 	const GLuint returned = GLuint(layout_data._capacity);
 	//
 	_code_points.Bind(Buffer::Target::Array);
-	Buffer::TypedMap<GLuint> map(
-		Buffer::Target::Array,
+	BufferTypedMap<GLuint> map(
+		BufferTarget::Array,
 		BufferMapAccess::Read|BufferMapAccess::Write
 	);
 	// if the storage is completelly full

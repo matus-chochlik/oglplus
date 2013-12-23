@@ -266,16 +266,16 @@ public:
 		//
 		norm_tex.target =  Texture::Target::_2D;
 		norm_tex.Image2D(
-			images::Transformed<GLfloat>(
+			images::TransformComponents<GLfloat, 3>(
 				images::NormalMap(
 					tile_image,
-					images::NormalMap::Filter::FromRed()
+					images::NormalMap::Filtered::FromRed()
 				),
-				Mat4f(
-					Vec4f(1.0, 0.0, 0.0, 0.0),
-					Vec4f(0.0, 0.0, 1.0, 0.0),
-					Vec4f(0.0,-1.0, 0.0, 0.0),
-					Vec4f(0.0, 0.0, 0.0, 1.0)
+				Mat4d(
+					Vec4d(1.0, 0.0, 0.0, 0.0),
+					Vec4d(0.0, 0.0, 1.0, 0.0),
+					Vec4d(0.0,-1.0, 0.0, 0.0),
+					Vec4d(0.0, 0.0, 0.0, 1.0)
 				)
 			)
 		);

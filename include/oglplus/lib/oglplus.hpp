@@ -44,8 +44,13 @@
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/framebuffer.hpp>
+#include <oglplus/renderbuffer.hpp>
+#include <oglplus/buffer.hpp>
+#include <oglplus/texture.hpp>
+#include <oglplus/transform_feedback.hpp>
 #include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
+#include <oglplus/program_resource.hpp>
 #include <oglplus/program_pipeline.hpp>
 
 #include <oglplus/imports/blend_file.hpp>
@@ -78,18 +83,16 @@
 #include <oglplus/images/sphere_bmap.hpp>
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/xpm.hpp>
-#include <oglplus/images/load.hpp>
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>
-#include <oglplus/text/bitmap_glyph.hpp>
-#include <oglplus/text/stb_truetype.hpp>
 #endif //OGLPLUS_NO_VARIADIC_TEMPLATES
 
 #include <oglplus/opt/resources.hpp>
 
 #include <oglplus/ext/ARB_debug_output.hpp>
 #include <oglplus/ext/EXT_direct_state_access/framebuffer.hpp>
+#include <oglplus/ext/EXT_direct_state_access/texture.hpp>
 
 namespace oglplus {
 
