@@ -24,6 +24,16 @@ if(NOT OGLPLUS_MAX_GL_VERSION)
 	set(OGLPLUS_MAX_GL_VERSION 9_9)
 endif()
 
+set(
+	OGLPLUS_FIX_GL_VERSION_HPP
+	${PROJECT_BINARY_DIR}/include/oglplus/fix_gl_version.hpp
+)
+
+configure_file(
+	${PROJECT_SOURCE_DIR}/config/oglplus/fix_gl_version.hpp.in
+	${OGLPLUS_FIX_GL_VERSION_HPP}
+)
+
 message(STATUS "Detecting OpenGL version")
 foreach(GL_VERSION 4_4 4_3 4_2 4_1 4_0 3_3 3_2 3_1)
 	if(NOT("${GL_VERSION}" STRGREATER "${OGLPLUS_MAX_GL_VERSION}"))
@@ -36,7 +46,12 @@ foreach(GL_VERSION 4_4 4_3 4_2 4_1 4_0 3_3 3_2 3_1)
 		endif()
 	endif()
 	set(OGLPLUS_NO_GL_VERSION_${GL_VERSION} true)
+	file(APPEND ${OGLPLUS_FIX_GL_VERSION_HPP} "#ifdef GL_VERSION_${GL_VERSION}\n")
+	file(APPEND ${OGLPLUS_FIX_GL_VERSION_HPP} "#undef GL_VERSION_${GL_VERSION}\n")
+	file(APPEND ${OGLPLUS_FIX_GL_VERSION_HPP} "#endif //GL_VERSION_${GL_VERSION}\n")
 endforeach()
+
+file(APPEND ${OGLPLUS_FIX_GL_VERSION_HPP} "#endif //include guard\n")
 
 if(OGLPLUS_GL_VERSION_MAJOR)
 	message(STATUS "Found GL version ${OGLPLUS_GL_VERSION_MAJOR}.${OGLPLUS_GL_VERSION_MINOR}")

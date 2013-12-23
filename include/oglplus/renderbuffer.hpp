@@ -100,15 +100,7 @@ protected:
 
 	friend class FriendOf<RenderbufferOps>;
 
-	static GLenum _binding_query(Target target)
-	{
-		switch(GLenum(target))
-		{
-#include <oglplus/enums/renderbuffer_target_bq.ipp>
-			default:;
-		}
-		return 0;
-	}
+	static GLenum _binding_query(Target target);
 	friend class BindingQuery<RenderbufferOps>;
 
 	static GLint GetIntParam(Target target, GLenum query)
@@ -369,5 +361,9 @@ typedef Object<RenderbufferOps> Renderbuffer;
 #endif
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/renderbuffer.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

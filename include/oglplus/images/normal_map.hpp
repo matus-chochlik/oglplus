@@ -38,11 +38,11 @@ private:
 			typedef GLdouble number;
 			number s = 0.05;
 
-			number sc  = extractor(sampler.get( 0, 0));
-			number spx = extractor(sampler.get(+1, 0));
-			number spy = extractor(sampler.get( 0,+1));
-			number snx = extractor(sampler.get(-1, 0));
-			number sny = extractor(sampler.get( 0,-1));
+			number sc  = extractor(sampler( 0, 0, 0));
+			number spx = extractor(sampler(+1, 0, 0));
+			number spy = extractor(sampler( 0,+1, 0));
+			number snx = extractor(sampler(-1, 0, 0));
+			number sny = extractor(sampler( 0,-1, 0));
 			Vector<number, 3> vpx(+s, 0, (spx-sc));
 			Vector<number, 3> vpy(0, +s, (spy-sc));
 			Vector<number, 3> vnx(-s, 0, (snx-sc));
@@ -59,7 +59,7 @@ private:
 		}
 	};
 public:
-	typedef FilteredImage<GLfloat, 4> Filter;
+	typedef FilteredImage<GLfloat, 4> Filtered;
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Creates a normal-map from the @p input height-map image
@@ -69,18 +69,23 @@ public:
 	 *    default the RED component of the image is used as the height-map
 	 *    value used in normal-map calculation).
 	 */
-	template <typename Extractor = typename Filter::FromRed>
+	template <typename Extractor = typename Filtered::FromRed>
 	NormalMap(const Image& input, Extractor extractor = Extractor());
 #endif
 
 #if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
-	template <typename Extractor = typename Filter::FromRed>
+	template <typename Extractor = typename Filtered::FromRed>
 	NormalMap(const Image& input, Extractor extractor = Extractor())
 #else
 	template <typename Extractor>
 	NormalMap(const Image& input, Extractor extractor)
 #endif
-	 : Filter(input, _filter(), extractor)
+	 : Filtered(
+		input,
+		_filter(),
+		Filtered::DefaultSampler(),
+		extractor
+	)
 	{
 		this->_format = PixelDataFormat::RGBA;
 		this->_internal = PixelDataInternalFormat::RGBA16F;

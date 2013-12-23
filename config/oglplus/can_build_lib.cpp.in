@@ -8,9 +8,9 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-#define OGLPLUS_PNG_FOUND @PNG_FOUND@
 
 #include <oglplus/gl.hpp>
+#include <oglplus/fix_gl_version.hpp>
 #define OGLPLUS_LINK_LIBRARY 1
 #include <oglplus/lib.hpp>
 

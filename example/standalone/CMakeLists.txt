@@ -35,6 +35,16 @@ endif()
 
 standalone_example_common(001_text2d)
 
+if(GLUT_FOUND AND GLES3_FOUND)
+	include_directories(${GLES3_INCLUDE_DIRS})
+	include_directories(${GLUT_INCLUDE_DIRS})
+
+	standalone_example_common(
+		001_triangle_glut_gles3
+		${GLUT_LIBRARIES} ${GLES3_LIBRARIES}
+	)
+endif()
+
 if(GLUT_FOUND AND GLEW_FOUND)
 	include_directories(${GLEW_INCLUDE_DIRS})
 	include_directories(${GLUT_INCLUDE_DIRS})

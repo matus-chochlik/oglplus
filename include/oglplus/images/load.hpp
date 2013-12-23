@@ -28,6 +28,9 @@ Image LoadByName(
 );
 
 /// Helper function for loading textures that come with @OGLplus in the examples
+/**
+ *  @ingroup image_load_gen
+ */
 inline Image LoadTexture(
 	std::string name,
 	bool y_is_up = true,

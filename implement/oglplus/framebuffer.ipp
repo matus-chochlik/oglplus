@@ -12,6 +12,17 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
+GLenum FramebufferOps::_binding_query(Target target)
+{
+	switch(GLenum(target))
+	{
+#include <oglplus/enums/framebuffer_target_bq.ipp>
+		default:;
+	}
+	return 0;
+}
+
+OGLPLUS_LIB_FUNC
 void FramebufferOps::HandleIncompleteError(
 	Target target,
 	FramebufferStatus status

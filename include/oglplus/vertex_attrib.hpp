@@ -650,18 +650,22 @@ protected:
 	OGLPLUS_ERROR_INFO_CONTEXT(VertexAttrib, VertexAttrib)
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, d, t, GLdouble)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, s, t, GLshort)
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, t, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, t, GLuint)
+#endif
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, fv, v, GLfloat)
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, dv, v, GLdouble)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, sv, v, GLshort)
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, v, GLint)
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, v, GLuint)
+#endif
 };
 
 } // namespace aux
@@ -923,6 +927,7 @@ public:
 				nullptr
 			);
 		}
+#ifdef GL_DOUBLE
 		else if(data_type == DataType::Double)
 		{
 			LPointer(
@@ -932,6 +937,7 @@ public:
 				nullptr
 			);
 		}
+#endif
 		else
 		{
 			IPointer(
@@ -961,6 +967,7 @@ public:
 		);
 	}
 
+#ifdef GL_DOUBLE
 	const VertexAttribArray& Setup(
 		GLint values_per_vertex,
 		std::integral_constant<
@@ -976,6 +983,7 @@ public:
 			nullptr
 		);
 	}
+#endif
 
 	template <
 		typename enums::EnumValueType<DataType>::Type DataTypeValue
@@ -1087,6 +1095,10 @@ public:
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLPointer));
 #else
+		OGLPLUS_FAKE_USE(values_per_vertex);
+		OGLPLUS_FAKE_USE(data_type);
+		OGLPLUS_FAKE_USE(stride);
+		OGLPLUS_FAKE_USE(pointer);
 		assert(!
 			"The glVertexAttribLPointer function is "
 			"required but not available! Double-precision "

@@ -66,6 +66,7 @@ public:
 		return Face(result);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the polygon rasterization mode
 	/**
 	 *  @glsymbols
@@ -101,6 +102,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return oglplus::PolygonMode(result[1]);
 	}
+#endif // GL_VERSION_3_0
 
 	/// Sets the polygon depth offset
 	/**
@@ -166,6 +168,7 @@ public:
 		return result;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the point size
 	/**
 	 *  @glsymbols
@@ -219,6 +222,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
 		return result;
 	}
+#endif // GL_VERSION_3_0
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_provoking_vertex
 	/// Sets the provoking vertex selection mode for flatshading

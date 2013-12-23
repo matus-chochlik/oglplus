@@ -147,6 +147,7 @@ public:
 		return result == GL_TRUE;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Get the query result
 	/**
 	 *  @glsymbols
@@ -168,6 +169,7 @@ public:
 			_name
 		));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Get the query result
 	/**

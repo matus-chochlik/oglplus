@@ -21,8 +21,11 @@
 #include <oglplus/array.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/bitfield.hpp>
-#include <oglplus/limited_value.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/buffer_binding.hpp>
+#include <oglplus/buffer_usage.hpp>
+#include <oglplus/buffer_storage_bit.hpp>
+#include <oglplus/buffer_target.hpp>
+#include <oglplus/buffer_map.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
@@ -32,163 +35,6 @@
 #include <cassert>
 
 namespace oglplus {
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the uniform buffer binding point index
-class UniformBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	UniformBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	UniformBufferBindingPoint,
-	MAX_UNIFORM_BUFFER_BINDINGS
-)
-#else
-typedef GLuint UniformBufferBindingPoint;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the transform feedback buffer binding point index
-class TransformFeedbackBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	TransformFeedbackBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_4_0 || GL_ARB_transform_feedback3
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	TransformFeedbackBufferBindingPoint,
-	MAX_TRANSFORM_FEEDBACK_BUFFERS
-)
-#else
-typedef GLuint TransformFeedbackBufferBindingPoint;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the atomic counter buffer binding point index
-class AtomicCounterBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	AtomicCounterBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_4_2 || GL_ARB_shader_atomic_counters
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	AtomicCounterBufferBindingPoint,
-	MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
-)
-#else
-typedef GLuint AtomicCounterBufferBindingPoint;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the shader storage buffer binding point index
-class ShaderStorageBufferBindingPoint
- : public LimitedCount
-{
-public:
-	/// Construction from a @c GLuint
-	ShaderStorageBufferBindingPoint(GLuint count);
-};
-#elif GL_VERSION_4_3 || GL_ARB_shader_storage_buffer_object
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	ShaderStorageBufferBindingPoint,
-	MAX_SHADER_STORAGE_BUFFER_BINDINGS
-)
-#else
-typedef GLuint ShaderStorageBufferBindingPoint;
-#endif
-
-/// Buffer usage enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferUsage, GLenum)
-#include <oglplus/enums/buffer_usage.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferUsage)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_usage_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_usage_range.ipp>
-#endif
-
-/// Buffer map access enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferMapAccess, GLbitfield)
-#include <oglplus/enums/buffer_map_access.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferMapAccess)
-OGLPLUS_MAKE_BITFIELD(BufferMapAccess)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_map_access_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_map_access_range.ipp>
-#endif
-
-/// Buffer storage flags/bits
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferStorageBit, GLbitfield)
-#include <oglplus/enums/buffer_storage_bit.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferStorageBit)
-
-OGLPLUS_MAKE_BITFIELD(BufferStorageBit)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_storage_bit_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_storage_bit_range.ipp>
-#endif
-
-/// Buffer bind target
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferTarget, GLenum)
-#include <oglplus/enums/buffer_target.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_target_range.ipp>
-#endif
-
-
-/// Buffer indexed bind target
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(BufferIndexedTarget, GLenum)
-#include <oglplus/enums/buffer_indexed_target.ipp>
-OGLPLUS_ENUM_CLASS_END(BufferIndexedTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/buffer_indexed_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/buffer_indexed_target_range.ipp>
-#endif
-
 
 /// Wrapper for OpenGL buffer operations
 /**
@@ -259,15 +105,7 @@ protected:
 
 	friend class FriendOf<BufferOps>;
 
-	static GLenum _binding_query(Target target)
-	{
-		switch(GLenum(target))
-		{
-#include <oglplus/enums/buffer_target_bq.ipp>
-			default:;
-		}
-		return 0;
-	}
+	static GLenum _binding_query(Target target);
 	friend class BindingQuery<BufferOps>;
 
 	static GLint GetIntParam(Target target, GLenum query)
@@ -293,149 +131,9 @@ public:
 		typedef BufferMapAccess MapAccess;
 	};
 
-	/// Typed mapping of the buffer to the client address space
-	template <typename Type>
-	class TypedMap
-	{
-	private:
-		const GLintptr _offset;
-		GLsizeiptr _size;
-		GLvoid* _ptr;
-		const Target _target;
-
-		static GLsizeiptr _get_size(Target target)
-		{
-			GLint value = 0;
-			OGLPLUS_GLFUNC(GetBufferParameteriv)(
-				GLenum(target),
-				GL_BUFFER_SIZE,
-				&value
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
-			return GLsizeiptr(value);
-		}
-
-		static GLenum _translate(GLbitfield access)
-		{
-			switch(access)
-			{
-				case GL_MAP_READ_BIT:
-					return GL_READ_ONLY;
-				case GL_MAP_WRITE_BIT:
-					return GL_WRITE_ONLY;
-				case GL_MAP_READ_BIT|GL_MAP_WRITE_BIT:
-					return GL_READ_WRITE;
-			}
-			return GL_READ_ONLY;
-		}
-	public:
-		/// Maps a range of the buffer
-		/**
-		 *  @param target use the buffer bound to the target specified
-		 *  @param offset map offset in units of Type
-		 *  @param size map size in units of Type
-		 *  @param access the access specifier for the buffer mapping
-		 *
-		 *  @throws Error
-		 */
-		TypedMap(
-			Target target,
-			GLintptr offset,
-			GLsizeiptr size,
-			Bitfield<BufferMapAccess> access
-		): _offset(offset * sizeof(Type))
-		 , _size(size * sizeof(Type))
-		 , _ptr(
-			OGLPLUS_GLFUNC(MapBufferRange)(
-				GLenum(target),
-				offset,
-				size,
-				GLbitfield(access)
-			)
-		), _target(target)
-		{
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBufferRange));
-		}
-
-		/// Maps the whole buffer
-		/**
-		 *  @param target use the buffer bound to the target specified
-		 *  @param access the access specifier for the buffer mapping
-		 *
-		 * This class is non-copyable.
-		 *
-		 *  @throws Error
-		 */
-		TypedMap(Target target, Bitfield<BufferMapAccess> access)
-		 : _offset(0)
-		 , _size(_get_size(target))
-		 , _ptr(
-			OGLPLUS_GLFUNC(MapBuffer)(
-				GLenum(target),
-				_translate(GLbitfield(access))
-			)
-		), _target(target)
-		{
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBuffer));
-		}
-
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
-		TypedMap(const TypedMap&) = delete;
-#else
-	private:
-		TypedMap(const TypedMap&);
-	public:
-#endif
-
-		/// Move construction is enabled
-		TypedMap(TypedMap&& temp)
-		 : _offset(temp._offset)
-		 , _size(temp._size)
-		 , _ptr(temp._ptr)
-		 , _target(temp._target)
-		{
-			temp._ptr = nullptr;
-		}
-
-		~TypedMap(void)
-		{
-			if(_ptr != nullptr)
-			{
-				OGLPLUS_GLFUNC(UnmapBuffer)(GLenum(_target));
-				OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(UnmapBuffer));
-			}
-		}
-
-		/// Returns the size (in bytes) of the mapped buffer
-		GLsizeiptr Size(void) const
-		{
-			return _size;
-		}
-
-		/// Returns the count of elements of Type in the mapped buffer
-		GLsizeiptr Count(void) const
-		{
-			assert(_size % sizeof(Type) == 0);
-			return _size / sizeof(Type);
-		}
-
-		/// Returns the pointer to the mapped data
-		Type* Data(void) const
-		{
-			return (Type*)_ptr;
-		}
-
-		/// Returns the element at the specified index
-		Type& At(GLuint index) const
-		{
-			assert(_ptr != nullptr);
-			assert(((index+1)*sizeof(Type)) <= std::size_t(_size));
-			return ((Type*)_ptr)[index];
-		}
-	};
-
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Mapping of the buffer to the client address space
-	typedef TypedMap<GLubyte> Map;
+	typedef BufferTypedMap<GLubyte> Map;
 
 	/// Returns true if the buffer is mapped
 	/**
@@ -449,6 +147,7 @@ public:
 	{
 		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
 	}
+#endif // GL_VERSION_3_0
 
 	/// Bind this buffer to the specified target
 	/**
@@ -961,7 +660,10 @@ public:
 	 */
 	static bool ImmutableStorage(Target target)
 	{
-		return GLsizei(GetIntParam(target, GL_BUFFER_IMMUTABLE_STORAGE));
+		return GetIntParam(
+			target,
+			GL_BUFFER_IMMUTABLE_STORAGE
+		) == GL_TRUE;
 	}
 
 	/// Returns the buffer storage flags
@@ -1008,6 +710,7 @@ public:
 		return BufferUsage(GetIntParam(target, GL_BUFFER_USAGE));
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Returns the buffer usage
 	/**
 	 *  @see Usage
@@ -1024,6 +727,7 @@ public:
 			GLbitfield(GetIntParam(target, GL_BUFFER_ACCESS))
 		);
 	}
+#endif
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -1171,5 +875,9 @@ public:
 };
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/buffer.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

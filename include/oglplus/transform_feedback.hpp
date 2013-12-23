@@ -131,15 +131,7 @@ protected:
 
 	friend class FriendOf<TransformFeedbackOps>;
 
-	static GLenum _binding_query(Target target)
-	{
-		switch(GLenum(target))
-		{
-#include <oglplus/enums/transform_feedback_target_bq.ipp>
-			default:;
-		}
-		return 0;
-	}
+	static GLenum _binding_query(Target target);
 	friend class BindingQuery<TransformFeedbackOps>;
 public:
 
@@ -380,5 +372,9 @@ typedef Object<TransformFeedbackOps> TransformFeedback;
 #endif // transform feedback 2
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/transform_feedback.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

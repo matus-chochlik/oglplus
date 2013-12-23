@@ -324,7 +324,7 @@ public:
 		Uniform<Mat4f>(prog, "ModelMatrix").Set(model);
 
 		// map the transform feedback buffer
-		Buffer::TypedMap<GLfloat> transf_hole_verts_map(
+		BufferTypedMap<GLfloat> transf_hole_verts_map(
 			Buffer::Target::TransformFeedback,
 			BufferMapAccess::Read
 		);

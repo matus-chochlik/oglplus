@@ -163,7 +163,9 @@ struct DefaultGLSLtoCppTypeMatcher_Vec
 	static std::size_t _type_idx(GLint*) { return 1; }
 	static std::size_t _type_idx(GLuint*) { return 2; }
 	static std::size_t _type_idx(GLfloat*) { return 3; }
+#if defined(GL_DOUBLE)
 	static std::size_t _type_idx(GLdouble*) { return 4; }
+#endif
 
 	static bool _does_match(
 		GLenum sl_type,
@@ -193,7 +195,9 @@ struct DefaultGLSLtoCppTypeMatcher<oglplus::Vector<T, N> >
 struct DefaultGLSLtoCppTypeMatcher_Mat
 {
 	static std::size_t _type_idx(GLfloat*) { return 0; }
+#ifdef GL_DOUBLE
 	static std::size_t _type_idx(GLdouble*) { return 1; }
+#endif
 
 	static bool _does_match(
 		GLenum sl_type,

@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/buffer_select_bit.hpp
- *  @brief OpenGL buffer selection bit enumeration
+ *  @brief Color, depth or stencil buffer selection bit enumeration
  *
  *  @author Matus Chochlik
  *
@@ -18,7 +18,7 @@
 
 namespace oglplus {
 
-/// Polygon facing enumeration
+/// Buffer selection bit enumeration
 /**
  *  @ingroup enumerations
  *

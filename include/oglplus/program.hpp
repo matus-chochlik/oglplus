@@ -21,8 +21,7 @@
 #include <oglplus/transform_feedback.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
-#include <oglplus/program_interface.hpp>
-#include <oglplus/auxiliary/program.hpp>
+#include <oglplus/program_resource.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/primitive_type.hpp>
@@ -36,229 +35,6 @@
 namespace oglplus {
 
 class VertexAttribOps;
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
-/// Information about a single active program resource
-/**
- *  @see Program
- *  @see Program::ActiveResources()
- *  @see ProgramInterface
- *
- *  @code
- *  Program prog;
- *  ...
- *  ProgramInterface intf = ProgramInterface::ProgramInput;
- *  for(auto range=prog.ActiveResources(intf); !range.Empty(); range.Next())
- *  {
- *      auto res = range.Front();
- *      std::cout << res.Name() << std::endl;
- *      std::cout << EnumValueName(res.Type()) << std::endl;
- *      if(res.IsPerPatch())
- *          std::cout << "Per-patch" << std::endl;
- *      else std::cout << "Not per-patch << std::endl;
- *  }
- *  @endcode
- */
-class ProgramResource
-{
-private:
-	GLint _program;
-	GLenum _interface;
-	GLuint _index;
-	String _name;
-
-	void QueryParams(
-		GLenum property,
-		GLsizei bufsize,
-		GLsizei* written,
-		GLint* params
-	) const
-	{
-		OGLPLUS_GLFUNC(GetProgramResourceiv)(
-			_program,
-			_interface,
-			_index,
-			1, &property,
-			bufsize,
-			written,
-			params
-		);
-	}
-
-	GLint GetParam(GLenum property) const
-	{
-		GLint res;
-		QueryParams(property, 1, nullptr, &res);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceiv));
-		return res;
-	}
-
-	bool HasProp(GLenum property) const
-	{
-		GLint res;
-		QueryParams(GLenum(property), 1, nullptr, &res);
-		return OGLPLUS_GLFUNC(GetError)() == GL_NO_ERROR;
-	}
-public:
-	ProgramResource(
-		aux::ProgramInterfaceContext& context,
-		GLuint index
-	): _program(context.Program())
-	 , _interface(context.Interface())
-	 , _index(index)
-	{
-		GLsizei bufsize = context.Buffer().size();
-		if(bufsize != 0)
-		{
-			GLsizei length = 0;
-			OGLPLUS_GLFUNC(GetProgramResourceName)(
-				_program,
-				_interface,
-				_index,
-				bufsize,
-				&length,
-				context.Buffer().data()
-			);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceName));
-			_name.assign(context.Buffer().data(), length);
-		}
-	}
-
-	/// Gets the value of a single property (as an GLint)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 */
-	GLint GetIntParam(ProgramResourceProperty property) const
-	{
-		return GetParam(GLenum(property));
-	}
-
-	/// Gets the value of a single property (as a boolean value)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 */
-	bool GetBoolParam(ProgramResourceProperty property) const
-	{
-		return GetParam(GLenum(property)) == GL_TRUE;
-	}
-
-	/// Checks if this resource has the specified property
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 */
-	bool Has(ProgramResourceProperty property) const
-	{
-		return HasProp(GLenum(property));
-	}
-
-	/// Returns the interface of the resource
-	ProgramInterface Interface(void) const
-	{
-		return ProgramInterface(_interface);
-	}
-
-	/// Returns the name of the resource
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResourceName}
-	 */
-	const String& Name(void) const
-	{
-		return _name;
-	}
-
-	/// Returns the index of the resource
-	GLuint Index(void) const
-	{
-		return _index;
-	}
-
-	/// Returns true if the resource has a type
-	bool HasType(void) const
-	{
-		return HasProp(GL_TYPE);
-	}
-
-	/// Returns the data type of the resource (if applicable)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 *  @gldefref{TYPE}
-	 */
-	SLDataType Type(void) const
-	{
-		return SLDataType(GetParam(GL_TYPE));
-	}
-
-	/// Returns the program resource location (if applicable)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 *  @gldefref{LOCATION}
-	 */
-	GLint Location(void) const
-	{
-		return GetParam(GL_LOCATION);
-	}
-
-	/// Returns the program resource location index (if applicable)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 *  @gldefref{LOCATION_INDEX}
-	 */
-	GLint LocationIndex(void) const
-	{
-		return GetParam(GL_LOCATION_INDEX);
-	}
-
-	/// Returns the array size of the resource (if applicable)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 *  @gldefref{ARRAY_SIZE}
-	 */
-	GLint ArraySize(void) const
-	{
-		return GetParam(GL_ARRAY_SIZE);
-	}
-
-	GLenum ReferencedByProperty(ShaderType type) const;
-
-	/// Returns true if the resource is_referenced by shader (if applicable)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 *  @gldefref{REFERENCED_BY_VERTEX_SHADER}
-	 *  @gldefref{REFERENCED_BY_TESS_CONTROL_SHADER}
-	 *  @gldefref{REFERENCED_BY_TESS_EVALUATION_SHADER}
-	 *  @gldefref{REFERENCED_BY_GEOMETRY_SHADER}
-	 *  @gldefref{REFERENCED_BY_FRAGMENT_SHADER}
-	 *  @gldefref{REFERENCED_BY_CONTROL_SHADER}
-	 */
-	bool ReferencedBy(ShaderType shader_type) const
-	{
-		return GetParam(ReferencedByProperty(shader_type)) == GL_TRUE;
-	}
-
-	/// Returns true if the resource is per-patch (if applicable)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetProgramResource}
-	 *  @gldefref{IS_PER_PATCH}
-	 */
-	bool IsPerPatch(void) const
-	{
-		return GetParam(GL_IS_PER_PATCH) == GL_TRUE;
-	}
-
-	// TODO: finish this
-};
-
-#endif // GL_VERSION_4_3
 
 /// Program operations wrapper helper class
 /** This class implements OpenGL shading language program operations.
@@ -420,16 +196,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	String GetInfoLog(void) const
-	{
-		assert(_name != 0);
-		return aux::GetInfoLog(
-			_name, OGLPLUS_GLFUNC(GetProgramiv),
-			OGLPLUS_GLFUNC(GetProgramInfoLog),
-			"GetProgramiv",
-			"GetProgramInfoLog"
-		);
-	}
+	String GetInfoLog(void) const;
 
 	void HandleLinkError(void) const;
 
@@ -1107,6 +874,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Returns the number of vertices that the geometry shader will output
 	/**
 	 *  @glsymbols
@@ -1117,6 +885,7 @@ public:
 	{
 		return GetIntParam(GL_GEOMETRY_VERTICES_OUT);
 	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_gpu_shader5
 

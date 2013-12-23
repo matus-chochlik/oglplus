@@ -28,6 +28,7 @@ namespace context {
 class LogicalOps
 {
 public:
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the color logical operation
 	/**
 	 *  @glsymbols
@@ -52,6 +53,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return ColorLogicOperation(result);
 	}
+#endif // GL_VERSION_3_0
 };
 
 } // namespace context

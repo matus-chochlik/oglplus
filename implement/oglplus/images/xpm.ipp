@@ -22,9 +22,25 @@ namespace images {
 namespace aux {
 
 OGLPLUS_LIB_FUNC
-bool xpm_load_is_header_line(const char* line, const std::size_t size)
+bool xpm_load_is_header_line(
+	const char* line,
+	const std::size_t size,
+	std::size_t &/*width*/,
+	std::size_t &/*height*/,
+	std::size_t &depth
+)
 {
-	return (std::strncmp(line, "! XPM2", size<6?size:6) == 0);
+	if(std::strncmp(line, "! XPM2", size<6?size:6) == 0)
+	{
+		depth = 1;
+		return true;
+	}
+	if(std::strncmp(line, "! XPM3D", size<7?size:7) == 0)
+	{
+		depth = 0;
+		return true;
+	}
+	return false;
 }
 
 OGLPLUS_LIB_FUNC
@@ -47,16 +63,18 @@ bool xpm_load_parse_dims_line(
 	const std::size_t line_len,
 	std::size_t& width,
 	std::size_t& height,
+	std::size_t& depth,
 	std::size_t& colors,
 	std::size_t& chpp
 )
 {
 	std::stringstream ss(std::ios::in);
 	ss.str(std::string(line, line_len));
-	if(!(ss >> width).good() || width == 0) return false;
-	if(!(ss >> height).good() || height == 0) return false;
-	if(!(ss >> colors).good() || colors == 0) return false;
-	if(!(ss >> chpp).good() || chpp == 0) return false;
+	if(!width && (!(ss >> width).good() || width == 0)) return false;
+	if(!height && (!(ss >> height).good() || height == 0)) return false;
+	if(!depth && (!(ss >> depth).good() || depth == 0)) return false;
+	if(!colors && (!(ss >> colors).good() || colors == 0)) return false;
+	if(!chpp && (!(ss >> chpp).good() || chpp == 0)) return false;
 	return true;
 }
 
@@ -369,16 +387,18 @@ void xpm_load(
 	}
 	line_len = input.gcount();
 
-	std::size_t width = 0, height = 0, colors = 0, chpp = 0, bipp = 0;
+	std::size_t width = 0, height = 0, depth = 0, colors = 0, chpp = 0, bipp = 0;
 
 	// parse the first line
 	if(xpm_load_is_dims_line(line, line_len))
 	{
+		depth = 1;
 		if(!xpm_load_parse_dims_line(
 			line,
 			line_len,
 			width,
 			height,
+			depth,
 			colors,
 			chpp
 		))
@@ -387,7 +407,7 @@ void xpm_load(
 		}
 	}
 	// otherwise the first line must be the XPM2 header
-	else if(!xpm_load_is_header_line(line, line_len))
+	else if(!xpm_load_is_header_line(line, line_len, width, height, depth))
 	{
 		throw std::runtime_error("Failed to parse XPM header");
 	}
@@ -401,6 +421,7 @@ void xpm_load(
 		line_len,
 		width,
 		height,
+		depth,
 		colors,
 		chpp
 	))
@@ -468,55 +489,60 @@ void xpm_load(
 		"Unable to determine GL pixel format for XPM data"
 	);
 
-	std::vector<unsigned char> data(width*height*channels);
+	std::vector<unsigned char> data(width*height*depth*channels);
 
-	for(std::size_t iy=0; iy!=height; ++iy)
+	for(std::size_t iz=0; iz!=depth; ++iz)
 	{
-		std::size_t y = y_is_up ? iy : (height-iy-1);
-		std::size_t row_offs = height*y*channels;
-		for(std::size_t ix=0; ix!=width; ++ix)
+		std::size_t z = iz;
+		std::size_t plane_offs = width*height*z*channels;
+		for(std::size_t iy=0; iy!=height; ++iy)
 		{
-			std::size_t x = x_is_right ? ix : (width-ix-1);
-			std::size_t cur_offs = row_offs+x*channels;
-			char b;
-			do
+			std::size_t y = y_is_up ? iy : (height-iy-1);
+			std::size_t row_offs = plane_offs+height*y*channels;
+			for(std::size_t ix=0; ix!=width; ++ix)
 			{
-				if(!input.get(b).good())
+				std::size_t x = x_is_right ? ix : (width-ix-1);
+				std::size_t cur_offs = row_offs+x*channels;
+				char b;
+				do
+				{
+					if(!input.get(b).good())
+					{
+						throw std::runtime_error(
+							"Unexpected end of XPM pixel data"
+						);
+					}
+				}
+				while((b == '\n') || (b == '\r'));
+
+				std::string code(1, b);
+
+				std::size_t todo = chpp;
+
+				while(--todo != 0)
+				{
+					if(!input.get(b).good())
+					{
+						throw std::runtime_error(
+							"Unexpected end of XPM pixel data"
+						);
+					}
+					code.append(1, b);
+				}
+
+				auto p = palette.find(code);
+				if(p == palette.end())
 				{
 					throw std::runtime_error(
-						"Unexpected end of XPM pixel data"
+						"Color code '" +
+						code +
+						"' not found in XPM palette"
 					);
 				}
-			}
-			while((b == '\n') || (b == '\r'));
-
-			std::string code(1, b);
-
-			std::size_t todo = chpp;
-
-			while(--todo != 0)
-			{
-				if(!input.get(b).good())
+				for(std::size_t c=0; c!=channels; ++c)
 				{
-					throw std::runtime_error(
-						"Unexpected end of XPM pixel data"
-					);
+					data[cur_offs+c] = p->second[c];
 				}
-				code.append(1, b);
-			}
-
-			auto p = palette.find(code);
-			if(p == palette.end())
-			{
-				throw std::runtime_error(
-					"Color code '" +
-					code +
-					"' not found in XPM palette"
-				);
-			}
-			for(std::size_t c=0; c!=channels; ++c)
-			{
-				data[cur_offs+c] = p->second[c];
 			}
 		}
 	}
@@ -524,7 +550,7 @@ void xpm_load(
 	image = Image(
 		width,
 		height,
-		1,
+		depth,
 		channels,
 		data.data(),
 		PixelDataFormat(gl_format),

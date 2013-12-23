@@ -18,10 +18,15 @@
 namespace oglplus {
 namespace images {
 
+/// Creates a Red (one components per pixel) 2D checker image
+/**
+ *  @ingroup image_load_gen
+ */
 class CheckerRedBlack
  : public Image
 {
 public:
+	/// Creates a checker image with specified dimensions and pattern repeats
 	CheckerRedBlack(
 		GLsizei width,
 		GLsizei height,

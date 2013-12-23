@@ -19,7 +19,7 @@ bool Image::_is_initialized(void) const
 }
 
 OGLPLUS_LIB_FUNC
-PixelDataFormat Image::_get_def_pdf(std::size_t N)
+PixelDataFormat Image::_get_def_pdf(unsigned N)
 {
 	if(N == 1) return PixelDataFormat::Red;
 	else if(N == 2) return PixelDataFormat::RG;
@@ -30,7 +30,7 @@ PixelDataFormat Image::_get_def_pdf(std::size_t N)
 }
 
 OGLPLUS_LIB_FUNC
-PixelDataInternalFormat Image::_get_def_pdif(std::size_t N)
+PixelDataInternalFormat Image::_get_def_pdif(unsigned N)
 {
 	if(N == 1) return PixelDataInternalFormat::Red;
 	else if(N == 2) return PixelDataInternalFormat::RG;

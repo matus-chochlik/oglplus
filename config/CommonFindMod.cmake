@@ -57,7 +57,7 @@ macro(oglplus_common_find_module PREFIX PC_NAME HEADER LIBRARY)
 	endif()
 
 	set(${PREFIX}_FOUND 0)
-	if((EXISTS "${${PREFIX}_INCLUDE_DIRS}"))
+	if((EXISTS "${${PREFIX}_INCLUDE_DIRS}") AND (${PREFIX}_LIBRARIES))
 
 		if(EXISTS ${PROJECT_SOURCE_DIR}/config/ext_lib/test_${PREFIX}.cpp)
 			if(NOT ${PREFIX}_LIBRARIES)

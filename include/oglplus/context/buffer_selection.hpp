@@ -16,7 +16,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/color_buffer.hpp>
-#include <oglplus/framebuffer.hpp>
+#include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/one_of.hpp>
 
 namespace oglplus {
@@ -38,6 +38,7 @@ public:
 		>
 	> ColorBuffer;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 	/// Sets the destination color buffer for draw operations
 	/**
 	 *  @glsymbols
@@ -71,6 +72,7 @@ public:
 		}
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawBuffers));
 	}
+#endif // GL_VERSION_3_0
 
 	/// Sets the source color buffer for read operations
 	/**

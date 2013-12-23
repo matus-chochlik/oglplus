@@ -95,8 +95,10 @@ public:
 		/// Texture swizzle value
 		typedef TextureSwizzle Swizzle;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 		/// Texture swizzle tuple
 		typedef TextureSwizzleTuple SwizzleTuple;
+#endif
 
 		/// Texture wrap mode for coordinate
 		typedef TextureWrapCoord WrapCoord;
@@ -557,26 +559,75 @@ public:
 		));
 	}
 
-/*
+	/// Allows to obtain the texture image in uncompressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in uncompressed form into the @p dest buffer.
+	 *
+	 *  @note This function, unlike @c GetCompressedImage, does NOT
+	 *  automatically resize the destination buffer so that
+	 *  it can accomodate the texture data. The caller is responsible
+	 *  for keeping track or querying the type of the texture, its
+	 *  dimensions and current pixel transfer settings and resize
+	 *  the @c dest buffer accordingly.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexImage}
+	 */
+	void GetImage(
+		GLint level,
+		PixelDataFormat format,
+		PixelDataType type,
+		GLsizei size,
+		GLvoid* buffer
+	) const;
+
+	/// Allows to obtain the texture image in uncompressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in uncompressed form into the @p dest buffer.
+	 *
+	 *  @note This function, unlike @c GetCompressedImage, does NOT
+	 *  automatically resize the destination buffer so that
+	 *  it can accomodate the texture data. The caller is responsible
+	 *  for keeping track or querying the type of the texture, its
+	 *  dimensions and current pixel transfer settings and resize
+	 *  the @c dest buffer accordingly.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetTexImage}
+	 */
 	template <typename T>
-	static void GetImage(
-		Target target,
+	void GetImage(
 		GLint level,
 		PixelDataFormat format,
 		std::vector<T>& dest
-	)
+	) const
 	{
-		dest.resize(...); TODO (see ReadPixel &co.)
-		and/or ARB_robustness
-		OGLPLUS_GLFUNC(GetTexImage)(
-			GLenum(target),
+		GetImage(
 			level,
-			GLenum(format),
-			GLenum(GetDataType<T>()),
+			format,
+			GetDataType<T>(),
+			dest.size()*sizeof(T),
 			dest.data()
 		);
 	}
-*/
+
+	/// Allows to obtain the texture image in compressed form
+	/** This function stores the image of the texture bound to
+	 *  the specified texture @p target with the specified @p level
+	 *  of detail in compressed form into the @p dest buffer.
+	 *  This function automatically resizes the buffer so that
+	 *  it can accomodate the texture data.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetCompressedTexImage}
+	 */
+	void GetCompressedImage(
+		GLint level,
+		GLsizei size,
+		GLubyte* buffer
+	) const;
 
 	/// Allows to obtain the texture image in compressed form
 	/** This function stores the image of the texture bound to
@@ -591,22 +642,7 @@ public:
 	void GetCompressedImage(
 		GLint level,
 		std::vector<GLubyte>& dest
-	) const
-	{
-		dest.resize(CompressedImageSize(level));
-		OGLPLUS_GLFUNC(GetCompressedTextureImageEXT)(
-			_name,
-			GLenum(target),
-			level,
-			dest.data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetCompressedTextureImageEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	) const;
 
 	/// Specifies a three dimensional texture image
 	/**
@@ -655,28 +691,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage3DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			image.Height(),
-			image.Depth(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureImage3DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a three dimensional texture sub image
 	/**
@@ -729,29 +744,7 @@ public:
 		GLint yoffs,
 		GLint zoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage3DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			zoffs,
-			image.Width(),
-			image.Height(),
-			image.Depth(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureSubImage3DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a two dimensional texture image
 	/**
@@ -798,27 +791,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage2DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			image.Height(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureImage2DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a two dimensional texture sub image
 	/**
@@ -866,27 +839,7 @@ public:
 		GLint xoffs,
 		GLint yoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage2DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			xoffs,
-			yoffs,
-			image.Width(),
-			image.Height(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureSubImage2DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a one dimensional texture image
 	/**
@@ -931,26 +884,7 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureImage1DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			GLint(image.InternalFormat()),
-			image.Width(),
-			border,
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureImage1DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Specifies a one dimensional texture sub image
 	/**
@@ -993,25 +927,7 @@ public:
 		const images::Image& image,
 		GLint xoffs,
 		GLint level = 0
-	)
-	{
-		OGLPLUS_GLFUNC(TextureSubImage1DEXT)(
-			_name,
-			GLenum(target),
-			level,
-			xoffs,
-			image.Width(),
-			GLenum(image.Format()),
-			GLenum(image.Type()),
-			image.RawData()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureSubImage1DEXT,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
+	);
 
 	/// Copies a two dimensional texture image from the framebuffer
 	/**
@@ -2485,5 +2401,9 @@ class ConvertibleObjectBaseOps<DSATextureEXTOps, TextureOps>
 #endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/ext/EXT_direct_state_access/texture.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard
