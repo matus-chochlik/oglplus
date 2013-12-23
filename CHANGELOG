@@ -1,3 +1,25 @@
+Version 0.40.0
+
+- Experimental support for OpenGL ES 3.0 was added.
+- A first example for the Android platform, usable with the Android NDK
+  with GLESv3 was added.
+- The Texture::GetImage function was added.
+- The Buffer::TypedMap<T> template was re-factored into two namespace level
+  classes: BufferRawMap and BufferTypedMap<T>.
+- New constructors were added to Vector<T, N>.
+- The images::FilteredImage template base class was reimplemented.
+- The images::Transformed class was renamed to images::TransformComponents.
+- The images::FlipImageAxes filter was added.
+- The XPMImage loader was updated to support non-standard 3D XPM images.
+- Implementations of multiple functions were moved to the implement/ directory.
+- Several bugs were fixed.
+- The build system was updated:
+  - Detection of GL version was updated, the automatically-generated
+    oglplus/fix_gl_version.hpp file was added.
+  - Problem with Pango/Cairo detection was fixed.
+  - A problem with building the OGLplus library was fixed.
+  - Several other bugs were fixes.
+
 Version 0.39.0
 
 - The PNG class was renamed to PNGImage.
