@@ -21,21 +21,11 @@
 //------------------------------------------------------------------------------
 // eglplus_egl_glx_SurfaceImpl
 //------------------------------------------------------------------------------
-eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl( ::Window window)
- : _glx_drawable( ::GLXDrawable(window))
+eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl( ::GLXDrawable drawable)
+ : _glx_drawable(drawable)
  , _do_cleanup(nullptr)
 {
 }
-
-/*
-eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl(
-	::Display* display,
-	::Pixmap pixmap
-): _glx_drawable( ::GLXDrawable( ::XCreatePixmap()))
- , _deleter( ::XFreePixmap)
-{
-}
-*/
 
 eglplus_egl_glx_SurfaceImpl::~eglplus_egl_glx_SurfaceImpl(void)
 {
@@ -80,7 +70,7 @@ EGLAPI EGLSurface EGLAPIENTRY
 eglCreateWindowSurface(
 	EGLDisplay display,
 	EGLConfig config,
-	EGLNativeWindowType native_win,
+	EGLNativeWindowType native_window,
 	const EGLint *egl_attrib_list
 )
 {
@@ -96,7 +86,61 @@ eglCreateWindowSurface(
 		egl_attrib_list = &empty_list;
 	}
 
-	::Window win = static_cast< ::Window>(native_win);
+	::Window window = static_cast< ::Window>(native_window);
+
+	// TODO: config?
+	// TODO: attributes (at least EGL_RENDER_BUFFER)?
+
+	return new eglplus_egl_glx_SurfaceImpl(window);
+}
+//------------------------------------------------------------------------------
+// eglCreatePbufferSurface
+//------------------------------------------------------------------------------
+EGLAPI EGLSurface EGLAPIENTRY
+eglCreatePbufferSurface(
+	EGLDisplay display,
+	EGLConfig config,
+	const EGLint *egl_attrib_list
+)
+{
+	if((!display) || (!display->_x_open_display))
+	{
+		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		return EGL_FALSE;
+	}
+
+	EGLint empty_list = EGL_NONE;
+	if(!egl_attrib_list)
+	{
+		egl_attrib_list = &empty_list;
+	}
+
+	// TODO
+	return nullptr;
+}
+//------------------------------------------------------------------------------
+// eglCreatePbufferFromClientBuffer
+//------------------------------------------------------------------------------
+EGLAPI EGLSurface EGLAPIENTRY
+eglCreatePbufferFromClientBuffer(
+	EGLDisplay display,
+	EGLenum buftype,
+	EGLClientBuffer buffer,
+	EGLConfig config,
+	const EGLint *egl_attrib_list
+)
+{
+	if((!display) || (!display->_x_open_display))
+	{
+		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		return EGL_FALSE;
+	}
+
+	EGLint empty_list = EGL_NONE;
+	if(!egl_attrib_list)
+	{
+		egl_attrib_list = &empty_list;
+	}
 
 	// TODO
 	return nullptr;
@@ -106,14 +150,30 @@ eglCreateWindowSurface(
 //------------------------------------------------------------------------------
 EGLAPI EGLSurface EGLAPIENTRY
 eglCreatePixmapSurface(
-	EGLDisplay dpy,
+	EGLDisplay display,
 	EGLConfig config,
-	EGLNativePixmapType pixmap,
-	const EGLint *attrib_list
+	EGLNativePixmapType native_pixmap,
+	const EGLint *egl_attrib_list
 )
 {
-	// TODO
-	return nullptr;
+	if((!display) || (!display->_x_open_display))
+	{
+		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		return EGL_FALSE;
+	}
+
+	EGLint empty_list = EGL_NONE;
+	if(!egl_attrib_list)
+	{
+		egl_attrib_list = &empty_list;
+	}
+
+	::Pixmap pixmap = static_cast< ::Pixmap>(native_pixmap);
+
+	// TODO: config?
+	// TODO: attributes (at least EGL_RENDER_BUFFER)?
+
+	return new eglplus_egl_glx_SurfaceImpl(pixmap);
 }
 //------------------------------------------------------------------------------
 } // extern "C"

@@ -19,8 +19,7 @@ struct eglplus_egl_glx_SurfaceImpl
 	::GLXDrawable _glx_drawable;
 	int(*_do_cleanup)( ::Display*, ::GLXDrawable);
 
-	eglplus_egl_glx_SurfaceImpl( ::Window);
-	eglplus_egl_glx_SurfaceImpl( ::Display*, ::Pixmap);
+	eglplus_egl_glx_SurfaceImpl( ::GLXDrawable);
 	~eglplus_egl_glx_SurfaceImpl(void);
 
 	void _cleanup( ::Display*);
