@@ -29,7 +29,7 @@ class SpiralSphere
  : public DrawingInstructionWriter
 {
 private:
-	const GLdouble _radius, _thickness;
+	const double _radius, _thickness;
 	const unsigned _bands, _divisions, _segments;
 
 	unsigned _vertex_count(void) const;
@@ -38,22 +38,22 @@ private:
 	void _make_vectors(
 		std::vector<T>& dest,
 		unsigned& k,
-		GLdouble sign,
-		GLdouble radius
+		double sign,
+		double radius
 	) const;
 
 	template <typename T>
 	void _make_tangents(
 		std::vector<T>& dest,
 		unsigned& k,
-		GLdouble sign
+		double sign
 	) const;
 
 	template <typename T>
 	void _make_bitangents(
 		std::vector<T>& dest,
 		unsigned& k,
-		GLdouble sign
+		double sign
 	) const;
 
 	template <typename T>
@@ -85,8 +85,8 @@ public:
 
 	/// Creates a custom spiral sphere
 	SpiralSphere(
-		GLdouble radius,
-		GLdouble thickness,
+		double radius,
+		double thickness,
 		unsigned bands,
 		unsigned divisions,
 		unsigned segments
