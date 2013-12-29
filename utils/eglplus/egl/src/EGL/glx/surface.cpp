@@ -77,7 +77,13 @@ eglCreateWindowSurface(
 	if((!display) || (!display->_x_open_display))
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
-		return EGL_FALSE;
+		return EGL_NO_SURFACE;
+	}
+
+	if(!config._glx_fb_config)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_CONFIG;
+		return EGL_NO_SURFACE;
 	}
 
 	EGLint empty_list = EGL_NONE;
@@ -86,12 +92,103 @@ eglCreateWindowSurface(
 		egl_attrib_list = &empty_list;
 	}
 
+	if(*egl_attrib_list != EGL_NONE)
+	{
+		const EGLint* tmp_attrib_list = egl_attrib_list;
+		while(*tmp_attrib_list != EGL_NONE)
+		{
+			bool bad_attrib = false;
+
+			switch(*tmp_attrib_list++)
+			{
+				case EGL_RENDER_BUFFER:
+				{
+					switch(*tmp_attrib_list)
+					{
+						case EGL_SINGLE_BUFFER:
+						case EGL_BACK_BUFFER:
+							break;
+						default: bad_attrib = true;
+					}
+					break;
+				}
+				case EGL_VG_COLORSPACE:
+				{
+					switch(*tmp_attrib_list)
+					{
+						case EGL_VG_COLORSPACE_sRGB:
+						case EGL_VG_COLORSPACE_LINEAR:
+							break;
+						default: bad_attrib = true;
+					}
+					break;
+				}
+				case EGL_VG_ALPHA_FORMAT:
+				{
+					switch(*tmp_attrib_list)
+					{
+						case EGL_VG_ALPHA_FORMAT_PRE:
+						case EGL_VG_ALPHA_FORMAT_NONPRE:
+							break;
+						default: bad_attrib = true;
+					}
+					break;
+				}
+
+				default: bad_attrib = true;
+			}
+
+			if(bad_attrib)
+			{
+				eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+				return EGL_NO_SURFACE;
+			}
+			++tmp_attrib_list;
+		}
+	}
+
+	int glx_attrib_value = 0;
+
+	int glx_result = ::glXGetFBConfigAttrib(
+		display->_x_open_display,
+		static_cast< ::GLXFBConfig>(config._glx_fb_config),
+		GLX_DRAWABLE_TYPE,
+		&glx_attrib_value
+	);
+
+	if((glx_attrib_value & GLX_WINDOW_BIT) != GLX_WINDOW_BIT)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_MATCH;
+		return EGL_NO_SURFACE;
+	}
+
 	::Window window = static_cast< ::Window>(native_window);
 
-	// TODO: config?
-	// TODO: attributes (at least EGL_RENDER_BUFFER)?
+	::XWindowAttributes win_attr;
 
-	return new eglplus_egl_glx_SurfaceImpl(window);
+	switch(::XGetWindowAttributes(
+		display->_x_open_display,
+		window,
+		&win_attr
+	))
+	{
+		case BadDrawable:
+		case BadWindow:
+		{
+			eglplus_egl_ErrorCode = EGL_BAD_NATIVE_WINDOW;
+			return EGL_NO_SURFACE;
+		}
+		default:;
+	}
+
+	// TODO: config matches window
+
+	try { return new eglplus_egl_glx_SurfaceImpl(window); }
+	catch(...)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_ALLOC;
+		return EGL_NO_SURFACE;
+	}
 }
 //------------------------------------------------------------------------------
 // eglCreatePbufferSurface
@@ -106,7 +203,7 @@ eglCreatePbufferSurface(
 	if((!display) || (!display->_x_open_display))
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
-		return EGL_FALSE;
+		return EGL_NO_SURFACE;
 	}
 
 	EGLint empty_list = EGL_NONE;
@@ -116,7 +213,7 @@ eglCreatePbufferSurface(
 	}
 
 	// TODO
-	return nullptr;
+	return EGL_NO_SURFACE;
 }
 //------------------------------------------------------------------------------
 // eglCreatePbufferFromClientBuffer
@@ -133,7 +230,7 @@ eglCreatePbufferFromClientBuffer(
 	if((!display) || (!display->_x_open_display))
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
-		return EGL_FALSE;
+		return EGL_NO_SURFACE;
 	}
 
 	EGLint empty_list = EGL_NONE;
@@ -143,7 +240,8 @@ eglCreatePbufferFromClientBuffer(
 	}
 
 	// TODO
-	return nullptr;
+	eglplus_egl_ErrorCode = EGL_BAD_MATCH;
+	return EGL_NO_SURFACE;
 }
 //------------------------------------------------------------------------------
 // eglCreatePixmapSurface
@@ -159,7 +257,7 @@ eglCreatePixmapSurface(
 	if((!display) || (!display->_x_open_display))
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
-		return EGL_FALSE;
+		return EGL_NO_SURFACE;
 	}
 
 	EGLint empty_list = EGL_NONE;

@@ -57,6 +57,13 @@ bool eglplus_egl_glx_TranslateAttribName(
 		case EGL_NATIVE_VISUAL_TYPE:
 			glx_attrib_name = GLX_X_VISUAL_TYPE;
 			break;
+		case EGL_NATIVE_RENDERABLE:
+			glx_attrib_name = GLX_X_RENDERABLE;
+			break;
+
+		case EGL_SURFACE_TYPE:
+			glx_attrib_name = GLX_DRAWABLE_TYPE;
+			break;
 
 		case EGL_BUFFER_SIZE:
 			glx_attrib_name = GLX_BUFFER_SIZE;
@@ -119,11 +126,31 @@ bool eglplus_egl_glx_TranslateAttrib(
 			else glx_attrib_value = egl_attrib_value;
 			break;
 		}
+		case EGL_SURFACE_TYPE:
+		{
+			glx_attrib_value = 0;
+			if((egl_attrib_value & EGL_WINDOW_BIT) == EGL_WINDOW_BIT)
+				glx_attrib_value |= GLX_WINDOW_BIT;
+			if((egl_attrib_value & EGL_PIXMAP_BIT) == EGL_PIXMAP_BIT)
+				glx_attrib_value |= GLX_PIXMAP_BIT;
+			if((egl_attrib_value & EGL_PBUFFER_BIT) == EGL_PBUFFER_BIT)
+				glx_attrib_value |= GLX_PBUFFER_BIT;
+			break;
+		}
 		case EGL_NATIVE_VISUAL_TYPE:
 		{
 			if(egl_attrib_value == EGL_DONT_CARE)
 				glx_attrib_value = EGL_DONT_CARE;
 			else glx_attrib_value = egl_attrib_value;
+			break;
+		}
+		case EGL_NATIVE_RENDERABLE:
+		{
+			if(egl_attrib_value == EGL_TRUE)
+				glx_attrib_value = True;
+			else if(egl_attrib_value == EGL_FALSE)
+				glx_attrib_value = False;
+			else return false;
 			break;
 		}
 		case EGL_CONFIG_CAVEAT:
@@ -141,6 +168,7 @@ bool eglplus_egl_glx_TranslateAttrib(
 						GLX_NON_CONFORMANT_CONFIG;
 					break;
 			}
+			break;
 		}
 		case EGL_TRANSPARENT_TYPE:
 		{
@@ -153,9 +181,10 @@ bool eglplus_egl_glx_TranslateAttrib(
 					glx_attrib_value = GLX_TRANSPARENT_RGB;
 					break;
 			}
+			break;
 		}
 
-		default: glx_attrib_value = glx_attrib_value;
+		default: glx_attrib_value = int(egl_attrib_value);
 	}
 	return true;
 }
@@ -168,6 +197,24 @@ void eglplus_egl_glx_TranslateAttribBack(
 {
 	switch(egl_attrib_name)
 	{
+		case EGL_SURFACE_TYPE:
+		{
+			egl_attrib_value = 0;
+			if((glx_attrib_value & GLX_WINDOW_BIT) == GLX_WINDOW_BIT)
+				egl_attrib_value |= EGL_WINDOW_BIT;
+			if((glx_attrib_value & GLX_PIXMAP_BIT) == GLX_PIXMAP_BIT)
+				egl_attrib_value |= EGL_PIXMAP_BIT;
+			if((glx_attrib_value & GLX_PBUFFER_BIT) == GLX_PBUFFER_BIT)
+				egl_attrib_value |= EGL_PBUFFER_BIT;
+			break;
+		}
+		case EGL_NATIVE_RENDERABLE:
+		{
+			if(glx_attrib_value == True)
+				egl_attrib_value = EGL_TRUE;
+			else	egl_attrib_value = EGL_FALSE;
+			break;
+		}
 		case EGL_CONFIG_CAVEAT:
 		{
 			switch(glx_attrib_value)
@@ -183,6 +230,7 @@ void eglplus_egl_glx_TranslateAttribBack(
 						EGL_NON_CONFORMANT_CONFIG;
 					break;
 			}
+			break;
 		}
 		case EGL_TRANSPARENT_TYPE:
 		{
@@ -196,6 +244,7 @@ void eglplus_egl_glx_TranslateAttribBack(
 					egl_attrib_value = EGL_TRANSPARENT_RGB;
 					break;
 			}
+			break;
 		}
 
 		default: egl_attrib_value = EGLint(glx_attrib_value);
@@ -309,7 +358,6 @@ eglChooseConfig(
 			bool unsupported_attrib = false;
 			switch(egl_attrib_name)
 			{
-				case EGL_NATIVE_RENDERABLE:
 				case EGL_MIN_SWAP_INTERVAL:
 				case EGL_MAX_SWAP_INTERVAL:
 					// just skip this
@@ -414,9 +462,17 @@ eglGetConfigAttrib(
 
 	switch(egl_attrib_name)
 	{
-		case EGL_NATIVE_RENDERABLE:
+		case EGL_COLOR_BUFFER_TYPE:
 		{
-			*egl_attrib_value = EGL_TRUE;
+			*egl_attrib_value = EGL_RGB_BUFFER;
+			// TODO: are luminance buffers supported by GLX?
+			return EGL_TRUE;
+		}
+		case EGL_RENDERABLE_TYPE:
+		case EGL_CONFORMANT:
+		{
+			*egl_attrib_value = EGL_OPENGL_BIT;
+			//TODO | EGL_OPENGL_ES3_BIT_KHR;
 			return EGL_TRUE;
 		}
 
