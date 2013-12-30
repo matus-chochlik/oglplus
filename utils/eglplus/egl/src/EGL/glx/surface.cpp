@@ -578,4 +578,49 @@ eglQuerySurface(
 	return EGL_TRUE;
 }
 //------------------------------------------------------------------------------
+// eglBindTexImage
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglBindTexImage(
+	EGLDisplay display,
+	EGLSurface surface,
+	EGLint buffer
+)
+{
+	if((!display) || (!display->_x_open_display))
+	{
+		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		return EGL_FALSE;
+	}
+
+	if(surface == EGL_NO_SURFACE)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		return EGL_FALSE;
+	}
+
+	if(buffer != EGL_BACK_BUFFER)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+		return EGL_FALSE;
+	}
+
+	// Not supported
+	eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+	return EGL_FALSE;
+}
+//------------------------------------------------------------------------------
+// eglReleaseTexImage
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglReleaseTexImage(
+	EGLDisplay display,
+	EGLSurface surface,
+	EGLint buffer
+)
+{
+	// Not supported
+	return eglBindTexImage(display, surface, buffer);
+}
+//------------------------------------------------------------------------------
 } // extern "C"
