@@ -329,7 +329,7 @@ eglCreatePbufferSurface(
 			}
 		}
 	}
-	glx_attrib_list[glx_attrib_count] = GLX_NONE;
+	glx_attrib_list[glx_attrib_count] = None;
 
 	int glx_attrib_value = 0;
 
