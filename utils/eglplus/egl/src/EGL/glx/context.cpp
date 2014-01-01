@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -49,6 +49,13 @@ typedef ::GLXContext (*glXCreateContextAttribsARBProc)(
 	const int*
 );
 glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
+//------------------------------------------------------------------------------
+// Current context / surface / display
+//------------------------------------------------------------------------------
+static EGLDisplay eglplus_egl_glx_current_display = EGL_NO_DISPLAY;
+static EGLSurface eglplus_egl_glx_current_draw_surface = EGL_NO_SURFACE;
+static EGLSurface eglplus_egl_glx_current_read_surface = EGL_NO_SURFACE;
+static EGLContext eglplus_egl_glx_current_context = EGL_NO_CONTEXT;
 //------------------------------------------------------------------------------
 // EGL API
 //------------------------------------------------------------------------------
@@ -271,6 +278,7 @@ eglDestroyContext(
 	delete context;
 }
 //------------------------------------------------------------------------------
+// eglMakeCurrent
 //------------------------------------------------------------------------------
 EGLAPI EGLBoolean EGLAPIENTRY
 eglMakeCurrent(
@@ -312,12 +320,80 @@ eglMakeCurrent(
 		context->_glx_context
 	) != True)
 	{
-		// TODO proper glx error handling
-		eglplus_egl_ErrorCode = EGL_BAD_MATCH;
 		return EGL_FALSE;
 	}
+
+	eglplus_egl_glx_current_display = display;
+	eglplus_egl_glx_current_draw_surface = egl_draw;
+	eglplus_egl_glx_current_read_surface = egl_read;
+	eglplus_egl_glx_current_context = context;
 
 	return EGL_TRUE;
 }
 //------------------------------------------------------------------------------
+// eglGetCurrentContext
+//------------------------------------------------------------------------------
+EGLAPI EGLContext EGLAPIENTRY
+eglGetCurrentContext(void)
+{
+	return eglplus_egl_glx_current_context;
+}
+//------------------------------------------------------------------------------
+// eglGetCurrentSurface
+//------------------------------------------------------------------------------
+EGLAPI EGLSurface EGLAPIENTRY
+eglGetCurrentSurface(EGLint which)
+{
+	switch(which)
+	{
+		case EGL_DRAW:
+		{
+			return eglplus_egl_glx_current_draw_surface;
+		}
+		case EGL_READ:
+		{
+			return eglplus_egl_glx_current_read_surface;
+		}
+		default:;
+	}
+
+	eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+	return EGL_NO_SURFACE;
+}
+//------------------------------------------------------------------------------
+// eglGetCurrentDisplay
+//------------------------------------------------------------------------------
+EGLAPI EGLDisplay EGLAPIENTRY
+eglGetCurrentDisplay(void)
+{
+	return eglplus_egl_glx_current_display;
+}
+//------------------------------------------------------------------------------
+// eglQueryContext
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglQueryContext(
+	EGLDisplay display,
+	EGLContext context,
+	EGLint egl_attribute,
+	EGLint *egl_attrib_value
+)
+{
+	if((!display) || (!display->_x_open_display))
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		return EGL_FALSE;
+	}
+
+	if(context == EGL_NO_CONTEXT)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_CONTEXT;
+		return EGL_FALSE;
+	}
+
+	// TODO
+	return EGL_FALSE;
+}
+//------------------------------------------------------------------------------
+
 } // extern "C"

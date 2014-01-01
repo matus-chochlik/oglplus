@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,6 +19,59 @@
 #include <cassert>
 
 
+//------------------------------------------------------------------------------
+// X error handler
+//------------------------------------------------------------------------------
+static int (*eglplus_egl_X_old_error_handler)(::Display*, ::XErrorEvent*) = 0;
+
+int eglplus_egl_X_error_handler(::Display* display, ::XErrorEvent* error_event)
+{
+	switch(error_event->error_code)
+	{
+		case BadAccess:
+		{
+			eglplus_egl_ErrorCode = EGL_BAD_ACCESS;
+			break;
+		}
+		case BadAlloc:
+		{
+			eglplus_egl_ErrorCode = EGL_BAD_ALLOC;
+			break;
+		}
+		case BadDrawable:
+		{
+			eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+			break;
+		}
+		case BadMatch:
+		{
+			eglplus_egl_ErrorCode = EGL_BAD_MATCH;
+			break;
+		}
+		case BadPixmap:
+		{
+			eglplus_egl_ErrorCode = EGL_BAD_NATIVE_PIXMAP;
+			break;
+		}
+		case BadWindow:
+		{
+			eglplus_egl_ErrorCode = EGL_BAD_NATIVE_WINDOW;
+			break;
+		}
+		default:
+		{
+			if(eglplus_egl_X_old_error_handler)
+			{
+				return eglplus_egl_X_old_error_handler(
+					display,
+					error_event
+				);
+			}
+		}
+	}
+	// TODO: print diag message ?
+	return 0;
+}
 //------------------------------------------------------------------------------
 // eglplus_egl_glx_DisplayImpl
 //------------------------------------------------------------------------------
@@ -45,6 +98,12 @@ bool eglplus_egl_glx_DisplayImpl::_init(void)
 	// check if open
 	if(_x_open_display == nullptr) return false;
 
+	// install error handler
+	// TODO: support for init on multiple displays
+	// TODO: support for multithreading
+	eglplus_egl_X_old_error_handler =
+		::XSetErrorHandler(eglplus_egl_X_error_handler);
+
 	// everything should be ok
 	return true;
 }
@@ -53,6 +112,9 @@ bool eglplus_egl_glx_DisplayImpl::_cleanup(void)
 {
 	// if not open
 	if(_x_open_display == nullptr) return false;
+
+	// restore error handler
+	::XSetErrorHandler(eglplus_egl_X_old_error_handler);
 
 	// try close
 	if(_x_display_id != EGL_DEFAULT_DISPLAY)
@@ -84,13 +146,13 @@ typedef std::map<
 eglplus_egl_display_map eglplus_egl_displays;
 
 // checks if the passed handle is a valid display
-bool eglplus_egl_valid_display(EGLDisplay dpy)
+bool eglplus_egl_valid_display(EGLDisplay display)
 {
 	auto i = eglplus_egl_displays.begin();
 	auto e = eglplus_egl_displays.end();
 	while(i != e)
 	{
-		if(i->second.get() == dpy)
+		if(i->second.get() == display)
 			return true;
 		++i;
 	}
@@ -98,11 +160,11 @@ bool eglplus_egl_valid_display(EGLDisplay dpy)
 }
 
 // checks if the passed handle is an open display
-bool eglplus_egl_is_open_display(EGLDisplay dpy)
+bool eglplus_egl_is_open_display(EGLDisplay display)
 {
-	if(!eglplus_egl_valid_display(dpy))
+	if(!eglplus_egl_valid_display(display))
 		return false;
-	return dpy->_x_open_display != nullptr;
+	return display->_x_open_display != nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -138,20 +200,20 @@ eglGetDisplay(EGLNativeDisplayType display_id)
 // eglInitialize
 //------------------------------------------------------------------------------
 EGLAPI EGLBoolean EGLAPIENTRY
-eglInitialize(EGLDisplay dpy, EGLint *major, EGLint *minor)
+eglInitialize(EGLDisplay display, EGLint *major, EGLint *minor)
 {
-	if(dpy == nullptr)
+	if(display == nullptr)
 	{
 		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
 		return EGL_FALSE;
 	}
-	if(!eglplus_egl_valid_display(dpy))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
 		return EGL_FALSE;
 	}
 
-	if(!dpy->_init())
+	if(!display->_init())
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
 		return EGL_FALSE;
@@ -165,24 +227,24 @@ eglInitialize(EGLDisplay dpy, EGLint *major, EGLint *minor)
 // eglTerminate
 //------------------------------------------------------------------------------
 EGLAPI EGLBoolean EGLAPIENTRY
-eglTerminate(EGLDisplay dpy)
+eglTerminate(EGLDisplay display)
 {
-	if(dpy == nullptr)
+	if(display == nullptr)
 	{
 		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
 		return EGL_FALSE;
 	}
-	if(!eglplus_egl_valid_display(dpy))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
 		return EGL_FALSE;
 	}
-	if(!eglplus_egl_is_open_display(dpy))
+	if(!eglplus_egl_is_open_display(display))
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
 		return EGL_FALSE;
 	}
-	if(!dpy->_cleanup())
+	if(!display->_cleanup())
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
 		return EGL_FALSE;
@@ -191,9 +253,9 @@ eglTerminate(EGLDisplay dpy)
 }
 //------------------------------------------------------------------------------
 EGLAPI const char * EGLAPIENTRY
-eglQueryString(EGLDisplay dpy, EGLint name)
+eglQueryString(EGLDisplay display, EGLint name)
 {
-	if(!eglplus_egl_is_open_display(dpy))
+	if(!eglplus_egl_is_open_display(display))
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
 		return nullptr;
