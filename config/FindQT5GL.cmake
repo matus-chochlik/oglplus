@@ -2,9 +2,9 @@
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-find_package(Qt5Core)
-find_package(Qt5Gui)
-find_package(Qt5OpenGL)
+find_package(Qt5Core QUIET)
+find_package(Qt5Gui QUIET)
+find_package(Qt5OpenGL QUIET)
 
 if(Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5OpenGL_FOUND)
 	set(QT5GL_FOUND True)
