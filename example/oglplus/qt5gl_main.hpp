@@ -1,14 +1,14 @@
 /*
- *  .file example/oglplus/qt4gl_main.hpp
- *  Declares Qt4/GL-based program main function for running examples
+ *  .file example/oglplus/qt5gl_main.hpp
+ *  Declares Qt5/GL-based program main function for running examples
  *
  *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef OGLPLUS_EXAMPLE_QT4GL_MAIN_HPP
-#define OGLPLUS_EXAMPLE_QT4GL_MAIN_HPP
+#ifndef OGLPLUS_EXAMPLE_QT5GL_MAIN_HPP
+#define OGLPLUS_EXAMPLE_QT5GL_MAIN_HPP
 
 #include <QWidget>
 #include <QGLWidget>

@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -37,9 +37,18 @@ add_definitions(-DOGLPLUS_LINK_LIBRARY=${OGLPLUS_LINK_LIBRARY})
 add_definitions(-DEGLPLUS_LINK_LIBRARY=1)
 
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qt4gl")
-	QT4_WRAP_CPP(
+	qt4_wrap_cpp(
 		OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES
 		"${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.hpp"
+	)
+elseif("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qt5gl")
+	qt5_generate_moc(
+		"${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.hpp"
+		"${CMAKE_CURRENT_BINARY_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main-moc.cpp"
+	)
+	set(
+		OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES
+		"${CMAKE_CURRENT_BINARY_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main-moc.cpp"
 	)
 else()
 	set(OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES "")
