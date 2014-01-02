@@ -391,8 +391,121 @@ eglQueryContext(
 		return EGL_FALSE;
 	}
 
-	// TODO
-	return EGL_FALSE;
+	int glx_attribute = 0;
+
+	switch(egl_attribute)
+	{
+		case EGL_CONTEXT_CLIENT_TYPE:
+		{
+			if(egl_attrib_value)
+				*egl_attrib_value = EGL_OPENGL_BIT;
+			return EGL_TRUE;
+		}
+		case EGL_CONTEXT_CLIENT_VERSION:
+		{
+			if(egl_attrib_value)
+				*egl_attrib_value = 3;
+			return EGL_TRUE;
+		}
+		case EGL_RENDER_BUFFER:
+		{
+			//TODO
+			if(egl_attrib_value)
+				*egl_attrib_value = EGL_BACK_BUFFER;
+			return EGL_TRUE;
+		}
+		case EGL_CONFIG_ID:
+		{
+			glx_attribute = GLX_FBCONFIG_ID;
+			break;
+		}
+		default:
+		{
+			eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+			return EGL_FALSE;
+		}
+	}
+
+	int glx_attrib_value = 0;
+
+	if(glXQueryContext(
+		display->_x_open_display,
+		context->_glx_context,
+		glx_attribute,
+		&glx_attrib_value
+	) != 0)
+	{
+		return EGL_FALSE;
+	}
+
+	switch(egl_attribute)
+	{
+		default:
+		{
+			if(egl_attrib_value)
+				*egl_attrib_value = glx_attrib_value;
+		}
+	}
+
+	return EGL_TRUE;
+}
+//------------------------------------------------------------------------------
+// eglWaitClient
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglWaitClient(void)
+{
+	if(!eglplus_egl_glx_current_context)
+	{
+		return EGL_TRUE;
+	}
+
+	if(!eglplus_egl_glx_current_draw_surface)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		return EGL_FALSE;
+	}
+	if(!eglplus_egl_glx_current_read_surface)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		return EGL_FALSE;
+	}
+	// TODO finish error handling
+
+	::glXWaitGL();
+	return EGL_TRUE;
+}
+//------------------------------------------------------------------------------
+// eglWaitNative
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglWaitNative(EGLint engine)
+{
+	if(!eglplus_egl_glx_current_context)
+	{
+		return EGL_TRUE;
+	}
+
+	if(engine != EGL_CORE_NATIVE_ENGINE)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+		return EGL_FALSE;
+	}
+	if(!eglplus_egl_glx_current_draw_surface)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		return EGL_FALSE;
+	}
+
+	if(!eglplus_egl_glx_current_read_surface)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		return EGL_FALSE;
+	}
+	// TODO finish error handling
+
+	::glXWaitX();
+	return EGL_TRUE;
 }
 //------------------------------------------------------------------------------
 

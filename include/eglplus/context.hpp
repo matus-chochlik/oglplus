@@ -243,6 +243,24 @@ public:
 		return result == EGL_TRUE;
 	}
 
+	/// Returns the context framebuffer config id
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{QueryContext}
+	 */
+	EGLint ConfigId(void) const
+	{
+		EGLint result = 0;
+		EGLPLUS_EGLFUNC(QueryContext)(
+			FriendOf<Display>::GetHandle(_display),
+			_handle,
+			EGLint(EGL_CONFIG_ID),
+			&result
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(QueryContext));
+		return result;
+	}
+
 	/// Wait for client API commands to complete
 	/**
 	 *  @eglsymbols

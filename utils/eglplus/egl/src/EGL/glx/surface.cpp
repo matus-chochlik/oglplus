@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -621,6 +621,34 @@ eglReleaseTexImage(
 {
 	// Not supported
 	return eglBindTexImage(display, surface, buffer);
+}
+//------------------------------------------------------------------------------
+// eglSwapBuffers
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglSwapBuffers(
+	EGLDisplay display,
+	EGLSurface surface
+)
+{
+	if((!display) || (!display->_x_open_display))
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		return EGL_FALSE;
+	}
+
+	if(surface == EGL_NO_SURFACE)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		return EGL_FALSE;
+	}
+
+	::glXSwapBuffers(
+		display->_x_open_display,
+		surface->_glx_drawable
+	);
+
+	return EGL_TRUE;
 }
 //------------------------------------------------------------------------------
 } // extern "C"
