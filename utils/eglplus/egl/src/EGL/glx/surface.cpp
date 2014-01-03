@@ -651,4 +651,31 @@ eglSwapBuffers(
 	return EGL_TRUE;
 }
 //------------------------------------------------------------------------------
+// eglCopyBuffers
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglCopyBuffers(
+	EGLDisplay display,
+	EGLSurface surface,
+	EGLNativePixmapType target
+)
+{
+	// TODO
+	eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+	return EGL_FALSE;
+}
+//------------------------------------------------------------------------------
+// eglSwapInterval
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglSwapInterval(
+	EGLDisplay display,
+	EGLint interval
+)
+{
+	// TODO
+	return EGL_TRUE;
+}
+//------------------------------------------------------------------------------
+
 } // extern "C"

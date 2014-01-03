@@ -21,6 +21,8 @@ add_library(EGL SHARED
 	src/EGL/glx/configs.cpp
 	src/EGL/glx/surface.cpp
 	src/EGL/glx/context.cpp
+	src/EGL/glx/threads.cpp
+	src/EGL/glx/extensions.cpp
 )
 target_link_libraries(EGL ${X11_LIBRARIES})
 
