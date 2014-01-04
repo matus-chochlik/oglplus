@@ -17,6 +17,7 @@
 #include <map>
 #include <memory>
 #include <cassert>
+#include <iostream>
 
 
 //------------------------------------------------------------------------------
@@ -69,7 +70,27 @@ int eglplus_egl_X_error_handler(::Display* display, ::XErrorEvent* error_event)
 			}
 		}
 	}
-	// TODO: print diag message ?
+
+	char message[128] = {'\0'};
+
+	::XGetErrorText(
+		display,
+		error_event->error_code,
+		message,
+		sizeof(message)
+	);
+
+	std::cerr
+		<< "Error "
+		<< error_event->error_code
+		<< " ("
+		<< message
+		<< "): request "
+		<< error_event->request_code
+		<< "."
+		<< error_event->minor_code
+		<< std::endl;
+
 	return 0;
 }
 //------------------------------------------------------------------------------

@@ -175,22 +175,14 @@ eglCreateWindowSurface(
 
 	::XWindowAttributes win_attr;
 
-	switch(::XGetWindowAttributes(
+	if(::XGetWindowAttributes(
 		display->_x_open_display,
 		window,
 		&win_attr
-	))
+	) == 0)
 	{
-		case BadDrawable:
-		case BadWindow:
-		{
-			eglplus_egl_ErrorCode = EGL_BAD_NATIVE_WINDOW;
-			return EGL_NO_SURFACE;
-		}
-		default:;
+		return EGL_NO_SURFACE;
 	}
-
-	// TODO: config matches window
 
 	try { return new eglplus_egl_glx_SurfaceImpl(window); }
 	catch(...)
@@ -660,6 +652,18 @@ eglCopyBuffers(
 	EGLNativePixmapType target
 )
 {
+	if((!display) || (!display->_x_open_display))
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		return EGL_FALSE;
+	}
+
+	if(surface == EGL_NO_SURFACE)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		return EGL_FALSE;
+	}
+
 	// TODO
 	eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
 	return EGL_FALSE;
@@ -673,6 +677,17 @@ eglSwapInterval(
 	EGLint interval
 )
 {
+	if((!display) || (!display->_x_open_display))
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		return EGL_FALSE;
+	}
+
+	if(interval < 0)
+	{
+		eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+		return EGL_FALSE;
+	}
 	// TODO
 	return EGL_TRUE;
 }

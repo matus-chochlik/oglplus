@@ -134,6 +134,17 @@ eglCreateContext(
 					}
 					break;
 				}
+				case 0x31BD: //EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
+				{
+					switch(*tmp_attrib_list)
+					{
+						case 0x31BE:
+						case 0x31BF:
+							break;
+						default: bad_attrib = true;
+					}
+					break;
+				}
 				case 0x30FD: //EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
 				{
 					if((*tmp_attrib_list & ~0x03) != 0)
@@ -204,6 +215,11 @@ eglCreateContext(
 						glx_flags;
 					break;
 				}
+				case 0x31BD: //EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
+				{
+					// TODO: currently ignored
+					break;
+				}
 				case 0x30FD: //EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
 				{
 					glx_attrib_list[glx_attrib_count++] =
@@ -223,7 +239,6 @@ eglCreateContext(
 						glx_flags;
 					break;
 				}
-				//TODO
 				default:;
 			}
 		}
