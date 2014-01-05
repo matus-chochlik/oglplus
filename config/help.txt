@@ -137,7 +137,7 @@ OOPPTTIIOONNSS
               Forces  the use of the _G_L_3_/_g_l_3_._h header to define the GL symbols
               used in OGLplus examples. Equivalent to --use-gl-api-lib=GL3_H.
 
-       ----uussee--ggll--iinniitt--lliibb {GGLLUUTT,GGLLFFWW33,GGLLFFWW,WWXXGGLL,SSDDLL,GGLLXX,QQTT44GGLL,EEGGLL}
+       ----uussee--ggll--iinniitt--lliibb {GGLLUUTT,GGLLFFWW33,GGLLFFWW,WWXXGGLL,SSDDLL,GGLLXX,QQTT44GGLL,QQTT55GGLL,EEGGLL}
               Forces the use of a specific window  library  which  initializes
               the  default  GL context. This option allows to force a specific
               example 'harness'.
@@ -176,6 +176,11 @@ OOPPTTIIOONNSS
               Forces the use of the Qt4GL library to  create  the  window  and
               initialize  the  GL  context  in OGLplus examples. Equivalent to
               --use-gl-init-lib=QT4GL.
+
+       ----uussee--qqtt55ggll
+              Forces the use of the Qt5GL library to  create  the  window  and
+              initialize  the  GL  context  in OGLplus examples. Equivalent to
+              --use-gl-init-lib=QT5GL.
 
        ----uussee--eeggll
               Forces the use of the EGL library to create the window and  ini-
@@ -219,7 +224,7 @@ AAUUTTHHOORR
        Matus Chochlik, chochlik@gmail.com
 
 CCOOPPYYRRIIGGHHTT
-       Copyright (c) 2008-2013 Matus Chochlik
+       Copyright (c) 2008-2014 Matus Chochlik
 
        Permission  is  granted to copy, distribute and/or modify this document
        under the terms of the Boost Software License,  Version  1.0.   (See  a
@@ -227,4 +232,4 @@ CCOOPPYYRRIIGGHHTT
 
 
 
-Configuration script for OGLplus. 2013-12-22              CONFIGURE-OGLPLUS(1)
+Configuration script for OGLplus. 2014-01-05              CONFIGURE-OGLPLUS(1)
