@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -258,7 +258,7 @@ extern "C" {
 // eglGetConfigs
 //------------------------------------------------------------------------------
 EGLAPI EGLBoolean EGLAPIENTRY
-eglGetConfig(
+eglGetConfigs(
 	EGLDisplay display,
 	EGLConfig * configs,
 	EGLint config_size,
@@ -333,16 +333,21 @@ eglChooseConfig(
 		const EGLint *egl_attrib = egl_attrib_list;
 		while(*egl_attrib != EGL_NONE)
 		{
-			if(*(++egl_attrib) == EGL_NONE)
+			switch(*(++egl_attrib))
 			{
-				eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
-				return EGL_FALSE;
+				case EGL_NONE:
+				{
+					eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+					return EGL_FALSE;
+				}
+				case EGL_COLOR_BUFFER_TYPE:
+				{
+					attr_count += 2;
+					break;
+				}
+				default: ++attr_count;
 			}
-			else
-			{
-				++egl_attrib;
-				++attr_count;
-			}
+			++egl_attrib;
 		}
 		glx_attrib_list.resize(2*attr_count+1);
 
@@ -360,28 +365,54 @@ eglChooseConfig(
 			{
 				case EGL_MIN_SWAP_INTERVAL:
 				case EGL_MAX_SWAP_INTERVAL:
+				{
 					// just skip this
 					break;
-
+				}
 				case EGL_SAMPLES:
 				case EGL_SAMPLE_BUFFERS:
 				case EGL_ALPHA_MASK_SIZE:
 				case EGL_LUMINANCE_SIZE:
 				{
 					// must be zero (or don't care)
-					unsupported_attrib =
-						(egl_attrib_value != 0);
+					if(egl_attrib_value != 0)
+						unsupported_attrib = true;
+					break;
+				}
+				case EGL_RENDERABLE_TYPE:
+				{
+					if(egl_attrib_value != EGL_OPENGL_BIT)
+						unsupported_attrib = true;
+					break;
+				}
+				case EGL_COLOR_BUFFER_TYPE:
+				{
+					if(egl_attrib_value == EGL_RGB_BUFFER)
+					{
+						glx_attrib_list[attr_count++] =
+							GLX_RENDER_TYPE;
+						glx_attrib_list[attr_count++] =
+							GLX_RGBA_BIT;
+						glx_attrib_list[attr_count++] =
+							GLX_X_VISUAL_TYPE;
+						glx_attrib_list[attr_count++] =
+							GLX_TRUE_COLOR;
+					}
+					else unsupported_attrib = true;
 					break;
 				}
 				default: special_attrib = false;
 			}
 
-			if(special_attrib && unsupported_attrib)
+			if(special_attrib)
 			{
-				if(egl_attrib_value != EGL_DONT_CARE)
+				if(unsupported_attrib)
 				{
-					unsupported_config = true;
-					break;
+					if(egl_attrib_value != EGL_DONT_CARE)
+					{
+						unsupported_config = true;
+						break;
+					}
 				}
 			}
 			else if(eglplus_egl_glx_TranslateAttrib(

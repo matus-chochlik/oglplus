@@ -9,7 +9,8 @@ project(EGLplus_EGL)
 
 find_package(X11 REQUIRED)
 
-add_definitions(-std=c++0x)
+#add_definitions(-std=c++0x)
+add_definitions(-std=c++0x -g3)
 
 include_directories(${X11_INCLUDE_DIRS})
 include_directories(include)

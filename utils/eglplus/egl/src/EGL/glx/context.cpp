@@ -48,7 +48,7 @@ typedef ::GLXContext (*glXCreateContextAttribsARBProc)(
 	Bool,
 	const int*
 );
-glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
+static glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
 //------------------------------------------------------------------------------
 // Current context / surface / display
 //------------------------------------------------------------------------------
@@ -88,13 +88,13 @@ eglCreateContext(
 		return EGL_NO_CONTEXT;
 	}
 
-	if(!glXCreateContextAttribsARB)
+	if(glXCreateContextAttribsARB == nullptr)
 	{
 		glXCreateContextAttribsARB = (glXCreateContextAttribsARBProc)
 		glXGetProcAddressARB((const unsigned char*)"glXCreateContextAttribsARB");
 	}
 
-	if(!glXCreateContextAttribsARB)
+	if(glXCreateContextAttribsARB == nullptr)
 	{
 		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
 		return EGL_NO_CONTEXT;
@@ -489,6 +489,15 @@ eglWaitClient(void)
 
 	::glXWaitGL();
 	return EGL_TRUE;
+}
+//------------------------------------------------------------------------------
+// eglWaitGL
+//------------------------------------------------------------------------------
+EGLAPI EGLBoolean EGLAPIENTRY
+eglWaitGL(void)
+{
+	// TODO: this is not fully conforming to spec.
+	return eglWaitClient();
 }
 //------------------------------------------------------------------------------
 // eglWaitNative

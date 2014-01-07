@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -26,7 +26,14 @@ macro(oglplus_common_find_module PREFIX PC_NAME HEADER LIBRARY)
 				set(${PREFIX}_DEFINITIONS "${PC_${PREFIX}_DEFINITIONS}")
 				set(${PREFIX}_INCLUDE_DIRS "${PC_${PREFIX}_INCLUDE_DIRS}")
 				set(${PREFIX}_LIBRARY_DIRS "${PC_${PREFIX}_LIBRARY_DIRS}")
-				set(${PREFIX}_LIBRARIES ${${PREFIX}_FULL_LIB_PATH})
+				foreach(TMP_LIBRARY ${PC_${PREFIX}_LIBRARIES})
+					find_library(
+						${TMP_LIBRARY}_FULL_LIB_PATH NAMES ${TMP_LIBRARY}
+						HINTS ${PC_${PREFIX}_LIBRARY_DIRS}
+					)
+					set(${PREFIX}_LIBRARIES ${${PREFIX}_LIBRARIES} ${${TMP_LIBRARY}_FULL_LIB_PATH})
+					unset(TMP_FULL_LIB_PATH)
+				endforeach()
 			endif()
 			unset(${PREFIX}_FULL_LIB_PATH)
 		endif()
