@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -179,6 +179,35 @@ public:
 	aux::SepStrRange Extensions(void) const
 	{
 		return aux::SepStrRange(QueryString(StringQuery::Extensions));
+	}
+#endif
+
+	/// Returns true if the EGL implementation supports client extensions
+	static bool HasClientExtensions(void)
+	{
+		const char* ext_str = EGLPLUS_EGLFUNC(QueryString)(
+				EGL_NO_DISPLAY,
+				EGLint(EGL_EXTENSIONS)
+		);
+		EGLint err_c = EGLPLUS_EGLFUNC(GetError)();
+		return (err_c == EGL_SUCCESS) && (ext_str != nullptr);
+	}
+
+#if EGLPLUS_DOCUMENTATION_ONLY
+	/// Returns a range of client extension strings
+	/**
+	 *  @pre HasClientExtensions
+	 */
+	static Range<String> ClientExtensions(void);
+#else
+	static aux::SepStrRange ClientExtensions(void)
+	{
+		const char* ext_str = EGLPLUS_EGLFUNC(QueryString)(
+				EGL_NO_DISPLAY,
+				EGLint(EGL_EXTENSIONS)
+		);
+		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(QueryString));
+		return aux::SepStrRange(ext_str);
 	}
 #endif
 };

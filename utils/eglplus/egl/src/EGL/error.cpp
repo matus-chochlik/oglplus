@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,7 +19,9 @@ extern "C" {
 
 EGLAPI EGLint EGLAPIENTRY eglGetError(void)
 {
-	return eglplus_egl_ErrorCode;
+	EGLint old_ec = eglplus_egl_ErrorCode;
+	eglplus_egl_ErrorCode = EGL_SUCCESS;
+	return old_ec;
 }
 
 } // extern "C"

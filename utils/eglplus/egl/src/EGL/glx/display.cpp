@@ -96,6 +96,9 @@ int eglplus_egl_X_error_handler(::Display* display, ::XErrorEvent* error_event)
 //------------------------------------------------------------------------------
 // eglplus_egl_glx_DisplayImpl
 //------------------------------------------------------------------------------
+// the number of initialized displays
+static int eglplus_egl_init_display_count = 0;
+
 eglplus_egl_glx_DisplayImpl::eglplus_egl_glx_DisplayImpl(EGLNativeDisplayType id)
  : _x_display_id(static_cast< ::Display*>(id))
  , _x_open_display(static_cast < ::Display*>(nullptr))
@@ -120,10 +123,12 @@ bool eglplus_egl_glx_DisplayImpl::_init(void)
 	if(_x_open_display == nullptr) return false;
 
 	// install error handler
-	// TODO: support for init on multiple displays
+	if(eglplus_egl_init_display_count++ == 0)
+	{
+		eglplus_egl_X_old_error_handler =
+			::XSetErrorHandler(eglplus_egl_X_error_handler);
+	}
 	// TODO: support for multithreading
-	eglplus_egl_X_old_error_handler =
-		::XSetErrorHandler(eglplus_egl_X_error_handler);
 
 	// everything should be ok
 	return true;
@@ -134,8 +139,15 @@ bool eglplus_egl_glx_DisplayImpl::_cleanup(void)
 	// if not open
 	if(_x_open_display == nullptr) return false;
 
+	// if the number of initialized displays is zero
+	if(eglplus_egl_init_display_count == 0) return false;
+	assert(eglplus_egl_init_display_count > 0);
+
 	// restore error handler
-	::XSetErrorHandler(eglplus_egl_X_old_error_handler);
+	if(--eglplus_egl_init_display_count == 0)
+	{
+		::XSetErrorHandler(eglplus_egl_X_old_error_handler);
+	}
 
 	// try close
 	if(_x_display_id != EGL_DEFAULT_DISPLAY)
@@ -164,7 +176,7 @@ typedef std::map<
 > eglplus_egl_display_map;
 
 // the map of accessed displays
-eglplus_egl_display_map eglplus_egl_displays;
+static eglplus_egl_display_map eglplus_egl_displays;
 
 // checks if the passed handle is a valid display
 bool eglplus_egl_valid_display(EGLDisplay display)
@@ -276,6 +288,13 @@ eglTerminate(EGLDisplay display)
 EGLAPI const char * EGLAPIENTRY
 eglQueryString(EGLDisplay display, EGLint name)
 {
+	// Query of client extensions
+	if((display == EGL_NO_DISPLAY) && (name == EGL_EXTENSIONS))
+	{
+		return	"EGL_KHR_client_get_all_proc_addresses "
+			"EGL_EXT_client_extensions";
+	}
+
 	if(!eglplus_egl_is_open_display(display))
 	{
 		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
@@ -295,8 +314,8 @@ eglQueryString(EGLDisplay display, EGLint name)
 	}
 	else if(name == EGL_EXTENSIONS)
 	{
-		// TODO
-		return "KHR_create_context";
+		return	"EGL_KHR_get_all_proc_addresses "
+			"EGL_KHR_create_context";
 	}
 	eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
 	return nullptr;
