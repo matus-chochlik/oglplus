@@ -340,6 +340,7 @@ eglChooseConfig(
 					eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
 					return EGL_FALSE;
 				}
+				case EGL_SURFACE_TYPE:
 				case EGL_COLOR_BUFFER_TYPE:
 				{
 					attr_count += 2;
@@ -383,6 +384,18 @@ eglChooseConfig(
 				{
 					if(egl_attrib_value != EGL_OPENGL_BIT)
 						unsupported_attrib = true;
+					break;
+				}
+				case EGL_SURFACE_TYPE:
+				{
+					bool doublebuffer =
+						(egl_attrib_value & EGL_WINDOW_BIT)||
+						(egl_attrib_value & EGL_PBUFFER_BIT);
+
+					glx_attrib_list[attr_count++] =
+						GLX_DOUBLEBUFFER;
+					glx_attrib_list[attr_count++] =
+						doublebuffer?True:False;
 					break;
 				}
 				case EGL_COLOR_BUFFER_TYPE:
