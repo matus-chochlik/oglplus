@@ -12,7 +12,9 @@
 #include <EGL/egl.h>
 
 #include "display.hpp"
-#include "../error.hpp"
+#include "error.hpp"
+
+#include <pthread.h>
 
 #include <map>
 #include <memory>
@@ -31,32 +33,32 @@ int eglplus_egl_X_error_handler(::Display* display, ::XErrorEvent* error_event)
 	{
 		case BadAccess:
 		{
-			eglplus_egl_ErrorCode = EGL_BAD_ACCESS;
+			eglplus_egl_SetErrorCode(EGL_BAD_ACCESS);
 			break;
 		}
 		case BadAlloc:
 		{
-			eglplus_egl_ErrorCode = EGL_BAD_ALLOC;
+			eglplus_egl_SetErrorCode(EGL_BAD_ALLOC);
 			break;
 		}
 		case BadDrawable:
 		{
-			eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+			eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 			break;
 		}
 		case BadMatch:
 		{
-			eglplus_egl_ErrorCode = EGL_BAD_MATCH;
+			eglplus_egl_SetErrorCode(EGL_BAD_MATCH);
 			break;
 		}
 		case BadPixmap:
 		{
-			eglplus_egl_ErrorCode = EGL_BAD_NATIVE_PIXMAP;
+			eglplus_egl_SetErrorCode(EGL_BAD_NATIVE_PIXMAP);
 			break;
 		}
 		case BadWindow:
 		{
-			eglplus_egl_ErrorCode = EGL_BAD_NATIVE_WINDOW;
+			eglplus_egl_SetErrorCode(EGL_BAD_NATIVE_WINDOW);
 			break;
 		}
 		default:
@@ -98,9 +100,12 @@ int eglplus_egl_X_error_handler(::Display* display, ::XErrorEvent* error_event)
 //------------------------------------------------------------------------------
 // the number of initialized displays
 static int eglplus_egl_init_display_count = 0;
+static ::pthread_mutex_t eglplus_egl_init_display_count_mutex =
+	PTHREAD_MUTEX_INITIALIZER; 
 
-eglplus_egl_glx_DisplayImpl::eglplus_egl_glx_DisplayImpl(EGLNativeDisplayType id)
- : _x_display_id(static_cast< ::Display*>(id))
+eglplus_egl_glx_DisplayImpl::eglplus_egl_glx_DisplayImpl(
+	EGLNativeDisplayType id
+): _x_display_id(static_cast< ::Display*>(id))
  , _x_open_display(static_cast < ::Display*>(nullptr))
 { }
 
@@ -123,12 +128,13 @@ bool eglplus_egl_glx_DisplayImpl::_init(void)
 	if(_x_open_display == nullptr) return false;
 
 	// install error handler
+	::pthread_mutex_lock(&eglplus_egl_init_display_count_mutex);
 	if(eglplus_egl_init_display_count++ == 0)
 	{
 		eglplus_egl_X_old_error_handler =
 			::XSetErrorHandler(eglplus_egl_X_error_handler);
 	}
-	// TODO: support for multithreading
+	::pthread_mutex_unlock(&eglplus_egl_init_display_count_mutex);
 
 	// everything should be ok
 	return true;
@@ -144,10 +150,12 @@ bool eglplus_egl_glx_DisplayImpl::_cleanup(void)
 	assert(eglplus_egl_init_display_count > 0);
 
 	// restore error handler
+	::pthread_mutex_lock(&eglplus_egl_init_display_count_mutex);
 	if(--eglplus_egl_init_display_count == 0)
 	{
 		::XSetErrorHandler(eglplus_egl_X_old_error_handler);
 	}
+	::pthread_mutex_unlock(&eglplus_egl_init_display_count_mutex);
 
 	// try close
 	if(_x_display_id != EGL_DEFAULT_DISPLAY)
@@ -177,19 +185,28 @@ typedef std::map<
 
 // the map of accessed displays
 static eglplus_egl_display_map eglplus_egl_displays;
+static ::pthread_mutex_t eglplus_egl_displays_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 // checks if the passed handle is a valid display
 bool eglplus_egl_valid_display(EGLDisplay display)
 {
+	::pthread_mutex_lock(&eglplus_egl_displays_mutex);
+
+	bool result = false;
 	auto i = eglplus_egl_displays.begin();
 	auto e = eglplus_egl_displays.end();
 	while(i != e)
 	{
 		if(i->second.get() == display)
-			return true;
+		{
+			result = true;
+			break;
+		}
 		++i;
 	}
-	return false;
+	::pthread_mutex_unlock(&eglplus_egl_displays_mutex);
+
+	return result;
 }
 
 // checks if the passed handle is an open display
@@ -210,6 +227,8 @@ extern "C" {
 EGLAPI EGLDisplay EGLAPIENTRY
 eglGetDisplay(EGLNativeDisplayType display_id)
 {
+	::pthread_mutex_lock(&eglplus_egl_displays_mutex);
+
 	auto p = eglplus_egl_displays.find(display_id);
 	if(p == eglplus_egl_displays.end())
 	{
@@ -226,6 +245,8 @@ eglGetDisplay(EGLNativeDisplayType display_id)
 	}
 	assert(p != eglplus_egl_displays.end());
 
+	::pthread_mutex_unlock(&eglplus_egl_displays_mutex);
+
 	return p->second.get();
 }
 
@@ -237,18 +258,18 @@ eglInitialize(EGLDisplay display, EGLint *major, EGLint *minor)
 {
 	if(display == nullptr)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 	if(!eglplus_egl_valid_display(display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
 	if(!display->_init())
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
@@ -264,22 +285,22 @@ eglTerminate(EGLDisplay display)
 {
 	if(display == nullptr)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 	if(!eglplus_egl_valid_display(display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 	if(!eglplus_egl_is_open_display(display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 	if(!display->_cleanup())
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 	return EGL_TRUE;
@@ -291,13 +312,13 @@ eglQueryString(EGLDisplay display, EGLint name)
 	// Query of client extensions
 	if((display == EGL_NO_DISPLAY) && (name == EGL_EXTENSIONS))
 	{
-		return	"EGL_KHR_client_get_all_proc_addresses "
-			"EGL_EXT_client_extensions";
+		return	"EGL_EXT_client_extensions "
+			"EGL_KHR_client_get_all_proc_addresses";
 	}
 
 	if(!eglplus_egl_is_open_display(display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return nullptr;
 	}
 	else if(name == EGL_VENDOR)
@@ -314,10 +335,11 @@ eglQueryString(EGLDisplay display, EGLint name)
 	}
 	else if(name == EGL_EXTENSIONS)
 	{
-		return	"EGL_KHR_get_all_proc_addresses "
-			"EGL_KHR_create_context";
+		return	"EGL_KHR_create_context "
+			"EGL_KHR_get_all_proc_addresses "
+			"EGL_NV_native_query";
 	}
-	eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+	eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);
 	return nullptr;
 }
 //------------------------------------------------------------------------------

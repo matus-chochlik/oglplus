@@ -8,24 +8,28 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 project(EGLplus_EGL)
 
 find_package(X11 REQUIRED)
+find_package(Threads REQUIRED)
 
 #add_definitions(-std=c++0x)
 add_definitions(-std=c++0x -g3)
 
 include_directories(${X11_INCLUDE_DIRS})
+include_directories(${Threads_INCLUDE_DIRS})
 include_directories(include)
 
 add_library(EGL SHARED
-	src/EGL/error.cpp
 	src/EGL/api.cpp
+	src/EGL/glx/error.cpp
 	src/EGL/glx/display.cpp
 	src/EGL/glx/configs.cpp
 	src/EGL/glx/surface.cpp
 	src/EGL/glx/context.cpp
 	src/EGL/glx/threads.cpp
 	src/EGL/glx/extensions.cpp
+	src/EGL/glx/ext/NV_native_query.cpp
 )
 target_link_libraries(EGL ${X11_LIBRARIES})
+target_link_libraries(EGL ${CMAKE_THREAD_LIBS_INIT})
 
 install(TARGETS EGL LIBRARY DESTINATION lib)
 install(DIRECTORY include/EGL DESTINATION include)

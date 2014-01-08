@@ -14,7 +14,8 @@
 #include "context.hpp"
 #include "surface.hpp"
 #include "display.hpp"
-#include "../error.hpp"
+#include "error.hpp"
+#include "threads.hpp"
 #include "../api.hpp"
 
 #include <vector>
@@ -50,17 +51,11 @@ typedef ::GLXContext (*glXCreateContextAttribsARBProc)(
 );
 static glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
 //------------------------------------------------------------------------------
-// Current context / surface / display
-//------------------------------------------------------------------------------
-static EGLDisplay eglplus_egl_glx_current_display = EGL_NO_DISPLAY;
-static EGLSurface eglplus_egl_glx_current_draw_surface = EGL_NO_SURFACE;
-static EGLSurface eglplus_egl_glx_current_read_surface = EGL_NO_SURFACE;
-static EGLContext eglplus_egl_glx_current_context = EGL_NO_CONTEXT;
-//------------------------------------------------------------------------------
 // EGL API
 //------------------------------------------------------------------------------
 extern "C" {
 //------------------------------------------------------------------------------
+// eglCreateContext
 //------------------------------------------------------------------------------
 EGLAPI EGLContext EGLAPIENTRY
 eglCreateContext(
@@ -72,19 +67,19 @@ eglCreateContext(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_CONTEXT;
 	}
 
 	if(!config._glx_fb_config)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_CONFIG;
+		eglplus_egl_SetErrorCode(EGL_BAD_CONFIG);
 		return EGL_NO_CONTEXT;
 	}
 
 	if(eglplus_egl_CurrentAPI != EGL_OPENGL_API)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_MATCH;
+		eglplus_egl_SetErrorCode(EGL_BAD_MATCH);
 		return EGL_NO_CONTEXT;
 	}
 
@@ -96,7 +91,7 @@ eglCreateContext(
 
 	if(glXCreateContextAttribsARB == nullptr)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_NO_CONTEXT;
 	}
 
@@ -158,7 +153,7 @@ eglCreateContext(
 
 			if(bad_attrib)
 			{
-				eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+				eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 				return EGL_NO_CONTEXT;
 			}
 			++tmp_attrib_list;
@@ -255,7 +250,7 @@ eglCreateContext(
 
 	if(context == ::GLXContext(0))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_ALLOC;
+		eglplus_egl_SetErrorCode(EGL_BAD_ALLOC);
 		return EGL_NO_CONTEXT;
 	}
 
@@ -264,7 +259,7 @@ eglCreateContext(
 	try { return new eglplus_egl_glx_ContextImpl(context); }
 	catch(...)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_ALLOC;
+		eglplus_egl_SetErrorCode(EGL_BAD_ALLOC);
 		return EGL_NO_CONTEXT;
 	}
 }
@@ -279,13 +274,13 @@ eglDestroyContext(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
 	if(context == EGL_NO_CONTEXT)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_CONTEXT;
+		eglplus_egl_SetErrorCode(EGL_BAD_CONTEXT);
 		return EGL_FALSE;
 	}
 
@@ -305,13 +300,13 @@ eglMakeCurrent(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
 	if(context == EGL_NO_CONTEXT)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_CONTEXT;
+		eglplus_egl_SetErrorCode(EGL_BAD_CONTEXT);
 		return EGL_FALSE;
 	}
 
@@ -338,10 +333,12 @@ eglMakeCurrent(
 		return EGL_FALSE;
 	}
 
-	eglplus_egl_glx_current_display = display;
-	eglplus_egl_glx_current_draw_surface = egl_draw;
-	eglplus_egl_glx_current_read_surface = egl_read;
-	eglplus_egl_glx_current_context = context;
+	eglplus_egl_glx_Current& current = eglplus_egl_CurrentRef();
+
+	current.display = display;
+	current.draw_surface = egl_draw;
+	current.read_surface = egl_read;
+	current.context = context;
 
 	return EGL_TRUE;
 }
@@ -351,7 +348,7 @@ eglMakeCurrent(
 EGLAPI EGLContext EGLAPIENTRY
 eglGetCurrentContext(void)
 {
-	return eglplus_egl_glx_current_context;
+	return eglplus_egl_CurrentRef().context;
 }
 //------------------------------------------------------------------------------
 // eglGetCurrentSurface
@@ -363,16 +360,16 @@ eglGetCurrentSurface(EGLint which)
 	{
 		case EGL_DRAW:
 		{
-			return eglplus_egl_glx_current_draw_surface;
+			return eglplus_egl_CurrentRef().draw_surface;
 		}
 		case EGL_READ:
 		{
-			return eglplus_egl_glx_current_read_surface;
+			return eglplus_egl_CurrentRef().read_surface;
 		}
 		default:;
 	}
 
-	eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+	eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);
 	return EGL_NO_SURFACE;
 }
 //------------------------------------------------------------------------------
@@ -381,7 +378,7 @@ eglGetCurrentSurface(EGLint which)
 EGLAPI EGLDisplay EGLAPIENTRY
 eglGetCurrentDisplay(void)
 {
-	return eglplus_egl_glx_current_display;
+	return eglplus_egl_CurrentRef().display;
 }
 //------------------------------------------------------------------------------
 // eglQueryContext
@@ -396,13 +393,13 @@ eglQueryContext(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
 	if(context == EGL_NO_CONTEXT)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_CONTEXT;
+		eglplus_egl_SetErrorCode(EGL_BAD_CONTEXT);
 		return EGL_FALSE;
 	}
 
@@ -436,7 +433,7 @@ eglQueryContext(
 		}
 		default:
 		{
-			eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+			eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 			return EGL_FALSE;
 		}
 	}
@@ -470,19 +467,21 @@ eglQueryContext(
 EGLAPI EGLBoolean EGLAPIENTRY
 eglWaitClient(void)
 {
-	if(!eglplus_egl_glx_current_context)
+	eglplus_egl_glx_Current& current = eglplus_egl_CurrentRef();
+
+	if(!current.context)
 	{
 		return EGL_TRUE;
 	}
 
-	if(!eglplus_egl_glx_current_draw_surface)
+	if(!current.draw_surface)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
-	if(!eglplus_egl_glx_current_read_surface)
+	if(!current.read_surface)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 	// TODO finish error handling
@@ -505,25 +504,27 @@ eglWaitGL(void)
 EGLAPI EGLBoolean EGLAPIENTRY
 eglWaitNative(EGLint engine)
 {
-	if(!eglplus_egl_glx_current_context)
+	eglplus_egl_glx_Current& current = eglplus_egl_CurrentRef();
+
+	if(!current.context)
 	{
 		return EGL_TRUE;
 	}
 
 	if(engine != EGL_CORE_NATIVE_ENGINE)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+		eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);
 		return EGL_FALSE;
 	}
-	if(!eglplus_egl_glx_current_draw_surface)
+	if(!current.draw_surface)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 
-	if(!eglplus_egl_glx_current_read_surface)
+	if(!current.read_surface)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 	// TODO finish error handling

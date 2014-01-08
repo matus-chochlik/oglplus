@@ -11,6 +11,7 @@
 #ifndef OGLPLUS_EGL_GLX_CONTEXT_1312301524_HPP
 #define OGLPLUS_EGL_GLX_CONTEXT_1312301524_HPP
 
+#include <EGL/egl.h>
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 
@@ -22,6 +23,21 @@ struct eglplus_egl_glx_ContextImpl
 	~eglplus_egl_glx_ContextImpl(void);
 
 	void _cleanup( ::Display*);
+};
+
+struct eglplus_egl_glx_Current
+{
+	EGLDisplay display;
+	EGLSurface draw_surface;
+	EGLSurface read_surface;
+	EGLContext context;
+
+	eglplus_egl_glx_Current(void)
+	 : display(EGL_NO_DISPLAY)
+	 , draw_surface(EGL_NO_SURFACE)
+	 , read_surface(EGL_NO_SURFACE)
+	 , context(EGL_NO_CONTEXT)
+	{ }
 };
 
 #endif // include guard

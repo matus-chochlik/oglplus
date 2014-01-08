@@ -14,7 +14,7 @@
 #include <GL/glx.h>
 #include <cstring>
 
-#include "../error.hpp"
+#include "ext/NV_native_query.hpp"
 
 //------------------------------------------------------------------------------
 // EGL API
@@ -27,6 +27,7 @@ EGLAPI void EGLAPIENTRY (*eglGetProcAddress(const char* procname))(void)
 {
 	typedef void(*fnptr)(void);
 
+	// EGL 1.4
 	if(std::strcmp(procname, "eglGetError") == 0)
 		return fnptr(&eglGetError);
 	if(std::strcmp(procname, "eglGetDisplay") == 0)
@@ -93,6 +94,14 @@ EGLAPI void EGLAPIENTRY (*eglGetProcAddress(const char* procname))(void)
 		return fnptr(&eglSwapBuffers);
 	if(std::strcmp(procname, "eglCopyBuffers") == 0)
 		return fnptr(&eglCopyBuffers);
+
+	// EGL_NV_native_query
+	if(std::strcmp(procname, "eglQueryNativeDisplayNV") == 0)
+		return fnptr(&eglQueryNativeDisplayNV);
+	if(std::strcmp(procname, "eglQueryNativeWindowNV") == 0)
+		return fnptr(&eglQueryNativeWindowNV);
+	if(std::strcmp(procname, "eglQueryNativePixmapNV") == 0)
+		return fnptr(&eglQueryNativePixmapNV);
 
 	return ::glXGetProcAddress((GLubyte*)procname);
 }

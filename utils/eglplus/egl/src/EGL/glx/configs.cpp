@@ -12,7 +12,7 @@
 #include <EGL/egl.h>
 
 #include "display.hpp"
-#include "../error.hpp"
+#include "error.hpp"
 
 #include <cassert>
 #include <vector>
@@ -267,13 +267,13 @@ eglGetConfigs(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
 	if(!num_configs)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+		eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);
 		return EGL_FALSE;
 	}
 
@@ -314,7 +314,7 @@ eglChooseConfig(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
@@ -337,7 +337,7 @@ eglChooseConfig(
 			{
 				case EGL_NONE:
 				{
-					eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+					eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 					return EGL_FALSE;
 				}
 				case EGL_SURFACE_TYPE:
@@ -440,7 +440,7 @@ eglChooseConfig(
 			}
 			else
 			{
-				eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+				eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 				return EGL_FALSE;
 			}
 		}
@@ -492,13 +492,13 @@ eglGetConfigAttrib(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
 	if(!egl_attrib_value)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+		eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);
 		return EGL_FALSE;
 	}
 
@@ -538,7 +538,7 @@ eglGetConfigAttrib(
 				glx_attrib_name
 			))
 			{
-				eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+				eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 				return EGL_FALSE;
 			}
 		}
@@ -564,11 +564,11 @@ eglGetConfigAttrib(
 	}
 	else if(glx_result == GLX_BAD_ATTRIBUTE)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+		eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 	}
 	else
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 	}
 
 	return EGL_FALSE;

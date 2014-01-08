@@ -13,7 +13,7 @@
 
 #include "surface.hpp"
 #include "display.hpp"
-#include "../error.hpp"
+#include "error.hpp"
 
 #include <vector>
 #include <cassert>
@@ -22,16 +22,21 @@
 //------------------------------------------------------------------------------
 // eglplus_egl_glx_SurfaceImpl
 //------------------------------------------------------------------------------
-eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl( ::GLXDrawable drawable)
- : _glx_drawable(drawable)
+eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl(
+	int drawable_type,
+	::GLXDrawable drawable
+): _glx_drawable_type(drawable_type)
+ , _glx_drawable(drawable)
  , _do_cleanup(nullptr)
 {
 }
 
 eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl(
+	int drawable_type,
 	::GLXDrawable drawable,
 	void (*do_cleanup)( ::Display*, ::GLXDrawable)
-): _glx_drawable(drawable)
+): _glx_drawable_type(drawable_type)
+ , _glx_drawable(drawable)
  , _do_cleanup(do_cleanup)
 {
 }
@@ -44,6 +49,7 @@ eglplus_egl_glx_SurfaceImpl::~eglplus_egl_glx_SurfaceImpl(void)
 void eglplus_egl_glx_SurfaceImpl::_cleanup( ::Display* display)
 {
 	if(_do_cleanup) _do_cleanup(display, _glx_drawable);
+	_glx_drawable_type = 0;
 	_glx_drawable = 0;
 }
 //------------------------------------------------------------------------------
@@ -61,12 +67,12 @@ eglDestroySurface(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 	if(!surface)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 	surface->_cleanup(display->_x_open_display);
@@ -85,13 +91,13 @@ eglCreateWindowSurface(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_SURFACE;
 	}
 
 	if(!config._glx_fb_config)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_CONFIG;
+		eglplus_egl_SetErrorCode(EGL_BAD_CONFIG);
 		return EGL_NO_SURFACE;
 	}
 
@@ -149,7 +155,7 @@ eglCreateWindowSurface(
 
 			if(bad_attrib)
 			{
-				eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+				eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 				return EGL_NO_SURFACE;
 			}
 			++tmp_attrib_list;
@@ -167,7 +173,7 @@ eglCreateWindowSurface(
 
 	if((glx_attrib_value & GLX_WINDOW_BIT) != GLX_WINDOW_BIT)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_MATCH;
+		eglplus_egl_SetErrorCode(EGL_BAD_MATCH);
 		return EGL_NO_SURFACE;
 	}
 
@@ -184,10 +190,16 @@ eglCreateWindowSurface(
 		return EGL_NO_SURFACE;
 	}
 
-	try { return new eglplus_egl_glx_SurfaceImpl(window); }
+	try
+	{
+		return new eglplus_egl_glx_SurfaceImpl(
+			GLX_WINDOW_BIT,
+			window
+		);
+	}
 	catch(...)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_ALLOC;
+		eglplus_egl_SetErrorCode(EGL_BAD_ALLOC);
 		return EGL_NO_SURFACE;
 	}
 }
@@ -203,7 +215,7 @@ eglCreatePbufferSurface(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_SURFACE;
 	}
 
@@ -273,7 +285,7 @@ eglCreatePbufferSurface(
 
 			if(bad_attrib)
 			{
-				eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+				eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 				return EGL_NO_SURFACE;
 			}
 			++tmp_attrib_list;
@@ -334,7 +346,7 @@ eglCreatePbufferSurface(
 
 	if((glx_attrib_value & GLX_PBUFFER_BIT) != GLX_PBUFFER_BIT)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_MATCH;
+		eglplus_egl_SetErrorCode(EGL_BAD_MATCH);
 		return EGL_NO_SURFACE;
 	}
 
@@ -347,13 +359,14 @@ eglCreatePbufferSurface(
 	try
 	{
 		return new eglplus_egl_glx_SurfaceImpl(
+			GLX_PBUFFER_BIT,
 			pbuffer,
 			& ::glXDestroyPbuffer
 		);
 	}
 	catch(...)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_ALLOC;
+		eglplus_egl_SetErrorCode(EGL_BAD_ALLOC);
 		return EGL_NO_SURFACE;
 	}
 }
@@ -371,7 +384,7 @@ eglCreatePbufferFromClientBuffer(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_SURFACE;
 	}
 
@@ -382,7 +395,7 @@ eglCreatePbufferFromClientBuffer(
 	}
 
 	// TODO
-	eglplus_egl_ErrorCode = EGL_BAD_MATCH;
+	eglplus_egl_SetErrorCode(EGL_BAD_MATCH);
 	return EGL_NO_SURFACE;
 }
 //------------------------------------------------------------------------------
@@ -398,7 +411,7 @@ eglCreatePixmapSurface(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_SURFACE;
 	}
 
@@ -413,7 +426,18 @@ eglCreatePixmapSurface(
 	// TODO: config?
 	// TODO: attributes (at least EGL_RENDER_BUFFER)?
 
-	return new eglplus_egl_glx_SurfaceImpl(pixmap);
+	try
+	{
+		return new eglplus_egl_glx_SurfaceImpl(
+			GLX_PIXMAP_BIT,
+			pixmap
+		);
+	}
+	catch(...)
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_ALLOC);
+		return EGL_NO_SURFACE;
+	}
 }
 //------------------------------------------------------------------------------
 // eglSurfaceAttrib
@@ -428,13 +452,13 @@ eglSurfaceAttrib(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
 	if(surface == EGL_NO_SURFACE)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 
@@ -454,13 +478,13 @@ eglQuerySurface(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
 	if(surface == EGL_NO_SURFACE)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 
@@ -477,8 +501,25 @@ eglQuerySurface(
 	{
 		case EGL_RENDER_BUFFER:
 		{
-			// TODO
-			*egl_attrib_value = EGL_BACK_BUFFER;
+			switch(surface->_glx_drawable_type)
+			{
+				case GLX_WINDOW_BIT:
+				case GLX_PBUFFER_BIT:
+				{
+					*egl_attrib_value = EGL_BACK_BUFFER;
+					break;
+				}
+				case GLX_PIXMAP_BIT:
+				{
+					*egl_attrib_value = EGL_SINGLE_BUFFER;
+					break;
+				}
+				default:
+				{
+					eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
+					return EGL_FALSE;
+				}
+			}
 			return EGL_TRUE;
 		}
 		case EGL_SWAP_BEHAVIOR:
@@ -543,7 +584,7 @@ eglQuerySurface(
 
 	if(bad_attrib)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_ATTRIBUTE;
+		eglplus_egl_SetErrorCode(EGL_BAD_ATTRIBUTE);
 		return EGL_FALSE;
 	}
 
@@ -581,24 +622,24 @@ eglBindTexImage(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_NOT_INITIALIZED;
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
 	if(surface == EGL_NO_SURFACE)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 
 	if(buffer != EGL_BACK_BUFFER)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+		eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);
 		return EGL_FALSE;
 	}
 
 	// Not supported
-	eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+	eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 	return EGL_FALSE;
 }
 //------------------------------------------------------------------------------
@@ -625,13 +666,13 @@ eglSwapBuffers(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
 	if(surface == EGL_NO_SURFACE)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 
@@ -654,18 +695,18 @@ eglCopyBuffers(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
 	if(surface == EGL_NO_SURFACE)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
 	}
 
 	// TODO
-	eglplus_egl_ErrorCode = EGL_BAD_SURFACE;
+	eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 	return EGL_FALSE;
 }
 //------------------------------------------------------------------------------
@@ -679,13 +720,13 @@ eglSwapInterval(
 {
 	if((!display) || (!display->_x_open_display))
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_DISPLAY;
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
 	if(interval < 0)
 	{
-		eglplus_egl_ErrorCode = EGL_BAD_PARAMETER;
+		eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);
 		return EGL_FALSE;
 	}
 	// TODO
