@@ -15,10 +15,15 @@
 #include "display.hpp"
 #include "error.hpp"
 
+#include <pthread.h>
+
+#include <set>
 #include <vector>
 #include <cassert>
 
-
+//------------------------------------------------------------------------------
+static std::set<eglplus_egl_glx_SurfaceImpl*> eglplus_egl_glx_Surfaces;
+static ::pthread_mutex_t eglplus_egl_Surfaces_mutex = PTHREAD_MUTEX_INITIALIZER;
 //------------------------------------------------------------------------------
 // eglplus_egl_glx_SurfaceImpl
 //------------------------------------------------------------------------------
@@ -29,8 +34,11 @@ eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl(
  , _glx_drawable(drawable)
  , _do_cleanup(nullptr)
 {
+	::pthread_mutex_lock(&eglplus_egl_Surfaces_mutex);
+	eglplus_egl_glx_Surfaces.insert(this);
+	::pthread_mutex_unlock(&eglplus_egl_Surfaces_mutex);
 }
-
+//------------------------------------------------------------------------------
 eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl(
 	int drawable_type,
 	::GLXDrawable drawable,
@@ -39,18 +47,36 @@ eglplus_egl_glx_SurfaceImpl::eglplus_egl_glx_SurfaceImpl(
  , _glx_drawable(drawable)
  , _do_cleanup(do_cleanup)
 {
+	::pthread_mutex_lock(&eglplus_egl_Surfaces_mutex);
+	eglplus_egl_glx_Surfaces.insert(this);
+	::pthread_mutex_unlock(&eglplus_egl_Surfaces_mutex);
 }
-
+//------------------------------------------------------------------------------
 eglplus_egl_glx_SurfaceImpl::~eglplus_egl_glx_SurfaceImpl(void)
 {
+	::pthread_mutex_lock(&eglplus_egl_Surfaces_mutex);
+	eglplus_egl_glx_Surfaces.erase(this);
+	::pthread_mutex_unlock(&eglplus_egl_Surfaces_mutex);
+
 	assert(!_glx_drawable);
 }
-
+//------------------------------------------------------------------------------
 void eglplus_egl_glx_SurfaceImpl::_cleanup( ::Display* display)
 {
 	if(_do_cleanup) _do_cleanup(display, _glx_drawable);
 	_glx_drawable_type = 0;
 	_glx_drawable = 0;
+}
+//------------------------------------------------------------------------------
+bool eglplus_egl_valid_surface(EGLSurface surface)
+{
+	::pthread_mutex_lock(&eglplus_egl_Surfaces_mutex);
+	bool result =
+		eglplus_egl_glx_Surfaces.find(surface) !=
+		eglplus_egl_glx_Surfaces.end();
+	::pthread_mutex_unlock(&eglplus_egl_Surfaces_mutex);
+
+	return result;
 }
 //------------------------------------------------------------------------------
 // EGL API
@@ -65,12 +91,19 @@ eglDestroySurface(
 	EGLSurface surface
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
-	if(!surface)
+
+	if(!display->initialized())
+	{
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
+		return EGL_FALSE;
+	}
+
+	if(!eglplus_egl_valid_surface(surface))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
@@ -89,7 +122,13 @@ eglCreateWindowSurface(
 	const EGLint *egl_attrib_list
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_NO_SURFACE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_SURFACE;
@@ -213,7 +252,13 @@ eglCreatePbufferSurface(
 	const EGLint *egl_attrib_list
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_NO_SURFACE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_SURFACE;
@@ -382,7 +427,13 @@ eglCreatePbufferFromClientBuffer(
 	const EGLint *egl_attrib_list
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_NO_SURFACE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_SURFACE;
@@ -409,7 +460,13 @@ eglCreatePixmapSurface(
 	const EGLint *egl_attrib_list
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_NO_SURFACE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_SURFACE;
@@ -450,13 +507,19 @@ eglSurfaceAttrib(
 	EGLint egl_attrib_value
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_FALSE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
-	if(surface == EGL_NO_SURFACE)
+	if(!eglplus_egl_valid_surface(surface))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
@@ -476,13 +539,19 @@ eglQuerySurface(
 	EGLint *egl_attrib_value
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_FALSE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
-	if(surface == EGL_NO_SURFACE)
+	if(!eglplus_egl_valid_surface(surface))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
@@ -620,13 +689,19 @@ eglBindTexImage(
 	EGLint buffer
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_FALSE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 
-	if(surface == EGL_NO_SURFACE)
+	if(!eglplus_egl_valid_surface(surface))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
@@ -664,13 +739,19 @@ eglSwapBuffers(
 	EGLSurface surface
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
-	if(surface == EGL_NO_SURFACE)
+	if(!display->initialized())
+	{
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
+		return EGL_FALSE;
+	}
+
+	if(!eglplus_egl_valid_surface(surface))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
@@ -693,13 +774,19 @@ eglCopyBuffers(
 	EGLNativePixmapType target
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
-	if(surface == EGL_NO_SURFACE)
+	if(!display->initialized())
+	{
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
+		return EGL_FALSE;
+	}
+
+	if(!eglplus_egl_valid_surface(surface))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
 		return EGL_FALSE;
@@ -718,9 +805,15 @@ eglSwapInterval(
 	EGLint interval
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_FALSE;
+	}
+
+	if(!display->initialized())
+	{
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
 	}
 

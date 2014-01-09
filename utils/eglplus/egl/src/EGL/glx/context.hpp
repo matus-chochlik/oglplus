@@ -18,12 +18,15 @@
 struct eglplus_egl_glx_ContextImpl
 {
 	::GLXContext _glx_context;
+	::GLXPbuffer _glx_empty_surf;
 
-	eglplus_egl_glx_ContextImpl( ::GLXContext);
+	eglplus_egl_glx_ContextImpl( ::GLXContext, ::GLXPbuffer);
 	~eglplus_egl_glx_ContextImpl(void);
 
 	void _cleanup( ::Display*);
 };
+
+extern bool eglplus_egl_valid_context(EGLContext);
 
 struct eglplus_egl_glx_Current
 {

@@ -226,6 +226,26 @@ public:
 		return result == EGL_TRUE;
 	}
 
+	/// Makes the context current without surfaces
+	/**
+	 *  @note This function works only if EGL implements
+	 *  the EGL_KHR_surfaceless_context extension.
+	 *
+	 *  @eglsymbols
+	 *  @eglfunref{MakeCurrent}
+	 */
+	bool MakeCurrent(void)
+	{
+		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
+			FriendOf<Display>::GetHandle(_display),
+			EGL_NO_SURFACE,
+			EGL_NO_SURFACE,
+			_handle
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		return result == EGL_TRUE;
+	}
+
 	/// Queries a context attribute
 	/**
 	 *  @eglsymbols

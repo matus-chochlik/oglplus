@@ -265,7 +265,13 @@ eglGetConfigs(
 	EGLint * num_configs
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_FALSE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
@@ -312,7 +318,13 @@ eglChooseConfig(
 	EGLint *num_configs
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_FALSE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
@@ -490,7 +502,13 @@ eglGetConfigAttrib(
 	EGLint *egl_attrib_value
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_FALSE;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;

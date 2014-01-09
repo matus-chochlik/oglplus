@@ -24,7 +24,7 @@ eglQueryNativeDisplayNV(
 	EGLNativeDisplayType* glx_display
 )
 {
-	if((!display) || (!eglplus_egl_valid_display(display)))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
@@ -54,7 +54,7 @@ eglQueryNativeWindowNV(
 	EGLNativeWindowType* glx_window
 )
 {
-	if((!display) || (!eglplus_egl_valid_display(display)))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
@@ -96,7 +96,7 @@ eglQueryNativePixmapNV(
 	EGLNativePixmapType* glx_pixmap
 )
 {
-	if((!display) || (!eglplus_egl_valid_display(display)))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;

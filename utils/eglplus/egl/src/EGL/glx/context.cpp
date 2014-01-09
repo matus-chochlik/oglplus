@@ -18,26 +18,58 @@
 #include "threads.hpp"
 #include "../api.hpp"
 
+#include <pthread.h>
+
+#include <set>
 #include <vector>
 #include <cassert>
 
 //------------------------------------------------------------------------------
+static std::set<eglplus_egl_glx_ContextImpl*> eglplus_egl_glx_Contexts;
+static ::pthread_mutex_t eglplus_egl_Contexts_mutex = PTHREAD_MUTEX_INITIALIZER;
+//------------------------------------------------------------------------------
 // eglplus_egl_glx_ContextImpl
 //------------------------------------------------------------------------------
-eglplus_egl_glx_ContextImpl::eglplus_egl_glx_ContextImpl( ::GLXContext context)
- : _glx_context(context)
+eglplus_egl_glx_ContextImpl::eglplus_egl_glx_ContextImpl(
+	::GLXContext context,
+	::GLXPbuffer empty_surf
+): _glx_context(context)
+ , _glx_empty_surf(empty_surf)
 {
+	::pthread_mutex_lock(&eglplus_egl_Contexts_mutex);
+	eglplus_egl_glx_Contexts.insert(this);
+	::pthread_mutex_unlock(&eglplus_egl_Contexts_mutex);
 }
-
+//------------------------------------------------------------------------------
 eglplus_egl_glx_ContextImpl::~eglplus_egl_glx_ContextImpl(void)
 {
+	::pthread_mutex_lock(&eglplus_egl_Contexts_mutex);
+	eglplus_egl_glx_Contexts.erase(this);
+	::pthread_mutex_unlock(&eglplus_egl_Contexts_mutex);
+
 	assert(!_glx_context);
 }
-
+//------------------------------------------------------------------------------
 void eglplus_egl_glx_ContextImpl::_cleanup( ::Display* display)
 {
+	if(_glx_empty_surf != ::GLXPbuffer(0))
+	{
+		::glXDestroyPbuffer(display, _glx_empty_surf);
+		_glx_empty_surf = ::GLXPbuffer(0);
+	}
 	::glXDestroyContext(display, _glx_context);
-	_glx_context = 0;
+	_glx_context = ::GLXContext(0);
+}
+//------------------------------------------------------------------------------
+bool eglplus_egl_valid_context(EGLContext context)
+{
+	::pthread_mutex_lock(&eglplus_egl_Contexts_mutex);
+	bool result =
+		eglplus_egl_glx_Contexts.find(context) !=
+		eglplus_egl_glx_Contexts.end();
+	::pthread_mutex_unlock(&eglplus_egl_Contexts_mutex);
+
+	return result;
 }
 //------------------------------------------------------------------------------
 // glXCreateContextAttribsARB
@@ -65,7 +97,13 @@ eglCreateContext(
 	const EGLint *egl_attrib_list
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_NO_CONTEXT;
+	}
+
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_NO_CONTEXT;
@@ -96,9 +134,18 @@ eglCreateContext(
 	}
 
 	::GLXContext glx_share_context = ::GLXContext(0);
-	if(egl_share_context)
+
+	if(egl_share_context != EGL_NO_CONTEXT)
 	{
-		glx_share_context = egl_share_context->_glx_context;
+		if(eglplus_egl_valid_context(egl_share_context))
+		{
+			glx_share_context = egl_share_context->_glx_context;
+		}
+		else
+		{
+			eglplus_egl_SetErrorCode(EGL_BAD_CONFIG);
+			return EGL_NO_CONTEXT;
+		}
 	}
 
 	EGLint empty_list = EGL_NONE;
@@ -256,7 +303,19 @@ eglCreateContext(
 
 	::XSync(display->_x_open_display, False);
 
-	try { return new eglplus_egl_glx_ContextImpl(context); }
+	int empty_surf_attr[] = {
+		GLX_PBUFFER_WIDTH, 0,
+		GLX_PBUFFER_HEIGHT, 0,
+		GLX_PRESERVED_CONTENTS, False,
+		None
+	};
+	::GLXPbuffer empty_surf = ::glXCreatePbuffer(
+                display->_x_open_display,
+                static_cast< ::GLXFBConfig>(config._glx_fb_config),
+                empty_surf_attr
+        );
+
+	try { return new eglplus_egl_glx_ContextImpl(context, empty_surf); }
 	catch(...)
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_ALLOC);
@@ -272,13 +331,19 @@ eglDestroyContext(
 	EGLContext context
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
-	if(context == EGL_NO_CONTEXT)
+	if(!display->initialized())
+	{
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
+		return EGL_FALSE;
+	}
+
+	if(!eglplus_egl_valid_context(context))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_CONTEXT);
 		return EGL_FALSE;
@@ -298,36 +363,98 @@ eglMakeCurrent(
 	EGLContext context
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
-	if(context == EGL_NO_CONTEXT)
-	{
-		eglplus_egl_SetErrorCode(EGL_BAD_CONTEXT);
-		return EGL_FALSE;
-	}
-
+	::GLXContext glx_context = ::GLXContext(0);
 	::GLXDrawable glx_draw = ::GLXDrawable(0);
 	::GLXDrawable glx_read = ::GLXDrawable(0);
 
-	if(egl_draw != EGL_NO_SURFACE)
+	if(context != EGL_NO_CONTEXT)
 	{
-		glx_draw = egl_draw->_glx_drawable;
-	}
+		if(!eglplus_egl_valid_context(context))
+		{
+			eglplus_egl_SetErrorCode(EGL_BAD_CONTEXT);
+			return EGL_FALSE;
+		}
 
-	if(egl_read != EGL_NO_SURFACE)
+		if((egl_draw == EGL_NO_SURFACE) != (egl_read == EGL_NO_SURFACE))
+		{
+			eglplus_egl_SetErrorCode(EGL_BAD_MATCH);
+			return EGL_FALSE;
+		}
+
+		if(egl_draw != EGL_NO_SURFACE)
+		{
+			if(!eglplus_egl_valid_surface(egl_draw))
+			{
+				eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
+				return EGL_FALSE;
+			}
+			glx_draw = egl_draw->_glx_drawable;
+		}
+		else if(context->_glx_empty_surf)
+		{
+			// KHR_surfaceless_context
+			glx_draw = context->_glx_empty_surf;
+		}
+		else
+		{
+			eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
+			return EGL_FALSE;
+		}
+
+		if(egl_read != EGL_NO_SURFACE)
+		{
+			if(!eglplus_egl_valid_surface(egl_read))
+			{
+				eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
+				return EGL_FALSE;
+			}
+			glx_read = egl_read->_glx_drawable;
+		}
+		else if(context->_glx_empty_surf)
+		{
+			// KHR_surfaceless_context
+			glx_read = context->_glx_empty_surf;
+		}
+		else
+		{
+			eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
+			return EGL_FALSE;
+		}
+
+		if(!display->initialized())
+		{
+			eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
+			return EGL_FALSE;
+		}
+
+		glx_context = context->_glx_context;
+	}
+	else
 	{
-		glx_read = egl_read->_glx_drawable;
+		if(egl_draw != EGL_NO_SURFACE)
+		{
+			eglplus_egl_SetErrorCode(EGL_BAD_MATCH);
+			return EGL_FALSE;
+		}
+
+		if(egl_read != EGL_NO_SURFACE)
+		{
+			eglplus_egl_SetErrorCode(EGL_BAD_MATCH);
+			return EGL_FALSE;
+		}
 	}
 
 	if(::glXMakeContextCurrent(
 		display->_x_open_display,
 		glx_draw,
 		glx_read,
-		context->_glx_context
+		glx_context
 	) != True)
 	{
 		return EGL_FALSE;
@@ -391,13 +518,19 @@ eglQueryContext(
 	EGLint *egl_attrib_value
 )
 {
-	if((!display) || (!display->_x_open_display))
+	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
 
-	if(context == EGL_NO_CONTEXT)
+	if(!display->initialized())
+	{
+		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
+		return EGL_FALSE;
+	}
+
+	if(!eglplus_egl_valid_context(context))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_CONTEXT);
 		return EGL_FALSE;

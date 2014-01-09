@@ -31,4 +31,6 @@ struct eglplus_egl_glx_SurfaceImpl
 	void _cleanup( ::Display*);
 };
 
+extern bool eglplus_egl_valid_surface(EGLSurface);
+
 #endif // include guard

@@ -102,13 +102,18 @@ int eglplus_egl_X_error_handler(::Display* display, ::XErrorEvent* error_event)
 static int eglplus_egl_init_display_count = 0;
 static ::pthread_mutex_t eglplus_egl_init_display_count_mutex =
 	PTHREAD_MUTEX_INITIALIZER; 
-
+//------------------------------------------------------------------------------
 eglplus_egl_glx_DisplayImpl::eglplus_egl_glx_DisplayImpl(
 	EGLNativeDisplayType id
 ): _x_display_id(static_cast< ::Display*>(id))
  , _x_open_display(static_cast < ::Display*>(nullptr))
 { }
-
+//------------------------------------------------------------------------------
+bool eglplus_egl_glx_DisplayImpl::initialized(void) const
+{
+	return _x_open_display != nullptr;
+}
+//------------------------------------------------------------------------------
 bool eglplus_egl_glx_DisplayImpl::_init(void)
 {
 	// if already open
@@ -139,7 +144,7 @@ bool eglplus_egl_glx_DisplayImpl::_init(void)
 	// everything should be ok
 	return true;
 }
-
+//------------------------------------------------------------------------------
 bool eglplus_egl_glx_DisplayImpl::_cleanup(void)
 {
 	// if not open
@@ -184,17 +189,22 @@ typedef std::map<
 > eglplus_egl_display_map;
 
 // the map of accessed displays
-static eglplus_egl_display_map eglplus_egl_displays;
-static ::pthread_mutex_t eglplus_egl_displays_mutex = PTHREAD_MUTEX_INITIALIZER;
+static eglplus_egl_display_map eglplus_egl_Displays;
+static ::pthread_mutex_t eglplus_egl_Displays_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 // checks if the passed handle is a valid display
 bool eglplus_egl_valid_display(EGLDisplay display)
 {
-	::pthread_mutex_lock(&eglplus_egl_displays_mutex);
+	if(display == EGL_NO_DISPLAY)
+	{
+		return false;
+	}
+
+	::pthread_mutex_lock(&eglplus_egl_Displays_mutex);
 
 	bool result = false;
-	auto i = eglplus_egl_displays.begin();
-	auto e = eglplus_egl_displays.end();
+	auto i = eglplus_egl_Displays.begin();
+	auto e = eglplus_egl_Displays.end();
 	while(i != e)
 	{
 		if(i->second.get() == display)
@@ -204,17 +214,9 @@ bool eglplus_egl_valid_display(EGLDisplay display)
 		}
 		++i;
 	}
-	::pthread_mutex_unlock(&eglplus_egl_displays_mutex);
+	::pthread_mutex_unlock(&eglplus_egl_Displays_mutex);
 
 	return result;
-}
-
-// checks if the passed handle is an open display
-bool eglplus_egl_is_open_display(EGLDisplay display)
-{
-	if(!eglplus_egl_valid_display(display))
-		return false;
-	return display->_x_open_display != nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -227,12 +229,12 @@ extern "C" {
 EGLAPI EGLDisplay EGLAPIENTRY
 eglGetDisplay(EGLNativeDisplayType display_id)
 {
-	::pthread_mutex_lock(&eglplus_egl_displays_mutex);
+	::pthread_mutex_lock(&eglplus_egl_Displays_mutex);
 
-	auto p = eglplus_egl_displays.find(display_id);
-	if(p == eglplus_egl_displays.end())
+	auto p = eglplus_egl_Displays.find(display_id);
+	if(p == eglplus_egl_Displays.end())
 	{
-		p = eglplus_egl_displays.insert(
+		p = eglplus_egl_Displays.insert(
 			eglplus_egl_display_map::value_type(
 				display_id,
 				std::unique_ptr<eglplus_egl_glx_DisplayImpl>(
@@ -243,9 +245,9 @@ eglGetDisplay(EGLNativeDisplayType display_id)
 			)
 		).first;
 	}
-	assert(p != eglplus_egl_displays.end());
+	assert(p != eglplus_egl_Displays.end());
 
-	::pthread_mutex_unlock(&eglplus_egl_displays_mutex);
+	::pthread_mutex_unlock(&eglplus_egl_Displays_mutex);
 
 	return p->second.get();
 }
@@ -256,11 +258,6 @@ eglGetDisplay(EGLNativeDisplayType display_id)
 EGLAPI EGLBoolean EGLAPIENTRY
 eglInitialize(EGLDisplay display, EGLint *major, EGLint *minor)
 {
-	if(display == nullptr)
-	{
-		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
-		return EGL_FALSE;
-	}
 	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
@@ -283,17 +280,12 @@ eglInitialize(EGLDisplay display, EGLint *major, EGLint *minor)
 EGLAPI EGLBoolean EGLAPIENTRY
 eglTerminate(EGLDisplay display)
 {
-	if(display == nullptr)
-	{
-		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
-		return EGL_FALSE;
-	}
 	if(!eglplus_egl_valid_display(display))
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_FALSE;
 	}
-	if(!eglplus_egl_is_open_display(display))
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return EGL_FALSE;
@@ -316,7 +308,7 @@ eglQueryString(EGLDisplay display, EGLint name)
 			"EGL_KHR_client_get_all_proc_addresses";
 	}
 
-	if(!eglplus_egl_is_open_display(display))
+	if(!display->initialized())
 	{
 		eglplus_egl_SetErrorCode(EGL_NOT_INITIALIZED);
 		return nullptr;
@@ -337,6 +329,7 @@ eglQueryString(EGLDisplay display, EGLint name)
 	{
 		return	"EGL_KHR_create_context "
 			"EGL_KHR_get_all_proc_addresses "
+			"EGL_KHR_surfaceless_context "
 			"EGL_NV_native_query";
 	}
 	eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);

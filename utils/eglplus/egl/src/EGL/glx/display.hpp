@@ -22,6 +22,8 @@ struct eglplus_egl_glx_DisplayImpl
 
 	eglplus_egl_glx_DisplayImpl(EGLNativeDisplayType);
 
+	bool initialized(void) const;
+
 	bool _init(void);
 	bool _cleanup(void);
 };
