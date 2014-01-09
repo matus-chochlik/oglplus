@@ -151,11 +151,9 @@ def run_convert(work_dir, args):
 
 	ret = subprocess.call(cmd_line,cwd=work_dir)
 	if ret < 0:
-		print("# Convert killed by signal %d" % -ret)
-		sys.exit(-ret)
+		raise RuntimeError("Convert killed by signal %d" % -ret)
 	elif ret > 0:
-		print("# Convert failed with code %d" % ret)
-		sys.exit(ret)
+		raise RuntimeError("Convert failed with code %d" % ret)
 
 # runs the example, dumps the frames, renders the video
 def render_video(
@@ -190,6 +188,7 @@ def render_video(
 
 		with ui.framedump('Rendering frames') as progress:
 			frame_no = 0
+			prev_frame_path_pic = str()
 			while True:
 				frame_path_raw = proc.stdout.readline()
 				if not frame_path_raw:
@@ -199,24 +198,30 @@ def render_video(
 				frame_path_raw = frame_path_raw.translate(None, '\r\n');
 				frame_path_pic = frame_path_raw.replace('.rgba', '.jpeg')
 
-				run_convert(work_dir, [
-					'-size', '%dx%d'%(width, height),
-					'-depth', '8',
-					frame_path_raw,
-					'-flip',
-					'-alpha', 'Off',
-					'-gravity', 'SouthEast',
-					main_label_file,
-					'-composite',
-					'-gravity', 'SouthEast',
-					sample_label_file,
-					'-composite',
-					'-gravity', 'SouthEast',
-					logo_file,
-					'-composite',
-					'-quality', '100',
-					frame_path_pic
-				])
+				try:
+					run_convert(work_dir, [
+						'-size', '%dx%d'%(width, height),
+						'-depth', '8',
+						frame_path_raw,
+						'-flip',
+						'-alpha', 'Off',
+						'-gravity', 'SouthEast',
+						main_label_file,
+						'-composite',
+						'-gravity', 'SouthEast',
+						sample_label_file,
+						'-composite',
+						'-gravity', 'SouthEast',
+						logo_file,
+						'-composite',
+						'-quality', '100',
+						frame_path_pic
+					])
+				except RuntimeError:
+					import shutil
+					shutil.copy2(prev_frame_path_pic, frame_path_pic)
+
+				prev_frame_path_pic = frame_path_pic
 
 				progress.update(frame_no, frame_path_pic)
 				frame_no += 1
