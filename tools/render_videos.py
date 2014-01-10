@@ -10,7 +10,8 @@ import os, sys
 class FallbackUI:
 	def __init__(self, options):
 		self.title = options.sample_label
-	def __enter__(self): pass
+	def __enter__(self): return self
+	def __exit__(self, type, value, traceback): pass
 
 	# Simple progress class for quick actions
 	class SimpleProgress:
@@ -50,198 +51,209 @@ class FallbackUI:
 
 
 # wxPython-based GUI
-class wxPyGUI:
-	import wx, threading
+try:
+	class wxPyGUI:
+		import wx, threading
 
-	# The main frame of the GUI
-	class MainFrame(wx.Frame):
+		# The main frame of the GUI
+		class MainFrame(wx.Frame):
+			def __init__(self, options):
+				import wx
+
+				wx.Frame.__init__(
+					self,
+					None,
+					wx.ID_ANY,
+					"Rendering video of '%s'" %
+					options.sample_label,
+					wx.DefaultPosition,
+					wx.Size(400, 170),
+					wx.CAPTION | wx.CLIP_CHILDREN
+				)
+				border_sizer = wx.BoxSizer(wx.HORIZONTAL)
+				border_sizer.AddSpacer(8)
+
+				sizer = wx.BoxSizer(wx.VERTICAL)
+				sizer.AddSpacer(16);
+
+				sizer.Add(
+					wx.StaticText(
+						self,
+						wx.ID_ANY,
+						"Work directory: '%s'" %
+						options.work_dir
+					), 0, wx.EXPAND
+				)
+				sizer.Add(
+					wx.StaticText(
+						self,
+						wx.ID_ANY,
+						"Bin directory: '%s'" %
+						options.bin_dir
+					), 0, wx.EXPAND
+				)
+				sizer.Add(
+					wx.StaticText(
+						self,
+						wx.ID_ANY,
+						"Example: '%s'" %
+						options.example
+					), 0, wx.EXPAND
+				)
+				sizer.Add(
+					wx.StaticText(
+						self,
+						wx.ID_ANY,
+						"Frame size: %dx%d" %
+						(options.width, options.height)
+					), 0, wx.EXPAND
+				)
+
+				sizer.AddSpacer(4)
+
+				self.gauge = wx.Gauge(self, wx.ID_ANY)
+				sizer.Add(self.gauge, 0, wx.EXPAND)
+				sizer.AddSpacer(4)
+
+				self.description = wx.StaticText(self)
+				sizer.Add(self.description, 0, wx.EXPAND)
+
+				border_sizer.Add(sizer, 1, wx.EXPAND)
+
+				border_sizer.AddSpacer(8)
+				self.SetSizer(border_sizer)
+
+				self.status_bar = wx.StatusBar(self)
+				self.SetStatusBar(self.status_bar)
+				self.status_bar.SetStatusText("Starting")
+
+			def AcceptProgress(self, progress):
+				progress.register(self)
+
+
+		# The thread for the GUI
+		class GUIThread(threading.Thread):
+
+			def __init__(self, options):
+				import wx, threading
+
+				threading.Thread.__init__(self)
+				self.initialized = threading.Event()
+				self.options = options
+				self.app = wx.App(False)
+
+
+			def run(self):
+				import wx
+
+				self.main_frame = wxPyGUI.MainFrame(self.options)
+				self.main_frame.Show()
+				wx.SafeYield()
+				self.initialized.set()
+				self.app.MainLoop()
+
+			def set_progress(self, progress):
+				import wx
+				self.initialized.wait()
+				wx.CallAfter(
+					self.main_frame.AcceptProgress,
+					progress
+				)
+
+			def finish(self):
+				import wx
+				wx.CallAfter(self.main_frame.Destroy)
+
 		def __init__(self, options):
-			import wx
+			self.gui_thread = wxPyGUI.GUIThread(options)
 
-			wx.Frame.__init__(
-				self,
-				None,
-				wx.ID_ANY,
-				"Rendering video of '%s'" % options.sample_label,
-				wx.DefaultPosition,
-				wx.Size(400, 170),
-				wx.CAPTION | wx.CLIP_CHILDREN
-			)
-			border_sizer = wx.BoxSizer(wx.HORIZONTAL)
-			border_sizer.AddSpacer(8)
+		def __enter__(self):
+			self.gui_thread.start()
+			return self
 
-			sizer = wx.BoxSizer(wx.VERTICAL)
-			sizer.AddSpacer(16);
-
-			sizer.Add(
-				wx.StaticText(
-					self,
-					wx.ID_ANY,
-					"Work directory: '%s'" % options.work_dir
-				), 0, wx.EXPAND
-			)
-			sizer.Add(
-				wx.StaticText(
-					self,
-					wx.ID_ANY,
-					"Bin directory: '%s'" % options.bin_dir
-				), 0, wx.EXPAND
-			)
-			sizer.Add(
-				wx.StaticText(
-					self,
-					wx.ID_ANY,
-					"Example: '%s'" % options.example
-				), 0, wx.EXPAND
-			)
-			sizer.Add(
-				wx.StaticText(
-					self,
-					wx.ID_ANY,
-					"Frame size: %dx%d" % (options.width, options.height)
-				), 0, wx.EXPAND
-			)
-
-			sizer.AddSpacer(4)
-
-			self.gauge = wx.Gauge(self, wx.ID_ANY)
-			sizer.Add(self.gauge, 0, wx.EXPAND)
-			sizer.AddSpacer(4)
-
-			self.description = wx.StaticText(self)
-			sizer.Add(self.description, 0, wx.EXPAND)
-
-			border_sizer.Add(sizer, 1, wx.EXPAND)
-
-			border_sizer.AddSpacer(8)
-			self.SetSizer(border_sizer)
-
-			self.status_bar = wx.StatusBar(self)
-			self.SetStatusBar(self.status_bar)
-			self.status_bar.SetStatusText("Starting")
-
-		def AcceptProgress(self, progress):
-			progress.register(self)
+		def __exit__(self, type, value, traceback):
+			self.gui_thread.finish()
+			self.gui_thread.join()
 
 
-	# The thread for the GUI
-	class GUIThread(threading.Thread):
+		# Simple progress class for quick actions
+		class SimpleProgress:
+			def __init__(self, ui, title):
+				self.title = title
+				ui.gui_thread.set_progress(self)
 
-		def __init__(self, options):
-			import wx, threading
+			def __enter__(self): return self
+			def __exit__(self, type, value, traceback): pass
 
-			threading.Thread.__init__(self)
-			self.initialized = threading.Event()
-			self.options = options
-			self.app = wx.App(False)
+			def register(self, main_frame):
+				import wx
 
+				wx.CallAfter(main_frame.gauge.Pulse)
+				wx.CallAfter(
+					main_frame.status_bar.SetStatusText,
+					self.title
+				)
+				wx.CallAfter(main_frame.gauge.Pulse)
 
-		def run(self):
-			import wx
-
-			self.main_frame = wxPyGUI.MainFrame(self.options)
-			self.main_frame.Show()
-			wx.SafeYield()
-			self.initialized.set()
-			self.app.MainLoop()
-
-		def set_progress(self, progress):
-			import wx
-			self.initialized.wait()
-			wx.CallAfter(self.main_frame.AcceptProgress, progress)
-
-		def finish(self):
-			import wx
-			wx.CallAfter(self.main_frame.Destroy)
-
-	def __init__(self, options):
-		self.gui_thread = wxPyGUI.GUIThread(options)
-
-	def __enter__(self):
-		self.gui_thread.start()
-		return self
-
-	def __exit__(self, type, value, traceback):
-		self.gui_thread.finish()
-		self.gui_thread.join()
+		def simple_action(self, title):
+			return wxPyGUI.SimpleProgress(self, title)
 
 
-	# Simple progress class for quick actions
-	class SimpleProgress:
-		def __init__(self, ui, title):
-			self.title = title
-			ui.gui_thread.set_progress(self)
+		# Progress class for the framedump action
+		class FramedumpProgress(SimpleProgress):
+			def __init__(self, ui, title):
+				self.base = wxPyGUI.SimpleProgress
+				self.base.__init__(self, ui, title)
 
-		def __enter__(self): return self
-		def __exit__(self, type, value, traceback): pass
+			def register(self, main_frame):
+				self.main_frame = main_frame;
+				self.base.register(self, main_frame)
 
-		def register(self, main_frame):
-			import wx
+			def update(self, frame_no, frame_path):
+				import wx
 
-			wx.CallAfter(main_frame.gauge.Pulse)
-			wx.CallAfter(
-				main_frame.status_bar.SetStatusText,
-				self.title
-			)
-			wx.CallAfter(main_frame.gauge.Pulse)
+				wx.CallAfter(self.main_frame.gauge.Pulse)
+				wx.CallAfter(
+					self.main_frame.description.SetLabel,
+					"Frame number: %d" % frame_no
+				)
+				wx.CallAfter(self.main_frame.gauge.Pulse)
 
-	def simple_action(self, title):
-		return wxPyGUI.SimpleProgress(self, title)
-
-
-	# Progress class for the framedump action
-	class FramedumpProgress(SimpleProgress):
-		def __init__(self, ui, title):
-			self.base = wxPyGUI.SimpleProgress
-			self.base.__init__(self, ui, title)
-
-		def register(self, main_frame):
-			self.main_frame = main_frame;
-			self.base.register(self, main_frame)
-
-		def update(self, frame_no, frame_path):
-			import wx
-
-			wx.CallAfter(self.main_frame.gauge.Pulse)
-			wx.CallAfter(
-				self.main_frame.description.SetLabel,
-				"Frame number: %d" % frame_no
-			)
-			wx.CallAfter(self.main_frame.gauge.Pulse)
-
-	def framedump(self, title):
-		return wxPyGUI.FramedumpProgress(self, title)
+		def framedump(self, title):
+			return wxPyGUI.FramedumpProgress(self, title)
 
 
-	# Progress class for the video encoding action
-	class VideoEncProgress(SimpleProgress):
-		def __init__(self, ui, title):
-			self.base = wxPyGUI.SimpleProgress
-			self.base.__init__(self, ui, title)
+		# Progress class for the video encoding action
+		class VideoEncProgress(SimpleProgress):
+			def __init__(self, ui, title):
+				self.base = wxPyGUI.SimpleProgress
+				self.base.__init__(self, ui, title)
 
-		def register(self, main_frame):
-			self.main_frame = main_frame;
-			self.base.register(self, main_frame)
+			def register(self, main_frame):
+				self.main_frame = main_frame;
+				self.base.register(self, main_frame)
 
-		def update(self, message):
-			import wx
+			def update(self, message):
+				import wx
 
-			wx.CallAfter(self.main_frame.gauge.Pulse)
-			wx.CallAfter(
-				self.main_frame.description.SetLabel,
-				message
-			)
-			wx.CallAfter(self.main_frame.gauge.Pulse)
+				wx.CallAfter(self.main_frame.gauge.Pulse)
+				wx.CallAfter(
+					self.main_frame.description.SetLabel,
+					message
+				)
+				wx.CallAfter(self.main_frame.gauge.Pulse)
 
-	def videoenc(self, title):
-		return wxPyGUI.VideoEncProgress(self, title)
+		def videoenc(self, title):
+			return wxPyGUI.VideoEncProgress(self, title)
+
+except ImportError: pass
 
 
 # Creates a user interface
 def create_ui(options):
 	try:
 		return wxPyGUI(options)
-	except ImportError:
+	except NameError:
 		return FallbackUI(options)
 
 
