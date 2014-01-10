@@ -6,11 +6,13 @@
 #
 import os, sys
 
+# The fallback console GUI
 class FallbackUI:
-	def __init__(self, title, work_dir, options):
-		self.title = title
-		self.work_dir = work_dir
+	def __init__(self, options):
+		self.title = options.sample_label
+	def __enter__(self): pass
 
+	# Simple progress class for quick actions
 	class SimpleProgress:
 		def __init__(self, title): sys.stdout.write(title+" ... ")
 		def __enter__(self): return self
@@ -20,6 +22,7 @@ class FallbackUI:
 	def simple_action(self, title):
 		return FallbackUI.SimpleProgress(title)
 
+	# Progress class for the framedump action
 	class FramedumpProgress:
 		def __init__(self, title): print(title)
 		def __enter__(self): return self
@@ -32,6 +35,7 @@ class FallbackUI:
 	def framedump(self, title):
 		return FallbackUI.FramedumpProgress(title)
 
+	# Progress class for the video encoding action
 	class VideoEncProgress:
 		def __init__(self, title): print(title)
 		def __enter__(self): return self
@@ -45,9 +49,201 @@ class FallbackUI:
 		return FallbackUI.VideoEncProgress(title)
 
 
+# wxPython-based GUI
+class wxPyGUI:
+	import wx, threading
 
-def create_ui(sample_label, work_dir, options):
-	return FallbackUI(sample_label, work_dir, options)
+	# The main frame of the GUI
+	class MainFrame(wx.Frame):
+		def __init__(self, options):
+			import wx
+
+			wx.Frame.__init__(
+				self,
+				None,
+				wx.ID_ANY,
+				"Rendering video of '%s'" % options.sample_label,
+				wx.DefaultPosition,
+				wx.Size(400, 170),
+				wx.CAPTION | wx.CLIP_CHILDREN
+			)
+			border_sizer = wx.BoxSizer(wx.HORIZONTAL)
+			border_sizer.AddSpacer(8)
+
+			sizer = wx.BoxSizer(wx.VERTICAL)
+			sizer.AddSpacer(16);
+
+			sizer.Add(
+				wx.StaticText(
+					self,
+					wx.ID_ANY,
+					"Work directory: '%s'" % options.work_dir
+				), 0, wx.EXPAND
+			)
+			sizer.Add(
+				wx.StaticText(
+					self,
+					wx.ID_ANY,
+					"Bin directory: '%s'" % options.bin_dir
+				), 0, wx.EXPAND
+			)
+			sizer.Add(
+				wx.StaticText(
+					self,
+					wx.ID_ANY,
+					"Example: '%s'" % options.example
+				), 0, wx.EXPAND
+			)
+			sizer.Add(
+				wx.StaticText(
+					self,
+					wx.ID_ANY,
+					"Frame size: %dx%d" % (options.width, options.height)
+				), 0, wx.EXPAND
+			)
+
+			sizer.AddSpacer(4)
+
+			self.gauge = wx.Gauge(self, wx.ID_ANY)
+			sizer.Add(self.gauge, 0, wx.EXPAND)
+			sizer.AddSpacer(4)
+
+			self.description = wx.StaticText(self)
+			sizer.Add(self.description, 0, wx.EXPAND)
+
+			border_sizer.Add(sizer, 1, wx.EXPAND)
+
+			border_sizer.AddSpacer(8)
+			self.SetSizer(border_sizer)
+
+			self.status_bar = wx.StatusBar(self)
+			self.SetStatusBar(self.status_bar)
+			self.status_bar.SetStatusText("Starting")
+
+		def AcceptProgress(self, progress):
+			progress.register(self)
+
+
+	# The thread for the GUI
+	class GUIThread(threading.Thread):
+
+		def __init__(self, options):
+			import wx, threading
+
+			threading.Thread.__init__(self)
+			self.initialized = threading.Event()
+			self.options = options
+			self.app = wx.App(False)
+
+
+		def run(self):
+			import wx
+
+			self.main_frame = wxPyGUI.MainFrame(self.options)
+			self.main_frame.Show()
+			wx.SafeYield()
+			self.initialized.set()
+			self.app.MainLoop()
+
+		def set_progress(self, progress):
+			import wx
+			self.initialized.wait()
+			wx.CallAfter(self.main_frame.AcceptProgress, progress)
+
+		def finish(self):
+			import wx
+			wx.CallAfter(self.main_frame.Destroy)
+
+	def __init__(self, options):
+		self.gui_thread = wxPyGUI.GUIThread(options)
+
+	def __enter__(self):
+		self.gui_thread.start()
+		return self
+
+	def __exit__(self, type, value, traceback):
+		self.gui_thread.finish()
+		self.gui_thread.join()
+
+
+	# Simple progress class for quick actions
+	class SimpleProgress:
+		def __init__(self, ui, title):
+			self.title = title
+			ui.gui_thread.set_progress(self)
+
+		def __enter__(self): return self
+		def __exit__(self, type, value, traceback): pass
+
+		def register(self, main_frame):
+			import wx
+
+			wx.CallAfter(main_frame.gauge.Pulse)
+			wx.CallAfter(
+				main_frame.status_bar.SetStatusText,
+				self.title
+			)
+			wx.CallAfter(main_frame.gauge.Pulse)
+
+	def simple_action(self, title):
+		return wxPyGUI.SimpleProgress(self, title)
+
+
+	# Progress class for the framedump action
+	class FramedumpProgress(SimpleProgress):
+		def __init__(self, ui, title):
+			self.base = wxPyGUI.SimpleProgress
+			self.base.__init__(self, ui, title)
+
+		def register(self, main_frame):
+			self.main_frame = main_frame;
+			self.base.register(self, main_frame)
+
+		def update(self, frame_no, frame_path):
+			import wx
+
+			wx.CallAfter(self.main_frame.gauge.Pulse)
+			wx.CallAfter(
+				self.main_frame.description.SetLabel,
+				"Frame number: %d" % frame_no
+			)
+			wx.CallAfter(self.main_frame.gauge.Pulse)
+
+	def framedump(self, title):
+		return wxPyGUI.FramedumpProgress(self, title)
+
+
+	# Progress class for the video encoding action
+	class VideoEncProgress(SimpleProgress):
+		def __init__(self, ui, title):
+			self.base = wxPyGUI.SimpleProgress
+			self.base.__init__(self, ui, title)
+
+		def register(self, main_frame):
+			self.main_frame = main_frame;
+			self.base.register(self, main_frame)
+
+		def update(self, message):
+			import wx
+
+			wx.CallAfter(self.main_frame.gauge.Pulse)
+			wx.CallAfter(
+				self.main_frame.description.SetLabel,
+				message
+			)
+			wx.CallAfter(self.main_frame.gauge.Pulse)
+
+	def videoenc(self, title):
+		return wxPyGUI.VideoEncProgress(self, title)
+
+
+# Creates a user interface
+def create_ui(options):
+	try:
+		return wxPyGUI(options)
+	except ImportError:
+		return FallbackUI(options)
+
 
 def remove_dir(work_dir):
 	from shutil import rmtree
@@ -157,25 +353,22 @@ def run_convert(work_dir, args):
 
 # runs the example, dumps the frames, renders the video
 def render_video(
-	sample_id,
 	example_path,
-	work_dir,
 	main_label_file,
 	sample_label_file,
 	logo_file,
-	width,
-	height,
+	options,
 	ui
 ):
 
-	prefix = os.path.join(work_dir, 'frame')
+	prefix = os.path.join(options.work_dir, 'frame')
 
 	import subprocess
 	try:
 		cmd_line = [example_path,
 			'--frame-dump', '%s-'%prefix,
-			'--width', str(width),
-			'--height', str(height)
+			'--width', str(options.width),
+			'--height', str(options.height)
 		]
 		proc = subprocess.Popen(
 			cmd_line,
@@ -199,8 +392,8 @@ def render_video(
 				frame_path_pic = frame_path_raw.replace('.rgba', '.jpeg')
 
 				try:
-					run_convert(work_dir, [
-						'-size', '%dx%d'%(width, height),
+					run_convert(options.work_dir, [
+						'-size', '%dx%d'%(options.width, options.height),
 						'-depth', '8',
 						frame_path_raw,
 						'-flip',
@@ -235,7 +428,7 @@ def render_video(
 
 	try:
 		cmd_line = ['avconv',
-			'-loglevel', 'info',
+			'-loglevel', 'error',
 			'-y', '-f', 'image2',
 			'-i', prefix+'-%06d.jpeg',
 			'-r', '25',
@@ -247,14 +440,14 @@ def render_video(
 			cmd_line,
 			stdin=None,
 			stdout=subprocess.PIPE,
-			stderr=None
+			stderr=subprocess.STDOUT
 		)
 		with ui.videoenc('Encoding video') as progress:
 			while True:
 				message = proc.stdout.readline().translate(None, '\r\n')
-				if not frame_path_raw:
-					break
+				if not message: break
 				progress.update(message)
+
 
    	except OSError as os_error:
 		print("Failed to execute '%(cmd)s': %(error)s" % {
@@ -263,108 +456,105 @@ def render_video(
 		})
 		sys.exit(2)
 
-	os.rename(prefix+'.avi', 'oglplus-'+sample_id+'.avi')
+	os.rename(prefix+'.avi', 'oglplus-'+options.sample_label+'.avi')
 
 
 
 # renders a video for a single example
 def render_example(root_dir, example, options):
 
-	work_dir = make_work_dir()
-	build_dir = os.path.join(root_dir, options.build_dir)
+	options.work_dir = make_work_dir()
+	options.root_dir = root_dir
+	options.bin_dir = os.path.join(options.root_dir, options.build_dir)
+	options.example = example
+	options.sample_label = os.path.basename(example)
 
-	example_path = check_example(build_dir, example)
+	example_path = check_example(options.bin_dir, example)
 
 	main_label = "http://oglplus.org/"
-	sample_label = os.path.basename(example)
 
-	main_label_file = os.path.join(work_dir, 'main_label.png')
-	sample_label_file = os.path.join(work_dir, 'sample_label.png')
-	logo_file = os.path.join(work_dir, 'logo.png')
+	main_label_file = os.path.join(options.work_dir, 'main_label.png')
+	sample_label_file = os.path.join(options.work_dir, 'sample_label.png')
+	logo_file = os.path.join(options.work_dir, 'logo.png')
 
-	width = options.frame_size[0]
-	height= options.frame_size[1]
+	with create_ui(options) as ui:
 
-	ui = create_ui(sample_label, work_dir, options)
+		# render the main text label
+		with ui.simple_action('Rendering main label') as progress:
+			run_convert(options.work_dir, [
+				'-size', '%dx28'%(options.width/2), 'xc:none',
+				'-background', 'none',
+				'-pointsize', '28',
+				'-gravity', 'center',
+				'-stroke', 'black',
+				'-strokewidth', '8',
+				'-annotate', '0', main_label,
+				'-blur', '0x4',
+				'-shadow', '%dx7+2+2'%options.width,
+				'+repage',
+				'-stroke', 'none',
+				'-strokewidth', '1',
+				'-fill', 'white',
+				'-annotate', '0', main_label,
+				main_label_file
+			])
 
+		# render the example name label
+		with ui.simple_action('Rendering example label') as progress:
+			run_convert(options.work_dir, [
+				'-size', '%dx90'%(options.width/3+len(options.sample_label)*4), 'xc:none',
+				'-background', 'none',
+				'-pointsize', '16',
+				'-gravity', 'center',
+				'-stroke', 'black',
+				'-strokewidth', '2',
+				'-annotate', '0', options.sample_label,
+				'-blur', '0x4',
+				'-shadow', '%dx4+1+1'%(options.width/4),
+				'+repage',
+				'-stroke', 'none',
+				'-strokewidth', '1',
+				'-fill', 'white',
+				'-annotate', '0', options.sample_label,
+				sample_label_file
+			])
 
-	# render the main text label
-	with ui.simple_action('Rendering main label') as progress:
-		run_convert(work_dir, [
-			'-size', '%dx28'%(width/2), 'xc:none',
-			'-background', 'none',
-			'-pointsize', '28',
-			'-gravity', 'center',
-			'-stroke', 'black',
-			'-strokewidth', '8',
-			'-annotate', '0', main_label,
-			'-blur', '0x4',
-			'-shadow', '%dx7+2+2'%width,
-			'+repage',
-			'-stroke', 'none',
-			'-strokewidth', '1',
-			'-fill', 'white',
-			'-annotate', '0', main_label,
-			main_label_file
-		])
+		# render the logo
+		with ui.simple_action('Rendering logo') as progress:
+			run_convert(options.work_dir, [
+				'-size', '144x144', 'xc:none',
+				'-background', 'none',
+				'-gravity', 'center',
+				'-stroke', 'black',
+				'-fill', 'black',
+				'-draw', 'circle 72,72, 72,144',
+				'-blur', '2x2',
+				'-shadow', '%dx7'%options.width,
+				'+repage',
+				os.path.join(options.root_dir,'doc','logo','oglplus_circular.png'),
+				'-composite',
+				'-adaptive-resize', '72x72',
+				'-border', '16x0',
+				logo_file
+			])
 
-	# render the example name label
-	with ui.simple_action('Rendering example label') as progress:
-		run_convert(work_dir, [
-			'-size', '%dx90'%(width/3+len(sample_label)*4), 'xc:none',
-			'-background', 'none',
-			'-pointsize', '16',
-			'-gravity', 'center',
-			'-stroke', 'black',
-			'-strokewidth', '2',
-			'-annotate', '0', sample_label,
-			'-blur', '0x4',
-			'-shadow', '%dx4+1+1'%(width/4),
-			'+repage',
-			'-stroke', 'none',
-			'-strokewidth', '1',
-			'-fill', 'white',
-			'-annotate', '0', sample_label,
-			sample_label_file
-		])
+		# run the example and dump the frames
+		render_video(
+			example_path,
+			main_label_file,
+			sample_label_file,
+			logo_file,
+			options,
+			ui
+		)
 
-	# render the logo
-	with ui.simple_action('Rendering logo') as progress:
-		run_convert(work_dir, [
-			'-size', '144x144', 'xc:none',
-			'-background', 'none',
-			'-gravity', 'center',
-			'-stroke', 'black',
-			'-fill', 'black',
-			'-draw', 'circle 72,72, 72,144',
-			'-blur', '2x2',
-			'-shadow', '%dx7'%width,
-			'+repage',
-			os.path.join(root_dir,'doc','logo','oglplus_circular.png'),
-			'-composite',
-			'-adaptive-resize', '72x72',
-			'-border', '16x0',
-			logo_file
-		])
-
-	# run the example and dump the frames
-	render_video(
-		sample_label,
-		example_path,
-		work_dir,
-		main_label_file,
-		sample_label_file,
-		logo_file,
-		width,
-		height,
-		ui
-	)
-
-	remove_dir(work_dir)
+		remove_dir(options.work_dir)
 
 def main():
 
 	options = parse_args(sys.argv)
+	options.width = options.frame_size[0]
+	options.height= options.frame_size[1]
 
 	for example in options.examples:
 		render_example(
