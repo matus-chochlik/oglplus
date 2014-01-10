@@ -164,6 +164,11 @@ public:
 
 #if EGLPLUS_DOCUMENTATION_ONLY
 	/// Returns a range of supported API name strings
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{QueryString}
+	 *  @egldefref{EGL_CLIENT_APIS}
+	 */
 	Range<String> ClientAPIs(void) const;
 #else
 	aux::SepStrRange ClientAPIs(void) const
@@ -174,6 +179,11 @@ public:
 
 #if EGLPLUS_DOCUMENTATION_ONLY
 	/// Returns a range of extension strings
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{QueryString}
+	 *  @egldefref{EGL_EXTENSIONS}
+	 */
 	Range<String> Extensions(void) const;
 #else
 	aux::SepStrRange Extensions(void) const
@@ -183,6 +193,11 @@ public:
 #endif
 
 	/// Returns true if the EGL implementation supports client extensions
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{QueryString}
+	 *  @egldefref{EGL_EXTENSIONS}
+	 */
 	static bool HasClientExtensions(void)
 	{
 		const char* ext_str = EGLPLUS_EGLFUNC(QueryString)(
@@ -197,6 +212,10 @@ public:
 	/// Returns a range of client extension strings
 	/**
 	 *  @pre HasClientExtensions
+	 *
+	 *  @eglsymbols
+	 *  @eglfunref{QueryString}
+	 *  @egldefref{EGL_EXTENSIONS}
 	 */
 	static Range<String> ClientExtensions(void);
 #else
@@ -210,6 +229,18 @@ public:
 		return aux::SepStrRange(ext_str);
 	}
 #endif
+
+	/// Releases the current thread state
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{ReleaseThread}
+	 */
+	static bool ReleaseThread(void)
+	{
+		EGLBoolean result = EGLPLUS_EGLFUNC(ReleaseThread)();
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(ReleaseThread));
+		return result == EGL_TRUE;
+	}
 };
 
 /// Alternate name for EGLInitializer

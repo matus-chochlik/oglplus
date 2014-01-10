@@ -52,6 +52,21 @@ public:
 		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(GetDisplay));
 	}
 
+	/// Sets the SwapInterval for the current display
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{SwapInterval}
+	 */
+	bool SwapInterval(EGLint interval)
+	{
+		EGLBoolean result = EGLPLUS_EGLFUNC(SwapInterval)(
+			_handle,
+			interval
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(SwapInterval));
+		return result == EGL_TRUE;
+	}
+
 	/// Releases the current context without assigning a new one
 	/**
 	 *  @eglsymbols
