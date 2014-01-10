@@ -246,6 +246,23 @@ public:
 		return result == EGL_TRUE;
 	}
 
+	/// Releases the current context without assigning a new one
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{MakeCurrent}
+	 */
+	bool Release(void)
+	{
+		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
+			FriendOf<Display>::GetHandle(_display),
+			EGL_NO_SURFACE,
+			EGL_NO_SURFACE,
+			EGL_NO_CONTEXT
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		return result == EGL_TRUE;
+	}
+
 	/// Queries a context attribute
 	/**
 	 *  @eglsymbols

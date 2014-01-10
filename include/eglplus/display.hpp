@@ -51,6 +51,23 @@ public:
 	{
 		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(GetDisplay));
 	}
+
+	/// Releases the current context without assigning a new one
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{MakeCurrent}
+	 */
+	bool ReleaseContext(void)
+	{
+		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
+			_handle,
+			EGL_NO_SURFACE,
+			EGL_NO_SURFACE,
+			EGL_NO_CONTEXT
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		return result == EGL_TRUE;
+	}
 };
 
 } // namespace eglplus
