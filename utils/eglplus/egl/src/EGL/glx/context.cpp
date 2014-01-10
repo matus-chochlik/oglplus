@@ -81,7 +81,7 @@ typedef ::GLXContext (*glXCreateContextAttribsARBProc)(
 	Bool,
 	const int*
 );
-static glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
+static glXCreateContextAttribsARBProc eglplus_egl_glXCreateContextAttribsARB = 0;
 //------------------------------------------------------------------------------
 // EGL API
 //------------------------------------------------------------------------------
@@ -121,13 +121,13 @@ eglCreateContext(
 		return EGL_NO_CONTEXT;
 	}
 
-	if(glXCreateContextAttribsARB == nullptr)
+	if(eglplus_egl_glXCreateContextAttribsARB == nullptr)
 	{
-		glXCreateContextAttribsARB = (glXCreateContextAttribsARBProc)
+		eglplus_egl_glXCreateContextAttribsARB = (glXCreateContextAttribsARBProc)
 		glXGetProcAddressARB((const unsigned char*)"glXCreateContextAttribsARB");
 	}
 
-	if(glXCreateContextAttribsARB == nullptr)
+	if(eglplus_egl_glXCreateContextAttribsARB == nullptr)
 	{
 		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
 		return EGL_NO_CONTEXT;
@@ -287,7 +287,7 @@ eglCreateContext(
 	}
 	glx_attrib_list[glx_attrib_count] = None;
 
-	::GLXContext context = glXCreateContextAttribsARB(
+	::GLXContext context = eglplus_egl_glXCreateContextAttribsARB(
 		display->_x_open_display,
 		static_cast< ::GLXFBConfig>(config._glx_fb_config),
 		glx_share_context,
@@ -310,10 +310,10 @@ eglCreateContext(
 		None
 	};
 	::GLXPbuffer empty_surf = ::glXCreatePbuffer(
-                display->_x_open_display,
-                static_cast< ::GLXFBConfig>(config._glx_fb_config),
-                empty_surf_attr
-        );
+		display->_x_open_display,
+		static_cast< ::GLXFBConfig>(config._glx_fb_config),
+		empty_surf_attr
+	);
 
 	try { return new eglplus_egl_glx_ContextImpl(context, empty_surf); }
 	catch(...)

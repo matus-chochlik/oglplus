@@ -79,6 +79,9 @@ bool eglplus_egl_valid_surface(EGLSurface surface)
 	return result;
 }
 //------------------------------------------------------------------------------
+typedef void (*glXSwapIntervalEXTProc)(::Display *, ::GLXDrawable, int);
+static glXSwapIntervalEXTProc eglplus_egl_glXSwapIntervalEXT = nullptr;
+//------------------------------------------------------------------------------
 // EGL API
 //------------------------------------------------------------------------------
 extern "C" {
@@ -822,7 +825,32 @@ eglSwapInterval(
 		eglplus_egl_SetErrorCode(EGL_BAD_PARAMETER);
 		return EGL_FALSE;
 	}
-	// TODO
+
+	::GLXDrawable glx_drawable = ::glXGetCurrentDrawable();
+
+	if(!glx_drawable)
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_SURFACE);
+		return EGL_FALSE;
+	}
+
+	if(eglplus_egl_glXSwapIntervalEXT == nullptr)
+	{
+		eglplus_egl_glXSwapIntervalEXT = (glXSwapIntervalEXTProc)
+		glXGetProcAddressARB((const unsigned char*)"glXSwapIntervalEXT");
+	}
+
+	if(eglplus_egl_glXSwapIntervalEXT == nullptr)
+	{
+		eglplus_egl_SetErrorCode(EGL_BAD_DISPLAY);
+		return EGL_FALSE;
+	}
+
+	eglplus_egl_glXSwapIntervalEXT(
+		display->_x_open_display,
+		glx_drawable,
+		interval
+	);
 	return EGL_TRUE;
 }
 //------------------------------------------------------------------------------
