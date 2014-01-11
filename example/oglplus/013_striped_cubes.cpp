@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{013_striped_cubes}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -127,9 +127,6 @@ public:
 			VertexAttribArray attr(prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex).Enable();
 		}
-		//
-		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
-		gl.ClearDepth(1.0f);
 
 		+Capability::DepthTest;
 	}
@@ -149,7 +146,9 @@ public:
 
 	void Render(double time)
 	{
-		gl.Clear().ColorBuffer().DepthBuffer();
+		const GLfloat clear_color[4] = {0.8f, 0.8f, 0.7f, 0.0f};
+		gl.ClearColorBuffer(0, clear_color);
+		gl.ClearDepthBuffer(1.0f);
 		//
 		// set the matrix for camera orbiting the origin
 		camera_matrix.Set(

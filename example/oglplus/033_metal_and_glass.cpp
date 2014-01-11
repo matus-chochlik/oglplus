@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{033_metal_and_glass}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -671,9 +671,9 @@ public:
 	{
 		glass_shadow_fbo.Bind(Framebuffer::Target::Draw);
 
-		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.Viewport(shadow_tex_side, shadow_tex_side);
-		gl.Clear().ColorBuffer();
+		const GLfloat clear_color[4] = {1.0f, 1.0f, 1.0f, 0.0f};
+		gl.ClearColorBuffer(0, clear_color);
 
 		transf_prog.camera_matrix.Set(light_proj_matrix);
 		transf_prog.camera_position.Set(light_position);
@@ -730,7 +730,7 @@ public:
 		frame_shadow_fbo.Bind(Framebuffer::Target::Draw);
 
 		gl.Viewport(shadow_tex_side, shadow_tex_side);
-		gl.Clear().DepthBuffer();
+		gl.ClearDepthBuffer(1.0f);
 		gl.CullFace(Face::Back);
 
 		transf_prog.camera_matrix.Set(light_proj_matrix);
