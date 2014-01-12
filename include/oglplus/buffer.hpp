@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -611,6 +611,53 @@ public:
 			Buffer,
 			EnumValueName(target),
 			BindingQuery<BufferOps>::QueryBinding(target)
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+	/// Invalidate the buffer data
+	/**
+	 *  @see Data
+	 *  @see ClearData
+	 *
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,3,ARB,invalidate_subdata}
+	 */
+	void InvalidateData(void)
+	{
+		OGLPLUS_GLFUNC(InvalidateBufferData)(_name);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			InvalidateBufferData,
+			Buffer,
+			nullptr,
+			_name
+		));
+	}
+
+	/// Invalidate a subrange of the buffer data
+	/**
+	 *  @see Data
+	 *  @see SubData
+	 *  @see InvalidateData
+	 *
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,3,ARB,invalidate_subdata}
+	 */
+	void InvalidateSubData(GLintptr offset, GLsizeiptr size)
+	{
+		OGLPLUS_GLFUNC(InvalidateBufferSubData)(
+			_name,
+			offset,
+			size
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			InvalidateBufferSubData,
+			Buffer,
+			nullptr,
+			_name
 		));
 	}
 #endif

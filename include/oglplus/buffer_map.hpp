@@ -65,6 +65,9 @@ public:
 	 *  @param size_bytes map size in machine bytes
 	 *  @param access the access specifier for the buffer mapping
 	 *
+	 *  @glsymbols
+	 *  @glfunref{MapBufferRange}
+	 *
 	 *  @throws Error
 	 */
 	BufferRawMap(
@@ -92,6 +95,9 @@ public:
 	 *  @param access the access specifier for the buffer mapping
 	 *
 	 * This class is non-copyable.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{MapBuffer}
 	 *
 	 *  @throws Error
 	 */
@@ -134,6 +140,9 @@ public:
 
 	/// Unmaps the buffer from client address space
 	/**
+	 *  @glsymbols
+	 *  @glfunref{UnmapBuffer}
+	 *
 	 *  @throws Error
 	 */
 	void Unmap(void)
@@ -176,6 +185,25 @@ public:
 	{
 		assert(Mapped());
 		return _ptr;
+	}
+
+	/// Indicate modifications to a mapped range
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FlushMappedBufferRange}
+	 *
+	 *  @pre Mapped()
+	 *
+	 *  @throws Error
+	 */
+	void FlushRange(GLintptr offset, GLsizeiptr length)
+	{
+		OGLPLUS_GLFUNC(FlushMappedBufferRange)(
+			GLenum(_target),
+			offset,
+			length
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(FlushMappedBufferRange));
 	}
 };
 
@@ -257,6 +285,23 @@ public:
 		assert(Data() != nullptr);
 		assert(((index+1)*sizeof(Type)) <= std::size_t(this->Size()));
 		return Data()[index];
+	}
+
+	/// Indicate modifications to a mapped range of elements of Type
+	/**
+	 *  @param start Index of the first element.
+	 *  @param count The number of elements to be flushed.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FlushMappedBufferRange}
+	 *
+	 *  @pre this->Mapped()
+	 *
+	 *  @throws Error
+	 */
+	void FlushElements(unsigned start, unsigned count)
+	{
+		this->FlushRange(sizeof(Type)*start, sizeof(Type)*count);
 	}
 };
 #endif // GL_VERSION_3_0
