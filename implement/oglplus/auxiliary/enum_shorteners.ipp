@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/.*.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -1169,6 +1169,11 @@ template <typename Enum, Enum = Enum::FloatVec4> operator Enum (void) const{ ret
 template <typename Enum> friend bool operator==(Enum value, FloatVec4){ return value == Enum::FloatVec4; }
 template <typename Enum> friend bool operator!=(Enum value, FloatVec4){ return value != Enum::FloatVec4; }
 };
+struct FlushExplicit {
+template <typename Enum, Enum = Enum::FlushExplicit> operator Enum (void) const{ return Enum::FlushExplicit; }
+template <typename Enum> friend bool operator==(Enum value, FlushExplicit){ return value == Enum::FlushExplicit; }
+template <typename Enum> friend bool operator!=(Enum value, FlushExplicit){ return value != Enum::FlushExplicit; }
+};
 struct Fog {
 template <typename Enum, Enum = Enum::Fog> operator Enum (void) const{ return Enum::Fog; }
 template <typename Enum> friend bool operator==(Enum value, Fog){ return value == Enum::Fog; }
@@ -1643,6 +1648,16 @@ struct IntVec4 {
 template <typename Enum, Enum = Enum::IntVec4> operator Enum (void) const{ return Enum::IntVec4; }
 template <typename Enum> friend bool operator==(Enum value, IntVec4){ return value == Enum::IntVec4; }
 template <typename Enum> friend bool operator!=(Enum value, IntVec4){ return value != Enum::IntVec4; }
+};
+struct InvalidateBuffer {
+template <typename Enum, Enum = Enum::InvalidateBuffer> operator Enum (void) const{ return Enum::InvalidateBuffer; }
+template <typename Enum> friend bool operator==(Enum value, InvalidateBuffer){ return value == Enum::InvalidateBuffer; }
+template <typename Enum> friend bool operator!=(Enum value, InvalidateBuffer){ return value != Enum::InvalidateBuffer; }
+};
+struct InvalidateRange {
+template <typename Enum, Enum = Enum::InvalidateRange> operator Enum (void) const{ return Enum::InvalidateRange; }
+template <typename Enum> friend bool operator==(Enum value, InvalidateRange){ return value == Enum::InvalidateRange; }
+template <typename Enum> friend bool operator!=(Enum value, InvalidateRange){ return value != Enum::InvalidateRange; }
 };
 struct InvalidEnum {
 template <typename Enum, Enum = Enum::InvalidEnum> operator Enum (void) const{ return Enum::InvalidEnum; }
@@ -4228,6 +4243,11 @@ struct Unsupported {
 template <typename Enum, Enum = Enum::Unsupported> operator Enum (void) const{ return Enum::Unsupported; }
 template <typename Enum> friend bool operator==(Enum value, Unsupported){ return value == Enum::Unsupported; }
 template <typename Enum> friend bool operator!=(Enum value, Unsupported){ return value != Enum::Unsupported; }
+};
+struct Unsynchronized {
+template <typename Enum, Enum = Enum::Unsynchronized> operator Enum (void) const{ return Enum::Unsynchronized; }
+template <typename Enum> friend bool operator==(Enum value, Unsynchronized){ return value == Enum::Unsynchronized; }
+template <typename Enum> friend bool operator!=(Enum value, Unsynchronized){ return value != Enum::Unsynchronized; }
 };
 struct Use {
 template <typename Enum, Enum = Enum::Use> operator Enum (void) const{ return Enum::Use; }

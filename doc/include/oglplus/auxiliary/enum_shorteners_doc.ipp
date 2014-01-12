@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/.*.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -7713,6 +7713,39 @@ template <typename Enum> friend bool operator==(Enum value, FloatVec4);
 template <typename Enum> friend bool operator!=(Enum value, FloatVec4);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c FlushExplicit value.
+/**
+ *  @see @ref oglplus::BufferMapAccess "BufferMapAccess"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_FLUSH_EXPLICIT_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct FlushExplicit {
+
+/// Conversion to any @p Enum type having the FlushExplicit value.
+/** Instances of the @ref oglplus::smart_enums::FlushExplicit "FlushExplicit"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c FlushExplicit value.
+ */
+template <typename Enum, Enum = Enum::FlushExplicit> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the FlushExplicit value.
+/** Instances of the @c smart_enums::FlushExplicit type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c FlushExplicit value.
+ */
+template <typename Enum> friend bool operator==(Enum value, FlushExplicit);
+
+/// Non-equality comparison with any @p Enum type having the FlushExplicit value.
+/** Instances of the @c smart_enums::FlushExplicit type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c FlushExplicit value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, FlushExplicit);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Fog value.
 /**
  *  @see @ref oglplus::CompatibilityAttributeGroup "CompatibilityAttributeGroup"
@@ -10857,6 +10890,72 @@ template <typename Enum> friend bool operator==(Enum value, IntVec4);
  *  the @c IntVec4 value.
  */
 template <typename Enum> friend bool operator!=(Enum value, IntVec4);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c InvalidateBuffer value.
+/**
+ *  @see @ref oglplus::BufferMapAccess "BufferMapAccess"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_INVALIDATE_BUFFER_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct InvalidateBuffer {
+
+/// Conversion to any @p Enum type having the InvalidateBuffer value.
+/** Instances of the @ref oglplus::smart_enums::InvalidateBuffer "InvalidateBuffer"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c InvalidateBuffer value.
+ */
+template <typename Enum, Enum = Enum::InvalidateBuffer> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the InvalidateBuffer value.
+/** Instances of the @c smart_enums::InvalidateBuffer type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c InvalidateBuffer value.
+ */
+template <typename Enum> friend bool operator==(Enum value, InvalidateBuffer);
+
+/// Non-equality comparison with any @p Enum type having the InvalidateBuffer value.
+/** Instances of the @c smart_enums::InvalidateBuffer type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c InvalidateBuffer value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, InvalidateBuffer);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c InvalidateRange value.
+/**
+ *  @see @ref oglplus::BufferMapAccess "BufferMapAccess"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_INVALIDATE_RANGE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct InvalidateRange {
+
+/// Conversion to any @p Enum type having the InvalidateRange value.
+/** Instances of the @ref oglplus::smart_enums::InvalidateRange "InvalidateRange"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c InvalidateRange value.
+ */
+template <typename Enum, Enum = Enum::InvalidateRange> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the InvalidateRange value.
+/** Instances of the @c smart_enums::InvalidateRange type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c InvalidateRange value.
+ */
+template <typename Enum> friend bool operator==(Enum value, InvalidateRange);
+
+/// Non-equality comparison with any @p Enum type having the InvalidateRange value.
+/** Instances of the @c smart_enums::InvalidateRange type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c InvalidateRange value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, InvalidateRange);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c InvalidEnum value.
@@ -28068,6 +28167,39 @@ template <typename Enum> friend bool operator==(Enum value, Unsupported);
  *  the @c Unsupported value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Unsupported);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Unsynchronized value.
+/**
+ *  @see @ref oglplus::BufferMapAccess "BufferMapAccess"
+ *
+ *  @glsymbols
+ *  @gldefref{MAP_UNSYNCHRONIZED_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Unsynchronized {
+
+/// Conversion to any @p Enum type having the Unsynchronized value.
+/** Instances of the @ref oglplus::smart_enums::Unsynchronized "Unsynchronized"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Unsynchronized value.
+ */
+template <typename Enum, Enum = Enum::Unsynchronized> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Unsynchronized value.
+/** Instances of the @c smart_enums::Unsynchronized type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Unsynchronized value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Unsynchronized);
+
+/// Non-equality comparison with any @p Enum type having the Unsynchronized value.
+/** Instances of the @c smart_enums::Unsynchronized type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Unsynchronized value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Unsynchronized);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Use value.
