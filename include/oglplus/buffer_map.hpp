@@ -125,14 +125,31 @@ public:
 		temp._ptr = nullptr;
 	}
 
-	/// Unmaps the buffer from client address space
+	/// Unmaps the buffer from client address space (if mapped)
 	~BufferRawMap(void)
+	{
+		try { Unmap(); }
+		catch(...){ }
+	}
+
+	/// Unmaps the buffer from client address space
+	/**
+	 *  @throws Error
+	 */
+	void Unmap(void)
 	{
 		if(_ptr != nullptr)
 		{
 			OGLPLUS_GLFUNC(UnmapBuffer)(GLenum(_target));
-			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(UnmapBuffer));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UnmapBuffer));
+			_ptr = nullptr;
 		}
+	}
+
+	/// Returns true if the buffer is mapped
+	bool Mapped(void) const
+	{
+		return _ptr != nullptr;
 	}
 
 	/// Returns the size (in bytes) of the mapped buffer
@@ -142,14 +159,22 @@ public:
 	}
 
 	/// Returns a const pointer to the mapped data
+	/**
+	 *  @pre Mapped()
+	 */
 	const GLvoid* RawData(void) const
 	{
+		assert(Mapped());
 		return _ptr;
 	}
 
 	/// Returns a pointer to the mapped data
+	/**
+	 *  @pre Mapped()
+	 */
 	GLvoid* RawData(void)
 	{
+		assert(Mapped());
 		return _ptr;
 	}
 };
