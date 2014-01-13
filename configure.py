@@ -419,6 +419,15 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--debug-lib-error",
+		dest="debug_lib_error",
+		default=False,
+		action="store_true",
+		help="""
+			Enable debugging of problems with building the library.
+		"""
+	)
+	argparser.add_argument(
 		"--cmake",
 		dest="cmake_options",
 		nargs=argparse.REMAINDER,
@@ -865,6 +874,8 @@ def main(argv):
 	# put cmake in debug mode if specified
 	if(options.debug_config):
 		cmake_options += ["--debug-output", "--debug-trycompile"]
+	if(options.debug_lib_error):
+		cmake_options += ["-DOGLPLUS_DEBUG_LIB_ERROR=1"]
 
 	# create the build directory if necessary
 	if(not os.path.isdir(options.build_dir)):
