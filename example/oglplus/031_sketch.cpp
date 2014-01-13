@@ -4,14 +4,15 @@
  *
  *  @oglplus_screenshot{031_sketch}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_cxx11{LAMBDAS}
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
- *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects;GL_EXT_direct_state_access}
+ *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects}
+ *  @oglplus_example_uses_gl{GL_EXT_direct_state_access}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -31,14 +32,13 @@
 
 namespace oglplus {
 
-class CommonVertShader
- : public VertexShader
+class TransformProgram : public Program
 {
-public:
-	CommonVertShader(void)
-	 : VertexShader(
-		ObjectDesc("Common vertex shader"),
-		StrLit("#version 330\n"
+private:
+	static Program make(void)
+	{
+		const GLchar* shader_source =
+		"#version 330\n"
 		"uniform mat4 CameraMatrix, ModelMatrix;"
 		"uniform mat4 LightProjMatrix;"
 		"uniform mat2 TextureMatrix;"
@@ -67,20 +67,13 @@ public:
 		"	vertTexCoord = TextureMatrix * TexCoord;"
 		"	vertLightTexCoord = LightProjMatrix* gl_Position;"
 		"	gl_Position = CameraMatrix * gl_Position;"
-		"}")
-	)
-	{ }
-};
+		"}";
 
-class TransformProgram : public Program
-{
-private:
-	static Program make(void)
-	{
-		Program prog(ObjectDesc("Transform"));
-		prog.AttachShader(CommonVertShader());
-		prog.MakeSeparable().Link().Use();
-		return prog;
+		return ShaderProgram(
+			ShaderType::Vertex,
+			shader_source,
+			ObjectDesc("Transform")
+		);
 	}
 	const Program& prog(void) const { return *this; }
 public:
