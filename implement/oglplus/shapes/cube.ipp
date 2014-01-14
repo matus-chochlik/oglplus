@@ -26,19 +26,20 @@ std::vector<GLfloat> Cube::_positions(void) const
 	 *(G)-----(C)
 	 *
 	 */
-	typedef GLfloat T;
+	typedef GLdouble T;
+	typedef GLfloat V;
 	const T half_x = T(_sx)/T(2);
 	const T half_y = T(_sy)/T(2);
 	const T half_z = T(_sz)/T(2);
-	const T c[8][3] = {
-		{_ox+half_x, _oy+half_y, _oz-half_z}, //(A)
-		{_ox+half_x, _oy+half_y, _oz+half_z}, //(B)
-		{_ox+half_x, _oy-half_y, _oz+half_z}, //(C)
-		{_ox+half_x, _oy-half_y, _oz-half_z}, //(D)
-		{_ox-half_x, _oy+half_y, _oz-half_z}, //(E)
-		{_ox-half_x, _oy+half_y, _oz+half_z}, //(F)
-		{_ox-half_x, _oy-half_y, _oz+half_z}, //(G)
-		{_ox-half_x, _oy-half_y, _oz-half_z}  //(H)
+	const V c[8][3] = {
+		{V(_ox+half_x), V(_oy+half_y), V(_oz-half_z)}, //(A)
+		{V(_ox+half_x), V(_oy+half_y), V(_oz+half_z)}, //(B)
+		{V(_ox+half_x), V(_oy-half_y), V(_oz+half_z)}, //(C)
+		{V(_ox+half_x), V(_oy-half_y), V(_oz-half_z)}, //(D)
+		{V(_ox-half_x), V(_oy+half_y), V(_oz-half_z)}, //(E)
+		{V(_ox-half_x), V(_oy+half_y), V(_oz+half_z)}, //(F)
+		{V(_ox-half_x), V(_oy-half_y), V(_oz+half_z)}, //(G)
+		{V(_ox-half_x), V(_oy-half_y), V(_oz-half_z)}  //(H)
 	};
 	const unsigned A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7;
 
