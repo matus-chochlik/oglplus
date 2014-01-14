@@ -26,7 +26,7 @@ std::vector<GLfloat> Cube::_positions(void) const
 	 *(G)-----(C)
 	 *
 	 */
-	typedef GLdouble T;
+	typedef GLfloat T;
 	const T half_x = T(_sx)/T(2);
 	const T half_y = T(_sy)/T(2);
 	const T half_z = T(_sz)/T(2);
