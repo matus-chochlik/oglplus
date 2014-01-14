@@ -183,7 +183,11 @@ public:
  */
 template <typename Enum>
 class EnumArray
+#if !OGLPLUS_NO_SCOPED_ENUMS
  : public aux::EnumArray<Enum, sizeof(Enum) != sizeof(GLenum)>
+#else
+ : public aux::EnumArray<Enum, true>
+#endif
 {
 private:
 	typedef aux::EnumArray<
