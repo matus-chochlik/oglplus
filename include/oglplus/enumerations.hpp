@@ -183,12 +183,12 @@ public:
  */
 template <typename Enum>
 class EnumArray
- : public aux::EnumArray<Enum, sizeof(Enum[8]) != sizeof(GLenum[8])>
+ : public aux::EnumArray<Enum, sizeof(Enum) != sizeof(GLenum)>
 {
 private:
 	typedef aux::EnumArray<
 		Enum,
-		sizeof(Enum[2]) != sizeof(GLenum[2])
+		sizeof(Enum) != sizeof(GLenum)
 	> Base_;
 public:
 	template <std::size_t N>

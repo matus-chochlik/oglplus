@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -99,6 +99,63 @@ public:
 			std::is_convertible<T, V2>::value
 		>::type* = nullptr
 	): _value(Common(V2(value)))
+	{ }
+
+#if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
+	explicit operator Common (void) const
+#else
+	operator Common (void) const
+#endif
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _value;
+	}
+};
+
+// Specialization for the common case of three variants
+template <typename Common, typename V1, typename V2, typename V3>
+class OneOf<Common, std::tuple<V1, V2, V3>>
+{
+private:
+	Common _value;
+public:
+	OneOf(V1 value)
+	 : _value(Common(value))
+	{ }
+
+	OneOf(V2 value)
+	 : _value(Common(value))
+	{ }
+
+	OneOf(V3 value)
+	 : _value(Common(value))
+	{ }
+
+	template <typename T>
+	OneOf(
+		T value,
+		typename std::enable_if<
+			std::is_convertible<T, V1>::value
+		>::type* = nullptr
+	): _value(Common(V1(value)))
+	{ }
+
+	template <typename T>
+	OneOf(
+		T value,
+		typename std::enable_if<
+			std::is_convertible<T, V2>::value
+		>::type* = nullptr
+	): _value(Common(V2(value)))
+	{ }
+
+	template <typename T>
+	OneOf(
+		T value,
+		typename std::enable_if<
+			std::is_convertible<T, V3>::value
+		>::type* = nullptr
+	): _value(Common(V3(value)))
 	{ }
 
 #if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
