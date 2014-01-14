@@ -96,6 +96,7 @@ function _configure_oglplus()
 		--with-tests \
 		--generator \
 		--debug-config \
+		--debug-lib-error \
 		--cmake \
 	"
 

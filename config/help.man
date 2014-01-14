@@ -1,4 +1,4 @@
-.TH CONFIGURE-OGLPLUS 1 "2014-01-05" "Configuration script for OGLplus."
+.TH CONFIGURE-OGLPLUS 1 "2014-01-14" "Configuration script for OGLplus."
 .SH "NAME"
 configure-oglplus \- configuration script for the OGLplus library.
 .SH "SYNOPSIS"
@@ -136,6 +136,9 @@ Specify the cmake generator to be used.
 .TP
 \fB--debug-config\fR
 Enable debugging of the cmake build system.
+.TP
+\fB--debug-lib-error\fR
+Enable debugging of problems with building the library.
 .TP
 \fB--cmake\fR
 Everything following this option will be passed to cmake verbatim.

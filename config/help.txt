@@ -216,6 +216,9 @@ OOPPTTIIOONNSS
        ----ddeebbuugg--ccoonnffiigg
               Enable debugging of the cmake build system.
 
+       ----ddeebbuugg--lliibb--eerrrroorr
+              Enable debugging of problems with building the library.
+
        ----ccmmaakkee
               Everything following this option will be passed to cmake  verba-
               tim.
@@ -232,4 +235,4 @@ CCOOPPYYRRIIGGHHTT
 
 
 
-Configuration script for OGLplus. 2014-01-05              CONFIGURE-OGLPLUS(1)
+Configuration script for OGLplus. 2014-01-14              CONFIGURE-OGLPLUS(1)
