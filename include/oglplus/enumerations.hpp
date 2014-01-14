@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,6 +17,7 @@
 #include <oglplus/string.hpp>
 #include <oglplus/auxiliary/enum_class.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
+#include <vector>
 
 namespace oglplus {
 
@@ -111,6 +112,98 @@ inline aux::CastIterRange<
 } // namespace enums
 using enums::EnumValueName;
 using enums::EnumValueRange;
+
+namespace aux {
+
+template <typename Enum, bool Copy>
+class EnumArray;
+
+
+template <typename Enum>
+class EnumArray<Enum, false>
+{
+private:
+	std::size_t _count;
+	const GLenum* _enums;
+protected:
+	EnumArray(
+		std::size_t count,
+		const Enum* enums
+	): _count(count)
+	 , _enums(reinterpret_cast<const GLenum*>(enums))
+	{ }
+public:
+	std::size_t Count(void) const
+	{
+		return _count;
+	}
+
+	const GLenum* Values(void) const
+	{
+		return _enums;
+	}
+};
+
+template <typename Enum>
+class EnumArray<Enum, true>
+{
+private:
+	std::vector<GLenum> _enums;
+protected:
+	EnumArray(
+		std::size_t count,
+		const Enum* enums
+	): _enums(count)
+	{
+		for(std::size_t i=0; i!=count; ++i)
+		{
+			_enums[i] = GLenum(enums[i]);
+		}
+	}
+public:
+	std::size_t Count(void) const
+	{
+		return _enums.size();
+	}
+
+	const GLenum* Values(void) const
+	{
+		return _enums.data();
+	}
+};
+
+} // namespace aux
+
+/// This class can be used to pass an array of multiple enums to functions
+/**
+ *  @note The lifetime of an instance of EnumArray must not exceed the lifetime
+ *  of the original array of Enum from which the EnumArray was initialized.
+ *
+ *  @ingroup enumerations
+ */
+template <typename Enum>
+class EnumArray
+ : public aux::EnumArray<Enum, sizeof(Enum[8]) != sizeof(GLenum[8])>
+{
+private:
+	typedef aux::EnumArray<
+		Enum,
+		sizeof(Enum[2]) != sizeof(GLenum[2])
+	> Base_;
+public:
+	template <std::size_t N>
+	EnumArray(const Enum (&enums)[N])
+	 : Base_(N, enums)
+	{ }
+
+	EnumArray(const std::vector<Enum>& enums)
+	 : Base_(enums.size(), enums.data())
+	{ }
+
+	EnumArray(std::size_t count, const Enum* enums)
+	 : Base_(count, enums)
+	{ }
+};
 
 #endif // OGLPLUS_DOCUMENTATION_ONLY
 

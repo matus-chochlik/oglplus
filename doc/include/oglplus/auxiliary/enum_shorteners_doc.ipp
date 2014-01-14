@@ -2935,8 +2935,10 @@ template <typename Enum> friend bool operator!=(Enum value, Coherent);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Color value.
 /**
  *  @see @ref oglplus::FramebufferAttachment "FramebufferAttachment"
+ *  @see @ref oglplus::FramebufferBuffer "FramebufferBuffer"
  *
  *  @glsymbols
+ *  @gldefref{COLOR}
  *  @gldefref{COLOR_ATTACHMENT0}
  *
  *  @ingroup smart_enums
@@ -5415,8 +5417,10 @@ template <typename Enum> friend bool operator!=(Enum value, DeprecatedBehavior);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Depth value.
 /**
  *  @see @ref oglplus::FramebufferAttachment "FramebufferAttachment"
+ *  @see @ref oglplus::FramebufferBuffer "FramebufferBuffer"
  *
  *  @glsymbols
+ *  @gldefref{DEPTH}
  *  @gldefref{DEPTH_ATTACHMENT}
  *
  *  @ingroup smart_enums
@@ -5714,6 +5718,7 @@ template <typename Enum> friend bool operator!=(Enum value, DepthComponent32F);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c DepthStencil value.
 /**
  *  @see @ref oglplus::FramebufferAttachment "FramebufferAttachment"
+ *  @see @ref oglplus::FramebufferBuffer "FramebufferBuffer"
  *  @see @ref oglplus::PixelDataFormat "PixelDataFormat"
  *  @see @ref oglplus::PixelDataInternalFormat "PixelDataInternalFormat"
  *
@@ -24510,8 +24515,10 @@ template <typename Enum> friend bool operator!=(Enum value, StaticRead);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Stencil value.
 /**
  *  @see @ref oglplus::FramebufferAttachment "FramebufferAttachment"
+ *  @see @ref oglplus::FramebufferBuffer "FramebufferBuffer"
  *
  *  @glsymbols
+ *  @gldefref{STENCIL}
  *  @gldefref{STENCIL_ATTACHMENT}
  *
  *  @ingroup smart_enums

@@ -76,6 +76,9 @@ OGLPLUS_ENUM_CLASS_FWD(Face, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(FramebufferAttachment, GLenum)
 #include <oglplus/enums/framebuffer_attachment_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(FramebufferBuffer, GLenum)
+#include <oglplus/enums/framebuffer_buffer_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(FramebufferColorAttachment, GLenum)
 #include <oglplus/enums/framebuffer_color_attachment_range.ipp>
 
