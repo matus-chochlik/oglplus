@@ -190,10 +190,11 @@ class EnumArray
 #endif
 {
 private:
-	typedef aux::EnumArray<
-		Enum,
-		sizeof(Enum) != sizeof(GLenum)
-	> Base_;
+#if !OGLPLUS_NO_SCOPED_ENUMS
+	typedef aux::EnumArray<Enum, sizeof(Enum) != sizeof(GLenum)> Base_;
+#else
+	typedef aux::EnumArray<Enum, true> Base_;
+#endif
 public:
 	template <std::size_t N>
 	EnumArray(const Enum (&enums)[N])
