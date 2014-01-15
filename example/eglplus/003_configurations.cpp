@@ -2,7 +2,7 @@
  *  @example eglplus/003_configurations.cpp
  *  @brief Shows basic usage of EGLplus by printing configuration information
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -14,7 +14,7 @@
 #include <iostream>
 #include <iomanip>
 
-int main(void)
+void run(void)
 {
 	// open the default display
 	eglplus::Display display;
@@ -28,7 +28,7 @@ int main(void)
 			.Add(eglplus::ConfigAttrib::GreenSize, 8)
 			.Add(eglplus::ConfigAttrib::BlueSize, 8)
 			.Add(eglplus::ConfigAttrib::AlphaSize, 8)
-			.Add(eglplus::ConfigAttrib::DepthSize, 32)
+			.Add(eglplus::ConfigAttrib::DepthSize, 24)
 			.Add(eglplus::ColorBufferType::RGBBuffer)
 			.Add(eglplus::RenderableTypeBit::OpenGL)
 			.Get()
@@ -106,6 +106,27 @@ int main(void)
 
 		std::cout << "-----------------------------------------------" << std::endl;
 	}
-	//
-	return 0;
+}
+
+int main(void)
+{
+	try
+	{
+		run();
+		return 0;
+	}
+	catch(eglplus::Error& error)
+	{
+		std::cerr
+			<< "Error '"
+			<< error.what()
+			<< "' in "
+			<< error.EGLSymbol()
+			<< ". File: '"
+			<< error.File()
+			<< "', Line: "
+			<< error.Line()
+			<< std::endl;
+	}
+	return 1;
 }

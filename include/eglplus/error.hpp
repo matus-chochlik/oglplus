@@ -680,7 +680,7 @@ void HandleEGLError(EGLint code, const ErrorInfo& info, bool assertion);
 #endif
 #endif
 
-#define EGLPLUS_IGNORE(LIB,PARAM) ::eglGetError();
+#define EGLPLUS_IGNORE(PARAM) ::eglGetError();
 
 } // namespace eglplus
 

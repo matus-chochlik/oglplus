@@ -4,14 +4,15 @@
  *
  *  @oglplus_screenshot{033_metal_and_glass}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_cxx11{LAMBDAS}
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
- *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects;GL_EXT_direct_state_access}
+ *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects}
+ *  @oglplus_example_uses_gl{GL_EXT_direct_state_access}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -32,14 +33,13 @@
 
 namespace oglplus {
 
-class CommonVertShader
- : public VertexShader
+class TransformProgram : public Program
 {
-public:
-	CommonVertShader(void)
-	 : VertexShader(
-		ObjectDesc("Common vertex shader"),
-		StrLit("#version 330\n"
+private:
+	static Program make(void)
+	{
+		const GLchar* shader_source =
+		"#version 330\n"
 		"uniform mat4 CameraMatrix, ModelMatrix;"
 		"uniform mat4 LightProjMatrix;"
 		"uniform mat2 TextureMatrix;"
@@ -77,20 +77,13 @@ public:
 		"	vertTexCoord = TextureMatrix * TexCoord;"
 		"	vertLightTexCoord = LightProjMatrix* gl_Position;"
 		"	gl_Position = CameraMatrix * gl_Position;"
-		"}")
-	)
-	{ }
-};
+		"}";
 
-class TransformProgram : public Program
-{
-private:
-	static Program make(void)
-	{
-		Program prog(ObjectDesc("Transform"));
-		prog.AttachShader(CommonVertShader());
-		prog.MakeSeparable().Link().Use();
-		return prog;
+		return ShaderProgram(
+			ShaderType::Vertex,
+			shader_source,
+			ObjectDesc("Transform")
+		);
 	}
 	const Program& prog(void) const { return *this; }
 public:
@@ -671,9 +664,9 @@ public:
 	{
 		glass_shadow_fbo.Bind(Framebuffer::Target::Draw);
 
-		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.Viewport(shadow_tex_side, shadow_tex_side);
-		gl.Clear().ColorBuffer();
+		const GLfloat clear_color[4] = {1.0f, 1.0f, 1.0f, 0.0f};
+		gl.ClearColorBuffer(0, clear_color);
 
 		transf_prog.camera_matrix.Set(light_proj_matrix);
 		transf_prog.camera_position.Set(light_position);
@@ -730,7 +723,7 @@ public:
 		frame_shadow_fbo.Bind(Framebuffer::Target::Draw);
 
 		gl.Viewport(shadow_tex_side, shadow_tex_side);
-		gl.Clear().DepthBuffer();
+		gl.ClearDepthBuffer(1.0f);
 		gl.CullFace(Face::Back);
 
 		transf_prog.camera_matrix.Set(light_proj_matrix);

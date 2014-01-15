@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/.*.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -75,6 +75,9 @@ OGLPLUS_ENUM_CLASS_FWD(Face, GLenum)
 
 OGLPLUS_ENUM_CLASS_FWD(FramebufferAttachment, GLenum)
 #include <oglplus/enums/framebuffer_attachment_range.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(FramebufferBuffer, GLenum)
+#include <oglplus/enums/framebuffer_buffer_range.ipp>
 
 OGLPLUS_ENUM_CLASS_FWD(FramebufferColorAttachment, GLenum)
 #include <oglplus/enums/framebuffer_color_attachment_range.ipp>

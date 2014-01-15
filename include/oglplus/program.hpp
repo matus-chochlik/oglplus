@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -1012,6 +1012,112 @@ inline const ProgramOps& operator << (
 {
 	return program.AttachShader(shader);
 }
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+/// A standalone program with a single shader of a specified type from GLSL source
+/**
+ *  @glsymbols
+ *  @glfunref{CreateShaderProgram}
+ *
+ *  @see Program
+ */
+class ShaderProgram
+ : public Program
+{
+private:
+	static GLuint _make(
+		ShaderType shader_type,
+		GLsizei count,
+		const GLchar** strings
+	)
+	{
+		GLuint program = OGLPLUS_GLFUNC(CreateShaderProgramv)(
+			GLenum(shader_type),
+			count,
+			strings
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			CreateShaderProgramv,
+			Program,
+			nullptr,
+			program
+		));
+		return program;
+	}
+
+	void _check(void)
+	{
+		if(OGLPLUS_IS_ERROR(!IsValid()))
+		{
+			HandleBuildError<ValidationError>(
+				GetInfoLog(),
+				OGLPLUS_OBJECT_ERROR_INFO(
+					ValidateProgram,
+					Program,
+					nullptr,
+					this->_name
+				)
+			);
+		}
+	}
+public:
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		const GLchar* source
+	): Program(
+		Program::ExternalName_(),
+		_make(shader_type, 1, &source)
+	)
+	{ _check(); }
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		const GLchar* source,
+		ObjectDesc&& object_desc
+	): Program(
+		Program::ExternalName_(),
+		_make(shader_type, 1, &source),
+		std::move(object_desc)
+	)
+	{ _check(); }
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		const GLSLSource& glsl_source
+	): Program(
+		Program::ExternalName_(),
+		_make(shader_type, glsl_source.Count(), glsl_source.Parts())
+	)
+	{ _check(); }
+
+	/// Creates a single shader program with specified type, source and desc.
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		const GLSLSource& glsl_source,
+		ObjectDesc&& object_desc
+	): Program(
+		Program::ExternalName_(),
+		_make(shader_type, glsl_source.Count(), glsl_source.Parts()),
+		std::move(object_desc)
+	)
+	{ _check(); }
+};
+#endif
 
 /// A Program that allows to attach shaders and links itself during construction
 /** This specialization of Program allows to build a whole shading language

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -311,7 +311,7 @@ def get_argument_parser():
 			}
 		)
 
-	gl_init_libs = ["GLUT", "GLFW3", "GLFW", "wxGL", "SDL", "glX", "QtGL", "EGL"]
+	gl_init_libs = ["GLUT", "GLFW3", "GLFW", "wxGL", "SDL", "glX", "Qt4GL","Qt5GL",  "EGL"]
 	argparser_gl_init_lib_group = argparser.add_mutually_exclusive_group()
 	argparser_gl_init_lib_group.add_argument(
 		"--use-gl-init-lib",
@@ -416,6 +416,15 @@ def get_argument_parser():
 		action="store_true",
 		help="""
 			Enable debugging of the cmake build system.
+		"""
+	)
+	argparser.add_argument(
+		"--debug-lib-error",
+		dest="debug_lib_error",
+		default=False,
+		action="store_true",
+		help="""
+			Enable debugging of problems with building the library.
 		"""
 	)
 	argparser.add_argument(
@@ -865,6 +874,8 @@ def main(argv):
 	# put cmake in debug mode if specified
 	if(options.debug_config):
 		cmake_options += ["--debug-output", "--debug-trycompile"]
+	if(options.debug_lib_error):
+		cmake_options += ["-DOGLPLUS_DEBUG_LIB_ERROR=1"]
 
 	# create the build directory if necessary
 	if(not os.path.isdir(options.build_dir)):

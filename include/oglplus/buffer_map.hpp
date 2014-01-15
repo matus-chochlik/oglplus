@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -62,8 +62,11 @@ public:
 	/**
 	 *  @param target use the buffer bound to the specified target
 	 *  @param byte_offset map offset in machine bytes
-	 *  @param size map size in machine bytes
+	 *  @param size_bytes map size in machine bytes
 	 *  @param access the access specifier for the buffer mapping
+	 *
+	 *  @glsymbols
+	 *  @glfunref{MapBufferRange}
 	 *
 	 *  @throws Error
 	 */
@@ -92,6 +95,9 @@ public:
 	 *  @param access the access specifier for the buffer mapping
 	 *
 	 * This class is non-copyable.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{MapBuffer}
 	 *
 	 *  @throws Error
 	 */
@@ -125,14 +131,34 @@ public:
 		temp._ptr = nullptr;
 	}
 
-	/// Unmaps the buffer from client address space
+	/// Unmaps the buffer from client address space (if mapped)
 	~BufferRawMap(void)
+	{
+		try { Unmap(); }
+		catch(...){ }
+	}
+
+	/// Unmaps the buffer from client address space
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UnmapBuffer}
+	 *
+	 *  @throws Error
+	 */
+	void Unmap(void)
 	{
 		if(_ptr != nullptr)
 		{
 			OGLPLUS_GLFUNC(UnmapBuffer)(GLenum(_target));
-			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(UnmapBuffer));
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UnmapBuffer));
+			_ptr = nullptr;
 		}
+	}
+
+	/// Returns true if the buffer is mapped
+	bool Mapped(void) const
+	{
+		return _ptr != nullptr;
 	}
 
 	/// Returns the size (in bytes) of the mapped buffer
@@ -142,15 +168,42 @@ public:
 	}
 
 	/// Returns a const pointer to the mapped data
+	/**
+	 *  @pre Mapped()
+	 */
 	const GLvoid* RawData(void) const
 	{
+		assert(Mapped());
 		return _ptr;
 	}
 
 	/// Returns a pointer to the mapped data
+	/**
+	 *  @pre Mapped()
+	 */
 	GLvoid* RawData(void)
 	{
+		assert(Mapped());
 		return _ptr;
+	}
+
+	/// Indicate modifications to a mapped range
+	/**
+	 *  @glsymbols
+	 *  @glfunref{FlushMappedBufferRange}
+	 *
+	 *  @pre Mapped()
+	 *
+	 *  @throws Error
+	 */
+	void FlushRange(GLintptr offset, GLsizeiptr length)
+	{
+		OGLPLUS_GLFUNC(FlushMappedBufferRange)(
+			GLenum(_target),
+			offset,
+			length
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(FlushMappedBufferRange));
 	}
 };
 
@@ -232,6 +285,23 @@ public:
 		assert(Data() != nullptr);
 		assert(((index+1)*sizeof(Type)) <= std::size_t(this->Size()));
 		return Data()[index];
+	}
+
+	/// Indicate modifications to a mapped range of elements of Type
+	/**
+	 *  @param start Index of the first element.
+	 *  @param count The number of elements to be flushed.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{FlushMappedBufferRange}
+	 *
+	 *  @pre this->Mapped()
+	 *
+	 *  @throws Error
+	 */
+	void FlushElements(unsigned start, unsigned count)
+	{
+		this->FlushRange(sizeof(Type)*start, sizeof(Type)*count);
 	}
 };
 #endif // GL_VERSION_3_0

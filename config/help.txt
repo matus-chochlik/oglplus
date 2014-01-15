@@ -103,13 +103,21 @@ OOPPTTIIOONNSS
               may return a higher OpenGL version than actually available. This
               option can be used to limit the maximal version number.
 
+       ----ssttrriicctt--ggll--vveerrssiioonn--ddeetteeccttiioonn
+              Enables (or disables) strict GL version and extension detection.
+              In  relaxed (non-strict) mode the only thing that is detected is
+              whether specific GL symbols are defined like  GL_VERSION_x_y  or
+              GL_EXT_extension_name.  In  strict mode a GL context is initial-
+              ized and the GL version and extension list is queried  and  pro-
+              cessed.
+
        ----uussee--ggll--aappii--lliibb {GGLLEEWW,GGLL33WW,GGLLCCOORREEAARRBB__HH,GGLL33__HH}
               Forces the use of a specific header or library which defines the
-              GL  symbols (types, functions, defines, etc.). If this option is
-              used then the header must be installed somewhere in  the  system
-              include  directories or in directories specified with --include-
-              dir and the corresponding binary libraries must be installed  in
-              system  library directories or in directories specified with the
+              GL symbols (types, functions, defines, etc.). If this option  is
+              used  then  the header must be installed somewhere in the system
+              include directories or in directories specified with  --include-
+              dir  and the corresponding binary libraries must be installed in
+              system library directories or in directories specified with  the
               --library-dir option.
 
        ----uussee--gglleeww
@@ -121,23 +129,28 @@ OOPPTTIIOONNSS
               in OGLplus examples. Equivalent to --use-gl-api-lib=GL3W.
 
        ----uussee--ggllccoorreeaarrbb--hh
-              Forces the use of the _G_L_/_g_l_c_o_r_e_a_r_b_._h header  to  define  the  GL
-              symbols  used  in  OGLplus examples. Equivalent to --use-gl-api-
+              Forces  the  use  of  the _G_L_/_g_l_c_o_r_e_a_r_b_._h header to define the GL
+              symbols used in OGLplus examples.  Equivalent  to  --use-gl-api-
               lib=GLCOREARB_H.
 
        ----uussee--ggll33--hh
-              Forces the use of the _G_L_3_/_g_l_3_._h header to define the GL  symbols
+              Forces  the use of the _G_L_3_/_g_l_3_._h header to define the GL symbols
               used in OGLplus examples. Equivalent to --use-gl-api-lib=GL3_H.
 
-       ----uussee--ggll--iinniitt--lliibb {GGLLUUTT,GGLLFFWW,WWXXGGLL,SSDDLL,GGLLXX,QQTTGGLL,EEGGLL}
-              Forces  the  use  of a specific window library which initializes
-              the default GL context. This option allows to force  a  specific
+       ----uussee--ggll--iinniitt--lliibb {GGLLUUTT,GGLLFFWW33,GGLLFFWW,WWXXGGLL,SSDDLL,GGLLXX,QQTT44GGLL,QQTT55GGLL,EEGGLL}
+              Forces the use of a specific window  library  which  initializes
+              the  default  GL context. This option allows to force a specific
               example 'harness'.
 
        ----uussee--gglluutt
               Forces the use of the GLUT library to create the window and ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=GLUT.
+
+       ----uussee--ggllffww33
+              Forces the use of the GLFW3 library to  create  the  window  and
+              initialize  the  GL  context  in OGLplus examples. Equivalent to
+              --use-gl-init-lib=GLFW3.
 
        ----uussee--ggllffww
               Forces the use of the GLFW library to create the window and ini-
@@ -150,43 +163,48 @@ OOPPTTIIOONNSS
               gl-init-lib=WXGL.
 
        ----uussee--ssddll
-              Forces  the use of the SDL library to create the window and ini-
+              Forces the use of the SDL library to create the window and  ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=SDL.
 
        ----uussee--ggllxx
-              Forces  the use of the glX library to create the window and ini-
+              Forces the use of the glX library to create the window and  ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=GLX.
 
-       ----uussee--qqttggll
-              Forces the use of the QtGL library to create the window and ini-
-              tialize the GL context in OGLplus examples. Equivalent to --use-
-              gl-init-lib=QTGL.
+       ----uussee--qqtt44ggll
+              Forces the use of the Qt4GL library to  create  the  window  and
+              initialize  the  GL  context  in OGLplus examples. Equivalent to
+              --use-gl-init-lib=QT4GL.
+
+       ----uussee--qqtt55ggll
+              Forces the use of the Qt5GL library to  create  the  window  and
+              initialize  the  GL  context  in OGLplus examples. Equivalent to
+              --use-gl-init-lib=QT5GL.
 
        ----uussee--eeggll
-              Forces  the use of the EGL library to create the window and ini-
+              Forces the use of the EGL library to create the window and  ini-
               tialize the GL context in OGLplus examples. Equivalent to --use-
               gl-init-lib=EGL.
 
        ----ffrroomm--ssccrraattcchh
-              Remove  any  previous  cached and intermediate files and run the
+              Remove any previous cached and intermediate files  and  run  the
               configuration  process  from  scratch.  Specifying  this  option
               causes the build directory to be deleted and recreated.
 
        ----qquuiieett
-              Do  not  print  regular  messages,  errors  are still printed to
+              Do not print regular  messages,  errors  are  still  printed  to
               stderr. Also any cmake output is still printed.
 
        ----qquuiicckk
               Skips some optional steps in the configuration process.
 
-       ----jjoobbss Specifies the number of parallel  build  jobs  to  be  used,  if
+       ----jjoobbss Specifies  the  number  of  parallel  build  jobs to be used, if
               applicable for the used build tool.
 
        ----bbuuiilldd
-              If  possible, after running cmake also invoke the build tool and
-              build the project. This is currently supported only for  certain
+              If possible, after running cmake also invoke the build tool  and
+              build  the project. This is currently supported only for certain
               build tools.
 
        ----wwiitthh--tteessttss
@@ -195,20 +213,26 @@ OOPPTTIIOONNSS
        ----ggeenneerraattoorr
               Specify the cmake generator to be used.
 
+       ----ddeebbuugg--ccoonnffiigg
+              Enable debugging of the cmake build system.
+
+       ----ddeebbuugg--lliibb--eerrrroorr
+              Enable debugging of problems with building the library.
+
        ----ccmmaakkee
-              Everything  following this option will be passed to cmake verba-
+              Everything following this option will be passed to cmake  verba-
               tim.
 
 AAUUTTHHOORR
        Matus Chochlik, chochlik@gmail.com
 
 CCOOPPYYRRIIGGHHTT
-       Copyright (c) 2008-2013 Matus Chochlik
+       Copyright (c) 2008-2014 Matus Chochlik
 
-       Permission is granted to copy, distribute and/or modify  this  document
-       under  the  terms  of  the Boost Software License, Version 1.0.  (See a
+       Permission  is  granted to copy, distribute and/or modify this document
+       under the terms of the Boost Software License,  Version  1.0.   (See  a
        copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
 
-Configuration script for OGLplus. 2013-07-15              CONFIGURE-OGLPLUS(1)
+Configuration script for OGLplus. 2014-01-14              CONFIGURE-OGLPLUS(1)
