@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -32,6 +32,10 @@ set(
 configure_file(
 	${PROJECT_SOURCE_DIR}/config/oglplus/fix_gl_version.hpp.in
 	${OGLPLUS_FIX_GL_VERSION_HPP}
+)
+configure_file(
+	${PROJECT_SOURCE_DIR}/config/gl/assert_GL_VER_symbols.ipp.in
+	${PROJECT_BINARY_DIR}/gl/assert_GL_VER_symbols.ipp
 )
 
 message(STATUS "Detecting OpenGL version")
