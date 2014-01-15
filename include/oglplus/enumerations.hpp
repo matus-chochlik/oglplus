@@ -183,13 +183,18 @@ public:
  */
 template <typename Enum>
 class EnumArray
- : public aux::EnumArray<Enum, sizeof(Enum[8]) != sizeof(GLenum[8])>
+#if !OGLPLUS_NO_SCOPED_ENUMS
+ : public aux::EnumArray<Enum, sizeof(Enum) != sizeof(GLenum)>
+#else
+ : public aux::EnumArray<Enum, true>
+#endif
 {
 private:
-	typedef aux::EnumArray<
-		Enum,
-		sizeof(Enum[2]) != sizeof(GLenum[2])
-	> Base_;
+#if !OGLPLUS_NO_SCOPED_ENUMS
+	typedef aux::EnumArray<Enum, sizeof(Enum) != sizeof(GLenum)> Base_;
+#else
+	typedef aux::EnumArray<Enum, true> Base_;
+#endif
 public:
 	template <std::size_t N>
 	EnumArray(const Enum (&enums)[N])
