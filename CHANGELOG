@@ -1,3 +1,23 @@
+Version 0.41.0
+
+- The ShaderProgram class was added.
+- The BufferMapAccess enumeration was updated.
+- The Unmap, FlushRange and FlushElements functions were added to Buffer maps.
+- The InvalidateData and InvalidateSubData functions were added to Buffer;
+- The FramebufferBuffer enumeration was added.
+- The Invalidate function was added to Framebuffer.
+- The EnumArray<T> template for passing of arrays of enum values was added.
+- Wrappers for the glClearBuffer functions were added.
+- A new harness for OGLplus examples using Qt5 was added.
+- An unofficial X11/glX-based implementation of the EGL API, with several
+  extensions was added.
+- Support for client extensions were added to EGLplus.
+- eglplus::Context was updated, a new overload of MakeCurrent was added,
+  and the Release member function was added.
+- Several examples were updated to show the new features.
+- A new script for rendering videos from OGLplus examples was added.
+- Several problems in the build system were fixed.
+
 Version 0.40.0
 
 - Experimental support for OpenGL ES 3.0 was added.
