@@ -226,6 +226,43 @@ public:
 		return result == EGL_TRUE;
 	}
 
+	/// Makes the context current without surfaces
+	/**
+	 *  @note This function works only if EGL implements
+	 *  the EGL_KHR_surfaceless_context extension.
+	 *
+	 *  @eglsymbols
+	 *  @eglfunref{MakeCurrent}
+	 */
+	bool MakeCurrent(void)
+	{
+		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
+			FriendOf<Display>::GetHandle(_display),
+			EGL_NO_SURFACE,
+			EGL_NO_SURFACE,
+			_handle
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		return result == EGL_TRUE;
+	}
+
+	/// Releases the current context without assigning a new one
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{MakeCurrent}
+	 */
+	bool Release(void)
+	{
+		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
+			FriendOf<Display>::GetHandle(_display),
+			EGL_NO_SURFACE,
+			EGL_NO_SURFACE,
+			EGL_NO_CONTEXT
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		return result == EGL_TRUE;
+	}
+
 	/// Queries a context attribute
 	/**
 	 *  @eglsymbols
@@ -241,6 +278,24 @@ public:
 		);
 		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(QueryContext));
 		return result == EGL_TRUE;
+	}
+
+	/// Returns the context framebuffer config id
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{QueryContext}
+	 */
+	EGLint ConfigId(void) const
+	{
+		EGLint result = 0;
+		EGLPLUS_EGLFUNC(QueryContext)(
+			FriendOf<Display>::GetHandle(_display),
+			_handle,
+			EGLint(EGL_CONFIG_ID),
+			&result
+		);
+		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(QueryContext));
+		return result;
 	}
 
 	/// Wait for client API commands to complete

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -33,7 +33,23 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
 )
 #endif
 
-/// Framebuffer attachment points
+/// Default framebuffer buffers
+/**
+ *  @ingroup enumerations
+ */
+OGLPLUS_ENUM_CLASS_BEGIN(FramebufferBuffer, GLenum)
+#include <oglplus/enums/framebuffer_buffer.ipp>
+OGLPLUS_ENUM_CLASS_END(FramebufferBuffer)
+
+#if !OGLPLUS_NO_ENUM_VALUE_NAMES
+#include <oglplus/enums/framebuffer_buffer_names.ipp>
+#endif
+
+#if !OGLPLUS_ENUM_VALUE_RANGES
+#include <oglplus/enums/framebuffer_buffer_range.ipp>
+#endif
+
+/// Framebuffer object attachment points
 /**
  *  @ingroup enumerations
  */

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{001_triangle}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -159,7 +159,7 @@ void make_screenshot(unsigned width, unsigned height, const char* screenshot_pat
 
 	render_frame();
 
-	context.WaitGL();
+	context.WaitClient();
 
 	save_frame(width, height, screenshot_path);
 }

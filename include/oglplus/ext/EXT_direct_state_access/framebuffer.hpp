@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -664,20 +664,13 @@ public:
 	 *  @glfunref{DrawBuffers}
 	 */
 	template <unsigned N>
-	void DrawBuffers(ColorBuffer (&buffers)[N])
+	void DrawBuffers(const EnumArray<ColorBuffer>& buffers)
 	{
-		if(sizeof(buffers) == sizeof(GLenum [N]))
-		{
-			GLenum *_tmp = reinterpret_cast<GLenum*>(buffers);
-			OGLPLUS_GLFUNC(FramebufferDrawBuffersEXT)(_name,N,_tmp);
-		}
-		else
-		{
-			GLenum _tmp[N];
-			for(unsigned i=0; i!=N; ++i)
-				_tmp[i] = GLenum(buffers[i]);
-			OGLPLUS_GLFUNC(FramebufferDrawBuffersEXT)(_name,N,_tmp);
-		}
+		OGLPLUS_GLFUNC(FramebufferDrawBuffersEXT)(
+			_name,
+			buffers.Count(),
+			buffers.Values()
+		);
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferDrawBuffersEXT,
 			Framebuffer,

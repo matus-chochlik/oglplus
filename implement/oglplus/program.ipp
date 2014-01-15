@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,7 +16,8 @@ String ProgramOps::GetInfoLog(void) const
 {
 	assert(_name != 0);
 	return aux::GetInfoLog(
-		_name, OGLPLUS_GLFUNC(GetProgramiv),
+		_name,
+		OGLPLUS_GLFUNC(GetProgramiv),
 		OGLPLUS_GLFUNC(GetProgramInfoLog),
 		"GetProgramiv",
 		"GetProgramInfoLog"

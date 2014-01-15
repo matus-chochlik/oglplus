@@ -25,31 +25,31 @@ template <typename T>
 void SpiralSphere::_make_vectors(
 	std::vector<T>& dest,
 	unsigned& k,
-	GLdouble sign,
-	GLdouble radius
+	double sign,
+	double radius
 ) const
 {
-	GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
-	GLdouble b_step = b_leap / GLdouble(_divisions);
-	GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+	double b_leap = (math::Pi()) / double(_bands);
+	double b_step = b_leap / double(_divisions);
+	double s_step = (math::Pi()) / double(_segments);
 
-	GLdouble m = sign * radius;
+	double m = sign * radius;
 
 	for(unsigned b=0; b!=_bands; ++b)
 	{
 		for(unsigned d=0; d!=(_divisions+1); ++d)
 		{
-			GLdouble b_offs = 0.0;
+			double b_offs = 0.0;
 			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
-				GLdouble b_angle =
+				double b_angle =
 					2*b*b_leap + d*b_step + b_offs;
-				GLdouble cb = std::cos(b_angle);
-				GLdouble sb = std::sin(b_angle);
+				double cb = std::cos(b_angle);
+				double sb = std::sin(b_angle);
 
-				GLdouble s_angle = s*s_step;
-				GLdouble cs = std::cos(s_angle);
-				GLdouble ss = std::sin(s_angle);
+				double s_angle = s*s_step;
+				double cs = std::cos(s_angle);
+				double ss = std::sin(s_angle);
 
 				dest[k++] = T(m* ss * cb);
 				dest[k++] = T(m* cs);
@@ -64,29 +64,29 @@ template <typename T>
 void SpiralSphere::_make_tangents(
 	std::vector<T>& dest,
 	unsigned& k,
-	GLdouble sign
+	double sign
 ) const
 {
-	GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
-	GLdouble b_step = b_leap / GLdouble(_divisions);
-	GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+	double b_leap = (math::Pi()) / double(_bands);
+	double b_step = b_leap / double(_divisions);
+	double s_step = (math::Pi()) / double(_segments);
 
-	GLdouble m = sign;
+	double m = sign;
 
 	for(unsigned b=0; b!=_bands; ++b)
 	{
 		for(unsigned d=0; d!=(_divisions+1); ++d)
 		{
-			GLdouble b_offs = 0.0;
+			double b_offs = 0.0;
 			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
-				GLdouble b_angle =
+				double b_angle =
 					2*b*b_leap + d*b_step + b_offs;
-				GLdouble cb = std::cos(b_angle);
-				GLdouble sb = std::sin(b_angle);
+				double cb = std::cos(b_angle);
+				double sb = std::sin(b_angle);
 
-				GLdouble s_angle = s*s_step;
-				GLdouble ss = std::sin(s_angle);
+				double s_angle = s*s_step;
+				double ss = std::sin(s_angle);
 
 				dest[k++] = T(m*-sb);
 				dest[k++] = T(0);
@@ -101,38 +101,38 @@ template <typename T>
 void SpiralSphere::_make_bitangents(
 	std::vector<T>& dest,
 	unsigned& k,
-	GLdouble sign
+	double sign
 ) const
 {
-	GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
-	GLdouble b_step = b_leap / GLdouble(_divisions);
-	GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+	double b_leap = (math::Pi()) / double(_bands);
+	double b_step = b_leap / double(_divisions);
+	double s_step = (math::Pi()) / double(_segments);
 
-	GLdouble m = sign;
+	double m = sign;
 
 	for(unsigned b=0; b!=_bands; ++b)
 	{
 		for(unsigned d=0; d!=(_divisions+1); ++d)
 		{
-			GLdouble b_offs = 0.0;
+			double b_offs = 0.0;
 			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
-				GLdouble b_angle =
+				double b_angle =
 					2*b*b_leap + d*b_step + b_offs;
-				GLdouble cb = std::cos(b_angle);
-				GLdouble sb = std::sin(b_angle);
+				double cb = std::cos(b_angle);
+				double sb = std::sin(b_angle);
 
-				GLdouble s_angle = s*s_step;
-				GLdouble cs = std::cos(s_angle);
-				GLdouble ss = std::sin(s_angle);
+				double s_angle = s*s_step;
+				double cs = std::cos(s_angle);
+				double ss = std::sin(s_angle);
 
-				GLdouble tx = m*-sb;
-				GLdouble ty = 0.0;
-				GLdouble tz = m*-cb;
+				double tx = m*-sb;
+				double ty = 0.0;
+				double tz = m*-cb;
 
-				GLdouble nx = m*ss* cb;
-				GLdouble ny = m*cs;
-				GLdouble nz = m*ss*-sb;
+				double nx = m*ss* cb;
+				double ny = m*cs;
+				double nz = m*ss*-sb;
 
 				dest[k++] = T(ny*tz-nz*ty);
 				dest[k++] = T(nz*tx-nx*tz);
@@ -147,16 +147,16 @@ void SpiralSphere::_make_bitangents(
 template <typename T>
 void SpiralSphere::_make_uv_coords(std::vector<T>& dest, unsigned& k) const
 {
-	GLdouble b_leap = 0.5 / GLdouble(_bands);
-	GLdouble b_step = b_leap / GLdouble(_divisions);
-	GLdouble s_step = 1.0 / GLdouble(_segments);
+	double b_leap = 0.5 / double(_bands);
+	double b_step = b_leap / double(_divisions);
+	double s_step = 1.0 / double(_segments);
 
-	GLdouble u = 0.0;
+	double u = 0.0;
 	for(unsigned b=0; b!=_bands; ++b)
 	{
 		for(unsigned d=0; d!=(_divisions+1); ++d)
 		{
-			GLdouble v = 1.0;
+			double v = 1.0;
 			for(unsigned s=0; s!=(_segments+1); ++s)
 			{
 				dest[k++] = T(u);
@@ -172,26 +172,26 @@ void SpiralSphere::_make_uv_coords(std::vector<T>& dest, unsigned& k) const
 template <typename T>
 void SpiralSphere::_make_side_verts(std::vector<T>& dest, unsigned& k) const
 {
-	GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
-	GLdouble b_slip = b_leap * _thickness * 0.5;
-	GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+	double b_leap = (math::Pi()) / double(_bands);
+	double b_slip = b_leap * _thickness * 0.5;
+	double s_step = (math::Pi()) / double(_segments);
 
-	GLdouble m = _radius + _thickness * 0.5;
-	GLdouble g = -1.0;
+	double m = _radius + _thickness * 0.5;
+	double g = -1.0;
 
 	for(unsigned b=0; b!=_bands*2; ++b)
 	{
-		GLdouble b_offs = 0.0;
+		double b_offs = 0.0;
 		for(unsigned s=0; s!=(_segments+1); ++s)
 		{
-			GLdouble b_angle =
+			double b_angle =
 				b*b_leap + b_offs + g*b_slip;
-			GLdouble cb = std::cos(b_angle);
-			GLdouble sb = std::sin(b_angle);
+			double cb = std::cos(b_angle);
+			double sb = std::sin(b_angle);
 
-			GLdouble s_angle = s*s_step;
-			GLdouble cs = std::cos(s_angle);
-			GLdouble ss = std::sin(s_angle);
+			double s_angle = s*s_step;
+			double cs = std::cos(s_angle);
+			double ss = std::sin(s_angle);
 
 			dest[k++] = T(m* ss * cb);
 			dest[k++] = T(m* cs);
@@ -205,22 +205,22 @@ void SpiralSphere::_make_side_verts(std::vector<T>& dest, unsigned& k) const
 template <typename T>
 void SpiralSphere::_make_side_norms(std::vector<T>& dest, unsigned& k) const
 {
-	GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
-	GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+	double b_leap = (math::Pi()) / double(_bands);
+	double s_step = (math::Pi()) / double(_segments);
 
-	GLfloat m = 1.0;
+	double m = 1.0;
 	for(unsigned b=0; b!=_bands*2; ++b)
 	{
-		GLdouble b_offs = 0.0;
+		double b_offs = 0.0;
 		for(unsigned s=0; s!=(_segments+1); ++s)
 		{
-			GLdouble b_angle =
+			double b_angle =
 				b*b_leap + b_offs;
-			GLdouble cb = std::cos(b_angle);
-			GLdouble sb = std::sin(b_angle);
+			double cb = std::cos(b_angle);
+			double sb = std::sin(b_angle);
 
-			GLdouble s_angle = s*s_step;
-			GLdouble ss = std::sin(s_angle);
+			double s_angle = s*s_step;
+			double ss = std::sin(s_angle);
 
 			dest[k++] = T(m*-sb);
 			dest[k++] = T(0);
@@ -234,23 +234,23 @@ void SpiralSphere::_make_side_norms(std::vector<T>& dest, unsigned& k) const
 template <typename T>
 void SpiralSphere::_make_side_tgts(std::vector<T>& dest, unsigned& k) const
 {
-	GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
-	GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+	double b_leap = (math::Pi()) / double(_bands);
+	double s_step = (math::Pi()) / double(_segments);
 
-	GLfloat m = -1.0;
+	double m = -1.0;
 	for(unsigned b=0; b!=_bands*2; ++b)
 	{
-		GLdouble b_offs = 0.0;
+		double b_offs = 0.0;
 		for(unsigned s=0; s!=(_segments+1); ++s)
 		{
-			GLdouble b_angle =
+			double b_angle =
 				b*b_leap + b_offs;
-			GLdouble cb = std::cos(b_angle);
-			GLdouble sb = std::sin(b_angle);
+			double cb = std::cos(b_angle);
+			double sb = std::sin(b_angle);
 
-			GLdouble s_angle = s*s_step;
-			GLdouble cs = std::cos(s_angle);
-			GLdouble ss = std::sin(s_angle);
+			double s_angle = s*s_step;
+			double cs = std::cos(s_angle);
+			double ss = std::sin(s_angle);
 
 			dest[k++] = T(m*ss*-cb);
 			dest[k++] = T(m*cs);
@@ -264,31 +264,31 @@ void SpiralSphere::_make_side_tgts(std::vector<T>& dest, unsigned& k) const
 template <typename T>
 void SpiralSphere::_make_side_btgs(std::vector<T>& dest, unsigned& k) const
 {
-	GLdouble b_leap = (math::Pi()) / GLdouble(_bands);
-	GLdouble s_step = (math::Pi()) / GLdouble(_segments);
+	double b_leap = (math::Pi()) / double(_bands);
+	double s_step = (math::Pi()) / double(_segments);
 
-	GLfloat m = 1.0;
+	double m = 1.0;
 	for(unsigned b=0; b!=_bands*2; ++b)
 	{
-		GLdouble b_offs = 0.0;
+		double b_offs = 0.0;
 		for(unsigned s=0; s!=(_segments+1); ++s)
 		{
-			GLdouble b_angle =
+			double b_angle =
 				b*b_leap + b_offs;
-			GLdouble cb = std::cos(b_angle);
-			GLdouble sb = std::sin(b_angle);
+			double cb = std::cos(b_angle);
+			double sb = std::sin(b_angle);
 
-			GLdouble s_angle = s*s_step;
-			GLdouble cs = std::cos(s_angle);
-			GLdouble ss = std::sin(s_angle);
+			double s_angle = s*s_step;
+			double cs = std::cos(s_angle);
+			double ss = std::sin(s_angle);
 
-			GLdouble tx = m*ss*-cb;
-			GLdouble ty = m*cs;
-			GLdouble tz = m*ss*-sb;
+			double tx = m*ss*-cb;
+			double ty = m*cs;
+			double tz = m*ss*-sb;
 
-			GLdouble nx = m* sb;
-			GLdouble ny = 0.0;
-			GLdouble nz = m*-cb;
+			double nx = m* sb;
+			double ny = 0.0;
+			double nz = m*-cb;
 
 			dest[k++] = T(ny*tz-nz*ty);
 			dest[k++] = T(nz*tx-nx*tz);
@@ -303,16 +303,16 @@ void SpiralSphere::_make_side_btgs(std::vector<T>& dest, unsigned& k) const
 template <typename T>
 void SpiralSphere::_make_side_uvs(std::vector<T>& dest, unsigned& k) const
 {
-	GLdouble b_leap = 0.5 / GLdouble(_bands);
-	GLdouble b_slip = b_leap * _thickness * 0.5;
-	GLdouble s_step = 1.0 / GLdouble(_segments);
+	double b_leap = 0.5 / double(_bands);
+	double b_slip = b_leap * _thickness * 0.5;
+	double s_step = 1.0 / double(_segments);
 
-	GLdouble g = -1.0;
+	double g = -1.0;
 
 	for(unsigned b=0; b!=_bands*2; ++b)
 	{
-		GLdouble b_offs = 0.0;
-		GLdouble v = 1.0;
+		double b_offs = 0.0;
+		double v = 1.0;
 		for(unsigned s=0; s!=(_segments+1); ++s)
 		{
 			dest[k++] = T(b*b_leap + b_offs + g*b_slip);

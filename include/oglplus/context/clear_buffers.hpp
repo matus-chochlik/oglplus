@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,6 +17,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/buffer_select_bit.hpp>
+#include <oglplus/color_buffer.hpp>
 #include <oglplus/bitfield.hpp>
 
 namespace oglplus {
@@ -285,6 +286,198 @@ public:
 	{
 		OGLPLUS_GLFUNC(Clear)(GLbitfield(bits));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Clear));
+	}
+
+
+	/// Clears the specified color draw buffer
+	/** This function clears the specified color draw buffer of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 *  @gldefref{GL_COLOR}
+	 */
+	static void ClearColorBuffer(
+		GLint draw_buffer,
+		const GLint* value
+	)
+	{
+		OGLPLUS_GLFUNC(ClearBufferiv)(
+			GL_COLOR,
+			draw_buffer,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferiv));
+	}
+
+	/// Clears the specified color draw buffer
+	/** This function clears the specified color draw buffer of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 */
+	static void ClearColorBuffer(
+		ColorBuffer buffer,
+		GLint draw_buffer,
+		const GLint* value
+	)
+	{
+		OGLPLUS_GLFUNC(ClearBufferiv)(
+			GLenum(buffer),
+			draw_buffer,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferiv));
+	}
+
+	/// Clears the specified color draw buffer
+	/** This function clears the specified color draw buffer of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 *  @gldefref{GL_COLOR}
+	 */
+	static void ClearColorBuffer(
+		GLint draw_buffer,
+		const GLuint* value
+	)
+	{
+		OGLPLUS_GLFUNC(ClearBufferuiv)(
+			GL_COLOR,
+			draw_buffer,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferuiv));
+	}
+
+	/// Clears the specified color draw buffer
+	/** This function clears the specified color draw buffer of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 */
+	static void ClearColorBuffer(
+		ColorBuffer buffer,
+		GLint draw_buffer,
+		const GLuint* value
+	)
+	{
+		OGLPLUS_GLFUNC(ClearBufferuiv)(
+			GLenum(buffer),
+			draw_buffer,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferuiv));
+	}
+
+	/// Clears the specified color draw buffer
+	/** This function clears the specified color draw buffer of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 *  @gldefref{GL_COLOR}
+	 */
+	static void ClearColorBuffer(
+		GLint draw_buffer,
+		const GLfloat* value
+	)
+	{
+		OGLPLUS_GLFUNC(ClearBufferfv)(
+			GL_COLOR,
+			draw_buffer,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferfv));
+	}
+
+	/// Clears the specified color draw buffer
+	/** This function clears the specified color draw buffer of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 */
+	static void ClearColorBuffer(
+		ColorBuffer buffer,
+		GLint draw_buffer,
+		const GLfloat* value
+	)
+	{
+		OGLPLUS_GLFUNC(ClearBufferfv)(
+			GLenum(buffer),
+			draw_buffer,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferfv));
+	}
+
+	/// Clears the depth buffer
+	/** This function clears the depth buffer of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 *  @gldefref{GL_DEPTH}
+	 */
+	static void ClearDepthBuffer(GLfloat value)
+	{
+		OGLPLUS_GLFUNC(ClearBufferfv)(GL_DEPTH, 0, &value);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferfv));
+	}
+
+	/// Clears the stencil buffer
+	/** This function clears the stencil buffer of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 *  @gldefref{GL_STENCIL}
+	 */
+	static void ClearStencilBuffer(GLint value)
+	{
+		OGLPLUS_GLFUNC(ClearBufferiv)(GL_STENCIL, 0, &value);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferiv));
+	}
+
+	/// Clears the depth and the stencil buffer
+	/** This function clears the depth and stencil buffers of the currently
+	 *  bound framebuffer.
+	 *
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{ClearBuffer}
+	 *  @gldefref{GL_DEPTH_STENCIL}
+	 */
+	static void ClearStencilBuffer(GLfloat depth_value, GLint stencil_value)
+	{
+		OGLPLUS_GLFUNC(ClearBufferfi)(
+			GL_DEPTH_STENCIL,
+			0,
+			depth_value,
+			stencil_value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferfi));
 	}
 
 	/// Returns the color value used for clearing of the color buffer

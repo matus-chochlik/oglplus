@@ -3,7 +3,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -55,22 +55,18 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DrawBuffers}
 	 */
-	template <unsigned N>
-	static void DrawBuffers(ColorBuffer (&buffers)[N])
+	static void DrawBuffers(const EnumArray<ColorBuffer>& buffers)
 	{
-		if(sizeof(buffers) == sizeof(GLenum [N]))
-		{
-			GLenum *_tmp = reinterpret_cast<GLenum*>(buffers);
-			OGLPLUS_GLFUNC(DrawBuffers)(N, _tmp);
-		}
-		else
-		{
-			GLenum _tmp[N];
-			for(unsigned i=0; i!=N; ++i)
-				_tmp[i] = GLenum(buffers[i]);
-			OGLPLUS_GLFUNC(DrawBuffers)(N, _tmp);
-		}
+		OGLPLUS_GLFUNC(DrawBuffers)(
+			buffers.Count(),
+			buffers.Values()
+		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawBuffers));
+	}
+
+	static void DrawBuffers(GLsizei count, const ColorBuffer* buffers)
+	{
+		DrawBuffers(oglplus::EnumArray<ColorBuffer>(count, buffers));
 	}
 #endif // GL_VERSION_3_0
 

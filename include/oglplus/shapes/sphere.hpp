@@ -29,7 +29,7 @@ class Sphere
  : public DrawingInstructionWriter
 {
 private:
-	GLdouble _radius;
+	double _radius;
 	unsigned _sections, _rings;
 public:
 	/// Creates a sphere with unit radius centered at the origin
@@ -40,11 +40,66 @@ public:
 	{ }
 
 	/// Creates a sphere with specified radius centered at the origin
-	Sphere(GLdouble radius, unsigned sections, unsigned rings)
+	/**
+	 *  @pre (radius > 0) && (sections > 0) && (rings > 0)
+	 */
+	Sphere(double radius, unsigned sections, unsigned rings)
 	 : _radius(radius)
 	 , _sections(sections)
 	 , _rings(rings)
-	{ }
+	{
+		assert(_radius > 0);
+		assert(_sections > 0);
+		assert(_rings > 0);
+	}
+
+	/// Returns the radius of the sphere
+	double Radius(void) const
+	{
+		return _radius;
+	}
+
+	/// Sets the radius of the sphere
+	/**
+	 *  @pre radius > 0
+	 */
+	void Radius(double radius)
+	{
+		_radius = radius;
+		assert(_radius > 0);
+	}
+
+	/// Returns the number of sections of the sphere
+	unsigned Sections(void) const
+	{
+		return _sections;
+	}
+
+	/// Sets the number of sections of the sphere
+	/**
+	 *  @pre sections > 0
+	 */
+	void Sections(unsigned sections)
+	{
+		_sections = sections;
+		assert(_sections > 0);
+	}
+
+	/// Returns the number of rings of the sphere
+	unsigned Rings(void) const
+	{
+		return _rings;
+	}
+
+	/// Sets the number of rings of the sphere
+	/**
+	 *  @pre rings > 0
+	 */
+	void Rings(unsigned rings)
+	{
+		_rings = rings;
+		assert(_rings > 0);
+	}
 
 	/// Returns the winding direction of faces
 	FaceOrientation FaceWinding(void) const
@@ -59,13 +114,13 @@ public:
 		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
 		unsigned k = 0;
 		//
-		GLdouble r_step = (1.0 * math::Pi()) / GLdouble(_rings + 1);
-		GLdouble s_step = (2.0 * math::Pi()) / GLdouble(_sections);
+		double r_step = (1.0 * math::Pi()) / double(_rings + 1);
+		double s_step = (2.0 * math::Pi()) / double(_sections);
 
 		for(unsigned r=0; r!=(_rings+2);++r)
 		{
-			GLdouble r_lat = std::cos(r*r_step);
-			GLdouble r_rad = std::sin(r*r_step);
+			double r_lat = std::cos(r*r_step);
+			double r_rad = std::sin(r*r_step);
 			// the sections
 			for(unsigned s=0; s!=(_sections+1);++s)
 			{
@@ -87,7 +142,7 @@ public:
 		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
 		unsigned k = 0;
 		//
-		GLdouble s_step = (2.0 * math::Pi()) / GLdouble(_sections);
+		double s_step = (2.0 * math::Pi()) / double(_sections);
 
 		for(unsigned r=0; r!=(_rings+2);++r)
 		{
@@ -111,22 +166,22 @@ public:
 		dest.resize(((_rings + 2) * (_sections + 1)) * 3);
 		unsigned k = 0;
 		//
-		GLdouble r_step = (1.0 * math::Pi()) / GLdouble(_rings + 1);
-		GLdouble s_step = (2.0 * math::Pi()) / GLdouble(_sections);
+		double r_step = (1.0 * math::Pi()) / double(_rings + 1);
+		double s_step = (2.0 * math::Pi()) / double(_sections);
 
-		GLdouble ty = 0.0;
+		double ty = 0.0;
 		for(unsigned r=0; r!=(_rings+2);++r)
 		{
-			GLdouble r_lat = std::cos(r*r_step);
-			GLdouble r_rad = std::sin(r*r_step);
-			GLdouble ny = r_lat;
+			double r_lat = std::cos(r*r_step);
+			double r_rad = std::sin(r*r_step);
+			double ny = r_lat;
 			// the sections
 			for(unsigned s=0; s!=(_sections+1);++s)
 			{
-				GLdouble tx = -std::sin(s*s_step);
-				GLdouble tz = -std::cos(s*s_step);
-				GLdouble nx = -r_rad * tz;
-				GLdouble nz =  r_rad * tx;
+				double tx = -std::sin(s*s_step);
+				double tz = -std::cos(s*s_step);
+				double nx = -r_rad * tz;
+				double nz =  r_rad * tx;
 
 				dest[k++] = T(ny*tz-nz*ty);
 				dest[k++] = T(nz*tx-nx*tz);
@@ -157,11 +212,11 @@ public:
 		dest.resize(((_rings + 2) * (_sections + 1)) * 2);
 		unsigned k = 0;
 		//
-		GLdouble r_step = 1.0 / GLdouble(_rings + 1);
-		GLdouble s_step = 1.0 / GLdouble(_sections);
+		double r_step = 1.0 / double(_rings + 1);
+		double s_step = 1.0 / double(_sections);
 		for(unsigned r=0; r!=(_rings+2);++r)
 		{
-			GLdouble r_lat = 1.0 - r*r_step;
+			double r_lat = 1.0 - r*r_step;
 			// the sections
 			for(unsigned s=0; s!=(_sections+1);++s)
 			{

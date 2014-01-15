@@ -128,8 +128,10 @@ Requirements
    a GL binary library exporting the OpenGL (3 or higher) functions.
    The build system detects the presence of GLEW or ``GL/glcorearb.h`` and configures
    compilation and linking of the examples accordingly.
+   Note, however, that if several options (like both GLEW and ``GL/glcorearb.h``)
+   are available it may be necessary to specify which option to use.
    The library to be used can be explicitly specified with the ``--use-gl-header-lib``
-   option of the ``configure`` script (see below).
+   option or with one of the ``--use-*`` options of the ``configure`` script (see below).
 
  - A library initializing the default rendering context (required) -- Currently 
    the examples can be built if at least one of the following libraries is
@@ -137,7 +139,7 @@ Requirements
    The build system detects the presence of these libraries and configures
    compilation and linking of the examples accordingly.
    The library to be used can be explicitly specified with the ``--use-gl-header-lib``
-   option of the ``configure`` script (see below).
+   option or with one of the ``--use-*`` options of the ``configure`` script (see below).
    
 
  - `libPNG`_ (optional) -- Some examples and some classes provided by OGLplus use libPNG to load
@@ -308,10 +310,11 @@ Acknowledgements
 - *Dmitry Yakimenko (detunized)* for several patches and porting to MacOS X.
 - *Csala Tamás* for useful feedback and help with the fixing of several bugs.
 - *David McFarland* for several patches.
+- *Jesús Zazueta* for useful feedback and help with the fixing of several bugs.
 License
 =======
 
-Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
 Software License, Version 1.0. (See accompanying file
 LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 

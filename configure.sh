@@ -1,5 +1,5 @@
 #!/bin/bash
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -192,13 +192,13 @@ do
 	--use-gl-init-lib)
 		shift
 		case "${1}" in
-		GLX|GLUT|GLFW3|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1};;
+		GLX|GLUT|GLFW3|GLFW|SDL|WXGL|QT4GL|QT5GL) oglplus_forced_gl_init_lib=${1};;
 		*) echoerror "Unknown GL initialization lib '${1}'" && exit 1;;
 		esac
 		;;
 	--use-gl-init-lib=*)
 		case "${1##*=}" in
-		GLX|GLUT|GLFW3|GLFW|SDL|WXGL|QTGL) oglplus_forced_gl_init_lib=${1##*=};;
+		GLX|GLUT|GLFW3|GLFW|SDL|WXGL|QT4GL|QT5GL) oglplus_forced_gl_init_lib=${1##*=};;
 		*) echoerror "Unknown GL initialization lib '${1##*=}'" && exit 1;;
 		esac
 		;;
@@ -209,7 +209,8 @@ do
 	--use-glfw) oglplus_forced_gl_init_lib=GLFW;;
 	--use-sdl) oglplus_forced_gl_init_lib=SDL;;
 	--use-wxgl) oglplus_forced_gl_init_lib=WXGL;;
-	--use-qtgl) oglplus_forced_gl_init_lib=QTGL;;
+	--use-qt4gl) oglplus_forced_gl_init_lib=QT4GL;;
+	--use-qt5gl) oglplus_forced_gl_init_lib=QT5GL;;
 
 	--no-examples) oglplus_no_examples=true;;
 	--screenshots) oglplus_no_screenshots=false;;

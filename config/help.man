@@ -1,4 +1,4 @@
-.TH CONFIGURE-OGLPLUS 1 "2013-07-15" "Configuration script for OGLplus."
+.TH CONFIGURE-OGLPLUS 1 "2014-01-14" "Configuration script for OGLplus."
 .SH "NAME"
 configure-oglplus \- configuration script for the OGLplus library.
 .SH "SYNOPSIS"
@@ -65,6 +65,9 @@ Equivalent to --make-screenshots=True.
 \fB--max-gl-version\fR
 Sets the maximum OpenGL version to be used. The cmake OpenGL version detection is only rudimentary and not 100% reliable and may return a higher OpenGL version than actually available. This option can be used to limit the maximal version number.
 .TP
+\fB--strict-gl-version-detection\fR
+Enables (or disables) strict GL version and extension detection. In relaxed (non-strict) mode the only thing that is detected is whether specific GL symbols are defined like GL_VERSION_x_y or GL_EXT_extension_name. In strict mode a GL context is initialized and the GL version and extension list is queried and processed.
+.TP
 \fB--use-gl-api-lib\fR {\fBGLEW\fR,\fBGL3W\fR,\fBGLCOREARB_H\fR,\fBGL3_H\fR}
 Forces the use of a specific header or library which defines the GL symbols (types, functions, defines, etc.). If this option is used then the header must be installed somewhere in the system include directories or in directories specified with --include-dir and the corresponding binary libraries must be installed in system library directories or in directories specified with the --library-dir option.
 .TP
@@ -80,11 +83,14 @@ Forces the use of the \fIGL/glcorearb.h\fR header to define the GL symbols used 
 \fB--use-gl3-h\fR
 Forces the use of the \fIGL3/gl3.h\fR header to define the GL symbols used in OGLplus examples. Equivalent to --use-gl-api-lib=GL3_H.
 .TP
-\fB--use-gl-init-lib\fR {\fBGLUT\fR,\fBGLFW\fR,\fBWXGL\fR,\fBSDL\fR,\fBGLX\fR,\fBQTGL\fR,\fBEGL\fR}
+\fB--use-gl-init-lib\fR {\fBGLUT\fR,\fBGLFW3\fR,\fBGLFW\fR,\fBWXGL\fR,\fBSDL\fR,\fBGLX\fR,\fBQT4GL\fR,\fBQT5GL\fR,\fBEGL\fR}
 Forces the use of a specific window library which initializes the default GL context. This option allows to force a specific example 'harness'.
 .TP
 \fB--use-glut\fR
 Forces the use of the GLUT library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=GLUT.
+.TP
+\fB--use-glfw3\fR
+Forces the use of the GLFW3 library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=GLFW3.
 .TP
 \fB--use-glfw\fR
 Forces the use of the GLFW library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=GLFW.
@@ -98,8 +104,11 @@ Forces the use of the SDL library to create the window and initialize the GL con
 \fB--use-glx\fR
 Forces the use of the glX library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=GLX.
 .TP
-\fB--use-qtgl\fR
-Forces the use of the QtGL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=QTGL.
+\fB--use-qt4gl\fR
+Forces the use of the Qt4GL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=QT4GL.
+.TP
+\fB--use-qt5gl\fR
+Forces the use of the Qt5GL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=QT5GL.
 .TP
 \fB--use-egl\fR
 Forces the use of the EGL library to create the window and initialize the GL context in OGLplus examples. Equivalent to --use-gl-init-lib=EGL.
@@ -125,12 +134,18 @@ Configure the testsuite.
 \fB--generator\fR
 Specify the cmake generator to be used.
 .TP
+\fB--debug-config\fR
+Enable debugging of the cmake build system.
+.TP
+\fB--debug-lib-error\fR
+Enable debugging of problems with building the library.
+.TP
 \fB--cmake\fR
 Everything following this option will be passed to cmake verbatim.
 .SH "AUTHOR"
 Matus Chochlik, chochlik@gmail.com
 .SH "COPYRIGHT"
-Copyright (c) 2008-2013 Matus Chochlik
+Copyright (c) 2008-2014 Matus Chochlik
 .PP
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the Boost Software License, Version 1.0.

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -173,6 +173,16 @@ public:
 	/// Types related to Framebuffer
 	struct Property
 	{
+		/// Buffer of default FB or attachment of a FBO
+		typedef OneOf<
+			GLenum,
+			std::tuple<
+				FramebufferBuffer,
+				FramebufferAttachment,
+				FramebufferColorAttachment
+			>
+		> Buffer;
+
 		/// Attachment of a Framebuffer
 		typedef OneOf<
 			GLenum,
@@ -555,6 +565,105 @@ public:
 			BindingQuery<FramebufferOps>::QueryBinding(target)
 		));
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+	/// Invalidates the specified attachments or buffers of the Framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{InvalidateFramebuffer}
+	 */
+	static void Invalidate(
+		Target target,
+		const EnumArray<Property::Buffer>& buffers
+	)
+	{
+		OGLPLUS_GLFUNC(InvalidateFramebuffer)(
+			GLenum(target),
+			buffers.Count(),
+			buffers.Values()
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			InvalidateFramebuffer,
+			Framebuffer,
+			EnumValueName(target),
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Invalidates the specified attachments or buffers of the Framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{InvalidateFramebuffer}
+	 */
+	template <typename N>
+	static void Invalidate(
+		Target target,
+		GLsizei count,
+		const Property::Buffer* buffers
+	)
+	{
+		Invalidate(
+			target,
+			EnumArray<Property::Buffer>(count, buffers)
+		);
+	}
+
+	/// Invalidates parts of attachments or buffers of the Framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{InvalidateSubFramebuffer}
+	 */
+	static void Invalidate(
+		Target target,
+		const EnumArray<Property::Buffer>& buffers,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		OGLPLUS_GLFUNC(InvalidateSubFramebuffer)(
+			GLenum(target),
+			buffers.Count(),
+			buffers.Values(),
+			x,
+			y,
+			width,
+			height
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			InvalidateSubFramebuffer,
+			Framebuffer,
+			EnumValueName(target),
+			BindingQuery<FramebufferOps>::QueryBinding(target)
+		));
+	}
+
+	/// Invalidates parts of attachments or buffers of the Framebuffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{InvalidateSubFramebuffer}
+	 */
+	static void Invalidate(
+		Target target,
+		GLsizei count,
+		const Property::Buffer* buffers,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	)
+	{
+		Invalidate(
+			target,
+			EnumArray<Property::Buffer>(count, buffers),
+			x,
+			y,
+			width,
+			height
+		);
+	}
+#endif
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
