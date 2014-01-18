@@ -419,6 +419,15 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--debug-gl-ver-error",
+		dest="debug_gl_ver_error",
+		default=False,
+		action="store_true",
+		help="""
+			Enable debugging of problems with GL version detetion.
+		"""
+	)
+	argparser.add_argument(
 		"--debug-lib-error",
 		dest="debug_lib_error",
 		default=False,
@@ -874,6 +883,8 @@ def main(argv):
 	# put cmake in debug mode if specified
 	if(options.debug_config):
 		cmake_options += ["--debug-output", "--debug-trycompile"]
+	if(options.debug_gl_ver_error):
+		cmake_options += ["-DOGLPLUS_DEBUG_GL_VER_ERROR=1"]
 	if(options.debug_lib_error):
 		cmake_options += ["-DOGLPLUS_DEBUG_LIB_ERROR=1"]
 
