@@ -134,7 +134,7 @@ Requirements
    On Linux and similar systems the precedence is following: ``GL/glcorearb.h + libGL.so``,
    ``GL3/gl3.h + libGL.so``, `GLEW`_ and `GL3W`_ (the first one found is used, unless
    specified otherwise).  On Windows systems the precedence is:  `GLEW`_, `GL3W`_,
-   ``GL/glcorearb.h + libGL.so`` and ``GL3/gl3.h + libGL.so``.
+   ``GL/glcorearb.h + OpenGL.lib`` and ``GL3/gl3.h + OpenGL.lib``.
    Also note, that on systems with multiple versions of ``libGL.so`` (for example one
    provided by Mesa3D and another provided by your GPU vendor) it may be necessary
    to specify with the ``--library-dir`` option to the ``configure`` script (described
