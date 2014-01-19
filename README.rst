@@ -131,7 +131,7 @@ Requirements
    compilation and linking of the examples accordingly.
    Note, however, that if several options (like both GLEW and ``GL/glcorearb.h`` plus
    the binary GL lib) are available it may be necessary to specify which option to use.
-   On Linus and similar systems the precedence is following: ``GL/glcorearb.h + libGL.so``,
+   On Linux and similar systems the precedence is following: ``GL/glcorearb.h + libGL.so``,
    ``GL3/gl3.h + libGL.so``, `GLEW`_ and `GL3W`_ (the first one found is used, unless
    specified otherwise).  On Windows systems the precedence is:  `GLEW`_, `GL3W`_,
    ``GL/glcorearb.h + libGL.so`` and ``GL3/gl3.h + libGL.so``.
