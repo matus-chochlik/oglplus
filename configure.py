@@ -586,7 +586,7 @@ def print_bash_complete_script(argparser):
 	print('#  Automatically generated file. Do NOT modify manually,')
 	print('#  edit %(self)s instead' % {"self" : os.path.basename(sys.argv[0])})
 	print(str())
-	print('function _configure_oglplus()')
+	print('function _oglplus_config()')
 	print('{')
 	print('	COMPREPLY=()')
 	print('	local curr="${COMP_WORDS[COMP_CWORD]}"')
@@ -705,7 +705,7 @@ def print_bash_complete_script(argparser):
 	print(str())
 	print('	COMPREPLY=($(compgen -W "${opts}" -- "${curr}"))')
 	print('}')
-	print('complete -F _configure_oglplus ./configure-oglplus')
+	print('complete -F _oglplus_config ./oglplus-config')
 
 def man_highlight(info_text):
 	import re

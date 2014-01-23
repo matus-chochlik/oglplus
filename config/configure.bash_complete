@@ -6,7 +6,7 @@
 #  Automatically generated file. Do NOT modify manually,
 #  edit configure.py instead
 
-function _configure_oglplus()
+function _oglplus_config()
 {
 	COMPREPLY=()
 	local curr="${COMP_WORDS[COMP_CWORD]}"
@@ -190,4 +190,4 @@ function _configure_oglplus()
 
 	COMPREPLY=($(compgen -W "${opts}" -- "${curr}"))
 }
-complete -F _configure_oglplus ./configure-oglplus
+complete -F _oglplus_config ./oglplus-config
