@@ -500,6 +500,17 @@ def shorten_command(command_path):
 			return command
 	return command_path
 
+# applies LD_LIBRARY_PATH to library search directories
+def search_ld_library_path():
+	ld_library_path_dirs = list()
+	try:
+		ld_library_path = os.environ.get("LD_LIBRARY_PATH")
+		if ld_library_path:
+			for ld_library_dir in ld_library_path.split(':'):
+				if os.path.isdir(ld_library_dir):
+					ld_library_path_dirs.append(ld_library_dir)
+	except: pass
+	return ld_library_path_dirs
 
 # applies CXXFLAGS to the options for cmake if possible
 def search_cxxflags():
@@ -801,6 +812,8 @@ def main(argv):
 		cmake_info = cmake_system_info(options.cmake_options)
 	else: cmake_info = list()
 
+	# search the LD_LIBRARY_PATH
+	options.library_dirs += search_ld_library_path()
 	# search the CXX and LD FLAGS if requested
 	if(options.use_cxxflags): options.include_dirs += search_cxxflags()
 	if(options.use_ldflags):  options.library_dirs += search_ldflags()
