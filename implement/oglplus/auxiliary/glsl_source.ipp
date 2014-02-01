@@ -38,14 +38,39 @@ LitsGLSLSrcWrap::LitsGLSLSrcWrap(
 OGLPLUS_LIB_FUNC
 GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
 {
+	GLint default_size = 1024;
 	if(!in.good())
 	{
 		std::string msg("Failed to read GLSL input stream.");
 		throw std::runtime_error(msg);
 	}
+	in.exceptions(std::ios::badbit);
 	std::streampos begin = in.tellg();
 	in.seekg(0, std::ios::end);
-	return GLint(in.tellg() - begin);
+	if(in.good())
+	{
+		std::streampos end = in.tellg();
+		if(in.good())
+		{
+			in.seekg(0, std::ios::beg);
+			if(in.good())
+			{
+				return GLint(end - begin);
+			}
+		}
+	}
+	else
+	{
+		in.clear();
+		return default_size;
+	}
+	in.clear();
+	in.seekg(0, std::ios::beg);
+	if(in.good())
+	{
+		return default_size;
+	}
+	return 0;
 }
 
 OGLPLUS_LIB_FUNC
@@ -57,7 +82,6 @@ std::vector<GLchar> InputStreamGLSLSrcWrap::_read_data(
 	std::vector<GLchar> data;
 	if(size > 0)
 	{
-		input.seekg(0, std::ios::beg);
 		data.reserve(size+1);
 		typedef std::istreambuf_iterator<GLchar> _iit;
 		data.assign(_iit(input), _iit());
