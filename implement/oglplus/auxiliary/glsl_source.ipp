@@ -38,7 +38,7 @@ LitsGLSLSrcWrap::LitsGLSLSrcWrap(
 OGLPLUS_LIB_FUNC
 GLint InputStreamGLSLSrcWrap::_check_and_get_size(std::istream& in)
 {
-	GLint default_size = 1024;
+	GLint default_size = 1023;
 	if(!in.good())
 	{
 		std::string msg("Failed to read GLSL input stream.");
