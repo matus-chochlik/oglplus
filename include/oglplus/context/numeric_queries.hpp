@@ -17,6 +17,9 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 
+#include <oglplus/context_profile_bit.hpp>
+#include <oglplus/context_flag_bit.hpp>
+
 #include <cassert>
 
 namespace oglplus {
@@ -79,6 +82,34 @@ public:
 		return result;
 	}
 #endif
+
+	/// Query the context profile mask
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{CONTEXT_PROFILE_MASK}
+	 */
+	static Bitfield<ContextProfileBit> ProfileMask(void)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_CONTEXT_PROFILE_MASK, &result);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return Bitfield<ContextProfileBit>(result);
+	}
+
+	/// Query the context flags
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{CONTEXT_FLAGS}
+	 */
+	static Bitfield<ContextFlagBit> Flags(void)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_CONTEXT_FLAGS, &result);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return Bitfield<ContextFlagBit>(result);
+	}
 };
 
 } // namespace context

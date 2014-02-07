@@ -3595,6 +3595,39 @@ template <typename Enum> friend bool operator==(Enum value, CompareRefToTexture)
 template <typename Enum> friend bool operator!=(Enum value, CompareRefToTexture);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Compatibility value.
+/**
+ *  @see @ref oglplus::ContextProfileBit "ContextProfileBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_COMPATIBILITY_PROFILE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Compatibility {
+
+/// Conversion to any @p Enum type having the Compatibility value.
+/** Instances of the @ref oglplus::smart_enums::Compatibility "Compatibility"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Compatibility value.
+ */
+template <typename Enum, Enum = Enum::Compatibility> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Compatibility value.
+/** Instances of the @c smart_enums::Compatibility type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Compatibility value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Compatibility);
+
+/// Non-equality comparison with any @p Enum type having the Compatibility value.
+/** Instances of the @c smart_enums::Compatibility type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Compatibility value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Compatibility);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompatibleSubroutines value.
 /**
  *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
@@ -4850,6 +4883,39 @@ template <typename Enum> friend bool operator==(Enum value, CopyWrite);
 template <typename Enum> friend bool operator!=(Enum value, CopyWrite);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Core value.
+/**
+ *  @see @ref oglplus::ContextProfileBit "ContextProfileBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_CORE_PROFILE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Core {
+
+/// Conversion to any @p Enum type having the Core value.
+/** Instances of the @ref oglplus::smart_enums::Core "Core"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Core value.
+ */
+template <typename Enum, Enum = Enum::Core> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Core value.
+/** Instances of the @c smart_enums::Core type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Core value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Core);
+
+/// Non-equality comparison with any @p Enum type having the Core value.
+/** Instances of the @c smart_enums::Core type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Core value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Core);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CountDown value.
 /**
  *  @see @ref oglplus::PathNVFillMode "PathNVFillMode"
@@ -5310,6 +5376,39 @@ template <typename Enum> friend bool operator==(Enum value, CW);
  *  the @c CW value.
  */
 template <typename Enum> friend bool operator!=(Enum value, CW);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Debug value.
+/**
+ *  @see @ref oglplus::ContextFlagBit "ContextFlagBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_FLAG_DEBUG_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Debug {
+
+/// Conversion to any @p Enum type having the Debug value.
+/** Instances of the @ref oglplus::smart_enums::Debug "Debug"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Debug value.
+ */
+template <typename Enum, Enum = Enum::Debug> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Debug value.
+/** Instances of the @c smart_enums::Debug type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Debug value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Debug);
+
+/// Non-equality comparison with any @p Enum type having the Debug value.
+/** Instances of the @c smart_enums::Debug type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Debug value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Debug);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Decr value.
@@ -8211,6 +8310,39 @@ template <typename Enum> friend bool operator==(Enum value, FontYMinBounds);
  *  the @c FontYMinBounds value.
  */
 template <typename Enum> friend bool operator!=(Enum value, FontYMinBounds);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ForwardCompatible value.
+/**
+ *  @see @ref oglplus::ContextFlagBit "ContextFlagBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct ForwardCompatible {
+
+/// Conversion to any @p Enum type having the ForwardCompatible value.
+/** Instances of the @ref oglplus::smart_enums::ForwardCompatible "ForwardCompatible"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ForwardCompatible value.
+ */
+template <typename Enum, Enum = Enum::ForwardCompatible> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ForwardCompatible value.
+/** Instances of the @c smart_enums::ForwardCompatible type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ForwardCompatible value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ForwardCompatible);
+
+/// Non-equality comparison with any @p Enum type having the ForwardCompatible value.
+/** Instances of the @c smart_enums::ForwardCompatible type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ForwardCompatible value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ForwardCompatible);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c FractionalEven value.

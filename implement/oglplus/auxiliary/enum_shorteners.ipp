@@ -549,6 +549,11 @@ template <typename Enum, Enum = Enum::CompareRefToTexture> operator Enum (void) 
 template <typename Enum> friend bool operator==(Enum value, CompareRefToTexture){ return value == Enum::CompareRefToTexture; }
 template <typename Enum> friend bool operator!=(Enum value, CompareRefToTexture){ return value != Enum::CompareRefToTexture; }
 };
+struct Compatibility {
+template <typename Enum, Enum = Enum::Compatibility> operator Enum (void) const{ return Enum::Compatibility; }
+template <typename Enum> friend bool operator==(Enum value, Compatibility){ return value == Enum::Compatibility; }
+template <typename Enum> friend bool operator!=(Enum value, Compatibility){ return value != Enum::Compatibility; }
+};
 struct CompatibleSubroutines {
 template <typename Enum, Enum = Enum::CompatibleSubroutines> operator Enum (void) const{ return Enum::CompatibleSubroutines; }
 template <typename Enum> friend bool operator==(Enum value, CompatibleSubroutines){ return value == Enum::CompatibleSubroutines; }
@@ -739,6 +744,11 @@ template <typename Enum, Enum = Enum::CopyWrite> operator Enum (void) const{ ret
 template <typename Enum> friend bool operator==(Enum value, CopyWrite){ return value == Enum::CopyWrite; }
 template <typename Enum> friend bool operator!=(Enum value, CopyWrite){ return value != Enum::CopyWrite; }
 };
+struct Core {
+template <typename Enum, Enum = Enum::Core> operator Enum (void) const{ return Enum::Core; }
+template <typename Enum> friend bool operator==(Enum value, Core){ return value == Enum::Core; }
+template <typename Enum> friend bool operator!=(Enum value, Core){ return value != Enum::Core; }
+};
 struct CountDown {
 template <typename Enum, Enum = Enum::CountDown> operator Enum (void) const{ return Enum::CountDown; }
 template <typename Enum> friend bool operator==(Enum value, CountDown){ return value == Enum::CountDown; }
@@ -808,6 +818,11 @@ struct CW {
 template <typename Enum, Enum = Enum::CW> operator Enum (void) const{ return Enum::CW; }
 template <typename Enum> friend bool operator==(Enum value, CW){ return value == Enum::CW; }
 template <typename Enum> friend bool operator!=(Enum value, CW){ return value != Enum::CW; }
+};
+struct Debug {
+template <typename Enum, Enum = Enum::Debug> operator Enum (void) const{ return Enum::Debug; }
+template <typename Enum> friend bool operator==(Enum value, Debug){ return value == Enum::Debug; }
+template <typename Enum> friend bool operator!=(Enum value, Debug){ return value != Enum::Debug; }
 };
 struct Decr {
 template <typename Enum, Enum = Enum::Decr> operator Enum (void) const{ return Enum::Decr; }
@@ -1243,6 +1258,11 @@ struct FontYMinBounds {
 template <typename Enum, Enum = Enum::FontYMinBounds> operator Enum (void) const{ return Enum::FontYMinBounds; }
 template <typename Enum> friend bool operator==(Enum value, FontYMinBounds){ return value == Enum::FontYMinBounds; }
 template <typename Enum> friend bool operator!=(Enum value, FontYMinBounds){ return value != Enum::FontYMinBounds; }
+};
+struct ForwardCompatible {
+template <typename Enum, Enum = Enum::ForwardCompatible> operator Enum (void) const{ return Enum::ForwardCompatible; }
+template <typename Enum> friend bool operator==(Enum value, ForwardCompatible){ return value == Enum::ForwardCompatible; }
+template <typename Enum> friend bool operator!=(Enum value, ForwardCompatible){ return value != Enum::ForwardCompatible; }
 };
 struct FractionalEven {
 template <typename Enum, Enum = Enum::FractionalEven> operator Enum (void) const{ return Enum::FractionalEven; }
