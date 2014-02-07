@@ -1739,11 +1739,6 @@ template <typename Enum, Enum = Enum::Less> operator Enum (void) const{ return E
 template <typename Enum> friend bool operator==(Enum value, Less){ return value == Enum::Less; }
 template <typename Enum> friend bool operator!=(Enum value, Less){ return value != Enum::Less; }
 };
-struct LevelArrayStride {
-template <typename Enum, Enum = Enum::LevelArrayStride> operator Enum (void) const{ return Enum::LevelArrayStride; }
-template <typename Enum> friend bool operator==(Enum value, LevelArrayStride){ return value == Enum::LevelArrayStride; }
-template <typename Enum> friend bool operator!=(Enum value, LevelArrayStride){ return value != Enum::LevelArrayStride; }
-};
 struct Lighting {
 template <typename Enum, Enum = Enum::Lighting> operator Enum (void) const{ return Enum::Lighting; }
 template <typename Enum> friend bool operator==(Enum value, Lighting){ return value == Enum::Lighting; }
@@ -1813,6 +1808,11 @@ struct Location {
 template <typename Enum, Enum = Enum::Location> operator Enum (void) const{ return Enum::Location; }
 template <typename Enum> friend bool operator==(Enum value, Location){ return value == Enum::Location; }
 template <typename Enum> friend bool operator!=(Enum value, Location){ return value != Enum::Location; }
+};
+struct LocationComponent {
+template <typename Enum, Enum = Enum::LocationComponent> operator Enum (void) const{ return Enum::LocationComponent; }
+template <typename Enum> friend bool operator==(Enum value, LocationComponent){ return value == Enum::LocationComponent; }
+template <typename Enum> friend bool operator!=(Enum value, LocationComponent){ return value != Enum::LocationComponent; }
 };
 struct LocationIndex {
 template <typename Enum, Enum = Enum::LocationIndex> operator Enum (void) const{ return Enum::LocationIndex; }
@@ -3854,6 +3854,11 @@ template <typename Enum, Enum = Enum::TopLevelArraySize> operator Enum (void) co
 template <typename Enum> friend bool operator==(Enum value, TopLevelArraySize){ return value == Enum::TopLevelArraySize; }
 template <typename Enum> friend bool operator!=(Enum value, TopLevelArraySize){ return value != Enum::TopLevelArraySize; }
 };
+struct TopLevelArrayStride {
+template <typename Enum, Enum = Enum::TopLevelArrayStride> operator Enum (void) const{ return Enum::TopLevelArrayStride; }
+template <typename Enum> friend bool operator==(Enum value, TopLevelArrayStride){ return value == Enum::TopLevelArrayStride; }
+template <typename Enum> friend bool operator!=(Enum value, TopLevelArrayStride){ return value != Enum::TopLevelArrayStride; }
+};
 struct Transform {
 template <typename Enum, Enum = Enum::Transform> operator Enum (void) const{ return Enum::Transform; }
 template <typename Enum> friend bool operator==(Enum value, Transform){ return value == Enum::Transform; }
@@ -3863,6 +3868,16 @@ struct TransformFeedback {
 template <typename Enum, Enum = Enum::TransformFeedback> operator Enum (void) const{ return Enum::TransformFeedback; }
 template <typename Enum> friend bool operator==(Enum value, TransformFeedback){ return value == Enum::TransformFeedback; }
 template <typename Enum> friend bool operator!=(Enum value, TransformFeedback){ return value != Enum::TransformFeedback; }
+};
+struct TransformFeedbackBufferIndex {
+template <typename Enum, Enum = Enum::TransformFeedbackBufferIndex> operator Enum (void) const{ return Enum::TransformFeedbackBufferIndex; }
+template <typename Enum> friend bool operator==(Enum value, TransformFeedbackBufferIndex){ return value == Enum::TransformFeedbackBufferIndex; }
+template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackBufferIndex){ return value != Enum::TransformFeedbackBufferIndex; }
+};
+struct TransformFeedbackBufferStride {
+template <typename Enum, Enum = Enum::TransformFeedbackBufferStride> operator Enum (void) const{ return Enum::TransformFeedbackBufferStride; }
+template <typename Enum> friend bool operator==(Enum value, TransformFeedbackBufferStride){ return value == Enum::TransformFeedbackBufferStride; }
+template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackBufferStride){ return value != Enum::TransformFeedbackBufferStride; }
 };
 struct TransformFeedbackPrimitivesWritten {
 template <typename Enum, Enum = Enum::TransformFeedbackPrimitivesWritten> operator Enum (void) const{ return Enum::TransformFeedbackPrimitivesWritten; }

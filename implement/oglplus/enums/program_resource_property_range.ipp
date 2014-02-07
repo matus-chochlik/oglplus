@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/program_resource_property.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -79,8 +79,8 @@ GL_COMPATIBLE_SUBROUTINES,
 #if defined GL_TOP_LEVEL_ARRAY_SIZE
 GL_TOP_LEVEL_ARRAY_SIZE,
 #endif
-#if defined GL_LEVEL_ARRAY_STRIDE
-GL_LEVEL_ARRAY_STRIDE,
+#if defined GL_TOP_LEVEL_ARRAY_STRIDE
+GL_TOP_LEVEL_ARRAY_STRIDE,
 #endif
 #if defined GL_LOCATION
 GL_LOCATION,
@@ -88,8 +88,17 @@ GL_LOCATION,
 #if defined GL_LOCATION_INDEX
 GL_LOCATION_INDEX,
 #endif
+#if defined GL_LOCATION_COMPONENT
+GL_LOCATION_COMPONENT,
+#endif
 #if defined GL_IS_PER_PATCH
 GL_IS_PER_PATCH,
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_BUFFER_INDEX
+GL_TRANSFORM_FEEDBACK_BUFFER_INDEX,
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE
+GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE,
 #endif
 0
 };
