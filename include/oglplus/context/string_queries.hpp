@@ -128,42 +128,6 @@ public:
 		return (const char*)GetString(StringQuery::Renderer);
 	}
 
-	/// Queries the major version number
-	/**
-	 *  @throws Error
-	 *
-	 *  @see MinorVersion
-	 *
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{MAJOR_VERSION}
-	 */
-	static GLint MajorVersion(void)
-	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_MAJOR_VERSION, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
-		return result;
-	}
-
-	/// Queries the minor version number
-	/**
-	 *  @throws Error
-	 *
-	 *  @see MajorVersion
-	 *
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{MINOR_VERSION}
-	 */
-	static GLint MinorVersion(void)
-	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_MINOR_VERSION, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
-		return result;
-	}
-
 	/// Queries the number of extension strings
 	/**
 	 *  @throws Error
