@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -23,16 +23,18 @@
 namespace oglplus {
 namespace aux {
 
-class ExtStrRange
+class StrQueryRange
 {
 private:
 	GLuint _index, _count;
+	GLenum _param;
 public:
 	typedef String ValueType;
 
-	ExtStrRange(GLuint n)
+	StrQueryRange(GLuint n, GLenum p)
 	 : _index(0)
 	 , _count(n)
+	 , _param(p)
 	{ }
 
 	bool Empty(void) const
@@ -45,7 +47,7 @@ public:
 	{
 		assert(!Empty());
 		const GLubyte* result = OGLPLUS_GLFUNC(GetStringi)(
-			GL_EXTENSIONS,
+			_param,
 			_index
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetStringi));
@@ -105,6 +107,70 @@ public:
 	{
 		return (const char*)GetString(StringQuery::Version);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	/// Queries the number of supported shading language versions
+	/**
+	 *  @throws Error
+	 *
+	 *  @see ShadingLanguageVersion
+	 *
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{NUM_SHADING_LANGUAGE_VERSIONS}
+	 */
+	static GLuint NumShadingLanguageVersions(void)
+	{
+		GLint result = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(
+			GL_NUM_SHADING_LANGUAGE_VERSIONS,
+			&result
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return GLuint(result);
+	}
+
+	/// Returns the name of @p index -th supported shading language version
+	/**
+	 *  @throws Error
+	 *
+	 *  @see NumShadingLanguageVersions
+	 *
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{GetStringi}
+	 *  @gldefref{EXTENSIONS}
+	 */
+	static const GLubyte* ShadingLanguageVersion(GLuint index)
+	{
+		const GLubyte* result = OGLPLUS_GLFUNC(GetStringi)(
+			GL_SHADING_LANGUAGE_VERSION,
+			index
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetStringi));
+		return result;
+	}
+#endif // GL_VERSION_4_3
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Returns a range of supported GLSL version strings
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{GetString}
+	 *  @gldefref{SHADING_LANGUAGE_VERSION}
+	 */
+	static Range<String> ShadingLanguageVersions(void);
+#elif GL_VERSION_4_3
+	static aux::StrQueryRange ShadingLanguageVersions(void)
+	{
+		return aux::StrQueryRange(
+			NumShadingLanguageVersions(),
+			GL_SHADING_LANGUAGE_VERSION
+		);
+	}
+#endif
 
 	/// Returns the shading language version string
 	/**
@@ -176,9 +242,12 @@ public:
 	 */
 	static Range<String> Extensions(void);
 #else
-	static aux::ExtStrRange Extensions(void)
+	static aux::StrQueryRange Extensions(void)
 	{
-		return aux::ExtStrRange(NumExtensions());
+		return aux::StrQueryRange(
+			NumExtensions(),
+			GL_EXTENSIONS
+		);
 	}
 #endif
 };
