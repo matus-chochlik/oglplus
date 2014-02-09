@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -1617,7 +1617,130 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_3 ||GL_ARB_texture_view
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	/// Invalidates the specified level of texture image
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{InvalidateTexImage}
+	 */
+	void InvalidateImage(GLsizei level)
+	{
+		OGLPLUS_GLFUNC(InvalidateTexImage)(_name, level);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			InvalidateTexImage,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+
+	/// Invalidates the specified part of texture image
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{InvalidateTexSubImage}
+	 */
+	void InvalidateSubImage(
+		GLsizei level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth
+	)
+	{
+		OGLPLUS_GLFUNC(InvalidateTexSubImage)(
+			_name,
+			level,
+			xoffs,
+			yoffs,
+			zoffs,
+			width,
+			height,
+			depth
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			InvalidateTexSubImage,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4
+	/// Clears the specified level of texture image
+	/**
+	 *  @glverreq{4,4}
+	 *  @glsymbols
+	 *  @glfunref{ClearTexImage}
+	 */
+	template <typename GLtype>
+	void ClearImage(
+		GLsizei level,
+		PixelDataFormat format,
+		const GLtype* data
+	)
+	{
+		OGLPLUS_GLFUNC(ClearTexImage)(
+			_name,
+			level,
+			GLenum(format),
+			GLenum(GetDataType<GLtype>()),
+			data
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			ClearTexImage,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+
+	/// Clears the specified part of texture image
+	/**
+	 *  @glverreq{4,4}
+	 *  @glsymbols
+	 *  @glfunref{ClearTexSubImage}
+	 */
+	template <typename GLtype>
+	void ClearSubImage(
+		GLsizei level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		PixelDataFormat format,
+		const GLtype* data
+	)
+	{
+		OGLPLUS_GLFUNC(ClearTexImage)(
+			_name,
+			level,
+			xoffs,
+			yoffs,
+			zoffs,
+			width,
+			height,
+			depth,
+			GLenum(format),
+			GLenum(GetDataType<GLtype>()),
+			data
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			ClearTexImage,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_texture_view
 	/// References and reinteprets a subset of the data of another texture
 	/**
 	 *  @glvoereq{4,3,ARB,texture_view}
