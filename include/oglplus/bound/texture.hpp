@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -371,6 +371,65 @@ public:
 	}
 
 
+	/** Wrapper for Texture::GetImage()
+	 *  @see Texture::GetImage()
+	 */
+	void GetImage(
+		GLint level,
+		PixelDataFormat format,
+		TextureOps::Property::PixDataType type,
+		GLsizei size,
+		GLvoid * buffer
+	) const
+	{
+		TextureOps::GetImage(
+			this->BindTarget(),
+			level,
+			format,
+			type,
+			size,
+			buffer
+		);
+	}
+
+
+	/** Wrapper for Texture::GetImage()
+	 *  @see Texture::GetImage()
+	 */
+	template <typename T>
+	void GetImage(
+		GLint level,
+		PixelDataFormat format,
+		std::vector< T > & dest
+	) const
+	{
+		TextureOps::GetImage(
+			this->BindTarget(),
+			level,
+			format,
+			dest
+		);
+	}
+
+
+	/** Wrapper for Texture::GetCompressedImage()
+	 *  @see Texture::GetCompressedImage()
+	 */
+	void GetCompressedImage(
+		GLint level,
+		GLsizei size,
+		GLubyte * buffer
+	) const
+	{
+		TextureOps::GetCompressedImage(
+			this->BindTarget(),
+			level,
+			size,
+			buffer
+		);
+	}
+
+
 	/** Wrapper for Texture::GetCompressedImage()
 	 *  @see Texture::GetCompressedImage()
 	 */
@@ -398,7 +457,7 @@ public:
 		GLsizei depth,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -447,7 +506,7 @@ public:
 		GLsizei height,
 		GLsizei depth,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -499,7 +558,7 @@ public:
 		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -545,7 +604,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -592,7 +651,7 @@ public:
 		GLsizei width,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -635,7 +694,7 @@ public:
 		GLint xoffs,
 		GLsizei width,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -1612,7 +1671,7 @@ public:
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
 	 */
-	TextureSwizzle SwizzleRGBA(void) const
+	TextureSwizzleTuple SwizzleRGBA(void) const
 	{
 		return TextureOps::SwizzleRGBA(
 			this->BindTarget()
@@ -1632,6 +1691,44 @@ public:
 		TextureOps::SwizzleRGBA(
 			this->BindTarget(),
 			mode
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleRGBA()
+	 *  @see Texture::SwizzleRGBA()
+	 */
+	void SwizzleRGBA(
+		TextureSwizzle mode_r,
+		TextureSwizzle mode_g,
+		TextureSwizzle mode_b,
+		TextureSwizzle mode_a
+	) const
+	{
+		TextureOps::SwizzleRGBA(
+			this->BindTarget(),
+			mode_r,
+			mode_g,
+			mode_b,
+			mode_a
+		);
+	}
+#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleRGBA()
+	 *  @see Texture::SwizzleRGBA()
+	 */
+	void SwizzleRGBA(
+		const TextureSwizzleTuple & modes
+	) const
+	{
+		TextureOps::SwizzleRGBA(
+			this->BindTarget(),
+			modes
 		);
 	}
 #endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
@@ -1769,6 +1866,31 @@ public:
 		);
 	}
 #endif // GL_VERSION_4_3
+
+
+	/** Wrapper for Texture::Seamless()
+	 *  @see Texture::Seamless()
+	 */
+	bool Seamless(void) const
+	{
+		return TextureOps::Seamless(
+			this->BindTarget()
+		);
+	}
+
+
+	/** Wrapper for Texture::Seamless()
+	 *  @see Texture::Seamless()
+	 */
+	void Seamless(
+		bool enable
+	) const
+	{
+		TextureOps::Seamless(
+			this->BindTarget(),
+			enable
+		);
+	}
 
 
 	/** Wrapper for Texture::GenerateMipmap()

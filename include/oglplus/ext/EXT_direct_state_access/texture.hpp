@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -105,6 +105,15 @@ public:
 
 		/// Texture wrap mode value
 		typedef TextureWrap Wrap;
+
+		/// The pixel data type
+		typedef OneOf<
+			GLenum,
+			std::tuple<
+				DataType,
+				PixelDataType
+			>
+		> PixDataType;
 	};
 
 	/// Specify active texture unit for subsequent commands
@@ -577,7 +586,7 @@ public:
 	void GetImage(
 		GLint level,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		GLsizei size,
 		GLvoid* buffer
 	) const;
@@ -657,7 +666,7 @@ public:
 		GLsizei depth,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -707,7 +716,7 @@ public:
 		GLsizei height,
 		GLsizei depth,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -758,7 +767,7 @@ public:
 		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -805,7 +814,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -852,7 +861,7 @@ public:
 		GLsizei width,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -896,7 +905,7 @@ public:
 		GLint xoffs,
 		GLsizei width,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{

@@ -30,6 +30,7 @@
 #include <oglplus/texture_unit.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <oglplus/enumerations.hpp>
+#include <oglplus/one_of.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
@@ -153,6 +154,15 @@ public:
 
 		/// Texture wrap mode value
 		typedef TextureWrap Wrap;
+
+		/// The pixel data type
+		typedef OneOf<
+			GLenum,
+			std::tuple<
+				DataType,
+				PixelDataType
+			>
+		> PixDataType;
 	};
 
 	/// Specify active texture unit for subsequent commands
@@ -654,7 +664,7 @@ public:
 		Target target,
 		GLint level,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		GLsizei size,
 		GLvoid* buffer
 	);
@@ -741,7 +751,7 @@ public:
 		GLsizei depth,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -792,7 +802,7 @@ public:
 		GLsizei height,
 		GLsizei depth,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -844,7 +854,7 @@ public:
 		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -892,7 +902,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -941,7 +951,7 @@ public:
 		GLsizei width,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -986,7 +996,7 @@ public:
 		GLint xoffs,
 		GLsizei width,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{

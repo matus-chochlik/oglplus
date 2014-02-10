@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -263,6 +263,83 @@ public:
 			texture,
 			level,
 			layer
+		);
+	}
+
+
+	/** Wrapper for Framebuffer::Invalidate()
+	 *  @see Framebuffer::Invalidate()
+	 */
+	void Invalidate(
+		const EnumArray< FramebufferOps::Property::Buffer > & buffers
+	) const
+	{
+		FramebufferOps::Invalidate(
+			this->BindTarget(),
+			buffers
+		);
+	}
+
+
+	/** Wrapper for Framebuffer::Invalidate()
+	 *  @see Framebuffer::Invalidate()
+	 */
+	template <typename N>
+	void Invalidate(
+		GLsizei count,
+		const FramebufferOps::Property::Buffer * buffers
+	) const
+	{
+		FramebufferOps::Invalidate(
+			this->BindTarget(),
+			count,
+			buffers
+		);
+	}
+
+
+	/** Wrapper for Framebuffer::Invalidate()
+	 *  @see Framebuffer::Invalidate()
+	 */
+	void Invalidate(
+		const EnumArray< FramebufferOps::Property::Buffer > & buffers,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	) const
+	{
+		FramebufferOps::Invalidate(
+			this->BindTarget(),
+			buffers,
+			x,
+			y,
+			width,
+			height
+		);
+	}
+
+
+	/** Wrapper for Framebuffer::Invalidate()
+	 *  @see Framebuffer::Invalidate()
+	 */
+	void Invalidate(
+		GLsizei count,
+		const FramebufferOps::Property::Buffer * buffers,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	) const
+	{
+		FramebufferOps::Invalidate(
+			this->BindTarget(),
+			count,
+			buffers,
+			x,
+			y,
+			width,
+			height
 		);
 	}
 

@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -76,7 +76,7 @@ public:
 	template <typename GLtype>
 	void Data(
 		GLsizei count,
-		GLtype * data,
+		const GLtype * data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
@@ -94,7 +94,7 @@ public:
 	 */
 	template <typename GLtype, std::size_t Count>
 	void Data(
-		GLtype (&data)[Count],
+		const GLtype (&data)[Count],
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
@@ -147,7 +147,7 @@ public:
 	void SubData(
 		GLintptr offset,
 		GLsizei count,
-		GLtype * data
+		const GLtype * data
 	) const
 	{
 		BufferOps::SubData(
@@ -165,7 +165,7 @@ public:
 	template <typename GLtype, std::size_t Count>
 	void SubData(
 		GLintptr offset,
-		GLtype (&data)[Count]
+		const GLtype (&data)[Count]
 	) const
 	{
 		BufferOps::SubData(
@@ -201,7 +201,7 @@ public:
 	void ClearData(
 		PixelDataInternalFormat internal_format,
 		PixelDataFormat format,
-		const std::vector< GLtype > & data
+		const GLtype * data
 	) const
 	{
 		BufferOps::ClearData(
@@ -224,7 +224,7 @@ public:
 		GLintptr offset,
 		GLsizeiptr size,
 		PixelDataFormat format,
-		const std::vector< GLtype > & data
+		const GLtype * data
 	) const
 	{
 		BufferOps::ClearSubData(
@@ -237,6 +237,49 @@ public:
 		);
 	}
 #endif // GL_VERSION_4_3
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4
+
+	/** Wrapper for Buffer::Storage()
+	 *  @see Buffer::Storage()
+	 */
+	template <typename GLtype>
+	void Storage(
+		GLsizeiptr size,
+		const void * data,
+		Bitfield< BufferStorageBit > flags
+	) const
+	{
+		BufferOps::Storage(
+			this->BindTarget(),
+			size,
+			data,
+			flags
+		);
+	}
+#endif // GL_VERSION_4_4
+
+
+	/** Wrapper for Buffer::ImmutableStorage()
+	 *  @see Buffer::ImmutableStorage()
+	 */
+	bool ImmutableStorage(void) const
+	{
+		return BufferOps::ImmutableStorage(
+			this->BindTarget()
+		);
+	}
+
+
+	/** Wrapper for Buffer::StorageFlags()
+	 *  @see Buffer::StorageFlags()
+	 */
+	Bitfield< BufferStorageBit > StorageFlags(void) const
+	{
+		return BufferOps::StorageFlags(
+			this->BindTarget()
+		);
+	}
 
 
 	/** Wrapper for Buffer::Size()
@@ -264,7 +307,7 @@ public:
 	/** Wrapper for Buffer::Access()
 	 *  @see Buffer::Access()
 	 */
-	BufferMapAccess Access(void) const
+	Bitfield< BufferMapAccess > Access(void) const
 	{
 		return BufferOps::Access(
 			this->BindTarget()

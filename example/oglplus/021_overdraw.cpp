@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{021_overdraw}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -223,16 +223,16 @@ public:
 		tex.WrapT(TextureWrap::ClampToEdge);
 		tex.Image2D(
 			0,
-			PixelDataInternalFormat::R8,
+			InternalFormat::R8,
 			64, 64,
 			0,
-			PixelDataFormat::Red,
-			PixelDataType::UnsignedByte,
+			Format::Red,
+			DataType::UnsignedByte,
 			nullptr
 		);
 
 		rbo.target = Renderbuffer::Target::Renderbuffer;
-		rbo.Storage(PixelDataInternalFormat::DepthComponent, 64, 64);
+		rbo.Storage(InternalFormat::DepthComponent, 64, 64);
 
 		fbo.target = Framebuffer::Target::Draw;
 		fbo.AttachTexture(FramebufferAttachment::Color, tex, 0);
@@ -258,14 +258,14 @@ public:
 
 		tex.Image2D(
 			0,
-			PixelDataInternalFormat::R8,
+			InternalFormat::R8,
 			width, height,
 			0,
-			PixelDataFormat::Red,
-			PixelDataType::UnsignedByte,
+			Format::Red,
+			DataType::UnsignedByte,
 			nullptr
 		);
-		rbo.Storage(PixelDataInternalFormat::DepthComponent, width, height);
+		rbo.Storage(InternalFormat::DepthComponent, width, height);
 	}
 
 	void RenderOffscreen(double time)
