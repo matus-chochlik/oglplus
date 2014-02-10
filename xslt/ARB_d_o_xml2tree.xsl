@@ -1,5 +1,5 @@
 <!--
-   - Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+   - Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
    - Software License, Version 1.0. (See accompanying file
    - LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
    -
@@ -12,6 +12,7 @@
 	<xsl:preserve-space elements="xsl:text"/>
 
 	<xsl:param name="width"/>
+	<xsl:param name="box-offs" select="9"/>
 
 	<xsl:template name="newline"><xsl:text>&#x0A;</xsl:text></xsl:template>
 
@@ -43,13 +44,13 @@
 					<xsl:text> ┃ │  │</xsl:text>
 				</xsl:otherwise>
 			</xsl:choose>
-			<xsl:value-of select="substring($message, 1, $box-width - 9)"/>
+			<xsl:value-of select="substring($message, 1, $box-width - $box-offs)"/>
 
 			<xsl:call-template name="print-padding">
 				<xsl:with-param name="char" select="' '"/>
 				<xsl:with-param
 					name="count"
-					select="$box-width - 9 - string-length($message)"
+					select="$box-width - $box-offs - string-length($message)"
 				/>
 			</xsl:call-template>
 
@@ -59,7 +60,7 @@
 			<xsl:call-template name="print-message">
 				<xsl:with-param
 					name="message"
-					select="substring($message, $box-width - 8)"
+					select="substring($message, $box-width - $box-offs + 1)"
 				/>
 				<xsl:with-param name="box-width" select="$box-width"/>
 				<xsl:with-param name="first" select="0"/>
@@ -74,8 +75,8 @@
 
 		<xsl:variable name="box-width">
 			<xsl:choose>
-				<xsl:when test="$width > string-length(message/text())">
-					<xsl:value-of select="string-length(message/text())+9"/>
+				<xsl:when test="$width > string-length(message/text()) + $box-offs">
+					<xsl:value-of select="string-length(message/text()) + $box-offs"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="$width"/>
@@ -86,7 +87,7 @@
 		<xsl:text> ┃    ┌</xsl:text>
 		<xsl:call-template name="print-padding">
 			<xsl:with-param name="char" select="'─'"/>
-			<xsl:with-param name="count" select="$box-width - 9"/>
+			<xsl:with-param name="count" select="$box-width - $box-offs"/>
 		</xsl:call-template>
 		<xsl:text>┐</xsl:text>
 		<xsl:call-template name="newline"/>
@@ -100,7 +101,7 @@
 		<xsl:text> ┃ │  └</xsl:text>
 		<xsl:call-template name="print-padding">
 			<xsl:with-param name="char" select="'─'"/>
-			<xsl:with-param name="count" select="$box-width - 9"/>
+			<xsl:with-param name="count" select="$box-width - $box-offs"/>
 		</xsl:call-template>
 		<xsl:text>┘</xsl:text>
 		<xsl:call-template name="newline"/>
