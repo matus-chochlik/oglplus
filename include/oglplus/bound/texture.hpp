@@ -1039,7 +1039,7 @@ public:
 			fixed_sample_locations
 		);
 	}
-#endif // GL_VERSION_3_2 || GL_ARB_texture_multisample
+#endif // GL_VERSION_3_2 GL_ARB_texture_multisample
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
 
@@ -1063,7 +1063,7 @@ public:
 			fixed_sample_locations
 		);
 	}
-#endif // GL_VERSION_3_2 || GL_ARB_texture_multisample
+#endif // GL_VERSION_3_2 GL_ARB_texture_multisample
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 
@@ -1123,7 +1123,7 @@ public:
 			width
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+#endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 
@@ -1145,7 +1145,7 @@ public:
 			height
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+#endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 
@@ -1169,7 +1169,7 @@ public:
 			depth
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+#endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
 
 	/** Wrapper for Texture::BaseLevel()
@@ -1530,7 +1530,7 @@ public:
 			coord
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1548,7 +1548,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1561,7 +1561,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1577,7 +1577,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1590,7 +1590,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1606,7 +1606,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1619,7 +1619,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1635,7 +1635,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1648,7 +1648,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1664,7 +1664,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1677,7 +1677,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1693,7 +1693,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1715,7 +1715,7 @@ public:
 			mode_a
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1731,7 +1731,7 @@ public:
 			modes
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 
 	/** Wrapper for Texture::Wrap()
@@ -1867,6 +1867,7 @@ public:
 	}
 #endif // GL_VERSION_4_3
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
 
 	/** Wrapper for Texture::Seamless()
 	 *  @see Texture::Seamless()
@@ -1877,7 +1878,9 @@ public:
 			this->BindTarget()
 		);
 	}
+#endif // GL_ARB_seamless_cubemap_per_texture
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
 
 	/** Wrapper for Texture::Seamless()
 	 *  @see Texture::Seamless()
@@ -1891,6 +1894,7 @@ public:
 			enable
 		);
 	}
+#endif // GL_ARB_seamless_cubemap_per_texture
 
 
 	/** Wrapper for Texture::GenerateMipmap()
@@ -1927,7 +1931,7 @@ public:
 			num_layers
 		);
 	}
-#endif // GL_VERSION_4_3 || GL_ARB_texture_view
+#endif // GL_VERSION_4_3 GL_ARB_texture_view
 
 
 }; // class BoundTemplate

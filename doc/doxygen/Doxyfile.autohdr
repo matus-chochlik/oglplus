@@ -1,4 +1,4 @@
-#  Copyright 2009-2011 Matus Chochlik. Distributed under the Boost
+#  Copyright 2009-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -64,6 +64,7 @@ ALIASES                += glfunref{1}=""
 ALIASES                += gldefref{1}=""
 ALIASES                += glextref{2}=""
 ALIASES                += glverreq{2}=" _oglplus_req_gl_ver(\1_\2)"
+ALIASES                += glextreq{2}=" _oglplus_req_gl_ext(\1_\2)"
 ALIASES                += glvoereq{4}=" _oglplus_req_gl_ver(\1_\2) _oglplus_req_gl_ext(\3_\4)"
 
 CALL_GRAPH = NO

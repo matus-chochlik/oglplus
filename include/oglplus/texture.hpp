@@ -2733,6 +2733,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
 	/// Gets the seamless cubemap setting value
 	/**
+	 *  @glextreq{ARB,seamless_cubemap_per_texture}
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
@@ -2747,6 +2748,7 @@ public:
 
 	/// Sets the seamless cubemap setting
 	/**
+	 *  @glextreq{ARB,seamless_cubemap_per_texture}
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}

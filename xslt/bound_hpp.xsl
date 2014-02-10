@@ -124,9 +124,15 @@
 				)"/>
 			</xsl:if>
 		</xsl:variable>
-		<xsl:if test="string-length($RequiredGLVersion) != 0">
-			<xsl:text>#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_</xsl:text>
-			<xsl:value-of select="$RequiredGLVersion"/>
+		<xsl:if test="
+			(string-length($RequiredGLVersion) != 0) or
+			(string-length($RequiredGLExtension) != 0)
+		">
+			<xsl:text>#if OGLPLUS_DOCUMENTATION_ONLY</xsl:text>
+			<xsl:if test="string-length($RequiredGLVersion) != 0">
+				<xsl:text> || GL_VERSION_</xsl:text>
+				<xsl:value-of select="$RequiredGLVersion"/>
+			</xsl:if>
 			<xsl:if test="string-length($RequiredGLExtension) != 0">
 				<xsl:text> || GL_</xsl:text>
 				<xsl:value-of select="$RequiredGLExtension"/>
@@ -256,11 +262,17 @@
 		<xsl:text>	}</xsl:text>
 		<xsl:call-template name="Newline"/>
 
-		<xsl:if test="string-length($RequiredGLVersion) != 0">
-			<xsl:text>#endif // GL_VERSION_</xsl:text>
-			<xsl:value-of select="$RequiredGLVersion"/>
+		<xsl:if test="
+			(string-length($RequiredGLVersion) != 0) or
+			(string-length($RequiredGLExtension) != 0)
+		">
+			<xsl:text>#endif //</xsl:text>
+			<xsl:if test="string-length($RequiredGLVersion) != 0">
+				<xsl:text> GL_VERSION_</xsl:text>
+				<xsl:value-of select="$RequiredGLVersion"/>
+			</xsl:if>
 			<xsl:if test="string-length($RequiredGLExtension) != 0">
-				<xsl:text> || GL_</xsl:text>
+				<xsl:text> GL_</xsl:text>
 				<xsl:value-of select="$RequiredGLExtension"/>
 			</xsl:if>
 			<xsl:call-template name="Newline"/>
