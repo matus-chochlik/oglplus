@@ -28,7 +28,6 @@
 #include <oglplus/texture_swizzle.hpp>
 #include <oglplus/texture_wrap.hpp>
 #include <oglplus/texture_unit.hpp>
-#include <oglplus/tex_image_spec.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/one_of.hpp>
@@ -1057,7 +1056,7 @@ public:
 	 */
 	static void Image(
 		Target target,
-		const TexImageSpec& image_spec,
+		const images::ImageSpec& image_spec,
 		GLint level = 0,
 		GLint border = 0
 	);
@@ -2837,6 +2836,9 @@ public:
 	}
 };
 
+/// Selector type used with the syntax sugar operators
+struct TextureMipmap { };
+
 // Helper class for syntax-sugar operators
 struct TextureTargetAndSlot
 {
@@ -2965,10 +2967,20 @@ inline TextureTarget operator << (
 // Image
 inline TextureTarget operator << (
 	TextureTarget target,
-	const TexImageSpec& image_spec
+	const images::ImageSpec& image_spec
 )
 {
 	TextureOps::Image(target, image_spec);
+	return target;
+}
+
+// GenerateMipmap
+inline TextureTarget operator << (
+	TextureTarget target,
+	TextureMipmap
+)
+{
+	TextureOps::GenerateMipmap(target);
 	return target;
 }
 

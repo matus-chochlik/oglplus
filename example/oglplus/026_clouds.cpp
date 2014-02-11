@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_clouds}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -14,7 +14,6 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/bound/texture.hpp>
 #include <oglplus/images/cloud.hpp>
 #include <oglplus/shapes/sphere.hpp>
 
@@ -252,21 +251,18 @@ public:
 		cloud_prog/"CloudTex" = 0;
 		for(std::size_t i=0, n=positions.size(); i!=n; ++i)
 		{
-			auto bound_tex = Bind(cloud_tex[i], Texture::Target::_3D);
-			bound_tex.Image3D(
-				images::Cloud(
+			cloud_tex[i]
+				<< Texture::Target::_3D
+				<< images::Cloud(
 					128, 128, 128,
 					Vec3f(0.1f, -0.5f, 0.3f),
 					0.5f
 				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f));
-			bound_tex.WrapS(TextureWrap::ClampToBorder);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
-			bound_tex.WrapR(TextureWrap::ClampToBorder);
+				<< TextureMipmap()
+				<< TextureMinFilter::LinearMipmapLinear
+				<< TextureMagFilter::Linear
+				<< TextureWrap::ClampToBorder
+				<< Vec4f(0.0f, 0.0f, 0.0f, 0.0f);
 		}
 
 		gl.ClearColor(0.0f, 0.1f, 0.2f, 0.0f);

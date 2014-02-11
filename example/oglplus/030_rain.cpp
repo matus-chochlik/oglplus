@@ -23,6 +23,7 @@
 
 #include <oglplus/shapes/plane.hpp>
 
+#include <oglplus/images/image_spec.hpp>
 #include <oglplus/images/load.hpp>
 
 #include "example.hpp"
@@ -164,36 +165,32 @@ public:
 	 , curr(0)
 	{
 		std::vector<GLfloat> v(ripple_tex_size*ripple_tex_size, 0.0f);
-		auto tex_target = Texture::Target::_2D;
 		for(GLuint i=0; i!=nhm; ++i)
 		{
 			Texture::Active(first_tex_unit+i);
 			height_maps[i]
-				<< tex_target
+				<< Texture::Target::_2D
 				<< TextureMinFilter::Nearest
 				<< TextureMagFilter::Nearest
 				<< TextureWrap::Repeat
-				<< TexImageSpec(
+				<< images::ImageSpec(
 					ripple_tex_size,
 					ripple_tex_size,
 					Format::Red,
-					InternalFormat::Red,
-					DataType::Float,
 					v.data()
 				);
 		}
 
 		Texture::Active(first_tex_unit+nhm);
 		bump_map
-			<< tex_target
+			<< Texture::Target::_2D
 			<< TextureMinFilter::Linear
 			<< TextureMagFilter::Linear
 			<< TextureWrap::Repeat
-			<< TexImageSpec(
+			<< images::ImageSpec(
 				ripple_tex_size,
 				ripple_tex_size,
 				Format::RGBA,
-				InternalFormat::RGBA,
 				DataType::UnsignedByte
 			);
 	}
@@ -478,8 +475,8 @@ public:
 	 : _tex_unit(tex_unit)
 	{
 		Texture::Active(_tex_unit);
-		auto tex_target = Texture::Target::CubeMap;
-		*this	<< tex_target
+
+		*this	<< Texture::Target::CubeMap
 			<< TextureMinFilter::Linear
 			<< TextureMagFilter::Linear
 			<< TextureWrap::ClampToEdge;

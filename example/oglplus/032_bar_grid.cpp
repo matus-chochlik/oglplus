@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{032_bar_grid}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -19,7 +19,6 @@
 #include <oglplus/shapes/plane.hpp>
 
 #include <oglplus/images/brushed_metal.hpp>
-#include <oglplus/bound/texture.hpp>
 
 #include <vector>
 
@@ -42,15 +41,13 @@ public:
 	{
 		Texture::Active(0);
 		UniformSampler(metal_prog, "MetalTex").Set(0);
-		{
-			auto bound_tex = Bind(metal_tex, TextureTarget::_2D);
-			bound_tex.Image2D(images::BrushedMetalUByte(512, 512, 5120, -3, +3, 32, 128));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		metal_tex
+			<< TextureTarget::_2D
+			<< TextureMinFilter::LinearMipmapLinear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::Repeat
+			<< images::BrushedMetalUByte(512, 512, 5120, -3, +3, 32, 128)
+			<< TextureMipmap();
 	}
 
 	void Draw(void)

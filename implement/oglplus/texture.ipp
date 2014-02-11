@@ -8,6 +8,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#include <oglplus/images/image_spec.hpp>
 #include <oglplus/images/image.hpp>
 
 namespace oglplus {
@@ -358,7 +359,7 @@ void TextureOps::Image(
 OGLPLUS_LIB_FUNC
 void TextureOps::Image(
 	Target target,
-	const TexImageSpec& image_spec,
+	const images::ImageSpec& image_spec,
 	GLint level,
 	GLint border
 )

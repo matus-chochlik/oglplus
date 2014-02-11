@@ -1017,7 +1017,7 @@ public:
 	 */
 	void Image(
 		Target tex_target,
-		const TexImageSpec& image_spec,
+		const images::ImageSpec& image_spec,
 		GLint level = 0,
 		GLint border = 0
 	);
@@ -1030,7 +1030,7 @@ public:
 	 *  @glfunref{TexImage1D}
 	 */
 	void Image(
-		const TexImageSpec& image_spec,
+		const images::ImageSpec& image_spec,
 		GLint level = 0,
 		GLint border = 0
 	)
@@ -2633,10 +2633,20 @@ inline DSATextureEXTOps& operator << (
 // Image
 inline DSATextureEXTOps& operator << (
 	DSATextureEXTOps& tex,
-	const TexImageSpec& image_spec
+	const images::ImageSpec& image_spec
 )
 {
 	tex.Image(image_spec);
+	return tex;
+}
+
+// GenerateMipmaps
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureMipmap
+)
+{
+	tex.GenerateMipmap();
 	return tex;
 }
 

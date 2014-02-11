@@ -236,15 +236,14 @@ public:
 		Texture::Active(0);
 		ProgramUniformSampler(volume_prog, "LightTex").Set(0);
 
-		auto tex_target = Texture::Target::_2D;
 		light_tex
-			<< tex_target
+			<< Texture::Target::_2D
 			<< TextureMinFilter::LinearMipmapLinear
 			<< TextureMagFilter::Linear
 			<< TextureWrap::ClampToBorder
 			<< Vec4f(0.0f, 0.0f, 0.0f, 0.0f)
-			<< images::LoadTexture("flower_glass");
-		Texture::GenerateMipmap(tex_target);
+			<< images::LoadTexture("flower_glass")
+			<< TextureMipmap();
 
 		gl.ClearColor(0.0f, 0.05f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);

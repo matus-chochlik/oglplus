@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{021_cloud}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -13,7 +13,6 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/bound/texture.hpp>
 #include <oglplus/images/cloud.hpp>
 
 #include "example.hpp"
@@ -183,19 +182,16 @@ public:
 			attr.Enable();
 		}
 
-		{
-			Texture::Active(0);
-			UniformSampler(prog, "cloudTex").Set(0);
-			auto bound_tex = Bind(cloud_tex, Texture::Target::_3D);
-			bound_tex.Image3D(images::Cloud(128, 128, 128));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f));
-			bound_tex.WrapS(TextureWrap::ClampToBorder);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
-			bound_tex.WrapR(TextureWrap::ClampToBorder);
-		}
+		UniformSampler(prog, "cloudTex").Set(0);
+		Texture::Active(0);
+		cloud_tex
+			<< Texture::Target::_3D
+			<< TextureMinFilter::LinearMipmapLinear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::ClampToBorder
+			<< Vec4f(0.0f, 0.0f, 0.0f, 0.0f)
+			<< images::Cloud(128, 128, 128)
+			<< TextureMipmap();
 
 		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(10.0f, 1.0f, 5.0f));
 
