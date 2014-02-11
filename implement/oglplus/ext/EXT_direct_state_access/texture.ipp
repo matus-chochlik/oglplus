@@ -137,6 +137,7 @@ void DSATextureEXTOps::SubImage3D(
 
 OGLPLUS_LIB_FUNC
 void DSATextureEXTOps::Image2D(
+	TextureTarget tex_target,
 	const images::Image& image,
 	GLint level,
 	GLint border
@@ -144,7 +145,7 @@ void DSATextureEXTOps::Image2D(
 {
 	OGLPLUS_GLFUNC(TextureImage2DEXT)(
 		_name,
-		GLenum(target),
+		GLenum(tex_target),
 		level,
 		GLint(image.InternalFormat()),
 		image.Width(),
@@ -239,6 +240,92 @@ void DSATextureEXTOps::SubImage1D(
 		EnumValueName(target),
 		_name
 	));
+}
+
+OGLPLUS_LIB_FUNC
+void DSATextureEXTOps::Image(
+	Target tex_target,
+	const images::Image& image,
+	GLint level,
+	GLint border
+)
+{
+	switch(TextureTargetDimensions(tex_target))
+	{
+		case 3:
+		{
+			Image3D(image, level, border);
+			break;
+		}
+		case 2:
+		{
+			Image2D(tex_target, image, level, border);
+			break;
+		}
+		case 1:
+		{
+			Image1D(image, level, border);
+			break;
+		}
+		default: assert(!"Invalid texture dimension");
+	}
+}
+
+OGLPLUS_LIB_FUNC
+void DSATextureEXTOps::Image(
+	Target tex_target,
+	const TexImageSpec& image_spec,
+	GLint level,
+	GLint border
+)
+{
+	switch(TextureTargetDimensions(tex_target))
+	{
+		case 3:
+		{
+			Image3D(
+				level,
+				image_spec.internal_format,
+				image_spec.width,
+				image_spec.height,
+				image_spec.depth,
+				border,
+				image_spec.format,
+				image_spec.data_type,
+				image_spec.data_ptr
+			);
+			break;
+		}
+		case 2:
+		{
+			Image2D(
+				target,
+				level,
+				image_spec.internal_format,
+				image_spec.width,
+				image_spec.height,
+				border,
+				image_spec.format,
+				image_spec.data_type,
+				image_spec.data_ptr
+			);
+			break;
+		}
+		case 1:
+		{
+			Image1D(
+				level,
+				image_spec.internal_format,
+				image_spec.width,
+				border,
+				image_spec.format,
+				image_spec.data_type,
+				image_spec.data_ptr
+			);
+			break;
+		}
+		default: assert(!"Invalid texture dimension");
+	}
 }
 
 #endif // GL_EXT_direct_state_access

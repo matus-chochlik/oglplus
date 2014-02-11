@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{022_volumetric_light}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -16,8 +16,6 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/images/load.hpp>
-
-#include <oglplus/bound/texture.hpp>
 
 #include "example.hpp"
 
@@ -237,16 +235,16 @@ public:
 
 		Texture::Active(0);
 		ProgramUniformSampler(volume_prog, "LightTex").Set(0);
-		{
-			auto bound_tex = Bind(light_tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("flower_glass"));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f));
-			bound_tex.WrapS(TextureWrap::ClampToBorder);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
-		}
+
+		auto tex_target = Texture::Target::_2D;
+		light_tex
+			<< tex_target
+			<< TextureMinFilter::LinearMipmapLinear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::ClampToBorder
+			<< Vec4f(0.0f, 0.0f, 0.0f, 0.0f)
+			<< images::LoadTexture("flower_glass");
+		Texture::GenerateMipmap(tex_target);
 
 		gl.ClearColor(0.0f, 0.05f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);

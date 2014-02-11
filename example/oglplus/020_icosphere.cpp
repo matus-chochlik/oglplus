@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_icosphere}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -20,7 +20,6 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/subdiv_sphere.hpp>
 #include <oglplus/images/load.hpp>
-#include <oglplus/bound/texture.hpp>
 
 #include <cmath>
 
@@ -187,35 +186,29 @@ public:
 		}
 
 		// setup the texture
+		auto tex_target = Texture::Target::CubeMap;
+		tex << tex_target;
+		tex_target << TextureMinFilter::Linear;
+		tex_target << TextureMagFilter::Linear;
+		tex_target << TextureWrap::ClampToEdge;
+
+		const char* tex_name[6] = {
+			"cube_0_right",
+			"cube_1_left",
+			"cube_2_top",
+			"cube_3_bottom",
+			"cube_4_front",
+			"cube_5_back"
+		};
+		for(GLuint i=0; i!=6; ++i)
 		{
-			auto bound_tex = Bind(tex, Texture::Target::CubeMap);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
-
-			const char* tex_name[6] = {
-				"cube_0_right",
-				"cube_1_left",
-				"cube_2_top",
-				"cube_3_bottom",
-				"cube_4_front",
-				"cube_5_back"
-			};
-			for(GLuint i=0; i!=6; ++i)
-			{
-				Texture::Image2D(
-					Texture::CubeMapFace(i),
-					images::LoadTexture(tex_name[i], false, true)
-				);
-			}
+			Texture::CubeMapFace(i) <<
+				images::LoadTexture(tex_name[i], false, true);
 		}
-		UniformSampler(prog, "TexUnit").Set(0);
 
-		//
+		UniformSampler(prog, "TexUnit").Set(0);
 		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(3.0f, 5.0f, 4.0f));
-		//
+
 		gl.ClearColor(0.05f, 0.2f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);

@@ -28,6 +28,7 @@
 #include <oglplus/texture_swizzle.hpp>
 #include <oglplus/texture_wrap.hpp>
 #include <oglplus/texture_unit.hpp>
+#include <oglplus/tex_image_spec.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/one_of.hpp>
@@ -54,6 +55,9 @@ OGLPLUS_ENUM_CLASS_END(TextureTarget)
 #if !OGLPLUS_ENUM_VALUE_RANGES
 #include <oglplus/enums/texture_target_range.ipp>
 #endif
+
+/// Function returning the number of texture dimensions for a texture target
+GLuint TextureTargetDimensions(TextureTarget target);
 
 /// Wrapper for texture and texture unit-related operations
 /** @note Do not use this class directly, use Texture instead.
@@ -1029,6 +1033,34 @@ public:
 		GLint level = 0
 	);
 #endif // GL_VERSION_3_0
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	static void Image(
+		Target target,
+		const images::Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	static void Image(
+		Target target,
+		const TexImageSpec& image_spec,
+		GLint level = 0,
+		GLint border = 0
+	);
 
 	/// Copies a two dimensional texture image from the framebuffer
 	/**
@@ -2804,6 +2836,141 @@ public:
 		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
 	}
 };
+
+// Helper class for syntax-sugar operators
+struct TextureTargetAndSlot
+{
+	TextureTarget target;
+	GLint slot;
+
+	TextureTargetAndSlot(TextureTarget& t, GLint s)
+	 : target(t)
+	 , slot(s)
+	{ }
+};
+
+// syntax sugar operators
+inline TextureTargetAndSlot operator | (TextureTarget target, GLuint slot)
+{
+	return TextureTargetAndSlot(target, slot);
+}
+
+// Bind
+inline TextureTarget operator << (const TextureOps& tex, TextureTarget target)
+{
+	tex.Bind(target);
+	return target;
+}
+
+// MinFilter
+inline TextureTarget operator << (TextureTarget target, TextureMinFilter filter)
+{
+	TextureOps::MinFilter(target, filter);
+	return target;
+}
+
+// MagFilter
+inline TextureTarget operator << (TextureTarget target, TextureMagFilter filter)
+{
+	TextureOps::MagFilter(target, filter);
+	return target;
+}
+
+// CompareMode
+inline TextureTarget operator << (TextureTarget target, TextureCompareMode mode)
+{
+	TextureOps::CompareMode(target, mode);
+	return target;
+}
+
+// CompareFunc
+inline TextureTarget operator << (TextureTarget target, CompareFunction func)
+{
+	TextureOps::CompareFunc(target, func);
+	return target;
+}
+
+// Wrap
+inline TextureTarget operator << (TextureTarget target, TextureWrap wrap)
+{
+	switch(TextureTargetDimensions(target))
+	{
+		case 3: TextureOps::WrapR(target, wrap);
+		case 2: TextureOps::WrapT(target, wrap);
+		case 1: TextureOps::WrapS(target, wrap);
+		case 0: break;
+		default: assert(!"Invalid texture wrap dimension");
+	}
+	return target;
+}
+
+// Wrap
+inline TextureTargetAndSlot operator << (
+	TextureTargetAndSlot tas,
+	TextureWrap wrap
+)
+{
+	switch(tas.slot)
+	{
+		case 0: TextureOps::WrapS(tas.target, wrap); break;
+		case 1: TextureOps::WrapT(tas.target, wrap); break;
+		case 2: TextureOps::WrapR(tas.target, wrap); break;
+		default: assert(!"Invalid texture wrap slot");
+	}
+	return tas;
+}
+
+// Swizzle
+inline TextureTarget operator << (TextureTarget target, TextureSwizzle swizzle)
+{
+	TextureOps::SwizzleRGBA(target, swizzle);
+	return target;
+}
+
+// Swizzle
+inline TextureTargetAndSlot operator << (
+	TextureTargetAndSlot tas,
+	TextureSwizzle swizzle
+)
+{
+	switch(tas.slot)
+	{
+		case 0: TextureOps::SwizzleR(tas.target, swizzle); break;
+		case 1: TextureOps::SwizzleG(tas.target, swizzle); break;
+		case 2: TextureOps::SwizzleB(tas.target, swizzle); break;
+		case 3: TextureOps::SwizzleA(tas.target, swizzle); break;
+		default: assert(!"Invalid texture swizzle slot");
+	}
+	return tas;
+}
+
+// BorderColor
+template <typename T>
+inline TextureTarget operator << (TextureTarget target, const Vector<T, 4>& col)
+{
+	TextureOps::BorderColor(target, col);
+	return target;
+}
+
+// Image
+inline TextureTarget operator << (
+	TextureTarget target,
+	const images::Image& image
+)
+{
+	TextureOps::Image(target, image);
+	return target;
+}
+
+// Image
+inline TextureTarget operator << (
+	TextureTarget target,
+	const TexImageSpec& image_spec
+)
+{
+	TextureOps::Image(target, image_spec);
+	return target;
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL texture functionality
