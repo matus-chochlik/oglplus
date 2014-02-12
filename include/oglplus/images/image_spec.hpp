@@ -65,6 +65,10 @@ struct ImageSpec
 	{
 		return PixelDataInternalFormat(GLenum(fmt));
 	}
+	static PixelDataFormat _conv(PixelDataInternalFormat ifmt)
+	{
+		return PixelDataFormat(GLenum(ifmt));
+	}
 
 	ImageSpec(void)
 	 : _base(
@@ -74,6 +78,13 @@ struct ImageSpec
 		PixelDataType(0),
 		nullptr
 	)
+	{ }
+
+	ImageSpec(
+		GLsizei w,
+		GLsizei h,
+		PixelDataInternalFormat ifmt
+	): _base(w, h, 1, _conv(ifmt), ifmt, PixelDataType(0), nullptr)
 	{ }
 
 	ImageSpec(

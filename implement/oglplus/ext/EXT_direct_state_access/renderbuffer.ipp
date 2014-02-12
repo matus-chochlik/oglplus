@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/renderbuffer.ipp
- *  @brief Implementation of Renderbuffer functions
+ *  @file oglplus/ext/EXT_direct_state_access/renderbuffer.ipp
+ *  @brief Implementation of DSA Renderbuffer functions
  *
  *  @author Matus Chochlik
  *
@@ -13,30 +13,19 @@
 
 namespace oglplus {
 
-OGLPLUS_LIB_FUNC
-GLenum RenderbufferOps::_binding_query(Target target)
-{
-	switch(GLenum(target))
-	{
-#include <oglplus/enums/renderbuffer_target_bq.ipp>
-		default:;
-	}
-	return 0;
-}
+#if GL_EXT_direct_state_access
 
 OGLPLUS_LIB_FUNC
-void RenderbufferOps::Storage(
-	Target target,
-	const images::ImageSpec& image_spec
-)
+void DSARenderbufferEXTOps::Storage(const images::ImageSpec& image_spec)
 {
 	Storage(
-		target,
 		image_spec.internal_format,
 		image_spec.width,
 		image_spec.height
 	);
 }
+
+#endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
 
