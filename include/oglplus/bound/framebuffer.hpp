@@ -148,6 +148,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 
 	/** Wrapper for Framebuffer::AttachTexture()
 	 *  @see Framebuffer::AttachTexture()
@@ -165,6 +166,7 @@ public:
 			level
 		);
 	}
+#endif // GL_VERSION_3_2
 
 
 	/** Wrapper for Framebuffer::AttachColorTexture()
@@ -266,6 +268,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
 
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
@@ -279,7 +282,9 @@ public:
 			buffers
 		);
 	}
+#endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
 
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
@@ -296,7 +301,9 @@ public:
 			buffers
 		);
 	}
+#endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
 
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
@@ -318,7 +325,9 @@ public:
 			height
 		);
 	}
+#endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
 
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
@@ -342,6 +351,7 @@ public:
 			height
 		);
 	}
+#endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
 
 }; // class BoundTemplate

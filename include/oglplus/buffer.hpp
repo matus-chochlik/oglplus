@@ -194,6 +194,8 @@ public:
 	/// Bind this buffer to the specified uniform buffer binding point
 	/**
 	 *  @throws Error
+	 *
+	 *  @glvoereq{4,0,ARB,transform_feedback3}
 	 */
 	void BindBaseUniform(UniformBufferBindingPoint index) const
 	{
@@ -205,6 +207,8 @@ public:
 	/// Bind this buffer to the specified TFB buffer binding point
 	/**
 	 *  @throws Error
+	 *
+	 *  @glvoereq{4,0,ARB,transform_feedback3}
 	 */
 	void BindBaseTransformFeedback(
 		TransformFeedbackBufferBindingPoint index
@@ -218,6 +222,8 @@ public:
 	/// Bind this buffer to the specified atomic counter buffer binding point
 	/**
 	 *  @throws Error
+	 *
+	 *  @glvoereq{4,2,ARB,shader_atomic_counters}
 	 */
 	void BindBaseAtomicCounter(
 		AtomicCounterBufferBindingPoint index
@@ -231,6 +237,8 @@ public:
 	/// Bind this buffer to the specified shader storage buffer binding point
 	/**
 	 *  @throws Error
+	 *
+	 *  @glvoereq{4,3,ARB,shader_storage_buffer_object}
 	 */
 	void BindBaseShaderStorage(
 		ShaderStorageBufferBindingPoint index
@@ -671,7 +679,7 @@ public:
 	 *
 	 *  @throws Error
 	 *
-	 *  @glverreq{4,4}
+	 *  @glvoereq{4,4,ARB,buffer_storage}
 	 *  @glsymbols
 	 *  @glfunref{BufferStorage}
 	 */
@@ -699,11 +707,12 @@ public:
 
 	/// Returns true if the buffer storage is immutable
 	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,buffer_storage}
 	 *  @glsymbols
 	 *  @glfunref{GetBufferParameter}
 	 *  @gldefref{BUFFER_IMMUTABLE_STORAGE}
-	 *
-	 *  @throws Error
 	 */
 	static bool ImmutableStorage(Target target)
 	{
@@ -715,11 +724,12 @@ public:
 
 	/// Returns the buffer storage flags
 	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,buffer_storage}
 	 *  @glsymbols
 	 *  @glfunref{GetBufferParameter}
 	 *  @gldefref{BUFFER_STORAGE_FLAGS}
-	 *
-	 *  @throws Error
 	 */
 	static Bitfield<BufferStorageBit> StorageFlags(Target target)
 	{

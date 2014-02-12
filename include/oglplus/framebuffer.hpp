@@ -357,6 +357,7 @@ public:
 	 *  @see AttachTexture3D
 	 *  @see AttachColorTexture
 	 *
+	 *  @glverreq{3,2}
 	 *  @glsymbols
 	 *  @glfunref{FramebufferTexture}
 	 */
@@ -569,6 +570,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
 	/// Invalidates the specified attachments or buffers of the Framebuffer
 	/**
+	 *  @glvoereq{4,3,ARB,invalidate_subdata}
 	 *  @glsymbols
 	 *  @glfunref{InvalidateFramebuffer}
 	 */
@@ -592,6 +594,7 @@ public:
 
 	/// Invalidates the specified attachments or buffers of the Framebuffer
 	/**
+	 *  @glvoereq{4,3,ARB,invalidate_subdata}
 	 *  @glsymbols
 	 *  @glfunref{InvalidateFramebuffer}
 	 */
@@ -610,6 +613,7 @@ public:
 
 	/// Invalidates parts of attachments or buffers of the Framebuffer
 	/**
+	 *  @glvoereq{4,3,ARB,invalidate_subdata}
 	 *  @glsymbols
 	 *  @glfunref{InvalidateSubFramebuffer}
 	 */
@@ -641,6 +645,7 @@ public:
 
 	/// Invalidates parts of attachments or buffers of the Framebuffer
 	/**
+	 *  @glvoereq{4,3,ARB,invalidate_subdata}
 	 *  @glsymbols
 	 *  @glfunref{InvalidateSubFramebuffer}
 	 */

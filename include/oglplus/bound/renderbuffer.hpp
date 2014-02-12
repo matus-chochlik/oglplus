@@ -77,6 +77,20 @@ public:
 	}
 
 
+	/** Wrapper for Renderbuffer::Storage()
+	 *  @see Renderbuffer::Storage()
+	 */
+	void Storage(
+		const images::ImageSpec & image_spec
+	) const
+	{
+		RenderbufferOps::Storage(
+			this->BindTarget(),
+			image_spec
+		);
+	}
+
+
 	/** Wrapper for Renderbuffer::StorageMultisample()
 	 *  @see Renderbuffer::StorageMultisample()
 	 */

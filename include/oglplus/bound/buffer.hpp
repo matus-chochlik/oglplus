@@ -238,7 +238,7 @@ public:
 	}
 #endif // GL_VERSION_4_3
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
 
 	/** Wrapper for Buffer::Storage()
 	 *  @see Buffer::Storage()
@@ -257,8 +257,9 @@ public:
 			flags
 		);
 	}
-#endif // GL_VERSION_4_4
+#endif // GL_VERSION_4_4 GL_ARB_buffer_storage
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
 
 	/** Wrapper for Buffer::ImmutableStorage()
 	 *  @see Buffer::ImmutableStorage()
@@ -269,7 +270,9 @@ public:
 			this->BindTarget()
 		);
 	}
+#endif // GL_VERSION_4_4 GL_ARB_buffer_storage
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_buffer_storage
 
 	/** Wrapper for Buffer::StorageFlags()
 	 *  @see Buffer::StorageFlags()
@@ -280,6 +283,7 @@ public:
 			this->BindTarget()
 		);
 	}
+#endif // GL_VERSION_4_4 GL_ARB_buffer_storage
 
 
 	/** Wrapper for Buffer::Size()

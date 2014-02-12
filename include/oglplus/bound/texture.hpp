@@ -728,6 +728,42 @@ public:
 	}
 
 
+	/** Wrapper for Texture::Image()
+	 *  @see Texture::Image()
+	 */
+	void Image(
+		const images::Image & image,
+		GLint level = 0,
+		GLint border = 0
+	) const
+	{
+		TextureOps::Image(
+			this->BindTarget(),
+			image,
+			level,
+			border
+		);
+	}
+
+
+	/** Wrapper for Texture::Image()
+	 *  @see Texture::Image()
+	 */
+	void Image(
+		const images::ImageSpec & image_spec,
+		GLint level = 0,
+		GLint border = 0
+	) const
+	{
+		TextureOps::Image(
+			this->BindTarget(),
+			image_spec,
+			level,
+			border
+		);
+	}
+
+
 	/** Wrapper for Texture::CopyImage2D()
 	 *  @see Texture::CopyImage2D()
 	 */
