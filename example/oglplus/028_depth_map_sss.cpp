@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{028_depth_map_sss}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -16,6 +16,8 @@
 
 #include <oglplus/shapes/obj_mesh.hpp>
 #include <oglplus/shapes/wrapper.hpp>
+
+#include <oglplus/images/image_spec.hpp>
 
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>
@@ -56,7 +58,8 @@ private:
 		).Compile();
 
 		Program prog;
-		prog.AttachShader(vs).AttachShader(fs).Link().Use();
+		prog << vs << fs;
+		prog.Link().Use();
 
 		return std::move(prog);
 	}
@@ -194,7 +197,8 @@ private:
 		).Compile();
 
 		Program prog;
-		prog.AttachShader(vs).AttachShader(gs).AttachShader(fs).Link().Use();
+		prog << vs << gs << fs;
+		prog.Link().Use();
 
 		ProgramUniform<Vec2f> depth_offs(prog, "DepthOffs");
 		for(GLuint i=0; i!=32; ++i)
@@ -259,38 +263,27 @@ public:
 	DepthBuffer(const Program& prog, GLuint tex_unit, GLuint tex_side)
 	 : side(tex_side)
 	{
-		Renderbuffer::Target rbo_tgt = Renderbuffer::Target::Renderbuffer;
-		rbo.Bind(rbo_tgt);
-		Renderbuffer::Storage(
-			rbo_tgt,
-			PixelDataInternalFormat::R8,
-			side, side
-		);
-
 		Texture::Active(tex_unit);
 		ProgramUniformSampler(prog, "DepthMap").Set(tex_unit);
 
-		Texture::Target tex_tgt = Texture::Target::_2D;
-		tex.Bind(tex_tgt);
-		Texture::MinFilter(tex_tgt, TextureMinFilter::Nearest);
-		Texture::MagFilter(tex_tgt, TextureMagFilter::Nearest);
-		Texture::WrapS(tex_tgt, TextureWrap::ClampToEdge);
-		Texture::WrapT(tex_tgt, TextureWrap::ClampToEdge);
-		Texture::Image2D(
-			tex_tgt,
-			0,
-			PixelDataInternalFormat::DepthComponent32,
-			side, side,
-			0,
-			PixelDataFormat::DepthComponent,
-			PixelDataType::Float,
-			nullptr
-		);
+		tex	<< Texture::Target::_2D
+			<< TextureMinFilter::Nearest
+			<< TextureMagFilter::Nearest
+			<< TextureWrap::ClampToEdge
+			<< images::ImageSpec(
+				side, side,
+				Format::DepthComponent,
+				InternalFormat::DepthComponent32,
+				PixelDataType::Float
+			);
 
-		Framebuffer::Target fbo_tgt = Framebuffer::Target::Draw;
-		fbo.Bind(fbo_tgt);
-		Framebuffer::AttachRenderbuffer(fbo_tgt, FramebufferAttachment::Color, rbo);
-		Framebuffer::AttachTexture(fbo_tgt, FramebufferAttachment::Depth, tex, 0);
+		rbo	<< Renderbuffer::Target::Renderbuffer
+			<< images::ImageSpec(side, side, InternalFormat::R8);
+
+		fbo	<< Framebuffer::Target::Draw
+			<< FramebufferAttachment::Color << rbo
+			<< FramebufferAttachment::Depth << tex
+			<< FramebufferComplete();
 	}
 
 	void SetupViewport(void)

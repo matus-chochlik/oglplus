@@ -268,7 +268,7 @@ public:
 	/**
 	 *  @throws Error
 	 */
-	void Bind(void) const
+	void Bind(void)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);

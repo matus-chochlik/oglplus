@@ -666,6 +666,89 @@ public:
 #endif
 };
 
+/// Helper class used with syntax-sugar operators
+struct FramebufferComplete { };
+
+// Helper class for syntax-sugar operators
+struct FramebufferTargetAndAttch
+{
+	FramebufferTarget target;
+
+	typedef FramebufferOps::Property::Attachment Attachment;
+	Attachment attachment;
+
+	FramebufferTargetAndAttch(FramebufferTarget& t, Attachment a)
+	 : target(t)
+	 , attachment(a)
+	{ }
+};
+
+// syntax sugar operators
+inline FramebufferTargetAndAttch operator | (
+	FramebufferTarget target,
+	FramebufferOps::Property::Attachment attachment
+)
+{
+	return FramebufferTargetAndAttch(target, attachment);
+}
+
+inline FramebufferTargetAndAttch operator << (
+	FramebufferTarget target,
+	FramebufferOps::Property::Attachment attachment
+)
+{
+	return FramebufferTargetAndAttch(target, attachment);
+}
+
+// Bind
+inline FramebufferTarget operator << (
+	const FramebufferOps& fbo,
+	FramebufferTarget target
+)
+{
+	fbo.Bind(target);
+	return target;
+}
+
+// AttachTexture
+inline FramebufferTarget operator << (
+	FramebufferTargetAndAttch taa,
+	const TextureOps& tex
+)
+{
+	FramebufferOps::AttachTexture(
+		taa.target,
+		taa.attachment,
+		tex,
+		0
+	);
+	return taa.target;
+}
+
+// AttachRenderbuffer
+inline FramebufferTarget operator << (
+	FramebufferTargetAndAttch taa,
+	const RenderbufferOps& rbo
+)
+{
+	FramebufferOps::AttachRenderbuffer(
+		taa.target,
+		taa.attachment,
+		rbo
+	);
+	return taa.target;
+}
+
+// Complete
+inline FramebufferTarget operator << (
+	FramebufferTarget target,
+	FramebufferComplete
+)
+{
+	FramebufferOps::Complete(target);
+	return target;
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 /**

@@ -94,7 +94,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BindRenderbuffer}
 	 */
-	void Bind(void) const
+	void Bind(void)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), _name);
