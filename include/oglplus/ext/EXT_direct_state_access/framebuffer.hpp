@@ -698,31 +698,17 @@ public:
 
 // Helper class for syntax-sugar operators
 struct DSAFramebufferEXTOpsAndAttch
- : DSAFramebufferEXTOps
 {
 	typedef DSAFramebufferEXTOps::Property::Attachment Attachment;
 
+	DSAFramebufferEXTOps& fbo;
 	Attachment attachment;
 
-	DSAFramebufferEXTOpsAndAttch(DSAFramebufferEXTOps& fbo, Attachment a)
-	 : DSAFramebufferEXTOps(fbo)
+	DSAFramebufferEXTOpsAndAttch(DSAFramebufferEXTOps& f, Attachment a)
+	 : fbo(f)
 	 , attachment(a)
 	{ }
-
-	~DSAFramebufferEXTOpsAndAttch(void)
-	{
-		_name = 0;
-	}
 };
-
-// syntax sugar operators
-inline DSAFramebufferEXTOpsAndAttch operator | (
-	DSAFramebufferEXTOps& fbo,
-	DSAFramebufferEXTOps::Property::Attachment attch
-)
-{
-	return DSAFramebufferEXTOpsAndAttch(fbo, attch);
-}
 
 inline DSAFramebufferEXTOpsAndAttch operator << (
 	DSAFramebufferEXTOps& fbo,
@@ -748,8 +734,8 @@ inline DSAFramebufferEXTOps& operator << (
 	const DSATextureEXTOps& tex
 )
 {
-	faa.AttachTexture(faa.attachment, tex, 0);
-	return faa;
+	faa.fbo.AttachTexture(faa.attachment, tex, 0);
+	return faa.fbo;
 }
 
 // AttachRenderbuffer
@@ -758,8 +744,8 @@ inline DSAFramebufferEXTOps& operator << (
 	const DSARenderbufferEXTOps& rbo
 )
 {
-	faa.AttachRenderbuffer(faa.attachment, rbo);
-	return faa;
+	faa.fbo.AttachRenderbuffer(faa.attachment, rbo);
+	return faa.fbo;
 }
 
 // Complete

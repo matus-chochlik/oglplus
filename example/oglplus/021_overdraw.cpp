@@ -188,9 +188,11 @@ public:
 	{
 
 		draw_prog.Use();
+
 		UniformBlock(draw_prog, "OffsetBlock").Binding(0);
-		cube_pos.BindBaseUniform(0);
-		cube_pos.Data(OffsetData(n), BufferUsage::StaticDraw);
+		cube_pos<< BufferIndexedTarget::Uniform << 0
+			<< BufferUsage::StaticDraw
+			<< OffsetData(n);
 
 		ProgramUniformSampler(screen_prog, "Palette").Set(0);
 		Texture::Active(0);

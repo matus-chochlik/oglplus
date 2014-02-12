@@ -172,15 +172,13 @@ public:
 		// bind the VAO for the clouds
 		clouds.Bind();
 
-		// bind the VBO for the cloud positions
-		buffer.Bind(Buffer::Target::Array);
-		{
-			GLfloat positions[3] = {0.5f, 0.1f, 0.2f};
-			Buffer::Data(Buffer::Target::Array, 3, positions);
-			VertexAttribArray attr(prog, "Position");
-			attr.Setup<Vec3f>();
-			attr.Enable();
-		}
+		GLfloat positions[3] = {0.5f, 0.1f, 0.2f};
+		buffer	<< BufferTarget::Array
+			<< positions;
+
+		VertexAttribArray(prog, "Position")
+			.Setup<Vec3f>()
+			.Enable();
 
 		UniformSampler(prog, "cloudTex").Set(0);
 		Texture::Active(0);

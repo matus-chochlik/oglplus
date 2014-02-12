@@ -2475,19 +2475,14 @@ public:
 
 // Helper class for syntax-sugar operators
 struct DSATextureEXTOpsAndSlot
- : DSATextureEXTOps
 {
+	DSATextureEXTOps& tex;
 	GLint slot;
 
-	DSATextureEXTOpsAndSlot(DSATextureEXTOps& tex, GLint s)
-	 : DSATextureEXTOps(tex)
+	DSATextureEXTOpsAndSlot(DSATextureEXTOps& t, GLint s)
+	 : tex(t)
 	 , slot(s)
 	{ }
-
-	~DSATextureEXTOpsAndSlot(void)
-	{
-		_name = 0;
-	}
 };
 
 // syntax sugar operators
@@ -2567,19 +2562,19 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Wrap
-inline DSATextureEXTOpsAndSlot&& operator << (
-	DSATextureEXTOpsAndSlot&& tex,
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOpsAndSlot tas,
 	TextureWrap wrap
 )
 {
-	switch(tex.slot)
+	switch(tas.slot)
 	{
-		case 0: tex.WrapS(wrap); break;
-		case 1: tex.WrapT(wrap); break;
-		case 2: tex.WrapR(wrap); break;
+		case 0: tas.tex.WrapS(wrap); break;
+		case 1: tas.tex.WrapT(wrap); break;
+		case 2: tas.tex.WrapR(wrap); break;
 		default: assert(!"Invalid texture wrap slot");
 	}
-	return std::move(tex);
+	return tas.tex;
 }
 
 // Swizzle
@@ -2593,20 +2588,20 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Swizzle
-inline DSATextureEXTOpsAndSlot&& operator << (
-	DSATextureEXTOpsAndSlot&& tex,
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOpsAndSlot tas,
 	TextureSwizzle swizzle
 )
 {
-	switch(tex.slot)
+	switch(tas.slot)
 	{
-		case 0: tex.SwizzleR(swizzle); break;
-		case 1: tex.SwizzleG(swizzle); break;
-		case 2: tex.SwizzleB(swizzle); break;
-		case 3: tex.SwizzleA(swizzle); break;
+		case 0: tas.tex.SwizzleR(swizzle); break;
+		case 1: tas.tex.SwizzleG(swizzle); break;
+		case 2: tas.tex.SwizzleB(swizzle); break;
+		case 3: tas.tex.SwizzleA(swizzle); break;
 		default: assert(!"Invalid texture swizzle slot");
 	}
-	return std::move(tex);
+	return tas.tex;
 }
 
 // BorderColor

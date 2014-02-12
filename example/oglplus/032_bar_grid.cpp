@@ -295,14 +295,15 @@ public:
 
 		VertexArray::Unbind();
 
-		positions.Bind(Buffer::Target::Array);
-		Buffer::Data(Buffer::Target::Array, pos_data);
+		positions
+			<< Buffer::Target::Array
+			<< pos_data;
 
-		normals.Bind(Buffer::Target::Array);
-		Buffer::Data(Buffer::Target::Array, nml_data);
+		normals	<< Buffer::Target::Array
+			<< nml_data;
 
-		indices.Bind(Buffer::Target::ElementArray);
-		Buffer::Data(Buffer::Target::ElementArray, idx_data);
+		indices	<< Buffer::Target::ElementArray
+			<< idx_data;
 
 		InitVAO(draw_prog, draw_vao);
 		InitVAO(shdw_prog, shdw_vao);
@@ -313,14 +314,14 @@ public:
 		vao.Bind();
 
 		positions.Bind(Buffer::Target::Array);
-		VertexAttribArray pos_attr(prog, "PosAndOffs");
-		pos_attr.Setup<Vec4f>();
-		pos_attr.Enable();
+		VertexAttribArray(prog, "PosAndOffs")
+			.Setup<Vec4f>()
+			.Enable();
 
 		normals.Bind(Buffer::Target::Array);
-		VertexAttribArray nml_attr(prog, "Normal");
-		nml_attr.Setup<Vec3f>();
-		nml_attr.Enable();
+		VertexAttribArray(prog, "Normal")
+			.Setup<Vec3f>()
+			.Enable();
 
 		indices.Bind(Buffer::Target::ElementArray);
 	}

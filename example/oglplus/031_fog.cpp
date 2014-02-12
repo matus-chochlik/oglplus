@@ -152,12 +152,10 @@ public:
 		}
 		assert(p == matrix_data.end());
 
-		matrix_buffer.Bind(Buffer::Target::Uniform);
-		Buffer::Data(
-			Buffer::Target::Uniform,
-			matrix_data,
-			BufferUsage::StaticDraw
-		);
+		matrix_buffer
+			<< BufferTarget::Uniform
+			<< BufferUsage::StaticDraw
+			<< matrix_data;
 	}
 
 	Vec3f Position(double t) const
