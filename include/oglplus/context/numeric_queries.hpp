@@ -83,8 +83,10 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Query the context profile mask
 	/**
+	 *  @glverreq{3,2}
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{CONTEXT_PROFILE_MASK}
@@ -96,7 +98,9 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return Bitfield<ContextProfileBit>(result);
 	}
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Query the context flags
 	/**
 	 *  @glsymbols
@@ -110,6 +114,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return Bitfield<ContextFlagBit>(result);
 	}
+#endif
 };
 
 } // namespace context

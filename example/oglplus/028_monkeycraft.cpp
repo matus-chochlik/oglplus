@@ -259,7 +259,7 @@ public:
 		const GLuint d = map.Depth();
 		const GLuint c = 3;
 
-		radius = std::sqrt(w*w+h*h+d*d)*0.5;
+		radius = std::sqrt(GLfloat(w*w+h*h+d*d))*0.5f;
 
 		vert_count = w*h*d;
 

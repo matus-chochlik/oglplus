@@ -204,7 +204,7 @@ if(GLFW3_FOUND)
 	include_directories(${GLFW3_INCLUDE_DIRS})
 	standalone_example_common(
 		029_mandelbrot_glfw3
-		${GLFW3_LIBRARIES}
+		${GLFW3_LIBRARIES} ${OGLPLUS_GL_LIBS}
 	)
 endif()
 

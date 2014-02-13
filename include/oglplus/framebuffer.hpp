@@ -715,6 +715,7 @@ inline FramebufferTarget operator << (
 	return target;
 }
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 // AttachTexture
 inline FramebufferTarget operator << (
 	FramebufferTargetAndAttch taa,
@@ -729,6 +730,7 @@ inline FramebufferTarget operator << (
 	);
 	return taa.target;
 }
+#endif
 
 // AttachRenderbuffer
 inline FramebufferTarget operator << (

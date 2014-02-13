@@ -18,27 +18,61 @@ GLuint TextureTargetDimensions(TextureTarget target)
 {
 	switch(GLenum(target))
 	{
+#ifdef GL_TEXTURE_1D
 		case GL_TEXTURE_1D:
+#endif
+#ifdef GL_TEXTURE_1D_ARRAY
 		case GL_TEXTURE_1D_ARRAY:
+#endif
+#ifdef GL_TEXTURE_BUFFER
 		case GL_TEXTURE_BUFFER:
+#endif
 			return 1;
 
+#ifdef GL_TEXTURE_2D
 		case GL_TEXTURE_2D:
+#endif
+#ifdef GL_TEXTURE_2D_MULTISAMPLE
 		case GL_TEXTURE_2D_MULTISAMPLE:
+#endif
+#ifdef GL_TEXTURE_RECTANGLE
 		case GL_TEXTURE_RECTANGLE:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP
 		case GL_TEXTURE_CUBE_MAP:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_POSITIVE_X
 		case GL_TEXTURE_CUBE_MAP_POSITIVE_X:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_NEGATIVE_X
 		case GL_TEXTURE_CUBE_MAP_NEGATIVE_X:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_POSITIVE_Y
 		case GL_TEXTURE_CUBE_MAP_POSITIVE_Y:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
 		case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_POSITIVE_Z
 		case GL_TEXTURE_CUBE_MAP_POSITIVE_Z:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
 		case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z:
+#endif
 			return 2;
 
+#ifdef GL_TEXTURE_2D_ARRAY
 		case GL_TEXTURE_2D_ARRAY:
+#endif
+#ifdef GL_TEXTURE_2D_MULTISAMPLE_ARRAY
 		case GL_TEXTURE_2D_MULTISAMPLE_ARRAY:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_ARRAY
 		case GL_TEXTURE_CUBE_MAP_ARRAY:
+#endif
+#ifdef GL_TEXTURE_3D
 		case GL_TEXTURE_3D:
+#endif
 			return 3;
 		default:;
 	}

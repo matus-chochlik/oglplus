@@ -73,9 +73,9 @@ struct ImageSpec
 	ImageSpec(void)
 	 : _base(
 		1, 1, 1,
-		PixelDataFormat(0),
-		PixelDataInternalFormat(0),
-		PixelDataType(0),
+		PixelDataFormat(),
+		PixelDataInternalFormat(),
+		PixelDataType(),
 		nullptr
 	)
 	{ }
@@ -84,7 +84,7 @@ struct ImageSpec
 		GLsizei w,
 		GLsizei h,
 		PixelDataInternalFormat ifmt
-	): _base(w, h, 1, _conv(ifmt), ifmt, PixelDataType(0), nullptr)
+	): _base(w, h, 1, _conv(ifmt), ifmt, PixelDataType(), nullptr)
 	{ }
 
 	ImageSpec(
@@ -127,7 +127,11 @@ struct ImageSpec
 		GLsizei w,
 		GLsizei h,
 		PixelDataFormat fmt,
-		const T* data
+		const T* data,
+		typename std::enable_if<
+			IsGLDataType<T>::value,
+			const T*
+		>::type = nullptr
 	): _base(w, h, 1, fmt, _conv(fmt), GetDataType<T>(), data)
 	{ }
 
@@ -136,7 +140,12 @@ struct ImageSpec
 		GLsizei w,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
-		const T* data
+		const T* data,
+		typename std::enable_if<
+			IsGLDataType<T>::value,
+			const T*
+		>::type = nullptr
+
 	): _base(w, 1, 1, fmt, ifmt, GetDataType<T>(), data)
 	{ }
 
@@ -146,7 +155,12 @@ struct ImageSpec
 		GLsizei h,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
-		const T* data
+		const T* data,
+		typename std::enable_if<
+			IsGLDataType<T>::value,
+			const T*
+		>::type = nullptr
+
 	): _base(w, h, 1, fmt, ifmt, GetDataType<T>(), data)
 	{ }
 
@@ -157,7 +171,12 @@ struct ImageSpec
 		GLsizei d,
 		PixelDataFormat fmt,
 		PixelDataInternalFormat ifmt,
-		const T* data
+		const T* data,
+		typename std::enable_if<
+			IsGLDataType<T>::value,
+			const T*
+		>::type = nullptr
+
 	): _base(w, h, d, fmt, ifmt, GetDataType<T>(), data)
 	{ }
 

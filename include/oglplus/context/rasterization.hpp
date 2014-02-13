@@ -281,8 +281,10 @@ public:
 		return result;
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 	/// Returns the position of the specified multisampling sample
 	/**
+	 *  @glverreq{3,2}
 	 *  @glsymbols
 	 *  @glfunref{GetMultisample}
 	 *  @gldefref{SAMPLE_POSITION}
@@ -298,9 +300,12 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetMultisamplefv));
 		return result;
 	}
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Returns the minimal sample shading value
 	/**
+	 *  @glverreq{4,0}
 	 *  @glsymbols
 	 *  @glfunref{Get}
 	 *  @gldefref{MIN_SAMPLE_SHADING_VALUE}
@@ -315,6 +320,7 @@ public:
 
 	/// Sets the multisampling minimal sample shading value
 	/**
+	 *  @glverreq{4,0}
 	 *  @glsymbols
 	 *  @glfunref{MinSampleShading}
 	 */
@@ -323,6 +329,7 @@ public:
 		OGLPLUS_GLFUNC(MinSampleShading)(value);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MinSampleShading));
 	}
+#endif
 };
 
 } // namespace context
