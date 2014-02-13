@@ -33,8 +33,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "014_multi_cube_gs", "014_mu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "015_graph", "015_graph\015_graph.vcxproj", "{39BA0A3E-4C88-49C0-A820-DD7B86880DD4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "015_shaded_cube", "015_shaded_cube\015_shaded_cube.vcxproj", "{F92F2F68-4F88-4AF9-AA07-F57E12987953}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "016_cartoon_torus", "016_cartoon_torus\016_cartoon_torus.vcxproj", "{45505321-9878-48CE-A612-BAF38F85672E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "016_metallic_torus", "016_metallic_torus\016_metallic_torus.vcxproj", "{A7CFE9D6-FE74-40BC-B20D-B85BF09DC797}"
