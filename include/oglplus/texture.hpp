@@ -2922,6 +2922,7 @@ inline TextureTargetAndSlot operator << (
 	return tas;
 }
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 // Swizzle
 inline TextureTarget operator << (TextureTarget target, TextureSwizzle swizzle)
 {
@@ -2945,7 +2946,9 @@ inline TextureTargetAndSlot operator << (
 	}
 	return tas;
 }
+#endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
 // BorderColor
 template <typename T>
 inline TextureTarget operator << (TextureTarget target, const Vector<T, 4>& col)
@@ -2953,6 +2956,7 @@ inline TextureTarget operator << (TextureTarget target, const Vector<T, 4>& col)
 	TextureOps::BorderColor(target, col);
 	return target;
 }
+#endif
 
 // Image
 inline TextureTarget operator << (

@@ -1,3 +1,28 @@
+Version 0.42.0
+
+- The Format and InternalFormat typedef were added to Texture.
+- The images::ImageSpec class was added.
+- The ClearImage, ClearSubImage, InvalidateImage, InvalidateSubImage and Image
+  functions were added to Texture.
+- An overload of Renderbuffer::Storage accepting images::ImageSpec was added.
+- Several syntax-sugar operators for specifying the attributes and simple
+  manipulation of Texture, Buffer, Framebuffer and Renderbuffer were added.
+- The ContextFlagBit and ContextProfileBit enumerations were added.
+- The ProfileMask and Flags and the NumShadingLanguageVersion,
+  ShadingLanguageVersion and ShadingLanguageVersion functions were added
+  to Context.
+- Multisampling-related functions were added to Context.
+- The ProgramResourceProperty enumeration was updated.
+- A bug in the GLSLSource class, related to reading GLSL from input streams
+  was fixed.
+- Changes to the build system:
+  - Updated GL version detection.
+  - Updated the configure.py script to use the LD_LIBRARY_PATH variable.
+- A two examples were added and several of the existing examples were updated
+  to show the usage of the new features.
+- One of the older examples was removed.
+- Several documentation updates were made.
+
 Version 0.41.0
 
 - The ShaderProgram class was added.
