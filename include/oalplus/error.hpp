@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,7 +20,6 @@
 #include <map>
 
 #if OALPLUS_CUSTOM_ERROR_HANDLING
-#include <stack>
 #include <functional>
 #endif
 
@@ -585,18 +584,8 @@ typedef std::function<bool (const ErrorData&)> ErrorHandlerFunc;
 
 namespace aux {
 
-std::stack<ErrorHandlerFunc>& _error_handlers(void);
-
-inline bool _has_error_handler(void)
-{
-	return !_error_handlers().empty();
-}
-
-inline ErrorHandlerFunc& _get_error_handler(void)
-{
-	assert(!_error_handlers().empty());
-	return _error_handlers().top();
-}
+bool _has_error_handler(void);
+ErrorHandlerFunc& _get_error_handler(void);
 
 } // namespace aux
 
@@ -613,24 +602,13 @@ private:
 	size_t _installed;
 public:
 	/// Installs the specified error @p handler
-	LocalErrorHandler(ErrorHandlerFunc handler)
-	{
-		aux::_error_handlers().push(handler);
-		_installed = aux::_error_handlers().size();
-	}
+	LocalErrorHandler(ErrorHandlerFunc handler);
 
 	/// This class is non-copyable
 	LocalErrorHandler(const LocalErrorHandler&) = delete;
 
 	/// Uninstalls the previously installed handler
-	~LocalErrorHandler(void)
-	{
-		if(_installed)
-		{
-			assert(aux::_error_handlers().size() == _installed);
-			aux::_error_handlers().pop();
-		}
-	}
+	~LocalErrorHandler(void);
 };
 
 #endif // OALPLUS_CUSTOM_ERROR_HANDLING

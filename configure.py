@@ -419,6 +419,15 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--debug-gl-ver-error",
+		dest="debug_gl_ver_error",
+		default=False,
+		action="store_true",
+		help="""
+			Enable debugging of problems with GL version detetion.
+		"""
+	)
+	argparser.add_argument(
 		"--debug-lib-error",
 		dest="debug_lib_error",
 		default=False,
@@ -491,6 +500,17 @@ def shorten_command(command_path):
 			return command
 	return command_path
 
+# applies LD_LIBRARY_PATH to library search directories
+def search_ld_library_path():
+	ld_library_path_dirs = list()
+	try:
+		ld_library_path = os.environ.get("LD_LIBRARY_PATH")
+		if ld_library_path:
+			for ld_library_dir in ld_library_path.split(':'):
+				if os.path.isdir(ld_library_dir):
+					ld_library_path_dirs.append(ld_library_dir)
+	except: pass
+	return ld_library_path_dirs
 
 # applies CXXFLAGS to the options for cmake if possible
 def search_cxxflags():
@@ -577,7 +597,7 @@ def print_bash_complete_script(argparser):
 	print('#  Automatically generated file. Do NOT modify manually,')
 	print('#  edit %(self)s instead' % {"self" : os.path.basename(sys.argv[0])})
 	print(str())
-	print('function _configure_oglplus()')
+	print('function _oglplus_config()')
 	print('{')
 	print('	COMPREPLY=()')
 	print('	local curr="${COMP_WORDS[COMP_CWORD]}"')
@@ -696,7 +716,7 @@ def print_bash_complete_script(argparser):
 	print(str())
 	print('	COMPREPLY=($(compgen -W "${opts}" -- "${curr}"))')
 	print('}')
-	print('complete -F _configure_oglplus ./configure-oglplus')
+	print('complete -F _oglplus_config ./oglplus-config')
 
 def man_highlight(info_text):
 	import re
@@ -792,6 +812,8 @@ def main(argv):
 		cmake_info = cmake_system_info(options.cmake_options)
 	else: cmake_info = list()
 
+	# search the LD_LIBRARY_PATH
+	options.library_dirs += search_ld_library_path()
 	# search the CXX and LD FLAGS if requested
 	if(options.use_cxxflags): options.include_dirs += search_cxxflags()
 	if(options.use_ldflags):  options.library_dirs += search_ldflags()
@@ -874,6 +896,8 @@ def main(argv):
 	# put cmake in debug mode if specified
 	if(options.debug_config):
 		cmake_options += ["--debug-output", "--debug-trycompile"]
+	if(options.debug_gl_ver_error):
+		cmake_options += ["-DOGLPLUS_DEBUG_GL_VER_ERROR=1"]
 	if(options.debug_lib_error):
 		cmake_options += ["-DOGLPLUS_DEBUG_LIB_ERROR=1"]
 

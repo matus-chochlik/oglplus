@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -371,6 +371,65 @@ public:
 	}
 
 
+	/** Wrapper for Texture::GetImage()
+	 *  @see Texture::GetImage()
+	 */
+	void GetImage(
+		GLint level,
+		PixelDataFormat format,
+		TextureOps::Property::PixDataType type,
+		GLsizei size,
+		GLvoid * buffer
+	) const
+	{
+		TextureOps::GetImage(
+			this->BindTarget(),
+			level,
+			format,
+			type,
+			size,
+			buffer
+		);
+	}
+
+
+	/** Wrapper for Texture::GetImage()
+	 *  @see Texture::GetImage()
+	 */
+	template <typename T>
+	void GetImage(
+		GLint level,
+		PixelDataFormat format,
+		std::vector< T > & dest
+	) const
+	{
+		TextureOps::GetImage(
+			this->BindTarget(),
+			level,
+			format,
+			dest
+		);
+	}
+
+
+	/** Wrapper for Texture::GetCompressedImage()
+	 *  @see Texture::GetCompressedImage()
+	 */
+	void GetCompressedImage(
+		GLint level,
+		GLsizei size,
+		GLubyte * buffer
+	) const
+	{
+		TextureOps::GetCompressedImage(
+			this->BindTarget(),
+			level,
+			size,
+			buffer
+		);
+	}
+
+
 	/** Wrapper for Texture::GetCompressedImage()
 	 *  @see Texture::GetCompressedImage()
 	 */
@@ -398,7 +457,7 @@ public:
 		GLsizei depth,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -447,7 +506,7 @@ public:
 		GLsizei height,
 		GLsizei depth,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -499,7 +558,7 @@ public:
 		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -545,7 +604,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -592,7 +651,7 @@ public:
 		GLsizei width,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -635,7 +694,7 @@ public:
 		GLint xoffs,
 		GLsizei width,
 		PixelDataFormat format,
-		PixelDataType type,
+		TextureOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
@@ -665,6 +724,42 @@ public:
 			image,
 			xoffs,
 			level
+		);
+	}
+
+
+	/** Wrapper for Texture::Image()
+	 *  @see Texture::Image()
+	 */
+	void Image(
+		const images::Image & image,
+		GLint level = 0,
+		GLint border = 0
+	) const
+	{
+		TextureOps::Image(
+			this->BindTarget(),
+			image,
+			level,
+			border
+		);
+	}
+
+
+	/** Wrapper for Texture::Image()
+	 *  @see Texture::Image()
+	 */
+	void Image(
+		const images::ImageSpec & image_spec,
+		GLint level = 0,
+		GLint border = 0
+	) const
+	{
+		TextureOps::Image(
+			this->BindTarget(),
+			image_spec,
+			level,
+			border
 		);
 	}
 
@@ -980,7 +1075,7 @@ public:
 			fixed_sample_locations
 		);
 	}
-#endif // GL_VERSION_3_2 || GL_ARB_texture_multisample
+#endif // GL_VERSION_3_2 GL_ARB_texture_multisample
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
 
@@ -1004,7 +1099,7 @@ public:
 			fixed_sample_locations
 		);
 	}
-#endif // GL_VERSION_3_2 || GL_ARB_texture_multisample
+#endif // GL_VERSION_3_2 GL_ARB_texture_multisample
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
 
@@ -1064,7 +1159,7 @@ public:
 			width
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+#endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 
@@ -1086,7 +1181,7 @@ public:
 			height
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+#endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_texture_storage
 
@@ -1110,7 +1205,7 @@ public:
 			depth
 		);
 	}
-#endif // GL_VERSION_4_2 || GL_ARB_texture_storage
+#endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
 
 	/** Wrapper for Texture::BaseLevel()
@@ -1471,7 +1566,7 @@ public:
 			coord
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1489,7 +1584,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1502,7 +1597,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1518,7 +1613,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1531,7 +1626,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1547,7 +1642,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1560,7 +1655,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1576,7 +1671,7 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1589,7 +1684,7 @@ public:
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1605,20 +1700,20 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
 	 */
-	TextureSwizzle SwizzleRGBA(void) const
+	TextureSwizzleTuple SwizzleRGBA(void) const
 	{
 		return TextureOps::SwizzleRGBA(
 			this->BindTarget()
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
 
@@ -1634,7 +1729,45 @@ public:
 			mode
 		);
 	}
-#endif // GL_VERSION_3_3 || GL_ARB_texture_swizzle
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleRGBA()
+	 *  @see Texture::SwizzleRGBA()
+	 */
+	void SwizzleRGBA(
+		TextureSwizzle mode_r,
+		TextureSwizzle mode_g,
+		TextureSwizzle mode_b,
+		TextureSwizzle mode_a
+	) const
+	{
+		TextureOps::SwizzleRGBA(
+			this->BindTarget(),
+			mode_r,
+			mode_g,
+			mode_b,
+			mode_a
+		);
+	}
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+
+	/** Wrapper for Texture::SwizzleRGBA()
+	 *  @see Texture::SwizzleRGBA()
+	 */
+	void SwizzleRGBA(
+		const TextureSwizzleTuple & modes
+	) const
+	{
+		TextureOps::SwizzleRGBA(
+			this->BindTarget(),
+			modes
+		);
+	}
+#endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
 
 	/** Wrapper for Texture::Wrap()
@@ -1770,6 +1903,35 @@ public:
 	}
 #endif // GL_VERSION_4_3
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
+
+	/** Wrapper for Texture::Seamless()
+	 *  @see Texture::Seamless()
+	 */
+	bool Seamless(void) const
+	{
+		return TextureOps::Seamless(
+			this->BindTarget()
+		);
+	}
+#endif // GL_ARB_seamless_cubemap_per_texture
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
+
+	/** Wrapper for Texture::Seamless()
+	 *  @see Texture::Seamless()
+	 */
+	void Seamless(
+		bool enable
+	) const
+	{
+		TextureOps::Seamless(
+			this->BindTarget(),
+			enable
+		);
+	}
+#endif // GL_ARB_seamless_cubemap_per_texture
+
 
 	/** Wrapper for Texture::GenerateMipmap()
 	 *  @see Texture::GenerateMipmap()
@@ -1805,7 +1967,7 @@ public:
 			num_layers
 		);
 	}
-#endif // GL_VERSION_4_3 || GL_ARB_texture_view
+#endif // GL_VERSION_4_3 GL_ARB_texture_view
 
 
 }; // class BoundTemplate

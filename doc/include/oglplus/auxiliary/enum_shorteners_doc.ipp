@@ -3595,6 +3595,39 @@ template <typename Enum> friend bool operator==(Enum value, CompareRefToTexture)
 template <typename Enum> friend bool operator!=(Enum value, CompareRefToTexture);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Compatibility value.
+/**
+ *  @see @ref oglplus::ContextProfileBit "ContextProfileBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_COMPATIBILITY_PROFILE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Compatibility {
+
+/// Conversion to any @p Enum type having the Compatibility value.
+/** Instances of the @ref oglplus::smart_enums::Compatibility "Compatibility"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Compatibility value.
+ */
+template <typename Enum, Enum = Enum::Compatibility> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Compatibility value.
+/** Instances of the @c smart_enums::Compatibility type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Compatibility value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Compatibility);
+
+/// Non-equality comparison with any @p Enum type having the Compatibility value.
+/** Instances of the @c smart_enums::Compatibility type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Compatibility value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Compatibility);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CompatibleSubroutines value.
 /**
  *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
@@ -4850,6 +4883,39 @@ template <typename Enum> friend bool operator==(Enum value, CopyWrite);
 template <typename Enum> friend bool operator!=(Enum value, CopyWrite);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Core value.
+/**
+ *  @see @ref oglplus::ContextProfileBit "ContextProfileBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_CORE_PROFILE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Core {
+
+/// Conversion to any @p Enum type having the Core value.
+/** Instances of the @ref oglplus::smart_enums::Core "Core"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Core value.
+ */
+template <typename Enum, Enum = Enum::Core> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Core value.
+/** Instances of the @c smart_enums::Core type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Core value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Core);
+
+/// Non-equality comparison with any @p Enum type having the Core value.
+/** Instances of the @c smart_enums::Core type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Core value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Core);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c CountDown value.
 /**
  *  @see @ref oglplus::PathNVFillMode "PathNVFillMode"
@@ -5310,6 +5376,39 @@ template <typename Enum> friend bool operator==(Enum value, CW);
  *  the @c CW value.
  */
 template <typename Enum> friend bool operator!=(Enum value, CW);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Debug value.
+/**
+ *  @see @ref oglplus::ContextFlagBit "ContextFlagBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_FLAG_DEBUG_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct Debug {
+
+/// Conversion to any @p Enum type having the Debug value.
+/** Instances of the @ref oglplus::smart_enums::Debug "Debug"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c Debug value.
+ */
+template <typename Enum, Enum = Enum::Debug> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the Debug value.
+/** Instances of the @c smart_enums::Debug type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c Debug value.
+ */
+template <typename Enum> friend bool operator==(Enum value, Debug);
+
+/// Non-equality comparison with any @p Enum type having the Debug value.
+/** Instances of the @c smart_enums::Debug type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c Debug value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, Debug);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Decr value.
@@ -8211,6 +8310,39 @@ template <typename Enum> friend bool operator==(Enum value, FontYMinBounds);
  *  the @c FontYMinBounds value.
  */
 template <typename Enum> friend bool operator!=(Enum value, FontYMinBounds);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ForwardCompatible value.
+/**
+ *  @see @ref oglplus::ContextFlagBit "ContextFlagBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT}
+ *
+ *  @ingroup smart_enums
+ */
+struct ForwardCompatible {
+
+/// Conversion to any @p Enum type having the ForwardCompatible value.
+/** Instances of the @ref oglplus::smart_enums::ForwardCompatible "ForwardCompatible"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c ForwardCompatible value.
+ */
+template <typename Enum, Enum = Enum::ForwardCompatible> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the ForwardCompatible value.
+/** Instances of the @c smart_enums::ForwardCompatible type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c ForwardCompatible value.
+ */
+template <typename Enum> friend bool operator==(Enum value, ForwardCompatible);
+
+/// Non-equality comparison with any @p Enum type having the ForwardCompatible value.
+/** Instances of the @c smart_enums::ForwardCompatible type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c ForwardCompatible value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, ForwardCompatible);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c FractionalEven value.
@@ -11493,39 +11625,6 @@ template <typename Enum> friend bool operator==(Enum value, Less);
 template <typename Enum> friend bool operator!=(Enum value, Less);
 };
 
-/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c LevelArrayStride value.
-/**
- *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
- *
- *  @glsymbols
- *  @gldefref{LEVEL_ARRAY_STRIDE}
- *
- *  @ingroup smart_enums
- */
-struct LevelArrayStride {
-
-/// Conversion to any @p Enum type having the LevelArrayStride value.
-/** Instances of the @ref oglplus::smart_enums::LevelArrayStride "LevelArrayStride"
- *  type are convertible to instances of any enumeration type having
- *  the @c LevelArrayStride value.
- */
-template <typename Enum, Enum = Enum::LevelArrayStride> operator Enum (void) const;
-
-/// Equality comparison with any @p Enum type having the LevelArrayStride value.
-/** Instances of the @c smart_enums::LevelArrayStride type can be compared
- *  for equality to instances of any enumeration type having
- *  the @c LevelArrayStride value.
- */
-template <typename Enum> friend bool operator==(Enum value, LevelArrayStride);
-
-/// Non-equality comparison with any @p Enum type having the LevelArrayStride value.
-/** Instances of the @c smart_enums::LevelArrayStride type can be compared
- *  for non-equality to instances of any enumeration type having
- *  the @c LevelArrayStride value.
- */
-template <typename Enum> friend bool operator!=(Enum value, LevelArrayStride);
-};
-
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Lighting value.
 /**
  *  @see @ref oglplus::CompatibilityAttributeGroup "CompatibilityAttributeGroup"
@@ -11996,6 +12095,39 @@ template <typename Enum> friend bool operator==(Enum value, Location);
  *  the @c Location value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Location);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c LocationComponent value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{LOCATION_COMPONENT}
+ *
+ *  @ingroup smart_enums
+ */
+struct LocationComponent {
+
+/// Conversion to any @p Enum type having the LocationComponent value.
+/** Instances of the @ref oglplus::smart_enums::LocationComponent "LocationComponent"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c LocationComponent value.
+ */
+template <typename Enum, Enum = Enum::LocationComponent> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the LocationComponent value.
+/** Instances of the @c smart_enums::LocationComponent type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c LocationComponent value.
+ */
+template <typename Enum> friend bool operator==(Enum value, LocationComponent);
+
+/// Non-equality comparison with any @p Enum type having the LocationComponent value.
+/** Instances of the @c smart_enums::LocationComponent type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c LocationComponent value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, LocationComponent);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c LocationIndex value.
@@ -25578,6 +25710,39 @@ template <typename Enum> friend bool operator==(Enum value, TopLevelArraySize);
 template <typename Enum> friend bool operator!=(Enum value, TopLevelArraySize);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TopLevelArrayStride value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{TOP_LEVEL_ARRAY_STRIDE}
+ *
+ *  @ingroup smart_enums
+ */
+struct TopLevelArrayStride {
+
+/// Conversion to any @p Enum type having the TopLevelArrayStride value.
+/** Instances of the @ref oglplus::smart_enums::TopLevelArrayStride "TopLevelArrayStride"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c TopLevelArrayStride value.
+ */
+template <typename Enum, Enum = Enum::TopLevelArrayStride> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the TopLevelArrayStride value.
+/** Instances of the @c smart_enums::TopLevelArrayStride type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c TopLevelArrayStride value.
+ */
+template <typename Enum> friend bool operator==(Enum value, TopLevelArrayStride);
+
+/// Non-equality comparison with any @p Enum type having the TopLevelArrayStride value.
+/** Instances of the @c smart_enums::TopLevelArrayStride type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c TopLevelArrayStride value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, TopLevelArrayStride);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Transform value.
 /**
  *  @see @ref oglplus::CompatibilityAttributeGroup "CompatibilityAttributeGroup"
@@ -25648,6 +25813,72 @@ template <typename Enum> friend bool operator==(Enum value, TransformFeedback);
  *  the @c TransformFeedback value.
  */
 template <typename Enum> friend bool operator!=(Enum value, TransformFeedback);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TransformFeedbackBufferIndex value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{TRANSFORM_FEEDBACK_BUFFER_INDEX}
+ *
+ *  @ingroup smart_enums
+ */
+struct TransformFeedbackBufferIndex {
+
+/// Conversion to any @p Enum type having the TransformFeedbackBufferIndex value.
+/** Instances of the @ref oglplus::smart_enums::TransformFeedbackBufferIndex "TransformFeedbackBufferIndex"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c TransformFeedbackBufferIndex value.
+ */
+template <typename Enum, Enum = Enum::TransformFeedbackBufferIndex> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the TransformFeedbackBufferIndex value.
+/** Instances of the @c smart_enums::TransformFeedbackBufferIndex type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c TransformFeedbackBufferIndex value.
+ */
+template <typename Enum> friend bool operator==(Enum value, TransformFeedbackBufferIndex);
+
+/// Non-equality comparison with any @p Enum type having the TransformFeedbackBufferIndex value.
+/** Instances of the @c smart_enums::TransformFeedbackBufferIndex type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c TransformFeedbackBufferIndex value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackBufferIndex);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TransformFeedbackBufferStride value.
+/**
+ *  @see @ref oglplus::ProgramResourceProperty "ProgramResourceProperty"
+ *
+ *  @glsymbols
+ *  @gldefref{TRANSFORM_FEEDBACK_BUFFER_STRIDE}
+ *
+ *  @ingroup smart_enums
+ */
+struct TransformFeedbackBufferStride {
+
+/// Conversion to any @p Enum type having the TransformFeedbackBufferStride value.
+/** Instances of the @ref oglplus::smart_enums::TransformFeedbackBufferStride "TransformFeedbackBufferStride"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c TransformFeedbackBufferStride value.
+ */
+template <typename Enum, Enum = Enum::TransformFeedbackBufferStride> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the TransformFeedbackBufferStride value.
+/** Instances of the @c smart_enums::TransformFeedbackBufferStride type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c TransformFeedbackBufferStride value.
+ */
+template <typename Enum> friend bool operator==(Enum value, TransformFeedbackBufferStride);
+
+/// Non-equality comparison with any @p Enum type having the TransformFeedbackBufferStride value.
+/** Instances of the @c smart_enums::TransformFeedbackBufferStride type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c TransformFeedbackBufferStride value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, TransformFeedbackBufferStride);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c TransformFeedbackPrimitivesWritten value.

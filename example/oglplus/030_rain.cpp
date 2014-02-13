@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_rain}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -21,10 +21,9 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/bound/texture.hpp>
-
 #include <oglplus/shapes/plane.hpp>
 
+#include <oglplus/images/image_spec.hpp>
 #include <oglplus/images/load.hpp>
 
 #include "example.hpp"
@@ -169,37 +168,31 @@ public:
 		for(GLuint i=0; i!=nhm; ++i)
 		{
 			Texture::Active(first_tex_unit+i);
-			auto bound_tex = Bind(height_maps[i], Texture::Target::_2D);
-			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::Red,
-				ripple_tex_size, ripple_tex_size,
-				0,
-				PixelDataFormat::Red,
-				PixelDataType::Float,
-				v.data()
-			);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			height_maps[i]
+				<< Texture::Target::_2D
+				<< TextureMinFilter::Nearest
+				<< TextureMagFilter::Nearest
+				<< TextureWrap::Repeat
+				<< images::ImageSpec(
+					ripple_tex_size,
+					ripple_tex_size,
+					Format::Red,
+					v.data()
+				);
 		}
 
 		Texture::Active(first_tex_unit+nhm);
-		auto bound_tex = Bind(bump_map, Texture::Target::_2D);
-		bound_tex.Image2D(
-			0,
-			PixelDataInternalFormat::RGBA,
-			ripple_tex_size, ripple_tex_size,
-			0,
-			PixelDataFormat::RGBA,
-			PixelDataType::UnsignedByte,
-			nullptr
-		);
-		bound_tex.MinFilter(TextureMinFilter::Linear);
-		bound_tex.MagFilter(TextureMagFilter::Linear);
-		bound_tex.WrapS(TextureWrap::Repeat);
-		bound_tex.WrapT(TextureWrap::Repeat);
+		bump_map
+			<< Texture::Target::_2D
+			<< TextureMinFilter::Linear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::Repeat
+			<< images::ImageSpec(
+				ripple_tex_size,
+				ripple_tex_size,
+				Format::RGBA,
+				DataType::UnsignedByte
+			);
 	}
 
 	void Swap(void)
@@ -482,37 +475,24 @@ public:
 	 : _tex_unit(tex_unit)
 	{
 		Texture::Active(_tex_unit);
-		auto bound_tex = oglplus::Bind(*this, Texture::Target::CubeMap);
-		bound_tex.MinFilter(TextureMinFilter::Linear);
-		bound_tex.MagFilter(TextureMagFilter::Linear);
-		bound_tex.WrapS(TextureWrap::ClampToEdge);
-		bound_tex.WrapT(TextureWrap::ClampToEdge);
-		bound_tex.WrapR(TextureWrap::ClampToEdge);
 
-		Texture::Image2D(
-			Texture::CubeMapFace(0),
-			images::LoadTexture("cloudy_day-cm_0", false, false)
-		);
-		Texture::Image2D(
-			Texture::CubeMapFace(1),
-			images::LoadTexture("cloudy_day-cm_1", false, false)
-		);
-		Texture::Image2D(
-			Texture::CubeMapFace(2),
-			images::LoadTexture("cloudy_day-cm_2", false, false)
-		);
-		Texture::Image2D(
-			Texture::CubeMapFace(3),
-			images::LoadTexture("cloudy_day-cm_3", false, false)
-		);
-		Texture::Image2D(
-			Texture::CubeMapFace(4),
-			images::LoadTexture("cloudy_day-cm_4", false, false)
-		);
-		Texture::Image2D(
-			Texture::CubeMapFace(5),
-			images::LoadTexture("cloudy_day-cm_5", false, false)
-		);
+		*this	<< Texture::Target::CubeMap
+			<< TextureMinFilter::Linear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::ClampToEdge;
+
+		Texture::CubeMapFace(0) <<
+			images::LoadTexture("cloudy_day-cm_0", false, false);
+		Texture::CubeMapFace(1) <<
+			images::LoadTexture("cloudy_day-cm_1", false, false);
+		Texture::CubeMapFace(2) <<
+			images::LoadTexture("cloudy_day-cm_2", false, false);
+		Texture::CubeMapFace(3) <<
+			images::LoadTexture("cloudy_day-cm_3", false, false);
+		Texture::CubeMapFace(4) <<
+			images::LoadTexture("cloudy_day-cm_4", false, false);
+		Texture::CubeMapFace(5) <<
+			images::LoadTexture("cloudy_day-cm_5", false, false);
 	}
 
 	GLuint TexUnit(void) const

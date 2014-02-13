@@ -119,19 +119,28 @@ Requirements
    pre-built textures). Building of the textures is optional, they are not
    necessary when the building of examples is disabled.
 
- - A libary defining the OpenGL API (required) -- the ``GL/glcorearb.h`` or ``GL3/gl3.h``
-   headers or `GLEW`_, `GL3W`_, etc.  OGLplus does not define the OpenGL symbols
-   (types, constants, functions, etc.), therfore applications using
+ - A library defining the OpenGL API (required) -- the ``GL/glcorearb.h`` or ``GL3/gl3.h``
+   headers or `GLEW`_, `GL3W`_, etc. and the corresponding binary library (``libGL.so``,
+   ``OpenGL32.lib``, ``libGLEW.so``, etc.).  OGLplus does not define the OpenGL symbols
+   (types, constants, functions, etc.), therefore applications using
    it need to define them themselves (before including OGLplus). The examples
    currently need GLEW (at least version 1.9) or the ``GL/glcorearb.h`` header
    (available for download from www.opengl.org/registry/api/glcorearb.h) and
    a GL binary library exporting the OpenGL (3 or higher) functions.
    The build system detects the presence of GLEW or ``GL/glcorearb.h`` and configures
    compilation and linking of the examples accordingly.
-   Note, however, that if several options (like both GLEW and ``GL/glcorearb.h``)
-   are available it may be necessary to specify which option to use.
+   Note, however, that if several options (like both GLEW and ``GL/glcorearb.h`` plus
+   the binary GL lib) are available it may be necessary to specify which option to use.
+   On Linux and similar systems the precedence is following: ``GL/glcorearb.h + libGL.so``,
+   ``GL3/gl3.h + libGL.so``, `GLEW`_ and `GL3W`_ (the first one found is used, unless
+   specified otherwise).  On Windows systems the precedence is:  `GLEW`_, `GL3W`_,
+   ``GL/glcorearb.h + OpenGL.lib`` and ``GL3/gl3.h + OpenGL.lib``.
+   Also note, that on systems with multiple versions of ``libGL.so`` (for example one
+   provided by Mesa3D and another provided by your GPU vendor) it may be necessary
+   to specify with the ``--library-dir`` option to the ``configure`` script (described
+   below) in which directories to search for the library.
    The library to be used can be explicitly specified with the ``--use-gl-header-lib``
-   option or with one of the ``--use-*`` options of the ``configure`` script (see below).
+   option or with one of the ``--use-*`` options of the ``configure`` script.
 
  - A library initializing the default rendering context (required) -- Currently 
    the examples can be built if at least one of the following libraries is
@@ -212,13 +221,24 @@ Some of the more important command-line options are described below:
                     the value of the CMAKE_INSTALL_PREFIX variable).
                     If this option is not specified, cmake's default prefix is used.
 
---include-dir PATH    This options allows to specify additional directiories
+--include-dir PATH    This option allows to specify additional directiories
                       to search when looking for header files. It may be used multiple
-                      times to specify multiple directories.
+                      times to specify multiple directories. Headers are then searched
+                      in the directories specified with this option in the same order
+                      in which they appear on the command-line and the default system
+                      header locations are searched only afterwards. The first header
+                      found is used, in case there are multiple versions of the searched
+                      header file.
+                   
 
---library-dir PATH    This options allows to specify additional directiories
+--library-dir PATH    This option allows to specify additional directiories
                       to search when looking for compiled libraries. It may be used
-                      multiple times to specify multiple directories.
+                      multiple times to specify multiple directories. Libraries are
+                      then searched in the directories specified with this option
+                      in the same order in which they appear on the command-line
+                      and the default system library locations are searched afterwards.
+                      The first library found is used, in case there are multiple
+                      versions of the searched library.
 
 --no-docs  Do not build the documentation.
 

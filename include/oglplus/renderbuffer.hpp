@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,6 +21,7 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/enumerations.hpp>
+#include <oglplus/images/fwd.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
@@ -167,6 +168,13 @@ public:
 			BindingQuery<RenderbufferOps>::QueryBinding(target)
 		));
 	}
+
+	/// Set the renderbuffer storage parameters
+	/**
+	 *  @glsymbols
+	 *  @glfunref{RenderbufferStorage}
+	 */
+	static void Storage(Target target, const images::ImageSpec& image_spec);
 
 	/// Set the renderbuffer multisample storage parameters
 	/**
@@ -347,6 +355,28 @@ public:
 		);
 	}
 };
+
+// syntax-sugar operators
+
+// Bind
+inline RenderbufferTarget operator << (
+	const RenderbufferOps& rbo,
+	RenderbufferTarget target
+)
+{
+	rbo.Bind(target);
+	return target;
+}
+
+// Storage
+inline RenderbufferTarget operator << (
+	RenderbufferTarget target,
+	const images::ImageSpec& image_spec
+)
+{
+	RenderbufferOps::Storage(target, image_spec);
+	return target;
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality

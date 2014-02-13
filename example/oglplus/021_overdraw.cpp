@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{021_overdraw}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -22,6 +22,7 @@
 #include <oglplus/renderbuffer_dsa.hpp>
 #include <oglplus/texture_dsa.hpp>
 
+#include <oglplus/images/image_spec.hpp>
 #include <oglplus/images/gradient.hpp>
 
 #include <oglplus/shapes/cube.hpp>
@@ -187,18 +188,19 @@ public:
 	{
 
 		draw_prog.Use();
+
 		UniformBlock(draw_prog, "OffsetBlock").Binding(0);
-		cube_pos.BindBaseUniform(0);
-		cube_pos.Data(OffsetData(n), BufferUsage::StaticDraw);
+		cube_pos<< BufferIndexedTarget::Uniform << 0
+			<< BufferUsage::StaticDraw
+			<< OffsetData(n);
 
 		ProgramUniformSampler(screen_prog, "Palette").Set(0);
 		Texture::Active(0);
-		palette.Bind(Texture::Target::_1D);
-		palette.MinFilter(TextureMinFilter::Nearest);
-		palette.MagFilter(TextureMagFilter::Nearest);
-		palette.WrapS(TextureWrap::ClampToEdge);
-		palette.Image1D(
-			images::LinearGradient(
+		palette	<< Texture::Target::_1D
+			<< TextureMinFilter::Nearest
+			<< TextureMagFilter::Nearest
+			<< TextureWrap::ClampToEdge
+			<< images::LinearGradient(
 				16,
 				Vec3f(0, 0, 0),
 				std::map<GLfloat, Vec3f>({
@@ -211,33 +213,28 @@ public:
 					{ 13.0/16.0, Vec3f(1.0, 0.1, 0.0)},
 					{ 16.0/16.0, Vec3f(0.7, 0.0, 0.0)}
 				})
-			)
-		);
+			);
 
 		ProgramUniformSampler(screen_prog, "Tex").Set(1);
 		Texture::Active(1);
-		tex.Bind(Texture::Target::Rectangle);
-		tex.MinFilter(TextureMinFilter::Nearest);
-		tex.MagFilter(TextureMagFilter::Nearest);
-		tex.WrapS(TextureWrap::ClampToEdge);
-		tex.WrapT(TextureWrap::ClampToEdge);
-		tex.Image2D(
-			0,
-			PixelDataInternalFormat::R8,
-			64, 64,
-			0,
-			PixelDataFormat::Red,
-			PixelDataType::UnsignedByte,
-			nullptr
-		);
+		tex	<< Texture::Target::Rectangle
+			<< TextureMinFilter::Nearest
+			<< TextureMagFilter::Nearest
+			<< TextureWrap::ClampToEdge
+			<< images::ImageSpec(
+				64, 64,
+				Format::Red,
+				InternalFormat::R8,
+				DataType::UnsignedByte
+			);
 
-		rbo.target = Renderbuffer::Target::Renderbuffer;
-		rbo.Storage(PixelDataInternalFormat::DepthComponent, 64, 64);
+		rbo	<< Renderbuffer::Target::Renderbuffer
+			<< images::ImageSpec(64, 64, InternalFormat::DepthComponent);
 
-		fbo.target = Framebuffer::Target::Draw;
-		fbo.AttachTexture(FramebufferAttachment::Color, tex, 0);
-		fbo.AttachRenderbuffer(FramebufferAttachment::Depth, rbo);
-		fbo.Complete();
+		fbo	<< Framebuffer::Target::Draw
+			<< FramebufferAttachment::Color << tex
+			<< FramebufferAttachment::Depth << rbo
+			<< FramebufferComplete();
 
 		gl.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -258,14 +255,14 @@ public:
 
 		tex.Image2D(
 			0,
-			PixelDataInternalFormat::R8,
+			InternalFormat::R8,
 			width, height,
 			0,
-			PixelDataFormat::Red,
-			PixelDataType::UnsignedByte,
+			Format::Red,
+			DataType::UnsignedByte,
 			nullptr
 		);
-		rbo.Storage(PixelDataInternalFormat::DepthComponent, width, height);
+		rbo.Storage(InternalFormat::DepthComponent, width, height);
 	}
 
 	void RenderOffscreen(double time)

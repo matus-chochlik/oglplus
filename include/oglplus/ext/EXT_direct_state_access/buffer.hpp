@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -268,7 +268,7 @@ public:
 	/**
 	 *  @throws Error
 	 */
-	void Bind(void) const
+	void Bind(void)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);
@@ -734,6 +734,112 @@ public:
 		);
 	}
 };
+
+// Helper class for syntax sugar operators
+struct DSABufferEXTOpsAndUsage
+{
+	DSABufferEXTOps& buf;
+	BufferUsage usage;
+
+	DSABufferEXTOpsAndUsage(DSABufferEXTOps& b, BufferUsage u)
+	 : buf(b)
+	 , usage(u)
+	{ }
+};
+
+inline DSABufferEXTOpsAndUsage operator << (
+	DSABufferEXTOps& buf,
+	BufferUsage usage
+)
+{
+	return DSABufferEXTOpsAndUsage(buf, usage);
+}
+
+// Helper class for syntax sugar operators
+struct DSABufferEXTOpsAndIdxTgt
+{
+	DSABufferEXTOps& buf;
+	BufferIndexedTarget target;
+
+	DSABufferEXTOpsAndIdxTgt(DSABufferEXTOps& b, BufferIndexedTarget t)
+	 : buf(b)
+	 , target(t)
+	{ }
+};
+
+inline DSABufferEXTOpsAndIdxTgt operator << (
+	DSABufferEXTOps& buf,
+	BufferIndexedTarget target
+)
+{
+	return DSABufferEXTOpsAndIdxTgt(buf, target);
+}
+
+// syntax-sugar operators
+
+// Bind
+inline DSABufferEXTOps& operator << (
+	DSABufferEXTOps& buf,
+	BufferTarget target
+)
+{
+	buf.Bind(target);
+	return buf;
+}
+
+// BindBase
+inline DSABufferEXTOps& operator << (
+	const DSABufferEXTOpsAndIdxTgt& bat,
+	GLuint index
+)
+{
+	bat.buf.BindBase(bat.target, index);
+	return bat.buf;
+}
+
+// Data
+template <typename GLtype>
+inline DSABufferEXTOps& operator << (
+	DSABufferEXTOps& buf,
+	const std::vector<GLtype>& data
+)
+{
+	buf.Data(data);
+	return buf;
+}
+
+// Data
+template <typename GLtype>
+inline DSABufferEXTOps& operator << (
+	DSABufferEXTOpsAndUsage&& bau,
+	const std::vector<GLtype>& data
+)
+{
+	bau.buf.Data(data, bau.usage);
+	return bau.buf;
+}
+
+// Data
+template <typename GLtype, std::size_t Count>
+inline DSABufferEXTOps& operator << (
+	DSABufferEXTOps& buf,
+	const GLtype (&data)[Count]
+)
+{
+	buf.Data(data);
+	return buf;
+}
+
+// Data
+template <typename GLtype, std::size_t Count>
+inline DSABufferEXTOps& operator << (
+	DSABufferEXTOpsAndUsage&& bau,
+	const GLtype (&data)[Count]
+)
+{
+	bau.buf.Data(data, bau.usage);
+	return bau.buf;
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality

@@ -516,11 +516,11 @@ void SurfacePolygonizerCommon::InitCellConfigs(SurfaceExample& parent)
 		auto bound_tex = Bind(configurations, Texture::Target::_1D);
 		bound_tex.Image1D(
 			0,
-			PixelDataInternalFormat::RGBA8UI,
+			InternalFormat::RGBA8UI,
 			sizeof(tex_data),
 			0,
-			PixelDataFormat::RGBAInteger,
-			PixelDataType::UnsignedByte,
+			Format::RGBAInteger,
+			DataType::UnsignedByte,
 			tex_data
 		);
 		bound_tex.MinFilter(TextureMinFilter::Nearest);
@@ -560,11 +560,11 @@ void SurfacePolygonizerCommon::InitMetaballs(SurfaceExample& parent)
 		auto bound_tex = Bind(metaballs, Texture::Target::_1D);
 		bound_tex.Image1D(
 			0,
-			PixelDataInternalFormat::RGBA32F,
+			InternalFormat::RGBA32F,
 			metaball_paths.size(),
 			0,
-			PixelDataFormat::RGBA,
-			PixelDataType::Float,
+			Format::RGBA,
+			DataType::Float,
 			nullptr
 		);
 		bound_tex.MinFilter(TextureMinFilter::Nearest);
@@ -599,11 +599,11 @@ void SurfacePolygonizerCommon::UpdateMetaballs(SurfaceExample& parent, double ti
 	Texture::Image1D(
 		Texture::Target::_1D,
 		0,
-		PixelDataInternalFormat::RGBA32F,
+		InternalFormat::RGBA32F,
 		metaball_paths.size(),
 		0,
-		PixelDataFormat::RGBA,
-		PixelDataType::Float,
+		Format::RGBA,
+		DataType::Float,
 		metaball_curr.data()
 	);
 }
@@ -711,11 +711,11 @@ SurfaceDepthMapRenderer::SurfaceDepthMapRenderer(SurfaceExample& parent)
 
 		bound_tex.Image3D(
 			0,
-			PixelDataInternalFormat::DepthComponent32,
+			InternalFormat::DepthComponent32,
 			dmap_side, dmap_side, 2,
 			0,
-			PixelDataFormat::DepthComponent,
-			PixelDataType::Float,
+			Format::DepthComponent,
+			DataType::Float,
 			nullptr
 		);
 	}
@@ -730,11 +730,11 @@ SurfaceDepthMapRenderer::SurfaceDepthMapRenderer(SurfaceExample& parent)
 		bound_tex.WrapR(TextureWrap::ClampToEdge);
 		bound_tex.Image3D(
 			0,
-			PixelDataInternalFormat::RGBA,
+			InternalFormat::RGBA,
 			dmap_side, dmap_side, 2,
 			0,
-			PixelDataFormat::RGBA,
-			PixelDataType::UnsignedByte,
+			Format::RGBA,
+			DataType::UnsignedByte,
 			nullptr
 		);
 	}
@@ -851,16 +851,16 @@ void SurfaceLightMapRenderer::Render(double)
 		Texture::Image2D(
 			Texture::Target::Rectangle,
 			0,
-			PixelDataInternalFormat::Red,
+			InternalFormat::Red,
 			width/2, height/2,
 			0,
-			PixelDataFormat::Red,
-			PixelDataType::UnsignedByte,
+			Format::Red,
+			DataType::UnsignedByte,
 			nullptr
 		);
 		Renderbuffer::Storage(
 			Renderbuffer::Target::Renderbuffer,
-			PixelDataInternalFormat::DepthComponent,
+			InternalFormat::DepthComponent,
 			width/2,
 			height/2
 		);
@@ -972,16 +972,16 @@ void SurfaceColorMapRenderer::Render(double)
 		Texture::Image2D(
 			Texture::Target::Rectangle,
 			0,
-			PixelDataInternalFormat::RGB,
+			InternalFormat::RGB,
 			width, height,
 			0,
-			PixelDataFormat::RGB,
-			PixelDataType::UnsignedByte,
+			Format::RGB,
+			DataType::UnsignedByte,
 			nullptr
 		);
 		Renderbuffer::Storage(
 			Renderbuffer::Target::Renderbuffer,
-			PixelDataInternalFormat::DepthComponent,
+			InternalFormat::DepthComponent,
 			width,
 			height
 		);

@@ -15,6 +15,8 @@
 
 #include "example.hpp"
 
+#include <sstream>
+
 namespace oglplus {
 
 class RectangleExample : public Example
@@ -40,31 +42,34 @@ public:
 	 : vs(ShaderType::Vertex)
 	 , fs(ShaderType::Fragment)
 	{
-		// Set the vertex shader source
-		vs.Source(StrLit(" \
-			#version 330\n \
-			in vec2 Position; \
-			in vec3 Color; \
-			out vec3 vertColor; \
-			void main(void) \
-			{ \
-				vertColor = Color; \
-				gl_Position = vec4(Position, 0.0, 1.0); \
-			} \
-		"));
+		// this could be any istream
+		std::stringstream vs_source(
+			"#version 330\n"
+			"in vec2 Position;"
+			"in vec3 Color;"
+			"out vec3 vertColor;"
+			"void main(void)"
+			"{"
+			"	vertColor = Color;"
+			"	gl_Position = vec4(Position, 0.0, 1.0);"
+			"}"
+		);
+		// set the vertex shader source
+		vs.Source(GLSLSource::FromStream(vs_source));
 		// compile it
 		vs.Compile();
 
+		std::stringstream fs_source(
+			"#version 330\n"
+			"in vec3 vertColor;"
+			"out vec4 fragColor;"
+			"void main(void)"
+			"{"
+			"	fragColor = vec4(vertColor, 1.0);"
+			"}"
+		);
 		// set the fragment shader source
-		fs.Source(StrLit(" \
-			#version 330\n \
-			in vec3 vertColor; \
-			out vec4 fragColor; \
-			void main(void) \
-			{ \
-				fragColor = vec4(vertColor, 1.0); \
-			} \
-		"));
+		fs.Source(GLSLSource::FromStream(fs_source));
 		// compile it
 		fs.Compile();
 

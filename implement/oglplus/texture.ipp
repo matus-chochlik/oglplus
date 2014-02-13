@@ -4,13 +4,80 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#include <oglplus/images/image_spec.hpp>
 #include <oglplus/images/image.hpp>
 
 namespace oglplus {
+
+OGLPLUS_LIB_FUNC
+GLuint TextureTargetDimensions(TextureTarget target)
+{
+	switch(GLenum(target))
+	{
+#ifdef GL_TEXTURE_1D
+		case GL_TEXTURE_1D:
+#endif
+#ifdef GL_TEXTURE_1D_ARRAY
+		case GL_TEXTURE_1D_ARRAY:
+#endif
+#ifdef GL_TEXTURE_BUFFER
+		case GL_TEXTURE_BUFFER:
+#endif
+			return 1;
+
+#ifdef GL_TEXTURE_2D
+		case GL_TEXTURE_2D:
+#endif
+#ifdef GL_TEXTURE_2D_MULTISAMPLE
+		case GL_TEXTURE_2D_MULTISAMPLE:
+#endif
+#ifdef GL_TEXTURE_RECTANGLE
+		case GL_TEXTURE_RECTANGLE:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP
+		case GL_TEXTURE_CUBE_MAP:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_POSITIVE_X
+		case GL_TEXTURE_CUBE_MAP_POSITIVE_X:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+		case GL_TEXTURE_CUBE_MAP_NEGATIVE_X:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+		case GL_TEXTURE_CUBE_MAP_POSITIVE_Y:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+		case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+		case GL_TEXTURE_CUBE_MAP_POSITIVE_Z:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+		case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z:
+#endif
+			return 2;
+
+#ifdef GL_TEXTURE_2D_ARRAY
+		case GL_TEXTURE_2D_ARRAY:
+#endif
+#ifdef GL_TEXTURE_2D_MULTISAMPLE_ARRAY
+		case GL_TEXTURE_2D_MULTISAMPLE_ARRAY:
+#endif
+#ifdef GL_TEXTURE_CUBE_MAP_ARRAY
+		case GL_TEXTURE_CUBE_MAP_ARRAY:
+#endif
+#ifdef GL_TEXTURE_3D
+		case GL_TEXTURE_3D:
+#endif
+			return 3;
+		default:;
+	}
+	return 0;
+}
 
 OGLPLUS_LIB_FUNC
 GLenum TextureOps::_binding_query(Target target)
@@ -30,7 +97,7 @@ void TextureOps::GetImage(
 	Target target,
 	GLint level,
 	PixelDataFormat format,
-	PixelDataType type,
+	Property::PixDataType type,
 	GLsizei size,
 	GLvoid* buffer
 )
@@ -291,6 +358,98 @@ void TextureOps::SubImage1D(
 }
 
 #endif // GL_VERSION_3_0
+
+OGLPLUS_LIB_FUNC
+void TextureOps::Image(
+	Target target,
+	const images::Image& image,
+	GLint level,
+	GLint border
+)
+{
+	switch(TextureTargetDimensions(target))
+	{
+		case 3:
+		{
+			TextureOps::Image3D(target, image, level, border);
+			break;
+		}
+		case 2:
+		{
+			TextureOps::Image2D(target, image, level, border);
+			break;
+		}
+#if GL_VERSION_3_0
+		case 1:
+		{
+			TextureOps::Image1D(target, image, level, border);
+			break;
+		}
+#endif
+		default: assert(!"Invalid texture dimension");
+	}
+}
+
+OGLPLUS_LIB_FUNC
+void TextureOps::Image(
+	Target target,
+	const images::ImageSpec& image_spec,
+	GLint level,
+	GLint border
+)
+{
+	switch(TextureTargetDimensions(target))
+	{
+		case 3:
+		{
+			Image3D(
+				target,
+				level,
+				image_spec.internal_format,
+				image_spec.width,
+				image_spec.height,
+				image_spec.depth,
+				border,
+				image_spec.format,
+				image_spec.data_type,
+				image_spec.data_ptr
+			);
+			break;
+		}
+		case 2:
+		{
+			Image2D(
+				target,
+				level,
+				image_spec.internal_format,
+				image_spec.width,
+				image_spec.height,
+				border,
+				image_spec.format,
+				image_spec.data_type,
+				image_spec.data_ptr
+			);
+			break;
+		}
+#if GL_VERSION_3_0
+		case 1:
+		{
+			Image1D(
+				target,
+				level,
+				image_spec.internal_format,
+				image_spec.width,
+				border,
+				image_spec.format,
+				image_spec.data_type,
+				image_spec.data_ptr
+			);
+			break;
+		}
+#endif
+		default: assert(!"Invalid texture dimension");
+	}
+}
 
 } // namespace oglplus
 

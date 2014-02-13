@@ -29,8 +29,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "014_multi_cube_gs", "014_mu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "011_writing", "011_writing\011_writing.vcxproj", "{D7AE7161-3448-8F53-19CB-346A6DF19450}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "015_shaded_cube", "015_shaded_cube\015_shaded_cube.vcxproj", "{E249C48D-81C4-E855-21F6-981187E48683}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "019_helium", "019_helium\019_helium.vcxproj", "{E3CE8EE0-67BC-C196-767A-60946D602A9D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "019_subsurf_scatter", "019_subsurf_scatter\019_subsurf_scatter.vcxproj", "{AC805D1E-CB49-1FA5-CE2E-ECE3461EBFA5}"

@@ -1,5 +1,5 @@
 <!--
-   - Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+   - Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
    - Software License, Version 1.0. (See accompanying file
    - LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
    -
@@ -49,6 +49,49 @@
 		<xsl:apply-templates/>
 	</xsl:template>
 
+	<xsl:template match="ref" mode="ParamTypeExpr">
+		<xsl:variable name="RefId" select="@refid"/>
+		<xsl:if test="../../../../../sectiondef/memberdef[@id = $RefId]">
+			<xsl:value-of select="$Object"/>
+			<xsl:text>Ops::</xsl:text>
+		</xsl:if>
+		<xsl:if test="../../../../../../compounddef[
+			contains(compoundname, concat($Object,'Ops::'))
+		]/sectiondef/memberdef[@id = $RefId]">
+			<xsl:value-of select="$Object"/>
+			<xsl:text>Ops::</xsl:text>
+		</xsl:if>
+		<xsl:apply-templates mode="ParamTypeExpr"/>
+	</xsl:template>
+
+	<xsl:template match="text()" mode="ParamTypeExpr">
+		<xsl:variable name="IsSpecRef" select="substring(., string-length(.)-2) = '(&amp;)'"/>
+		<xsl:choose>
+			<xsl:when test="$IsSpecRef">
+				<xsl:value-of select="substring-before(., '(&amp;)')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="."/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template match="*" mode="ParamTypeExpr">
+		<xsl:apply-templates mode="ParamTypeExpr"/>
+	</xsl:template>
+
+	<xsl:template match="text()" mode="ParamNameExpr">
+		<xsl:variable name="Type" select="../../type/descendant-or-self::*/text()"/>
+		<xsl:variable name="IsSpecRef" select="substring($Type, string-length($Type)-2) = '(&amp;)'"/>
+		<xsl:if test="$IsSpecRef">(&amp;</xsl:if>
+		<xsl:value-of select="."/>
+		<xsl:if test="$IsSpecRef">)</xsl:if>
+	</xsl:template>
+
+	<xsl:template match="*" mode="ParamNameExpr">
+		<xsl:apply-templates mode="ParamNameExpr"/>
+	</xsl:template>
+
 	<xsl:template name="GenerateFunction">
 		<xsl:variable name="DetailedDescription">
 			<xsl:for-each select="detaileddescription/descendant-or-self::node()">
@@ -81,9 +124,15 @@
 				)"/>
 			</xsl:if>
 		</xsl:variable>
-		<xsl:if test="string-length($RequiredGLVersion) != 0">
-			<xsl:text>#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_</xsl:text>
-			<xsl:value-of select="$RequiredGLVersion"/>
+		<xsl:if test="
+			(string-length($RequiredGLVersion) != 0) or
+			(string-length($RequiredGLExtension) != 0)
+		">
+			<xsl:text>#if OGLPLUS_DOCUMENTATION_ONLY</xsl:text>
+			<xsl:if test="string-length($RequiredGLVersion) != 0">
+				<xsl:text> || GL_VERSION_</xsl:text>
+				<xsl:value-of select="$RequiredGLVersion"/>
+			</xsl:if>
 			<xsl:if test="string-length($RequiredGLExtension) != 0">
 				<xsl:text> || GL_</xsl:text>
 				<xsl:value-of select="$RequiredGLExtension"/>
@@ -119,14 +168,7 @@
 			<xsl:call-template name="Newline"/>
 		</xsl:for-each>
 		<xsl:text>	</xsl:text>
-		<xsl:variable name="RVRefId" select="type/ref/@refid"/>
-		<xsl:if test="../../sectiondef/memberdef[@id = $RVRefId]">
-			<xsl:value-of select="$Object"/>
-			<xsl:text>Ops::</xsl:text>
-		</xsl:if>
-		<xsl:for-each select="type/descendant-or-self::text()">
-			<xsl:value-of select="."/>
-		</xsl:for-each>
+		<xsl:apply-templates mode="ParamTypeExpr" select="type"/>
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="name/text()"/>
 		<xsl:text>(</xsl:text>
@@ -146,45 +188,13 @@
 		</xsl:choose>
 		
 		<xsl:for-each select="param">
-			<xsl:variable name="RawType">
-				<xsl:for-each select="type/descendant-or-self::text()">
-					<xsl:value-of select="."/>
-				</xsl:for-each>
-			</xsl:variable>
-			<xsl:variable name="IsSpecRef" select="substring($RawType, string-length($RawType)-2) = '(&amp;)'"/>
-			<xsl:variable name="Type">
-				<xsl:choose>
-					<xsl:when test="$IsSpecRef">
-						<xsl:value-of select="substring-before($RawType, '(&amp;)')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="$RawType"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
-			<xsl:variable name="TypePrefix">
-				<xsl:variable name="RefId" select="type/ref/@refid"/>
-				<xsl:if test="../../../sectiondef/memberdef[@id = $RefId]">
-					<xsl:value-of select="$Object"/>
-					<xsl:text>Ops::</xsl:text>
-				</xsl:if>
-				<xsl:if test="../../../../compounddef[
-					contains(compoundname, concat($Object,'Ops::'))
-				]/sectiondef/memberdef[@id = $RefId]">
-					<xsl:value-of select="$Object"/>
-					<xsl:text>Ops::</xsl:text>
-				</xsl:if>
-			</xsl:variable>
-			<xsl:if test="$Type != 'Target'">
+			<xsl:if test="type/descendant-or-self::text() != 'Target'">
 				<xsl:text>		</xsl:text>
-				<xsl:value-of select="$TypePrefix"/>
-				<xsl:value-of select="$Type"/>
+				<xsl:apply-templates mode="ParamTypeExpr" select="type"/>
 				<xsl:text> </xsl:text>
 				<xsl:choose>
 					<xsl:when test="declname/text()">
-						<xsl:if test="$IsSpecRef">(&amp;</xsl:if>
-						<xsl:value-of select="declname/text()"/>
-						<xsl:if test="$IsSpecRef">)</xsl:if>
+						<xsl:apply-templates mode="ParamNameExpr" select="declname"/>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>_auto_param_</xsl:text>
@@ -196,8 +206,7 @@
 				</xsl:if>
 				<xsl:if test="defval">
 					<xsl:text> = </xsl:text>
-					<xsl:value-of select="$TypePrefix"/>
-					<xsl:value-of select="defval/text()"/>
+					<xsl:apply-templates mode="ParamTypeExpr" select="defval"/>
 				</xsl:if>
 				<xsl:if test="position() != last()">,</xsl:if>
 				<xsl:call-template name="Newline"/>
@@ -253,11 +262,17 @@
 		<xsl:text>	}</xsl:text>
 		<xsl:call-template name="Newline"/>
 
-		<xsl:if test="string-length($RequiredGLVersion) != 0">
-			<xsl:text>#endif // GL_VERSION_</xsl:text>
-			<xsl:value-of select="$RequiredGLVersion"/>
+		<xsl:if test="
+			(string-length($RequiredGLVersion) != 0) or
+			(string-length($RequiredGLExtension) != 0)
+		">
+			<xsl:text>#endif //</xsl:text>
+			<xsl:if test="string-length($RequiredGLVersion) != 0">
+				<xsl:text> GL_VERSION_</xsl:text>
+				<xsl:value-of select="$RequiredGLVersion"/>
+			</xsl:if>
 			<xsl:if test="string-length($RequiredGLExtension) != 0">
-				<xsl:text> || GL_</xsl:text>
+				<xsl:text> GL_</xsl:text>
 				<xsl:value-of select="$RequiredGLExtension"/>
 			</xsl:if>
 			<xsl:call-template name="Newline"/>

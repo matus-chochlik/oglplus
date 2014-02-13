@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/program_resource_property.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -333,17 +333,17 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
-#if defined GL_LEVEL_ARRAY_STRIDE
+#if defined GL_TOP_LEVEL_ARRAY_STRIDE
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined LevelArrayStride
-#  pragma push_macro("LevelArrayStride")
-#  undef LevelArrayStride
-   OGLPLUS_ENUM_CLASS_VALUE(LevelArrayStride, GL_LEVEL_ARRAY_STRIDE)
-#  pragma pop_macro("LevelArrayStride")
+# if defined TopLevelArrayStride
+#  pragma push_macro("TopLevelArrayStride")
+#  undef TopLevelArrayStride
+   OGLPLUS_ENUM_CLASS_VALUE(TopLevelArrayStride, GL_TOP_LEVEL_ARRAY_STRIDE)
+#  pragma pop_macro("TopLevelArrayStride")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(LevelArrayStride, GL_LEVEL_ARRAY_STRIDE)
+   OGLPLUS_ENUM_CLASS_VALUE(TopLevelArrayStride, GL_TOP_LEVEL_ARRAY_STRIDE)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
@@ -381,6 +381,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_LOCATION_COMPONENT
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined LocationComponent
+#  pragma push_macro("LocationComponent")
+#  undef LocationComponent
+   OGLPLUS_ENUM_CLASS_VALUE(LocationComponent, GL_LOCATION_COMPONENT)
+#  pragma pop_macro("LocationComponent")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(LocationComponent, GL_LOCATION_COMPONENT)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #if defined GL_IS_PER_PATCH
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
@@ -392,6 +408,38 @@
 #  pragma pop_macro("IsPerPatch")
 # else
    OGLPLUS_ENUM_CLASS_VALUE(IsPerPatch, GL_IS_PER_PATCH)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_BUFFER_INDEX
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined TransformFeedbackBufferIndex
+#  pragma push_macro("TransformFeedbackBufferIndex")
+#  undef TransformFeedbackBufferIndex
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedbackBufferIndex, GL_TRANSFORM_FEEDBACK_BUFFER_INDEX)
+#  pragma pop_macro("TransformFeedbackBufferIndex")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedbackBufferIndex, GL_TRANSFORM_FEEDBACK_BUFFER_INDEX)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined TransformFeedbackBufferStride
+#  pragma push_macro("TransformFeedbackBufferStride")
+#  undef TransformFeedbackBufferStride
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedbackBufferStride, GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE)
+#  pragma pop_macro("TransformFeedbackBufferStride")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(TransformFeedbackBufferStride, GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
