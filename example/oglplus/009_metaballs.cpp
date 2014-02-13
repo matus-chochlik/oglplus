@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{009_metaballs}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -157,11 +157,11 @@ public:
 			auto bound_tex = Bind(metaballs_tex, Texture::Target::_1D);
 			bound_tex.Image1D(
 				0,
-				PixelDataInternalFormat::RGBA32F,
+				InternalFormat::RGBA32F,
 				ball_paths.size(),
 				0,
-				PixelDataFormat::RGBA,
-				PixelDataType::Float,
+				Format::RGBA,
+				DataType::Float,
 				nullptr
 			);
 			bound_tex.MinFilter(TextureMinFilter::Nearest);
@@ -192,11 +192,11 @@ public:
 		Texture::Image1D(
 			Texture::Target::_1D,
 			0,
-			PixelDataInternalFormat::RGBA32F,
+			InternalFormat::RGBA32F,
 			metaball_count,
 			0,
-			PixelDataFormat::RGBA,
-			PixelDataType::Float,
+			Format::RGBA,
+			DataType::Float,
 			metaballs.data()
 		);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);

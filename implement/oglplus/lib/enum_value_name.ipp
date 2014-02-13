@@ -52,6 +52,12 @@ OGLPLUS_ENUM_CLASS_FWD(ColorLogicOperation, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(CompareFunction, GLenum)
 #include <oglplus/enums/compare_function_names.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(ContextFlagBit, GLenum)
+#include <oglplus/enums/context_flag_bit_names.ipp>
+
+OGLPLUS_ENUM_CLASS_FWD(ContextProfileBit, GLenum)
+#include <oglplus/enums/context_profile_bit_names.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(DataType, GLenum)
 #include <oglplus/enums/data_type_names.ipp>
 

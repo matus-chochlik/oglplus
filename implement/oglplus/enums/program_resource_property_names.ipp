@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/program_resource_property.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -80,8 +80,8 @@ switch(value)
 #if defined GL_TOP_LEVEL_ARRAY_SIZE
 	case GL_TOP_LEVEL_ARRAY_SIZE: return StrLit("TOP_LEVEL_ARRAY_SIZE");
 #endif
-#if defined GL_LEVEL_ARRAY_STRIDE
-	case GL_LEVEL_ARRAY_STRIDE: return StrLit("LEVEL_ARRAY_STRIDE");
+#if defined GL_TOP_LEVEL_ARRAY_STRIDE
+	case GL_TOP_LEVEL_ARRAY_STRIDE: return StrLit("TOP_LEVEL_ARRAY_STRIDE");
 #endif
 #if defined GL_LOCATION
 	case GL_LOCATION: return StrLit("LOCATION");
@@ -89,8 +89,17 @@ switch(value)
 #if defined GL_LOCATION_INDEX
 	case GL_LOCATION_INDEX: return StrLit("LOCATION_INDEX");
 #endif
+#if defined GL_LOCATION_COMPONENT
+	case GL_LOCATION_COMPONENT: return StrLit("LOCATION_COMPONENT");
+#endif
 #if defined GL_IS_PER_PATCH
 	case GL_IS_PER_PATCH: return StrLit("IS_PER_PATCH");
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_BUFFER_INDEX
+	case GL_TRANSFORM_FEEDBACK_BUFFER_INDEX: return StrLit("TRANSFORM_FEEDBACK_BUFFER_INDEX");
+#endif
+#if defined GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE
+	case GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE: return StrLit("TRANSFORM_FEEDBACK_BUFFER_STRIDE");
 #endif
 	default:;
 }

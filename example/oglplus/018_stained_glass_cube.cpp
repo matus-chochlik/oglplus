@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{018_stained_glass_cube}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -15,7 +15,6 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/images/load.hpp>
-#include <oglplus/bound/texture.hpp>
 
 #include <cmath>
 
@@ -149,15 +148,13 @@ public:
 		}
 
 		// setup the texture
-		{
-			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("flower_glass"));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		tex	<< Texture::Target::_2D
+			<< images::LoadTexture("flower_glass")
+			<< TextureMipmap()
+			<< TextureMinFilter::LinearMipmapLinear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::Repeat;
+
 		//
 		UniformSampler(prog, "TexUnit").Set(0);
 		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(1.0f, 2.0f, 3.0f));

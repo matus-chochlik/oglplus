@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -59,6 +59,12 @@ OGLPLUS_ENUM_CLASS_END(PixelDataFormat)
 #include <oglplus/enums/pixel_data_format_range.ipp>
 #endif
 
+/// Alias for PixelDataFormat
+/**
+ *  @ingroup enumerations
+ */
+typedef PixelDataFormat Format;
+
 /// OpenGL pixel data internal format enumeration
 /**
  *  @ingroup enumerations
@@ -81,6 +87,12 @@ OGLPLUS_ENUM_CLASS_END(PixelDataInternalFormat)
 #if !OGLPLUS_ENUM_VALUE_RANGES
 #include <oglplus/enums/pixel_data_internal_format_range.ipp>
 #endif
+
+/// Alias for PixelDataInternalFormat
+/**
+ *  @ingroup enumerations
+ */
+typedef PixelDataInternalFormat InternalFormat;
 
 /// OpenGL image unit format enumeration
 /**

@@ -167,10 +167,17 @@ public:
 	}
 
 	/// Pointer to the components of this vector
+	T* Data(void)
+	{
+		return this->_elem;
+	}
+
+	/// Pointer to the components of this vector
 	const T* Data(void) const
 	{
 		return this->_elem;
 	}
+
 	/// Access to the i-th component of this vector
 	/**
 	 *  @pre (i < Size())

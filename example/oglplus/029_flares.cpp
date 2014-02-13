@@ -4,19 +4,18 @@
  *
  *  @oglplus_screenshot{029_flares}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
  *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects;GL_EXT_direct_state_access}
+ *  @oglplus_example_uses_cxx11{SCOPED_ENUMS}
  *
  *  @oglplus_example_uses_texture{flare_1}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-
-#include <oglplus/bound/texture.hpp>
 
 #include <oglplus/shapes/spiral_sphere.hpp>
 
@@ -472,34 +471,30 @@ public:
 
 		Texture::Active(0);
 		shape_prog.metal_tex.Set(0);
-		{
-			auto bound_tex = Bind(metal_texture, Texture::Target::_2D);
-			bound_tex.Image2D(
-				images::BrushedMetalUByte(
-					512, 512,
-					5120,
-					-12, +12,
-					32, 64
-				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		metal_texture
+			<< TextureTarget::_2D
+			<< TextureMinFilter::LinearMipmapLinear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::Repeat
+			<< images::BrushedMetalUByte(
+				512, 512,
+				5120,
+				-12, +12,
+				32, 64
+			)
+			<< TextureMipmap();
 
 		Texture::Active(1);
 		UniformSampler(flare_prog, "FlareTex").Set(1);
-		{
-			auto bound_tex = Bind(flare_texture, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("flare_1"));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::MirroredRepeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		flare_texture
+			<< TextureTarget::_2D
+			<< TextureMinFilter::LinearMipmapLinear
+			<< TextureMagFilter::Linear
+			<< images::LoadTexture("flare_1")
+			<< TextureMipmap();
+
+		(TextureTarget::_2D|0) << TextureWrap::MirroredRepeat;
+		(TextureTarget::_2D|1) << TextureWrap::Repeat;
 
 		lights.Bind();
 		try

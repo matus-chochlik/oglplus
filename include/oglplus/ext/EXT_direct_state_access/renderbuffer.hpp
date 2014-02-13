@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -94,7 +94,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BindRenderbuffer}
 	 */
-	void Bind(void) const
+	void Bind(void)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), _name);
@@ -146,6 +146,13 @@ public:
 			_name
 		));
 	}
+
+	/// Set the renderbuffer storage parameters
+	/**
+	 *  @glsymbols
+	 *  @glfunref{RenderbufferStorage}
+	 */
+	void Storage(const images::ImageSpec& image_spec);
 
 	/// Set the renderbuffer multisample storage parameters
 	/**
@@ -326,6 +333,28 @@ public:
 	}
 };
 
+// syntax-sugar operators
+
+// Bind
+inline DSARenderbufferEXTOps& operator << (
+	DSARenderbufferEXTOps& rbo,
+	RenderbufferTarget target
+)
+{
+	rbo.Bind(target);
+	return rbo;
+}
+
+// Storage
+inline DSARenderbufferEXTOps& operator << (
+	DSARenderbufferEXTOps& rbo,
+	const images::ImageSpec& image_spec
+)
+{
+	rbo.Storage(image_spec);
+	return rbo;
+}
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
 /**
@@ -363,5 +392,9 @@ class ConvertibleObjectBaseOps<DSARenderbufferEXTOps, RenderbufferOps>
 #endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/ext/EXT_direct_state_access/renderbuffer.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

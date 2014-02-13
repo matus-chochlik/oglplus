@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_fog}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -18,6 +18,7 @@
 #include <oglplus/shapes/screen.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
+#include <oglplus/images/image_spec.hpp>
 #include <oglplus/images/checker.hpp>
 #include <oglplus/images/random.hpp>
 
@@ -151,12 +152,10 @@ public:
 		}
 		assert(p == matrix_data.end());
 
-		matrix_buffer.Bind(Buffer::Target::Uniform);
-		Buffer::Data(
-			Buffer::Target::Uniform,
-			matrix_data,
-			BufferUsage::StaticDraw
-		);
+		matrix_buffer
+			<< BufferTarget::Uniform
+			<< BufferUsage::StaticDraw
+			<< matrix_data;
 	}
 
 	Vec3f Position(double t) const
@@ -476,56 +475,31 @@ private:
 public:
 	FogBuffers(void)
 	{
-		Framebuffer::Target fbo_tgt = Framebuffer::Target::Draw;
-		Texture::Target tex_tgt = Texture::Target::Rectangle;
-
 		Texture::Active(1);
-		noise.Bind(tex_tgt);
-
-		Texture::MinFilter(tex_tgt, TextureMinFilter::Linear);
-		Texture::MagFilter(tex_tgt, TextureMagFilter::Linear);
-		Texture::WrapS(tex_tgt, TextureWrap::ClampToEdge);
-		Texture::WrapT(tex_tgt, TextureWrap::ClampToEdge);
-
-		sky_fbo.Bind(fbo_tgt);
-		Framebuffer::AttachTexture(
-			fbo_tgt,
-			FramebufferAttachment::Color,
-			noise,
-			0
-		);
+		noise	<< Texture::Target::Rectangle
+			<< TextureMinFilter::Linear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::ClampToEdge;
 
 		Texture::Active(2);
-		color.Bind(tex_tgt);
-
-		Texture::MinFilter(tex_tgt, TextureMinFilter::Linear);
-		Texture::MagFilter(tex_tgt, TextureMagFilter::Linear);
-		Texture::WrapS(tex_tgt, TextureWrap::ClampToEdge);
-		Texture::WrapT(tex_tgt, TextureWrap::ClampToEdge);
-
-		fog_fbo.Bind(fbo_tgt);
-		Framebuffer::AttachTexture(
-			fbo_tgt,
-			FramebufferAttachment::Color,
-			color,
-			0
-		);
+		color	<< Texture::Target::Rectangle
+			<< TextureMinFilter::Linear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::ClampToEdge;
 
 		Texture::Active(3);
-		depth.Bind(tex_tgt);
+		depth	<< Texture::Target::Rectangle
+			<< TextureMinFilter::Linear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::ClampToEdge;
 
-		Texture::MinFilter(tex_tgt, TextureMinFilter::Linear);
-		Texture::MagFilter(tex_tgt, TextureMagFilter::Linear);
-		Texture::WrapS(tex_tgt, TextureWrap::ClampToEdge);
-		Texture::WrapT(tex_tgt, TextureWrap::ClampToEdge);
 
-		Framebuffer::AttachTexture(
-			fbo_tgt,
-			FramebufferAttachment::Depth,
-			depth,
-			0
-		);
+		sky_fbo	<< Framebuffer::Target::Draw
+			<< FramebufferAttachment::Color << noise;
 
+		fog_fbo	<< Framebuffer::Target::Draw
+			<< FramebufferAttachment::Color << color
+			<< FramebufferAttachment::Depth << depth;
 	}
 
 	void Resize(GLuint new_width, GLuint new_height)
@@ -533,46 +507,29 @@ public:
 		width = new_width;
 		height = new_height;
 
-		Texture::Target tex_tgt = Texture::Target::Rectangle;
-
 		Texture::Active(1);
-		noise.Bind(tex_tgt);
-		Texture::Image2D(
-			tex_tgt,
-			0,
-			PixelDataInternalFormat::Red,
-			width, height,
-			0,
-			PixelDataFormat::Red,
-			PixelDataType::UnsignedByte,
-			nullptr
-		);
+		noise	<< Texture::Target::Rectangle
+			<< images::ImageSpec(
+				width, height,
+				PixelDataFormat::Red,
+				PixelDataType::UnsignedByte
+			);
 
 		Texture::Active(2);
-		color.Bind(tex_tgt);
-		Texture::Image2D(
-			tex_tgt,
-			0,
-			PixelDataInternalFormat::RGB,
-			width, height,
-			0,
-			PixelDataFormat::RGB,
-			PixelDataType::UnsignedByte,
-			nullptr
-		);
+		color	<< Texture::Target::Rectangle
+			<< images::ImageSpec(
+				width, height,
+				PixelDataFormat::RGB,
+				PixelDataType::UnsignedByte
+			);
 
 		Texture::Active(3);
-		depth.Bind(tex_tgt);
-		Texture::Image2D(
-			tex_tgt,
-			0,
-			PixelDataInternalFormat::DepthComponent,
-			width, height,
-			0,
-			PixelDataFormat::DepthComponent,
-			PixelDataType::Float,
-			nullptr
-		);
+		depth	<< Texture::Target::Rectangle
+			<< images::ImageSpec(
+				width, height,
+				PixelDataFormat::DepthComponent,
+				PixelDataType::Float
+			);
 	}
 
 	void BindSkyFBO(void)

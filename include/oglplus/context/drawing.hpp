@@ -355,7 +355,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MultiDrawElements)(
 			GLenum(primitive),
-			count,
+			const_cast<GLsizei*>(count), //TODO: cast because of GLEW
 			GLenum(data_type),
 			nullptr,
 			draw_count
@@ -381,7 +381,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(MultiDrawElements)(
 			GLenum(primitive),
-			count,
+			const_cast<GLsizei*>(count), //TODO: cast because of GLEW
 			GLenum(GetDataType<T>()),
 			indices,
 			draw_count

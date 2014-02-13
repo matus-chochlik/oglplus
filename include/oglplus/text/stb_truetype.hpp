@@ -13,6 +13,10 @@
 #ifndef OGLPLUS_TEXT_STB_TRUETYPE_HPP
 #define OGLPLUS_TEXT_STB_TRUETYPE_HPP
 
+#if !GL_VERSION_3_1
+#error "The STB TrueType text rendering utility requires GL version 3.1"
+#endif
+
 #include <oglplus/config.hpp>
 
 #include <oglplus/text/bitmap_glyph/rendering.hpp>

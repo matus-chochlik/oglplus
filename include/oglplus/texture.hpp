@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -30,6 +30,7 @@
 #include <oglplus/texture_unit.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <oglplus/enumerations.hpp>
+#include <oglplus/one_of.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
@@ -53,6 +54,9 @@ OGLPLUS_ENUM_CLASS_END(TextureTarget)
 #if !OGLPLUS_ENUM_VALUE_RANGES
 #include <oglplus/enums/texture_target_range.ipp>
 #endif
+
+/// Function returning the number of texture dimensions for a texture target
+GLuint TextureTargetDimensions(TextureTarget target);
 
 /// Wrapper for texture and texture unit-related operations
 /** @note Do not use this class directly, use Texture instead.
@@ -153,6 +157,15 @@ public:
 
 		/// Texture wrap mode value
 		typedef TextureWrap Wrap;
+
+		/// The pixel data type
+		typedef OneOf<
+			GLenum,
+			std::tuple<
+				DataType,
+				PixelDataType
+			>
+		> PixDataType;
 	};
 
 	/// Specify active texture unit for subsequent commands
@@ -654,7 +667,7 @@ public:
 		Target target,
 		GLint level,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		GLsizei size,
 		GLvoid* buffer
 	);
@@ -741,7 +754,7 @@ public:
 		GLsizei depth,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -792,7 +805,7 @@ public:
 		GLsizei height,
 		GLsizei depth,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -844,7 +857,7 @@ public:
 		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -892,7 +905,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -941,7 +954,7 @@ public:
 		GLsizei width,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -986,7 +999,7 @@ public:
 		GLint xoffs,
 		GLsizei width,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -1019,6 +1032,34 @@ public:
 		GLint level = 0
 	);
 #endif // GL_VERSION_3_0
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	static void Image(
+		Target target,
+		const images::Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	static void Image(
+		Target target,
+		const images::ImageSpec& image_spec,
+		GLint level = 0,
+		GLint border = 0
+	);
 
 	/// Copies a two dimensional texture image from the framebuffer
 	/**
@@ -1617,7 +1658,130 @@ public:
 	}
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_3 ||GL_ARB_texture_view
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	/// Invalidates the specified level of texture image
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{InvalidateTexImage}
+	 */
+	void InvalidateImage(GLsizei level)
+	{
+		OGLPLUS_GLFUNC(InvalidateTexImage)(_name, level);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			InvalidateTexImage,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+
+	/// Invalidates the specified part of texture image
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{InvalidateTexSubImage}
+	 */
+	void InvalidateSubImage(
+		GLsizei level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth
+	)
+	{
+		OGLPLUS_GLFUNC(InvalidateTexSubImage)(
+			_name,
+			level,
+			xoffs,
+			yoffs,
+			zoffs,
+			width,
+			height,
+			depth
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			InvalidateTexSubImage,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4
+	/// Clears the specified level of texture image
+	/**
+	 *  @glverreq{4,4}
+	 *  @glsymbols
+	 *  @glfunref{ClearTexImage}
+	 */
+	template <typename GLtype>
+	void ClearImage(
+		GLsizei level,
+		PixelDataFormat format,
+		const GLtype* data
+	)
+	{
+		OGLPLUS_GLFUNC(ClearTexImage)(
+			_name,
+			level,
+			GLenum(format),
+			GLenum(GetDataType<GLtype>()),
+			data
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			ClearTexImage,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+
+	/// Clears the specified part of texture image
+	/**
+	 *  @glverreq{4,4}
+	 *  @glsymbols
+	 *  @glfunref{ClearTexSubImage}
+	 */
+	template <typename GLtype>
+	void ClearSubImage(
+		GLsizei level,
+		GLint xoffs,
+		GLint yoffs,
+		GLint zoffs,
+		GLsizei width,
+		GLsizei height,
+		GLsizei depth,
+		PixelDataFormat format,
+		const GLtype* data
+	)
+	{
+		OGLPLUS_GLFUNC(ClearTexImage)(
+			_name,
+			level,
+			xoffs,
+			yoffs,
+			zoffs,
+			width,
+			height,
+			depth,
+			GLenum(format),
+			GLenum(GetDataType<GLtype>()),
+			data
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			ClearTexImage,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_texture_view
 	/// References and reinteprets a subset of the data of another texture
 	/**
 	 *  @glvoereq{4,3,ARB,texture_view}
@@ -2600,6 +2764,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
 	/// Gets the seamless cubemap setting value
 	/**
+	 *  @glextreq{ARB,seamless_cubemap_per_texture}
 	 *  @glsymbols
 	 *  @glfunref{GetTexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
@@ -2614,6 +2779,7 @@ public:
 
 	/// Sets the seamless cubemap setting
 	/**
+	 *  @glextreq{ARB,seamless_cubemap_per_texture}
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
@@ -2669,6 +2835,158 @@ public:
 		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
 	}
 };
+
+/// Selector type used with the syntax sugar operators
+struct TextureMipmap { };
+
+// Helper class for syntax-sugar operators
+struct TextureTargetAndSlot
+{
+	TextureTarget target;
+	GLint slot;
+
+	TextureTargetAndSlot(TextureTarget& t, GLint s)
+	 : target(t)
+	 , slot(s)
+	{ }
+};
+
+// syntax sugar operators
+inline TextureTargetAndSlot operator | (TextureTarget target, GLuint slot)
+{
+	return TextureTargetAndSlot(target, slot);
+}
+
+// Bind
+inline TextureTarget operator << (const TextureOps& tex, TextureTarget target)
+{
+	tex.Bind(target);
+	return target;
+}
+
+// MinFilter
+inline TextureTarget operator << (TextureTarget target, TextureMinFilter filter)
+{
+	TextureOps::MinFilter(target, filter);
+	return target;
+}
+
+// MagFilter
+inline TextureTarget operator << (TextureTarget target, TextureMagFilter filter)
+{
+	TextureOps::MagFilter(target, filter);
+	return target;
+}
+
+// CompareMode
+inline TextureTarget operator << (TextureTarget target, TextureCompareMode mode)
+{
+	TextureOps::CompareMode(target, mode);
+	return target;
+}
+
+// CompareFunc
+inline TextureTarget operator << (TextureTarget target, CompareFunction func)
+{
+	TextureOps::CompareFunc(target, func);
+	return target;
+}
+
+// Wrap
+inline TextureTarget operator << (TextureTarget target, TextureWrap wrap)
+{
+	switch(TextureTargetDimensions(target))
+	{
+		case 3: TextureOps::WrapR(target, wrap);
+		case 2: TextureOps::WrapT(target, wrap);
+		case 1: TextureOps::WrapS(target, wrap);
+		case 0: break;
+		default: assert(!"Invalid texture wrap dimension");
+	}
+	return target;
+}
+
+// Wrap
+inline TextureTargetAndSlot operator << (
+	TextureTargetAndSlot tas,
+	TextureWrap wrap
+)
+{
+	switch(tas.slot)
+	{
+		case 0: TextureOps::WrapS(tas.target, wrap); break;
+		case 1: TextureOps::WrapT(tas.target, wrap); break;
+		case 2: TextureOps::WrapR(tas.target, wrap); break;
+		default: assert(!"Invalid texture wrap slot");
+	}
+	return tas;
+}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+// Swizzle
+inline TextureTarget operator << (TextureTarget target, TextureSwizzle swizzle)
+{
+	TextureOps::SwizzleRGBA(target, swizzle);
+	return target;
+}
+
+// Swizzle
+inline TextureTargetAndSlot operator << (
+	TextureTargetAndSlot tas,
+	TextureSwizzle swizzle
+)
+{
+	switch(tas.slot)
+	{
+		case 0: TextureOps::SwizzleR(tas.target, swizzle); break;
+		case 1: TextureOps::SwizzleG(tas.target, swizzle); break;
+		case 2: TextureOps::SwizzleB(tas.target, swizzle); break;
+		case 3: TextureOps::SwizzleA(tas.target, swizzle); break;
+		default: assert(!"Invalid texture swizzle slot");
+	}
+	return tas;
+}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+// BorderColor
+template <typename T>
+inline TextureTarget operator << (TextureTarget target, const Vector<T, 4>& col)
+{
+	TextureOps::BorderColor(target, col);
+	return target;
+}
+#endif
+
+// Image
+inline TextureTarget operator << (
+	TextureTarget target,
+	const images::Image& image
+)
+{
+	TextureOps::Image(target, image);
+	return target;
+}
+
+// Image
+inline TextureTarget operator << (
+	TextureTarget target,
+	const images::ImageSpec& image_spec
+)
+{
+	TextureOps::Image(target, image_spec);
+	return target;
+}
+
+// GenerateMipmap
+inline TextureTarget operator << (
+	TextureTarget target,
+	TextureMipmap
+)
+{
+	TextureOps::GenerateMipmap(target);
+	return target;
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL texture functionality

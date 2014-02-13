@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -138,11 +138,12 @@ class InputStreamGLSLSrcWrap
  : public GLSLSourceWrapper
 {
 private:
-	GLint _size;
 	std::vector<GLchar> _storage;
 	GLchar* _pdata;
+	GLint _size;
 
 	static GLint _check_and_get_size(std::istream& in);
+	static std::vector<GLchar> _read_data(std::istream&, std::size_t);
 public:
 	InputStreamGLSLSrcWrap(std::istream& input);
 

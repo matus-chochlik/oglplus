@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -51,6 +51,8 @@ find_library(
 )
 if(NOT OPENGL_LIBRARIES)
 	find_library(OPENGL_LIBRARIES NAMES GL OpenGL OpenGL32)
+else()
+	get_filename_component(OPENGL_LIBRARY_DIRS ${OPENGL_LIBRARIES} PATH)
 endif()
 
 #if we have not found the library

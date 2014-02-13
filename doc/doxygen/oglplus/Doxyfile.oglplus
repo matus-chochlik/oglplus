@@ -76,6 +76,7 @@ ALIASES                += glfunref{1}=" <a href='http://www.opengl.org/sdk/docs/
 ALIASES                += gldefref{1}=" <code>GL_\1</code>"
 ALIASES                += glextref{2}=" <a href='http://www.opengl.org/registry/specs/\1/\2.txt'>GL_\1_\2</a>"
 ALIASES                += glverreq{2}=" <em>Requires OpenGL \1.\2.</em>"
+ALIASES                += glextreq{2}=" <em>Requires the <a href='http://www.opengl.org/registry/specs/\1/\2.txt'>GL_\1_\2</a> extension.</em>"
 ALIASES                += glvoereq{4}=" <em>Requires OpenGL \1.\2 or the <a href='http://www.opengl.org/registry/specs/\3/\4.txt'>GL_\3_\4</a> extension.</em>"
 
 HTML_HEADER            = header.html

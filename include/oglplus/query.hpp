@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -122,6 +122,36 @@ public:
 			_name
 		));
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
+	/// Do a counter query on the specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{QueryCounter}
+	 */
+	void Counter(Target target) const
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(QueryCounter)(_name, GLenum(target));
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			QueryCounter,
+			Query,
+			EnumValueName(target),
+			_name
+		));
+	}
+
+	/// Do a timestamp query
+	/**
+	 *  @glsymbols
+	 *  @glfunref{QueryCounter}
+	 *  @gldefref{TIMESTAMP}
+	 */
+	void Timestamp(void) const
+	{
+		Counter(Target::Timestamp);
+	}
+#endif
 
 	/// Returns true if the query result is available
 	/**

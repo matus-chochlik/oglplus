@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_neon}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -215,12 +215,16 @@ public:
 		{
 			vao[b].Bind();
 
-			positions[b].Bind(Buffer::Target::Array);
-			Buffer::Data(Buffer::Target::Array, pos_data, BufferUsage::DynamicDraw);
+			positions[b]
+				<< Buffer::Target::Array
+				<< BufferUsage::DynamicDraw
+				<< pos_data;
 			(prog|"Position").Setup<Vec4f>().Enable();
 
-			velocities[b].Bind(Buffer::Target::Array);
-			Buffer::Data(Buffer::Target::Array, vel_data, BufferUsage::DynamicDraw);
+			velocities[b]
+				<< Buffer::Target::Array
+				<< BufferUsage::DynamicDraw
+				<< vel_data;
 			(prog|"Velocity").Setup<Vec4f>().Enable();
 		}
 		VertexArray::Unbind();
@@ -229,11 +233,13 @@ public:
 			GLuint nb = (b+1)%2;
 			xfb[b].Bind();
 
-			positions[nb].Bind(Buffer::Target::TransformFeedback);
-			positions[nb].BindBase(Buffer::IndexedTarget::TransformFeedback, 0);
+			positions[nb]
+				<< BufferIndexedTarget::TransformFeedback << 0
+				<< BufferTarget::TransformFeedback;
 
-			velocities[nb].Bind(Buffer::Target::TransformFeedback);
-			velocities[nb].BindBase(Buffer::IndexedTarget::TransformFeedback, 1);
+			velocities[nb]
+				<< BufferIndexedTarget::TransformFeedback << 1
+				<< BufferTarget::TransformFeedback;
 		}
 		TransformFeedback::BindDefault();
 
@@ -277,9 +283,9 @@ public:
 		}
 		assert(k == force_data.size());
 
-		forces.Bind(Buffer::Target::Uniform);
-		Buffer::Data(Buffer::Target::Uniform, force_data);
-		forces.BindBase(Buffer::IndexedTarget::Uniform, 0);
+		forces	<< BufferIndexedTarget::Uniform << 0
+			<< BufferTarget::Uniform
+			<< force_data;
 
 		prog.Use();
 		UniformBlock(prog, "ParticleForceBlock").Binding(0);

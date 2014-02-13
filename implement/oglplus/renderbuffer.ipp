@@ -4,10 +4,12 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+
+#include <oglplus/images/image_spec.hpp>
 
 namespace oglplus {
 
@@ -20,6 +22,20 @@ GLenum RenderbufferOps::_binding_query(Target target)
 		default:;
 	}
 	return 0;
+}
+
+OGLPLUS_LIB_FUNC
+void RenderbufferOps::Storage(
+	Target target,
+	const images::ImageSpec& image_spec
+)
+{
+	Storage(
+		target,
+		image_spec.internal_format,
+		image_spec.width,
+		image_spec.height
+	);
 }
 
 } // namespace oglplus

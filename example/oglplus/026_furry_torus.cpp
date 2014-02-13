@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_furry_torus}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -16,8 +16,6 @@
 #include <oglplus/all.hpp>
 
 #include <oglplus/opt/list_init.hpp>
-
-#include <oglplus/bound/texture.hpp>
 
 #include <oglplus/images/load.hpp>
 #include <oglplus/shapes/torus.hpp>
@@ -353,15 +351,13 @@ public:
 	 , curr_vel(0.0)
 	{
 		Texture::Active(0);
-		{
-			auto bound_tex = Bind(fur_tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("zebra_fur"));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		fur_tex	<< Texture::Target::_2D
+			<< TextureMinFilter::LinearMipmapLinear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::Repeat
+			<< images::LoadTexture("zebra_fur")
+			<< TextureMipmap();
+
 		fur_prog.fur_tex = 0;
 		fur_prog.light_position = Vec3f(5.0, 6.0, 4.0);
 

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -105,6 +105,15 @@ public:
 
 		/// Texture wrap mode value
 		typedef TextureWrap Wrap;
+
+		/// The pixel data type
+		typedef OneOf<
+			GLenum,
+			std::tuple<
+				DataType,
+				PixelDataType
+			>
+		> PixDataType;
 	};
 
 	/// Specify active texture unit for subsequent commands
@@ -577,7 +586,7 @@ public:
 	void GetImage(
 		GLint level,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		GLsizei size,
 		GLvoid* buffer
 	) const;
@@ -657,7 +666,7 @@ public:
 		GLsizei depth,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -707,7 +716,7 @@ public:
 		GLsizei height,
 		GLsizei depth,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -752,19 +761,20 @@ public:
 	 *  @glfunref{TexImage2D}
 	 */
 	void Image2D(
+		TextureTarget tex_target,
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
 		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
 		OGLPLUS_GLFUNC(TextureImage2DEXT)(
 			_name,
-			GLenum(target),
+			GLenum(tex_target),
 			level,
 			GLint(internal_format),
 			width,
@@ -782,6 +792,42 @@ public:
 		));
 	}
 
+	void Image2D(
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	)
+	{
+		Image2D(
+			target,
+			level,
+			internal_format,
+			width,
+			height,
+			border,
+			format,
+			type,
+			data
+		);
+	}
+
+	/// Specifies a two dimensional texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage2D}
+	 */
+	void Image2D(
+		TextureTarget tex_target,
+		const images::Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
 	/// Specifies a two dimensional texture image
 	/**
 	 *  @glsymbols
@@ -791,7 +837,10 @@ public:
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
-	);
+	)
+	{
+		Image2D(target, image, level, border);
+	}
 
 	/// Specifies a two dimensional texture sub image
 	/**
@@ -805,7 +854,7 @@ public:
 		GLsizei width,
 		GLsizei height,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -852,7 +901,7 @@ public:
 		GLsizei width,
 		GLint border,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -896,7 +945,7 @@ public:
 		GLint xoffs,
 		GLsizei width,
 		PixelDataFormat format,
-		PixelDataType type,
+		Property::PixDataType type,
 		const void* data
 	)
 	{
@@ -928,6 +977,66 @@ public:
 		GLint xoffs,
 		GLint level = 0
 	);
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	void Image(
+		Target tex_target,
+		const images::Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	void Image(
+		const images::Image& image,
+		GLint level = 0,
+		GLint border = 0
+	)
+	{
+		Image(target, image, level, border);
+	}
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	void Image(
+		Target tex_target,
+		const images::ImageSpec& image_spec,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	/// Specifies a texture image
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexImage3D}
+	 *  @glfunref{TexImage2D}
+	 *  @glfunref{TexImage1D}
+	 */
+	void Image(
+		const images::ImageSpec& image_spec,
+		GLint level = 0,
+		GLint border = 0
+	)
+	{
+		Image(target, image_spec, level, border);
+	}
 
 	/// Copies a two dimensional texture image from the framebuffer
 	/**
@@ -2363,6 +2472,178 @@ public:
 		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
 	}
 };
+
+// Helper class for syntax-sugar operators
+struct DSATextureEXTOpsAndSlot
+{
+	DSATextureEXTOps& tex;
+	GLint slot;
+
+	DSATextureEXTOpsAndSlot(DSATextureEXTOps& t, GLint s)
+	 : tex(t)
+	 , slot(s)
+	{ }
+};
+
+// syntax sugar operators
+inline DSATextureEXTOpsAndSlot operator | (
+	DSATextureEXTOps& tex,
+	GLuint slot
+)
+{
+	return DSATextureEXTOpsAndSlot(tex, slot);
+}
+
+// Bind
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureTarget target
+)
+{
+	tex.Bind(target);
+	return tex;
+}
+
+// MinFilter
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureMinFilter filter
+)
+{
+	tex.MinFilter(filter);
+	return tex;
+}
+
+// MagFilter
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureMagFilter filter
+)
+{
+	tex.MagFilter(filter);
+	return tex;
+}
+
+// CompareMode
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureCompareMode mode
+)
+{
+	tex.CompareMode(mode);
+	return tex;
+}
+
+// CompareFunc
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	CompareFunction func
+)
+{
+	tex.CompareFunc(func);
+	return tex;
+}
+
+// Wrap
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureWrap wrap
+)
+{
+	switch(TextureTargetDimensions(tex.target))
+	{
+		case 3: tex.WrapR(wrap);
+		case 2: tex.WrapT(wrap);
+		case 1: tex.WrapS(wrap);
+		case 0: break;
+		default: assert(!"Invalid texture wrap dimension");
+	}
+	return tex;
+}
+
+// Wrap
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOpsAndSlot tas,
+	TextureWrap wrap
+)
+{
+	switch(tas.slot)
+	{
+		case 0: tas.tex.WrapS(wrap); break;
+		case 1: tas.tex.WrapT(wrap); break;
+		case 2: tas.tex.WrapR(wrap); break;
+		default: assert(!"Invalid texture wrap slot");
+	}
+	return tas.tex;
+}
+
+// Swizzle
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureSwizzle swizzle
+)
+{
+	tex.SwizzleRGBA(swizzle);
+	return tex;
+}
+
+// Swizzle
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOpsAndSlot tas,
+	TextureSwizzle swizzle
+)
+{
+	switch(tas.slot)
+	{
+		case 0: tas.tex.SwizzleR(swizzle); break;
+		case 1: tas.tex.SwizzleG(swizzle); break;
+		case 2: tas.tex.SwizzleB(swizzle); break;
+		case 3: tas.tex.SwizzleA(swizzle); break;
+		default: assert(!"Invalid texture swizzle slot");
+	}
+	return tas.tex;
+}
+
+// BorderColor
+template <typename T>
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	const Vector<T, 4>& col
+)
+{
+	tex.BorderColor(col);
+	return tex;
+}
+
+// Image
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	const images::Image& image
+)
+{
+	tex.Image(image);
+	return tex;
+}
+
+// Image
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	const images::ImageSpec& image_spec
+)
+{
+	tex.Image(image_spec);
+	return tex;
+}
+
+// GenerateMipmaps
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureMipmap
+)
+{
+	tex.GenerateMipmap();
+	return tex;
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL DSA texture functionality

@@ -4,14 +4,14 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_CONTEXT_POLY_RASTERIZE_1201040722_HPP
-#define OGLPLUS_CONTEXT_POLY_RASTERIZE_1201040722_HPP
+#ifndef OGLPLUS_CONTEXT_RASTERIZATION_1201040722_HPP
+#define OGLPLUS_CONTEXT_RASTERIZATION_1201040722_HPP
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
@@ -19,6 +19,7 @@
 #include <oglplus/face_mode.hpp>
 #include <oglplus/polygon_mode.hpp>
 #include <oglplus/provoke_mode.hpp>
+#include <oglplus/vector.hpp>
 
 namespace oglplus {
 namespace context {
@@ -250,6 +251,83 @@ public:
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_PROVOKING_VERTEX, &result);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
 		return ProvokeMode(result);
+	}
+#endif
+	/// Returns the value of sample buffers
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{SAMPLE_BUFFERS}
+	 */
+	static GLint SampleBuffers(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_SAMPLE_BUFFERS, &result);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return result;
+	}
+
+	/// Returns the number of multisampling samples
+	/**
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{SAMPLES}
+	 */
+	static GLint Samples(void)
+	{
+		GLint result;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_SAMPLES, &result);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return result;
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
+	/// Returns the position of the specified multisampling sample
+	/**
+	 *  @glverreq{3,2}
+	 *  @glsymbols
+	 *  @glfunref{GetMultisample}
+	 *  @gldefref{SAMPLE_POSITION}
+	 */
+	static Vec2f SamplePosition(GLuint index)
+	{
+		Vec2f result;
+		OGLPLUS_GLFUNC(GetMultisamplefv)(
+			GL_SAMPLE_POSITION,
+			index,
+			result.Data()
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetMultisamplefv));
+		return result;
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
+	/// Returns the minimal sample shading value
+	/**
+	 *  @glverreq{4,0}
+	 *  @glsymbols
+	 *  @glfunref{Get}
+	 *  @gldefref{MIN_SAMPLE_SHADING_VALUE}
+	 */
+	static GLfloat MinSampleShading(void)
+	{
+		GLfloat result;
+		OGLPLUS_GLFUNC(GetFloatv)(GL_MIN_SAMPLE_SHADING_VALUE, &result);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		return result;
+	}
+
+	/// Sets the multisampling minimal sample shading value
+	/**
+	 *  @glverreq{4,0}
+	 *  @glsymbols
+	 *  @glfunref{MinSampleShading}
+	 */
+	static void MinSampleShading(GLfloat value)
+	{
+		OGLPLUS_GLFUNC(MinSampleShading)(value);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MinSampleShading));
 	}
 #endif
 };

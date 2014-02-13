@@ -31,5 +31,17 @@ add_library(EGL SHARED
 target_link_libraries(EGL ${X11_LIBRARIES})
 target_link_libraries(EGL ${CMAKE_THREAD_LIBS_INIT})
 
+set(EGL_EXT_LIBRARIES "")
+foreach(EXT_LIB ${X11_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+	set(EGL_EXT_LIBRARIES "${EGL_EXT_LIBRARIES} ${EXT_LIB}")
+endforeach()
+
+configure_file(
+	${CMAKE_SOURCE_DIR}/pkgconfig/egl.pc.in
+	${CMAKE_BINARY_DIR}/pkgconfig/egl.pc
+	@ONLY
+)
+
 install(TARGETS EGL LIBRARY DESTINATION lib)
 install(DIRECTORY include/EGL DESTINATION include)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/pkgconfig DESTINATION lib)

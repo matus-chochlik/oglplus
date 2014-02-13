@@ -5,7 +5,7 @@
  *
  *  Automatically generated file, do not edit manually!
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -148,6 +148,7 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 
 	/** Wrapper for Framebuffer::AttachTexture()
 	 *  @see Framebuffer::AttachTexture()
@@ -165,6 +166,7 @@ public:
 			level
 		);
 	}
+#endif // GL_VERSION_3_2
 
 
 	/** Wrapper for Framebuffer::AttachColorTexture()
@@ -265,6 +267,91 @@ public:
 			layer
 		);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+
+	/** Wrapper for Framebuffer::Invalidate()
+	 *  @see Framebuffer::Invalidate()
+	 */
+	void Invalidate(
+		const EnumArray< FramebufferOps::Property::Buffer > & buffers
+	) const
+	{
+		FramebufferOps::Invalidate(
+			this->BindTarget(),
+			buffers
+		);
+	}
+#endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+
+	/** Wrapper for Framebuffer::Invalidate()
+	 *  @see Framebuffer::Invalidate()
+	 */
+	template <typename N>
+	void Invalidate(
+		GLsizei count,
+		const FramebufferOps::Property::Buffer * buffers
+	) const
+	{
+		FramebufferOps::Invalidate(
+			this->BindTarget(),
+			count,
+			buffers
+		);
+	}
+#endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+
+	/** Wrapper for Framebuffer::Invalidate()
+	 *  @see Framebuffer::Invalidate()
+	 */
+	void Invalidate(
+		const EnumArray< FramebufferOps::Property::Buffer > & buffers,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	) const
+	{
+		FramebufferOps::Invalidate(
+			this->BindTarget(),
+			buffers,
+			x,
+			y,
+			width,
+			height
+		);
+	}
+#endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+
+	/** Wrapper for Framebuffer::Invalidate()
+	 *  @see Framebuffer::Invalidate()
+	 */
+	void Invalidate(
+		GLsizei count,
+		const FramebufferOps::Property::Buffer * buffers,
+		GLint x,
+		GLint y,
+		GLsizei width,
+		GLsizei height
+	) const
+	{
+		FramebufferOps::Invalidate(
+			this->BindTarget(),
+			count,
+			buffers,
+			x,
+			y,
+			width,
+			height
+		);
+	}
+#endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
 
 }; // class BoundTemplate

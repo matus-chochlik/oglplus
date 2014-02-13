@@ -102,7 +102,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BindFramebuffer}
 	 */
-	void Bind(void) const
+	void Bind(void)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), _name);
@@ -695,6 +695,68 @@ public:
 		));
 	}
 };
+
+// Helper class for syntax-sugar operators
+struct DSAFramebufferEXTOpsAndAttch
+{
+	typedef DSAFramebufferEXTOps::Property::Attachment Attachment;
+
+	DSAFramebufferEXTOps& fbo;
+	Attachment attachment;
+
+	DSAFramebufferEXTOpsAndAttch(DSAFramebufferEXTOps& f, Attachment a)
+	 : fbo(f)
+	 , attachment(a)
+	{ }
+};
+
+inline DSAFramebufferEXTOpsAndAttch operator << (
+	DSAFramebufferEXTOps& fbo,
+	DSAFramebufferEXTOps::Property::Attachment attch
+)
+{
+	return DSAFramebufferEXTOpsAndAttch(fbo, attch);
+}
+
+// Bind
+inline DSAFramebufferEXTOps& operator << (
+	DSAFramebufferEXTOps& fbo,
+	FramebufferTarget target
+)
+{
+	fbo.Bind(target);
+	return fbo;
+}
+
+// AttachTexture
+inline DSAFramebufferEXTOps& operator << (
+	DSAFramebufferEXTOpsAndAttch&& faa,
+	const DSATextureEXTOps& tex
+)
+{
+	faa.fbo.AttachTexture(faa.attachment, tex, 0);
+	return faa.fbo;
+}
+
+// AttachRenderbuffer
+inline DSAFramebufferEXTOps& operator << (
+	DSAFramebufferEXTOpsAndAttch&& faa,
+	const DSARenderbufferEXTOps& rbo
+)
+{
+	faa.fbo.AttachRenderbuffer(faa.attachment, rbo);
+	return faa.fbo;
+}
+
+// Complete
+inline DSAFramebufferEXTOps& operator << (
+	DSAFramebufferEXTOps& fbo,
+	FramebufferComplete
+)
+{
+	fbo.Complete();
+	return fbo;
+}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
