@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -65,7 +65,7 @@ function(gl_feature_detection GL_LIB QUERY QUERY_KIND)
 		RUNS_WITH_${GL_LIB}_${QUERY} COMPILED_WITH_${GL_LIB}_${QUERY}
 		"${PROJECT_BINARY_DIR}/gl"
 		"${PROJECT_BINARY_DIR}/gl/has_${GL_LIB}_${QUERY}.cpp"
-		COMPILE_DEFINITIONS ${OGLPLUS_CPP11_COMPILER_SWITCH}
+		COMPILE_DEFINITIONS ${OGLPLUS_CPP_STD_COMPILER_SWITCH}
 		CMAKE_FLAGS
 			"-DINCLUDE_DIRECTORIES:STRING=${OGLPLUS_CONFIG_REQUIRED_INCLUDE_DIRS} "
 			"-DLIBRARY_DIRECTORIES:STRING=${OGLPLUS_CONFIG_REQUIRED_LIBRARY_DIRS} "
