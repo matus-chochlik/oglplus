@@ -1,5 +1,5 @@
 /**
- *  Copyright 2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2013-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -7,6 +7,8 @@
 #include <jni.h>
 
 #include <GLES3/gl3.h>
+
+#include <sstream>
 
 #define OGLPLUS_NO_SITE_CONFIG 1
 #include <oglplus/all.hpp>
@@ -34,6 +36,7 @@ private:
 		oglplus::FragmentShader fs;
 		fs.Source(
 			"#version 300 es\n"
+			"precision highp float;"
 			"out vec3 fragColor;"
 			"void main(void)"
 			"{"
@@ -95,22 +98,74 @@ TriangleExample* example = nullptr;
 
 
 // ------ JNI ------
+
+void ExampleFormatErrorMessage(
+	oglplus::Error& error,
+	std::ostream& output
+)
+{
+	output	<< "'" << error.what()
+		<< "' in '"
+		<< error.GLSymbol()
+		<< "' at ["
+		<< error.File()
+		<< ":"
+		<< error.Line()
+		<< "]"
+		<< std::endl;
+}
+
+void ExampleThrowError(
+	JNIEnv* env,
+	const char* message
+)
+{
+	if(env)
+	{
+		if(jclass ecls = env->FindClass("java/lang/RuntimeException"))
+		{
+			env->ThrowNew(ecls, message);
+		}
+	}
+}
+
 extern "C" {
 
 JNIEXPORT void JNICALL
-Java_org_oglplus_android_001_triangle_ExampleLib_init(
-	JNIEnv* /*env*/,
-	jobject /*obj*/
+Java_org_oglplus_triangle_ExampleLib_init(
+	JNIEnv* env,
+	jclass /*cls*/
 )
 {
 	if(example) delete example;
-	example = new TriangleExample();
+	try
+	{
+		example = new TriangleExample();
+	}
+	catch(oglplus::ProgramBuildError& pbe)
+	{
+		std::stringstream msg;
+		ExampleFormatErrorMessage(pbe, msg);
+		msg << "Build log: " << std::endl;
+		msg << pbe.Log() << std::endl;
+		ExampleThrowError(env, msg.str().c_str());
+	}
+	catch(oglplus::Error& oe)
+	{
+		std::stringstream msg;
+		ExampleFormatErrorMessage(oe, msg);
+		ExampleThrowError(env, msg.str().c_str());
+	}
+	catch(std::exception& se)
+	{
+		ExampleThrowError(env, se.what());
+	}
 }
 
 JNIEXPORT void JNICALL
-Java_org_oglplus_android_001_triangle_ExampleLib_resize(
+Java_org_oglplus_triangle_ExampleLib_resize(
 	JNIEnv* /*env*/,
-	jobject /*obj*/,
+	jclass /*cls*/,
 	jint width,
 	jint height
 )
@@ -119,9 +174,10 @@ Java_org_oglplus_android_001_triangle_ExampleLib_resize(
 }
 
 JNIEXPORT void JNICALL
-Java_org_oglplus_android_001_triangle_ExampleLib_step(
+Java_org_oglplus_triangle_ExampleLib_step(
 	JNIEnv* /*env*/,
-	jobject /*obj*/)
+	jclass /*cls*/
+)
 {
 	if(example) example->Render();
 }
