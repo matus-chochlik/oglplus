@@ -117,8 +117,8 @@
 							<li id="oglplus-tutorials"><a href="oglplus/html/oglplus_tutorials.html">Tutorials</a></li>
 							<li id="other-resources">Other resources
 							<ul>
-								<li><a href="http://science.webhostinggeeks.com/c-omot-za-opengl">Serbo-Croatian translation</a> (by Anja Skrba at <a href="http://webhostinggeeks.com/"> Webhostinggeeks.com</a>)</li>
-								<li><a href="http://onlygraphix.com/2014/01/18/oglplus-tutorialdeferred-renderer/">Tutorial: Deferred renderer</a> (by Michael Ivanov at <a href="http://onlygraphix.com/">http://onlygraphix.com/</a>)</li>
+								<li><a href="http://science.webhostinggeeks.com/c-omot-za-opengl" title="by Anja Skrba at Webhostinggeeks.com">Serbo-Croatian translation</a> by Anja Skrba</li>
+								<li><a href="http://onlygraphix.com/2014/01/18/oglplus-tutorialdeferred-renderer/" title="by Michael Ivanov at http://onlygraphix.com/">Tutorial: Deferred renderer</a> by Michael Ivanov</li>
 							</ul>
 							</li>
 						</ul>
@@ -231,7 +231,7 @@
 		</div>
 	</div>
 	<div id="footer">
-		<em>Copyright &copy; 2008-2013</em> <strong>Matúš Chochlík</strong>, Žilina, Slovakia.<br/>
+		<em>Copyright &copy; 2008-2014</em> <strong>Matúš Chochlík</strong>, Žilina, Slovakia.<br/>
 		&lt;<a href="mailto:matus.chochlik@fri.uniza.sk">matus.chochlik -at- fri.uniza.sk</a>&gt;
 		&lt;<a href="mailto:chochlik@gmail.com">chochlik -at -gmail.com</a>&gt;<br/>
 
