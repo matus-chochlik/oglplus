@@ -115,9 +115,10 @@
 							<li id="oglplus-latest-doc"><a href="http://kifri.fri.uniza.sk/~chochlik/oglplus/html/index.html">Latest documentation</a></li>
 							<li id="oglplus-examples"><a href="oglplus/html/examples.html">Examples</a></li>
 							<li id="oglplus-tutorials"><a href="oglplus/html/oglplus_tutorials.html">Tutorials</a></li>
-							<li id="translations">Translations
+							<li id="other-resources">Other resources
 							<ul>
-								<li><a href="http://science.webhostinggeeks.com/c-omot-za-opengl">Serbo-Croatian</a> (by Anja Skrba from <a href="http://webhostinggeeks.com/"> Webhostinggeeks.com</a>)</li>
+								<li><a href="http://science.webhostinggeeks.com/c-omot-za-opengl">Serbo-Croatian translation</a> (by Anja Skrba at <a href="http://webhostinggeeks.com/"> Webhostinggeeks.com</a>)</li>
+								<li><a href="http://onlygraphix.com/2014/01/18/oglplus-tutorialdeferred-renderer/">Tutorial: Deferred renderer</a> (by Michael Ivanov at <a href="http://onlygraphix.com/">http://onlygraphix.com/</a>)</li>
 							</ul>
 							</li>
 						</ul>
