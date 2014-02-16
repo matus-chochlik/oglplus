@@ -2,13 +2,13 @@
  *  @example oalplus/002_hello_path.cpp
  *  @brief Shows the basic usage of OALplus by playing a sound
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oalplus_example_uses_cxx11{THREADS}
- *  @oalplus_example_uses_cxx11{CHRONO}
- *  @oalplus_example_uses_cxx11{INITIALIZER_LISTS}
+ *  @oalplus_example_uses_cpp_feat{THREADS}
+ *  @oalplus_example_uses_cpp_feat{CHRONO}
+ *  @oalplus_example_uses_cpp_feat{INITIALIZER_LISTS}
  */
 
 #include <oalplus/al.hpp>

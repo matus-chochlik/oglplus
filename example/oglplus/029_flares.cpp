@@ -10,7 +10,7 @@
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
  *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects;GL_EXT_direct_state_access}
- *  @oglplus_example_uses_cxx11{SCOPED_ENUMS}
+ *  @oglplus_example_uses_cpp_feat{SCOPED_ENUMS}
  *
  *  @oglplus_example_uses_texture{flare_1}
  */

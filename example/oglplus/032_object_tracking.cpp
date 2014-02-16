@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{032_object_tracking}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -13,7 +13,7 @@
  *  @oglplus_example_uses_font{FreeSans}
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
  *  @oglplus_example_uses_gl{GL_ARB_transform_feedback2}
- *  @oglplus_example_uses_cxx11{UNICODE_LITERALS}
+ *  @oglplus_example_uses_cpp_feat{UNICODE_LITERALS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
