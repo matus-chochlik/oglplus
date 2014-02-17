@@ -8,16 +8,15 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_cpp_feat{SCOPED_ENUMS}
  *  @oglplus_example_uses_gl{GL_VERSION_3_2}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/torus.hpp>
-#include <oglplus/bound/texture.hpp>
-#include <oglplus/bound/framebuffer.hpp>
-#include <oglplus/bound/renderbuffer.hpp>
+#include <oglplus/texture_dsa.hpp>
+#include <oglplus/framebuffer_dsa.hpp>
+#include <oglplus/renderbuffer_dsa.hpp>
 
 #include <cmath>
 
@@ -63,11 +62,11 @@ private:
 	Buffer torus_verts, torus_normals, torus_texcoords;
 
 	/// The FBO and RBO for offscreen rendering
-	AutoBind<Framebuffer> fbo;
-	AutoBind<Renderbuffer> rbo;
+	DSAFramebuffer fbo;
+	DSARenderbuffer rbo;
 
 	// The dynamically rendered texture
-	AutoBind<Texture> tex;
+	DSATexture tex;
 	GLuint tex_side;
 
 	GLuint width, height;
@@ -87,9 +86,9 @@ public:
 	 , cube_projection_matrix(cube_prog, "ProjectionMatrix")
 	 , cube_camera_matrix(cube_prog, "CameraMatrix")
 	 , cube_model_matrix(cube_prog, "ModelMatrix")
-	 , fbo(Framebuffer::Target::Draw)
-	 , rbo(Renderbuffer::Target::Renderbuffer)
-	 , tex(Texture::Target::_2D, 0)
+	 , fbo()
+	 , rbo()
+	 , tex()
 	 , tex_side(512)
 	 , width(tex_side)
 	 , height(tex_side)
@@ -233,6 +232,7 @@ public:
 
 		Uniform<Vec3f>(torus_prog, "LightPos").Set(2.0f, 3.0f, 4.0f);
 
+		tex.Bind(TextureTarget::_2D);
 		tex.Image2D(
 			0,
 			PixelDataInternalFormat::RGBA,
@@ -247,11 +247,14 @@ public:
 		tex.WrapS(TextureWrap::Repeat);
 		tex.WrapT(TextureWrap::Repeat);
 
+		rbo.Bind(RenderbufferTarget::Renderbuffer);
 		rbo.Storage(
 			PixelDataInternalFormat::DepthComponent,
 			tex_side,
 			tex_side
 		);
+
+		fbo.Bind(FramebufferTarget::Draw);
 		fbo.AttachTexture(
 			FramebufferAttachment::Color,
 			tex,
