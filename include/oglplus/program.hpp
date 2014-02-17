@@ -1005,13 +1005,112 @@ class Program
 typedef Object<ProgramOps> Program;
 #endif
 
-inline const ProgramOps& operator << (
-	const ProgramOps& program,
+// syntax-sugar operators
+
+inline ProgramOps& operator << (
+	ProgramOps& program,
 	const Shader& shader
 )
 {
-	return program.AttachShader(shader);
+	program.AttachShader(shader);
+	return program;
 }
+
+struct ProgAndXFBMode
+{
+	ProgramOps& prog;
+	TransformFeedbackMode mode;
+
+	ProgAndXFBMode(ProgramOps& p, TransformFeedbackMode m)
+	 : prog(p)
+	 , mode(m)
+	{ }
+};
+
+inline ProgAndXFBMode operator << (
+	ProgramOps& prog,
+	TransformFeedbackMode mode
+)
+{
+	return ProgAndXFBMode(prog, mode);
+}
+
+template <std::size_t N>
+inline ProgramOps& operator << (
+	ProgAndXFBMode pam,
+	const GLchar* (&varyings)[N]
+)
+{
+	pam.prog.TransformFeedbackVaryings(varyings, pam.mode);
+	return pam.prog;
+}
+
+struct ProgXFBModeAndNames
+{
+	ProgramOps& prog;
+	TransformFeedbackMode mode;
+	std::vector<const GLchar*> names;
+
+	ProgXFBModeAndNames(ProgAndXFBMode pam, const GLchar* name)
+	 : prog(pam.prog)
+	 , mode(pam.mode)
+	{
+		names.reserve(8);
+		names.push_back(name);
+	}
+
+	ProgXFBModeAndNames(ProgXFBModeAndNames&& pman, const GLchar* name)
+	 : prog(pman.prog)
+	 , mode(pman.mode)
+	 , names(std::move(pman.names))
+	{
+		names.push_back(name);
+	}
+
+	ProgXFBModeAndNames(ProgXFBModeAndNames&& tmp)
+	 : prog(tmp.prog)
+	 , mode(tmp.mode)
+	 , names(std::move(tmp.names))
+	{ }
+
+
+#if !OGLPLUS_NO_DELETED_FUNCTIONS
+	ProgXFBModeAndNames(const ProgXFBModeAndNames&) = delete;
+#else
+private:
+	ProgXFBModeAndNames(const ProgXFBModeAndNames&);
+public:
+#endif
+
+	~ProgXFBModeAndNames(void)
+	{
+		if(!names.empty())
+		{
+			prog.TransformFeedbackVaryings(
+				names.size(),
+				names.data(),
+				mode
+			);
+		}
+	}
+};
+
+inline ProgXFBModeAndNames operator << (
+	ProgAndXFBMode pam,
+	const GLchar* name
+)
+{
+	return ProgXFBModeAndNames(pam, name);
+}
+
+inline ProgXFBModeAndNames operator << (
+	ProgXFBModeAndNames&& pman,
+	const GLchar* name
+)
+{
+	return ProgXFBModeAndNames(std::move(pman), name);
+}
+
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 /// A standalone program with a single shader of a specified type from GLSL source

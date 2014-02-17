@@ -122,10 +122,11 @@ private:
 			"	xfbPosition = vec4(Position + xfbVelocity.xyz * Interval, Time);"
 			"}"
 		).Compile();
-		prog.AttachShader(xfbs);
 
-		const GLchar* var_names[2] = {"xfbPosition", "xfbVelocity"};
-		prog.TransformFeedbackVaryings(var_names, TransformFeedbackMode::SeparateAttribs);
+		prog	<< xfbs
+			<< TransformFeedbackMode::SeparateAttribs
+			<< "xfbPosition"
+			<< "xfbVelocity";
 
 		prog.Link().Use();
 
