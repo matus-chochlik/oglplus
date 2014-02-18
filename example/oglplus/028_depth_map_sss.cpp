@@ -267,8 +267,7 @@ public:
 		ProgramUniformSampler(prog, "DepthMap").Set(tex_unit);
 
 		tex	<< Texture::Target::_2D
-			<< TextureMinFilter::Nearest
-			<< TextureMagFilter::Nearest
+			<< TextureFilter::Nearest
 			<< TextureWrap::ClampToEdge
 			<< images::ImageSpec(
 				side, side,

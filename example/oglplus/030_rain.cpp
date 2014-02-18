@@ -170,8 +170,7 @@ public:
 			Texture::Active(first_tex_unit+i);
 			height_maps[i]
 				<< Texture::Target::_2D
-				<< TextureMinFilter::Nearest
-				<< TextureMagFilter::Nearest
+				<< TextureFilter::Nearest
 				<< TextureWrap::Repeat
 				<< images::ImageSpec(
 					ripple_tex_size,
@@ -184,8 +183,7 @@ public:
 		Texture::Active(first_tex_unit+nhm);
 		bump_map
 			<< Texture::Target::_2D
-			<< TextureMinFilter::Linear
-			<< TextureMagFilter::Linear
+			<< TextureFilter::Linear
 			<< TextureWrap::Repeat
 			<< images::ImageSpec(
 				ripple_tex_size,
@@ -477,8 +475,7 @@ public:
 		Texture::Active(_tex_unit);
 
 		*this	<< Texture::Target::CubeMap
-			<< TextureMinFilter::Linear
-			<< TextureMagFilter::Linear
+			<< TextureFilter::Linear
 			<< TextureWrap::ClampToEdge;
 
 		Texture::CubeMapFace(0) <<

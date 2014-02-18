@@ -197,8 +197,7 @@ public:
 		ProgramUniformSampler(screen_prog, "Palette").Set(0);
 		Texture::Active(0);
 		palette	<< Texture::Target::_1D
-			<< TextureMinFilter::Nearest
-			<< TextureMagFilter::Nearest
+			<< TextureFilter::Nearest
 			<< TextureWrap::ClampToEdge
 			<< images::LinearGradient(
 				16,
