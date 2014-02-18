@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -257,7 +257,7 @@ public:
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Division by constant
-	friend Angle Divide(const Angle& a, T div)
+	friend Angle Divide(const Angle& a, T div);
 #endif
 
 	static Angle Divided(const Angle& a, T div)
@@ -277,6 +277,23 @@ public:
 	{
 		*this = Divided(*this, div);
 		return *this;
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY
+	/// Angle ratio
+	friend T Ratio(const Angle& a, const Angle& b);
+#endif
+
+	static T Ratio(const Angle& a, const Angle& b)
+	{
+		assert(b._val_rad != T(0));
+		return a._val_rad / b._val_rad;
+	}
+
+	/// Ratio operator
+	friend T operator / (const Angle& a, const Angle& b)
+	{
+		return Ratio(a, b);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -341,6 +358,12 @@ template <typename T>
 inline Angle<T> Divide(const Angle<T>& a, T v)
 {
 	return Angle<T>::Divided(a, v);
+}
+
+template <typename T>
+inline T Ratio(const Angle<T>& a, const Angle<T>& b)
+{
+	return Angle<T>::Ratio(a, b);
 }
 
 template <typename T>
