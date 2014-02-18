@@ -126,52 +126,17 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{AttachShader}
 	 */
-	const ProgramOps& AttachShader(const ShaderOps& shader) const
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(AttachShader)(
-			_name,
-			FriendOf<ShaderOps>::GetName(shader)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			AttachShader,
-			Program,
-			nullptr,
-			_name
-		));
-		return *this;
-	}
+	ProgramOps& AttachShader(const ShaderOps& shader);
 
-	const ProgramOps& AttachShaders(const Group<Shader>& shaders) const
-	{
-		for(std::size_t i=0, n=shaders.size(); i!=n; ++i)
-		{
-			this->AttachShader(shaders[i]);
-		}
-		return *this;
-	}
+	/// Attaches a group of shaders to this program
+	ProgramOps& AttachShaders(const Group<Shader>& shaders);
 
-
-	/// Detaches the shader to this program
+	/// Detaches the shader from this program
 	/**
 	 *  @glsymbols
 	 *  @glfunref{DetachShader}
 	 */
-	const ProgramOps& DetachShader(const ShaderOps& shader) const
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(DetachShader)(
-			_name,
-			FriendOf<ShaderOps>::GetName(shader)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			DetachShader,
-			Program,
-			nullptr,
-			_name
-		));
-		return *this;
-	}
+	ProgramOps& DetachShader(const ShaderOps& shader);
 
 	/// Returns true if the program is already linked, false otherwise
 	/**
@@ -211,22 +176,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	const ProgramOps& Link(void) const
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(LinkProgram)(_name);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			LinkProgram,
-			Program,
-			nullptr,
-			_name
-		));
-		if(OGLPLUS_IS_ERROR(!IsLinked()))
-		{
-			HandleLinkError();
-		}
-		return *this;
-	}
+	ProgramOps& Link(void);
 
 	/// Returns true if the program is validated, false otherwise
 	/**
@@ -252,30 +202,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	const ProgramOps& Validate(void) const
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(ValidateProgram)(_name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			ValidateProgram,
-			Program,
-			nullptr,
-			_name
-		));
-		if(OGLPLUS_IS_ERROR(!IsValid()))
-		{
-			HandleBuildError<ValidationError>(
-				GetInfoLog(),
-				OGLPLUS_OBJECT_ERROR_INFO(
-					ValidateProgram,
-					Program,
-					nullptr,
-					_name
-				)
-			);
-		}
-		return *this;
-	}
+	ProgramOps& Validate(void);
 
 	/// Uses this shading language program
 	/**
@@ -313,6 +240,55 @@ public:
 		OGLPLUS_GLFUNC(UseProgram)(0);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgram));
 	}
+
+	/// Sets the variables that will be captured during transform feedback
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TransformFeedbackVaryings}
+	 */
+	void TransformFeedbackVaryings(
+		GLsizei count,
+		const GLchar** varyings,
+		TransformFeedbackMode mode
+	);
+
+	/// Sets the variable that will be captured during transform feedback
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TransformFeedbackVaryings}
+	 */
+	void TransformFeedbackVarying(const GLchar* varying)
+	{
+		TransformFeedbackVaryings(
+			1, &varying,
+			TransformFeedbackMode::SeparateAttribs
+		);
+	}
+
+	template <typename std::size_t N>
+	void TransformFeedbackVaryings(
+		const GLchar* (&varyings)[N],
+		TransformFeedbackMode mode
+	)
+	{
+		TransformFeedbackVaryings(N, varyings, mode);
+	}
+
+	/// Sets the variables that will be captured during transform feedback
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TransformFeedbackVaryings}
+	 */
+	void TransformFeedbackVaryings(
+		const std::vector<String>& varyings,
+		TransformFeedbackMode mode
+	) const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Information about a single active vertex attribute or uniform
@@ -403,22 +379,7 @@ public:
 	{
 		std::vector<GLuint> _shader_names;
 
-		ShaderIterationContext(GLuint name, GLuint count)
-		 : _shader_names(count)
-		{
-			OGLPLUS_GLFUNC(GetAttachedShaders)(
-				name,
-				_shader_names.size(),
-				nullptr,
-				_shader_names.data()
-			);
-			OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-				GetAttachedShaders,
-				Program,
-				nullptr,
-				name
-			));
-		};
+		ShaderIterationContext(GLuint name, GLuint count);
 
 		ShaderIterationContext(ShaderIterationContext&& temp)
 		 : _shader_names(std::move(temp._shader_names))
@@ -447,23 +408,7 @@ public:
 	/**
 	 *  @see ActiveResources
 	 */
-	InterfaceContext ActiveResourceContext(ProgramInterface intf) const
-	{
-		// get the maximum string length of the longest identifier
-		GLint length = 0;
-		OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
-			_name,
-			GLenum(intf),
-			GL_MAX_NAME_LENGTH,
-			&length
-		);
-		// for some interfaces the call above is not applicable
-		// so GetError may return INVALID_OPERATION and we
-		// silently ignore it here
-		OGLPLUS_GLFUNC(GetError)();
-
-		return InterfaceContext(_name, length, GLenum(intf));
-	}
+	InterfaceContext ActiveResourceContext(ProgramInterface intf) const;
 
 	/// Returns a range allowing to do the traversal of interface's resources
 	/** This instance of Program must be kept alive during the whole
@@ -475,33 +420,14 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	ActiveResourceRange ActiveResources(ProgramInterface intf) const
-	{
-		// get the count of active attributes
-		GLint count = 0;
-		OGLPLUS_GLFUNC(GetProgramInterfaceiv)(
-			_name,
-			GLenum(intf),
-			GL_ACTIVE_RESOURCES,
-			&count
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramInterfaceiv));
-
-		return ActiveResourceRange(ActiveResourceContext(intf), count);
-	}
+	ActiveResourceRange ActiveResources(ProgramInterface intf) const;
 #endif
 
 	/// Returns the context for traversal of Program's active vertex attributes
 	/**
 	 *  @see ActiveAttribs
 	 */
-	InterfaceContext ActiveAttribContext(void) const
-	{
-		return InterfaceContext(
-			_name,
-			GetIntParam(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH)
-		);
-	}
+	InterfaceContext ActiveAttribContext(void) const;
 
 	/// Returns a range allowing to do the traversal of active attributes
 	/** This instance of Program must be kept alive during the whole
@@ -510,25 +436,13 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	ActiveAttribRange ActiveAttribs(void) const
-	{
-		return ActiveAttribRange(
-			ActiveAttribContext(),
-			GetIntParam(GL_ACTIVE_ATTRIBUTES)
-		);
-	}
+	ActiveAttribRange ActiveAttribs(void) const;
 
 	/// Returns the context for traversal of Program's active uniforms
 	/**
 	 *  @see ActiveUniforms
 	 */
-	InterfaceContext ActiveUniformContext(void) const
-	{
-		return InterfaceContext(
-			_name,
-			GetIntParam(GL_ACTIVE_UNIFORM_MAX_LENGTH)
-		);
-	}
+	InterfaceContext ActiveUniformContext(void) const;
 
 	/// Returns a range allowing to do the traversal of active uniforms
 	/** This instance of Program must be kept alive during the whole
@@ -537,13 +451,7 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	ActiveUniformRange ActiveUniforms(void) const
-	{
-		return ActiveUniformRange(
-			ActiveUniformContext(),
-			GetIntParam(GL_ACTIVE_UNIFORMS)
-		);
-	}
+	ActiveUniformRange ActiveUniforms(void) const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
 
@@ -551,17 +459,7 @@ public:
 	/**
 	 *  @see ActiveSubroutines
 	 */
-	InterfaceContext ActiveSubroutineContext(ShaderType stage) const
-	{
-		return InterfaceContext(
-			_name,
-			GetStageIntParam(
-				GLenum(stage),
-				GL_ACTIVE_SUBROUTINE_MAX_LENGTH
-			),
-			GLenum(stage)
-		);
-	}
+	InterfaceContext ActiveSubroutineContext(ShaderType stage) const;
 
 	/// Returns a range allowing to do the traversal of subroutines
 	/** This instance of Program must be kept alive during the whole
@@ -572,32 +470,13 @@ public:
 	 *
 	 *  @glvoereq{4,0,ARB,shader_subroutine}
 	 */
-	ActiveSubroutineRange ActiveSubroutines(ShaderType stage) const
-	{
-		return ActiveSubroutineRange(
-			ActiveSubroutineContext(stage),
-			GetStageIntParam(
-				GLenum(stage),
-				GL_ACTIVE_SUBROUTINES
-			)
-		);
-	}
+	ActiveSubroutineRange ActiveSubroutines(ShaderType stage) const;
 
 	/// Returns the context for traversal of Program's active subr. uniforms
 	/**
 	 *  @see ActiveSubroutineUniforms
 	 */
-	InterfaceContext ActiveSubroutineUniformContext(ShaderType stage) const
-	{
-		return InterfaceContext(
-			_name,
-			GetStageIntParam(
-				GLenum(stage),
-				GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH
-			),
-			GLenum(stage)
-		);
-	}
+	InterfaceContext ActiveSubroutineUniformContext(ShaderType stage) const;
 
 	/// Returns a range allowing to do the traversal of subroutine uniforms
 	/** This instance of Program must be kept alive during the whole
@@ -608,29 +487,14 @@ public:
 	 *
 	 *  @glvoereq{4,0,ARB,shader_subroutine}
 	 */
-	ActiveSubroutineUniformRange ActiveSubroutineUniforms(ShaderType stage) const
-	{
-		return ActiveSubroutineUniformRange(
-			ActiveSubroutineUniformContext(stage),
-			GetStageIntParam(
-				GLenum(stage),
-				GL_ACTIVE_SUBROUTINE_UNIFORMS
-			)
-		);
-	}
+	ActiveSubroutineUniformRange ActiveSubroutineUniforms(ShaderType stage) const;
 #endif
 
 	/// Returns the context for traversal of Program's active TFB varyings
 	/**
 	 *  @see TransformFeedbackVaryings
 	 */
-	InterfaceContext TransformFeedbackVaryingContext(void) const
-	{
-		return InterfaceContext(
-			_name,
-			GetIntParam(GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH)
-		);
-	}
+	InterfaceContext TransformFeedbackVaryingContext(void) const;
 
 	/// Returns a range allowing to do the traversal of feedback varyings
 	/** This instance of Program must be kept alive during the whole
@@ -639,86 +503,10 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	TransformFeedbackVaryingRange TransformFeedbackVaryings(void) const
-	{
-		return TransformFeedbackVaryingRange(
-			TransformFeedbackVaryingContext(),
-			GetIntParam(GL_TRANSFORM_FEEDBACK_VARYINGS)
-		);
-	}
+	TransformFeedbackVaryingRange TransformFeedbackVaryings(void) const;
 
 	/// Returns a range allowing to traverse shaders attached to this program
-	ShaderRange AttachedShaders(void) const
-	{
-		GLint count = GetIntParam(GL_ATTACHED_SHADERS);
-		return ShaderRange(
-			ShaderIterationContext(_name, count),
-			0, count
-		);
-	}
-
-	/// Sets the variables that will be captured during transform feedback
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{TransformFeedbackVaryings}
-	 */
-	void TransformFeedbackVaryings(
-		GLsizei count,
-		const GLchar** varyings,
-		TransformFeedbackMode mode
-	) const
-	{
-		OGLPLUS_GLFUNC(TransformFeedbackVaryings)(
-			_name,
-			count,
-			varyings,
-			GLenum(mode)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TransformFeedbackVaryings,
-			Program,
-			nullptr,
-			_name
-		));
-	}
-
-	/// Sets the variable that will be captured during transform feedback
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{TransformFeedbackVaryings}
-	 */
-	void TransformFeedbackVarying(const GLchar* varying) const
-	{
-		TransformFeedbackVaryings(
-			1, &varying,
-			TransformFeedbackMode::SeparateAttribs
-		);
-	}
-
-	template <typename std::size_t N>
-	void TransformFeedbackVaryings(
-		const GLchar* (&varyings)[N],
-		TransformFeedbackMode mode
-	) const
-	{
-		TransformFeedbackVaryings(N, varyings, mode);
-	}
-
-	/// Sets the variables that will be captured during transform feedback
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{TransformFeedbackVaryings}
-	 */
-	void TransformFeedbackVaryings(
-		const std::vector<String>& varyings,
-		TransformFeedbackMode mode
-	) const;
+	ShaderRange AttachedShaders(void) const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 	/// Information about a active uniform block
@@ -754,21 +542,7 @@ public:
 	 *
 	 *  @throws Error
 	 */
-	ActiveUniformBlockRange ActiveUniformBlocks(void) const
-	{
-		// get the count of active uniform blocks
-		GLint count = GetIntParam(GL_ACTIVE_UNIFORM_BLOCKS);
-		GLint length = 0;
-		if(count != 0)
-		{
-			// get the string length of the first identifier
-			length = GetIntParam(GL_UNIFORM_BLOCK_NAME_LENGTH);
-		}
-		return ActiveUniformBlockRange(
-			aux::ProgramInterfaceContext(_name, length),
-			0, count
-		);
-	}
+	ActiveUniformBlockRange ActiveUniformBlocks(void) const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	/// Makes this program separable
@@ -777,22 +551,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	const ProgramOps& MakeSeparable(bool para = true) const
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(ProgramParameteri)(
-			_name,
-			GL_PROGRAM_SEPARABLE,
-			para ? GL_TRUE : GL_FALSE
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			ProgramParameteri,
-			Program,
-			nullptr,
-			_name
-		));
-		return *this;
-	}
+	ProgramOps& MakeSeparable(bool para = true);
 #endif // separate shader objects
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_get_program_binary
@@ -804,22 +563,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	const ProgramOps& MakeRetrievable(bool para = true) const
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(ProgramParameteri)(
-			_name,
-			GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
-			para ? GL_TRUE : GL_FALSE
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			ProgramParameteri,
-			Program,
-			nullptr,
-			_name
-		));
-		return *this;
-	}
+	ProgramOps& MakeRetrievable(bool para = true);
 
 	/// Returns this programs binary representation
 	/**
@@ -843,22 +587,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramBinary}
 	 */
-	void Binary(const std::vector<GLubyte>& binary, GLenum format) const
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(ProgramBinary)(
-			_name,
-			format,
-			binary.data(),
-			binary.size()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			ProgramBinary,
-			Program,
-			nullptr,
-			_name
-		));
-	}
+	void Binary(const std::vector<GLubyte>& binary, GLenum format);
 #endif // get program binary
 
 	/// Returns the transform feedback buffer mode
@@ -1128,37 +857,9 @@ private:
 		ShaderType shader_type,
 		GLsizei count,
 		const GLchar** strings
-	)
-	{
-		GLuint program = OGLPLUS_GLFUNC(CreateShaderProgramv)(
-			GLenum(shader_type),
-			count,
-			strings
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			CreateShaderProgramv,
-			Program,
-			nullptr,
-			program
-		));
-		return program;
-	}
+	);
 
-	void _check(void)
-	{
-		if(OGLPLUS_IS_ERROR(!IsValid()))
-		{
-			HandleBuildError<ValidationError>(
-				GetInfoLog(),
-				OGLPLUS_OBJECT_ERROR_INFO(
-					ValidateProgram,
-					Program,
-					nullptr,
-					this->_name
-				)
-			);
-		}
-	}
+	void _check(void);
 public:
 	/// Creates a program with a single shader with specified type and source
 	/**

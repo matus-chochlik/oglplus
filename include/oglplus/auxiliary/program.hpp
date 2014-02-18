@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -62,12 +62,7 @@ public:
 		return _stage_or_intf;
 	}
 
-	std::vector<GLchar>& Buffer(void)
-	{
-		if(_size && _buffer.empty())
-			_buffer.resize(_size);
-		return _buffer;
-	}
+	std::vector<GLchar>& Buffer(void);
 };
 
 // Information about a single active vertex attribute, uniform, etc.
@@ -107,21 +102,7 @@ protected:
 			GLenum* /*type*/,
 			GLchar* /*name*/
 		)
-	): _index(index)
-	 , _size(0)
-	{
-		GLsizei strlen = 0;
-		GetActiveVariable(
-			context.Program(),
-			index,
-			context.Buffer().size(),
-			&strlen,
-			&_size,
-			&_type,
-			context.Buffer().data()
-		);
-		_name = String(context.Buffer().data(), strlen);
-	}
+	);
 
 	// TODO: this is here only because GLEW defines
 	// glGetTransformFeedbackVaryings this way
@@ -165,19 +146,7 @@ public:
 	ActiveAttribInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
-	): ActiveVariableInfo(
-		context,
-		index,
-		OGLPLUS_GLFUNC(GetActiveAttrib)
-	)
-	{
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetActiveAttrib,
-			Program,
-			nullptr,
-			context.Program()
-		));
-	}
+	);
 };
 
 class ActiveUniformInfo : public ActiveVariableInfo
@@ -186,19 +155,7 @@ public:
 	ActiveUniformInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
-	): ActiveVariableInfo(
-		context,
-		index,
-		OGLPLUS_GLFUNC(GetActiveUniform)
-	)
-	{
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetActiveUniform,
-			Program,
-			nullptr,
-			context.Program()
-		));
-	}
+	);
 };
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
@@ -211,25 +168,7 @@ public:
 	ActiveSubroutineInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
-	): _index(index)
-	{
-		GLsizei strlen = 0;
-		OGLPLUS_GLFUNC(GetActiveSubroutineName)(
-			context.Program(),
-			context.Stage(),
-			index,
-			context.Buffer().size(),
-			&strlen,
-			context.Buffer().data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetActiveSubroutineName,
-			Program,
-			nullptr,
-			context.Program()
-		));
-		_name = String(context.Buffer().data(), strlen);
-	}
+	);
 
 	GLuint Index(void) const
 	{
@@ -246,21 +185,7 @@ public:
 		return 0;
 	}
 
-	SLDataType Type(void) const
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-	{
-#ifdef None
-#pragma push_macro("None")
-#undef None
-		return SLDataType::None;
-#pragma pop_macro("None")
-#else
-		return SLDataType::None;
-#endif // None
-	}
-#else
-;
-#endif
+	SLDataType Type(void) const;
 
 	operator ActiveVariableInfo(void) const
 	{
@@ -278,40 +203,7 @@ public:
 	ActiveSubroutineUniformInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
-	): _index(index)
-	 , _size(0)
-	{
-		OGLPLUS_GLFUNC(GetActiveSubroutineUniformiv)(
-			context.Program(),
-			context.Stage(),
-			index,
-			GL_UNIFORM_SIZE,
-			&_size
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetActiveSubroutineUniformiv,
-			Program,
-			nullptr,
-			context.Program()
-		));
-
-		GLsizei strlen = 0;
-		OGLPLUS_GLFUNC(GetActiveSubroutineUniformName)(
-			context.Program(),
-			context.Stage(),
-			index,
-			context.Buffer().size(),
-			&strlen,
-			context.Buffer().data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetActiveSubroutineUniformName,
-			Program,
-			nullptr,
-			context.Program()
-		));
-		_name = String(context.Buffer().data(), strlen);
-	}
+	);
 
 	GLuint Index(void) const
 	{
@@ -328,21 +220,7 @@ public:
 		return _size;
 	}
 
-	SLDataType Type(void) const
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-	{
-#ifdef None
-#pragma push_macro("None")
-#undef None
-		return SLDataType::None;
-#pragma pop_macro("None")
-#else
-		return SLDataType::None;
-#endif // None
-	}
-#else
-;
-#endif
+	SLDataType Type(void) const;
 
 	operator ActiveVariableInfo(void) const
 	{
@@ -357,19 +235,7 @@ public:
 	TransformFeedbackVaryingInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
-	): ActiveVariableInfo(
-		context,
-		index,
-		OGLPLUS_GLFUNC(GetTransformFeedbackVarying)
-	)
-	{
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetTransformFeedbackVarying,
-			Program,
-			nullptr,
-			context.Program()
-		));
-	}
+	);
 };
 
 class ActiveUniformBlockInfo
@@ -381,38 +247,7 @@ public:
 	ActiveUniformBlockInfo(
 		ProgramInterfaceContext& context,
 		GLuint index
-	): _index(0)
-	{
-		GLint length = 0;
-		OGLPLUS_GLFUNC(GetProgramiv)(
-			context.Program(),
-			GL_UNIFORM_BLOCK_NAME_LENGTH,
-			&length
-		);
-		if(context.Buffer().size() < size_t(length))
-			context.Buffer().resize(length);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			GetProgramiv,
-			Program,
-			nullptr,
-			context.Program()
-		));
-		GLsizei strlen = 0;
-		OGLPLUS_GLFUNC(GetActiveUniformBlockName)(
-			context.Program(),
-			index,
-			context.Buffer().size(),
-			&strlen,
-			context.Buffer().data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetActiveUniformBlockName,
-			Program,
-			nullptr,
-			context.Program()
-		));
-		_name = String(context.Buffer().data(), strlen);
-	}
+	);
 
 	GLuint Index(void) const
 	{
@@ -429,21 +264,7 @@ public:
 		return 0;
 	}
 
-	SLDataType Type(void) const
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-	{
-#ifdef None
-#pragma push_macro("None")
-#undef None
-		return SLDataType::None;
-#pragma pop_macro("None")
-#else
-		return SLDataType::None;
-#endif // None
-	}
-#else
-;
-#endif
+	SLDataType Type(void) const;
 
 	operator ActiveVariableInfo(void) const
 	{
@@ -453,8 +274,11 @@ public:
 	// TODO: active uniform indices, etc.
 };
 
-
 } // namespace aux
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/auxiliary/program.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard
