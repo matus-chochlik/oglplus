@@ -2978,6 +2978,26 @@ inline TextureTarget operator << (
 	return target;
 }
 
+// Image + Level
+inline TextureTarget operator << (
+	TextureTargetAndSlot tas,
+	const images::Image& image
+)
+{
+	TextureOps::Image(tas.target, image, tas.slot);
+	return tas.target;
+}
+
+// Image + Level
+inline TextureTarget operator << (
+	TextureTargetAndSlot tas,
+	const images::ImageSpec& image_spec
+)
+{
+	TextureOps::Image(tas.target, image_spec, tas.slot);
+	return tas.target;
+}
+
 // GenerateMipmap
 inline TextureTarget operator << (
 	TextureTarget target,

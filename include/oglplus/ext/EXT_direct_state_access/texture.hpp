@@ -2635,6 +2635,26 @@ inline DSATextureEXTOps& operator << (
 	return tex;
 }
 
+// Image + Level
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOpsAndSlot tas,
+	const images::Image& image
+)
+{
+	tas.tex.Image(image, tas.slot);
+	return tas.tex;
+}
+
+// Image + Level
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOpsAndSlot tas,
+	const images::ImageSpec& image_spec
+)
+{
+	tas.tex.Image(image_spec, tas.slot);
+	return tas.tex;
+}
+
 // GenerateMipmaps
 inline DSATextureEXTOps& operator << (
 	DSATextureEXTOps& tex,
