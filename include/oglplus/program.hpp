@@ -18,7 +18,7 @@
 #include <oglplus/data_type.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/shader.hpp>
-#include <oglplus/transform_feedback.hpp>
+#include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
 #include <oglplus/program_resource.hpp>

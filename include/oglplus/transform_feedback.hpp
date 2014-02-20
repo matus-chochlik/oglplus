@@ -17,29 +17,12 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
-#include <oglplus/enumerations.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
-
-/// The mode used to capture the varying variables in TF
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackMode, GLenum)
-#include <oglplus/enums/transform_feedback_mode.ipp>
-OGLPLUS_ENUM_CLASS_END(TransformFeedbackMode)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/transform_feedback_mode_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/transform_feedback_mode_range.ipp>
-#endif
-
 
 /// Transform feedback primitive modes
 /**
