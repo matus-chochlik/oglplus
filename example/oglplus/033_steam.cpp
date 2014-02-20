@@ -330,7 +330,6 @@ private:
 		"		geomGFTCoord = OcclMapMatrix * InvCameraMatrix * gl_Position;"
 		"		gl_Position = ProjectionMatrix * gl_Position;"
 
-
 		"		geomTexCoord = vec2(float(i), float(j));"
 
 		"		geomAge = vertAge[0];"
@@ -356,14 +355,14 @@ private:
 		"{"
 		"	vec3 GFTCoord = (geomGFTCoord.xyz/geomGFTCoord.w)*0.5 + 0.5;"
 		"	float gf = texture(OccludeTex, GFTCoord.xy).r - GFTCoord.z;"
-		"	float gf1 = (gf>0.0)?1.0:min(-gf*7, 1.0);"
-		"	float gf2 = (gf>0.0)?1.0:min(-gf*5, 1.0);"
+		"	float gf1 = (gf>0.0)?1.0:min(-gf*5, 1.0);"
+		"	float gf2 = (gf>0.0)?1.0:min(-gf*4, 1.0);"
 		"	gf = max(gf, 0);"
 		"	float a0 = 1.0-pow(geomAge, 0.125);"
 		"	float a1 = max((geomAge-0.3)*pow(0.99-geomAge, 0.25), 0.0);"
 		"	float d = texture(CloudTex, geomTexCoord).r*0.5;"
 		"	fragColor.r = d*(a0*(gf1*0.3+gf2*0.1)+a1*0.05);"
-		"	fragColor.g = d*a0*gf*2;"
+		"	fragColor.g = d*a0*a1*gf*2;"
 		"}"
 		).Compile();
 
@@ -424,9 +423,9 @@ private:
 		"{"
 		"	vec3 geom = texture(GeomTex, vertTexCoord).rgb;"
 		"	vec2 volm = texture(VolmTex, vertTexCoord).rg;"
-		"	float d = min(pow(volm.r*0.5, 2.00), 1.4);"
-		"	float l = min(volm.g * 0.2, 1.2);"
-		"	vec3 volc = vec3(1.0, 1.0, 1.0) * mix(0.4, 0.9, l);"
+		"	float d = min(pow(volm.r*0.5, 2.00), 2.0);"
+		"	float l = volm.g;"
+		"	vec3 volc = vec3(1.0, 1.0, 1.0) * mix(0.5, 0.8, l);"
 		"	fragColor = mix(geom, volc, d*0.7);"
 		"}"
 		).Compile();
@@ -570,11 +569,9 @@ private:
 	Array<DSAVertexArray> pp_vao, pv_vao;
 	Array<DSABuffer> pos_and_id_buf, vel_and_age_buf;
 
+	GLuint particle_count;
 	const GLfloat age_mult;
-	const GLuint max_particle_count;
-	GLuint cur_particle_count;
 
-	double prev_spawn;
 public:
 	ParticleSystem(OcclusionMap& occl_map)
 	 : gl()
@@ -586,14 +583,15 @@ public:
 	 , pv_vao(2)
 	 , pos_and_id_buf(2)
 	 , vel_and_age_buf(2)
+	 , particle_count(0)
 	 , age_mult(0.15f)
-	 , max_particle_count(1024)
-	 , cur_particle_count(0)
-	 , prev_spawn(0.0)
 	{
 		pp_prog.emit_pos_and_coef.Set(0, 0, -9.0f, 1.5f);
 		pp_prog.emit_dir_and_coef.Set(0, 0, 4.5f, 1.5f);
 		pp_prog.age_mult = age_mult;
+
+		const GLuint max_particle_count = 1024;
+		double prev_spawn = 0.0;
 
 		std::vector<GLfloat> v(max_particle_count*4, 2);
 		// pos/id
@@ -622,21 +620,27 @@ public:
 				.Setup<Vec4f>(vel_and_age_buf[i])
 				.Enable();
 		}
-	}
 
-	void Update(double time, double time_diff, GLuint frame_no)
-	{
-		if(cur_particle_count < max_particle_count)
+		double time = 0.0;
+		const double time_diff = 1.0/25.0;
+		double spawn_interval = 1.0/(age_mult*max_particle_count);
+		GLuint frame_no = 0;
+		while(particle_count < max_particle_count)
 		{
-			float spawn_interval = 1.0f/(age_mult*max_particle_count);
 
 			if(prev_spawn + spawn_interval < time)
 			{
-				++cur_particle_count;
+				++particle_count;
 				prev_spawn = time;
 			}
+			Update(time_diff, frame_no);
+			time += time_diff;
+			frame_no++;
 		}
+	}
 
+	void Update(double time_diff, GLuint frame_no)
+	{
 		int vao_i = (frame_no+0)%2;
 		int xfb_i = (frame_no+1)%2;
 
@@ -648,7 +652,7 @@ public:
 		pp_prog.delta_t = time_diff;
 
 		TransformFeedback::Activator xfb_act(TransformFeedbackPrimitiveType::Points);
-		gl.DrawArrays(PrimitiveType::Points, 0, cur_particle_count);
+		gl.DrawArrays(PrimitiveType::Points, 0, particle_count);
 		xfb_act.Finish();
 	}
 
@@ -665,7 +669,7 @@ public:
 		pv_prog.projection_matrix.Set(projection);
 		pv_prog.camera_matrix.Set(camera);
 
-		gl.DrawArrays(PrimitiveType::Points, 0, cur_particle_count);
+		gl.DrawArrays(PrimitiveType::Points, 0, particle_count);
 	}
 };
 
@@ -785,16 +789,22 @@ public:
 		double time_diff = (time - prev_time);
 		auto camera =
 			CamMatrixf::Roll(
-				Degrees(SineWave(time / 11.0)*7+
-				SineWave(time/13.0)*5)
+				Degrees(
+					SineWave(time/11.0)*9+
+					SineWave(time/13.0)*7
+				)
 			)*
 			CamMatrixf::Orbiting(
 				Vec3f(),
 				40.0f,
-				Degrees(SineWave(time / 23.0)*30+
-				CosineWave(time/31.0)*40-90),
-				Degrees(SineWave(time / 19.0)*30+
-				SineWave(time/26.0)*40)
+				Degrees(
+					SineWave(time/23.0)*35+
+					CosineWave(time/31.0)*45-90
+				),
+				Degrees(
+					SineWave(time/19.0)*35+
+					SineWave(time/26.0)*45
+				)
 			);
 
 
@@ -813,7 +823,7 @@ public:
 		gl.Disable(Capability::Blend);
 		geometry.Render(projection, camera, time);
 
-		steam.Update(time, time_diff, frame_no);
+		steam.Update(time_diff, frame_no);
 
 		volm_fbo.Bind();
 
@@ -844,7 +854,7 @@ public:
 
 	bool Continue(double time)
 	{
-		return time < 90.0;
+		return time < 60.0;
 	}
 
 	double ScreenshotTime(void) const
