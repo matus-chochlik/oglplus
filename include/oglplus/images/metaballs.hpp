@@ -63,6 +63,7 @@ class Metaballs
 public:
 	/// Creates an image with specified dimensions
 	/**
+	 *  @param width the width of the image
 	 *  @param height the height of the image
 	 *  @param balls the metaball data. This array contains the metaball
 	 *   parameters: 3 values per single metaball. The first
@@ -80,6 +81,38 @@ public:
 	{ }
 };
 
+
+/// Creates a Red seamless 2D image with random metaballs
+/**
+ *  @ingroup image_load_gen
+ */
+class RandomMetaballs
+ : public BaseMetaballs
+{
+private:
+	static std::vector<GLfloat> _make_balls(
+		std::size_t count,
+		GLfloat rad_min,
+		GLfloat rad_max
+	);
+public:
+	/// Creates an image with the specified dimensions and params
+	/**
+	 *  @param width the width of the image
+	 *  @param height the height of the image
+	 *  @param count the number of metaballs to be generated.
+	 *  @param rad_min the minimum radius of a metaball normalized to (0, 1).
+	 *  @param rad_max the maximum radius of a metaball normalized to (0, 1).
+	 */
+	RandomMetaballs(
+		GLsizei width,
+		GLsizei height,
+		std::size_t count,
+		GLfloat rad_min,
+		GLfloat rad_max
+	);
+};
+
 /// Creates a Red (one components per pixel) seamless 2D metastars image
 /**
  *  @ingroup image_load_gen
@@ -90,6 +123,7 @@ class Metastars
 public:
 	/// Creates an image with specified dimensions
 	/**
+	 *  @param width the width of the image
 	 *  @param height the height of the image
 	 *  @param balls the metaball data. This array contains the metaball
 	 *   parameters: 5 values per single metaball. The first
@@ -108,6 +142,45 @@ public:
 		std::size_t size
 	): BaseMetaballs(width, height, balls, size, 5)
 	{ }
+};
+
+/// Creates a Red seamless 2D image with random metastars
+/**
+ *  @ingroup image_load_gen
+ */
+class RandomMetastars
+ : public BaseMetaballs
+{
+private:
+	static std::vector<GLfloat> _make_stars(
+		std::size_t count,
+		GLfloat rad_min,
+		GLfloat rad_max,
+		GLfloat dif_min,
+		GLfloat dif_max,
+		GLuint pt_min,
+		GLuint pt_max
+	);
+public:
+	/// Creates an image with the specified dimensions and params
+	/**
+	 *  @param width the width of the image
+	 *  @param height the height of the image
+	 *  @param count the number of metastars to be generated.
+	 *  @param rad_min the minimum radius of a metaball normalized to (0, 1).
+	 *  @param rad_max the maximum radius of a metaball normalized to (0, 1).
+	 */
+	RandomMetastars(
+		GLsizei width,
+		GLsizei height,
+		std::size_t count,
+		GLfloat rad_min,
+		GLfloat rad_max,
+		GLfloat dif_min,
+		GLfloat dif_max,
+		GLuint ptc_min,
+		GLuint ptc_max
+	);
 };
 
 } // images

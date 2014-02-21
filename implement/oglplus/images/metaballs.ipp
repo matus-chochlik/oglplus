@@ -12,6 +12,7 @@
 #include <oglplus/angle.hpp>
 #include <oglplus/vector.hpp>
 #include <cassert>
+#include <cstdlib>
 
 namespace oglplus {
 namespace images {
@@ -80,6 +81,101 @@ BaseMetaballs::BaseMetaballs(
 	}
 	assert(a == this->_end<GLfloat>());
 }
+
+std::vector<GLfloat> RandomMetaballs::_make_balls(
+	std::size_t count,
+	GLfloat rad_min,
+	GLfloat rad_max
+)
+{
+	std::vector<GLfloat> result(count*3);
+
+	const GLfloat irm = 1.0f/RAND_MAX;
+	const GLfloat rdirm = irm*(rad_max-rad_min);
+
+	for(std::size_t i=0; i!=count; ++i)
+	{
+		result[3*i+0] = std::rand()*irm;
+		result[3*i+1] = std::rand()*irm;
+		result[3*i+2] = rad_min+std::rand()*rdirm;
+	}
+
+	return std::move(result);
+}
+
+OGLPLUS_LIB_FUNC
+RandomMetaballs::RandomMetaballs(
+	GLsizei width,
+	GLsizei height,
+	std::size_t count,
+	GLfloat rad_min,
+	GLfloat rad_max
+): BaseMetaballs(
+	width,
+	height,
+	_make_balls(count, rad_min, rad_max).data(),
+	3*count,
+	3
+)
+{ }
+
+
+std::vector<GLfloat> RandomMetastars::_make_stars(
+	std::size_t count,
+	GLfloat rad_min,
+	GLfloat rad_max,
+	GLfloat dif_min,
+	GLfloat dif_max,
+	GLuint ptc_min,
+	GLuint ptc_max
+)
+{
+	std::vector<GLfloat> result(count*5);
+
+	const GLfloat irm = 1.0f/RAND_MAX;
+	const GLfloat rdirm = irm*(rad_max-rad_min);
+	const GLfloat pdirm = irm*(ptc_max-ptc_min+1);
+	const GLfloat ddirm = irm*(dif_max-dif_min);
+
+	for(std::size_t i=0; i!=count; ++i)
+	{
+		result[5*i+0] = std::rand()*irm;
+		result[5*i+1] = std::rand()*irm;
+		result[5*i+2] = rad_min+std::rand()*rdirm;
+		result[5*i+3] = ptc_min+std::rand()*pdirm;
+		result[5*i+4] = dif_min+std::rand()*ddirm;
+	}
+
+	return std::move(result);
+}
+
+OGLPLUS_LIB_FUNC
+RandomMetastars::RandomMetastars(
+	GLsizei width,
+	GLsizei height,
+	std::size_t count,
+	GLfloat rad_min,
+	GLfloat rad_max,
+	GLfloat dif_min,
+	GLfloat dif_max,
+	GLuint ptc_min,
+	GLuint ptc_max
+): BaseMetaballs(
+	width,
+	height,
+	_make_stars(
+		count,
+		rad_min,
+		rad_max,
+		dif_min,
+		dif_max,
+		ptc_min,
+		ptc_max
+	).data(),
+	5*count,
+	5
+)
+{ }
 
 } // namespace images
 } // namespace oglplus
