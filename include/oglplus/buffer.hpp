@@ -827,6 +827,26 @@ inline BufferOpsAndIdxTgt operator << (
 	return BufferOpsAndIdxTgt(buf, target);
 }
 
+// Helper class for syntax sugar operators
+struct BufferTargetAndOffset
+{
+	BufferTarget target;
+	GLintptr offset;
+
+	BufferTargetAndOffset(BufferTarget t, GLintptr o)
+	 : target(t)
+	 , offset(o)
+	{ }
+};
+
+inline BufferTargetAndOffset operator + (
+	BufferTarget target,
+	GLintptr offset
+)
+{
+	return BufferTargetAndOffset(target, offset);
+}
+
 // Bind
 inline BufferTarget operator << (
 	const BufferOps& buf,
@@ -889,6 +909,28 @@ inline BufferTarget operator << (
 {
 	BufferOps::Data(tau.target, data, tau.usage);
 	return tau.target;
+}
+
+// SubData
+template <typename GLtype>
+inline BufferTarget operator << (
+	BufferTargetAndOffset&& tao,
+	const std::vector<GLtype>& data
+)
+{
+	BufferOps::SubData(tao.target, tao.offset, data);
+	return tao.target;
+}
+
+// SubData
+template <typename GLtype, std::size_t Count>
+inline BufferTarget operator << (
+	BufferTargetAndOffset&& tao,
+	const GLtype (&data)[Count]
+)
+{
+	BufferOps::SubData(tao.target, tao.offset, data);
+	return tao.target;
 }
 
 #if OGLPLUS_DOCUMENTATION_ONLY
