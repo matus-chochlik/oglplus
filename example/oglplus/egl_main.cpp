@@ -173,8 +173,17 @@ void example_thread_main(ExampleThreadData& data)
 			// start rendering
 			while(!common.done && !common.failure)
 			{
-				example_thread->Render(common.clock);
-				glFlush();
+				unsigned part_no = 0;
+				double comp = 0.0;
+				do
+				{
+					comp = example_thread->RenderPart(
+						part_no++,
+						common.clock
+					);
+					glFlush();
+				}
+				while(comp < 1.0);
 			}
 			data.example_thread = nullptr;
 		}
@@ -290,7 +299,15 @@ void run_framedump_loop(
 		t += period;
 		clock.Update(t);
 		if(!example->Continue(clock)) break;
-		example->Render(clock);
+
+		unsigned part_no = 0;
+		double comp = 0.0;
+		do
+		{
+			comp = example->RenderPart(part_no++, clock);
+		}
+		while(comp < 1.0);
+
 		glFinish();
 		glReadPixels(
 			0, 0,
@@ -342,13 +359,19 @@ void make_screenshot(
 	clock.Update(s);
 
 	// heat-up
-	while(true)
+	while(s < t)
 	{
 		s += dt;
 		clock.Update(s);
-		example->Render(clock);
+
+		unsigned part_no = 0;
+		double comp = 0.0;
+		do
+		{
+			comp = example->RenderPart(part_no++, clock);
+		}
+		while(comp < 1.0);
 		if(s < t) surface.SwapBuffers();
-		else break;
 	}
 	glFinish();
 	//save it to a file

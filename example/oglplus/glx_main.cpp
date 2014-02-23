@@ -168,8 +168,17 @@ void example_thread_main(ExampleThreadData& data)
 			// start rendering
 			while(!common.done && !common.failure)
 			{
-				example_thread->Render(common.clock);
-				glFlush();
+				unsigned part_no = 0;
+				double comp = 0.0;
+				do
+				{
+					comp = example_thread->RenderPart(
+						part_no++,
+						common.clock
+					);
+					glFlush();
+				}
+				while(comp < 1.0);
 			}
 			data.example_thread = nullptr;
 		}
@@ -230,43 +239,50 @@ void do_run_example_loop(
 	bool done = false;
 	while(!done && !common.failure)
 	{
-		while(display.NextEvent(event))
-		{
-			switch(event.type)
-			{
-				case ClientMessage:
-				case DestroyNotify:
-					done = true;
-					break;
-				case ConfigureNotify:
-					width = event.xconfigure.width;
-					height = event.xconfigure.height;
-					example->Reshape(
-						width,
-						height
-					);
-				case MotionNotify:
-					example->MouseMove(
-						event.xmotion.x,
-						height-
-						event.xmotion.y,
-						width,
-						height
-					);
-					break;
-				case KeyPress:
-					if(::XLookupKeysym(
-						&event.xkey,
-						0
-					) == XK_Escape) done = true;
-					break;
-				default:;
-			}
-		}
 		clock.Update(os_clock.seconds());
 		if(!example->Continue(clock)) break;
-		example->Render(clock);
-		ctx.SwapBuffers(win);
+
+		unsigned part_no = 0;
+		double comp = 0.0;
+		do
+		{
+			while(display.NextEvent(event))
+			{
+				switch(event.type)
+				{
+					case ClientMessage:
+					case DestroyNotify:
+						done = true;
+						break;
+					case ConfigureNotify:
+						width = event.xconfigure.width;
+						height = event.xconfigure.height;
+						example->Reshape(
+							width,
+							height
+						);
+					case MotionNotify:
+						example->MouseMove(
+							event.xmotion.x,
+							height-
+							event.xmotion.y,
+							width,
+							height
+						);
+						break;
+					case KeyPress:
+						if(::XLookupKeysym(
+							&event.xkey,
+							0
+						) == XK_Escape) done = true;
+						break;
+					default:;
+				}
+			}
+			comp = example->RenderPart(part_no++, clock);
+			ctx.SwapBuffers(win);
+		}
+		while(!done && !common.failure && (comp < 1.0));
 	}
 }
 
@@ -416,7 +432,15 @@ void run_framedump_loop(
 		t += period;
 		clock.Update(t);
 		if(!example->Continue(clock)) break;
-		example->Render(clock);
+
+		unsigned part_no = 0;
+		double comp = 0.0;
+		do
+		{
+			comp = example->RenderPart(part_no++, clock);
+		}
+		while(comp < 1.0);
+
 		glFinish();
 		glReadPixels(
 			0, 0,
@@ -473,14 +497,20 @@ void make_screenshot(
 	clock.Update(s);
 
 	// heat-up
-	while(true)
+	while(s < t)
 	{
 		while(display.NextEvent(event));
 		s += dt;
 		clock.Update(s);
-		example->Render(clock);
-		if(s < t) ctx.SwapBuffers(win);
-		else break;
+
+		unsigned part_no = 0;
+		double comp = 0.0;
+		do
+		{
+			comp = example->RenderPart(part_no++, clock);
+			if(s < t) ctx.SwapBuffers(win);
+		}
+		while(comp < 1.0);
 	}
 	while(display.NextEvent(event));
 	glFinish();
