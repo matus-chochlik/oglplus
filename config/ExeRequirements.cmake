@@ -1,8 +1,36 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
 # checks if an EXE can be built and adds required include directories
+macro(do_use_single_dependency DEPENDENCY)
+	if(${${DEPENDENCY}_FOUND})
+		if(${DEPENDENCY}_USE_FILE)
+			include(${${DEPENDENCY}_USE_FILE})
+		endif()
+		if(${DEPENDENCY}_INCLUDE_DIRS)
+			include_directories(${${DEPENDENCY}_INCLUDE_DIRS})
+		endif()
+		if(${DEPENDENCY}_LIBRARY_DIRS)
+			include_directories(${${DEPENDENCY}_LIBRARY_DIRS})
+		endif()
+		if(${DEPENDENCY}_DEFINITIONS)
+			set_property(
+				SOURCE "${EXE_NAME}.cpp" APPEND PROPERTY
+				COMPILE_DEFINITIONS ${${DEPENDENCY}_DEFINITIONS}
+			)
+		endif()
+		if(${DEPENDENCY}_CXX_FLAGS)
+			set(
+				CMAKE_CXX_FLAGS
+				"${CMAKE_CXX_FLAGS} ${${DEPENDENCY}_CXX_FLAGS}"
+			)
+		endif()
+	else()
+		message(FATAL_ERROR "'${DEPENDENCY}' not found!")
+	endif()
+endmacro()
+
 macro(do_require_all_dependencies EXE_DIR EXE_NAME RESULT)
 
 	if(EXISTS "${EXE_DIR}/dependencies/${EXE_NAME}.txt")
@@ -12,27 +40,7 @@ macro(do_require_all_dependencies EXE_DIR EXE_NAME RESULT)
 		)
 		foreach(DEPENDENCY ${EXE_DEPENDENCIES})
 			if(${${DEPENDENCY}_FOUND})
-				if(${DEPENDENCY}_USE_FILE)
-					include(${${DEPENDENCY}_USE_FILE})
-				endif()
-				if(${DEPENDENCY}_INCLUDE_DIRS)
-					include_directories(${${DEPENDENCY}_INCLUDE_DIRS})
-				endif()
-				if(${DEPENDENCY}_LIBRARY_DIRS)
-					include_directories(${${DEPENDENCY}_LIBRARY_DIRS})
-				endif()
-				if(${DEPENDENCY}_DEFINITIONS)
-					set_property(
-						SOURCE "${EXE_NAME}.cpp" APPEND PROPERTY
-						COMPILE_DEFINITIONS ${${DEPENDENCY}_DEFINITIONS}
-					)
-				endif()
-				if(${DEPENDENCY}_CXX_FLAGS)
-					set(
-						CMAKE_CXX_FLAGS
-						"${CMAKE_CXX_FLAGS} ${${DEPENDENCY}_CXX_FLAGS}"
-					)
-				endif()
+				do_use_single_dependency(${DEPENDENCY})
 			else()
 				message(
 					STATUS
