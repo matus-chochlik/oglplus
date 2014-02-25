@@ -37,7 +37,9 @@ CloudData::CloudData(RenderData& data)
 		auto c =ModelMatrixf::Translation(rpos(re), relv(re), rpos(re))*
 			ModelMatrixf::RotationA(Vec3f(r01(re),r01(re),r01(re)), FullCircles(r01(re)));
 
-		c.Set(3, 3, 4+r01(re)*12.0);
+		c.Set(3, 3, 4+r01(re)*12.0f);
+		c.Set(3, 0, r01(re)*0.5);
+		c.Set(3, 1, r01(re));
 
 		cloud_data.push_back(c);
 	}

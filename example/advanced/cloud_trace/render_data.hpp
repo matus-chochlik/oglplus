@@ -43,6 +43,7 @@ struct RenderData
 	unsigned cols(void) const;
 
 	// cloud parameters
+	float unit_opacity, unit_attenuation;
 	unsigned cloud_res;
 
 	// cloud data uniform buffer binding point

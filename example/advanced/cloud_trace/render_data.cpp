@@ -108,6 +108,8 @@ RenderData::RenderData(int argc, char** argv)
  , width(512)
  , height(512)
  , tile(32)
+ , unit_opacity(0.03)
+ , unit_attenuation(0.01)
  , cloud_res(256)
  , cloud_data_ub_idx(0)
  , cam_near(1)
@@ -139,6 +141,10 @@ RenderData::RenderData(int argc, char** argv)
 		if(parse_single_opt(arg, argc, argv, "-h", "--height", height))
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-cr", "--cloud-res", cloud_res))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-uo", "--unit-opacity", unit_opacity))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-ua", "--unit-attenuation", unit_attenuation))
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-lx", "--light-x", light_x))
 			continue;

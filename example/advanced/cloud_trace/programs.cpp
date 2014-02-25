@@ -51,6 +51,9 @@ RaytraceProg::RaytraceProg(RenderData& data)
 	);
 	ProgramUniform<GLfloat>(self(), "HighLight").Set(data.high_light);
 	ProgramUniform<GLfloat>(self(), "AmbiLight").Set(data.ambi_light);
+
+	ProgramUniform<GLfloat>(self(), "UnitOpacity").Set(data.unit_opacity);
+	ProgramUniform<GLfloat>(self(), "UnitAttenuation").Set(data.unit_attenuation);
 }
 
 void RaytraceProg::SetCamera(

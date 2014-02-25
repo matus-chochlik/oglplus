@@ -18,13 +18,20 @@ uniform CloudBlock
 uniform vec3 LightPos;
 uniform float HighLight;
 uniform float AmbiLight;
+uniform float UnitOpacity;
+uniform float UnitAttenuation;
 
 in vec3 vertRay;
 out vec4 fragColor;
 
-vec4 sphere_par(int idx)
+vec4 sphere_geom(int idx)
 {
 	return transpose(CloudMatrices[idx])[3];
+}
+
+vec3 sphere_para(int idx)
+{
+	return CloudMatrices[idx][3].xyz;
 }
 
 mat3 sphere_rot(int idx)
@@ -34,7 +41,7 @@ mat3 sphere_rot(int idx)
 
 vec2 ray_sphere_hit(vec3 o, vec3 d, int idx)
 {
-	vec4 s = sphere_par(idx);
+	vec4 s = sphere_geom(idx);
 	float r = s.w;
 	vec3 v = o-s.xyz;
 	float dv = dot(d,v);
@@ -46,7 +53,7 @@ vec2 ray_sphere_hit(vec3 o, vec3 d, int idx)
 
 vec3 sphere_point_coord(vec3 x, int idx)
 {
-	vec4 s = sphere_par(idx);
+	vec4 s = sphere_geom(idx);
 	mat3 r = sphere_rot(idx);
 	x -= s.xyz;
 	x /= 2.0;
@@ -105,10 +112,12 @@ vec4 sample_ray(int k, int n, float t, float dc)
 		float tm = 0.001;
 		if((td > tm) && (tn <= t) && (tf >= t))
 		{
+			int id = int(hits[k*N+i][0]);
 			float ssc = (t-tn)/td;
+			vec3 sp = sphere_para(id);
 			vec3 tc = mix(tc0[k*N+i], tc1[k*N+i], ssc);
-			float ssd = texture(CloudTex, tc).r;
-			sd += ssd * dc;
+			float ssd = max(texture(CloudTex, tc).r - sp[0], 0.0);
+			sd += ssd * dc * sp[1];
 			sd = min(sd, 1.0);
 
 			vec3 tcd = abs(tc0[k*N+i]-tc1[k*N+i]);
@@ -139,7 +148,7 @@ void main(void)
 	float den0 = 0.0;
 	while((t0 < tmax[0]) && (den0 < 1.0))
 	{
-		vec4 sr0 = sample_ray(0, n0, t0, 0.03);
+		vec4 sr0 = sample_ray(0, n0, t0, UnitOpacity);
 		if(sr0[0] > 0.0)
 		{
 			den0 += sr0[0];
@@ -165,7 +174,7 @@ void main(void)
 		tmax[0] = 0.0;
 		while(t0 >= tfirst)
 		{
-			vec4 sr0 = sample_ray(0, n0, t0, 0.03);
+			vec4 sr0 = sample_ray(0, n0, t0, UnitOpacity);
 
 			if(sr0[1] < 1.0)
 			{
@@ -186,7 +195,7 @@ void main(void)
 			float den1 = 0.0;
 			while((t1 < tmax[1]) && (den1 < 1.0))
 			{
-				vec4 sr1 = sample_ray(1, n1, t1, 0.01);
+				vec4 sr1 = sample_ray(1, n1, t1, UnitAttenuation);
 				den1 += sr1[0];
 
 				if(sr1[1] < 1.0)
