@@ -42,7 +42,7 @@ void Renderer::InitFrame(RenderData& data, unsigned cube_face)
 	i = 0;
 	j = 0;
 	gl.Disable(Capability::ScissorTest);
-	gl.ClearColor(0.4, 0.4, 0.8, 0.0);
+	gl.ClearColor(0.2, 0.2, 0.6, 0.0);
 	gl.Clear().ColorBuffer();
 	gl.Enable(Capability::ScissorTest);
 
@@ -66,16 +66,16 @@ void Renderer::InitFrame(RenderData& data, unsigned cube_face)
 		}
 		case 2: // +Y
 		{
-			cx = +Vec3f::Unit(0);
+			cx = -Vec3f::Unit(0);
 			cy = +Vec3f::Unit(2);
-			cz = +Vec3f::Unit(1);
+			cz = -Vec3f::Unit(1);
 			break;
 		}
 		case 3: // -Y
 		{
-			cx = +Vec3f::Unit(0);
-			cy = +Vec3f::Unit(2);
-			cz = -Vec3f::Unit(1);
+			cx = -Vec3f::Unit(0);
+			cy = -Vec3f::Unit(2);
+			cz = +Vec3f::Unit(1);
 			break;
 		}
 		case 4: // +Z

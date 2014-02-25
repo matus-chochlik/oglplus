@@ -26,6 +26,7 @@ if(GLFW_FOUND)
 			textures.cpp
 			programs.cpp
 			renderer.cpp
+			saver.cpp
 	)
 	if(${WIN32})
 		set_property(TARGET cloud_trace PROPERTY WIN32_EXECUTABLE true)

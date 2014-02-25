@@ -13,7 +13,7 @@
 
 #include <iosfwd>
 #include <string>
-#include <vector>
+#include <array>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -32,6 +32,10 @@ struct RenderData
 
 	// output file prefix
 	std::string output_prefix;
+	// the face id strings
+	std::array<std::string, 6> output_face_id;
+	// the file suffix
+	std::string output_suffix;
 
 	// width, height tile size, cells
 	unsigned width, height, tile;

@@ -104,6 +104,7 @@ RenderData::RenderData(int argc, char** argv)
  , pset_status(nullptr)
  , perrstr(nullptr)
  , output_prefix("clouds")
+ , output_suffix("rgb")
  , width(512)
  , height(512)
  , tile(32)
@@ -115,39 +116,61 @@ RenderData::RenderData(int argc, char** argv)
  , light_y(1000)
  , light_z(1000)
  , high_light(1.2f)
- , ambi_light(0.7f)
+ , ambi_light(0.5f)
 {
-	int i = 1;
-	while(i < argc)
+	for(unsigned f=0; f!=6; ++f)
 	{
-		if(parse_single_opt(i, argc, argv, "-s", "--size", width))
+		output_face_id[f] = "- ";
+		output_face_id[f][1] = '0'+f;
+	}
+
+	int arg = 1;
+	while(arg < argc)
+	{
+		if(parse_single_opt(arg, argc, argv, "-s", "--size", width))
 		{
 			height = width;
 			continue;
 		}
-		if(parse_single_opt(i, argc, argv, "-t", "--tile", tile))
+		if(parse_single_opt(arg, argc, argv, "-t", "--tile", tile))
 			continue;
-		if(parse_single_opt(i, argc, argv, "-w", "--width", width))
+		if(parse_single_opt(arg, argc, argv, "-w", "--width", width))
 			continue;
-		if(parse_single_opt(i, argc, argv, "-h", "--height", height))
+		if(parse_single_opt(arg, argc, argv, "-h", "--height", height))
 			continue;
-		if(parse_single_opt(i, argc, argv,"-cr", "--cloud-res", cloud_res))
+		if(parse_single_opt(arg, argc, argv,"-cr", "--cloud-res", cloud_res))
 			continue;
-		if(parse_single_opt(i, argc, argv,"-lx", "--light-x", light_x))
+		if(parse_single_opt(arg, argc, argv,"-lx", "--light-x", light_x))
 			continue;
-		if(parse_single_opt(i, argc, argv,"-ly", "--light-y", light_y))
+		if(parse_single_opt(arg, argc, argv,"-ly", "--light-y", light_y))
 			continue;
-		if(parse_single_opt(i, argc, argv,"-lz", "--light-z", light_z))
+		if(parse_single_opt(arg, argc, argv,"-lz", "--light-z", light_z))
 			continue;
-		if(parse_single_opt(i, argc, argv,"-hl", "--high-light", high_light))
+		if(parse_single_opt(arg, argc, argv,"-hl", "--high-light", high_light))
 			continue;
-		if(parse_single_opt(i, argc, argv,"-al", "--ambi-light", ambi_light))
+		if(parse_single_opt(arg, argc, argv,"-al", "--ambi-light", ambi_light))
 			continue;
-		if(parse_single_opt(i, argc, argv, "-o", "--output", output_prefix))
+		if(parse_single_opt(arg, argc, argv, "-o", "--output-prefix", output_prefix))
+			continue;
+		if(parse_single_opt(arg, argc, argv, "-s", "--output-suffix", output_suffix))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-f0", "--output-id-0", output_face_id[0]))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-f1", "--output-id-1", output_face_id[1]))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-f2", "--output-id-2", output_face_id[2]))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-f3", "--output-id-3", output_face_id[3]))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-f4", "--output-id-4", output_face_id[4]))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-f5", "--output-id-5", output_face_id[5]))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-f6", "--output-id-6", output_face_id[6]))
 			continue;
 
 		std::string message("Unknown command-line option: '");
-		message.append(argv[i]);
+		message.append(argv[arg]);
 		message.append("'");
 
 		throw std::runtime_error(message);

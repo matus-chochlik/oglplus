@@ -10,6 +10,7 @@
 #include "main_common.hpp"
 #include "render_data.hpp"
 #include "renderer.hpp"
+#include "saver.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
@@ -47,6 +48,7 @@ public:
 void render_loop(RenderData& data)
 {
 	Renderer r(data);
+	Saver s(data);
 
 	unsigned face = 0;
 	double done = 0;
@@ -63,10 +65,15 @@ void render_loop(RenderData& data)
 			done = r.Render(data);
 			glfwSwapBuffers();
 		}
-		else if(face < 5)
+		else if(face < 6)
 		{
-			done = 0;
-			face++;
+			glfwSwapBuffers();
+			s.SaveFrame(data, face);
+			if(face < 5)
+			{
+				done = 0;
+				face++;
+			}
 		}
 		glfwPollEvents();
 
