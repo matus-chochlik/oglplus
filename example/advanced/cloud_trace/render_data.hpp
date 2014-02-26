@@ -49,6 +49,11 @@ struct RenderData
 	// cloud data uniform buffer binding point
 	unsigned cloud_data_ub_idx;
 
+	// generator parameters
+	float planet_radius, covered_angle;
+	float cloud_mean_alt, cloud_alt_disp;
+	float cloud_mean_size, cloud_size_disp;
+
 	// camera near/far values
 	float cam_near, cam_far;
 

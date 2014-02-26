@@ -73,7 +73,7 @@ int find_hits(int k, vec3 ori, vec3 ray)
 	tmin[k] = maxt;
 	tmax[k] = 0;
 	int n = 0, i = 0;
-	while(i < CloudCount)
+	while((i < CloudCount) && (n < N))
 	{
 		vec2 h = ray_sphere_hit(ori, ray, i);
 		if(h.y >= 0)
@@ -167,6 +167,7 @@ void main(void)
 	}
 	tfirst = max(tfirst, 0);
 	float lt = 0.0;
+	den0 = min(den0, 1.0);
 	if(den0 > 0.0)
 	{
 		float first = 1.0;
@@ -208,6 +209,7 @@ void main(void)
 					tmin[1] = maxt;
 				}
 			}
+			den1 = min(den1, 1.0);
 			lt = mix(
 				mix(lt, mix(HighLight, AmbiLight, den1), sr0[0]),
 				mix(mix(AmbiLight, HighLight, sr0[0]), AmbiLight, den1),

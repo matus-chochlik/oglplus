@@ -112,11 +112,17 @@ RenderData::RenderData(int argc, char** argv)
  , unit_attenuation(0.01)
  , cloud_res(256)
  , cloud_data_ub_idx(0)
+ , planet_radius(6371)
+ , covered_angle(1)
+ , cloud_mean_alt(2.0f)
+ , cloud_alt_disp(0.3f)
+ , cloud_mean_size(1.5f)
+ , cloud_size_disp(0.4f)
  , cam_near(1)
- , cam_far(1000)
- , light_x(1000)
- , light_y(1000)
- , light_z(1000)
+ , cam_far(400)
+ , light_x(100000)
+ , light_y(100000)
+ , light_z(100000)
  , high_light(1.2f)
  , ambi_light(0.5f)
 {
@@ -145,6 +151,18 @@ RenderData::RenderData(int argc, char** argv)
 		if(parse_single_opt(arg, argc, argv,"-uo", "--unit-opacity", unit_opacity))
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-ua", "--unit-attenuation", unit_attenuation))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-pr", "--planet-radius", planet_radius))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-ca", "--covered-angle", covered_angle))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-cma", "--cloud-mean-alt", cloud_mean_alt))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-cad", "--cloud-alt-disp", cloud_alt_disp))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-cms", "--cloud-mean-size", cloud_mean_size))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-csd", "--cloud-size-disp", cloud_size_disp))
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-lx", "--light-x", light_x))
 			continue;
