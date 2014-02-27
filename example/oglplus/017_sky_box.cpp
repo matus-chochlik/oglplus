@@ -170,7 +170,7 @@ public:
 			Vec3f(),
 			3.0,
 			FullCircles(time / 13.0),
-			Degrees(-SineWave(time / 19.0) * 85)
+			Degrees(-35 - SineWave(time / 19.0) * 50)
 		);
 		camera_matrix.Set(camera);
 

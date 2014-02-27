@@ -19,7 +19,7 @@ namespace oglplus {
 namespace cloud_trace {
 
 CloudData::CloudData(RenderData& data)
- : count(1024)
+ : count(data.cloud_count)
 {
 	// TODO loading from istream
 	std::vector<Mat4f> cloud_data;

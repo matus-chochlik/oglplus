@@ -110,6 +110,7 @@ RenderData::RenderData(int argc, char** argv)
  , tile(32)
  , unit_opacity(0.03)
  , unit_attenuation(0.01)
+ , cloud_count(512)
  , cloud_res(256)
  , cloud_data_ub_idx(0)
  , planet_radius(6371)
@@ -146,7 +147,20 @@ RenderData::RenderData(int argc, char** argv)
 			continue;
 		if(parse_single_opt(arg, argc, argv, "-h", "--height", height))
 			continue;
+		if(parse_single_opt(arg, argc, argv,"-cc", "--cloud-count", cloud_count))
+		{
+			if(cloud_count >= 1024)
+			{
+				std::string message;
+				message.append("The value specified for --cloud-count ");
+				message.append("exceeds the maximum value 1024");
+				throw std::runtime_error(message);
+			}
+			continue;
+		}
 		if(parse_single_opt(arg, argc, argv,"-cr", "--cloud-res", cloud_res))
+			continue;
+		if(parse_single_opt(arg, argc, argv,"-ci", "--cloud-image-path", cloud_image_path))
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-uo", "--unit-opacity", unit_opacity))
 			continue;

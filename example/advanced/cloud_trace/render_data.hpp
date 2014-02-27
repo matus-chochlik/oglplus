@@ -44,7 +44,8 @@ struct RenderData
 
 	// cloud parameters
 	float unit_opacity, unit_attenuation;
-	unsigned cloud_res;
+	unsigned cloud_count, cloud_res;
+	std::string cloud_image_path;
 
 	// cloud data uniform buffer binding point
 	unsigned cloud_data_ub_idx;
