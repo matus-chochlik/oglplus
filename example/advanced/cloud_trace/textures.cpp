@@ -24,21 +24,61 @@ CloudTexture::CloudTexture(RenderData& data)
 {
 	const std::string& cip = data.cloud_image_path;
 
-	if(cip.empty())
+	if(cip.empty() || data.dump_cloud_image)
 	{
+		std::ofstream output;
+		output.exceptions(std::ifstream::failbit|std::ifstream::badbit);
+
+		if(cip.empty())
+		{
+			std::string message;
+			message.append("No output image file specified");
+			throw std::runtime_error(message);
+		}
+		else try { output.open(cip.c_str()); }
+		catch(std::ifstream::failure& f)
+		{
+			std::string message;
+			message.append("Opening image file '");
+			message.append(cip);
+			message.append("' failed with: ");
+			message.append(f.what());
+			throw std::runtime_error(message);
+		}
+
+		auto image = images::Cloud(
+				data.cloud_res,
+				data.cloud_res,
+				data.cloud_res,
+				Vec3f(),
+				0.45f,
+				0.333f,
+				0.55f,
+				0.005f
+		);
+
+		if(!cip.empty()) try
+		{
+			output.write(
+				(const char*)
+				image.RawData(),
+				image.DataSize()
+			);
+		}
+		catch(std::ifstream::failure& f)
+		{
+			std::string message;
+			message.append("Saving image file '");
+			message.append(cip);
+			message.append("' failed with: ");
+			message.append(f.what());
+			throw std::runtime_error(message);
+		}
+
 		*this	<< TextureTarget::_3D
 			<< TextureWrap::ClampToBorder
 			<< TextureFilter::Linear
-			<< images::Cloud(
-					data.cloud_res,
-					data.cloud_res,
-					data.cloud_res,
-					Vec3f(),
-					0.45f,
-					0.333f,
-					0.55f,
-					0.005f
-			);
+			<< image;
 	}
 	else if(cip.rfind(".r8") ==  cip.size()-3)
 	{

@@ -42,6 +42,21 @@ void parse_opt_value(
 	}
 }
 
+bool parse_single_opt(
+	int& arg,
+	int,
+	char** argv,
+	const char* short_name,
+	const char* long_name
+)
+{
+	bool result =
+		(std::strcmp(argv[arg], long_name) == 0)||
+		(std::strcmp(argv[arg], short_name) == 0);
+	if(result) ++arg;
+	return result;
+}
+
 template <typename T>
 bool parse_single_opt(
 	int& arg,
@@ -112,6 +127,7 @@ RenderData::RenderData(int argc, char** argv)
  , unit_attenuation(0.01)
  , cloud_count(512)
  , cloud_res(256)
+ , dump_cloud_image(false)
  , cloud_data_ub_idx(0)
  , planet_radius(6371)
  , covered_angle(1)
@@ -160,6 +176,11 @@ RenderData::RenderData(int argc, char** argv)
 		}
 		if(parse_single_opt(arg, argc, argv,"-cr", "--cloud-res", cloud_res))
 			continue;
+		if(parse_single_opt(arg, argc, argv,"-di", "--dump-cloud-image"))
+		{
+			dump_cloud_image = true;
+			continue;
+		}
 		if(parse_single_opt(arg, argc, argv,"-ci", "--cloud-image-path", cloud_image_path))
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-uo", "--unit-opacity", unit_opacity))
