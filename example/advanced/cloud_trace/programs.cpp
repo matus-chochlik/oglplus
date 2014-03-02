@@ -75,5 +75,32 @@ void RaytraceProg::SetCamera(
 	));
 }
 
+Program RenderProg::make(RenderData&)
+{
+	Program prog;
+
+	ResourceFile vs_source("glsl", "render", ".vs.glsl");
+	prog << VertexShader(GLSLSource::FromStream(vs_source));
+
+	ResourceFile fs_source("glsl", "render", ".fs.glsl");
+	prog << FragmentShader(GLSLSource::FromStream(fs_source));
+
+	prog.Link().Use();
+
+	return std::move(prog);
+}
+
+Program& RenderProg::self(void)
+{
+	return *this;
+}
+
+RenderProg::RenderProg(RenderData& data)
+ : Program(make(data))
+ , raytrace_size(self(), "RaytraceSize")
+ , raytrace_output(self(), "RaytraceOutput")
+{
+}
+
 } // namespace cloud_trace
 } // namespace oglplus

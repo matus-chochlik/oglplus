@@ -38,7 +38,9 @@ struct RenderData
 	std::string output_suffix;
 
 	// width, height tile size, cells
-	unsigned width, height, tile;
+	unsigned raytrace_width, raytrace_height;
+	unsigned render_width, render_height;
+	unsigned tile;
 	unsigned rows(void) const;
 	unsigned cols(void) const;
 

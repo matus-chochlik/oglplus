@@ -120,8 +120,10 @@ RenderData::RenderData(int argc, char** argv)
  , perrstr(nullptr)
  , output_prefix("clouds")
  , output_suffix("rgb")
- , width(512)
- , height(512)
+ , raytrace_width(512)
+ , raytrace_height(512)
+ , render_width(raytrace_width)
+ , render_height(raytrace_height)
  , tile(32)
  , unit_opacity(0.03)
  , unit_attenuation(0.01)
@@ -152,17 +154,25 @@ RenderData::RenderData(int argc, char** argv)
 	int arg = 1;
 	while(arg < argc)
 	{
-		if(parse_single_opt(arg, argc, argv, "-s", "--size", width))
+		if(parse_single_opt(arg, argc, argv, "-s", "--size", raytrace_width))
 		{
-			height = width;
+			raytrace_height = raytrace_width;
+			render_width = raytrace_width;
+			render_height = raytrace_width;
 			continue;
 		}
 		if(parse_single_opt(arg, argc, argv, "-t", "--tile", tile))
 			continue;
-		if(parse_single_opt(arg, argc, argv, "-w", "--width", width))
+		if(parse_single_opt(arg, argc, argv, "-w", "--raytrace_width", raytrace_width))
+		{
+			render_width = raytrace_width;
 			continue;
-		if(parse_single_opt(arg, argc, argv, "-h", "--height", height))
+		}
+		if(parse_single_opt(arg, argc, argv, "-h", "--raytrace_height", raytrace_height))
+		{
+			render_height = raytrace_height;
 			continue;
+		}
 		if(parse_single_opt(arg, argc, argv,"-cc", "--cloud-count", cloud_count))
 		{
 			if(cloud_count >= 1024)
@@ -251,12 +261,12 @@ std::ostream& RenderData::errstr(void) const
 
 unsigned RenderData::rows(void) const
 {
-	return (height/tile)+(height%tile?1:0);
+	return (raytrace_height/tile)+(raytrace_height%tile?1:0);
 }
 
 unsigned RenderData::cols(void) const
 {
-	return (width/tile)+(width%tile?1:0);
+	return (raytrace_width/tile)+(raytrace_width%tile?1:0);
 }
 
 } // namespace cloud_trace

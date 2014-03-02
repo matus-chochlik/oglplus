@@ -27,15 +27,15 @@ void Saver::SaveFrame(RenderData& data, unsigned face)
 {
 	assert(face < 6);
 	glFlush();
-	std::vector<char> pixels(data.width * data.height * 3);
+	std::vector<char> pixels(data.render_width * data.render_height * 3);
 	glFinish();
 	glReadPixels(
 		0, 0,
-		data.width,
-		data.height,
+		data.render_width,
+		data.render_height,
 		GL_RGB,
 		GL_UNSIGNED_BYTE,
-		pixels.data()	
+		pixels.data()
 	);
 	std::string path = data.output_prefix;
 	path.append(data.output_face_id[face]);

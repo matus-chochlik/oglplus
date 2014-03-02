@@ -12,6 +12,7 @@
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_TEXTURES_1119071146_HPP
 
 #include "render_data.hpp"
+#include "resources.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
@@ -22,8 +23,10 @@ namespace cloud_trace {
 
 class CloudTexture : public Texture
 {
+private:
+	const GLuint tex_unit;
 public:
-	CloudTexture(RenderData& data);
+	CloudTexture(RenderData&, ResourceAllocator&);
 };
 
 } // namespace cloud_trace

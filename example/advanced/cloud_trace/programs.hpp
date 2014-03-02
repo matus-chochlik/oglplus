@@ -47,6 +47,19 @@ public:
 	);
 };
 
+class RenderProg : public Program
+{
+private:
+	static Program make(RenderData&);
+
+	Program& self(void);
+public:
+	ProgramUniform<Vec2f> raytrace_size;
+	ProgramUniformSampler raytrace_output;
+
+	RenderProg(RenderData&);
+};
+
 } // namespace cloud_trace
 } // namespace oglplus
 

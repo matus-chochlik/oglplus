@@ -23,8 +23,10 @@ if(GLFW_FOUND)
 			main_common.cpp
 			render_data.cpp
 			cloud_data.cpp
+			resources.cpp
 			textures.cpp
 			programs.cpp
+			raytracer.cpp
 			renderer.cpp
 			saver.cpp
 	)

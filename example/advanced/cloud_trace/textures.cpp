@@ -20,8 +20,11 @@
 namespace oglplus {
 namespace cloud_trace {
 
-CloudTexture::CloudTexture(RenderData& data)
+CloudTexture::CloudTexture(RenderData& data, ResourceAllocator& alloc)
+ : tex_unit(alloc.GetNextTexUnit())
 {
+	Texture::Active(tex_unit);
+
 	const std::string& cip = data.cloud_image_path;
 
 	if(cip.empty() || data.dump_cloud_image)
@@ -29,21 +32,24 @@ CloudTexture::CloudTexture(RenderData& data)
 		std::ofstream output;
 		output.exceptions(std::ifstream::failbit|std::ifstream::badbit);
 
-		if(cip.empty())
+		if(data.dump_cloud_image)
 		{
-			std::string message;
-			message.append("No output image file specified");
-			throw std::runtime_error(message);
-		}
-		else try { output.open(cip.c_str()); }
-		catch(std::ifstream::failure& f)
-		{
-			std::string message;
-			message.append("Opening image file '");
-			message.append(cip);
-			message.append("' failed with: ");
-			message.append(f.what());
-			throw std::runtime_error(message);
+			if(cip.empty())
+			{
+				std::string message;
+				message.append("No output image file specified");
+				throw std::runtime_error(message);
+			}
+			else try { output.open(cip.c_str()); }
+			catch(std::ifstream::failure& f)
+			{
+				std::string message;
+				message.append("Opening image file '");
+				message.append(cip);
+				message.append("' failed with: ");
+				message.append(f.what());
+				throw std::runtime_error(message);
+			}
 		}
 
 		auto image = images::Cloud(
@@ -57,22 +63,25 @@ CloudTexture::CloudTexture(RenderData& data)
 				0.005f
 		);
 
-		if(!cip.empty()) try
+		if(data.dump_cloud_image)
 		{
-			output.write(
-				(const char*)
-				image.RawData(),
-				image.DataSize()
-			);
-		}
-		catch(std::ifstream::failure& f)
-		{
-			std::string message;
-			message.append("Saving image file '");
-			message.append(cip);
-			message.append("' failed with: ");
-			message.append(f.what());
-			throw std::runtime_error(message);
+			if(!cip.empty()) try
+			{
+				output.write(
+					(const char*)
+					image.RawData(),
+					image.DataSize()
+				);
+			}
+			catch(std::ifstream::failure& f)
+			{
+				std::string message;
+				message.append("Saving image file '");
+				message.append(cip);
+				message.append("' failed with: ");
+				message.append(f.what());
+				throw std::runtime_error(message);
+			}
 		}
 
 		*this	<< TextureTarget::_3D

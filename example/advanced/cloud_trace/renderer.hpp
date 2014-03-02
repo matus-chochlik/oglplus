@@ -11,10 +11,7 @@
 #ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_RENDERER_1119071146_HPP
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_RENDERER_1119071146_HPP
 
-#include "render_data.hpp"
-#include "cloud_data.hpp"
-#include "programs.hpp"
-#include "textures.hpp"
+#include "raytracer.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
@@ -30,18 +27,14 @@ class Renderer
 private:
 	Context gl;
 
-	unsigned i, j, w, h;
-
-	CloudData cloud_data;
-	CloudTexture cloud_tex;
-	RaytraceProg raytrace_prog;
+	RenderProg render_prog;
 
 	shapes::ShapeWrapper screen;
 public:
-	Renderer(RenderData& data);
+	Renderer(RenderData&, ResourceAllocator&);
 
-	void InitFrame(RenderData&, unsigned);
-	double Render(RenderData&);
+	void Use(RenderData&);
+	void Render(RenderData&, Raytracer&);
 };
 
 } // namespace cloud_trace

@@ -9,6 +9,7 @@
 
 #include "main_common.hpp"
 #include "render_data.hpp"
+#include "resources.hpp"
 #include "renderer.hpp"
 #include "saver.hpp"
 
@@ -47,8 +48,11 @@ public:
 
 void render_loop(RenderData& data)
 {
-	Renderer r(data);
-	Saver s(data);
+	Context gl;
+	ResourceAllocator alloc;
+	Raytracer raytracer(data, alloc);
+	Renderer renderer(data, alloc);
+	Saver saver(data);
 
 	unsigned face = 0;
 	double done = 0;
@@ -57,18 +61,26 @@ void render_loop(RenderData& data)
 	{
 		if(done == 0)
 		{
-			r.InitFrame(data, face);
+			raytracer.Use(data); // TODO
+			raytracer.InitFrame(data, face);
 		}
 
 		if(done < 1)
 		{
-			done = r.Render(data);
+			raytracer.Use(data); // TODO
+			done = raytracer.Raytrace(data);
+			raytracer.SwapBuffers(data);
+
+			gl.Disable(Capability::ScissorTest); // TODO
+			renderer.Use(data); // TODO
+			renderer.Render(data, raytracer);
+			gl.Enable(Capability::ScissorTest); // TODO
 			glfwSwapBuffers();
 		}
 		else if(face < 6)
 		{
 			glfwSwapBuffers();
-			s.SaveFrame(data, face);
+			saver.SaveFrame(data, face);
 			if(face < 5)
 			{
 				done = 0;
@@ -79,10 +91,13 @@ void render_loop(RenderData& data)
 
 		int new_x, new_y;
 		glfwGetWindowSize(&new_x, &new_y);
-		if((int(data.width) < new_x) || (int(data.height) < new_y))
+		if(new_x > 0)
 		{
-			glfwCloseWindow();
-			break;
+			data.render_width = unsigned(new_x);
+		}
+		if(new_y > 0)
+		{
+			data.render_height = unsigned(new_y);
 		}
 
 		if(glfwGetKey(GLFW_KEY_ESC))
@@ -102,8 +117,8 @@ int main_GLFW(RenderData& data)
 	GLFWInitializer glfw_initializer;
 
 	if(!glfwOpenWindow(
-		data.width,
-		data.height,
+		data.render_width,
+		data.render_height,
 		8, 8, 8, 8,
 		32, 8,
 		GLFW_WINDOW
