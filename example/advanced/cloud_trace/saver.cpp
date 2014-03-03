@@ -10,7 +10,7 @@
  */
 #include "saver.hpp"
 
-#include <oglplus/gl.hpp>
+#include <oglplus/framebuffer.hpp>
 
 #include <string>
 #include <vector>
@@ -26,15 +26,21 @@ Saver::Saver(RenderData&)
 void Saver::SaveFrame(RenderData& data, unsigned face)
 {
 	assert(face < 6);
-	glFlush();
+
+	gl.Flush();
+
 	std::vector<char> pixels(data.render_width * data.render_height * 3);
-	glFinish();
-	glReadPixels(
+
+	gl.Finish();
+
+	Framebuffer::BindDefault(FramebufferTarget::Read);
+
+	gl.ReadPixels(
 		0, 0,
 		data.render_width,
 		data.render_height,
-		GL_RGB,
-		GL_UNSIGNED_BYTE,
+		PixelDataFormat::RGB,
+		PixelDataType::UnsignedByte,
 		pixels.data()
 	);
 	std::string path = data.output_prefix;

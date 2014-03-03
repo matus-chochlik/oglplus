@@ -11,7 +11,9 @@
 #ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_RENDERER_1119071146_HPP
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_RENDERER_1119071146_HPP
 
-#include "raytracer.hpp"
+#include "render_data.hpp"
+#include "resources.hpp"
+#include "programs.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
@@ -34,7 +36,7 @@ public:
 	Renderer(RenderData&, ResourceAllocator&);
 
 	void Use(RenderData&);
-	void Render(RenderData&, Raytracer&);
+	void Render(RenderData&, GLuint);
 };
 
 } // namespace cloud_trace

@@ -14,6 +14,7 @@
 #include "render_data.hpp"
 
 #include <oglplus/gl.hpp>
+#include <oglplus/fix_gl_version.hpp>
 
 #include <oglplus/context.hpp>
 
@@ -22,6 +23,8 @@ namespace cloud_trace {
 
 class Saver
 {
+private:
+	Context gl;
 public:
 	Saver(RenderData&);
 

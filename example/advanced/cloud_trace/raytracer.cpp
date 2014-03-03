@@ -36,7 +36,7 @@ Raytracer::Raytracer(RenderData& data, ResourceAllocator& alloc)
 
 	gl.Viewport(0, 0, data.raytrace_width, data.raytrace_height);
 	gl.Disable(Capability::ScissorTest);
-	gl.ClearColor(1.0, 1.0, 1.0, 0.0);
+	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
 
 	for(GLuint b=0; b!=2; ++b)
 	{
@@ -75,7 +75,7 @@ void Raytracer::InitFrame(RenderData& data, unsigned cube_face)
 	i = 0;
 	j = 0;
 	gl.Disable(Capability::ScissorTest);
-	gl.ClearColor(1.0, 1.0, 1.0, 0.0); // TODO
+	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
 	gl.Clear().ColorBuffer();
 	gl.Enable(Capability::ScissorTest);
 

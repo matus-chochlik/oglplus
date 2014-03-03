@@ -1,5 +1,5 @@
 /**
- *  @example advanced/cloud_trace/main_glfw.cpp
+ *  @example advanced/cloud_trace/main_GLFW.cpp
  *  @brief GLFW-based implementation of the main function.
  *
  *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
@@ -11,6 +11,7 @@
 #include "render_data.hpp"
 #include "resources.hpp"
 #include "renderer.hpp"
+#include "raytracer.hpp"
 #include "saver.hpp"
 
 #include <oglplus/gl.hpp>
@@ -20,11 +21,8 @@
 
 #include <oglplus/config.hpp>
 
-#include <vector>
-#include <fstream>
 #include <stdexcept>
 #include <iostream>
-#include <cstring>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -61,20 +59,20 @@ void render_loop(RenderData& data)
 	{
 		if(done == 0)
 		{
-			raytracer.Use(data); // TODO
+			raytracer.Use(data);
 			raytracer.InitFrame(data, face);
 		}
 
 		if(done < 1)
 		{
-			raytracer.Use(data); // TODO
+			raytracer.Use(data);
 			done = raytracer.Raytrace(data);
 			raytracer.SwapBuffers(data);
 
-			gl.Disable(Capability::ScissorTest); // TODO
-			renderer.Use(data); // TODO
-			renderer.Render(data, raytracer);
-			gl.Enable(Capability::ScissorTest); // TODO
+			gl.Disable(Capability::ScissorTest);
+			renderer.Use(data);
+			renderer.Render(data, raytracer.FrontTexUnit());
+			gl.Enable(Capability::ScissorTest);
 			glfwSwapBuffers();
 		}
 		else if(face < 6)

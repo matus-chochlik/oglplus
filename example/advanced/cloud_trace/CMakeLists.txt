@@ -4,7 +4,7 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-if(GLFW_FOUND)
+if((GLX_FOUND) OR (GLFW_FOUND))
 	add_custom_target(oglplus-advanced-example-cloud_trace)
 	set_property(
 		TARGET oglplus-advanced-example-cloud_trace
@@ -12,7 +12,20 @@ if(GLFW_FOUND)
 	)
 	add_resource_directory(glsl oglplus-advanced-example-cloud_trace)
 
-	set(CLOUD_TRACE_GL_INIT GLFW)
+	include_directories(${PROJECT_SOURCE_DIR}/utils)
+
+	if("${OGLPLUS_GL_INIT_LIB}" STREQUAL "GLX")
+		set(CLOUD_TRACE_GL_INIT GLX)
+	elseif("${OGLPLUS_GL_INIT_LIB}" STREQUAL "GLFW")
+		set(CLOUD_TRACE_GL_INIT GLFW)
+	else()
+		if(GLX_FOUND)
+			set(CLOUD_TRACE_GL_INIT GLX)
+		elseif(GLFW_FOUND)
+			set(CLOUD_TRACE_GL_INIT GLFW)
+		endif()
+	endif()
+
 
 	do_use_single_dependency(${CLOUD_TRACE_GL_INIT})
 
@@ -29,7 +42,12 @@ if(GLFW_FOUND)
 			raytracer.cpp
 			renderer.cpp
 			saver.cpp
+			threads.cpp
 	)
+	if("${CLOUD_TRACE_GL_INIT}" STREQUAL "GLX")
+		target_link_libraries(cloud_trace pthread)
+	endif()
+
 	if(${WIN32})
 		set_property(TARGET cloud_trace PROPERTY WIN32_EXECUTABLE true)
 	endif()

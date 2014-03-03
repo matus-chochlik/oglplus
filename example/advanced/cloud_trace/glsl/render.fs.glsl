@@ -6,9 +6,11 @@
 uniform sampler2DRect RaytraceOutput;
 
 in vec2 vertTexCoord;
-out vec4 fragColor;
+out vec3 fragColor;
 
 void main(void)
 {
-	fragColor = texture(RaytraceOutput, vertTexCoord);
+	vec4 rt = texture(RaytraceOutput, vertTexCoord);
+	vec3 cc = vec3(rt.z), bc = vec3(0.2, 0.2, 0.6);
+	fragColor = mix(bc, cc, rt.w);
 }

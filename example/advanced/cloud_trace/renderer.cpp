@@ -11,6 +11,7 @@
 
 #include "renderer.hpp"
 
+#include <oglplus/framebuffer.hpp>
 #include <oglplus/shapes/screen.hpp>
 #include <oglplus/opt/list_init.hpp>
 
@@ -33,11 +34,11 @@ void Renderer::Use(RenderData&)
 	screen.Use();
 }
 
-void Renderer::Render(RenderData& data, Raytracer& raytracer)
+void Renderer::Render(RenderData& data, GLuint front_tex_unit)
 {
 	gl.Viewport(0, 0, data.render_width, data.render_height);
 	render_prog.raytrace_size.Set(data.raytrace_width, data.raytrace_height);
-	render_prog.raytrace_output.Set(raytracer.FrontTexUnit());
+	render_prog.raytrace_output.Set(front_tex_unit);
 
 	screen.Draw();
 }

@@ -218,5 +218,5 @@ void main(void)
 			first = 0;
 		}
 	}
-	fragColor = vec4(lt, lt, lt, den0);
+	fragColor = vec4(tfirst, tlast, lt, den0);
 }
