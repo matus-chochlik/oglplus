@@ -12,33 +12,34 @@
 #include "renderer.hpp"
 
 #include <oglplus/framebuffer.hpp>
-#include <oglplus/shapes/screen.hpp>
 #include <oglplus/opt/list_init.hpp>
+#include <oglplus/shapes/screen.hpp>
+#include <oglplus/images/image_spec.hpp>
 
 #include <cassert>
 
 namespace oglplus {
 namespace cloud_trace {
 
-Renderer::Renderer(RenderData& data, ResourceAllocator&)
+Renderer::Renderer(AppData& app_data, GLuint raytrace_tex_unit)
  : gl()
- , render_prog(data)
+ , render_prog(app_data)
  , screen(List("Position")("TexCoord").Get(), shapes::Screen(), render_prog)
 {
+	render_prog.raytrace_output.Set(raytrace_tex_unit);
 }
 
-void Renderer::Use(RenderData&)
+void Renderer::Use(AppData&)
 {
 	Framebuffer::BindDefault(FramebufferTarget::Draw);
 	render_prog.Use();
 	screen.Use();
 }
 
-void Renderer::Render(RenderData& data, GLuint front_tex_unit)
+void Renderer::Render(AppData& app_data)
 {
-	gl.Viewport(0, 0, data.render_width, data.render_height);
-	render_prog.raytrace_size.Set(data.raytrace_width, data.raytrace_height);
-	render_prog.raytrace_output.Set(front_tex_unit);
+	gl.Viewport(0, 0, app_data.render_width, app_data.render_height);
+	render_prog.raytrace_size.Set(app_data.raytrace_width, app_data.raytrace_height);
 
 	screen.Draw();
 }

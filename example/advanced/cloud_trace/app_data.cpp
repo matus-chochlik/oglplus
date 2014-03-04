@@ -1,6 +1,6 @@
 /**
- *  @file advanced/cloud_trace/render_data.cpp
- *  @brief Implements rendering-data-related functions
+ *  @file advanced/cloud_trace/app_data.cpp
+ *  @brief Implements application-data-related functions
  *
  *  @author Matus Chochlik
  *
@@ -8,7 +8,7 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-#include "render_data.hpp"
+#include "app_data.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -114,7 +114,7 @@ bool parse_single_opt(
 	return false;
 }
 
-RenderData::RenderData(int argc, char** argv)
+AppData::AppData(int argc, char** argv)
  : puser_intf(nullptr)
  , pset_status(nullptr)
  , perrstr(nullptr)
@@ -246,7 +246,7 @@ RenderData::RenderData(int argc, char** argv)
 	}
 }
 
-void RenderData::set_status(const char* str)
+void AppData::set_status(const char* str)
 {
 	if(pset_status)
 	{
@@ -254,19 +254,24 @@ void RenderData::set_status(const char* str)
 	}
 }
 
-std::ostream& RenderData::errstr(void) const
+std::ostream& AppData::errstr(void) const
 {
 	return (perrstr?*perrstr:std::cerr);
 }
 
-unsigned RenderData::rows(void) const
+unsigned AppData::rows(void) const
 {
 	return (raytrace_height/tile)+(raytrace_height%tile?1:0);
 }
 
-unsigned RenderData::cols(void) const
+unsigned AppData::cols(void) const
 {
 	return (raytrace_width/tile)+(raytrace_width%tile?1:0);
+}
+
+unsigned AppData::tiles(void) const
+{
+	return rows()*cols();
 }
 
 } // namespace cloud_trace

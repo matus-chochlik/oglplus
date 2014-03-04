@@ -8,7 +8,7 @@
  */
 
 #include "main_common.hpp"
-#include "render_data.hpp"
+#include "app_data.hpp"
 #include "resources.hpp"
 #include "renderer.hpp"
 #include "raytracer.hpp"
@@ -44,46 +44,49 @@ public:
 	}
 };
 
-void render_loop(RenderData& data)
+void render_loop(AppData& app_data)
 {
 	Context gl;
 	ResourceAllocator alloc;
-	Raytracer raytracer(data, alloc);
-	Renderer renderer(data, alloc);
-	Saver saver(data);
+
+	RaytracerResources raytrace_res(app_data, alloc);
+	Raytracer raytracer(app_data, raytrace_res);
+
+	Renderer renderer(app_data, raytrace_res.dest_tex_unit);
+	Saver saver(app_data);
 
 	unsigned face = 0;
-	double done = 0;
+	unsigned tile = 0;
+	const unsigned tiles = app_data.tiles();
 
 	while(true)
 	{
-		if(done == 0)
+		if(tile < tiles)
 		{
-			raytracer.Use(data);
-			raytracer.InitFrame(data, face);
-		}
-
-		if(done < 1)
-		{
-			raytracer.Use(data);
-			done = raytracer.Raytrace(data);
-			raytracer.SwapBuffers(data);
+			raytracer.Use(app_data);
+			raytracer.Raytrace(app_data, face, tile);
 
 			gl.Disable(Capability::ScissorTest);
-			renderer.Use(data);
-			renderer.Render(data, raytracer.FrontTexUnit());
+			raytracer.BlitBuffers(app_data, tile);
+
+			renderer.Use(app_data);
+			renderer.Render(app_data);
+
 			gl.Enable(Capability::ScissorTest);
 			glfwSwapBuffers();
+
+			tile++;
 		}
 		else if(face < 6)
 		{
 			glfwSwapBuffers();
-			saver.SaveFrame(data, face);
+			saver.SaveFrame(app_data, face);
 			if(face < 5)
 			{
-				done = 0;
+				tile = 0;
 				face++;
 			}
+			else break;
 		}
 		glfwPollEvents();
 
@@ -91,11 +94,11 @@ void render_loop(RenderData& data)
 		glfwGetWindowSize(&new_x, &new_y);
 		if(new_x > 0)
 		{
-			data.render_width = unsigned(new_x);
+			app_data.render_width = unsigned(new_x);
 		}
 		if(new_y > 0)
 		{
-			data.render_height = unsigned(new_y);
+			app_data.render_height = unsigned(new_y);
 		}
 
 		if(glfwGetKey(GLFW_KEY_ESC))
@@ -110,13 +113,13 @@ void render_loop(RenderData& data)
 	}
 }
 
-int main_GLFW(RenderData& data)
+int main_GLFW(AppData& app_data)
 {
 	GLFWInitializer glfw_initializer;
 
 	if(!glfwOpenWindow(
-		data.render_width,
-		data.render_height,
+		app_data.render_width,
+		app_data.render_height,
 		8, 8, 8, 8,
 		32, 8,
 		GLFW_WINDOW
@@ -128,7 +131,7 @@ int main_GLFW(RenderData& data)
 
 		GLAPIInitializer api_init;
 
-		render_loop(data);
+		render_loop(app_data);
 	}
 	return 0;
 }
@@ -139,9 +142,9 @@ int main_GLFW(RenderData& data)
 int main (int argc, char ** argv)
 {
 	using oglplus::cloud_trace::main_GLFW;
-	using oglplus::cloud_trace::RenderData;
+	using oglplus::cloud_trace::AppData;
 
-	RenderData data(argc, argv);
-	return do_run_main(main_GLFW, data);
+	AppData app_data(argc, argv);
+	return do_run_main(main_GLFW, app_data);
 }
 

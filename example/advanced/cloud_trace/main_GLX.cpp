@@ -8,7 +8,7 @@
  */
 
 #include "main_common.hpp"
-#include "render_data.hpp"
+#include "app_data.hpp"
 #include "resources.hpp"
 #include "renderer.hpp"
 #include "raytracer.hpp"
@@ -38,24 +38,27 @@
 namespace oglplus {
 namespace cloud_trace {
 
-struct CommonData
+class CommonData
 {
+public:
 	const x11::Display& display;
 	const glx::FBConfig& fb_config;
 	const x11::VisualInfo& visual_info;
 	const glx::Context& context;
-	x11::ScreenNames screen_names;
 
-	unsigned rt_front_tex_unit;
-	unsigned face;
-	double face_done;
+	const unsigned max_tiles;
+	unsigned tile, face;
 	bool keep_running;
+
+
+	std::vector<std::exception_ptr> thread_errors;
 
 	std::mutex mutex;
 	Semaphore master_ready;
 	Semaphore thread_ready;
 
 	CommonData(
+		const AppData& app_data,
 		const x11::Display& disp,
 		const glx::FBConfig& fbc,
 		const x11::VisualInfo& vi,
@@ -64,65 +67,80 @@ struct CommonData
 	 , fb_config(fbc)
 	 , visual_info(vi)
 	 , context(ctx)
+	 , max_tiles(app_data.tiles())
+	 , tile(0)
 	 , face(0)
-	 , face_done(0)
 	 , keep_running(true)
 	{ }
+
+	bool Done(void)
+	{
+		std::unique_lock<std::mutex> lock(mutex);
+		return !keep_running;
+	}
+
+	bool NextTraceTask(unsigned& rt_face, unsigned& rt_tile)
+	{
+		std::unique_lock<std::mutex> lock(mutex);
+
+		rt_face = face;
+		rt_tile = tile;
+
+		keep_running &= (face < 6);
+
+		if(keep_running)
+		{
+			if(++tile >= max_tiles)
+			{
+				tile = 0;
+				++face;
+			}
+			return true;
+		}
+		return false;
+	}
 };
 
 void thread_loop(
+	AppData& app_data,
 	CommonData& common,
-	RenderData& data,
-	Raytracer& raytracer
+	RaytracerResources& rt_res
 )
 {
-	raytracer.Use(data);
+	Context gl;
+	Raytracer raytracer(app_data, rt_res);
+	raytracer.Use(app_data);
 
-	while(common.keep_running)
+	unsigned face, tile;
+
+	while(common.NextTraceTask(face, tile))
 	{
-		if(common.face_done == 0)
-		{
-			raytracer.InitFrame(data, common.face_done);
-		}
+		raytracer.Raytrace(app_data, face, tile);
+		gl.Finish();
 
-		if(common.face_done < 1)
-		{
-			double done = raytracer.Raytrace(data);
-
-			std::unique_lock<std::mutex> lock(common.mutex);
-			common.face_done = done;
-			raytracer.SwapBuffers(data);
-			common.rt_front_tex_unit = raytracer.FrontTexUnit();
-			lock.unlock();
-		}
-		else if(common.face < 6)
-		{
-			if(common.face < 5)
-			{
-				common.face_done = 0;
-				common.face++;
-			}
-			else common.keep_running = false;
-		}
+		std::unique_lock<std::mutex> lock(common.mutex);
+		raytracer.BlitBuffers(app_data, tile);
+		lock.unlock();
 	}
 }
 
 void window_loop(
 	const x11::Window& window,
+	AppData& app_data,
 	CommonData& common,
-	RenderData& data,
 	Renderer& renderer
 )
 {
-	renderer.Use(data);
-	Saver saver(data);
+	Context gl;
+	renderer.Use(app_data);
+	//Saver saver(app_data); TODO
 
 	window.SelectInput(StructureNotifyMask| PointerMotionMask| KeyPressMask);
 	::Atom wmDelete = ::XInternAtom(common.display, "WM_DELETE_WINDOW", True);
 	::XSetWMProtocols(common.display, window, &wmDelete, 1);
 	::XEvent event;
 
-	while(common.keep_running)
+	while(!common.Done())
 	{
 		while(common.display.NextEvent(event))
 		{
@@ -133,8 +151,8 @@ void window_loop(
 					common.keep_running = false;
 					break;
 				case ConfigureNotify:
-					data.render_width = event.xconfigure.width;
-					data.render_height = event.xconfigure.height;
+					app_data.render_width = event.xconfigure.width;
+					app_data.render_height = event.xconfigure.height;
 					break;
 				case MotionNotify:
 					break;
@@ -146,29 +164,23 @@ void window_loop(
 			}
 		}
 
-		if(common.face_done < 1)
-		{
-			std::unique_lock<std::mutex> lock(common.mutex);
-			renderer.Render(data, common.rt_front_tex_unit);
-			lock.unlock();
-			common.context.SwapBuffers(window);
-		}
-		else if(common.face < 6)
-		{
-			common.context.SwapBuffers(window);
-			saver.SaveFrame(data, common.face);
-		}
+		std::unique_lock<std::mutex> lock(common.mutex);
+		renderer.Render(app_data);
+		gl.Finish();
+		lock.unlock();
+
+		common.context.SwapBuffers(window);
 	}
 }
 
 void main_thread(
+	AppData& app_data,
 	CommonData& common,
-	RenderData& data,
-	Raytracer& raytracer
+	RaytracerResources& rt_res
 )
 {
 	// TODO: use display_names
-	const x11::Display& display = common.display;
+	x11::Display display;
 
 	x11::Pixmap xpm(display, common.visual_info, 8, 8);
 	glx::Pixmap gpm(display, common.visual_info, xpm);
@@ -178,14 +190,23 @@ void main_thread(
 
 	common.thread_ready.Signal();
 
-	thread_loop(common, data, raytracer);
+	try { thread_loop(app_data, common, rt_res); }
+	catch(...)
+	{
+		std::unique_lock<std::mutex> lock(common.mutex);
+		common.thread_errors.push_back(std::current_exception());
+		common.keep_running = false;
+		lock.unlock();
+	}
 
 	context.Release(display);
 }
 
-int main_GLX(RenderData& data)
+int main_GLX(AppData& app_data)
 {
+	::XInitThreads();
 	x11::Display display;
+
 	static int visual_attribs[] =
 	{
 		GLX_X_RENDERABLE    , True,
@@ -216,8 +237,8 @@ int main_GLX(RenderData& data)
 		vi,
 		x11::Colormap(display, vi),
 		"CloudTrace",
-		data.render_width,
-		data.render_height
+		app_data.render_width,
+		app_data.render_height
 	);
 
 	glx::Context context(display, fbc, 3, 3);
@@ -225,29 +246,46 @@ int main_GLX(RenderData& data)
 
 	GLAPIInitializer api_init;
 	{
-		ResourceAllocator alloc;
-		Renderer renderer(data, alloc);
-		Raytracer raytracer(data, alloc);
+		CommonData common(app_data, display, fbc, vi, context);
 
-		CommonData common(display, fbc, vi, context);
+		ResourceAllocator res_alloc;
+		RaytracerResources rt_res(app_data, res_alloc);
+		Renderer renderer(app_data, rt_res.dest_tex_unit);
 
 		std::vector<std::thread> threads;
 
+		try
 		{
-			threads.push_back(
-				std::thread(
-					main_thread,
-					std::ref(common),
-					std::ref(data),
-					std::ref(raytracer)
-				)
-			);
-			common.thread_ready.Wait();
+			{
+				threads.push_back(
+					std::thread(
+						main_thread,
+						std::ref(app_data),
+						std::ref(common),
+						std::ref(rt_res)
+					)
+				);
+				common.thread_ready.Wait();
+			}
+
+			window_loop(window, app_data, common, renderer);
+
+			for(auto& t: threads) t.join();
+		}
+		catch (...)
+		{
+			for(auto& t: threads) t.join();
+			throw;
 		}
 
-		window_loop(window, common, data, renderer);
+		for(auto& ep: common.thread_errors)
+		{
+			if(ep != nullptr)
+			{
+				std::rethrow_exception(ep);
+			}
+		}
 
-		for(auto& t: threads) t.join();
 	}
 
 	context.Release(display);
@@ -261,9 +299,9 @@ int main_GLX(RenderData& data)
 int main (int argc, char ** argv)
 {
 	using oglplus::cloud_trace::main_GLX;
-	using oglplus::cloud_trace::RenderData;
+	using oglplus::cloud_trace::AppData;
 
-	RenderData data(argc, argv);
-	return do_run_main(main_GLX, data);
+	AppData app_data(argc, argv);
+	return do_run_main(main_GLX, app_data);
 }
 

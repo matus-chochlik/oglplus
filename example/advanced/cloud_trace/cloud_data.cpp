@@ -18,21 +18,21 @@
 namespace oglplus {
 namespace cloud_trace {
 
-CloudData::CloudData(RenderData& data)
- : count(data.cloud_count)
+CloudData::CloudData(const AppData& app_data)
+ : count(app_data.cloud_count)
 {
 	// TODO loading from istream
 	std::vector<Mat4f> cloud_data;
 	cloud_data.reserve(count);
 
-	float radius = data.planet_radius;
-	float cloud_alt = data.cloud_mean_alt;
-	float cloud_alt_disp = data.cloud_alt_disp;
+	float radius = app_data.planet_radius;
+	float cloud_alt = app_data.cloud_mean_alt;
+	float cloud_alt_disp = app_data.cloud_alt_disp;
 
-	float cloud_size = data.cloud_mean_size;
-	float cloud_size_disp = data.cloud_size_disp;
+	float cloud_size = app_data.cloud_mean_size;
+	float cloud_size_disp = app_data.cloud_size_disp;
 
-	auto angle = Degrees(data.covered_angle);
+	auto angle = Degrees(app_data.covered_angle);
 
 	Vec3f center(0,-radius, 0);
 	Mat4f cloud = ModelMatrixf::Translation(center);
@@ -91,7 +91,7 @@ CloudData::CloudData(RenderData& data)
 
 	*this	<< BufferTarget::Uniform
 		<< cloud_data;
-	*this	<< BufferIndexedTarget::Uniform << data.cloud_data_ub_idx;
+	*this	<< BufferIndexedTarget::Uniform << app_data.cloud_data_ub_idx;
 }
 
 unsigned CloudData::CloudCount(void) const

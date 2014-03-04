@@ -37,45 +37,31 @@ Program& RaytraceProg::self(void)
 	return *this;
 }
 
-RaytraceProg::RaytraceProg(RenderData& data)
+RaytraceProg::RaytraceProg(AppData& app_data)
  : Program(make())
  , ray_matrix(self(), "RayMatrix")
  , cloud_tex(self(), "CloudTex")
  , cloud_count(self(), "CloudCount")
 {
-	UniformBlock(self(), "CloudBlock").Binding(data.cloud_data_ub_idx);
+	UniformBlock(self(), "CloudBlock").Binding(app_data.cloud_data_ub_idx);
 	ProgramUniform<Vec3f>(self(), "LightPos").Set(
-		data.light_x,
-		data.light_y,
-		data.light_z
+		app_data.light_x,
+		app_data.light_y,
+		app_data.light_z
 	);
-	ProgramUniform<GLfloat>(self(), "HighLight").Set(data.high_light);
-	ProgramUniform<GLfloat>(self(), "AmbiLight").Set(data.ambi_light);
+	ProgramUniform<GLfloat>(self(), "HighLight").Set(app_data.high_light);
+	ProgramUniform<GLfloat>(self(), "AmbiLight").Set(app_data.ambi_light);
 
-	ProgramUniform<GLfloat>(self(), "UnitOpacity").Set(data.unit_opacity);
-	ProgramUniform<GLfloat>(self(), "UnitAttenuation").Set(data.unit_attenuation);
+	ProgramUniform<GLfloat>(self(), "UnitOpacity").Set(app_data.unit_opacity);
+	ProgramUniform<GLfloat>(self(), "UnitAttenuation").Set(app_data.unit_attenuation);
 }
 
-void RaytraceProg::SetCamera(
-	const Vec3f& left,
-	const Vec3f& up,
-	const Vec3f& front,
-	float near,
-	float far
-)
+void RaytraceProg::SetRayMatrix(const Mat4f& mat)
 {
-	ray_matrix.Set(Mat3f(
-		CamMatrixf::PerspectiveX(RightAngle(), 1, near, far)*
-		Mat4f(
-			Vec4f(left, 0),
-			Vec4f(up, 0),
-			Vec4f(-front, 0),
-			Vec4f::Unit(3)
-		)
-	));
+	ray_matrix.Set(Mat3f(mat));
 }
 
-Program RenderProg::make(RenderData&)
+Program RenderProg::make(AppData&)
 {
 	Program prog;
 
@@ -95,8 +81,8 @@ Program& RenderProg::self(void)
 	return *this;
 }
 
-RenderProg::RenderProg(RenderData& data)
- : Program(make(data))
+RenderProg::RenderProg(AppData& app_data)
+ : Program(make(app_data))
  , raytrace_size(self(), "RaytraceSize")
  , raytrace_output(self(), "RaytraceOutput")
 {

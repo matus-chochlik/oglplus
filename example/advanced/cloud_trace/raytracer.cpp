@@ -19,61 +19,75 @@
 namespace oglplus {
 namespace cloud_trace {
 
-Raytracer::Raytracer(RenderData& data, ResourceAllocator& alloc)
- : gl()
- , w(data.cols())
- , h(data.rows())
- , cloud_data(data)
- , cloud_tex(data, alloc)
- , raytrace_prog(data)
- , screen("Position", shapes::Screen(), raytrace_prog)
- , front(0)
- , back(1)
- , fbos(2)
- , texs(2)
+RaytracerResources::RaytracerResources(
+	AppData& app_data,
+	ResourceAllocator& alloc
+): cloud_data(app_data)
+ , cloud_tex(app_data, alloc)
+ , raytrace_prog(app_data)
+ , dest_tex_unit(alloc.GetNextTexUnit())
 {
 	raytrace_prog.cloud_count.Set(cloud_data.CloudCount());
 
-	gl.Viewport(0, 0, data.raytrace_width, data.raytrace_height);
-	gl.Disable(Capability::ScissorTest);
-	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
+	Texture::Active(dest_tex_unit);
 
-	for(GLuint b=0; b!=2; ++b)
-	{
-		tex_units[b] = alloc.GetNextTexUnit();
-
-		Texture::Active(tex_units[b]);
-
-		texs[b]	<< TextureTarget::Rectangle
-			<< TextureFilter::Linear
-			<< TextureWrap::ClampToEdge
-			<< images::ImageSpec(
-				data.raytrace_width,
-				data.raytrace_height,
-				Format::RGBA,
-				InternalFormat::RGBA32F,
-				DataType::Float
-			);
-
-		fbos[b]	<< FramebufferTarget::Draw
-			<< FramebufferAttachment::Color << texs[b];
-
-		gl.Clear().ColorBuffer();
-	}
+	dest_tex<< TextureTarget::Rectangle
+		<< TextureFilter::Linear
+		<< TextureWrap::ClampToBorder
+		<< images::ImageSpec(
+			app_data.raytrace_width,
+			app_data.raytrace_height,
+			Format::RGBA,
+			InternalFormat::RGBA32F,
+			DataType::Float
+		);
 }
 
-void Raytracer::Use(RenderData& data)
+Raytracer::Raytracer(AppData& app_data, RaytracerResources& res)
+ : gl()
+ , w(app_data.cols())
+ , h(app_data.rows())
+ , resources(res)
+ , screen("Position", shapes::Screen(), resources.raytrace_prog)
 {
-	gl.Viewport(0, 0, data.raytrace_width, data.raytrace_height);
-	fbos[back] << FramebufferTarget::Draw;
-	raytrace_prog.Use();
+	gl.Disable(Capability::ScissorTest);
+	gl.Viewport(0, 0, app_data.raytrace_width, app_data.raytrace_height);
+
+	rbo	<< RenderbufferTarget::Renderbuffer
+		<< images::ImageSpec(
+			app_data.raytrace_width,
+			app_data.raytrace_height,
+			InternalFormat::RGBA32F
+		);
+
+	rt_fbo	<< FramebufferTarget::Draw
+		<< FramebufferAttachment::Color << rbo;
+
+	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
+	gl.Clear().ColorBuffer();
+
+	cp_fbo	<< FramebufferTarget::Draw
+		<< FramebufferAttachment::Color << res.dest_tex;
+
+	gl.ClearColor(1.0, 1.0, 1.0, 1.0);
+	gl.Clear().ColorBuffer();
+}
+
+void Raytracer::Use(AppData& app_data)
+{
+	rt_fbo << FramebufferTarget::Draw;
+	gl.Viewport(0, 0, app_data.raytrace_width, app_data.raytrace_height);
+	resources.raytrace_prog.Use();
 	screen.Use();
 }
 
-void Raytracer::InitFrame(RenderData& data, unsigned cube_face)
+
+void Raytracer::Raytrace(AppData& app_data, unsigned face, unsigned tile)
 {
-	i = 0;
-	j = 0;
+	unsigned i = tile % w;
+	unsigned j = tile / w;
+	assert(j*h+i < w*h);
+
 	gl.Disable(Capability::ScissorTest);
 	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
 	gl.Clear().ColorBuffer();
@@ -81,95 +95,102 @@ void Raytracer::InitFrame(RenderData& data, unsigned cube_face)
 
 	Vec3f cx, cy, cz;
 
-	switch(cube_face)
+	switch(face)
 	{
 		case 0: // +X
 		{
 			cx = +Vec3f::Unit(2);
 			cy = +Vec3f::Unit(1);
-			cz = +Vec3f::Unit(0);
+			cz = -Vec3f::Unit(0);
 			break;
 		}
 		case 1: // -X
 		{
 			cx = -Vec3f::Unit(2);
 			cy = +Vec3f::Unit(1);
-			cz = -Vec3f::Unit(0);
+			cz = +Vec3f::Unit(0);
 			break;
 		}
 		case 2: // +Y
 		{
 			cx = -Vec3f::Unit(0);
 			cy = +Vec3f::Unit(2);
-			cz = -Vec3f::Unit(1);
+			cz = +Vec3f::Unit(1);
 			break;
 		}
 		case 3: // -Y
 		{
 			cx = -Vec3f::Unit(0);
 			cy = -Vec3f::Unit(2);
-			cz = +Vec3f::Unit(1);
+			cz = -Vec3f::Unit(1);
 			break;
 		}
 		case 4: // +Z
 		{
 			cx = -Vec3f::Unit(0);
 			cy = +Vec3f::Unit(1);
-			cz = +Vec3f::Unit(2);
+			cz = -Vec3f::Unit(2);
 			break;
 		}
 		case 5: // -Z
 		{
 			cx = +Vec3f::Unit(0);
 			cy = +Vec3f::Unit(1);
-			cz = -Vec3f::Unit(2);
+			cz = +Vec3f::Unit(2);
 			break;
 		}
 		default: assert(!"Invalid cube face");
 	}
 
-	raytrace_prog.SetCamera(cx, cy, cz, data.cam_near, data.cam_far);
-}
+	resources.raytrace_prog.SetRayMatrix(
+		CamMatrixf::PerspectiveX(
+			RightAngle(), 1,
+			app_data.cam_near,
+			app_data.cam_far
+		)* Mat4f(
+			Vec4f(cx, 0),
+			Vec4f(cy, 0),
+			Vec4f(cz, 0),
+			Vec4f::Unit(3)
+		)
+	);
 
-double Raytracer::Raytrace(RenderData& data)
-{
-	assert(i*j < w*h);
-
-	gl.Scissor(i*data.tile, (h-j-1)*data.tile, data.tile, data.tile);
-
-	if(++i >= w)
-	{
-		++j;
-		i = 0;
-	}
+	gl.Scissor(
+		app_data.tile*i,
+		app_data.tile*(h-j-1),
+		app_data.tile,
+		app_data.tile
+	);
 
 	screen.Draw();
-
-	return double(j*h+i)/double(w*h);
 }
 
-void Raytracer::SwapBuffers(RenderData& data)
+void Raytracer::BlitBuffers(AppData& app_data, unsigned tile)
 {
-	fbos[back] << FramebufferTarget::Read;
-	fbos[front] << FramebufferTarget::Draw;
+	unsigned i = tile % w;
+	unsigned j = tile / w;
+	assert(j*h+i < w*h);
+
+	j = h-j-1;
+
+	rt_fbo << FramebufferTarget::Read;
+	cp_fbo << FramebufferTarget::Draw;
 
 	gl.Flush();
 	gl.BlitFramebuffer(
-		0, 0, data.raytrace_width, data.raytrace_height,
-		0, 0, data.raytrace_width, data.raytrace_height,
+		app_data.tile*(i+0),
+		app_data.tile*(j+0),
+		app_data.tile*(i+1),
+		app_data.tile*(j+1),
+		app_data.tile*(i+0),
+		app_data.tile*(j+0),
+		app_data.tile*(i+1),
+		app_data.tile*(j+1),
 		BufferSelectBit::ColorBuffer,
 		BlitFilter::Nearest
 	);
 
-	front = (front+1)%2;
-	back = (back+1)%2;
-
-	fbos[back] << FramebufferTarget::Draw;
-}
-
-GLuint Raytracer::FrontTexUnit(void) const
-{
-	return tex_units[front];
+	rt_fbo << FramebufferTarget::Draw;
 }
 
 } // namespace cloud_trace

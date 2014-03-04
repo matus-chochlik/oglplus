@@ -11,7 +11,7 @@
 #ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_SAVER_1119071146_HPP
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_SAVER_1119071146_HPP
 
-#include "render_data.hpp"
+#include "app_data.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
@@ -26,9 +26,9 @@ class Saver
 private:
 	Context gl;
 public:
-	Saver(RenderData&);
+	Saver(AppData&);
 
-	void SaveFrame(RenderData&, unsigned);
+	void SaveFrame(AppData&, unsigned);
 };
 
 } // namespace cloud_trace

@@ -11,8 +11,7 @@
 #ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_RAYTRACER_1119071146_HPP
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_RAYTRACER_1119071146_HPP
 
-#include "render_data.hpp"
-#include "resources.hpp"
+#include "app_data.hpp"
 #include "cloud_data.hpp"
 #include "programs.hpp"
 #include "textures.hpp"
@@ -22,7 +21,7 @@
 
 #include <oglplus/context.hpp>
 #include <oglplus/framebuffer.hpp>
-#include <oglplus/texture.hpp>
+#include <oglplus/renderbuffer.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
 #include <array>
@@ -30,33 +29,39 @@
 namespace oglplus {
 namespace cloud_trace {
 
+struct RaytracerResources
+{
+	CloudData cloud_data;
+	CloudTexture cloud_tex;
+
+	RaytraceProg raytrace_prog;
+
+	const GLuint dest_tex_unit;
+	Texture dest_tex;
+
+	RaytracerResources(AppData&, ResourceAllocator&);
+};
+
 class Raytracer
 {
 private:
 	Context gl;
 
-	unsigned i, j, w, h;
+	const unsigned w, h;
 
-	CloudData cloud_data;
-	CloudTexture cloud_tex;
-	RaytraceProg raytrace_prog;
+	RaytracerResources& resources;
 
 	shapes::ShapeWrapper screen;
 
-	GLuint front, back;
-
-	std::array<GLuint, 2> tex_units;
-	Array<Framebuffer> fbos;
-	Array<Texture> texs;
+	Renderbuffer rbo;
+	Framebuffer rt_fbo, cp_fbo;
 public:
-	Raytracer(RenderData&, ResourceAllocator&);
+	Raytracer(AppData&, RaytracerResources&);
 
-	void Use(RenderData&);
-	void InitFrame(RenderData&, unsigned);
-	double Raytrace(RenderData&);
-	void SwapBuffers(RenderData&);
+	void Use(AppData&);
+	void Raytrace(AppData&, unsigned face, unsigned tile);
 
-	GLuint FrontTexUnit(void) const;
+	void BlitBuffers(AppData&, unsigned tile);
 };
 
 } // namespace cloud_trace

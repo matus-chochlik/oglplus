@@ -11,7 +11,7 @@
 #ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_PROGRAMS_1119071146_HPP
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_PROGRAMS_1119071146_HPP
 
-#include "render_data.hpp"
+#include "app_data.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
@@ -36,28 +36,22 @@ public:
 	ProgramUniformSampler cloud_tex;
 	ProgramUniform<GLint> cloud_count;
 
-	RaytraceProg(RenderData& data);
+	RaytraceProg(AppData&);
 
-	void SetCamera(
-		const Vec3f& left,
-		const Vec3f& up,
-		const Vec3f& front,
-		float near,
-		float far
-	);
+	void SetRayMatrix(const Mat4f&);
 };
 
 class RenderProg : public Program
 {
 private:
-	static Program make(RenderData&);
+	static Program make(AppData&);
 
 	Program& self(void);
 public:
 	ProgramUniform<Vec2f> raytrace_size;
 	ProgramUniformSampler raytrace_output;
 
-	RenderProg(RenderData&);
+	RenderProg(AppData&);
 };
 
 } // namespace cloud_trace

@@ -1,6 +1,6 @@
 /**
- *  @file advanced/cloud_trace/render_data.hpp
- *  @brief Declares rendering-related data structures and functions
+ *  @file advanced/cloud_trace/app_data.hpp
+ *  @brief Declares data structures and functions used application-wide
  *
  *  @author Matus Chochlik
  *
@@ -8,8 +8,8 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-#ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_RENDER_DATA_1119071146_HPP
-#define OGLPLUS_ADVANCED_CLOUD_TRACE_RENDER_DATA_1119071146_HPP
+#ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_APP_DATA_1119071146_HPP
+#define OGLPLUS_ADVANCED_CLOUD_TRACE_APP_DATA_1119071146_HPP
 
 #include <iosfwd>
 #include <string>
@@ -18,7 +18,7 @@
 namespace oglplus {
 namespace cloud_trace {
 
-struct RenderData
+struct AppData
 {
 	// user interface functions
 	void* puser_intf;
@@ -43,6 +43,7 @@ struct RenderData
 	unsigned tile;
 	unsigned rows(void) const;
 	unsigned cols(void) const;
+	unsigned tiles(void) const;
 
 	// cloud parameters
 	float unit_opacity, unit_attenuation;
@@ -65,7 +66,7 @@ struct RenderData
 	float light_x, light_y, light_z;
 	float high_light, ambi_light;
 
-	RenderData(int argc, char** argv);
+	AppData(int argc, char** argv);
 };
 
 } // namespace cloud_trace

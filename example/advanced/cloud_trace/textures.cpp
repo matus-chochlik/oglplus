@@ -20,19 +20,19 @@
 namespace oglplus {
 namespace cloud_trace {
 
-CloudTexture::CloudTexture(RenderData& data, ResourceAllocator& alloc)
+CloudTexture::CloudTexture(AppData& app_data, ResourceAllocator& alloc)
  : tex_unit(alloc.GetNextTexUnit())
 {
 	Texture::Active(tex_unit);
 
-	const std::string& cip = data.cloud_image_path;
+	const std::string& cip = app_data.cloud_image_path;
 
-	if(cip.empty() || data.dump_cloud_image)
+	if(cip.empty() || app_data.dump_cloud_image)
 	{
 		std::ofstream output;
 		output.exceptions(std::ifstream::failbit|std::ifstream::badbit);
 
-		if(data.dump_cloud_image)
+		if(app_data.dump_cloud_image)
 		{
 			if(cip.empty())
 			{
@@ -53,9 +53,9 @@ CloudTexture::CloudTexture(RenderData& data, ResourceAllocator& alloc)
 		}
 
 		auto image = images::Cloud(
-				data.cloud_res,
-				data.cloud_res,
-				data.cloud_res,
+				app_data.cloud_res,
+				app_data.cloud_res,
+				app_data.cloud_res,
 				Vec3f(),
 				0.45f,
 				0.333f,
@@ -63,7 +63,7 @@ CloudTexture::CloudTexture(RenderData& data, ResourceAllocator& alloc)
 				0.005f
 		);
 
-		if(data.dump_cloud_image)
+		if(app_data.dump_cloud_image)
 		{
 			if(!cip.empty()) try
 			{
@@ -97,9 +97,9 @@ CloudTexture::CloudTexture(RenderData& data, ResourceAllocator& alloc)
 		{
 			input.open(cip.c_str());
 			std::vector<GLubyte> image(
-				data.cloud_res*
-				data.cloud_res*
-				data.cloud_res
+				app_data.cloud_res*
+				app_data.cloud_res*
+				app_data.cloud_res
 			);
 			input.read((char*)image.data(), image.size());
 			if(input.gcount() < std::streamsize(image.size()))
@@ -115,9 +115,9 @@ CloudTexture::CloudTexture(RenderData& data, ResourceAllocator& alloc)
 				<< TextureWrap::ClampToBorder
 				<< TextureFilter::Linear
 				<< images::ImageSpec(
-					data.cloud_res,
-					data.cloud_res,
-					data.cloud_res,
+					app_data.cloud_res,
+					app_data.cloud_res,
+					app_data.cloud_res,
 					PixelDataFormat::Red,
 					PixelDataInternalFormat::Red,
 					image.data()

@@ -19,17 +19,17 @@
 namespace oglplus {
 namespace cloud_trace {
 
-Saver::Saver(RenderData&)
+Saver::Saver(AppData&)
 {
 }
 
-void Saver::SaveFrame(RenderData& data, unsigned face)
+void Saver::SaveFrame(AppData& app_data, unsigned face)
 {
 	assert(face < 6);
 
 	gl.Flush();
 
-	std::vector<char> pixels(data.render_width * data.render_height * 3);
+	std::vector<char> pixels(app_data.render_width * app_data.render_height * 3);
 
 	gl.Finish();
 
@@ -37,16 +37,16 @@ void Saver::SaveFrame(RenderData& data, unsigned face)
 
 	gl.ReadPixels(
 		0, 0,
-		data.render_width,
-		data.render_height,
+		app_data.render_width,
+		app_data.render_height,
 		PixelDataFormat::RGB,
 		PixelDataType::UnsignedByte,
 		pixels.data()
 	);
-	std::string path = data.output_prefix;
-	path.append(data.output_face_id[face]);
+	std::string path = app_data.output_prefix;
+	path.append(app_data.output_face_id[face]);
 	path.append(".");
-	path.append(data.output_suffix);
+	path.append(app_data.output_suffix);
 
 	std::ofstream output(path.c_str());
 	output.write(pixels.data(), pixels.size());

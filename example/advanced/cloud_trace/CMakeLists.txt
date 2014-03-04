@@ -26,6 +26,7 @@ if((GLX_FOUND) OR (GLFW_FOUND))
 		endif()
 	endif()
 
+	set(CLOUD_TRACE_GL_INIT GLFW) # TODO
 
 	do_use_single_dependency(${CLOUD_TRACE_GL_INIT})
 
@@ -34,7 +35,7 @@ if((GLX_FOUND) OR (GLFW_FOUND))
 		EXCLUDE_FROM_ALL
 			main_${CLOUD_TRACE_GL_INIT}.cpp
 			main_common.cpp
-			render_data.cpp
+			app_data.cpp
 			cloud_data.cpp
 			resources.cpp
 			textures.cpp

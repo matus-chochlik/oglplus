@@ -11,7 +11,7 @@
 #ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_CLOUD_DATA_1119071146_HPP
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_CLOUD_DATA_1119071146_HPP
 
-#include "render_data.hpp"
+#include "app_data.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
@@ -25,7 +25,7 @@ class CloudData : public Buffer
 private:
 	unsigned count;
 public:
-	CloudData(RenderData& data);
+	CloudData(const AppData&);
 
 	unsigned CloudCount(void) const;
 };

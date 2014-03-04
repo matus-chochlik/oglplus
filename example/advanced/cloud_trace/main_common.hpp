@@ -11,12 +11,12 @@
 #ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_MAIN_COMMON_1119071146_HPP
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_MAIN_COMMON_1119071146_HPP
 
-#include "render_data.hpp"
+#include "app_data.hpp"
 
 namespace oglplus {
 namespace cloud_trace {
 
-extern int do_run_main(int (*)(RenderData&), RenderData&);
+extern int do_run_main(int (*)(AppData&), AppData&);
 
 } // namespace cloud_trace
 } // namespace oglplus

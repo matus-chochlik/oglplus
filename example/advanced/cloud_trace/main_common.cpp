@@ -9,7 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#include "render_data.hpp"
+#include "app_data.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
@@ -77,12 +77,12 @@ inline void print_error_common(
 	}
 }
 
-int do_run_main(int (*main_func)(RenderData&), RenderData& data)
+int do_run_main(int (*main_func)(AppData&), AppData& app_data)
 {
-	std::ostream& errstr = data.errstr();
+	std::ostream& errstr = app_data.errstr();
 	try
 	{
-		return main_func(data);
+		return main_func(app_data);
 	}
 	catch(ShaderVariableError& sve)
 	{

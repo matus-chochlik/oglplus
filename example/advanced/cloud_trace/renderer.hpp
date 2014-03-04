@@ -11,7 +11,7 @@
 #ifndef OGLPLUS_ADVANCED_CLOUD_TRACE_RENDERER_1119071146_HPP
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_RENDERER_1119071146_HPP
 
-#include "render_data.hpp"
+#include "app_data.hpp"
 #include "resources.hpp"
 #include "programs.hpp"
 
@@ -19,6 +19,8 @@
 #include <oglplus/fix_gl_version.hpp>
 
 #include <oglplus/context.hpp>
+#include <oglplus/texture.hpp>
+#include <oglplus/framebuffer.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
 namespace oglplus {
@@ -33,10 +35,10 @@ private:
 
 	shapes::ShapeWrapper screen;
 public:
-	Renderer(RenderData&, ResourceAllocator&);
+	Renderer(AppData&, GLuint raytrace_tex_unit);
 
-	void Use(RenderData&);
-	void Render(RenderData&, GLuint);
+	void Use(AppData&);
+	void Render(AppData&);
 };
 
 } // namespace cloud_trace
