@@ -59,6 +59,8 @@ public:
 	Raytracer(AppData&, RaytracerResources&);
 
 	void Use(AppData&);
+	void ClearDest(AppData&);
+	void InitFrame(AppData&, unsigned face);
 	void Raytrace(AppData&, unsigned face, unsigned tile);
 
 	void BlitBuffers(AppData&, unsigned tile);

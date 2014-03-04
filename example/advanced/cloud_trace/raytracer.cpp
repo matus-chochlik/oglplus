@@ -50,9 +50,6 @@ Raytracer::Raytracer(AppData& app_data, RaytracerResources& res)
  , resources(res)
  , screen("Position", shapes::Screen(), resources.raytrace_prog)
 {
-	gl.Disable(Capability::ScissorTest);
-	gl.Viewport(0, 0, app_data.raytrace_width, app_data.raytrace_height);
-
 	rbo	<< RenderbufferTarget::Renderbuffer
 		<< images::ImageSpec(
 			app_data.raytrace_width,
@@ -63,14 +60,8 @@ Raytracer::Raytracer(AppData& app_data, RaytracerResources& res)
 	rt_fbo	<< FramebufferTarget::Draw
 		<< FramebufferAttachment::Color << rbo;
 
-	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
-	gl.Clear().ColorBuffer();
-
 	cp_fbo	<< FramebufferTarget::Draw
 		<< FramebufferAttachment::Color << res.dest_tex;
-
-	gl.ClearColor(1.0, 1.0, 1.0, 1.0);
-	gl.Clear().ColorBuffer();
 }
 
 void Raytracer::Use(AppData& app_data)
@@ -81,16 +72,25 @@ void Raytracer::Use(AppData& app_data)
 	screen.Use();
 }
 
-
-void Raytracer::Raytrace(AppData& app_data, unsigned face, unsigned tile)
+void Raytracer::ClearDest(AppData&)
 {
-	unsigned i = tile % w;
-	unsigned j = tile / w;
-	assert(j*h+i < w*h);
-
 	gl.Disable(Capability::ScissorTest);
+
+	cp_fbo	<< FramebufferTarget::Draw;
+	gl.ClearColor(1.0, 1.0, 1.0, 0.5);
+	gl.Clear().ColorBuffer();
+
+	gl.Enable(Capability::ScissorTest);
+}
+
+void Raytracer::InitFrame(AppData& app_data, unsigned face)
+{
+	gl.Disable(Capability::ScissorTest);
+
+	rt_fbo	<< FramebufferTarget::Draw;
 	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
 	gl.Clear().ColorBuffer();
+
 	gl.Enable(Capability::ScissorTest);
 
 	Vec3f cx, cy, cz;
@@ -154,6 +154,13 @@ void Raytracer::Raytrace(AppData& app_data, unsigned face, unsigned tile)
 			Vec4f::Unit(3)
 		)
 	);
+}
+
+void Raytracer::Raytrace(AppData& app_data, unsigned, unsigned tile)
+{
+	unsigned i = tile % w;
+	unsigned j = tile / w;
+	assert(j*h+i < w*h);
 
 	gl.Scissor(
 		app_data.tile*i,

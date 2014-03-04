@@ -61,9 +61,16 @@ void render_loop(AppData& app_data)
 
 	while(true)
 	{
+		raytracer.Use(app_data);
+
+		if(tile == 0)
+		{
+			raytracer.ClearDest(app_data);
+			raytracer.InitFrame(app_data, face);
+		}
+
 		if(tile < tiles)
 		{
-			raytracer.Use(app_data);
 			raytracer.Raytrace(app_data, face, tile);
 
 			gl.Disable(Capability::ScissorTest);
