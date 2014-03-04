@@ -26,9 +26,8 @@ if((GLX_FOUND) OR (GLFW_FOUND))
 		endif()
 	endif()
 
-	set(CLOUD_TRACE_GL_INIT GLFW) # TODO
-
 	do_use_single_dependency(${CLOUD_TRACE_GL_INIT})
+	do_use_single_dependency(THREADS)
 
 	add_executable(
 		cloud_trace	
@@ -45,9 +44,9 @@ if((GLX_FOUND) OR (GLFW_FOUND))
 			saver.cpp
 			threads.cpp
 	)
-	if("${CLOUD_TRACE_GL_INIT}" STREQUAL "GLX")
-		target_link_libraries(cloud_trace pthread)
-	endif()
+	target_link_libraries(cloud_trace ${${CLOUD_TRACE_GL_INIT}_LIBRARIES})
+	target_link_libraries(cloud_trace ${OGLPLUS_GL_LIBS})
+	target_link_libraries(cloud_trace ${THREADS_LIBRARIES})
 
 	if(${WIN32})
 		set_property(TARGET cloud_trace PROPERTY WIN32_EXECUTABLE true)
@@ -57,8 +56,6 @@ if((GLX_FOUND) OR (GLFW_FOUND))
 		PROPERTY FOLDER "Example/Advanced/cloud_trace"
 	)
 
-	target_link_libraries(cloud_trace ${${CLOUD_TRACE_GL_INIT}_LIBRARIES})
-	target_link_libraries(cloud_trace ${OGLPLUS_GL_LIBS})
 	add_dependencies(oglplus-advanced-example-cloud_trace cloud_trace)
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-cloud_trace)
 endif()

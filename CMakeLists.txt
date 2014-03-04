@@ -50,6 +50,8 @@ set(HEADER_SEARCH_PATHS ${HEADER_SEARCH_PATHS};${PROJECT_SOURCE_DIR}/third_party
 include(FindPkgConfig)
 include(config/CommonFindMod.cmake)
 
+include(config/FindThreads.cmake)
+
 include(config/FindOpenGL.cmake)
 include(config/FindGLEW.cmake)
 include(config/FindGL3W.cmake)
