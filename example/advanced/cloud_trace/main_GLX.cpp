@@ -238,6 +238,7 @@ void window_loop(
 
 		while(!common.FaceDone())
 		{
+			unsigned slot = 0;
 			while(common.display.NextEvent(event))
 			{
 				switch(event.type)
@@ -262,12 +263,18 @@ void window_loop(
 
 			if(common.Done()) break;
 
-			auto lock = common.Lock();
-			renderer.Render(app_data);
-			gl.Finish();
-			lock.unlock();
+			if((slot++ % 5) == 0)
+			{
+				auto lock = common.Lock();
+				renderer.Render(app_data);
+				gl.Finish();
+				lock.unlock();
 
-			common.context.SwapBuffers(window);
+				common.context.SwapBuffers(window);
+			}
+
+			std::chrono::milliseconds period(5);
+			std::this_thread::sleep_for(period);
 		}
 
 		// wait for all raytracer threads to finish
@@ -374,18 +381,20 @@ int main_GLX(AppData& app_data)
 				app_data.raytracer_params.push_back(std::string());
 			}
 
-			for(auto& param: app_data.raytracer_params)
+			std::size_t p = 0;
+			while(p != app_data.raytracer_params.size())
 			{
 				threads.push_back(
 					std::thread(
 						main_thread,
 						std::ref(app_data),
 						std::ref(common),
-						std::cref(param),
-						0
+						std::cref(app_data.  raytracer_params[p]),
+						p
 					)
 				);
 				common.thread_ready.Wait();
+				++p;
 			}
 		}
 		catch (...)
