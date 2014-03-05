@@ -23,9 +23,8 @@ namespace cloud_trace {
 
 class CloudTexture : public Texture
 {
-private:
-	const GLuint tex_unit;
 public:
+	const GLuint tex_unit;
 	CloudTexture(AppData&, ResourceAllocator&);
 	void Use(void);
 };

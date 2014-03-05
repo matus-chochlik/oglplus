@@ -29,15 +29,24 @@
 namespace oglplus {
 namespace cloud_trace {
 
+struct RaytraceTarget
+{
+	const GLuint tex_unit;
+
+	Context gl;
+	Texture tex;
+	Framebuffer fbo;
+
+	RaytraceTarget(AppData&, ResourceAllocator&);
+	void Clear(AppData&);
+};
+
 struct RaytracerResources
 {
 	CloudData cloud_data;
 	CloudTexture cloud_tex;
 
 	RaytraceProg raytrace_prog;
-
-	const GLuint dest_tex_unit;
-	Texture dest_tex;
 
 	RaytracerResources(AppData&, ResourceAllocator&);
 	void Use(void);
@@ -54,17 +63,15 @@ private:
 
 	shapes::ShapeWrapper screen;
 
-	Renderbuffer rbo;
-	Framebuffer rt_fbo, cp_fbo;
 public:
+	Renderbuffer rbo;
+	Framebuffer fbo;
+
 	Raytracer(AppData&, RaytracerResources&);
 
 	void Use(AppData&);
-	void ClearDest(AppData&);
 	void InitFrame(AppData&, unsigned face);
 	void Raytrace(AppData&, unsigned tile);
-
-	void BlitBuffers(AppData&, unsigned tile);
 };
 
 } // namespace cloud_trace

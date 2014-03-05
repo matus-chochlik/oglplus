@@ -12,6 +12,7 @@
 #include "resources.hpp"
 #include "renderer.hpp"
 #include "raytracer.hpp"
+#include "copier_default.hpp"
 #include "saver.hpp"
 #include "threads.hpp"
 
@@ -56,6 +57,7 @@ private:
 
 	std::mutex mutex;
 
+	RaytraceTarget* p_rt_tgt;
 	RaytracerResources* p_rt_res;
 public:
 	Semaphore master_ready;
@@ -75,8 +77,20 @@ public:
 	 , tile(0)
 	 , face(0)
 	 , keep_running(true)
+	 , p_rt_tgt(nullptr)
 	 , p_rt_res(nullptr)
 	{ }
+
+	void RtTgt(RaytraceTarget& rt_tgt)
+	{
+		p_rt_tgt = &rt_tgt;
+	}
+
+	RaytraceTarget& RtTgt(void)
+	{
+		assert(p_rt_tgt != nullptr);
+		return *p_rt_tgt;
+	}
 
 	void RtRes(RaytracerResources& rt_res)
 	{
@@ -166,26 +180,17 @@ public:
 	}
 };
 
-void thread_loop(AppData& app_data, CommonData& common, unsigned id)
+void thread_loop(AppData& app_data, CommonData& common)
 {
 	Context gl;
+	RaytraceCopier rt_copier(app_data, common.RtTgt());
 	Raytracer raytracer(app_data, common.RtRes());
 	raytracer.Use(app_data);
 
 	while(!common.Done())
 	{
-		// the first thread is responsible for clearing
-		// the shared texture into which the raytraced
-		// tiles are copied
-		if(id == 0)
-		{
-			raytracer.ClearDest(app_data);
-			// signal this to the master
-			common.thread_ready.Signal();
-		}
-
-		// all threads must wait until the shared texture
-		// is cleared
+		// all threads must wait until
+		// the raytrace target is cleared
 		common.master_ready.Wait();
 
 		if(common.Done()) break;
@@ -199,13 +204,15 @@ void thread_loop(AppData& app_data, CommonData& common, unsigned id)
 			gl.Finish();
 
 			auto lock = common.Lock();
-			raytracer.BlitBuffers(app_data, tile);
+			rt_copier.Copy(app_data, raytracer, tile);
 			lock.unlock();
 		}
 
 		// signal to the master that the raytracing
 		// of the current face has finished
 		common.thread_ready.Signal();
+
+		if(common.Done()) break;
 
 		// wait for the master to save the face image
 		common.master_ready.Wait();
@@ -216,11 +223,12 @@ void window_loop(
 	const x11::Window& window,
 	AppData& app_data,
 	CommonData& common,
-	Renderer& renderer,
+	RaytraceTarget& rt_tgt,
 	std::size_t n_threads
 )
 {
 	Context gl;
+	Renderer renderer(app_data, rt_tgt.tex_unit);
 	renderer.Use(app_data);
 	Saver saver(app_data);
 
@@ -231,8 +239,8 @@ void window_loop(
 
 	while(!common.Done())
 	{
-		// wait for the first thread to clear the shared texture
-		common.thread_ready.Wait();
+		// clear the raytrace target
+		rt_tgt.Clear(app_data);
 		// signal all threads that they can start raytracing tiles
 		common.master_ready.Signal(n_threads);
 
@@ -277,6 +285,8 @@ void window_loop(
 			std::this_thread::sleep_for(period);
 		}
 
+		if(common.Done()) break;
+
 		// wait for all raytracer threads to finish
 		common.thread_ready.Wait(n_threads);
 
@@ -301,8 +311,7 @@ void window_loop(
 void main_thread(
 	AppData& app_data,
 	CommonData& common,
-	const std::string& screen_name,
-	unsigned id
+	const std::string& screen_name
 )
 {
 	x11::Display display(screen_name.empty()?nullptr:screen_name.c_str());
@@ -317,7 +326,7 @@ void main_thread(
 
 	common.master_ready.Wait();
 
-	try { thread_loop(app_data, common, id); }
+	try { thread_loop(app_data, common); }
 	catch(...)
 	{
 		common.PushError(std::current_exception());
@@ -372,6 +381,9 @@ int main_GLX(AppData& app_data)
 	{
 		CommonData common(app_data, display, fbc, vi, context);
 
+		ResourceAllocator res_alloc;
+		RaytraceTarget rt_tgt(app_data, res_alloc);
+
 		std::vector<std::thread> threads;
 
 		try
@@ -381,20 +393,17 @@ int main_GLX(AppData& app_data)
 				app_data.raytracer_params.push_back(std::string());
 			}
 
-			std::size_t p = 0;
-			while(p != app_data.raytracer_params.size())
+			for(auto& param : app_data.raytracer_params)
 			{
 				threads.push_back(
 					std::thread(
 						main_thread,
 						std::ref(app_data),
 						std::ref(common),
-						std::cref(app_data.  raytracer_params[p]),
-						p
+						std::cref(param)
 					)
 				);
 				common.thread_ready.Wait();
-				++p;
 			}
 		}
 		catch (...)
@@ -402,12 +411,10 @@ int main_GLX(AppData& app_data)
 			for(auto& t: threads) t.join();
 			throw;
 		}
-
-		ResourceAllocator res_alloc;
 		RaytracerResources rt_res(app_data, res_alloc);
-		Renderer renderer(app_data, rt_res.dest_tex_unit);
 
 		common.RtRes(rt_res);
+		common.RtTgt(rt_tgt);
 		common.master_ready.Signal(threads.size());
 
 		try
@@ -416,7 +423,7 @@ int main_GLX(AppData& app_data)
 				window,
 				app_data,
 				common,
-				renderer,
+				rt_tgt,
 				threads.size()
 			);
 			for(auto& t: threads) t.join();

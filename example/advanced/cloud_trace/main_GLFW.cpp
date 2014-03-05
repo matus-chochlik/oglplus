@@ -12,6 +12,7 @@
 #include "resources.hpp"
 #include "renderer.hpp"
 #include "raytracer.hpp"
+#include "copier_default.hpp"
 #include "saver.hpp"
 
 #include <oglplus/gl.hpp>
@@ -46,18 +47,21 @@ public:
 
 void render_loop(AppData& app_data)
 {
-	Context gl;
 	ResourceAllocator alloc;
 
+	RaytraceTarget raytrace_tgt(app_data, alloc);
 	RaytracerResources raytrace_res(app_data, alloc);
-	Raytracer raytracer(app_data, raytrace_res);
 
-	Renderer renderer(app_data, raytrace_res.dest_tex_unit);
+	Raytracer raytracer(app_data, raytrace_res);
+	RaytraceCopier copier(app_data, raytrace_tgt);
+
+	Renderer renderer(app_data, raytrace_tgt.tex_unit);
 	Saver saver(app_data);
 
 	unsigned face = 0;
 	unsigned tile = 0;
 	const unsigned tiles = app_data.tiles();
+
 
 	while(true)
 	{
@@ -65,7 +69,7 @@ void render_loop(AppData& app_data)
 
 		if(tile == 0)
 		{
-			raytracer.ClearDest(app_data);
+			raytrace_tgt.Clear(app_data);
 			raytracer.InitFrame(app_data, face);
 		}
 
@@ -73,13 +77,11 @@ void render_loop(AppData& app_data)
 		{
 			raytracer.Raytrace(app_data, tile);
 
-			gl.Disable(Capability::ScissorTest);
-			raytracer.BlitBuffers(app_data, tile);
+			copier.Copy(app_data, raytracer, tile);
 
 			renderer.Use(app_data);
 			renderer.Render(app_data);
 
-			gl.Enable(Capability::ScissorTest);
 			glfwSwapBuffers();
 
 			tile++;

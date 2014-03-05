@@ -11,6 +11,7 @@
 
 #include "raytracer.hpp"
 
+#include <oglplus/binding.hpp>
 #include <oglplus/shapes/screen.hpp>
 #include <oglplus/images/image_spec.hpp>
 
@@ -19,19 +20,16 @@
 namespace oglplus {
 namespace cloud_trace {
 
-RaytracerResources::RaytracerResources(
+RaytraceTarget::RaytraceTarget(
 	AppData& app_data,
 	ResourceAllocator& alloc
-): cloud_data(app_data)
- , cloud_tex(app_data, alloc)
- , raytrace_prog(app_data)
- , dest_tex_unit(alloc.GetNextTexUnit())
+): tex_unit(alloc.GetNextTexUnit())
 {
-	raytrace_prog.cloud_count.Set(cloud_data.CloudCount());
+	AutoRebind<Framebuffer> rebind_fb(FramebufferTarget::Draw);
+	Texture::Active(tex_unit);
 
-	Texture::Active(dest_tex_unit);
-	dest_tex<< TextureTarget::Rectangle
-		<< TextureFilter::Linear
+	tex	<< TextureTarget::Rectangle
+		<< TextureFilter::Nearest
 		<< TextureWrap::ClampToBorder
 		<< images::ImageSpec(
 			app_data.raytrace_width,
@@ -40,6 +38,30 @@ RaytracerResources::RaytracerResources(
 			InternalFormat::RGBA32F,
 			DataType::Float
 		);
+
+	fbo	<< FramebufferTarget::Draw
+		<< FramebufferAttachment::Color << tex;
+}
+
+void RaytraceTarget::Clear(AppData& app_data)
+{
+	AutoRebind<Framebuffer> rebind_fb(FramebufferTarget::Draw);
+	fbo << FramebufferTarget::Draw;
+
+	gl.Viewport(0, 0, app_data.raytrace_width, app_data.raytrace_height);
+	gl.ClearColor(1.0, 1.0, 1.0, 0.5);
+	gl.Clear().ColorBuffer();
+}
+
+RaytracerResources::RaytracerResources(
+	AppData& app_data,
+	ResourceAllocator& alloc
+): cloud_data(app_data)
+ , cloud_tex(app_data, alloc)
+ , raytrace_prog(app_data)
+{
+	raytrace_prog.cloud_tex.Set(cloud_tex.tex_unit);
+	raytrace_prog.cloud_count.Set(cloud_data.CloudCount());
 }
 
 void RaytracerResources::Use(void)
@@ -47,6 +69,7 @@ void RaytracerResources::Use(void)
 	cloud_data.Use();
 	cloud_tex.Use();
 	raytrace_prog.Use();
+	raytrace_prog.cloud_tex.Set(cloud_tex.tex_unit);
 	raytrace_prog.cloud_count.Set(cloud_data.CloudCount());
 }
 
@@ -64,41 +87,22 @@ Raytracer::Raytracer(AppData& app_data, RaytracerResources& res)
 			InternalFormat::RGBA32F
 		);
 
-	rt_fbo	<< FramebufferTarget::Draw
+	fbo	<< FramebufferTarget::Draw
 		<< FramebufferAttachment::Color << rbo;
-
-	cp_fbo	<< FramebufferTarget::Draw
-		<< FramebufferAttachment::Color << res.dest_tex;
 }
 
-void Raytracer::Use(AppData& app_data)
+void Raytracer::Use(AppData&)
 {
-	rt_fbo << FramebufferTarget::Draw;
-	gl.Viewport(0, 0, app_data.raytrace_width, app_data.raytrace_height);
+	fbo << FramebufferTarget::Draw;
 	resources.Use();
 	screen.Use();
 }
 
-void Raytracer::ClearDest(AppData&)
-{
-	gl.Disable(Capability::ScissorTest);
-
-	cp_fbo	<< FramebufferTarget::Draw;
-	gl.ClearColor(1.0, 1.0, 1.0, 0.5);
-	gl.Clear().ColorBuffer();
-
-	gl.Enable(Capability::ScissorTest);
-}
-
 void Raytracer::InitFrame(AppData& app_data, unsigned face)
 {
-	gl.Disable(Capability::ScissorTest);
-
-	rt_fbo	<< FramebufferTarget::Draw;
+	gl.Viewport(0, 0, app_data.raytrace_width, app_data.raytrace_height);
 	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
 	gl.Clear().ColorBuffer();
-
-	gl.Enable(Capability::ScissorTest);
 
 	Vec3f cx, cy, cz;
 
@@ -169,6 +173,7 @@ void Raytracer::Raytrace(AppData& app_data, unsigned tile)
 	unsigned j = tile / w;
 	assert(j*h+i < w*h);
 
+	gl.Enable(Capability::ScissorTest);
 	gl.Scissor(
 		app_data.tile*i,
 		app_data.tile*(h-j-1),
@@ -177,34 +182,7 @@ void Raytracer::Raytrace(AppData& app_data, unsigned tile)
 	);
 
 	screen.Draw();
-}
-
-void Raytracer::BlitBuffers(AppData& app_data, unsigned tile)
-{
-	unsigned i = tile % w;
-	unsigned j = tile / w;
-	assert(j*h+i < w*h);
-
-	j = h-j-1;
-
-	rt_fbo << FramebufferTarget::Read;
-	cp_fbo << FramebufferTarget::Draw;
-
-	gl.Flush();
-	gl.BlitFramebuffer(
-		app_data.tile*(i+0),
-		app_data.tile*(j+0),
-		app_data.tile*(i+1),
-		app_data.tile*(j+1),
-		app_data.tile*(i+0),
-		app_data.tile*(j+0),
-		app_data.tile*(i+1),
-		app_data.tile*(j+1),
-		BufferSelectBit::ColorBuffer,
-		BlitFilter::Nearest
-	);
-
-	rt_fbo << FramebufferTarget::Draw;
+	gl.Disable(Capability::ScissorTest);
 }
 
 } // namespace cloud_trace

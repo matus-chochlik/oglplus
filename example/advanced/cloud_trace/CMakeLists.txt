@@ -41,6 +41,7 @@ if((GLX_FOUND) OR (GLFW_FOUND))
 			programs.cpp
 			raytracer.cpp
 			renderer.cpp
+			copier_default.cpp
 			saver.cpp
 			threads.cpp
 	)
