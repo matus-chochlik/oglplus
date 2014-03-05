@@ -30,7 +30,6 @@ RaytracerResources::RaytracerResources(
 	raytrace_prog.cloud_count.Set(cloud_data.CloudCount());
 
 	Texture::Active(dest_tex_unit);
-
 	dest_tex<< TextureTarget::Rectangle
 		<< TextureFilter::Linear
 		<< TextureWrap::ClampToBorder
@@ -41,6 +40,14 @@ RaytracerResources::RaytracerResources(
 			InternalFormat::RGBA32F,
 			DataType::Float
 		);
+}
+
+void RaytracerResources::Use(void)
+{
+	cloud_data.Use();
+	cloud_tex.Use();
+	raytrace_prog.Use();
+	raytrace_prog.cloud_count.Set(cloud_data.CloudCount());
 }
 
 Raytracer::Raytracer(AppData& app_data, RaytracerResources& res)
@@ -68,7 +75,7 @@ void Raytracer::Use(AppData& app_data)
 {
 	rt_fbo << FramebufferTarget::Draw;
 	gl.Viewport(0, 0, app_data.raytrace_width, app_data.raytrace_height);
-	resources.raytrace_prog.Use();
+	resources.Use();
 	screen.Use();
 }
 
@@ -156,7 +163,7 @@ void Raytracer::InitFrame(AppData& app_data, unsigned face)
 	);
 }
 
-void Raytracer::Raytrace(AppData& app_data, unsigned, unsigned tile)
+void Raytracer::Raytrace(AppData& app_data, unsigned tile)
 {
 	unsigned i = tile % w;
 	unsigned j = tile / w;

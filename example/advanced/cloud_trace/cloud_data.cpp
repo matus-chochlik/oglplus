@@ -20,6 +20,7 @@ namespace cloud_trace {
 
 CloudData::CloudData(const AppData& app_data)
  : count(app_data.cloud_count)
+ , ub_idx(app_data.cloud_data_ub_idx)
 {
 	// TODO loading from istream
 	std::vector<Mat4f> cloud_data;
@@ -91,7 +92,12 @@ CloudData::CloudData(const AppData& app_data)
 
 	*this	<< BufferTarget::Uniform
 		<< cloud_data;
-	*this	<< BufferIndexedTarget::Uniform << app_data.cloud_data_ub_idx;
+	*this	<< BufferIndexedTarget::Uniform << ub_idx;
+}
+
+void CloudData::Use(void)
+{
+	*this	<< BufferIndexedTarget::Uniform << ub_idx;
 }
 
 unsigned CloudData::CloudCount(void) const

@@ -27,6 +27,7 @@ private:
 	const GLuint tex_unit;
 public:
 	CloudTexture(AppData&, ResourceAllocator&);
+	void Use(void);
 };
 
 } // namespace cloud_trace

@@ -40,6 +40,7 @@ struct RaytracerResources
 	Texture dest_tex;
 
 	RaytracerResources(AppData&, ResourceAllocator&);
+	void Use(void);
 };
 
 class Raytracer
@@ -61,7 +62,7 @@ public:
 	void Use(AppData&);
 	void ClearDest(AppData&);
 	void InitFrame(AppData&, unsigned face);
-	void Raytrace(AppData&, unsigned face, unsigned tile);
+	void Raytrace(AppData&, unsigned tile);
 
 	void BlitBuffers(AppData&, unsigned tile);
 };

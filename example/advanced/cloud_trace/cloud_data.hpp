@@ -25,8 +25,10 @@ class CloudData : public Buffer
 private:
 	unsigned count;
 public:
+	GLuint ub_idx;
 	CloudData(const AppData&);
 
+	void Use(void);
 	unsigned CloudCount(void) const;
 };
 

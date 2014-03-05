@@ -114,10 +114,11 @@ bool parse_single_opt(
 	return false;
 }
 
-AppData::AppData(int argc, char** argv)
+AppData::AppData(void)
  : puser_intf(nullptr)
  , pset_status(nullptr)
  , perrstr(nullptr)
+ , use_x_rt_screens(false)
  , output_prefix("clouds")
  , output_suffix("rgb")
  , raytrace_width(512)
@@ -144,6 +145,10 @@ AppData::AppData(int argc, char** argv)
  , light_z(100000)
  , high_light(1.2f)
  , ambi_light(0.5f)
+{
+}
+
+void AppData::ParseArgs(int argc, char** argv)
 {
 	for(unsigned f=0; f!=6; ++f)
 	{
@@ -237,6 +242,17 @@ AppData::AppData(int argc, char** argv)
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-f6", "--output-id-6", output_face_id[6]))
 			continue;
+
+		std::string param;
+
+		if(use_x_rt_screens)
+		{
+			if(parse_single_opt(arg, argc, argv,"-xrts", "--X-rt-screen", param))
+			{
+				raytracer_params.push_back(param);
+				continue;
+			}
+		}
 
 		std::string message("Unknown command-line option: '");
 		message.append(argv[arg]);

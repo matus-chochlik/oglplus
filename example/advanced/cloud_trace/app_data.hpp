@@ -14,6 +14,7 @@
 #include <iosfwd>
 #include <string>
 #include <array>
+#include <vector>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -30,12 +31,18 @@ struct AppData
 	std::ostream* perrstr;
 	std::ostream& errstr(void) const;
 
+	// if the --X-rt-screen parameter is supported
+	bool use_x_rt_screens;
+
 	// output file prefix
 	std::string output_prefix;
 	// the face id strings
 	std::array<std::string, 6> output_face_id;
 	// the file suffix
 	std::string output_suffix;
+
+	// parameters for raytracer threads (if any)
+	std::vector<std::string> raytracer_params;
 
 	// width, height tile size, cells
 	unsigned raytrace_width, raytrace_height;
@@ -66,7 +73,8 @@ struct AppData
 	float light_x, light_y, light_z;
 	float high_light, ambi_light;
 
-	AppData(int argc, char** argv);
+	AppData(void);
+	void ParseArgs(int argc, char** argv);
 };
 
 } // namespace cloud_trace

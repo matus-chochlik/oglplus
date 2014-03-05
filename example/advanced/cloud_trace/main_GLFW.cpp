@@ -71,7 +71,7 @@ void render_loop(AppData& app_data)
 
 		if(tile < tiles)
 		{
-			raytracer.Raytrace(app_data, face, tile);
+			raytracer.Raytrace(app_data, tile);
 
 			gl.Disable(Capability::ScissorTest);
 			raytracer.BlitBuffers(app_data, tile);
@@ -151,7 +151,8 @@ int main (int argc, char ** argv)
 	using oglplus::cloud_trace::main_GLFW;
 	using oglplus::cloud_trace::AppData;
 
-	AppData app_data(argc, argv);
+	AppData app_data;
+	app_data.ParseArgs(argc, argv);
 	return do_run_main(main_GLFW, app_data);
 }
 

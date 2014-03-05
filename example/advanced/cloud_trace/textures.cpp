@@ -143,5 +143,11 @@ CloudTexture::CloudTexture(AppData& app_data, ResourceAllocator& alloc)
 	}
 }
 
+void CloudTexture::Use(void)
+{
+	Texture::Active(tex_unit);
+	*this	<< TextureTarget::_3D;
+}
+
 } // namespace cloud_trace
 } // namespace oglplus
