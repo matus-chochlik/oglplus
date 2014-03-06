@@ -4,13 +4,16 @@
  */
 #version 330
 
+uniform mat3 RayMatrix;
 uniform vec2 RaytraceSize;
 
 in vec2 Position, TexCoord;
+out vec3 vertRay;
 out vec2 vertTexCoord;
 
 void main(void)
 {
 	gl_Position = vec4(Position, 0, 1);
+	vertRay = RayMatrix * vec3(Position, 1);
 	vertTexCoord = TexCoord * RaytraceSize;
 }

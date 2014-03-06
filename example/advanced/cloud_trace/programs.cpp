@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include "programs.hpp"
+#include "ray_matrix.hpp"
 
 #include <oglplus/angle.hpp>
 #include <oglplus/glsl_source.hpp>
@@ -56,9 +57,9 @@ RaytraceProg::RaytraceProg(const AppData& app_data)
 	ProgramUniform<GLfloat>(self(), "UnitAttenuation").Set(app_data.unit_attenuation);
 }
 
-void RaytraceProg::SetRayMatrix(const Mat4f& mat)
+void RaytraceProg::SetRayMatrix(const AppData& app_data, unsigned face)
 {
-	ray_matrix.Set(Mat3f(mat));
+	ray_matrix.Set(Mat3f(RayMatrix(app_data, face)));
 }
 
 Program RenderProg::make(const AppData& app_data)
@@ -77,11 +78,15 @@ Program RenderProg::make(const AppData& app_data)
 
 	OptionalUniform<GLfloat>(prog, "Near").TrySet(app_data.cam_near);
 	OptionalUniform<GLfloat>(prog, "Far").TrySet(app_data.cam_far);
+
 	OptionalUniform<GLfloat>(prog, "LightX").TrySet(app_data.light_x);
 	OptionalUniform<GLfloat>(prog, "LightY").TrySet(app_data.light_y);
 	OptionalUniform<GLfloat>(prog, "LightZ").TrySet(app_data.light_z);
 	OptionalUniform<GLfloat>(prog, "HighLight").TrySet(app_data.high_light);
 	OptionalUniform<GLfloat>(prog, "AmbiLight").TrySet(app_data.ambi_light);
+
+	OptionalUniform<GLfloat>(prog, "PlanetRadius").TrySet(app_data.planet_radius);
+	OptionalUniform<GLfloat>(prog, "AtmThickness").TrySet(app_data.atm_thickness);
 
 	return std::move(prog);
 }
@@ -93,9 +98,20 @@ Program& RenderProg::self(void)
 
 RenderProg::RenderProg(const AppData& app_data)
  : Program(make(app_data))
+ , cube_face(self(), "CubeFace")
+ , ray_matrix(self(), "RayMatrix")
  , raytrace_size(self(), "RaytraceSize")
  , raytrace_output(self(), "RaytraceOutput")
 {
+}
+
+void RenderProg::SetRayMatrix(const AppData& app_data, unsigned face)
+{
+	cube_face.TrySet(face);
+	if(ray_matrix)
+	{
+		ray_matrix.Set(Mat3f(RayMatrix(app_data, face)));
+	}
 }
 
 } // namespace cloud_trace

@@ -108,67 +108,7 @@ void Raytracer::InitFrame(AppData& app_data, unsigned face)
 	gl.ClearColor(0.0, 0.0, 0.0, 0.0);
 	gl.Clear().ColorBuffer();
 
-	Vec3f cx, cy, cz;
-
-	switch(face)
-	{
-		case 0: // +X
-		{
-			cx = +Vec3f::Unit(2);
-			cy = +Vec3f::Unit(1);
-			cz = -Vec3f::Unit(0);
-			break;
-		}
-		case 1: // -X
-		{
-			cx = -Vec3f::Unit(2);
-			cy = +Vec3f::Unit(1);
-			cz = +Vec3f::Unit(0);
-			break;
-		}
-		case 2: // +Y
-		{
-			cx = -Vec3f::Unit(0);
-			cy = +Vec3f::Unit(2);
-			cz = +Vec3f::Unit(1);
-			break;
-		}
-		case 3: // -Y
-		{
-			cx = -Vec3f::Unit(0);
-			cy = -Vec3f::Unit(2);
-			cz = -Vec3f::Unit(1);
-			break;
-		}
-		case 4: // +Z
-		{
-			cx = -Vec3f::Unit(0);
-			cy = +Vec3f::Unit(1);
-			cz = -Vec3f::Unit(2);
-			break;
-		}
-		case 5: // -Z
-		{
-			cx = +Vec3f::Unit(0);
-			cy = +Vec3f::Unit(1);
-			cz = +Vec3f::Unit(2);
-			break;
-		}
-		default: assert(!"Invalid cube face");
-	}
-
-	resources.raytrace_prog.SetRayMatrix(
-		CamMatrixf::PerspectiveX(
-			RightAngle(), 1,
-			app_data.cam_near,
-			app_data.cam_far
-		)* Mat4f(
-			Vec4f(cx, 0),
-			Vec4f(cy, 0),
-			Vec4f(cz, 0),
-			Vec4f::Unit(3)
-		)
-	);
+	resources.raytrace_prog.SetRayMatrix(app_data, face);
 }
 
 void Raytracer::Raytrace(AppData& app_data, unsigned tile)

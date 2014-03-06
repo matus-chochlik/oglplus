@@ -45,6 +45,7 @@ if(
 			main_common.cpp
 			app_data.cpp
 			cloud_data.cpp
+			ray_matrix.cpp
 			resources.cpp
 			textures.cpp
 			programs.cpp

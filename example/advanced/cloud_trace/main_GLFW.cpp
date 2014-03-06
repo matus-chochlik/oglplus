@@ -79,6 +79,7 @@ void render_loop(AppData& app_data)
 		{
 			raytrace_tgt.Clear(app_data);
 			raytracer.InitFrame(app_data, face);
+			renderer.InitFrame(app_data, face);
 		}
 
 		if(tile < tiles)

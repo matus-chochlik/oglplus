@@ -266,6 +266,8 @@ void window_loop(
 		rt_target.Clear(app_data);
 		// signal all threads that they can start raytracing tiles
 		common.master_ready.Signal(n_threads);
+
+		renderer.InitFrame(app_data, common.Face());
 		while(!common.FaceDone())
 		{
 			unsigned slot = 0;

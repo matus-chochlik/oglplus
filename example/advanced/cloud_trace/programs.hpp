@@ -39,7 +39,7 @@ public:
 
 	RaytraceProg(const AppData&);
 
-	void SetRayMatrix(const Mat4f&);
+	void SetRayMatrix(const AppData&, unsigned face);
 };
 
 class RenderProg : public Program
@@ -48,11 +48,16 @@ private:
 	static Program make(const AppData&);
 
 	Program& self(void);
+
+	OptionalUniform<GLint> cube_face;
+	OptionalUniform<Mat3f> ray_matrix;
 public:
 	ProgramUniform<Vec2f> raytrace_size;
 	ProgramUniformSampler raytrace_output;
 
 	RenderProg(const AppData&);
+
+	void SetRayMatrix(const AppData&, unsigned face);
 };
 
 } // namespace cloud_trace

@@ -35,10 +35,11 @@ private:
 
 	shapes::ShapeWrapper screen;
 public:
-	Renderer(AppData&, GLuint raytrace_tex_unit);
+	Renderer(const AppData&, GLuint raytrace_tex_unit);
 
-	void Use(AppData&);
-	void Render(AppData&);
+	void Use(const AppData&);
+	void InitFrame(const AppData&, unsigned face);
+	void Render(const AppData&);
 };
 
 } // namespace cloud_trace

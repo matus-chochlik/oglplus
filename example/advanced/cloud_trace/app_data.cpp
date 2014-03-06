@@ -135,6 +135,7 @@ AppData::AppData(void)
  , cloud_res(256)
  , dump_cloud_image(false)
  , planet_radius(6371)
+ , atm_thickness(50)
  , covered_angle(1)
  , cloud_mean_alt(2.0f)
  , cloud_alt_disp(0.3f)
@@ -210,6 +211,8 @@ void AppData::ParseArgs(int argc, char** argv)
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-pr", "--planet-radius", planet_radius))
 			continue;
+		if(parse_single_opt(arg, argc, argv,"-at", "--atm-thickness", atm_thickness))
+			continue;
 		if(parse_single_opt(arg, argc, argv,"-ca", "--covered-angle", covered_angle))
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-cma", "--cloud-mean-alt", cloud_mean_alt))
@@ -248,6 +251,24 @@ void AppData::ParseArgs(int argc, char** argv)
 			continue;
 		if(parse_single_opt(arg, argc, argv,"-f6", "--output-id-6", output_face_id[6]))
 			continue;
+
+		unsigned num_param;
+
+		if(parse_single_opt(arg, argc, argv,"-f", "--single-face", num_param))
+		{
+			if(num_param > 5)
+			{
+				std::string message;
+				message.append("The value specified for --single-face");
+				message.append("is not between 0 and 5");
+				throw std::runtime_error(message);
+			}
+			for(unsigned f=0; f!=6; ++f)
+			{
+				skip_face.set(f, f != num_param);
+			}
+			continue;
+		}
 
 		if(parse_single_opt(arg, argc, argv,"-sf0", "--skip-face-0"))
 		{

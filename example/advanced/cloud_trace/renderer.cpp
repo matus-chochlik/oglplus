@@ -21,7 +21,7 @@
 namespace oglplus {
 namespace cloud_trace {
 
-Renderer::Renderer(AppData& app_data, GLuint raytrace_tex_unit)
+Renderer::Renderer(const AppData& app_data, GLuint raytrace_tex_unit)
  : gl()
  , render_prog(app_data)
  , screen(List("Position")("TexCoord").Get(), shapes::Screen(), render_prog)
@@ -29,14 +29,19 @@ Renderer::Renderer(AppData& app_data, GLuint raytrace_tex_unit)
 	render_prog.raytrace_output.Set(raytrace_tex_unit);
 }
 
-void Renderer::Use(AppData&)
+void Renderer::Use(const AppData&)
 {
 	Framebuffer::BindDefault(FramebufferTarget::Draw);
 	render_prog.Use();
 	screen.Use();
 }
 
-void Renderer::Render(AppData& app_data)
+void Renderer::InitFrame(const AppData& app_data, unsigned face)
+{
+	render_prog.SetRayMatrix(app_data, face);
+}
+
+void Renderer::Render(const AppData& app_data)
 {
 	gl.Viewport(0, 0, app_data.render_width, app_data.render_height);
 	render_prog.raytrace_size.Set(app_data.raytrace_width, app_data.raytrace_height);

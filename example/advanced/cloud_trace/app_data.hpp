@@ -69,7 +69,7 @@ struct AppData
 	std::string cloud_image_path;
 
 	// generator parameters
-	float planet_radius, covered_angle;
+	float planet_radius, atm_thickness, covered_angle;
 	float cloud_mean_alt, cloud_alt_disp;
 	float cloud_mean_size, cloud_size_disp;
 
