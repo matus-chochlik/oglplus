@@ -15,6 +15,7 @@
 #include <string>
 #include <array>
 #include <vector>
+#include <bitset>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -44,8 +45,14 @@ struct AppData
 	// the file suffix
 	std::string output_suffix;
 
+	// the face mask indicating which faces should be skipped
+	std::bitset<6> skip_face;
+
 	// parameters for raytracer threads (if any)
 	std::vector<std::string> raytracer_params;
+
+	// the finish shader that should be used
+	std::string finish_shader;
 
 	// width, height tile size, cells
 	unsigned raytrace_width, raytrace_height;

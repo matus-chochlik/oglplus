@@ -61,17 +61,27 @@ void RaytraceProg::SetRayMatrix(const Mat4f& mat)
 	ray_matrix.Set(Mat3f(mat));
 }
 
-Program RenderProg::make(const AppData&)
+Program RenderProg::make(const AppData& app_data)
 {
 	Program prog;
 
 	ResourceFile vs_source("glsl", "render", ".vs.glsl");
 	prog << VertexShader(GLSLSource::FromStream(vs_source));
 
-	ResourceFile fs_source("glsl", "render", ".fs.glsl");
+	std::string fs_name("render-");
+	fs_name.append(app_data.finish_shader);
+	ResourceFile fs_source("glsl", fs_name, ".fs.glsl");
 	prog << FragmentShader(GLSLSource::FromStream(fs_source));
 
 	prog.Link().Use();
+
+	OptionalUniform<GLfloat>(prog, "Near").TrySet(app_data.cam_near);
+	OptionalUniform<GLfloat>(prog, "Far").TrySet(app_data.cam_far);
+	OptionalUniform<GLfloat>(prog, "LightX").TrySet(app_data.light_x);
+	OptionalUniform<GLfloat>(prog, "LightY").TrySet(app_data.light_y);
+	OptionalUniform<GLfloat>(prog, "LightZ").TrySet(app_data.light_z);
+	OptionalUniform<GLfloat>(prog, "HighLight").TrySet(app_data.high_light);
+	OptionalUniform<GLfloat>(prog, "AmbiLight").TrySet(app_data.ambi_light);
 
 	return std::move(prog);
 }

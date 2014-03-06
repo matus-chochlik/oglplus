@@ -121,7 +121,9 @@ AppData::AppData(void)
  , use_x_rt_screens(false)
  , rand_seed(0)
  , output_prefix("clouds")
- , output_suffix("rgb")
+ , output_suffix("rgba")
+ , skip_face(0)
+ , finish_shader("rawdata")
  , raytrace_width(512)
  , raytrace_height(512)
  , render_width(raytrace_width)
@@ -139,7 +141,7 @@ AppData::AppData(void)
  , cloud_mean_size(1.5f)
  , cloud_size_disp(0.4f)
  , cam_near(1)
- , cam_far(400)
+ , cam_far(100)
  , light_x(100000)
  , light_y(100000)
  , light_z(100000)
@@ -169,6 +171,8 @@ void AppData::ParseArgs(int argc, char** argv)
 			continue;
 		}
 		if(parse_single_opt(arg, argc, argv, "-t", "--tile", tile))
+			continue;
+		if(parse_single_opt(arg, argc, argv, "-fs", "--finish-shader", finish_shader))
 			continue;
 		if(parse_single_opt(arg, argc, argv, "-w", "--raytrace_width", raytrace_width))
 		{
@@ -245,13 +249,44 @@ void AppData::ParseArgs(int argc, char** argv)
 		if(parse_single_opt(arg, argc, argv,"-f6", "--output-id-6", output_face_id[6]))
 			continue;
 
-		std::string param;
+		if(parse_single_opt(arg, argc, argv,"-sf0", "--skip-face-0"))
+		{
+			skip_face.set(0);
+			continue;
+		}
+		if(parse_single_opt(arg, argc, argv,"-sf1", "--skip-face-1"))
+		{
+			skip_face.set(1);
+			continue;
+		}
+		if(parse_single_opt(arg, argc, argv,"-sf2", "--skip-face-2"))
+		{
+			skip_face.set(2);
+			continue;
+		}
+		if(parse_single_opt(arg, argc, argv,"-sf3", "--skip-face-3"))
+		{
+			skip_face.set(3);
+			continue;
+		}
+		if(parse_single_opt(arg, argc, argv,"-sf4", "--skip-face-4"))
+		{
+			skip_face.set(4);
+			continue;
+		}
+		if(parse_single_opt(arg, argc, argv,"-sf5", "--skip-face-5"))
+		{
+			skip_face.set(5);
+			continue;
+		}
+
+		std::string str_param;
 
 		if(use_x_rt_screens)
 		{
-			if(parse_single_opt(arg, argc, argv,"-xrts", "--X-rt-screen", param))
+			if(parse_single_opt(arg, argc, argv,"-xrts", "--X-rt-screen", str_param))
 			{
-				raytracer_params.push_back(param);
+				raytracer_params.push_back(str_param);
 				continue;
 			}
 		}

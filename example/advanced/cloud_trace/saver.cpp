@@ -9,6 +9,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include "saver.hpp"
+#include "raytracer.hpp"
 
 #include <oglplus/framebuffer.hpp>
 
@@ -19,27 +20,31 @@
 namespace oglplus {
 namespace cloud_trace {
 
-Saver::Saver(AppData&)
+Saver::Saver(const AppData&)
 {
 }
 
-void Saver::SaveFrame(AppData& app_data, unsigned face)
+void Saver::SaveFrame(
+	const AppData& app_data,
+	RaytracerTarget& rt_target,
+	unsigned face
+)
 {
 	assert(face < 6);
 
 	gl.Flush();
 
-	std::vector<char> pixels(app_data.render_width * app_data.render_height * 3);
+	std::vector<char> pixels(app_data.render_width * app_data.render_height * 4);
 
 	gl.Finish();
 
-	Framebuffer::BindDefault(FramebufferTarget::Read);
+	rt_target.fbo << FramebufferTarget::Read;
 
 	gl.ReadPixels(
 		0, 0,
 		app_data.render_width,
 		app_data.render_height,
-		PixelDataFormat::RGB,
+		PixelDataFormat::RGBA,
 		PixelDataType::UnsignedByte,
 		pixels.data()
 	);

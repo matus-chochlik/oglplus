@@ -21,14 +21,16 @@
 namespace oglplus {
 namespace cloud_trace {
 
+struct RaytracerTarget;
+
 class Saver
 {
 private:
 	Context gl;
 public:
-	Saver(AppData&);
+	Saver(const AppData&);
 
-	void SaveFrame(AppData&, unsigned);
+	void SaveFrame(const AppData&, RaytracerTarget&, unsigned);
 };
 
 } // namespace cloud_trace

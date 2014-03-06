@@ -76,7 +76,10 @@ public:
 	 , tile(0)
 	 , face(0)
 	 , keep_running(true)
-	{ }
+	{
+		while((face < 6) && (app_data.skip_face[face]))
+			++face;
+	}
 
 	std::unique_lock<std::mutex> Lock(void)
 	{
@@ -125,14 +128,18 @@ public:
 		return (tile >= max_tiles);
 	}
 
-	void NextFace(void)
+	void NextFace(const AppData& app_data)
 	{
 		std::lock_guard<std::mutex> lock(mutex);
 
 		if(face < 5)
 		{
 			++face;
-			tile = 0;
+			while((face < 6) && app_data.skip_face[face])
+				++face;
+
+			if(face < 6) tile = 0;
+			else keep_running = false;
 		}
 		else keep_running = false;
 	}
@@ -259,7 +266,6 @@ void window_loop(
 		rt_target.Clear(app_data);
 		// signal all threads that they can start raytracing tiles
 		common.master_ready.Signal(n_threads);
-
 		while(!common.FaceDone())
 		{
 			unsigned slot = 0;
@@ -313,9 +319,9 @@ void window_loop(
 		common.context.SwapBuffers(window);
 
 		// save the face image
-		saver.SaveFrame(app_data, common.Face());
+		saver.SaveFrame(app_data, rt_target, common.Face());
 		// switch the face
-		common.NextFace();
+		common.NextFace(app_data);
 
 		// signal that the master is ready to render
 		// the next face

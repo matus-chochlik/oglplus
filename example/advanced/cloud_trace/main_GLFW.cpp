@@ -68,6 +68,11 @@ void render_loop(AppData& app_data)
 
 	while(true)
 	{
+		if(app_data.skip_face[face])
+		{
+			++face;
+			continue;
+		}
 		raytracer.Use(app_data);
 
 		if(tile == 0)
@@ -92,7 +97,7 @@ void render_loop(AppData& app_data)
 		else if(face < 6)
 		{
 			glfwSwapBuffers();
-			saver.SaveFrame(app_data, face);
+			saver.SaveFrame(app_data, raytrace_tgt, face);
 			if(face < 5)
 			{
 				tile = 0;
