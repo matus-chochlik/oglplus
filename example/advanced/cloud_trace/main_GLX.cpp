@@ -34,6 +34,7 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <chrono>
 #include <mutex>
 
 namespace oglplus {
