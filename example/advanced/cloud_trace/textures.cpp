@@ -20,89 +20,68 @@
 namespace oglplus {
 namespace cloud_trace {
 
-CloudTexture::CloudTexture(AppData& app_data, ResourceAllocator& alloc)
- : tex_unit(alloc.GetNextTexUnit())
+CloudVolume::CloudVolume(const AppData& app_data)
+ : image(GenOrLoad(app_data))
 {
-	Texture::Active(tex_unit);
+	if(app_data.dump_cloud_image)
+	{
+		Save(app_data);
+	}
+}
 
+images::Image CloudVolume::GenOrLoad(const AppData& app_data)
+{
+	if(app_data.cloud_image_path.empty() || app_data.dump_cloud_image)
+	{
+		return Generate(app_data);
+	}
+	else
+	{
+		return Load(app_data);
+	}
+}
+
+images::Image CloudVolume::Generate(const AppData& app_data)
+{
+	return images::Cloud(
+			app_data.cloud_res,
+			app_data.cloud_res,
+			app_data.cloud_res,
+			Vec3f(),
+			0.45f,
+			0.333f,
+			0.55f,
+			0.005f
+	);
+}
+
+images::Image CloudVolume::Load(const AppData& app_data)
+{
 	const std::string& cip = app_data.cloud_image_path;
 
-	if(cip.empty() || app_data.dump_cloud_image)
+	GLsizei channels = 0;
+	std::vector<GLubyte> storage;
+	PixelDataFormat format;
+	PixelDataInternalFormat iformat;
+
+	if(cip.rfind(".r8") ==  cip.size()-3)
 	{
-		std::ofstream output;
-		output.exceptions(std::ifstream::failbit|std::ifstream::badbit);
+		format = PixelDataFormat::Red;
+		iformat = PixelDataInternalFormat::Red;
+		channels = 1;
 
-		if(app_data.dump_cloud_image)
-		{
-			if(cip.empty())
-			{
-				std::string message;
-				message.append("No output image file specified");
-				throw std::runtime_error(message);
-			}
-			else try { output.open(cip.c_str()); }
-			catch(std::ifstream::failure& f)
-			{
-				std::string message;
-				message.append("Opening image file '");
-				message.append(cip);
-				message.append("' failed with: ");
-				message.append(f.what());
-				throw std::runtime_error(message);
-			}
-		}
-
-		auto image = images::Cloud(
-				app_data.cloud_res,
-				app_data.cloud_res,
-				app_data.cloud_res,
-				Vec3f(),
-				0.45f,
-				0.333f,
-				0.55f,
-				0.005f
-		);
-
-		if(app_data.dump_cloud_image)
-		{
-			if(!cip.empty()) try
-			{
-				output.write(
-					(const char*)
-					image.RawData(),
-					image.DataSize()
-				);
-			}
-			catch(std::ifstream::failure& f)
-			{
-				std::string message;
-				message.append("Saving image file '");
-				message.append(cip);
-				message.append("' failed with: ");
-				message.append(f.what());
-				throw std::runtime_error(message);
-			}
-		}
-
-		*this	<< TextureTarget::_3D
-			<< TextureWrap::ClampToBorder
-			<< TextureFilter::Linear
-			<< image;
-	}
-	else if(cip.rfind(".r8") ==  cip.size()-3)
-	{
 		std::ifstream input;
 		input.exceptions(std::ifstream::failbit|std::ifstream::badbit);
 		try
 		{
 			input.open(cip.c_str());
-			std::vector<GLubyte> image(
+			storage.resize(
 				app_data.cloud_res*
 				app_data.cloud_res*
 				app_data.cloud_res
 			);
-			input.read((char*)image.data(), image.size());
-			if(input.gcount() < std::streamsize(image.size()))
+			input.read((char*)storage.data(), storage.size());
+			if(input.gcount() < std::streamsize(storage.size()))
 			{
 				std::string message;
 				message.append("Not enough data in file '");
@@ -110,18 +89,6 @@ CloudTexture::CloudTexture(AppData& app_data, ResourceAllocator& alloc)
 				message.append("' for specified image size");
 				throw std::runtime_error(message);
 			}
-
-			*this	<< TextureTarget::_3D
-				<< TextureWrap::ClampToBorder
-				<< TextureFilter::Linear
-				<< images::ImageSpec(
-					app_data.cloud_res,
-					app_data.cloud_res,
-					app_data.cloud_res,
-					PixelDataFormat::Red,
-					PixelDataInternalFormat::Red,
-					image.data()
-				);
 		}
 		catch(std::ifstream::failure& f)
 		{
@@ -141,6 +108,67 @@ CloudTexture::CloudTexture(AppData& app_data, ResourceAllocator& alloc)
 		message.append("'");
 		throw std::runtime_error(message);
 	}
+
+	return images::Image(
+		app_data.cloud_res,
+		app_data.cloud_res,
+		app_data.cloud_res,
+		channels,
+		storage.data(),
+		format,
+		iformat
+	);
+}
+
+void CloudVolume::Save(const AppData& app_data)
+{
+	const std::string& cip = app_data.cloud_image_path;
+
+	std::ofstream output;
+	output.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+	if(cip.empty())
+	{
+		std::string message;
+		message.append("No output image file specified");
+		throw std::runtime_error(message);
+	}
+
+	try { output.open(cip.c_str()); }
+	catch(std::ifstream::failure& f)
+	{
+		std::string message;
+		message.append("Opening output image file '");
+		message.append(cip);
+		message.append("' failed with: ");
+		message.append(f.what());
+		throw std::runtime_error(message);
+	}
+
+	try { output.write((const char*)image.RawData(), image.DataSize()); }
+	catch(std::ifstream::failure& f)
+	{
+		std::string message;
+		message.append("Writing to output image file '");
+		message.append(cip);
+		message.append("' failed with: ");
+		message.append(f.what());
+		throw std::runtime_error(message);
+	}
+}
+
+CloudTexture::CloudTexture(
+	const AppData&,
+	const CloudVolume& cloud_vol,
+	ResourceAllocator& alloc
+): tex_unit(alloc.GetNextTexUnit())
+{
+	Texture::Active(tex_unit);
+
+	*this	<< TextureTarget::_3D
+		<< TextureWrap::ClampToBorder
+		<< TextureFilter::Linear
+		<< cloud_vol.image;
 }
 
 void CloudTexture::Use(void)

@@ -15,11 +15,17 @@ namespace cloud_trace {
 
 ResourceAllocator::ResourceAllocator(void)
  : tex_unit(0)
+ , ub_index(0)
 { }
 
 unsigned ResourceAllocator::GetNextTexUnit(void)
 {
 	return tex_unit++;
+}
+
+unsigned ResourceAllocator::GetNextUniformIndex(void)
+{
+	return ub_index++;
 }
 
 } // namespace cloud_trace

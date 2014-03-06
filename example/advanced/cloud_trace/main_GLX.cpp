@@ -12,7 +12,7 @@
 #include "resources.hpp"
 #include "renderer.hpp"
 #include "raytracer.hpp"
-#include "copier_default.hpp"
+#include "copier.hpp"
 #include "saver.hpp"
 #include "threads.hpp"
 
@@ -180,9 +180,14 @@ public:
 	}
 };
 
-void thread_loop(AppData& app_data, CommonData& common)
+void thread_loop(AppData& app_data, CommonData& common, glx::Context& context)
 {
 	Context gl;
+	RaytraceCopier::Params rtc_params(
+		common.display,
+		context,
+		common.context
+	);
 	RaytraceCopier rt_copier(app_data, common.RtTgt());
 	Raytracer raytracer(app_data, common.RtRes());
 	raytracer.Use(app_data);
@@ -204,7 +209,7 @@ void thread_loop(AppData& app_data, CommonData& common)
 			gl.Finish();
 
 			auto lock = common.Lock();
-			rt_copier.Copy(app_data, raytracer, tile);
+			rt_copier.Copy(app_data, rtc_params, raytracer, tile);
 			lock.unlock();
 		}
 
@@ -326,10 +331,13 @@ void main_thread(
 
 	common.master_ready.Wait();
 
-	try { thread_loop(app_data, common); }
-	catch(...)
+	if(!common.Done())
 	{
-		common.PushError(std::current_exception());
+		try { thread_loop(app_data, common, context); }
+		catch(...)
+		{
+			common.PushError(std::current_exception());
+		}
 	}
 
 	context.Release(display);
@@ -381,6 +389,8 @@ int main_GLX(AppData& app_data)
 	{
 		CommonData common(app_data, display, fbc, vi, context);
 
+		RaytracerData rt_data(app_data);
+
 		ResourceAllocator res_alloc;
 		RaytraceTarget rt_tgt(app_data, res_alloc);
 
@@ -403,7 +413,6 @@ int main_GLX(AppData& app_data)
 						std::cref(param)
 					)
 				);
-				common.thread_ready.Wait();
 			}
 		}
 		catch (...)
@@ -411,14 +420,17 @@ int main_GLX(AppData& app_data)
 			for(auto& t: threads) t.join();
 			throw;
 		}
-		RaytracerResources rt_res(app_data, res_alloc);
-
-		common.RtRes(rt_res);
-		common.RtTgt(rt_tgt);
-		common.master_ready.Signal(threads.size());
 
 		try
 		{
+			common.thread_ready.Wait(threads.size());
+
+			RaytracerResources rt_res(app_data, rt_data, res_alloc);
+			common.RtRes(rt_res);
+			common.RtTgt(rt_tgt);
+
+			common.master_ready.Signal(threads.size());
+
 			window_loop(
 				window,
 				app_data,
@@ -430,6 +442,8 @@ int main_GLX(AppData& app_data)
 		}
 		catch (...)
 		{
+			common.Stop();
+			common.master_ready.Signal(threads.size());
 			for(auto& t: threads) t.join();
 			throw;
 		}

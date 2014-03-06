@@ -19,12 +19,15 @@ namespace oglplus {
 namespace cloud_trace {
 
 CloudData::CloudData(const AppData& app_data)
- : count(app_data.cloud_count)
- , ub_idx(app_data.cloud_data_ub_idx)
 {
-	// TODO loading from istream
-	std::vector<Mat4f> cloud_data;
-	cloud_data.reserve(count);
+	Generate(app_data);
+}
+
+// TODO loading from istream
+void CloudData::Generate(const AppData& app_data)
+{
+	storage.clear();
+	storage.reserve(app_data.cloud_count);
 
 	float radius = app_data.planet_radius;
 	float cloud_alt = app_data.cloud_mean_alt;
@@ -42,7 +45,7 @@ CloudData::CloudData(const AppData& app_data)
 	cloud.Set(3, 0,-100);
 	cloud.Set(3, 1, 1);
 
-	cloud_data.push_back(cloud);
+	storage.push_back(cloud);
 
 	std::random_device rd;
 	std::default_random_engine re(rd());
@@ -50,7 +53,7 @@ CloudData::CloudData(const AppData& app_data)
 	std::uniform_real_distribution<float> r11(-1, 1);
 	std::uniform_int_distribution<unsigned> rcc( 3, 8);
 
-	unsigned c = 1;
+	unsigned c = 1, count = app_data.cloud_count;
 	while(c < count)
 	{
 		auto lat = angle*r11(re)*0.5;
@@ -76,7 +79,7 @@ CloudData::CloudData(const AppData& app_data)
 			cloud.Set(3, 0, r01(re)*0.5f);
 			cloud.Set(3, 1, 0.1+0.9*r01(re));
 
-			cloud_data.push_back(cloud);
+			storage.push_back(cloud);
 
 			Vec3f offs(r11(re)*1.4f, r11(re)*0.1f, r11(re));
 			offs.Normalize();
@@ -87,22 +90,23 @@ CloudData::CloudData(const AppData& app_data)
 			--cc;
 		}
 	}
+}
 
-	assert(cloud_data.size() == count);
-
+CloudBuffer::CloudBuffer(
+	const AppData&,
+	const CloudData& cloud_data,
+	ResourceAllocator& alloc
+): count(cloud_data.storage.size())
+ , ub_idx(alloc.GetNextUniformIndex())
+{
 	*this	<< BufferTarget::Uniform
-		<< cloud_data;
+		<< cloud_data.storage;
 	*this	<< BufferIndexedTarget::Uniform << ub_idx;
 }
 
-void CloudData::Use(void)
+void CloudBuffer::Use(void)
 {
 	*this	<< BufferIndexedTarget::Uniform << ub_idx;
-}
-
-unsigned CloudData::CloudCount(void) const
-{
-	return count;
 }
 
 } // namespace cloud_trace

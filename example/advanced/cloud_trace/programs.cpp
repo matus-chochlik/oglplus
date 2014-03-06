@@ -42,8 +42,8 @@ RaytraceProg::RaytraceProg(AppData& app_data)
  , ray_matrix(self(), "RayMatrix")
  , cloud_tex(self(), "CloudTex")
  , cloud_count(self(), "CloudCount")
+ , cloud_block(self(), "CloudBlock")
 {
-	UniformBlock(self(), "CloudBlock").Binding(app_data.cloud_data_ub_idx);
 	ProgramUniform<Vec3f>(self(), "LightPos").Set(
 		app_data.light_x,
 		app_data.light_y,

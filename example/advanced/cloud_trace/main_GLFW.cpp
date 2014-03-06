@@ -12,7 +12,7 @@
 #include "resources.hpp"
 #include "renderer.hpp"
 #include "raytracer.hpp"
-#include "copier_default.hpp"
+#include "copier.hpp"
 #include "saver.hpp"
 
 #include <oglplus/gl.hpp>
@@ -50,9 +50,12 @@ void render_loop(AppData& app_data)
 	ResourceAllocator alloc;
 
 	RaytraceTarget raytrace_tgt(app_data, alloc);
-	RaytracerResources raytrace_res(app_data, alloc);
+
+	RaytracerData raytrace_data(app_data);
+	RaytracerResources raytrace_res(app_data, raytrace_data, alloc);
 
 	Raytracer raytracer(app_data, raytrace_res);
+	RaytraceCopier::Params copy_params;
 	RaytraceCopier copier(app_data, raytrace_tgt);
 
 	Renderer renderer(app_data, raytrace_tgt.tex_unit);
@@ -77,7 +80,7 @@ void render_loop(AppData& app_data)
 		{
 			raytracer.Raytrace(app_data, tile);
 
-			copier.Copy(app_data, raytracer, tile);
+			copier.Copy(app_data, copy_params, raytracer, tile);
 
 			renderer.Use(app_data);
 			renderer.Render(app_data);

@@ -12,24 +12,36 @@
 #define OGLPLUS_ADVANCED_CLOUD_TRACE_CLOUD_DATA_1119071146_HPP
 
 #include "app_data.hpp"
+#include "resources.hpp"
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
+#include <oglplus/matrix.hpp>
 #include <oglplus/buffer.hpp>
+
+#include <vector>
 
 namespace oglplus {
 namespace cloud_trace {
 
-class CloudData : public Buffer
+struct CloudData
 {
-private:
-	unsigned count;
-public:
-	GLuint ub_idx;
+	std::vector<Mat4f> storage;
+
 	CloudData(const AppData&);
 
+	void Generate(const AppData&);
+};
+
+class CloudBuffer : public Buffer
+{
+public:
+	const unsigned count;
+	const GLuint ub_idx;
+
+	CloudBuffer(const AppData&, const CloudData&, ResourceAllocator&);
+
 	void Use(void);
-	unsigned CloudCount(void) const;
 };
 
 } // namespace cloud_trace

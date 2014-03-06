@@ -58,9 +58,6 @@ struct AppData
 	bool dump_cloud_image;
 	std::string cloud_image_path;
 
-	// cloud data uniform buffer binding point
-	unsigned cloud_data_ub_idx;
-
 	// generator parameters
 	float planet_radius, covered_angle;
 	float cloud_mean_alt, cloud_alt_disp;

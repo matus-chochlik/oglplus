@@ -17,15 +17,29 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
 #include <oglplus/texture.hpp>
+#include <oglplus/images/image.hpp>
 
 namespace oglplus {
 namespace cloud_trace {
+
+struct CloudVolume
+{
+	images::Image image;
+
+	CloudVolume(const AppData&);
+
+	images::Image GenOrLoad(const AppData&);
+	images::Image Generate(const AppData&);
+	images::Image Load(const AppData&);
+
+	void Save(const AppData&);
+};
 
 class CloudTexture : public Texture
 {
 public:
 	const GLuint tex_unit;
-	CloudTexture(AppData&, ResourceAllocator&);
+	CloudTexture(const AppData&, const CloudVolume&, ResourceAllocator&);
 	void Use(void);
 };
 

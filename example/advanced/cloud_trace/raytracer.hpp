@@ -29,6 +29,25 @@
 namespace oglplus {
 namespace cloud_trace {
 
+struct RaytracerData
+{
+	CloudData cloud_data;
+	CloudVolume cloud_vol;
+
+	RaytracerData(const AppData&);
+};
+
+struct RaytracerResources
+{
+	CloudBuffer cloud_buf;
+	CloudTexture cloud_tex;
+
+	RaytraceProg raytrace_prog;
+
+	RaytracerResources(AppData&, RaytracerData&, ResourceAllocator&);
+	void Use(void);
+};
+
 struct RaytraceTarget
 {
 	const GLuint tex_unit;
@@ -39,17 +58,6 @@ struct RaytraceTarget
 
 	RaytraceTarget(AppData&, ResourceAllocator&);
 	void Clear(AppData&);
-};
-
-struct RaytracerResources
-{
-	CloudData cloud_data;
-	CloudTexture cloud_tex;
-
-	RaytraceProg raytrace_prog;
-
-	RaytracerResources(AppData&, ResourceAllocator&);
-	void Use(void);
 };
 
 class Raytracer

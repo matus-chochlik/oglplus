@@ -26,6 +26,12 @@ if((GLX_FOUND) OR (GLFW_FOUND))
 		endif()
 	endif()
 
+	if("${CLOUD_TRACE_GL_INIT}" STREQUAL "GLX")
+		if(HAS_GL_NV_copy_image)
+			add_definitions("-DCLOUD_TRACE_USE_NV_copy_image=1")
+		endif()
+	endif()
+
 	do_use_single_dependency(${CLOUD_TRACE_GL_INIT})
 	do_use_single_dependency(THREADS)
 
@@ -41,7 +47,7 @@ if((GLX_FOUND) OR (GLFW_FOUND))
 			programs.cpp
 			raytracer.cpp
 			renderer.cpp
-			copier_default.cpp
+			copier.cpp
 			saver.cpp
 			threads.cpp
 	)

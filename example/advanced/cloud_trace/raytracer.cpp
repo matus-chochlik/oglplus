@@ -20,6 +20,30 @@
 namespace oglplus {
 namespace cloud_trace {
 
+RaytracerData::RaytracerData(const AppData& app_data)
+ : cloud_data(app_data)
+ , cloud_vol(app_data)
+{ }
+
+RaytracerResources::RaytracerResources(
+	AppData& app_data,
+	RaytracerData& rt_data,
+	ResourceAllocator& alloc
+): cloud_buf(app_data, rt_data.cloud_data, alloc)
+ , cloud_tex(app_data, rt_data.cloud_vol, alloc)
+ , raytrace_prog(app_data)
+{ }
+
+void RaytracerResources::Use(void)
+{
+	cloud_buf.Use();
+	cloud_tex.Use();
+	raytrace_prog.Use();
+	raytrace_prog.cloud_tex.Set(cloud_tex.tex_unit);
+	raytrace_prog.cloud_count.Set(cloud_buf.count);
+	raytrace_prog.cloud_block.Binding(cloud_buf.ub_idx);
+}
+
 RaytraceTarget::RaytraceTarget(
 	AppData& app_data,
 	ResourceAllocator& alloc
@@ -51,26 +75,6 @@ void RaytraceTarget::Clear(AppData& app_data)
 	gl.Viewport(0, 0, app_data.raytrace_width, app_data.raytrace_height);
 	gl.ClearColor(1.0, 1.0, 1.0, 0.5);
 	gl.Clear().ColorBuffer();
-}
-
-RaytracerResources::RaytracerResources(
-	AppData& app_data,
-	ResourceAllocator& alloc
-): cloud_data(app_data)
- , cloud_tex(app_data, alloc)
- , raytrace_prog(app_data)
-{
-	raytrace_prog.cloud_tex.Set(cloud_tex.tex_unit);
-	raytrace_prog.cloud_count.Set(cloud_data.CloudCount());
-}
-
-void RaytracerResources::Use(void)
-{
-	cloud_data.Use();
-	cloud_tex.Use();
-	raytrace_prog.Use();
-	raytrace_prog.cloud_tex.Set(cloud_tex.tex_unit);
-	raytrace_prog.cloud_count.Set(cloud_data.CloudCount());
 }
 
 Raytracer::Raytracer(AppData& app_data, RaytracerResources& res)

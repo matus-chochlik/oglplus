@@ -35,6 +35,7 @@ private:
 public:
 	ProgramUniformSampler cloud_tex;
 	ProgramUniform<GLint> cloud_count;
+	UniformBlock cloud_block;
 
 	RaytraceProg(AppData&);
 

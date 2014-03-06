@@ -18,10 +18,12 @@ class ResourceAllocator
 {
 private:
 	unsigned tex_unit;
+	unsigned ub_index;
 public:
 	ResourceAllocator(void);
 
 	unsigned GetNextTexUnit(void);
+	unsigned GetNextUniformIndex(void);
 };
 
 } // namespace cloud_trace
