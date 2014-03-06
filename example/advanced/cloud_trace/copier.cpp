@@ -20,7 +20,7 @@
 namespace oglplus {
 namespace cloud_trace {
 
-RaytraceCopierDefault::RaytraceCopierDefault(AppData&, RaytraceTarget& target)
+RaytraceCopierDefault::RaytraceCopierDefault(AppData&, RaytracerTarget& target)
  : rt_target(target)
 {
 	AutoRebind<Framebuffer> rebind_fb(FramebufferTarget::Draw);
@@ -86,7 +86,7 @@ typedef void (*PFNglXCopyImageSubDataNV)(
 
 RaytraceCopierNV_copy_image::RaytraceCopierNV_copy_image(
 	AppData&,
-	RaytraceTarget& target
+	RaytracerTarget& target
 ): rt_target(target)
  , copy_func(::glXGetProcAddress(((const GLubyte*)"glXCopyImageSubDataNV")))
 {

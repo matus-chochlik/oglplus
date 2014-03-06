@@ -34,6 +34,9 @@ struct AppData
 	// if the --X-rt-screen parameter is supported
 	bool use_x_rt_screens;
 
+	// the random engine seed
+	unsigned rand_seed;
+
 	// output file prefix
 	std::string output_prefix;
 	// the face id strings

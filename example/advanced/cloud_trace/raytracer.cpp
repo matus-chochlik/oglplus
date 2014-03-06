@@ -26,8 +26,8 @@ RaytracerData::RaytracerData(const AppData& app_data)
 { }
 
 RaytracerResources::RaytracerResources(
-	AppData& app_data,
-	RaytracerData& rt_data,
+	const AppData& app_data,
+	const RaytracerData& rt_data,
 	ResourceAllocator& alloc
 ): cloud_buf(app_data, rt_data.cloud_data, alloc)
  , cloud_tex(app_data, rt_data.cloud_vol, alloc)
@@ -44,7 +44,7 @@ void RaytracerResources::Use(void)
 	raytrace_prog.cloud_block.Binding(cloud_buf.ub_idx);
 }
 
-RaytraceTarget::RaytraceTarget(
+RaytracerTarget::RaytracerTarget(
 	AppData& app_data,
 	ResourceAllocator& alloc
 ): tex_unit(alloc.GetNextTexUnit())
@@ -67,7 +67,7 @@ RaytraceTarget::RaytraceTarget(
 		<< FramebufferAttachment::Color << tex;
 }
 
-void RaytraceTarget::Clear(AppData& app_data)
+void RaytracerTarget::Clear(AppData& app_data)
 {
 	AutoRebind<Framebuffer> rebind_fb(FramebufferTarget::Draw);
 	fbo << FramebufferTarget::Draw;

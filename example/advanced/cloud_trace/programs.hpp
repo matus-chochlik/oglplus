@@ -37,7 +37,7 @@ public:
 	ProgramUniform<GLint> cloud_count;
 	UniformBlock cloud_block;
 
-	RaytraceProg(AppData&);
+	RaytraceProg(const AppData&);
 
 	void SetRayMatrix(const Mat4f&);
 };
@@ -45,14 +45,14 @@ public:
 class RenderProg : public Program
 {
 private:
-	static Program make(AppData&);
+	static Program make(const AppData&);
 
 	Program& self(void);
 public:
 	ProgramUniform<Vec2f> raytrace_size;
 	ProgramUniformSampler raytrace_output;
 
-	RenderProg(AppData&);
+	RenderProg(const AppData&);
 };
 
 } // namespace cloud_trace

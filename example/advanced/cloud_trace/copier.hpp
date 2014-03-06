@@ -31,7 +31,7 @@ namespace cloud_trace {
 class RaytraceCopierDefault
 {
 private:
-	RaytraceTarget& rt_target;
+	RaytracerTarget& rt_target;
 
 	Context gl;
 	Framebuffer fbo;
@@ -42,7 +42,7 @@ public:
 		Params(T&...) { }
 	};
 
-	RaytraceCopierDefault(AppData&, RaytraceTarget&);
+	RaytraceCopierDefault(AppData&, RaytracerTarget&);
 
 	void Copy(AppData&, Params&, Raytracer&, unsigned tile);
 };
@@ -51,7 +51,7 @@ public:
 class RaytraceCopierNV_copy_image
 {
 private:
-	RaytraceTarget& rt_target;
+	RaytracerTarget& rt_target;
 	void (*copy_func)(void);
 public:
 	struct Params
@@ -71,7 +71,7 @@ public:
 
 	};
 
-	RaytraceCopierNV_copy_image(AppData&, RaytraceTarget&);
+	RaytraceCopierNV_copy_image(AppData&, RaytracerTarget&);
 
 	void Copy(AppData&, Params&, Raytracer&, unsigned tile);
 };

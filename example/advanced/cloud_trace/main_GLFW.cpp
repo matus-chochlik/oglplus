@@ -49,7 +49,7 @@ void render_loop(AppData& app_data)
 {
 	ResourceAllocator alloc;
 
-	RaytraceTarget raytrace_tgt(app_data, alloc);
+	RaytracerTarget raytrace_tgt(app_data, alloc);
 
 	RaytracerData raytrace_data(app_data);
 	RaytracerResources raytrace_res(app_data, raytrace_data, alloc);

@@ -44,11 +44,15 @@ struct RaytracerResources
 
 	RaytraceProg raytrace_prog;
 
-	RaytracerResources(AppData&, RaytracerData&, ResourceAllocator&);
+	RaytracerResources(
+		const AppData&,
+		const RaytracerData&,
+		ResourceAllocator&
+	);
 	void Use(void);
 };
 
-struct RaytraceTarget
+struct RaytracerTarget
 {
 	const GLuint tex_unit;
 
@@ -56,7 +60,7 @@ struct RaytraceTarget
 	Texture tex;
 	Framebuffer fbo;
 
-	RaytraceTarget(AppData&, ResourceAllocator&);
+	RaytracerTarget(AppData&, ResourceAllocator&);
 	void Clear(AppData&);
 };
 

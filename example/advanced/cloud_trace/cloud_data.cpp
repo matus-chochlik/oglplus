@@ -47,8 +47,13 @@ void CloudData::Generate(const AppData& app_data)
 
 	storage.push_back(cloud);
 
-	std::random_device rd;
-	std::default_random_engine re(rd());
+	unsigned rand_seed = app_data.rand_seed;
+	if(!rand_seed)
+	{
+		std::random_device rd;
+		rand_seed = rd();
+	}
+	std::default_random_engine re(rand_seed);
 	std::uniform_real_distribution<float> r01( 0, 1);
 	std::uniform_real_distribution<float> r11(-1, 1);
 	std::uniform_int_distribution<unsigned> rcc( 3, 8);

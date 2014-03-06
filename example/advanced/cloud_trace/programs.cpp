@@ -37,7 +37,7 @@ Program& RaytraceProg::self(void)
 	return *this;
 }
 
-RaytraceProg::RaytraceProg(AppData& app_data)
+RaytraceProg::RaytraceProg(const AppData& app_data)
  : Program(make())
  , ray_matrix(self(), "RayMatrix")
  , cloud_tex(self(), "CloudTex")
@@ -61,7 +61,7 @@ void RaytraceProg::SetRayMatrix(const Mat4f& mat)
 	ray_matrix.Set(Mat3f(mat));
 }
 
-Program RenderProg::make(AppData&)
+Program RenderProg::make(const AppData&)
 {
 	Program prog;
 
@@ -81,7 +81,7 @@ Program& RenderProg::self(void)
 	return *this;
 }
 
-RenderProg::RenderProg(AppData& app_data)
+RenderProg::RenderProg(const AppData& app_data)
  : Program(make(app_data))
  , raytrace_size(self(), "RaytraceSize")
  , raytrace_output(self(), "RaytraceOutput")

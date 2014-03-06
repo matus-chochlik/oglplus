@@ -43,9 +43,10 @@ class CommonData
 {
 public:
 	const x11::Display& display;
-	const glx::FBConfig& fb_config;
-	const x11::VisualInfo& visual_info;
 	const glx::Context& context;
+
+	const RaytracerData& rt_data;
+	RaytracerTarget& rt_target;
 private:
 
 	const unsigned max_tiles;
@@ -56,9 +57,6 @@ private:
 	std::vector<std::exception_ptr> thread_errors;
 
 	std::mutex mutex;
-
-	RaytraceTarget* p_rt_tgt;
-	RaytracerResources* p_rt_res;
 public:
 	Semaphore master_ready;
 	Semaphore thread_ready;
@@ -66,42 +64,18 @@ public:
 	CommonData(
 		const AppData& app_data,
 		const x11::Display& disp,
-		const glx::FBConfig& fbc,
-		const x11::VisualInfo& vi,
-		const glx::Context& ctx
+		const glx::Context& ctx,
+		const RaytracerData& rtd,
+		RaytracerTarget& rtt
 	): display(disp)
-	 , fb_config(fbc)
-	 , visual_info(vi)
 	 , context(ctx)
+	 , rt_data(rtd)
+	 , rt_target(rtt)
 	 , max_tiles(app_data.tiles())
 	 , tile(0)
 	 , face(0)
 	 , keep_running(true)
-	 , p_rt_tgt(nullptr)
-	 , p_rt_res(nullptr)
 	{ }
-
-	void RtTgt(RaytraceTarget& rt_tgt)
-	{
-		p_rt_tgt = &rt_tgt;
-	}
-
-	RaytraceTarget& RtTgt(void)
-	{
-		assert(p_rt_tgt != nullptr);
-		return *p_rt_tgt;
-	}
-
-	void RtRes(RaytracerResources& rt_res)
-	{
-		p_rt_res = &rt_res;
-	}
-
-	RaytracerResources& RtRes(void)
-	{
-		assert(p_rt_res != nullptr);
-		return *p_rt_res;
-	}
 
 	std::unique_lock<std::mutex> Lock(void)
 	{
@@ -180,17 +154,22 @@ public:
 	}
 };
 
-void thread_loop(AppData& app_data, CommonData& common, glx::Context& context)
+void thread_loop(AppData& app_data, CommonData& common, x11::Display& display, glx::Context& context)
 {
 	Context gl;
+	ResourceAllocator alloc;
 	RaytraceCopier::Params rtc_params(
-		common.display,
+		display,
 		context,
 		common.context
 	);
-	RaytraceCopier rt_copier(app_data, common.RtTgt());
-	Raytracer raytracer(app_data, common.RtRes());
+	RaytraceCopier rt_copier(app_data, common.rt_target);
+	RaytracerResources rt_res(app_data, common.rt_data, alloc);
+	Raytracer raytracer(app_data, rt_res);
 	raytracer.Use(app_data);
+
+	std::vector<unsigned> backlog(app_data.cols());
+	std::chrono::milliseconds bl_interval(100);
 
 	while(!common.Done())
 	{
@@ -202,16 +181,47 @@ void thread_loop(AppData& app_data, CommonData& common, glx::Context& context)
 
 		raytracer.InitFrame(app_data, common.Face());
 
+		auto bl_begin = std::chrono::steady_clock::now();
 		unsigned tile = 0;
 		while(common.NextFaceTile(tile))
 		{
 			raytracer.Raytrace(app_data, tile);
-			gl.Finish();
+			backlog.push_back(tile);
 
-			auto lock = common.Lock();
-			rt_copier.Copy(app_data, rtc_params, raytracer, tile);
-			lock.unlock();
+			auto now = std::chrono::steady_clock::now();
+
+			if(bl_begin + bl_interval < now)
+			{
+				gl.Finish();
+				auto lock = common.Lock();
+				for(unsigned bl_tile : backlog)
+				{
+					rt_copier.Copy(
+						app_data,
+						rtc_params,
+						raytracer,
+						bl_tile
+					);
+				}
+				lock.unlock();
+				backlog.clear();
+				bl_begin = now;
+			}
+			else gl.Finish();
 		}
+		auto lock = common.Lock();
+		for(unsigned bl_tile : backlog)
+		{
+			rt_copier.Copy(
+				app_data,
+				rtc_params,
+				raytracer,
+				bl_tile
+			);
+		}
+		lock.unlock();
+		backlog.clear();
+		gl.Finish();
 
 		// signal to the master that the raytracing
 		// of the current face has finished
@@ -228,12 +238,12 @@ void window_loop(
 	const x11::Window& window,
 	AppData& app_data,
 	CommonData& common,
-	RaytraceTarget& rt_tgt,
+	RaytracerTarget& rt_target,
 	std::size_t n_threads
 )
 {
 	Context gl;
-	Renderer renderer(app_data, rt_tgt.tex_unit);
+	Renderer renderer(app_data, rt_target.tex_unit);
 	renderer.Use(app_data);
 	Saver saver(app_data);
 
@@ -245,7 +255,7 @@ void window_loop(
 	while(!common.Done())
 	{
 		// clear the raytrace target
-		rt_tgt.Clear(app_data);
+		rt_target.Clear(app_data);
 		// signal all threads that they can start raytracing tiles
 		common.master_ready.Signal(n_threads);
 
@@ -297,7 +307,6 @@ void window_loop(
 
 		auto lock = common.Lock();
 		renderer.Render(app_data);
-		gl.Finish();
 		lock.unlock();
 
 		common.context.SwapBuffers(window);
@@ -319,11 +328,42 @@ void main_thread(
 	const std::string& screen_name
 )
 {
+#ifdef CLOUD_TRACE_USE_NV_copy_image
 	x11::Display display(screen_name.empty()?nullptr:screen_name.c_str());
+#else
+	const x11::Display& display = common.display;
+	(void)screen_name;
+#endif
 
-	x11::Pixmap xpm(display, common.visual_info, 8, 8);
-	glx::Pixmap gpm(display, common.visual_info, xpm);
-	glx::Context context(display, common.fb_config, common.context, 3, 3);
+	static int visual_attribs[] =
+	{
+		GLX_DRAWABLE_TYPE   , GLX_PIXMAP_BIT,
+		GLX_RENDER_TYPE     , GLX_RGBA_BIT,
+		GLX_X_VISUAL_TYPE   , GLX_TRUE_COLOR,
+		GLX_RED_SIZE        , 8,
+		GLX_GREEN_SIZE      , 8,
+		GLX_BLUE_SIZE       , 8,
+		GLX_ALPHA_SIZE      , 8,
+		GLX_DEPTH_SIZE      , 24,
+		GLX_STENCIL_SIZE    , 8,
+		None
+	};
+
+	glx::FBConfig fbc = glx::FBConfigs(
+		display,
+		visual_attribs
+	).FindBest(display);
+
+	x11::VisualInfo vi(display, fbc);
+
+	x11::Pixmap xpm(display, vi, 8, 8);
+	glx::Pixmap gpm(display, vi, xpm);
+
+#ifdef CLOUD_TRACE_USE_NV_copy_image
+	glx::Context context(display, fbc, 3, 3);
+#else
+	glx::Context context(display, fbc, common.context, 3, 3);
+#endif
 
 	context.MakeCurrent(gpm);
 
@@ -333,7 +373,7 @@ void main_thread(
 
 	if(!common.Done())
 	{
-		try { thread_loop(app_data, common, context); }
+		try { thread_loop(app_data, common, display, context); }
 		catch(...)
 		{
 			common.PushError(std::current_exception());
@@ -347,6 +387,8 @@ int main_GLX(AppData& app_data)
 {
 	::XInitThreads();
 	x11::Display display;
+	glx::Version version(display);
+	version.AssertAtLeast(1, 3);
 
 	static int visual_attribs[] =
 	{
@@ -363,8 +405,6 @@ int main_GLX(AppData& app_data)
 		GLX_DOUBLEBUFFER    , True,
 		None
 	};
-	glx::Version version(display);
-	version.AssertAtLeast(1, 3);
 
 	glx::FBConfig fbc = glx::FBConfigs(
 		display,
@@ -387,12 +427,19 @@ int main_GLX(AppData& app_data)
 
 	GLAPIInitializer api_init;
 	{
-		CommonData common(app_data, display, fbc, vi, context);
 
 		RaytracerData rt_data(app_data);
 
 		ResourceAllocator res_alloc;
-		RaytraceTarget rt_tgt(app_data, res_alloc);
+		RaytracerTarget rt_target(app_data, res_alloc);
+
+		CommonData common(
+			app_data,
+			display,
+			context,
+			rt_data,
+			rt_target
+		);
 
 		std::vector<std::thread> threads;
 
@@ -424,18 +471,13 @@ int main_GLX(AppData& app_data)
 		try
 		{
 			common.thread_ready.Wait(threads.size());
-
-			RaytracerResources rt_res(app_data, rt_data, res_alloc);
-			common.RtRes(rt_res);
-			common.RtTgt(rt_tgt);
-
 			common.master_ready.Signal(threads.size());
 
 			window_loop(
 				window,
 				app_data,
 				common,
-				rt_tgt,
+				rt_target,
 				threads.size()
 			);
 			for(auto& t: threads) t.join();
