@@ -35,6 +35,9 @@ struct AppData
 	// if the --X-rt-screen parameter is supported
 	bool use_x_rt_screens;
 
+	// if the raytrace  data should be saved instead of render output
+	bool save_raytrace_data;
+
 	// the random engine seed
 	unsigned rand_seed;
 

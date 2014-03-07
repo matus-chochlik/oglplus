@@ -38,7 +38,14 @@ void Saver::SaveFrame(
 
 	gl.Finish();
 
-	rt_target.fbo << FramebufferTarget::Read;
+	if(app_data.save_raytrace_data)
+	{
+		rt_target.fbo.Bind(FramebufferTarget::Read);
+	}
+	else
+	{
+		Framebuffer::BindDefault(FramebufferTarget::Read);
+	}
 
 	gl.ReadPixels(
 		0, 0,

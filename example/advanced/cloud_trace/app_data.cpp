@@ -119,6 +119,7 @@ AppData::AppData(void)
  , pset_status(nullptr)
  , perrstr(nullptr)
  , use_x_rt_screens(false)
+ , save_raytrace_data(false)
  , rand_seed(0)
  , output_prefix("clouds")
  , output_suffix("rgba")
@@ -162,6 +163,11 @@ void AppData::ParseArgs(int argc, char** argv)
 	int arg = 1;
 	while(arg < argc)
 	{
+		if(parse_single_opt(arg, argc, argv, "-srd", "--save-raytrace-data"))
+		{
+			save_raytrace_data = true;
+			continue;
+		}
 		if(parse_single_opt(arg, argc, argv, "-rs", "--rand-seed", rand_seed))
 			continue;
 		if(parse_single_opt(arg, argc, argv, "-s", "--size", raytrace_width))
