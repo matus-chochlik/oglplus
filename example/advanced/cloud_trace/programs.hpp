@@ -49,8 +49,8 @@ private:
 
 	Program& self(void);
 
-	OptionalUniform<GLint> cube_face;
-	OptionalUniform<Mat3f> ray_matrix;
+	OptionalProgramUniform<GLint> cube_face;
+	OptionalProgramUniform<Mat3f> ray_matrix;
 public:
 	ProgramUniform<Vec2f> raytrace_size;
 	ProgramUniformSampler raytrace_output;

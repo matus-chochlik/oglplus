@@ -146,8 +146,8 @@ AppData::AppData(void)
  , light_x(100000)
  , light_y(100000)
  , light_z(100000)
- , high_light(1.2f)
- , ambi_light(0.5f)
+ , high_light(1.0f)
+ , ambi_light(0.0f)
 {
 }
 
