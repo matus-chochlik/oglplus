@@ -10,7 +10,7 @@ uniform float PlanetRadius, AtmThickness;
 
 vec3 LightPos = vec3(LightX, LightY, LightZ);
 const vec3 LightColor = vec3(1, 1, 1);
-const vec3 AirColor = vec3(0.25, 0.35, 0.70);
+const vec3 AirColor = vec3(0.28, 0.38, 0.62);
 const vec3 HazeColor = vec3(0.75, 0.77, 0.85);
 
 in vec3 vertRay;
@@ -41,6 +41,7 @@ void main(void)
 	float hr = (1.0-abs(ur));
 	float iai = clamp(1.4/ai, 0, 1);
 	float lai = log(ai);
+	float ctl = pow(max(lr+0.3, 0.0), 2.0);
 
 	vec3 Air1 =
 		mix(HazeColor, AirColor, iai)*
@@ -48,7 +49,7 @@ void main(void)
 		mix(0.8, 1.2, min(abs(lr+0.6), 1.0));
 
 	vec3 Air2 =
-		max(LightColor-AirColor*lai*1.4, vec3(0))*pow(
+		max(LightColor-AirColor*lai*1.2, vec3(0))*pow(
 			max(abs(lr+mix(0.00, 0.57, iai))-mix(0.00, 0.48, iai), 0.0),
 			mix(0.25, 4.0, mix(hr, lai, 0.2))
 		)*hr;
@@ -58,15 +59,13 @@ void main(void)
 		pow(max(lr+mix(0.0020, 0.0005, iai), 0.0), mix(256, 1024, hr));
 
 	vec3 CloudsDk = mix(
-		(LightColor-AirColor*mix(1.0-ul, lai, 0.4)*1.0)*
-		pow(max(lr+0.3, 0.0), 4.0)*2.71,
-		(LightColor-AirColor*lai*0.3)*
-		(max(ul+0.3, 0.0)*0.5),
-		rt.w
+		(LightColor-AirColor*mix(1.0-ul, lai, 0.4)*1.0)*ctl*2.51,
+		(LightColor-AirColor*lai*0.3)*sqrt(max(ul+0.6, 0.0))*0.75,
+		mix(1.0, rt.w, min(ctl, 1.0))
 	);
 
 	vec3 CloudsLt =
-		(LightColor-AirColor*lai*0.1)*sqrt(max(ul+0.3, 0));
+		LightColor-AirColor*lai*0.2*sqrt(max(ul+0.3, 0));
 
 	vec3 Clouds = mix(CloudsDk, CloudsLt, rt.z);
 
