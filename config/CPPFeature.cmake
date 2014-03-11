@@ -37,6 +37,8 @@ function(cpp_feature_detection FEATURE_NAME)
 			set(OGLPLUS_NO_${FEATURE_NAME} 1 CACHE INTERNAL "")
 		endif()
 		unset(OGLPLUS_HAS_${FEATURE_NAME})
+	elseif(NOT ${OGLPLUS_NO_${FEATURE_NAME}})
+		set(HAS_CPP_${FEATURE_NAME} TRUE PARENT_SCOPE)
 	endif()
 endfunction()
 
