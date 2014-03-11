@@ -19,31 +19,126 @@
 namespace oglplus {
 namespace cloud_trace {
 
-template <typename T>
-ArgInfo<T>::ArgInfo(
-	std::string&& sn,
-	std::string&& ln,
-	T& var
-): parse_count(0)
+ArgInfoBase::ArgInfoBase(std::string&& sn, std::string&& ln)
+ : parse_count(0)
  , short_name(std::move(sn))
  , long_name(std::move(ln))
  , description()
- , vars(1, &var)
  , has_min(false)
  , has_max(false)
-{
-}
+{ }
 
-template <typename T>
-ArgInfo<T>::ArgInfo(ArgInfo&& tmp)
+ArgInfoBase::ArgInfoBase(ArgInfoBase&& tmp)
  : parse_count(tmp.parse_count)
  , short_name(std::move(tmp.short_name))
  , long_name(std::move(tmp.long_name))
  , description(std::move(tmp.description))
- , vars(std::move(tmp.vars))
  , has_min(tmp.has_min)
  , has_max(tmp.has_max)
+{ }
+
+ArgInfoBase& ArgInfoBase::AddDesc(std::string&& desc)
 {
+	description = std::move(desc);
+	return *this;
+}
+
+template <typename T>
+ArgInfo<T>::ArgInfo(std::string&& sn, std::string&& ln, T& var)
+ : ArgInfoBase(std::move(sn), std::move(ln))
+ , vars(1, &var)
+{ }
+
+template <typename T>
+ArgInfo<T>::ArgInfo(ArgInfo&& tmp)
+ : ArgInfoBase(static_cast<ArgInfoBase&&>(tmp))
+ , vars(std::move(tmp.vars))
+ , min(std::move(tmp.min))
+ , max(std::move(tmp.max))
+{ }
+
+template <>
+void ArgInfo<bool>::PrintPlaceholder(std::ostream&)
+{ }
+
+template <>
+void ArgInfo<unsigned>::PrintPlaceholder(std::ostream& out)
+{
+	out << "UINT";
+}
+
+template <>
+void ArgInfo<float>::PrintPlaceholder(std::ostream& out)
+{
+	out << "FLOAT";
+}
+
+template <>
+void ArgInfo<std::string>::PrintPlaceholder(std::ostream& out)
+{
+	out << "STRING";
+}
+
+template <>
+void ArgInfo<std::vector<std::string>>::PrintPlaceholder(std::ostream& out)
+{
+	out << "STRING";
+}
+
+template <typename T>
+void PrintValue(std::ostream& out, T* ptr)
+{
+	assert(ptr != nullptr);
+	out << *ptr;
+}
+
+template <>
+void PrintValue(std::ostream&, bool*)
+{
+}
+
+template <>
+void PrintValue(std::ostream& out, std::string* ptr)
+{
+	assert(ptr != nullptr);
+	out << "'" << *ptr << "'";
+}
+
+template <typename T>
+void PrintValue(std::ostream& out, std::vector<T>* ptr)
+{
+	assert(ptr != nullptr);
+	if(!ptr->empty())
+	{
+		PrintValue(out, &ptr->front());
+	}
+}
+
+template <typename T>
+void ArgInfo<T>::PrintDefault(std::ostream& out)
+{
+	if(!vars.empty())
+	{
+		PrintValue(out, vars.front());
+	}
+}
+
+template <typename T>
+void ArgInfo<T>::PrintMin(std::ostream& out)
+{
+	if(has_min)
+	{
+		PrintValue(out, &min);
+	}
+}
+
+template <typename T>
+void ArgInfo<T>::PrintMax(std::ostream& out)
+{
+	if(has_max)
+	{
+		PrintValue(out, &max);
+	}
 }
 
 template <typename T>
@@ -171,6 +266,13 @@ bool ArgInfo<bool>::Parse(int& arg, int, char** argv)
 	return result;
 }
 
+ArgParser::ArgParser(void)
+ : print_help(false)
+{
+	AddOpt("-h", "--help", print_help)
+		.AddDesc("Print the help screen and exit.");
+}
+
 ArgInfo<bool>& ArgParser::AddOpt(
 	std::string&& short_name,
 	std::string&& long_name,
@@ -182,6 +284,7 @@ ArgInfo<bool>& ArgParser::AddOpt(
 		std::move(long_name),
 		var
 	));
+	all_arg_refs.push_back(&options.back());
 	return options.back();
 }
 
@@ -196,6 +299,7 @@ ArgInfo<unsigned>& ArgParser::AddArg(
 		std::move(long_name),
 		var
 	));
+	all_arg_refs.push_back(&uint_args.back());
 	return uint_args.back();
 }
 
@@ -210,6 +314,7 @@ ArgInfo<float>& ArgParser::AddArg(
 		std::move(long_name),
 		var
 	));
+	all_arg_refs.push_back(&float_args.back());
 	return float_args.back();
 }
 
@@ -224,6 +329,7 @@ ArgInfo<std::string>& ArgParser::AddArg(
 		std::move(long_name),
 		var
 	));
+	all_arg_refs.push_back(&str_args.back());
 	return str_args.back();
 }
 
@@ -238,6 +344,7 @@ ArgInfo<std::vector<std::string>>& ArgParser::AddArg(
 		std::move(long_name),
 		var
 	));
+	all_arg_refs.push_back(&str_list_args.back());
 	return str_list_args.back();
 }
 
@@ -246,7 +353,7 @@ bool ArgParser::ParseOne(
 	int& arg,
 	int argc,
 	char** argv,
-	std::vector<ArgInfo<T>>& arg_infos
+	std::list<ArgInfo<T>>& arg_infos
 )
 {
 	for(auto& arg_info : arg_infos)
@@ -287,7 +394,116 @@ bool ArgParser::Parse(int argc, char** argv)
 			throw std::runtime_error(message);
 		}
 	}
+	if(print_help)
+	{
+		PrintHelp(std::cout);
+		return false;
+	}
 	return true;
+}
+
+void ArgParser::PrintHelp(std::ostream& out)
+{
+	out << "Usage: cloud_trace [--help | -h] | [options...]" << std::endl;
+	out << std::endl;
+	out << "Optional arguments:" << std::endl;
+
+	const std::size_t indent = 25;
+	const std::size_t columns = 80;
+	std::string indent_str(indent, ' ');
+
+	for(ArgInfoBase* aib : all_arg_refs)
+	{
+		assert(aib != nullptr);
+
+		std::stringstream placeholder;
+		aib->PrintPlaceholder(placeholder);
+
+		std::size_t len = 0;
+
+		out << "  " << aib->long_name;
+		len += 2 + aib->long_name.size();
+
+		if(!placeholder.str().empty())
+		{
+			out << " "  << placeholder.str();
+			len += 1 + placeholder.str().size();
+		}
+
+		out << ", " << aib->short_name;
+		len += 2 + aib->short_name.size();
+
+		if(!placeholder.str().empty())
+		{
+			out << " "  << placeholder.str();
+			len += 1 + placeholder.str().size();
+		}
+
+		if(indent > len)
+		{
+			out << std::string(indent - len, ' ');
+		}
+		else
+		{
+			out << std::endl;
+			out << indent_str;
+		}
+
+		len = 0;
+		std::size_t p0 = 0, p1 = 0;
+		while(true)
+		{
+			if(indent + len >= columns)
+			{
+				out << std::endl;
+				out << indent_str;
+				len = 0;
+			}
+			p1 = aib->description.find(" ", p0);
+			if(p1 == std::string::npos)
+			{
+				out << aib->description.c_str()+p0;
+				break;
+			}
+			else
+			{
+				out.write(aib->description.c_str()+p0, p1-p0+1);
+			}
+			len += p1-p0+1;
+			p0 = p1+1;
+		}
+
+		std::stringstream value_str;
+
+		aib->PrintDefault(value_str);
+		if(!value_str.str().empty())
+		{
+			out << std::endl;
+			out << indent_str;
+			out << "Default: "  << value_str.str();
+		}
+
+		if(aib->has_min)
+		{
+			value_str.str(std::string());
+			aib->PrintMin(value_str);
+			out << std::endl;
+			out << indent_str;
+			out << "Minimum: " << value_str.str();
+		}
+
+		if(aib->has_max)
+		{
+			value_str.str(std::string());
+			aib->PrintMax(value_str);
+			out << std::endl;
+			out << indent_str;
+			out << "Maximum: " << value_str.str();
+		}
+
+		out << std::endl;
+	}
+	// TODO
 }
 
 } // namespace cloud_trace

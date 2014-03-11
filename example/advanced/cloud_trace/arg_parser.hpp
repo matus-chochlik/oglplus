@@ -12,32 +12,47 @@
 #define OGLPLUS_ADVANCED_CLOUD_ARG_PARSER_1119071146_HPP
 
 #include <string>
+#include <iosfwd>
 #include <vector>
+#include <list>
 
 namespace oglplus {
 namespace cloud_trace {
 
-template <typename T>
-struct ArgInfo
+struct ArgInfoBase
 {
 	unsigned parse_count;
 	std::string short_name;
 	std::string long_name;
 	std::string description;
 
+	bool has_min, has_max;
+
+	ArgInfoBase(std::string&&, std::string&&);
+	ArgInfoBase(ArgInfoBase&&);
+	ArgInfoBase& AddDesc(std::string&& desc);
+
+	virtual ~ArgInfoBase(void) { }
+	virtual void PrintPlaceholder(std::ostream&) = 0;
+	virtual void PrintDefault(std::ostream&) = 0;
+	virtual void PrintMin(std::ostream&) = 0;
+	virtual void PrintMax(std::ostream&) = 0;
+};
+
+template <typename T>
+struct ArgInfo : ArgInfoBase
+{
 	std::vector<T*> vars;
 
 	T min, max;
-	bool has_min, has_max;
 
 	ArgInfo(std::string&&, std::string&&, T&);
 	ArgInfo(ArgInfo&&);
 
-	ArgInfo& AddDesc(std::string&& desc)
-	{
-		description = std::move(desc);
-		return *this;
-	}
+	void PrintPlaceholder(std::ostream&);
+	void PrintDefault(std::ostream&);
+	void PrintMin(std::ostream&);
+	void PrintMax(std::ostream&);
 
 	ArgInfo& AddVar(T& var)
 	{
@@ -65,16 +80,22 @@ struct ArgInfo
 class ArgParser
 {
 private:
-	std::vector<ArgInfo<bool>> options;
-	std::vector<ArgInfo<float>> float_args;
-	std::vector<ArgInfo<unsigned>> uint_args;
-	std::vector<ArgInfo<std::string>> str_args;
-	std::vector<ArgInfo<std::vector<std::string>>> str_list_args;
+	bool print_help;
+
+	std::list<ArgInfo<bool>> options;
+	std::list<ArgInfo<float>> float_args;
+	std::list<ArgInfo<unsigned>> uint_args;
+	std::list<ArgInfo<std::string>> str_args;
+	std::list<ArgInfo<std::vector<std::string>>> str_list_args;
+
+	std::list<ArgInfoBase*> all_arg_refs;
 
 	template <typename T>
-	bool ParseOne(int&, int, char**, std::vector<ArgInfo<T>>& args);
+	bool ParseOne(int&, int, char**, std::list<ArgInfo<T>>& args);
 	bool ParseOne(int&, int, char**);
 public:
+	ArgParser(void);
+
 	ArgInfo<bool>& AddOpt(std::string&&, std::string&&, bool&);
 	ArgInfo<float>& AddArg(std::string&&, std::string&&, float&);
 	ArgInfo<unsigned>& AddArg(std::string&&, std::string&&, unsigned&);
@@ -83,6 +104,7 @@ public:
 	AddArg(std::string&&, std::string&&, std::vector<std::string>&);
 
 	bool Parse(int argc, char** argv);
+	void PrintHelp(std::ostream&);
 };
 
 

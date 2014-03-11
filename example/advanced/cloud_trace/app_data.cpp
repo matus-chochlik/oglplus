@@ -200,7 +200,7 @@ bool AppData::ParseArgs(int argc, char** argv)
 		.SetMin(0.0f)
 		.AddDesc(
 		"The unit light attenuation value for cloud texture voxels. "
-		"This value determines how fast light penetrating the clouds "
+		"This value determines how much light penetrating the clouds "
 		"is attenuated."
 		);
 
@@ -339,7 +339,7 @@ bool AppData::ParseArgs(int argc, char** argv)
 		);
 
 	// single-face mode
-	unsigned single_face;
+	unsigned single_face = 0;
 	auto& single_face_arg = parser.AddArg("-f", "--single-face", single_face)
 		.AddDesc(
 		"Specifies a single face that should be rendered and saved. "

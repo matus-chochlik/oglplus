@@ -517,7 +517,10 @@ int main (int argc, char ** argv)
 
 	AppData app_data;
 	app_data.use_x_rt_screens = true;
-	app_data.ParseArgs(argc, argv);
-	return do_run_main(main_GLX, app_data);
+	if(app_data.ParseArgs(argc, argv))
+	{
+		return do_run_main(main_GLX, app_data);
+	}
+	else return 0;
 }
 

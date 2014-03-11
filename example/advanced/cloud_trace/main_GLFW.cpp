@@ -163,7 +163,10 @@ int main (int argc, char ** argv)
 	using oglplus::cloud_trace::AppData;
 
 	AppData app_data;
-	app_data.ParseArgs(argc, argv);
-	return do_run_main(main_GLFW, app_data);
+	if(app_data.ParseArgs(argc, argv))
+	{
+		return do_run_main(main_GLFW, app_data);
+	}
+	else return 0;
 }
 
