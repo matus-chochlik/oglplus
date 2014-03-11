@@ -15,7 +15,6 @@
 #include <string>
 #include <array>
 #include <vector>
-#include <bitset>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -49,7 +48,7 @@ struct AppData
 	std::string output_suffix;
 
 	// the face mask indicating which faces should be skipped
-	std::bitset<6> skip_face;
+	std::array<bool, 6> skip_face;
 
 	// parameters for raytracer threads (if any)
 	std::vector<std::string> raytracer_params;
@@ -84,7 +83,7 @@ struct AppData
 	float high_light, ambi_light;
 
 	AppData(void);
-	void ParseArgs(int argc, char** argv);
+	bool ParseArgs(int argc, char** argv);
 };
 
 } // namespace cloud_trace

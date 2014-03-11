@@ -9,110 +9,12 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include "app_data.hpp"
+#include "arg_parser.hpp"
 
-#include <stdexcept>
-#include <string>
-#include <sstream>
 #include <iostream>
-#include <cstring>
 
 namespace oglplus {
 namespace cloud_trace {
-
-template <typename T>
-void parse_opt_value(
-	const char* name,
-	const char* str,
-	T& value
-)
-{
-	std::stringstream ss(str);
-
-	ss >> value;
-	if(ss.fail())
-	{
-		std::string message;
-		message.append("Invalid value '");
-		message.append(str);
-		message.append("' after '");
-		message.append(name);
-		message.append("'");
-
-		throw std::runtime_error(message);
-	}
-}
-
-bool parse_single_opt(
-	int& arg,
-	int,
-	char** argv,
-	const char* short_name,
-	const char* long_name
-)
-{
-	bool result =
-		(std::strcmp(argv[arg], long_name) == 0)||
-		(std::strcmp(argv[arg], short_name) == 0);
-	if(result) ++arg;
-	return result;
-}
-
-template <typename T>
-bool parse_single_opt(
-	int& arg,
-	int argc,
-	char** argv,
-	const char* short_name,
-	const char* long_name,
-	T& value
-)
-{
-	const char* name = nullptr;
-
-	std::size_t len = std::strlen(short_name);
-	if(std::strncmp(argv[arg], short_name, len) == 0)
-	{
-		name = short_name;
-	}
-	else
-	{
-		len = std::strlen(long_name);
-		if(std::strncmp(argv[arg], long_name, len) == 0)
-		{
-			name = long_name;
-		}
-		else len = 0;
-	}
-
-	if(name && len)
-	{
-		if(argv[arg][len] == '=')
-		{
-			parse_opt_value(name, argv[arg]+len+1, value);
-			arg += 1;
-			return true;
-		}
-		else if(argv[arg][len] == '\0')
-		{
-			if(arg+1 < argc)
-			{
-				parse_opt_value(name, argv[arg+1], value);
-				arg += 2;
-				return true;
-			}
-			else
-			{
-				std::string message;
-				message.append("Missing value after '");
-				message.append(argv[arg]);
-				message.append("'");
-
-				throw std::runtime_error(message);
-			}
-		}
-	}
-	return false;
-}
 
 AppData::AppData(void)
  : puser_intf(nullptr)
@@ -123,7 +25,7 @@ AppData::AppData(void)
  , rand_seed(0)
  , output_prefix("clouds")
  , output_suffix("rgba")
- , skip_face(0)
+ , skip_face()
  , finish_shader("rawdata")
  , raytrace_width(512)
  , raytrace_height(512)
@@ -135,6 +37,7 @@ AppData::AppData(void)
  , cloud_count(512)
  , cloud_res(256)
  , dump_cloud_image(false)
+ , cloud_image_path()
  , planet_radius(6371)
  , atm_thickness(50)
  , covered_angle(0.7)
@@ -150,180 +53,321 @@ AppData::AppData(void)
  , high_light(1.0f)
  , ambi_light(0.0f)
 {
-}
+	skip_face.fill(false);
 
-void AppData::ParseArgs(int argc, char** argv)
-{
 	for(unsigned f=0; f!=6; ++f)
 	{
 		output_face_id[f] = "- ";
 		output_face_id[f][1] = '0'+f;
 	}
+}
 
-	int arg = 1;
-	while(arg < argc)
+bool AppData::ParseArgs(int argc, char** argv)
+{
+	ArgParser parser;
+
+	// random seed
+	parser.AddArg("-rs", "--rand-seed", rand_seed)
+		.AddDesc(
+		"Sets the random seed for the cloud generator. "
+		"If the default value is specified then a new "
+		"random seed is used."
+		);
+
+	// output size
+	parser.AddArg("-s", "--size", raytrace_width)
+		.AddVar(raytrace_height)
+		.AddVar(render_width)
+		.AddVar(render_height)
+		.AddDesc(
+		"Sets the size of the raytrace output image. This option "
+		"sets both the width and the height to the same value. "
+		);
+
+	// output width
+	parser.AddArg("-w", "--raytrace-width", raytrace_width)
+		.AddVar(render_width)
+		.AddDesc(
+		"Sets the width of the raytrace output image."
+		);
+
+	// output height
+	parser.AddArg("-h", "--raytrace-height", raytrace_height)
+		.AddVar(render_height)
+		.AddDesc(
+		"Sets the height of the raytrace output image."
+		);
+
+	// raytrace tile
+	parser.AddArg("-t", "--tile", tile)
+		.AddDesc(
+		"Sets the size of the raytrace tile. The raytracer works "
+		"on rectangular tiles, the width and height of which is set "
+		"by this argument."
+		);
+
+	// cloud count
+	parser.AddArg("-cc", "--cloud-count", cloud_count)
+		.SetMax(1024)
+		.AddDesc(
+		"Sets the number of clouds that should be generated."
+		);
+
+	// cloud resolution
+	parser.AddArg("-cr", "--cloud-res", cloud_res)
+		.AddDesc(
+		"Sets the resolution (width, height and depth) of the cloud "
+		"cubic volume texture."
+		);
+
+	// dump cloud image
+	parser.AddOpt("-di", "--dump-cloud-image", dump_cloud_image)
+		.AddDesc(
+		"If this option is used then a new cloud volume texture "
+		"is generated and it is saved to the file specified by the "
+		"--cloud-image-path option."
+		);
+
+	// cloud image path
+	parser.AddArg("-ci", "--cloud-image-path", cloud_image_path)
+		.AddDesc(
+		"Specifies the path of the cloud volume texture to be loaded "
+		"or saved. If the --dump-cloud-image option is used then a new "
+		"cloud volume is generated and saved into a file, otherwise "
+		"the cloud volume is not generated, and it is loaded from "
+		"a file specified by this option."
+		);
+
+	// cloud mean altitude
+	parser.AddArg("-cma", "--cloud-mean-alt", cloud_mean_alt)
+		.AddDesc(
+		"The mean altitude at which the clouds created by the built-in "
+		"cloud generator are placed."
+		);
+
+	// cloud altitude dispersion
+	parser.AddArg("-cad", "--cloud-alt-disp", cloud_alt_disp)
+		.AddDesc(
+		"The dispersion in altitude of the clouds created by the built-in "
+		"cloud generator."
+		);
+
+	// cloud mean size
+	parser.AddArg("-cms", "--cloud-mean-size", cloud_mean_size)
+		.AddDesc(
+		"The mean size for the clouds created by the built-in "
+		"cloud generator."
+		);
+
+	// cloud mean size
+	parser.AddArg("-csd", "--cloud-size-disp", cloud_size_disp)
+		.AddDesc(
+		"The dispersion of size of the clouds created by the built-in "
+		"cloud generator."
+		);
+
+	// planet radius
+	parser.AddArg("-pr", "--planet-radius", planet_radius)
+		.AddDesc(
+		"The radius of the planet used by the built-in cloud generator "
+		"to place the clouds on a spherical surface segment."
+		);
+
+	parser.AddArg("-ca", "--covered-angle", covered_angle)
+		.AddDesc(
+		"The angle (in degrees), used by the built-on cloud generator "
+		"to limit the spherical surface segment on which clouds are "
+		"generated."
+		);
+
+	// atmosphere thickness
+	parser.AddArg("-at", "--atm-thickness", atm_thickness)
+		.AddDesc(
+		"The atmosphere thickness value used by some of the finishing "
+		"shaders."
+		);
+
+	// unit opacity
+	parser.AddArg("-uo", "--unit-opacity", unit_opacity)
+		.SetMin(0.0f)
+		.AddDesc(
+		"The unit opacity value for cloud texture voxels. "
+		"This value determines how dense the clouds look."
+		);
+
+	// unit attenuation
+	parser.AddArg("-ua", "--unit-attenuation", unit_attenuation)
+		.SetMin(0.0f)
+		.AddDesc(
+		"The unit light attenuation value for cloud texture voxels. "
+		"This value determines how fast light penetrating the clouds "
+		"is attenuated."
+		);
+
+	// light x coord
+	parser.AddArg("-lx", "--light-x", light_x)
+		.AddDesc(
+		"The X coordinate value of the light source."
+		);
+
+	// light y coord
+	parser.AddArg("-ly", "--light-y", light_y)
+		.AddDesc(
+		"The Y coordinate value of the light source."
+		);
+
+	// light z coord
+	parser.AddArg("-lz", "--light-z", light_z)
+		.AddDesc(
+		"The Z coordinate value of the light source."
+		);
+
+	// high light
+	parser.AddArg("-hl", "--high-light", high_light)
+		.AddDesc(
+		"The high light value."
+		);
+
+	// ambient light
+	parser.AddArg("-al", "--ambi-light", ambi_light)
+		.AddDesc(
+		"The ambient (lowest) light value."
+		);
+
+	// save raytrace data
+	parser.AddOpt("-srd", "--save-raytrace-data", save_raytrace_data)
+		.AddDesc(
+		"If this option is specified then the raytracer output data "
+		"is saved instead of the finishing shader output."
+		);
+
+	// finish shader
+	parser.AddArg("-fs", "--finish-shader", finish_shader)
+		.AddDesc(
+		"The name of the finishing fragment shader to be used "
+		"to process the raytrace output data."
+		);
+
+	// output file prefix
+	parser.AddArg("-o", "--output-prefix", output_prefix)
+		.AddDesc(
+		"The path prefix for the cube map image output files."
+		);
+
+	// output file suffix
+	parser.AddArg("-s", "--output-suffix", output_suffix)
+		.AddDesc(
+		"The suffix for the cube map image output files."
+		);
+
+	// the X+ face id
+	parser.AddArg("-of0", "--output-name-0", output_face_id[0])
+		.AddDesc(
+		"The name of the positive X cube map image output file."
+		);
+
+	// the X- face id
+	parser.AddArg("-of1", "--output-name-1", output_face_id[1])
+		.AddDesc(
+		"The name of the negative X cube map image output file."
+		);
+
+	// the Y+ face id
+	parser.AddArg("-of2", "--output-name-2", output_face_id[2])
+		.AddDesc(
+		"The name of the positive Y cube map image output file."
+		);
+
+	// the Y- face id
+	parser.AddArg("-of3", "--output-name-3", output_face_id[3])
+		.AddDesc(
+		"The name of the negative Y cube map image output file."
+		);
+
+	// the Z+ face id
+	parser.AddArg("-of4", "--output-name-4", output_face_id[4])
+		.AddDesc(
+		"The name of the positive Z cube map image output file."
+		);
+
+	// the Z- face id
+	parser.AddArg("-of5", "--output-name-5", output_face_id[5])
+		.AddDesc(
+		"The name of the negative Z cube map image output file."
+		);
+
+	// skip X+ face
+	parser.AddOpt("-sf0", "--skip-face-0", skip_face[0])
+		.AddDesc(
+		"Specifies that the rendering of the positive X face "
+		"should be skipped."
+		);
+
+	// skip X- face
+	parser.AddOpt("-sf1", "--skip-face-1", skip_face[1])
+		.AddDesc(
+		"Specifies that the rendering of the negative X face "
+		"should be skipped."
+		);
+
+	// skip Y+ face
+	parser.AddOpt("-sf2", "--skip-face-2", skip_face[2])
+		.AddDesc(
+		"Specifies that the rendering of the positive Y face "
+		"should be skipped."
+		);
+
+	// skip Y- face
+	parser.AddOpt("-sf3", "--skip-face-3", skip_face[3])
+		.AddDesc(
+		"Specifies that the rendering of the negative Y face "
+		"should be skipped."
+		);
+
+	// skip Z+ face
+	parser.AddOpt("-sf4", "--skip-face-4", skip_face[4])
+		.AddDesc(
+		"Specifies that the rendering of the positive Z face "
+		"should be skipped."
+		);
+
+	// skip Z- face
+	parser.AddOpt("-sf5", "--skip-face-5", skip_face[5])
+		.AddDesc(
+		"Specifies that the rendering of the negative Z face "
+		"should be skipped."
+		);
+
+	// single-face mode
+	unsigned single_face;
+	auto& single_face_arg = parser.AddArg("-f", "--single-face", single_face)
+		.AddDesc(
+		"Specifies a single face that should be rendered and saved. "
+		"Rendering of other faces is skipped."
+		);
+
+	if(use_x_rt_screens)
 	{
-		if(parse_single_opt(arg, argc, argv, "-srd", "--save-raytrace-data"))
-		{
-			save_raytrace_data = true;
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv, "-rs", "--rand-seed", rand_seed))
-			continue;
-		if(parse_single_opt(arg, argc, argv, "-s", "--size", raytrace_width))
-		{
-			raytrace_height = raytrace_width;
-			render_width = raytrace_width;
-			render_height = raytrace_width;
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv, "-t", "--tile", tile))
-			continue;
-		if(parse_single_opt(arg, argc, argv, "-fs", "--finish-shader", finish_shader))
-			continue;
-		if(parse_single_opt(arg, argc, argv, "-w", "--raytrace_width", raytrace_width))
-		{
-			render_width = raytrace_width;
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv, "-h", "--raytrace_height", raytrace_height))
-		{
-			render_height = raytrace_height;
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv,"-cc", "--cloud-count", cloud_count))
-		{
-			if(cloud_count >= 1024)
-			{
-				std::string message;
-				message.append("The value specified for --cloud-count ");
-				message.append("exceeds the maximum value 1024");
-				throw std::runtime_error(message);
-			}
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv,"-cr", "--cloud-res", cloud_res))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-di", "--dump-cloud-image"))
-		{
-			dump_cloud_image = true;
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv,"-ci", "--cloud-image-path", cloud_image_path))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-uo", "--unit-opacity", unit_opacity))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-ua", "--unit-attenuation", unit_attenuation))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-pr", "--planet-radius", planet_radius))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-at", "--atm-thickness", atm_thickness))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-ca", "--covered-angle", covered_angle))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-cma", "--cloud-mean-alt", cloud_mean_alt))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-cad", "--cloud-alt-disp", cloud_alt_disp))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-cms", "--cloud-mean-size", cloud_mean_size))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-csd", "--cloud-size-disp", cloud_size_disp))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-lx", "--light-x", light_x))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-ly", "--light-y", light_y))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-lz", "--light-z", light_z))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-hl", "--high-light", high_light))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-al", "--ambi-light", ambi_light))
-			continue;
-		if(parse_single_opt(arg, argc, argv, "-o", "--output-prefix", output_prefix))
-			continue;
-		if(parse_single_opt(arg, argc, argv, "-s", "--output-suffix", output_suffix))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-f0", "--output-id-0", output_face_id[0]))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-f1", "--output-id-1", output_face_id[1]))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-f2", "--output-id-2", output_face_id[2]))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-f3", "--output-id-3", output_face_id[3]))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-f4", "--output-id-4", output_face_id[4]))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-f5", "--output-id-5", output_face_id[5]))
-			continue;
-		if(parse_single_opt(arg, argc, argv,"-f6", "--output-id-6", output_face_id[6]))
-			continue;
-
-		unsigned num_param;
-
-		if(parse_single_opt(arg, argc, argv,"-f", "--single-face", num_param))
-		{
-			if(num_param > 5)
-			{
-				std::string message;
-				message.append("The value specified for --single-face");
-				message.append("is not between 0 and 5");
-				throw std::runtime_error(message);
-			}
-			for(unsigned f=0; f!=6; ++f)
-			{
-				skip_face.set(f, f != num_param);
-			}
-			continue;
-		}
-
-		if(parse_single_opt(arg, argc, argv,"-sf0", "--skip-face-0"))
-		{
-			skip_face.set(0);
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv,"-sf1", "--skip-face-1"))
-		{
-			skip_face.set(1);
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv,"-sf2", "--skip-face-2"))
-		{
-			skip_face.set(2);
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv,"-sf3", "--skip-face-3"))
-		{
-			skip_face.set(3);
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv,"-sf4", "--skip-face-4"))
-		{
-			skip_face.set(4);
-			continue;
-		}
-		if(parse_single_opt(arg, argc, argv,"-sf5", "--skip-face-5"))
-		{
-			skip_face.set(5);
-			continue;
-		}
-
-		std::string str_param;
-
-		if(use_x_rt_screens)
-		{
-			if(parse_single_opt(arg, argc, argv,"-xrts", "--X-rt-screen", str_param))
-			{
-				raytracer_params.push_back(str_param);
-				continue;
-			}
-		}
-
-		std::string message("Unknown command-line option: '");
-		message.append(argv[arg]);
-		message.append("'");
-
-		throw std::runtime_error(message);
+		parser.AddArg("-xrts", "--X-rt-screen", raytracer_params)
+			.AddDesc(
+			"This option may be used multiple times and each one "
+			"specifies an X screen on which a new raytracing thread "
+			"with its own GL context should be spawned."
+			);
 	}
+
+	if(!parser.Parse(argc, argv))
+		return false;
+
+	if(single_face_arg.parse_count > 0)
+	{
+		for(unsigned f=0; f!=6; ++f)
+		{
+			skip_face[f] = (f != single_face);
+		}
+	}
+
+	return true;
 }
 
 void AppData::set_status(const char* str)

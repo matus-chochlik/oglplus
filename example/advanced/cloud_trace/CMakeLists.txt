@@ -44,6 +44,7 @@ if(
 			main_${CLOUD_TRACE_GL_INIT}.cpp
 			main_common.cpp
 			app_data.cpp
+			arg_parser.cpp
 			cloud_data.cpp
 			ray_matrix.cpp
 			resources.cpp
