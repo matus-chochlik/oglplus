@@ -117,6 +117,7 @@
 							<li id="oglplus-tutorials"><a href="oglplus/html/oglplus_tutorials.html">Tutorials</a></li>
 							<li id="other-resources">Other resources
 							<ul>
+								<li><a href="https://github.com/jjzazuet/jgl" title="Java wrapper for OpenGL 3 and higher by Jesús Zazueta">JGL</a> by Jesús Zazueta</li>
 								<li><a href="http://science.webhostinggeeks.com/c-omot-za-opengl" title="by Anja Skrba at Webhostinggeeks.com">Serbo-Croatian translation</a> by Anja Skrba</li>
 								<li><a href="http://onlygraphix.com/2014/01/18/oglplus-tutorialdeferred-renderer/" title="by Michael Ivanov at http://onlygraphix.com/">Tutorial: Deferred renderer</a> by Michael Ivanov</li>
 							</ul>
