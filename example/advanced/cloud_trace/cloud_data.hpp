@@ -20,6 +20,7 @@
 #include <oglplus/buffer.hpp>
 
 #include <vector>
+#include <iosfwd>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -30,6 +31,9 @@ struct CloudData
 
 	CloudData(const AppData&);
 
+	void LoadCSV(const AppData&, std::istream&);
+
+	void Load(const AppData&);
 	void Generate(const AppData&);
 };
 

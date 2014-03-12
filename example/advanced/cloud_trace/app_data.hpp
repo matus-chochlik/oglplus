@@ -69,6 +69,7 @@ struct AppData
 	unsigned cloud_count, cloud_res;
 	bool dump_cloud_image;
 	std::string cloud_image_path;
+	std::string cloud_data_path;
 
 	// generator parameters
 	float planet_radius, atm_thickness, covered_angle;

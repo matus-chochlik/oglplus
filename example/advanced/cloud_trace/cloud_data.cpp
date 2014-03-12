@@ -12,18 +12,159 @@
 
 #include <oglplus/matrix.hpp>
 #include <oglplus/angle.hpp>
+
 #include <vector>
 #include <random>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <stdexcept>
 
 namespace oglplus {
 namespace cloud_trace {
 
 CloudData::CloudData(const AppData& app_data)
 {
-	Generate(app_data);
+	if(app_data.cloud_data_path.empty())
+	{
+		Generate(app_data);
+	}
+	else Load(app_data);
 }
 
-// TODO loading from istream
+void CloudData::LoadCSV(const AppData&, std::istream& input)
+{
+	const char sep = '|';
+	std::size_t ncol = 0;
+
+	typedef std::pair<std::string, std::size_t> col_pos;
+	std::map<std::string, std::size_t> col_map;
+
+	std::stringbuf buf;
+
+	if(input.get(buf).good())
+	{
+		input.ignore();
+		std::istream header(&buf);
+		while(header.good())
+		{
+			std::stringbuf col;
+			header.get(col, sep);
+
+			if(col.str().empty()) break;
+			header.ignore();
+
+			if(!col_map.insert(col_pos(col.str(), ncol++)).second)
+			{
+				std::string message;
+				message.append("Duplicate column name '");
+				message.append(col.str());
+				message.append("' in CSV file header");
+				throw std::runtime_error(message);
+			}
+		}
+		buf.str(std::string());
+	}
+
+	while(input.get(buf).good())
+	{
+		input.ignore();
+		std::istream data(&buf);
+
+		std::vector<std::stringbuf> row(ncol);
+
+		for(std::size_t c=0; c!=ncol; ++c)
+		{
+			data.get(row[c], sep);
+			if(data.good()) data.ignore();
+		}
+
+		const std::size_t nattr = 14;
+		const char* attr_names[nattr] = {
+			"rotxx", "rotxy", "rotxz",
+			"rotyx", "rotyy", "rotyz",
+			"rotzx", "rotzy", "rotzz",
+			"pos_x", "pos_y", "pos_z",
+			"doffs", "dmult"
+		};
+
+		float attr_values[nattr] = {
+			1, 0, 0,
+			0, 1, 0,
+			0, 0, 1,
+			0, 0, 0,
+			0, 1
+		};
+
+		for(std::size_t a=0; a!=nattr; ++a)
+		{
+			auto p = col_map.find(attr_names[a]);
+			if(p == col_map.end()) continue;
+
+			std::istream cell(&row[p->second]);
+			cell >> attr_values[a];
+		}
+
+		Mat4f cloud;
+		// rotation
+		cloud.Set(0, 0, attr_values[ 0]);
+		cloud.Set(0, 1, attr_values[ 1]);
+		cloud.Set(0, 2, attr_values[ 2]);
+		cloud.Set(1, 0, attr_values[ 3]);
+		cloud.Set(1, 1, attr_values[ 4]);
+		cloud.Set(1, 2, attr_values[ 5]);
+		cloud.Set(2, 0, attr_values[ 6]);
+		cloud.Set(2, 1, attr_values[ 7]);
+		cloud.Set(2, 2, attr_values[ 8]);
+		// position
+		cloud.Set(0, 3, attr_values[ 9]);
+		cloud.Set(1, 3, attr_values[10]);
+		cloud.Set(2, 3, attr_values[11]);
+		// other
+		cloud.Set(3, 0, attr_values[12]);
+		cloud.Set(3, 1, attr_values[13]);
+
+		storage.push_back(cloud);
+
+		buf.str(std::string());
+	}
+}
+
+void CloudData::Load(const AppData& app_data)
+{
+	const std::string& cdp = app_data.cloud_data_path;
+
+	std::ifstream input_file;
+	input_file.exceptions(std::ifstream::badbit);
+	try
+	{
+		input_file.open(cdp.c_str());
+		std::istream& input = input_file;
+
+		if(cdp.rfind(".csv") ==  cdp.size()-4)
+		{
+			LoadCSV(app_data, input);
+		}
+		else
+		{
+			std::string message;
+			message.append("Unknown cloud data file format '");
+			message.append(cdp);
+			message.append("'");
+			throw std::runtime_error(message);
+		}
+	}
+	catch(std::ifstream::failure& f)
+	{
+		std::string message;
+		message.append("Loading cloud data file '");
+		message.append(cdp);
+		message.append("' failed with: ");
+		message.append(f.what());
+		throw std::runtime_error(message);
+	}
+}
+
 void CloudData::Generate(const AppData& app_data)
 {
 	storage.clear();
