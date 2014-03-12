@@ -20,7 +20,9 @@ AppData::AppData(void)
  : puser_intf(nullptr)
  , pset_status(nullptr)
  , perrstr(nullptr)
- , use_x_rt_screens(false)
+ , allow_offscreen(false)
+ , allow_x_rt_screens(false)
+ , render_offscreen(false)
  , save_raytrace_data(false)
  , rand_seed(0)
  , output_prefix("clouds")
@@ -355,7 +357,17 @@ bool AppData::ParseArgs(int argc, char** argv)
 		"Rendering of other faces is skipped."
 		);
 
-	if(use_x_rt_screens)
+	if(allow_offscreen)
+	{
+		parser.AddOpt("-os", "--offscreen", render_offscreen)
+			.AddDesc(
+			"Render into an offscreen buffer. When this options is "
+			"specified no visible window is created and the rendering "
+			"is done offscreen."
+			);
+	}
+
+	if(allow_x_rt_screens)
 	{
 		parser.AddArg("-xrts", "--X-rt-screen", raytracer_params)
 			.AddDesc(

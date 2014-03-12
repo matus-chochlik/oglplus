@@ -31,9 +31,13 @@ struct AppData
 	std::ostream* perrstr;
 	std::ostream& errstr(void) const;
 
+	// if the --offscreen parameter is supported
+	bool allow_offscreen;
 	// if the --X-rt-screen parameter is supported
-	bool use_x_rt_screens;
+	bool allow_x_rt_screens;
 
+	// if the rendering should be done offscreen
+	bool render_offscreen;
 	// if the raytrace  data should be saved instead of render output
 	bool save_raytrace_data;
 

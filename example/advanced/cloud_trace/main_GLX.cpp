@@ -23,6 +23,7 @@
 #include <oglplus/glx/fb_configs.hpp>
 #include <oglplus/glx/version.hpp>
 #include <oglplus/glx/pixmap.hpp>
+#include <oglplus/glx/pbuffer.hpp>
 #include <oglplus/x11/window.hpp>
 #include <oglplus/x11/color_map.hpp>
 #include <oglplus/x11/visual_info.hpp>
@@ -242,6 +243,63 @@ void thread_loop(AppData& app_data, CommonData& common, x11::Display& display, g
 	}
 }
 
+void pbuffer_loop(
+	const glx::Pbuffer& pbuffer,
+	AppData& app_data,
+	CommonData& common,
+	RaytracerTarget& rt_target,
+	std::size_t n_threads
+)
+{
+	Context gl;
+	Renderer renderer(app_data, rt_target.tex_unit);
+	renderer.Use(app_data);
+	Saver saver(app_data);
+
+	while(!common.Done())
+	{
+		// clear the raytrace target
+		rt_target.Clear(app_data);
+		// signal all threads that they can start raytracing tiles
+		common.master_ready.Signal(n_threads);
+
+		renderer.InitFrame(app_data, common.Face());
+
+		while(!common.FaceDone())
+		{
+			auto lock = common.Lock();
+			renderer.Render(app_data);
+			gl.Finish();
+			lock.unlock();
+
+			common.context.SwapBuffers(pbuffer);
+
+			std::chrono::milliseconds period(100);
+			std::this_thread::sleep_for(period);
+		}
+
+		if(common.Done()) break;
+
+		// wait for all raytracer threads to finish
+		common.thread_ready.Wait(n_threads);
+
+		auto lock = common.Lock();
+		renderer.Render(app_data);
+		lock.unlock();
+
+		common.context.SwapBuffers(pbuffer);
+
+		// save the face image
+		saver.SaveFrame(app_data, rt_target, common.Face());
+		// switch the face
+		common.NextFace(app_data);
+
+		// signal that the master is ready to render
+		// the next face
+		common.master_ready.Signal(n_threads);
+	}
+}
+
 void window_loop(
 	const x11::Window& window,
 	AppData& app_data,
@@ -353,8 +411,6 @@ void main_thread(
 		GLX_GREEN_SIZE      , 8,
 		GLX_BLUE_SIZE       , 8,
 		GLX_ALPHA_SIZE      , 8,
-		GLX_DEPTH_SIZE      , 24,
-		GLX_STENCIL_SIZE    , 8,
 		None
 	};
 
@@ -392,6 +448,80 @@ void main_thread(
 	context.Release(display);
 }
 
+template <typename Drawable, typename DrawLoop>
+void call_drawable_loop(
+	AppData& app_data,
+	x11::Display& display,
+	glx::Context& context,
+	Drawable& drawable,
+	DrawLoop drawable_loop
+)
+{
+	RaytracerData rt_data(app_data);
+
+	ResourceAllocator res_alloc;
+	RaytracerTarget rt_target(app_data, res_alloc);
+
+	CommonData common(
+		app_data,
+		display,
+		context,
+		rt_data,
+		rt_target
+	);
+
+	std::vector<std::thread> threads;
+
+	try
+	{
+		if(app_data.raytracer_params.empty())
+		{
+			app_data.raytracer_params.push_back(std::string());
+		}
+
+		for(auto& param : app_data.raytracer_params)
+		{
+			threads.push_back(
+				std::thread(
+					main_thread,
+					std::ref(app_data),
+					std::ref(common),
+					std::cref(param)
+				)
+			);
+		}
+	}
+	catch (...)
+	{
+		for(auto& t: threads) t.join();
+		throw;
+	}
+
+	try
+	{
+		common.thread_ready.Wait(threads.size());
+		common.master_ready.Signal(threads.size());
+
+		drawable_loop(
+			drawable,
+			app_data,
+			common,
+			rt_target,
+			threads.size()
+		);
+		for(auto& t: threads) t.join();
+	}
+	catch (...)
+	{
+		common.Stop();
+		common.master_ready.Signal(threads.size());
+		for(auto& t: threads) t.join();
+		throw;
+	}
+
+	common.RethrowErrors();
+}
+
 int main_GLX(AppData& app_data)
 {
 	::XInitThreads();
@@ -399,18 +529,16 @@ int main_GLX(AppData& app_data)
 	glx::Version version(display);
 	version.AssertAtLeast(1, 3);
 
-	static int visual_attribs[] =
+	static const int visual_attribs[] =
 	{
 		GLX_X_RENDERABLE    , True,
-		GLX_DRAWABLE_TYPE   , GLX_WINDOW_BIT,
+		GLX_DRAWABLE_TYPE   , GLX_WINDOW_BIT|GLX_PBUFFER_BIT,
 		GLX_RENDER_TYPE     , GLX_RGBA_BIT,
 		GLX_X_VISUAL_TYPE   , GLX_TRUE_COLOR,
 		GLX_RED_SIZE        , 8,
 		GLX_GREEN_SIZE      , 8,
 		GLX_BLUE_SIZE       , 8,
 		GLX_ALPHA_SIZE      , 8,
-		GLX_DEPTH_SIZE      , 24,
-		GLX_STENCIL_SIZE    , 8,
 		GLX_DOUBLEBUFFER    , True,
 		None
 	};
@@ -421,85 +549,52 @@ int main_GLX(AppData& app_data)
 	).FindBest(display);
 
 	x11::VisualInfo vi(display, fbc);
-
-	x11::Window window(
-		display,
-		vi,
-		x11::Colormap(display, vi),
-		"CloudTrace",
-		app_data.render_width,
-		app_data.render_height
-	);
-
 	glx::Context context(display, fbc, 3, 3);
-	context.MakeCurrent(window);
 
-	GLAPIInitializer api_init;
+	if(app_data.render_offscreen)
 	{
+		const int pbuffer_attribs [] = {
+			GLX_PBUFFER_WIDTH  , int(app_data.render_width),
+			GLX_PBUFFER_HEIGHT , int(app_data.render_height),
+			None
+		};
 
-		RaytracerData rt_data(app_data);
+		glx::Pbuffer pbuffer(display, fbc, pbuffer_attribs);
 
-		ResourceAllocator res_alloc;
-		RaytracerTarget rt_target(app_data, res_alloc);
+		context.MakeCurrent(pbuffer);
 
-		CommonData common(
+		GLAPIInitializer api_init;
+
+		call_drawable_loop(
 			app_data,
 			display,
 			context,
-			rt_data,
-			rt_target
+			pbuffer,
+			pbuffer_loop
+		);
+	}
+	else
+	{
+		x11::Window window(
+			display,
+			vi,
+			x11::Colormap(display, vi),
+			"CloudTrace",
+			app_data.render_width,
+			app_data.render_height
 		);
 
-		std::vector<std::thread> threads;
+		context.MakeCurrent(window);
 
-		try
-		{
-			if(app_data.raytracer_params.empty())
-			{
-				app_data.raytracer_params.push_back(std::string());
-			}
+		GLAPIInitializer api_init;
 
-			for(auto& param : app_data.raytracer_params)
-			{
-				threads.push_back(
-					std::thread(
-						main_thread,
-						std::ref(app_data),
-						std::ref(common),
-						std::cref(param)
-					)
-				);
-			}
-		}
-		catch (...)
-		{
-			for(auto& t: threads) t.join();
-			throw;
-		}
-
-		try
-		{
-			common.thread_ready.Wait(threads.size());
-			common.master_ready.Signal(threads.size());
-
-			window_loop(
-				window,
-				app_data,
-				common,
-				rt_target,
-				threads.size()
-			);
-			for(auto& t: threads) t.join();
-		}
-		catch (...)
-		{
-			common.Stop();
-			common.master_ready.Signal(threads.size());
-			for(auto& t: threads) t.join();
-			throw;
-		}
-
-		common.RethrowErrors();
+		call_drawable_loop(
+			app_data,
+			display,
+			context,
+			window,
+			window_loop
+		);
 	}
 
 	context.Release(display);
@@ -516,7 +611,8 @@ int main (int argc, char ** argv)
 	using oglplus::cloud_trace::AppData;
 
 	AppData app_data;
-	app_data.use_x_rt_screens = true;
+	app_data.allow_x_rt_screens = true;
+	app_data.allow_offscreen = true;
 	if(app_data.ParseArgs(argc, argv))
 	{
 		return do_run_main(main_GLX, app_data);
