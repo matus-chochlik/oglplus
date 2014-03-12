@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -962,9 +962,9 @@ public:
 		const T xx= x*x, xy= x*y, xz= x*z, yy= y*y, yz= y*z, zz= z*z;
 		InitMatrix4x4(
 			*this,
-			cf + xx*_cf,    xy*_cf - z*sf,  xz*_cf + y*sf,  T(0),
-			xy*_cf + z*sf,  cf + yy*_cf,    yz*_cf - x*sf,  T(0),
-			xz*_cf - y*sf,  yz*_cf + x*sf,  cf + zz*_cf,    T(0),
+			xx*_cf +   cf,  xy*_cf - z*sf,  xz*_cf + y*sf,  T(0),
+			xy*_cf + z*sf,  yy*_cf +   cf,  yz*_cf - x*sf,  T(0),
+			xz*_cf - y*sf,  yz*_cf + x*sf,  zz*_cf +   cf,  T(0),
 			T(0),           T(0),           T(0),           T(1)
 		);
 	}
