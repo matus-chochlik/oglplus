@@ -260,34 +260,25 @@ void pbuffer_loop(
 	{
 		// clear the raytrace target
 		rt_target.Clear(app_data);
-		// signal all threads that they can start raytracing tiles
-		common.master_ready.Signal(n_threads);
 
 		renderer.InitFrame(app_data, common.Face());
+		renderer.Render(app_data);
+		gl.Finish();
 
-		while(!common.FaceDone())
-		{
-			auto lock = common.Lock();
-			renderer.Render(app_data);
-			gl.Finish();
-			lock.unlock();
-
-			common.context.SwapBuffers(pbuffer);
-
-			std::chrono::milliseconds period(100);
-			std::this_thread::sleep_for(period);
-		}
+		// signal all threads that they can start raytracing tiles
+		common.master_ready.Signal(n_threads);
 
 		if(common.Done()) break;
 
 		// wait for all raytracer threads to finish
 		common.thread_ready.Wait(n_threads);
 
-		auto lock = common.Lock();
-		renderer.Render(app_data);
-		lock.unlock();
-
-		common.context.SwapBuffers(pbuffer);
+		for(unsigned b=0; b!=2; ++b)
+		{
+			renderer.Render(app_data);
+			gl.Finish();
+			common.context.SwapBuffers(pbuffer);
+		}
 
 		// save the face image
 		saver.SaveFrame(app_data, rt_target, common.Face());
