@@ -335,7 +335,7 @@ SurfacePolyXFBData::SurfacePolyXFBData(SurfaceDrawData& draw_data, GLuint id)
 		normals[i].Bind(Buffer::Target::TransformFeedback);
 		normals[i].BindRange(Buffer::IndexedTarget::TransformFeedback, 1, offs, size);
 	}
-	TransformFeedback::BindDefault();
+	DefaultTransformFeedback::Bind();
 }
 
 Program SurfacePolygonizerCommon::MakeProg(void)

@@ -55,90 +55,13 @@ OGLPLUS_ENUM_CLASS_END(TransformFeedbackTarget)
 #include <oglplus/enums/transform_feedback_target_range.ipp>
 #endif
 
-/// Wrapper for fransform feedback operations
-/** @note Do not use this class directly, use TransformFeedback instead.
- *
- *  @glvoereq{4,0,ARB,transform_feedback2}
- *  @glsymbols
- *  @glfunref{GenTransformFeedbacks}
- *  @glfunref{DeleteTransformFeedbacks}
- *  @glfunref{IsTransformFeedback}
- */
-class TransformFeedbackOps
- : public Named
- , public BaseObject<true>
+#endif // GL_VERSION_4_0
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+/// Wrapper for basic transform feedback operations
+class DefaultTransformFeedbackOps
 {
 public:
-	/// Transform feedback bind targets
-	typedef TransformFeedbackTarget Target;
-protected:
-	static void _init(GLsizei count, GLuint* _name)
-	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
-	}
-
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteTransformFeedbacks)(count, _name);}
-		catch(...){ }
-	}
-
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsTransformFeedback)(_name);}
-		catch(...){ }
-		return GL_FALSE;
-	}
-
-#ifdef GL_TRANSFORM_FEEDBACK
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectType::TransformFeedback;
-	}
-#endif
-
-	static void _bind(GLuint _name, Target target)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
-	}
-
-	friend class FriendOf<TransformFeedbackOps>;
-
-	static GLenum _binding_query(Target target);
-	friend class BindingQuery<TransformFeedbackOps>;
-public:
-
-	/// Bind this transform feedback object
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindTransformFeedback}
-	 */
-	void Bind(Target target = Target::TransformFeedback) const
-	{
-		_bind(_name, target);
-	}
-
-	/// Bind the default transform feedback object
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindTransformFeedback}
-	 */
-	static void BindDefault(Target target = Target::TransformFeedback)
-	{
-		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
-	}
-
 	/// Begin the transform feedback mode
 	/** Consider using an instance of Activator class for more robustness.
 	 *  @throws Error
@@ -340,6 +263,125 @@ public:
 	};
 };
 
+/// Wrapper for default feedback operations
+/**
+ *  @see TransformFeedback
+ *
+ *  @glverreq{3,0}
+ */
+class DefaultTransformFeedback
+ : public DefaultTransformFeedbackOps
+{
+public:
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
+	/// Transform feedback bind targets
+	typedef TransformFeedbackTarget Target;
+
+	/// Bind the default transform feedback object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindTransformFeedback}
+	 */
+	static void Bind(Target target = Target::TransformFeedback)
+	{
+		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
+	}
+#endif // GL_VERSION_4_0
+};
+
+#endif // GL_VERSION_3_0
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
+/// Wrapper for transform feedback operations
+/** @note Do not use this class directly, use TransformFeedback instead.
+ *
+ *  @see TransformFeedback
+ *  @see DefaultTransformFeedback
+ *
+ *  @glvoereq{4,0,ARB,transform_feedback2}
+ *  @glsymbols
+ *  @glfunref{GenTransformFeedbacks}
+ *  @glfunref{DeleteTransformFeedbacks}
+ *  @glfunref{IsTransformFeedback}
+ */
+class TransformFeedbackOps
+ : public Named
+ , public BaseObject<true>
+ , public DefaultTransformFeedbackOps
+{
+public:
+	/// Transform feedback bind targets
+	typedef TransformFeedbackTarget Target;
+protected:
+	static void _init(GLsizei count, GLuint* _name)
+	{
+		assert(_name != nullptr);
+		OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, _name);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
+	}
+
+	static void _cleanup(GLsizei count, GLuint* _name)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		try{OGLPLUS_GLFUNC(DeleteTransformFeedbacks)(count, _name);}
+		catch(...){ }
+	}
+
+	static GLboolean _is_x(GLuint _name)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_name != 0);
+		try{return OGLPLUS_GLFUNC(IsTransformFeedback)(_name);}
+		catch(...){ }
+		return GL_FALSE;
+	}
+
+#ifdef GL_TRANSFORM_FEEDBACK
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::TransformFeedback;
+	}
+#endif
+
+	static void _bind(GLuint _name, Target target)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), _name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
+	}
+
+	friend class FriendOf<TransformFeedbackOps>;
+
+	static GLenum _binding_query(Target target);
+	friend class BindingQuery<TransformFeedbackOps>;
+public:
+
+	/// Bind this transform feedback object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindTransformFeedback}
+	 */
+	void Bind(Target target = Target::TransformFeedback) const
+	{
+		_bind(_name, target);
+	}
+
+	/// Bind the default transform feedback object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindTransformFeedback}
+	 */
+	static void BindDefault(Target target = Target::TransformFeedback)
+	{
+		OGLPLUS_GLFUNC(BindTransformFeedback)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTransformFeedback));
+	}
+};
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL transform feedback functionality
 /**
@@ -352,7 +394,7 @@ class TransformFeedback
 typedef Object<TransformFeedbackOps> TransformFeedback;
 #endif
 
-#endif // transform feedback 2
+#endif // GL_VERSION_4_0 || transform feedback 2
 
 } // namespace oglplus
 

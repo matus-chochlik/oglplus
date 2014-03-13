@@ -97,7 +97,7 @@ public:
 	}
 };
 
-/// Wrapper for OpenGL framebuffer operations
+/// Wrapper for OpenGL default framebuffer operations
 /**
  *  @see Framebuffer
  */

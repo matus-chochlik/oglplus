@@ -535,6 +535,7 @@ private:
 	Buffer track_buffer;
 	Query track_query;
 	TransformFeedback track_xfb;
+	DefaultTransformFeedback def_xfb;
 public:
 	InstancedShape(
 		const std::string shape_name,
@@ -555,7 +556,7 @@ public:
 		track_xfb.Bind();
 		track_buffer.Bind(Buffer::Target::TransformFeedback);
 		track_buffer.BindBase(Buffer::IndexedTarget::TransformFeedback, 0);
-		TransformFeedback::BindDefault();
+		DefaultTransformFeedback::Bind();
 	}
 
 
@@ -587,7 +588,7 @@ public:
 		xfb_act.Finish();
 		qry_act.Finish();
 
-		TransformFeedback::BindDefault();
+		DefaultTransformFeedback::Bind();
 	}
 
 	void FinishTracking(const text::Font2D& font, HUDOverlay& hud_overlay)

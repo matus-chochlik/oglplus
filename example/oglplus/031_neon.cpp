@@ -242,7 +242,7 @@ public:
 				<< BufferIndexedTarget::TransformFeedback << 1
 				<< BufferTarget::TransformFeedback;
 		}
-		TransformFeedback::BindDefault();
+		DefaultTransformFeedback::Bind();
 
 		// force coefficients
 		std::vector<GLfloat> force_data(particle_count*4, 0.0);
@@ -325,7 +325,7 @@ public:
 			xfba.Finish();
 		}
 		VertexArray::Unbind();
-		TransformFeedback::BindDefault();
+		DefaultTransformFeedback::Bind();
 	}
 };
 

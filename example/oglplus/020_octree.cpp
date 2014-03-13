@@ -190,6 +190,8 @@ private:
 	Array<VertexArray> vao;
 	Array<TransformFeedback> xfb;
 
+	DefaultTransformFeedback dxfb;
+
 public:
 	SortProg sort_prog;
 
@@ -240,7 +242,7 @@ public:
 					Buffer::IndexedTarget::TransformFeedback,
 					0
 				);
-				TransformFeedback::BindDefault();
+				dxfb.Bind();
 			}
 		}
 	}
