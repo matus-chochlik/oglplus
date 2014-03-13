@@ -730,7 +730,7 @@ public:
 	{
 		double time = clock.Now().Seconds();
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
 
 		gl.Enable(Capability::DepthTest);
 		gl.Clear().ColorBuffer().DepthBuffer();

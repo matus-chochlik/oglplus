@@ -31,6 +31,8 @@ class Renderer
 private:
 	Context gl;
 
+	DefaultFramebuffer dfb;
+
 	RenderProg render_prog;
 
 	shapes::ShapeWrapper screen;

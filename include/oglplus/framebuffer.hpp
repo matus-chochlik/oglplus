@@ -97,6 +97,39 @@ public:
 	}
 };
 
+/// Wrapper for OpenGL framebuffer operations
+/**
+ *  @see Framebuffer
+ */
+class DefaultFramebuffer
+{
+public:
+	/// Framebuffer bind targets
+	typedef FramebufferTarget Target;
+
+	/// Binds the default framebuffer
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindFramebuffer}
+	 */
+	static void Bind(Target target)
+	{
+		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindFramebuffer));
+	}
+};
+
+// Syntax-sugar Bind
+inline FramebufferTarget operator << (
+	DefaultFramebuffer,
+	FramebufferTarget target
+)
+{
+	DefaultFramebuffer::Bind(target);
+	return target;
+}
 
 /// Wrapper for OpenGL framebuffer operations
 /**

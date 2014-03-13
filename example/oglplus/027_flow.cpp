@@ -392,6 +392,8 @@ private:
 
 	Texture background;
 
+	DefaultFramebuffer dfb;
+
 	ScreenProg screen_prog;
 
 	shapes::ShapeWrapper screen;
@@ -433,7 +435,7 @@ public:
 	{
 		flow.Update(time);
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 		gl.DrawBuffer(ColorBuffer::BackLeft);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();

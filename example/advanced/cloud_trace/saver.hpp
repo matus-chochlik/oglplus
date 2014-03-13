@@ -17,6 +17,7 @@
 #include <oglplus/fix_gl_version.hpp>
 
 #include <oglplus/context.hpp>
+#include <oglplus/framebuffer.hpp>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -27,6 +28,7 @@ class Saver
 {
 private:
 	Context gl;
+	DefaultFramebuffer dfb;
 public:
 	Saver(const AppData&);
 

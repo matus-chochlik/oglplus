@@ -63,7 +63,10 @@ private:
 	Buffer cube_verts, cube_normals, cube_texcoords;
 	Buffer torus_verts, torus_normals, torus_texcoords;
 
-	/// The FBO and RBO for offscreen rendering
+	// The default onscreen framebuffer
+	DefaultFramebuffer dfb;
+
+	// The FBO and RBO for offscreen rendering
 	DSAFramebuffer fbo;
 	DSARenderbuffer rbo;
 
@@ -313,7 +316,7 @@ public:
 		torus_instr.Draw(torus_indices);
 
 		// render the textured cube
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.ClearDepth(1.0f);
 		gl.ClearColor(0.8f, 0.8f, 0.8f, 0.0f);

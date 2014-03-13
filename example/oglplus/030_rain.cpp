@@ -548,7 +548,7 @@ public:
 	{
 		ripples.Update();
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
 		gl.DrawBuffer(ColorBuffer::BackLeft);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();

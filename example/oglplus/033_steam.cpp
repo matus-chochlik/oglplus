@@ -840,7 +840,7 @@ public:
 			frame_no
 		);
 
-		Framebuffer::BindDefault(FramebufferTarget::Draw);
+		DefaultFramebuffer::Bind(FramebufferTarget::Draw);
 		gl.Disable(Capability::DepthTest);
 		gl.Disable(Capability::Blend);
 

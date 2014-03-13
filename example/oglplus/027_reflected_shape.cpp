@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_reflected_shape}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -60,6 +60,7 @@ private:
 	Texture reflect_tex, depth_tex;
 
 	Framebuffer fbo;
+	DefaultFramebuffer dfb;
 
 	GLuint width, height;
 	const GLuint tex_size_div;
@@ -353,7 +354,7 @@ public:
 		shape_instr.Draw(shape_indices);
 
 		// render into the on-screen framebuffer
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 

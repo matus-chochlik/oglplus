@@ -44,7 +44,7 @@ void Saver::SaveFrame(
 	}
 	else
 	{
-		Framebuffer::BindDefault(FramebufferTarget::Read);
+		dfb.Bind(FramebufferTarget::Read);
 	}
 
 	gl.ReadPixels(

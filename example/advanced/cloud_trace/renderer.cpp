@@ -31,7 +31,7 @@ Renderer::Renderer(const AppData& app_data, GLuint raytrace_tex_unit)
 
 void Renderer::Use(const AppData&)
 {
-	Framebuffer::BindDefault(FramebufferTarget::Draw);
+	dfb.Bind(FramebufferTarget::Draw);
 	render_prog.Use();
 	screen.Use();
 }

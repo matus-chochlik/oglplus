@@ -100,6 +100,8 @@ private:
 
 	Texture tex;
 
+	DefaultFramebuffer dfb;
+
 	ExampleSyncQueue  parent_ready;
 	ExampleSyncQueue* thread_ready;
 public:
@@ -143,7 +145,7 @@ public:
 		gl.Enable(Capability::CullFace);
 		gl.CullFace(Face::Back);
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 
 		prog.Use();

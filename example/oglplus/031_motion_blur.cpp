@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_motion_blur}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -616,7 +616,7 @@ public:
 			arrow.Draw();
 
 			// motion blur
-			Framebuffer::BindDefault(Framebuffer::Target::Draw);
+			DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
 
 			gl.Disable(Capability::DepthTest);
 
