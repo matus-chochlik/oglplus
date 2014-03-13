@@ -25,8 +25,11 @@ Program RaytraceProg::make(void)
 	ResourceFile vs_source("glsl", "raytrace", ".vs.glsl");
 	prog << VertexShader(GLSLSource::FromStream(vs_source));
 
-	ResourceFile fs_source("glsl", "raytrace", ".fs.glsl");
-	prog << FragmentShader(GLSLSource::FromStream(fs_source));
+	ResourceFile fs_rs_source("glsl", "raysample", ".fs.glsl");
+	prog << FragmentShader(GLSLSource::FromStream(fs_rs_source));
+
+	ResourceFile fs_rt_source("glsl", "raytrace", ".fs.glsl");
+	prog << FragmentShader(GLSLSource::FromStream(fs_rt_source));
 
 	prog.Link().Use();
 
