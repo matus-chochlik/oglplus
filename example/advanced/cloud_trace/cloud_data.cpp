@@ -79,13 +79,14 @@ void CloudData::LoadCSV(const AppData&, std::istream& input)
 			if(data.good()) data.ignore();
 		}
 
-		const std::size_t nattr = 15;
+		const std::size_t nattr = 16;
 		const char* attr_names[nattr] = {
 			"rotxx", "rotxy", "rotxz",
 			"rotyx", "rotyy", "rotyz",
 			"rotzx", "rotzy", "rotzz",
 			"pos_x", "pos_y", "pos_z",
-			"doffs", "dmult", "csize"
+			"doffs", "dmult",
+			"c_age", "csize"
 		};
 
 		float attr_values[nattr] = {
@@ -93,7 +94,8 @@ void CloudData::LoadCSV(const AppData&, std::istream& input)
 			0, 1, 0,
 			0, 0, 1,
 			0, 0, 0,
-			0, 1, 1
+			0, 1,
+			0, 1
 		};
 
 		for(std::size_t a=0; a!=nattr; ++a)
@@ -123,8 +125,9 @@ void CloudData::LoadCSV(const AppData&, std::istream& input)
 		// other
 		cloud.Set(3, 0, attr_values[12]);
 		cloud.Set(3, 1, attr_values[13]);
+		cloud.Set(3, 2, attr_values[14]);
 		// size
-		cloud.Set(3, 3, attr_values[14]);
+		cloud.Set(3, 3, attr_values[15]);
 
 		storage.push_back(cloud);
 

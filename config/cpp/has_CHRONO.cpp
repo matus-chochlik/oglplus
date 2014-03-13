@@ -10,7 +10,7 @@
 int main(int argc, const char** argv)
 {
 	return (
-		(std::chrono::system_clock::period::den > 0)
+		(std::chrono::system_clock::period::den > 0) &&
 		(std::chrono::steady_clock::period::den > 0)
 	) ? 0:1;
 }
