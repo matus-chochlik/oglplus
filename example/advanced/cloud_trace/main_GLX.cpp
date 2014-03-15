@@ -55,6 +55,20 @@ private:
 	unsigned tile, face;
 	bool keep_running;
 
+	void SkipFaces(const AppData& app_data)
+	{
+		while((face < 6) && (app_data.skip_face[face]))
+		{
+			if(app_data.verbosity > 2)
+			{
+				app_data.logstr()
+					<< "Skipping cube face "
+					<< face
+					<< std::endl;
+			}
+			++face;
+		}
+	}
 
 	std::vector<std::exception_ptr> thread_errors;
 
@@ -78,8 +92,7 @@ public:
 	 , face(0)
 	 , keep_running(true)
 	{
-		while((face < 6) && (app_data.skip_face[face]))
-			++face;
+		SkipFaces(app_data);
 	}
 
 	std::unique_lock<std::mutex> Lock(void)
@@ -136,8 +149,7 @@ public:
 		if(face < 5)
 		{
 			++face;
-			while((face < 6) && app_data.skip_face[face])
-				++face;
+			SkipFaces(app_data);
 
 			if(face < 6) tile = 0;
 			else keep_running = false;
@@ -160,6 +172,22 @@ public:
 			}
 		}
 		return false;
+	}
+
+	void LogProgress(const AppData& app_data)
+	{
+		unsigned prom = ((1000*tile)/app_data.tiles());
+		app_data.logstr()
+			<< "Rendering face tile "
+			<< tile
+			<< " out of "
+			<< app_data.tiles()
+			<< " ("
+			<< (prom / 10)
+			<< "."
+			<< (prom % 10)
+			<< " %)"
+			<< std::endl;
 	}
 };
 
@@ -258,6 +286,14 @@ void pbuffer_loop(
 
 	while(!common.Done())
 	{
+		if(app_data.verbosity > 0)
+		{
+			app_data.logstr()
+				<< "Rendering cube face "
+				<< common.Face()
+				<< std::endl;
+		}
+
 		// clear the raytrace target
 		rt_target.Clear(app_data);
 
@@ -269,6 +305,42 @@ void pbuffer_loop(
 		common.master_ready.Signal(n_threads);
 
 		if(common.Done()) break;
+
+		if(app_data.verbosity > 1)
+		{
+			// setup logging period
+			std::chrono::system_clock::duration log_period;
+			if(app_data.verbosity > 4)
+			{
+				log_period = std::chrono::seconds(1);
+			}
+			else if(app_data.verbosity > 3)
+			{
+				log_period = std::chrono::seconds(5);
+			}
+			else if(app_data.verbosity > 2)
+			{
+				log_period = std::chrono::seconds(10);
+			}
+			else if(app_data.verbosity > 1)
+			{
+				log_period = std::chrono::seconds(30);
+			}
+
+			auto log_time = std::chrono::system_clock::now();
+
+			while(!common.thread_ready.Signalled())
+			{
+				auto now = std::chrono::system_clock::now();
+				if(log_time + log_period < now)
+				{
+					common.LogProgress(app_data);
+					log_time = now;
+				}
+				std::chrono::milliseconds period(50);
+				std::this_thread::sleep_for(period);
+			}
+		}
 
 		// wait for all raytracer threads to finish
 		common.thread_ready.Wait(n_threads);
@@ -311,12 +383,44 @@ void window_loop(
 
 	while(!common.Done())
 	{
+		if(app_data.verbosity > 0)
+		{
+			app_data.logstr()
+				<< "Rendering cube face "
+				<< common.Face()
+				<< std::endl;
+		}
+
 		// clear the raytrace target
 		rt_target.Clear(app_data);
+		renderer.InitFrame(app_data, common.Face());
+		renderer.Render(app_data);
+		common.context.SwapBuffers(window);
+
+		// setup logging period
+		std::chrono::system_clock::duration log_period;
+		if(app_data.verbosity > 4)
+		{
+			log_period = std::chrono::seconds(1);
+		}
+		else if(app_data.verbosity > 3)
+		{
+			log_period = std::chrono::seconds(5);
+		}
+		else if(app_data.verbosity > 2)
+		{
+			log_period = std::chrono::seconds(15);
+		}
+		else if(app_data.verbosity > 1)
+		{
+			log_period = std::chrono::minutes(1);
+		}
+
+		auto log_time = std::chrono::system_clock::now();
+
 		// signal all threads that they can start raytracing tiles
 		common.master_ready.Signal(n_threads);
 
-		renderer.InitFrame(app_data, common.Face());
 		while(!common.FaceDone())
 		{
 			unsigned slot = 0;
@@ -354,6 +458,15 @@ void window_loop(
 				common.context.SwapBuffers(window);
 			}
 
+			if(app_data.verbosity > 1)
+			{
+				auto now = std::chrono::system_clock::now();
+				if(log_time + log_period < now)
+				{
+					common.LogProgress(app_data);
+					log_time = now;
+				}
+			}
 			std::chrono::milliseconds period(5);
 			std::this_thread::sleep_for(period);
 		}
@@ -363,11 +476,16 @@ void window_loop(
 		// wait for all raytracer threads to finish
 		common.thread_ready.Wait(n_threads);
 
-		auto lock = common.Lock();
 		renderer.Render(app_data);
-		lock.unlock();
-
 		common.context.SwapBuffers(window);
+
+		if(app_data.verbosity > 1)
+		{
+			app_data.logstr()
+				<< "Finished cube face "
+				<< common.Face()
+				<< std::endl;
+		}
 
 		// save the face image
 		saver.SaveFrame(app_data, rt_target, common.Face());
@@ -472,6 +590,23 @@ void call_drawable_loop(
 
 		for(auto& param : app_data.raytracer_params)
 		{
+			if(app_data.verbosity > 2)
+			{
+				app_data.logstr()
+					<< "Spawning raytracing thread on ";
+				if(param.empty())
+				{
+					app_data.logstr()
+						<< "the current X screen";
+				}
+				else
+				{
+					app_data.logstr()
+						<< "X screen "
+						<< param;
+				}
+				app_data.logstr() << std::endl;
+			}
 			threads.push_back(
 				std::thread(
 					main_thread,
@@ -606,6 +741,7 @@ int main (int argc, char ** argv)
 	app_data.allow_offscreen = true;
 	if(app_data.ParseArgs(argc, argv))
 	{
+		app_data.LogInfo();
 		return do_run_main(main_GLX, app_data);
 	}
 	else return 0;

@@ -199,12 +199,30 @@ void CloudData::Generate(const AppData& app_data)
 		std::random_device rd;
 		rand_seed = rd();
 	}
+	if(app_data.verbosity > 1)
+	{
+		app_data.logstr()
+			<< "Cloud generator random seed: "
+			<< rand_seed
+			<< std::endl;
+	}
+
 	std::default_random_engine re(rand_seed);
 	std::uniform_real_distribution<float> r01( 0, 1);
 	std::uniform_real_distribution<float> r11(-1, 1);
 	std::uniform_int_distribution<unsigned> rcc( 3, 8);
 
 	unsigned c = 1, count = app_data.cloud_count;
+
+	if(app_data.verbosity > 3)
+	{
+		app_data.logstr()
+			<< "Generating "
+			<< count
+			<< " clouds"
+			<< std::endl;
+	}
+
 	while(c < count)
 	{
 		auto lat = angle*r11(re)*0.5;

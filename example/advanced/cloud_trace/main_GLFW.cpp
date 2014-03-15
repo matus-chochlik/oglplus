@@ -73,6 +73,15 @@ void render_loop(AppData& app_data)
 			++face;
 			continue;
 		}
+
+		if(app_data.verbosity > 0)
+		{
+			app_data.logstr()
+				<< "Rendering cube face "
+				<< face
+				<< std::endl;
+		}
+
 		raytracer.Use(app_data);
 
 		if(tile == 0)
@@ -165,6 +174,7 @@ int main (int argc, char ** argv)
 	AppData app_data;
 	if(app_data.ParseArgs(argc, argv))
 	{
+		app_data.LogInfo();
 		return do_run_main(main_GLFW, app_data);
 	}
 	else return 0;

@@ -20,10 +20,12 @@ AppData::AppData(void)
  : puser_intf(nullptr)
  , pset_status(nullptr)
  , perrstr(nullptr)
+ , plogstr(nullptr)
  , allow_offscreen(false)
  , allow_x_rt_screens(false)
  , render_offscreen(false)
  , save_raytrace_data(false)
+ , verbosity(0)
  , rand_seed(0)
  , output_prefix("clouds")
  , output_suffix("rgba")
@@ -68,6 +70,20 @@ AppData::AppData(void)
 bool AppData::ParseArgs(int argc, char** argv)
 {
 	ArgParser parser;
+
+	bool verbose;
+	// verbose
+	auto& verbose_opt = parser.AddOpt("-v", "--verbose", verbose)
+		.AddDesc(
+		"Increments the verbosity level value. This option can be "
+		"used multiple times to increase the verbosity."
+		);
+
+	// verbosity level
+	parser.AddArg("-vl", "--verbosity", verbosity)
+		.AddDesc(
+		"Sets the verbosity level to the specified value."
+		);
 
 	// random seed
 	parser.AddArg("-rs", "--rand-seed", rand_seed)
@@ -380,6 +396,9 @@ bool AppData::ParseArgs(int argc, char** argv)
 	if(!parser.Parse(argc, argv))
 		return false;
 
+	// post parsing
+	verbosity += verbose_opt.parse_count;
+
 	if(single_face_arg.parse_count > 0)
 	{
 		for(unsigned f=0; f!=6; ++f)
@@ -389,6 +408,42 @@ bool AppData::ParseArgs(int argc, char** argv)
 	}
 
 	return true;
+}
+
+void AppData::LogInfo(void) const
+{
+	if(verbosity > 0)
+	{
+		if(render_offscreen)
+		{
+			logstr()
+				<< "Rendering offscreen"
+				<< std::endl;
+		}
+	}
+	if(verbosity > 3)
+	{
+		logstr()
+			<< "Raytrace width: "
+			<< raytrace_width
+			<< std::endl;
+		logstr()
+			<< "Raytrace height: "
+			<< raytrace_height
+			<< std::endl;
+		logstr()
+			<< "Raytrace columns: "
+			<< cols()
+			<< std::endl;
+		logstr()
+			<< "Raytrace rows: "
+			<< rows()
+			<< std::endl;
+		logstr()
+			<< "Raytrace tiles: "
+			<< tiles()
+			<< std::endl;
+	}
 }
 
 void AppData::set_status(const char* str)
@@ -402,6 +457,11 @@ void AppData::set_status(const char* str)
 std::ostream& AppData::errstr(void) const
 {
 	return (perrstr?*perrstr:std::cerr);
+}
+
+std::ostream& AppData::logstr(void) const
+{
+	return (plogstr?*plogstr:std::clog);
 }
 
 unsigned AppData::rows(void) const

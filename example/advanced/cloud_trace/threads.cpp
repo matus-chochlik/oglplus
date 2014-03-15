@@ -42,5 +42,11 @@ void Semaphore::Signal(unsigned n)
 	_incr(n);
 }
 
+bool Semaphore::Signalled(unsigned n)
+{
+	std::unique_lock<std::mutex> lock(_mutex);
+	return _value >= n;
+}
+
 } // namespace cloud_trace
 } // namespace oglplus

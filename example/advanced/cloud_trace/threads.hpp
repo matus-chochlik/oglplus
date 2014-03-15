@@ -31,6 +31,7 @@ public:
 
 	void Wait(unsigned n = 1);
 	void Signal(unsigned n = 1);
+	bool Signalled(unsigned n = 1);
 };
 
 } // namespace cloud_trace

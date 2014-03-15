@@ -31,6 +31,10 @@ struct AppData
 	std::ostream* perrstr;
 	std::ostream& errstr(void) const;
 
+	// logging output stream
+	std::ostream* plogstr;
+	std::ostream& logstr(void) const;
+
 	// if the --offscreen parameter is supported
 	bool allow_offscreen;
 	// if the --X-rt-screen parameter is supported
@@ -40,6 +44,9 @@ struct AppData
 	bool render_offscreen;
 	// if the raytrace  data should be saved instead of render output
 	bool save_raytrace_data;
+
+	// the verbosity level
+	unsigned verbosity;
 
 	// the random engine seed
 	unsigned rand_seed;
@@ -89,6 +96,7 @@ struct AppData
 
 	AppData(void);
 	bool ParseArgs(int argc, char** argv);
+	void LogInfo(void) const;
 };
 
 } // namespace cloud_trace
