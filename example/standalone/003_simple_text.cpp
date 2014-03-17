@@ -2,7 +2,7 @@
  *  @example standalone/003_simple_text.cpp
  *  @brief Shows usage of the NV_path_rendering extension for rendering text
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -11,8 +11,9 @@
 
 #include <oglplus/all.hpp>
 #include <oglplus/ext/ARB_compatibility.hpp>
-#include <oglplus/ext/EXT_direct_state_access.hpp>
 #include <oglplus/ext/NV_path_rendering.hpp>
+#include <oglplus/ext/EXT_direct_state_access.hpp>
+#include <oglplus/ext/EXT_direct_state_access/matrix.hpp>
 
 #include <vector>
 
@@ -22,8 +23,10 @@ class TextExample
 private:
 	oglplus::Context gl;
 	oglplus::ARB_compatibility glc;
-	oglplus::EXT_direct_state_access dsa;
 	oglplus::NV_path_rendering pr;
+	oglplus::EXT_direct_state_access dsa;
+	oglplus::DSAModelviewMatrixEXT modelview;
+	oglplus::DSAProjectionMatrixEXT projection;
 
 	const oglplus::String text;
 	oglplus::PathArrayNV text_path;
@@ -81,16 +84,15 @@ public:
 			font_min_max
 		);
 
-		dsa.MatrixOrtho(
-			CompatibilityMatrixMode::Projection,
-				text_left -10,
-				text_right+10,
-				font_min_max[0],
-				font_min_max[1],
-				-1.0,
-				1.0
+		projection.Ortho(
+			text_left -10,
+			text_right+10,
+			font_min_max[0],
+			font_min_max[1],
+			-1.0,
+			+1.0
 		);
-		dsa.MatrixLoadIdentity(CompatibilityMatrixMode::Modelview);
+		modelview.LoadIdentity();
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.ClearStencil(0);

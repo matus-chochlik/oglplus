@@ -367,6 +367,18 @@ inline T Ratio(const Angle<T>& a, const Angle<T>& b)
 }
 
 template <typename T>
+inline T Radians(const Angle<T>& a)
+{
+	return a.Value();
+}
+
+template <typename T>
+inline T Degrees(const Angle<T>& a)
+{
+	return a.ValueInDegrees();
+}
+
+template <typename T>
 inline T Sin(const Angle<T>& a)
 {
 	return a.Sin();

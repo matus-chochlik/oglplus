@@ -2,7 +2,7 @@
  *  @example standalone/004_text_rendering.cpp
  *  @brief Shows usage of the NV_path_rendering extension for rendering text
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -11,8 +11,9 @@
 
 #include <oglplus/all.hpp>
 #include <oglplus/ext/ARB_compatibility.hpp>
-#include <oglplus/ext/EXT_direct_state_access.hpp>
 #include <oglplus/ext/NV_path_rendering.hpp>
+#include <oglplus/ext/EXT_direct_state_access.hpp>
+#include <oglplus/ext/EXT_direct_state_access/matrix.hpp>
 
 #include <vector>
 #include <sstream>
@@ -24,8 +25,10 @@ class TextExample
 private:
 	oglplus::Context gl;
 	oglplus::ARB_compatibility glc;
-	oglplus::EXT_direct_state_access dsa;
 	oglplus::NV_path_rendering npr;
+	oglplus::EXT_direct_state_access dsa;
+	oglplus::DSAModelviewMatrixEXT modelview;
+	oglplus::DSAProjectionMatrixEXT projection;
 
 	oglplus::PathArrayNV text_glyphs;
 	std::vector<GLfloat> glyph_spacings;
@@ -88,8 +91,8 @@ public:
 		);
 		glyph_spacings.insert(glyph_spacings.begin(), 0);
 
-		dsa.MatrixLoadIdentity(CompatibilityMatrixMode::Modelview);
-		dsa.MatrixTranslate(CompatibilityMatrixMode::Modelview, x, y, 0.0);
+		modelview.LoadIdentity();
+		modelview.Translate(x, y, 0);
 
 		text_glyphs.StencilFillInstanced(
 			text,
@@ -158,13 +161,8 @@ public:
 
 		gl.Viewport(Width(), Height());
 
-		dsa.MatrixLoadIdentity(CompatibilityMatrixMode::Projection);
-		dsa.MatrixOrtho(
-			CompatibilityMatrixMode::Projection,
-			0, Width(),
-			0, Height(),
-			-1.0, 1.0
-		);
+		projection.LoadIdentity();
+		projection.Ortho(0, Width(), 0, Height(), -1, 1);
 
 		GLfloat font_min_max[2];
 		text_glyphs.GetMetricRange(
