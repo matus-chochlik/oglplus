@@ -13,6 +13,7 @@ macro(do_use_single_dependency DEPENDENCY)
 		endif()
 		if(${DEPENDENCY}_LIBRARY_DIRS)
 			include_directories(${${DEPENDENCY}_LIBRARY_DIRS})
+			link_directories(${${DEPENDENCY}_LIBRARY_DIRS})
 		endif()
 		if(${DEPENDENCY}_DEFINITIONS)
 			set_property(
