@@ -4,11 +4,11 @@
  *
  *  @oglplus_screenshot{030_light_rays}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_cxx11{LAMBDAS}
+ *  @oglplus_example_uses_cpp_feat{LAMBDAS}
  *  @oglplus_example_uses_gl{GL_VERSION_3_2}
  *  @oglplus_example_uses_model{large_fan}
  */
@@ -328,7 +328,7 @@ private:
 		gl.Finish();
 
 		// bind the default framebuffer
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
 	}
 
 	TextureUnitSelector light_tex_unit;
@@ -486,7 +486,7 @@ public:
 		meshes.Draw(drawing_driver);
 
 		// render the final image
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{029_fire_hydrant}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -392,7 +392,7 @@ public:
 		hydrant.Draw();
 
 		// render the frame
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 

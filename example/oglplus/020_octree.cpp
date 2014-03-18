@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_octree}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -190,6 +190,8 @@ private:
 	Array<VertexArray> vao;
 	Array<TransformFeedback> xfb;
 
+	DefaultTransformFeedback dxfb;
+
 public:
 	SortProg sort_prog;
 
@@ -240,7 +242,7 @@ public:
 					Buffer::IndexedTarget::TransformFeedback,
 					0
 				);
-				TransformFeedback::BindDefault();
+				dxfb.Bind();
 			}
 		}
 	}

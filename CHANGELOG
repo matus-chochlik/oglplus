@@ -1,3 +1,24 @@
+Version 0.43.0
+
+
+- The OptionalUniform<T>::TrySet function was added.
+- The Current<Object> and AutoRebind<Object> template classes were added.
+- The metaballs seamless texture image generators were added.
+- New functions and operators were added to Angle<T>.
+- The TextureFilter enumeration and related functions were added.
+- Syntax sugar operator for Buffer::SubData was added.
+- Syntax sugar operators for specifying texture level image were added.
+- Syntax sugar operator for setting transform feedback varyings was added
+  to Program.
+- The wrapper for DSA compatibility matrix stack functions was refactored.
+- A new advanced example 'cloud_trace' was added.
+- Several of the existing examples were updated to show the new features.
+- Detection of the NV_copy_image extension was added to the build system.
+- The detection of C++11 chrono library was updated in the build system.
+- Several problems with the detection of third party libraries were fixed.
+- Some parts of the code were reorganized and moved to separate source files.
+
+
 Version 0.42.0
 
 - The Format and InternalFormat typedef were added to Texture.

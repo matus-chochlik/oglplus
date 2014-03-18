@@ -170,7 +170,7 @@ public:
 			Vec3f(),
 			3.0,
 			FullCircles(time / 13.0),
-			Degrees(-SineWave(time / 19.0) * 85)
+			Degrees(-35 - SineWave(time / 19.0) * 30)
 		);
 		camera_matrix.Set(camera);
 
@@ -180,7 +180,7 @@ public:
 
 	bool Continue(double time)
 	{
-		return time < 90.0;
+		return time < 45.0;
 	}
 
 	double ScreenshotTime(void) const

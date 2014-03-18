@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,6 +25,21 @@ struct Nothing { typedef int _value_type; };
 // Angle
 template <typename T>
 class Angle;
+
+template <typename T>
+T Radians(const Angle<T>&);
+
+template <typename T>
+T Degrees(const Angle<T>&);
+
+template <typename T>
+T Sin(const Angle<T>&);
+
+template <typename T>
+T Cos(const Angle<T>&);
+
+template <typename T>
+T Tan(const Angle<T>&);
 
 // Vector
 template <typename T, std::size_t N>

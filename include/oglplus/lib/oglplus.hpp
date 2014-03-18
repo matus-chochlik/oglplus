@@ -78,6 +78,7 @@
 #include <oglplus/images/image.hpp>
 #include <oglplus/images/brushed_metal.hpp>
 #include <oglplus/images/checker.hpp>
+#include <oglplus/images/metaballs.hpp>
 #include <oglplus/images/cloud.hpp>
 #include <oglplus/images/squares.hpp>
 #include <oglplus/images/sphere_bmap.hpp>

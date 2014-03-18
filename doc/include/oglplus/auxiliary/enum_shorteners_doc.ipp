@@ -11696,6 +11696,7 @@ template <typename Enum> friend bool operator!=(Enum value, Line);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Linear value.
 /**
  *  @see @ref oglplus::BlitFilter "BlitFilter"
+ *  @see @ref oglplus::TextureFilter "TextureFilter"
  *  @see @ref oglplus::TextureMagFilter "TextureMagFilter"
  *  @see @ref oglplus::TextureMinFilter "TextureMinFilter"
  *
@@ -16597,6 +16598,7 @@ template <typename Enum> friend bool operator!=(Enum value, Nand);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Nearest value.
 /**
  *  @see @ref oglplus::BlitFilter "BlitFilter"
+ *  @see @ref oglplus::TextureFilter "TextureFilter"
  *  @see @ref oglplus::TextureMagFilter "TextureMagFilter"
  *  @see @ref oglplus::TextureMinFilter "TextureMinFilter"
  *

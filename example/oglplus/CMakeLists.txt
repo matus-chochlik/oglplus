@@ -36,6 +36,8 @@ set_property(TARGET oglplus-examples-screenshots PROPERTY FOLDER "Example/Screen
 add_definitions(-DOGLPLUS_LINK_LIBRARY=${OGLPLUS_LINK_LIBRARY})
 add_definitions(-DEGLPLUS_LINK_LIBRARY=1)
 
+unset(OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES)
+
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qt4gl")
 	qt4_wrap_cpp(
 		OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES
@@ -50,18 +52,23 @@ elseif("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "qt5gl")
 		OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES
 		"${CMAKE_CURRENT_BINARY_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main-moc.cpp"
 	)
-else()
-	set(OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES "")
 endif()
 
-
 # build the code common to all the examples into this library
-add_library(
-	oglplus_example_harness STATIC
-	EXCLUDE_FROM_ALL
-	"${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.cpp"
-	"${OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES}"
-)
+if(OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES)
+	add_library(
+		oglplus_example_harness STATIC
+		EXCLUDE_FROM_ALL
+		"${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.cpp"
+		"${OGLPLUS_EXAMPLE_HARNESS_ADDITIONAL_SOURCES}"
+	)
+else()
+	add_library(
+		oglplus_example_harness STATIC
+		EXCLUDE_FROM_ALL
+		"${CMAKE_CURRENT_SOURCE_DIR}/${OGLPLUS_EXAMPLE_HARNESS}_main.cpp"
+	)
+endif()
 # add the dependencies for the harness
 add_all_dependencies(${OGLPLUS_EXAMPLE_HARNESS}_main oglplus_example_harness)
 # optional dependencies for the harness with library

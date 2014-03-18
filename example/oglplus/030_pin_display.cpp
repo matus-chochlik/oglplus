@@ -1,10 +1,10 @@
 /**
  *  @example oglplus/030_pin_display.cpp
- *  @brief 
+ *  @brief Shows how to render a pin display
  *
  *  @oglplus_screenshot{030_pin_display}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -349,6 +349,7 @@ private:
 
 	DSAFramebuffer heights_fbo;
 	DSAFramebuffer shadows_fbo;
+	DefaultFramebuffer default_fb;
 
 	void init_offsets(void)
 	{
@@ -439,7 +440,7 @@ private:
 	}
 public:
 	BarDisplay(void)
-	 : gl()	
+	 : gl()
 	 , side(128)
 	 , shadow_size(512)
 	 , cube(
@@ -496,7 +497,7 @@ public:
 			Degrees(-time * 27),
 			Degrees(SineWave(time / 19.0)*25  + 45)
 		);
-		
+
 		shadow_prog.fade.Set(fade);
 		shadow_prog.camera_matrix.Set(light);
 
@@ -508,7 +509,7 @@ public:
 		gl.Finish();
 
 		// On-screen
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		default_fb.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{025_recursive_texture}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -51,7 +51,10 @@ private:
 	// VBOs for the cube vertex attributes
 	Buffer verts, normals, texcoords;
 
-	/// The FBOs and RBOs for offscreen rendering
+	// The default framebuffer
+	DefaultFramebuffer dfb;
+
+	// The FBOs and RBOs for offscreen rendering
 	Array<AutoBind<Framebuffer,false>> fbos;
 	Array<AutoBind<Renderbuffer,false>> rbos;
 
@@ -236,7 +239,7 @@ public:
 		cube_instr.Draw(cube_indices);
 
 		// render the textured cube
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 

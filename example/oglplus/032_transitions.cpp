@@ -672,6 +672,8 @@ private:
 	const GLint color_tex_unit, depth_tex_unit;
 	DrawFramebuffer draw_fbo;
 
+	DefaultFramebuffer def_fb;
+
 	// the program that clears the background
 	ClearProgram clear_prog;
 	// program that renders the transition between the two frames
@@ -803,7 +805,7 @@ public:
 		draw_fbo.Bind(Framebuffer::Target::Draw);
 		RenderFrames(time);
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		def_fb.Bind(Framebuffer::Target::Draw);
 		MergeFrames(time);
 	}
 

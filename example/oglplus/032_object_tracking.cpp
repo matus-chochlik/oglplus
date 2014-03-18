@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{032_object_tracking}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -13,7 +13,7 @@
  *  @oglplus_example_uses_font{FreeSans}
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
  *  @oglplus_example_uses_gl{GL_ARB_transform_feedback2}
- *  @oglplus_example_uses_cxx11{UNICODE_LITERALS}
+ *  @oglplus_example_uses_cpp_feat{UNICODE_LITERALS}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
@@ -535,6 +535,7 @@ private:
 	Buffer track_buffer;
 	Query track_query;
 	TransformFeedback track_xfb;
+	DefaultTransformFeedback def_xfb;
 public:
 	InstancedShape(
 		const std::string shape_name,
@@ -555,7 +556,7 @@ public:
 		track_xfb.Bind();
 		track_buffer.Bind(Buffer::Target::TransformFeedback);
 		track_buffer.BindBase(Buffer::IndexedTarget::TransformFeedback, 0);
-		TransformFeedback::BindDefault();
+		DefaultTransformFeedback::Bind();
 	}
 
 
@@ -587,7 +588,7 @@ public:
 		xfb_act.Finish();
 		qry_act.Finish();
 
-		TransformFeedback::BindDefault();
+		DefaultTransformFeedback::Bind();
 	}
 
 	void FinishTracking(const text::Font2D& font, HUDOverlay& hud_overlay)
@@ -730,7 +731,7 @@ public:
 	{
 		double time = clock.Now().Seconds();
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
 
 		gl.Enable(Capability::DepthTest);
 		gl.Clear().ColorBuffer().DepthBuffer();

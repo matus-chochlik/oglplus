@@ -775,6 +775,26 @@ inline DSABufferEXTOpsAndIdxTgt operator << (
 	return DSABufferEXTOpsAndIdxTgt(buf, target);
 }
 
+// Helper class for syntax sugar operators
+struct DSABufferEXTOpsAndOffset
+{
+	DSABufferEXTOps& buf;
+	GLintptr offset;
+
+	DSABufferEXTOpsAndOffset(DSABufferEXTOps& b, GLintptr o)
+	 : buf(b)
+	 , offset(o)
+	{ }
+};
+
+inline DSABufferEXTOpsAndOffset operator + (
+	DSABufferEXTOps& buf,
+	GLintptr offset
+)
+{
+	return DSABufferEXTOpsAndOffset(buf, offset);
+}
+
 // syntax-sugar operators
 
 // Bind
@@ -839,6 +859,28 @@ inline DSABufferEXTOps& operator << (
 {
 	bau.buf.Data(data, bau.usage);
 	return bau.buf;
+}
+
+// SubData
+template <typename GLtype>
+inline DSABufferEXTOps& operator << (
+	DSABufferEXTOpsAndOffset&& bao,
+	const std::vector<GLtype>& data
+)
+{
+	bao.buf.SubData(bao.offset, data);
+	return bao.buf;
+}
+
+// SubData
+template <typename GLtype, std::size_t Count>
+inline DSABufferEXTOps& operator << (
+	DSABufferEXTOpsAndOffset&& bao,
+	const GLtype (&data)[Count]
+)
+{
+	bao.buf.SubData(bao.offset, data);
+	return bao.buf;
 }
 
 #if OGLPLUS_DOCUMENTATION_ONLY
