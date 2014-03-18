@@ -281,6 +281,23 @@ public:
 	{
 		UseInProgram(prog);
 	}
+
+	template <class ShapeBuilder>
+	ShapeWrapper(
+		const GLchar* name,
+		const ShapeBuilder& builder
+	): ShapeWrapperBase(&name, (&name)+1, builder)
+	{ }
+
+	template <class ShapeBuilder>
+	ShapeWrapper(
+		const GLchar* name,
+		const ShapeBuilder& builder,
+		const ProgramOps& prog
+	): ShapeWrapperBase(&name, (&name)+1, builder)
+	{
+		UseInProgram(prog);
+	}
 };
 
 /// Wraps instructions and VBOs and VAO used to render a shape built by a ShapeBuilder

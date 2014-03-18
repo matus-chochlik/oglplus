@@ -4,11 +4,11 @@
  *
  *  @oglplus_screenshot{025_rendered_texture_mt}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
- *  @oglplus_example_uses_cxx11{THREADS}
+ *  @oglplus_example_uses_cpp_feat{THREADS}
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_2}
  */
@@ -100,6 +100,8 @@ private:
 
 	Texture tex;
 
+	DefaultFramebuffer dfb;
+
 	ExampleSyncQueue  parent_ready;
 	ExampleSyncQueue* thread_ready;
 public:
@@ -143,7 +145,7 @@ public:
 		gl.Enable(Capability::CullFace);
 		gl.CullFace(Face::Back);
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 
 		prog.Use();

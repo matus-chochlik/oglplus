@@ -4,14 +4,14 @@
  *
  *  @oglplus_screenshot{027_flow}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_texture{flow_map}
  *  @oglplus_example_uses_texture{flower_glass}
  *
- *  @oglplus_example_uses_cxx11{SCOPED_ENUMS}
+ *  @oglplus_example_uses_cpp_feat{SCOPED_ENUMS}
  *  @oglplus_example_uses_gl{GL_VERSION_3_2}
  */
 #include <oglplus/gl.hpp>
@@ -392,6 +392,8 @@ private:
 
 	Texture background;
 
+	DefaultFramebuffer dfb;
+
 	ScreenProg screen_prog;
 
 	shapes::ShapeWrapper screen;
@@ -433,7 +435,7 @@ public:
 	{
 		flow.Update(time);
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 		gl.DrawBuffer(ColorBuffer::BackLeft);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();

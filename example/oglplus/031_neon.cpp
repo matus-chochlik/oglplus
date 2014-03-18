@@ -122,10 +122,11 @@ private:
 			"	xfbPosition = vec4(Position + xfbVelocity.xyz * Interval, Time);"
 			"}"
 		).Compile();
-		prog.AttachShader(xfbs);
 
-		const GLchar* var_names[2] = {"xfbPosition", "xfbVelocity"};
-		prog.TransformFeedbackVaryings(var_names, TransformFeedbackMode::SeparateAttribs);
+		prog	<< xfbs
+			<< TransformFeedbackMode::SeparateAttribs
+			<< "xfbPosition"
+			<< "xfbVelocity";
 
 		prog.Link().Use();
 
@@ -241,7 +242,7 @@ public:
 				<< BufferIndexedTarget::TransformFeedback << 1
 				<< BufferTarget::TransformFeedback;
 		}
-		TransformFeedback::BindDefault();
+		DefaultTransformFeedback::Bind();
 
 		// force coefficients
 		std::vector<GLfloat> force_data(particle_count*4, 0.0);
@@ -324,7 +325,7 @@ public:
 			xfba.Finish();
 		}
 		VertexArray::Unbind();
-		TransformFeedback::BindDefault();
+		DefaultTransformFeedback::Bind();
 	}
 };
 

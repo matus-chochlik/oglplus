@@ -440,18 +440,7 @@ public:
 		GLuint tex_side = 64;
 		for(GLuint level=0; level!=7; ++level)
 		{
-			auto image = images::RandomRedUByte(tex_side, tex_side);
-			Texture::Image2D(
-				tex_tgt,
-				level,
-				image.InternalFormat(),
-				image.Width(),
-				image.Height(),
-				0,
-				image.Format(),
-				image.Type(),
-				image.RawData()
-			);
+			(tex_tgt|level) << images::RandomRedUByte(tex_side, tex_side);
 			tex_side /= 2.0;
 		}
 		Texture::MaxLOD(tex_tgt, 6);

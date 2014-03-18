@@ -190,6 +190,9 @@ OGLPLUS_ENUM_CLASS_FWD(TessGenPrimitiveType, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(TextureCompareMode, GLenum)
 #include <oglplus/enums/texture_compare_mode_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(TextureFilter, GLenum)
+#include <oglplus/enums/texture_filter_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(TextureMagFilter, GLenum)
 #include <oglplus/enums/texture_mag_filter_range.ipp>
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+# Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -7,6 +7,7 @@
 doc_user=${USER}
 doc_host="kifri.fri.uniza.sk"
 
+(cd _build && make doc) &&
 for lib_name in oglplus oalplus eglplus
 do
 	doc_home="./public_html/${lib_name}"
@@ -14,7 +15,6 @@ do
 	# local path to docs
 	doc_src="$(dirname $0)/../_build/doc/doxygen/${lib_name}/html"
 	#
-	(cd _build && make doc -j 4) &&
 	# remove the old files
 	ssh ${doc_user}@${doc_host} "rm -rf ${doc_base}/*" &&
 	# tar stream and untar the new files

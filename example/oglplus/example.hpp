@@ -216,6 +216,16 @@ public:
 	{
 		this->Render(clock.Now().Seconds());
 	}
+
+	/// Rendering procedure split into several parts
+	virtual double RenderPart(
+		unsigned /*part_no*/,
+		const ExampleClock& clock
+	)
+	{
+		this->Render(clock);
+		return 1.0;
+	}
 };
 
 std::unique_ptr<ExampleThread> makeExampleThread(
@@ -289,6 +299,13 @@ public:
 	virtual void Render(ExampleClock& clock)
 	{
 		this->Render(clock.Now().Seconds());
+	}
+
+	/// Rendering procedure split into several parts
+	virtual double RenderPart(unsigned /*part_no*/, ExampleClock& clock)
+	{
+		this->Render(clock);
+		return 1.0;
 	}
 
 	/// The time of the default screenshot

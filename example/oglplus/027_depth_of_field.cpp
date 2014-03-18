@@ -96,6 +96,8 @@ private:
 	// The framebuffer object of offscreen rendering
 	Framebuffer fbo;
 
+	DefaultFramebuffer dfb;
+
 	// The color and depth textures
 	Texture color_tex, depth_tex;
 
@@ -405,7 +407,7 @@ public:
 			++i;
 		}
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 

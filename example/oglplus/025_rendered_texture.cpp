@@ -4,19 +4,21 @@
  *
  *  @oglplus_screenshot{025_rendered_texture}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_2}
+ *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects}
+ *  @oglplus_example_uses_gl{GL_EXT_direct_state_access}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/torus.hpp>
-#include <oglplus/bound/texture.hpp>
-#include <oglplus/bound/framebuffer.hpp>
-#include <oglplus/bound/renderbuffer.hpp>
+#include <oglplus/texture_dsa.hpp>
+#include <oglplus/framebuffer_dsa.hpp>
+#include <oglplus/renderbuffer_dsa.hpp>
 
 #include <cmath>
 
@@ -61,12 +63,15 @@ private:
 	Buffer cube_verts, cube_normals, cube_texcoords;
 	Buffer torus_verts, torus_normals, torus_texcoords;
 
-	/// The FBO and RBO for offscreen rendering
-	AutoBind<Framebuffer> fbo;
-	AutoBind<Renderbuffer> rbo;
+	// The default onscreen framebuffer
+	DefaultFramebuffer dfb;
+
+	// The FBO and RBO for offscreen rendering
+	DSAFramebuffer fbo;
+	DSARenderbuffer rbo;
 
 	// The dynamically rendered texture
-	AutoBind<Texture> tex;
+	DSATexture tex;
 	GLuint tex_side;
 
 	GLuint width, height;
@@ -86,9 +91,9 @@ public:
 	 , cube_projection_matrix(cube_prog, "ProjectionMatrix")
 	 , cube_camera_matrix(cube_prog, "CameraMatrix")
 	 , cube_model_matrix(cube_prog, "ModelMatrix")
-	 , fbo(Framebuffer::Target::Draw)
-	 , rbo(Renderbuffer::Target::Renderbuffer)
-	 , tex(Texture::Target::_2D, 0)
+	 , fbo()
+	 , rbo()
+	 , tex()
 	 , tex_side(512)
 	 , width(tex_side)
 	 , height(tex_side)
@@ -232,6 +237,7 @@ public:
 
 		Uniform<Vec3f>(torus_prog, "LightPos").Set(2.0f, 3.0f, 4.0f);
 
+		tex.Bind(TextureTarget::_2D);
 		tex.Image2D(
 			0,
 			PixelDataInternalFormat::RGBA,
@@ -246,11 +252,14 @@ public:
 		tex.WrapS(TextureWrap::Repeat);
 		tex.WrapT(TextureWrap::Repeat);
 
+		rbo.Bind(RenderbufferTarget::Renderbuffer);
 		rbo.Storage(
 			PixelDataInternalFormat::DepthComponent,
 			tex_side,
 			tex_side
 		);
+
+		fbo.Bind(FramebufferTarget::Draw);
 		fbo.AttachTexture(
 			FramebufferAttachment::Color,
 			tex,
@@ -307,7 +316,7 @@ public:
 		torus_instr.Draw(torus_indices);
 
 		// render the textured cube
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.ClearDepth(1.0f);
 		gl.ClearColor(0.8f, 0.8f, 0.8f, 0.0f);

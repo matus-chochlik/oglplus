@@ -83,6 +83,9 @@ public:
 		/// Depth texture comparison mode
 		typedef TextureCompareMode CompareMode;
 
+		/// Filter
+		typedef TextureFilter Filter;
+
 		/// Maginification filter
 		typedef TextureMagFilter MagFilter;
 
@@ -1792,6 +1795,41 @@ public:
 		));
 	}
 
+	/// Sets both the minification and maginification filter
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
+	void Filter(TextureFilter filter)
+	{
+		OGLPLUS_GLFUNC(TextureParameteriEXT)(
+			_name,
+			GLenum(target),
+			GL_TEXTURE_MIN_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureParameteriEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+		OGLPLUS_GLFUNC(TextureParameteriEXT)(
+			_name,
+			GLenum(target),
+			GL_TEXTURE_MAG_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureParameteriEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+	}
+
 	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
 	/**
 	 *  @glsymbols
@@ -2504,6 +2542,16 @@ inline DSATextureEXTOps& operator << (
 	return tex;
 }
 
+// Filter
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureFilter filter
+)
+{
+	tex.Filter(filter);
+	return tex;
+}
+
 // MinFilter
 inline DSATextureEXTOps& operator << (
 	DSATextureEXTOps& tex,
@@ -2633,6 +2681,26 @@ inline DSATextureEXTOps& operator << (
 {
 	tex.Image(image_spec);
 	return tex;
+}
+
+// Image + Level
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOpsAndSlot tas,
+	const images::Image& image
+)
+{
+	tas.tex.Image(image, tas.slot);
+	return tas.tex;
+}
+
+// Image + Level
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOpsAndSlot tas,
+	const images::ImageSpec& image_spec
+)
+{
+	tas.tex.Image(image_spec, tas.slot);
+	return tas.tex;
 }
 
 // GenerateMipmaps

@@ -420,6 +420,12 @@ inline bool operator != (const Vector<T, N>& a, const Vector<T, N>& b)
 }
 
 template <typename T, std::size_t N>
+inline Vector<T, N> operator + (const Vector<T, N>& v)
+{
+	return v;
+}
+
+template <typename T, std::size_t N>
 inline Vector<T, N> operator - (const Vector<T, N>& v)
 {
 	return Negated(v);

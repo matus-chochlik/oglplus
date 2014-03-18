@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{030_cube_mapping}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -151,6 +151,7 @@ private:
 
 	// The framebuffer used for rendering into the texture
 	Framebuffer fbo;
+	DefaultFramebuffer dfb;
 
 	// Path of the light
 	CubicBezierLoop<Vec3f, double> light_path;
@@ -656,7 +657,7 @@ public:
 		}
 
 		// Now we're going to draw into the default framebuffer
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		dfb.Bind(Framebuffer::Target::Draw);
 
 		// Set the viewport and perspective matrix
 		gl.Viewport(width, height);

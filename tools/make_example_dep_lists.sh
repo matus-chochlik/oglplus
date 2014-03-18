@@ -69,7 +69,7 @@ function make_example_dep_lists()
 )}
 
 echo "----------------------|C++ 2011 features|---------------------"
-make_example_req_list requirements cpp "@${oglplus_lib}_example_uses_cxx11"
+make_example_req_list requirements cpp "@${oglplus_lib}_example_uses_cpp_feat"
 echo "------------------------|OpenGL Version|----------------------"
 make_example_req_list requirements gl "@${oglplus_lib}_example_uses_gl"
 echo "--------------------------|Textures|--------------------------"

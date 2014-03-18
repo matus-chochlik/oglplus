@@ -75,7 +75,6 @@ ResourceFile::ResourceFile(
 			category +
 			aux::FilesysPathSep() +
 			name +
-			aux::FilesysPathSep()+
 			ext +
 			std::string("'")
 		);

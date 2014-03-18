@@ -135,7 +135,10 @@ public:
 		/// Depth texture comparison mode
 		typedef TextureCompareMode CompareMode;
 
-		/// Maginification filter
+		/// Filter
+		typedef TextureFilter Filter;
+
+		/// Magnification filter
 		typedef TextureMagFilter MagFilter;
 
 		/// Minification filter
@@ -2143,6 +2146,39 @@ public:
 	}
 #endif // GL_VERSION_3_0
 
+	/// Sets both the minification and magnification filter
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
+	static void Filter(Target target, TextureFilter filter)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_MIN_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_MAG_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
 	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
 	/**
 	 *  @glsymbols
@@ -2864,6 +2900,13 @@ inline TextureTarget operator << (const TextureOps& tex, TextureTarget target)
 	return target;
 }
 
+// Filter
+inline TextureTarget operator << (TextureTarget target, TextureFilter filter)
+{
+	TextureOps::Filter(target, filter);
+	return target;
+}
+
 // MinFilter
 inline TextureTarget operator << (TextureTarget target, TextureMinFilter filter)
 {
@@ -2976,6 +3019,26 @@ inline TextureTarget operator << (
 {
 	TextureOps::Image(target, image_spec);
 	return target;
+}
+
+// Image + Level
+inline TextureTarget operator << (
+	TextureTargetAndSlot tas,
+	const images::Image& image
+)
+{
+	TextureOps::Image(tas.target, image, tas.slot);
+	return tas.target;
+}
+
+// Image + Level
+inline TextureTarget operator << (
+	TextureTargetAndSlot tas,
+	const images::ImageSpec& image_spec
+)
+{
+	TextureOps::Image(tas.target, image_spec, tas.slot);
+	return tas.target;
 }
 
 // GenerateMipmap

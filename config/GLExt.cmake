@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -30,6 +30,7 @@ gl_lib_ext_detection(GL ARB transform_feedback2)
 gl_lib_ext_detection(GL ARB viewport_array)
 gl_lib_ext_detection(GL ARB compatibility)
 gl_lib_ext_detection(GL EXT direct_state_access)
+gl_lib_ext_detection(GL NV copy_image)
 
 
 macro(glew_ext_detection EXTENSION_VENDOR EXTENSION_NAME)

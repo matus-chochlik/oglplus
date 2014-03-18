@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -50,6 +50,8 @@ set(HEADER_SEARCH_PATHS ${HEADER_SEARCH_PATHS};${PROJECT_SOURCE_DIR}/third_party
 include(FindPkgConfig)
 include(config/CommonFindMod.cmake)
 
+include(config/FindThreads.cmake)
+
 include(config/FindOpenGL.cmake)
 include(config/FindGLEW.cmake)
 include(config/FindGL3W.cmake)
@@ -73,8 +75,8 @@ include(config/FindPangoCairo.cmake)
 
 # compiler options
 include(config/Compiler.cmake)
-# c++11-related compiler options
-include(config/CPP11.cmake)
+# c++ compiler options / supported feature detection
+include(config/CPPFeature.cmake)
 # check if Boost.Config is available
 include(config/FindBoost.cmake)
 
