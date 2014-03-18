@@ -36,11 +36,15 @@ if(
 	endif()
 
 	do_use_single_dependency(${CLOUD_TRACE_GL_INIT})
-	do_use_single_dependency(THREADS)
+	if(HAS_CPP_THREADS)
+		do_use_single_dependency(THREADS)
+		set(CLOUD_TRACE_ADDITIONAL_SOURCES threads.cpp)
+	endif()
 
 	add_executable(
 		cloud_trace	
 		EXCLUDE_FROM_ALL
+			${CLOUD_TRACE_ADDITIONAL_SOURCES}
 			main_${CLOUD_TRACE_GL_INIT}.cpp
 			main_common.cpp
 			app_data.cpp
@@ -54,7 +58,6 @@ if(
 			renderer.cpp
 			copier.cpp
 			saver.cpp
-			threads.cpp
 	)
 	target_link_libraries(cloud_trace ${${CLOUD_TRACE_GL_INIT}_LIBRARIES})
 	target_link_libraries(cloud_trace ${OGLPLUS_GL_LIBS})
