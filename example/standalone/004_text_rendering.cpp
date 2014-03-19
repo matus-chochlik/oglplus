@@ -13,7 +13,6 @@
 #include <oglplus/ext/ARB_compatibility.hpp>
 #include <oglplus/ext/NV_path_rendering.hpp>
 #include <oglplus/ext/EXT_direct_state_access.hpp>
-#include <oglplus/ext/EXT_direct_state_access/matrix.hpp>
 
 #include <vector>
 #include <sstream>
@@ -27,8 +26,6 @@ private:
 	oglplus::ARB_compatibility glc;
 	oglplus::NV_path_rendering npr;
 	oglplus::EXT_direct_state_access dsa;
-	oglplus::DSAModelviewMatrixEXT modelview;
-	oglplus::DSAProjectionMatrixEXT projection;
 
 	oglplus::PathArrayNV text_glyphs;
 	std::vector<GLfloat> glyph_spacings;
@@ -91,8 +88,9 @@ public:
 		);
 		glyph_spacings.insert(glyph_spacings.begin(), 0);
 
-		modelview.LoadIdentity();
-		modelview.Translate(x, y, 0);
+		dsa.ModelviewMatrix()
+			.LoadIdentity()
+			.Translate(x, y, 0);
 
 		text_glyphs.StencilFillInstanced(
 			text,
@@ -161,8 +159,9 @@ public:
 
 		gl.Viewport(Width(), Height());
 
-		projection.LoadIdentity();
-		projection.Ortho(0, Width(), 0, Height(), -1, 1);
+		dsa.ProjectionMatrix()
+			.LoadIdentity()
+			.Ortho(0, Width(), 0, Height(), -1, 1);
 
 		GLfloat font_min_max[2];
 		text_glyphs.GetMetricRange(
