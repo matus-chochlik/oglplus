@@ -613,7 +613,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStringNV));
 	}
 
-	/// Specifies the path using a string
+	/// Specifies the path using an SVG string
 	/**
 	 *  @glsymbols
 	 *  @glfunref{PathStringNV}
@@ -627,6 +627,50 @@ public:
 			static_cast<const void*>(path_string.c_str())
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStringNV));
+	}
+
+	/// Specifies the path using an SVG string
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathStringNV}
+	 *  @gldefref{PATH_FORMAT_SVG_NV}
+	 */
+	void SVGString(GLsizei length, const GLchar* path_string)
+	{
+		PathString(PathNVFormat::SVG, length, path_string);
+	}
+
+	/// Specifies the path using an SVG string
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathStringNV}
+	 *  @gldefref{PATH_FORMAT_SVG_NV}
+	 */
+	void SVGString(const String& path_string)
+	{
+		PathString(PathNVFormat::SVG, path_string);
+	}
+
+	/// Specifies the path using a Postscript string
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathStringNV}
+	 *  @gldefref{PATH_FORMAT_PS_NV}
+	 */
+	void PSString(GLsizei length, const GLchar* path_string)
+	{
+		PathString(PathNVFormat::PS, length, path_string);
+	}
+
+	/// Specifies the path using a Postscript string
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathStringNV}
+	 *  @gldefref{PATH_FORMAT_PS_NV}
+	 */
+	void PSString(const String& path_string)
+	{
+		PathString(PathNVFormat::PS, path_string);
 	}
 
 	/// Checks if the specified point is in the path interior

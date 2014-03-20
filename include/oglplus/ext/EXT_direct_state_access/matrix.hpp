@@ -14,7 +14,7 @@
 #define OGLPLUS_EXT_DSA_MATRIX_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/ext/ARB_compatibility.hpp>
+#include <oglplus/ext/ARB_compatibility/matrix_mode.hpp>
 
 namespace oglplus {
 

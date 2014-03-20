@@ -9,6 +9,7 @@
 #ifndef __OGLPLUS_EXAMPLE_EXAMPLE_1119071146_HPP__
 #define __OGLPLUS_EXAMPLE_EXAMPLE_1119071146_HPP__
 
+#include <set>
 #include <memory>
 #include <cassert>
 
@@ -38,6 +39,9 @@ struct ExampleParams
 
 	/// The maximum number of threads
 	unsigned max_threads;
+
+	/// The set of threads for which a compatibility context should be created
+	std::set<unsigned> compat_context_threads;
 
 	ExampleParams(int argn, char ** args)
 	 : argc(argn)

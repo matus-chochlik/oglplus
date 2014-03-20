@@ -2934,6 +2934,7 @@ template <typename Enum> friend bool operator!=(Enum value, Coherent);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Color value.
 /**
+ *  @see @ref oglplus::CompatibilityMatrixMode "CompatibilityMatrixMode"
  *  @see @ref oglplus::FramebufferAttachment "FramebufferAttachment"
  *  @see @ref oglplus::FramebufferBuffer "FramebufferBuffer"
  *
@@ -25379,6 +25380,7 @@ template <typename Enum> friend bool operator!=(Enum value, TessEvaluationSubrou
 /**
  *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::CompatibilityAttributeGroup "CompatibilityAttributeGroup"
+ *  @see @ref oglplus::CompatibilityMatrixMode "CompatibilityMatrixMode"
  *  @see @ref oglplus::ObjectType "ObjectType"
  *
  *  @glsymbols

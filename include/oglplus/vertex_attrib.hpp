@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_VERTEX_ATTRIB_1107121519_HPP
 #define OGLPLUS_VERTEX_ATTRIB_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
@@ -22,8 +23,6 @@
 #include <oglplus/limited_value.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
 
-#include <oglplus/matrix.hpp>
-#include <oglplus/vector.hpp>
 #include <oglplus/string.hpp>
 
 #include <type_traits>
