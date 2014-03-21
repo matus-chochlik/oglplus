@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -421,7 +421,7 @@ public:
 	 *  @glfunref{PathCommandsNV}
 	 */
 	template <typename CoordType>
-	void Commands(
+	PathNVOps& Commands(
 		GLsizei num_commands,
 		const PathNVCommand* commands,
 		GLsizei num_coords,
@@ -437,6 +437,7 @@ public:
 			(const void*)coords
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCommandsNV));
+		return *this;
 	}
 
 	/// Specifies the path via a sequence of commands and coordinates
@@ -445,7 +446,7 @@ public:
 	 *  @glfunref{PathCommandsNV}
 	 */
 	template <typename CoordType>
-	void Commands(
+	PathNVOps& Commands(
 		const std::vector<PathNVCommand>& commands,
 		const std::vector<CoordType>& coords
 	)
@@ -459,6 +460,7 @@ public:
 			(const void*)coords.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCommandsNV));
+		return *this;
 	}
 
 	/// Specifies the path via a sequence of coordinates
@@ -467,7 +469,7 @@ public:
 	 *  @glfunref{PathCoordsNV}
 	 */
 	template <typename CoordType>
-	void Coords(GLsizei num_coords, const CoordType* coords)
+	PathNVOps& Coords(GLsizei num_coords, const CoordType* coords)
 	{
 		OGLPLUS_GLFUNC(PathCoordsNV)(
 			this->_name,
@@ -476,6 +478,7 @@ public:
 			static_cast<const void*>(coords)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCoordsNV));
+		return *this;
 	}
 
 	/// Specifies the path via a sequence of coordinates
@@ -484,7 +487,7 @@ public:
 	 *  @glfunref{PathCoordsNV}
 	 */
 	template <typename CoordType>
-	void Coords(const std::vector<CoordType>& coords)
+	PathNVOps& Coords(const std::vector<CoordType>& coords)
 	{
 		OGLPLUS_GLFUNC(PathCoordsNV)(
 			this->_name,
@@ -493,6 +496,7 @@ public:
 			(const void*)coords.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCoordsNV));
+		return *this;
 	}
 
 	/// Replaces a part of the the path with new commands and coordinates
@@ -501,7 +505,7 @@ public:
 	 *  @glfunref{PathSubCommandsNV}
 	 */
 	template <typename CoordType>
-	void SubCommands(
+	PathNVOps& SubCommands(
 		GLsizei command_start,
 		GLsizei commands_to_delete,
 		GLsizei num_commands,
@@ -521,6 +525,7 @@ public:
 			(const void*)coords
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCommandsNV));
+		return *this;
 	}
 
 	/// Replaces a part of the the path with new commands and coordinates
@@ -529,7 +534,7 @@ public:
 	 *  @glfunref{PathSubCommandsNV}
 	 */
 	template <typename CoordType>
-	void SubCommands(
+	PathNVOps& SubCommands(
 		GLsizei command_start,
 		GLsizei commands_to_delete,
 		const std::vector<PathNVCommand>& commands,
@@ -547,6 +552,7 @@ public:
 			(const void*)coords.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCommandsNV));
+		return *this;
 	}
 
 	/// Replaces some of the paths coordinates
@@ -555,7 +561,7 @@ public:
 	 *  @glfunref{PathSubCoordsNV}
 	 */
 	template <typename CoordType>
-	void SubCoords(
+	PathNVOps& SubCoords(
 		GLsizei coord_start,
 		GLsizei num_coords,
 		const CoordType* coords
@@ -569,6 +575,7 @@ public:
 			static_cast<const void*>(coords)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCoordsNV));
+		return *this;
 	}
 
 	/// Replaces some of the paths coordinates
@@ -577,7 +584,7 @@ public:
 	 *  @glfunref{PathSubCoordsNV}
 	 */
 	template <typename CoordType>
-	void SubCoords(
+	PathNVOps& SubCoords(
 		GLsizei coord_start,
 		const std::vector<CoordType>& coords
 	)
@@ -590,6 +597,7 @@ public:
 			(const void*)coords
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathSubCoordsNV));
+		return *this;
 	}
 
 
@@ -598,7 +606,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PathStringNV}
 	 */
-	void PathString(
+	PathNVOps& PathString(
 		PathNVFormat format,
 		GLsizei length,
 		const GLchar* path_string
@@ -611,6 +619,7 @@ public:
 			static_cast<const void*>(path_string)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStringNV));
+		return *this;
 	}
 
 	/// Specifies the path using an SVG string
@@ -618,7 +627,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PathStringNV}
 	 */
-	void PathString(PathNVFormat format, const String& path_string)
+	PathNVOps& PathString(PathNVFormat format, const String& path_string)
 	{
 		OGLPLUS_GLFUNC(PathStringNV)(
 			this->_name,
@@ -627,6 +636,7 @@ public:
 			static_cast<const void*>(path_string.c_str())
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStringNV));
+		return *this;
 	}
 
 	/// Specifies the path using an SVG string
@@ -635,9 +645,10 @@ public:
 	 *  @glfunref{PathStringNV}
 	 *  @gldefref{PATH_FORMAT_SVG_NV}
 	 */
-	void SVGString(GLsizei length, const GLchar* path_string)
+	PathNVOps& SVGString(GLsizei length, const GLchar* path_string)
 	{
 		PathString(PathNVFormat::SVG, length, path_string);
+		return *this;
 	}
 
 	/// Specifies the path using an SVG string
@@ -646,9 +657,10 @@ public:
 	 *  @glfunref{PathStringNV}
 	 *  @gldefref{PATH_FORMAT_SVG_NV}
 	 */
-	void SVGString(const String& path_string)
+	PathNVOps& SVGString(const String& path_string)
 	{
 		PathString(PathNVFormat::SVG, path_string);
+		return *this;
 	}
 
 	/// Specifies the path using a Postscript string
@@ -657,9 +669,10 @@ public:
 	 *  @glfunref{PathStringNV}
 	 *  @gldefref{PATH_FORMAT_PS_NV}
 	 */
-	void PSString(GLsizei length, const GLchar* path_string)
+	PathNVOps& PSString(GLsizei length, const GLchar* path_string)
 	{
 		PathString(PathNVFormat::PS, length, path_string);
+		return *this;
 	}
 
 	/// Specifies the path using a Postscript string
@@ -668,9 +681,10 @@ public:
 	 *  @glfunref{PathStringNV}
 	 *  @gldefref{PATH_FORMAT_PS_NV}
 	 */
-	void PSString(const String& path_string)
+	PathNVOps& PSString(const String& path_string)
 	{
 		PathString(PathNVFormat::PS, path_string);
+		return *this;
 	}
 
 	/// Checks if the specified point is in the path interior
@@ -755,7 +769,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_STROKE_WIDTH_NV}
 	 */
-	void StrokeWidth(GLfloat width)
+	PathNVOps& StrokeWidth(GLfloat width)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -763,6 +777,7 @@ public:
 			width
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Gets the stroke width value
@@ -789,7 +804,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_MITER_LIMIT_NV}
 	 */
-	void MiterLimit(GLfloat width)
+	PathNVOps& MiterLimit(GLfloat width)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -797,6 +812,7 @@ public:
 			width
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Gets the miter limit value
@@ -823,7 +839,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_JOIN_STYLE_NV}
 	 */
-	void JoinStyle(PathNVJoinStyle style)
+	PathNVOps& JoinStyle(PathNVJoinStyle style)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -831,6 +847,7 @@ public:
 			GLenum(style)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Sets the initial end cap style
@@ -839,7 +856,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_INITIAL_END_CAP_NV}
 	 */
-	void InitialEndCap(PathNVCapStyle style)
+	PathNVOps& InitialEndCap(PathNVCapStyle style)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -847,6 +864,7 @@ public:
 			GLenum(style)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Sets the terminal end cap style
@@ -855,7 +873,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_TERMINAL_END_CAP_NV}
 	 */
-	void TerminalEndCap(PathNVCapStyle style)
+	PathNVOps& TerminalEndCap(PathNVCapStyle style)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -863,6 +881,7 @@ public:
 			GLenum(style)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Sets the initial dash cap style
@@ -871,7 +890,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_INITIAL_DASH_CAP_NV}
 	 */
-	void InitialDashCap(PathNVCapStyle style)
+	PathNVOps& InitialDashCap(PathNVCapStyle style)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -879,6 +898,7 @@ public:
 			GLenum(style)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Sets the terminal dash cap style
@@ -887,7 +907,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_TERMINAL_DASH_CAP_NV}
 	 */
-	void TerminalDashCap(PathNVCapStyle style)
+	PathNVOps& TerminalDashCap(PathNVCapStyle style)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -895,6 +915,7 @@ public:
 			GLenum(style)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Sets the dash offset
@@ -903,7 +924,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_DASH_OFFSET_NV}
 	 */
-	void DashOffset(GLfloat width)
+	PathNVOps& DashOffset(GLfloat width)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -911,6 +932,7 @@ public:
 			width
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Gets the dash offset value
@@ -937,7 +959,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_DASH_OFFSET_RESET_NV}
 	 */
-	void DashOffsetReset(PathNVDashOffsetReset mode)
+	PathNVOps& DashOffsetReset(PathNVDashOffsetReset mode)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -945,6 +967,7 @@ public:
 			GLenum(mode)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Sets the path dash array
@@ -952,7 +975,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PathDashArrayNV}
 	 */
-	void DashArray(GLsizei dash_count, const GLfloat* dash_array)
+	PathNVOps& DashArray(GLsizei dash_count, const GLfloat* dash_array)
 	{
 		OGLPLUS_GLFUNC(PathDashArrayNV)(
 			this->_name,
@@ -960,6 +983,7 @@ public:
 			dash_array
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathDashArrayNV));
+		return *this;
 	}
 
 	/// Sets the client length value
@@ -968,7 +992,7 @@ public:
 	 *  @glfunref{PathParameterNV}
 	 *  @gldefref{PATH_CLIENT_LENGTH_NV}
 	 */
-	void ClientLength(GLfloat value)
+	PathNVOps& ClientLength(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(PathParameterfNV)(
 			this->_name,
@@ -976,6 +1000,7 @@ public:
 			value
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathParameterfNV));
+		return *this;
 	}
 
 	/// Returns the client length value
@@ -1002,7 +1027,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{StencilFillPathNV}
 	 */
-	void StencilFill(PathNVFillMode mode, GLuint mask)
+	PathNVOps& StencilFill(PathNVFillMode mode, GLuint mask)
 	{
 		OGLPLUS_GLFUNC(StencilFillPathNV)(
 			this->_name,
@@ -1010,6 +1035,7 @@ public:
 			mask
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathNV));
+		return *this;
 	}
 
 	/// Covers the stencilled path interior (fill)
@@ -1017,10 +1043,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CoverFillPathNV}
 	 */
-	void CoverFill(PathNVFillCoverMode mode)
+	PathNVOps& CoverFill(PathNVFillCoverMode mode)
 	{
 		OGLPLUS_GLFUNC(CoverFillPathNV)(this->_name, GLenum(mode));
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathNV));
+		return *this;
 	}
 
 	/// Writes the path stroke into the stencil buffer
@@ -1028,7 +1055,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{StencilStrokePathNV}
 	 */
-	void StencilStroke(GLint reference, GLuint mask)
+	PathNVOps& StencilStroke(GLint reference, GLuint mask)
 	{
 		OGLPLUS_GLFUNC(StencilStrokePathNV)(
 			this->_name,
@@ -1036,6 +1063,7 @@ public:
 			mask
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathNV));
+		return *this;
 	}
 
 	/// Covers the stencilled path stroke
@@ -1043,10 +1071,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CoverStrokePathNV}
 	 */
-	void CoverStroke(PathNVStrokeCoverMode mode)
+	PathNVOps& CoverStroke(PathNVStrokeCoverMode mode)
 	{
 		OGLPLUS_GLFUNC(CoverStrokePathNV)(this->_name, GLenum(mode));
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathNV));
+		return *this;
 	}
 
 	/// Copy path
@@ -1054,10 +1083,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyPathNV}
 	 */
-	static void Copy(PathNVOps& dest_path, const PathNVOps& src_path)
+	static PathNVOps& Copy(PathNVOps& dest_path, const PathNVOps& src_path)
 	{
 		OGLPLUS_GLFUNC(CopyPathNV)(dest_path._name, src_path._name);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CopyPathNV));
+		return dest_path;
 	}
 
 	/// Interpolates between two paths
@@ -1065,7 +1095,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{InterpolatePathsNV}
 	 */
-	static void Interpolate(
+	static PathNVOps& Interpolate(
 		PathNVOps& dest_path,
 		const PathNVOps& path_a,
 		const PathNVOps& path_b,
@@ -1079,6 +1109,7 @@ public:
 			weight
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(InterpolatePathsNV));
+		return dest_path;
 	}
 
 	/// Transforms a path
@@ -1086,7 +1117,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TransformPathNV}
 	 */
-	static void Transform(
+	static PathNVOps& Transform(
 		PathNVOps& dest_path,
 		const PathNVOps& src_path,
 		PathNVTransformType transform_type,
@@ -1100,6 +1131,7 @@ public:
 			transform_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(TransformPathNV));
+		return dest_path;
 	}
 };
 
@@ -1131,7 +1163,7 @@ public:
 	 *  @glfunref{PathGlyphsNV}
 	 */
 	template <typename CharType>
-	void Glyphs(
+	PathArrayNV& Glyphs(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
 		Bitfield<PathNVFontStyle> font_style,
@@ -1155,6 +1187,7 @@ public:
 			em_scale
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+		return *this;
 	}
 
 	/// Creates a range of paths from specified font for specified chars
@@ -1163,7 +1196,7 @@ public:
 	 *  @glfunref{PathGlyphsNV}
 	 */
 	template <typename CharType>
-	void Glyphs(
+	PathArrayNV& Glyphs(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
 		Bitfield<PathNVFontStyle> font_style,
@@ -1186,6 +1219,7 @@ public:
 			em_scale
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+		return *this;
 	}
 
 	/// Creates a range of paths from specified font for specified chars
@@ -1193,7 +1227,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PathGlyphsNV}
 	 */
-	void Glyphs(
+	PathArrayNV& Glyphs(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
 		Bitfield<PathNVFontStyle> font_style,
@@ -1216,6 +1250,7 @@ public:
 			em_scale
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+		return *this;
 	}
 
 	/// Creates a range of paths from specified font
@@ -1223,7 +1258,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PathGlyphRangeNV}
 	 */
-	void GlyphRange(
+	PathArrayNV& GlyphRange(
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
 		Bitfield<PathNVFontStyle> font_style,
@@ -1246,6 +1281,7 @@ public:
 			em_scale
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphRangeNV));
+		return *this;
 	}
 
 	/// Queries the glyph spacing for paths in the array
@@ -1254,7 +1290,7 @@ public:
 	 *  @glfunref{GetPathSpacingNV}
 	 */
 	template <typename IndexType>
-	void GetSpacing(
+	PathArrayNV& GetSpacing(
 		PathNVListMode list_mode,
 		GLsizei num_indices,
 		const IndexType* indices,
@@ -1276,6 +1312,7 @@ public:
 			returned_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+		return *this;
 	}
 
 	/// Queries the glyph spacing for paths in the array
@@ -1284,7 +1321,7 @@ public:
 	 *  @glfunref{GetPathSpacingNV}
 	 */
 	template <typename IndexType>
-	void GetSpacing(
+	PathArrayNV& GetSpacing(
 		PathNVListMode list_mode,
 		const std::vector<IndexType>& indices,
 		GLfloat advance_scale,
@@ -1305,6 +1342,7 @@ public:
 			returned_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+		return *this;
 	}
 
 	/// Queries the glyph spacing for paths in the array
@@ -1312,7 +1350,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetPathSpacingNV}
 	 */
-	void GetSpacing(
+	PathArrayNV& GetSpacing(
 		PathNVListMode list_mode,
 		const String& indices,
 		GLfloat advance_scale,
@@ -1333,6 +1371,7 @@ public:
 			returned_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+		return *this;
 	}
 
 	/// Queries the glyph metrics associated with a sequence of path objects
@@ -1341,7 +1380,7 @@ public:
 	 *  @glfunref{GetPathMetricsNV}
 	 */
 	template <typename IndexType>
-	void GetMetrics(
+	PathArrayNV& GetMetrics(
 		Bitfield<PathNVMetricQuery> query_mask,
 		GLsizei num_indices,
 		const IndexType* indices,
@@ -1359,6 +1398,7 @@ public:
 			returned_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+		return *this;
 	}
 
 	/// Queries the glyph metrics associated with a sequence of path objects
@@ -1367,7 +1407,7 @@ public:
 	 *  @glfunref{GetPathMetricsNV}
 	 */
 	template <typename IndexType>
-	void GetMetrics(
+	PathArrayNV& GetMetrics(
 		Bitfield<PathNVMetricQuery> query_mask,
 		const std::vector<IndexType>& indices,
 		GLsizei stride,
@@ -1384,6 +1424,7 @@ public:
 			returned_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+		return *this;
 	}
 
 	/// Queries the glyph metrics associated with a sequence of path objects
@@ -1391,7 +1432,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetPathMetricsNV}
 	 */
-	void GetMetrics(
+	PathArrayNV& GetMetrics(
 		Bitfield<PathNVMetricQuery> query_mask,
 		const String& indices,
 		GLsizei stride,
@@ -1408,6 +1449,7 @@ public:
 			returned_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+		return *this;
 	}
 
 	/// Queries the glyph metrics associated with a range of path objects
@@ -1415,7 +1457,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetPathMetricRangeNV}
 	 */
-	void GetMetricRange(
+	PathArrayNV& GetMetricRange(
 		Bitfield<PathNVMetricQuery> query_mask,
 		GLsizei num_paths,
 		GLsizei stride,
@@ -1430,6 +1472,7 @@ public:
 			returned_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricRangeNV));
+		return *this;
 	}
 
 	/// Writes the path interiors (fill) into the stencil buffer
@@ -1438,7 +1481,7 @@ public:
 	 *  @glfunref{StencilFillPathInstancedNV}
 	 */
 	template <typename IndexType>
-	void StencilFillInstanced(
+	PathArrayNV& StencilFillInstanced(
 		GLsizei num_paths,
 		const IndexType* paths,
 		PathNVFillMode mode,
@@ -1458,6 +1501,7 @@ public:
 			transform_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
+		return *this;
 	}
 
 	/// Writes the path interiors (fill) into the stencil buffer
@@ -1466,36 +1510,8 @@ public:
 	 *  @glfunref{StencilFillPathInstancedNV}
 	 */
 	template <typename IndexType>
-	void StencilFillInstanced(
+	PathArrayNV& StencilFillInstanced(
 		const std::vector<IndexType>& paths,
-		PathNVFillMode mode,
-		GLuint mask,
-		PathNVTransformType transform_type,
-		const std::vector<GLfloat>& transform_values
-	)
-	{
-		// TODO: check if enough transform values
-		// are provided for transform type
-		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
-			GLsizei(paths.size()),
-			GLenum(GetDataType<IndexType>()),
-			(const void*)paths.data(),
-			this->_names[0],
-			GLenum(mode),
-			mask,
-			GLenum(transform_type),
-			transform_values.data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
-	}
-
-	/// Writes the path interiors (fill) into the stencil buffer
-	/**
-	 *  @glsymbols
-	 *  @glfunref{StencilFillPathInstancedNV}
-	 */
-	void StencilFillInstanced(
-		const String& paths,
 		PathNVFillMode mode,
 		GLuint mask,
 		PathNVTransformType transform_type,
@@ -1506,6 +1522,35 @@ public:
 		// are provided for transform type
 		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
 			GLsizei(paths.size()),
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths.data(),
+			this->_names[0],
+			GLenum(mode),
+			mask,
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
+		return *this;
+	}
+
+	/// Writes the path interiors (fill) into the stencil buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilFillPathInstancedNV}
+	 */
+	PathArrayNV& StencilFillInstanced(
+		const String& paths,
+		PathNVFillMode mode,
+		GLuint mask,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		// TODO: check if enough transform values
+		// are provided for transform type
+		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
+			GLsizei(paths.size()),
 			GL_UTF8_NV,
 			(const void*)paths.c_str(),
 			this->_names[0],
@@ -1515,6 +1560,7 @@ public:
 			transform_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
+		return *this;
 	}
 
 	/// Covers the path interiors (fill)
@@ -1523,7 +1569,7 @@ public:
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
 	template <typename IndexType>
-	void CoverFillInstanced(
+	PathArrayNV& CoverFillInstanced(
 		GLsizei num_paths,
 		const IndexType* paths,
 		PathNVFillCoverMode mode,
@@ -1541,6 +1587,7 @@ public:
 			transform_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+		return *this;
 	}
 
 	/// Covers the path interiors (fill)
@@ -1549,7 +1596,7 @@ public:
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
 	template <typename IndexType>
-	void CoverFillInstanced(
+	PathArrayNV& CoverFillInstanced(
 		const std::vector<IndexType>& paths,
 		PathNVFillCoverMode mode,
 		PathNVTransformType transform_type,
@@ -1566,6 +1613,7 @@ public:
 			transform_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+		return *this;
 	}
 
 	/// Covers the path interiors (fill)
@@ -1573,7 +1621,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
-	void CoverFillInstanced(
+	PathArrayNV& CoverFillInstanced(
 		const String& paths,
 		PathNVFillCoverMode mode,
 		PathNVTransformType transform_type,
@@ -1590,6 +1638,7 @@ public:
 			transform_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+		return *this;
 	}
 
 	/// Writes the path interiors strokes to the stencil buffer
@@ -1598,7 +1647,7 @@ public:
 	 *  @glfunref{StencilStrokePathInstancedNV}
 	 */
 	template <typename IndexType>
-	void StencilStrokeInstanced(
+	PathArrayNV& StencilStrokeInstanced(
 		GLsizei num_paths,
 		const IndexType* paths,
 		GLint reference,
@@ -1618,6 +1667,7 @@ public:
 			transform_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+		return *this;
 	}
 
 	/// Writes the path interiors strokes to the stencil buffer
@@ -1626,7 +1676,7 @@ public:
 	 *  @glfunref{StencilStrokePathInstancedNV}
 	 */
 	template <typename IndexType>
-	void StencilStrokeInstanced(
+	PathArrayNV& StencilStrokeInstanced(
 		const std::vector<IndexType>& paths,
 		GLint reference,
 		GLuint mask,
@@ -1645,6 +1695,7 @@ public:
 			transform_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+		return *this;
 	}
 
 	/// Writes the path interiors strokes to the stencil buffer
@@ -1652,7 +1703,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{StencilStrokePathInstancedNV}
 	 */
-	void StencilStrokeInstanced(
+	PathArrayNV& StencilStrokeInstanced(
 		const String& paths,
 		GLint reference,
 		GLuint mask,
@@ -1671,6 +1722,7 @@ public:
 			transform_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+		return *this;
 	}
 
 	/// Covers the path strokes
@@ -1679,7 +1731,7 @@ public:
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
 	template <typename IndexType>
-	void CoverStrokeInstanced(
+	PathArrayNV& CoverStrokeInstanced(
 		GLsizei num_paths,
 		const IndexType* paths,
 		PathNVStrokeCoverMode mode,
@@ -1697,6 +1749,7 @@ public:
 			transform_values
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+		return *this;
 	}
 
 	/// Covers the path strokes
@@ -1705,7 +1758,7 @@ public:
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
 	template <typename IndexType>
-	void CoverStrokeInstanced(
+	PathArrayNV& CoverStrokeInstanced(
 		const std::vector<IndexType>& paths,
 		PathNVStrokeCoverMode mode,
 		PathNVTransformType transform_type,
@@ -1722,6 +1775,7 @@ public:
 			transform_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+		return *this;
 	}
 
 	/// Covers the path strokes
@@ -1729,7 +1783,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
-	void CoverStrokeInstanced(
+	PathArrayNV& CoverStrokeInstanced(
 		const String& paths,
 		PathNVStrokeCoverMode mode,
 		PathNVTransformType transform_type,
@@ -1746,6 +1800,7 @@ public:
 			transform_values.data()
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+		return *this;
 	}
 };
 
