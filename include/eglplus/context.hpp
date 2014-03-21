@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -30,7 +30,7 @@ namespace eglplus {
 
 struct ContextValueTypeToContextAttrib
 {
-#ifdef EGL_CONTEXT_FLAGS_KHR
+#ifdef EGL_CONTEXT_FLAGS
 	static ContextFlag
 	ValueType(std::integral_constant<int, 0>);
 	ContextAttrib operator()(ContextFlag) const
@@ -39,7 +39,7 @@ struct ContextValueTypeToContextAttrib
 	}
 #endif
 
-#ifdef EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
+#ifdef EGL_CONTEXT_OPENGL_PROFILE_MASK
 	static OpenGLProfileBit
 	ValueType(std::integral_constant<int, 1>);
 	ContextAttrib operator()(OpenGLProfileBit) const
@@ -48,7 +48,7 @@ struct ContextValueTypeToContextAttrib
 	}
 #endif
 
-#ifdef EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
+#ifdef EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY
 	static OpenGLResetNotificationStrategy
 	ValueType(std::integral_constant<int, 2>);
 	ContextAttrib operator()(OpenGLResetNotificationStrategy) const

@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/eglplus/opengl_profile_bit.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,11 +19,11 @@ EGLPLUS_LIB_FUNC aux::CastIterRange<
 #define EGLPLUS_IMPL_EVR_OPENGLPROFILEBIT
 {
 static const EGLenum _values[] = {
-#if defined EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT_KHR
-EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT_KHR,
+#if defined EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT
+EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT,
 #endif
-#if defined EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT_KHR
-EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT_KHR,
+#if defined EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT
+EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT,
 #endif
 0
 };

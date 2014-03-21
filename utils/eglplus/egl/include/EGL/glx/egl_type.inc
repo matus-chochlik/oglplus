@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,6 +21,10 @@ struct eglplus_egl_glx_ClientBufferImpl;
 typedef void* EGLNativeDisplayType;
 typedef khronos_uint32_t EGLNativePixmapType;
 typedef khronos_uint32_t EGLNativeWindowType;
+
+typedef intptr_t EGLAttrib;
+typedef void *EGLSync;
+typedef khronos_utime_nanoseconds_t EGLTime;
 
 typedef khronos_int32_t EGLint;
 typedef unsigned int EGLBoolean;

@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/eglplus/context_attrib.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,20 +20,20 @@ EGLPLUS_LIB_FUNC StrLit ValueName_(
 {
 switch(value)
 {
-#if defined EGL_CONTEXT_CLIENT_VERSION
-	case EGL_CONTEXT_CLIENT_VERSION: return StrLit("CONTEXT_CLIENT_VERSION");
+#if defined EGL_CONTEXT_MAJOR_VERSION
+	case EGL_CONTEXT_MAJOR_VERSION: return StrLit("CONTEXT_MAJOR_VERSION");
 #endif
-#if defined EGL_CONTEXT_MINOR_VERSION_KHR
-	case EGL_CONTEXT_MINOR_VERSION_KHR: return StrLit("CONTEXT_MINOR_VERSION_KHR");
+#if defined EGL_CONTEXT_MINOR_VERSION
+	case EGL_CONTEXT_MINOR_VERSION: return StrLit("CONTEXT_MINOR_VERSION");
 #endif
-#if defined EGL_CONTEXT_FLAGS_KHR
-	case EGL_CONTEXT_FLAGS_KHR: return StrLit("CONTEXT_FLAGS_KHR");
+#if defined EGL_CONTEXT_FLAGS
+	case EGL_CONTEXT_FLAGS: return StrLit("CONTEXT_FLAGS");
 #endif
-#if defined EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
-	case EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR: return StrLit("CONTEXT_OPENGL_PROFILE_MASK_KHR");
+#if defined EGL_CONTEXT_OPENGL_PROFILE_MASK
+	case EGL_CONTEXT_OPENGL_PROFILE_MASK: return StrLit("CONTEXT_OPENGL_PROFILE_MASK");
 #endif
-#if defined EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
-	case EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR: return StrLit("CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR");
+#if defined EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY
+	case EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY: return StrLit("CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY");
 #endif
 	default:;
 }

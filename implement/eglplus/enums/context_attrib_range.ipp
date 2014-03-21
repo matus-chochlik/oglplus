@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/eglplus/context_attrib.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,20 +19,20 @@ EGLPLUS_LIB_FUNC aux::CastIterRange<
 #define EGLPLUS_IMPL_EVR_CONTEXTATTRIB
 {
 static const EGLenum _values[] = {
-#if defined EGL_CONTEXT_CLIENT_VERSION
-EGL_CONTEXT_CLIENT_VERSION,
+#if defined EGL_CONTEXT_MAJOR_VERSION
+EGL_CONTEXT_MAJOR_VERSION,
 #endif
-#if defined EGL_CONTEXT_MINOR_VERSION_KHR
-EGL_CONTEXT_MINOR_VERSION_KHR,
+#if defined EGL_CONTEXT_MINOR_VERSION
+EGL_CONTEXT_MINOR_VERSION,
 #endif
-#if defined EGL_CONTEXT_FLAGS_KHR
-EGL_CONTEXT_FLAGS_KHR,
+#if defined EGL_CONTEXT_FLAGS
+EGL_CONTEXT_FLAGS,
 #endif
-#if defined EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
-EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR,
+#if defined EGL_CONTEXT_OPENGL_PROFILE_MASK
+EGL_CONTEXT_OPENGL_PROFILE_MASK,
 #endif
-#if defined EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
-EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR,
+#if defined EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY
+EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY,
 #endif
 0
 };
