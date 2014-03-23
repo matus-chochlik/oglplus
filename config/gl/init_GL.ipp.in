@@ -12,6 +12,8 @@
 #include <GL/glfw.h>
 #elif @GLUT_FOUND@
 #include <GL/glut.h>
+#elif @SDL_FOUND@
+#include <SDL/SDL.h>
 #endif
 
 #include <type_traits>
@@ -88,6 +90,32 @@ bool query_gl_GLUT(void)
 
 	return do_query_gl();
 }
+#elif @SDL_FOUND@
+bool query_gl_SDL(void)
+{
+	if(SDL_Init(SDL_INIT_VIDEO) != 0)
+		return false;
+
+	if(!SDL_SetVideoMode(
+		64, 64, 32,
+		SDL_HWSURFACE |
+		SDL_GL_DOUBLEBUFFER |
+		SDL_OPENGL
+	))
+	{
+		SDL_Quit();
+		return false;
+	}
+	SDL_WM_SetCaption(title, nullptr);
+
+	oglplus::GLAPIInitializer gl_api;
+
+	bool result = do_query_gl();
+
+	SDL_Quit();
+
+	return result;
+}
 #endif
 
 bool query_gl(void)
@@ -98,6 +126,8 @@ bool query_gl(void)
 	return query_gl_GLFW();
 #elif @GLUT_FOUND@
 	return query_gl_GLUT();
+#elif @SDL_FOUND@
+	return query_gl_SDL();
 #else
 	return true;
 #endif
