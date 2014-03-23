@@ -3,6 +3,9 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+#define OGLPLUS_CONFIG_QUERY_GL_VER_MAJOR 3
+#define OGLPLUS_CONFIG_QUERY_GL_VER_MINOR 2
+
 #include "init_GL.ipp"
 
 bool do_query_gl(void)
