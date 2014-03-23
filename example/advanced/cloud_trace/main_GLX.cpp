@@ -377,8 +377,6 @@ void window_loop(
 	Saver saver(app_data);
 
 	window.SelectInput(StructureNotifyMask| PointerMotionMask| KeyPressMask);
-	::Atom wmDelete = ::XInternAtom(common.display, "WM_DELETE_WINDOW", True);
-	::XSetWMProtocols(common.display, window, &wmDelete, 1);
 	::XEvent event;
 
 	while(!common.Done())

@@ -266,8 +266,6 @@ void do_run_example_loop(
 		PointerMotionMask|
 		KeyPressMask
 	);
-	::Atom wmDelete = ::XInternAtom(display, "WM_DELETE_WINDOW", True);
-	::XSetWMProtocols(display, win, &wmDelete, 1);
 
 	XEvent event;
 	os::steady_clock os_clock;
