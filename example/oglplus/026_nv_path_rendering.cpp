@@ -481,7 +481,7 @@ public:
 			 0.0f, 0.0f, 0.2f
 		};
 		npr.ColorGen(
-			PathNVColor::PrimaryColor,
+			PathNVColor::Primary,
 			PathNVGenMode::ObjectBoundingBox,
 			PathNVColorFormat::RGB,
 			shape_color_gen_coeffs
@@ -504,7 +504,7 @@ public:
 			 0.3f, 0.0f, 0.0f
 		};
 		npr.ColorGen(
-			PathNVColor::PrimaryColor,
+			PathNVColor::Primary,
 			PathNVGenMode::ObjectBoundingBox,
 			PathNVColorFormat::RGB,
 			text_color_gen_coeffs

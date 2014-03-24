@@ -55,7 +55,7 @@ public:
 			 0.5f, 0.0f, 0.5f
 		};
 		npr.ColorGen(
-			PathNVColor::PrimaryColor,
+			PathNVColor::Primary,
 			PathNVGenMode::ObjectBoundingBox,
 			PathNVColorFormat::RGB,
 			color_gen_coeffs

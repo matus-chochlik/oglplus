@@ -2834,10 +2834,10 @@ template <typename Enum, Enum = Enum::Portability> operator Enum (void) const{ r
 template <typename Enum> friend bool operator==(Enum value, Portability){ return value == Enum::Portability; }
 template <typename Enum> friend bool operator!=(Enum value, Portability){ return value != Enum::Portability; }
 };
-struct PrimaryColor {
-template <typename Enum, Enum = Enum::PrimaryColor> operator Enum (void) const{ return Enum::PrimaryColor; }
-template <typename Enum> friend bool operator==(Enum value, PrimaryColor){ return value == Enum::PrimaryColor; }
-template <typename Enum> friend bool operator!=(Enum value, PrimaryColor){ return value != Enum::PrimaryColor; }
+struct Primary {
+template <typename Enum, Enum = Enum::Primary> operator Enum (void) const{ return Enum::Primary; }
+template <typename Enum> friend bool operator==(Enum value, Primary){ return value == Enum::Primary; }
+template <typename Enum> friend bool operator!=(Enum value, Primary){ return value != Enum::Primary; }
 };
 struct PrimitiveRestart {
 template <typename Enum, Enum = Enum::PrimitiveRestart> operator Enum (void) const{ return Enum::PrimitiveRestart; }
@@ -3139,10 +3139,10 @@ template <typename Enum, Enum = Enum::Replace> operator Enum (void) const{ retur
 template <typename Enum> friend bool operator==(Enum value, Replace){ return value == Enum::Replace; }
 template <typename Enum> friend bool operator!=(Enum value, Replace){ return value != Enum::Replace; }
 };
-struct RestartPath {
-template <typename Enum, Enum = Enum::RestartPath> operator Enum (void) const{ return Enum::RestartPath; }
-template <typename Enum> friend bool operator==(Enum value, RestartPath){ return value == Enum::RestartPath; }
-template <typename Enum> friend bool operator!=(Enum value, RestartPath){ return value != Enum::RestartPath; }
+struct Restart {
+template <typename Enum, Enum = Enum::Restart> operator Enum (void) const{ return Enum::Restart; }
+template <typename Enum> friend bool operator==(Enum value, Restart){ return value == Enum::Restart; }
+template <typename Enum> friend bool operator!=(Enum value, Restart){ return value != Enum::Restart; }
 };
 struct ReverseSubtract {
 template <typename Enum, Enum = Enum::ReverseSubtract> operator Enum (void) const{ return Enum::ReverseSubtract; }
@@ -3564,10 +3564,10 @@ template <typename Enum, Enum = Enum::ScissorTest> operator Enum (void) const{ r
 template <typename Enum> friend bool operator==(Enum value, ScissorTest){ return value == Enum::ScissorTest; }
 template <typename Enum> friend bool operator!=(Enum value, ScissorTest){ return value != Enum::ScissorTest; }
 };
-struct SecondaryColor {
-template <typename Enum, Enum = Enum::SecondaryColor> operator Enum (void) const{ return Enum::SecondaryColor; }
-template <typename Enum> friend bool operator==(Enum value, SecondaryColor){ return value == Enum::SecondaryColor; }
-template <typename Enum> friend bool operator!=(Enum value, SecondaryColor){ return value != Enum::SecondaryColor; }
+struct Secondary {
+template <typename Enum, Enum = Enum::Secondary> operator Enum (void) const{ return Enum::Secondary; }
+template <typename Enum> friend bool operator==(Enum value, Secondary){ return value == Enum::Secondary; }
+template <typename Enum> friend bool operator!=(Enum value, Secondary){ return value != Enum::Secondary; }
 };
 struct SeparateAttribs {
 template <typename Enum, Enum = Enum::SeparateAttribs> operator Enum (void) const{ return Enum::SeparateAttribs; }

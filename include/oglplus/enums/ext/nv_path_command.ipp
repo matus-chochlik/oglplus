@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/ext/nv_path_command.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -62,7 +62,7 @@ LargeCWArcTo,
 /// RELATIVE_LARGE_CW_ARC_TO_NV
 RelativeLargeCWArcTo,
 /// RESTART_PATH_NV
-RestartPath,
+Restart,
 /// DUP_FIRST_CUBIC_CURVE_TO_NV
 DupFirstCubicCurveTo,
 /// DUP_LAST_CUBIC_CURVE_TO_NV
