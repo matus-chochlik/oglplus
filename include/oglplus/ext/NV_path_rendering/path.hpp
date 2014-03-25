@@ -230,6 +230,26 @@ public:
 		return *this;
 	}
 
+	/// Replaces a part of the the path with new commands and coordinates
+	/**
+	 *  @glsymbols
+	 *  @glfunref{PathCoordsNV}
+	 */
+	template <typename CoordType>
+	PathNVOps& SubSpec(
+		GLsizei command_start,
+		GLsizei commands_to_delete,
+		const PathNVSpec<CoordType>& spec
+	)
+	{
+		return SubCommands<CoordType>(
+			command_start,
+			commands_to_delete,
+			spec._commands,
+			spec._coords
+		);
+	}
+
 	/// Replaces some of the paths coordinates
 	/**
 	 *  @glsymbols
