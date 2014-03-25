@@ -380,7 +380,7 @@ class BriefPathNVSpec
 {
 private:
 	typedef PathNVSpec<PathCoordType> Base;
-	typedef PathCoordType T;
+	typedef PathCoordType CT;
 
 	BriefPathNVSpec& self(Base& base)
 	{
@@ -400,109 +400,109 @@ public:
 	}
 
 	/// MoveTo
-	BriefPathNVSpec& M(T c0, T c1)
+	BriefPathNVSpec& M(CT c0, CT c1)
 	{
 		return self(this->MoveTo(c0, c1));
 	}
 
 	/// RelativeMoveTo
-	BriefPathNVSpec& m(T c0, T c1)
+	BriefPathNVSpec& m(CT c0, CT c1)
 	{
 		return self(this->RelativeMoveTo(c0, c1));
 	}
 
 	/// LineTo
-	BriefPathNVSpec& L(T c0, T c1)
+	BriefPathNVSpec& L(CT c0, CT c1)
 	{
 		return self(this->LineTo(c0, c1));
 	}
 
 	/// RelativeLineTo
-	BriefPathNVSpec& l(T c0, T c1)
+	BriefPathNVSpec& l(CT c0, CT c1)
 	{
 		return self(this->RelativeLineTo(c0, c1));
 	}
 
 	/// HorizontalLineTo
-	BriefPathNVSpec& H(T c0)
+	BriefPathNVSpec& H(CT c0)
 	{
 		return self(this->HorizontalLineTo(c0));
 	}
 
 	/// RelativeHorizontalLineTo
-	BriefPathNVSpec& h(T c0)
+	BriefPathNVSpec& h(CT c0)
 	{
 		return self(this->RelativeHorizontalLineTo(c0));
 	}
 
 	/// VerticalLineTo
-	BriefPathNVSpec& V(T c0)
+	BriefPathNVSpec& V(CT c0)
 	{
 		return self(this->VerticalLineTo(c0));
 	}
 
 	/// RelativeVerticalLineTo
-	BriefPathNVSpec& v(T c0)
+	BriefPathNVSpec& v(CT c0)
 	{
 		return self(this->RelativeVerticalLineTo(c0));
 	}
 
 	/// QuadraticCurveTo
-	BriefPathNVSpec& Q(T c0, T c1, T c2, T c3)
+	BriefPathNVSpec& Q(CT c0, CT c1, CT c2, CT c3)
 	{
 		return self(this->QuadraticCurveTo(c0, c1, c2, c3));
 	}
 
 	/// RelativeQuadraticCurveTo
-	BriefPathNVSpec& q(T c0, T c1, T c2, T c3)
+	BriefPathNVSpec& q(CT c0, CT c1, CT c2, CT c3)
 	{
 		return self(this->RelativeQuadraticCurveTo(c0, c1, c2, c3));
 	}
 
 	/// CubicCurveTo
-	BriefPathNVSpec& C(T c0, T c1, T c2, T c3, T c4, T c5)
+	BriefPathNVSpec& C(CT c0, CT c1, CT c2, CT c3, CT c4, CT c5)
 	{
 		return self(this->CubicCurveTo(c0, c1, c2, c3, c4, c5));
 	}
 
 	/// RelativeCubicCurveTo
-	BriefPathNVSpec& c(T c0, T c1, T c2, T c3, T c4, T c5)
+	BriefPathNVSpec& c(CT c0, CT c1, CT c2, CT c3, CT c4, CT c5)
 	{
 		return self(this->RelativeCubicCurveTo(c0, c1, c2, c3, c4, c5));
 	}
 
 	/// SmoothQuadraticCurveTo
-	BriefPathNVSpec& T(T c0, T c1)
+	BriefPathNVSpec& T(CT c0, CT c1)
 	{
 		return self(this->SmoothQuadraticCurveTo(c0, c1));
 	}
 
 	/// RelativeSmoothQuadraticCurveTo
-	BriefPathNVSpec& t(T c0, T c1)
+	BriefPathNVSpec& t(CT c0, CT c1)
 	{
 		return self(this->RelativeSmoothQuadraticCurveTo(c0, c1));
 	}
 
 	/// SmoothCubicCurveTo
-	BriefPathNVSpec& S(T c0, T c1, T c2, T c3)
+	BriefPathNVSpec& S(CT c0, CT c1, CT c2, CT c3)
 	{
 		return self(this->SmoothCubicCurveTo(c0, c1, c2, c3));
 	}
 
 	/// RelativeSmoothCubicCurveTo
-	BriefPathNVSpec& s(T c0, T c1, T c2, T c3)
+	BriefPathNVSpec& s(CT c0, CT c1, CT c2, CT c3)
 	{
 		return self(this->RelativeSmoothCubicCurveTo(c0, c1, c2, c3));
 	}
 
 	/// ArcTo
-	BriefPathNVSpec& A(T c0, T c1, T c2, T c3, T c4, T c5, T c6)
+	BriefPathNVSpec& A(CT c0, CT c1, CT c2, CT c3, CT c4, CT c5, CT c6)
 	{
 		return self(this->ArcTo(c0, c1, c2, c3, c4, c5, c6));
 	}
 
 	/// RelativeArcTo
-	BriefPathNVSpec& a(T c0, T c1, T c2, T c3, T c4, T c5, T c6)
+	BriefPathNVSpec& a(CT c0, CT c1, CT c2, CT c3, CT c4, CT c5, CT c6)
 	{
 		return self(this->RelativeArcTo(c0, c1, c2, c3, c4, c5, c6));
 	}
