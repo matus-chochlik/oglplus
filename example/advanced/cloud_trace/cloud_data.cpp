@@ -182,16 +182,23 @@ void CloudData::Generate(const AppData& app_data)
 	float cloud_size = app_data.cloud_mean_size;
 	float cloud_size_disp = app_data.cloud_size_disp;
 
-	auto angle = Degrees(app_data.covered_angle);
-
+	Anglef angle = Degrees(app_data.covered_angle);
 	Vec3f center(0,-radius, 0);
-	Mat4f cloud = ModelMatrixf::Translation(center);
+	Mat4f cloud;
 
-	cloud.Set(3, 3, radius-1);
-	cloud.Set(3, 0,-100);
-	cloud.Set(3, 1, 1);
+	unsigned c = 0, count = app_data.cloud_count;
 
-	storage.push_back(cloud);
+	if(radius > 0)
+	{
+		cloud = ModelMatrixf::Translation(center);
+
+		cloud.Set(3, 3, radius-1);
+		cloud.Set(3, 0,-100);
+		cloud.Set(3, 1, 1);
+
+		storage.push_back(cloud);
+		++c;
+	}
 
 	unsigned rand_seed = app_data.rand_seed;
 	if(!rand_seed)
@@ -211,8 +218,6 @@ void CloudData::Generate(const AppData& app_data)
 	std::uniform_real_distribution<float> r01( 0, 1);
 	std::uniform_real_distribution<float> r11(-1, 1);
 	std::uniform_int_distribution<unsigned> rcc( 3, 8);
-
-	unsigned c = 1, count = app_data.cloud_count;
 
 	if(app_data.verbosity > 3)
 	{

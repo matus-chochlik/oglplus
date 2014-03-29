@@ -59,7 +59,7 @@ void main(void)
 		pow(max(lr+mix(0.0020, 0.0005, iai), 0.0), mix(256, 1024, hr));
 
 	vec3 CloudsDk = mix(
-		(LightColor-AirColor*mix(1.0-ul, lai, 0.4)*1.0)*ctl*2.51,
+		(LightColor-AirColor*mix(1.0-ul, lai, 0.4)*1.0)*ctl*2.41,
 		(LightColor-AirColor*lai*0.3)*sqrt(max(ul+0.6, 0.0))*0.75,
 		mix(1.0, rt.w, min(ctl, 1.0))
 	);
@@ -67,7 +67,13 @@ void main(void)
 	vec3 CloudsLt =
 		LightColor-AirColor*lai*0.2*sqrt(max(ul+0.3, 0));
 
-	vec3 Clouds = mix(CloudsDk, CloudsLt, rt.z);
+	vec3 Clouds = mix(CloudsDk, CloudsLt*sqrt(1+ul), rt.z);
 
-	fragColor = mix(Air1+Air2+Air3, Clouds, clamp(rt.w, 0, 1));
+	float cl = length(Clouds);
+
+	fragColor = mix(
+		mix(Air1+Air2+Air3, Clouds, clamp(rt.w, 0, 1)),
+		Air1+Air2*cl*(1.2-lr)*0.5,
+		clamp((rt.w*rt.x)/(mix(0.125, 0.5, cl)*Far), 0, 1)
+	);
 }

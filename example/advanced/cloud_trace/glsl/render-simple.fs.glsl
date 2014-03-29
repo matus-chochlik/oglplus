@@ -4,6 +4,7 @@
  */
 #version 330
 uniform sampler2DRect RaytraceOutput;
+uniform float Far;
 uniform float LightX, LightY, LightZ;
 
 in vec3 vertRay;
@@ -19,7 +20,8 @@ void main(void)
 	vec3 bc2 = vec3(0.4, 0.4, 0.9);
 	vec3 bc = mix(bc1, bc2, abs(dot(ld, rd)+0.2));
 
-	float cl = rt.z;
-	vec3 cc = vec3(mix(0.4, 1.0, cl));
-	fragColor = mix(bc, cc, rt.w);
+	float cl = mix(0.5, 1.0, rt.z);
+	vec3 cc = vec3(cl);
+	fragColor = mix(bc, cc, clamp(rt.w-(rt.x/(mix(0.5, 2, cl)*Far)), 0, 1));
+
 }

@@ -72,10 +72,11 @@ int find_hits(int k, vec3 ori, vec3 ray)
 			h.y = sqrt(h.y);
 			float tn = -h.x-h.y;
 			float tf = -h.x+h.y;
-			if((tn >= 0.0) || (tf >= 0.0))
+			if(tf >= 0.0)
 			{
-				tmin[k] = min(tmin[k], max(0, tn));
-				tmax[k] = max(tmax[k], max(0, tf));
+				tn = max(0, tn);
+				tmin[k] = min(tmin[k], tn);
+				tmax[k] = max(tmax[k], tf);
 				hits[k*N+n] = vec3(i, tn, tf);
 				wc0[k*N+n] = ori+ray*tn;
 				wc1[k*N+n] = ori+ray*tf;
