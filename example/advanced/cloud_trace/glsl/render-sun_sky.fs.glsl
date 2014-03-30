@@ -77,6 +77,6 @@ void main(void)
 	fragColor = mix(
 		mix(Air1+Air2+Air3, Clouds, clamp(rt.w, 0, 1)),
 		Air1+Air2*cl*(1.2-lr)*0.5,
-		clamp(rt.w*(1-exp(-rt.x/Far)), 0, 1)
+		clamp(rt.w*(1-exp(-rt.x/(Far*0.5))), 0, 1)
 	);
 }
