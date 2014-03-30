@@ -5,7 +5,7 @@
 #version 330
 uniform sampler2DRect RaytraceOutput;
 uniform float Far;
-uniform float LightX, LightY, LightZ;
+uniform vec3 LightPos;
 
 in vec3 vertRay;
 in vec2 vertTexCoord;
@@ -14,7 +14,7 @@ out vec3 fragColor;
 void main(void)
 {
 	vec4 rt = texture(RaytraceOutput, vertTexCoord);
-	vec3 ld = normalize(vec3(LightX, LightY, LightZ));
+	vec3 ld = normalize(LightPos);
 	vec3 rd = normalize(vertRay);
 	vec3 bc1 = vec3(0.3, 0.3, 0.6);
 	vec3 bc2 = vec3(0.4, 0.4, 0.9);

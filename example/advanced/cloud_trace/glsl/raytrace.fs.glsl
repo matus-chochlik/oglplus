@@ -9,6 +9,8 @@ uniform float HighLight;
 uniform float AmbiLight;
 uniform float UnitOpacity;
 uniform float UnitAttenuation;
+uniform float Near, Far, CrepRayFar;
+uniform uint CrepRaySam;
 
 in vec3 vertRay;
 out vec4 fragColor;
@@ -82,9 +84,10 @@ void main(void)
 				vec4 sr1 = sample_ray(1, n1, t1, UnitAttenuation);
 				den1 += sr1[0];
 
-				if(sr1[1] < 1.0)
+				float ss = sr1[1]*clamp(t1, 1, 4);
+				if(ss < 1.0)
 				{
-					t1 += sr1[1];
+					t1 += ss;
 				}
 				else
 				{
@@ -95,11 +98,61 @@ void main(void)
 			den1 = min(den1, 1.0);
 			lt = mix(
 				mix(lt, mix(HighLight, AmbiLight, den1), sr0[0]),
-				mix(mix(AmbiLight, HighLight, sr0[0]), AmbiLight, den1),
+				mix(
+					mix(AmbiLight, HighLight, sr0[0]),
+					mix(AmbiLight, HighLight, 0.5),
+					den1
+				),
 				first
 			);
 			first = 0;
 		}
 	}
-	fragColor = vec4(tfirst, max(tfirst, tlast), lt, den0);
+	float cd = den0;
+	den0 = 0.0;
+
+	float crlc = CrepRayFar / Far;
+	float icrs = 1.0 / float(CrepRaySam);
+	float crl = 0.0;
+	float ts0 = (Far - Near) * icrs * crlc;
+
+	float tm0[2];
+	tm0[0] = min(max(tfirst, tlast), Far)*crlc;
+	tm0[1] = Far*crlc;
+	t0 = Near*crlc;
+
+	for(int p=0; p!=2; ++p)
+	{
+		while(t0 < tm0[p])
+		{
+			vec4 sr0 = sample_ray(0, n0, t0, 0.1);
+			den0 = mix(den0+sr0[0], cd, p);
+
+			if(den0 >= 1.0) break;
+
+			vec3 ori1 = ori0+ray0*t0;
+			vec3 ray1 = normalize(LightPos-ori1);
+			int n1 = find_hits(1, ori1, ray1);
+
+			float den1 = 0.0;
+			float tm1 = min(max(tmin[1], tmax[1]), Far*crlc);
+			float ts1 = ts0*2;
+			float t1 = tmin[1];
+
+			while((t1 < tm1) && (den1 < 1.0))
+			{
+				vec4 sr1 = sample_ray(1, n1, t1, 0.5);
+				den1 += sr1[0];
+				t1 += ts1;
+			}
+			den1 = min(den1, 1.0);
+
+			crl += (1.0 - den1)*(1.0 - den0);
+
+			t0 += ts0;
+		}
+	}
+	crl *= icrs;
+
+	fragColor = vec4(tfirst, crl, lt, cd);
 }

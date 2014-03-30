@@ -58,6 +58,11 @@ RaytraceProg::RaytraceProg(const AppData& app_data)
 
 	ProgramUniform<GLfloat>(self(), "UnitOpacity").Set(app_data.unit_opacity);
 	ProgramUniform<GLfloat>(self(), "UnitAttenuation").Set(app_data.unit_attenuation);
+
+	OptionalUniform<GLfloat>(self(), "Near").TrySet(app_data.cam_near);
+	OptionalUniform<GLfloat>(self(), "Far").TrySet(app_data.cam_far);
+	OptionalUniform<GLfloat>(self(), "CrepRayFar").TrySet(app_data.crep_ray_far);
+	OptionalUniform<GLuint>(self(), "CrepRaySam").TrySet(app_data.crep_ray_sam);
 }
 
 void RaytraceProg::SetRayMatrix(const AppData& app_data, unsigned face)
@@ -82,9 +87,11 @@ Program RenderProg::make(const AppData& app_data)
 	OptionalUniform<GLfloat>(prog, "Near").TrySet(app_data.cam_near);
 	OptionalUniform<GLfloat>(prog, "Far").TrySet(app_data.cam_far);
 
-	OptionalUniform<GLfloat>(prog, "LightX").TrySet(app_data.light_x);
-	OptionalUniform<GLfloat>(prog, "LightY").TrySet(app_data.light_y);
-	OptionalUniform<GLfloat>(prog, "LightZ").TrySet(app_data.light_z);
+	OptionalUniform<Vec3f>(prog, "LightPos").TrySet(Vec3f(
+		app_data.light_x,
+		app_data.light_y,
+		app_data.light_z
+	));
 	OptionalUniform<GLfloat>(prog, "HighLight").TrySet(app_data.high_light);
 	OptionalUniform<GLfloat>(prog, "AmbiLight").TrySet(app_data.ambi_light);
 

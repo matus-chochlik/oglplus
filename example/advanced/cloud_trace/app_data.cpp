@@ -35,7 +35,7 @@ AppData::AppData(void)
  , raytrace_height(512)
  , render_width(raytrace_width)
  , render_height(raytrace_height)
- , tile(32)
+ , tile(16)
  , unit_opacity(0.03)
  , unit_attenuation(0.02)
  , cloud_count(512)
@@ -46,7 +46,7 @@ AppData::AppData(void)
  , planet_radius(6371)
  , atm_thickness(50)
  , covered_angle(0.7)
- , cloud_mean_alt(2.5f)
+ , cloud_mean_alt(3.0f)
  , cloud_alt_disp(0.4f)
  , cloud_mean_size(1.6f)
  , cloud_size_disp(0.5f)
@@ -57,6 +57,8 @@ AppData::AppData(void)
  , light_z(100000)
  , high_light(1.0f)
  , ambi_light(0.0f)
+ , crep_ray_far(cam_far*0.3)
+ , crep_ray_sam(512)
 {
 	skip_face.fill(false);
 
@@ -259,6 +261,12 @@ bool AppData::ParseArgs(int argc, char** argv)
 	parser.AddArg("-al", "--ambi-light", ambi_light)
 		.AddDesc(
 		"The ambient (lowest) light value."
+		);
+
+	// crepuscular ray samples
+	parser.AddArg("-crs", "--crep-ray-sam", crep_ray_sam)
+		.AddDesc(
+		"Number of samples for crepuscular rays."
 		);
 
 	// save raytrace data

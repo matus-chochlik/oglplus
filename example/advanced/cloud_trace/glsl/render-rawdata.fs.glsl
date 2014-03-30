@@ -12,8 +12,6 @@ out vec4 fragColor;
 void main(void)
 {
 	vec4 rt = texture(RaytraceOutput, vertTexCoord);
-	float inv_ds = 1.0/(Far-Near);
-	rt.x *= inv_ds;
-	rt.y *= inv_ds;
+	rt.x /= (Far-Near);
 	fragColor = rt;
 }

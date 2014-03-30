@@ -5,10 +5,9 @@
 #version 330
 uniform sampler2DRect RaytraceOutput;
 uniform float Near, Far;
-uniform float LightX, LightY, LightZ;
 uniform float PlanetRadius, AtmThickness;
+uniform vec3 LightPos;
 
-vec3 LightPos = vec3(LightX, LightY, LightZ);
 const vec3 LightColor = vec3(1, 1, 1);
 const vec3 AirColor = vec3(0.28, 0.38, 0.62);
 const vec3 HazeColor = vec3(0.75, 0.77, 0.85);
@@ -34,6 +33,7 @@ void main(void)
 	vec3 ld = normalize(LightPos);
 	vec3 rd = normalize(vertRay);
 
+	float lt = rt.z+sin(rt.z*14)*rt.w*0.05;
 	float lr = dot(ld, rd);
 	float ur = dot(up, rd);
 	float ul = dot(up, ld);
@@ -41,18 +41,21 @@ void main(void)
 	float hr = (1.0-abs(ur));
 	float iai = clamp(1.4/ai, 0, 1);
 	float lai = log(ai);
-	float ctl = pow(max(lr+0.3, 0.0), 2.0);
+	float ctl = pow(max(lr+0.3, 0.0), 2);
+	float crl = mix(0.7, 1.1, rt.y);
 
 	vec3 Air1 =
 		mix(HazeColor, AirColor, iai)*
 		sqrt(max(ul+0.3, 0.0))*
-		mix(0.8, 1.2, min(abs(lr+0.6), 1.0));
+		mix(0.7, 1.0, min(abs(lr+0.6), 1.0));
+	Air1 *= crl;
 
 	vec3 Air2 =
-		max(LightColor-AirColor*lai*1.2, vec3(0))*pow(
+		max(LightColor-AirColor*lai*crl, vec3(0))*pow(
 			max(abs(lr+mix(0.00, 0.57, iai))-mix(0.00, 0.48, iai), 0.0),
 			mix(0.25, 4.0, mix(hr, lai, 0.2))
 		)*hr;
+	Air2 *= crl;
 
 	vec3 Air3 =
 		(LightColor-AirColor*lai*0.4)*
@@ -67,13 +70,13 @@ void main(void)
 	vec3 CloudsLt =
 		LightColor-AirColor*lai*0.2*sqrt(max(ul+0.3, 0));
 
-	vec3 Clouds = mix(CloudsDk, CloudsLt*sqrt(1+ul), rt.z);
+	vec3 Clouds = mix(CloudsDk, CloudsLt*sqrt(1+ul), lt*crl);
 
 	float cl = length(Clouds);
 
 	fragColor = mix(
 		mix(Air1+Air2+Air3, Clouds, clamp(rt.w, 0, 1)),
 		Air1+Air2*cl*(1.2-lr)*0.5,
-		clamp((rt.w*rt.x)/(mix(0.125, 0.5, cl)*Far), 0, 1)
+		clamp(rt.w*(1-exp(-rt.x/Far)), 0, 1)
 	);
 }

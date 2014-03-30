@@ -94,6 +94,10 @@ struct AppData
 	float light_x, light_y, light_z;
 	float high_light, ambi_light;
 
+	// crep. ray samples
+	float crep_ray_far;
+	unsigned crep_ray_sam;
+
 	AppData(void);
 	bool ParseArgs(int argc, char** argv);
 	void LogInfo(void) const;
