@@ -33,7 +33,7 @@ void main(void)
 	vec3 ld = normalize(LightPos);
 	vec3 rd = normalize(vertRay);
 
-	float lt = rt.z+sin(rt.z*14)*rt.w*0.05;
+	float lt = rt.z;
 	float lr = dot(ld, rd);
 	float ur = dot(up, rd);
 	float ul = dot(up, ld);
@@ -43,6 +43,30 @@ void main(void)
 	float lai = log(ai);
 	float ctl = pow(max(lr+0.3, 0.0), 2);
 	float crl = mix(0.7, 1.1, rt.y);
+
+	float cd = rt.x;
+	float mnd = 0.1;
+	vec2 ndv, nds;
+
+	nds = texture(RaytraceOutput, vertTexCoord+vec2(-1,-1)).xz;
+	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+	nds = texture(RaytraceOutput, vertTexCoord+vec2(-1, 0)).xz;
+	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+	nds = texture(RaytraceOutput, vertTexCoord+vec2(-1, 1)).xz;
+	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+	nds = texture(RaytraceOutput, vertTexCoord+vec2( 0,-1)).xz;
+	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+	nds = texture(RaytraceOutput, vertTexCoord+vec2( 0, 1)).xz;
+	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+	nds = texture(RaytraceOutput, vertTexCoord+vec2( 1,-1)).xz;
+	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+	nds = texture(RaytraceOutput, vertTexCoord+vec2( 1, 0)).xz;
+	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+	nds = texture(RaytraceOutput, vertTexCoord+vec2( 1, 1)).xz;
+	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+
+	lt += (1.5*ndv.x)/max(ndv.y,0.001);
+	lt = clamp(lt, 0, 1);
 
 	vec3 Air1 =
 		mix(HazeColor, AirColor, iai)*
