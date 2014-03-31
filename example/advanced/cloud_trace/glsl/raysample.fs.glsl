@@ -47,7 +47,7 @@ vec3 sphere_point_coord(vec3 x, int idx)
 	vec4 s = sphere_geom(idx);
 	mat3 r = sphere_rot(idx);
 	x -= s.xyz;
-	x /= 2.0;
+	x *= 0.5;
 	x /= s.w;
 	x = r*x;
 	x += 0.5;
@@ -110,7 +110,6 @@ vec4 sample_ray(int k, int n, float t, float dc)
 			vec3 tc = mix(tc0[k*N+i], tc1[k*N+i], ssc);
 			float ssd = max(texture(CloudTex, tc).r - sp[0], 0.0);
 			sd += ssd * dc * sp[1];
-			sd = min(sd, 1.0);
 
 			vec3 tcd = abs(tc0[k*N+i]-tc1[k*N+i]);
 			vec3 tsn = tcd*textureSize(CloudTex, 0);
@@ -126,6 +125,7 @@ vec4 sample_ray(int k, int n, float t, float dc)
 			tmax = max(tmax, tf);
 		}
 	}
+	sd = min(sd, 1.0);
 	return vec4(sd, ts, tmin, tmax);
 }
 
