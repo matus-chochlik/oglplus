@@ -32,7 +32,7 @@ CloudData::CloudData(const AppData& app_data)
 	else Load(app_data);
 }
 
-void CloudData::LoadCSV(const AppData&, std::istream& input)
+void CloudData::LoadCSV(const AppData& app_data, std::istream& input)
 {
 	const char sep = '|';
 	std::size_t ncol = 0;
@@ -66,6 +66,9 @@ void CloudData::LoadCSV(const AppData&, std::istream& input)
 		buf.str(std::string());
 	}
 
+	std::default_random_engine re(app_data.rand_seed);
+	std::uniform_real_distribution<float> r01( 0, 1);
+
 	while(input.get(buf).good())
 	{
 		input.ignore();
@@ -79,14 +82,15 @@ void CloudData::LoadCSV(const AppData&, std::istream& input)
 			if(data.good()) data.ignore();
 		}
 
-		const std::size_t nattr = 16;
+		const std::size_t nattr = 17;
 		const char* attr_names[nattr] = {
 			"rotxx", "rotxy", "rotxz",
 			"rotyx", "rotyy", "rotyz",
 			"rotzx", "rotzy", "rotzz",
 			"pos_x", "pos_y", "pos_z",
 			"doffs", "dmult",
-			"c_age", "csize"
+			"c_age", "csize",
+			"rot_r"
 		};
 
 		float attr_values[nattr] = {
@@ -95,7 +99,8 @@ void CloudData::LoadCSV(const AppData&, std::istream& input)
 			0, 0, 1,
 			0, 0, 0,
 			0, 1,
-			0, 1
+			0, 1,
+			0
 		};
 
 		for(std::size_t a=0; a!=nattr; ++a)
@@ -108,16 +113,32 @@ void CloudData::LoadCSV(const AppData&, std::istream& input)
 		}
 
 		Mat4f cloud;
-		// rotation
-		cloud.Set(0, 0, attr_values[ 0]);
-		cloud.Set(0, 1, attr_values[ 1]);
-		cloud.Set(0, 2, attr_values[ 2]);
-		cloud.Set(1, 0, attr_values[ 3]);
-		cloud.Set(1, 1, attr_values[ 4]);
-		cloud.Set(1, 2, attr_values[ 5]);
-		cloud.Set(2, 0, attr_values[ 6]);
-		cloud.Set(2, 1, attr_values[ 7]);
-		cloud.Set(2, 2, attr_values[ 8]);
+
+		if(attr_values[16] != 0)
+		{
+			float rot = attr_values[16];
+
+			if((rot - int(rot)) == 0)
+				rot = r01(re);
+
+			cloud = ModelMatrixf::RotationA(
+				Vec3f(r01(re), r01(re), r01(re)),
+				FullCircles(rot)
+			);
+		}
+		else
+		{
+			// rotation
+			cloud.Set(0, 0, attr_values[ 0]);
+			cloud.Set(0, 1, attr_values[ 1]);
+			cloud.Set(0, 2, attr_values[ 2]);
+			cloud.Set(1, 0, attr_values[ 3]);
+			cloud.Set(1, 1, attr_values[ 4]);
+			cloud.Set(1, 2, attr_values[ 5]);
+			cloud.Set(2, 0, attr_values[ 6]);
+			cloud.Set(2, 1, attr_values[ 7]);
+			cloud.Set(2, 2, attr_values[ 8]);
+		}
 		// position
 		cloud.Set(0, 3, attr_values[ 9]);
 		cloud.Set(1, 3, attr_values[10]);
@@ -200,21 +221,7 @@ void CloudData::Generate(const AppData& app_data)
 		++c;
 	}
 
-	unsigned rand_seed = app_data.rand_seed;
-	if(!rand_seed)
-	{
-		std::random_device rd;
-		rand_seed = rd();
-	}
-	if(app_data.verbosity > 1)
-	{
-		app_data.logstr()
-			<< "Cloud generator random seed: "
-			<< rand_seed
-			<< std::endl;
-	}
-
-	std::default_random_engine re(rand_seed);
+	std::default_random_engine re(app_data.rand_seed);
 	std::uniform_real_distribution<float> r01( 0, 1);
 	std::uniform_real_distribution<float> r11(-1, 1);
 	std::uniform_int_distribution<unsigned> rcc( 3, 8);

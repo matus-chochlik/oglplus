@@ -12,6 +12,7 @@
 #include "arg_parser.hpp"
 
 #include <iostream>
+#include <random>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -415,6 +416,12 @@ bool AppData::ParseArgs(int argc, char** argv)
 		}
 	}
 
+	if(!rand_seed)
+	{
+		std::random_device rd;
+		rand_seed = rd();
+	}
+
 	return true;
 }
 
@@ -450,6 +457,13 @@ void AppData::LogInfo(void) const
 		logstr()
 			<< "Raytrace tiles: "
 			<< tiles()
+			<< std::endl;
+	}
+	if(verbosity > 1)
+	{
+		logstr()
+			<< "Random generator seed: "
+			<< rand_seed
 			<< std::endl;
 	}
 }
