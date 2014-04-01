@@ -205,7 +205,8 @@ void thread_loop(AppData& app_data, CommonData& common, x11::Display& display, g
 	Raytracer raytracer(app_data, rt_res);
 	raytracer.Use(app_data);
 
-	std::vector<unsigned> backlog(app_data.cols());
+	std::vector<unsigned> backlog;
+	backlog.reserve(app_data.cols());
 	std::chrono::milliseconds bl_interval(100);
 
 	while(!common.Done())
