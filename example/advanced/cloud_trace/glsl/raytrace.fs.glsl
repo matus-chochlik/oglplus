@@ -81,10 +81,11 @@ void main(void)
 			float den1 = 0.0;
 			while((t1 < tmax[1]) && (den1 < 1.0))
 			{
-				vec4 sr1 = sample_ray(1, n1, t1, UnitAttenuation);
+				float mult = clamp(t1, 1, 8);
+				vec4 sr1 = sample_ray(1, n1, t1, UnitAttenuation*mult);
 				den1 += sr1[0];
 
-				float ss = sr1[1]*clamp(t1, 1, 4);
+				float ss = sr1[1]*mult;
 				if(ss < 1.0)
 				{
 					t1 += ss;
@@ -123,6 +124,8 @@ void main(void)
 
 	for(int p=0; p!=2; ++p)
 	{
+		float mult = p+1;
+		float sd = 0.5*mult;
 		while(t0 < tm0[p])
 		{
 			vec4 sr0 = sample_ray(0, n0, t0, 0.1);
@@ -136,12 +139,12 @@ void main(void)
 
 			float den1 = 0.0;
 			float tm1 = min(max(tmin[1], tmax[1]), Far*crlc);
-			float ts1 = ts0*2;
+			float ts1 = ts0*2*mult;
 			float t1 = tmin[1];
 
 			while((t1 < tm1) && (den1 < 1.0))
 			{
-				vec4 sr1 = sample_ray(1, n1, t1, 0.5);
+				vec4 sr1 = sample_ray(1, n1, t1, sd);
 				den1 += sr1[0];
 				t1 += ts1;
 			}
