@@ -31,6 +31,8 @@ void main(void)
 	tmin[0] = maxt;
 	float tfirst = maxt, tlast = 0;
 	float den0 = 0.0;
+	vec2 dist = vec2(0, 0);
+
 	while((t0 < tmax[0]) && (den0 < 1.0))
 	{
 		vec4 sr0 = sample_ray(0, n0, t0, UnitOpacity);
@@ -39,6 +41,7 @@ void main(void)
 			den0 += sr0[0];
 			tfirst = min(tfirst, t0);
 			tlast = t0;
+			dist += vec2(t0*sr0[0], sr0[0]);
 		}
 		if(sr0[1] < 1.0)
 		{
@@ -109,7 +112,7 @@ void main(void)
 			first = 0;
 		}
 	}
-	float cd = den0;
+	float cden = den0;
 	den0 = 0.0;
 
 	float crlc = CrepRayFar / Far;
@@ -129,7 +132,7 @@ void main(void)
 		while(t0 < tm0[p])
 		{
 			vec4 sr0 = sample_ray(0, n0, t0, 0.1);
-			den0 = mix(den0+sr0[0], cd, p);
+			den0 = mix(den0+sr0[0], cden, p);
 
 			if(den0 >= 1.0) break;
 
@@ -157,5 +160,7 @@ void main(void)
 	}
 	crl *= icrs;
 
-	fragColor = vec4(tfirst, crl, lt, cd);
+	float cdist = dist.x/max(dist.y, 0.001);
+
+	fragColor = vec4(cdist, crl, lt, cden);
 }

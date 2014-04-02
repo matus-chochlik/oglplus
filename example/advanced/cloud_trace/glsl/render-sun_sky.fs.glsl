@@ -26,6 +26,15 @@ float atm_intersection(vec3 v)
 	return (-v_c + sqrt(v_c*v_c - c_c + r*r))/AtmThickness;
 }
 
+vec2 ssao_neighbor(vec2 offs, float dist)
+{
+	vec2 sam = texture(RaytraceOutput, vertTexCoord+offs).xw;
+	float d = sam.x - dist;
+	float e = abs(d*5);
+
+	return vec2(sign(d)*e*exp(-e), sam.y);
+}
+
 void main(void)
 {
 	vec4 rt = texture(RaytraceOutput, vertTexCoord);
@@ -44,34 +53,24 @@ void main(void)
 	float ctl = pow(max(lr+0.3, 0.0), 2);
 	float crl = mix(0.7, 1.1, rt.y);
 
-	float cd = rt.x;
-	float mnd = 0.1;
-	vec2 ndv, nds;
+	vec2 ndv = vec2(0, 0);
 
-	nds = texture(RaytraceOutput, vertTexCoord+vec2(-1,-1)).xz;
-	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
-	nds = texture(RaytraceOutput, vertTexCoord+vec2(-1, 0)).xz;
-	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
-	nds = texture(RaytraceOutput, vertTexCoord+vec2(-1, 1)).xz;
-	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
-	nds = texture(RaytraceOutput, vertTexCoord+vec2( 0,-1)).xz;
-	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
-	nds = texture(RaytraceOutput, vertTexCoord+vec2( 0, 1)).xz;
-	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
-	nds = texture(RaytraceOutput, vertTexCoord+vec2( 1,-1)).xz;
-	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
-	nds = texture(RaytraceOutput, vertTexCoord+vec2( 1, 0)).xz;
-	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
-	nds = texture(RaytraceOutput, vertTexCoord+vec2( 1, 1)).xz;
-	ndv += vec2(clamp(nds.x-cd,-mnd, mnd)*nds.y, nds.y);
+	ndv += ssao_neighbor(vec2(-1,-1), rt.x);
+	ndv += ssao_neighbor(vec2(-1, 0), rt.x);
+	ndv += ssao_neighbor(vec2(-1, 1), rt.x);
+	ndv += ssao_neighbor(vec2( 0,-1), rt.x);
+	ndv += ssao_neighbor(vec2( 0, 1), rt.x);
+	ndv += ssao_neighbor(vec2( 1,-1), rt.x);
+	ndv += ssao_neighbor(vec2( 1, 0), rt.x);
+	ndv += ssao_neighbor(vec2( 1, 1), rt.x);
 
-	lt += (1.5*ndv.x)/max(ndv.y,0.001);
+	lt += (2.81*rt.w*ndv.x)/(max(ndv.y, 0.001)*rt.x);
 	lt = clamp(lt, 0, 1);
 
 	vec3 Air1 =
 		mix(HazeColor, AirColor, iai)*
 		sqrt(max(ul+0.3, 0.0))*
-		mix(0.7, 1.0, min(abs(lr+0.6), 1.0));
+		mix(0.8, 1.0, min(abs(lr+0.6), 1.0));
 	Air1 *= crl;
 
 	vec3 Air2 =
@@ -83,7 +82,7 @@ void main(void)
 
 	vec3 Air3 =
 		(LightColor-AirColor*lai*0.4)*
-		pow(max(lr+mix(0.0020, 0.0005, iai), 0.0), mix(256, 1024, hr));
+		pow(max(lr+mix(0.0010, 0.0004, iai), 0.0), mix(256, 1024, hr));
 
 	vec3 CloudsDk = mix(
 		(LightColor-AirColor*mix(1.0-ul, lai, 0.4)*1.0)*ctl*2.41,
