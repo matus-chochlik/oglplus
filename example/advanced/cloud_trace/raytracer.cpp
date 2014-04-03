@@ -112,7 +112,25 @@ void Raytracer::InitFrame(AppData& app_data, unsigned face)
 	resources.raytrace_prog.SetRayMatrix(app_data, face);
 }
 
-void Raytracer::Raytrace(AppData& app_data, unsigned tile)
+void Raytracer::BeginWork(const AppData&)
+{
+	gl.Enable(Capability::ScissorTest);
+	gl.Enable(Functionality::ClipDistance, 0);
+	gl.Enable(Functionality::ClipDistance, 1);
+	gl.Enable(Functionality::ClipDistance, 2);
+	gl.Enable(Functionality::ClipDistance, 3);
+}
+
+void Raytracer::EndWork(const AppData&)
+{
+	gl.Disable(Capability::ScissorTest);
+	gl.Disable(Functionality::ClipDistance, 0);
+	gl.Disable(Functionality::ClipDistance, 1);
+	gl.Disable(Functionality::ClipDistance, 2);
+	gl.Disable(Functionality::ClipDistance, 3);
+}
+
+void Raytracer::Raytrace(const AppData& app_data, unsigned tile)
 {
 	unsigned i = tile % w;
 	unsigned j = tile / w;
@@ -124,49 +142,37 @@ void Raytracer::Raytrace(AppData& app_data, unsigned tile)
 	float iw = 2.0f/app_data.raytrace_width;
 	float ih = 2.0f/app_data.raytrace_height;
 
-	gl.Enable(Capability::ScissorTest);
-	gl.Enable(Functionality::ClipDistance, 0);
-	gl.Enable(Functionality::ClipDistance, 1);
-	gl.Enable(Functionality::ClipDistance, 2);
-	gl.Enable(Functionality::ClipDistance, 3);
-
 	gl.Scissor(sx, sy, ss, ss);
 
 	resources.raytrace_prog.clip_plane0.Set(
 		Planef::FromPointAndNormal(
-			Vec3f((sx-1)*iw-1, 0, 1),
+			Vec3f(sx*iw-1, 0, 1),
 			Vec3f( 1, 0, 0)
 		).Equation()
 	);
 
 	resources.raytrace_prog.clip_plane1.Set(
 		Planef::FromPointAndNormal(
-			Vec3f((sx+ss+1)*iw-1, 0, 1),
+			Vec3f((sx+ss)*iw-1, 0, 1),
 			Vec3f(-1, 0, 0)
 		).Equation()
 	);
 
 	resources.raytrace_prog.clip_plane2.Set(
 		Planef::FromPointAndNormal(
-			Vec3f(0, (sy-1)*ih-1, 1),
+			Vec3f(0, sy*ih-1, 1),
 			Vec3f( 0, 1, 0)
 		).Equation()
 	);
 
 	resources.raytrace_prog.clip_plane3.Set(
 		Planef::FromPointAndNormal(
-			Vec3f(0, (sy+ss+1)*ih-1, 1),
+			Vec3f(0, (sy+ss)*ih-1, 1),
 			Vec3f( 0,-1, 0)
 		).Equation()
 	);
 
 	screen.Draw();
-
-	gl.Disable(Capability::ScissorTest);
-	gl.Disable(Functionality::ClipDistance, 0);
-	gl.Disable(Functionality::ClipDistance, 1);
-	gl.Disable(Functionality::ClipDistance, 2);
-	gl.Disable(Functionality::ClipDistance, 3);
 }
 
 } // namespace cloud_trace

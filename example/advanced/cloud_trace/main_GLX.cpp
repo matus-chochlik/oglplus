@@ -218,6 +218,7 @@ void thread_loop(AppData& app_data, CommonData& common, x11::Display& display, g
 		if(common.Done()) break;
 
 		raytracer.InitFrame(app_data, common.Face());
+		raytracer.BeginWork(app_data);
 
 		auto bl_begin = std::chrono::steady_clock::now();
 		unsigned tile = 0;
@@ -266,6 +267,7 @@ void thread_loop(AppData& app_data, CommonData& common, x11::Display& display, g
 		common.thread_ready.Signal();
 
 		if(common.Done()) break;
+		raytracer.EndWork(app_data);
 
 		// wait for the master to save the face image
 		common.master_ready.Wait();
