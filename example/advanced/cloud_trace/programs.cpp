@@ -46,6 +46,10 @@ RaytraceProg::RaytraceProg(const AppData& app_data)
  , ray_matrix(self(), "RayMatrix")
  , cloud_tex(self(), "CloudTex")
  , cloud_count(self(), "CloudCount")
+ , clip_plane0(self(), "ClipPlane[0]")
+ , clip_plane1(self(), "ClipPlane[1]")
+ , clip_plane2(self(), "ClipPlane[2]")
+ , clip_plane3(self(), "ClipPlane[3]")
  , cloud_block(self(), "CloudBlock")
 {
 	ProgramUniform<Vec3f>(self(), "LightPos").Set(

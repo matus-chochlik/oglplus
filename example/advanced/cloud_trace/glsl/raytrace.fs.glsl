@@ -160,7 +160,7 @@ void main(void)
 	}
 	crl *= icrs;
 
-	float cdist = dist.x/max(dist.y, 0.001);
+	float cdist = mix(Far, dist.x/max(dist.y, 0.001), sign(cden));
 
 	fragColor = vec4(cdist, crl, lt, cden);
 }

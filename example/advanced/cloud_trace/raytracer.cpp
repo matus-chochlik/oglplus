@@ -12,6 +12,7 @@
 #include "raytracer.hpp"
 
 #include <oglplus/binding.hpp>
+#include <oglplus/plane.hpp>
 #include <oglplus/shapes/screen.hpp>
 #include <oglplus/images/image_spec.hpp>
 
@@ -117,16 +118,55 @@ void Raytracer::Raytrace(AppData& app_data, unsigned tile)
 	unsigned j = tile / w;
 	assert(j*h+i < w*h);
 
+	int sx = app_data.tile*i;
+	int sy = app_data.tile*(h-j-1);
+	int ss = app_data.tile;
+	float iw = 2.0f/app_data.raytrace_width;
+	float ih = 2.0f/app_data.raytrace_height;
+
 	gl.Enable(Capability::ScissorTest);
-	gl.Scissor(
-		app_data.tile*i,
-		app_data.tile*(h-j-1),
-		app_data.tile,
-		app_data.tile
+	gl.Enable(Functionality::ClipDistance, 0);
+	gl.Enable(Functionality::ClipDistance, 1);
+	gl.Enable(Functionality::ClipDistance, 2);
+	gl.Enable(Functionality::ClipDistance, 3);
+
+	gl.Scissor(sx, sy, ss, ss);
+
+	resources.raytrace_prog.clip_plane0.Set(
+		Planef::FromPointAndNormal(
+			Vec3f((sx-1)*iw-1, 0, 1),
+			Vec3f( 1, 0, 0)
+		).Equation()
+	);
+
+	resources.raytrace_prog.clip_plane1.Set(
+		Planef::FromPointAndNormal(
+			Vec3f((sx+ss+1)*iw-1, 0, 1),
+			Vec3f(-1, 0, 0)
+		).Equation()
+	);
+
+	resources.raytrace_prog.clip_plane2.Set(
+		Planef::FromPointAndNormal(
+			Vec3f(0, (sy-1)*ih-1, 1),
+			Vec3f( 0, 1, 0)
+		).Equation()
+	);
+
+	resources.raytrace_prog.clip_plane3.Set(
+		Planef::FromPointAndNormal(
+			Vec3f(0, (sy+ss+1)*ih-1, 1),
+			Vec3f( 0,-1, 0)
+		).Equation()
 	);
 
 	screen.Draw();
+
 	gl.Disable(Capability::ScissorTest);
+	gl.Disable(Functionality::ClipDistance, 0);
+	gl.Disable(Functionality::ClipDistance, 1);
+	gl.Disable(Functionality::ClipDistance, 2);
+	gl.Disable(Functionality::ClipDistance, 3);
 }
 
 } // namespace cloud_trace
