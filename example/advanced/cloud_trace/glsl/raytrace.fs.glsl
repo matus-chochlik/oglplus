@@ -26,12 +26,12 @@ void main(void)
 {
 	const vec3 ori0 = vec3(0);
 	vec3 ray0 = normalize(vertRay);
+	vec3 ld = normalize(LightPos);
 	int n0 = find_hits(0, ori0, ray0);
 	float t0 = tmin[0];
 	tmin[0] = maxt;
 	float tfirst = maxt, tlast = 0;
 	float den0 = 0.0;
-	vec2 dist = vec2(0, 0);
 
 	while((t0 < tmax[0]) && (den0 < 1.0))
 	{
@@ -41,7 +41,6 @@ void main(void)
 			den0 += sr0[0];
 			tfirst = min(tfirst, t0);
 			tlast = t0;
-			dist += vec2(t0*sr0[0], sr0[0]);
 		}
 		if(sr0[1] < 1.0)
 		{
@@ -53,12 +52,12 @@ void main(void)
 			tmin[0] = maxt;
 		}
 	}
-	tfirst = max(tfirst, 0);
-	float lt = 0.0;
 	den0 = min(den0, 1.0);
+	tfirst = max(tfirst, 0);
+	float lt = mix(AmbiLight, HighLight, (1-den0)*(dot(ray0, ld)+1)*0.5);
+	float dist = Far;
 	if(den0 > 0.0)
 	{
-		float first = 1.0;
 		t0 = tlast;
 		tmax[0] = 0.0;
 		while(t0 >= tfirst)
@@ -100,18 +99,11 @@ void main(void)
 				}
 			}
 			den1 = min(den1, 1.0);
-			lt = mix(
-				mix(lt, mix(HighLight, AmbiLight, den1), sr0[0]),
-				mix(
-					mix(AmbiLight, HighLight, sr0[0]),
-					mix(AmbiLight, HighLight, 0.5),
-					den1
-				),
-				first
-			);
-			first = 0;
+			lt = mix(lt, mix(HighLight, mix(lt, AmbiLight, sr0[0]), den1), sr0[0]);
+			dist = mix(dist, t0, sr0[0]);
 		}
 	}
+	lt /= max(den0, 0.00001);
 	float cden = den0;
 	den0 = 0.0;
 
@@ -160,7 +152,5 @@ void main(void)
 	}
 	crl *= icrs;
 
-	float cdist = mix(Far, dist.x/max(dist.y, 0.001), sign(cden));
-
-	fragColor = vec4(cdist, crl, lt, cden);
+	fragColor = vec4(dist, crl, lt, cden);
 }

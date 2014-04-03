@@ -64,8 +64,16 @@ void main(void)
 	ndv += ssao_neighbor(vec2( 1, 0), rt.x);
 	ndv += ssao_neighbor(vec2( 1, 1), rt.x);
 
-	lt += (2.81*rt.w*ndv.x)/(max(ndv.y, 0.001)*rt.x);
+	float dd = (rt.w*ndv.x)/(max(ndv.y, 0.00001)*rt.x);
+
+	lt += 2.81*dd;
 	lt = clamp(lt, 0, 1);
+
+	float eid = exp(-(2.0*rt.x-Near)/(Far-Near));
+	eid += dd;
+
+	float dc = (0.8+0.2*rt.z)*(2.60*eid);
+	dc *= rt.w;
 
 	vec3 Air1 =
 		mix(HazeColor, AirColor, iai)*
@@ -86,20 +94,17 @@ void main(void)
 
 	vec3 CloudsDk = mix(
 		(LightColor-AirColor*mix(1.0-ul, lai, 0.4))*ctl*2.31,
-		(LightColor-AirColor*lai*0.3)*sqrt(max(ul+0.6, 0.0))*0.75,
+		(LightColor-AirColor*lai*0.3)*sqrt(max(ul+0.6, 0.0))*0.55,
 		mix(1.0, rt.w, min(ctl, 1.0))
 	);
 
-	vec3 CloudsLt =
-		LightColor-AirColor*lai*0.2*sqrt(max(ul+0.3, 0));
+	vec3 CloudsLt = LightColor-AirColor*lai*0.2;
 
-	vec3 Clouds = mix(CloudsDk, CloudsLt*sqrt(1+ul), lt*crl);
-
-	float cl = length(Clouds);
-
-	fragColor = mix(
-		mix(Air1+Air2+Air3, Clouds, clamp(rt.w, 0, 1)),
-		Air1+Air2*cl*(1.2-lr)*0.5,
-		clamp(rt.w*(1-exp(-rt.x/(Far*0.5))), 0, 1)
+	vec3 Clouds = mix(
+		CloudsDk,
+		CloudsLt*sqrt(0.7+ul*0.5),
+		lt*mix(mix(0.2, 0.9, eid), 1.0, crl)
 	);
+
+	fragColor = mix(Air1+Air2+Air3, Clouds, clamp(dc, 0, 1));
 }
