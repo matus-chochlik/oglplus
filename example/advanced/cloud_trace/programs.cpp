@@ -67,6 +67,8 @@ RaytraceProg::RaytraceProg(const AppData& app_data)
 	OptionalUniform<GLfloat>(self(), "Far").TrySet(app_data.cam_far);
 	OptionalUniform<GLfloat>(self(), "CrepRayFar").TrySet(app_data.crep_ray_far);
 	OptionalUniform<GLuint>(self(), "CrepRaySam").TrySet(app_data.crep_ray_sam);
+
+	OptionalUniform<GLuint>(self(), "ClipTiles").Set(app_data.clip_tiles);
 }
 
 void RaytraceProg::SetRayMatrix(const AppData& app_data, unsigned face)

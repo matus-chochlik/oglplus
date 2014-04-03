@@ -25,6 +25,7 @@ AppData::AppData(void)
  , allow_offscreen(false)
  , allow_x_rt_screens(false)
  , render_offscreen(false)
+ , clip_tiles(false)
  , save_raytrace_data(false)
  , verbosity(0)
  , rand_seed(0)
@@ -268,6 +269,13 @@ bool AppData::ParseArgs(int argc, char** argv)
 	parser.AddArg("-crs", "--crep-ray-sam", crep_ray_sam)
 		.AddDesc(
 		"Number of samples for crepuscular rays."
+		);
+
+	parser.AddOpt("-ct", "--clip-tiles", clip_tiles)
+		.AddDesc(
+		"Chooses the method of raytrace tile rendering. If enabled "
+		"then the tiles are created polygon clipping otherwise the "
+		"scissor test is used."
 		);
 
 	// save raytrace data

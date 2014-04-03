@@ -42,6 +42,8 @@ struct AppData
 
 	// if the rendering should be done offscreen
 	bool render_offscreen;
+	// if the raytrace tiles should be clipped (using polygon clipping)
+	bool clip_tiles;
 	// if the raytrace  data should be saved instead of render output
 	bool save_raytrace_data;
 

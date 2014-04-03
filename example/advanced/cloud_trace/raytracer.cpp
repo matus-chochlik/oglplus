@@ -112,22 +112,28 @@ void Raytracer::InitFrame(AppData& app_data, unsigned face)
 	resources.raytrace_prog.SetRayMatrix(app_data, face);
 }
 
-void Raytracer::BeginWork(const AppData&)
+void Raytracer::BeginWork(const AppData& app_data)
 {
-	gl.Enable(Capability::ScissorTest);
-	gl.Enable(Functionality::ClipDistance, 0);
-	gl.Enable(Functionality::ClipDistance, 1);
-	gl.Enable(Functionality::ClipDistance, 2);
-	gl.Enable(Functionality::ClipDistance, 3);
+	if(app_data.clip_tiles)
+	{
+		gl.Enable(Functionality::ClipDistance, 0);
+		gl.Enable(Functionality::ClipDistance, 1);
+		gl.Enable(Functionality::ClipDistance, 2);
+		gl.Enable(Functionality::ClipDistance, 3);
+	}
+	else gl.Enable(Capability::ScissorTest);
 }
 
-void Raytracer::EndWork(const AppData&)
+void Raytracer::EndWork(const AppData& app_data)
 {
-	gl.Disable(Capability::ScissorTest);
-	gl.Disable(Functionality::ClipDistance, 0);
-	gl.Disable(Functionality::ClipDistance, 1);
-	gl.Disable(Functionality::ClipDistance, 2);
-	gl.Disable(Functionality::ClipDistance, 3);
+	if(app_data.clip_tiles)
+	{
+		gl.Disable(Functionality::ClipDistance, 0);
+		gl.Disable(Functionality::ClipDistance, 1);
+		gl.Disable(Functionality::ClipDistance, 2);
+		gl.Disable(Functionality::ClipDistance, 3);
+	}
+	else gl.Disable(Capability::ScissorTest);
 }
 
 void Raytracer::Raytrace(const AppData& app_data, unsigned tile)
@@ -139,38 +145,41 @@ void Raytracer::Raytrace(const AppData& app_data, unsigned tile)
 	int sx = app_data.tile*i;
 	int sy = app_data.tile*(h-j-1);
 	int ss = app_data.tile;
-	float iw = 2.0f/app_data.raytrace_width;
-	float ih = 2.0f/app_data.raytrace_height;
 
-	gl.Scissor(sx, sy, ss, ss);
+	if(app_data.clip_tiles)
+	{
+		float iw = 2.0f/app_data.raytrace_width;
+		float ih = 2.0f/app_data.raytrace_height;
 
-	resources.raytrace_prog.clip_plane0.Set(
-		Planef::FromPointAndNormal(
-			Vec3f(sx*iw-1, 0, 1),
-			Vec3f( 1, 0, 0)
-		).Equation()
-	);
+		resources.raytrace_prog.clip_plane0.Set(
+			Planef::FromPointAndNormal(
+				Vec3f(sx*iw-1, 0, 1),
+				Vec3f( 1, 0, 0)
+			).Equation()
+		);
 
-	resources.raytrace_prog.clip_plane1.Set(
-		Planef::FromPointAndNormal(
-			Vec3f((sx+ss)*iw-1, 0, 1),
-			Vec3f(-1, 0, 0)
-		).Equation()
-	);
+		resources.raytrace_prog.clip_plane1.Set(
+			Planef::FromPointAndNormal(
+				Vec3f((sx+ss)*iw-1, 0, 1),
+				Vec3f(-1, 0, 0)
+			).Equation()
+		);
 
-	resources.raytrace_prog.clip_plane2.Set(
-		Planef::FromPointAndNormal(
-			Vec3f(0, sy*ih-1, 1),
-			Vec3f( 0, 1, 0)
-		).Equation()
-	);
+		resources.raytrace_prog.clip_plane2.Set(
+			Planef::FromPointAndNormal(
+				Vec3f(0, sy*ih-1, 1),
+				Vec3f( 0, 1, 0)
+			).Equation()
+		);
 
-	resources.raytrace_prog.clip_plane3.Set(
-		Planef::FromPointAndNormal(
-			Vec3f(0, (sy+ss)*ih-1, 1),
-			Vec3f( 0,-1, 0)
-		).Equation()
-	);
+		resources.raytrace_prog.clip_plane3.Set(
+			Planef::FromPointAndNormal(
+				Vec3f(0, (sy+ss)*ih-1, 1),
+				Vec3f( 0,-1, 0)
+			).Equation()
+		);
+	}
+	else gl.Scissor(sx, sy, ss, ss);
 
 	screen.Draw();
 }

@@ -6,6 +6,7 @@
 
 uniform mat3 RayMatrix;
 uniform vec4 ClipPlane[4];
+uniform bool ClipTiles;
 
 in vec2 Position;
 out vec3 vertRay;
@@ -13,9 +14,12 @@ out vec3 vertRay;
 void main(void)
 {
 	gl_Position = vec4(Position, 0, 1);
-	for(int c=0; c!=4; ++c)
+	if(ClipTiles)
 	{
-		gl_ClipDistance[c] = dot(ClipPlane[c], gl_Position);
+		for(int c=0; c!=4; ++c)
+		{
+			gl_ClipDistance[c] = dot(ClipPlane[c], gl_Position);
+		}
 	}
 	vertRay = RayMatrix * vec3(Position, 1);
 }
