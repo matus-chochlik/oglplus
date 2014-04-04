@@ -103,7 +103,7 @@ void main(void)
 			dist = mix(dist, t0, sr0[0]);
 		}
 	}
-	lt /= max(den0, 0.00001);
+	lt *= 1.414;
 	float cden = den0;
 	den0 = 0.0;
 

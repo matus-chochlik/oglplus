@@ -26,15 +26,6 @@ float atm_intersection(vec3 v)
 	return (-v_c + sqrt(v_c*v_c - c_c + r*r))/AtmThickness;
 }
 
-vec2 ssao_neighbor(vec2 offs, float dist)
-{
-	vec2 sam = texture(RaytraceOutput, vertTexCoord+offs).xw;
-	float d = sam.x - dist;
-	float e = abs(d*5);
-
-	return vec2(sign(d)*e*exp(-e), sam.y);
-}
-
 void main(void)
 {
 	vec4 rt = texture(RaytraceOutput, vertTexCoord);
@@ -53,27 +44,14 @@ void main(void)
 	float ctl = pow(max(lr+0.3, 0.0), 2);
 	float crl = mix(0.7, 1.1, rt.y);
 
-	vec2 ndv = vec2(0, 0);
+	float id = rt.x;
+	id -= Far/2;
+	id /= (Far - Far/2);
+	id = exp(-id)*(1-id);
 
-	ndv += ssao_neighbor(vec2(-1,-1), rt.x);
-	ndv += ssao_neighbor(vec2(-1, 0), rt.x);
-	ndv += ssao_neighbor(vec2(-1, 1), rt.x);
-	ndv += ssao_neighbor(vec2( 0,-1), rt.x);
-	ndv += ssao_neighbor(vec2( 0, 1), rt.x);
-	ndv += ssao_neighbor(vec2( 1,-1), rt.x);
-	ndv += ssao_neighbor(vec2( 1, 0), rt.x);
-	ndv += ssao_neighbor(vec2( 1, 1), rt.x);
+	lt *= mix(mix(0.2, 0.9, id), 1.0, crl);
 
-	float dd = (rt.w*ndv.x)/(max(ndv.y, 0.00001)*rt.x);
-
-	lt += 2.81*dd;
-	lt = clamp(lt, 0, 1);
-
-	float eid = exp(-(2.0*rt.x-Near)/(Far-Near));
-	eid += dd;
-
-	float dc = (0.8+0.2*rt.z)*(2.60*eid);
-	dc *= rt.w;
+	float dc = (0.8+0.2*lt)*id*pow(rt.w, 0.25);
 
 	vec3 Air1 =
 		mix(HazeColor, AirColor, iai)*
@@ -92,19 +70,17 @@ void main(void)
 		(LightColor-AirColor*lai*0.4)*
 		pow(max(lr+mix(0.0015, 0.0004, iai), 0.0), mix(256, 1024, hr));
 
-	vec3 CloudsDk = mix(
-		(LightColor-AirColor*mix(1.0-ul, lai, 0.4))*ctl*2.31,
-		(LightColor-AirColor*lai*0.3)*sqrt(max(ul+0.6, 0.0))*0.55,
+	vec3 CloudsDk = (LightColor-AirColor*lai*0.2)*sqrt(max(ul+0.7-lr*0.2, 0.0))*0.70;
+	vec3 CloudsLt = (LightColor-AirColor*lai*0.1)*sqrt(1.0+ul*0.5);
+
+	vec3 CloudsLi = (LightColor-AirColor*mix(1.0-ul, lai, 0.4))*2.70;
+
+	vec3 Air = Air1+(Air2+Air3)*(1-pow(rt.w, 2));
+	vec3 Clouds = mix(
+		CloudsLi,
+		mix(CloudsDk, CloudsLt, lt),
 		mix(1.0, rt.w, min(ctl, 1.0))
 	);
 
-	vec3 CloudsLt = LightColor-AirColor*lai*0.2;
-
-	vec3 Clouds = mix(
-		CloudsDk,
-		CloudsLt*sqrt(0.7+ul*0.5),
-		lt*mix(mix(0.2, 0.9, eid), 1.0, crl)
-	);
-
-	fragColor = mix(Air1+Air2+Air3, Clouds, clamp(dc, 0, 1));
+	fragColor = mix(Air, Clouds, clamp(dc, 0, 1));
 }
