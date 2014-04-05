@@ -103,7 +103,7 @@ void main(void)
 
 	vec3 CloudsLi = (LightColor-AirColor*mix(1.0-ul, lai, 0.3))*2.70;
 
-	vec3 Air = Air1+(Air2+Air3)*(1-pow(cd, 2));
+	vec3 Air = Air1+Air2*(1-cd*0.7)+Air3*(1-pow(cd, 2));
 	vec3 Clouds = mix(
 		CloudsLi,
 		mix(CloudsDk, CloudsLt, clamp(lt+ao, 0, 1)),
