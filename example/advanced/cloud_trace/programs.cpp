@@ -31,6 +31,9 @@ Program RaytraceProg::make(void)
 	ResourceFile fs_rt_source("glsl", "raytrace", ".fs.glsl");
 	prog << FragmentShader(GLSLSource::FromStream(fs_rt_source));
 
+	ResourceFile fs_en_source("glsl", "encode", ".fs.glsl");
+	prog << FragmentShader(GLSLSource::FromStream(fs_en_source));
+
 	prog.Link().Use();
 
 	return std::move(prog);
@@ -82,6 +85,9 @@ Program RenderProg::make(const AppData& app_data)
 
 	ResourceFile vs_source("glsl", "render", ".vs.glsl");
 	prog << VertexShader(GLSLSource::FromStream(vs_source));
+
+	ResourceFile dc_source("glsl", "decode", ".fs.glsl");
+	prog << FragmentShader(GLSLSource::FromStream(dc_source));
 
 	std::string fs_name("render-");
 	fs_name.append(app_data.finish_shader);

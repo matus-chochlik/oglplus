@@ -21,6 +21,13 @@ float tmin[2], tmax[2];
 
 int find_hits(int k, vec3 ori, vec3 ray);
 vec4 sample_ray(int k, int n, float t, float dc);
+vec4 encode_rt_data(
+	float dist_first,
+	float dist_final,
+	float density,
+	float light_pri,
+	float light_sec
+);
 
 void main(void)
 {
@@ -152,5 +159,5 @@ void main(void)
 	}
 	crl *= icrs;
 
-	fragColor = vec4(dist, crl, lt, cden);
+	fragColor = encode_rt_data(tfirst, dist, cden, lt, crl);
 }

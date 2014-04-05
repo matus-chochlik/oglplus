@@ -12,6 +12,12 @@ const vec3 LightColor = vec3(1, 1, 1);
 const vec3 AirColor = vec3(0.28, 0.38, 0.62);
 const vec3 HazeColor = vec3(0.75, 0.77, 0.85);
 
+float decode_dist_first(vec4 rt_data);
+float decode_dist_final(vec4 rt_data);
+float decode_density(vec4 rt_data);
+float decode_light_pri(vec4 rt_data);
+float decode_light_sec(vec4 rt_data);
+
 in vec3 vertRay;
 in vec2 vertTexCoord;
 
@@ -26,6 +32,14 @@ float atm_intersection(vec3 v)
 	return (-v_c + sqrt(v_c*v_c - c_c + r*r))/AtmThickness;
 }
 
+float dist_diff(vec2 offs, float first)
+{
+	vec4 rt = texture(RaytraceOutput, vertTexCoord+offs);
+	float dd = first - decode_dist_first(rt);
+	float da = abs(dd*5);
+	return sign(dd)*da*exp(-da);
+}
+
 void main(void)
 {
 	vec4 rt = texture(RaytraceOutput, vertTexCoord);
@@ -33,7 +47,7 @@ void main(void)
 	vec3 ld = normalize(LightPos);
 	vec3 rd = normalize(vertRay);
 
-	float lt = rt.z;
+	float lt = decode_light_pri(rt);
 	float lr = dot(ld, rd);
 	float ur = dot(up, rd);
 	float ul = dot(up, ld);
@@ -42,16 +56,30 @@ void main(void)
 	float iai = clamp(1.4/ai, 0, 1);
 	float lai = log(ai);
 	float ctl = pow(max(lr+0.3, 0.0), 2);
-	float crl = mix(0.7, 1.1, rt.y);
+	float crl = mix(0.7, 1.1, decode_light_sec(rt));
 
-	float id = rt.x;
-	id -= Far/2;
+	float cd = decode_density(rt);
+	float ft = decode_dist_first(rt);
+	float fl = decode_dist_final(rt);
+	float id = (fl - Far/2);
 	id /= (Far - Far/2);
 	id = exp(-id)*(1-id);
 
 	lt *= mix(mix(0.2, 0.9, id), 1.0, crl);
 
-	float dc = (0.8+0.2*lt)*id*pow(rt.w, 0.25);
+	float dd = 0;
+	dd += dist_diff(vec2(-1,-1), ft);
+	dd += dist_diff(vec2(-1, 0), ft);
+	dd += dist_diff(vec2(-1, 1), ft);
+	dd += dist_diff(vec2( 0,-1), ft);
+	dd += dist_diff(vec2( 0, 1), ft);
+	dd += dist_diff(vec2( 1,-1), ft);
+	dd += dist_diff(vec2( 1, 0), ft);
+	dd += dist_diff(vec2( 1, 1), ft);
+
+	float ao = 0.04*dd*cd*(1.0-lt*crl)*id;
+
+	float dc = (0.8+0.2*lt)*id*pow(cd, 0.25);
 
 	vec3 Air1 =
 		mix(HazeColor, AirColor, iai)*
@@ -70,16 +98,16 @@ void main(void)
 		(LightColor-AirColor*lai*0.4)*
 		pow(max(lr+mix(0.0015, 0.0004, iai), 0.0), mix(256, 1024, hr));
 
-	vec3 CloudsDk = (LightColor-AirColor*lai*0.2)*sqrt(max(ul+0.7-lr*0.2, 0.0))*0.70;
-	vec3 CloudsLt = (LightColor-AirColor*lai*0.1)*sqrt(1.0+ul*0.5);
+	vec3 CloudsDk = (LightColor-AirColor*lai*0.3)*sqrt(max(ul+0.7-lr*0.2, 0.0))*0.70;
+	vec3 CloudsLt = (LightColor-AirColor*lai*0.2)*sqrt(1.0+ul*0.5);
 
-	vec3 CloudsLi = (LightColor-AirColor*mix(1.0-ul, lai, 0.4))*2.70;
+	vec3 CloudsLi = (LightColor-AirColor*mix(1.0-ul, lai, 0.3))*2.70;
 
-	vec3 Air = Air1+(Air2+Air3)*(1-pow(rt.w, 2));
+	vec3 Air = Air1+(Air2+Air3)*(1-pow(cd, 2));
 	vec3 Clouds = mix(
 		CloudsLi,
-		mix(CloudsDk, CloudsLt, lt),
-		mix(1.0, rt.w, min(ctl, 1.0))
+		mix(CloudsDk, CloudsLt, clamp(lt+ao, 0, 1)),
+		mix(1.0, cd, min(ctl, 1.0))
 	);
 
 	fragColor = mix(Air, Clouds, clamp(dc, 0, 1));
