@@ -84,7 +84,7 @@ void main(void)
 	vec3 Air1 =
 		mix(HazeColor, AirColor, iai)*
 		sqrt(max(ul+0.3, 0.0))*
-		mix(0.9, 1.0, min(abs(lr+0.6), 1.0));
+		mix(0.9, 1.0, clamp(abs(lr+0.6), 0.2, 1.0));
 	Air1 *= crl;
 
 	vec3 Air2 =
@@ -98,10 +98,10 @@ void main(void)
 		(LightColor-AirColor*lai*0.4)*
 		pow(max(lr+mix(0.0015, 0.0004, iai), 0.0), mix(256, 1024, hr));
 
-	vec3 CloudsDk = (LightColor-AirColor*lai*0.3)*sqrt(max(ul+0.7-lr*0.2, 0.0))*0.70;
-	vec3 CloudsLt = (LightColor-AirColor*lai*0.2)*sqrt(1.0+ul*0.5);
+	vec3 CloudsDk = (LightColor-AirColor*lai*mix(0.2, 0.4, max(-lr, 0)))*sqrt(max(ul+0.7-lr*0.2, 0.0))*0.70;
+	vec3 CloudsLt = (LightColor-AirColor*lai*mix(0.2, 0.4, abs(lr+0.1)))*sqrt(1.0+ul*0.5);
 
-	vec3 CloudsLi = (LightColor-AirColor*mix(1.0-ul, lai, 0.3))*2.70;
+	vec3 CloudsLi = (LightColor-AirColor*mix(1.0-ul, lai, 0.4))*2.60;
 
 	vec3 Air = Air1+Air2*(1-cd*0.7)+Air3*(1-pow(cd, 2));
 	vec3 Clouds = mix(

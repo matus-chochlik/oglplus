@@ -13,5 +13,6 @@ void main(void)
 {
 	vec4 rt = texture(RaytraceOutput, vertTexCoord);
 	rt.x /= (Far-Near);
+	rt.y /= (Far-Near);
 	fragColor = rt;
 }
