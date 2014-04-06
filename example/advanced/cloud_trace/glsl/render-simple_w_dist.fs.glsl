@@ -11,6 +11,7 @@ in vec3 vertRay;
 in vec2 vertTexCoord;
 out vec3 fragColor;
 
+float decode_dist_final(vec4 rt_data);
 float decode_density(vec4 rt_data);
 float decode_light_pri(vec4 rt_data);
 
@@ -25,9 +26,13 @@ void main(void)
 
 	float lt = decode_light_pri(rt);
 	float cd = decode_density(rt);
+	float id = (decode_dist_final(rt) - Far/3);
+	id /= (Far - Far/3);
+	id = exp(-id)*(1-id);
+	id = clamp(id, 0, 1);
 
 	float cl = mix(0.5, 1.0, lt);
 	vec3 cc = vec3(cl);
-	fragColor = mix(bc, cc, cd);
+	fragColor = mix(bc, cc, mix(0.0, cd, id));
 
 }

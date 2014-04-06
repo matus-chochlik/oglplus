@@ -77,7 +77,7 @@ void main(void)
 	dd += dist_diff(vec2( 1, 0), ft);
 	dd += dist_diff(vec2( 1, 1), ft);
 
-	float ao = 0.04*dd*cd*(1.0-lt*crl)*id;
+	float ao = 0.03*dd*cd*(1.0-lt*crl)*id;
 
 	float dc = (0.8+0.2*lt)*id*pow(cd, 0.25);
 
