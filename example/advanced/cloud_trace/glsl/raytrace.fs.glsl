@@ -20,7 +20,17 @@ const float maxt = 1e9;
 float tmin[2], tmax[2];
 
 int find_hits(int k, vec3 ori, vec3 ray);
-vec4 sample_ray(int k, int n, float t, float dc);
+
+
+struct rs_data
+{
+	float den;
+	float tstep;
+	float tmin;
+	float tmax;
+};
+rs_data sample_ray(int k, int n, float t, float dc);
+
 vec4 encode_rt_data(
 	float dist_first,
 	float dist_final,
@@ -42,20 +52,20 @@ void main(void)
 
 	while((t0 < tmax[0]) && (den0 < 1.0))
 	{
-		vec4 sr0 = sample_ray(0, n0, t0, UnitOpacity);
-		if(sr0[0] > 0.0)
+		rs_data sr0 = sample_ray(0, n0, t0, UnitOpacity);
+		if(sr0.den > 0.0)
 		{
-			den0 += sr0[0];
+			den0 += sr0.den;
 			tfirst = min(tfirst, t0);
 			tlast = t0;
 		}
-		if(sr0[1] < 1.0)
+		if(sr0.tstep < 1.0)
 		{
-			t0 += sr0[1];
+			t0 += sr0.tstep;
 		}
 		else
 		{
-			t0 = sr0[2];
+			t0 = sr0.tmin;
 			tmin[0] = maxt;
 		}
 	}
@@ -69,15 +79,15 @@ void main(void)
 		tmax[0] = 0.0;
 		while(t0 >= tfirst)
 		{
-			vec4 sr0 = sample_ray(0, n0, t0, UnitOpacity);
+			rs_data sr0 = sample_ray(0, n0, t0, UnitOpacity);
 
-			if(sr0[1] < 1.0)
+			if(sr0.tstep < 1.0)
 			{
-				t0 -= sr0[1];
+				t0 -= sr0.tstep;
 			}
 			else
 			{
-				t0 = min(sr0[3], t0-0.01);
+				t0 = min(sr0.tmax, t0-0.01);
 				tmax[0] = 0.0;
 			}
 
@@ -91,23 +101,23 @@ void main(void)
 			while((t1 < tmax[1]) && (den1 < 1.0))
 			{
 				float mult = clamp(t1, 1, 8);
-				vec4 sr1 = sample_ray(1, n1, t1, UnitAttenuation*mult);
-				den1 += sr1[0];
+				rs_data sr1 = sample_ray(1, n1, t1, UnitAttenuation*mult);
+				den1 += sr1.den;
 
-				float ss = sr1[1]*mult;
+				float ss = sr1.tstep*mult;
 				if(ss < 1.0)
 				{
 					t1 += ss;
 				}
 				else
 				{
-					t1 = sr1[2];
+					t1 = sr1.tmin;
 					tmin[1] = maxt;
 				}
 			}
 			den1 = min(den1, 1.0);
-			lt = mix(lt, mix(HighLight, mix(lt, AmbiLight, sr0[0]), den1), sr0[0]);
-			dist = mix(dist, t0, sr0[0]);
+			lt = mix(lt, mix(HighLight, mix(lt, AmbiLight, sr0.den), den1), sr0.den);
+			dist = mix(dist, t0, sr0.den);
 		}
 	}
 	lt *= 1.414;
@@ -130,8 +140,8 @@ void main(void)
 		float sd = 0.5*mult;
 		while(t0 < tm0[p])
 		{
-			vec4 sr0 = sample_ray(0, n0, t0, 0.1);
-			den0 = mix(den0+sr0[0], cden, p);
+			rs_data sr0 = sample_ray(0, n0, t0, 0.1);
+			den0 = mix(den0+sr0.den, cden, p);
 
 			if(den0 >= 1.0) break;
 
@@ -146,8 +156,8 @@ void main(void)
 
 			while((t1 < tm1) && (den1 < 1.0))
 			{
-				vec4 sr1 = sample_ray(1, n1, t1, sd);
-				den1 += sr1[0];
+				rs_data sr1 = sample_ray(1, n1, t1, sd);
+				den1 += sr1.den;
 				t1 += ts1;
 			}
 			den1 = min(den1, 1.0);
