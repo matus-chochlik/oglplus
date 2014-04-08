@@ -93,6 +93,7 @@ int find_hits(int k, vec3 ori, vec3 ray)
 struct rs_data
 {
 	float den;
+	float age;
 	float tstep;
 	float tmin;
 	float tmax;
@@ -102,6 +103,7 @@ rs_data sample_ray(int k, int n, float t, float dc)
 {
 	rs_data res;
 	res.den = 0.0;
+	res.age = 0.0;
 	res.tstep = 1.0;
 	res.tmin = tmin[k];
 	res.tmax = tmax[k];
@@ -119,11 +121,14 @@ rs_data sample_ray(int k, int n, float t, float dc)
 			vec3 sp = sphere_para(id);
 			vec3 tc = mix(tc0[k*N+i], tc1[k*N+i], ssc);
 			float ssd = max(texture(CloudTex, tc).r - sp[0], 0.0);
-			res.den += ssd * dc * sp[1];
+			float sd = ssd * dc * sp[1];
+			res.den += sd;
 
 			vec3 tcd = abs(tc0[k*N+i]-tc1[k*N+i]);
 			vec3 tsn = tcd*textureSize(CloudTex, 0);
 			float nsam = ceil(max(max(tsn.x, tsn.y), tsn.z));
+
+			res.age += sp[2]*sd;
 			res.tstep = min(res.tstep, td / nsam);
 		}
 		if(tn > t)
@@ -135,7 +140,7 @@ rs_data sample_ray(int k, int n, float t, float dc)
 			res.tmax = max(res.tmax, tf);
 		}
 	}
+	res.age = res.age/mix(1.0, res.den, sign(res.den));
 	res.den = min(res.den, 1.0);
 	return res;
 }
-

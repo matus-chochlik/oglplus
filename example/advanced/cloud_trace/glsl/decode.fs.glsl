@@ -14,11 +14,6 @@ float decode_dist_final(vec4 rt_data)
 	return rt_data.y;
 }
 
-float decode_density(vec4 rt_data)
-{
-	return rt_data.z;
-}
-
 float decode_light_pri(vec4 rt_data)
 {
 	return int(rt_data.w)*0.001;
@@ -28,3 +23,14 @@ float decode_light_sec(vec4 rt_data)
 {
 	return fract(rt_data.w);
 }
+
+float decode_density(vec4 rt_data)
+{
+	return int(rt_data.z)*0.001;
+}
+
+float decode_age(vec4 rt_data)
+{
+	return fract(rt_data.z);
+}
+

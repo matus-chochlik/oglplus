@@ -25,6 +25,7 @@ int find_hits(int k, vec3 ori, vec3 ray);
 struct rs_data
 {
 	float den;
+	float age;
 	float tstep;
 	float tmin;
 	float tmax;
@@ -34,9 +35,10 @@ rs_data sample_ray(int k, int n, float t, float dc);
 vec4 encode_rt_data(
 	float dist_first,
 	float dist_final,
-	float density,
 	float light_pri,
-	float light_sec
+	float light_sec,
+	float density,
+	float age
 );
 
 void main(void)
@@ -73,6 +75,7 @@ void main(void)
 	tfirst = max(tfirst, 0);
 	float lt = mix(AmbiLight, HighLight, (1-den0)*(dot(ray0, ld)+1)*0.5);
 	float dist = Far;
+	float age = 0.0;
 	if(den0 > 0.0)
 	{
 		t0 = tlast;
@@ -90,6 +93,8 @@ void main(void)
 				t0 = min(sr0.tmax, t0-0.01);
 				tmax[0] = 0.0;
 			}
+
+			age += sr0.age*sr0.den;
 
 			vec3 ori1 = ori0+ray0*t0;
 			vec3 ray1 = normalize(LightPos-ori1);
@@ -121,6 +126,7 @@ void main(void)
 		}
 	}
 	lt *= 1.414;
+	age = age / mix(1.0, den0, sign(den0));
 	float cden = den0;
 	den0 = 0.0;
 
@@ -169,5 +175,5 @@ void main(void)
 	}
 	crl *= icrs;
 
-	fragColor = encode_rt_data(tfirst, dist, cden, lt, crl);
+	fragColor = encode_rt_data(tfirst, dist, lt, crl, cden, age);
 }
