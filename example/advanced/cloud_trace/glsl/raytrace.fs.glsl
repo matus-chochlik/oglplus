@@ -94,7 +94,6 @@ void main(void)
 				tmax[0] = 0.0;
 			}
 
-			age += sr0.age*sr0.den;
 
 			vec3 ori1 = ori0+ray0*t0;
 			vec3 ray1 = normalize(LightPos-ori1);
@@ -122,6 +121,7 @@ void main(void)
 			}
 			den1 = min(den1, 1.0);
 			lt = mix(lt, mix(HighLight, mix(lt, AmbiLight, sr0.den), den1), sr0.den);
+			age = mix(age, sr0.age, sr0.den);
 			dist = mix(dist, t0, sr0.den);
 		}
 	}
