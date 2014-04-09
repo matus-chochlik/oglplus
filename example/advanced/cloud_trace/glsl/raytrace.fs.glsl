@@ -126,7 +126,7 @@ void main(void)
 		}
 	}
 	lt *= 1.414;
-	age = age / mix(1.0, den0, sign(den0));
+	age = clamp(age, 0, 1);
 	float cden = den0;
 	den0 = 0.0;
 

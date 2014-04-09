@@ -16,7 +16,7 @@ vec4 encode_rt_data(
 	return vec4(
 		dist_first,
 		dist_final,
-		int(density*1000)+min(age, 0.999),
-		int(light_pri*1000)+min(light_sec, 0.999)
+		trunc(density*1000)+min(age, 0.99),
+		trunc(light_pri*1000)+min(light_sec, 0.999)
 	);
 }
