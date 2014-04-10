@@ -4,6 +4,8 @@
  */
 #version 330
 
+float pack_pair(float hi, float lo);
+
 vec4 encode_rt_data(
 	float dist_first,
 	float dist_final,
@@ -16,7 +18,7 @@ vec4 encode_rt_data(
 	return vec4(
 		dist_first,
 		dist_final,
-		trunc(density*1000)+min(age, 0.99),
-		trunc(light_pri*1000)+min(light_sec, 0.999)
+		pack_pair(density, age),
+		pack_pair(light_pri, light_sec)
 	);
 }

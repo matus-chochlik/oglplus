@@ -4,6 +4,9 @@
  */
 #version 330
 
+float unpack_hi(float enc);
+float unpack_lo(float enc);
+
 float decode_dist_first(vec4 rt_data)
 {
 	return rt_data.x;
@@ -16,21 +19,21 @@ float decode_dist_final(vec4 rt_data)
 
 float decode_light_pri(vec4 rt_data)
 {
-	return int(rt_data.w)*0.001;
+	return unpack_hi(rt_data.w);
 }
 
 float decode_light_sec(vec4 rt_data)
 {
-	return fract(rt_data.w);
+	return unpack_lo(rt_data.w);
 }
 
 float decode_density(vec4 rt_data)
 {
-	return int(rt_data.z)*0.001;
+	return unpack_hi(rt_data.z);
 }
 
 float decode_age(vec4 rt_data)
 {
-	return fract(rt_data.z);
+	return unpack_lo(rt_data.z);
 }
 

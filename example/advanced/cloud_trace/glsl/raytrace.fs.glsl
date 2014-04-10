@@ -51,12 +51,14 @@ void main(void)
 	tmin[0] = maxt;
 	float tfirst = maxt, tlast = 0;
 	float den0 = 0.0;
+	float age = 0.0;
 
 	while((t0 < tmax[0]) && (den0 < 1.0))
 	{
 		rs_data sr0 = sample_ray(0, n0, t0, UnitOpacity);
 		if(sr0.den > 0.0)
 		{
+			age = sr0.age;
 			den0 += sr0.den;
 			tfirst = min(tfirst, t0);
 			tlast = t0;
@@ -75,7 +77,6 @@ void main(void)
 	tfirst = max(tfirst, 0);
 	float lt = mix(AmbiLight, HighLight, (1-den0)*(dot(ray0, ld)+1)*0.5);
 	float dist = Far;
-	float age = 0.0;
 	if(den0 > 0.0)
 	{
 		t0 = tlast;
@@ -126,7 +127,7 @@ void main(void)
 		}
 	}
 	lt *= 1.414;
-	age = clamp(age, 0, 1);
+	age = clamp(age, 0, 0.999);
 	float cden = den0;
 	den0 = 0.0;
 
