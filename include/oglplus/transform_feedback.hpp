@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,8 +18,8 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
+#include <oglplus/binding_query.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
-#include <oglplus/auxiliary/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {

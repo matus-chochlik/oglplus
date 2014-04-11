@@ -31,7 +31,7 @@
 #include <oglplus/images/fwd.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/one_of.hpp>
-#include <oglplus/auxiliary/binding_query.hpp>
+#include <oglplus/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {

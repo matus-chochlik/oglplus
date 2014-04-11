@@ -19,7 +19,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
-#include <oglplus/auxiliary/binding_query.hpp>
+#include <oglplus/binding_query.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/texture.hpp>

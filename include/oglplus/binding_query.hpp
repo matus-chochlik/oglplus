@@ -1,17 +1,17 @@
 /**
- *  @file oglplus/auxiliary/binding_query.hpp
+ *  @file oglplus/binding_query.hpp
  *  @brief Helper class for getting the OpenGL name of object bound to a target
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_AUX_BINDING_QUERY_1107121519_HPP
-#define OGLPLUS_AUX_BINDING_QUERY_1107121519_HPP
+#ifndef OGLPLUS_BINDING_QUERY_1107121519_HPP
+#define OGLPLUS_BINDING_QUERY_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
 #include <cassert>
