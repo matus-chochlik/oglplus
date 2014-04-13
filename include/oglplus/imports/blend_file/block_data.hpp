@@ -79,6 +79,13 @@ public:
 		return _block_data.data();
 	}
 
+	/// Returns the i-th byte in the block
+	char RawByte(std::size_t i) const
+	{
+		assert(i < _block_data.size());
+		return _block_data[i];
+	}
+
 	/// returns the size (in bytes) of the raw data
 	std::size_t DataSize(void) const
 	{

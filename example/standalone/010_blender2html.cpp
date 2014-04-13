@@ -426,25 +426,54 @@ void blend_to_html(const std::string& filename, const std::string& work_dir)
 				output << "</table>"  << std::endl;
 			}
 		}
-		else if(b.Code() == "DATA" && b.Size() % file.Info().PointerSize() == 0)
+		else if(b.Code() == "DATA")
 		{
-			output << "<h2>Pointers</h2>" << std::endl;
+			output << "<h2>Raw data</h2>" << std::endl;
 			output << "<table>"  << std::endl;
-			output << "<tr><th>Pointer</th><tr>" << std::endl;
+			output << "<tr><th>Bytes</th><tr>" << std::endl;
 
 			auto bd = file.BlockData(b);
-			auto vt = file.Type<void>();
-			std::size_t n = b.Size() / file.Info().PointerSize();
-			for(std::size_t i=0; i!=n; ++i)
+
+			output << "<tr><td>" << std::endl;
+			for(std::size_t i=0, n=bd.DataSize(); i!=n; ++i)
 			{
-				auto ptr = bd.AsPointerTo(vt, i);
-				output << "<tr><td><a href='block-0x";
-				output << std::hex << ptr.Value() << std::dec;
-				output << ".html'>0x";
-				output << std::hex << ptr.Value() << std::dec;
-				output << "</a></td></tr>";
+				char c = bd.RawByte(i);
+				if(std::isprint(c))
+				{
+					output << c;
+				}
+				else
+				{
+					output << "\\"
+						<< std::setw(3)
+						<< std::setfill('0')
+						<< std::oct
+						<< (c & 0xFF)
+						<< std::dec;
+				}
 			}
+			output << "</td></tr>" << std::endl;
 			output << "</table>"  << std::endl;
+
+			if(b.Size() % file.Info().PointerSize() == 0)
+			{
+				output << "<h2>Pointers</h2>" << std::endl;
+				output << "<table>"  << std::endl;
+				output << "<tr><th>Pointer</th></tr>" << std::endl;
+
+				auto vt = file.Type<void>();
+				std::size_t n = b.Size() / file.Info().PointerSize();
+				for(std::size_t i=0; i!=n; ++i)
+				{
+					auto ptr = bd.AsPointerTo(vt, i);
+					output << "<tr><td><a href='block-0x";
+					output << std::hex << ptr.Value() << std::dec;
+					output << ".html'>0x";
+					output << std::hex << ptr.Value() << std::dec;
+					output << "</a></td></tr>";
+				}
+				output << "</table>"  << std::endl;
+			}
 		}
 		output << "</body>" << std::endl;
 		output << "</html>" << std::endl;
