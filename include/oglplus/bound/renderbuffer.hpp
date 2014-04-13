@@ -62,7 +62,7 @@ public:
 	/** Wrapper for Renderbuffer::Storage()
 	 *  @see Renderbuffer::Storage()
 	 */
-	void Storage(
+	const BoundTemplate& Storage(
 		PixelDataInternalFormat internalformat,
 		GLsizei width,
 		GLsizei height
@@ -74,13 +74,14 @@ public:
 			width,
 			height
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Renderbuffer::Storage()
 	 *  @see Renderbuffer::Storage()
 	 */
-	void Storage(
+	const BoundTemplate& Storage(
 		const images::ImageSpec & image_spec
 	) const
 	{
@@ -88,13 +89,14 @@ public:
 			this->BindTarget(),
 			image_spec
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Renderbuffer::StorageMultisample()
 	 *  @see Renderbuffer::StorageMultisample()
 	 */
-	void StorageMultisample(
+	const BoundTemplate& StorageMultisample(
 		GLsizei samples,
 		PixelDataInternalFormat internalformat,
 		GLsizei width,
@@ -108,6 +110,7 @@ public:
 			width,
 			height
 		);
+		return *this;
 	}
 
 

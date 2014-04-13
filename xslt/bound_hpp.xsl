@@ -168,7 +168,16 @@
 			<xsl:call-template name="Newline"/>
 		</xsl:for-each>
 		<xsl:text>	</xsl:text>
-		<xsl:apply-templates mode="ParamTypeExpr" select="type"/>
+
+		<xsl:variable name="ResultType">
+			<xsl:apply-templates mode="ParamTypeExpr" select="type"/>
+		</xsl:variable>
+
+		<xsl:choose>
+			<xsl:when test="$ResultType = 'void'">const BoundTemplate&amp;</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$ResultType"/></xsl:otherwise>
+		</xsl:choose>
+
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="name/text()"/>
 		<xsl:text>(</xsl:text>
@@ -222,10 +231,6 @@
 		<xsl:call-template name="Newline"/>
 		<xsl:text>		</xsl:text>
 
-		<xsl:variable name="ResultType">
-			<xsl:value-of select="type/ref/text()"/>
-			<xsl:value-of select="type/text()"/>
-		</xsl:variable>
 		<xsl:if test="$ResultType != 'void'">
 			<xsl:text>return </xsl:text>
 		</xsl:if>
@@ -259,6 +264,10 @@
 		</xsl:for-each>
 		<xsl:text>		);</xsl:text>
 		<xsl:call-template name="Newline"/>
+		<xsl:if test="$ResultType = 'void'">
+			<xsl:text>		return *this;</xsl:text>
+			<xsl:call-template name="Newline"/>
+		</xsl:if>
 		<xsl:text>	}</xsl:text>
 		<xsl:call-template name="Newline"/>
 
