@@ -14,14 +14,12 @@
 #ifndef OGLPLUS_BOUND_BUFFER_1107121519_HPP
 #define OGLPLUS_BOUND_BUFFER_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/bound.hpp>
 #include <utility>
 
 namespace oglplus {
-
-template <template <class, class> class Base, class BaseParam, class Bindable>
-class BoundTemplate;
 
 /// Specialization of the BoundTemplate for BufferOps, implements Bound < Buffer  >.
 /** This template implements wrappers around the member functions

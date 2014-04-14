@@ -57,9 +57,6 @@ class BoundTemplate
  : public Base<BaseParam, BindableOps>
 {
 };
-#else
-template <template <class, class> class Base, class BaseParam, class Bindable>
-class BoundTemplate;
 #endif
 
 /// A wraper that binds @ref oglplus_object "objects" to a specified target

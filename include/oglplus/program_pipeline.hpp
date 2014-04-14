@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,6 +21,7 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/bitfield.hpp>
 #include <oglplus/enumerations.hpp>
+#include <oglplus/binding_query.hpp>
 #include <oglplus/auxiliary/prog_pl_stages.hpp>
 
 #include <cassert>
@@ -108,6 +109,8 @@ protected:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
+	static GLenum _binding_query(Target);
+	friend class BindingQuery<ProgramPipelineOps>;
 	friend class FriendOf<ProgramPipelineOps>;
 public:
 	/// Types related to ProgramPipeline

@@ -30,6 +30,22 @@ public:
 		assert(result >= 0);
 		return GLuint(result);
 	}
+
+	template <typename Object_>
+	static GLuint QueryBinding(
+		typename Object_::IndexedTarget target,
+		GLuint idx
+	)
+	{
+		GLint result = 0;
+		GLenum query = Object::_binding_query(target);
+		if(query != 0)
+		{
+			OGLPLUS_GLFUNC(GetIntegeri_v)(query, idx, &result);
+		}
+		assert(result >= 0);
+		return GLuint(result);
+	}
 };
 
 } // namespace oglplus

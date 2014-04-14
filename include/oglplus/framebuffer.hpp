@@ -70,6 +70,12 @@ OGLPLUS_ENUM_CLASS_END(FramebufferTarget)
 #include <oglplus/enums/framebuffer_target_range.ipp>
 #endif
 
+template <>
+struct ObjectTargetOps<FramebufferTarget>
+{
+	typedef FramebufferOps Type;
+};
+
 /// Incomplete framebuffer exception class
 /**
  *  @ingroup error_handling

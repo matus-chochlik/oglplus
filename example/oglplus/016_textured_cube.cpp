@@ -114,8 +114,7 @@ public:
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the cube
 		cube.Bind();

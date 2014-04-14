@@ -43,6 +43,12 @@ OGLPLUS_ENUM_CLASS_END(RenderbufferTarget)
 #include <oglplus/enums/renderbuffer_target_range.ipp>
 #endif
 
+template <>
+struct ObjectTargetOps<RenderbufferTarget>
+{
+	typedef RenderbufferOps Type;
+};
+
 /// Class wrapping renderbuffer-related functionality
 /** @note Do not use this class directly, use Renderbuffer instead.
  *

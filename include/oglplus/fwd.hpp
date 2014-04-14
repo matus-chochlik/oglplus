@@ -150,11 +150,17 @@ OGLPLUS_OBJECT_TYPE_ID(DSAVertexArrayEXT, 18)
 template <typename ObjectOps>
 struct ObjectBaseOps;
 
+template <typename Target>
+struct ObjectTargetOps;
+
 template <typename ObjectOps>
 class Object;
 
 template <typename ObjectOps>
 class Managed;
+
+template <template <class, class> class Base, class BaseParam, class Bindable>
+class BoundTemplate;
 
 } // namespace oglplus
 

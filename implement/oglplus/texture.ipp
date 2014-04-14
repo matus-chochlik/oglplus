@@ -277,6 +277,35 @@ void TextureOps::Image2D(
 }
 
 OGLPLUS_LIB_FUNC
+void TextureOps::ImageCM(
+	GLuint face,
+	const images::Image& image,
+	GLint level,
+	GLint border
+)
+{
+	assert(face <= 5);
+	Target target = Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
+	OGLPLUS_GLFUNC(TexImage2D)(
+		GLenum(target),
+		level,
+		GLint(image.InternalFormat()),
+		image.Width(),
+		image.Height(),
+		border,
+		GLenum(image.Format()),
+		GLenum(image.Type()),
+		image.RawData()
+	);
+	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		TexImage2D,
+		Texture,
+		EnumValueName(target),
+		BindingQuery<TextureOps>::QueryBinding(target)
+	));
+}
+
+OGLPLUS_LIB_FUNC
 void TextureOps::SubImage2D(
 	Target target,
 	const images::Image& image,

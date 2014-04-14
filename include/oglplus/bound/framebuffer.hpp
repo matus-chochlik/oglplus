@@ -14,14 +14,12 @@
 #ifndef OGLPLUS_BOUND_FRAMEBUFFER_1107121519_HPP
 #define OGLPLUS_BOUND_FRAMEBUFFER_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/bound.hpp>
 #include <utility>
 
 namespace oglplus {
-
-template <template <class, class> class Base, class BaseParam, class Bindable>
-class BoundTemplate;
 
 /// Specialization of the BoundTemplate for FramebufferOps, implements Bound < Framebuffer  >.
 /** This template implements wrappers around the member functions

@@ -55,6 +55,12 @@ OGLPLUS_ENUM_CLASS_END(TextureTarget)
 #include <oglplus/enums/texture_target_range.ipp>
 #endif
 
+template <>
+struct ObjectTargetOps<TextureTarget>
+{
+	typedef TextureOps Type;
+};
+
 /// Function returning the number of texture dimensions for a texture target
 GLuint TextureTargetDimensions(TextureTarget target);
 
@@ -890,6 +896,72 @@ public:
 	 */
 	static void Image2D(
 		Target target,
+		const images::Image& image,
+		GLint level = 0,
+		GLint border = 0
+	);
+
+	/// Specifies the image of the specified cube-map face
+	/**
+	 *  @pre (face >= 0) && (face <= 5)
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TexImage2D}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_X}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_X}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Y}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Y}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
+	 */
+	static void ImageCM(
+		GLuint face,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	)
+	{
+		assert(face <= 5);
+		Target target = Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
+		OGLPLUS_GLFUNC(TexImage2D)(
+			GLenum(target),
+			level,
+			GLint(internal_format),
+			width,
+			height,
+			border,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexImage2D,
+			Texture,
+			EnumValueName(target),
+			BindingQuery<TextureOps>::QueryBinding(target)
+		));
+	}
+
+	/// Specifies the image of the specified cube-map face
+	/**
+	 *  @pre (face >= 0) && (face <= 5)
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TexImage2D}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_X}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_X}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Y}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Y}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
+	 */
+	static void ImageCM(
+		GLuint face,
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0

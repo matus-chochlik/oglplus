@@ -307,14 +307,12 @@
 #ifndef OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 #define OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 
+#include &lt;oglplus/fwd.hpp&gt;
 #include &lt;oglplus/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp&gt;
 #include &lt;oglplus/bound.hpp&gt;
 #include &lt;utility&gt;
 
 namespace oglplus {
-
-template &lt;template &lt;class, class&gt; class Base, class BaseParam, class Bindable&gt;
-class BoundTemplate;
 
 /// Specialization of the BoundTemplate for </xsl:text>
 	<xsl:value-of select="$Object"/>

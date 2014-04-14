@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,6 +12,12 @@
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+
+OGLPLUS_LIB_FUNC
+GLenum ProgramPipelineOps::_binding_query(Target)
+{
+	return GL_PROGRAM_PIPELINE_BINDING;
+}
 
 OGLPLUS_LIB_FUNC
 String ProgramPipelineOps::GetInfoLog(void) const
