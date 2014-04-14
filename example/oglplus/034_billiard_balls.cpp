@@ -865,13 +865,13 @@ public:
 
 	void PrerenderLightmap(const Vec3f& light_position, GLuint tex_side)
 	{
-		AutoBind<Framebuffer> table_light_fbo(Framebuffer::Target::Draw);
-
-		table_light_fbo.AttachTexture(
-			FramebufferAttachment::Color,
-			table_light_map,
-			0
-		);
+		Framebuffer table_light_fbo;
+		Bind(table_light_fbo, Framebuffer::Target::Draw)
+			.AttachTexture(
+				FramebufferAttachment::Color,
+				table_light_map,
+				0
+			);
 
 		gl.Viewport(tex_side, tex_side);
 		gl.ClearColor(1.0 ,1.0, 1.0, 0.0);
@@ -912,12 +912,14 @@ public:
 		GLuint tex_side
 	)
 	{
-		AutoBind<Texture> z_buffer(Texture::Target::CubeMap, 4);
-		z_buffer.MinFilter(TextureMinFilter::Nearest);
-		z_buffer.MagFilter(TextureMagFilter::Nearest);
-		z_buffer.WrapS(TextureWrap::ClampToEdge);
-		z_buffer.WrapT(TextureWrap::ClampToEdge);
-		z_buffer.WrapR(TextureWrap::ClampToEdge);
+		Texture::Active(4);
+		Texture z_buffer;
+		Bind(z_buffer, Texture::Target::CubeMap)
+			.MinFilter(TextureMinFilter::Nearest)
+			.MagFilter(TextureMagFilter::Nearest)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.WrapR(TextureWrap::ClampToEdge);
 
 		for(int i=0; i!=6; ++i)
 		{
@@ -935,13 +937,13 @@ public:
 
 		Texture::Active(3);
 
-		AutoBind<Framebuffer> fbo(Framebuffer::Target::Draw);
-
-		fbo.AttachTexture(
-			FramebufferAttachment::Depth,
-			z_buffer,
-			0
-		);
+		Framebuffer fbo;
+		Bind(fbo, Framebuffer::Target::Draw)
+			.AttachTexture(
+				FramebufferAttachment::Depth,
+				z_buffer,
+				0
+			);
 
 		CubemapGeomShader cmap_geom_shader;
 		GeometryProgram cmap_geom_prog(cmap_geom_shader);
@@ -967,7 +969,8 @@ public:
 
 		for(GLuint b=0; b!=ball_count; ++b)
 		{
-			fbo.AttachTexture(
+			Framebuffer::AttachTexture(
+				Framebuffer::Target::Draw,
 				FramebufferAttachment::Color,
 				dst_texs[b],
 				0

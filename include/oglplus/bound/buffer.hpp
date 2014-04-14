@@ -16,10 +16,12 @@
 
 #include <oglplus/buffer.hpp>
 #include <oglplus/bound.hpp>
-#include <oglplus/auto_bind.hpp>
 #include <utility>
 
 namespace oglplus {
+
+template <template <class, class> class Base, class BaseParam, class Bindable>
+class BoundTemplate;
 
 /// Specialization of the BoundTemplate for BufferOps, implements Bound < Buffer  >.
 /** This template implements wrappers around the member functions
@@ -33,7 +35,6 @@ namespace oglplus {
  *
  *  @see Bind()
  *  @see Bound
- *  @see AutoBind
  *
  *  @ingroup utility_classes
  */

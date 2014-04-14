@@ -147,6 +147,15 @@ OGLPLUS_OBJECT_TYPE_ID(DSARenderbufferEXT, 17)
 class DSAVertexArrayEXTOps;
 OGLPLUS_OBJECT_TYPE_ID(DSAVertexArrayEXT, 18)
 
+template <typename ObjectOps>
+struct ObjectBaseOps;
+
+template <typename ObjectOps>
+class Object;
+
+template <typename ObjectOps>
+class Managed;
+
 } // namespace oglplus
 
 #endif // include guard

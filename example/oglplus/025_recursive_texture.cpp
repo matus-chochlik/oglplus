@@ -55,11 +55,11 @@ private:
 	DefaultFramebuffer dfb;
 
 	// The FBOs and RBOs for offscreen rendering
-	Array<AutoBind<Framebuffer,false>> fbos;
-	Array<AutoBind<Renderbuffer,false>> rbos;
+	Array<Framebuffer> fbos;
+	Array<Renderbuffer> rbos;
 
 	// The dynamically rendered textures
-	Array<AutoBind<Texture,false>> texs;
+	Array<Texture> texs;
 	// The currently used texture
 	GLuint current_tex;
 	GLuint tex_side;
@@ -76,9 +76,9 @@ public:
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	 , model_matrix(prog, "ModelMatrix")
-	 , fbos(2, Framebuffer::Target::Draw)
-	 , rbos(2, Renderbuffer::Target::Renderbuffer)
-	 , texs(2, Texture::Target::_2D, 0)
+	 , fbos(2)
+	 , rbos(2)
+	 , texs(2)
 	 , current_tex(0)
 	 , tex_side(512)
 	 , width(tex_side)
@@ -164,34 +164,38 @@ public:
 		for(GLuint i=0; i!=2; ++i)
 		{
 			Texture::Active(i);
-			texs[i].Image2D(
-				0,
-				PixelDataInternalFormat::RGBA,
-				tex_side, tex_side,
-				0,
-				PixelDataFormat::RGBA,
-				PixelDataType::UnsignedByte,
-				nullptr
-			);
-			texs[i].MinFilter(TextureMinFilter::Linear);
-			texs[i].MagFilter(TextureMagFilter::Linear);
-			texs[i].WrapS(TextureWrap::Repeat);
-			texs[i].WrapT(TextureWrap::Repeat);
+			Bind(texs[i], Texture::Target::_2D)
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::Repeat)
+				.WrapT(TextureWrap::Repeat)
+				.Image2D(
+					0,
+					PixelDataInternalFormat::RGBA,
+					tex_side, tex_side,
+					0,
+					PixelDataFormat::RGBA,
+					PixelDataType::UnsignedByte,
+					nullptr
+				);
 
-			rbos[i].Storage(
-				PixelDataInternalFormat::DepthComponent,
-				tex_side,
-				tex_side
-			);
-			fbos[i].AttachTexture(
-				FramebufferAttachment::Color,
-				texs[i],
-				0
-			);
-			fbos[i].AttachRenderbuffer(
-				FramebufferAttachment::Depth,
-				rbos[i]
-			);
+			Bind(rbos[i], Renderbuffer::Target::Renderbuffer)
+				.Storage(
+					PixelDataInternalFormat::DepthComponent,
+					tex_side,
+					tex_side
+				);
+
+			Bind(fbos[i], Framebuffer::Target::Draw)
+				.AttachTexture(
+					FramebufferAttachment::Color,
+					texs[i],
+					0
+				)
+				.AttachRenderbuffer(
+					FramebufferAttachment::Depth,
+					rbos[i]
+				);
 		}
 
 		gl.Enable(Capability::DepthTest);
@@ -232,7 +236,7 @@ public:
 			CamMatrixf::PerspectiveX(Degrees(40), 1.0, 1, 40)
 		);
 
-		fbos[back].Bind();
+		fbos[back].Bind(Framebuffer::Target::Draw);
 		gl.Viewport(tex_side, tex_side);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
