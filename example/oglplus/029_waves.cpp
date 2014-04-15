@@ -14,7 +14,6 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/bound.hpp>
 #include <oglplus/bound/texture.hpp>
 
 #include <oglplus/shapes/tetrahedrons.hpp>
@@ -176,19 +175,19 @@ public:
 				d, d, d, x,   a, b, c, x,
 				x, x, x, x,   x, x, x, x
 			};
-			auto bound_tex = Bind(_configurations, Texture::Target::_1D);
-			bound_tex.Image1D(
-				0,
-				PixelDataInternalFormat::RGBA8UI,
-				sizeof(tex_data),
-				0,
-				PixelDataFormat::RGBAInteger,
-				PixelDataType::UnsignedByte,
-				tex_data
-			);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
+			oglplus::Context::Bound(Texture::Target::_1D, _configurations)
+				.Image1D(
+					0,
+					PixelDataInternalFormat::RGBA8UI,
+					sizeof(tex_data),
+					0,
+					PixelDataFormat::RGBAInteger,
+					PixelDataType::UnsignedByte,
+					tex_data
+				)
+				.MinFilter(TextureMinFilter::Nearest)
+				.MagFilter(TextureMagFilter::Nearest)
+				.WrapS(TextureWrap::ClampToEdge);
 		}
 	}
 };
@@ -356,9 +355,9 @@ public:
 		Texture::Active(1);
 		{
 			auto image = images::Squares(512, 512, 0.9f, 8, 8);
-			auto bound_tex = Bind(env_map, Texture::Target::CubeMap);
+			auto bound_tex = gl.Bound(Texture::Target::CubeMap, env_map);
 			for(int i=0; i!=6; ++i)
-				Texture::Image2D(Texture::CubeMapFace(i), image);
+				bound_tex.ImageCM(i, image);
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);

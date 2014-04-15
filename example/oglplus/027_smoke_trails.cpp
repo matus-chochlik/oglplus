@@ -13,7 +13,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/bound.hpp>
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/images/cloud.hpp>
 
@@ -363,9 +362,13 @@ public:
 
 		Texture::Active(0);
 		UniformSampler(prog, "SmokeTex").Set(0);
-		{
-			auto bound_tex = Bind(smoke_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
+		gl.Bound(Texture::Target::_2D, smoke_tex)
+			.MinFilter(TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(TextureMagFilter::Linear)
+			.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f))
+			.WrapS(TextureWrap::ClampToBorder)
+			.WrapT(TextureWrap::ClampToBorder)
+			.Image2D(
 				images::Cloud2D(
 					images::Cloud(
 						128, 128, 128,
@@ -373,14 +376,7 @@ public:
 						0.5f
 					)
 				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f));
-			bound_tex.WrapS(TextureWrap::ClampToBorder);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
-		}
+			).GenerateMipmap();
 		//
 		gl.ClearColor(0.0f, 0.1f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);

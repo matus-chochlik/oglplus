@@ -20,7 +20,6 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/bound.hpp>
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
 #include <oglplus/bound/renderbuffer.hpp>
@@ -514,19 +513,19 @@ void SurfacePolygonizerCommon::InitCellConfigs(SurfaceExample& parent)
 			d, d, d, x,   a, b, c, x,
 			x, x, x, x,   x, x, x, x
 		};
-		auto bound_tex = Bind(configurations, Texture::Target::_1D);
-		bound_tex.Image1D(
-			0,
-			InternalFormat::RGBA8UI,
-			sizeof(tex_data),
-			0,
-			Format::RGBAInteger,
-			DataType::UnsignedByte,
-			tex_data
-		);
-		bound_tex.MinFilter(TextureMinFilter::Nearest);
-		bound_tex.MagFilter(TextureMagFilter::Nearest);
-		bound_tex.WrapS(TextureWrap::ClampToEdge);
+		oglplus::Context::Bound(Texture::Target::_1D, configurations)
+			.MinFilter(TextureMinFilter::Nearest)
+			.MagFilter(TextureMagFilter::Nearest)
+			.WrapS(TextureWrap::ClampToEdge)
+			.Image1D(
+				0,
+				InternalFormat::RGBA8UI,
+				sizeof(tex_data),
+				0,
+				Format::RGBAInteger,
+				DataType::UnsignedByte,
+				tex_data
+			);
 	}
 }
 
@@ -557,9 +556,11 @@ void SurfacePolygonizerCommon::InitMetaballs(SurfaceExample& parent)
 
 	Texture::Active(parent.MetaballPosTexUnit());
 	UniformSampler(prog, "Metaballs").Set(parent.MetaballPosTexUnit());
-	{
-		auto bound_tex = Bind(metaballs, Texture::Target::_1D);
-		bound_tex.Image1D(
+	oglplus::Context::Bound(Texture::Target::_1D, metaballs)
+		.MinFilter(TextureMinFilter::Nearest)
+		.MagFilter(TextureMagFilter::Nearest)
+		.WrapS(TextureWrap::ClampToEdge)
+		.Image1D(
 			0,
 			InternalFormat::RGBA32F,
 			metaball_paths.size(),
@@ -568,10 +569,7 @@ void SurfacePolygonizerCommon::InitMetaballs(SurfaceExample& parent)
 			DataType::Float,
 			nullptr
 		);
-		bound_tex.MinFilter(TextureMinFilter::Nearest);
-		bound_tex.MagFilter(TextureMagFilter::Nearest);
-		bound_tex.WrapS(TextureWrap::ClampToEdge);
-	}
+
 	UpdateMetaballs(parent, 0.0);
 }
 
@@ -702,15 +700,13 @@ SurfaceDepthMapRenderer::SurfaceDepthMapRenderer(SurfaceExample& parent)
 	}
 
 	Texture::Active(parent.DepthMapTexUnit());
-	{
-		auto bound_tex = Bind(parent.depth_map, Texture::Target::_2DArray);
-		bound_tex.MinFilter(TextureMinFilter::Linear);
-		bound_tex.MagFilter(TextureMagFilter::Linear);
-		bound_tex.WrapS(TextureWrap::ClampToEdge);
-		bound_tex.WrapT(TextureWrap::ClampToEdge);
-		bound_tex.WrapR(TextureWrap::ClampToEdge);
-
-		bound_tex.Image3D(
+	gl.Bound(Texture::Target::_2DArray, parent.depth_map)
+		.MinFilter(TextureMinFilter::Linear)
+		.MagFilter(TextureMagFilter::Linear)
+		.WrapS(TextureWrap::ClampToEdge)
+		.WrapT(TextureWrap::ClampToEdge)
+		.WrapR(TextureWrap::ClampToEdge)
+		.Image3D(
 			0,
 			InternalFormat::DepthComponent32,
 			dmap_side, dmap_side, 2,
@@ -719,17 +715,15 @@ SurfaceDepthMapRenderer::SurfaceDepthMapRenderer(SurfaceExample& parent)
 			DataType::Float,
 			nullptr
 		);
-	}
 
 	Texture::Active(parent.DummyMapTexUnit());
-	{
-		auto bound_tex = Bind(dummy_map, Texture::Target::_2DArray);
-		bound_tex.MinFilter(TextureMinFilter::Nearest);
-		bound_tex.MagFilter(TextureMagFilter::Nearest);
-		bound_tex.WrapS(TextureWrap::ClampToEdge);
-		bound_tex.WrapT(TextureWrap::ClampToEdge);
-		bound_tex.WrapR(TextureWrap::ClampToEdge);
-		bound_tex.Image3D(
+	gl.Bound(Texture::Target::_2DArray, dummy_map)
+		.MinFilter(TextureMinFilter::Nearest)
+		.MagFilter(TextureMagFilter::Nearest)
+		.WrapS(TextureWrap::ClampToEdge)
+		.WrapT(TextureWrap::ClampToEdge)
+		.WrapR(TextureWrap::ClampToEdge)
+		.Image3D(
 			0,
 			InternalFormat::RGBA,
 			dmap_side, dmap_side, 2,
@@ -738,12 +732,10 @@ SurfaceDepthMapRenderer::SurfaceDepthMapRenderer(SurfaceExample& parent)
 			DataType::UnsignedByte,
 			nullptr
 		);
-	}
 
-	auto bound_fbo = Bind(fbo, Framebuffer::Target::Draw);
-
-	bound_fbo.AttachTexture(FramebufferAttachment::Depth, parent.depth_map, 0);
-	bound_fbo.AttachTexture(FramebufferAttachment::Color, dummy_map, 0);
+	gl.Bound(Framebuffer::Target::Draw, fbo)
+		.AttachTexture(FramebufferAttachment::Depth, parent.depth_map, 0)
+		.AttachTexture(FramebufferAttachment::Color, dummy_map, 0);
 
 	gl.ClearDepth(1.0);
 	gl.Enable(Capability::DepthTest);
@@ -813,20 +805,18 @@ SurfaceLightMapRenderer::SurfaceLightMapRenderer(SurfaceExample& parent)
 	}
 
 	Texture::Active(parent.LightMapTexUnit());
-	{
-		auto bound_tex = Bind(parent.light_map, Texture::Target::Rectangle);
-		bound_tex.MinFilter(TextureMinFilter::Linear);
-		bound_tex.MagFilter(TextureMagFilter::Linear);
-		bound_tex.WrapS(TextureWrap::ClampToEdge);
-		bound_tex.WrapT(TextureWrap::ClampToEdge);
-	}
+	gl.Bound(Texture::Target::Rectangle, parent.light_map)
+		.MinFilter(TextureMinFilter::Linear)
+		.MagFilter(TextureMagFilter::Linear)
+		.WrapS(TextureWrap::ClampToEdge)
+		.WrapT(TextureWrap::ClampToEdge);
 
-	auto bound_fbo = Bind(fbo, Framebuffer::Target::Draw);
-	rbo.Bind(Renderbuffer::Target::Renderbuffer);
+	gl.Bind(Renderbuffer::Target::Renderbuffer, rbo);
 
 
-	bound_fbo.AttachTexture(FramebufferAttachment::Color, parent.light_map, 0);
-	bound_fbo.AttachRenderbuffer(FramebufferAttachment::Depth, rbo);
+	gl.Bound(Framebuffer::Target::Draw, fbo)
+		.AttachTexture(FramebufferAttachment::Color, parent.light_map, 0)
+		.AttachRenderbuffer(FramebufferAttachment::Depth, rbo);
 
 	gl.Enable(Capability::CullFace);
 	gl.CullFace(Face::Back);
@@ -930,19 +920,17 @@ SurfaceColorMapRenderer::SurfaceColorMapRenderer(SurfaceExample& parent)
 	Uniform<Mat4f>(prog, "LightProjMatrix").Set(surface_data.light_projection);
 
 	Texture::Active(parent.ColorMapTexUnit());
-	{
-		auto bound_tex = Bind(parent.color_map, Texture::Target::Rectangle);
-		bound_tex.MinFilter(TextureMinFilter::Nearest);
-		bound_tex.MagFilter(TextureMagFilter::Nearest);
-		bound_tex.WrapS(TextureWrap::ClampToEdge);
-		bound_tex.WrapT(TextureWrap::ClampToEdge);
-	}
+	gl.Bound(Texture::Target::Rectangle, parent.color_map)
+		.MinFilter(TextureMinFilter::Nearest)
+		.MagFilter(TextureMagFilter::Nearest)
+		.WrapS(TextureWrap::ClampToEdge)
+		.WrapT(TextureWrap::ClampToEdge);
 
-	auto bound_fbo = Bind(fbo, Framebuffer::Target::Draw);
-	rbo.Bind(Renderbuffer::Target::Renderbuffer);
+	gl.Bind(Renderbuffer::Target::Renderbuffer, rbo);
 
-	bound_fbo.AttachTexture(FramebufferAttachment::Color, parent.color_map, 0);
-	bound_fbo.AttachRenderbuffer(FramebufferAttachment::Depth, rbo);
+	gl.Bound(Framebuffer::Target::Draw, fbo)
+		.AttachTexture(FramebufferAttachment::Color, parent.color_map, 0)
+		.AttachRenderbuffer(FramebufferAttachment::Depth, rbo);
 
 	gl.ClearColor(0.35f, 0.30f, 0.25f, 0.0f);
 	gl.ClearDepth(1.0);

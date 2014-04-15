@@ -14,46 +14,10 @@
 #define OGLPLUS_CONTEXT_BINDING_1404142131_HPP
 
 #include <oglplus/config_compiler.hpp>
-#include <oglplus/fwd.hpp>
+#include <oglplus/bound.hpp>
 
 namespace oglplus {
 namespace context {
-
-template <class Bindable, class BindableOps>
-class CurrBoundBase
- : public Bindable
-{
-private:
-	typename Bindable::Target _bind_target;
-protected:
-	CurrBoundBase(const Bindable& bindable, typename Bindable::Target target)
-	 : Bindable(bindable)
-	 , _bind_target(target)
-	{ }
-public:
-	typename Bindable::Target BindTarget(void) const
-	{
-		return _bind_target;
-	}
-};
-
-template <class Object>
-class CurrBound
- : public BoundTemplate<
-	CurrBoundBase,
-	Managed<typename ObjectBaseOps<Object>::Type>,
-	typename ObjectBaseOps<Object>::Type
->
-{
-private:
-	typedef typename ObjectBaseOps<Object>::Type ObjectOps;
-public:
-	CurrBound(
-		const Managed<ObjectOps>& obj,
-		typename ObjectOps::Target tgt
-	): BoundTemplate<CurrBoundBase, Managed<ObjectOps>, ObjectOps>(obj, tgt)
-	{ }
-};
 
 /// Wrapper for object binding operations
 /**
@@ -103,24 +67,29 @@ public:
 
 	/// Returns a managed reference to the object currently bound to target
 	template <typename ObjectTarget>
-	static CurrBound<typename ObjectTargetOps<ObjectTarget>::Type>
+	static oglplus::Bound<typename ObjectTargetOps<ObjectTarget>::Type>
 	Current(ObjectTarget target)
 	{
 		typedef typename ObjectTargetOps<ObjectTarget>::Type ObjectOps;
 
 		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
-		return CurrBound<ObjectOps>(Managed<ObjectOps>(name), target);
+		return oglplus::Bound<ObjectOps>(
+			Managed<ObjectOps>(name),
+			target
+		);
 	}
 
 	/// Binds the object to the specified target, returns a managed reference
 	template <typename Object>
-	static CurrBound<typename ObjectBaseOps<Object>::Type>
+	static oglplus::Bound<typename ObjectBaseOps<Object>::Type>
 	Bound(typename Object::Target target, const Object& object)
 	{
-		object.Bind(target);
 		typedef typename ObjectBaseOps<Object>::Type ObjectOps;
-		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
-		return CurrBound<ObjectOps>(Managed<ObjectOps>(name), target);
+		object.Bind(target);
+		return oglplus::Bound<ObjectOps>(
+			Managed<ObjectOps>(object),
+			target
+		);
 	}
 
 	/// Returns a managed reference to object currently bound to indexed target
