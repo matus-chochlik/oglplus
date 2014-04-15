@@ -13,6 +13,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/bound.hpp>
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/images/cloud.hpp>
 

@@ -2,7 +2,7 @@
  *  @example standalone/025_bitmap_font_text.cpp
  *  @brief Shows rendering of text using a font stored in a texture+metrics
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -29,16 +29,15 @@ public:
 
 		auto image = images::PNGImage(png_stream);
 
-		auto bound_tex = oglplus::Bind(*this, Texture::Target::_2D);
-
-		bound_tex.Image2D(image);
-		bound_tex.GenerateMipmap();
-		bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-		bound_tex.MagFilter(TextureMagFilter::Linear);
-		bound_tex.WrapS(TextureWrap::ClampToBorder);
-		bound_tex.WrapT(TextureWrap::ClampToBorder);
-		bound_tex.SwizzleB(TextureSwizzle::Red);
-		bound_tex.SwizzleG(TextureSwizzle::Red);
+		oglplus::Context::Bound<oglplus::Texture>(Texture::Target::_2D, *this)
+			.MinFilter(TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToBorder)
+			.WrapT(TextureWrap::ClampToBorder)
+			.SwizzleB(TextureSwizzle::Red)
+			.SwizzleG(TextureSwizzle::Red)
+			.Image2D(image)
+			.GenerateMipmap();
 	}
 };
 

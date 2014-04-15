@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_depth_of_field}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -173,10 +173,10 @@ public:
 		main_prog.Use();
 
 		// bind the VAO for the cube
-		cube.Bind();
+		gl.Bind(cube);
 
 		// bind the VBO for the cube vertices
-		positions.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, positions);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
@@ -189,7 +189,7 @@ public:
 		}
 
 		// bind the VBO for the cube normals
-		normals.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, normals);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
@@ -257,9 +257,9 @@ public:
 		Uniform<GLuint>(dof_prog, "SampleMult") = sample_mult;
 
 		// bind the VAO for the screen
-		screen.Bind();
+		gl.Bind(screen);
 
-		corners.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, corners);
 		{
 			GLfloat screen_verts[8] = {
 				-1.0f, -1.0f,
@@ -275,13 +275,12 @@ public:
 
 		Texture::Active(0);
 		UniformSampler(dof_prog, "ColorTex").Set(0);
-		{
-			auto bound_tex = Bind(color_tex, Texture::Target::Rectangle);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.Image2D(
+		gl.Bound(Texture::Target::Rectangle, color_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.Image2D(
 				0,
 				PixelDataInternalFormat::RGB,
 				width, height,
@@ -290,17 +289,15 @@ public:
 				PixelDataType::UnsignedByte,
 				nullptr
 			);
-		}
 
 		Texture::Active(1);
 		UniformSampler(dof_prog, "DepthTex").Set(1);
-		{
-			auto bound_tex = Bind(depth_tex, Texture::Target::Rectangle);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.Image2D(
+		gl.Bound(Texture::Target::Rectangle, depth_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.Image2D(
 				0,
 				PixelDataInternalFormat::DepthComponent,
 				width, height,
@@ -309,24 +306,17 @@ public:
 				PixelDataType::Float,
 				nullptr
 			);
-		}
 
-		{
-			auto bound_fbo = Bind(
-				fbo,
-				Framebuffer::Target::Draw
-			);
-			bound_fbo.AttachTexture(
+		gl.Bound(Framebuffer::Target::Draw, fbo)
+			.AttachTexture(
 				FramebufferAttachment::Color,
 				color_tex,
 				0
-			);
-			bound_fbo.AttachTexture(
+			).AttachTexture(
 				FramebufferAttachment::Depth,
 				depth_tex,
 				0
 			);
-		}
 
 		//
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
@@ -353,7 +343,7 @@ public:
 			)
 		);
 
-		Bind(color_tex, Texture::Target::Rectangle).Image2D(
+		gl.Bound(Texture::Target::Rectangle, color_tex).Image2D(
 			0,
 			PixelDataInternalFormat::RGB,
 			width, height,
@@ -363,7 +353,7 @@ public:
 			nullptr
 		);
 
-		Bind(depth_tex, Texture::Target::Rectangle).Image2D(
+		gl.Bound(Texture::Target::Rectangle, depth_tex).Image2D(
 			0,
 			PixelDataInternalFormat::DepthComponent,
 			width, height,
@@ -377,12 +367,12 @@ public:
 
 	void Render(double time)
 	{
-		fbo.Bind(Framebuffer::Target::Draw);
+		gl.Bind(Framebuffer::Target::Draw, fbo);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 
-		main_prog.Use();
-		cube.Bind();
+		gl.Use(main_prog);
+		gl.Bind(cube);
 
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(
@@ -407,12 +397,12 @@ public:
 			++i;
 		}
 
-		dfb.Bind(Framebuffer::Target::Draw);
+		gl.Bind(Framebuffer::Target::Draw, dfb);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 
 		dof_prog.Use();
-		screen.Bind();
+		gl.Bind(screen);
 
 		focus_depth.Set(0.6 + SineWave(time / 9.0)*0.3);
 

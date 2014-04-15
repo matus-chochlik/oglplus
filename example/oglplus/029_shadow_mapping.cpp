@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{029_shadow_mapping}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -379,33 +379,28 @@ public:
 			Texture::Active(i);
 			tex_units[i] = i;
 
-			auto bound_tex = Bind(smap[i], Texture::Target::_2D);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.CompareMode(
-				TextureCompareMode::CompareRefToTexture
-			);
-			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::DepthComponent32,
-				tex_side, tex_side,
-				0,
-				PixelDataFormat::DepthComponent,
-				PixelDataType::Float,
-				nullptr
-			);
+			gl.Bound(Texture::Target::_2D, smap[i])
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::ClampToEdge)
+				.WrapT(TextureWrap::ClampToEdge)
+				.CompareMode(TextureCompareMode::CompareRefToTexture)
+				.Image2D(
+					0,
+					PixelDataInternalFormat::DepthComponent32,
+					tex_side, tex_side,
+					0,
+					PixelDataFormat::DepthComponent,
+					PixelDataType::Float,
+					nullptr
+				);
 
-			auto bound_fbo = Bind(
-				fbo[i],
-				Framebuffer::Target::Draw
-			);
-			bound_fbo.AttachTexture(
-				FramebufferAttachment::Depth,
-				smap[i],
-				0
-			);
+			gl.Bound(Framebuffer::Target::Draw, fbo[i])
+				.AttachTexture(
+					FramebufferAttachment::Depth,
+					smap[i],
+					0
+				);
 		}
 		ProgramUniformSampler(draw_prog, "ShadowTexs").Set(tex_units);
 

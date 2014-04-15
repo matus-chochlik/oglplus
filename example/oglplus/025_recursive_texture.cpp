@@ -164,7 +164,8 @@ public:
 		for(GLuint i=0; i!=2; ++i)
 		{
 			Texture::Active(i);
-			Bind(texs[i], Texture::Target::_2D)
+
+			gl.Bound(Texture::Target::_2D, texs[i])
 				.MinFilter(TextureMinFilter::Linear)
 				.MagFilter(TextureMagFilter::Linear)
 				.WrapS(TextureWrap::Repeat)
@@ -179,14 +180,14 @@ public:
 					nullptr
 				);
 
-			Bind(rbos[i], Renderbuffer::Target::Renderbuffer)
+			gl.Bound(Renderbuffer::Target::Renderbuffer, rbos[i])
 				.Storage(
 					PixelDataInternalFormat::DepthComponent,
 					tex_side,
 					tex_side
 				);
 
-			Bind(fbos[i], Framebuffer::Target::Draw)
+			gl.Bound(Framebuffer::Target::Draw, fbos[i])
 				.AttachTexture(
 					FramebufferAttachment::Color,
 					texs[i],

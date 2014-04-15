@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{023_waves}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -231,10 +231,10 @@ public:
 		prog.AttachShader(fs);
 
 		prog.Link();
-		prog.Use();
+		gl.Use(prog);
 
-		plane.Bind();
-		verts.Bind(Buffer::Target::Array);
+		gl.Bind(plane);
+		gl.Bind(Buffer::Target::Array, verts);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_plane.Positions(data);
@@ -268,17 +268,20 @@ public:
 		Texture::Active(0);
 		{
 			auto image = images::Squares(512, 512, 0.9f, 16, 16);
-			auto bound_tex = Bind(env_map, Texture::Target::CubeMap);
+			gl.Bind(Texture::Target::CubeMap, env_map);
+
 			for(int i=0; i!=6; ++i)
 				Texture::Image2D(Texture::CubeMapFace(i), image);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
-			bound_tex.SwizzleG(TextureSwizzle::Red);
-			bound_tex.SwizzleB(TextureSwizzle::Red);
+
+			gl.Current(Texture::Target::CubeMap)
+				.MinFilter(TextureMinFilter::LinearMipmapLinear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::ClampToEdge)
+				.WrapT(TextureWrap::ClampToEdge)
+				.WrapR(TextureWrap::ClampToEdge)
+				.SwizzleG(TextureSwizzle::Red)
+				.SwizzleB(TextureSwizzle::Red)
+				.GenerateMipmap();
 		}
 		UniformSampler(prog, "EnvMap").Set(0);
 

@@ -157,22 +157,19 @@ public:
 	{
 		Texture::Active(0);
 		UniformSampler(metal_prog, "MetalTex").Set(0);
-		{
-			auto bound_tex = Bind(metal_tex, se::_2D());
-			bound_tex.Image2D(
+		Context::Bound(se::_2D(), metal_tex)
+			.MinFilter(se::LinearMipmapLinear())
+			.MagFilter(se::Linear())
+			.WrapS(se::Repeat())
+			.WrapT(se::Repeat())
+			.Image2D(
 				images::BrushedMetalUByte(
 					512, 512,
 					5120,
 					-3, +3,
 					32, 128
 				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(se::LinearMipmapLinear());
-			bound_tex.MagFilter(se::Linear());
-			bound_tex.WrapS(se::Repeat());
-			bound_tex.WrapT(se::Repeat());
-		}
+			).GenerateMipmap();
 	}
 
 	void Draw(MetalProgram& metal_prog)

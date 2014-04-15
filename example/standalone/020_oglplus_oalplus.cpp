@@ -2,7 +2,7 @@
  *  @example standalone/020_oglplus_oalplus.cpp
  *  @brief Shows the usage of OGLplus and OALplus
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -103,6 +103,7 @@ struct OGLOALExampleSource
 
 struct OGLOALExampleObjects
 {
+	oglplus::Context gl;
 	oglplus::Program prog;
 
 	static oglplus::Program make_prog(void)
@@ -197,23 +198,13 @@ struct OGLOALExampleObjects
 		oglplus::Texture::Active(0);
 		prog.Use();
 		oglplus::UniformSampler(prog, "RandTex").Set(0);
-		{
-			auto bound_tex = oglplus::Bind(
-				rand_tex,
-				oglplus::Texture::Target::_2D
-			);
-			bound_tex.Image2D(
-				oglplus::images::RandomRedUByte(
-					2048,
-					2048
-				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(oglplus::TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(oglplus::TextureMagFilter::Linear);
-			bound_tex.WrapS(oglplus::TextureWrap::Repeat);
-			bound_tex.WrapT(oglplus::TextureWrap::Repeat);
-		}
+		gl.Bound(oglplus::Texture::Target::_2D, rand_tex)
+			.MinFilter(oglplus::TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(oglplus::TextureMagFilter::Linear)
+			.WrapS(oglplus::TextureWrap::Repeat)
+			.WrapT(oglplus::TextureWrap::Repeat)
+			.Image2D(oglplus::images::RandomRedUByte(2048, 2048))
+			.GenerateMipmap();
 	}
 };
 

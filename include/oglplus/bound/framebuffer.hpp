@@ -16,7 +16,6 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/framebuffer.hpp>
-#include <oglplus/bound.hpp>
 #include <utility>
 
 namespace oglplus {

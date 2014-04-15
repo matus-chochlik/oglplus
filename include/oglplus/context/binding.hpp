@@ -112,6 +112,17 @@ public:
 		return CurrBound<ObjectOps>(Managed<ObjectOps>(name), target);
 	}
 
+	/// Binds the object to the specified target, returns a managed reference
+	template <typename Object>
+	static CurrBound<typename ObjectBaseOps<Object>::Type>
+	Bound(typename Object::Target target, const Object& object)
+	{
+		object.Bind(target);
+		typedef typename ObjectBaseOps<Object>::Type ObjectOps;
+		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
+		return CurrBound<ObjectOps>(Managed<ObjectOps>(name), target);
+	}
+
 	/// Returns a managed reference to object currently bound to indexed target
 	template <typename ObjectTarget>
 	static Managed<typename ObjectTargetOps<ObjectTarget>::Type>

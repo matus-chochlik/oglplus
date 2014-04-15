@@ -309,7 +309,6 @@
 
 #include &lt;oglplus/fwd.hpp&gt;
 #include &lt;oglplus/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp&gt;
-#include &lt;oglplus/bound.hpp&gt;
 #include &lt;utility&gt;
 
 namespace oglplus {

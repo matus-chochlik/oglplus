@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{017_sky_box}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -117,12 +117,12 @@ public:
 			UniformSampler(prog, "EnvMap").Set(0);
 			Texture::Active(0);
 
-			auto bound_tex = oglplus::Bind(env_map, Texture::Target::CubeMap);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
+			gl.Bound(Texture::Target::CubeMap, env_map)
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::ClampToEdge)
+				.WrapT(TextureWrap::ClampToEdge)
+				.WrapR(TextureWrap::ClampToEdge);
 
 			Texture::Image2D(
 				Texture::CubeMapFace(0),

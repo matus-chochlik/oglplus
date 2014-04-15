@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{007_cubic_bezier}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -101,19 +101,19 @@ public:
 			)
 		);
 
-		curve.Bind();
+		gl.Bind(curve);
 		{
 			auto data = bezier.Approximate(25);
 			curve_n = data.size();
-			Bind(curve_verts, Buffer::Target::Array).Data(data);
+			gl.Bound(Buffer::Target::Array, curve_verts).Data(data);
 			(prog|"Position").Setup<Vec2f>().Enable();
 		}
 
-		control.Bind();
+		gl.Bind(control);
 		{
 			auto data = bezier.ControlPoints();
 			ctrl_n = data.size();
-			Bind(ctrl_verts, Buffer::Target::Array).Data(data);
+			gl.Bound(Buffer::Target::Array, ctrl_verts).Data(data);
 			(prog|"Position").Setup<Vec2f>().Enable();
 		}
 		gl.ClearColor(0.9f, 0.9f, 0.9f, 0.0f);
@@ -129,15 +129,15 @@ public:
 		gl.Clear().ColorBuffer();
 		// draw the lines between control points
 		color = Vec3f(0.9f, 0.9f, 0.2f);
-		control.Bind();
+		gl.Bind(control);
 		gl.DrawArrays(PrimitiveType::LineStrip, 0, ctrl_n);
 		// draw the curve
 		color = Vec3f(0.1f, 0.1f, 0.1f);
-		curve.Bind();
+		gl.Bind(curve);
 		gl.DrawArrays(PrimitiveType::LineStrip, 0, curve_n);
 		// draw the control points
 		color = Vec3f(0.9f, 0.0f, 0.0f);
-		control.Bind();
+		gl.Bind(control);
 		gl.PointSize(8.0);
 		gl.DrawArrays(PrimitiveType::Points, 0, ctrl_n);
 		gl.PointSize(1.0);

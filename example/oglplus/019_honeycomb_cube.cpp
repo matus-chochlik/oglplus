@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{019_honeycomb_cube}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -134,12 +134,12 @@ public:
 		prog.AttachShader(fs);
 		// link and use it
 		prog.Link();
-		prog.Use();
+		gl.Use(prog);
 
 		// bind the VAO for the cube
-		cube.Bind();
+		gl.Bind(cube);
 
-		verts.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, verts);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
@@ -149,7 +149,7 @@ public:
 			attr.Enable();
 		}
 
-		normals.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, normals);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
@@ -159,7 +159,7 @@ public:
 			attr.Enable();
 		}
 
-		texcoords.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, texcoords);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
@@ -171,14 +171,14 @@ public:
 
 		// setup the texture
 		{
-			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("honeycomb"));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.Anisotropy(2);
-			bound_tex.WrapS(TextureWrap::MirroredRepeat);
-			bound_tex.WrapT(TextureWrap::MirroredRepeat);
+			gl.Bound(Texture::Target::_2D, tex)
+				.Image2D(images::LoadTexture("honeycomb"))
+				.GenerateMipmap()
+				.MinFilter(TextureMinFilter::LinearMipmapLinear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::MirroredRepeat)
+				.WrapT(TextureWrap::MirroredRepeat)
+				.Anisotropy(2);
 		}
 		//
 		UniformSampler(prog, "TexUnit").Set(0);
@@ -229,7 +229,6 @@ public:
 			ModelMatrixf::RotationZ(FullCircles(time * 0.1))
 		);
 
-		cube.Bind();
 		gl.CullFace(Face::Front);
 		cube_instr.Draw(cube_indices);
 		gl.CullFace(Face::Back);

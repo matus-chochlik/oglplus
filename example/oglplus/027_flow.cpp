@@ -174,7 +174,7 @@ public:
 		for(GLuint i=0; i!=nhm; ++i)
 		{
 			Texture::Active(first_tex_unit+i);
-			Bind(height_maps[i], Texture::Target::_2D)
+			Context::Bound(Texture::Target::_2D, height_maps[i])
 				.MinFilter(TextureMinFilter::Linear)
 				.MagFilter(TextureMagFilter::Linear)
 				.WrapS(TextureWrap::ClampToBorder)
@@ -191,32 +191,28 @@ public:
 		}
 
 		Texture::Active(BumpMapUnit());
-		{
-			Bind(bump_map, Texture::Target::_2D)
-				.MinFilter(TextureMinFilter::Linear)
-				.MagFilter(TextureMagFilter::Linear)
-				.WrapS(TextureWrap::ClampToEdge)
-				.WrapT(TextureWrap::ClampToEdge)
-				.Image2D(
-					0,
-					PixelDataInternalFormat::RGBA,
-					flow_tex_size, flow_tex_size,
-					0,
-					PixelDataFormat::RGBA,
-					PixelDataType::UnsignedByte,
-					nullptr
-				);
-		}
+		Context::Bound(Texture::Target::_2D, bump_map)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.Image2D(
+				0,
+				PixelDataInternalFormat::RGBA,
+				flow_tex_size, flow_tex_size,
+				0,
+				PixelDataFormat::RGBA,
+				PixelDataType::UnsignedByte,
+				nullptr
+			);
 
 		Texture::Active(FlowMapUnit());
-		{
-			Bind(flow_map, Texture::Target::_2D)
-				.MinFilter(TextureMinFilter::Linear)
-				.MagFilter(TextureMagFilter::Linear)
-				.WrapS(TextureWrap::Repeat)
-				.WrapT(TextureWrap::Repeat)
-				.Image2D(flow_map_image);
-		}
+		Context::Bound(Texture::Target::_2D, flow_map)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::Repeat)
+			.WrapT(TextureWrap::Repeat)
+			.Image2D(flow_map_image);
 	}
 
 	void Swap(void)
@@ -410,14 +406,12 @@ public:
 	)
 	{
 		Texture::Active(0);
-		{
-			auto bound_tex = Bind(background, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("flower_glass"));
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::MirroredRepeat);
-			bound_tex.WrapT(TextureWrap::MirroredRepeat);
-		}
+		gl.Bound(Texture::Target::_2D, background)
+			.Image2D(images::LoadTexture("flower_glass"))
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::MirroredRepeat)
+			.WrapT(TextureWrap::MirroredRepeat);
 
 		screen_prog.background.Set(0);
 		screen_prog.normal_map.Set(flow.TexUnit());
