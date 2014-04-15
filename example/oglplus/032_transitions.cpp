@@ -187,7 +187,7 @@ public:
 	MetalTexture(TextureUnitSelector unit)
 	{
 		Texture::Active(unit);
-		oglplus::Context::Bind<Texture>(Texture::Target::_2D, *this)
+		oglplus::Context::Bound<Texture>(Texture::Target::_2D, *this)
 			.Image2D(images::BrushedMetalUByte(512, 512, 5120, -32, 32, 16, 32))
 			.GenerateMipmap()
 			.MinFilter(TextureMinFilter::LinearMipmapLinear)
@@ -204,7 +204,7 @@ public:
 	NoiseTexture(TextureUnitSelector unit)
 	{
 		Texture::Active(unit);
-		oglplus::Context::Bind<Texture>(Texture::Target::_2D, *this)
+		oglplus::Context::Bound<Texture>(Texture::Target::_2D, *this)
 			.Image2D(images::RandomRedUByte(512, 512))
 			.MinFilter(TextureMinFilter::Linear)
 			.MagFilter(TextureMagFilter::Linear)
@@ -231,7 +231,7 @@ public:
 			.WrapR(TextureWrap::ClampToEdge);
 
 		Texture::Active(color_unit);
-		oglplus::Context::Bound(Texture::Target::_2DArray, color_tex);
+		oglplus::Context::Bound(Texture::Target::_2DArray, color_tex)
 			.MinFilter(TextureMinFilter::Linear)
 			.MagFilter(TextureMagFilter::Linear)
 			.WrapS(TextureWrap::ClampToEdge)
