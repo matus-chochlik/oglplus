@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{016_noise_torus}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -13,6 +13,8 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/torus.hpp>
+#include <oglplus/bound/texture.hpp>
+#include <oglplus/bound/buffer.hpp>
 
 #include <cmath>
 
@@ -106,18 +108,19 @@ public:
 		// attach the shaders to the program
 		prog.AttachShader(vs).AttachShader(fs);
 		// link and use it
-		prog.Link().Use();
+		prog.Link();
+		gl.Use(prog);
 
 		// bind the VAO for the torus
-		torus.Bind();
+		gl.Bind(torus);
 
 		// bind the VBO for the torus vertices
-		verts.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, verts);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Positions(data);
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
+			gl.Current(Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
@@ -125,12 +128,12 @@ public:
 		}
 
 		// bind the VBO for the torus normals
-		normals.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, normals);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Normals(data);
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
+			gl.Current(Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
@@ -138,12 +141,12 @@ public:
 		}
 
 		// bind the VBO for the torus texture coordinates
-		texcoords.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, texcoords);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.TexCoordinates(data);
 			// upload the data
-			Buffer::Data(Buffer::Target::Array, data);
+			gl.Current(Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the vertices
 			VertexAttribArray attr(prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
@@ -151,30 +154,33 @@ public:
 		}
 
 		// setup the texture
-		Texture::Target tex_tgt = Texture::Target::_2D;
-		tex.Bind(tex_tgt);
+		gl.Bind(Texture::Target::_2D, tex);
 		{
 			GLuint s = 256;
 			std::vector<GLubyte> tex_data(s*s);
 			for(GLuint v=0;v!=s;++v)
+			{
 				for(GLuint u=0;u!=s;++u)
+				{
 					tex_data[v*s+u] = rand() % 0x100;
-			Texture::Image2D(
-				tex_tgt,
-				0,
-				PixelDataInternalFormat::Red,
-				s, s,
-				0,
-				PixelDataFormat::Red,
-				PixelDataType::UnsignedByte,
-				tex_data.data()
-			);
-			Texture::MinFilter(tex_tgt, TextureMinFilter::Linear);
-			Texture::MagFilter(tex_tgt, TextureMagFilter::Linear);
-			Texture::WrapS(tex_tgt, TextureWrap::Repeat);
-			Texture::WrapT(tex_tgt, TextureWrap::Repeat);
-			Texture::SwizzleG(tex_tgt, TextureSwizzle::Red);
-			Texture::SwizzleB(tex_tgt, TextureSwizzle::Red);
+				}
+			}
+			gl.Current(Texture::Target::_2D)
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::Repeat)
+				.WrapT(TextureWrap::Repeat)
+				.SwizzleG(TextureSwizzle::Red)
+				.SwizzleB(TextureSwizzle::Red)
+				.Image2D(
+					0,
+					PixelDataInternalFormat::Red,
+					s, s,
+					0,
+					PixelDataFormat::Red,
+					PixelDataType::UnsignedByte,
+					tex_data.data()
+				);
 		}
 		// typechecked uniform with exact data type
 		// on compilers supporting strongly typed enums
@@ -226,7 +232,6 @@ public:
 			ModelMatrixf::RotationX(FullCircles(time * 0.25))
 		);
 
-		torus.Bind();
 		gl.PolygonMode(PolygonMode::Line);
 		gl.CullFace(Face::Front);
 		torus_instr.Draw(torus_indices);

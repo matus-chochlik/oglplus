@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{022_parallax_map}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -182,12 +182,13 @@ public:
 		// attach the shaders to the program
 		prog.AttachShader(vs).AttachShader(fs);
 		// link and use it
-		prog.Link().Use();
+		prog.Link();
+		gl.Use(prog);
 
 		// bind the VAO for the cube
-		cube.Bind();
+		gl.Bind(cube);
 
-		verts.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, verts);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
@@ -195,7 +196,7 @@ public:
 			(prog|"Position").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
-		normals.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, normals);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
@@ -203,7 +204,7 @@ public:
 			(prog|"Normal").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
-		tangents.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, tangents);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Tangents(data);
@@ -211,7 +212,7 @@ public:
 			(prog|"Tangent").Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
-		texcoords.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, texcoords);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
@@ -220,20 +221,19 @@ public:
 		}
 
 		{
-			Texture::Active(0);
+			auto img = images::SphereBumpMap(512, 512, 2, 2);
+			Uniform<GLint>(prog, "BumpTexWidth").Set(img.Width());
+			Uniform<GLint>(prog, "BumpTexHeight").Set(img.Height());
 			UniformSampler(prog, "BumpTex").Set(0);
-			auto bound_tex = Bind(bumpTex, Texture::Target::_2D);
-			{
-				auto img = images::SphereBumpMap(512, 512, 2, 2);
-				bound_tex.Image2D(img);
-				Uniform<GLint>(prog, "BumpTexWidth").Set(img.Width());
-				Uniform<GLint>(prog, "BumpTexHeight").Set(img.Height());
-			}
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			Texture::Active(0);
+
+			gl.Bound(Texture::Target::_2D, bumpTex)
+				.MinFilter(TextureMinFilter::LinearMipmapLinear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::Repeat)
+				.WrapT(TextureWrap::Repeat)
+				.Image2D(img)
+				.GenerateMipmap();
 		}
 		//
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
@@ -287,7 +287,6 @@ public:
 			)
 		);
 
-		cube.Bind();
 		gl.CullFace(Face::Back);
 		cube_instr.Draw(cube_indices);
 	}

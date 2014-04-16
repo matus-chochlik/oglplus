@@ -35,6 +35,11 @@ private:
 public:
 	ProgramUniformSampler cloud_tex;
 	ProgramUniform<GLint> cloud_count;
+	ProgramUniform<Vec4f> clip_plane0;
+	ProgramUniform<Vec4f> clip_plane1;
+	ProgramUniform<Vec4f> clip_plane2;
+	ProgramUniform<Vec4f> clip_plane3;
+
 	UniformBlock cloud_block;
 
 	RaytraceProg(const AppData&);

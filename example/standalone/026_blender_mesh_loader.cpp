@@ -291,10 +291,10 @@ public:
 							for(std::size_t f=0; f!=n_faces; ++f)
 							{
 								// get face vertex indices
-								int v1 = face_v1_field.Get(f);
-								int v2 = face_v2_field.Get(f);
-								int v3 = face_v3_field.Get(f);
-								int v4 = face_v4_field.Get(f);
+								int v1 = face_v1_field.Get(f, 0);
+								int v2 = face_v2_field.Get(f, 0);
+								int v3 = face_v3_field.Get(f, 0);
+								int v4 = face_v4_field.Get(f, 0);
 
 								is[5*f+0] = v1+index_offset;
 								is[5*f+1] = v2+index_offset;
@@ -326,12 +326,12 @@ public:
 							std::vector<GLuint> is;
 							for(std::size_t f=0; f!=n_polys; ++f)
 							{
-								int ls = poly_loopstart_field.Get(f);
-								int tl = poly_totloop_field.Get(f);
+								int ls = poly_loopstart_field.Get(f, 0);
+								int tl = poly_totloop_field.Get(f, 0);
 
 								for(int l=0; l!=tl; ++l)
 								{
-									int v = loop_v_field.Get(ls+l);
+									int v = loop_v_field.Get(ls+l, 0);
 									is.push_back(v+index_offset);
 								}
 								is.push_back(0); // primitive restart index

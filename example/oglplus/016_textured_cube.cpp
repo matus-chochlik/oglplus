@@ -114,8 +114,7 @@ public:
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
 		// link and use it
-		prog.Link();
-		prog.Use();
+		prog.Link().Use();
 
 		// bind the VAO for the cube
 		cube.Bind();
@@ -145,15 +144,13 @@ public:
 		}
 
 		// setup the texture
-		{
-			auto bound_tex = Bind(tex, se::_2D());
-			bound_tex.Image2D(images::LoadTexture("concrete_block"));
-			bound_tex.MinFilter(se::Linear());
-			bound_tex.MagFilter(se::Linear());
-			bound_tex.Anisotropy(2.0f);
-			bound_tex.WrapS(se::Repeat());
-			bound_tex.WrapT(se::Repeat());
-		}
+		gl.Bound(se::_2D(), tex)
+			.Image2D(images::LoadTexture("concrete_block"))
+			.MinFilter(se::Linear())
+			.MagFilter(se::Linear())
+			.Anisotropy(2.0f)
+			.WrapS(se::Repeat())
+			.WrapT(se::Repeat());
 		// set the uniform values
 		(prog/"TexUnit") = 0;
 		(prog/"LightPos") = Vec3f(1.0f, 2.0f, 3.0f);
@@ -198,7 +195,6 @@ public:
 			ModelMatrixf::RotationX(FullCircles(time * 0.1))
 		);
 
-		cube.Bind();
 		gl.CullFace(Face::Back);
 		cube_instr.Draw(cube_indices);
 	}

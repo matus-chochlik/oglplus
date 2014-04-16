@@ -350,22 +350,20 @@ public:
 		std::srand(3456);
 		Texture::Active(0);
 		volume_prog.volume_tex = 0;
-		{
-			auto bound_tex = Bind(volume_tex, Texture::Target::_3D);
-			bound_tex.Image3D(
+		gl.Bound(Texture::Target::_3D, volume_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f))
+			.WrapS(TextureWrap::ClampToBorder)
+			.WrapT(TextureWrap::ClampToBorder)
+			.WrapR(TextureWrap::ClampToBorder)
+			.Image3D(
 				images::Cloud(
 					128, 128, 128,
 					Vec3f(0.0f, 0.0f, 0.0f),
 					0.5f, 0.5f, 0.5f, 0.1f
 				)
 			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.BorderColor(Vec4f(0.0f, 0.0f, 0.0f, 0.0f));
-			bound_tex.WrapS(TextureWrap::ClampToBorder);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
-			bound_tex.WrapR(TextureWrap::ClampToBorder);
-		}
 
 		const Vec3f light_position(12.0, 1.0, 8.0);
 		volume_prog.light_position = light_position;

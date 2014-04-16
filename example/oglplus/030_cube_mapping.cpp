@@ -548,72 +548,55 @@ public:
 
 
 		Texture::Active(1);
-		{
-			auto bound_tex = Bind(dtex, Texture::Target::CubeMap);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
+		gl.Bound(Texture::Target::CubeMap, dtex)
+			.MinFilter(TextureMinFilter::Nearest)
+			.MagFilter(TextureMagFilter::Nearest)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.WrapR(TextureWrap::ClampToEdge);
 
-			for(int i=0; i!=6; ++i)
-			{
-				Texture::Image2D(
-					Texture::CubeMapFace(i),
-					0,
-					PixelDataInternalFormat::DepthComponent,
-					tex_side, tex_side,
-					0,
-					PixelDataFormat::DepthComponent,
-					PixelDataType::Float,
-					nullptr
-				);
-			}
+		for(int i=0; i!=6; ++i)
+		{
+			Texture::Image2D(
+				Texture::CubeMapFace(i),
+				0,
+				PixelDataInternalFormat::DepthComponent,
+				tex_side, tex_side,
+				0,
+				PixelDataFormat::DepthComponent,
+				PixelDataType::Float,
+				nullptr
+			);
 		}
-		Texture::Active(0);
-		{
-			auto bound_tex = Bind(ctex, Texture::Target::CubeMap);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
 
-			for(int i=0; i!=6; ++i)
-			{
-				Texture::Image2D(
-					Texture::CubeMapFace(i),
-					0,
-					PixelDataInternalFormat::RGB,
-					tex_side, tex_side,
-					0,
-					PixelDataFormat::RGB,
-					PixelDataType::UnsignedByte,
-					nullptr
-				);
-			}
+		Texture::Active(0);
+		gl.Bound(Texture::Target::CubeMap, ctex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.WrapR(TextureWrap::ClampToEdge);
+
+		for(int i=0; i!=6; ++i)
+		{
+			Texture::Image2D(
+				Texture::CubeMapFace(i),
+				0,
+				PixelDataInternalFormat::RGB,
+				tex_side, tex_side,
+				0,
+				PixelDataFormat::RGB,
+				PixelDataType::UnsignedByte,
+				nullptr
+			);
 		}
 		sphere_prog.Use();
 		UniformSampler(sphere_prog, "CubeTex").Set(0);
 
-		{
-			auto bound_fbo = Bind(
-				fbo,
-				Framebuffer::Target::Draw
-			);
-			bound_fbo.AttachTexture(
-				FramebufferAttachment::Color,
-				ctex,
-				0
-			);
-			bound_fbo.AttachTexture(
-				FramebufferAttachment::Depth,
-				dtex,
-				0
-			);
-		}
+		gl.Bound(Framebuffer::Target::Draw, fbo)
+			.AttachTexture(FramebufferAttachment::Color, ctex, 0)
+			.AttachTexture(FramebufferAttachment::Depth, dtex, 0);
 
-		//
 		gl.Enable(Capability::DepthTest);
 		gl.Enable(Capability::CullFace);
 		//gl.Enable(Capability::TextureCubeMapSeamless);

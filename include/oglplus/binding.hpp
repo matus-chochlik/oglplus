@@ -14,34 +14,22 @@
 #define OGLPLUS_BINDING_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/fwd.hpp>
+#include <oglplus/binding_query.hpp>
 
 namespace oglplus {
-
-/// A managed Object that is currently bound to a specified target
-template <typename Object>
-class Current
- : public Managed<Object>
-{
-private:
-	typedef typename ObjectBaseOps<Object>::Type ObjectOps_;
-public:
-	/// Creates a reference to the object currently bound to target
-	Current(typename Object::Target target)
-	 : Managed<Object>(BindingQuery<ObjectOps_>::QueryBinding(target))
-	{ }
-};
 
 /// Class that remembers the currently bound Object and rebinds it when destroyed
 template <typename Object>
 class AutoRebind
 {
 private:
-	Current<Object> _obj;
-	typename Object::Target _target;
+	typedef typename ObjectBaseOps<Object>::Type ObjectOps_;
+	Managed<ObjectOps_> _obj;
+	typename ObjectOps_::Target _target;
 public:
 	AutoRebind(typename Object::Target target)
-	 : _obj(target)
+	 : _obj(BindingQuery<ObjectOps_>::QueryBinding(target))
 	 , _target(target)
 	{ }
 

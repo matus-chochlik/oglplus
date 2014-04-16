@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{028_glass_shape}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -146,9 +146,9 @@ public:
 		Uniform<Vec3f>(plane_prog, "LightPosition").Set(lightPos);
 		Uniform<Vec3f>(plane_prog, "Normal").Set(make_plane.Normal());
 
-		plane.Bind();
+		gl.Bind(plane);
 
-		plane_verts.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, plane_verts);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_plane.Positions(data);
@@ -158,7 +158,7 @@ public:
 			attr.Enable();
 		}
 
-		plane_texcoords.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, plane_texcoords);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_plane.TexCoordinates(data);
@@ -251,9 +251,9 @@ public:
 
 		Uniform<Vec3f>(shape_prog, "LightPosition").Set(lightPos);
 
-		shape.Bind();
+		gl.Bind(shape);
 
-		shape_verts.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, shape_verts);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Positions(data);
@@ -263,7 +263,7 @@ public:
 			attr.Enable();
 		}
 
-		shape_normals.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, shape_normals);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Normals(data);
@@ -276,20 +276,20 @@ public:
 		Texture::Active(0);
 		UniformSampler(shape_prog, "RefractTex").Set(0);
 		{
-			auto bound_tex = Bind(refract_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::RGB,
-				tex_side, tex_side,
-				0,
-				PixelDataFormat::RGB,
-				PixelDataType::UnsignedByte,
-				nullptr
-			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::MirroredRepeat);
-			bound_tex.WrapT(TextureWrap::MirroredRepeat);
+			gl.Bound(Texture::Target::_2D, refract_tex)
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::MirroredRepeat)
+				.WrapT(TextureWrap::MirroredRepeat)
+				.Image2D(
+					0,
+					PixelDataInternalFormat::RGB,
+					tex_side, tex_side,
+					0,
+					PixelDataFormat::RGB,
+					PixelDataType::UnsignedByte,
+					nullptr
+				);
 		}
 		//
 		gl.ClearColor(0.8f, 0.8f, 0.7f, 0.0f);
@@ -333,7 +333,7 @@ public:
 			ModelMatrixf::Translation(0.0f, -1.1f, 0.0f)
 		);
 
-		plane.Bind();
+		gl.Bind(plane);
 		plane_instr.Draw(plane_indices);
 
 
@@ -350,7 +350,7 @@ public:
 			ModelMatrixf::RotationX(FullCircles(time / 12.0))
 		);
 
-		shape.Bind();
+		gl.Bind(shape);
 
 		gl.Enable(Capability::CullFace);
 		gl.Enable(Functionality::ClipDistance, 0);

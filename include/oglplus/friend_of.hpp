@@ -1,10 +1,10 @@
 /**
  *  @file oglplus/friend_of.hpp
- *  @brief Implementation of the FriendaOf helper base class
+ *  @brief Implementation of the FriendOf helper class
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -49,7 +49,7 @@ protected:
 	{
 		FriendOf<Named>::SetName(object, name);
 	}
-
+public:
 	static GLuint GetName(const ObjectOps& object)
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -61,7 +61,7 @@ protected:
 	{
 		return object._location;
 	}
-public:
+
 	static const String& GetDescription(const ObjectOps& object)
 	{
 		return aux::ObjectDescRegistry<ObjectOps>::_get_desc(
@@ -69,6 +69,12 @@ public:
 		);
 	}
 };
+
+template <template <typename> class Wrapper, class ObjectOps>
+class FriendOf<Wrapper<ObjectOps>>
+ : public FriendOf<ObjectOps>
+{ };
+
 #endif
 
 } // namespace oglplus

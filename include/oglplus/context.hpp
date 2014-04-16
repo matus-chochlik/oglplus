@@ -33,6 +33,7 @@
 #include <oglplus/context/limit_queries.hpp>
 #include <oglplus/context/numeric_queries.hpp>
 #include <oglplus/context/string_queries.hpp>
+#include <oglplus/context/binding.hpp>
 
 #include <oglplus/face_mode.hpp>
 #include <oglplus/compare_func.hpp>
@@ -77,6 +78,7 @@ class Context
  , public context::LimitQueries
  , public context::NumericQueries
  , public context::StringQueries
+ , public context::ObjectBinding
 {
 public:
 };

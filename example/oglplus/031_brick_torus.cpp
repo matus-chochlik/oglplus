@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_brick_torus}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -464,13 +464,13 @@ public:
 		try
 		{
 			UniformSampler(prog, "ColorMap").Set(0);
-			auto bound_tex = Bind(color_tex, Texture::Target::_2D);
-			bound_tex.Image2D(tex_image);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			gl.Bound(Texture::Target::_2D, color_tex)
+				.MinFilter(TextureMinFilter::LinearMipmapLinear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::Repeat)
+				.WrapT(TextureWrap::Repeat)
+				.Image2D(tex_image)
+				.GenerateMipmap();
 		}
 		catch(Error&){ }
 
@@ -478,18 +478,17 @@ public:
 		try
 		{
 			UniformSampler(prog, "BumpMap").Set(1);
-			auto bound_tex = Bind(bump_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
-				images::NormalMap(
-					tex_image,
-					images::NormalMap::FromAlpha()
-				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			gl.Bound(Texture::Target::_2D, bump_tex)
+				.MinFilter(TextureMinFilter::LinearMipmapLinear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::Repeat)
+				.WrapT(TextureWrap::Repeat)
+				.Image2D(
+					images::NormalMap(
+						tex_image,
+						images::NormalMap::FromAlpha()
+					)
+				).GenerateMipmap();
 		}
 		catch(Error&){ }
 

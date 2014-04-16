@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -21,8 +21,11 @@ std::ostream& xml_text_to_stream(
 	std::ostream& output
 )
 {
-	const char ent_chr[] = {'\'', '"', '<', '>', '&'};
-	const char* ent_name[] = {"amp", "quot", "lt", "gt", "amp"};
+	if(!text || !length) return output;
+
+	const std::size_t n_ent = 5;
+	const char ent_chr[n_ent] = {'\'', '"', '<', '>', '&'};
+	const char* ent_name[n_ent] = {"apos", "quot", "lt", "gt", "amp"};
 
 	const char* beg = text;
 	const char* pos = text;
@@ -31,7 +34,7 @@ std::ostream& xml_text_to_stream(
 	while((pos != end) && (*pos != '\0'))
 	{
 		const char* ent = std::strchr(ent_chr, *pos);
-		if(ent)
+		if(ent && std::size_t(ent-ent_chr)<n_ent)
 		{
 			const char* name = ent_name[ent-ent_chr];
 			output.write(beg, pos-beg);

@@ -14,9 +14,8 @@
 #ifndef OGLPLUS_BOUND_BUFFER_1107121519_HPP
 #define OGLPLUS_BOUND_BUFFER_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/buffer.hpp>
-#include <oglplus/bound.hpp>
-#include <oglplus/auto_bind.hpp>
 #include <utility>
 
 namespace oglplus {
@@ -33,7 +32,6 @@ namespace oglplus {
  *
  *  @see Bind()
  *  @see Bound
- *  @see AutoBind
  *
  *  @ingroup utility_classes
  */
@@ -74,7 +72,7 @@ public:
 	 *  @see Buffer::Data()
 	 */
 	template <typename GLtype>
-	void Data(
+	const BoundTemplate& Data(
 		GLsizei count,
 		const GLtype * data,
 		BufferUsage usage = BufferUsage::StaticDraw
@@ -86,6 +84,7 @@ public:
 			data,
 			usage
 		);
+		return *this;
 	}
 
 
@@ -93,7 +92,7 @@ public:
 	 *  @see Buffer::Data()
 	 */
 	template <typename GLtype, std::size_t Count>
-	void Data(
+	const BoundTemplate& Data(
 		const GLtype (&data)[Count],
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
@@ -103,6 +102,7 @@ public:
 			data,
 			usage
 		);
+		return *this;
 	}
 
 
@@ -110,7 +110,7 @@ public:
 	 *  @see Buffer::Data()
 	 */
 	template <typename GLtype>
-	void Data(
+	const BoundTemplate& Data(
 		const std::vector< GLtype > & data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
@@ -120,6 +120,7 @@ public:
 			data,
 			usage
 		);
+		return *this;
 	}
 
 
@@ -127,7 +128,7 @@ public:
 	 *  @see Buffer::Data()
 	 */
 	template <typename GLtype, std::size_t N>
-	void Data(
+	const BoundTemplate& Data(
 		const std::vector< Vector< GLtype, N > > & data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
@@ -137,6 +138,7 @@ public:
 			data,
 			usage
 		);
+		return *this;
 	}
 
 
@@ -144,7 +146,7 @@ public:
 	 *  @see Buffer::SubData()
 	 */
 	template <typename GLtype>
-	void SubData(
+	const BoundTemplate& SubData(
 		GLintptr offset,
 		GLsizei count,
 		const GLtype * data
@@ -156,6 +158,7 @@ public:
 			count,
 			data
 		);
+		return *this;
 	}
 
 
@@ -163,7 +166,7 @@ public:
 	 *  @see Buffer::SubData()
 	 */
 	template <typename GLtype, std::size_t Count>
-	void SubData(
+	const BoundTemplate& SubData(
 		GLintptr offset,
 		const GLtype (&data)[Count]
 	) const
@@ -173,6 +176,7 @@ public:
 			offset,
 			data
 		);
+		return *this;
 	}
 
 
@@ -180,7 +184,7 @@ public:
 	 *  @see Buffer::SubData()
 	 */
 	template <typename GLtype>
-	void SubData(
+	const BoundTemplate& SubData(
 		GLintptr offset,
 		const std::vector< GLtype > & data
 	) const
@@ -190,6 +194,7 @@ public:
 			offset,
 			data
 		);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
@@ -198,7 +203,7 @@ public:
 	 *  @see Buffer::ClearData()
 	 */
 	template <typename GLtype>
-	void ClearData(
+	const BoundTemplate& ClearData(
 		PixelDataInternalFormat internal_format,
 		PixelDataFormat format,
 		const GLtype * data
@@ -210,6 +215,7 @@ public:
 			format,
 			data
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3
 
@@ -219,7 +225,7 @@ public:
 	 *  @see Buffer::ClearSubData()
 	 */
 	template <typename GLtype>
-	void ClearSubData(
+	const BoundTemplate& ClearSubData(
 		PixelDataInternalFormat internal_format,
 		GLintptr offset,
 		GLsizeiptr size,
@@ -235,6 +241,7 @@ public:
 			format,
 			data
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3
 
@@ -244,7 +251,7 @@ public:
 	 *  @see Buffer::Storage()
 	 */
 	template <typename GLtype>
-	void Storage(
+	const BoundTemplate& Storage(
 		GLsizeiptr size,
 		const void * data,
 		Bitfield< BufferStorageBit > flags
@@ -256,6 +263,7 @@ public:
 			data,
 			flags
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_4 GL_ARB_buffer_storage
 

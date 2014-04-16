@@ -714,10 +714,13 @@ public:
 
 		Texture::Active(0);
 		cloth_prog.light_map.Set(0);
-		{
-			GLuint light_map_side = 512;
-			auto bound_tex = Bind(table_light_map, Texture::Target::_2D);
-			bound_tex.Image2D(
+		GLuint light_map_side = 512;
+		gl.Bound(Texture::Target::_2D, table_light_map)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.Image2D(
 				0,
 				PixelDataInternalFormat::RGB,
 				light_map_side,
@@ -727,13 +730,8 @@ public:
 				PixelDataType::UnsignedByte,
 				nullptr
 			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
 
-			PrerenderLightmap(light_position, light_map_side);
-		}
+		PrerenderLightmap(light_position, light_map_side);
 
 		gl.ClearColor(0.12f, 0.13f, 0.11f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -744,13 +742,6 @@ public:
 		Texture::Active(1);
 		ball_prog.number_tex.Set(1);
 		{
-			auto bound_tex = Bind(numbers_texture, Texture::Target::_2DArray);
-			bound_tex.BorderColor(Vec4f(0,0,0,0));
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToBorder);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
-			bound_tex.WrapR(TextureWrap::ClampToBorder);
 			const char* tex_names[OGLPLUS_EXAMPLE_034BB_BALL_COUNT] = {
 				"pool_ball_1",
 				"pool_ball_2",
@@ -768,6 +759,15 @@ public:
 				"pool_ball14",
 				"pool_ball15",
 			};
+
+			auto bound_tex = gl.Bound(Texture::Target::_2DArray, numbers_texture)
+				.BorderColor(Vec4f(0,0,0,0))
+				.MinFilter(TextureMinFilter::LinearMipmapLinear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::ClampToBorder)
+				.WrapT(TextureWrap::ClampToBorder)
+				.WrapR(TextureWrap::ClampToBorder);
+
 			for(GLuint i=0; i!=ball_count; ++i)
 			{
 				auto image = images::LoadTexture(tex_names[i]);
@@ -801,22 +801,19 @@ public:
 
 		Texture::Active(2);
 		cloth_prog.cloth_tex.Set(2);
-		{
-			auto bound_tex = Bind(cloth_texture, Texture::Target::_2D);
-			bound_tex.Image2D(
+		gl.Bound(Texture::Target::_2D, cloth_texture)
+			.MinFilter(TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::Repeat)
+			.WrapT(TextureWrap::Repeat)
+			.Image2D(
 				images::BrushedMetalUByte(
 					512, 512,
 					10240,
 					-16, +16,
 					8, 32
 				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+			).GenerateMipmap();
 
 		Texture::Active(3);
 		ball_prog.reflect_tex.Set(3);
@@ -840,17 +837,17 @@ public:
 
 		for(GLuint b=0; b!=ball_count; ++b)
 		{
-			auto bound_tex = Bind(cubemaps[b], Texture::Target::CubeMap);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
+			gl.Bound(Texture::Target::CubeMap, cubemaps[b])
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::ClampToEdge)
+				.WrapT(TextureWrap::ClampToEdge)
+				.WrapR(TextureWrap::ClampToEdge);
 
 			for(int f=0; f!=6; ++f)
 			{
-				Texture::Image2D(
-					Texture::CubeMapFace(f),
+				Texture::ImageCM(
+					f,
 					0,
 					PixelDataInternalFormat::RGB,
 					cubemap_side, cubemap_side,
@@ -865,13 +862,13 @@ public:
 
 	void PrerenderLightmap(const Vec3f& light_position, GLuint tex_side)
 	{
-		AutoBind<Framebuffer> table_light_fbo(Framebuffer::Target::Draw);
-
-		table_light_fbo.AttachTexture(
-			FramebufferAttachment::Color,
-			table_light_map,
-			0
-		);
+		Framebuffer table_light_fbo;
+		gl.Bound(Framebuffer::Target::Draw, table_light_fbo)
+			.AttachTexture(
+				FramebufferAttachment::Color,
+				table_light_map,
+				0
+			);
 
 		gl.Viewport(tex_side, tex_side);
 		gl.ClearColor(1.0 ,1.0, 1.0, 0.0);
@@ -912,12 +909,14 @@ public:
 		GLuint tex_side
 	)
 	{
-		AutoBind<Texture> z_buffer(Texture::Target::CubeMap, 4);
-		z_buffer.MinFilter(TextureMinFilter::Nearest);
-		z_buffer.MagFilter(TextureMagFilter::Nearest);
-		z_buffer.WrapS(TextureWrap::ClampToEdge);
-		z_buffer.WrapT(TextureWrap::ClampToEdge);
-		z_buffer.WrapR(TextureWrap::ClampToEdge);
+		Texture::Active(4);
+		Texture z_buffer;
+		gl.Bound(Texture::Target::CubeMap, z_buffer)
+			.MinFilter(TextureMinFilter::Nearest)
+			.MagFilter(TextureMagFilter::Nearest)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.WrapR(TextureWrap::ClampToEdge);
 
 		for(int i=0; i!=6; ++i)
 		{
@@ -935,13 +934,13 @@ public:
 
 		Texture::Active(3);
 
-		AutoBind<Framebuffer> fbo(Framebuffer::Target::Draw);
-
-		fbo.AttachTexture(
-			FramebufferAttachment::Depth,
-			z_buffer,
-			0
-		);
+		Framebuffer fbo;
+		gl.Bound(Framebuffer::Target::Draw, fbo)
+			.AttachTexture(
+				FramebufferAttachment::Depth,
+				z_buffer,
+				0
+			);
 
 		CubemapGeomShader cmap_geom_shader;
 		GeometryProgram cmap_geom_prog(cmap_geom_shader);
@@ -967,7 +966,8 @@ public:
 
 		for(GLuint b=0; b!=ball_count; ++b)
 		{
-			fbo.AttachTexture(
+			Framebuffer::AttachTexture(
+				Framebuffer::Target::Draw,
 				FramebufferAttachment::Color,
 				dst_texs[b],
 				0

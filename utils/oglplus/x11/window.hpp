@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -68,6 +68,19 @@ public:
 		"Error creating X Window"
 	)
 	{
+		::XSizeHints size_hints;
+		size_hints.width = width;
+		size_hints.height = height;
+		size_hints.flags = USSize;
+		::XSetNormalHints(display, this->Handle(), &size_hints);
+
+		::Atom wmDelete = ::XInternAtom(
+			display,
+			"WM_DELETE_WINDOW",
+			True
+		);
+		::XSetWMProtocols(display, this->Handle(), &wmDelete, 1);
+
 		::XStoreName(display, this->Handle(), title);
 		::XMapWindow(display, this->Handle());
 	}

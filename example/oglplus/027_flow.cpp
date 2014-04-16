@@ -157,7 +157,7 @@ private:
 	const GLuint first_tex_unit;
 	const GLuint nhm;
 	Texture flow_map;
-	Array<AutoBind<Texture>> height_maps;
+	Array<Texture> height_maps;
 	Texture bump_map;
 	GLuint curr;
 public:
@@ -167,31 +167,36 @@ public:
 		const images::Image& flow_map_image
 	): first_tex_unit(tex_unit)
 	 , nhm(3)
-	 , height_maps(nhm, Texture::Target::_2D, first_tex_unit)
+	 , height_maps(nhm)
 	 , curr(0)
 	{
 		std::vector<GLfloat> v(flow_tex_size*flow_tex_size, 0.0f);
 		for(GLuint i=0; i!=nhm; ++i)
 		{
-			height_maps[i].Image2D(
-				0,
-				PixelDataInternalFormat::Red,
-				flow_tex_size, flow_tex_size,
-				0,
-				PixelDataFormat::Red,
-				PixelDataType::Float,
-				v.data()
-			);
-			height_maps[i].MinFilter(TextureMinFilter::Linear);
-			height_maps[i].MagFilter(TextureMagFilter::Linear);
-			height_maps[i].WrapS(TextureWrap::ClampToBorder);
-			height_maps[i].WrapT(TextureWrap::ClampToBorder);
+			Texture::Active(first_tex_unit+i);
+			Context::Bound(Texture::Target::_2D, height_maps[i])
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::ClampToBorder)
+				.WrapT(TextureWrap::ClampToBorder)
+				.Image2D(
+					0,
+					PixelDataInternalFormat::Red,
+					flow_tex_size, flow_tex_size,
+					0,
+					PixelDataFormat::Red,
+					PixelDataType::Float,
+					v.data()
+				);
 		}
 
 		Texture::Active(BumpMapUnit());
-		{
-			auto bound_tex = Bind(bump_map, Texture::Target::_2D);
-			bound_tex.Image2D(
+		Context::Bound(Texture::Target::_2D, bump_map)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.Image2D(
 				0,
 				PixelDataInternalFormat::RGBA,
 				flow_tex_size, flow_tex_size,
@@ -200,21 +205,14 @@ public:
 				PixelDataType::UnsignedByte,
 				nullptr
 			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-		}
 
 		Texture::Active(FlowMapUnit());
-		{
-			auto bound_tex = Bind(flow_map, Texture::Target::_2D);
-			bound_tex.Image2D(flow_map_image);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+		Context::Bound(Texture::Target::_2D, flow_map)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::Repeat)
+			.WrapT(TextureWrap::Repeat)
+			.Image2D(flow_map_image);
 	}
 
 	void Swap(void)
@@ -408,14 +406,12 @@ public:
 	)
 	{
 		Texture::Active(0);
-		{
-			auto bound_tex = Bind(background, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("flower_glass"));
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::MirroredRepeat);
-			bound_tex.WrapT(TextureWrap::MirroredRepeat);
-		}
+		gl.Bound(Texture::Target::_2D, background)
+			.Image2D(images::LoadTexture("flower_glass"))
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::MirroredRepeat)
+			.WrapT(TextureWrap::MirroredRepeat);
 
 		screen_prog.background.Set(0);
 		screen_prog.normal_map.Set(flow.TexUnit());

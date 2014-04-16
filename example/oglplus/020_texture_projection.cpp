@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{020_texture_projection}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -159,22 +159,20 @@ public:
 		}
 
 		// setup the texture
-		{
-			auto bound_tex = Bind(tex, Texture::Target::_2D);
-			bound_tex.Image2D(images::LoadTexture("flower_glass"));
-			bound_tex.GenerateMipmap();
-			bound_tex.BorderColor(Vec4f(1.0f, 1.0f, 1.0f, 0.0f));
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToBorder);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
-		}
-		//
+		gl.Bound(Texture::Target::_2D, tex)
+			.Image2D(images::LoadTexture("flower_glass"))
+			.GenerateMipmap()
+			.BorderColor(Vec4f(1.0f, 1.0f, 1.0f, 0.0f))
+			.MinFilter(TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToBorder)
+			.WrapT(TextureWrap::ClampToBorder);
+
 		UniformSampler(prog, "TexUnit").Set(0);
 		Uniform<Mat4f>(prog, "CameraMatrix").Set(
 			CamMatrixf::LookingAt(Vec3f(0.0f, 1.0f, 2.0f), Vec3f())
 		);
-		//
+
 		gl.ClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);

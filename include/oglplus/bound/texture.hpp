@@ -14,9 +14,8 @@
 #ifndef OGLPLUS_BOUND_TEXTURE_1107121519_HPP
 #define OGLPLUS_BOUND_TEXTURE_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/texture.hpp>
-#include <oglplus/bound.hpp>
-#include <oglplus/auto_bind.hpp>
 #include <utility>
 
 namespace oglplus {
@@ -33,7 +32,6 @@ namespace oglplus {
  *
  *  @see Bind()
  *  @see Bound
- *  @see AutoBind
  *
  *  @ingroup utility_classes
  */
@@ -374,7 +372,7 @@ public:
 	/** Wrapper for Texture::GetImage()
 	 *  @see Texture::GetImage()
 	 */
-	void GetImage(
+	const BoundTemplate& GetImage(
 		GLint level,
 		PixelDataFormat format,
 		TextureOps::Property::PixDataType type,
@@ -390,6 +388,7 @@ public:
 			size,
 			buffer
 		);
+		return *this;
 	}
 
 
@@ -397,7 +396,7 @@ public:
 	 *  @see Texture::GetImage()
 	 */
 	template <typename T>
-	void GetImage(
+	const BoundTemplate& GetImage(
 		GLint level,
 		PixelDataFormat format,
 		std::vector< T > & dest
@@ -409,13 +408,14 @@ public:
 			format,
 			dest
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::GetCompressedImage()
 	 *  @see Texture::GetCompressedImage()
 	 */
-	void GetCompressedImage(
+	const BoundTemplate& GetCompressedImage(
 		GLint level,
 		GLsizei size,
 		GLubyte * buffer
@@ -427,13 +427,14 @@ public:
 			size,
 			buffer
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::GetCompressedImage()
 	 *  @see Texture::GetCompressedImage()
 	 */
-	void GetCompressedImage(
+	const BoundTemplate& GetCompressedImage(
 		GLint level,
 		std::vector< GLubyte > & dest
 	) const
@@ -443,13 +444,14 @@ public:
 			level,
 			dest
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::Image3D()
 	 *  @see Texture::Image3D()
 	 */
-	void Image3D(
+	const BoundTemplate& Image3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -473,13 +475,14 @@ public:
 			type,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::Image3D()
 	 *  @see Texture::Image3D()
 	 */
-	void Image3D(
+	const BoundTemplate& Image3D(
 		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
@@ -491,13 +494,14 @@ public:
 			level,
 			border
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::SubImage3D()
 	 *  @see Texture::SubImage3D()
 	 */
-	void SubImage3D(
+	const BoundTemplate& SubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -523,13 +527,14 @@ public:
 			type,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::SubImage3D()
 	 *  @see Texture::SubImage3D()
 	 */
-	void SubImage3D(
+	const BoundTemplate& SubImage3D(
 		const images::Image & image,
 		GLint xoffs,
 		GLint yoffs,
@@ -545,13 +550,14 @@ public:
 			zoffs,
 			level
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::Image2D()
 	 *  @see Texture::Image2D()
 	 */
-	void Image2D(
+	const BoundTemplate& Image2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -573,13 +579,14 @@ public:
 			type,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::Image2D()
 	 *  @see Texture::Image2D()
 	 */
-	void Image2D(
+	const BoundTemplate& Image2D(
 		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
@@ -591,13 +598,14 @@ public:
 			level,
 			border
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::SubImage2D()
 	 *  @see Texture::SubImage2D()
 	 */
-	void SubImage2D(
+	const BoundTemplate& SubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -619,13 +627,14 @@ public:
 			type,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::SubImage2D()
 	 *  @see Texture::SubImage2D()
 	 */
-	void SubImage2D(
+	const BoundTemplate& SubImage2D(
 		const images::Image & image,
 		GLint xoffs,
 		GLint yoffs,
@@ -639,13 +648,14 @@ public:
 			yoffs,
 			level
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::Image1D()
 	 *  @see Texture::Image1D()
 	 */
-	void Image1D(
+	const BoundTemplate& Image1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -665,13 +675,14 @@ public:
 			type,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::Image1D()
 	 *  @see Texture::Image1D()
 	 */
-	void Image1D(
+	const BoundTemplate& Image1D(
 		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
@@ -683,13 +694,14 @@ public:
 			level,
 			border
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::SubImage1D()
 	 *  @see Texture::SubImage1D()
 	 */
-	void SubImage1D(
+	const BoundTemplate& SubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -707,13 +719,14 @@ public:
 			type,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::SubImage1D()
 	 *  @see Texture::SubImage1D()
 	 */
-	void SubImage1D(
+	const BoundTemplate& SubImage1D(
 		const images::Image & image,
 		GLint xoffs,
 		GLint level = 0
@@ -725,13 +738,14 @@ public:
 			xoffs,
 			level
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::Image()
 	 *  @see Texture::Image()
 	 */
-	void Image(
+	const BoundTemplate& Image(
 		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
@@ -743,13 +757,14 @@ public:
 			level,
 			border
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::Image()
 	 *  @see Texture::Image()
 	 */
-	void Image(
+	const BoundTemplate& Image(
 		const images::ImageSpec & image_spec,
 		GLint level = 0,
 		GLint border = 0
@@ -761,13 +776,14 @@ public:
 			level,
 			border
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CopyImage2D()
 	 *  @see Texture::CopyImage2D()
 	 */
-	void CopyImage2D(
+	const BoundTemplate& CopyImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLint x,
@@ -787,13 +803,14 @@ public:
 			height,
 			border
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CopyImage1D()
 	 *  @see Texture::CopyImage1D()
 	 */
-	void CopyImage1D(
+	const BoundTemplate& CopyImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLint x,
@@ -811,13 +828,14 @@ public:
 			width,
 			border
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CopySubImage3D()
 	 *  @see Texture::CopySubImage3D()
 	 */
-	void CopySubImage3D(
+	const BoundTemplate& CopySubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -839,13 +857,14 @@ public:
 			width,
 			height
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CopySubImage2D()
 	 *  @see Texture::CopySubImage2D()
 	 */
-	void CopySubImage2D(
+	const BoundTemplate& CopySubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -865,13 +884,14 @@ public:
 			width,
 			height
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CopySubImage1D()
 	 *  @see Texture::CopySubImage1D()
 	 */
-	void CopySubImage1D(
+	const BoundTemplate& CopySubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLint x,
@@ -887,13 +907,14 @@ public:
 			y,
 			width
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CompressedImage3D()
 	 *  @see Texture::CompressedImage3D()
 	 */
-	void CompressedImage3D(
+	const BoundTemplate& CompressedImage3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -915,13 +936,14 @@ public:
 			image_size,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CompressedImage2D()
 	 *  @see Texture::CompressedImage2D()
 	 */
-	void CompressedImage2D(
+	const BoundTemplate& CompressedImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -941,13 +963,14 @@ public:
 			image_size,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CompressedImage1D()
 	 *  @see Texture::CompressedImage1D()
 	 */
-	void CompressedImage1D(
+	const BoundTemplate& CompressedImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -965,13 +988,14 @@ public:
 			image_size,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CompressedSubImage3D()
 	 *  @see Texture::CompressedSubImage3D()
 	 */
-	void CompressedSubImage3D(
+	const BoundTemplate& CompressedSubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -997,13 +1021,14 @@ public:
 			image_size,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CompressedSubImage2D()
 	 *  @see Texture::CompressedSubImage2D()
 	 */
-	void CompressedSubImage2D(
+	const BoundTemplate& CompressedSubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1025,13 +1050,14 @@ public:
 			image_size,
 			data
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Texture::CompressedSubImage1D()
 	 *  @see Texture::CompressedSubImage1D()
 	 */
-	void CompressedSubImage1D(
+	const BoundTemplate& CompressedSubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -1049,6 +1075,7 @@ public:
 			image_size,
 			data
 		);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2 || GL_ARB_texture_multisample
@@ -1056,7 +1083,7 @@ public:
 	/** Wrapper for Texture::Image3DMultisample()
 	 *  @see Texture::Image3DMultisample()
 	 */
-	void Image3DMultisample(
+	const BoundTemplate& Image3DMultisample(
 		GLsizei samples,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1074,6 +1101,7 @@ public:
 			depth,
 			fixed_sample_locations
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_2 GL_ARB_texture_multisample
 
@@ -1082,7 +1110,7 @@ public:
 	/** Wrapper for Texture::Image2DMultisample()
 	 *  @see Texture::Image2DMultisample()
 	 */
-	void Image2DMultisample(
+	const BoundTemplate& Image2DMultisample(
 		GLsizei samples,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1098,6 +1126,7 @@ public:
 			height,
 			fixed_sample_locations
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_2 GL_ARB_texture_multisample
 
@@ -1106,7 +1135,7 @@ public:
 	/** Wrapper for Texture::Buffer()
 	 *  @see Texture::Buffer()
 	 */
-	void Buffer(
+	const BoundTemplate& Buffer(
 		PixelDataInternalFormat internal_format,
 		const BufferOps & buffer
 	) const
@@ -1116,6 +1145,7 @@ public:
 			internal_format,
 			buffer
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_1
 
@@ -1124,7 +1154,7 @@ public:
 	/** Wrapper for Texture::BufferRange()
 	 *  @see Texture::BufferRange()
 	 */
-	void BufferRange(
+	const BoundTemplate& BufferRange(
 		PixelDataInternalFormat internal_format,
 		const BufferOps & buffer,
 		GLintptr offset,
@@ -1138,6 +1168,7 @@ public:
 			offset,
 			size
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3
 
@@ -1146,7 +1177,7 @@ public:
 	/** Wrapper for Texture::Storage1D()
 	 *  @see Texture::Storage1D()
 	 */
-	void Storage1D(
+	const BoundTemplate& Storage1D(
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
 		GLsizei width
@@ -1158,6 +1189,7 @@ public:
 			internal_format,
 			width
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
@@ -1166,7 +1198,7 @@ public:
 	/** Wrapper for Texture::Storage2D()
 	 *  @see Texture::Storage2D()
 	 */
-	void Storage2D(
+	const BoundTemplate& Storage2D(
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1180,6 +1212,7 @@ public:
 			width,
 			height
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
@@ -1188,7 +1221,7 @@ public:
 	/** Wrapper for Texture::Storage3D()
 	 *  @see Texture::Storage3D()
 	 */
-	void Storage3D(
+	const BoundTemplate& Storage3D(
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1204,6 +1237,7 @@ public:
 			height,
 			depth
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_2 GL_ARB_texture_storage
 
@@ -1222,7 +1256,7 @@ public:
 	/** Wrapper for Texture::BaseLevel()
 	 *  @see Texture::BaseLevel()
 	 */
-	void BaseLevel(
+	const BoundTemplate& BaseLevel(
 		GLuint level
 	) const
 	{
@@ -1230,6 +1264,7 @@ public:
 			this->BindTarget(),
 			level
 		);
+		return *this;
 	}
 
 
@@ -1250,7 +1285,7 @@ public:
 	/** Wrapper for Texture::BorderColor()
 	 *  @see Texture::BorderColor()
 	 */
-	void BorderColor(
+	const BoundTemplate& BorderColor(
 		Vector< GLfloat, 4 > color
 	) const
 	{
@@ -1258,6 +1293,7 @@ public:
 			this->BindTarget(),
 			color
 		);
+		return *this;
 	}
 
 
@@ -1278,7 +1314,7 @@ public:
 	/** Wrapper for Texture::BorderColor()
 	 *  @see Texture::BorderColor()
 	 */
-	void BorderColor(
+	const BoundTemplate& BorderColor(
 		Vector< GLint, 4 > color
 	) const
 	{
@@ -1286,6 +1322,7 @@ public:
 			this->BindTarget(),
 			color
 		);
+		return *this;
 	}
 
 
@@ -1306,7 +1343,7 @@ public:
 	/** Wrapper for Texture::BorderColor()
 	 *  @see Texture::BorderColor()
 	 */
-	void BorderColor(
+	const BoundTemplate& BorderColor(
 		Vector< GLuint, 4 > color
 	) const
 	{
@@ -1314,6 +1351,7 @@ public:
 			this->BindTarget(),
 			color
 		);
+		return *this;
 	}
 
 
@@ -1331,7 +1369,7 @@ public:
 	/** Wrapper for Texture::CompareMode()
 	 *  @see Texture::CompareMode()
 	 */
-	void CompareMode(
+	const BoundTemplate& CompareMode(
 		TextureCompareMode mode
 	) const
 	{
@@ -1339,6 +1377,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 
 
@@ -1356,7 +1395,7 @@ public:
 	/** Wrapper for Texture::CompareFunc()
 	 *  @see Texture::CompareFunc()
 	 */
-	void CompareFunc(
+	const BoundTemplate& CompareFunc(
 		CompareFunction func
 	) const
 	{
@@ -1364,6 +1403,7 @@ public:
 			this->BindTarget(),
 			func
 		);
+		return *this;
 	}
 
 
@@ -1381,7 +1421,7 @@ public:
 	/** Wrapper for Texture::LODBias()
 	 *  @see Texture::LODBias()
 	 */
-	void LODBias(
+	const BoundTemplate& LODBias(
 		GLfloat value
 	) const
 	{
@@ -1389,6 +1429,22 @@ public:
 			this->BindTarget(),
 			value
 		);
+		return *this;
+	}
+
+
+	/** Wrapper for Texture::Filter()
+	 *  @see Texture::Filter()
+	 */
+	const BoundTemplate& Filter(
+		TextureFilter filter
+	) const
+	{
+		TextureOps::Filter(
+			this->BindTarget(),
+			filter
+		);
+		return *this;
 	}
 
 
@@ -1406,7 +1462,7 @@ public:
 	/** Wrapper for Texture::MagFilter()
 	 *  @see Texture::MagFilter()
 	 */
-	void MagFilter(
+	const BoundTemplate& MagFilter(
 		TextureMagFilter filter
 	) const
 	{
@@ -1414,6 +1470,7 @@ public:
 			this->BindTarget(),
 			filter
 		);
+		return *this;
 	}
 
 
@@ -1431,7 +1488,7 @@ public:
 	/** Wrapper for Texture::MinFilter()
 	 *  @see Texture::MinFilter()
 	 */
-	void MinFilter(
+	const BoundTemplate& MinFilter(
 		TextureMinFilter filter
 	) const
 	{
@@ -1439,6 +1496,7 @@ public:
 			this->BindTarget(),
 			filter
 		);
+		return *this;
 	}
 
 
@@ -1456,7 +1514,7 @@ public:
 	/** Wrapper for Texture::MinLOD()
 	 *  @see Texture::MinLOD()
 	 */
-	void MinLOD(
+	const BoundTemplate& MinLOD(
 		GLfloat value
 	) const
 	{
@@ -1464,6 +1522,7 @@ public:
 			this->BindTarget(),
 			value
 		);
+		return *this;
 	}
 
 
@@ -1481,7 +1540,7 @@ public:
 	/** Wrapper for Texture::MaxLOD()
 	 *  @see Texture::MaxLOD()
 	 */
-	void MaxLOD(
+	const BoundTemplate& MaxLOD(
 		GLfloat value
 	) const
 	{
@@ -1489,6 +1548,7 @@ public:
 			this->BindTarget(),
 			value
 		);
+		return *this;
 	}
 
 
@@ -1506,7 +1566,7 @@ public:
 	/** Wrapper for Texture::MaxLevel()
 	 *  @see Texture::MaxLevel()
 	 */
-	void MaxLevel(
+	const BoundTemplate& MaxLevel(
 		GLint value
 	) const
 	{
@@ -1514,6 +1574,7 @@ public:
 			this->BindTarget(),
 			value
 		);
+		return *this;
 	}
 
 
@@ -1542,7 +1603,7 @@ public:
 	/** Wrapper for Texture::Anisotropy()
 	 *  @see Texture::Anisotropy()
 	 */
-	void Anisotropy(
+	const BoundTemplate& Anisotropy(
 		GLfloat value
 	) const
 	{
@@ -1550,6 +1611,7 @@ public:
 			this->BindTarget(),
 			value
 		);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
@@ -1573,7 +1635,7 @@ public:
 	/** Wrapper for Texture::Swizzle()
 	 *  @see Texture::Swizzle()
 	 */
-	void Swizzle(
+	const BoundTemplate& Swizzle(
 		TextureSwizzleCoord coord,
 		TextureSwizzle mode
 	) const
@@ -1583,6 +1645,7 @@ public:
 			coord,
 			mode
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
@@ -1604,7 +1667,7 @@ public:
 	/** Wrapper for Texture::SwizzleR()
 	 *  @see Texture::SwizzleR()
 	 */
-	void SwizzleR(
+	const BoundTemplate& SwizzleR(
 		TextureSwizzle mode
 	) const
 	{
@@ -1612,6 +1675,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
@@ -1633,7 +1697,7 @@ public:
 	/** Wrapper for Texture::SwizzleG()
 	 *  @see Texture::SwizzleG()
 	 */
-	void SwizzleG(
+	const BoundTemplate& SwizzleG(
 		TextureSwizzle mode
 	) const
 	{
@@ -1641,6 +1705,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
@@ -1662,7 +1727,7 @@ public:
 	/** Wrapper for Texture::SwizzleB()
 	 *  @see Texture::SwizzleB()
 	 */
-	void SwizzleB(
+	const BoundTemplate& SwizzleB(
 		TextureSwizzle mode
 	) const
 	{
@@ -1670,6 +1735,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
@@ -1691,7 +1757,7 @@ public:
 	/** Wrapper for Texture::SwizzleA()
 	 *  @see Texture::SwizzleA()
 	 */
-	void SwizzleA(
+	const BoundTemplate& SwizzleA(
 		TextureSwizzle mode
 	) const
 	{
@@ -1699,6 +1765,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
@@ -1720,7 +1787,7 @@ public:
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
 	 */
-	void SwizzleRGBA(
+	const BoundTemplate& SwizzleRGBA(
 		TextureSwizzle mode
 	) const
 	{
@@ -1728,6 +1795,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
@@ -1736,7 +1804,7 @@ public:
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
 	 */
-	void SwizzleRGBA(
+	const BoundTemplate& SwizzleRGBA(
 		TextureSwizzle mode_r,
 		TextureSwizzle mode_g,
 		TextureSwizzle mode_b,
@@ -1750,6 +1818,7 @@ public:
 			mode_b,
 			mode_a
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
@@ -1758,7 +1827,7 @@ public:
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
 	 */
-	void SwizzleRGBA(
+	const BoundTemplate& SwizzleRGBA(
 		const TextureSwizzleTuple & modes
 	) const
 	{
@@ -1766,6 +1835,7 @@ public:
 			this->BindTarget(),
 			modes
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
 
@@ -1787,7 +1857,7 @@ public:
 	/** Wrapper for Texture::Wrap()
 	 *  @see Texture::Wrap()
 	 */
-	void Wrap(
+	const BoundTemplate& Wrap(
 		TextureWrapCoord coord,
 		TextureWrap mode
 	) const
@@ -1797,6 +1867,7 @@ public:
 			coord,
 			mode
 		);
+		return *this;
 	}
 
 
@@ -1814,7 +1885,7 @@ public:
 	/** Wrapper for Texture::WrapS()
 	 *  @see Texture::WrapS()
 	 */
-	void WrapS(
+	const BoundTemplate& WrapS(
 		TextureWrap mode
 	) const
 	{
@@ -1822,6 +1893,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 
 
@@ -1839,7 +1911,7 @@ public:
 	/** Wrapper for Texture::WrapT()
 	 *  @see Texture::WrapT()
 	 */
-	void WrapT(
+	const BoundTemplate& WrapT(
 		TextureWrap mode
 	) const
 	{
@@ -1847,6 +1919,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 
 
@@ -1864,7 +1937,7 @@ public:
 	/** Wrapper for Texture::WrapR()
 	 *  @see Texture::WrapR()
 	 */
-	void WrapR(
+	const BoundTemplate& WrapR(
 		TextureWrap mode
 	) const
 	{
@@ -1872,6 +1945,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
@@ -1892,7 +1966,7 @@ public:
 	/** Wrapper for Texture::DepthStencilMode()
 	 *  @see Texture::DepthStencilMode()
 	 */
-	void DepthStencilMode(
+	const BoundTemplate& DepthStencilMode(
 		PixelDataFormat mode
 	) const
 	{
@@ -1900,6 +1974,7 @@ public:
 			this->BindTarget(),
 			mode
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3
 
@@ -1921,7 +1996,7 @@ public:
 	/** Wrapper for Texture::Seamless()
 	 *  @see Texture::Seamless()
 	 */
-	void Seamless(
+	const BoundTemplate& Seamless(
 		bool enable
 	) const
 	{
@@ -1929,6 +2004,7 @@ public:
 			this->BindTarget(),
 			enable
 		);
+		return *this;
 	}
 #endif // GL_ARB_seamless_cubemap_per_texture
 
@@ -1936,11 +2012,12 @@ public:
 	/** Wrapper for Texture::GenerateMipmap()
 	 *  @see Texture::GenerateMipmap()
 	 */
-	void GenerateMipmap(void) const
+	const BoundTemplate& GenerateMipmap(void) const
 	{
 		TextureOps::GenerateMipmap(
 			this->BindTarget()
 		);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_texture_view
@@ -1948,7 +2025,7 @@ public:
 	/** Wrapper for Texture::View()
 	 *  @see Texture::View()
 	 */
-	void View(
+	const BoundTemplate& View(
 		const TextureOps & orig_texture,
 		PixelDataInternalFormat internal_format,
 		GLuint min_level,
@@ -1966,6 +2043,7 @@ public:
 			min_layer,
 			num_layers
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3 GL_ARB_texture_view
 

@@ -28,6 +28,9 @@ EGLPLUS_ENUM_CLASS_FWD(ContextFlag, EGLenum)
 EGLPLUS_ENUM_CLASS_FWD(ErrorCode, EGLenum)
 #include <eglplus/enums/error_code_names.ipp>
 
+EGLPLUS_ENUM_CLASS_FWD(GLColorspace, EGLenum)
+#include <eglplus/enums/gl_colorspace_names.ipp>
+
 EGLPLUS_ENUM_CLASS_FWD(MultisampleResolve, EGLenum)
 #include <eglplus/enums/multisample_resolve_names.ipp>
 

@@ -11,10 +11,11 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
 #include <eglplus/egl.hpp>
-#define EGL_CONTEXT_MINOR_VERSION_KHR 0x30FB
-#define EGL_CONTEXT_FLAGS_KHR                   0x30FC
-#define EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR     0x30FD
-#define EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT_KHR 0x00000001
+
+#define EGL_CONTEXT_MAJOR_VERSION       0x3098
+#define EGL_CONTEXT_MINOR_VERSION       0x30FB
+#define EGL_CONTEXT_OPENGL_PROFILE_MASK 0x30FD
+#define EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT 0x00000001
 
 #if OGLPLUS_LINK_LIBRARY
 # include <oglplus/lib.hpp>
@@ -431,7 +432,7 @@ void run_example(
 
 	eglplus::ContextAttribs context_attribs =
 		eglplus::ContextAttribs()
-			.Add(eglplus::ContextAttrib::ClientVersion, 3)
+			.Add(eglplus::ContextAttrib::MajorVersion, 3)
 			.Add(eglplus::ContextAttrib::MinorVersion, 3)
 			.Add(eglplus::OpenGLProfileBit::Core);
 

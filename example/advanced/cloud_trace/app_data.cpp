@@ -12,6 +12,7 @@
 #include "arg_parser.hpp"
 
 #include <iostream>
+#include <random>
 
 namespace oglplus {
 namespace cloud_trace {
@@ -24,6 +25,7 @@ AppData::AppData(void)
  , allow_offscreen(false)
  , allow_x_rt_screens(false)
  , render_offscreen(false)
+ , clip_tiles(false)
  , save_raytrace_data(false)
  , verbosity(0)
  , rand_seed(0)
@@ -35,9 +37,9 @@ AppData::AppData(void)
  , raytrace_height(512)
  , render_width(raytrace_width)
  , render_height(raytrace_height)
- , tile(32)
+ , tile(16)
  , unit_opacity(0.03)
- , unit_attenuation(0.01)
+ , unit_attenuation(0.02)
  , cloud_count(512)
  , cloud_res(256)
  , dump_cloud_image(false)
@@ -46,10 +48,10 @@ AppData::AppData(void)
  , planet_radius(6371)
  , atm_thickness(50)
  , covered_angle(0.7)
- , cloud_mean_alt(2.5f)
- , cloud_alt_disp(0.3f)
- , cloud_mean_size(1.5f)
- , cloud_size_disp(0.4f)
+ , cloud_mean_alt(3.0f)
+ , cloud_alt_disp(0.4f)
+ , cloud_mean_size(1.6f)
+ , cloud_size_disp(0.5f)
  , cam_near(1)
  , cam_far(100)
  , light_x(100000)
@@ -57,6 +59,8 @@ AppData::AppData(void)
  , light_z(100000)
  , high_light(1.0f)
  , ambi_light(0.0f)
+ , crep_ray_far(cam_far*0.3)
+ , crep_ray_sam(512)
 {
 	skip_face.fill(false);
 
@@ -261,6 +265,19 @@ bool AppData::ParseArgs(int argc, char** argv)
 		"The ambient (lowest) light value."
 		);
 
+	// crepuscular ray samples
+	parser.AddArg("-crs", "--crep-ray-sam", crep_ray_sam)
+		.AddDesc(
+		"Number of samples for crepuscular rays."
+		);
+
+	parser.AddOpt("-ct", "--clip-tiles", clip_tiles)
+		.AddDesc(
+		"Chooses the method of raytrace tile rendering. If enabled "
+		"then the tiles are created polygon clipping otherwise the "
+		"scissor test is used."
+		);
+
 	// save raytrace data
 	parser.AddOpt("-srd", "--save-raytrace-data", save_raytrace_data)
 		.AddDesc(
@@ -407,6 +424,12 @@ bool AppData::ParseArgs(int argc, char** argv)
 		}
 	}
 
+	if(!rand_seed)
+	{
+		std::random_device rd;
+		rand_seed = rd();
+	}
+
 	return true;
 }
 
@@ -442,6 +465,13 @@ void AppData::LogInfo(void) const
 		logstr()
 			<< "Raytrace tiles: "
 			<< tiles()
+			<< std::endl;
+	}
+	if(verbosity > 1)
+	{
+		logstr()
+			<< "Random generator seed: "
+			<< rand_seed
 			<< std::endl;
 	}
 }

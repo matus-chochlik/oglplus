@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,6 +26,7 @@
 #include <eglplus/swap_behavior.hpp>
 #include <eglplus/texture_format.hpp>
 #include <eglplus/texture_target.hpp>
+#include <eglplus/gl_colorspace.hpp>
 #include <eglplus/vg_colorspace.hpp>
 #include <eglplus/vg_alpha_format.hpp>
 
@@ -82,7 +83,18 @@ struct SurfaceValueTypeToSurfaceAttrib
 		return SurfaceAttrib::VGAlphaFormat;
 	}
 
+#ifndef EGL_GL_COLORSPACE
 	static std::integral_constant<int, 6> MaxValueType(void);
+#else
+	static GLColorspace
+	ValueType(std::integral_constant<int, 7>);
+	SurfaceAttrib operator()(GLColorspace) const
+	{
+		return SurfaceAttrib::GLColorspace;
+	}
+
+	static std::integral_constant<int, 7> MaxValueType(void);
+#endif
 };
 
 /// Attribute list for surface attributes
@@ -490,6 +502,21 @@ public:
 			EGLenum(GetAttrib(SurfaceAttrib::TextureFormat))
 		);
 	}
+
+#if EGLPLUS_DOCUMENTATION_ONLY || defined(EGL_GL_COLORSPACE)
+	/// Returns the OpenGL colorspace setting of the surface
+	/**
+	 *  @eglsymbols
+	 *  @eglfunref{QuerySurface}
+	 *  @egldefref{GL_COLORSPACE}
+	 */
+	eglplus::GLColorspace GLColorspace(void) const
+	{
+		return eglplus::GLColorspace(
+			EGLenum(GetAttrib(SurfaceAttrib::GLColorspace))
+		);
+	}
+#endif
 
 	/// Returns the OpenVG colorspace setting of the surface
 	/**

@@ -464,7 +464,7 @@ public:
 		Texture::Active(0);
 		sketch_prog.sketch_tex.Set(0);
 		{
-			auto bound_tex = Bind(sketch_texture, Texture::Target::_3D);
+			auto bound_tex = gl.Bound(Texture::Target::_3D, sketch_texture);
 
 			for(GLuint i=0; i!=sketch_tex_layers; ++i)
 			{
@@ -509,14 +509,14 @@ public:
 
 		Texture::Active(1);
 		sketch_prog.shadow_tex.Set(1);
-		{
-			auto bound_tex = Bind(shadow_tex, Texture::Target::_2D);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.CompareMode(TextureCompareMode::CompareRefToTexture);
-			bound_tex.Image2D(
+
+		gl.Bound(Texture::Target::_2D, shadow_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.CompareMode(TextureCompareMode::CompareRefToTexture)
+			.Image2D(
 				0,
 				PixelDataInternalFormat::DepthComponent32,
 				shadow_tex_side, shadow_tex_side,
@@ -525,19 +525,13 @@ public:
 				PixelDataType::Float,
 				nullptr
 			);
-		}
 
-		{
-			auto bound_fbo = Bind(
-				frame_shadow_fbo,
-				Framebuffer::Target::Draw
-			);
-			bound_fbo.AttachTexture(
+		gl.Bound(Framebuffer::Target::Draw, frame_shadow_fbo)
+			.AttachTexture(
 				FramebufferAttachment::Depth,
 				shadow_tex,
 				0
 			);
-		}
 
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);

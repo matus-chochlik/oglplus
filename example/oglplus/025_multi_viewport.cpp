@@ -234,15 +234,16 @@ public:
 					return pow(SineWave(pow(x,0.5)), 4.0);
 				}
 			);
-			auto bound_tex = Bind(tex, Texture::Target::CubeMap);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
+
+			gl.Bound(Texture::Target::CubeMap, tex)
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::ClampToEdge)
+				.WrapT(TextureWrap::ClampToEdge)
+				.WrapR(TextureWrap::ClampToEdge);
 
 			for(int i=0; i!=6; ++i)
-				Texture::Image2D(Texture::CubeMapFace(i), image);
+				Texture::ImageCM(i, image);
 		}
 		//
 		UniformSampler(prog, "TexUnit").Set(0);

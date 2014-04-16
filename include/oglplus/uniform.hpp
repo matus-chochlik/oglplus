@@ -13,10 +13,10 @@
 #ifndef OGLPLUS_UNIFORM_1107121519_HPP
 #define OGLPLUS_UNIFORM_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/program.hpp>
-#include <oglplus/matrix.hpp>
 #include <oglplus/string.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
 #include <oglplus/auxiliary/tp_mat_vec.hpp>

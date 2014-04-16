@@ -2,7 +2,7 @@
  *  .file EGL/egl_ppdef.inc
  *  .brief EGL preprocessor definitions
  *
- *  Copyright (c) 2007-2009 The Khronos Group Inc.
+ *  Copyright (c) 2007-2014 The Khronos Group Inc.
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and/or associated documentation files (the
  *  "Materials"), to deal in the Materials without restriction, including
@@ -22,7 +22,7 @@
  *  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  *  MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -41,6 +41,7 @@
 #define EGL_VERSION_1_2			1
 #define EGL_VERSION_1_3			1
 #define EGL_VERSION_1_4			1
+#define EGL_VERSION_1_5			1
 
 /* EGL aliases */
 #define EGL_FALSE			0
@@ -138,6 +139,7 @@
 #define EGL_OPENVG_BIT			0x0002	/* EGL_RENDERABLE_TYPE mask bits */
 #define EGL_OPENGL_ES2_BIT		0x0004	/* EGL_RENDERABLE_TYPE mask bits */
 #define EGL_OPENGL_BIT			0x0008	/* EGL_RENDERABLE_TYPE mask bits */
+#define EGL_OPENGL_ES3_BIT              0x0040	/* EGL_RENDERABLE_TYPE mask bits */
 
 /* QueryString targets */
 #define EGL_VENDOR			0x3053
@@ -154,6 +156,7 @@
 #define EGL_MIPMAP_TEXTURE		0x3082
 #define EGL_MIPMAP_LEVEL		0x3083
 #define EGL_RENDER_BUFFER		0x3086
+#define EGL_GL_COLORSPACE               0x309D
 #define EGL_VG_COLORSPACE		0x3087
 #define EGL_VG_ALPHA_FORMAT		0x3088
 #define EGL_HORIZONTAL_RESOLUTION	0x3090
@@ -165,6 +168,10 @@
 /* EGL_RENDER_BUFFER values / BindTexImage / ReleaseTexImage buffer targets */
 #define EGL_BACK_BUFFER			0x3084
 #define EGL_SINGLE_BUFFER		0x3085
+
+/* OpenGL color spaces */
+#define EGL_GL_COLORSPACE_SRGB          0x3089  /* EGL_GL_COLORSPACE value */
+#define EGL_GL_COLORSPACE_LINEAR        0x308A  /* EGL_GL_COLORSPACE value */
 
 /* OpenVG color spaces */
 #define EGL_VG_COLORSPACE_sRGB		0x3089	/* EGL_VG_COLORSPACE value */
@@ -194,6 +201,23 @@
 
 /* CreateContext attributes */
 #define EGL_CONTEXT_CLIENT_VERSION	0x3098
+#define EGL_CONTEXT_MAJOR_VERSION       0x3098
+#define EGL_CONTEXT_MINOR_VERSION       0x30FB
+#define EGL_CONTEXT_OPENGL_PROFILE_MASK 0x30FD
+#define EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY 0x31BD
+
+/* CreateContext profile bits */
+#define EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT 0x00000001
+#define EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT 0x00000002
+
+/* Context flags */
+#define EGL_CONTEXT_OPENGL_DEBUG          0x31B0
+#define EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE 0x31B1
+#define EGL_CONTEXT_OPENGL_ROBUST_ACCESS  0x31B2
+
+/* Reset notification strategies */
+#define EGL_NO_RESET_NOTIFICATION         0x31BE
+#define EGL_LOSE_CONTEXT_ON_RESET         0x31BF
 
 /* Multisample resolution behaviors */
 #define EGL_MULTISAMPLE_RESOLVE_DEFAULT 0x309A	/* EGL_MULTISAMPLE_RESOLVE value */
@@ -207,6 +231,37 @@
 /* GetCurrentSurface targets */
 #define EGL_DRAW			0x3059
 #define EGL_READ			0x305A
+
+/* Image attributes */
+#define EGL_GL_RENDERBUFFER                0x30B9
+#define EGL_GL_TEXTURE_2D                  0x30B1
+#define EGL_GL_TEXTURE_LEVEL               0x30BC
+#define EGL_GL_TEXTURE_3D                  0x30B2
+#define EGL_GL_TEXTURE_ZOFFSET             0x30BD
+#define EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_X 0x30B3
+#define EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_X 0x30B4
+#define EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Y 0x30B5
+#define EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Y 0x30B6
+#define EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Z 0x30B7
+#define EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Z 0x30B8
+
+
+/* Sync */
+#define EGL_CL_EVENT_HANDLE               0x309C
+#define EGL_SYNC_CL_EVENT                 0x30FE
+#define EGL_SYNC_CL_EVENT_COMPLETE        0x30FF
+#define EGL_SYNC_PRIOR_COMMANDS_COMPLETE  0x30F0
+#define EGL_SYNC_TYPE                     0x30F7
+#define EGL_SYNC_STATUS                   0x30F1
+#define EGL_SYNC_CONDITION                0x30F8
+#define EGL_SIGNALED                      0x30F2
+#define EGL_UNSIGNALED                    0x30F3
+#define EGL_SYNC_FLUSH_COMMANDS_BIT       0x0001
+#define EGL_FOREVER                       0xFFFFFFFFFFFFFFFFull
+#define EGL_TIMEOUT_EXPIRED               0x30F5
+#define EGL_CONDITION_SATISFIED           0x30F6
+#define EGL_NO_SYNC                       ((EGLSync)0)
+#define EGL_SYNC_FENCE                    0x30F9
 
 /* WaitNative engines */
 #define EGL_CORE_NATIVE_ENGINE		0x305B

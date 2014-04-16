@@ -17,7 +17,7 @@
 #include <oglplus/string.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/object.hpp>
-#include <oglplus/exposed.hpp>
+#include <oglplus/friend_of.hpp>
 #include <oglplus/enumerations.hpp>
 
 #include <cassert>
@@ -335,7 +335,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ObjectLabel)(
-			Expose(object).Name(),
+			FriendOf<ObjectOps>.GetName(object),
 			object.ObjectType(),
 			length,
 			label
@@ -357,7 +357,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ObjectLabel)(
-			Expose(object).Name(),
+			FriendOf<ObjectOps>.GetName(object),
 			object.ObjectType(),
 			label.size(),
 			label.c_str()
@@ -379,7 +379,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ObjectLabel)(
-			Expose(object).Name(),
+			FriendOf<ObjectOps>.GetName(object),
 			object.ObjectType(),
 			label.size(),
 			label.c_str()

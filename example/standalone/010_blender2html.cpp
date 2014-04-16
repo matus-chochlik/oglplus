@@ -2,54 +2,58 @@
  *  @example standalone/010_blender2html.cpp
  *  @brief Generates a set of cross-linked html describing a .blend file
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cctype>
 
 #include <oglplus/imports/blend_file.hpp>
 
 using namespace oglplus::imports;
 
 // Prints the atomic values from a .blend file
-struct value_visitor {
-
+struct value_visitor : BlendFileVisitor
+{
 	std::ostream& _output;
 	BlendFile& _file;
 
-	// fallback
-	template <typename T>
-	void operator()(T value) const
-	{
-		_output << value;
-	}
-
-	// character / byte
-	void operator()(char c) const
-	{
-		_output
-			<< "0x"
-			<< std::hex
-			<< unsigned(c)
-			<< std::dec;
-	}
+	value_visitor(std::ostream& out, BlendFile& bf)
+	 : _output(out)
+	 , _file(bf)
+	{ }
 
 	// string
-	void operator()(const std::string& value) const
+	void VisitStr(const std::string& value)
 	{
-		_output
-			<< "<em>'"
-			<< value.c_str()
-			<< "'</em>";
+		_output << "<em>'";
+		for(char c : value)
+		{
+			if(c == '\0') break;
+			else if(std::isprint(c))
+			{
+				_output << c;
+			}
+			else
+			{
+				_output << "\\"
+					<< std::setw(3)
+					<< std::setfill('0')
+					<< std::oct
+					<< (c & 0xFF)
+					<< std::dec;
+			}
+		}
+		_output << "'</em>";
 	}
 
 	// pointer
-	template <unsigned Level>
-	void operator()(BlendFilePointerTpl<Level> ptr) const
+	void VisitPtr(BlendFilePointer ptr)
 	{
 		BlendFilePointer::ValueType pv = ptr.Value();
 		bool found_block = false;
@@ -80,14 +84,10 @@ struct value_visitor {
 		{
 			_output << "</a>";
 		}
-		if(Level > 1)
-		{
-			_output << " (pointer-to-pointer)";
-		}
 	}
 
 	// pointer to pointer
-	void operator()(BlendFilePointerToPointer ptr) const
+	void VisitPPtr(BlendFilePointerToPointer ptr)
 	{
 		_output << "<a href='block-0x";
 		_output << std::hex << ptr.Value() << std::dec;
@@ -96,7 +96,35 @@ struct value_visitor {
 		_output << "</a> (pointer to pointer)";
 	}
 
-	void operator()(const char*, std::size_t) const
+	// floating point
+	void VisitDbl(double value)
+	{
+		_output << value;
+	}
+
+	// unsigned int
+	void VisitU64(uint64_t value)
+	{
+		_output << value;
+	}
+
+	// signed int
+	void VisitI64(int64_t value)
+	{
+		_output << value;
+	}
+
+	// character / byte
+	void VisitChr(char c)
+	{
+		_output
+			<< "0x"
+			<< std::hex
+			<< (c & 0xFF)
+			<< std::dec;
+	}
+
+	void VisitRaw(const char*, std::size_t)
 	{
 		_output << "<a href='block-0x0'>NULL</a>";
 	}
@@ -265,7 +293,7 @@ void blend_to_html(const std::string& filename, const std::string& work_dir)
 			);
 		}
 
-		value_visitor vis = {output, file};
+		value_visitor vis(output, file);
 
 		auto bs = file.BlockStructure(b);
 
@@ -398,25 +426,54 @@ void blend_to_html(const std::string& filename, const std::string& work_dir)
 				output << "</table>"  << std::endl;
 			}
 		}
-		else if(b.Code() == "DATA" && b.Size() % file.Info().PointerSize() == 0)
+		else if(b.Code() == "DATA")
 		{
-			output << "<h2>Pointers</h2>" << std::endl;
+			output << "<h2>Raw data</h2>" << std::endl;
 			output << "<table>"  << std::endl;
-			output << "<tr><th>Pointer</th><tr>" << std::endl;
+			output << "<tr><th>Bytes</th><tr>" << std::endl;
 
 			auto bd = file.BlockData(b);
-			auto vt = file.Type<void>();
-			std::size_t n = b.Size() / file.Info().PointerSize();
-			for(std::size_t i=0; i!=n; ++i)
+
+			output << "<tr><td>" << std::endl;
+			for(std::size_t i=0, n=bd.DataSize(); i!=n; ++i)
 			{
-				auto ptr = bd.AsPointerTo(vt, i);
-				output << "<tr><td><a href='block-0x";
-				output << std::hex << ptr.Value() << std::dec;
-				output << ".html'>0x";
-				output << std::hex << ptr.Value() << std::dec;
-				output << "</a></td></tr>";
+				char c = bd.RawByte(i);
+				if(std::isprint(c))
+				{
+					output << c;
+				}
+				else
+				{
+					output << "\\"
+						<< std::setw(3)
+						<< std::setfill('0')
+						<< std::oct
+						<< (c & 0xFF)
+						<< std::dec;
+				}
 			}
+			output << "</td></tr>" << std::endl;
 			output << "</table>"  << std::endl;
+
+			if(b.Size() % file.Info().PointerSize() == 0)
+			{
+				output << "<h2>Pointers</h2>" << std::endl;
+				output << "<table>"  << std::endl;
+				output << "<tr><th>Pointer</th></tr>" << std::endl;
+
+				auto vt = file.Type<void>();
+				std::size_t n = b.Size() / file.Info().PointerSize();
+				for(std::size_t i=0; i!=n; ++i)
+				{
+					auto ptr = bd.AsPointerTo(vt, i);
+					output << "<tr><td><a href='block-0x";
+					output << std::hex << ptr.Value() << std::dec;
+					output << ".html'>0x";
+					output << std::hex << ptr.Value() << std::dec;
+					output << "</a></td></tr>";
+				}
+				output << "</table>"  << std::endl;
+			}
 		}
 		output << "</body>" << std::endl;
 		output << "</html>" << std::endl;

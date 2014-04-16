@@ -19,7 +19,7 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/friend_of.hpp>
-#include <oglplus/auxiliary/binding_query.hpp>
+#include <oglplus/binding_query.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/texture.hpp>
@@ -69,6 +69,12 @@ OGLPLUS_ENUM_CLASS_END(FramebufferTarget)
 #if !OGLPLUS_ENUM_VALUE_RANGES
 #include <oglplus/enums/framebuffer_target_range.ipp>
 #endif
+
+template <>
+struct ObjectTargetOps<FramebufferTarget>
+{
+	typedef FramebufferOps Type;
+};
 
 /// Incomplete framebuffer exception class
 /**

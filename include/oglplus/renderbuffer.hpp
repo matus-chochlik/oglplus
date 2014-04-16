@@ -22,7 +22,7 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/images/fwd.hpp>
-#include <oglplus/auxiliary/binding_query.hpp>
+#include <oglplus/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -42,6 +42,12 @@ OGLPLUS_ENUM_CLASS_END(RenderbufferTarget)
 #if !OGLPLUS_ENUM_VALUE_RANGES
 #include <oglplus/enums/renderbuffer_target_range.ipp>
 #endif
+
+template <>
+struct ObjectTargetOps<RenderbufferTarget>
+{
+	typedef RenderbufferOps Type;
+};
 
 /// Class wrapping renderbuffer-related functionality
 /** @note Do not use this class directly, use Renderbuffer instead.

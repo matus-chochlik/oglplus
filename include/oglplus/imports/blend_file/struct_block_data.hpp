@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -195,11 +195,17 @@ public:
 
 	/// Get the value of the field from the block
 	ValueType Get(
-		std::size_t block_element = 0,
-		std::size_t field_element = 0
+		std::size_t block_element,
+		std::size_t field_element
 	) const
 	{
 		return this->_do_get((T*)nullptr, block_element, field_element);
+	}
+
+	/// Get the first value of the field from the first block
+	ValueType Get(void) const
+	{
+		return Get(0, 0);
 	}
 
 	/// Get the value of the field from the block
@@ -374,8 +380,8 @@ public:
 	typename _adjust_type<T>::type TryGet(
 		const std::string& field_name,
 		T default_value,
-		std::size_t block_element = 0,
-		std::size_t field_element = 0
+		std::size_t block_element,
+		std::size_t field_element
 	) const
 	{
 		try
@@ -387,6 +393,15 @@ public:
 		}
 		catch(...) { }
 		return _adjust_value(&default_value);
+	}
+
+	template <typename T>
+	typename _adjust_type<T>::type TryGet(
+		const std::string& field_name,
+		T default_value
+	)
+	{
+		return TryGet<T>(field_name, default_value, 0, 0);
 	}
 };
 

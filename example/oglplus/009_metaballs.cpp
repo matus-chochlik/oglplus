@@ -153,9 +153,11 @@ public:
 		Texture::Active(0);
 		UniformSampler(prog, "Metaballs").Set(0);
 
-		{
-			auto bound_tex = Bind(metaballs_tex, Texture::Target::_1D);
-			bound_tex.Image1D(
+		gl.Bound(Texture::Target::_1D, metaballs_tex)
+			.MinFilter(TextureMinFilter::Nearest)
+			.MagFilter(TextureMagFilter::Nearest)
+			.WrapS(TextureWrap::MirroredRepeat)
+			.Image1D(
 				0,
 				InternalFormat::RGBA32F,
 				ball_paths.size(),
@@ -164,10 +166,6 @@ public:
 				DataType::Float,
 				nullptr
 			);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
-			bound_tex.WrapS(TextureWrap::MirroredRepeat);
-		}
 
 		gl.Disable(Capability::DepthTest);
 	}

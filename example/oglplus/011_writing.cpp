@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{011_writing}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -92,7 +92,7 @@ public:
 		prog.AttachShader(fs);
 		// link and use it
 		prog.Link();
-		prog.Use();
+		gl.Use(prog);
 
 		const Vec2f points[] = {
 			Vec2f(-0.33f, +0.50f),
@@ -137,11 +137,12 @@ public:
 			)
 		);
 
-		writing.Bind();
+		gl.Bind(writing);
+		gl.Bind(Buffer::Target::Array, curve_verts);
 		{
 			auto data = bezier.Approximate(25);
 			curve_n = data.size();
-			Bind(curve_verts, Buffer::Target::Array).Data(data);
+			gl.Current(Buffer::Target::Array).Data(data);
 			VertexAttribArray attr(prog, "Position");
 			attr.Setup<Vec2f>();
 			attr.Enable();

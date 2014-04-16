@@ -14,9 +14,8 @@
 #ifndef OGLPLUS_BOUND_FRAMEBUFFER_1107121519_HPP
 #define OGLPLUS_BOUND_FRAMEBUFFER_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/framebuffer.hpp>
-#include <oglplus/bound.hpp>
-#include <oglplus/auto_bind.hpp>
 #include <utility>
 
 namespace oglplus {
@@ -33,7 +32,6 @@ namespace oglplus {
  *
  *  @see Bind()
  *  @see Bound
- *  @see AutoBind
  *
  *  @ingroup utility_classes
  */
@@ -62,11 +60,12 @@ public:
 	/** Wrapper for Framebuffer::BindDefault()
 	 *  @see Framebuffer::BindDefault()
 	 */
-	void BindDefault(void) const
+	const BoundTemplate& BindDefault(void) const
 	{
 		FramebufferOps::BindDefault(
 			this->BindTarget()
 		);
+		return *this;
 	}
 
 
@@ -95,7 +94,7 @@ public:
 	/** Wrapper for Framebuffer::HandleIncompleteError()
 	 *  @see Framebuffer::HandleIncompleteError()
 	 */
-	void HandleIncompleteError(
+	const BoundTemplate& HandleIncompleteError(
 		FramebufferStatus status
 	) const
 	{
@@ -103,24 +102,26 @@ public:
 			this->BindTarget(),
 			status
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Framebuffer::Complete()
 	 *  @see Framebuffer::Complete()
 	 */
-	void Complete(void) const
+	const BoundTemplate& Complete(void) const
 	{
 		FramebufferOps::Complete(
 			this->BindTarget()
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Framebuffer::AttachRenderbuffer()
 	 *  @see Framebuffer::AttachRenderbuffer()
 	 */
-	void AttachRenderbuffer(
+	const BoundTemplate& AttachRenderbuffer(
 		FramebufferOps::Property::Attachment attachment,
 		const RenderbufferOps & renderbuffer
 	) const
@@ -130,13 +131,14 @@ public:
 			attachment,
 			renderbuffer
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Framebuffer::AttachColorRenderbuffer()
 	 *  @see Framebuffer::AttachColorRenderbuffer()
 	 */
-	void AttachColorRenderbuffer(
+	const BoundTemplate& AttachColorRenderbuffer(
 		FramebufferColorAttachmentNumber attachment_no,
 		const RenderbufferOps & renderbuffer
 	) const
@@ -146,6 +148,7 @@ public:
 			attachment_no,
 			renderbuffer
 		);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
@@ -153,7 +156,7 @@ public:
 	/** Wrapper for Framebuffer::AttachTexture()
 	 *  @see Framebuffer::AttachTexture()
 	 */
-	void AttachTexture(
+	const BoundTemplate& AttachTexture(
 		FramebufferOps::Property::Attachment attachment,
 		const TextureOps & texture,
 		GLint level
@@ -165,6 +168,7 @@ public:
 			texture,
 			level
 		);
+		return *this;
 	}
 #endif // GL_VERSION_3_2
 
@@ -172,7 +176,7 @@ public:
 	/** Wrapper for Framebuffer::AttachColorTexture()
 	 *  @see Framebuffer::AttachColorTexture()
 	 */
-	void AttachColorTexture(
+	const BoundTemplate& AttachColorTexture(
 		FramebufferColorAttachmentNumber attachment_no,
 		const TextureOps & texture,
 		GLint level
@@ -184,13 +188,14 @@ public:
 			texture,
 			level
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Framebuffer::AttachTexture1D()
 	 *  @see Framebuffer::AttachTexture1D()
 	 */
-	void AttachTexture1D(
+	const BoundTemplate& AttachTexture1D(
 		FramebufferOps::Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps & texture,
@@ -204,13 +209,14 @@ public:
 			texture,
 			level
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Framebuffer::AttachTexture2D()
 	 *  @see Framebuffer::AttachTexture2D()
 	 */
-	void AttachTexture2D(
+	const BoundTemplate& AttachTexture2D(
 		FramebufferOps::Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps & texture,
@@ -224,13 +230,14 @@ public:
 			texture,
 			level
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Framebuffer::AttachTexture3D()
 	 *  @see Framebuffer::AttachTexture3D()
 	 */
-	void AttachTexture3D(
+	const BoundTemplate& AttachTexture3D(
 		FramebufferOps::Property::Attachment attachment,
 		Texture::Target textarget,
 		const TextureOps & texture,
@@ -246,13 +253,14 @@ public:
 			level,
 			layer
 		);
+		return *this;
 	}
 
 
 	/** Wrapper for Framebuffer::AttachTextureLayer()
 	 *  @see Framebuffer::AttachTextureLayer()
 	 */
-	void AttachTextureLayer(
+	const BoundTemplate& AttachTextureLayer(
 		FramebufferOps::Property::Attachment attachment,
 		const TextureOps & texture,
 		GLint level,
@@ -266,6 +274,7 @@ public:
 			level,
 			layer
 		);
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
@@ -273,7 +282,7 @@ public:
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
 	 */
-	void Invalidate(
+	const BoundTemplate& Invalidate(
 		const EnumArray< FramebufferOps::Property::Buffer > & buffers
 	) const
 	{
@@ -281,6 +290,7 @@ public:
 			this->BindTarget(),
 			buffers
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
@@ -290,7 +300,7 @@ public:
 	 *  @see Framebuffer::Invalidate()
 	 */
 	template <typename N>
-	void Invalidate(
+	const BoundTemplate& Invalidate(
 		GLsizei count,
 		const FramebufferOps::Property::Buffer * buffers
 	) const
@@ -300,6 +310,7 @@ public:
 			count,
 			buffers
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
@@ -308,7 +319,7 @@ public:
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
 	 */
-	void Invalidate(
+	const BoundTemplate& Invalidate(
 		const EnumArray< FramebufferOps::Property::Buffer > & buffers,
 		GLint x,
 		GLint y,
@@ -324,6 +335,7 @@ public:
 			width,
 			height
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
@@ -332,7 +344,7 @@ public:
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
 	 */
-	void Invalidate(
+	const BoundTemplate& Invalidate(
 		GLsizei count,
 		const FramebufferOps::Property::Buffer * buffers,
 		GLint x,
@@ -350,6 +362,7 @@ public:
 			width,
 			height
 		);
+		return *this;
 	}
 #endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 

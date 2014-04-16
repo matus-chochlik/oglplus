@@ -845,6 +845,81 @@ public:
 		Image2D(target, image, level, border);
 	}
 
+	/// Specifies the image of the specified cube-map face
+	/**
+	 *  @pre (face >= 0) && (face <= 5)
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TexImage2D}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_X}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_X}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Y}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Y}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
+	 */
+	void ImageCM(
+		GLuint face,
+		GLint level,
+		PixelDataInternalFormat internal_format,
+		GLsizei width,
+		GLsizei height,
+		GLint border,
+		PixelDataFormat format,
+		Property::PixDataType type,
+		const void* data
+	)
+	{
+		assert(face <= 5);
+		OGLPLUS_GLFUNC(TextureImage2DEXT)(
+			_name,
+			GLenum(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face),
+			level,
+			GLint(internal_format),
+			width,
+			height,
+			border,
+			GLenum(format),
+			GLenum(type),
+			data
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TextureImage2DEXT,
+			Texture,
+			EnumValueName(Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face)),
+			_name
+		));
+	}
+
+	/// Specifies the image of the specified cube-map face
+	/**
+	 *  @pre (face >= 0) && (face <= 5)
+	 *
+	 *  @glsymbols
+	 *  @glfunref{TexImage2D}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_X}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_X}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Y}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Y}
+	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
+	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
+	 */
+	void ImageCM(
+		GLuint face,
+		const images::Image& image,
+		GLint level = 0,
+		GLint border = 0
+	)
+	{
+		assert(face <= 5);
+		Image2D(
+			Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face),
+			image,
+			level,
+			border
+		);
+	}
+
 	/// Specifies a two dimensional texture sub image
 	/**
 	 *  @glsymbols

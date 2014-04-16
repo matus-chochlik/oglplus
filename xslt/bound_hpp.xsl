@@ -168,7 +168,16 @@
 			<xsl:call-template name="Newline"/>
 		</xsl:for-each>
 		<xsl:text>	</xsl:text>
-		<xsl:apply-templates mode="ParamTypeExpr" select="type"/>
+
+		<xsl:variable name="ResultType">
+			<xsl:apply-templates mode="ParamTypeExpr" select="type"/>
+		</xsl:variable>
+
+		<xsl:choose>
+			<xsl:when test="$ResultType = 'void'">const BoundTemplate&amp;</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$ResultType"/></xsl:otherwise>
+		</xsl:choose>
+
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="name/text()"/>
 		<xsl:text>(</xsl:text>
@@ -222,10 +231,6 @@
 		<xsl:call-template name="Newline"/>
 		<xsl:text>		</xsl:text>
 
-		<xsl:variable name="ResultType">
-			<xsl:value-of select="type/ref/text()"/>
-			<xsl:value-of select="type/text()"/>
-		</xsl:variable>
 		<xsl:if test="$ResultType != 'void'">
 			<xsl:text>return </xsl:text>
 		</xsl:if>
@@ -259,6 +264,10 @@
 		</xsl:for-each>
 		<xsl:text>		);</xsl:text>
 		<xsl:call-template name="Newline"/>
+		<xsl:if test="$ResultType = 'void'">
+			<xsl:text>		return *this;</xsl:text>
+			<xsl:call-template name="Newline"/>
+		</xsl:if>
 		<xsl:text>	}</xsl:text>
 		<xsl:call-template name="Newline"/>
 
@@ -298,9 +307,8 @@
 #ifndef OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 #define OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 
+#include &lt;oglplus/fwd.hpp&gt;
 #include &lt;oglplus/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp&gt;
-#include &lt;oglplus/bound.hpp&gt;
-#include &lt;oglplus/auto_bind.hpp&gt;
 #include &lt;utility&gt;
 
 namespace oglplus {
@@ -321,7 +329,6 @@ namespace oglplus {
  *
  *  @see Bind()
  *  @see Bound
- *  @see AutoBind
  *
  *  @ingroup utility_classes
  */

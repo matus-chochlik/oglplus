@@ -277,15 +277,14 @@ public:
 					return pow(SineWave(pow(x,0.5)), 4.0);
 				}
 			);
-			auto bound_tex = Bind(vase_tex, Texture::Target::_2D);
-
-			bound_tex.Image2D(image);
-			bound_tex.GenerateMipmap();
-			bound_tex.BorderColor(Vec4f(0.8f, 0.8f, 1.0f, 1.0f));
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::ClampToBorder);
+			gl.Bound(Texture::Target::_2D, vase_tex)
+				.Image2D(image)
+				.GenerateMipmap()
+				.BorderColor(Vec4f(0.8f, 0.8f, 1.0f, 1.0f))
+				.MinFilter(TextureMinFilter::LinearMipmapLinear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::Repeat)
+				.WrapT(TextureWrap::ClampToBorder);
 		}
 
 		vase_prog.vase_tex = 0;

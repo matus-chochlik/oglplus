@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -139,10 +139,10 @@ void BlenderMesh::_load_mesh(
 		{
 			// get face vertex indices
 			int fv[4] = {
-				face_v1_field.Get(f),
-				face_v2_field.Get(f),
-				face_v3_field.Get(f),
-				face_v4_field.Get(f)
+				face_v1_field.Get(f, 0),
+				face_v2_field.Get(f, 0),
+				face_v3_field.Get(f, 0),
+				face_v4_field.Get(f, 0)
 			};
 
 			float uv[8];
@@ -154,7 +154,7 @@ void BlenderMesh::_load_mesh(
 					uv[i] = tface_uv_field.Get(f, i);
 			}
 
-			short mat_nr = face_mat_nr_field.Get(f);
+			short mat_nr = face_mat_nr_field.Get(f, 0);
 
 			GLuint fi[4] = {
 				fv[0]+index_offset,
@@ -257,10 +257,10 @@ void BlenderMesh::_load_mesh(
 		{
 			// get face vertex indices
 			int fv[4] = {
-				face_v1_field.Get(f),
-				face_v2_field.Get(f),
-				face_v3_field.Get(f),
-				face_v4_field.Get(f)
+				face_v1_field.Get(f, 0),
+				face_v2_field.Get(f, 0),
+				face_v3_field.Get(f, 0),
+				face_v4_field.Get(f, 0)
 			};
 
 			float uv[8];
@@ -272,7 +272,7 @@ void BlenderMesh::_load_mesh(
 					uv[i] = tface_uv_field.Get(f, i);
 			}
 
-			short mat_nr = face_mat_nr_field.Get(f);
+			short mat_nr = face_mat_nr_field.Get(f, 0);
 
 			GLuint fi[4] = {
 				fv[0]+index_offset,
@@ -350,10 +350,10 @@ void BlenderMesh::_load_mesh(
 		for(std::size_t f=0; f!=n_faces; ++f)
 		{
 			// get face vertex indices
-			int v1 = face_v1_field.Get(f);
-			int v2 = face_v2_field.Get(f);
-			int v3 = face_v3_field.Get(f);
-			int v4 = face_v4_field.Get(f);
+			int v1 = face_v1_field.Get(f, 0);
+			int v2 = face_v2_field.Get(f, 0);
+			int v3 = face_v3_field.Get(f, 0);
+			int v4 = face_v4_field.Get(f, 0);
 
 			is[ii++] = v1+index_offset;
 			is[ii++] = v2+index_offset;
@@ -389,12 +389,12 @@ void BlenderMesh::_load_mesh(
 		std::vector<GLuint> is;
 		for(std::size_t f=0; f!=n_polys; ++f)
 		{
-			int ls = poly_loopstart_field.Get(f);
-			int tl = poly_totloop_field.Get(f);
+			int ls = poly_loopstart_field.Get(f, 0);
+			int tl = poly_totloop_field.Get(f, 0);
 
 			for(int l=0; l!=tl; ++l)
 			{
-				int v = loop_v_field.Get(ls+l);
+				int v = loop_v_field.Get(ls+l, 0);
 				is.push_back(v+index_offset);
 			}
 			// primitive restart index

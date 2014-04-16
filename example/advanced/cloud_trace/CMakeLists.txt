@@ -11,7 +11,7 @@ if(
 	add_custom_target(oglplus-advanced-example-cloud_trace)
 	set_property(
 		TARGET oglplus-advanced-example-cloud_trace
-		PROPERTY FOLDER "Example/Advanced/cloud_trace"
+		PROPERTY FOLDER "Example/Advanced/CloudTrace"
 	)
 	add_resource_directory(glsl oglplus-advanced-example-cloud_trace)
 
@@ -68,9 +68,10 @@ if(
 	endif()
 	set_property(
 		TARGET cloud_trace
-		PROPERTY FOLDER "Example/Advanced/cloud_trace"
+		PROPERTY FOLDER "Example/Advanced/CloudTrace"
 	)
 
 	add_dependencies(oglplus-advanced-example-cloud_trace cloud_trace)
 	add_dependencies(oglplus-advanced-examples oglplus-advanced-example-cloud_trace)
 endif()
+add_subdirectory(tools)

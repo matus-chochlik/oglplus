@@ -29,7 +29,7 @@
 #include <oglplus/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
-#include <oglplus/auxiliary/binding_query.hpp>
+#include <oglplus/binding_query.hpp>
 
 #include <vector>
 #include <cassert>
@@ -106,6 +106,7 @@ protected:
 	friend class FriendOf<BufferOps>;
 
 	static GLenum _binding_query(Target target);
+	static GLenum _binding_query(IndexedTarget target);
 	friend class BindingQuery<BufferOps>;
 
 	static GLint GetIntParam(Target target, GLenum query)

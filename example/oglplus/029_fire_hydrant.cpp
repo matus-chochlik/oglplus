@@ -291,44 +291,45 @@ public:
 			ProgramUniformSampler(draw_prog, tex_samplers[t]).Set(t);
 			Texture::Active(t);
 
-			auto bound_tex = Bind(tex[t], Texture::Target::_2D);
-			bound_tex.Image2D(images::PNGImage(input));
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
+			gl.Bound(Texture::Target::_2D, tex[t])
+				.Image2D(images::PNGImage(input))
+				.GenerateMipmap()
+				.MinFilter(TextureMinFilter::LinearMipmapLinear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::Repeat)
+				.WrapT(TextureWrap::Repeat);
 		}
 		{
 			Texture::Active(ntex);
 			ProgramUniformSampler(draw_prog, "ShadowMap").Set(ntex);
 
-			auto bound_tex = Bind(smap, Texture::Target::_2D);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.CompareMode(TextureCompareMode::CompareRefToTexture);
-			bound_tex.Image2D(
-				0,
-				PixelDataInternalFormat::DepthComponent32,
-				smap_side, smap_side,
-				0,
-				PixelDataFormat::DepthComponent,
-				PixelDataType::Float,
-				nullptr
-			);
+			gl.Bound(Texture::Target::_2D, smap)
+				.MinFilter(TextureMinFilter::Linear)
+				.MagFilter(TextureMagFilter::Linear)
+				.WrapS(TextureWrap::ClampToEdge)
+				.WrapT(TextureWrap::ClampToEdge)
+				.CompareMode(TextureCompareMode::CompareRefToTexture)
+				.Image2D(
+					0,
+					PixelDataInternalFormat::DepthComponent32,
+					smap_side, smap_side,
+					0,
+					PixelDataFormat::DepthComponent,
+					PixelDataType::Float,
+					nullptr
+				);
 
-			auto bound_fbo = Bind(smap_fbo, Framebuffer::Target::Draw);
-			bound_fbo.AttachTexture(FramebufferAttachment::Depth, smap, 0);
 
-			auto bound_rbo = Bind(smap_rbo, Renderbuffer::Target::Renderbuffer);
-			bound_rbo.Storage(
-				PixelDataInternalFormat::RGBA,
-				smap_side,
-				smap_side
-			);
-			bound_fbo.AttachRenderbuffer(FramebufferAttachment::Color, smap_rbo);
+			gl.Bound(Renderbuffer::Target::Renderbuffer, smap_rbo)
+				.Storage(
+					PixelDataInternalFormat::RGBA,
+					smap_side,
+					smap_side
+				);
+
+			gl.Bound(Framebuffer::Target::Draw, smap_fbo)
+				.AttachTexture(FramebufferAttachment::Depth, smap, 0)
+				.AttachRenderbuffer(FramebufferAttachment::Color, smap_rbo);
 		}
 		//
 		auto light_proj_mat = CamMatrixf::PerspectiveX(Degrees(40), 1.0f, 1.0f, 100.0f);
@@ -375,7 +376,7 @@ public:
 			ModelMatrixf::RotationY(Degrees(-175));
 
 		// render the shadow map
-		smap_fbo.Bind(Framebuffer::Target::Draw);
+		gl.Bind(Framebuffer::Target::Draw, smap_fbo);
 		gl.Viewport(smap_side, smap_side);
 		gl.Clear().DepthBuffer();
 
@@ -383,8 +384,8 @@ public:
 
 		shadow_prog.light_matrix.Set(light_matrix);
 
-		shadow_prog.Use();
-		shadow_vao.Bind();
+		gl.Use(shadow_prog);
+		gl.Bind(shadow_vao);
 
 		shadow_prog.model_matrix.Set(model_1);
 		hydrant.Draw();
@@ -392,7 +393,7 @@ public:
 		hydrant.Draw();
 
 		// render the frame
-		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
+		gl.Bind(Framebuffer::Target::Draw, DefaultFramebuffer());
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 
@@ -403,8 +404,8 @@ public:
 		draw_prog.camera_matrix.Set(camera_matrix);
 		draw_prog.light_matrix.Set(light_matrix);
 
-		draw_prog.Use();
-		draw_vao.Bind();
+		gl.Use(draw_prog);
+		gl.Bind(draw_vao);
 
 		draw_prog.model_matrix.Set(model_1);
 		hydrant.Draw();
