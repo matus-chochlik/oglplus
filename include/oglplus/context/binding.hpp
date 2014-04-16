@@ -51,7 +51,11 @@ public:
 	CurrBound(
 		const Managed<ObjectOps>& obj,
 		typename ObjectOps::Target tgt
-	): BoundTemplate<CurrBoundBase, Managed<ObjectOps>, ObjectOps>(obj, tgt)
+	): BoundTemplate<
+		oglplus::context::CurrBoundBase,
+		Managed<ObjectOps>,
+		ObjectOps
+	>(obj, tgt)
 	{ }
 };
 
