@@ -93,7 +93,9 @@ void render_loop(AppData& app_data)
 
 		if(tile < tiles)
 		{
+			raytracer.BeginWork(app_data);
 			raytracer.Raytrace(app_data, tile);
+			raytracer.EndWork(app_data);
 
 			copier.Copy(app_data, copy_params, raytracer, tile);
 

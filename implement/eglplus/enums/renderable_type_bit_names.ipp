@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/eglplus/renderable_type_bit.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -29,8 +29,8 @@ switch(value)
 #if defined EGL_OPENGL_ES2_BIT
 	case EGL_OPENGL_ES2_BIT: return StrLit("OPENGL_ES2_BIT");
 #endif
-#if defined EGL_OPENGL_ES3_BIT_KHR
-	case EGL_OPENGL_ES3_BIT_KHR: return StrLit("OPENGL_ES3_BIT_KHR");
+#if defined EGL_OPENGL_ES3_BIT
+	case EGL_OPENGL_ES3_BIT: return StrLit("OPENGL_ES3_BIT");
 #endif
 #if defined EGL_OPENVG_BIT
 	case EGL_OPENVG_BIT: return StrLit("OPENVG_BIT");

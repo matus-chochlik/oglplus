@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{031_blob}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -165,28 +165,30 @@ public:
 	)
 	{
 		Texture::Active(0);
-		{
-			const GLubyte a = 0x0, b = 0x2, c = 0x4, d = 0x1, x = 0xFF;
-			const GLubyte  tex_data[] = {
-				x, x, x, x,   x, x, x, x,
-				a, c, b, x,   d, d, d, x,
-				b, d, a, x,   c, c, c, x,
-				b, b, a, a,   c, d, c, d,
-				a, d, c, x,   b, b, b, x,
-				a, a, c, c,   b, d, b, d,
-				a, a, d, d,   c, b, c, b,
-				a, a, a, x,   b, d, c, x,
-				c, d, b, x,   a, a, a, x,
-				c, c, b, b,   a, d, a, d,
-				b, d, b, d,   c, c, a, a,
-				b, b, b, x,   c, d, a, x,
-				c, d, c, d,   a, a, b, b,
-				c, c, c, x,   a, d, b, x,
-				d, d, d, x,   a, b, c, x,
-				x, x, x, x,   x, x, x, x
-			};
-			auto bound_tex = Bind(_configurations, Texture::Target::_1D);
-			bound_tex.Image1D(
+		const GLubyte a = 0x0, b = 0x2, c = 0x4, d = 0x1, x = 0xFF;
+		const GLubyte  tex_data[] = {
+			x, x, x, x,   x, x, x, x,
+			a, c, b, x,   d, d, d, x,
+			b, d, a, x,   c, c, c, x,
+			b, b, a, a,   c, d, c, d,
+			a, d, c, x,   b, b, b, x,
+			a, a, c, c,   b, d, b, d,
+			a, a, d, d,   c, b, c, b,
+			a, a, a, x,   b, d, c, x,
+			c, d, b, x,   a, a, a, x,
+			c, c, b, b,   a, d, a, d,
+			b, d, b, d,   c, c, a, a,
+			b, b, b, x,   c, d, a, x,
+			c, d, c, d,   a, a, b, b,
+			c, c, c, x,   a, d, b, x,
+			d, d, d, x,   a, b, c, x,
+			x, x, x, x,   x, x, x, x
+		};
+		Context::Bound(Texture::Target::_1D, _configurations)
+			.MinFilter(TextureMinFilter::Nearest)
+			.MagFilter(TextureMagFilter::Nearest)
+			.WrapS(TextureWrap::ClampToEdge)
+			.Image1D(
 				0,
 				PixelDataInternalFormat::RGBA8UI,
 				sizeof(tex_data),
@@ -195,10 +197,6 @@ public:
 				PixelDataType::UnsignedByte,
 				tex_data
 			);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-		}
 	}
 };
 
@@ -538,9 +536,11 @@ public:
 		//
 		Texture::Active(1);
 		blob_prog.metaballs.Set(1);
-		{
-			auto bound_tex = Bind(metaballs_tex, Texture::Target::_1D);
-			bound_tex.Image1D(
+		gl.Bound(Texture::Target::_1D, metaballs_tex)
+			.MinFilter(TextureMinFilter::Nearest)
+			.MagFilter(TextureMagFilter::Nearest)
+			.WrapS(TextureWrap::ClampToEdge)
+			.Image1D(
 				0,
 				PixelDataInternalFormat::RGBA32F,
 				ball_paths.size(),
@@ -549,29 +549,22 @@ public:
 				PixelDataType::Float,
 				nullptr
 			);
-			bound_tex.MinFilter(TextureMinFilter::Nearest);
-			bound_tex.MagFilter(TextureMagFilter::Nearest);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-		}
 
 		Texture::Active(2);
 		metal_prog.metal_tex.Set(2);
-		{
-			auto bound_tex = Bind(metal_tex, Texture::Target::_2D);
-			bound_tex.Image2D(
+		gl.Bound(Texture::Target::_2D, metal_tex)
+			.MinFilter(TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::Repeat)
+			.WrapT(TextureWrap::Repeat)
+			.Image2D(
 				images::BrushedMetalUByte(
 					512, 512,
 					5120,
 					-3, +3,
 					32, 128
 				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+			).GenerateMipmap();
 
 		const Vec3f light_position(12.0, 1.0, 8.0);
 		blob_prog.light_position.Set(light_position);
@@ -605,17 +598,16 @@ public:
 				metaballs[k++] = pos.At(coord);
 		}
 
-		metaballs_tex.Bind(Texture::Target::_1D);
-		Texture::Image1D(
-			Texture::Target::_1D,
-			0,
-			PixelDataInternalFormat::RGBA32F,
-			metaball_count,
-			0,
-			PixelDataFormat::RGBA,
-			PixelDataType::Float,
-			metaballs.data()
-		);
+		gl.Bound(Texture::Target::_1D, metaballs_tex)
+			.Image1D(
+				0,
+				PixelDataInternalFormat::RGBA32F,
+				metaball_count,
+				0,
+				PixelDataFormat::RGBA,
+				PixelDataType::Float,
+				metaballs.data()
+			);
 	}
 
 	void RenderImage(double time)

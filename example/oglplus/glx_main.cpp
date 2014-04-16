@@ -2,7 +2,7 @@
  *  .file example/oglplus/glx_main.cpp
  *  Implements GLX-based program main function for running examples
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -99,8 +99,6 @@ struct ExampleThreadData
 		const ExampleClock& clock;
 		const x11::ScreenNames& screen_names;
 		const x11::Display& display;
-		const x11::VisualInfo& vi;
-		const glx::FBConfig& fbc;
 		const glx::Context& ctx;
 		ThreadSemaphore& thread_ready;
 		ThreadSemaphore& master_ready;
@@ -118,6 +116,7 @@ void example_thread_main(ExampleThreadData& data)
 {
 	const ExampleThreadData::Common& common = data.common();
 	const x11::ScreenNames& sn = common.screen_names;
+
 	// pick one of the available display screens
 	// for this thread
 	std::size_t disp_idx = data.thread_index;
@@ -125,10 +124,46 @@ void example_thread_main(ExampleThreadData& data)
 	disp_idx %= sn.size();
 	// open the picked display
 	x11::Display display(sn[disp_idx].c_str());
+
 	// initialize the pixelmaps and the sharing context
-	x11::Pixmap xpm(display, common.vi, 8, 8);
-	glx::Pixmap gpm(display, common.vi, xpm);
-	glx::Context ctx(display, common.fbc, common.ctx, 3, 3);
+	static int visual_attribs[] =
+	{
+		GLX_X_RENDERABLE    , True,
+		GLX_DRAWABLE_TYPE   , GLX_PIXMAP_BIT,
+		GLX_RENDER_TYPE     , GLX_RGBA_BIT,
+		GLX_X_VISUAL_TYPE   , GLX_TRUE_COLOR,
+		GLX_RED_SIZE        , 8,
+		GLX_GREEN_SIZE      , 8,
+		GLX_BLUE_SIZE       , 8,
+		GLX_ALPHA_SIZE      , 8,
+		GLX_DEPTH_SIZE      , 24,
+		GLX_STENCIL_SIZE    , 8,
+		None
+	};
+	glx::FBConfig fbc = glx::FBConfigs(
+		display,
+		visual_attribs
+	).FindBest(display);
+
+	x11::VisualInfo vi(display, fbc);
+
+	x11::Pixmap xpm(display, vi, 8, 8);
+	glx::Pixmap gpm(display, vi, xpm);
+
+	bool debugging = true;
+	bool compatibility = common
+		.example_params
+		.compat_context_threads
+		.count(data.thread_index) != 0;
+
+	glx::Context ctx(
+		display,
+		fbc,
+		common.ctx,
+		3, 3,
+		debugging,
+		compatibility
+	);
 
 	ctx.MakeCurrent(gpm);
 
@@ -231,8 +266,6 @@ void do_run_example_loop(
 		PointerMotionMask|
 		KeyPressMask
 	);
-	::Atom wmDelete = ::XInternAtom(display, "WM_DELETE_WINDOW", True);
-	::XSetWMProtocols(display, win, &wmDelete, 1);
 
 	XEvent event;
 	os::steady_clock os_clock;
@@ -539,6 +572,9 @@ void run_example(
 	char ** argv
 )
 {
+	glx::Version version(display);
+	version.AssertAtLeast(1, 3);
+
 	static int visual_attribs[] =
 	{
 		GLX_X_RENDERABLE    , True,
@@ -554,9 +590,6 @@ void run_example(
 		GLX_DOUBLEBUFFER    , True,
 		None
 	};
-	glx::Version version(display);
-	version.AssertAtLeast(1, 3);
-
 	glx::FBConfig fbc = glx::FBConfigs(
 		display,
 		visual_attribs
@@ -597,8 +630,6 @@ void run_example(
 		clock,
 		screen_names,
 		display,
-		vi,
-		fbc,
 		ctx,
 		thread_ready,
 		master_ready,

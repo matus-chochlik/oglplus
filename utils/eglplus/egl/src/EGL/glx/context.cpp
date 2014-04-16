@@ -165,10 +165,10 @@ eglCreateContext(
 
 			switch(*tmp_attrib_list++)
 			{
-				case 0x3098: //EGL_CONTEXT_MAJOR_VERSION_KHR
-				case 0x30FB: //EGL_CONTEXT_MINOR_VERSION_KHR
+				case EGL_CONTEXT_MAJOR_VERSION:
+				case EGL_CONTEXT_MINOR_VERSION:
 					break;
-				case 0x30FC: //EGL_CONTEXT_FLAGS_KHR
+				case 0x30FC: // EGL_CONTEXT_FLAGS_KHR:
 				{
 					if((*tmp_attrib_list & ~0x07) != 0)
 					{
@@ -176,7 +176,20 @@ eglCreateContext(
 					}
 					break;
 				}
-				case 0x31BD: //EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
+				case EGL_CONTEXT_OPENGL_DEBUG:
+				case EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE:
+				case EGL_CONTEXT_OPENGL_ROBUST_ACCESS:
+				{
+					switch(*tmp_attrib_list)
+					{
+						case EGL_TRUE:
+						case EGL_FALSE:
+							break;
+						default: bad_attrib = true;
+					}
+					break;
+				}
+				case EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY:
 				{
 					switch(*tmp_attrib_list)
 					{
@@ -187,7 +200,7 @@ eglCreateContext(
 					}
 					break;
 				}
-				case 0x30FD: //EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
+				case EGL_CONTEXT_OPENGL_PROFILE_MASK:
 				{
 					if((*tmp_attrib_list & ~0x03) != 0)
 					{
@@ -210,6 +223,7 @@ eglCreateContext(
 
 	std::vector<int> glx_attrib_list(glx_attrib_count+1);
 	glx_attrib_count = 0;
+	int glx_context_flags_pos = 0;
 
 	if(*egl_attrib_list != EGL_NONE)
 	{
@@ -218,7 +232,7 @@ eglCreateContext(
 		{
 			switch(*tmp_attrib_list++)
 			{
-				case 0x3098: //EGL_CONTEXT_MAJOR_VERSION_KHR
+				case EGL_CONTEXT_MAJOR_VERSION:
 				{
 					glx_attrib_list[glx_attrib_count++] =
 						//GLX_CONTEXT_MAJOR_VERSION_ARB
@@ -227,7 +241,7 @@ eglCreateContext(
 						int(*tmp_attrib_list++);
 					break;
 				}
-				case 0x30FB: //EGL_CONTEXT_MINOR_VERSION_KHR
+				case EGL_CONTEXT_MINOR_VERSION:
 				{
 					glx_attrib_list[glx_attrib_count++] =
 						//GLX_CONTEXT_MINOR_VERSION_ARB
@@ -238,43 +252,98 @@ eglCreateContext(
 				}
 				case 0x30FC: //EGL_CONTEXT_FLAGS_KHR
 				{
-					glx_attrib_list[glx_attrib_count++] =
-						//GLX_CONTEXT_FLAGS_ARB
-						0x2094;
+					//GLX_CONTEXT_FLAGS_ARB
+					glx_attrib_list[glx_attrib_count++] = 0x2094;
 					EGLint egl_flags = *tmp_attrib_list++;
 					int glx_flags = 0;
 
 					// EGL_CONTEXT_OPENGL_DEBUG_BIT_KHR
 					if((egl_flags & 0x00000001) == 0x00000001)
 						glx_flags |= 0x0001;
+
 					// EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE_BIT_KHR
 					if((egl_flags & 0x00000002) == 0x00000002)
 						glx_flags |= 0x0002;
+
 					// EGL_CONTEXT_OPENGL_ROBUST_ACCESS_BIT_KHR
-					// TODO: currently ignored
+					if((egl_flags & 0x00000004) == 0x00000004)
+						glx_flags |= 0x0004;
 
 					glx_attrib_list[glx_attrib_count++] =
 						glx_flags;
 					break;
 				}
-				case 0x31BD: //EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR
+				case EGL_CONTEXT_OPENGL_DEBUG:
 				{
-					// TODO: currently ignored
+					if(!glx_context_flags_pos)
+					{
+						// GLX_CONTEXT_FLAGS_ARB
+						glx_attrib_list[glx_attrib_count++] = 0x2094;
+						glx_context_flags_pos = glx_attrib_count;
+						glx_attrib_list[glx_attrib_count++] = 0;
+					}
+					if(*tmp_attrib_list++ == EGL_TRUE)
+						glx_attrib_list[glx_context_flags_pos] |= 0x0001;
 					break;
 				}
-				case 0x30FD: //EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR
+				case EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE:
 				{
-					glx_attrib_list[glx_attrib_count++] =
-						//GLX_CONTEXT_PROFILE_MASK_ARB
-						0x9126;
+					if(!glx_context_flags_pos)
+					{
+						// GLX_CONTEXT_FLAGS_ARB
+						glx_attrib_list[glx_attrib_count++] = 0x2094;
+						glx_context_flags_pos = glx_attrib_count;
+						glx_attrib_list[glx_attrib_count++] = 0;
+					}
+					if(*tmp_attrib_list++ == EGL_TRUE)
+						glx_attrib_list[glx_context_flags_pos] |= 0x0002;
+					break;
+				}
+				case EGL_CONTEXT_OPENGL_ROBUST_ACCESS:
+				{
+					if(!glx_context_flags_pos)
+					{
+						// GLX_CONTEXT_FLAGS_ARB
+						glx_attrib_list[glx_attrib_count++] = 0x2094;
+						glx_context_flags_pos = glx_attrib_count;
+						glx_attrib_list[glx_attrib_count++] = 0;
+					}
+					if(*tmp_attrib_list++ == EGL_TRUE)
+						glx_attrib_list[glx_context_flags_pos] |= 0x0004;
+					break;
+				}
+				case EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY:
+				{
+					// GLX_CONTEXT_RESET_NOTIFICATION_STRATEGY_ARB
+					glx_attrib_list[glx_attrib_count++] = 0x8256;
+
+					switch(*tmp_attrib_list++)
+					{
+						case 0x31BE: // EGL_NO_RESET_NOTIFICATION
+						{
+							glx_attrib_list[glx_attrib_count++] = 0x8261;
+							break;
+						}
+						case 0x31BF: // EGL_LOSE_CONTEXT_ON_RESET
+						{
+							glx_attrib_list[glx_attrib_count++] = 0x8252;
+							break;
+						}
+						default: assert(!"Invalid value");
+					}
+					break;
+				}
+				case EGL_CONTEXT_OPENGL_PROFILE_MASK:
+				{
+					//GLX_CONTEXT_PROFILE_MASK_ARB
+					glx_attrib_list[glx_attrib_count++] = 0x9126;
 					EGLint egl_flags = *tmp_attrib_list++;
 					int glx_flags = 0;
 
-					// EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT_KHR
-					if((egl_flags & 0x00000001) == 0x00000001)
+					if((egl_flags & EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT) != 0)
 						glx_flags |= 0x0001;
-					// EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT_KHR
-					if((egl_flags & 0x00000002) == 0x00000002)
+
+					if((egl_flags & EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT) != 0)
 						glx_flags |= 0x0002;
 
 					glx_attrib_list[glx_attrib_count++] =

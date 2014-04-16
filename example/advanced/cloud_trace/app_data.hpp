@@ -42,6 +42,8 @@ struct AppData
 
 	// if the rendering should be done offscreen
 	bool render_offscreen;
+	// if the raytrace tiles should be clipped (using polygon clipping)
+	bool clip_tiles;
 	// if the raytrace  data should be saved instead of render output
 	bool save_raytrace_data;
 
@@ -93,6 +95,10 @@ struct AppData
 	// lighting parameters
 	float light_x, light_y, light_z;
 	float high_light, ambi_light;
+
+	// crep. ray samples
+	float crep_ray_far;
+	unsigned crep_ray_sam;
 
 	AppData(void);
 	bool ParseArgs(int argc, char** argv);

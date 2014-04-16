@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -34,6 +34,8 @@ private:
 		const FBConfig& fbc,
 		int version_major,
 		int version_minor,
+		bool debugging,
+		bool compatibility,
 		::GLXContext share_context = ::GLXContext(0)
 	)
 	{
@@ -55,14 +57,18 @@ private:
 		const int CONTEXT_PROFILE_MASK_ARB = 0x9126;
 		const int CONTEXT_DEBUG_BIT_ARB = 0x0001;
 		const int CONTEXT_CORE_PROFILE_BIT_ARB = 0x00000001;
-		//const int CONTEXT_FORWARD_COMPATIBLE_BIT_ARB = 0x0002;
+		const int CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB = 0x00000002;
+
 		int context_attribs[] =
 		{
 			CONTEXT_MAJOR_VERSION_ARB, version_major,
 			CONTEXT_MINOR_VERSION_ARB, version_minor,
-			CONTEXT_FLAGS_ARB, CONTEXT_DEBUG_BIT_ARB,
-			CONTEXT_PROFILE_MASK_ARB,
-			CONTEXT_CORE_PROFILE_BIT_ARB,
+			CONTEXT_FLAGS_ARB, (debugging?CONTEXT_DEBUG_BIT_ARB:0),
+			CONTEXT_PROFILE_MASK_ARB, (
+				compatibility
+				?CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB
+				:CONTEXT_CORE_PROFILE_BIT_ARB
+			),
 			None
 		};
 		::GLXContext res = glXCreateContextAttribsARB(
@@ -80,14 +86,18 @@ public:
 		const x11::Display& display,
 		const FBConfig& fbc,
 		int version_major,
-		int version_minor
+		int version_minor,
+		bool debugging = true,
+		bool compatibility = false
 	): x11::DisplayObject< ::GLXContext, void(::Display*, ::GLXContext)>(
 		display,
 		make_context(
 			display,
 			fbc,
 			version_major,
-			version_minor
+			version_minor,
+			debugging,
+			compatibility
 		),
 		::glXDestroyContext,
 		"Error creating glX context"
@@ -98,7 +108,9 @@ public:
 		const FBConfig& fbc,
 		const Context& share_context,
 		int version_major,
-		int version_minor
+		int version_minor,
+		bool debugging = true,
+		bool compatibility = false
 	): x11::DisplayObject< ::GLXContext, void(::Display*, ::GLXContext)>(
 		display,
 		make_context(
@@ -106,6 +118,8 @@ public:
 			fbc,
 			version_major,
 			version_minor,
+			debugging,
+			compatibility,
 			share_context.Handle()
 		),
 		::glXDestroyContext,

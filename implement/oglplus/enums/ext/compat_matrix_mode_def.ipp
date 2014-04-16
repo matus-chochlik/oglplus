@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/ext/compat_matrix_mode.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -40,6 +40,38 @@
 #  pragma pop_macro("Modelview")
 # else
    OGLPLUS_ENUM_CLASS_VALUE(Modelview, GL_MODELVIEW)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_TEXTURE
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined Texture
+#  pragma push_macro("Texture")
+#  undef Texture
+   OGLPLUS_ENUM_CLASS_VALUE(Texture, GL_TEXTURE)
+#  pragma pop_macro("Texture")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Texture, GL_TEXTURE)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_COLOR
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined Color
+#  pragma push_macro("Color")
+#  undef Color
+   OGLPLUS_ENUM_CLASS_VALUE(Color, GL_COLOR)
+#  pragma pop_macro("Color")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(Color, GL_COLOR)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1

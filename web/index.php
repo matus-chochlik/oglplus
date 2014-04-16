@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta name="author" content="Matus Chochlik"/>
-<meta name="copyright" content="Copyright 2010-2012 Matus Chochlik"/>
-<meta name="keywords" content="C++ OpenGL Graphics"/>
+<meta name="copyright" content="Copyright 2010-2014 Matus Chochlik"/>
+<meta name="keywords" content="C++ OpenGL Graphics Library"/>
 <meta name="description" content="C++ wrapper for the OpenGL&reg; C API"/>
 
 <title>OGLplus - a C++ wrapper for modern OpenGL®.</title>
@@ -191,7 +191,6 @@
 					<img src="oglplus/html/026_shape_halo.png"/>
 					<img src="oglplus/html/026_stencil_shadow.png"/>
 					<img src="oglplus/html/027_brain_scan_vis.png"/>
-					<img src="oglplus/html/027_reflected_shape.png"/>
 					<img src="oglplus/html/028_depth_map_sss.png"/>
 					<img src="oglplus/html/028_ripples.png"/>
 					<img src="oglplus/html/029_fire_hydrant.png"/>
@@ -201,6 +200,7 @@
 					<img src="oglplus/html/031_sketch.png"/>
 					<img src="oglplus/html/032_bar_grid.png"/>
 					<img src="oglplus/html/033_metal_and_glass.png"/>
+					<img src="oglplus/html/033_steam.png"/>
 					<img src="oglplus/html/040_jelly_cube.png"/>
 				</div>
 				<script>

@@ -557,34 +557,31 @@ public:
 
 		Texture::Active(0);
 		metal_prog.metal_tex.Set(0);
-		{
-			auto bound_tex = Bind(metal_texture, Texture::Target::_2D);
-			bound_tex.Image2D(
+		gl.Bound(Texture::Target::_2D, metal_texture)
+			.MinFilter(TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::Repeat)
+			.WrapT(TextureWrap::Repeat)
+			.Image2D(
 				images::BrushedMetalUByte(
 					512, 512,
 					5120,
 					-3, +3,
 					32, 128
 				)
-			);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
+			).GenerateMipmap();
 
 		Texture::Active(1);
 		metal_prog.frame_shadow_tex.Set(1);
 		glass_prog.frame_shadow_tex.Set(1);
-		{
-			auto bound_tex = Bind(frame_shadow_tex, Texture::Target::_2D);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.CompareMode(TextureCompareMode::CompareRefToTexture);
-			bound_tex.Image2D(
+
+		gl.Bound(Texture::Target::_2D, frame_shadow_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.CompareMode(TextureCompareMode::CompareRefToTexture)
+			.Image2D(
 				0,
 				PixelDataInternalFormat::DepthComponent32,
 				shadow_tex_side, shadow_tex_side,
@@ -593,29 +590,23 @@ public:
 				PixelDataType::Float,
 				nullptr
 			);
-		}
 
-		{
-			auto bound_fbo = Bind(
-				frame_shadow_fbo,
-				Framebuffer::Target::Draw
-			);
-			bound_fbo.AttachTexture(
+		gl.Bound(Framebuffer::Target::Draw, frame_shadow_fbo)
+			.AttachTexture(
 				FramebufferAttachment::Depth,
 				frame_shadow_tex,
 				0
 			);
-		}
 
 		Texture::Active(2);
 		metal_prog.glass_shadow_tex.Set(2);
-		{
-			auto bound_tex = Bind(glass_shadow_tex, Texture::Target::_2D);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.Image2D(
+
+		gl.Bound(Texture::Target::_2D, glass_shadow_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.Image2D(
 				0,
 				PixelDataInternalFormat::RGBA,
 				shadow_tex_side, shadow_tex_side,
@@ -624,19 +615,13 @@ public:
 				PixelDataType::UnsignedByte,
 				nullptr
 			);
-		}
 
-		{
-			auto bound_fbo = Bind(
-				glass_shadow_fbo,
-				Framebuffer::Target::Draw
-			);
-			bound_fbo.AttachTexture(
+		gl.Bound(Framebuffer::Target::Draw, glass_shadow_fbo)
+			.AttachTexture(
 				FramebufferAttachment::Color,
 				glass_shadow_tex,
 				0
 			);
-		}
 
 		gl.ClearDepth(1.0f);
 		gl.Enable(Capability::DepthTest);

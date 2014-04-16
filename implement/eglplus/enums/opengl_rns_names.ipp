@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/eglplus/opengl_rns.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,11 +20,11 @@ EGLPLUS_LIB_FUNC StrLit ValueName_(
 {
 switch(value)
 {
-#if defined EGL_NO_RESET_NOTIFICATION_KHR
-	case EGL_NO_RESET_NOTIFICATION_KHR: return StrLit("NO_RESET_NOTIFICATION_KHR");
+#if defined EGL_NO_RESET_NOTIFICATION
+	case EGL_NO_RESET_NOTIFICATION: return StrLit("NO_RESET_NOTIFICATION");
 #endif
-#if defined EGL_LOSE_CONTEXT_ON_RESET_KHR
-	case EGL_LOSE_CONTEXT_ON_RESET_KHR: return StrLit("LOSE_CONTEXT_ON_RESET_KHR");
+#if defined EGL_LOSE_CONTEXT_ON_RESET
+	case EGL_LOSE_CONTEXT_ON_RESET: return StrLit("LOSE_CONTEXT_ON_RESET");
 #endif
 	default:;
 }

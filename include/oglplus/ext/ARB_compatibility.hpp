@@ -15,101 +15,13 @@
 
 #include <oglplus/extension.hpp>
 #include <oglplus/texture_unit.hpp>
-#include <oglplus/bitfield.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/ext/ARB_compatibility/primitive_type.hpp>
+#include <oglplus/ext/ARB_compatibility/matrix_mode.hpp>
+#include <oglplus/ext/ARB_compatibility/attrib_group.hpp>
 
 #include <oglplus/matrix.hpp>
 
 namespace oglplus {
-
-/// Compatibility primitive type enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{Begin}
- *  @glextref{ARB,compatibility}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityPrimitiveType, GLenum)
-#include <oglplus/enums/ext/compat_prim_type.ipp>
-OGLPLUS_ENUM_CLASS_END(CompatibilityPrimitiveType)
-
-/// Shorter name for CompatibilityPrimitiveType
-typedef CompatibilityPrimitiveType CompatPrimType;
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/compat_prim_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/compat_prim_type_range.ipp>
-#endif
-
-/// Compatibility matrix mode enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{MatrixMode}
- *  @glextref{ARB,compatibility}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityMatrixMode, GLenum)
-#include <oglplus/enums/ext/compat_matrix_mode.ipp>
-OGLPLUS_ENUM_CLASS_END(CompatibilityMatrixMode)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/compat_matrix_mode_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/compat_matrix_mode_range.ipp>
-#endif
-
-/// Compatibility server context attribute bits enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{PushAttrib}
- *  @glfunref{PopAttrib}
- *  @glextref{ARB,compatibility}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityAttributeGroup, GLbitfield)
-#include <oglplus/enums/ext/compat_attrib_group.ipp>
-OGLPLUS_ENUM_CLASS_END(CompatibilityAttributeGroup)
-
-OGLPLUS_MAKE_BITFIELD(CompatibilityAttributeGroup)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/compat_attrib_group_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/compat_attrib_group_range.ipp>
-#endif
-
-/// Compatibility client context attribute bits enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glfunref{PushClientAttrib}
- *  @glfunref{PopClientAttrib}
- *  @glextref{ARB,compatibility}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(CompatibilityClientAttributeGroup, GLbitfield)
-#include <oglplus/enums/ext/compat_client_attrib_group.ipp>
-OGLPLUS_ENUM_CLASS_END(CompatibilityClientAttributeGroup)
-
-OGLPLUS_MAKE_BITFIELD(CompatibilityClientAttributeGroup)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/compat_client_attrib_group_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/compat_client_attrib_group_range.ipp>
-#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_compatibility
 /// Wrapper for the ARB_compatibility extension

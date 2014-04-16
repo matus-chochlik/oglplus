@@ -2934,6 +2934,7 @@ template <typename Enum> friend bool operator!=(Enum value, Coherent);
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Color value.
 /**
+ *  @see @ref oglplus::CompatibilityMatrixMode "CompatibilityMatrixMode"
  *  @see @ref oglplus::FramebufferAttachment "FramebufferAttachment"
  *  @see @ref oglplus::FramebufferBuffer "FramebufferBuffer"
  *
@@ -18774,7 +18775,7 @@ template <typename Enum> friend bool operator==(Enum value, Portability);
 template <typename Enum> friend bool operator!=(Enum value, Portability);
 };
 
-/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PrimaryColor value.
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Primary value.
 /**
  *  @see @ref oglplus::PathNVColor "PathNVColor"
  *
@@ -18783,28 +18784,28 @@ template <typename Enum> friend bool operator!=(Enum value, Portability);
  *
  *  @ingroup smart_enums
  */
-struct PrimaryColor {
+struct Primary {
 
-/// Conversion to any @p Enum type having the PrimaryColor value.
-/** Instances of the @ref oglplus::smart_enums::PrimaryColor "PrimaryColor"
+/// Conversion to any @p Enum type having the Primary value.
+/** Instances of the @ref oglplus::smart_enums::Primary "Primary"
  *  type are convertible to instances of any enumeration type having
- *  the @c PrimaryColor value.
+ *  the @c Primary value.
  */
-template <typename Enum, Enum = Enum::PrimaryColor> operator Enum (void) const;
+template <typename Enum, Enum = Enum::Primary> operator Enum (void) const;
 
-/// Equality comparison with any @p Enum type having the PrimaryColor value.
-/** Instances of the @c smart_enums::PrimaryColor type can be compared
+/// Equality comparison with any @p Enum type having the Primary value.
+/** Instances of the @c smart_enums::Primary type can be compared
  *  for equality to instances of any enumeration type having
- *  the @c PrimaryColor value.
+ *  the @c Primary value.
  */
-template <typename Enum> friend bool operator==(Enum value, PrimaryColor);
+template <typename Enum> friend bool operator==(Enum value, Primary);
 
-/// Non-equality comparison with any @p Enum type having the PrimaryColor value.
-/** Instances of the @c smart_enums::PrimaryColor type can be compared
+/// Non-equality comparison with any @p Enum type having the Primary value.
+/** Instances of the @c smart_enums::Primary type can be compared
  *  for non-equality to instances of any enumeration type having
- *  the @c PrimaryColor value.
+ *  the @c Primary value.
  */
-template <typename Enum> friend bool operator!=(Enum value, PrimaryColor);
+template <typename Enum> friend bool operator!=(Enum value, Primary);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c PrimitiveRestart value.
@@ -20811,7 +20812,7 @@ template <typename Enum> friend bool operator==(Enum value, Replace);
 template <typename Enum> friend bool operator!=(Enum value, Replace);
 };
 
-/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c RestartPath value.
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Restart value.
 /**
  *  @see @ref oglplus::PathNVCommand "PathNVCommand"
  *
@@ -20820,28 +20821,28 @@ template <typename Enum> friend bool operator!=(Enum value, Replace);
  *
  *  @ingroup smart_enums
  */
-struct RestartPath {
+struct Restart {
 
-/// Conversion to any @p Enum type having the RestartPath value.
-/** Instances of the @ref oglplus::smart_enums::RestartPath "RestartPath"
+/// Conversion to any @p Enum type having the Restart value.
+/** Instances of the @ref oglplus::smart_enums::Restart "Restart"
  *  type are convertible to instances of any enumeration type having
- *  the @c RestartPath value.
+ *  the @c Restart value.
  */
-template <typename Enum, Enum = Enum::RestartPath> operator Enum (void) const;
+template <typename Enum, Enum = Enum::Restart> operator Enum (void) const;
 
-/// Equality comparison with any @p Enum type having the RestartPath value.
-/** Instances of the @c smart_enums::RestartPath type can be compared
+/// Equality comparison with any @p Enum type having the Restart value.
+/** Instances of the @c smart_enums::Restart type can be compared
  *  for equality to instances of any enumeration type having
- *  the @c RestartPath value.
+ *  the @c Restart value.
  */
-template <typename Enum> friend bool operator==(Enum value, RestartPath);
+template <typename Enum> friend bool operator==(Enum value, Restart);
 
-/// Non-equality comparison with any @p Enum type having the RestartPath value.
-/** Instances of the @c smart_enums::RestartPath type can be compared
+/// Non-equality comparison with any @p Enum type having the Restart value.
+/** Instances of the @c smart_enums::Restart type can be compared
  *  for non-equality to instances of any enumeration type having
- *  the @c RestartPath value.
+ *  the @c Restart value.
  */
-template <typename Enum> friend bool operator!=(Enum value, RestartPath);
+template <typename Enum> friend bool operator!=(Enum value, Restart);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c ReverseSubtract value.
@@ -23649,7 +23650,7 @@ template <typename Enum> friend bool operator==(Enum value, ScissorTest);
 template <typename Enum> friend bool operator!=(Enum value, ScissorTest);
 };
 
-/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c SecondaryColor value.
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Secondary value.
 /**
  *  @see @ref oglplus::PathNVColor "PathNVColor"
  *
@@ -23658,28 +23659,28 @@ template <typename Enum> friend bool operator!=(Enum value, ScissorTest);
  *
  *  @ingroup smart_enums
  */
-struct SecondaryColor {
+struct Secondary {
 
-/// Conversion to any @p Enum type having the SecondaryColor value.
-/** Instances of the @ref oglplus::smart_enums::SecondaryColor "SecondaryColor"
+/// Conversion to any @p Enum type having the Secondary value.
+/** Instances of the @ref oglplus::smart_enums::Secondary "Secondary"
  *  type are convertible to instances of any enumeration type having
- *  the @c SecondaryColor value.
+ *  the @c Secondary value.
  */
-template <typename Enum, Enum = Enum::SecondaryColor> operator Enum (void) const;
+template <typename Enum, Enum = Enum::Secondary> operator Enum (void) const;
 
-/// Equality comparison with any @p Enum type having the SecondaryColor value.
-/** Instances of the @c smart_enums::SecondaryColor type can be compared
+/// Equality comparison with any @p Enum type having the Secondary value.
+/** Instances of the @c smart_enums::Secondary type can be compared
  *  for equality to instances of any enumeration type having
- *  the @c SecondaryColor value.
+ *  the @c Secondary value.
  */
-template <typename Enum> friend bool operator==(Enum value, SecondaryColor);
+template <typename Enum> friend bool operator==(Enum value, Secondary);
 
-/// Non-equality comparison with any @p Enum type having the SecondaryColor value.
-/** Instances of the @c smart_enums::SecondaryColor type can be compared
+/// Non-equality comparison with any @p Enum type having the Secondary value.
+/** Instances of the @c smart_enums::Secondary type can be compared
  *  for non-equality to instances of any enumeration type having
- *  the @c SecondaryColor value.
+ *  the @c Secondary value.
  */
-template <typename Enum> friend bool operator!=(Enum value, SecondaryColor);
+template <typename Enum> friend bool operator!=(Enum value, Secondary);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c SeparateAttribs value.
@@ -25379,6 +25380,7 @@ template <typename Enum> friend bool operator!=(Enum value, TessEvaluationSubrou
 /**
  *  @see @ref oglplus::BufferTarget "BufferTarget"
  *  @see @ref oglplus::CompatibilityAttributeGroup "CompatibilityAttributeGroup"
+ *  @see @ref oglplus::CompatibilityMatrixMode "CompatibilityMatrixMode"
  *  @see @ref oglplus::ObjectType "ObjectType"
  *
  *  @glsymbols

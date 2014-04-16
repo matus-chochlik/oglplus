@@ -12,7 +12,7 @@
 #include "copier.hpp"
 
 #include <oglplus/binding.hpp>
-#include <oglplus/exposed.hpp>
+#include <oglplus/friend_of.hpp>
 
 #include <stdexcept>
 #include <cassert>
@@ -121,11 +121,11 @@ void RaytraceCopierNV_copy_image::Copy(
 	((PFNglXCopyImageSubDataNV)copy_func)(
 		params.display,
 		params.source_context,
-		Expose(raytracer.rbo).Name(),
+		FriendOf<Renderbuffer>::GetName(raytracer.rbo),
 		GL_RENDERBUFFER,
 		0, x, y, 0,
 		params.target_context,
-		Expose(rt_target.tex).Name(),
+		FriendOf<Texture>::GetName(rt_target.tex),
 		GL_TEXTURE_RECTANGLE,
 		0, x, y, 0,
 		app_data.tile,

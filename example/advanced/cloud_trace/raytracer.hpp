@@ -83,7 +83,9 @@ public:
 
 	void Use(AppData&);
 	void InitFrame(AppData&, unsigned face);
-	void Raytrace(AppData&, unsigned tile);
+	void BeginWork(const AppData&);
+	void EndWork(const AppData&);
+	void Raytrace(const AppData&, unsigned tile);
 };
 
 } // namespace cloud_trace

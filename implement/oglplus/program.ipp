@@ -12,6 +12,12 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
+GLenum ProgramOps::_binding_query(Target)
+{
+	return GL_CURRENT_PROGRAM;
+}
+
+OGLPLUS_LIB_FUNC
 ProgramOps& ProgramOps::AttachShader(const ShaderOps& shader)
 {
 	assert(_name != 0);

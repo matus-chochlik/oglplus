@@ -162,40 +162,30 @@ public:
 		}
 		//
 		Texture::Active(1);
-		{
-			auto bound_tex = Bind(depth_tex, Texture::Target::Rectangle);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-		}
+		gl.Bound(Texture::Target::Rectangle, depth_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge);
 
 		Texture::Active(0);
 		ProgramUniformSampler(plane_prog, "ReflectTex").Set(0);
-		{
-			auto bound_tex = Bind(reflect_tex, Texture::Target::Rectangle);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-		}
+		gl.Bound(Texture::Target::Rectangle, reflect_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge);
 
-		{
-			auto bound_fbo = Bind(
-				fbo,
-				Framebuffer::Target::Draw
-			);
-			bound_fbo.AttachTexture(
+		gl.Bound(Framebuffer::Target::Draw, fbo)
+			.AttachTexture(
 				FramebufferAttachment::Color,
 				reflect_tex,
 				0
-			);
-			bound_fbo.AttachTexture(
+			).AttachTexture(
 				FramebufferAttachment::Depth,
 				depth_tex,
 				0
 			);
-		}
 
 		shape_vs.Source(
 			"#version 330\n"
@@ -301,7 +291,7 @@ public:
 		plane_projection_matrix.Set(projection);
 		shape_projection_matrix.Set(projection);
 
-		Bind(depth_tex, Texture::Target::Rectangle).Image2D(
+		gl.Bound(Texture::Target::Rectangle, depth_tex).Image2D(
 			0,
 			PixelDataInternalFormat::DepthComponent,
 			width/tex_size_div, height/tex_size_div,
@@ -310,7 +300,7 @@ public:
 			PixelDataType::Float,
 			nullptr
 		);
-		Bind(reflect_tex, Texture::Target::Rectangle).Image2D(
+		gl.Bound(Texture::Target::Rectangle, reflect_tex).Image2D(
 			0,
 			PixelDataInternalFormat::RGB,
 			width/tex_size_div, height/tex_size_div,

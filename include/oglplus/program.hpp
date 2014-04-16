@@ -22,6 +22,7 @@
 #include <oglplus/friend_of.hpp>
 #include <oglplus/link_error.hpp>
 #include <oglplus/program_resource.hpp>
+#include <oglplus/binding_query.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/primitive_type.hpp>
@@ -53,6 +54,8 @@ class ProgramOps
  , public FriendOf<ShaderOps>
  , public FriendOf<VertexAttribOps>
 {
+public:
+	typedef Nothing Target;
 protected:
 	static void _init(GLsizei _count, GLuint* _name)
 	{
@@ -90,7 +93,8 @@ protected:
 		return ObjectType::Program;
 	}
 #endif
-
+	static GLenum _binding_query(Target);
+	friend class BindingQuery<ProgramOps>;
 	friend class FriendOf<ProgramOps>;
 
 	GLint GetIntParam(GLenum query) const

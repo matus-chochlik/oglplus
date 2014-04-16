@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -473,20 +473,21 @@ struct Unspecified
  *  The @c Bound template class instantiated through the @c Bind function
  *  allows to do things more conveniently:
  *  @code
+ *  Context gl;
  *  // create the texture
  *  Texture tex;
  *  // start a block where the texture will be set-up
  *  {
  *    // make a wrapper for the texture bound to TEXTURE_2D
- *    auto bound_tex = Bind(tex, Texture::Target::_2D);
- *    bound_tex.Image2D(...);
- *    bound_tex.GenerateMipmap();
- *    bound_tex.MinFilter(TextureMinFilter::Linear);
- *    bound_tex.MagFilter(TextureMagFilter::Linear);
- *    bound_tex.WrapS(TextureWrap::Repeat);
- *    bound_tex.WrapT(TextureWrap::Repeat);
- *    bound_tex.SwizzleG(TextureSwizzle::Red);
- *    bound_tex.SwizzleB(TextureSwizzle::Red);
+ *    gl.Bind(Texture::Target::_2D, tex)
+ *      .Image2D(...)
+ *      .GenerateMipmap()
+ *      .MinFilter(TextureMinFilter::Linear)
+ *      .MagFilter(TextureMagFilter::Linear)
+ *      .WrapS(TextureWrap::Repeat)
+ *      .WrapT(TextureWrap::Repeat)
+ *      .SwizzleG(TextureSwizzle::Red)
+ *      .SwizzleB(TextureSwizzle::Red);
  *  }
  *  @endcode
  *

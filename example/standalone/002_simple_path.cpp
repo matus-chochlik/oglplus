@@ -2,7 +2,7 @@
  *  @example standalone/002_simple_path.cpp
  *  @brief Shows simple usage of the NV_path_rendering extension
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -27,39 +27,19 @@ public:
 	{
 		using namespace oglplus;
 
-		PathNVCommand commands[] = {
-			PathNVCommand::MoveTo,
-			PathNVCommand::LineTo,
-			PathNVCommand::LineTo,
-			PathNVCommand::LineTo,
-			PathNVCommand::LineTo,
-			PathNVCommand::Close
-		};
-
-		GLfloat coords[] = {
-			 0.00, 0.85,
-			 0.65,-0.80,
-			-0.85, 0.30,
-			 0.85, 0.30,
-			-0.65,-0.80
-		};
-
-		path.Commands(
-			sizeof(commands)/sizeof(commands[0]),
-			commands,
-			sizeof(coords)/sizeof(coords[0]),
-			coords
+		path.Spec(PathNVSpec<GLfloat>(6, 10)
+			.MoveTo( 0.00f, 0.85f)
+			.LineTo( 0.65f,-0.80f)
+			.LineTo(-0.85f, 0.30f)
+			.LineTo( 0.85f, 0.30f)
+			.LineTo(-0.65f,-0.80f)
+			.Close()
 		);
 
 		path.StrokeWidth(0.01);
 		path.JoinStyle(PathNVJoinStyle::Round);
 
-		GLfloat dash_array[] = {0.05, 0.02};
-
-		path.DashArray(
-			sizeof(dash_array)/sizeof(dash_array[0]),
-			dash_array
-		);
+		path.Dashes(0.05f, 0.02f);
 
 		glc.MatrixMode(CompatibilityMatrixMode::Projection);
 		glc.LoadIdentity();

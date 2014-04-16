@@ -47,7 +47,7 @@ vec3 sphere_point_coord(vec3 x, int idx)
 	vec4 s = sphere_geom(idx);
 	mat3 r = sphere_rot(idx);
 	x -= s.xyz;
-	x /= 2.0;
+	x *= 0.5;
 	x /= s.w;
 	x = r*x;
 	x += 0.5;
@@ -72,10 +72,11 @@ int find_hits(int k, vec3 ori, vec3 ray)
 			h.y = sqrt(h.y);
 			float tn = -h.x-h.y;
 			float tf = -h.x+h.y;
-			if((tn >= 0.0) || (tf >= 0.0))
+			if(tf >= 0.0)
 			{
-				tmin[k] = min(tmin[k], max(0, tn));
-				tmax[k] = max(tmax[k], max(0, tf));
+				tn = max(0, tn);
+				tmin[k] = min(tmin[k], tn);
+				tmax[k] = max(tmax[k], tf);
 				hits[k*N+n] = vec3(i, tn, tf);
 				wc0[k*N+n] = ori+ray*tn;
 				wc1[k*N+n] = ori+ray*tf;
@@ -89,12 +90,24 @@ int find_hits(int k, vec3 ori, vec3 ray)
 	return n;
 }
 
-vec4 sample_ray(int k, int n, float t, float dc)
+struct rs_data
 {
-	float sd = 0.0;
-	float ts = 1.0;
-	float tmin = tmin[k];
-	float tmax = tmax[k];
+	float den;
+	float age;
+	float tstep;
+	float tmin;
+	float tmax;
+};
+
+rs_data sample_ray(int k, int n, float t, float dc)
+{
+	rs_data res;
+	res.den = 0.0;
+	res.age = 0.0;
+	res.tstep = 1.0;
+	res.tmin = tmin[k];
+	res.tmax = tmax[k];
+
 	for(int i=0; i<n; ++i)
 	{
 		float tn = hits[k*N+i][1];
@@ -108,23 +121,26 @@ vec4 sample_ray(int k, int n, float t, float dc)
 			vec3 sp = sphere_para(id);
 			vec3 tc = mix(tc0[k*N+i], tc1[k*N+i], ssc);
 			float ssd = max(texture(CloudTex, tc).r - sp[0], 0.0);
-			sd += ssd * dc * sp[1];
-			sd = min(sd, 1.0);
+			float sd = ssd * dc * sp[1];
+			res.den += sd;
 
 			vec3 tcd = abs(tc0[k*N+i]-tc1[k*N+i]);
 			vec3 tsn = tcd*textureSize(CloudTex, 0);
 			float nsam = ceil(max(max(tsn.x, tsn.y), tsn.z));
-			ts = min(ts, td / nsam);
+
+			res.age += sp[2]*sd;
+			res.tstep = min(res.tstep, td / nsam);
 		}
 		if(tn > t)
 		{
-			tmin = min(tmin, tn);
+			res.tmin = min(res.tmin, tn);
 		}
 		if(tf < t)
 		{
-			tmax = max(tmax, tf);
+			res.tmax = max(res.tmax, tf);
 		}
 	}
-	return vec4(sd, ts, tmin, tmax);
+	res.age = res.age/mix(1.0, res.den, sign(res.den));
+	res.den = min(res.den, 1.0);
+	return res;
 }
-

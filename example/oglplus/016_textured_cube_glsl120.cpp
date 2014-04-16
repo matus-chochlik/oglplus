@@ -130,7 +130,6 @@ public:
 
 		// setup the texture
 		{
-			auto bound_tex = Bind(tex, se::_2D());
 			auto image = images::NewtonFractal(
 				512, 512,
 				Vec3f(1.0f, 1.4f, 1.3f),
@@ -143,12 +142,13 @@ public:
 					return pow(SineWave(pow(x,0.5)), 4.0);
 				}
 			);
-			bound_tex.Image2D(image);
-			bound_tex.GenerateMipmap();
-			bound_tex.MinFilter(se::LinearMipmapLinear());
-			bound_tex.MagFilter(se::Linear());
-			bound_tex.WrapS(se::Repeat());
-			bound_tex.WrapT(se::Repeat());
+			gl.Bound(se::_2D(), tex)
+				.MinFilter(se::LinearMipmapLinear())
+				.MagFilter(se::Linear())
+				.WrapS(se::Repeat())
+				.WrapT(se::Repeat())
+				.Image2D(image)
+				.GenerateMipmap();
 		}
 		// set the uniform values
 		(prog/"TexUnit") = 0;

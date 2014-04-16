@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -24,12 +24,28 @@ namespace x11 {
 class VisualInfo
  : public Object< ::XVisualInfo, int(void*)>
 {
+private:
+	static ::XVisualInfo* _from_id(const Display& display, int id)
+	{
+		::XVisualInfo tpl;
+		tpl.visualid = id;
+		int num_vis = 0;
+
+		return ::XGetVisualInfo(display, VisualIDMask, &tpl, &num_vis);
+	}
 public:
 	VisualInfo(const Display& display, const glx::FBConfig& fbc)
 	 : Object< ::XVisualInfo, int(void*)>(
 		::glXGetVisualFromFBConfig(display, fbc),
 		::XFree,
 		"Error Getting X VisualInfo from GLX FB config"
+	){ }
+
+	VisualInfo(const Display& display, int visual_id)
+	 : Object< ::XVisualInfo, int(void*)>(
+		_from_id(display, visual_id),
+		::XFree,
+		"Error Getting X VisualInfo from visual ID"
 	){ }
 };
 

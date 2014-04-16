@@ -22,5 +22,16 @@ GLenum BufferOps::_binding_query(Target target)
 	return 0;
 }
 
+OGLPLUS_LIB_FUNC
+GLenum BufferOps::_binding_query(IndexedTarget target)
+{
+	switch(GLenum(target))
+	{
+#include <oglplus/enums/buffer_indexed_target_bq.ipp>
+		default:;
+	}
+	return 0;
+}
+
 } // namespace oglplus
 

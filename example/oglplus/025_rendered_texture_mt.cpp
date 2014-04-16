@@ -268,9 +268,12 @@ public:
 		Uniform<Vec3f>(prog, "LightPos").Set(20.0f, 30.0f, 40.0f);
 
 		Texture::Active(0);
-		{
-			auto bound_tex = Bind(example.tex, Texture::Target::_2D);
-			bound_tex.Image2D(
+		gl.Bound(Texture::Target::_2D, example.tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::Repeat)
+			.WrapT(TextureWrap::Repeat)
+			.Image2D(
 				0,
 				PixelDataInternalFormat::RGBA,
 				tex_side, tex_side,
@@ -279,24 +282,17 @@ public:
 				PixelDataType::UnsignedByte,
 				nullptr
 			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::Repeat);
-			bound_tex.WrapT(TextureWrap::Repeat);
-		}
 
-		{
-			auto bound_fbo = Bind(fbo, Framebuffer::Target::Draw);
-			auto bound_rbo = Bind(rbo, Renderbuffer::Target::Renderbuffer);
-
- 			bound_rbo.Storage(
+		gl.Bound(Renderbuffer::Target::Renderbuffer, rbo)
+ 			.Storage(
 				PixelDataInternalFormat::DepthComponent,
 				tex_side,
 				tex_side
 			);
-			bound_fbo.AttachTexture(FramebufferAttachment::Color, example.tex, 0);
-			bound_fbo.AttachRenderbuffer(FramebufferAttachment::Depth, rbo);
-		}
+
+		gl.Bound(Framebuffer::Target::Draw, fbo)
+			.AttachTexture(FramebufferAttachment::Color, example.tex, 0)
+			.AttachRenderbuffer(FramebufferAttachment::Depth, rbo);
 
 		Use();
 	}

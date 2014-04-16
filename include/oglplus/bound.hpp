@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,13 +13,14 @@
 #ifndef OGLPLUS_BOUND_1201190831_HPP
 #define OGLPLUS_BOUND_1201190831_HPP
 
-#include <oglplus/object.hpp>
+#include <oglplus/fwd.hpp>
 
 namespace oglplus {
 
 /// A common base class for Bound objects
 /**
- *  @note Do not use this class directly, use Bound or Bind() instead.
+ *  @deprecated This class is deprecated use Context::Bound(...) or
+ *  Context::Bind(...) instead.
  *
  *  @ingroup modifier_classes
  */
@@ -45,10 +46,11 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Specializations of this template wrap functions of Bindable with bind target
 /**
- *  @note Do not use this class directly, use Bound or Bind() instead.
+ *  @deprecated This class is deprecated use Context::Bound(...) or
+ *  Context::Bind(...) instead.
  *
- *  @see Bind()
- *  @see Bound
+ *  @see Context::Bind()
+ *  @see Context::Bound()
  *
  *  @ingroup utility_classes
  */
@@ -57,9 +59,6 @@ class BoundTemplate
  : public Base<BaseParam, BindableOps>
 {
 };
-#else
-template <template <class, class> class Base, class BaseParam, class Bindable>
-class BoundTemplate;
 #endif
 
 /// A wraper that binds @ref oglplus_object "objects" to a specified target
@@ -77,7 +76,11 @@ class BoundTemplate;
  *  member functions, but lack the @c target parameter and supply it to the
  *  original function call automatically.
  *
- *  @see Bind()
+ *  @deprecated This class is deprecated use Context::Bound(...) or
+ *  Context::Bind(...) instead.
+ *
+ *  @see Context::Bind()
+ *  @see Context::Bound()
  *
  *  @ingroup modifier_classes
  */
@@ -90,17 +93,20 @@ public:
 	/**
 	 *  @see Bind
 	 */
-	Bound(
-		const Bindable& bindable,
-		typename Bindable::Target target
-	): BoundTemplate<oglplus::BoundBase, Bindable, Bindable>(bindable, target)
+	Bound(const Bindable& bindable, typename Bindable::Target target)
+	 : BoundTemplate<oglplus::BoundBase, Bindable, Bindable>(bindable, target)
 	{ }
 };
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Function constructing Bound objects
-/** This function is the preferred way to construct instances of objects
- *  Bound to a target (binding point).
+/**
+ *  @deprecated This function is deprecated and will be removed in the next
+ *  release use Context::Bound(...) or Context::Bind(...) instead.
+ *
+ *  @see Context::Bind()
+ *  @see Context::Bound()
+ *  @see Context::Current()
  */
 template <class Object>
 inline Bound<Object> Bind(

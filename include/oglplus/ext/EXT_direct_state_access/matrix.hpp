@@ -14,7 +14,7 @@
 #define OGLPLUS_EXT_DSA_MATRIX_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/ext/ARB_compatibility.hpp>
+#include <oglplus/ext/ARB_compatibility/matrix_mode.hpp>
 
 namespace oglplus {
 
@@ -42,10 +42,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixPushEXT}
 	 */
-	void Push(void)
+	DSAMatrixEXT& Push(void)
 	{
 		OGLPLUS_GLFUNC(MatrixPushEXT)(GLenum(_mode));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixPushEXT));
+		return *this;
 	}
 
 	/// Pops a matrix from the stack
@@ -53,10 +54,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixPopEXT}
 	 */
-	void Pop(void)
+	DSAMatrixEXT& Pop(void)
 	{
 		OGLPLUS_GLFUNC(MatrixPopEXT)(GLenum(_mode));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixPopEXT));
+		return *this;
 	}
 
 	/// Loads an identity matrix
@@ -64,10 +66,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixLoadIdentityEXT}
 	 */
-	void LoadIdentity(void)
+	DSAMatrixEXT& LoadIdentity(void)
 	{
 		OGLPLUS_GLFUNC(MatrixLoadIdentityEXT)(GLenum(_mode));
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixLoadIdentityEXT));
+		return *this;
 	}
 
 	/// Loads the specified @p matrix
@@ -75,13 +78,14 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixLoadTransposeEXT}
 	 */
-	void Load(const Matrix<GLfloat, 4, 4>& matrix)
+	DSAMatrixEXT& Load(const Matrix<GLfloat, 4, 4>& matrix)
 	{
 		OGLPLUS_GLFUNC(MatrixLoadTransposefEXT)(
 			GLenum(_mode),
 			Data(matrix)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixLoadTransposefEXT));
+		return *this;
 	}
 
 	/// Loads the specified @p matrix
@@ -89,13 +93,14 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixLoadTransposeEXT}
 	 */
-	void Load(const Matrix<GLdouble, 4, 4>& matrix)
+	DSAMatrixEXT& Load(const Matrix<GLdouble, 4, 4>& matrix)
 	{
 		OGLPLUS_GLFUNC(MatrixLoadTransposedEXT)(
 			GLenum(_mode),
 			Data(matrix)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixLoadTransposedEXT));
+		return *this;
 	}
 
 	/// Multiplies the current matrix by the specified @p matrix
@@ -103,13 +108,14 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixMultTransposeEXT}
 	 */
-	void Mult(const Matrix<GLfloat, 4, 4>& matrix)
+	DSAMatrixEXT& Mult(const Matrix<GLfloat, 4, 4>& matrix)
 	{
 		OGLPLUS_GLFUNC(MatrixMultTransposefEXT)(
 			GLenum(_mode),
 			Data(matrix)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMultTransposefEXT));
+		return *this;
 	}
 
 	/// Multiplies the current matrix by the specified @p matrix
@@ -117,13 +123,14 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixMultTransposeEXT}
 	 */
-	void Mult(const Matrix<GLdouble, 4, 4>& matrix)
+	DSAMatrixEXT& Mult(const Matrix<GLdouble, 4, 4>& matrix)
 	{
 		OGLPLUS_GLFUNC(MatrixMultTransposedEXT)(
 			GLenum(_mode),
 			Data(matrix)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMultTransposedEXT));
+		return *this;
 	}
 
 	/// Applies rotation by angle around axis <x,y,z> to the current matrix
@@ -131,7 +138,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixRotateEXT}
 	 */
-	void Rotate(
+	DSAMatrixEXT& Rotate(
 		Angle<GLfloat> angle,
 		const GLfloat x,
 		const GLfloat y,
@@ -144,6 +151,7 @@ public:
 			x, y, z
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixRotatefEXT));
+		return *this;
 	}
 
 	/// Applies rotation by angle around axis to the current matrix
@@ -151,7 +159,10 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixRotateEXT}
 	 */
-	void Rotate(Angle<GLfloat> angle, const Vector<GLfloat, 3>& axis)
+	DSAMatrixEXT& Rotate(
+		Angle<GLfloat> angle,
+		const Vector<GLfloat, 3>& axis
+	)
 	{
 		OGLPLUS_GLFUNC(MatrixRotatefEXT)(
 			GLenum(_mode),
@@ -161,6 +172,7 @@ public:
 			At(axis, 2)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixRotatefEXT));
+		return *this;
 	}
 
 	/// Applies rotation by angle around axis to the current matrix
@@ -168,7 +180,10 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixRotateEXT}
 	 */
-	void Rotate(Angle<GLdouble> angle, const Vector<GLdouble, 3>& axis)
+	DSAMatrixEXT& Rotate(
+		Angle<GLdouble> angle,
+		const Vector<GLdouble, 3>& axis
+	)
 	{
 		OGLPLUS_GLFUNC(MatrixRotatedEXT)(
 			GLenum(_mode),
@@ -178,6 +193,7 @@ public:
 			At(axis, 2)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixRotatedEXT));
+		return *this;
 	}
 
 	/// Scales the current matrix
@@ -185,10 +201,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixScaleEXT}
 	 */
-	void Scale(const GLfloat x, const GLfloat y, const GLfloat z)
+	DSAMatrixEXT& Scale(const GLfloat x, const GLfloat y, const GLfloat z)
 	{
 		OGLPLUS_GLFUNC(MatrixScalefEXT)(GLenum(_mode), x, y, z);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixScalefEXT));
+		return *this;
 	}
 
 	/// Scales the current matrix
@@ -196,7 +213,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixScaleEXT}
 	 */
-	void Scale(const Vector<GLfloat, 3>& amount)
+	DSAMatrixEXT& Scale(const Vector<GLfloat, 3>& amount)
 	{
 		OGLPLUS_GLFUNC(MatrixScalefEXT)(
 			GLenum(_mode),
@@ -205,6 +222,7 @@ public:
 			At(amount, 2)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixScalefEXT));
+		return *this;
 	}
 
 	/// Scales the current matrix
@@ -212,7 +230,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixScaleEXT}
 	 */
-	void Scale(const Vector<GLdouble, 3>& amount)
+	DSAMatrixEXT& Scale(const Vector<GLdouble, 3>& amount)
 	{
 		OGLPLUS_GLFUNC(MatrixScalefEXT)(
 			GLenum(_mode),
@@ -221,6 +239,7 @@ public:
 			At(amount, 2)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixScaledEXT));
+		return *this;
 	}
 
 	/// Translates the current matrix
@@ -228,10 +247,15 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixTranslateEXT}
 	 */
-	void Translate(const GLfloat x, const GLfloat y, const GLfloat z)
+	DSAMatrixEXT& Translate(
+		const GLfloat x,
+		const GLfloat y,
+		const GLfloat z
+	)
 	{
 		OGLPLUS_GLFUNC(MatrixTranslatefEXT)(GLenum(_mode), x, y, z);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixTranslatefEXT));
+		return *this;
 	}
 
 	/// Translates the current matrix
@@ -239,7 +263,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixTranslateEXT}
 	 */
-	void Translate(const Vector<GLfloat, 3>& amount)
+	DSAMatrixEXT& Translate(const Vector<GLfloat, 3>& amount)
 	{
 		OGLPLUS_GLFUNC(MatrixTranslatefEXT)(
 			GLenum(_mode),
@@ -248,6 +272,7 @@ public:
 			At(amount, 2)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixTranslatefEXT));
+		return *this;
 	}
 
 	/// Translates the current matrix
@@ -255,7 +280,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixTranslateEXT}
 	 */
-	void Translate(const Vector<GLdouble, 3>& amount)
+	DSAMatrixEXT& Translate(const Vector<GLdouble, 3>& amount)
 	{
 		OGLPLUS_GLFUNC(MatrixTranslatefEXT)(
 			GLenum(_mode),
@@ -264,6 +289,7 @@ public:
 			At(amount, 2)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixTranslatedEXT));
+		return *this;
 	}
 
 	/// Makes an ortho-matrix from the current matrix
@@ -271,7 +297,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixOrthoEXT}
 	 */
-	void Ortho(
+	DSAMatrixEXT& Ortho(
 		GLdouble left,
 		GLdouble right,
 		GLdouble bottom,
@@ -290,6 +316,7 @@ public:
 			far_depth
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixOrthoEXT));
+		return *this;
 	}
 
 	/// Makes a frustum-matrix from the current matrix
@@ -297,7 +324,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{MatrixFrustumEXT}
 	 */
-	void Frustum(
+	DSAMatrixEXT& Frustum(
 		GLdouble left,
 		GLdouble right,
 		GLdouble bottom,
@@ -316,6 +343,7 @@ public:
 			far_depth
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixFrustumEXT));
+		return *this;
 	}
 };
 

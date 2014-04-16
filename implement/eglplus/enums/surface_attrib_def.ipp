@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/eglplus/surface_attrib.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -88,6 +88,22 @@
 #  pragma pop_macro("VGColorspace")
 # else
    EGLPLUS_ENUM_CLASS_VALUE(VGColorspace, EGL_VG_COLORSPACE)
+# endif
+# ifndef EGLPLUS_LIST_NEEDS_COMMA
+#  define EGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined EGL_GL_COLORSPACE
+# if EGLPLUS_LIST_NEEDS_COMMA
+   EGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined GLColorspace
+#  pragma push_macro("GLColorspace")
+#  undef GLColorspace
+   EGLPLUS_ENUM_CLASS_VALUE(GLColorspace, EGL_GL_COLORSPACE)
+#  pragma pop_macro("GLColorspace")
+# else
+   EGLPLUS_ENUM_CLASS_VALUE(GLColorspace, EGL_GL_COLORSPACE)
 # endif
 # ifndef EGLPLUS_LIST_NEEDS_COMMA
 #  define EGLPLUS_LIST_NEEDS_COMMA 1
