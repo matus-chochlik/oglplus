@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -66,7 +66,7 @@ bool ObjMesh::_load_indices(
 				if(!_load_index(indices._nml, i, e))
 					return false;
 			}
-			return (*i == *e) || std::isspace(*i);
+			return (i == e) || std::isspace(*i);
 		}
 	}
 	return false;
