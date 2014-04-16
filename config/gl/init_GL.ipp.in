@@ -25,6 +25,7 @@
 #endif
 
 #include <type_traits>
+#include <iostream>
 
 template <typename Func>
 bool oglplus_config_test_gl_func(Func func)
@@ -33,7 +34,15 @@ bool oglplus_config_test_gl_func(Func func)
 }
 
 #define OGLPLUS_CONFIG_ASSERT_GL_FUNC(NAME) \
-	if(!oglplus_config_test_gl_func(NAME)) return false;
+	if(!oglplus_config_test_gl_func(NAME)) \
+	{ \
+		std::cerr \
+			<< "Required function: " \
+			<< #NAME \
+			<< " not available." \
+			<< std::endl; \
+		return false; \
+	}
 
 bool do_query_gl(void);
 
@@ -83,6 +92,7 @@ bool query_gl_GLX(void)
 	glx::Pbuffer pbuffer(display, fbc, pbuffer_attribs);
 
 	context.MakeCurrent(pbuffer);
+	oglplus::GLAPIInitializer gl_api;
 
 	return do_query_gl();
 }

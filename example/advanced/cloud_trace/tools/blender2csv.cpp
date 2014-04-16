@@ -47,7 +47,7 @@ void blend_to_csv(const std::string& input_path, const std::string& output_path)
 	output << "rotxx|rotxy|rotxz|";
 	output << "rotyx|rotyy|rotyz|";
 	output << "rotzx|rotzy|rotzz|";
-	output << "pos_x|pox_y|pos_z|";
+	output << "pos_x|pos_y|pos_z|";
 	output << "csize|doffs|dmult|";
 	output << "c_age|";
 

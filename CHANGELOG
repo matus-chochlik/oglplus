@@ -1,3 +1,30 @@
+Version 0.44.0
+
+- The NV_path_rendering wrapper was updated.
+  - The PathNVSpec and BriefPathNVSpec classes were added.
+  - Enumerations were moved into separate headers and updated.
+  - New functions were added to PathNV and PathArrayNV.
+- The ARB_compatibility wrapper implementation was refactored and updated.
+- New wrappers for EXT_direct_state_access functions were added.
+- The GLM adaptor was updated.
+- The build system was updated:
+  - Support for SDL and GLX in the GL version and extension detection was added.
+  - The GL version detection helpers were updated.
+- The cloud_trace advanced example was updated.
+- The Blender blend file loader was updated.
+- A bug in the OBJ file loader was fixed.
+- Several breaking changes were made:
+  - The Exposed<Object> class and the Expose function was removed.
+    The FriendOf<Object> class should be used instead.
+  - The AutoBind<Object> class was removed.
+  - The Bound<Object> class and the Bind free function were marked
+    as deprecated and prepared for removal.
+- A new API for binding of objects and binding querying was added to Context.
+- Several of the older oglplus examples were removed including projects
+  from the manually generated MSVC solutions.
+- Many of the existing examples were updated to show the new features.
+
+
 Version 0.43.0
 
 

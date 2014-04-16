@@ -39,8 +39,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_checkered_objects", "02
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_shaded_objects", "020_shaded_objects\020_shaded_objects.vcxproj", "{719BE418-246B-3ABD-3F2B-74FC8697A67E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "021_cloud", "021_cloud\021_cloud.vcxproj", "{684065AD-18BC-2DEF-8C3C-06AB7804DA26}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "022_parallax_map", "022_parallax_map\022_parallax_map.vcxproj", "{1B224F9F-0C05-1394-1643-51CD1F4C676D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "022_xyz_planes", "022_xyz_planes\022_xyz_planes.vcxproj", "{DA4488D3-036B-9943-A3B6-E5EC2CFCBBFD}"
@@ -66,8 +64,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013_striped_cubes", "013_striped_cubes\013_striped_cubes.vcxproj", "{24F4792B-ECD6-7872-CA35-CA7A293AC105}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "006_newton_zoom", "006_newton_zoom\006_newton_zoom.vcxproj", "{6793A279-C3B8-321E-D59C-C7725817230A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013_spiral_sphere", "013_spiral_sphere\013_spiral_sphere.vcxproj", "{711A6DFC-4110-5FB6-D378-8E0C88C5B10C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "016_cartoon_torus", "016_cartoon_torus\016_cartoon_torus.vcxproj", "{FF9BD541-D45C-D58E-BCA6-53A5B71F6953}"
 EndProject

@@ -15,9 +15,6 @@ add_executable(
 	EXCLUDE_FROM_ALL
 	blender2csv.cpp
 )
-if(${WIN32})
-	set_property(TARGET blender2csv PROPERTY WIN32_EXECUTABLE true)
-endif()
 
 add_dependencies(oglplus-advanced-example-cloud_trace-tools blender2csv)
 add_dependencies(oglplus-advanced-examples oglplus-advanced-example-cloud_trace-tools)

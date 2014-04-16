@@ -44,10 +44,10 @@ namespace cloud_trace {
 class CommonData
 {
 public:
-	const x11::Display& display;
-	const glx::Context& context;
+	x11::Display& display;
+	glx::Context& context;
 
-	const RaytracerData& rt_data;
+	RaytracerData& rt_data;
 	RaytracerTarget& rt_target;
 private:
 
@@ -79,9 +79,9 @@ public:
 
 	CommonData(
 		const AppData& app_data,
-		const x11::Display& disp,
-		const glx::Context& ctx,
-		const RaytracerData& rtd,
+		x11::Display& disp,
+		glx::Context& ctx,
+		RaytracerData& rtd,
 		RaytracerTarget& rtt
 	): display(disp)
 	 , context(ctx)
@@ -508,7 +508,7 @@ void main_thread(
 #ifdef CLOUD_TRACE_USE_NV_copy_image
 	x11::Display display(screen_name.empty()?nullptr:screen_name.c_str());
 #else
-	const x11::Display& display = common.display;
+	x11::Display& display = common.display;
 	(void)screen_name;
 #endif
 
