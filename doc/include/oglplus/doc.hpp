@@ -113,8 +113,8 @@ namespace oglplus {
  *  As said above, @OGLplus by default encapsulates and hides the OpenGL names
  *  assigned to various objects (resources allocated at the OpenGL server).
  *  There are however situations where it might be necessary to get this
- *  "raw" resource handle. This can be done via the @ref oglplus::Expose() "Expose"
- *  function.
+ *  "raw" resource handle. This can be done via the @ref oglplus::FriendOf "FriendOf"
+ *  class.
  *
  *  @subsection feat_related_classes Additional CG related classes
  *
@@ -172,7 +172,7 @@ namespace oglplus {
  *  Git users can get anonymous read-only access to the source repository
  *  by using the following command:
  *  @code
- *  git clone git://oglplus.git.sourceforge.net/gitroot/oglplus/oglplus
+ *  git clone https://github.com/matus-chochlik/oglplus.git oglplus
  *  @endcode
  */
 
@@ -198,11 +198,6 @@ namespace oglplus {
  *   - C++11 compatible compiler.
  *
  *   - CMake.
- *
- *   - Doxygen + XSLTproc is required to generate additional header files.
- *     This is required only if the headers are not pre-built (typically
- *     when checked out from the repository, packaged releases are shipped with
- *     pre-built headers)
  *
  *   - Doxygen is also required to build the documentation.
  *

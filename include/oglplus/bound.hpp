@@ -45,8 +45,8 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Specializations of this template wrap functions of Bindable with bind target
 /**
- *  @deprecated This class is deprecated use Context::Bound(...) or
- *  Context::Bind(...) instead.
+ *  @note Do not use directly, use @c Context::Bound or @c Context::Current
+ *  instead.
  *
  *  @see Context::Bind()
  *  @see Context::Bound()
@@ -56,8 +56,7 @@ public:
 template <template <class, class> class Base, class BaseParam, class BindableOps>
 class BoundTemplate
  : public Base<BaseParam, BindableOps>
-{
-};
+{ };
 #endif
 
 /// A wraper that binds @ref oglplus_object "objects" to a specified target
