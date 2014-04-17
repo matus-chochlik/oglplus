@@ -66,17 +66,12 @@ GLuint TextureTargetDimensions(TextureTarget target);
 
 /// Wrapper for texture and texture unit-related operations
 /** @note Do not use this class directly, use Texture instead.
- *
- *  @glsymbols
- *  @glfunref{GenTextures}
- *  @glfunref{DeleteTextures}
- *  @glfunref{IsTexture}
  */
-class TextureOps
- : public Named
- , public BaseObject<true>
- , public FriendOf<BufferOps>
+class DefaultTextureOps
+ : public FriendOf<BufferOps>
 {
+private:
+	static GLuint _binding(TextureTarget);
 public:
 	/// Texture bind and image specification targets
 	/** @note Not all of the values enumerated here are valid
@@ -84,57 +79,7 @@ public:
 	 *  targets.
 	 */
 	typedef TextureTarget Target;
-protected:
-	static void _init(GLsizei count, GLuint* _name)
-	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenTextures)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTextures));
-	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteTextures)(count, _name);}
-		catch(...){ }
-	}
-
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsTexture)(_name);}
-		catch(...){ }
-		return GL_FALSE;
-	}
-
-#ifdef GL_TEXTURE
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectType::Texture;
-	}
-#endif
-
-	static void _bind(GLuint _name, Target target)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindTexture,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
-
-	friend class FriendOf<TextureOps>;
-
-	static GLenum _binding_query(Target target);
-	friend class BindingQuery<TextureOps>;
-public:
 	/// Types related to Texture
 	struct Property
 	{
@@ -210,59 +155,6 @@ public:
 		return GL_TEXTURE0 - result;
 	}
 
-	/// Bind the texture to the target on the Active unit
-	/**
-	 *  @throws Error
-	 *
-	 *  @see Active
-	 *  @see Unbind
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindTexture}
-	 */
-	void Bind(Target target) const
-	{
-		_bind(_name, target);
-	}
-
-	/// Unbinds the current texture from the target on the Active unit
-	/**
-	 *  @throws Error
-	 *
-	 *  @see Active
-	 *  @see Bind
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindTexture}
-	 */
-	static void Unbind(Target target)
-	{
-		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	/// Bind the specified textures to the specified texture units
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
-	static void Bind(
-		GLuint first,
-		GLsizei count,
-		const GLuint* names
-	)
-	{
-		OGLPLUS_GLFUNC(BindTextures)(
-			first,
-			count,
-			names
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTextures));
-	}
-#endif
-
 	static GLint GetIntParam(Target target, GLenum query)
 	{
 		GLint result = 0;
@@ -275,7 +167,7 @@ public:
 			GetTexParameteriv,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 		return result;
 	}
@@ -292,7 +184,7 @@ public:
 			GetTexParameterfv,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 		return result;
 	}
@@ -311,7 +203,7 @@ public:
 			GetTexLevelParameteriv,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 		return result;
 	}
@@ -329,7 +221,7 @@ public:
 			GetTexLevelParameterfv,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 		return result;
 	}
@@ -783,7 +675,7 @@ public:
 			TexImage3D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -835,7 +727,7 @@ public:
 			TexSubImage3D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -885,7 +777,7 @@ public:
 			TexImage2D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -943,7 +835,7 @@ public:
 			TexImage2D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -999,7 +891,7 @@ public:
 			TexSubImage2D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1047,7 +939,7 @@ public:
 			TexImage1D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1091,7 +983,7 @@ public:
 			TexSubImage1D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1166,7 +1058,7 @@ public:
 			CopyTexImage2D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1199,7 +1091,7 @@ public:
 			CopyTexImage1D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif // GL_VERSION_3_0
@@ -1236,7 +1128,7 @@ public:
 			CopyTexSubImage3D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1270,7 +1162,7 @@ public:
 			CopyTexSubImage2D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1301,7 +1193,7 @@ public:
 			CopyTexSubImage1D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif // GL_VERSION_3_0
@@ -1338,7 +1230,7 @@ public:
 			CompressedTexImage3D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1372,7 +1264,7 @@ public:
 			CompressedTexImage2D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1405,7 +1297,7 @@ public:
 			CompressedTexImage1D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif // GL_VERSION_3_0
@@ -1446,7 +1338,7 @@ public:
 			CompressedTexSubImage3D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1482,7 +1374,7 @@ public:
 			CompressedTexSubImage2D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1515,7 +1407,7 @@ public:
 			CompressedTexSubImage1D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif
@@ -1550,7 +1442,7 @@ public:
 			TexImage3DMultisample,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1581,7 +1473,7 @@ public:
 			TexImage2DMultisample,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif // texture multisample
@@ -1608,7 +1500,7 @@ public:
 			TexBuffer,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif
@@ -1639,7 +1531,7 @@ public:
 			TexBufferRange,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif
@@ -1668,7 +1560,7 @@ public:
 			TexStorage1D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1697,7 +1589,7 @@ public:
 			TexStorage2D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -1728,8 +1620,1202 @@ public:
 			TexStorage3D,
 			Texture,
 			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
+			_binding(target)
 		));
+	}
+#endif
+
+	/// Returns the texture base level (TEXTURE_BASE_LEVEL)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_BASE_LEVEL}
+	 */
+	static GLuint BaseLevel(Target target)
+	{
+		return GetIntParam(target, GL_TEXTURE_BASE_LEVEL);
+	}
+
+	/// Sets the texture base level (TEXTURE_BASE_LEVEL)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_BASE_LEVEL}
+	 */
+	static void BaseLevel(Target target, GLuint level)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_BASE_LEVEL,
+			level
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
+	static Vector<GLfloat, 4> BorderColor(Target target, TypeTag<GLfloat>)
+	{
+		GLfloat result[4];
+		OGLPLUS_GLFUNC(GetTexParameterfv)(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			result
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameterfv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+		return Vector<GLfloat, 4>(result, 4);
+	}
+
+	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
+	static void BorderColor(Target target, Vector<GLfloat, 4> color)
+	{
+		OGLPLUS_GLFUNC(TexParameterfv)(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			Data(color)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterfv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
+	static Vector<GLint, 4> BorderColor(Target target, TypeTag<GLint>)
+	{
+		GLint result[4];
+		OGLPLUS_GLFUNC(GetTexParameterIiv)(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			result
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameterIiv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+		return Vector<GLint, 4>(result, 4);
+	}
+
+	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
+	static void BorderColor(Target target, Vector<GLint, 4> color)
+	{
+		OGLPLUS_GLFUNC(TexParameterIiv)(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			Data(color)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterIiv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
+	static Vector<GLuint, 4> BorderColor(Target target, TypeTag<GLuint>)
+	{
+		GLuint result[4];
+		OGLPLUS_GLFUNC(GetTexParameterIuiv)(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			result
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameterIuiv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+		return Vector<GLuint, 4>(result, 4);
+	}
+
+	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_BORDER_COLOR}
+	 */
+	static void BorderColor(Target target, Vector<GLuint, 4> color)
+	{
+		OGLPLUS_GLFUNC(TexParameterIuiv)(
+			GLenum(target),
+			GL_TEXTURE_BORDER_COLOR,
+			Data(color)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterIuiv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+#endif // GL_VERSION_3_0
+
+	/// Gets the compare mode (TEXTURE_COMPARE_MODE)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_COMPARE_MODE}
+	 */
+	static TextureCompareMode CompareMode(Target target)
+	{
+		return TextureCompareMode(GetIntParam(
+			target,
+			GL_TEXTURE_COMPARE_MODE
+		));
+	}
+
+	/// Sets the compare mode (TEXTURE_COMPARE_MODE)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_COMPARE_MODE}
+	 */
+	static void CompareMode(Target target, TextureCompareMode mode)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_COMPARE_MODE,
+			GLenum(mode)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_COMPARE_FUNC}
+	 */
+	static CompareFunction CompareFunc(Target target)
+	{
+		return CompareFunction(GetIntParam(
+			target,
+			GL_TEXTURE_COMPARE_FUNC
+		));
+	}
+
+	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_COMPARE_FUNC}
+	 */
+	static void CompareFunc(Target target, CompareFunction func)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_COMPARE_FUNC,
+			GLenum(func)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+	/// Gets the LOD bias value (TEXTURE_LOD_BIAS)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_LOD_BIAS}
+	 */
+	static GLfloat LODBias(Target target)
+	{
+		return GetFloatParam(target, GL_TEXTURE_LOD_BIAS);
+	}
+
+	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_LOD_BIAS}
+	 */
+	static void LODBias(Target target, GLfloat value)
+	{
+		OGLPLUS_GLFUNC(TexParameterf)(
+			GLenum(target),
+			GL_TEXTURE_LOD_BIAS,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterf,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+#endif // GL_VERSION_3_0
+
+	/// Sets both the minification and magnification filter
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
+	static void Filter(Target target, TextureFilter filter)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_MIN_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_MAG_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
+	static TextureMagFilter MagFilter(Target target)
+	{
+		return TextureMagFilter(GetIntParam(
+			target,
+			GL_TEXTURE_MAG_FILTER
+		));
+	}
+
+	/// Sets the magnification filter (TEXTURE_MAG_FILTER)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAG_FILTER}
+	 */
+	static void MagFilter(Target target, TextureMagFilter filter)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_MAG_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets the minification filter (TEXTURE_MIN_FILTER)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 */
+	static TextureMinFilter MinFilter(Target target)
+	{
+		return TextureMinFilter(GetIntParam(
+			target,
+			GL_TEXTURE_MIN_FILTER
+		));
+	}
+
+	/// Sets the minification filter (TEXTURE_MIN_FILTER)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MIN_FILTER}
+	 */
+	static void MinFilter(Target target, TextureMinFilter filter)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_MIN_FILTER,
+			GLenum(filter)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets minimal LOD value (TEXTURE_MIN_LOD)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MIN_LOD}
+	 */
+	static GLfloat MinLOD(Target target)
+	{
+		return GetFloatParam(target, GL_TEXTURE_MIN_LOD);
+	}
+
+	/// Sets minimal LOD value (TEXTURE_MIN_LOD)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MIN_LOD}
+	 */
+	static void MinLOD(Target target, GLfloat value)
+	{
+		OGLPLUS_GLFUNC(TexParameterf)(
+			GLenum(target),
+			GL_TEXTURE_MIN_LOD,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterf,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets maximum LOD value (TEXTURE_MAX_LOD)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAX_LOD}
+	 */
+	static GLfloat MaxLOD(Target target)
+	{
+		return GetFloatParam(target, GL_TEXTURE_MAX_LOD);
+	}
+
+	/// Sets maximum LOD value (TEXTURE_MAX_LOD)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAX_LOD}
+	 */
+	static void MaxLOD(Target target, GLfloat value)
+	{
+		OGLPLUS_GLFUNC(TexParameterf)(
+			GLenum(target),
+			GL_TEXTURE_MAX_LOD,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterf,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets maximum level value (TEXTURE_MAX_LEVEL)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAX_LEVEL}
+	 */
+	static GLint MaxLevel(Target target)
+	{
+		return GetIntParam(target, GL_TEXTURE_MAX_LEVEL);
+	}
+
+	/// Sets maximum level value (TEXTURE_MAX_LEVEL)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAX_LEVEL}
+	 */
+	static void MaxLevel(Target target, GLint value)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_MAX_LEVEL,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets the maximum anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{MAX_TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	static GLfloat MaxAnisotropy(Target target)
+	{
+#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		return GetFloatParam(
+			target,
+			GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		);
+#else
+		OGLPLUS_FAKE_USE(target);
+		return GLfloat(1);
+#endif
+	}
+
+	/// Gets the current anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	static GLfloat Anisotropy(Target target)
+	{
+#ifdef  GL_TEXTURE_MAX_ANISOTROPY_EXT
+		return GetFloatParam(
+			target,
+			GL_TEXTURE_MAX_ANISOTROPY_EXT
+		);
+#else
+		OGLPLUS_FAKE_USE(target);
+		return GLfloat(1);
+#endif
+	}
+
+	/// Sets the anisotropy level
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
+	 */
+	static void Anisotropy(Target target, GLfloat value)
+	{
+#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		OGLPLUS_GLFUNC(TexParameterf)(
+			GLenum(target),
+			GL_TEXTURE_MAX_ANISOTROPY_EXT,
+			value
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameterf,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+#else
+		OGLPLUS_FAKE_USE(target);
+		OGLPLUS_FAKE_USE(value);
+#endif
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_*)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 */
+	static TextureSwizzle Swizzle(Target target, TextureSwizzleCoord coord)
+	{
+		return TextureSwizzle(GetIntParam(
+			target,
+			GLenum(coord)
+		));
+	}
+
+	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_*)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 */
+	static void Swizzle(
+		Target target,
+		TextureSwizzleCoord coord,
+		TextureSwizzle mode
+	)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GLenum(coord),
+			GLenum(mode)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_R)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_R}
+	 */
+	static TextureSwizzle SwizzleR(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::R);
+	}
+
+	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_R)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_R}
+	 */
+	static void SwizzleR(Target target, TextureSwizzle mode)
+	{
+		Swizzle(target, TextureSwizzleCoord::R, mode);
+	}
+
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_G)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_G}
+	 */
+	static TextureSwizzle SwizzleG(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::G);
+	}
+
+	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_G)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_G}
+	 */
+	static void SwizzleG(Target target, TextureSwizzle mode)
+	{
+		Swizzle(target, TextureSwizzleCoord::G, mode);
+	}
+
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_B)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_B}
+	 */
+	static TextureSwizzle SwizzleB(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::B);
+	}
+
+	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_B)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_B}
+	 */
+	static void SwizzleB(Target target, TextureSwizzle mode)
+	{
+		Swizzle(target, TextureSwizzleCoord::B, mode);
+	}
+
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_A)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_A}
+	 */
+	static TextureSwizzle SwizzleA(Target target)
+	{
+		return Swizzle(target, TextureSwizzleCoord::A);
+	}
+
+	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_A)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_A}
+	 */
+	static void SwizzleA(Target target, TextureSwizzle mode)
+	{
+		Swizzle(target, TextureSwizzleCoord::A, mode);
+	}
+
+	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
+	 */
+	static TextureSwizzleTuple SwizzleRGBA(Target target)
+	{
+		TextureSwizzleTuple result;
+		OGLPLUS_GLFUNC(GetTexParameteriv)(
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			result._values
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			GetTexParameteriv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+		return result;
+	}
+
+	/// Sets the RGBA swizzle parameter (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
+	 */
+	static void SwizzleRGBA(Target target, TextureSwizzle mode)
+	{
+		GLint m = GLint(GLenum(mode));
+		GLint params[4] = {m, m, m, m};
+
+		OGLPLUS_GLFUNC(TexParameteriv)(
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			params
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteriv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Sets the RGBA swizzle parameters (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
+	 */
+	static void SwizzleRGBA(
+		Target target,
+		TextureSwizzle mode_r,
+		TextureSwizzle mode_g,
+		TextureSwizzle mode_b,
+		TextureSwizzle mode_a
+	)
+	{
+		GLint params[4] = {
+			GLint(GLenum(mode_r)),
+			GLint(GLenum(mode_g)),
+			GLint(GLenum(mode_b)),
+			GLint(GLenum(mode_a))
+		};
+
+		OGLPLUS_GLFUNC(TexParameteriv)(
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			params
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteriv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Sets the RGBA swizzle parameters (TEXTURE_SWIZZLE_RGBA)
+	/**
+	 *  @glvoereq{3,3,ARB,texture_swizzle}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
+	 */
+	static void SwizzleRGBA(Target target, const TextureSwizzleTuple& modes)
+	{
+		OGLPLUS_GLFUNC(TexParameteriv)(
+			GLenum(target),
+			GL_TEXTURE_SWIZZLE_RGBA,
+			modes._values
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteriv,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+#endif // texture swizzle
+
+	/// Gets the wrap parameter (TEXTURE_WRAP_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 */
+	static TextureWrap Wrap(Target target, TextureWrapCoord coord)
+	{
+		return TextureWrap(GetIntParam(
+			target,
+			GLenum(coord)
+		));
+	}
+
+	/// Sets the wrap parameter (TEXTURE_WRAP_*)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 */
+	static void Wrap(
+		Target target,
+		TextureWrapCoord coord,
+		TextureWrap mode
+	)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GLenum(coord),
+			GLenum(mode)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Gets the wrap parameter (TEXTURE_WRAP_S)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_WRAP_S}
+	 */
+	static TextureWrap WrapS(Target target)
+	{
+		return Wrap(target, TextureWrapCoord::S);
+	}
+
+	/// Sets the wrap parameter (TEXTURE_WRAP_S)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_WRAP_S}
+	 */
+	static void WrapS(Target target, TextureWrap mode)
+	{
+		Wrap(target, TextureWrapCoord::S, mode);
+	}
+
+	/// Gets the wrap parameter (TEXTURE_WRAP_T)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_WRAP_T}
+	 */
+	static TextureWrap WrapT(Target target)
+	{
+		return Wrap(target, TextureWrapCoord::T);
+	}
+
+	/// Sets the wrap parameter (TEXTURE_WRAP_T)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_WRAP_T}
+	 */
+	static void WrapT(Target target, TextureWrap mode)
+	{
+		Wrap(target, TextureWrapCoord::T, mode);
+	}
+
+	/// Gets the wrap parameter (TEXTURE_WRAP_R)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_WRAP_R}
+	 */
+	static TextureWrap WrapR(Target target)
+	{
+		return Wrap(target, TextureWrapCoord::R);
+	}
+
+	/// Sets the wrap parameter (TEXTURE_WRAP_R)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_WRAP_R}
+	 */
+	static void WrapR(Target target, TextureWrap mode)
+	{
+		Wrap(target, TextureWrapCoord::R, mode);
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
+	/// Gets the depth stencil mode parameter (DEPTH_STENCIL_TEXTURE_MODE)
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
+	 */
+	static PixelDataFormat DepthStencilMode(Target target)
+	{
+		return PixelDataFormat(GetIntParam(
+			target,
+			GL_DEPTH_STENCIL_TEXTURE_MODE
+		));
+	}
+
+	/// Sets the depth stencil mode (DEPTH_STENCIL_TEXTURE_MODE)
+	/**
+	 *  @glverreq{4,3}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
+	 */
+	static void DepthStencilMode(
+		Target target,
+		PixelDataFormat mode
+	)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_DEPTH_STENCIL_TEXTURE_MODE,
+			GLenum(mode)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
+	/// Gets the seamless cubemap setting value
+	/**
+	 *  @glextreq{ARB,seamless_cubemap_per_texture}
+	 *  @glsymbols
+	 *  @glfunref{GetTexParameter}
+	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
+	 */
+	static bool Seamless(Target target)
+	{
+		return GetIntParam(
+			target,
+			GL_TEXTURE_CUBE_MAP_SEAMLESS
+		) == GL_TRUE;
+	}
+
+	/// Sets the seamless cubemap setting
+	/**
+	 *  @glextreq{ARB,seamless_cubemap_per_texture}
+	 *  @glsymbols
+	 *  @glfunref{TexParameter}
+	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
+	 */
+	static void Seamless(Target target, bool enable)
+	{
+		OGLPLUS_GLFUNC(TexParameteri)(
+			GLenum(target),
+			GL_TEXTURE_CUBE_MAP_SEAMLESS,
+			enable?GL_TRUE:GL_FALSE
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			TexParameteri,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+#endif
+
+	/// Generate mipmap for the texture bound to the specified target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GenerateMipmap}
+	 */
+	static void GenerateMipmap(Target target)
+	{
+		OGLPLUS_GLFUNC(GenerateMipmap)(GLenum(target));
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			GenerateMipmap,
+			Texture,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	// Utility functions:
+
+	/// Returns the target for the i-th cube map @p face (0-5)
+	/** This functions returns one of the values for cube map faces
+	 *  from the Target enumeration. The value of @p face must
+	 *  be between 0 and 5 with the following meaning:
+	 *  0 = Target::CubeMapPositiveX,
+	 *  1 = Target::CubeMapNegativeX,
+	 *  2 = Target::CubeMapPositiveY,
+	 *  3 = Target::CubeMapNegativeY,
+	 *  4 = Target::CubeMapPositiveZ,
+	 *  5 = Target::CubeMapNegativeZ.
+	 */
+	static Target CubeMapFace(GLuint face)
+	{
+		assert(face <= 5);
+		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
+	}
+};
+
+/// Wrapper for default texture and texture unit-related operations
+class DefaultTexture
+ : public DefaultTextureOps
+{
+public:
+	/// Binds the default texture (zero) to the @p target on the Active unit
+	/**
+	 *  @throws Error
+	 *
+	 *  @see Active
+	 *  @see Bind
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindTexture}
+	 */
+	static void Bind(Target target)
+	{
+		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
+	}
+};
+
+/// Wrapper for texture and texture unit-related operations
+/** @note Do not use this class directly, use Texture instead.
+ *
+ *  @glsymbols
+ *  @glfunref{GenTextures}
+ *  @glfunref{DeleteTextures}
+ *  @glfunref{IsTexture}
+ */
+class TextureOps
+ : public Named
+ , public BaseObject<true>
+ , public DefaultTextureOps
+{
+protected:
+	static void _init(GLsizei count, GLuint* _name)
+	{
+		assert(_name != nullptr);
+		OGLPLUS_GLFUNC(GenTextures)(count, _name);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTextures));
+	}
+
+	static void _cleanup(GLsizei count, GLuint* _name)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_name != nullptr);
+		assert(*_name != 0);
+		try{OGLPLUS_GLFUNC(DeleteTextures)(count, _name);}
+		catch(...){ }
+	}
+
+	static GLboolean _is_x(GLuint _name)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		assert(_name != 0);
+		try{return OGLPLUS_GLFUNC(IsTexture)(_name);}
+		catch(...){ }
+		return GL_FALSE;
+	}
+
+#ifdef GL_TEXTURE
+	static ObjectType _object_type(void)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return ObjectType::Texture;
+	}
+#endif
+
+	static void _bind(GLuint _name, Target target)
+	{
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), _name);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindTexture,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+	}
+
+	friend class FriendOf<TextureOps>;
+
+	static GLenum _binding_query(Target target);
+	friend class BindingQuery<TextureOps>;
+public:
+	/// Bind the texture to the target on the Active unit
+	/**
+	 *  @throws Error
+	 *
+	 *  @see Active
+	 *  @see Unbind
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindTexture}
+	 */
+	void Bind(Target target) const
+	{
+		_bind(_name, target);
+	}
+
+	/// Unbinds the current texture from the target on the Active unit
+	/**
+	 *  @deprecated This function is deprecated and will be removed
+	 *  in the next release, Use DefaultTexture::Bind() instead.
+	 *
+	 *  @throws Error
+	 *
+	 *  @see Active
+	 *  @see Bind
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindTexture}
+	 */
+	static void Unbind(Target target)
+	{
+		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the specified textures to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	static void Bind(
+		GLuint first,
+		GLsizei count,
+		const GLuint* names
+	)
+	{
+		OGLPLUS_GLFUNC(BindTextures)(
+			first,
+			count,
+			names
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTextures));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_2 ||GL_ARB_shader_image_load_store
+	/// Binds a @p level of this texture to an image @p unit
+	/**
+	 *  @glvoereq{4,2,ARB,shader_image_load_store}
+	 *  @glsymbols
+	 *  @glfunref{BindImageTexture}
+	 */
+	void BindImage(
+		ImageUnitSelector unit,
+		GLint level,
+		bool layered,
+		GLint layer,
+		AccessSpecifier access,
+		ImageUnitFormat format
+	) const
+	{
+		OGLPLUS_GLFUNC(BindImageTexture)(
+			GLuint(unit),
+			_name,
+			level,
+			layered? GL_TRUE : GL_FALSE,
+			layer,
+			GLenum(access),
+			GLenum(format)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			BindImageTexture,
+			Texture,
+			nullptr,
+			_name
+		));
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	/// Bind the specified texture images to the specified texture units
+	/**
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	static void BindImage(
+		GLuint first,
+		GLsizei count,
+		const GLuint* names
+	)
+	{
+		OGLPLUS_GLFUNC(BindImageTextures)(
+			first,
+			count,
+			names
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindImageTextures));
 	}
 #endif
 
@@ -1891,1057 +2977,6 @@ public:
 		));
 	}
 #endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_2 ||GL_ARB_shader_image_load_store
-	/// Binds a @p level of this texture to an image @p unit
-	/**
-	 *  @glvoereq{4,2,ARB,shader_image_load_store}
-	 *  @glsymbols
-	 *  @glfunref{BindImageTexture}
-	 */
-	void BindImage(
-		ImageUnitSelector unit,
-		GLint level,
-		bool layered,
-		GLint layer,
-		AccessSpecifier access,
-		ImageUnitFormat format
-	) const
-	{
-		OGLPLUS_GLFUNC(BindImageTexture)(
-			GLuint(unit),
-			_name,
-			level,
-			layered? GL_TRUE : GL_FALSE,
-			layer,
-			GLenum(access),
-			GLenum(format)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BindImageTexture,
-			Texture,
-			nullptr,
-			_name
-		));
-	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	/// Bind the specified texture images to the specified texture units
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
-	static void BindImage(
-		GLuint first,
-		GLsizei count,
-		const GLuint* names
-	)
-	{
-		OGLPLUS_GLFUNC(BindImageTextures)(
-			first,
-			count,
-			names
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindImageTextures));
-	}
-#endif
-
-	/// Returns the texture base level (TEXTURE_BASE_LEVEL)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_BASE_LEVEL}
-	 */
-	static GLuint BaseLevel(Target target)
-	{
-		return GetIntParam(target, GL_TEXTURE_BASE_LEVEL);
-	}
-
-	/// Sets the texture base level (TEXTURE_BASE_LEVEL)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_BASE_LEVEL}
-	 */
-	static void BaseLevel(Target target, GLuint level)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_BASE_LEVEL,
-			level
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_BORDER_COLOR}
-	 */
-	static Vector<GLfloat, 4> BorderColor(Target target, TypeTag<GLfloat>)
-	{
-		GLfloat result[4];
-		OGLPLUS_GLFUNC(GetTexParameterfv)(
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetTexParameterfv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-		return Vector<GLfloat, 4>(result, 4);
-	}
-
-	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_BORDER_COLOR}
-	 */
-	static void BorderColor(Target target, Vector<GLfloat, 4> color)
-	{
-		OGLPLUS_GLFUNC(TexParameterfv)(
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameterfv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_BORDER_COLOR}
-	 */
-	static Vector<GLint, 4> BorderColor(Target target, TypeTag<GLint>)
-	{
-		GLint result[4];
-		OGLPLUS_GLFUNC(GetTexParameterIiv)(
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetTexParameterIiv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-		return Vector<GLint, 4>(result, 4);
-	}
-
-	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_BORDER_COLOR}
-	 */
-	static void BorderColor(Target target, Vector<GLint, 4> color)
-	{
-		OGLPLUS_GLFUNC(TexParameterIiv)(
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameterIiv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_BORDER_COLOR}
-	 */
-	static Vector<GLuint, 4> BorderColor(Target target, TypeTag<GLuint>)
-	{
-		GLuint result[4];
-		OGLPLUS_GLFUNC(GetTexParameterIuiv)(
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			result
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetTexParameterIuiv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-		return Vector<GLuint, 4>(result, 4);
-	}
-
-	/// Sets the texture border color (TEXTURE_BORDER_COLOR)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_BORDER_COLOR}
-	 */
-	static void BorderColor(Target target, Vector<GLuint, 4> color)
-	{
-		OGLPLUS_GLFUNC(TexParameterIuiv)(
-			GLenum(target),
-			GL_TEXTURE_BORDER_COLOR,
-			Data(color)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameterIuiv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-#endif // GL_VERSION_3_0
-
-	/// Gets the compare mode (TEXTURE_COMPARE_MODE)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_COMPARE_MODE}
-	 */
-	static TextureCompareMode CompareMode(Target target)
-	{
-		return TextureCompareMode(GetIntParam(
-			target,
-			GL_TEXTURE_COMPARE_MODE
-		));
-	}
-
-	/// Sets the compare mode (TEXTURE_COMPARE_MODE)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_COMPARE_MODE}
-	 */
-	static void CompareMode(Target target, TextureCompareMode mode)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_COMPARE_MODE,
-			GLenum(mode)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_COMPARE_FUNC}
-	 */
-	static CompareFunction CompareFunc(Target target)
-	{
-		return CompareFunction(GetIntParam(
-			target,
-			GL_TEXTURE_COMPARE_FUNC
-		));
-	}
-
-	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_COMPARE_FUNC}
-	 */
-	static void CompareFunc(Target target, CompareFunction func)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_COMPARE_FUNC,
-			GLenum(func)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-	/// Gets the LOD bias value (TEXTURE_LOD_BIAS)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_LOD_BIAS}
-	 */
-	static GLfloat LODBias(Target target)
-	{
-		return GetFloatParam(target, GL_TEXTURE_LOD_BIAS);
-	}
-
-	/// Sets the LOD bias value (TEXTURE_LOD_BIAS)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_LOD_BIAS}
-	 */
-	static void LODBias(Target target, GLfloat value)
-	{
-		OGLPLUS_GLFUNC(TexParameterf)(
-			GLenum(target),
-			GL_TEXTURE_LOD_BIAS,
-			value
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameterf,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-#endif // GL_VERSION_3_0
-
-	/// Sets both the minification and magnification filter
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_MIN_FILTER}
-	 *  @gldefref{TEXTURE_MAG_FILTER}
-	 */
-	static void Filter(Target target, TextureFilter filter)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_MIN_FILTER,
-			GLenum(filter)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_MAG_FILTER,
-			GLenum(filter)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_MAG_FILTER}
-	 */
-	static TextureMagFilter MagFilter(Target target)
-	{
-		return TextureMagFilter(GetIntParam(
-			target,
-			GL_TEXTURE_MAG_FILTER
-		));
-	}
-
-	/// Sets the magnification filter (TEXTURE_MAG_FILTER)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_MAG_FILTER}
-	 */
-	static void MagFilter(Target target, TextureMagFilter filter)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_MAG_FILTER,
-			GLenum(filter)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets the minification filter (TEXTURE_MIN_FILTER)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_MIN_FILTER}
-	 */
-	static TextureMinFilter MinFilter(Target target)
-	{
-		return TextureMinFilter(GetIntParam(
-			target,
-			GL_TEXTURE_MIN_FILTER
-		));
-	}
-
-	/// Sets the minification filter (TEXTURE_MIN_FILTER)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_MIN_FILTER}
-	 */
-	static void MinFilter(Target target, TextureMinFilter filter)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_MIN_FILTER,
-			GLenum(filter)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets minimal LOD value (TEXTURE_MIN_LOD)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_MIN_LOD}
-	 */
-	static GLfloat MinLOD(Target target)
-	{
-		return GetFloatParam(target, GL_TEXTURE_MIN_LOD);
-	}
-
-	/// Sets minimal LOD value (TEXTURE_MIN_LOD)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_MIN_LOD}
-	 */
-	static void MinLOD(Target target, GLfloat value)
-	{
-		OGLPLUS_GLFUNC(TexParameterf)(
-			GLenum(target),
-			GL_TEXTURE_MIN_LOD,
-			value
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameterf,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets maximum LOD value (TEXTURE_MAX_LOD)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_MAX_LOD}
-	 */
-	static GLfloat MaxLOD(Target target)
-	{
-		return GetFloatParam(target, GL_TEXTURE_MAX_LOD);
-	}
-
-	/// Sets maximum LOD value (TEXTURE_MAX_LOD)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_MAX_LOD}
-	 */
-	static void MaxLOD(Target target, GLfloat value)
-	{
-		OGLPLUS_GLFUNC(TexParameterf)(
-			GLenum(target),
-			GL_TEXTURE_MAX_LOD,
-			value
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameterf,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets maximum level value (TEXTURE_MAX_LEVEL)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_MAX_LEVEL}
-	 */
-	static GLint MaxLevel(Target target)
-	{
-		return GetIntParam(target, GL_TEXTURE_MAX_LEVEL);
-	}
-
-	/// Sets maximum level value (TEXTURE_MAX_LEVEL)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_MAX_LEVEL}
-	 */
-	static void MaxLevel(Target target, GLint value)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_MAX_LEVEL,
-			value
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets the maximum anisotropy level
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{MAX_TEXTURE_MAX_ANISOTROPY_EXT}
-	 */
-	static GLfloat MaxAnisotropy(Target target)
-	{
-#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
-		return GetFloatParam(
-			target,
-			GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
-		);
-#else
-		OGLPLUS_FAKE_USE(target);
-		return GLfloat(1);
-#endif
-	}
-
-	/// Gets the current anisotropy level
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
-	 */
-	static GLfloat Anisotropy(Target target)
-	{
-#ifdef  GL_TEXTURE_MAX_ANISOTROPY_EXT
-		return GetFloatParam(
-			target,
-			GL_TEXTURE_MAX_ANISOTROPY_EXT
-		);
-#else
-		OGLPLUS_FAKE_USE(target);
-		return GLfloat(1);
-#endif
-	}
-
-	/// Sets the anisotropy level
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
-	 */
-	static void Anisotropy(Target target, GLfloat value)
-	{
-#ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
-		OGLPLUS_GLFUNC(TexParameterf)(
-			GLenum(target),
-			GL_TEXTURE_MAX_ANISOTROPY_EXT,
-			value
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameterf,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-#else
-		OGLPLUS_FAKE_USE(target);
-		OGLPLUS_FAKE_USE(value);
-#endif
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
-	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_*)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 */
-	static TextureSwizzle Swizzle(Target target, TextureSwizzleCoord coord)
-	{
-		return TextureSwizzle(GetIntParam(
-			target,
-			GLenum(coord)
-		));
-	}
-
-	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_*)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 */
-	static void Swizzle(
-		Target target,
-		TextureSwizzleCoord coord,
-		TextureSwizzle mode
-	)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GLenum(coord),
-			GLenum(mode)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_R)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_R}
-	 */
-	static TextureSwizzle SwizzleR(Target target)
-	{
-		return Swizzle(target, TextureSwizzleCoord::R);
-	}
-
-	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_R)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_R}
-	 */
-	static void SwizzleR(Target target, TextureSwizzle mode)
-	{
-		Swizzle(target, TextureSwizzleCoord::R, mode);
-	}
-
-	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_G)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_G}
-	 */
-	static TextureSwizzle SwizzleG(Target target)
-	{
-		return Swizzle(target, TextureSwizzleCoord::G);
-	}
-
-	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_G)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_G}
-	 */
-	static void SwizzleG(Target target, TextureSwizzle mode)
-	{
-		Swizzle(target, TextureSwizzleCoord::G, mode);
-	}
-
-	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_B)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_B}
-	 */
-	static TextureSwizzle SwizzleB(Target target)
-	{
-		return Swizzle(target, TextureSwizzleCoord::B);
-	}
-
-	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_B)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_B}
-	 */
-	static void SwizzleB(Target target, TextureSwizzle mode)
-	{
-		Swizzle(target, TextureSwizzleCoord::B, mode);
-	}
-
-	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_A)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_A}
-	 */
-	static TextureSwizzle SwizzleA(Target target)
-	{
-		return Swizzle(target, TextureSwizzleCoord::A);
-	}
-
-	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_A)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_A}
-	 */
-	static void SwizzleA(Target target, TextureSwizzle mode)
-	{
-		Swizzle(target, TextureSwizzleCoord::A, mode);
-	}
-
-	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
-	 */
-	static TextureSwizzleTuple SwizzleRGBA(Target target)
-	{
-		TextureSwizzleTuple result;
-		OGLPLUS_GLFUNC(GetTexParameteriv)(
-			GLenum(target),
-			GL_TEXTURE_SWIZZLE_RGBA,
-			result._values
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GetTexParameteriv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-		return result;
-	}
-
-	/// Sets the RGBA swizzle parameter (TEXTURE_SWIZZLE_RGBA)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
-	 */
-	static void SwizzleRGBA(Target target, TextureSwizzle mode)
-	{
-		GLint m = GLint(GLenum(mode));
-		GLint params[4] = {m, m, m, m};
-
-		OGLPLUS_GLFUNC(TexParameteriv)(
-			GLenum(target),
-			GL_TEXTURE_SWIZZLE_RGBA,
-			params
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteriv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Sets the RGBA swizzle parameters (TEXTURE_SWIZZLE_RGBA)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
-	 */
-	static void SwizzleRGBA(
-		Target target,
-		TextureSwizzle mode_r,
-		TextureSwizzle mode_g,
-		TextureSwizzle mode_b,
-		TextureSwizzle mode_a
-	)
-	{
-		GLint params[4] = {
-			GLint(GLenum(mode_r)),
-			GLint(GLenum(mode_g)),
-			GLint(GLenum(mode_b)),
-			GLint(GLenum(mode_a))
-		};
-
-		OGLPLUS_GLFUNC(TexParameteriv)(
-			GLenum(target),
-			GL_TEXTURE_SWIZZLE_RGBA,
-			params
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteriv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Sets the RGBA swizzle parameters (TEXTURE_SWIZZLE_RGBA)
-	/**
-	 *  @glvoereq{3,3,ARB,texture_swizzle}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
-	 */
-	static void SwizzleRGBA(Target target, const TextureSwizzleTuple& modes)
-	{
-		OGLPLUS_GLFUNC(TexParameteriv)(
-			GLenum(target),
-			GL_TEXTURE_SWIZZLE_RGBA,
-			modes._values
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteriv,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-#endif // texture swizzle
-
-	/// Gets the wrap parameter (TEXTURE_WRAP_*)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 */
-	static TextureWrap Wrap(Target target, TextureWrapCoord coord)
-	{
-		return TextureWrap(GetIntParam(
-			target,
-			GLenum(coord)
-		));
-	}
-
-	/// Sets the wrap parameter (TEXTURE_WRAP_*)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 */
-	static void Wrap(
-		Target target,
-		TextureWrapCoord coord,
-		TextureWrap mode
-	)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GLenum(coord),
-			GLenum(mode)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	/// Gets the wrap parameter (TEXTURE_WRAP_S)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_WRAP_S}
-	 */
-	static TextureWrap WrapS(Target target)
-	{
-		return Wrap(target, TextureWrapCoord::S);
-	}
-
-	/// Sets the wrap parameter (TEXTURE_WRAP_S)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_WRAP_S}
-	 */
-	static void WrapS(Target target, TextureWrap mode)
-	{
-		Wrap(target, TextureWrapCoord::S, mode);
-	}
-
-	/// Gets the wrap parameter (TEXTURE_WRAP_T)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_WRAP_T}
-	 */
-	static TextureWrap WrapT(Target target)
-	{
-		return Wrap(target, TextureWrapCoord::T);
-	}
-
-	/// Sets the wrap parameter (TEXTURE_WRAP_T)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_WRAP_T}
-	 */
-	static void WrapT(Target target, TextureWrap mode)
-	{
-		Wrap(target, TextureWrapCoord::T, mode);
-	}
-
-	/// Gets the wrap parameter (TEXTURE_WRAP_R)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_WRAP_R}
-	 */
-	static TextureWrap WrapR(Target target)
-	{
-		return Wrap(target, TextureWrapCoord::R);
-	}
-
-	/// Sets the wrap parameter (TEXTURE_WRAP_R)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_WRAP_R}
-	 */
-	static void WrapR(Target target, TextureWrap mode)
-	{
-		Wrap(target, TextureWrapCoord::R, mode);
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
-	/// Gets the depth stencil mode parameter (DEPTH_STENCIL_TEXTURE_MODE)
-	/**
-	 *  @glverreq{4,3}
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
-	 */
-	static PixelDataFormat DepthStencilMode(Target target)
-	{
-		return PixelDataFormat(GetIntParam(
-			target,
-			GL_DEPTH_STENCIL_TEXTURE_MODE
-		));
-	}
-
-	/// Sets the depth stencil mode (DEPTH_STENCIL_TEXTURE_MODE)
-	/**
-	 *  @glverreq{4,3}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
-	 */
-	static void DepthStencilMode(
-		Target target,
-		PixelDataFormat mode
-	)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_DEPTH_STENCIL_TEXTURE_MODE,
-			GLenum(mode)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_seamless_cubemap_per_texture
-	/// Gets the seamless cubemap setting value
-	/**
-	 *  @glextreq{ARB,seamless_cubemap_per_texture}
-	 *  @glsymbols
-	 *  @glfunref{GetTexParameter}
-	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
-	 */
-	static bool Seamless(Target target)
-	{
-		return GetIntParam(
-			target,
-			GL_TEXTURE_CUBE_MAP_SEAMLESS
-		) == GL_TRUE;
-	}
-
-	/// Sets the seamless cubemap setting
-	/**
-	 *  @glextreq{ARB,seamless_cubemap_per_texture}
-	 *  @glsymbols
-	 *  @glfunref{TexParameter}
-	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
-	 */
-	static void Seamless(Target target, bool enable)
-	{
-		OGLPLUS_GLFUNC(TexParameteri)(
-			GLenum(target),
-			GL_TEXTURE_CUBE_MAP_SEAMLESS,
-			enable?GL_TRUE:GL_FALSE
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-#endif
-
-	/// Generate mipmap for the texture bound to the specified target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GenerateMipmap}
-	 */
-	static void GenerateMipmap(Target target)
-	{
-		OGLPLUS_GLFUNC(GenerateMipmap)(GLenum(target));
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			GenerateMipmap,
-			Texture,
-			EnumValueName(target),
-			BindingQuery<TextureOps>::QueryBinding(target)
-		));
-	}
-
-	// Utility functions:
-
-	/// Returns the target for the i-th cube map @p face (0-5)
-	/** This functions returns one of the values for cube map faces
-	 *  from the Target enumeration. The value of @p face must
-	 *  be between 0 and 5 with the following meaning:
-	 *  0 = Target::CubeMapPositiveX,
-	 *  1 = Target::CubeMapNegativeX,
-	 *  2 = Target::CubeMapPositiveY,
-	 *  3 = Target::CubeMapNegativeY,
-	 *  4 = Target::CubeMapPositiveZ,
-	 *  5 = Target::CubeMapNegativeZ.
-	 */
-	static Target CubeMapFace(GLuint face)
-	{
-		assert(face <= 5);
-		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
-	}
 };
 
 /// Selector type used with the syntax sugar operators

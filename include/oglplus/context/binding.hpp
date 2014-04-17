@@ -39,6 +39,23 @@ public:
 		object.Bind(target);
 	}
 
+	/// Binds the specified object to the specified indexed target
+	/**
+	 *  Equivalent to:
+	 *  @code
+	 *  object.Bind(target, index);
+	 *  @endcode
+	 */
+	template <typename Object>
+	static void Bind(
+		typename Object::IndexedTarget target,
+		GLuint index,
+		const Object& object
+	)
+	{
+		object.Bind(target, index);
+	}
+
 	/// Binds the specified object to the appropriate binding point
 	/**
 	 *  Equivalent to:
@@ -81,15 +98,12 @@ public:
 
 	/// Binds the object to the specified target, returns a managed reference
 	template <typename Object>
-	static oglplus::Bound<typename ObjectBaseOps<Object>::Type>
-	Bound(typename Object::Target target, const Object& object)
+	static oglplus::Bound<
+		typename ObjectTargetOps<typename Object::Target>::Type
+	> Bound(typename Object::Target target, const Object& object)
 	{
-		typedef typename ObjectBaseOps<Object>::Type ObjectOps;
 		object.Bind(target);
-		return oglplus::Bound<ObjectOps>(
-			Managed<ObjectOps>(object),
-			target
-		);
+		return Current(target);
 	}
 
 	/// Returns a managed reference to object currently bound to indexed target

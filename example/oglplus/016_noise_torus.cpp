@@ -54,7 +54,7 @@ private:
 	Buffer verts, normals, texcoords;
 
 	// texture for the torus
-	Texture tex;
+	DefaultTexture tex;
 public:
 	TorusExample(void)
 	 : make_torus(1.0, 0.5, 72, 48)

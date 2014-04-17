@@ -283,7 +283,7 @@ public:
 			cube_attr.Enable();
 		}
 
-		VertexArray::Unbind();
+		gl.Bind(NoVertexArray());
 
 		// set the fragment shader source
 		draw_fs.Source(List
@@ -369,8 +369,8 @@ public:
 		shadow_pp.UseStages(vert_prog).Vertex();
 		shadow_pp.UseStages(shadow_prog).Fragment();
 
-		ProgramPipeline::Unbind();
-		Program::UseNone();
+		gl.Bind(NoProgramPipeline());
+		gl.Use(NoProgram());
 
 
 		std::vector<GLint> tex_units(light_paths.size());

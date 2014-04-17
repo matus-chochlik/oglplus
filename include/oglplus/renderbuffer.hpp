@@ -384,6 +384,25 @@ inline RenderbufferTarget operator << (
 	return target;
 }
 
+/// Class that can be used to unbind the currently bound renderbuffer
+class NoRenderbuffer
+{
+public:
+	/// Renderbuffer bind targets
+	typedef RenderbufferTarget Target;
+
+	/// Bind the name zero to the @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindRenderbuffer}
+	 */
+	static void Bind(Target target = Target::Renderbuffer)
+	{
+		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
+	}
+};
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
 /**

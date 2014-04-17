@@ -69,6 +69,7 @@ class TextureSwizzleTuple
 private:
 	GLint _values[4];
 
+	friend class DefaultTextureOps;
 	friend class TextureOps;
 	friend class DSATextureEXTOps;
 public:

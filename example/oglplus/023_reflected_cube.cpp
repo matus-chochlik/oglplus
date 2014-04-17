@@ -110,13 +110,13 @@ public:
 		prog.AttachShader(fs);
 		// link it
 		prog.Link();
-		prog.Use();
+		gl.Use(prog);
 
 		// bind the VAO for the cube
-		cube.Bind();
+		gl.Bind(cube);
 
 		// bind the VBO for the cube vertices
-		cube_verts.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, cube_verts);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
@@ -129,7 +129,7 @@ public:
 		}
 
 		// bind the VBO for the cube normals
-		cube_normals.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, cube_normals);
 		{
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
@@ -142,10 +142,10 @@ public:
 		}
 
 		// bind the VAO for the plane
-		plane.Bind();
+		gl.Bind(plane);
 
 		// bind the VBO for the plane vertices
-		plane_verts.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, plane_verts);
 		{
 			GLfloat data[4*3] = {
 				-2.0f, 0.0f,  2.0f,
@@ -163,7 +163,7 @@ public:
 		}
 
 		// bind the VBO for the cube normals
-		plane_normals.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, plane_normals);
 		{
 			GLfloat data[4*3] = {
 				-0.1f, 1.0f,  0.1f,
@@ -179,7 +179,7 @@ public:
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
-		VertexArray::Unbind();
+		gl.Bind(NoVertexArray());
 
 		Uniform<Vec3f>(prog, "LightPos").Set(1.5, 2.0, 2.5);
 		//
@@ -231,7 +231,7 @@ public:
 		gl.StencilFunc(CompareFunction::Always, 1, 1);
 		gl.StencilOp(StencilOp::Keep, StencilOp::Keep, StencilOp::Replace);
 
-		plane.Bind();
+		gl.Bind(plane);
 		model_matrix.Set(identity);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 
@@ -242,7 +242,7 @@ public:
 
 		// draw the cube using the reflection program
 		model_matrix.Set(reflection * model);
-		cube.Bind();
+		gl.Bind(cube);
 		cube_instr.Draw(cube_indices);
 
 		gl.Disable(Capability::StencilTest);
@@ -254,7 +254,7 @@ public:
 		// blend-in the plane
 		gl.Enable(Capability::Blend);
 		gl.BlendEquation(BlendEquation::Max);
-		plane.Bind();
+		gl.Bind(plane);
 		model_matrix.Set(identity);
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

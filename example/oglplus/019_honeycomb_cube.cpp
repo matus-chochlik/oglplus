@@ -55,7 +55,7 @@ private:
 	Buffer verts, normals, texcoords;
 
 	// The stained glass texture
-	Texture tex;
+	DefaultTexture tex;
 public:
 	CubeExample(void)
 	 : cube_instr(make_cube.Instructions())
@@ -170,16 +170,14 @@ public:
 		}
 
 		// setup the texture
-		{
-			gl.Bound(Texture::Target::_2D, tex)
-				.Image2D(images::LoadTexture("honeycomb"))
-				.GenerateMipmap()
-				.MinFilter(TextureMinFilter::LinearMipmapLinear)
-				.MagFilter(TextureMagFilter::Linear)
-				.WrapS(TextureWrap::MirroredRepeat)
-				.WrapT(TextureWrap::MirroredRepeat)
-				.Anisotropy(2);
-		}
+		gl.Bound(Texture::Target::_2D, tex)
+			.Image2D(images::LoadTexture("honeycomb"))
+			.GenerateMipmap()
+			.MinFilter(TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::MirroredRepeat)
+			.WrapT(TextureWrap::MirroredRepeat)
+			.Anisotropy(2);
 		//
 		UniformSampler(prog, "TexUnit").Set(0);
 		Uniform<Vec3f>(prog, "LightPos").Set(Vec3f(1.0f, 2.0f, 3.0f));

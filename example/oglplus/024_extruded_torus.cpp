@@ -275,8 +275,8 @@ public:
 		frame_pp.UseStages(transf_prog).Vertex().Geometry();
 		frame_pp.UseStages(frame_prog).Fragment();
 
-		ProgramPipeline::Unbind();
-		Program::UseNone();
+		gl.Bind(NoProgramPipeline());
+		gl.Use(NoProgram());
 
 		gl.ClearColor(0.7f, 0.6f, 0.5f, 0.0f);
 		gl.ClearDepth(1.0f);

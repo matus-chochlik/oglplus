@@ -179,6 +179,15 @@ public:
 	/**
 	 *  @throws Error
 	 */
+	void Bind(IndexedTarget target, GLuint index) const
+	{
+		BindBase(target, index);
+	}
+
+	/// Bind this buffer to the specified indexed target
+	/**
+	 *  @throws Error
+	 */
 	void BindBase(IndexedTarget target, GLuint index) const
 	{
 		assert(_name != 0);
@@ -933,6 +942,68 @@ inline BufferTarget operator << (
 	BufferOps::SubData(tao.target, tao.offset, data);
 	return tao.target;
 }
+
+/// Class that can be used for unbinding of currently bound buffers
+class NoBuffer
+{
+public:
+	/// Buffer bind targets
+	typedef BufferTarget Target;
+
+	/// Buffer indexed bind targets
+	typedef BufferIndexedTarget IndexedTarget;
+
+	/// Unbinds the current buffer from the specified target
+	/** This function binds the name 0 to the specified @p target.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindBuffer}
+	 *
+	 *  @throws Error
+	 */
+	static void Bind(Target target)
+	{
+		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffer,
+			Buffer,
+			EnumValueName(target),
+			0
+		));
+	}
+
+	/// Unbinds the current buffer from the specified indexed target
+	/**
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindBufferBase}
+	 *
+	 *  @throws Error
+	 */
+	static void Bind(IndexedTarget target, GLuint index)
+	{
+		BindBase(target, index);
+	}
+
+	/// Unbinds the current buffer from the specified indexed target
+	/**
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindBufferBase}
+	 *
+	 *  @throws Error
+	 */
+	static void BindBase(IndexedTarget target, GLuint index)
+	{
+		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, 0);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBufferBase,
+			Buffer,
+			EnumValueName(target),
+			0
+		));
+	}
+};
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality
