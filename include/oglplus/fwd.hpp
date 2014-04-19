@@ -159,6 +159,9 @@ class Object;
 template <typename ObjectOps>
 class Managed;
 
+template <class Object>
+class FriendOf;
+
 template <template <class, class> class Base, class BaseParam, class Bindable>
 class BoundTemplate;
 

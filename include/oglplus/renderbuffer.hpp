@@ -107,6 +107,7 @@ protected:
 
 	friend class FriendOf<RenderbufferOps>;
 
+	static GLuint _binding(Target);
 	static GLenum _binding_query(Target target);
 	friend class BindingQuery<RenderbufferOps>;
 
@@ -122,7 +123,7 @@ protected:
 			GetRenderbufferParameteriv,
 			Renderbuffer,
 			EnumValueName(target),
-			BindingQuery<RenderbufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 		return result;
 	}
@@ -171,7 +172,7 @@ public:
 			RenderbufferStorage,
 			Renderbuffer,
 			EnumValueName(target),
-			BindingQuery<RenderbufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -206,7 +207,7 @@ public:
 			RenderbufferStorageMultisample,
 			Renderbuffer,
 			EnumValueName(target),
-			BindingQuery<RenderbufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 

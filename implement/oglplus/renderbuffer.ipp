@@ -14,6 +14,12 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
+GLuint RenderbufferOps::_binding(Target target)
+{
+	return BindingQuery<RenderbufferOps>::QueryBinding(target);
+}
+
+OGLPLUS_LIB_FUNC
 GLenum RenderbufferOps::_binding_query(Target target)
 {
 	switch(GLenum(target))

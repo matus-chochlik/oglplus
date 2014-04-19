@@ -105,6 +105,7 @@ protected:
 
 	friend class FriendOf<BufferOps>;
 
+	static GLuint _binding(Target);
 	static GLenum _binding_query(Target target);
 	static GLenum _binding_query(IndexedTarget target);
 	friend class BindingQuery<BufferOps>;
@@ -171,7 +172,7 @@ public:
 			BindBuffer,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -372,7 +373,7 @@ public:
 			BufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -393,7 +394,7 @@ public:
 			BufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -423,7 +424,7 @@ public:
 			BufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -451,7 +452,7 @@ public:
 			BufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -479,7 +480,7 @@ public:
 			BufferSubData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -500,7 +501,7 @@ public:
 			BufferSubData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -527,7 +528,7 @@ public:
 			BufferSubData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -590,7 +591,7 @@ public:
 			ClearBufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -628,7 +629,7 @@ public:
 			ClearBufferSubData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif
@@ -711,7 +712,7 @@ public:
 			BufferStorage,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
