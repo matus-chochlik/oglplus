@@ -733,6 +733,70 @@ public:
 			GLbitfield(GetIntParam(GL_BUFFER_ACCESS))
 		);
 	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_shader_buffer_load
+	/// Makes this buffer accessible to GLSL shaders
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{MakeNamedBufferResidentNV}
+	 *
+	 *  @throws Error
+	 */
+	void MakeResident(AccessSpecifier access) const
+	{
+		OGLPLUS_GLFUNC(MakeNamedBufferResidentNV)(
+			_name,
+			GLenum(access)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			MakeNamedBufferResidentNV,
+			Buffer,
+			EnumValueName(target),
+			_name
+		));
+	}
+
+	/// Makes this buffer inaccessible to GLSL shaders
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{MakeNamedBufferNonResidentNV}
+	 *
+	 *  @throws Error
+	 */
+	void MakeNonResident(void) const
+	{
+		OGLPLUS_GLFUNC(MakeNamedBufferNonResidentNV)(_name);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			MakeNamedBufferNonResidentNV,
+			Buffer,
+			EnumValueName(target),
+			_name
+		));
+	}
+
+	/// Returns the GPU address of this buffer
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{GetNamedBufferParameterui64vNV}
+	 *  @gldefref{BUFFER_GPU_ADDRESS_NV}
+	 *
+	 *  @throws Error
+	 */
+	BufferGPUAddress GPUAddress(void) const
+	{
+		GLuint64EXT value = 0;
+		OGLPLUS_GLFUNC(GetNamedBufferParameterui64vNV)(
+			_name,
+			GL_BUFFER_GPU_ADDRESS_NV,
+			&value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetNamedBufferParameterui64vNV));
+		return BufferGPUAddress(value);
+	}
+#endif
 };
 
 // Helper class for syntax sugar operators

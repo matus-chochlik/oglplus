@@ -26,6 +26,8 @@
 #include <oglplus/buffer_storage_bit.hpp>
 #include <oglplus/buffer_target.hpp>
 #include <oglplus/buffer_map.hpp>
+#include <oglplus/buffer_gpu_addr.hpp>
+#include <oglplus/access_specifier.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
@@ -794,6 +796,70 @@ public:
 		return Bitfield<BufferMapAccess>(
 			GLbitfield(GetIntParam(target, GL_BUFFER_ACCESS))
 		);
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_shader_buffer_load
+	/// Makes buffer currently bound to target accessible to GLSL shaders
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{MakeBufferResidentNV}
+	 *
+	 *  @throws Error
+	 */
+	static void MakeResident(Target target, AccessSpecifier access)
+	{
+		OGLPLUS_GLFUNC(MakeBufferResidentNV)(
+			GLenum(target),
+			GLenum(access)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			MakeBufferResidentNV,
+			Buffer,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Makes buffer currently bound to target inaccessible to GLSL shaders
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{MakeBufferNonResidentNV}
+	 *
+	 *  @throws Error
+	 */
+	static void MakeNonResident(Target target)
+	{
+		OGLPLUS_GLFUNC(MakeBufferNonResidentNV)(GLenum(target));
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			MakeBufferNonResidentNV,
+			Buffer,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Returns the GPU address of the buffer currently bound to target
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{GetBufferParameterui64vNV}
+	 *  @gldefref{BUFFER_GPU_ADDRESS_NV}
+	 *
+	 *  @throws Error
+	 */
+	static BufferGPUAddress GPUAddress(Target target)
+	{
+		GLuint64EXT value = 0;
+		OGLPLUS_GLFUNC(GetBufferParameterui64vNV)(
+			GLenum(target),
+			GL_BUFFER_GPU_ADDRESS_NV,
+			&value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetBufferParameterui64vNV));
+		return BufferGPUAddress(value);
 	}
 #endif
 };

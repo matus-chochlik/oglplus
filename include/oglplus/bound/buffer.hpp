@@ -326,6 +326,50 @@ public:
 		);
 	}
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_shader_buffer_load
+
+	/** Wrapper for Buffer::MakeResident()
+	 *  @see Buffer::MakeResident()
+	 */
+	const BoundTemplate& MakeResident(
+		AccessSpecifier access
+	) const
+	{
+		BufferOps::MakeResident(
+			this->BindTarget(),
+			access
+		);
+		return *this;
+	}
+#endif // GL_NV_shader_buffer_load
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_shader_buffer_load
+
+	/** Wrapper for Buffer::MakeNonResident()
+	 *  @see Buffer::MakeNonResident()
+	 */
+	const BoundTemplate& MakeNonResident(void) const
+	{
+		BufferOps::MakeNonResident(
+			this->BindTarget()
+		);
+		return *this;
+	}
+#endif // GL_NV_shader_buffer_load
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_shader_buffer_load
+
+	/** Wrapper for Buffer::GPUAddress()
+	 *  @see Buffer::GPUAddress()
+	 */
+	BufferGPUAddress GPUAddress(void) const
+	{
+		return BufferOps::GPUAddress(
+			this->BindTarget()
+		);
+	}
+#endif // GL_NV_shader_buffer_load
+
 
 }; // class BoundTemplate
 
