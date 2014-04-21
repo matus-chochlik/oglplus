@@ -2585,6 +2585,20 @@ public:
 	}
 #endif
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_texture_barrier
+	/// Ensures that texture writes have been completed
+	/**
+	 *  @glextreq{NV,texture_barrier}
+	 *  @glsymbols
+	 *  @glfunref{TextureBarrierNV}
+	 */
+	static void Barrier(void)
+	{
+		OGLPLUS_GLFUNC(TextureBarrierNV)();
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(TextureBarrierNV));
+	}
+#endif
+
 	/// Generate mipmap for the texture bound to the specified target
 	/**
 	 *  @glsymbols
