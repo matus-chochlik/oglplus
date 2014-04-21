@@ -1304,10 +1304,10 @@ template <typename Enum, Enum = Enum::Framebuffer> operator Enum (void) const{ r
 template <typename Enum> friend bool operator==(Enum value, Framebuffer){ return value == Enum::Framebuffer; }
 template <typename Enum> friend bool operator!=(Enum value, Framebuffer){ return value != Enum::Framebuffer; }
 };
-struct FramebufferSrgb {
-template <typename Enum, Enum = Enum::FramebufferSrgb> operator Enum (void) const{ return Enum::FramebufferSrgb; }
-template <typename Enum> friend bool operator==(Enum value, FramebufferSrgb){ return value == Enum::FramebufferSrgb; }
-template <typename Enum> friend bool operator!=(Enum value, FramebufferSrgb){ return value != Enum::FramebufferSrgb; }
+struct FramebufferSRGB {
+template <typename Enum, Enum = Enum::FramebufferSRGB> operator Enum (void) const{ return Enum::FramebufferSRGB; }
+template <typename Enum> friend bool operator==(Enum value, FramebufferSRGB){ return value == Enum::FramebufferSRGB; }
+template <typename Enum> friend bool operator!=(Enum value, FramebufferSRGB){ return value != Enum::FramebufferSRGB; }
 };
 struct Front {
 template <typename Enum, Enum = Enum::Front> operator Enum (void) const{ return Enum::Front; }
@@ -3748,6 +3748,11 @@ struct StreamDraw {
 template <typename Enum, Enum = Enum::StreamDraw> operator Enum (void) const{ return Enum::StreamDraw; }
 template <typename Enum> friend bool operator==(Enum value, StreamDraw){ return value == Enum::StreamDraw; }
 template <typename Enum> friend bool operator!=(Enum value, StreamDraw){ return value != Enum::StreamDraw; }
+};
+struct StreamRasterization {
+template <typename Enum, Enum = Enum::StreamRasterization> operator Enum (void) const{ return Enum::StreamRasterization; }
+template <typename Enum> friend bool operator==(Enum value, StreamRasterization){ return value == Enum::StreamRasterization; }
+template <typename Enum> friend bool operator!=(Enum value, StreamRasterization){ return value != Enum::StreamRasterization; }
 };
 struct StreamRead {
 template <typename Enum, Enum = Enum::StreamRead> operator Enum (void) const{ return Enum::StreamRead; }

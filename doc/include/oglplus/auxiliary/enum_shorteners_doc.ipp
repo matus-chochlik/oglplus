@@ -8612,7 +8612,7 @@ template <typename Enum> friend bool operator==(Enum value, Framebuffer);
 template <typename Enum> friend bool operator!=(Enum value, Framebuffer);
 };
 
-/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c FramebufferSrgb value.
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c FramebufferSRGB value.
 /**
  *  @see @ref oglplus::Capability "Capability"
  *
@@ -8621,28 +8621,28 @@ template <typename Enum> friend bool operator!=(Enum value, Framebuffer);
  *
  *  @ingroup smart_enums
  */
-struct FramebufferSrgb {
+struct FramebufferSRGB {
 
-/// Conversion to any @p Enum type having the FramebufferSrgb value.
-/** Instances of the @ref oglplus::smart_enums::FramebufferSrgb "FramebufferSrgb"
+/// Conversion to any @p Enum type having the FramebufferSRGB value.
+/** Instances of the @ref oglplus::smart_enums::FramebufferSRGB "FramebufferSRGB"
  *  type are convertible to instances of any enumeration type having
- *  the @c FramebufferSrgb value.
+ *  the @c FramebufferSRGB value.
  */
-template <typename Enum, Enum = Enum::FramebufferSrgb> operator Enum (void) const;
+template <typename Enum, Enum = Enum::FramebufferSRGB> operator Enum (void) const;
 
-/// Equality comparison with any @p Enum type having the FramebufferSrgb value.
-/** Instances of the @c smart_enums::FramebufferSrgb type can be compared
+/// Equality comparison with any @p Enum type having the FramebufferSRGB value.
+/** Instances of the @c smart_enums::FramebufferSRGB type can be compared
  *  for equality to instances of any enumeration type having
- *  the @c FramebufferSrgb value.
+ *  the @c FramebufferSRGB value.
  */
-template <typename Enum> friend bool operator==(Enum value, FramebufferSrgb);
+template <typename Enum> friend bool operator==(Enum value, FramebufferSRGB);
 
-/// Non-equality comparison with any @p Enum type having the FramebufferSrgb value.
-/** Instances of the @c smart_enums::FramebufferSrgb type can be compared
+/// Non-equality comparison with any @p Enum type having the FramebufferSRGB value.
+/** Instances of the @c smart_enums::FramebufferSRGB type can be compared
  *  for non-equality to instances of any enumeration type having
- *  the @c FramebufferSrgb value.
+ *  the @c FramebufferSRGB value.
  */
-template <typename Enum> friend bool operator!=(Enum value, FramebufferSrgb);
+template <typename Enum> friend bool operator!=(Enum value, FramebufferSRGB);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Front value.
@@ -24879,6 +24879,39 @@ template <typename Enum> friend bool operator==(Enum value, StreamDraw);
  *  the @c StreamDraw value.
  */
 template <typename Enum> friend bool operator!=(Enum value, StreamDraw);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c StreamRasterization value.
+/**
+ *  @see @ref oglplus::Capability "Capability"
+ *
+ *  @glsymbols
+ *  @gldefref{STREAM_RASTERIZATION_AMD}
+ *
+ *  @ingroup smart_enums
+ */
+struct StreamRasterization {
+
+/// Conversion to any @p Enum type having the StreamRasterization value.
+/** Instances of the @ref oglplus::smart_enums::StreamRasterization "StreamRasterization"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c StreamRasterization value.
+ */
+template <typename Enum, Enum = Enum::StreamRasterization> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the StreamRasterization value.
+/** Instances of the @c smart_enums::StreamRasterization type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c StreamRasterization value.
+ */
+template <typename Enum> friend bool operator==(Enum value, StreamRasterization);
+
+/// Non-equality comparison with any @p Enum type having the StreamRasterization value.
+/** Instances of the @c smart_enums::StreamRasterization type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c StreamRasterization value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, StreamRasterization);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c StreamRead value.
