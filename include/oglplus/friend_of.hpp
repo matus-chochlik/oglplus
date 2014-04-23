@@ -14,7 +14,7 @@
 #define OGLPLUS_FRIEND_OF_1107121519_HPP
 
 #include <oglplus/auxiliary/named.hpp>
-#include <oglplus/auxiliary/strings.hpp>
+#include <oglplus/auxiliary/obj_desc.hpp>
 
 namespace oglplus {
 

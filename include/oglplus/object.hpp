@@ -17,7 +17,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/auxiliary/named.hpp>
-#include <oglplus/auxiliary/strings.hpp>
+#include <oglplus/auxiliary/obj_desc.hpp>
 #include <type_traits>
 #include <cassert>
 
