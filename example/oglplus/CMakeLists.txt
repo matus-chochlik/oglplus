@@ -76,6 +76,7 @@ add_oglplus_lib_dependencies(oglplus_example_harness)
 # set the solution folder
 set_property(TARGET oglplus_example_harness PROPERTY FOLDER "Example/OGLplus")
 
+# target_link_libraries(oglplus_example_harness oglplus) TODO
 # TODO: try to find some better solution for this
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx")
 	target_link_libraries(oglplus_example_harness pthread)

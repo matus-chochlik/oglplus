@@ -9,7 +9,9 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/lib/incl_begin.ipp>
 #include <oglplus/images/image_spec.hpp>
+#include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
 

@@ -8,7 +8,10 @@
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+
+#include <oglplus/lib/incl_begin.ipp>
 #include <oglplus/error.hpp>
+#include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
 namespace aux {
