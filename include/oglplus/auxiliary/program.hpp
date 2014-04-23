@@ -14,6 +14,7 @@
 #define OGLPLUS_AUX_PROGRAM_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/data_type.hpp>
 #include <vector>
 #include <cassert>
 
