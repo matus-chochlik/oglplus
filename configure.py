@@ -842,7 +842,7 @@ def main(argv):
 		if os.path.exists(subdir):
 			options.library_dirs.append(subdir)
 			subdir = os.path.join(subdir, "pkgconfig")
-			pkg_config_path = cmake_env["PKG_CONFIG_PATH"]
+			pkg_config_path = cmake_env.get("PKG_CONFIG_PATH", None)
 			if pkg_config_path:
 				pc_paths = pkg_config_path.split(env_list_sep)
 				pc_paths.append(subdir)
