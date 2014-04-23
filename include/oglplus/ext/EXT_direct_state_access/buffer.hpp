@@ -14,6 +14,7 @@
 #define OGLPLUS_BUFFER_DSA_1309301821_HPP
 
 #include <oglplus/buffer.hpp>
+#include <oglplus/ext/EXT_direct_state_access/buffer_map.hpp>
 
 namespace oglplus {
 
@@ -100,156 +101,8 @@ public:
 		typedef BufferMapAccess MapAccess;
 	};
 
-	/// Typed mapping of the buffer to the client address space
-	template <typename Type>
-	class TypedMap
-	 : public FriendOf<DSABufferEXTOps>
-	{
-	private:
-		const GLintptr _offset;
-		GLsizeiptr _size;
-		GLvoid* _ptr;
-		const GLuint _name;
-
-		static GLsizeiptr _get_size(GLuint name)
-		{
-			GLint value = 0;
-			OGLPLUS_GLFUNC(GetNamedBufferParameterivEXT)(
-				name,
-				GL_BUFFER_SIZE,
-				&value
-			);
-			OGLPLUS_CHECK(
-				OGLPLUS_ERROR_INFO(GetNamedBufferParameterivEXT)
-			);
-			return GLsizeiptr(value);
-		}
-
-		static GLenum _translate(GLbitfield access)
-		{
-			switch(access)
-			{
-				case GL_MAP_READ_BIT:
-					return GL_READ_ONLY;
-				case GL_MAP_WRITE_BIT:
-					return GL_WRITE_ONLY;
-				case GL_MAP_READ_BIT|GL_MAP_WRITE_BIT:
-					return GL_READ_WRITE;
-			}
-			return GL_READ_ONLY;
-		}
-	public:
-		/// Maps a range of the buffer
-		/**
-		 *  @param target use the buffer bound to the target specified
-		 *  @param offset map offset in units of Type
-		 *  @param size map size in units of Type
-		 *  @param access the access specifier for the buffer mapping
-		 *
-		 *  @throws Error
-		 */
-		TypedMap(
-			const DSABufferEXTOps& buffer,
-			GLintptr offset,
-			GLsizeiptr size,
-			Bitfield<BufferMapAccess> access
-		): _offset(offset * sizeof(Type))
-		 , _size(size * sizeof(Type))
-		 , _ptr(
-			OGLPLUS_GLFUNC(MapNamedBufferRangeEXT)(
-				FriendOf<DSABufferEXTOps>::GetName(buffer),
-				offset,
-				size,
-				GLbitfield(access)
-			)
-		), _name(FriendOf<DSABufferEXTOps>::GetName(buffer))
-		{
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapNamedBufferRangeEXT));
-		}
-
-		/// Maps the whole buffer
-		/**
-		 *  @param target use the buffer bound to the target specified
-		 *  @param access the access specifier for the buffer mapping
-		 *
-		 * This class is non-copyable.
-		 *
-		 *  @throws Error
-		 */
-		TypedMap(
-			const DSABufferEXTOps& buffer,
-			Bitfield<BufferMapAccess> access
-		): _offset(0)
-		 , _size(_get_size(FriendOf<DSABufferEXTOps>::GetName(buffer)))
-		 , _ptr(
-			OGLPLUS_GLFUNC(MapNamedBufferEXT)(
-				FriendOf<DSABufferEXTOps>::GetName(buffer),
-				_translate(GLbitfield(access))
-			)
-		), _name(FriendOf<DSABufferEXTOps>::GetName(buffer))
-		{
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapNamedBufferEXT));
-		}
-
-#if !OGLPLUS_NO_DELETED_FUNCTIONS
-		TypedMap(const TypedMap&) = delete;
-#else
-	private:
-		TypedMap(const TypedMap&);
-	public:
-#endif
-
-		/// Move construction is enabled
-		TypedMap(TypedMap&& temp)
-		 : _offset(temp._offset)
-		 , _size(temp._size)
-		 , _ptr(temp._ptr)
-		 , _name(temp._name)
-		{
-			temp._ptr = nullptr;
-		}
-
-		~TypedMap(void)
-		{
-			if(_ptr != nullptr)
-			{
-				OGLPLUS_GLFUNC(UnmapNamedBufferEXT)(_name);
-				OGLPLUS_IGNORE(
-					OGLPLUS_ERROR_INFO(UnmapNamedBufferEXT)
-				);
-			}
-		}
-
-		/// Returns the size (in bytes) of the mapped buffer
-		GLsizeiptr Size(void) const
-		{
-			return _size;
-		}
-
-		/// Returns the count of elements of Type in the mapped buffer
-		GLsizeiptr Count(void) const
-		{
-			assert(_size % sizeof(Type) == 0);
-			return _size / sizeof(Type);
-		}
-
-		/// Returns the pointer to the mapped data
-		Type* Data(void) const
-		{
-			return (Type*)_ptr;
-		}
-
-		/// Returns the element at the specified index
-		Type& At(GLuint index) const
-		{
-			assert(_ptr != nullptr);
-			assert(((index+1)*sizeof(Type)) <= std::size_t(_size));
-			return ((Type*)_ptr)[index];
-		}
-	};
-
 	/// Mapping of the buffer to the client address space
-	typedef TypedMap<GLubyte> Map;
+	typedef DSABufferTypedMapEXT<GLubyte> Map;
 
 	/// Returns true if the buffer is mapped
 	/**
