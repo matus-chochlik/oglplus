@@ -890,12 +890,6 @@ public:
 	{ }
 };
 
-template <typename ObjectOps>
-struct NonDSAtoDSA;
-
-template <typename ObjectOps>
-struct DSAtoNonDSA;
-
 template <class Object_>
 static const String& DescriptionOf(const Object_& object)
 {
