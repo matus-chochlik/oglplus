@@ -34,6 +34,7 @@
 #include <oglplus/context/numeric_queries.hpp>
 #include <oglplus/context/string_queries.hpp>
 #include <oglplus/context/binding.hpp>
+#include <oglplus/context/object_dsa.hpp>
 
 #include <oglplus/face_mode.hpp>
 #include <oglplus/compare_func.hpp>
@@ -79,9 +80,8 @@ class Context
  , public context::NumericQueries
  , public context::StringQueries
  , public context::ObjectBinding
-{
-public:
-};
+ , public context::ObjectDSA
+{ };
 
 } // namespace oglplus
 

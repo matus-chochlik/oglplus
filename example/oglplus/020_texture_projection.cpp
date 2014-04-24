@@ -9,13 +9,14 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_0}
+ *  @oglplus_example_uses_gl{GL_EXT_direct_state_access}
  *  @oglplus_example_uses_texture{flower_glass}
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/images/load.hpp>
-#include <oglplus/bound/texture.hpp>
+#include <oglplus/texture_dsa.hpp>
 
 #include <cmath>
 
@@ -159,14 +160,15 @@ public:
 		}
 
 		// setup the texture
-		gl.Bound(Texture::Target::_2D, tex)
+		gl.Direct(Texture::Target::_2D, tex)
 			.Image2D(images::LoadTexture("flower_glass"))
 			.GenerateMipmap()
 			.BorderColor(Vec4f(1.0f, 1.0f, 1.0f, 0.0f))
 			.MinFilter(TextureMinFilter::LinearMipmapLinear)
 			.MagFilter(TextureMagFilter::Linear)
 			.WrapS(TextureWrap::ClampToBorder)
-			.WrapT(TextureWrap::ClampToBorder);
+			.WrapT(TextureWrap::ClampToBorder)
+			.Bind();
 
 		UniformSampler(prog, "TexUnit").Set(0);
 		Uniform<Mat4f>(prog, "CameraMatrix").Set(
