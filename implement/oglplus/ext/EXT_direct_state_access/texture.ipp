@@ -81,7 +81,7 @@ void DSATextureEXTOps::GetCompressedImage(
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::Image3D(
+DSATextureEXTOps& DSATextureEXTOps::Image3D(
 	const images::Image& image,
 	GLint level,
 	GLint border
@@ -106,10 +106,11 @@ void DSATextureEXTOps::Image3D(
 		EnumValueName(target),
 		_name
 	));
+	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::SubImage3D(
+DSATextureEXTOps& DSATextureEXTOps::SubImage3D(
 	const images::Image& image,
 	GLint xoffs,
 	GLint yoffs,
@@ -137,10 +138,11 @@ void DSATextureEXTOps::SubImage3D(
 		EnumValueName(target),
 		_name
 	));
+	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::Image2D(
+DSATextureEXTOps& DSATextureEXTOps::Image2D(
 	TextureTarget tex_target,
 	const images::Image& image,
 	GLint level,
@@ -165,10 +167,11 @@ void DSATextureEXTOps::Image2D(
 		EnumValueName(target),
 		_name
 	));
+	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::SubImage2D(
+DSATextureEXTOps& DSATextureEXTOps::SubImage2D(
 	const images::Image& image,
 	GLint xoffs,
 	GLint yoffs,
@@ -193,10 +196,11 @@ void DSATextureEXTOps::SubImage2D(
 		EnumValueName(target),
 		_name
 	));
+	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::Image1D(
+DSATextureEXTOps& DSATextureEXTOps::Image1D(
 	const images::Image& image,
 	GLint level,
 	GLint border
@@ -219,10 +223,11 @@ void DSATextureEXTOps::Image1D(
 		EnumValueName(target),
 		_name
 	));
+	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::SubImage1D(
+DSATextureEXTOps& DSATextureEXTOps::SubImage1D(
 	const images::Image& image,
 	GLint xoffs,
 	GLint level
@@ -244,10 +249,11 @@ void DSATextureEXTOps::SubImage1D(
 		EnumValueName(target),
 		_name
 	));
+	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::Image(
+DSATextureEXTOps& DSATextureEXTOps::Image(
 	Target tex_target,
 	const images::Image& image,
 	GLint level,
@@ -273,10 +279,11 @@ void DSATextureEXTOps::Image(
 		}
 		default: assert(!"Invalid texture dimension");
 	}
+	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::Image(
+DSATextureEXTOps& DSATextureEXTOps::Image(
 	Target tex_target,
 	const images::ImageSpec& image_spec,
 	GLint level,
@@ -330,6 +337,7 @@ void DSATextureEXTOps::Image(
 		}
 		default: assert(!"Invalid texture dimension");
 	}
+	return *this;
 }
 
 #endif // GL_EXT_direct_state_access
