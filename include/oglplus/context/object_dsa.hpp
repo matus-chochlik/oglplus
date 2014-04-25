@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/context/object_dsa.hpp
- *  @brief Wrappers for hints
+ *  @brief Functions giving direct state acess to OGLplus Objects
  *
  *  @author Matus Chochlik
  *
