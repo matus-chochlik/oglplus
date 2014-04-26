@@ -39,6 +39,26 @@ public:
 	{
 		return ContextGLX(Current_());
 	}
+
+	/// Makes the context current on this thread
+	void MakeCurrent(const SurfaceGLX& surface)
+	{
+		::glXMakeCurrent(
+			_display,
+			surface._drawable,
+			_context
+		);
+	}
+
+	/// Releases the current context without binding a new one
+	void Release(void)
+	{
+		::glXMakeCurrent(
+			_display,
+			::GLXDrawable(0),
+			::GLXContext(0)
+		);
+	}
 };
 
 typedef ContextGLX Context;

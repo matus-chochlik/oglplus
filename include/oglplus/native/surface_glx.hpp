@@ -29,6 +29,8 @@ private:
 	::Display* _display;
 	::GLXDrawable  _drawable;
 
+	friend class ContextGLX;
+
 	struct Current_ { };
 
 	SurfaceGLX(Current_)
