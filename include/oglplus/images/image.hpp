@@ -116,6 +116,17 @@ protected:
 		return _end<unsigned char>();
 	}
 
+	template <typename T>
+	T& _at(unsigned x, unsigned y=0, unsigned z=0)
+	{
+		return *static_cast<T*>(_storage.begin()+PixelPos(x, y, z));
+	}
+
+	void _bzero(void)
+	{
+		_storage.fill(0x00);
+	}
+
 	Image(void)
 	 : _width(0)
 	 , _height(0)
