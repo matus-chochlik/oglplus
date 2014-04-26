@@ -119,7 +119,7 @@ protected:
 	template <typename T>
 	T& _at(unsigned x, unsigned y=0, unsigned z=0)
 	{
-		return *static_cast<T*>(_storage.begin()+PixelPos(x, y, z));
+		return *static_cast<T*>(_begin_ub()+PixelPos(x, y, z));
 	}
 
 	void _bzero(void)
