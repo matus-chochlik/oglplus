@@ -98,6 +98,8 @@
 #include <oglplus/ext/EXT_direct_state_access/renderbuffer.hpp>
 #include <oglplus/ext/EXT_direct_state_access/texture.hpp>
 
+#include <oglplus/native/common_glx.hpp>
+
 namespace oglplus {
 
 // EnumValueName implementations

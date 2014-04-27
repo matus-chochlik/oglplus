@@ -20,7 +20,7 @@
 namespace oglplus {
 namespace native {
 
-/// Wrapper for GLX context handle
+/// Wrapper for a valid GLX context handle
 class ContextGLX
 {
 private:
@@ -32,9 +32,17 @@ private:
 	ContextGLX(Current_)
 	 : _display(::glXGetCurrentDisplay())
 	 , _context(::glXGetCurrentContext())
-	{ }
+	{
+		if(!_display) HandleNoGLXDisplay();
+		if(!_context) HandleNoGLXContext();
+	}
 public:
 	/// Returns a wrapper for the currently bound GLX context
+	/** This function gets and wraps the current GLX context (+display)
+	 *  if no context is current it throws a @c runtime_error.
+	 *
+	 *  @throws std::runtime_error
+	 */
 	static ContextGLX Current(void)
 	{
 		return ContextGLX(Current_());

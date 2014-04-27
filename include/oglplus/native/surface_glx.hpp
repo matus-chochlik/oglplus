@@ -15,9 +15,10 @@
 // NOTE: the include guard is intentionally without the _GLX suffix so that
 // different native surface implementation cannot be included simultaneously.
 
-#include <GL/glx.h>
-
 #define OGLPLUS_NATIVE_GLX 1
+
+#include <oglplus/native/common_glx.hpp>
+#include <GL/glx.h>
 
 namespace oglplus {
 namespace native {
@@ -36,7 +37,10 @@ private:
 	SurfaceGLX(Current_)
 	 : _display(::glXGetCurrentDisplay())
 	 , _drawable(::glXGetCurrentDrawable())
-	{ }
+	{
+		if(!_display) HandleNoGLXDisplay();
+		if(!_drawable) HandleNoGLXDrawable();
+	}
 
 	unsigned _query(int param) const
 	{
@@ -51,6 +55,11 @@ private:
 	}
 public:
 	/// Returns a wrapper for the currently bound GLX surface
+	/** This function gets and wraps the current GLX drawable (+display)
+	 *  if no context is current it throws a @c runtime_error.
+	 *
+	 *  @throws std::runtime_error
+	 */
 	static SurfaceGLX Current(void)
 	{
 		return SurfaceGLX(Current_());
