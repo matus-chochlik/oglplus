@@ -32,6 +32,21 @@ public:
 		typename NonDSAtoDSA<
 			typename ObjectBaseOps<Object>::Type
 		>::Type
+	> Direct(const Object& object)
+	{
+		return Managed<
+			typename NonDSAtoDSA<
+				typename ObjectBaseOps<Object>::Type
+			>::Type
+		>(object);
+	}
+
+	/// Returns a direct state access wrapper for @p object
+	template <typename Object>
+	static Managed<
+		typename NonDSAtoDSA<
+			typename ObjectBaseOps<Object>::Type
+		>::Type
 	> Direct(typename Object::Target target, const Object& object)
 	{
 		Managed<
