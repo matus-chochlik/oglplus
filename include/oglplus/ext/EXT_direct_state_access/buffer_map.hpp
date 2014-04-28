@@ -200,12 +200,12 @@ public:
 	 *  @throws Error
 	 */
 	DSABufferTypedMapEXT(
-		BufferTarget target,
+		const DSABufferEXTOps& buffer,
 		GLintptr offset,
 		GLsizeiptr size,
 		Bitfield<BufferMapAccess> access
 	): DSABufferRawMapEXT(
-		target,
+		buffer,
 		offset * sizeof(Type),
 	 	size * sizeof(Type),
 		access
@@ -221,9 +221,9 @@ public:
 	 *  @throws Error
 	 */
 	DSABufferTypedMapEXT(
-		BufferTarget target,
+		const DSABufferEXTOps& buffer,
 		Bitfield<BufferMapAccess> access
-	): DSABufferRawMapEXT(target, access)
+	): DSABufferRawMapEXT(buffer, access)
 	{ }
 
 	/// Move construction is enabled
