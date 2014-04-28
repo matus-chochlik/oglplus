@@ -55,8 +55,8 @@ private:
 	}
 public:
 	/// Returns a wrapper for the currently bound GLX surface
-	/** This function gets and wraps the current GLX drawable (+display)
-	 *  if no context is current it throws a @c runtime_error.
+	/** This function gets and wraps the current GLX drawable (+display).
+	 *  If no drawable is current it throws a @c runtime_error.
 	 *
 	 *  @throws std::runtime_error
 	 */

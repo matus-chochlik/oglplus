@@ -100,6 +100,7 @@
 #include <oglplus/ext/EXT_direct_state_access/texture.hpp>
 
 #include <oglplus/native/common_glx.hpp>
+#include <oglplus/native/common_wgl.hpp>
 
 namespace oglplus {
 

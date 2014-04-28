@@ -38,8 +38,8 @@ private:
 	}
 public:
 	/// Returns a wrapper for the currently bound GLX context
-	/** This function gets and wraps the current GLX context (+display)
-	 *  if no context is current it throws a @c runtime_error.
+	/** This function gets and wraps the current GLX context (+display).
+	 *  If no context is current it throws a @c runtime_error.
 	 *
 	 *  @throws std::runtime_error
 	 */
