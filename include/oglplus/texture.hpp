@@ -601,7 +601,7 @@ public:
 			level,
 			format,
 			GetDataType<T>(),
-			dest.data()*sizeof(T),
+			dest.size()*sizeof(T),
 			dest.data()
 		);
 	}

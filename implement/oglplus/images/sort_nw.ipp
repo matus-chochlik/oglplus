@@ -46,6 +46,8 @@ OGLPLUS_LIB_FUNC
 SortNWMap::SortNWMap(unsigned size)
  : Image(size, _num_steps(size), 1, 1, (T*)0)
 {
+	this->_format = PixelDataFormat::RedInteger;
+	this->_internal = PixelDataInternalFormat::R16UI;
 	this->_bzero();
 	unsigned y = 0;
 	for(unsigned m = _next_log(size), l=0; l<m; ++l)

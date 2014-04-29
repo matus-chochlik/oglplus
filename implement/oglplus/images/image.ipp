@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,24 +19,24 @@ bool Image::_is_initialized(void) const
 }
 
 OGLPLUS_LIB_FUNC
-PixelDataFormat Image::_get_def_pdf(unsigned N)
+PixelDataFormat Image::_get_def_pdf(unsigned n)
 {
-	if(N == 1) return PixelDataFormat::Red;
-	else if(N == 2) return PixelDataFormat::RG;
-	else if(N == 3) return PixelDataFormat::RGB;
-	else if(N == 4) return PixelDataFormat::RGBA;
-	else assert(!"Too many color channels!");
+	if(n == 1) return PixelDataFormat::Red;
+	if(n == 2) return PixelDataFormat::RG;
+	if(n == 3) return PixelDataFormat::RGB;
+	if(n == 4) return PixelDataFormat::RGBA;
+	assert(!"Invalid number of color channels!");
 	return PixelDataFormat::Red;
 }
 
 OGLPLUS_LIB_FUNC
-PixelDataInternalFormat Image::_get_def_pdif(unsigned N)
+PixelDataInternalFormat Image::_get_def_pdif(unsigned n)
 {
-	if(N == 1) return PixelDataInternalFormat::Red;
-	else if(N == 2) return PixelDataInternalFormat::RG;
-	else if(N == 3) return PixelDataInternalFormat::RGB;
-	else if(N == 4) return PixelDataInternalFormat::RGBA;
-	else assert(!"Too many color channels!");
+	if(n == 1) return PixelDataInternalFormat::Red;
+	if(n == 2) return PixelDataInternalFormat::RG;
+	if(n == 3) return PixelDataInternalFormat::RGB;
+	if(n == 4) return PixelDataInternalFormat::RGBA;
+	assert(!"Invalid number of color channels!");
 	return PixelDataInternalFormat::Red;
 }
 

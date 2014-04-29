@@ -19,7 +19,31 @@ namespace oglplus {
 namespace images {
 
 /// Generator of an Image encoding a sorting network of specified size
-/**
+/** The sorting network for the specified number of elements is encoded
+ *  into the Image in the following way:
+ *
+ *  The rows of the image represent the sorting operation passes, each row
+ *  is a single pass. Each pass consists of trivial compare and swap operations
+ *  which can be executed in parallel for the individual sorted elements.
+ *
+ *  The trivial operations consist of the following steps:
+ *  1) determining the index of the currently processed element,
+ *  2) determining the @c offset to the other element to compare (and swap),
+ *  3) getting the values for the current and the other element,
+ *  4) determining the @c direction in which the elements should be sorted,
+ *  5) comparing the values and swapping the elements if they are not
+ *     sorted in the right direction.
+ *
+ *  The @c offset and @c direction parameters are encoded in the following way:
+ *  @code
+ *  int pass;
+ *  int index;
+ *  uint texel = fetchTexel(ivec2(index, pass));
+ *  int offset = int(texel >> 2) * (texel & 0x02)?-1:1;
+ *  int direction = (texel & 0x01)?-1:1;
+ *  int other_index = index+offset;
+ *  @endcode
+ *
  *  @ingroup image_load_gen
  */
 class SortNWMap
@@ -31,7 +55,7 @@ private:
 	static unsigned _next_log(unsigned n);
 	static unsigned _num_steps(unsigned size);
 public:
-	/// Generates the sorting network encoding
+	/// Generates the sorting network encoding for size elements
 	SortNWMap(unsigned size);
 };
 
