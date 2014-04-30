@@ -5,6 +5,7 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 add_library(oglplus EXCLUDE_FROM_ALL
+	native.cpp
 	string.cpp
 	error.cpp
 	obj_desc.cpp

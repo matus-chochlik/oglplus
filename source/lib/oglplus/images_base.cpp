@@ -18,4 +18,5 @@
 #include <oglplus/images/squares.hpp>
 #include <oglplus/images/sphere_bmap.hpp>
 #include <oglplus/images/random.hpp>
+#include <oglplus/images/sort_nw.hpp>
 #include "epilogue.ipp"
