@@ -9,9 +9,17 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/lib/incl_begin.ipp>
 #include <oglplus/images/image_spec.hpp>
+#include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
+
+OGLPLUS_LIB_FUNC
+GLuint RenderbufferOps::_binding(Target target)
+{
+	return BindingQuery<RenderbufferOps>::QueryBinding(target);
+}
 
 OGLPLUS_LIB_FUNC
 GLenum RenderbufferOps::_binding_query(Target target)

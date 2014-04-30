@@ -102,6 +102,18 @@ public:
 	}
 };
 
+/// Class that can be used to unbind the current vertex array object
+class NoVertexArray
+{
+public:
+	/// Breaks the current VAO binding (unbinds the current VAO)
+	static void Bind(void)
+	{
+		OGLPLUS_GLFUNC(BindVertexArray)(0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindVertexArray));
+	}
+};
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
 /**

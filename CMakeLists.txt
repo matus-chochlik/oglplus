@@ -202,6 +202,8 @@ if(NOT OGLPLUS_NO_EXAMPLES)
 	add_subdirectory("example")
 endif()
 
+add_subdirectory("source/lib")
+
 if(OGLPLUS_WITH_TESTS)
 	add_subdirectory("test")
 endif()

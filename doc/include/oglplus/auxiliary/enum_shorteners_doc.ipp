@@ -8612,7 +8612,7 @@ template <typename Enum> friend bool operator==(Enum value, Framebuffer);
 template <typename Enum> friend bool operator!=(Enum value, Framebuffer);
 };
 
-/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c FramebufferSrgb value.
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c FramebufferSRGB value.
 /**
  *  @see @ref oglplus::Capability "Capability"
  *
@@ -8621,28 +8621,28 @@ template <typename Enum> friend bool operator!=(Enum value, Framebuffer);
  *
  *  @ingroup smart_enums
  */
-struct FramebufferSrgb {
+struct FramebufferSRGB {
 
-/// Conversion to any @p Enum type having the FramebufferSrgb value.
-/** Instances of the @ref oglplus::smart_enums::FramebufferSrgb "FramebufferSrgb"
+/// Conversion to any @p Enum type having the FramebufferSRGB value.
+/** Instances of the @ref oglplus::smart_enums::FramebufferSRGB "FramebufferSRGB"
  *  type are convertible to instances of any enumeration type having
- *  the @c FramebufferSrgb value.
+ *  the @c FramebufferSRGB value.
  */
-template <typename Enum, Enum = Enum::FramebufferSrgb> operator Enum (void) const;
+template <typename Enum, Enum = Enum::FramebufferSRGB> operator Enum (void) const;
 
-/// Equality comparison with any @p Enum type having the FramebufferSrgb value.
-/** Instances of the @c smart_enums::FramebufferSrgb type can be compared
+/// Equality comparison with any @p Enum type having the FramebufferSRGB value.
+/** Instances of the @c smart_enums::FramebufferSRGB type can be compared
  *  for equality to instances of any enumeration type having
- *  the @c FramebufferSrgb value.
+ *  the @c FramebufferSRGB value.
  */
-template <typename Enum> friend bool operator==(Enum value, FramebufferSrgb);
+template <typename Enum> friend bool operator==(Enum value, FramebufferSRGB);
 
-/// Non-equality comparison with any @p Enum type having the FramebufferSrgb value.
-/** Instances of the @c smart_enums::FramebufferSrgb type can be compared
+/// Non-equality comparison with any @p Enum type having the FramebufferSRGB value.
+/** Instances of the @c smart_enums::FramebufferSRGB type can be compared
  *  for non-equality to instances of any enumeration type having
- *  the @c FramebufferSrgb value.
+ *  the @c FramebufferSRGB value.
  */
-template <typename Enum> friend bool operator!=(Enum value, FramebufferSrgb);
+template <typename Enum> friend bool operator!=(Enum value, FramebufferSRGB);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Front value.
@@ -9407,6 +9407,39 @@ template <typename Enum> friend bool operator==(Enum value, GreenInteger);
 template <typename Enum> friend bool operator!=(Enum value, GreenInteger);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c GuiltyContextReset value.
+/**
+ *  @see @ref oglplus::GraphicsResetStatus "GraphicsResetStatus"
+ *
+ *  @glsymbols
+ *  @gldefref{GUILTY_CONTEXT_RESET_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct GuiltyContextReset {
+
+/// Conversion to any @p Enum type having the GuiltyContextReset value.
+/** Instances of the @ref oglplus::smart_enums::GuiltyContextReset "GuiltyContextReset"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c GuiltyContextReset value.
+ */
+template <typename Enum, Enum = Enum::GuiltyContextReset> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the GuiltyContextReset value.
+/** Instances of the @c smart_enums::GuiltyContextReset type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c GuiltyContextReset value.
+ */
+template <typename Enum> friend bool operator==(Enum value, GuiltyContextReset);
+
+/// Non-equality comparison with any @p Enum type having the GuiltyContextReset value.
+/** Instances of the @c smart_enums::GuiltyContextReset type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c GuiltyContextReset value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, GuiltyContextReset);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c HalfFloat value.
 /**
  *  @see @ref oglplus::DataType "DataType"
@@ -10135,6 +10168,39 @@ template <typename Enum> friend bool operator==(Enum value, IncrWrap);
  *  the @c IncrWrap value.
  */
 template <typename Enum> friend bool operator!=(Enum value, IncrWrap);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c InnocentContextReset value.
+/**
+ *  @see @ref oglplus::GraphicsResetStatus "GraphicsResetStatus"
+ *
+ *  @glsymbols
+ *  @gldefref{INNOCENT_CONTEXT_RESET_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct InnocentContextReset {
+
+/// Conversion to any @p Enum type having the InnocentContextReset value.
+/** Instances of the @ref oglplus::smart_enums::InnocentContextReset "InnocentContextReset"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c InnocentContextReset value.
+ */
+template <typename Enum, Enum = Enum::InnocentContextReset> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the InnocentContextReset value.
+/** Instances of the @c smart_enums::InnocentContextReset type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c InnocentContextReset value.
+ */
+template <typename Enum> friend bool operator==(Enum value, InnocentContextReset);
+
+/// Non-equality comparison with any @p Enum type having the InnocentContextReset value.
+/** Instances of the @c smart_enums::InnocentContextReset type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c InnocentContextReset value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, InnocentContextReset);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Int value.
@@ -12163,6 +12229,39 @@ template <typename Enum> friend bool operator==(Enum value, LocationIndex);
  *  the @c LocationIndex value.
  */
 template <typename Enum> friend bool operator!=(Enum value, LocationIndex);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c LoseContextOnReset value.
+/**
+ *  @see @ref oglplus::ResetNotificationStrategy "ResetNotificationStrategy"
+ *
+ *  @glsymbols
+ *  @gldefref{LOSE_CONTEXT_ON_RESET_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct LoseContextOnReset {
+
+/// Conversion to any @p Enum type having the LoseContextOnReset value.
+/** Instances of the @ref oglplus::smart_enums::LoseContextOnReset "LoseContextOnReset"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c LoseContextOnReset value.
+ */
+template <typename Enum, Enum = Enum::LoseContextOnReset> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the LoseContextOnReset value.
+/** Instances of the @c smart_enums::LoseContextOnReset type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c LoseContextOnReset value.
+ */
+template <typename Enum> friend bool operator==(Enum value, LoseContextOnReset);
+
+/// Non-equality comparison with any @p Enum type having the LoseContextOnReset value.
+/** Instances of the @c smart_enums::LoseContextOnReset type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c LoseContextOnReset value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, LoseContextOnReset);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Low value.
@@ -16767,6 +16866,7 @@ template <typename Enum> friend bool operator!=(Enum value, Nicest);
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c NoError value.
 /**
  *  @see @ref oglplus::ErrorCode "ErrorCode"
+ *  @see @ref oglplus::GraphicsResetStatus "GraphicsResetStatus"
  *
  *  @glsymbols
  *  @gldefref{NO_ERROR}
@@ -16900,6 +17000,39 @@ template <typename Enum> friend bool operator==(Enum value, Nor);
  *  the @c Nor value.
  */
 template <typename Enum> friend bool operator!=(Enum value, Nor);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c NoResetNotification value.
+/**
+ *  @see @ref oglplus::ResetNotificationStrategy "ResetNotificationStrategy"
+ *
+ *  @glsymbols
+ *  @gldefref{NO_RESET_NOTIFICATION_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct NoResetNotification {
+
+/// Conversion to any @p Enum type having the NoResetNotification value.
+/** Instances of the @ref oglplus::smart_enums::NoResetNotification "NoResetNotification"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c NoResetNotification value.
+ */
+template <typename Enum, Enum = Enum::NoResetNotification> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the NoResetNotification value.
+/** Instances of the @c smart_enums::NoResetNotification type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c NoResetNotification value.
+ */
+template <typename Enum> friend bool operator==(Enum value, NoResetNotification);
+
+/// Non-equality comparison with any @p Enum type having the NoResetNotification value.
+/** Instances of the @c smart_enums::NoResetNotification type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c NoResetNotification value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, NoResetNotification);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c NotEqual value.
@@ -22725,6 +22858,39 @@ template <typename Enum> friend bool operator==(Enum value, Right);
 template <typename Enum> friend bool operator!=(Enum value, Right);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c RobustAccess value.
+/**
+ *  @see @ref oglplus::ContextFlagBit "ContextFlagBit"
+ *
+ *  @glsymbols
+ *  @gldefref{CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct RobustAccess {
+
+/// Conversion to any @p Enum type having the RobustAccess value.
+/** Instances of the @ref oglplus::smart_enums::RobustAccess "RobustAccess"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c RobustAccess value.
+ */
+template <typename Enum, Enum = Enum::RobustAccess> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the RobustAccess value.
+/** Instances of the @c smart_enums::RobustAccess type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c RobustAccess value.
+ */
+template <typename Enum> friend bool operator==(Enum value, RobustAccess);
+
+/// Non-equality comparison with any @p Enum type having the RobustAccess value.
+/** Instances of the @c smart_enums::RobustAccess type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c RobustAccess value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, RobustAccess);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c Round value.
 /**
  *  @see @ref oglplus::PathNVCapStyle "PathNVCapStyle"
@@ -24881,6 +25047,39 @@ template <typename Enum> friend bool operator==(Enum value, StreamDraw);
 template <typename Enum> friend bool operator!=(Enum value, StreamDraw);
 };
 
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c StreamRasterization value.
+/**
+ *  @see @ref oglplus::Capability "Capability"
+ *
+ *  @glsymbols
+ *  @gldefref{STREAM_RASTERIZATION_AMD}
+ *
+ *  @ingroup smart_enums
+ */
+struct StreamRasterization {
+
+/// Conversion to any @p Enum type having the StreamRasterization value.
+/** Instances of the @ref oglplus::smart_enums::StreamRasterization "StreamRasterization"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c StreamRasterization value.
+ */
+template <typename Enum, Enum = Enum::StreamRasterization> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the StreamRasterization value.
+/** Instances of the @c smart_enums::StreamRasterization type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c StreamRasterization value.
+ */
+template <typename Enum> friend bool operator==(Enum value, StreamRasterization);
+
+/// Non-equality comparison with any @p Enum type having the StreamRasterization value.
+/** Instances of the @c smart_enums::StreamRasterization type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c StreamRasterization value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, StreamRasterization);
+};
+
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c StreamRead value.
 /**
  *  @see @ref oglplus::BufferUsage "BufferUsage"
@@ -26490,6 +26689,39 @@ template <typename Enum> friend bool operator==(Enum value, UniformBlock);
  *  the @c UniformBlock value.
  */
 template <typename Enum> friend bool operator!=(Enum value, UniformBlock);
+};
+
+/// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnknownContextReset value.
+/**
+ *  @see @ref oglplus::GraphicsResetStatus "GraphicsResetStatus"
+ *
+ *  @glsymbols
+ *  @gldefref{UNKNOWN_CONTEXT_RESET_ARB}
+ *
+ *  @ingroup smart_enums
+ */
+struct UnknownContextReset {
+
+/// Conversion to any @p Enum type having the UnknownContextReset value.
+/** Instances of the @ref oglplus::smart_enums::UnknownContextReset "UnknownContextReset"
+ *  type are convertible to instances of any enumeration type having
+ *  the @c UnknownContextReset value.
+ */
+template <typename Enum, Enum = Enum::UnknownContextReset> operator Enum (void) const;
+
+/// Equality comparison with any @p Enum type having the UnknownContextReset value.
+/** Instances of the @c smart_enums::UnknownContextReset type can be compared
+ *  for equality to instances of any enumeration type having
+ *  the @c UnknownContextReset value.
+ */
+template <typename Enum> friend bool operator==(Enum value, UnknownContextReset);
+
+/// Non-equality comparison with any @p Enum type having the UnknownContextReset value.
+/** Instances of the @c smart_enums::UnknownContextReset type can be compared
+ *  for non-equality to instances of any enumeration type having
+ *  the @c UnknownContextReset value.
+ */
+template <typename Enum> friend bool operator!=(Enum value, UnknownContextReset);
 };
 
 /// @ref oglplus_smart_enums "Smart enum" for enumerations with the @c UnpackAlignment value.

@@ -228,7 +228,7 @@ public:
 				<< vel_data;
 			(prog|"Velocity").Setup<Vec4f>().Enable();
 		}
-		VertexArray::Unbind();
+		NoVertexArray::Bind();
 		for(GLuint b=0; b!=2; ++b)
 		{
 			GLuint nb = (b+1)%2;
@@ -324,7 +324,7 @@ public:
 			gl.DrawArrays(PrimitiveType::Points, 0, particle_count);
 			xfba.Finish();
 		}
-		VertexArray::Unbind();
+		NoVertexArray::Bind();
 		DefaultTransformFeedback::Bind();
 	}
 };

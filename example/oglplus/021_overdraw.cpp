@@ -290,7 +290,7 @@ public:
 		gl.Disable(Capability::DepthTest);
 		gl.Disable(Capability::Blend);
 
-		fbo.Unbind();
+		gl.Bind(Framebuffer::Target::Draw, DefaultFramebuffer());
 	}
 
 	void RenderOnscreen(double)

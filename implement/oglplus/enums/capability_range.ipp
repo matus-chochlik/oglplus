@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/capability.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -84,6 +84,9 @@ GL_SAMPLE_COVERAGE,
 #endif
 #if defined GL_FRAMEBUFFER_SRGB
 GL_FRAMEBUFFER_SRGB,
+#endif
+#if defined GL_STREAM_RASTERIZATION_AMD
+GL_STREAM_RASTERIZATION_AMD,
 #endif
 0
 };

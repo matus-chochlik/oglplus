@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -17,6 +17,7 @@
 #include <cassert>
 #include <cstddef>
 #include <cstring>
+#include <oglplus/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/auxiliary/aligned_pod_array.hpp>
@@ -113,6 +114,17 @@ protected:
 	unsigned char* _end_ub(void)
 	{
 		return _end<unsigned char>();
+	}
+
+	template <typename T>
+	T& _at(unsigned x, unsigned y=0, unsigned z=0)
+	{
+		return *static_cast<T*>(_storage.at(PixelPos(x, y, z)));
+	}
+
+	void _bzero(void)
+	{
+		_storage.fill(0x00);
 	}
 
 	Image(void)

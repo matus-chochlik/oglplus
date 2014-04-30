@@ -726,6 +726,22 @@ public:
 
 };
 
+/// Class that can be used to unbind the currently used program
+class NoProgram
+{
+public:
+	/// Deactivates the currently active/used program (if any)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UseProgram}
+	 */
+	static void Use(void)
+	{
+		OGLPLUS_GLFUNC(UseProgram)(0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgram));
+	}
+};
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
 /**

@@ -177,6 +177,9 @@ public:
 
 	/// Unbinds the current texture from its target
 	/**
+	 *  @deprecated This function is deprecated and will be removed.
+	 *  Use DefaultTexture::Bind instead.
+	 *
 	 *  @throws Error
 	 *
 	 *  @see Active
@@ -661,7 +664,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage3D}
 	 */
-	void Image3D(
+	DSATextureEXTOps& Image3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -692,6 +695,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a three dimensional texture image
@@ -699,7 +703,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage3D}
 	 */
-	void Image3D(
+	DSATextureEXTOps& Image3D(
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
@@ -710,7 +714,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage3D}
 	 */
-	void SubImage3D(
+	DSATextureEXTOps& SubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -743,6 +747,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a three dimensional texture sub image
@@ -750,7 +755,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage3D}
 	 */
-	void SubImage3D(
+	DSATextureEXTOps& SubImage3D(
 		const images::Image& image,
 		GLint xoffs,
 		GLint yoffs,
@@ -763,7 +768,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	void Image2D(
+	DSATextureEXTOps& Image2D(
 		TextureTarget tex_target,
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -793,9 +798,10 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
-	void Image2D(
+	DSATextureEXTOps& Image2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -806,7 +812,7 @@ public:
 		const void* data
 	)
 	{
-		Image2D(
+		return Image2D(
 			target,
 			level,
 			internal_format,
@@ -824,7 +830,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	void Image2D(
+	DSATextureEXTOps& Image2D(
 		TextureTarget tex_target,
 		const images::Image& image,
 		GLint level = 0,
@@ -836,13 +842,13 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	void Image2D(
+	DSATextureEXTOps& Image2D(
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
 	)
 	{
-		Image2D(target, image, level, border);
+		return Image2D(target, image, level, border);
 	}
 
 	/// Specifies the image of the specified cube-map face
@@ -858,7 +864,7 @@ public:
 	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
 	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
 	 */
-	void ImageCM(
+	DSATextureEXTOps& ImageCM(
 		GLuint face,
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -889,6 +895,7 @@ public:
 			EnumValueName(Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face)),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies the image of the specified cube-map face
@@ -904,7 +911,7 @@ public:
 	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
 	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
 	 */
-	void ImageCM(
+	DSATextureEXTOps& ImageCM(
 		GLuint face,
 		const images::Image& image,
 		GLint level = 0,
@@ -912,7 +919,7 @@ public:
 	)
 	{
 		assert(face <= 5);
-		Image2D(
+		return Image2D(
 			Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face),
 			image,
 			level,
@@ -925,7 +932,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage2D}
 	 */
-	void SubImage2D(
+	DSATextureEXTOps& SubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -954,6 +961,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a two dimensional texture sub image
@@ -961,7 +969,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage2D}
 	 */
-	void SubImage2D(
+	DSATextureEXTOps& SubImage2D(
 		const images::Image& image,
 		GLint xoffs,
 		GLint yoffs,
@@ -973,7 +981,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage1D}
 	 */
-	void Image1D(
+	DSATextureEXTOps& Image1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1000,6 +1008,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a one dimensional texture image
@@ -1007,7 +1016,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage1D}
 	 */
-	void Image1D(
+	DSATextureEXTOps& Image1D(
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
@@ -1018,7 +1027,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage1D}
 	 */
-	void SubImage1D(
+	DSATextureEXTOps& SubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -1043,6 +1052,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a two dimensional texture sub image
@@ -1050,7 +1060,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage1D}
 	 */
-	void SubImage1D(
+	DSATextureEXTOps& SubImage1D(
 		const images::Image& image,
 		GLint xoffs,
 		GLint level = 0
@@ -1063,7 +1073,7 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	void Image(
+	DSATextureEXTOps& Image(
 		Target tex_target,
 		const images::Image& image,
 		GLint level = 0,
@@ -1077,13 +1087,13 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	void Image(
+	DSATextureEXTOps& Image(
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
 	)
 	{
-		Image(target, image, level, border);
+		return Image(target, image, level, border);
 	}
 
 	/// Specifies a texture image
@@ -1093,7 +1103,7 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	void Image(
+	DSATextureEXTOps& Image(
 		Target tex_target,
 		const images::ImageSpec& image_spec,
 		GLint level = 0,
@@ -1107,13 +1117,13 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	void Image(
+	DSATextureEXTOps& Image(
 		const images::ImageSpec& image_spec,
 		GLint level = 0,
 		GLint border = 0
 	)
 	{
-		Image(target, image_spec, level, border);
+		return Image(target, image_spec, level, border);
 	}
 
 	/// Copies a two dimensional texture image from the framebuffer
@@ -1121,7 +1131,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexImage2D}
 	 */
-	void CopyImage2D(
+	DSATextureEXTOps& CopyImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLint x,
@@ -1148,6 +1158,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Copies a one dimensional texture image from the framebuffer
@@ -1155,7 +1166,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexImage1D}
 	 */
-	void CopyImage1D(
+	DSATextureEXTOps& CopyImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLint x,
@@ -1180,6 +1191,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Copies a three dimensional texture sub image from the framebuffer
@@ -1187,7 +1199,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexSubImage3D}
 	 */
-	void CopySubImage3D(
+	DSATextureEXTOps& CopySubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1216,6 +1228,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Copies a two dimensional texture sub image from the framebuffer
@@ -1223,7 +1236,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexSubImage2D}
 	 */
-	void CopySubImage2D(
+	DSATextureEXTOps& CopySubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1250,6 +1263,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Copies a one dimensional texture sub image from the framebuffer
@@ -1257,7 +1271,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexSubImage1D}
 	 */
-	void CopySubImage1D(
+	DSATextureEXTOps& CopySubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLint x,
@@ -1280,6 +1294,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a three dimensional compressed texture image
@@ -1287,7 +1302,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage3D}
 	 */
-	void CompressedImage3D(
+	DSATextureEXTOps& CompressedImage3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1316,6 +1331,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a two dimensional compressed texture image
@@ -1323,7 +1339,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage2D}
 	 */
-	void CompressedImage2D(
+	DSATextureEXTOps& CompressedImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1350,6 +1366,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a one dimensional compressed texture image
@@ -1357,7 +1374,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage1D}
 	 */
-	void CompressedImage1D(
+	DSATextureEXTOps& CompressedImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1382,6 +1399,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a three dimensional compressed texture sub image
@@ -1389,7 +1407,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage3D}
 	 */
-	void CompressedSubImage3D(
+	DSATextureEXTOps& CompressedSubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1422,6 +1440,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a two dimensional compressed texture sub image
@@ -1429,7 +1448,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage2D}
 	 */
-	void CompressedSubImage2D(
+	DSATextureEXTOps& CompressedSubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1458,6 +1477,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Specifies a one dimensional compressed texture sub image
@@ -1465,7 +1485,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage1D}
 	 */
-	void CompressedSubImage1D(
+	DSATextureEXTOps& CompressedSubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -1490,6 +1510,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1
@@ -1499,7 +1520,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexBuffer}
 	 */
-	void Buffer(
+	DSATextureEXTOps& Buffer(
 		PixelDataInternalFormat internal_format,
 		const DSABufferEXTOps& buffer
 	)
@@ -1516,14 +1537,15 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
-	void Buffer(
+	DSATextureEXTOps& Buffer(
 		PixelDataInternalFormat internal_format,
 		const BufferOps& buffer
 	)
 	{
-		Buffer(internal_format, Managed<DSABufferEXTOps>(buffer));
+		return Buffer(internal_format, Managed<DSABufferEXTOps>(buffer));
 	}
 #endif
 
@@ -1534,7 +1556,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TextureView}
 	 */
-	void View(
+	DSATextureEXTOps& View(
 		const DSATextureEXTOps& orig_texture,
 		PixelDataInternalFormat internal_format,
 		GLuint min_level,
@@ -1559,6 +1581,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 #endif
 
@@ -1569,7 +1592,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BindImageTexture}
 	 */
-	void BindImage(
+	DSATextureEXTOps& BindImage(
 		ImageUnitSelector unit,
 		GLint level,
 		bool layered,
@@ -1593,6 +1616,7 @@ public:
 			nullptr,
 			_name
 		));
+		return *this;
 	}
 #endif
 
@@ -1613,7 +1637,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BASE_LEVEL}
 	 */
-	void BaseLevel(GLuint level)
+	DSATextureEXTOps& BaseLevel(GLuint level)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1627,6 +1651,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
@@ -1659,7 +1684,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLfloat, 4> color)
+	DSATextureEXTOps& BorderColor(Vector<GLfloat, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfvEXT)(
 			_name,
@@ -1673,6 +1698,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
@@ -1705,7 +1731,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLint, 4> color)
+	DSATextureEXTOps& BorderColor(Vector<GLint, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterIivEXT)(
 			_name,
@@ -1719,6 +1745,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
@@ -1751,7 +1778,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	void BorderColor(Vector<GLuint, 4> color)
+	DSATextureEXTOps& BorderColor(Vector<GLuint, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterIuivEXT)(
 			_name,
@@ -1765,6 +1792,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the compare mode (TEXTURE_COMPARE_MODE)
@@ -1786,7 +1814,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
-	void CompareMode(TextureCompareMode mode)
+	DSATextureEXTOps& CompareMode(TextureCompareMode mode)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1800,6 +1828,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
@@ -1821,7 +1850,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
-	void CompareFunc(CompareFunction func)
+	DSATextureEXTOps& CompareFunc(CompareFunction func)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1835,6 +1864,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the LOD bias value (TEXTURE_LOD_BIAS)
@@ -1854,7 +1884,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
-	void LODBias(GLfloat value)
+	DSATextureEXTOps& LODBias(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
 			_name,
@@ -1868,6 +1898,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Sets both the minification and maginification filter
@@ -1877,7 +1908,7 @@ public:
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	void Filter(TextureFilter filter)
+	DSATextureEXTOps& Filter(TextureFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1903,6 +1934,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
@@ -1924,7 +1956,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	void MagFilter(TextureMagFilter filter)
+	DSATextureEXTOps& MagFilter(TextureMagFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1938,6 +1970,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the minification filter (TEXTURE_MIN_FILTER)
@@ -1959,7 +1992,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
-	void MinFilter(TextureMinFilter filter)
+	DSATextureEXTOps& MinFilter(TextureMinFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1973,6 +2006,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets minimal LOD value (TEXTURE_MIN_LOD)
@@ -1992,7 +2026,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
-	void MinLOD(GLfloat value)
+	DSATextureEXTOps& MinLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
 			_name,
@@ -2006,6 +2040,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets maximum LOD value (TEXTURE_MAX_LOD)
@@ -2025,7 +2060,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
-	void MaxLOD(GLfloat value)
+	DSATextureEXTOps& MaxLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
 			_name,
@@ -2039,6 +2074,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets maximum level value (TEXTURE_MAX_LEVEL)
@@ -2058,7 +2094,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MAX_LEVEL}
 	 */
-	void MaxLevel(GLint value)
+	DSATextureEXTOps& MaxLevel(GLint value)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -2072,6 +2108,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the maximum anisotropy level
@@ -2110,7 +2147,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
 	 */
-	void Anisotropy(GLfloat value)
+	DSATextureEXTOps& Anisotropy(GLfloat value)
 	{
 #ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
@@ -2128,6 +2165,7 @@ public:
 #else
 		OGLPLUS_FAKE_USE(value);
 #endif
+		return *this;
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_texture_swizzle
@@ -2150,7 +2188,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 */
-	void Swizzle(
+	DSATextureEXTOps& Swizzle(
 		TextureSwizzleCoord coord,
 		TextureSwizzle mode
 	)
@@ -2167,6 +2205,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_R)
@@ -2188,9 +2227,9 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_R}
 	 */
-	void SwizzleR(TextureSwizzle mode)
+	DSATextureEXTOps& SwizzleR(TextureSwizzle mode)
 	{
-		Swizzle(TextureSwizzleCoord::R, mode);
+		return Swizzle(TextureSwizzleCoord::R, mode);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_G)
@@ -2212,9 +2251,9 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_G}
 	 */
-	void SwizzleG(TextureSwizzle mode)
+	DSATextureEXTOps& SwizzleG(TextureSwizzle mode)
 	{
-		Swizzle(TextureSwizzleCoord::G, mode);
+		return Swizzle(TextureSwizzleCoord::G, mode);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_B)
@@ -2236,9 +2275,9 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_B}
 	 */
-	void SwizzleB(TextureSwizzle mode)
+	DSATextureEXTOps& SwizzleB(TextureSwizzle mode)
 	{
-		Swizzle(TextureSwizzleCoord::B, mode);
+		return Swizzle(TextureSwizzleCoord::B, mode);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_A)
@@ -2260,9 +2299,9 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_A}
 	 */
-	void SwizzleA(TextureSwizzle mode)
+	DSATextureEXTOps& SwizzleA(TextureSwizzle mode)
 	{
-		Swizzle(TextureSwizzleCoord::A, mode);
+		return Swizzle(TextureSwizzleCoord::A, mode);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
@@ -2297,7 +2336,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	void SwizzleRGBA(TextureSwizzle mode)
+	DSATextureEXTOps& SwizzleRGBA(TextureSwizzle mode)
 	{
 		GLint m = GLint(GLenum(mode));
 		GLint params[4] = {m, m, m, m};
@@ -2313,6 +2352,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
@@ -2322,7 +2362,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	void SwizzleRGBA(
+	DSATextureEXTOps& SwizzleRGBA(
 		TextureSwizzle mode_r,
 		TextureSwizzle mode_g,
 		TextureSwizzle mode_b,
@@ -2347,6 +2387,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Sets the swizzle parameter (TEXTURE_SWIZZLE_RGBA)
@@ -2356,7 +2397,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	void SwizzleRGBA(const TextureSwizzleTuple& modes)
+	DSATextureEXTOps& SwizzleRGBA(const TextureSwizzleTuple& modes)
 	{
 		OGLPLUS_GLFUNC(TextureParameterivEXT)(
 			_name,
@@ -2370,6 +2411,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 #endif // texture swizzle
 
@@ -2388,7 +2430,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 */
-	void Wrap(
+	DSATextureEXTOps& Wrap(
 		TextureWrapCoord coord,
 		TextureWrap mode
 	)
@@ -2405,6 +2447,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_S)
@@ -2424,9 +2467,9 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
-	void WrapS(TextureWrap mode)
+	DSATextureEXTOps& WrapS(TextureWrap mode)
 	{
-		Wrap(TextureWrapCoord::S, mode);
+		return Wrap(TextureWrapCoord::S, mode);
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_T)
@@ -2446,9 +2489,9 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
-	void WrapT(TextureWrap mode)
+	DSATextureEXTOps& WrapT(TextureWrap mode)
 	{
-		Wrap(TextureWrapCoord::T, mode);
+		return Wrap(TextureWrapCoord::T, mode);
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_R)
@@ -2468,9 +2511,9 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
-	void WrapR(TextureWrap mode)
+	DSATextureEXTOps& WrapR(TextureWrap mode)
 	{
-		Wrap(TextureWrapCoord::R, mode);
+		return Wrap(TextureWrapCoord::R, mode);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3
@@ -2495,7 +2538,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
 	 */
-	void DepthStencilMode(PixelDataFormat mode)
+	DSATextureEXTOps& DepthStencilMode(PixelDataFormat mode)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -2509,6 +2552,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 #endif
 
@@ -2530,7 +2574,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	void Seamless(bool enable)
+	DSATextureEXTOps& Seamless(bool enable)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			GLenum(target),
@@ -2544,6 +2588,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 #endif
 
@@ -2552,7 +2597,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GenerateMipmap}
 	 */
-	void GenerateMipmap(void)
+	DSATextureEXTOps& GenerateMipmap(void)
 	{
 		OGLPLUS_GLFUNC(GenerateTextureMipmapEXT)(
 			_name,
@@ -2564,6 +2609,7 @@ public:
 			EnumValueName(target),
 			_name
 		));
+		return *this;
 	}
 
 	// Utility functions:

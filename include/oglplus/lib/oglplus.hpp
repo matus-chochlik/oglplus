@@ -24,12 +24,11 @@
 #endif
 
 #include <oglplus/config.hpp>
-#include <oglplus/string.hpp>
 #include <oglplus/fwd.hpp>
 
 #include <oglplus/auxiliary/xml_utils.hpp>
 #include <oglplus/auxiliary/utf8.hpp>
-#include <oglplus/auxiliary/strings.hpp>
+#include <oglplus/auxiliary/obj_desc.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/auxiliary/uniform_typecheck.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
@@ -37,9 +36,13 @@
 #include <oglplus/auxiliary/shader_data.hpp>
 #include <oglplus/auxiliary/uniform_init.hpp>
 
+#include <oglplus/string.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/compile_error.hpp>
 #include <oglplus/link_error.hpp>
+
+#include <oglplus/images/image.hpp>
+
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
@@ -75,7 +78,6 @@
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/shapes/analyzer.hpp>
 
-#include <oglplus/images/image.hpp>
 #include <oglplus/images/brushed_metal.hpp>
 #include <oglplus/images/checker.hpp>
 #include <oglplus/images/metaballs.hpp>
@@ -84,6 +86,7 @@
 #include <oglplus/images/sphere_bmap.hpp>
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/xpm.hpp>
+#include <oglplus/images/sort_nw.hpp>
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>
@@ -95,6 +98,9 @@
 #include <oglplus/ext/EXT_direct_state_access/framebuffer.hpp>
 #include <oglplus/ext/EXT_direct_state_access/renderbuffer.hpp>
 #include <oglplus/ext/EXT_direct_state_access/texture.hpp>
+
+#include <oglplus/native/common_glx.hpp>
+#include <oglplus/native/common_wgl.hpp>
 
 namespace oglplus {
 

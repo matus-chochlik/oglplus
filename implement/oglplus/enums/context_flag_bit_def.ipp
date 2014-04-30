@@ -45,6 +45,22 @@
 #  define OGLPLUS_LIST_NEEDS_COMMA 1
 # endif
 #endif
+#if defined GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined RobustAccess
+#  pragma push_macro("RobustAccess")
+#  undef RobustAccess
+   OGLPLUS_ENUM_CLASS_VALUE(RobustAccess, GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB)
+#  pragma pop_macro("RobustAccess")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(RobustAccess, GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
 #ifdef OGLPLUS_LIST_NEEDS_COMMA
 # undef OGLPLUS_LIST_NEEDS_COMMA
 #endif

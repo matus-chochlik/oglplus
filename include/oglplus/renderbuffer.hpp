@@ -107,6 +107,7 @@ protected:
 
 	friend class FriendOf<RenderbufferOps>;
 
+	static GLuint _binding(Target);
 	static GLenum _binding_query(Target target);
 	friend class BindingQuery<RenderbufferOps>;
 
@@ -122,7 +123,7 @@ protected:
 			GetRenderbufferParameteriv,
 			Renderbuffer,
 			EnumValueName(target),
-			BindingQuery<RenderbufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 		return result;
 	}
@@ -171,7 +172,7 @@ public:
 			RenderbufferStorage,
 			Renderbuffer,
 			EnumValueName(target),
-			BindingQuery<RenderbufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -206,7 +207,7 @@ public:
 			RenderbufferStorageMultisample,
 			Renderbuffer,
 			EnumValueName(target),
-			BindingQuery<RenderbufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -383,6 +384,25 @@ inline RenderbufferTarget operator << (
 	RenderbufferOps::Storage(target, image_spec);
 	return target;
 }
+
+/// Class that can be used to unbind the currently bound renderbuffer
+class NoRenderbuffer
+{
+public:
+	/// Renderbuffer bind targets
+	typedef RenderbufferTarget Target;
+
+	/// Bind the name zero to the @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindRenderbuffer}
+	 */
+	static void Bind(Target target = Target::Renderbuffer)
+	{
+		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
+	}
+};
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality

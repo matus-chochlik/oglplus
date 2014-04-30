@@ -10,9 +10,61 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstring>
 
 #include <oglplus/imports/blend_file.hpp>
 #include <oglplus/matrix.hpp>
+
+bool find_blend_obj_prop(
+	oglplus::imports::BlendFile& blend_file,
+	oglplus::imports::BlendFilePointer prop_ptr,
+	const char* name,
+	float& value
+)
+{
+	using namespace oglplus::imports;
+
+	if(prop_ptr)
+	{
+		auto prop = blend_file[prop_ptr];
+
+		if(std::strcmp(prop.Field<std::string>("name").Get().c_str(), name) == 0)
+		{
+			if(prop.Field<char>("type").Get() == 0x8)
+			{
+				try
+				{
+					int data[2] = {
+						prop.Field<int>("data.val").Get(),
+						prop.Field<int>("data.val2").Get()
+					};
+					value = *((double*)data);
+
+					return true;
+				}
+				catch(std::runtime_error&) { }
+			}
+		}
+		const char* child_names[] = {"data.group.first", "next", nullptr};
+		const char** child_name = child_names;
+
+		while(*child_name)
+		{
+			prop_ptr = prop.Field<void*>(*child_name).Get();
+			if(prop_ptr)
+			{
+				if(find_blend_obj_prop(
+					blend_file,
+					prop_ptr,
+					name,
+					value
+				)) return true;
+			}
+			++child_name;
+		}
+	}
+	return false;
+}
 
 
 void blend_to_csv(const std::string& input_path, const std::string& output_path)
@@ -44,10 +96,10 @@ void blend_to_csv(const std::string& input_path, const std::string& output_path)
 	std::ostream& output = output_to_cout?std::cout:output_file;
 
 	// the header containing list of columns
+	output << "pos_x|pos_y|pos_z|";
 	output << "rotxx|rotxy|rotxz|";
 	output << "rotyx|rotyy|rotyz|";
 	output << "rotzx|rotzy|rotzz|";
-	output << "pos_x|pos_y|pos_z|";
 	output << "csize|doffs|dmult|";
 	output << "c_age|";
 
@@ -73,10 +125,10 @@ void blend_to_csv(const std::string& input_path, const std::string& output_path)
 
 			if(type == 1) // TODO: other types?
 			{
+				float pos_x = 0, pos_y = 0, pos_z = 0;
 				float rotxx = 1, rotxy = 0, rotxz = 0;
 				float rotyx = 0, rotyy = 1, rotyz = 0;
 				float rotzx = 0, rotzy = 0, rotzz = 1;
-				float pos_x = 0, pos_y = 0, pos_z = 0;
 				float csize = 1, doffs = 0, dmult = 1;
 				float c_age = 0;
 
@@ -120,18 +172,34 @@ void blend_to_csv(const std::string& input_path, const std::string& output_path)
 					csize  = object_size.Get(0, 0);
 					csize += object_size.Get(0, 1);
 					csize += object_size.Get(0, 2);
-					csize *= 0.57735f;
+					csize /= 3.0f;
 				}
 				catch(std::runtime_error&) { }
 
+				const char* prop_names[] = {"c_age", "doffs", "dmult"};
+				float*     prop_values[] = {&c_age , &doffs , &dmult };
+
+				for(int p=0; p!=3; ++p)
+				{
+					try
+					{
+						find_blend_obj_prop(
+							blend_file,
+							object.Field<void*>("id.properties").Get(),
+							prop_names[p], *prop_values[p]
+						);
+					}
+					catch(std::runtime_error&) { }
+				}
+
+				output << pos_x << "|" << pos_y << "|" << pos_z << "|";
 				output << rotxx << "|" << rotxy << "|" << rotxz << "|";
 				output << rotyx << "|" << rotyy << "|" << rotyz << "|";
 				output << rotzx << "|" << rotzy << "|" << rotzz << "|";
-				output << pos_x << "|" << pos_y << "|" << pos_z << "|";
 				output << csize << "|" << doffs << "|" << dmult << "|";
 				output << c_age << "|";
 
-				output << object.Field<std::string>("id.name").Get();
+				output << object.Field<std::string>("id.name").Get().c_str();
 				output << std::endl;
 			}
 		}

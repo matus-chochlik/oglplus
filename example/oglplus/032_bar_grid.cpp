@@ -293,7 +293,7 @@ public:
 
 		assert(ii == ie);
 
-		VertexArray::Unbind();
+		gl.Bind(NoVertexArray());
 
 		positions
 			<< Buffer::Target::Array
@@ -311,19 +311,19 @@ public:
 
 	void InitVAO(const Program& prog, const VertexArray& vao)
 	{
-		vao.Bind();
+		gl.Bind(vao);
 
-		positions.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, positions);
 		VertexAttribArray(prog, "PosAndOffs")
 			.Setup<Vec4f>()
 			.Enable();
 
-		normals.Bind(Buffer::Target::Array);
+		gl.Bind(Buffer::Target::Array, normals);
 		VertexAttribArray(prog, "Normal")
 			.Setup<Vec3f>()
 			.Enable();
 
-		indices.Bind(Buffer::Target::ElementArray);
+		gl.Bind(Buffer::Target::ElementArray, indices);
 	}
 
 	void Render(GLsizei instance_count) const
@@ -344,13 +344,13 @@ public:
 
 	void Draw(GLsizei instance_count) const
 	{
-		draw_vao.Bind();
+		gl.Bind(draw_vao);
 		Render(instance_count);
 	}
 
 	void Shadow(GLsizei instance_count) const
 	{
-		shdw_vao.Bind();
+		gl.Bind(shdw_vao);
 		Render(instance_count);
 	}
 };
@@ -358,6 +358,7 @@ public:
 class BarGrid
 {
 private:
+	Context gl;
 	GLuint bar_count;
 	BarGridBarData bar_data;
 
@@ -397,7 +398,7 @@ public:
 		assert(pi == pe);
 
 		// upload the bar offsets
-		bar_positions.Bind(Buffer::Target::Uniform);
+		gl.Bind(Buffer::Target::Uniform, bar_positions);
 		Buffer::Data(Buffer::Target::Uniform, bar_pos_data);
 		bar_positions.BindBaseUniform(0);
 		UniformBlock(draw_prog, "BarOffsetBlock").Binding(0);
@@ -431,7 +432,7 @@ public:
 				bar_pos_data[idx] = max;
 		}
 
-		bar_positions.Bind(Buffer::Target::Uniform);
+		gl.Bind(Buffer::Target::Uniform, bar_positions);
 		Buffer::Data(Buffer::Target::Uniform, bar_pos_data);
 	}
 

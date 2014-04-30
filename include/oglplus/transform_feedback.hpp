@@ -78,6 +78,24 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
 	}
 
+	/// Begin the transform feedback mode with POINTS
+	static void BeginPoints(void)
+	{
+		Begin(TransformFeedbackPrimitiveType::Points);
+	}
+
+	/// Begin the transform feedback mode with LINES
+	static void BeginLines(void)
+	{
+		Begin(TransformFeedbackPrimitiveType::Lines);
+	}
+
+	/// Begin the transform feedback mode with TRIANGLES
+	static void BeginTriangles(void)
+	{
+		Begin(TransformFeedbackPrimitiveType::Triangles);
+	}
+
 	/// End the transform feedback mode
 	/** Consider using an instance of Activator class for more robustness.
 	 *  @throws Error

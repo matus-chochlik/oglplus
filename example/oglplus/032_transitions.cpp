@@ -17,7 +17,6 @@
 #include <oglplus/shapes/wicker_torus.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
-#include <oglplus/bound.hpp>
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
 
@@ -188,13 +187,13 @@ public:
 	MetalTexture(TextureUnitSelector unit)
 	{
 		Texture::Active(unit);
-		auto bound_self = oglplus::Bind(*this, Texture::Target::_2D);
-		bound_self.Image2D(images::BrushedMetalUByte(512, 512, 5120, -32, 32, 16, 32));
-		bound_self.GenerateMipmap();
-		bound_self.MinFilter(TextureMinFilter::LinearMipmapLinear);
-		bound_self.MagFilter(TextureMagFilter::Linear);
-		bound_self.WrapS(TextureWrap::Repeat);
-		bound_self.WrapT(TextureWrap::Repeat);
+		oglplus::Context::Bound<Texture>(Texture::Target::_2D, *this)
+			.Image2D(images::BrushedMetalUByte(512, 512, 5120, -32, 32, 16, 32))
+			.GenerateMipmap()
+			.MinFilter(TextureMinFilter::LinearMipmapLinear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::Repeat)
+			.WrapT(TextureWrap::Repeat);
 	}
 };
 
@@ -205,12 +204,12 @@ public:
 	NoiseTexture(TextureUnitSelector unit)
 	{
 		Texture::Active(unit);
-		auto bound_self = oglplus::Bind(*this, Texture::Target::_2D);
-		bound_self.Image2D(images::RandomRedUByte(512, 512));
-		bound_self.MinFilter(TextureMinFilter::Linear);
-		bound_self.MagFilter(TextureMagFilter::Linear);
-		bound_self.WrapS(TextureWrap::Repeat);
-		bound_self.WrapT(TextureWrap::Repeat);
+		oglplus::Context::Bound<Texture>(Texture::Target::_2D, *this)
+			.Image2D(images::RandomRedUByte(512, 512))
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::Repeat)
+			.WrapT(TextureWrap::Repeat);
 	}
 };
 
@@ -224,30 +223,20 @@ public:
 	 : Framebuffer(ObjectDesc("Draw FBO"))
 	{
 		Texture::Active(depth_unit);
-		{
-			auto bound_tex = oglplus::Bind(
-				depth_tex,
-				Texture::Target::_2DArray
-			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
-		}
+		oglplus::Context::Bound(Texture::Target::_2DArray, depth_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.WrapR(TextureWrap::ClampToEdge);
 
 		Texture::Active(color_unit);
-		{
-			auto bound_tex = oglplus::Bind(
-				color_tex,
-				Texture::Target::_2DArray
-			);
-			bound_tex.MinFilter(TextureMinFilter::Linear);
-			bound_tex.MagFilter(TextureMagFilter::Linear);
-			bound_tex.WrapS(TextureWrap::ClampToEdge);
-			bound_tex.WrapT(TextureWrap::ClampToEdge);
-			bound_tex.WrapR(TextureWrap::ClampToEdge);
-		}
+		oglplus::Context::Bound(Texture::Target::_2DArray, color_tex)
+			.MinFilter(TextureMinFilter::Linear)
+			.MagFilter(TextureMagFilter::Linear)
+			.WrapS(TextureWrap::ClampToEdge)
+			.WrapT(TextureWrap::ClampToEdge)
+			.WrapR(TextureWrap::ClampToEdge);
 
 		Resize(256, 256);
 	}
@@ -257,7 +246,7 @@ public:
 		if(width < height) width = height;
 		if(height < width) height = width;
 
-		oglplus::Bind(depth_tex, Texture::Target::_2DArray).Image3D(
+		oglplus::Context::Bound(Texture::Target::_2DArray, depth_tex).Image3D(
 			0,
 			PixelDataInternalFormat::DepthComponent,
 			width, height, 2,
@@ -266,7 +255,7 @@ public:
 			PixelDataType::Float,
 			nullptr
 		);
-		oglplus::Bind(color_tex, Texture::Target::_2DArray).Image3D(
+		oglplus::Context::Bound(Texture::Target::_2DArray, color_tex).Image3D(
 			0,
 			PixelDataInternalFormat::RGB,
 			width, height, 2,
@@ -276,18 +265,10 @@ public:
 			nullptr
 		);
 
-		auto bound_self = oglplus::Bind(*this, Framebuffer::Target::Draw);
-		bound_self.AttachTexture(
-			FramebufferAttachment::Color,
-			color_tex,
-			0
-		);
-		bound_self.AttachTexture(
-			FramebufferAttachment::Depth,
-			depth_tex,
-			0
-		);
-		bound_self.Complete();
+		oglplus::Context::Bound<Framebuffer>(Framebuffer::Target::Draw, *this)
+			.AttachTexture(FramebufferAttachment::Color, color_tex, 0)
+			.AttachTexture( FramebufferAttachment::Depth, depth_tex, 0)
+			.Complete();
 	}
 };
 

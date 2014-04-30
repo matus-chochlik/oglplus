@@ -316,6 +316,23 @@ public:
 	}
 };
 
+/// Class that can be used to unbind the currently bound ProgramPipeline
+class NoProgramPipeline
+{
+public:
+	/// Unbinds the current program pipeline object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindProgramPipeline}
+	 */
+	static void Bind(void)
+	{
+		OGLPLUS_GLFUNC(BindProgramPipeline)(0);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
+	}
+};
+
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating  OpenGL program pipeline functionality
 /**

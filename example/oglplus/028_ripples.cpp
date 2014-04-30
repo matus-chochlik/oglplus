@@ -14,7 +14,6 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/bound.hpp>
 #include <oglplus/bound/texture.hpp>
 
 #include <oglplus/shapes/tetrahedrons.hpp>
@@ -374,9 +373,12 @@ public:
 				images::NewtonFractal::X4Minus1(),
 				images::NewtonFractal::DefaultMixer()
 			);
-			auto bound_tex = Bind(env_map, Texture::Target::CubeMap);
+			auto bound_tex = oglplus::Context::Bound(
+				Texture::Target::CubeMap,
+				env_map
+			);
 			for(int i=0; i!=6; ++i)
-				Texture::Image2D(Texture::CubeMapFace(i), image);
+				bound_tex.ImageCM(i, image);
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);

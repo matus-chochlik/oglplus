@@ -14,6 +14,7 @@
 #define OGLPLUS_FRAMEBUFFER_DSA_1310090720_HPP
 
 #include <oglplus/framebuffer.hpp>
+#include <oglplus/color_buffer.hpp>
 #include <oglplus/ext/EXT_direct_state_access/renderbuffer.hpp>
 #include <oglplus/ext/EXT_direct_state_access/texture.hpp>
 

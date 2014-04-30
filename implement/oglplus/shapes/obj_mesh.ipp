@@ -447,14 +447,14 @@ Spheref ObjMesh::MakeBoundingSphere(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions ObjMesh::Instructions(void) const
+DrawingInstructions ObjMesh::Instructions(PrimitiveType primitive) const
 {
 	DrawingInstructions instr = this->MakeInstructions();
 	for(std::size_t m=0; m!=_mesh_offsets.size(); ++m)
 	{
 		DrawOperation operation;
 		operation.method = DrawOperation::Method::DrawArrays;
-		operation.mode = PrimitiveType::Triangles;
+		operation.mode = primitive;
 		operation.first = _mesh_offsets[m];
 		operation.count = _mesh_counts[m];
 		operation.restart_index = DrawOperation::NoRestartIndex();
