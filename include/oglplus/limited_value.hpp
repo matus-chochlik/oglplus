@@ -144,6 +144,7 @@ class NAME \
  : public LimitedCount<GL_ ## QUERY> \
 { \
 public: \
+	typedef GLuint _value_type; \
 	NAME(GLuint value = 0) \
 	 : LimitedCount<GL_ ## QUERY>( \
 		value, \
