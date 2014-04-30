@@ -1,3 +1,33 @@
+Version 0.45.0
+
+- The new object binding interface was updated, the DefaultTexture, NoBuffer,
+  NoVertexArray, NoRenderbuffer, NoProgram, NoProgramPipeline and NoSampler
+  classes were added.
+- Context::Direct(object) function for providing direct state access wrapper
+  for an object was added.
+- Wrappers for native (GLX and WGL) GL context and surface were added.
+- The ExposeGLName function replacing Expose(Object) was added.
+- The Capability enumeration was updated.
+- TransformFeedback was updated, BeginPoints, BeginLines and BeginTriangles
+  convenience functions were added.
+- The images::SortNWMap image generator for creating images encoding a bitonic
+  sorting network was added.
+- The wrapper for ARB_robustness extension was updated:
+  - The ARB_robustness class was added.
+  - ContextFlagBit enumeration was updated.
+  - The GraphicsResetStatus and ResetNotificationStrategy enumerations were
+    added.
+- The DSABufferEXT::TypedMap class was refactored into the DSABufferRawMapEXT
+  and DSABufferTypedMapEXT classes.
+- Wrappers for the NV_shader_buffer_load and NV_texture_barrier extensions
+  were added.
+- Sources and cmake scripts for building the oglplus, oalplus and eglplus
+  link libraries were added.
+- The build system was updated.
+- The --search-dir was added to the configure.py script.
+- A new example showing the usage of images::SortNWMap was added.
+- The documentation was updated and several bugs were fixed.
+
 Version 0.44.0
 
 - The NV_path_rendering wrapper was updated.
