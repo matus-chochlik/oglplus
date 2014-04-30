@@ -17,7 +17,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/auxiliary/named.hpp>
-#include <oglplus/auxiliary/strings.hpp>
+#include <oglplus/auxiliary/obj_desc.hpp>
 #include <type_traits>
 #include <cassert>
 
@@ -889,12 +889,6 @@ public:
 	 : BaseGroup<Object_>(n)
 	{ }
 };
-
-template <typename ObjectOps>
-struct NonDSAtoDSA;
-
-template <typename ObjectOps>
-struct DSAtoNonDSA;
 
 template <class Object_>
 static const String& DescriptionOf(const Object_& object)

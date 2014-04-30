@@ -523,7 +523,7 @@ public:
 		gl.CullFace(Face::Front);
 		shape_instr.Draw(shape_indices);
 
-		fbo.Unbind();
+		gl.Bind(Framebuffer::Target::Draw, DefaultFramebuffer());
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();
 

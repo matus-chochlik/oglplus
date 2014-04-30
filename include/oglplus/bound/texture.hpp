@@ -70,6 +70,33 @@ public:
 	): _base(target, tex_unit)
 	{ }
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_texture_view
+
+	/** Wrapper for Texture::View()
+	 *  @see Texture::View()
+	 */
+	const BoundTemplate& View(
+		const TextureOps & orig_texture,
+		PixelDataInternalFormat internal_format,
+		GLuint min_level,
+		GLuint num_levels,
+		GLuint min_layer,
+		GLuint num_layers
+	) const
+	{
+		TextureOps::View(
+			this->BindTarget(),
+			orig_texture,
+			internal_format,
+			min_level,
+			num_levels,
+			min_layer,
+			num_layers
+		);
+		return *this;
+	}
+#endif // GL_VERSION_4_3 GL_ARB_texture_view
+
 
 	/** Wrapper for Texture::GetIntParam()
 	 *  @see Texture::GetIntParam()
@@ -79,20 +106,6 @@ public:
 	) const
 	{
 		return TextureOps::GetIntParam(
-			this->BindTarget(),
-			query
-		);
-	}
-
-
-	/** Wrapper for Texture::GetFloatParam()
-	 *  @see Texture::GetFloatParam()
-	 */
-	GLfloat GetFloatParam(
-		GLenum query
-	) const
-	{
-		return TextureOps::GetFloatParam(
 			this->BindTarget(),
 			query
 		);
@@ -110,6 +123,20 @@ public:
 		return TextureOps::GetIntParam(
 			this->BindTarget(),
 			level,
+			query
+		);
+	}
+
+
+	/** Wrapper for Texture::GetFloatParam()
+	 *  @see Texture::GetFloatParam()
+	 */
+	GLfloat GetFloatParam(
+		GLenum query
+	) const
+	{
+		return TextureOps::GetFloatParam(
+			this->BindTarget(),
 			query
 		);
 	}
@@ -2019,33 +2046,6 @@ public:
 		);
 		return *this;
 	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_texture_view
-
-	/** Wrapper for Texture::View()
-	 *  @see Texture::View()
-	 */
-	const BoundTemplate& View(
-		const TextureOps & orig_texture,
-		PixelDataInternalFormat internal_format,
-		GLuint min_level,
-		GLuint num_levels,
-		GLuint min_layer,
-		GLuint num_layers
-	) const
-	{
-		TextureOps::View(
-			this->BindTarget(),
-			orig_texture,
-			internal_format,
-			min_level,
-			num_levels,
-			min_layer,
-			num_layers
-		);
-		return *this;
-	}
-#endif // GL_VERSION_4_3 GL_ARB_texture_view
 
 
 }; // class BoundTemplate

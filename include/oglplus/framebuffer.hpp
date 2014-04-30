@@ -206,6 +206,7 @@ protected:
 
 	friend class FriendOf<FramebufferOps>;
 
+	static GLuint _binding(Target);
 	static GLenum _binding_query(Target target);
 	friend class BindingQuery<FramebufferOps>;
 public:
@@ -292,7 +293,7 @@ public:
 			CheckFramebufferStatus,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 		return FramebufferStatus(result);
 	}
@@ -349,7 +350,7 @@ public:
 			FramebufferRenderbuffer,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -382,7 +383,7 @@ public:
 			FramebufferRenderbuffer,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -418,7 +419,7 @@ public:
 			FramebufferTexture,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -452,7 +453,7 @@ public:
 			FramebufferTexture,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif
@@ -490,7 +491,7 @@ public:
 			FramebufferTexture1D,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif
@@ -527,7 +528,7 @@ public:
 			FramebufferTexture2D,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -566,7 +567,7 @@ public:
 			FramebufferTexture3D,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif
@@ -603,7 +604,7 @@ public:
 			FramebufferTextureLayer,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -628,7 +629,7 @@ public:
 			InvalidateFramebuffer,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -679,7 +680,7 @@ public:
 			InvalidateSubFramebuffer,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 

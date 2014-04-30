@@ -3,3 +3,4 @@
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT:ForwardCompatible
 CONTEXT_FLAG_DEBUG_BIT:Debug
+CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB:RobustAccess

@@ -130,6 +130,23 @@ def get_argument_parser():
 		"""
 	)
 	argparser.add_argument(
+		"--search-dir", "-S",
+		dest="search_dirs",
+		type=os.path.abspath,
+		action="append",
+		default=list(),
+		help="""
+			Specifies additional directory with include and lib subdirectories
+			that should be searched when looking for C++ headers or compiled
+			libraries. Specifying --search-dir PATH is equivalent to specifying
+			--include-dir PATH/include --library-dir PATH/lib. The provided
+			path must be absolute or relative to the current working directory
+			from which configure is invoked. This option may be specified
+			multiple times to add multiple directories to the search list.
+		"""
+	)
+
+	argparser.add_argument(
 		"--use-cxxflags",
 		default=False,
 		action="store_true",
@@ -790,6 +807,10 @@ def main(argv):
 	# parse and process the command-line arguments
 	argparser = get_argument_parser()
 	options = argparser.parse_args()
+	cmake_env = os.environ.copy()
+	if sys.platform == 'win32':
+		env_list_sep = str(";")
+	else: env_list_sep = str(":")
 
 	# if we just wanted to generate the bash completion script
 	if options.generate_bash_complete:
@@ -811,6 +832,23 @@ def main(argv):
 	if not options.quick:
 		cmake_info = cmake_system_info(options.cmake_options)
 	else: cmake_info = list()
+
+	# the search prefix
+	for search_dir in options.search_dirs:
+		subdir = os.path.join(search_dir, "include")
+		if os.path.exists(subdir):
+			options.include_dirs.append(subdir)
+		subdir = os.path.join(search_dir, "lib")
+		if os.path.exists(subdir):
+			options.library_dirs.append(subdir)
+			subdir = os.path.join(subdir, "pkgconfig")
+			pkg_config_path = cmake_env.get("PKG_CONFIG_PATH", None)
+			if pkg_config_path:
+				pc_paths = pkg_config_path.split(env_list_sep)
+				pc_paths.append(subdir)
+				pkg_config_path = env_list_sep.join(pc_paths)
+			else: pkg_config_path = subdir
+			cmake_env["PKG_CONFIG_PATH"] = pkg_config_path
 
 	# search the LD_LIBRARY_PATH
 	options.library_dirs += search_ld_library_path()
@@ -911,7 +949,11 @@ def main(argv):
 
 	# call cmake
 	try:
-		ret = subprocess.call(cmake_cmd_line,cwd=options.build_dir)
+		ret = subprocess.call(
+			cmake_cmd_line,
+			cwd=options.build_dir,
+			env=cmake_env
+		)
 		if ret < 0:
 			print("# Configuration killed by signal %d" % -ret)
 			sys.exit(-ret)
@@ -982,7 +1024,11 @@ def main(argv):
 		else: build_cmd_line = [ "cmake", "--build", options.build_dir ]
 
 		if build_cmd_line:
-			try: subprocess.call(build_cmd_line,cwd=options.build_dir)
+			try: subprocess.call(
+				build_cmd_line,
+				cwd=options.build_dir,
+				env=cmake_env
+			)
 			except OSError as os_error:
 				print( "# Build failed")
 				print("# Failed to execute '%(cmd)s': %(error)s" % {

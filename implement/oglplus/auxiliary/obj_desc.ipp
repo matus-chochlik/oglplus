@@ -1,10 +1,10 @@
 /**
- *  @file oglplus/auxiliary/strings.ipp
- *  @brief Implementation of string helpers
+ *  @file oglplus/auxiliary/obj_desc.ipp
+ *  @brief Implementation of Object string description
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -84,7 +84,7 @@ const String& ObjectDescRegistryBase::_do_get_desc(
 	if(pos != storage.end()) return pos->second;
 	pos = archive.find(name);
 	if(pos != archive.end()) return pos->second;
-	return aux::EmptyString();
+	return EmptyString();
 }
 
 #endif // OGLPLUS_NO_OBJECT_DESCS

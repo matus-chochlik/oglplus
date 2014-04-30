@@ -76,6 +76,7 @@ add_oglplus_lib_dependencies(oglplus_example_harness)
 # set the solution folder
 set_property(TARGET oglplus_example_harness PROPERTY FOLDER "Example/OGLplus")
 
+# target_link_libraries(oglplus_example_harness oglplus) TODO
 # TODO: try to find some better solution for this
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx")
 	target_link_libraries(oglplus_example_harness pthread)
@@ -148,10 +149,7 @@ function(add_examples EXAMPLE_PATTERN PARENT_TARGET COMMON_LIBS)
 endfunction(add_examples)
 
 # make a list of libraries that we're going to link to
-set(EXAMPLE_LIBS
-	oglplus_example_harness
-	${OGLPLUS_GL_LIBS}
-)
+set(EXAMPLE_LIBS oglplus_example_harness ${OGLPLUS_GL_LIBS})
 
 # add oglplus examples
 add_examples("[0-9][0-9][0-9]*" oglplus-examples "${EXAMPLE_LIBS}")

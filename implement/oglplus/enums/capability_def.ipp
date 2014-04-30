@@ -4,7 +4,7 @@
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/capability.txt' instead.
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -353,13 +353,29 @@
 # if OGLPLUS_LIST_NEEDS_COMMA
    OGLPLUS_ENUM_CLASS_COMMA
 # endif
-# if defined FramebufferSrgb
-#  pragma push_macro("FramebufferSrgb")
-#  undef FramebufferSrgb
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferSrgb, GL_FRAMEBUFFER_SRGB)
-#  pragma pop_macro("FramebufferSrgb")
+# if defined FramebufferSRGB
+#  pragma push_macro("FramebufferSRGB")
+#  undef FramebufferSRGB
+   OGLPLUS_ENUM_CLASS_VALUE(FramebufferSRGB, GL_FRAMEBUFFER_SRGB)
+#  pragma pop_macro("FramebufferSRGB")
 # else
-   OGLPLUS_ENUM_CLASS_VALUE(FramebufferSrgb, GL_FRAMEBUFFER_SRGB)
+   OGLPLUS_ENUM_CLASS_VALUE(FramebufferSRGB, GL_FRAMEBUFFER_SRGB)
+# endif
+# ifndef OGLPLUS_LIST_NEEDS_COMMA
+#  define OGLPLUS_LIST_NEEDS_COMMA 1
+# endif
+#endif
+#if defined GL_STREAM_RASTERIZATION_AMD
+# if OGLPLUS_LIST_NEEDS_COMMA
+   OGLPLUS_ENUM_CLASS_COMMA
+# endif
+# if defined StreamRasterization
+#  pragma push_macro("StreamRasterization")
+#  undef StreamRasterization
+   OGLPLUS_ENUM_CLASS_VALUE(StreamRasterization, GL_STREAM_RASTERIZATION_AMD)
+#  pragma pop_macro("StreamRasterization")
+# else
+   OGLPLUS_ENUM_CLASS_VALUE(StreamRasterization, GL_STREAM_RASTERIZATION_AMD)
 # endif
 # ifndef OGLPLUS_LIST_NEEDS_COMMA
 #  define OGLPLUS_LIST_NEEDS_COMMA 1

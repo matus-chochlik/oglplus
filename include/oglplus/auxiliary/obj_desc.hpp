@@ -1,17 +1,17 @@
 /**
- *  @file oglplus/auxiliary/strings.hpp
- *  @brief Functions returning strings shared by various parts of the library,etc.
+ *  @file oglplus/auxiliary/obj_desc.hpp
+ *  @brief Declaration of Object description
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_AUX_STRINGS_1107121519_HPP
-#define OGLPLUS_AUX_STRINGS_1107121519_HPP
+#ifndef OGLPLUS_AUX_OBJ_DESC_1107121519_HPP
+#define OGLPLUS_AUX_OBJ_DESC_1107121519_HPP
 
 #include <oglplus/config.hpp>
 #include <oglplus/string.hpp>
@@ -23,17 +23,6 @@
 #endif
 
 namespace oglplus {
-
-namespace aux {
-
-inline const String& EmptyString(void)
-OGLPLUS_NOEXCEPT(true)
-{
-	static String empty;
-	return empty;
-}
-
-} // namespace aux
 
 class ObjectDesc
 {
@@ -214,7 +203,7 @@ public:
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/strings.ipp>
+#include <oglplus/auxiliary/obj_desc.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

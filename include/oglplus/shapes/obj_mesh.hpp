@@ -300,7 +300,13 @@ public:
 	}
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(PrimitiveType primitive) const;
+
+	/// Returns the instructions for rendering of faces
+	DrawingInstructions Instructions(void) const
+	{
+		return Instructions(PrimitiveType::Triangles);
+	}
 };
 
 } // shapes

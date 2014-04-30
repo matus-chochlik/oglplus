@@ -131,6 +131,11 @@ public:
 		return *this;
 	}
 
+	void fill(unsigned char b)
+	{
+		std::memset(begin(), b, size());
+	}
+
 	void* begin(void) const
 	{
 		return const_cast<void*>(_data);

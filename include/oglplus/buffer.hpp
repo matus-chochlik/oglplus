@@ -26,6 +26,8 @@
 #include <oglplus/buffer_storage_bit.hpp>
 #include <oglplus/buffer_target.hpp>
 #include <oglplus/buffer_map.hpp>
+#include <oglplus/buffer_gpu_addr.hpp>
+#include <oglplus/access_specifier.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
@@ -105,6 +107,7 @@ protected:
 
 	friend class FriendOf<BufferOps>;
 
+	static GLuint _binding(Target);
 	static GLenum _binding_query(Target target);
 	static GLenum _binding_query(IndexedTarget target);
 	friend class BindingQuery<BufferOps>;
@@ -171,8 +174,17 @@ public:
 			BindBuffer,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
+	}
+
+	/// Bind this buffer to the specified indexed target
+	/**
+	 *  @throws Error
+	 */
+	void Bind(IndexedTarget target, GLuint index) const
+	{
+		BindBase(target, index);
 	}
 
 	/// Bind this buffer to the specified indexed target
@@ -363,7 +375,7 @@ public:
 			BufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -384,7 +396,7 @@ public:
 			BufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -414,7 +426,7 @@ public:
 			BufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -442,7 +454,7 @@ public:
 			BufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -470,7 +482,7 @@ public:
 			BufferSubData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -491,7 +503,7 @@ public:
 			BufferSubData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -518,7 +530,7 @@ public:
 			BufferSubData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -581,7 +593,7 @@ public:
 			ClearBufferData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -619,7 +631,7 @@ public:
 			ClearBufferSubData,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 #endif
@@ -702,7 +714,7 @@ public:
 			BufferStorage,
 			Buffer,
 			EnumValueName(target),
-			BindingQuery<BufferOps>::QueryBinding(target)
+			_binding(target)
 		));
 	}
 
@@ -784,6 +796,70 @@ public:
 		return Bitfield<BufferMapAccess>(
 			GLbitfield(GetIntParam(target, GL_BUFFER_ACCESS))
 		);
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_shader_buffer_load
+	/// Makes buffer currently bound to target accessible to GLSL shaders
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{MakeBufferResidentNV}
+	 *
+	 *  @throws Error
+	 */
+	static void MakeResident(Target target, AccessSpecifier access)
+	{
+		OGLPLUS_GLFUNC(MakeBufferResidentNV)(
+			GLenum(target),
+			GLenum(access)
+		);
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			MakeBufferResidentNV,
+			Buffer,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Makes buffer currently bound to target inaccessible to GLSL shaders
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{MakeBufferNonResidentNV}
+	 *
+	 *  @throws Error
+	 */
+	static void MakeNonResident(Target target)
+	{
+		OGLPLUS_GLFUNC(MakeBufferNonResidentNV)(GLenum(target));
+		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+			MakeBufferNonResidentNV,
+			Buffer,
+			EnumValueName(target),
+			_binding(target)
+		));
+	}
+
+	/// Returns the GPU address of the buffer currently bound to target
+	/**
+	 *  @glextreq{NV,shader_buffer_load}
+	 *  @glsymbols
+	 *  @glfunref{GetBufferParameterui64vNV}
+	 *  @gldefref{BUFFER_GPU_ADDRESS_NV}
+	 *
+	 *  @throws Error
+	 */
+	static BufferGPUAddress GPUAddress(Target target)
+	{
+		GLuint64EXT value = 0;
+		OGLPLUS_GLFUNC(GetBufferParameterui64vNV)(
+			GLenum(target),
+			GL_BUFFER_GPU_ADDRESS_NV,
+			&value
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetBufferParameterui64vNV));
+		return BufferGPUAddress(value);
 	}
 #endif
 };
@@ -933,6 +1009,68 @@ inline BufferTarget operator << (
 	BufferOps::SubData(tao.target, tao.offset, data);
 	return tao.target;
 }
+
+/// Class that can be used for unbinding of currently bound buffers
+class NoBuffer
+{
+public:
+	/// Buffer bind targets
+	typedef BufferTarget Target;
+
+	/// Buffer indexed bind targets
+	typedef BufferIndexedTarget IndexedTarget;
+
+	/// Unbinds the current buffer from the specified target
+	/** This function binds the name 0 to the specified @p target.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindBuffer}
+	 *
+	 *  @throws Error
+	 */
+	static void Bind(Target target)
+	{
+		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), 0);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffer,
+			Buffer,
+			EnumValueName(target),
+			0
+		));
+	}
+
+	/// Unbinds the current buffer from the specified indexed target
+	/**
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindBufferBase}
+	 *
+	 *  @throws Error
+	 */
+	static void Bind(IndexedTarget target, GLuint index)
+	{
+		BindBase(target, index);
+	}
+
+	/// Unbinds the current buffer from the specified indexed target
+	/**
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindBufferBase}
+	 *
+	 *  @throws Error
+	 */
+	static void BindBase(IndexedTarget target, GLuint index)
+	{
+		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, 0);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBufferBase,
+			Buffer,
+			EnumValueName(target),
+			0
+		));
+	}
+};
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality

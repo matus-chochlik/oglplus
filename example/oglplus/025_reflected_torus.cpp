@@ -270,7 +270,7 @@ public:
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
-		VertexArray::Unbind();
+		NoVertexArray::Bind();
 
 		Vec3f lightPos(2.0f, 2.0f, 3.0f);
 		prog_norm.Use();

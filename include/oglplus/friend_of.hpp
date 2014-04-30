@@ -14,7 +14,7 @@
 #define OGLPLUS_FRIEND_OF_1107121519_HPP
 
 #include <oglplus/auxiliary/named.hpp>
-#include <oglplus/auxiliary/strings.hpp>
+#include <oglplus/auxiliary/obj_desc.hpp>
 
 namespace oglplus {
 
@@ -76,6 +76,16 @@ class FriendOf<Wrapper<ObjectOps>>
 { };
 
 #endif
+
+/// Exposes the raw GL name of an OGLplus object.
+/** This function can be used to get the GLuint name of a wrapped GL object
+ *  like Texture, Program, Buffer, TransformFeedback, etc.
+ */
+template <typename Object>
+inline GLuint ExposeGLName(const Object& object)
+{
+	return FriendOf<Object>::GetName(object);
+}
 
 } // namespace oglplus
 
