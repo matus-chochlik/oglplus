@@ -119,39 +119,6 @@ public:
 		> PixDataType;
 	};
 
-	/// Specify active texture unit for subsequent commands
-	/**
-	 *  @throws Error
-	 *
-	 *  @see Bind
-	 *
-	 *  @glsymbols
-	 *  @glfunref{ActiveTexture}
-	 */
-	static void Active(TextureUnitSelector index)
-	{
-		OGLPLUS_GLFUNC(ActiveTexture)(
-			GLenum(GL_TEXTURE0 + GLuint(index))
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ActiveTexture));
-	}
-
-	/// Returns active texture unit
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{Get}
-	 *  @gldefref{ACTIVE_TEXTURE}
-	 */
-	static GLint Active(void)
-	{
-		GLint result;
-		OGLPLUS_GLFUNC(GetIntegerv)(GL_ACTIVE_TEXTURE, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
-		return GL_TEXTURE0 - result;
-	}
-
 	/// Bind this texture to this->target
 	void Bind(void)
 	{
@@ -169,29 +136,44 @@ public:
 	/**
 	 *  @throws Error
 	 */
-	void Bind(Target new_target)
+	void Bind(Target tex_target)
 	{
-		target = new_target;
+		target = tex_target;
 		Bind();
 	}
 
-	/// Unbinds the current texture from its target
-	/**
-	 *  @deprecated This function is deprecated and will be removed.
-	 *  Use DefaultTexture::Bind instead.
-	 *
-	 *  @throws Error
-	 *
-	 *  @see Active
-	 *  @see Bind
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindTexture}
-	 */
-	void Unbind(void) const
+	/// Bind this texture to this->target on the specified texture unit
+	void BindMulti(TextureUnitSelector index)
 	{
-		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
+		assert(_name != 0);
+		OGLPLUS_GLFUNC(BindMultiTextureEXT)(
+			GLenum(GL_TEXTURE0 + GLuint(index)),
+			GLenum(target),
+			_name
+		);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindMultiTextureEXT,
+			Texture,
+			EnumValueName(target),
+			_name
+		));
+	}
+
+	/// Bind this texture to target on the specified texture unit
+	void BindMulti(TextureUnitSelector index, Target tex_target)
+	{
+		target = tex_target;
+		BindMulti(index);
+	}
+
+	/// Bind this texture to target on the specified texture unit
+	/**
+	 *  Equivalent to BindMulti(index, tex_target)
+	 */
+	void Bind(TextureUnitSelector index, Target tex_target)
+	{
+		target = tex_target;
+		BindMulti(index);
 	}
 
 	GLint GetIntParam(GLenum query) const
@@ -2660,6 +2642,16 @@ inline DSATextureEXTOps& operator << (
 )
 {
 	tex.Bind(target);
+	return tex;
+}
+
+// BindMulti
+inline DSATextureEXTOps& operator << (
+	DSATextureEXTOps& tex,
+	TextureUnitAndTarget uat
+)
+{
+	tex.BindMulti(uat.unit, uat.tgt);
 	return tex;
 }
 

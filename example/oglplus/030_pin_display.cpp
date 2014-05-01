@@ -370,8 +370,7 @@ private:
 
 		ProgramUniformSampler(display_prog, "Offsets").Set(0);
 		ProgramUniformSampler(shadow_prog, "Offsets").Set(0);
-		Texture::Active(0);
-		offsets.Bind(Texture::Target::_2D);
+		offsets.Bind(0, Texture::Target::_2D);
 		offsets.Image2D(
 			0,
 			PixelDataInternalFormat::RG32F,
@@ -391,8 +390,7 @@ private:
 	{
 		ProgramUniformSampler(display_prog, "Heights").Set(1);
 		ProgramUniformSampler(shadow_prog, "Heights").Set(1);
-		Texture::Active(1);
-		heights.Bind(Texture::Target::_2D);
+		heights.Bind(1, Texture::Target::_2D);
 		heights.Image2D(
 			0,
 			PixelDataInternalFormat::DepthComponent32,
@@ -416,8 +414,7 @@ private:
 	void init_shadows(void)
 	{
 		ProgramUniformSampler(display_prog, "Shadows").Set(2);
-		Texture::Active(2);
-		shadows.Bind(Texture::Target::_2D);
+		shadows.Bind(2, Texture::Target::_2D);
 		shadows.Image2D(
 			0,
 			PixelDataInternalFormat::DepthComponent32,

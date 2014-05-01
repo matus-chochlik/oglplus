@@ -228,8 +228,7 @@ public:
 	{
 
 		ProgramUniformSampler(prog, "AmbiOcclMaps").Set(0);
-		Texture::Active(0);
-		this->Bind(Texture::Target::_2DArray);
+		this->Bind(0, Texture::Target::_2DArray);
 		this->Image3D(smaps);
 		this->MinFilter(TextureMinFilter::Linear);
 		this->MagFilter(TextureMagFilter::Linear);
@@ -301,8 +300,7 @@ public:
 
 
 		ProgramUniformSampler(prog, "Pattern").Set(1);
-		Texture::Active(1);
-		pattern.Bind(Texture::Target::_3D);
+		pattern.Bind(1, Texture::Target::_3D);
 		pattern.Image3D(map);
 		pattern.MinFilter(TextureMinFilter::Nearest);
 		pattern.MagFilter(TextureMagFilter::Nearest);
@@ -313,8 +311,7 @@ public:
 
 
 		ProgramUniformSampler(prog, "FadeMap").Set(2);
-		Texture::Active(2);
-		fademap.Bind(Texture::Target::_3D);
+		fademap.Bind(2, Texture::Target::_3D);
 		fademap.Image3D(images::RandomRedUByte(
 			map.Width(),
 			map.Height(),

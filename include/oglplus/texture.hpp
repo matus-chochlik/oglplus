@@ -2736,25 +2736,6 @@ public:
 		_bind(_name, target);
 	}
 
-	/// Unbinds the current texture from the target on the Active unit
-	/**
-	 *  @deprecated This function is deprecated and will be removed
-	 *  in the next release, Use DefaultTexture::Bind() instead.
-	 *
-	 *  @throws Error
-	 *
-	 *  @see Active
-	 *  @see Bind
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindTexture}
-	 */
-	static void Unbind(Target target)
-	{
-		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTexture));
-	}
-
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
 	/// Bind the specified textures to the specified texture units
 	/**
@@ -3012,6 +2993,27 @@ struct TextureTargetAndSlot
 inline TextureTargetAndSlot operator | (TextureTarget target, GLuint slot)
 {
 	return TextureTargetAndSlot(target, slot);
+}
+
+// helper class for syntax-sugar operators
+struct TextureUnitAndTarget
+{
+	TextureUnitSelector unit;
+	TextureTarget tgt;
+
+	TextureUnitAndTarget(TextureUnitSelector u, TextureTarget t)
+	 : unit(u)
+	 , tgt(t)
+	{ }
+};
+
+// syntax sugar operators
+inline TextureUnitAndTarget operator | (
+	TextureUnitSelector unit,
+	TextureTarget tex
+)
+{
+	return TextureUnitAndTarget(unit, tex);
 }
 
 // Bind

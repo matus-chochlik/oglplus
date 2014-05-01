@@ -50,9 +50,7 @@ public:
 	NoiseTexture(GLuint unit)
 	 : tex_unit(unit)
 	{
-		Texture::Active(tex_unit);
-
-		this->Bind(TextureTarget::_2D);
+		this->Bind(tex_unit, TextureTarget::_2D);
 		this->Image2D(images::RandomRGBUByte(256, 256));
 		this->MinFilter(TextureMinFilter::Linear);
 		this->MagFilter(TextureMagFilter::Linear);
@@ -70,9 +68,7 @@ public:
 	CloudTexture(GLuint unit)
 	 : tex_unit(unit)
 	{
-		Texture::Active(tex_unit);
-
-		this->Bind(TextureTarget::_2D);
+		this->Bind(tex_unit, TextureTarget::_2D);
 		this->Image2D(
 			images::Cloud2D(
 				images::Cloud(
@@ -521,9 +517,7 @@ public:
 	 , projection(CamMatrixf::Ortho(-7, +7, -7, +7, 5, 30))
 	 , camera(CamMatrixf::LookingAt(Vec3f( 0, 0,-7), Vec3f()))
 	{
-		Texture::Active(tex_unit);
-
-		tex	<< TextureTarget::_2D
+		tex	<< (tex_unit|TextureTarget::_2D)
 			<< TextureFilter::Nearest
 			<< TextureWrap::ClampToEdge
 			<< images::ImageSpec(
@@ -717,13 +711,11 @@ public:
 	 , width(400)
 	 , height(300)
 	{
-		Texture::Active(geom_tex_unit);
-		geom_tex<< TextureTarget::Rectangle
+		geom_tex<< (geom_tex_unit|TextureTarget::Rectangle)
 			<< TextureFilter::Nearest
 			<< TextureWrap::ClampToEdge;
 
-		Texture::Active(volm_tex_unit);
-		volm_tex<< TextureTarget::Rectangle
+		volm_tex<< (volm_tex_unit|TextureTarget::Rectangle)
 			<< TextureFilter::Nearest
 			<< TextureWrap::ClampToEdge;
 
