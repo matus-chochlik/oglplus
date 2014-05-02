@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/ext/EXT_direct_state_access/framebuffer.hpp
+ *  @file oglplus/dsa/framebuffer.hpp
  *  @brief Framebuffer object wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,75 +10,29 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_FRAMEBUFFER_DSA_1310090720_HPP
-#define OGLPLUS_FRAMEBUFFER_DSA_1310090720_HPP
+#ifndef OGLPLUS_DSA_FRAMEBUFFER_1310090720_HPP
+#define OGLPLUS_DSA_FRAMEBUFFER_1310090720_HPP
 
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/color_buffer.hpp>
-#include <oglplus/ext/EXT_direct_state_access/renderbuffer.hpp>
-#include <oglplus/ext/EXT_direct_state_access/texture.hpp>
 
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
-/// Wrapper for OpenGL framebuffer operations
-/**
- *  @note Do not use this class directly, use DSAFrameBufferEXT instead
+/// Class wrapping renderbuffer-related functionality with direct state access
+/** @note Do not use this class directly, use DSARenderbuffer instead.
  *
- *  @see Framebuffer
- *
- *  @glsymbols
- *  @glfunref{GenFramebuffers}
- *  @glfunref{DeleteFramebuffers}
- *  @glfunref{IsFramebuffer}
  */
-class DSAFramebufferEXTOps
- : public Named
- , public BaseObject<true>
- , public FriendOf<DSARenderbufferEXTOps>
- , public FriendOf<DSATextureEXTOps>
+template <>
+class ObjectOps<tag::DirectState, tag::Framebuffer>
+ : public CommonOps<tag::DirectState, tag::Framebuffer>
 {
-public:
-	/// Framebuffer bind target
-	typedef FramebufferTarget Target;
-	Target target;
 protected:
-	static void _init(GLsizei count, GLuint* _name)
-	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenFramebuffers)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenFramebuffers));
-	}
-
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteFramebuffers)(count, _name);}
-		catch(...){ }
-	}
-
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsFramebuffer)(_name);}
-		catch(...){ }
-		return GL_FALSE;
-	}
-
-#ifdef GL_FRAMEBUFFER
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectType::Framebuffer;
-	}
-#endif
-
-	friend class FriendOf<DSAFramebufferEXTOps>;
+	ObjectOps(void){ }
 public:
+	/// Used as the default value for functions taking Target arguments
+	Target default_target;
 
 	/// Types related to Framebuffer
 	struct Property
@@ -96,65 +50,6 @@ public:
 		typedef FramebufferStatus Status;
 	};
 
-	/// Bind this framebuffer to the specified target
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindFramebuffer}
-	 */
-	void Bind(void)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindFramebuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_name
-		));
-	}
-
-	/// Bind this framebuffer to the specified target
-	/**
-	 *  @throws Error
-	 */
-	void Bind(Target new_target)
-	{
-		target = new_target;
-		Bind();
-	}
-
-	/// Binds the default framebuffer to this Framebuffer's target
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindFramebuffer}
-	 */
-	void BindDefault(void) const
-	{
-		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindFramebuffer,
-			Framebuffer,
-			EnumValueName(target),
-			0
-		));
-	}
-
-	/// Binds the default framebuffer to this Framebuffer's target
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindFramebuffer}
-	 */
-	void Unbind(void) const
-	{
-		BindDefault();
-	}
-
 	/// Checks the status of the framebuffer
 	/** Returns one of the values in the @c FramebufferStatus enumeration.
 	 *  For complete framebuffers this member function returns
@@ -165,7 +60,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CheckFramebufferStatus}
 	 */
-	FramebufferStatus Status(void) const
+	FramebufferStatus Status(Target target) const
 	{
 		GLenum result = OGLPLUS_GLFUNC(CheckNamedFramebufferStatusEXT)(
 			_name,
@@ -174,10 +69,15 @@ public:
 		if(result == 0) OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			CheckNamedFramebufferStatusEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
 		return FramebufferStatus(result);
+	}
+
+	FramebufferStatus Status(void) const
+	{
+		return Status(default_target);
 	}
 
 	/// Returns true if the framebuffer is complete
@@ -188,19 +88,29 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CheckFramebufferStatus}
 	 */
+	bool IsComplete(Target target) const
+	{
+		return Status(target) == FramebufferStatus::Complete;
+	}
+
 	bool IsComplete(void) const
 	{
-		return Status() == FramebufferStatus::Complete;
+		return IsComplete(default_target);
 	}
 
 	void HandleIncompleteError(FramebufferStatus status) const;
 
 	/// Throws an exception if the framebuffer is not complete
-	void Complete(void) const
+	void Complete(Target target) const
 	{
-		FramebufferStatus status = Status();
+		FramebufferStatus status = Status(target);
 		if(OGLPLUS_IS_ERROR(status != FramebufferStatus::Complete))
 			HandleIncompleteError(status);
+	}
+
+	void Complete(void) const
+	{
+		Complete(default_target);
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of this FBO
@@ -218,32 +128,21 @@ public:
 	 */
 	void AttachRenderbuffer(
 		Property::Attachment attachment,
-		const DSARenderbufferEXTOps& renderbuffer
+		const ObjectName<tag::Renderbuffer>& renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
 			_name,
 			GLenum(attachment),
 			GL_RENDERBUFFER,
-			FriendOf<DSARenderbufferEXTOps>::GetName(renderbuffer)
+			GetGLName(renderbuffer)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferRenderbufferEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
-	}
-
-	void AttachRenderbuffer(
-		Property::Attachment attachment,
-		const RenderbufferOps& renderbuffer
-	)
-	{
-		AttachRenderbuffer(
-			attachment,
-			Managed<DSARenderbufferEXTOps>(renderbuffer)
-		);
 	}
 
 	/// Attach a @p renderbuffer to the color @p attachment_no of this FBO
@@ -261,32 +160,21 @@ public:
 	 */
 	void AttachColorRenderbuffer(
 		FramebufferColorAttachmentNumber attachment_no,
-		const DSARenderbufferEXTOps& renderbuffer
+		const ObjectName<tag::Renderbuffer>& renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
 			_name,
 			GL_COLOR_ATTACHMENT0 + GLuint(attachment_no),
 			GL_RENDERBUFFER,
-			FriendOf<DSARenderbufferEXTOps>::GetName(renderbuffer)
+			GetGLName(renderbuffer)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferRenderbufferEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
-	}
-
-	void AttachColorRenderbuffer(
-		FramebufferColorAttachmentNumber attachment_no,
-		const RenderbufferOps& renderbuffer
-	)
-	{
-		AttachColorRenderbuffer(
-			attachment_no,
-			Managed<DSARenderbufferEXTOps>(renderbuffer)
-		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
@@ -305,35 +193,22 @@ public:
 	 */
 	void AttachTexture(
 		Property::Attachment attachment,
-		const DSATextureEXTOps& texture,
+		const ObjectName<tag::Texture>& texture,
 		GLint level
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureEXT)(
 			_name,
 			GLenum(attachment),
-			FriendOf<DSATextureEXTOps>::GetName(texture),
+			GetGLName(texture),
 			level
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferTextureEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
-	}
-
-	void AttachTexture(
-		Property::Attachment attachment,
-		const TextureOps& texture,
-		GLint level
-	)
-	{
-		AttachTexture(
-			attachment,
-			Managed<DSATextureEXTOps>(texture),
-			level
-		);
 	}
 
 	/// Attach a @p texture to the color @p attachment point of this FBO
@@ -351,35 +226,22 @@ public:
 	 */
 	void AttachColorTexture(
 		FramebufferColorAttachmentNumber attachment_no,
-		const DSATextureEXTOps& texture,
+		const ObjectName<tag::Texture>& texture,
 		GLint level
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferTextureEXT)(
 			_name,
 			GL_COLOR_ATTACHMENT0 + GLenum(attachment_no),
-			FriendOf<DSATextureEXTOps>::GetName(texture),
+			GetGLName(texture),
 			level
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferTextureEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
-	}
-
-	void AttachColorTexture(
-		FramebufferColorAttachmentNumber attachment_no,
-		const TextureOps& texture,
-		GLint level
-	)
-	{
-		AttachColorTexture(
-			attachment_no,
-			Managed<DSATextureEXTOps>(texture),
-			level
-		);
 	}
 #endif
 
@@ -398,8 +260,8 @@ public:
 	 */
 	void AttachTexture1D(
 		Property::Attachment attachment,
-		Texture::Target textarget,
-		const DSATextureEXTOps& texture,
+		TextureTarget textarget,
+		const ObjectName<tag::Texture>& texture,
 		GLint level
 	)
 	{
@@ -407,44 +269,15 @@ public:
 			_name,
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<DSATextureEXTOps>::GetName(texture),
+			GetGLName(texture),
 			level
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferTexture1DEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
-	}
-
-	void AttachTexture1D(
-		Property::Attachment attachment,
-		const DSATextureEXTOps& texture,
-		GLint level
-	)
-	{
-		AttachTexture1D(
-			attachment,
-			texture.target,
-			texture,
-			level
-		);
-	}
-
-	void AttachTexture1D(
-		Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps& texture,
-		GLint level
-	)
-	{
-		AttachTexture1D(
-			attachment,
-			textarget,
-			Managed<DSATextureEXTOps>(texture),
-			level
-		);
 	}
 
 	/// Attach a 2D @p texture to the @p attachment point of this FBO
@@ -462,8 +295,8 @@ public:
 	 */
 	void AttachTexture2D(
 		Property::Attachment attachment,
-		Texture::Target textarget,
-		const DSATextureEXTOps& texture,
+		TextureTarget textarget,
+		const ObjectName<tag::Texture>& texture,
 		GLint level
 	)
 	{
@@ -471,44 +304,15 @@ public:
 			_name,
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<DSATextureEXTOps>::GetName(texture),
+			GetGLName(texture),
 			level
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferTexture2DEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
-	}
-
-	void AttachTexture2D(
-		Property::Attachment attachment,
-		const DSATextureEXTOps& texture,
-		GLint level
-	)
-	{
-		AttachTexture2D(
-			attachment,
-			texture.target,
-			texture,
-			level
-		);
-	}
-
-	void AttachTexture2D(
-		Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps& texture,
-		GLint level
-	)
-	{
-		AttachTexture2D(
-			attachment,
-			textarget,
-			Managed<DSATextureEXTOps>(texture),
-			level
-		);
 	}
 
 	/// Attach a 3D @p texture to the @p attachment point of this FBO
@@ -526,8 +330,8 @@ public:
 	 */
 	void AttachTexture3D(
 		Property::Attachment attachment,
-		Texture::Target textarget,
-		const DSATextureEXTOps& texture,
+		TextureTarget textarget,
+		const ObjectName<tag::Texture>& texture,
 		GLint level,
 		GLint layer
 	)
@@ -536,49 +340,16 @@ public:
 			_name,
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<DSATextureEXTOps>::GetName(texture),
+			GetGLName(texture),
 			level,
 			layer
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferTexture3DEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
-	}
-
-	void AttachTexture3D(
-		Property::Attachment attachment,
-		const DSATextureEXTOps& texture,
-		GLint level,
-		GLint layer
-	)
-	{
-		AttachTexture3D(
-			attachment,
-			texture.target,
-			texture,
-			level,
-			layer
-		);
-	}
-
-	void AttachTexture3D(
-		Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps& texture,
-		GLint level,
-		GLint layer
-	)
-	{
-		AttachTexture3D(
-			attachment,
-			textarget,
-			Managed<DSATextureEXTOps>(texture),
-			level,
-			layer
-		);
 	}
 
 	/// Attach a @p texture layer to the @p attachment point of this FBO
@@ -596,7 +367,7 @@ public:
 	 */
 	void AttachTextureLayer(
 		Property::Attachment attachment,
-		const DSATextureEXTOps& texture,
+		const ObjectName<tag::Texture>& texture,
 		GLint level,
 		GLint layer
 	)
@@ -604,31 +375,16 @@ public:
 		OGLPLUS_GLFUNC(NamedFramebufferTextureLayerEXT)(
 			_name,
 			GLenum(attachment),
-			FriendOf<DSATextureEXTOps>::GetName(texture),
+			GetGLName(texture),
 			level,
 			layer
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedFramebufferTextureLayerEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
-	}
-
-	void AttachTextureLayer(
-		Property::Attachment attachment,
-		const TextureOps& texture,
-		GLint level,
-		GLint layer
-	)
-	{
-		AttachTextureLayer(
-			attachment,
-			Managed<DSATextureEXTOps>(texture),
-			level,
-			layer
-		);
 	}
 
 	/// Color buffer specification type
@@ -654,7 +410,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferDrawBufferEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
 	}
@@ -675,7 +431,7 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferDrawBuffersEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
 	}
@@ -691,37 +447,41 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			FramebufferReadBufferEXT,
 			Framebuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
 	}
 };
 
-// Helper class for syntax-sugar operators
-struct DSAFramebufferEXTOpsAndAttch
-{
-	typedef DSAFramebufferEXTOps::Property::Attachment Attachment;
+/// Framebuffer operations with direct state access
+typedef ObjectOps<tag::DirectState, tag::Framebuffer>
+	DSAFramebufferOps;
 
-	DSAFramebufferEXTOps& fbo;
+// Helper class for syntax-sugar operators
+struct DSAFramebufferOpsAndAttch
+{
+	typedef DSAFramebufferOps::Property::Attachment Attachment;
+
+	DSAFramebufferOps& fbo;
 	Attachment attachment;
 
-	DSAFramebufferEXTOpsAndAttch(DSAFramebufferEXTOps& f, Attachment a)
+	DSAFramebufferOpsAndAttch(DSAFramebufferOps& f, Attachment a)
 	 : fbo(f)
 	 , attachment(a)
 	{ }
 };
 
-inline DSAFramebufferEXTOpsAndAttch operator << (
-	DSAFramebufferEXTOps& fbo,
-	DSAFramebufferEXTOps::Property::Attachment attch
+inline DSAFramebufferOpsAndAttch operator << (
+	DSAFramebufferOps& fbo,
+	DSAFramebufferOps::Property::Attachment attch
 )
 {
-	return DSAFramebufferEXTOpsAndAttch(fbo, attch);
+	return DSAFramebufferOpsAndAttch(fbo, attch);
 }
 
 // Bind
-inline DSAFramebufferEXTOps& operator << (
-	DSAFramebufferEXTOps& fbo,
+inline DSAFramebufferOps& operator << (
+	DSAFramebufferOps& fbo,
 	FramebufferTarget target
 )
 {
@@ -730,9 +490,9 @@ inline DSAFramebufferEXTOps& operator << (
 }
 
 // AttachTexture
-inline DSAFramebufferEXTOps& operator << (
-	DSAFramebufferEXTOpsAndAttch&& faa,
-	const DSATextureEXTOps& tex
+inline DSAFramebufferOps& operator << (
+	DSAFramebufferOpsAndAttch&& faa,
+	const ObjectName<tag::Texture>& tex
 )
 {
 	faa.fbo.AttachTexture(faa.attachment, tex, 0);
@@ -740,9 +500,9 @@ inline DSAFramebufferEXTOps& operator << (
 }
 
 // AttachRenderbuffer
-inline DSAFramebufferEXTOps& operator << (
-	DSAFramebufferEXTOpsAndAttch&& faa,
-	const DSARenderbufferEXTOps& rbo
+inline DSAFramebufferOps& operator << (
+	DSAFramebufferOpsAndAttch&& faa,
+	const ObjectName<tag::Renderbuffer>& rbo
 )
 {
 	faa.fbo.AttachRenderbuffer(faa.attachment, rbo);
@@ -750,8 +510,8 @@ inline DSAFramebufferEXTOps& operator << (
 }
 
 // Complete
-inline DSAFramebufferEXTOps& operator << (
-	DSAFramebufferEXTOps& fbo,
+inline DSAFramebufferOps& operator << (
+	DSAFramebufferOps& fbo,
 	FramebufferComplete
 )
 {
@@ -759,46 +519,20 @@ inline DSAFramebufferEXTOps& operator << (
 	return fbo;
 }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
 /**
  *  @ingroup oglplus_objects
  */
-class DSAFramebufferEXT
- : public DSAFramebufferEXTOps
-{ };
+typedef Object<DSAFramebufferOps> DSAFramebuffer;
+
 #else
-typedef Object<DSAFramebufferEXTOps> DSAFramebufferEXT;
-#endif
-
-template <>
-struct NonDSAtoDSA<FramebufferOps>
-{
-	typedef DSAFramebufferEXTOps Type;
-};
-
-template <>
-struct DSAtoNonDSA<DSAFramebufferEXTOps>
-{
-	typedef FramebufferOps Type;
-};
-
-template <>
-class ConvertibleObjectBaseOps<FramebufferOps, DSAFramebufferEXTOps>
- : public std::true_type
-{ };
-
-template <>
-class ConvertibleObjectBaseOps<DSAFramebufferEXTOps, FramebufferOps>
- : public std::true_type
-{ };
-
+#error Direct State Access Framebuffers not available
 #endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/ext/EXT_direct_state_access/framebuffer.ipp>
+#include <oglplus/dsa/framebuffer.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

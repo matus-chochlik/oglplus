@@ -105,7 +105,6 @@ private:
 protected:
 	static void _do_register_desc(
 		_desc_map& storage,
-		GLenum type,
 		GLuint name,
 		ObjectDesc&& desc
 	);
@@ -113,7 +112,6 @@ protected:
 	static void _do_unregister_desc(
 		_desc_map& storage,
 		_desc_map& archive,
-		GLenum type,
 		GLuint name
 	);
 
@@ -127,7 +125,6 @@ protected:
 };
 #endif // !OGLPLUS_NO_OBJECT_DESCS
 
-template <class ObjectOps>
 class ObjectDescRegistry
 #if !OGLPLUS_NO_OBJECT_DESCS
  : public ObjectDescRegistryBase
@@ -138,63 +135,71 @@ private:
 	typedef ObjectDescRegistryBase _base;
 	typedef ::std::map<GLuint, String> _desc_map;
 
-	static _desc_map& _storage(void)
+	static _desc_map& _storage(int id)
 	{
-		return ObjectDescRegistryStorage(ObjectTypeId<ObjectOps>::value);
+		return ObjectDescRegistryStorage(id);
 	}
 
-	static _desc_map& _archive(void)
+	static _desc_map& _archive(int id)
 	{
-		return ObjectDescRegistryArchive(ObjectTypeId<ObjectOps>::value);
+		return ObjectDescRegistryArchive(id);
 	}
 #endif
-protected:
-	static void _register_desc(GLenum type, GLuint name, ObjectDesc&& desc)
+public:
+	// internal implementation detail. do not use directly
+	static void _register_desc(int id, GLuint name, ObjectDesc&& desc)
 #if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true) { (void)type; (void)name; (void)desc; }
+	OGLPLUS_NOEXCEPT(true) { (void)id; (void)name; (void)desc; }
 #else
 	{
 		_base::_do_register_desc(
-			_storage(),
-			type,
+			_storage(id),
 			name,
 			std::move(desc)
 		);
 	}
 #endif
 
-	static void _unregister_desc(GLenum type, GLuint name)
+	// internal implementation detail. do not use directly
+	static void _unregister_desc(int id, GLuint name)
 #if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true) { (void)type; (void)name; }
+	OGLPLUS_NOEXCEPT(true) { (void)id; (void)name; }
 #else
 	{
 		_base::_do_unregister_desc(
-			_storage(),
-			_archive(),
-			type,
+			_storage(id),
+			_archive(id),
 			name
 		);
 	}
 #endif
 
-public:
 	// internal implementation detail. do not use directly
-	static void _purge_archive(void)
+	static void _purge_archive(int id)
 #if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true) { }
+	OGLPLUS_NOEXCEPT(true) { (void)id; }
 #else
 	{
-		_base::_do_purge_archive(_archive());
+		_base::_do_purge_archive(_archive(id));
 	}
 #endif
 
 	// internal implementation detail. do not use directly
-	static const String& _get_desc(GLuint name)
+	static const String& _get_desc(int id, GLuint name)
 #if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true) { (void)name; return aux::EmptyString(); }
+	OGLPLUS_NOEXCEPT(true)
+	{
+		(void)id;
+		(void)name;
+		return aux::EmptyString();
+	}
 #else
 	{
-		return _base::_do_get_desc(_storage(), _archive(), name);
+		return _base::_do_get_desc(
+			_storage(id),
+			_archive(id),
+			name
+		);
 	}
 #endif
 };
@@ -203,7 +208,7 @@ public:
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/obj_desc.ipp>
+#include <oglplus/object/desc.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

@@ -80,96 +80,68 @@ std::size_t Cols(const Matrix<T, R, C>&);
 template <typename T, std::size_t R, std::size_t C>
 T At(const Matrix<T, R, C>& matrix, std::size_t i, std::size_t j);
 
-// ObjectTypeId
-template <typename ObjectOps>
-struct ObjectTypeId;
+// Tags
+namespace tag {
 
-template <typename Id>
-struct ObjectTypeById;
+struct Renderbuffer;
+struct Framebuffer;
+struct Texture;
+struct Buffer;
+struct Query;
+struct ProgramPipeline;
+struct Program;
+struct TransformFeedback;
+struct Sampler;
+struct VertexArray;
+struct Shader;
+struct PerfMonitorAMD;
+struct PathNV;
 
-#define OGLPLUS_OBJECT_TYPE_ID(OBJECT, ID) \
-template <> struct ObjectTypeId<OBJECT##Ops> \
- : public std::integral_constant<int, ID> { }; \
-template <> struct ObjectTypeById<std::integral_constant<int, ID> > \
-{ typedef OBJECT##Ops Type; };
+struct ExplicitSel;
+struct ImplicitSel;
+struct DirectState;
+} // namespace tag
 
-class RenderbufferOps;
-OGLPLUS_OBJECT_TYPE_ID(Renderbuffer, 1)
+// Object
 
-class FramebufferOps;
-OGLPLUS_OBJECT_TYPE_ID(Framebuffer, 2)
+template <typename ObjTag>
+struct IsMultiObject;
 
-class TextureOps;
-OGLPLUS_OBJECT_TYPE_ID(Texture, 3)
+template <typename ObjTag>
+class ObjectName;
 
-class BufferOps;
-OGLPLUS_OBJECT_TYPE_ID(Buffer, 4)
+template <typename ObjTag>
+GLuint GetGLName(const ObjectName<ObjTag>&);
 
-class QueryOps;
-OGLPLUS_OBJECT_TYPE_ID(Query, 5)
+template <typename ObjTag>
+class GenDelOps;
 
-class ProgramPipelineOps;
-OGLPLUS_OBJECT_TYPE_ID(ProgramPipeline, 6)
+template <typename ObjTag>
+class BindingOps;
 
-class ProgramOps;
-OGLPLUS_OBJECT_TYPE_ID(Program, 7)
+template <typename OpsTag, typename ObjTag>
+class CommonOps;
 
-class TransformFeedbackOps;
-OGLPLUS_OBJECT_TYPE_ID(TransformFeedback, 8)
+template <typename OpsTag, typename ObjTag>
+class ObjectOps;
 
-class SamplerOps;
-OGLPLUS_OBJECT_TYPE_ID(Sampler, 9)
-
-class VertexArrayOps;
-OGLPLUS_OBJECT_TYPE_ID(VertexArray, 10)
-
-class ShaderOps;
-OGLPLUS_OBJECT_TYPE_ID(Shader, 11)
-
-class PerfMonitorAMDOps;
-OGLPLUS_OBJECT_TYPE_ID(PerfMonitorAMD, 12)
-
-class PathNVOps;
-OGLPLUS_OBJECT_TYPE_ID(PathNV, 13)
-
-class DSATextureEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSATextureEXT, 14)
-
-class DSABufferEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSABufferEXT, 15)
-
-class DSAFramebufferEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSAFramebufferEXT, 16)
-
-class DSARenderbufferEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSARenderbufferEXT, 17)
-
-class DSAVertexArrayEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSAVertexArrayEXT, 18)
-
-template <typename ObjectOps>
-struct ObjectBaseOps;
-
-template <typename Target>
-struct ObjectTargetOps;
+template <typename CommonOps>
+class ObjectZero;
 
 template <typename ObjectOps>
 class Object;
 
-template <typename ObjectOps>
+template <typename Target>
+struct ObjectTargetTag;
+
+template <typename Object>
 class Managed;
 
-template <class Object>
-class FriendOf;
+template <typename Object>
+class Array;
 
-template <template <class, class> class Base, class BaseParam, class Bindable>
-class BoundTemplate;
-
-template <typename ObjectOps>
-struct NonDSAtoDSA;
-
-template <typename ObjectOps>
-struct DSAtoNonDSA;
+template <typename Object>
+class Group;
 
 } // namespace oglplus
 

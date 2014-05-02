@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/binding_query.hpp
- *  @brief Helper class for getting the OpenGL name of object bound to a target
+ *  @file oglplus/object/binding.hpp
+ *  @brief Object binding functionality
  *
  *  @author Matus Chochlik
  *
@@ -10,25 +10,22 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_BINDING_QUERY_1107121519_HPP
-#define OGLPLUS_BINDING_QUERY_1107121519_HPP
+#ifndef OGLPLUS_OBJECT_BINDING_1107121519_HPP
+#define OGLPLUS_OBJECT_BINDING_1107121519_HPP
 
+#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <cassert>
 
 namespace oglplus {
 
+/*
 template <class Object>
 class BindingQuery
 {
 public:
 	static GLuint QueryBinding(typename Object::Target target)
 	{
-		GLint result = 0;
-		GLenum query = Object::_binding_query(target);
-		if(query != 0) OGLPLUS_GLFUNC(GetIntegerv)(query, &result);
-		assert(result >= 0);
-		return GLuint(result);
 	}
 
 	template <typename Object_>
@@ -47,6 +44,7 @@ public:
 		return GLuint(result);
 	}
 };
+*/
 
 } // namespace oglplus
 

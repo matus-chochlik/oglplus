@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/ext/EXT_direct_state_access/renderbuffer.hpp
+ *  @file oglplus/dsa/renderbuffer.hpp
  *  @brief Renderbuffer object wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_RENDERBUFFER_DSA_1107121519_HPP
-#define OGLPLUS_RENDERBUFFER_DSA_1107121519_HPP
+#ifndef OGLPLUS_DSA_RENDERBUFFER_1107121519_HPP
+#define OGLPLUS_DSA_RENDERBUFFER_1107121519_HPP
 
 #include <oglplus/renderbuffer.hpp>
 
@@ -19,58 +19,17 @@ namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
-/// Class wrapping renderbuffer-related functionality
-/** @note Do not use this class directly, use DSARenderbufferEXT instead.
+/// Class wrapping renderbuffer-related functionality with direct state access
+/** @note Do not use this class directly, use DSARenderbuffer instead.
  *
- *  @glsymbols
- *  @glfunref{GenRenderbuffers}
- *  @glfunref{DeleteRenderbuffers}
- *  @glfunref{IsRenderbuffer}
  */
-class DSARenderbufferEXTOps
- : public Named
- , public BaseObject<true>
+template <>
+class ObjectOps<tag::DirectState, tag::Renderbuffer>
+ : public CommonOps<tag::DirectState, tag::Renderbuffer>
 {
-public:
-	/// Renderbuffer bind targets
-	typedef RenderbufferTarget Target;
-	Target target;
 protected:
-	static void _init(GLsizei count, GLuint* _name)
-	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenRenderbuffers)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenRenderbuffers));
-	}
-
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, _name);}
-		catch(...){ }
-	}
-
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsRenderbuffer)(_name);}
-		catch(...){ }
-		return GL_FALSE;
-	}
-
-#ifdef GL_RENDERBUFFER
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectType::Renderbuffer;
-	}
-#endif
-
-	friend class FriendOf<DSARenderbufferEXTOps>;
-
+	ObjectOps(void){ }
+public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result = 0;
@@ -82,44 +41,10 @@ protected:
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			GetRenderbufferParameteriv,
 			Renderbuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
 		return result;
-	}
-public:
-
-	/// Binds this renderbuffer to the @p target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindRenderbuffer}
-	 */
-	void Bind(void)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
-	}
-
-	/// Bind this renderbuffer to the specified target
-	/**
-	 *  @throws Error
-	 */
-	void Bind(Target new_target)
-	{
-		target = new_target;
-		Bind();
-	}
-
-	/// Bind the name 0 to this Renderbuffer's target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindRenderbuffer}
-	 */
-	void Unbind(void) const
-	{
-		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
 
 	/// Set the renderbuffer storage parameters
@@ -142,7 +67,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedRenderbufferStorageEXT,
 			Renderbuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
 	}
@@ -176,7 +101,7 @@ public:
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			NamedRenderbufferStorageMultisampleEXT,
 			Renderbuffer,
-			EnumValueName(target),
+			nullptr,
 			_name
 		));
 	}
@@ -333,11 +258,15 @@ public:
 	}
 };
 
+/// Renderbuffer operations with direct state access
+typedef ObjectOps<tag::DirectState, tag::Renderbuffer>
+	DSARenderbufferOps;
+
 // syntax-sugar operators
 
 // Bind
-inline DSARenderbufferEXTOps& operator << (
-	DSARenderbufferEXTOps& rbo,
+inline DSARenderbufferOps& operator << (
+	DSARenderbufferOps& rbo,
 	RenderbufferTarget target
 )
 {
@@ -346,8 +275,8 @@ inline DSARenderbufferEXTOps& operator << (
 }
 
 // Storage
-inline DSARenderbufferEXTOps& operator << (
-	DSARenderbufferEXTOps& rbo,
+inline DSARenderbufferOps& operator << (
+	DSARenderbufferOps& rbo,
 	const images::ImageSpec& image_spec
 )
 {
@@ -355,46 +284,20 @@ inline DSARenderbufferEXTOps& operator << (
 	return rbo;
 }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
 /**
  *  @ingroup oglplus_objects
  */
-class DSARenderbufferEXT
- : public DSARenderbufferEXTOps
-{ };
+typedef Object<DSARenderbufferOps> DSARenderbuffer;
+
 #else
-typedef Object<DSARenderbufferEXTOps> DSARenderbufferEXT;
-#endif
-
-template <>
-struct NonDSAtoDSA<RenderbufferOps>
-{
-	typedef DSARenderbufferEXTOps Type;
-};
-
-template <>
-struct DSAtoNonDSA<DSARenderbufferEXTOps>
-{
-	typedef RenderbufferOps Type;
-};
-
-template <>
-class ConvertibleObjectBaseOps<RenderbufferOps, DSARenderbufferEXTOps>
- : public std::true_type
-{ };
-
-template <>
-class ConvertibleObjectBaseOps<DSARenderbufferEXTOps, RenderbufferOps>
- : public std::true_type
-{ };
-
+#error Direct State Access Renderbuffers not available
 #endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/ext/EXT_direct_state_access/renderbuffer.ipp>
+#include <oglplus/dsa/renderbuffer.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

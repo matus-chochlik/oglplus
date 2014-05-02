@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/ext/EXT_direct_state_access/renderbuffer.ipp
+ *  @file oglplus/dsa/renderbuffer.ipp
  *  @brief Implementation of DSA Renderbuffer functions
  *
  *  @author Matus Chochlik
@@ -18,7 +18,8 @@ namespace oglplus {
 #if GL_EXT_direct_state_access
 
 OGLPLUS_LIB_FUNC
-void DSARenderbufferEXTOps::Storage(const images::ImageSpec& image_spec)
+void ObjectOps<tag::DirectState, tag::Renderbuffer>::
+Storage(const images::ImageSpec& image_spec)
 {
 	Storage(
 		image_spec.internal_format,

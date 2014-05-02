@@ -17,12 +17,10 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
-#include <oglplus/object.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/pixel_data.hpp>
 #include <oglplus/enumerations.hpp>
+#include <oglplus/pixel_data.hpp>
+#include <oglplus/object.hpp>
 #include <oglplus/images/fwd.hpp>
-#include <oglplus/binding_query.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -44,12 +42,12 @@ OGLPLUS_ENUM_CLASS_END(RenderbufferTarget)
 #endif
 
 template <>
-struct ObjectTargetOps<RenderbufferTarget>
+struct ObjectTargetTag<RenderbufferTarget>
 {
-	typedef RenderbufferOps Type;
+	typedef tag::Renderbuffer Type;
 };
 
-/// Class wrapping renderbuffer-related functionality
+/// Class wrapping renderbuffer construction/destruction functions
 /** @note Do not use this class directly, use Renderbuffer instead.
  *
  *  @glsymbols
@@ -57,60 +55,108 @@ struct ObjectTargetOps<RenderbufferTarget>
  *  @glfunref{DeleteRenderbuffers}
  *  @glfunref{IsRenderbuffer}
  */
-class RenderbufferOps
- : public Named
- , public BaseObject<true>
+template <>
+class GenDelOps<tag::Renderbuffer>
 {
-public:
-	/// Renderbuffer bind targets
-	typedef RenderbufferTarget Target;
 protected:
-	static void _init(GLsizei count, GLuint* _name)
+	static void Gen(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenRenderbuffers)(count, _name);
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenRenderbuffers)(count, names);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenRenderbuffers));
 	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	static void Delete(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, _name);}
-		catch(...){ }
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, names);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenRenderbuffers));
 	}
 
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
+	static GLboolean IsA(GLuint name)
 	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsRenderbuffer)(_name);}
-		catch(...){ }
-		return GL_FALSE;
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsRenderbuffer)(name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsRenderbuffer));
+		return result;
+	}
+};
+
+/// Renderbuffer binding operations
+template <>
+class BindingOps<tag::Renderbuffer>
+{
+private:
+	static GLenum _binding_query(RenderbufferTarget target);
+protected:
+	static GLuint _binding(RenderbufferTarget target);
+public:
+	/// Renderbuffer bind targets
+	typedef RenderbufferTarget Target;
+
+	/// Returns the current Renderbuffer bound to specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetIntegerv}
+	 */
+	static ObjectName<tag::Renderbuffer> Binding(Target target)
+	{
+		return ObjectName<tag::Renderbuffer>(_binding(target));
 	}
 
-#ifdef GL_RENDERBUFFER
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
+	/// Binds the specified @p object to the specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindRenderbuffer}
+	 */
+	static void Bind(
+		Target target,
+		const ObjectName<tag::Renderbuffer>& renderbuffer
+	)
 	{
-		return ObjectType::Renderbuffer;
-	}
-#endif
-
-	static void _bind(GLuint _name, Target target)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), _name);
+		OGLPLUS_GLFUNC(BindRenderbuffer)(
+			GLenum(target),
+			GetGLName(renderbuffer)
+		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
 	}
+};
 
-	friend class FriendOf<RenderbufferOps>;
+/// Common renderbuffer operations
+/** @note Do not use this class directly, use Renderbuffer
+ *  or NoRenderbuffer instead.
+ */
+template <typename OpsTag>
+class CommonOps<OpsTag, tag::Renderbuffer>
+ : public ObjectName<tag::Renderbuffer>
+ , public BindingOps<tag::Renderbuffer>
+{
+protected:
+	CommonOps(void){ }
+public:
+	using BindingOps<tag::Renderbuffer>::Bind;
 
-	static GLuint _binding(Target);
-	static GLenum _binding_query(Target target);
-	friend class BindingQuery<RenderbufferOps>;
+	/// Binds the current renderbuffer to the specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindRenderbuffer}
+	 */
+	void Bind(Target target = Target::Renderbuffer) const
+	{
+		Bind(target, *this);
+	}
+};
 
+/// Class wrapping renderbuffer functions with explicit target selector
+/** @note Do not use this class directly, use Renderbuffer instead.
+ */
+template <>
+class ObjectOps<tag::ExplicitSel, tag::Renderbuffer>
+ : public CommonOps<tag::ExplicitSel, tag::Renderbuffer>
+{
+protected:
+	ObjectOps(void){ }
+public:
 	static GLint GetIntParam(Target target, GLenum query)
 	{
 		GLint result = 0;
@@ -127,30 +173,8 @@ protected:
 		));
 		return result;
 	}
-public:
 
-	/// Binds this renderbuffer to the @p target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindRenderbuffer}
-	 */
-	void Bind(Target target = Target::Renderbuffer) const
-	{
-		_bind(_name, target);
-	}
-
-	/// Bind the name 0 to the @p target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindRenderbuffer}
-	 */
-	static void Unbind(Target target = Target::Renderbuffer)
-	{
-		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
-	}
-
-	/// Set the renderbuffer storage parameters
+	/// Set the renderbuffer storage parameters for the rbo bound to target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{RenderbufferStorage}
@@ -176,7 +200,7 @@ public:
 		));
 	}
 
-	/// Set the renderbuffer storage parameters
+	/// Set the renderbuffer storage parameters for the rbo bound to target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{RenderbufferStorage}
@@ -363,6 +387,10 @@ public:
 	}
 };
 
+/// The renderbuffer operations with explicit selector
+typedef ObjectOps<tag::ExplicitSel, tag::Renderbuffer>
+	RenderbufferOps;
+
 // syntax-sugar operators
 
 // Bind
@@ -386,35 +414,17 @@ inline RenderbufferTarget operator << (
 }
 
 /// Class that can be used to unbind the currently bound renderbuffer
-class NoRenderbuffer
-{
-public:
-	/// Renderbuffer bind targets
-	typedef RenderbufferTarget Target;
+/**
+ *  @ingroup oglplus_objects
+ */
+typedef ObjectZero<CommonOps<tag::ExplicitSel, tag::Renderbuffer>>
+	NoRenderbuffer;
 
-	/// Bind the name zero to the @p target
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindRenderbuffer}
-	 */
-	static void Bind(Target target = Target::Renderbuffer)
-	{
-		OGLPLUS_GLFUNC(BindRenderbuffer)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
-	}
-};
-
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
 /**
  *  @ingroup oglplus_objects
  */
-class Renderbuffer
- : public RenderbufferOps
-{ };
-#else
 typedef Object<RenderbufferOps> Renderbuffer;
-#endif
 
 } // namespace oglplus
 

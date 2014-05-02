@@ -12,13 +12,8 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-GLuint FramebufferOps::_binding(Target target)
-{
-	return BindingQuery<FramebufferOps>::QueryBinding(target);
-}
-
-OGLPLUS_LIB_FUNC
-GLenum FramebufferOps::_binding_query(Target target)
+GLenum BindingOps<tag::Framebuffer>::
+_binding_query(Target target)
 {
 	switch(GLenum(target))
 	{
@@ -29,10 +24,18 @@ GLenum FramebufferOps::_binding_query(Target target)
 }
 
 OGLPLUS_LIB_FUNC
-void FramebufferOps::HandleIncompleteError(
-	Target target,
-	FramebufferStatus status
-)
+GLuint BindingOps<tag::Framebuffer>::
+_binding(Target target)
+{
+	GLint name = 0;
+	OGLPLUS_GLFUNC(GetIntegerv)(_binding_query(target), &name);
+	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+	return name;
+}
+
+OGLPLUS_LIB_FUNC
+void ObjectOps<tag::ExplicitSel, tag::Framebuffer>::
+HandleIncompleteError(Target target, FramebufferStatus status)
 {
 	OGLPLUS_FAKE_USE(target);
 	HandleIncompleteFramebuffer<IncompleteFramebuffer>(
@@ -41,8 +44,7 @@ void FramebufferOps::HandleIncompleteError(
 			CheckFramebufferStatus,
 			Framebuffer,
 			EnumValueName(target),
-			BindingQuery<FramebufferOps>::
-			QueryBinding(target)
+			_binding(target)
 		)
 	);
 }

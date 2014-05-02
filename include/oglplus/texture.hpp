@@ -23,6 +23,7 @@
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>
 #include <oglplus/buffer.hpp>
+#include <oglplus/texture_target.hpp>
 #include <oglplus/texture_compare.hpp>
 #include <oglplus/texture_filter.hpp>
 #include <oglplus/texture_swizzle.hpp>
@@ -56,9 +57,9 @@ OGLPLUS_ENUM_CLASS_END(TextureTarget)
 #endif
 
 template <>
-struct ObjectTargetOps<TextureTarget>
+struct ObjectTargetTag<TextureTarget>
 {
-	typedef TextureOps Type;
+	typedef tag::Texture Type;
 };
 
 /// Function returning the number of texture dimensions for a texture target

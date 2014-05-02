@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/auxiliary/obj_desc.ipp
+ *  @file oglplus/object/desc.ipp
  *  @brief Implementation of Object string description
  *
  *  @author Matus Chochlik
@@ -31,13 +31,10 @@ OGLPLUS_LIB_FUNC
 OGLPLUS_LIB_FUNC
 void ObjectDescRegistryBase::_do_register_desc(
 	_desc_map& storage,
-	GLenum type,
 	GLuint name,
 	ObjectDesc&& desc
 )
 {
-	OGLPLUS_FAKE_USE(type);
-	assert(name != 0);
 	assert(storage.find(name) == storage.end());
 	storage.insert(
 		_desc_map::value_type(
@@ -51,12 +48,9 @@ OGLPLUS_LIB_FUNC
 void ObjectDescRegistryBase::_do_unregister_desc(
 	_desc_map& storage,
 	_desc_map& archive,
-	GLenum type,
 	GLuint name
 )
 {
-	OGLPLUS_FAKE_USE(type);
-	assert(name != 0);
 	auto pos = storage.find(name);
 	if(pos != storage.end())
 	{
@@ -79,7 +73,6 @@ const String& ObjectDescRegistryBase::_do_get_desc(
 	GLuint name
 )
 {
-	assert(name != 0);
 	auto pos = storage.find(name);
 	if(pos != storage.end()) return pos->second;
 	pos = archive.find(name);

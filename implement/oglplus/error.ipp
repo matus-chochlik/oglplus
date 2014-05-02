@@ -88,8 +88,13 @@ const String& ErrorObjectDescription(const ErrorInfo& info)
 {
 	OGLPLUS_FAKE_USE(info);
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
-	if((info._get_obj_desc != 0) && (info._obj_name != 0))
-		return info._get_obj_desc(info._obj_name);
+	if((info._get_obj_desc != 0) && (info._obj_typeid != 0))
+	{
+		return info._get_obj_desc(
+			info._obj_typeid,
+			info._obj_name
+		);
+	}
 #endif
 	return EmptyString();
 }
@@ -154,11 +159,11 @@ void Error::Cleanup(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	if(_info._purge_archive != 0)
-		_info._purge_archive();
+		_info._purge_archive(_info._obj_typeid);
 	for(auto i=_propagation.begin(),e=_propagation.end();i!=e;++i)
 	{
 		if(i->_purge_archive != 0)
-			i->_purge_archive();
+			i->_purge_archive(i->_obj_typeid);
 	}
 #endif
 }

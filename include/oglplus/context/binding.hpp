@@ -84,10 +84,10 @@ public:
 
 	/// Returns a managed reference to the object currently bound to target
 	template <typename ObjectTarget>
-	static oglplus::Bound<typename ObjectTargetOps<ObjectTarget>::Type>
+	static oglplus::Bound<typename ObjectTargetTag<ObjectTarget>::Type>
 	Current(ObjectTarget target)
 	{
-		typedef typename ObjectTargetOps<ObjectTarget>::Type ObjectOps;
+		typedef typename ObjectTargetTag<ObjectTarget>::Type ObjectOps;
 
 		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
 		return oglplus::Bound<ObjectOps>(
@@ -99,7 +99,7 @@ public:
 	/// Binds the object to the specified target, returns a managed reference
 	template <typename Object>
 	static oglplus::Bound<
-		typename ObjectTargetOps<typename Object::Target>::Type
+		typename ObjectTargetTag<typename Object::Target>::Type
 	> Bound(typename Object::Target target, const Object& object)
 	{
 		object.Bind(target);
@@ -108,10 +108,10 @@ public:
 
 	/// Returns a managed reference to object currently bound to indexed target
 	template <typename ObjectTarget>
-	static Managed<typename ObjectTargetOps<ObjectTarget>::Type>
+	static Managed<typename ObjectTargetTag<ObjectTarget>::Type>
 	Current(ObjectTarget target, GLuint index)
 	{
-		typedef typename ObjectTargetOps<ObjectTarget>::Type ObjectOps;
+		typedef typename ObjectTargetTag<ObjectTarget>::Type ObjectOps;
 
 		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target, index);
 		return Managed<ObjectOps>(name);
