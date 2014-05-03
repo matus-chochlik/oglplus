@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/ext/EXT_direct_state_access/texture.hpp
+ *  @file oglplus/dsa/texture.hpp
  *  @brief Texture object wrappers with direct state access
  *
  *  @author Matus Chochlik
@@ -10,73 +10,28 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_TEXTURE_DSA_1107121519_HPP
-#define OGLPLUS_TEXTURE_DSA_1107121519_HPP
+#ifndef OGLPLUS_DSA_TEXTURE_1107121519_HPP
+#define OGLPLUS_DSA_TEXTURE_1107121519_HPP
 
 #include <oglplus/texture.hpp>
-#include <oglplus/ext/EXT_direct_state_access/buffer.hpp>
 
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
-/// Wrapper for texture and texture unit-related operations
-/** @note Do not use this class directly, use DSATextureEXT instead.
+/// Class wrapping default texture functionality with direct state access
+/** @note Do not use this class directly, use DSARenderbuffer instead.
  *
- *  @glsymbols
- *  @glfunref{GenTextures}
- *  @glfunref{DeleteTextures}
- *  @glfunref{IsTexture}
  */
-class DSATextureEXTOps
- : public Named
- , public BaseObject<true>
- , public FriendOf<DSABufferEXTOps>
+template <>
+class ObjZeroOps<tag::DirectState, tag::Texture>
+ : public CommonOps<tag::Texture>
 {
-public:
-	/// Texture bind and image specification targets
-	/** @note Not all of the values enumerated here are valid
-	 *  bind targets. Some of them are just image specification
-	 *  targets.
-	 */
-	typedef TextureTarget Target;
-	Target target;
 protected:
-	static void _init(GLsizei count, GLuint* _name)
-	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenTextures)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTextures));
-	}
-
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteTextures)(count, _name);}
-		catch(...){ }
-	}
-
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsTexture)(_name);}
-		catch(...){ }
-		return GL_FALSE;
-	}
-
-#ifdef GL_TEXTURE
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectType::Texture;
-	}
-#endif
-
-	friend class FriendOf<DSATextureEXTOps>;
+	ObjZeroOps(void) { }
 public:
+	Target target;
+
 	/// Types related to Texture
 	struct Property
 	{
@@ -119,31 +74,8 @@ public:
 		> PixDataType;
 	};
 
-	/// Bind this texture to this->target
-	void Bind(void)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindTexture)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindTexture,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-	}
-
-	/// Bind this texture to the specified target
-	/**
-	 *  @throws Error
-	 */
-	void Bind(Target tex_target)
-	{
-		target = tex_target;
-		Bind();
-	}
-
-	/// Bind this texture to this->target on the specified texture unit
-	void BindMulti(TextureUnitSelector index)
+	/// Bind this texture to target on the specified texture unit
+	void BindMulti(TextureUnitSelector index, Target target)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindMultiTextureEXT)(
@@ -157,23 +89,6 @@ public:
 			EnumValueName(target),
 			_name
 		));
-	}
-
-	/// Bind this texture to target on the specified texture unit
-	void BindMulti(TextureUnitSelector index, Target tex_target)
-	{
-		target = tex_target;
-		BindMulti(index);
-	}
-
-	/// Bind this texture to target on the specified texture unit
-	/**
-	 *  Equivalent to BindMulti(index, tex_target)
-	 */
-	void Bind(TextureUnitSelector index, Target tex_target)
-	{
-		target = tex_target;
-		BindMulti(index);
 	}
 
 	GLint GetIntParam(GLenum query) const
@@ -646,7 +561,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage3D}
 	 */
-	DSATextureEXTOps& Image3D(
+	ObjZeroOps& Image3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -685,7 +600,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage3D}
 	 */
-	DSATextureEXTOps& Image3D(
+	ObjZeroOps& Image3D(
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
@@ -696,7 +611,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage3D}
 	 */
-	DSATextureEXTOps& SubImage3D(
+	ObjZeroOps& SubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -737,7 +652,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage3D}
 	 */
-	DSATextureEXTOps& SubImage3D(
+	ObjZeroOps& SubImage3D(
 		const images::Image& image,
 		GLint xoffs,
 		GLint yoffs,
@@ -750,7 +665,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	DSATextureEXTOps& Image2D(
+	ObjZeroOps& Image2D(
 		TextureTarget tex_target,
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -783,7 +698,7 @@ public:
 		return *this;
 	}
 
-	DSATextureEXTOps& Image2D(
+	ObjZeroOps& Image2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -812,7 +727,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	DSATextureEXTOps& Image2D(
+	ObjZeroOps& Image2D(
 		TextureTarget tex_target,
 		const images::Image& image,
 		GLint level = 0,
@@ -824,7 +739,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage2D}
 	 */
-	DSATextureEXTOps& Image2D(
+	ObjZeroOps& Image2D(
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
@@ -846,7 +761,7 @@ public:
 	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
 	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
 	 */
-	DSATextureEXTOps& ImageCM(
+	ObjZeroOps& ImageCM(
 		GLuint face,
 		GLint level,
 		PixelDataInternalFormat internal_format,
@@ -893,7 +808,7 @@ public:
 	 *  @gldefref{TEXTURE_CUBE_MAP_POSITIVE_Z}
 	 *  @gldefref{TEXTURE_CUBE_MAP_NEGATIVE_Z}
 	 */
-	DSATextureEXTOps& ImageCM(
+	ObjZeroOps& ImageCM(
 		GLuint face,
 		const images::Image& image,
 		GLint level = 0,
@@ -914,7 +829,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage2D}
 	 */
-	DSATextureEXTOps& SubImage2D(
+	ObjZeroOps& SubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -951,7 +866,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage2D}
 	 */
-	DSATextureEXTOps& SubImage2D(
+	ObjZeroOps& SubImage2D(
 		const images::Image& image,
 		GLint xoffs,
 		GLint yoffs,
@@ -963,7 +878,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage1D}
 	 */
-	DSATextureEXTOps& Image1D(
+	ObjZeroOps& Image1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -998,7 +913,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexImage1D}
 	 */
-	DSATextureEXTOps& Image1D(
+	ObjZeroOps& Image1D(
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
@@ -1009,7 +924,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage1D}
 	 */
-	DSATextureEXTOps& SubImage1D(
+	ObjZeroOps& SubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -1042,7 +957,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexSubImage1D}
 	 */
-	DSATextureEXTOps& SubImage1D(
+	ObjZeroOps& SubImage1D(
 		const images::Image& image,
 		GLint xoffs,
 		GLint level = 0
@@ -1055,7 +970,7 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	DSATextureEXTOps& Image(
+	ObjZeroOps& Image(
 		Target tex_target,
 		const images::Image& image,
 		GLint level = 0,
@@ -1069,7 +984,7 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	DSATextureEXTOps& Image(
+	ObjZeroOps& Image(
 		const images::Image& image,
 		GLint level = 0,
 		GLint border = 0
@@ -1085,7 +1000,7 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	DSATextureEXTOps& Image(
+	ObjZeroOps& Image(
 		Target tex_target,
 		const images::ImageSpec& image_spec,
 		GLint level = 0,
@@ -1099,7 +1014,7 @@ public:
 	 *  @glfunref{TexImage2D}
 	 *  @glfunref{TexImage1D}
 	 */
-	DSATextureEXTOps& Image(
+	ObjZeroOps& Image(
 		const images::ImageSpec& image_spec,
 		GLint level = 0,
 		GLint border = 0
@@ -1113,7 +1028,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexImage2D}
 	 */
-	DSATextureEXTOps& CopyImage2D(
+	ObjZeroOps& CopyImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLint x,
@@ -1148,7 +1063,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexImage1D}
 	 */
-	DSATextureEXTOps& CopyImage1D(
+	ObjZeroOps& CopyImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLint x,
@@ -1181,7 +1096,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexSubImage3D}
 	 */
-	DSATextureEXTOps& CopySubImage3D(
+	ObjZeroOps& CopySubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1218,7 +1133,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexSubImage2D}
 	 */
-	DSATextureEXTOps& CopySubImage2D(
+	ObjZeroOps& CopySubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1253,7 +1168,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CopyTexSubImage1D}
 	 */
-	DSATextureEXTOps& CopySubImage1D(
+	ObjZeroOps& CopySubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLint x,
@@ -1284,7 +1199,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage3D}
 	 */
-	DSATextureEXTOps& CompressedImage3D(
+	ObjZeroOps& CompressedImage3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1321,7 +1236,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage2D}
 	 */
-	DSATextureEXTOps& CompressedImage2D(
+	ObjZeroOps& CompressedImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1356,7 +1271,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexImage1D}
 	 */
-	DSATextureEXTOps& CompressedImage1D(
+	ObjZeroOps& CompressedImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1389,7 +1304,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage3D}
 	 */
-	DSATextureEXTOps& CompressedSubImage3D(
+	ObjZeroOps& CompressedSubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1430,7 +1345,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage2D}
 	 */
-	DSATextureEXTOps& CompressedSubImage2D(
+	ObjZeroOps& CompressedSubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1467,7 +1382,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompressedTexSubImage1D}
 	 */
-	DSATextureEXTOps& CompressedSubImage1D(
+	ObjZeroOps& CompressedSubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -1502,100 +1417,21 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexBuffer}
 	 */
-	DSATextureEXTOps& Buffer(
+	ObjZeroOps& Buffer(
 		PixelDataInternalFormat internal_format,
-		const DSABufferEXTOps& buffer
+		const ObjectName<tag::Buffer>& buffer
 	)
 	{
 		OGLPLUS_GLFUNC(TextureBufferEXT)(
 			_name,
 			GLenum(target),
 			GLenum(internal_format),
-			FriendOf<DSABufferEXTOps>::GetName(buffer)
+			GetGLName(buffer)
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TextureBufferEXT,
 			Texture,
 			EnumValueName(target),
-			_name
-		));
-		return *this;
-	}
-
-	DSATextureEXTOps& Buffer(
-		PixelDataInternalFormat internal_format,
-		const BufferOps& buffer
-	)
-	{
-		return Buffer(internal_format, Managed<DSABufferEXTOps>(buffer));
-	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_3 ||GL_ARB_texture_view
-	/// References and reinteprets a subset of the data of another texture
-	/**
-	 *  @glvoereq{4,3,ARB,texture_view}
-	 *  @glsymbols
-	 *  @glfunref{TextureView}
-	 */
-	DSATextureEXTOps& View(
-		const DSATextureEXTOps& orig_texture,
-		PixelDataInternalFormat internal_format,
-		GLuint min_level,
-		GLuint num_levels,
-		GLuint min_layer,
-		GLuint num_layers
-	)
-	{
-		OGLPLUS_GLFUNC(TextureView)(
-			_name,
-			GLenum(target),
-			orig_texture._name,
-			GLenum(internal_format),
-			min_level,
-			num_levels,
-			min_layer,
-			num_layers
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			TextureView,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
-		return *this;
-	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_2 ||GL_ARB_shader_image_load_store
-	/// Binds a @p level of this texture to an image @p unit
-	/**
-	 *  @glvoereq{4,2,ARB,shader_image_load_store}
-	 *  @glsymbols
-	 *  @glfunref{BindImageTexture}
-	 */
-	DSATextureEXTOps& BindImage(
-		ImageUnitSelector unit,
-		GLint level,
-		bool layered,
-		GLint layer,
-		AccessSpecifier access,
-		ImageUnitFormat format
-	)
-	{
-		OGLPLUS_GLFUNC(BindImageTexture)(
-			GLuint(unit),
-			_name,
-			level,
-			layered? GL_TRUE : GL_FALSE,
-			layer,
-			GLenum(access),
-			GLenum(format)
-		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			BindImageTexture,
-			Texture,
-			nullptr,
 			_name
 		));
 		return *this;
@@ -1619,7 +1455,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BASE_LEVEL}
 	 */
-	DSATextureEXTOps& BaseLevel(GLuint level)
+	ObjZeroOps& BaseLevel(GLuint level)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1666,7 +1502,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	DSATextureEXTOps& BorderColor(Vector<GLfloat, 4> color)
+	ObjZeroOps& BorderColor(Vector<GLfloat, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfvEXT)(
 			_name,
@@ -1713,7 +1549,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	DSATextureEXTOps& BorderColor(Vector<GLint, 4> color)
+	ObjZeroOps& BorderColor(Vector<GLint, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterIivEXT)(
 			_name,
@@ -1760,7 +1596,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_BORDER_COLOR}
 	 */
-	DSATextureEXTOps& BorderColor(Vector<GLuint, 4> color)
+	ObjZeroOps& BorderColor(Vector<GLuint, 4> color)
 	{
 		OGLPLUS_GLFUNC(TextureParameterIuivEXT)(
 			_name,
@@ -1796,7 +1632,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_COMPARE_MODE}
 	 */
-	DSATextureEXTOps& CompareMode(TextureCompareMode mode)
+	ObjZeroOps& CompareMode(TextureCompareMode mode)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1832,7 +1668,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_COMPARE_FUNC}
 	 */
-	DSATextureEXTOps& CompareFunc(CompareFunction func)
+	ObjZeroOps& CompareFunc(CompareFunction func)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1866,7 +1702,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_LOD_BIAS}
 	 */
-	DSATextureEXTOps& LODBias(GLfloat value)
+	ObjZeroOps& LODBias(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
 			_name,
@@ -1890,7 +1726,7 @@ public:
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	DSATextureEXTOps& Filter(TextureFilter filter)
+	ObjZeroOps& Filter(TextureFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1938,7 +1774,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MAG_FILTER}
 	 */
-	DSATextureEXTOps& MagFilter(TextureMagFilter filter)
+	ObjZeroOps& MagFilter(TextureMagFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -1974,7 +1810,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MIN_FILTER}
 	 */
-	DSATextureEXTOps& MinFilter(TextureMinFilter filter)
+	ObjZeroOps& MinFilter(TextureMinFilter filter)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -2008,7 +1844,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MIN_LOD}
 	 */
-	DSATextureEXTOps& MinLOD(GLfloat value)
+	ObjZeroOps& MinLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
 			_name,
@@ -2042,7 +1878,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MAX_LOD}
 	 */
-	DSATextureEXTOps& MaxLOD(GLfloat value)
+	ObjZeroOps& MaxLOD(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
 			_name,
@@ -2076,7 +1912,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MAX_LEVEL}
 	 */
-	DSATextureEXTOps& MaxLevel(GLint value)
+	ObjZeroOps& MaxLevel(GLint value)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -2129,7 +1965,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_MAX_ANISOTROPY_EXT}
 	 */
-	DSATextureEXTOps& Anisotropy(GLfloat value)
+	ObjZeroOps& Anisotropy(GLfloat value)
 	{
 #ifdef  GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
 		OGLPLUS_GLFUNC(TextureParameterfEXT)(
@@ -2170,7 +2006,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 */
-	DSATextureEXTOps& Swizzle(
+	ObjZeroOps& Swizzle(
 		TextureSwizzleCoord coord,
 		TextureSwizzle mode
 	)
@@ -2209,7 +2045,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_R}
 	 */
-	DSATextureEXTOps& SwizzleR(TextureSwizzle mode)
+	ObjZeroOps& SwizzleR(TextureSwizzle mode)
 	{
 		return Swizzle(TextureSwizzleCoord::R, mode);
 	}
@@ -2233,7 +2069,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_G}
 	 */
-	DSATextureEXTOps& SwizzleG(TextureSwizzle mode)
+	ObjZeroOps& SwizzleG(TextureSwizzle mode)
 	{
 		return Swizzle(TextureSwizzleCoord::G, mode);
 	}
@@ -2257,7 +2093,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_B}
 	 */
-	DSATextureEXTOps& SwizzleB(TextureSwizzle mode)
+	ObjZeroOps& SwizzleB(TextureSwizzle mode)
 	{
 		return Swizzle(TextureSwizzleCoord::B, mode);
 	}
@@ -2281,7 +2117,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_A}
 	 */
-	DSATextureEXTOps& SwizzleA(TextureSwizzle mode)
+	ObjZeroOps& SwizzleA(TextureSwizzle mode)
 	{
 		return Swizzle(TextureSwizzleCoord::A, mode);
 	}
@@ -2300,7 +2136,7 @@ public:
 			_name,
 			GLenum(target),
 			GL_TEXTURE_SWIZZLE_RGBA,
-			result._values
+			result.Values()
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			GetTextureParameterivEXT,
@@ -2318,7 +2154,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	DSATextureEXTOps& SwizzleRGBA(TextureSwizzle mode)
+	ObjZeroOps& SwizzleRGBA(TextureSwizzle mode)
 	{
 		GLint m = GLint(GLenum(mode));
 		GLint params[4] = {m, m, m, m};
@@ -2344,7 +2180,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	DSATextureEXTOps& SwizzleRGBA(
+	ObjZeroOps& SwizzleRGBA(
 		TextureSwizzle mode_r,
 		TextureSwizzle mode_g,
 		TextureSwizzle mode_b,
@@ -2379,13 +2215,13 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_SWIZZLE_RGBA}
 	 */
-	DSATextureEXTOps& SwizzleRGBA(const TextureSwizzleTuple& modes)
+	ObjZeroOps& SwizzleRGBA(const TextureSwizzleTuple& modes)
 	{
 		OGLPLUS_GLFUNC(TextureParameterivEXT)(
 			_name,
 			GLenum(target),
 			GL_TEXTURE_SWIZZLE_RGBA,
-			modes._values
+			modes.Values()
 		);
 		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 			TextureParameterivEXT,
@@ -2412,7 +2248,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{TexParameter}
 	 */
-	DSATextureEXTOps& Wrap(
+	ObjZeroOps& Wrap(
 		TextureWrapCoord coord,
 		TextureWrap mode
 	)
@@ -2449,7 +2285,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_WRAP_S}
 	 */
-	DSATextureEXTOps& WrapS(TextureWrap mode)
+	ObjZeroOps& WrapS(TextureWrap mode)
 	{
 		return Wrap(TextureWrapCoord::S, mode);
 	}
@@ -2471,7 +2307,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_WRAP_T}
 	 */
-	DSATextureEXTOps& WrapT(TextureWrap mode)
+	ObjZeroOps& WrapT(TextureWrap mode)
 	{
 		return Wrap(TextureWrapCoord::T, mode);
 	}
@@ -2493,7 +2329,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_WRAP_R}
 	 */
-	DSATextureEXTOps& WrapR(TextureWrap mode)
+	ObjZeroOps& WrapR(TextureWrap mode)
 	{
 		return Wrap(TextureWrapCoord::R, mode);
 	}
@@ -2520,7 +2356,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{DEPTH_STENCIL_TEXTURE_MODE}
 	 */
-	DSATextureEXTOps& DepthStencilMode(PixelDataFormat mode)
+	ObjZeroOps& DepthStencilMode(PixelDataFormat mode)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			_name,
@@ -2556,7 +2392,7 @@ public:
 	 *  @glfunref{TexParameter}
 	 *  @gldefref{TEXTURE_CUBE_MAP_SEAMLESS}
 	 */
-	DSATextureEXTOps& Seamless(bool enable)
+	ObjZeroOps& Seamless(bool enable)
 	{
 		OGLPLUS_GLFUNC(TextureParameteriEXT)(
 			GLenum(target),
@@ -2579,7 +2415,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GenerateMipmap}
 	 */
-	DSATextureEXTOps& GenerateMipmap(void)
+	ObjZeroOps& GenerateMipmap(void)
 	{
 		OGLPLUS_GLFUNC(GenerateTextureMipmapEXT)(
 			_name,
@@ -2594,50 +2430,52 @@ public:
 		return *this;
 	}
 
-	// Utility functions:
-
-	/// Returns the target for the i-th cube map @p face (0-5)
-	/** This functions returns one of the values for cube map faces
-	 *  from the Target enumeration. The value of @p face must
-	 *  be between 0 and 5 with the following meaning:
-	 *  0 = Target::CubeMapPositiveX,
-	 *  1 = Target::CubeMapNegativeX,
-	 *  2 = Target::CubeMapPositiveY,
-	 *  3 = Target::CubeMapNegativeY,
-	 *  4 = Target::CubeMapPositiveZ,
-	 *  5 = Target::CubeMapNegativeZ.
-	 */
-	static Target CubeMapFace(GLuint face)
-	{
-		assert(face <= 5);
-		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
-	}
 };
 
-// Helper class for syntax-sugar operators
-struct DSATextureEXTOpsAndSlot
+/// Default Texture operations with direct state access
+typedef ObjZeroOps<tag::DirectState, tag::Texture>
+	DSADefaultTextureOps;
+
+/// Class wrapping texture object functionality with direct state access
+/** @note Do not use this class directly, use DSARenderbuffer instead.
+ *
+ */
+template <>
+class ObjectOps<tag::DirectState, tag::Texture>
+ : public ObjZeroOps<tag::DirectState, tag::Texture>
 {
-	DSATextureEXTOps& tex;
+protected:
+	ObjectOps(void) { }
+};
+
+/// Texture operations with direct state access
+typedef ObjectOps<tag::DirectState, tag::Texture>
+	DSATextureOps;
+
+// Helper class for syntax-sugar operators
+struct DSATextureOpsAndSlot
+{
+	DSATextureOps& tex;
 	GLint slot;
 
-	DSATextureEXTOpsAndSlot(DSATextureEXTOps& t, GLint s)
+	DSATextureOpsAndSlot(DSATextureOps& t, GLint s)
 	 : tex(t)
 	 , slot(s)
 	{ }
 };
 
 // syntax sugar operators
-inline DSATextureEXTOpsAndSlot operator | (
-	DSATextureEXTOps& tex,
+inline DSATextureOpsAndSlot operator | (
+	DSATextureOps& tex,
 	GLuint slot
 )
 {
-	return DSATextureEXTOpsAndSlot(tex, slot);
+	return DSATextureOpsAndSlot(tex, slot);
 }
 
 // Bind
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureTarget target
 )
 {
@@ -2646,8 +2484,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // BindMulti
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureUnitAndTarget uat
 )
 {
@@ -2656,8 +2494,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Filter
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureFilter filter
 )
 {
@@ -2666,8 +2504,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // MinFilter
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureMinFilter filter
 )
 {
@@ -2676,8 +2514,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // MagFilter
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureMagFilter filter
 )
 {
@@ -2686,8 +2524,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // CompareMode
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureCompareMode mode
 )
 {
@@ -2696,8 +2534,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // CompareFunc
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	CompareFunction func
 )
 {
@@ -2706,8 +2544,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Wrap
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureWrap wrap
 )
 {
@@ -2723,8 +2561,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Wrap
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOpsAndSlot tas,
+inline DSATextureOps& operator << (
+	DSATextureOpsAndSlot tas,
 	TextureWrap wrap
 )
 {
@@ -2739,8 +2577,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Swizzle
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureSwizzle swizzle
 )
 {
@@ -2749,8 +2587,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Swizzle
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOpsAndSlot tas,
+inline DSATextureOps& operator << (
+	DSATextureOpsAndSlot tas,
 	TextureSwizzle swizzle
 )
 {
@@ -2767,8 +2605,8 @@ inline DSATextureEXTOps& operator << (
 
 // BorderColor
 template <typename T>
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	const Vector<T, 4>& col
 )
 {
@@ -2777,8 +2615,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Image
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	const images::Image& image
 )
 {
@@ -2787,8 +2625,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Image
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	const images::ImageSpec& image_spec
 )
 {
@@ -2797,8 +2635,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Image + Level
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOpsAndSlot tas,
+inline DSATextureOps& operator << (
+	DSATextureOpsAndSlot tas,
 	const images::Image& image
 )
 {
@@ -2807,8 +2645,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // Image + Level
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOpsAndSlot tas,
+inline DSATextureOps& operator << (
+	DSATextureOpsAndSlot tas,
 	const images::ImageSpec& image_spec
 )
 {
@@ -2817,8 +2655,8 @@ inline DSATextureEXTOps& operator << (
 }
 
 // GenerateMipmaps
-inline DSATextureEXTOps& operator << (
-	DSATextureEXTOps& tex,
+inline DSATextureOps& operator << (
+	DSATextureOps& tex,
 	TextureMipmap
 )
 {
@@ -2826,46 +2664,26 @@ inline DSATextureEXTOps& operator << (
 	return tex;
 }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// An @ref oglplus_object encapsulating the OpenGL DSA texture functionality
+/// An @ref oglplus_object encapsulating the DSA default texture functionality
 /**
  *  @ingroup oglplus_objects
  */
-class DSATextureEXT
- : public DSATextureEXTOps
-{ };
+typedef ObjectZero<DSADefaultTextureOps> DSADefaultTexture;
+
+/// An @ref oglplus_object encapsulating the DSA texture object functionality
+/**
+ *  @ingroup oglplus_objects
+ */
+typedef Object<DSATextureOps> DSATexture;
+
 #else
-typedef Object<DSATextureEXTOps> DSATextureEXT;
-#endif
-
-template <>
-struct NonDSAtoDSA<TextureOps>
-{
-	typedef DSATextureEXTOps Type;
-};
-
-template <>
-struct DSAtoNonDSA<DSATextureEXTOps>
-{
-	typedef TextureOps Type;
-};
-
-template <>
-class ConvertibleObjectBaseOps<TextureOps, DSATextureEXTOps>
- : public std::true_type
-{ };
-
-template <>
-class ConvertibleObjectBaseOps<DSATextureEXTOps, TextureOps>
- : public std::true_type
-{ };
-
+#error Direct State Access Textures not available
 #endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/ext/EXT_direct_state_access/texture.ipp>
+#include <oglplus/dsa/texture.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

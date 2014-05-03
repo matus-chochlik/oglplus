@@ -11,14 +11,8 @@
 
 namespace oglplus {
 
-OGLPLUS_LIB_FUNC
-GLuint BufferOps::_binding(Target target)
-{
-	return BindingQuery<BufferOps>::QueryBinding(target);
-}
-
-OGLPLUS_LIB_FUNC
-GLenum BufferOps::_binding_query(Target target)
+GLenum BindingOps<tag::Buffer>::
+_binding_query(BufferTarget target)
 {
 	switch(GLenum(target))
 	{
@@ -28,8 +22,8 @@ GLenum BufferOps::_binding_query(Target target)
 	return 0;
 }
 
-OGLPLUS_LIB_FUNC
-GLenum BufferOps::_binding_query(IndexedTarget target)
+GLenum BindingOps<tag::Buffer>::
+_binding_query(BufferIndexedTarget target)
 {
 	switch(GLenum(target))
 	{
@@ -37,6 +31,26 @@ GLenum BufferOps::_binding_query(IndexedTarget target)
 		default:;
 	}
 	return 0;
+}
+
+OGLPLUS_LIB_FUNC
+GLuint BindingOps<tag::Buffer>::
+_binding(BufferTarget target)
+{
+	GLint name = 0;
+	OGLPLUS_GLFUNC(GetIntegerv)(_binding_query(target), &name);
+	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+	return name;
+}
+
+OGLPLUS_LIB_FUNC
+GLuint BindingOps<tag::Buffer>::
+_binding(BufferIndexedTarget target, GLuint index)
+{
+	GLint name = 0;
+	OGLPLUS_GLFUNC(GetIntegeri_v)(_binding_query(target), index, &name);
+	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+	return name;
 }
 
 } // namespace oglplus

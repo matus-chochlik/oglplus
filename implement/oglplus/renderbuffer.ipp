@@ -15,7 +15,6 @@
 
 namespace oglplus {
 
-OGLPLUS_LIB_FUNC
 GLenum BindingOps<tag::Renderbuffer>::
 _binding_query(RenderbufferTarget target)
 {

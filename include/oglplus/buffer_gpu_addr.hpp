@@ -18,35 +18,32 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/uniform.hpp>
+//#include <oglplus/uniform.hpp> TODO
 
 namespace oglplus {
 
+class BufferGPUAddress;
+GLuint64EXT GetGLAddress(BufferGPUAddress);
+
+/// Class encapsulating buffer object GPU address
 class BufferGPUAddress
 {
 private:
-	GLuint64EXT _addr;
+	friend GLuint64EXT GetGLAddress(BufferGPUAddress);
 
-	friend class FriendOf<BufferGPUAddress>;
-	friend class BufferOps;
-	friend class DSABufferEXTOps;
-protected:
+	GLuint64EXT _addr;
+public:
 	BufferGPUAddress(GLuint64EXT addr)
 	 : _addr(addr)
 	{ }
 };
 
-template <>
-class FriendOf<BufferGPUAddress>
+inline GLuint64EXT GetGLAddress(BufferGPUAddress bga)
 {
-protected:
-	static GLuint64EXT GetValue(const BufferGPUAddress& bga)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return bga._addr;
-	}
-};
+	return bga._addr;
+}
 
+#ifdef NEVER_DEFINED // TODO
 /// Specialization of uniform operations for BufferGPUAddress
 template <
 	class LocationInit,
@@ -60,7 +57,6 @@ class UniformSpecOps<
 	SpecOpsWrapper
 >: public UniformOps<LocationInit, Typechecker>
  , public SpecOpsWrapper::Type
- , public FriendOf<BufferGPUAddress>
 {
 private:
 	typedef UniformOps<LocationInit, Typechecker> _base_ops;
@@ -89,10 +85,11 @@ public:
 		this->_do_set(
 			this->_get_program(),
 			this->_get_location(),
-			FriendOf<BufferGPUAddress>::GetValue(bga)
+			GetGLAddress(bga)
 		);
 	}
 };
+#endif // TODO
 
 } // namespace oglplus
 

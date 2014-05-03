@@ -113,14 +113,23 @@ class ObjectName;
 template <typename ObjTag>
 GLuint GetGLName(const ObjectName<ObjTag>&);
 
+template <typename ObjName>
+class Sequence;
+
+template <typename ObjTag>
+const GLuint* GetGLNames(const Sequence<ObjectName<ObjTag>>&);
+
 template <typename ObjTag>
 class GenDelOps;
 
 template <typename ObjTag>
 class BindingOps;
 
-template <typename OpsTag, typename ObjTag>
+template <typename ObjTag>
 class CommonOps;
+
+template <typename OpsTag, typename ObjTag>
+class ObjZeroOps;
 
 template <typename OpsTag, typename ObjTag>
 class ObjectOps;

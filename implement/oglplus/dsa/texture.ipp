@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/ext/EXT_direct_state_access/texture.ipp
+ *  @file oglplus/dsa/texture.ipp
  *  @brief Implementation of DSA Texture functions
  *
  *  @author Matus Chochlik
@@ -19,7 +19,8 @@ namespace oglplus {
 #if GL_EXT_direct_state_access
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::GetImage(
+void ObjZeroOps<tag::DirectState, tag::Texture>::
+GetImage(
 	GLint level,
 	PixelDataFormat format,
 	Property::PixDataType type,
@@ -39,13 +40,14 @@ void DSATextureEXTOps::GetImage(
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		GetTextureImageEXT,
 		Texture,
-		EnumValueName(target),
+		nullptr,
 		_name
 	));
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::GetCompressedImage(
+void ObjZeroOps<tag::DirectState, tag::Texture>::
+GetCompressedImage(
 	GLint level,
 	GLsizei size,
 	GLubyte* buffer
@@ -61,13 +63,14 @@ void DSATextureEXTOps::GetCompressedImage(
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		GetCompressedTextureImageEXT,
 		Texture,
-		EnumValueName(target),
+		nullptr,
 		_name
 	));
 }
 
 OGLPLUS_LIB_FUNC
-void DSATextureEXTOps::GetCompressedImage(
+void ObjZeroOps<tag::DirectState, tag::Texture>::
+GetCompressedImage(
 	GLint level,
 	std::vector<GLubyte>& dest
 ) const
@@ -81,7 +84,9 @@ void DSATextureEXTOps::GetCompressedImage(
 }
 
 OGLPLUS_LIB_FUNC
-DSATextureEXTOps& DSATextureEXTOps::Image3D(
+ObjZeroOps<tag::DirectState, tag::Texture>&
+ObjZeroOps<tag::DirectState, tag::Texture>::
+Image3D(
 	const images::Image& image,
 	GLint level,
 	GLint border
@@ -103,14 +108,16 @@ DSATextureEXTOps& DSATextureEXTOps::Image3D(
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		TextureImage3DEXT,
 		Texture,
-		EnumValueName(target),
+		nullptr,
 		_name
 	));
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-DSATextureEXTOps& DSATextureEXTOps::SubImage3D(
+ObjZeroOps<tag::DirectState, tag::Texture>&
+ObjZeroOps<tag::DirectState, tag::Texture>::
+SubImage3D(
 	const images::Image& image,
 	GLint xoffs,
 	GLint yoffs,
@@ -135,14 +142,16 @@ DSATextureEXTOps& DSATextureEXTOps::SubImage3D(
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		TextureSubImage3DEXT,
 		Texture,
-		EnumValueName(target),
+		nullptr,
 		_name
 	));
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-DSATextureEXTOps& DSATextureEXTOps::Image2D(
+ObjZeroOps<tag::DirectState, tag::Texture>&
+ObjZeroOps<tag::DirectState, tag::Texture>::
+Image2D(
 	TextureTarget tex_target,
 	const images::Image& image,
 	GLint level,
@@ -164,14 +173,16 @@ DSATextureEXTOps& DSATextureEXTOps::Image2D(
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		TextureImage2DEXT,
 		Texture,
-		EnumValueName(target),
+		nullptr,
 		_name
 	));
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-DSATextureEXTOps& DSATextureEXTOps::SubImage2D(
+ObjZeroOps<tag::DirectState, tag::Texture>&
+ObjZeroOps<tag::DirectState, tag::Texture>::
+SubImage2D(
 	const images::Image& image,
 	GLint xoffs,
 	GLint yoffs,
@@ -193,14 +204,16 @@ DSATextureEXTOps& DSATextureEXTOps::SubImage2D(
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		TextureSubImage2DEXT,
 		Texture,
-		EnumValueName(target),
+		nullptr,
 		_name
 	));
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-DSATextureEXTOps& DSATextureEXTOps::Image1D(
+ObjZeroOps<tag::DirectState, tag::Texture>&
+ObjZeroOps<tag::DirectState, tag::Texture>::
+Image1D(
 	const images::Image& image,
 	GLint level,
 	GLint border
@@ -220,14 +233,16 @@ DSATextureEXTOps& DSATextureEXTOps::Image1D(
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		TextureImage1DEXT,
 		Texture,
-		EnumValueName(target),
+		nullptr,
 		_name
 	));
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-DSATextureEXTOps& DSATextureEXTOps::SubImage1D(
+ObjZeroOps<tag::DirectState, tag::Texture>&
+ObjZeroOps<tag::DirectState, tag::Texture>::
+SubImage1D(
 	const images::Image& image,
 	GLint xoffs,
 	GLint level
@@ -246,14 +261,16 @@ DSATextureEXTOps& DSATextureEXTOps::SubImage1D(
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		TextureSubImage1DEXT,
 		Texture,
-		EnumValueName(target),
+		nullptr,
 		_name
 	));
 	return *this;
 }
 
 OGLPLUS_LIB_FUNC
-DSATextureEXTOps& DSATextureEXTOps::Image(
+ObjZeroOps<tag::DirectState, tag::Texture>&
+ObjZeroOps<tag::DirectState, tag::Texture>::
+Image(
 	Target tex_target,
 	const images::Image& image,
 	GLint level,
@@ -283,7 +300,9 @@ DSATextureEXTOps& DSATextureEXTOps::Image(
 }
 
 OGLPLUS_LIB_FUNC
-DSATextureEXTOps& DSATextureEXTOps::Image(
+ObjZeroOps<tag::DirectState, tag::Texture>&
+ObjZeroOps<tag::DirectState, tag::Texture>::
+Image(
 	Target tex_target,
 	const images::ImageSpec& image_spec,
 	GLint level,

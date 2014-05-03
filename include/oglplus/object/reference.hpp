@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_OBJECT_REFERENCE_1404011014_HPP
-#define OGLPLUS_OBJECT_REFERENCE_1404011014_HPP
+#ifndef OGLPLUS_OBJECT_REFERENCE_1405011014_HPP
+#define OGLPLUS_OBJECT_REFERENCE_1405011014_HPP
 
 #include <oglplus/object/named.hpp>
 
@@ -27,8 +27,8 @@ namespace oglplus {
  *  object, and can be use in the same way, provided that the original
  *  instance is not destroyed before the managed copy.
  *
- *  Instances of Reference are may for be example created when accessing
- *  or iterating through the elements of an @ref oglplus::Array "Array".
+ *  Instances of Reference are may be for example created when accessing
+ *  or iterating through the elements of an @ref oglplus::Sequence "Sequence".
  *
  *  @ingroup modifier_classes
  */
@@ -37,9 +37,9 @@ struct Reference<ObjectOps<OpsTag, ObjTag>>
  : public ObjectOps<OpsTag, ObjTag>
 {
 public:
-	Reference(ObjectName<ObjTag>&& temp)
+	Reference(const ObjectName<ObjTag>& object)
 	{
-		this->_adopt(std::move(temp));
+		this->_copy(object);
 	}
 };
 

@@ -76,7 +76,6 @@ protected:
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
-		assert(*names != 0);
 		OGLPLUS_GLFUNC(DeleteFramebuffers)(count, names);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenFramebuffers));
 	}
@@ -112,7 +111,7 @@ public:
 		return ObjectName<tag::Framebuffer>(_binding(target));
 	}
 
-	/// Binds the specified @p object to the specified @p target
+	/// Binds the specified @p framebuffer to the specified @p target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindFramebuffer}
@@ -126,7 +125,12 @@ public:
 			GLenum(target),
 			GetGLName(framebuffer)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindFramebuffer));
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindFramebuffer,
+			Framebuffer,
+			EnumValueName(target),
+			GetGLName(framebuffer)
+		));
 	}
 };
 
@@ -134,8 +138,8 @@ public:
 /** @note Do not use this class directly, use Framebuffer
  *  or DefaultFramebuffer instead.
  */
-template <typename OpsTag>
-class CommonOps<OpsTag, tag::Framebuffer>
+template <>
+class CommonOps<tag::Framebuffer>
  : public ObjectName<tag::Framebuffer>
  , public BindingOps<tag::Framebuffer>
 {
@@ -160,7 +164,7 @@ public:
  */
 template <>
 class ObjectOps<tag::ExplicitSel, tag::Framebuffer>
- : public CommonOps<tag::ExplicitSel, tag::Framebuffer>
+ : public ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>
 {
 protected:
 	ObjectOps(void){ }
@@ -631,7 +635,7 @@ public:
 #endif
 };
 
-/// The framebuffer operations with explicit selector
+/// Framebuffer operations with explicit selector
 typedef ObjectOps<tag::ExplicitSel, tag::Framebuffer>
 	FramebufferOps;
 
@@ -720,7 +724,11 @@ inline FramebufferTarget operator << (
 	return target;
 }
 
-typedef ObjectZero<CommonOps<tag::ExplicitSel, tag::Framebuffer>>
+/// An @ref oglplus_object encapsulating the default framebuffer functionality
+/**
+ *  @ingroup oglplus_objects
+ */
+typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>>
 	DefaultFramebuffer;
 
 inline FramebufferTarget operator << (
@@ -732,7 +740,7 @@ inline FramebufferTarget operator << (
 	return target;
 }
 
-/// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
+/// An @ref oglplus_object encapsulating the framebuffer object functionality
 /**
  *  @ingroup oglplus_objects
  */

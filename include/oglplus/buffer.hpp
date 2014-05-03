@@ -18,9 +18,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
-#include <oglplus/array.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/bitfield.hpp>
+#include <oglplus/object/sequence.hpp>
 #include <oglplus/buffer_binding.hpp>
 #include <oglplus/buffer_usage.hpp>
 #include <oglplus/buffer_storage_bit.hpp>
@@ -31,176 +29,259 @@
 #include <oglplus/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
-#include <oglplus/binding_query.hpp>
 
 #include <vector>
 #include <cassert>
 
 namespace oglplus {
 
-/// Wrapper for OpenGL buffer operations
-/**
- *  @note Do not use this class directly, use Buffer instead
- *
- *  @see Buffer
+/// Class wrapping buffer construction/destruction functions
+/** @note Do not use this class directly, use Buffer instead.
  *
  *  @glsymbols
  *  @glfunref{GenBuffers}
  *  @glfunref{DeleteBuffers}
  *  @glfunref{IsBuffer}
  */
-class BufferOps
- : public Named
- , public BaseObject<true>
+template <>
+class GenDelOps<tag::Buffer>
 {
+protected:
+	static void Gen(GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenBuffers)(count, names);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenBuffers));
+	}
+
+	static void Delete(GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(DeleteBuffers)(count, names);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenBuffers));
+	}
+
+	static GLboolean IsA(GLuint name)
+	{
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsBuffer)(name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsBuffer));
+		return result;
+	}
+};
+
+/// Buffer binding operations
+template <>
+class BindingOps<tag::Buffer>
+{
+private:
+	static GLenum _binding_query(BufferTarget target);
+	static GLenum _binding_query(BufferIndexedTarget target);
+protected:
+	static GLuint _binding(BufferTarget target);
+	static GLuint _binding(BufferIndexedTarget target, GLuint index);
 public:
 	/// Buffer bind targets
 	typedef BufferTarget Target;
 
 	/// Buffer indexed bind targets
 	typedef BufferIndexedTarget IndexedTarget;
-protected:
-	static void _init(GLsizei count, GLuint* _name)
-	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenBuffers)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenBuffers));
-	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteBuffers)(count, _name);}
-		catch(...){ }
-	}
-
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsBuffer)(_name);}
-		catch(...){ }
-		return GL_FALSE;
-	}
-
-#ifdef GL_BUFFER
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectType::Buffer;
-	}
-#endif
-
-	static void _bind(GLuint _name, Target target)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindBuffer,
-			Buffer,
-			EnumValueName(target),
-			_name
-		));
-	}
-
-	friend class FriendOf<BufferOps>;
-
-	static GLuint _binding(Target);
-	static GLenum _binding_query(Target target);
-	static GLenum _binding_query(IndexedTarget target);
-	friend class BindingQuery<BufferOps>;
-
-	static GLint GetIntParam(Target target, GLenum query)
-	{
-		GLint value = 0;
-		OGLPLUS_GLFUNC(GetBufferParameteriv)(
-			GLenum(target),
-			query,
-			&value
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
-		return value;
-	}
-
-public:
-	/// Types related to Buffer
-	struct Property
-	{
-		/// The Buffer usage mode
-		typedef BufferUsage Usage;
-
-		/// The buffer map access mode
-		typedef BufferMapAccess MapAccess;
-	};
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-	/// Mapping of the buffer to the client address space
-	typedef BufferTypedMap<GLubyte> Map;
-
-	/// Returns true if the buffer is mapped
+	/// Returns the current Buffer bound to specified @p target
 	/**
 	 *  @glsymbols
-	 *  @glfunref{GetBufferParameter}
-	 *  @gldefref{BUFFER_MAPPED}
-	 *
-	 *  @throws Error
+	 *  @glfunref{GetIntegerv}
 	 */
-	static bool Mapped(Target target)
+	static ObjectName<tag::Buffer> Binding(Target target)
 	{
-		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
+		return ObjectName<tag::Buffer>(_binding(target));
 	}
-#endif // GL_VERSION_3_0
 
-	/// Bind this buffer to the specified target
+	/// Binds the specified @p buffer to the specified @p target
 	/**
-	 *  @throws Error
+	 *  @glsymbols
+	 *  @glfunref{BindBuffer}
 	 */
-	void Bind(Target target) const
+	static void Bind(
+		Target target,
+		const ObjectName<tag::Buffer>& buffer
+	)
 	{
-		_bind(_name, target);
-	}
-
-	/// Unbind the current buffer from the specified target
-	/** This function binds the name 0 to the specified @p target.
-	 *
-	 *  @throws Error
-	 */
-	static void Unbind(Target target)
-	{
-		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), 0);
+		OGLPLUS_GLFUNC(BindBuffer)(
+			GLenum(target),
+			GetGLName(buffer)
+		);
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBuffer,
 			Buffer,
 			EnumValueName(target),
-			_binding(target)
+			GetGLName(buffer)
 		));
 	}
 
-	/// Bind this buffer to the specified indexed target
+	/// Returns the current Buffer bound to specified indexed @p target
 	/**
-	 *  @throws Error
+	 *  @glsymbols
+	 *  @glfunref{GetIntegerv}
 	 */
-	void Bind(IndexedTarget target, GLuint index) const
+	static ObjectName<tag::Buffer> Binding(IndexedTarget target, GLuint idx)
 	{
-		BindBase(target, index);
+		return ObjectName<tag::Buffer>(_binding(target, idx));
 	}
 
-	/// Bind this buffer to the specified indexed target
+	/// Bind the specified @p buffer to the specified indexed @p target
 	/**
 	 *  @throws Error
 	 */
-	void BindBase(IndexedTarget target, GLuint index) const
+	static void BindBase(
+		IndexedTarget target,
+		GLuint index,
+		const ObjectName<tag::Buffer>& buffer
+	)
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, _name);
+		OGLPLUS_GLFUNC(BindBufferBase)(
+			GLenum(target),
+			index,
+			GetGLName(buffer)
+		);
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindBufferBase,
 			Buffer,
 			EnumValueName(target),
-			_name
+			GetGLName(buffer)
 		));
+	}
+
+	/// Bind a range the specified buffer to the specified indexed @p target
+	/**
+	 *  @throws Error
+	 */
+	static void BindRange(
+		IndexedTarget target,
+		GLuint index,
+		const ObjectName<tag::Buffer>& buffer,
+		GLintptr offset,
+		GLsizeiptr size
+	)
+	{
+		OGLPLUS_GLFUNC(BindBufferRange)(
+			GLenum(target),
+			index,
+			GetGLName(buffer),
+			offset,
+			size
+		);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBufferRange,
+			Buffer,
+			EnumValueName(target),
+			GetGLName(buffer)
+		));
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
+	static void BindBase(
+		BufferIndexedTarget target,
+		GLuint first,
+		GLsizei count,
+		const GLuint* names
+	)
+	{
+		OGLPLUS_GLFUNC(BindBuffersBase)(
+			GLenum(target),
+			first,
+			count,
+			names
+		);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffersBase,
+			Buffer,
+			EnumValueName(target),
+			0
+		));
+	}
+
+	/// Sequentially binds @p buffers to @p target starting at @p first index
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindBase}
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	static void BindBase(
+		BufferIndexedTarget target,
+		GLuint first,
+		const Sequence<ObjectName<tag::Buffer>>& buffers
+	)
+	{
+		BindBase(
+			target,
+			first,
+			GLsizei(buffers.size()),
+			GetGLNames(buffers)
+		);
+	}
+
+	static void BindRange(
+		BufferIndexedTarget target,
+		GLuint first,
+		GLsizei count,
+		const GLuint* names,
+		const GLintptr* offsets,
+		const GLsizeiptr* sizes
+	)
+	{
+		OGLPLUS_GLFUNC(BindBuffersRange)(
+			GLenum(target),
+			first,
+			count,
+			names,
+			offsets,
+			sizes
+		);
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindBuffersRange,
+			Buffer,
+			EnumValueName(target),
+			0
+		));
+	}
+#endif
+};
+
+/// Common buffer operations
+/** @note Do not use this class directly, use Buffer
+ *  or DefaultBuffer instead.
+ */
+template <>
+class CommonOps<tag::Buffer>
+ : public ObjectName<tag::Buffer>
+ , public BindingOps<tag::Buffer>
+{
+protected:
+	CommonOps(void){ }
+public:
+	using BindingOps<tag::Buffer>::Bind;
+	using BindingOps<tag::Buffer>::BindBase;
+	using BindingOps<tag::Buffer>::BindRange;
+
+	/// Binds the current buffer to the specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindBuffer}
+	 */
+	void Bind(Target target) const
+	{
+		Bind(target, *this);
+	}
+
+	/// Binds the current buffer to the specified indexed @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindBuffer}
+	 */
+	void BindBase(IndexedTarget target, GLuint index) const
+	{
+		BindBase(target, index, *this);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback3
@@ -238,9 +319,7 @@ public:
 	 *
 	 *  @glvoereq{4,2,ARB,shader_atomic_counters}
 	 */
-	void BindBaseAtomicCounter(
-		AtomicCounterBufferBindingPoint index
-	) const
+	void BindBaseAtomicCounter(AtomicCounterBufferBindingPoint index) const
 	{
 		BindBase(IndexedTarget::AtomicCounter, GLuint(index));
 	}
@@ -253,100 +332,62 @@ public:
 	 *
 	 *  @glvoereq{4,3,ARB,shader_storage_buffer_object}
 	 */
-	void BindBaseShaderStorage(
-		ShaderStorageBufferBindingPoint index
-	) const
+	void BindBaseShaderStorage(ShaderStorageBufferBindingPoint index) const
 	{
 		BindBase(IndexedTarget::ShaderStorage, GLuint(index));
 	}
 #endif
+};
 
-	/// Unbind the current buffer from the specified indexed target
+/// Class wrapping buffer functions with explicit target selector
+/** @note Do not use this class directly, use Buffer instead.
+ */
+template <>
+class ObjectOps<tag::ExplicitSel, tag::Buffer>
+ : public ObjZeroOps<tag::ExplicitSel, tag::Buffer>
+{
+protected:
+	ObjectOps(void) { }
+public:
+	static GLint GetIntParam(Target target, GLenum query)
+	{
+		GLint value = 0;
+		OGLPLUS_GLFUNC(GetBufferParameteriv)(
+			GLenum(target),
+			query,
+			&value
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+		return value;
+	}
+
+	/// Types related to Buffer
+	struct Property
+	{
+		/// The Buffer usage mode
+		typedef BufferUsage Usage;
+
+		/// The buffer map access mode
+		typedef BufferMapAccess MapAccess;
+	};
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+	/// Mapping of the buffer to the client address space
+	typedef BufferTypedMap<GLubyte> Map;
+
+	/// Returns true if the buffer is mapped
 	/**
+	 *  @glsymbols
+	 *  @glfunref{GetBufferParameter}
+	 *  @gldefref{BUFFER_MAPPED}
+	 *
 	 *  @throws Error
 	 */
-	static void UnbindBase(IndexedTarget target, GLuint index)
+	static bool Mapped(Target target)
 	{
-		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindBufferBase));
+		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
 	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	static void BindBase(
-		BufferIndexedTarget target,
-		GLuint first,
-		GLsizei count,
-		const GLuint* names
-	)
-	{
-		OGLPLUS_GLFUNC(BindBuffersBase)(
-			GLenum(target),
-			first,
-			count,
-			names
-		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindBuffersBase,
-			Buffer,
-			EnumValueName(target),
-			0
-		));
-	}
-#endif
-
-	/// Bind a range in this buffer to the specified indexed target
-	/**
-	 *  @throws Error
-	 */
-	void BindRange(
-		IndexedTarget target,
-		GLuint index,
-		GLintptr offset,
-		GLsizeiptr size
-	) const
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindBufferRange)(
-			GLenum(target),
-			index,
-			_name,
-			offset,
-			size
-		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindBufferRange,
-			Buffer,
-			EnumValueName(target),
-			_name
-		));
-	}
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	static void BindRange(
-		BufferIndexedTarget target,
-		GLuint first,
-		GLsizei count,
-		const GLuint* names,
-		const GLintptr* offsets,
-		const GLsizeiptr* sizes
-	)
-	{
-		OGLPLUS_GLFUNC(BindBuffersRange)(
-			GLenum(target),
-			first,
-			count,
-			names,
-			offsets,
-			sizes
-		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindBuffersRange,
-			Buffer,
-			EnumValueName(target),
-			0
-		));
-	}
-#endif
+#endif // GL_VERSION_3_0
 
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
@@ -544,8 +585,8 @@ public:
 	 *  @glvoereq{3,1,ARB,copy_buffer}
 	 */
 	static inline void CopySubData(
-		BufferOps::Target readtarget,
-		BufferOps::Target writetarget,
+		BufferTarget readtarget,
+		BufferTarget writetarget,
 		GLintptr readoffset,
 		GLintptr writeoffset,
 		GLsizeiptr size
@@ -864,6 +905,10 @@ public:
 #endif
 };
 
+/// The buffer operations with explicit selector
+typedef ObjectOps<tag::ExplicitSel, tag::Buffer>
+	BufferOps;
+
 // Helper class for syntax sugar operators
 struct BufferTargetAndUsage
 {
@@ -1010,211 +1055,18 @@ inline BufferTarget operator << (
 	return tao.target;
 }
 
-/// Class that can be used for unbinding of currently bound buffers
-class NoBuffer
-{
-public:
-	/// Buffer bind targets
-	typedef BufferTarget Target;
+/// Class that can be used to unbind the currently bound buffers
+/**
+ *  @ingroup oglplus_objects
+ */
+typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Buffer>>
+	NoBuffer;
 
-	/// Buffer indexed bind targets
-	typedef BufferIndexedTarget IndexedTarget;
-
-	/// Unbinds the current buffer from the specified target
-	/** This function binds the name 0 to the specified @p target.
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindBuffer}
-	 *
-	 *  @throws Error
-	 */
-	static void Bind(Target target)
-	{
-		OGLPLUS_GLFUNC(BindBuffer)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindBuffer,
-			Buffer,
-			EnumValueName(target),
-			0
-		));
-	}
-
-	/// Unbinds the current buffer from the specified indexed target
-	/**
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindBufferBase}
-	 *
-	 *  @throws Error
-	 */
-	static void Bind(IndexedTarget target, GLuint index)
-	{
-		BindBase(target, index);
-	}
-
-	/// Unbinds the current buffer from the specified indexed target
-	/**
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindBufferBase}
-	 *
-	 *  @throws Error
-	 */
-	static void BindBase(IndexedTarget target, GLuint index)
-	{
-		OGLPLUS_GLFUNC(BindBufferBase)(GLenum(target), index, 0);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			BindBufferBase,
-			Buffer,
-			EnumValueName(target),
-			0
-		));
-	}
-};
-
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL buffer functionality
 /**
  *  @ingroup oglplus_objects
  */
-class Buffer
- : public BufferOps
-{ };
-#else
 typedef Object<BufferOps> Buffer;
-#endif
-
-template <>
-class Group<Buffer>
- : public BaseGroup<Buffer>
-{
-public:
-	/// Constructs an empty group of Buffers
-	Group(void)
-	{ }
-
-	/// Constructs an empty group and reserves space for @c n Buffers
-	Group(std::size_t n)
-	 : BaseGroup<Buffer>(n)
-	{ }
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	/// Bind the buffers in this group to the specified indexed targets
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
-	void BindBase(BufferIndexedTarget target, GLuint first) const
-	{
-		if(!this->empty())
-		{
-			BufferOps::BindBase(
-				target,
-				first,
-				GLsizei(this->size()),
-				this->_names.data()
-			);
-		}
-	}
-
-	/// Bind ranges of the buffers in this group to the specified targets
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
-	void BindRange(
-		BufferIndexedTarget target,
-		GLuint first,
-		const GLintptr* offsets,
-		const GLsizeiptr* sizes
-	) const
-	{
-		if(!this->empty())
-		{
-			BufferOps::BindRange(
-				target,
-				first,
-				GLsizei(this->size()),
-				this->_names.data(),
-				offsets,
-				sizes
-			);
-		}
-	}
-#endif
-};
-
-template <>
-class Array<Buffer>
- : public aux::BaseArray<
-	Buffer,
-	Buffer::IsMultiObject::value
->
-{
-private:
-	typedef aux::BaseArray<
-		Buffer,
-		Buffer::IsMultiObject::value
-	> BaseArray;
-public:
-	/// Constructs an Array of @c c Buffers
-	Array(GLsizei c)
-	 : BaseArray(c)
-	{ }
-
-	Array(Array&& tmp)
-	 : BaseArray(std::move(tmp))
-	{ }
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	/// Bind the buffers in this array to the specified indexed targets
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
-	void BindBase(BufferIndexedTarget target, GLuint first) const
-	{
-		if(!this->empty())
-		{
-			BufferOps::BindBase(
-				target,
-				first,
-				GLsizei(this->size()),
-				this->_names.data()
-			);
-		}
-	}
-
-	/// Bind ranges of the buffers in this group to the specified targets
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
-	void BindRange(
-		BufferIndexedTarget target,
-		GLuint first,
-		const GLintptr* offsets,
-		const GLsizeiptr* sizes
-	) const
-	{
-		if(!this->empty())
-		{
-			BufferOps::BindRange(
-				target,
-				first,
-				GLsizei(this->size()),
-				this->_names.data(),
-				offsets,
-				sizes
-			);
-		}
-	}
-#endif
-};
 
 } // namespace oglplus
 

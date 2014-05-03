@@ -26,7 +26,7 @@ namespace oglplus {
  */
 template <>
 class ObjectOps<tag::DirectState, tag::Framebuffer>
- : public CommonOps<tag::DirectState, tag::Framebuffer>
+ : public ObjZeroOps<tag::DirectState, tag::Framebuffer>
 {
 protected:
 	ObjectOps(void){ }

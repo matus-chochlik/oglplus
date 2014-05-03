@@ -14,8 +14,6 @@
 #define OGLPLUS_OBJECT_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/glfunc.hpp>
-#include <oglplus/enumerations.hpp>
 #include <oglplus/object/tags.hpp>
 #include <oglplus/object/name.hpp>
 #include <oglplus/object/desc.hpp>
@@ -34,44 +32,37 @@ namespace oglplus {
  *  @ref oglplus_object "here" for more details.
  */
 
-/** @page oglplus_object OGLplus object
- *
- *  @OGLplus defines classes like @ref oglplus::Buffer "Buffer",
- *  @ref oglplus::Program "Program", @ref oglplus::Texture "Texture",
- *  @ref oglplus::Query "Query" and many others, wrapping around OpenGL
- *  "objects". Such classes have, besides the object-type-specific functions,
- *  several common constuctors and members as shown by the following pseudo
- *  code. (The @c Object class does not actually exist, the following declaration
- *  is just a sort of template).
- *
- *  @code
- *  class Object
- *  {
- *  public:
- *    // Objects are default constructible
- *    Object(void);
- *
- *    // Objects are not copy constructible
- *    Object(const Object&) = delete;
- *
- *    // Objects are move constructible
- *    Object(Object&&);
- *
- *    // If object has a Property::Type typedef, construct with type specification
- *    Object(Object::Property::Type type);
- *
- *    // Construction with a textual description
- *    Object(String description);
- *
- *    // Construct with type specification and textual description
- *    Object(Object::Property::Type type, String description);
- *
- *    // Returns the textual description (if any) of the Object
- *    friend const String Description(Object);
- *
- *  };
- *  @endcode
+/// Implements operations applicable to any object including object 0 (zero)
+template <class OpsTag, class ObjTag>
+class ObjZeroOps
+ : public CommonOps<ObjTag>
+{
+protected:
+	ObjZeroOps(void) { }
+};
+
+/// Wrapper for GL objects with name 0 (zero)
+/** Depending on the object type (specified by ObjTag) the semantics
+ *  is either "no-object" (for example NoBuffer, NoRenderbuffer, etc.)
+ *  or "default-object" (for example DefaultTexture or DefaultFramebuffer).
  */
+template <class OpsTag, class ObjTag>
+class ObjectZero<ObjZeroOps<OpsTag, ObjTag>>
+ : public ObjZeroOps<OpsTag, ObjTag>
+{
+public:
+	/// ObjectZero is default constructible
+	ObjectZero(void) { }
+};
+
+/// Implements operations applicable to named (non-zero) objects
+template <class OpsTag, class ObjTag>
+class ObjectOps
+ : public ObjZeroOps<OpsTag, ObjTag>
+{
+protected:
+	ObjectOps(void) { }
+};
 
 /// TODO: doc
 /*
@@ -169,14 +160,6 @@ public:
 			this->_name
 		);
 	}
-};
-
-template <class OpsTag, class ObjTag>
-class ObjectZero<CommonOps<OpsTag, ObjTag>>
- : public CommonOps<OpsTag, ObjTag>
-{
-public:
-	ObjectZero(void) { }
 };
 
 } // namespace oglplus

@@ -68,11 +68,17 @@ class TextureSwizzleTuple
 {
 private:
 	GLint _values[4];
-
-	friend class DefaultTextureOps;
-	friend class TextureOps;
-	friend class DSATextureEXTOps;
 public:
+	const GLint* Values(void) const
+	{
+		return _values;
+	}
+
+	GLint* Values(void)
+	{
+		return _values;
+	}
+
 	/// Default construction
 	TextureSwizzleTuple(void)
 	{

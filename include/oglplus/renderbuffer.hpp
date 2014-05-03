@@ -104,7 +104,7 @@ public:
 		return ObjectName<tag::Renderbuffer>(_binding(target));
 	}
 
-	/// Binds the specified @p object to the specified @p target
+	/// Binds the specified @p renderbuffer to the specified @p target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindRenderbuffer}
@@ -118,7 +118,12 @@ public:
 			GLenum(target),
 			GetGLName(renderbuffer)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindRenderbuffer));
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindRenderbuffer,
+			Renderbuffer,
+			EnumValueName(target),
+			GetGLName(renderbuffer)
+		));
 	}
 };
 
@@ -126,8 +131,8 @@ public:
 /** @note Do not use this class directly, use Renderbuffer
  *  or NoRenderbuffer instead.
  */
-template <typename OpsTag>
-class CommonOps<OpsTag, tag::Renderbuffer>
+template <>
+class CommonOps<tag::Renderbuffer>
  : public ObjectName<tag::Renderbuffer>
  , public BindingOps<tag::Renderbuffer>
 {
@@ -152,7 +157,7 @@ public:
  */
 template <>
 class ObjectOps<tag::ExplicitSel, tag::Renderbuffer>
- : public CommonOps<tag::ExplicitSel, tag::Renderbuffer>
+ : public ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>
 {
 protected:
 	ObjectOps(void){ }
@@ -387,7 +392,7 @@ public:
 	}
 };
 
-/// The renderbuffer operations with explicit selector
+/// Renderbuffer operations with explicit selector
 typedef ObjectOps<tag::ExplicitSel, tag::Renderbuffer>
 	RenderbufferOps;
 
@@ -417,7 +422,7 @@ inline RenderbufferTarget operator << (
 /**
  *  @ingroup oglplus_objects
  */
-typedef ObjectZero<CommonOps<tag::ExplicitSel, tag::Renderbuffer>>
+typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>>
 	NoRenderbuffer;
 
 /// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
