@@ -17,6 +17,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/string.hpp>
+#include <oglplus/object/tags.hpp>
 #include <oglplus/auxiliary/varpara_fns.hpp>
 
 #include <type_traits>

@@ -65,7 +65,7 @@ public:
 	 *  @throws Error
 	 */
 	DSABufferRawMap(
-		const ObjectName<tag::Buffer>& buffer,
+		BufferName buffer,
 		GLintptr offset_bytes,
 		GLsizeiptr size_bytes,
 		Bitfield<BufferMapAccess> access
@@ -93,7 +93,7 @@ public:
 	 *  @throws Error
 	 */
 	DSABufferRawMap(
-		const ObjectName<tag::Buffer>& buffer,
+		BufferName buffer,
 		Bitfield<BufferMapAccess> access
 	): _offset(0)
 	 , _size(_get_size(GetGLName(buffer)))
@@ -199,7 +199,7 @@ public:
 	 *  @throws Error
 	 */
 	DSABufferTypedMap(
-		const ObjectName<tag::Buffer>& buffer,
+		BufferName buffer,
 		GLintptr offset,
 		GLsizeiptr size,
 		Bitfield<BufferMapAccess> access
@@ -220,7 +220,7 @@ public:
 	 *  @throws Error
 	 */
 	DSABufferTypedMap(
-		const ObjectName<tag::Buffer>& buffer,
+		BufferName buffer,
 		Bitfield<BufferMapAccess> access
 	): DSABufferRawMap(buffer, access)
 	{ }

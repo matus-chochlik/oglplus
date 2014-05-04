@@ -106,9 +106,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetIntegerv}
 	 */
-	static ObjectName<tag::Framebuffer> Binding(Target target)
+	static FramebufferName Binding(Target target)
 	{
-		return ObjectName<tag::Framebuffer>(_binding(target));
+		return FramebufferName(_binding(target));
 	}
 
 	/// Binds the specified @p framebuffer to the specified @p target
@@ -118,7 +118,7 @@ public:
 	 */
 	static void Bind(
 		Target target,
-		const ObjectName<tag::Framebuffer>& framebuffer
+		FramebufferName framebuffer
 	)
 	{
 		OGLPLUS_GLFUNC(BindFramebuffer)(
@@ -140,7 +140,7 @@ public:
  */
 template <>
 class CommonOps<tag::Framebuffer>
- : public ObjectName<tag::Framebuffer>
+ : public FramebufferName
  , public BindingOps<tag::Framebuffer>
 {
 protected:
@@ -260,7 +260,7 @@ public:
 	static void AttachRenderbuffer(
 		Target target,
 		Property::Attachment attachment,
-		const ObjectName<tag::Renderbuffer>& renderbuffer
+		RenderbufferName renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
@@ -293,7 +293,7 @@ public:
 	static void AttachColorRenderbuffer(
 		Target target,
 		FramebufferColorAttachmentNumber attachment_no,
-		const ObjectName<tag::Renderbuffer>& renderbuffer
+		RenderbufferName renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
@@ -328,7 +328,7 @@ public:
 	static void AttachTexture(
 		Target target,
 		Property::Attachment attachment,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -362,7 +362,7 @@ public:
 	static void AttachColorTexture(
 		Target target,
 		FramebufferColorAttachmentNumber attachment_no,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -399,7 +399,7 @@ public:
 		Target target,
 		Property::Attachment attachment,
 		TextureTarget textarget,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -436,7 +436,7 @@ public:
 		Target target,
 		Property::Attachment attachment,
 		TextureTarget textarget,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -473,7 +473,7 @@ public:
 		Target target,
 		Property::Attachment attachment,
 		TextureTarget textarget,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level,
 		GLint layer
 	)
@@ -511,7 +511,7 @@ public:
 	static void AttachTextureLayer(
 		Target target,
 		Property::Attachment attachment,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level,
 		GLint layer
 	)
@@ -687,7 +687,7 @@ inline FramebufferTarget operator << (
 // AttachTexture
 inline FramebufferTarget operator << (
 	FramebufferTargetAndAttch taa,
-	const ObjectName<tag::Texture>& tex
+	TextureName tex
 )
 {
 	FramebufferOps::AttachTexture(
@@ -703,7 +703,7 @@ inline FramebufferTarget operator << (
 // AttachRenderbuffer
 inline FramebufferTarget operator << (
 	FramebufferTargetAndAttch taa,
-	const ObjectName<tag::Renderbuffer>& rbo
+	RenderbufferName rbo
 )
 {
 	FramebufferOps::AttachRenderbuffer(

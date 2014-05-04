@@ -89,9 +89,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetIntegerv}
 	 */
-	static ObjectName<tag::Texture> Binding(Target target)
+	static TextureName Binding(Target target)
 	{
-		return ObjectName<tag::Texture>(_binding(target));
+		return TextureName(_binding(target));
 	}
 
 	/// Binds the specified @p texture to the specified @p target
@@ -101,7 +101,7 @@ public:
 	 */
 	static void Bind(
 		Target target,
-		const ObjectName<tag::Texture>& texture
+		TextureName texture
 	)
 	{
 		OGLPLUS_GLFUNC(BindTexture)(
@@ -125,7 +125,7 @@ public:
 	 */
 	static void BindImage(
 		ImageUnitSelector unit,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level,
 		bool layered,
 		GLint layer,
@@ -190,7 +190,7 @@ public:
 	 */
 	static void Bind(
 		GLuint first,
-		const Sequence<ObjectName<tag::Texture>>& textures
+		const Sequence<TextureName>& textures
 	)
 	{
 		Bind(first, GLsizei(textures.size()), GetGLNames(textures));
@@ -206,7 +206,7 @@ public:
 	 */
 	static void BindImage(
 		GLuint first,
-		const Sequence<ObjectName<tag::Texture>>& textures
+		const Sequence<TextureName>& textures
 	)
 	{
 		BindImage(
@@ -224,7 +224,7 @@ public:
  */
 template <>
 class CommonOps<tag::Texture>
- : public ObjectName<tag::Texture>
+ : public TextureName
  , public BindingOps<tag::Texture>
 {
 protected:
@@ -445,7 +445,7 @@ public:
 	 */
 	void View(
 		Target target,
-		const ObjectName<tag::Texture>& orig_texture,
+		TextureName orig_texture,
 		PixelDataInternalFormat internal_format,
 		GLuint min_level,
 		GLuint num_levels,
@@ -1859,7 +1859,7 @@ public:
 	static void Buffer(
 		Target target,
 		PixelDataInternalFormat internal_format,
-		const ObjectName<tag::Buffer>& buffer
+		BufferName buffer
 	)
 	{
 		OGLPLUS_GLFUNC(TexBuffer)(
@@ -1886,7 +1886,7 @@ public:
 	static void BufferRange(
 		Target target,
 		PixelDataInternalFormat internal_format,
-		const ObjectName<tag::Buffer>& buffer
+		BufferName buffer
 		GLintptr offset,
 		GLsizeiptr size
 	)

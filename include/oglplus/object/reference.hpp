@@ -37,7 +37,7 @@ struct Reference<ObjectOps<OpsTag, ObjTag>>
  : public ObjectOps<OpsTag, ObjTag>
 {
 public:
-	Reference(const ObjectName<ObjTag>& object)
+	Reference(ObjectName<ObjTag> object)
 	{
 		this->_copy(object);
 	}

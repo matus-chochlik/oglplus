@@ -258,8 +258,8 @@ public:
 	 *  @glvoereq{3,1,ARB,copy_buffer}
 	 */
 	static void CopySubData(
-		const ObjectName<tag::Buffer>& readbuffer,
-		const ObjectName<tag::Buffer>& writebuffer,
+		BufferName readbuffer,
+		BufferName writebuffer,
 		GLintptr readoffset,
 		GLintptr writeoffset,
 		GLsizeiptr size

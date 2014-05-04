@@ -110,14 +110,26 @@ struct IsMultiObject;
 template <typename ObjTag>
 class ObjectName;
 
+typedef ObjectName<tag::Renderbuffer> RenderbufferName;
+typedef ObjectName<tag::Framebuffer> FramebufferName;
+typedef ObjectName<tag::Texture> TextureName;
+typedef ObjectName<tag::Buffer> BufferName;
+typedef ObjectName<tag::Query> QueryName;
+typedef ObjectName<tag::ProgramPipeline> ProgramPipelineName;
+typedef ObjectName<tag::Program> ProgramName;
+typedef ObjectName<tag::TransformFeedback> TransformFeedbackName;
+typedef ObjectName<tag::Sampler> SamplerName;
+typedef ObjectName<tag::VertexArray> VertexArrayName;
+typedef ObjectName<tag::Shader> ShaderName;
+
 template <typename ObjTag>
-GLuint GetGLName(const ObjectName<ObjTag>&);
+GLuint GetGLName(ObjectName<ObjTag>);
 
 template <typename ObjName>
 class Sequence;
 
-template <typename ObjTag>
-const GLuint* GetGLNames(const Sequence<ObjectName<ObjTag>>&);
+template <typename ObjName>
+const GLuint* GetGLNames(const Sequence<ObjName>&);
 
 template <typename ObjTag>
 class GenDelOps;

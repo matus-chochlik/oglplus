@@ -92,9 +92,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetIntegerv}
 	 */
-	static ObjectName<tag::Buffer> Binding(Target target)
+	static BufferName Binding(Target target)
 	{
-		return ObjectName<tag::Buffer>(_binding(target));
+		return BufferName(_binding(target));
 	}
 
 	/// Binds the specified @p buffer to the specified @p target
@@ -104,7 +104,7 @@ public:
 	 */
 	static void Bind(
 		Target target,
-		const ObjectName<tag::Buffer>& buffer
+		BufferName buffer
 	)
 	{
 		OGLPLUS_GLFUNC(BindBuffer)(
@@ -124,9 +124,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetIntegerv}
 	 */
-	static ObjectName<tag::Buffer> Binding(IndexedTarget target, GLuint idx)
+	static BufferName Binding(IndexedTarget target, GLuint idx)
 	{
-		return ObjectName<tag::Buffer>(_binding(target, idx));
+		return BufferName(_binding(target, idx));
 	}
 
 	/// Bind the specified @p buffer to the specified indexed @p target
@@ -136,7 +136,7 @@ public:
 	static void BindBase(
 		IndexedTarget target,
 		GLuint index,
-		const ObjectName<tag::Buffer>& buffer
+		BufferName buffer
 	)
 	{
 		OGLPLUS_GLFUNC(BindBufferBase)(
@@ -159,7 +159,7 @@ public:
 	static void BindRange(
 		IndexedTarget target,
 		GLuint index,
-		const ObjectName<tag::Buffer>& buffer,
+		BufferName buffer,
 		GLintptr offset,
 		GLsizeiptr size
 	)
@@ -210,7 +210,7 @@ public:
 	static void BindBase(
 		BufferIndexedTarget target,
 		GLuint first,
-		const Sequence<ObjectName<tag::Buffer>>& buffers
+		const Sequence<BufferName>& buffers
 	)
 	{
 		BindBase(
@@ -254,7 +254,7 @@ public:
  */
 template <>
 class CommonOps<tag::Buffer>
- : public ObjectName<tag::Buffer>
+ : public BufferName
  , public BindingOps<tag::Buffer>
 {
 protected:

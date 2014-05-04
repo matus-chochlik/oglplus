@@ -24,8 +24,8 @@ void ShaderDataSetUtils::_handle_error(
 	Error::AddPropertyValue(
 		props,
 		"program",
-		ObjectDescRegistry<ProgramOps>::
-			_get_desc(program)
+		ObjectDescRegistry::
+			_get_desc(tag::Program::value, program)
 	);
 	HandleShaderVariableError(
 		result,

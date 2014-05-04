@@ -99,9 +99,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetIntegerv}
 	 */
-	static ObjectName<tag::Renderbuffer> Binding(Target target)
+	static RenderbufferName Binding(Target target)
 	{
-		return ObjectName<tag::Renderbuffer>(_binding(target));
+		return RenderbufferName(_binding(target));
 	}
 
 	/// Binds the specified @p renderbuffer to the specified @p target
@@ -111,7 +111,7 @@ public:
 	 */
 	static void Bind(
 		Target target,
-		const ObjectName<tag::Renderbuffer>& renderbuffer
+		RenderbufferName renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(BindRenderbuffer)(
@@ -133,7 +133,7 @@ public:
  */
 template <>
 class CommonOps<tag::Renderbuffer>
- : public ObjectName<tag::Renderbuffer>
+ : public RenderbufferName
  , public BindingOps<tag::Renderbuffer>
 {
 protected:

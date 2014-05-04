@@ -1,29 +1,26 @@
 /**
- *  @file oglplus/ext/EXT_direct_state_acccess/vertex_attrib.hpp
+ *  @file oglplus/dsa/vertex_attrib.hpp
  *  @brief VertexArrayAttrib wrappers with direct state access
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_VERTEX_ATTRIB_DSA_1107121519_HPP
-#define OGLPLUS_VERTEX_ATTRIB_DSA_1107121519_HPP
+#ifndef OGLPLUS_DSA_VERTEX_ATTRIB_1107121519_HPP
+#define OGLPLUS_DSA_VERTEX_ATTRIB_1107121519_HPP
 
 #include <oglplus/vertex_attrib.hpp>
-#include <oglplus/ext/EXT_direct_state_access/vertex_array.hpp>
 
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
-class DSAVertexArrayAttribEXT
+class DSAVertexArrayAttrib
  : public VertexAttribOps
- , public FriendOf<DSAVertexArrayEXTOps>
- , public FriendOf<DSABufferEXTOps>
 {
 private:
 	GLuint _vao;
@@ -33,11 +30,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	DSAVertexArrayAttribEXT(
-		const DSAVertexArrayEXTOps& vao,
+	DSAVertexArrayAttrib(
+		VertexArrayName vao,
 		VertexAttribSlot location
 	): VertexAttribOps(location)
-	 , _vao(FriendOf<DSAVertexArrayEXTOps>::GetName(vao))
+	 , _vao(GetGLName(vao))
 	{ }
 
 	/// References the vertex attrib array @p identifier of the @p program
@@ -45,12 +42,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	DSAVertexArrayAttribEXT(
-		const DSAVertexArrayEXTOps& vao,
-		const ProgramOps& program,
+	DSAVertexArrayAttrib(
+		VertexArrayName vao,
+		ProgramName program,
 		const GLchar* identifier
 	): VertexAttribOps(program, identifier)
-	 , _vao(FriendOf<DSAVertexArrayEXTOps>::GetName(vao))
+	 , _vao(GetGLName(vao))
 	{ }
 
 	/// References the vertex attrib array @p identifier of the @p program
@@ -58,12 +55,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	DSAVertexArrayAttribEXT(
-		const DSAVertexArrayEXTOps& vao,
-		const ProgramOps& program,
+	DSAVertexArrayAttrib(
+		VertexArrayName vao,
+		ProgramName program,
 		const String& identifier
 	): VertexAttribOps(program, identifier.c_str())
-	 , _vao(FriendOf<DSAVertexArrayEXTOps>::GetName(vao))
+	 , _vao(GetGLName(vao))
 	{ }
 
 	/// Setup the properties of this vertex attribute array
@@ -71,8 +68,8 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexArrayVertexAttribOffsetEXT}
 	 */
-	const DSAVertexArrayAttribEXT& Offset(
-		const DSABufferEXTOps& buffer,
+	const DSAVertexArrayAttrib& Offset(
+		BufferName buffer,
 		GLint values_per_vertex,
 		DataType data_type,
 		bool normalized,
@@ -82,7 +79,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(VertexArrayVertexAttribOffsetEXT)(
 			_vao,
-			FriendOf<DSABufferEXTOps>::GetName(buffer),
+			GetGLName(buffer),
 			GLuint(_location),
 			values_per_vertex,
 			GLenum(data_type),
@@ -96,32 +93,13 @@ public:
 		return *this;
 	}
 
-	const DSAVertexArrayAttribEXT& Offset(
-		const BufferOps& buffer,
-		GLint values_per_vertex,
-		DataType data_type,
-		bool normalized,
-		GLsizei stride,
-		GLintptr offset
-	) const
-	{
-		return Offset(
-			Managed<DSABufferEXTOps>(buffer),
-			values_per_vertex,
-			data_type,
-			normalized,
-			stride,
-			offset
-		);
-	}
-
 	/// Setup the properties of this vertex attribute array
 	/**
 	 *  @glsymbols
 	 *  @glfunref{VertexArrayVertexAttribIOffsetEXT}
 	 */
-	const DSAVertexArrayAttribEXT& IOffset(
-		const DSABufferEXTOps& buffer,
+	const DSAVertexArrayAttrib& IOffset(
+		BufferName buffer,
 		GLint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
@@ -130,7 +108,7 @@ public:
 	{
 		OGLPLUS_GLFUNC(VertexArrayVertexAttribIOffsetEXT)(
 			_vao,
-			FriendOf<DSABufferEXTOps>::GetName(buffer),
+			GetGLName(buffer),
 			GLuint(_location),
 			values_per_vertex,
 			GLenum(data_type),
@@ -143,25 +121,8 @@ public:
 		return *this;
 	}
 
-	const DSAVertexArrayAttribEXT& IOffset(
-		const BufferOps& buffer,
-		GLint values_per_vertex,
-		DataType data_type,
-		GLsizei stride,
-		GLintptr offset
-	) const
-	{
-		return IOffset(
-			Managed<DSABufferEXTOps>(buffer),
-			values_per_vertex,
-			data_type,
-			stride,
-			offset
-		);
-	}
-
-	const DSAVertexArrayAttribEXT& Setup(
-		const DSABufferEXTOps& buffer,
+	const DSAVertexArrayAttrib& Setup(
+		BufferName buffer,
 		GLint values_per_vertex,
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
@@ -179,11 +140,9 @@ public:
 		);
 	}
 
-	template <
-		typename enums::EnumValueType<DataType>::Type DataTypeValue
-	>
-	const DSAVertexArrayAttribEXT& Setup(
-		const DSABufferEXTOps& buffer,
+	template <typename enums::EnumValueType<DataType>::Type DataTypeValue>
+	const DSAVertexArrayAttrib& Setup(
+		BufferName buffer,
 		GLint values_per_vertex,
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
@@ -210,8 +169,8 @@ public:
 	 *  @glfunref{VertexArrayVertexAttribIOffsetEXT}
 	 */
 	template <typename T>
-	const DSAVertexArrayAttribEXT& Setup(
-		const DSABufferEXTOps& buffer,
+	const DSAVertexArrayAttrib& Setup(
+		BufferName buffer,
 		GLuint n = 1
 	) const
 	{
@@ -224,24 +183,12 @@ public:
 		);
 	}
 
-	template <typename T>
-	const DSAVertexArrayAttribEXT& Setup(
-		const BufferOps& buffer,
-		GLuint n = 1
-	) const
-	{
-		return Setup<T>(
-			Managed<DSABufferEXTOps>(buffer),
-			n
-		);
-	}
-
 	/// Enable this vertex array attribute
 	/**
 	 *  @glsymbols
 	 *  @glfunref{EnableVertexArrayAttribEXT}
 	 */
-	const DSAVertexArrayAttribEXT& Enable(void) const
+	const DSAVertexArrayAttrib& Enable(void) const
 	{
 		OGLPLUS_GLFUNC(EnableVertexArrayAttribEXT)(
 			_vao,
@@ -256,7 +203,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{DisableVertexArrayAttribEXT}
 	 */
-	const DSAVertexArrayAttribEXT& Disable(void) const
+	const DSAVertexArrayAttrib& Disable(void) const
 	{
 		OGLPLUS_GLFUNC(DisableVertexArrayAttribEXT)(
 			_vao,

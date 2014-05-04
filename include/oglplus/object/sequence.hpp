@@ -14,14 +14,14 @@
 #define OGLPLUS_OBJECT_SEQUENCE_1405011014_HPP
 
 #include <oglplus/object/name.hpp>
-#include <vector>
+#include <cstddef>
 #include <cassert>
 
 namespace oglplus {
 
 /// Common base class for Object name sequences
 template <typename ObjTag>
-struct Sequence<ObjectName<ObjTag>>
+class Sequence<ObjectName<ObjTag>>
 {
 protected:
 	friend const GLuint*
@@ -87,7 +87,6 @@ GetGLNames(const Sequence<ObjectName<ObjTag>>& sequence)
 {
 	return sequence._name.data();
 }
-
 
 } // namespace oglplus
 

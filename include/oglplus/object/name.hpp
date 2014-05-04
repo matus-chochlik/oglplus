@@ -22,7 +22,7 @@
 
 namespace oglplus {
 
-/// A common base class for "named" OpenGL objects like textures, buffers, etc.
+/// A common template for "named" OpenGL objects like textures, buffers, etc.
 /** This is a common template for all OpenGL object wrappers which are
  *  identified by a (GLuint typed) name, i.e. object like Textures, Buffer, VAOs,
  *  Queries, etc. but also Shaders, Programs, and so on.
@@ -36,7 +36,7 @@ template <typename ObjTag>
 class ObjectName
 {
 protected:
-	friend GLuint GetGLName<ObjTag>(const ObjectName&);
+	friend GLuint GetGLName<ObjTag>(ObjectName);
 	GLuint _name;
 
 	void _copy(const ObjectName& that)
@@ -64,6 +64,11 @@ public:
 	 : _name(name)
 	{ }
 
+	ObjectName(const ObjectName& that)
+	OGLPLUS_NOEXCEPT(true)
+	 : _name(that._name)
+	{ }
+
 	ObjectName(ObjectName&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	 : _name(temp._name)
@@ -88,7 +93,7 @@ public:
 
 /// Returns the GLuint OpenGL name assigned to @p named object
 template <typename ObjTag>
-inline GLuint GetGLName(const ObjectName<ObjTag>& named)
+inline GLuint GetGLName(ObjectName<ObjTag> named)
 {
 	return named._name;
 }

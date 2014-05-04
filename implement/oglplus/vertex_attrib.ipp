@@ -9,11 +9,16 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/object/desc.hpp>
+#include <oglplus/lib/incl_end.ipp>
+
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-void VertexAttribOps::_handle_inactive(
-	const ProgramOps& program,
+void VertexAttribOps::
+_handle_inactive(
+	ProgramName program,
 	const GLchar* identifier,
 	GLint result
 )
@@ -39,7 +44,8 @@ void VertexAttribOps::_handle_inactive(
 }
 
 OGLPLUS_LIB_FUNC
-void VertexAttribOps::_handle_inconsistent_location(
+void VertexAttribOps::
+_handle_inconsistent_location(
 	const GLchar* identifier,
 	VertexAttribSlot location
 )
@@ -58,6 +64,103 @@ void VertexAttribOps::_handle_inconsistent_location(
 		OGLPLUS_ERROR_INFO(GetAttribLocation),
 		std::move(props)
 	);
+}
+
+OGLPLUS_LIB_FUNC
+GLint VertexAttribOps::
+_get_location(
+	ObjectName<tag::Program> program,
+	const GLchar* identifier
+)
+{
+	return OGLPLUS_GLFUNC(GetAttribLocation)(
+		GetGLName(program),
+		identifier
+	);
+}
+
+OGLPLUS_LIB_FUNC
+GLint VertexAttribOps::
+_find_location(
+	ObjectName<tag::Program> program,
+	const GLchar* identifier
+)
+{
+	GLint result = _get_location(program, identifier);
+	OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
+	if(OGLPLUS_IS_ERROR(result == GLint(-1)))
+	{
+		_handle_inactive(program, identifier, result);
+	}
+	return result;
+}
+
+OGLPLUS_LIB_FUNC
+bool VertexAttribOps::
+_query_location(
+	ObjectName<tag::Program> program,
+	const String& identifier,
+	VertexAttribSlot& location
+)
+{
+	GLint result = _get_location(program, identifier.c_str());
+	if(OGLPLUS_GLFUNC(GetError)() != GL_NO_ERROR)
+		return false;
+	if(result < 0) return false;
+	location = result;
+	return true;
+}
+
+OGLPLUS_LIB_FUNC
+bool VertexAttribOps::
+_query_common_location(
+	const Sequence<ObjectName<tag::Program>>& programs,
+	const GLchar* identifier,
+	VertexAttribSlot& location
+)
+{
+	if(std::size_t n=programs.size())
+	{
+		if(!_query_location(
+			programs[0],
+			identifier,
+			location
+		)) return false;
+
+		const VertexAttribSlot prev_loc(location);
+
+		for(std::size_t i=1; i!=n; ++i)
+		{
+			if(!_query_location(
+				programs[i],
+				identifier,
+				location
+			)) return false;
+
+			if(prev_loc != location)
+				return false;
+		}
+		return true;
+	}
+	return false;
+}
+
+OGLPLUS_LIB_FUNC
+VertexAttribSlot VertexAttribOps::
+_get_common_location(
+	const Sequence<ObjectName<tag::Program>>& programs,
+	const GLchar* identifier
+)
+{
+	VertexAttribSlot location;
+
+	bool queried = _query_common_location(programs, identifier, location);
+
+	if(OGLPLUS_IS_ERROR(!queried))
+	{
+		_handle_inconsistent_location(identifier, location);
+	}
+	return location;
 }
 
 } // namespace oglplus

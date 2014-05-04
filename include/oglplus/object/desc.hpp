@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/auxiliary/obj_desc.hpp
+ *  @file oglplus/object/desc.hpp
  *  @brief Declaration of Object description
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_AUX_OBJ_DESC_1107121519_HPP
-#define OGLPLUS_AUX_OBJ_DESC_1107121519_HPP
+#ifndef OGLPLUS_OBJECT_DESC_1107121519_HPP
+#define OGLPLUS_OBJECT_DESC_1107121519_HPP
 
 #include <oglplus/config.hpp>
 #include <oglplus/string.hpp>
@@ -205,6 +205,16 @@ public:
 };
 
 } // namespace aux
+
+template <typename ObjTag>
+inline const String& DescriptionOf(ObjectName<ObjTag> object)
+{
+	return aux::ObjectDescRegistry::_get_desc(
+		ObjTag::value,
+		GetGLName(object)
+	);
+}
+
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)

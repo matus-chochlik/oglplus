@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -74,9 +74,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetIntegerv}
 	 */
-	static ObjectName<tag::VertexArray> Binding(void)
+	static VertexArrayName Binding(void)
 	{
-		return ObjectName<tag::VertexArray>(_binding());
+		return VertexArrayName(_binding());
 	}
 
 	/// Binds the specified @p vertex_array object
@@ -84,7 +84,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BindVertexArray}
 	 */
-	static void Bind(const ObjectName<tag::VertexArray>& vertex_array)
+	static void Bind(VertexArrayName vertex_array)
 	{
 		OGLPLUS_GLFUNC(BindVertexArray)(GetGLName(vertex_array));
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
@@ -102,7 +102,7 @@ public:
  */
 template <>
 class CommonOps<tag::VertexArray>
- : public ObjectName<tag::VertexArray>
+ : public VertexArrayName
  , public BindingOps<tag::VertexArray>
 {
 protected:

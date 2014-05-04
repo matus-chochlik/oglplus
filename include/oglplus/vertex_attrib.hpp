@@ -17,10 +17,10 @@
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/program.hpp>
 #include <oglplus/data_type.hpp>
-#include <oglplus/limited_value.hpp>
+#include <oglplus/vertex_attrib_slot.hpp>
+#include <oglplus/object/name.hpp>
+#include <oglplus/object/sequence.hpp>
 #include <oglplus/auxiliary/shader_data.hpp>
 
 #include <oglplus/string.hpp>
@@ -28,26 +28,6 @@
 #include <type_traits>
 
 namespace oglplus {
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Type for the vertex attribute slot (implementation-dependent limited) number
-/**
- *  @see VertexAttrib
- *
- *  @ingroup shader_variables
- */
-class VertexAttribSlot
- : public LimitedCount
-{
-public:
-	VertexAttribSlot(GLuint count);
-};
-#else
-OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
-	VertexAttribSlot,
-	MAX_VERTEX_ATTRIBS
-)
-#endif
 
 /// Helper class that encapsulates vertex attribute functionality
 /**
@@ -58,115 +38,51 @@ OGLPLUS_DECLARE_LIMITED_COUNT_TYPE(
  *  @ingroup shader_variables
  */
 class VertexAttribOps
- : public FriendOf<ProgramOps>
 {
 protected:
 	GLint _location;
-
-	friend class FriendOf<VertexAttribOps>;
 
 	VertexAttribOps(VertexAttribSlot i)
 	 : _location(GLint(i))
 	{ }
 
-	static GLint _get_location(
-		const ProgramOps& program,
-		const GLchar* identifier
-	)
-	{
-		return OGLPLUS_GLFUNC(GetAttribLocation)(
-			FriendOf<ProgramOps>::GetName(program),
-			identifier
-		);
-	}
-
 	static void _handle_inactive(
-		const ProgramOps& program,
+		ProgramName program,
 		const GLchar* identifier,
 		GLint result
 	);
-
-	static GLint _find_location(
-		const ProgramOps& program,
-		const GLchar* identifier
-	)
-	{
-		GLint result = _get_location(program, identifier);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
-		if(OGLPLUS_IS_ERROR(result == GLint(-1)))
-		{
-			_handle_inactive(program, identifier, result);
-		}
-		return result;
-	}
-
-	static bool _query_location(
-		const ProgramOps& program,
-		const String& identifier,
-		VertexAttribSlot& location
-	)
-	{
-		GLint result = _get_location(program, identifier.c_str());
-		if(OGLPLUS_GLFUNC(GetError)() != GL_NO_ERROR)
-			return false;
-		if(result < 0) return false;
-		location = result;
-		return true;
-	}
-
-	template <typename Iterator>
-	static bool _query_common_location(
-		Iterator pprogram_begin,
-		Iterator pprogram_end,
-		const GLchar* identifier,
-		VertexAttribSlot& location
-	)
-	{
-		Iterator i=pprogram_begin, e=pprogram_end;
-		if(i != e)
-		{
-			const ProgramOps* pprog = *i;
-			assert(pprog);
-			const ProgramOps& prog = *pprog;
-			if(!_query_location(prog, identifier, location))
-				return false;
-			const VertexAttribSlot prev_loc(location);
-			while(++i != e)
-			{
-				if(!_query_location(prog, identifier, location))
-					return false;
-				if(prev_loc != location)
-					return false;
-			}
-			return true;
-		}
-		return false;
-	}
 
 	static void _handle_inconsistent_location(
 		const GLchar* identifier,
 		VertexAttribSlot location
 	);
 
-	template <typename Iterator>
-	static VertexAttribSlot _get_common_location(
-		Iterator pprogram_begin,
-		Iterator pprogram_end,
+	static GLint _get_location(
+		ProgramName program,
 		const GLchar* identifier
-	)
-	{
-		VertexAttribSlot location;
-		if(OGLPLUS_IS_ERROR(!_query_common_location(
-			pprogram_begin,
-			pprogram_end,
-			identifier,
-			location
-		)))
-		{
-			_handle_inconsistent_location(identifier, location);
-		}
-		return location;
-	}
+	);
+
+	static GLint _find_location(
+		ProgramName program,
+		const GLchar* identifier
+	);
+
+	static bool _query_location(
+		ProgramName program,
+		const String& identifier,
+		VertexAttribSlot& location
+	);
+
+	static bool _query_common_location(
+		const Sequence<ProgramName>& programs,
+		const GLchar* identifier,
+		VertexAttribSlot& location
+	);
+
+	static VertexAttribSlot _get_common_location(
+		const Sequence<ProgramName>& programs,
+		const GLchar* identifier
+	);
 
 	class _common_location_query
 	{
@@ -195,7 +111,7 @@ protected:
 		 , _ok(true)
 		{ }
 
-		_common_location_query In(const ProgramOps& prog) const
+		_common_location_query In(const ProgramName& prog) const
 		{
 			return _common_location_query(
 				_identifier,
@@ -208,7 +124,7 @@ protected:
 			);
 		}
 
-		_common_location_query And(const ProgramOps& prog) const
+		_common_location_query And(const ProgramName& prog) const
 		{
 			return In(prog);
 		}
@@ -248,7 +164,7 @@ protected:
 	template <typename T, std::size_t Rows, std::size_t Cols>
 	static T _get_element_type(Matrix<T, Rows, Cols>*);
 
-	VertexAttribOps(const ProgramOps& program, const GLchar* identifier)
+	VertexAttribOps(const ProgramName& program, const GLchar* identifier)
 	 : _location(_find_location(program, identifier))
 	{ }
 public:
@@ -270,7 +186,7 @@ public:
 
 
 	static VertexAttribSlot GetLocation(
-		const ProgramOps& program,
+		const ProgramName& program,
 		const GLchar* identifier
 	)
 	{
@@ -294,7 +210,7 @@ public:
 	 *  @glfunref{GetAttribLocation}
 	 */
 	static VertexAttribSlot GetLocation(
-		const ProgramOps& program,
+		const ProgramName& program,
 		const String& identifier
 	)
 	{
@@ -348,63 +264,51 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	template <typename ... ProgramOps_>
+	template <typename ... Tag>
 	static VertexAttribSlot GetCommonLocation(
 		const GLchar* identifier,
-		const ProgramOps & program,
-		const ProgramOps_& ... programs
+		ProgramName program,
+		ObjectName<Tag> ... programs
 	)
 	{
-		const ProgramOps* pprogs[] = {
-			&program,
-			&programs...
-		};
 		return _get_common_location(
-			pprogs,
-			pprogs+1+sizeof...(programs),
+			MakeGroup(program, programs...),
 			identifier
 		);
 	}
 #else
 	static VertexAttribSlot GetCommonLocation(
 		const GLchar* identifier,
-		const ProgramOps& program1,
-		const ProgramOps& program2
+		ProgramName program1,
+		ProgramName program2
 	)
 	{
-		const ProgramOps* pprogs[] = {
-			&program1,
-			&program2
-		};
+		ProgramName progs[2] = {program1, program2};
+
 		return _get_common_location(
-			pprogs,
-			pprogs+2,
+			StaticGroup<ProgramName, 2>(progs),
 			identifier
 		);
 	}
 
 	static VertexAttribSlot GetCommonLocation(
 		const GLchar* identifier,
-		const ProgramOps& program1,
-		const ProgramOps& program2,
-		const ProgramOps& program3
+		ProgramName program1,
+		ProgramName program2,
+		ProgramName program3
 	)
 	{
-		const ProgramOps* pprogs[] = {
-			&program1,
-			&program2,
-			&program3
-		};
+		ProgramName progs[3] = {program1, program2, program3};
+
 		return _get_common_location(
-			pprogs,
-			pprogs+3,
+			StaticGroup<ProgramName, 3>(progs),
 			identifier
 		);
 	}
 #endif
 
 	static bool QueryLocation(
-		const ProgramOps& program,
+		ProgramName program,
 		const GLchar* identifier,
 		VertexAttribSlot& location
 	)
@@ -428,7 +332,7 @@ public:
 	 *  @glfunref{GetAttribLocation}
 	 */
 	static bool QueryLocation(
-		const ProgramOps& program,
+		ProgramName program,
 		const String& identifier,
 		VertexAttribSlot& location
 	)
@@ -514,21 +418,16 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	template <typename ... ProgramOps_>
+	template <typename ... Tag>
 	static bool QueryCommonLocation(
 		const GLchar* identifier,
 		VertexAttribSlot& location,
-		const ProgramOps & program,
-		const ProgramOps_& ... programs
+		ProgramName program,
+		ObjectName<Tag> ... programs
 	)
 	{
-		const ProgramOps* pprogs[] = {
-			&program,
-			&programs...
-		};
 		return _query_common_location(
-			pprogs,
-			pprogs+1+sizeof...(programs),
+			MakeGroup(program, programs...),
 			identifier,
 			location
 		);
@@ -537,17 +436,14 @@ public:
 	static bool QueryCommonLocation(
 		const GLchar* identifier,
 		VertexAttribSlot& location,
-		const ProgramOps& program1,
-		const ProgramOps& program2
+		ProgramName program1,
+		ProgramName program2
 	)
 	{
-		const ProgramOps* pprogs[] = {
-			&program1,
-			&program2
-		};
+		ProgramName progs[2] = {program1, program2};
+
 		return _query_common_location(
-			pprogs,
-			pprogs+2,
+			StaticGroup<ProgramName, 2>(progs),
 			identifier,
 			location
 		);
@@ -556,19 +452,15 @@ public:
 	static bool QueryCommonLocation(
 		const GLchar* identifier,
 		VertexAttribSlot& location,
-		const ProgramOps& program1,
-		const ProgramOps& program2,
-		const ProgramOps& program3
+		ProgramName program1,
+		ProgramName program2,
+		ProgramName program3
 	)
 	{
-		const ProgramOps* pprogs[] = {
-			&program1,
-			&program2,
-			&program3
-		};
+		ProgramName progs[3] = {program1, program2, program3};
+
 		return _query_common_location(
-			pprogs,
-			pprogs+3,
+			StaticGroup<ProgramName, 3>(progs),
 			identifier,
 			location
 		);
@@ -576,12 +468,12 @@ public:
 #endif
 
 	void BindLocation(
-		const ProgramOps& program,
+		ProgramName program,
 		const GLchar* identifier
 	) const
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
-			FriendOf<ProgramOps>::GetName(program),
+			GetGLName(program),
 			_location,
 			identifier
 		);
@@ -597,12 +489,12 @@ public:
 	 *  @glfunref{BindAttribLocation}
 	 */
 	void BindLocation(
-		const ProgramOps& program,
+		ProgramName program,
 		const String& identifier
 	) const
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
-			FriendOf<ProgramOps>::GetName(program),
+			GetGLName(program),
 			_location,
 			identifier.c_str()
 		);
@@ -628,6 +520,7 @@ public:
 };
 
 // Things from to Program related to vertex attributes
+/* TODO
 void ProgramOps::BindLocation(
 	const VertexAttribOps& vertex_attrib,
 	const GLchar* identifier
@@ -640,6 +533,7 @@ void ProgramOps::BindLocation(
 	);
 	OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
 }
+*/
 
 namespace aux {
 
@@ -701,12 +595,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(const ProgramOps& program, const GLchar* identifier)
+	VertexAttrib(ProgramName program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
-	VertexAttrib(const ProgramOps& program, const String& identifier)
+	VertexAttrib(ProgramName program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
@@ -755,12 +649,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(const ProgramOps& program, const GLchar* identifier)
+	VertexAttrib(ProgramName program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
-	VertexAttrib(const ProgramOps& program, const String& identifier)
+	VertexAttrib(ProgramName program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
@@ -809,12 +703,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttrib(const ProgramOps& program, const GLchar* identifier)
+	VertexAttrib(ProgramName program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
 	/// References the vertex attribute @p identifier of the @p program
-	VertexAttrib(const ProgramOps& program, const String& identifier)
+	VertexAttrib(ProgramName program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
@@ -862,7 +756,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttribArray(const ProgramOps& program, const GLchar* identifier)
+	VertexAttribArray(ProgramName program, const GLchar* identifier)
 	 : VertexAttribOps(program, identifier)
 	{ }
 
@@ -871,7 +765,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttribArray(const ProgramOps& program, const String& identifier)
+	VertexAttribArray(ProgramName program, const String& identifier)
 	 : VertexAttribOps(program, identifier.c_str())
 	{ }
 
@@ -1207,7 +1101,7 @@ public:
  */
 template <std::size_t N>
 inline VertexAttribArray operator | (
-	const ProgramOps& program,
+	ProgramName program,
 	const GLchar (&identifier)[N]
 )
 {
@@ -1221,7 +1115,7 @@ inline VertexAttribArray operator | (
  *  @see VertexAttribArray
  */
 inline VertexAttribArray operator | (
-	const ProgramOps& program,
+	ProgramName program,
 	GLuint location
 )
 {

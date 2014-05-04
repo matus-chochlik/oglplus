@@ -1419,7 +1419,7 @@ public:
 	 */
 	ObjZeroOps& Buffer(
 		PixelDataInternalFormat internal_format,
-		const ObjectName<tag::Buffer>& buffer
+		BufferName buffer
 	)
 	{
 		OGLPLUS_GLFUNC(TextureBufferEXT)(

@@ -128,7 +128,7 @@ public:
 	 */
 	void AttachRenderbuffer(
 		Property::Attachment attachment,
-		const ObjectName<tag::Renderbuffer>& renderbuffer
+		RenderbufferName renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
@@ -160,7 +160,7 @@ public:
 	 */
 	void AttachColorRenderbuffer(
 		FramebufferColorAttachmentNumber attachment_no,
-		const ObjectName<tag::Renderbuffer>& renderbuffer
+		RenderbufferName renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(NamedFramebufferRenderbufferEXT)(
@@ -193,7 +193,7 @@ public:
 	 */
 	void AttachTexture(
 		Property::Attachment attachment,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -226,7 +226,7 @@ public:
 	 */
 	void AttachColorTexture(
 		FramebufferColorAttachmentNumber attachment_no,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -261,7 +261,7 @@ public:
 	void AttachTexture1D(
 		Property::Attachment attachment,
 		TextureTarget textarget,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -296,7 +296,7 @@ public:
 	void AttachTexture2D(
 		Property::Attachment attachment,
 		TextureTarget textarget,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -331,7 +331,7 @@ public:
 	void AttachTexture3D(
 		Property::Attachment attachment,
 		TextureTarget textarget,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level,
 		GLint layer
 	)
@@ -367,7 +367,7 @@ public:
 	 */
 	void AttachTextureLayer(
 		Property::Attachment attachment,
-		const ObjectName<tag::Texture>& texture,
+		TextureName texture,
 		GLint level,
 		GLint layer
 	)
@@ -492,7 +492,7 @@ inline DSAFramebufferOps& operator << (
 // AttachTexture
 inline DSAFramebufferOps& operator << (
 	DSAFramebufferOpsAndAttch&& faa,
-	const ObjectName<tag::Texture>& tex
+	TextureName tex
 )
 {
 	faa.fbo.AttachTexture(faa.attachment, tex, 0);
@@ -502,7 +502,7 @@ inline DSAFramebufferOps& operator << (
 // AttachRenderbuffer
 inline DSAFramebufferOps& operator << (
 	DSAFramebufferOpsAndAttch&& faa,
-	const ObjectName<tag::Renderbuffer>& rbo
+	RenderbufferName rbo
 )
 {
 	faa.fbo.AttachRenderbuffer(faa.attachment, rbo);
