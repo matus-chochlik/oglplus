@@ -28,12 +28,11 @@
 
 #include <oglplus/auxiliary/xml_utils.hpp>
 #include <oglplus/auxiliary/utf8.hpp>
-#include <oglplus/auxiliary/obj_desc.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
-#include <oglplus/auxiliary/uniform_typecheck.hpp>
+#include <oglplus/auxiliary/typecheck.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/glsl_source.hpp>
-#include <oglplus/auxiliary/shader_data.hpp>
+#include <oglplus/auxiliary/prog_var.hpp>
 #include <oglplus/auxiliary/uniform_init.hpp>
 
 #include <oglplus/string.hpp>

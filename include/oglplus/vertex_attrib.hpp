@@ -14,6 +14,7 @@
 #define OGLPLUS_VERTEX_ATTRIB_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
+#include <oglplus/auxiliary/fwd.hpp>
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
@@ -21,7 +22,7 @@
 #include <oglplus/vertex_attrib_slot.hpp>
 #include <oglplus/object/name.hpp>
 #include <oglplus/object/sequence.hpp>
-#include <oglplus/auxiliary/shader_data.hpp>
+#include <oglplus/auxiliary/prog_var.hpp>
 
 #include <oglplus/string.hpp>
 
@@ -536,34 +537,6 @@ BindLocation(
 }
 */
 
-namespace aux {
-
-class VertexAttribSetters
-{
-protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(VertexAttrib, VertexAttrib)
-
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, d, t, GLdouble)
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, s, t, GLshort)
-
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, t, GLint)
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, t, GLuint)
-#endif
-
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, fv, v, GLfloat)
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, dv, v, GLdouble)
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, sv, v, GLshort)
-
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, v, GLint)
-	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, v, GLuint)
-#endif
-};
-
-} // namespace aux
-
 /// Encapsulates vertex attribute functionality
 /**
  *  @ingroup shader_variables
@@ -571,15 +544,12 @@ protected:
 template <typename T>
 class VertexAttrib
  : public VertexAttribOps
-#if OGLPLUS_DOCUMENTATION_ONLY
- , public Unspecified
-#else
- , public aux::ShaderDataSetOps<
-	aux::VertexAttribSetters,
-	aux::ActiveProgramCallOps<T>,
-	16
+ , public aux::ProgVarSetOps<
+	tag::ImplicitSel,
+	tag::VertexAttrib,
+	tag::NativeTypes,
+	T, 16
 >
-#endif
 {
 public:
 	/// References the vertex attribute array at @p location
@@ -629,10 +599,11 @@ public:
 template <typename T, std::size_t N>
 class VertexAttrib<Vector<T, N> >
  : public VertexAttribOps
- , public aux::ShaderDataSetOps<
-	aux::VertexAttribSetters,
-	aux::ActiveProgramCallOps<T>,
-	4
+ , public aux::ProgVarSetOps<
+	tag::ImplicitSel,
+	tag::VertexAttrib,
+	tag::NativeTypes,
+	T, 4
 >
 {
 public:
@@ -683,10 +654,11 @@ public:
 template <typename T, std::size_t Rows, std::size_t Cols>
 class VertexAttrib<Matrix<T, Rows, Cols> >
  : public VertexAttribOps
- , public aux::ShaderDataSetOps<
-	aux::VertexAttribSetters,
-	aux::ActiveProgramCallOps<T>,
-	16
+ , public aux::ProgVarSetOps<
+	tag::ImplicitSel,
+	tag::VertexAttrib,
+	tag::NativeTypes,
+	T, 16
 >
 {
 public:

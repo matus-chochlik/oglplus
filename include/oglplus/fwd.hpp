@@ -101,6 +101,19 @@ struct Shader;
 struct PerfMonitorAMD;
 struct PathNV;
 
+struct VertexAttrib;
+struct Uniform;
+
+struct NativeTypes;
+struct MatrixTypes;
+
+struct DirectInit;
+struct EagerInit;
+struct LazyInit;
+
+struct Typecheck;
+struct NoTypecheck;
+
 struct InternalSel;
 struct ExplicitSel;
 struct ImplicitSel;
@@ -156,6 +169,9 @@ class ObjectZero;
 
 template <typename ObjectOps>
 class Object;
+
+template <typename ObjectOps>
+class Reference;
 
 template <typename Target>
 struct ObjectTargetTag;

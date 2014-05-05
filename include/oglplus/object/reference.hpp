@@ -13,7 +13,8 @@
 #ifndef OGLPLUS_OBJECT_REFERENCE_1405011014_HPP
 #define OGLPLUS_OBJECT_REFERENCE_1405011014_HPP
 
-#include <oglplus/object/named.hpp>
+#include <oglplus/fwd.hpp>
+#include <oglplus/object/name.hpp>
 
 namespace oglplus {
 

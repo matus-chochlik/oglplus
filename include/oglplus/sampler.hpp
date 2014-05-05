@@ -56,7 +56,7 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteSamplers)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenSamplers));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteSamplers));
 	}
 
 	static GLboolean IsA(GLuint name)

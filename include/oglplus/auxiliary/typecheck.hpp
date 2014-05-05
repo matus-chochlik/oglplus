@@ -1,24 +1,24 @@
 /**
- *  @file oglplus/auxiliary/uniform_typecheck.hpp
- *  @brief Helper base class templates used for uniform variable initialization
+ *  @file oglplus/auxiliary/typecheck.hpp
+ *  @brief Helper base class templates used for program variable typechecking
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_AUX_UNIFORM_TYPECHECK_1107121519_HPP
-#define OGLPLUS_AUX_UNIFORM_TYPECHECK_1107121519_HPP
+#ifndef OGLPLUS_AUX_TYPECHECK_1107121519_HPP
+#define OGLPLUS_AUX_TYPECHECK_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/fwd.hpp>
+#include <oglplus/auxiliary/fwd.hpp>
 
 #include <vector>
-#include <cstring>
 #include <cassert>
 
 namespace oglplus {
@@ -30,15 +30,17 @@ struct SLtoCpp;
 
 namespace aux {
 
-class NoUniformTypecheck
+// Default/No typechecking
+template <typename VarTag, typename ChkTag>
+class ProgVarTypecheck
 {
 public:
-	inline NoUniformTypecheck(void)
+	inline ProgVarTypecheck(void)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
 	template <typename T>
-	inline NoUniformTypecheck(T* /*selector*/)
+	inline ProgVarTypecheck(T* /*selector*/)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
@@ -88,7 +90,7 @@ public:
 };
 
 template <typename T>
-struct DefaultGLSLtoCppTypeMatcher
+struct GLSLtoCppTypeMatcher
 {
 	static bool _matches(GLenum /*sl_type*/)
 	{
@@ -97,7 +99,7 @@ struct DefaultGLSLtoCppTypeMatcher
 };
 
 template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type SLType>
-struct DefaultGLSLtoCppTypeMatcher<oglplus::SLtoCpp<SLType> >
+struct GLSLtoCppTypeMatcher<oglplus::SLtoCpp<SLType> >
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -106,7 +108,7 @@ struct DefaultGLSLtoCppTypeMatcher<oglplus::SLtoCpp<SLType> >
 };
 
 template <>
-struct DefaultGLSLtoCppTypeMatcher<bool>
+struct GLSLtoCppTypeMatcher<bool>
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -115,19 +117,19 @@ struct DefaultGLSLtoCppTypeMatcher<bool>
 };
 
 template <>
-struct DefaultGLSLtoCppTypeMatcher<GLint>
+struct GLSLtoCppTypeMatcher<GLint>
 {
 	static bool _matches(GLenum sl_type);
 };
 
 template <>
-struct DefaultGLSLtoCppTypeMatcher<GLuint>
+struct GLSLtoCppTypeMatcher<GLuint>
 {
 	static bool _matches(GLenum sl_type);
 };
 
 template <>
-struct DefaultGLSLtoCppTypeMatcher<GLfloat>
+struct GLSLtoCppTypeMatcher<GLfloat>
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -137,7 +139,7 @@ struct DefaultGLSLtoCppTypeMatcher<GLfloat>
 
 #if defined(GL_DOUBLE)
 template <>
-struct DefaultGLSLtoCppTypeMatcher<GLdouble>
+struct GLSLtoCppTypeMatcher<GLdouble>
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -148,7 +150,7 @@ struct DefaultGLSLtoCppTypeMatcher<GLdouble>
 
 #if defined(GL_UNSIGNED_INT64_ARB)
 template <>
-struct DefaultGLSLtoCppTypeMatcher<GLuint64>
+struct GLSLtoCppTypeMatcher<GLuint64>
 {
 	static bool _matches(GLenum sl_type)
 	{
@@ -157,7 +159,7 @@ struct DefaultGLSLtoCppTypeMatcher<GLuint64>
 };
 #endif
 
-struct DefaultGLSLtoCppTypeMatcher_Vec
+struct GLSLtoCppTypeMatcher_Vec
 {
 	static std::size_t _type_idx(bool*) { return 0; }
 	static std::size_t _type_idx(GLint*) { return 1; }
@@ -175,8 +177,8 @@ struct DefaultGLSLtoCppTypeMatcher_Vec
 };
 
 template <typename T, std::size_t N>
-struct DefaultGLSLtoCppTypeMatcher<oglplus::Vector<T, N> >
- : public DefaultGLSLtoCppTypeMatcher_Vec
+struct GLSLtoCppTypeMatcher<oglplus::Vector<T, N> >
+ : public GLSLtoCppTypeMatcher_Vec
 {
 	static_assert(N <= 4, "Invalid vector size");
 
@@ -184,15 +186,15 @@ struct DefaultGLSLtoCppTypeMatcher<oglplus::Vector<T, N> >
 
 	static bool _matches(GLenum sl_type)
 	{
-		return DefaultGLSLtoCppTypeMatcher_Vec::_does_match(
+		return GLSLtoCppTypeMatcher_Vec::_does_match(
 			sl_type,
-			DefaultGLSLtoCppTypeMatcher_Vec::_type_idx(_type_sel()),
+			GLSLtoCppTypeMatcher_Vec::_type_idx(_type_sel()),
 			N
 		);
 	}
 };
 
-struct DefaultGLSLtoCppTypeMatcher_Mat
+struct GLSLtoCppTypeMatcher_Mat
 {
 	static std::size_t _type_idx(GLfloat*) { return 0; }
 #ifdef GL_DOUBLE
@@ -208,8 +210,8 @@ struct DefaultGLSLtoCppTypeMatcher_Mat
 };
 
 template <typename T, std::size_t Rows, std::size_t Cols>
-struct DefaultGLSLtoCppTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
- : public DefaultGLSLtoCppTypeMatcher_Mat
+struct GLSLtoCppTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
+ : public GLSLtoCppTypeMatcher_Mat
 {
 	static_assert(Rows >= 2, "Invalid matrix size");
 	static_assert(Cols >= 2, "Invalid matrix size");
@@ -221,22 +223,23 @@ struct DefaultGLSLtoCppTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
 
 	static bool _matches(GLenum sl_type)
 	{
-		return DefaultGLSLtoCppTypeMatcher_Mat::_does_match(
+		return GLSLtoCppTypeMatcher_Mat::_does_match(
 			sl_type,
-			DefaultGLSLtoCppTypeMatcher_Mat::_type_idx(_type_sel()),
+			GLSLtoCppTypeMatcher_Mat::_type_idx(_type_sel()),
 			Rows,
 			Cols
 		);
 	}
 };
 
-class DefaultUniformTypecheck
+template <>
+class ProgVarTypecheck<tag::Uniform, tag::Typecheck>
  : public UniformTypecheckBase
 {
 public:
 	template <typename TypeSel>
-	DefaultUniformTypecheck(TypeSel* /*type_sel*/)
-	 : UniformTypecheckBase(&DefaultGLSLtoCppTypeMatcher<TypeSel>::_matches)
+	ProgVarTypecheck(TypeSel* /*type_sel*/)
+	 : UniformTypecheckBase(&GLSLtoCppTypeMatcher<TypeSel>::_matches)
 	{ }
 };
 #endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
@@ -266,19 +269,10 @@ protected:
 };
 
 } // namespace aux
-
-typedef aux::NoUniformTypecheck NoTypecheck;
-
-#if !OGLPLUS_NO_UNIFORM_TYPECHECK
-typedef aux::DefaultUniformTypecheck DefaultTypecheck;
-#else
-typedef aux::NoUniformTypecheck DefaultTypecheck;
-#endif
-
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/uniform_typecheck.ipp>
+#include <oglplus/auxiliary/typecheck.ipp>
 #endif // OGLPLUS_LINK_LIB
 
 #endif // include guard

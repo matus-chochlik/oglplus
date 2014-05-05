@@ -15,10 +15,8 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/error.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/program.hpp>
-#include <oglplus/string.hpp>
-#include <oglplus/auxiliary/shader_data.hpp>
+#include <oglplus/object/name.hpp>
+#include <oglplus/auxiliary/prog_var.hpp>
 #include <oglplus/auxiliary/tp_mat_vec.hpp>
 #include <oglplus/auxiliary/uniform_init.hpp>
 #include <oglplus/auxiliary/glsl_to_cpp.hpp>
@@ -34,166 +32,44 @@ struct SLtoCpp;
 
 namespace aux {
 
-// collection of Uniform setter functions for basic types
-class UniformSetters
-{
-protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(Uniform, Uniform)
-
-	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
-	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
-#if GL_ARB_bindless_texture
-	OGLPLUS_AUX_VARPARA_FNC(Uniform, Handle, ui64ARB, t, GLuint64, 1)
-#endif
-	OGLPLUS_AUX_VARPARA_FNS(Uniform, f, t, GLfloat)
-#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
-	OGLPLUS_AUX_VARPARA_FNS(Uniform, d, t, GLdouble)
-#endif
-
-	OGLPLUS_AUX_VARPARA_FNS(Uniform, iv, v, GLint)
-#if GL_ARB_bindless_texture
-	OGLPLUS_AUX_VARPARA_FNC(Uniform, Handle, ui64vARB, v, GLuint64, 1)
-#endif
-	OGLPLUS_AUX_VARPARA_FNS(Uniform, fv, v, GLfloat)
-#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
-	OGLPLUS_AUX_VARPARA_FNS(Uniform, dv, v, GLdouble)
-#endif
-};
-
-// collection of Uniform setter function for matrices
-class UniformMatrixSetters
-{
-protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(UniformMatrix, Uniform)
-
-	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, fv, v, GLfloat)
-#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
-	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, dv, v, GLdouble)
-#endif
-};
-
-
-// collection of direct state access ProgramUniform
-// setter functions for basic types
-class ProgramUniformSetters
-{
-protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniform, ProgramUniform)
-
-#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, ui, t, GLuint)
-	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, i, t, GLint)
-#if GL_ARB_bindless_texture
-	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, Handle, ui64ARB, t, GLuint64, 1)
-#endif
-	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, f, t, GLfloat)
-	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, d, t, GLdouble)
-
-	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, iv, v, GLint)
-#if GL_ARB_bindless_texture
-	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, Handle, ui64vARB, v, GLuint64, 1)
-#endif
-	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, fv, v, GLfloat)
-	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, dv, v, GLdouble)
-#elif GL_EXT_direct_state_access
-	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, ui, EXT, t, GLuint)
-	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, i, EXT, t, GLint)
-	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, f, EXT, t, GLfloat)
-
-	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, iv, EXT, v, GLint)
-	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, fv, EXT, v, GLfloat)
-#endif
-};
-
-// collection of direct state access ProgramUniform
-// setter functions for matrices
-class ProgramUniformMatrixSetters
-{
-protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniformMatrix, ProgramUniform)
-
-#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, fv, v, GLfloat)
-	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, dv, v, GLdouble)
-#elif GL_EXT_direct_state_access
-	OGLPLUS_AUX_VARPARA_MAT_FNS_EXT(ProgramUniformMatrix,fv,EXT, v, GLfloat)
-#endif
-};
-
-template <typename T>
-class UniformAllSetOps
- : public aux::ShaderDataSetOps<
-	aux::UniformSetters,
-	aux::ActiveProgramCallOps<T>,
-	4
->, public aux::ShaderMatrixSetOps<
-	aux::UniformMatrixSetters,
-	aux::ActiveProgramCallOps<T>
->
-{ };
-
-template <typename T>
+template <typename T, typename OpsTag>
 struct UniformSetOps
 {
-	typedef UniformAllSetOps<T> Type;
+	struct Type
+	 : public aux::ProgVarSetOps<
+		OpsTag,
+		tag::Uniform,
+		tag::NativeType,
+		T, 4
+	>, public aux::ProgVarSetOps<
+		OpsTag,
+		tag::Uniform,
+		tag::MatrixType,
+		T, 16
+	>{ };
 };
 
-template <typename T, std::size_t N>
-struct UniformSetOps<Vector<T, N> >
+template <typename T, std::size_t N, typename OpsTag>
+struct UniformSetOps<Vector<T, N>, OpsTag>
 {
-	typedef aux::ShaderDataSetOps<
-		aux::UniformSetters,
-		aux::ActiveProgramCallOps<T>,
-		4
+	typedef aux::ProgVarSetOps<
+		OpsTag,
+		tag::Uniform,
+		tag::NativeType,
+		T, 4
 	> Type;
 };
 
-template <typename T, std::size_t Rows, std::size_t Cols>
-struct UniformSetOps<Matrix<T, Rows, Cols> >
+template <typename T, std::size_t Rows, std::size_t Cols, typename OpsTag>
+struct UniformSetOps<Matrix<T, Rows, Cols>, OpsTag>
 {
-	typedef aux::ShaderMatrixSetOps<
-		aux::UniformMatrixSetters,
-		aux::ActiveProgramCallOps<T>
+	typedef aux::ProgVarSetOps<
+		OpsTag,
+		tag::Uniform,
+		tag::MatrixType,
+		T, 16
 	> Type;
 };
-
-template <typename T>
-class ProgramUniformAllSetOps
- : public aux::ShaderDataSetOps<
-	aux::ProgramUniformSetters,
-	aux::SpecificProgramCallOps<T>,
-	4
->, public aux::ShaderMatrixSetOps<
-	aux::ProgramUniformMatrixSetters,
-	aux::SpecificProgramCallOps<T>
->
-{ };
-
-template <typename T>
-struct ProgramUniformSetOps
-{
-	typedef ProgramUniformAllSetOps<T> Type;
-};
-
-template <typename T, std::size_t N>
-struct ProgramUniformSetOps<Vector<T, N> >
-{
-	typedef aux::ShaderDataSetOps<
-		aux::ProgramUniformSetters,
-		aux::SpecificProgramCallOps<T>,
-		4
-	> Type;
-};
-
-template <typename T, std::size_t Rows, std::size_t Cols>
-struct ProgramUniformSetOps<Matrix<T, Rows, Cols> >
-{
-	typedef aux::ShaderMatrixSetOps<
-		aux::ProgramUniformMatrixSetters,
-		aux::SpecificProgramCallOps<T>
-	> Type;
-};
-
 
 template <typename T>
 struct AdjustUniformType

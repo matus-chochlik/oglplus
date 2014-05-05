@@ -44,7 +44,7 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteVertexArrays)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenVertexArrays));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteVertexArrays));
 	}
 
 	static GLboolean IsA(GLuint name)

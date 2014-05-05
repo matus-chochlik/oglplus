@@ -58,7 +58,7 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteBuffers)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenBuffers));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteBuffers));
 	}
 
 	static GLboolean IsA(GLuint name)

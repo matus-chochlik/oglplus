@@ -77,7 +77,7 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteFramebuffers)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenFramebuffers));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteFramebuffers));
 	}
 
 	static GLboolean IsA(GLuint name)

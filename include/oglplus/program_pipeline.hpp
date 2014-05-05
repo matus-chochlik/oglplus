@@ -71,7 +71,7 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteProgramPipelines)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenProgramPipelines));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteProgramPipelines));
 	}
 
 	static GLboolean IsA(GLuint name)

@@ -1,17 +1,20 @@
 /**
- *  @file oglplus/auxiliary/uniform_typecheck.ipp
- *  @brief Implementation of uniform typechecking utilities
+ *  @file oglplus/auxiliary/typecheck.ipp
+ *  @brief Implementation of program variable typechecking utilities
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include <oglplus/lib/incl_begin.ipp>
 #include <oglplus/error.hpp>
+#include <oglplus/object/tags.hpp>
+#include <oglplus/object/desc.hpp>
 #include <oglplus/lib/incl_end.ipp>
+#include <cstring>
 
 namespace oglplus {
 namespace aux {
@@ -72,7 +75,7 @@ GLenum UniformTypecheckBase::_query_uniform_type(
 }
 
 OGLPLUS_LIB_FUNC
-bool DefaultGLSLtoCppTypeMatcher<GLint>::_matches(GLenum sl_type)
+bool GLSLtoCppTypeMatcher<GLint>::_matches(GLenum sl_type)
 {
 	const GLenum allowed[] = {
 		GL_INT,
@@ -307,7 +310,7 @@ bool DefaultGLSLtoCppTypeMatcher<GLint>::_matches(GLenum sl_type)
 }
 
 OGLPLUS_LIB_FUNC
-bool DefaultGLSLtoCppTypeMatcher<GLuint>::_matches(GLenum sl_type)
+bool GLSLtoCppTypeMatcher<GLuint>::_matches(GLenum sl_type)
 {
 	const GLenum allowed[] = {
 		GL_UNSIGNED_INT,
@@ -324,7 +327,7 @@ bool DefaultGLSLtoCppTypeMatcher<GLuint>::_matches(GLenum sl_type)
 }
 
 OGLPLUS_LIB_FUNC
-bool DefaultGLSLtoCppTypeMatcher_Vec::_does_match(
+bool GLSLtoCppTypeMatcher_Vec::_does_match(
 	GLenum sl_type,
 	std::size_t type_idx,
 	std::size_t dim
@@ -367,7 +370,7 @@ bool DefaultGLSLtoCppTypeMatcher_Vec::_does_match(
 }
 
 OGLPLUS_LIB_FUNC
-bool DefaultGLSLtoCppTypeMatcher_Mat::_does_match(
+bool GLSLtoCppTypeMatcher_Mat::_does_match(
 	GLenum sl_type,
 	std::size_t type_idx,
 	std::size_t rows,
@@ -431,7 +434,10 @@ void UniformInitTypecheckUtils::_handle_error(
 	Error::AddPropertyValue(
 		props,
 		"program",
-		aux::ObjectDescRegistry<ProgramOps>::_get_desc(program)
+		aux::ObjectDescRegistry::_get_desc(
+			tag::Program::value,
+			program
+		)
 	);
 	HandleShaderVariableError(
 		GL_INVALID_OPERATION,

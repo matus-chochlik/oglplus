@@ -82,7 +82,7 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteTransformFeedbacks)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteTransformFeedbacks));
 	}
 
 	static GLboolean IsA(GLuint name)

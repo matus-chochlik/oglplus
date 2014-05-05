@@ -1,6 +1,6 @@
 /**
- *  .file oglplus/auxiliary/shader_data.hpp
- *  .brief Shader uniform / vertex-attribute data helpers
+ *  .file oglplus/auxiliary/prog_var.hpp
+ *  .brief Program variable (uniform / vertex-attribute) helpers
  *
  *  @author Matus Chochlik
  *
@@ -10,14 +10,13 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_AUX_SHADER_DATA_1107121519_HPP
-#define OGLPLUS_AUX_SHADER_DATA_1107121519_HPP
+#ifndef OGLPLUS_AUX_PROG_VAR_1107121519_HPP
+#define OGLPLUS_AUX_PROG_VAR_1107121519_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
-#include <oglplus/string.hpp>
-#include <oglplus/object/tags.hpp>
+#include <oglplus/fwd.hpp>
+#include <oglplus/auxiliary/fwd.hpp>
 #include <oglplus/auxiliary/varpara_fns.hpp>
 
 #include <type_traits>
@@ -26,8 +25,122 @@
 namespace oglplus {
 namespace aux {
 
+template <>
+class ProgVarSetters<tag::ImplicitSel, tag::VertexAttrib, tag::NativeTypes>
+{
+protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(VertexAttrib, VertexAttrib)
+
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, d, t, GLdouble)
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, s, t, GLshort)
+
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, t, GLint)
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, t, GLuint)
+#endif
+
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, fv, v, GLfloat)
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, dv, v, GLdouble)
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, sv, v, GLshort)
+
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, v, GLint)
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, v, GLuint)
+#endif
+};
+
+// collection of Uniform setter functions for basic types
+template <>
+class ProgVarSetters<tag::ImplicitSel, tag::Uniform, tag::NativeTypes>
+{
+protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(Uniform, Uniform)
+
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
+#if GL_ARB_bindless_texture
+	OGLPLUS_AUX_VARPARA_FNC(Uniform, Handle, ui64ARB, t, GLuint64, 1)
+#endif
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, f, t, GLfloat)
+#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, d, t, GLdouble)
+#endif
+
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, iv, v, GLint)
+#if GL_ARB_bindless_texture
+	OGLPLUS_AUX_VARPARA_FNC(Uniform, Handle, ui64vARB, v, GLuint64, 1)
+#endif
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, fv, v, GLfloat)
+#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
+	OGLPLUS_AUX_VARPARA_FNS(Uniform, dv, v, GLdouble)
+#endif
+};
+
+// collection of Uniform setter function for matrices
+template <>
+class ProgVarSetters<tag::ImplicitSel, tag::Uniform, tag::MatrixTypes>
+{
+protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(UniformMatrix, Uniform)
+
+	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, fv, v, GLfloat)
+#if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
+	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, dv, v, GLdouble)
+#endif
+};
+
+// collection of direct state access ProgramUniform
+// setter functions for basic types
+template <>
+class ProgVarSetters<tag::DirectState, tag::Uniform, tag::NativeTypes>
+{
+protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniform, ProgramUniform)
+
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, ui, t, GLuint)
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, i, t, GLint)
+#if GL_ARB_bindless_texture
+	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, Handle, ui64ARB, t, GLuint64, 1)
+#endif
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, f, t, GLfloat)
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, d, t, GLdouble)
+
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, iv, v, GLint)
+#if GL_ARB_bindless_texture
+	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, Handle, ui64vARB, v, GLuint64, 1)
+#endif
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, fv, v, GLfloat)
+	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, dv, v, GLdouble)
+#elif GL_EXT_direct_state_access
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, ui, EXT, t, GLuint)
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, i, EXT, t, GLint)
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, f, EXT, t, GLfloat)
+
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, iv, EXT, v, GLint)
+	OGLPLUS_AUX_VARPARA_FNS_EXT(ProgramUniform, fv, EXT, v, GLfloat)
+#endif
+};
+
+// collection of direct state access ProgramUniform
+// setter functions for matrices
+template <>
+class ProgVarSetters<tag::DirectState, tag::Uniform, tag::MatrixTypes>
+{
+protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniformMatrix, ProgramUniform)
+
+#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, fv, v, GLfloat)
+	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, dv, v, GLdouble)
+#elif GL_EXT_direct_state_access
+	OGLPLUS_AUX_VARPARA_MAT_FNS_EXT(ProgramUniformMatrix,fv,EXT, v, GLfloat)
+#endif
+};
+
 template <typename T>
-class ActiveProgramCallOps
+class ProgVarCallers<tag::ImplicitSel, T>
 {
 protected:
 	template <typename UI>
@@ -123,7 +236,7 @@ protected:
 };
 
 template <typename T>
-class SpecificProgramCallOps
+class ProgVarCallers<tag::DirectState, T>
 {
 protected:
 	template <typename UI>
@@ -218,7 +331,7 @@ protected:
 	}
 };
 
-class ShaderDataSetUtils
+class ProgVarSetUtils
 {
 private:
 	static void _handle_error(
@@ -242,23 +355,31 @@ protected:
 	}
 };
 
-template <class Setters, class Callers, std::size_t MaxCount>
-class ShaderDataSetOps
- : public Setters
- , public Callers
- , public ShaderDataSetUtils
+template <
+	typename OpsTag,
+	typename VarTag,
+	typename T,
+	std::size_t MaxCount
+> class ProgVarSetOps<OpsTag, VarTag, tag::NativeTypes, T, MaxCount>
+ : public ProgVarSetters<OpsTag, VarTag, tag::NativeTypes>
+ , public ProgVarCallers<OpsTag, T>
+ , public ProgVarSetUtils
 {
 private:
+	typedef ProgVarSetters<OpsTag, VarTag, tag::NativeTypes> Setters;
+	typedef ProgVarCallers<OpsTag, T> Callers;
+
+	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
+
 	static void _report_if_error(GLuint program, GLuint base_location)
 	{
-		ShaderDataSetUtils::_do_handle_if_error(
+		ProgVarSetUtils::_do_handle_if_error(
 			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
 			program,
 			base_location
 		);
 	}
 
-	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
 	typedef std::false_type _set_done;
 	typedef std::true_type  _set_cont;
 
@@ -268,13 +389,13 @@ private:
 		return std::integral_constant<bool, (N > 4)>();
 	}
 
-	template <std::size_t N, typename T>
+	template <std::size_t N, typename V>
 	static void _do_set_v(
 		_set_cont,
 		GLuint program,
 		GLuint base_location,
 		GLuint location,
-		const T* v
+		const V* v
 	)
 	{
 		std::integral_constant<std::size_t, 4> nparam;
@@ -285,7 +406,7 @@ private:
 			v
 		);
 		_report_if_error(program, base_location);
-		_do_set_v<N - 4, T>(
+		_do_set_v<N - 4, V>(
 			_set_mode<N - 4>(),
 			program,
 			base_location,
@@ -294,13 +415,13 @@ private:
 		);
 	}
 
-	template <std::size_t N, typename T>
+	template <std::size_t N, typename V>
 	static void _do_set_v(
 		_set_done,
 		GLuint program,
 		GLuint base_location,
 		GLuint location,
-		const T* v
+		const V* v
 	)
 	{
 		std::integral_constant<std::size_t, N> nparam;
@@ -313,14 +434,14 @@ private:
 		_report_if_error(program, base_location);
 	}
 
-	template <std::size_t N, typename T>
+	template <std::size_t N, typename V>
 	static void _do_set_n(
 		_set_done,
 		GLuint program,
 		GLuint base_location,
 		GLuint location,
 		GLsizei n,
-		const T* v
+		const V* v
 	)
 	{
 		std::integral_constant<std::size_t, N> nparam;
@@ -336,14 +457,14 @@ private:
 
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <typename S, typename ... T>
+	template <typename S, typename ... V>
 	static void _do_set_t(
 		_set_cont,
 		GLuint program,
 		GLuint base_location,
 		GLuint location,
 		S v0, S v1, S v2, S v3,
-		T ... v
+		V ... v
 	)
 	{
 		std::integral_constant<std::size_t, 4> nparam;
@@ -355,7 +476,7 @@ private:
 		);
 		_report_if_error(program, base_location);
 		_do_set_t(
-			_set_mode<sizeof...(T)>(),
+			_set_mode<sizeof...(V)>(),
 			program,
 			base_location,
 			location+1,
@@ -363,16 +484,16 @@ private:
 		);
 	}
 
-	template <typename ... T>
+	template <typename ... V>
 	static void _do_set_t(
 		_set_done,
 		GLuint program,
 		GLuint base_location,
 		GLuint location,
-		T ... v
+		V ... v
 	)
 	{
-		std::integral_constant<std::size_t, sizeof...(T)> nparam;
+		std::integral_constant<std::size_t, sizeof...(V)> nparam;
 		Callers::_call_set_t(
 			program,
 			location,
@@ -386,15 +507,15 @@ private:
 protected:
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <typename ... T>
-	static void _do_set(GLuint program, GLuint location, T ... v)
+	template <typename ... V>
+	static void _do_set(GLuint program, GLuint location, V ... v)
 	{
 		static_assert(
-			(sizeof...(T) > 0) && (sizeof...(T) <= MaxCount),
+			(sizeof...(V) > 0) && (sizeof...(V) <= MaxCount),
 			"Set requires 1 to MaxCount arguments"
 		);
 		_do_set_t(
-			_set_mode<sizeof...(T)>(),
+			_set_mode<sizeof...(V)>(),
 			program,
 			location,
 			location,
@@ -403,8 +524,8 @@ protected:
 		_report_if_error(program, location);
 	}
 #else
-	template <typename T>
-	static void _do_set(GLuint program, GLuint location, T v0)
+	template <typename V>
+	static void _do_set(GLuint program, GLuint location, V v0)
 	{
 		std::integral_constant<std::size_t, 1> nparam;
 		Callers::_call_set_t(
@@ -416,8 +537,8 @@ protected:
 		_report_if_error(program, location);
 	}
 
-	template <typename T>
-	static void _do_set(GLuint program, GLuint location, T v0, T v1)
+	template <typename V>
+	static void _do_set(GLuint program, GLuint location, V v0, V v1)
 	{
 		std::integral_constant<std::size_t, 2> nparam;
 		Callers::_call_set_t(
@@ -429,8 +550,8 @@ protected:
 		_report_if_error(program, location);
 	}
 
-	template <typename T>
-	static void _do_set(GLuint program, GLuint location, T v0, T v1, T v2)
+	template <typename V>
+	static void _do_set(GLuint program, GLuint location, V v0, V v1, V v2)
 	{
 		std::integral_constant<std::size_t, 3> nparam;
 		Callers::_call_set_t(
@@ -442,8 +563,8 @@ protected:
 		_report_if_error(program, location);
 	}
 
-	template <typename T>
-	static void _do_set(GLuint program, GLuint location, T v0, T v1, T v2, T v3)
+	template <typename V>
+	static void _do_set(GLuint program, GLuint location, V v0, V v1, V v2, V v3)
 	{
 		std::integral_constant<std::size_t, 4> nparam;
 		Callers::_call_set_t(
@@ -456,14 +577,14 @@ protected:
 	}
 #endif //NO_VARIADIC_TEMPLATES
 
-	template <std::size_t Cols, typename T>
-	static void _do_set(GLuint program, GLuint location, const T* v)
+	template <std::size_t Cols, typename V>
+	static void _do_set(GLuint program, GLuint location, const V* v)
 	{
 		static_assert(
 			(Cols > 0) && (Cols <= MaxCount),
 			"The number of elements must be between 1 and MaxCount"
 		);
-		_do_set_v<Cols, T>(
+		_do_set_v<Cols, V>(
 			_set_mode<Cols>(),
 			program,
 			location,
@@ -472,14 +593,14 @@ protected:
 		);
 	}
 
-	template <std::size_t Cols, typename T>
-	static void _do_set_many(GLuint prog, GLuint location, GLsizei n, const T*v)
+	template <std::size_t Cols, typename V>
+	static void _do_set_many(GLuint prog, GLuint location, GLsizei n, const V*v)
 	{
 		static_assert(
 			(Cols > 0) && (Cols <= MaxCount),
 			"The number of elements must be between 1 and MaxCount"
 		);
-		_do_set_n<Cols, T>(
+		_do_set_n<Cols, V>(
 			_set_mode<Cols>(),
 			prog,
 			location,
@@ -490,31 +611,38 @@ protected:
 	}
 };
 
-template <typename Setters, typename Callers>
-class ShaderMatrixSetOps
- : public Setters
- , public Callers
- , public ShaderDataSetUtils
+template <
+	typename OpsTag,
+	typename VarTag,
+	typename T,
+	std::size_t MaxCount
+> class ProgVarSetOps<OpsTag, VarTag, tag::MatrixTypes, T, MaxCount>
+ : public ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes>
+ , public ProgVarCallers<OpsTag, T>
+ , public ProgVarSetUtils
 {
 private:
+	typedef ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes> Setters;
+	typedef ProgVarCallers<OpsTag, T> Callers;
+
 	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
 
 	static void _report_if_error(GLuint program, GLuint base_location)
 	{
-		ShaderDataSetUtils::_do_handle_if_error(
+		ProgVarSetUtils::_do_handle_if_error(
 			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
 			program,
 			base_location
 		);
 	}
 protected:
-	template <std::size_t Cols, std::size_t Rows, typename T>
+	template <std::size_t Cols, std::size_t Rows, typename V>
 	static void _do_set_mat(
 		GLuint program,
 		GLuint location,
 		GLsizei count,
 		bool transpose,
-		T* v
+		V* v
 	)
 	{
 		static_assert(
@@ -539,12 +667,12 @@ protected:
 	}
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <std::size_t Cols, typename T, typename ... P>
+	template <std::size_t Cols, typename V, typename ... P>
 	static void _do_set_mat_p(
 		GLuint program,
 		GLuint location,
 		bool transpose,
-		T v,
+		V v,
 		P ... p
 	)
 	{
@@ -556,8 +684,8 @@ protected:
 			(sizeof...(P) + 1) % Cols == 0,
 			"Not enough values for the last row"
 		);
-		T values[] = {v, T(p)...};
-		_do_set_mat<Cols, (sizeof...(P) + 1) / Cols, T>(
+		V values[] = {v, V(p)...};
+		_do_set_mat<Cols, (sizeof...(P) + 1) / Cols, V>(
 			program,
 			location,
 			1,

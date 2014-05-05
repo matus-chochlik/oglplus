@@ -70,7 +70,7 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenRenderbuffers));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteRenderbuffers));
 	}
 
 	static GLboolean IsA(GLuint name)
@@ -425,7 +425,7 @@ inline RenderbufferTarget operator << (
 typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Renderbuffer>>
 	NoRenderbuffer;
 
-/// An @ref oglplus_object encapsulating the OpenGL renderbuffer functionality
+/// An @ref oglplus_object encapsulating the renderbuffer object functionality
 /**
  *  @ingroup oglplus_objects
  */

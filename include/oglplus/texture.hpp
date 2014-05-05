@@ -60,7 +60,7 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteTextures)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenTextures));
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteTextures));
 	}
 
 	static GLboolean IsA(GLuint name)

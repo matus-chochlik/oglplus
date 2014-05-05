@@ -19,7 +19,6 @@
 #include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/enumerations.hpp>
-#include <oglplus/friend_of.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -40,7 +39,7 @@ OGLPLUS_ENUM_CLASS_END(QueryTarget)
 #include <oglplus/enums/query_target_range.ipp>
 #endif
 
-/// Wrapper for asynchronous query functions
+/// Class wrapping query construction/destruction functions
 /** @note Do not use this class directly, use Query instead.
  *
  *  @glsymbols
@@ -48,45 +47,49 @@ OGLPLUS_ENUM_CLASS_END(QueryTarget)
  *  @glfunref{DeleteQueries}
  *  @glfunref{IsQuery}
  */
-class QueryOps
- : public Named
- , public BaseObject<true>
+template <>
+class GenDelOps<tag::Query>
 {
 protected:
-	static void _init(GLsizei count, GLuint* _name)
+	static void Gen(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenQueries)(count, _name);
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenQueries)(count, names);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenQueries));
 	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	static void Delete(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteQueries)(count, _name);}
-		catch(...){ }
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(DeleteQueries)(count, names);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteQueries));
 	}
 
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
+	static GLboolean IsA(GLuint name)
 	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsQuery)(_name);}
-		catch(...){ }
-		return GL_FALSE;
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsQuery)(name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsQuery));
+		return result;
 	}
+};
 
-#ifdef GL_QUERY
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectType::Query;
-	}
-#endif
+class QueryActivator;
+
+template <typename ResultType>
+class QueryExecution;
+
+/// Class wrapping query functions with (direct state access)
+/** @note Do not use this class directly, use Query instead.
+ */
+template <>
+class ObjectOps<tag::DirectState, tag::Query>
+ : public ObjZeroOps<tag::DirectState, tag::Query>
+{
+protected:
+	ObjectOps(void){ }
 public:
-	/// Query bind target
+	/// Query execution target
 	typedef QueryTarget Target;
 
 	/// Begin the query on the specified @p target
@@ -94,7 +97,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BeginQuery}
 	 */
-	void Begin(Target target) const
+	void Begin(Target target)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BeginQuery)(GLenum(target), _name);
@@ -111,7 +114,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{EndQuery}
 	 */
-	void End(Target target) const
+	void End(Target target)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(EndQuery)(GLenum(target));
@@ -129,7 +132,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{QueryCounter}
 	 */
-	void Counter(Target target) const
+	void Counter(Target target)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(QueryCounter)(_name, GLenum(target));
@@ -147,7 +150,7 @@ public:
 	 *  @glfunref{QueryCounter}
 	 *  @gldefref{TIMESTAMP}
 	 */
-	void Timestamp(void) const
+	void Timestamp(void)
 	{
 		Counter(Target::Timestamp);
 	}
@@ -280,135 +283,132 @@ public:
 		Result(result);
 	}
 
-	class Activator
-	 : public FriendOf<QueryOps>
-	{
-	protected:
-		GLuint _name;
-		QueryOps::Target _target;
-	private:
-		bool _alive;
-		Activator(const Activator&);
+	/// The activator class
+	typedef QueryActivator Activator;
 
-		void _begin(void);
-		void _end(void);
-	public:
-		Activator(
-			const QueryOps& query,
-			QueryOps::Target target
-		): _name(FriendOf<QueryOps>::GetName(query))
-		 , _target(target)
-		 , _alive(false)
-		{
-			_begin();
-			_alive = true;
-		}
-
-		Activator(Activator&& temp)
-		 : _name(temp._name)
-		 , _target(temp._target)
-		 , _alive(temp._alive)
-		{
-			temp._alive = false;
-		}
-
-		~Activator(void)
-		{
-			try { Finish(); }
-			catch(...) { }
-		}
-
-		bool Finish(void)
-		{
-			if(_alive)
-			{
-				_end();
-				_alive = false;
-				return true;
-			}
-			else return false;
-		}
-	};
-
-	/// A helper class automatically executing a query
-	/** Instances of this class begin the query in the constructor
-	 *  and end the query in the destructor. It is more convenient
-	 *  not to use this class directly, use the Execute() function
-	 *  instead.
-	 *
-	 *  @see Execute
-	 */
-	template <typename ResultType>
-	class Execution : public Activator
-	{
-	private:
-		ResultType& _result;
-	public:
-		Execution(
-			const QueryOps& query,
-			typename QueryOps::Target target,
-			ResultType& result
-		): Activator(query, target)
-		 , _result(result)
-		{ }
-
-		Execution(Execution&& temp)
-		 : Activator(static_cast<Activator&&>(temp))
-		 , _result(temp._result)
-		{ }
-
-		~Execution(void)
-		{
-			try { WaitForResult(); }
-			catch(...) { }
-		}
-
-		void WaitForResult(void);
-	};
-
-	/// Executes the query on the specified @p target and gets the @p result
-	/** This function creates an instance of the Execution class which
+	/// Executes this query on the specified @p target and gets the @p result
+	/** This function creates an instance of the QueryExecution class which
 	 *  begins a query on the specified @p target when it is constructed
 	 *  and ends this query and gets its @p result when it is destroyed.
 	 */
 	template <typename ResultType>
-	Execution<ResultType> Execute(Target target, ResultType& result) const
+	QueryExecution<ResultType>
+	Execute(Target target, ResultType& result);
+};
+
+/// Query operations with direct state access
+typedef ObjectOps<tag::DirectState, tag::Query>
+	QueryOps;
+
+/// RAII Query activator/deactivator
+/**
+ *  @see Query
+ */
+class QueryActivator
+{
+protected:
+	QueryName _query;
+	QueryTarget _target;
+private:
+	bool _alive;
+	QueryActivator(const QueryActivator&);
+public:
+	/// Begins a @p query on the specified @p target
+	QueryActivator(
+		QueryName query,
+		QueryTarget target
+	): _query(query)
+	 , _target(target)
+	 , _alive(false)
 	{
-		return Execution<ResultType>(*this, target, result);
+		Reference<QueryOps>(_query).Begin(_target);
+		_alive = true;
+	}
+
+	/// Activators are moveable
+	QueryActivator(QueryActivator&& temp)
+	 : _query(std::move(temp._query))
+	 , _target(temp._target)
+	 , _alive(temp._alive)
+	{
+		temp._alive = false;
+	}
+
+	/// Ends the query
+	~QueryActivator(void)
+	{
+		try { Finish(); }
+		catch(...) { }
+	}
+
+	/// Explicitly ends the query
+	bool Finish(void)
+	{
+		if(_alive)
+		{
+			Reference<QueryOps>(_query).End(_target);
+			_alive = false;
+			return true;
+		}
+		else return false;
 	}
 };
 
-
-inline void QueryOps::Activator::_begin(void)
+/// A helper class automatically executing a query
+/** Instances of this class begin the query in the constructor
+ *  and end the query in the destructor. It is more convenient
+ *  not to use this class directly, use the Execute() function
+ *  instead.
+ *
+ *  @see Query::Execute
+ */
+template <typename ResultType>
+class QueryExecution : public QueryActivator
 {
-	Managed<QueryOps>(_name).Begin(_target);
-}
+private:
+	ResultType& _result;
+public:
+	QueryExecution(
+		QueryName query,
+		QueryTarget target,
+		ResultType& result
+	): QueryActivator(query, target)
+	 , _result(result)
+	{ }
 
-inline void QueryOps::Activator::_end(void)
-{
-	Managed<QueryOps>(_name).End(_target);
-}
+	QueryExecution(QueryExecution&& temp)
+	 : QueryActivator(static_cast<QueryActivator&&>(temp))
+	 , _result(temp._result)
+	{ }
+
+	~QueryExecution(void)
+	{
+		try { WaitForResult(); }
+		catch(...) { }
+	}
+
+	void WaitForResult(void)
+	{
+		if(this->Finish())
+		{
+			Reference<QueryOps>(this->_query).WaitForResult(_result);
+		}
+	}
+};
 
 template <typename ResultType>
-inline void QueryOps::Execution<ResultType>::WaitForResult(void)
+QueryExecution<ResultType>
+ObjectOps<tag::DirectState, tag::Query>::
+Execute(QueryTarget target, ResultType& result)
 {
-	if(this->Finish())
-	{
-		Managed<QueryOps>(_name).WaitForResult(_result);
-	}
+	return QueryExecution<ResultType>(*this, target, result);
 }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// An @ref oglplus_object encapsulating the OpenGL asynchronous query functionality
+/// An @ref oglplus_object encapsulating the asynchronous query functionality
 /**
  *  @ingroup oglplus_objects
  */
-class Query
- : public QueryOps
-{ };
-#else
 typedef Object<QueryOps> Query;
-#endif
 
 } // namespace oglplus
 

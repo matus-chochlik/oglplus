@@ -17,6 +17,7 @@
 #include <oglplus/object/tags.hpp>
 #include <oglplus/object/name.hpp>
 #include <oglplus/object/desc.hpp>
+#include <oglplus/object/reference.hpp>
 #include <type_traits>
 #include <cassert>
 
@@ -35,6 +36,15 @@ namespace oglplus {
 template <typename ObjTag>
 struct ObjectType : Nothing
 { };
+
+/// Implements operations applicable to any object and any operation kind
+template <class ObjTag>
+class CommonOps
+ : public ObjectName<ObjTag>
+{
+protected:
+	CommonOps(void) { }
+};
 
 /// Implements operations applicable to any object including object 0 (zero)
 template <class OpsTag, class ObjTag>
