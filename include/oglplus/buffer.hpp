@@ -264,7 +264,7 @@ public:
 	using BindingOps<tag::Buffer>::BindBase;
 	using BindingOps<tag::Buffer>::BindRange;
 
-	/// Binds the current buffer to the specified @p target
+	/// Binds this buffer to the specified @p target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindBuffer}
@@ -274,7 +274,7 @@ public:
 		Bind(target, *this);
 	}
 
-	/// Binds the current buffer to the specified indexed @p target
+	/// Binds this buffer to the specified indexed @p target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindBuffer}

@@ -16,12 +16,10 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/program.hpp>
-#include <oglplus/friend_of.hpp>
+#include <oglplus/link_error.hpp>
 #include <oglplus/bitfield.hpp>
-#include <oglplus/enumerations.hpp>
-#include <oglplus/binding_query.hpp>
+#include <oglplus/shader_type.hpp>
+#include <oglplus/object.hpp>
 #include <oglplus/auxiliary/prog_pl_stages.hpp>
 
 #include <cassert>
@@ -49,11 +47,8 @@ OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
 #include <oglplus/enums/program_pipeline_stage_range.ipp>
 #endif
 
-/// ProgramPipeline operations wrapper class
-/** This class implements OpenGL program pipeline operations.
- *  @note Do not use this class directly, use @c ProgramPipeline instead.
- *
- *  @see ProgramPipeline
+/// Class wrapping program pipeline construction/destruction functions
+/** @note Do not use this class directly, use ProgramPipeline instead.
  *
  *  @glvoereq{4,1,ARB,separate_shader_objects}
  *  @glsymbols
@@ -61,57 +56,107 @@ OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
  *  @glfunref{DeleteProgramPipelines}
  *  @glfunref{IsProgramPipeline}
  */
-class ProgramPipelineOps
- : public Named
- , public BaseObject<true>
- , public FriendOf<ProgramOps>
+template <>
+class GenDelOps<tag::ProgramPipeline>
 {
-public:
-	typedef Nothing Target;
 protected:
-	static void _init(GLsizei count, GLuint* _name)
+	static void Gen(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenProgramPipelines)(count, _name);
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenProgramPipelines)(count, names);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenProgramPipelines));
 	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	static void Delete(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteProgramPipelines)(count, _name);}
-		catch(...){ }
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(DeleteProgramPipelines)(count, names);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenProgramPipelines));
 	}
 
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
+	static GLboolean IsA(GLuint name)
 	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsProgramPipeline)(_name);}
-		catch(...){ }
-		return GL_FALSE;
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsProgramPipeline)(name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsProgramPipeline));
+		return result;
+	}
+};
+
+/// Program pipeline binding operations
+template <>
+class BindingOps<tag::ProgramPipeline>
+{
+protected:
+	static GLuint _binding(void)
+	{
+		GLint name = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_PROGRAM_PIPELINE_BINDING, &name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		return name;
+	}
+public:
+	/// Returns the currently bound ProgramPipeline
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetIntegerv}
+	 */
+	static ProgramPipelineName Binding(void)
+	{
+		return ProgramPipelineName(_binding());
 	}
 
-#ifdef GL_PROGRAM_PIPELINE
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
+	/// Binds the specified @p vertex_array object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindProgramPipeline}
+	 */
+	static void Bind(ProgramPipelineName pipeline)
 	{
-		return ObjectType::ProgramPipeline;
+		OGLPLUS_GLFUNC(BindProgramPipeline)(GetGLName(pipeline));
+		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+			BindProgramPipeline,
+			ProgramPipeline,
+			nullptr,
+			GetGLName(pipeline)
+		));
 	}
-#endif
+};
 
-	static void _bind(GLuint _name, Nothing)
+/// Common program pipeline operations
+/** @note Do not use this class directly, use ProgramPipeline
+ *  or NoProgramPipeline instead.
+ */
+template <>
+class CommonOps<tag::ProgramPipeline>
+ : public ProgramPipelineName
+ , public BindingOps<tag::ProgramPipeline>
+{
+protected:
+	CommonOps(void){ }
+public:
+	using BindingOps<tag::ProgramPipeline>::Bind;
+
+	/// Binds this program pipeline object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindProgramPipeline}
+	 */
+	void Bind(void) const
 	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindProgramPipeline)(_name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
+		Bind(*this);
 	}
+};
 
-	static GLenum _binding_query(Target);
-	friend class BindingQuery<ProgramPipelineOps>;
-	friend class FriendOf<ProgramPipelineOps>;
+/// Class wrapping program pipeline functions (with direct state access)
+/** @note Do not use this class directly, use ProgramPipeline instead.
+ */
+template <>
+class ObjectOps<tag::DirectState, tag::ProgramPipeline>
+ : public ObjZeroOps<tag::DirectState, tag::ProgramPipeline>
+{
+protected:
+	ObjectOps(void){ }
 public:
 	/// Types related to ProgramPipeline
 	struct Properties
@@ -131,27 +176,6 @@ public:
 			_name
 		));
 		return result;
-	}
-
-	/// Bind this program pipeline
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindProgramPipeline}
-	 */
-	void Bind(void) const
-	{
-		_bind(_name, Nothing());
-	}
-
-	/// Unbinds the current program pipeline object (if any)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindProgramPipeline}
-	 */
-	static void Unbind(void)
-	{
-		OGLPLUS_GLFUNC(BindProgramPipeline)(0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
 	}
 
 	/// Specifies program stages by calling functions of the returned object
@@ -178,12 +202,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{UseProgramStages}
 	 */
-	aux::ProgPLUseStages UseStages(const ProgramOps& program) const
+	aux::ProgPLUseStages UseStages(ProgramName program) const
 	{
 		assert(_name != 0);
 		return aux::ProgPLUseStages(
 			_name,
-			FriendOf<ProgramOps>::GetName(program),
+			GetGLName(program),
 			0
 		);
 	}
@@ -195,14 +219,14 @@ public:
 	 */
 	void UseStages(
 		Bitfield<ProgramPipelineStage> stages,
-		const ProgramOps& program
+		ProgramName program
 	) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(UseProgramStages)(
 			_name,
 			GLbitfield(stages),
-			FriendOf<ProgramOps>::GetName(program)
+			GetGLName(program)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
@@ -213,13 +237,13 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{UseProgramStages}
 	 */
-	void UseAllStages(const ProgramOps& program) const
+	void UseAllStages(ProgramName program) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(UseProgramStages)(
 			_name,
 			GL_ALL_SHADER_BITS,
-			FriendOf<ProgramOps>::GetName(program)
+			GetGLName(program)
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgramStages));
 	}
@@ -274,12 +298,12 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ActiveShaderProgram}
 	 */
-	void ActiveShaderProgram(const ProgramOps& program) const
+	void ActiveShaderProgram(ProgramName program) const
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ActiveShaderProgram)(
 			_name,
-			FriendOf<ProgramOps>::GetName(program)
+			GetGLName(program)
 		);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
 	}
@@ -290,9 +314,9 @@ public:
 	 *  @glfunref{GetProgramPipeline}
 	 *  @gldefref{ACTIVE_PROGRAM}
 	 */
-	Managed<ProgramOps> ActiveShaderProgram(void) const
+	ProgramName ActiveShaderProgram(void) const
 	{
-		return Managed<ProgramOps>(GetIntParam(GL_ACTIVE_PROGRAM));
+		return ProgramName(GetIntParam(GL_ACTIVE_PROGRAM));
 	}
 
 	/// Returns true if this pipeline contains a shader of a particular type
@@ -310,40 +334,28 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetProgramPipeline}
 	 */
-	Managed<ProgramOps> ShaderProgram(ShaderType shader_type) const
+	ProgramName ShaderProgram(ShaderType shader_type) const
 	{
-		return Managed<ProgramOps>(GetIntParam(GLenum(shader_type)));
+		return ProgramName(GetIntParam(GLenum(shader_type)));
 	}
 };
 
-/// Class that can be used to unbind the currently bound ProgramPipeline
-class NoProgramPipeline
-{
-public:
-	/// Unbinds the current program pipeline object
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindProgramPipeline}
-	 */
-	static void Bind(void)
-	{
-		OGLPLUS_GLFUNC(BindProgramPipeline)(0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindProgramPipeline));
-	}
-};
+/// Program pipeline operations with direct state access
+typedef ObjectOps<tag::DirectState, tag::ProgramPipeline>
+	ProgramPipelineOps;
 
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// An @ref oglplus_object encapsulating  OpenGL program pipeline functionality
+/// Class that can be used to unbind the currently bound program pipeline
 /**
  *  @ingroup oglplus_objects
  */
-class ProgramPipeline
- : public ProgramPipelineOps
-{ };
-#else
+typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::ProgramPipeline>>
+	NoProgramPipeline;
+
+/// An @ref oglplus_object encapsulating the OpenGL program pipeline functionality
+/**
+ *  @ingroup oglplus_objects
+ */
 typedef Object<ProgramPipelineOps> ProgramPipeline;
-#endif
 
 #endif // program pipeline
 

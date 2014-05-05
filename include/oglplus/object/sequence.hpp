@@ -81,11 +81,11 @@ public:
 };
 
 /// Returns a pointer to array of names stored in a @p sequence
-template <typename ObjTag>
+template <typename ObjName>
 inline const GLuint*
-GetGLNames(const Sequence<ObjectName<ObjTag>>& sequence)
+GetGLNames(const Sequence<ObjName>& sequence)
 {
-	return sequence._name.data();
+	return sequence._names;
 }
 
 } // namespace oglplus

@@ -148,7 +148,7 @@ protected:
 public:
 	using BindingOps<tag::Framebuffer>::Bind;
 
-	/// Binds the current framebuffer to the specified @p target
+	/// Binds this framebuffer to the specified @p target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindFramebuffer}

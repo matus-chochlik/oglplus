@@ -9,21 +9,21 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/auxiliary/info_log.hpp>
+#include <oglplus/lib/incl_end.ipp>
+
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-GLenum ProgramOps::_binding_query(Target)
-{
-	return GL_CURRENT_PROGRAM;
-}
-
-OGLPLUS_LIB_FUNC
-ProgramOps& ProgramOps::AttachShader(const ShaderOps& shader)
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+AttachShader(ShaderName shader)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(AttachShader)(
 		_name,
-		FriendOf<ShaderOps>::GetName(shader)
+		GetGLName(shader)
 	);
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		AttachShader,
@@ -35,7 +35,9 @@ ProgramOps& ProgramOps::AttachShader(const ShaderOps& shader)
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps& ProgramOps::AttachShaders(const Group<Shader>& shaders)
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+AttachShaders(const Sequence<ShaderName>& shaders)
 {
 	for(std::size_t i=0, n=shaders.size(); i!=n; ++i)
 	{
@@ -45,12 +47,14 @@ ProgramOps& ProgramOps::AttachShaders(const Group<Shader>& shaders)
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps& ProgramOps::DetachShader(const ShaderOps& shader)
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+DetachShader(ShaderName shader)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(DetachShader)(
 		_name,
-		FriendOf<ShaderOps>::GetName(shader)
+		GetGLName(shader)
 	);
 	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
 		DetachShader,
@@ -62,7 +66,9 @@ ProgramOps& ProgramOps::DetachShader(const ShaderOps& shader)
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps& ProgramOps::Link(void)
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+Link(void)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(LinkProgram)(_name);
@@ -80,7 +86,9 @@ ProgramOps& ProgramOps::Link(void)
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps& ProgramOps::Validate(void)
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+Validate(void)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(ValidateProgram)(_name);
@@ -106,7 +114,8 @@ ProgramOps& ProgramOps::Validate(void)
 }
 
 OGLPLUS_LIB_FUNC
-String ProgramOps::GetInfoLog(void) const
+String ObjectOps<tag::DirectState, tag::Program>::
+GetInfoLog(void) const
 {
 	assert(_name != 0);
 	return aux::GetInfoLog(
@@ -119,7 +128,8 @@ String ProgramOps::GetInfoLog(void) const
 }
 
 OGLPLUS_LIB_FUNC
-void ProgramOps::HandleLinkError(void) const
+void ObjectOps<tag::DirectState, tag::Program>::
+HandleLinkError(void) const
 {
 	HandleBuildError<LinkError>(
 		GetInfoLog(),
@@ -133,7 +143,8 @@ void ProgramOps::HandleLinkError(void) const
 }
 
 OGLPLUS_LIB_FUNC
-void ProgramOps::TransformFeedbackVaryings(
+void ObjectOps<tag::DirectState, tag::Program>::
+TransformFeedbackVaryings(
 	GLsizei count,
 	const GLchar** varyings,
 	TransformFeedbackMode mode
@@ -154,7 +165,8 @@ void ProgramOps::TransformFeedbackVaryings(
 }
 
 OGLPLUS_LIB_FUNC
-void ProgramOps::TransformFeedbackVaryings(
+void ObjectOps<tag::DirectState, tag::Program>::
+TransformFeedbackVaryings(
 	const std::vector<String>& varyings,
 	TransformFeedbackMode mode
 ) const
@@ -186,7 +198,9 @@ void ProgramOps::TransformFeedbackVaryings(
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
 OGLPLUS_LIB_FUNC
-ProgramOps& ProgramOps::MakeSeparable(bool para)
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+MakeSeparable(bool para)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(ProgramParameteri)(
@@ -207,7 +221,9 @@ ProgramOps& ProgramOps::MakeSeparable(bool para)
 #if GL_VERSION_4_1 || GL_ARB_get_program_binary
 
 OGLPLUS_LIB_FUNC
-ProgramOps& ProgramOps::MakeRetrievable(bool para)
+ObjectOps<tag::DirectState, tag::Program>&
+ObjectOps<tag::DirectState, tag::Program>::
+MakeRetrievable(bool para)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(ProgramParameteri)(
@@ -225,7 +241,8 @@ ProgramOps& ProgramOps::MakeRetrievable(bool para)
 }
 
 OGLPLUS_LIB_FUNC
-void ProgramOps::GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
+void ObjectOps<tag::DirectState, tag::Program>::
+GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 {
 	assert(_name != 0);
 	GLint size = GetIntParam(GL_PROGRAM_BINARY_LENGTH);
@@ -250,7 +267,8 @@ void ProgramOps::GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 }
 
 OGLPLUS_LIB_FUNC
-void ProgramOps::Binary(const std::vector<GLubyte>& binary, GLenum format)
+void ObjectOps<tag::DirectState, tag::Program>::
+Binary(const std::vector<GLubyte>& binary, GLenum format)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(ProgramBinary)(
@@ -269,7 +287,7 @@ void ProgramOps::Binary(const std::vector<GLubyte>& binary, GLenum format)
 #endif
 
 OGLPLUS_LIB_FUNC
-ProgramOps::ShaderIterationContext::ShaderIterationContext(
+ObjectOps<tag::DirectState, tag::Program>::ShaderIterationContext::ShaderIterationContext(
 	GLuint name,
 	GLuint count
 ): _shader_names(count)
@@ -290,8 +308,8 @@ ProgramOps::ShaderIterationContext::ShaderIterationContext(
 
 #if GL_VERSION_4_3
 OGLPLUS_LIB_FUNC
-ProgramOps::InterfaceContext
-ProgramOps::ActiveResourceContext(ProgramInterface intf) const
+ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
+ObjectOps<tag::DirectState, tag::Program>::ActiveResourceContext(ProgramInterface intf) const
 {
 	// get the maximum string length of the longest identifier
 	GLint length = 0;
@@ -310,8 +328,8 @@ ProgramOps::ActiveResourceContext(ProgramInterface intf) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::ActiveResourceRange
-ProgramOps::ActiveResources(ProgramInterface intf) const
+ObjectOps<tag::DirectState, tag::Program>::ActiveResourceRange
+ObjectOps<tag::DirectState, tag::Program>::ActiveResources(ProgramInterface intf) const
 {
 	// get the count of active attributes
 	GLint count = 0;
@@ -328,8 +346,8 @@ ProgramOps::ActiveResources(ProgramInterface intf) const
 #endif
 
 OGLPLUS_LIB_FUNC
-ProgramOps::InterfaceContext
-ProgramOps::ActiveAttribContext(void) const
+ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
+ObjectOps<tag::DirectState, tag::Program>::ActiveAttribContext(void) const
 {
 	return InterfaceContext(
 		_name,
@@ -338,8 +356,8 @@ ProgramOps::ActiveAttribContext(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::ActiveAttribRange
-ProgramOps::ActiveAttribs(void) const
+ObjectOps<tag::DirectState, tag::Program>::ActiveAttribRange
+ObjectOps<tag::DirectState, tag::Program>::ActiveAttribs(void) const
 {
 	return ActiveAttribRange(
 		ActiveAttribContext(),
@@ -348,8 +366,8 @@ ProgramOps::ActiveAttribs(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::InterfaceContext
-ProgramOps::ActiveUniformContext(void) const
+ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
+ObjectOps<tag::DirectState, tag::Program>::ActiveUniformContext(void) const
 {
 	return InterfaceContext(
 		_name,
@@ -358,8 +376,8 @@ ProgramOps::ActiveUniformContext(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::ActiveUniformRange
-ProgramOps::ActiveUniforms(void) const
+ObjectOps<tag::DirectState, tag::Program>::ActiveUniformRange
+ObjectOps<tag::DirectState, tag::Program>::ActiveUniforms(void) const
 {
 	return ActiveUniformRange(
 		ActiveUniformContext(),
@@ -369,8 +387,8 @@ ProgramOps::ActiveUniforms(void) const
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
 OGLPLUS_LIB_FUNC
-ProgramOps::InterfaceContext
-ProgramOps::ActiveSubroutineContext(ShaderType stage) const
+ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
+ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineContext(ShaderType stage) const
 {
 	return InterfaceContext(
 		_name,
@@ -383,8 +401,8 @@ ProgramOps::ActiveSubroutineContext(ShaderType stage) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::ActiveSubroutineRange
-ProgramOps::ActiveSubroutines(ShaderType stage) const
+ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineRange
+ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutines(ShaderType stage) const
 {
 	return ActiveSubroutineRange(
 		ActiveSubroutineContext(stage),
@@ -396,8 +414,8 @@ ProgramOps::ActiveSubroutines(ShaderType stage) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::InterfaceContext
-ProgramOps::ActiveSubroutineUniformContext(ShaderType stage) const
+ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
+ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineUniformContext(ShaderType stage) const
 {
 	return InterfaceContext(
 		_name,
@@ -410,8 +428,8 @@ ProgramOps::ActiveSubroutineUniformContext(ShaderType stage) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::ActiveSubroutineUniformRange
-ProgramOps::ActiveSubroutineUniforms(ShaderType stage) const
+ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineUniformRange
+ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineUniforms(ShaderType stage) const
 {
 	return ActiveSubroutineUniformRange(
 		ActiveSubroutineUniformContext(stage),
@@ -424,8 +442,8 @@ ProgramOps::ActiveSubroutineUniforms(ShaderType stage) const
 #endif
 
 OGLPLUS_LIB_FUNC
-ProgramOps::InterfaceContext
-ProgramOps::TransformFeedbackVaryingContext(void) const
+ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
+ObjectOps<tag::DirectState, tag::Program>::TransformFeedbackVaryingContext(void) const
 {
 	return InterfaceContext(
 		_name,
@@ -434,8 +452,8 @@ ProgramOps::TransformFeedbackVaryingContext(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::TransformFeedbackVaryingRange
-ProgramOps::TransformFeedbackVaryings(void) const
+ObjectOps<tag::DirectState, tag::Program>::TransformFeedbackVaryingRange
+ObjectOps<tag::DirectState, tag::Program>::TransformFeedbackVaryings(void) const
 {
 	return TransformFeedbackVaryingRange(
 		TransformFeedbackVaryingContext(),
@@ -444,8 +462,8 @@ ProgramOps::TransformFeedbackVaryings(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::ShaderRange
-ProgramOps::AttachedShaders(void) const
+ObjectOps<tag::DirectState, tag::Program>::ShaderRange
+ObjectOps<tag::DirectState, tag::Program>::AttachedShaders(void) const
 {
 	GLint count = GetIntParam(GL_ATTACHED_SHADERS);
 	return ShaderRange(
@@ -455,8 +473,8 @@ ProgramOps::AttachedShaders(void) const
 }
 
 OGLPLUS_LIB_FUNC
-ProgramOps::ActiveUniformBlockRange
-ProgramOps::ActiveUniformBlocks(void) const
+ObjectOps<tag::DirectState, tag::Program>::ActiveUniformBlockRange
+ObjectOps<tag::DirectState, tag::Program>::ActiveUniformBlocks(void) const
 {
 	// get the count of active uniform blocks
 	GLint count = GetIntParam(GL_ACTIVE_UNIFORM_BLOCKS);

@@ -283,7 +283,7 @@ public:
 	using BindingOps<tag::Texture>::Bind;
 	using BindingOps<tag::Texture>::BindImage;
 
-	/// Binds the current texture to the specified @p target
+	/// Binds this texture to the specified @p target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindTexture}
@@ -1886,7 +1886,7 @@ public:
 	static void BufferRange(
 		Target target,
 		PixelDataInternalFormat internal_format,
-		BufferName buffer
+		BufferName buffer,
 		GLintptr offset,
 		GLsizeiptr size
 	)

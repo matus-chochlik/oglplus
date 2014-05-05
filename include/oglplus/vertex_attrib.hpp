@@ -521,7 +521,8 @@ public:
 
 // Things from to Program related to vertex attributes
 /* TODO
-void ProgramOps::BindLocation(
+void ObjectOps<tag::DirectState, tag::Program>::
+BindLocation(
 	const VertexAttribOps& vertex_attrib,
 	const GLchar* identifier
 ) const

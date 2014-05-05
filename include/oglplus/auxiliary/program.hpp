@@ -19,9 +19,6 @@
 #include <cassert>
 
 namespace oglplus {
-
-class ProgramOps;
-
 namespace aux {
 
 class ProgramInterfaceContext

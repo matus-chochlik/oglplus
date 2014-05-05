@@ -160,7 +160,7 @@ public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 	using BindingOps<tag::TransformFeedback>::Bind;
 
-	/// Binds the current transform feedback to the specified @p target
+	/// Binds this transform feedback to the specified @p target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindTransformFeedback}
@@ -396,7 +396,7 @@ public:
  *
  *  @glverreq{3,0}
  */
-typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::TransformFeedback>>
+typedef ObjectZero<ObjZeroOps<tag::ImplicitSel, tag::TransformFeedback>>
 	DefaultTransformFeedback;
 
 #endif // GL_VERSION_3_0
@@ -415,7 +415,7 @@ protected:
 };
 
 /// TransformFeedback operations with explicit selector
-typedef ObjectOps<tag::ExplicitSel, tag::TransformFeedback>
+typedef ObjectOps<tag::ImplicitSel, tag::TransformFeedback>
 	TransformFeedbackOps;
 
 /// An @ref oglplus_object encapsulating the OpenGL transform feedback functionality

@@ -20,7 +20,11 @@
 namespace oglplus {
 
 // Nothing
-struct Nothing { typedef int _value_type; };
+struct Nothing
+{
+	typedef Nothing Type;
+	typedef int _value_type;
+};
 
 // Angle
 template <typename T>
@@ -97,6 +101,7 @@ struct Shader;
 struct PerfMonitorAMD;
 struct PathNV;
 
+struct InternalSel;
 struct ExplicitSel;
 struct ImplicitSel;
 struct DirectState;

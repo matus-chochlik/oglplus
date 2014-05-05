@@ -141,7 +141,7 @@ protected:
 public:
 	using BindingOps<tag::Renderbuffer>::Bind;
 
-	/// Binds the current renderbuffer to the specified @p target
+	/// Binds this renderbuffer to the specified @p target
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindRenderbuffer}

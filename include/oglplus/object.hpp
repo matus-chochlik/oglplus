@@ -32,6 +32,10 @@ namespace oglplus {
  *  @ref oglplus_object "here" for more details.
  */
 
+template <typename ObjTag>
+struct ObjectType : Nothing
+{ };
+
 /// Implements operations applicable to any object including object 0 (zero)
 template <class OpsTag, class ObjTag>
 class ObjZeroOps
@@ -94,8 +98,15 @@ private:
 		);
 	}
 
-	void _init(void)
+	void _init(Nothing)
 	{
+		GenDelOps<ObjTag>::Gen(1, &this->_name);
+	}
+
+	template <typename ObjectType>
+	void _init(ObjectType type)
+	{
+		this->_type = GLenum(type);
 		GenDelOps<ObjTag>::Gen(1, &this->_name);
 	}
 
@@ -114,18 +125,44 @@ private:
 			GenDelOps<ObjTag>::Delete(1, &this->_name);
 		}
 	}
-public:
-	Object(void)
+protected:
+	Object(GLuint name)
 	{
-		_init();
+		this->_name = name;
 	}
 
-	Object(ObjectDesc&& description)
+	Object(GLuint name, ObjectDesc&& description)
 	{
-		_init();
+		this->_name = name;
 		_describe(std::move(description));
 	}
 
+	Object(typename ObjectType<ObjTag>::Type type)
+	{
+		_init(type);
+	}
+public:
+	/// Most object types are default-constructible
+	Object(void)
+	{
+		_init(Nothing());
+	}
+
+	/// A textual description can be attached to objects
+	Object(ObjectDesc&& description)
+	{
+		_init(Nothing());
+		_describe(std::move(description));
+	}
+
+	/// A textual description can be attached to objects
+	Object(typename ObjectType<ObjTag>::Type type, ObjectDesc&& description)
+	{
+		_init(type);
+		_describe(std::move(description));
+	}
+
+	/// Objects are movable
 	Object(Object&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -139,6 +176,7 @@ public:
 		catch(...) { }
 	}
 
+	/// Objects are move-assignable
 	Object& operator = (Object&& temp)
 	{
 		_cleanup();
@@ -153,6 +191,8 @@ public:
 		return _get_object_type<ObjectOps>(nullptr);
 	}
 */
+
+	/// Returns the textual description of this object
 	const String& Description(void) const
 	{
 		aux::ObjectDescRegistry::_get_desc(

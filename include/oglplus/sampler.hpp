@@ -16,9 +16,15 @@
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
+#include <oglplus/vector.hpp>
 #include <oglplus/object.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/texture.hpp>
+#include <oglplus/object/sequence.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/compare_func.hpp>
+#include <oglplus/texture_wrap.hpp>
+#include <oglplus/texture_compare.hpp>
+#include <oglplus/texture_filter.hpp>
+#include <oglplus/texture_unit.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -26,9 +32,8 @@ namespace oglplus {
 // if samplers are available
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_sampler_objects
 
-/// Encapsulates sampler-related functions
+/// Class wrapping sampler construction/destruction functions
 /** @note Do not use this class directly, use Sampler instead.
- *  @see Sampler
  *
  *  @glvoereq{3,3,ARB,sampler_objects}
  *  @glsymbols
@@ -36,89 +41,78 @@ namespace oglplus {
  *  @glfunref{DeleteSamplers}
  *  @glfunref{IsSampler}
  */
-class SamplerOps
- : public Named
- , public BaseObject<true>
+template <>
+class GenDelOps<tag::Sampler>
 {
-public:
-	/// The target for sampler binding
-	typedef TextureUnitSelector Target;
 protected:
-	static void _init(GLsizei count, GLuint* _name)
+	static void Gen(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenSamplers)(count, _name);
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenSamplers)(count, names);
 		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenSamplers));
 	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	static void Delete(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteSamplers)(count, _name);}
-		catch(...){ }
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(DeleteSamplers)(count, names);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GenSamplers));
 	}
 
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
+	static GLboolean IsA(GLuint name)
 	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsSampler)(_name);}
-		catch(...){ }
-		return GL_FALSE;
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsSampler)(name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsSampler));
+		return result;
+	}
+};
+
+/// Sampler binding operations
+template <>
+class BindingOps<tag::Sampler>
+{
+private:
+	static GLenum _binding_query(TextureUnitSelector target);
+protected:
+	static GLuint _binding(TextureUnitSelector target);
+public:
+	/// Sampler bind targets
+	typedef TextureUnitSelector Target;
+
+	/// Returns the current Sampler bound to specified @p target (tex. unit)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetIntegerv}
+	 */
+	static SamplerName Binding(Target target)
+	{
+		return SamplerName(_binding(target));
 	}
 
-#ifdef GL_SAMPLER
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
+	/// Binds the specified @p sampler to the specified @p target (tex. unit)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindSampler}
+	 */
+	static void Bind(
+		Target target,
+		SamplerName sampler
+	)
 	{
-		return ObjectType::Sampler;
-	}
-#endif
-
-	static void _bind(GLuint _name, TextureUnitSelector unit)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindSampler)(GLuint(unit), _name);
+		OGLPLUS_GLFUNC(BindSampler)(
+			GLuint(target),
+			GetGLName(sampler)
+		);
 		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
 			BindSampler,
 			Sampler,
 			nullptr,
-			_name
+			GetGLName(sampler)
 		));
 	}
 
-	friend class FriendOf<SamplerOps>;
-public:
-	/// Bind this sampler to the specified texture unit
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindSampler}
-	 */
-	void Bind(TextureUnitSelector unit)
-	{
-		_bind(_name, unit);
-	}
-
-	/// Unbind the current sampler from the specified texture unit
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindSampler}
-	 */
-	static void Unbind(TextureUnitSelector unit)
-	{
-		OGLPLUS_GLFUNC(BindSampler)(GLuint(unit), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindSampler));
-	}
-
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	/// Bind the specified samplers to the specified texture units
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
 	static void Bind(
 		GLuint first,
 		GLsizei count,
@@ -132,8 +126,60 @@ public:
 		);
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindSamplers));
 	}
-#endif
 
+	/// Sequentially bind @p samplers to texture units starting with @p first
+	/**
+	 *  @throws Error
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindSamplers}
+	 *  @glvoereq{4,4,ARB,multi_bind}
+	 */
+	static void Bind(
+		GLuint first,
+		const Sequence<SamplerName>& samplers
+	)
+	{
+		Bind(first, GLsizei(samplers.size()), GetGLNames(samplers));
+	}
+#endif
+};
+
+/// Common sampler operations
+/** @note Do not use this class directly, use Sampler
+ *  or NoSampler instead.
+ */
+template <>
+class CommonOps<tag::Sampler>
+ : public SamplerName
+ , public BindingOps<tag::Sampler>
+{
+protected:
+	CommonOps(void){ }
+public:
+	using BindingOps<tag::Sampler>::Bind;
+
+	/// Binds this sampler to the specified @p target (texture unit)
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindSampler}
+	 */
+	void Bind(Target target) const
+	{
+		Bind(target, *this);
+	}
+};
+
+/// Class wrapping sampler functions (with direct state access)
+/** @note Do not use this class directly, use Sampler instead.
+ */
+template <>
+class ObjectOps<tag::DirectState, tag::Sampler>
+ : public ObjZeroOps<tag::DirectState, tag::Sampler>
+{
+protected:
+	ObjectOps(void){ }
+public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result = 0;
@@ -658,114 +704,22 @@ public:
 #endif
 };
 
-/// Class that can be used for unbinding of currently bound sampler
-class NoSampler
-{
-public:
-	/// The target for sampler binding
-	typedef TextureUnitSelector Target;
+/// Sampler operations with direct state access
+typedef ObjectOps<tag::DirectState, tag::Sampler>
+	SamplerOps;
 
-	/// Unbind the current sampler from the specified texture unit
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindSampler}
-	 */
-	static void Bind(TextureUnitSelector unit)
-	{
-		OGLPLUS_GLFUNC(BindSampler)(GLuint(unit), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindSampler));
-	}
-};
+/// Class that can be used to unbind the currently bound sampler
+/**
+ *  @ingroup oglplus_objects
+ */
+typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::Sampler>>
+	NoSampler;
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// An @ref oglplus_object encapsulating the OpenGL sampler functionality
 /**
  *  @ingroup oglplus_objects
  */
-class Sampler
- : public SamplerOps
-{ };
-#else
 typedef Object<SamplerOps> Sampler;
-#endif
-
-template <>
-class Group<Sampler>
- : public BaseGroup<Sampler>
-{
-public:
-	/// Constructs an empty group of Samplers
-	Group(void)
-	{ }
-
-	/// Constructs an empty group and reserves space for @c n Samplers
-	Group(std::size_t n)
-	 : BaseGroup<Sampler>(n)
-	{ }
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	/// Bind the samplers in this group to the specified texture units
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
-	void Bind(GLuint first) const
-	{
-		if(!this->empty())
-		{
-			SamplerOps::Bind(
-				first,
-				GLsizei(this->size()),
-				this->_names.data()
-			);
-		}
-	}
-#endif
-};
-
-template <>
-class Array<Sampler>
- : public aux::BaseArray<
-	Sampler,
-	Sampler::IsMultiObject::value
->
-{
-private:
-	typedef aux::BaseArray<
-		Sampler,
-		Sampler::IsMultiObject::value
-	> BaseArray;
-public:
-	/// Constructs an Array of @c c Samplers
-	Array(GLsizei c)
-	 : BaseArray(c)
-	{ }
-
-	Array(Array&& tmp)
-	 : BaseArray(std::move(tmp))
-	{ }
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
-	/// Bind the in this array to the specified texture units
-	/**
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,4,ARB,multi_bind}
-	 */
-	void Bind(GLuint first) const
-	{
-		if(!this->empty())
-		{
-			SamplerOps::Bind(
-				first,
-				GLsizei(this->size()),
-				this->_names.data()
-			);
-		}
-	}
-#endif
-};
 
 #endif // sampler object
 

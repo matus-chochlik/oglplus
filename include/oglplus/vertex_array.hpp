@@ -110,7 +110,7 @@ protected:
 public:
 	using BindingOps<tag::VertexArray>::Bind;
 
-	/// Binds the current vertex array object
+	/// Binds this vertex array object
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindVertexArray}

@@ -16,13 +16,9 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/object.hpp>
-#include <oglplus/friend_of.hpp>
 #include <oglplus/compile_error.hpp>
+#include <oglplus/object.hpp>
 #include <oglplus/precision_type.hpp>
-#include <oglplus/auxiliary/info_log.hpp>
-#include <oglplus/string.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
 
@@ -32,65 +28,101 @@
 
 namespace oglplus {
 
-/// Shader operations wrapper helper class
-/**
- *  @note Do not use this class directly, use Shader instead.
- *
- *  @see Shader
+/// Class wrapping shader construction/destruction functions
+/** @note Do not use this class directly, use Shader instead.
  *
  *  @glsymbols
  *  @glfunref{CreateShader}
  *  @glfunref{DeleteShader}
  *  @glfunref{IsShader}
  */
-class ShaderOps
- : public Named
- , public BaseObject<false>
+template <>
+class GenDelOps<tag::Shader>
 {
 protected:
-	static void _init(GLsizei _count, GLuint* _name, ShaderType type)
+	static void Gen(GLsizei count, GLuint* names, GLenum type)
 	{
-		OGLPLUS_FAKE_USE(_count);
-		assert(_count == 1);
-		assert(_name != nullptr);
-		*_name = OGLPLUS_GLFUNC(CreateShader)(GLenum(type));
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			CreateShader,
-			Shader,
-			EnumValueName(type),
-			*_name
-		));
+		assert(names != nullptr);
+		for(GLsizei i=0; i<count; ++i)
+		{
+			names[i] = OGLPLUS_GLFUNC(CreateShader)(type);
+			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CreateShader));
+		}
 	}
 
-	static void _cleanup(GLsizei _count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	GLenum _type;
+
+	void Gen(GLsizei count, GLuint* names) const
 	{
-		OGLPLUS_FAKE_USE(_count);
-		assert(_count == 1);
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteShader)(*_name);}
-		catch(...){ }
+		Gen(count, names, _type);
 	}
 
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
+	static void Delete(GLsizei count, GLuint* names)
 	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsShader)(_name);}
-		catch(...){ }
-		return GL_FALSE;
+		assert(names != nullptr);
+		for(GLsizei i=0; i<count; ++i)
+		{
+			OGLPLUS_GLFUNC(DeleteShader)(names[i]);
+			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteShader));
+		}
 	}
 
-#ifdef GL_SHADER
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
+	static GLboolean IsA(GLuint name)
 	{
-		return ObjectType::Shader;
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsShader)(name);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsShader));
+		return result;
+	}
+};
+
+/// Common shader operations
+/** @note Do not use this class directly, use Shader instead.
+ */
+template <>
+class CommonOps<tag::Shader>
+ : public ShaderName
+{
+protected:
+	CommonOps(void) { }
+
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_ES_VERSION_3_0 || \
+	GL_VERSION_4_1 || \
+	GL_ARB_ES2_compatibility
+	/// Get the shader precision format
+	/**
+	 *  @glvoereq{4,1,ARB,ES2_compatibility}
+	 *  @glsymbols
+	 *  @glfunref{GetShaderPrecisionFormat}
+	 */
+	static void PrecisionFormat(
+		ShaderType shader_type,
+		PrecisionType precision_type,
+		GLint* range_log_2,
+		GLint* precision_log_2
+	)
+	{
+		OGLPLUS_GLFUNC(GetShaderPrecisionFormat)(
+			GLenum(shader_type),
+			GLenum(precision_type),
+			range_log_2,
+			precision_log_2
+		);
+		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetShaderPrecisionFormat));
 	}
 #endif
+};
 
-	friend class FriendOf<ShaderOps>;
+/// Class wrapping shader functions (with direct state access)
+/** @note Do not use this class directly, use Shader instead.
+ */
+template <>
+class ObjectOps<tag::DirectState, tag::Shader>
+ : public CommonOps<tag::Shader>
+{
+protected:
+	ObjectOps(void){ }
 public:
 	/// Types related to Shader
 	struct Property
@@ -127,11 +159,11 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	const ShaderOps& Source(
+	ObjectOps& Source(
 		const GLchar** srcs,
 		const GLint* lens,
 		int count
-	) const
+	)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, lens);
@@ -143,7 +175,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	const ShaderOps& Source(const String& source) const
+	ObjectOps& Source(const String& source)
 	{
 		const GLchar* srcs[1] = {source.c_str()};
 		GLint lens[1] = {GLint(source.size())};
@@ -155,7 +187,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	const ShaderOps& Source(const StrLit& source) const
+	ObjectOps& Source(const StrLit& source)
 	{
 		const GLchar* srcs[1] = {source.c_str()};
 		GLint lens[1] = {GLint(source.size())};
@@ -167,7 +199,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	const ShaderOps& Source(const GLchar* source) const
+	ObjectOps& Source(const GLchar* source)
 	{
 		return Source(&source, nullptr, 1);
 	}
@@ -177,7 +209,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	const ShaderOps& Source(const GLchar** srcs, int count) const
+	ObjectOps& Source(const GLchar** srcs, int count)
 	{
 		return Source(srcs, nullptr, count);
 	}
@@ -187,7 +219,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	const ShaderOps& Source(const std::vector<const GLchar*>& srcs) const
+	ObjectOps& Source(const std::vector<const GLchar*>& srcs)
 	{
 		return Source(
 			const_cast<const GLchar**>(srcs.data()),
@@ -202,9 +234,9 @@ public:
 	 *  @glfunref{ShaderSource}
 	 */
 	template <std::size_t N>
-	const ShaderOps& Source(
+	ObjectOps& Source(
 		const std::array<const GLchar*, N>& srcs
-	) const
+	)
 	{
 		return Source(
 			const_cast<const GLchar**>(srcs.data()),
@@ -218,7 +250,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	const ShaderOps& Source(const GLSLSource& glsl_source) const
+	ObjectOps& Source(const GLSLSource& glsl_source)
 	{
 		return Source(
 			glsl_source.Parts(),
@@ -271,7 +303,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShader}
 	 */
-	const ShaderOps& Compile(void) const
+	ObjectOps& Compile(void)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(CompileShader)(_name);
@@ -304,37 +336,19 @@ public:
 		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
 	}
 #endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || \
-	GL_ES_VERSION_3_0 || \
-	GL_VERSION_4_1 || \
-	GL_ARB_ES2_compatibility
-	/// Get the shader precision format
-	/**
-	 *  @glvoereq{4,1,ARB,ES2_compatibility}
-	 *  @glsymbols
-	 *  @glfunref{GetShaderPrecisionFormat}
-	 */
-	static void PrecisionFormat(
-		ShaderType shader_type,
-		PrecisionType precision_type,
-		GLint* range_log_2,
-		GLint* precision_log_2
-	)
-	{
-		OGLPLUS_GLFUNC(GetShaderPrecisionFormat)(
-			GLenum(shader_type),
-			GLenum(precision_type),
-			range_log_2,
-			precision_log_2
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetShaderPrecisionFormat));
-	}
-#endif
 };
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// An object encasulating the shading language shader functionality
+/// Shader operations (with direct state access)
+typedef ObjectOps<tag::DirectState, tag::Shader>
+	ShaderOps;
+
+template <>
+struct ObjectType<tag::Shader>
+{
+	typedef ShaderType Type;
+};
+
+/// An object encasulating the shader object functionality
 /**
  *  @see Program
  *  @see VertexShader
@@ -344,190 +358,154 @@ public:
  *  @see TessEvaluationShader
  */
 class Shader
- : public ShaderOps
+ : public Object<ShaderOps>
 {
 public:
-	Shader(ShaderType type);
-	Shader(ShaderType type, String description);
-};
-#else
-typedef Object<ShaderOps> Shader;
-#endif
+	/// Construction with shader @p type specifier
+	Shader(ShaderType type)
+	 : Object<ShaderOps>(type)
+	{ }
 
+	/// Construction with type specifier and textual descriptor
+	Shader(ShaderType type, ObjectDesc&& description)
+	 : Object<ShaderOps>(type, std::move(description))
+	{ }
 
-struct SpecializedShaderInitializer
-{
-protected:
-	typedef const GLSLSource& ParameterType;
-
-	SpecializedShaderInitializer(void){ }
-
-	SpecializedShaderInitializer(
-		Shader& shader,
-		Shader::Property::Type,
-		const GLSLSource& source
-	)
+	/// Construction with type, description and source code string
+	Shader(
+		ShaderType type,
+		ObjectDesc&& description,
+		const GLchar* glsl_source
+	): Object<ShaderOps>(type, std::move(description))
 	{
-		shader.Source(source);
-		shader.Compile();
+		this->Source(glsl_source);
+		this->Compile();
 	}
+
+	/// Construction with type, description and source code string
+	Shader(
+		ShaderType type,
+		ObjectDesc&& description,
+		const StrLit& glsl_source
+	): Object<ShaderOps>(type, std::move(description))
+	{
+		this->Source(glsl_source);
+		this->Compile();
+	}
+
+	/// Construction with type, description and source code wrapper
+	Shader(
+		ShaderType type,
+		ObjectDesc&& description,
+		const GLSLSource& glsl_source
+	): Object<ShaderOps>(type, std::move(description))
+	{
+		this->Source(glsl_source);
+		this->Compile();
+	}
+
+	/// Shaders are movable
+	Shader(Shader&& temp)
+	 : Object<ShaderOps>(static_cast<Object<ShaderOps>&&>(temp))
+	{ }
 };
 
-
-template <>
-class Group<Shader>
- : public BaseGroup<Shader>
+/// Base template for specialized shader types
+template <typename enums::EnumValueType<ShaderType>::Type ShType>
+class SpecShader
+ : public Shader
 {
 public:
-	/// Constructs an empty group of Shaders
-	Group(void)
+	/// Default construction
+	SpecShader(void)
+	 : Shader(ShType)
 	{ }
 
-	/// Constructs an empty group and reserves space for @c n Shaders
-	Group(std::size_t n)
-	 : BaseGroup<Shader>(n)
+	/// Construction with a textual descriptor
+	SpecShader(ObjectDesc&& description)
+	 : Shader(ShType, std::move(description))
 	{ }
 
-	/// Constructs a group initially storing references to one Shader
-	Group(
-		const ShaderOps& shader1,
-		std::size_t n = 1
-	): BaseGroup<Shader>(n<1?1:n)
-	{
-		this->push_back(shader1);
-	}
+	/// Construction with description and source code string
+	SpecShader(
+		ObjectDesc&& description,
+		const GLchar* glsl_source
+	): Shader(ShType, std::move(description), glsl_source)
+	{ }
 
-	/// Constructs a group initially storing references to two Shaders
-	Group(
-		const ShaderOps& shader1,
-		const ShaderOps& shader2,
-		std::size_t n = 2
-	): BaseGroup<Shader>(n<2?2:n)
-	{
-		this->push_back(shader1);
-		this->push_back(shader2);
-	}
+	/// Construction with description and source code string
+	SpecShader(
+		ObjectDesc&& description,
+		const StrLit& glsl_source
+	): Shader(ShType, std::move(description), glsl_source)
+	{ }
 
-	/// Constructs a group initially storing references to three Shaders
-	Group(
-		const ShaderOps& shader1,
-		const ShaderOps& shader2,
-		const ShaderOps& shader3,
-		std::size_t n = 3
-	): BaseGroup<Shader>(n<3?3:n)
-	{
-		this->push_back(shader1);
-		this->push_back(shader2);
-		this->push_back(shader3);
-	}
+	/// Construction with description and source code wrapper
+	SpecShader(
+		ObjectDesc&& description,
+		const GLSLSource& glsl_source
+	): Shader(ShType, std::move(description), glsl_source)
+	{ }
 };
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// Vertex shader wrapper
 /**
  *  @see Shader
  *  @see Program
  *  @ingroup oglplus_objects
  */
-class VertexShader
- : public Shader
-{ };
-#elif defined GL_VERTEX_SHADER
-typedef Specialized<
-	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex),
-	SpecializedShaderInitializer
-> VertexShader;
-#endif
+typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex)>
+	VertexShader;
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// Geometry shader wrapper
 /**
  *  @see Shader
  *  @see Program
  *  @ingroup oglplus_objects
  */
-class GeometryShader
- : public Shader
-{ };
-#elif defined GL_GEOMETRY_SHADER
-typedef Specialized<
-	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry),
-	SpecializedShaderInitializer
-> GeometryShader;
-#endif
+typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry)>
+	GeometryShader;
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 /// Fragment shader wrapper
 /**
  *  @see Shader
  *  @see Program
  *  @ingroup oglplus_objects
  */
-class FragmentShader
- : public Shader
-{ };
-#elif GL_FRAGMENT_SHADER
-typedef Specialized<
-	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment),
-	SpecializedShaderInitializer
-> FragmentShader;
-#endif
+typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment)>
+	FragmentShader;
 
-#if OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_TESS_CONTROL_SHADER
 /// Tesselation control shader wrapper
 /**
  *  @see Shader
  *  @see Program
  *  @ingroup oglplus_objects
  */
-class TessControlShader
- : public Shader
-{ };
-#elif GL_TESS_CONTROL_SHADER
-typedef Specialized<
-	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl),
-	SpecializedShaderInitializer
-> TessControlShader;
+typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl)>
+	TessControlShader;
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_TESS_EVALUATION_SHADER
 /// Tesselation evaluation shader wrapper
 /**
  *  @see Shader
  *  @see Program
  *  @ingroup oglplus_objects
  */
-class TessEvaluationShader
- : public Shader
-{ };
-#elif GL_TESS_EVALUATION_SHADER
-typedef Specialized<
-	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation),
-	SpecializedShaderInitializer
-> TessEvaluationShader;
+typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation)>
+	TessEvaluationShader;
 #endif
 
-#if OGLPLUS_DOCUMENTATION_ONLY
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_COMPUTE_SHADER
 /// Compute shader wrapper
 /**
  *  @see Shader
  *  @see Program
  *  @ingroup oglplus_objects
  */
-class ComputeShader
- : public Shader
-{ };
-#elif GL_COMPUTE_SHADER
-typedef Specialized<
-	Shader,
-	OGLPLUS_CONST_ENUM_VALUE(ShaderType::Compute),
-	SpecializedShaderInitializer
-> ComputeShader;
+typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Compute)>
+	ComputeShader;
 #endif
 
 } // namespace oglplus
