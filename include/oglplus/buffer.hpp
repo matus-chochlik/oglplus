@@ -44,7 +44,7 @@ namespace oglplus {
  *  @glfunref{IsBuffer}
  */
 template <>
-class GenDelOps<tag::Buffer>
+class ObjGenDelOps<tag::Buffer>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -72,7 +72,7 @@ protected:
 
 /// Buffer binding operations
 template <>
-class BindingOps<tag::Buffer>
+class ObjBindingOps<tag::Buffer>
 {
 private:
 	static GLenum _binding_query(BufferTarget target);
@@ -253,16 +253,16 @@ public:
  *  or DefaultBuffer instead.
  */
 template <>
-class CommonOps<tag::Buffer>
+class ObjCommonOps<tag::Buffer>
  : public BufferName
- , public BindingOps<tag::Buffer>
+ , public ObjBindingOps<tag::Buffer>
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
-	using BindingOps<tag::Buffer>::Bind;
-	using BindingOps<tag::Buffer>::BindBase;
-	using BindingOps<tag::Buffer>::BindRange;
+	using ObjBindingOps<tag::Buffer>::Bind;
+	using ObjBindingOps<tag::Buffer>::BindBase;
+	using ObjBindingOps<tag::Buffer>::BindRange;
 
 	/// Binds this buffer to the specified @p target
 	/**

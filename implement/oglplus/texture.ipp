@@ -82,7 +82,7 @@ GLuint TextureTargetDimensions(TextureTarget target)
 	return 0;
 }
 
-GLenum BindingOps<tag::Texture>::
+GLenum ObjBindingOps<tag::Texture>::
 _binding_query(Target target)
 {
 	switch(GLenum(target))
@@ -94,7 +94,7 @@ _binding_query(Target target)
 }
 
 OGLPLUS_LIB_FUNC
-GLuint BindingOps<tag::Texture>::
+GLuint ObjBindingOps<tag::Texture>::
 _binding(Target target)
 {
 	GLint name = 0;

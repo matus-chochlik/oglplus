@@ -48,7 +48,7 @@ OGLPLUS_ENUM_CLASS_END(QueryTarget)
  *  @glfunref{IsQuery}
  */
 template <>
-class GenDelOps<tag::Query>
+class ObjGenDelOps<tag::Query>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)

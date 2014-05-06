@@ -57,7 +57,7 @@ OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
  *  @glfunref{IsProgramPipeline}
  */
 template <>
-class GenDelOps<tag::ProgramPipeline>
+class ObjGenDelOps<tag::ProgramPipeline>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -85,7 +85,7 @@ protected:
 
 /// Program pipeline binding operations
 template <>
-class BindingOps<tag::ProgramPipeline>
+class ObjBindingOps<tag::ProgramPipeline>
 {
 protected:
 	static GLuint _binding(void)
@@ -128,14 +128,14 @@ public:
  *  or NoProgramPipeline instead.
  */
 template <>
-class CommonOps<tag::ProgramPipeline>
+class ObjCommonOps<tag::ProgramPipeline>
  : public ProgramPipelineName
- , public BindingOps<tag::ProgramPipeline>
+ , public ObjBindingOps<tag::ProgramPipeline>
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
-	using BindingOps<tag::ProgramPipeline>::Bind;
+	using ObjBindingOps<tag::ProgramPipeline>::Bind;
 
 	/// Binds this program pipeline object
 	/**

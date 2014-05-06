@@ -1,6 +1,6 @@
 /**
- *  .file oglplus/auxiliary/shader_data.ipp
- *  .brief Implementation of shader data helpers
+ *  .file oglplus/prog_var/set_ops.ipp
+ *  .brief Implementation of GPU program variable helpers
  *
  *  @author Matus Chochlik
  *
@@ -10,11 +10,11 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/object/tags.hpp>
 #include <oglplus/object/desc.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
-namespace aux {
 
 OGLPLUS_LIB_FUNC
 void ProgVarSetUtils::_handle_error(
@@ -28,8 +28,7 @@ void ProgVarSetUtils::_handle_error(
 	Error::AddPropertyValue(
 		props,
 		"program",
-		ObjectDescRegistry::
-			_get_desc(tag::Program::value, program)
+		DescriptionOf(ProgramName(program))
 	);
 	HandleShaderVariableError(
 		result,
@@ -40,6 +39,5 @@ void ProgVarSetUtils::_handle_error(
 	);
 }
 
-} // namespace aux
 } // namespace oglplus
 

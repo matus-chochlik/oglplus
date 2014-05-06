@@ -42,7 +42,7 @@ class VertexAttribOps;
  *  @glfunref{IsProgram}
  */
 template <>
-class GenDelOps<tag::Program>
+class ObjGenDelOps<tag::Program>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -76,7 +76,7 @@ protected:
 
 /// Program binding operations
 template <>
-class BindingOps<tag::Program>
+class ObjBindingOps<tag::Program>
 {
 protected:
 	static GLuint _binding(void)
@@ -119,14 +119,14 @@ public:
  *  or NoProgram instead.
  */
 template <>
-class CommonOps<tag::Program>
+class ObjCommonOps<tag::Program>
  : public ProgramName
- , public BindingOps<tag::Program>
+ , public ObjBindingOps<tag::Program>
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
-	using BindingOps<tag::Program>::Bind;
+	using ObjBindingOps<tag::Program>::Bind;
 
 	/// Binds (uses) this program object
 	/**

@@ -13,7 +13,7 @@ namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 
-GLenum BindingOps<tag::TransformFeedback>::
+GLenum ObjBindingOps<tag::TransformFeedback>::
 _binding_query(TransformFeedbackTarget target)
 {
 	switch(GLenum(target))
@@ -25,7 +25,7 @@ _binding_query(TransformFeedbackTarget target)
 }
 
 OGLPLUS_LIB_FUNC
-GLuint BindingOps<tag::TransformFeedback>::
+GLuint ObjBindingOps<tag::TransformFeedback>::
 _binding(TransformFeedbackTarget target)
 {
 	GLint name = 0;

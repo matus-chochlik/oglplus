@@ -30,8 +30,11 @@ template <
 	std::size_t MaxCount
 > class ProgVarSetOps;
 
-template <typename VarTag, typename ChkTag>
+template <typename ChkTag, typename VarTag>
 class ProgVarTypecheck;
+
+template <typename VarTag>
+class ProgVarLocOps;
 
 } // namespace aux
 } // namespace oglplus

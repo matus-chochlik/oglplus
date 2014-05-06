@@ -68,7 +68,7 @@ struct ObjectTargetTag<TransformFeedbackTarget>
  *  @glfunref{IsTransformFeedback}
  */
 template <>
-class GenDelOps<tag::TransformFeedback>
+class ObjGenDelOps<tag::TransformFeedback>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -96,7 +96,7 @@ protected:
 
 /// TransformFeedback binding operations
 template <>
-class BindingOps<tag::TransformFeedback>
+class ObjBindingOps<tag::TransformFeedback>
 {
 private:
 	static GLenum _binding_query(TransformFeedbackTarget target);
@@ -148,17 +148,17 @@ public:
  *  or DefaultTransformFeedback instead.
  */
 template <>
-class CommonOps<tag::TransformFeedback>
+class ObjCommonOps<tag::TransformFeedback>
  : public TransformFeedbackName
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
- , public BindingOps<tag::TransformFeedback>
+ , public ObjBindingOps<tag::TransformFeedback>
 #endif
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-	using BindingOps<tag::TransformFeedback>::Bind;
+	using ObjBindingOps<tag::TransformFeedback>::Bind;
 
 	/// Binds this transform feedback to the specified @p target
 	/**

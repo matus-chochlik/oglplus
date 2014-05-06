@@ -15,7 +15,7 @@
 
 namespace oglplus {
 
-GLenum BindingOps<tag::Renderbuffer>::
+GLenum ObjBindingOps<tag::Renderbuffer>::
 _binding_query(RenderbufferTarget target)
 {
 	switch(GLenum(target))
@@ -27,7 +27,7 @@ _binding_query(RenderbufferTarget target)
 }
 
 OGLPLUS_LIB_FUNC
-GLuint BindingOps<tag::Renderbuffer>::
+GLuint ObjBindingOps<tag::Renderbuffer>::
 _binding(RenderbufferTarget target)
 {
 	GLint name = 0;

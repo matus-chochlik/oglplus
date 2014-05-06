@@ -25,7 +25,7 @@ namespace oglplus {
  */
 template <>
 class ObjZeroOps<tag::DirectState, tag::Texture>
- : public CommonOps<tag::Texture>
+ : public ObjCommonOps<tag::Texture>
 {
 protected:
 	ObjZeroOps(void) { }

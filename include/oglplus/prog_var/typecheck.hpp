@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/auxiliary/typecheck.hpp
- *  @brief Helper base class templates used for program variable typechecking
+ *  @file oglplus/prog_var/typecheck.hpp
+ *  @brief Helper classes and functions used for program variable typechecking
  *
  *  @author Matus Chochlik
  *
@@ -10,84 +10,24 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_AUX_TYPECHECK_1107121519_HPP
-#define OGLPLUS_AUX_TYPECHECK_1107121519_HPP
+#ifndef OGLPLUS_PROG_VAR_TYPECHECK_1405052241_HPP
+#define OGLPLUS_PROG_VAR_TYPECHECK_1405052241_HPP
 
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/fwd.hpp>
-#include <oglplus/auxiliary/fwd.hpp>
+#include <oglplus/auxiliary/enum_class.hpp>
 
-#include <vector>
 #include <cassert>
 
 namespace oglplus {
+
+#if !OGLPLUS_NO_UNIFORM_TYPECHECK
 
 OGLPLUS_ENUM_CLASS_FWD_EVT(SLDataType, GLenum)
 
 template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type>
 struct SLtoCpp;
-
-namespace aux {
-
-// Default/No typechecking
-template <typename VarTag, typename ChkTag>
-class ProgVarTypecheck
-{
-public:
-	inline ProgVarTypecheck(void)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
-
-	template <typename T>
-	inline ProgVarTypecheck(T* /*selector*/)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
-
-	inline bool operator()(
-		GLuint /*_program*/,
-		GLint /*location*/,
-		const GLchar* /*identifier*/
-	) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return true;
-	}
-};
-
-#if !OGLPLUS_NO_UNIFORM_TYPECHECK
-
-class UniformTypecheckBase
-{
-protected:
-	static GLenum _query_uniform_type(
-		GLuint program,
-		GLint /*location*/,
-		const GLchar* identifier
-	);
-
-	bool (*_uniform_type_match)(GLenum);
-public:
-	UniformTypecheckBase(bool (*uniform_type_match)(GLenum))
-	 : _uniform_type_match(uniform_type_match)
-	{ }
-
-	bool operator()(
-		GLuint program,
-		GLint location,
-		const GLchar* identifier
-	) const
-	{
-		assert(_uniform_type_match);
-		return _uniform_type_match(
-			_query_uniform_type(
-				program,
-				location,
-				identifier
-			)
-		);
-	}
-};
 
 template <typename T>
 struct GLSLtoCppTypeMatcher
@@ -232,19 +172,61 @@ struct GLSLtoCppTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
 	}
 };
 
-template <>
-class ProgVarTypecheck<tag::Uniform, tag::Typecheck>
- : public UniformTypecheckBase
+template <typename VarTag>
+class ProgVarTypecheck<tag::Typecheck, VarTag>
 {
+private:
+	bool (*_type_match)(GLenum);
 public:
 	template <typename TypeSel>
 	ProgVarTypecheck(TypeSel* /*type_sel*/)
-	 : UniformTypecheckBase(&GLSLtoCppTypeMatcher<TypeSel>::_matches)
+	 : _type_match(&GLSLtoCppTypeMatcher<TypeSel>::_matches)
 	{ }
+
+	bool operator()(
+		GLuint program,
+		GLint location,
+		const GLchar* identifier
+	) const
+	{
+		assert(_type_match);
+		return _type_match(
+			ProgVarTypeOps<VarTag>::GetType(
+				program,
+				location,
+				identifier
+			)
+		);
+	}
 };
 #endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
 
-class UniformInitTypecheckUtils
+// Default/No typechecking
+template <typename ChkTag, typename VarTag>
+class ProgVarTypecheck
+{
+public:
+	inline ProgVarTypecheck(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	template <typename T>
+	inline ProgVarTypecheck(T* /*selector*/)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
+	inline bool operator()(
+		GLuint /*_program*/,
+		GLint /*location*/,
+		const GLchar* /*identifier*/
+	) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return true;
+	}
+};
+
+class ProgVarTypecheckUtils
 {
 private:
 	static void _handle_error(
@@ -253,26 +235,26 @@ private:
 		const GLchar* identifier
 	);
 protected:
-	template <typename Typechecker>
+	template <typename ChkTag, typename VarTag>
 	GLint _typecheck(
-		Typechecker& type_ok,
+		ProgVarTypecheck<ChkTag, VarTag>& type_ok,
 		GLuint program,
 		GLint location,
 		const GLchar* identifier
 	)
 	{
 		if(!type_ok(program, location, identifier))
+		{
 			_handle_error(program, location, identifier);
-
+		}
 		return location;
 	}
 };
 
-} // namespace aux
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/typecheck.ipp>
+#include <oglplus/prog_var/typecheck.ipp>
 #endif // OGLPLUS_LINK_LIB
 
 #endif // include guard

@@ -1,5 +1,5 @@
 /**
- *  .file oglplus/auxiliary/prog_var.hpp
+ *  .file oglplus/prog_var/set_ops.hpp
  *  .brief Program variable (uniform / vertex-attribute) helpers
  *
  *  @author Matus Chochlik
@@ -10,20 +10,17 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_AUX_PROG_VAR_1107121519_HPP
-#define OGLPLUS_AUX_PROG_VAR_1107121519_HPP
+#ifndef OGLPLUS_PROG_VAR_SET_OPS_1107121519_HPP
+#define OGLPLUS_PROG_VAR_SET_OPS_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/fwd.hpp>
-#include <oglplus/auxiliary/fwd.hpp>
-#include <oglplus/prog_var/varpara_fns.hpp>
 
 #include <type_traits>
 #include <cstddef>
 
 namespace oglplus {
-namespace aux {
 
 class ProgVarSetUtils
 {
@@ -35,7 +32,7 @@ private:
 		GLenum result
 	);
 protected:
-	static void _do_handle_if_error(
+	static void _handle_if_error(
 		const oglplus::ErrorInfo& error_info,
 		GLuint program,
 		GLuint location
@@ -49,20 +46,11 @@ protected:
 	}
 };
 
-template <
-	typename OpsTag,
-	typename VarTag,
-	typename TypTag,
-	typename T,
-	std::size_t MaxCount
-> class ProgVarSetOps;
+template <class OpsTag, class VarTag, class TypTag, class T, std::size_t M>
+class ProgVarSetOps;
 
-template <
-	typename OpsTag,
-	typename VarTag,
-	typename T,
-	std::size_t MaxCount
-> class ProgVarSetOps<OpsTag, VarTag, tag::NativeTypes, T, MaxCount>
+template <typename OpsTag, typename VarTag, typename T, std::size_t M>
+class ProgVarSetOps<OpsTag, VarTag, tag::NativeTypes, T, M>
  : public ProgVarSetters<OpsTag, VarTag, tag::NativeTypes>
  , public ProgVarCallers<OpsTag, T>
  , public ProgVarSetUtils
@@ -75,7 +63,7 @@ private:
 
 	static void _report_if_error(GLuint program, GLuint base_location)
 	{
-		ProgVarSetUtils::_do_handle_if_error(
+		ProgVarSetUtils::_handle_if_error(
 			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
 			program,
 			base_location
@@ -213,8 +201,8 @@ protected:
 	static void _do_set(GLuint program, GLuint location, V ... v)
 	{
 		static_assert(
-			(sizeof...(V) > 0) && (sizeof...(V) <= MaxCount),
-			"Set requires 1 to MaxCount arguments"
+			(sizeof...(V) > 0) && (sizeof...(V) <= M),
+			"Set requires 1 to M arguments"
 		);
 		_do_set_t(
 			_set_mode<sizeof...(V)>(),
@@ -283,8 +271,8 @@ protected:
 	static void _do_set(GLuint program, GLuint location, const V* v)
 	{
 		static_assert(
-			(Cols > 0) && (Cols <= MaxCount),
-			"The number of elements must be between 1 and MaxCount"
+			(Cols > 0) && (Cols <= M),
+			"The number of elements must be between 1 and M"
 		);
 		_do_set_v<Cols, V>(
 			_set_mode<Cols>(),
@@ -299,8 +287,8 @@ protected:
 	static void _do_set_many(GLuint prog, GLuint location, GLsizei n, const V*v)
 	{
 		static_assert(
-			(Cols > 0) && (Cols <= MaxCount),
-			"The number of elements must be between 1 and MaxCount"
+			(Cols > 0) && (Cols <= M),
+			"The number of elements must be between 1 and M"
 		);
 		_do_set_n<Cols, V>(
 			_set_mode<Cols>(),
@@ -313,12 +301,8 @@ protected:
 	}
 };
 
-template <
-	typename OpsTag,
-	typename VarTag,
-	typename T,
-	std::size_t MaxCount
-> class ProgVarSetOps<OpsTag, VarTag, tag::MatrixTypes, T, MaxCount>
+template <typename OpsTag, typename VarTag, typename T, std::size_t M>
+class ProgVarSetOps<OpsTag, VarTag, tag::MatrixTypes, T, M>
  : public ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes>
  , public ProgVarCallers<OpsTag, T>
  , public ProgVarSetUtils
@@ -331,7 +315,7 @@ private:
 
 	static void _report_if_error(GLuint program, GLuint base_location)
 	{
-		ProgVarSetUtils::_do_handle_if_error(
+		ProgVarSetUtils::_handle_if_error(
 			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
 			program,
 			base_location
@@ -398,11 +382,10 @@ protected:
 #endif //NO_VARIADIC_TEMPLATES
 };
 
-} // namespace aux
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/prog_var.ipp>
+#include <oglplus/prog_var/set_ops.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

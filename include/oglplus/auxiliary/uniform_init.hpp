@@ -19,6 +19,7 @@
 #include <oglplus/object/tags.hpp>
 #include <oglplus/object/name.hpp>
 
+#include <oglplus/auxiliary/fwd.hpp>
 #include <oglplus/auxiliary/typecheck.hpp>
 
 namespace oglplus {

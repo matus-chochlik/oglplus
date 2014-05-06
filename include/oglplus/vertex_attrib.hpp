@@ -14,21 +14,64 @@
 #define OGLPLUS_VERTEX_ATTRIB_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/auxiliary/fwd.hpp>
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/vertex_attrib_slot.hpp>
 #include <oglplus/object/name.hpp>
 #include <oglplus/object/sequence.hpp>
-#include <oglplus/auxiliary/prog_var.hpp>
-
-#include <oglplus/string.hpp>
+#include <oglplus/prog_var/location.hpp>
+#include <oglplus/prog_var/varpara_fns.hpp>
+#include <oglplus/prog_var/set_ops.hpp>
 
 #include <type_traits>
 
 namespace oglplus {
+
+template <>
+class ProgVarLocOps<tag::VertexAttrib>
+{
+protected:
+	static GLint GetLocation(GLuint program, const GLchar* identifier)
+	{
+		GLint result = OGLPLUS_GLFUNC(GetAttribLocation)(
+			program,
+			identifier
+		);
+		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
+		return result;
+	}
+};
+
+template <>
+class ProgVarSetters<tag::ImplicitSel, tag::VertexAttrib, tag::NativeTypes>
+{
+protected:
+	OGLPLUS_ERROR_INFO_CONTEXT(VertexAttrib, VertexAttrib)
+
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, d, t, GLdouble)
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, s, t, GLshort)
+
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, t, GLint)
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, t, GLuint)
+#endif
+
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, fv, v, GLfloat)
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, dv, v, GLdouble)
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, sv, v, GLshort)
+
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, i, v, GLint)
+	OGLPLUS_AUX_VARPARA_FNS(VertexAttribI, ui, v, GLuint)
+#endif
+};
+
+/*
+template <>
+class ProgVarCommonOps<tag::VertexAttrib>
+*/
 
 /// Helper class that encapsulates vertex attribute functionality
 /**
@@ -56,11 +99,6 @@ protected:
 	static void _handle_inconsistent_location(
 		const GLchar* identifier,
 		VertexAttribSlot location
-	);
-
-	static GLint _get_location(
-		ProgramName program,
-		const GLchar* identifier
 	);
 
 	static GLint _find_location(
@@ -544,7 +582,7 @@ BindLocation(
 template <typename T>
 class VertexAttrib
  : public VertexAttribOps
- , public aux::ProgVarSetOps<
+ , public ProgVarSetOps<
 	tag::ImplicitSel,
 	tag::VertexAttrib,
 	tag::NativeTypes,
@@ -599,7 +637,7 @@ public:
 template <typename T, std::size_t N>
 class VertexAttrib<Vector<T, N> >
  : public VertexAttribOps
- , public aux::ProgVarSetOps<
+ , public ProgVarSetOps<
 	tag::ImplicitSel,
 	tag::VertexAttrib,
 	tag::NativeTypes,
@@ -654,7 +692,7 @@ public:
 template <typename T, std::size_t Rows, std::size_t Cols>
 class VertexAttrib<Matrix<T, Rows, Cols> >
  : public VertexAttribOps
- , public aux::ProgVarSetOps<
+ , public ProgVarSetOps<
 	tag::ImplicitSel,
 	tag::VertexAttrib,
 	tag::NativeTypes,

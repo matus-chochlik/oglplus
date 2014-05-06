@@ -63,7 +63,7 @@ struct ObjectTargetTag<FramebufferTarget>
  *  @glfunref{IsFramebuffer}
  */
 template <>
-class GenDelOps<tag::Framebuffer>
+class ObjGenDelOps<tag::Framebuffer>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -91,7 +91,7 @@ protected:
 
 /// Framebuffer binding operations
 template <>
-class BindingOps<tag::Framebuffer>
+class ObjBindingOps<tag::Framebuffer>
 {
 private:
 	static GLenum _binding_query(FramebufferTarget target);
@@ -139,14 +139,14 @@ public:
  *  or DefaultFramebuffer instead.
  */
 template <>
-class CommonOps<tag::Framebuffer>
+class ObjCommonOps<tag::Framebuffer>
  : public FramebufferName
- , public BindingOps<tag::Framebuffer>
+ , public ObjBindingOps<tag::Framebuffer>
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
-	using BindingOps<tag::Framebuffer>::Bind;
+	using ObjBindingOps<tag::Framebuffer>::Bind;
 
 	/// Binds this framebuffer to the specified @p target
 	/**

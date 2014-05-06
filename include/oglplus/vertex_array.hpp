@@ -30,7 +30,7 @@ namespace oglplus {
  *  @glfunref{IsVertexArray}
  */
 template <>
-class GenDelOps<tag::VertexArray>
+class ObjGenDelOps<tag::VertexArray>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -58,7 +58,7 @@ protected:
 
 /// Vertex array binding operations
 template <>
-class BindingOps<tag::VertexArray>
+class ObjBindingOps<tag::VertexArray>
 {
 protected:
 	static GLuint _binding(void)
@@ -101,14 +101,14 @@ public:
  *  or NoVertexArray instead.
  */
 template <>
-class CommonOps<tag::VertexArray>
+class ObjCommonOps<tag::VertexArray>
  : public VertexArrayName
- , public BindingOps<tag::VertexArray>
+ , public ObjBindingOps<tag::VertexArray>
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
-	using BindingOps<tag::VertexArray>::Bind;
+	using ObjBindingOps<tag::VertexArray>::Bind;
 
 	/// Binds this vertex array object
 	/**

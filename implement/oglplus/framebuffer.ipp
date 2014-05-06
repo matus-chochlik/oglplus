@@ -11,7 +11,7 @@
 
 namespace oglplus {
 
-GLenum BindingOps<tag::Framebuffer>::
+GLenum ObjBindingOps<tag::Framebuffer>::
 _binding_query(Target target)
 {
 	switch(GLenum(target))
@@ -23,7 +23,7 @@ _binding_query(Target target)
 }
 
 OGLPLUS_LIB_FUNC
-GLuint BindingOps<tag::Framebuffer>::
+GLuint ObjBindingOps<tag::Framebuffer>::
 _binding(Target target)
 {
 	GLint name = 0;

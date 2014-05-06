@@ -37,7 +37,7 @@ namespace oglplus {
  *  @glfunref{IsShader}
  */
 template <>
-class GenDelOps<tag::Shader>
+class ObjGenDelOps<tag::Shader>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names, GLenum type)
@@ -80,11 +80,11 @@ protected:
 /** @note Do not use this class directly, use Shader instead.
  */
 template <>
-class CommonOps<tag::Shader>
+class ObjCommonOps<tag::Shader>
  : public ShaderName
 {
 protected:
-	CommonOps(void) { }
+	ObjCommonOps(void) { }
 
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
@@ -119,7 +119,7 @@ protected:
  */
 template <>
 class ObjectOps<tag::DirectState, tag::Shader>
- : public CommonOps<tag::Shader>
+ : public ObjCommonOps<tag::Shader>
 {
 protected:
 	ObjectOps(void){ }

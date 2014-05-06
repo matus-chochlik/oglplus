@@ -66,23 +66,15 @@ _handle_inconsistent_location(
 	);
 }
 
-OGLPLUS_LIB_FUNC
-GLint VertexAttribOps::
-_get_location(
-	ObjectName<tag::Program> program,
-	const GLchar* identifier
-)
+GLint _get_location(ProgramName, const GLchar*)
 {
-	return OGLPLUS_GLFUNC(GetAttribLocation)(
-		GetGLName(program),
-		identifier
-	);
+	return 0; //TODO
 }
 
 OGLPLUS_LIB_FUNC
 GLint VertexAttribOps::
 _find_location(
-	ObjectName<tag::Program> program,
+	ProgramName program,
 	const GLchar* identifier
 )
 {
@@ -98,7 +90,7 @@ _find_location(
 OGLPLUS_LIB_FUNC
 bool VertexAttribOps::
 _query_location(
-	ObjectName<tag::Program> program,
+	ProgramName program,
 	const String& identifier,
 	VertexAttribSlot& location
 )
@@ -114,7 +106,7 @@ _query_location(
 OGLPLUS_LIB_FUNC
 bool VertexAttribOps::
 _query_common_location(
-	const Sequence<ObjectName<tag::Program>>& programs,
+	const Sequence<ProgramName>& programs,
 	const GLchar* identifier,
 	VertexAttribSlot& location
 )
@@ -148,7 +140,7 @@ _query_common_location(
 OGLPLUS_LIB_FUNC
 VertexAttribSlot VertexAttribOps::
 _get_common_location(
-	const Sequence<ObjectName<tag::Program>>& programs,
+	const Sequence<ProgramName>& programs,
 	const GLchar* identifier
 )
 {

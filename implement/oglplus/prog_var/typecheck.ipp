@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/auxiliary/typecheck.ipp
+ *  @file oglplus/prog_var/typecheck.ipp
  *  @brief Implementation of program variable typechecking utilities
  *
  *  @author Matus Chochlik
@@ -17,62 +17,8 @@
 #include <cstring>
 
 namespace oglplus {
-namespace aux {
 
 #if !OGLPLUS_NO_UNIFORM_TYPECHECK
-
-OGLPLUS_LIB_FUNC
-GLenum UniformTypecheckBase::_query_uniform_type(
-	GLuint program,
-	GLint /*location*/,
-	const GLchar* identifier
-)
-{
-	GLenum type, result = GL_NONE;
-	GLint size;
-	GLsizei length = 0;
-	const GLsizei id_len = std::strlen(identifier);
-	// The +2 is intentional
-	// to distinguish between the searched identifier
-	// and the udentifiers having the searched identifier
-	// as prefix
-	std::vector<GLchar> buffer(id_len+2);
-
-	GLint active_uniforms = 0;
-	OGLPLUS_GLFUNC(GetProgramiv)(
-		program,
-		GL_ACTIVE_UNIFORMS,
-		&active_uniforms
-	);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramiv));
-
-	for(GLint index=0; index!=active_uniforms; ++index)
-	{
-		OGLPLUS_GLFUNC(GetActiveUniform)(
-			program,
-			index,
-			buffer.size(),
-			&length,
-			&size,
-			&type,
-			buffer.data()
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniform));
-		if(id_len == length)
-		{
-			if(std::strncmp(
-				identifier,
-				buffer.data(),
-				length
-			) == 0)
-			{
-				result = type;
-				break;
-			}
-		}
-	}
-	return result;
-}
 
 OGLPLUS_LIB_FUNC
 bool GLSLtoCppTypeMatcher<GLint>::_matches(GLenum sl_type)
@@ -419,7 +365,7 @@ bool GLSLtoCppTypeMatcher_Mat::_does_match(
 #endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
 
 OGLPLUS_LIB_FUNC
-void UniformInitTypecheckUtils::_handle_error(
+void ProgVarTypecheckUtils::_handle_error(
 	GLuint program,
 	GLint location,
 	const GLchar* identifier
@@ -434,10 +380,7 @@ void UniformInitTypecheckUtils::_handle_error(
 	Error::AddPropertyValue(
 		props,
 		"program",
-		aux::ObjectDescRegistry::_get_desc(
-			tag::Program::value,
-			program
-		)
+		DescriptionOf(ProgramName(program))
 	);
 	HandleShaderVariableError(
 		GL_INVALID_OPERATION,
@@ -448,6 +391,5 @@ void UniformInitTypecheckUtils::_handle_error(
 	);
 }
 
-} // namespace aux
 } // namespace oglplus
 

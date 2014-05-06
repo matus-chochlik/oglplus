@@ -42,7 +42,7 @@ namespace oglplus {
  *  @glfunref{IsSampler}
  */
 template <>
-class GenDelOps<tag::Sampler>
+class ObjGenDelOps<tag::Sampler>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -70,7 +70,7 @@ protected:
 
 /// Sampler binding operations
 template <>
-class BindingOps<tag::Sampler>
+class ObjBindingOps<tag::Sampler>
 {
 private:
 	static GLenum _binding_query(TextureUnitSelector target);
@@ -150,14 +150,14 @@ public:
  *  or NoSampler instead.
  */
 template <>
-class CommonOps<tag::Sampler>
+class ObjCommonOps<tag::Sampler>
  : public SamplerName
- , public BindingOps<tag::Sampler>
+ , public ObjBindingOps<tag::Sampler>
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
-	using BindingOps<tag::Sampler>::Bind;
+	using ObjBindingOps<tag::Sampler>::Bind;
 
 	/// Binds this sampler to the specified @p target (texture unit)
 	/**

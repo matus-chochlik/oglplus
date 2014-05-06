@@ -59,7 +59,7 @@ public:
 	{ }
 
 	/// Constructs wrapper for the specified @p name.
-	ObjectName(GLuint name)
+	explicit ObjectName(GLuint name)
 	OGLPLUS_NOEXCEPT(true)
 	 : _name(name)
 	{ }
@@ -88,6 +88,24 @@ public:
 	{
 		_adopt(std::move(temp));
 		return *this;
+	}
+
+	/// Equality comparison
+	friend bool operator == (ObjectName a, ObjectName b)
+	{
+		return a._name == b._name;
+	}
+
+	/// Inequality comparison
+	friend bool operator != (ObjectName a, ObjectName b)
+	{
+		return a._name != b._name;
+	}
+
+	/// Ordering
+	friend bool operator <  (ObjectName a, ObjectName b)
+	{
+		return a._name < b._name;
 	}
 };
 

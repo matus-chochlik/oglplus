@@ -39,17 +39,17 @@ struct ObjectType : Nothing
 
 /// Implements operations applicable to any object and any operation kind
 template <class ObjTag>
-class CommonOps
+class ObjCommonOps
  : public ObjectName<ObjTag>
 {
 protected:
-	CommonOps(void) { }
+	ObjCommonOps(void) { }
 };
 
 /// Implements operations applicable to any object including object 0 (zero)
 template <class OpsTag, class ObjTag>
 class ObjZeroOps
- : public CommonOps<ObjTag>
+ : public ObjCommonOps<ObjTag>
 {
 protected:
 	ObjZeroOps(void) { }
@@ -85,7 +85,7 @@ protected:
 template <class OpsTag, class ObjTag>
 class Object<ObjectOps<OpsTag, ObjTag>>
  : public ObjectOps<OpsTag, ObjTag>
- , public GenDelOps<ObjTag>
+ , public ObjGenDelOps<ObjTag>
 {
 private:
 	// Object is not copy-constructible
@@ -110,14 +110,14 @@ private:
 
 	void _init(Nothing)
 	{
-		GenDelOps<ObjTag>::Gen(1, &this->_name);
+		ObjGenDelOps<ObjTag>::Gen(1, &this->_name);
 	}
 
 	template <typename ObjectType>
 	void _init(ObjectType type)
 	{
 		this->_type = GLenum(type);
-		GenDelOps<ObjTag>::Gen(1, &this->_name);
+		_init(Nothing());
 	}
 
 	void _move_in(Object&& temp)
@@ -132,7 +132,7 @@ private:
 		_undescribe();
 		if(this->_name)
 		{
-			GenDelOps<ObjTag>::Delete(1, &this->_name);
+			ObjGenDelOps<ObjTag>::Delete(1, &this->_name);
 		}
 	}
 protected:

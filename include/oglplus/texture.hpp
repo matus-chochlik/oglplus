@@ -46,7 +46,7 @@ GLuint TextureTargetDimensions(TextureTarget target);
  *  @glfunref{IsTexture}
  */
 template <>
-class GenDelOps<tag::Texture>
+class ObjGenDelOps<tag::Texture>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -74,7 +74,7 @@ protected:
 
 /// Texture binding operations
 template <>
-class BindingOps<tag::Texture>
+class ObjBindingOps<tag::Texture>
 {
 private:
 	static GLenum _binding_query(TextureTarget target);
@@ -223,12 +223,12 @@ public:
  *  or DefaultTexture instead.
  */
 template <>
-class CommonOps<tag::Texture>
+class ObjCommonOps<tag::Texture>
  : public TextureName
- , public BindingOps<tag::Texture>
+ , public ObjBindingOps<tag::Texture>
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
 	/// Specify active texture unit for subsequent commands
 	/**
@@ -280,8 +280,8 @@ public:
 		return Target(GL_TEXTURE_CUBE_MAP_POSITIVE_X+face);
 	}
 
-	using BindingOps<tag::Texture>::Bind;
-	using BindingOps<tag::Texture>::BindImage;
+	using ObjBindingOps<tag::Texture>::Bind;
+	using ObjBindingOps<tag::Texture>::BindImage;
 
 	/// Binds this texture to the specified @p target
 	/**
@@ -479,7 +479,7 @@ public:
  */
 template <>
 class ObjZeroOps<tag::ExplicitSel, tag::Texture>
- : public CommonOps<tag::Texture>
+ : public ObjCommonOps<tag::Texture>
 {
 protected:
 	ObjZeroOps(void) { }

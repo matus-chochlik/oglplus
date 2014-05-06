@@ -32,8 +32,7 @@ void UniformInitOps::_handle_error(
 	Error::AddPropertyValue(
 		props,
 		"program",
-		aux::ObjectDescRegistry<ProgramOps>::
-				_get_desc(program)
+		DescriptionOf(ProgramName(program))
 	);
 	HandleShaderVariableError(
 		GL_INVALID_OPERATION,

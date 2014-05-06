@@ -103,6 +103,9 @@ struct PathNV;
 
 struct VertexAttrib;
 struct Uniform;
+struct UniformBlock;
+struct SubroutineUniform;
+struct Subroutine;
 
 struct NativeTypes;
 struct MatrixTypes;
@@ -150,13 +153,13 @@ template <typename ObjName>
 const GLuint* GetGLNames(const Sequence<ObjName>&);
 
 template <typename ObjTag>
-class GenDelOps;
+class ObjGenDelOps;
 
 template <typename ObjTag>
-class BindingOps;
+class ObjBindingOps;
 
 template <typename ObjTag>
-class CommonOps;
+class ObjCommonOps;
 
 template <typename OpsTag, typename ObjTag>
 class ObjZeroOps;
@@ -184,6 +187,30 @@ class Array;
 
 template <typename Object>
 class Group;
+
+template <typename VarTag>
+class ProgVarLoc;
+
+template <typename VarTag>
+GLint GetGLLocation(ProgVarLoc<VarTag>);
+
+template <typename VarTag>
+class ProgVarLocOps;
+
+template <typename VarTag>
+class ProgVarTypeOps;
+
+template <typename ChkTag, typename VarTag>
+class ProgVarTypecheck;
+
+template <typename OpsTag, typename VarTag, typename TypTag>
+class ProgVarSetters;
+
+template <typename OpsTag, typename T>
+class ProgVarCallers;
+
+template <typename VarTag>
+class ProgVarCommonOps;
 
 } // namespace oglplus
 

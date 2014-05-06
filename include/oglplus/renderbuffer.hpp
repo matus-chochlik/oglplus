@@ -56,7 +56,7 @@ struct ObjectTargetTag<RenderbufferTarget>
  *  @glfunref{IsRenderbuffer}
  */
 template <>
-class GenDelOps<tag::Renderbuffer>
+class ObjGenDelOps<tag::Renderbuffer>
 {
 protected:
 	static void Gen(GLsizei count, GLuint* names)
@@ -84,7 +84,7 @@ protected:
 
 /// Renderbuffer binding operations
 template <>
-class BindingOps<tag::Renderbuffer>
+class ObjBindingOps<tag::Renderbuffer>
 {
 private:
 	static GLenum _binding_query(RenderbufferTarget target);
@@ -132,14 +132,14 @@ public:
  *  or NoRenderbuffer instead.
  */
 template <>
-class CommonOps<tag::Renderbuffer>
+class ObjCommonOps<tag::Renderbuffer>
  : public RenderbufferName
- , public BindingOps<tag::Renderbuffer>
+ , public ObjBindingOps<tag::Renderbuffer>
 {
 protected:
-	CommonOps(void){ }
+	ObjCommonOps(void){ }
 public:
-	using BindingOps<tag::Renderbuffer>::Bind;
+	using ObjBindingOps<tag::Renderbuffer>::Bind;
 
 	/// Binds this renderbuffer to the specified @p target
 	/**

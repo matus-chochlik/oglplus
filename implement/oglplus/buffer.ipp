@@ -11,7 +11,7 @@
 
 namespace oglplus {
 
-GLenum BindingOps<tag::Buffer>::
+GLenum ObjBindingOps<tag::Buffer>::
 _binding_query(BufferTarget target)
 {
 	switch(GLenum(target))
@@ -22,7 +22,7 @@ _binding_query(BufferTarget target)
 	return 0;
 }
 
-GLenum BindingOps<tag::Buffer>::
+GLenum ObjBindingOps<tag::Buffer>::
 _binding_query(BufferIndexedTarget target)
 {
 	switch(GLenum(target))
@@ -34,7 +34,7 @@ _binding_query(BufferIndexedTarget target)
 }
 
 OGLPLUS_LIB_FUNC
-GLuint BindingOps<tag::Buffer>::
+GLuint ObjBindingOps<tag::Buffer>::
 _binding(BufferTarget target)
 {
 	GLint name = 0;
@@ -44,7 +44,7 @@ _binding(BufferTarget target)
 }
 
 OGLPLUS_LIB_FUNC
-GLuint BindingOps<tag::Buffer>::
+GLuint ObjBindingOps<tag::Buffer>::
 _binding(BufferIndexedTarget target, GLuint index)
 {
 	GLint name = 0;
