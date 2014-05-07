@@ -1,16 +1,16 @@
 /**
- *  .file oglplus/auxiliary/utf8.hpp
+ *  .file oglplus/string/utf8.hpp
  *  .brief Helper utf8-related tools
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2011-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2011-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef __OGLPLUS_AUX_UTF8_1102101236_HPP
-#define __OGLPLUS_AUX_UTF8_1102101236_HPP
+#ifndef __OGLPLUS_STRING_UTF8_1102101236_HPP
+#define __OGLPLUS_STRING_UTF8_1102101236_HPP
 
 #if !OGLPLUS_NO_UTF8_CHECKS
 #include <cassert>
@@ -47,6 +47,7 @@ void ConvertUTF8ToCodePoints(
 	size_t len,
 	std::vector<UnicodeCP>& result
 );
+#endif
 
 class UTF8Validator
 {
@@ -73,7 +74,6 @@ public:
 		return _validate(begin, end) == end;
 	}
 };
-#endif
 
 inline bool ValidUTF8(const char* begin, const char* end)
 {
@@ -92,7 +92,7 @@ inline bool ValidUTF8(const char* begin, const char* end)
 
 #if !OGLPLUS_NO_UTF8_CHECKS
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/utf8.ipp>
+#include <oglplus/string/utf8.ipp>
 #endif // OGLPLUS_LINK_LIB
 #endif // OGLPLUS_NO_UTF8_CHECKS
 

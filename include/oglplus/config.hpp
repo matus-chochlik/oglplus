@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -117,35 +117,6 @@
 #else
 # ifndef OGLPLUS_NO_OBJECT_DESCS
 #  define OGLPLUS_NO_OBJECT_DESCS OGLPLUS_LOW_PROFILE
-# endif
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Compile-time switch enabling lazy implementation of StrLit
-/** The StrLit class has two implementations, one referred to as 'Lazy'
- *  which only stores the pointer to the C-string literal where the size
- *  is obtained lazily only when required. The other implementation lets
- *  the compiler to determine and store the size of the literal during
- *  compilation.
- *
- *  The advantage of the lazy implementation is smaller code size and slightly
- *  better compilation times, while the calculation of the size of the literal
- *  adds run-time overhead. The other implementation results in slightly
- *  larger binaries but has the advantage that the size of the literal is
- *  pre-calculated.
- *
- *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
- *  i.e. lazy string literals are enabled, when in low-profile mode
- *  and disabled otherwise.
- *
- *  @see StrLit
- *
- *  @ingroup compile_time_config
- */
-#define OGLPLUS_LAZY_STR_LIT
-#else
-# ifndef OGLPLUS_LAZY_STR_LIT
-#  define OGLPLUS_LAZY_STR_LIT OGLPLUS_LOW_PROFILE
 # endif
 #endif
 
@@ -355,10 +326,10 @@
 #endif
 
 #if OGLPLUS_NO_ENUM_VALUE_NAMES
-#ifdef OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-#undef OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+#ifdef OGLPLUS_ERROR_INFO_NO_TARGET_NAME
+#undef OGLPLUS_ERROR_INFO_NO_TARGET_NAME
 #endif
-#define OGLPLUS_ERROR_INFO_NO_BIND_TARGET 1
+#define OGLPLUS_ERROR_INFO_NO_TARGET_NAME 1
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
@@ -372,10 +343,10 @@
  *
  *  @ingroup compile_time_config
  */
-#define OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+#define OGLPLUS_ERROR_INFO_NO_TARGET_NAME
 #else
-# ifndef OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-#  define OGLPLUS_ERROR_INFO_NO_BIND_TARGET 0
+# ifndef OGLPLUS_ERROR_INFO_NO_TARGET_NAME
+#  define OGLPLUS_ERROR_INFO_NO_TARGET_NAME 0
 # endif
 #endif
 

@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/string.ipp
+ *  @file oglplus/string/def.ipp
  *  @brief Implementation of String functions
  *
  *  @author Matus Chochlik
@@ -10,14 +10,13 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/auxiliary/utf8.hpp>
+#include <oglplus/string/utf8.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const String& EmptyString(void)
-OGLPLUS_NOEXCEPT(true)
 {
 	static String empty;
 	return empty;

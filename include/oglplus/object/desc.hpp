@@ -14,7 +14,7 @@
 #define OGLPLUS_OBJECT_DESC_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/string/def.hpp>
 #include <oglplus/fwd.hpp>
 
 #if OGLPLUS_NO_OBJECT_DESCS == 0
@@ -31,29 +31,7 @@ private:
 	String _str;
 #endif
 public:
-	ObjectDesc(const GLchar* cstr)
-#if !OGLPLUS_NO_OBJECT_DESCS
-	 : _str(cstr)
-#endif
-	{
-		OGLPLUS_FAKE_USE(cstr);
-	}
-
-	ObjectDesc(const StrLit& lit)
-#if !OGLPLUS_NO_OBJECT_DESCS
-	 : _str(lit.str())
-#endif
-	{
-		OGLPLUS_FAKE_USE(lit);
-	}
-
-	ObjectDesc(const String& str)
-#if !OGLPLUS_NO_OBJECT_DESCS
-	 : _str(str)
-#endif
-	{
-		OGLPLUS_FAKE_USE(str);
-	}
+	ObjectDesc(void) { }
 
 	ObjectDesc(String&& str)
 #if !OGLPLUS_NO_OBJECT_DESCS
@@ -62,8 +40,6 @@ public:
 	{
 		OGLPLUS_FAKE_USE(str);
 	}
-
-	ObjectDesc(void){ }
 
 	ObjectDesc(ObjectDesc&& tmp)
 #if !OGLPLUS_NO_OBJECT_DESCS
@@ -206,6 +182,7 @@ public:
 
 } // namespace aux
 
+// TODO: return ObjectDesc
 template <typename ObjTag>
 inline const String& DescriptionOf(ObjectName<ObjTag> object)
 {

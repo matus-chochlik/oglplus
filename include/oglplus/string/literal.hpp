@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/string.hpp
- *  @brief String-related typedefs
+ *  @file oglplus/string/literal.hpp
+ *  @brief String-literal wrapper
  *
  *  @author Matus Chochlik
  *
@@ -10,43 +10,14 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_STRING_1107121519_HPP
-#define OGLPLUS_STRING_1107121519_HPP
+#ifndef OGLPLUS_STRING_LITERAL_1107121519_HPP
+#define OGLPLUS_STRING_LITERAL_1107121519_HPP
 
+#include <oglplus/string/ref.hpp>
+#include <oglplus/string/def.hpp>
 #include <oglplus/config.hpp>
 
-#include <string>
-#include <cassert>
-
-#if OGLPLUS_LAZY_STR_LIT
-#include <cstring>
-#endif
-
 namespace oglplus {
-
-/** @defgroup oglplus_strings Strings
- *
- *  Classes, types and functions in this group are related to text string
- *  and/or string literal handling.
- */
-
-/// Checks if the range between @p begin and @p end is valid UTF-8 sequence
-/**
- *  @ingroup oglplus_strings
- */
-bool ValidString(const GLchar* begin, const GLchar* end);
-
-/// String class
-/**
- *  @ingroup oglplus_strings
- */
-typedef ::std::basic_string<GLchar> String;
-
-const String& EmptyString(void)
-OGLPLUS_NOEXCEPT(true);
-
-class StrLit;
-
 namespace aux {
 
 // helper class used for implementation of concatenation
@@ -86,11 +57,7 @@ public:
 		return result;
 	}
 
-#if !OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
-	inline explicit operator String(void) const
-#else
-	inline operator String(void) const
-#endif
+	OGLPLUS_EXPLICIT operator String(void) const
 	{
 		return str();
 	}
@@ -111,9 +78,7 @@ class StrLit
 {
 private:
 	const GLchar* _lit;
-#if !OGLPLUS_LAZY_STR_LIT
 	std::size_t _size;
-#endif
 
 	void _check(void) const
 	{
@@ -123,78 +88,36 @@ public:
 	/// Default constructor
 	StrLit(void)
 	 : _lit("")
-#if !OGLPLUS_LAZY_STR_LIT
 	 , _size(0)
-#endif
 	{ }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from nullptr
-	StrLit(std::nullptr_t);
-#elif !OGLPLUS_NO_NULLPTR
 	StrLit(std::nullptr_t)
-#else
-	StrLit(int)
-#endif
 	 : _lit("")
-#if !OGLPLUS_LAZY_STR_LIT
 	 , _size(0)
-#endif
 	{ }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Construction from a c-string @p literal
 	/** The input @p literal can be optionally checked
 	 *  for UTF-8 validity.
 	 *
 	 *  @see #OGLPLUS_NO_UTF8_CHECKS
 	 */
-	explicit StrLit(const GLchar* literal);
-#elif !OGLPLUS_LAZY_STR_LIT
 	template <std::size_t N>
 	explicit StrLit(const GLchar (&lit)[N])
 	 : _lit(lit)
 	 , _size(N-1)
 	{ _check(); }
-#else
-	explicit StrLit(const GLchar* lit)
-	 : _lit(lit)
-	{ _check(); }
-#endif
-
-	/// Construction from a c-string @p and a length
-	/** The input @p literal can be optionally checked
-	 *  for UTF-8 validity.
-	 *
-	 *  @see #OGLPLUS_NO_UTF8_CHECKS
-	 */
-	explicit StrLit(const GLchar* lit, std::size_t lit_size)
-	 : _lit(lit)
-#if !OGLPLUS_LAZY_STR_LIT
-	 , _size(lit_size)
-#endif
-	{
-		OGLPLUS_FAKE_USE(lit_size);
-		_check();
-	}
 
 	/// Efficient conversion to String
 	String str(void) const
 	{
-#if !OGLPLUS_LAZY_STR_LIT
 		return String(_lit, _lit+_size);
-#else
-		return String(_lit);
-#endif
 	}
 
 	void append_to(String& dest) const
 	{
-#if !OGLPLUS_LAZY_STR_LIT
 		dest.append(_lit, _lit+_size);
-#else
-		dest.append(_lit);
-#endif
 	}
 
 	/// Returns the c-string literal
@@ -206,21 +129,13 @@ public:
 	/// Returns the size (in GLchars) of the literal
 	std::size_t size(void) const
 	{
-#if !OGLPLUS_LAZY_STR_LIT
 		return _size;
-#else
-		return std::strlen(_lit);
-#endif
 	}
 
 	/// Returns true if the literal is empty
 	bool empty(void) const
 	{
-#if !OGLPLUS_LAZY_STR_LIT
 		return _size == 0;
-#else
-		return _lit[0] == '\0';
-#endif
 	}
 
 	/// character iterator
@@ -283,12 +198,20 @@ public:
 	{
 		return aux::StrLitCat<aux::StrLitCat<Left, Right>,StrLit>(a, b);
 	}
+
+	/// Conversion to String
+	operator String (void) const
+	{
+		return String(begin(), size());
+	}
+
+	/// Conversion to string const reference
+	operator StrCRef (void) const
+	{
+		return StrCRef(begin(), size());
+	}
 };
 
 } // namespace oglplus
-
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/string.ipp>
-#endif
 
 #endif // include guard

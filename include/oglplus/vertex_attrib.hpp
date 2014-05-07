@@ -31,6 +31,7 @@ namespace oglplus {
 template <>
 class ProgVarLocOps<tag::VertexAttrib>
 {
+private:
 protected:
 	static GLint GetLocation(GLuint program, const GLchar* identifier)
 	{

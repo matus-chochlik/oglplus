@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_ERROR_1107121317_HPP
 #define OGLPLUS_ERROR_1107121317_HPP
 
+#include <oglplus/string/literal.hpp>
 #include <oglplus/object/desc.hpp>
 #include <oglplus/config.hpp>
 #include <stdexcept>
@@ -74,8 +75,8 @@
 #define OGLPLUS_ERROR_INFO_INIT_CLS_NAME(NAME) , NAME
 #endif
 
-// Define a macro that initializes the _bind_tgt member of ErrorInfo
-#if OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+// Define a macro that initializes the _tgt_name member of ErrorInfo
+#if OGLPLUS_ERROR_INFO_NO_TARGET_NAME
 #define OGLPLUS_ERROR_INFO_INIT_BIND_TGT(NAME)
 #else
 #define OGLPLUS_ERROR_INFO_INIT_BIND_TGT(NAME) , NAME
@@ -202,8 +203,8 @@ struct ErrorInfo
 	const char* _cls_name;
 #endif
 
-#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-	const StrLit _bind_tgt;
+#if !OGLPLUS_ERROR_INFO_NO_TARGET_NAME
+	const StrLit _tgt_name;
 #endif
 
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
@@ -235,8 +236,8 @@ struct ErrorInfo
 		, const char* cls_name
 #endif
 
-#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-		, const StrLit& bind_tgt
+#if !OGLPLUS_ERROR_INFO_NO_TARGET_NAME
+		, const StrLit& tgt_name
 #endif
 
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
@@ -267,8 +268,8 @@ struct ErrorInfo
 	 , _cls_name(cls_name)
 #endif
 
-#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
-	 , _bind_tgt(bind_tgt)
+#if !OGLPLUS_ERROR_INFO_NO_TARGET_NAME
+	 , _tgt_name(tgt_name)
 #endif
 
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
@@ -382,7 +383,7 @@ const char* ErrorClassName(const ErrorInfo& info);
 /// Returns the name of the binding point the object where the exception originated
 /**
  *  The result of this function is also influenced by the
- *  #OGLPLUS_ERROR_INFO_NO_BIND_TARGET preprocessor configuration option.
+ *  #OGLPLUS_ERROR_INFO_NO_TARGET_NAME preprocessor configuration option.
  *  If set to zero this function behaves as described above, otherwise it
  *  returns the string "UnknownTarget".
  *
@@ -416,6 +417,7 @@ const char* ErrorBindTarget(const ErrorInfo& info);
  *  @ingroup error_handling
  */
 const String& ErrorObjectDescription(const ErrorInfo& info);
+
 
 /// Exception class for general OpenGL errors
 /** Instances of this exception class are throws whenever an error is detected
@@ -989,6 +991,7 @@ void HandleError(GLenum code, const ErrorInfo& info, bool assertion);
 #define OGLPLUS_IS_ERROR(EXPRESSION)
 #endif
 
+// TODO: replace with OGLPLUS_HANDLE(CONDITION, ...)
 #ifndef OGLPLUS_IS_ERROR
 #define OGLPLUS_IS_ERROR(EXPRESSION) (EXPRESSION)
 #endif

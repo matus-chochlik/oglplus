@@ -14,7 +14,8 @@
 #define OGLPLUS_AUX_GLSL_SOURCE_1207111232_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/literal.hpp>
 
 #include <oglplus/auxiliary/any_iter.hpp>
 

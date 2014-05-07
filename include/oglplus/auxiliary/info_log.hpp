@@ -15,7 +15,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/error.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/string/def.hpp>
 
 namespace oglplus {
 namespace aux {

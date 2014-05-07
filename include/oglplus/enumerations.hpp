@@ -14,7 +14,7 @@
 #define OGLPLUS_ENUMERATIONS_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/string/def.hpp>
 #include <oglplus/auxiliary/enum_class.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <vector>
