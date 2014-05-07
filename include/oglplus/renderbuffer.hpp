@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/object.hpp>
@@ -63,21 +63,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenRenderbuffers)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenRenderbuffers));
+		OGLPLUS_CHECK_FUNC(GenRenderbuffers);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteRenderbuffers));
+		OGLPLUS_VERIFY_FUNC(DeleteRenderbuffers);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsRenderbuffer)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsRenderbuffer));
+		OGLPLUS_VERIFY_FUNC(IsRenderbuffer);
 		return result;
 	}
 };
@@ -118,12 +118,12 @@ public:
 			GLenum(target),
 			GetGLName(renderbuffer)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindRenderbuffer,
-			Renderbuffer,
-			EnumValueName(target),
-			GetGLName(renderbuffer)
-		));
+			ObjectError,
+			Object(renderbuffer).
+			BindTarget(target)
+		);
 	}
 };
 
@@ -170,12 +170,12 @@ public:
 			query,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetRenderbufferParameteriv,
-			Renderbuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 		return result;
 	}
 
@@ -197,12 +197,13 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			RenderbufferStorage,
-			Renderbuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target).
+			GLParam(internalformat)
+		);
 	}
 
 	/// Set the renderbuffer storage parameters for the rbo bound to target
@@ -232,12 +233,13 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			RenderbufferStorageMultisample,
-			Renderbuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target).
+			GLParam(internalformat)
+		);
 	}
 
 

@@ -15,6 +15,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/string/def.hpp>
+#include <oglplus/string/literal.hpp>
 #include <oglplus/auxiliary/enum_class.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <vector>
@@ -75,6 +76,11 @@ struct EnumBaseType
 #endif
 #define OGLPLUS_NO_ENUM_VALUE_RANGES 1
 #endif
+
+inline StrLit ValueName_(GLenum*, GLenum)
+{
+	return StrLit();
+}
 
 template <typename EnumType>
 inline StrLit EnumValueName(EnumType enum_value)

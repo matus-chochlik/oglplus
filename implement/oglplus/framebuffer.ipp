@@ -28,7 +28,11 @@ _binding(Target target)
 {
 	GLint name = 0;
 	OGLPLUS_GLFUNC(GetIntegerv)(_binding_query(target), &name);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+	OGLPLUS_VERIFY(
+		GetIntegerv,
+		Error,
+		GLParam(_binding_query(target))
+	);
 	return name;
 }
 
@@ -36,15 +40,15 @@ OGLPLUS_LIB_FUNC
 void ObjectOps<tag::ExplicitSel, tag::Framebuffer>::
 HandleIncompleteError(Target target, FramebufferStatus status)
 {
-	OGLPLUS_FAKE_USE(target);
-	HandleIncompleteFramebuffer<IncompleteFramebuffer>(
-		status,
-		OGLPLUS_OBJECT_ERROR_INFO(
-			CheckFramebufferStatus,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		)
+	OGLPLUS_HANDLE_ERROR_IF(
+		true,
+		GL_INVALID_FRAMEBUFFER_OPERATION,
+		IncompleteFramebuffer,
+		IncompleteFramebuffer::Message(),
+		Status(status).
+		Object(Binding(target)).
+		BindTarget(target).
+		GLFuncName("CheckFramebufferStatus")
 	);
 }
 

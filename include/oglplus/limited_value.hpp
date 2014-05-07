@@ -14,7 +14,7 @@
 #define OGLPLUS_LIMITED_VALUE_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/limit.hpp>
 #include <cassert>
 
 #ifdef _MSC_VER
@@ -50,7 +50,7 @@ private:
 	{
 		GLint limit = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(Query, &limit);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_FUNC(GetIntegerv);
 		return GLuint(limit);
 	}
 
@@ -64,11 +64,18 @@ protected:
 	 *  @throws Error
 	 *  @throws LimitError
 	 */
-	LimitedCount(GLuint value, const ErrorInfo& info)
+	LimitedCount(GLuint value, const char* query_name)
 	 : _value(value)
 	{
-		if(OGLPLUS_IS_ERROR(_value >= _limit()))
-			HandleLimitError(value, _limit(), info);
+		OGLPLUS_HANDLE_ERROR_IF(
+			_value >= _limit(),
+			GL_INVALID_VALUE,
+			LimitError,
+			LimitError::Message(),
+			Value(_value).
+			Limit(_limit()).
+			GLParam(Query, query_name)
+		);
 	}
 public:
 
@@ -146,10 +153,7 @@ class NAME \
 public: \
 	typedef GLuint _value_type; \
 	NAME(GLuint value = 0) \
-	 : LimitedCount<GL_ ## QUERY>( \
-		value, \
-		OGLPLUS_LIMIT_ERROR_INFO(QUERY) \
-	) \
+	 : LimitedCount<GL_ ## QUERY>(value, #QUERY) \
 	{ } \
 };
 

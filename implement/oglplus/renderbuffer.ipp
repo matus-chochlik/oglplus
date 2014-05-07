@@ -32,7 +32,11 @@ _binding(RenderbufferTarget target)
 {
 	GLint name = 0;
 	OGLPLUS_GLFUNC(GetIntegerv)(_binding_query(target), &name);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+	OGLPLUS_VERIFY(
+		GetIntegerv,
+		Error,
+		GLParam(_binding_query(target))
+	);
 	return name;
 }
 

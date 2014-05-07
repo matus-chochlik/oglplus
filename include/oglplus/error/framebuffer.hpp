@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/framebuffer_error.hpp
+ *  @file oglplus/error/framebuffer.hpp
  *  @brief Framebuffer exceptions
  *
  *  @author Matus Chochlik
@@ -10,11 +10,11 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_FRAMEBUFFER_ERROR_1405022241_HPP
-#define OGLPLUS_FRAMEBUFFER_ERROR_1405022241_HPP
+#ifndef OGLPLUS_ERROR_FRAMEBUFFER_1405022241_HPP
+#define OGLPLUS_ERROR_FRAMEBUFFER_1405022241_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/framebuffer_status.hpp>
 
 namespace oglplus {
@@ -30,21 +30,26 @@ namespace oglplus {
  *  @ingroup error_handling
  */
 class IncompleteFramebuffer
- : public Error
+ : public ObjectError
 {
 private:
 	FramebufferStatus _status;
 public:
-	IncompleteFramebuffer(
-		FramebufferStatus status,
-		const char* msg,
-		const ErrorInfo& info
-	): Error(GL_INVALID_FRAMEBUFFER_OPERATION, msg, info)
-	 , _status(status)
+	static const char* Message(void);
+
+	IncompleteFramebuffer(const char* message)
+	 : ObjectError(message)
 	{ }
 
 	~IncompleteFramebuffer(void) throw()
 	{ }
+
+	IncompleteFramebuffer& Status(FramebufferStatus status)
+	{
+		_status = status;
+		GLParam(status);
+		return *this;
+	}
 
 	FramebufferStatus Status(void) const
 	{
@@ -53,5 +58,9 @@ public:
 };
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/error/framebuffer.ipp>
+#endif
 
 #endif // include guard

@@ -38,12 +38,12 @@ public:
 			query,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetRenderbufferParameteriv,
-			Renderbuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			GLParam(query)
+		);
 		return result;
 	}
 
@@ -64,12 +64,12 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedRenderbufferStorageEXT,
-			Renderbuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			GLParam(internalformat)
+		);
 	}
 
 	/// Set the renderbuffer storage parameters
@@ -98,12 +98,12 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedRenderbufferStorageMultisampleEXT,
-			Renderbuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			GLParam(internalformat)
+		);
 	}
 
 

@@ -66,12 +66,12 @@ public:
 			_name,
 			GLenum(target)
 		);
-		if(result == 0) OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		if(result == 0) OGLPLUS_CHECK(
 			CheckNamedFramebufferStatusEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			BindTarget(target)
+		);
 		return FramebufferStatus(result);
 	}
 
@@ -104,8 +104,10 @@ public:
 	void Complete(Target target) const
 	{
 		FramebufferStatus status = Status(target);
-		if(OGLPLUS_IS_ERROR(status != FramebufferStatus::Complete))
+		if(status != FramebufferStatus::Complete)
+		{
 			HandleIncompleteError(status);
+		}
 	}
 
 	void Complete(void) const
@@ -137,12 +139,11 @@ public:
 			GL_RENDERBUFFER,
 			GetGLName(renderbuffer)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedFramebufferRenderbufferEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Attach a @p renderbuffer to the color @p attachment_no of this FBO
@@ -169,12 +170,11 @@ public:
 			GL_RENDERBUFFER,
 			GetGLName(renderbuffer)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedFramebufferRenderbufferEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
@@ -203,12 +203,11 @@ public:
 			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedFramebufferTextureEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Attach a @p texture to the color @p attachment point of this FBO
@@ -236,12 +235,11 @@ public:
 			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedFramebufferTextureEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 #endif
 
@@ -272,12 +270,11 @@ public:
 			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedFramebufferTexture1DEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Attach a 2D @p texture to the @p attachment point of this FBO
@@ -307,12 +304,11 @@ public:
 			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedFramebufferTexture2DEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Attach a 3D @p texture to the @p attachment point of this FBO
@@ -344,12 +340,11 @@ public:
 			level,
 			layer
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedFramebufferTexture3DEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Attach a @p texture layer to the @p attachment point of this FBO
@@ -379,12 +374,11 @@ public:
 			level,
 			layer
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedFramebufferTextureLayerEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Color buffer specification type
@@ -407,12 +401,11 @@ public:
 			_name,
 			GLenum(buffer)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			FramebufferDrawBufferEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Sets the destination color buffers for draw operations
@@ -428,12 +421,11 @@ public:
 			buffers.Count(),
 			buffers.Values()
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			FramebufferDrawBuffersEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Sets the source color buffer for read operations
@@ -444,12 +436,11 @@ public:
 	void ReadBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(FramebufferReadBufferEXT)(_name, GLenum(buffer));
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			FramebufferReadBufferEXT,
-			Framebuffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 };
 

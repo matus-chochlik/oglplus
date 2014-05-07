@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 
 #if !OGLPLUS_NO_GLFUNC_CHECKS
-#include <oglplus/error.hpp>
+#include <oglplus/error/basic.hpp>
 #endif
 
 namespace oglplus {
@@ -25,7 +25,7 @@ namespace oglplus {
 template <typename RV, typename ... Params>
 inline auto _checked_glfunc(
 	RV (GLAPIENTRY *pfn)(Params...),
-	const ErrorInfo&
+	const char*
 ) -> decltype(pfn)
 {
 	return pfn;
@@ -34,10 +34,16 @@ inline auto _checked_glfunc(
 template <typename RV, typename ... Params>
 inline auto _checked_glfunc(
 	RV (* GLAPIENTRY *ppfn)(Params...),
-	const ErrorInfo& error_info
+	const char* func_name
 ) -> decltype(*ppfn)
 {
-	if(!ppfn || !*ppfn) HandleMissingFunction(error_info);
+	OGLPLUS_HANDLE_ERROR_IF(
+		(!ppfn || !*ppfn),
+		GL_INVALID_OPERATION,
+		MissingFunction,
+		MissingFunction::Message(),
+		GLFuncName(func_name)
+	);
 	return *ppfn;
 }
 
@@ -45,7 +51,7 @@ inline auto _checked_glfunc(
 #define OGLPLUS_GLFUNC(FUNCNAME) \
 	::oglplus::_checked_glfunc( \
 		&::gl##FUNCNAME, \
-		OGLPLUS_ERROR_INFO(FUNCNAME) \
+		#FUNCNAME \
 	)
 #endif
 #else

@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/framebuffer_error.hpp>
+#include <oglplus/error/framebuffer.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/framebuffer_status.hpp>
 #include <oglplus/texture_target.hpp>
@@ -70,21 +70,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenFramebuffers)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenFramebuffers));
+		OGLPLUS_CHECK_FUNC(GenFramebuffers);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteFramebuffers)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteFramebuffers));
+		OGLPLUS_VERIFY_FUNC(DeleteFramebuffers);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsFramebuffer)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsFramebuffer));
+		OGLPLUS_VERIFY_FUNC(IsFramebuffer);
 		return result;
 	}
 };
@@ -125,12 +125,12 @@ public:
 			GLenum(target),
 			GetGLName(framebuffer)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindFramebuffer,
-			Framebuffer,
-			EnumValueName(target),
-			GetGLName(framebuffer)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 };
 
@@ -210,12 +210,12 @@ public:
 		GLenum result = OGLPLUS_GLFUNC(CheckFramebufferStatus)(
 			GLenum(target)
 		);
-		if(result == 0) OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		if(result == 0) OGLPLUS_CHECK(
 			CheckFramebufferStatus,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 		return FramebufferStatus(result);
 	}
 
@@ -238,7 +238,7 @@ public:
 	static void Complete(Target target)
 	{
 		FramebufferStatus status = Status(target);
-		if(OGLPLUS_IS_ERROR(status != FramebufferStatus::Complete))
+		if(status != FramebufferStatus::Complete)
 		{
 			HandleIncompleteError(target, status);
 		}
@@ -269,12 +269,12 @@ public:
 			GL_RENDERBUFFER,
 			GetGLName(renderbuffer)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferRenderbuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 
 	/// Attach a @p renderbuffer to the color @p attachment_no of @p target
@@ -302,12 +302,12 @@ public:
 			GL_RENDERBUFFER,
 			GetGLName(renderbuffer)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferRenderbuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
@@ -338,12 +338,12 @@ public:
 			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 
 	/// Attach a @p texture to the color @p attachment point of @p target
@@ -372,12 +372,12 @@ public:
 			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 #endif
 
@@ -410,12 +410,12 @@ public:
 			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture1D,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 #endif
 
@@ -447,12 +447,12 @@ public:
 			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture2D,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -486,12 +486,12 @@ public:
 			level,
 			layer
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture3D,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 #endif
 
@@ -523,12 +523,12 @@ public:
 			level,
 			layer
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTextureLayer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
@@ -548,12 +548,12 @@ public:
 			buffers.Count(),
 			buffers.Values()
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			InvalidateFramebuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 
 	/// Invalidates the specified attachments or buffers of the Framebuffer
@@ -599,12 +599,12 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			InvalidateSubFramebuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(Binding(target)).
+			BindTarget(target)
+		);
 	}
 
 	/// Invalidates parts of attachments or buffers of the Framebuffer

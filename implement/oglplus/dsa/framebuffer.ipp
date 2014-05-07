@@ -17,14 +17,14 @@ OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Framebuffer>::
 HandleIncompleteError(FramebufferStatus status) const
 {
-	HandleIncompleteFramebuffer<IncompleteFramebuffer>(
-		status,
-		OGLPLUS_OBJECT_ERROR_INFO(
-			CheckFramebufferStatus,
-			Framebuffer,
-			nullptr,
-			_name
-		)
+	OGLPLUS_HANDLE_ERROR_IF(
+		true,
+		GL_INVALID_FRAMEBUFFER_OPERATION,
+		IncompleteFramebuffer,
+		IncompleteFramebuffer::Message(),
+		Status(status).
+		Object(*this).
+		GLFuncName("CheckNamedFramebufferStatusEXT")
 	);
 }
 
