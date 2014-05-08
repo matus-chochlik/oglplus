@@ -16,7 +16,6 @@
 #if GL_NV_shader_buffer_load
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/glfunc.hpp>
 //#include <oglplus/uniform.hpp> TODO
 

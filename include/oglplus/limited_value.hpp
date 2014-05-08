@@ -74,7 +74,7 @@ protected:
 			LimitError::Message(),
 			Value(_value).
 			Limit(_limit()).
-			GLParam(Query, query_name)
+			EnumParam(Query, query_name)
 		);
 	}
 public:

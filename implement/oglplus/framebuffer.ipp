@@ -31,7 +31,7 @@ _binding(Target target)
 	OGLPLUS_VERIFY(
 		GetIntegerv,
 		Error,
-		GLParam(_binding_query(target))
+		EnumParam(_binding_query(target))
 	);
 	return name;
 }
@@ -46,8 +46,7 @@ HandleIncompleteError(Target target, FramebufferStatus status)
 		IncompleteFramebuffer,
 		IncompleteFramebuffer::Message(),
 		Status(status).
-		Object(Binding(target)).
-		BindTarget(target).
+		ObjectBinding(target).
 		GLFuncName("CheckFramebufferStatus")
 	);
 }

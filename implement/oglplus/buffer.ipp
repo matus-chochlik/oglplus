@@ -39,7 +39,11 @@ _binding(BufferTarget target)
 {
 	GLint name = 0;
 	OGLPLUS_GLFUNC(GetIntegerv)(_binding_query(target), &name);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+	OGLPLUS_VERIFY(
+		GetIntegerv,
+		Error,
+		EnumParam(_binding_query(target))
+	);
 	return name;
 }
 
@@ -49,7 +53,11 @@ _binding(BufferIndexedTarget target, GLuint index)
 {
 	GLint name = 0;
 	OGLPLUS_GLFUNC(GetIntegeri_v)(_binding_query(target), index, &name);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+	OGLPLUS_VERIFY(
+		GetIntegeri_v,
+		Error,
+		EnumParam(_binding_query(target))
+	);
 	return name;
 }
 

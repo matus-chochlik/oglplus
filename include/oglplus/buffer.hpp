@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/buffer_binding.hpp>
@@ -51,21 +51,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenBuffers)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenBuffers));
+		OGLPLUS_CHECK_FUNC(GenBuffers);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteBuffers)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteBuffers));
+		OGLPLUS_VERIFY_FUNC(DeleteBuffers);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsBuffer)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsBuffer));
+		OGLPLUS_VERIFY_FUNC(IsBuffer);
 		return result;
 	}
 };
@@ -111,12 +111,12 @@ public:
 			GLenum(target),
 			GetGLName(buffer)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindBuffer,
-			Buffer,
-			EnumValueName(target),
-			GetGLName(buffer)
-		));
+			ObjectError,
+			Object(buffer).
+			BindTarget(target)
+		);
 	}
 
 	/// Returns the current Buffer bound to specified indexed @p target
@@ -144,12 +144,12 @@ public:
 			index,
 			GetGLName(buffer)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindBufferBase,
-			Buffer,
-			EnumValueName(target),
-			GetGLName(buffer)
-		));
+			ObjectError,
+			Object(buffer).
+			BindTarget(target)
+		);
 	}
 
 	/// Bind a range the specified buffer to the specified indexed @p target
@@ -171,12 +171,12 @@ public:
 			offset,
 			size
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindBufferRange,
-			Buffer,
-			EnumValueName(target),
-			GetGLName(buffer)
-		));
+			ObjectError,
+			Object(buffer).
+			BindTarget(target)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
@@ -193,12 +193,11 @@ public:
 			count,
 			names
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindBuffersBase,
-			Buffer,
-			EnumValueName(target),
-			0
-		));
+			ObjectError,
+			BindTarget(target)
+		);
 	}
 
 	/// Sequentially binds @p buffers to @p target starting at @p first index
@@ -238,12 +237,11 @@ public:
 			offsets,
 			sizes
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindBuffersRange,
-			Buffer,
-			EnumValueName(target),
-			0
-		));
+			ObjectError,
+			BindTarget(target)
+		);
 	}
 #endif
 };
@@ -337,6 +335,51 @@ public:
 		BindBase(IndexedTarget::ShaderStorage, GLuint(index));
 	}
 #endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
+	/// Invalidate the buffer data
+	/**
+	 *  @see Data
+	 *  @see ClearData
+	 *
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,3,ARB,invalidate_subdata}
+	 */
+	void InvalidateData(void)
+	{
+		OGLPLUS_GLFUNC(InvalidateBufferData)(_name);
+		OGLPLUS_CHECK(
+			InvalidateBufferData,
+			ObjectError,
+			Object(*this)
+		);
+	}
+
+	/// Invalidate a subrange of the buffer data
+	/**
+	 *  @see Data
+	 *  @see SubData
+	 *  @see InvalidateData
+	 *
+	 *  @throws Error
+	 *
+	 *  @glvoereq{4,3,ARB,invalidate_subdata}
+	 */
+	void InvalidateSubData(GLintptr offset, GLsizeiptr size)
+	{
+		OGLPLUS_GLFUNC(InvalidateBufferSubData)(
+			_name,
+			offset,
+			size
+		);
+		OGLPLUS_CHECK(
+			InvalidateBufferSubData,
+			ObjectError,
+			Object(*this)
+		);
+	}
+#endif
 };
 
 /// Class wrapping buffer functions with explicit target selector
@@ -357,7 +400,12 @@ public:
 			query,
 			&value
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+		OGLPLUS_VERIFY(
+			GetBufferParameteriv,
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(query)
+		);
 		return value;
 	}
 
@@ -412,12 +460,12 @@ public:
 			data,
 			GLenum(usage)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BufferData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(usage)
+		);
 	}
 
 	template <typename GLtype, std::size_t Count>
@@ -433,12 +481,12 @@ public:
 			data,
 			GLenum(usage)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BufferData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(usage)
+		);
 	}
 
 	/// Uploads (sets) the buffer data
@@ -463,12 +511,12 @@ public:
 			data.data(),
 			GLenum(usage)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BufferData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(usage)
+		);
 	}
 
 	/// Uploads (sets) the buffer data
@@ -491,12 +539,12 @@ public:
 			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BufferData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(usage)
+		);
 	}
 
 	/// Uploads (sets) a subrange of the buffer data
@@ -519,12 +567,11 @@ public:
 			count * sizeof(GLtype),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BufferSubData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	template <typename GLtype, std::size_t Count>
@@ -540,12 +587,11 @@ public:
 			Count * sizeof(GLtype),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BufferSubData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Uploads (sets) a subrange of the buffer data
@@ -567,12 +613,11 @@ public:
 			data.size() * sizeof(GLtype),
 			data.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BufferSubData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_copy_buffer
@@ -599,7 +644,7 @@ public:
 			writeoffset,
 			size
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CopyBufferSubData));
+		OGLPLUS_CHECK_FUNC(CopyBufferSubData);
 	}
 #endif // copy buffer
 
@@ -630,12 +675,12 @@ public:
 			GLenum(GetDataType<GLtype>()),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			ClearBufferData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			Object(ObjectBinding(target)).
+			TargetName(target)
+		);
 	}
 
 	/// Clear a subrange of the buffer data
@@ -668,59 +713,12 @@ public:
 			GLenum(GetDataType<GLtype>()),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			ClearBufferSubData,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
-	}
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
-	/// Invalidate the buffer data
-	/**
-	 *  @see Data
-	 *  @see ClearData
-	 *
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,3,ARB,invalidate_subdata}
-	 */
-	void InvalidateData(void)
-	{
-		OGLPLUS_GLFUNC(InvalidateBufferData)(_name);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			InvalidateBufferData,
-			Buffer,
-			nullptr,
-			_name
-		));
-	}
-
-	/// Invalidate a subrange of the buffer data
-	/**
-	 *  @see Data
-	 *  @see SubData
-	 *  @see InvalidateData
-	 *
-	 *  @throws Error
-	 *
-	 *  @glvoereq{4,3,ARB,invalidate_subdata}
-	 */
-	void InvalidateSubData(GLintptr offset, GLsizeiptr size)
-	{
-		OGLPLUS_GLFUNC(InvalidateBufferSubData)(
-			_name,
-			offset,
-			size
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			InvalidateBufferSubData,
-			Buffer,
-			nullptr,
-			_name
-		));
 	}
 #endif
 
@@ -751,12 +749,11 @@ public:
 			data,
 			GLbitfield(flags)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BufferStorage,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Returns true if the buffer storage is immutable
@@ -855,12 +852,11 @@ public:
 			GLenum(target),
 			GLenum(access)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			MakeBufferResidentNV,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Makes buffer currently bound to target inaccessible to GLSL shaders
@@ -874,12 +870,11 @@ public:
 	static void MakeNonResident(Target target)
 	{
 		OGLPLUS_GLFUNC(MakeBufferNonResidentNV)(GLenum(target));
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			MakeBufferNonResidentNV,
-			Buffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Returns the GPU address of the buffer currently bound to target
@@ -899,7 +894,11 @@ public:
 			GL_BUFFER_GPU_ADDRESS_NV,
 			&value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetBufferParameterui64vNV));
+		OGLPLUS_CHECK(
+			GetBufferParameterui64vNV,
+			ObjectError,
+			ObjectBinding(target)
+		);
 		return BufferGPUAddress(value);
 	}
 #endif

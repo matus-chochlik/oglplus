@@ -55,8 +55,8 @@ Error::Error(const char* message)
 #endif
 #if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
  , _glfunc_name(nullptr)
- , _glpara_name(nullptr)
- , _glparam(0)
+ , _enumpar_name(nullptr)
+ , _enumpar(0)
 #endif
 { }
 
@@ -91,22 +91,32 @@ const char* Error::GLFuncName(void) const
 }
 
 OGLPLUS_LIB_FUNC
-GLenum Error::GLParam(void) const
+GLenum Error::EnumParam(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
-	return _glparam;
+	return _enumpar;
+#else
+	return 0;
+#endif
+}
+
+OGLPLUS_LIB_FUNC
+const char* Error::EnumParamName(void) const
+{
+#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+	return _enumpar_name;
 #else
 	return nullptr;
 #endif
 }
 
 OGLPLUS_LIB_FUNC
-const char* Error::GLParamName(void) const
+GLenum Error::Index(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
-	return _glpara_name;
+	return _index;
 #else
-	return nullptr;
+	return 0;
 #endif
 }
 

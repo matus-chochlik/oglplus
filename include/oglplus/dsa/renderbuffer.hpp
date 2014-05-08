@@ -42,7 +42,7 @@ public:
 			GetRenderbufferParameteriv,
 			ObjectError,
 			Object(*this).
-			GLParam(query)
+			EnumParam(query)
 		);
 		return result;
 	}
@@ -68,7 +68,7 @@ public:
 			NamedRenderbufferStorageEXT,
 			ObjectError,
 			Object(*this).
-			GLParam(internalformat)
+			EnumParam(internalformat)
 		);
 	}
 
@@ -102,7 +102,7 @@ public:
 			NamedRenderbufferStorageMultisampleEXT,
 			ObjectError,
 			Object(*this).
-			GLParam(internalformat)
+			EnumParam(internalformat)
 		);
 	}
 

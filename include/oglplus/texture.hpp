@@ -14,8 +14,8 @@
 #define OGLPLUS_TEXTURE_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/compare_func.hpp>
@@ -53,21 +53,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenTextures)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTextures));
+		OGLPLUS_CHECK_FUNC(GenTextures);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteTextures)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteTextures));
+		OGLPLUS_VERIFY_FUNC(DeleteTextures);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsTexture)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsTexture));
+		OGLPLUS_VERIFY_FUNC(IsTexture);
 		return result;
 	}
 };
@@ -108,12 +108,12 @@ public:
 			GLenum(target),
 			GetGLName(texture)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindTexture,
-			Texture,
-			EnumValueName(target),
-			GetGLName(texture)
-		));
+			ObjectError,
+			Object(texture).
+			BindTarget(target)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_2 ||GL_ARB_shader_image_load_store
@@ -142,12 +142,13 @@ public:
 			GLenum(access),
 			GLenum(format)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			BindImageTexture,
-			Texture,
-			nullptr,
-			GetGLName(texture)
-		));
+			ObjectError,
+			Object(texture).
+			EnumParam(format).
+			Index(level)
+		);
 	}
 #endif
 
@@ -163,7 +164,7 @@ public:
 			count,
 			names
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindTextures));
+		OGLPLUS_VERIFY_FUNC(BindTextures);
 	}
 
 	static void BindImage(
@@ -177,7 +178,7 @@ public:
 			count,
 			names
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindImageTextures));
+		OGLPLUS_VERIFY_FUNC(BindImageTextures);
 	}
 
 	/// Sequentially bind @p textures to texture units starting with @p first
@@ -244,7 +245,11 @@ public:
 		OGLPLUS_GLFUNC(ActiveTexture)(
 			GLenum(GL_TEXTURE0 + GLuint(index))
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ActiveTexture));
+		OGLPLUS_VERIFY(
+			ActiveTexture,
+			Error,
+			Index(GLuint(index))
+		);
 	}
 
 	/// Returns active texture unit
@@ -259,7 +264,11 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_ACTIVE_TEXTURE, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(
+			GetIntegerv,
+			Error,
+			EnumParam(GLenum(GL_ACTIVE_TEXTURE))
+		);
 		return GL_TEXTURE0 - result;
 	}
 
@@ -323,12 +332,12 @@ public:
 	void InvalidateImage(GLsizei level)
 	{
 		OGLPLUS_GLFUNC(InvalidateTexImage)(_name, level);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			InvalidateTexImage,
-			Texture,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			Index(level)
+		);
 	}
 
 	/// Invalidates the specified part of texture image
@@ -357,12 +366,12 @@ public:
 			height,
 			depth
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			InvalidateTexSubImage,
-			Texture,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			Index(level)
+		);
 	}
 #endif
 
@@ -387,12 +396,12 @@ public:
 			GLenum(GetDataType<GLtype>()),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			ClearTexImage,
-			Texture,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			Index(level)
+		);
 	}
 
 	/// Clears the specified part of texture image
@@ -427,12 +436,12 @@ public:
 			GLenum(GetDataType<GLtype>()),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			ClearTexImage,
-			Texture,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			Index(level)
+		);
 	}
 #endif
 
@@ -463,12 +472,13 @@ public:
 			min_layer,
 			num_layers
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TextureView,
-			Texture,
-			EnumValueName(target),
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			BindTarget(target).
+			Index(level)
+		);
 	}
 #endif
 };
@@ -534,12 +544,12 @@ public:
 			query,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetTexParameteriv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(query)
+		);
 		return result;
 	}
 
@@ -551,12 +561,12 @@ public:
 			query,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetTexParameterfv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(query)
+		);
 		return result;
 	}
 
@@ -570,12 +580,13 @@ public:
 			query,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetTexLevelParameteriv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(query).
+			Index(level)
+		);
 		return result;
 	}
 
@@ -588,12 +599,13 @@ public:
 			query,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetTexLevelParameterfv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(query).
+			Index(level)
+		);
 		return result;
 	}
 
@@ -1042,12 +1054,13 @@ public:
 			GLenum(type),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexImage3D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format).
+			Index(level)
+		);
 	}
 
 	/// Specifies a three dimensional texture image
@@ -1094,12 +1107,13 @@ public:
 			GLenum(type),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexSubImage3D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(format).
+			Index(level)
+		);
 	}
 
 	/// Specifies a three dimensional texture sub image
@@ -1144,12 +1158,13 @@ public:
 			GLenum(type),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexImage2D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format).
+			Index(level)
+		);
 	}
 
 	/// Specifies a two dimensional texture image
@@ -1202,12 +1217,13 @@ public:
 			GLenum(type),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexImage2D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(format).
+			Index(level)
+		);
 	}
 
 	/// Specifies the image of the specified cube-map face
@@ -1258,12 +1274,13 @@ public:
 			GLenum(type),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexSubImage2D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(format).
+			Index(level)
+		);
 	}
 
 	/// Specifies a two dimensional texture sub image
@@ -1306,12 +1323,13 @@ public:
 			GLenum(type),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexImage1D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format).
+			Index(level)
+		);
 	}
 
 	/// Specifies a one dimensional texture image
@@ -1350,12 +1368,13 @@ public:
 			GLenum(type),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexSubImage1D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(format).
+			Index(level)
+		);
 	}
 
 	/// Specifies a two dimensional texture sub image
@@ -1425,12 +1444,13 @@ public:
 			height,
 			border
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CopyTexImage2D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format).
+			Index(level)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -1458,12 +1478,13 @@ public:
 			width,
 			border
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CopyTexImage1D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format).
+			Index(level)
+		);
 	}
 #endif // GL_VERSION_3_0
 
@@ -1495,12 +1516,12 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CopyTexSubImage3D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 
 	/// Copies a two dimensional texture sub image from the framebuffer
@@ -1529,12 +1550,12 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CopyTexSubImage2D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -1560,12 +1581,12 @@ public:
 			y,
 			width
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CopyTexSubImage1D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 #endif // GL_VERSION_3_0
 
@@ -1597,12 +1618,13 @@ public:
 			image_size,
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CompressedTexImage3D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format).
+			Index(level)
+		);
 	}
 
 	/// Specifies a two dimensional compressed texture image
@@ -1631,12 +1653,13 @@ public:
 			image_size,
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CompressedTexImage2D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format).
+			Index(level)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -1664,12 +1687,13 @@ public:
 			image_size,
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CompressedTexImage1D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format).
+			Index(level)
+		);
 	}
 #endif // GL_VERSION_3_0
 
@@ -1705,12 +1729,13 @@ public:
 			image_size,
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CompressedTexSubImage3D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(format).
+			Index(level)
+		);
 	}
 
 	/// Specifies a two dimensional compressed texture sub image
@@ -1741,12 +1766,13 @@ public:
 			image_size,
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CompressedTexSubImage2D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(format).
+			Index(level)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -1774,12 +1800,13 @@ public:
 			image_size,
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			CompressedTexSubImage1D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(format).
+			Index(level)
+		);
 	}
 #endif
 
@@ -1809,12 +1836,12 @@ public:
 			depth,
 			fixed_sample_locations ? GL_TRUE : GL_FALSE
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexImage3DMultisample,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format)
+		);
 	}
 
 	/// Sets-up a two dimensional multisample texture
@@ -1840,12 +1867,12 @@ public:
 			height,
 			fixed_sample_locations ? GL_TRUE : GL_FALSE
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexImage2DMultisample,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format)
+		);
 	}
 #endif // texture multisample
 
@@ -1867,12 +1894,12 @@ public:
 			GLenum(internal_format),
 			GetGLName(buffer)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexBuffer,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format)
+		);
 	}
 #endif
 
@@ -1898,12 +1925,12 @@ public:
 			offset,
 			size
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexBufferRange,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format)
+		);
 	}
 #endif
 
@@ -1927,12 +1954,12 @@ public:
 			GLenum(internal_format),
 			width
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexStorage1D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format)
+		);
 	}
 
 	/// Specifies all levels of 2D texture at the same time
@@ -1956,12 +1983,12 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexStorage2D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format)
+		);
 	}
 
 	/// Specifies all levels of 3D texture at the same time
@@ -1987,12 +2014,12 @@ public:
 			height,
 			depth
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexStorage3D,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(internal_format)
+		);
 	}
 #endif
 
@@ -2020,12 +2047,12 @@ public:
 			GL_TEXTURE_BASE_LEVEL,
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -2043,12 +2070,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetTexParameterfv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 		return Vector<GLfloat, 4>(result, 4);
 	}
 
@@ -2065,12 +2091,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameterfv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
@@ -2087,12 +2112,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetTexParameterIiv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 		return Vector<GLint, 4>(result, 4);
 	}
 
@@ -2109,12 +2133,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameterIiv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Gets the texture border color (TEXTURE_BORDER_COLOR)
@@ -2131,12 +2154,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetTexParameterIuiv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 		return Vector<GLuint, 4>(result, 4);
 	}
 
@@ -2153,12 +2175,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameterIuiv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 #endif // GL_VERSION_3_0
 
@@ -2189,12 +2210,12 @@ public:
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(mode)
+		);
 	}
 
 	/// Sets the compare function (TEXTURE_COMPARE_FUNC)
@@ -2224,12 +2245,12 @@ public:
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(func)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -2257,12 +2278,11 @@ public:
 			GL_TEXTURE_LOD_BIAS,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameterf,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 #endif // GL_VERSION_3_0
 
@@ -2280,23 +2300,23 @@ public:
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(filter)
+		);
 		OGLPLUS_GLFUNC(TexParameteri)(
 			GLenum(target),
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(filter)
+		);
 	}
 
 	/// Gets the magnification filter (TEXTURE_MAG_FILTER)
@@ -2326,12 +2346,12 @@ public:
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(filter)
+		);
 	}
 
 	/// Gets the minification filter (TEXTURE_MIN_FILTER)
@@ -2361,12 +2381,12 @@ public:
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(filter)
+		);
 	}
 
 	/// Gets minimal LOD value (TEXTURE_MIN_LOD)
@@ -2393,12 +2413,11 @@ public:
 			GL_TEXTURE_MIN_LOD,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameterf,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Gets maximum LOD value (TEXTURE_MAX_LOD)
@@ -2425,12 +2444,11 @@ public:
 			GL_TEXTURE_MAX_LOD,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameterf,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Gets maximum level value (TEXTURE_MAX_LEVEL)
@@ -2457,12 +2475,11 @@ public:
 			GL_TEXTURE_MAX_LEVEL,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Gets the maximum anisotropy level
@@ -2517,12 +2534,11 @@ public:
 			GL_TEXTURE_MAX_ANISOTROPY_EXT,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameterf,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 #else
 		OGLPLUS_FAKE_USE(target);
 		OGLPLUS_FAKE_USE(value);
@@ -2561,12 +2577,12 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(mode)
+		);
 	}
 
 	/// Gets the swizzle parameter (TEXTURE_SWIZZLE_R)
@@ -2680,12 +2696,11 @@ public:
 			GL_TEXTURE_SWIZZLE_RGBA,
 			result.Values()
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetTexParameteriv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 		return result;
 	}
 
@@ -2706,12 +2721,12 @@ public:
 			GL_TEXTURE_SWIZZLE_RGBA,
 			params
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteriv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(mode)
+		);
 	}
 
 	/// Sets the RGBA swizzle parameters (TEXTURE_SWIZZLE_RGBA)
@@ -2741,12 +2756,11 @@ public:
 			GL_TEXTURE_SWIZZLE_RGBA,
 			params
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteriv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Sets the RGBA swizzle parameters (TEXTURE_SWIZZLE_RGBA)
@@ -2763,12 +2777,11 @@ public:
 			GL_TEXTURE_SWIZZLE_RGBA,
 			modes.Values()
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteriv,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 #endif // texture swizzle
 
@@ -2801,12 +2814,12 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(mode)
+		);
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_S)
@@ -2908,12 +2921,12 @@ public:
 			GL_DEPTH_STENCIL_TEXTURE_MODE,
 			GLenum(mode)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(mode)
+		);
 	}
 #endif
 
@@ -2947,12 +2960,11 @@ public:
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
 			enable?GL_TRUE:GL_FALSE
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			TexParameteri,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 #endif
 
@@ -2966,7 +2978,7 @@ public:
 	static void Barrier(void)
 	{
 		OGLPLUS_GLFUNC(TextureBarrierNV)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(TextureBarrierNV));
+		OGLPLUS_VERIFY_FUNC(TextureBarrierNV);
 	}
 #endif
 
@@ -2978,12 +2990,11 @@ public:
 	static void GenerateMipmap(Target target)
 	{
 		OGLPLUS_GLFUNC(GenerateMipmap)(GLenum(target));
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GenerateMipmap,
-			Texture,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 };
 

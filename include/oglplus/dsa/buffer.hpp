@@ -39,7 +39,12 @@ public:
 			query,
 			&value
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetNamedBufferParameterivEXT));
+		OGLPLUS_VERIFY(
+			GetNamedBufferParameterivEXT,
+			ObjectError,
+			Object(BufferName(_name)).
+			EnumParam(query)
+		);
 		return value;
 	}
 
@@ -91,12 +96,12 @@ public:
 			data,
 			GLenum(usage)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedBufferDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(usage)
+		);
 	}
 
 	template <typename GLtype, std::size_t Count>
@@ -111,12 +116,12 @@ public:
 			data,
 			GLenum(usage)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedBufferDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(usage)
+		);
 	}
 
 	/// Uploads (sets) the buffer data
@@ -140,12 +145,12 @@ public:
 			data.data(),
 			GLenum(usage)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedBufferDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(usage)
+		);
 	}
 
 	/// Uploads (sets) the buffer data
@@ -167,12 +172,12 @@ public:
 			reinterpret_cast<const GLtype*>(data.data()),
 			GLenum(usage)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedBufferDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(usage)
+		);
 	}
 
 	/// Uploads (sets) a subrange of the buffer data
@@ -194,12 +199,11 @@ public:
 			count * sizeof(GLtype),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedBufferSubDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	template <typename GLtype, std::size_t Count>
@@ -214,12 +218,11 @@ public:
 			Count * sizeof(GLtype),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedBufferSubDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Uploads (sets) a subrange of the buffer data
@@ -240,12 +243,11 @@ public:
 			data.size() * sizeof(GLtype),
 			data.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			NamedBufferSubDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_copy_buffer
@@ -272,7 +274,7 @@ public:
 			writeoffset,
 			size
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(NamedCopyBufferSubDataEXT));
+		OGLPLUS_CHECK_FUNC(NamedCopyBufferSubDataEXT);
 	}
 #endif // copy buffer
 
@@ -302,12 +304,12 @@ public:
 			GLenum(GetDataType<GLtype>()),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			ClearNamedBufferDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(internal_format)
+		);
 	}
 
 	/// Clear a subrange of the buffer data
@@ -339,12 +341,12 @@ public:
 			GLenum(GetDataType<GLtype>()),
 			data
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			ClearNamedBufferSubDataEXT,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(internal_format)
+		);
 	}
 #endif
 
@@ -408,12 +410,12 @@ public:
 			_name,
 			GLenum(access)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			MakeNamedBufferResidentNV,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(access)
+		);
 	}
 
 	/// Makes this buffer inaccessible to GLSL shaders
@@ -427,12 +429,11 @@ public:
 	void MakeNonResident(void) const
 	{
 		OGLPLUS_GLFUNC(MakeNamedBufferNonResidentNV)(_name);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			MakeNamedBufferNonResidentNV,
-			Buffer,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the GPU address of this buffer
@@ -452,7 +453,11 @@ public:
 			GL_BUFFER_GPU_ADDRESS_NV,
 			&value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetNamedBufferParameterui64vNV));
+		OGLPLUS_CHECK(
+			GetNamedBufferParameterui64vNV,
+			ObjectError,
+			Object(*this)
+		);
 		return BufferGPUAddress(value);
 	}
 #endif

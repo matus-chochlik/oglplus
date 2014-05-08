@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/buffer_map_access.hpp>
 #include <oglplus/buffer_target.hpp>
 
@@ -40,7 +40,11 @@ private:
 			GL_BUFFER_SIZE,
 			&value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetBufferParameteriv));
+		OGLPLUS_CHECK(
+			GetBufferParameteriv,
+			ObjectError,
+			ObjectBinding(target)
+		);
 		return GLsizeiptr(value);
 	}
 
@@ -86,7 +90,11 @@ public:
 		)
 	), _target(target)
 	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBufferRange));
+		OGLPLUS_CHECK(
+			MapBufferRange,
+			Error,
+			EnumParam(target)
+		);
 	}
 
 	/// Maps the whole buffer
@@ -111,7 +119,11 @@ public:
 		)
 	), _target(target)
 	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapBuffer));
+		OGLPLUS_CHECK(
+			MapBuffer,
+			ObjectError,
+			ObjectBinding(_target)
+		);
 	}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -150,7 +162,11 @@ public:
 		if(_ptr != nullptr)
 		{
 			OGLPLUS_GLFUNC(UnmapBuffer)(GLenum(_target));
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UnmapBuffer));
+			OGLPLUS_VERIFY(
+				UnmapBuffer,
+				ObjectError,
+				ObjectBinding(_target)
+			);
 			_ptr = nullptr;
 		}
 	}
@@ -203,7 +219,11 @@ public:
 			offset,
 			length
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(FlushMappedBufferRange));
+		OGLPLUS_CHECK(
+			FlushMappedBufferRange,
+			ObjectError,
+			ObjectBinding(_target)
+		);
 	}
 };
 

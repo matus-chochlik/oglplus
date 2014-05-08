@@ -36,7 +36,9 @@ private:
 			&value
 		);
 		OGLPLUS_CHECK(
-			OGLPLUS_ERROR_INFO(GetNamedBufferParameterivEXT)
+			GetNamedBufferParameterivEXT,
+			ObjectError,
+			Object(BufferName(name))
 		);
 		return GLsizeiptr(value);
 	}
@@ -80,7 +82,11 @@ public:
 		)
 	), _name(GetGLName(buffer))
 	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapNamedBufferRangeEXT));
+		OGLPLUS_CHECK(
+			MapNamedBufferRangeEXT,
+			ObjectError,
+			Object(buffer)
+		);
 	}
 
 	/// Maps the whole buffer
@@ -104,7 +110,11 @@ public:
 		)
 	), _name(GetGLName(buffer))
 	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MapNamedBufferEXT));
+		OGLPLUS_CHECK(
+			MapNamedBufferEXT,
+			ObjectError,
+			Object(buffer)
+		);
 	}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -143,9 +153,7 @@ public:
 		if(_ptr != nullptr)
 		{
 			OGLPLUS_GLFUNC(UnmapNamedBufferEXT)(_name);
-			OGLPLUS_IGNORE(
-				OGLPLUS_ERROR_INFO(UnmapNamedBufferEXT)
-			);
+			OGLPLUS_IGNORE(UnmapNamedBufferEXT);
 			_ptr = nullptr;
 		}
 	}

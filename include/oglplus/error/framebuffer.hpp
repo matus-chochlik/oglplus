@@ -47,7 +47,7 @@ public:
 	IncompleteFramebuffer& Status(FramebufferStatus status)
 	{
 		_status = status;
-		GLParam(status);
+		EnumParam(status);
 		return *this;
 	}
 

@@ -94,6 +94,22 @@ public:
 
 	/// Object GL name
 	GLuint ObjectName(void) const;
+
+	template <typename BindTarget_>
+	ObjectError& ObjectBinding(BindTarget_ bind_tgt)
+	{
+		typedef typename ObjectTargetTag<BindTarget_>::Type Tag;
+		Object(ObjBindingOps<Tag>::Binding(bind_tgt));
+		return BindTarget(bind_tgt);
+	}
+
+	template <typename BindTarget_>
+	ObjectError& ObjectBinding(BindTarget_ bind_tgt, GLuint index)
+	{
+		typedef typename ObjectTargetTag<BindTarget_>::Type Tag;
+		Object(ObjBindingOps<Tag>::Binding(bind_tgt, index));
+		return BindTarget(bind_tgt);
+	}
 };
 
 } // namespace oglplus

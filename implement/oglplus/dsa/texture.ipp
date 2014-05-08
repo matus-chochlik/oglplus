@@ -37,12 +37,14 @@ GetImage(
 		GLenum(type),
 		buffer
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetTextureImageEXT,
-		Texture,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this).
+		BindTarget(target).
+		EnumParam(format).
+		Index(level)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -60,12 +62,13 @@ GetCompressedImage(
 		level,
 		buffer
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetCompressedTextureImageEXT,
-		Texture,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this).
+		BindTarget(target).
+		Index(level)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -105,12 +108,13 @@ Image3D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TextureImage3DEXT,
-		Texture,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this).
+		BindTarget(target).
+		Index(level)
+	);
 	return *this;
 }
 
@@ -139,12 +143,13 @@ SubImage3D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TextureSubImage3DEXT,
-		Texture,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this).
+		BindTarget(target).
+		Index(level)
+	);
 	return *this;
 }
 
@@ -170,12 +175,13 @@ Image2D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TextureImage2DEXT,
-		Texture,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this).
+		BindTarget(target).
+		Index(level)
+	);
 	return *this;
 }
 
@@ -201,12 +207,13 @@ SubImage2D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TextureSubImage2DEXT,
-		Texture,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this).
+		BindTarget(target).
+		Index(level)
+	);
 	return *this;
 }
 
@@ -230,12 +237,13 @@ Image1D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TextureImage1DEXT,
-		Texture,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this).
+		BindTarget(target).
+		Index(level)
+	);
 	return *this;
 }
 
@@ -258,12 +266,13 @@ SubImage1D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TextureSubImage1DEXT,
-		Texture,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this).
+		BindTarget(target).
+		Index(level)
+	);
 	return *this;
 }
 

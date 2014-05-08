@@ -173,8 +173,7 @@ public:
 		OGLPLUS_VERIFY(
 			GetRenderbufferParameteriv,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 		return result;
 	}
@@ -200,9 +199,8 @@ public:
 		OGLPLUS_CHECK(
 			RenderbufferStorage,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target).
-			GLParam(internalformat)
+			ObjectBinding(target).
+			EnumParam(internalformat)
 		);
 	}
 
@@ -236,9 +234,8 @@ public:
 		OGLPLUS_CHECK(
 			RenderbufferStorageMultisample,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target).
-			GLParam(internalformat)
+			ObjectBinding(target).
+			EnumParam(internalformat)
 		);
 	}
 

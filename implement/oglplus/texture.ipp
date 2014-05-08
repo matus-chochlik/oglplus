@@ -99,7 +99,11 @@ _binding(Target target)
 {
 	GLint name = 0;
 	OGLPLUS_GLFUNC(GetIntegerv)(_binding_query(target), &name);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+	OGLPLUS_VERIFY(
+		GetIntegerv,
+		Error,
+		EnumParam(_binding_query(target))
+	);
 	return name;
 }
 
@@ -125,12 +129,13 @@ GetImage(
 		size,
 		buffer
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetnTexImageARB,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(format).
+		Index(level)
+	);
 #else
 	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetTexImage)(
@@ -140,12 +145,13 @@ GetImage(
 		GLenum(type),
 		buffer
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetTexImage,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(format).
+		Index(level)
+	);
 #endif
 }
 
@@ -165,12 +171,12 @@ GetCompressedImage(
 		size,
 		buffer
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetnCompressedTexImageARB,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 #else
 	OGLPLUS_FAKE_USE(size);
 	OGLPLUS_GLFUNC(GetCompressedTexImage)(
@@ -178,12 +184,12 @@ GetCompressedImage(
 		level,
 		buffer
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetCompressedTexImage,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 #endif
 }
 
@@ -227,12 +233,12 @@ Image3D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TexImage3D,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -259,12 +265,12 @@ SubImage3D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TexSubImage3D,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -287,12 +293,12 @@ Image2D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TexImage2D,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -317,12 +323,12 @@ ImageCM(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TexImage2D,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -346,12 +352,12 @@ SubImage2D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TexSubImage2D,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 }
 
 #if GL_VERSION_3_0
@@ -375,12 +381,12 @@ Image1D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TexImage1D,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -401,12 +407,12 @@ SubImage1D(
 		GLenum(image.Type()),
 		image.RawData()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TexSubImage1D,
-		Texture,
-		EnumValueName(target),
-		_binding(target)
-	));
+		ObjectError,
+		ObjectBinding(target).
+		Index(level)
+	);
 }
 
 #endif // GL_VERSION_3_0

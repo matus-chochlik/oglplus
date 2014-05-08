@@ -128,8 +128,7 @@ public:
 		OGLPLUS_VERIFY(
 			BindFramebuffer,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 };
@@ -213,8 +212,7 @@ public:
 		if(result == 0) OGLPLUS_CHECK(
 			CheckFramebufferStatus,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 		return FramebufferStatus(result);
 	}
@@ -272,8 +270,7 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferRenderbuffer,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 
@@ -305,8 +302,7 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferRenderbuffer,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 
@@ -341,8 +337,7 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferTexture,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 
@@ -375,8 +370,7 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferTexture,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 #endif
@@ -413,8 +407,7 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferTexture1D,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 #endif
@@ -450,8 +443,7 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferTexture2D,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 
@@ -489,8 +481,7 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferTexture3D,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 #endif
@@ -526,8 +517,7 @@ public:
 		OGLPLUS_CHECK(
 			FramebufferTextureLayer,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 
@@ -551,8 +541,7 @@ public:
 		OGLPLUS_CHECK(
 			InvalidateFramebuffer,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 
@@ -602,8 +591,7 @@ public:
 		OGLPLUS_CHECK(
 			InvalidateSubFramebuffer,
 			ObjectError,
-			Object(Binding(target)).
-			BindTarget(target)
+			ObjectBinding(target)
 		);
 	}
 

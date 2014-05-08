@@ -35,7 +35,7 @@ _binding(RenderbufferTarget target)
 	OGLPLUS_VERIFY(
 		GetIntegerv,
 		Error,
-		GLParam(_binding_query(target))
+		EnumParam(_binding_query(target))
 	);
 	return name;
 }

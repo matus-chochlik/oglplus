@@ -55,8 +55,9 @@ private:
 #endif
 #if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
 	const char* _glfunc_name;
-	const char* _glpara_name;
-	GLenum _glparam;
+	const char* _enumpar_name;
+	GLenum _enumpar;
+	GLuint _index;
 #endif
 
 #if !OGLPLUS_ERROR_NO_PROPERTIES
@@ -135,28 +136,28 @@ public:
 	const char* GLFuncName(void) const;
 
 	template <typename Enum_>
-	Error& GLParam(Enum_ param)
+	Error& EnumParam(Enum_ param)
 	{
 #if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
-		_glparam = GLenum(param);
-		_glpara_name = EnumValueName(param).c_str();
+		_enumpar = GLenum(param);
+		_enumpar_name = EnumValueName(param).c_str();
 #endif
 		(void)param;
 		return *this;
 	}
 
-	Error& GLParam(GLenum param, const char* param_name)
+	Error& EnumParam(GLenum param, const char* param_name)
 	{
 #if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
-		_glparam = param;
-		_glpara_name = param_name;
+		_enumpar = param;
+		_enumpar_name = param_name;
 #endif
 		(void)param;
 		(void)param_name;
 		return *this;
 	}
 
-	/// Returns the value of the GL parameter related to the error
+	/// Returns the value of the enumeration parameter related to the error
 	/** This function returns the value of the main enumeration
 	 *  parameter passed to the failed OpenGL function
 	 *
@@ -165,9 +166,9 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
-	GLenum GLParam(void) const;
+	GLenum EnumParam(void) const;
 
-	/// Returns the name of the GL parameter related to the error
+	/// Returns the name of the enumeration parameter related to the error
 	/** This function returns the name of the main enumeration
 	 *  parameter passed to the failed OpenGL function
 	 *
@@ -176,7 +177,27 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns an empty C-string.
 	 */
-	const char* GLParamName(void) const;
+	const char* EnumParamName(void) const;
+
+	Error& Index(GLuint index)
+	{
+#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+		_index = index;
+#endif
+		(void)index;
+		return *this;
+	}
+
+	/// Returns the index parameter related to the error
+	/** This function returns the value of the index
+	 *  parameter passed to the failed OpenGL function
+	 *
+	 *  The result of this function is also influenced by the
+	 *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+	 *  If set to zero this function behaves as described above, otherwise it
+	 *  returns zero.
+	 */
+	GLuint Index(void) const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || OGLPLUS_ERROR_NO_PROPERTIES
 	/// Returns the properties of the exception
