@@ -63,21 +63,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenRenderbuffers)(count, names);
-		OGLPLUS_CHECK_FUNC(GenRenderbuffers);
+		OGLPLUS_CHECK_SIMPLE(GenRenderbuffers);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteRenderbuffers)(count, names);
-		OGLPLUS_VERIFY_FUNC(DeleteRenderbuffers);
+		OGLPLUS_VERIFY_SIMPLE(DeleteRenderbuffers);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsRenderbuffer)(name);
-		OGLPLUS_VERIFY_FUNC(IsRenderbuffer);
+		OGLPLUS_VERIFY_SIMPLE(IsRenderbuffer);
 		return result;
 	}
 };

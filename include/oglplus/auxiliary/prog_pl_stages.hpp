@@ -15,7 +15,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/object.hpp>
 
 namespace oglplus {
 
@@ -107,7 +107,11 @@ public:
 				_bits,
 				_program
 			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgramStages));
+			OGLPLUS_VERIFY(
+				UseProgramStages,
+				ObjectError,
+				Object(ProgramPipelineName(_pipeline))
+			);
 			_bits = 0;
 		}
 	}

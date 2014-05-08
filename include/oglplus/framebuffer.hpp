@@ -70,21 +70,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenFramebuffers)(count, names);
-		OGLPLUS_CHECK_FUNC(GenFramebuffers);
+		OGLPLUS_CHECK_SIMPLE(GenFramebuffers);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteFramebuffers)(count, names);
-		OGLPLUS_VERIFY_FUNC(DeleteFramebuffers);
+		OGLPLUS_VERIFY_SIMPLE(DeleteFramebuffers);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsFramebuffer)(name);
-		OGLPLUS_VERIFY_FUNC(IsFramebuffer);
+		OGLPLUS_VERIFY_SIMPLE(IsFramebuffer);
 		return result;
 	}
 };

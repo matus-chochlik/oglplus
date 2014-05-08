@@ -4,11 +4,14 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/error/basic.hpp>
+#include <oglplus/lib/incl_end.ipp>
 #include <vector>
 
 namespace oglplus {
@@ -25,7 +28,11 @@ String GetInfoLog(
 {
 	int length = 0;
 	GetObjectiv(object_name, GL_INFO_LOG_LENGTH, &length);
-	OGLPLUS_CHECK(OGLPLUS_ERROR_INFO_STR(name_GetObjectiv));
+	OGLPLUS_GLFUNC_CHECK(
+		name_GetObjectiv,
+		Error,
+		NoInfo()
+	);
 	if(length > 0)
 	{
 		GLsizei real_length = 0;
@@ -36,7 +43,11 @@ String GetInfoLog(
 			&real_length,
 			buffer.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO_STR(name_GetObjectInfoLog));
+		OGLPLUS_GLFUNC_CHECK(
+			name_GetObjectInfoLog,
+			Error,
+			NoInfo()
+		);
 		return String(buffer.data(), buffer.size());
 	}
 	else return String();

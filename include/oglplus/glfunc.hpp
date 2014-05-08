@@ -40,8 +40,8 @@ inline auto _checked_glfunc(
 	OGLPLUS_HANDLE_ERROR_IF(
 		(!ppfn || !*ppfn),
 		GL_INVALID_OPERATION,
-		MissingFunction,
 		MissingFunction::Message(),
+		MissingFunction,
 		GLFuncName(func_name)
 	);
 	return *ppfn;

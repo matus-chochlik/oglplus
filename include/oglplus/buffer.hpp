@@ -51,21 +51,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenBuffers)(count, names);
-		OGLPLUS_CHECK_FUNC(GenBuffers);
+		OGLPLUS_CHECK_SIMPLE(GenBuffers);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteBuffers)(count, names);
-		OGLPLUS_VERIFY_FUNC(DeleteBuffers);
+		OGLPLUS_VERIFY_SIMPLE(DeleteBuffers);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsBuffer)(name);
-		OGLPLUS_VERIFY_FUNC(IsBuffer);
+		OGLPLUS_VERIFY_SIMPLE(IsBuffer);
 		return result;
 	}
 };
@@ -644,7 +644,7 @@ public:
 			writeoffset,
 			size
 		);
-		OGLPLUS_CHECK_FUNC(CopyBufferSubData);
+		OGLPLUS_CHECK_SIMPLE(CopyBufferSubData);
 	}
 #endif // copy buffer
 

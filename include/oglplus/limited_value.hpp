@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -50,7 +50,7 @@ private:
 	{
 		GLint limit = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(Query, &limit);
-		OGLPLUS_VERIFY_FUNC(GetIntegerv);
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(limit);
 	}
 
@@ -70,8 +70,8 @@ protected:
 		OGLPLUS_HANDLE_ERROR_IF(
 			_value >= _limit(),
 			GL_INVALID_VALUE,
-			LimitError,
 			LimitError::Message(),
+			LimitError,
 			Value(_value).
 			Limit(_limit()).
 			EnumParam(Query, query_name)

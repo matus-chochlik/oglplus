@@ -30,21 +30,6 @@ GetInfoLog(void) const
 	);
 }
 
-OGLPLUS_LIB_FUNC
-void ObjectOps<tag::DirectState, tag::ProgramPipeline>::
-HandleValidationError(void) const
-{
-	HandleBuildError<ValidationError>(
-		GetInfoLog(),
-		OGLPLUS_OBJECT_ERROR_INFO(
-			ValidateProgramPipeline,
-			ProgramPipeline,
-			nullptr,
-			_name
-		)
-	);
-}
-
 #endif // program pipeline
 
 } // namespace oglplus

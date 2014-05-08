@@ -43,8 +43,8 @@ HandleIncompleteError(Target target, FramebufferStatus status)
 	OGLPLUS_HANDLE_ERROR_IF(
 		true,
 		GL_INVALID_FRAMEBUFFER_OPERATION,
-		IncompleteFramebuffer,
 		IncompleteFramebuffer::Message(),
+		IncompleteFramebuffer,
 		Status(status).
 		ObjectBinding(target).
 		GLFuncName("CheckFramebufferStatus")

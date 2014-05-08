@@ -15,8 +15,8 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
 #include <cassert>
 
@@ -75,21 +75,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenTransformFeedbacks)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenTransformFeedbacks));
+		OGLPLUS_CHECK_SIMPLE(GenTransformFeedbacks);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteTransformFeedbacks)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteTransformFeedbacks));
+		OGLPLUS_VERIFY_SIMPLE(DeleteTransformFeedbacks);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsTransformFeedback)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsTransformFeedback));
+		OGLPLUS_VERIFY_SIMPLE(IsTransformFeedback);
 		return result;
 	}
 };
@@ -130,12 +130,12 @@ public:
 			GLenum(target),
 			GetGLName(tfb)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindTransformFeedback,
-			TransformFeedback,
-			EnumValueName(target),
-			GetGLName(tfb)
-		));
+			ObjectError,
+			Object(tfb).
+			BindTarget(target)
+		);
 	}
 };
 
@@ -184,7 +184,11 @@ public:
 	static void Begin(TransformFeedbackPrimitiveType mode)
 	{
 		OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
+		OGLPLUS_VERIFY(
+			BeginTransformFeedback,
+			Error,
+			EnumParam(mode)
+		);
 	}
 
 	/// Begin the transform feedback mode with POINTS
@@ -218,7 +222,7 @@ public:
 	static void End(void)
 	{
 		OGLPLUS_GLFUNC(EndTransformFeedback)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EndTransformFeedback));
+		OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
 	}
 
 	/// Pause the transform feedback mode
@@ -234,7 +238,7 @@ public:
 	static void Pause(void)
 	{
 		OGLPLUS_GLFUNC(PauseTransformFeedback)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
+		OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
 	}
 
 	/// Resume the transform feedback mode
@@ -250,7 +254,7 @@ public:
 	static void Resume(void)
 	{
 		OGLPLUS_GLFUNC(ResumeTransformFeedback)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
+		OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
 	}
 
 	/// Class lifetime of which controls the (de)activation of TFB
@@ -279,7 +283,11 @@ public:
 		 : _active(true)
 		{
 			OGLPLUS_GLFUNC(BeginTransformFeedback)(GLenum(mode));
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BeginTransformFeedback));
+			OGLPLUS_VERIFY(
+				BeginTransformFeedback,
+				Error,
+				EnumParam(mode)
+			);
 		}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -302,7 +310,7 @@ public:
 			if(_active)
 			{
 				OGLPLUS_GLFUNC(EndTransformFeedback)();
-				OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EndTransformFeedback));
+				OGLPLUS_VERIFY_SIMPLE(EndTransformFeedback);
 				_active = false;
 			}
 		}
@@ -345,7 +353,7 @@ public:
 		 : _paused(true)
 		{
 			OGLPLUS_GLFUNC(PauseTransformFeedback)();
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PauseTransformFeedback));
+			OGLPLUS_VERIFY_SIMPLE(PauseTransformFeedback);
 		}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -372,7 +380,7 @@ public:
 			if(_paused)
 			{
 				OGLPLUS_GLFUNC(ResumeTransformFeedback)();
-				OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ResumeTransformFeedback));
+				OGLPLUS_VERIFY_SIMPLE(ResumeTransformFeedback);
 				_paused = false;
 			}
 		}

@@ -15,8 +15,8 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/error/object.hpp>
 #include <cassert>
 
 namespace oglplus {
@@ -37,21 +37,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenVertexArrays)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenVertexArrays));
+		OGLPLUS_CHECK_SIMPLE(GenVertexArrays);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteVertexArrays)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteVertexArrays));
+		OGLPLUS_VERIFY_SIMPLE(DeleteVertexArrays);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsVertexArray)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsVertexArray));
+		OGLPLUS_VERIFY_SIMPLE(IsVertexArray);
 		return result;
 	}
 };
@@ -65,7 +65,11 @@ protected:
 	{
 		GLint name = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_VERTEX_ARRAY_BINDING, &name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(
+			GetIntegerv,
+			ObjectError,
+			EnumParam(GLenum(GL_VERTEX_ARRAY_BINDING))
+		);
 		return name;
 	}
 public:
@@ -87,12 +91,11 @@ public:
 	static void Bind(VertexArrayName vertex_array)
 	{
 		OGLPLUS_GLFUNC(BindVertexArray)(GetGLName(vertex_array));
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindVertexArray,
-			VertexArray,
-			nullptr,
-			GetGLName(vertex_array)
-		));
+			ObjectError,
+			Object(vertex_array)
+		);
 	}
 };
 

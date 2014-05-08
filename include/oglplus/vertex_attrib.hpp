@@ -15,9 +15,9 @@
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/vertex_attrib_slot.hpp>
+#include <oglplus/error/prog_var.hpp>
 #include <oglplus/object/name.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/prog_var/location.hpp>
@@ -32,6 +32,7 @@ template <>
 class ProgVarLocOps<tag::VertexAttrib>
 {
 private:
+	static const char* _inactive_attr_message(void);
 protected:
 	static GLint GetLocation(GLuint program, const GLchar* identifier)
 	{
@@ -39,7 +40,26 @@ protected:
 			program,
 			identifier
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
+		OGLPLUS_CHECK(
+			GetAttribLocation,
+			ProgVarError,
+			Program(ProgramName(program)).
+			Identifier(identifier)
+		);
+		return result;
+	}
+
+	static GLint GetActiveLoc(GLuint program, const GLchar* identifier)
+	{
+		GLint result = GetLocation(program, identifier);
+		OGLPLUS_HANDLE_ERROR_IF(
+			result < 0,
+			GL_INVALID_OPERATION,
+			_inactive_attr_message(),
+			ProgVarError,
+			Program(ProgramName(program)).
+			Identifier(identifier)
+		);
 		return result;
 	}
 };
@@ -90,12 +110,6 @@ protected:
 	VertexAttribOps(VertexAttribSlot i)
 	 : _location(GLint(i))
 	{ }
-
-	static void _handle_inactive(
-		ProgramName program,
-		const GLchar* identifier,
-		GLint result
-	);
 
 	static void _handle_inconsistent_location(
 		const GLchar* identifier,
@@ -507,19 +521,6 @@ public:
 	}
 #endif
 
-	void BindLocation(
-		ProgramName program,
-		const GLchar* identifier
-	) const
-	{
-		OGLPLUS_GLFUNC(BindAttribLocation)(
-			GetGLName(program),
-			_location,
-			identifier
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
-	}
-
 	/// Bind the vertex attribute location
 	/**
 	 *  @see GetLocation
@@ -530,7 +531,7 @@ public:
 	 */
 	void BindLocation(
 		ProgramName program,
-		const String& identifier
+		StrCRef identifier
 	) const
 	{
 		OGLPLUS_GLFUNC(BindAttribLocation)(
@@ -538,7 +539,13 @@ public:
 			_location,
 			identifier.c_str()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
+		OGLPLUS_CHECK(
+			BindAttribLocation,
+			ProgVarError,
+			Program(program).
+			Identifier(identifier).
+			Index(_location)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3
@@ -554,7 +561,7 @@ public:
 			_location,
 			divisor
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribDivisor));
+		OGLPLUS_CHECK_SIMPLE(VertexAttribDivisor);
 	}
 #endif
 };
@@ -572,7 +579,7 @@ BindLocation(
 		FriendOf<VertexAttribOps>::GetLocation(vertex_attrib),
 		identifier
 	);
-	OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BindAttribLocation));
+	OGLPLUS_CHECK_SIMPLE(BindAttribLocation);
 }
 */
 
@@ -950,7 +957,12 @@ public:
 			stride,
 			pointer
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribPointer));
+		OGLPLUS_CHECK(
+			VertexAttribPointer,
+			Error,
+			EnumParam(data_type).
+			Index(_location)
+		);
 		return *this;
 	}
 
@@ -973,11 +985,17 @@ public:
 			stride,
 			pointer
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIPointer));
+		OGLPLUS_CHECK(
+			VertexAttribIPointer,
+			Error,
+			EnumParam(data_type).
+			Index(_location)
+		);
 		return *this;
 	}
 
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
 	/// Setup the properties of this vertex attribute array
 	/**
 	 *  @glsymbols
@@ -990,7 +1008,6 @@ public:
 		const void* pointer
 	) const
 	{
-#if GL_VERSION_4_2 || GL_ARB_vertex_attrib_64bit
 		OGLPLUS_GLFUNC(VertexAttribLPointer)(
 			_location,
 			values_per_vertex,
@@ -998,20 +1015,29 @@ public:
 			stride,
 			pointer
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLPointer));
-#else
-		OGLPLUS_FAKE_USE(values_per_vertex);
-		OGLPLUS_FAKE_USE(data_type);
-		OGLPLUS_FAKE_USE(stride);
-		OGLPLUS_FAKE_USE(pointer);
-		assert(!
-			"The glVertexAttribLPointer function is "
-			"required but not available! Double-precision "
-			"vertex attribute values are not supported."
+		OGLPLUS_CHECK(VertexAttribLPointer,
+			Error,
+			EnumParam(data_type).
+			Index(_location)
 		);
-#endif
 		return *this;
 	}
+#else
+	const VertexAttribArray& LPointer(
+		GLuint,
+		DataType,
+		GLsizei,
+		const void*
+	) const
+	{
+		assert(!
+		"The glVertexAttribLPointer function is "
+		"required but not available! Double-precision "
+		"vertex attribute values are not supported."
+		);
+		return *this;
+	}
+#endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_vertex_attrib_binding
 	/// Setup the format of this vertex attribute array
@@ -1033,7 +1059,12 @@ public:
 			normalized ? GL_TRUE : GL_FALSE,
 			relative_offset
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribFormat));
+		OGLPLUS_CHECK(
+			VertexAttribFormat,
+			Error,
+			EnumParam(data_type).
+			Index(_location)
+		);
 		return *this;
 	}
 
@@ -1054,7 +1085,12 @@ public:
 			GLenum(data_type),
 			relative_offset
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribIFormat));
+		OGLPLUS_CHECK(
+			VertexAttribIFormat,
+			Error,
+			EnumParam(data_type).
+			Index(_location)
+		);
 		return *this;
 	}
 
@@ -1075,7 +1111,12 @@ public:
 			GLenum(data_type),
 			relative_offset
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(VertexAttribLFormat));
+		OGLPLUS_CHECK(
+			VertexAttribLFormat,
+			Error,
+			EnumParam(data_type).
+			Index(_location)
+		);
 		return *this;
 	}
 #endif
@@ -1088,7 +1129,11 @@ public:
 	const VertexAttribArray& Enable(void) const
 	{
 		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_location);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(EnableVertexAttribArray));
+		OGLPLUS_VERIFY(
+			EnableVertexAttribArray,
+			Error,
+			Index(_location)
+		);
 		return *this;
 	}
 
@@ -1100,7 +1145,11 @@ public:
 	const VertexAttribArray& Disable(void) const
 	{
 		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_location);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DisableVertexAttribArray));
+		OGLPLUS_VERIFY(
+			DisableVertexAttribArray,
+			Error,
+			Index(_location)
+		);
 		return *this;
 	}
 };

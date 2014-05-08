@@ -13,38 +13,14 @@
 #ifndef OGLPLUS_PROG_VAR_SET_OPS_1107121519_HPP
 #define OGLPLUS_PROG_VAR_SET_OPS_1107121519_HPP
 
-#include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/fwd.hpp>
+#include <oglplus/glfunc.hpp>
+#include <oglplus/error/basic.hpp>
 
 #include <type_traits>
 #include <cstddef>
 
 namespace oglplus {
-
-class ProgVarSetUtils
-{
-private:
-	static void _handle_error(
-		const oglplus::ErrorInfo& error_info,
-		GLuint program,
-		GLuint location,
-		GLenum result
-	);
-protected:
-	static void _handle_if_error(
-		const oglplus::ErrorInfo& error_info,
-		GLuint program,
-		GLuint location
-	)
-	{
-		GLenum result = OGLPLUS_GLFUNC(GetError)();
-		if(OGLPLUS_IS_ERROR(result != GL_NO_ERROR))
-		{
-			_handle_error(error_info, program, location, result);
-		}
-	}
-};
 
 template <class OpsTag, class VarTag, class TypTag, class T, std::size_t M>
 class ProgVarSetOps;
@@ -53,22 +29,12 @@ template <typename OpsTag, typename VarTag, typename T, std::size_t M>
 class ProgVarSetOps<OpsTag, VarTag, tag::NativeTypes, T, M>
  : public ProgVarSetters<OpsTag, VarTag, tag::NativeTypes>
  , public ProgVarCallers<OpsTag, T>
- , public ProgVarSetUtils
 {
 private:
 	typedef ProgVarSetters<OpsTag, VarTag, tag::NativeTypes> Setters;
 	typedef ProgVarCallers<OpsTag, T> Callers;
 
 	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
-
-	static void _report_if_error(GLuint program, GLuint base_location)
-	{
-		ProgVarSetUtils::_handle_if_error(
-			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
-			program,
-			base_location
-		);
-	}
 
 	typedef std::false_type _set_done;
 	typedef std::true_type  _set_cont;
@@ -95,7 +61,11 @@ private:
 			Setters::_fns_v(nparam, v),
 			v
 		);
-		_report_if_error(program, base_location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 		_do_set_v<N - 4, V>(
 			_set_mode<N - 4>(),
 			program,
@@ -121,7 +91,11 @@ private:
 			Setters::_fns_v(nparam, v),
 			v
 		);
-		_report_if_error(program, base_location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 
 	template <std::size_t N, typename V>
@@ -142,7 +116,11 @@ private:
 			Setters::_fns_v(nparam, v),
 			v
 		);
-		_report_if_error(program, base_location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 
 
@@ -164,7 +142,11 @@ private:
 			Setters::_fns_t(nparam, &v0),
 			v0, v1, v2, v3
 		);
-		_report_if_error(program, base_location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 		_do_set_t(
 			_set_mode<sizeof...(V)>(),
 			program,
@@ -190,7 +172,11 @@ private:
 			Setters::_fns_t(nparam, &v...),
 			v...
 		);
-		_report_if_error(program, base_location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 #endif //NO_VARIADIC_TEMPLATES
 
@@ -211,7 +197,11 @@ protected:
 			location,
 			v...
 		);
-		_report_if_error(program, location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 #else
 	template <typename V>
@@ -224,7 +214,11 @@ protected:
 			Setters::_fns_t(nparam, &v0),
 			v0
 		);
-		_report_if_error(program, location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 
 	template <typename V>
@@ -237,7 +231,11 @@ protected:
 			Setters::_fns_t(nparam, &v0),
 			v0, v1
 		);
-		_report_if_error(program, location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 
 	template <typename V>
@@ -250,7 +248,11 @@ protected:
 			Setters::_fns_t(nparam, &v0),
 			v0, v1, v2
 		);
-		_report_if_error(program, location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 
 	template <typename V>
@@ -263,7 +265,11 @@ protected:
 			Setters::_fns_t(nparam, &v0),
 			v0, v1, v2, v3
 		);
-		_report_if_error(program, location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 #endif //NO_VARIADIC_TEMPLATES
 
@@ -305,22 +311,11 @@ template <typename OpsTag, typename VarTag, typename T, std::size_t M>
 class ProgVarSetOps<OpsTag, VarTag, tag::MatrixTypes, T, M>
  : public ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes>
  , public ProgVarCallers<OpsTag, T>
- , public ProgVarSetUtils
 {
 private:
 	typedef ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes> Setters;
 	typedef ProgVarCallers<OpsTag, T> Callers;
 
-	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
-
-	static void _report_if_error(GLuint program, GLuint base_location)
-	{
-		ProgVarSetUtils::_handle_if_error(
-			OGLPLUS_ERROR_INFO_AUTO_CTXT(),
-			program,
-			base_location
-		);
-	}
 protected:
 	template <std::size_t Cols, std::size_t Rows, typename V>
 	static void _do_set_mat(
@@ -349,7 +344,11 @@ protected:
 			Setters::_fns_v(cols, rows, v),
 			v
 		);
-		_report_if_error(program, location);
+		OGLPLUS_CHECK_CTXT(
+			ProgVarError,
+			Program(ProgramName(program)).
+			Index(base_location)
+		);
 	}
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
@@ -383,9 +382,5 @@ protected:
 };
 
 } // namespace oglplus
-
-#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/prog_var/set_ops.ipp>
-#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

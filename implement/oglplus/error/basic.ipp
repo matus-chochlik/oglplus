@@ -71,6 +71,16 @@ const char* Error::SourceFile(void) const
 }
 
 OGLPLUS_LIB_FUNC
+const char* Error::SourceFunc(void) const
+{
+#if !OGLPLUS_ERROR_INFO_NO_FUNC
+	return _func;
+#else
+	return nullptr;
+#endif
+}
+
+OGLPLUS_LIB_FUNC
 unsigned Error::SourceLine(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_LINE

@@ -50,6 +50,9 @@ private:
 #if !OGLPLUS_ERROR_INFO_NO_FILE
 	const char* _file;
 #endif
+#if !OGLPLUS_ERROR_INFO_NO_FUNC
+	const char* _func;
+#endif
 #if !OGLPLUS_ERROR_INFO_NO_LINE
 	unsigned _line;
 #endif
@@ -96,6 +99,24 @@ public:
 	 *  returns an empty C string.
 	 */
 	const char* SourceFile(void) const;
+
+	Error& SourceFunc(const char* func)
+	{
+#if !OGLPLUS_ERROR_INFO_NO_FUNC
+		_func = func;
+#endif
+		(void)func;
+		return *this;
+	}
+
+	/// Returns the name of the function where the error occured
+	/**
+	 *  The result of this function is also influenced by the
+	 *  #OGLPLUS_ERROR_INFO_NO_FUNC preprocessor configuration option.
+	 *  If set to zero this function behaves as described above, otherwise it
+	 *  returns an empty C string.
+	 */
+	const char* SourceFunc(void) const;
 
 	Error& SourceLine(unsigned line)
 	{
@@ -265,12 +286,26 @@ inline void HandleError(ErrorType& error)
 	throw error;
 }
 
+#define OGLPLUS_ERROR_INFO_CONTEXT(GLFUNC, CLASS) \
+	static const char* _errinf_glfn(void) \
+	{ \
+		return #GLFUNC; \
+	} \
+	static const char* _errinf_cls(void) \
+	{ \
+		return #CLASS; \
+	}
+
+#define OGLPLUS_ERROR_INFO_REUSE_CONTEXT(SOURCE) \
+	using SOURCE::_errinf_glfn; \
+	using SOURCE::_errinf_cls;
+
 // Macro for generic error handling
 #define OGLPLUS_HANDLE_ERROR_IF(\
 	CONDITION,\
 	ERROR_CODE,\
-	ERROR,\
 	MESSAGE,\
+	ERROR,\
 	ERROR_INFO\
 )\
 {\
@@ -281,22 +316,29 @@ inline void HandleError(ErrorType& error)
 		(void)error\
 			.ERROR_INFO\
 			.SourceFile(__FILE__)\
+			.SourceFunc(__FUNCTION__)\
 			.SourceLine(__LINE__)\
 			.Code(error_code);\
 		HandleError(error);\
 	}\
 }
 
-#define OGLPLUS_CHECK(GLFUNC, ERROR, ERROR_INFO) \
+#define OGLPLUS_GLFUNC_CHECK(FUNC_NAME, ERROR, ERROR_INFO)\
 	OGLPLUS_HANDLE_ERROR_IF(\
 		error_code != GL_NO_ERROR,\
 		glGetError(),\
-		ERROR,\
 		ERROR::Message(error_code),\
-		ERROR_INFO.GLFuncName(#GLFUNC)\
+		ERROR,\
+		ERROR_INFO.GLFuncName(FUNC_NAME)\
 	)
 
-#define OGLPLUS_CHECK_FUNC(GLFUNC) \
+#define OGLPLUS_CHECK(GLFUNC, ERROR, ERROR_INFO) \
+	OGLPLUS_GLFUNC_CHECK(#GLFUNC, ERROR, ERROR_INFO)
+
+#define OGLPLUS_CHECK_CTXT(ERROR, ERROR_INFO) \
+	OGLPLUS_GLFUNC_CHECK(_errinf_glfn(), ERROR, ERROR_INFO)
+
+#define OGLPLUS_CHECK_SIMPLE(GLFUNC) \
 	OGLPLUS_CHECK(GLFUNC, Error, NoInfo())
 
 #if !OGPLUS_LOW_PROFILE
@@ -306,7 +348,7 @@ inline void HandleError(ErrorType& error)
 #define OGLPLUS_VERIFY(PARAM)
 #endif
 
-#define OGLPLUS_VERIFY_FUNC(GLFUNC) \
+#define OGLPLUS_VERIFY_SIMPLE(GLFUNC) \
 	OGLPLUS_CHECK(GLFUNC, Error, NoInfo())
 
 #define OGLPLUS_IGNORE(PARAM) ::glGetError();

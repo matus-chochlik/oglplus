@@ -274,7 +274,7 @@ public:
 			writeoffset,
 			size
 		);
-		OGLPLUS_CHECK_FUNC(NamedCopyBufferSubDataEXT);
+		OGLPLUS_CHECK_SIMPLE(NamedCopyBufferSubDataEXT);
 	}
 #endif // copy buffer
 

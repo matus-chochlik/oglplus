@@ -16,10 +16,10 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/link_error.hpp>
 #include <oglplus/bitfield.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/error/program.hpp>
 #include <oglplus/auxiliary/prog_pl_stages.hpp>
 
 #include <cassert>
@@ -64,21 +64,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenProgramPipelines)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenProgramPipelines));
+		OGLPLUS_CHECK_SIMPLE(GenProgramPipelines);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteProgramPipelines)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteProgramPipelines));
+		OGLPLUS_VERIFY_SIMPLE(DeleteProgramPipelines);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsProgramPipeline)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsProgramPipeline));
+		OGLPLUS_VERIFY_SIMPLE(IsProgramPipeline);
 		return result;
 	}
 };
@@ -92,7 +92,11 @@ protected:
 	{
 		GLint name = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_PROGRAM_PIPELINE_BINDING, &name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(
+			GetIntegerv,
+			Error,
+			EnumParam(GLenum(GL_PROGRAM_PIPELINE_BINDING))
+		);
 		return name;
 	}
 public:
@@ -114,12 +118,11 @@ public:
 	static void Bind(ProgramPipelineName pipeline)
 	{
 		OGLPLUS_GLFUNC(BindProgramPipeline)(GetGLName(pipeline));
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindProgramPipeline,
-			ProgramPipeline,
-			nullptr,
-			GetGLName(pipeline)
-		));
+			ObjectError,
+			Object(pipeline)
+		);
 	}
 };
 
@@ -169,12 +172,12 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramPipelineiv)(_name, query, &result);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetProgramPipelineiv,
-			ProgramPipeline,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(query)
+		);
 		return result;
 	}
 
@@ -228,7 +231,11 @@ public:
 			GLbitfield(stages),
 			GetGLName(program)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UseProgramStages));
+		OGLPLUS_CHECK(
+			UseProgramStages,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 #if defined GL_ALL_SHADER_BITS
@@ -245,7 +252,11 @@ public:
 			GL_ALL_SHADER_BITS,
 			GetGLName(program)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgramStages));
+		OGLPLUS_VERIFY(
+			UseProgramStages,
+			ObjectError,
+			Object(*this)
+		);
 	}
 #endif
 
@@ -269,8 +280,6 @@ public:
 		return GetIntParam(GL_VALIDATE_STATUS) == GL_TRUE;
 	}
 
-	void HandleValidationError(void) const;
-
 	/// Validates this program pipeline
 	/**
 	 *  @throws Error ValidationError
@@ -283,14 +292,19 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ValidateProgramPipeline)(_name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			ValidateProgramPipeline,
-			ProgramPipeline,
-			nullptr,
-			_name
-		));
-		if(OGLPLUS_IS_ERROR(!IsValid()))
-			HandleValidationError();
+			ObjectError,
+			Object(*this)
+		);
+		OGLPLUS_HANDLE_ERROR_IF(
+			!IsValid(),
+			GL_INVALID_OPERATION,
+			ValidationError::Message(),
+			ValidationError,
+			Log(GetInfoLog()).
+			Object(*this)
+		);
 	}
 
 	/// Make the @p program active for this program pipeline
@@ -305,7 +319,11 @@ public:
 			_name,
 			GetGLName(program)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ActiveShaderProgram));
+		OGLPLUS_CHECK(
+			ActiveShaderProgram,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the current active shader program

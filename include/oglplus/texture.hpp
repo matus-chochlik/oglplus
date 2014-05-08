@@ -53,21 +53,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenTextures)(count, names);
-		OGLPLUS_CHECK_FUNC(GenTextures);
+		OGLPLUS_CHECK_SIMPLE(GenTextures);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteTextures)(count, names);
-		OGLPLUS_VERIFY_FUNC(DeleteTextures);
+		OGLPLUS_VERIFY_SIMPLE(DeleteTextures);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsTexture)(name);
-		OGLPLUS_VERIFY_FUNC(IsTexture);
+		OGLPLUS_VERIFY_SIMPLE(IsTexture);
 		return result;
 	}
 };
@@ -164,7 +164,7 @@ public:
 			count,
 			names
 		);
-		OGLPLUS_VERIFY_FUNC(BindTextures);
+		OGLPLUS_VERIFY_SIMPLE(BindTextures);
 	}
 
 	static void BindImage(
@@ -178,7 +178,7 @@ public:
 			count,
 			names
 		);
-		OGLPLUS_VERIFY_FUNC(BindImageTextures);
+		OGLPLUS_VERIFY_SIMPLE(BindImageTextures);
 	}
 
 	/// Sequentially bind @p textures to texture units starting with @p first
@@ -2978,7 +2978,7 @@ public:
 	static void Barrier(void)
 	{
 		OGLPLUS_GLFUNC(TextureBarrierNV)();
-		OGLPLUS_VERIFY_FUNC(TextureBarrierNV);
+		OGLPLUS_VERIFY_SIMPLE(TextureBarrierNV);
 	}
 #endif
 

@@ -15,8 +15,8 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/vector.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/data_type.hpp>
@@ -49,21 +49,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenSamplers)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenSamplers));
+		OGLPLUS_CHECK_SIMPLE(GenSamplers);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteSamplers)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteSamplers));
+		OGLPLUS_VERIFY_SIMPLE(DeleteSamplers);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsSampler)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsSampler));
+		OGLPLUS_VERIFY_SIMPLE(IsSampler);
 		return result;
 	}
 };
@@ -104,12 +104,12 @@ public:
 			GLuint(target),
 			GetGLName(sampler)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BindSampler,
-			Sampler,
-			nullptr,
-			GetGLName(sampler)
-		));
+			ObjectError,
+			Object(sampler).
+			Index(GLuint(target))
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_4 || GL_ARB_multi_bind
@@ -124,7 +124,7 @@ public:
 			count,
 			names
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindSamplers));
+		OGLPLUS_VERIFY_SIMPLE(BindSamplers);
 	}
 
 	/// Sequentially bind @p samplers to texture units starting with @p first
@@ -188,12 +188,12 @@ public:
 			query,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetSamplerParameteriv,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(query)
+		);
 		return result;
 	}
 
@@ -205,12 +205,12 @@ public:
 			query,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetSamplerParameterfv,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(query)
+		);
 		return result;
 	}
 
@@ -228,12 +228,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetSamplerParameterfv,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 		return Vector<GLfloat, 4>(result, 4);
 	}
 
@@ -250,7 +249,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(SamplerParameterfv));
+		OGLPLUS_CHECK(
+			SamplerParameterfv,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Gets the texture border color
@@ -267,12 +270,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetSamplerParameterIiv,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 		return Vector<GLint, 4>(result, 4);
 	}
 
@@ -289,12 +291,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameterIiv,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Gets the texture border color
@@ -311,12 +312,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			result
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetSamplerParameterIuiv,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 		return Vector<GLuint, 4>(result, 4);
 	}
 
@@ -333,12 +333,11 @@ public:
 			GL_TEXTURE_BORDER_COLOR,
 			Data(color)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameterIuiv,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Gets the compare mode
@@ -367,12 +366,12 @@ public:
 			GL_TEXTURE_COMPARE_MODE,
 			GLenum(mode)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameteri,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(mode)
+		);
 	}
 
 	/// Gets the compare function
@@ -401,12 +400,12 @@ public:
 			GL_TEXTURE_COMPARE_FUNC,
 			GLenum(func)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameteri,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(func)
+		);
 	}
 
 	/// Gets the LOD bias value
@@ -433,12 +432,11 @@ public:
 			GL_TEXTURE_LOD_BIAS,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameterf,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Gets the magnification filter
@@ -467,12 +465,12 @@ public:
 			GL_TEXTURE_MAG_FILTER,
 			GLenum(filter)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameteri,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(filter)
+		);
 	}
 
 	/// Gets the minification filter
@@ -501,12 +499,12 @@ public:
 			GL_TEXTURE_MIN_FILTER,
 			GLenum(filter)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameteri,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(filter)
+		);
 	}
 
 	/// Gets minimal LOD value
@@ -533,12 +531,11 @@ public:
 			GL_TEXTURE_MIN_LOD,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameterf,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Gets maximal LOD value
@@ -565,12 +562,11 @@ public:
 			GL_TEXTURE_MAX_LOD,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameterf,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Gets the wrap parameter (TEXTURE_WRAP_*)
@@ -595,12 +591,12 @@ public:
 			GLenum(coord),
 			GLenum(mode)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameteri,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(mode)
+		);
 	}
 
 	/// Gets the wrap parameter for the S coordinate
@@ -694,12 +690,11 @@ public:
 			GL_TEXTURE_CUBE_MAP_SEAMLESS,
 			enable?GL_TRUE:GL_FALSE
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			SamplerParameteri,
-			Sampler,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 #endif
 };

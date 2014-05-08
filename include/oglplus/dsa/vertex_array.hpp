@@ -56,7 +56,10 @@ public:
 			offset
 		);
 		OGLPLUS_CHECK(
-			OGLPLUS_ERROR_INFO(VertexArrayVertexAttribOffsetEXT)
+			VertexArrayVertexAttribOffsetEXT,
+			ObjectError,
+			Object(*this).
+			Index(GLuint(location))
 		);
 		return *this;
 	}
@@ -85,7 +88,10 @@ public:
 			offset
 		);
 		OGLPLUS_CHECK(
-			OGLPLUS_ERROR_INFO(VertexArrayVertexAttribIOffsetEXT)
+			VertexArrayVertexAttribIOffsetEXT,
+			ObjectError,
+			Object(*this).
+			Index(GLuint(location))
 		);
 		return *this;
 	}
@@ -101,7 +107,12 @@ public:
 			_name,
 			GLuint(location)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(EnableVertexArrayAttribEXT));
+		OGLPLUS_CHECK(
+			EnableVertexArrayAttribEXT,
+			ObjectError,
+			Object(*this).
+			Index(GLuint(location))
+		);
 		return *this;
 	}
 
@@ -116,7 +127,12 @@ public:
 			_name,
 			GLuint(location)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DisableVertexArrayAttribEXT));
+		OGLPLUS_CHECK(
+			DisableVertexArrayAttribEXT,
+			ObjectError,
+			Object(*this).
+			Index(GLuint(location))
+		);
 		return *this;
 	}
 };

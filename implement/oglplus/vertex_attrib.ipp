@@ -16,31 +16,10 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-void VertexAttribOps::
-_handle_inactive(
-	ProgramName program,
-	const GLchar* identifier,
-	GLint result
-)
+const char* ProgVarLocOps<tag::VertexAttrib>::
+_inactive_attr_message(void)
 {
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	Error::AddPropertyValue(
-		props,
-		"program",
-		DescriptionOf(program)
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		result,
-		"Getting the location of inactive vertex attrib",
-		OGLPLUS_ERROR_INFO(GetAttribLocation),
-		std::move(props)
-	);
+	return "Getting the location of inactive program vertex attribute";
 }
 
 OGLPLUS_LIB_FUNC

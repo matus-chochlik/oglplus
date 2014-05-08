@@ -20,8 +20,8 @@ HandleIncompleteError(FramebufferStatus status) const
 	OGLPLUS_HANDLE_ERROR_IF(
 		true,
 		GL_INVALID_FRAMEBUFFER_OPERATION,
-		IncompleteFramebuffer,
 		IncompleteFramebuffer::Message(),
+		IncompleteFramebuffer,
 		Status(status).
 		Object(*this).
 		GLFuncName("CheckNamedFramebufferStatusEXT")
