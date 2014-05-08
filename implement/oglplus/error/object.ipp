@@ -9,6 +9,10 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/object/desc.hpp>
+#include <oglplus/lib/incl_end.ipp>
+
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
@@ -17,26 +21,21 @@ ObjectError::ObjectError(const char* message)
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
  , _obj_type(0)
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
- , _cls_name(nullptr)
-#endif
 #if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
  , _bind_tgt(0)
 #endif
 #if !OGLPLUS_ERROR_INFO_NO_TARGET_NAME
  , _tgt_name(nullptr)
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
  , _obj_typeid(0)
  , _obj_name(0)
-#endif
 { }
 
 
 OGLPLUS_LIB_FUNC
 GLenum ObjectError::ObjectType(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
 	return _obj_type;
 #else
 	return GLenum(0);
@@ -47,7 +46,7 @@ OGLPLUS_LIB_FUNC
 const char* ObjectError::ClassName(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
-	return _cls_name;
+	return EnumValueName(oglplus::ObjectType(this->ObjectType())).c_str();
 #else
 	return nullptr;
 #endif
@@ -76,11 +75,62 @@ const char* ObjectError::TargetName(void) const
 OGLPLUS_LIB_FUNC
 GLuint ObjectError::ObjectName(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	return _obj_name;
-#else
-	return 0;
+}
+
+OGLPLUS_LIB_FUNC
+const String& ObjectError::ObjectDesc(void) const
+{
+	return aux::ObjectDescRegistry::_get_desc(
+		_obj_typeid,
+		_obj_name
+	);
+}
+
+OGLPLUS_LIB_FUNC
+ObjectPairError::ObjectPairError(const char* message)
+ : ObjectError(message)
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+ , _sub_type(0)
 #endif
+ , _sub_typeid(0)
+ , _sub_name(0)
+{ }
+
+
+OGLPLUS_LIB_FUNC
+GLenum ObjectPairError::SubjectType(void) const
+{
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+	return _sub_type;
+#else
+	return GLenum(0);
+#endif
+}
+
+OGLPLUS_LIB_FUNC
+const char* ObjectPairError::SubjectClassName(void) const
+{
+#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
+	return EnumValueName(oglplus::ObjectType(this->SubjectType())).c_str();
+#else
+	return nullptr;
+#endif
+}
+
+OGLPLUS_LIB_FUNC
+GLuint ObjectPairError::SubjectName(void) const
+{
+	return _sub_name;
+}
+
+OGLPLUS_LIB_FUNC
+const String& ObjectPairError::SubjectDesc(void) const
+{
+	return aux::ObjectDescRegistry::_get_desc(
+		_sub_typeid,
+		_sub_name
+	);
 }
 
 } // namespace oglplus

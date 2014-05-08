@@ -16,8 +16,8 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/enumerations.hpp>
 #include <cassert>
 
@@ -55,21 +55,21 @@ protected:
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(GenQueries)(count, names);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenQueries));
+		OGLPLUS_CHECK_SIMPLE(GenQueries);
 	}
 
 	static void Delete(GLsizei count, GLuint* names)
 	{
 		assert(names != nullptr);
 		OGLPLUS_GLFUNC(DeleteQueries)(count, names);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteQueries));
+		OGLPLUS_VERIFY_SIMPLE(DeleteQueries);
 	}
 
 	static GLboolean IsA(GLuint name)
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsQuery)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsQuery));
+		OGLPLUS_VERIFY_SIMPLE(IsQuery);
 		return result;
 	}
 };
@@ -101,12 +101,12 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BeginQuery)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			BeginQuery,
-			Query,
-			EnumValueName(target),
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(target)
+		);
 	}
 
 	/// End the query on the specified @p target
@@ -118,12 +118,12 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(EndQuery)(GLenum(target));
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			EndQuery,
-			Query,
-			EnumValueName(target),
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(target)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
@@ -136,12 +136,12 @@ public:
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(QueryCounter)(_name, GLenum(target));
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			QueryCounter,
-			Query,
-			EnumValueName(target),
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(target)
+		);
 	}
 
 	/// Do a timestamp query
@@ -171,12 +171,11 @@ public:
 			GL_QUERY_RESULT_AVAILABLE,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetQueryObjectuiv,
-			Query,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 		return result == GL_TRUE;
 	}
 
@@ -195,12 +194,11 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetQueryObjectiv,
-			Query,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 #endif // GL_VERSION_3_0
 
@@ -218,12 +216,11 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetQueryObjectuiv,
-			Query,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_3 || GL_ARB_timer_query
@@ -242,12 +239,11 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetQueryObjecti64v,
-			Query,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Get the query result
@@ -265,12 +261,11 @@ public:
 			GL_QUERY_RESULT,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetQueryObjectui64v,
-			Query,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 #endif // timer query
 

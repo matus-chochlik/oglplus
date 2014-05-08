@@ -274,7 +274,12 @@ public:
 			writeoffset,
 			size
 		);
-		OGLPLUS_CHECK_SIMPLE(NamedCopyBufferSubDataEXT);
+		OGLPLUS_CHECK(
+			NamedCopyBufferSubDataEXT,
+			ObjectPairError,
+			Subject(readbuffer).
+			Object(writebuffer)
+		);
 	}
 #endif // copy buffer
 

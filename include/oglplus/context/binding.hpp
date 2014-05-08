@@ -14,10 +14,12 @@
 #define OGLPLUS_CONTEXT_BINDING_1404142131_HPP
 
 #include <oglplus/config_compiler.hpp>
-#include <oglplus/bound.hpp>
+#include <oglplus/object/name.hpp>
+//#include <oglplus/bound.hpp>  TODO:
 
 namespace oglplus {
 namespace context {
+
 
 /// Wrapper for object binding operations
 /**
@@ -68,6 +70,7 @@ public:
 	{
 		object.Bind();
 	}
+#ifdef NOT_DEFINED
 
 	/// Uses (makes current) the specified object
 	/**
@@ -126,6 +129,7 @@ public:
 		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
 		return Managed<ObjectOps>(name);
 	}
+#endif
 };
 
 } // namespace context

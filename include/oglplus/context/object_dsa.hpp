@@ -26,6 +26,7 @@ namespace context {
 class ObjectDSA
 {
 public:
+/* TODO:
 	/// Returns a direct state access wrapper for @p object
 	template <typename Object>
 	static Managed<
@@ -57,6 +58,7 @@ public:
 		result.target = target;
 		return result;
 	}
+*/
 };
 
 } // namespace context

@@ -38,7 +38,7 @@ ActiveVariableInfo::ActiveVariableInfo(
 {
 	GLsizei strlen = 0;
 	GetActiveVariable(
-		context.Program(),
+		GetGLName(context.Program()),
 		index,
 		context.Buffer().size(),
 		&strlen,
@@ -59,12 +59,12 @@ ActiveAttribInfo::ActiveAttribInfo(
 	OGLPLUS_GLFUNC(GetActiveAttrib)
 )
 {
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetActiveAttrib,
-		Program,
-		nullptr,
-		context.Program()
-	));
+		ObjectError,
+		Object(context.Program()).
+		Index(index)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -77,12 +77,12 @@ ActiveUniformInfo::ActiveUniformInfo(
 	OGLPLUS_GLFUNC(GetActiveUniform)
 )
 {
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetActiveUniform,
-		Program,
-		nullptr,
-		context.Program()
-	));
+		ObjectError,
+		Object(context.Program()).
+		Index(index)
+	);
 }
 
 #if GL_VERSION_4_0 || GL_ARB_shader_subroutine
@@ -95,19 +95,20 @@ ActiveSubroutineInfo::ActiveSubroutineInfo(
 {
 	GLsizei strlen = 0;
 	OGLPLUS_GLFUNC(GetActiveSubroutineName)(
-		context.Program(),
+		GetGLName(context.Program()),
 		context.Stage(),
 		index,
 		context.Buffer().size(),
 		&strlen,
 		context.Buffer().data()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetActiveSubroutineName,
-		Program,
-		nullptr,
-		context.Program()
-	));
+		ObjectError,
+		Object(context.Program()).
+		EnumParam(context.Stage()).
+		Index(index)
+	);
 	_name = String(context.Buffer().data(), strlen);
 }
 
@@ -132,34 +133,36 @@ ActiveSubroutineUniformInfo::ActiveSubroutineUniformInfo(
  , _size(0)
 {
 	OGLPLUS_GLFUNC(GetActiveSubroutineUniformiv)(
-		context.Program(),
+		GetGLName(context.Program()),
 		context.Stage(),
 		index,
 		GL_UNIFORM_SIZE,
 		&_size
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetActiveSubroutineUniformiv,
-		Program,
-		nullptr,
-		context.Program()
-	));
+		ObjectError,
+		Object(context.Program()).
+		EnumParam(context.Stage()).
+		Index(index)
+	);
 
 	GLsizei strlen = 0;
 	OGLPLUS_GLFUNC(GetActiveSubroutineUniformName)(
-		context.Program(),
+		GetGLName(context.Program()),
 		context.Stage(),
 		index,
 		context.Buffer().size(),
 		&strlen,
 		context.Buffer().data()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetActiveSubroutineUniformName,
-		Program,
-		nullptr,
-		context.Program()
-	));
+		ObjectError,
+		Object(context.Program()).
+		EnumParam(context.Stage()).
+		Index(index)
+	);
 	_name = String(context.Buffer().data(), strlen);
 }
 
@@ -188,48 +191,50 @@ TransformFeedbackVaryingInfo::TransformFeedbackVaryingInfo(
 	OGLPLUS_GLFUNC(GetTransformFeedbackVarying)
 )
 {
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetTransformFeedbackVarying,
-		Program,
-		nullptr,
-		context.Program()
-	));
+		ObjectError,
+		Object(context.Program()).
+		Index(index)
+	);
 }
 
 OGLPLUS_LIB_FUNC
 ActiveUniformBlockInfo::ActiveUniformBlockInfo(
 	ProgramInterfaceContext& context,
 	GLuint index
-): _index(0)
+): _index(0) // TODO := index ?
 {
 	GLint length = 0;
 	OGLPLUS_GLFUNC(GetProgramiv)(
-		context.Program(),
+		GetGLName(context.Program()),
 		GL_UNIFORM_BLOCK_NAME_LENGTH,
 		&length
 	);
+	OGLPLUS_VERIFY(
+		GetProgramiv,
+		ObjectError,
+		Object(context.Program()).
+		EnumParam(GLenum(GL_UNIFORM_BLOCK_NAME_LENGTH))
+	);
+
 	if(context.Buffer().size() < size_t(length))
 		context.Buffer().resize(length);
-	OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-		GetProgramiv,
-		Program,
-		nullptr,
-		context.Program()
-	));
+
 	GLsizei strlen = 0;
 	OGLPLUS_GLFUNC(GetActiveUniformBlockName)(
-		context.Program(),
+		GetGLName(context.Program()),
 		index,
 		context.Buffer().size(),
 		&strlen,
 		context.Buffer().data()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetActiveUniformBlockName,
-		Program,
-		nullptr,
-		context.Program()
-	));
+		ObjectError,
+		Object(context.Program()).
+		Index(index)
+	);
 	_name = String(context.Buffer().data(), strlen);
 }
 

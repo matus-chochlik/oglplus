@@ -476,8 +476,7 @@ public:
 			TextureView,
 			ObjectError,
 			Object(*this).
-			BindTarget(target).
-			Index(level)
+			BindTarget(target)
 		);
 	}
 #endif
@@ -1896,7 +1895,8 @@ public:
 		);
 		OGLPLUS_CHECK(
 			TexBuffer,
-			ObjectError,
+			ObjectPairError,
+			Subject(buffer).
 			ObjectBinding(target).
 			EnumParam(internal_format)
 		);
@@ -1927,7 +1927,8 @@ public:
 		);
 		OGLPLUS_CHECK(
 			TexBufferRange,
-			ObjectError,
+			ObjectPairError,
+			Subject(buffer).
 			ObjectBinding(target).
 			EnumParam(internal_format)
 		);

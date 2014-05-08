@@ -644,7 +644,12 @@ public:
 			writeoffset,
 			size
 		);
-		OGLPLUS_CHECK_SIMPLE(CopyBufferSubData);
+		OGLPLUS_CHECK(
+			CopyBufferSubData,
+			ObjectPairError,
+			SubjectBinding(readtarget).
+			ObjectBinding(writetarget)
+		);
 	}
 #endif // copy buffer
 
@@ -678,8 +683,7 @@ public:
 		OGLPLUS_CHECK(
 			ClearBufferData,
 			ObjectError,
-			Object(ObjectBinding(target)).
-			TargetName(target)
+			ObjectBinding(target)
 		);
 	}
 

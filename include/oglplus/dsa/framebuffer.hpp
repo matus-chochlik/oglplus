@@ -141,7 +141,8 @@ public:
 		);
 		OGLPLUS_CHECK(
 			NamedFramebufferRenderbufferEXT,
-			ObjectError,
+			ObjectPairError,
+			Subject(renderbuffer).
 			Object(*this)
 		);
 	}
@@ -172,7 +173,8 @@ public:
 		);
 		OGLPLUS_CHECK(
 			NamedFramebufferRenderbufferEXT,
-			ObjectError,
+			ObjectPairError,
+			Subject(renderbuffer).
 			Object(*this)
 		);
 	}
@@ -205,8 +207,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			NamedFramebufferTextureEXT,
-			ObjectError,
-			Object(*this)
+			ObjectPairError,
+			Subject(texture).
+			Object(*this).
+			Index(level)
 		);
 	}
 
@@ -237,8 +241,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			NamedFramebufferTextureEXT,
-			ObjectError,
-			Object(*this)
+			ObjectPairError,
+			Subject(texture).
+			Object(*this).
+			Index(level)
 		);
 	}
 #endif
@@ -272,8 +278,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			NamedFramebufferTexture1DEXT,
-			ObjectError,
-			Object(*this)
+			ObjectPairError,
+			Subject(texture).
+			Object(*this).
+			Index(level)
 		);
 	}
 
@@ -306,8 +314,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			NamedFramebufferTexture2DEXT,
-			ObjectError,
-			Object(*this)
+			ObjectPairError,
+			Subject(texture).
+			Object(*this).
+			Index(level)
 		);
 	}
 
@@ -342,8 +352,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			NamedFramebufferTexture3DEXT,
-			ObjectError,
-			Object(*this)
+			ObjectPairError,
+			Subject(texture).
+			Object(*this).
+			Index(level)
 		);
 	}
 
@@ -376,8 +388,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			NamedFramebufferTextureLayerEXT,
-			ObjectError,
-			Object(*this)
+			ObjectPairError,
+			Subject(texture).
+			Object(*this).
+			Index(level)
 		);
 	}
 

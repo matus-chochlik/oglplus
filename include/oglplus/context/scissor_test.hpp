@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 
 namespace oglplus {
 namespace context {
@@ -85,7 +84,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(Scissor)(left, bottom, width, height);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Scissor));
+		OGLPLUS_VERIFY_SIMPLE(Scissor);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
@@ -112,7 +111,11 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ScissorIndexed));
+		OGLPLUS_CHECK(
+			ScissorIndexed,
+			Error,
+			Index(viewport)
+		);
 	}
 
 	/// Defines the scissor rectangle for the specified @p viewport
@@ -124,7 +127,11 @@ public:
 	static void Scissor(GLuint viewport, GLint* v)
 	{
 		OGLPLUS_GLFUNC(ScissorIndexedv)(viewport, v);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ScissorIndexedv));
+		OGLPLUS_CHECK(
+			ScissorIndexedv,
+			Error,
+			Index(viewport)
+		);
 	}
 
 	/// Defines scissor boxes for viewports specified by @p first @p count
@@ -138,7 +145,7 @@ public:
 	static void ScissorArray(GLuint first, GLsizei count, GLint* v)
 	{
 		OGLPLUS_GLFUNC(ScissorArrayv)(first, count, v);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ScissorArrayv));
+		OGLPLUS_CHECK_SIMPLE(ScissorArrayv);
 	}
 
 	/// Returns the extents of scissor box of the specified @p viewport
@@ -153,8 +160,16 @@ public:
 	static ScissorRectangle ScissorBox(GLuint viewport)
 	{
 		ScissorRectangle result;
-		OGLPLUS_GLFUNC(GetIntegeri_v)(GL_SCISSOR_BOX, viewport,result._v);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+		OGLPLUS_GLFUNC(GetIntegeri_v)(
+			GL_SCISSOR_BOX,
+			viewport,
+			result._v
+		);
+		OGLPLUS_CHECK(
+			GetIntegeri_v,
+			Error,
+			Index(viewport)
+		);
 		return result;
 	}
 #endif

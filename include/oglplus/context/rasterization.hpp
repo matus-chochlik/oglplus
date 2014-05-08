@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/polygon_mode.hpp>
 #include <oglplus/provoke_mode.hpp>
@@ -39,7 +38,11 @@ public:
 	static void FrontFace(FaceOrientation orientation)
 	{
 		OGLPLUS_GLFUNC(FrontFace)(GLenum(orientation));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(FrontFace));
+		OGLPLUS_VERIFY(
+			FrontFace,
+			Error,
+			EnumParam(orientation)
+		);
 	}
 
 	/// Sets the face culling mode
@@ -50,7 +53,11 @@ public:
 	static void CullFace(Face mode)
 	{
 		OGLPLUS_GLFUNC(CullFace)(GLenum(mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(CullFace));
+		OGLPLUS_VERIFY(
+			CullFace,
+			Error,
+			EnumParam(mode)
+		);
 	}
 
 	/// Returns the face culling mode
@@ -63,7 +70,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CULL_FACE_MODE, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return Face(result);
 	}
 
@@ -76,7 +83,11 @@ public:
 	static void PolygonMode(Face face, oglplus::PolygonMode mode)
 	{
 		OGLPLUS_GLFUNC(PolygonMode)(GLenum(face), GLenum(mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PolygonMode));
+		OGLPLUS_VERIFY(
+			PolygonMode,
+			Error,
+			EnumParam(mode)
+		);
 	}
 
 	/// Sets the polygon rasterization mode
@@ -87,7 +98,11 @@ public:
 	static void PolygonMode(oglplus::PolygonMode mode)
 	{
 		OGLPLUS_GLFUNC(PolygonMode)(GL_FRONT_AND_BACK, GLenum(mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PolygonMode));
+		OGLPLUS_VERIFY(
+			PolygonMode,
+			Error,
+			EnumParam(mode)
+		);
 	}
 
 	/// Returns the face culling mode
@@ -100,7 +115,7 @@ public:
 	{
 		GLint result[2];
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_POLYGON_MODE, result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return oglplus::PolygonMode(result[1]);
 	}
 #endif // GL_VERSION_3_0
@@ -113,7 +128,7 @@ public:
 	static void PolygonOffset(GLfloat factor, GLfloat units)
 	{
 		OGLPLUS_GLFUNC(PolygonOffset)(factor, units);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PolygonOffset));
+		OGLPLUS_VERIFY_SIMPLE(PolygonOffset);
 	}
 
 	/// Returns the polygon offset factor
@@ -126,7 +141,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_FACTOR, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -140,7 +155,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POLYGON_OFFSET_UNITS, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -152,7 +167,7 @@ public:
 	static void LineWidth(GLfloat width)
 	{
 		OGLPLUS_GLFUNC(LineWidth)(width);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LineWidth));
+		OGLPLUS_VERIFY_SIMPLE(LineWidth);
 	}
 
 	/// Returns the line width
@@ -165,7 +180,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_LINE_WIDTH, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -178,7 +193,7 @@ public:
 	static void PointSize(GLfloat size)
 	{
 		OGLPLUS_GLFUNC(PointSize)(size);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PointSize));
+		OGLPLUS_VERIFY_SIMPLE(PointSize);
 	}
 
 	/// Returns the point size
@@ -191,7 +206,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_SIZE, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -207,7 +222,7 @@ public:
 			GL_POINT_FADE_THRESHOLD_SIZE,
 			size
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PointParameterf));
+		OGLPLUS_VERIFY_SIMPLE(PointParameterf);
 	}
 
 	/// Returns the point fade threshold size
@@ -220,7 +235,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_POINT_FADE_THRESHOLD_SIZE,&result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 #endif // GL_VERSION_3_0
@@ -235,7 +250,7 @@ public:
 	static void ProvokingVertex(ProvokeMode mode)
 	{
 		OGLPLUS_GLFUNC(ProvokingVertex)(GLenum(mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ProvokingVertex));
+		OGLPLUS_VERIFY_SIMPLE(ProvokingVertex);
 	}
 
 	/// Returns the provoking vertex selection mode for flatshading
@@ -249,7 +264,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_PROVOKING_VERTEX, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return ProvokeMode(result);
 	}
 #endif
@@ -263,7 +278,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_SAMPLE_BUFFERS, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return result;
 	}
 
@@ -277,7 +292,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_SAMPLES, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return result;
 	}
 
@@ -297,7 +312,7 @@ public:
 			index,
 			result.Data()
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetMultisamplefv));
+		OGLPLUS_VERIFY_SIMPLE(GetMultisamplefv);
 		return result;
 	}
 #endif
@@ -314,7 +329,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_MIN_SAMPLE_SHADING_VALUE, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -327,7 +342,7 @@ public:
 	static void MinSampleShading(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(MinSampleShading)(value);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MinSampleShading));
+		OGLPLUS_VERIFY_SIMPLE(MinSampleShading);
 	}
 #endif
 };

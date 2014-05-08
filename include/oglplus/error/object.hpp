@@ -15,6 +15,7 @@
 
 #include <oglplus/error/basic.hpp>
 #include <oglplus/object/tags.hpp>
+#include <oglplus/object/type.hpp>
 #include <oglplus/object/name.hpp>
 
 namespace oglplus {
@@ -27,30 +28,21 @@ private:
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
 	GLenum _obj_type;
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
-	const char* _cls_name;
-#endif
 #if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
 	GLenum _bind_tgt;
 #endif
 #if !OGLPLUS_ERROR_INFO_NO_TARGET_NAME
 	const char* _tgt_name;
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 	int _obj_typeid;
 	GLuint _obj_name;
-#endif
 public:
 	ObjectError(const char* message);
 
-	template <typename ObjectType_>
-	ObjectError& ObjectType(ObjectType_ obj_type)
+	ObjectError& ObjectType(oglplus::ObjectType obj_type)
 	{
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
 		_obj_type = GLenum(obj_type);
-#endif
-#if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
-		_cls_name = EnumValueName(obj_type).c_str();
 #endif
 		(void)obj_type;
 		return *this;
@@ -84,16 +76,16 @@ public:
 	template <typename ObjTag>
 	ObjectError& Object(oglplus::ObjectName<ObjTag> object)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_DESC
 		_obj_typeid = ObjTag::value;
 		_obj_name = GetGLName(object);
-#endif
-		(void)object;
 		return *this;
 	}
 
 	/// Object GL name
 	GLuint ObjectName(void) const;
+
+	/// Object textual description
+	const String& ObjectDesc(void) const;
 
 	template <typename BindTarget_>
 	ObjectError& ObjectBinding(BindTarget_ bind_tgt)
@@ -109,6 +101,55 @@ public:
 		typedef typename ObjectTargetTag<BindTarget_>::Type Tag;
 		Object(ObjBindingOps<Tag>::Binding(bind_tgt, index));
 		return BindTarget(bind_tgt);
+	}
+};
+
+class ObjectPairError
+ : public ObjectError
+{
+private:
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+	GLenum _sub_type;
+#endif
+	int _sub_typeid;
+	GLuint _sub_name;
+public:
+	ObjectPairError(const char* message);
+
+	ObjectPairError& SubjectType(oglplus::ObjectType sub_type)
+	{
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+		_sub_type = GLenum(sub_type);
+#endif
+		(void)sub_type;
+		return *this;
+	}
+
+	/// Returns the subject type
+	GLenum SubjectType(void) const;
+
+	/// Returns the subject class name
+	const char* SubjectClassName(void) const;
+
+	template <typename ObjTag>
+	ObjectPairError& Subject(oglplus::ObjectName<ObjTag> subject)
+	{
+		_sub_typeid = ObjTag::value;
+		_sub_name = GetGLName(subject);
+		return *this;
+	}
+
+	/// Subject GL name
+	GLuint SubjectName(void) const;
+
+	/// Object textual description
+	const String& SubjectDesc(void) const;
+
+	template <typename BindTarget_>
+	ObjectPairError& SubjectBinding(BindTarget_ bind_tgt)
+	{
+		typedef typename ObjectTargetTag<BindTarget_>::Type Tag;
+		return Subject(ObjBindingOps<Tag>::Binding(bind_tgt));
 	}
 };
 

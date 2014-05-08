@@ -34,7 +34,7 @@ namespace oglplus {
  */
 
 template <typename ObjTag>
-struct ObjectType : Nothing
+struct ObjectSubtype : Nothing
 { };
 
 /// Implements operations applicable to any object and any operation kind
@@ -113,8 +113,8 @@ private:
 		ObjGenDelOps<ObjTag>::Gen(1, &this->_name);
 	}
 
-	template <typename ObjectType>
-	void _init(ObjectType type)
+	template <typename ObjectSubtype>
+	void _init(ObjectSubtype type)
 	{
 		this->_type = GLenum(type);
 		_init(Nothing());
@@ -147,7 +147,7 @@ protected:
 		_describe(std::move(description));
 	}
 
-	Object(typename ObjectType<ObjTag>::Type type)
+	Object(typename ObjectSubtype<ObjTag>::Type type)
 	{
 		_init(type);
 	}
@@ -166,7 +166,7 @@ public:
 	}
 
 	/// A textual description can be attached to objects
-	Object(typename ObjectType<ObjTag>::Type type, ObjectDesc&& description)
+	Object(typename ObjectSubtype<ObjTag>::Type type, ObjectDesc&& description)
 	{
 		_init(type);
 		_describe(std::move(description));
@@ -195,7 +195,7 @@ public:
 	}
 
 /* TODO
-	static oglplus::ObjectType ObjectType(void)
+	static oglplus::ObjectSubtype ObjectSubtype(void)
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _get_object_type<ObjectOps>(nullptr);

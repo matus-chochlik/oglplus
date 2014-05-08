@@ -269,7 +269,8 @@ public:
 		);
 		OGLPLUS_CHECK(
 			FramebufferRenderbuffer,
-			ObjectError,
+			ObjectPairError,
+			Subject(renderbuffer).
 			ObjectBinding(target)
 		);
 	}
@@ -301,7 +302,8 @@ public:
 		);
 		OGLPLUS_CHECK(
 			FramebufferRenderbuffer,
-			ObjectError,
+			ObjectPairError,
+			Subject(renderbuffer).
 			ObjectBinding(target)
 		);
 	}
@@ -336,8 +338,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			FramebufferTexture,
-			ObjectError,
-			ObjectBinding(target)
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
 		);
 	}
 
@@ -369,8 +373,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			FramebufferTexture,
-			ObjectError,
-			ObjectBinding(target)
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
 		);
 	}
 #endif
@@ -406,8 +412,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			FramebufferTexture1D,
-			ObjectError,
-			ObjectBinding(target)
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
 		);
 	}
 #endif
@@ -442,8 +450,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			FramebufferTexture2D,
-			ObjectError,
-			ObjectBinding(target)
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
 		);
 	}
 
@@ -480,8 +490,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			FramebufferTexture3D,
-			ObjectError,
-			ObjectBinding(target)
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
 		);
 	}
 #endif
@@ -516,8 +528,10 @@ public:
 		);
 		OGLPLUS_CHECK(
 			FramebufferTextureLayer,
-			ObjectError,
-			ObjectBinding(target)
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
 		);
 	}
 

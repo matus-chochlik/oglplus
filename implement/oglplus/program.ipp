@@ -25,12 +25,12 @@ AttachShader(ShaderName shader)
 		_name,
 		GetGLName(shader)
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		AttachShader,
-		Program,
-		nullptr,
-		_name
-	));
+		ObjectPairError,
+		Subject(shader).
+		Object(*this)
+	);
 	return *this;
 }
 
@@ -56,12 +56,12 @@ DetachShader(ShaderName shader)
 		_name,
 		GetGLName(shader)
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		DetachShader,
-		Program,
-		nullptr,
-		_name
-	));
+		ObjectPairError,
+		Subject(shader).
+		Object(*this)
+	);
 	return *this;
 }
 
@@ -72,16 +72,19 @@ Link(void)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(LinkProgram)(_name);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		LinkProgram,
-		Program,
-		nullptr,
-		_name
-	));
-	if(OGLPLUS_IS_ERROR(!IsLinked()))
-	{
-		HandleLinkError();
-	}
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_HANDLE_ERROR_IF(
+		!IsLinked(),
+		GL_INVALID_OPERATION,
+		LinkError::Message(),
+		LinkError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
 	return *this;
 }
 
@@ -92,24 +95,19 @@ Validate(void)
 {
 	assert(_name != 0);
 	OGLPLUS_GLFUNC(ValidateProgram)(_name);
-	OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_VERIFY(
 		ValidateProgram,
-		Program,
-		nullptr,
-		_name
-	));
-	if(OGLPLUS_IS_ERROR(!IsValid()))
-	{
-		HandleBuildError<ValidationError>(
-			GetInfoLog(),
-			OGLPLUS_OBJECT_ERROR_INFO(
-				ValidateProgram,
-				Program,
-				nullptr,
-				_name
-			)
-		);
-	}
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_HANDLE_ERROR_IF(
+		!IsValid(),
+		GL_INVALID_OPERATION,
+		ValidationError::Message(),
+		ValidationError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
 	return *this;
 }
 
@@ -129,21 +127,6 @@ GetInfoLog(void) const
 
 OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Program>::
-HandleLinkError(void) const
-{
-	HandleBuildError<LinkError>(
-		GetInfoLog(),
-		OGLPLUS_OBJECT_ERROR_INFO(
-			LinkProgram,
-			Program,
-			nullptr,
-			_name
-		)
-	);
-}
-
-OGLPLUS_LIB_FUNC
-void ObjectOps<tag::DirectState, tag::Program>::
 TransformFeedbackVaryings(
 	GLsizei count,
 	const GLchar** varyings,
@@ -156,12 +139,11 @@ TransformFeedbackVaryings(
 		varyings,
 		GLenum(mode)
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TransformFeedbackVaryings,
-		Program,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this)
+	);
 }
 
 OGLPLUS_LIB_FUNC
@@ -187,12 +169,11 @@ TransformFeedbackVaryings(
 		tmp.data(),
 		GLenum(mode)
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		TransformFeedbackVaryings,
-		Program,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this)
+	);
 }
 
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
@@ -208,12 +189,11 @@ MakeSeparable(bool para)
 		GL_PROGRAM_SEPARABLE,
 		para ? GL_TRUE : GL_FALSE
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		ProgramParameteri,
-		Program,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this)
+	);
 	return *this;
 }
 #endif
@@ -231,12 +211,11 @@ MakeRetrievable(bool para)
 		GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
 		para ? GL_TRUE : GL_FALSE
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		ProgramParameteri,
-		Program,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this)
+	);
 	return *this;
 }
 
@@ -257,12 +236,11 @@ GetBinary(std::vector<GLubyte>& binary, GLenum& format) const
 			&format,
 			binary.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			GetProgramBinary,
-			Program,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 	}
 }
 
@@ -277,12 +255,11 @@ Binary(const std::vector<GLubyte>& binary, GLenum format)
 		binary.data(),
 		binary.size()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		ProgramBinary,
-		Program,
-		nullptr,
-		_name
-	));
+		ObjectError,
+		Object(*this)
+	);
 }
 #endif
 
@@ -298,12 +275,11 @@ ObjectOps<tag::DirectState, tag::Program>::ShaderIterationContext::ShaderIterati
 		nullptr,
 		_shader_names.data()
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		GetAttachedShaders,
-		Program,
-		nullptr,
-		name
-	));
+		ObjectError,
+		Object(ProgramName(name))
+	);
 }
 
 #if GL_VERSION_4_3
@@ -339,8 +315,12 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveResources(ProgramInterface intf
 		GL_ACTIVE_RESOURCES,
 		&count
 	);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramInterfaceiv));
-
+	OGLPLUS_VERIFY(
+		GetProgramInterfaceiv,
+		ObjectError,
+		Object(*this).
+		EnumParam(intf)
+	);
 	return ActiveResourceRange(ActiveResourceContext(intf), count);
 }
 #endif
@@ -504,30 +484,25 @@ GLuint ShaderProgram::_make(
 		count,
 		strings
 	);
-	OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+	OGLPLUS_CHECK(
 		CreateShaderProgramv,
-		Program,
-		nullptr,
-		program
-	));
+		Error,
+		EnumParam(shader_type)
+	);
 	return program;
 }
 
 OGLPLUS_LIB_FUNC
 void ShaderProgram::_check(void)
 {
-	if(OGLPLUS_IS_ERROR(!IsValid()))
-	{
-		HandleBuildError<ValidationError>(
-			GetInfoLog(),
-			OGLPLUS_OBJECT_ERROR_INFO(
-				ValidateProgram,
-				Program,
-				nullptr,
-				this->_name
-			)
-		);
-	}
+	OGLPLUS_HANDLE_ERROR_IF(
+		!IsValid(),
+		GL_INVALID_OPERATION,
+		ValidationError::Message(),
+		ValidationError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
 }
 #endif
 

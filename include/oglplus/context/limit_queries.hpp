@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/limit_query.hpp>
 
 namespace oglplus {
@@ -37,7 +36,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GLenum(query), &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return result;
 	}
 
@@ -50,7 +49,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegeri_v)(GLenum(query), index, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegeri_v));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegeri_v);
 		return result;
 	}
 
@@ -63,7 +62,7 @@ public:
 	{
 		GLfloat result = 0;
 		OGLPLUS_GLFUNC(GetFloatv)(GLenum(query), &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -77,7 +76,7 @@ public:
 	{
 		GLfloat result = 0;
 		OGLPLUS_GLFUNC(GetFloati_v)(GLenum(query), index, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloati_v));
+		OGLPLUS_VERIFY_SIMPLE(GetFloati_v);
 		return result;
 	}
 #endif
@@ -88,16 +87,13 @@ public:
 		GLint max_limit
 	)
 	{
-		if(value > max_limit)
-		{
-			HandleLimitError(
-				value,
-				max_limit,
-				OGLPLUS_ERROR_INFO_STR(
-					EnumValueName(limit).c_str()
-				)
-			);
-		}
+		OGLPLUS_HANDLE_ERROR_IF(
+			value > max_limit,
+			GL_INVALID_VALUE,
+			LimitError::Message(),
+			LimitError,
+			GLFuncName(EnumValueName(limit).c_str())
+		);
 	}
 
 	/// Raises a LimitError if @p value is greater than the specified @p limit

@@ -14,9 +14,9 @@
 #define OGLPLUS_PROGRAM_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/link_error.hpp>
 #include <oglplus/object.hpp>
 #include <oglplus/object/sequence.hpp>
+#include <oglplus/error/program.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/program_resource.hpp>
@@ -51,7 +51,7 @@ protected:
 		for(GLsizei i=0; i<count; ++i)
 		{
 			names[i] = OGLPLUS_GLFUNC(CreateProgram)();
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CreateProgram));
+			OGLPLUS_CHECK_SIMPLE(CreateProgram);
 		}
 	}
 
@@ -61,7 +61,7 @@ protected:
 		for(GLsizei i=0; i<count; ++i)
 		{
 			OGLPLUS_GLFUNC(DeleteProgram)(names[i]);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteProgram));
+			OGLPLUS_VERIFY_SIMPLE(DeleteProgram);
 		}
 	}
 
@@ -69,7 +69,7 @@ protected:
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsProgram)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsProgram));
+		OGLPLUS_VERIFY_SIMPLE(IsProgram);
 		return result;
 	}
 };
@@ -83,7 +83,11 @@ protected:
 	{
 		GLint name = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CURRENT_PROGRAM, &name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(
+			GetIntegerv,
+			Error,
+			EnumParam(GLenum(GL_CURRENT_PROGRAM))
+		);
 		return name;
 	}
 public:
@@ -105,12 +109,11 @@ public:
 	static void Bind(ProgramName program)
 	{
 		OGLPLUS_GLFUNC(UseProgram)(GetGLName(program));
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			UseProgram,
-			Program,
-			nullptr,
-			GetGLName(program)
-		));
+			ObjectError,
+			Object(program)
+		);
 	}
 };
 
@@ -172,12 +175,12 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramiv)(_name, query, &result);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetProgramiv,
-			Program,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(query)
+		);
 		return result;
 	}
 
@@ -186,12 +189,12 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramStageiv)(_name, stage, query, &result);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetProgramStageiv,
-			Program,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(query)
+		);
 		return result;
 	}
 #endif
@@ -237,8 +240,6 @@ public:
 	 *  @glfunref{GetProgramInfoLog}
 	 */
 	String GetInfoLog(void) const;
-
-	void HandleLinkError(void) const;
 
 	/// Links this shading language program
 	/**

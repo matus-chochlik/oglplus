@@ -16,8 +16,8 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/compile_error.hpp>
 #include <oglplus/object.hpp>
+#include <oglplus/error/program.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/glsl_source.hpp>
@@ -46,7 +46,7 @@ protected:
 		for(GLsizei i=0; i<count; ++i)
 		{
 			names[i] = OGLPLUS_GLFUNC(CreateShader)(type);
-			OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CreateShader));
+			OGLPLUS_CHECK_SIMPLE(CreateShader);
 		}
 	}
 
@@ -63,7 +63,7 @@ protected:
 		for(GLsizei i=0; i<count; ++i)
 		{
 			OGLPLUS_GLFUNC(DeleteShader)(names[i]);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DeleteShader));
+			OGLPLUS_VERIFY_SIMPLE(DeleteShader);
 		}
 	}
 
@@ -71,7 +71,7 @@ protected:
 	{
 		assert(name != 0);
 		GLboolean result = OGLPLUS_GLFUNC(IsShader)(name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsShader));
+		OGLPLUS_VERIFY_SIMPLE(IsShader);
 		return result;
 	}
 };
@@ -109,7 +109,7 @@ protected:
 			range_log_2,
 			precision_log_2
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetShaderPrecisionFormat));
+		OGLPLUS_VERIFY_SIMPLE(GetShaderPrecisionFormat);
 	}
 #endif
 };
@@ -145,12 +145,11 @@ public:
 			GL_SHADER_TYPE,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetShaderiv,
-			Shader,
-			EnumValueName(ShaderType(result)),
-			_name
-		));
+			ObjectError,
+			Object(*this)
+		);
 		return ShaderType(result);
 	}
 
@@ -272,12 +271,12 @@ public:
 		assert(_name != 0);
 		int status;
 		OGLPLUS_GLFUNC(GetShaderiv)(_name, GL_COMPILE_STATUS, &status);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetShaderiv,
-			Shader,
-			EnumValueName(Type()),
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(Type())
+		);
 		return status == GL_TRUE;
 	}
 
@@ -292,8 +291,6 @@ public:
 	 */
 	String GetInfoLog(void) const;
 
-	void HandleCompileError(void) const;
-
 	/// Compiles the shader
 	/**
 	 *  @post IsCompiled()
@@ -303,22 +300,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CompileShader}
 	 */
-	ObjectOps& Compile(void)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(CompileShader)(_name);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
-			CompileShader,
-			Shader,
-			EnumValueName(Type()),
-			_name
-		));
-		if(OGLPLUS_IS_ERROR(!IsCompiled()))
-		{
-			HandleCompileError();
-		}
-		return *this;
-	}
+	ObjectOps& Compile(void);
 
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
@@ -333,7 +315,7 @@ public:
 	static void ReleaseCompiler(void)
 	{
 		OGLPLUS_GLFUNC(ReleaseShaderCompiler)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ReleaseShaderCompiler));
+		OGLPLUS_VERIFY_SIMPLE(ReleaseShaderCompiler);
 	}
 #endif
 };
@@ -343,7 +325,7 @@ typedef ObjectOps<tag::DirectState, tag::Shader>
 	ShaderOps;
 
 template <>
-struct ObjectType<tag::Shader>
+struct ObjectSubtype<tag::Shader>
 {
 	typedef ShaderType Type;
 };

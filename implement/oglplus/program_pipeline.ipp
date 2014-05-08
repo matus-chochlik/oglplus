@@ -30,6 +30,27 @@ GetInfoLog(void) const
 	);
 }
 
+OGLPLUS_LIB_FUNC
+void ObjectOps<tag::DirectState, tag::ProgramPipeline>::
+Validate(void) const
+{
+	assert(_name != 0);
+	OGLPLUS_GLFUNC(ValidateProgramPipeline)(_name);
+	OGLPLUS_VERIFY(
+		ValidateProgramPipeline,
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_HANDLE_ERROR_IF(
+		!IsValid(),
+		GL_INVALID_OPERATION,
+		ValidationError::Message(),
+		ValidationError,
+		Log(GetInfoLog()).
+		Object(*this)
+	);
+}
+
 #endif // program pipeline
 
 } // namespace oglplus

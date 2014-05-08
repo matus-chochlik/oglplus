@@ -14,6 +14,7 @@
 #define OGLPLUS_AUX_PROGRAM_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/object/name.hpp>
 #include <oglplus/data_type.hpp>
 #include <vector>
 #include <cassert>
@@ -45,9 +46,9 @@ public:
 	 , _buffer(std::move(tmp._buffer))
 	{ }
 
-	GLuint Program(void) const
+	ProgramName Program(void) const
 	{
-		return _program;
+		return ProgramName(_program);
 	}
 
 	GLenum Stage(void) const

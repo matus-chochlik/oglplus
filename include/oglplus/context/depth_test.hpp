@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/compare_func.hpp>
 
 namespace oglplus {
@@ -36,7 +35,7 @@ public:
 	static void DepthFunc(CompareFunction function)
 	{
 		OGLPLUS_GLFUNC(DepthFunc)(GLenum(function));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DepthFunc));
+		OGLPLUS_VERIFY_SIMPLE(DepthFunc);
 	}
 
 	/// Returns the depth comparison function
@@ -49,7 +48,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_DEPTH_FUNC, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return CompareFunction(result);
 	}
 };

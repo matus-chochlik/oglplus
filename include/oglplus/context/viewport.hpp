@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,8 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
-#include <vector>
 
 namespace oglplus {
 namespace context {
@@ -126,7 +124,7 @@ public:
 	static void Viewport(GLint x, GLint y, GLsizei w, GLsizei h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(x, y, w, h);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(Viewport));
+		OGLPLUS_CHECK_SIMPLE(Viewport);
 	}
 
 	/// Sets the size of the current viewport starting at (0,0)
@@ -139,7 +137,7 @@ public:
 	static void Viewport(GLsizei w, GLsizei h)
 	{
 		OGLPLUS_GLFUNC(Viewport)(0, 0, w, h);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(Viewport));
+		OGLPLUS_CHECK_SIMPLE(Viewport);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_viewport_array
@@ -158,7 +156,7 @@ public:
 			GL_VIEWPORT_BOUNDS_RANGE,
 			result._v
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 #endif
@@ -178,7 +176,7 @@ public:
 			GL_MAX_VIEWPORT_DIMS,
 			result._v
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -197,7 +195,7 @@ public:
 	static void DepthRange(GLclampf near_val, GLclampf far_val)
 	{
 		OGLPLUS_GLFUNC(DepthRangef)(near_val, far_val);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRangef));
+		OGLPLUS_CHECK_SIMPLE(DepthRangef);
 	}
 #endif
 
@@ -212,7 +210,7 @@ public:
 	static void DepthRange(GLclampd near_val, GLclampd far_val)
 	{
 		OGLPLUS_GLFUNC(DepthRange)(near_val, far_val);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRange));
+		OGLPLUS_CHECK_SIMPLE(DepthRange);
 	}
 #endif
 
@@ -229,7 +227,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_MAX_VIEWPORTS, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(result);
 	}
 
@@ -249,7 +247,11 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ViewportIndexedf)(viewport, x, y, width, height);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ViewportIndexedf));
+		OGLPLUS_CHECK(
+			ViewportIndexedf,
+			Error,
+			Index(viewport)
+		);
 	}
 
 	/// Sets the @p extents of the specified @p viewport
@@ -262,7 +264,11 @@ public:
 	static void Viewport(GLuint viewport, const GLfloat* extents)
 	{
 		OGLPLUS_GLFUNC(ViewportIndexedfv)(viewport, extents);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ViewportIndexedfv));
+		OGLPLUS_CHECK(
+			ViewportIndexedfv,
+			Error,
+			Index(viewport)
+		);
 	}
 
 	/// Sets @p extents of the viewports specified by @p first and @p count
@@ -279,7 +285,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(ViewportArrayv)(first, count, extents);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ViewportArrayv));
+		OGLPLUS_CHECK_SIMPLE(ViewportArrayv);
 	}
 
 	/// Returns the extents of the specified @p viewport
@@ -294,7 +300,7 @@ public:
 	{
 		ViewportExtents result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_VIEWPORT, viewport, result._v);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloati_v));
+		OGLPLUS_CHECK_SIMPLE(GetFloati_v);
 		return result;
 	}
 
@@ -309,7 +315,11 @@ public:
 	static void DepthRange(GLuint viewport, GLclampd near_val, GLclampd far_val)
 	{
 		OGLPLUS_GLFUNC(DepthRangeIndexed)(viewport, near_val, far_val);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRangeIndexed));
+		OGLPLUS_CHECK(
+			DepthRangeIndexed,
+			Error,
+			Index(viewport)
+		);
 	}
 
 	/// Sets depth ranges of viewports specified by @p first and @p count
@@ -326,7 +336,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(DepthRangeArrayv)(first, count, v);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DepthRangeArrayv));
+		OGLPLUS_CHECK_SIMPLE(DepthRangeArrayv);
 	}
 
 	/// Returns the depth range of the specified @p viewport
@@ -341,7 +351,11 @@ public:
 	{
 		oglplus::context::DepthRange result;
 		OGLPLUS_GLFUNC(GetFloati_v)(GL_DEPTH_RANGE, viewport,result._v);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetFloati_v));
+		OGLPLUS_CHECK(
+			GetFloati_v,
+			Error,
+			Index(viewport)
+		);
 		return result;
 	}
 #endif

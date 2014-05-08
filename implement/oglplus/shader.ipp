@@ -29,18 +29,28 @@ GetInfoLog(void) const
 }
 
 OGLPLUS_LIB_FUNC
-void ObjectOps<tag::DirectState, tag::Shader>::
-HandleCompileError(void) const
+ObjectOps<tag::DirectState, tag::Shader>&
+ObjectOps<tag::DirectState, tag::Shader>::
+Compile(void)
 {
-	HandleBuildError<CompileError>(
-		GetInfoLog(),
-		OGLPLUS_OBJECT_ERROR_INFO(
-			CompileShader,
-			Shader,
-			EnumValueName(Type()),
-			_name
-		)
+	assert(_name != 0);
+	OGLPLUS_GLFUNC(CompileShader)(_name);
+	OGLPLUS_CHECK(
+		CompileShader,
+		ObjectError,
+		Object(*this).
+		EnumParam(Type())
 	);
+	OGLPLUS_HANDLE_ERROR_IF(
+		!IsCompiled(),
+		GL_INVALID_OPERATION,
+		CompileError::Message(),
+		CompileError,
+		Log(GetInfoLog()).
+		Object(*this).
+		EnumParam(Type())
+	);
+	return *this;
 }
 
 } // namespace oglplus

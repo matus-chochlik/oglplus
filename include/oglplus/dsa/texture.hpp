@@ -1450,7 +1450,8 @@ public:
 		);
 		OGLPLUS_CHECK(
 			TextureBufferEXT,
-			ObjectError,
+			ObjectPairError,
+			Subject(buffer).
 			Object(*this).
 			EnumParam(internal_format)
 		);
