@@ -13,9 +13,9 @@
 #ifndef OGLPLUS_PROG_VAR_CALLERS_1107121519_HPP
 #define OGLPLUS_PROG_VAR_CALLERS_1107121519_HPP
 
-#include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/fwd.hpp>
+#include <oglplus/glfunc.hpp>
+#include <oglplus/error/basic.hpp>
 #include <oglplus/prog_var/varpara_fns.hpp>
 
 #include <type_traits>

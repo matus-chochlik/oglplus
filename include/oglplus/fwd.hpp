@@ -212,6 +212,9 @@ class ProgVarCallers;
 template <typename VarTag>
 class ProgVarCommonOps;
 
+template <typename OpsTag, typename VarTag, typename T>
+class ProgVarGetSetOps;
+
 } // namespace oglplus
 
 #endif // include guard

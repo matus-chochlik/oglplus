@@ -23,14 +23,27 @@ namespace oglplus {
 template <typename VarTag>
 class ProgVarLoc
 {
-private:
+protected:
 	friend GLint GetGLLocation<VarTag>(ProgVarLoc);
-	GLuint _prog;
+	GLuint _program;
 	GLint _location;
+
+	ProgVarLoc(void)
+	OGLPLUS_NOEXCEPT(true)
+	 : _program(0u)
+	 , _location(-1)
+	{ }
+
+	void Init(ProgramName prog, GLint location)
+	OGLPLUS_NOEXCEPT(true)
+	{
+		_program = GetGLName(prog);
+		_location = location;
+	}
 public:
 	ProgVarLoc(ProgramName prog, GLint location)
 	OGLPLUS_NOEXCEPT(true)
-	 : _prog(GetGLName(prog))
+	 : _program(GetGLName(prog))
 	 , _location(location)
 	{ }
 
@@ -38,7 +51,7 @@ public:
 	ProgramName Program(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return ProgramName(_prog);
+		return ProgramName(_program);
 	}
 
 	/// Returns true if the variable is active
@@ -52,22 +65,22 @@ public:
 	friend bool operator == (ProgVarLoc a, ProgVarLoc b)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return (a._prog == b._prog) && (a._location == b._location);
+		return (a._program == b._program)&&(a._location == b._location);
 	}
 
 	/// Inequality comparison
 	friend bool operator != (ProgVarLoc a, ProgVarLoc b)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return (a._prog != b._prog) || (a._location != b._location);
+		return (a._program != b._program)||(a._location != b._location);
 	}
 
 	/// Ordering
 	friend bool operator < (ProgVarLoc a, ProgVarLoc b)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		if(a._prog <  b._prog) return true;
-		if(a._prog == b._prog) return (a._location < b._location);
+		if(a._program <  b._program) return true;
+		if(a._program == b._program) return (a._location < b._location);
 		return false;
 	}
 };

@@ -23,6 +23,7 @@
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/face_mode.hpp>
 #include <oglplus/glsl_source.hpp>
+#include <oglplus/vertex_attrib_slot.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 
 #include <vector>
@@ -737,17 +738,29 @@ public:
 	}
 #endif // tessellation shader
 
-	// Implemented in vertex_attrib.hpp
 	/// Binds the location of a SL variable to the vertex_attrib
 	/** This function binds the location of the vertex attribute
 	 *  @c vertex_attrib to the shader variable identified by
 	 *  @c identifier.
 	 */
-	inline void BindLocation(
-		const VertexAttribOps& vertex_attrib,
-		const GLchar* identifier
-	) const;
-
+	void BindLocation(
+		VertexAttribSlot vertex_attrib_slot,
+		StrCRef identifier
+	)
+	{
+		OGLPLUS_GLFUNC(BindAttribLocation)(
+			_name,
+			GLuint(vertex_attrib_slot),
+			identifier.c_str()
+		);
+		OGLPLUS_CHECK(
+			BindAttribLocation,
+			ProgVarError,
+			Program(*this).
+			Identifier(identifier).
+			Index(GLuint(vertex_attrib_slot))
+		);
+	}
 };
 
 /// Program operations with direct state access

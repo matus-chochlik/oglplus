@@ -23,76 +23,16 @@ _inactive_attr_message(void)
 }
 
 OGLPLUS_LIB_FUNC
-void VertexAttribOps::
-_handle_inconsistent_location(
-	const GLchar* identifier,
-	VertexAttribSlot location
-)
-{
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		GLint(location),
-		"Inconsistent location of a vertex "
-		"attribute in multiple programs",
-		OGLPLUS_ERROR_INFO(GetAttribLocation),
-		std::move(props)
-	);
-}
-
-GLint _get_location(ProgramName, const GLchar*)
-{
-	return 0; //TODO
-}
-
-OGLPLUS_LIB_FUNC
-GLint VertexAttribOps::
-_find_location(
-	ProgramName program,
-	const GLchar* identifier
-)
-{
-	GLint result = _get_location(program, identifier);
-	OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetAttribLocation));
-	if(OGLPLUS_IS_ERROR(result == GLint(-1)))
-	{
-		_handle_inactive(program, identifier, result);
-	}
-	return result;
-}
-
-OGLPLUS_LIB_FUNC
-bool VertexAttribOps::
-_query_location(
-	ProgramName program,
-	const String& identifier,
-	VertexAttribSlot& location
-)
-{
-	GLint result = _get_location(program, identifier.c_str());
-	if(OGLPLUS_GLFUNC(GetError)() != GL_NO_ERROR)
-		return false;
-	if(result < 0) return false;
-	location = result;
-	return true;
-}
-
-OGLPLUS_LIB_FUNC
-bool VertexAttribOps::
-_query_common_location(
+bool ProgVarLocOps<tag::VertexAttrib>::
+QueryCommonLocation(
 	const Sequence<ProgramName>& programs,
-	const GLchar* identifier,
+	StrCRef identifier,
 	VertexAttribSlot& location
 )
 {
 	if(std::size_t n=programs.size())
 	{
-		if(!_query_location(
+		if(!QueryActiveLocation(
 			programs[0],
 			identifier,
 			location
@@ -102,7 +42,7 @@ _query_common_location(
 
 		for(std::size_t i=1; i!=n; ++i)
 		{
-			if(!_query_location(
+			if(!QueryActiveLocation(
 				programs[i],
 				identifier,
 				location
@@ -117,20 +57,26 @@ _query_common_location(
 }
 
 OGLPLUS_LIB_FUNC
-VertexAttribSlot VertexAttribOps::
-_get_common_location(
+VertexAttribSlot ProgVarLocOps<tag::VertexAttrib>::
+GetCommonLocation(
 	const Sequence<ProgramName>& programs,
-	const GLchar* identifier
+	StrCRef identifier
 )
 {
 	VertexAttribSlot location;
-
-	bool queried = _query_common_location(programs, identifier, location);
-
-	if(OGLPLUS_IS_ERROR(!queried))
-	{
-		_handle_inconsistent_location(identifier, location);
-	}
+	bool found = QueryCommonLocation(
+		programs,
+		identifier,
+		location
+	);
+	OGLPLUS_HANDLE_ERROR_IF(
+		!found,
+		GL_INVALID_OPERATION,
+		"Inconsistent location of a vertex "
+		"attribute in multiple programs",
+		ProgVarError,
+		Identifier(identifier.c_str())
+	);
 	return location;
 }
 

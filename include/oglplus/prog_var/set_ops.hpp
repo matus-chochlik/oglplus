@@ -16,6 +16,7 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error/basic.hpp>
+#include <oglplus/prog_var/callers.hpp>
 
 #include <type_traits>
 #include <cstddef>
@@ -23,10 +24,10 @@
 namespace oglplus {
 
 template <class OpsTag, class VarTag, class TypTag, class T, std::size_t M>
-class ProgVarSetOps;
+class ProgVarBaseSetOps;
 
 template <typename OpsTag, typename VarTag, typename T, std::size_t M>
-class ProgVarSetOps<OpsTag, VarTag, tag::NativeTypes, T, M>
+class ProgVarBaseSetOps<OpsTag, VarTag, tag::NativeTypes, T, M>
  : public ProgVarSetters<OpsTag, VarTag, tag::NativeTypes>
  , public ProgVarCallers<OpsTag, T>
 {
@@ -200,7 +201,7 @@ protected:
 		OGLPLUS_CHECK_CTXT(
 			ProgVarError,
 			Program(ProgramName(program)).
-			Index(base_location)
+			Index(location)
 		);
 	}
 #else
@@ -217,7 +218,7 @@ protected:
 		OGLPLUS_CHECK_CTXT(
 			ProgVarError,
 			Program(ProgramName(program)).
-			Index(base_location)
+			Index(location)
 		);
 	}
 
@@ -308,7 +309,7 @@ protected:
 };
 
 template <typename OpsTag, typename VarTag, typename T, std::size_t M>
-class ProgVarSetOps<OpsTag, VarTag, tag::MatrixTypes, T, M>
+class ProgVarBaseSetOps<OpsTag, VarTag, tag::MatrixTypes, T, M>
  : public ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes>
  , public ProgVarCallers<OpsTag, T>
 {
@@ -316,6 +317,7 @@ private:
 	typedef ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes> Setters;
 	typedef ProgVarCallers<OpsTag, T> Callers;
 
+	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
 protected:
 	template <std::size_t Cols, std::size_t Rows, typename V>
 	static void _do_set_mat(
@@ -347,7 +349,7 @@ protected:
 		OGLPLUS_CHECK_CTXT(
 			ProgVarError,
 			Program(ProgramName(program)).
-			Index(base_location)
+			Index(location)
 		);
 	}
 

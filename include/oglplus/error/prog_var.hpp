@@ -27,12 +27,10 @@ private:
 	GLuint _prog_name;
 #endif
 #if !OGLPLUS_ERROR_INFO_NO_IDENTIFIER
-	const char* _identifier;
+	String _identifier;
 #endif
 public:
-	ProgVarError(const char* message)
-	 : Error(message)
-	{ }
+	ProgVarError(const char* message);
 
 	ProgVarError& Program(ProgramName program)
 	{
@@ -46,10 +44,13 @@ public:
 	/// Returns the program
 	ProgramName Program(void) const;
 
-	ProgVarError& Identifier(const char* identifier)
+	ProgVarError& Identifier(StrCRef identifier)
 	{
 #if !OGLPLUS_ERROR_INFO_NO_IDENTIFIER
-		_identifier = identifier;
+		_identifier.assign(
+			identifier.begin(),
+			identifier.end()
+		);
 #endif
 		(void)identifier;
 		return *this;

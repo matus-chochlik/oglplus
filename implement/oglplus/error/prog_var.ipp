@@ -17,9 +17,6 @@ ProgVarError::ProgVarError(const char* message)
 #if !OGLPLUS_ERROR_INFO_NO_PROG_NAME
  , _prog_name(0)
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_IDENTIFIER
- , _identifier(nullptr)
-#endif
 { }
 
 OGLPLUS_LIB_FUNC
@@ -36,7 +33,7 @@ OGLPLUS_LIB_FUNC
 const char* ProgVarError::Identifier(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_IDENTIFIER
-	return _identifier;
+	return _identifier.c_str();
 #else
 	return nullptr;
 #endif
