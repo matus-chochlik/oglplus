@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,6 +14,7 @@
 #define OGLPLUS_SHAPES_WRAPPER_1202020923_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/string/def.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/buffer.hpp>
@@ -21,8 +22,6 @@
 #include <oglplus/program.hpp>
 #include <oglplus/context.hpp>
 #include <oglplus/optional.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/string.hpp>
 #include <oglplus/sphere.hpp>
 
 #include <oglplus/shapes/draw.hpp>

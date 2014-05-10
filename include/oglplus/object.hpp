@@ -146,11 +146,6 @@ protected:
 		this->_name = name;
 		_describe(std::move(description));
 	}
-
-	Object(typename ObjectSubtype<ObjTag>::Type type)
-	{
-		_init(type);
-	}
 public:
 	/// Most object types are default-constructible
 	Object(void)
@@ -165,8 +160,17 @@ public:
 		_describe(std::move(description));
 	}
 
+	/// Construction with subtype specification
+	Object(typename ObjectSubtype<ObjTag>::Type type)
+	{
+		_init(type);
+	}
+
 	/// A textual description can be attached to objects
-	Object(typename ObjectSubtype<ObjTag>::Type type, ObjectDesc&& description)
+	Object(
+		typename ObjectSubtype<ObjTag>::Type type,
+		ObjectDesc&& description
+	)
 	{
 		_init(type);
 		_describe(std::move(description));

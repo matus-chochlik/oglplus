@@ -27,24 +27,28 @@
 #include <oglplus/fwd.hpp>
 
 #include <oglplus/auxiliary/xml_utils.hpp>
-#include <oglplus/auxiliary/utf8.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
-#include <oglplus/auxiliary/typecheck.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/glsl_source.hpp>
-#include <oglplus/auxiliary/prog_var.hpp>
-#include <oglplus/auxiliary/uniform_init.hpp>
+//#include <oglplus/auxiliary/uniform_init.hpp>
 
-#include <oglplus/string.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/compile_error.hpp>
-#include <oglplus/link_error.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/string/def.hpp>
+
+#include <oglplus/error/basic.hpp>
+#include <oglplus/error/framebuffer.hpp>
+#include <oglplus/error/limit.hpp>
+#include <oglplus/error/object.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/program.hpp>
+
+#include <oglplus/prog_var/typecheck.hpp>
 
 #include <oglplus/images/image.hpp>
 
 #include <oglplus/vertex_attrib.hpp>
-#include <oglplus/uniform_block.hpp>
-#include <oglplus/uniform_subroutines.hpp>
+//#include <oglplus/uniform_block.hpp>
+//#include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/buffer.hpp>

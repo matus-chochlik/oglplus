@@ -19,6 +19,135 @@
 
 namespace oglplus {
 
+/// Object sequence iterator template
+template <typename ObjectT>
+class SeqIterator
+{
+private:
+	typedef typename ObjectTag<ObjectT>::Type ObjTag;
+	const GLuint* _pos;
+public:
+	SeqIterator(const GLuint* pos)
+	 : _pos(pos)
+	{ }
+
+	/// Equality comparison
+	friend bool operator == (SeqIterator a, SeqIterator b)
+	{
+		return a._pos == b._pos;
+	}
+
+	/// Inequality comparison
+	friend bool operator != (SeqIterator a, SeqIterator b)
+	{
+		return a._pos != b._pos;
+	}
+
+	/// Ordering
+	friend bool operator <  (SeqIterator a, SeqIterator b)
+	{
+		return a._pos <  b._pos;
+	}
+
+	/// Value type
+	typedef ObjectT value_type;
+
+	/// Difference type
+	typedef std::ptrdiff_t difference_type;
+
+	/// Distance
+	friend difference_type operator - (SeqIterator a, SeqIterator b)
+	{
+		return a._pos - b._pos;
+	}
+
+	/// Dereference
+	value_type operator * (void) const
+	{
+		assert(_pos != nullptr);
+		return ObjectT(ObjectName<ObjTag>(*_pos));
+	}
+
+	/// Array access
+	value_type operator [](std::size_t index) const
+	{
+		assert(_pos != nullptr);
+		return ObjectT(ObjectName<ObjTag>(_pos[index]));
+	}
+
+	/// Preincrement
+	SeqIterator& operator ++ (void)
+	{
+		++_pos;
+		return *this;
+	}
+
+	/// Postincrement
+	SeqIterator operator ++ (int)
+	{
+		return SeqIterator(_pos++);
+	}
+
+	/// Predecrement
+	SeqIterator& operator -- (void)
+	{
+		--_pos;
+		return *this;
+	}
+
+	/// Postdecrement
+	SeqIterator operator -- (int)
+	{
+		return SeqIterator(_pos--);
+	}
+
+	/// Positive offset
+	friend SeqIterator operator + (SeqIterator a, difference_type d)
+	{
+		return SeqIterator(a._pos+d);
+	}
+
+	/// Positive offset
+	SeqIterator& operator += (difference_type d)
+	{
+		_pos += d;
+		return *this;
+	}
+
+	/// Negative offset
+	friend SeqIterator operator - (SeqIterator a, difference_type d)
+	{
+		return SeqIterator(a._pos-d);
+	}
+
+	/// Negative offset
+	SeqIterator& operator -= (difference_type d)
+	{
+		_pos -= d;
+		return *this;
+	}
+};
+
+template <typename OpsTag, typename ObjTag>
+class SeqIterator<ObjectOps<OpsTag, ObjTag>>
+ : public SeqIterator<Reference<ObjectOps<OpsTag, ObjTag>>>
+{
+public:
+	SeqIterator(const GLuint* pos)
+	 : SeqIterator<Reference<ObjectOps<OpsTag, ObjTag>>>(pos)
+	{ }
+};
+
+template <typename ObjectOps>
+class SeqIterator<Object<ObjectOps>>
+ : public SeqIterator<ObjectOps>
+{
+public:
+	SeqIterator(const GLuint* pos)
+	 : SeqIterator<ObjectOps>(pos)
+	{ }
+};
+
 /// Common base class for Object name sequences
 template <typename ObjTag>
 class Sequence<ObjectName<ObjTag>>
@@ -77,6 +206,20 @@ public:
 	{
 		assert(begin + size <= _size);
 		return Sequence(_names+begin, size);
+	}
+
+	typedef SeqIterator<ObjectName<ObjTag>> const_iterator;
+
+	/// Position at the beginning of the sequence
+	const_iterator begin(void) const
+	{
+		return const_iterator(_names);
+	}
+
+	/// Position past the end of the sequence
+	const_iterator end(void) const
+	{
+		return const_iterator(_names+_size);
 	}
 };
 

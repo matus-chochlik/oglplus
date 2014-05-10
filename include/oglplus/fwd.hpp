@@ -123,6 +123,9 @@ struct ImplicitSel;
 struct DirectState;
 } // namespace tag
 
+template <typename T>
+struct AllowedSpecialization;
+
 // Object
 
 template <typename ObjTag>
@@ -173,16 +176,35 @@ class ObjectZero;
 template <typename ObjectOps>
 class Object;
 
-template <typename ObjectOps>
-class Reference;
+template <typename Object>
+struct ObjectTag;
+
+template <typename ObjTag>
+struct ObjectTag<ObjectName<ObjTag>>
+{
+	typedef ObjTag Type;
+};
+
+template <typename OpsTag, typename ObjTag>
+struct ObjectTag<ObjectOps<OpsTag, ObjTag>>
+ : ObjectTag<ObjectName<ObjTag>>
+{ };
+
+template <template <typename> class Wrapper, typename ObjectOps>
+struct ObjectTag<Wrapper<ObjectOps>>
+ : ObjectTag<ObjectOps>
+{ };
 
 template <typename Target>
 struct ObjectTargetTag;
 
+template <typename ObjectT>
+class Reference;
+
 template <typename Object>
 class Managed;
 
-template <typename Object>
+template <typename ObjectT>
 class Array;
 
 template <typename Object>

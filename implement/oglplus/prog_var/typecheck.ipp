@@ -10,7 +10,6 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/error.hpp>
 #include <oglplus/object/tags.hpp>
 #include <oglplus/object/desc.hpp>
 #include <oglplus/lib/incl_end.ipp>
@@ -364,6 +363,7 @@ bool GLSLtoCppTypeMatcher_Mat::_does_match(
 
 #endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
 
+/* TODO
 OGLPLUS_LIB_FUNC
 void ProgVarTypecheckUtils::_handle_error(
 	GLuint program,
@@ -390,6 +390,7 @@ void ProgVarTypecheckUtils::_handle_error(
 		std::move(props)
 	);
 }
+*/
 
 } // namespace oglplus
 

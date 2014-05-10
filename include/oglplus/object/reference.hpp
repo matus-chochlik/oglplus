@@ -18,6 +18,14 @@
 
 namespace oglplus {
 
+template <typename ObjTag>
+struct AllowedSpecialization<Reference<ObjectName<ObjTag>>>
+{ };
+
+template <typename OpsTag, typename ObjTag>
+struct AllowedSpecialization<Reference<ObjectOps<OpsTag, ObjTag>>>
+{ };
+
 /// Allows to make managed copies of instances of Object
 /** For obvious reasons @ref oglplus_object "objects" are not copyable,
  *  only movable. There may however be situations where a temporary reference
@@ -33,15 +41,26 @@ namespace oglplus {
  *
  *  @ingroup modifier_classes
  */
-template <typename OpsTag, typename ObjTag>
-struct Reference<ObjectOps<OpsTag, ObjTag>>
- : public ObjectOps<OpsTag, ObjTag>
+template <typename Object>
+struct Reference
+ : public Object
+ , public AllowedSpecialization<Reference<Object>>
 {
 public:
-	Reference(ObjectName<ObjTag> object)
+	Reference(ObjectName<typename ObjectTag<Object>::Type> object)
 	{
 		this->_copy(object);
 	}
+};
+
+template <typename ObjectOps>
+struct Reference<Object<ObjectOps>>
+ : public Reference<ObjectOps>
+{
+public:
+	Reference(ObjectName<typename ObjectTag<Object<ObjectOps>>::Type> object)
+	 : Reference<ObjectOps>(object)
+	{ }
 };
 
 } // namespace oglplus
