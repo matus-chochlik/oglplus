@@ -145,6 +145,7 @@ typedef ObjectName<tag::TransformFeedback> TransformFeedbackName;
 typedef ObjectName<tag::Sampler> SamplerName;
 typedef ObjectName<tag::VertexArray> VertexArrayName;
 typedef ObjectName<tag::Shader> ShaderName;
+typedef ObjectName<tag::PathNV> PathNVName;
 
 template <typename ObjTag>
 GLuint GetGLName(ObjectName<ObjTag>);
@@ -204,11 +205,16 @@ class Reference;
 template <typename Object>
 class Managed;
 
+template <typename Object>
+class Optional;
+
 template <typename ObjectT>
 class Array;
 
 template <typename Object>
 class Group;
+
+class Shader;
 
 template <typename VarTag>
 class ProgVarLoc;

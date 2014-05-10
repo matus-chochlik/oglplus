@@ -26,7 +26,6 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
-#include <oglplus/auxiliary/xml_utils.hpp>
 #include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/glsl_source.hpp>
@@ -34,6 +33,8 @@
 
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/string/def.hpp>
+
+#include <oglplus/utils/xml.hpp>
 
 #include <oglplus/error/basic.hpp>
 #include <oglplus/error/framebuffer.hpp>

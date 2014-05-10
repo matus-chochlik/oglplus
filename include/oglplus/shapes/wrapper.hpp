@@ -15,13 +15,13 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/string/def.hpp>
+#include <oglplus/object/array.hpp>
+#include <oglplus/object/optional.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/buffer.hpp>
-#include <oglplus/array.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/context.hpp>
-#include <oglplus/optional.hpp>
 #include <oglplus/sphere.hpp>
 
 #include <oglplus/shapes/draw.hpp>

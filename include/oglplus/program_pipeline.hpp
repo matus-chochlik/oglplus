@@ -18,7 +18,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/bitfield.hpp>
 #include <oglplus/shader_type.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/auxiliary/prog_pl_stages.hpp>
 

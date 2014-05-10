@@ -38,12 +38,23 @@ private:
 	typedef typename ObjectTag<Object>::Type ObjTag;
 	typedef ObjGenDelOps<ObjTag> GenDelOps;
 
-	std::vector<GLuint> _names;
-
 	/// Array is not copyable
 	Array(const Array&);
-public:
+protected:
+	std::vector<GLuint> _names;
 
+	void _init(Nothing)
+	{
+		GenDelOps::Gen(GLsizei(_names.size()), _names.data());
+	}
+
+	template <typename ObjectSubtype>
+	void _init(ObjectSubtype type)
+	{
+		this->_type = GLenum(type);
+		_init(Nothing());
+	}
+public:
 	/// Array is moveable
 	Array(Array&& temp)
 	 : _names(std::move(temp._names))
@@ -53,7 +64,14 @@ public:
 	Array(std::size_t count)
 	 : _names(count, 0u)
 	{
-		GenDelOps::Gen(GLsizei(_names.size()), _names.data());
+		_init(Nothing());
+	}
+
+	/// Constructs an an array of @p count instances of Object with @p type
+	Array(std::size_t count, typename ObjectSubtype<ObjTag>::Type type)
+	 : _names(count, 0u)
+	{
+		_init(type);
 	}
 
 	~Array(void)
@@ -82,13 +100,13 @@ public:
 	/// Returns a reference to the i-th instance in the array
 	reference at(std::size_t index)
 	{
-		return reference(_names.at(index));
+		return reference(ObjectName<ObjTag>(_names.at(index)));
 	}
 
 	/// Returns a const reference to the i-th instance in the array
 	const_reference at(GLuint index) const
 	{
-		return const_reference(_names.at(index));
+		return const_reference(ObjectName<ObjTag>(_names.at(index)));
 	}
 
 	/// Returns a reference to the i-th instance in the array

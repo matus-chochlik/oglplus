@@ -17,7 +17,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/vector.hpp>
 #include <oglplus/error/object.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/compare_func.hpp>

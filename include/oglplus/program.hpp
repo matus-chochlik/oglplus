@@ -14,7 +14,7 @@
 #define OGLPLUS_PROGRAM_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/data_type.hpp>

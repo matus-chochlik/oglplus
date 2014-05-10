@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/object.hpp
+ *  @file oglplus/object/wrapper.hpp
  *  @brief Generic OpenGL object wrapper
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_OBJECT_1107121519_HPP
-#define OGLPLUS_OBJECT_1107121519_HPP
+#ifndef OGLPLUS_OBJECT_WRAPPER_1107121519_HPP
+#define OGLPLUS_OBJECT_WRAPPER_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
 #include <oglplus/object/tags.hpp>
@@ -129,13 +129,17 @@ private:
 
 	void _cleanup(void)
 	{
-		_undescribe();
-		if(this->_name)
+		if(this->_name != 0u)
 		{
+			_undescribe();
 			ObjGenDelOps<ObjTag>::Delete(1, &this->_name);
 		}
 	}
 protected:
+	struct Uninitialized_ { };
+
+	Object(Uninitialized_) { }
+
 	Object(GLuint name)
 	{
 		this->_name = name;
@@ -197,14 +201,6 @@ public:
 		_move_in(std::move(temp));
 		return *this;
 	}
-
-/* TODO
-	static oglplus::ObjectSubtype ObjectSubtype(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return _get_object_type<ObjectOps>(nullptr);
-	}
-*/
 
 	/// Returns the textual description of this object
 	const String& Description(void) const

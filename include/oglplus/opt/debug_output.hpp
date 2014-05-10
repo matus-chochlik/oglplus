@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/string.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <oglplus/friend_of.hpp>
 #include <oglplus/enumerations.hpp>
 

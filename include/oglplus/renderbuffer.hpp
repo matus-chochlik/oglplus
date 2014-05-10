@@ -19,7 +19,7 @@
 #include <oglplus/error/object.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/pixel_data.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <cassert>
 

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>
@@ -338,10 +338,18 @@ struct ObjectSubtype<tag::Shader>
  *  @see FragmentShader
  *  @see TessControlShader
  *  @see TessEvaluationShader
+ *  @see ComputeShader
  */
 class Shader
  : public Object<ShaderOps>
 {
+protected:
+	using Object<ShaderOps>::Uninitialized_;
+
+	/// Uninitialized construction
+	Shader(Uninitialized_ u)
+	 : Object<ShaderOps>(u)
+	{ }
 public:
 	/// Construction with shader @p type specifier
 	Shader(ShaderType type)
@@ -389,6 +397,28 @@ public:
 	/// Shaders are movable
 	Shader(Shader&& temp)
 	 : Object<ShaderOps>(static_cast<Object<ShaderOps>&&>(temp))
+	{ }
+
+	Shader& operator = (Shader&& temp)
+	{
+		Object<ShaderOps>::operator = (std::move(temp));
+		return *this;
+	}
+};
+
+template <>
+struct ObjectTag<Shader>
+{
+	typedef tag::Shader Type;
+};
+
+template <>
+class Array<Shader>
+ : public Array<ObjectOps<tag::DirectState, tag::Shader>>
+{
+public:
+	Array(GLsizei n, ShaderType type)
+	 : Array<ObjectOps<tag::DirectState, tag::Shader>>(n, type)
 	{ }
 };
 

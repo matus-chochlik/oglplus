@@ -1,5 +1,5 @@
 /**
- *  .file oglplus/auxiliary/xml_utils.ipp
+ *  .file oglplus/utils/xml.ipp
  *  .brief Implementation simple xml utilities
  *
  *  @author Matus Chochlik

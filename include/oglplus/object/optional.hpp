@@ -1,21 +1,32 @@
 /**
- *  @file oglplus/optional.hpp
+ *  @file oglplus/object/optional.hpp
  *  @brief Template wrapper for Objects, making them optional
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_OPTIONAL_1107121519_HPP
-#define OGLPLUS_OPTIONAL_1107121519_HPP
+#ifndef OGLPLUS_OBJECT_OPTIONAL_1107121519_HPP
+#define OGLPLUS_OBJECT_OPTIONAL_1107121519_HPP
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/fwd.hpp>
+#include <oglplus/object/wrapper.hpp>
 
 namespace oglplus {
+
+template <typename ObjectOps>
+class AllowedSpecialization<Optional<Object<ObjectOps>>>
+{ };
+
+class Shader;
+
+template <>
+class AllowedSpecialization<Optional<Shader>>
+{ };
 
 /// Modifier that allows to create uninitialized Object(s)
 /** The Optional template class is a modifier for @ref oglplus_object "Objects"
@@ -23,14 +34,15 @@ namespace oglplus {
  *  instances which can be initialized later.
  *
  *  An Optional<Object> can be used everywhere an Object could be
- *  used but it must be initialized (the IsInitialized() member function
+ *  used, but it must be initialized (the IsInitialized() member function
  *  must return true), otherwise usage results in undefined behavior.
  *
  *  @ingroup modifier_classes
  */
-template <class Object_>
+template <class Object>
 class Optional
- : public Object_
+ : public Object
+ , public AllowedSpecialization<Optional<Object>>
 {
 public:
 	/// Construction of an uninitialized instance
@@ -44,7 +56,7 @@ public:
 	 */
 	Optional(void)
 	OGLPLUS_NOEXCEPT(true)
-	 : Object_(typename Object_::Uninitialized_())
+	 : Object(typename Object::Uninitialized_())
 	{ }
 
 	/// Construction of an initialized instance
@@ -55,17 +67,21 @@ public:
 	 *  @see IsInitialized
 	 *  @see Clear
 	 */
-	Optional(Object_&& temp)
+	Optional(Object&& temp)
 	OGLPLUS_NOEXCEPT(true)
-	 : Object_(std::move(temp))
+	 : Object(std::move(temp))
 	{ }
 
 	/// Move constructor
 	Optional(Optional&& temp)
 	OGLPLUS_NOEXCEPT(true)
-	 : Object_(typename Object_::Uninitialized_())
+	 : Object(static_cast<Object&&>(temp))
+	{ }
+
+	Optional& operator = (Object&& temp)
 	{
-		this->_move_in_uninit(static_cast<Object_&&>(temp));
+		Object::operator=(std::move(temp));
+		return *this;
 	}
 
 	/// Returns true if the object is initialized, false otherwise
@@ -76,38 +92,24 @@ public:
 	 *  Optional<Object> can be used everywhere where
 	 *  a plain Object could be used.
 	 *
-	 *  @see Assign
-	 *  @see Clear
+	 *  @see Release
 	 */
 	bool IsInitialized(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
-		return this->_is_initialized();
+		return this->_name != 0u;
 	}
 
-	/// Assigns an initialized Object to this Optional<Object>
-	/** After this the Optional<Object> is initialized.
-	 *
-	 *  @see Clear
-	 *  @see IsInitialized
-	 */
-	void Assign(Object_&& temp)
-	OGLPLUS_NOEXCEPT(true)
+	OGLPLUS_EXPLICIT operator bool (void) const
 	{
-		this->_cleanup_if_needed();
-		this->_move_in(std::move(temp));
+		return IsInitialized();
 	}
 
-	/// Clears this Optional<Object>
-	/** After clearing, this Optional<Object> is uninitialized.
-	 *
-	 *  @see Assign
-	 *  @see IsInitialized
-	 */
-	void Clear(void)
+	/// Releases the stored object and makes this Optional uninitialized
+	Object Release(void)
 	OGLPLUS_NOEXCEPT(true)
 	{
-		this->_cleanup_if_needed();
+		return Object(static_cast<Object&&>(*this));
 	}
 };
 

@@ -21,7 +21,7 @@
 #include <oglplus/framebuffer_status.hpp>
 #include <oglplus/texture_target.hpp>
 #include <oglplus/one_of.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <cassert>
 
 namespace oglplus {

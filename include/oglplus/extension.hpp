@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,7 +14,7 @@
 #define OGLPLUS_EXTENSION_1203031825_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/basic.hpp>
 #include <oglplus/context/string_queries.hpp>
 
 namespace oglplus {
@@ -26,15 +26,13 @@ namespace oglplus {
 
 inline void RequireExtension(const GLchar* name, bool available)
 {
-	if(OGLPLUS_IS_ERROR(!available))
-	{
-		oglplus::HandleError(
-			GL_INVALID_OPERATION,
-			"Missing extension",
-			OGLPLUS_ERROR_INFO_STR(name),
-			oglplus::Error::PropertyMapInit()
-		);
-	}
+	OGLPLUS_HANDLE_ERROR_IF(
+		!available,
+		GL_INVALID_OPERATION,
+		"Missing extension",
+		Error,
+		NoInfo()
+	);
 }
 
 #if OGLPLUS_USE_GLEW

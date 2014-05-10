@@ -15,7 +15,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/object.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
 #include <cassert>
