@@ -10,7 +10,7 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/auxiliary/xml_utils.hpp>
+#include <oglplus/utils/xml.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {

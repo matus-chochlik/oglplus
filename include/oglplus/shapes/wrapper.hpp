@@ -71,7 +71,7 @@ protected:
 		Iterator end
 	)
 	{
-		VertexArray::Unbind();
+		NoVertexArray().Bind();
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
 		unsigned i = 0;
 		std::vector<GLfloat> data;
@@ -174,7 +174,7 @@ public:
 
 	void UseInProgram(const ProgramOps& prog)
 	{
-		_vao.Assign(VAOForProgram(prog));
+		_vao = VAOForProgram(prog);
 	}
 
 	void Use(void)

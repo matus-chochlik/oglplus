@@ -13,8 +13,8 @@
 #ifndef OGLPLUS_UNIFORM_1107121519_HPP
 #define OGLPLUS_UNIFORM_1107121519_HPP
 
-#include <oglplus/error.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/error/prog_var.hpp>
 #include <oglplus/prog_var/location.hpp>
 #include <oglplus/prog_var/varpara_fns.hpp>
 
@@ -30,7 +30,12 @@ protected:
 			program,
 			identifier
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetUniformLocation));
+		OGLPLUS_CHECK(
+			GetUniformLocation,
+			ProgVarError,
+			Program(ProgramName(program)).
+			Identifier(identifier)
+		);
 		return result;
 	}
 };

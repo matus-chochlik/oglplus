@@ -164,9 +164,9 @@ public:
 	 , _size(0)
 	{ }
 
-	Sequence(const GLuint* names, std::size_t size)
+	Sequence(const GLuint* names, std::size_t count)
 	 : _names(names)
-	 , _size(size)
+	 , _size(count)
 	{ }
 
 	/// Returns true if the sequence is empty
@@ -194,18 +194,18 @@ public:
 		return at(index);
 	}
 
-	/// Returns a subsequence starting at @p begin
-	Sequence slice(std::size_t begin) const
+	/// Returns a subsequence starting at @p start
+	Sequence slice(std::size_t start) const
 	{
-		assert(begin <= _size);
-		return Sequence(_names+begin, _size-begin);
+		assert(start <= _size);
+		return Sequence(_names+start, _size-start);
 	}
 
-	/// Returns a subsequence with the specified @p size starting at @p begin
-	Sequence slice(std::size_t begin, std::size_t size) const
+	/// Returns a subsequence with the specified @p count starting at @p start
+	Sequence slice(std::size_t start, std::size_t count) const
 	{
-		assert(begin + size <= _size);
-		return Sequence(_names+begin, size);
+		assert(start + count <= _size);
+		return Sequence(_names+start, count);
 	}
 
 	typedef SeqIterator<ObjectName<ObjTag>> const_iterator;

@@ -99,9 +99,9 @@
 #include <oglplus/opt/resources.hpp>
 
 #include <oglplus/ext/ARB_debug_output.hpp>
-#include <oglplus/ext/EXT_direct_state_access/framebuffer.hpp>
-#include <oglplus/ext/EXT_direct_state_access/renderbuffer.hpp>
-#include <oglplus/ext/EXT_direct_state_access/texture.hpp>
+#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/renderbuffer.hpp>
+#include <oglplus/dsa/texture.hpp>
 
 #include <oglplus/native/common_glx.hpp>
 #include <oglplus/native/common_wgl.hpp>

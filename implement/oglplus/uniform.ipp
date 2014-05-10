@@ -10,7 +10,7 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/prog_var.hpp>
 #include <oglplus/object/tags.hpp>
 #include <oglplus/object/desc.hpp>
 #include <oglplus/lib/incl_end.ipp>
@@ -39,7 +39,12 @@ GetType(GLuint program, GLint /*location*/, const GLchar* identifier)
 		GL_ACTIVE_UNIFORMS,
 		&active_uniforms
 	);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetProgramiv));
+	OGLPLUS_VERIFY(
+		GetProgramiv,
+		ProgVarError,
+		Program(ProgramName(program)).
+		Identifier(identifier)
+	);
 
 	for(GLint index=0; index!=active_uniforms; ++index)
 	{
@@ -52,7 +57,12 @@ GetType(GLuint program, GLint /*location*/, const GLchar* identifier)
 			&type,
 			buffer.data()
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniform));
+		OGLPLUS_VERIFY(
+			GetActiveUniform,
+			ProgVarError,
+			Program(ProgramName(program)).
+			Identifier(identifier)
+		);
 		if(id_len == length)
 		{
 			if(std::strncmp(

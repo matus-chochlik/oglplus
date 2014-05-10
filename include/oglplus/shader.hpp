@@ -17,6 +17,7 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/object/wrapper.hpp>
+#include <oglplus/object/array.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/precision_type.hpp>
 #include <oglplus/shader_type.hpp>

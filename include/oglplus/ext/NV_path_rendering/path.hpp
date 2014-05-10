@@ -368,7 +368,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{PathStringNV}
 	 */
-	ObjectOps& PathString(PathNVFormat format, const String& path_string)
+	ObjectOps& PathString(PathNVFormat format, StrCRef path_string)
 	{
 		OGLPLUS_GLFUNC(PathStringNV)(
 			this->_name,
@@ -402,7 +402,7 @@ public:
 	 *  @glfunref{PathStringNV}
 	 *  @gldefref{PATH_FORMAT_SVG_NV}
 	 */
-	ObjectOps& SVGString(const String& path_string)
+	ObjectOps& SVGString(StrCRef path_string)
 	{
 		PathString(PathNVFormat::SVG, path_string);
 		return *this;
@@ -426,7 +426,7 @@ public:
 	 *  @glfunref{PathStringNV}
 	 *  @gldefref{PATH_FORMAT_PS_NV}
 	 */
-	ObjectOps& PSString(const String& path_string)
+	ObjectOps& PSString(StrCRef path_string)
 	{
 		PathString(PathNVFormat::PS, path_string);
 		return *this;

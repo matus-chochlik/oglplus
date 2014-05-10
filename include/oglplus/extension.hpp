@@ -15,7 +15,6 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/error/basic.hpp>
-#include <oglplus/context/string_queries.hpp>
 
 namespace oglplus {
 
@@ -24,16 +23,7 @@ namespace oglplus {
  * Classes in this group implement wrappers around OpenGL extensions.
  */
 
-inline void RequireExtension(const GLchar* name, bool available)
-{
-	OGLPLUS_HANDLE_ERROR_IF(
-		!available,
-		GL_INVALID_OPERATION,
-		"Missing extension",
-		Error,
-		NoInfo()
-	);
-}
+void RequireExtension(const GLchar* name, bool available);
 
 #if OGLPLUS_USE_GLEW
 #define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
@@ -41,16 +31,7 @@ inline void RequireExtension(const GLchar* name, bool available)
 	(GLEW_ ## VENDOR ## _ ## EXTENSION == GL_TRUE) \
 )
 #else
-inline bool HasExtension(const GLchar* name)
-{
-	auto er = oglplus::context::StringQueries::Extensions();
-	while(!er.Empty())
-	{
-		if(er.Front() == name) return true;
-		er.Next();
-	}
-	return false;
-}
+bool HasExtension(const GLchar* name);
 #define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
 	HasExtension("GL_" #VENDOR "_" #EXTENSION) \
 )
@@ -92,5 +73,9 @@ inline bool HasExtension(const GLchar* name)
 	OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION)
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/extension.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

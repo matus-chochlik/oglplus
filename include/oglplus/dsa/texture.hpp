@@ -75,21 +75,26 @@ public:
 	};
 
 	/// Bind this texture to target on the specified texture unit
-	void BindMulti(TextureUnitSelector index, Target target)
+	void BindMulti(TextureUnitSelector index, Target tex_target)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(BindMultiTextureEXT)(
 			GLenum(GL_TEXTURE0 + GLuint(index)),
-			GLenum(target),
+			GLenum(tex_target),
 			_name
 		);
 		OGLPLUS_VERIFY(
 			BindMultiTextureEXT,
 			ObjectError,
 			Object(*this).
-			BindTarget(target).
+			BindTarget(tex_target).
 			Index(GLuint(index))
 		);
+	}
+
+	void BindMulti(TextureUnitSelector index)
+	{
+		BindMulti(index, target);
 	}
 
 	GLint GetIntParam(GLenum query) const

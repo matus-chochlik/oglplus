@@ -205,7 +205,7 @@ public:
 	/// Returns the textual description of this object
 	const String& Description(void) const
 	{
-		aux::ObjectDescRegistry::_get_desc(
+		return aux::ObjectDescRegistry::_get_desc(
 			ObjTag::value,
 			this->_name
 		);

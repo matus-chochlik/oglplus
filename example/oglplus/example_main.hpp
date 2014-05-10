@@ -2,14 +2,16 @@
  *  @file oglplus/example_main.hpp
  *  @brief Implements common code shared by examples
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #ifndef __OGLPLUS_EXAMPLE_EXAMPLE_MAIN_1119071146_HPP__
 #define __OGLPLUS_EXAMPLE_EXAMPLE_MAIN_1119071146_HPP__
 
-#include <oglplus/compile_error.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/program.hpp>
+#include <oglplus/error/limit.hpp>
 #include <oglplus/opt/application.hpp>
 
 #include <oglplus/os/semaphore.hpp>
@@ -35,9 +37,9 @@ inline void example_print_error_common(
 )
 {
 	example_print_std_error_common(error, errstr);
-	errstr << "in '" << error.GLSymbol() << "'" << std::endl;
+	errstr << "in '" << error.GLFuncName() << "'" << std::endl;
 	errstr << "at [";
-	errstr << error.File() << ":" << error.Line();
+	errstr << error.SourceFile() << ":" << error.SourceLine();
 	errstr << "]" << std::endl;
 
 	bool nl = false;
@@ -82,10 +84,10 @@ inline int example_guarded_exec(Func func, std::ostream& errstr)
 	{
 		return func();
 	}
-	catch(ShaderVariableError& sve)
+	catch(ProgVarError& pve)
 	{
-		errstr << "Shader variable error";
-		example_print_error_common(sve, errstr);
+		errstr << "Program variable error";
+		example_print_error_common(pve, errstr);
 		sve.Cleanup();
 	}
 	catch(ProgramBuildError& pbe)
