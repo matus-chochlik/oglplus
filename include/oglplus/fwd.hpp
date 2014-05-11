@@ -219,6 +219,9 @@ class Shader;
 template <typename VarTag>
 class ProgVarLoc;
 
+typedef ProgVarLoc<tag::VertexAttrib> VertexAttribLoc;
+typedef ProgVarLoc<tag::Uniform> UniformLoc;
+
 template <typename VarTag>
 GLint GetGLLocation(ProgVarLoc<VarTag>);
 

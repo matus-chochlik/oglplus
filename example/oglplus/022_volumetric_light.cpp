@@ -146,7 +146,7 @@ public:
 		{
 			GLfloat position[3] = {0.0, 0.0, 0.0};
 			Buffer::Data(Buffer::Target::Array, 3, position);
-			VertexAttribArray attr(volume_prog, "Position");
+			VertexArrayAttrib attr(volume_prog, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -228,7 +228,7 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			plane_prog.Use();
-			VertexAttribArray attr(plane_prog, "Position");
+			VertexArrayAttrib attr(plane_prog, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}

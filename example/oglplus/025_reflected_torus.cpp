@@ -201,13 +201,13 @@ public:
 			Buffer::Data(se::Array(), data);
 
 			// setup the vertex attribs array for the vertices
-			typedef VertexAttribArray VAA;
+			typedef VertexArrayAttrib VAA;
 			VertexAttribSlot
 				loc_norm = VAA::GetLocation(prog_norm, "Position"),
 				loc_refl = VAA::GetLocation(prog_refl, "Position");
 
 			assert(loc_norm == loc_refl);
-			VertexAttribArray attr(loc_norm);
+			VertexArrayAttrib attr(loc_norm);
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -221,13 +221,13 @@ public:
 			Buffer::Data(se::Array(), data);
 
 			// setup the vertex attribs array for the normals
-			typedef VertexAttribArray VAA;
+			typedef VertexArrayAttrib VAA;
 			VertexAttribSlot
 				loc_norm = VAA::GetLocation(prog_norm, "Normal"),
 				loc_refl = VAA::GetLocation(prog_refl, "Normal");
 
 			assert(loc_norm == loc_refl);
-			VertexAttribArray attr(loc_norm);
+			VertexArrayAttrib attr(loc_norm);
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -248,7 +248,7 @@ public:
 			Buffer::Data(se::Array(), 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
-			VertexAttribArray attr(prog_norm, "Position");
+			VertexArrayAttrib attr(prog_norm, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -266,7 +266,7 @@ public:
 			Buffer::Data(se::Array(), 4*3, data);
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
-			VertexAttribArray attr(prog_norm, "Normal");
+			VertexArrayAttrib attr(prog_norm, "Normal");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}

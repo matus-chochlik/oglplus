@@ -168,7 +168,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(torus_prog, "Position");
+			VertexArrayAttrib attr(torus_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -181,7 +181,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(torus_prog, "TexCoord");
+			VertexArrayAttrib attr(torus_prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -248,7 +248,7 @@ public:
 				GLuint n = make_plane[p].Positions(data);
 				// upload the data
 				Buffer::Data(Buffer::Target::Array, data);
-				VertexAttribArray attr(plane_prog, "Position");
+				VertexArrayAttrib attr(plane_prog, "Position");
 				attr.Setup<GLfloat>(n);
 				attr.Enable();
 			}

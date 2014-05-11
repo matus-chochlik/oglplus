@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/prog_var/location.hpp
- *  @brief Program variable location getters
+ *  @brief Program variable location wrapper
  *
  *  @author Matus Chochlik
  *
@@ -14,6 +14,7 @@
 #define OGLPLUS_PROG_VAR_LOCATION_1405052234_HPP
 
 #include <oglplus/fwd.hpp>
+#include <oglplus/string/ref.hpp>
 #include <oglplus/object/tags.hpp>
 #include <oglplus/object/name.hpp>
 
@@ -27,31 +28,60 @@ protected:
 	friend GLint GetGLLocation<VarTag>(ProgVarLoc);
 	GLuint _program;
 	GLint _location;
-
+public:
+	/// Default construction
 	ProgVarLoc(void)
 	OGLPLUS_NOEXCEPT(true)
 	 : _program(0u)
 	 , _location(-1)
 	{ }
 
-	void Init(ProgramName prog, GLint location)
+	/// Creates variable with specified @p location without specific program
+	ProgVarLoc(GLint location)
 	OGLPLUS_NOEXCEPT(true)
-	{
-		_program = GetGLName(prog);
-		_location = location;
-	}
-public:
-	ProgVarLoc(ProgramName prog, GLint location)
-	OGLPLUS_NOEXCEPT(true)
-	 : _program(GetGLName(prog))
+	 : _program(0)
 	 , _location(location)
 	{ }
+
+	/// Creates variable with specified @p location in specified @p program
+	ProgVarLoc(ProgramName program, GLint location)
+	OGLPLUS_NOEXCEPT(true)
+	 : _program(GetGLName(program))
+	 , _location(location)
+	{ }
+
+	/// Creates variable with specified @p identifier in specified @p program
+	ProgVarLoc(ProgramName program, StrCRef identifier)
+	OGLPLUS_NOEXCEPT(true)
+	 : _program(GetGLName(program))
+	 , _location(ProgVarLocOps<VarTag>::GetLocation(
+		program,
+		identifier,
+		true
+	)){ }
+
+	/// Creates variable with specified @p identifier in specified @p program
+	ProgVarLoc(ProgramName program, StrCRef identifier, bool active_only)
+	OGLPLUS_NOEXCEPT(true)
+	 : _program(GetGLName(program))
+	 , _location(ProgVarLocOps<VarTag>::GetLocation(
+		program,
+		identifier,
+		active_only
+	)){ }
 
 	/// The program the variable belongs to
 	ProgramName Program(void) const
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return ProgramName(_program);
+	}
+
+	/// Returns the location of the variable
+	GLint Location(void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return _location;
 	}
 
 	/// Returns true if the variable is active

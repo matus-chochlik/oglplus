@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{018_particle_system}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -146,7 +146,7 @@ public:
 		pos_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
@@ -157,7 +157,7 @@ public:
 		age_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, ages);
-			VertexAttribArray attr(prog, "Age");
+			VertexArrayAttrib attr(prog, "Age");
 			attr.Setup<GLfloat>(1);
 			attr.Enable();
 		}

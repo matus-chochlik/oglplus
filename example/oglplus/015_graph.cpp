@@ -150,7 +150,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, positions);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray vert_attr(prog, "Position");
+			VertexArrayAttrib vert_attr(prog, "Position");
 			vert_attr.Setup<GLfloat>(3).Enable();
 		}
 

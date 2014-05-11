@@ -24,6 +24,7 @@
 #include <oglplus/prog_var/location.hpp>
 #include <oglplus/prog_var/varpara_fns.hpp>
 #include <oglplus/prog_var/set_ops.hpp>
+#include <oglplus/prog_var/wrapper.hpp>
 
 #include <type_traits>
 
@@ -33,8 +34,16 @@ template <>
 class ProgVarLocOps<tag::VertexAttrib>
 {
 private:
-	static const char* _inactive_attr_message(void);
+	static const char* InactiveMessage(void);
 public:
+	/// Bind the vertex attribute location
+	/**
+	 *  @see GetLocation
+	 *  @see QueryLocation
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BindAttribLocation}
+	 */
 	static void BindLocation(
 		ProgramName program,
 		VertexAttribSlot location,
@@ -55,9 +64,23 @@ public:
 		);
 	}
 
+	/// Finds the vertex attribute location, throws on failure if active_only
+	/** Finds the location of the input vertex attribute specified
+	 *  by @p identifier in a @p program. If active_only is true then
+	 *  throws if no such attribute exists or if it is not active.
+	 *  For a non-throwing version see QueryActiveLocation().
+	 *
+	 *  @see GetCommonLocation
+	 *  @see QueryActiveLocation
+	 *  @see BindLocation
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
 	static GLint GetLocation(
 		ProgramName program,
-		StrCRef identifier
+		StrCRef identifier,
+		bool active_only
 	)
 	{
 		GLint result = OGLPLUS_GLFUNC(GetAttribLocation)(
@@ -70,16 +93,16 @@ public:
 			Program(program).
 			Identifier(identifier)
 		);
+		OGLPLUS_HANDLE_ERROR_IF(
+			active_only && (result < 0),
+			GL_INVALID_OPERATION,
+			InactiveMessage(),
+			ProgVarError,
+			Program(program).
+			Identifier(identifier)
+		);
 		return result;
 	}
-	/// Bind the vertex attribute location
-	/**
-	 *  @see GetLocation
-	 *  @see QueryLocation
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindAttribLocation}
-	 */
 
 	/// Queries the vertex attribute location, returns false on failure
 	/**
@@ -92,40 +115,10 @@ public:
 		VertexAttribSlot& location
 	)
 	{
-		GLint result = GetLocation(program, identifier);
+		GLint result = GetLocation(program, identifier, false);
 		if(result < 0) return false;
 		location = VertexAttribSlot(result);
 		return true;
-	}
-
-	/// Finds the vertex attribute location, throws on failure
-	/** Finds the location of the input vertex attribute specified
-	 *  by @p identifier in a @p program. Throws if no such attribute
-	 *  exists or if it is not active. For a non-throwing version
-	 *  see QueryActiveLocation().
-	 *
-	 *  @see GetCommonLocation
-	 *  @see QueryActiveLocation
-	 *  @see BindLocation
-	 *
-	 *  @glsymbols
-	 *  @glfunref{GetAttribLocation}
-	 */
-	static VertexAttribSlot GetActiveLocation(
-		ProgramName program,
-		StrCRef identifier
-	)
-	{
-		GLint result = GetLocation(program, identifier);
-		OGLPLUS_HANDLE_ERROR_IF(
-			result < 0,
-			GL_INVALID_OPERATION,
-			_inactive_attr_message(),
-			ProgVarError,
-			Program(program).
-			Identifier(identifier)
-		);
-		return VertexAttribSlot(result);
 	}
 
 	/// Allows to query the vertex attribute @p location in multiple @p programs
@@ -152,7 +145,7 @@ public:
 	 *      location
 	 *  ))
 	 *  {
-	 *      VertexAttribArray attr(location);
+	 *      VertexArrayAttrib attr(location);
 	 *      attr.Setup(n_per_vertex, DataType::Float);
 	 *      attr.Enable();
 	 *  }
@@ -197,7 +190,7 @@ public:
 	 *  buffer.Bind(Buffer::Target::Array);
 	 *  try
 	 *  {
-	 *      VertexAttribArray attr(
+	 *      VertexArrayAttrib attr(
 	 *          VertexAttribOps::GetCommonLocation(
 	 *              MakeGroup(prog1, prog2, prog3),
 	 *              "Position"
@@ -258,17 +251,9 @@ class ProgVarCommonOps<tag::VertexAttrib>
  , public ProgVarLocOps<tag::VertexAttrib>
 {
 protected:
-	ProgVarCommonOps(void) { }
-
-	ProgVarCommonOps(ProgramName program, VertexAttribSlot location)
-	 : ProgVarLoc<tag::VertexAttrib>(program, GLint(location))
+	ProgVarCommonOps(VertexAttribLoc valoc)
+	 : ProgVarLoc<tag::VertexAttrib>(valoc)
 	{ }
-
-	ProgVarCommonOps(ProgramName program, StrCRef identifier)
-	 : ProgVarLoc<tag::VertexAttrib>(
-		program,
-		GLint(this->GetLocation(program, identifier))
-	){ }
 public:
 	void Bind(StrCRef identifier)
 	{
@@ -307,7 +292,9 @@ class ProgVarGetSetOps<OpsTag, tag::VertexAttrib, T>
  , public ProgVarBaseSetOps<OpsTag, tag::VertexAttrib, tag::NativeTypes, T, 16>
 {
 protected:
-	ProgVarGetSetOps(void) { }
+	ProgVarGetSetOps(VertexAttribLoc valoc)
+	 : ProgVarCommonOps<tag::VertexAttrib>(valoc)
+	{ }
 public:
 	/// Set the value of the vertex attribute
 	/**
@@ -326,7 +313,9 @@ class ProgVarGetSetOps<OpsTag, tag::VertexAttrib, Vector<T, N>>
  , public ProgVarBaseSetOps<OpsTag, tag::VertexAttrib, tag::NativeTypes, T, 4>
 {
 protected:
-	ProgVarGetSetOps(void) { }
+	ProgVarGetSetOps(VertexAttribLoc valoc)
+	 : ProgVarCommonOps<tag::VertexAttrib>(valoc)
+	{ }
 public:
 	void Set(const Vector<T, N>& value)
 	{
@@ -340,7 +329,9 @@ class ProgVarGetSetOps<OpsTag, tag::VertexAttrib, Matrix<T, R, C>>
  , public ProgVarBaseSetOps<OpsTag, tag::VertexAttrib, tag::NativeTypes, T, 16>
 {
 protected:
-	ProgVarGetSetOps(void) { }
+	ProgVarGetSetOps(VertexAttribLoc valoc)
+	 : ProgVarCommonOps<tag::VertexAttrib>(valoc)
+	{ }
 public:
 	void Set(const Matrix<T, R, C>& value)
 	{
@@ -352,19 +343,17 @@ template <typename T>
 class VertexAttrib
  : public ProgVarGetSetOps<tag::ImplicitSel, tag::VertexAttrib, T>
 {
+private:
+	typedef ProgVarGetSetOps<tag::ImplicitSel, tag::VertexAttrib, T>
+		VertexAttribGetSetOps;
 public:
-	VertexAttrib(ProgramName program, VertexAttribSlot location)
-	{
-		this->Init(program, location);
-	}
+	VertexAttrib(VertexAttribSlot location)
+	 : VertexAttribGetSetOps(VertexAttribLoc(GLint(location)))
+	{ }
 
 	VertexAttrib(ProgramName program, StrCRef identifier)
-	{
-		this->Init(
-			program,
-			GLint(this->GetActiveLocation(program, identifier))
-		);
-	}
+	 : VertexAttribGetSetOps(VertexAttribLoc(program, identifier))
+	{ }
 
 	void TrySet(const T& value)
 	{
@@ -375,11 +364,11 @@ public:
 	}
 };
 
-/// Encapsulates vertex attribute array functionality
+/// Encapsulates vertex array attribute functionality
 /**
  *  @ingroup shader_variables
  */
-class VertexAttribArray
+class VertexArrayAttrib
  : public ProgVarCommonOps<tag::VertexAttrib>
 {
 private:
@@ -417,18 +406,29 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttribArray(ProgramName program, VertexAttribSlot location)
-	 : ProgVarCommonOps<tag::VertexAttrib>(program, location)
+	VertexArrayAttrib(VertexAttribSlot location)
+	 : ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(location))
 	{ }
+
+	/// References the vertex attribute array at @p location
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetAttribLocation}
+	 */
+	VertexArrayAttrib(ProgramName program, VertexAttribSlot location)
+	 : ProgVarCommonOps<tag::VertexAttrib>(
+		VertexAttribLoc(program, GLint(location))
+	){ }
 
 	/// References the vertex attrib array @p identifier of the @p program
 	/**
 	 *  @glsymbols
 	 *  @glfunref{GetAttribLocation}
 	 */
-	VertexAttribArray(ProgramName program, StrCRef identifier)
-	 : ProgVarCommonOps<tag::VertexAttrib>(program, identifier)
-	{ }
+	VertexArrayAttrib(ProgramName program, StrCRef identifier)
+	 : ProgVarCommonOps<tag::VertexAttrib>(
+		VertexAttribLoc(program, identifier)
+	){ }
 
 	/// Setup the properties of this vertex attribute array
 	/** Equivalent to
@@ -466,7 +466,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
 	 */
-	const VertexAttribArray& Setup(
+	const VertexArrayAttrib& Setup(
 		GLint values_per_vertex,
 		DataType data_type
 	) const
@@ -504,7 +504,7 @@ public:
 		return *this;
 	}
 
-	const VertexAttribArray& Setup(
+	const VertexArrayAttrib& Setup(
 		GLint values_per_vertex,
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
@@ -522,7 +522,7 @@ public:
 	}
 
 #ifdef GL_DOUBLE
-	const VertexAttribArray& Setup(
+	const VertexArrayAttrib& Setup(
 		GLint values_per_vertex,
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
@@ -542,7 +542,7 @@ public:
 	template <
 		typename enums::EnumValueType<DataType>::Type DataTypeValue
 	>
-	const VertexAttribArray& Setup(
+	const VertexArrayAttrib& Setup(
 		GLint values_per_vertex,
 		std::integral_constant<
 			typename enums::EnumValueType<DataType>::Type,
@@ -568,7 +568,7 @@ public:
 	 *  @glfunref{VertexAttribPointer}
 	 */
 	template <typename T>
-	const VertexAttribArray& Setup(GLuint n = 1) const
+	const VertexArrayAttrib& Setup(GLuint n = 1) const
 	{
 		typedef decltype(_get_et((T*)nullptr)) elem_type;
 
@@ -583,7 +583,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
 	 */
-	const VertexAttribArray& Pointer(
+	const VertexArrayAttrib& Pointer(
 		GLint values_per_vertex,
 		DataType data_type,
 		bool normalized,
@@ -613,7 +613,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
 	 */
-	const VertexAttribArray& IPointer(
+	const VertexArrayAttrib& IPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
@@ -643,7 +643,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribPointer}
 	 */
-	const VertexAttribArray& LPointer(
+	const VertexArrayAttrib& LPointer(
 		GLuint values_per_vertex,
 		DataType data_type,
 		GLsizei stride,
@@ -665,7 +665,7 @@ public:
 		return *this;
 	}
 #else
-	const VertexAttribArray& LPointer(
+	const VertexArrayAttrib& LPointer(
 		GLuint,
 		DataType,
 		GLsizei,
@@ -687,7 +687,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribFormat}
 	 */
-	const VertexAttribArray& Format(
+	const VertexArrayAttrib& Format(
 		GLint values_per_vertex,
 		DataType data_type,
 		bool normalized,
@@ -715,7 +715,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribIFormat}
 	 */
-	const VertexAttribArray& IFormat(
+	const VertexArrayAttrib& IFormat(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLuint relative_offset
@@ -741,7 +741,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttribLFormat}
 	 */
-	const VertexAttribArray& LFormat(
+	const VertexArrayAttrib& LFormat(
 		GLint values_per_vertex,
 		DataType data_type,
 		GLuint relative_offset
@@ -766,13 +766,13 @@ public:
 	/// Enables this vertex attribute array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{EnableVertexAttribArray}
+	 *  @glfunref{EnableVertexArrayAttrib}
 	 */
-	const VertexAttribArray& Enable(void) const
+	const VertexArrayAttrib& Enable(void) const
 	{
 		OGLPLUS_GLFUNC(EnableVertexAttribArray)(_location);
 		OGLPLUS_VERIFY(
-			EnableVertexAttribArray,
+			EnableVertexArrayAttrib,
 			Error,
 			Index(_location)
 		);
@@ -782,13 +782,13 @@ public:
 	/// Disables this vertex attribute array
 	/**
 	 *  @glsymbols
-	 *  @glfunref{DisableVertexAttribArray}
+	 *  @glfunref{DisableVertexArrayAttrib}
 	 */
-	const VertexAttribArray& Disable(void) const
+	const VertexArrayAttrib& Disable(void) const
 	{
 		OGLPLUS_GLFUNC(DisableVertexAttribArray)(_location);
 		OGLPLUS_VERIFY(
-			DisableVertexAttribArray,
+			DisableVertexArrayAttrib,
 			Error,
 			Index(_location)
 		);
@@ -796,33 +796,33 @@ public:
 	}
 };
 
-/// Syntax sugar for construction of a VertexAttribArray object
-/** Constructs an instance of VertexAttribArray for a vertex attribute
+/// Syntax sugar for construction of a VertexArrayAttrib object
+/** Constructs an instance of VertexArrayAttrib for a vertex attribute
  *  identified by @p identifier in a @p program.
  *
- *  @see VertexAttribArray
+ *  @see VertexArrayAttrib
  */
 template <std::size_t N>
-inline VertexAttribArray operator | (
+inline VertexArrayAttrib operator | (
 	ProgramName program,
 	const GLchar (&identifier)[N]
 )
 {
-	return VertexAttribArray(program, identifier);
+	return VertexArrayAttrib(program, identifier);
 }
 
-/// Syntax sugar for construction of a VertexAttribArray object
-/** Constructs an instance of VertexAttribArray for a vertex attribute
+/// Syntax sugar for construction of a VertexArrayAttrib object
+/** Constructs an instance of VertexArrayAttrib for a vertex attribute
  *  at the specified @p location in a @p program.
  *
- *  @see VertexAttribArray
+ *  @see VertexArrayAttrib
  */
-inline VertexAttribArray operator | (
+inline VertexArrayAttrib operator | (
 	ProgramName program,
 	GLuint location
 )
 {
-	return VertexAttribArray(program, VertexAttribSlot(location));
+	return VertexArrayAttrib(program, VertexAttribSlot(location));
 }
 
 } // namespace oglplus

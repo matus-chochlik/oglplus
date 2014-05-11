@@ -138,7 +138,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
 			gl.Current(Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -148,7 +148,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
 			gl.Current(Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "Normal");
+			VertexArrayAttrib attr(prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -158,7 +158,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Tangents(data);
 			gl.Current(Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "Tangent");
+			VertexArrayAttrib attr(prog, "Tangent");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -168,7 +168,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			gl.Current(Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "TexCoord");
+			VertexArrayAttrib attr(prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

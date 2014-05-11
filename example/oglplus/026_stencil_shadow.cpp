@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_stencil_shadow}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -222,8 +222,8 @@ public:
 			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			VertexAttribArray attr(
-				VertexAttribArray::GetCommonLocation(
+			VertexArrayAttrib attr(
+				VertexArrayAttrib::GetCommonLocation(
 					"Position",
 					object_prog,
 					shadow_prog
@@ -241,7 +241,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			object_prog.Use();
-			VertexAttribArray attr(object_prog, "Normal");
+			VertexArrayAttrib attr(object_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -259,7 +259,7 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();
-			VertexAttribArray attr(object_prog, "Position");
+			VertexArrayAttrib attr(object_prog, "Position");
 			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
@@ -275,7 +275,7 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();
-			VertexAttribArray attr(object_prog, "Normal");
+			VertexArrayAttrib attr(object_prog, "Normal");
 			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}

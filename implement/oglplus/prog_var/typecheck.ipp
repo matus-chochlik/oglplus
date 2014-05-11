@@ -361,36 +361,28 @@ bool GLSLtoCppTypeMatcher_Mat::_does_match(
 	return sl_type==allowed[type_idx][rows-2][cols-2];
 }
 
-#endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
-
-/* TODO
 OGLPLUS_LIB_FUNC
-void ProgVarTypecheckUtils::_handle_error(
-	GLuint program,
+void ProgVarTypecheck<tag::Typecheck, tag::Uniform>::
+_do_check(
+	bool (*type_matches)(GLenum),
+	GLenum var_type,
+	ProgramName program,
 	GLint location,
-	const GLchar* identifier
+	StrCRef identifier
 )
 {
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	Error::AddPropertyValue(
-		props,
-		"program",
-		DescriptionOf(ProgramName(program))
-	);
-	HandleShaderVariableError(
+	OGLPLUS_HANDLE_ERROR_IF(
+		!type_matches(var_type),
 		GL_INVALID_OPERATION,
-		location,
 		"Uniform type mismatch",
-		OGLPLUS_ERROR_INFO_STR("Uniform"),
-		std::move(props)
+		ProgVarError,
+		Program(program).
+		Identifier(identifier).
+		Index(location)
 	);
 }
-*/
+
+#endif // !OGLPLUS_NO_UNIFORM_TYPECHECK
 
 } // namespace oglplus
 

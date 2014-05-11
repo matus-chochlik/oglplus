@@ -337,7 +337,7 @@ public:
 		pos_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -346,7 +346,7 @@ public:
 		age_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, ages);
-			VertexAttribArray attr(prog, "Age");
+			VertexArrayAttrib attr(prog, "Age");
 			attr.Setup<GLfloat>();
 			attr.Enable();
 		}
@@ -355,7 +355,7 @@ public:
 		id_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, ids);
-			VertexAttribArray attr(prog, "Id");
+			VertexArrayAttrib attr(prog, "Id");
 			attr.Setup<GLint>();
 			attr.Enable();
 		}

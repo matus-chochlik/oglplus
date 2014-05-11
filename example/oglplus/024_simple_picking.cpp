@@ -221,7 +221,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray draw_attr(draw_prog, "Position");
+			VertexArrayAttrib draw_attr(draw_prog, "Position");
 			draw_attr.Setup<GLfloat>(n_per_vertex);
 			draw_attr.Enable();
 		}

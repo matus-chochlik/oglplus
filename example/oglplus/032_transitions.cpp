@@ -602,8 +602,8 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 8, screen_verts);
 
-			VertexAttribArray attr(
-				VertexAttribArray::GetCommonLocation(
+			VertexArrayAttrib attr(
+				VertexArrayAttrib::GetCommonLocation(
 					"Position",
 					prog1, prog2
 				)

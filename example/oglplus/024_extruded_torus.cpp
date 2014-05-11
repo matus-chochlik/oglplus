@@ -184,7 +184,7 @@ public:
 			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			VertexAttribArray attr(transf_prog, "Position");
+			VertexArrayAttrib attr(transf_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -195,7 +195,7 @@ public:
 			GLuint n_per_vertex = make_torus.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			VertexAttribArray attr(transf_prog, "Normal");
+			VertexArrayAttrib attr(transf_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -206,7 +206,7 @@ public:
 			GLuint n_per_vertex = make_torus.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			VertexAttribArray attr(transf_prog, "TexCoord");
+			VertexArrayAttrib attr(transf_prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

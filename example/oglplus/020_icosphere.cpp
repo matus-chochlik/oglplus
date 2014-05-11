@@ -181,7 +181,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

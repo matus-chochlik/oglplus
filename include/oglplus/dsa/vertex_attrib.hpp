@@ -20,7 +20,7 @@ namespace oglplus {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_EXT_direct_state_access
 
 class DSAVertexArrayAttrib
- : public VertexAttribOps
+ : public ProgVarCommonOps<tag::VertexAttrib>
 {
 private:
 	GLuint _vao;
@@ -33,7 +33,7 @@ public:
 	DSAVertexArrayAttrib(
 		VertexArrayName vao,
 		VertexAttribSlot location
-	): VertexAttribOps(location)
+	): ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(GLint(location)))
 	 , _vao(GetGLName(vao))
 	{ }
 
@@ -45,21 +45,8 @@ public:
 	DSAVertexArrayAttrib(
 		VertexArrayName vao,
 		ProgramName program,
-		const GLchar* identifier
-	): VertexAttribOps(program, identifier)
-	 , _vao(GetGLName(vao))
-	{ }
-
-	/// References the vertex attrib array @p identifier of the @p program
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetAttribLocation}
-	 */
-	DSAVertexArrayAttrib(
-		VertexArrayName vao,
-		ProgramName program,
-		const String& identifier
-	): VertexAttribOps(program, identifier.c_str())
+		StrCRef identifier
+	): ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(program, identifier))
 	 , _vao(GetGLName(vao))
 	{ }
 
@@ -88,7 +75,11 @@ public:
 			offset
 		);
 		OGLPLUS_CHECK(
-			OGLPLUS_ERROR_INFO(VertexArrayVertexAttribOffsetEXT)
+			VertexArrayVertexAttribOffsetEXT,
+			ObjectPairError,
+			Subject(buffer).
+			Object(VertexArrayName(_vao)).
+			EnumParam(data_type)
 		);
 		return *this;
 	}
@@ -116,7 +107,11 @@ public:
 			offset
 		);
 		OGLPLUS_CHECK(
-			OGLPLUS_ERROR_INFO(VertexArrayVertexAttribIOffsetEXT)
+			VertexArrayVertexAttribIOffsetEXT,
+			ObjectPairError,
+			Subject(buffer).
+			Object(VertexArrayName(_vao)).
+			EnumParam(data_type)
 		);
 		return *this;
 	}
@@ -194,7 +189,7 @@ public:
 			_vao,
 			GLuint(_location)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(EnableVertexArrayAttribEXT));
+		OGLPLUS_CHECK_SIMPLE(EnableVertexArrayAttribEXT);
 		return *this;
 	}
 
@@ -209,7 +204,7 @@ public:
 			_vao,
 			GLuint(_location)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DisableVertexArrayAttribEXT));
+		OGLPLUS_CHECK_SIMPLE(DisableVertexArrayAttribEXT);
 		return *this;
 	}
 };

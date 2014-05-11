@@ -22,6 +22,13 @@
 
 namespace oglplus {
 
+template <>
+class ProgVarTypeOps<tag::Uniform>
+{
+protected:
+	static GLenum GetType(ProgramName, GLint location, StrCRef identifier);
+};
+
 #if !OGLPLUS_NO_UNIFORM_TYPECHECK
 
 OGLPLUS_ENUM_CLASS_FWD_EVT(SLDataType, GLenum)
@@ -172,30 +179,36 @@ struct GLSLtoCppTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
 	}
 };
 
-template <typename VarTag>
-class ProgVarTypecheck<tag::Typecheck, VarTag>
+template <>
+class ProgVarTypecheck<tag::Typecheck, tag::Uniform>
 {
 private:
-	bool (*_type_match)(GLenum);
+	static void _do_check(
+		bool (*)(GLenum),
+		GLenum var_type,
+		ProgramName program,
+		GLint location,
+		StrCRef identifier
+	);
 public:
 	template <typename TypeSel>
-	ProgVarTypecheck(TypeSel* /*type_sel*/)
-	 : _type_match(&GLSLtoCppTypeMatcher<TypeSel>::_matches)
-	{ }
-
-	bool operator()(
-		GLuint program,
+	ProgVarTypecheck(
+		TypeSel*,
+		ProgramName program,
 		GLint location,
-		const GLchar* identifier
-	) const
+		StrCRef identifier
+	)
 	{
-		assert(_type_match);
-		return _type_match(
-			ProgVarTypeOps<VarTag>::GetType(
+		_do_check(
+			&GLSLtoCppTypeMatcher<TypeSel>::_matches,
+			ProgVarTypeOps<tag::Uniform>::GetType(
 				program,
 				location,
 				identifier
-			)
+			),
+			program,
+			location,
+			identifier
 		);
 	}
 };
@@ -206,48 +219,16 @@ template <typename ChkTag, typename VarTag>
 class ProgVarTypecheck
 {
 public:
-	inline ProgVarTypecheck(void)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
-
-	template <typename T>
-	inline ProgVarTypecheck(T* /*selector*/)
-	OGLPLUS_NOEXCEPT(true)
-	{ }
-
-	inline bool operator()(
-		GLuint /*_program*/,
-		GLint /*location*/,
-		const GLchar* /*identifier*/
-	) const
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return true;
-	}
-};
-
-class ProgVarTypecheckUtils
-{
-private:
-	static void _handle_error(
-		GLuint program,
+	ProgVarTypecheck(
+		void*,
+		ProgramName program,
 		GLint location,
-		const GLchar* identifier
-	);
-protected:
-	template <typename ChkTag, typename VarTag>
-	GLint _typecheck(
-		ProgVarTypecheck<ChkTag, VarTag>& type_ok,
-		GLuint program,
-		GLint location,
-		const GLchar* identifier
-	)
+		StrCRef identifier
+	) OGLPLUS_NOEXCEPT(true)
 	{
-		if(!type_ok(program, location, identifier))
-		{
-			_handle_error(program, location, identifier);
-		}
-		return location;
+		(void)program;
+		(void)location;
+		(void)identifier;
 	}
 };
 

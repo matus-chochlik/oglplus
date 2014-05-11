@@ -7,7 +7,7 @@
  *  See the @ref oglplus_tut_001_glut_glew tutorial for a detailed explanation
  *  of the source code of this example.
  *
- *  Copyright 2008-2011 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -86,7 +86,7 @@ public:
 			triangle_verts
 		);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "Position");
+		VertexArrayAttrib vert_attr(prog, "Position");
 		vert_attr.Setup<GLfloat>(3);
 		vert_attr.Enable();
 

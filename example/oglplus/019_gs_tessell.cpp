@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{019_gs_tessell}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -220,7 +220,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 

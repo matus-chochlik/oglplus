@@ -298,7 +298,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(sphere_prog, "Position");
+			VertexArrayAttrib attr(sphere_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -311,7 +311,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(sphere_prog, "Normal");
+			VertexArrayAttrib attr(sphere_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -324,7 +324,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(sphere_prog, "Tangent");
+			VertexArrayAttrib attr(sphere_prog, "Tangent");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -337,7 +337,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(sphere_prog, "TexCoord");
+			VertexArrayAttrib attr(sphere_prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -516,8 +516,8 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(
-				VertexAttribArray::GetCommonLocation(
+			VertexArrayAttrib attr(
+				VertexArrayAttrib::GetCommonLocation(
 					"Position",
 					cube_prog,
 					cmap_prog
@@ -535,8 +535,8 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(
-				VertexAttribArray::GetCommonLocation(
+			VertexArrayAttrib attr(
+				VertexArrayAttrib::GetCommonLocation(
 					"Normal",
 					cube_prog,
 					cmap_prog

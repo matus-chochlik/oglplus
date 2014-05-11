@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{019_helium}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -79,7 +79,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attrib
-			VertexAttribArray attr(prog, ident[i]);
+			VertexArrayAttrib attr(prog, ident[i]);
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

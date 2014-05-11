@@ -156,7 +156,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_plane.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(plane_prog, "Position");
+			VertexArrayAttrib attr(plane_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -257,7 +257,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(shape_prog, "Position");
+			VertexArrayAttrib attr(shape_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -267,7 +267,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(shape_prog, "Normal");
+			VertexArrayAttrib attr(shape_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

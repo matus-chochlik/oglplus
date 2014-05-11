@@ -314,12 +314,12 @@ public:
 		gl.Bind(vao);
 
 		gl.Bind(Buffer::Target::Array, positions);
-		VertexAttribArray(prog, "PosAndOffs")
+		VertexArrayAttrib(prog, "PosAndOffs")
 			.Setup<Vec4f>()
 			.Enable();
 
 		gl.Bind(Buffer::Target::Array, normals);
-		VertexAttribArray(prog, "Normal")
+		VertexArrayAttrib(prog, "Normal")
 			.Setup<Vec3f>()
 			.Enable();
 

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_shape_halo}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -317,12 +317,12 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			VertexAttribSlot location;
-			if(VertexAttribArray::QueryCommonLocation(
+			if(VertexArrayAttrib::QueryCommonLocation(
 				"Position",
 				location
 			).In(shape_prog).And(halo_prog))
 			{
-				VertexAttribArray attr(location);
+				VertexArrayAttrib attr(location);
 				attr.Setup<GLfloat>(n_per_vertex);
 				attr.Enable();
 			}
@@ -337,7 +337,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			shape_prog.Use();
-			VertexAttribArray attr(shape_prog, "Normal");
+			VertexArrayAttrib attr(shape_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -356,7 +356,7 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			plane_prog.Use();
-			VertexAttribArray attr(plane_prog, "Position");
+			VertexArrayAttrib attr(plane_prog, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -372,7 +372,7 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			plane_prog.Use();
-			VertexAttribArray attr(plane_prog, "Normal");
+			VertexArrayAttrib attr(plane_prog, "Normal");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}

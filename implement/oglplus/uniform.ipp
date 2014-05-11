@@ -19,37 +19,43 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
+const char* ProgVarLocOps<tag::Uniform>::
+InactiveMessage(void)
+{
+	return "Getting the location of inactive program uniform variable";
+}
+
+OGLPLUS_LIB_FUNC
 GLenum ProgVarTypeOps<tag::Uniform>::
-GetType(GLuint program, GLint /*location*/, const GLchar* identifier)
+GetType(ProgramName program, GLint /*location*/, StrCRef identifier)
 {
 
 	GLenum type, result = GL_NONE;
 	GLint size;
 	GLsizei length = 0;
-	const GLsizei id_len = std::strlen(identifier);
 	// The +2 is intentional
 	// to distinguish between the searched identifier
 	// and the identifiers having the searched identifier
 	// as prefix
-	std::vector<GLchar> buffer(id_len+2);
+	std::vector<GLchar> buffer(identifier.size()+2);
 
 	GLint active_uniforms = 0;
 	OGLPLUS_GLFUNC(GetProgramiv)(
-		program,
+		GetGLName(program),
 		GL_ACTIVE_UNIFORMS,
 		&active_uniforms
 	);
 	OGLPLUS_VERIFY(
 		GetProgramiv,
 		ProgVarError,
-		Program(ProgramName(program)).
+		Program(program).
 		Identifier(identifier)
 	);
 
 	for(GLint index=0; index!=active_uniforms; ++index)
 	{
 		OGLPLUS_GLFUNC(GetActiveUniform)(
-			program,
+			GetGLName(program),
 			index,
 			buffer.size(),
 			&length,
@@ -60,13 +66,13 @@ GetType(GLuint program, GLint /*location*/, const GLchar* identifier)
 		OGLPLUS_VERIFY(
 			GetActiveUniform,
 			ProgVarError,
-			Program(ProgramName(program)).
+			Program(program).
 			Identifier(identifier)
 		);
-		if(id_len == length)
+		if(GLsizei(identifier.size()) == length)
 		{
 			if(std::strncmp(
-				identifier,
+				identifier.c_str(),
 				buffer.data(),
 				length
 			) == 0)

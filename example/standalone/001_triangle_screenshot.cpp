@@ -82,7 +82,7 @@ void render_frame(void)
 		triangle_verts
 	);
 
-	VertexAttribArray vert_attr(prog, "Position");
+	VertexArrayAttrib vert_attr(prog, "Position");
 	vert_attr.Setup<Vec3f>();
 	vert_attr.Enable();
 

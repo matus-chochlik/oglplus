@@ -229,7 +229,7 @@ public:
 
 			if(l+1 != levels)
 			{
-				VertexAttribArray vert_attr(sort_prog, "PosAndSize");
+				VertexArrayAttrib vert_attr(sort_prog, "PosAndSize");
 				vert_attr.Setup<Vec4f>().Enable();
 				VertexArray::Unbind();
 			}
@@ -255,7 +255,7 @@ public:
 
 		pos_and_size[levels-1].Bind(Buffer::Target::Array);
 		{
-			VertexAttribArray vert_attr(prog, "PosAndSize");
+			VertexArrayAttrib vert_attr(prog, "PosAndSize");
 			vert_attr.Setup<Vec4f>().Enable();
 		}
 		VertexArray::Unbind();

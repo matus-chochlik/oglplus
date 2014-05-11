@@ -328,7 +328,7 @@ public:
 				vbos[va].Bind(Buffer::Target::Array);
 				GLuint npv = getter(make_shape, data);
 				Buffer::Data(Buffer::Target::Array, data);
-				VertexAttribArray attr(prog, name);
+				VertexArrayAttrib attr(prog, name);
 				attr.Setup<GLfloat>(npv);
 				attr.Enable();
 			}

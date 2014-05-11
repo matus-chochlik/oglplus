@@ -96,7 +96,7 @@ public:
 		};
 		corners.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, sky_box_corners);
-		VertexAttribArray vert_attr(prog, "Corner");
+		VertexArrayAttrib vert_attr(prog, "Corner");
 		vert_attr.Setup<Vec3f>().Enable();
 
 		GLuint sky_box_indices[6*5] = {
