@@ -339,6 +339,7 @@ public:
 	}
 };
 
+/*
 template <typename T>
 class VertexAttrib
  : public ProgVarGetSetOps<tag::ImplicitSel, tag::VertexAttrib, T>
@@ -363,6 +364,14 @@ public:
 		}
 	}
 };
+*/
+
+OGLPLUS_DECLARE_PROG_VAR(
+	VertexAttrib,
+	tag::ImplicitSel,
+	tag::VertexAttrib,
+	tag::NoTypecheck
+)
 
 /// Encapsulates vertex array attribute functionality
 /**

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,7 +26,7 @@ VertexArray ShapeWrapperBase::VAOForProgram(const ProgramOps& prog) const
 			try
 			{
 				_vbos[i].Bind(Buffer::Target::Array);
-				VertexAttribArray attr(prog, _names[i]);
+				VertexArrayAttrib attr(prog, _names[i]);
 				attr.Setup<GLfloat>(_npvs[i]);
 				attr.Enable();
 			}

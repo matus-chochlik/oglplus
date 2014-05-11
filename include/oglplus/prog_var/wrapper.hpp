@@ -29,6 +29,11 @@ class ProgVar
 private:
 	typedef ProgVarGetSetOps<OpsTag, VarTag, T> BaseGetSetOps;
 public:
+	/// Variable from a ProgVarLoc
+	ProgVar(ProgVarLoc<VarTag> pvloc)
+	 : BaseGetSetOps(pvloc)
+	{ }
+
 	/// Variable with the specified @p location without a specific program
 	ProgVar(GLuint location)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(GLint(location)))
@@ -52,6 +57,23 @@ public:
 			this->Set(value);
 		}
 	}
+};
+
+// TODO: template alias when available
+#define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
+template <typename T> \
+class PROG_VAR \
+ : public ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> \
+{ \
+private:\
+	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Base;\
+public:\
+	PROG_VAR(ProgVarLoc<VAR_TAG> pvloc) : Base(pvloc) { } \
+	PROG_VAR(GLuint location) : Base(location) { } \
+	PROG_VAR(ProgramName program, GLuint location) \
+	 : Base(program, location) { } \
+	PROG_VAR(ProgramName program, StrCRef identifier) \
+	 : Base(program, identifier) { } \
 };
 
 } // namespace oglplus

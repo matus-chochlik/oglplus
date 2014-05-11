@@ -16,18 +16,12 @@
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/fwd.hpp>
+#include <oglplus/prog_var/type_ops.hpp>
 #include <oglplus/auxiliary/enum_class.hpp>
 
 #include <cassert>
 
 namespace oglplus {
-
-template <>
-class ProgVarTypeOps<tag::Uniform>
-{
-protected:
-	static GLenum GetType(ProgramName, GLint location, StrCRef identifier);
-};
 
 #if !OGLPLUS_NO_UNIFORM_TYPECHECK
 
@@ -191,6 +185,10 @@ private:
 		StrCRef identifier
 	);
 public:
+	ProgVarTypecheck(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
 	template <typename TypeSel>
 	ProgVarTypecheck(
 		TypeSel*,
@@ -219,6 +217,10 @@ template <typename ChkTag, typename VarTag>
 class ProgVarTypecheck
 {
 public:
+	ProgVarTypecheck(void)
+	OGLPLUS_NOEXCEPT(true)
+	{ }
+
 	ProgVarTypecheck(
 		void*,
 		ProgramName program,
