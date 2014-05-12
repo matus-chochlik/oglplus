@@ -145,6 +145,7 @@ typedef ObjectName<tag::TransformFeedback> TransformFeedbackName;
 typedef ObjectName<tag::Sampler> SamplerName;
 typedef ObjectName<tag::VertexArray> VertexArrayName;
 typedef ObjectName<tag::Shader> ShaderName;
+typedef ObjectName<tag::PerfMonitorAMD> PerfMonitorAMDName;
 typedef ObjectName<tag::PathNV> PathNVName;
 
 template <typename ObjTag>

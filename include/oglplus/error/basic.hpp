@@ -71,6 +71,8 @@ public:
 
 	Error(const char* message);
 
+	~Error(void) throw() { }
+
 	Error& NoInfo(void) { return *this; }
 
 	Error& Code(GLenum code)
@@ -248,7 +250,6 @@ public:
 		return _properties;
 	}
 #endif
-	void Cleanup(void) const;
 };
 
 /// Exception class for situations when a pointer to a GL function is invalid.

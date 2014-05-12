@@ -126,7 +126,7 @@ public:
 	{
 		return CustomRenderer(
 			*this,
-			Group<Shader>(
+			StaticGroup<ShaderName, 3>(
 				layout_transform_shader,
 				glyph_transform_shader,
 				pixel_color_shader

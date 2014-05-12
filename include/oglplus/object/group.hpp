@@ -28,6 +28,15 @@ class StaticGroup<ObjectName<ObjTag>, N>
 {
 private:
 	std::array<GLuint, N> _names;
+
+	void _init(std::size_t) { }
+
+	template <typename ... I>
+	void _init(std::size_t i, GLuint name, I ... names)
+	{
+		_names[i] = name;
+		_init(i+1, names...);
+	}
 public:
 	StaticGroup(const ObjectName<ObjTag> (&names)[N])
 	{
@@ -40,8 +49,9 @@ public:
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	template <typename ... Tag>
 	StaticGroup(ObjectName<Tag>... names)
-	 : _names({GetGLName<ObjTag>(names)...})
-	{ }
+	{
+		_init(0, GetGLName(names)...);
+	}
 #endif
 
 	Sequence<ObjectName<ObjTag>> seq(void) const

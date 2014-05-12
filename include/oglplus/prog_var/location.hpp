@@ -36,7 +36,15 @@ public:
 	 , _location(-1)
 	{ }
 
+	/// Creates variable without specific @p location in specified @p program
+	ProgVarLoc(ProgramName program)
+	OGLPLUS_NOEXCEPT(true)
+	 : _program(GetGLName(program))
+	 , _location(-1)
+	{ }
+
 	/// Creates variable with specified @p location without specific program
+	OGLPLUS_EXPLICIT
 	ProgVarLoc(GLint location)
 	OGLPLUS_NOEXCEPT(true)
 	 : _program(0)
@@ -52,7 +60,6 @@ public:
 
 	/// Creates variable with specified @p identifier in specified @p program
 	ProgVarLoc(ProgramName program, StrCRef identifier)
-	OGLPLUS_NOEXCEPT(true)
 	 : _program(GetGLName(program))
 	 , _location(ProgVarLocOps<VarTag>::GetLocation(
 		program,
@@ -62,13 +69,22 @@ public:
 
 	/// Creates variable with specified @p identifier in specified @p program
 	ProgVarLoc(ProgramName program, StrCRef identifier, bool active_only)
-	OGLPLUS_NOEXCEPT(true)
 	 : _program(GetGLName(program))
 	 , _location(ProgVarLocOps<VarTag>::GetLocation(
 		program,
 		identifier,
 		active_only
 	)){ }
+
+	/// Late initialization of the variable location from its identifier
+	void BindTo(StrCRef identifier)
+	{
+		_location = ProgVarLocOps<VarTag>::GetLocation(
+			ProgramName(_program),
+			identifier,
+			true
+		);
+	}
 
 	/// The program the variable belongs to
 	ProgramName Program(void) const
@@ -89,6 +105,13 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return _location >= 0;
+	}
+
+	/// Returns true if the variable is active
+	OGLPLUS_EXPLICIT operator bool (void) const
+	OGLPLUS_NOEXCEPT(true)
+	{
+		return IsActive();
 	}
 
 	/// Equality comparison

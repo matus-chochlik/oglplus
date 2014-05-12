@@ -70,7 +70,6 @@ namespace aux {
 
 #if !OGLPLUS_NO_OBJECT_DESCS
 ::std::map<GLuint, String>& ObjectDescRegistryStorage(int id);
-::std::map<GLuint, String>& ObjectDescRegistryArchive(int id);
 #endif
 
 #if !OGLPLUS_NO_OBJECT_DESCS
@@ -87,15 +86,11 @@ protected:
 
 	static void _do_unregister_desc(
 		_desc_map& storage,
-		_desc_map& archive,
 		GLuint name
 	);
 
-	static void _do_purge_archive(_desc_map& archive);
-
 	static const String& _do_get_desc(
 		_desc_map& storage,
-		_desc_map& archive,
 		GLuint name
 	);
 };
@@ -114,11 +109,6 @@ private:
 	static _desc_map& _storage(int id)
 	{
 		return ObjectDescRegistryStorage(id);
-	}
-
-	static _desc_map& _archive(int id)
-	{
-		return ObjectDescRegistryArchive(id);
 	}
 #endif
 public:
@@ -142,21 +132,7 @@ public:
 	OGLPLUS_NOEXCEPT(true) { (void)id; (void)name; }
 #else
 	{
-		_base::_do_unregister_desc(
-			_storage(id),
-			_archive(id),
-			name
-		);
-	}
-#endif
-
-	// internal implementation detail. do not use directly
-	static void _purge_archive(int id)
-#if OGLPLUS_NO_OBJECT_DESCS
-	OGLPLUS_NOEXCEPT(true) { (void)id; }
-#else
-	{
-		_base::_do_purge_archive(_archive(id));
+		_base::_do_unregister_desc(_storage(id), name);
 	}
 #endif
 
@@ -171,11 +147,7 @@ public:
 	}
 #else
 	{
-		return _base::_do_get_desc(
-			_storage(id),
-			_archive(id),
-			name
-		);
+		return _base::_do_get_desc(_storage(id), name);
 	}
 #endif
 };

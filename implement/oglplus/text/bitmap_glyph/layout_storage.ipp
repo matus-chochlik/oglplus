@@ -61,7 +61,7 @@ BitmapGlyphLayoutStorage::BitmapGlyphLayoutStorage(
 		attr.Enable();
 	}
 
-	VertexArray::Unbind();
+	NoVertexArray().Bind();
 }
 
 OGLPLUS_LIB_FUNC

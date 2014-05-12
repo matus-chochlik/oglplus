@@ -137,7 +137,7 @@ public:
 	 *  @glfunref{Uniform}
 	 *  @glfunref{ProgramUniform}
 	 */
-	void Set(T value)
+	void SetValue(T value)
 	{
 		this->_do_set(_program, _location, value);
 	}
@@ -153,7 +153,7 @@ protected:
 	 : ProgVarCommonOps<tag::Uniform>(uloc)
 	{ }
 public:
-	void Set(const Vector<T, N>& value)
+	void SetValue(const Vector<T, N>& value)
 	{
 		this->template _do_set<N>(_program, _location, Data(value));
 	}
@@ -169,11 +169,11 @@ protected:
 	 : ProgVarCommonOps<tag::Uniform>(uloc)
 	{ }
 public:
-	void Set(const Matrix<T, R, C>& value)
+	void SetValue(const Matrix<T, R, C>& value)
 	{
-		this->template _do_set_mat<Cols, Rows>(
-			this->_get_program(),
-			this->_get_location(),
+		this->template _do_set_mat<C, R>(
+			_program,
+			_location,
 			1,
 			true,
 			Data(value)

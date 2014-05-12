@@ -29,7 +29,6 @@
 #include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/auxiliary/info_log.hpp>
 #include <oglplus/auxiliary/glsl_source.hpp>
-//#include <oglplus/auxiliary/uniform_init.hpp>
 
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/string/def.hpp>

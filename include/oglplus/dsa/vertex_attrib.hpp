@@ -14,6 +14,7 @@
 #define OGLPLUS_DSA_VERTEX_ATTRIB_1107121519_HPP
 
 #include <oglplus/vertex_attrib.hpp>
+#include <oglplus/error/object.hpp>
 
 namespace oglplus {
 

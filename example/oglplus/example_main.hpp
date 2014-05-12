@@ -41,40 +41,33 @@ inline void example_print_error_common(
 	errstr << "at [";
 	errstr << error.SourceFile() << ":" << error.SourceLine();
 	errstr << "]" << std::endl;
+}
 
+inline void example_print_error_common(
+	ObjectError& error,
+	std::ostream& errstr
+)
+{
+	example_print_std_error_common(error, errstr);
 	bool nl = false;
 	if(std::strlen(error.ClassName()))
 	{
 		errstr << error.ClassName();
 		nl |= true;
 	}
-	if(!error.ObjectDescription().empty())
+	if(!error.ObjectDesc().empty())
 	{
 		if(nl) errstr << " ";
-		errstr << "'" << error.ObjectDescription() << "'";
+		errstr << "'" << error.ObjectDesc() << "'";
 		nl |= true;
 	}
-	if(std::strlen(error.BindTarget()))
+	if(std::strlen(error.TargetName()))
 	{
 		if(!nl) errstr << "Object";
-		errstr << " bound to '" << error.BindTarget() << "'";
+		errstr << " bound to '" << error.TargetName() << "'";
 		nl |= true;
 	}
 	if(nl) errstr << std::endl;
-
-	auto i = error.Properties().begin(), e = error.Properties().end();
-	if(i != e)
-	{
-		errstr << "Properties: " << std::endl;
-		while(i != e)
-		{
-			errstr << "<" << i->first << "='" << i->second << "'>";
-			++i;
-			if(i != e) errstr << ", ";
-			else errstr << ".";
-		}
-		errstr << std::endl;
-	}
 }
 
 template <typename Func>
@@ -88,7 +81,6 @@ inline int example_guarded_exec(Func func, std::ostream& errstr)
 	{
 		errstr << "Program variable error";
 		example_print_error_common(pve, errstr);
-		sve.Cleanup();
 	}
 	catch(ProgramBuildError& pbe)
 	{
@@ -96,7 +88,6 @@ inline int example_guarded_exec(Func func, std::ostream& errstr)
 		example_print_error_common(pbe, errstr);
 		errstr << "Build log:" << std::endl;
 		errstr << pbe.Log() << std::endl;
-		pbe.Cleanup();
 	}
 	catch(LimitError& le)
 	{
@@ -104,13 +95,16 @@ inline int example_guarded_exec(Func func, std::ostream& errstr)
 		example_print_error_common(le, errstr);
 		errstr << "Value " << le.Value() << " exceeds limit ";
 		errstr << le.Limit() << std::endl;
-		le.Cleanup();
+	}
+	catch(ObjectError& oe)
+	{
+		errstr << "Object error";
+		example_print_error_common(oe, errstr);
 	}
 	catch(Error& err)
 	{
 		errstr << "GL error";
 		example_print_error_common(err, errstr);
-		err.Cleanup();
 	}
 	catch(std::system_error& sye)
 	{

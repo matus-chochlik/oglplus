@@ -34,17 +34,10 @@ private:
 
 	// VBO for the rectangle's vertices
 	Buffer verts;
-
-	// Variables referencing the program's uniforms
-	LazyUniform<Vec2f> red_center, green_center, blue_center;
 public:
 	RectangleExample(void)
 	 : vs(ShaderType::Vertex)
 	 , fs(ShaderType::Fragment)
-	 , prog()
-	 , red_center(prog, "RedCenter")
-	 , green_center(prog, "GreenCenter")
-	 , blue_center(prog, "BlueCenter")
 	{
 		// Set the vertex shader source
 		vs.Source(StrLit(" \
@@ -110,9 +103,10 @@ public:
 		vert_attr.Setup<GLfloat>(2);
 		vert_attr.Enable();
 		//
-		red_center.Set(-0.141f, 0.141f);
-		green_center.Set(0.141f, 0.141f);
-		blue_center.Set(0.0f, -0.2f);
+		// Variables referencing the program's uniforms
+		Uniform<Vec2f>(prog,   "RedCenter").Set(Vec2f(-0.141f, 0.141f));
+		Uniform<Vec2f>(prog, "GreenCenter").Set(Vec2f(0.141f, 0.141f));
+		Uniform<Vec2f>(prog,  "BlueCenter").Set(Vec2f(0.0f, -0.2f));
 
 		gl.Disable(Capability::DepthTest);
 	}

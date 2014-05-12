@@ -32,6 +32,8 @@ private:
 public:
 	ProgVarError(const char* message);
 
+	~ProgVarError(void) throw() { }
+
 	ProgVarError& Program(ProgramName program)
 	{
 #if !OGLPLUS_ERROR_INFO_NO_PROG_NAME

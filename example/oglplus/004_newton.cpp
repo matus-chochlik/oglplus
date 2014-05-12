@@ -134,8 +134,8 @@ public:
 		vert_attr.Setup<Vec2f>();
 		vert_attr.Enable();
 		//
-		Uniform<GLfloat>(prog, "Color1").SetVector(0.2f, 0.02f, 0.05f);
-		Uniform<GLfloat>(prog, "Color2").SetVector(1.0f, 0.95f, 0.98f);
+		Uniform<Vec3f>(prog, "Color1").Set(Vec3f(0.2f, 0.02f, 0.05f));
+		Uniform<Vec3f>(prog, "Color2").Set(Vec3f(1.0f, 0.95f, 0.98f));
 		//
 		gl.Disable(Capability::DepthTest);
 	}

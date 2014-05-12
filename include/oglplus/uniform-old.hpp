@@ -26,10 +26,6 @@
 
 namespace oglplus {
 
-/// Tag template that can be used to declare an Uniform from SLDataType
-template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type>
-struct SLtoCpp;
-
 namespace aux {
 
 template <typename T, typename OpsTag>
@@ -69,34 +65,6 @@ struct UniformSetOps<Matrix<T, Rows, Cols>, OpsTag>
 		tag::MatrixType,
 		T, 16
 	> Type;
-};
-
-template <typename T>
-struct AdjustUniformType
-{
-	typedef T Type;
-};
-
-template <>
-struct AdjustUniformType<bool>
-{
-	typedef GLboolean Type;
-};
-
-template <std::size_t N>
-struct AdjustUniformType<oglplus::Vector<bool, N> >
-{
-	typedef oglplus::Vector<GLboolean, N> Type;
-};
-
-template <
-	typename oglplus::enums::EnumValueType<
-		oglplus::enums::SLDataType
-	>::Type SLType
->
-struct AdjustUniformType<SLtoCpp<SLType> >
-{
-	typedef typename aux::GLSL2Cpp<SLType>::Type Type;
 };
 
 } // namespace aux

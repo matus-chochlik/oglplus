@@ -16,8 +16,65 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/object/name.hpp>
+#include <oglplus/auxiliary/glsl_to_cpp.hpp>
 
 namespace oglplus {
+
+// Tag template that can be used to declare an Uniform from SLDataType
+template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type>
+struct SLtoCpp;
+
+template <typename T>
+struct AdjustProgVar
+{
+	typedef T BaseType;
+	typedef T ValueType;
+
+	inline static BaseType Adjust(ValueType value)
+	{
+		return value;
+	}
+};
+
+template <>
+struct AdjustProgVar<bool>
+{
+	typedef GLboolean BaseType;
+	typedef bool ValueType;
+
+	inline static BaseType Adjust(ValueType value)
+	{
+		return value?GL_TRUE:GL_FALSE;
+	}
+};
+
+template <std::size_t N>
+struct AdjustProgVar<oglplus::Vector<bool, N> >
+{
+	typedef oglplus::Vector<GLboolean, N> BaseType;
+	typedef const oglplus::Vector<bool, N>& ValueType;
+
+	inline static BaseType Adjust(ValueType value)
+	{
+		return BaseType(value);
+	}
+};
+
+template <
+	typename oglplus::enums::EnumValueType<
+		oglplus::enums::SLDataType
+	>::Type SLType
+>
+struct AdjustProgVar<SLtoCpp<SLType> >
+{
+	typedef typename aux::GLSL2Cpp<SLType>::Type BaseType;
+	typedef BaseType ValueType;
+
+	inline static BaseType Adjust(ValueType value)
+	{
+		return value;
+	}
+};
 
 template <>
 class ProgVarTypeOps<tag::Uniform>

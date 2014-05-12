@@ -16,6 +16,7 @@
 
 namespace oglplus {
 
+OGLPLUS_LIB_FUNC
 String MissingExtensionMessage(const GLchar* name)
 {
 	String message("Missing extension '");

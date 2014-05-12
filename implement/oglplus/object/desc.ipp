@@ -22,13 +22,6 @@ OGLPLUS_LIB_FUNC
 }
 
 OGLPLUS_LIB_FUNC
-::std::map<GLuint, String>& ObjectDescRegistryArchive(int id)
-{
-	static ::std::map<int, ::std::map<GLuint, String> > _maps;
-	return _maps[id];
-}
-
-OGLPLUS_LIB_FUNC
 void ObjectDescRegistryBase::_do_register_desc(
 	_desc_map& storage,
 	GLuint name,
@@ -47,36 +40,27 @@ void ObjectDescRegistryBase::_do_register_desc(
 OGLPLUS_LIB_FUNC
 void ObjectDescRegistryBase::_do_unregister_desc(
 	_desc_map& storage,
-	_desc_map& archive,
 	GLuint name
 )
 {
-	auto pos = storage.find(name);
-	if(pos != storage.end())
+	if(!std::uncaught_exception())
 	{
-		if(std::uncaught_exception())
-			archive.insert(*pos);
-		storage.erase(pos);
+		auto pos = storage.find(name);
+		if(pos != storage.end())
+		{
+			storage.erase(pos);
+		}
 	}
-}
-
-OGLPLUS_LIB_FUNC
-void ObjectDescRegistryBase::_do_purge_archive(_desc_map& archive)
-{
-	archive.clear();
 }
 
 OGLPLUS_LIB_FUNC
 const String& ObjectDescRegistryBase::_do_get_desc(
 	_desc_map& storage,
-	_desc_map& archive,
 	GLuint name
 )
 {
 	auto pos = storage.find(name);
 	if(pos != storage.end()) return pos->second;
-	pos = archive.find(name);
-	if(pos != archive.end()) return pos->second;
 	return EmptyString();
 }
 

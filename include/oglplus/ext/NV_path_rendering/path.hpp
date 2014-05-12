@@ -16,8 +16,9 @@
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_path_rendering
 
 #include <oglplus/string/ref.hpp>
-#include <oglplus/data_type.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
+#include <oglplus/data_type.hpp>
 
 #include <oglplus/ext/NV_path_rendering/command.hpp>
 #include <oglplus/ext/NV_path_rendering/format.hpp>

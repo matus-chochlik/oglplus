@@ -6,7 +6,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -18,6 +18,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
 #include <oglplus/enumerations.hpp>
+#include <oglplus/object/wrapper.hpp>
 
 #include <cassert>
 #include <vector>
@@ -46,7 +47,6 @@ OGLPLUS_ENUM_CLASS_END(PerfMonitorAMDType)
 #endif
 
 class PerfMonitorAMDGroup;
-class PerfMonitorAMDOps;
 class AMD_performance_monitor;
 
 /// Wrapper for performance monitor counter functionality
@@ -62,7 +62,7 @@ private:
 	GLuint _counter;
 
 	friend class PerfMonitorAMDGroup;
-	friend class PerfMonitorAMDOps;
+	friend class ObjectOps<tag::DirectState, tag::PerfMonitorAMD>;
 
 	PerfMonitorAMDCounter(GLuint group, GLuint counter)
 	 : _group(group)
@@ -84,7 +84,11 @@ public:
 			&length,
 			nullptr
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorCounterStringAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorCounterStringAMD,
+			Error,
+			Index(_group)
+		);
 
 		std::vector<GLchar> buffer(length);
 		OGLPLUS_GLFUNC(GetPerfMonitorCounterStringAMD)(
@@ -94,7 +98,11 @@ public:
 			&length,
 			buffer.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorCounterStringAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorCounterStringAMD,
+			Error,
+			Index(_group)
+		);
 		return String(buffer.data(), buffer.size());
 	}
 
@@ -113,7 +121,11 @@ public:
 			GL_COUNTER_TYPE_AMD,
 			&result
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorCounterInfoAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorCounterInfoAMD,
+			Error,
+			Index(_group)
+		);
 		return PerfMonitorAMDType(result);
 	}
 };
@@ -149,7 +161,11 @@ public:
 			&length,
 			nullptr
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorGroupStringAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorGroupStringAMD,
+			Error,
+			Index(_group)
+		);
 
 		std::vector<GLchar> buffer(length);
 		OGLPLUS_GLFUNC(GetPerfMonitorGroupStringAMD)(
@@ -158,7 +174,11 @@ public:
 			&length,
 			buffer.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorGroupStringAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorGroupStringAMD,
+			Error,
+			Index(_group)
+		);
 		return String(buffer.data(), buffer.size());
 	}
 
@@ -180,7 +200,11 @@ public:
 			0,
 			nullptr
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorCountersAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorCountersAMD,
+			Error,
+			Index(_group)
+		);
 
 		std::vector<GLuint> buffer(count);
 		OGLPLUS_GLFUNC(GetPerfMonitorCountersAMD)(
@@ -190,7 +214,11 @@ public:
 			buffer.size(),
 			buffer.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorCountersAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorCountersAMD,
+			Error,
+			Index(_group)
+		);
 
 		counters.clear();
 		counters.reserve(count);
@@ -242,7 +270,7 @@ private:
 		_qw._hi = hi;
 	}
 
-	friend class PerfMonitorAMDOps;
+	friend class ObjectOps<tag::DirectState, tag::PerfMonitorAMD>;
 public:
 	/// Returns the counter that this is a result of
 	PerfMonitorAMDCounter Counter(void) const
@@ -269,47 +297,48 @@ public:
 	}
 };
 
-/// Wrapper for AMD_performance_monitor-object-related operations
-/** @note Do not use this class directly, use Texture instead.
+/// Class wrapping perfofmance monitor construction/destruction functions
+/** @note Do not use this class directly, use PerfMonitorAMD instead.
  *
  *  @glsymbols
  *  @glfunref{GenPerfMonitorsAMD}
  *  @glfunref{DeletePerfMonitorsAMD}
- *  @glfunref{IsPerfMonitorAMD}
  *  @glextref{AMD,performance_monitor}
  */
-class PerfMonitorAMDOps
- : public Named
- , public BaseObject<true>
+template <>
+class ObjGenDelOps<tag::PerfMonitorAMD>
 {
 protected:
-	typedef std::true_type _can_be_zero;
-
-	static void _init(GLsizei count, GLuint* _name)
+	static void Gen(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenPerfMonitorsAMD)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenPerfMonitorsAMD));
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenPerfMonitorsAMD)(count, names);
+		OGLPLUS_CHECK_SIMPLE(GenSamplers);
 	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	static void Delete(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeletePerfMonitorsAMD)(count, _name);}
-		catch(...){ }
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(DeletePerfMonitorsAMD)(count, names);
+		OGLPLUS_VERIFY_SIMPLE(DeleteSamplers);
 	}
 
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
+	static GLboolean IsA(GLuint name)
 	{
-		OGLPLUS_FAKE_USE(_name);
-		assert(_name != 0);
+		assert(name != 0);
 		return GL_TRUE;
 	}
+};
 
-	friend class FriendOf<PerfMonitorAMDOps>;
+/// Class wrapping performance monitor functions (with direct state access)
+/** @note Do not use this class directly, use PerfMonitorAMD instead.
+ */
+template <>
+class ObjectOps<tag::DirectState, tag::PerfMonitorAMD>
+ : public ObjZeroOps<tag::DirectState, tag::PerfMonitorAMD>
+{
+protected:
+	ObjectOps(void){ }
 public:
 	/// Enables or disables the specified counters for this monitor
 	/**
@@ -341,7 +370,11 @@ public:
 			GLint(list.size()),
 			list.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(SelectPerfMonitorCountersAMD));
+		OGLPLUS_CHECK(
+			SelectPerfMonitorCountersAMD,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Begins a monitoring session on this monitor
@@ -352,7 +385,11 @@ public:
 	void Begin(void) const
 	{
 		OGLPLUS_GLFUNC(BeginPerfMonitorAMD)(this->_name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(BeginPerfMonitorAMD));
+		OGLPLUS_CHECK(
+			BeginPerfMonitorAMD,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Ends a monitoring session on this monitor
@@ -363,7 +400,11 @@ public:
 	void End(void) const
 	{
 		OGLPLUS_GLFUNC(EndPerfMonitorAMD)(this->_name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(EndPerfMonitorAMD));
+		OGLPLUS_CHECK(
+			EndPerfMonitorAMD,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns true if results are available
@@ -382,7 +423,11 @@ public:
 			&result,
 			nullptr
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorCounterDataAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorCounterDataAMD,
+			ObjectError,
+			Object(*this)
+		);
 		return result != 0;
 	}
 
@@ -403,7 +448,11 @@ public:
 			&size,
 			nullptr
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorCounterDataAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorCounterDataAMD,
+			ObjectError,
+			Object(*this)
+		);
 
 		std::vector<GLuint> data(size / sizeof(GLuint));
 		OGLPLUS_GLFUNC(GetPerfMonitorCounterDataAMD)(
@@ -413,7 +462,11 @@ public:
 			data.data(),
 			nullptr
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorCounterDataAMD));
+		OGLPLUS_CHECK(
+			GetPerfMonitorCounterDataAMD,
+			ObjectError,
+			Object(*this)
+		);
 
 		results.clear();
 		results.reserve(data.size() / 3);
@@ -437,7 +490,10 @@ public:
 	}
 };
 
-#if OGLPLUS_DOCUMENTATION_ONLY
+/// PerfMonitorAMD operations with direct state access
+typedef ObjectOps<tag::DirectState, tag::PerfMonitorAMD>
+	PerfMonitorAMDOps;
+
 /// An @ref oglplus_object encapsulating the performance monitor functionality
 /**
  *  @ingroup oglplus_objects
@@ -445,12 +501,7 @@ public:
  *  @glsymbols
  *  @glextref{AMD,performance_monitor}
  */
-class PerfMonitorAMD
- : public PerfMonitorAMDOps
-{ };
-#else
 typedef Object<PerfMonitorAMDOps> PerfMonitorAMD;
-#endif
 
 /// Wrapper for the AMD_performance_monitor extension
 /**
@@ -477,7 +528,7 @@ public:
 			0,
 			nullptr
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorGroupsAMD));
+		OGLPLUS_CHECK_SIMPLE(GetPerfMonitorGroupsAMD);
 
 		std::vector<GLuint> buffer(count);
 		OGLPLUS_GLFUNC(GetPerfMonitorGroupsAMD)(
@@ -485,7 +536,7 @@ public:
 			buffer.size(),
 			buffer.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPerfMonitorGroupsAMD));
+		OGLPLUS_CHECK_SIMPLE(GetPerfMonitorGroupsAMD);
 
 		groups.clear();
 		groups.reserve(count);

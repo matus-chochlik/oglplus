@@ -301,7 +301,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{VertexAttrib}
 	 */
-	void Set(T value)
+	void SetValue(T value)
 	{
 		this->_do_set(_program, _location, value);
 	}
@@ -317,7 +317,7 @@ protected:
 	 : ProgVarCommonOps<tag::VertexAttrib>(valoc)
 	{ }
 public:
-	void Set(const Vector<T, N>& value)
+	void SetValue(const Vector<T, N>& value)
 	{
 		this->template _do_set<N>(_program, _location, Data(value));
 	}
@@ -333,38 +333,11 @@ protected:
 	 : ProgVarCommonOps<tag::VertexAttrib>(valoc)
 	{ }
 public:
-	void Set(const Matrix<T, R, C>& value)
+	void SetValue(const Matrix<T, R, C>& value)
 	{
 		this->template _do_set<R*C>(_program, _location, Data(value));
 	}
 };
-
-/*
-template <typename T>
-class VertexAttrib
- : public ProgVarGetSetOps<tag::ImplicitSel, tag::VertexAttrib, T>
-{
-private:
-	typedef ProgVarGetSetOps<tag::ImplicitSel, tag::VertexAttrib, T>
-		VertexAttribGetSetOps;
-public:
-	VertexAttrib(VertexAttribSlot location)
-	 : VertexAttribGetSetOps(VertexAttribLoc(GLint(location)))
-	{ }
-
-	VertexAttrib(ProgramName program, StrCRef identifier)
-	 : VertexAttribGetSetOps(VertexAttribLoc(program, identifier))
-	{ }
-
-	void TrySet(const T& value)
-	{
-		if(this->IsActive())
-		{
-			this->Set(value);
-		}
-	}
-};
-*/
 
 OGLPLUS_DECLARE_PROG_VAR(
 	VertexAttrib,

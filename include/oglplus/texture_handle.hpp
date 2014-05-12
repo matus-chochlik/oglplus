@@ -1,10 +1,10 @@
 /**
- *  @file oglplus/ext/ARB_bindless_texture/texture_handle.hpp
- *  @brief Texture handle wrapper.
+ *  @file oglplus/texture_handle.hpp
+ *  @brief Bindless Texture handle wrapper.
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,8 +14,10 @@
 #define OGLPLUS_TEXTURE_HANDLE_1309262134_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/object/tags.hpp>
+#include <oglplus/object/name.hpp>
+#include <oglplus/prog_var/type_ops.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/access_specifier.hpp>
 
@@ -24,50 +26,41 @@ namespace oglplus {
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_bindless_texture
 
 /// A handle for a bindless texture
-class TextureHandleARB
- : public FriendOf<TextureOps>
- , public FriendOf<SamplerOps>
+class TextureHandle
 {
 private:
+	friend GLuint64 GetGLHandle(TextureHandle);
 	GLuint64 _handle;
-
-	friend class FriendOf<TextureHandleARB>;
-
-	template <typename ObjectOps>
-	static GLuint _nameof(const ObjectOps& obj)
-	{
-		return FriendOf<ObjectOps>::GetName(obj);
-	}
 public:
 	/// Construction from a texture
-	TextureHandleARB(const TextureOps& texture)
-	 : _handle(OGLPLUS_GLFUNC(GetTextureHandleARB)(_nameof(texture)))
+	TextureHandle(TextureName texture)
+	 : _handle(OGLPLUS_GLFUNC(GetTextureHandleARB)(GetGLName(texture)))
 	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetTextureHandleARB));
+		OGLPLUS_CHECK_SIMPLE(GetTextureHandleARB);
 	}
 
 	/// Construction from a texture and a sampler
-	TextureHandleARB(const TextureOps& texture, const SamplerOps& sampler)
+	TextureHandle(TextureName texture, SamplerName sampler)
 	 : _handle(OGLPLUS_GLFUNC(GetTextureSamplerHandleARB)(
-		_nameof(texture),
-		_nameof(sampler)
+		GetGLName(texture),
+		GetGLName(sampler)
 	))
 	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetTextureSamplerHandleARB));
+		OGLPLUS_CHECK_SIMPLE(GetTextureSamplerHandleARB);
 	}
 
 	/// Make the texture resident
 	void MakeResident(void)
 	{
 		OGLPLUS_GLFUNC(MakeTextureHandleResidentARB)(_handle);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MakeTextureHandleResidentARB));
+		OGLPLUS_CHECK_SIMPLE(MakeTextureHandleResidentARB);
 	}
 
 	/// Make the texture non-resident
 	void MakeNonResident(void)
 	{
 		OGLPLUS_GLFUNC(MakeTextureHandleNonResidentARB)(_handle);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MakeTextureHandleNonResidentARB));
+		OGLPLUS_CHECK_SIMPLE(MakeTextureHandleNonResidentARB);
 	}
 
 	/// Make the texture non-resident
@@ -75,53 +68,52 @@ public:
 	{
 		GLboolean result =
 			OGLPLUS_GLFUNC(IsTextureHandleResidentARB)(_handle);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsTextureHandleResidentARB));
+		OGLPLUS_VERIFY_SIMPLE(IsTextureHandleResidentARB);
 		return result == GL_TRUE;
 	}
 };
 
-template <>
-class FriendOf<TextureHandleARB>
+/// Returns the GL handle value from TextureHandle
+inline GLuint64 GetGLHandle(TextureHandle th)
 {
-protected:
-	static GLuint64 GetHandle(const TextureHandleARB& th)
-	OGLPLUS_NOEXCEPT(true)
+	return th._handle;
+}
+
+template <>
+struct AdjustProgVar<TextureHandle>
+{
+	typedef GLuint64 BaseType;
+	typedef TextureHandle ValueType;
+
+	inline static BaseType Adjust(ValueType value)
 	{
-		return th._handle;
+		return GetGLHandle(value);
 	}
 };
 
 /// A handle for a bindless texture image
-class ImageHandleARB
- : public FriendOf<TextureOps>
+class ImageHandle
 {
 private:
+	friend GLuint64 GetGLHandle(ImageHandle);
 	GLuint64 _handle;
-
-	friend class FriendOf<ImageHandleARB>;
-
-	template <typename ObjectOps>
-	static GLuint _nameof(const ObjectOps& obj)
-	{
-		return FriendOf<ObjectOps>::GetName(obj);
-	}
 public:
 	/// Construction from a texture and additional parameters
-	ImageHandleARB(
-		const TextureOps& texture,
+	ImageHandle(
+		TextureName texture,
 		GLint level,
 		bool layered,
 		GLint layer,
 		ImageUnitFormat format
 	): _handle(OGLPLUS_GLFUNC(GetImageHandleARB)(
-		_nameof(texture),
+		GetGLName(texture),
 		level,
 		layered?GL_TRUE:GL_FALSE,
 		layer,
 		GLenum(format)
 	))
 	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetImageHandleARB));
+		OGLPLUS_CHECK_SIMPLE(GetImageHandleARB);
 	}
 
 	/// Make the image resident
@@ -131,14 +123,14 @@ public:
 			_handle,
 			GLenum(access)
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MakeImageHandleResidentARB));
+		OGLPLUS_CHECK_SIMPLE(MakeImageHandleResidentARB);
 	}
 
 	/// Make the image non-resident
 	void MakeNonResident(void)
 	{
 		OGLPLUS_GLFUNC(MakeImageHandleNonResidentARB)(_handle);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(MakeImageHandleNonResidentARB));
+		OGLPLUS_CHECK_SIMPLE(MakeImageHandleNonResidentARB);
 	}
 
 	/// Make the image non-resident
@@ -146,19 +138,26 @@ public:
 	{
 		GLboolean result =
 			OGLPLUS_GLFUNC(IsImageHandleResidentARB)(_handle);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsImageHandleResidentARB));
+		OGLPLUS_VERIFY_SIMPLE(IsImageHandleResidentARB);
 		return result == GL_TRUE;
 	}
 };
 
-template <>
-class FriendOf<ImageHandleARB>
+/// Returns the GL handle value from ImageHandle
+inline GLuint64 GetGLHandle(ImageHandle ih)
 {
-protected:
-	static GLuint64 GetHandle(const ImageHandleARB& ih)
-	OGLPLUS_NOEXCEPT(true)
+	return ih._handle;
+}
+
+template <>
+struct AdjustProgVar<ImageHandle>
+{
+	typedef GLuint64 BaseType;
+	typedef ImageHandle ValueType;
+
+	inline static BaseType Adjust(ValueType value)
 	{
-		return ih._handle;
+		return GetGLHandle(value);
 	}
 };
 
