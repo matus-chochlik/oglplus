@@ -175,6 +175,7 @@ struct GLSLtoCppTypeMatcher<oglplus::Matrix<T, Rows, Cols> >
 
 template <>
 class ProgVarTypecheck<tag::Typecheck, tag::Uniform>
+ : public ProgVarTypeOps<tag::Uniform>
 {
 private:
 	static void _do_check(

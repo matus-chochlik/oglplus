@@ -43,12 +43,12 @@ inline void example_print_error_common(
 	errstr << "]" << std::endl;
 }
 
-inline void example_print_error_common(
+inline void example_print_object_error_common(
 	ObjectError& error,
 	std::ostream& errstr
 )
 {
-	example_print_std_error_common(error, errstr);
+	example_print_error_common(error, errstr);
 	bool nl = false;
 	if(std::strlen(error.ClassName()))
 	{
@@ -99,7 +99,7 @@ inline int example_guarded_exec(Func func, std::ostream& errstr)
 	catch(ObjectError& oe)
 	{
 		errstr << "Object error";
-		example_print_error_common(oe, errstr);
+		example_print_object_error_common(oe, errstr);
 	}
 	catch(Error& err)
 	{

@@ -42,7 +42,7 @@ struct AllowedSpecialization<Reference<ObjectOps<OpsTag, ObjTag>>>
  *  @ingroup modifier_classes
  */
 template <typename Object>
-struct Reference
+class Reference
  : public Object
  , public AllowedSpecialization<Reference<Object>>
 {

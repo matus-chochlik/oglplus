@@ -20,6 +20,7 @@
 #include <oglplus/prog_var/varpara_fns.hpp>
 #include <oglplus/prog_var/set_ops.hpp>
 #include <oglplus/prog_var/wrapper.hpp>
+#include <type_traits>
 
 namespace oglplus {
 
@@ -139,7 +140,22 @@ public:
 	 */
 	void SetValue(T value)
 	{
-		this->_do_set(_program, _location, value);
+		this->_do_set(
+			this->_program,
+			this->_location,
+			value
+		);
+	}
+
+	/// Set multiple consecutive values
+	void SetValues(std::size_t n, const T* values)
+	{
+		this->_do_set_many<1>(
+			this->_program,
+			this->_location,
+			GLsizei(n),
+			values
+		);
 	}
 };
 
@@ -157,6 +173,45 @@ public:
 	{
 		this->template _do_set<N>(_program, _location, Data(value));
 	}
+
+	void SetValues(std::size_t n, const T* values)
+	{
+		assert(n % N == 0);
+		this->template _do_set_many<N>(
+			this->_program,
+			this->_location,
+			GLsizei(n),
+			values
+		);
+	}
+
+	void SetValues(std::size_t n, const Vector<T, N>* values, std::true_type)
+	{
+		const T* temp = (const T*)(values);
+		SetValues(n*N, temp);
+	}
+
+	void SetValues(std::size_t n, const Vector<T, N>* values,std::false_type)
+	{
+		std::vector<T> temp;
+		temp.reserve(n*N);
+		for(std::size_t i=0; i!=n; ++i)
+		{
+			temp.insert(temp.end(), Data(values), Data(values)+N);
+		}
+		SetValues(temp.size(), temp.data());
+	}
+
+	void SetValues(std::size_t n, const Vector<T, N>* values)
+	{
+		SetValues(
+			n, values,
+			std::integral_constant<
+				bool,
+				sizeof(Vector<T, N>[4]) == sizeof(T[N*4])
+			>()
+		);
+	}
 };
 
 template <typename OpsTag, typename T, std::size_t R, std::size_t C>
@@ -172,11 +227,59 @@ public:
 	void SetValue(const Matrix<T, R, C>& value)
 	{
 		this->template _do_set_mat<C, R>(
-			_program,
-			_location,
+			this->_program,
+			this->_location,
 			1,
 			true,
 			Data(value)
+		);
+	}
+
+	void SetValues(std::size_t n, bool row_major, const T* values)
+	{
+		assert(n % R*C == 0);
+		this->template _do_set_mat<C, R>(
+			this->_program,
+			this->_location,
+			GLsizei(n/(R*C)),
+			row_major,
+			values
+		);
+	}
+
+	void SetValues(
+		std::size_t n,
+		const Matrix<T, R, C>* values,
+		std::true_type
+	)
+	{
+		const T* temp = (const T*)(values);
+		SetValues(n*R*C, true, temp);
+	}
+
+	void SetValues(
+		std::size_t n,
+		const Matrix<T, R, C>* values,
+		std::false_type
+	)
+	{
+		std::vector<T> temp;
+		temp.reserve(n*R*C);
+		for(std::size_t i=0; i!=n; ++i)
+		{
+			temp.insert(temp.end(), Data(values), Data(values)+R*C);
+		}
+		SetValues(temp.size(), temp.data());
+	}
+
+	void SetValues(std::size_t n, const Matrix<T, R, C>* values)
+	{
+		SetValues(
+			n, values,
+			std::integral_constant<
+				bool,
+				sizeof(Matrix<T, R, C>[4]) == sizeof(T[R*C*4])
+			>()
 		);
 	}
 };

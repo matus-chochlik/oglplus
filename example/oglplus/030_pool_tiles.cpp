@@ -20,12 +20,12 @@
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/shapes/spiral_sphere.hpp>
 
-#include <oglplus/buffer_dsa.hpp>
-#include <oglplus/texture_dsa.hpp>
-#include <oglplus/framebuffer_dsa.hpp>
-#include <oglplus/renderbuffer_dsa.hpp>
-#include <oglplus/vertex_array_dsa.hpp>
-#include <oglplus/vertex_attrib_dsa.hpp>
+#include <oglplus/dsa/buffer.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/renderbuffer.hpp>
+#include <oglplus/dsa/vertex_array.hpp>
+#include <oglplus/dsa/vertex_attrib.hpp>
 
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/random.hpp>

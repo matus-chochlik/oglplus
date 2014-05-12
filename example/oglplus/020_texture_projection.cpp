@@ -16,7 +16,7 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/images/load.hpp>
-#include <oglplus/texture_dsa.hpp>
+#include <oglplus/dsa/texture.hpp>
 
 #include <cmath>
 

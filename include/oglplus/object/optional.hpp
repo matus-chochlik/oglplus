@@ -19,13 +19,13 @@
 namespace oglplus {
 
 template <typename ObjectOps>
-class AllowedSpecialization<Optional<Object<ObjectOps>>>
+struct AllowedSpecialization<Optional<Object<ObjectOps>>>
 { };
 
 class Shader;
 
 template <>
-class AllowedSpecialization<Optional<Shader>>
+struct AllowedSpecialization<Optional<Shader>>
 { };
 
 /// Modifier that allows to create uninitialized Object(s)

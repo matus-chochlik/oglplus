@@ -78,7 +78,7 @@ public:
 				float a = sqrt(float(i) / float(max)); \
 				for(i = 0; i != (nclr - 1); ++i) \
 				{ \
-					if(a >= clrs[i].a && a < clrs[i+1].a) \
+					if(a > clrs[i].a && a <= clrs[i+1].a) \
 					{ \
 						float m = (a - clrs[i].a) / (clrs[i+1].a - clrs[i].a); \
 						fragColor = vec4( \
@@ -140,7 +140,7 @@ public:
 			1.0f, 1.0f, 1.0f, 0.98f,
 			0.1f, 0.1f, 0.1f, 1.00f
 		};
-		Uniform<GLfloat>(prog, "clrs").SetVectors<4>(nclr, colormap);
+		Uniform<Vec4f>(prog, "clrs").SetValues(nclr*4, colormap);
 		gl.Disable(Capability::DepthTest);
 	}
 

@@ -77,13 +77,14 @@ public:
 	)){ }
 
 	/// Late initialization of the variable location from its identifier
-	void BindTo(StrCRef identifier)
+	ProgVarLoc& BindTo(StrCRef identifier)
 	{
 		_location = ProgVarLocOps<VarTag>::GetLocation(
 			ProgramName(_program),
 			identifier,
 			true
 		);
+		return *this;
 	}
 
 	/// The program the variable belongs to

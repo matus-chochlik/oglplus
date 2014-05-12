@@ -82,7 +82,17 @@ public:
 	}
 };
 
-// TODO: use template alias / inherited constructors when available
+// TODO: use template alias when available
+#if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
+#define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
+template <typename T> \
+class PROG_VAR \
+ : public ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> \
+{ \
+public: \
+	using ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>::ProgVar; \
+};
+#else
 #define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
 template <typename T> \
 class PROG_VAR \
@@ -101,6 +111,7 @@ public:\
 	PROG_VAR(ProgramName program, StrCRef identifier, bool active_only) \
 	 : Base(program, identifier, active_only) { } \
 };
+#endif
 
 } // namespace oglplus
 
