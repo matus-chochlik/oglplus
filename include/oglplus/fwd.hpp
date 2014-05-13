@@ -222,6 +222,7 @@ class ProgVarLoc;
 
 typedef ProgVarLoc<tag::VertexAttrib> VertexAttribLoc;
 typedef ProgVarLoc<tag::Uniform> UniformLoc;
+typedef ProgVarLoc<tag::UniformBlock> UniformBlockLoc;
 
 template <typename VarTag>
 GLint GetGLLocation(ProgVarLoc<VarTag>);

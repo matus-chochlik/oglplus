@@ -74,6 +74,12 @@ public:
 		> PixDataType;
 	};
 
+	using ObjCommonOps<tag::Texture>::Bind;
+	void Bind(void)
+	{
+		ObjCommonOps<tag::Texture>::Bind(target);
+	}
+
 	/// Bind this texture to target on the specified texture unit
 	void BindMulti(TextureUnitSelector index, Target tex_target)
 	{

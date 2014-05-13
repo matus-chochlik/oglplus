@@ -248,7 +248,6 @@ protected:
 template <>
 class ProgVarCommonOps<tag::VertexAttrib>
  : public ProgVarLoc<tag::VertexAttrib>
- , public ProgVarLocOps<tag::VertexAttrib>
 {
 protected:
 	ProgVarCommonOps(VertexAttribLoc valoc)

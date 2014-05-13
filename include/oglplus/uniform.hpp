@@ -106,19 +106,7 @@ protected:
 #endif
 };
 
-template <>
-class ProgVarCommonOps<tag::Uniform>
- : public ProgVarLoc<tag::Uniform>
- , public ProgVarLocOps<tag::Uniform>
-{
-protected:
-	ProgVarCommonOps(UniformLoc uloc)
-	 : ProgVarLoc<tag::Uniform>(uloc)
-	{ }
-public:
-};
-
-/// Encapsulates uniform value seting functionality
+/// Encapsulates uniform value setting functionality
 /**
  *  @ingroup shader_variables
  */

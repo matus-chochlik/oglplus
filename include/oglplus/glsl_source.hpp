@@ -99,7 +99,7 @@ public:
 #endif
 
 	template <typename Head, typename Tail>
-	GLSLSource(const aux::StrLitCat<Head, Tail>& source)
+	GLSLSource(const aux::StrLitCatTpl<GLchar, Head, Tail>& source)
 	 : _impl(make_impl<aux::StrGLSLSrcWrap>(source.str()))
 	{ }
 

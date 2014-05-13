@@ -163,8 +163,11 @@ private:
 			ShapeBuilder,
 			typename std::tuple_element<I, VertexAttribTags>::type
 		>();
-		if(name == info._name()) return info._getter(selector);
-		else return _find_getter(
+		if(std::strcmp(name.c_str(), info._name()) == 0)
+		{
+			return info._getter(selector);
+		}
+		return _find_getter(
 			selector,
 			name,
 			std::integral_constant<std::size_t, I+1>(),

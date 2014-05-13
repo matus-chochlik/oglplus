@@ -13,6 +13,8 @@
 #ifndef OGLPLUS_STRING_DEF_1107121519_HPP
 #define OGLPLUS_STRING_DEF_1107121519_HPP
 
+#include <string>
+
 namespace oglplus {
 
 /** @defgroup oglplus_strings Strings
@@ -31,7 +33,7 @@ bool ValidString(const char* begin, const char* end);
 /**
  *  @ingroup oglplus_strings
  */
-typedef ::std::basic_string<char> String;
+typedef ::std::basic_string<GLchar> String;
 
 const String& EmptyString(void);
 

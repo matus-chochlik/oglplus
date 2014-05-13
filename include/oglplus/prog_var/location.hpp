@@ -23,6 +23,7 @@ namespace oglplus {
 /// Wrapper encapsulating program variable location/index
 template <typename VarTag>
 class ProgVarLoc
+ : public ProgVarLocOps<VarTag>
 {
 protected:
 	friend GLint GetGLLocation<VarTag>(ProgVarLoc);

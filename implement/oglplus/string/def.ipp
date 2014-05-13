@@ -23,7 +23,7 @@ const String& EmptyString(void)
 }
 
 OGLPLUS_LIB_FUNC
-bool ValidString(const GLchar* begin, const GLchar* end)
+bool ValidString(const char* begin, const char* end)
 {
 	return aux::ValidUTF8(begin, end);
 }

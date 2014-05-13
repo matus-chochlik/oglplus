@@ -16,6 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/string/def.hpp>
+#include <oglplus/string/ref.hpp>
 #include <stdexcept>
 #include <cassert>
 #include <map>
@@ -42,9 +43,6 @@ namespace oglplus {
 class Error
  : public std::runtime_error
 {
-public:
-	/// A map of properties attached to the exception
-	typedef std::map<String, String> PropertyMap;
 private:
 	GLenum _code;
 #if !OGLPLUS_ERROR_INFO_NO_FILE
@@ -63,9 +61,6 @@ private:
 	GLuint _index;
 #endif
 
-#if !OGLPLUS_ERROR_NO_PROPERTIES
-	PropertyMap _properties;
-#endif
 public:
 	static const char* Message(GLenum);
 
@@ -221,35 +216,6 @@ public:
 	 *  returns zero.
 	 */
 	GLuint Index(void) const;
-
-#if OGLPLUS_DOCUMENTATION_ONLY || OGLPLUS_ERROR_NO_PROPERTIES
-	/// Returns the properties of the exception
-	/**
-	 *  @see #OGLPLUS_ERROR_NO_PROPERTIES
-	 */
-	PropertyMap Properties(void) const
-	{
-		return PropertyMap();
-	}
-
-	Error& PropertyValue(const String&, const String&)
-	{
-		return *this;
-	}
-#else
-	template <typename Key, typename Value>
-	Error& PropertyValue(Key&& key, Value&& value)
-	{
-		_properties[std::forward<Key>(key)] =
-			std::forward<Value>(value);
-		return *this;
-	}
-
-	const PropertyMap& Properties(void) const
-	{
-		return _properties;
-	}
-#endif
 };
 
 /// Exception class for situations when a pointer to a GL function is invalid.

@@ -35,8 +35,8 @@
 
 #include <oglplus/buffer.hpp>
 #include <oglplus/uniform.hpp>
-//#include <oglplus/uniform_block.hpp> TODO
-//#include <oglplus/uniform_subroutines.hpp>
+#include <oglplus/uniform_block.hpp>
+//#include <oglplus/uniform_subroutines.hpp> TODO
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/texture.hpp>

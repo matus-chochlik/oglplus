@@ -224,20 +224,17 @@ public:
 		}
 		catch(oglplus::Error& err)
 		{
-			std::cerr <<
-				"Error (in " << err.GLSymbol() << ", " <<
-				err.ClassName() << ": '" <<
-				err.ObjectDescription() << "'): " <<
-				err.what() <<
-				" [" << err.File() << ":" << err.Line() << "] ";
-			auto i = err.Properties().begin(), e = err.Properties().end();
-			while(i != e)
-			{
-				std::cerr << "<" << i->first << "='" << i->second << "'>";
-				++i;
-			}
-			std::cerr << std::endl;
-			err.Cleanup();
+		std::cerr
+			<< "Error (in "
+			<< err.GLFuncName()
+			<< "'): "
+			<< err.what()
+			<< " ["
+			<< err.SourceFile()
+			<< ":"
+			<< err.SourceLine()
+			<< "] "
+			<< std::endl;
 		}
 		catch(const std::exception& se)
 		{

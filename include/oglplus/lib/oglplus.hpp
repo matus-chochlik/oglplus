@@ -47,7 +47,7 @@
 #include <oglplus/images/image.hpp>
 
 #include <oglplus/vertex_attrib.hpp>
-//#include <oglplus/uniform_block.hpp>
+#include <oglplus/uniform_block.hpp>
 //#include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/renderbuffer.hpp>
