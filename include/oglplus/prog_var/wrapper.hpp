@@ -45,34 +45,42 @@ public:
 	/// Variable from a ProgVarLoc
 	ProgVar(ProgVarLoc<VarTag> pvloc)
 	 : BaseGetSetOps(pvloc)
+	 , Typecheck((BaseType*)0)
 	{ }
 
 	/// Creates variable without specific @p location in specified @p program
 	ProgVar(ProgramName program)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program))
+	 , Typecheck((BaseType*)0)
 	{ }
 
 	/// Variable with the specified @p location without a specific program
 	ProgVar(GLuint location)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(GLint(location)))
+	 , Typecheck((BaseType*)0)
 	{ }
 
 	/// Variable with the specified @p location in the specified @p program
 	ProgVar(ProgramName program, GLuint location)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, GLint(location)))
+	 , Typecheck((BaseType*)0)
 	{ }
 
 	/// Variable with the specified @p identifier in the specified @p program
 	ProgVar(ProgramName program, StrCRef identifier)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier))
-	 , Typecheck((BaseType*)0, program, this->_location, identifier)
-	{ }
+	 , Typecheck((BaseType*)0)
+	{
+		this->CheckType(program, this->_location, identifier);
+	}
 
 	/// Variable with the specified @p identifier in the specified @p program
 	ProgVar(ProgramName program, StrCRef identifier, bool active_only)
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, active_only))
-	 , Typecheck((BaseType*)0, program, this->_location, identifier)
-	{ }
+	 , Typecheck((BaseType*)0)
+	{
+		this->CheckType(program, this->_location, identifier);
+	}
 
 	/// Parameter value type
 	typedef typename AdjustProgVar<T>::ValueType ParamType;
@@ -111,8 +119,36 @@ public:
 	}
 };
 
-// TODO: use template alias when available
-#if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
+template <typename ProgVar>
+struct BaseProgVar;
+
+template <typename OpsTag, typename VarTag, typename ChkTag, typename T>
+struct BaseProgVar<ProgVar<OpsTag, VarTag, ChkTag, T>>
+{
+	typedef ProgVar<OpsTag, VarTag, ChkTag, T> Type;
+};
+
+#define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \
+	PROG_VAR(ProgVarLoc<VAR_TAG> pvloc) : BASE(pvloc) { } \
+	PROG_VAR(ProgramName program) : BASE(program) { } \
+	PROG_VAR(GLuint location) : BASE(location) { } \
+	PROG_VAR(ProgramName program, GLuint location) \
+	 : BASE(program, location) { } \
+	PROG_VAR(ProgramName program, StrCRef identifier) \
+	 : BASE(program, identifier) { } \
+	PROG_VAR(ProgramName program, StrCRef identifier, bool active_only) \
+	 : BASE(program, identifier, active_only) { } \
+
+#if !OGLPLUS_NO_TEMPLATE_ALIASES
+
+// OGLPLUS_DECLARE_PROG_VAR
+#define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
+template <typename T> \
+using PROG_VAR = ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>;
+
+#elif !OGLPLUS_NO_INHERITED_CONSTRUCTORS
+
+// OGLPLUS_DECLARE_PROG_VAR
 #define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
 template <typename T> \
 class PROG_VAR \
@@ -120,8 +156,15 @@ class PROG_VAR \
 { \
 public: \
 	using ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>::ProgVar; \
+}; \
+template <typename T> \
+struct BaseProgVar<PROG_VAR> \
+{ \
+	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Type;\
 };
 #else
+
+// OGLPLUS_DECLARE_PROG_VAR
 #define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
 template <typename T> \
 class PROG_VAR \
@@ -130,15 +173,12 @@ class PROG_VAR \
 private:\
 	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Base;\
 public:\
-	PROG_VAR(ProgVarLoc<VAR_TAG> pvloc) : Base(pvloc) { } \
-	PROG_VAR(ProgramName program) : Base(program) { } \
-	PROG_VAR(GLuint location) : Base(location) { } \
-	PROG_VAR(ProgramName program, GLuint location) \
-	 : Base(program, location) { } \
-	PROG_VAR(ProgramName program, StrCRef identifier) \
-	 : Base(program, identifier) { } \
-	PROG_VAR(ProgramName program, StrCRef identifier, bool active_only) \
-	 : Base(program, identifier, active_only) { } \
+	OGLPLUS_IMPLEMENT_VAR_TAG_CTRS(VAR_TAG, PROG_VAR, Base) \
+}; \
+template <typename T> \
+struct BaseProgVar<PROG_VAR> \
+{ \
+	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Type;\
 };
 #endif
 

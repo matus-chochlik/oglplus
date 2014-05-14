@@ -53,6 +53,8 @@
 #include <oglplus/object/array.hpp>
 #include <oglplus/object/optional.hpp>
 
+#include <oglplus/prog_var/typechecked.hpp>
+
 //#include <oglplus/binding.hpp>
 #include <oglplus/extension.hpp>
 

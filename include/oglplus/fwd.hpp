@@ -206,10 +206,10 @@ class Reference;
 template <typename Object>
 class Managed;
 
-template <typename Object>
+template <typename X>
 class Optional;
 
-template <typename ObjectT>
+template <typename Object>
 class Array;
 
 template <typename Object>
@@ -247,6 +247,9 @@ class ProgVarCommonOps;
 
 template <typename OpsTag, typename VarTag, typename T>
 class ProgVarGetSetOps;
+
+template <typename ProgVar>
+class Typechecked;
 
 } // namespace oglplus
 

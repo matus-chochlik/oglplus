@@ -10,6 +10,7 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/error/prog_var.hpp>
 #include <oglplus/object/tags.hpp>
 #include <oglplus/object/desc.hpp>
 #include <oglplus/lib/incl_end.ipp>

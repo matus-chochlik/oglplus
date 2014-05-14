@@ -178,6 +178,8 @@ class ProgVarTypecheck<tag::Typecheck, tag::Uniform>
  : public ProgVarTypeOps<tag::Uniform>
 {
 private:
+	bool (*_type_matches)(GLenum);
+
 	static void _do_check(
 		bool (*)(GLenum),
 		GLenum var_type,
@@ -186,20 +188,19 @@ private:
 		StrCRef identifier
 	);
 public:
-	ProgVarTypecheck(void)
-	OGLPLUS_NOEXCEPT(true)
+	template <typename TypeSel>
+	ProgVarTypecheck(TypeSel*)
+	 : _type_matches(&GLSLtoCppTypeMatcher<TypeSel>::_matches)
 	{ }
 
-	template <typename TypeSel>
-	ProgVarTypecheck(
-		TypeSel*,
+	void CheckType(
 		ProgramName program,
 		GLint location,
 		StrCRef identifier
-	)
+	) const
 	{
 		_do_check(
-			&GLSLtoCppTypeMatcher<TypeSel>::_matches,
+			_type_matches,
 			ProgVarTypeOps<tag::Uniform>::GetType(
 				program,
 				location,
@@ -218,16 +219,15 @@ template <typename ChkTag, typename VarTag>
 class ProgVarTypecheck
 {
 public:
-	ProgVarTypecheck(void)
+	ProgVarTypecheck(void*)
 	OGLPLUS_NOEXCEPT(true)
 	{ }
 
-	ProgVarTypecheck(
-		void*,
+	void CheckType(
 		ProgramName program,
 		GLint location,
 		StrCRef identifier
-	) OGLPLUS_NOEXCEPT(true)
+	) const
 	{
 		(void)program;
 		(void)location;
