@@ -9,6 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_0}
+ *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects}
+ *  @oglplus_example_uses_gl{GL_EXT_direct_state_access}
  *  @oglplus_example_uses_model{stanford_dragon}
  */
 #include <oglplus/gl.hpp>
