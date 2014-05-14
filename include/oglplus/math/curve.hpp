@@ -1,20 +1,20 @@
 /**
- *  @file oglplus/curve.hpp
+ *  @file oglplus/math/curve.hpp
  *  @brief Quadratic, cubic and higher-order (bezier) curves and splines
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_CURVE_1107121519_HPP
-#define OGLPLUS_CURVE_1107121519_HPP
+#ifndef OGLPLUS_MATH_CURVE_1107121519_HPP
+#define OGLPLUS_MATH_CURVE_1107121519_HPP
 
-#include <oglplus/vector.hpp>
-#include <oglplus/auxiliary/ct_math.hpp>
+#include <oglplus/math/vector.hpp>
+#include <oglplus/math/compile_time.hpp>
 
 #include <vector>
 #include <array>
@@ -113,7 +113,7 @@ public:
 		unsigned poffs = unsigned(toffs) * Order;
 		assert(poffs < _points.size() - Order);
 		Parameter t_sub = toffs - ::std::floor(toffs);
-		return aux::Bezier<Type, Parameter, Order>::Position(
+		return math::Bezier<Type, Parameter, Order>::Position(
 			_points.data() + poffs,
 			_points.size() - poffs,
 			t_sub
@@ -133,7 +133,7 @@ public:
 		dest.resize(s*n+1);
 		auto p = dest.begin(), e = dest.end();
 		const Parameter t_step = Parameter(1)/n;
-		typedef aux::Bezier<Type, Parameter, Order> b;
+		typedef math::Bezier<Type, Parameter, Order> b;
 		for(unsigned i=0; i!=s; ++i)
 		{
 			unsigned poffs = i*Order;

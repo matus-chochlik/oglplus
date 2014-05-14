@@ -1,21 +1,20 @@
 /**
- *  @file oglplus/sphere.hpp
+ *  @file oglplus/math/sphere.hpp
  *  @brief Sphere utility class
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_SPHERE_1310040710_HPP
-#define OGLPLUS_SPHERE_1310040710_HPP
+#ifndef OGLPLUS_MATH_SPHERE_1310040710_HPP
+#define OGLPLUS_MATH_SPHERE_1310040710_HPP
 
 #include <oglplus/config_compiler.hpp>
-#include <oglplus/math.hpp>
-#include <oglplus/vector.hpp>
+#include <oglplus/math/vector.hpp>
 
 #include <cassert>
 #include <type_traits>

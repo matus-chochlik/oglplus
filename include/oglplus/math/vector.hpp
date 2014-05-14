@@ -1,10 +1,10 @@
 /**
- *  @file oglplus/vector.hpp
+ *  @file oglplus/math/vector.hpp
  *  @brief A vector class
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -286,16 +286,16 @@ public:
 };
 
 
-#include <oglplus/auxiliary/vector_1.ipp>
-#include <oglplus/auxiliary/vector_2.ipp>
-#include <oglplus/auxiliary/vector_3.ipp>
-#include <oglplus/auxiliary/vector_4.ipp>
+#include <oglplus/math/vector_1.ipp>
+#include <oglplus/math/vector_2.ipp>
+#include <oglplus/math/vector_3.ipp>
+#include <oglplus/math/vector_4.ipp>
 
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
-#include <oglplus/auxiliary/vector_n.ipp>
+#include <oglplus/math/vector_n.ipp>
 #endif
 
-#include <oglplus/auxiliary/vector_swizzle.ipp>
+#include <oglplus/math/vector_swizzle.ipp>
 
 template <typename T, std::size_t N>
 inline const T* Data(const Vector<T, N>& a)

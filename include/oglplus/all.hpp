@@ -16,13 +16,13 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
-#include <oglplus/angle.hpp>
-#include <oglplus/vector.hpp>
-#include <oglplus/quaternion.hpp>
-#include <oglplus/matrix.hpp>
-#include <oglplus/plane.hpp>
-#include <oglplus/curve.hpp>
-#include <oglplus/sphere.hpp>
+#include <oglplus/math/angle.hpp>
+#include <oglplus/math/vector.hpp>
+#include <oglplus/math/quaternion.hpp>
+#include <oglplus/math/matrix.hpp>
+#include <oglplus/math/plane.hpp>
+#include <oglplus/math/curve.hpp>
+#include <oglplus/math/sphere.hpp>
 
 #include <oglplus/error/object.hpp>
 #include <oglplus/error/prog_var.hpp>

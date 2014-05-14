@@ -20,7 +20,7 @@
 
 #include <oglplus/auxiliary/any_iter.hpp>
 
-#include <oglplus/sphere.hpp>
+#include <oglplus/math/sphere.hpp>
 
 #include <array>
 #include <vector>

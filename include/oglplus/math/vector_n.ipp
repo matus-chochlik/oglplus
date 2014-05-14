@@ -1,5 +1,5 @@
 /**
- *  .file oglplus/auxiliary/vector_n.ipp
+ *  .file oglplus/math/vector_n.ipp
  *  .brief A generalized vector template
  *
  *  @author Matus Chochlik

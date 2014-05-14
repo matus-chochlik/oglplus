@@ -22,7 +22,8 @@
 #include <oglplus/buffer.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/context.hpp>
-#include <oglplus/sphere.hpp>
+
+#include <oglplus/math/sphere.hpp>
 
 #include <oglplus/shapes/draw.hpp>
 #include <oglplus/shapes/vert_attr_info.hpp>

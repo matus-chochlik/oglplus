@@ -1,23 +1,23 @@
 /**
- *  .file oglplus/auxiliary/ct_math.hpp
+ *  .file oglplus/math/compile_time.hpp
  *  .brief Compile-time math utilities
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #pragma once
-#ifndef OGLPLUS_AUX_CT_MATH_1107121519_HPP
-#define OGLPLUS_AUX_CT_MATH_1107121519_HPP
+#ifndef OGLPLUS_MATH_COMPILE_TIME_1107121519_HPP
+#define OGLPLUS_MATH_COMPILE_TIME_1107121519_HPP
 
 #include <oglplus/config_compiler.hpp>
 #include <type_traits>
 
 namespace oglplus {
-namespace aux {
+namespace math {
 
 template <unsigned N>
 struct Factorial
@@ -243,7 +243,7 @@ public:
 	}
 };
 
-} // namespace aux
+} // namespace math
 } // namespace oglplus
 
 #endif // include guard

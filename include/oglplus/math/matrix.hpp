@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/matrix.hpp
+ *  @file oglplus/math/matrix.hpp
  *  @brief A matrix class
  *
  *  @author Matus Chochlik
@@ -14,9 +14,9 @@
 #define OGLPLUS_MATRIX_1107121519_HPP
 
 #include <oglplus/config_compiler.hpp>
-#include <oglplus/vector.hpp>
-#include <oglplus/angle.hpp>
-#include <oglplus/quaternion.hpp>
+#include <oglplus/math/vector.hpp>
+#include <oglplus/math/angle.hpp>
+#include <oglplus/math/quaternion.hpp>
 
 #if !OGLPLUS_NO_INITIALIZER_LISTS
 #include <initializer_list>
@@ -368,13 +368,13 @@ public:
 	explicit Matrix(const Vector<T, C> ... row);
 #elif !OGLPLUS_NO_VARIADIC_TEMPLATES && !OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX
 
-#include <oglplus/auxiliary/matrix_n_ctr.ipp>
+#include <oglplus/math/matrix_n_ctr.ipp>
 
 #else
 
-#include <oglplus/auxiliary/matrix_2_ctr.ipp>
-#include <oglplus/auxiliary/matrix_3_ctr.ipp>
-#include <oglplus/auxiliary/matrix_4_ctr.ipp>
+#include <oglplus/math/matrix_2_ctr.ipp>
+#include <oglplus/math/matrix_3_ctr.ipp>
+#include <oglplus/math/matrix_4_ctr.ipp>
 
 #endif
 

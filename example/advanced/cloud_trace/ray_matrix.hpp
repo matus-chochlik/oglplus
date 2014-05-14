@@ -15,7 +15,7 @@
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
-#include <oglplus/matrix.hpp>
+#include <oglplus/math/matrix.hpp>
 
 namespace oglplus {
 namespace cloud_trace {

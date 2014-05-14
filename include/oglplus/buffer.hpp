@@ -26,7 +26,7 @@
 #include <oglplus/buffer_map.hpp>
 #include <oglplus/buffer_gpu_addr.hpp>
 #include <oglplus/access_specifier.hpp>
-#include <oglplus/vector.hpp>
+#include <oglplus/math/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 

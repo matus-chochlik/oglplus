@@ -10,8 +10,8 @@
  */
 #include "cloud_data.hpp"
 
-#include <oglplus/matrix.hpp>
-#include <oglplus/angle.hpp>
+#include <oglplus/math/matrix.hpp>
+#include <oglplus/math/angle.hpp>
 
 #include <vector>
 #include <random>

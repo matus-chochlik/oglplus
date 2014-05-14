@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/angle.hpp
+ *  @file oglplus/math/angle.hpp
  *  @brief Angle utility class
  *
  *  @author Matus Chochlik
@@ -10,11 +10,11 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_ANGLE_1107121519_HPP
-#define OGLPLUS_ANGLE_1107121519_HPP
+#ifndef OGLPLUS_MATH_ANGLE_1107121519_HPP
+#define OGLPLUS_MATH_ANGLE_1107121519_HPP
 
 #include <oglplus/config_compiler.hpp>
-#include <oglplus/math.hpp>
+#include <oglplus/math/constants.hpp>
 
 #include <cassert>
 #include <type_traits>

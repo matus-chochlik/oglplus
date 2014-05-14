@@ -15,7 +15,7 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/vector.hpp>
+#include <oglplus/math/vector.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>

@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/text/unicode.hpp>
 #include <oglplus/dsa/uniform.hpp>
-#include <oglplus/matrix.hpp>
+#include <oglplus/math/matrix.hpp>
 
 namespace oglplus {
 

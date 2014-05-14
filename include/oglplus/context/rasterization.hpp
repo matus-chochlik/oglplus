@@ -18,7 +18,7 @@
 #include <oglplus/face_mode.hpp>
 #include <oglplus/polygon_mode.hpp>
 #include <oglplus/provoke_mode.hpp>
-#include <oglplus/vector.hpp>
+#include <oglplus/math/vector.hpp>
 
 namespace oglplus {
 namespace context {

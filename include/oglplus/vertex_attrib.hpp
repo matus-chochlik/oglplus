@@ -388,7 +388,7 @@ public:
 	 *  @glfunref{GetAttribLocation}
 	 */
 	VertexArrayAttrib(VertexAttribSlot location)
-	 : ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(location))
+	 : ProgVarCommonOps<tag::VertexAttrib>(VertexAttribLoc(GLint(location)))
 	{ }
 
 	/// References the vertex attribute array at @p location

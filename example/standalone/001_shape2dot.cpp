@@ -24,7 +24,7 @@
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>
 
-#include <oglplus/matrix.hpp>
+#include <oglplus/math/matrix.hpp>
 
 int main(void)
 {

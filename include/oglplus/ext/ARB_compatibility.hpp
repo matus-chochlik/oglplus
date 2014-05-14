@@ -19,7 +19,7 @@
 #include <oglplus/ext/ARB_compatibility/matrix_mode.hpp>
 #include <oglplus/ext/ARB_compatibility/attrib_group.hpp>
 
-#include <oglplus/matrix.hpp>
+#include <oglplus/math/matrix.hpp>
 
 namespace oglplus {
 
