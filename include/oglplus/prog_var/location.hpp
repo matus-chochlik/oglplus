@@ -68,9 +68,33 @@ public:
 		true
 	)){ }
 
+	template <typename LocOpsParam>
+	ProgVarLoc(LocOpsParam param, ProgramName program, StrCRef identifier)
+	 : ProgVarLocOps<VarTag>(param)
+	 , _program(GetGLName(program))
+	 , _location(ProgVarLocOps<VarTag>::GetLocation(
+		program,
+		identifier,
+		true
+	)){ }
+
 	/// Creates variable with specified @p identifier in specified @p program
 	ProgVarLoc(ProgramName program, StrCRef identifier, bool active_only)
 	 : _program(GetGLName(program))
+	 , _location(ProgVarLocOps<VarTag>::GetLocation(
+		program,
+		identifier,
+		active_only
+	)){ }
+
+	template <typename LocOpsParam>
+	ProgVarLoc(
+		LocOpsParam param,
+		ProgramName program,
+		StrCRef identifier,
+		bool active_only
+	): ProgVarLocOps<VarTag>(param)
+	 , _program(GetGLName(program))
 	 , _location(ProgVarLocOps<VarTag>::GetLocation(
 		program,
 		identifier,

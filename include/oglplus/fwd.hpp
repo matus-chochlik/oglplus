@@ -104,8 +104,8 @@ struct PathNV;
 struct VertexAttrib;
 struct Uniform;
 struct UniformBlock;
-struct SubroutineUniform;
 struct Subroutine;
+struct SubroutineUniform;
 
 struct NativeTypes;
 struct MatrixTypes;
@@ -226,6 +226,8 @@ class ProgVarLoc;
 typedef ProgVarLoc<tag::VertexAttrib> VertexAttribLoc;
 typedef ProgVarLoc<tag::Uniform> UniformLoc;
 typedef ProgVarLoc<tag::UniformBlock> UniformBlockLoc;
+typedef ProgVarLoc<tag::Subroutine> SubroutineLoc;
+typedef ProgVarLoc<tag::SubroutineUniform> SubroutineUniformLoc;
 
 template <typename VarTag>
 GLint GetGLLocation(ProgVarLoc<VarTag>);

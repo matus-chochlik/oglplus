@@ -36,7 +36,7 @@
 #include <oglplus/buffer.hpp>
 #include <oglplus/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
-//#include <oglplus/uniform_subroutines.hpp> TODO
+#include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/texture.hpp>
@@ -55,7 +55,7 @@
 
 #include <oglplus/prog_var/typechecked.hpp>
 
-//#include <oglplus/binding.hpp>
+//#include <oglplus/binding.hpp> TODO
 #include <oglplus/extension.hpp>
 
 #endif // include guard
