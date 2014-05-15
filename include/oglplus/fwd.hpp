@@ -117,10 +117,10 @@ struct LazyInit;
 struct Typecheck;
 struct NoTypecheck;
 
-struct InternalSel;
 struct ExplicitSel;
 struct ImplicitSel;
 struct DirectState;
+struct CurrentBound;
 } // namespace tag
 
 template <typename T>
@@ -165,6 +165,9 @@ class ObjBindingOps;
 
 template <typename ObjTag>
 class ObjCommonOps;
+
+template <typename ObjTag>
+class BoundObjOps;
 
 template <typename OpsTag, typename ObjTag>
 class ObjZeroOps;

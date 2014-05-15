@@ -565,7 +565,6 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{InvalidateFramebuffer}
 	 */
-	template <typename N>
 	static void Invalidate(
 		Target target,
 		GLsizei count,

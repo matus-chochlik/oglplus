@@ -13,6 +13,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/dsa/uniform.hpp>
 
 #include <oglplus/shapes/tetrahedrons.hpp>
 
@@ -427,7 +428,7 @@ public:
 			double(width)/height,
 			1, 60
 		);
-		liquid_prog.viewport_dimensions = Vec2f(width, height);
+		liquid_prog.viewport_dimensions.Set(Vec2f(width, height));
 	}
 
 	void Render(ExampleClock& clock)
@@ -436,7 +437,7 @@ public:
 
 		double time = clock.Now().Seconds();
 		//
-		liquid_prog.time = time;
+		liquid_prog.time.Set(time);
 
 		double t = SineWave(time / 13.0);
 		if(t+0.95 < 0.0) clock.Pace(0.05);
@@ -455,8 +456,8 @@ public:
 		);
 		Vec3f camera_position = camera.Position();
 
-		liquid_prog.camera_position = camera_position;
-		liquid_prog.camera_matrix = perspective*camera;
+		liquid_prog.camera_position.Set(camera_position);
+		liquid_prog.camera_matrix.Set(perspective*camera);
 
 		for(int y=-1; y!=1; ++y)
 		for(int z=-grid_repeat; z!=grid_repeat; ++z)

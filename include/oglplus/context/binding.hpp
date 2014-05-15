@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/object/name.hpp>
-//#include <oglplus/bound.hpp>  TODO:
 
 namespace oglplus {
 namespace context {
@@ -70,7 +69,6 @@ public:
 	{
 		object.Bind();
 	}
-#ifdef NOT_DEFINED
 
 	/// Uses (makes current) the specified object
 	/**
@@ -87,18 +85,17 @@ public:
 
 	/// Returns a managed reference to the object currently bound to target
 	template <typename ObjectTarget>
-	static oglplus::Bound<typename ObjectTargetTag<ObjectTarget>::Type>
-	Current(ObjectTarget target)
+	static Reference<ObjectOps<
+		tag::CurrentBound,
+		typename ObjectTargetTag<ObjectTarget>::Type
+	>> Current(ObjectTarget target)
 	{
-		typedef typename ObjectTargetTag<ObjectTarget>::Type ObjectOps;
+		typedef typename ObjectTargetTag<ObjectTarget>::Type ObjTag;
 
-		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
-		return oglplus::Bound<ObjectOps>(
-			Managed<ObjectOps>(name),
-			target
-		);
+		return Reference<ObjectOps<tag::CurrentBound, ObjTag>>(target);
 	}
 
+#ifdef NOT_DEFINED
 	/// Binds the object to the specified target, returns a managed reference
 	template <typename Object>
 	static oglplus::Bound<

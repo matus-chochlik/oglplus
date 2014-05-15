@@ -34,11 +34,19 @@ private:
 	// indices pointing to the shape's primitive elements
 	typename ShapeMaker::IndexArray shape_indices;
 
-	// Fragment shader is owned by each individual shape
-	Shader fs;
-
 	// Shading program
 	Program prog;
+
+	static Program make(const Shader& vs, const Shader& fs)
+	{
+		Program prog;
+		prog.AttachShader(vs).AttachShader(fs).Link().Use();
+		return std::move(prog);
+	}
+
+	// Uniform variables
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	Uniform<Vec3f> light_pos;
 
 	// A vertex array object for the rendered shape
 	VertexArray shape;
@@ -46,17 +54,15 @@ private:
 	// VBOs for the shape's vertices, normals and tex-coordinates
 	Buffer verts, normals, texcoords;
 public:
-	Shape(const Shader& vs, Shader&& frag)
+	Shape(const Shader& vs, const Shader& fs)
 	 : shape_instr(make_shape.Instructions())
 	 , shape_indices(make_shape.Indices())
-	 , fs(std::forward<Shader>(frag))
+	 , prog(make(vs, fs))
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , light_pos(prog, "LightPos")
 	{
-		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(fs);
-		// link and use it
-		prog.Link();
-		prog.Use();
 
 		// bind the VAO for the shape
 		shape.Bind();
@@ -70,7 +76,7 @@ public:
 			&ShapeMaker::TexCoordinates
 		};
 		// managed references to the VBOs
-		Managed<Buffer> vbo[n_attr] = {verts, normals, texcoords};
+		Reference<Buffer> vbo[n_attr] = {verts, normals, texcoords};
 		// vertex attribute identifiers from the shaders
 		const GLchar* ident[n_attr] = {"Position", "Normal", "TexCoord"};
 
@@ -93,7 +99,7 @@ public:
 	void SetProjection(const Mat4f& projection)
 	{
 		prog.Use();
-		SetUniform(prog, "ProjectionMatrix", projection);
+		projection_matrix.Set(projection);
 	}
 
 	void Render(
@@ -105,9 +111,9 @@ public:
 		// use the shading program
 		prog.Use();
 		// set the uniforms
-		SetUniform(prog, "LightPos", light);
-		SetUniform(prog, "CameraMatrix", camera);
-		SetUniform(prog, "ModelMatrix", model);
+		light_pos.Set(light);
+		camera_matrix.Set(camera);
+		model_matrix.Set(model);
 		// bind the VAO
 		shape.Bind();
 		// use the instructions to draw the shape

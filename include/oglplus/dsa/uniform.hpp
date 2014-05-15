@@ -73,6 +73,9 @@ OGLPLUS_DECLARE_PROG_VAR(
 	tag::NoTypecheck
 )
 
+/// ProgramUniform sampler
+typedef ProgramUniform<GLint> ProgramUniformSampler;
+
 } // namespace oglplus
 
 #endif // include guard

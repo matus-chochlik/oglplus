@@ -14,6 +14,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/dsa/uniform.hpp>
 
 #include <oglplus/shapes/sphere.hpp>
 #include <oglplus/shapes/wrapper.hpp>
@@ -228,7 +229,7 @@ public:
 				<< vel_data;
 			(prog|"Velocity").Setup<Vec4f>().Enable();
 		}
-		NoVertexArray::Bind();
+		NoVertexArray().Bind();
 		for(GLuint b=0; b!=2; ++b)
 		{
 			GLuint nb = (b+1)%2;
@@ -242,7 +243,7 @@ public:
 				<< BufferIndexedTarget::TransformFeedback << 1
 				<< BufferTarget::TransformFeedback;
 		}
-		DefaultTransformFeedback::Bind();
+		DefaultTransformFeedback().Bind();
 
 		// force coefficients
 		std::vector<GLfloat> force_data(particle_count*4, 0.0);
@@ -298,7 +299,7 @@ public:
 		return particle_count;
 	}
 
-	Managed<Buffer> Offsets(void) const
+	Reference<Buffer> Offsets(void) const
 	{
 		return positions[0];
 	}
@@ -324,8 +325,8 @@ public:
 			gl.DrawArrays(PrimitiveType::Points, 0, particle_count);
 			xfba.Finish();
 		}
-		NoVertexArray::Bind();
-		DefaultTransformFeedback::Bind();
+		NoVertexArray().Bind();
+		DefaultTransformFeedback().Bind();
 	}
 };
 
@@ -648,7 +649,6 @@ public:
 	 , physics()
 	 , particle_prog()
 	 , particle(particle_prog, physics.Offsets())
-	 , trail_prog()
 	 , trails(trail_prog)
 	{
 		gl.ClearColor(0.3f, 0.3f, 0.3f, 0.0f);

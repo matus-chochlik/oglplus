@@ -739,7 +739,6 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{BufferStorage}
 	 */
-	template <typename GLtype>
 	static void Storage(
 		Target target,
 		GLsizeiptr size,

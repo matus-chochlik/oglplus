@@ -279,6 +279,9 @@ OGLPLUS_DECLARE_PROG_VAR(
 	tag::NoTypecheck
 )
 
+/// Uniform sampler
+typedef Uniform<GLint> UniformSampler;
+
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)

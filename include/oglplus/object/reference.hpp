@@ -53,6 +53,20 @@ public:
 	}
 };
 
+template <typename ObjTag>
+class Reference<ObjectOps<tag::CurrentBound, ObjTag>>
+ : public ObjectOps<tag::CurrentBound, ObjTag>
+{
+private:
+	typedef ObjectOps<tag::CurrentBound, ObjTag> Base;
+public:
+	Reference(typename Base::Target init_tgt)
+	{
+		this->_copy(ObjBindingOps<ObjTag>::Binding(init_tgt));
+		this->target = init_tgt;
+	}
+};
+
 template <typename ObjectOps>
 struct Reference<Object<ObjectOps>>
  : public Reference<ObjectOps>

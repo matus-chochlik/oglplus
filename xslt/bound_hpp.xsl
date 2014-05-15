@@ -52,14 +52,12 @@
 	<xsl:template match="ref" mode="ParamTypeExpr">
 		<xsl:variable name="RefId" select="@refid"/>
 		<xsl:if test="../../../../../sectiondef/memberdef[@id = $RefId]">
-			<xsl:value-of select="$Object"/>
-			<xsl:text>Ops::</xsl:text>
+			<xsl:text>ExplicitOps::</xsl:text>
 		</xsl:if>
 		<xsl:if test="../../../../../../compounddef[
-			contains(compoundname, concat($Object,'Ops::'))
+			contains(compoundname, concat('tag::', $Object))
 		]/sectiondef/memberdef[@id = $RefId]">
-			<xsl:value-of select="$Object"/>
-			<xsl:text>Ops::</xsl:text>
+			<xsl:text>ExplicitOps::</xsl:text>
 		</xsl:if>
 		<xsl:apply-templates mode="ParamTypeExpr"/>
 	</xsl:template>
@@ -174,7 +172,7 @@
 		</xsl:variable>
 
 		<xsl:choose>
-			<xsl:when test="$ResultType = 'void'">const BoundTemplate&amp;</xsl:when>
+			<xsl:when test="$ResultType = 'void'">const BoundObjOps&amp;</xsl:when>
 			<xsl:otherwise><xsl:value-of select="$ResultType"/></xsl:otherwise>
 		</xsl:choose>
 
@@ -234,8 +232,7 @@
 		<xsl:if test="$ResultType != 'void'">
 			<xsl:text>return </xsl:text>
 		</xsl:if>
-		<xsl:value-of select="$Object"/>
-		<xsl:text>Ops::</xsl:text>
+		<xsl:text>ExplicitOps::</xsl:text>
 		<xsl:value-of select="name/text()"/>
 		<xsl:text>(</xsl:text>
 		<xsl:call-template name="Newline"/>
@@ -257,7 +254,7 @@
 				</xsl:choose>
 			</xsl:if>
 			<xsl:if test="$Type='Target'">
-				<xsl:text>this-&gt;BindTarget()</xsl:text>
+				<xsl:text>this-&gt;target</xsl:text>
 			</xsl:if>
 			<xsl:if test="position() != last()">,</xsl:if>
 			<xsl:call-template name="Newline"/>
@@ -288,11 +285,11 @@
 		</xsl:if>
 	</xsl:template>
 
-	<xsl:template name="GenerateHeader">
+	<xsl:template name="GenerateFile">
 <xsl:text>
 /**
  *  @file oglplus/bound/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp
- *  @brief Specialization of BoundTemplate for </xsl:text><xsl:value-of select="$Object"/><xsl:text>.
+ *  @brief Specialization of ObjectOps for </xsl:text><xsl:value-of select="$Object"/><xsl:text>.
  *
  *  Automatically generated file, do not edit manually!
  *
@@ -307,86 +304,62 @@
 #ifndef OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 #define OGLPLUS_BOUND_</xsl:text><xsl:value-of select="$OBJECT"/><xsl:text>_1107121519_HPP
 
-#include &lt;oglplus/fwd.hpp&gt;
+#include &lt;oglplus/object/bound.hpp&gt;
 #include &lt;oglplus/</xsl:text><xsl:value-of select="$object"/><xsl:text>.hpp&gt;
 #include &lt;utility&gt;
 
 namespace oglplus {
 
-/// Specialization of the BoundTemplate for </xsl:text>
-	<xsl:value-of select="$Object"/>
-<xsl:text>Ops, implements Bound &lt; </xsl:text> 
+/// Specialization of the BoundObjOps for </xsl:text>
 	<xsl:value-of select="$Object"/>
 <xsl:text>  &gt;.
 /** This template implements wrappers around the member functions
  *  of </xsl:text><xsl:value-of select="$Object"/><xsl:text>, which have
- *  a </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target parameter
+ *  a </xsl:text><xsl:value-of select="$Object"/><xsl:text>Target parameter
  *  specifying the binding point on which they should operate.
  *
  *  @note Do not use this template class directly use
- *  Bound &lt; </xsl:text><xsl:value-of select="$Object"/><xsl:text> &gt; or the Bind()
+ *  Bound &lt; </xsl:text><xsl:value-of select="$Object"/><xsl:text> &gt; or the Context::Current()
  *  function instead.
- *
- *  @see Bind()
- *  @see Bound
  *
  *  @ingroup utility_classes
  */
-template &lt;template &lt;class, class&gt; class Base, class BaseParam&gt;
-class BoundTemplate&lt;Base, BaseParam, </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
- : public Base&lt;BaseParam, </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&gt;
+template &lt;&gt;
+class BoundObjOps&lt;tag::</xsl:text><xsl:value-of select="$Object"/><xsl:text>&gt;
 {
 private:
-	typedef Base&lt;
-		BaseParam,
-		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops
-	&gt; _base;
+	typedef ObjectOps&lt;tag::ExplicitSel, tag::</xsl:text><xsl:value-of select="$Object"/><xsl:text>&gt; ExplicitOps;
 public:
-	BoundTemplate(
-		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
-		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
-	): _base(bindable, target)
+	typedef typename ExplicitOps::Target Target;
+	Target target;
+
+	BoundObjOps(void)
 	{ }
 
-	BoundTemplate(
-		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target
-	): _base(target)
+	BoundObjOps(Target init_tgt)
+	 : target(init_tgt)
 	{ }
-
 </xsl:text>
-
-<!-- some customizations based on object type -->
-<xsl:if test="$object='texture'">
-<xsl:text>
-	BoundTemplate(
-		const </xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops&amp; bindable,
-		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target,
-		GLuint tex_unit
-	): _base(bindable, target, tex_unit)
-	{ }
-
-	BoundTemplate(
-		</xsl:text><xsl:value-of select="$Object"/><xsl:text>Ops::Target target,
-		GLuint tex_unit
-	): _base(target, tex_unit)
-	{ }
-
-</xsl:text>
-</xsl:if>
-	<xsl:for-each select="sectiondef/memberdef[
-		@kind='function' and
-		@prot='public' and
-		param/declname/text()='target' and
-		(param/type/text()='Target' or param/type/ref/text()='Target') and
-		name/text() != 'Bind' and
-		name/text() != 'Unbind'
-	]">
-		<xsl:call-template name="GenerateFunction"/>
-		<xsl:call-template name="Newline"/>
+	<xsl:variable name="ObjZeroOps" select="concat('oglplus::ObjZeroOps&lt; tag::ExplicitSel, tag::', $Object,' &gt;')"/>
+	<xsl:variable name="ObjectOps"  select="concat('oglplus::ObjectOps&lt; tag::ExplicitSel, tag::', $Object,' &gt;')"/>
+	<xsl:for-each select="compounddef">
+		<xsl:if test="compoundname/text()=$ObjZeroOps or compoundname/text()=$ObjectOps">
+			<xsl:for-each select="sectiondef/memberdef[
+				@kind='function' and
+				@static='yes' and
+				@prot='public' and
+				param/declname/text()='target' and
+				(param/type/text()='Target' or param/type/ref/text()='Target') and
+				name/text() != 'Bind' and
+				name/text() != 'Unbind'
+			]">
+				<xsl:call-template name="GenerateFunction"/>
+				<xsl:call-template name="Newline"/>
+			</xsl:for-each>
+		</xsl:if>
 	</xsl:for-each>
-
 <xsl:text>
-}; // class BoundTemplate
+}; // class BoundObjOps
 
 } // namespace oglplus
 
@@ -394,9 +367,7 @@ public:
 </xsl:text>
 	</xsl:template>
 
-	<xsl:template match="/doxygen/compounddef">
-		<xsl:if test="compoundname/text()=(concat('oglplus::', $Object,'Ops'))">
-			<xsl:call-template name="GenerateHeader"/>
-		</xsl:if>
+	<xsl:template match="/doxygen">
+		<xsl:call-template name="GenerateFile"/>
 	</xsl:template>
 </xsl:stylesheet>
