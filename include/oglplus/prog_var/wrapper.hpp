@@ -117,6 +117,13 @@ public:
 			BaseGetSetOps::SetValue(AdjustProgVar<T>::Adjust(value));
 		}
 	}
+
+	/// Sets the variable value
+	ProgVar& operator = (ParamType value)
+	{
+		this->Set(value);
+		return *this;
+	}
 };
 
 template <typename ProgVar>
@@ -128,6 +135,11 @@ struct BaseProgVar<ProgVar<OpsTag, VarTag, ChkTag, T>>
 	typedef ProgVar<OpsTag, VarTag, ChkTag, T> Type;
 };
 
+#if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
+#define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \
+	using Base::Base;
+
+#else
 #define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \
 	PROG_VAR(ProgVarLoc<VAR_TAG> pvloc) : BASE(pvloc) { } \
 	PROG_VAR(ProgramName program) : BASE(program) { } \
@@ -137,7 +149,8 @@ struct BaseProgVar<ProgVar<OpsTag, VarTag, ChkTag, T>>
 	PROG_VAR(ProgramName program, StrCRef identifier) \
 	 : BASE(program, identifier) { } \
 	PROG_VAR(ProgramName program, StrCRef identifier, bool active_only) \
-	 : BASE(program, identifier, active_only) { } \
+	 : BASE(program, identifier, active_only) { }
+#endif
 
 #if !OGLPLUS_NO_TEMPLATE_ALIASES
 
@@ -146,22 +159,6 @@ struct BaseProgVar<ProgVar<OpsTag, VarTag, ChkTag, T>>
 template <typename T> \
 using PROG_VAR = ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>;
 
-#elif !OGLPLUS_NO_INHERITED_CONSTRUCTORS
-
-// OGLPLUS_DECLARE_PROG_VAR
-#define OGLPLUS_DECLARE_PROG_VAR(PROG_VAR, OPS_TAG, VAR_TAG, CHK_TAG) \
-template <typename T> \
-class PROG_VAR \
- : public ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> \
-{ \
-public: \
-	using ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>::ProgVar; \
-}; \
-template <typename T> \
-struct BaseProgVar<PROG_VAR> \
-{ \
-	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Type;\
-};
 #else
 
 // OGLPLUS_DECLARE_PROG_VAR
@@ -174,6 +171,11 @@ private:\
 	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Base;\
 public:\
 	OGLPLUS_IMPLEMENT_VAR_TAG_CTRS(VAR_TAG, PROG_VAR, Base) \
+	PROG_VAR& operator = (ParamType value) \
+	{ \
+		this->Set(value); \
+		return *this; \
+	} \
 }; \
 template <typename T> \
 struct BaseProgVar<PROG_VAR> \

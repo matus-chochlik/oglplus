@@ -104,6 +104,14 @@ public:
 		return result;
 	}
 
+	static VertexAttribSlot GetLocation(
+		ProgramName program,
+		StrCRef identifier
+	)
+	{
+		return VertexAttribSlot(GetLocation(program, identifier, true));
+	}
+
 	/// Queries the vertex attribute location, returns false on failure
 	/**
 	 *  @glsymbols

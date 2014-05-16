@@ -282,6 +282,44 @@ OGLPLUS_DECLARE_PROG_VAR(
 /// Uniform sampler
 typedef Uniform<GLint> UniformSampler;
 
+// typeless uniform
+template <typename OpsTag>
+class ProgVar<OpsTag, tag::Uniform, tag::NoTypecheck, void>
+ : public ProgVarCommonOps<tag::Uniform>
+{
+private:
+	typedef ProgVarCommonOps<tag::Uniform> Base;
+public:
+	ProgVar(ProgramName program, GLuint location)
+	 : Base(UniformLoc(program, location))
+	{ }
+
+	ProgVar(ProgramName program, StrCRef identifier)
+	 : Base(UniformLoc(program, identifier))
+	{ }
+
+	template <typename T>
+	void Set(T value)
+	{
+		ProgVar<OpsTag, tag::Uniform, tag::NoTypecheck, T>(*this).Set(value);
+	}
+
+	template <typename T>
+	ProgVar& operator = (T value)
+	{
+		Set(value);
+		return *this;
+	}
+};
+
+typedef ProgVar<tag::ImplicitSel, tag::Uniform, tag::NoTypecheck, void> UntypedUniform;
+
+inline UntypedUniform
+operator / (ProgramName program, StrCRef identifier)
+{
+	return UntypedUniform(program, identifier);
+}
+
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)

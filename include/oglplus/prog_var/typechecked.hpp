@@ -24,11 +24,7 @@ class Typechecked<ProgVar<OpsTag, VarTag, ChkTag, T>>
 private:
 	typedef ProgVar<OpsTag, VarTag, tag::Typecheck, T> Base;
 public:
-#if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
-	using Base::Base;
-#else
 	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VarTag, Typechecked, Base)
-#endif
 };
 
 template <typename ProgVar>
@@ -38,12 +34,7 @@ class Typechecked
 private:
 	typedef Typechecked<typename BaseProgVar<ProgVar>::Type> Base;
 public:
-#if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
-	using Base::Base;
-#else
-	template <typename VarTag>
 	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VarTag, Typechecked, Base)
-#endif
 };
 
 template <typename ProgVar>

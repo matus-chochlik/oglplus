@@ -95,17 +95,18 @@ public:
 		return Reference<ObjectOps<tag::CurrentBound, ObjTag>>(target);
 	}
 
-#ifdef NOT_DEFINED
 	/// Binds the object to the specified target, returns a managed reference
 	template <typename Object>
-	static oglplus::Bound<
+	static Reference<ObjectOps<
+		tag::CurrentBound,
 		typename ObjectTargetTag<typename Object::Target>::Type
-	> Bound(typename Object::Target target, const Object& object)
+	>> Bound(typename Object::Target target, const Object& object)
 	{
 		object.Bind(target);
 		return Current(target);
 	}
 
+#ifdef NOT_DEFINED
 	/// Returns a managed reference to object currently bound to indexed target
 	template <typename ObjectTarget>
 	static Managed<typename ObjectTargetTag<ObjectTarget>::Type>
