@@ -328,7 +328,7 @@ private:
 		gl.Finish();
 
 		// bind the default framebuffer
-		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 	}
 
 	TextureUnitSelector light_tex_unit;
@@ -486,7 +486,7 @@ public:
 		meshes.Draw(drawing_driver);
 
 		// render the final image
-		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 

@@ -16,6 +16,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/dsa/uniform.hpp>
 
 #include <oglplus/shapes/spiral_sphere.hpp>
 

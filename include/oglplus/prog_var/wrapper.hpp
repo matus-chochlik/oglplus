@@ -17,6 +17,7 @@
 #include <oglplus/string/ref.hpp>
 #include <oglplus/prog_var/location.hpp>
 #include <oglplus/prog_var/typecheck.hpp>
+#include <cassert>
 
 namespace oglplus {
 
@@ -42,21 +43,15 @@ private:
 	typedef ProgVarGetSetOps<OpsTag, VarTag, BaseType> BaseGetSetOps;
 	typedef ProgVarTypecheck<ChkTag, VarTag> Typecheck;
 public:
+	/// Default construction
+	ProgVar(void)
+	 : BaseGetSetOps(ProgVarLoc<VarTag>())
+	 , Typecheck((BaseType*)0)
+	{ }
+
 	/// Variable from a ProgVarLoc
 	ProgVar(ProgVarLoc<VarTag> pvloc)
 	 : BaseGetSetOps(pvloc)
-	 , Typecheck((BaseType*)0)
-	{ }
-
-	/// Creates variable without specific @p location in specified @p program
-	ProgVar(ProgramName program)
-	 : BaseGetSetOps(ProgVarLoc<VarTag>(program))
-	 , Typecheck((BaseType*)0)
-	{ }
-
-	/// Variable with the specified @p location without a specific program
-	ProgVar(GLuint location)
-	 : BaseGetSetOps(ProgVarLoc<VarTag>(GLint(location)))
 	 , Typecheck((BaseType*)0)
 	{ }
 
@@ -71,7 +66,7 @@ public:
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier))
 	 , Typecheck((BaseType*)0)
 	{
-		this->CheckType(program, this->_location, identifier);
+		Typecheck::CheckType(program, this->_location, identifier);
 	}
 
 	/// Variable with the specified @p identifier in the specified @p program
@@ -79,7 +74,24 @@ public:
 	 : BaseGetSetOps(ProgVarLoc<VarTag>(program, identifier, active_only))
 	 , Typecheck((BaseType*)0)
 	{
-		this->CheckType(program, this->_location, identifier);
+		Typecheck::CheckType(program, this->_location, identifier);
+	}
+
+	ProgVar& BindTo(StrCRef identifier)
+	{
+		BaseGetSetOps::BindTo(identifier);
+		Typecheck::CheckType(
+			ProgramName(this->_program),
+			this->_location,
+			identifier
+		);
+		return *this;
+	}
+
+	ProgVar& operator = (ProgVarLoc<VarTag> pvloc)
+	{
+		BaseGetSetOps::Assign(pvloc);
+		return *this;
 	}
 
 	/// Parameter value type
@@ -88,6 +100,7 @@ public:
 	/// Set the variable value
 	void Set(ParamType value)
 	{
+		assert(this->IsActive());
 		BaseGetSetOps::SetValue(AdjustProgVar<T>::Adjust(value));
 	}
 
@@ -141,9 +154,8 @@ struct BaseProgVar<ProgVar<OpsTag, VarTag, ChkTag, T>>
 
 #else
 #define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \
+	PROG_VAR(void) : BASE() { } \
 	PROG_VAR(ProgVarLoc<VAR_TAG> pvloc) : BASE(pvloc) { } \
-	PROG_VAR(ProgramName program) : BASE(program) { } \
-	PROG_VAR(GLuint location) : BASE(location) { } \
 	PROG_VAR(ProgramName program, GLuint location) \
 	 : BASE(program, location) { } \
 	PROG_VAR(ProgramName program, StrCRef identifier) \

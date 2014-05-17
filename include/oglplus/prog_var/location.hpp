@@ -101,6 +101,14 @@ public:
 		active_only
 	)){ }
 
+	/// Copy assignment
+	ProgVarLoc& Assign(ProgVarLoc that)
+	{
+		this->_program = that._program;
+		this->_location= that._location;
+		return *this;
+	}
+
 	/// Late initialization of the variable location from its identifier
 	ProgVarLoc& BindTo(StrCRef identifier)
 	{
