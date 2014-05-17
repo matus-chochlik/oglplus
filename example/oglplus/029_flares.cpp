@@ -561,7 +561,7 @@ public:
 
 		shape_prog.Use();
 		shape.Draw();
-		Program::UseNone();
+		NoProgram().Use();
 
 		lights.Bind();
 

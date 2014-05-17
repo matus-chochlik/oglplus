@@ -42,40 +42,9 @@ private:
 	// Program
 	Program prog;
 
-	// Handles for setting uniforms in program
-	LazyUniform<Vec3f> camera_position_3;
-	LazyUniform<Mat4f>
-		camera_matrix_0,
-		camera_matrix_1,
-		camera_matrix_2,
-		camera_matrix_3,
-		model_matrix;
-
-
-	// A vertex array object for the rendered shape
-	VertexArray shape;
-
-	// VBOs for the shape's vertex attributes
-	Buffer verts, normals;
-
-	// The environment cube map
-	Texture tex;
-
-	Mat4f projection;
-public:
-	MultiViewportExample(void)
-	 : make_shape(1.0, 0.1, 8, 4, 48)
-	 , shape_instr(make_shape.Instructions())
-	 , shape_indices(make_shape.Indices())
-	 , camera_position_3(prog, "CameraPosition[3]")
-	 , camera_matrix_0(prog, "CameraMatrix[0]")
-	 , camera_matrix_1(prog, "CameraMatrix[1]")
-	 , camera_matrix_2(prog, "CameraMatrix[2]")
-	 , camera_matrix_3(prog, "CameraMatrix[3]")
-	 , model_matrix(prog, "ModelMatrix")
+	static Program make(void)
 	{
 		VertexShader vs;
-		// Set the vertex shader source
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ModelMatrix;"
@@ -101,7 +70,6 @@ public:
 		vs.Compile();
 
 		GeometryShader gs;
-		// Set the geometry shader source
 		gs.Source(
 			"#version 330\n"
 			"#extension GL_ARB_viewport_array : enable\n"
@@ -153,7 +121,6 @@ public:
 		gs.Compile();
 
 		FragmentShader fs;
-		// set the fragment shader source
 		fs.Source(
 			"#version 330\n"
 			"uniform samplerCube TexUnit;"
@@ -185,18 +152,50 @@ public:
 			"	);"
 			"}"
 		);
-		// compile it
 		fs.Compile();
 
-		// attach the shaders to the program
+		Program prog;
 		prog.AttachShader(vs);
 		prog.AttachShader(gs);
 		prog.AttachShader(fs);
-		// link and use it
 		prog.Link();
 		prog.Use();
+		return prog;
+	}
 
-		// bind the VAO for the shape
+	// Handles for setting uniforms in program
+	Uniform<Vec3f> camera_position_3;
+	Uniform<Mat4f>
+		camera_matrix_0,
+		camera_matrix_1,
+		camera_matrix_2,
+		camera_matrix_3,
+		model_matrix;
+
+
+	// A vertex array object for the rendered shape
+	VertexArray shape;
+
+	// VBOs for the shape's vertex attributes
+	Buffer verts, normals;
+
+	// The environment cube map
+	Texture tex;
+
+	Mat4f projection;
+public:
+	MultiViewportExample(void)
+	 : make_shape(1.0, 0.1, 8, 4, 48)
+	 , shape_instr(make_shape.Instructions())
+	 , shape_indices(make_shape.Indices())
+	 , prog(make())
+	 , camera_position_3(prog, "CameraPosition[3]")
+	 , camera_matrix_0(prog, "CameraMatrix[0]")
+	 , camera_matrix_1(prog, "CameraMatrix[1]")
+	 , camera_matrix_2(prog, "CameraMatrix[2]")
+	 , camera_matrix_3(prog, "CameraMatrix[3]")
+	 , model_matrix(prog, "ModelMatrix")
+	{
 		shape.Bind();
 
 		verts.Bind(Buffer::Target::Array);

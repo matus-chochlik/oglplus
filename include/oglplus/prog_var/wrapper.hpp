@@ -77,6 +77,14 @@ public:
 		Typecheck::CheckType(program, this->_location, identifier);
 	}
 
+	ProgVar operator[](std::size_t offset) const
+	{
+		return ProgVar(
+			ProgramName(this->_program),
+			this->_location+offset
+		);
+	}
+
 	ProgVar& BindTo(StrCRef identifier)
 	{
 		BaseGetSetOps::BindTo(identifier);
@@ -102,6 +110,18 @@ public:
 	{
 		assert(this->IsActive());
 		BaseGetSetOps::SetValue(AdjustProgVar<T>::Adjust(value));
+	}
+
+	/// Set multiple values
+	void Set(std::size_t count, const T* values)
+	{
+		assert(this->IsActive());
+		BaseGetSetOps::SetValues(count, values);
+	}
+
+	void Set(const std::vector<T>& values)
+	{
+		Set(values.size(), values.data());
 	}
 
 	template <typename T0, typename T1>
@@ -183,6 +203,11 @@ private:\
 	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Base;\
 public:\
 	OGLPLUS_IMPLEMENT_VAR_TAG_CTRS(VAR_TAG, PROG_VAR, Base) \
+	PROG_VAR& operator = (ProgVarLoc<VarTag> pvloc) \
+	{ \
+		BaseGetSetOps::Assign(pvloc); \
+		return *this; \
+	} \
 	PROG_VAR& operator = (ParamType value) \
 	{ \
 		this->Set(value); \
