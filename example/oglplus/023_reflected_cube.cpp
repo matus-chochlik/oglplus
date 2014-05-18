@@ -33,39 +33,11 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Programs
 	Program prog;
-
-	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-
-	// A vertex array object for the cube
-	VertexArray cube;
-	// A vertex array object for the reflective plane
-	VertexArray plane;
-
-	// VBOs for the cube's vertices and normals
-	Buffer cube_verts, cube_normals;
-	// VBOs for the plane's vertices and normals
-	Buffer plane_verts, plane_normals;
-public:
-	ReflectionExample(void)
-	 : make_cube(0.5,0.5,0.5, 0.1,0.1,0.1, 3,3,3)
-	 , cube_indices(make_cube.Indices())
-	 , cube_instr(make_cube.Instructions())
-	 , vs(ObjectDesc("Vertex"))
-	 , fs(ObjectDesc("Fragment"))
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , model_matrix(prog, "ModelMatrix")
+	static Program make_prog(void)
 	{
-		// Set the vertex shader source
+		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
 			"in vec4 Position;"
@@ -84,10 +56,9 @@ public:
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
-		// compile it
 		vs.Compile();
 
-		// set the fragment shader source
+		FragmentShader fs;
 		fs.Source(
 			"#version 330\n"
 			"in vec3 vertColor;"
@@ -102,14 +73,38 @@ public:
 			"	fragColor = vec4(vertColor*i, 1.0);"
 			"}"
 		);
-		// compile it
 		fs.Compile();
 
-		// attach the shaders to the program
+		Program prog;
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
-		// link it
 		prog.Link();
+
+		return prog;
+	}
+
+	// Uniforms
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+
+	// A vertex array object for the cube
+	VertexArray cube;
+	// A vertex array object for the reflective plane
+	VertexArray plane;
+
+	// VBOs for the cube's vertices and normals
+	Buffer cube_verts, cube_normals;
+	// VBOs for the plane's vertices and normals
+	Buffer plane_verts, plane_normals;
+public:
+	ReflectionExample(void)
+	 : make_cube(0.5,0.5,0.5, 0.1,0.1,0.1, 3,3,3)
+	 , cube_indices(make_cube.Indices())
+	 , cube_instr(make_cube.Instructions())
+	 , prog(make_prog())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	{
 		gl.Use(prog);
 
 		// bind the VAO for the cube

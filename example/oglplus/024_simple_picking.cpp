@@ -274,7 +274,7 @@ public:
 		// query the number of values written to the feedabck buffer
 		GLuint picked_count = 0;
 		{
-			Query::Execution<GLuint> query_exec(
+			QueryExecution<GLuint> query_exec(
 				count_query,
 				Query::Target::
 				TransformFeedbackPrimitivesWritten,

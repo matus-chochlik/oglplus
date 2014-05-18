@@ -21,6 +21,7 @@
 #include <oglplus/dsa/framebuffer.hpp>
 #include <oglplus/dsa/renderbuffer.hpp>
 #include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/uniform.hpp>
 
 #include <oglplus/images/image_spec.hpp>
 #include <oglplus/images/gradient.hpp>
@@ -178,6 +179,7 @@ private:
 	DSATexture palette, tex;
 	DSAFramebuffer fbo;
 	DSARenderbuffer rbo;
+	DefaultFramebuffer dfb;
 public:
 	CubeExample(void)
 	 : n(16)
@@ -266,7 +268,7 @@ public:
 
 	void RenderOffscreen(double time)
 	{
-		fbo.Bind();
+		fbo.Bind(Framebuffer::Target::Draw);
 
 		gl.Clear().ColorBuffer().DepthBuffer();
 
@@ -290,7 +292,7 @@ public:
 		gl.Disable(Capability::DepthTest);
 		gl.Disable(Capability::Blend);
 
-		gl.Bind(Framebuffer::Target::Draw, DefaultFramebuffer());
+		dfb.Bind(Framebuffer::Target::Draw);
 	}
 
 	void RenderOnscreen(double)
