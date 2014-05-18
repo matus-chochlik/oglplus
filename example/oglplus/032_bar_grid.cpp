@@ -13,6 +13,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/opt/list_init.hpp>
 
 #include <oglplus/shapes/wrapper.hpp>
@@ -61,20 +62,10 @@ class MetalProgram
  : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
-public:
-	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
-	LazyProgramUniform<Vec3f> camera_position, light_position;
-	LazyProgramUniform<GLfloat> light_multiplier;
-
-	MetalProgram(void)
-	 : camera_matrix(prog(), "CameraMatrix")
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , camera_position(prog(), "CameraPosition")
-	 , light_position(prog(), "LightPosition")
-	 , light_multiplier(prog(), "LightMultiplier")
+	static Program make(void)
 	{
-		AttachShader(VertexShader(ObjectDesc("Metal vertex"), StrLit(
+		Program prog;
+		prog.AttachShader(VertexShader(ObjectDesc("Metal vertex"), StrLit(
 			"#version 330\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 CameraPosition, LightPosition;"
@@ -99,7 +90,7 @@ public:
 			"}"
 		)));
 
-		AttachShader(FragmentShader(ObjectDesc("Metal fragment"), StrLit(
+		prog.AttachShader(FragmentShader(ObjectDesc("Metal fragment"), StrLit(
 			"#version 330\n"
 			"const vec3 Color1 = vec3(0.5, 0.5, 0.6);"
 			"const vec3 Color2 = vec3(0.7, 0.7, 0.8);"
@@ -151,8 +142,24 @@ public:
 			"}"
 		)));
 
-		Link();
+		prog.Link();
+		return prog;
 	}
+
+	const Program& self(void) const { return *this; }
+public:
+	ProgramUniform<Mat4f> camera_matrix, projection_matrix;
+	ProgramUniform<Vec3f> camera_position, light_position;
+	ProgramUniform<GLfloat> light_multiplier;
+
+	MetalProgram(void)
+	 : Program(make())
+	 , camera_matrix(self(), "CameraMatrix")
+	 , projection_matrix(self(), "ProjectionMatrix")
+	 , camera_position(self(), "CameraPosition")
+	 , light_position(self(), "LightPosition")
+	 , light_multiplier(self(), "LightMultiplier")
+	{ }
 };
 
 
@@ -453,20 +460,10 @@ class BarGridDrawProgram
  : public Program
 {
 private:
-	Program& prog(void) { return *this; }
-public:
-	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
-	LazyProgramUniform<Vec3f> camera_position, light_position;
-	LazyProgramUniform<GLfloat> light_multiplier;
-
-	BarGridDrawProgram(void)
-	 : camera_matrix(prog(), "CameraMatrix")
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , camera_position(prog(), "CameraPosition")
-	 , light_position(prog(), "LightPosition")
-	 , light_multiplier(prog(), "LightMultiplier")
+	static Program make(void)
 	{
-		AttachShader(VertexShader(ObjectDesc("Draw vertex"), StrLit(
+		Program prog;
+		prog.AttachShader(VertexShader(ObjectDesc("Draw vertex"), StrLit(
 			"#version 330\n"
 
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
@@ -504,7 +501,7 @@ public:
 			"}"
 		)));
 
-		AttachShader(FragmentShader(ObjectDesc("Draw fragment"), StrLit(
+		prog.AttachShader(FragmentShader(ObjectDesc("Draw fragment"), StrLit(
 			"#version 330\n"
 
 			"uniform float LightMultiplier;"
@@ -545,25 +542,34 @@ public:
 			"}"
 		)));
 
-		Link();
+		prog.Link();
+		return prog;
 	}
+
+	Program& self(void) { return *this; }
+public:
+	ProgramUniform<Mat4f> camera_matrix, projection_matrix;
+	ProgramUniform<Vec3f> camera_position, light_position;
+	ProgramUniform<GLfloat> light_multiplier;
+
+	BarGridDrawProgram(void)
+	 : Program(make())
+	 , camera_matrix(self(), "CameraMatrix")
+	 , projection_matrix(self(), "ProjectionMatrix")
+	 , camera_position(self(), "CameraPosition")
+	 , light_position(self(), "LightPosition")
+	 , light_multiplier(self(), "LightMultiplier")
+	{ }
 };
 
 class ShadowProgram
  : public Program
 {
 private:
-	const Program& prog(void) { return *this; }
-public:
-	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
-	LazyProgramUniform<Vec3f> light_position;
-
-	ShadowProgram(void)
-	 : camera_matrix(prog(), "CameraMatrix")
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , light_position(prog(), "LightPosition")
+	static Program make(void)
 	{
-		AttachShader(VertexShader(ObjectDesc("Shadow vertex"), StrLit(
+		Program prog;
+		prog.AttachShader(VertexShader(ObjectDesc("Shadow vertex"), StrLit(
 			"#version 330\n"
 
 			"uniform vec3 LightPosition;"
@@ -591,7 +597,7 @@ public:
 			"}"
 		)));
 
-		AttachShader(GeometryShader(ObjectDesc("Shadow geometry"), StrLit(
+		prog.AttachShader(GeometryShader(ObjectDesc("Shadow geometry"), StrLit(
 			"#version 330\n"
 			"layout(triangles) in;"
 			"layout(triangle_strip, max_vertices = 12) out;"
@@ -652,8 +658,21 @@ public:
 			"}"
 		)));
 
-		Link();
+		prog.Link();
+		return prog;
 	}
+
+	const Program& self(void) { return *this; }
+public:
+	ProgramUniform<Mat4f> camera_matrix, projection_matrix;
+	ProgramUniform<Vec3f> light_position;
+
+	ShadowProgram(void)
+	 : Program(make())
+	 , camera_matrix(self(), "CameraMatrix")
+	 , projection_matrix(self(), "ProjectionMatrix")
+	 , light_position(self(), "LightPosition")
+	{ }
 };
 
 

@@ -43,7 +43,7 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
 
 	// A vertex array object for the rendered cube
 	VertexArray cube;
@@ -55,9 +55,9 @@ public:
 	CubeExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , model_matrix(prog, "ModelMatrix")
+	 , projection_matrix(prog)
+	 , camera_matrix(prog)
+	 , model_matrix(prog)
 	{
 		// Set the vertex shader source and compile it
 		vs.Source(
@@ -100,6 +100,11 @@ public:
 		prog.AttachShader(vs).AttachShader(fs);
 		// link and use it
 		prog.Link().Use();
+
+		// initialize the uniforms
+		projection_matrix.BindTo("ProjectionMatrix");
+		camera_matrix.BindTo("CameraMatrix");
+		model_matrix.BindTo("ModelMatrix");
 
 		// bind the VAO for the cube
 		cube.Bind();

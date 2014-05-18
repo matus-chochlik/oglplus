@@ -128,12 +128,12 @@ private:
 	Program sphere_prog, cube_prog, cmap_prog;
 
 	// Uniforms
-	LazyUniform<Mat4f>
+	Uniform<Mat4f>
 		sphere_projection_matrix, sphere_camera_matrix,
 		cube_projection_matrix, cube_camera_matrix;
-	LazyUniform<Vec4f> cmap_light_pos, sphere_light_pos, cube_light_pos;
-	LazyUniform<Vec3f> cmap_offset, cube_offset;
-	LazyUniform<GLfloat> sphere_time;
+	Uniform<Vec4f> cmap_light_pos, sphere_light_pos, cube_light_pos;
+	Uniform<Vec3f> cmap_offset, cube_offset;
+	Uniform<GLfloat> sphere_time;
 
 	// A vertex array object for the rendered sphere and cubes
 	VertexArray sphere, cube;
@@ -174,16 +174,16 @@ public:
 	 , sphere_prog(ObjectDesc("Sphere"))
 	 , cube_prog(ObjectDesc("Cube"))
 	 , cmap_prog(ObjectDesc("Cube map"))
-	 , sphere_projection_matrix(sphere_prog, "ProjectionMatrix")
-	 , sphere_camera_matrix(sphere_prog, "CameraMatrix")
-	 , cube_projection_matrix(cube_prog, "ProjectionMatrix")
-	 , cube_camera_matrix(cube_prog, "CameraMatrix")
-	 , cmap_light_pos(cmap_prog, "LightPos")
-	 , sphere_light_pos(sphere_prog, "LightPos")
-	 , cube_light_pos(cube_prog, "LightPos")
-	 , cmap_offset(cmap_prog, "Offset")
-	 , cube_offset(cube_prog, "Offset")
-	 , sphere_time(sphere_prog, "Time")
+	 , sphere_projection_matrix(sphere_prog)
+	 , sphere_camera_matrix(sphere_prog)
+	 , cube_projection_matrix(cube_prog)
+	 , cube_camera_matrix(cube_prog)
+	 , cmap_light_pos(cmap_prog)
+	 , sphere_light_pos(sphere_prog)
+	 , cube_light_pos(cube_prog)
+	 , cmap_offset(cmap_prog)
+	 , cube_offset(cube_prog)
+	 , sphere_time(sphere_prog)
 	 , tex_side(128)
 	 , light_path(
 		ListOf<Vec3f>
@@ -286,6 +286,11 @@ public:
 		// link and use it
 		sphere_prog.Link();
 		sphere_prog.Use();
+
+		sphere_projection_matrix.BindTo("ProjectionMatrix");
+		sphere_camera_matrix.BindTo("CameraMatrix");
+		sphere_light_pos.BindTo("LightPos");
+		sphere_time.BindTo("Time");
 
 		// bind the VAO for the sphere
 		sphere.Bind();
@@ -399,6 +404,11 @@ public:
 		cube_prog.Link();
 		cube_prog.Use();
 
+		cube_projection_matrix.BindTo("ProjectionMatrix");
+		cube_camera_matrix.BindTo("CameraMatrix");
+		cube_light_pos.BindTo("LightPos");
+		cube_offset.BindTo("Offset");
+
 		// Set the vertex shader source
 		cmap_vs.Source(
 			"#version 330\n"
@@ -500,6 +510,8 @@ public:
 		cmap_prog.Link();
 		cmap_prog.Use();
 
+		cmap_light_pos.BindTo("LightPos");
+		cmap_offset.BindTo("Offset");
 
 		Uniform<Mat4f>(cmap_prog, "ProjectionMatrix").Set(
 			CamMatrixf::PerspectiveX(Degrees(90), 1.0, 1, 20)
@@ -518,9 +530,8 @@ public:
 			// setup the vertex attribs array for the vertices
 			VertexArrayAttrib attr(
 				VertexArrayAttrib::GetCommonLocation(
-					"Position",
-					cube_prog,
-					cmap_prog
+					MakeGroup(cube_prog, cmap_prog),
+					"Position"
 				)
 			);
 			attr.Setup<GLfloat>(n_per_vertex);
@@ -537,9 +548,8 @@ public:
 			// setup the vertex attribs array for the vertices
 			VertexArrayAttrib attr(
 				VertexArrayAttrib::GetCommonLocation(
-					"Normal",
-					cube_prog,
-					cmap_prog
+					MakeGroup(cube_prog, cmap_prog),
+					"Normal"
 				)
 			);
 			attr.Setup<GLfloat>(n_per_vertex);

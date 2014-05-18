@@ -272,6 +272,11 @@ public:
 		Bind(target, *this);
 	}
 
+	void Bind(IndexedTarget target, GLuint index) const
+	{
+		BindBase(target, index, *this);
+	}
+
 	/// Binds this buffer to the specified indexed @p target
 	/**
 	 *  @glsymbols

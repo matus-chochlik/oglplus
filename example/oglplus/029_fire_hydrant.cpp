@@ -22,6 +22,7 @@
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
 #include <oglplus/bound/renderbuffer.hpp>
+#include <oglplus/dsa/uniform.hpp>
 
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>
@@ -37,14 +38,9 @@ class ShadowProgram
  : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
-public:
-	LazyProgramUniform<Mat4f> light_matrix, model_matrix;
-
-	ShadowProgram(void)
-	 : light_matrix(prog(), "LightMatrix")
-	 , model_matrix(prog(), "ModelMatrix")
+	static Program make(void)
 	{
+		Program prog;
 		VertexShader vs(ObjectDesc("Shadow vertex"));
 		vs.Source(
 			"#version 330\n"
@@ -59,7 +55,7 @@ public:
 			"}"
 		);
 		vs.Compile();
-		AttachShader(vs);
+		prog.AttachShader(vs);
 
 		FragmentShader fs(ObjectDesc("Shadow fragment"));
 		fs.Source(
@@ -68,28 +64,30 @@ public:
 		);
 		fs.Compile();
 
-		AttachShader(fs);
-		Link();
+		prog.AttachShader(fs);
+		prog.Link();
+
+		return prog;
 	}
+
+	const Program& self(void) const { return *this; }
+public:
+	ProgramUniform<Mat4f> light_matrix, model_matrix;
+
+	ShadowProgram(void)
+	 : Program(make())
+	 , light_matrix(self(), "LightMatrix")
+	 , model_matrix(self(), "ModelMatrix")
+	{ }
 };
 
 class DrawProgram
  : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
-public:
-	LazyProgramUniform<Vec3f> light_position, camera_position;
-	LazyProgramUniform<Mat4f> projection_matrix, camera_matrix, light_matrix, model_matrix;
-
-	DrawProgram(void)
-	 : light_position(prog(), "LightPosition")
-	 , camera_position(prog(), "CameraPosition")
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , camera_matrix(prog(), "CameraMatrix")
-	 , light_matrix(prog(), "LightMatrix")
-	 , model_matrix(prog(), "ModelMatrix")
+	static Program make(void)
 	{
+		Program prog;
 		VertexShader vs(ObjectDesc("Draw vertex"));
 		vs.Source(
 			"#version 330\n"
@@ -124,7 +122,7 @@ public:
 			"}"
 		);
 		vs.Compile();
-		AttachShader(vs);
+		prog.AttachShader(vs);
 
 		FragmentShader fs(ObjectDesc("Draw fragment"));
 		fs.Source(
@@ -189,9 +187,25 @@ public:
 		);
 		fs.Compile();
 
-		AttachShader(fs);
-		Link();
+		prog.AttachShader(fs);
+		prog.Link();
+		return prog;
+	}
 
+	const Program& self(void) const { return *this; }
+public:
+	ProgramUniform<Vec3f> light_position, camera_position;
+	ProgramUniform<Mat4f> projection_matrix, camera_matrix, light_matrix, model_matrix;
+
+	DrawProgram(void)
+	 : Program(make())
+	 , light_position(self(), "LightPosition")
+	 , camera_position(self(), "CameraPosition")
+	 , projection_matrix(self(), "ProjectionMatrix")
+	 , camera_matrix(self(), "CameraMatrix")
+	 , light_matrix(self(), "LightMatrix")
+	 , model_matrix(self(), "ModelMatrix")
+	{
 		ProgramUniform<Vec3f> shadow_offs(*this, "ShadowOffs");
 		for(GLuint i=0; i!=32; ++i)
 		{

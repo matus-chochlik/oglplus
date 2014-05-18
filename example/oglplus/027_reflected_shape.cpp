@@ -13,6 +13,7 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
+#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/shapes/plane.hpp>
 #include <oglplus/shapes/twisted_torus.hpp>
 
@@ -48,7 +49,7 @@ private:
 
 	Program plane_prog, shape_prog;
 
-	LazyProgramUniform<Mat4f>
+	ProgramUniform<Mat4f>
 		plane_projection_matrix, plane_camera_matrix, plane_model_matrix,
 		shape_projection_matrix, shape_camera_matrix, shape_model_matrix;
 
@@ -81,12 +82,12 @@ public:
 	 , shape_vs(ObjectDesc("Shape vertex"))
 	 , plane_fs(ObjectDesc("Plane fragment"))
 	 , shape_fs(ObjectDesc("Shape fragment"))
-	 , plane_projection_matrix(plane_prog, "ProjectionMatrix")
-	 , plane_camera_matrix(plane_prog, "CameraMatrix")
-	 , plane_model_matrix(plane_prog, "ModelMatrix")
-	 , shape_projection_matrix(shape_prog, "ProjectionMatrix")
-	 , shape_camera_matrix(shape_prog, "CameraMatrix")
-	 , shape_model_matrix(shape_prog, "ModelMatrix")
+	 , plane_projection_matrix(plane_prog)
+	 , plane_camera_matrix(plane_prog)
+	 , plane_model_matrix(plane_prog)
+	 , shape_projection_matrix(shape_prog)
+	 , shape_camera_matrix(shape_prog)
+	 , shape_model_matrix(shape_prog)
 	 , width(800)
 	 , height(600)
 	 , tex_size_div(2)
@@ -144,6 +145,10 @@ public:
 		plane_prog.AttachShader(plane_fs);
 		plane_prog.Link();
 		plane_prog.Use();
+
+		plane_projection_matrix.BindTo("ProjectionMatrix");
+		plane_camera_matrix.BindTo("CameraMatrix");
+		plane_model_matrix.BindTo("ModelMatrix");
 
 		Vec3f lightPos(3.0f, 0.5f, 2.0f);
 		Uniform<Vec3f>(plane_prog, "LightPosition").Set(lightPos);
@@ -247,6 +252,10 @@ public:
 		shape_prog.AttachShader(shape_fs);
 		shape_prog.Link();
 		shape_prog.Use();
+
+		shape_projection_matrix.BindTo("ProjectionMatrix");
+		shape_camera_matrix.BindTo("CameraMatrix");
+		shape_model_matrix.BindTo("ModelMatrix");
 
 		Uniform<Vec3f>(shape_prog, "LightPosition").Set(lightPos);
 
