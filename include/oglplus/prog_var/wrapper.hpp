@@ -162,10 +162,13 @@ public:
 template <typename ProgVar>
 struct BaseProgVar;
 
-template <typename OpsTag, typename VarTag, typename ChkTag, typename T>
-struct BaseProgVar<ProgVar<OpsTag, VarTag, ChkTag, T>>
+template <typename OpsTg, typename VarTg, typename ChkTg, typename T>
+struct BaseProgVar<ProgVar<OpsTg, VarTg, ChkTg, T>>
 {
-	typedef ProgVar<OpsTag, VarTag, ChkTag, T> Type;
+	typedef ProgVar<OpsTg, VarTg, ChkTg, T> Type;
+	typedef OpsTg OpsTag;
+	typedef VarTg VarTag;
+	typedef ChkTg ChkTag;
 };
 
 #if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
@@ -202,23 +205,22 @@ class PROG_VAR \
 private:\
 	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Base;\
 public:\
-	OGLPLUS_IMPLEMENT_VAR_TAG_CTRS(VAR_TAG, PROG_VAR, Base) \
-	PROG_VAR& operator = (ProgVarLoc<VarTag> pvloc) \
+	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, Base) \
+	PROG_VAR& operator = (ProgVarLoc<VAR_TAG> pvloc) \
 	{ \
-		BaseGetSetOps::Assign(pvloc); \
+		Base::Assign(pvloc); \
 		return *this; \
 	} \
-	PROG_VAR& operator = (ParamType value) \
+	PROG_VAR& operator = (typename Base::ParamType value) \
 	{ \
 		this->Set(value); \
 		return *this; \
 	} \
 }; \
 template <typename T> \
-struct BaseProgVar<PROG_VAR> \
-{ \
-	typedef ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T> Type;\
-};
+struct BaseProgVar<PROG_VAR<T>> \
+ : BaseProgVar<ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>> \
+{ };
 #endif
 
 } // namespace oglplus

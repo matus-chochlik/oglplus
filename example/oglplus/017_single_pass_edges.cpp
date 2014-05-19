@@ -44,9 +44,9 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyUniform<Vec2f> viewport_dimensions;
-	LazyUniform<GLfloat> edge_width;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
+	Lazy<Uniform<Vec2f>> viewport_dimensions;
+	Lazy<Uniform<GLfloat>> edge_width;
 
 	// A vertex array object for the rendered shape
 	VertexArray shape;

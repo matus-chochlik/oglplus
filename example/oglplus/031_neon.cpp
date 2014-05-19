@@ -14,7 +14,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/dsa/uniform.hpp>
 
 #include <oglplus/shapes/sphere.hpp>
 #include <oglplus/shapes/wrapper.hpp>

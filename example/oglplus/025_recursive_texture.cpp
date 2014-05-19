@@ -41,9 +41,8 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniformSampler tex_unit;
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-
+	Lazy<UniformSampler> tex_unit;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
 
 	// A vertex array objects for the rendered cube
 	VertexArray cube;
@@ -220,7 +219,7 @@ public:
 		current_tex = back;
 
 		// render into the texture
-		tex_unit = front;
+		tex_unit.Set(front);
 
 		camera_matrix.Set(
 			CamMatrixf::Orbiting(

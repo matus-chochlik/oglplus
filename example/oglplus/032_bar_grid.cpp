@@ -13,7 +13,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/opt/list_init.hpp>
 
 #include <oglplus/shapes/wrapper.hpp>

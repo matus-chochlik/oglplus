@@ -261,6 +261,26 @@ protected:
 	ProgVarCommonOps(VertexAttribLoc valoc)
 	 : ProgVarLoc<tag::VertexAttrib>(valoc)
 	{ }
+
+	// Functions for autodetection of values-per-vertex
+	template <typename T>
+	static GLint _get_vpv(T*) { return 1; }
+
+	template <typename T, std::size_t N>
+	static GLint _get_vpv(Vector<T, N>*) { return N; }
+
+	template <typename T, std::size_t Rows, std::size_t Cols>
+	static GLint _get_vpv(Matrix<T, Rows, Cols>*) { return Rows*Cols; }
+
+	// Functions for autodetection of element type
+	template <typename T>
+	static T _get_et(T* p);
+
+	template <typename T, std::size_t N>
+	static T _get_et(Vector<T, N>*);
+
+	template <typename T, std::size_t Rows, std::size_t Cols>
+	static T _get_et(Matrix<T, Rows, Cols>*);
 public:
 	void Bind(StrCRef identifier)
 	{
@@ -360,35 +380,6 @@ OGLPLUS_DECLARE_PROG_VAR(
 class VertexArrayAttrib
  : public ProgVarCommonOps<tag::VertexAttrib>
 {
-private:
-	// Functions for autodetection of values-per-vertex
-	template <typename T>
-	static GLint _get_vpv(T*)
-	{
-		return 1;
-	}
-
-	template <typename T, std::size_t N>
-	static GLint _get_vpv(Vector<T, N>*)
-	{
-		return N;
-	}
-
-	template <typename T, std::size_t Rows, std::size_t Cols>
-	static GLint _get_vpv(Matrix<T, Rows, Cols>*)
-	{
-		return Rows*Cols;
-	}
-
-	// Functions for autodetection of element type
-	template <typename T>
-	static T _get_et(T* p);
-
-	template <typename T, std::size_t N>
-	static T _get_et(Vector<T, N>*);
-
-	template <typename T, std::size_t Rows, std::size_t Cols>
-	static T _get_et(Matrix<T, Rows, Cols>*);
 public:
 	/// References the vertex attribute array at @p location
 	/**

@@ -76,7 +76,13 @@ public:
 
 	~Array(void)
 	{
-		GenDelOps::Delete(GLsizei(_names.size()), _names.data());
+		if(!_names.empty())
+		{
+			GenDelOps::Delete(
+				GLsizei(_names.size()),
+				_names.data()
+			);
+		}
 	}
 
 	/// Returns true if the array is empty

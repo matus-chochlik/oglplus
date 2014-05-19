@@ -13,7 +13,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/shapes/torus.hpp>
 
 #include <cmath>

@@ -14,7 +14,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/bound/buffer.hpp>
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/images/sort_nw.hpp>

@@ -409,7 +409,7 @@ public:
 		draw_prog.camera_position.Set(camera.Position());
 		draw_prog.light_position.Set(light.Position());
 
-		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);

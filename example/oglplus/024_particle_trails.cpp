@@ -144,20 +144,87 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Geometry shader
-	GeometryShader gs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Program
 	Program prog;
+	static Program make_prog(void)
+	{
+		VertexShader vs;
+		vs.Source(
+			"#version 330\n"
+			"uniform mat4 CameraMatrix;"
+			"in vec4 Position;"
+			"in float Age;"
+			"out float vertAge;"
+			"void main(void)"
+			"{"
+			"	gl_Position = CameraMatrix * Position;"
+			"	vertAge = Age;"
+			"}"
+		);
+		vs.Compile();
+
+		GeometryShader gs;
+		gs.Source(
+			"#version 330\n"
+			"layout(points) in;"
+			"layout(triangle_strip, max_vertices = 4) out;"
+			"uniform mat4 ProjectionMatrix;"
+			"in float vertAge[];"
+			"out float geomAge;"
+			"void main(void)"
+			"{"
+			"	if(vertAge[0] > 1.0) return;"
+			"	float s = 0.5;"
+			"	float yo[2] = float[2](-1.0, 1.0);"
+			"	float xo[2] = float[2](-1.0, 1.0);"
+			"	for(int j=0;j!=2;++j)"
+			"	for(int i=0;i!=2;++i)"
+			"	{"
+			"		float xoffs = xo[i]*(1.0+vertAge[0])*s;"
+			"		float yoffs = yo[j]*(1.0+vertAge[0])*s;"
+			"		gl_Position = ProjectionMatrix * vec4("
+			"			gl_in[0].gl_Position.x-xoffs,"
+			"			gl_in[0].gl_Position.y-yoffs,"
+			"			gl_in[0].gl_Position.z,"
+			"			1.0"
+			"		);"
+			"		geomAge = vertAge[0];"
+			"		EmitVertex();"
+			"	}"
+			"	EndPrimitive();"
+			"}"
+		);
+		gs.Compile();
+
+		FragmentShader fs;
+		fs.Source(
+			"#version 330\n"
+			"in float geomAge;"
+			"out vec4 fragColor;"
+			"void main(void)"
+			"{"
+			"	vec3 Color1 = vec3(1.0, 0.5, 0.5);"
+			"	vec3 Color2 = vec3(0.3, 0.1, 0.1);"
+			"	fragColor = vec4("
+			"		mix(Color1, Color2, geomAge),"
+			"		1.0 - geomAge"
+			"	);"
+			"}"
+		);
+		fs.Compile();
+
+		Program prog;
+		prog.AttachShader(vs);
+		prog.AttachShader(gs);
+		prog.AttachShader(fs);
+		prog.Link();
+		prog.Use();
+
+		return prog;
+	}
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+	Uniform<Mat4f> projection_matrix, camera_matrix;
 
 	// A vertex array object for the particles
 	VertexArray particles;
@@ -170,6 +237,7 @@ private:
 public:
 	SmokeExample(void)
 	 : emitters()
+	 , prog(make_prog())
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	{
@@ -203,81 +271,6 @@ public:
 				.As<std::vector<Vec3f>>(), 20.0, 100.0
 			)
 		);
-		// Set the vertex shader source
-		vs.Source(
-			"#version 330\n"
-			"uniform mat4 CameraMatrix;"
-			"in vec4 Position;"
-			"in float Age;"
-			"out float vertAge;"
-			"void main(void)"
-			"{"
-			"	gl_Position = CameraMatrix * Position;"
-			"	vertAge = Age;"
-			"}"
-		);
-		// compile it
-		vs.Compile();
-
-		// Set the geometry shader source
-		gs.Source(
-			"#version 330\n"
-			"layout(points) in;"
-			"layout(triangle_strip, max_vertices = 4) out;"
-			"uniform mat4 ProjectionMatrix;"
-			"in float vertAge[];"
-			"out float geomAge;"
-			"void main(void)"
-			"{"
-			"	if(vertAge[0] > 1.0) return;"
-			"	float s = 0.5;"
-			"	float yo[2] = float[2](-1.0, 1.0);"
-			"	float xo[2] = float[2](-1.0, 1.0);"
-			"	for(int j=0;j!=2;++j)"
-			"	for(int i=0;i!=2;++i)"
-			"	{"
-			"		float xoffs = xo[i]*(1.0+vertAge[0])*s;"
-			"		float yoffs = yo[j]*(1.0+vertAge[0])*s;"
-			"		gl_Position = ProjectionMatrix * vec4("
-			"			gl_in[0].gl_Position.x-xoffs,"
-			"			gl_in[0].gl_Position.y-yoffs,"
-			"			gl_in[0].gl_Position.z,"
-			"			1.0"
-			"		);"
-			"		geomAge = vertAge[0];"
-			"		EmitVertex();"
-			"	}"
-			"	EndPrimitive();"
-			"}"
-		);
-		// compile it
-		gs.Compile();
-
-		// set the fragment shader source
-		fs.Source(
-			"#version 330\n"
-			"in float geomAge;"
-			"out vec4 fragColor;"
-			"void main(void)"
-			"{"
-			"	vec3 Color1 = vec3(1.0, 0.5, 0.5);"
-			"	vec3 Color2 = vec3(0.3, 0.1, 0.1);"
-			"	fragColor = vec4("
-			"		mix(Color1, Color2, geomAge),"
-			"		1.0 - geomAge"
-			"	);"
-			"}"
-		);
-		// compile it
-		fs.Compile();
-
-		// attach the shaders to the program
-		prog.AttachShader(vs);
-		prog.AttachShader(gs);
-		prog.AttachShader(fs);
-		// link and use it
-		prog.Link();
-		prog.Use();
 
 		// bind the VAO for the particles
 		particles.Bind();

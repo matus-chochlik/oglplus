@@ -28,31 +28,15 @@
 
 namespace oglplus {
 
-class TriangleExample : public Example
+class ParallaxMapExample : public Example
 {
 private:
 	Context gl;
 
 	Program prog;
-
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyUniform<Vec3f> camera_position, light_position;
-
-	shapes::ShapeWrapper shape;
-
-	Texture color_tex, bump_tex;
-public:
-	TriangleExample(void)
-	 : projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , model_matrix(prog, "ModelMatrix")
-	 , camera_position(prog, "CameraPosition")
-	 , light_position(prog, "LightPosition")
-	 , shape(
-		List("Position")("Normal")("Tangent")("TexCoord").Get(),
-		shapes::Torus(1.0f, 0.5, 72, 48)
-	)
+	static Program make(void)
 	{
+		Program prog;
 		StrLit vs_src(
 			"#version 330\n"
 
@@ -456,6 +440,28 @@ public:
 		prog.Link();
 		prog.Use();
 
+		return prog;
+	}
+
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	Uniform<Vec3f> camera_position, light_position;
+
+	shapes::ShapeWrapper shape;
+
+	Texture color_tex, bump_tex;
+public:
+	ParallaxMapExample(void)
+	 : prog(make())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , camera_position(prog, "CameraPosition")
+	 , light_position(prog, "LightPosition")
+	 , shape(
+		List("Position")("Normal")("Tangent")("TexCoord").Get(),
+		shapes::Torus(1.0f, 0.5, 72, 48)
+	)
+	{
 		shape.UseInProgram(prog);
 
 		auto tex_image = images::LoadTexture("bricks_color_hmap");
@@ -575,7 +581,7 @@ std::unique_ptr<ExampleThread> makeExampleThread(
 
 std::unique_ptr<Example> makeExample(const ExampleParams& /*params*/)
 {
-	return std::unique_ptr<Example>(new TriangleExample);
+	return std::unique_ptr<Example>(new ParallaxMapExample);
 }
 
 } // namespace oglplus

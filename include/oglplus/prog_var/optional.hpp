@@ -17,13 +17,12 @@
 
 namespace oglplus {
 
-
 template <typename OpsTag, typename VarTag, typename ChkTag, typename T>
 class Optional<ProgVar<OpsTag, VarTag, ChkTag, T>>
- : public ProgVar<OpsTag, VarTag, tag::Typecheck, T>
+ : public ProgVar<OpsTag, VarTag, ChkTag, T>
 {
 private:
-	typedef ProgVar<OpsTag, VarTag, tag::Typecheck, T> Base;
+	typedef ProgVar<OpsTag, VarTag, ChkTag, T> Base;
 public:
 	Optional(ProgramName program, StrCRef identifier)
 	 : Base(program, identifier, false)
@@ -40,12 +39,6 @@ public:
 	Optional(ProgramName program, StrCRef identifier)
 	 : Base(program, identifier, false)
 	{ }
-};
-
-template <typename ProgVar>
-struct BaseProgVar<Optional<ProgVar>>
-{
-	typedef typename BaseProgVar<ProgVar>::Type Type;
 };
 
 } // namespace oglplus

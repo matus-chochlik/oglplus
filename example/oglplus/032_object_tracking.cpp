@@ -556,7 +556,7 @@ public:
 		track_xfb.Bind();
 		track_buffer.Bind(Buffer::Target::TransformFeedback);
 		track_buffer.BindBase(Buffer::IndexedTarget::TransformFeedback, 0);
-		DefaultTransformFeedback::Bind();
+		DefaultTransformFeedback().Bind();
 	}
 
 
@@ -588,7 +588,7 @@ public:
 		xfb_act.Finish();
 		qry_act.Finish();
 
-		DefaultTransformFeedback::Bind();
+		DefaultTransformFeedback().Bind();
 	}
 
 	void FinishTracking(const text::Font2D& font, HUDOverlay& hud_overlay)
@@ -731,7 +731,7 @@ public:
 	{
 		double time = clock.Now().Seconds();
 
-		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 
 		gl.Enable(Capability::DepthTest);
 		gl.Clear().ColorBuffer().DepthBuffer();

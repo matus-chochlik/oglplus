@@ -39,37 +39,11 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Program
 	Program prog;
-
-	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyUniform<Vec3f> light_pos;
-
-	// A vertex array object for the rendered cube
-	VertexArray cube;
-
-	// VBOs for the cube's vertex attributes
-	Buffer verts, normals, tangents, texcoords;
-
-	// The color and normalmap texture
-	Texture colorTex, normalTex;
-public:
-	CubeExample(void)
-	 : cube_instr(make_cube.Instructions())
-	 , cube_indices(make_cube.Indices())
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , model_matrix(prog, "ModelMatrix")
-	 , light_pos(prog, "LightPos")
+	static Program make_prog(void)
 	{
-		// Set the vertex shader source
+		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -95,10 +69,9 @@ public:
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
-		// compile it
 		vs.Compile();
 
-		// set the fragment shader source
+		FragmentShader fs;
 		fs.Source(
 			"#version 330\n"
 			"uniform sampler2D ColorTex, NormalTex;"
@@ -120,17 +93,39 @@ public:
 			"	fragColor = vec4(t.rgb*i, 1.0);"
 			"}"
 		);
-		// compile it
 		fs.Compile();
 
-		// attach the shaders to the program
+		Program prog;
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
-		// link and use it
 		prog.Link();
-		gl.Use(prog);
+		prog.Use();
 
-		// bind the VAO for the cube
+		return prog;
+	}
+
+	// Uniforms
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	Uniform<Vec3f> light_pos;
+
+	// A vertex array object for the rendered cube
+	VertexArray cube;
+
+	// VBOs for the cube's vertex attributes
+	Buffer verts, normals, tangents, texcoords;
+
+	// The color and normalmap texture
+	Texture colorTex, normalTex;
+public:
+	CubeExample(void)
+	 : cube_instr(make_cube.Instructions())
+	 , cube_indices(make_cube.Indices())
+	 , prog(make_prog())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , light_pos(prog, "LightPos")
+	{
 		gl.Bind(cube);
 
 		gl.Bind(Buffer::Target::Array, verts);

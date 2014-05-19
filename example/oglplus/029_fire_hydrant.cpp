@@ -22,7 +22,6 @@
 #include <oglplus/bound/texture.hpp>
 #include <oglplus/bound/framebuffer.hpp>
 #include <oglplus/bound/renderbuffer.hpp>
-#include <oglplus/dsa/uniform.hpp>
 
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>

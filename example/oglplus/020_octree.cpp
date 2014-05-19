@@ -231,7 +231,7 @@ public:
 			{
 				VertexArrayAttrib vert_attr(sort_prog, "PosAndSize");
 				vert_attr.Setup<Vec4f>().Enable();
-				VertexArray::Unbind();
+				NoVertexArray().Bind();
 			}
 
 			if(l != 0)
@@ -258,7 +258,7 @@ public:
 			VertexArrayAttrib vert_attr(prog, "PosAndSize");
 			vert_attr.Setup<Vec4f>().Enable();
 		}
-		VertexArray::Unbind();
+		NoVertexArray().Bind();
 
 		return pvao;
 	}

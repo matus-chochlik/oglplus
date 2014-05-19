@@ -20,7 +20,6 @@
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/images/newton.hpp>
 
-#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/bound/texture.hpp>
 
 #include <cmath>

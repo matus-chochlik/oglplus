@@ -15,7 +15,6 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/opt/smart_enums.hpp>
 #include <oglplus/shapes/twisted_torus.hpp>
 

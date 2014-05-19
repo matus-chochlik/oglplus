@@ -170,11 +170,11 @@ public:
 		GLuint n = 1
 	) const
 	{
-		typedef decltype(_get_element_type((T*)nullptr)) elem_type;
+		typedef decltype(_get_et((T*)nullptr)) elem_type;
 
 		return Setup(
 			buffer,
-			_get_values_per_vertex((T*)nullptr)*n,
+			_get_vpv((T*)nullptr)*n,
 			typename DataTypeCT<elem_type>::type()
 		);
 	}

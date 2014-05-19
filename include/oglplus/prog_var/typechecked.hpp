@@ -33,15 +33,15 @@ class Typechecked
 {
 private:
 	typedef Typechecked<typename BaseProgVar<ProgVar>::Type> Base;
+	typedef typename BaseProgVar<ProgVar>::VarTag VarTag;
 public:
 	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VarTag, Typechecked, Base)
 };
 
 template <typename ProgVar>
 struct BaseProgVar<Typechecked<ProgVar>>
-{
-	typedef typename BaseProgVar<ProgVar>::Type Type;
-};
+ : BaseProgVar<ProgVar>
+{ };
 
 } // namespace oglplus
 

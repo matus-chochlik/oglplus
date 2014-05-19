@@ -256,6 +256,9 @@ class ProgVarGetSetOps;
 template <typename ProgVar>
 class Typechecked;
 
+template <typename ProgVar>
+class Lazy;
+
 } // namespace oglplus
 
 #endif // include guard

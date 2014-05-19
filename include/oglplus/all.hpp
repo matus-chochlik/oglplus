@@ -35,6 +35,7 @@
 
 #include <oglplus/buffer.hpp>
 #include <oglplus/uniform.hpp>
+#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/vertex_attrib.hpp>
@@ -55,6 +56,8 @@
 #include <oglplus/object/optional.hpp>
 
 #include <oglplus/prog_var/typechecked.hpp>
+#include <oglplus/prog_var/optional.hpp>
+#include <oglplus/prog_var/lazy.hpp>
 
 //#include <oglplus/binding.hpp> TODO
 #include <oglplus/extension.hpp>

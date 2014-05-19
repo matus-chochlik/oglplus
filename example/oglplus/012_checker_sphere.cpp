@@ -45,8 +45,8 @@ private:
 	Buffer texcoords;
 
 	// Uniform variables
-	LazyUniform<Mat4f> projection_matrix;
-	LazyUniform<Mat4f> camera_matrix;
+	Lazy<Uniform<Mat4f>> projection_matrix;
+	Lazy<Uniform<Mat4f>> camera_matrix;
 public:
 	SphereExample(void)
 	 : sphere_instr(make_sphere.Instructions())

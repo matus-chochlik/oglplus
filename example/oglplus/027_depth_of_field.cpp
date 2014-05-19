@@ -87,11 +87,11 @@ private:
 	Buffer positions, normals, corners;
 
 	// Program uniform variables
-	LazyProgramUniform<GLuint> viewport_width;
-	LazyProgramUniform<GLuint> viewport_height;
-	LazyProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyProgramUniform<Vec3f> ambient_color, diffuse_color;
-	LazyProgramUniform<GLfloat> focus_depth;
+	Lazy<ProgramUniform<GLuint>> viewport_width;
+	Lazy<ProgramUniform<GLuint>> viewport_height;
+	Lazy<ProgramUniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
+	Lazy<ProgramUniform<Vec3f>> ambient_color, diffuse_color;
+	Lazy<ProgramUniform<GLfloat>> focus_depth;
 
 	// The framebuffer object of offscreen rendering
 	Framebuffer fbo;
@@ -117,8 +117,6 @@ public:
 	 , ambient_color(main_prog, "AmbientColor")
 	 , diffuse_color(main_prog, "DiffuseColor")
 	 , focus_depth(dof_prog, "FocusDepth")
-	 , color_tex(Texture::Target::Rectangle)
-	 , depth_tex(Texture::Target::Rectangle)
 	 , width(800)
 	 , height(600)
 	{
@@ -171,6 +169,12 @@ public:
 		// link and use it
 		main_prog.Link();
 		main_prog.Use();
+
+		projection_matrix.Init();
+		camera_matrix.Init();
+		model_matrix.Init();
+		ambient_color.Init();
+		diffuse_color.Init();
 
 		// bind the VAO for the cube
 		gl.Bind(cube);
@@ -252,6 +256,10 @@ public:
 		dof_prog.AttachShader(dof_fs);
 		dof_prog.Link();
 		dof_prog.Use();
+
+		viewport_width.Init();
+		viewport_height.Init();
+		focus_depth.Init();
 
 		GLuint sample_mult = params.HighQuality()?512:128;
 		Uniform<GLuint>(dof_prog, "SampleMult") = sample_mult;

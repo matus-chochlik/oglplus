@@ -71,10 +71,10 @@ public:
 	{ _validate(); }
 
 	/// Construction from a std::string
-	StrCRefTpl(const std::string& str)
+	StrCRefTpl(const std::string& sstr)
 	OGLPLUS_NOEXCEPT(true)
-	 : _c_str(str.c_str())
-	 , _size(str.size())
+	 : _c_str(sstr.c_str())
+	 , _size(sstr.size())
 	{ _validate(); }
 
 	/// Return the size (length) string
@@ -117,6 +117,12 @@ public:
 	OGLPLUS_NOEXCEPT(true)
 	{
 		return *end() == '\0';
+	}
+
+	/// Returns a String
+	std::basic_string<Char> str(void) const
+	{
+		return std::basic_string<Char>(begin(), end());
 	}
 
 	/// Returns the null-terminated c-string
