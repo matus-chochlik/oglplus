@@ -266,7 +266,9 @@ public:
 		// Volume Tex
 		ProgramUniform<GLint>(prog, "VolumeTexSide").Set(cube_side);
 		ProgramUniformSampler(prog, "VolumeTex").Set(0);
-		volume_tex.Bind(0, Texture::Target::_3D);
+
+		volume_tex.target = Texture::Target::_3D;
+		volume_tex.BindMulti(0, Texture::Target::_3D);
 
 		std::ifstream image_file;
 		OpenResourceFile(image_file, "textures", "brain_scan_512", ".raw");
@@ -290,7 +292,8 @@ public:
 
 		// Palette
 		ProgramUniformSampler(prog, "Palette").Set(1);
-		palette.Bind(1, Texture::Target::_1D);
+		palette.target = Texture::Target::_1D;
+		palette.BindMulti(1, Texture::Target::_1D);
 		palette.Image1D(
 			images::LinearGradient(
 				256,

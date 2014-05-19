@@ -249,36 +249,52 @@ public:
 };
 
 class VertexProgram
- : public HardwiredProgram<CommonVertShader>
+ : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Vertex"));
+		prog.AttachShader(CommonVertShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
+
+	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> model_matrix;
 	ProgramUniform<Mat3f> texture_matrix;
 	ProgramUniform<Vec3f> camera_position, light_position;
 
 	VertexProgram(void)
-	 : HardwiredProgram<CommonVertShader>("Vertex", std::true_type())
-	 , model_matrix(prog(), "ModelMatrix")
-	 , texture_matrix(prog(), "TextureMatrix")
-	 , camera_position(prog(), "CameraPosition")
-	 , light_position(prog(), "LightPosition")
+	 : Program(make())
+	 , model_matrix(self(), "ModelMatrix")
+	 , texture_matrix(self(), "TextureMatrix")
+	 , camera_position(self(), "CameraPosition")
+	 , light_position(self(), "LightPosition")
 	{ }
 };
 
 class GeometryProgram
- : public QuickProgram
+ : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
+	static Program make(const Shader& shader)
+	{
+		Program prog(ObjectDesc("Geometry"));
+		prog.AttachShader(shader);
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
+
+	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
 
 	GeometryProgram(const GeometryShader& shader)
-	 : QuickProgram("Geometry", std::true_type(), shader)
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , camera_matrix(prog(), "CameraMatrix")
+	 : Program(make(shader))
+	 , projection_matrix(self(), "ProjectionMatrix")
+	 , camera_matrix(self(), "CameraMatrix")
 	{ }
 };
 
@@ -346,21 +362,29 @@ public:
 };
 
 class ClothProgram
- : public HardwiredProgram<ClothFragmentShader>
+ : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Cloth"));
+		prog.AttachShader(ClothFragmentShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
+
+	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Vec3f> color_1, color_2;
 	ProgramUniformSampler cloth_tex;
 	ProgramUniformSampler light_map;
 
 	ClothProgram(void)
-	 : HardwiredProgram<ClothFragmentShader>("Cloth", std::true_type())
-	 , color_1(prog(), "Color1")
-	 , color_2(prog(), "Color2")
-	 , cloth_tex(prog(), "ClothTex")
-	 , light_map(prog(), "LightMap")
+	 : Program(make())
+	 , color_1(self(), "Color1")
+	 , color_2(self(), "Color2")
+	 , cloth_tex(self(), "ClothTex")
+	 , light_map(self(), "LightMap")
 	{ }
 };
 
@@ -432,22 +456,30 @@ public:
 };
 
 class BallProgram
- : public HardwiredProgram<BallFragmentShader>
+ : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Ball"));
+		prog.AttachShader(BallFragmentShader());
+		prog.MakeSeparable().Link().Use();
+		return prog;
+	}
+
+	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Vec3f> color_1, color_2;
 	ProgramUniformSampler number_tex, reflect_tex;
 	ProgramUniform<GLint> ball_idx;
 
 	BallProgram(void)
-	 : HardwiredProgram<BallFragmentShader>("Ball", std::true_type())
-	 , color_1(prog(), "Color1")
-	 , color_2(prog(), "Color2")
-	 , number_tex(prog(), "NumberTex")
-	 , reflect_tex(prog(), "ReflectTex")
-	 , ball_idx(prog(), "BallIdx")
+	 : Program(make())
+	 , color_1(self(), "Color1")
+	 , color_2(self(), "Color2")
+	 , number_tex(self(), "NumberTex")
+	 , reflect_tex(self(), "ReflectTex")
+	 , ball_idx(self(), "BallIdx")
 	{ }
 };
 
@@ -507,20 +539,29 @@ public:
 };
 
 class LightmapProgram
- : public HardwiredProgram<LightmapVertShader, LightmapFragShader>
+ : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
+	static Program make(void)
+	{
+		Program prog(ObjectDesc("Lightmap"));
+		prog.AttachShader(LightmapVertShader());
+		prog.AttachShader(LightmapFragShader());
+		prog.Link().Use();
+		return prog;
+	}
+
+	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> transform_matrix;
 	ProgramUniform<Vec3f> light_position;
 	ProgramUniform<Vec3f> ball_positions;
 
 	LightmapProgram(void)
-	 : HardwiredProgram<LightmapVertShader, LightmapFragShader>("Lightmap")
-	 , transform_matrix(prog(), "TransformMatrix")
-	 , light_position(prog(), "LightPosition")
-	 , ball_positions(prog(), "BallPositions")
+	 : Program(make())
+	 , transform_matrix(self(), "TransformMatrix")
+	 , light_position(self(), "LightPosition")
+	 , ball_positions(self(), "BallPositions")
 	{ }
 };
 
@@ -603,7 +644,6 @@ private:
 	Context gl;
 
 	VertexProgram vert_prog;
-	DefaultGeomShader default_geom_shader;
 	GeometryProgram geom_prog;
 	ClothProgram cloth_prog;
 	BallProgram ball_prog;
@@ -633,7 +673,8 @@ private:
 	Array<Texture> reflect_textures;
 public:
 	BilliardExample(void)
-	 : geom_prog(default_geom_shader)
+	 : gl()
+	 , geom_prog(DefaultGeomShader())
 	 , plane_u(16, 0, 0)
 	 , plane_v(0, 0,-16)
 	 , plane(vert_prog, shapes::Plane(plane_u, plane_v))
@@ -693,7 +734,7 @@ public:
 
 		gl.RequireAtLeast(LimitQuery::MaxCombinedTextureImageUnits, 5);
 
-		Program::UseNone();
+		NoProgram().Use();
 
 		cloth_pp.Bind();
 		cloth_pp.UseStages(vert_prog).Vertex();
@@ -828,7 +869,7 @@ public:
 		// prerender the cubemaps
 		PrerenderCubemaps(temp_cubemaps, reflect_textures, cubemap_side);
 
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 	}
 
 	void InitializeCubemaps(Array<Texture>& cubemaps, GLuint cubemap_side)
@@ -900,7 +941,7 @@ public:
 
 		gl.Enable(Capability::DepthTest);
 
-		Program::UseNone();
+		NoProgram().Use();
 	}
 
 	void PrerenderCubemaps(
@@ -947,7 +988,7 @@ public:
 
 		ProgramPipeline cmap_cloth_pp, cmap_ball_pp;
 
-		Program::UseNone();
+		NoProgram().Use();
 
 		cmap_cloth_pp.Bind();
 		cmap_cloth_pp.UseStages(vert_prog).Vertex();

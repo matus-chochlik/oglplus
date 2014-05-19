@@ -61,8 +61,8 @@ private:
 
 	Program plane_prog, shape_prog;
 
-	LazyUniform<Mat4f> plane_camera_matrix, shape_camera_matrix;
-	LazyUniform<Vec3f> plane_camera_position;
+	Lazy<Uniform<Mat4f>> plane_camera_matrix, shape_camera_matrix;
+	Lazy<Uniform<Vec3f>> plane_camera_position;
 
 	DSAVertexArray plane, shape;
 
@@ -306,13 +306,12 @@ public:
 		UniformSampler(plane_prog, "ReflectTex").Set(4);
 		reflect_tex.Bind();
 
-		rbo.target = Renderbuffer::Target::Renderbuffer;
 		rbo.Storage(
 			PixelDataInternalFormat::DepthComponent,
 			refl_tex_side,
 			refl_tex_side
 		);
-		fbo.target = Framebuffer::Target::Draw;
+		fbo.default_target = Framebuffer::Target::Draw;
 		fbo.AttachTexture(
 			FramebufferAttachment::Color,
 			reflect_tex,
@@ -506,7 +505,7 @@ public:
 		gl.FrontFace(make_shape.FaceWinding());
 
 		// render into the off-screen framebuffer
-		fbo.Bind();
+		fbo.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(
 			(width - refl_tex_side) / 2,
 			(height - refl_tex_side) / 2,

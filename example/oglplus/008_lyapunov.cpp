@@ -36,7 +36,7 @@ private:
 	Buffer coords;
 
 	// Scroll factor
-	LazyUniform<GLfloat> scroll_factor;
+	Lazy<Uniform<GLfloat>> scroll_factor;
 public:
 	RectangleExample(void)
 	 : scroll_factor(prog, "ScrollFactor")
@@ -171,7 +171,7 @@ public:
 			1.0f, 1.0f, 1.0f, 0.98f,
 			0.1f, 0.1f, 0.1f, 1.00f
 		};
-		Uniform<GLfloat>(prog, "clrs").SetVectors<4>(nclr, colormap);
+		Uniform<Vec4f>(prog, "clrs").SetValues(nclr*4, colormap);
 		//
 		gl.Disable(Capability::DepthTest);
 	}
@@ -185,7 +185,7 @@ public:
 	{
 		gl.Clear().ColorBuffer();
 
-		scroll_factor = 1.0f / (0.005 * time + 1.0f);
+		scroll_factor.Set(1.0f / (0.005 * time + 1.0f));
 
 		gl.DrawArrays(PrimitiveType::TriangleStrip, 0, 4);
 	}

@@ -19,8 +19,8 @@
 #include <oglplus/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
 
-#include <oglplus/main/vector.hpp>
-#include <oglplus/main/matrix.hpp>
+#include <oglplus/math/vector.hpp>
+#include <oglplus/math/matrix.hpp>
 
 namespace oglplus {
 namespace cloud_trace {

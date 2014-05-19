@@ -43,8 +43,8 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyUniform<GLint> front_facing;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
+	Lazy<Uniform<GLint>> front_facing;
 
 	// A vertex array object for the rendered cube
 	VertexArray cube;

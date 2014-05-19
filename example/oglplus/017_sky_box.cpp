@@ -35,7 +35,7 @@ private:
 
 	Program prog;
 
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix;
 
 	VertexArray sky_box;
 
@@ -157,10 +157,12 @@ public:
 	void Reshape(GLuint width, GLuint height)
 	{
 		gl.Viewport(width, height);
-		projection_matrix = CamMatrixf::PerspectiveX(
-			Degrees(48),
-			float(width)/height,
-			1, 100
+		projection_matrix.Set(
+			CamMatrixf::PerspectiveX(
+				Degrees(48),
+				float(width)/height,
+				1, 100
+			)
 		);
 	}
 

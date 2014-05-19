@@ -341,6 +341,21 @@ public:
 	}
 #endif
 
+	/// Binds a range in this buffer to the specified indexed @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindBufferRange}
+	 */
+	void BindRange(
+		IndexedTarget target,
+		GLuint index,
+		GLintptr offset,
+		GLsizeiptr size
+	) const
+	{
+		BindRange(target, index, *this, offset, size);
+	}
+
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
 	/// Invalidate the buffer data
 	/**

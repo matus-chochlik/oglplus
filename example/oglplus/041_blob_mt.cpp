@@ -79,7 +79,7 @@ private:
 
 	Array<Query> query;
 
-	std::vector<Managed<Buffer>> positions, normals;
+	std::vector<Reference<Buffer>> positions, normals;
 
 	std::vector<GLuint>& n_vertices;
 
@@ -335,7 +335,7 @@ SurfacePolyXFBData::SurfacePolyXFBData(SurfaceDrawData& draw_data, GLuint id)
 		normals[i].Bind(Buffer::Target::TransformFeedback);
 		normals[i].BindRange(Buffer::IndexedTarget::TransformFeedback, 1, offs, size);
 	}
-	DefaultTransformFeedback::Bind();
+	DefaultTransformFeedback().Bind();
 }
 
 Program SurfacePolygonizerCommon::MakeProg(void)

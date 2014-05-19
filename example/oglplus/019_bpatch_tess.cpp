@@ -29,7 +29,7 @@ private:
 
 	VertexArray vao;
 
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix;
 public:
 	TessellationExample(void)
 	 : prog()
