@@ -12,6 +12,8 @@
 #include <sstream>
 #include <cstring>
 
+#include <oglplus/gl.hpp>
+#include <oglplus/fix_gl_version.hpp>
 #include <oglplus/imports/blend_file.hpp>
 #include <oglplus/math/matrix.hpp>
 

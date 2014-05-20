@@ -13,7 +13,7 @@
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
-#include <oglplus/compile_error.hpp>
+#include <oglplus/error/basic.hpp>
 
 #include <stdexcept>
 #include <system_error>
@@ -23,12 +23,15 @@
 namespace oglplus {
 namespace cloud_trace {
 
-void print_std_error_common(
+inline void print_std_error_common(
 	std::exception& error,
 	std::ostream& errstr
 )
 {
-	errstr << " '" << error.what() << "'" << std::endl;
+	errstr	<< "Message: '"
+		<< error.what()
+		<< "'"
+		<< std::endl;
 }
 
 inline void print_error_common(
@@ -36,46 +39,166 @@ inline void print_error_common(
 	std::ostream& errstr
 )
 {
+	if(error.SourceFile())
+	{
+		errstr	<< "Source file: '"
+			<< error.SourceFile()
+			<< "'"
+			<< std::endl;
+	}
+
+	if(error.SourceLine())
+	{
+		errstr	<< "Source line: "
+			<< error.SourceLine()
+			<< std::endl;
+	}
+
+	if(error.SourceFunc())
+	{
+		errstr	<< "Source function: '"
+			<< error.SourceFunc()
+			<< "'"
+			<< std::endl;
+	}
 	print_std_error_common(error, errstr);
-	errstr << "in '" << error.GLSymbol() << "'" << std::endl;
-	errstr << "at [";
-	errstr << error.File() << ":" << error.Line();
-	errstr << "]" << std::endl;
+	if(error.GLFuncName())
+	{
+		errstr	<< "GL function: '"
+			<< error.GLFuncName()
+			<< "'"
+			<< std::endl;
+	}
 
-	bool nl = false;
-	if(std::strlen(error.ClassName()))
+	if(error.EnumParam() || error.EnumParamName())
 	{
-		errstr << error.ClassName();
-		nl |= true;
-	}
-	if(!error.ObjectDescription().empty())
-	{
-		if(nl) errstr << " ";
-		errstr << "'" << error.ObjectDescription() << "'";
-		nl |= true;
-	}
-	if(std::strlen(error.BindTarget()))
-	{
-		if(!nl) errstr << "Object";
-		errstr << " bound to '" << error.BindTarget() << "'";
-		nl |= true;
-	}
-	if(nl) errstr << std::endl;
-
-	auto i = error.Properties().begin(), e = error.Properties().end();
-	if(i != e)
-	{
-		errstr << "Properties: " << std::endl;
-		while(i != e)
+		errstr	<< "GL constant: ";
+		if(error.EnumParamName())
 		{
-			errstr << "<" << i->first << "='" << i->second << "'>";
-			++i;
-			if(i != e) errstr << ", ";
-			else errstr << ".";
+			errstr	<< "'"
+				<< error.EnumParamName()
+				<< "'";
 		}
-		errstr << std::endl;
+		else
+		{
+			errstr	<< "(0x"
+				<< std::hex
+				<< error.EnumParam()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if(error.BindTarget() || error.TargetName())
+	{
+		errstr	<< "Binding point: ";
+		if(error.TargetName())
+		{
+			errstr	<< "'"
+				<< error.TargetName()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "(0x"
+				<< std::hex
+				<< error.BindTarget()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if(error.ClassName() || error.ObjectType())
+	{
+		errstr	<< "Object type: ";
+		if(error.ClassName())
+		{
+			errstr	<< "'"
+				<< error.ClassName()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "(0x"
+				<< std::hex
+				<< error.ObjectType()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if((!error.ObjectDesc().empty()) || (error.ObjectName() >= 0))
+	{
+		errstr	<< "Object: ";
+		if(!error.ObjectDesc().empty())
+		{
+			errstr	<< "'"
+				<< error.ObjectDesc()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "("
+				<< error.ObjectName()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if(error.SubjectClassName() || error.SubjectType())
+	{
+		errstr	<< "Subject type: ";
+		if(error.SubjectClassName())
+		{
+			errstr	<< "'"
+				<< error.SubjectClassName()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "(0x"
+				<< std::hex
+				<< error.SubjectType()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if((!error.SubjectDesc().empty()) || (error.SubjectName() >= 0))
+	{
+		errstr	<< "Subject: ";
+		if(!error.SubjectDesc().empty())
+		{
+			errstr	<< "'"
+				<< error.SubjectDesc()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "("
+				<< error.SubjectName()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if(error.Index() >= 0)
+	{
+		errstr	<< "Index: ("
+			<< error.Index()
+			<< ")"
+			<< std::endl;
+	}
+
+	if(!error.Log().empty())
+	{
+		errstr	<< "Log:"
+			<< std::endl
+			<< error.Log()
+			<< std::endl;
 	}
 }
+
 
 int do_run_main(int (*main_func)(AppData&), AppData& app_data)
 {
@@ -84,33 +207,10 @@ int do_run_main(int (*main_func)(AppData&), AppData& app_data)
 	{
 		return main_func(app_data);
 	}
-	catch(ShaderVariableError& sve)
-	{
-		errstr << "Shader variable error";
-		print_error_common(sve, errstr);
-		sve.Cleanup();
-	}
-	catch(ProgramBuildError& pbe)
-	{
-		errstr << "Program build error";
-		print_error_common(pbe, errstr);
-		errstr << "Build log:" << std::endl;
-		errstr << pbe.Log() << std::endl;
-		pbe.Cleanup();
-	}
-	catch(LimitError& le)
-	{
-		errstr << "Limit error";
-		print_error_common(le, errstr);
-		errstr << "Value " << le.Value() << " exceeds limit ";
-		errstr << le.Limit() << std::endl;
-		le.Cleanup();
-	}
 	catch(Error& err)
 	{
 		errstr << "GL error";
 		print_error_common(err, errstr);
-		err.Cleanup();
 	}
 	catch(std::system_error& sye)
 	{

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -28,13 +28,6 @@ class GLSLSource
 private:
 	aux::GLSLSourceWrapper* _impl;
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	template <typename Impl, typename ... P>
-	static aux::GLSLSourceWrapper* make_impl(P&& ... p)
-	{
-		return new Impl(std::forward<P>(p)...);
-	}
-#else
 	template <typename Impl, typename P1>
 	static aux::GLSLSourceWrapper* make_impl(P1&& p1)
 	{
@@ -49,7 +42,6 @@ private:
 			std::forward<P2>(p2)
 		);
 	}
-#endif
 public:
 	~GLSLSource(void)
 	{

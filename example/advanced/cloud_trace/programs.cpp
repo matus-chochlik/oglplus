@@ -11,8 +11,9 @@
 #include "programs.hpp"
 #include "ray_matrix.hpp"
 
-#include <oglplus/angle.hpp>
+#include <oglplus/math/angle.hpp>
 #include <oglplus/glsl_source.hpp>
+#include <oglplus/shader.hpp>
 #include <oglplus/opt/resources.hpp>
 
 namespace oglplus {

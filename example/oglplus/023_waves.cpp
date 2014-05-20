@@ -34,9 +34,9 @@ private:
 
 	Program prog;
 
-	LazyUniform<Mat4f> camera_matrix;
-	LazyUniform<Vec3f> camera_position;
-	LazyUniform<GLfloat> anim_time;
+	Lazy<Uniform<Mat4f>> camera_matrix;
+	Lazy<Uniform<Vec3f>> camera_position;
+	Lazy<Uniform<GLfloat>> anim_time;
 
 	VertexArray plane;
 

@@ -16,7 +16,7 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
 #include <oglplus/program.hpp>
-#include <oglplus/uniform.hpp>
+#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
 
 #include <oglplus/math/vector.hpp>
@@ -55,8 +55,8 @@ private:
 
 	Program& self(void);
 
-	OptionalProgramUniform<GLint> cube_face;
-	OptionalProgramUniform<Mat3f> ray_matrix;
+	ProgramUniform<GLint> cube_face;
+	ProgramUniform<Mat3f> ray_matrix;
 public:
 	ProgramUniform<Vec2f> raytrace_size;
 	ProgramUniformSampler raytrace_output;

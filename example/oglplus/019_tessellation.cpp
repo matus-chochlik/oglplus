@@ -43,9 +43,9 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyUniform<Vec3f> offset, view_position;
-	LazyUniform<Vec2f> viewport_dimensions;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
+	Lazy<Uniform<Vec3f>> offset, view_position;
+	Lazy<Uniform<Vec2f>> viewport_dimensions;
 
 	// A vertex array object for the rendered shape
 	VertexArray shape;
@@ -318,7 +318,7 @@ public:
 			Degrees(time * 33),
 			Degrees(SineWave(time / 21.0) * 31)
 		);
-		camera_matrix = camera;
+		camera_matrix.Set(camera);
 
 		const Vec3f offsets[6] = {
 			Vec3f( 2, 0, 0),
@@ -336,12 +336,12 @@ public:
 				ModelMatrixf::Translation(offsets[i])*
 				ModelMatrixf::RotationZ(Degrees(time * (37+9*i)));
 
-			model_matrix = model;
-			offset = offsets[i];
-			view_position = (
+			model_matrix.Set(model);
+			offset.Set(offsets[i]);
+			view_position.Set((
 				Inverse(model)*
 				Vec4f(camera.Position(), 1)
-			).xyz();
+			).xyz());
 
 			shape_instr.Draw(shape_indices);
 		}

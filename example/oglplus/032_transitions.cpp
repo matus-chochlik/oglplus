@@ -35,21 +35,11 @@ class DrawProgram
  : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
-public:
-	LazyProgramUniform<Mat4f> camera_matrix_0, camera_matrix_1, model_matrix;
-
-	LazyProgramUniform<Vec3f> camera_position_0, camera_position_1;
-
-	DrawProgram(void)
-	 : Program(ObjectDesc("Draw program"))
-	 , camera_matrix_0(prog(), "CameraMatrix[0]")
-	 , camera_matrix_1(prog(), "CameraMatrix[1]")
-	 , model_matrix(prog(), "ModelMatrix")
-	 , camera_position_0(prog(), "CameraPosition[0]")
-	 , camera_position_1(prog(), "CameraPosition[1]")
+	static Program make(void)
 	{
-		AttachShader(VertexShader(
+		Program prog(ObjectDesc("Draw program"));
+
+		prog.AttachShader(VertexShader(
 			ObjectDesc("Draw vertex"),
 			StrLit("#version 330\n"
 			"uniform vec3 LightPosition;"
@@ -78,7 +68,7 @@ public:
 			"}")
 		));
 
-		AttachShader(GeometryShader(
+		prog.AttachShader(GeometryShader(
 			ObjectDesc("Draw geometry"),
 			StrLit("#version 330\n"
 			"layout(triangles) in;"
@@ -128,7 +118,7 @@ public:
 			"}")
 		));
 
-		AttachShader(FragmentShader(
+		prog.AttachShader(FragmentShader(
 			ObjectDesc("Draw fragment"),
 			StrLit("#version 330\n"
 			"uniform sampler2D MetalTexture;"
@@ -176,8 +166,25 @@ public:
 			"}")
 		));
 
-		Link();
+		prog.Link();
+
+		return prog;
 	}
+
+	const Program& self(void) const { return *this; }
+public:
+	ProgramUniform<Mat4f> camera_matrix_0, camera_matrix_1, model_matrix;
+
+	ProgramUniform<Vec3f> camera_position_0, camera_position_1;
+
+	DrawProgram(void)
+	 : Program(make())
+	 , camera_matrix_0(self(), "CameraMatrix[0]")
+	 , camera_matrix_1(self(), "CameraMatrix[1]")
+	 , model_matrix(self(), "ModelMatrix")
+	 , camera_position_0(self(), "CameraPosition[0]")
+	 , camera_position_1(self(), "CameraPosition[1]")
+	{ }
 };
 
 class MetalTexture
@@ -276,15 +283,11 @@ class ClearProgram
  : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
-public:
-	LazyProgramUniform<Vec2f> origin_0, origin_1;
-
-	ClearProgram(void)
-	 : origin_0(prog(), "Origin[0]")
-	 , origin_1(prog(), "Origin[1]")
+	static Program make(void)
 	{
-		AttachShader(VertexShader(
+		Program prog;
+
+		prog.AttachShader(VertexShader(
 			ObjectDesc("Clear vertex"),
 			StrLit("#version 330\n"
 			"in vec4 Position;"
@@ -294,7 +297,7 @@ public:
 			"}")
 		));
 
-		AttachShader(GeometryShader(
+		prog.AttachShader(GeometryShader(
 			ObjectDesc("Clear geometry"),
 			StrLit("#version 330\n"
 			"layout(triangles) in;"
@@ -326,7 +329,7 @@ public:
 			"}")
 		));
 
-		AttachShader(FragmentShader(
+		prog.AttachShader(FragmentShader(
 			ObjectDesc("Clear fragment"),
 			StrLit("#version 330\n"
 
@@ -350,32 +353,31 @@ public:
 			"}")
 		));
 
-		Link();
+		prog.Link();
+
+		return prog;
 	}
+
+	const Program& self(void) const { return *this; }
+public:
+	ProgramUniform<Vec2f> origin_0, origin_1;
+
+	ClearProgram(void)
+	 : Program(make())
+	 , origin_0(self(), "Origin[0]")
+	 , origin_1(self(), "Origin[1]")
+	{ }
 };
 
 class TransitionProgram
  : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
-
-	UniformSubroutines frag_subroutines;
-	LazySubroutineUniform frag_transition;
-	std::vector<Subroutine> transitions;
-
-	GLfloat prev_mix_factor;
-public:
-	LazyProgramUniform<GLfloat> mix_factor;
-	LazyProgramUniform<GLint> direction;
-
-	TransitionProgram(void)
-	 : frag_subroutines(prog(), ShaderType::Fragment)
-	 , frag_transition(prog(), ShaderType::Fragment, "Transition")
-	 , mix_factor(prog(), "MixFactor")
-	 , direction(prog(), "Direction")
+	static Program make(void)
 	{
-		AttachShader(VertexShader(
+		Program prog;
+
+		prog.AttachShader(VertexShader(
 			ObjectDesc("Transition vertex"),
 			StrLit("#version 400\n"
 			"in vec4 Position;"
@@ -391,7 +393,7 @@ public:
 			"}")
 		));
 
-		AttachShader(FragmentShader(
+		prog.AttachShader(FragmentShader(
 			ObjectDesc("Transition fragment"),
 			StrLit("#version 400\n"
 
@@ -536,12 +538,34 @@ public:
 			"}")
 		));
 
-		Link();
+		prog.Link();
+
+		return prog;
+	}
+
+	const Program& self(void) const { return *this; }
+
+	UniformSubroutines frag_subroutines;
+	SubroutineUniform frag_transition;
+	std::vector<Subroutine> transitions;
+
+	GLfloat prev_mix_factor;
+public:
+	ProgramUniform<GLfloat> mix_factor;
+	ProgramUniform<GLint> direction;
+
+	TransitionProgram(void)
+	 : Program(make())
+	 , frag_subroutines(self(), ShaderType::Fragment)
+	 , frag_transition(self(), ShaderType::Fragment, "Transition")
+	 , mix_factor(self(), "MixFactor")
+	 , direction(self(), "Direction")
+	{
 		Use();
 
 		ShaderType stage = ShaderType::Fragment;
 		for(auto sr=ActiveSubroutines(stage); !sr.Empty(); sr.Next())
-			transitions.push_back(Subroutine(prog(), stage, sr.Front().Name()));
+			transitions.push_back(Subroutine(self(), stage, sr.Front().Name()));
 
 		SetMixFactor(0.0f);
 	}
@@ -604,8 +628,8 @@ public:
 
 			VertexArrayAttrib attr(
 				VertexArrayAttrib::GetCommonLocation(
-					"Position",
-					prog1, prog2
+					MakeGroup(prog1, prog2),
+					"Position"
 				)
 			);
 			attr.Setup<Vec2f>();

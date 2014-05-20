@@ -41,21 +41,21 @@ public:
 		return _left.size() + _right.size();
 	}
 
-	void append_to(String& dest) const
+	void append_to(std::basic_string<Char>& dest) const
 	{
 		_left.append_to(dest);
 		_right.append_to(dest);
 	}
 
-	String str(void) const
+	std::basic_string<Char> str(void) const
 	{
-		String result;
+		std::basic_string<Char> result;
 		result.reserve(this->size()+1);
 		this->append_to(result);
 		return result;
 	}
 
-	OGLPLUS_EXPLICIT operator String(void) const
+	OGLPLUS_EXPLICIT operator std::basic_string<Char>(void) const
 	{
 		return str();
 	}
@@ -81,7 +81,10 @@ private:
 
 	void _check(void) const
 	{
-		assert(ValidString(begin(), end()));
+		assert(aux::ValidUTF8(
+			(const char*)begin(),
+			(const char*)end()
+		));
 	}
 public:
 	/// Default constructor
@@ -108,13 +111,18 @@ public:
 	 , _size(N-1)
 	{ _check(); }
 
+	StrLitTpl(const Char* lit, std::size_t n)
+	 : _lit(lit)
+	 , _size(n)
+	{ _check(); }
+
 	/// Efficient conversion to String
-	String str(void) const
+	std::basic_string<Char> str(void) const
 	{
-		return String(_lit, _lit+_size);
+		return std::basic_string<Char>(_lit, _lit+_size);
 	}
 
-	void append_to(String& dest) const
+	void append_to(std::basic_string<Char>& dest) const
 	{
 		dest.append(_lit, _lit+_size);
 	}

@@ -17,6 +17,7 @@
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>
+#include <oglplus/error/prog_var.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
 #include <oglplus/program_resource.hpp>

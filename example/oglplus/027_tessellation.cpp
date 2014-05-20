@@ -31,8 +31,8 @@ private:
 
 	VertexArray vao;
 
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
-	LazyUniform<Vec2f> viewport_dimensions;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix;
+	Lazy<Uniform<Vec2f>> viewport_dimensions;
 
 	GLuint segments;
 	GLuint instances;
