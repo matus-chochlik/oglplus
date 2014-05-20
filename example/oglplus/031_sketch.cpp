@@ -442,12 +442,11 @@ public:
 			9, 9
 		)
 	), torus(transf_prog, shapes::WickerTorus())
-	 , sketch_texture(Texture::Target::_3D)
 	 , sketch_tex_layers(8)
 	 , shadow_tex_side(1024)
 	{
 
-		Program::UseNone();
+		NoProgram().Use();
 
 		shadow_pp.Bind();
 		shadow_pp.UseStages(transf_prog).Vertex();
@@ -583,7 +582,7 @@ public:
 	)
 	{
 		// this is going into the on-screen framebuffer
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 
 		gl.ClearColor(1.0f, 0.9f, 0.8f, 0.0f);
 		gl.Viewport(width, height);

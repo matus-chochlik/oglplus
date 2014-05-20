@@ -65,11 +65,11 @@ private:
 	Program torus_prog, plane_prog;
 
 	// Uniform references
-	std::vector<DirectProgramUniform<GLfloat>> torus_clip_signs;
-	std::vector<DirectProgramUniform<GLfloat>> plane_clip_signs;
+	std::vector<ProgramUniform<GLfloat>> torus_clip_signs;
+	std::vector<ProgramUniform<GLfloat>> plane_clip_signs;
 
-	LazyProgramUniform<Vec3f> plane_normal;
-	LazyProgramUniform<Mat4f>
+	Lazy<ProgramUniform<Vec3f>> plane_normal;
+	Lazy<ProgramUniform<Mat4f>>
 		plane_camera_matrix,
 		torus_camera_matrix,
 		torus_model_matrix;

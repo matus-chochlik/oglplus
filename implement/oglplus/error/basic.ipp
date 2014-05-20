@@ -57,6 +57,7 @@ Error::Error(const char* message)
  , _glfunc_name(nullptr)
  , _enumpar_name(nullptr)
  , _enumpar(0)
+ , _index(-1)
 #endif
 { }
 
@@ -121,7 +122,7 @@ const char* Error::EnumParamName(void) const
 }
 
 OGLPLUS_LIB_FUNC
-GLenum Error::Index(void) const
+GLint Error::Index(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
 	return _index;

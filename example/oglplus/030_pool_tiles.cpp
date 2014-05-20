@@ -311,7 +311,7 @@ public:
 			refl_tex_side,
 			refl_tex_side
 		);
-		fbo.default_target = Framebuffer::Target::Draw;
+		fbo.target = Framebuffer::Target::Draw;
 		fbo.AttachTexture(
 			FramebufferAttachment::Color,
 			reflect_tex,

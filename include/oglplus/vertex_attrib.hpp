@@ -34,7 +34,9 @@ template <>
 class ProgVarLocOps<tag::VertexAttrib>
 {
 private:
-	static const char* InactiveMessage(void);
+	static const char* MsgGettingInactive(void);
+protected:
+	static const char* MsgUsingInactive(void);
 public:
 	/// Bind the vertex attribute location
 	/**
@@ -96,7 +98,7 @@ public:
 		OGLPLUS_HANDLE_ERROR_IF(
 			active_only && (result < 0),
 			GL_INVALID_OPERATION,
-			InactiveMessage(),
+			MsgGettingInactive(),
 			ProgVarError,
 			Program(program).
 			Identifier(identifier)

@@ -36,6 +36,7 @@ public:
 		if(!this->IsActive())
 		{
 			this->BindTo(_identifier);
+			ProgVar::RequireActive(_identifier);
 			_identifier.clear();
 		}
 		return *this;
@@ -43,9 +44,23 @@ public:
 
 	Lazy& TryInit(void)
 	{
-		try { Init(); }
-		catch(ProgVarError&){ }
+		if(!this->IsActive())
+		{
+			if(this->BindTo(_identifier, false).IsActive())
+			{
+				_identifier.clear();
+			}
+		}
 		return *this;
+	}
+
+	ProgVar operator[](std::size_t offset)
+	{
+		Init();
+		return ProgVar(
+			ProgramName(this->_program),
+			this->_location+offset
+		);
 	}
 
 	template <typename T>

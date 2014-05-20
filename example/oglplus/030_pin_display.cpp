@@ -408,7 +408,7 @@ private:
 		heights.WrapS(TextureWrap::ClampToBorder);
 		heights.WrapT(TextureWrap::ClampToBorder);
 
-		heights_fbo.default_target = Framebuffer::Target::Draw;
+		heights_fbo.target = Framebuffer::Target::Draw;
 		heights_fbo.AttachTexture(FramebufferAttachment::Depth, heights, 0);
 		heights_fbo.Complete();
 	}
@@ -434,7 +434,7 @@ private:
 		shadows.WrapT(TextureWrap::ClampToBorder);
 		shadows.CompareMode(TextureCompareMode::CompareRefToTexture);
 
-		shadows_fbo.default_target = Framebuffer::Target::Draw;
+		shadows_fbo.target = Framebuffer::Target::Draw;
 		shadows_fbo.AttachTexture(FramebufferAttachment::Depth, shadows, 0);
 		shadows_fbo.Complete();
 	}

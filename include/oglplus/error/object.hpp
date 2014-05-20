@@ -82,7 +82,7 @@ public:
 	}
 
 	/// Object GL name
-	GLuint ObjectName(void) const;
+	GLint ObjectName(void) const;
 
 	/// Object textual description
 	const String& ObjectDesc(void) const;
@@ -140,7 +140,7 @@ public:
 	}
 
 	/// Subject GL name
-	GLuint SubjectName(void) const;
+	GLint SubjectName(void) const;
 
 	/// Object textual description
 	const String& SubjectDesc(void) const;

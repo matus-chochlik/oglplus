@@ -15,9 +15,16 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const char* ProgVarLocOps<tag::UniformBlock>::
-InactiveMessage(void)
+MsgGettingInactive(void)
 {
 	return "Getting the location of inactive program uniform block";
+}
+
+OGLPLUS_LIB_FUNC
+const char* ProgVarLocOps<tag::UniformBlock>::
+MsgUsingInactive(void)
+{
+	return "Using inactive program uniform block";
 }
 
 OGLPLUS_LIB_FUNC

@@ -58,7 +58,7 @@ private:
 	const char* _glfunc_name;
 	const char* _enumpar_name;
 	GLenum _enumpar;
-	GLuint _index;
+	GLint _index;
 #endif
 
 public:
@@ -93,7 +93,7 @@ public:
 	 *  The result of this function is also influenced by the
 	 *  #OGLPLUS_ERROR_INFO_NO_FILE preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
-	 *  returns an empty C string.
+	 *  returns nullptr.
 	 */
 	const char* SourceFile(void) const;
 
@@ -111,7 +111,7 @@ public:
 	 *  The result of this function is also influenced by the
 	 *  #OGLPLUS_ERROR_INFO_NO_FUNC preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
-	 *  returns an empty C string.
+	 *  returns nullptr.
 	 */
 	const char* SourceFunc(void) const;
 
@@ -149,7 +149,7 @@ public:
 	 *  The result of this function is also influenced by the
 	 *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
-	 *  returns an empty C-string.
+	 *  returns nullptr.
 	 */
 	const char* GLFuncName(void) const;
 
@@ -193,14 +193,14 @@ public:
 	 *  The result of this function is also influenced by the
 	 *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
-	 *  returns an empty C-string.
+	 *  returns nullptr.
 	 */
 	const char* EnumParamName(void) const;
 
 	Error& Index(GLuint index)
 	{
 #if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
-		_index = index;
+		_index = GLint(index);
 #endif
 		(void)index;
 		return *this;
@@ -208,14 +208,93 @@ public:
 
 	/// Returns the index parameter related to the error
 	/** This function returns the value of the index
-	 *  parameter passed to the failed OpenGL function
+	 *  parameter passed to the failed OpenGL function if applicable.
+	 *  If no index value is available then this function return a negative
+	 *  integer.
 	 *
 	 *  The result of this function is also influenced by the
 	 *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
-	 *  returns zero.
+	 *  returns a negative integer.
 	 */
-	GLuint Index(void) const;
+	GLint Index(void) const;
+
+	/// Returns the bind target
+	virtual GLenum BindTarget(void) const { return GLenum(0); }
+
+	/// Returns the bind target name
+	virtual const char* TargetName(void) const { return nullptr; }
+
+	/// Returns the object type
+	/** If the error is related to a GL object, then an object
+	 *  type enumeration value is returned. Otherwise the result is zero.
+	 */
+	virtual GLenum ObjectType(void) const { return GLenum(0); }
+
+	/// Returns the object type name
+	/** If the error is related to a GL object, then a C string
+	 *  storing object type name is returned. Otherwise the result
+	 *  is nullptr.
+	 */
+	virtual const char* ClassName(void) const { return nullptr; }
+
+	/// Returns the object instance description
+	/** If the error is related to a GL object, then a String
+	 *  storing object description is returned. Otherwise the result
+	 *  is an empty String.
+	 */
+	virtual const String& ObjectDesc(void) const { return EmptyString(); }
+
+	/// Returns the object instance GL name
+	/** If the error is related to a GL object, then the numeric
+	 *  GL name of the object is returned. Otherwise the result
+	 *  is a negative integer.
+	 */
+	virtual GLint ObjectName(void) const { return -1; }
+
+	/// Returns the subject type
+	/** If the error is related to a pair of GL objects, then
+	 *  an object type enumeration value is returned. Otherwise
+	 *  the result is zero.
+	 */
+	virtual GLenum SubjectType(void) const { return GLenum(0); }
+
+	/// Returns the subject class name
+	/** If the error is related a pair of GL objects, then a C string
+	 *  storing secondary object type name is returned. Otherwise the result
+	 *  is nullptr.
+	 */
+	virtual const char* SubjectClassName(void) const { return nullptr; }
+
+	/// Returns the subject GL name
+	/** If the error is related to a pair of GL objects, then
+	 *  the numeric GL name of the secondary object is returned.
+	 *  Otherwise the result is a negative integer.
+	 */
+	virtual GLint SubjectName(void) const { return -1; }
+
+	/// Returns the subject textual description
+	/** If the error is related to a pair of GL objects, then a String
+	 *  storing the secondary object description is returned. Otherwise
+	 *  the result is an empty String.
+	 */
+	virtual const String& SubjectDesc(void) const { return EmptyString(); }
+
+	/// Returns the identifier of a GPU program variable
+	/** If the error is related to a GPU program variable (vertex attrib,
+	 *  uniform, subroutine, etc.) then this function returns a C string
+	 *  storing the identifier of the variable. Otherwise the result
+	 *  is nullptr.
+	 */
+	virtual const char* Identifier(void) const { return nullptr; }
+
+	/// Returns a log string associated with the error
+	/** If the error was caused by a process (like shader compilation,
+	 *  program linking or validation, etc.) which creates a textual
+	 *  log and it is available then it is returned by this function.
+	 *  Otherwise the result is an empty String.
+	 */
+	virtual const String& Log(void) const { return EmptyString(); }
 };
 
 /// Exception class for situations when a pointer to a GL function is invalid.

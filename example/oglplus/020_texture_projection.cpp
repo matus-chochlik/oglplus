@@ -46,9 +46,9 @@ private:
 	// Program
 	Program prog;
 
-	// Handles to uniforms in prog
-	LazyUniform<Vec3f> light_pos;
-	LazyUniform<Mat4f>
+	// Uniforms in prog
+	Lazy<Uniform<Vec3f>> light_pos;
+	Lazy<Uniform<Mat4f>>
 		projection_matrix,
 		tex_projection_matrix,
 		model_matrix;
@@ -201,7 +201,7 @@ public:
 		//
 		Vec3f lightPos(-1.0f, 2.0f, 2.0f);
 		lightPos *= (1.0f - SineWave(time/5.0f)*0.4f);
-		light_pos = lightPos;
+		light_pos.Set(lightPos);
 
 		tex_projection_matrix.Set(
 			CamMatrixf::PerspectiveX(Degrees(15), 1.0, 1, 20) *

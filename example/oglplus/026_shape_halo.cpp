@@ -46,7 +46,7 @@ private:
 	Program halo_prog;
 
 	// Uniforms
-	LazyProgramUniform<Mat4f>
+	Lazy<ProgramUniform<Mat4f>>
 		shape_projection_matrix, shape_camera_matrix, shape_model_matrix,
 		plane_projection_matrix, plane_camera_matrix,
 		halo_projection_matrix, halo_camera_matrix, halo_model_matrix;
@@ -318,9 +318,10 @@ public:
 
 			VertexAttribSlot location;
 			if(VertexArrayAttrib::QueryCommonLocation(
+				MakeGroup(shape_prog, halo_prog),
 				"Position",
 				location
-			).In(shape_prog).And(halo_prog))
+			))
 			{
 				VertexArrayAttrib attr(location);
 				attr.Setup<GLfloat>(n_per_vertex);
@@ -378,8 +379,9 @@ public:
 		}
 
 		Vec3f lightPos(2.0f, 2.5f, 9.0f);
-		SetProgramUniform(shape_prog, "LightPos", lightPos);
-		SetProgramUniform(plane_prog, "LightPos", lightPos);
+
+		ProgramUniform<Vec3f>(shape_prog, "LightPos").Set(lightPos);
+		ProgramUniform<Vec3f>(plane_prog, "LightPos").Set(lightPos);
 
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -397,9 +399,9 @@ public:
 			double(width)/height,
 			1, 40
 		);
-		shape_projection_matrix = projection;
-		plane_projection_matrix = projection;
-		halo_projection_matrix = projection;
+		shape_projection_matrix.Set(projection);
+		plane_projection_matrix.Set(projection);
+		halo_projection_matrix.Set(projection);
 	}
 
 	void Render(double time)

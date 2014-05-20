@@ -33,10 +33,10 @@ OGLPLUS_LIB_FUNC
 const char* ProgVarError::Identifier(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_IDENTIFIER
-	return _identifier.c_str();
-#else
-	return nullptr;
+	if(!_identifier.empty())
+		return _identifier.c_str();
 #endif
+	return nullptr;
 }
 
 } // namespace oglplus

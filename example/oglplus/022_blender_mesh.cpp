@@ -34,13 +34,14 @@ class DepthProgram
 private:
 	const Program& prog(void) const { return *this; }
 public:
-	LazyProgramUniform<Mat4f>
+	Lazy<ProgramUniform<Mat4f>>
 		projection_matrix,
 		camera_matrix,
 		model_matrix;
 
 	DepthProgram(void)
-	 : projection_matrix(prog(), "ProjectionMatrix")
+	 : Program(ObjectDesc("Depth"))
+	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	{
@@ -77,15 +78,16 @@ class ShapeProgram
 private:
 	const Program& prog(void) const { return *this; }
 public:
-	LazyProgramUniform<Mat4f>
+	Lazy<ProgramUniform<Mat4f>>
 		projection_matrix,
 		camera_matrix,
 		model_matrix;
 
-	LazyProgramUniform<Vec3f> colors;
+	Lazy<ProgramUniform<Vec3f>> colors;
 
 	ShapeProgram(void)
-	 : projection_matrix(prog(), "ProjectionMatrix")
+	 : Program(ObjectDesc("Shape"))
+	 , projection_matrix(prog(), "ProjectionMatrix")
 	 , camera_matrix(prog(), "CameraMatrix")
 	 , model_matrix(prog(), "ModelMatrix")
 	 , colors(prog(), "Colors")
@@ -180,6 +182,7 @@ private:
 		OpenResourceFile(input, "models", "monkeys", ".blend");
 		if(!input.good())
 			throw std::runtime_error("Error opening file for reading");
+
 		imports::BlendFile blend_file(input);
 
 		return shapes::ShapeWrapper(

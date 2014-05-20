@@ -473,7 +473,7 @@ public:
 		gl.Disable(Capability::PolygonOffsetFill);
 
 		// Now we're going to draw into the default framebuffer
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 
 		ProgramUniform<Vec3f>(
 			vert_prog,

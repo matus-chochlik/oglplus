@@ -2495,7 +2495,8 @@ inline DSATextureOps& operator << (
 	TextureTarget target
 )
 {
-	tex.Bind(target);
+	tex.target = target;
+	tex.Bind();
 	return tex;
 }
 
@@ -2505,7 +2506,8 @@ inline DSATextureOps& operator << (
 	TextureUnitAndTarget uat
 )
 {
-	tex.BindMulti(uat.unit, uat.tgt);
+	tex.target = uat.tgt;
+	tex.BindMulti(uat.unit);
 	return tex;
 }
 

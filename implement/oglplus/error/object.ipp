@@ -73,9 +73,9 @@ const char* ObjectError::TargetName(void) const
 }
 
 OGLPLUS_LIB_FUNC
-GLuint ObjectError::ObjectName(void) const
+GLint ObjectError::ObjectName(void) const
 {
-	return _obj_name;
+	return GLint(_obj_name);
 }
 
 OGLPLUS_LIB_FUNC
@@ -119,9 +119,9 @@ const char* ObjectPairError::SubjectClassName(void) const
 }
 
 OGLPLUS_LIB_FUNC
-GLuint ObjectPairError::SubjectName(void) const
+GLint ObjectPairError::SubjectName(void) const
 {
-	return _sub_name;
+	return GLint(_sub_name);
 }
 
 OGLPLUS_LIB_FUNC

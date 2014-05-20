@@ -15,16 +15,30 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const char* ProgVarLocOps<tag::Subroutine>::
-InactiveMessage(void)
+MsgGettingInactive(void)
 {
 	return "Getting the location of inactive program subroutine";
 }
 
 OGLPLUS_LIB_FUNC
+const char* ProgVarLocOps<tag::Subroutine>::
+MsgUsingInactive(void)
+{
+	return "Using inactive program subroutine";
+}
+
+OGLPLUS_LIB_FUNC
 const char* ProgVarLocOps<tag::SubroutineUniform>::
-InactiveMessage(void)
+MsgGettingInactive(void)
 {
 	return "Getting the location of inactive program subroutine uniform";
+}
+
+OGLPLUS_LIB_FUNC
+const char* ProgVarLocOps<tag::SubroutineUniform>::
+MsgUsingInactive(void)
+{
+	return "Using inactive program subroutine uniform";
 }
 
 #endif

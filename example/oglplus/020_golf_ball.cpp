@@ -332,8 +332,8 @@ public:
 		// use the values stored in the buffer as the input
 		// for the fragment shader, that will use them to
 		// calculate the bump map
-		Uniform<GLfloat>(prog, "TransfHole").SetVectors<3>(
-			transf_hole_verts_map.Count(),
+		Uniform<Vec3f>(prog, "TransfHole").SetValues(
+			transf_hole_verts_map.Count()*3,
 			transf_hole_verts_map.Data()
 		);
 		// bind the VAO for the spere and render it

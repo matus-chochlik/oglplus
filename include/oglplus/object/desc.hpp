@@ -154,7 +154,6 @@ public:
 
 } // namespace aux
 
-// TODO: return ObjectDesc
 template <typename ObjTag>
 inline const String& DescriptionOf(ObjectName<ObjTag> object)
 {

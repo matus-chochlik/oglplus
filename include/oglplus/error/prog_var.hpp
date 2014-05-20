@@ -58,6 +58,11 @@ public:
 		return *this;
 	}
 
+	const char* ClassName(void) const { return "PROGRAM"; }
+
+	/// Returns the GL program name
+	GLint ObjectName(void) const { return GLint(_prog_name); }
+
 	/// Returns the program variable identifer
 	const char* Identifier(void) const;
 };

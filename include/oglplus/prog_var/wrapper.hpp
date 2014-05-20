@@ -108,14 +108,14 @@ public:
 	/// Set the variable value
 	void Set(ParamType value)
 	{
-		assert(this->IsActive());
+		BaseGetSetOps::RequireActive();
 		BaseGetSetOps::SetValue(AdjustProgVar<T>::Adjust(value));
 	}
 
 	/// Set multiple values
 	void Set(std::size_t count, const T* values)
 	{
-		assert(this->IsActive());
+		BaseGetSetOps::RequireActive();
 		BaseGetSetOps::SetValues(count, values);
 	}
 

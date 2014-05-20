@@ -378,7 +378,7 @@ public:
 				env_map
 			);
 			for(int i=0; i!=6; ++i)
-				bound_tex.ImageCM(i, image);
+				Texture::ImageCM(i, image);
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);

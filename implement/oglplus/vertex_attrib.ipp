@@ -17,9 +17,16 @@ namespace oglplus {
 
 OGLPLUS_LIB_FUNC
 const char* ProgVarLocOps<tag::VertexAttrib>::
-InactiveMessage(void)
+MsgGettingInactive(void)
 {
 	return "Getting the location of inactive program vertex attribute";
+}
+
+OGLPLUS_LIB_FUNC
+const char* ProgVarLocOps<tag::VertexAttrib>::
+MsgUsingInactive(void)
+{
+	return "Using inactive program vertex attribute";
 }
 
 OGLPLUS_LIB_FUNC

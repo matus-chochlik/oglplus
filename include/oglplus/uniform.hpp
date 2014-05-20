@@ -28,7 +28,9 @@ template <>
 class ProgVarLocOps<tag::Uniform>
 {
 private:
-	static const char* InactiveMessage(void);
+	static const char* MsgGettingInactive(void);
+protected:
+	static const char* MsgUsingInactive(void);
 public:
 	/// Finds the uniform location, throws on failure if active_only
 	/** Finds the location of the uniform variable specified
@@ -57,7 +59,7 @@ public:
 		OGLPLUS_HANDLE_ERROR_IF(
 			active_only && (result < 0),
 			GL_INVALID_OPERATION,
-			InactiveMessage(),
+			MsgGettingInactive(),
 			ProgVarError,
 			Program(program).
 			Identifier(identifier)
@@ -138,7 +140,7 @@ public:
 	/// Set multiple consecutive values
 	void SetValues(std::size_t n, const T* values)
 	{
-		this->_do_set_many<1>(
+		this->template _do_set_many<1>(
 			this->_program,
 			this->_location,
 			GLsizei(n),

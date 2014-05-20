@@ -32,7 +32,7 @@ protected:
 	ObjectOps(void){ }
 public:
 	/// Used as the default value for functions taking Target arguments
-	Target default_target;
+	Target target;
 
 	/// Types related to Framebuffer
 	struct Property
@@ -50,6 +50,13 @@ public:
 		typedef FramebufferStatus Status;
 	};
 
+	using ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind;
+	void Bind(void)
+	{
+		ObjZeroOps<tag::DirectState, tag::Framebuffer>::Bind(target);
+	}
+
+
 	/// Checks the status of the framebuffer
 	/** Returns one of the values in the @c FramebufferStatus enumeration.
 	 *  For complete framebuffers this member function returns
@@ -60,24 +67,24 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CheckFramebufferStatus}
 	 */
-	FramebufferStatus Status(Target target) const
+	FramebufferStatus Status(Target fbo_target) const
 	{
 		GLenum result = OGLPLUS_GLFUNC(CheckNamedFramebufferStatusEXT)(
 			_name,
-			GLenum(target)
+			GLenum(fbo_target)
 		);
 		if(result == 0) OGLPLUS_CHECK(
 			CheckNamedFramebufferStatusEXT,
 			ObjectError,
 			Object(*this).
-			BindTarget(target)
+			BindTarget(fbo_target)
 		);
 		return FramebufferStatus(result);
 	}
 
 	FramebufferStatus Status(void) const
 	{
-		return Status(default_target);
+		return Status(target);
 	}
 
 	/// Returns true if the framebuffer is complete
@@ -88,22 +95,22 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{CheckFramebufferStatus}
 	 */
-	bool IsComplete(Target target) const
+	bool IsComplete(Target fbo_target) const
 	{
-		return Status(target) == FramebufferStatus::Complete;
+		return Status(fbo_target) == FramebufferStatus::Complete;
 	}
 
 	bool IsComplete(void) const
 	{
-		return IsComplete(default_target);
+		return IsComplete(target);
 	}
 
 	void HandleIncompleteError(FramebufferStatus status) const;
 
 	/// Throws an exception if the framebuffer is not complete
-	void Complete(Target target) const
+	void Complete(Target fbo_target) const
 	{
-		FramebufferStatus status = Status(target);
+		FramebufferStatus status = Status(fbo_target);
 		if(status != FramebufferStatus::Complete)
 		{
 			HandleIncompleteError(status);
@@ -112,7 +119,7 @@ public:
 
 	void Complete(void) const
 	{
-		Complete(default_target);
+		Complete(target);
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of this FBO
@@ -490,7 +497,8 @@ inline DSAFramebufferOps& operator << (
 	FramebufferTarget target
 )
 {
-	fbo.Bind(target);
+	fbo.target = target;
+	fbo.Bind();
 	return fbo;
 }
 

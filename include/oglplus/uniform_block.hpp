@@ -33,7 +33,9 @@ template <>
 class ProgVarLocOps<tag::UniformBlock>
 {
 private:
-	static const char* InactiveMessage(void);
+	static const char* MsgGettingInactive(void);
+protected:
+	static const char* MsgUsingInactive(void);
 public:
 	/// Finds the uniform block location, throws on failure if active_only
 	/** Finds the location / index of the uniform block specified
@@ -62,7 +64,7 @@ public:
 		OGLPLUS_HANDLE_ERROR_IF(
 			active_only && (result < 0),
 			GL_INVALID_OPERATION,
-			InactiveMessage(),
+			MsgGettingInactive(),
 			ProgVarError,
 			Program(program).
 			Identifier(identifier)

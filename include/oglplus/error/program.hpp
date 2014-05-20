@@ -39,7 +39,7 @@ public:
 
 	ProgramBuildError& Log(String&& log)
 	{
-		log = std::move(log);
+		_log = std::move(log);
 		return *this;
 	}
 

@@ -33,8 +33,9 @@ class ProgVarLocOps<tag::Subroutine>
 {
 private:
 	ShaderType _stage;
-	static const char* InactiveMessage(void);
+	static const char* MsgGettingInactive(void);
 protected:
+	static const char* MsgUsingInactive(void);
 	ProgVarLocOps(ShaderType stage)
 	 : _stage(stage)
 	{ }
@@ -70,7 +71,7 @@ public:
 		OGLPLUS_HANDLE_ERROR_IF(
 			active_only && (result < 0),
 			GL_INVALID_OPERATION,
-			InactiveMessage(),
+			MsgGettingInactive(),
 			ProgVarError,
 			Program(program).
 			Identifier(identifier).
@@ -143,8 +144,9 @@ class ProgVarLocOps<tag::SubroutineUniform>
 {
 private:
 	ShaderType _stage;
-	static const char* InactiveMessage(void);
+	static const char* MsgGettingInactive(void);
 protected:
+	static const char* MsgUsingInactive(void);
 	ProgVarLocOps(ShaderType stage)
 	 : _stage(stage)
 	{ }
@@ -179,7 +181,7 @@ public:
 		OGLPLUS_HANDLE_ERROR_IF(
 			active_only && (result < 0),
 			GL_INVALID_OPERATION,
-			InactiveMessage(),
+			MsgGettingInactive(),
 			ProgVarError,
 			Program(program).
 			Identifier(identifier).

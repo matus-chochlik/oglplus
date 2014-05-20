@@ -29,6 +29,23 @@ protected:
 	friend GLint GetGLLocation<VarTag>(ProgVarLoc);
 	GLuint _program;
 	GLint _location;
+
+	void RequireActive(StrCRef identifier) const
+	{
+		OGLPLUS_HANDLE_ERROR_IF(
+			!IsActive(),
+			GL_INVALID_OPERATION,
+			ProgVarLocOps<VarTag>::MsgUsingInactive(),
+			ProgVarError,
+			Program(ProgramName(_program)).
+			Identifier(identifier)
+		);
+	}
+
+	void RequireActive(void) const
+	{
+		RequireActive(StrCRef());
+	}
 public:
 	/// Default construction
 	ProgVarLoc(void)
@@ -110,12 +127,12 @@ public:
 	}
 
 	/// Late initialization of the variable location from its identifier
-	ProgVarLoc& BindTo(StrCRef identifier)
+	ProgVarLoc& BindTo(StrCRef identifier, bool is_active = true)
 	{
 		_location = ProgVarLocOps<VarTag>::GetLocation(
 			ProgramName(_program),
 			identifier,
-			true
+			is_active
 		);
 		return *this;
 	}
