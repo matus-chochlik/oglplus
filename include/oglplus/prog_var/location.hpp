@@ -17,8 +17,12 @@
 #include <oglplus/string/ref.hpp>
 #include <oglplus/object/tags.hpp>
 #include <oglplus/object/name.hpp>
+#include <oglplus/error/prog_var.hpp>
 
 namespace oglplus {
+
+template <typename VarTag>
+GLint GetGLLocation(ProgVarLoc<VarTag>);
 
 /// Wrapper encapsulating program variable location/index
 template <typename VarTag>

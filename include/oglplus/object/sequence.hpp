@@ -19,6 +19,9 @@
 
 namespace oglplus {
 
+template <typename ObjName>
+const GLuint* GetGLNames(const Sequence<ObjName>&);
+
 /// Object sequence iterator template
 template <typename ObjectT>
 class SeqIterator

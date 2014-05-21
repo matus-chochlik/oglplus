@@ -76,7 +76,7 @@ public:
 
 	wxGLContext& GLContext(void);
 
-	oglplus::Managed<oglplus::Texture> SpectrumTex(void);
+	oglplus::Reference<oglplus::Texture> SpectrumTex(void);
 
 	wxString Name(void);
 

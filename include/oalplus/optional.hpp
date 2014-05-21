@@ -14,12 +14,12 @@
 #define OALPLUS_OPTIONAL_1303201602_HPP
 
 #include <oalplus/config.hpp>
-#include <oglplus/object/optional.hpp>
+//#include <oglplus/object/optional.hpp> TODO
 
 namespace oalplus {
 
 /// Reused Optional<Object> from OGLplus
-using oglplus::Optional;
+//using oglplus::Optional;
 
 } // namespace oalplus
 

@@ -148,14 +148,8 @@ typedef ObjectName<tag::Shader> ShaderName;
 typedef ObjectName<tag::PerfMonitorAMD> PerfMonitorAMDName;
 typedef ObjectName<tag::PathNV> PathNVName;
 
-template <typename ObjTag>
-GLuint GetGLName(ObjectName<ObjTag>);
-
 template <typename ObjName>
 class Sequence;
-
-template <typename ObjName>
-const GLuint* GetGLNames(const Sequence<ObjName>&);
 
 template <typename ObjTag>
 class ObjGenDelOps;
@@ -228,9 +222,6 @@ typedef ProgVarLoc<tag::Uniform> UniformLoc;
 typedef ProgVarLoc<tag::UniformBlock> UniformBlockLoc;
 typedef ProgVarLoc<tag::Subroutine> SubroutineLoc;
 typedef ProgVarLoc<tag::SubroutineUniform> SubroutineUniformLoc;
-
-template <typename VarTag>
-GLint GetGLLocation(ProgVarLoc<VarTag>);
 
 template <typename VarTag>
 class ProgVarLocOps;

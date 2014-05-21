@@ -22,6 +22,9 @@
 
 namespace oglplus {
 
+template <typename ObjTag>
+GLuint GetGLName(ObjectName<ObjTag>);
+
 /// A common template for "named" OpenGL objects like textures, buffers, etc.
 /** This is a common template for all OpenGL object wrappers which are
  *  identified by a (GLuint typed) name, i.e. object like Textures, Buffer, VAOs,
