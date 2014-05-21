@@ -362,6 +362,16 @@ public:
 	 : Object<ShaderOps>(type, std::move(description))
 	{ }
 
+	/// Construction with type and source code wrapper
+	Shader(
+		ShaderType type,
+		const GLSLSource& glsl_source
+	): Object<ShaderOps>(type)
+	{
+		this->Source(glsl_source);
+		this->Compile();
+	}
+
 	/// Construction with type, description and source code string
 	Shader(
 		ShaderType type,
@@ -437,6 +447,11 @@ public:
 	/// Construction with a textual descriptor
 	SpecShader(ObjectDesc&& description)
 	 : Shader(ShType, std::move(description))
+	{ }
+
+	/// Construction with a source code wrapper
+	SpecShader(const GLSLSource& glsl_source)
+	 : Shader(ShType, glsl_source)
 	{ }
 
 	/// Construction with description and source code string

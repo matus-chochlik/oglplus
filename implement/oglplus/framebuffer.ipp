@@ -11,6 +11,7 @@
 
 namespace oglplus {
 
+OGLPLUS_LIB_FUNC
 GLenum ObjBindingOps<tag::Framebuffer>::
 _binding_query(Target target)
 {

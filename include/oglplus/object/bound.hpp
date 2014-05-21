@@ -28,6 +28,25 @@ public:
 	typedef typename BoundObjOps<ObjTag>::Target Target;
 };
 
+template <typename ObjTag>
+class Reference<ObjectOps<tag::CurrentBound, ObjTag>>
+ : public ObjectOps<tag::CurrentBound, ObjTag>
+{
+private:
+	typedef ObjectOps<tag::CurrentBound, ObjTag> Base;
+public:
+	Reference(void)
+	{
+		this->_copy(ObjBindingOps<ObjTag>::Binding());
+	}
+
+	Reference(typename Base::Target init_tgt)
+	{
+		this->_copy(ObjBindingOps<ObjTag>::Binding(init_tgt));
+		this->target = init_tgt;
+	}
+};
+
 } // namespace oglplus
 
 #endif // include guard

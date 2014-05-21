@@ -13,6 +13,7 @@ namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
 
+OGLPLUS_LIB_FUNC
 GLenum ObjBindingOps<tag::TransformFeedback>::
 _binding_query(TransformFeedbackTarget target)
 {

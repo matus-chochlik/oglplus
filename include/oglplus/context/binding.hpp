@@ -83,6 +83,17 @@ public:
 		object.Use();
 	}
 
+	template <typename Object>
+	static Reference<ObjectOps<
+		tag::CurrentBound,
+		typename ObjectTag<Object>::Type
+	>> Current(void)
+	{
+		typedef typename ObjectTag<Object>::Type ObjTag;
+
+		return Reference<ObjectOps<tag::CurrentBound, ObjTag>>();
+	}
+
 	/// Returns a managed reference to the object currently bound to target
 	template <typename ObjectTarget>
 	static Reference<ObjectOps<
@@ -105,29 +116,6 @@ public:
 		object.Bind(target);
 		return Current(target);
 	}
-
-#ifdef NOT_DEFINED
-	/// Returns a managed reference to object currently bound to indexed target
-	template <typename ObjectTarget>
-	static Managed<typename ObjectTargetTag<ObjectTarget>::Type>
-	Current(ObjectTarget target, GLuint index)
-	{
-		typedef typename ObjectTargetTag<ObjectTarget>::Type ObjectOps;
-
-		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target, index);
-		return Managed<ObjectOps>(name);
-	}
-
-	/// Returns a managed reference to the currently bound Object
-	template <typename Object>
-	static Managed<typename ObjectBaseOps<Object>::Type> Current(void)
-	{
-		typedef typename ObjectBaseOps<Object>::Type ObjectOps;
-		typename Object::Target target = typename Object::Target();
-		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
-		return Managed<ObjectOps>(name);
-	}
-#endif
 };
 
 } // namespace context

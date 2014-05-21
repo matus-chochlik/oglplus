@@ -70,12 +70,12 @@ RaytraceProg::RaytraceProg(const AppData& app_data)
 	ProgramUniform<GLfloat>(self(), "UnitOpacity").Set(app_data.unit_opacity);
 	ProgramUniform<GLfloat>(self(), "UnitAttenuation").Set(app_data.unit_attenuation);
 
-	OptionalUniform<GLfloat>(self(), "Near").TrySet(app_data.cam_near);
-	OptionalUniform<GLfloat>(self(), "Far").TrySet(app_data.cam_far);
-	OptionalUniform<GLfloat>(self(), "CrepRayFar").TrySet(app_data.crep_ray_far);
-	OptionalUniform<GLuint>(self(), "CrepRaySam").TrySet(app_data.crep_ray_sam);
+	Optional<Uniform<GLfloat>>(self(), "Near").TrySet(app_data.cam_near);
+	Optional<Uniform<GLfloat>>(self(), "Far").TrySet(app_data.cam_far);
+	Optional<Uniform<GLfloat>>(self(), "CrepRayFar").TrySet(app_data.crep_ray_far);
+	Optional<Uniform<GLuint>>(self(), "CrepRaySam").TrySet(app_data.crep_ray_sam);
 
-	OptionalUniform<GLuint>(self(), "ClipTiles").Set(app_data.clip_tiles);
+	Optional<Uniform<GLuint>>(self(), "ClipTiles").Set(app_data.clip_tiles);
 }
 
 void RaytraceProg::SetRayMatrix(const AppData& app_data, unsigned face)
@@ -103,19 +103,19 @@ Program RenderProg::make(const AppData& app_data)
 
 	prog.Link().Use();
 
-	OptionalUniform<GLfloat>(prog, "Near").TrySet(app_data.cam_near);
-	OptionalUniform<GLfloat>(prog, "Far").TrySet(app_data.cam_far);
+	Optional<Uniform<GLfloat>>(prog, "Near").TrySet(app_data.cam_near);
+	Optional<Uniform<GLfloat>>(prog, "Far").TrySet(app_data.cam_far);
 
-	OptionalUniform<Vec3f>(prog, "LightPos").TrySet(Vec3f(
+	Optional<Uniform<Vec3f>>(prog, "LightPos").TrySet(Vec3f(
 		app_data.light_x,
 		app_data.light_y,
 		app_data.light_z
 	));
-	OptionalUniform<GLfloat>(prog, "HighLight").TrySet(app_data.high_light);
-	OptionalUniform<GLfloat>(prog, "AmbiLight").TrySet(app_data.ambi_light);
+	Optional<Uniform<GLfloat>>(prog, "HighLight").TrySet(app_data.high_light);
+	Optional<Uniform<GLfloat>>(prog, "AmbiLight").TrySet(app_data.ambi_light);
 
-	OptionalUniform<GLfloat>(prog, "PlanetRadius").TrySet(app_data.planet_radius);
-	OptionalUniform<GLfloat>(prog, "AtmThickness").TrySet(app_data.atm_thickness);
+	Optional<Uniform<GLfloat>>(prog, "PlanetRadius").TrySet(app_data.planet_radius);
+	Optional<Uniform<GLfloat>>(prog, "AtmThickness").TrySet(app_data.atm_thickness);
 
 	return std::move(prog);
 }

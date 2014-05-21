@@ -11,8 +11,7 @@
 
 #include "copier.hpp"
 
-#include <oglplus/binding.hpp>
-#include <oglplus/friend_of.hpp>
+#include <oglplus/object/auto_rebind.hpp>
 
 #include <stdexcept>
 #include <cassert>
@@ -121,18 +120,18 @@ void RaytraceCopierNV_copy_image::Copy(
 	((PFNglXCopyImageSubDataNV)copy_func)(
 		params.display,
 		params.source_context,
-		FriendOf<Renderbuffer>::GetName(raytracer.rbo),
+		GetGLName(raytracer.rbo),
 		GL_RENDERBUFFER,
 		0, x, y, 0,
 		params.target_context,
-		FriendOf<Texture>::GetName(rt_target.tex),
+		GetGLName(rt_target.tex),
 		GL_TEXTURE_RECTANGLE,
 		0, x, y, 0,
 		app_data.tile,
 		app_data.tile,
 		1
 	);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetError));
+	OGLPLUS_VERIFY_SIMPLE(GetError);
 }
 #endif
 

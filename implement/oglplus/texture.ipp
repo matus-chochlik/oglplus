@@ -82,6 +82,7 @@ GLuint TextureTargetDimensions(TextureTarget target)
 	return 0;
 }
 
+OGLPLUS_LIB_FUNC
 GLenum ObjBindingOps<tag::Texture>::
 _binding_query(Target target)
 {

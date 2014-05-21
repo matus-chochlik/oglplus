@@ -11,6 +11,7 @@
 
 namespace oglplus {
 
+OGLPLUS_LIB_FUNC
 GLenum ObjBindingOps<tag::Buffer>::
 _binding_query(BufferTarget target)
 {
@@ -22,6 +23,7 @@ _binding_query(BufferTarget target)
 	return 0;
 }
 
+OGLPLUS_LIB_FUNC
 GLenum ObjBindingOps<tag::Buffer>::
 _binding_query(BufferIndexedTarget target)
 {
