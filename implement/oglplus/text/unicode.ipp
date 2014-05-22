@@ -10,7 +10,7 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/auxiliary/utf8.hpp>
+#include <oglplus/string/utf8.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {

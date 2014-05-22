@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/compare_func.hpp>
 #include <oglplus/stencil_op.hpp>
 #include <oglplus/face_mode.hpp>
@@ -42,7 +41,11 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(StencilFunc)(GLenum(func), ref, mask);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilFunc));
+		OGLPLUS_VERIFY(
+			StencilFunc,
+			Error,
+			EnumParam(func)
+		);
 	}
 
 	/// Sets the stencil function separately for front and back faces
@@ -63,7 +66,11 @@ public:
 			ref,
 			mask
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilFuncSeparate));
+		OGLPLUS_VERIFY(
+			StencilFuncSeparate,
+			Error,
+			EnumParam(func)
+		);
 	}
 
 	/// Sets the stencil operation
@@ -82,7 +89,7 @@ public:
 			GLenum(dfail),
 			GLenum(dpass)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilOp));
+		OGLPLUS_VERIFY_SIMPLE(StencilOp);
 	}
 
 	/// Sets the stencil operation separately for front and back faces
@@ -103,7 +110,7 @@ public:
 			GLenum(dfail),
 			GLenum(dpass)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(StencilOpSeparate));
+		OGLPLUS_VERIFY_SIMPLE(StencilOpSeparate);
 	}
 
 	/// Returns the stencil function
@@ -122,7 +129,7 @@ public:
 			GL_STENCIL_FUNC,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return CompareFunction(result);
 	}
 
@@ -142,7 +149,7 @@ public:
 			GL_STENCIL_VALUE_MASK,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(result);
 	}
 
@@ -162,7 +169,7 @@ public:
 			GL_STENCIL_REF,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(result);
 	}
 
@@ -182,7 +189,7 @@ public:
 			GL_STENCIL_FAIL,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return StencilOperation(result);
 	}
 
@@ -202,7 +209,7 @@ public:
 			GL_STENCIL_PASS_DEPTH_FAIL,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return StencilOperation(result);
 	}
 
@@ -222,7 +229,7 @@ public:
 			GL_STENCIL_PASS_DEPTH_PASS,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return StencilOperation(result);
 	}
 };

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,104 +13,91 @@
 #ifndef OGLPLUS_UNIFORM_BLOCK_1107121519_HPP
 #define OGLPLUS_UNIFORM_BLOCK_1107121519_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/shader.hpp>
-#include <oglplus/program.hpp>
-#include <oglplus/buffer.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/string/ref.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/prog_var/location.hpp>
+#include <oglplus/prog_var/varpara_fns.hpp>
+#include <oglplus/prog_var/set_ops.hpp>
+#include <oglplus/prog_var/wrapper.hpp>
+#include <oglplus/shader_type.hpp>
+#include <oglplus/buffer_binding.hpp>
 
 #include <cassert>
 
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
-namespace aux {
 
-class UniformBlockInitOps
+template <>
+class ProgVarLocOps<tag::UniformBlock>
 {
+private:
+	static const char* MsgGettingInactive(void);
 protected:
-	typedef Nothing ParamType;
-
-	UniformBlockInitOps(Nothing)
-	{ }
-
-	GLint _do_init_location(GLuint program, const GLchar* identifier) const
+	static const char* MsgUsingInactive(void);
+public:
+	/// Finds the uniform block location, throws on failure if active_only
+	/** Finds the location / index of the uniform block specified
+	 *  by @p identifier in a @p program. If active_only is true then
+	 *  throws if no such uniform block exists or if it is not active.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetUniformLocation}
+	 */
+	static GLint GetLocation(
+		ProgramName program,
+		StrCRef identifier,
+		bool active_only
+	)
 	{
 		GLint result = OGLPLUS_GLFUNC(GetUniformBlockIndex)(
-			program,
-			identifier
+			GetGLName(program),
+			identifier.c_str()
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetUniformBlockIndex));
+		OGLPLUS_CHECK(
+			GetUniformBlockIndex,
+			ProgVarError,
+			Program(program).
+			Identifier(identifier)
+		);
+		OGLPLUS_HANDLE_ERROR_IF(
+			active_only && (result < 0),
+			GL_INVALID_OPERATION,
+			MsgGettingInactive(),
+			ProgVarError,
+			Program(program).
+			Identifier(identifier)
+		);
 		return result;
 	}
-
-	void _handle_error(
-		GLuint program,
-		const GLchar* identifier,
-		GLint location
-	) const;
-
-	GLint _init_location(GLuint program, const GLchar* identifier) const
-	{
-		GLint location = _do_init_location(program, identifier);
-		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
-		{
-			_handle_error(program, identifier, location);
-		}
-		return location;
-	}
-
-	static GLenum _translate_ref(ShaderType shader_type);
-	static GLenum _translate_max(ShaderType shader_type);
 };
 
-typedef EagerUniformInitTpl<UniformBlockInitOps>
-	EagerUniformBlockInit;
-
-typedef LazyUniformInitTpl<UniformBlockInitOps, NoUniformTypecheck>
-	LazyUniformBlockInit;
-
-} // namespace aux
-
-/// Base class for shader uniform block operations functionality
-/**
- *  @note Do not use this class directly. Use UniformBlock or LazyUniformBlock
- *  instead.
- *
- *  @see UniformBlock
- *  @see LazyUniformBlock
- *
- *  @ingroup shader_variables
- *
- *  @glvoereq{3,1,ARB,uniform_buffer_object}
- */
-template <class Initializer>
-class UniformBlockTpl
- : public Initializer
+template <>
+class ProgVarCommonOps<tag::UniformBlock>
+ : public ProgVarLoc<tag::UniformBlock>
 {
-public:
-	template <class String_>
-	UniformBlockTpl(const Program& program, String_&& identifier)
-	 : Initializer(
-		program,
-		Nothing(),
-		std::forward<String_>(identifier),
-		NoTypecheck()
-	)
+private:
+	static GLenum _translate_ref(ShaderType shader_type);
+	static GLenum _translate_max(ShaderType shader_type);
+protected:
+	ProgVarCommonOps(UniformBlockLoc ubloc)
+	 : ProgVarLoc<tag::UniformBlock>(ubloc)
 	{ }
-
+public:
 	/// Return the maximum number of uniform blocks for a @p shader_type
 	static GLuint MaxIn(ShaderType shader_type)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(
-			Initializer::_translate_max(shader_type),
+			_translate_max(shader_type),
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY(
+			GetIntegerv,
+			Error,
+			EnumParam(_translate_max(shader_type))
+		);
 		assert(result >= 0);
 		return GLuint(result);
 	}
@@ -120,16 +107,20 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
 	 */
-	bool ReferencedBy(ShaderType shader_type)
+	bool ReferencedBy(ShaderType shader_type) const
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
-			this->_get_program(),
-			this->_get_location(),
-			Initializer::_translate_ref(shader_type),
+			this->_program,
+			this->_location,
+			_translate_ref(shader_type),
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniformBlockiv));
+		OGLPLUS_VERIFY(
+			GetActiveUniformBlockiv,
+			Error,
+			EnumParam(_translate_ref(shader_type))
+		);
 		return result == GL_TRUE;
 	}
 
@@ -138,92 +129,74 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{GetActiveUniformBlock}
 	 */
-	GLuint DataSize(void)
+	GLuint DataSize(void) const
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetActiveUniformBlockiv)(
-			this->_get_program(),
-			this->_get_location(),
+			this->_program,
+			this->_location,
 			GL_UNIFORM_BLOCK_DATA_SIZE,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetActiveUniformBlockiv));
+		OGLPLUS_VERIFY(
+			GetActiveUniformBlockiv,
+			Error,
+			EnumParam(GLenum(GL_UNIFORM_BLOCK_DATA_SIZE))
+		);
 		assert(result >= 0);
 		return GLuint(result);
 	}
 
+	/// Sets up the uniform block binding
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UniformBlockBinding}
+	 */
 	void Binding(UniformBufferBindingPoint binding)
 	{
 		OGLPLUS_GLFUNC(UniformBlockBinding)(
-			this->_get_program(),
-			this->_get_location(),
+			this->_program,
+			this->_location,
 			GLuint(binding)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UniformBlockBinding));
+		OGLPLUS_VERIFY(
+			UniformBlockBinding,
+			ProgVarError,
+			Program(ProgramName(this->_program)).
+			Index(GLuint(binding))
+		);
 	}
 };
 
-#if OGLPLUS_DOCUMENTATION_ONLY
+template <typename OpsTag>
+class ProgVarGetSetOps<OpsTag, tag::UniformBlock, UniformBufferBindingPoint>
+ : public ProgVarCommonOps<tag::UniformBlock>
+{
+protected:
+	ProgVarGetSetOps(UniformBlockLoc ubloc)
+	 : ProgVarCommonOps<tag::UniformBlock>(ubloc)
+	{ }
+public:
+	void SetValue(UniformBufferBindingPoint value)
+	{
+		this->Binding(value);
+	}
+};
+
 /// Encapsulates uniform block operations
 /**
- *  The difference between UniformBlock and LazyUniformBlock is,
- *  that UniformBlock tries to get the location of the GLSL
- *  uniform block variable in a Program during construction
- *  and LazyUniformBlock postpones this initialization until the value
- *  is actually needed at the cost of having to internally store
- *  the identifer in a String.
- *
- *  @see LazyUniformBlock
  *  @see Uniform
  *
  *  @ingroup shader_variables
  *
  *  @glvoereq{3,1,ARB,uniform_buffer_object}
  */
-struct UniformBlock
- : public UniformBlockTpl<Unspecified>
-{
-	/// Construction from a program and an identifier
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetUniformBlockIndex}
-	 */
-	UniformBlock(const Program& program, String identifier);
-};
-#else
-typedef UniformBlockTpl<aux::EagerUniformBlockInit> UniformBlock;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Encapsulates lazily initialized uniform block operations
-/**
- *  The difference between UniformBlock and LazyUniformBlock is,
- *  that UniformBlock tries to get the location of the GLSL
- *  uniform block variable in a Program during construction
- *  and LazyUniformBlock postpones this initialization until the value
- *  is actually needed at the cost of having to internally store
- *  the identifer in a String.
- *
- *  @see UniformBlock
- *  @see LazyUniform
- *
- *  @ingroup shader_variables
- *
- *  @glvoereq{3,1,ARB,uniform_buffer_object}
- */
-struct LazyUniformBlock
- : public UniformBlockTpl<Unspecified>
-{
-	/// Construction from a program and an identifier
-	/**
-	 *  @glsymbols
-	 *  @glfunref{GetUniformBlockIndex}
-	 */
-	LazyUniformBlock(const Program& program, String identifier);
-};
-#else
-typedef UniformBlockTpl<aux::LazyUniformBlockInit> LazyUniformBlock;
-#endif
+typedef ProgVar<
+	tag::ImplicitSel,
+	tag::UniformBlock,
+	tag::NoTypecheck,
+	UniformBufferBindingPoint
+> UniformBlock;
 
 #endif // uniform buffer object
 

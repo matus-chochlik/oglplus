@@ -72,7 +72,7 @@ public:
 			triangle_pos
 		);
 
-		oglplus::VertexAttribArray(prog, "Position")
+		oglplus::VertexArrayAttrib(prog, "Position")
 			.Setup<GLfloat>(3)
 			.Enable();
 

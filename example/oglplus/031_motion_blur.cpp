@@ -616,7 +616,7 @@ public:
 			arrow.Draw();
 
 			// motion blur
-			DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
+			DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 
 			gl.Disable(Capability::DepthTest);
 

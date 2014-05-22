@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/capability.hpp>
 
 namespace oglplus {
@@ -36,7 +35,11 @@ public:
 	static void Enable(Capability capability)
 	{
 		OGLPLUS_GLFUNC(Enable)(GLenum(capability));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+		OGLPLUS_VERIFY(
+			Enable,
+			Error,
+			EnumParam(capability)
+		);
 	}
 
 	/// Enable a @p functionality
@@ -47,7 +50,12 @@ public:
 	static void Enable(Functionality functionality, GLuint number)
 	{
 		OGLPLUS_GLFUNC(Enable)(GLenum(functionality)+number);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+		OGLPLUS_VERIFY(
+			Enable,
+			Error,
+			EnumParam(functionality).
+			Index(number)
+		);
 	}
 
 	/// Disable a @p capability
@@ -58,7 +66,11 @@ public:
 	static void Disable(Capability capability)
 	{
 		OGLPLUS_GLFUNC(Disable)(GLenum(capability));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+		OGLPLUS_VERIFY(
+			Disable,
+			Error,
+			EnumParam(capability)
+		);
 	}
 
 	/// Disable a @p functionality
@@ -69,7 +81,12 @@ public:
 	static void Disable(Functionality functionality, GLuint number)
 	{
 		OGLPLUS_GLFUNC(Disable)(GLenum(functionality)+number);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+		OGLPLUS_VERIFY(
+			Disable,
+			Error,
+			EnumParam(functionality).
+			Index(number)
+		);
 	}
 
 	/// Checks if a @p capability is enabled
@@ -80,7 +97,11 @@ public:
 	static bool IsEnabled(Capability capability)
 	{
 		GLboolean result = OGLPLUS_GLFUNC(IsEnabled)(GLenum(capability));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsEnabled));
+		OGLPLUS_VERIFY(
+			IsEnabled,
+			Error,
+			EnumParam(capability)
+		);
 		return result == GL_TRUE;
 	}
 
@@ -95,7 +116,12 @@ public:
 			GLenum(functionality)+
 			number
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsEnabled));
+		OGLPLUS_VERIFY(
+			IsEnabled,
+			Error,
+			EnumParam(functionality).
+			Index(number)
+		);
 		return result == GL_TRUE;
 	}
 
@@ -108,7 +134,12 @@ public:
 	static void Enable(Capability capability, GLuint index)
 	{
 		OGLPLUS_GLFUNC(Enablei)(GLenum(capability), index);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enablei));
+		OGLPLUS_VERIFY(
+			Enablei,
+			Error,
+			EnumParam(capability).
+			Index(index)
+		);
 	}
 
 	/// Disable a @p capability for an indexed target
@@ -119,7 +150,12 @@ public:
 	static void Disable(Capability capability, GLuint index)
 	{
 		OGLPLUS_GLFUNC(Disablei)(GLenum(capability), index);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disablei));
+		OGLPLUS_VERIFY(
+			Disablei,
+			Error,
+			EnumParam(capability).
+			Index(index)
+		);
 	}
 
 	/// Check if a @p capability is enabled for indexed target
@@ -133,7 +169,12 @@ public:
 			GLenum(capability),
 			index
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(IsEnabledi));
+		OGLPLUS_VERIFY(
+			IsEnabledi,
+			Error,
+			EnumParam(capability).
+			Index(index)
+		);
 		return result == GL_TRUE;
 	}
 #endif // GL_VERSION_3_0

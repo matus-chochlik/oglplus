@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,11 +14,11 @@
 #define OGLPLUS_PROGRAM_RESOURCE_1208301144_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/program_interface.hpp>
-#include <oglplus/auxiliary/program.hpp>
+#include <oglplus/detail/program.hpp>
 
 namespace oglplus {
 
@@ -74,7 +74,11 @@ private:
 	{
 		GLint res;
 		QueryParams(property, 1, nullptr, &res);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceiv));
+		OGLPLUS_VERIFY(
+			GetProgramResourceiv,
+			Error,
+			EnumParam(property)
+		);
 		return res;
 	}
 

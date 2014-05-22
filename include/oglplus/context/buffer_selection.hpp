@@ -14,7 +14,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/color_buffer.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/one_of.hpp>
@@ -47,7 +46,7 @@ public:
 	static void DrawBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(DrawBuffer)(GLenum(buffer));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawBuffer));
+		OGLPLUS_VERIFY_SIMPLE(DrawBuffer);
 	}
 
 	/// Sets the destination color buffers for draw operations
@@ -61,7 +60,7 @@ public:
 			buffers.Count(),
 			buffers.Values()
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DrawBuffers));
+		OGLPLUS_VERIFY_SIMPLE(DrawBuffers);
 	}
 
 	static void DrawBuffers(GLsizei count, const ColorBuffer* buffers)
@@ -78,7 +77,7 @@ public:
 	static void ReadBuffer(ColorBuffer buffer)
 	{
 		OGLPLUS_GLFUNC(ReadBuffer)(GLenum(buffer));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ReadBuffer));
+		OGLPLUS_VERIFY_SIMPLE(ReadBuffer);
 	}
 };
 

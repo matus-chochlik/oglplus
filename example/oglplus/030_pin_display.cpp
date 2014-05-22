@@ -15,8 +15,8 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/texture_dsa.hpp>
-#include <oglplus/framebuffer_dsa.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/framebuffer.hpp>
 
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/shapes/cube.hpp>
@@ -370,7 +370,8 @@ private:
 
 		ProgramUniformSampler(display_prog, "Offsets").Set(0);
 		ProgramUniformSampler(shadow_prog, "Offsets").Set(0);
-		offsets.Bind(0, Texture::Target::_2D);
+		offsets.target = Texture::Target::_2D;
+		offsets.BindMulti(0, Texture::Target::_2D);
 		offsets.Image2D(
 			0,
 			PixelDataInternalFormat::RG32F,
@@ -390,7 +391,8 @@ private:
 	{
 		ProgramUniformSampler(display_prog, "Heights").Set(1);
 		ProgramUniformSampler(shadow_prog, "Heights").Set(1);
-		heights.Bind(1, Texture::Target::_2D);
+		heights.target = Texture::Target::_2D;
+		heights.BindMulti(1, Texture::Target::_2D);
 		heights.Image2D(
 			0,
 			PixelDataInternalFormat::DepthComponent32,
@@ -414,7 +416,8 @@ private:
 	void init_shadows(void)
 	{
 		ProgramUniformSampler(display_prog, "Shadows").Set(2);
-		shadows.Bind(2, Texture::Target::_2D);
+		shadows.target = Texture::Target::_2D;
+		shadows.BindMulti(2, Texture::Target::_2D);
 		shadows.Image2D(
 			0,
 			PixelDataInternalFormat::DepthComponent32,
@@ -476,7 +479,7 @@ public:
 
 	double Update(DisplayScene& scene, double time)
 	{
-		heights_fbo.Bind();
+		heights_fbo.Bind(FramebufferTarget::Draw);
 		gl.Viewport(side, side);
 		return scene.Draw(time);
 	}
@@ -484,7 +487,7 @@ public:
 	void Draw(double time, double fade)
 	{
 		// Shadow map
-		shadows_fbo.Bind();
+		shadows_fbo.Bind(FramebufferTarget::Draw);
 		gl.Viewport(shadow_size, shadow_size);
 		gl.Clear().DepthBuffer();
 

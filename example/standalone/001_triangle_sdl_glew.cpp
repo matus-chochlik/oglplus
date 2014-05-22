@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{001_triangle}
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -83,7 +83,7 @@ public:
 			triangle_verts
 		);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "Position");
+		VertexArrayAttrib vert_attr(prog, "Position");
 		vert_attr.Setup<GLfloat>(3);
 		vert_attr.Enable();
 
@@ -189,14 +189,17 @@ int main(int argc, char* argv[])
 	}
 	catch(oglplus::Error& err)
 	{
-		std::cerr <<
-			"Error (in " << err.GLSymbol() << ", " <<
-			err.ClassName() << ": '" <<
-			err.ObjectDescription() << "'): " <<
-			err.what() <<
-			" [" << err.File() << ":" << err.Line() << "] ";
-		std::cerr << std::endl;
-		err.Cleanup();
+		std::cerr
+			<< "Error (in "
+			<< err.GLFuncName()
+			<< "'): "
+			<< err.what()
+			<< " ["
+			<< err.SourceFile()
+			<< ":"
+			<< err.SourceLine()
+			<< "] "
+			<< std::endl;
 	}
 	catch(std::runtime_error& sre)
 	{

@@ -16,9 +16,9 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/torus.hpp>
-#include <oglplus/texture_dsa.hpp>
-#include <oglplus/framebuffer_dsa.hpp>
-#include <oglplus/renderbuffer_dsa.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/renderbuffer.hpp>
 
 #include <cmath>
 
@@ -52,7 +52,7 @@ private:
 	Program cube_prog, torus_prog;
 
 	// Handle for matrix uniforms
-	LazyUniform<Mat4f>
+	Uniform<Mat4f>
 		torus_projection_matrix, torus_camera_matrix, torus_model_matrix,
 		cube_projection_matrix, cube_camera_matrix, cube_model_matrix;
 
@@ -85,12 +85,12 @@ public:
 	 , torus_indices(make_torus.Indices())
 	 , cube_fs(ObjectDesc("Cube fragment"))
 	 , torus_fs(ObjectDesc("Torus fragment"))
-	 , torus_projection_matrix(torus_prog, "ProjectionMatrix")
-	 , torus_camera_matrix(torus_prog, "CameraMatrix")
-	 , torus_model_matrix(torus_prog, "ModelMatrix")
-	 , cube_projection_matrix(cube_prog, "ProjectionMatrix")
-	 , cube_camera_matrix(cube_prog, "CameraMatrix")
-	 , cube_model_matrix(cube_prog, "ModelMatrix")
+	 , torus_projection_matrix(torus_prog)
+	 , torus_camera_matrix(torus_prog)
+	 , torus_model_matrix(torus_prog)
+	 , cube_projection_matrix(cube_prog)
+	 , cube_camera_matrix(cube_prog)
+	 , cube_model_matrix(cube_prog)
 	 , fbo()
 	 , rbo()
 	 , tex()
@@ -140,6 +140,9 @@ public:
 		cube_prog.AttachShader(cube_fs);
 		cube_prog.Link();
 		cube_prog.Use();
+		cube_projection_matrix.BindTo("ProjectionMatrix");
+		cube_camera_matrix.BindTo("CameraMatrix");
+		cube_model_matrix.BindTo("ModelMatrix");
 
 		cube.Bind();
 
@@ -148,7 +151,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(cube_prog, "Position");
+			VertexArrayAttrib attr(cube_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -158,7 +161,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(cube_prog, "Normal");
+			VertexArrayAttrib attr(cube_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -168,13 +171,13 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(cube_prog, "TexCoord");
+			VertexArrayAttrib attr(cube_prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
-		UniformSampler(cube_prog, "TexUnit").Set(0);
-		Uniform<Vec3f>(cube_prog, "LightPos").Set(4.0f, 4.0f, -8.0f);
+		Uniform<GLint>(cube_prog, "TexUnit").Set(0);
+		Uniform<Vec3f>(cube_prog, "LightPos").Set(Vec3f(4.0f, 4.0f, -8.0f));
 
 		torus_fs.Source(
 			"#version 330\n"
@@ -202,6 +205,9 @@ public:
 		torus_prog.AttachShader(torus_fs);
 		torus_prog.Link();
 		torus_prog.Use();
+		torus_projection_matrix.BindTo("ProjectionMatrix");
+		torus_camera_matrix.BindTo("CameraMatrix");
+		torus_model_matrix.BindTo("ModelMatrix");
 
 		torus.Bind();
 
@@ -210,7 +216,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(torus_prog, "Position");
+			VertexArrayAttrib attr(torus_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -220,7 +226,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(torus_prog, "Normal");
+			VertexArrayAttrib attr(torus_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -230,14 +236,14 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_torus.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(torus_prog, "TexCoord");
+			VertexArrayAttrib attr(torus_prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
 
-		Uniform<Vec3f>(torus_prog, "LightPos").Set(2.0f, 3.0f, 4.0f);
+		Uniform<Vec3f>(torus_prog, "LightPos").Set(Vec3f(2.0f, 3.0f, 4.0f));
 
-		tex.Bind(TextureTarget::_2D);
+		tex.target = TextureTarget::_2D;
 		tex.Image2D(
 			0,
 			PixelDataInternalFormat::RGBA,
@@ -251,15 +257,14 @@ public:
 		tex.MagFilter(TextureMagFilter::Linear);
 		tex.WrapS(TextureWrap::Repeat);
 		tex.WrapT(TextureWrap::Repeat);
+		tex.Bind(TextureTarget::_2D);
 
-		rbo.Bind(RenderbufferTarget::Renderbuffer);
 		rbo.Storage(
 			PixelDataInternalFormat::DepthComponent,
 			tex_side,
 			tex_side
 		);
 
-		fbo.Bind(FramebufferTarget::Draw);
 		fbo.AttachTexture(
 			FramebufferAttachment::Color,
 			tex,
@@ -284,7 +289,7 @@ public:
 	void Render(double time)
 	{
 		// render into the texture
-		fbo.Bind();
+		fbo.Bind(Framebuffer::Target::Draw);
 		gl.Viewport(tex_side, tex_side);
 		gl.ClearDepth(1.0f);
 		gl.ClearColor(0.4f, 0.9f, 0.4f, 1.0f);

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,8 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/string/ref.hpp>
+#include <oglplus/string/def.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/enumerations.hpp>
 
@@ -117,7 +118,7 @@ public:
 			0, nullptr,
 			enable ? GL_TRUE : GL_FALSE
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageControlARB));
+		OGLPLUS_VERIFY_SIMPLE(DebugMessageControlARB);
 	}
 
 	/// Structure containing data passed to Callback functor
@@ -202,7 +203,7 @@ public:
 				GL_DEBUG_CALLBACK_FUNCTION_ARB,
 				_tmp_ptr
 			);
-			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(GetPointerv));
+			OGLPLUS_IGNORE(GetPointerv);
 			_prev_callback = _tmp_callback;
 
 			//get the previous context
@@ -210,15 +211,13 @@ public:
 				GL_DEBUG_CALLBACK_USER_PARAM_ARB,
 				&_prev_context
 			);
-			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(GetPointerv));
+			OGLPLUS_IGNORE(GetPointerv);
 
 			OGLPLUS_GLFUNC(DebugMessageCallbackARB)(
 				GLDEBUGPROCARB(&LogSink::_gl_debug_proc),
 				static_cast<void*>(this)
 			);
-			OGLPLUS_VERIFY(
-				OGLPLUS_ERROR_INFO(DebugMessageCallbackARB)
-			);
+			OGLPLUS_VERIFY_SIMPLE(DebugMessageCallbackARB);
 		}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -248,17 +247,13 @@ public:
 	{
 		if(enable)
 		{
-			OGLPLUS_GLFUNC(Enable)(
-				GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB
-			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+			OGLPLUS_GLFUNC(Enable)(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
+			OGLPLUS_VERIFY_SIMPLE(Enable);
 		}
 		else
 		{
-			OGLPLUS_GLFUNC(Disable)(
-				GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB
-			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+			OGLPLUS_GLFUNC(Disable)(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
+			OGLPLUS_VERIFY_SIMPLE(Disable);
 		}
 	}
 
@@ -280,7 +275,7 @@ public:
 			length,
 			buffer
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
+		OGLPLUS_VERIFY_SIMPLE(DebugMessageInsertARB);
 	}
 
 	/// Inserts a new message into the debug output
@@ -289,7 +284,7 @@ public:
 		DebugOutputARBType type,
 		GLuint id,
 		DebugOutputARBSeverity severity,
-		const String& message
+		StrCRef message
 	)
 	{
 		OGLPLUS_GLFUNC(DebugMessageInsertARB)(
@@ -300,7 +295,7 @@ public:
 			message.size(),
 			message.c_str()
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageInsertARB));
+		OGLPLUS_VERIFY_SIMPLE(DebugMessageInsertARB);
 	}
 };
 

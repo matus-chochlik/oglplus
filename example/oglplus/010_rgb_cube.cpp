@@ -146,7 +146,7 @@ public:
 			cube_vertices
 		);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "Position");
+		VertexArrayAttrib vert_attr(prog, "Position");
 		vert_attr.Setup<Vec3f>();
 		vert_attr.Enable();
 
@@ -172,7 +172,7 @@ public:
 			cube_normals
 		);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray normal_attr(prog, "Normal");
+		VertexArrayAttrib normal_attr(prog, "Normal");
 		normal_attr.Setup<Vec3f>();
 		normal_attr.Enable();
 		//

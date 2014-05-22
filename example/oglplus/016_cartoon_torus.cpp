@@ -33,33 +33,11 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Program
 	Program prog;
-
-	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-
-	// A vertex array object for the rendered torus
-	VertexArray torus;
-
-	// VBOs for the torus's vertices and normals
-	Buffer verts, normals;
-public:
-	TorusExample(void)
-	 : make_torus(1.0, 0.5, 72, 48)
-	 , torus_instr(make_torus.Instructions())
-	 , torus_indices(make_torus.Indices())
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , model_matrix(prog, "ModelMatrix")
+	static Program make_prog(void)
 	{
-		// Set the vertex shader source and compile it
+		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -77,7 +55,7 @@ public:
 			"}"
 		).Compile();
 
-		// set the fragment shader source and compile it
+		FragmentShader fs;
 		fs.Source(
 			"#version 330\n"
 			"in vec3 vertNormal;"
@@ -101,11 +79,30 @@ public:
 			"}"
 		).Compile();
 
-		// attach the shaders to the program
+		Program prog;
 		prog << vs << fs;
-		// link and use it
 		prog.Link().Use();
+		return prog;
+	}
 
+	// Uniforms
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+
+	// A vertex array object for the rendered torus
+	VertexArray torus;
+
+	// VBOs for the torus's vertices and normals
+	Buffer verts, normals;
+public:
+	TorusExample(void)
+	 : make_torus(1.0, 0.5, 72, 48)
+	 , torus_instr(make_torus.Instructions())
+	 , torus_indices(make_torus.Indices())
+	 , prog(make_prog())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	{
 		// bind the VAO for the torus
 		torus.Bind();
 

@@ -657,7 +657,7 @@ public:
 
 
 		// draw fog
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 
 		gl.Disable(Capability::DepthTest);
 

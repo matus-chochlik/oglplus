@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/blend_func.hpp>
 
 namespace oglplus {
@@ -36,7 +35,7 @@ public:
 	static void BlendEquation(oglplus::BlendEquation eq)
 	{
 		OGLPLUS_GLFUNC(BlendEquation)(GLenum(eq));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendEquation));
+		OGLPLUS_VERIFY_SIMPLE(BlendEquation);
 	}
 
 	/// Sets the blend equation separate for RGB and alpha
@@ -53,7 +52,7 @@ public:
 			GLenum(eq_rgb),
 			GLenum(eq_alpha)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendEquationSeparate));
+		OGLPLUS_VERIFY_SIMPLE(BlendEquationSeparate);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
@@ -66,7 +65,11 @@ public:
 	static void BlendEquation(GLuint buffer, oglplus::BlendEquation eq)
 	{
 		OGLPLUS_GLFUNC(BlendEquationi)(buffer, GLenum(eq));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendEquationi));
+		OGLPLUS_VERIFY(
+			BlendEquationi,
+			Error,
+			Index(buffer)
+		);
 	}
 
 	/// Sets the blend equation separate for RGB and alpha for a @p buffer
@@ -86,7 +89,11 @@ public:
 			GLenum(eq_rgb),
 			GLenum(eq_alpha)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendEquationSeparatei));
+		OGLPLUS_VERIFY(
+			BlendEquationSeparatei,
+			Error,
+			Index(buffer)
+		);
 	}
 #endif
 
@@ -98,7 +105,7 @@ public:
 	static void BlendFunc(BlendFunction src, BlendFunction dst)
 	{
 		OGLPLUS_GLFUNC(BlendFunc)(GLenum(src), GLenum(dst));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendFunc));
+		OGLPLUS_VERIFY_SIMPLE(BlendFunc);
 	}
 
 	/// Sets the blend function separate for RGB and alpha
@@ -119,7 +126,7 @@ public:
 			GLenum(src_alpha),
 			GLenum(dst_alpha)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendFuncSeparate));
+		OGLPLUS_VERIFY_SIMPLE(BlendFuncSeparate);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
@@ -136,7 +143,11 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(BlendFunci)(buffer, GLenum(src), GLenum(dst));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendFunci));
+		OGLPLUS_VERIFY(
+			BlendFunci,
+			Error,
+			Index(buffer)
+		);
 	}
 
 	/// Sets the blend function separate for RGB and alpha for a @p buffer
@@ -160,7 +171,11 @@ public:
 			GLenum(src_alpha),
 			GLenum(dst_alpha)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendFuncSeparatei));
+		OGLPLUS_VERIFY(
+			BlendFuncSeparatei,
+			Error,
+			Index(buffer)
+		);
 	}
 #endif
 
@@ -172,7 +187,7 @@ public:
 	static void BlendColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		OGLPLUS_GLFUNC(BlendColor)(r, g, b, a);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BlendColor));
+		OGLPLUS_VERIFY_SIMPLE(BlendColor);
 	}
 };
 

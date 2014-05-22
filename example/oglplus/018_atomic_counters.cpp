@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{018_atomic_counters}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -38,8 +38,8 @@ private:
 	// Program
 	Program prog;
 
-	LazyProgramUniform<Mat4f> projection_matrix, camera_matrix;
-	LazyProgramUniform<GLfloat> vc_int, gc_int, fc_int;
+	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
+	ProgramUniform<GLfloat> vc_int, gc_int, fc_int;
 
 	// A vertex array object for the rendered plane
 	VertexArray plane;
@@ -59,11 +59,6 @@ public:
 		grid_side, grid_side
 	), plane_instr(make_plane.Instructions())
 	 , plane_indices(make_plane.Indices())
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , vc_int(prog, "vc_int")
-	 , gc_int(prog, "gc_int")
-	 , fc_int(prog, "fc_int")
 	{
 		VertexShader vs;
 		vs.Source(StrLit(
@@ -155,6 +150,12 @@ public:
 		prog.Link();
 		prog.Use();
 
+		projection_matrix = UniformLoc(prog, "ProjectionMatrix");
+		camera_matrix = UniformLoc(prog, "CameraMatrix");
+		vc_int = UniformLoc(prog, "vc_int");
+		gc_int = UniformLoc(prog, "gc_int");
+		fc_int = UniformLoc(prog, "fc_int");
+
 		// bind the VAO for the plane
 		plane.Bind();
 
@@ -166,7 +167,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

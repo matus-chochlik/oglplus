@@ -20,8 +20,8 @@
 #include <oalplus/object.hpp>
 #include <oalplus/friend_of.hpp>
 
-#include <oalplus/auxiliary/base_iter.hpp>
-#include <oalplus/auxiliary/base_range.hpp>
+//#include <oalplus/auxiliary/base_iter.hpp> TODO
+//#include <oalplus/auxiliary/base_range.hpp>
 
 #include <cassert>
 #include <vector>
@@ -107,6 +107,7 @@ public:
 		return at(index);
 	}
 
+/* TODO
 	typedef aux::BaseIter<Managed<ObjectOps>, ALuint> const_iterator;
 	typedef const_iterator iterator;
 
@@ -127,6 +128,7 @@ public:
 			_names.end()
 		);
 	}
+*/
 };
 
 template <typename Object>

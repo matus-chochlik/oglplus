@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,38 +13,23 @@ namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_1 || GL_ARB_uniform_buffer_object
 
-namespace aux {
-
 OGLPLUS_LIB_FUNC
-void UniformBlockInitOps::_handle_error(
-	GLuint program,
-	const GLchar* identifier,
-	GLint location
-) const
+const char* ProgVarLocOps<tag::UniformBlock>::
+MsgGettingInactive(void)
 {
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	Error::AddPropertyValue(
-		props,
-		"program",
-		aux::ObjectDescRegistry<ProgramOps>::
-				_get_desc(program)
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		location,
-		"Getting the location of inactive uniform block",
-		OGLPLUS_ERROR_INFO(GetUniformBlockIndex),
-		std::move(props)
-	);
+	return "Getting the location of inactive program uniform block";
 }
 
 OGLPLUS_LIB_FUNC
-GLenum _translate_ref(ShaderType shader_type)
+const char* ProgVarLocOps<tag::UniformBlock>::
+MsgUsingInactive(void)
+{
+	return "Using inactive program uniform block";
+}
+
+OGLPLUS_LIB_FUNC
+GLenum ProgVarCommonOps<tag::UniformBlock>::
+_translate_ref(ShaderType shader_type)
 {
 	switch(shader_type)
 	{
@@ -77,7 +62,8 @@ GLenum _translate_ref(ShaderType shader_type)
 }
 
 OGLPLUS_LIB_FUNC
-GLenum _translate_max(ShaderType shader_type)
+GLenum ProgVarCommonOps<tag::UniformBlock>::
+_translate_max(ShaderType shader_type)
 {
 	switch(shader_type)
 	{
@@ -108,8 +94,6 @@ GLenum _translate_max(ShaderType shader_type)
 	}
 	return 0;
 }
-
-} // namespace aux
 
 #endif // uniform buffer object
 

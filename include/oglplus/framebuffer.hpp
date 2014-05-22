@@ -16,42 +16,20 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/object.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/binding_query.hpp>
+#include <oglplus/error/framebuffer.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
-#include <oglplus/renderbuffer.hpp>
-#include <oglplus/texture.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/framebuffer_status.hpp>
+#include <oglplus/texture_target.hpp>
 #include <oglplus/one_of.hpp>
+#include <oglplus/object/wrapper.hpp>
 #include <cassert>
 
 namespace oglplus {
 
 // NOTE: Xlib.h defines this symbol
-// using the preprocessor. To avoid any sort of
-// problems here it is necessary to observe correct order
-// of header includes or you gotta keep 'em separated
-// (in different translation units)
+// using the preprocessor.
 #ifdef Status
 #undef Status
-#endif
-
-/// Framebuffer status enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(FramebufferStatus, GLenum)
-#include <oglplus/enums/framebuffer_status.ipp>
-OGLPLUS_ENUM_CLASS_END(FramebufferStatus)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/framebuffer_status_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/framebuffer_status_range.ipp>
 #endif
 
 /// Framebuffer bind target
@@ -71,146 +49,125 @@ OGLPLUS_ENUM_CLASS_END(FramebufferTarget)
 #endif
 
 template <>
-struct ObjectTargetOps<FramebufferTarget>
+struct ObjectTargetTag<FramebufferTarget>
 {
-	typedef FramebufferOps Type;
+	typedef tag::Framebuffer Type;
 };
 
-/// Incomplete framebuffer exception class
-/**
- *  @ingroup error_handling
- */
-class IncompleteFramebuffer
- : public Error
-{
-private:
-	FramebufferStatus _status;
-public:
-	IncompleteFramebuffer(
-		FramebufferStatus status,
-		const char* msg,
-		const ErrorInfo& info
-	): Error(GL_INVALID_FRAMEBUFFER_OPERATION, msg, info)
-	 , _status(status)
-	{ }
-
-	~IncompleteFramebuffer(void) throw()
-	{ }
-
-	FramebufferStatus Status(void) const
-	{
-		return _status;
-	}
-};
-
-/// Wrapper for OpenGL default framebuffer operations
-/**
- *  @see Framebuffer
- */
-class DefaultFramebuffer
-{
-public:
-	/// Framebuffer bind targets
-	typedef FramebufferTarget Target;
-
-	/// Binds the default framebuffer
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindFramebuffer}
-	 */
-	static void Bind(Target target)
-	{
-		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindFramebuffer));
-	}
-};
-
-// Syntax-sugar Bind
-inline FramebufferTarget operator << (
-	DefaultFramebuffer,
-	FramebufferTarget target
-)
-{
-	DefaultFramebuffer::Bind(target);
-	return target;
-}
-
-/// Wrapper for OpenGL framebuffer operations
-/**
- *  @note Do not use this class directly, use FrameBuffer instead
- *
- *  @see Framebuffer
+/// Class wrapping framebuffer construction/destruction functions
+/** @note Do not use this class directly, use Framebuffer instead.
  *
  *  @glsymbols
  *  @glfunref{GenFramebuffers}
  *  @glfunref{DeleteFramebuffers}
  *  @glfunref{IsFramebuffer}
  */
-class FramebufferOps
- : public Named
- , public BaseObject<true>
- , public FriendOf<RenderbufferOps>
- , public FriendOf<TextureOps>
+template <>
+class ObjGenDelOps<tag::Framebuffer>
 {
+protected:
+	static void Gen(GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenFramebuffers)(count, names);
+		OGLPLUS_CHECK_SIMPLE(GenFramebuffers);
+	}
+
+	static void Delete(GLsizei count, GLuint* names)
+	{
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(DeleteFramebuffers)(count, names);
+		OGLPLUS_VERIFY_SIMPLE(DeleteFramebuffers);
+	}
+
+	static GLboolean IsA(GLuint name)
+	{
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsFramebuffer)(name);
+		OGLPLUS_VERIFY_SIMPLE(IsFramebuffer);
+		return result;
+	}
+};
+
+/// Framebuffer binding operations
+template <>
+class ObjBindingOps<tag::Framebuffer>
+{
+private:
+	static GLenum _binding_query(FramebufferTarget target);
+protected:
+	static GLuint _binding(FramebufferTarget target);
 public:
 	/// Framebuffer bind targets
 	typedef FramebufferTarget Target;
-protected:
-	typedef std::true_type _can_be_zero;
 
-	static void _init(GLsizei count, GLuint* _name)
+	/// Returns the current Framebuffer bound to specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetIntegerv}
+	 */
+	static FramebufferName Binding(Target target)
 	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenFramebuffers)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenFramebuffers));
+		return FramebufferName(_binding(target));
 	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	/// Binds the specified @p framebuffer to the specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindFramebuffer}
+	 */
+	static void Bind(
+		Target target,
+		FramebufferName framebuffer
+	)
 	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteFramebuffers)(count, _name);}
-		catch(...){ }
-	}
-
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsFramebuffer)(_name);}
-		catch(...){ }
-		return GL_FALSE;
-	}
-
-#ifdef GL_FRAMEBUFFER
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return ObjectType::Framebuffer;
-	}
-#endif
-
-	static void _bind(GLuint _name, Target target)
-	{
-		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), _name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_GLFUNC(BindFramebuffer)(
+			GLenum(target),
+			GetGLName(framebuffer)
+		);
+		OGLPLUS_VERIFY(
 			BindFramebuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_name
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
+};
 
-	friend class FriendOf<FramebufferOps>;
-
-	static GLuint _binding(Target);
-	static GLenum _binding_query(Target target);
-	friend class BindingQuery<FramebufferOps>;
+/// Common framebuffer operations
+/** @note Do not use this class directly, use Framebuffer
+ *  or DefaultFramebuffer instead.
+ */
+template <>
+class ObjCommonOps<tag::Framebuffer>
+ : public FramebufferName
+ , public ObjBindingOps<tag::Framebuffer>
+{
+protected:
+	ObjCommonOps(void){ }
 public:
+	using ObjBindingOps<tag::Framebuffer>::Bind;
 
+	/// Binds this framebuffer to the specified @p target
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindFramebuffer}
+	 */
+	void Bind(Target target) const
+	{
+		Bind(target, *this);
+	}
+};
+
+/// Class wrapping framebuffer functions with explicit target selector
+/** @note Do not use this class directly, use Framebuffer instead.
+ */
+template <>
+class ObjectOps<tag::ExplicitSel, tag::Framebuffer>
+ : public ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>
+{
+protected:
+	ObjectOps(void){ }
+public:
 	/// Types related to Framebuffer
 	struct Property
 	{
@@ -237,43 +194,6 @@ public:
 		typedef FramebufferStatus Status;
 	};
 
-	/// Bind this framebuffer to the specified target
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindFramebuffer}
-	 */
-	void Bind(Target target) const
-	{
-		_bind(_name, target);
-	}
-
-	/// Binds the default framebuffer to the specified target
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindFramebuffer}
-	 */
-	static void BindDefault(Target target)
-	{
-		OGLPLUS_GLFUNC(BindFramebuffer)(GLenum(target), 0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindFramebuffer));
-	}
-
-	/// Binds the default framebuffer to the specified target
-	/**
-	 *  @throws Error
-	 *
-	 *  @glsymbols
-	 *  @glfunref{BindFramebuffer}
-	 */
-	static void Unbind(Target target)
-	{
-		BindDefault(target);
-	}
-
 	/// Checks the status of the framebuffer
 	/** Returns one of the values in the @c FramebufferStatus enumeration.
 	 *  For complete framebuffers this member function returns
@@ -289,12 +209,11 @@ public:
 		GLenum result = OGLPLUS_GLFUNC(CheckFramebufferStatus)(
 			GLenum(target)
 		);
-		if(result == 0) OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		if(result == 0) OGLPLUS_CHECK(
 			CheckFramebufferStatus,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 		return FramebufferStatus(result);
 	}
 
@@ -317,8 +236,10 @@ public:
 	static void Complete(Target target)
 	{
 		FramebufferStatus status = Status(target);
-		if(OGLPLUS_IS_ERROR(status != FramebufferStatus::Complete))
+		if(status != FramebufferStatus::Complete)
+		{
 			HandleIncompleteError(target, status);
+		}
 	}
 
 	/// Attach a @p renderbuffer to the @p attachment point of @p target
@@ -337,21 +258,21 @@ public:
 	static void AttachRenderbuffer(
 		Target target,
 		Property::Attachment attachment,
-		const RenderbufferOps& renderbuffer
+		RenderbufferName renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
 			GLenum(target),
 			GLenum(attachment),
 			GL_RENDERBUFFER,
-			FriendOf<RenderbufferOps>::GetName(renderbuffer)
+			GetGLName(renderbuffer)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferRenderbuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectPairError,
+			Subject(renderbuffer).
+			ObjectBinding(target)
+		);
 	}
 
 	/// Attach a @p renderbuffer to the color @p attachment_no of @p target
@@ -370,21 +291,21 @@ public:
 	static void AttachColorRenderbuffer(
 		Target target,
 		FramebufferColorAttachmentNumber attachment_no,
-		const RenderbufferOps& renderbuffer
+		RenderbufferName renderbuffer
 	)
 	{
 		OGLPLUS_GLFUNC(FramebufferRenderbuffer)(
 			GLenum(target),
 			GL_COLOR_ATTACHMENT0 + GLuint(attachment_no),
 			GL_RENDERBUFFER,
-			FriendOf<RenderbufferOps>::GetName(renderbuffer)
+			GetGLName(renderbuffer)
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferRenderbuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectPairError,
+			Subject(renderbuffer).
+			ObjectBinding(target)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
@@ -405,22 +326,23 @@ public:
 	static void AttachTexture(
 		Target target,
 		Property::Attachment attachment,
-		const TextureOps& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
 		OGLPLUS_GLFUNC(FramebufferTexture)(
 			GLenum(target),
 			GLenum(attachment),
-			FriendOf<TextureOps>::GetName(texture),
+			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 
 	/// Attach a @p texture to the color @p attachment point of @p target
@@ -439,22 +361,23 @@ public:
 	static void AttachColorTexture(
 		Target target,
 		FramebufferColorAttachmentNumber attachment_no,
-		const TextureOps& texture,
+		TextureName texture,
 		GLint level
 	)
 	{
 		OGLPLUS_GLFUNC(FramebufferTexture)(
 			GLenum(target),
 			GL_COLOR_ATTACHMENT0 + GLenum(attachment_no),
-			FriendOf<TextureOps>::GetName(texture),
+			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 #endif
 
@@ -475,8 +398,8 @@ public:
 	static void AttachTexture1D(
 		Target target,
 		Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps& texture,
+		TextureTarget textarget,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -484,15 +407,16 @@ public:
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<TextureOps>::GetName(texture),
+			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture1D,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 #endif
 
@@ -512,8 +436,8 @@ public:
 	static void AttachTexture2D(
 		Target target,
 		Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps& texture,
+		TextureTarget textarget,
+		TextureName texture,
 		GLint level
 	)
 	{
@@ -521,15 +445,16 @@ public:
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<TextureOps>::GetName(texture),
+			GetGLName(texture),
 			level
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture2D,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -549,8 +474,8 @@ public:
 	static void AttachTexture3D(
 		Target target,
 		Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps& texture,
+		TextureTarget textarget,
+		TextureName texture,
 		GLint level,
 		GLint layer
 	)
@@ -559,16 +484,17 @@ public:
 			GLenum(target),
 			GLenum(attachment),
 			GLenum(textarget),
-			FriendOf<TextureOps>::GetName(texture),
+			GetGLName(texture),
 			level,
 			layer
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTexture3D,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 #endif
 
@@ -588,7 +514,7 @@ public:
 	static void AttachTextureLayer(
 		Target target,
 		Property::Attachment attachment,
-		const TextureOps& texture,
+		TextureName texture,
 		GLint level,
 		GLint layer
 	)
@@ -596,16 +522,17 @@ public:
 		OGLPLUS_GLFUNC(FramebufferTextureLayer)(
 			GLenum(target),
 			GLenum(attachment),
-			FriendOf<TextureOps>::GetName(texture),
+			GetGLName(texture),
 			level,
 			layer
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			FramebufferTextureLayer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectPairError,
+			Subject(texture).
+			ObjectBinding(target).
+			Index(level)
+		);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_invalidate_subdata
@@ -625,12 +552,11 @@ public:
 			buffers.Count(),
 			buffers.Values()
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			InvalidateFramebuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Invalidates the specified attachments or buffers of the Framebuffer
@@ -639,7 +565,6 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{InvalidateFramebuffer}
 	 */
-	template <typename N>
 	static void Invalidate(
 		Target target,
 		GLsizei count,
@@ -676,12 +601,11 @@ public:
 			width,
 			height
 		);
-		OGLPLUS_CHECK(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_CHECK(
 			InvalidateSubFramebuffer,
-			Framebuffer,
-			EnumValueName(target),
-			_binding(target)
-		));
+			ObjectError,
+			ObjectBinding(target)
+		);
 	}
 
 	/// Invalidates parts of attachments or buffers of the Framebuffer
@@ -711,6 +635,10 @@ public:
 	}
 #endif
 };
+
+/// Framebuffer operations with explicit selector
+typedef ObjectOps<tag::ExplicitSel, tag::Framebuffer>
+	FramebufferOps;
 
 /// Helper class used with syntax-sugar operators
 struct FramebufferComplete { };
@@ -760,7 +688,7 @@ inline FramebufferTarget operator << (
 // AttachTexture
 inline FramebufferTarget operator << (
 	FramebufferTargetAndAttch taa,
-	const TextureOps& tex
+	TextureName tex
 )
 {
 	FramebufferOps::AttachTexture(
@@ -776,7 +704,7 @@ inline FramebufferTarget operator << (
 // AttachRenderbuffer
 inline FramebufferTarget operator << (
 	FramebufferTargetAndAttch taa,
-	const RenderbufferOps& rbo
+	RenderbufferName rbo
 )
 {
 	FramebufferOps::AttachRenderbuffer(
@@ -797,17 +725,27 @@ inline FramebufferTarget operator << (
 	return target;
 }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// An @ref oglplus_object encapsulating the OpenGL framebuffer functionality
+/// An @ref oglplus_object encapsulating the default framebuffer functionality
 /**
  *  @ingroup oglplus_objects
  */
-class Framebuffer
- : public FramebufferOps
-{ };
-#else
+typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::Framebuffer>>
+	DefaultFramebuffer;
+
+inline FramebufferTarget operator << (
+	DefaultFramebuffer dfb,
+	FramebufferTarget target
+)
+{
+	dfb.Bind(target);
+	return target;
+}
+
+/// An @ref oglplus_object encapsulating the framebuffer object functionality
+/**
+ *  @ingroup oglplus_objects
+ */
 typedef Object<FramebufferOps> Framebuffer;
-#endif
 
 } // namespace oglplus
 

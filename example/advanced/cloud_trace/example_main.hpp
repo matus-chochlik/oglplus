@@ -41,9 +41,9 @@ inline void example_print_error_common(
 	errstr << "]" << std::endl;
 
 	bool nl = false;
-	if(std::strlen(error.ClassName()))
+	if(std::strlen(error.ObjectTypeName()))
 	{
-		errstr << error.ClassName();
+		errstr << error.ObjectTypeName();
 		nl |= true;
 	}
 	if(!error.ObjectDescription().empty())

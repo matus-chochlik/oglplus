@@ -17,12 +17,12 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/framebuffer_dsa.hpp>
-#include <oglplus/renderbuffer_dsa.hpp>
-#include <oglplus/buffer_dsa.hpp>
-#include <oglplus/texture_dsa.hpp>
-#include <oglplus/vertex_array_dsa.hpp>
-#include <oglplus/vertex_attrib_dsa.hpp>
+#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/renderbuffer.hpp>
+#include <oglplus/dsa/buffer.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/vertex_array.hpp>
+#include <oglplus/dsa/vertex_attrib.hpp>
 
 #include <oglplus/shapes/screen.hpp>
 #include <oglplus/shapes/obj_mesh.hpp>
@@ -50,7 +50,8 @@ public:
 	NoiseTexture(GLuint unit)
 	 : tex_unit(unit)
 	{
-		this->Bind(tex_unit, TextureTarget::_2D);
+		this->target = TextureTarget::_2D;
+		this->BindMulti(tex_unit);
 		this->Image2D(images::RandomRGBUByte(256, 256));
 		this->MinFilter(TextureMinFilter::Linear);
 		this->MagFilter(TextureMagFilter::Linear);
@@ -68,7 +69,8 @@ public:
 	CloudTexture(GLuint unit)
 	 : tex_unit(unit)
 	{
-		this->Bind(tex_unit, TextureTarget::_2D);
+		this->target = TextureTarget::_2D;
+		this->BindMulti(tex_unit);
 		this->Image2D(
 			images::Cloud2D(
 				images::Cloud(
@@ -807,7 +809,7 @@ public:
 
 		gl.Viewport(width, height);
 
-		geom_fbo.Bind();
+		geom_fbo.Bind(FramebufferTarget::Draw);
 
 		gl.DepthMask(true);
 		gl.Clear().ColorBuffer().DepthBuffer();
@@ -817,7 +819,7 @@ public:
 
 		steam.Update(time_diff, frame_no);
 
-		volm_fbo.Bind();
+		volm_fbo.Bind(FramebufferTarget::Draw);
 
 		gl.DepthMask(false);
 		gl.Clear().ColorBuffer();
@@ -832,7 +834,7 @@ public:
 			frame_no
 		);
 
-		DefaultFramebuffer::Bind(FramebufferTarget::Draw);
+		DefaultFramebuffer().Bind(FramebufferTarget::Draw);
 		gl.Disable(Capability::DepthTest);
 		gl.Disable(Capability::Blend);
 

@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/buffer_select_bit.hpp>
 #include <oglplus/color_buffer.hpp>
 #include <oglplus/bitfield.hpp>
@@ -146,7 +145,7 @@ public:
 		if(_bits)
 		{
 			OGLPLUS_GLFUNC(Clear)(_bits);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Clear));
+			OGLPLUS_VERIFY_SIMPLE(Clear);
 		}
 	}
 
@@ -195,7 +194,7 @@ public:
 	static void ClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
 	{
 		OGLPLUS_GLFUNC(ClearColor)(r, g, b, a);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearColor));
+		OGLPLUS_VERIFY_SIMPLE(ClearColor);
 	}
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
@@ -209,13 +208,13 @@ public:
 	static void ClearDepth(GLclampd d)
 	{
 		OGLPLUS_GLFUNC(ClearDepth)(d);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearDepth));
+		OGLPLUS_VERIFY_SIMPLE(ClearDepth);
 	}
 #else
 	static void ClearDepth(GLfloat d)
 	{
 		OGLPLUS_GLFUNC(ClearDepthf)(d);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearDepthf));
+		OGLPLUS_VERIFY_SIMPLE(ClearDepthf);
 	}
 #endif
 
@@ -229,7 +228,7 @@ public:
 	static void ClearStencil(GLint s)
 	{
 		OGLPLUS_GLFUNC(ClearStencil)(s);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClearStencil));
+		OGLPLUS_VERIFY_SIMPLE(ClearStencil);
 	}
 
 	/// Clears buffers specified by calling functions of the returned object
@@ -285,7 +284,7 @@ public:
 	static void Clear(Bitfield<oglplus::ClearBit> bits)
 	{
 		OGLPLUS_GLFUNC(Clear)(GLbitfield(bits));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Clear));
+		OGLPLUS_VERIFY_SIMPLE(Clear);
 	}
 
 
@@ -309,7 +308,11 @@ public:
 			draw_buffer,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferiv));
+		OGLPLUS_CHECK(
+			ClearBufferiv,
+			Error,
+			Index(draw_buffer)
+		);
 	}
 
 	/// Clears the specified color draw buffer
@@ -332,7 +335,12 @@ public:
 			draw_buffer,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferiv));
+		OGLPLUS_CHECK(
+			ClearBufferiv,
+			Error,
+			EnumParam(buffer).
+			Index(draw_buffer)
+		);
 	}
 
 	/// Clears the specified color draw buffer
@@ -355,7 +363,11 @@ public:
 			draw_buffer,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferuiv));
+		OGLPLUS_CHECK(
+			ClearBufferuiv,
+			Error,
+			Index(draw_buffer)
+		);
 	}
 
 	/// Clears the specified color draw buffer
@@ -378,7 +390,12 @@ public:
 			draw_buffer,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferuiv));
+		OGLPLUS_CHECK(
+			ClearBufferuiv,
+			Error,
+			EnumParam(buffer).
+			Index(draw_buffer)
+		);
 	}
 
 	/// Clears the specified color draw buffer
@@ -401,7 +418,11 @@ public:
 			draw_buffer,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferfv));
+		OGLPLUS_CHECK(
+			ClearBufferfv,
+			Error,
+			Index(draw_buffer)
+		);
 	}
 
 	/// Clears the specified color draw buffer
@@ -424,7 +445,12 @@ public:
 			draw_buffer,
 			value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferfv));
+		OGLPLUS_CHECK(
+			ClearBufferfv,
+			Error,
+			EnumParam(buffer).
+			Index(draw_buffer)
+		);
 	}
 
 	/// Clears the depth buffer
@@ -440,7 +466,7 @@ public:
 	static void ClearDepthBuffer(GLfloat value)
 	{
 		OGLPLUS_GLFUNC(ClearBufferfv)(GL_DEPTH, 0, &value);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferfv));
+		OGLPLUS_CHECK_SIMPLE(ClearBufferfv);
 	}
 
 	/// Clears the stencil buffer
@@ -456,7 +482,7 @@ public:
 	static void ClearStencilBuffer(GLint value)
 	{
 		OGLPLUS_GLFUNC(ClearBufferiv)(GL_STENCIL, 0, &value);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferiv));
+		OGLPLUS_CHECK_SIMPLE(ClearBufferiv);
 	}
 
 	/// Clears the depth and the stencil buffer
@@ -477,7 +503,7 @@ public:
 			depth_value,
 			stencil_value
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(ClearBufferfi));
+		OGLPLUS_CHECK_SIMPLE(ClearBufferfi);
 	}
 
 	/// Returns the color value used for clearing of the color buffer
@@ -492,7 +518,7 @@ public:
 	{
 		oglplus::context::RGBAValue result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_COLOR_CLEAR_VALUE, result._v);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -508,7 +534,7 @@ public:
 	{
 		GLfloat result;
 		OGLPLUS_GLFUNC(GetFloatv)(GL_DEPTH_CLEAR_VALUE, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetFloatv));
+		OGLPLUS_VERIFY_SIMPLE(GetFloatv);
 		return result;
 	}
 
@@ -524,7 +550,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_STENCIL_CLEAR_VALUE, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return result;
 	}
 };

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{024_extruded_torus}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -31,38 +31,10 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	VertexShader vs;
-	GeometryShader gs;
-	FragmentShader face_fs, frame_fs;
-	Program transf_prog, face_prog, frame_prog;
-	ProgramPipeline face_pp, frame_pp;
-
-	// Uniforms
-	LazyProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyProgramUniform<GLfloat> transf_time;
-
-	// A vertex array object for the rendered torus
-	VertexArray torus;
-
-	// VBOs for the torus's vertices, normals and st coordinates
-	Buffer verts, normals, texcoords;
-public:
-	TorusExample(void)
-	 : make_torus(1.0, 0.5, 18, 36)
-	 , torus_instr(make_torus.Instructions())
-	 , torus_indices(make_torus.Indices())
-	 , vs(ObjectDesc("Vertex"))
-	 , gs(ObjectDesc("Geometry"))
-	 , face_fs(ObjectDesc("Face fragment"))
-	 , frame_fs(ObjectDesc("Frame fragment"))
-	 , transf_prog(ObjectDesc("Transformation"))
-	 , face_prog(ObjectDesc("Face"))
-	 , frame_prog(ObjectDesc("Frame"))
-	 , projection_matrix(transf_prog, "ProjectionMatrix")
-	 , camera_matrix(transf_prog, "CameraMatrix")
-	 , model_matrix(transf_prog, "ModelMatrix")
-	 , transf_time(transf_prog, "Time")
+	Program transf_prog;
+	static Program make_transf_prog(void)
 	{
+		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ModelMatrix;"
@@ -83,6 +55,7 @@ public:
 		);
 		vs.Compile();
 
+		GeometryShader gs;
 		gs.Source(
 			"#version 330\n"
 			"layout(triangles) in;"
@@ -169,49 +142,22 @@ public:
 		);
 		gs.Compile();
 
-		transf_prog.AttachShader(vs);
-		transf_prog.AttachShader(gs);
-		transf_prog.MakeSeparable();
-		transf_prog.Link();
-		transf_prog.Use();
+		Program prog;
+		prog.AttachShader(vs);
+		prog.AttachShader(gs);
+		prog.MakeSeparable();
+		prog.Link();
 
-		ProgramUniform<Vec3f>(transf_prog, "LightPos").Set(4, 4, -8);
+		ProgramUniform<Vec3f>(prog, "LightPos").Set(4, 4, -8);
 
-		torus.Bind();
-		verts.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_torus.Positions(data);
-			Buffer::Data(Buffer::Target::Array, data);
+		return prog;
+	}
 
-			VertexAttribArray attr(transf_prog, "Position");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
-
-		normals.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_torus.Normals(data);
-			Buffer::Data(Buffer::Target::Array, data);
-
-			VertexAttribArray attr(transf_prog, "Normal");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
-
-		texcoords.Bind(Buffer::Target::Array);
-		{
-			std::vector<GLfloat> data;
-			GLuint n_per_vertex = make_torus.TexCoordinates(data);
-			Buffer::Data(Buffer::Target::Array, data);
-
-			VertexAttribArray attr(transf_prog, "TexCoord");
-			attr.Setup<GLfloat>(n_per_vertex);
-			attr.Enable();
-		}
-
-		face_fs.Source(
+	Program face_prog;
+	static Program make_face_prog(void)
+	{
+		FragmentShader fs;
+		fs.Source(
 			"#version 330\n"
 			"in vec3 geomNormal;"
 			"in vec3 geomLight;"
@@ -241,22 +187,24 @@ public:
 			"	fragColor = vec4(color, 1.0);"
 			"}"
 		);
-		face_fs.Compile();
+		fs.Compile();
 
-		face_prog.AttachShader(face_fs);
-		face_prog.MakeSeparable();
-		face_prog.Link();
+		Program prog;
+		prog.AttachShader(fs);
+		prog.MakeSeparable();
+		prog.Link();
 
-		ProgramUniform<Vec3f>(face_prog, "TopColor").Set(0.2f, 0.2f, 0.2f);
-		ProgramUniform<Vec3f>(face_prog, "SideColor").Set(0.9f, 0.9f, 0.2f);
+		ProgramUniform<Vec3f>(prog, "TopColor").Set(0.2f, 0.2f, 0.2f);
+		ProgramUniform<Vec3f>(prog, "SideColor").Set(0.9f, 0.9f, 0.2f);
 
-		face_pp.Bind();
-		face_prog.Use();
-		face_pp.UseStages(transf_prog).Vertex().Geometry();
-		face_pp.UseStages(face_prog).Fragment();
+		return prog;
+	}
 
-
-		frame_fs.Source(
+	Program frame_prog;
+	static Program make_frame_prog(void)
+	{
+		FragmentShader fs;
+		fs.Source(
 			"#version 330\n"
 			"out vec4 fragColor;"
 			"void main(void)"
@@ -264,11 +212,80 @@ public:
 			"	fragColor = vec4(0.2, 0.1, 0.0, 1.0);"
 			"}"
 		);
-		frame_fs.Compile();
+		fs.Compile();
 
-		frame_prog.AttachShader(frame_fs);
-		frame_prog.MakeSeparable();
-		frame_prog.Link();
+		Program prog;
+		prog.AttachShader(fs);
+		prog.MakeSeparable();
+		prog.Link();
+
+		return prog;
+	}
+
+	ProgramPipeline face_pp, frame_pp;
+
+	// Uniforms
+	ProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	ProgramUniform<GLfloat> transf_time;
+
+	// A vertex array object for the rendered torus
+	VertexArray torus;
+
+	// VBOs for the torus's vertices, normals and st coordinates
+	Buffer verts, normals, texcoords;
+public:
+	TorusExample(void)
+	 : make_torus(1.0, 0.5, 18, 36)
+	 , torus_instr(make_torus.Instructions())
+	 , torus_indices(make_torus.Indices())
+	 , transf_prog(make_transf_prog())
+	 , face_prog(make_face_prog())
+	 , frame_prog(make_frame_prog())
+	 , projection_matrix(transf_prog, "ProjectionMatrix")
+	 , camera_matrix(transf_prog, "CameraMatrix")
+	 , model_matrix(transf_prog, "ModelMatrix")
+	 , transf_time(transf_prog, "Time")
+	{
+		transf_prog.Use();
+		torus.Bind();
+		verts.Bind(Buffer::Target::Array);
+		{
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = make_torus.Positions(data);
+			Buffer::Data(Buffer::Target::Array, data);
+
+			VertexArrayAttrib attr(transf_prog, "Position");
+			attr.Setup<GLfloat>(n_per_vertex);
+			attr.Enable();
+		}
+
+		normals.Bind(Buffer::Target::Array);
+		{
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = make_torus.Normals(data);
+			Buffer::Data(Buffer::Target::Array, data);
+
+			VertexArrayAttrib attr(transf_prog, "Normal");
+			attr.Setup<GLfloat>(n_per_vertex);
+			attr.Enable();
+		}
+
+		texcoords.Bind(Buffer::Target::Array);
+		{
+			std::vector<GLfloat> data;
+			GLuint n_per_vertex = make_torus.TexCoordinates(data);
+			Buffer::Data(Buffer::Target::Array, data);
+
+			VertexArrayAttrib attr(transf_prog, "TexCoord");
+			attr.Setup<GLfloat>(n_per_vertex);
+			attr.Enable();
+		}
+
+		face_pp.Bind();
+		face_prog.Use();
+		face_pp.UseStages(transf_prog).Vertex().Geometry();
+		face_pp.UseStages(face_prog).Fragment();
+
 
 		frame_pp.Bind();
 		frame_prog.Use();

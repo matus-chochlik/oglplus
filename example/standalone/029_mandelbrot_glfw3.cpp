@@ -94,7 +94,7 @@ int main(void)
 	{
 		std::cerr << "Program build error (in " <<
 			pbe.GLSymbol() << ", " <<
-			pbe.ClassName() << ": '" <<
+			pbe.ObjectTypeName() << ": '" <<
 			pbe.ObjectDescription() << "'): " <<
 			pbe.what() <<
 			" [" << pbe.File() << ":" << pbe.Line() << "] ";
@@ -107,7 +107,7 @@ int main(void)
 	{
 		std::cerr <<
 			"Error (in " << err.GLSymbol() << ", " <<
-			err.ClassName() << ": '" <<
+			err.ObjectTypeName() << ": '" <<
 			err.ObjectDescription() << "'): " <<
 			err.what() <<
 			" [" << err.File() << ":" << err.Line() << "] ";

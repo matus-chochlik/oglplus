@@ -34,17 +34,10 @@ class RippleTexProg
  : public Program
 {
 private:
-	Program& prog(void) { return *this; }
-public:
-	LazyProgramUniformSampler tex_1, tex_2;
-	LazyProgramUniform<Vector<GLint,2>> new_drop;
-
-	RippleTexProg(GLuint ripple_tex_size)
-	 : tex_1(prog(), "Tex1")
-	 , tex_2(prog(), "Tex2")
-	 , new_drop(prog(), "NewDrop")
+	static Program make(void)
 	{
-		AttachShader(VertexShader(
+		Program prog;
+		prog.AttachShader(VertexShader(
 			ObjectDesc("Ripple texture vertex shader"),
 			StrLit(
 				"#version 330\n"
@@ -55,7 +48,7 @@ public:
 			)
 		));
 
-		AttachShader(GeometryShader(
+		prog.AttachShader(GeometryShader(
 			ObjectDesc("Ripple texture geometry shader"),
 			StrLit(
 				"#version 330\n"
@@ -85,7 +78,7 @@ public:
 			)
 		));
 
-		AttachShader(FragmentShader(
+		prog.AttachShader(FragmentShader(
 			ObjectDesc("Ripple texture fragment shader"),
 			StrLit(
 				"#version 330\n"
@@ -144,8 +137,24 @@ public:
 			)
 		));
 
-		Link();
-		ProgramUniform<GLint>(prog(), "TexSize").Set(ripple_tex_size);
+		prog.Link();
+		prog.Use();
+
+		return prog;
+	}
+
+	Program& self(void) { return *this; }
+public:
+	ProgramUniformSampler tex_1, tex_2;
+	ProgramUniform<Vector<GLint,2>> new_drop;
+
+	RippleTexProg(GLuint ripple_tex_size)
+	 : Program(make())
+	 , tex_1(self(), "Tex1")
+	 , tex_2(self(), "Tex2")
+	 , new_drop(self(), "NewDrop")
+	{
+		ProgramUniform<GLint>(self(), "TexSize").Set(ripple_tex_size);
 	}
 };
 
@@ -208,7 +217,7 @@ public:
 		return first_tex_unit + (curr + 1) % nhm;
 	}
 
-	Managed<Texture> CurrentHeightMap(void) const
+	Reference<Texture> CurrentHeightMap(void) const
 	{
 		return height_maps[(curr + 2) % nhm];
 	}
@@ -218,7 +227,7 @@ public:
 		return first_tex_unit + nhm;
 	}
 
-	Managed<Texture> BumpMap(void) const
+	Reference<Texture> BumpMap(void) const
 	{
 		return bump_map;
 	}
@@ -328,7 +337,7 @@ public:
 				vbos[va].Bind(Buffer::Target::Array);
 				GLuint npv = getter(make_shape, data);
 				Buffer::Data(Buffer::Target::Array, data);
-				VertexAttribArray attr(prog, name);
+				VertexArrayAttrib attr(prog, name);
 				attr.Setup<GLfloat>(npv);
 				attr.Enable();
 			}
@@ -352,21 +361,10 @@ class WaterProg
  : public Program
 {
 private:
-	Program& prog(void){return *this;}
-public:
-	LazyProgramUniform<Mat4f> projection_matrix, camera_matrix;
-	LazyProgramUniform<Vec3f> camera_position, light_position;
-	LazyProgramUniformSampler ripple_tex, env_tex;
-
-	WaterProg(void)
-	 : projection_matrix(prog(), "ProjectionMatrix")
-	 , camera_matrix(prog(), "CameraMatrix")
-	 , camera_position(prog(), "CameraPosition")
-	 , light_position(prog(), "LightPosition")
-	 , ripple_tex(prog(), "RippleTex")
-	 , env_tex(prog(), "EnvTex")
+	static Program make(void)
 	{
-		AttachShader(VertexShader(
+		Program prog;
+		prog.AttachShader(VertexShader(
 			ObjectDesc("Water vertex shader"),
 			StrLit(
 				"#version 330\n"
@@ -397,7 +395,7 @@ public:
 			)
 		));
 
-		AttachShader(FragmentShader(
+		prog.AttachShader(FragmentShader(
 			ObjectDesc("Water fragment shader"),
 			StrLit(
 				"#version 330\n"
@@ -459,8 +457,26 @@ public:
 				"}"
 			)
 		));
-		Link();
+		prog.Link();
+		prog.Use();
+		return prog;
 	}
+
+	Program& self(void){return *this;}
+public:
+	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
+	ProgramUniform<Vec3f> camera_position, light_position;
+	ProgramUniformSampler ripple_tex, env_tex;
+
+	WaterProg(void)
+	 : Program(make())
+	 , projection_matrix(self(), "ProjectionMatrix")
+	 , camera_matrix(self(), "CameraMatrix")
+	 , camera_position(self(), "CameraPosition")
+	 , light_position(self(), "LightPosition")
+	 , ripple_tex(self(), "RippleTex")
+	 , env_tex(self(), "EnvTex")
+	{ }
 };
 
 class EnvMap
@@ -548,7 +564,7 @@ public:
 	{
 		ripples.Update();
 
-		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 		gl.DrawBuffer(ColorBuffer::BackLeft);
 		gl.Viewport(width, height);
 		gl.Clear().ColorBuffer().DepthBuffer();

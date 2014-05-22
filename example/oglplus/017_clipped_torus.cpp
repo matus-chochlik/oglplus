@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{017_clipped_torus}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -35,27 +35,9 @@ private:
 
 	// Program
 	Program prog;
-
-	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-
-	// A vertex array object for the rendered torus
-	VertexArray torus;
-
-	// VBOs for the torus's vertices and tex-coordinates
-	Buffer verts;
-	Buffer texcoords;
-public:
-	TorusExample(void)
-	 : make_torus(1.0, 0.5, 36, 24)
-	 , torus_instr(make_torus.Instructions())
-	 , torus_indices(make_torus.Indices())
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , model_matrix(prog, "ModelMatrix")
+	static Program make_prog(void)
 	{
 		VertexShader vs;
-		// Set the vertex shader source
 		vs.Source(StrLit(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
@@ -76,11 +58,9 @@ public:
 			"		gl_Position;"
 			"}"
 		));
-		// compile it
 		vs.Compile();
 
 		FragmentShader fs;
-		// set the fragment shader source
 		fs.Source(StrLit(
 			"#version 330\n"
 			"in vec2 vertTexCoord;"
@@ -96,16 +76,36 @@ public:
 			"	else fragColor = vec4(0+i/2, 0+i/2, 0+i/2, 1.0);"
 			"}"
 		));
-		// compile it
 		fs.Compile();
 
-		// attach the shaders to the program
+		Program prog;
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
-		// link and use it
 		prog.Link();
 		prog.Use();
 
+		return prog;
+	}
+
+	// Uniforms
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+
+	// A vertex array object for the rendered torus
+	VertexArray torus;
+
+	// VBOs for the torus's vertices and tex-coordinates
+	Buffer verts;
+	Buffer texcoords;
+public:
+	TorusExample(void)
+	 : make_torus(1.0, 0.5, 36, 24)
+	 , torus_instr(make_torus.Instructions())
+	 , torus_indices(make_torus.Indices())
+	 , prog(make_prog())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	{
 		Uniform<Vec4f>(prog, "ClipPlane").Set(0.0, 0.0, 1.0, 0.0);
 
 		// bind the VAO for the torus
@@ -119,7 +119,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -132,7 +132,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "TexCoord");
+			VertexArrayAttrib attr(prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

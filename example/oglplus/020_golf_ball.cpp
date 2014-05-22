@@ -164,7 +164,7 @@ public:
 			make_hole_data(data, hole_count);
 			Buffer::Data(Buffer::Target::TransformFeedback, data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog_tfb, "Hole");
+			VertexArrayAttrib attr(prog_tfb, "Hole");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -252,7 +252,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -265,7 +265,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Normal");
+			VertexArrayAttrib attr(prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -332,8 +332,8 @@ public:
 		// use the values stored in the buffer as the input
 		// for the fragment shader, that will use them to
 		// calculate the bump map
-		Uniform<GLfloat>(prog, "TransfHole").SetVectors<3>(
-			transf_hole_verts_map.Count(),
+		Uniform<Vec3f>(prog, "TransfHole").SetValues(
+			transf_hole_verts_map.Count()*3,
 			transf_hole_verts_map.Data()
 		);
 		// bind the VAO for the spere and render it

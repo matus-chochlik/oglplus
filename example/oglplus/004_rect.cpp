@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{004_rect}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -34,17 +34,10 @@ private:
 
 	// VBO for the rectangle's vertices
 	Buffer verts;
-
-	// Variables referencing the program's uniforms
-	LazyUniform<Vec2f> red_center, green_center, blue_center;
 public:
 	RectangleExample(void)
 	 : vs(ShaderType::Vertex)
 	 , fs(ShaderType::Fragment)
-	 , prog()
-	 , red_center(prog, "RedCenter")
-	 , green_center(prog, "GreenCenter")
-	 , blue_center(prog, "BlueCenter")
 	{
 		// Set the vertex shader source
 		vs.Source(StrLit(" \
@@ -106,13 +99,14 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 8, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "Position");
+		VertexArrayAttrib vert_attr(prog, "Position");
 		vert_attr.Setup<GLfloat>(2);
 		vert_attr.Enable();
 		//
-		red_center.Set(-0.141f, 0.141f);
-		green_center.Set(0.141f, 0.141f);
-		blue_center.Set(0.0f, -0.2f);
+		// Variables referencing the program's uniforms
+		Uniform<Vec2f>(prog,   "RedCenter").Set(Vec2f(-0.141f, 0.141f));
+		Uniform<Vec2f>(prog, "GreenCenter").Set(Vec2f(0.141f, 0.141f));
+		Uniform<Vec2f>(prog,  "BlueCenter").Set(Vec2f(0.0f, -0.2f));
 
 		gl.Disable(Capability::DepthTest);
 	}

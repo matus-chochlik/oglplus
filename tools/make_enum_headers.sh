@@ -324,7 +324,7 @@ git add ${OutputPath}
 )} # MakeEnumValueRange
 
 
-# Creates the ${LibName}/auxiliary/enum_shorteners.ipp file
+# Creates the ${LibName}/detail/enum_shorteners.ipp file
 function MakeEnumShorteners()
 {
 LibPrefixUC="${1}"
@@ -358,7 +358,7 @@ done
 
 (
 	# first the real-deal
-	OutputFile="${LibNameLC}/auxiliary/enum_shorteners.ipp"
+	OutputFile="${LibNameLC}/detail/enum_shorteners.ipp"
 	OutputPath="${RootDir}/implement/${OutputFile}"
 
 	mkdir -p $(dirname ${OutputPath})
@@ -389,7 +389,7 @@ done
 	git add ${OutputPath}
 
 	# now the documentation
-	OutputFile="${LibNameLC}/auxiliary/enum_shorteners_doc.ipp"
+	OutputFile="${LibNameLC}/detail/enum_shorteners_doc.ipp"
 	OutputPath="${RootDir}/doc/include/${OutputFile}"
 
 	mkdir -p $(dirname ${OutputPath})
@@ -543,7 +543,7 @@ function MakeGLSLtoCPPtypeHeader()
 LibPrefixUC="${1}"
 LibNameLC="${2}"
 InputFile="${RootDir}/source/enums/${LibNameLC}/sl_data_type.txt"
-OutputFile="${LibNameLC}/auxiliary/glsl_to_cpp.ipp"
+OutputFile="${LibNameLC}/detail/glsl_to_cpp.ipp"
 OutputPath="${RootDir}/implement/${OutputFile}"
 (
 	mkdir -p $(dirname ${OutputPath})

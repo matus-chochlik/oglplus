@@ -22,10 +22,10 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/buffer_dsa.hpp>
-#include <oglplus/texture_dsa.hpp>
-#include <oglplus/vertex_array_dsa.hpp>
-#include <oglplus/vertex_attrib_dsa.hpp>
+#include <oglplus/dsa/buffer.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/vertex_array.hpp>
+#include <oglplus/dsa/vertex_attrib.hpp>
 
 #include <oglplus/images/gradient.hpp>
 #include <oglplus/opt/resources.hpp>
@@ -266,7 +266,9 @@ public:
 		// Volume Tex
 		ProgramUniform<GLint>(prog, "VolumeTexSide").Set(cube_side);
 		ProgramUniformSampler(prog, "VolumeTex").Set(0);
-		volume_tex.Bind(0, Texture::Target::_3D);
+
+		volume_tex.target = Texture::Target::_3D;
+		volume_tex.BindMulti(0, Texture::Target::_3D);
 
 		std::ifstream image_file;
 		OpenResourceFile(image_file, "textures", "brain_scan_512", ".raw");
@@ -290,7 +292,8 @@ public:
 
 		// Palette
 		ProgramUniformSampler(prog, "Palette").Set(1);
-		palette.Bind(1, Texture::Target::_1D);
+		palette.target = Texture::Target::_1D;
+		palette.BindMulti(1, Texture::Target::_1D);
 		palette.Image1D(
 			images::LinearGradient(
 				256,

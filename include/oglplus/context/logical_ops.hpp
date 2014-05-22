@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/color_log_op.hpp>
 
 namespace oglplus {
@@ -37,7 +36,11 @@ public:
 	static void LogicOp(ColorLogicOperation op)
 	{
 		OGLPLUS_GLFUNC(LogicOp)(GLenum(op));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LogicOp));
+		OGLPLUS_VERIFY(
+			LogicOp,
+			Error,
+			EnumParam(op)
+		);
 	}
 
 	/// Returns the color logical operation
@@ -50,7 +53,7 @@ public:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_LOGIC_OP_MODE, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return ColorLogicOperation(result);
 	}
 #endif // GL_VERSION_3_0

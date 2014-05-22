@@ -297,7 +297,7 @@ wxGLContext& SpectraVisualisation::GLContext(void)
 	return gl_context;
 }
 
-oglplus::Managed<oglplus::Texture> SpectraVisualisation::SpectrumTex(void)
+oglplus::Reference<oglplus::Texture> SpectraVisualisation::SpectrumTex(void)
 {
 	return spectrum_tex;
 }

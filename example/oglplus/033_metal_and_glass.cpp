@@ -482,7 +482,7 @@ public:
 				// upload the data
 				Buffer::Data(Buffer::Target::Array, data);
 				// setup the vertex attribs array
-				VertexAttribArray attr(prog, name);
+				VertexArrayAttrib attr(prog, name);
 				attr.Setup<GLfloat>(n_per_vertex);
 				attr.Enable();
 			}
@@ -537,7 +537,7 @@ public:
 	 , torus(transf_prog, shapes::WickerTorus())
 	 , shadow_tex_side(1024)
 	{
-		Program::UseNone();
+		NoProgram().Use();
 
 		shadow_pp.Bind();
 		shadow_pp.UseStages(transf_prog).Vertex();
@@ -737,7 +737,7 @@ public:
 	)
 	{
 		// this is going into the on-screen framebuffer
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 
 		gl.ClearColor(0.6f, 0.6f, 0.5f, 0.0f);
 		gl.Viewport(width, height);

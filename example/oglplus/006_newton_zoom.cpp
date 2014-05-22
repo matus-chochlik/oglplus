@@ -33,10 +33,10 @@ private:
 	Buffer verts;
 
 	// Uniform referencing the "ZoomMatrix" variable of Program
-	LazyUniform<Mat2f> zoom_matrix;
+	Uniform<Mat2f> zoom_matrix;
 public:
 	RectangleExample(void)
-	 : zoom_matrix(prog, "ZoomMatrix")
+	 : zoom_matrix(prog)
 	{
 		// Vertex shader
 		VertexShader vs;
@@ -110,6 +110,8 @@ public:
 
 		// attach the shaders to the program, link and use it
 		prog.AttachShader(vs).AttachShader(fs).Link().Use();
+
+		zoom_matrix.BindTo("ZoomMatrix");
 
 		// bind the VAO for the rectangle
 		rectangle.Bind();

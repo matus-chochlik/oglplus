@@ -42,22 +42,9 @@ class MetalProgram
  : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
-
-	Shader vs, fs;
-public:
-	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
-	LazyProgramUniform<Vec3f> camera_position;
-	LazyProgramUniform<GLfloat> light_multiplier;
-
-	MetalProgram(void)
-	 : vs(se::Vertex(), ObjectDesc("Metal vertex"))
-	 , fs(se::Fragment(), ObjectDesc("Metal fragment"))
-	 , camera_matrix(prog(), "CameraMatrix")
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , camera_position(prog(), "CameraPosition")
-	 , light_multiplier(prog(), "LightMultiplier")
+	static Program make(void)
 	{
+		Shader vs(se::Vertex(), ObjectDesc("Metal vertex"));
 		vs.Source(StrLit("#version 330\n"
 			"uniform mat4 CameraMatrix, ProjectionMatrix;"
 			"uniform vec3 CameraPosition, LightPosition;"
@@ -82,8 +69,8 @@ public:
 			"}"
 		));
 		vs.Compile();
-		this->AttachShader(vs);
 
+		Shader fs(se::Fragment(), ObjectDesc("Metal fragment"));
 		fs.Source(StrLit("#version 330\n"
 			"const vec3 Color1 = vec3(0.5, 0.7, 0.6);"
 			"const vec3 Color2 = vec3(0.7, 0.9, 0.8);"
@@ -136,10 +123,28 @@ public:
 			"}"
 		));
 		fs.Compile();
-		this->AttachShader(fs);
 
-		this->Link();
+		Program prog;
+		prog.AttachShader(vs);
+		prog.AttachShader(fs);
+		prog.Link();
+
+		return prog;
 	}
+
+	const Program& self(void) const { return *this; }
+public:
+	ProgramUniform<Mat4f> camera_matrix, projection_matrix;
+	ProgramUniform<Vec3f> camera_position;
+	ProgramUniform<GLfloat> light_multiplier;
+
+	MetalProgram(void)
+	 : Program(make())
+	 , camera_matrix(self(), "CameraMatrix")
+	 , projection_matrix(self(), "ProjectionMatrix")
+	 , camera_position(self(), "CameraPosition")
+	 , light_multiplier(self(), "LightMultiplier")
+	{ }
 };
 
 class MetalFloor
@@ -184,16 +189,9 @@ class CameraDriveProgram
  : public Program
 {
 private:
-	const Program& prog(void) { return *this; }
-
-	Shader tfbs;
-public:
-	LazyProgramUniform<GLfloat> interval;
-
-	CameraDriveProgram(void)
-	 : tfbs(se::Vertex(), ObjectDesc("Camera drive"))
-	 , interval(prog(), "Interval")
+	static Program make(void)
 	{
+		Shader tfbs(se::Vertex(), ObjectDesc("Camera drive"));
 		tfbs.Source(StrLit(
 			"#version 330\n"
 
@@ -269,13 +267,26 @@ public:
 		));
 
 		tfbs.Compile();
-		this->AttachShader(tfbs);
+
+		Program prog;
+		prog.AttachShader(tfbs);
 
 		const GLchar* var_names[2] = {"tfbPosition", "tfbVelocity"};
-		this->TransformFeedbackVaryings(2, var_names, se::SeparateAttribs());
+		prog.TransformFeedbackVaryings(2, var_names, se::SeparateAttribs());
+		prog.Link();
 
-		this->Link();
+		return prog;
 	}
+
+	const Program& self(void) { return *this; }
+
+public:
+	ProgramUniform<GLfloat> interval;
+
+	CameraDriveProgram(void)
+	 : Program(make())
+	 , interval(self(), "Interval")
+	{ }
 };
 
 class ChasingCamera
@@ -334,7 +345,7 @@ public:
 
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
 
-		VertexAttribArray pos_vert_attr(cam_prog, "Position");
+		VertexArrayAttrib pos_vert_attr(cam_prog, "Position");
 		pos_vert_attr.Setup<Vec4f>();
 		pos_vert_attr.Enable();
 
@@ -347,7 +358,7 @@ public:
 
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
-		VertexAttribArray vel_vert_attr(cam_prog, "Velocity");
+		VertexArrayAttrib vel_vert_attr(cam_prog, "Velocity");
 		vel_vert_attr.Setup<Vec4f>();
 		vel_vert_attr.Enable();
 
@@ -408,20 +419,9 @@ class JellyPhysProgram
  : public Program
 {
 private:
-	const Program& prog(void) { return *this; }
-
-	Shader tfbs;
-public:
-	LazyProgramUniform<Vec3f> impulse_center;
-	LazyProgramUniform<GLfloat> impulse_strength, interval, mass;
-
-	JellyPhysProgram(void)
-	 : tfbs(se::Vertex(), ObjectDesc("Jelly physics"))
-	 , impulse_center(prog(), "ImpulseCenter")
-	 , impulse_strength(prog(), "ImpulseStrength")
-	 , interval(prog(), "Interval")
-	 , mass(prog(), "Mass")
+	static Program make(void)
 	{
+		Shader tfbs(se::Vertex(), ObjectDesc("Jelly physics"));
 		tfbs.Source(StrLit(
 			"#version 330\n"
 
@@ -572,37 +572,38 @@ public:
 			"}"
 		));
 		tfbs.Compile();
-		this->AttachShader(tfbs);
+
+		Program prog;
+		prog.AttachShader(tfbs);
 
 		const GLchar* var_names[2] = {"tfbPosition", "tfbVelocity"};
-		this->TransformFeedbackVaryings(2, var_names, se::SeparateAttribs());
+		prog.TransformFeedbackVaryings(2, var_names, se::SeparateAttribs());
 
-		this->Link();
+		prog.Link();
+		return prog;
 	}
+
+	const Program& self(void) { return *this; }
+public:
+	ProgramUniform<Vec3f> impulse_center;
+	ProgramUniform<GLfloat> impulse_strength, interval, mass;
+
+	JellyPhysProgram(void)
+	 : Program(make())
+	 , impulse_center(self(), "ImpulseCenter")
+	 , impulse_strength(self(), "ImpulseStrength")
+	 , interval(self(), "Interval")
+	 , mass(self(), "Mass")
+	{ }
 };
 
 class JellyDrawProgram
  : public Program
 {
 private:
-	const Program& prog(void) { return *this; }
-
-	Shader vs, gs, fs;
-public:
-	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
-	LazyProgramUniform<Vec3f> ambient_color, diffuse_color;
-	LazyProgramUniform<GLfloat> light_multiplier;
-
-	JellyDrawProgram(void)
-	 : vs(se::Vertex(), ObjectDesc("Draw vertex"))
-	 , gs(se::Geometry(), ObjectDesc("Draw geometry"))
-	 , fs(se::Fragment(), ObjectDesc("Draw fragment"))
-	 , camera_matrix(prog(), "CameraMatrix")
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , ambient_color(prog(), "AmbientColor")
-	 , diffuse_color(prog(), "DiffuseColor")
-	 , light_multiplier(prog(), "LightMultiplier")
+	static Program make(void)
 	{
+		Shader vs(se::Vertex(), ObjectDesc("Draw vertex"));
 		vs.Source(StrLit(
 			"#version 330\n"
 
@@ -619,8 +620,8 @@ public:
 			"}"
 		));
 		vs.Compile();
-		this->AttachShader(vs);
 
+		Shader gs(se::Geometry(), ObjectDesc("Draw geometry"));
 		gs.Source(StrLit(
 			"#version 330\n"
 			"layout(triangles_adjacency) in;"
@@ -672,8 +673,8 @@ public:
 			"}"
 		));
 		gs.Compile();
-		this->AttachShader(gs);
 
+		Shader fs(se::Fragment(), ObjectDesc("Draw fragment"));
 		fs.Source(StrLit(
 			"#version 330\n"
 
@@ -697,28 +698,39 @@ public:
 			"}"
 		));
 		fs.Compile();
-		this->AttachShader(fs);
 
-		this->Link();
+		Program prog;
+		prog.AttachShader(vs);
+		prog.AttachShader(gs);
+		prog.AttachShader(fs);
+		prog.Link();
+		return prog;
 	}
+
+	const Program& self(void) { return *this; }
+
+public:
+	ProgramUniform<Mat4f> camera_matrix, projection_matrix;
+	ProgramUniform<Vec3f> ambient_color, diffuse_color;
+	ProgramUniform<GLfloat> light_multiplier;
+
+	JellyDrawProgram(void)
+	 : Program(make())
+	 , camera_matrix(self(), "CameraMatrix")
+	 , projection_matrix(self(), "ProjectionMatrix")
+	 , ambient_color(self(), "AmbientColor")
+	 , diffuse_color(self(), "DiffuseColor")
+	 , light_multiplier(self(), "LightMultiplier")
+	{ }
 };
 
 class ShadowProgram
  : public Program
 {
 private:
-	const Program& prog(void) { return *this; }
-
-	Shader vs, gs;
-public:
-	LazyProgramUniform<Mat4f> camera_matrix, projection_matrix;
-
-	ShadowProgram(void)
-	 : vs(se::Vertex(), ObjectDesc("Shadow vertex"))
-	 , gs(se::Geometry(), ObjectDesc("Shadow geometry"))
-	 , camera_matrix(prog(), "CameraMatrix")
-	 , projection_matrix(prog(), "ProjectionMatrix")
+	static Program make(void)
 	{
+		Shader vs(se::Vertex(), ObjectDesc("Shadow vertex"));
 		vs.Source(StrLit(
 			"#version 330\n"
 
@@ -735,8 +747,8 @@ public:
 			"}"
 		));
 		vs.Compile();
-		this->AttachShader(vs);
 
+		Shader gs(se::Geometry(), ObjectDesc("Shadow geometry"));
 		gs.Source(StrLit(
 			"#version 330\n"
 			"layout(triangles_adjacency) in;"
@@ -808,10 +820,25 @@ public:
 			"}"
 		));
 		gs.Compile();
-		this->AttachShader(gs);
 
-		this->Link();
+		Program prog;
+		prog.AttachShader(vs);
+		prog.AttachShader(gs);
+
+		prog.Link();
+
+		return prog;
 	}
+
+	const Program& self(void) { return *this; }
+public:
+	ProgramUniform<Mat4f> camera_matrix, projection_matrix;
+
+	ShadowProgram(void)
+	 : Program(make())
+	 , camera_matrix(self(), "CameraMatrix")
+	 , projection_matrix(self(), "ProjectionMatrix")
+	{ }
 };
 
 // Wrapper around the data for rendering of the jelly cube
@@ -895,17 +922,17 @@ private:
 		tfb_positions.BindBase(se::TransformFeedback(), 0);
 
 		draw_vao.Bind();
-		VertexAttribArray draw_vert_attr(draw_prog, "Position");
+		VertexArrayAttrib draw_vert_attr(draw_prog, "Position");
 		draw_vert_attr.Setup<Vec4f>();
 		draw_vert_attr.Enable();
 
 		phys_vao.Bind();
-		VertexAttribArray phys_vert_attr(phys_prog, "Position");
+		VertexArrayAttrib phys_vert_attr(phys_prog, "Position");
 		phys_vert_attr.Setup<Vec4f>();
 		phys_vert_attr.Enable();
 
 		shadow_vao.Bind();
-		VertexAttribArray shadow_vert_attr(shadow_prog, "Position");
+		VertexArrayAttrib shadow_vert_attr(shadow_prog, "Position");
 		shadow_vert_attr.Setup<Vec4f>();
 		shadow_vert_attr.Enable();
 
@@ -943,7 +970,7 @@ private:
 		tfb_velocities.BindBase(se::TransformFeedback(), 1);
 
 		phys_vao.Bind();
-		VertexAttribArray vert_attr(phys_prog, "Velocity");
+		VertexArrayAttrib vert_attr(phys_prog, "Velocity");
 		vert_attr.Setup<Vec4f>();
 		vert_attr.Enable();
 	}

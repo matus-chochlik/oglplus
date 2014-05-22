@@ -341,10 +341,6 @@ void SpectraMainFrame::DoOpenDocument(wxCommandEvent&)
 			false
 		);
 	}
-	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe); }
-	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe); }
-	catch(oglplus::LimitError& le) { parent_app.HandleError(le); }
-	catch(oglplus::OutOfMemory& oom) { parent_app.HandleError(oom); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err); }
 	catch(const std::exception& se) { parent_app.HandleError(se); }
 }
@@ -375,10 +371,6 @@ void SpectraMainFrame::DoGenerateDocument(wxCommandEvent&)
 			false
 		);
 	}
-	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe); }
-	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe); }
-	catch(oglplus::LimitError& le) { parent_app.HandleError(le); }
-	catch(oglplus::OutOfMemory& oom) { parent_app.HandleError(oom); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err); }
 	catch(const std::exception& se) { parent_app.HandleError(se); }
 }

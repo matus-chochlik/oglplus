@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{023_reflected_cube}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -33,39 +33,11 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Programs
 	Program prog;
-
-	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-
-	// A vertex array object for the cube
-	VertexArray cube;
-	// A vertex array object for the reflective plane
-	VertexArray plane;
-
-	// VBOs for the cube's vertices and normals
-	Buffer cube_verts, cube_normals;
-	// VBOs for the plane's vertices and normals
-	Buffer plane_verts, plane_normals;
-public:
-	ReflectionExample(void)
-	 : make_cube(0.5,0.5,0.5, 0.1,0.1,0.1, 3,3,3)
-	 , cube_indices(make_cube.Indices())
-	 , cube_instr(make_cube.Instructions())
-	 , vs(ObjectDesc("Vertex"))
-	 , fs(ObjectDesc("Fragment"))
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , model_matrix(prog, "ModelMatrix")
+	static Program make_prog(void)
 	{
-		// Set the vertex shader source
+		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
 			"in vec4 Position;"
@@ -84,10 +56,9 @@ public:
 			"	gl_Position = ProjectionMatrix * CameraMatrix * gl_Position;"
 			"}"
 		);
-		// compile it
 		vs.Compile();
 
-		// set the fragment shader source
+		FragmentShader fs;
 		fs.Source(
 			"#version 330\n"
 			"in vec3 vertColor;"
@@ -102,14 +73,38 @@ public:
 			"	fragColor = vec4(vertColor*i, 1.0);"
 			"}"
 		);
-		// compile it
 		fs.Compile();
 
-		// attach the shaders to the program
+		Program prog;
 		prog.AttachShader(vs);
 		prog.AttachShader(fs);
-		// link it
 		prog.Link();
+
+		return prog;
+	}
+
+	// Uniforms
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+
+	// A vertex array object for the cube
+	VertexArray cube;
+	// A vertex array object for the reflective plane
+	VertexArray plane;
+
+	// VBOs for the cube's vertices and normals
+	Buffer cube_verts, cube_normals;
+	// VBOs for the plane's vertices and normals
+	Buffer plane_verts, plane_normals;
+public:
+	ReflectionExample(void)
+	 : make_cube(0.5,0.5,0.5, 0.1,0.1,0.1, 3,3,3)
+	 , cube_indices(make_cube.Indices())
+	 , cube_instr(make_cube.Instructions())
+	 , prog(make_prog())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	{
 		gl.Use(prog);
 
 		// bind the VAO for the cube
@@ -123,7 +118,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -136,7 +131,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the normals
-			VertexAttribArray attr(prog, "Normal");
+			VertexArrayAttrib attr(prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -157,7 +152,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog.Use();
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -175,7 +170,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the normals
 			prog.Use();
-			VertexAttribArray attr(prog, "Normal");
+			VertexArrayAttrib attr(prog, "Normal");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}

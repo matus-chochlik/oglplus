@@ -10,7 +10,7 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/angle.hpp>
+#include <oglplus/math/angle.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 #include <algorithm>

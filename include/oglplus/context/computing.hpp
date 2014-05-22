@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -43,7 +43,7 @@ public:
 			num_groups_y,
 			num_groups_z
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DispatchCompute));
+		OGLPLUS_CHECK_SIMPLE(DispatchCompute);
 	}
 
 	/// Launches indirectly several work groups
@@ -54,7 +54,7 @@ public:
 	static void DispatchComputeIndirect(GLintptr indirect)
 	{
 		OGLPLUS_GLFUNC(DispatchComputeIndirect)(indirect);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DispatchComputeIndirect));
+		OGLPLUS_CHECK_SIMPLE(DispatchComputeIndirect);
 	}
 #endif
 };

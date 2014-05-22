@@ -14,8 +14,6 @@
 #include <oglplus/shapes/obj_mesh.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 
-#include <oglplus/bound/texture.hpp>
-
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>
 
@@ -195,16 +193,19 @@ struct OGLOALExampleObjects
 	 , shape(load_objects())
 	 , vao(shape.VAOForProgram(prog))
 	{
-		oglplus::Texture::Active(0);
+		using namespace oglplus;
+
 		prog.Use();
-		oglplus::UniformSampler(prog, "RandTex").Set(0);
-		gl.Bound(oglplus::Texture::Target::_2D, rand_tex)
-			.MinFilter(oglplus::TextureMinFilter::LinearMipmapLinear)
-			.MagFilter(oglplus::TextureMagFilter::Linear)
-			.WrapS(oglplus::TextureWrap::Repeat)
-			.WrapT(oglplus::TextureWrap::Repeat)
-			.Image2D(oglplus::images::RandomRedUByte(2048, 2048))
-			.GenerateMipmap();
+		Uniform<GLint>(prog, "RandTex").Set(0);
+		Texture::Active(0);
+
+		rand_tex<< TextureTarget::_2D
+			<< TextureMinFilter::LinearMipmapLinear
+			<< TextureMagFilter::Linear
+			<< TextureWrap::Repeat
+			<< images::RandomRedUByte(2048, 2048)
+			<< TextureMipmap()
+		;
 	}
 };
 

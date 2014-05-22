@@ -51,6 +51,11 @@ private:
 	Program prog_norm;
 	Program prog_refl;
 
+	// Uniforms
+	ProgramUniform<Mat4f>
+		norm_projection_matrix, norm_camera_matrix, norm_model_matrix,
+		refl_projection_matrix, refl_camera_matrix, refl_model_matrix;
+
 	// A vertex array object for the torus
 	VertexArray torus;
 	// A vertex array object for the reflective plane
@@ -67,6 +72,12 @@ public:
 	 , vs_norm(ObjectDesc("Vertex-Normal"))
 	 , vs_refl(ObjectDesc("Vertex-Reflection"))
 	 , gs_refl(ObjectDesc("Geometry-Reflection"))
+	 , norm_projection_matrix(prog_norm)
+	 , norm_camera_matrix(prog_norm)
+	 , norm_model_matrix(prog_norm)
+	 , refl_projection_matrix(prog_refl)
+	 , refl_camera_matrix(prog_refl)
+	 , refl_model_matrix(prog_refl)
 	{
 		namespace se = oglplus::smart_enums;
 		// Set the normal object vertex shader source
@@ -182,12 +193,20 @@ public:
 		// link it
 		prog_norm.Link();
 
+		norm_projection_matrix.BindTo("ProjectionMatrix");
+		norm_camera_matrix.BindTo("CameraMatrix");
+		norm_model_matrix.BindTo("ModelMatrix");
+
 		// attach the shaders to the reflection rendering program
 		prog_refl.AttachShader(vs_refl);
 		prog_refl.AttachShader(gs_refl);
 		prog_refl.AttachShader(fs);
 		// link it
 		prog_refl.Link();
+
+		refl_projection_matrix.BindTo("ProjectionMatrix");
+		refl_camera_matrix.BindTo("CameraMatrix");
+		refl_model_matrix.BindTo("ModelMatrix");
 
 		// bind the VAO for the torus
 		torus.Bind();
@@ -201,13 +220,13 @@ public:
 			Buffer::Data(se::Array(), data);
 
 			// setup the vertex attribs array for the vertices
-			typedef VertexAttribArray VAA;
+			typedef VertexArrayAttrib VAA;
 			VertexAttribSlot
 				loc_norm = VAA::GetLocation(prog_norm, "Position"),
 				loc_refl = VAA::GetLocation(prog_refl, "Position");
 
 			assert(loc_norm == loc_refl);
-			VertexAttribArray attr(loc_norm);
+			VertexArrayAttrib attr(loc_norm);
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -221,13 +240,13 @@ public:
 			Buffer::Data(se::Array(), data);
 
 			// setup the vertex attribs array for the normals
-			typedef VertexAttribArray VAA;
+			typedef VertexArrayAttrib VAA;
 			VertexAttribSlot
 				loc_norm = VAA::GetLocation(prog_norm, "Normal"),
 				loc_refl = VAA::GetLocation(prog_refl, "Normal");
 
 			assert(loc_norm == loc_refl);
-			VertexAttribArray attr(loc_norm);
+			VertexArrayAttrib attr(loc_norm);
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -248,7 +267,7 @@ public:
 			Buffer::Data(se::Array(), 4*3, data);
 			// setup the vertex attribs array for the vertices
 			prog_norm.Use();
-			VertexAttribArray attr(prog_norm, "Position");
+			VertexArrayAttrib attr(prog_norm, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -266,17 +285,17 @@ public:
 			Buffer::Data(se::Array(), 4*3, data);
 			// setup the vertex attribs array for the normals
 			prog_norm.Use();
-			VertexAttribArray attr(prog_norm, "Normal");
+			VertexArrayAttrib attr(prog_norm, "Normal");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
-		NoVertexArray::Bind();
+		NoVertexArray().Bind();
 
 		Vec3f lightPos(2.0f, 2.0f, 3.0f);
 		prog_norm.Use();
-		SetUniform(prog_norm, "LightPos", lightPos);
+		(prog_norm/"LightPos").Set(lightPos);
 		prog_refl.Use();
-		SetUniform(prog_refl, "LightPos", lightPos);
+		(prog_refl/"LightPos").Set(lightPos);
 		//
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -291,8 +310,8 @@ public:
 			double(width)/height,
 			1, 40
 		);
-		SetProgramUniform(prog_norm, "ProjectionMatrix", projection);
-		SetProgramUniform(prog_refl, "ProjectionMatrix", projection);
+		norm_projection_matrix.Set(projection);
+		refl_projection_matrix.Set(projection);
 	}
 
 	void Render(double time)
@@ -310,8 +329,8 @@ public:
 		ModelMatrixf model = ModelMatrixf::Translation(0.0f, 1.5f, 0.0);
 		ModelMatrixf identity;
 		//
-		SetProgramUniform(prog_norm, "CameraMatrix", camera);
-		SetProgramUniform(prog_refl, "CameraMatrix", camera);
+		norm_camera_matrix.Set(camera);
+		refl_camera_matrix.Set(camera);
 		// draw the plane into the stencil buffer
 		prog_norm.Use();
 
@@ -322,8 +341,7 @@ public:
 		gl.StencilFunc(se::Always(), 1, 1);
 		gl.StencilOp(se::Keep(), se::Keep(), se::Replace());
 
-		Uniform<Mat4f> model_matrix_norm(prog_norm, "ModelMatrix");
-		model_matrix_norm.Set(identity);
+		norm_model_matrix.Set(identity);
 		plane.Bind();
 		gl.DrawArrays(se::TriangleStrip(), 0, 4);
 
@@ -334,7 +352,7 @@ public:
 
 		// draw the torus using the reflection program
 		prog_refl.Use();
-		Uniform<Mat4f>(prog_refl, "ModelMatrix").Set(model);
+		refl_model_matrix.Set(model);
 		torus.Bind();
 		torus_instr.Draw(torus_indices);
 
@@ -342,13 +360,13 @@ public:
 
 		prog_norm.Use();
 		// draw the torus using the normal object program
-		model_matrix_norm.Set(model);
+		norm_model_matrix.Set(model);
 		torus_instr.Draw(torus_indices);
 
 		// blend-in the plane
 		gl.Enable(se::Blend());
 		gl.BlendEquation(se::Max());
-		model_matrix_norm.Set(identity);
+		norm_model_matrix.Set(identity);
 		plane.Bind();
 		gl.DrawArrays(se::TriangleStrip(), 0, 4);
 	}

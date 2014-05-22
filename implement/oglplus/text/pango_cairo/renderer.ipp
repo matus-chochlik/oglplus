@@ -16,7 +16,7 @@ namespace text {
 OGLPLUS_LIB_FUNC
 PangoCairoRenderer::PangoCairoRenderer(
 	PangoCairoRendering& parent,
-	const Group<Shader>& shaders
+	const Sequence<ShaderName>& shaders
 ): _parent(parent)
  , _program()
  , _bitmap(_program, "oglpBitmap")
@@ -145,7 +145,7 @@ PangoCairoDefaultRenderer::PangoCairoDefaultRenderer(
 	const FragmentShader& pixel_color_fs
 ): DefaultRendererTpl<PangoCairoRenderer>(
 	parent,
-	Group<Shader>(
+	StaticGroup<ShaderName, 2>(
 		pixel_color_fs,
 		GeometryShader(
 		ObjectDesc("PangoCairoRenderer - Layout transform"),

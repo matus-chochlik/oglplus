@@ -138,14 +138,17 @@ int main(int argc, char* argv[])
 	}
 	catch(oglplus::Error& err)
 	{
-		std::cerr <<
-			"Error (in " << err.GLSymbol() << ", " <<
-			err.ClassName() << ": '" <<
-			err.ObjectDescription() << "'): " <<
-			err.what() <<
-			" [" << err.File() << ":" << err.Line() << "] ";
-		std::cerr << std::endl;
-		err.Cleanup();
+		std::cerr
+			<< "Error (in "
+			<< err.GLFuncName()
+			<< "'): "
+			<< err.what()
+			<< " ["
+			<< err.SourceFile()
+			<< ":"
+			<< err.SourceLine()
+			<< "] "
+			<< std::endl;
 	}
 	catch(std::exception& se)
 	{

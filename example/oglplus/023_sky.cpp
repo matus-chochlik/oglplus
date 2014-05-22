@@ -45,14 +45,14 @@ private:
 
 	Program sky_box_prog, shape_prog;
 
-	LazyProgramUniform<Mat4f>
+	Lazy<ProgramUniform<Mat4f>>
 		sky_box_projection_matrix,
 		sky_box_camera_matrix,
 		shape_projection_matrix,
 		shape_camera_matrix,
 		shape_model_matrix;
 
-	LazyProgramUniform<Vec3f>
+	Lazy<ProgramUniform<Vec3f>>
 		sky_box_sun_position,
 		shape_sun_position,
 		shape_camera_position;

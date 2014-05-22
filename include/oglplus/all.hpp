@@ -16,24 +16,26 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
-#include <oglplus/angle.hpp>
-#include <oglplus/vector.hpp>
-#include <oglplus/quaternion.hpp>
-#include <oglplus/matrix.hpp>
-#include <oglplus/plane.hpp>
-#include <oglplus/curve.hpp>
-#include <oglplus/sphere.hpp>
+#include <oglplus/math/angle.hpp>
+#include <oglplus/math/vector.hpp>
+#include <oglplus/math/quaternion.hpp>
+#include <oglplus/math/matrix.hpp>
+#include <oglplus/math/plane.hpp>
+#include <oglplus/math/curve.hpp>
+#include <oglplus/math/sphere.hpp>
 
-#include <oglplus/error.hpp>
+#include <oglplus/error/object.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/program.hpp>
 
 #include <oglplus/context.hpp>
 
 #include <oglplus/data_type.hpp>
 #include <oglplus/primitive_type.hpp>
 
-#include <oglplus/array.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/uniform.hpp>
+#include <oglplus/dsa/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/vertex_attrib.hpp>
@@ -45,14 +47,19 @@
 #include <oglplus/transform_feedback.hpp>
 #include <oglplus/program_pipeline.hpp>
 #include <oglplus/query.hpp>
-
-#include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
-
+#include <oglplus/shader.hpp>
 #include <oglplus/sync.hpp>
 
-#include <oglplus/binding.hpp>
-#include <oglplus/optional.hpp>
+#include <oglplus/object/group.hpp>
+#include <oglplus/object/array.hpp>
+#include <oglplus/object/optional.hpp>
+
+#include <oglplus/prog_var/typechecked.hpp>
+#include <oglplus/prog_var/optional.hpp>
+#include <oglplus/prog_var/lazy.hpp>
+
+//#include <oglplus/binding.hpp> TODO
 #include <oglplus/extension.hpp>
 
 #endif // include guard

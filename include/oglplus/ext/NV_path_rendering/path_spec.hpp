@@ -21,8 +21,6 @@
 
 namespace oglplus {
 
-class PathNVOps;
-
 /// Template class for convenient specifying of path commands and coordinates
 /** This function can be used to specify the commands and coordinates of a
  *  PathNV instance, using the @c Spec member function.
@@ -34,7 +32,7 @@ template <typename PathCoordType>
 class PathNVSpec
 {
 private:
-	friend class PathNVOps;
+	friend class ObjectOps<tag::DirectState, tag::PathNV>;
 
 	std::vector<PathNVCommand> _commands;
 	std::vector<PathCoordType> _coords;

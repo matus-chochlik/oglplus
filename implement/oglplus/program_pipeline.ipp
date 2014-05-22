@@ -9,18 +9,17 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/detail/info_log.hpp>
+#include <oglplus/lib/incl_end.ipp>
+
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 
 OGLPLUS_LIB_FUNC
-GLenum ProgramPipelineOps::_binding_query(Target)
-{
-	return GL_PROGRAM_PIPELINE_BINDING;
-}
-
-OGLPLUS_LIB_FUNC
-String ProgramPipelineOps::GetInfoLog(void) const
+String ObjectOps<tag::DirectState, tag::ProgramPipeline>::
+GetInfoLog(void) const
 {
 	assert(_name != 0);
 	return aux::GetInfoLog(
@@ -32,16 +31,23 @@ String ProgramPipelineOps::GetInfoLog(void) const
 }
 
 OGLPLUS_LIB_FUNC
-void ProgramPipelineOps::HandleValidationError(void) const
+void ObjectOps<tag::DirectState, tag::ProgramPipeline>::
+Validate(void) const
 {
-	HandleBuildError<ValidationError>(
-		GetInfoLog(),
-		OGLPLUS_OBJECT_ERROR_INFO(
-			ValidateProgramPipeline,
-			ProgramPipeline,
-			nullptr,
-			_name
-		)
+	assert(_name != 0);
+	OGLPLUS_GLFUNC(ValidateProgramPipeline)(_name);
+	OGLPLUS_VERIFY(
+		ValidateProgramPipeline,
+		ObjectError,
+		Object(*this)
+	);
+	OGLPLUS_HANDLE_ERROR_IF(
+		!IsValid(),
+		GL_INVALID_OPERATION,
+		ValidationError::Message(),
+		ValidationError,
+		Log(GetInfoLog()).
+		Object(*this)
 	);
 }
 
