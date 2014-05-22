@@ -17,7 +17,7 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/prog_var/type_ops.hpp>
-#include <oglplus/auxiliary/enum_class.hpp>
+#include <oglplus/detail/enum_class.hpp>
 
 #include <cassert>
 

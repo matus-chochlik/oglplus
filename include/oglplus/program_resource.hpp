@@ -18,7 +18,7 @@
 #include <oglplus/data_type.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/program_interface.hpp>
-#include <oglplus/auxiliary/program.hpp>
+#include <oglplus/detail/program.hpp>
 
 namespace oglplus {
 

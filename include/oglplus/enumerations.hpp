@@ -16,8 +16,8 @@
 #include <oglplus/config.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/literal.hpp>
-#include <oglplus/auxiliary/enum_class.hpp>
-#include <oglplus/auxiliary/base_range.hpp>
+#include <oglplus/detail/enum_class.hpp>
+#include <oglplus/detail/base_range.hpp>
 #include <vector>
 
 namespace oglplus {

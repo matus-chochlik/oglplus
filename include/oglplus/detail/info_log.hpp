@@ -1,5 +1,5 @@
 /**
- *  .file oglplus/auxiliary/info_log.hpp
+ *  .file oglplus/detail/info_log.hpp
  *  .brief Helper function getting the OpenGL info logs
  *
  *  @author Matus Chochlik
@@ -31,7 +31,7 @@ String GetInfoLog(
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/info_log.ipp>
+#include <oglplus/detail/info_log.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

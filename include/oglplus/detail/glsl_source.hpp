@@ -1,6 +1,6 @@
 /**
- *  .file oglplus/auxiliary/glsl_source.hpp
- *  .brief Helper class storing source code in GLSL
+ *  .file oglplus/detail/glsl_source.hpp
+ *  .brief Helper classes storing source code in GLSL
  *
  *  @author Matus Chochlik
  *
@@ -17,7 +17,7 @@
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/literal.hpp>
 
-#include <oglplus/auxiliary/any_iter.hpp>
+#include <oglplus/detail/any_iter.hpp>
 
 #include <vector>
 #include <cassert>
@@ -184,7 +184,7 @@ public:
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/glsl_source.ipp>
+#include <oglplus/detail/glsl_source.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

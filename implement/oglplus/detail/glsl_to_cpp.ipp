@@ -1,5 +1,5 @@
 /*
- *  .file oglplus/auxiliary/glsl_to_cpp.ipp
+ *  .file oglplus/detail/glsl_to_cpp.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/sl_data_type.txt' instead.

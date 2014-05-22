@@ -16,7 +16,7 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/string/ref.hpp>
-#include <oglplus/auxiliary/glsl_source.hpp>
+#include <oglplus/detail/glsl_source.hpp>
 
 #include <cassert>
 

@@ -374,6 +374,6 @@
 # endif
 #endif
 
-#include <oglplus/auxiliary/enum_class.hpp>
+#include <oglplus/detail/enum_class.hpp>
 
 #endif // include guard

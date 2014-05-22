@@ -1,5 +1,5 @@
 /**
- *  .file oglplus/auxiliary/program.ipp
+ *  .file oglplus/detail/program.ipp
  *  .brief Implementation of program helpers
  *
  *  @author Matus Chochlik

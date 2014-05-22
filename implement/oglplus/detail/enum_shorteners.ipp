@@ -1,5 +1,5 @@
 /*
- *  .file oglplus/auxiliary/enum_shorteners.ipp
+ *  .file oglplus/detail/enum_shorteners.ipp
  *
  *  Automatically generated header file. DO NOT modify manually,
  *  edit 'source/enums/oglplus/.*.txt' instead.

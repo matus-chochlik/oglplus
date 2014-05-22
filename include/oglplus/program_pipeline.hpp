@@ -20,7 +20,7 @@
 #include <oglplus/shader_type.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/program.hpp>
-#include <oglplus/auxiliary/prog_pl_stages.hpp>
+#include <oglplus/detail/prog_pl_stages.hpp>
 
 #include <cassert>
 
@@ -205,10 +205,10 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{UseProgramStages}
 	 */
-	aux::ProgPLUseStages UseStages(ProgramName program) const
+	ProgPLUseStages UseStages(ProgramName program) const
 	{
 		assert(_name != 0);
-		return aux::ProgPLUseStages(
+		return ProgPLUseStages(
 			_name,
 			GetGLName(program),
 			0

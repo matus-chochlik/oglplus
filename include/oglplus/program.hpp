@@ -25,7 +25,7 @@
 #include <oglplus/face_mode.hpp>
 #include <oglplus/glsl_source.hpp>
 #include <oglplus/vertex_attrib_slot.hpp>
-#include <oglplus/auxiliary/base_range.hpp>
+#include <oglplus/detail/base_range.hpp>
 
 #include <vector>
 #include <cassert>

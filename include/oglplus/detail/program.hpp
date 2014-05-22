@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/auxiliary/program.hpp
+ *  @file oglplus/detail/program.hpp
  *  @brief Helper classes used in Program
  *
  *  @author Matus Chochlik
@@ -277,7 +277,7 @@ public:
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
-#include <oglplus/auxiliary/program.ipp>
+#include <oglplus/detail/program.ipp>
 #endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

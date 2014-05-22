@@ -26,9 +26,9 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
-#include <oglplus/auxiliary/base_range.hpp>
-#include <oglplus/auxiliary/info_log.hpp>
-#include <oglplus/auxiliary/glsl_source.hpp>
+#include <oglplus/detail/base_range.hpp>
+#include <oglplus/detail/info_log.hpp>
+#include <oglplus/detail/glsl_source.hpp>
 
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/string/def.hpp>

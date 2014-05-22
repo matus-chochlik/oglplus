@@ -1,5 +1,5 @@
 /**
- *  .file oglplus/auxiliary/info_log.ipp
+ *  .file oglplus/detail/info_log.ipp
  *  .brief Implementation of GetInfoLog
  *
  *  @author Matus Chochlik

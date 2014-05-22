@@ -24,7 +24,7 @@
 
 #include <oglplus/imports/blend_file.hpp>
 
-#include <oglplus/auxiliary/any_iter.hpp>
+#include <oglplus/detail/any_iter.hpp>
 
 #include <vector>
 #include <array>

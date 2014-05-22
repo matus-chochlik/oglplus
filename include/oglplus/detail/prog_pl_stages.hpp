@@ -1,5 +1,5 @@
 /**
- *  .file oglplus/auxiliary/prog_pl_stages.hpp
+ *  .file oglplus/detail/prog_pl_stages.hpp
  *  .brief Helper class used by ProgramPipeline::UseStages
  *
  *  @author Matus Chochlik
@@ -20,8 +20,6 @@
 namespace oglplus {
 
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-
-namespace aux {
 
 class ProgPLUseStages
 {
@@ -122,8 +120,6 @@ public:
 		catch(...){ }
 	}
 };
-
-} // namespace aux
 
 #endif // program pipeline
 

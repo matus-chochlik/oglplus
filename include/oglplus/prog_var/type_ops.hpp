@@ -16,7 +16,7 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/object/name.hpp>
-#include <oglplus/auxiliary/glsl_to_cpp.hpp>
+#include <oglplus/detail/glsl_to_cpp.hpp>
 
 namespace oglplus {
 

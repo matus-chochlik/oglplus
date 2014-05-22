@@ -1,10 +1,10 @@
 /**
- *  @file oglplus/auxiliary/endian.hpp
+ *  @file oglplus/detail/endian.hpp
  *  @brief Utilities related to endiannes
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_AUX_ENDIAN_1210241959_HPP
 #define OGLPLUS_AUX_ENDIAN_1210241959_HPP
 
-#include <oglplus/auxiliary/enum_class.hpp>
+#include <oglplus/detail/enum_class.hpp>
 #include <cassert>
 #include <algorithm>
 #include <cstdint>
