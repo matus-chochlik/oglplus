@@ -26,14 +26,9 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
-#include <oglplus/detail/base_range.hpp>
-#include <oglplus/detail/info_log.hpp>
-#include <oglplus/detail/glsl_source.hpp>
-
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/string/def.hpp>
-
-#include <oglplus/utils/xml.hpp>
+#include <oglplus/object/desc.hpp>
 
 #include <oglplus/error/basic.hpp>
 #include <oglplus/error/framebuffer.hpp>
@@ -42,13 +37,20 @@
 #include <oglplus/error/prog_var.hpp>
 #include <oglplus/error/program.hpp>
 
+#include <oglplus/detail/base_range.hpp>
+#include <oglplus/detail/info_log.hpp>
+#include <oglplus/detail/glsl_source.hpp>
+
+#include <oglplus/utils/xml.hpp>
+
 #include <oglplus/prog_var/typecheck.hpp>
 
 #include <oglplus/images/image.hpp>
 
 #include <oglplus/vertex_attrib.hpp>
+#include <oglplus/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
-//#include <oglplus/uniform_subroutines.hpp>
+#include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/buffer.hpp>
