@@ -418,10 +418,9 @@ public:
 };
 
 template <>
-struct ObjectTag<Shader>
-{
-	typedef tag::Shader Type;
-};
+struct Classify<Shader>
+ : Classify<Object<ShaderOps>>
+{ };
 
 template <>
 class Array<Shader>

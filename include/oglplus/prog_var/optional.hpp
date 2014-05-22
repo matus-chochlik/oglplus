@@ -13,31 +13,18 @@
 #ifndef OGLPLUS_PROG_VAR_OPTIONAL_1405052234_HPP
 #define OGLPLUS_PROG_VAR_OPTIONAL_1405052234_HPP
 
+#include <oglplus/detail/optional.hpp>
 #include <oglplus/prog_var/wrapper.hpp>
 
 namespace oglplus {
 
-template <typename OpsTag, typename VarTag, typename ChkTag, typename T>
-class Optional<ProgVar<OpsTag, VarTag, ChkTag, T>>
- : public ProgVar<OpsTag, VarTag, ChkTag, T>
+template <typename ProgVar>
+class OptionalImpl<tag::ProgVar, ProgVar>
+ : public ProgVar
 {
-private:
-	typedef ProgVar<OpsTag, VarTag, ChkTag, T> Base;
 public:
-	Optional(ProgramName program, StrCRef identifier)
-	 : Base(program, identifier, false)
-	{ }
-};
-
-template <template <class> class Wrapper, typename OpsTag, typename VarTag, typename ChkTag, typename T>
-class Optional<Wrapper<ProgVar<OpsTag, VarTag, ChkTag, T>>>
- : public Wrapper<ProgVar<OpsTag, VarTag, ChkTag, T>>
-{
-private:
-	typedef Wrapper<ProgVar<OpsTag, VarTag, ChkTag, T>> Base;
-public:
-	Optional(ProgramName program, StrCRef identifier)
-	 : Base(program, identifier, false)
+	OptionalImpl(ProgramName program, StrCRef identifier)
+	 : ProgVar(program, identifier, false)
 	{ }
 };
 

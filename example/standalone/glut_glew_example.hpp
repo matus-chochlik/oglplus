@@ -372,7 +372,7 @@ int GlutGlewMain(const char* title, int argc, char* argv[])
 			<< "Program build error (in "
 			<< pbe.GLFuncName()
 			<< ", "
-			<< pbe.ClassName()
+			<< pbe.ObjectTypeName()
 			<< ": ("
 			<< pbe.ObjectName()
 			<< ") '"
@@ -405,7 +405,7 @@ int GlutGlewMain(const char* title, int argc, char* argv[])
 			<< "Object error (in "
 			<< obe.GLFuncName()
 			<< ", "
-			<< obe.ClassName()
+			<< obe.ObjectTypeName()
 			<< ": ("
 			<< obe.ObjectName()
 			<< ") '"

@@ -86,10 +86,10 @@ public:
 	template <typename Object>
 	static Reference<ObjectOps<
 		tag::CurrentBound,
-		typename ObjectTag<Object>::Type
+		typename Classify<Object>::ObjTag
 	>> Current(void)
 	{
-		typedef typename ObjectTag<Object>::Type ObjTag;
+		typedef typename Classify<Object>::ObjTag ObjTag;
 
 		return Reference<ObjectOps<tag::CurrentBound, ObjTag>>();
 	}

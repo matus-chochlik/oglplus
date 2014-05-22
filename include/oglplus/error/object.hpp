@@ -52,7 +52,7 @@ public:
 	GLenum ObjectType(void) const;
 
 	/// Returns the class name
-	const char* ClassName(void) const;
+	const char* ObjectTypeName(void) const;
 
 	template <typename BindTarget_>
 	ObjectError& BindTarget(BindTarget_ bind_tgt)
@@ -129,7 +129,7 @@ public:
 	GLenum SubjectType(void) const;
 
 	/// Returns the subject class name
-	const char* SubjectClassName(void) const;
+	const char* SubjectTypeName(void) const;
 
 	template <typename ObjTag>
 	ObjectPairError& Subject(oglplus::ObjectName<ObjTag> subject)

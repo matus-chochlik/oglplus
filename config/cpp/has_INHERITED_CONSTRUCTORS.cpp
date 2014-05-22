@@ -17,8 +17,10 @@ struct Base
 
 class Derived : public Base<long>
 {
+private:
+	typedef Base<long> Parent;
 public:
-	using Base<long>::Base;
+	using Parent::Parent;
 };
 
 int main(int argc, const char** argv)

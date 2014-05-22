@@ -87,6 +87,11 @@ T At(const Matrix<T, R, C>& matrix, std::size_t i, std::size_t j);
 // Tags
 namespace tag {
 
+struct ObjectName;
+struct ObjectOps;
+struct Object;
+struct ProgVar;
+
 struct Renderbuffer;
 struct Framebuffer;
 struct Texture;
@@ -123,6 +128,9 @@ struct DirectState;
 struct CurrentBound;
 } // namespace tag
 
+template <typename X>
+struct Classify;
+
 template <typename T>
 struct AllowedSpecialization;
 
@@ -133,6 +141,14 @@ struct IsMultiObject;
 
 template <typename ObjTag>
 class ObjectName;
+
+template <typename ObjTg>
+struct Classify<ObjectName<ObjTg>>
+{
+	typedef ObjectName<ObjTg> Base;
+	typedef tag::ObjectName Tag;
+	typedef ObjTg ObjTag;
+};
 
 typedef ObjectName<tag::Renderbuffer> RenderbufferName;
 typedef ObjectName<tag::Framebuffer> FramebufferName;
@@ -169,39 +185,34 @@ class ObjZeroOps;
 template <typename OpsTag, typename ObjTag>
 class ObjectOps;
 
+template <typename OpsTg, typename ObjTg>
+struct Classify<ObjectOps<OpsTg, ObjTg>>
+{
+	typedef ObjectOps<OpsTg, ObjTg> Base;
+	typedef tag::ObjectOps Tag;
+	typedef OpsTg OpsTag;
+	typedef ObjTg ObjTag;
+};
+
 template <typename CommonOps>
 class ObjectZero;
 
 template <typename ObjectOps>
 class Object;
 
-template <typename Object>
-struct ObjectTag;
-
-template <typename ObjTag>
-struct ObjectTag<ObjectName<ObjTag>>
+template <typename OpsTg, typename ObjTg>
+struct Classify<Object<ObjectOps<OpsTg, ObjTg>>>
+ : Classify<ObjectOps<OpsTg, ObjTg>>
 {
-	typedef ObjTag Type;
+	typedef Object<ObjectOps<OpsTg, ObjTg>> Base;
+	typedef tag::Object Tag;
 };
-
-template <typename OpsTag, typename ObjTag>
-struct ObjectTag<ObjectOps<OpsTag, ObjTag>>
- : ObjectTag<ObjectName<ObjTag>>
-{ };
-
-template <template <typename> class Wrapper, typename ObjectOps>
-struct ObjectTag<Wrapper<ObjectOps>>
- : ObjectTag<ObjectOps>
-{ };
 
 template <typename Target>
 struct ObjectTargetTag;
 
 template <typename ObjectT>
 class Reference;
-
-template <typename Object>
-class Managed;
 
 template <typename X>
 class Optional;
@@ -243,6 +254,20 @@ class ProgVarCommonOps;
 
 template <typename OpsTag, typename VarTag, typename T>
 class ProgVarGetSetOps;
+
+template <typename OpsTag, typename VarTag, typename ChkTag, typename T>
+class ProgVar;
+
+template <typename OpsTg, typename VarTg, typename ChkTg, typename T>
+struct Classify<ProgVar<OpsTg, VarTg, ChkTg, T>>
+{
+	typedef ProgVar<OpsTg, VarTg, ChkTg, T> Base;
+	typedef tag::ProgVar Tag;
+	typedef OpsTg OpsTag;
+	typedef VarTg VarTag;
+	typedef ChkTg ChkTag;
+	typedef T Type;
+};
 
 template <typename ProgVar>
 class Typechecked;

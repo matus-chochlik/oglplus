@@ -2,7 +2,7 @@
  *  .file example/oglplus/wxgl_main.cpp
  *  Implements wxGL-based program main function for running examples
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -26,9 +26,7 @@
 #include <iomanip>
 
 #include <oglplus/config.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/compile_error.hpp>
-#include <oglplus/glfunc.hpp>
+#include <oglplus/error/basic.hpp>
 
 #include <oglplus/query.hpp>
 
@@ -79,56 +77,155 @@ static inline int* GLConfig(void)
 	return conf;
 }
 
-inline wxString MakeCommonErrorMessage(oglplus::Error& err)
+inline wxString MakeCommonErrorMessage(oglplus::Error& error)
 {
-	const wxString newline(wxT("\r\n"));
 	wxString message;
-	message.Append(wxString(err.what(), wxConvLocal));
-	message.Append(newline);
 	message.Append(wxString::Format(
-		wxT("GL symbol: '%s'"),
-		wxString(err.GLSymbol(), wxConvLocal).c_str()
+		wxT("Error: '%s'\r\n"),
+		wxString(error.what(), wxConvLocal).c_str()
 	));
-	message.Append(newline);
-	message.Append(wxString::Format(
-		wxT("Class: '%s'"),
-		wxString(err.ClassName(), wxConvLocal).c_str()
-	));
-	message.Append(newline);
-	message.Append(wxString::Format(
-		wxT("Object: '%s'"),
-		wxString(err.ObjectDescription().c_str(), wxConvLocal).c_str()
-	));
-	message.Append(newline);
-	message.Append(wxString::Format(
-		wxT("Binding point: '%s'"),
-		wxString(err.BindTarget(), wxConvLocal).c_str()
-	));
-	message.Append(newline);
-	message.Append(wxString::Format(
-		wxT("File: '%s'"),
-		wxString(err.File(), wxConvLocal).c_str()
-	));
-	message.Append(newline);
-	message.Append(wxString::Format(
-		wxT("Line: '%u'"),
-		err.Line()
-	));
-	message.Append(newline);
-
-	auto i = err.Properties().begin(), e = err.Properties().end();
-	if(i != e)
+	if(error.SourceFile())
 	{
-		message.Append(wxT("Properties: "));
-		message.Append(newline);
+		message.Append(wxString::Format(
+			wxT("Source file: '%s'\r\n"),
+			wxString(error.SourceFile(), wxConvLocal).c_str()
+		));
+	}
 
-		while(i != e)
+	if(error.SourceLine())
+	{
+		message.Append(wxString::Format(
+			wxT("Source line: '%d'\r\n"),
+			error.SourceLine()
+		));
+	}
+
+	if(error.SourceFunc())
+	{
+		message.Append(wxString::Format(
+			wxT("Source function: '%s'\r\n"),
+			wxString(error.SourceFunc(), wxConvLocal).c_str()
+		));
+	}
+	if(error.GLFuncName())
+	{
+		message.Append(wxString::Format(
+			wxT("GL function: '%s'\r\n"),
+			wxString(error.GLFuncName(), wxConvLocal).c_str()
+		));
+	}
+
+	if(error.EnumParam() || error.EnumParamName())
+	{
+		message.Append(wxT("GL constant: "));
+		if(error.EnumParamName())
 		{
-			message.Append(wxString(i->first.c_str(), wxConvLocal));
-			message.Append(wxT(" = "));
-			message.Append(wxString(i->second.c_str(), wxConvLocal));
-			message.Append(newline);
-			++i;
+			message.Append(wxString::Format(
+				wxT("'%s'\r\n"),
+				wxString(error.EnumParamName(), wxConvLocal).c_str()
+			));
+		}
+		else
+		{
+			message.Append(wxString::Format(
+				wxT("(0x%x)\r\n"),
+				error.EnumParam()
+			));
+		}
+	}
+
+	if(error.BindTarget() || error.TargetName())
+	{
+		message.Append(wxT("Binding point: "));
+		if(error.TargetName())
+		{
+			message.Append(wxString::Format(
+				wxT("'%s'\r\n"),
+				wxString(error.TargetName(), wxConvLocal).c_str()
+			));
+		}
+		else
+		{
+			message.Append(wxString::Format(
+				wxT("(0x%x)\r\n"),
+				error.BindTarget()
+			));
+		}
+	}
+
+	if(error.ObjectTypeName() || error.ObjectType())
+	{
+		message.Append(wxT("Object type: "));
+		if(error.ObjectTypeName())
+		{
+			message.Append(wxString::Format(
+				wxT("'%s'\r\n"),
+				wxString(error.ObjectTypeName(), wxConvLocal).c_str()
+			));
+		}
+		else
+		{
+			message.Append(wxString::Format(
+				wxT("(0x%x)\r\n"),
+				error.ObjectType()
+			));
+		}
+	}
+
+	if((!error.ObjectDesc().empty()) || (error.ObjectName() >= 0))
+	{
+		message.Append(wxT("Object: "));
+		if(!error.ObjectDesc().empty())
+		{
+			message.Append(wxString::Format(
+				wxT("'%s'\r\n"),
+				wxString(error.ObjectDesc().c_str(), wxConvLocal).c_str()
+			));
+		}
+		else
+		{
+			message.Append(wxString::Format(
+				wxT("(%d)\r\n"),
+				error.ObjectName()
+			));
+		}
+	}
+
+	if(error.SubjectTypeName() || error.SubjectType())
+	{
+		message.Append(wxT("Subject type: "));
+		if(error.SubjectTypeName())
+		{
+			message.Append(wxString::Format(
+				wxT("'%s'\r\n"),
+				wxString(error.SubjectTypeName(), wxConvLocal).c_str()
+			));
+		}
+		else
+		{
+			message.Append(wxString::Format(
+				wxT("(%d)\r\n"),
+				error.SubjectType()
+			));
+		}
+	}
+
+	if((!error.SubjectDesc().empty()) || (error.SubjectName() >= 0))
+	{
+		message.Append(wxT("Subject: "));
+		if(!error.SubjectDesc().empty())
+		{
+			message.Append(wxString::Format(
+				wxT("'%s'\r\n"),
+				wxString(error.SubjectDesc().c_str(), wxConvLocal).c_str()
+			));
+		}
+		else
+		{
+			message.Append(wxString::Format(
+				wxT("(%d)\r\n"),
+				error.SubjectName()
+			));
 		}
 	}
 
@@ -136,97 +233,25 @@ inline wxString MakeCommonErrorMessage(oglplus::Error& err)
 }
 
 inline void HandleError(
-	oglplus::MissingFunction& err,
-	wxWindow* parent = nullptr
-)
-{
-	wxString message;
-	message.Append(MakeCommonErrorMessage(err));
-	wxMessageBox(
-		message,
-		wxT("Missing function"),
-		wxOK | wxICON_ERROR,
-		parent
-	);
-	err.Cleanup();
-}
-
-inline void HandleError(
-	oglplus::ProgramBuildError& err,
-	wxWindow* parent = nullptr
-)
-{
-	wxString message;
-	message.Append(MakeCommonErrorMessage(err));
-	message.Append(wxT("Build output: "));
-	message.Append(wxString(err.Log().c_str(), wxConvLocal));
-	wxMessageBox(
-		message,
-		wxT("Program build error"),
-		wxOK | wxICON_ERROR,
-		parent
-	);
-	err.Cleanup();
-}
-
-inline void HandleError(
-	oglplus::LimitError& err,
-	wxWindow* parent = nullptr
-)
-{
-	wxString message;
-	message.Append(MakeCommonErrorMessage(err));
-	message.Append(wxString::Format(
-		wxT("Value %u exceeds implementation-dependent limit %u"),
-		err.Value(),
-		err.Limit()
-	));
-	wxMessageBox(
-		message,
-		wxT("Limit exceeded"),
-		wxOK | wxICON_ERROR,
-		parent
-	);
-	err.Cleanup();
-}
-
-inline void HandleError(
-	oglplus::OutOfMemory& err,
-	wxWindow* parent = nullptr
-)
-{
-	wxString message;
-	message.Append(MakeCommonErrorMessage(err));
-	wxMessageBox(
-		message,
-		wxT("GL out of memory"),
-		wxOK | wxICON_ERROR,
-		parent
-	);
-	err.Cleanup();
-}
-
-inline void HandleError(
-	oglplus::Error& err,
+	oglplus::Error& error,
 	wxWindow* parent = nullptr
 )
 {
 	wxMessageBox(
-		MakeCommonErrorMessage(err),
+		MakeCommonErrorMessage(error),
 		wxT("GL Error"),
 		wxOK | wxICON_ERROR,
 		parent
 	);
-	err.Cleanup();
 }
 
 inline void HandleError(
-	const std::exception& err,
+	const std::exception& error,
 	wxWindow* parent = nullptr
 )
 {
 	wxMessageBox(
-		wxString(err.what(), wxConvLocal),
+		wxString(error.what(), wxConvLocal),
 		wxT("Unspecified error"),
 		wxOK | wxICON_ERROR,
 		parent
@@ -335,10 +360,6 @@ private:
 			}
 			return;
 		}
-		catch(oglplus::MissingFunction& mfe) { HandleError(mfe); }
-		catch(oglplus::ProgramBuildError& pbe) { HandleError(pbe); }
-		catch(oglplus::LimitError& le) { HandleError(le); }
-		catch(oglplus::OutOfMemory& oom) { HandleError(oom); }
 		catch(oglplus::Error& err) { HandleError(err); }
 		catch(const std::exception& se) { HandleError(se); }
 
@@ -363,10 +384,6 @@ private:
 			event.Skip();
 			return;
 		}
-		catch(oglplus::MissingFunction& mfe) { HandleError(mfe, this); }
-		catch(oglplus::ProgramBuildError& pbe) { HandleError(pbe, this); }
-		catch(oglplus::LimitError& le) { HandleError(le, this); }
-		catch(oglplus::OutOfMemory& oom) { HandleError(oom, this); }
 		catch(oglplus::Error& err) { HandleError(err, this); }
 		catch(const std::exception& se) { HandleError(se, this); }
 	}
@@ -403,10 +420,6 @@ private:
 			event.Skip();
 			return;
 		}
-		catch(oglplus::MissingFunction& mfe) { HandleError(mfe, this); }
-		catch(oglplus::ProgramBuildError& pbe) { HandleError(pbe, this); }
-		catch(oglplus::LimitError& le) { HandleError(le, this); }
-		catch(oglplus::OutOfMemory& oom) { HandleError(oom, this); }
 		catch(oglplus::Error& err) { HandleError(err, this); }
 		catch(const std::exception& se) { HandleError(se, this); }
 	}
@@ -854,10 +867,6 @@ public:
 			SetTopWindow(new MainFrame(*this, GetAppName()));
 			result = true;
 		}
-		catch(oglplus::MissingFunction& mfe) { HandleError(mfe); }
-		catch(oglplus::ProgramBuildError& pbe) { HandleError(pbe); }
-		catch(oglplus::LimitError& le) { HandleError(le); }
-		catch(oglplus::OutOfMemory& oom) { HandleError(oom); }
 		catch(oglplus::Error& err) { HandleError(err); }
 		catch(const std::exception& se) { HandleError(se); }
 		return result;

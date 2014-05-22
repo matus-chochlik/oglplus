@@ -27,7 +27,7 @@ template <typename ObjectT>
 class SeqIterator
 {
 private:
-	typedef typename ObjectTag<ObjectT>::Type ObjTag;
+	typedef typename Classify<ObjectT>::ObjTag ObjTag;
 	const GLuint* _pos;
 public:
 	SeqIterator(const GLuint* pos)

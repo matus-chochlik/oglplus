@@ -310,9 +310,8 @@
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY
-/// Compile-time switch disabling the ErrorClassName attribute of ErrorInfo
+/// Compile-time switch disabling the ObjectTypeName attribute of ErrorInfo
 /**
- *  @see ErrorClassName()
  *
  *  By default this option is set to 0, i.e. ErrorClassName is enabled.
  *

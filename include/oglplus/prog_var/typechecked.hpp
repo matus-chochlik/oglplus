@@ -13,34 +13,24 @@
 #ifndef OGLPLUS_PROG_VAR_TYPECHECKED_1405052234_HPP
 #define OGLPLUS_PROG_VAR_TYPECHECKED_1405052234_HPP
 
+#include <oglplus/detail/typechecked.hpp>
 #include <oglplus/prog_var/wrapper.hpp>
 
 namespace oglplus {
 
-template <typename OpsTag, typename VarTag, typename ChkTag, typename T>
-class Typechecked<ProgVar<OpsTag, VarTag, ChkTag, T>>
- : public ProgVar<OpsTag, VarTag, tag::Typecheck, T>
+template <typename ProgVar>
+class TypecheckedImpl<tag::ProgVar, ProgVar>
+ : public ProgVar
 {
 private:
-	typedef ProgVar<OpsTag, VarTag, tag::Typecheck, T> Base;
+	typedef typename Classify<ProgVar>::VarTag VarTag;
 public:
-	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VarTag, Typechecked, Base)
+	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VarTag, TypecheckedImpl, ProgVar)
 };
 
 template <typename ProgVar>
-class Typechecked
- : public Typechecked<typename BaseProgVar<ProgVar>::Type>
-{
-private:
-	typedef Typechecked<typename BaseProgVar<ProgVar>::Type> Base;
-	typedef typename BaseProgVar<ProgVar>::VarTag VarTag;
-public:
-	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VarTag, Typechecked, Base)
-};
-
-template <typename ProgVar>
-struct BaseProgVar<Typechecked<ProgVar>>
- : BaseProgVar<ProgVar>
+struct Classify<Typechecked<ProgVar>>
+ : Classify<ProgVar>
 { };
 
 } // namespace oglplus

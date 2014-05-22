@@ -159,21 +159,9 @@ public:
 	}
 };
 
-template <typename ProgVar>
-struct BaseProgVar;
-
-template <typename OpsTg, typename VarTg, typename ChkTg, typename T>
-struct BaseProgVar<ProgVar<OpsTg, VarTg, ChkTg, T>>
-{
-	typedef ProgVar<OpsTg, VarTg, ChkTg, T> Type;
-	typedef OpsTg OpsTag;
-	typedef VarTg VarTag;
-	typedef ChkTg ChkTag;
-};
-
 #if !OGLPLUS_NO_INHERITED_CONSTRUCTORS
 #define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \
-	using Base::Base;
+	using BASE::BASE;
 
 #else
 #define OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VAR_TAG, PROG_VAR, BASE) \
@@ -218,8 +206,8 @@ public:\
 	} \
 }; \
 template <typename T> \
-struct BaseProgVar<PROG_VAR<T>> \
- : BaseProgVar<ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>> \
+struct Classify<PROG_VAR<T>> \
+ : Classify<ProgVar<OPS_TAG, VAR_TAG, CHK_TAG, T>> \
 { };
 #endif
 

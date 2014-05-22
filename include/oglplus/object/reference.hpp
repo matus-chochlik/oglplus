@@ -47,7 +47,7 @@ class Reference
  , public AllowedSpecialization<Reference<Object>>
 {
 public:
-	Reference(ObjectName<typename ObjectTag<Object>::Type> object)
+	Reference(ObjectName<typename Classify<Object>::ObjTag> object)
 	{
 		this->_copy(object);
 	}
@@ -58,7 +58,7 @@ struct Reference<Object<ObjectOps>>
  : public Reference<ObjectOps>
 {
 public:
-	Reference(ObjectName<typename ObjectTag<Object<ObjectOps>>::Type> object)
+	Reference(ObjectName<typename Classify<Object<ObjectOps>>::ObjTag> object)
 	 : Reference<ObjectOps>(object)
 	{ }
 };

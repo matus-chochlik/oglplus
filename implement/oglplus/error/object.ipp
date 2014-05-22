@@ -43,7 +43,7 @@ GLenum ObjectError::ObjectType(void) const
 }
 
 OGLPLUS_LIB_FUNC
-const char* ObjectError::ClassName(void) const
+const char* ObjectError::ObjectTypeName(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
 	return EnumValueName(oglplus::ObjectType(this->ObjectType())).c_str();
@@ -109,7 +109,7 @@ GLenum ObjectPairError::SubjectType(void) const
 }
 
 OGLPLUS_LIB_FUNC
-const char* ObjectPairError::SubjectClassName(void) const
+const char* ObjectPairError::SubjectTypeName(void) const
 {
 #if !OGLPLUS_ERROR_INFO_NO_CLASS_NAME
 	return EnumValueName(oglplus::ObjectType(this->SubjectType())).c_str();

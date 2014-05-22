@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
 		std::cerr <<
 			"Program build error (in " <<
 			pbe.GLSymbol() << ", " <<
-			pbe.ClassName() << " '" <<
+			pbe.ObjectTypeName() << " '" <<
 			pbe.ObjectDescription() << "'): " <<
 			pbe.what() << std::endl <<
 			pbe.Log() << std::endl;
@@ -198,7 +198,7 @@ int main(int argc, char* argv[])
 	{
 		std::cerr <<
 			"GL error (in " << err.GLSymbol() << ", " <<
-			err.ClassName() << ": '" <<
+			err.ObjectTypeName() << ": '" <<
 			err.ObjectDescription() << "'): " <<
 			err.what() <<
 			" [" << err.File() << ":" << err.Line() << "] ";

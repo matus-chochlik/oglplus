@@ -109,13 +109,13 @@ inline void example_print_error_common(
 		errstr	<< std::endl;
 	}
 
-	if(error.ClassName() || error.ObjectType())
+	if(error.ObjectTypeName() || error.ObjectType())
 	{
 		errstr	<< "Object type: ";
-		if(error.ClassName())
+		if(error.ObjectTypeName())
 		{
 			errstr	<< "'"
-				<< error.ClassName()
+				<< error.ObjectTypeName()
 				<< "'";
 		}
 		else
@@ -146,13 +146,13 @@ inline void example_print_error_common(
 		errstr	<< std::endl;
 	}
 
-	if(error.SubjectClassName() || error.SubjectType())
+	if(error.SubjectTypeName() || error.SubjectType())
 	{
 		errstr	<< "Subject type: ";
-		if(error.SubjectClassName())
+		if(error.SubjectTypeName())
 		{
 			errstr	<< "'"
-				<< error.SubjectClassName()
+				<< error.SubjectTypeName()
 				<< "'";
 		}
 		else

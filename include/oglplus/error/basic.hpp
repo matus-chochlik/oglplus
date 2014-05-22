@@ -236,7 +236,7 @@ public:
 	 *  storing object type name is returned. Otherwise the result
 	 *  is nullptr.
 	 */
-	virtual const char* ClassName(void) const { return nullptr; }
+	virtual const char* ObjectTypeName(void) const { return nullptr; }
 
 	/// Returns the object instance description
 	/** If the error is related to a GL object, then a String
@@ -264,7 +264,7 @@ public:
 	 *  storing secondary object type name is returned. Otherwise the result
 	 *  is nullptr.
 	 */
-	virtual const char* SubjectClassName(void) const { return nullptr; }
+	virtual const char* SubjectTypeName(void) const { return nullptr; }
 
 	/// Returns the subject GL name
 	/** If the error is related to a pair of GL objects, then

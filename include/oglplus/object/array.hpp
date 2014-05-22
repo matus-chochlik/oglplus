@@ -32,10 +32,10 @@ namespace oglplus {
  */
 template <typename Object>
 class Array
- : public ObjGenDelOps<typename ObjectTag<Object>::Type>
+ : public ObjGenDelOps<typename Classify<Object>::ObjTag>
 {
 private:
-	typedef typename ObjectTag<Object>::Type ObjTag;
+	typedef typename Classify<Object>::ObjTag ObjTag;
 	typedef ObjGenDelOps<ObjTag> GenDelOps;
 
 	/// Array is not copyable

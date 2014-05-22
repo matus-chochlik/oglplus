@@ -13,6 +13,7 @@
 #ifndef OGLPLUS_PROG_VAR_LAZY_1405052234_HPP
 #define OGLPLUS_PROG_VAR_LAZY_1405052234_HPP
 
+#include <oglplus/detail/lazy.hpp>
 #include <oglplus/prog_var/wrapper.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
@@ -20,18 +21,18 @@
 namespace oglplus {
 
 template <typename ProgVar>
-class Lazy
+class LazyImpl<tag::ProgVar, ProgVar>
  : public ProgVar
 {
 private:
 	String _identifier;
 public:
-	Lazy(ProgramName program, String&& identifier)
+	LazyImpl(ProgramName program, String&& identifier)
 	 : ProgVar(program)
 	 , _identifier(std::move(identifier))
 	{ }
 
-	Lazy& Init(void)
+	LazyImpl& Init(void)
 	{
 		if(!this->IsActive())
 		{
@@ -42,7 +43,7 @@ public:
 		return *this;
 	}
 
-	Lazy& TryInit(void)
+	LazyImpl& TryInit(void)
 	{
 		if(!this->IsActive())
 		{

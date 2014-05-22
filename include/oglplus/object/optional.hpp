@@ -13,20 +13,10 @@
 #ifndef OGLPLUS_OBJECT_OPTIONAL_1107121519_HPP
 #define OGLPLUS_OBJECT_OPTIONAL_1107121519_HPP
 
-#include <oglplus/fwd.hpp>
+#include <oglplus/detail/optional.hpp>
 #include <oglplus/object/wrapper.hpp>
 
 namespace oglplus {
-
-template <typename ObjectOps>
-struct AllowedSpecialization<Optional<Object<ObjectOps>>>
-{ };
-
-class Shader;
-
-template <>
-struct AllowedSpecialization<Optional<Shader>>
-{ };
 
 /// Modifier that allows to create uninitialized Object(s)
 /** The Optional template class is a modifier for @ref oglplus_object "Objects"
@@ -40,9 +30,8 @@ struct AllowedSpecialization<Optional<Shader>>
  *  @ingroup modifier_classes
  */
 template <class Object>
-class Optional
+class OptionalImpl<tag::Object, Object>
  : public Object
- , public AllowedSpecialization<Optional<Object>>
 {
 public:
 	/// Construction of an uninitialized instance
@@ -54,7 +43,7 @@ public:
 	 *  @see IsInitialized
 	 *  @see Assign
 	 */
-	Optional(void)
+	OptionalImpl(void)
 	OGLPLUS_NOEXCEPT(true)
 	 : Object(typename Object::Uninitialized_())
 	{ }
@@ -67,18 +56,18 @@ public:
 	 *  @see IsInitialized
 	 *  @see Clear
 	 */
-	Optional(Object&& temp)
+	OptionalImpl(Object&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	 : Object(std::move(temp))
 	{ }
 
 	/// Move constructor
-	Optional(Optional&& temp)
+	OptionalImpl(OptionalImpl&& temp)
 	OGLPLUS_NOEXCEPT(true)
 	 : Object(static_cast<Object&&>(temp))
 	{ }
 
-	Optional& operator = (Object&& temp)
+	OptionalImpl& operator = (Object&& temp)
 	{
 		Object::operator=(std::move(temp));
 		return *this;

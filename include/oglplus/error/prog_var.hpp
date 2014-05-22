@@ -58,7 +58,7 @@ public:
 		return *this;
 	}
 
-	const char* ClassName(void) const { return "PROGRAM"; }
+	const char* ObjectTypeName(void) const { return "PROGRAM"; }
 
 	/// Returns the GL program name
 	GLint ObjectName(void) const { return GLint(_prog_name); }
