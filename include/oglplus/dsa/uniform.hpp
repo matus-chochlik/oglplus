@@ -29,14 +29,16 @@ protected:
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, i, t, GLint)
 #if GL_ARB_bindless_texture
-	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, Handle, ui64ARB, t, GLuint64, 1)
+	OGLPLUS_AUX_VARPARA_FNC(ProgramUniformHandle, ui64ARB, t, GLuint64, 1)
+#elif GL_NV_shader_buffer_load
+	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, ui64NV, t, GLuint64EXT, 1)
 #endif
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, f, t, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, d, t, GLdouble)
 
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, iv, v, GLint)
 #if GL_ARB_bindless_texture
-	OGLPLUS_AUX_VARPARA_FNC(ProgramUniform, Handle, ui64vARB, v, GLuint64, 1)
+	OGLPLUS_AUX_VARPARA_FNC(ProgramUniformHandle, ui64vARB, v, GLuint64, 1)
 #endif
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, fv, v, GLfloat)
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, dv, v, GLdouble)

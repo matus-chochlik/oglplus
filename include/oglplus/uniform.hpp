@@ -78,7 +78,9 @@ protected:
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
 #if GL_ARB_bindless_texture
-	OGLPLUS_AUX_VARPARA_FNC(Uniform, Handle, ui64ARB, t, GLuint64, 1)
+	OGLPLUS_AUX_VARPARA_FNC(UniformHandle, ui64ARB, t, GLuint64, 1)
+#elif GL_NV_shader_buffer_load
+	OGLPLUS_AUX_VARPARA_FNC(Uniform, ui64NV, t, GLuint64EXT, 1)
 #endif
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, f, t, GLfloat)
 #if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64
@@ -87,7 +89,7 @@ protected:
 
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, iv, v, GLint)
 #if GL_ARB_bindless_texture
-	OGLPLUS_AUX_VARPARA_FNC(Uniform, Handle, ui64vARB, v, GLuint64, 1)
+	OGLPLUS_AUX_VARPARA_FNC(UniformHandle, ui64vARB, v, GLuint64, 1)
 #endif
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, fv, v, GLfloat)
 #if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64

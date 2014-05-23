@@ -214,6 +214,11 @@ struct ObjectTargetTag;
 template <typename ObjectT>
 class Reference;
 
+template <typename ObjectT>
+struct Classify<Reference<ObjectT>>
+ : Classify<ObjectT>
+{ };
+
 template <typename X>
 class Optional;
 
