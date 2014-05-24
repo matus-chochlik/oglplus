@@ -195,13 +195,13 @@ int main(int argc, char* argv[])
 	{
 		std::cerr
 			<< "EGLplus error (in "
-			<< ee.EGLSymbol()
+			<< ee.EGLFuncName()
 			<< ") "
 			<< ee.what()
 			<< " ["
-			<< ee.File()
+			<< ee.SourceFile()
 			<< ":"
-			<< ee.Line()
+			<< ee.SourceLine()
 			<< "] "
 			<< std::endl;
 	}

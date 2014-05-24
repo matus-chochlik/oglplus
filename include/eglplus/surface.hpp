@@ -14,10 +14,9 @@
 #define EGLPLUS_SURFACE_1305291005_HPP
 
 #include <eglplus/eglfunc.hpp>
-#include <eglplus/error.hpp>
+#include <eglplus/error/basic.hpp>
 #include <eglplus/display.hpp>
 #include <eglplus/configs.hpp>
-#include <eglplus/friend_of.hpp>
 #include <eglplus/attrib_list.hpp>
 #include <eglplus/surface_attrib.hpp>
 
@@ -110,19 +109,19 @@ typedef FinishedAttributeList<
 	AttributeListTraits
 > FinishedSurfaceAttribs;
 
+class Surface;
+::EGLSurface GetEGLHandle(const Surface&);
+
 /// Wrapper for EGLSurfaces
 class Surface
- : public FriendOf<Display>
- , public FriendOf<Config>
 {
 private:
 	Display _display;
 	::EGLSurface _handle;
 
-	friend class FriendOf<Surface>;
+	friend ::EGLSurface GetEGLHandle(const Surface&);
 
 	Surface(const Surface&);
-
 
 	struct Pbuffer_ { };
 
@@ -134,11 +133,11 @@ private:
 	)
 	{
 		::EGLSurface result = EGLPLUS_EGLFUNC(CreatePbufferSurface)(
-			FriendOf<Display>::GetHandle(display),
-			FriendOf<Config>::GetHandle(config),
+			GetEGLHandle(display),
+			GetEGLHandle(config),
 			attribs.Get()
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(CreatePbufferSurface));
+		EGLPLUS_CHECK_SIMPLE(CreatePbufferSurface);
 		return result;
 	}
 
@@ -162,12 +161,12 @@ private:
 	)
 	{
 		::EGLSurface result = EGLPLUS_EGLFUNC(CreatePixmapSurface)(
-			FriendOf<Display>::GetHandle(display),
-			FriendOf<Config>::GetHandle(config),
+			GetEGLHandle(display),
+			GetEGLHandle(config),
 			pixmap,
 			attribs.Get()
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(CreatePixmapSurface));
+		EGLPLUS_CHECK_SIMPLE(CreatePixmapSurface);
 		return result;
 	}
 
@@ -192,12 +191,12 @@ private:
 	)
 	{
 		::EGLSurface result = EGLPLUS_EGLFUNC(CreateWindowSurface)(
-			FriendOf<Display>::GetHandle(display),
-			FriendOf<Config>::GetHandle(config),
+			GetEGLHandle(display),
+			GetEGLHandle(config),
 			window,
 			attribs.Get()
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(CreateWindowSurface));
+		EGLPLUS_CHECK_SIMPLE(CreateWindowSurface);
 		return result;
 	}
 
@@ -229,10 +228,10 @@ public:
 		if(_handle != EGL_NO_SURFACE)
 		{
 			EGLPLUS_EGLFUNC(DestroySurface)(
-				FriendOf<Display>::GetHandle(_display),
+				GetEGLHandle(_display),
 				_handle
 			);
-			EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(DestroySurface));
+			EGLPLUS_VERIFY_SIMPLE(DestroySurface);
 		}
 	}
 
@@ -305,10 +304,10 @@ public:
 	bool SwapBuffers(void)
 	{
 		bool result = EGLPLUS_EGLFUNC(SwapBuffers)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			_handle
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(SwapBuffers));
+		EGLPLUS_VERIFY_SIMPLE(SwapBuffers);
 		return result;
 	}
 
@@ -320,11 +319,11 @@ public:
 	bool CopyBuffers(EGLNativePixmapType target)
 	{
 		bool result = EGLPLUS_EGLFUNC(CopyBuffers)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			_handle,
 			target
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(CopyBuffers));
+		EGLPLUS_VERIFY_SIMPLE(CopyBuffers);
 		return result;
 	}
 
@@ -336,12 +335,12 @@ public:
 	bool Attrib(SurfaceAttrib attrib, EGLint value)
 	{
 		bool result = EGLPLUS_EGLFUNC(SurfaceAttrib)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			_handle,
 			EGLint(EGLenum(attrib)),
 			value
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(SurfaceAttrib));
+		EGLPLUS_VERIFY_SIMPLE(SurfaceAttrib);
 		return result;
 	}
 
@@ -353,12 +352,12 @@ public:
 	bool QueryAttrib(SurfaceAttrib attrib, EGLint& value) const
 	{
 		bool result = EGLPLUS_EGLFUNC(QuerySurface)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			_handle,
 			EGLint(EGLenum(attrib)),
 			&value
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(QuerySurface));
+		EGLPLUS_VERIFY_SIMPLE(QuerySurface);
 		return result;
 	}
 
@@ -544,6 +543,11 @@ public:
 		);
 	}
 };
+
+inline ::EGLSurface GetEGLHandle(const Surface& surface)
+{
+	return surface._handle;
+}
 
 } // namespace eglplus
 

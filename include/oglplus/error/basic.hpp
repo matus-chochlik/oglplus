@@ -19,7 +19,6 @@
 #include <oglplus/string/ref.hpp>
 #include <stdexcept>
 #include <cassert>
-#include <map>
 
 namespace oglplus {
 

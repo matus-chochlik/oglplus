@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,12 +14,14 @@
 #define EGLPLUS_DISPLAY_1305291005_HPP
 
 #include <eglplus/eglfunc.hpp>
-#include <eglplus/error.hpp>
-#include <eglplus/friend_of.hpp>
+#include <eglplus/error/basic.hpp>
 
 namespace eglplus {
 
 class EGLInitializer;
+
+class Display;
+::EGLDisplay GetEGLHandle(const Display&);
 
 /// Wrapper around EGLDisplay
 class Display
@@ -27,7 +29,7 @@ class Display
 private:
 	::EGLDisplay _handle;
 
-	friend class FriendOf<Display>;
+	friend ::EGLDisplay GetEGLHandle(const Display&);
 public:
 	/// Opens the default display
 	/**
@@ -38,7 +40,7 @@ public:
 	Display(void)
 	 : _handle(EGLPLUS_EGLFUNC(GetDisplay)(EGL_DEFAULT_DISPLAY))
 	{
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(GetDisplay));
+		EGLPLUS_CHECK_SIMPLE(GetDisplay);
 	}
 
 	/// Opens the display specified by @p display_id
@@ -49,7 +51,7 @@ public:
 	Display(::EGLNativeDisplayType display_id)
 	 : _handle(EGLPLUS_EGLFUNC(GetDisplay)(display_id))
 	{
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(GetDisplay));
+		EGLPLUS_CHECK_SIMPLE(GetDisplay);
 	}
 
 	/// Sets the SwapInterval for the current display
@@ -63,7 +65,7 @@ public:
 			_handle,
 			interval
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(SwapInterval));
+		EGLPLUS_CHECK_SIMPLE(SwapInterval);
 		return result == EGL_TRUE;
 	}
 
@@ -80,10 +82,15 @@ public:
 			EGL_NO_SURFACE,
 			EGL_NO_CONTEXT
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
 		return result == EGL_TRUE;
 	}
 };
+
+inline ::EGLDisplay GetEGLHandle(const Display& display)
+{
+	return display._handle;
+}
 
 } // namespace eglplus
 

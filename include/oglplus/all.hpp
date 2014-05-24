@@ -59,7 +59,6 @@
 #include <oglplus/prog_var/optional.hpp>
 #include <oglplus/prog_var/lazy.hpp>
 
-//#include <oglplus/binding.hpp> TODO
 #include <oglplus/extension.hpp>
 
 #endif // include guard

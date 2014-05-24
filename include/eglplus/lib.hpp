@@ -21,7 +21,7 @@
 #include <eglplus/string.hpp>
 #include <eglplus/fwd.hpp>
 
-#include <eglplus/error.hpp>
+#include <eglplus/error/basic.hpp>
 #include <eglplus/configs.hpp>
 
 #include <eglplus/auxiliary/base_range.hpp>
