@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/object/traits.hpp
- *  @brief GL Object trait templates.
+ *  @file oglplus/string/empty.hpp
+ *  @brief Empty std::string
  *
  *  @author Matus Chochlik
  *
@@ -10,19 +10,19 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_OBJECT_TRAITS_1405011014_HPP
-#define OGLPLUS_OBJECT_TRAITS_1405011014_HPP
+#ifndef OGLPLUS_STRING_EMPTY_1107121519_HPP
+#define OGLPLUS_STRING_EMPTY_1107121519_HPP
 
-#include <type_traits>
+#include <string>
 
 namespace oglplus {
 
-// indicates if
-template <typename ObjTag>
-struct IsMultiObject
- : std::true_type
-{ };
+const std::string& EmptyStdString(void);
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/string/empty.ipp>
+#endif
 
 #endif // include guard

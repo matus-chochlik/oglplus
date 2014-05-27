@@ -17,6 +17,7 @@
 #include <oglplus/enumerations.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
+#include <oglplus/string/empty.hpp>
 #include <stdexcept>
 #include <cassert>
 
@@ -237,19 +238,22 @@ public:
 	 */
 	virtual const char* ObjectTypeName(void) const { return nullptr; }
 
-	/// Returns the object instance description
-	/** If the error is related to a GL object, then a String
-	 *  storing object description is returned. Otherwise the result
-	 *  is an empty String.
-	 */
-	virtual const String& ObjectDesc(void) const { return EmptyString(); }
-
 	/// Returns the object instance GL name
 	/** If the error is related to a GL object, then the numeric
 	 *  GL name of the object is returned. Otherwise the result
 	 *  is a negative integer.
 	 */
 	virtual GLint ObjectName(void) const { return -1; }
+
+	/// Returns the object instance description
+	/** If the error is related to a GL object, then a std::string
+	 *  storing object description is returned. Otherwise the result
+	 *  is an empty std::string.
+	 */
+	virtual const std::string& ObjectDesc(void) const
+	{
+		return EmptyStdString();
+	}
 
 	/// Returns the subject type
 	/** If the error is related to a pair of GL objects, then
@@ -273,11 +277,14 @@ public:
 	virtual GLint SubjectName(void) const { return -1; }
 
 	/// Returns the subject textual description
-	/** If the error is related to a pair of GL objects, then a String
+	/** If the error is related to a pair of GL objects, then a std::string
 	 *  storing the secondary object description is returned. Otherwise
-	 *  the result is an empty String.
+	 *  the result is an empty std::string.
 	 */
-	virtual const String& SubjectDesc(void) const { return EmptyString(); }
+	virtual const std::string& SubjectDesc(void) const
+	{
+		return EmptyStdString();
+	}
 
 	/// Returns the identifier of a GPU program variable
 	/** If the error is related to a GPU program variable (vertex attrib,
@@ -386,9 +393,9 @@ inline void HandleError(ErrorType& error)
 #define OGLPLUS_CHECK_SIMPLE(GLFUNC) \
 	OGLPLUS_CHECK(GLFUNC, Error, NoInfo())
 
-#if !OGPLUS_LOW_PROFILE
+#if !OGLPLUS_LOW_PROFILE
 #define OGLPLUS_VERIFY(GLFUNC, ERROR, ERROR_INFO) \
-	OGLPLUS_CHECK(GLFUNS, ERROR, ERROR_INFO)
+	OGLPLUS_CHECK(GLFUNC, ERROR, ERROR_INFO)
 #else
 #define OGLPLUS_VERIFY(GLFUNC, ERROR, ERROR_INFO)
 #endif

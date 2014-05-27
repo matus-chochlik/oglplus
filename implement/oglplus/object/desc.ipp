@@ -15,16 +15,16 @@ namespace aux {
 #if !OGLPLUS_NO_OBJECT_DESCS
 
 OGLPLUS_LIB_FUNC
-::std::map<GLuint, String>& ObjectDescRegistryStorage(int id)
+::std::map<unsigned, std::string>& ObjectDescRegistryStorage(int id)
 {
-	static ::std::map<int, ::std::map<GLuint, String> > _maps;
+	static ::std::map<int, ::std::map<unsigned, std::string> > _maps;
 	return _maps[id];
 }
 
 OGLPLUS_LIB_FUNC
 void ObjectDescRegistryBase::_do_register_desc(
 	_desc_map& storage,
-	GLuint name,
+	unsigned name,
 	ObjectDesc&& desc
 )
 {
@@ -40,7 +40,7 @@ void ObjectDescRegistryBase::_do_register_desc(
 OGLPLUS_LIB_FUNC
 void ObjectDescRegistryBase::_do_unregister_desc(
 	_desc_map& storage,
-	GLuint name
+	unsigned name
 )
 {
 	if(!std::uncaught_exception())
@@ -54,14 +54,14 @@ void ObjectDescRegistryBase::_do_unregister_desc(
 }
 
 OGLPLUS_LIB_FUNC
-const String& ObjectDescRegistryBase::_do_get_desc(
+const std::string& ObjectDescRegistryBase::_do_get_desc(
 	_desc_map& storage,
-	GLuint name
+	unsigned name
 )
 {
 	auto pos = storage.find(name);
 	if(pos != storage.end()) return pos->second;
-	return EmptyString();
+	return EmptyStdString();
 }
 
 #endif // OGLPLUS_NO_OBJECT_DESCS

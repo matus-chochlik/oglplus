@@ -203,7 +203,7 @@ public:
 	}
 
 	/// Returns the textual description of this object
-	const String& Description(void) const
+	const std::string& Description(void) const
 	{
 		return aux::ObjectDescRegistry::_get_desc(
 			ObjTag::value,

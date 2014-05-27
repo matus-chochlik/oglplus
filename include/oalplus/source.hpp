@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,13 +16,12 @@
 #include <oalplus/config.hpp>
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
-#include <oalplus/error.hpp>
-#include <oalplus/angle.hpp>
-#include <oalplus/vector.hpp>
-#include <oalplus/object.hpp>
-#include <oalplus/array.hpp>
+#include <oalplus/math/angle.hpp>
+#include <oalplus/math/vector.hpp>
+#include <oalplus/error/basic.hpp>
+#include <oalplus/object/wrapper.hpp>
+#include <oalplus/object/sequence.hpp>
 #include <oalplus/buffer.hpp>
-#include <oalplus/friend_of.hpp>
 #include <oalplus/source_state.hpp>
 #include <oalplus/source_type.hpp>
 
@@ -30,47 +29,53 @@
 
 namespace oalplus {
 
-/// Wrapper for OpenAL source operations
-/**
- *  @note Do not use this class directly, use Source instead
+/// Class wrapping AL source construction/destruction functions
+/** @note Do not use this class directly, use Source instead.
  *
- *  @see Source
- *
- *  @alsymbols
+ *  @glsymbols
  *  @alfunref{GenSources}
  *  @alfunref{DeleteSources}
  *  @alfunref{IsSource}
  */
-class SourceOps
- : public Named
- , public FriendOf<BufferOps>
- , public FriendOf<Array<Buffer> >
+template <>
+class ObjGenDelOps<tag::Source>
 {
 protected:
-	friend class FriendOf<SourceOps>;
-
-	static void _init(ALsizei count, ALuint* _name)
+	static void Gen(ALsizei count, ALuint* names)
 	{
-		assert(_name != nullptr);
-		OALPLUS_ALFUNC(al,GenSources)(count, _name);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,GenSources));
+		assert(names != nullptr);
+		OALPLUS_ALFUNC(al,GenSources)(count, names);
+		OALPLUS_CHECK_SIMPLE(al,GenSources);
 	}
 
-	static void _cleanup(ALsizei count, ALuint* _name)
+	static void Delete(ALsizei count, ALuint* names)
 	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OALPLUS_ALFUNC(al,DeleteSources)(count, _name);}
-		catch(...){ }
+		assert(names != nullptr);
+		OALPLUS_ALFUNC(al,DeleteSources)(count, names);
+		OALPLUS_VERIFY_SIMPLE(al,DeleteSources);
 	}
 
-	static ALboolean _is_x(ALuint _name)
+	static ALboolean IsA(ALuint name)
 	{
-		assert(_name != 0);
-		try{return OALPLUS_ALFUNC(al,IsSource)(_name);}
-		catch(...){ }
-		return AL_FALSE;
+		assert(name != 0);
+		ALboolean result = OALPLUS_ALFUNC(al,IsSource)(name);
+		OALPLUS_VERIFY_SIMPLE(al,IsSource);
+		return result;
 	}
+};
+
+/// Wrapper for OpenAL source operations
+/**
+ *  @note Do not use this class directly, use Source instead
+ *
+ *  @alsymbols
+ */
+template <>
+class ObjectOps<tag::DirectState, tag::Source>
+ : public ObjectName<tag::Source>
+{
+protected:
+	ObjectOps(void) { }
 public:
 	/// Starts the audio playback
 	/**
@@ -80,7 +85,11 @@ public:
 	void Play(void)
 	{
 		OALPLUS_ALFUNC(al,SourcePlay)(_name);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourcePlay));
+		OALPLUS_VERIFY(
+			al,SourcePlay,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Pauses the audio playback
@@ -91,7 +100,11 @@ public:
 	void Pause(void)
 	{
 		OALPLUS_ALFUNC(al,SourcePause)(_name);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourcePause));
+		OALPLUS_VERIFY(
+			al,SourcePause,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Stops the audio playback
@@ -102,7 +115,11 @@ public:
 	void Stop(void)
 	{
 		OALPLUS_ALFUNC(al,SourceStop)(_name);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceStop));
+		OALPLUS_VERIFY(
+			al,SourceStop,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Rewinds the audio track
@@ -113,7 +130,11 @@ public:
 	void Rewind(void)
 	{
 		OALPLUS_ALFUNC(al,SourceRewind)(_name);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceRewind));
+		OALPLUS_VERIFY(
+			al,SourceRewind,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the source state
@@ -130,7 +151,11 @@ public:
 			AL_SOURCE_STATE,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourceiv));
+		OALPLUS_VERIFY(
+			al,GetSourceiv,
+			ObjectError,
+			Object(*this)
+		);
 		return SourceState(result);
 	}
 
@@ -147,7 +172,11 @@ public:
 			AL_SOURCE_RELATIVE,
 			value?AL_TRUE:AL_FALSE
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
+		OALPLUS_VERIFY(
+			al,Sourcei,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns true if the source is relative
@@ -164,7 +193,11 @@ public:
 			AL_SOURCE_RELATIVE,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourceiv));
+		OALPLUS_VERIFY(
+			al,GetSourceiv,
+			ObjectError,
+			Object(*this)
+		);
 		return result == AL_TRUE;
 	}
 
@@ -181,7 +214,11 @@ public:
 			AL_SOURCE_TYPE,
 			ALenum(type)
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
+		OALPLUS_VERIFY(
+			al,Sourcei,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the source type
@@ -198,7 +235,11 @@ public:
 			AL_SOURCE_TYPE,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourceiv));
+		OALPLUS_VERIFY(
+			al,GetSourceiv,
+			ObjectError,
+			Object(*this)
+		);
 		return SourceType(ALenum(result));
 	}
 
@@ -215,7 +256,11 @@ public:
 			AL_LOOPING,
 			value?AL_TRUE:AL_FALSE
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
+		OALPLUS_VERIFY(
+			al,Sourcei,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns true if the source is in looping mode
@@ -232,7 +277,11 @@ public:
 			AL_LOOPING,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourceiv));
+		OALPLUS_VERIFY(
+			al,GetSourceiv,
+			ObjectError,
+			Object(*this)
+		);
 		return result == AL_TRUE;
 	}
 
@@ -247,9 +296,13 @@ public:
 		OALPLUS_ALFUNC(al,Sourcei)(
 			_name,
 			AL_BUFFER,
-			FriendOf<BufferOps>::GetName(buffer)
+			GetALName(buffer)
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
+		OALPLUS_VERIFY(
+			al,Sourcei,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Detaches all queued buffers from the source
@@ -265,7 +318,11 @@ public:
 			AL_BUFFER,
 			0
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Sourcei));
+		OALPLUS_VERIFY(
+			al,Sourcei,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Enqueues multiple buffers to the source
@@ -273,16 +330,18 @@ public:
 	 *  @alsymbols
 	 *  @alfunref{SourceQueueBuffers}
 	 */
-	void QueueBuffers(const Array<oalplus::Buffer>& buffers)
+	void QueueBuffers(const Sequence<BufferName>& buffers)
 	{
 		OALPLUS_ALFUNC(al,SourceQueueBuffers)(
 			_name,
-			FriendOf<Array<oalplus::Buffer> >::GetSize(buffers),
-			const_cast<ALuint*>(
-			FriendOf<Array<oalplus::Buffer> >::GetNames(buffers)
-			)
+			buffers.size(),
+			const_cast<ALuint*>(GetALNames(buffers))
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceQueueBuffers));
+		OALPLUS_VERIFY(
+			al,SourceQueueBuffers,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Removes multiple buffers from the sources queue
@@ -290,16 +349,18 @@ public:
 	 *  @alsymbols
 	 *  @alfunref{SourceUnqueueBuffers}
 	 */
-	void UnqueueBuffers(const Array<oalplus::Buffer>& buffers)
+	void UnqueueBuffers(const Sequence<BufferName>& buffers)
 	{
 		OALPLUS_ALFUNC(al,SourceUnqueueBuffers)(
 			_name,
-			FriendOf<Array<oalplus::Buffer> >::GetSize(buffers),
-			const_cast<ALuint*>(
-			FriendOf<Array<oalplus::Buffer> >::GetNames(buffers)
-			)
+			buffers.size(),
+			const_cast<ALuint*>(GetALNames(buffers))
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,SourceUnqueueBuffers));
+		OALPLUS_VERIFY(
+			al,SourceUnqueueBuffers,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Sets the value of gain
@@ -315,7 +376,11 @@ public:
 			AL_GAIN,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the value of gain
@@ -332,7 +397,11 @@ public:
 			AL_GAIN,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return result;
 	}
 
@@ -349,7 +418,11 @@ public:
 			AL_MIN_GAIN,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the minimal value of gain
@@ -366,7 +439,11 @@ public:
 			AL_MIN_GAIN,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return result;
 	}
 
@@ -383,7 +460,11 @@ public:
 			AL_MAX_GAIN,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the maximum value of gain
@@ -400,7 +481,11 @@ public:
 			AL_MAX_GAIN,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return result;
 	}
 
@@ -417,7 +502,11 @@ public:
 			AL_REFERENCE_DISTANCE,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the reference distance
@@ -434,7 +523,11 @@ public:
 			AL_REFERENCE_DISTANCE,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return result;
 	}
 
@@ -451,7 +544,11 @@ public:
 			AL_ROLLOFF_FACTOR,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the value of rolloff factor
@@ -468,7 +565,11 @@ public:
 			AL_ROLLOFF_FACTOR,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return result;
 	}
 
@@ -485,7 +586,11 @@ public:
 			AL_MAX_DISTANCE,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the value of max distance used with some distance models
@@ -502,7 +607,11 @@ public:
 			AL_MAX_DISTANCE,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return result;
 	}
 
@@ -519,7 +628,11 @@ public:
 			AL_PITCH,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the value of pitch
@@ -536,7 +649,11 @@ public:
 			AL_PITCH,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return result;
 	}
 
@@ -553,7 +670,11 @@ public:
 			AL_POSITION,
 			dir.Data()
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcefv));
+		OALPLUS_CHECK(
+			al,Sourcefv,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Sets the position of the source
@@ -569,7 +690,11 @@ public:
 			AL_POSITION,
 			x, y, z
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Source3f));
+		OALPLUS_CHECK(
+			al,Source3f,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the position of the source
@@ -586,7 +711,11 @@ public:
 			AL_POSITION,
 			result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return Vec3f(result);
 	}
 
@@ -603,7 +732,11 @@ public:
 			AL_VELOCITY,
 			dir.Data()
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcefv));
+		OALPLUS_CHECK(
+			al,Sourcefv,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Sets the velocity of the source
@@ -619,7 +752,11 @@ public:
 			AL_VELOCITY,
 			x, y, z
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Source3f));
+		OALPLUS_CHECK(
+			al,Source3f,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the velocity of the source
@@ -636,7 +773,11 @@ public:
 			AL_VELOCITY,
 			result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return Vec3f(result);
 	}
 
@@ -653,7 +794,11 @@ public:
 			AL_DIRECTION,
 			dir.Data()
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcefv));
+		OALPLUS_CHECK(
+			al,Sourcefv,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Sets the direction of the source
@@ -669,7 +814,11 @@ public:
 			AL_DIRECTION,
 			x, y, z
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Source3f));
+		OALPLUS_CHECK(
+			al,Source3f,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the direction of the source
@@ -686,7 +835,11 @@ public:
 			AL_DIRECTION,
 			result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return Vec3f(result);
 	}
 
@@ -703,7 +856,11 @@ public:
 			AL_CONE_INNER_ANGLE,
 			angle.ValueInDegrees()
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the sound cone's inner angle
@@ -720,7 +877,11 @@ public:
 			AL_CONE_INNER_ANGLE,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return Anglef::Degrees(result);
 	}
 
@@ -737,7 +898,11 @@ public:
 			AL_CONE_OUTER_ANGLE,
 			angle.ValueInDegrees()
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the sound cone's outer angle
@@ -754,7 +919,11 @@ public:
 			AL_CONE_OUTER_ANGLE,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return Anglef::Degrees(result);
 	}
 
@@ -771,7 +940,11 @@ public:
 			AL_CONE_OUTER_GAIN,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Returns the sound cone's outer gain value
@@ -788,7 +961,11 @@ public:
 			AL_CONE_OUTER_GAIN,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetSourcefv));
+		OALPLUS_VERIFY(
+			al,GetSourcefv,
+			ObjectError,
+			Object(*this)
+		);
 		return result;
 	}
 
@@ -805,7 +982,11 @@ public:
 			AL_SEC_OFFSET,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Sets the sample-offset value
@@ -821,7 +1002,11 @@ public:
 			AL_SAMPLE_OFFSET,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 	/// Sets the byte-offset value
@@ -837,22 +1022,22 @@ public:
 			AL_BYTE_OFFSET,
 			value
 		);
-		OALPLUS_CHECK(OALPLUS_ERROR_INFO(al,Sourcef));
+		OALPLUS_CHECK(
+			al,Sourcef,
+			ObjectError,
+			Object(*this)
+		);
 	}
 
 };
 
-#if OALPLUS_DOCUMENTATION_ONLY
+typedef ObjectOps<tag::DirectState, tag::Source> SourceOps;
+
 /// An @ref oalplus_object encapsulating the OpenAL source functionality
 /**
  *  @ingroup oalplus_objects
  */
-class Source
- : public SourceOps
-{ };
-#else
 typedef Object<SourceOps> Source;
-#endif
 
 } // namespace oalplus
 

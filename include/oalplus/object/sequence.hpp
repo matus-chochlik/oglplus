@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/object/sequence.hpp
+ *  @file oalplus/object/sequence.hpp
  *  @brief Sequence of Object names
  *
  *  @author Matus Chochlik
@@ -10,18 +10,18 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_OBJECT_SEQUENCE_1405011014_HPP
-#define OGLPLUS_OBJECT_SEQUENCE_1405011014_HPP
+#ifndef OALPLUS_OBJECT_SEQUENCE_1405011014_HPP
+#define OALPLUS_OBJECT_SEQUENCE_1405011014_HPP
 
-#include <oglplus/object/name.hpp>
-#include <oglplus/object/seq_tpl.hpp>
+#include <oalplus/object/name.hpp>
+#include <oalplus/object/seq_tpl.hpp>
 #include <cstddef>
 #include <cassert>
 
-namespace oglplus {
+namespace oalplus {
 
 template <typename ObjName>
-const GLuint* GetGLNames(const Sequence<ObjName>&);
+const ALuint* GetALNames(const Sequence<ObjName>&);
 
 /// Object sequence iterator template
 template <typename ObjectT>
@@ -31,7 +31,7 @@ template <typename OpsTag, typename ObjTag>
 class SeqIterator<ObjectOps<OpsTag, ObjTag>>
  : public aux::SeqIterTpl<
 	Reference<ObjectOps<OpsTag, ObjTag>>,
-	GLuint,
+	ALuint,
 	ObjTag,
 	ObjectName
 >
@@ -39,12 +39,12 @@ class SeqIterator<ObjectOps<OpsTag, ObjTag>>
 private:
 	typedef aux::SeqIterTpl<
 		Reference<ObjectOps<OpsTag, ObjTag>>,
-		GLuint,
+		ALuint,
 		ObjTag,
 		ObjectName
 	> Base;
 public:
-	SeqIterator(const GLuint* pos)
+	SeqIterator(const ALuint* pos)
 	 : Base(pos)
 	{ }
 };
@@ -54,7 +54,7 @@ class SeqIterator<Object<ObjectOps>>
  : public SeqIterator<ObjectOps>
 {
 public:
-	SeqIterator(const GLuint* pos)
+	SeqIterator(const ALuint* pos)
 	 : SeqIterator<ObjectOps>(pos)
 	{ }
 };
@@ -62,31 +62,31 @@ public:
 /// Common base class for Object name sequences
 template <typename ObjTag>
 class Sequence<ObjectName<ObjTag>>
- : public aux::SeqTpl<GLuint, ObjTag, ObjectName>
+ : public aux::SeqTpl<ALuint, ObjTag, ObjectName>
 {
 protected:
-	friend const GLuint*
-	GetGLNames<ObjectName<ObjTag>>(const Sequence&);
+	friend const ALuint*
+	GetALNames<ObjectName<ObjTag>>(const Sequence&);
 
-	typedef aux::SeqTpl<GLuint, ObjTag, ObjectName> Base;
+	typedef aux::SeqTpl<ALuint, ObjTag, ObjectName> Base;
 public:
 	Sequence(void)
 	 : Base()
 	{ }
 
-	Sequence(const GLuint* names, std::size_t count)
+	Sequence(const ALuint* names, std::size_t count)
 	 : Base(names, count)
 	{ }
 };
 
 /// Returns a pointer to array of names stored in a @p sequence
 template <typename ObjName>
-inline const GLuint*
-GetGLNames(const Sequence<ObjName>& sequence)
+inline const ALuint*
+GetALNames(const Sequence<ObjName>& sequence)
 {
 	return sequence._names;
 }
 
-} // namespace oglplus
+} // namespace oalplus
 
 #endif // include guard

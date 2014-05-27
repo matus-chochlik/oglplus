@@ -12,16 +12,6 @@
 namespace oalplus {
 
 OALPLUS_LIB_FUNC
-const char* Error::Message(ALenum code)
-{
-	switch(code)
-	{
-		default:;
-	}
-	return "Unknown AL error";
-}
-
-OALPLUS_LIB_FUNC
 Error::Error(const char* message)
  : std::runtime_error(message)
  , _code(0)

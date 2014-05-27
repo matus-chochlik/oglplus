@@ -16,14 +16,41 @@
 #include <oalplus/config.hpp>
 
 namespace oalplus {
+
+struct Nothing
+{
+	typedef Nothing Type;
+};
+
 namespace tag {
 
 struct Source;
 struct Buffer;
 
-struct ImplicitSel;
+struct DirectState;
 
 } // namespace tag
+
+template <typename ObjTag>
+class ObjectName;
+
+typedef ObjectName<tag::Source> SourceName;
+typedef ObjectName<tag::Buffer> BufferName;
+
+template <typename ObjName>
+class Sequence;
+
+template <typename ObjectT>
+class Reference;
+
+template <typename ObjTag>
+class ObjGenDelOps;
+
+template <typename OpsTag, typename ObjTag>
+class ObjectOps;
+
+template <typename ObjectOps>
+class Object;
 
 class DeviceOps;
 class Device;

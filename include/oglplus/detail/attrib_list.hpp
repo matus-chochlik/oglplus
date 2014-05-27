@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/attrib_list.hpp
+ *  @file oglplus/detail/attrib_list.hpp
  *  @brief OpenGL/OpenAL/EGL/... configuration attribute list
  *
  *  @author Matus Chochlik
@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_ATTRIB_LIST_1303292057_HPP
-#define OGLPLUS_ATTRIB_LIST_1303292057_HPP
+#ifndef OGLPLUS_AUX_ATTRIB_LIST_1303292057_HPP
+#define OGLPLUS_AUX_ATTRIB_LIST_1303292057_HPP
 
 #include <oglplus/bitfield.hpp>
 
@@ -138,7 +138,7 @@ public:
 		);
 	}
 
-	/// Sets the attribute value value to don't care
+	/// Sets the attribute value to don't care
 	/**
 	 *  @pre !Finished()
 	 */
@@ -159,6 +159,7 @@ public:
 	 */
 	bool Finished(void) const
 	{
+		if(_attribs.empty()) return false;
 		return _attribs.back() == _traits.ListEnd();
 	}
 

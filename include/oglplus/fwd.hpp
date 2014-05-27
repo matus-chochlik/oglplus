@@ -135,10 +135,6 @@ template <typename T>
 struct AllowedSpecialization;
 
 // Object
-
-template <typename ObjTag>
-struct IsMultiObject;
-
 template <typename ObjTag>
 class ObjectName;
 

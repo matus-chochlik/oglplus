@@ -15,6 +15,7 @@
 
 #include <oglplus/string/utf8.hpp>
 #include <oglplus/string/lit_tpl.hpp>
+#include <oglplus/string/empty.hpp>
 
 namespace oalplus {
 
@@ -35,6 +36,8 @@ typedef ::oglplus::StrLitTpl<ALchar> StrLit;
  *  @ingroup oalplus_strings
  */
 typedef ::oglplus::StrCRefTpl<ALchar> StrCRef;
+
+using oglplus::EmptyStdString;
 
 } // namespace oalplus
 

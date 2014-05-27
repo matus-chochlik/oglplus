@@ -15,8 +15,7 @@
 
 #include <oalplus/config.hpp>
 #include <oalplus/enumerations.hpp>
-#include <oalplus/string/def.hpp>
-#include <oalplus/string/ref.hpp>
+#include <oalplus/string.hpp>
 #include <stdexcept>
 #include <cassert>
 
@@ -62,7 +61,10 @@ private:
 #endif
 
 public:
-	static const char* Message(ALenum);
+	static const char* Message(ALenum error_code)
+	{
+		return ::alGetString(error_code);
+	}
 
 	Error(const char* message);
 
@@ -217,24 +219,11 @@ public:
 	 */
 	const char* EnumParamName(void) const;
 
-	/// Returns the bind target
-	virtual ALenum BindTarget(void) const { return ALenum(0); }
-
-	/// Returns the bind target name
-	virtual const char* TargetName(void) const { return nullptr; }
-
 	/// Returns the object type
 	/** If the error is related to a AL object, then an object
 	 *  type enumeration value is returned. Otherwise the result is zero.
 	 */
 	virtual ALenum ObjectType(void) const { return ALenum(0); }
-
-	/// Returns the object type name
-	/** If the error is related to a AL object, then a C string
-	 *  storing object type name is returned. Otherwise the result
-	 *  is nullptr.
-	 */
-	virtual const char* ObjectTypeName(void) const { return nullptr; }
 
 	/// Returns the object instance AL name
 	/** If the error is related to a AL object, then the numeric
@@ -243,26 +232,15 @@ public:
 	 */
 	virtual ALint ObjectName(void) const { return -1; }
 
-	/// Returns the subject type
-	/** If the error is related to a pair of AL objects, then
-	 *  an object type enumeration value is returned. Otherwise
-	 *  the result is zero.
+	/// Returns the object instance description
+	/** If the error is related to a GL object, then a std::string
+	 *  storing object description is returned. Otherwise the result
+	 *  is an empty std::string.
 	 */
-	virtual ALenum SubjectType(void) const { return ALenum(0); }
-
-	/// Returns the subject class name
-	/** If the error is related a pair of AL objects, then a C string
-	 *  storing secondary object type name is returned. Otherwise the result
-	 *  is nullptr.
-	 */
-	virtual const char* SubjectTypeName(void) const { return nullptr; }
-
-	/// Returns the subject AL name
-	/** If the error is related to a pair of AL objects, then
-	 *  the numeric AL name of the secondary object is returned.
-	 *  Otherwise the result is a negative integer.
-	 */
-	virtual ALint SubjectName(void) const { return -1; }
+	virtual const std::string& ObjectDesc(void) const
+	{
+		return EmptyStdString();
+	}
 };
 
 /// Generic error handling function
@@ -312,9 +290,9 @@ inline void HandleError(ErrorType& error)
 #define OALPLUS_CHECK_SIMPLE(ALLIB, ALFUNC) \
 	OALPLUS_CHECK(ALLIB, ALFUNC, Error, NoInfo())
 
-#if !OGPLUS_LOW_PROFILE
+#if !OALPLUS_LOW_PROFILE
 #define OALPLUS_VERIFY(ALLIB, ALFUNC, ERROR, ERROR_INFO) \
-	OALPLUS_CHECK(ALLIB, ALFUNS, ERROR, ERROR_INFO)
+	OALPLUS_CHECK(ALLIB, ALFUNC, ERROR, ERROR_INFO)
 #else
 #define OALPLUS_VERIFY(ALLIB, ALFUNC, ERROR, ERROR_INFO)
 #endif
