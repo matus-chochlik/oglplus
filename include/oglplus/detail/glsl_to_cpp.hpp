@@ -21,7 +21,7 @@ namespace aux {
 
 template <
 	typename oglplus::enums::EnumValueType<
-		oglplus::enums::SLDataType
+		oglplus::SLDataType
 	>::Type
 > struct GLSL2Cpp;
 
@@ -31,7 +31,7 @@ template <
 
 template <
 	typename oglplus::enums::EnumValueType<
-		oglplus::enums::SLDataType
+		oglplus::SLDataType
 	>::Type
 > struct SLtoCpp;
 
