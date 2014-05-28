@@ -80,6 +80,8 @@ set_property(TARGET oglplus_example_harness PROPERTY FOLDER "Example/OGLplus")
 # TODO: try to find some better solution for this
 if("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "glx")
 	target_link_libraries(oglplus_example_harness pthread)
+elseif("${OGLPLUS_EXAMPLE_HARNESS}" STREQUAL "egl")
+	target_link_libraries(oglplus_example_harness eglplus)
 endif()
 
 # helper function used in the directories containing examples

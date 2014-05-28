@@ -10,6 +10,7 @@
  */
 
 #include "prologue.ipp"
+#include <eglplus/error/basic.hpp>
 #include <eglplus/config_attrib.hpp>
 #include <eglplus/color_buffer_type.hpp>
 #include <eglplus/transparent_type.hpp>
