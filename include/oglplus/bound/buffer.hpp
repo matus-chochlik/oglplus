@@ -38,7 +38,7 @@ class BoundObjOps<tag::Buffer>
 private:
 	typedef ObjectOps<tag::ExplicitSel, tag::Buffer> ExplicitOps;
 public:
-	typedef typename ExplicitOps::Target Target;
+	typedef ExplicitOps::Target Target;
 	Target target;
 
 	BoundObjOps(void)

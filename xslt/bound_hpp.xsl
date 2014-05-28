@@ -330,7 +330,7 @@ class BoundObjOps&lt;tag::</xsl:text><xsl:value-of select="$Object"/><xsl:text>&
 private:
 	typedef ObjectOps&lt;tag::ExplicitSel, tag::</xsl:text><xsl:value-of select="$Object"/><xsl:text>&gt; ExplicitOps;
 public:
-	typedef typename ExplicitOps::Target Target;
+	typedef ExplicitOps::Target Target;
 	Target target;
 
 	BoundObjOps(void)

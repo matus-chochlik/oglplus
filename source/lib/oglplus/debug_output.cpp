@@ -21,5 +21,6 @@
 #include "implement.ipp"
 
 #include <oglplus/ext/ARB_debug_output.hpp>
-#include <oglplus/ext/KHR_debug.hpp>
+//TODO: this causes problems with certain versions of GLEW
+//#include <oglplus/ext/KHR_debug.hpp>
 #include "epilogue.ipp"

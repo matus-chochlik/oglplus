@@ -17,11 +17,6 @@
 #include <oglplus/error/limit.hpp>
 #include <cassert>
 
-#ifdef _MSC_VER
-#pragma warning( push )
-#pragma warning( disable : 4396 )
-#endif // _MSC_VER
-
 namespace oglplus {
 
 template <GLenum Query>
@@ -158,9 +153,5 @@ public: \
 };
 
 } // namespace oglplus
-
-#ifdef _MSC_VER
-#pragma warning( pop )
-#endif // _MSC_VER
 
 #endif // include guard

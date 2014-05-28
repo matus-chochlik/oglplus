@@ -18,14 +18,14 @@
 
 namespace oglplus {
 
-template <typename ProgVar>
-class TypecheckedImpl<tag::ProgVar, ProgVar>
- : public ProgVar
+template <typename ProgVar_>
+class TypecheckedImpl<tag::ProgVar, ProgVar_>
+ : public ProgVar_
 {
 private:
-	typedef typename Classify<ProgVar>::VarTag VarTag;
+	typedef typename Classify<ProgVar_>::VarTag VarTag;
 public:
-	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VarTag, TypecheckedImpl, ProgVar)
+	OGLPLUS_IMPLEMENT_PROG_VAR_CTRS(VarTag, TypecheckedImpl, ProgVar_)
 };
 
 template <typename ProgVar>
