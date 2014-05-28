@@ -4,6 +4,10 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
+if(PNG_FOUND)
+	do_require_single_dependency(PNG)
+endif()
+
 add_library(oglplus EXCLUDE_FROM_ALL
 	native.cpp
 	string.cpp
@@ -23,3 +27,9 @@ add_library(oglplus EXCLUDE_FROM_ALL
 	text.cpp
 	opt.cpp
 )
+
+if(PNG_FOUND)
+	target_link_libraries(oglplus ${PNG_LIBRARIES})
+endif()
+
+
