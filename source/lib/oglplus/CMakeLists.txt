@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 if(PNG_FOUND)
-	do_require_single_dependency(PNG)
+	do_use_single_dependency(PNG)
 endif()
 
 add_library(oglplus EXCLUDE_FROM_ALL
