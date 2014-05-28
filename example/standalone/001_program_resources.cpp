@@ -183,27 +183,19 @@ int main(int argc, char* argv[])
 
 		return 0;
 	}
-	catch(oglplus::ProgramBuildError& pbe)
-	{
-		std::cerr <<
-			"Program build error (in " <<
-			pbe.GLSymbol() << ", " <<
-			pbe.ObjectTypeName() << " '" <<
-			pbe.ObjectDescription() << "'): " <<
-			pbe.what() << std::endl <<
-			pbe.Log() << std::endl;
-		pbe.Cleanup();
-	}
 	catch(oglplus::Error& err)
 	{
-		std::cerr <<
-			"GL error (in " << err.GLSymbol() << ", " <<
-			err.ObjectTypeName() << ": '" <<
-			err.ObjectDescription() << "'): " <<
-			err.what() <<
-			" [" << err.File() << ":" << err.Line() << "] ";
-		std::cerr << std::endl;
-		err.Cleanup();
+		std::cerr
+			<< "Error (in "
+			<< err.GLFuncName()
+			<< "'): "
+			<< err.what()
+			<< " ["
+			<< err.SourceFile()
+			<< ":"
+			<< err.SourceLine()
+			<< "] "
+			<< std::endl;
 	}
 	catch(const std::exception& se)
 	{
