@@ -204,6 +204,9 @@ struct Classify<Object<ObjectOps<OpsTg, ObjTg>>>
 	typedef tag::Object Tag;
 };
 
+template <typename Object>
+class ObjectSubtype;
+
 template <typename Target>
 struct ObjectTargetTag;
 

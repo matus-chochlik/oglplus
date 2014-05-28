@@ -17,6 +17,7 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error/framebuffer.hpp>
+#include <oglplus/framebuffer_target.hpp>
 #include <oglplus/framebuffer_attachment.hpp>
 #include <oglplus/framebuffer_status.hpp>
 #include <oglplus/texture_target.hpp>
@@ -31,28 +32,6 @@ namespace oglplus {
 #ifdef Status
 #undef Status
 #endif
-
-/// Framebuffer bind target
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(FramebufferTarget, GLenum)
-#include <oglplus/enums/framebuffer_target.ipp>
-OGLPLUS_ENUM_CLASS_END(FramebufferTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/framebuffer_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/framebuffer_target_range.ipp>
-#endif
-
-template <>
-struct ObjectTargetTag<FramebufferTarget>
-{
-	typedef tag::Framebuffer Type;
-};
 
 /// Class wrapping framebuffer construction/destruction functions
 /** @note Do not use this class directly, use Framebuffer instead.

@@ -12,10 +12,6 @@
 
 #include <oglplus/site_config.hpp>
 
-#if OGLPLUS_LINK_LIBRARY
-# include <oglplus/lib.hpp>
-#endif
-
 #include <wx/wx.h>
 #include <wx/sizer.h>
 #include <wx/recguard.h>

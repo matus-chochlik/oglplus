@@ -1,6 +1,6 @@
 /**
- *  .file eglplus/auxiliary/sep_str_range.hpp
- *  .brief Range for traversal of separated string values
+ *  .file eglplus/detail/base_range.hpp
+ *  .brief Base class for ranges
  *
  *  @author Matus Chochlik
  *
@@ -10,16 +10,18 @@
  */
 
 #pragma once
-#ifndef EGLPLUS_AUX_SEP_STR_RANGE_1305291314_HPP
-#define EGLPLUS_AUX_SEP_STR_RANGE_1305291314_HPP
+#ifndef EGLPLUS_AUX_BASE_RANGE_1303292017_HPP
+#define EGLPLUS_AUX_BASE_RANGE_1303292017_HPP
 
-#include <eglplus/string.hpp>
-#include <oglplus/detail/sep_str_range.hpp>
+#include <oglplus/detail/base_range.hpp>
 
 namespace eglplus {
 namespace aux {
 
-typedef oglplus::aux::SepStrRangeTpl<String> SepStrRange;
+using oglplus::aux::IterRange;
+using oglplus::aux::CastIterRange;
+using oglplus::aux::ConvIterRange;
+using oglplus::aux::ArrayRange;
 
 } // namespace aux
 } // namespace eglplus

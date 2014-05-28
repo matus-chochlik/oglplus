@@ -17,47 +17,14 @@
 #include <oglplus/glfunc.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/object.hpp>
+#include <oglplus/transform_feedback_target.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
+#include <oglplus/transform_feedback_type.hpp>
 #include <cassert>
 
 namespace oglplus {
 
-/// Transform feedback primitive modes
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackPrimitiveType, GLenum)
-#include <oglplus/enums/transform_feedback_primitive_type.ipp>
-OGLPLUS_ENUM_CLASS_END(TransformFeedbackPrimitiveType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/transform_feedback_primitive_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/transform_feedback_primitive_type_range.ipp>
-#endif
-
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_transform_feedback2
-
-/// Transform feedback bind targets
-OGLPLUS_ENUM_CLASS_BEGIN(TransformFeedbackTarget, GLenum)
-#include <oglplus/enums/transform_feedback_target.ipp>
-OGLPLUS_ENUM_CLASS_END(TransformFeedbackTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/transform_feedback_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/transform_feedback_target_range.ipp>
-#endif
-
-template <>
-struct ObjectTargetTag<TransformFeedbackTarget>
-{
-	typedef tag::TransformFeedback Type;
-};
 
 /// Class wrapping transform feedback construction/destruction functions
 /** @note Do not use this class directly, use TransformFeedback instead.

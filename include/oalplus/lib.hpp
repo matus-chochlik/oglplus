@@ -27,8 +27,8 @@
 
 #include <oalplus/context.hpp>
 
-#include <oalplus/auxiliary/base_range.hpp>
-#include <oalplus/auxiliary/enum_class.hpp>
+#include <oalplus/detail/base_range.hpp>
+#include <oalplus/detail/enum_class.hpp>
 
 namespace oalplus {
 

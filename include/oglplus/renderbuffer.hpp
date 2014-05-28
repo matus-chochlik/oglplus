@@ -17,35 +17,13 @@
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error/object.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/renderbuffer_target.hpp>
 #include <oglplus/pixel_data.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/images/fwd.hpp>
 #include <cassert>
 
 namespace oglplus {
-
-/// Renderbuffer bind targets
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(RenderbufferTarget, GLenum)
-#include <oglplus/enums/renderbuffer_target.ipp>
-OGLPLUS_ENUM_CLASS_END(RenderbufferTarget)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/renderbuffer_target_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/renderbuffer_target_range.ipp>
-#endif
-
-template <>
-struct ObjectTargetTag<RenderbufferTarget>
-{
-	typedef tag::Renderbuffer Type;
-};
 
 /// Class wrapping renderbuffer construction/destruction functions
 /** @note Do not use this class directly, use Renderbuffer instead.

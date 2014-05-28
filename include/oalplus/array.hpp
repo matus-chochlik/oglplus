@@ -19,8 +19,8 @@
 #include <oalplus/error.hpp>
 #include <oalplus/object.hpp>
 
-//#include <oalplus/auxiliary/base_iter.hpp> TODO
-//#include <oalplus/auxiliary/base_range.hpp>
+//#include <oalplus/detail/base_iter.hpp> TODO
+//#include <oalplus/detail/base_range.hpp>
 
 #include <cassert>
 #include <vector>

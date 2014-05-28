@@ -22,7 +22,7 @@
 #include <oalplus/attrib_list.hpp>
 #include <oalplus/error/alc.hpp>
 
-#include <oalplus/auxiliary/sep_str_range.hpp>
+#include <oalplus/detail/sep_str_range.hpp>
 
 namespace oalplus {
 

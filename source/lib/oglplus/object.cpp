@@ -10,9 +10,44 @@
  */
 
 #include "prologue.ipp"
+
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/error/basic.hpp>
+#include <oglplus/error/limit.hpp>
+#include <oglplus/error/object.hpp>
+#include <oglplus/error/framebuffer.hpp>
+#include <oglplus/compare_func.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/pixel_data.hpp>
+#include <oglplus/access_specifier.hpp>
+#include <oglplus/texture_target.hpp>
+#include <oglplus/texture_filter.hpp>
+#include <oglplus/texture_compare.hpp>
+#include <oglplus/texture_swizzle.hpp>
+#include <oglplus/texture_wrap.hpp>
+#include <oglplus/buffer_target.hpp>
+#include <oglplus/buffer_usage.hpp>
+#include <oglplus/buffer_map_access.hpp>
+#include <oglplus/buffer_storage_bit.hpp>
+#include <oglplus/framebuffer_target.hpp>
+#include <oglplus/framebuffer_attachment.hpp>
+#include <oglplus/renderbuffer_target.hpp>
+#include <oglplus/transform_feedback_target.hpp>
+#include <oglplus/transform_feedback_mode.hpp>
+#include <oglplus/transform_feedback_type.hpp>
+#include <oglplus/color_buffer.hpp>
+
+#include "implement.ipp"
+
+#include <oglplus/object/desc.hpp>
 #include <oglplus/texture.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/framebuffer.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <oglplus/transform_feedback.hpp>
+#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/renderbuffer.hpp>
+#include <oglplus/dsa/texture.hpp>
 #include "epilogue.ipp"

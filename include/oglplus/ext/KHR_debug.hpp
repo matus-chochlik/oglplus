@@ -18,7 +18,9 @@
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/ext/KHR_debug/severity.hpp>
+#include <oglplus/ext/KHR_debug/source.hpp>
+#include <oglplus/ext/KHR_debug/type.hpp>
 
 #include <cassert>
 #include <cstddef>
@@ -30,67 +32,7 @@
 
 namespace oglplus {
 
-/// Debug output severity enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{KHR,debug}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugSeverity, GLenum)
-#include <oglplus/enums/ext/debug_severity.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugSeverity)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_severity_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_severity_range.ipp>
-#endif
-
-
-/// Debug output source enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{KHR,debug}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugSource, GLenum)
-#include <oglplus/enums/ext/debug_source.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugSource)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_source_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_source_range.ipp>
-#endif
-
-
-/// Debug output type enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{KHR,debug}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugType, GLenum)
-#include <oglplus/enums/ext/debug_type.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_type_range.ipp>
-#endif
-
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_KHR_debug
-
 
 /// Wrapper for the KHR_debug extension
 /**

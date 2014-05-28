@@ -1,6 +1,6 @@
 /**
- *  .file lib/oglplus/object_dsa.cpp
- *  .brief GL EXT_dsa object-related functions
+ *  .file lib/oglplus/extension.cpp
+ *  .brief OGLplus extension functions
  *
  *  @author Matus Chochlik
  *
@@ -10,7 +10,9 @@
  */
 
 #include "prologue.ipp"
-#include <oglplus/ext/EXT_direct_state_access/framebuffer.hpp>
-#include <oglplus/ext/EXT_direct_state_access/renderbuffer.hpp>
-#include <oglplus/ext/EXT_direct_state_access/texture.hpp>
+#include <oglplus/error/basic.hpp>
+
+#include "implement.ipp"
+
+#include <oglplus/extension.hpp>
 #include "epilogue.ipp"

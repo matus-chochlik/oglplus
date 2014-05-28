@@ -1,5 +1,5 @@
 /**
- *  .file lib/oglplus/shader.cpp
+ *  .file lib/oglplus/prog_var.cpp
  *  .brief GLSL and Shader and shader variable-related functions
  *
  *  @author Matus Chochlik
@@ -10,12 +10,20 @@
  */
 
 #include "prologue.ipp"
-#include <oglplus/auxiliary/glsl_source.hpp>
-#include <oglplus/auxiliary/shader_data.hpp>
-#include <oglplus/auxiliary/uniform_init.hpp>
-#include <oglplus/auxiliary/uniform_typecheck.hpp>
-#include <oglplus/auxiliary/info_log.hpp>
-#include <oglplus/shader.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/error/object.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/limit.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/shader_type.hpp>
+#include <oglplus/object/type.hpp>
+
+#include "implement.ipp"
+
+#include <oglplus/prog_var/typecheck.hpp>
+#include <oglplus/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/vertex_attrib.hpp>

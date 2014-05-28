@@ -18,7 +18,9 @@
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/ext/ARB_debug_output/severity.hpp>
+#include <oglplus/ext/ARB_debug_output/source.hpp>
+#include <oglplus/ext/ARB_debug_output/type.hpp>
 
 #include <cassert>
 #include <stack>
@@ -29,67 +31,7 @@
 
 namespace oglplus {
 
-/// Debug output severity enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{ARB,debug_output}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputARBSeverity, GLenum)
-#include <oglplus/enums/ext/debug_output_severity.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugOutputARBSeverity)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_output_severity_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_output_severity_range.ipp>
-#endif
-
-
-/// Debug output source enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{ARB,debug_output}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputARBSource, GLenum)
-#include <oglplus/enums/ext/debug_output_source.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugOutputARBSource)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_output_source_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_output_source_range.ipp>
-#endif
-
-
-/// Debug output type enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{ARB,debug_output}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugOutputARBType, GLenum)
-#include <oglplus/enums/ext/debug_output_type.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugOutputARBType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_output_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_output_type_range.ipp>
-#endif
-
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_debug_output
-
 
 /// Wrapper for the ARB_debug_output extension
 /**

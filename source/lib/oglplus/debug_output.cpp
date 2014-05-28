@@ -10,6 +10,16 @@
  */
 
 #include "prologue.ipp"
+#include <oglplus/extension.hpp>
+#include <oglplus/ext/ARB_debug_output/severity.hpp>
+#include <oglplus/ext/ARB_debug_output/source.hpp>
+#include <oglplus/ext/ARB_debug_output/type.hpp>
+#include <oglplus/ext/KHR_debug/severity.hpp>
+#include <oglplus/ext/KHR_debug/source.hpp>
+#include <oglplus/ext/KHR_debug/type.hpp>
+
+#include "implement.ipp"
+
 #include <oglplus/ext/ARB_debug_output.hpp>
 #include <oglplus/ext/KHR_debug.hpp>
 #include "epilogue.ipp"

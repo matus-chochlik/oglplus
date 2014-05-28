@@ -10,6 +10,23 @@
  */
 
 #include "prologue.ipp"
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/error/object.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/limit.hpp>
+#include <oglplus/vertex_array.hpp>
+#include <oglplus/vertex_attrib.hpp>
+#include <oglplus/buffer.hpp>
+#include <oglplus/program.hpp>
+#include <oglplus/context.hpp>
+#include <oglplus/face_mode.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/primitive_type.hpp>
+
+#include "implement.ipp"
+
 #include <oglplus/shapes/draw.hpp>
 #include <oglplus/shapes/wrapper.hpp>
 #include <oglplus/shapes/analyzer.hpp>

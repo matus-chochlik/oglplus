@@ -18,7 +18,7 @@
 #include <eglplus/error/basic.hpp>
 #include <eglplus/string_query.hpp>
 
-#include <eglplus/auxiliary/sep_str_range.hpp>
+#include <eglplus/detail/sep_str_range.hpp>
 
 namespace eglplus {
 

@@ -1,5 +1,5 @@
 /**
- *  @file oalplus/auxiliary/named.hpp
+ *  @file oalplus/detail/named.hpp
  *  @brief Base class for OpenAL "named" objects
  *
  *  @author Matus Chochlik

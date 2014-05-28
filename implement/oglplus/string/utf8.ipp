@@ -14,10 +14,10 @@ namespace oglplus {
 namespace aux {
 
 OGLPLUS_LIB_FUNC
-size_t UTF8BytesRequired(const UnicodeCP* cp_str, size_t len)
+std::size_t UTF8BytesRequired(const UnicodeCP* cp_str, std::size_t len)
 {
-	size_t result = 0;
-	for(size_t i=0; i!=len; ++i)
+	std::size_t result = 0;
+	for(std::size_t i=0; i!=len; ++i)
 	{
 		UnicodeCP cp = *cp_str++;
 		if((cp & ~0x0000007F) == 0)
@@ -38,7 +38,7 @@ size_t UTF8BytesRequired(const UnicodeCP* cp_str, size_t len)
 }
 
 OGLPLUS_LIB_FUNC
-void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len)
+void ConvertCodePointToUTF8(UnicodeCP cp, char* str, std::size_t& len)
 {
 	// 7-bits -> one byte
 	if((cp & ~0x0000007F) == 0)
@@ -97,14 +97,14 @@ void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len)
 OGLPLUS_LIB_FUNC
 void ConvertCodePointsToUTF8(
 	const UnicodeCP* cps,
-	size_t len,
+	std::size_t len,
 	std::vector<char>& result
 )
 {
-	size_t u8len = UTF8BytesRequired(cps, len);
+	std::size_t u8len = UTF8BytesRequired(cps, len);
 	result.resize(u8len);
 	char* cptr = result.data();
-	size_t clen = 0;
+	std::size_t clen = 0;
 	while(len)
 	{
 		assert(u8len >= clen);
@@ -119,16 +119,16 @@ void ConvertCodePointsToUTF8(
 }
 
 OGLPLUS_LIB_FUNC
-size_t CodePointsRequired(const char* str, size_t len)
+std::size_t CodePointsRequired(const char* str, std::size_t len)
 {
 	assert(sizeof(char) == sizeof(unsigned char));
 	const unsigned char* pb=reinterpret_cast<const unsigned char*>(str);
 
-	size_t result = 0;
+	std::size_t result = 0;
 
 	while(len)
 	{
-		size_t skip = 0;
+		std::size_t skip = 0;
 		if(((*pb) & 0x80) == 0x00)
 			skip = 1;
 		else if(((*pb) & 0xE0) == 0xC0)
@@ -151,7 +151,7 @@ size_t CodePointsRequired(const char* str, size_t len)
 }
 
 OGLPLUS_LIB_FUNC
-UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len, size_t& cp_len)
+UnicodeCP ConvertUTF8ToCodePoint(const char* str, std::size_t len, std::size_t& cp_len)
 {
 	assert(sizeof(char) == sizeof(unsigned char));
 	const unsigned char* bytes=reinterpret_cast<const unsigned char*>(str);
@@ -239,14 +239,14 @@ UnicodeCP ConvertUTF8ToCodePoint(const char* str, size_t len, size_t& cp_len)
 OGLPLUS_LIB_FUNC
 void ConvertUTF8ToCodePoints(
 	const char* str,
-	size_t len,
+	std::size_t len,
 	std::vector<UnicodeCP>& result
 )
 {
-	size_t ulen = CodePointsRequired(str, len);
+	std::size_t ulen = CodePointsRequired(str, len);
 	result.resize(ulen);
 	UnicodeCP* cpptr = result.data();
-	size_t cplen = 0;
+	std::size_t cplen = 0;
 	while(len)
 	{
 		*cpptr = ConvertUTF8ToCodePoint(str, len, cplen);

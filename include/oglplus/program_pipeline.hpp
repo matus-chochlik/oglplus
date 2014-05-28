@@ -16,8 +16,8 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/bitfield.hpp>
 #include <oglplus/shader_type.hpp>
+#include <oglplus/program_pipeline_stage.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/program.hpp>
 #include <oglplus/detail/prog_pl_stages.hpp>
@@ -28,24 +28,6 @@ namespace oglplus {
 
 // if program-pipeline is available
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-
-/// Program pipeline stage enumeration
-/**
- *  @ingroup enumerations
- */
-OGLPLUS_ENUM_CLASS_BEGIN(ProgramPipelineStage, GLbitfield)
-#include <oglplus/enums/program_pipeline_stage.ipp>
-OGLPLUS_ENUM_CLASS_END(ProgramPipelineStage)
-
-OGLPLUS_MAKE_BITFIELD(ProgramPipelineStage)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/program_pipeline_stage_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/program_pipeline_stage_range.ipp>
-#endif
 
 /// Class wrapping program pipeline construction/destruction functions
 /** @note Do not use this class directly, use ProgramPipeline instead.

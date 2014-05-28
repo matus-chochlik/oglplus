@@ -28,10 +28,6 @@
 
 #include <oglplus/site_config.hpp>
 
-#if OGLPLUS_LINK_LIBRARY
-# include <oglplus/lib.hpp>
-#endif
-
 #include <oglplus/config.hpp>
 #include <oglplus/error/basic.hpp>
 

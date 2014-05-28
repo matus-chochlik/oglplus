@@ -1,5 +1,5 @@
 /**
- *  .file oalplus/auxiliary/sep_str_range.hpp
+ *  .file oalplus/detail/sep_str_range.hpp
  *  .brief Range for traversal of separated string values
  *
  *  @author Matus Chochlik

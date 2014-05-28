@@ -1,5 +1,5 @@
 /**
- *  .file eglplus/auxiliary/base_iter.hpp
+ *  .file eglplus/detail/base_iter.hpp
  *  .brief Base classes for iterators
  *
  *  @author Matus Chochlik

@@ -10,15 +10,8 @@
  */
 
 #include "prologue.ipp"
+#include "implement.ipp"
 
 #include <oalplus/string.hpp>
-
-#include <oalplus/auxiliary/base_range.hpp>
-#include <oalplus/auxiliary/enum_class.hpp>
-
-namespace oalplus {
-#include <oalplus/lib/enum_value_name.ipp>
-#include <oalplus/lib/enum_value_range.ipp>
-} // namespace oalplus
 
 #include "epilogue.ipp"

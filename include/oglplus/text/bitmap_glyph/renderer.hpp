@@ -14,6 +14,7 @@
 #define OGLPLUS_TEXT_BITMAP_GLYPH_RENDERER_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/context.hpp>
 #include <oglplus/object/group.hpp>

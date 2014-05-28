@@ -10,6 +10,15 @@
  */
 
 #include "prologue.ipp"
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/pixel_data.hpp>
+#include <oglplus/images/image.hpp>
+
+#include "implement.ipp"
+
 #include <oglplus/images/xpm.hpp>
 #if OGLPLUS_PNG_FOUND
 #include <oglplus/images/png.hpp>

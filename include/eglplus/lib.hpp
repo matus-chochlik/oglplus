@@ -24,8 +24,8 @@
 #include <eglplus/error/basic.hpp>
 #include <eglplus/configs.hpp>
 
-#include <eglplus/auxiliary/base_range.hpp>
-#include <eglplus/auxiliary/enum_class.hpp>
+#include <eglplus/detail/base_range.hpp>
+#include <eglplus/detail/enum_class.hpp>
 
 namespace eglplus {
 

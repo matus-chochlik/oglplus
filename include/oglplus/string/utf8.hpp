@@ -12,42 +12,38 @@
 #ifndef __OGLPLUS_STRING_UTF8_1102101236_HPP
 #define __OGLPLUS_STRING_UTF8_1102101236_HPP
 
-#if !OGLPLUS_NO_UTF8_CHECKS
+#include <cstddef>
 #include <cassert>
 #include <vector>
-#endif
 
 namespace oglplus {
 namespace aux {
 
 typedef char32_t UnicodeCP;
 
-#if !OGLPLUS_NO_UTF8_CHECKS
+std::size_t UTF8BytesRequired(const UnicodeCP* cp_str, std::size_t len);
 
-size_t UTF8BytesRequired(const UnicodeCP* cp_str, size_t len);
-
-void ConvertCodePointToUTF8(UnicodeCP cp, char* str, size_t& len);
+void ConvertCodePointToUTF8(UnicodeCP cp, char* str, std::size_t& len);
 
 void ConvertCodePointsToUTF8(
 	const UnicodeCP* cps,
-	size_t len,
+	std::size_t len,
 	std::vector<char>& result
 );
 
-size_t CodePointsRequired(const char* str, size_t len);
+std::size_t CodePointsRequired(const char* str, std::size_t len);
 
 UnicodeCP ConvertUTF8ToCodePoint(
 	const char* str,
-	size_t len,
-	size_t& cp_len
+	std::size_t len,
+	std::size_t& cp_len
 );
 
 void ConvertUTF8ToCodePoints(
 	const char* str,
-	size_t len,
+	std::size_t len,
 	std::vector<UnicodeCP>& result
 );
-#endif
 
 class UTF8Validator
 {
@@ -90,10 +86,8 @@ inline bool ValidUTF8(const char* begin, const char* end)
 } // namespace aux
 } // namespace oglplus
 
-#if !OGLPLUS_NO_UTF8_CHECKS
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
 #include <oglplus/string/utf8.ipp>
 #endif // OGLPLUS_LINK_LIB
-#endif // OGLPLUS_NO_UTF8_CHECKS
 
 #endif

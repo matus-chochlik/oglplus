@@ -1,5 +1,5 @@
 /**
- *  .file eglplus/auxiliary/base_range.hpp
+ *  .file oalplus/detail/base_range.hpp
  *  .brief Base class for ranges
  *
  *  @author Matus Chochlik
@@ -10,20 +10,18 @@
  */
 
 #pragma once
-#ifndef EGLPLUS_AUX_BASE_RANGE_1303292017_HPP
-#define EGLPLUS_AUX_BASE_RANGE_1303292017_HPP
+#ifndef OALPLUS_AUX_BASE_RANGE_1303292017_HPP
+#define OALPLUS_AUX_BASE_RANGE_1303292017_HPP
 
 #include <oglplus/detail/base_range.hpp>
 
-namespace eglplus {
+namespace oalplus {
 namespace aux {
 
-using oglplus::aux::IterRange;
 using oglplus::aux::CastIterRange;
-using oglplus::aux::ConvIterRange;
 using oglplus::aux::ArrayRange;
 
 } // namespace aux
-} // namespace eglplus
+} // namespace oalplus
 
 #endif // include guard

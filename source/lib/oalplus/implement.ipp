@@ -1,6 +1,6 @@
 /**
- *  .file lib/oglplus/obj_desc.cpp
- *  .brief ObjectDescription-related functions
+ *  .file lib/oglplus/implement.hpp
+ *  .brief Common include file for the library source files
  *
  *  @author Matus Chochlik
  *
@@ -9,6 +9,4 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#include "prologue.ipp"
-#include <oglplus/auxiliary/obj_desc.hpp>
-#include "epilogue.ipp"
+#define OALPLUS_IMPLEMENTING_LIBRARY 1
