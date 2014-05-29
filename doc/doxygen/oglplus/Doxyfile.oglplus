@@ -1,4 +1,4 @@
-#  Copyright 2009-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2009-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -18,8 +18,16 @@ INPUT = \
 	../../include/oglplus \
 	../../tutorial/oglplus \
 	../../../include/oglplus \
+	../../../include/oglplus/math \
+	../../../include/oglplus/string \
+	../../../include/oglplus/object \
+	../../../include/oglplus/prog_var \
 	../../../include/oglplus/bound \
+	../../../include/oglplus/dsa \
+	../../../include/oglplus/error \
 	../../../include/oglplus/context \
+	../../../include/oglplus/native \
+	../../../include/oglplus/utils \
 	../../../include/oglplus/ext \
 	../../../include/oglplus/opt \
 	../../../include/oglplus/shapes \
