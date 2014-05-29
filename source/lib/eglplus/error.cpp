@@ -10,5 +10,6 @@
  */
 
 #include "prologue.ipp"
-#include <eglplus/error.hpp>
+#include "implement.ipp"
+#include <eglplus/error/basic.hpp>
 #include "epilogue.ipp"

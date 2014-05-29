@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{014_multi_cube}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -43,7 +43,7 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
+	Uniform<Mat4f> projection_matrix, camera_matrix;
 
 	// A vertex array object for the rendered cube
 	VertexArray cube;
@@ -54,8 +54,8 @@ public:
 	CubeExample(void)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
+	 , projection_matrix(prog)
+	 , camera_matrix(prog)
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -110,6 +110,9 @@ public:
 		prog.Link();
 		prog.Use();
 
+		projection_matrix.BindTo("ProjectionMatrix");
+		camera_matrix.BindTo("CameraMatrix");
+
 		// bind the VAO for the cube
 		cube.Bind();
 
@@ -121,7 +124,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

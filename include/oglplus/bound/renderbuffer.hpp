@@ -1,7 +1,7 @@
 
 /**
  *  @file oglplus/bound/renderbuffer.hpp
- *  @brief Specialization of BoundTemplate for Renderbuffer.
+ *  @brief Specialization of ObjectOps for Renderbuffer.
  *
  *  Automatically generated file, do not edit manually!
  *
@@ -14,60 +14,65 @@
 #ifndef OGLPLUS_BOUND_RENDERBUFFER_1107121519_HPP
 #define OGLPLUS_BOUND_RENDERBUFFER_1107121519_HPP
 
-#include <oglplus/fwd.hpp>
+#include <oglplus/object/bound.hpp>
 #include <oglplus/renderbuffer.hpp>
 #include <utility>
 
 namespace oglplus {
 
-/// Specialization of the BoundTemplate for RenderbufferOps, implements Bound < Renderbuffer  >.
+/// Specialization of the BoundObjOps for Renderbuffer  >.
 /** This template implements wrappers around the member functions
  *  of Renderbuffer, which have
- *  a RenderbufferOps::Target parameter
+ *  a RenderbufferTarget parameter
  *  specifying the binding point on which they should operate.
  *
  *  @note Do not use this template class directly use
- *  Bound < Renderbuffer > or the Bind()
+ *  Bound < Renderbuffer > or the Context::Current()
  *  function instead.
- *
- *  @see Bind()
- *  @see Bound
  *
  *  @ingroup utility_classes
  */
-template <template <class, class> class Base, class BaseParam>
-class BoundTemplate<Base, BaseParam, RenderbufferOps>
- : public Base<BaseParam, RenderbufferOps>
+template <>
+class BoundObjOps<tag::Renderbuffer>
 {
 private:
-	typedef Base<
-		BaseParam,
-		RenderbufferOps
-	> _base;
+	typedef ObjectOps<tag::ExplicitSel, tag::Renderbuffer> ExplicitOps;
 public:
-	BoundTemplate(
-		const RenderbufferOps& bindable,
-		RenderbufferOps::Target target
-	): _base(bindable, target)
+	typedef ExplicitOps::Target Target;
+	Target target;
+
+	BoundObjOps(void)
 	{ }
 
-	BoundTemplate(
-		RenderbufferOps::Target target
-	): _base(target)
+	BoundObjOps(Target init_tgt)
+	 : target(init_tgt)
 	{ }
+
+	/** Wrapper for Renderbuffer::GetIntParam()
+	 *  @see Renderbuffer::GetIntParam()
+	 */
+	GLint GetIntParam(
+		GLenum query
+	) const
+	{
+		return ExplicitOps::GetIntParam(
+			this->target,
+			query
+		);
+	}
 
 
 	/** Wrapper for Renderbuffer::Storage()
 	 *  @see Renderbuffer::Storage()
 	 */
-	const BoundTemplate& Storage(
+	const BoundObjOps& Storage(
 		PixelDataInternalFormat internalformat,
 		GLsizei width,
 		GLsizei height
 	) const
 	{
-		RenderbufferOps::Storage(
-			this->BindTarget(),
+		ExplicitOps::Storage(
+			this->target,
 			internalformat,
 			width,
 			height
@@ -79,12 +84,12 @@ public:
 	/** Wrapper for Renderbuffer::Storage()
 	 *  @see Renderbuffer::Storage()
 	 */
-	const BoundTemplate& Storage(
+	const BoundObjOps& Storage(
 		const images::ImageSpec & image_spec
 	) const
 	{
-		RenderbufferOps::Storage(
-			this->BindTarget(),
+		ExplicitOps::Storage(
+			this->target,
 			image_spec
 		);
 		return *this;
@@ -94,15 +99,15 @@ public:
 	/** Wrapper for Renderbuffer::StorageMultisample()
 	 *  @see Renderbuffer::StorageMultisample()
 	 */
-	const BoundTemplate& StorageMultisample(
+	const BoundObjOps& StorageMultisample(
 		GLsizei samples,
 		PixelDataInternalFormat internalformat,
 		GLsizei width,
 		GLsizei height
 	) const
 	{
-		RenderbufferOps::StorageMultisample(
-			this->BindTarget(),
+		ExplicitOps::StorageMultisample(
+			this->target,
 			samples,
 			internalformat,
 			width,
@@ -117,8 +122,8 @@ public:
 	 */
 	GLsizei Width(void) const
 	{
-		return RenderbufferOps::Width(
-			this->BindTarget()
+		return ExplicitOps::Width(
+			this->target
 		);
 	}
 
@@ -128,8 +133,8 @@ public:
 	 */
 	GLsizei Height(void) const
 	{
-		return RenderbufferOps::Height(
-			this->BindTarget()
+		return ExplicitOps::Height(
+			this->target
 		);
 	}
 
@@ -139,8 +144,8 @@ public:
 	 */
 	GLsizei RedSize(void) const
 	{
-		return RenderbufferOps::RedSize(
-			this->BindTarget()
+		return ExplicitOps::RedSize(
+			this->target
 		);
 	}
 
@@ -150,8 +155,8 @@ public:
 	 */
 	GLsizei GreenSize(void) const
 	{
-		return RenderbufferOps::GreenSize(
-			this->BindTarget()
+		return ExplicitOps::GreenSize(
+			this->target
 		);
 	}
 
@@ -161,8 +166,8 @@ public:
 	 */
 	GLsizei BlueSize(void) const
 	{
-		return RenderbufferOps::BlueSize(
-			this->BindTarget()
+		return ExplicitOps::BlueSize(
+			this->target
 		);
 	}
 
@@ -172,8 +177,8 @@ public:
 	 */
 	GLsizei AlphaSize(void) const
 	{
-		return RenderbufferOps::AlphaSize(
-			this->BindTarget()
+		return ExplicitOps::AlphaSize(
+			this->target
 		);
 	}
 
@@ -183,8 +188,8 @@ public:
 	 */
 	GLsizei DepthSize(void) const
 	{
-		return RenderbufferOps::DepthSize(
-			this->BindTarget()
+		return ExplicitOps::DepthSize(
+			this->target
 		);
 	}
 
@@ -194,8 +199,8 @@ public:
 	 */
 	GLsizei StencilSize(void) const
 	{
-		return RenderbufferOps::StencilSize(
-			this->BindTarget()
+		return ExplicitOps::StencilSize(
+			this->target
 		);
 	}
 
@@ -205,8 +210,8 @@ public:
 	 */
 	GLsizei Samples(void) const
 	{
-		return RenderbufferOps::Samples(
-			this->BindTarget()
+		return ExplicitOps::Samples(
+			this->target
 		);
 	}
 
@@ -216,13 +221,13 @@ public:
 	 */
 	PixelDataInternalFormat InternalFormat(void) const
 	{
-		return RenderbufferOps::InternalFormat(
-			this->BindTarget()
+		return ExplicitOps::InternalFormat(
+			this->target
 		);
 	}
 
 
-}; // class BoundTemplate
+}; // class BoundObjOps
 
 } // namespace oglplus
 

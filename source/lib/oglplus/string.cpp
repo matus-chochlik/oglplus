@@ -10,15 +10,10 @@
  */
 
 #include "prologue.ipp"
-#include <oglplus/auxiliary/base_range.hpp>
-#include <oglplus/auxiliary/enum_class.hpp>
-#include <oglplus/auxiliary/xml_utils.hpp>
-#include <oglplus/auxiliary/utf8.hpp>
-#include <oglplus/string.hpp>
+#include "implement.ipp"
 
-namespace oglplus {
-#include <oglplus/lib/enum_value_name.ipp>
-#include <oglplus/lib/enum_value_range.ipp>
-} // namespace oglplus
-
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/utils/xml.hpp>
 #include "epilogue.ipp"

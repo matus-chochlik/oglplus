@@ -113,8 +113,7 @@ namespace oglplus {
  *  As said above, @OGLplus by default encapsulates and hides the OpenGL names
  *  assigned to various objects (resources allocated at the OpenGL server).
  *  There are however situations where it might be necessary to get this
- *  "raw" resource handle. This can be done via the @ref oglplus::FriendOf "FriendOf"
- *  class.
+ *  "raw" resource handle.
  *
  *  @subsection feat_related_classes Additional CG related classes
  *

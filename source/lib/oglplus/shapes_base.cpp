@@ -10,6 +10,17 @@
  */
 
 #include "prologue.ipp"
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/error/limit.hpp>
+#include <oglplus/face_mode.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/primitive_type.hpp>
+#include <oglplus/shapes/draw.hpp>
+
+#include "implement.ipp"
+
 #include <oglplus/shapes/cage.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/shapes/grid.hpp>

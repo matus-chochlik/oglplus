@@ -4,22 +4,32 @@
 #
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
+if(PNG_FOUND)
+	do_use_single_dependency(PNG)
+endif()
+
 add_library(oglplus EXCLUDE_FROM_ALL
 	native.cpp
 	string.cpp
+	enums.cpp
 	error.cpp
-	obj_desc.cpp
-	shader.cpp
-	program.cpp
 	object.cpp
-	object_dsa.cpp
-	images_load.cpp
-	images_base.cpp
-	shapes_blender.cpp
-	shapes_utils.cpp
-	shapes_base.cpp
-	shapes_obj.cpp
+	program.cpp
+	prog_var.cpp
+	extension.cpp
 	debug_output.cpp
+	images_base.cpp
+	images_load.cpp
+	shapes_base.cpp
+	shapes_utils.cpp
+	shapes_blender.cpp
+	shapes_obj.cpp
 	text.cpp
 	opt.cpp
 )
+
+if(PNG_FOUND)
+	target_link_libraries(oglplus ${PNG_LIBRARIES})
+endif()
+
+

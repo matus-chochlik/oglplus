@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{015_graph}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -37,8 +37,8 @@ private:
 	Buffer verts, edges;
 
 	// Uniform variables
-	LazyUniform<Mat4f> projection_matrix;
-	LazyUniform<Mat4f> camera_matrix;
+	Uniform<Mat4f> projection_matrix;
+	Uniform<Mat4f> camera_matrix;
 
 
 	// The number of nodes in the graph
@@ -82,8 +82,8 @@ private:
 public:
 	GraphExample(void)
 	 : prog()
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
+	 , projection_matrix(prog)
+	 , camera_matrix(prog)
 	 , node_count(512)
 	 , edge_count(0)
 	 , cam_path(make_cam_path_cps())
@@ -131,6 +131,9 @@ public:
 		prog.Link();
 		prog.Use();
 
+		projection_matrix.BindTo("ProjectionMatrix");
+		camera_matrix.BindTo("CameraMatrix");
+
 		// bind the VAO for the cube
 		graph.Bind();
 
@@ -150,7 +153,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, positions);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray vert_attr(prog, "Position");
+			VertexArrayAttrib vert_attr(prog, "Position");
 			vert_attr.Setup<GLfloat>(3).Enable();
 		}
 

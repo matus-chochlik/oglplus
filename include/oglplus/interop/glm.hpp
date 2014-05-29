@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_INTEROP_GLM_1205181555_HPP
 #define OGLPLUS_INTEROP_GLM_1205181555_HPP
 
-#include <oglplus/auxiliary/tp_mat_vec.hpp>
+#include <oglplus/detail/tp_mat_vec.hpp>
 #include <glm/glm.hpp> //TODO: only pick what is necessary
 #include <glm/gtc/type_ptr.hpp>
 #include <type_traits>

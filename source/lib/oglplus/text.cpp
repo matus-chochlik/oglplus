@@ -10,6 +10,22 @@
  */
 
 #include "prologue.ipp"
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/error/limit.hpp>
+#include <oglplus/object/desc.hpp>
+#include <oglplus/buffer.hpp>
+#include <oglplus/shader.hpp>
+#include <oglplus/program.hpp>
+#include <oglplus/uniform.hpp>
+#include <oglplus/vertex_attrib.hpp>
+#include <oglplus/texture.hpp>
+#include <oglplus/context.hpp>
+#include <oglplus/images/image.hpp>
+
+#include "implement.ipp"
+
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>
 #endif //OGLPLUS_NO_VARIADIC_TEMPLATES

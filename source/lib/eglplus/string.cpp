@@ -10,15 +10,8 @@
  */
 
 #include "prologue.ipp"
+#include "implement.ipp"
 
 #include <eglplus/string.hpp>
-
-#include <eglplus/auxiliary/base_range.hpp>
-#include <eglplus/auxiliary/enum_class.hpp>
-
-namespace eglplus {
-#include <eglplus/lib/enum_value_name.ipp>
-#include <eglplus/lib/enum_value_range.ipp>
-} // namespace eglplus
 
 #include "epilogue.ipp"

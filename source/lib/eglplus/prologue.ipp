@@ -10,7 +10,6 @@
  */
 
 #define EGLPLUS_LINK_LIBRARY 1
-#define EGLPLUS_IMPLEMENTING_LIBRARY 1
 
 #include <eglplus/egl.hpp>
 #include <eglplus/config.hpp>

@@ -11,14 +11,15 @@
 
 #include <oglplus/all.hpp>
 #include <oglplus/images/png.hpp>
-#include <oglplus/bound/texture.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/uniform.hpp>
 
 #include <fstream>
 #include <sstream>
 #include <vector>
 
 class FontTexture
- : public oglplus::Texture
+ : public oglplus::DSATexture
 {
 public:
 	FontTexture(const char* png_path)
@@ -29,15 +30,16 @@ public:
 
 		auto image = images::PNGImage(png_stream);
 
-		oglplus::Context::Bound<oglplus::Texture>(Texture::Target::_2D, *this)
-			.MinFilter(TextureMinFilter::LinearMipmapLinear)
-			.MagFilter(TextureMagFilter::Linear)
-			.WrapS(TextureWrap::ClampToBorder)
-			.WrapT(TextureWrap::ClampToBorder)
-			.SwizzleB(TextureSwizzle::Red)
-			.SwizzleG(TextureSwizzle::Red)
-			.Image2D(image)
-			.GenerateMipmap();
+		this->target = Texture::Target::_2D;
+		this->Bind();
+		this->MinFilter(TextureMinFilter::LinearMipmapLinear);
+		this->MagFilter(TextureMagFilter::Linear);
+		this->WrapS(TextureWrap::ClampToBorder);
+		this->WrapT(TextureWrap::ClampToBorder);
+		this->SwizzleB(TextureSwizzle::Red);
+		this->SwizzleG(TextureSwizzle::Red);
+		this->Image2D(image);
+		this->GenerateMipmap();
 	}
 };
 
@@ -177,26 +179,11 @@ class BitmapFontProgram
  : public oglplus::Program
 {
 private:
-	oglplus::Program& prog(void) { return *this; }
-
-	oglplus::Buffer glyph_spacing_buf;
-	oglplus::LazyUniformBlock glyph_spacing;
-public:
-	oglplus::LazyProgramUniform<oglplus::Mat4f> projection_matrix;
-	oglplus::LazyProgramUniform<oglplus::Mat4f> camera_matrix;
-	oglplus::LazyProgramUniform<oglplus::Mat4f> layout_matrix;
-	oglplus::LazyProgramUniformSampler font_texture;
-
-	BitmapFontProgram(void)
-	 : glyph_spacing(prog(), "GlyphSpacing")
-	 , projection_matrix(prog(), "ProjectionMatrix")
-	 , camera_matrix(prog(), "CameraMatrix")
-	 , layout_matrix(prog(), "LayoutMatrix")
-	 , font_texture(prog(), "FontTexture")
+	static oglplus::Program make(void)
 	{
 		using namespace oglplus;
-		// Nothing to see here, move along
-		AttachShader(VertexShader(
+		Program prog;
+		prog.AttachShader(VertexShader(
 			ObjectDesc("Glyph vertex"),
 			StrLit("#version 330\n"
 
@@ -232,7 +219,7 @@ public:
 		 *     <--------->Right Bearing
 		 *                (InkD.y)
 		 */
-		AttachShader(GeometryShader(
+		prog.AttachShader(GeometryShader(
 			ObjectDesc("Glyph geometry"),
 			StrLit("#version 330\n"
 			"layout(points) in;"
@@ -290,7 +277,7 @@ public:
 			"	EndPrimitive();"
 			"}")
 		));
-		AttachShader(FragmentShader(
+		prog.AttachShader(FragmentShader(
 			ObjectDesc("Glyph fragment"),
 			StrLit("#version 330\n"
 			"uniform sampler2D FontTexture;"
@@ -305,8 +292,29 @@ public:
 			"}")
 		));
 
-		Link();
-		Use();
+		prog.Link();
+		prog.Use();
+		return prog;
+	}
+
+	oglplus::Program& prog(void) { return *this; }
+
+	oglplus::Buffer glyph_spacing_buf;
+	oglplus::UniformBlock glyph_spacing;
+public:
+	oglplus::ProgramUniform<oglplus::Mat4f> projection_matrix;
+	oglplus::ProgramUniform<oglplus::Mat4f> camera_matrix;
+	oglplus::ProgramUniform<oglplus::Mat4f> layout_matrix;
+	oglplus::ProgramUniform<GLint> font_texture;
+
+	BitmapFontProgram(void)
+	 : oglplus::Program(make())
+	 , glyph_spacing(prog(), "GlyphSpacing")
+	 , projection_matrix(prog(), "ProjectionMatrix")
+	 , camera_matrix(prog(), "CameraMatrix")
+	 , layout_matrix(prog(), "LayoutMatrix")
+	 , font_texture(prog(), "FontTexture")
+	{
 	}
 
 	void Render(
@@ -351,13 +359,13 @@ public:
 
 		ink_data.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, metrics.InkData());
-		VertexAttribArray ink_attr(VertexAttribSlot(0));
+		VertexArrayAttrib ink_attr(VertexAttribSlot(0));
 		ink_attr.Setup<GLfloat>(4);
 		ink_attr.Enable();
 
 		tex_data.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, metrics.TexData());
-		VertexAttribArray tex_attr(VertexAttribSlot(1));
+		VertexArrayAttrib tex_attr(VertexAttribSlot(1));
 		tex_attr.Setup<GLfloat>(4);
 		tex_attr.Enable();
 	}

@@ -10,5 +10,6 @@
  */
 
 #include "prologue.ipp"
+#include "implement.ipp"
 #include <oglplus/opt/resources.hpp>
 #include "epilogue.ipp"

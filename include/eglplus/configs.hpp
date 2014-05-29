@@ -27,15 +27,17 @@
 
 namespace eglplus {
 
+class Config;
+::EGLConfig GetEGLHandle(const Config&);
+
 /// A wrapper for EGL configuration
 class Config
- : public FriendOf<Display>
 {
 private:
 	Display _display;
 	::EGLConfig _handle;
 
-	friend class FriendOf<Config>;
+	friend ::EGLConfig GetEGLHandle(const Config&);
 public:
 	Config(const Display& display, ::EGLConfig handle)
 	 : _display(display)
@@ -51,12 +53,12 @@ public:
 	{
 		EGLint result = 0;
 		EGLPLUS_EGLFUNC(GetConfigAttrib)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			this->_handle,
 			EGLint(EGLenum(attrib)),
 			&result
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(GetConfigAttrib));
+		EGLPLUS_VERIFY_SIMPLE(GetConfigAttrib);
 		return result;
 	}
 
@@ -367,6 +369,11 @@ public:
 	}
 };
 
+inline ::EGLConfig GetEGLHandle(const Config& config)
+{
+	return config._handle;
+}
+
 struct ConfigValueTypeToConfigAttrib
 {
 	static ColorBufferType
@@ -422,7 +429,6 @@ typedef FinishedAttributeList<
 
 /// A provides access to all configurations of a Display
 class Configs
- : public FriendOf<Display>
 {
 private:
 	Display _display;

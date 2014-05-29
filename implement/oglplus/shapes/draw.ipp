@@ -4,10 +4,15 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
+
+#include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/glfunc.hpp>
+#include <oglplus/error/basic.hpp>
+#include <oglplus/lib/incl_end.ipp>
 
 namespace oglplus {
 namespace shapes {
@@ -19,14 +24,14 @@ void DrawOperation::SetupPrimitiveRestart_(void) const
 	if(restart_index == NoRestartIndex())
 	{
 		OGLPLUS_GLFUNC(Disable)(GL_PRIMITIVE_RESTART);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+		OGLPLUS_VERIFY_SIMPLE(Disable);
 	}
 	else
 	{
 		OGLPLUS_GLFUNC(Enable)(GL_PRIMITIVE_RESTART);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+		OGLPLUS_VERIFY_SIMPLE(Enable);
 		OGLPLUS_GLFUNC(PrimitiveRestartIndex)(restart_index);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PrimitiveRestartIndex));
+		OGLPLUS_VERIFY_SIMPLE(PrimitiveRestartIndex);
 	}
 #else
 	assert(!
@@ -42,7 +47,7 @@ void DrawOperation::CleanupPrimitiveRestart_(void) const
 	if(restart_index != NoRestartIndex())
 	{
 		OGLPLUS_GLFUNC(Disable)(GL_PRIMITIVE_RESTART);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+		OGLPLUS_VERIFY_SIMPLE(Disable);
 	}
 }
 
@@ -81,7 +86,7 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 	if(inst_count == 1)
 	{
 		OGLPLUS_GLFUNC(DrawArrays)(GLenum(mode), first, count);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArrays));
+		OGLPLUS_CHECK_SIMPLE(DrawArrays);
 	}
 	else if(base_inst == 0)
 	{
@@ -92,7 +97,7 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 			count,
 			inst_count
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawArraysInstanced));
+		OGLPLUS_CHECK_SIMPLE(DrawArraysInstanced);
 #else
 		assert(!
 			"DrawArraysInstanced required, "
@@ -110,9 +115,7 @@ void DrawOperation::DrawArrays_(GLuint inst_count, GLuint base_inst) const
 			inst_count,
 			base_inst
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
-			DrawArraysInstancedBaseInstance
-		));
+		OGLPLUS_CHECK_SIMPLE(DrawArraysInstancedBaseInstance);
 #else
 		assert(!
 			"DrawArraysInstancedBaseInstance required, "
@@ -139,7 +142,7 @@ void DrawOperation::DrawElements_(
 			GLenum(index_data_type),
 			indices
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(DrawElements));
+		OGLPLUS_CHECK_SIMPLE(DrawElements);
 	}
 	else if(base_inst == 0)
 	{
@@ -151,9 +154,7 @@ void DrawOperation::DrawElements_(
 			indices,
 			inst_count
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
-			DrawElementsInstanced
-		));
+		OGLPLUS_CHECK_SIMPLE(DrawElementsInstanced);
 #else
 		assert(!
 			"DrawElementsInstanced required, "
@@ -172,9 +173,7 @@ void DrawOperation::DrawElements_(
 			inst_count,
 			base_inst
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(
-			DrawElementsInstancedBaseInstance
-		));
+		OGLPLUS_CHECK_SIMPLE(DrawElementsInstancedBaseInstance);
 #else
 		assert(!
 			"DrawElementsInstancedBaseInstance required, "

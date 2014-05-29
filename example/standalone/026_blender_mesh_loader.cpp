@@ -2,7 +2,7 @@
  *  @example standalone/026_blender_mesh_loader.cpp
  *  @brief Shows the usage of the .blend file parser utility
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,10 +22,10 @@ private:
 
 	oglplus::Program prog;
 
-	oglplus::LazyUniform<oglplus::Mat4f> camera_matrix;
-	oglplus::LazyUniform<oglplus::Vec3f> light_position;
-	oglplus::LazyUniform<oglplus::Vec3f> camera_position;
-	oglplus::LazyUniform<GLint> face_normals;
+	oglplus::Uniform<oglplus::Mat4f> camera_matrix;
+	oglplus::Uniform<oglplus::Vec3f> camera_position;
+	oglplus::Uniform<oglplus::Vec3f> light_position;
+	oglplus::Uniform<GLint> face_normals;
 
 	oglplus::VertexArray meshes;
 	oglplus::Buffer positions, normals, indices;
@@ -37,10 +37,10 @@ private:
 public:
 	BlenderMeshExample(int argc, const char* argv[])
 	 : prog()
-	 , camera_matrix(prog, "CameraMatrix")
-	 , light_position(prog, "LightPosition")
-	 , camera_position(prog, "CameraPosition")
-	 , face_normals(prog, "FaceNormals")
+	 , camera_matrix(prog)
+	 , camera_position(prog)
+	 , light_position(prog)
+	 , face_normals(prog)
 	 , element_count(0)
 	{
 		using namespace oglplus;
@@ -155,6 +155,10 @@ public:
 
 		prog.Link();
 		prog.Use();
+		camera_matrix.BindTo("CameraMatrix");
+		camera_position.BindTo("CameraPosition");
+		light_position.BindTo("LightPosition");
+		face_normals.BindTo("FaceNormals");
 
 		gl.PrimitiveRestartIndex(0);
 		// vectors with vertex position and normals
@@ -354,7 +358,7 @@ public:
 		positions.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, pos_data);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
@@ -362,7 +366,7 @@ public:
 		normals.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, nml_data);
-			VertexAttribArray attr(prog, "Normal");
+			VertexArrayAttrib attr(prog, "Normal");
 			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}

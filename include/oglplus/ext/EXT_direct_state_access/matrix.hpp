@@ -45,7 +45,7 @@ public:
 	DSAMatrixEXT& Push(void)
 	{
 		OGLPLUS_GLFUNC(MatrixPushEXT)(GLenum(_mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixPushEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixPushEXT);
 		return *this;
 	}
 
@@ -57,7 +57,7 @@ public:
 	DSAMatrixEXT& Pop(void)
 	{
 		OGLPLUS_GLFUNC(MatrixPopEXT)(GLenum(_mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixPopEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixPopEXT);
 		return *this;
 	}
 
@@ -69,7 +69,7 @@ public:
 	DSAMatrixEXT& LoadIdentity(void)
 	{
 		OGLPLUS_GLFUNC(MatrixLoadIdentityEXT)(GLenum(_mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixLoadIdentityEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixLoadIdentityEXT);
 		return *this;
 	}
 
@@ -84,7 +84,7 @@ public:
 			GLenum(_mode),
 			Data(matrix)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixLoadTransposefEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixLoadTransposefEXT);
 		return *this;
 	}
 
@@ -99,7 +99,7 @@ public:
 			GLenum(_mode),
 			Data(matrix)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixLoadTransposedEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixLoadTransposedEXT);
 		return *this;
 	}
 
@@ -114,7 +114,7 @@ public:
 			GLenum(_mode),
 			Data(matrix)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMultTransposefEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixMultTransposefEXT);
 		return *this;
 	}
 
@@ -129,7 +129,7 @@ public:
 			GLenum(_mode),
 			Data(matrix)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMultTransposedEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixMultTransposedEXT);
 		return *this;
 	}
 
@@ -150,7 +150,7 @@ public:
 			Degrees(angle),
 			x, y, z
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixRotatefEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixRotatefEXT);
 		return *this;
 	}
 
@@ -171,7 +171,7 @@ public:
 			At(axis, 1),
 			At(axis, 2)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixRotatefEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixRotatefEXT);
 		return *this;
 	}
 
@@ -192,7 +192,7 @@ public:
 			At(axis, 1),
 			At(axis, 2)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixRotatedEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixRotatedEXT);
 		return *this;
 	}
 
@@ -204,7 +204,7 @@ public:
 	DSAMatrixEXT& Scale(const GLfloat x, const GLfloat y, const GLfloat z)
 	{
 		OGLPLUS_GLFUNC(MatrixScalefEXT)(GLenum(_mode), x, y, z);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixScalefEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixScalefEXT);
 		return *this;
 	}
 
@@ -221,7 +221,7 @@ public:
 			At(amount, 1),
 			At(amount, 2)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixScalefEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixScalefEXT);
 		return *this;
 	}
 
@@ -238,7 +238,7 @@ public:
 			At(amount, 1),
 			At(amount, 2)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixScaledEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixScaledEXT);
 		return *this;
 	}
 
@@ -254,7 +254,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(MatrixTranslatefEXT)(GLenum(_mode), x, y, z);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixTranslatefEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixTranslatefEXT);
 		return *this;
 	}
 
@@ -271,7 +271,7 @@ public:
 			At(amount, 1),
 			At(amount, 2)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixTranslatefEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixTranslatefEXT);
 		return *this;
 	}
 
@@ -288,7 +288,7 @@ public:
 			At(amount, 1),
 			At(amount, 2)
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixTranslatedEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixTranslatedEXT);
 		return *this;
 	}
 
@@ -315,7 +315,7 @@ public:
 			near_depth,
 			far_depth
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixOrthoEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixOrthoEXT);
 		return *this;
 	}
 
@@ -342,7 +342,7 @@ public:
 			near_depth,
 			far_depth
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixFrustumEXT));
+		OGLPLUS_VERIFY_SIMPLE(MatrixFrustumEXT);
 		return *this;
 	}
 };

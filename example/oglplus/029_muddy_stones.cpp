@@ -36,28 +36,9 @@ private:
 
 	Program prog;
 
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
-	LazyUniform<Vec3f> camera_position, light_position;
-
-	shapes::ShapeWrapper shape;
-
-	Texture color_tex, bump_tex;
-public:
-	ParallaxExample(void)
-	 : projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , camera_position(prog, "CameraPosition")
-	 , light_position(prog, "LightPosition")
-	 , shape(
-		List("Position")("TexCoord").Get(),
-		shapes::Plane(
-			Vec3f(),
-			Vec3f(1.0f, 0.0f, 0.0f),
-			Vec3f(0.0f, 0.0f,-1.0f),
-			32, 32
-		)
-	)
+	static Program make_prog(void)
 	{
+		Program prog;
 		VertexShader vs;
 		vs.Source(StrLit(
 			"#version 330\n"
@@ -307,6 +288,32 @@ public:
 		prog.Link();
 		prog.Use();
 
+		return prog;
+	}
+
+	Uniform<Mat4f> projection_matrix, camera_matrix;
+	Uniform<Vec3f> camera_position, light_position;
+
+	shapes::ShapeWrapper shape;
+
+	Texture color_tex, bump_tex;
+public:
+	ParallaxExample(void)
+	 : prog(make_prog())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , camera_position(prog, "CameraPosition")
+	 , light_position(prog, "LightPosition")
+	 , shape(
+		List("Position")("TexCoord").Get(),
+		shapes::Plane(
+			Vec3f(),
+			Vec3f(1.0f, 0.0f, 0.0f),
+			Vec3f(0.0f, 0.0f,-1.0f),
+			32, 32
+		)
+	)
+	{
 		shape.UseInProgram(prog);
 
 		auto tex_image = images::LoadTexture("stones_color_hmap");

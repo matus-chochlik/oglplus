@@ -11,8 +11,8 @@
 
 #include "raytracer.hpp"
 
-#include <oglplus/binding.hpp>
-#include <oglplus/plane.hpp>
+#include <oglplus/object/auto_rebind.hpp>
+#include <oglplus/math/plane.hpp>
 #include <oglplus/shapes/screen.hpp>
 #include <oglplus/images/image_spec.hpp>
 

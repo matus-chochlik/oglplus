@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{019_helium}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -36,6 +36,10 @@ private:
 	// Shading program
 	Program prog;
 
+	// Uniforms
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	Uniform<Vec3f> light_pos;
+
 	// A vertex array object for the rendered sphere
 	VertexArray sphere;
 
@@ -54,6 +58,11 @@ public:
 		prog.Link();
 		prog.Use();
 
+		projection_matrix = (prog/"ProjectionMatrix");
+		camera_matrix = (prog/"CameraMatrix");
+		model_matrix = (prog/"ModelMatrix");
+		light_pos = (prog/"LightPos");
+
 		// bind the VAO for the sphere
 		sphere.Bind();
 
@@ -65,7 +74,7 @@ public:
 			&shapes::Sphere::Normals,
 		};
 		// managed references to the VBOs
-		Managed<Buffer> vbo[n_attr] = {verts, normals};
+		Reference<Buffer> vbo[n_attr] = {verts, normals};
 		// vertex attribute identifiers from the shaders
 		const GLchar* ident[n_attr] = {"Position", "Normal"};
 
@@ -79,7 +88,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attrib
-			VertexAttribArray attr(prog, ident[i]);
+			VertexArrayAttrib attr(prog, ident[i]);
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -88,7 +97,7 @@ public:
 	void SetProjection(const Mat4f& projection)
 	{
 		prog.Use();
-		SetUniform(prog, "ProjectionMatrix", projection);
+		projection_matrix.Set(projection);
 	}
 
 	void SetLightAndCamera(const Vec3f& light, const Mat4f& camera)
@@ -96,14 +105,14 @@ public:
 		// use the shading program
 		prog.Use();
 		// set the uniforms
-		SetUniform(prog, "LightPos", light);
-		SetUniform(prog, "CameraMatrix", camera);
+		light_pos.Set(light);
+		camera_matrix.Set(camera);
 	}
 
 	void Render(const Mat4f& model)
 	{
 		prog.Use();
-		SetUniform(prog, "ModelMatrix", model);
+		model_matrix.Set(model);
 		// bind the VAO
 		sphere.Bind();
 		// use the instructions to draw the sphere
@@ -146,7 +155,7 @@ private:
 		));
 
 		shader.Compile();
-		return shader;
+		return std::move(shader);
 	}
 
 	// The common first part of all fragment shader sources

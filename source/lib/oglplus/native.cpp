@@ -10,6 +10,7 @@
  */
 
 #include "prologue.ipp"
+#include "implement.ipp"
 #include <oglplus/native/common_glx.hpp>
 #include <oglplus/native/common_wgl.hpp>
 #include "epilogue.ipp"

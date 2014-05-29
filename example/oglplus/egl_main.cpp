@@ -17,18 +17,11 @@
 #define EGL_CONTEXT_OPENGL_PROFILE_MASK 0x30FD
 #define EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT 0x00000001
 
-#if OGLPLUS_LINK_LIBRARY
-# include <oglplus/lib.hpp>
-#endif
-
-#if EGLPLUS_LINK_LIBRARY
-# include <eglplus/lib.hpp>
-#endif
-
 #include <oglplus/os/steady_clock.hpp>
 
 #include <oglplus/config.hpp>
-#include <oglplus/curve.hpp>
+#include <oglplus/math/vector.hpp>
+#include <oglplus/math/curve.hpp>
 
 #include <eglplus/all.hpp>
 

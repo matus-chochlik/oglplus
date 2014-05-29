@@ -18,7 +18,7 @@
 
 #include <pango/pangocairo.h>
 
-#include <oglplus/auxiliary/utf8.hpp>
+#include <oglplus/string/utf8.hpp>
 
 void render_glyph(
 	cairo_t* cr,

@@ -1,7 +1,7 @@
 
 /**
  *  @file oglplus/bound/texture.hpp
- *  @brief Specialization of BoundTemplate for Texture.
+ *  @brief Specialization of ObjectOps for Texture.
  *
  *  Automatically generated file, do not edit manually!
  *
@@ -14,89 +14,39 @@
 #ifndef OGLPLUS_BOUND_TEXTURE_1107121519_HPP
 #define OGLPLUS_BOUND_TEXTURE_1107121519_HPP
 
-#include <oglplus/fwd.hpp>
+#include <oglplus/object/bound.hpp>
 #include <oglplus/texture.hpp>
 #include <utility>
 
 namespace oglplus {
 
-/// Specialization of the BoundTemplate for TextureOps, implements Bound < Texture  >.
+/// Specialization of the BoundObjOps for Texture  >.
 /** This template implements wrappers around the member functions
  *  of Texture, which have
- *  a TextureOps::Target parameter
+ *  a TextureTarget parameter
  *  specifying the binding point on which they should operate.
  *
  *  @note Do not use this template class directly use
- *  Bound < Texture > or the Bind()
+ *  Bound < Texture > or the Context::Current()
  *  function instead.
- *
- *  @see Bind()
- *  @see Bound
  *
  *  @ingroup utility_classes
  */
-template <template <class, class> class Base, class BaseParam>
-class BoundTemplate<Base, BaseParam, TextureOps>
- : public Base<BaseParam, TextureOps>
+template <>
+class BoundObjOps<tag::Texture>
 {
 private:
-	typedef Base<
-		BaseParam,
-		TextureOps
-	> _base;
+	typedef ObjectOps<tag::ExplicitSel, tag::Texture> ExplicitOps;
 public:
-	BoundTemplate(
-		const TextureOps& bindable,
-		TextureOps::Target target
-	): _base(bindable, target)
+	typedef ExplicitOps::Target Target;
+	Target target;
+
+	BoundObjOps(void)
 	{ }
 
-	BoundTemplate(
-		TextureOps::Target target
-	): _base(target)
+	BoundObjOps(Target init_tgt)
+	 : target(init_tgt)
 	{ }
-
-
-	BoundTemplate(
-		const TextureOps& bindable,
-		TextureOps::Target target,
-		GLuint tex_unit
-	): _base(bindable, target, tex_unit)
-	{ }
-
-	BoundTemplate(
-		TextureOps::Target target,
-		GLuint tex_unit
-	): _base(target, tex_unit)
-	{ }
-
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_3 || GL_ARB_texture_view
-
-	/** Wrapper for Texture::View()
-	 *  @see Texture::View()
-	 */
-	const BoundTemplate& View(
-		const TextureOps & orig_texture,
-		PixelDataInternalFormat internal_format,
-		GLuint min_level,
-		GLuint num_levels,
-		GLuint min_layer,
-		GLuint num_layers
-	) const
-	{
-		TextureOps::View(
-			this->BindTarget(),
-			orig_texture,
-			internal_format,
-			min_level,
-			num_levels,
-			min_layer,
-			num_layers
-		);
-		return *this;
-	}
-#endif // GL_VERSION_4_3 GL_ARB_texture_view
-
 
 	/** Wrapper for Texture::GetIntParam()
 	 *  @see Texture::GetIntParam()
@@ -105,8 +55,22 @@ public:
 		GLenum query
 	) const
 	{
-		return TextureOps::GetIntParam(
-			this->BindTarget(),
+		return ExplicitOps::GetIntParam(
+			this->target,
+			query
+		);
+	}
+
+
+	/** Wrapper for Texture::GetFloatParam()
+	 *  @see Texture::GetFloatParam()
+	 */
+	GLfloat GetFloatParam(
+		GLenum query
+	) const
+	{
+		return ExplicitOps::GetFloatParam(
+			this->target,
 			query
 		);
 	}
@@ -120,8 +84,8 @@ public:
 		GLenum query
 	) const
 	{
-		return TextureOps::GetIntParam(
-			this->BindTarget(),
+		return ExplicitOps::GetIntParam(
+			this->target,
 			level,
 			query
 		);
@@ -132,26 +96,12 @@ public:
 	 *  @see Texture::GetFloatParam()
 	 */
 	GLfloat GetFloatParam(
-		GLenum query
-	) const
-	{
-		return TextureOps::GetFloatParam(
-			this->BindTarget(),
-			query
-		);
-	}
-
-
-	/** Wrapper for Texture::GetFloatParam()
-	 *  @see Texture::GetFloatParam()
-	 */
-	GLfloat GetFloatParam(
 		GLint level,
 		GLenum query
 	) const
 	{
-		return TextureOps::GetFloatParam(
-			this->BindTarget(),
+		return ExplicitOps::GetFloatParam(
+			this->target,
 			level,
 			query
 		);
@@ -165,8 +115,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::Width(
-			this->BindTarget(),
+		return ExplicitOps::Width(
+			this->target,
 			level
 		);
 	}
@@ -179,8 +129,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::Height(
-			this->BindTarget(),
+		return ExplicitOps::Height(
+			this->target,
 			level
 		);
 	}
@@ -193,8 +143,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::Depth(
-			this->BindTarget(),
+		return ExplicitOps::Depth(
+			this->target,
 			level
 		);
 	}
@@ -207,8 +157,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::RedType(
-			this->BindTarget(),
+		return ExplicitOps::RedType(
+			this->target,
 			level
 		);
 	}
@@ -221,8 +171,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::GreenType(
-			this->BindTarget(),
+		return ExplicitOps::GreenType(
+			this->target,
 			level
 		);
 	}
@@ -235,8 +185,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::BlueType(
-			this->BindTarget(),
+		return ExplicitOps::BlueType(
+			this->target,
 			level
 		);
 	}
@@ -249,8 +199,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::AlphaType(
-			this->BindTarget(),
+		return ExplicitOps::AlphaType(
+			this->target,
 			level
 		);
 	}
@@ -263,8 +213,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::DepthType(
-			this->BindTarget(),
+		return ExplicitOps::DepthType(
+			this->target,
 			level
 		);
 	}
@@ -277,8 +227,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::RedSize(
-			this->BindTarget(),
+		return ExplicitOps::RedSize(
+			this->target,
 			level
 		);
 	}
@@ -291,8 +241,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::GreenSize(
-			this->BindTarget(),
+		return ExplicitOps::GreenSize(
+			this->target,
 			level
 		);
 	}
@@ -305,8 +255,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::BlueSize(
-			this->BindTarget(),
+		return ExplicitOps::BlueSize(
+			this->target,
 			level
 		);
 	}
@@ -319,8 +269,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::AlphaSize(
-			this->BindTarget(),
+		return ExplicitOps::AlphaSize(
+			this->target,
 			level
 		);
 	}
@@ -333,8 +283,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::DepthSize(
-			this->BindTarget(),
+		return ExplicitOps::DepthSize(
+			this->target,
 			level
 		);
 	}
@@ -347,8 +297,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::StencilSize(
-			this->BindTarget(),
+		return ExplicitOps::StencilSize(
+			this->target,
 			level
 		);
 	}
@@ -361,8 +311,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::SharedSize(
-			this->BindTarget(),
+		return ExplicitOps::SharedSize(
+			this->target,
 			level
 		);
 	}
@@ -375,8 +325,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::CompressedImageSize(
-			this->BindTarget(),
+		return ExplicitOps::CompressedImageSize(
+			this->target,
 			level
 		);
 	}
@@ -389,8 +339,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		return TextureOps::InternalFormat(
-			this->BindTarget(),
+		return ExplicitOps::InternalFormat(
+			this->target,
 			level
 		);
 	}
@@ -399,16 +349,16 @@ public:
 	/** Wrapper for Texture::GetImage()
 	 *  @see Texture::GetImage()
 	 */
-	const BoundTemplate& GetImage(
+	const BoundObjOps& GetImage(
 		GLint level,
 		PixelDataFormat format,
-		TextureOps::Property::PixDataType type,
+		ExplicitOps::Property::PixDataType type,
 		GLsizei size,
 		GLvoid * buffer
 	) const
 	{
-		TextureOps::GetImage(
-			this->BindTarget(),
+		ExplicitOps::GetImage(
+			this->target,
 			level,
 			format,
 			type,
@@ -423,14 +373,14 @@ public:
 	 *  @see Texture::GetImage()
 	 */
 	template <typename T>
-	const BoundTemplate& GetImage(
+	const BoundObjOps& GetImage(
 		GLint level,
 		PixelDataFormat format,
 		std::vector< T > & dest
 	) const
 	{
-		TextureOps::GetImage(
-			this->BindTarget(),
+		ExplicitOps::GetImage(
+			this->target,
 			level,
 			format,
 			dest
@@ -442,14 +392,14 @@ public:
 	/** Wrapper for Texture::GetCompressedImage()
 	 *  @see Texture::GetCompressedImage()
 	 */
-	const BoundTemplate& GetCompressedImage(
+	const BoundObjOps& GetCompressedImage(
 		GLint level,
 		GLsizei size,
 		GLubyte * buffer
 	) const
 	{
-		TextureOps::GetCompressedImage(
-			this->BindTarget(),
+		ExplicitOps::GetCompressedImage(
+			this->target,
 			level,
 			size,
 			buffer
@@ -461,13 +411,13 @@ public:
 	/** Wrapper for Texture::GetCompressedImage()
 	 *  @see Texture::GetCompressedImage()
 	 */
-	const BoundTemplate& GetCompressedImage(
+	const BoundObjOps& GetCompressedImage(
 		GLint level,
 		std::vector< GLubyte > & dest
 	) const
 	{
-		TextureOps::GetCompressedImage(
-			this->BindTarget(),
+		ExplicitOps::GetCompressedImage(
+			this->target,
 			level,
 			dest
 		);
@@ -478,7 +428,7 @@ public:
 	/** Wrapper for Texture::Image3D()
 	 *  @see Texture::Image3D()
 	 */
-	const BoundTemplate& Image3D(
+	const BoundObjOps& Image3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -486,12 +436,12 @@ public:
 		GLsizei depth,
 		GLint border,
 		PixelDataFormat format,
-		TextureOps::Property::PixDataType type,
+		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
-		TextureOps::Image3D(
-			this->BindTarget(),
+		ExplicitOps::Image3D(
+			this->target,
 			level,
 			internal_format,
 			width,
@@ -509,14 +459,14 @@ public:
 	/** Wrapper for Texture::Image3D()
 	 *  @see Texture::Image3D()
 	 */
-	const BoundTemplate& Image3D(
+	const BoundObjOps& Image3D(
 		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const
 	{
-		TextureOps::Image3D(
-			this->BindTarget(),
+		ExplicitOps::Image3D(
+			this->target,
 			image,
 			level,
 			border
@@ -528,7 +478,7 @@ public:
 	/** Wrapper for Texture::SubImage3D()
 	 *  @see Texture::SubImage3D()
 	 */
-	const BoundTemplate& SubImage3D(
+	const BoundObjOps& SubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -537,12 +487,12 @@ public:
 		GLsizei height,
 		GLsizei depth,
 		PixelDataFormat format,
-		TextureOps::Property::PixDataType type,
+		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
-		TextureOps::SubImage3D(
-			this->BindTarget(),
+		ExplicitOps::SubImage3D(
+			this->target,
 			level,
 			xoffs,
 			yoffs,
@@ -561,7 +511,7 @@ public:
 	/** Wrapper for Texture::SubImage3D()
 	 *  @see Texture::SubImage3D()
 	 */
-	const BoundTemplate& SubImage3D(
+	const BoundObjOps& SubImage3D(
 		const images::Image & image,
 		GLint xoffs,
 		GLint yoffs,
@@ -569,8 +519,8 @@ public:
 		GLint level = 0
 	) const
 	{
-		TextureOps::SubImage3D(
-			this->BindTarget(),
+		ExplicitOps::SubImage3D(
+			this->target,
 			image,
 			xoffs,
 			yoffs,
@@ -584,19 +534,19 @@ public:
 	/** Wrapper for Texture::Image2D()
 	 *  @see Texture::Image2D()
 	 */
-	const BoundTemplate& Image2D(
+	const BoundObjOps& Image2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
 		GLsizei height,
 		GLint border,
 		PixelDataFormat format,
-		TextureOps::Property::PixDataType type,
+		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
-		TextureOps::Image2D(
-			this->BindTarget(),
+		ExplicitOps::Image2D(
+			this->target,
 			level,
 			internal_format,
 			width,
@@ -613,14 +563,14 @@ public:
 	/** Wrapper for Texture::Image2D()
 	 *  @see Texture::Image2D()
 	 */
-	const BoundTemplate& Image2D(
+	const BoundObjOps& Image2D(
 		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const
 	{
-		TextureOps::Image2D(
-			this->BindTarget(),
+		ExplicitOps::Image2D(
+			this->target,
 			image,
 			level,
 			border
@@ -632,19 +582,19 @@ public:
 	/** Wrapper for Texture::SubImage2D()
 	 *  @see Texture::SubImage2D()
 	 */
-	const BoundTemplate& SubImage2D(
+	const BoundObjOps& SubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
 		GLsizei width,
 		GLsizei height,
 		PixelDataFormat format,
-		TextureOps::Property::PixDataType type,
+		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
-		TextureOps::SubImage2D(
-			this->BindTarget(),
+		ExplicitOps::SubImage2D(
+			this->target,
 			level,
 			xoffs,
 			yoffs,
@@ -661,15 +611,15 @@ public:
 	/** Wrapper for Texture::SubImage2D()
 	 *  @see Texture::SubImage2D()
 	 */
-	const BoundTemplate& SubImage2D(
+	const BoundObjOps& SubImage2D(
 		const images::Image & image,
 		GLint xoffs,
 		GLint yoffs,
 		GLint level = 0
 	) const
 	{
-		TextureOps::SubImage2D(
-			this->BindTarget(),
+		ExplicitOps::SubImage2D(
+			this->target,
 			image,
 			xoffs,
 			yoffs,
@@ -682,18 +632,18 @@ public:
 	/** Wrapper for Texture::Image1D()
 	 *  @see Texture::Image1D()
 	 */
-	const BoundTemplate& Image1D(
+	const BoundObjOps& Image1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
 		GLint border,
 		PixelDataFormat format,
-		TextureOps::Property::PixDataType type,
+		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
-		TextureOps::Image1D(
-			this->BindTarget(),
+		ExplicitOps::Image1D(
+			this->target,
 			level,
 			internal_format,
 			width,
@@ -709,14 +659,14 @@ public:
 	/** Wrapper for Texture::Image1D()
 	 *  @see Texture::Image1D()
 	 */
-	const BoundTemplate& Image1D(
+	const BoundObjOps& Image1D(
 		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const
 	{
-		TextureOps::Image1D(
-			this->BindTarget(),
+		ExplicitOps::Image1D(
+			this->target,
 			image,
 			level,
 			border
@@ -728,17 +678,17 @@ public:
 	/** Wrapper for Texture::SubImage1D()
 	 *  @see Texture::SubImage1D()
 	 */
-	const BoundTemplate& SubImage1D(
+	const BoundObjOps& SubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
 		PixelDataFormat format,
-		TextureOps::Property::PixDataType type,
+		ExplicitOps::Property::PixDataType type,
 		const void * data
 	) const
 	{
-		TextureOps::SubImage1D(
-			this->BindTarget(),
+		ExplicitOps::SubImage1D(
+			this->target,
 			level,
 			xoffs,
 			width,
@@ -753,14 +703,14 @@ public:
 	/** Wrapper for Texture::SubImage1D()
 	 *  @see Texture::SubImage1D()
 	 */
-	const BoundTemplate& SubImage1D(
+	const BoundObjOps& SubImage1D(
 		const images::Image & image,
 		GLint xoffs,
 		GLint level = 0
 	) const
 	{
-		TextureOps::SubImage1D(
-			this->BindTarget(),
+		ExplicitOps::SubImage1D(
+			this->target,
 			image,
 			xoffs,
 			level
@@ -772,14 +722,14 @@ public:
 	/** Wrapper for Texture::Image()
 	 *  @see Texture::Image()
 	 */
-	const BoundTemplate& Image(
+	const BoundObjOps& Image(
 		const images::Image & image,
 		GLint level = 0,
 		GLint border = 0
 	) const
 	{
-		TextureOps::Image(
-			this->BindTarget(),
+		ExplicitOps::Image(
+			this->target,
 			image,
 			level,
 			border
@@ -791,14 +741,14 @@ public:
 	/** Wrapper for Texture::Image()
 	 *  @see Texture::Image()
 	 */
-	const BoundTemplate& Image(
+	const BoundObjOps& Image(
 		const images::ImageSpec & image_spec,
 		GLint level = 0,
 		GLint border = 0
 	) const
 	{
-		TextureOps::Image(
-			this->BindTarget(),
+		ExplicitOps::Image(
+			this->target,
 			image_spec,
 			level,
 			border
@@ -810,7 +760,7 @@ public:
 	/** Wrapper for Texture::CopyImage2D()
 	 *  @see Texture::CopyImage2D()
 	 */
-	const BoundTemplate& CopyImage2D(
+	const BoundObjOps& CopyImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLint x,
@@ -820,8 +770,8 @@ public:
 		GLint border
 	) const
 	{
-		TextureOps::CopyImage2D(
-			this->BindTarget(),
+		ExplicitOps::CopyImage2D(
+			this->target,
 			level,
 			internal_format,
 			x,
@@ -837,7 +787,7 @@ public:
 	/** Wrapper for Texture::CopyImage1D()
 	 *  @see Texture::CopyImage1D()
 	 */
-	const BoundTemplate& CopyImage1D(
+	const BoundObjOps& CopyImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLint x,
@@ -846,8 +796,8 @@ public:
 		GLint border
 	) const
 	{
-		TextureOps::CopyImage1D(
-			this->BindTarget(),
+		ExplicitOps::CopyImage1D(
+			this->target,
 			level,
 			internal_format,
 			x,
@@ -862,7 +812,7 @@ public:
 	/** Wrapper for Texture::CopySubImage3D()
 	 *  @see Texture::CopySubImage3D()
 	 */
-	const BoundTemplate& CopySubImage3D(
+	const BoundObjOps& CopySubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -873,8 +823,8 @@ public:
 		GLsizei height
 	) const
 	{
-		TextureOps::CopySubImage3D(
-			this->BindTarget(),
+		ExplicitOps::CopySubImage3D(
+			this->target,
 			level,
 			xoffs,
 			yoffs,
@@ -891,7 +841,7 @@ public:
 	/** Wrapper for Texture::CopySubImage2D()
 	 *  @see Texture::CopySubImage2D()
 	 */
-	const BoundTemplate& CopySubImage2D(
+	const BoundObjOps& CopySubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -901,8 +851,8 @@ public:
 		GLsizei height
 	) const
 	{
-		TextureOps::CopySubImage2D(
-			this->BindTarget(),
+		ExplicitOps::CopySubImage2D(
+			this->target,
 			level,
 			xoffs,
 			yoffs,
@@ -918,7 +868,7 @@ public:
 	/** Wrapper for Texture::CopySubImage1D()
 	 *  @see Texture::CopySubImage1D()
 	 */
-	const BoundTemplate& CopySubImage1D(
+	const BoundObjOps& CopySubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLint x,
@@ -926,8 +876,8 @@ public:
 		GLsizei width
 	) const
 	{
-		TextureOps::CopySubImage1D(
-			this->BindTarget(),
+		ExplicitOps::CopySubImage1D(
+			this->target,
 			level,
 			xoffs,
 			x,
@@ -941,7 +891,7 @@ public:
 	/** Wrapper for Texture::CompressedImage3D()
 	 *  @see Texture::CompressedImage3D()
 	 */
-	const BoundTemplate& CompressedImage3D(
+	const BoundObjOps& CompressedImage3D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -952,8 +902,8 @@ public:
 		const void * data
 	) const
 	{
-		TextureOps::CompressedImage3D(
-			this->BindTarget(),
+		ExplicitOps::CompressedImage3D(
+			this->target,
 			level,
 			internal_format,
 			width,
@@ -970,7 +920,7 @@ public:
 	/** Wrapper for Texture::CompressedImage2D()
 	 *  @see Texture::CompressedImage2D()
 	 */
-	const BoundTemplate& CompressedImage2D(
+	const BoundObjOps& CompressedImage2D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -980,8 +930,8 @@ public:
 		const void * data
 	) const
 	{
-		TextureOps::CompressedImage2D(
-			this->BindTarget(),
+		ExplicitOps::CompressedImage2D(
+			this->target,
 			level,
 			internal_format,
 			width,
@@ -997,7 +947,7 @@ public:
 	/** Wrapper for Texture::CompressedImage1D()
 	 *  @see Texture::CompressedImage1D()
 	 */
-	const BoundTemplate& CompressedImage1D(
+	const BoundObjOps& CompressedImage1D(
 		GLint level,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1006,8 +956,8 @@ public:
 		const void * data
 	) const
 	{
-		TextureOps::CompressedImage1D(
-			this->BindTarget(),
+		ExplicitOps::CompressedImage1D(
+			this->target,
 			level,
 			internal_format,
 			width,
@@ -1022,7 +972,7 @@ public:
 	/** Wrapper for Texture::CompressedSubImage3D()
 	 *  @see Texture::CompressedSubImage3D()
 	 */
-	const BoundTemplate& CompressedSubImage3D(
+	const BoundObjOps& CompressedSubImage3D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1035,8 +985,8 @@ public:
 		const void * data
 	) const
 	{
-		TextureOps::CompressedSubImage3D(
-			this->BindTarget(),
+		ExplicitOps::CompressedSubImage3D(
+			this->target,
 			level,
 			xoffs,
 			yoffs,
@@ -1055,7 +1005,7 @@ public:
 	/** Wrapper for Texture::CompressedSubImage2D()
 	 *  @see Texture::CompressedSubImage2D()
 	 */
-	const BoundTemplate& CompressedSubImage2D(
+	const BoundObjOps& CompressedSubImage2D(
 		GLint level,
 		GLint xoffs,
 		GLint yoffs,
@@ -1066,8 +1016,8 @@ public:
 		const void * data
 	) const
 	{
-		TextureOps::CompressedSubImage2D(
-			this->BindTarget(),
+		ExplicitOps::CompressedSubImage2D(
+			this->target,
 			level,
 			xoffs,
 			yoffs,
@@ -1084,7 +1034,7 @@ public:
 	/** Wrapper for Texture::CompressedSubImage1D()
 	 *  @see Texture::CompressedSubImage1D()
 	 */
-	const BoundTemplate& CompressedSubImage1D(
+	const BoundObjOps& CompressedSubImage1D(
 		GLint level,
 		GLint xoffs,
 		GLsizei width,
@@ -1093,8 +1043,8 @@ public:
 		const void * data
 	) const
 	{
-		TextureOps::CompressedSubImage1D(
-			this->BindTarget(),
+		ExplicitOps::CompressedSubImage1D(
+			this->target,
 			level,
 			xoffs,
 			width,
@@ -1110,7 +1060,7 @@ public:
 	/** Wrapper for Texture::Image3DMultisample()
 	 *  @see Texture::Image3DMultisample()
 	 */
-	const BoundTemplate& Image3DMultisample(
+	const BoundObjOps& Image3DMultisample(
 		GLsizei samples,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1119,8 +1069,8 @@ public:
 		bool fixed_sample_locations
 	) const
 	{
-		TextureOps::Image3DMultisample(
-			this->BindTarget(),
+		ExplicitOps::Image3DMultisample(
+			this->target,
 			samples,
 			internal_format,
 			width,
@@ -1137,7 +1087,7 @@ public:
 	/** Wrapper for Texture::Image2DMultisample()
 	 *  @see Texture::Image2DMultisample()
 	 */
-	const BoundTemplate& Image2DMultisample(
+	const BoundObjOps& Image2DMultisample(
 		GLsizei samples,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1145,8 +1095,8 @@ public:
 		bool fixed_sample_locations
 	) const
 	{
-		TextureOps::Image2DMultisample(
-			this->BindTarget(),
+		ExplicitOps::Image2DMultisample(
+			this->target,
 			samples,
 			internal_format,
 			width,
@@ -1162,13 +1112,13 @@ public:
 	/** Wrapper for Texture::Buffer()
 	 *  @see Texture::Buffer()
 	 */
-	const BoundTemplate& Buffer(
+	const BoundObjOps& Buffer(
 		PixelDataInternalFormat internal_format,
-		const BufferOps & buffer
+		BufferName buffer
 	) const
 	{
-		TextureOps::Buffer(
-			this->BindTarget(),
+		ExplicitOps::Buffer(
+			this->target,
 			internal_format,
 			buffer
 		);
@@ -1181,15 +1131,15 @@ public:
 	/** Wrapper for Texture::BufferRange()
 	 *  @see Texture::BufferRange()
 	 */
-	const BoundTemplate& BufferRange(
+	const BoundObjOps& BufferRange(
 		PixelDataInternalFormat internal_format,
-		const BufferOps & buffer,
+		BufferName buffer,
 		GLintptr offset,
 		GLsizeiptr size
 	) const
 	{
-		TextureOps::BufferRange(
-			this->BindTarget(),
+		ExplicitOps::BufferRange(
+			this->target,
 			internal_format,
 			buffer,
 			offset,
@@ -1204,14 +1154,14 @@ public:
 	/** Wrapper for Texture::Storage1D()
 	 *  @see Texture::Storage1D()
 	 */
-	const BoundTemplate& Storage1D(
+	const BoundObjOps& Storage1D(
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
 		GLsizei width
 	) const
 	{
-		TextureOps::Storage1D(
-			this->BindTarget(),
+		ExplicitOps::Storage1D(
+			this->target,
 			levels,
 			internal_format,
 			width
@@ -1225,15 +1175,15 @@ public:
 	/** Wrapper for Texture::Storage2D()
 	 *  @see Texture::Storage2D()
 	 */
-	const BoundTemplate& Storage2D(
+	const BoundObjOps& Storage2D(
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
 		GLsizei height
 	) const
 	{
-		TextureOps::Storage2D(
-			this->BindTarget(),
+		ExplicitOps::Storage2D(
+			this->target,
 			levels,
 			internal_format,
 			width,
@@ -1248,7 +1198,7 @@ public:
 	/** Wrapper for Texture::Storage3D()
 	 *  @see Texture::Storage3D()
 	 */
-	const BoundTemplate& Storage3D(
+	const BoundObjOps& Storage3D(
 		GLsizei levels,
 		PixelDataInternalFormat internal_format,
 		GLsizei width,
@@ -1256,8 +1206,8 @@ public:
 		GLsizei depth
 	) const
 	{
-		TextureOps::Storage3D(
-			this->BindTarget(),
+		ExplicitOps::Storage3D(
+			this->target,
 			levels,
 			internal_format,
 			width,
@@ -1274,8 +1224,8 @@ public:
 	 */
 	GLuint BaseLevel(void) const
 	{
-		return TextureOps::BaseLevel(
-			this->BindTarget()
+		return ExplicitOps::BaseLevel(
+			this->target
 		);
 	}
 
@@ -1283,12 +1233,12 @@ public:
 	/** Wrapper for Texture::BaseLevel()
 	 *  @see Texture::BaseLevel()
 	 */
-	const BoundTemplate& BaseLevel(
+	const BoundObjOps& BaseLevel(
 		GLuint level
 	) const
 	{
-		TextureOps::BaseLevel(
-			this->BindTarget(),
+		ExplicitOps::BaseLevel(
+			this->target,
 			level
 		);
 		return *this;
@@ -1302,8 +1252,8 @@ public:
 		TypeTag< GLfloat > _auto_param_2
 	) const
 	{
-		return TextureOps::BorderColor(
-			this->BindTarget(),
+		return ExplicitOps::BorderColor(
+			this->target,
 			_auto_param_2
 		);
 	}
@@ -1312,12 +1262,12 @@ public:
 	/** Wrapper for Texture::BorderColor()
 	 *  @see Texture::BorderColor()
 	 */
-	const BoundTemplate& BorderColor(
+	const BoundObjOps& BorderColor(
 		Vector< GLfloat, 4 > color
 	) const
 	{
-		TextureOps::BorderColor(
-			this->BindTarget(),
+		ExplicitOps::BorderColor(
+			this->target,
 			color
 		);
 		return *this;
@@ -1331,8 +1281,8 @@ public:
 		TypeTag< GLint > _auto_param_2
 	) const
 	{
-		return TextureOps::BorderColor(
-			this->BindTarget(),
+		return ExplicitOps::BorderColor(
+			this->target,
 			_auto_param_2
 		);
 	}
@@ -1341,12 +1291,12 @@ public:
 	/** Wrapper for Texture::BorderColor()
 	 *  @see Texture::BorderColor()
 	 */
-	const BoundTemplate& BorderColor(
+	const BoundObjOps& BorderColor(
 		Vector< GLint, 4 > color
 	) const
 	{
-		TextureOps::BorderColor(
-			this->BindTarget(),
+		ExplicitOps::BorderColor(
+			this->target,
 			color
 		);
 		return *this;
@@ -1360,8 +1310,8 @@ public:
 		TypeTag< GLuint > _auto_param_2
 	) const
 	{
-		return TextureOps::BorderColor(
-			this->BindTarget(),
+		return ExplicitOps::BorderColor(
+			this->target,
 			_auto_param_2
 		);
 	}
@@ -1370,12 +1320,12 @@ public:
 	/** Wrapper for Texture::BorderColor()
 	 *  @see Texture::BorderColor()
 	 */
-	const BoundTemplate& BorderColor(
+	const BoundObjOps& BorderColor(
 		Vector< GLuint, 4 > color
 	) const
 	{
-		TextureOps::BorderColor(
-			this->BindTarget(),
+		ExplicitOps::BorderColor(
+			this->target,
 			color
 		);
 		return *this;
@@ -1387,8 +1337,8 @@ public:
 	 */
 	TextureCompareMode CompareMode(void) const
 	{
-		return TextureOps::CompareMode(
-			this->BindTarget()
+		return ExplicitOps::CompareMode(
+			this->target
 		);
 	}
 
@@ -1396,12 +1346,12 @@ public:
 	/** Wrapper for Texture::CompareMode()
 	 *  @see Texture::CompareMode()
 	 */
-	const BoundTemplate& CompareMode(
+	const BoundObjOps& CompareMode(
 		TextureCompareMode mode
 	) const
 	{
-		TextureOps::CompareMode(
-			this->BindTarget(),
+		ExplicitOps::CompareMode(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1413,8 +1363,8 @@ public:
 	 */
 	CompareFunction CompareFunc(void) const
 	{
-		return TextureOps::CompareFunc(
-			this->BindTarget()
+		return ExplicitOps::CompareFunc(
+			this->target
 		);
 	}
 
@@ -1422,12 +1372,12 @@ public:
 	/** Wrapper for Texture::CompareFunc()
 	 *  @see Texture::CompareFunc()
 	 */
-	const BoundTemplate& CompareFunc(
+	const BoundObjOps& CompareFunc(
 		CompareFunction func
 	) const
 	{
-		TextureOps::CompareFunc(
-			this->BindTarget(),
+		ExplicitOps::CompareFunc(
+			this->target,
 			func
 		);
 		return *this;
@@ -1439,8 +1389,8 @@ public:
 	 */
 	GLfloat LODBias(void) const
 	{
-		return TextureOps::LODBias(
-			this->BindTarget()
+		return ExplicitOps::LODBias(
+			this->target
 		);
 	}
 
@@ -1448,12 +1398,12 @@ public:
 	/** Wrapper for Texture::LODBias()
 	 *  @see Texture::LODBias()
 	 */
-	const BoundTemplate& LODBias(
+	const BoundObjOps& LODBias(
 		GLfloat value
 	) const
 	{
-		TextureOps::LODBias(
-			this->BindTarget(),
+		ExplicitOps::LODBias(
+			this->target,
 			value
 		);
 		return *this;
@@ -1463,12 +1413,12 @@ public:
 	/** Wrapper for Texture::Filter()
 	 *  @see Texture::Filter()
 	 */
-	const BoundTemplate& Filter(
+	const BoundObjOps& Filter(
 		TextureFilter filter
 	) const
 	{
-		TextureOps::Filter(
-			this->BindTarget(),
+		ExplicitOps::Filter(
+			this->target,
 			filter
 		);
 		return *this;
@@ -1480,8 +1430,8 @@ public:
 	 */
 	TextureMagFilter MagFilter(void) const
 	{
-		return TextureOps::MagFilter(
-			this->BindTarget()
+		return ExplicitOps::MagFilter(
+			this->target
 		);
 	}
 
@@ -1489,12 +1439,12 @@ public:
 	/** Wrapper for Texture::MagFilter()
 	 *  @see Texture::MagFilter()
 	 */
-	const BoundTemplate& MagFilter(
+	const BoundObjOps& MagFilter(
 		TextureMagFilter filter
 	) const
 	{
-		TextureOps::MagFilter(
-			this->BindTarget(),
+		ExplicitOps::MagFilter(
+			this->target,
 			filter
 		);
 		return *this;
@@ -1506,8 +1456,8 @@ public:
 	 */
 	TextureMinFilter MinFilter(void) const
 	{
-		return TextureOps::MinFilter(
-			this->BindTarget()
+		return ExplicitOps::MinFilter(
+			this->target
 		);
 	}
 
@@ -1515,12 +1465,12 @@ public:
 	/** Wrapper for Texture::MinFilter()
 	 *  @see Texture::MinFilter()
 	 */
-	const BoundTemplate& MinFilter(
+	const BoundObjOps& MinFilter(
 		TextureMinFilter filter
 	) const
 	{
-		TextureOps::MinFilter(
-			this->BindTarget(),
+		ExplicitOps::MinFilter(
+			this->target,
 			filter
 		);
 		return *this;
@@ -1532,8 +1482,8 @@ public:
 	 */
 	GLfloat MinLOD(void) const
 	{
-		return TextureOps::MinLOD(
-			this->BindTarget()
+		return ExplicitOps::MinLOD(
+			this->target
 		);
 	}
 
@@ -1541,12 +1491,12 @@ public:
 	/** Wrapper for Texture::MinLOD()
 	 *  @see Texture::MinLOD()
 	 */
-	const BoundTemplate& MinLOD(
+	const BoundObjOps& MinLOD(
 		GLfloat value
 	) const
 	{
-		TextureOps::MinLOD(
-			this->BindTarget(),
+		ExplicitOps::MinLOD(
+			this->target,
 			value
 		);
 		return *this;
@@ -1558,8 +1508,8 @@ public:
 	 */
 	GLfloat MaxLOD(void) const
 	{
-		return TextureOps::MaxLOD(
-			this->BindTarget()
+		return ExplicitOps::MaxLOD(
+			this->target
 		);
 	}
 
@@ -1567,12 +1517,12 @@ public:
 	/** Wrapper for Texture::MaxLOD()
 	 *  @see Texture::MaxLOD()
 	 */
-	const BoundTemplate& MaxLOD(
+	const BoundObjOps& MaxLOD(
 		GLfloat value
 	) const
 	{
-		TextureOps::MaxLOD(
-			this->BindTarget(),
+		ExplicitOps::MaxLOD(
+			this->target,
 			value
 		);
 		return *this;
@@ -1584,8 +1534,8 @@ public:
 	 */
 	GLint MaxLevel(void) const
 	{
-		return TextureOps::MaxLevel(
-			this->BindTarget()
+		return ExplicitOps::MaxLevel(
+			this->target
 		);
 	}
 
@@ -1593,12 +1543,12 @@ public:
 	/** Wrapper for Texture::MaxLevel()
 	 *  @see Texture::MaxLevel()
 	 */
-	const BoundTemplate& MaxLevel(
+	const BoundObjOps& MaxLevel(
 		GLint value
 	) const
 	{
-		TextureOps::MaxLevel(
-			this->BindTarget(),
+		ExplicitOps::MaxLevel(
+			this->target,
 			value
 		);
 		return *this;
@@ -1610,8 +1560,8 @@ public:
 	 */
 	GLfloat MaxAnisotropy(void) const
 	{
-		return TextureOps::MaxAnisotropy(
-			this->BindTarget()
+		return ExplicitOps::MaxAnisotropy(
+			this->target
 		);
 	}
 
@@ -1621,8 +1571,8 @@ public:
 	 */
 	GLfloat Anisotropy(void) const
 	{
-		return TextureOps::Anisotropy(
-			this->BindTarget()
+		return ExplicitOps::Anisotropy(
+			this->target
 		);
 	}
 
@@ -1630,12 +1580,12 @@ public:
 	/** Wrapper for Texture::Anisotropy()
 	 *  @see Texture::Anisotropy()
 	 */
-	const BoundTemplate& Anisotropy(
+	const BoundObjOps& Anisotropy(
 		GLfloat value
 	) const
 	{
-		TextureOps::Anisotropy(
-			this->BindTarget(),
+		ExplicitOps::Anisotropy(
+			this->target,
 			value
 		);
 		return *this;
@@ -1650,8 +1600,8 @@ public:
 		TextureSwizzleCoord coord
 	) const
 	{
-		return TextureOps::Swizzle(
-			this->BindTarget(),
+		return ExplicitOps::Swizzle(
+			this->target,
 			coord
 		);
 	}
@@ -1662,13 +1612,13 @@ public:
 	/** Wrapper for Texture::Swizzle()
 	 *  @see Texture::Swizzle()
 	 */
-	const BoundTemplate& Swizzle(
+	const BoundObjOps& Swizzle(
 		TextureSwizzleCoord coord,
 		TextureSwizzle mode
 	) const
 	{
-		TextureOps::Swizzle(
-			this->BindTarget(),
+		ExplicitOps::Swizzle(
+			this->target,
 			coord,
 			mode
 		);
@@ -1683,8 +1633,8 @@ public:
 	 */
 	TextureSwizzle SwizzleR(void) const
 	{
-		return TextureOps::SwizzleR(
-			this->BindTarget()
+		return ExplicitOps::SwizzleR(
+			this->target
 		);
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
@@ -1694,12 +1644,12 @@ public:
 	/** Wrapper for Texture::SwizzleR()
 	 *  @see Texture::SwizzleR()
 	 */
-	const BoundTemplate& SwizzleR(
+	const BoundObjOps& SwizzleR(
 		TextureSwizzle mode
 	) const
 	{
-		TextureOps::SwizzleR(
-			this->BindTarget(),
+		ExplicitOps::SwizzleR(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1713,8 +1663,8 @@ public:
 	 */
 	TextureSwizzle SwizzleG(void) const
 	{
-		return TextureOps::SwizzleG(
-			this->BindTarget()
+		return ExplicitOps::SwizzleG(
+			this->target
 		);
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
@@ -1724,12 +1674,12 @@ public:
 	/** Wrapper for Texture::SwizzleG()
 	 *  @see Texture::SwizzleG()
 	 */
-	const BoundTemplate& SwizzleG(
+	const BoundObjOps& SwizzleG(
 		TextureSwizzle mode
 	) const
 	{
-		TextureOps::SwizzleG(
-			this->BindTarget(),
+		ExplicitOps::SwizzleG(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1743,8 +1693,8 @@ public:
 	 */
 	TextureSwizzle SwizzleB(void) const
 	{
-		return TextureOps::SwizzleB(
-			this->BindTarget()
+		return ExplicitOps::SwizzleB(
+			this->target
 		);
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
@@ -1754,12 +1704,12 @@ public:
 	/** Wrapper for Texture::SwizzleB()
 	 *  @see Texture::SwizzleB()
 	 */
-	const BoundTemplate& SwizzleB(
+	const BoundObjOps& SwizzleB(
 		TextureSwizzle mode
 	) const
 	{
-		TextureOps::SwizzleB(
-			this->BindTarget(),
+		ExplicitOps::SwizzleB(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1773,8 +1723,8 @@ public:
 	 */
 	TextureSwizzle SwizzleA(void) const
 	{
-		return TextureOps::SwizzleA(
-			this->BindTarget()
+		return ExplicitOps::SwizzleA(
+			this->target
 		);
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
@@ -1784,12 +1734,12 @@ public:
 	/** Wrapper for Texture::SwizzleA()
 	 *  @see Texture::SwizzleA()
 	 */
-	const BoundTemplate& SwizzleA(
+	const BoundObjOps& SwizzleA(
 		TextureSwizzle mode
 	) const
 	{
-		TextureOps::SwizzleA(
-			this->BindTarget(),
+		ExplicitOps::SwizzleA(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1803,8 +1753,8 @@ public:
 	 */
 	TextureSwizzleTuple SwizzleRGBA(void) const
 	{
-		return TextureOps::SwizzleRGBA(
-			this->BindTarget()
+		return ExplicitOps::SwizzleRGBA(
+			this->target
 		);
 	}
 #endif // GL_VERSION_3_3 GL_ARB_texture_swizzle
@@ -1814,12 +1764,12 @@ public:
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
 	 */
-	const BoundTemplate& SwizzleRGBA(
+	const BoundObjOps& SwizzleRGBA(
 		TextureSwizzle mode
 	) const
 	{
-		TextureOps::SwizzleRGBA(
-			this->BindTarget(),
+		ExplicitOps::SwizzleRGBA(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1831,15 +1781,15 @@ public:
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
 	 */
-	const BoundTemplate& SwizzleRGBA(
+	const BoundObjOps& SwizzleRGBA(
 		TextureSwizzle mode_r,
 		TextureSwizzle mode_g,
 		TextureSwizzle mode_b,
 		TextureSwizzle mode_a
 	) const
 	{
-		TextureOps::SwizzleRGBA(
-			this->BindTarget(),
+		ExplicitOps::SwizzleRGBA(
+			this->target,
 			mode_r,
 			mode_g,
 			mode_b,
@@ -1854,12 +1804,12 @@ public:
 	/** Wrapper for Texture::SwizzleRGBA()
 	 *  @see Texture::SwizzleRGBA()
 	 */
-	const BoundTemplate& SwizzleRGBA(
+	const BoundObjOps& SwizzleRGBA(
 		const TextureSwizzleTuple & modes
 	) const
 	{
-		TextureOps::SwizzleRGBA(
-			this->BindTarget(),
+		ExplicitOps::SwizzleRGBA(
+			this->target,
 			modes
 		);
 		return *this;
@@ -1874,8 +1824,8 @@ public:
 		TextureWrapCoord coord
 	) const
 	{
-		return TextureOps::Wrap(
-			this->BindTarget(),
+		return ExplicitOps::Wrap(
+			this->target,
 			coord
 		);
 	}
@@ -1884,13 +1834,13 @@ public:
 	/** Wrapper for Texture::Wrap()
 	 *  @see Texture::Wrap()
 	 */
-	const BoundTemplate& Wrap(
+	const BoundObjOps& Wrap(
 		TextureWrapCoord coord,
 		TextureWrap mode
 	) const
 	{
-		TextureOps::Wrap(
-			this->BindTarget(),
+		ExplicitOps::Wrap(
+			this->target,
 			coord,
 			mode
 		);
@@ -1903,8 +1853,8 @@ public:
 	 */
 	TextureWrap WrapS(void) const
 	{
-		return TextureOps::WrapS(
-			this->BindTarget()
+		return ExplicitOps::WrapS(
+			this->target
 		);
 	}
 
@@ -1912,12 +1862,12 @@ public:
 	/** Wrapper for Texture::WrapS()
 	 *  @see Texture::WrapS()
 	 */
-	const BoundTemplate& WrapS(
+	const BoundObjOps& WrapS(
 		TextureWrap mode
 	) const
 	{
-		TextureOps::WrapS(
-			this->BindTarget(),
+		ExplicitOps::WrapS(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1929,8 +1879,8 @@ public:
 	 */
 	TextureWrap WrapT(void) const
 	{
-		return TextureOps::WrapT(
-			this->BindTarget()
+		return ExplicitOps::WrapT(
+			this->target
 		);
 	}
 
@@ -1938,12 +1888,12 @@ public:
 	/** Wrapper for Texture::WrapT()
 	 *  @see Texture::WrapT()
 	 */
-	const BoundTemplate& WrapT(
+	const BoundObjOps& WrapT(
 		TextureWrap mode
 	) const
 	{
-		TextureOps::WrapT(
-			this->BindTarget(),
+		ExplicitOps::WrapT(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1955,8 +1905,8 @@ public:
 	 */
 	TextureWrap WrapR(void) const
 	{
-		return TextureOps::WrapR(
-			this->BindTarget()
+		return ExplicitOps::WrapR(
+			this->target
 		);
 	}
 
@@ -1964,12 +1914,12 @@ public:
 	/** Wrapper for Texture::WrapR()
 	 *  @see Texture::WrapR()
 	 */
-	const BoundTemplate& WrapR(
+	const BoundObjOps& WrapR(
 		TextureWrap mode
 	) const
 	{
-		TextureOps::WrapR(
-			this->BindTarget(),
+		ExplicitOps::WrapR(
+			this->target,
 			mode
 		);
 		return *this;
@@ -1982,8 +1932,8 @@ public:
 	 */
 	PixelDataFormat DepthStencilMode(void) const
 	{
-		return TextureOps::DepthStencilMode(
-			this->BindTarget()
+		return ExplicitOps::DepthStencilMode(
+			this->target
 		);
 	}
 #endif // GL_VERSION_4_3
@@ -1993,12 +1943,12 @@ public:
 	/** Wrapper for Texture::DepthStencilMode()
 	 *  @see Texture::DepthStencilMode()
 	 */
-	const BoundTemplate& DepthStencilMode(
+	const BoundObjOps& DepthStencilMode(
 		PixelDataFormat mode
 	) const
 	{
-		TextureOps::DepthStencilMode(
-			this->BindTarget(),
+		ExplicitOps::DepthStencilMode(
+			this->target,
 			mode
 		);
 		return *this;
@@ -2012,8 +1962,8 @@ public:
 	 */
 	bool Seamless(void) const
 	{
-		return TextureOps::Seamless(
-			this->BindTarget()
+		return ExplicitOps::Seamless(
+			this->target
 		);
 	}
 #endif // GL_ARB_seamless_cubemap_per_texture
@@ -2023,12 +1973,12 @@ public:
 	/** Wrapper for Texture::Seamless()
 	 *  @see Texture::Seamless()
 	 */
-	const BoundTemplate& Seamless(
+	const BoundObjOps& Seamless(
 		bool enable
 	) const
 	{
-		TextureOps::Seamless(
-			this->BindTarget(),
+		ExplicitOps::Seamless(
+			this->target,
 			enable
 		);
 		return *this;
@@ -2039,16 +1989,16 @@ public:
 	/** Wrapper for Texture::GenerateMipmap()
 	 *  @see Texture::GenerateMipmap()
 	 */
-	const BoundTemplate& GenerateMipmap(void) const
+	const BoundObjOps& GenerateMipmap(void) const
 	{
-		TextureOps::GenerateMipmap(
-			this->BindTarget()
+		ExplicitOps::GenerateMipmap(
+			this->target
 		);
 		return *this;
 	}
 
 
-}; // class BoundTemplate
+}; // class BoundObjOps
 
 } // namespace oglplus
 

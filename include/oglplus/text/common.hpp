@@ -15,8 +15,8 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/text/unicode.hpp>
-#include <oglplus/uniform.hpp>
-#include <oglplus/matrix.hpp>
+#include <oglplus/dsa/uniform.hpp>
+#include <oglplus/math/matrix.hpp>
 
 namespace oglplus {
 
@@ -395,7 +395,7 @@ private:
 		_camera_matrix,
 		_layout_matrix;
 
-	OptionalProgramUniform<GLfloat>
+	ProgramUniform<GLfloat>
 		_align_coef,
 		_dir_coef;
 
@@ -404,13 +404,13 @@ public:
 	template <class ConcreteRenderingImpl>
 	DefaultRendererTpl(
 		ConcreteRenderingImpl& parent,
-		const Group<Shader>& shaders
+		const Sequence<ShaderName>& shaders
 	): ConcreteRenderer(parent, shaders)
 	 , _projection_matrix(Base::_get_program(), "oglpProjectionMatrix")
 	 , _camera_matrix(Base::_get_program(), "oglpCameraMatrix")
 	 , _layout_matrix(Base::_get_program(), "oglpLayoutMatrix")
-	 , _align_coef(Base::_get_program(), "oglpAlignCoef")
-	 , _dir_coef(Base::_get_program(), "oglpDirCoef")
+	 , _align_coef(Base::_get_program(), "oglpAlignCoef", false)
+	 , _dir_coef(Base::_get_program(), "oglpDirCoef", false)
 	{
 		_projection_matrix.Set(Mat4f());
 		_camera_matrix.Set(Mat4f());

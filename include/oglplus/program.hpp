@@ -14,20 +14,18 @@
 #define OGLPLUS_PROGRAM_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/object/wrapper.hpp>
+#include <oglplus/object/sequence.hpp>
+#include <oglplus/error/program.hpp>
+#include <oglplus/error/prog_var.hpp>
 #include <oglplus/data_type.hpp>
-#include <oglplus/object.hpp>
-#include <oglplus/shader.hpp>
 #include <oglplus/transform_feedback_mode.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/link_error.hpp>
 #include <oglplus/program_resource.hpp>
-#include <oglplus/binding_query.hpp>
-#include <oglplus/auxiliary/info_log.hpp>
-#include <oglplus/auxiliary/base_range.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/face_mode.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/glsl_source.hpp>
+#include <oglplus/vertex_attrib_slot.hpp>
+#include <oglplus/detail/base_range.hpp>
 
 #include <vector>
 #include <cassert>
@@ -37,76 +35,154 @@ namespace oglplus {
 
 class VertexAttribOps;
 
-/// Program operations wrapper helper class
-/** This class implements OpenGL shading language program operations.
- *  @note Do not use this class directly, use @c Program instead.
- *
- *  @see Program
+/// Class wrapping program construction/destruction functions
+/** @note Do not use this class directly, use Program instead.
  *
  *  @glsymbols
  *  @glfunref{CreateProgram}
  *  @glfunref{DeleteProgram}
  *  @glfunref{IsProgram}
  */
-class ProgramOps
- : public Named
- , public BaseObject<false>
- , public FriendOf<ShaderOps>
- , public FriendOf<VertexAttribOps>
+template <>
+class ObjGenDelOps<tag::Program>
 {
-public:
-	typedef Nothing Target;
 protected:
-	static void _init(GLsizei _count, GLuint* _name)
+	static void Gen(GLsizei count, GLuint* names)
 	{
-		OGLPLUS_FAKE_USE(_count);
-		assert(_count == 1);
-		assert(_name != nullptr);
-		*_name = OGLPLUS_GLFUNC(CreateProgram)();
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CreateProgram));
+		assert(names != nullptr);
+		for(GLsizei i=0; i<count; ++i)
+		{
+			names[i] = OGLPLUS_GLFUNC(CreateProgram)();
+			OGLPLUS_CHECK_SIMPLE(CreateProgram);
+		}
 	}
 
-	static void _cleanup(GLsizei _count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	static void Delete(GLsizei count, GLuint* names)
 	{
-		OGLPLUS_FAKE_USE(_count);
-		assert(_count == 1);
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteProgram)(*_name);}
-		catch(...){ }
+		assert(names != nullptr);
+		for(GLsizei i=0; i<count; ++i)
+		{
+			OGLPLUS_GLFUNC(DeleteProgram)(names[i]);
+			OGLPLUS_VERIFY_SIMPLE(DeleteProgram);
+		}
 	}
 
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
+	static GLboolean IsA(GLuint name)
 	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsProgram)(_name);}
-		catch(...){ }
-		return GL_FALSE;
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsProgram)(name);
+		OGLPLUS_VERIFY_SIMPLE(IsProgram);
+		return result;
+	}
+};
+
+/// Program binding operations
+template <>
+class ObjBindingOps<tag::Program>
+{
+protected:
+	static GLuint _binding(void)
+	{
+		GLint name = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_CURRENT_PROGRAM, &name);
+		OGLPLUS_VERIFY(
+			GetIntegerv,
+			Error,
+			EnumParam(GLenum(GL_CURRENT_PROGRAM))
+		);
+		return name;
+	}
+public:
+	/// Returns the currently bound (active) Program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetIntegerv}
+	 */
+	static ProgramName Binding(void)
+	{
+		return ProgramName(_binding());
 	}
 
-#ifdef GL_PROGRAM
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
+	/// Binds (uses) the specified @p program
+	/**
+	 *  @glsymbols
+	 *  @glfunref{UseProgram}
+	 */
+	static void Bind(ProgramName program)
 	{
-		return ObjectType::Program;
+		OGLPLUS_GLFUNC(UseProgram)(GetGLName(program));
+		OGLPLUS_VERIFY(
+			UseProgram,
+			ObjectError,
+			Object(program)
+		);
 	}
-#endif
-	static GLenum _binding_query(Target);
-	friend class BindingQuery<ProgramOps>;
-	friend class FriendOf<ProgramOps>;
+};
 
+/// Common program operations
+/** @note Do not use this class directly, use Program
+ *  or NoProgram instead.
+ */
+template <>
+class ObjCommonOps<tag::Program>
+ : public ProgramName
+ , public ObjBindingOps<tag::Program>
+{
+protected:
+	ObjCommonOps(void){ }
+public:
+	using ObjBindingOps<tag::Program>::Bind;
+
+	/// Binds (uses) this program object
+	/**
+	 *  @note The program must be linked before it is used.
+	 *  @pre IsLinked()
+	 *  @pre IsValid()
+	 *
+	 *  @glsymbols
+	 *  @glfunref{UseProgram}
+	 */
+	void Bind(void) const
+	{
+		Bind(*this);
+	}
+
+	/// Uses this program object
+	/**
+	 *  @note The program must be linked before it is used.
+	 *  @pre IsLinked()
+	 *  @pre IsValid()
+	 *
+	 *  @glsymbols
+	 *  @glfunref{UseProgram}
+	 */
+	void Use(void) const
+	{
+		Bind(*this);
+	}
+};
+
+
+/// Class wrapping program functions (with direct state access)
+/** @note Do not use this class directly, use Program instead.
+ */
+template <>
+class ObjectOps<tag::DirectState, tag::Program>
+ : public ObjZeroOps<tag::DirectState, tag::Program>
+{
+protected:
+	ObjectOps(void){ }
+public:
 	GLint GetIntParam(GLenum query) const
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramiv)(_name, query, &result);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetProgramiv,
-			Program,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(query)
+		);
 		return result;
 	}
 
@@ -115,32 +191,32 @@ protected:
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramStageiv)(_name, stage, query, &result);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetProgramStageiv,
-			Program,
-			nullptr,
-			_name
-		));
+			ObjectError,
+			Object(*this).
+			EnumParam(query)
+		);
 		return result;
 	}
 #endif
-public:
+
 	/// Attaches the shader to this program
 	/**
 	 *  @glsymbols
 	 *  @glfunref{AttachShader}
 	 */
-	ProgramOps& AttachShader(const ShaderOps& shader);
+	ObjectOps& AttachShader(ShaderName shader);
 
 	/// Attaches a group of shaders to this program
-	ProgramOps& AttachShaders(const Group<Shader>& shaders);
+	ObjectOps& AttachShaders(const Sequence<ShaderName>& shaders);
 
 	/// Detaches the shader from this program
 	/**
 	 *  @glsymbols
 	 *  @glfunref{DetachShader}
 	 */
-	ProgramOps& DetachShader(const ShaderOps& shader);
+	ObjectOps& DetachShader(ShaderName shader);
 
 	/// Returns true if the program is already linked, false otherwise
 	/**
@@ -167,8 +243,6 @@ public:
 	 */
 	String GetInfoLog(void) const;
 
-	void HandleLinkError(void) const;
-
 	/// Links this shading language program
 	/**
 	 *  @post IsLinked()
@@ -180,7 +254,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	ProgramOps& Link(void);
+	ObjectOps& Link(void);
 
 	/// Returns true if the program is validated, false otherwise
 	/**
@@ -206,44 +280,7 @@ public:
 	 *  @glfunref{GetProgram}
 	 *  @glfunref{GetProgramInfoLog}
 	 */
-	ProgramOps& Validate(void);
-
-	/// Uses this shading language program
-	/**
-	 *  @note The program must be linked before it is used.
-	 *  @pre IsLinked()
-	 *  @pre IsValid()
-	 *
-	 *  @see IsLinked
-	 *  @see Link
-	 *
-	 *  @glsymbols
-	 *  @glfunref{UseProgram}
-	 */
-	const ProgramOps& Use(void) const
-	{
-		assert(_name != 0);
-		assert(IsLinked());
-		OGLPLUS_GLFUNC(UseProgram)(_name);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
-			UseProgram,
-			Program,
-			nullptr,
-			_name
-		));
-		return *this;
-	}
-
-	/// Deactivates the currently active/used program (if any)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{UseProgram}
-	 */
-	static void UseNone(void)
-	{
-		OGLPLUS_GLFUNC(UseProgram)(0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgram));
-	}
+	ObjectOps& Validate(void);
 
 	/// Sets the variables that will be captured during transform feedback
 	/**
@@ -390,20 +427,9 @@ public:
 		{ }
 	};
 
-	struct ManagedShader : Managed<ShaderOps>
-	{
-		typedef ShaderOps BaseOps;
-
-		ManagedShader(
-			const ShaderIterationContext& context,
-			GLuint index
-		): Managed<ShaderOps>(context._shader_names[index])
-		{ }
-	};
-
 	typedef aux::ContextElementRange<
 			ShaderIterationContext,
-			ManagedShader
+			ShaderName
 	> ShaderRange;
 #endif // !OGLPLUS_DOCUMENTATION_ONLY
 
@@ -555,7 +581,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	ProgramOps& MakeSeparable(bool para = true);
+	ObjectOps& MakeSeparable(bool para = true);
 #endif // separate shader objects
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_get_program_binary
@@ -567,7 +593,7 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ProgramParameter}
 	 */
-	ProgramOps& MakeRetrievable(bool para = true);
+	ObjectOps& MakeRetrievable(bool para = true);
 
 	/// Returns this programs binary representation
 	/**
@@ -713,52 +739,53 @@ public:
 	}
 #endif // tessellation shader
 
-	// Implemented in vertex_attrib.hpp
 	/// Binds the location of a SL variable to the vertex_attrib
 	/** This function binds the location of the vertex attribute
 	 *  @c vertex_attrib to the shader variable identified by
 	 *  @c identifier.
 	 */
-	inline void BindLocation(
-		const VertexAttribOps& vertex_attrib,
-		const GLchar* identifier
-	) const;
-
-};
-
-/// Class that can be used to unbind the currently used program
-class NoProgram
-{
-public:
-	/// Deactivates the currently active/used program (if any)
-	/**
-	 *  @glsymbols
-	 *  @glfunref{UseProgram}
-	 */
-	static void Use(void)
+	void BindLocation(
+		VertexAttribSlot vertex_attrib_slot,
+		StrCRef identifier
+	)
 	{
-		OGLPLUS_GLFUNC(UseProgram)(0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(UseProgram));
+		OGLPLUS_GLFUNC(BindAttribLocation)(
+			_name,
+			GLuint(vertex_attrib_slot),
+			identifier.c_str()
+		);
+		OGLPLUS_CHECK(
+			BindAttribLocation,
+			ProgVarError,
+			Program(*this).
+			Identifier(identifier).
+			Index(GLuint(vertex_attrib_slot))
+		);
 	}
 };
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// An @ref oglplus_object encapsulating  OpenGL shading language program functionality
+/// Program operations with direct state access
+typedef ObjectOps<tag::DirectState, tag::Program>
+	ProgramOps;
+
+/// Class that can be used to unbind the currently active program
 /**
  *  @ingroup oglplus_objects
  */
-class Program
- : public ProgramOps
-{ };
-#else
+typedef ObjectZero<ObjZeroOps<tag::DirectState, tag::Program>>
+	NoProgram;
+
+/// An @ref oglplus_object encapsulating the program object functionality
+/**
+ *  @ingroup oglplus_objects
+ */
 typedef Object<ProgramOps> Program;
-#endif
 
 // syntax-sugar operators
 
 inline ProgramOps& operator << (
 	ProgramOps& program,
-	const Shader& shader
+	ShaderName shader
 )
 {
 	program.AttachShader(shader);
@@ -888,10 +915,7 @@ public:
 	ShaderProgram(
 		ShaderType shader_type,
 		const GLchar* source
-	): Program(
-		Program::ExternalName_(),
-		_make(shader_type, 1, &source)
-	)
+	): Program(_make(shader_type, 1, &source))
 	{ _check(); }
 
 	/// Creates a program with a single shader with specified type and source
@@ -902,11 +926,7 @@ public:
 		ShaderType shader_type,
 		const GLchar* source,
 		ObjectDesc&& object_desc
-	): Program(
-		Program::ExternalName_(),
-		_make(shader_type, 1, &source),
-		std::move(object_desc)
-	)
+	): Program(_make(shader_type, 1, &source), std::move(object_desc))
 	{ _check(); }
 
 	/// Creates a program with a single shader with specified type and source
@@ -916,10 +936,7 @@ public:
 	ShaderProgram(
 		ShaderType shader_type,
 		const GLSLSource& glsl_source
-	): Program(
-		Program::ExternalName_(),
-		_make(shader_type, glsl_source.Count(), glsl_source.Parts())
-	)
+	): Program(_make(shader_type, glsl_source.Count(), glsl_source.Parts()))
 	{ _check(); }
 
 	/// Creates a single shader program with specified type, source and desc.
@@ -931,7 +948,6 @@ public:
 		const GLSLSource& glsl_source,
 		ObjectDesc&& object_desc
 	): Program(
-		Program::ExternalName_(),
 		_make(shader_type, glsl_source.Count(), glsl_source.Parts()),
 		std::move(object_desc)
 	)
@@ -1002,22 +1018,22 @@ private:
 	}
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	void _attach(const Shader& shader)
+	void _attach(ShaderName shader)
 	{
 		this->AttachShader(shader);
 	}
 
-	template <typename ... Shaders>
-	void _attach(const Shader& shader, const Shaders& ... shaders)
+	template <typename ... Tags>
+	void _attach(ShaderName shader, ObjectName<Tags> ... shaders)
 	{
 		this->AttachShader(shader);
 		_attach(shaders...);
 	}
 
-	template <bool Separable, typename ... Shaders>
+	template <bool Separable, typename ... Tags>
 	void _initialize(
 		std::integral_constant<bool, Separable> separable,
-		const Shaders& ... shaders
+		ObjectName<Tags> ... shaders
 	)
 	{
 		_attach(shaders...);
@@ -1028,23 +1044,23 @@ private:
 public:
 #if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
 	/// Build a optionally separable program using the specified @c shaders
-	template <bool Separable, typename ... Shaders>
+	template <bool Separable, typename ... Tags>
 	QuickProgram(
 		std::integral_constant<bool, Separable> separable,
-		const Shader& shader,
-		const Shaders& ... shaders
+		ShaderName shader,
+		ObjectName<Tags>& ... shaders
 	): Program()
 	{
 		_initialize(separable, shader, shaders...);
 	}
 
 	/// Build a program with @c description using the specified @c shaders
-	template <bool Separable, typename ... Shaders>
+	template <bool Separable, typename ... Tags>
 	QuickProgram(
 		ObjectDesc&& description,
 		std::integral_constant<bool, Separable> separable,
-		const Shader& shader,
-		const Shaders& ... shaders
+		ShaderName shader,
+		ObjectName<Tags> ... shaders
 	): Program(std::move(description))
 	{
 		_initialize(separable, shader, shaders...);
@@ -1084,7 +1100,7 @@ public:
 	template <bool Separable>
 	QuickProgram(
 		std::integral_constant<bool, Separable> separable,
-		const Shader& s0
+		ShaderName s0
 	): Program()
 	{
 		this->AttachShader(s0);
@@ -1094,8 +1110,8 @@ public:
 	template <bool Separable>
 	QuickProgram(
 		std::integral_constant<bool, Separable> separable,
-		const Shader& s0,
-		const Shader& s1
+		ShaderName s0,
+		ShaderName s1
 	): Program()
 	{
 		this->AttachShader(s0);
@@ -1106,9 +1122,9 @@ public:
 	template <bool Separable>
 	QuickProgram(
 		std::integral_constant<bool, Separable> separable,
-		const Shader& s0,
-		const Shader& s1,
-		const Shader& s2
+		ShaderName s0,
+		ShaderName s1,
+		ShaderName s2
 	): Program()
 	{
 		this->AttachShader(s0);
@@ -1128,7 +1144,7 @@ class HardwiredProgram
 {
 private:
 	template <class SingleShader>
-	const Shader& _single_shader(SingleShader*) const
+	ShaderName _single_shader(SingleShader*) const
 	{
 		return *((SingleShader*)this);
 	}

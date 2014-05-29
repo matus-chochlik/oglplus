@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,8 +14,7 @@
 #define OGLPLUS_EXTENSION_1203031825_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/context/string_queries.hpp>
+#include <oglplus/error/basic.hpp>
 
 namespace oglplus {
 
@@ -24,18 +23,7 @@ namespace oglplus {
  * Classes in this group implement wrappers around OpenGL extensions.
  */
 
-inline void RequireExtension(const GLchar* name, bool available)
-{
-	if(OGLPLUS_IS_ERROR(!available))
-	{
-		oglplus::HandleError(
-			GL_INVALID_OPERATION,
-			"Missing extension",
-			OGLPLUS_ERROR_INFO_STR(name),
-			oglplus::Error::PropertyMapInit()
-		);
-	}
-}
+void RequireExtension(const GLchar* name, bool available);
 
 #if OGLPLUS_USE_GLEW
 #define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
@@ -43,16 +31,7 @@ inline void RequireExtension(const GLchar* name, bool available)
 	(GLEW_ ## VENDOR ## _ ## EXTENSION == GL_TRUE) \
 )
 #else
-inline bool HasExtension(const GLchar* name)
-{
-	auto er = oglplus::context::StringQueries::Extensions();
-	while(!er.Empty())
-	{
-		if(er.Front() == name) return true;
-		er.Next();
-	}
-	return false;
-}
+bool HasExtension(const GLchar* name);
 #define OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION) (\
 	HasExtension("GL_" #VENDOR "_" #EXTENSION) \
 )
@@ -94,5 +73,9 @@ inline bool HasExtension(const GLchar* name)
 	OGLPLUS_EXTENSION_AVAILABLE(VENDOR,EXTENSION)
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/extension.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 #include <oglplus/string_query.hpp>
 
 #include <cassert>
@@ -50,7 +49,7 @@ public:
 			_param,
 			_index
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetStringi));
+		OGLPLUS_VERIFY_SIMPLE(GetStringi);
 		return String((const GLchar*)result);
 	}
 
@@ -82,7 +81,7 @@ public:
 	static const GLubyte* GetString(StringQuery query)
 	{
 		const GLubyte* result = OGLPLUS_GLFUNC(GetString)(GLenum(query));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetString));
+		OGLPLUS_VERIFY_SIMPLE(GetString);
 		return result;
 	}
 
@@ -127,7 +126,7 @@ public:
 			GL_NUM_SHADING_LANGUAGE_VERSIONS,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(result);
 	}
 
@@ -148,7 +147,7 @@ public:
 			GL_SHADING_LANGUAGE_VERSION,
 			index
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetStringi));
+		OGLPLUS_VERIFY_SIMPLE(GetStringi);
 		return result;
 	}
 #endif // GL_VERSION_4_3
@@ -208,7 +207,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_NUM_EXTENSIONS, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(result);
 	}
 
@@ -229,7 +228,7 @@ public:
 			GL_EXTENSIONS,
 			index
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetStringi));
+		OGLPLUS_VERIFY_SIMPLE(GetStringi);
 		return result;
 	}
 

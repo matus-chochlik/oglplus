@@ -13,7 +13,7 @@
 #ifndef EGLPLUS_ATTRIB_LIST_1303292057_HPP
 #define EGLPLUS_ATTRIB_LIST_1303292057_HPP
 
-#include <oglplus/attrib_list.hpp>
+#include <oglplus/detail/attrib_list.hpp>
 
 #include <cassert>
 #include <vector>

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,7 @@ namespace text {
 OGLPLUS_LIB_FUNC
 BitmapGlyphRenderer::BitmapGlyphRenderer(
 	BitmapGlyphRenderingBase& parent,
-	const Group<Shader>& shaders
+	const Sequence<ShaderName>& shaders
 ): _parent(parent)
  , _program(ObjectDesc("BitmapGlyphRenderer"))
  , _bitmap_sampler(_program, "oglpBitmap")
@@ -201,7 +201,7 @@ BitmapGlyphDefaultRenderer::BitmapGlyphDefaultRenderer(
 	const FragmentShader& pixel_color_shader
 ): DefaultRendererTpl<BitmapGlyphRenderer>(
 	parent,
-	Group<Shader>(
+	StaticGroup<ShaderName, 3>(
 		GeometryShader(
 			ObjectDesc("BitmapGlyphRenderer - Layout transform"),
 			StrLit("#version 330\n"

@@ -46,7 +46,7 @@ private:
 	Buffer ctrl_verts;
 
 	// Handle for the Color uniform in fragment shader
-	LazyUniform<Vec3f> color;
+	Lazy<Uniform<Vec3f>> color;
 	// The count of control points
 	std::size_t ctrl_n;
 public:
@@ -128,15 +128,15 @@ public:
 	{
 		gl.Clear().ColorBuffer();
 		// draw the lines between control points
-		color = Vec3f(0.9f, 0.9f, 0.2f);
+		color.Set(Vec3f(0.9f, 0.9f, 0.2f));
 		gl.Bind(control);
 		gl.DrawArrays(PrimitiveType::LineStrip, 0, ctrl_n);
 		// draw the curve
-		color = Vec3f(0.1f, 0.1f, 0.1f);
+		color.Set(Vec3f(0.1f, 0.1f, 0.1f));
 		gl.Bind(curve);
 		gl.DrawArrays(PrimitiveType::LineStrip, 0, curve_n);
 		// draw the control points
-		color = Vec3f(0.9f, 0.0f, 0.0f);
+		color.Set(Vec3f(0.9f, 0.0f, 0.0f));
 		gl.Bind(control);
 		gl.PointSize(8.0);
 		gl.DrawArrays(PrimitiveType::Points, 0, ctrl_n);

@@ -22,10 +22,10 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/buffer_dsa.hpp>
-#include <oglplus/texture_dsa.hpp>
-#include <oglplus/vertex_array_dsa.hpp>
-#include <oglplus/vertex_attrib_dsa.hpp>
+#include <oglplus/dsa/buffer.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/vertex_array.hpp>
+#include <oglplus/dsa/vertex_attrib.hpp>
 
 #include <oglplus/images/gradient.hpp>
 #include <oglplus/opt/resources.hpp>
@@ -264,10 +264,11 @@ public:
 		ProgramUniform<GLfloat>(prog, "CoordStep").Set(0.5f);
 
 		// Volume Tex
-		Texture::Active(0);
-		ProgramUniformSampler(prog, "VolumeTex").Set(0);
 		ProgramUniform<GLint>(prog, "VolumeTexSide").Set(cube_side);
-		volume_tex.Bind(Texture::Target::_3D);
+		ProgramUniformSampler(prog, "VolumeTex").Set(0);
+
+		volume_tex.target = Texture::Target::_3D;
+		volume_tex.BindMulti(0, Texture::Target::_3D);
 
 		std::ifstream image_file;
 		OpenResourceFile(image_file, "textures", "brain_scan_512", ".raw");
@@ -290,9 +291,9 @@ public:
 		volume_tex.WrapR(TextureWrap::ClampToBorder);
 
 		// Palette
-		Texture::Active(1);
 		ProgramUniformSampler(prog, "Palette").Set(1);
-		palette.Bind(Texture::Target::_1D);
+		palette.target = Texture::Target::_1D;
+		palette.BindMulti(1, Texture::Target::_1D);
 		palette.Image1D(
 			images::LinearGradient(
 				256,

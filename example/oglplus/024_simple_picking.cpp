@@ -221,7 +221,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray draw_attr(draw_prog, "Position");
+			VertexArrayAttrib draw_attr(draw_prog, "Position");
 			draw_attr.Setup<GLfloat>(n_per_vertex);
 			draw_attr.Enable();
 		}
@@ -274,7 +274,7 @@ public:
 		// query the number of values written to the feedabck buffer
 		GLuint picked_count = 0;
 		{
-			Query::Execution<GLuint> query_exec(
+			QueryExecution<GLuint> query_exec(
 				count_query,
 				Query::Target::
 				TransformFeedbackPrimitivesWritten,

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -20,7 +20,6 @@
 #if OGLPLUS_USE_BOOST_CONFIG
 #include <boost/config.hpp>
 #endif
-
 
 // ------- C++11 feature availability detection -------
 
@@ -88,6 +87,12 @@
 #endif
 #endif
 
+#ifndef OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS
+#define OGLPLUS_EXPLICIT explicit
+#else
+#define OGLPLUS_EXPLICIT
+#endif
+
 #ifndef OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
 #ifdef BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
 #define OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS 1
@@ -112,6 +117,14 @@
 #define OGLPLUS_NO_USER_DEFINED_LITERALS 1
 #else
 #define OGLPLUS_NO_USER_DEFINED_LITERALS 0
+#endif
+#endif
+
+#ifndef OGLPLUS_NO_TEMPLATE_ALIASES
+#ifdef BOOST_NO_TEMPLATE_ALIASES
+#define OGLPLUS_NO_TEMPLATE_ALIASES 1
+#else
+#define OGLPLUS_NO_TEMPLATE_ALIASES 0
 #endif
 #endif
 
@@ -175,6 +188,12 @@
 #define OGLPLUS_NOEXCEPT(...)
 #define OGLPLUS_NOEXCEPT_IF(...)
 #endif
+
+// -------- disable certain warnings ---------
+
+#ifdef _MSC_VER
+#pragma warning( disable : 4396 )
+#endif //_MSC_VER
 
 // -------- helper definitions ---------
 

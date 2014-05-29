@@ -20,7 +20,11 @@
 namespace oglplus {
 
 // Nothing
-struct Nothing { typedef int _value_type; };
+struct Nothing
+{
+	typedef Nothing Type;
+	typedef int _value_type;
+};
 
 // Angle
 template <typename T>
@@ -80,96 +84,200 @@ std::size_t Cols(const Matrix<T, R, C>&);
 template <typename T, std::size_t R, std::size_t C>
 T At(const Matrix<T, R, C>& matrix, std::size_t i, std::size_t j);
 
-// ObjectTypeId
-template <typename ObjectOps>
-struct ObjectTypeId;
+// Tags
+namespace tag {
 
-template <typename Id>
-struct ObjectTypeById;
+struct ObjectName;
+struct ObjectOps;
+struct Object;
+struct ProgVar;
 
-#define OGLPLUS_OBJECT_TYPE_ID(OBJECT, ID) \
-template <> struct ObjectTypeId<OBJECT##Ops> \
- : public std::integral_constant<int, ID> { }; \
-template <> struct ObjectTypeById<std::integral_constant<int, ID> > \
-{ typedef OBJECT##Ops Type; };
+struct Renderbuffer;
+struct Framebuffer;
+struct Texture;
+struct Buffer;
+struct Query;
+struct ProgramPipeline;
+struct Program;
+struct TransformFeedback;
+struct Sampler;
+struct VertexArray;
+struct Shader;
+struct PerfMonitorAMD;
+struct PathNV;
 
-class RenderbufferOps;
-OGLPLUS_OBJECT_TYPE_ID(Renderbuffer, 1)
+struct VertexAttrib;
+struct Uniform;
+struct UniformBlock;
+struct Subroutine;
+struct SubroutineUniform;
 
-class FramebufferOps;
-OGLPLUS_OBJECT_TYPE_ID(Framebuffer, 2)
+struct NativeTypes;
+struct MatrixTypes;
 
-class TextureOps;
-OGLPLUS_OBJECT_TYPE_ID(Texture, 3)
+struct DirectInit;
+struct EagerInit;
+struct LazyInit;
 
-class BufferOps;
-OGLPLUS_OBJECT_TYPE_ID(Buffer, 4)
+struct Typecheck;
+struct NoTypecheck;
 
-class QueryOps;
-OGLPLUS_OBJECT_TYPE_ID(Query, 5)
+struct ExplicitSel;
+struct ImplicitSel;
+struct DirectState;
+struct CurrentBound;
+} // namespace tag
 
-class ProgramPipelineOps;
-OGLPLUS_OBJECT_TYPE_ID(ProgramPipeline, 6)
+template <typename X>
+struct Classify;
 
-class ProgramOps;
-OGLPLUS_OBJECT_TYPE_ID(Program, 7)
+template <typename T>
+struct AllowedSpecialization;
 
-class TransformFeedbackOps;
-OGLPLUS_OBJECT_TYPE_ID(TransformFeedback, 8)
+// Object
+template <typename ObjTag>
+class ObjectName;
 
-class SamplerOps;
-OGLPLUS_OBJECT_TYPE_ID(Sampler, 9)
+template <typename ObjTg>
+struct Classify<ObjectName<ObjTg>>
+{
+	typedef ObjectName<ObjTg> Base;
+	typedef tag::ObjectName Tag;
+	typedef ObjTg ObjTag;
+};
 
-class VertexArrayOps;
-OGLPLUS_OBJECT_TYPE_ID(VertexArray, 10)
+typedef ObjectName<tag::Renderbuffer> RenderbufferName;
+typedef ObjectName<tag::Framebuffer> FramebufferName;
+typedef ObjectName<tag::Texture> TextureName;
+typedef ObjectName<tag::Buffer> BufferName;
+typedef ObjectName<tag::Query> QueryName;
+typedef ObjectName<tag::ProgramPipeline> ProgramPipelineName;
+typedef ObjectName<tag::Program> ProgramName;
+typedef ObjectName<tag::TransformFeedback> TransformFeedbackName;
+typedef ObjectName<tag::Sampler> SamplerName;
+typedef ObjectName<tag::VertexArray> VertexArrayName;
+typedef ObjectName<tag::Shader> ShaderName;
+typedef ObjectName<tag::PerfMonitorAMD> PerfMonitorAMDName;
+typedef ObjectName<tag::PathNV> PathNVName;
 
-class ShaderOps;
-OGLPLUS_OBJECT_TYPE_ID(Shader, 11)
+template <typename ObjName>
+class Sequence;
 
-class PerfMonitorAMDOps;
-OGLPLUS_OBJECT_TYPE_ID(PerfMonitorAMD, 12)
+template <typename ObjTag>
+class ObjGenDelOps;
 
-class PathNVOps;
-OGLPLUS_OBJECT_TYPE_ID(PathNV, 13)
+template <typename ObjTag>
+class ObjBindingOps;
 
-class DSATextureEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSATextureEXT, 14)
+template <typename ObjTag>
+class ObjCommonOps;
 
-class DSABufferEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSABufferEXT, 15)
+template <typename ObjTag>
+class BoundObjOps;
 
-class DSAFramebufferEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSAFramebufferEXT, 16)
+template <typename OpsTag, typename ObjTag>
+class ObjZeroOps;
 
-class DSARenderbufferEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSARenderbufferEXT, 17)
+template <typename OpsTag, typename ObjTag>
+class ObjectOps;
 
-class DSAVertexArrayEXTOps;
-OGLPLUS_OBJECT_TYPE_ID(DSAVertexArrayEXT, 18)
+template <typename OpsTg, typename ObjTg>
+struct Classify<ObjectOps<OpsTg, ObjTg>>
+{
+	typedef ObjectOps<OpsTg, ObjTg> Base;
+	typedef tag::ObjectOps Tag;
+	typedef OpsTg OpsTag;
+	typedef ObjTg ObjTag;
+};
 
-template <typename ObjectOps>
-struct ObjectBaseOps;
-
-template <typename Target>
-struct ObjectTargetOps;
+template <typename CommonOps>
+class ObjectZero;
 
 template <typename ObjectOps>
 class Object;
 
-template <typename ObjectOps>
-class Managed;
+template <typename OpsTg, typename ObjTg>
+struct Classify<Object<ObjectOps<OpsTg, ObjTg>>>
+ : Classify<ObjectOps<OpsTg, ObjTg>>
+{
+	typedef Object<ObjectOps<OpsTg, ObjTg>> Base;
+	typedef tag::Object Tag;
+};
 
-template <class Object>
-class FriendOf;
+template <typename Object>
+struct ObjectSubtype;
 
-template <template <class, class> class Base, class BaseParam, class Bindable>
-class BoundTemplate;
+template <typename Target>
+struct ObjectTargetTag;
 
-template <typename ObjectOps>
-struct NonDSAtoDSA;
+template <typename ObjectT>
+class Reference;
 
-template <typename ObjectOps>
-struct DSAtoNonDSA;
+template <typename ObjectT>
+struct Classify<Reference<ObjectT>>
+ : Classify<ObjectT>
+{ };
+
+template <typename X>
+class Optional;
+
+template <typename Object>
+class Array;
+
+template <typename Object>
+class Group;
+
+class Shader;
+
+template <typename VarTag>
+class ProgVarLoc;
+
+typedef ProgVarLoc<tag::VertexAttrib> VertexAttribLoc;
+typedef ProgVarLoc<tag::Uniform> UniformLoc;
+typedef ProgVarLoc<tag::UniformBlock> UniformBlockLoc;
+typedef ProgVarLoc<tag::Subroutine> SubroutineLoc;
+typedef ProgVarLoc<tag::SubroutineUniform> SubroutineUniformLoc;
+
+template <typename VarTag>
+class ProgVarLocOps;
+
+template <typename VarTag>
+class ProgVarTypeOps;
+
+template <typename ChkTag, typename VarTag>
+class ProgVarTypecheck;
+
+template <typename OpsTag, typename VarTag, typename TypTag>
+class ProgVarSetters;
+
+template <typename OpsTag, typename T>
+class ProgVarCallers;
+
+template <typename VarTag>
+class ProgVarCommonOps;
+
+template <typename OpsTag, typename VarTag, typename T>
+class ProgVarGetSetOps;
+
+template <typename OpsTag, typename VarTag, typename ChkTag, typename T>
+class ProgVar;
+
+template <typename OpsTg, typename VarTg, typename ChkTg, typename T>
+struct Classify<ProgVar<OpsTg, VarTg, ChkTg, T>>
+{
+	typedef ProgVar<OpsTg, VarTg, ChkTg, T> Base;
+	typedef tag::ProgVar Tag;
+	typedef OpsTg OpsTag;
+	typedef VarTg VarTag;
+	typedef ChkTg ChkTag;
+	typedef T Type;
+};
+
+template <typename ProgVar>
+class Typechecked;
+
+template <typename ProgVar>
+class Lazy;
 
 } // namespace oglplus
 

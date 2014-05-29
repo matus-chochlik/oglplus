@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,8 +16,8 @@
 #include <oalplus/config.hpp>
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
-#include <oalplus/error.hpp>
-#include <oalplus/vector.hpp>
+#include <oalplus/math/vector.hpp>
+#include <oalplus/error/basic.hpp>
 
 namespace oalplus {
 
@@ -41,7 +41,7 @@ public:
 			AL_POSITION,
 			position.Data()
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,Listenerfv);
 	}
 
 	/// Specifies the position of the listener
@@ -61,7 +61,7 @@ public:
 			AL_POSITION,
 			x, y, z
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listener3f));
+		OALPLUS_VERIFY_SIMPLE(al,Listener3f);
 	}
 
 	/// Returns the positin of the listener
@@ -80,7 +80,7 @@ public:
 			AL_POSITION,
 			result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
 		return Vec3f(result);
 	}
 
@@ -100,7 +100,7 @@ public:
 			AL_VELOCITY,
 			velocity.Data()
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,Listenerfv);
 	}
 
 	/// Specifies the velocity vector of the listener
@@ -119,7 +119,7 @@ public:
 			AL_VELOCITY,
 			x, y, z
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listener3f));
+		OALPLUS_VERIFY_SIMPLE(al,Listener3f);
 	}
 
 	/// Returns the velocity vector of the listener
@@ -138,7 +138,7 @@ public:
 			AL_VELOCITY,
 			result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
 		return Vec3f(result);
 	}
 
@@ -159,7 +159,7 @@ public:
 			up[0], up[1], up[2],
 		};
 		OALPLUS_ALFUNC(al,Listenerfv)(AL_ORIENTATION, v);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,Listenerfv);
 	}
 
 	/// Specifies the orientation vector of the listener
@@ -185,7 +185,7 @@ public:
 	{
 		ALfloat v[6] = {at_x, at_y, at_z, up_x, up_y, up_z};
 		OALPLUS_ALFUNC(al,Listenerfv)(AL_ORIENTATION, v);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,Listenerfv);
 	}
 
 	/// Returns the orientation vector of the listener
@@ -203,7 +203,7 @@ public:
 	{
 		ALfloat v[6];
 		OALPLUS_ALFUNC(al,GetListenerfv)(AL_ORIENTATION, v);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
 		return Vec3f(v, 3);
 	}
 
@@ -221,7 +221,7 @@ public:
 	{
 		ALfloat v[6];
 		OALPLUS_ALFUNC(al,GetListenerfv)(AL_ORIENTATION, v);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
 		return Vec3f(v+3, 3);
 	}
 
@@ -238,7 +238,7 @@ public:
 			AL_GAIN,
 			value
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,Listenerf));
+		OALPLUS_VERIFY_SIMPLE(al,Listenerf);
 	}
 
 	/// Returns the current value of gain of the listener
@@ -255,7 +255,7 @@ public:
 			AL_GAIN,
 			&result
 		);
-		OALPLUS_VERIFY(OALPLUS_ERROR_INFO(al,GetListenerfv));
+		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
 		return result;
 	}
 };

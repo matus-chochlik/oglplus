@@ -1,7 +1,7 @@
 
 /**
  *  @file oglplus/bound/buffer.hpp
- *  @brief Specialization of BoundTemplate for Buffer.
+ *  @brief Specialization of ObjectOps for Buffer.
  *
  *  Automatically generated file, do not edit manually!
  *
@@ -14,47 +14,52 @@
 #ifndef OGLPLUS_BOUND_BUFFER_1107121519_HPP
 #define OGLPLUS_BOUND_BUFFER_1107121519_HPP
 
-#include <oglplus/fwd.hpp>
+#include <oglplus/object/bound.hpp>
 #include <oglplus/buffer.hpp>
 #include <utility>
 
 namespace oglplus {
 
-/// Specialization of the BoundTemplate for BufferOps, implements Bound < Buffer  >.
+/// Specialization of the BoundObjOps for Buffer  >.
 /** This template implements wrappers around the member functions
  *  of Buffer, which have
- *  a BufferOps::Target parameter
+ *  a BufferTarget parameter
  *  specifying the binding point on which they should operate.
  *
  *  @note Do not use this template class directly use
- *  Bound < Buffer > or the Bind()
+ *  Bound < Buffer > or the Context::Current()
  *  function instead.
- *
- *  @see Bind()
- *  @see Bound
  *
  *  @ingroup utility_classes
  */
-template <template <class, class> class Base, class BaseParam>
-class BoundTemplate<Base, BaseParam, BufferOps>
- : public Base<BaseParam, BufferOps>
+template <>
+class BoundObjOps<tag::Buffer>
 {
 private:
-	typedef Base<
-		BaseParam,
-		BufferOps
-	> _base;
+	typedef ObjectOps<tag::ExplicitSel, tag::Buffer> ExplicitOps;
 public:
-	BoundTemplate(
-		const BufferOps& bindable,
-		BufferOps::Target target
-	): _base(bindable, target)
+	typedef ExplicitOps::Target Target;
+	Target target;
+
+	BoundObjOps(void)
 	{ }
 
-	BoundTemplate(
-		BufferOps::Target target
-	): _base(target)
+	BoundObjOps(Target init_tgt)
+	 : target(init_tgt)
 	{ }
+
+	/** Wrapper for Buffer::GetIntParam()
+	 *  @see Buffer::GetIntParam()
+	 */
+	GLint GetIntParam(
+		GLenum query
+	) const
+	{
+		return ExplicitOps::GetIntParam(
+			this->target,
+			query
+		);
+	}
 
 
 	/** Wrapper for Buffer::Mapped()
@@ -62,8 +67,8 @@ public:
 	 */
 	bool Mapped(void) const
 	{
-		return BufferOps::Mapped(
-			this->BindTarget()
+		return ExplicitOps::Mapped(
+			this->target
 		);
 	}
 
@@ -72,14 +77,14 @@ public:
 	 *  @see Buffer::Data()
 	 */
 	template <typename GLtype>
-	const BoundTemplate& Data(
+	const BoundObjOps& Data(
 		GLsizei count,
 		const GLtype * data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
-		BufferOps::Data(
-			this->BindTarget(),
+		ExplicitOps::Data(
+			this->target,
 			count,
 			data,
 			usage
@@ -92,13 +97,13 @@ public:
 	 *  @see Buffer::Data()
 	 */
 	template <typename GLtype, std::size_t Count>
-	const BoundTemplate& Data(
+	const BoundObjOps& Data(
 		const GLtype (&data)[Count],
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
-		BufferOps::Data(
-			this->BindTarget(),
+		ExplicitOps::Data(
+			this->target,
 			data,
 			usage
 		);
@@ -110,13 +115,13 @@ public:
 	 *  @see Buffer::Data()
 	 */
 	template <typename GLtype>
-	const BoundTemplate& Data(
+	const BoundObjOps& Data(
 		const std::vector< GLtype > & data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
-		BufferOps::Data(
-			this->BindTarget(),
+		ExplicitOps::Data(
+			this->target,
 			data,
 			usage
 		);
@@ -128,13 +133,13 @@ public:
 	 *  @see Buffer::Data()
 	 */
 	template <typename GLtype, std::size_t N>
-	const BoundTemplate& Data(
+	const BoundObjOps& Data(
 		const std::vector< Vector< GLtype, N > > & data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
-		BufferOps::Data(
-			this->BindTarget(),
+		ExplicitOps::Data(
+			this->target,
 			data,
 			usage
 		);
@@ -146,14 +151,14 @@ public:
 	 *  @see Buffer::SubData()
 	 */
 	template <typename GLtype>
-	const BoundTemplate& SubData(
+	const BoundObjOps& SubData(
 		GLintptr offset,
 		GLsizei count,
 		const GLtype * data
 	) const
 	{
-		BufferOps::SubData(
-			this->BindTarget(),
+		ExplicitOps::SubData(
+			this->target,
 			offset,
 			count,
 			data
@@ -166,13 +171,13 @@ public:
 	 *  @see Buffer::SubData()
 	 */
 	template <typename GLtype, std::size_t Count>
-	const BoundTemplate& SubData(
+	const BoundObjOps& SubData(
 		GLintptr offset,
 		const GLtype (&data)[Count]
 	) const
 	{
-		BufferOps::SubData(
-			this->BindTarget(),
+		ExplicitOps::SubData(
+			this->target,
 			offset,
 			data
 		);
@@ -184,13 +189,13 @@ public:
 	 *  @see Buffer::SubData()
 	 */
 	template <typename GLtype>
-	const BoundTemplate& SubData(
+	const BoundObjOps& SubData(
 		GLintptr offset,
 		const std::vector< GLtype > & data
 	) const
 	{
-		BufferOps::SubData(
-			this->BindTarget(),
+		ExplicitOps::SubData(
+			this->target,
 			offset,
 			data
 		);
@@ -203,14 +208,14 @@ public:
 	 *  @see Buffer::ClearData()
 	 */
 	template <typename GLtype>
-	const BoundTemplate& ClearData(
+	const BoundObjOps& ClearData(
 		PixelDataInternalFormat internal_format,
 		PixelDataFormat format,
 		const GLtype * data
 	) const
 	{
-		BufferOps::ClearData(
-			this->BindTarget(),
+		ExplicitOps::ClearData(
+			this->target,
 			internal_format,
 			format,
 			data
@@ -225,7 +230,7 @@ public:
 	 *  @see Buffer::ClearSubData()
 	 */
 	template <typename GLtype>
-	const BoundTemplate& ClearSubData(
+	const BoundObjOps& ClearSubData(
 		PixelDataInternalFormat internal_format,
 		GLintptr offset,
 		GLsizeiptr size,
@@ -233,8 +238,8 @@ public:
 		const GLtype * data
 	) const
 	{
-		BufferOps::ClearSubData(
-			this->BindTarget(),
+		ExplicitOps::ClearSubData(
+			this->target,
 			internal_format,
 			offset,
 			size,
@@ -250,15 +255,14 @@ public:
 	/** Wrapper for Buffer::Storage()
 	 *  @see Buffer::Storage()
 	 */
-	template <typename GLtype>
-	const BoundTemplate& Storage(
+	const BoundObjOps& Storage(
 		GLsizeiptr size,
 		const void * data,
 		Bitfield< BufferStorageBit > flags
 	) const
 	{
-		BufferOps::Storage(
-			this->BindTarget(),
+		ExplicitOps::Storage(
+			this->target,
 			size,
 			data,
 			flags
@@ -274,8 +278,8 @@ public:
 	 */
 	bool ImmutableStorage(void) const
 	{
-		return BufferOps::ImmutableStorage(
-			this->BindTarget()
+		return ExplicitOps::ImmutableStorage(
+			this->target
 		);
 	}
 #endif // GL_VERSION_4_4 GL_ARB_buffer_storage
@@ -287,8 +291,8 @@ public:
 	 */
 	Bitfield< BufferStorageBit > StorageFlags(void) const
 	{
-		return BufferOps::StorageFlags(
-			this->BindTarget()
+		return ExplicitOps::StorageFlags(
+			this->target
 		);
 	}
 #endif // GL_VERSION_4_4 GL_ARB_buffer_storage
@@ -299,8 +303,8 @@ public:
 	 */
 	GLsizei Size(void) const
 	{
-		return BufferOps::Size(
-			this->BindTarget()
+		return ExplicitOps::Size(
+			this->target
 		);
 	}
 
@@ -310,8 +314,8 @@ public:
 	 */
 	BufferUsage Usage(void) const
 	{
-		return BufferOps::Usage(
-			this->BindTarget()
+		return ExplicitOps::Usage(
+			this->target
 		);
 	}
 
@@ -321,8 +325,8 @@ public:
 	 */
 	Bitfield< BufferMapAccess > Access(void) const
 	{
-		return BufferOps::Access(
-			this->BindTarget()
+		return ExplicitOps::Access(
+			this->target
 		);
 	}
 
@@ -331,12 +335,12 @@ public:
 	/** Wrapper for Buffer::MakeResident()
 	 *  @see Buffer::MakeResident()
 	 */
-	const BoundTemplate& MakeResident(
+	const BoundObjOps& MakeResident(
 		AccessSpecifier access
 	) const
 	{
-		BufferOps::MakeResident(
-			this->BindTarget(),
+		ExplicitOps::MakeResident(
+			this->target,
 			access
 		);
 		return *this;
@@ -348,10 +352,10 @@ public:
 	/** Wrapper for Buffer::MakeNonResident()
 	 *  @see Buffer::MakeNonResident()
 	 */
-	const BoundTemplate& MakeNonResident(void) const
+	const BoundObjOps& MakeNonResident(void) const
 	{
-		BufferOps::MakeNonResident(
-			this->BindTarget()
+		ExplicitOps::MakeNonResident(
+			this->target
 		);
 		return *this;
 	}
@@ -364,14 +368,14 @@ public:
 	 */
 	BufferGPUAddress GPUAddress(void) const
 	{
-		return BufferOps::GPUAddress(
-			this->BindTarget()
+		return ExplicitOps::GPUAddress(
+			this->target
 		);
 	}
 #endif // GL_NV_shader_buffer_load
 
 
-}; // class BoundTemplate
+}; // class BoundObjOps
 
 } // namespace oglplus
 

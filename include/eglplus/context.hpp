@@ -14,11 +14,10 @@
 #define EGLPLUS_CONTEXT_1305291005_HPP
 
 #include <eglplus/eglfunc.hpp>
-#include <eglplus/error.hpp>
+#include <eglplus/error/basic.hpp>
 #include <eglplus/display.hpp>
 #include <eglplus/configs.hpp>
 #include <eglplus/surface.hpp>
-#include <eglplus/friend_of.hpp>
 #include <eglplus/attrib_list.hpp>
 #include <eglplus/context_attrib.hpp>
 #include <eglplus/context_flag.hpp>
@@ -74,17 +73,17 @@ typedef FinishedAttributeList<
 	AttributeListTraits
 > FinishedContextAttribs;
 
+class Context;
+::EGLContext GetEGLHandle(const Context&);
+
 /// Wrapper around EGLContext
 class Context
- : public FriendOf<Display>
- , public FriendOf<Config>
- , public FriendOf<Surface>
 {
 private:
 	Display _display;
 	::EGLContext _handle;
 
-	friend class FriendOf<Context>;
+	friend ::EGLContext GetEGLHandle(const Context&);
 
 	Context(const Context&);
 
@@ -103,12 +102,12 @@ private:
 	)
 	{
 		::EGLContext result = EGLPLUS_EGLFUNC(CreateContext)(
-			FriendOf<Display>::GetHandle(display),
-			FriendOf<Config>::GetHandle(config),
+			GetEGLHandle(display),
+			GetEGLHandle(config),
 			share_context,
 			attribs
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(CreateContext));
+		EGLPLUS_VERIFY_SIMPLE(CreateContext);
 		return result;
 	}
 public:
@@ -182,10 +181,10 @@ public:
 		if(_handle != EGL_NO_CONTEXT)
 		{
 			EGLPLUS_EGLFUNC(DestroyContext)(
-				FriendOf<Display>::GetHandle(_display),
+				GetEGLHandle(_display),
 				_handle
 			);
-			EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(DestroyContext));
+			EGLPLUS_VERIFY_SIMPLE(DestroyContext);
 		}
 	}
 
@@ -200,12 +199,12 @@ public:
 	)
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			FriendOf<Display>::GetHandle(_display),
-			FriendOf<Surface>::GetHandle(draw_surface),
-			FriendOf<Surface>::GetHandle(read_surface),
+			GetEGLHandle(_display),
+			GetEGLHandle(draw_surface),
+			GetEGLHandle(read_surface),
 			_handle
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
 		return result == EGL_TRUE;
 	}
 
@@ -217,12 +216,12 @@ public:
 	bool MakeCurrent(const Surface& surface)
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			FriendOf<Display>::GetHandle(_display),
-			FriendOf<Surface>::GetHandle(surface),
-			FriendOf<Surface>::GetHandle(surface),
+			GetEGLHandle(_display),
+			GetEGLHandle(surface),
+			GetEGLHandle(surface),
 			_handle
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
 		return result == EGL_TRUE;
 	}
 
@@ -237,12 +236,12 @@ public:
 	bool MakeCurrent(void)
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			EGL_NO_SURFACE,
 			EGL_NO_SURFACE,
 			_handle
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
 		return result == EGL_TRUE;
 	}
 
@@ -254,12 +253,12 @@ public:
 	bool Release(void)
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(MakeCurrent)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			EGL_NO_SURFACE,
 			EGL_NO_SURFACE,
 			EGL_NO_CONTEXT
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(MakeCurrent));
+		EGLPLUS_CHECK_SIMPLE(MakeCurrent);
 		return result == EGL_TRUE;
 	}
 
@@ -271,12 +270,12 @@ public:
 	bool Query(ContextAttrib attrib, EGLint& value) const
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(QueryContext)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			_handle,
 			EGLint(EGLenum(attrib)),
 			&value
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(QueryContext));
+		EGLPLUS_CHECK_SIMPLE(QueryContext);
 		return result == EGL_TRUE;
 	}
 
@@ -289,12 +288,12 @@ public:
 	{
 		EGLint result = 0;
 		EGLPLUS_EGLFUNC(QueryContext)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			_handle,
 			EGLint(EGL_CONFIG_ID),
 			&result
 		);
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(QueryContext));
+		EGLPLUS_CHECK_SIMPLE(QueryContext);
 		return result;
 	}
 
@@ -306,7 +305,7 @@ public:
 	bool WaitClient(void) const
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(WaitClient)();
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(WaitClient));
+		EGLPLUS_VERIFY_SIMPLE(WaitClient);
 		return result == EGL_TRUE;
 	}
 
@@ -318,7 +317,7 @@ public:
 	bool WaitGL(void) const
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(WaitGL)();
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(WaitGL));
+		EGLPLUS_VERIFY_SIMPLE(WaitGL);
 		return result == EGL_TRUE;
 	}
 
@@ -330,10 +329,15 @@ public:
 	bool WaitNative(EGLint engine) const
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(WaitNative)(engine);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(WaitNative));
+		EGLPLUS_VERIFY_SIMPLE(WaitNative);
 		return result == EGL_TRUE;
 	}
 };
+
+inline ::EGLContext GetEGLHandle(const Context& context)
+{
+	return context._handle;
+}
 
 } // namespace eglplus
 

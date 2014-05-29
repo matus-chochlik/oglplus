@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,8 +14,10 @@
 #define OGLPLUS_TEXT_BITMAP_GLYPH_RENDERER_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/shader.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/context.hpp>
+#include <oglplus/object/group.hpp>
 #include <oglplus/text/common.hpp>
 #include <oglplus/text/bitmap_glyph/fwd.hpp>
 #include <oglplus/text/bitmap_glyph/font.hpp>
@@ -31,12 +33,12 @@ private:
 
 	Program _program;
 
-	LazyProgramUniformSampler
+	ProgramUniform<GLint>
 		_bitmap_sampler,
 		_metric_sampler,
 		_pg_map_sampler;
 
-	LazyProgramUniform<GLfloat> _layout_width;
+	ProgramUniform<GLfloat> _layout_width;
 	bool _layout_width_active;
 
 	const void* _prev_font_essence;
@@ -77,7 +79,7 @@ public:
 	 */
 	BitmapGlyphRenderer(
 		BitmapGlyphRenderingBase& parent,
-		const Group<Shader>& shaders
+		const Sequence<ShaderName>& shaders
 	);
 
 	void Use(void)

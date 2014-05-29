@@ -16,7 +16,6 @@
 #endif
 
 #define OGLPLUS_LINK_LIBRARY 1
-#define OGLPLUS_IMPLEMENTING_LIBRARY 1
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>

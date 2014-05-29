@@ -47,11 +47,11 @@ private:
 
 	Program plane_prog, shape_prog;
 
-	LazyUniform<Mat4f>
-		plane_camera_matrix, plane_model_matrix,
-		shape_camera_matrix, shape_model_matrix;
-	LazyUniform<Vec4f> shape_clip_plane;
-	LazyUniform<GLfloat> shape_clip_direction;
+	Uniform<Mat4f>
+		plane_proj_matrix, plane_camera_matrix, plane_model_matrix,
+		shape_proj_matrix, shape_camera_matrix, shape_model_matrix;
+	Uniform<Vec4f> shape_clip_plane;
+	Uniform<GLfloat> shape_clip_direction;
 
 
 	VertexArray plane, shape;
@@ -75,12 +75,14 @@ public:
 	 , shape_vs(ObjectDesc("Shape vertex"))
 	 , plane_fs(ObjectDesc("Plane fragment"))
 	 , shape_fs(ObjectDesc("Shape fragment"))
-	 , plane_camera_matrix(plane_prog, "CameraMatrix")
-	 , plane_model_matrix(plane_prog, "ModelMatrix")
-	 , shape_camera_matrix(shape_prog, "CameraMatrix")
-	 , shape_model_matrix(shape_prog, "ModelMatrix")
-	 , shape_clip_plane(shape_prog, "ClipPlane")
-	 , shape_clip_direction(shape_prog, "ClipDirection")
+	 , plane_proj_matrix(plane_prog)
+	 , plane_camera_matrix(plane_prog)
+	 , plane_model_matrix(plane_prog)
+	 , shape_proj_matrix(shape_prog)
+	 , shape_camera_matrix(shape_prog)
+	 , shape_model_matrix(shape_prog)
+	 , shape_clip_plane(shape_prog)
+	 , shape_clip_direction(shape_prog)
 	 , width(512)
 	 , height(512)
 	 , tex_side(512)
@@ -141,6 +143,9 @@ public:
 		plane_prog.AttachShader(plane_fs);
 		plane_prog.Link();
 		plane_prog.Use();
+		plane_proj_matrix.BindTo("ProjectionMatrix");
+		plane_camera_matrix.BindTo("CameraMatrix");
+		plane_model_matrix.BindTo("ModelMatrix");
 
 		Vec3f lightPos(3.0f, 3.0f, 3.0f);
 		Uniform<Vec3f>(plane_prog, "LightPosition").Set(lightPos);
@@ -153,7 +158,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_plane.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(plane_prog, "Position");
+			VertexArrayAttrib attr(plane_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -163,7 +168,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_plane.TexCoordinates(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(plane_prog, "TexCoord");
+			VertexArrayAttrib attr(plane_prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -248,6 +253,11 @@ public:
 		shape_prog.AttachShader(shape_fs);
 		shape_prog.Link();
 		shape_prog.Use();
+		shape_proj_matrix.BindTo("ProjectionMatrix");
+		shape_camera_matrix.BindTo("CameraMatrix");
+		shape_model_matrix.BindTo("ModelMatrix");
+		shape_clip_plane.BindTo("ClipPlane");
+		shape_clip_direction.BindTo("ClipDirection");
 
 		Uniform<Vec3f>(shape_prog, "LightPosition").Set(lightPos);
 
@@ -258,7 +268,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(shape_prog, "Position");
+			VertexArrayAttrib attr(shape_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -268,7 +278,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(shape_prog, "Normal");
+			VertexArrayAttrib attr(shape_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -310,8 +320,10 @@ public:
 			double(width)/height,
 			1, 15
 		);
-		SetProgramUniform(plane_prog, "ProjectionMatrix", projection);
-		SetProgramUniform(shape_prog, "ProjectionMatrix", projection);
+		plane_prog.Use();
+		plane_proj_matrix.Set(projection);
+		shape_prog.Use();
+		shape_proj_matrix.Set(projection);
 	}
 
 	void Render(double time)

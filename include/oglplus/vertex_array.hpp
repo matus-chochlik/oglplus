@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,116 +15,132 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/object.hpp>
-#include <oglplus/friend_of.hpp>
+#include <oglplus/object/wrapper.hpp>
+#include <oglplus/error/object.hpp>
 #include <cassert>
 
 namespace oglplus {
 
-/// Encapsulates vertex array-related functions
+/// Class wrapping vertex array construction/destruction functions
 /** @note Do not use this class directly, use VertexArray instead.
- *  @see VertexArray
  *
  *  @glsymbols
  *  @glfunref{GenVertexArrays}
  *  @glfunref{DeleteVertexArrays}
  *  @glfunref{IsVertexArray}
  */
-class VertexArrayOps
- : public Named
- , public BaseObject<true>
+template <>
+class ObjGenDelOps<tag::VertexArray>
 {
-public:
-	typedef Nothing Target;
 protected:
-	static void _init(GLsizei count, GLuint* _name)
+	static void Gen(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		OGLPLUS_GLFUNC(GenVertexArrays)(count, _name);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GenVertexArrays));
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(GenVertexArrays)(count, names);
+		OGLPLUS_CHECK_SIMPLE(GenVertexArrays);
 	}
 
-	static void _cleanup(GLsizei count, GLuint* _name)
-	OGLPLUS_NOEXCEPT(true)
+	static void Delete(GLsizei count, GLuint* names)
 	{
-		assert(_name != nullptr);
-		assert(*_name != 0);
-		try{OGLPLUS_GLFUNC(DeleteVertexArrays)(count, _name);}
-		catch(...){ }
+		assert(names != nullptr);
+		OGLPLUS_GLFUNC(DeleteVertexArrays)(count, names);
+		OGLPLUS_VERIFY_SIMPLE(DeleteVertexArrays);
 	}
 
-	static GLboolean _is_x(GLuint _name)
-	OGLPLUS_NOEXCEPT(true)
+	static GLboolean IsA(GLuint name)
 	{
-		assert(_name != 0);
-		try{return OGLPLUS_GLFUNC(IsVertexArray)(_name);}
-		catch(...){ }
-		return GL_FALSE;
+		assert(name != 0);
+		GLboolean result = OGLPLUS_GLFUNC(IsVertexArray)(name);
+		OGLPLUS_VERIFY_SIMPLE(IsVertexArray);
+		return result;
 	}
+};
 
-#ifdef GL_VERTEX_ARRAY
-	static ObjectType _object_type(void)
-	OGLPLUS_NOEXCEPT(true)
+/// Vertex array binding operations
+template <>
+class ObjBindingOps<tag::VertexArray>
+{
+protected:
+	static GLuint _binding(void)
 	{
-		return ObjectType::VertexArray;
+		GLint name = 0;
+		OGLPLUS_GLFUNC(GetIntegerv)(GL_VERTEX_ARRAY_BINDING, &name);
+		OGLPLUS_VERIFY(
+			GetIntegerv,
+			ObjectError,
+			EnumParam(GLenum(GL_VERTEX_ARRAY_BINDING))
+		);
+		return name;
 	}
-#endif
-
-	static void _bind(GLuint _name, Nothing)
-	{
-		assert(_name != 0);
-		OGLPLUS_GLFUNC(BindVertexArray)(_name);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindVertexArray));
-	}
-
-	friend class FriendOf<VertexArrayOps>;
 public:
-	/// Bind this vertex array
+	/// Returns the currently bound VertexArray
+	/**
+	 *  @glsymbols
+	 *  @glfunref{GetIntegerv}
+	 */
+	static VertexArrayName Binding(void)
+	{
+		return VertexArrayName(_binding());
+	}
+
+	/// Binds the specified @p vertex_array object
+	/**
+	 *  @glsymbols
+	 *  @glfunref{BindVertexArray}
+	 */
+	static void Bind(VertexArrayName vertex_array)
+	{
+		OGLPLUS_GLFUNC(BindVertexArray)(GetGLName(vertex_array));
+		OGLPLUS_VERIFY(
+			BindVertexArray,
+			ObjectError,
+			Object(vertex_array)
+		);
+	}
+};
+
+/// Common vertex array operations
+/** @note Do not use this class directly, use VertexArray
+ *  or NoVertexArray instead.
+ */
+template <>
+class ObjCommonOps<tag::VertexArray>
+ : public VertexArrayName
+ , public ObjBindingOps<tag::VertexArray>
+{
+protected:
+	ObjCommonOps(void){ }
+public:
+	using ObjBindingOps<tag::VertexArray>::Bind;
+
+	/// Binds this vertex array object
 	/**
 	 *  @glsymbols
 	 *  @glfunref{BindVertexArray}
 	 */
 	void Bind(void) const
 	{
-		_bind(_name, Nothing());
-	}
-
-	/// Bind the name 0
-	/**
-	 *  @glsymbols
-	 *  @glfunref{BindVertexArray}
-	 */
-	static void Unbind(void)
-	{
-		OGLPLUS_GLFUNC(BindVertexArray)(0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindVertexArray));
+		Bind(*this);
 	}
 };
 
-/// Class that can be used to unbind the current vertex array object
-class NoVertexArray
-{
-public:
-	/// Breaks the current VAO binding (unbinds the current VAO)
-	static void Bind(void)
-	{
-		OGLPLUS_GLFUNC(BindVertexArray)(0);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(BindVertexArray));
-	}
-};
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// An @ref oglplus_object encapsulating the OpenGL vertex array functionality
+/// VertexArray operations with explicit selector
+typedef ObjectOps<tag::ExplicitSel, tag::VertexArray>
+	VertexArrayOps;
+
+/// An @ref oglplus_object encapsulating vertex array zero functionality
 /**
  *  @ingroup oglplus_objects
  */
-class VertexArray
- : public VertexArrayOps
-{ };
-#else
+typedef ObjectZero<ObjZeroOps<tag::ExplicitSel, tag::VertexArray>>
+	NoVertexArray;
+
+/// An @ref oglplus_object encapsulating vertex array object functionality
+/**
+ *  @ingroup oglplus_objects
+ */
 typedef Object<VertexArrayOps> VertexArray;
-#endif
 
 } // namespace oglplus
 

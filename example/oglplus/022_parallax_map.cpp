@@ -36,36 +36,12 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex and fragment shader
-	Shader vs, fs;
-
 	// Program
 	Program prog;
 
-	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyUniform<Vec3f> light_pos;
-
-	// A vertex array object for the rendered cube
-	VertexArray cube;
-
-	// VBOs for the cube's vertex attributes
-	Buffer verts, normals, tangents, texcoords;
-
-	// The bumpmap texture
-	Texture bumpTex;
-public:
-	CubeExample(void)
-	 : cube_instr(make_cube.Instructions())
-	 , cube_indices(make_cube.Indices())
-	 , vs(ShaderType::Vertex)
-	 , fs(ShaderType::Fragment)
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , model_matrix(prog, "ModelMatrix")
-	 , light_pos(prog, "LightPos")
+	static Program make(void)
 	{
-		// Set the vertex shader source and compile it
+		Shader vs(ShaderType::Vertex);
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ProjectionMatrix, CameraMatrix, ModelMatrix;"
@@ -117,7 +93,7 @@ public:
 			"}"
 		).Compile();
 
-		// set the fragment shader source and compile it
+		Shader fs(ShaderType::Fragment);
 		fs.Source(
 			"#version 330\n"
 			"uniform sampler2D BumpTex;"
@@ -179,12 +155,36 @@ public:
 			"}"
 		).Compile();
 
-		// attach the shaders to the program
+		Program prog;
 		prog.AttachShader(vs).AttachShader(fs);
-		// link and use it
 		prog.Link();
-		gl.Use(prog);
+		prog.Use();
 
+		return prog;
+	}
+
+	// Uniforms
+	Uniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	Uniform<Vec3f> light_pos;
+
+	// A vertex array object for the rendered cube
+	VertexArray cube;
+
+	// VBOs for the cube's vertex attributes
+	Buffer verts, normals, tangents, texcoords;
+
+	// The bumpmap texture
+	Texture bumpTex;
+public:
+	CubeExample(void)
+	 : cube_instr(make_cube.Instructions())
+	 , cube_indices(make_cube.Indices())
+	 , prog(make())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , model_matrix(prog, "ModelMatrix")
+	 , light_pos(prog, "LightPos")
+	{
 		// bind the VAO for the cube
 		gl.Bind(cube);
 

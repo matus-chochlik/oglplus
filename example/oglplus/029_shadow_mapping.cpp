@@ -229,7 +229,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the vertices
 			vert_prog.Use();
-			VertexAttribArray attr(vert_prog, "Position");
+			VertexArrayAttrib attr(vert_prog, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -247,7 +247,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			// setup the vertex attribs array for the normals
 			vert_prog.Use();
-			VertexAttribArray attr(vert_prog, "Normal");
+			VertexArrayAttrib attr(vert_prog, "Normal");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -264,7 +264,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			vert_prog.Use();
-			VertexAttribArray cube_attr(vert_prog, "Position");
+			VertexArrayAttrib cube_attr(vert_prog, "Position");
 			cube_attr.Setup<GLfloat>(n_per_vertex);
 			cube_attr.Enable();
 		}
@@ -278,7 +278,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
 			vert_prog.Use();
-			VertexAttribArray cube_attr(vert_prog, "Normal");
+			VertexArrayAttrib cube_attr(vert_prog, "Normal");
 			cube_attr.Setup<GLfloat>(n_per_vertex);
 			cube_attr.Enable();
 		}
@@ -473,7 +473,7 @@ public:
 		gl.Disable(Capability::PolygonOffsetFill);
 
 		// Now we're going to draw into the default framebuffer
-		Framebuffer::BindDefault(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 
 		ProgramUniform<Vec3f>(
 			vert_prog,

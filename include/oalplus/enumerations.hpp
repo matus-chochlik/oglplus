@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,8 +15,8 @@
 
 #include <oalplus/config.hpp>
 #include <oalplus/string.hpp>
-#include <oalplus/auxiliary/enum_class.hpp>
-#include <oalplus/auxiliary/base_range.hpp>
+#include <oalplus/detail/enum_class.hpp>
+#include <oalplus/detail/base_range.hpp>
 
 namespace oalplus {
 namespace enums {

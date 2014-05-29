@@ -4,12 +4,11 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 #include <oglplus/gl.hpp>
-#include <oglplus/math.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/transform_feedback.hpp>
@@ -167,7 +166,7 @@ SpectraDefaultGPUMatrixTransf::SpectraDefaultGPUMatrixTransf(
 	Buffer::Data(Buffer::Target::Array, init_data);
 	(transf_prog|"Initial").Setup<GLfloat>().Enable();
 
-	VertexArray::Unbind();
+	NoVertexArray().Bind();
 
 	for(GLuint t=0; t!=max_transforms; ++t)
 	{
@@ -233,7 +232,7 @@ void SpectraDefaultGPUMatrixTransf::FinishBatch(void)
 	using namespace oglplus;
 	Context gl;
 	gl.Disable(Capability::RasterizerDiscard);
-	VertexArray::Unbind();
+	NoVertexArray().Bind();
 }
 
 unsigned SpectraDefaultGPUMatrixTransf::BeginTransform(
@@ -276,7 +275,7 @@ unsigned SpectraDefaultGPUMatrixTransf::BeginTransform(
 	xfba.Finish();
 	qrya.Finish();
 
-	TransformFeedback::BindDefault();
+	DefaultTransformFeedback().Bind();
 
 	return current_transform++;
 }

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,8 +16,8 @@
 #include <oalplus/config.hpp>
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
-#include <oalplus/error.hpp>
 #include <oalplus/string.hpp>
+#include <oalplus/error/alut.hpp>
 
 #include <oalplus/data_format.hpp>
 
@@ -39,7 +39,7 @@ private:
 		bool result = with_context
 		?(OALPLUS_ALFUNC(alut,Init)(&argc, argv) == AL_TRUE)
 		:(OALPLUS_ALFUNC(alut,InitWithoutContext)(&argc, argv)==AL_TRUE);
-		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, Init));
+		OALPLUS_CHECK_SIMPLE_ALUT(Init);
 		return result;
 
 	}
@@ -197,8 +197,8 @@ public:
 	{
 		assert(_initialized);
 		ALuint name = OALPLUS_ALFUNC(alut,CreateBufferHelloWorld)();
-		OALPLUS_VERIFY_ALUT(OALPLUS_ERROR_INFO(alut, CreateBufferHelloWorld));
-		return Buffer::FromRawName(name);
+		OALPLUS_VERIFY_SIMPLE_ALUT(CreateBufferHelloWorld);
+		return Buffer::FromRawName(BufferName(name));
 	}
 
 	/// Create a buffer containing the samples from a specified sound file
@@ -212,8 +212,8 @@ public:
 	{
 		assert(_initialized);
 		ALuint name = OALPLUS_ALFUNC(alut,CreateBufferFromFile)(file_path);
-		OALPLUS_VERIFY_ALUT(OALPLUS_ERROR_INFO(alut, CreateBufferFromFile));
-		return Buffer::FromRawName(name);
+		OALPLUS_VERIFY_SIMPLE_ALUT(CreateBufferFromFile);
+		return Buffer::FromRawName(BufferName(name));
 	}
 
 	/// Loads samples of a 'Hello World' sound into a buffer
@@ -236,7 +236,7 @@ public:
 			&size,
 			frequency
 		);
-		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, LoadMemoryHelloWorld));
+		OALPLUS_CHECK_SIMPLE_ALUT(LoadMemoryHelloWorld);
 
 		_free_on_scope_exit cleaner = { ptr };
 		OALPLUS_FAKE_USE(cleaner);
@@ -269,7 +269,7 @@ public:
 			&size,
 			frequency
 		);
-		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, LoadMemoryFromFile));
+		OALPLUS_CHECK_SIMPLE_ALUT(LoadMemoryFromFile);
 
 		_free_on_scope_exit cleaner = { ptr };
 		OALPLUS_FAKE_USE(cleaner);
@@ -301,7 +301,7 @@ public:
 			&size,
 			frequency
 		);
-		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, LoadMemoryFromFile));
+		OALPLUS_CHECK_SIMPLE_ALUT(LoadMemoryFromFile);
 
 		_free_on_scope_exit cleaner = { ptr };
 		OALPLUS_FAKE_USE(cleaner);
@@ -338,7 +338,7 @@ public:
 			&size,
 			frequency
 		);
-		OALPLUS_CHECK_ALUT(OALPLUS_ERROR_INFO(alut, LoadMemoryFromFile));
+		OALPLUS_CHECK_SIMPLE_ALUT(LoadMemoryFromFile);
 
 		_free_on_scope_exit cleaner = { ptr };
 		OALPLUS_FAKE_USE(cleaner);

@@ -67,7 +67,11 @@ public:
 			parameter_template,
 			em_scale
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+		OGLPLUS_CHECK(
+			PathGlyphsNV,
+			Error,
+			EnumParam(font_target)
+		);
 		return *this;
 	}
 
@@ -99,7 +103,11 @@ public:
 			parameter_template,
 			em_scale
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+		OGLPLUS_CHECK(
+			PathGlyphsNV,
+			Error,
+			EnumParam(font_target)
+		);
 		return *this;
 	}
 
@@ -112,7 +120,7 @@ public:
 		PathNVFontTarget font_target,
 		const GLchar* font_name,
 		Bitfield<PathNVFontStyle> font_style,
-		const String& char_codes,
+		StrCRef char_codes,
 		PathNVMissingGlyph handle_missing_glyphs,
 		GLuint parameter_template,
 		GLfloat em_scale
@@ -130,7 +138,11 @@ public:
 			parameter_template,
 			em_scale
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphsNV));
+		OGLPLUS_CHECK(
+			PathGlyphsNV,
+			Error,
+			EnumParam(font_target)
+		);
 		return *this;
 	}
 
@@ -161,7 +173,11 @@ public:
 			parameter_template,
 			em_scale
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathGlyphRangeNV));
+		OGLPLUS_CHECK(
+			PathGlyphRangeNV,
+			Error,
+			EnumParam(font_target)
+		);
 		return *this;
 	}
 
@@ -192,7 +208,11 @@ public:
 			GLenum(transform_type),
 			returned_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+		OGLPLUS_CHECK(
+			GetPathSpacingNV,
+			Error,
+			EnumParam(list_mode)
+		);
 		return *this;
 	}
 
@@ -222,7 +242,11 @@ public:
 			GLenum(transform_type),
 			returned_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+		OGLPLUS_CHECK(
+			GetPathSpacingNV,
+			Error,
+			EnumParam(list_mode)
+		);
 		return *this;
 	}
 
@@ -233,7 +257,7 @@ public:
 	 */
 	PathArrayNV& GetSpacing(
 		PathNVListMode list_mode,
-		const String& indices,
+		StrCRef indices,
 		GLfloat advance_scale,
 		GLfloat kerning_scale,
 		PathNVTransformType transform_type,
@@ -251,7 +275,11 @@ public:
 			GLenum(transform_type),
 			returned_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathSpacingNV));
+		OGLPLUS_CHECK(
+			GetPathSpacingNV,
+			Error,
+			EnumParam(list_mode)
+		);
 		return *this;
 	}
 
@@ -278,7 +306,7 @@ public:
 			stride,
 			returned_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+		OGLPLUS_CHECK_SIMPLE(GetPathMetricsNV);
 		return *this;
 	}
 
@@ -304,7 +332,7 @@ public:
 			stride,
 			returned_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+		OGLPLUS_CHECK_SIMPLE(GetPathMetricsNV);
 		return *this;
 	}
 
@@ -315,7 +343,7 @@ public:
 	 */
 	PathArrayNV& GetMetrics(
 		Bitfield<PathNVMetricQuery> query_mask,
-		const String& indices,
+		StrCRef indices,
 		GLsizei stride,
 		GLfloat* returned_values
 	)
@@ -329,7 +357,7 @@ public:
 			stride,
 			returned_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricsNV));
+		OGLPLUS_CHECK_SIMPLE(GetPathMetricsNV);
 		return *this;
 	}
 
@@ -352,7 +380,7 @@ public:
 			stride,
 			returned_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetPathMetricRangeNV));
+		OGLPLUS_CHECK_SIMPLE(GetPathMetricRangeNV);
 		return *this;
 	}
 
@@ -381,7 +409,11 @@ public:
 			GLenum(transform_type),
 			transform_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
+		OGLPLUS_CHECK(
+			StencilFillPathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
 		return *this;
 	}
 
@@ -393,35 +425,6 @@ public:
 	template <typename IndexType>
 	PathArrayNV& StencilFillInstanced(
 		const std::vector<IndexType>& paths,
-		PathNVFillMode mode,
-		GLuint mask,
-		PathNVTransformType transform_type,
-		const std::vector<GLfloat>& transform_values
-	)
-	{
-		// TODO: check if enough transform values
-		// are provided for transform type
-		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
-			GLsizei(paths.size()),
-			GLenum(GetDataType<IndexType>()),
-			(const void*)paths.data(),
-			this->_names[0],
-			GLenum(mode),
-			mask,
-			GLenum(transform_type),
-			transform_values.data()
-		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
-		return *this;
-	}
-
-	/// Writes the path interiors (fill) into the stencil buffer
-	/**
-	 *  @glsymbols
-	 *  @glfunref{StencilFillPathInstancedNV}
-	 */
-	PathArrayNV& StencilFillInstanced(
-		const String& paths,
 		PathNVFillMode mode,
 		GLuint mask,
 		PathNVTransformType transform_type,
@@ -432,6 +435,39 @@ public:
 		// are provided for transform type
 		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
 			GLsizei(paths.size()),
+			GLenum(GetDataType<IndexType>()),
+			(const void*)paths.data(),
+			this->_names[0],
+			GLenum(mode),
+			mask,
+			GLenum(transform_type),
+			transform_values.data()
+		);
+		OGLPLUS_CHECK(
+			StencilFillPathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
+		return *this;
+	}
+
+	/// Writes the path interiors (fill) into the stencil buffer
+	/**
+	 *  @glsymbols
+	 *  @glfunref{StencilFillPathInstancedNV}
+	 */
+	PathArrayNV& StencilFillInstanced(
+		StrCRef paths,
+		PathNVFillMode mode,
+		GLuint mask,
+		PathNVTransformType transform_type,
+		const std::vector<GLfloat>& transform_values
+	)
+	{
+		// TODO: check if enough transform values
+		// are provided for transform type
+		OGLPLUS_GLFUNC(StencilFillPathInstancedNV)(
+			GLsizei(paths.size()),
 			GL_UTF8_NV,
 			(const void*)paths.c_str(),
 			this->_names[0],
@@ -440,7 +476,11 @@ public:
 			GLenum(transform_type),
 			transform_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilFillPathInstancedNV));
+		OGLPLUS_CHECK(
+			StencilFillPathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
 		return *this;
 	}
 
@@ -467,7 +507,11 @@ public:
 			GLenum(transform_type),
 			transform_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+		OGLPLUS_CHECK(
+			CoverFillPathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
 		return *this;
 	}
 
@@ -493,7 +537,11 @@ public:
 			GLenum(transform_type),
 			transform_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+		OGLPLUS_CHECK(
+			CoverFillPathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
 		return *this;
 	}
 
@@ -503,7 +551,7 @@ public:
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
 	PathArrayNV& CoverFillInstanced(
-		const String& paths,
+		StrCRef paths,
 		PathNVFillCoverMode mode,
 		PathNVTransformType transform_type,
 		const std::vector<GLfloat>& transform_values
@@ -518,7 +566,11 @@ public:
 			GLenum(transform_type),
 			transform_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverFillPathInstancedNV));
+		OGLPLUS_CHECK(
+			CoverFillPathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
 		return *this;
 	}
 
@@ -547,7 +599,7 @@ public:
 			GLenum(transform_type),
 			transform_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+		OGLPLUS_CHECK_SIMPLE(StencilStrokePathInstancedNV);
 		return *this;
 	}
 
@@ -575,7 +627,7 @@ public:
 			GLenum(transform_type),
 			transform_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+		OGLPLUS_CHECK_SIMPLE(StencilStrokePathInstancedNV);
 		return *this;
 	}
 
@@ -585,7 +637,7 @@ public:
 	 *  @glfunref{StencilStrokePathInstancedNV}
 	 */
 	PathArrayNV& StencilStrokeInstanced(
-		const String& paths,
+		StrCRef paths,
 		GLint reference,
 		GLuint mask,
 		PathNVTransformType transform_type,
@@ -602,7 +654,7 @@ public:
 			GLenum(transform_type),
 			transform_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(StencilStrokePathInstancedNV));
+		OGLPLUS_CHECK_SIMPLE(StencilStrokePathInstancedNV);
 		return *this;
 	}
 
@@ -629,7 +681,11 @@ public:
 			GLenum(transform_type),
 			transform_values
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+		OGLPLUS_CHECK(
+			CoverStrokePathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
 		return *this;
 	}
 
@@ -655,7 +711,11 @@ public:
 			GLenum(transform_type),
 			transform_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+		OGLPLUS_CHECK(
+			CoverStrokePathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
 		return *this;
 	}
 
@@ -665,7 +725,7 @@ public:
 	 *  @glfunref{CoverFillPathInstancedNV}
 	 */
 	PathArrayNV& CoverStrokeInstanced(
-		const String& paths,
+		StrCRef paths,
 		PathNVStrokeCoverMode mode,
 		PathNVTransformType transform_type,
 		const std::vector<GLfloat>& transform_values
@@ -680,7 +740,11 @@ public:
 			GLenum(transform_type),
 			transform_values.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(CoverStrokePathInstancedNV));
+		OGLPLUS_CHECK(
+			CoverStrokePathInstancedNV,
+			Error,
+			EnumParam(mode)
+		);
 		return *this;
 	}
 };

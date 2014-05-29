@@ -9,6 +9,8 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_0}
+ *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects}
+ *  @oglplus_example_uses_gl{GL_EXT_direct_state_access}
  *  @oglplus_example_uses_model{stanford_dragon}
  */
 #include <oglplus/gl.hpp>
@@ -409,7 +411,7 @@ public:
 		draw_prog.camera_position.Set(camera.Position());
 		draw_prog.light_position.Set(light.Position());
 
-		DefaultFramebuffer::Bind(Framebuffer::Target::Draw);
+		DefaultFramebuffer().Bind(Framebuffer::Target::Draw);
 		gl.Viewport(width, height);
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);

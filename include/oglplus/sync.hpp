@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,9 +14,8 @@
 #define OGLPLUS_SYNC_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/basic.hpp>
 #include <oglplus/enumerations.hpp>
-#include <cassert>
 
 namespace oglplus {
 
@@ -142,7 +141,7 @@ public:
 	Sync(SyncCondition condition = SyncCondition::GPUCommandsComplete)
 	 : _sync(OGLPLUS_GLFUNC(FenceSync)(GLenum(condition), 0))
 	{
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(FenceSync));
+		OGLPLUS_CHECK_SIMPLE(FenceSync);
 	}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -254,7 +253,7 @@ public:
 			0,
 			timeout
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(ClientWaitSync));
+		OGLPLUS_VERIFY_SIMPLE(ClientWaitSync);
 		return SyncWaitResult(result);
 	}
 
@@ -266,7 +265,7 @@ public:
 	void Wait(GLuint64 timeout = GL_TIMEOUT_IGNORED) const
 	{
 		OGLPLUS_GLFUNC(WaitSync)(_sync, 0, timeout);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(WaitSync));
+		OGLPLUS_VERIFY_SIMPLE(WaitSync);
 	}
 };
 

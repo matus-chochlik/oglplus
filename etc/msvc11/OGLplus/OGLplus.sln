@@ -35,15 +35,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "019_subsurf_scatter", "019_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_golf_ball", "020_golf_ball\020_golf_ball.vcxproj", "{C9619324-785A-0EBB-0668-285C3FDB4082}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_checkered_objects", "020_checkered_objects\020_checkered_objects.vcxproj", "{9B110515-B27F-8061-56AC-F54C0B237B5D}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_shaded_objects", "020_shaded_objects\020_shaded_objects.vcxproj", "{719BE418-246B-3ABD-3F2B-74FC8697A67E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "022_parallax_map", "022_parallax_map\022_parallax_map.vcxproj", "{1B224F9F-0C05-1394-1643-51CD1F4C676D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "022_xyz_planes", "022_xyz_planes\022_xyz_planes.vcxproj", "{DA4488D3-036B-9943-A3B6-E5EC2CFCBBFD}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "023_lattice_torus", "023_lattice_torus\023_lattice_torus.vcxproj", "{4FFA40E0-FEF7-4EB1-E4F5-EC8EC17D36E5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "023_reflected_cube", "023_reflected_cube\023_reflected_cube.vcxproj", "{BCD0D508-BA6B-5602-58DF-5D6B8E10D7D7}"
 EndProject
@@ -74,8 +70,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "017_phong_torus", "017_phong_torus\017_phong_torus.vcxproj", "{DE7D394C-5C8A-CC58-4BFF-4D8A9462968C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "018_particle_system", "018_particle_system\018_particle_system.vcxproj", "{E0265060-24A4-E760-F14C-B6D9244C20F1}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "018_newton_landscape", "018_newton_landscape\018_newton_landscape.vcxproj", "{59D1EF12-6FB0-2559-36C1-615CD4FA73F5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "009_metaballs", "009_metaballs\009_metaballs.vcxproj", "{AC544CF0-EADC-B784-0333-B70FC6720111}"
 EndProject

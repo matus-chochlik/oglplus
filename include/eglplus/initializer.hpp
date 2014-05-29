@@ -15,16 +15,15 @@
 
 #include <eglplus/display.hpp>
 #include <eglplus/eglfunc.hpp>
-#include <eglplus/error.hpp>
+#include <eglplus/error/basic.hpp>
 #include <eglplus/string_query.hpp>
 
-#include <eglplus/auxiliary/sep_str_range.hpp>
+#include <eglplus/detail/sep_str_range.hpp>
 
 namespace eglplus {
 
 /// Initializes and terminates the EGL library
 class EGLInitializer
- : public FriendOf<Display>
 {
 private:
 	Display _display;
@@ -36,11 +35,11 @@ private:
 	bool _initialize(void)
 	{
 		bool result = EGLPLUS_EGLFUNC(Initialize)(
-			FriendOf<Display>::GetHandle(_display),
+			GetEGLHandle(_display),
 			&_major,
 			&_minor
 		) == EGL_TRUE;
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(Initialize));
+		EGLPLUS_CHECK_SIMPLE(Initialize);
 		return result;
 	}
 public:
@@ -85,10 +84,8 @@ public:
 	{
 		if(_initialized)
 		{
-			EGLPLUS_EGLFUNC(Terminate)(
-				FriendOf<Display>::GetHandle(_display)
-			);
-			EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(Terminate));
+			EGLPLUS_EGLFUNC(Terminate)(GetEGLHandle(_display));
+			EGLPLUS_VERIFY_SIMPLE(Terminate);
 		}
 	}
 
@@ -133,10 +130,10 @@ public:
 	{
 		assert(_initialized);
 		const char* result = EGLPLUS_EGLFUNC(QueryString)(
-				FriendOf<Display>::GetHandle(_display),
+				GetEGLHandle(_display),
 				EGLint(query)
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(QueryString));
+		EGLPLUS_VERIFY_SIMPLE(QueryString);
 		return result;
 	}
 
@@ -225,7 +222,7 @@ public:
 				EGL_NO_DISPLAY,
 				EGLint(EGL_EXTENSIONS)
 		);
-		EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(QueryString));
+		EGLPLUS_VERIFY_SIMPLE(QueryString);
 		return aux::SepStrRange(ext_str);
 	}
 #endif
@@ -238,7 +235,7 @@ public:
 	static bool ReleaseThread(void)
 	{
 		EGLBoolean result = EGLPLUS_EGLFUNC(ReleaseThread)();
-		EGLPLUS_CHECK(EGLPLUS_ERROR_INFO(ReleaseThread));
+		EGLPLUS_CHECK_SIMPLE(ReleaseThread);
 		return result == EGL_TRUE;
 	}
 };

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{002_triangle}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -89,7 +89,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 9, triangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray(prog, "Position").Setup<GLfloat>(3).Enable();
+		VertexArrayAttrib(prog, "Position").Setup<GLfloat>(3).Enable();
 		//
 
 		GLfloat triangle_colors[9] = {
@@ -102,7 +102,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, 9, triangle_colors);
 		// setup the vertex attribs array
-		VertexAttribArray(prog, "Color").Setup<GLfloat>(3).Enable();
+		VertexArrayAttrib(prog, "Color").Setup<GLfloat>(3).Enable();
 
 		gl.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		gl.Disable(Capability::DepthTest);

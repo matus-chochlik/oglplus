@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_SHAPES_VERT_ATTR_INFO_1107121519_HPP
 #define OGLPLUS_SHAPES_VERT_ATTR_INFO_1107121519_HPP
 
-#include <oglplus/string.hpp>
+#include <oglplus/string/ref.hpp>
 
 #include <tuple>
 
@@ -74,7 +74,7 @@ class VertexAttribsInfo<ShapeBuiler>
 {
 public:
 	/// Returns true if @c ShapeBuilder makes vertex attributes with @a name
-	bool MakesVertexAttrib(const String& name) const;
+	bool MakesVertexAttrib(StrCRef name) const;
 
 	/// Returns the vertex attribute getter function by its @a name
 	/** This functions tries to find a vertex attribute getter function
@@ -88,7 +88,7 @@ public:
 	 *  @endcode
 	 */
 	template <typename T>
-	static GetterFunction VertexAttribGetter(const String& name);
+	static GetterFunction VertexAttribGetter(StrCRef name);
 };
 #else
 template <class ShapeBuilder, class VertexAttribTags, std::size_t N>
@@ -96,7 +96,7 @@ class VertexAttribsInfoBase
 {
 private:
 	static bool _has_vertex_attrib(
-		const String&,
+		StrCRef,
 		std::integral_constant<std::size_t, N>,
 		std::integral_constant<std::size_t, N>
 	)
@@ -106,7 +106,7 @@ private:
 
 	template <std::size_t I>
 	static bool _has_vertex_attrib(
-		const String& name,
+		StrCRef name,
 		std::integral_constant<std::size_t, I>,
 		std::integral_constant<std::size_t, N>
 	)
@@ -123,7 +123,7 @@ private:
 		);
 	}
 protected:
-	static bool _has_vertex_attrib(const String& name)
+	static bool _has_vertex_attrib(StrCRef name)
 	{
 		return _has_vertex_attrib(
 			name,
@@ -142,7 +142,7 @@ private:
 	static typename _getter_proc<T>::type
 	_find_getter(
 		T*,
-		const String&,
+		StrCRef,
 		std::integral_constant<std::size_t, N>,
 		std::integral_constant<std::size_t, N>
 	)
@@ -154,7 +154,7 @@ private:
 	static typename _getter_proc<T>::type
 	_find_getter(
 		T* selector,
-		const String& name,
+		StrCRef name,
 		std::integral_constant<std::size_t, I>,
 		std::integral_constant<std::size_t, N>
 	)
@@ -163,8 +163,11 @@ private:
 			ShapeBuilder,
 			typename std::tuple_element<I, VertexAttribTags>::type
 		>();
-		if(name == info._name()) return info._getter(selector);
-		else return _find_getter(
+		if(std::strcmp(name.c_str(), info._name()) == 0)
+		{
+			return info._getter(selector);
+		}
+		return _find_getter(
 			selector,
 			name,
 			std::integral_constant<std::size_t, I+1>(),
@@ -175,7 +178,7 @@ private:
 protected:
 	template <typename T>
 	static typename _getter_proc<T>::type
-	_find_getter(T* selector, const String& name)
+	_find_getter(T* selector, StrCRef name)
 	{
 		return _find_getter(
 			selector,
@@ -201,7 +204,7 @@ private:
 		std::tuple_size<VertexAttribTags>::value
 	> _base;
 public:
-	bool MakesVertexAttrib(const String& name) const
+	bool MakesVertexAttrib(StrCRef name) const
 	{
 		return _base::_has_vertex_attrib(name);
 	}
@@ -210,7 +213,7 @@ public:
 	static typename _base::template _getter_proc<T>::type
 	VertexAttribGetter(
 		const std::vector<T>& /*selector*/,
-		const String& name
+		StrCRef name
 	)
 	{
 		return _base::_find_getter((T*)nullptr, name);

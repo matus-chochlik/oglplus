@@ -280,8 +280,8 @@ public:
 			double(width)/height,
 			1, 40
 		);
-		SetProgramUniform(cloud_prog, "ProjectionMatrix", perspective);
-		SetProgramUniform(light_prog, "ProjectionMatrix", perspective);
+		ProgramUniform<Mat4f>(cloud_prog, "ProjectionMatrix").Set(perspective);
+		ProgramUniform<Mat4f>(light_prog, "ProjectionMatrix").Set(perspective);
 	}
 
 	void Render(double time)

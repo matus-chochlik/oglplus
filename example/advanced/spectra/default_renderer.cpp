@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/context.hpp>
+#include <oglplus/prog_var/optional.hpp>
 
 #include "default_renderer.hpp"
 
@@ -26,27 +27,27 @@ private:
 	GLfloat color_r, color_g, color_b;
 
 	oglplus::Program doc_vis_prog;
-	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_projection_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_camera_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_stretch_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> doc_vis_transf_matrix;
-	oglplus::OptionalUniform<GLint> doc_vis_spectrum_tex;
-	oglplus::OptionalUniform<GLint> doc_vis_spectrum_size;
-	oglplus::OptionalUniform<GLint> doc_vis_samples_per_unit;
-	oglplus::OptionalUniform<GLfloat> doc_vis_selected_time;
-	oglplus::OptionalUniform<GLfloat> doc_vis_selection_begin;
-	oglplus::OptionalUniform<GLfloat> doc_vis_selection_end;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> doc_vis_projection_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> doc_vis_camera_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> doc_vis_stretch_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> doc_vis_transf_matrix;
+	oglplus::Optional<oglplus::Uniform<GLint>> doc_vis_spectrum_tex;
+	oglplus::Optional<oglplus::Uniform<GLint>> doc_vis_spectrum_size;
+	oglplus::Optional<oglplus::Uniform<GLint>> doc_vis_samples_per_unit;
+	oglplus::Optional<oglplus::Uniform<GLfloat>> doc_vis_selected_time;
+	oglplus::Optional<oglplus::Uniform<GLfloat>> doc_vis_selection_begin;
+	oglplus::Optional<oglplus::Uniform<GLfloat>> doc_vis_selection_end;
 
 	const oglplus::shapes::ShapeWrapper& spectrum_plane_wrap;
 	oglplus::VertexArray spectrum_plane_vao;
 
 	oglplus::Program vis_cue_prog;
-	oglplus::OptionalUniform<oglplus::Mat4f> vis_cue_projection_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> vis_cue_camera_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> vis_cue_stretch_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> vis_cue_transf_matrix;
-	oglplus::OptionalUniform<oglplus::Vec3f> vis_cue_color;
-	oglplus::OptionalUniform<GLfloat> vis_cue_alpha;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> vis_cue_projection_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> vis_cue_camera_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> vis_cue_stretch_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> vis_cue_transf_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Vec3f>> vis_cue_color;
+	oglplus::Optional<oglplus::Uniform<GLfloat>> vis_cue_alpha;
 
 	oglplus::VertexArray ground_grid_vao, wall_grid_vao;
 

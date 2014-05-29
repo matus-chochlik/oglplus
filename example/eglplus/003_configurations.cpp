@@ -121,11 +121,11 @@ int main(void)
 			<< "Error '"
 			<< error.what()
 			<< "' in "
-			<< error.EGLSymbol()
+			<< error.EGLFuncName()
 			<< ". File: '"
-			<< error.File()
+			<< error.SourceFile()
 			<< "', Line: "
-			<< error.Line()
+			<< error.SourceLine()
 			<< std::endl;
 	}
 	return 1;

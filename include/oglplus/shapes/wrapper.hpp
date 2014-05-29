@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,16 +14,16 @@
 #define OGLPLUS_SHAPES_WRAPPER_1202020923_HPP
 
 #include <oglplus/config.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/object/array.hpp>
+#include <oglplus/object/optional.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/vertex_attrib.hpp>
 #include <oglplus/buffer.hpp>
-#include <oglplus/array.hpp>
 #include <oglplus/program.hpp>
 #include <oglplus/context.hpp>
-#include <oglplus/optional.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/string.hpp>
-#include <oglplus/sphere.hpp>
+
+#include <oglplus/math/sphere.hpp>
 
 #include <oglplus/shapes/draw.hpp>
 #include <oglplus/shapes/vert_attr_info.hpp>
@@ -72,7 +72,7 @@ protected:
 		Iterator end
 	)
 	{
-		VertexArray::Unbind();
+		NoVertexArray().Bind();
 		typename ShapeBuilder::VertexAttribs vert_attr_info;
 		unsigned i = 0;
 		std::vector<GLfloat> data;
@@ -175,7 +175,7 @@ public:
 
 	void UseInProgram(const ProgramOps& prog)
 	{
-		_vao.Assign(VAOForProgram(prog));
+		_vao = VAOForProgram(prog);
 	}
 
 	void Use(void)

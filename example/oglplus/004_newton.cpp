@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{004_newton}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -130,12 +130,12 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, rectangle_verts);
 		// setup the vertex attribs array for the vertices
-		VertexAttribArray vert_attr(prog, "Position");
+		VertexArrayAttrib vert_attr(prog, "Position");
 		vert_attr.Setup<Vec2f>();
 		vert_attr.Enable();
 		//
-		Uniform<GLfloat>(prog, "Color1").SetVector(0.2f, 0.02f, 0.05f);
-		Uniform<GLfloat>(prog, "Color2").SetVector(1.0f, 0.95f, 0.98f);
+		Uniform<Vec3f>(prog, "Color1").Set(Vec3f(0.2f, 0.02f, 0.05f));
+		Uniform<Vec3f>(prog, "Color2").Set(Vec3f(1.0f, 0.95f, 0.98f));
 		//
 		gl.Disable(Capability::DepthTest);
 	}

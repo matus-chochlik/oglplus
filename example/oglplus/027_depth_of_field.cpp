@@ -87,11 +87,11 @@ private:
 	Buffer positions, normals, corners;
 
 	// Program uniform variables
-	LazyProgramUniform<GLuint> viewport_width;
-	LazyProgramUniform<GLuint> viewport_height;
-	LazyProgramUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyProgramUniform<Vec3f> ambient_color, diffuse_color;
-	LazyProgramUniform<GLfloat> focus_depth;
+	Lazy<ProgramUniform<GLuint>> viewport_width;
+	Lazy<ProgramUniform<GLuint>> viewport_height;
+	Lazy<ProgramUniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
+	Lazy<ProgramUniform<Vec3f>> ambient_color, diffuse_color;
+	Lazy<ProgramUniform<GLfloat>> focus_depth;
 
 	// The framebuffer object of offscreen rendering
 	Framebuffer fbo;
@@ -117,8 +117,6 @@ public:
 	 , ambient_color(main_prog, "AmbientColor")
 	 , diffuse_color(main_prog, "DiffuseColor")
 	 , focus_depth(dof_prog, "FocusDepth")
-	 , color_tex(Texture::Target::Rectangle)
-	 , depth_tex(Texture::Target::Rectangle)
 	 , width(800)
 	 , height(600)
 	{
@@ -172,6 +170,12 @@ public:
 		main_prog.Link();
 		main_prog.Use();
 
+		projection_matrix.Init();
+		camera_matrix.Init();
+		model_matrix.Init();
+		ambient_color.Init();
+		diffuse_color.Init();
+
 		// bind the VAO for the cube
 		gl.Bind(cube);
 
@@ -183,7 +187,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(main_prog, "Position");
+			VertexArrayAttrib attr(main_prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -194,7 +198,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(main_prog, "Normal");
+			VertexArrayAttrib attr(main_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -253,6 +257,10 @@ public:
 		dof_prog.Link();
 		dof_prog.Use();
 
+		viewport_width.Init();
+		viewport_height.Init();
+		focus_depth.Init();
+
 		GLuint sample_mult = params.HighQuality()?512:128;
 		Uniform<GLuint>(dof_prog, "SampleMult") = sample_mult;
 
@@ -268,7 +276,7 @@ public:
 				 1.0f,  1.0f
 			};
 			Buffer::Data(Buffer::Target::Array, 8, screen_verts);
-			VertexAttribArray attr(dof_prog, "Position");
+			VertexArrayAttrib attr(dof_prog, "Position");
 			attr.Setup<Vec2f>();
 			attr.Enable();
 		}

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{018_particle_system}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -26,42 +26,11 @@ private:
 	// wrapper around the current OpenGL context
 	Context gl;
 
-	// Vertex shader
-	VertexShader vs;
-
-	// Geometry shader
-	GeometryShader gs;
-
-	// Fragment shader
-	FragmentShader fs;
-
 	// Program
 	Program prog;
-
-	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
-
-	const GLuint particle_count;
-	std::vector<Vec3f> positions;
-	std::vector<Vec3f> directions;
-	std::vector<float> ages;
-
-	// A vertex array object for the particles
-	VertexArray particles;
-
-	// VBOs for the particle positions and ages
-	Buffer pos_buf, age_buf;
-
-	double prev_time, prev_spawn;
-public:
-	ParticlesExample(void)
-	 : projection_matrix(prog, "ProjectionMatrix")
-	 , camera_matrix(prog, "CameraMatrix")
-	 , particle_count(100)
-	 , prev_time(0.0)
-	 , prev_spawn(0.0)
+	static Program make(void)
 	{
-		// Set the vertex shader source
+		VertexShader vs;
 		vs.Source(
 			"#version 330\n"
 			"uniform mat4 ModelMatrix, CameraMatrix;"
@@ -77,10 +46,9 @@ public:
 			"	vertAge = Age;"
 			"}"
 		);
-		// compile it
 		vs.Compile();
 
-		// Set the geometry shader source
+		GeometryShader gs;
 		gs.Source(
 			"#version 330\n"
 			"layout(points) in;"
@@ -110,10 +78,9 @@ public:
 			"	EndPrimitive();"
 			"}"
 		);
-		// compile it
 		gs.Compile();
 
-		// set the fragment shader source
+		FragmentShader fs;
 		fs.Source(
 			"#version 330\n"
 			"in float geomAge;"
@@ -128,16 +95,42 @@ public:
 			"	);"
 			"}"
 		);
-		// compile it
 		fs.Compile();
 
-		// attach the shaders to the program
+		Program prog;
 		prog.AttachShader(vs);
 		prog.AttachShader(gs);
 		prog.AttachShader(fs);
-		// link and use it
 		prog.Link();
 		prog.Use();
+
+		return prog;
+	}
+
+	// Uniforms
+	Uniform<Mat4f> projection_matrix, camera_matrix;
+
+	const GLuint particle_count;
+	std::vector<Vec3f> positions;
+	std::vector<Vec3f> directions;
+	std::vector<float> ages;
+
+	// A vertex array object for the particles
+	VertexArray particles;
+
+	// VBOs for the particle positions and ages
+	Buffer pos_buf, age_buf;
+
+	double prev_time, prev_spawn;
+public:
+	ParticlesExample(void)
+	 : prog(make())
+	 , projection_matrix(prog, "ProjectionMatrix")
+	 , camera_matrix(prog, "CameraMatrix")
+	 , particle_count(100)
+	 , prev_time(0.0)
+	 , prev_spawn(0.0)
+	{
 
 		// bind the VAO for the particles
 		particles.Bind();
@@ -146,7 +139,7 @@ public:
 		pos_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
@@ -157,7 +150,7 @@ public:
 		age_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, ages);
-			VertexAttribArray attr(prog, "Age");
+			VertexArrayAttrib attr(prog, "Age");
 			attr.Setup<GLfloat>(1);
 			attr.Enable();
 		}
