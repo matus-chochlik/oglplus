@@ -20,15 +20,15 @@
 
 namespace oglplus {
 
-template <typename ProgVar>
-class LazyImpl<tag::ProgVar, ProgVar>
- : public ProgVar
+template <typename ProgVar_>
+class LazyImpl<tag::ProgVar, ProgVar_>
+ : public ProgVar_
 {
 private:
 	String _identifier;
 public:
 	LazyImpl(ProgramName program, String&& identifier)
-	 : ProgVar(program)
+	 : ProgVar_(program)
 	 , _identifier(std::move(identifier))
 	{ }
 
@@ -37,7 +37,7 @@ public:
 		if(!this->IsActive())
 		{
 			this->BindTo(_identifier);
-			ProgVar::RequireActive(_identifier);
+			ProgVar_::RequireActive(_identifier);
 			_identifier.clear();
 		}
 		return *this;
@@ -55,10 +55,10 @@ public:
 		return *this;
 	}
 
-	ProgVar operator[](std::size_t offset)
+	ProgVar_ operator[](std::size_t offset)
 	{
 		Init();
-		return ProgVar(
+		return ProgVar_(
 			ProgramName(this->_program),
 			this->_location+offset
 		);
@@ -68,14 +68,14 @@ public:
 	void Set(T&& value)
 	{
 		Init();
-		ProgVar::Set(std::forward<T>(value));
+		ProgVar_::Set(std::forward<T>(value));
 	}
 
 	template <typename T0, typename T1>
 	void Set(T0&& v0, T1&& v1)
 	{
 		Init();
-		ProgVar::Set(
+		ProgVar_::Set(
 			std::forward<T0>(v0),
 			std::forward<T1>(v1)
 		);
@@ -85,7 +85,7 @@ public:
 	void Set(T0&& v0, T1&& v1, T2&& v2)
 	{
 		Init();
-		ProgVar::Set(
+		ProgVar_::Set(
 			std::forward<T0>(v0),
 			std::forward<T1>(v1),
 			std::forward<T1>(v2)
@@ -96,7 +96,7 @@ public:
 	void Set(T0&& v0, T1&& v1, T2&& v2, T3&& v3)
 	{
 		Init();
-		ProgVar::Set(
+		ProgVar_::Set(
 			std::forward<T0>(v0),
 			std::forward<T1>(v1),
 			std::forward<T1>(v2),

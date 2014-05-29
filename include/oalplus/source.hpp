@@ -32,7 +32,7 @@ namespace oalplus {
 /// Class wrapping AL source construction/destruction functions
 /** @note Do not use this class directly, use Source instead.
  *
- *  @glsymbols
+ *  @alsymbols
  *  @alfunref{GenSources}
  *  @alfunref{DeleteSources}
  *  @alfunref{IsSource}

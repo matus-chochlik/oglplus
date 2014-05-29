@@ -344,6 +344,8 @@ struct ObjectSubtype<tag::Shader>
 class Shader
  : public Object<ShaderOps>
 {
+private:
+	Shader(const Shader&); // = delete;
 protected:
 	using Object<ShaderOps>::Uninitialized_;
 
@@ -437,6 +439,8 @@ template <typename enums::EnumValueType<ShaderType>::Type ShType>
 class SpecShader
  : public Shader
 {
+private:
+	SpecShader(const SpecShader&); // = delete;
 public:
 	/// Default construction
 	SpecShader(void)
@@ -472,6 +476,10 @@ public:
 		ObjectDesc&& description,
 		const GLSLSource& glsl_source
 	): Shader(ShType, std::move(description), glsl_source)
+	{ }
+
+	SpecShader(SpecShader&& temp)
+	 : Shader(static_cast<Shader&&>(temp))
 	{ }
 };
 

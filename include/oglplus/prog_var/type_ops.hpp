@@ -21,7 +21,7 @@
 namespace oglplus {
 
 // Tag template that can be used to declare an Uniform from SLDataType
-template <typename enums::EnumValueType<oglplus::enums::SLDataType>::Type>
+template <typename enums::EnumValueType<oglplus::SLDataType>::Type>
 struct SLtoCpp;
 
 template <typename T>
@@ -62,7 +62,7 @@ struct AdjustProgVar<oglplus::Vector<bool, N> >
 
 template <
 	typename oglplus::enums::EnumValueType<
-		oglplus::enums::SLDataType
+		oglplus::SLDataType
 	>::Type SLType
 >
 struct AdjustProgVar<SLtoCpp<SLType> >

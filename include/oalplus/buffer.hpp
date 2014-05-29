@@ -27,10 +27,10 @@ namespace oalplus {
 /// Class wrapping AL buffer construction/destruction functions
 /** @note Do not use this class directly, use Buffer instead.
  *
- *  @glsymbols
- *  @glfunref{GenBuffers}
- *  @glfunref{DeleteBuffers}
- *  @glfunref{IsBuffer}
+ *  @alsymbols
+ *  @alfunref{GenBuffers}
+ *  @alfunref{DeleteBuffers}
+ *  @alfunref{IsBuffer}
  */
 template <>
 class ObjGenDelOps<tag::Buffer>

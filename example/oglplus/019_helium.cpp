@@ -155,7 +155,7 @@ private:
 		));
 
 		shader.Compile();
-		return shader;
+		return std::move(shader);
 	}
 
 	// The common first part of all fragment shader sources

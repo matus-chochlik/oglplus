@@ -205,7 +205,7 @@ struct Classify<Object<ObjectOps<OpsTg, ObjTg>>>
 };
 
 template <typename Object>
-class ObjectSubtype;
+struct ObjectSubtype;
 
 template <typename Target>
 struct ObjectTargetTag;

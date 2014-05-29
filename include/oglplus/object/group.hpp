@@ -29,6 +29,7 @@ class StaticGroup<ObjectName<ObjTag>, N>
 private:
 	std::array<GLuint, N> _names;
 
+#if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	void _init(std::size_t) { }
 
 	template <typename ... I>
@@ -37,6 +38,7 @@ private:
 		_names[i] = name;
 		_init(i+1, names...);
 	}
+#endif
 public:
 	StaticGroup(const ObjectName<ObjTag> (&names)[N])
 	{
@@ -51,6 +53,26 @@ public:
 	StaticGroup(ObjectName<Tag>... names)
 	{
 		_init(0, GetGLName(names)...);
+	}
+#else
+	StaticGroup(
+		ObjectName<ObjTag> n0,
+		ObjectName<ObjTag> n1
+	)
+	{
+		_names[0] = GetGLName(n0);
+		_names[1] = GetGLName(n1);
+	}
+
+	StaticGroup(
+		ObjectName<ObjTag> n0,
+		ObjectName<ObjTag> n1,
+		ObjectName<ObjTag> n2
+	)
+	{
+		_names[0] = GetGLName(n0);
+		_names[1] = GetGLName(n1);
+		_names[2] = GetGLName(n2);
 	}
 #endif
 
@@ -77,6 +99,20 @@ MakeGroup(ObjectName<ObjTag> name, ObjectName<ObjTags>... names)
 		name,
 		names...
 	);
+}
+#else
+template <typename ObjTag>
+inline StaticGroup<ObjectName<ObjTag>, 2>
+MakeGroup(ObjectName<ObjTag> n0, ObjectName<ObjTag> n1)
+{
+	return StaticGroup<ObjectName<ObjTag>, 2>(n0, n1);
+}
+
+template <typename ObjTag>
+inline StaticGroup<ObjectName<ObjTag>, 3>
+MakeGroup(ObjectName<ObjTag> n0, ObjectName<ObjTag> n1, ObjectName<ObjTag> n2)
+{
+	return StaticGroup<ObjectName<ObjTag>, 3>(n0, n1, n2);
 }
 #endif
 

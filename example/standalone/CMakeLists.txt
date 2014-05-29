@@ -152,11 +152,12 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	endif()
 
 	if(GLM_FOUND)
-		include_directories(${GLM_INCLUDE_DIRS})
-		standalone_example_common(
-			007_glm_boxes
-			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-		)
+		# TODO: enable this once support for GLM is re-added.
+		#include_directories(${GLM_INCLUDE_DIRS})
+		#standalone_example_common(
+		#	007_glm_boxes
+		#	${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		#)
 	endif()
 
 	standalone_example_common(010_blender2html)

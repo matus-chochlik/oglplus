@@ -2,6 +2,8 @@
  *  @example standalone/007_glm_boxes.cpp
  *  @brief Shows interoperability with GLM matrix and vector classes
  *
+ *  TODO: Update this once the GLM support is re-added.
+ *
  *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)

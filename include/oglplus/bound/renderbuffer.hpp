@@ -38,7 +38,7 @@ class BoundObjOps<tag::Renderbuffer>
 private:
 	typedef ObjectOps<tag::ExplicitSel, tag::Renderbuffer> ExplicitOps;
 public:
-	typedef typename ExplicitOps::Target Target;
+	typedef ExplicitOps::Target Target;
 	Target target;
 
 	BoundObjOps(void)
