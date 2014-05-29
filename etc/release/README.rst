@@ -13,8 +13,7 @@ This version of `OGLplus`_ brings a major reimplementation of several key parts,
 listed and described below. Generally the changes were made to fix errors in the
 initial design which became obvious in the past few years of use and development
 of OGLplus. Unfortunately some of these changes break the previous interfaces.
-Most of such cases are listed below together with porting instructions.
-
+Some of such cases are listed below together with porting instructions.
 
 Changes
 =======
@@ -42,7 +41,7 @@ the members of ``Error`` and ``ErrorInfo``. These were however only used for two
 things: storing the identifier of an uniform and the GPU program description in
 GLSL uniform-related errors.
 
-There are also a few places in the code where another condition besides
+There are also a few places in the code where another conditions besides
 ``glGetError() != GL_NO_ERROR`` raises an error and these were handled
 in a different way.
 
@@ -100,23 +99,26 @@ The ``Object`` and its modifiers like ``Optional``, ``Managed`` or ``Array`` tem
 were then used to wrap the ``*Ops`` class and provide lifetime management, optional
 initialization, managed references, etc.
 
-All this however did not scale very well and for the direct-state-access (DSA) wrappers
+All this however, did not scale very well and for the direct-state-access (DSA) wrappers
 a lot code had to be duplicated. Also the DSA and non-DSA object wrappers did not
 play together very well.
 
-Since this release the the following changes were made:
+In the current release the following changes were made:
 
 Several tag types in the ``oglplus::tag`` namespace, like ``tag::Texture``,
 ``tag::Program``, ``tag::Shader`` or ``tag::VertexAttrib``, ``tag::Uniform``, etc.
-were added to distinguish between different GL objects.
+were added to distinguish between different GL objects or GPU program variable kinds.
 
 The ``Named`` class was replaced by the ``ObjectName<Tag>`` template, which still
 just stores the ``GLuint`` object name, but the ``Tag`` template parameter now
 distinguishes between various GL object types and does not allow them to be
-interchanged by mistake. This also allows to avoid having different overloads
+interchanged by mistake. This also allows to avoid having different function overloads
 for DSA and non-DSA object wrappers. All OGLplus functions wrapping GL functions
 requiring a GL object name now take ``ObjectName<Tag>`` as arguments instead
 of the ``*Ops`` or ``DSA*Ops`` classes.
+
+The ``Sequence<ObjectName<Tag>>`` template class was added to represent various
+sequences of object names.
 
 The object-related operations which were previously wrapped by the ``*Ops`` classes
 are now split into several templates:
@@ -130,7 +132,7 @@ are now split into several templates:
 
 * ``ObjZeroOps<OpsTag, ObjTag>`` wraps operations that are applicable to object with name
   zero (0), like the default texture, default framebuffer, etc. The ``OpsTag`` parameter
-  distinguishes for example the non-DSA and DSA function wrappers.
+  distinguishes for example between the non-DSA and DSA function wrappers.
 
 * ``ObjectOps<OpsTag, ObjTag>`` wraps operations applicable to named GL objects.
 
@@ -140,7 +142,9 @@ is wrapped and also about the kind of operations (non-DSA vs DSA, etc.)
 The ``Object`` template was updated accordingly as were the ``Array`` and ``Optional``
 modifiers. The ``Managed<Object>`` template was replaced by the ``Reference<Object>``
 template, which serves the same purpose.
-Typedefs like ``Texture``, ``Framebuffer``, ``Renderbuffer``, etc. are still present.
+Typedefs like ``Texture``, ``Framebuffer``, ``Renderbuffer``, etc. for the non-DSA
+object wrappers or ``DSATexture``, ``DSAFramebuffer``, ``DSARenderbuffer``, etc.
+for the DSA wrappers are defined.
 
 Similar changes were also made to the OpenAL object wrappers.
 
@@ -180,6 +184,16 @@ that previously provided lazy and optional initialization are now replaced by
 the ``Lazy<ProgVar>`` and ``Optional<ProgVar>`` modifiers, so for example instead
 of ``LazyProgramUniform`` the ``Lazy<ProgramUniform>`` type should be used.
 
+Controlled access to private members
+------------------------------------
+
+Previously the ``FriendOf`` template was used to provide access to certain private
+members of OGLplus, OALplus and EGLplus classes (for example the GL or AL object
+names, GPU buffer or texture handles, etc.).
+The usage of ``FriendOf`` was unnecassarily complicated and it was replaced by
+the ``GetGLName``, ``GetALName``, ``GetEGLHandle``, etc. functions, which are more
+convenient to use.
+
 Changes to the directory hierarchy
 ----------------------------------
 
@@ -190,9 +204,9 @@ General changes in all libraries:
 
 * the error-related things were put into the ``error/`` subdirectories.
 
-* the ``auxiliary`` directory was renamed to ``detail``.
+* the ``auxiliary/`` directory was renamed to ``detail/``.
 
-In ``oglplus`` the following changes were made:
+In ``oglplus/`` the following changes were made:
 
 * the math utilities and classes like ``Vector``, ``Matrix``, ``Angle``, etc.
   were put into the ``math/`` subdirectory,
@@ -205,32 +219,35 @@ In ``oglplus`` the following changes were made:
 
 * the direct-state-access object wrappers are in the ``dsa/`` subdirectory.
 
-In ``oalplus`` the following has changed:
+In ``oalplus/`` the following has changed:
 
 * the math utilities and classes are now in the ``math/`` subdirectory,
 
 * the object-related things were put into ``object/``.
 
 Known issues
-------------
+============
 
 In order to avoid having a too long period between releases, some less important
 things were left to be finished in the next releases:
 
-* The ``Optional`` and ``Array`` wrappers for OALplus objects.
+* The ``Optional`` and ``Array`` wrappers for OALplus objects are temporarily disabled.
 
-* Support for MSVC 2010; this release is known not to work with MSVC 2010 anymore.
+* The GLM vector and matrix adaptors are temporarily disabled.
+
+* Support for MSVC 2010: This release is known not to work with MSVC 2010.
   This compiler lacks proper support for most of the required C++11 features
   and a part of the clutter removed from the source in this release were various
   workarounds for MSVC10. We are still considering if the support for this compiler
   should be dropped or re-implemented in the next release.
 
+* The documentation is still incomplete. We are considering some alternatives to doxygen.
 
 Deprecated classes and functions
---------------------------------
+================================
 
 * The ``HardwiredProgram`` template is deprecated and will be removed in one
-  of the upcomming releases.
+  of the upcoming releases.
 
 * The ``QuickProgram`` template will be either removed or reimplemented in
   the following releases.

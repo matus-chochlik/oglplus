@@ -1,3 +1,10 @@
+Version 0.46.0
+
+This release brings complete rewrite of several key parts, including
+the object and GPU program variable wrappers, error reporting and handling,
+source directory structure, and others. Refer to the relase notes for this
+release for further details.
+
 Version 0.45.0
 
 - The new object binding interface was updated, the DefaultTexture, NoBuffer,
