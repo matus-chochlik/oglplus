@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,7 +15,7 @@
 
 #include <eglplus/enumerations.hpp>
 #include <eglplus/eglfunc.hpp>
-#include <eglplus/error.hpp>
+#include <eglplus/error/basic.hpp>
 
 namespace eglplus {
 
@@ -43,7 +43,7 @@ EGLPLUS_ENUM_CLASS_END(RenderingAPI)
 inline bool BindAPI(RenderingAPI api)
 {
 	bool result = EGLPLUS_EGLFUNC(BindAPI)(EGLenum(api));
-	EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(BindAPI));
+	EGLPLUS_VERIFY_SIMPLE(BindAPI);
 	return result;
 }
 
@@ -55,7 +55,7 @@ inline bool BindAPI(RenderingAPI api)
 inline RenderingAPI QueryAPI(void)
 {
 	EGLenum result = EGLPLUS_EGLFUNC(QueryAPI)();
-	EGLPLUS_VERIFY(EGLPLUS_ERROR_INFO(QueryAPI));
+	EGLPLUS_VERIFY_SIMPLE(QueryAPI);
 	return RenderingAPI(result);
 }
 

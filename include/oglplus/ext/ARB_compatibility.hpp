@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,7 +19,7 @@
 #include <oglplus/ext/ARB_compatibility/matrix_mode.hpp>
 #include <oglplus/ext/ARB_compatibility/attrib_group.hpp>
 
-#include <oglplus/matrix.hpp>
+#include <oglplus/math/matrix.hpp>
 
 namespace oglplus {
 
@@ -54,7 +54,7 @@ public:
 	static void End(void)
 	{
 		OGLPLUS_GLFUNC(End)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(End));
+		OGLPLUS_VERIFY_SIMPLE(End);
 	}
 
 	/// Pushes specified server attribute group variables on the stack
@@ -65,7 +65,7 @@ public:
 	static void PushAttrib(Bitfield<CompatibilityAttributeGroup> attr_groups)
 	{
 		OGLPLUS_GLFUNC(PushAttrib)(GLbitfield(attr_groups));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PushAttrib));
+		OGLPLUS_VERIFY_SIMPLE(PushAttrib);
 	}
 
 	/// Pushes specified client attribute group variables on the stack
@@ -78,7 +78,7 @@ public:
 	)
 	{
 		OGLPLUS_GLFUNC(PushClientAttrib)(GLbitfield(attrib_groups));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PushClientAttrib));
+		OGLPLUS_VERIFY_SIMPLE(PushClientAttrib);
 	}
 
 	/// Pop previously pushed server attribute group variables from the stack
@@ -89,7 +89,7 @@ public:
 	static void PopAttrib(void)
 	{
 		OGLPLUS_GLFUNC(PopAttrib)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PopAttrib));
+		OGLPLUS_VERIFY_SIMPLE(PopAttrib);
 	}
 
 	/// Pop previously pushed client attribute group variables from the stack
@@ -100,7 +100,7 @@ public:
 	static void PopClientAttrib(void)
 	{
 		OGLPLUS_GLFUNC(PopClientAttrib)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PopClientAttrib));
+		OGLPLUS_VERIFY_SIMPLE(PopClientAttrib);
 	}
 
 	/// Sets the matrix mode for the subsequent commands
@@ -111,7 +111,7 @@ public:
 	static void MatrixMode(CompatibilityMatrixMode mode)
 	{
 		OGLPLUS_GLFUNC(MatrixMode)(GLenum(mode));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(MatrixMode));
+		OGLPLUS_VERIFY_SIMPLE(MatrixMode);
 	}
 
 	/// Loads a identity matrix
@@ -122,7 +122,7 @@ public:
 	static void LoadIdentity(void)
 	{
 		OGLPLUS_GLFUNC(LoadIdentity)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LoadIdentity));
+		OGLPLUS_VERIFY_SIMPLE(LoadIdentity);
 	}
 
 	/// Loads the specified @p matrix
@@ -133,7 +133,7 @@ public:
 	static void LoadMatrix(const Mat4f& matrix)
 	{
 		OGLPLUS_GLFUNC(LoadMatrixf)(Data(Transposed(matrix)));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LoadMatrixf));
+		OGLPLUS_VERIFY_SIMPLE(LoadMatrixf);
 	}
 
 	/// Loads the specified @p matrix
@@ -144,7 +144,7 @@ public:
 	static void LoadMatrix(const Mat4d& matrix)
 	{
 		OGLPLUS_GLFUNC(LoadMatrixd)(Data(Transposed(matrix)));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(LoadMatrixd));
+		OGLPLUS_VERIFY_SIMPLE(LoadMatrixd);
 	}
 
 private:

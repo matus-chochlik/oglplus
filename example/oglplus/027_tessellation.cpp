@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{027_tessellation}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -31,8 +31,8 @@ private:
 
 	VertexArray vao;
 
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
-	LazyUniform<Vec2f> viewport_dimensions;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix;
+	Lazy<Uniform<Vec2f>> viewport_dimensions;
 
 	GLuint segments;
 	GLuint instances;
@@ -377,25 +377,25 @@ public:
 
 		positions.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, pos_data);
-		VertexAttribArray position_attr(prog, "Position");
+		VertexArrayAttrib position_attr(prog, "Position");
 		position_attr.Setup<Vec3f>();
 		position_attr.Enable();
 
 		prev_cps.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, pcp_data);
-		VertexAttribArray prev_cp_attr(prog, "PrevCP");
+		VertexArrayAttrib prev_cp_attr(prog, "PrevCP");
 		prev_cp_attr.Setup<Vec3f>();
 		prev_cp_attr.Enable();
 
 		next_cps.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, ncp_data);
-		VertexAttribArray next_cp_attr(prog, "NextCP");
+		VertexArrayAttrib next_cp_attr(prog, "NextCP");
 		next_cp_attr.Setup<Vec3f>();
 		next_cp_attr.Enable();
 
 		tess_levels.Bind(Buffer::Target::Array);
 		Buffer::Data(Buffer::Target::Array, ptl_data);
-		VertexAttribArray tess_lvl_attr(prog, "TessLevel");
+		VertexArrayAttrib tess_lvl_attr(prog, "TessLevel");
 		tess_lvl_attr.Setup<Vec2f>();
 		tess_lvl_attr.Enable();
 

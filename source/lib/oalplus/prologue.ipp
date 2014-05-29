@@ -10,7 +10,6 @@
  */
 
 #define OALPLUS_LINK_LIBRARY 1
-#define OALPLUS_IMPLEMENTING_LIBRARY 1
 
 #include <oalplus/al.hpp>
 #include <oalplus/config.hpp>

@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{026_stencil_shadow}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -46,11 +46,11 @@ private:
 	Program shadow_prog;
 
 	// Uniforms
-	LazyUniform<Mat4f>
-		object_camera_matrix, object_model_matrix,
-		shadow_camera_matrix, shadow_model_matrix;
-	LazyUniform<Vec3f> object_color;
-	LazyUniform<GLfloat> object_light_mult;
+	Uniform<Mat4f>
+		object_projection_matrix, object_camera_matrix, object_model_matrix,
+		shadow_projection_matrix, shadow_camera_matrix, shadow_model_matrix;
+	Uniform<Vec3f> object_color;
+	Uniform<GLfloat> object_light_mult;
 
 	// A vertex array object for the torus
 	VertexArray torus;
@@ -66,12 +66,14 @@ public:
 	 : make_torus(1.0, 0.7, 72, 48)
 	 , torus_indices(make_torus.Indices())
 	 , torus_instr(make_torus.Instructions())
-	 , object_camera_matrix(object_prog, "CameraMatrix")
-	 , object_model_matrix(object_prog, "ModelMatrix")
-	 , shadow_camera_matrix(shadow_prog, "CameraMatrix")
-	 , shadow_model_matrix(shadow_prog, "ModelMatrix")
-	 , object_color(object_prog, "Color")
-	 , object_light_mult(object_prog, "LightMult")
+	 , object_projection_matrix(object_prog)
+	 , object_camera_matrix(object_prog)
+	 , object_model_matrix(object_prog)
+	 , shadow_projection_matrix(shadow_prog)
+	 , shadow_camera_matrix(shadow_prog)
+	 , shadow_model_matrix(shadow_prog)
+	 , object_color(object_prog)
+	 , object_light_mult(object_prog)
 	{
 		vs_object.Source(
 			"#version 330\n"
@@ -114,7 +116,13 @@ public:
 
 		object_prog.AttachShader(vs_object);
 		object_prog.AttachShader(fs_object);
-		object_prog.Link();
+		object_prog.Link().Use();
+
+		object_projection_matrix.BindTo("ProjectionMatrix");
+		object_camera_matrix.BindTo("CameraMatrix");
+		object_model_matrix.BindTo("ModelMatrix");
+		object_color.BindTo("Color");
+		object_light_mult.BindTo("LightMult");
 
 		vs_shadow.Source(
 			"#version 330\n"
@@ -210,7 +218,11 @@ public:
 		shadow_prog.AttachShader(vs_shadow);
 		shadow_prog.AttachShader(gs_shadow);
 		shadow_prog.AttachShader(fs_shadow);
-		shadow_prog.Link();
+		shadow_prog.Link().Use();
+
+		shadow_projection_matrix.BindTo("ProjectionMatrix");
+		shadow_camera_matrix.BindTo("CameraMatrix");
+		shadow_model_matrix.BindTo("ModelMatrix");
 
 		// bind the VAO for the torus
 		torus.Bind();
@@ -222,11 +234,10 @@ public:
 			GLuint n_per_vertex = make_torus.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
 
-			VertexAttribArray attr(
-				VertexAttribArray::GetCommonLocation(
-					"Position",
-					object_prog,
-					shadow_prog
+			VertexArrayAttrib attr(
+				VertexArrayAttrib::GetCommonLocation(
+					MakeGroup(object_prog, shadow_prog),
+					"Position"
 				)
 			);
 			attr.Setup<GLfloat>(n_per_vertex);
@@ -241,7 +252,7 @@ public:
 			Buffer::Data(Buffer::Target::Array, data);
 
 			object_prog.Use();
-			VertexAttribArray attr(object_prog, "Normal");
+			VertexArrayAttrib attr(object_prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -259,7 +270,7 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();
-			VertexAttribArray attr(object_prog, "Position");
+			VertexArrayAttrib attr(object_prog, "Position");
 			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
@@ -275,14 +286,15 @@ public:
 			};
 			Buffer::Data(Buffer::Target::Array, 4*3, data);
 			object_prog.Use();
-			VertexAttribArray attr(object_prog, "Normal");
+			VertexArrayAttrib attr(object_prog, "Normal");
 			attr.Setup<GLfloat>(3);
 			attr.Enable();
 		}
 
 		Vec3f lightPos(2.0f, 9.0f, 3.0f);
-		SetProgramUniform(object_prog, "LightPos", lightPos);
-		SetProgramUniform(shadow_prog, "LightPos", lightPos);
+
+		ProgramUniform<Vec3f>(object_prog, "LightPos").Set(lightPos);
+		ProgramUniform<Vec3f>(shadow_prog, "LightPos").Set(lightPos);
 
 		gl.ClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 		gl.ClearDepth(1.0f);
@@ -301,8 +313,10 @@ public:
 			double(width)/height,
 			1, 30
 		);
-		SetProgramUniform(object_prog, "ProjectionMatrix", projection);
-		SetProgramUniform(shadow_prog, "ProjectionMatrix", projection);
+		object_prog.Use();
+		object_projection_matrix.Set(projection);
+		shadow_prog.Use();
+		shadow_projection_matrix.Set(projection);
 	}
 
 	void Render(double time)

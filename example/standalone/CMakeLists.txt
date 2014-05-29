@@ -69,11 +69,6 @@ if(GLUT_FOUND AND GLEW_FOUND)
 		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 	)
 
-	standalone_example_common(
-		002_rectangle_glut_glew
-		${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-	)
-
 	if(HAS_GL_VERSION_4_3)
 		standalone_example_common(
 			001_program_resources
@@ -98,18 +93,6 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	if(HAS_GLEW_ARB_compatibility AND HAS_GLEW_ARB_debug_output)
 		standalone_example_common(
 			002_triangle_compatibility
-			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-		)
-	endif()
-
-	if(HAS_GLEW_EXT_direct_state_access)
-		standalone_example_common(
-			002_dsa_buffer
-			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-		)
-
-		standalone_example_common(
-			003_dsa_texture
 			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
 		)
 	endif()
@@ -169,11 +152,12 @@ if(GLUT_FOUND AND GLEW_FOUND)
 	endif()
 
 	if(GLM_FOUND)
-		include_directories(${GLM_INCLUDE_DIRS})
-		standalone_example_common(
-			007_glm_boxes
-			${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
-		)
+		# TODO: enable this once support for GLM is re-added.
+		#include_directories(${GLM_INCLUDE_DIRS})
+		#standalone_example_common(
+		#	007_glm_boxes
+		#	${GLUT_LIBRARIES} ${GLEW_LIBRARIES}
+		#)
 	endif()
 
 	standalone_example_common(010_blender2html)

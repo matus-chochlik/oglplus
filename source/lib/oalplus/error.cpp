@@ -10,5 +10,8 @@
  */
 
 #include "prologue.ipp"
-#include <oalplus/error.hpp>
+#include "implement.ipp"
+#include <oalplus/error/basic.hpp>
+#include <oalplus/error/object.hpp>
+#include <oalplus/error/alut.hpp>
 #include "epilogue.ipp"

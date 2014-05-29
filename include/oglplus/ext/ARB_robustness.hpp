@@ -47,7 +47,7 @@ public:
 			GL_RESET_NOTIFICATION_STRATEGY_ARB,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return oglplus::ResetNotificationStrategy(result);
 	}
 
@@ -60,7 +60,7 @@ public:
 	GraphicsResetStatus(void)
 	{
 		GLenum result = OGLPLUS_GLFUNC(GetGraphicsResetStatusARB)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetGraphicsResetStatusARB));
+		OGLPLUS_VERIFY_SIMPLE(GetGraphicsResetStatusARB);
 		return oglplus::GraphicsResetStatus(result);
 	}
 };

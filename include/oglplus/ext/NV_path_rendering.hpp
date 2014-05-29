@@ -21,6 +21,7 @@
 #include <oglplus/ext/NV_path_rendering/gen_mode.hpp>
 
 #include <oglplus/texture_unit.hpp>
+#include <oglplus/extension.hpp>
 
 namespace oglplus {
 
@@ -44,7 +45,7 @@ public:
 	static void CoverDepthFunc(CompareFunction function)
 	{
 		OGLPLUS_GLFUNC(PathCoverDepthFuncNV)(GLenum(function));
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathCoverDepthFuncNV));
+		OGLPLUS_CHECK_SIMPLE(PathCoverDepthFuncNV);
 	}
 
 	/// Sets the depth offset for rendered paths
@@ -55,7 +56,7 @@ public:
 	static void DepthOffset(GLfloat factor, GLint units)
 	{
 		OGLPLUS_GLFUNC(PathStencilDepthOffsetNV)(factor, units);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathStencilDepthOffsetNV));
+		OGLPLUS_CHECK_SIMPLE(PathStencilDepthOffsetNV);
 	}
 
 	/// Sets how colors are computed for path covering fragment operations
@@ -76,7 +77,7 @@ public:
 			GLenum(color_format),
 			coeffs
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathColorGenNV));
+		OGLPLUS_CHECK_SIMPLE(PathColorGenNV);
 	}
 
 	/// Sets how tex-coords are computed for path covering fragment operations
@@ -97,7 +98,7 @@ public:
 			components,
 			coeffs
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(PathTexGenNV));
+		OGLPLUS_CHECK_SIMPLE(PathTexGenNV);
 	}
 };
 

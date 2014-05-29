@@ -14,10 +14,11 @@
 #define OGLPLUS_CONTEXT_BINDING_1404142131_HPP
 
 #include <oglplus/config_compiler.hpp>
-#include <oglplus/bound.hpp>
+#include <oglplus/object/name.hpp>
 
 namespace oglplus {
 namespace context {
+
 
 /// Wrapper for object binding operations
 /**
@@ -82,49 +83,38 @@ public:
 		object.Use();
 	}
 
+	template <typename Object>
+	static Reference<ObjectOps<
+		tag::CurrentBound,
+		typename Classify<Object>::ObjTag
+	>> Current(void)
+	{
+		typedef typename Classify<Object>::ObjTag ObjTag;
+
+		return Reference<ObjectOps<tag::CurrentBound, ObjTag>>();
+	}
+
 	/// Returns a managed reference to the object currently bound to target
 	template <typename ObjectTarget>
-	static oglplus::Bound<typename ObjectTargetOps<ObjectTarget>::Type>
-	Current(ObjectTarget target)
+	static Reference<ObjectOps<
+		tag::CurrentBound,
+		typename ObjectTargetTag<ObjectTarget>::Type
+	>> Current(ObjectTarget target)
 	{
-		typedef typename ObjectTargetOps<ObjectTarget>::Type ObjectOps;
+		typedef typename ObjectTargetTag<ObjectTarget>::Type ObjTag;
 
-		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
-		return oglplus::Bound<ObjectOps>(
-			Managed<ObjectOps>(name),
-			target
-		);
+		return Reference<ObjectOps<tag::CurrentBound, ObjTag>>(target);
 	}
 
 	/// Binds the object to the specified target, returns a managed reference
 	template <typename Object>
-	static oglplus::Bound<
-		typename ObjectTargetOps<typename Object::Target>::Type
-	> Bound(typename Object::Target target, const Object& object)
+	static Reference<ObjectOps<
+		tag::CurrentBound,
+		typename ObjectTargetTag<typename Object::Target>::Type
+	>> Bound(typename Object::Target target, const Object& object)
 	{
 		object.Bind(target);
 		return Current(target);
-	}
-
-	/// Returns a managed reference to object currently bound to indexed target
-	template <typename ObjectTarget>
-	static Managed<typename ObjectTargetOps<ObjectTarget>::Type>
-	Current(ObjectTarget target, GLuint index)
-	{
-		typedef typename ObjectTargetOps<ObjectTarget>::Type ObjectOps;
-
-		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target, index);
-		return Managed<ObjectOps>(name);
-	}
-
-	/// Returns a managed reference to the currently bound Object
-	template <typename Object>
-	static Managed<typename ObjectBaseOps<Object>::Type> Current(void)
-	{
-		typedef typename ObjectBaseOps<Object>::Type ObjectOps;
-		typename Object::Target target = typename Object::Target();
-		GLuint name = BindingQuery<ObjectOps>::QueryBinding(target);
-		return Managed<ObjectOps>(name);
 	}
 };
 

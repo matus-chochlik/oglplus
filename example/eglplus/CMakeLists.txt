@@ -1,4 +1,4 @@
-#  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+#  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 #  Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -31,10 +31,11 @@ endfunction(add_examples)
 if(EGL_FOUND)
 	include_directories(${EGL_INCLUDE_DIRS})
 
-	set(EXAMPLE_LIBS ${EGL_LIBRARIES})
+	set(EXAMPLE_LIBS ${EGL_LIBRARIES} eglplus)
 
 	add_custom_target(eglplus-examples ALL)
 	set_property(TARGET eglplus-examples PROPERTY FOLDER "Example/EGLplus")
 
+	add_definitions(-DEGLPLUS_LINK_LIBRARY=1)
 	add_examples("[0-9][0-9][0-9]*" eglplus-examples "${EXAMPLE_LIBS}")
 endif(EGL_FOUND)

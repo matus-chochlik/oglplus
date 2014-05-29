@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{019_subsurf_scatter}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -43,8 +43,8 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyUniform<GLint> front_facing;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
+	Lazy<Uniform<GLint>> front_facing;
 
 	// A vertex array object for the rendered cube
 	VertexArray cube;
@@ -166,7 +166,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -178,7 +178,7 @@ public:
 			GLuint n_per_vertex = make_cube.Normals(data);
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Normal");
+			VertexArrayAttrib attr(prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

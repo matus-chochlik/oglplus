@@ -13,7 +13,7 @@
 #include <cstring>
 
 #include <oglplus/imports/blend_file.hpp>
-#include <oglplus/matrix.hpp>
+#include <oglplus/math/matrix.hpp>
 
 bool find_blend_obj_prop(
 	oglplus::imports::BlendFile& blend_file,

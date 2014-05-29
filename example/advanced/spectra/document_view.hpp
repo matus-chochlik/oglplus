@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,9 +13,9 @@
 #define OGLPLUS_EXAMPLE_SPECTRA_DOCUMENT_VIEW_HPP
 
 #include <oglplus/gl.hpp>
-#include <oglplus/matrix.hpp>
-#include <oglplus/vector.hpp>
-#include <oglplus/angle.hpp>
+#include <oglplus/math/matrix.hpp>
+#include <oglplus/math/vector.hpp>
+#include <oglplus/math/angle.hpp>
 
 struct SpectraDocumentView
 {

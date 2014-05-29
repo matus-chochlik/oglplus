@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,8 +14,7 @@
 
 #include <oglplus/gl.hpp>
 
-#include <oglplus/error.hpp>
-#include <oglplus/compile_error.hpp>
+#include <oglplus/error/basic.hpp>
 
 #include <wx/wx.h>
 #include <wx/glcanvas.h>
@@ -28,21 +27,6 @@ class SpectraApp
 private:
 	static wxString MakeCommonErrorMessage(oglplus::Error& err);
 public:
-	void HandleError(
-		oglplus::MissingFunction& err,
-		wxWindow* parent = nullptr
-	);
-
-	void HandleError(
-		oglplus::ProgramBuildError& err,
-		wxWindow* parent = nullptr
-	);
-
-	void HandleError(
-		oglplus::LimitError& err,
-		wxWindow* parent = nullptr
-	);
-
 	void HandleError(
 		oglplus::Error& err,
 		wxWindow* parent = nullptr

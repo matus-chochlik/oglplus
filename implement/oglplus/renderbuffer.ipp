@@ -16,13 +16,8 @@
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-GLuint RenderbufferOps::_binding(Target target)
-{
-	return BindingQuery<RenderbufferOps>::QueryBinding(target);
-}
-
-OGLPLUS_LIB_FUNC
-GLenum RenderbufferOps::_binding_query(Target target)
+GLenum ObjBindingOps<tag::Renderbuffer>::
+_binding_query(RenderbufferTarget target)
 {
 	switch(GLenum(target))
 	{
@@ -33,7 +28,22 @@ GLenum RenderbufferOps::_binding_query(Target target)
 }
 
 OGLPLUS_LIB_FUNC
-void RenderbufferOps::Storage(
+GLuint ObjBindingOps<tag::Renderbuffer>::
+_binding(RenderbufferTarget target)
+{
+	GLint name = 0;
+	OGLPLUS_GLFUNC(GetIntegerv)(_binding_query(target), &name);
+	OGLPLUS_VERIFY(
+		GetIntegerv,
+		Error,
+		EnumParam(_binding_query(target))
+	);
+	return name;
+}
+
+OGLPLUS_LIB_FUNC
+void ObjectOps<tag::ExplicitSel, tag::Renderbuffer>::
+Storage(
 	Target target,
 	const images::ImageSpec& image_spec
 )

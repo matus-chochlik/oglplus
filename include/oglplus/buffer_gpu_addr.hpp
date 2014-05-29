@@ -16,81 +16,40 @@
 #if GL_NV_shader_buffer_load
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/glfunc.hpp>
-#include <oglplus/uniform.hpp>
+#include <oglplus/prog_var/type_ops.hpp>
 
 namespace oglplus {
 
+class BufferGPUAddress;
+GLuint64EXT GetGLAddress(BufferGPUAddress);
+
+/// Class encapsulating buffer object GPU address
 class BufferGPUAddress
 {
 private:
-	GLuint64EXT _addr;
+	friend GLuint64EXT GetGLAddress(BufferGPUAddress);
 
-	friend class FriendOf<BufferGPUAddress>;
-	friend class BufferOps;
-	friend class DSABufferEXTOps;
-protected:
+	GLuint64EXT _addr;
+public:
 	BufferGPUAddress(GLuint64EXT addr)
 	 : _addr(addr)
 	{ }
 };
 
+inline GLuint64EXT GetGLAddress(BufferGPUAddress bga)
+{
+	return bga._addr;
+}
+
 template <>
-class FriendOf<BufferGPUAddress>
+struct AdjustProgVar<BufferGPUAddress>
 {
-protected:
-	static GLuint64EXT GetValue(const BufferGPUAddress& bga)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		return bga._addr;
-	}
-};
+	typedef GLuint64 BaseType;
+	typedef BufferGPUAddress ValueType;
 
-/// Specialization of uniform operations for BufferGPUAddress
-template <
-	class LocationInit,
-	class Typechecker,
-	class SpecOpsWrapper
->
-class UniformSpecOps<
-	BufferGPUAddress,
-	LocationInit,
-	Typechecker,
-	SpecOpsWrapper
->: public UniformOps<LocationInit, Typechecker>
- , public SpecOpsWrapper::Type
- , public FriendOf<BufferGPUAddress>
-{
-private:
-	typedef UniformOps<LocationInit, Typechecker> _base_ops;
-protected:
-	template <typename TypeSel, class StrOrInt>
-	UniformSpecOps(
-		TypeSel* type_sel,
-		const ProgramOps& program,
-		StrOrInt&& name_or_loc
-	): _base_ops(type_sel, program, std::forward<StrOrInt>(name_or_loc))
-	{ }
-
-	template <typename TypeSel>
-	UniformSpecOps(TypeSel* type_sel, GLuint program, GLint location)
-	 : _base_ops(type_sel, program, location)
-	{ }
-public:
-	/// Set the value of the uniform variable
-	/**
-	 *  @glsymbols
-	 *  @glfunref{Uniform}
-	 *  @glfunref{ProgramUniform}
-	 */
-	void Set(BufferGPUAddress bga)
+	inline static BaseType Adjust(ValueType value)
 	{
-		this->_do_set(
-			this->_get_program(),
-			this->_get_location(),
-			FriendOf<BufferGPUAddress>::GetValue(bga)
-		);
+		return GetGLAddress(value);
 	}
 };
 

@@ -45,8 +45,8 @@ private:
 	Buffer texcoords;
 
 	// Uniform variables
-	LazyUniform<Mat4f> projection_matrix;
-	LazyUniform<Mat4f> camera_matrix;
+	Lazy<Uniform<Mat4f>> projection_matrix;
+	Lazy<Uniform<Mat4f>> camera_matrix;
 public:
 	SphereExample(void)
 	 : sphere_instr(make_sphere.Instructions())
@@ -106,7 +106,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			// (prog|0) is equivalent to VertexAttribArray(prog, VertexAtribSlot(0))
+			// (prog|0) is equivalent to VertexArrayAttrib(prog, VertexAtribSlot(0))
 			(prog|0).Setup<GLfloat>(n_per_vertex).Enable();
 		}
 
@@ -118,7 +118,7 @@ public:
 			// upload the data
 			Buffer::Data(Buffer::Target::Array, data);
 			// setup the vertex attribs array for the vertices
-			// (prog|1) is equivalent to VertexAttribArray(prog, VertexAtribSlot(1))
+			// (prog|1) is equivalent to VertexArrayAttrib(prog, VertexAtribSlot(1))
 			(prog|1).Setup<GLfloat>(n_per_vertex).Enable();
 		}
 		//

@@ -5,8 +5,11 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 if(EGL_FOUND)
+	include_directories(${EGL_INCLUDE_DIRS})
 	add_library(eglplus EXCLUDE_FROM_ALL
 		string.cpp
+		enums.cpp
 		error.cpp
+		configs.cpp
 	)
 endif()

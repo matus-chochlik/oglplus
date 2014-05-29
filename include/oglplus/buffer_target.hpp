@@ -34,9 +34,9 @@ OGLPLUS_ENUM_CLASS_END(BufferTarget)
 #endif
 
 template <>
-struct ObjectTargetOps<BufferTarget>
+struct ObjectTargetTag<BufferTarget>
 {
-	typedef BufferOps Type;
+	typedef tag::Buffer Type;
 };
 
 /// Buffer indexed bind target
@@ -56,9 +56,9 @@ OGLPLUS_ENUM_CLASS_END(BufferIndexedTarget)
 #endif
 
 template <>
-struct ObjectTargetOps<BufferIndexedTarget>
+struct ObjectTargetTag<BufferIndexedTarget>
 {
-	typedef BufferOps Type;
+	typedef tag::Buffer Type;
 };
 
 } // namespace oglplus

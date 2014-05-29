@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -16,7 +16,7 @@
 #include <oalplus/config.hpp>
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
-#include <oalplus/error.hpp>
+#include <oalplus/error/alc.hpp>
 
 #include <cstring>
 #include <cassert>
@@ -128,10 +128,7 @@ public:
 	Device(void)
 	 : DeviceOps(OALPLUS_ALFUNC(alc,OpenDevice)(nullptr))
 	{
-		OALPLUS_CHECK_ALC(
-			OALPLUS_ERROR_INFO(alc,OpenDevice),
-			_device
-		);
+		OALPLUS_CHECK_SIMPLE_ALC(_device,OpenDevice);
 	}
 
 	/// Constructs an object referencing the specified audio device
@@ -142,10 +139,7 @@ public:
 	Device(const ALchar* dev_spec)
 	 : DeviceOps(OALPLUS_ALFUNC(alc,OpenDevice)(dev_spec))
 	{
-		OALPLUS_CHECK_ALC(
-			OALPLUS_ERROR_INFO(alc,OpenDevice),
-			_device
-		);
+		OALPLUS_CHECK_SIMPLE_ALC(_device,OpenDevice);
 	}
 
 	/// Device is movable

@@ -2,12 +2,12 @@
  *  @file standalone/glut_glew_example.hpp
  *  @brief Implements GLUT/GLEW-based program main function for running examples
  *
- *  Copyright 2008-2012 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-#ifndef __OGLPLUS_STANDALONE_GLUT_GLEW_EXAMPLE_1203161253_HPP__
-#define __OGLPLUS_STANDALONE_GLUT_GLEW_EXAMPLE_1203161253_HPP__
+#ifndef OGLPLUS_STANDALONE_GLUT_GLEW_EXAMPLE_1203161253_HPP
+#define OGLPLUS_STANDALONE_GLUT_GLEW_EXAMPLE_1203161253_HPP
 
 #include <GL/glew.h>
 
@@ -24,8 +24,8 @@
 #include <iostream>
 #include <chrono>
 
-#include <oglplus/error.hpp>
-#include <oglplus/compile_error.hpp>
+#include <oglplus/error/program.hpp>
+#include <oglplus/error/limit.hpp>
 
 namespace oglplus {
 
@@ -368,41 +368,68 @@ int GlutGlewMain(const char* title, int argc, char* argv[])
 	}
 	catch(oglplus::ProgramBuildError& pbe)
 	{
-		std::cerr <<
-			"Error (in " << pbe.GLSymbol() << ", " <<
-			pbe.ClassName() << ": '" <<
-			pbe.ObjectDescription() << "'): " <<
-			pbe.what() << ": " <<
-			pbe.Log() <<
-			std::endl;
-		pbe.Cleanup();
+		std::cerr
+			<< "Program build error (in "
+			<< pbe.GLFuncName()
+			<< ", "
+			<< pbe.ObjectTypeName()
+			<< ": ("
+			<< pbe.ObjectName()
+			<< ") '"
+			<< pbe.ObjectDesc()
+			<< "'): "
+			<< pbe.what()
+			<< ": "
+			<< pbe.Log()
+			<< std::endl;
 	}
 	catch(oglplus::LimitError& le)
 	{
-		std::cerr <<
-			"Limit error: ("<< le.Value() << ") exceeds (" <<
-			le.GLSymbol() << " == " << le.Limit() << ") " <<
-			" [" << le.File() << ":" << le.Line() << "] " <<
-			std::endl;
-		le.Cleanup();
+		std::cerr
+			<< "Limit error: ("
+			<< le.Value()
+			<< ") exceeds ("
+			<< le.EnumParamName()
+			<< " == "
+			<< le.Limit()
+			<< ") ["
+			<< le.SourceFile()
+			<< ":"
+			<< le.SourceLine()
+			<< "] "
+			<< std::endl;
+	}
+	catch(oglplus::ObjectError& obe)
+	{
+		std::cerr
+			<< "Object error (in "
+			<< obe.GLFuncName()
+			<< ", "
+			<< obe.ObjectTypeName()
+			<< ": ("
+			<< obe.ObjectName()
+			<< ") '"
+			<< obe.ObjectDesc()
+			<< "') ["
+			<< obe.SourceFile()
+			<< ":"
+			<< obe.SourceLine()
+			<< "]: "
+			<< obe.what()
+			<< std::endl;
 	}
 	catch(oglplus::Error& err)
 	{
-		std::cerr <<
-			"Error (in " << err.GLSymbol() << ", " <<
-			err.ClassName() << ": '" <<
-			err.ObjectDescription() << "' bound to '" <<
-			err.BindTarget() << "'): " <<
-			err.what() <<
-			" [" << err.File() << ":" << err.Line() << "] ";
-		auto i = err.Properties().begin(), e = err.Properties().end();
-		while(i != e)
-		{
-			std::cerr << "<" << i->first << "='" << i->second << "'>";
-			++i;
-		}
-		std::cerr <<std::endl;
-		err.Cleanup();
+		std::cerr
+			<< "Error (in "
+			<< err.GLFuncName()
+			<< "') ["
+			<< err.SourceFile()
+			<< ":"
+			<< err.SourceLine()
+			<< "]: "
+			<< err.what()
+			<< std::endl;
 	}
 	catch(std::exception& se)
 	{

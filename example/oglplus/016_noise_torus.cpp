@@ -45,7 +45,7 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
 
 	// A vertex array object for the rendered torus
 	VertexArray torus;
@@ -122,7 +122,7 @@ public:
 			// upload the data
 			gl.Current(Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -135,7 +135,7 @@ public:
 			// upload the data
 			gl.Current(Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "Normal");
+			VertexArrayAttrib attr(prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -148,7 +148,7 @@ public:
 			// upload the data
 			gl.Current(Buffer::Target::Array).Data(data);
 			// setup the vertex attribs array for the vertices
-			VertexAttribArray attr(prog, "TexCoord");
+			VertexArrayAttrib attr(prog, "TexCoord");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

@@ -82,7 +82,7 @@ void render_frame(void)
 		triangle_verts
 	);
 
-	VertexAttribArray vert_attr(prog, "Position");
+	VertexArrayAttrib vert_attr(prog, "Position");
 	vert_attr.Setup<Vec3f>();
 	vert_attr.Enable();
 
@@ -179,23 +179,31 @@ int main(int argc, char* argv[])
 	}
 	catch(oglplus::Error& oe)
 	{
-		std::cerr <<
-			"OGLplus error (in " << oe.GLSymbol() << ", " <<
-			oe.ClassName() << ": '" <<
-			oe.ObjectDescription() << "'): " <<
-			oe.what() <<
-			" [" << oe.File() << ":" << oe.Line() << "] ";
-		std::cerr << std::endl;
-		oe.Cleanup();
+		std::cerr
+			<< "OGLplus error (in "
+			<< oe.GLFuncName()
+			<< "'): "
+			<< oe.what()
+			<< " ["
+			<< oe.SourceFile()
+			<< ":"
+			<< oe.SourceLine()
+			<< "] "
+			<< std::endl;
 	}
 	catch(eglplus::Error& ee)
 	{
-		std::cerr <<
-			"EGLplus error (in " << ee.EGLSymbol() << ") " <<
-			ee.what() <<
-			" [" << ee.File() << ":" << ee.Line() << "] ";
-		std::cerr << std::endl;
-		ee.Cleanup();
+		std::cerr
+			<< "EGLplus error (in "
+			<< ee.EGLFuncName()
+			<< ") "
+			<< ee.what()
+			<< " ["
+			<< ee.SourceFile()
+			<< ":"
+			<< ee.SourceLine()
+			<< "] "
+			<< std::endl;
 	}
 	catch(std::exception& se)
 	{

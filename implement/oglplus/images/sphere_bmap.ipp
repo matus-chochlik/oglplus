@@ -10,7 +10,7 @@
  */
 
 #include <oglplus/lib/incl_begin.ipp>
-#include <oglplus/vector.hpp>
+#include <oglplus/math/vector.hpp>
 #include <oglplus/lib/incl_end.ipp>
 
 #include <cassert>

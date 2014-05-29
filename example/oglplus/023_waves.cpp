@@ -34,9 +34,9 @@ private:
 
 	Program prog;
 
-	LazyUniform<Mat4f> camera_matrix;
-	LazyUniform<Vec3f> camera_position;
-	LazyUniform<GLfloat> anim_time;
+	Lazy<Uniform<Mat4f>> camera_matrix;
+	Lazy<Uniform<Vec3f>> camera_position;
+	Lazy<Uniform<GLfloat>> anim_time;
 
 	VertexArray plane;
 
@@ -239,7 +239,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_plane.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}

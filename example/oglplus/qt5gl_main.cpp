@@ -10,10 +10,6 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
 
-#if OGLPLUS_LINK_LIBRARY
-# include <oglplus/lib.hpp>
-#endif
-
 #include "example.hpp"
 #include "example_main.hpp"
 

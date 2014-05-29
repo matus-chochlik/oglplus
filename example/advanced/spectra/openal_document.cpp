@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,7 +13,6 @@
 #include <oalplus/context.hpp>
 #include <oalplus/listener.hpp>
 #include <oalplus/source.hpp>
-#include <oalplus/optional.hpp>
 #include <oalplus/alut.hpp>
 
 #include <oalplus/all.hpp> //TODO

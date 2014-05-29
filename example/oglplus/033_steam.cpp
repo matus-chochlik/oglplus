@@ -17,12 +17,12 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 
-#include <oglplus/framebuffer_dsa.hpp>
-#include <oglplus/renderbuffer_dsa.hpp>
-#include <oglplus/buffer_dsa.hpp>
-#include <oglplus/texture_dsa.hpp>
-#include <oglplus/vertex_array_dsa.hpp>
-#include <oglplus/vertex_attrib_dsa.hpp>
+#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/renderbuffer.hpp>
+#include <oglplus/dsa/buffer.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/vertex_array.hpp>
+#include <oglplus/dsa/vertex_attrib.hpp>
 
 #include <oglplus/shapes/screen.hpp>
 #include <oglplus/shapes/obj_mesh.hpp>
@@ -50,9 +50,8 @@ public:
 	NoiseTexture(GLuint unit)
 	 : tex_unit(unit)
 	{
-		Texture::Active(tex_unit);
-
-		this->Bind(TextureTarget::_2D);
+		this->target = TextureTarget::_2D;
+		this->BindMulti(tex_unit);
 		this->Image2D(images::RandomRGBUByte(256, 256));
 		this->MinFilter(TextureMinFilter::Linear);
 		this->MagFilter(TextureMagFilter::Linear);
@@ -70,9 +69,8 @@ public:
 	CloudTexture(GLuint unit)
 	 : tex_unit(unit)
 	{
-		Texture::Active(tex_unit);
-
-		this->Bind(TextureTarget::_2D);
+		this->target = TextureTarget::_2D;
+		this->BindMulti(tex_unit);
 		this->Image2D(
 			images::Cloud2D(
 				images::Cloud(
@@ -521,9 +519,7 @@ public:
 	 , projection(CamMatrixf::Ortho(-7, +7, -7, +7, 5, 30))
 	 , camera(CamMatrixf::LookingAt(Vec3f( 0, 0,-7), Vec3f()))
 	{
-		Texture::Active(tex_unit);
-
-		tex	<< TextureTarget::_2D
+		tex	<< (tex_unit|TextureTarget::_2D)
 			<< TextureFilter::Nearest
 			<< TextureWrap::ClampToEdge
 			<< images::ImageSpec(
@@ -717,13 +713,11 @@ public:
 	 , width(400)
 	 , height(300)
 	{
-		Texture::Active(geom_tex_unit);
-		geom_tex<< TextureTarget::Rectangle
+		geom_tex<< (geom_tex_unit|TextureTarget::Rectangle)
 			<< TextureFilter::Nearest
 			<< TextureWrap::ClampToEdge;
 
-		Texture::Active(volm_tex_unit);
-		volm_tex<< TextureTarget::Rectangle
+		volm_tex<< (volm_tex_unit|TextureTarget::Rectangle)
 			<< TextureFilter::Nearest
 			<< TextureWrap::ClampToEdge;
 
@@ -815,7 +809,7 @@ public:
 
 		gl.Viewport(width, height);
 
-		geom_fbo.Bind();
+		geom_fbo.Bind(FramebufferTarget::Draw);
 
 		gl.DepthMask(true);
 		gl.Clear().ColorBuffer().DepthBuffer();
@@ -825,7 +819,7 @@ public:
 
 		steam.Update(time_diff, frame_no);
 
-		volm_fbo.Bind();
+		volm_fbo.Bind(FramebufferTarget::Draw);
 
 		gl.DepthMask(false);
 		gl.Clear().ColorBuffer();
@@ -840,7 +834,7 @@ public:
 			frame_no
 		);
 
-		DefaultFramebuffer::Bind(FramebufferTarget::Draw);
+		DefaultFramebuffer().Bind(FramebufferTarget::Draw);
 		gl.Disable(Capability::DepthTest);
 		gl.Disable(Capability::Blend);
 

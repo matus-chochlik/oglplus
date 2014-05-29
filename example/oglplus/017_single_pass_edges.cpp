@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{017_single_pass_edges}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -44,9 +44,9 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix, model_matrix;
-	LazyUniform<Vec2f> viewport_dimensions;
-	LazyUniform<GLfloat> edge_width;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix, model_matrix;
+	Lazy<Uniform<Vec2f>> viewport_dimensions;
+	Lazy<Uniform<GLfloat>> edge_width;
 
 	// A vertex array object for the rendered shape
 	VertexArray shape;
@@ -210,7 +210,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_shape.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 

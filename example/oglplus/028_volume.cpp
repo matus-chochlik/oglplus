@@ -244,10 +244,21 @@ public:
 };
 
 class VolumeProgram
- : public HardwiredProgram<VolumeVertShader, VolumeGeomShader, VolumeFragShader>
+ : public Program
 {
 private:
-	const Program& prog(void) const { return *this; }
+	static Program make(void)
+	{
+		Program prog;
+		prog.AttachShader(VolumeVertShader());
+		prog.AttachShader(VolumeGeomShader());
+		prog.AttachShader(VolumeFragShader());
+		prog.Link();
+		prog.Use();
+		return prog;
+	}
+
+	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<GLfloat> threshold, grid_step;
 	ProgramUniform<Mat4f> transform_matrix;
@@ -255,13 +266,13 @@ public:
 	ProgramUniformSampler volume_tex;
 
 	VolumeProgram(void)
-	 : HardwiredProgram<VolumeVertShader, VolumeGeomShader, VolumeFragShader>()
-	 , threshold(prog(), "Threshold")
-	 , grid_step(prog(), "GridStep")
-	 , transform_matrix(prog(), "TransformMatrix")
-	 , camera_position(prog(), "CameraPosition")
-	 , light_position(prog(), "LightPosition")
-	 , volume_tex(prog(), "VolumeTex")
+	 : Program(make())
+	 , threshold(self(), "Threshold")
+	 , grid_step(self(), "GridStep")
+	 , transform_matrix(self(), "TransformMatrix")
+	 , camera_position(self(), "CameraPosition")
+	 , light_position(self(), "LightPosition")
+	 , volume_tex(self(), "VolumeTex")
 	{ }
 };
 
@@ -298,7 +309,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, data);
 		// setup the vertex attribs array
-		VertexAttribArray attr(prog, "Position");
+		VertexArrayAttrib attr(prog, "Position");
 		attr.Setup<GLfloat>(n_per_vertex);
 		attr.Enable();
 

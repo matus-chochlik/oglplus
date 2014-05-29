@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,6 +13,7 @@
 #include <oglplus/gl.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/context.hpp>
+#include <oglplus/prog_var/optional.hpp>
 
 #include "xsection_renderer.hpp"
 
@@ -26,14 +27,14 @@ private:
 	GLfloat color_r, color_g, color_b;
 
 	oglplus::Program xsection_prog;
-	oglplus::OptionalUniform<oglplus::Mat4f> xsection_projection_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> xsection_camera_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> xsection_stretch_matrix;
-	oglplus::OptionalUniform<oglplus::Mat4f> xsection_transf_matrix;
-	oglplus::OptionalUniform<GLint> xsection_spectrum_tex;
-	oglplus::OptionalUniform<GLint> xsection_spectrum_size;
-	oglplus::OptionalUniform<GLint> xsection_samples_per_unit;
-	oglplus::OptionalUniform<GLfloat> xsection_selected_time;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> xsection_projection_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> xsection_camera_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> xsection_stretch_matrix;
+	oglplus::Optional<oglplus::Uniform<oglplus::Mat4f>> xsection_transf_matrix;
+	oglplus::Optional<oglplus::Uniform<GLint>> xsection_spectrum_tex;
+	oglplus::Optional<oglplus::Uniform<GLint>> xsection_spectrum_size;
+	oglplus::Optional<oglplus::Uniform<GLint>> xsection_samples_per_unit;
+	oglplus::Optional<oglplus::Uniform<GLfloat>> xsection_selected_time;
 
 	const oglplus::shapes::ShapeWrapper& spectrum_plane_wrap;
 	oglplus::VertexArray spectrum_plane_vao;

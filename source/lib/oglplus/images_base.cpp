@@ -10,6 +10,14 @@
  */
 
 #include "prologue.ipp"
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/pixel_data.hpp>
+
+#include "implement.ipp"
+
 #include <oglplus/images/image.hpp>
 #include <oglplus/images/brushed_metal.hpp>
 #include <oglplus/images/checker.hpp>

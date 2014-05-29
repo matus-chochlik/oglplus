@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,246 +13,95 @@
 #ifndef OGLPLUS_UNIFORM_SUBROUTINE_1107121519_HPP
 #define OGLPLUS_UNIFORM_SUBROUTINE_1107121519_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/friend_of.hpp>
-#include <oglplus/shader.hpp>
-#include <oglplus/program.hpp>
-#include <oglplus/string.hpp>
-#include <oglplus/auxiliary/uniform_init.hpp>
+#include <oglplus/string/ref.hpp>
+#include <oglplus/error/object.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/prog_var/location.hpp>
+#include <oglplus/prog_var/set_ops.hpp>
+#include <oglplus/prog_var/wrapper.hpp>
+#include <oglplus/shader_type.hpp>
 
 #include <cassert>
 
 namespace oglplus {
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
-class UniformSubroutines;
 
-namespace aux {
-
-class SubroutineUniformInitOps
+template <>
+class ProgVarLocOps<tag::Subroutine>
 {
 private:
 	ShaderType _stage;
+	static const char* MsgGettingInactive(void);
 protected:
-	typedef ShaderType ParamType;
-
-	SubroutineUniformInitOps(ShaderType stage)
+	static const char* MsgUsingInactive(void);
+	ProgVarLocOps(ShaderType stage)
 	 : _stage(stage)
 	{ }
-
-	GLint _do_init_location(GLuint program, const GLchar* identifier) const
-	{
-		GLint result = OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
-			program,
-			GLenum(_stage),
-			identifier
-		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetSubroutineUniformLocation));
-		return result;
-	}
-
-	void _handle_error(
-		GLuint program,
-		const GLchar* identifier,
-		GLint location
-	) const;
-
-	GLint _init_location(GLuint program, const GLchar* identifier) const
-	{
-		GLint location = _do_init_location(program, identifier);
-		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
-		{
-			_handle_error(program, identifier, location);
-		}
-		return location;
-	}
 public:
-	/// Returns this subroutine uniform's program stage
-	ShaderType Stage(void) const
-	{
-		return _stage;
-	}
-};
-
-typedef EagerUniformInitTpl<SubroutineUniformInitOps>
-	EagerSubroutineUniformInit;
-
-typedef LazyUniformInitTpl<SubroutineUniformInitOps, NoUniformTypecheck>
-	LazySubroutineUniformInit;
-
-
-} //namespace aux
-
-/// Template for SubroutineUniform and LazySubroutineUniform
-/** @note Do not use directly, use SubroutineUniform or
- *  LazySubroutineUniform instead.
- *
- *  @ingroup shader_variables
- *
- *  @glvoereq{4,0,ARB,shader_subroutine}
- */
-template <class Initializer>
-class SubroutineUniformTpl
- : public Initializer
-{
-private:
-	friend class UniformSubroutines;
-public:
-	template <typename String_>
-	SubroutineUniformTpl(
-		const Program& program,
-		const ShaderType stage,
-		String_&& identifier
-	): Initializer(
-		program,
-		stage,
-		std::forward<String_>(identifier),
-		NoTypecheck()
+	/// Finds the subroutine location, throws on failure if active_only
+	/** Finds the location / index of the subroutine specified
+	 *  by @p identifier in the @p stage of a @p program. If active_only
+	 *  is true then throws if no such subroutine exists or if it is
+	 *  not active.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetSubroutineIndex}
+	 */
+	static GLint GetLocation(
+		ProgramName program,
+		ShaderType stage,
+		StrCRef identifier,
+		bool active_only
 	)
-	{ }
-
-	/// Tests if this SubroutineUniform is active and can be used
-	/**
-	 *  For SubroutineUniform this function always
-	 *  returns true as it cannot be in uninitialized state.
-	 *  For LazySubroutineUniform this function
-	 *  returns true if the uniform is active and can be referenced
-	 *  and used for subsequent operations.
-	 *  If this function returns false then trying to use the
-	 *  uniform throws an exception.
-	 */
-	bool IsActive(void)
-	{
-		return this->_try_init_location();
-	}
-
-	/// Equivalent to IsActive()
-	/**
-	 *  @see IsActive
-	 */
-	operator bool (void)
-	{
-		return IsActive();
-	}
-
-	/// Equivalent to !IsActive()
-	/**
-	 *  @see IsActive
-	 */
-	bool operator ! (void)
-	{
-		return !IsActive();
-	}
-};
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Subroutine uniform variable
-/**
- *  The difference between SubroutineUniform and LazySubroutineUniform is,
- *  that SubroutineUniform tries to get the location of the GLSL
- *  subroutine uniform variable in a Program during construction
- *  and LazySubroutineUniform postpones this initialization until
- *  the value is actually needed at the cost of having to internally
- *  store the identifer in a String.
- *
- *  @see LazySubroutineUniform
- *  @see Subroutine
- *  @see LazySubroutine
- *
- *  @ingroup shader_variables
- *
- *  @glvoereq{4,0,ARB,shader_subroutine}
- */
-struct SubroutineUniform
- : public SubroutineUniformTpl<Unspecified>
-{
-	/// Constructionf from a program, stage and identifier
-	SubroutineUniform(
-		const Program& program,
-		const ShaderType stage,
-		String identifier
-	);
-};
-#else
-typedef SubroutineUniformTpl<aux::EagerSubroutineUniformInit>
-	SubroutineUniform;
-#endif
-
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Lazy subroutine uniform variable
-/**
- *  The difference between SubroutineUniform and LazySubroutineUniform is,
- *  that SubroutineUniform tries to get the location of the GLSL
- *  subroutine uniform variable in a Program during construction
- *  and LazySubroutineUniform postpones this initialization until
- *  the value is actually needed at the cost of having to internally
- *  store the identifer in a String.
- *
- *  @see SubroutineUniform
- *  @see Subroutine
- *  @see LazySubroutine
- *
- *  @ingroup shader_variables
- *
- *  @glvoereq{4,0,ARB,shader_subroutine}
- */
-struct LazySubroutineUniform
- : public SubroutineUniformTpl<Unspecified>
-{
-	/// Constructionf from a program, stage and identifier
-	LazySubroutineUniform(
-		const Program& program,
-		const ShaderType stage,
-		String identifier
-	);
-};
-#else
-typedef SubroutineUniformTpl<aux::LazySubroutineUniformInit>
-	LazySubroutineUniform;
-#endif
-
-namespace aux {
-
-class SubroutineInitOps
-{
-private:
-	ShaderType _stage;
-protected:
-	typedef ShaderType ParamType;
-
-	SubroutineInitOps(ShaderType stage)
-	 : _stage(stage)
-	{ }
-
-	GLint _do_init_location(GLuint program, const GLchar* identifier) const
 	{
 		GLint result = OGLPLUS_GLFUNC(GetSubroutineIndex)(
-			program,
-			GLenum(_stage),
-			identifier
+			GetGLName(program),
+			GLenum(stage),
+			identifier.c_str()
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetSubroutineIndex));
+		OGLPLUS_CHECK(
+			GetSubroutineIndex,
+			ProgVarError,
+			Program(program).
+			Identifier(identifier).
+			EnumParam(stage)
+		);
+		OGLPLUS_HANDLE_ERROR_IF(
+			active_only && (result < 0),
+			GL_INVALID_OPERATION,
+			MsgGettingInactive(),
+			ProgVarError,
+			Program(program).
+			Identifier(identifier).
+			EnumParam(stage)
+		);
 		return result;
 	}
 
-	void _handle_error(
-		GLuint program,
-		const GLchar* identifier,
-		GLint location
-	) const;
-
-	GLint _init_location(GLuint program, const GLchar* identifier) const
+	/// Finds the subroutine location, throws on failure if active_only
+	/** Finds the location / index of the subroutine specified
+	 *  by @p identifier in a @p program. If active_only is true then
+	 *  throws if no such subroutine exists or if it is not active.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetSubroutineIndex}
+	 */
+	GLint GetLocation(
+		ProgramName program,
+		StrCRef identifier,
+		bool active_only
+	)
 	{
-		GLint location = _do_init_location(program, identifier);
-		if(OGLPLUS_IS_ERROR(location == GLint(-1)))
-		{
-			_handle_error(program, identifier, location);
-		}
-		return location;
+		return GetLocation(
+			program,
+			this->_stage,
+			identifier,
+			active_only
+		);
 	}
-public:
+
 	/// Returns this subroutine's program stage
 	ShaderType Stage(void) const
 	{
@@ -260,138 +109,149 @@ public:
 	}
 };
 
-typedef EagerUniformInitTpl<SubroutineInitOps>
-	EagerSubroutineInit;
-
-typedef LazyUniformInitTpl<SubroutineInitOps, NoUniformTypecheck>
-	LazySubroutineInit;
-
-} // namespace aux
-
-/// Template for Subroutine and LazySubroutine
-/** @note Do not use directly, use Subroutine or LazySubroutine instead.
- *
- *  @ingroup shader_variables
- */
-template <class Initializer>
-class SubroutineTpl
- : public Initializer
+/// Specialization of ProgVar for subroutines
+template <>
+class ProgVar<tag::ImplicitSel, tag::Subroutine, tag::NoTypecheck, void>
+ : public ProgVarLoc<tag::Subroutine>
 {
-private:
-	friend class UniformSubroutines;
 public:
-	template <class String>
-	SubroutineTpl(
-		const Program& program,
-		const ShaderType stage,
-		String&& identifier
-	): Initializer(
-		program,
-		stage,
-		std::forward<String>(identifier),
-		NoTypecheck()
-	)
+	/// Subroutine with the specified location
+	ProgVar(SubroutineLoc pvloc)
+	 : ProgVarLoc<tag::Subroutine>(pvloc)
 	{ }
 
-	/// Tests if this Subroutine is active and can be used
-	/**
-	 *  For Subroutine this function always
-	 *  returns true as it cannot be in uninitialized state.
-	 *  For LazySubroutine this function
-	 *  returns true if the subroutine is active and can be referenced
-	 *  and used for subsequent assignment operations.
-	 *  If this function returns false then trying to use the
-	 *  subroutine throws an exception.
-	 */
-	bool IsActive(void)
-	{
-		return this->_try_init_location();
-	}
+	/// Subroutine with the specified @p identifier in @p stage of @p program
+	ProgVar(ProgramName program, ShaderType stage, StrCRef identifier)
+	 : ProgVarLoc<tag::Subroutine>(stage, program, identifier)
+	{ }
 
-	/// Equivalent to IsActive()
-	/**
-	 *  @see IsActive
-	 */
-	operator bool (void)
-	{
-		return IsActive();
-	}
-
-	/// Equivalent to !IsActive()
-	/**
-	 *  @see IsActive
-	 */
-	bool operator ! (void)
-	{
-		return !IsActive();
-	}
+	/// Subroutine with the specified @p identifier in @p stage of @p program
+	ProgVar(
+		ProgramName program,
+		ShaderType stage,
+		StrCRef identifier,
+		bool active_only
+	): ProgVarLoc<tag::Subroutine>(stage, program, identifier, active_only)
+	{ }
 };
 
+/// Subroutine
+typedef ProgVar<tag::ImplicitSel, tag::Subroutine, tag::NoTypecheck, void>
+	Subroutine;
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Subroutine variable
-/**
- *  The difference between Subroutine and LazySubroutine is,
- *  that Subroutine tries to get the location of the GLSL
- *  function declared as subroutine in a Program during construction
- *  and LazySubroutine postpones this initialization until
- *  the value is actually needed at the cost of having to internally
- *  store the identifer in a String.
- *
- *  @see SubroutineUniform
- *  @see LazySubroutineUniform
- *  @see LazySubroutine
- *
- *  @ingroup shader_variables
- *
- *  @glvoereq{4,0,ARB,shader_subroutine}
- */
-struct Subroutine
- : public SubroutineTpl<Unspecified>
+template <>
+class ProgVarLocOps<tag::SubroutineUniform>
 {
-	/// Constructionf from a program, stage and identifier
-	Subroutine(
-		const Program& program,
-		const ShaderType stage,
-		String identifier
-	);
-};
-#else
-typedef SubroutineTpl<aux::EagerSubroutineInit> Subroutine;
-#endif
+private:
+	ShaderType _stage;
+	static const char* MsgGettingInactive(void);
+protected:
+	static const char* MsgUsingInactive(void);
+	ProgVarLocOps(ShaderType stage)
+	 : _stage(stage)
+	{ }
+public:
+	/// Finds the subroutine uniform location, throws on failure if active_only
+	/** Finds the location of the subroutine uniform specified
+	 *  by @p identifier in a @p program. If active_only is true then
+	 *  throws if no such subroutine exists or if it is not active.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetSubroutineUniformLocation}
+	 */
+	static GLint GetLocation(
+		ProgramName program,
+		ShaderType stage,
+		StrCRef identifier,
+		bool active_only
+	)
+	{
+		GLint result = OGLPLUS_GLFUNC(GetSubroutineUniformLocation)(
+			GetGLName(program),
+			GLenum(stage),
+			identifier.c_str()
+		);
+		OGLPLUS_CHECK(
+			GetSubroutineUniformLocation,
+			ProgVarError,
+			Program(program).
+			Identifier(identifier).
+			EnumParam(stage)
+		);
+		OGLPLUS_HANDLE_ERROR_IF(
+			active_only && (result < 0),
+			GL_INVALID_OPERATION,
+			MsgGettingInactive(),
+			ProgVarError,
+			Program(program).
+			Identifier(identifier).
+			EnumParam(stage)
+		);
+		return result;
+	}
 
-#if OGLPLUS_DOCUMENTATION_ONLY
-/// Lazy subroutine variable
-/**
- *  The difference between Subroutine and LazySubroutine is,
- *  that Subroutine tries to get the location of the GLSL
- *  function declared as subroutine in a Program during construction
- *  and LazySubroutine postpones this initialization until
- *  the value is actually needed at the cost of having to internally
- *  store the identifer in a String.
- *
- *  @see SubroutineUniform
- *  @see LazySubroutineUniform
- *  @see Subroutine
- *
- *  @ingroup shader_variables
- *
- *  @glvoereq{4,0,ARB,shader_subroutine}
- */
-struct LazySubroutine
- : public SubroutineTpl<Unspecified>
+	/// Finds the subroutine uniform location, throws on failure if active_only
+	/** Finds the location of the subroutine uniform specified
+	 *  by @p identifier in a @p program. If active_only is true then throws
+	 *  if no such uniform exists or if it is not active.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{GetSubroutineUniformLocation}
+	 */
+	GLint GetLocation(
+		ProgramName program,
+		StrCRef identifier,
+		bool active_only
+	)
+	{
+		return GetLocation(
+			program,
+			this->_stage,
+			identifier,
+			active_only
+		);
+	}
+
+	/// Returns this subroutine uniform's program stage
+	ShaderType Stage(void) const
+	{
+		return _stage;
+	}
+};
+
+/// Specialization of ProgVar for subroutine uniformss
+template <>
+class ProgVar<tag::ImplicitSel, tag::SubroutineUniform, tag::NoTypecheck, void>
+ : public ProgVarLoc<tag::SubroutineUniform>
 {
-	/// Constructionf from a program, stage and identifier
-	LazySubroutine(
-		const Program& program,
-		const ShaderType stage,
-		String identifier
-	);
-};
-#else
-typedef SubroutineTpl<aux::LazySubroutineInit> LazySubroutine;
-#endif
+public:
+	/// Subroutine uniform with the specified location
+	ProgVar(SubroutineUniformLoc pvloc)
+	 : ProgVarLoc<tag::SubroutineUniform>(pvloc)
+	{ }
 
+	/// Sub.uniform with the specified @p identifier in @p stage of @p program
+	ProgVar(ProgramName program, ShaderType stage, StrCRef identifier)
+	 : ProgVarLoc<tag::SubroutineUniform>(stage, program, identifier)
+	{ }
+
+	/// Sub.uniform with the specified @p identifier in @p stage of @p program
+	ProgVar(
+		ProgramName program,
+		ShaderType stage,
+		StrCRef identifier,
+		bool active_only
+	): ProgVarLoc<tag::SubroutineUniform>(
+		stage,
+		program,
+		identifier,
+		active_only
+	){ }
+};
+
+/// SubroutineUniform
+typedef ProgVar<tag::ImplicitSel, tag::SubroutineUniform, tag::NoTypecheck, void>
+	SubroutineUniform;
 
 /// Encapsulates the uniform subroutine setting operations
 /**
@@ -400,50 +260,55 @@ typedef SubroutineTpl<aux::LazySubroutineInit> LazySubroutine;
  *  @glvoereq{4,0,ARB,shader_subroutine}
  */
 class UniformSubroutines
- : public FriendOf<Program>
 {
 private:
-	GLuint _program;
-	GLenum _stage;
+	ProgramName _program;
+	ShaderType _stage;
 	std::vector<GLuint> _indices;
 
 	static GLsizei _get_location_count(
-		GLuint program,
-		GLenum stage
+		ProgramName program,
+		ShaderType stage
 	)
 	{
 		GLint result;
 		OGLPLUS_GLFUNC(GetProgramStageiv)(
-			program,
-			stage,
+			GetGLName(program),
+			GLenum(stage),
 			GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS,
 			&result
 		);
-		OGLPLUS_VERIFY(OGLPLUS_OBJECT_ERROR_INFO(
+		OGLPLUS_VERIFY(
 			GetProgramStageiv,
-			Program,
-			nullptr,
-			program
-		));
+			ObjectError,
+			Object(program).
+			EnumParam(stage)
+		);
 		return result;
 	}
 
 	std::vector<GLuint>& _get_indices(void)
 	{
 		if(_indices.empty())
-			_indices.resize(_get_location_count(_program, _stage), 0);
+		{
+			_indices.resize(
+				_get_location_count(
+					_program,
+					_stage
+				), 0
+			);
+		}
 		return _indices;
 	}
 public:
 	/// Constructs a uniform subroutine setter for a @p stage of a @p program
 	UniformSubroutines(
-		const Program& program,
-		const ShaderType stage
-	): _program(FriendOf<Program>::GetName(program))
-	 , _stage(GLenum(stage))
+		ProgramName program,
+		ShaderType stage
+	): _program(program)
+	 , _stage(stage)
 	{ }
 
-#if OGLPLUS_DOCUMENTATION_ONLY
 	/// Assigns the @p subroutine to the subroutine @p uniform
 	/**
 	 *  @note This function does not apply the changes to the actual
@@ -453,23 +318,18 @@ public:
 	 *  @see Apply
 	 */
 	UniformSubroutines& Assign(
-		SubroutineUniform& uniform,
-		Subroutine& subroutine
-	);
-#endif
-	template <typename SUInit, typename SInit>
-	UniformSubroutines& Assign(
-		SubroutineUniformTpl<SUInit>& uniform,
-		SubroutineTpl<SInit>& subroutine
+		const SubroutineUniform& uniform,
+		const Subroutine& subroutine
 	)
 	{
-		assert(uniform._get_program() == _program);
-		assert(subroutine._get_program() == _program);
+		assert(uniform.Program() == _program);
+		assert(subroutine.Program() == _program);
 		assert(uniform.Stage() == ShaderType(_stage));
 		assert(subroutine.Stage() == ShaderType(_stage));
-		assert(uniform._get_location() <= GLint(_get_indices().size()));
+		assert(uniform.IsActive());
+		assert(uniform.Location() <= GLint(_get_indices().size()));
 
-		_get_indices()[uniform._get_location()] = subroutine._get_location();
+		_get_indices()[uniform.Location()] = subroutine.Location();
 		return *this;
 	}
 
@@ -491,14 +351,14 @@ public:
 
 		const std::vector<GLuint> _indices;
 #ifndef NDEBUG
-		GLuint _program;
-		GLenum _stage;
+		ProgramName _program;
+		ShaderType _stage;
 #endif
 
 		Preset(
 #ifndef NDEBUG
-			GLuint program,
-			GLenum stage,
+			ProgramName program,
+			ShaderType stage,
 #endif
 			const std::vector<GLuint>& indices
 		): _indices(indices)
@@ -565,11 +425,15 @@ public:
 		assert(_get_indices().size() == preset._indices.size());
 
 		OGLPLUS_GLFUNC(UniformSubroutinesuiv)(
-			_stage,
+			GLenum(_stage),
 			GLsizei(preset._indices.size()),
 			preset._indices.data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UniformSubroutinesuiv));
+		OGLPLUS_CHECK(
+			UniformSubroutinesuiv,
+			Error,
+			EnumParam(_stage)
+		);
 	}
 
 	/// Applies all changes made by Assign
@@ -579,14 +443,19 @@ public:
 	void Apply(void)
 	{
 		OGLPLUS_GLFUNC(UniformSubroutinesuiv)(
-			_stage,
+			GLenum(_stage),
 			GLsizei(_get_indices().size()),
 			_get_indices().data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(UniformSubroutinesuiv));
+		OGLPLUS_CHECK(
+			UniformSubroutinesuiv,
+			Error,
+			EnumParam(_stage)
+		);
 	}
 };
-#endif
+
+#endif // GL_ARB_shader_subroutine
 
 } // namespace oglplus
 

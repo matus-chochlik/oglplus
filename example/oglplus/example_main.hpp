@@ -2,14 +2,16 @@
  *  @file oglplus/example_main.hpp
  *  @brief Implements common code shared by examples
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-#ifndef __OGLPLUS_EXAMPLE_EXAMPLE_MAIN_1119071146_HPP__
-#define __OGLPLUS_EXAMPLE_EXAMPLE_MAIN_1119071146_HPP__
+#ifndef OGLPLUS_EXAMPLE_EXAMPLE_MAIN_1119071146_HPP
+#define OGLPLUS_EXAMPLE_EXAMPLE_MAIN_1119071146_HPP
 
-#include <oglplus/compile_error.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/program.hpp>
+#include <oglplus/error/limit.hpp>
 #include <oglplus/opt/application.hpp>
 
 #include <oglplus/os/semaphore.hpp>
@@ -17,7 +19,7 @@
 #include <stdexcept>
 #include <system_error>
 #include <iostream>
-#include <cstring>
+#include <iomanip>
 
 namespace oglplus {
 
@@ -26,7 +28,10 @@ inline void example_print_std_error_common(
 	std::ostream& errstr
 )
 {
-	errstr << " '" << error.what() << "'" << std::endl;
+	errstr	<< "Message: '"
+		<< error.what()
+		<< "'"
+		<< std::endl;
 }
 
 inline void example_print_error_common(
@@ -34,44 +39,164 @@ inline void example_print_error_common(
 	std::ostream& errstr
 )
 {
+	if(error.SourceFile())
+	{
+		errstr	<< "Source file: '"
+			<< error.SourceFile()
+			<< "'"
+			<< std::endl;
+	}
+
+	if(error.SourceLine())
+	{
+		errstr	<< "Source line: "
+			<< error.SourceLine()
+			<< std::endl;
+	}
+
+	if(error.SourceFunc())
+	{
+		errstr	<< "Source function: '"
+			<< error.SourceFunc()
+			<< "'"
+			<< std::endl;
+	}
 	example_print_std_error_common(error, errstr);
-	errstr << "in '" << error.GLSymbol() << "'" << std::endl;
-	errstr << "at [";
-	errstr << error.File() << ":" << error.Line();
-	errstr << "]" << std::endl;
+	if(error.GLFuncName())
+	{
+		errstr	<< "GL function: '"
+			<< error.GLFuncName()
+			<< "'"
+			<< std::endl;
+	}
 
-	bool nl = false;
-	if(std::strlen(error.ClassName()))
-	{
-		errstr << error.ClassName();
-		nl |= true;
-	}
-	if(!error.ObjectDescription().empty())
-	{
-		if(nl) errstr << " ";
-		errstr << "'" << error.ObjectDescription() << "'";
-		nl |= true;
-	}
-	if(std::strlen(error.BindTarget()))
-	{
-		if(!nl) errstr << "Object";
-		errstr << " bound to '" << error.BindTarget() << "'";
-		nl |= true;
-	}
-	if(nl) errstr << std::endl;
 
-	auto i = error.Properties().begin(), e = error.Properties().end();
-	if(i != e)
+	if(error.EnumParam() || error.EnumParamName())
 	{
-		errstr << "Properties: " << std::endl;
-		while(i != e)
+		errstr	<< "GL constant: ";
+		if(error.EnumParamName())
 		{
-			errstr << "<" << i->first << "='" << i->second << "'>";
-			++i;
-			if(i != e) errstr << ", ";
-			else errstr << ".";
+			errstr	<< "'"
+				<< error.EnumParamName()
+				<< "'";
 		}
-		errstr << std::endl;
+		else
+		{
+			errstr	<< "(0x"
+				<< std::hex
+				<< error.EnumParam()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if(error.BindTarget() || error.TargetName())
+	{
+		errstr	<< "Binding point: ";
+		if(error.TargetName())
+		{
+			errstr	<< "'"
+				<< error.TargetName()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "(0x"
+				<< std::hex
+				<< error.BindTarget()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if(error.ObjectTypeName() || error.ObjectType())
+	{
+		errstr	<< "Object type: ";
+		if(error.ObjectTypeName())
+		{
+			errstr	<< "'"
+				<< error.ObjectTypeName()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "(0x"
+				<< std::hex
+				<< error.ObjectType()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if((!error.ObjectDesc().empty()) || (error.ObjectName() >= 0))
+	{
+		errstr	<< "Object: ";
+		if(!error.ObjectDesc().empty())
+		{
+			errstr	<< "'"
+				<< error.ObjectDesc()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "("
+				<< error.ObjectName()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if(error.SubjectTypeName() || error.SubjectType())
+	{
+		errstr	<< "Subject type: ";
+		if(error.SubjectTypeName())
+		{
+			errstr	<< "'"
+				<< error.SubjectTypeName()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "(0x"
+				<< std::hex
+				<< error.SubjectType()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if((!error.SubjectDesc().empty()) || (error.SubjectName() >= 0))
+	{
+		errstr	<< "Subject: ";
+		if(!error.SubjectDesc().empty())
+		{
+			errstr	<< "'"
+				<< error.SubjectDesc()
+				<< "'";
+		}
+		else
+		{
+			errstr	<< "("
+				<< error.SubjectName()
+				<< ")";
+		}
+		errstr	<< std::endl;
+	}
+
+	if(error.Index() >= 0)
+	{
+		errstr	<< "Index: ("
+			<< error.Index()
+			<< ")"
+			<< std::endl;
+	}
+
+	if(!error.Log().empty())
+	{
+		errstr	<< "Log:"
+			<< std::endl
+			<< error.Log()
+			<< std::endl;
 	}
 }
 
@@ -82,50 +207,47 @@ inline int example_guarded_exec(Func func, std::ostream& errstr)
 	{
 		return func();
 	}
-	catch(ShaderVariableError& sve)
+	catch(ProgVarError& pve)
 	{
-		errstr << "Shader variable error";
-		example_print_error_common(sve, errstr);
-		sve.Cleanup();
+		errstr << "Program variable error" << std::endl;
+		example_print_error_common(pve, errstr);
 	}
 	catch(ProgramBuildError& pbe)
 	{
-		errstr << "Program build error";
+		errstr << "Program build error" << std::endl;
 		example_print_error_common(pbe, errstr);
-		errstr << "Build log:" << std::endl;
-		errstr << pbe.Log() << std::endl;
-		pbe.Cleanup();
 	}
 	catch(LimitError& le)
 	{
-		errstr << "Limit error";
+		errstr << "Limit error" << std::endl;
 		example_print_error_common(le, errstr);
-		errstr << "Value " << le.Value() << " exceeds limit ";
-		errstr << le.Limit() << std::endl;
-		le.Cleanup();
+	}
+	catch(ObjectError& oe)
+	{
+		errstr << "Object error" << std::endl;
+		example_print_error_common(oe, errstr);
 	}
 	catch(Error& err)
 	{
-		errstr << "GL error";
+		errstr << "GL error" << std::endl;
 		example_print_error_common(err, errstr);
-		err.Cleanup();
 	}
 	catch(std::system_error& sye)
 	{
-		errstr << "System error";
+		errstr << "System error" << std::endl;
 		example_print_std_error_common(sye, errstr);
 		errstr << "Error code: " << sye.code() << std::endl;
 		errstr << std::endl;
 	}
 	catch(std::runtime_error& rte)
 	{
-		errstr << "Runtime error";
+		errstr << "Runtime error" << std::endl;
 		example_print_std_error_common(rte, errstr);
 		errstr << std::endl;
 	}
 	catch(std::exception& se)
 	{
-		errstr << "Error";
+		errstr << "Error" << std::endl;
 		example_print_std_error_common(se, errstr);
 		errstr << std::endl;
 	}

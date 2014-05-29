@@ -39,8 +39,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "016_noise_torus", "016_nois
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "017_phong_torus", "017_phong_torus\017_phong_torus.vcxproj", "{193B5F86-0365-4CDA-AD9A-C774D8766009}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "018_newton_landscape", "018_newton_landscape\018_newton_landscape.vcxproj", "{343BAF5B-9A53-4926-92C6-83AA36AA7ABB}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "018_particle_system", "018_particle_system\018_particle_system.vcxproj", "{C28D4304-42BE-4B18-816C-993B4FCC7B4B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "019_gs_tessell", "019_gs_tessell\019_gs_tessell.vcxproj", "{870C93A9-84BB-44FE-A71B-3E471FA47156}"
@@ -49,8 +47,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_cube_mapping", "020_cub
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_golf_ball", "020_golf_ball\020_golf_ball.vcxproj", "{CA90EFD9-FA22-49C3-8043-B79D0A589ECF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_checkered_objects", "020_checkered_objects\020_checkered_objects.vcxproj", "{F1985750-4F67-4172-B793-24DE75E88E6A}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_shaded_objects", "020_shaded_objects\020_shaded_objects.vcxproj", "{5A8AE275-8F48-4E65-87D0-8233935D8DAA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "021_morphing", "021_morphing\021_morphing.vcxproj", "{B7E006E3-5EE4-4924-8505-FF77960924F9}"
@@ -58,8 +54,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "022_parallax_map", "022_parallax_map\022_parallax_map.vcxproj", "{B325BEAA-97E9-40AC-AFC0-3CD604779BE8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "022_xyz_planes", "022_xyz_planes\022_xyz_planes.vcxproj", "{864E7ACE-711B-4296-B084-4A1C8D97C9F6}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "023_lattice_torus", "023_lattice_torus\023_lattice_torus.vcxproj", "{9CFD4326-E591-487A-8266-4AF44B3ECCBC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "023_reflected_cube", "023_reflected_cube\023_reflected_cube.vcxproj", "{7C1BAC5A-40F2-4C8A-BAB9-2E7CD8D95569}"
 EndProject

@@ -158,9 +158,6 @@ void SpectraDocumentFrame::OnResize(wxSizeEvent& event)
 		Update();
 		event.Skip();
 	}
-	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
-	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
-	catch(oglplus::LimitError& le) { parent_app.HandleError(le, this); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
 	catch(const std::exception& se) { parent_app.HandleError(se, this); }
 }
@@ -178,9 +175,6 @@ void SpectraDocumentFrame::OnSysColorChange(wxSysColourChangedEvent& event)
 		Update();
 		event.Skip();
 	}
-	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
-	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
-	catch(oglplus::LimitError& le) { parent_app.HandleError(le, this); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
 	catch(const std::exception& se) { parent_app.HandleError(se, this); }
 }
@@ -192,9 +186,6 @@ void SpectraDocumentFrame::DoPlay(wxCommandEvent&)
 		assert(document_vis);
 		document_vis->Play();
 	}
-	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
-	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
-	catch(oglplus::LimitError& le) { parent_app.HandleError(le, this); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
 	catch(const std::exception& se) { parent_app.HandleError(se, this); }
 }
@@ -300,9 +291,6 @@ void SpectraDocumentFrame::OnMouseMotionEvent(wxMouseEvent& event)
 		Update();
 		old_mouse_position = event.GetPosition();
 	}
-	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
-	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
-	catch(oglplus::LimitError& le) { parent_app.HandleError(le, this); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
 	catch(const std::exception& se) { parent_app.HandleError(se, this); }
 }
@@ -324,9 +312,6 @@ void SpectraDocumentFrame::OnMouseWheelEvent(wxMouseEvent& event)
 		event.Skip();
 		Update();
 	}
-	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe, this); }
-	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe, this); }
-	catch(oglplus::LimitError& le) { parent_app.HandleError(le, this); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err, this); }
 	catch(const std::exception& se) { parent_app.HandleError(se, this); }
 }
@@ -351,10 +336,6 @@ void SpectraDocumentFrame::OnIdle(wxIdleEvent&)
 		}
 		return;
 	}
-	catch(oglplus::MissingFunction& mfe) { parent_app.HandleError(mfe); }
-	catch(oglplus::ProgramBuildError& pbe) { parent_app.HandleError(pbe); }
-	catch(oglplus::LimitError& le) { parent_app.HandleError(le); }
-	catch(oglplus::OutOfMemory& oom) { parent_app.HandleError(oom); }
 	catch(oglplus::Error& err) { parent_app.HandleError(err); }
 	catch(const std::exception& se) { parent_app.HandleError(se); }
 

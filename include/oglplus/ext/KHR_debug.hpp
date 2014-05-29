@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -15,9 +15,12 @@
 
 #include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
-#include <oglplus/string.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/ref.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/enumerations.hpp>
+#include <oglplus/ext/KHR_debug/severity.hpp>
+#include <oglplus/ext/KHR_debug/source.hpp>
+#include <oglplus/ext/KHR_debug/type.hpp>
 
 #include <cassert>
 #include <cstddef>
@@ -29,67 +32,7 @@
 
 namespace oglplus {
 
-/// Debug output severity enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{KHR,debug}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugSeverity, GLenum)
-#include <oglplus/enums/ext/debug_severity.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugSeverity)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_severity_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_severity_range.ipp>
-#endif
-
-
-/// Debug output source enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{KHR,debug}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugSource, GLenum)
-#include <oglplus/enums/ext/debug_source.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugSource)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_source_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_source_range.ipp>
-#endif
-
-
-/// Debug output type enumeration
-/**
- *  @ingroup enumerations
- *
- *  @glsymbols
- *  @glextref{KHR,debug}
- */
-OGLPLUS_ENUM_CLASS_BEGIN(DebugType, GLenum)
-#include <oglplus/enums/ext/debug_type.ipp>
-OGLPLUS_ENUM_CLASS_END(DebugType)
-
-#if !OGLPLUS_NO_ENUM_VALUE_NAMES
-#include <oglplus/enums/ext/debug_type_names.ipp>
-#endif
-
-#if !OGLPLUS_ENUM_VALUE_RANGES
-#include <oglplus/enums/ext/debug_type_range.ipp>
-#endif
-
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_KHR_debug
-
 
 /// Wrapper for the KHR_debug extension
 /**
@@ -120,7 +63,7 @@ public:
 			count, ids,
 			enable ? GL_TRUE : GL_FALSE
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageControl));
+		OGLPLUS_VERIFY_SIMPLE(DebugMessageControl);
 	}
 
 	/// Enables/disables messages with specific parameters
@@ -229,7 +172,7 @@ public:
 				GL_DEBUG_CALLBACK_FUNCTION,
 				_tmp_ptr
 			);
-			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(GetPointerv));
+			OGLPLUS_IGNORE(GetPointerv);
 			_prev_callback = _tmp_callback;
 
 			//get the previous context
@@ -237,13 +180,13 @@ public:
 				GL_DEBUG_CALLBACK_USER_PARAM,
 				&_prev_context
 			);
-			OGLPLUS_IGNORE(OGLPLUS_ERROR_INFO(GetPointerv));
+			OGLPLUS_IGNORE(GetPointerv);
 
 			OGLPLUS_GLFUNC(DebugMessageCallback)(
 				GLDEBUGPROC(&LogSink::_gl_debug_proc),
 				static_cast<void*>(this)
 			);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageCallback));
+			OGLPLUS_VERIFY_SIMPLE(DebugMessageCallback);
 		}
 
 #if !OGLPLUS_NO_DELETED_FUNCTIONS
@@ -286,7 +229,7 @@ public:
 			length,
 			buffer
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(DebugMessageInsert));
+		OGLPLUS_VERIFY_SIMPLE(DebugMessageInsert);
 	}
 
 	/// Inserts a new message into the debug output
@@ -295,7 +238,7 @@ public:
 		DebugType type,
 		GLuint id,
 		DebugSeverity severity,
-		const String& message
+		StrCRef message
 	)
 	{
 		InsertMessage(
@@ -342,14 +285,14 @@ public:
 			length,
 			message
 		);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PushDebugGroup));
+		OGLPLUS_VERIFY_SIMPLE(PushDebugGroup);
 	}
 
 	/// Pushes a debug group
 	static void PushGroup(
 		DebugSource source,
 		GLuint id,
-		const String& message
+		StrCRef message
 	)
 	{
 		PushGroup(source, id, message.size(), message.c_str());
@@ -370,7 +313,7 @@ public:
 	static void PopGroup(void)
 	{
 		OGLPLUS_GLFUNC(PopDebugGroup)();
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(PopDebugGroup));
+		OGLPLUS_VERIFY_SIMPLE(PopDebugGroup);
 	}
 
 	/// Enables or disables synchronous debug output
@@ -379,12 +322,12 @@ public:
 		if(enable)
 		{
 			OGLPLUS_GLFUNC(Enable)(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+			OGLPLUS_VERIFY_SIMPLE(Enable);
 		}
 		else
 		{
 			OGLPLUS_GLFUNC(Disable)(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-			OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+			OGLPLUS_VERIFY_SIMPLE(Disable);
 		}
 	}
 

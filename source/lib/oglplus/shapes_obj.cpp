@@ -10,5 +10,16 @@
  */
 
 #include "prologue.ipp"
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/face_mode.hpp>
+#include <oglplus/data_type.hpp>
+#include <oglplus/primitive_type.hpp>
+#include <oglplus/shapes/draw.hpp>
+#include <oglplus/shapes/vert_attr_info.hpp>
+
+#include "implement.ipp"
+
 #include <oglplus/shapes/obj_mesh.hpp>
 #include "epilogue.ipp"

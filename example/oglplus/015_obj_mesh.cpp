@@ -44,7 +44,7 @@ private:
 
 	Program prog;
 
-	LazyUniform<Mat4f> camera_matrix, projection_matrix, stretch_matrix;
+	Uniform<Mat4f> camera_matrix, projection_matrix, stretch_matrix;
 
 	VertexArray mesh;
 	Spheref mesh_bs;
@@ -57,9 +57,9 @@ public:
 	 : load_mesh(mesh_input.stream)
 	 , mesh_instr(load_mesh.Instructions())
 	 , mesh_indices(load_mesh.Indices())
-	 , camera_matrix(prog, "CameraMatrix")
-	 , projection_matrix(prog, "ProjectionMatrix")
-	 , stretch_matrix(prog, "StretchMatrix")
+	 , camera_matrix(prog)
+	 , projection_matrix(prog)
+	 , stretch_matrix(prog)
 	{
 		load_mesh.BoundingSphere(mesh_bs);
 
@@ -96,6 +96,10 @@ public:
 
 		prog.AttachShader(vs).AttachShader(fs);
 		prog.Link().Use();
+
+		camera_matrix.BindTo("CameraMatrix");
+		projection_matrix.BindTo("ProjectionMatrix");
+		stretch_matrix.BindTo("StretchMatrix");
 
 		mesh.Bind();
 

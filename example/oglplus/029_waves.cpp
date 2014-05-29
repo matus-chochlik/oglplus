@@ -307,7 +307,7 @@ public:
 		// upload the data
 		Buffer::Data(Buffer::Target::Array, data);
 		// setup the vertex attribs array
-		VertexAttribArray attr(prog, "Position");
+		VertexArrayAttrib attr(prog, "Position");
 		attr.Setup<GLfloat>(n_per_vertex);
 		attr.Enable();
 
@@ -357,7 +357,7 @@ public:
 			auto image = images::Squares(512, 512, 0.9f, 8, 8);
 			auto bound_tex = gl.Bound(Texture::Target::CubeMap, env_map);
 			for(int i=0; i!=6; ++i)
-				bound_tex.ImageCM(i, image);
+				Texture::ImageCM(i, image);
 			bound_tex.GenerateMipmap();
 			bound_tex.MinFilter(TextureMinFilter::LinearMipmapLinear);
 			bound_tex.MagFilter(TextureMagFilter::Linear);

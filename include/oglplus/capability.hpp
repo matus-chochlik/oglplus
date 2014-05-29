@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -68,25 +68,25 @@ inline void operator << (Capability capability, bool enable)
 	if(enable)
 	{
 		OGLPLUS_GLFUNC(Enable)(GLenum(capability));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+		OGLPLUS_VERIFY_SIMPLE(Enable);
 	}
 	else
 	{
 		OGLPLUS_GLFUNC(Disable)(GLenum(capability));
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+		OGLPLUS_VERIFY_SIMPLE(Disable);
 	}
 }
 
 inline void operator + (Capability capability)
 {
 	OGLPLUS_GLFUNC(Enable)(GLenum(capability));
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+	OGLPLUS_VERIFY_SIMPLE(Enable);
 }
 
 inline void operator - (Capability capability)
 {
 	OGLPLUS_GLFUNC(Disable)(GLenum(capability));
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+	OGLPLUS_VERIFY_SIMPLE(Disable);
 }
 
 /// Functionality enumeration
@@ -157,25 +157,25 @@ inline void operator << (FunctionalityAndNumber func_and_num, bool enable)
 	if(enable)
 	{
 		OGLPLUS_GLFUNC(Enable)(func_and_num._code);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+		OGLPLUS_VERIFY_SIMPLE(Enable);
 	}
 	else
 	{
 		OGLPLUS_GLFUNC(Disable)(func_and_num._code);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+		OGLPLUS_VERIFY_SIMPLE(Disable);
 	}
 }
 
 inline void operator + (FunctionalityAndNumber func_and_num)
 {
 	OGLPLUS_GLFUNC(Enable)(func_and_num._code);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Enable));
+	OGLPLUS_VERIFY_SIMPLE(Enable);
 }
 
 inline void operator - (FunctionalityAndNumber func_and_num)
 {
 	OGLPLUS_GLFUNC(Disable)(func_and_num._code);
-	OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(Disable));
+	OGLPLUS_VERIFY_SIMPLE(Disable);
 }
 
 } // namespace oglplus

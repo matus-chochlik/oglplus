@@ -8,7 +8,7 @@
  *  ./001_shape2dot | neato -T png > 001_shape2dot.png
  *  @endcode
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -24,7 +24,7 @@
 #include <oglplus/opt/resources.hpp>
 #include <oglplus/opt/list_init.hpp>
 
-#include <oglplus/matrix.hpp>
+#include <oglplus/math/matrix.hpp>
 
 int main(void)
 {
@@ -124,14 +124,17 @@ int main(void)
 	}
 	catch(oglplus::Error& err)
 	{
-		std::cerr <<
-			"Error (in " << err.GLSymbol() << ", " <<
-			err.ClassName() << ": '" <<
-			err.ObjectDescription() << "'): " <<
-			err.what() <<
-			" [" << err.File() << ":" << err.Line() << "] ";
-		std::cerr << std::endl;
-		err.Cleanup();
+		std::cerr
+			<< "Error (in "
+			<< err.GLFuncName()
+			<< "'): "
+			<< err.what()
+			<< " ["
+			<< err.SourceFile()
+			<< ":"
+			<< err.SourceLine()
+			<< "] "
+			<< std::endl;
 	}
 	return 1;
 }

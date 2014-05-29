@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -14,13 +14,8 @@
 #define OGLPLUS_LIMITED_VALUE_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
+#include <oglplus/error/limit.hpp>
 #include <cassert>
-
-#ifdef _MSC_VER
-#pragma warning( push )
-#pragma warning( disable : 4396 )
-#endif // _MSC_VER
 
 namespace oglplus {
 
@@ -50,7 +45,7 @@ private:
 	{
 		GLint limit = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(Query, &limit);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return GLuint(limit);
 	}
 
@@ -64,11 +59,18 @@ protected:
 	 *  @throws Error
 	 *  @throws LimitError
 	 */
-	LimitedCount(GLuint value, const ErrorInfo& info)
+	LimitedCount(GLuint value, const char* query_name)
 	 : _value(value)
 	{
-		if(OGLPLUS_IS_ERROR(_value >= _limit()))
-			HandleLimitError(value, _limit(), info);
+		OGLPLUS_HANDLE_ERROR_IF(
+			_value >= _limit(),
+			GL_INVALID_VALUE,
+			LimitError::Message(),
+			LimitError,
+			Value(_value).
+			Limit(_limit()).
+			EnumParam(Query, query_name)
+		);
 	}
 public:
 
@@ -146,17 +148,10 @@ class NAME \
 public: \
 	typedef GLuint _value_type; \
 	NAME(GLuint value = 0) \
-	 : LimitedCount<GL_ ## QUERY>( \
-		value, \
-		OGLPLUS_LIMIT_ERROR_INFO(QUERY) \
-	) \
+	 : LimitedCount<GL_ ## QUERY>(value, #QUERY) \
 	{ } \
 };
 
 } // namespace oglplus
-
-#ifdef _MSC_VER
-#pragma warning( pop )
-#endif // _MSC_VER
 
 #endif // include guard

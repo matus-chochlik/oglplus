@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 	// create a Hello World sound and store it into a buffer
 	oalplus::Buffer buffer = alut.CreateBufferHelloWorld();
 	// create a source from the data in buffer and set enable looping
-	oalplus::Source source;
+	oalplus::Source source(oalplus::ObjectDesc("Source"));
 	source.Buffer(buffer);
 	source.Looping(true);
 	source.ReferenceDistance(15);

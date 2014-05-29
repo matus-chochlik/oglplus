@@ -235,7 +235,7 @@ public:
 		return first_tex_unit + (curr + 1) % nhm;
 	}
 
-	Managed<Texture> CurrentHeightMap(void) const
+	Reference<Texture> CurrentHeightMap(void) const
 	{
 		return height_maps[(curr + 2) % nhm];
 	}
@@ -245,7 +245,7 @@ public:
 		return first_tex_unit + nhm;
 	}
 
-	Managed<Texture> BumpMap(void) const
+	Reference<Texture> BumpMap(void) const
 	{
 		return bump_map;
 	}

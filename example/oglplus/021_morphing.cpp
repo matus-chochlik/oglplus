@@ -4,7 +4,7 @@
  *
  *  @oglplus_screenshot{021_morphing}
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -138,7 +138,7 @@ protected:
 
 		Buffer::Data(Buffer::Target::Array, data);
 
-		VertexAttribArray attr(prog, name);
+		VertexArrayAttrib attr(prog, name);
 		attr.Setup<Vec3f>();
 		attr.Enable();
 	}
@@ -161,7 +161,7 @@ protected:
 
 		Buffer::Data(Buffer::Target::Array, data);
 
-		VertexAttribArray attr(prog, name);
+		VertexArrayAttrib attr(prog, name);
 		attr.Setup<Vec3f>();
 		attr.Enable();
 	}
@@ -175,7 +175,7 @@ protected:
 			*i = (std::rand() % 101) * 0.01;
 		Buffer::Data(Buffer::Target::Array, data);
 
-		VertexAttribArray attr(prog, name);
+		VertexArrayAttrib attr(prog, name);
 		attr.Setup<GLfloat>();
 		attr.Enable();
 	}

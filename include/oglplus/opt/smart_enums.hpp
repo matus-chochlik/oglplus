@@ -76,11 +76,11 @@ namespace oglplus {
 namespace smart_enums {
 
 #if OGLPLUS_DOCUMENTATION_ONLY
-# include <oglplus/auxiliary/enum_shorteners_doc.ipp>
+# include <oglplus/detail/enum_shorteners_doc.ipp>
 #else
 
 # if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
-#  include <oglplus/auxiliary/enum_shorteners.ipp>
+#  include <oglplus/detail/enum_shorteners.ipp>
 # else
 #  error "Smart enumerations require support for function template default args!"
 # endif

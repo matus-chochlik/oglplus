@@ -47,7 +47,7 @@ OGLPLUS_LIB_FUNC
 ProgramResource::ProgramResource(
 	aux::ProgramInterfaceContext& context,
 	GLuint index
-): _program(context.Program())
+): _program(GetGLName(context.Program()))
  , _interface(context.Interface())
  , _index(index)
 {
@@ -63,7 +63,13 @@ ProgramResource::ProgramResource(
 			&length,
 			context.Buffer().data()
 		);
-		OGLPLUS_CHECK(OGLPLUS_ERROR_INFO(GetProgramResourceName));
+		OGLPLUS_CHECK(
+			GetProgramResourceName,
+			ObjectError,
+			Object(ProgramName(_program)).
+			EnumParam(_interface).
+			Index(_index)
+		);
 		_name.assign(context.Buffer().data(), length);
 	}
 }

@@ -10,7 +10,18 @@
  */
 
 #include "prologue.ipp"
-#include <oglplus/error.hpp>
-#include <oglplus/compile_error.hpp>
-#include <oglplus/link_error.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/string/empty.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/object/type.hpp>
+#include <oglplus/framebuffer_status.hpp>
+
+#include "implement.ipp"
+
+#include <oglplus/error/basic.hpp>
+#include <oglplus/error/limit.hpp>
+#include <oglplus/error/object.hpp>
+#include <oglplus/error/program.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/framebuffer.hpp>
 #include "epilogue.ipp"

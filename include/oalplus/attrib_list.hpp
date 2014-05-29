@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,7 +13,7 @@
 #ifndef OALPLUS_ATTRIB_LIST_1303292057_HPP
 #define OALPLUS_ATTRIB_LIST_1303292057_HPP
 
-#include <oglplus/attrib_list.hpp>
+#include <oglplus/detail/attrib_list.hpp>
 
 #include <cassert>
 #include <vector>

@@ -143,7 +143,7 @@ public:
 			auto data = bezier.Approximate(25);
 			curve_n = data.size();
 			gl.Current(Buffer::Target::Array).Data(data);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<Vec2f>();
 			attr.Enable();
 		}

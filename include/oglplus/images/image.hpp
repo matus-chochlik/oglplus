@@ -17,10 +17,10 @@
 #include <cassert>
 #include <cstddef>
 #include <cstring>
-#include <oglplus/vector.hpp>
+#include <oglplus/math/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
-#include <oglplus/auxiliary/aligned_pod_array.hpp>
+#include <oglplus/detail/aligned_pod_array.hpp>
 
 namespace oglplus {
 namespace images {

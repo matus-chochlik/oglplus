@@ -4,60 +4,87 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <oglplus/lib/incl_begin.ipp>
+#include <oglplus/object/desc.hpp>
+#include <oglplus/lib/incl_end.ipp>
+
 namespace oglplus {
 
 OGLPLUS_LIB_FUNC
-void VertexAttribOps::_handle_inactive(
-	const ProgramOps& program,
-	const GLchar* identifier,
-	GLint result
-)
+const char* ProgVarLocOps<tag::VertexAttrib>::
+MsgGettingInactive(void)
 {
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
-	);
-	Error::AddPropertyValue(
-		props,
-		"program",
-		DescriptionOf(program)
-	);
-	HandleShaderVariableError(
-		GL_INVALID_OPERATION,
-		result,
-		"Getting the location of inactive vertex attrib",
-		OGLPLUS_ERROR_INFO(GetAttribLocation),
-		std::move(props)
-	);
+	return "Getting the location of inactive program vertex attribute";
 }
 
 OGLPLUS_LIB_FUNC
-void VertexAttribOps::_handle_inconsistent_location(
-	const GLchar* identifier,
-	VertexAttribSlot location
+const char* ProgVarLocOps<tag::VertexAttrib>::
+MsgUsingInactive(void)
+{
+	return "Using inactive program vertex attribute";
+}
+
+OGLPLUS_LIB_FUNC
+bool ProgVarLocOps<tag::VertexAttrib>::
+QueryCommonLocation(
+	const Sequence<ProgramName>& programs,
+	StrCRef identifier,
+	VertexAttribSlot& location
 )
 {
-	Error::PropertyMapInit props;
-	Error::AddPropertyValue(
-		props,
-		"identifier",
-		identifier
+	if(std::size_t n=programs.size())
+	{
+		if(!QueryActiveLocation(
+			programs[0],
+			identifier,
+			location
+		)) return false;
+
+		const VertexAttribSlot prev_loc(location);
+
+		for(std::size_t i=1; i!=n; ++i)
+		{
+			if(!QueryActiveLocation(
+				programs[i],
+				identifier,
+				location
+			)) return false;
+
+			if(prev_loc != location)
+				return false;
+		}
+		return true;
+	}
+	return false;
+}
+
+OGLPLUS_LIB_FUNC
+VertexAttribSlot ProgVarLocOps<tag::VertexAttrib>::
+GetCommonLocation(
+	const Sequence<ProgramName>& programs,
+	StrCRef identifier
+)
+{
+	VertexAttribSlot location;
+	bool found = QueryCommonLocation(
+		programs,
+		identifier,
+		location
 	);
-	HandleShaderVariableError(
+	OGLPLUS_HANDLE_ERROR_IF(
+		!found,
 		GL_INVALID_OPERATION,
-		GLint(location),
 		"Inconsistent location of a vertex "
 		"attribute in multiple programs",
-		OGLPLUS_ERROR_INFO(GetAttribLocation),
-		std::move(props)
+		ProgVarError,
+		Identifier(identifier.c_str())
 	);
+	return location;
 }
 
 } // namespace oglplus

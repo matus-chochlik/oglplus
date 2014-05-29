@@ -16,8 +16,8 @@
 
 #include <oglplus/gl.hpp>
 #include <oglplus/fix_gl_version.hpp>
-#include <oglplus/matrix.hpp>
 #include <oglplus/buffer.hpp>
+#include <oglplus/math/matrix.hpp>
 
 #include <vector>
 #include <iosfwd>

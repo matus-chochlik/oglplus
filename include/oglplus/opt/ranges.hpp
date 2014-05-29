@@ -14,7 +14,7 @@
 #define OGLPLUS_OPT_RANGE_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/auxiliary/base_range.hpp>
+#include <oglplus/detail/base_range.hpp>
 
 namespace oglplus {
 

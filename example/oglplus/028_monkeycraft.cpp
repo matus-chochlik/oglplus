@@ -16,10 +16,11 @@
  */
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
-#include <oglplus/buffer_dsa.hpp>
-#include <oglplus/texture_dsa.hpp>
-#include <oglplus/vertex_array_dsa.hpp>
-#include <oglplus/vertex_attrib_dsa.hpp>
+#include <oglplus/dsa/uniform.hpp>
+#include <oglplus/dsa/buffer.hpp>
+#include <oglplus/dsa/texture.hpp>
+#include <oglplus/dsa/vertex_array.hpp>
+#include <oglplus/dsa/vertex_attrib.hpp>
 #include <oglplus/images/load.hpp>
 #include <oglplus/images/transformed.hpp>
 #include <oglplus/images/random.hpp>
@@ -228,8 +229,7 @@ public:
 	{
 
 		ProgramUniformSampler(prog, "AmbiOcclMaps").Set(0);
-		Texture::Active(0);
-		this->Bind(Texture::Target::_2DArray);
+		this->BindMulti(0, Texture::Target::_2DArray);
 		this->Image3D(smaps);
 		this->MinFilter(TextureMinFilter::Linear);
 		this->MagFilter(TextureMagFilter::Linear);
@@ -301,8 +301,7 @@ public:
 
 
 		ProgramUniformSampler(prog, "Pattern").Set(1);
-		Texture::Active(1);
-		pattern.Bind(Texture::Target::_3D);
+		pattern.BindMulti(1, Texture::Target::_3D);
 		pattern.Image3D(map);
 		pattern.MinFilter(TextureMinFilter::Nearest);
 		pattern.MagFilter(TextureMagFilter::Nearest);
@@ -313,8 +312,7 @@ public:
 
 
 		ProgramUniformSampler(prog, "FadeMap").Set(2);
-		Texture::Active(2);
-		fademap.Bind(Texture::Target::_3D);
+		fademap.BindMulti(2, Texture::Target::_3D);
 		fademap.Image3D(images::RandomRedUByte(
 			map.Width(),
 			map.Height(),

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,10 +13,10 @@
 #ifndef OGLPLUS_SHAPES_BLENDER_MESH_1206011111_HPP
 #define OGLPLUS_SHAPES_BLENDER_MESH_1206011111_HPP
 
-#include <oglplus/vector.hpp>
-#include <oglplus/matrix.hpp>
-#include <oglplus/sphere.hpp>
 #include <oglplus/face_mode.hpp>
+#include <oglplus/math/vector.hpp>
+#include <oglplus/math/matrix.hpp>
+#include <oglplus/math/sphere.hpp>
 
 #include <oglplus/shapes/draw.hpp>
 
@@ -24,7 +24,7 @@
 
 #include <oglplus/imports/blend_file.hpp>
 
-#include <oglplus/auxiliary/any_iter.hpp>
+#include <oglplus/detail/any_iter.hpp>
 
 #include <vector>
 #include <array>

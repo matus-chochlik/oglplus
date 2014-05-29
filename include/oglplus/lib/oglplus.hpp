@@ -26,24 +26,29 @@
 #include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
-#include <oglplus/auxiliary/xml_utils.hpp>
-#include <oglplus/auxiliary/utf8.hpp>
-#include <oglplus/auxiliary/obj_desc.hpp>
-#include <oglplus/auxiliary/base_range.hpp>
-#include <oglplus/auxiliary/uniform_typecheck.hpp>
-#include <oglplus/auxiliary/info_log.hpp>
-#include <oglplus/auxiliary/glsl_source.hpp>
-#include <oglplus/auxiliary/shader_data.hpp>
-#include <oglplus/auxiliary/uniform_init.hpp>
+#include <oglplus/string/utf8.hpp>
+#include <oglplus/string/def.hpp>
+#include <oglplus/object/desc.hpp>
 
-#include <oglplus/string.hpp>
-#include <oglplus/error.hpp>
-#include <oglplus/compile_error.hpp>
-#include <oglplus/link_error.hpp>
+#include <oglplus/error/basic.hpp>
+#include <oglplus/error/framebuffer.hpp>
+#include <oglplus/error/limit.hpp>
+#include <oglplus/error/object.hpp>
+#include <oglplus/error/prog_var.hpp>
+#include <oglplus/error/program.hpp>
+
+#include <oglplus/detail/base_range.hpp>
+#include <oglplus/detail/info_log.hpp>
+#include <oglplus/detail/glsl_source.hpp>
+
+#include <oglplus/utils/xml.hpp>
+
+#include <oglplus/prog_var/typecheck.hpp>
 
 #include <oglplus/images/image.hpp>
 
 #include <oglplus/vertex_attrib.hpp>
+#include <oglplus/uniform.hpp>
 #include <oglplus/uniform_block.hpp>
 #include <oglplus/uniform_subroutines.hpp>
 #include <oglplus/framebuffer.hpp>
@@ -95,9 +100,9 @@
 #include <oglplus/opt/resources.hpp>
 
 #include <oglplus/ext/ARB_debug_output.hpp>
-#include <oglplus/ext/EXT_direct_state_access/framebuffer.hpp>
-#include <oglplus/ext/EXT_direct_state_access/renderbuffer.hpp>
-#include <oglplus/ext/EXT_direct_state_access/texture.hpp>
+#include <oglplus/dsa/framebuffer.hpp>
+#include <oglplus/dsa/renderbuffer.hpp>
+#include <oglplus/dsa/texture.hpp>
 
 #include <oglplus/native/common_glx.hpp>
 #include <oglplus/native/common_wgl.hpp>

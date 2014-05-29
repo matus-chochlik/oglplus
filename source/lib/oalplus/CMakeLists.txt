@@ -5,8 +5,11 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 if(OPENAL_FOUND)
+	include_directories(${OPENAL_INCLUDE_DIRS})
 	add_library(oalplus EXCLUDE_FROM_ALL
 		string.cpp
+		enums.cpp
 		error.cpp
+		context.cpp
 	)
 endif()

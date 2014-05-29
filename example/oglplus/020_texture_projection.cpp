@@ -16,7 +16,7 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 #include <oglplus/images/load.hpp>
-#include <oglplus/texture_dsa.hpp>
+#include <oglplus/dsa/texture.hpp>
 
 #include <cmath>
 
@@ -46,9 +46,9 @@ private:
 	// Program
 	Program prog;
 
-	// Handles to uniforms in prog
-	LazyUniform<Vec3f> light_pos;
-	LazyUniform<Mat4f>
+	// Uniforms in prog
+	Lazy<Uniform<Vec3f>> light_pos;
+	Lazy<Uniform<Mat4f>>
 		projection_matrix,
 		tex_projection_matrix,
 		model_matrix;
@@ -144,7 +144,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Positions(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -154,7 +154,7 @@ public:
 			std::vector<GLfloat> data;
 			GLuint n_per_vertex = make_cube.Normals(data);
 			Buffer::Data(Buffer::Target::Array, data);
-			VertexAttribArray attr(prog, "Normal");
+			VertexArrayAttrib attr(prog, "Normal");
 			attr.Setup<GLfloat>(n_per_vertex);
 			attr.Enable();
 		}
@@ -201,7 +201,7 @@ public:
 		//
 		Vec3f lightPos(-1.0f, 2.0f, 2.0f);
 		lightPos *= (1.0f - SineWave(time/5.0f)*0.4f);
-		light_pos = lightPos;
+		light_pos.Set(lightPos);
 
 		tex_projection_matrix.Set(
 			CamMatrixf::PerspectiveX(Degrees(15), 1.0, 1, 20) *

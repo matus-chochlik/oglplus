@@ -15,7 +15,6 @@
 
 #include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/error.hpp>
 
 #include <oglplus/context_profile_bit.hpp>
 #include <oglplus/context_flag_bit.hpp>
@@ -45,7 +44,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_MAJOR_VERSION, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return result;
 	}
 
@@ -63,7 +62,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_MINOR_VERSION, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return result;
 	}
 
@@ -78,7 +77,7 @@ public:
 	{
 		GLint64 result = 0;
 		OGLPLUS_GLFUNC(GetInteger64v)(GL_TIMESTAMP, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetInteger64v));
+		OGLPLUS_VERIFY_SIMPLE(GetInteger64v);
 		return result;
 	}
 #endif
@@ -95,7 +94,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CONTEXT_PROFILE_MASK, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return Bitfield<ContextProfileBit>(result);
 	}
 #endif
@@ -111,7 +110,7 @@ public:
 	{
 		GLint result = 0;
 		OGLPLUS_GLFUNC(GetIntegerv)(GL_CONTEXT_FLAGS, &result);
-		OGLPLUS_VERIFY(OGLPLUS_ERROR_INFO(GetIntegerv));
+		OGLPLUS_VERIFY_SIMPLE(GetIntegerv);
 		return Bitfield<ContextFlagBit>(result);
 	}
 #endif

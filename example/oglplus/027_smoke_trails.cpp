@@ -170,8 +170,8 @@ private:
 	Program prog;
 
 	// Uniforms
-	LazyUniform<Mat4f> projection_matrix, camera_matrix;
-	LazyUniform<Vec3f> light_cam_pos;
+	Lazy<Uniform<Mat4f>> projection_matrix, camera_matrix;
+	Lazy<Uniform<Vec3f>> light_cam_pos;
 
 	// A vertex array object for the particles
 	VertexArray particles;
@@ -206,9 +206,9 @@ public:
 				}, 17.0, 200.0
 			},
 		}
-	), vs(ShaderType::Vertex, "Vertex")
-	 , gs(ShaderType::Geometry, "Geometry")
-	 , fs(ShaderType::Fragment, "Fragment")
+	), vs(ShaderType::Vertex, ObjectDesc("Vertex"))
+	 , gs(ShaderType::Geometry, ObjectDesc("Geometry"))
+	 , fs(ShaderType::Fragment, ObjectDesc("Fragment"))
 	 , projection_matrix(prog, "ProjectionMatrix")
 	 , camera_matrix(prog, "CameraMatrix")
 	 , light_cam_pos(prog, "LightCamPos")
@@ -337,7 +337,7 @@ public:
 		pos_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, positions);
-			VertexAttribArray attr(prog, "Position");
+			VertexArrayAttrib attr(prog, "Position");
 			attr.Setup<Vec3f>();
 			attr.Enable();
 		}
@@ -346,7 +346,7 @@ public:
 		age_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, ages);
-			VertexAttribArray attr(prog, "Age");
+			VertexArrayAttrib attr(prog, "Age");
 			attr.Setup<GLfloat>();
 			attr.Enable();
 		}
@@ -355,7 +355,7 @@ public:
 		id_buf.Bind(Buffer::Target::Array);
 		{
 			Buffer::Data(Buffer::Target::Array, ids);
-			VertexAttribArray attr(prog, "Id");
+			VertexArrayAttrib attr(prog, "Id");
 			attr.Setup<GLint>();
 			attr.Enable();
 		}

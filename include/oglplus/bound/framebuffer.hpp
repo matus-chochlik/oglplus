@@ -1,7 +1,7 @@
 
 /**
  *  @file oglplus/bound/framebuffer.hpp
- *  @brief Specialization of BoundTemplate for Framebuffer.
+ *  @brief Specialization of ObjectOps for Framebuffer.
  *
  *  Automatically generated file, do not edit manually!
  *
@@ -14,68 +14,47 @@
 #ifndef OGLPLUS_BOUND_FRAMEBUFFER_1107121519_HPP
 #define OGLPLUS_BOUND_FRAMEBUFFER_1107121519_HPP
 
-#include <oglplus/fwd.hpp>
+#include <oglplus/object/bound.hpp>
 #include <oglplus/framebuffer.hpp>
 #include <utility>
 
 namespace oglplus {
 
-/// Specialization of the BoundTemplate for FramebufferOps, implements Bound < Framebuffer  >.
+/// Specialization of the BoundObjOps for Framebuffer  >.
 /** This template implements wrappers around the member functions
  *  of Framebuffer, which have
- *  a FramebufferOps::Target parameter
+ *  a FramebufferTarget parameter
  *  specifying the binding point on which they should operate.
  *
  *  @note Do not use this template class directly use
- *  Bound < Framebuffer > or the Bind()
+ *  Bound < Framebuffer > or the Context::Current()
  *  function instead.
- *
- *  @see Bind()
- *  @see Bound
  *
  *  @ingroup utility_classes
  */
-template <template <class, class> class Base, class BaseParam>
-class BoundTemplate<Base, BaseParam, FramebufferOps>
- : public Base<BaseParam, FramebufferOps>
+template <>
+class BoundObjOps<tag::Framebuffer>
 {
 private:
-	typedef Base<
-		BaseParam,
-		FramebufferOps
-	> _base;
+	typedef ObjectOps<tag::ExplicitSel, tag::Framebuffer> ExplicitOps;
 public:
-	BoundTemplate(
-		const FramebufferOps& bindable,
-		FramebufferOps::Target target
-	): _base(bindable, target)
+	typedef ExplicitOps::Target Target;
+	Target target;
+
+	BoundObjOps(void)
 	{ }
 
-	BoundTemplate(
-		FramebufferOps::Target target
-	): _base(target)
+	BoundObjOps(Target init_tgt)
+	 : target(init_tgt)
 	{ }
-
-
-	/** Wrapper for Framebuffer::BindDefault()
-	 *  @see Framebuffer::BindDefault()
-	 */
-	const BoundTemplate& BindDefault(void) const
-	{
-		FramebufferOps::BindDefault(
-			this->BindTarget()
-		);
-		return *this;
-	}
-
 
 	/** Wrapper for Framebuffer::Status()
 	 *  @see Framebuffer::Status()
 	 */
 	FramebufferStatus Status(void) const
 	{
-		return FramebufferOps::Status(
-			this->BindTarget()
+		return ExplicitOps::Status(
+			this->target
 		);
 	}
 
@@ -85,8 +64,8 @@ public:
 	 */
 	bool IsComplete(void) const
 	{
-		return FramebufferOps::IsComplete(
-			this->BindTarget()
+		return ExplicitOps::IsComplete(
+			this->target
 		);
 	}
 
@@ -94,12 +73,12 @@ public:
 	/** Wrapper for Framebuffer::HandleIncompleteError()
 	 *  @see Framebuffer::HandleIncompleteError()
 	 */
-	const BoundTemplate& HandleIncompleteError(
+	const BoundObjOps& HandleIncompleteError(
 		FramebufferStatus status
 	) const
 	{
-		FramebufferOps::HandleIncompleteError(
-			this->BindTarget(),
+		ExplicitOps::HandleIncompleteError(
+			this->target,
 			status
 		);
 		return *this;
@@ -109,10 +88,10 @@ public:
 	/** Wrapper for Framebuffer::Complete()
 	 *  @see Framebuffer::Complete()
 	 */
-	const BoundTemplate& Complete(void) const
+	const BoundObjOps& Complete(void) const
 	{
-		FramebufferOps::Complete(
-			this->BindTarget()
+		ExplicitOps::Complete(
+			this->target
 		);
 		return *this;
 	}
@@ -121,13 +100,13 @@ public:
 	/** Wrapper for Framebuffer::AttachRenderbuffer()
 	 *  @see Framebuffer::AttachRenderbuffer()
 	 */
-	const BoundTemplate& AttachRenderbuffer(
-		FramebufferOps::Property::Attachment attachment,
-		const RenderbufferOps & renderbuffer
+	const BoundObjOps& AttachRenderbuffer(
+		ExplicitOps::Property::Attachment attachment,
+		RenderbufferName renderbuffer
 	) const
 	{
-		FramebufferOps::AttachRenderbuffer(
-			this->BindTarget(),
+		ExplicitOps::AttachRenderbuffer(
+			this->target,
 			attachment,
 			renderbuffer
 		);
@@ -138,13 +117,13 @@ public:
 	/** Wrapper for Framebuffer::AttachColorRenderbuffer()
 	 *  @see Framebuffer::AttachColorRenderbuffer()
 	 */
-	const BoundTemplate& AttachColorRenderbuffer(
+	const BoundObjOps& AttachColorRenderbuffer(
 		FramebufferColorAttachmentNumber attachment_no,
-		const RenderbufferOps & renderbuffer
+		RenderbufferName renderbuffer
 	) const
 	{
-		FramebufferOps::AttachColorRenderbuffer(
-			this->BindTarget(),
+		ExplicitOps::AttachColorRenderbuffer(
+			this->target,
 			attachment_no,
 			renderbuffer
 		);
@@ -156,14 +135,14 @@ public:
 	/** Wrapper for Framebuffer::AttachTexture()
 	 *  @see Framebuffer::AttachTexture()
 	 */
-	const BoundTemplate& AttachTexture(
-		FramebufferOps::Property::Attachment attachment,
-		const TextureOps & texture,
+	const BoundObjOps& AttachTexture(
+		ExplicitOps::Property::Attachment attachment,
+		TextureName texture,
 		GLint level
 	) const
 	{
-		FramebufferOps::AttachTexture(
-			this->BindTarget(),
+		ExplicitOps::AttachTexture(
+			this->target,
 			attachment,
 			texture,
 			level
@@ -176,14 +155,14 @@ public:
 	/** Wrapper for Framebuffer::AttachColorTexture()
 	 *  @see Framebuffer::AttachColorTexture()
 	 */
-	const BoundTemplate& AttachColorTexture(
+	const BoundObjOps& AttachColorTexture(
 		FramebufferColorAttachmentNumber attachment_no,
-		const TextureOps & texture,
+		TextureName texture,
 		GLint level
 	) const
 	{
-		FramebufferOps::AttachColorTexture(
-			this->BindTarget(),
+		ExplicitOps::AttachColorTexture(
+			this->target,
 			attachment_no,
 			texture,
 			level
@@ -195,15 +174,15 @@ public:
 	/** Wrapper for Framebuffer::AttachTexture1D()
 	 *  @see Framebuffer::AttachTexture1D()
 	 */
-	const BoundTemplate& AttachTexture1D(
-		FramebufferOps::Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps & texture,
+	const BoundObjOps& AttachTexture1D(
+		ExplicitOps::Property::Attachment attachment,
+		TextureTarget textarget,
+		TextureName texture,
 		GLint level
 	) const
 	{
-		FramebufferOps::AttachTexture1D(
-			this->BindTarget(),
+		ExplicitOps::AttachTexture1D(
+			this->target,
 			attachment,
 			textarget,
 			texture,
@@ -216,15 +195,15 @@ public:
 	/** Wrapper for Framebuffer::AttachTexture2D()
 	 *  @see Framebuffer::AttachTexture2D()
 	 */
-	const BoundTemplate& AttachTexture2D(
-		FramebufferOps::Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps & texture,
+	const BoundObjOps& AttachTexture2D(
+		ExplicitOps::Property::Attachment attachment,
+		TextureTarget textarget,
+		TextureName texture,
 		GLint level
 	) const
 	{
-		FramebufferOps::AttachTexture2D(
-			this->BindTarget(),
+		ExplicitOps::AttachTexture2D(
+			this->target,
 			attachment,
 			textarget,
 			texture,
@@ -237,16 +216,16 @@ public:
 	/** Wrapper for Framebuffer::AttachTexture3D()
 	 *  @see Framebuffer::AttachTexture3D()
 	 */
-	const BoundTemplate& AttachTexture3D(
-		FramebufferOps::Property::Attachment attachment,
-		Texture::Target textarget,
-		const TextureOps & texture,
+	const BoundObjOps& AttachTexture3D(
+		ExplicitOps::Property::Attachment attachment,
+		TextureTarget textarget,
+		TextureName texture,
 		GLint level,
 		GLint layer
 	) const
 	{
-		FramebufferOps::AttachTexture3D(
-			this->BindTarget(),
+		ExplicitOps::AttachTexture3D(
+			this->target,
 			attachment,
 			textarget,
 			texture,
@@ -260,15 +239,15 @@ public:
 	/** Wrapper for Framebuffer::AttachTextureLayer()
 	 *  @see Framebuffer::AttachTextureLayer()
 	 */
-	const BoundTemplate& AttachTextureLayer(
-		FramebufferOps::Property::Attachment attachment,
-		const TextureOps & texture,
+	const BoundObjOps& AttachTextureLayer(
+		ExplicitOps::Property::Attachment attachment,
+		TextureName texture,
 		GLint level,
 		GLint layer
 	) const
 	{
-		FramebufferOps::AttachTextureLayer(
-			this->BindTarget(),
+		ExplicitOps::AttachTextureLayer(
+			this->target,
 			attachment,
 			texture,
 			level,
@@ -282,12 +261,12 @@ public:
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
 	 */
-	const BoundTemplate& Invalidate(
-		const EnumArray< FramebufferOps::Property::Buffer > & buffers
+	const BoundObjOps& Invalidate(
+		const EnumArray< ExplicitOps::Property::Buffer > & buffers
 	) const
 	{
-		FramebufferOps::Invalidate(
-			this->BindTarget(),
+		ExplicitOps::Invalidate(
+			this->target,
 			buffers
 		);
 		return *this;
@@ -299,14 +278,13 @@ public:
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
 	 */
-	template <typename N>
-	const BoundTemplate& Invalidate(
+	const BoundObjOps& Invalidate(
 		GLsizei count,
-		const FramebufferOps::Property::Buffer * buffers
+		const ExplicitOps::Property::Buffer * buffers
 	) const
 	{
-		FramebufferOps::Invalidate(
-			this->BindTarget(),
+		ExplicitOps::Invalidate(
+			this->target,
 			count,
 			buffers
 		);
@@ -319,16 +297,16 @@ public:
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
 	 */
-	const BoundTemplate& Invalidate(
-		const EnumArray< FramebufferOps::Property::Buffer > & buffers,
+	const BoundObjOps& Invalidate(
+		const EnumArray< ExplicitOps::Property::Buffer > & buffers,
 		GLint x,
 		GLint y,
 		GLsizei width,
 		GLsizei height
 	) const
 	{
-		FramebufferOps::Invalidate(
-			this->BindTarget(),
+		ExplicitOps::Invalidate(
+			this->target,
 			buffers,
 			x,
 			y,
@@ -344,17 +322,17 @@ public:
 	/** Wrapper for Framebuffer::Invalidate()
 	 *  @see Framebuffer::Invalidate()
 	 */
-	const BoundTemplate& Invalidate(
+	const BoundObjOps& Invalidate(
 		GLsizei count,
-		const FramebufferOps::Property::Buffer * buffers,
+		const ExplicitOps::Property::Buffer * buffers,
 		GLint x,
 		GLint y,
 		GLsizei width,
 		GLsizei height
 	) const
 	{
-		FramebufferOps::Invalidate(
-			this->BindTarget(),
+		ExplicitOps::Invalidate(
+			this->target,
 			count,
 			buffers,
 			x,
@@ -367,7 +345,7 @@ public:
 #endif // GL_VERSION_4_3 GL_ARB_invalidate_subdata
 
 
-}; // class BoundTemplate
+}; // class BoundObjOps
 
 } // namespace oglplus
 
