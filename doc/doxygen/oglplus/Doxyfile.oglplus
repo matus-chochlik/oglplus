@@ -29,6 +29,12 @@ INPUT = \
 	../../../include/oglplus/native \
 	../../../include/oglplus/utils \
 	../../../include/oglplus/ext \
+	../../../include/oglplus/ext/ARB_robustness \
+	../../../include/oglplus/ext/ARB_compatibility \
+	../../../include/oglplus/ext/EXT_direct_state_access \
+	../../../include/oglplus/ext/NV_path_rendering \
+	../../../include/oglplus/ext/ARB_debug_output \
+	../../../include/oglplus/ext/KHR_debug \
 	../../../include/oglplus/opt \
 	../../../include/oglplus/shapes \
 	../../../include/oglplus/images \
