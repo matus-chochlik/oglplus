@@ -502,6 +502,7 @@ inline DSAFramebufferOps& operator << (
 	return fbo;
 }
 
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_2
 // AttachTexture
 inline DSAFramebufferOps& operator << (
 	DSAFramebufferOpsAndAttch&& faa,
@@ -511,6 +512,7 @@ inline DSAFramebufferOps& operator << (
 	faa.fbo.AttachTexture(faa.attachment, tex, 0);
 	return faa.fbo;
 }
+#endif
 
 // AttachRenderbuffer
 inline DSAFramebufferOps& operator << (
