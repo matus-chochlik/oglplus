@@ -291,7 +291,7 @@ public:
 	 *  @alfunref{Sourcei}
 	 *  @aldefref{BUFFER}
 	 */
-	void Buffer(const BufferOps& buffer)
+	void Buffer(const BufferName& buffer)
 	{
 		OALPLUS_ALFUNC(al,Sourcei)(
 			_name,
@@ -1031,7 +1031,23 @@ public:
 
 };
 
-typedef ObjectOps<tag::DirectState, tag::Source> SourceOps;
+} // namespace oalplus
+namespace oglplus {
+
+template <>
+class ObjGenDelOps<oalplus::tag::Source>
+ : public oalplus::ObjGenDelOps<oalplus::tag::Source>
+{ };
+
+template <typename OpsTag>
+class ObjectOps<OpsTag, oalplus::tag::Source>
+ : public oalplus::ObjectOps<OpsTag, oalplus::tag::Source>
+{ };
+
+} // namespace oglplus
+namespace oalplus {
+
+typedef oglplus::ObjectOps<tag::DirectState, tag::Source> SourceOps;
 
 /// An @ref oalplus_object encapsulating the OpenAL source functionality
 /**

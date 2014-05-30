@@ -14,8 +14,8 @@
 #define OGLPLUS_OBJECT_DESC_1107121519_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
 #include <oglplus/string/empty.hpp>
+#include <oglplus/object/name_tpl.hpp>
 
 #if OGLPLUS_NO_OBJECT_DESCS == 0
 #include <cassert>
@@ -158,7 +158,7 @@ inline const std::string& DescriptionOf(ObjectName<ObjTag> object)
 {
 	return aux::ObjectDescRegistry::_get_desc(
 		ObjTag::value,
-		GetGLName(object)
+		GetName(object)
 	);
 }
 

@@ -13,18 +13,12 @@
 #ifndef OGLPLUS_OBJECT_REFERENCE_1405011014_HPP
 #define OGLPLUS_OBJECT_REFERENCE_1405011014_HPP
 
-#include <oglplus/fwd.hpp>
-#include <oglplus/object/name.hpp>
+#include <oglplus/object/name_tpl.hpp>
 
 namespace oglplus {
 
-template <typename ObjTag>
-struct AllowedSpecialization<Reference<ObjectName<ObjTag>>>
-{ };
-
-template <typename OpsTag, typename ObjTag>
-struct AllowedSpecialization<Reference<ObjectOps<OpsTag, ObjTag>>>
-{ };
+template <typename ObjectOps>
+class Object;
 
 /// Allows to make managed copies of instances of Object
 /** For obvious reasons @ref oglplus_object "objects" are not copyable,
@@ -44,10 +38,11 @@ struct AllowedSpecialization<Reference<ObjectOps<OpsTag, ObjTag>>>
 template <typename Object>
 class Reference
  : public Object
- , public AllowedSpecialization<Reference<Object>>
 {
+private:
+	typedef typename Classify<Object>::ObjTag ObjTag;
 public:
-	Reference(ObjectName<typename Classify<Object>::ObjTag> object)
+	Reference(ObjectName<ObjTag> object)
 	{
 		this->_copy(object);
 	}
@@ -57,8 +52,10 @@ template <typename ObjectOps>
 struct Reference<Object<ObjectOps>>
  : public Reference<ObjectOps>
 {
+private:
+	typedef typename Classify<Object<ObjectOps>>::ObjTag ObjTag;
 public:
-	Reference(ObjectName<typename Classify<Object<ObjectOps>>::ObjTag> object)
+	Reference(ObjectName<ObjTag> object)
 	 : Reference<ObjectOps>(object)
 	{ }
 };

@@ -207,7 +207,23 @@ public:
 	}
 };
 
-typedef ObjectOps<tag::DirectState, tag::Buffer> BufferOps;
+} // namespace oalplus
+namespace oglplus {
+
+template <>
+class ObjGenDelOps<oalplus::tag::Buffer>
+ : public oalplus::ObjGenDelOps<oalplus::tag::Buffer>
+{ };
+
+template <typename OpsTag>
+class ObjectOps<OpsTag, oalplus::tag::Buffer>
+ : public oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer>
+{ };
+
+} // namespace oglplus
+namespace oalplus {
+
+typedef oglplus::ObjectOps<tag::DirectState, tag::Buffer> BufferOps;
 
 /// An @ref oalplus_object encapsulating the OpenAL buffer functionality
 /**
