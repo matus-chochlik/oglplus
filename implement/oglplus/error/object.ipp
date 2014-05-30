@@ -19,7 +19,7 @@ OGLPLUS_LIB_FUNC
 ObjectError::ObjectError(const char* message)
  : Error(message)
 #if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
- , _obj_type(0)
+ , _obj_type(GL_NONE)
 #endif
 #if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
  , _bind_tgt(0)

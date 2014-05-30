@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_OBJECT_GROUP_1405011014_HPP
 #define OGLPLUS_OBJECT_GROUP_1405011014_HPP
 
-#include <oglplus/object/sequence.hpp>
+#include <oglplus/object/seq_tpl.hpp>
 #include <array>
 #include <vector>
 #include <cassert>
@@ -27,13 +27,15 @@ template <typename ObjTag, std::size_t N>
 class StaticGroup<ObjectName<ObjTag>, N>
 {
 private:
-	std::array<GLuint, N> _names;
+	typedef typename ObjTag::NameType NameT;
+
+	std::array<NameT, N> _names;
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 	void _init(std::size_t) { }
 
 	template <typename ... I>
-	void _init(std::size_t i, GLuint name, I ... names)
+	void _init(std::size_t i, NameT name, I ... names)
 	{
 		_names[i] = name;
 		_init(i+1, names...);

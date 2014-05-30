@@ -90,7 +90,7 @@ public:
 	 */
 	static DeviceSpecRange Specifiers(void)
 	{
-		const ALchar* ptr = OALPLUS_ALFUNC(alc,GetString)(
+		const ALchar* ptr = OALPLUS_ALCFUNC(GetString)(
 			nullptr,
 			ALC_DEVICE_SPECIFIER
 		);
@@ -105,7 +105,7 @@ public:
 	 */
 	static DeviceSpecRange CaptureSpecifiers(void)
 	{
-		const ALchar* ptr = OALPLUS_ALFUNC(alc,GetString)(
+		const ALchar* ptr = OALPLUS_ALCFUNC(GetString)(
 			nullptr,
 			ALC_CAPTURE_DEVICE_SPECIFIER
 		);
@@ -126,7 +126,7 @@ public:
 	 *  @alcfunref{OpenDevice}
 	 */
 	Device(void)
-	 : DeviceOps(OALPLUS_ALFUNC(alc,OpenDevice)(nullptr))
+	 : DeviceOps(OALPLUS_ALCFUNC(OpenDevice)(nullptr))
 	{
 		OALPLUS_CHECK_SIMPLE_ALC(_device,OpenDevice);
 	}
@@ -137,7 +137,7 @@ public:
 	 *  @alcfunref{OpenDevice}
 	 */
 	Device(const ALchar* dev_spec)
-	 : DeviceOps(OALPLUS_ALFUNC(alc,OpenDevice)(dev_spec))
+	 : DeviceOps(OALPLUS_ALCFUNC(OpenDevice)(dev_spec))
 	{
 		OALPLUS_CHECK_SIMPLE_ALC(_device,OpenDevice);
 	}
@@ -158,7 +158,7 @@ public:
 	{
 		if(_device)
 		{
-			OALPLUS_ALFUNC(alc,CloseDevice)(_device);
+			OALPLUS_ALCFUNC(CloseDevice)(_device);
 		}
 	}
 };

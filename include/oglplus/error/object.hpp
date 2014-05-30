@@ -76,6 +76,9 @@ public:
 	template <typename ObjTag>
 	ObjectError& Object(oglplus::ObjectName<ObjTag> object)
 	{
+#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+		_obj_type = GLenum(ObjTypeOps<ObjTag>::ObjectType());
+#endif
 		_obj_typeid = ObjTag::value;
 		_obj_name = GetGLName(object);
 		return *this;

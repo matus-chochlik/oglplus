@@ -14,6 +14,7 @@
 #define OGLPLUS_OBJECT_TYPE_1405022040_HPP
 
 #include <oglplus/enumerations.hpp>
+#include <oglplus/object/tags.hpp>
 
 namespace oglplus {
 
@@ -32,6 +33,39 @@ OGLPLUS_ENUM_CLASS_END(ObjectType)
 #if !OGLPLUS_ENUM_VALUE_RANGES
 #include <oglplus/enums/object_type_range.ipp>
 #endif
+
+template <typename ObjTag>
+struct ObjTypeOps
+{
+	static oglplus::ObjectType ObjectType(void)
+	{
+		return oglplus::ObjectType(GL_NONE);
+	}
+};
+
+#define OGLPLUS_SPEC_OBJ_TYPE_OPS(TYPE) \
+template <> \
+struct ObjTypeOps<tag::TYPE> \
+{ \
+	static oglplus::ObjectType ObjectType(void) \
+	{ \
+		return oglplus::ObjectType::TYPE; \
+	} \
+};
+
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Buffer)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Framebuffer)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(ProgramPipeline)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Program)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Query)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Renderbuffer)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Sampler)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Shader)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Texture)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(TransformFeedback)
+OGLPLUS_SPEC_OBJ_TYPE_OPS(VertexArray)
+
+#undef OGLPLUS_SPEC_OBJ_TYPE_OPS
 
 } // namespace oglplus
 

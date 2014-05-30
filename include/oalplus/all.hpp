@@ -37,7 +37,8 @@
 #include <oalplus/buffer.hpp>
 #include <oalplus/source.hpp>
 
-//#include <oalplus/optional.hpp> TODO
-//#include <oalplus/array.hpp>
+#include <oalplus/object/optional.hpp>
+#include <oalplus/object/array.hpp>
+#include <oalplus/object/group.hpp>
 
 #endif // include guard

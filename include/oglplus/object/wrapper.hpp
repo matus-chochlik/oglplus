@@ -14,6 +14,7 @@
 #define OGLPLUS_OBJECT_WRAPPER_1107121519_HPP
 
 #include <oglplus/object/name.hpp>
+#include <oglplus/object/type.hpp>
 #include <oglplus/object/wrap_tpl.hpp>
 
 namespace oglplus {

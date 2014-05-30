@@ -37,11 +37,11 @@ public:
 	 */
 	static void Position(const Vec3f& position)
 	{
-		OALPLUS_ALFUNC(al,Listenerfv)(
+		OALPLUS_ALFUNC(Listenerfv)(
 			AL_POSITION,
 			position.Data()
 		);
-		OALPLUS_VERIFY_SIMPLE(al,Listenerfv);
+		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}
 
 	/// Specifies the position of the listener
@@ -57,11 +57,11 @@ public:
 	static void Position(ALfloat x, ALfloat y, ALfloat z)
 
 	{
-		OALPLUS_ALFUNC(al,Listener3f)(
+		OALPLUS_ALFUNC(Listener3f)(
 			AL_POSITION,
 			x, y, z
 		);
-		OALPLUS_VERIFY_SIMPLE(al,Listener3f);
+		OALPLUS_VERIFY_SIMPLE(Listener3f);
 	}
 
 	/// Returns the positin of the listener
@@ -76,11 +76,11 @@ public:
 	static Vec3f Position(void)
 	{
 		ALfloat result[3];
-		OALPLUS_ALFUNC(al,GetListenerfv)(
+		OALPLUS_ALFUNC(GetListenerfv)(
 			AL_POSITION,
 			result
 		);
-		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
+		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
 		return Vec3f(result);
 	}
 
@@ -96,11 +96,11 @@ public:
 	 */
 	static void Velocity(const Vec3f& velocity)
 	{
-		OALPLUS_ALFUNC(al,Listenerfv)(
+		OALPLUS_ALFUNC(Listenerfv)(
 			AL_VELOCITY,
 			velocity.Data()
 		);
-		OALPLUS_VERIFY_SIMPLE(al,Listenerfv);
+		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}
 
 	/// Specifies the velocity vector of the listener
@@ -115,11 +115,11 @@ public:
 	 */
 	static void Velocity(ALfloat x, ALfloat y, ALfloat z)
 	{
-		OALPLUS_ALFUNC(al,Listener3f)(
+		OALPLUS_ALFUNC(Listener3f)(
 			AL_VELOCITY,
 			x, y, z
 		);
-		OALPLUS_VERIFY_SIMPLE(al,Listener3f);
+		OALPLUS_VERIFY_SIMPLE(Listener3f);
 	}
 
 	/// Returns the velocity vector of the listener
@@ -134,11 +134,11 @@ public:
 	static Vec3f Velocity(void)
 	{
 		ALfloat result[3];
-		OALPLUS_ALFUNC(al,GetListenerfv)(
+		OALPLUS_ALFUNC(GetListenerfv)(
 			AL_VELOCITY,
 			result
 		);
-		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
+		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
 		return Vec3f(result);
 	}
 
@@ -158,8 +158,8 @@ public:
 			at[0], at[1], at[2],
 			up[0], up[1], up[2],
 		};
-		OALPLUS_ALFUNC(al,Listenerfv)(AL_ORIENTATION, v);
-		OALPLUS_VERIFY_SIMPLE(al,Listenerfv);
+		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, v);
+		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}
 
 	/// Specifies the orientation vector of the listener
@@ -184,8 +184,8 @@ public:
 	)
 	{
 		ALfloat v[6] = {at_x, at_y, at_z, up_x, up_y, up_z};
-		OALPLUS_ALFUNC(al,Listenerfv)(AL_ORIENTATION, v);
-		OALPLUS_VERIFY_SIMPLE(al,Listenerfv);
+		OALPLUS_ALFUNC(Listenerfv)(AL_ORIENTATION, v);
+		OALPLUS_VERIFY_SIMPLE(Listenerfv);
 	}
 
 	/// Returns the orientation vector of the listener
@@ -202,8 +202,8 @@ public:
 	static Vec3f OrientationAt(void)
 	{
 		ALfloat v[6];
-		OALPLUS_ALFUNC(al,GetListenerfv)(AL_ORIENTATION, v);
-		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
+		OALPLUS_ALFUNC(GetListenerfv)(AL_ORIENTATION, v);
+		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
 		return Vec3f(v, 3);
 	}
 
@@ -220,8 +220,8 @@ public:
 	static Vec3f OrientationUp(void)
 	{
 		ALfloat v[6];
-		OALPLUS_ALFUNC(al,GetListenerfv)(AL_ORIENTATION, v);
-		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
+		OALPLUS_ALFUNC(GetListenerfv)(AL_ORIENTATION, v);
+		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
 		return Vec3f(v+3, 3);
 	}
 
@@ -234,11 +234,11 @@ public:
 	 */
 	static void Gain(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Listenerf)(
+		OALPLUS_ALFUNC(Listenerf)(
 			AL_GAIN,
 			value
 		);
-		OALPLUS_VERIFY_SIMPLE(al,Listenerf);
+		OALPLUS_VERIFY_SIMPLE(Listenerf);
 	}
 
 	/// Returns the current value of gain of the listener
@@ -251,11 +251,11 @@ public:
 	static ALfloat Gain(void)
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetListenerfv)(
+		OALPLUS_ALFUNC(GetListenerfv)(
 			AL_GAIN,
 			&result
 		);
-		OALPLUS_VERIFY_SIMPLE(al,GetListenerfv);
+		OALPLUS_VERIFY_SIMPLE(GetListenerfv);
 		return result;
 	}
 };

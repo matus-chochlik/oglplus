@@ -115,7 +115,7 @@ public:
 	}
 
 	/// Returns a const reference to the i-th instance in the array
-	const_reference at(GLuint index) const
+	const_reference at(NameT index) const
 	{
 		return const_reference(ObjectName<ObjTag>(_names.at(index)));
 	}

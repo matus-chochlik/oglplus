@@ -14,10 +14,9 @@
 #define OGLPLUS_OPT_DEBUG_OUTPUT_1209031534_HPP
 
 #include <oglplus/config.hpp>
-#include <oglplus/string.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/string/ref.hpp>
 #include <oglplus/object/wrapper.hpp>
-#include <oglplus/friend_of.hpp>
 #include <oglplus/enumerations.hpp>
 
 #include <cassert>
@@ -153,10 +152,10 @@ public:
 			GLenum severity,
 			GLsizei length,
 			const GLchar* message,
-			GLvoid* user_param
+			const GLvoid* user_param
 		)
 		{
-			LogSink* self = static_cast<LogSink*>(user_param);
+			LogSink* self = (LogSink*)(user_param);
 			assert(self);
 			if(self->_callback)
 			{
@@ -187,7 +186,8 @@ public:
 		{
 			// get the previous callback
 			GLDEBUGPROC _tmp_callback = nullptr;
-			void** _tmp_ptr=reinterpret_cast<void**>(&_tmp_callback);
+			void** _tmp_ptr =
+				reinterpret_cast<void**>(&_tmp_callback);
 			OGLPLUS_GLFUNC(GetPointerv)(
 				GL_DEBUG_CALLBACK_FUNCTION,
 				_tmp_ptr
@@ -327,60 +327,15 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ObjectLabel}
 	 */
-	template <typename ObjectOps>
+	template <typename ObjTag>
 	static void ObjectLabel(
-		const Object<ObjectOps>& object,
-		const GLchar* label,
-		GLint length = -1
+		const ObjectName<ObjTag>& object,
+		StrCRef label
 	)
 	{
 		OGLPLUS_GLFUNC(ObjectLabel)(
-			FriendOf<ObjectOps>.GetName(object),
-			object.ObjectType(),
-			length,
-			label
-		);
-		OGLPLUS_VERIFY_SIMPLE(ObjectLabel);
-	}
-
-	/// Annotate @p object with the @p label
-	/**
-	 *  @overload
-	 *
-	 *  @glsymbols
-	 *  @glfunref{ObjectLabel}
-	 */
-	template <typename ObjectOps>
-	static void ObjectLabel(
-		const Object<ObjectOps>& object,
-		const StrLit& label
-	)
-	{
-		OGLPLUS_GLFUNC(ObjectLabel)(
-			FriendOf<ObjectOps>.GetName(object),
-			object.ObjectType(),
-			label.size(),
-			label.c_str()
-		);
-		OGLPLUS_VERIFY_SIMPLE(ObjectLabel);
-	}
-
-	/// Annotate @p object with the @p label
-	/**
-	 *  @overload
-	 *
-	 *  @glsymbols
-	 *  @glfunref{ObjectLabel}
-	 */
-	template <typename ObjectOps>
-	static void ObjectLabel(
-		const Object<ObjectOps>& object,
-		const String& label
-	)
-	{
-		OGLPLUS_GLFUNC(ObjectLabel)(
-			FriendOf<ObjectOps>.GetName(object),
-			object.ObjectType(),
+			GetGLName(object),
+			ObjTypeOps<ObjTag>::ObjectType(),
 			label.size(),
 			label.c_str()
 		);
