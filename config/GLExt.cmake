@@ -30,6 +30,7 @@ gl_lib_ext_detection(GL ARB transform_feedback2)
 gl_lib_ext_detection(GL ARB viewport_array)
 gl_lib_ext_detection(GL ARB compatibility)
 gl_lib_ext_detection(GL EXT direct_state_access)
+gl_lib_ext_detection(GL KHR debug)
 gl_lib_ext_detection(GL NV path_rendering)
 gl_lib_ext_detection(GL NV copy_image)
 
