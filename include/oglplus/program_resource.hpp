@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_PROGRAM_RESOURCE_1208301144_HPP
 #define OGLPLUS_PROGRAM_RESOURCE_1208301144_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/shader_type.hpp>

@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_BUFFER_MASKING_1201040722_HPP
 #define OGLPLUS_CONTEXT_BUFFER_MASKING_1201040722_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/face_mode.hpp>
 

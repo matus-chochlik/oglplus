@@ -22,7 +22,7 @@
 #include <boost/config.hpp>
 #endif
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 
 #ifdef  OGLPLUS_DOCUMENTATION_ONLY
 #define EGLPLUS_DOCUMENTATION_ONLY OGLPLUS_DOCUMENTATION_ONLY

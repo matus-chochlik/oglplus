@@ -43,16 +43,16 @@ class Error
 {
 private:
 	ALenum _code;
-#if !OALPLUS_ERROR_INFO_NO_FILE
+#if !OALPLUS_ERROR_NO_FILE
 	const char* _file;
 #endif
-#if !OALPLUS_ERROR_INFO_NO_FUNC
+#if !OALPLUS_ERROR_NO_FUNC
 	const char* _func;
 #endif
-#if !OALPLUS_ERROR_INFO_NO_LINE
+#if !OALPLUS_ERROR_NO_LINE
 	unsigned _line;
 #endif
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 	const char* _allib_name;
 	const char* _alfunc_name;
 	const char* _enumpar_name;
@@ -83,7 +83,7 @@ public:
 
 	Error& SourceFile(const char* file)
 	{
-#if !OALPLUS_ERROR_INFO_NO_FILE
+#if !OALPLUS_ERROR_NO_FILE
 		_file = file;
 #endif
 		(void)file;
@@ -93,7 +93,7 @@ public:
 	/// Returns the name of the source file where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #OALPLUS_ERROR_INFO_NO_FILE preprocessor configuration option.
+	 *  #OALPLUS_ERROR_NO_FILE preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -101,7 +101,7 @@ public:
 
 	Error& SourceFunc(const char* func)
 	{
-#if !OALPLUS_ERROR_INFO_NO_FUNC
+#if !OALPLUS_ERROR_NO_FUNC
 		_func = func;
 #endif
 		(void)func;
@@ -111,7 +111,7 @@ public:
 	/// Returns the name of the function where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #OALPLUS_ERROR_INFO_NO_FUNC preprocessor configuration option.
+	 *  #OALPLUS_ERROR_NO_FUNC preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -119,7 +119,7 @@ public:
 
 	Error& SourceLine(unsigned line)
 	{
-#if !OALPLUS_ERROR_INFO_NO_LINE
+#if !OALPLUS_ERROR_NO_LINE
 		_line = line;
 #endif
 		(void)line;
@@ -129,7 +129,7 @@ public:
 	/// Returns the line of the source file where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #OALPLUS_ERROR_INFO_NO_LINE preprocessor configuration option.
+	 *  #OALPLUS_ERROR_NO_LINE preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
@@ -137,7 +137,7 @@ public:
 
 	Error& ALLibName(const char* lib_name)
 	{
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 		_allib_name = lib_name;
 #endif
 		(void)lib_name;
@@ -149,7 +149,7 @@ public:
 	 *  of the failed OpenAL function which is related to the error.
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OALPLUS_ERROR_INFO_NO_AL_SYMBOL preprocessor configuration option.
+	 *  #OALPLUS_ERROR_NO_AL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -157,7 +157,7 @@ public:
 
 	Error& ALFuncName(const char* func_name)
 	{
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 		_alfunc_name = func_name;
 #endif
 		(void)func_name;
@@ -169,7 +169,7 @@ public:
 	 *  (without the @c al prefix) which is related to the error.
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OALPLUS_ERROR_INFO_NO_AL_SYMBOL preprocessor configuration option.
+	 *  #OALPLUS_ERROR_NO_AL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -178,7 +178,7 @@ public:
 	template <typename Enum_>
 	Error& EnumParam(Enum_ param)
 	{
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 		_enumpar = ALenum(param);
 		_enumpar_name = EnumValueName(param).c_str();
 #endif
@@ -188,7 +188,7 @@ public:
 
 	Error& EnumParam(ALenum param, const char* param_name)
 	{
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 		_enumpar = param;
 		_enumpar_name = param_name;
 #endif
@@ -202,7 +202,7 @@ public:
 	 *  parameter passed to the failed OpenAL function
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OALPLUS_ERROR_INFO_NO_AL_SYMBOL preprocessor configuration option.
+	 *  #OALPLUS_ERROR_NO_AL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
@@ -213,7 +213,7 @@ public:
 	 *  parameter passed to the failed OpenAL function
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OALPLUS_ERROR_INFO_NO_AL_SYMBOL preprocessor configuration option.
+	 *  #OALPLUS_ERROR_NO_AL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */

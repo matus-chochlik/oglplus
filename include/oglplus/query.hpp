@@ -13,9 +13,8 @@
 #ifndef OGLPLUS_QUERY_1107121519_HPP
 #define OGLPLUS_QUERY_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/reference.hpp>
 #include <oglplus/error/object.hpp>

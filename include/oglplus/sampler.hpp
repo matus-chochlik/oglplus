@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_SAMPLER_1107121519_HPP
 #define OGLPLUS_SAMPLER_1107121519_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/error/object.hpp>

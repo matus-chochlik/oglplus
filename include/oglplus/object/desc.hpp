@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_OBJECT_DESC_1107121519_HPP
 #define OGLPLUS_OBJECT_DESC_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/object.hpp>
 #include <oglplus/string/empty.hpp>
 #include <oglplus/object/name_tpl.hpp>
 

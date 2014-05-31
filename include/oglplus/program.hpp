@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_PROGRAM_1107121519_HPP
 #define OGLPLUS_PROGRAM_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>

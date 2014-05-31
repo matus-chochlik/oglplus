@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_AUX_PROG_PL_STAGES_1107121519_HPP
 #define OGLPLUS_AUX_PROG_PL_STAGES_1107121519_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error/object.hpp>
 

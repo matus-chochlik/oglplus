@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_SYNCHRONIZATION_1201040722_HPP
 #define OGLPLUS_CONTEXT_SYNCHRONIZATION_1201040722_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/memory_barrier.hpp>
 #include <oglplus/bitfield.hpp>

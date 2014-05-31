@@ -15,13 +15,13 @@ OALPLUS_LIB_FUNC
 Error::Error(const char* message)
  : std::runtime_error(message)
  , _code(0)
-#if !OALPLUS_ERROR_INFO_NO_FILE
+#if !OALPLUS_ERROR_NO_FILE
  , _file(nullptr)
 #endif
-#if !OALPLUS_ERROR_INFO_NO_LINE
+#if !OALPLUS_ERROR_NO_LINE
  , _line(0)
 #endif
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
  , _allib_name(nullptr)
  , _alfunc_name(nullptr)
  , _enumpar_name(nullptr)
@@ -33,7 +33,7 @@ Error::Error(const char* message)
 OALPLUS_LIB_FUNC
 const char* Error::SourceFile(void) const
 {
-#if !OALPLUS_ERROR_INFO_NO_FILE
+#if !OALPLUS_ERROR_NO_FILE
 	return _file;
 #else
 	return nullptr;
@@ -43,7 +43,7 @@ const char* Error::SourceFile(void) const
 OALPLUS_LIB_FUNC
 const char* Error::SourceFunc(void) const
 {
-#if !OALPLUS_ERROR_INFO_NO_FUNC
+#if !OALPLUS_ERROR_NO_FUNC
 	return _func;
 #else
 	return nullptr;
@@ -53,7 +53,7 @@ const char* Error::SourceFunc(void) const
 OALPLUS_LIB_FUNC
 unsigned Error::SourceLine(void) const
 {
-#if !OALPLUS_ERROR_INFO_NO_LINE
+#if !OALPLUS_ERROR_NO_LINE
 	return _line;
 #else
 	return 0u;
@@ -63,7 +63,7 @@ unsigned Error::SourceLine(void) const
 OALPLUS_LIB_FUNC
 const char* Error::ALLibName(void) const
 {
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 	return _allib_name;
 #else
 	return nullptr;
@@ -73,7 +73,7 @@ const char* Error::ALLibName(void) const
 OALPLUS_LIB_FUNC
 const char* Error::ALFuncName(void) const
 {
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 	return _alfunc_name;
 #else
 	return nullptr;
@@ -83,7 +83,7 @@ const char* Error::ALFuncName(void) const
 OALPLUS_LIB_FUNC
 ALenum Error::EnumParam(void) const
 {
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 	return _enumpar;
 #else
 	return 0;
@@ -93,7 +93,7 @@ ALenum Error::EnumParam(void) const
 OALPLUS_LIB_FUNC
 const char* Error::EnumParamName(void) const
 {
-#if !OALPLUS_ERROR_INFO_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 	return _enumpar_name;
 #else
 	return nullptr;

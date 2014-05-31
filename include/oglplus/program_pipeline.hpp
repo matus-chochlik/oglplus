@@ -13,9 +13,8 @@
 #ifndef OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 #define OGLPLUS_PROGRAM_PIPELINE_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/shader_type.hpp>
 #include <oglplus/program_pipeline_stage.hpp>
 #include <oglplus/object/wrapper.hpp>

@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_OPT_DEBUG_OUTPUT_1209031534_HPP
 #define OGLPLUS_OPT_DEBUG_OUTPUT_1209031534_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/object/wrapper.hpp>

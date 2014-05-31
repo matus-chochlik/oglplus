@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_PIXEL_OPS_1201040722_HPP
 #define OGLPLUS_CONTEXT_PIXEL_OPS_1201040722_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/pixel_storage_mode.hpp>
 #include <oglplus/pixel_data.hpp>

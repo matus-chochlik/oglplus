@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_OPT_RESOURCES_1107121519_HPP
 #define OGLPLUS_OPT_RESOURCES_1107121519_HPP
 
-#include <oglplus/config_basic.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/opt/application.hpp>
 #include <oglplus/utils/filesystem.hpp>
 

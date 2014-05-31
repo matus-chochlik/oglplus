@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_DRAWING_1201040722_HPP
 #define OGLPLUS_CONTEXT_DRAWING_1201040722_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/patch_parameter.hpp>

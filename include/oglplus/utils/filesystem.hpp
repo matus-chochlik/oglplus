@@ -12,7 +12,7 @@
 #ifndef OGLPLUS_UTILS_FILESYSTEM_1102101236_HPP
 #define OGLPLUS_UTILS_FILESYSTEM_1102101236_HPP
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <string>
 #include <cassert>
 

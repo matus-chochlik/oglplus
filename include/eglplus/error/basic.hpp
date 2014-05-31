@@ -44,16 +44,16 @@ class Error
 {
 private:
 	EGLenum _code;
-#if !EGLPLUS_ERROR_INFO_NO_FILE
+#if !EGLPLUS_ERROR_NO_FILE
 	const char* _file;
 #endif
-#if !EGLPLUS_ERROR_INFO_NO_FUNC
+#if !EGLPLUS_ERROR_NO_FUNC
 	const char* _func;
 #endif
-#if !EGLPLUS_ERROR_INFO_NO_LINE
+#if !EGLPLUS_ERROR_NO_LINE
 	unsigned _line;
 #endif
-#if !EGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_GL_SYMBOL
 	const char* _eglfunc_name;
 	const char* _enumpar_name;
 	EGLenum _enumpar;
@@ -79,7 +79,7 @@ public:
 
 	Error& SourceFile(const char* file)
 	{
-#if !EGLPLUS_ERROR_INFO_NO_FILE
+#if !EGLPLUS_ERROR_NO_FILE
 		_file = file;
 #endif
 		(void)file;
@@ -89,7 +89,7 @@ public:
 	/// Returns the name of the source file where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_INFO_NO_FILE preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_FILE preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -97,7 +97,7 @@ public:
 
 	Error& SourceFunc(const char* func)
 	{
-#if !EGLPLUS_ERROR_INFO_NO_FUNC
+#if !EGLPLUS_ERROR_NO_FUNC
 		_func = func;
 #endif
 		(void)func;
@@ -107,7 +107,7 @@ public:
 	/// Returns the name of the function where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_INFO_NO_FUNC preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_FUNC preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -115,7 +115,7 @@ public:
 
 	Error& SourceLine(unsigned line)
 	{
-#if !EGLPLUS_ERROR_INFO_NO_LINE
+#if !EGLPLUS_ERROR_NO_LINE
 		_line = line;
 #endif
 		(void)line;
@@ -125,7 +125,7 @@ public:
 	/// Returns the line of the source file where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_INFO_NO_LINE preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_LINE preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
@@ -133,7 +133,7 @@ public:
 
 	Error& EGLFuncName(const char* func_name)
 	{
-#if !EGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_GL_SYMBOL
 		_eglfunc_name = func_name;
 #endif
 		(void)func_name;
@@ -145,7 +145,7 @@ public:
 	 *  (without the @c egl prefix) which is related to the error.
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -154,7 +154,7 @@ public:
 	template <typename Enum_>
 	Error& EnumParam(Enum_ param)
 	{
-#if !EGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = EGLenum(param);
 		_enumpar_name = EnumValueName(param).c_str();
 #endif
@@ -164,7 +164,7 @@ public:
 
 	Error& EnumParam(EGLenum param, const char* param_name)
 	{
-#if !EGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = param;
 		_enumpar_name = param_name;
 #endif
@@ -178,7 +178,7 @@ public:
 	 *  parameter passed to the failed OpenGL function
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
@@ -189,7 +189,7 @@ public:
 	 *  parameter passed to the failed OpenGL function
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */

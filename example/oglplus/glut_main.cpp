@@ -26,9 +26,6 @@
 #include <iomanip>
 #include <vector>
 
-#include <oglplus/site_config.hpp>
-
-#include <oglplus/config.hpp>
 #include <oglplus/error/basic.hpp>
 
 #include <oglplus/query.hpp>

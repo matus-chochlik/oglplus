@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_ONE_OF_1107121519_HPP
 #define OGLPLUS_ONE_OF_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/compiler.hpp>
 
 #include <type_traits>
 #include <tuple>

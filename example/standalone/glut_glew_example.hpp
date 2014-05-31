@@ -11,7 +11,7 @@
 
 #include <GL/glew.h>
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/gl.hpp>
 
 #if OGLPLUS_USE_FREEGLUT
 # include <GL/freeglut.h>

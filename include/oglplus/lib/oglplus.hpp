@@ -23,7 +23,6 @@
 #define OGLPLUS_IMPLEMENTING_LIBRARY 1
 #endif
 
-#include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
 #include <oglplus/string/utf8.hpp>

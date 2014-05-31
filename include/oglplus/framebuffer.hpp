@@ -13,9 +13,8 @@
 #ifndef OGLPLUS_FRAMEBUFFER_1107121519_HPP
 #define OGLPLUS_FRAMEBUFFER_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/error/framebuffer.hpp>
 #include <oglplus/framebuffer_target.hpp>
 #include <oglplus/framebuffer_attachment.hpp>

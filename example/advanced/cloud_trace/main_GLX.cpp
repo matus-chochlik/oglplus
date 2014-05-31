@@ -29,8 +29,6 @@
 #include <oglplus/x11/visual_info.hpp>
 #include <oglplus/x11/display.hpp>
 
-#include <oglplus/config.hpp>
-
 #include <stdexcept>
 #include <iostream>
 #include <vector>

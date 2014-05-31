@@ -13,9 +13,9 @@
 #ifndef OGLPLUS_PROG_VAR_TYPECHECK_1405052241_HPP
 #define OGLPLUS_PROG_VAR_TYPECHECK_1405052241_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
-#include <oglplus/fwd.hpp>
+#include <oglplus/config/basic.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/prog_var/type_ops.hpp>
 #include <oglplus/detail/enum_class.hpp>
 

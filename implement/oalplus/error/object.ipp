@@ -14,7 +14,7 @@ namespace oalplus {
 OALPLUS_LIB_FUNC
 ObjectError::ObjectError(const char* message)
  : Error(message)
-#if !OALPLUS_ERROR_INFO_NO_OBJECT_TYPE
+#if !OALPLUS_ERROR_NO_OBJECT_TYPE
  , _obj_type(0)
 #endif
  , _obj_typeid(0)
@@ -24,7 +24,7 @@ ObjectError::ObjectError(const char* message)
 OALPLUS_LIB_FUNC
 ALenum ObjectError::ObjectType(void) const
 {
-#if !OALPLUS_ERROR_INFO_NO_OBJECT_TYPE
+#if !OALPLUS_ERROR_NO_OBJECT_TYPE
 	return _obj_type;
 #else
 	return ALenum(0);

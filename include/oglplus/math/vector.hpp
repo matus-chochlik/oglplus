@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_VECTOR_1107121519_HPP
 #define OGLPLUS_VECTOR_1107121519_HPP
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/detail/nothing.hpp>
 #include <oglplus/fwd.hpp>
 #include <cassert>

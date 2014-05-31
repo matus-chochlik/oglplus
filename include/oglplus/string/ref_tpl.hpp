@@ -14,7 +14,7 @@
 #define OGLPLUS_STRING_REF_TPL_1107121519_HPP
 
 #include <oglplus/string/utf8.hpp>
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <string>
 #include <cstring>
 #include <cstddef>

@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_EXTENSION_1203031825_HPP
 #define OGLPLUS_EXTENSION_1203031825_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/gl.hpp>
 #include <oglplus/error/basic.hpp>
 
 namespace oglplus {

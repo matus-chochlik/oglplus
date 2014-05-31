@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_AUX_INFO_LOG_1107121519_HPP
 #define OGLPLUS_AUX_INFO_LOG_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/gl.hpp>
 #include <oglplus/string/def.hpp>
 
 namespace oglplus {

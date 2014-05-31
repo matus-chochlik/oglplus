@@ -1,14 +1,14 @@
 /**
  *  @file oglplus/imports/blend_file.ipp
- *  @brief Implemenration of BlendFile
+ *  @brief Implementation of BlendFile
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
-#include <oglplus/config_basic.hpp>
+#include <oglplus/config/basic.hpp>
 
 namespace oglplus {
 namespace imports {

@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/config_compiler.hpp
+ *  @file oglplus/config/compiler.hpp
  *  @brief Configuration options based on compiler capabilities
  *
  *  @author Matus Chochlik
@@ -15,6 +15,10 @@
 
 #ifndef OGLPLUS_NO_SITE_CONFIG
 #include <oglplus/site_config.hpp>
+#endif
+
+#ifndef OGLPLUS_USE_BOOST_CONFIG
+#define OGLPLUS_USE_BOOST_CONFIG 0
 #endif
 
 #if OGLPLUS_USE_BOOST_CONFIG

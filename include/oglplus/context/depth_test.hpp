@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_DEPTH_TEST_1201040722_HPP
 #define OGLPLUS_CONTEXT_DEPTH_TEST_1201040722_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/compare_func.hpp>
 

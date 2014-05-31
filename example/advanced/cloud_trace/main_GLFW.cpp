@@ -20,8 +20,6 @@
 
 #include <GL/glfw.h>
 
-#include <oglplus/config.hpp>
-
 #include <stdexcept>
 #include <iostream>
 

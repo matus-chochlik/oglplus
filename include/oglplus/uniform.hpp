@@ -73,7 +73,7 @@ template <>
 class ProgVarSetters<tag::ImplicitSel, tag::Uniform, tag::NativeTypes>
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(Uniform, Uniform)
+	OGLPLUS_ERROR_CONTEXT(Uniform, Uniform)
 
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, ui, t, GLuint)
 	OGLPLUS_AUX_VARPARA_FNS(Uniform, i, t, GLint)
@@ -102,7 +102,7 @@ template <>
 class ProgVarSetters<tag::ImplicitSel, tag::Uniform, tag::MatrixTypes>
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(UniformMatrix, Uniform)
+	OGLPLUS_ERROR_CONTEXT(UniformMatrix, Uniform)
 
 	OGLPLUS_AUX_VARPARA_MAT_FNS(UniformMatrix, fv, v, GLfloat)
 #if GL_VERSION_3_3 || GL_ARB_gpu_shader_fp64

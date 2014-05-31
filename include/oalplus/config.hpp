@@ -22,8 +22,8 @@
 #include <boost/config.hpp>
 #endif
 
-#include <oglplus/config_compiler.hpp>
-#include <oglplus/config_basic.hpp>
+#include <oglplus/config/compiler.hpp>
+#include <oglplus/config/basic.hpp>
 
 #ifdef  OGLPLUS_DOCUMENTATION_ONLY
 #define OALPLUS_DOCUMENTATION_ONLY OGLPLUS_DOCUMENTATION_ONLY

@@ -21,7 +21,6 @@
 #include <iostream>
 #include <iomanip>
 
-#include <oglplus/config.hpp>
 #include <oglplus/error/basic.hpp>
 
 #include <oglplus/query.hpp>

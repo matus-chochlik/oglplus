@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_BINDING_1404142131_HPP
 #define OGLPLUS_CONTEXT_BINDING_1404142131_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/object/wrapper.hpp>
 
 namespace oglplus {

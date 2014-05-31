@@ -13,9 +13,8 @@
 #ifndef OGLPLUS_SHADER_1107121519_HPP
 #define OGLPLUS_SHADER_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/error/program.hpp>

@@ -13,8 +13,8 @@
 #ifndef OGLPLUS_EXT_ARB_DEBUG_OUTPUT_1203031902_HPP
 #define OGLPLUS_EXT_ARB_DEBUG_OUTPUT_1203031902_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/glfunc.hpp>

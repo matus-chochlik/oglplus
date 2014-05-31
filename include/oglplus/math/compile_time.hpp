@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_MATH_COMPILE_TIME_1107121519_HPP
 #define OGLPLUS_MATH_COMPILE_TIME_1107121519_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <type_traits>
 
 namespace oglplus {

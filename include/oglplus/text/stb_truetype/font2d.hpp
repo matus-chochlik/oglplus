@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2011-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2011-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,8 +12,8 @@
 #ifndef __OGLPLUS_TEXT_STB_TRUETYPE_1102101236_HPP
 #define __OGLPLUS_TEXT_STB_TRUETYPE_1102101236_HPP
 
-#include <oglplus/config_compiler.hpp>
-#include <oglplus/config_basic.hpp>
+#include <oglplus/config/compiler.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/text/unicode.hpp>
 
 #include <stb_truetype.h>
