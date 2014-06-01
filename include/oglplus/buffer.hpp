@@ -14,7 +14,6 @@
 #define OGLPLUS_BUFFER_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/config/basic.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>

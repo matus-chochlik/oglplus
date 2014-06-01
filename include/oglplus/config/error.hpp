@@ -70,14 +70,15 @@
 /**
  *  @see ErrorFunc()
  *
- *  By default this option is set to 0, i.e. ErrorFunc is enabled.
+ *  By default this option is set to the same value as #OGLPLUS_LOW_PROFILE,
+ *  i.e. ErrorFinc is enabled, when not in low-profile and disabled otherwise.
  *
  *  @ingroup compile_time_config
  */
 #define OGLPLUS_ERROR_NO_FUNC
 #else
 # ifndef OGLPLUS_ERROR_NO_FUNC
-#  define OGLPLUS_ERROR_NO_FUNC 0
+#  define OGLPLUS_ERROR_NO_FUNC OGLPLUS_LOW_PROFILE
 # endif
 #endif
 

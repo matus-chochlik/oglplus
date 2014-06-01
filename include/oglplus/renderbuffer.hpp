@@ -14,7 +14,6 @@
 #define OGLPLUS_RENDERBUFFER_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/config/basic.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/renderbuffer_target.hpp>
 #include <oglplus/pixel_data.hpp>

@@ -68,7 +68,7 @@ Error::Error(const char* message)
 #if !EGLPLUS_ERROR_NO_LINE
  , _line(0)
 #endif
-#if !EGLPLUS_ERROR_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
  , _eglfunc_name(nullptr)
  , _enumpar_name(nullptr)
  , _enumpar(0)
@@ -108,7 +108,7 @@ unsigned Error::SourceLine(void) const
 EGLPLUS_LIB_FUNC
 const char* Error::EGLFuncName(void) const
 {
-#if !EGLPLUS_ERROR_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 	return _eglfunc_name;
 #else
 	return nullptr;
@@ -118,7 +118,7 @@ const char* Error::EGLFuncName(void) const
 EGLPLUS_LIB_FUNC
 EGLenum Error::EnumParam(void) const
 {
-#if !EGLPLUS_ERROR_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 	return _enumpar;
 #else
 	return 0;
@@ -128,7 +128,7 @@ EGLenum Error::EnumParam(void) const
 EGLPLUS_LIB_FUNC
 const char* Error::EnumParamName(void) const
 {
-#if !EGLPLUS_ERROR_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 	return _enumpar_name;
 #else
 	return nullptr;

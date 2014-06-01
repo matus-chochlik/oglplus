@@ -53,7 +53,7 @@ private:
 #if !EGLPLUS_ERROR_NO_LINE
 	unsigned _line;
 #endif
-#if !EGLPLUS_ERROR_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 	const char* _eglfunc_name;
 	const char* _enumpar_name;
 	EGLenum _enumpar;
@@ -133,7 +133,7 @@ public:
 
 	Error& EGLFuncName(const char* func_name)
 	{
-#if !EGLPLUS_ERROR_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 		_eglfunc_name = func_name;
 #endif
 		(void)func_name;
@@ -145,7 +145,7 @@ public:
 	 *  (without the @c egl prefix) which is related to the error.
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_EGL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -154,7 +154,7 @@ public:
 	template <typename Enum_>
 	Error& EnumParam(Enum_ param)
 	{
-#if !EGLPLUS_ERROR_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 		_enumpar = EGLenum(param);
 		_enumpar_name = EnumValueName(param).c_str();
 #endif
@@ -164,7 +164,7 @@ public:
 
 	Error& EnumParam(EGLenum param, const char* param_name)
 	{
-#if !EGLPLUS_ERROR_NO_GL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 		_enumpar = param;
 		_enumpar_name = param_name;
 #endif
@@ -178,7 +178,7 @@ public:
 	 *  parameter passed to the failed OpenGL function
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_EGL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
@@ -189,7 +189,7 @@ public:
 	 *  parameter passed to the failed OpenGL function
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #EGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #EGLPLUS_ERROR_NO_EGL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */

@@ -57,10 +57,10 @@
  *
  *  @ingroup compile_time_config
  */
-#define OGLPLUS_NO_OBJECT_DESCS
+#define OGLPLUS_NO_OBJECT_DESC
 #else
-# ifndef OGLPLUS_NO_OBJECT_DESCS
-#  define OGLPLUS_NO_OBJECT_DESCS OGLPLUS_LOW_PROFILE
+# ifndef OGLPLUS_NO_OBJECT_DESC
+#  define OGLPLUS_NO_OBJECT_DESC OGLPLUS_LOW_PROFILE
 # endif
 #endif
 

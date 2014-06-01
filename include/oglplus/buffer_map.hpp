@@ -14,7 +14,6 @@
 #define OGLPLUS_BUFFER_MAP_1107121519_HPP
 
 #include <oglplus/glfunc.hpp>
-#include <oglplus/config/basic.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/buffer_map_access.hpp>
 #include <oglplus/buffer_target.hpp>
