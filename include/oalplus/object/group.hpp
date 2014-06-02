@@ -18,6 +18,8 @@
 namespace oalplus {
 
 using oglplus::Group;
+using oglplus::StaticGroup;
+using oglplus::MakeGroup;
 
 } // namespace oalplus
 
