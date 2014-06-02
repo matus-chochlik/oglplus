@@ -955,6 +955,66 @@ public:
 };
 #endif
 
+/// A class that allows to build programs in the constructor
+/** This class allows to supply a list of shaders and other parameters
+ *  to the constructor. The shaders are attached to the Program
+ *  and it is linked and made active. Optionally the program can also
+ *  be made separable.
+ */
+class QuickProgram
+ : public Program
+{
+public:
+	/// Attaches @p shaders, links and uses the program
+	QuickProgram(const Sequence<ShaderName>& shaders)
+	{
+		AttachShaders(shaders);
+		Link();
+		Use();
+	}
+
+	/// Attaches @p shaders, links, uses and describes the program
+	QuickProgram(
+		ObjectDesc&& object_desc,
+		const Sequence<ShaderName>& shaders
+	): Program(std::move(object_desc))
+	{
+		AttachShaders(shaders);
+		Link();
+		Use();
+	}
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+	/// Attaches @p shaders, makes separable, links and uses the program
+	/**
+	 *  @glvoereq{4,1,ARB,separate_shader_objects}
+	 */
+	QuickProgram(bool separable, const Sequence<ShaderName>& shaders)
+	{
+		AttachShaders(shaders);
+		if(separable) MakeSeparable();
+		Link();
+		Use();
+	}
+
+	/// Attaches @p shaders, makes separable, links and uses the program
+	/**
+	 *  @glvoereq{4,1,ARB,separate_shader_objects}
+	 */
+	QuickProgram(
+		ObjectDesc&& object_desc,
+		bool separable,
+		const Sequence<ShaderName>& shaders
+	): Program(std::move(object_desc))
+	{
+		AttachShaders(shaders);
+		if(separable) MakeSeparable();
+		Link();
+		Use();
+	}
+#endif
+};
+
 } // namespace oglplus
 
 #if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)

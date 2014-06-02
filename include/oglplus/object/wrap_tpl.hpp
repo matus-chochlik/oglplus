@@ -15,6 +15,7 @@
 
 #include <oglplus/object/desc.hpp>
 #include <oglplus/object/name_tpl.hpp>
+#include <oglplus/object/seq_tpl.hpp>
 #include <oglplus/detail/nothing.hpp>
 #include <type_traits>
 #include <cassert>
@@ -223,6 +224,22 @@ public:
 			this->_name
 		);
 	}
+
+
+	Sequence<ObjectName<ObjTag>> seq(void) const
+	{
+		return Sequence<ObjectName<ObjTag>>(&this->_name, 1);
+	}
+
+	/// Returns a sequence referencing the name of this object
+	/** Note that the returned sequence must not be used after
+	 *  this object has been destroyed.
+	 */
+	operator Sequence<ObjectName<ObjTag>> (void) const
+	{
+		return seq();
+	}
+
 };
 
 template <typename OpsTg, typename ObjTg>
