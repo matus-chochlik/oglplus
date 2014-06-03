@@ -183,6 +183,14 @@ inline void example_print_error_common(
 		errstr	<< std::endl;
 	}
 
+	if(error.Identifier())
+	{
+		errstr	<< "Identifier: '"
+			<< error.Identifier()
+			<< "'"
+			<< std::endl;
+	}
+
 	if(error.Index() >= 0)
 	{
 		errstr	<< "Index: ("
