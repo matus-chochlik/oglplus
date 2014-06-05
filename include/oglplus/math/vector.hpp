@@ -33,6 +33,32 @@ T At(const Matrix<T, R, C>&, std::size_t r, std::size_t c);
 template <typename T, std::size_t N>
 class Vector;
 
+#if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_INT)
+/// 1D int (degenerate) vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLint, 1> Vec1i;
+
+/// 2D int vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLint, 2> Vec2i;
+
+/// 3D int vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLint, 3> Vec3i;
+
+/// 4D int vector
+/**
+ *  @ingroup math_utils
+ */
+typedef Vector<GLint, 4> Vec4i;
+#endif
+
 #if OGLPLUS_DOCUMENTATION_ONLY || defined(GL_FLOAT)
 /// 1D float (degenerate) vector
 /**
@@ -249,11 +275,25 @@ public:
 			_elem[i] *= v;
 	}
 
+	/// Multiplies the elements of this and that vector
+	void MultiplyBy(const VectorBase& that)
+	{
+		for(std::size_t i=0; i!=N; ++i)
+			_elem[i] *= that._elem[i];
+	}
+
 	/// Divides this vector by a scalar value
 	void DivideBy(T v)
 	{
 		for(std::size_t i=0; i!=N; ++i)
 			_elem[i] /= v;
+	}
+
+	/// Divides the elements of this and that vector
+	void DivideBy(const VectorBase& that)
+	{
+		for(std::size_t i=0; i!=N; ++i)
+			_elem[i] /= that._elem[i];
 	}
 
 	/// Returns the lenght of this vector

@@ -267,10 +267,7 @@ public:
 		norm_tex.target =  Texture::Target::_2D;
 		norm_tex.Image2D(
 			images::TransformComponents<GLfloat, 3>(
-				images::NormalMap(
-					tile_image,
-					images::NormalMap::Filtered::FromRed()
-				),
+				images::NormalMap(tile_image),
 				Mat4d(
 					Vec4d(1.0, 0.0, 0.0, 0.0),
 					Vec4d(0.0, 0.0, 1.0, 0.0),

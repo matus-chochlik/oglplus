@@ -88,6 +88,7 @@
 #include <oglplus/images/cloud.hpp>
 #include <oglplus/images/squares.hpp>
 #include <oglplus/images/sphere_bmap.hpp>
+#include <oglplus/images/normal_map.hpp>
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/xpm.hpp>
 #include <oglplus/images/sort_nw.hpp>
