@@ -28,4 +28,5 @@
 #include <oglplus/images/normal_map.hpp>
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/sort_nw.hpp>
+#include <oglplus/images/voronoi.hpp>
 #include "epilogue.ipp"

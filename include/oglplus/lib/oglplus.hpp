@@ -92,6 +92,7 @@
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/xpm.hpp>
 #include <oglplus/images/sort_nw.hpp>
+#include <oglplus/images/voronoi.hpp>
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>
