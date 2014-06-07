@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/images/voronoi.ipp
- *  @brief Implementation of images::VoronoiDiagram
+ *  @brief Implementation of images::VoronoiDiagram and images::VoronoiCells
  *
  *  @author Matus Chochlik
  *

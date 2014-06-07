@@ -29,4 +29,5 @@
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/sort_nw.hpp>
 #include <oglplus/images/voronoi.hpp>
+#include <oglplus/images/worley.hpp>
 #include "epilogue.ipp"
