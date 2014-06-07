@@ -55,6 +55,30 @@ VoronoiDiagram::VoronoiDiagram(
 ))
 { }
 
+struct VoronoiCellDistance
+{
+	GLdouble operator()(const std::vector<GLdouble>& d) const
+	{
+		assert(!d.empty());
+		return d.front();
+	}
+};
+
+OGLPLUS_LIB_FUNC
+VoronoiCells::VoronoiCells(
+	GLsizei cell_w,
+	GLsizei cell_h,
+	GLsizei cell_d,
+	const Image& input
+): Image(static_cast<Image&&>(
+	WorleyCellGen(
+		cell_w, cell_h, cell_d,
+		input,
+		VoronoiCellDistance(), 1
+	)
+))
+{ }
+
 } // namespace images
 } // namespace oglplus
 

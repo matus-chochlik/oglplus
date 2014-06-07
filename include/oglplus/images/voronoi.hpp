@@ -30,6 +30,18 @@ public:
 	);
 };
 
+class VoronoiCells
+ : public Image
+{
+public:
+	VoronoiCells(
+		GLsizei cell_w,
+		GLsizei cell_h,
+		GLsizei cell_d,
+		const Image& input
+	);
+};
+
 } // images
 } // oglplus
 
