@@ -14,6 +14,7 @@
 #define OGLPLUS_IMAGES_WORLEY_1107121519_HPP
 
 #include <oglplus/images/image.hpp>
+#include <functional>
 
 namespace oglplus {
 namespace images {
@@ -27,6 +28,15 @@ public:
 		GLsizei cell_h,
 		GLsizei cell_d,
 		const Image& input
+	);
+
+	WorleyCells(
+		GLsizei cell_w,
+		GLsizei cell_h,
+		GLsizei cell_d,
+		const Image& input,
+		std::function<GLdouble(const std::vector<GLdouble>&)> calc_val,
+		unsigned order
 	);
 };
 

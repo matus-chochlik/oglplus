@@ -40,6 +40,24 @@ WorleyCells::WorleyCells(
 ))
 { }
 
+OGLPLUS_LIB_FUNC
+WorleyCells::WorleyCells(
+	GLsizei cell_w,
+	GLsizei cell_h,
+	GLsizei cell_d,
+	const Image& input,
+	std::function<GLdouble(const std::vector<GLdouble>&)> calc_value,
+	unsigned order
+): Image(static_cast<Image&&>(
+	WorleyCellGen(
+		cell_w, cell_h, cell_d,
+		input,
+		calc_value,
+		order
+	)
+))
+{ }
+
 } // namespace images
 } // namespace oglplus
 
