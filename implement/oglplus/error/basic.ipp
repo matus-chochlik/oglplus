@@ -127,7 +127,7 @@ GLint Error::Index(void) const
 #if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	return _index;
 #else
-	return 0;
+	return -1;
 #endif
 }
 

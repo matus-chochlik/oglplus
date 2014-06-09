@@ -31,8 +31,8 @@ class LimitError
  : public Error
 {
 private:
-	GLuint _value;
-	GLuint _limit;
+	GLfloat _value;
+	GLfloat _limit;
 public:
 	static const char* Message(void);
 
@@ -42,23 +42,23 @@ public:
 	 , _limit(0)
 	{ }
 
-	LimitError& Value(GLuint value)
+	LimitError& Value(GLfloat value)
 	{
 		_value = value;
 		return *this;
 	}
 
 	/// The value assigned to the limited-type variable
-	GLuint Value(void) const { return _value; }
+	GLfloat Value(void) const { return _value; }
 
-	LimitError& Limit(GLuint limit)
+	LimitError& Limit(GLfloat limit)
 	{
 		_limit = limit;
 		return *this;
 	}
 
 	/// The allowed limit of the limited-type
-	GLuint Limit(void) const { return _limit; }
+	GLfloat Limit(void) const { return _limit; }
 };
 
 } // namespace oglplus

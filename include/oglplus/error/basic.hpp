@@ -219,6 +219,12 @@ public:
 	 */
 	GLint Index(void) const;
 
+	/// Returns the value parameter related to the error
+	virtual GLfloat Value(void) const { return GLfloat(0); }
+
+	/// Returns the limit value related to the error
+	virtual GLfloat Limit(void) const { return GLfloat(0); }
+
 	/// Returns the bind target
 	virtual GLenum BindTarget(void) const { return GLenum(0); }
 

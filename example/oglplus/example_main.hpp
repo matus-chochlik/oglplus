@@ -199,6 +199,22 @@ inline void example_print_error_common(
 			<< std::endl;
 	}
 
+	if(error.Value() != 0)
+	{
+		errstr	<< "Value: ("
+			<< error.Value()
+			<< ")"
+			<< std::endl;
+	}
+
+	if(error.Limit() != 0)
+	{
+		errstr	<< "Limit: ("
+			<< error.Limit()
+			<< ")"
+			<< std::endl;
+	}
+
 	if(!error.Log().empty())
 	{
 		errstr	<< "Log:"
