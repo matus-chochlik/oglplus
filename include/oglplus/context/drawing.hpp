@@ -14,6 +14,7 @@
 #define OGLPLUS_CONTEXT_DRAWING_1201040722_HPP
 
 #include <oglplus/glfunc.hpp>
+#include <oglplus/error/object.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/patch_parameter.hpp>
 #include <oglplus/data_type.hpp>
@@ -899,8 +900,62 @@ public:
 		);
 		OGLPLUS_CHECK(
 			DrawTransformFeedback,
-			Error,
+			ObjectError,
+			Object(xfb).
 			EnumParam(primitive)
+		);
+	}
+#endif
+
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_draw_texture
+	static void DrawTexture(
+		TextureName texture,
+		SamplerName sampler,
+		GLfloat x0,
+		GLfloat y0,
+		GLfloat x1,
+		GLfloat y1,
+		GLfloat z,
+		GLfloat s0,
+		GLfloat t0,
+		GLfloat s1,
+		GLfloat t1
+	)
+	{
+		OGLPLUS_GLFUNC(DrawTextureNV)(
+			GetGLName(texture),
+			GetGLName(sampler),
+			x0, y0,
+			x1, y1,
+			z,
+			s0, t0,
+			s1, t1
+		);
+		OGLPLUS_CHECK(
+			DrawTextureNV,
+			ObjectPairError,
+			Subject(sampler).
+			Object(texture)
+		);
+	}
+
+	static void DrawTexture(
+		TextureName texture,
+		GLfloat x0,
+		GLfloat y0,
+		GLfloat x1,
+		GLfloat y1,
+		GLfloat z
+	)
+	{
+		DrawTexture(
+			texture,
+			SamplerName(),
+			x0, y0,
+			x1, y1,
+			z,
+			0, 0,
+			1, 1
 		);
 	}
 #endif
