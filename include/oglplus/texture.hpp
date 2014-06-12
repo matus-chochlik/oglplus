@@ -536,78 +536,12 @@ public:
 		> PixDataType;
 	};
 
-	static GLint GetIntParam(Target target, GLenum query)
-	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetTexParameteriv)(
-			GLenum(target),
-			query,
-			&result
-		);
-		OGLPLUS_CHECK(
-			GetTexParameteriv,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(query)
-		);
-		return result;
-	}
-
-	static GLfloat GetFloatParam(Target target, GLenum query)
-	{
-		GLfloat result = 0;
-		OGLPLUS_GLFUNC(GetTexParameterfv)(
-			GLenum(target),
-			query,
-			&result
-		);
-		OGLPLUS_CHECK(
-			GetTexParameterfv,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(query)
-		);
-		return result;
-	}
+	static GLint GetIntParam(Target target, GLenum query);
+	static GLfloat GetFloatParam(Target target, GLenum query);
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0
-	static GLint GetIntParam(Target target, GLint level, GLenum query)
-	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetTexLevelParameteriv)(
-			GLenum(target),
-			level,
-			query,
-			&result
-		);
-		OGLPLUS_CHECK(
-			GetTexLevelParameteriv,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(query).
-			Index(level)
-		);
-		return result;
-	}
-
-	static GLfloat GetFloatParam(Target target, GLint level, GLenum query)
-	{
-		GLfloat result = 0;
-		OGLPLUS_GLFUNC(GetTexLevelParameterfv)(
-			GLenum(target),
-			level,
-			query,
-			&result
-		);
-		OGLPLUS_CHECK(
-			GetTexLevelParameterfv,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(query).
-			Index(level)
-		);
-		return result;
-	}
+	static GLint GetIntParam(Target target, GLint level, GLenum query);
+	static GLfloat GetFloatParam(Target target, GLint level, GLenum query);
 
 	/// Returns the width of the texture as it was specified by *Image*D
 	/**

@@ -63,5 +63,24 @@ _binding(BufferIndexedTarget target, GLuint index)
 	return name;
 }
 
+OGLPLUS_LIB_FUNC
+GLint ObjectOps<tag::ExplicitSel, tag::Buffer>::
+GetIntParam(Target target, GLenum query)
+{
+	GLint value = 0;
+	OGLPLUS_GLFUNC(GetBufferParameteriv)(
+		GLenum(target),
+		query,
+		&value
+	);
+	OGLPLUS_VERIFY(
+		GetBufferParameteriv,
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(query)
+	);
+	return value;
+}
+
 } // namespace oglplus
 

@@ -138,21 +138,7 @@ class ObjectOps<tag::ExplicitSel, tag::Renderbuffer>
 protected:
 	ObjectOps(void){ }
 public:
-	static GLint GetIntParam(Target target, GLenum query)
-	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetRenderbufferParameteriv)(
-			GLenum(target),
-			query,
-			&result
-		);
-		OGLPLUS_VERIFY(
-			GetRenderbufferParameteriv,
-			ObjectError,
-			ObjectBinding(target)
-		);
-		return result;
-	}
+	static GLint GetIntParam(Target target, GLenum query);
 
 	/// Set the renderbuffer storage parameters for the rbo bound to target
 	/**
