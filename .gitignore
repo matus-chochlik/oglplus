@@ -1,5 +1,6 @@
-/_build
-/_prebuilt
+/_*
+/doc/quickbook/bin
+/doc/quickbook/html
 /fonts
 /models
 /textures
