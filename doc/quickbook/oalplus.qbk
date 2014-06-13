@@ -2,9 +2,9 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[part OGLplus
+[part OALplus
 	[quickbook 1.6]
-	[id oglplus]
+	[id oalplus]
 ]
 
-[include oglplus/intro.qbk]
+[include oalplus/intro.qbk]

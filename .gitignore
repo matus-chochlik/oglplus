@@ -4,6 +4,8 @@
 /fonts
 /models
 /textures
+/example/???plus/000_*
+/example/???plus/dependencies/000_*
 .*.swp
 *.sdf
 *.user

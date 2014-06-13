@@ -19,3 +19,5 @@
 [def OGLplus [@http://oglplus.org OGLplus]]
 
 [include oglplus.qbk]
+[include oalplus.qbk]
+[include eglplus.qbk]
