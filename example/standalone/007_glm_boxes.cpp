@@ -30,12 +30,15 @@ private:
 	oglplus::FragmentShader fs;
 	oglplus::Program prog;
 
+	oglplus::Lazy<oglplus::Uniform<float>> frame_time;
+
 	oglplus::VertexArray cube;
 	oglplus::Buffer positions, normals;
 public:
 	GLMBoxesExample(int, const char**)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
+	 , frame_time(prog, "Time")
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -144,11 +147,11 @@ public:
 		gl.ClearDepth(1.0f);
 		gl.Enable(oglplus::Capability::DepthTest);
 
-		oglplus::Uniform<glm::vec3>(prog, "LightPos").Set(
+		oglplus::Typechecked<oglplus::Uniform<glm::vec3>>(prog, "LightPos").Set(
 			glm::vec3(7.0, 3.0, -1.0)
 		);
 
-		oglplus::Uniform<glm::mat4x4>(prog, "ScaleMatrix").Set(
+		oglplus::Typechecked<oglplus::Uniform<glm::mat4x4>>(prog, "ScaleMatrix").Set(
 			glm::scale(glm::mat4(1.0), glm::vec3(1.0, 0.3, 1.7))
 		);
 	}
@@ -173,7 +176,7 @@ public:
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		oglplus::Uniform<GLfloat>(prog, "Time") = FrameTime();
+		frame_time.Set(FrameTime());
 
 		// draw 36 instances of the cube
 		// the vertex shader will take care of their placement

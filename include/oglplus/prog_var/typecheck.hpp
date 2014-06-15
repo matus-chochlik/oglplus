@@ -23,6 +23,9 @@
 
 namespace oglplus {
 
+template <typename T>
+struct GLSLtoCppTypeMatcher;
+
 #if !OGLPLUS_NO_UNIFORM_TYPECHECK
 
 OGLPLUS_ENUM_CLASS_FWD_EVT(SLDataType, GLenum)

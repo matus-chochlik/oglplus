@@ -53,7 +53,10 @@ public: \
 			glm::value_ptr(value) \
 		); \
 	} \
-};
+}; \
+template <typename T, glm::precision P> \
+struct GLSLtoCppTypeMatcher<glm::detail::tvec##DIM<T, P>> \
+ : GLSLtoCppTypeMatcher<oglplus::Vector<T, DIM> > { }; \
 
 OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(2)
 OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(3)
@@ -82,7 +85,10 @@ public: \
 			glm::value_ptr(value) \
 		); \
 	} \
-};
+}; \
+template <typename T, glm::precision P> \
+struct GLSLtoCppTypeMatcher<glm::detail::tmat##C##x##R<T, P>> \
+ : GLSLtoCppTypeMatcher<oglplus::Matrix<T, R, C> > { }; \
 
 OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(2, 2)
 OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(2, 3)
