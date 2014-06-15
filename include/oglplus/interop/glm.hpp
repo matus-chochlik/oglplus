@@ -1,6 +1,6 @@
 /**
  *  @file oglplus/interop/glm.hpp
- *  @brief Interoperability with GLM matrices, vectors, etc.
+ *  @brief Interoperability with GLM matrices and vectors.
  *
  *  @author Matus Chochlik
  *
@@ -13,59 +13,89 @@
 #ifndef OGLPLUS_INTEROP_GLM_1205181555_HPP
 #define OGLPLUS_INTEROP_GLM_1205181555_HPP
 
-#include <oglplus/detail/tp_mat_vec.hpp>
-#include <glm/glm.hpp> //TODO: only pick what is necessary
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wshadow"
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/mat2x2.hpp>
+#include <glm/mat2x3.hpp>
+#include <glm/mat2x4.hpp>
+#include <glm/mat3x2.hpp>
+#include <glm/mat3x3.hpp>
+#include <glm/mat3x4.hpp>
+#include <glm/mat4x2.hpp>
+#include <glm/mat4x3.hpp>
+#include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <type_traits>
+#pragma GCC diagnostic pop
+
+#include <oglplus/fwd.hpp>
 
 namespace oglplus {
-namespace aux {
 
-#define OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(DIM) \
-template <class T, glm::precision P> \
-struct ThirdPartyVectorBase<glm::detail::tvec##DIM<T, P> > \
+#define OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(DIM) \
+template <typename OpsTag, typename T, glm::precision P> \
+class ProgVarGetSetOps<OpsTag, tag::Uniform, glm::detail::tvec##DIM<T, P>> \
+ : public ProgVarCommonOps<tag::Uniform> \
+ , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::NativeTypes, T, 4> \
 { \
-	typedef T Type; \
-	typedef std::integral_constant<std::size_t, DIM> N; \
-	static const T* Data(glm::detail::tvec##DIM<T, P> const & v)\
+protected: \
+	ProgVarGetSetOps(UniformLoc uloc) \
+	 : ProgVarCommonOps<tag::Uniform>(uloc) \
+	{ } \
+public: \
+	void SetValue(const glm::detail::tvec##DIM<T, P>& value) \
 	{ \
-		return glm::value_ptr(v); \
+		this->template _do_set<DIM>( \
+			_program, \
+			_location, \
+			glm::value_ptr(value) \
+		); \
 	} \
 };
 
-OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(2)
-OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(3)
-OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER(4)
+OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(2)
+OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(3)
+OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS(4)
 
-#undef OGLPLUS_HLPR_IMPL_GLM_VECTOR_ADAPTER
+#undef OGLPLUS_IMPL_GLM_VEC_UNIFORM_OPS
 
-#define OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(ROWS, COLS) \
-template <class T, glm::precision P> \
-struct ThirdPartyMatrixBase<glm::detail::tmat##COLS##x##ROWS<T, P> > \
+#define OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(R, C) \
+template <typename OpsTag, typename T, glm::precision P> \
+class ProgVarGetSetOps<OpsTag, tag::Uniform, glm::detail::tmat##C##x##R<T, P>> \
+ : public ProgVarCommonOps<tag::Uniform> \
+ , public ProgVarBaseSetOps<OpsTag, tag::Uniform, tag::MatrixTypes, T, 16> \
 { \
-	typedef T Type; \
-	typedef std::integral_constant<std::size_t, ROWS> Rows; \
-	typedef std::integral_constant<std::size_t, COLS> Cols; \
-	typedef std::integral_constant<bool, false> IsRowMajor; \
-	static const T* Data(glm::detail::tmat##COLS##x##ROWS<T, P> const & m)\
+protected: \
+	ProgVarGetSetOps(UniformLoc uloc) \
+	 : ProgVarCommonOps<tag::Uniform>(uloc) \
+	{ } \
+public: \
+	void SetValue(const glm::detail::tmat##C##x##R<T, P>& value) \
 	{ \
-		return glm::value_ptr(m); \
+		this->template _do_set_mat<C, R>( \
+			this->_program, \
+			this->_location, \
+			1, \
+			false, \
+			glm::value_ptr(value) \
+		); \
 	} \
 };
 
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(2, 2)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(2, 3)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(2, 4)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(3, 2)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(3, 3)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(3, 4)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(4, 2)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(4, 3)
-OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER(4, 4)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(2, 2)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(2, 3)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(2, 4)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(3, 2)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(3, 3)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(3, 4)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(4, 2)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(4, 3)
+OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS(4, 4)
 
-#undef OGLPLUS_HLPR_IMPL_GLM_MATRIX_ADAPTER
+#undef OGLPLUS_IMPL_GLM_MAT_UNIFORM_OPS
 
-} // namespace aux
 } // namespace oglplus
 
 #endif // include guard
