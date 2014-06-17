@@ -1,3 +1,22 @@
+Version 0.47.0
+
+- The Group<> template class was added.
+- The compile-time configuration headers were split into separate files.
+- The Hardwired program class was removed.
+- The QuickProgram class was reimplemented.
+- Added wrapper for NV_draw_texture extension.
+- The voronoi/worley cell image generators were added.
+- Updated the error handling, added the Value and Limit functions to Error.
+- Moved some of the functions to the implement/ directory.
+- Re-added support for GLM vector and matrix uniforms.
+- Added support for GLM uniform typechecking.
+- Two new examples were added.
+- One of the older examples were removed.
+- Some of the existing examples were updated.
+- Updates to the build system:
+  - Added detection of KHR_debug availability.
+  - Added the BOOST_NO_CXX11_* macros.
+
 Version 0.46.0
 
 This release brings complete rewrite of several key parts, including
