@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_MATH_ANGLE_1107121519_HPP
 #define OGLPLUS_MATH_ANGLE_1107121519_HPP
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/math/constants.hpp>
 
 #include <cassert>

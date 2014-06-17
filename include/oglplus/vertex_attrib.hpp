@@ -234,7 +234,7 @@ template <>
 class ProgVarSetters<tag::ImplicitSel, tag::VertexAttrib, tag::NativeTypes>
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(VertexAttrib, VertexAttrib)
+	OGLPLUS_ERROR_CONTEXT(VertexAttrib, VertexAttrib)
 
 	OGLPLUS_AUX_VARPARA_FNS(VertexAttrib, f, t, GLfloat)
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_3_0

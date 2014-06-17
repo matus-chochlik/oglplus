@@ -14,7 +14,7 @@
 #define OGLPLUS_OBJECT_OPTIONAL_1107121519_HPP
 
 #include <oglplus/detail/optional.hpp>
-#include <oglplus/object/wrapper.hpp>
+#include <oglplus/object/wrap_tpl.hpp>
 
 namespace oglplus {
 

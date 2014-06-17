@@ -39,22 +39,22 @@ protected:
 	static void Gen(ALsizei count, ALuint* names)
 	{
 		assert(names != nullptr);
-		OALPLUS_ALFUNC(al,GenBuffers)(count, names);
-		OALPLUS_CHECK_SIMPLE(al,GenBuffers);
+		OALPLUS_ALFUNC(GenBuffers)(count, names);
+		OALPLUS_CHECK_SIMPLE(GenBuffers);
 	}
 
 	static void Delete(ALsizei count, ALuint* names)
 	{
 		assert(names != nullptr);
-		OALPLUS_ALFUNC(al,DeleteBuffers)(count, names);
-		OALPLUS_VERIFY_SIMPLE(al,DeleteBuffers);
+		OALPLUS_ALFUNC(DeleteBuffers)(count, names);
+		OALPLUS_VERIFY_SIMPLE(DeleteBuffers);
 	}
 
 	static ALboolean IsA(ALuint name)
 	{
 		assert(name != 0);
-		ALboolean result = OALPLUS_ALFUNC(al,IsBuffer)(name);
-		OALPLUS_VERIFY_SIMPLE(al,IsBuffer);
+		ALboolean result = OALPLUS_ALFUNC(IsBuffer)(name);
+		OALPLUS_VERIFY_SIMPLE(IsBuffer);
 		return result;
 	}
 };
@@ -85,7 +85,7 @@ public:
 		ALsizei frequency
 	)
 	{
-		OALPLUS_ALFUNC(al,BufferData)(
+		OALPLUS_ALFUNC(BufferData)(
 			ALuint(this->_name),
 			ALenum(format),
 			data,
@@ -93,7 +93,7 @@ public:
 			frequency
 		);
 		OALPLUS_CHECK(
-			al,BufferData,
+			BufferData,
 			ObjectError,
 			Object(*this)
 		);
@@ -108,13 +108,13 @@ public:
 	ALsizei Frequency(void) const
 	{
 		ALint result = 0;
-		OALPLUS_ALFUNC(al,GetBufferiv)(
+		OALPLUS_ALFUNC(GetBufferiv)(
 			_name,
 			AL_FREQUENCY,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetBufferiv,
+			GetBufferiv,
 			ObjectError,
 			Object(*this)
 		);
@@ -130,13 +130,13 @@ public:
 	ALsizei Size(void) const
 	{
 		ALint result = 0;
-		OALPLUS_ALFUNC(al,GetBufferiv)(
+		OALPLUS_ALFUNC(GetBufferiv)(
 			_name,
 			AL_SIZE,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetBufferiv,
+			GetBufferiv,
 			ObjectError,
 			Object(*this)
 		);
@@ -152,13 +152,13 @@ public:
 	ALsizei Bits(void) const
 	{
 		ALint result = 0;
-		OALPLUS_ALFUNC(al,GetBufferiv)(
+		OALPLUS_ALFUNC(GetBufferiv)(
 			_name,
 			AL_BITS,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetBufferiv,
+			GetBufferiv,
 			ObjectError,
 			Object(*this)
 		);
@@ -174,13 +174,13 @@ public:
 	ALsizei Channels(void) const
 	{
 		ALint result = 0;
-		OALPLUS_ALFUNC(al,GetBufferiv)(
+		OALPLUS_ALFUNC(GetBufferiv)(
 			_name,
 			AL_CHANNELS,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetBufferiv,
+			GetBufferiv,
 			ObjectError,
 			Object(*this)
 		);
@@ -207,7 +207,23 @@ public:
 	}
 };
 
-typedef ObjectOps<tag::DirectState, tag::Buffer> BufferOps;
+} // namespace oalplus
+namespace oglplus {
+
+template <>
+class ObjGenDelOps<oalplus::tag::Buffer>
+ : public oalplus::ObjGenDelOps<oalplus::tag::Buffer>
+{ };
+
+template <typename OpsTag>
+class ObjectOps<OpsTag, oalplus::tag::Buffer>
+ : public oalplus::ObjectOps<OpsTag, oalplus::tag::Buffer>
+{ };
+
+} // namespace oglplus
+namespace oalplus {
+
+typedef oglplus::ObjectOps<tag::DirectState, tag::Buffer> BufferOps;
 
 /// An @ref oalplus_object encapsulating the OpenAL buffer functionality
 /**

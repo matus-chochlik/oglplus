@@ -12,7 +12,7 @@
 namespace oglplus {
 namespace aux {
 
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 
 OGLPLUS_LIB_FUNC
 ::std::map<unsigned, std::string>& ObjectDescRegistryStorage(int id)
@@ -64,7 +64,7 @@ const std::string& ObjectDescRegistryBase::_do_get_desc(
 	return EmptyStdString();
 }
 
-#endif // OGLPLUS_NO_OBJECT_DESCS
+#endif // OGLPLUS_NO_OBJECT_DESC
 
 } // namespace aux
 } // namespace oglplus

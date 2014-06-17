@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_SHAPES_ANALYZER_1308151449_HPP
 #define OGLPLUS_SHAPES_ANALYZER_1308151449_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/math/vector.hpp>
 
 #include <oglplus/shapes/analyzer_data.hpp>

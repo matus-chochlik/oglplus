@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_ERROR_FRAMEBUFFER_1405022241_HPP
 #define OGLPLUS_ERROR_FRAMEBUFFER_1405022241_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/framebuffer_status.hpp>
 

@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_OPT_APPLICATION_1107121519_HPP
 #define OGLPLUS_OPT_APPLICATION_1107121519_HPP
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/utils/filesystem.hpp>
 
 #include <string>

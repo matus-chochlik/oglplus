@@ -326,6 +326,12 @@ public:
 		return *this;
 	}
 
+	Vector& operator *= (const Vector& v)
+	{
+		this->MultiplyBy(v);
+		return *this;
+	}
+
 	/// Divides a vector by a scalar value
 	friend Vector Divided(const Vector& a, T v)
 	{

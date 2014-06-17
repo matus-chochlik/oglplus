@@ -9,9 +9,10 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-#ifndef __OGLPLUS_STRING_UTF8_1102101236_HPP
-#define __OGLPLUS_STRING_UTF8_1102101236_HPP
+#ifndef OGLPLUS_STRING_UTF8_1102101236_HPP
+#define OGLPLUS_STRING_UTF8_1102101236_HPP
 
+#include <oglplus/config/compiler.hpp>
 #include <cstddef>
 #include <cassert>
 #include <vector>

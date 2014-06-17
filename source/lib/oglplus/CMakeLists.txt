@@ -8,7 +8,7 @@ if(PNG_FOUND)
 	do_use_single_dependency(PNG)
 endif()
 
-add_library(oglplus EXCLUDE_FROM_ALL
+set(OGLPLUS_LIB_SOURCES
 	native.cpp
 	string.cpp
 	enums.cpp
@@ -17,7 +17,6 @@ add_library(oglplus EXCLUDE_FROM_ALL
 	program.cpp
 	prog_var.cpp
 	extension.cpp
-	debug_output.cpp
 	images_base.cpp
 	images_load.cpp
 	shapes_base.cpp
@@ -26,7 +25,14 @@ add_library(oglplus EXCLUDE_FROM_ALL
 	shapes_obj.cpp
 	text.cpp
 	opt.cpp
+	debug_output.cpp
 )
+
+if(HAS_GL_KHR_debug)
+	set(OGLPLUS_LIB_SOURCES ${OGLPLUS_LIB_SOURCES} debug.cpp)
+endif()
+
+add_library(oglplus EXCLUDE_FROM_ALL ${OGLPLUS_LIB_SOURCES})
 
 if(PNG_FOUND)
 	target_link_libraries(oglplus ${PNG_LIBRARIES})

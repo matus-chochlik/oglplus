@@ -37,8 +37,8 @@ private:
 	static bool _initialize(bool with_context, int argc, char** argv)
 	{
 		bool result = with_context
-		?(OALPLUS_ALFUNC(alut,Init)(&argc, argv) == AL_TRUE)
-		:(OALPLUS_ALFUNC(alut,InitWithoutContext)(&argc, argv)==AL_TRUE);
+		?(OALPLUS_ALUTFUNC(Init)(&argc, argv) == AL_TRUE)
+		:(OALPLUS_ALUTFUNC(InitWithoutContext)(&argc, argv)==AL_TRUE);
 		OALPLUS_CHECK_SIMPLE_ALUT(Init);
 		return result;
 
@@ -87,7 +87,7 @@ public:
 	{
 		if(_initialized)
 		{
-			OALPLUS_ALFUNC(alut,Exit)();
+			OALPLUS_ALUTFUNC(Exit)();
 		}
 	}
 
@@ -196,7 +196,7 @@ public:
 	Buffer CreateBufferHelloWorld(void) const
 	{
 		assert(_initialized);
-		ALuint name = OALPLUS_ALFUNC(alut,CreateBufferHelloWorld)();
+		ALuint name = OALPLUS_ALUTFUNC(CreateBufferHelloWorld)();
 		OALPLUS_VERIFY_SIMPLE_ALUT(CreateBufferHelloWorld);
 		return Buffer::FromRawName(BufferName(name));
 	}
@@ -211,7 +211,7 @@ public:
 	Buffer CreateBufferFromFile(const ALchar* file_path) const
 	{
 		assert(_initialized);
-		ALuint name = OALPLUS_ALFUNC(alut,CreateBufferFromFile)(file_path);
+		ALuint name = OALPLUS_ALUTFUNC(CreateBufferFromFile)(file_path);
 		OALPLUS_VERIFY_SIMPLE_ALUT(CreateBufferFromFile);
 		return Buffer::FromRawName(BufferName(name));
 	}
@@ -231,7 +231,7 @@ public:
 	{
 		::ALenum format = 0;
 		::ALsizei size = 0;
-		::ALvoid* ptr = OALPLUS_ALFUNC(alut,LoadMemoryHelloWorld)(
+		::ALvoid* ptr = OALPLUS_ALUTFUNC(LoadMemoryHelloWorld)(
 			&format,
 			&size,
 			frequency
@@ -263,7 +263,7 @@ public:
 	{
 		::ALenum format = 0;
 		::ALsizei size = 0;
-		::ALvoid* ptr = OALPLUS_ALFUNC(alut,LoadMemoryFromFile)(
+		::ALvoid* ptr = OALPLUS_ALUTFUNC(LoadMemoryFromFile)(
 			file_path,
 			&format,
 			&size,
@@ -295,7 +295,7 @@ public:
 	{
 		::ALenum format = 0;
 		::ALsizei size = 0;
-		::ALvoid* ptr = OALPLUS_ALFUNC(alut,LoadMemoryFromFile)(
+		::ALvoid* ptr = OALPLUS_ALUTFUNC(LoadMemoryFromFile)(
 			file_path,
 			&format,
 			&size,
@@ -332,7 +332,7 @@ public:
 	{
 		::ALenum format = 0;
 		::ALsizei size = 0;
-		::ALvoid* ptr = OALPLUS_ALFUNC(alut,LoadMemoryFromFile)(
+		::ALvoid* ptr = OALPLUS_ALUTFUNC(LoadMemoryFromFile)(
 			file_path,
 			&format,
 			&size,

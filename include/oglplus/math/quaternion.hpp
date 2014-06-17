@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_MATH_QUATERNION_1310291021_HPP
 #define OGLPLUS_MATH_QUATERNION_1310291021_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/math/angle.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/math/slerp.hpp>

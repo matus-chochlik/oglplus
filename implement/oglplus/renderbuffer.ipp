@@ -42,6 +42,24 @@ _binding(RenderbufferTarget target)
 }
 
 OGLPLUS_LIB_FUNC
+GLint ObjectOps<tag::ExplicitSel, tag::Renderbuffer>::
+GetIntParam(Target target, GLenum query)
+{
+	GLint result = 0;
+	OGLPLUS_GLFUNC(GetRenderbufferParameteriv)(
+		GLenum(target),
+		query,
+		&result
+	);
+	OGLPLUS_VERIFY(
+		GetRenderbufferParameteriv,
+		ObjectError,
+		ObjectBinding(target)
+	);
+	return result;
+}
+
+OGLPLUS_LIB_FUNC
 void ObjectOps<tag::ExplicitSel, tag::Renderbuffer>::
 Storage(
 	Target target,

@@ -13,7 +13,8 @@
 #ifndef OGLPLUS_SHAPES_WRAPPER_1202020923_HPP
 #define OGLPLUS_SHAPES_WRAPPER_1202020923_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/compiler.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/object/array.hpp>
 #include <oglplus/object/optional.hpp>

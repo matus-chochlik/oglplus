@@ -194,8 +194,7 @@ public:
 				.WrapT(TextureWrap::Repeat)
 				.Image2D(
 					images::NormalMap(
-						images::LoadTexture("wooden_crate-hmap"),
-						images::NormalMap::FromRed()
+						images::LoadTexture("wooden_crate-hmap")
 					)
 				).GenerateMipmap();
 		}

@@ -13,11 +13,12 @@
 #ifndef OGLPLUS_GLSL_SOURCE_1207111232_HPP
 #define OGLPLUS_GLSL_SOURCE_1207111232_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/string/ref.hpp>
+#include <oglplus/string/literal.hpp>
 #include <oglplus/detail/glsl_source.hpp>
 
+#include <utility>
 #include <cassert>
 
 namespace oglplus {

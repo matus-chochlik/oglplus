@@ -12,7 +12,6 @@
 #ifndef OGLPLUS_AUX_GLSL_TO_CPP_1102101236_HPP
 #define OGLPLUS_AUX_GLSL_TO_CPP_1102101236_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 #include <oglplus/data_type.hpp>
 

@@ -47,13 +47,13 @@ OGLPLUS_LIB_FUNC
 Error::Error(const char* message)
  : std::runtime_error(message)
  , _code(0)
-#if !OGLPLUS_ERROR_INFO_NO_FILE
+#if !OGLPLUS_ERROR_NO_FILE
  , _file(nullptr)
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_LINE
+#if !OGLPLUS_ERROR_NO_LINE
  , _line(0)
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
  , _glfunc_name(nullptr)
  , _enumpar_name(nullptr)
  , _enumpar(0)
@@ -64,7 +64,7 @@ Error::Error(const char* message)
 OGLPLUS_LIB_FUNC
 const char* Error::SourceFile(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_FILE
+#if !OGLPLUS_ERROR_NO_FILE
 	return _file;
 #else
 	return nullptr;
@@ -74,7 +74,7 @@ const char* Error::SourceFile(void) const
 OGLPLUS_LIB_FUNC
 const char* Error::SourceFunc(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_FUNC
+#if !OGLPLUS_ERROR_NO_FUNC
 	return _func;
 #else
 	return nullptr;
@@ -84,7 +84,7 @@ const char* Error::SourceFunc(void) const
 OGLPLUS_LIB_FUNC
 unsigned Error::SourceLine(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_LINE
+#if !OGLPLUS_ERROR_NO_LINE
 	return _line;
 #else
 	return 0u;
@@ -94,7 +94,7 @@ unsigned Error::SourceLine(void) const
 OGLPLUS_LIB_FUNC
 const char* Error::GLFuncName(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	return _glfunc_name;
 #else
 	return nullptr;
@@ -104,7 +104,7 @@ const char* Error::GLFuncName(void) const
 OGLPLUS_LIB_FUNC
 GLenum Error::EnumParam(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	return _enumpar;
 #else
 	return 0;
@@ -114,7 +114,7 @@ GLenum Error::EnumParam(void) const
 OGLPLUS_LIB_FUNC
 const char* Error::EnumParamName(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	return _enumpar_name;
 #else
 	return nullptr;
@@ -124,10 +124,10 @@ const char* Error::EnumParamName(void) const
 OGLPLUS_LIB_FUNC
 GLint Error::Index(void) const
 {
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	return _index;
 #else
-	return 0;
+	return -1;
 #endif
 }
 

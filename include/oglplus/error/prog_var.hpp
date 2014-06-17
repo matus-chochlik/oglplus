@@ -23,10 +23,10 @@ class ProgVarError
  : public Error
 {
 private:
-#if !OGLPLUS_ERROR_INFO_NO_PROG_NAME
+#if !OGLPLUS_ERROR_NO_PROG_NAME
 	GLuint _prog_name;
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_IDENTIFIER
+#if !OGLPLUS_ERROR_NO_IDENTIFIER
 	String _identifier;
 #endif
 public:
@@ -36,7 +36,7 @@ public:
 
 	ProgVarError& Program(ProgramName program)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_PROG_NAME
+#if !OGLPLUS_ERROR_NO_PROG_NAME
 		_prog_name = GetGLName(program);
 #endif
 		(void)program;
@@ -48,7 +48,7 @@ public:
 
 	ProgVarError& Identifier(StrCRef identifier)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_IDENTIFIER
+#if !OGLPLUS_ERROR_NO_IDENTIFIER
 		_identifier.assign(
 			identifier.begin(),
 			identifier.end()

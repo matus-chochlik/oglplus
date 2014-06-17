@@ -23,7 +23,6 @@
 #define OGLPLUS_IMPLEMENTING_LIBRARY 1
 #endif
 
-#include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
 #include <oglplus/string/utf8.hpp>
@@ -89,9 +88,12 @@
 #include <oglplus/images/cloud.hpp>
 #include <oglplus/images/squares.hpp>
 #include <oglplus/images/sphere_bmap.hpp>
+#include <oglplus/images/normal_map.hpp>
 #include <oglplus/images/random.hpp>
 #include <oglplus/images/xpm.hpp>
 #include <oglplus/images/sort_nw.hpp>
+#include <oglplus/images/voronoi.hpp>
+#include <oglplus/images/worley.hpp>
 
 #if !OGLPLUS_NO_VARIADIC_TEMPLATES
 #include <oglplus/text/unicode.hpp>

@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -22,8 +22,8 @@
 #include <boost/config.hpp>
 #endif
 
-#include <oglplus/config_compiler.hpp>
-#include <oglplus/config_basic.hpp>
+#include <oglplus/config/compiler.hpp>
+#include <oglplus/config/basic.hpp>
 
 #ifdef  OGLPLUS_DOCUMENTATION_ONLY
 #define OALPLUS_DOCUMENTATION_ONLY OGLPLUS_DOCUMENTATION_ONLY
@@ -42,8 +42,8 @@
 #endif
 
 
-#ifdef OGLPLUS_NO_OBJECT_DESCS
-#define OALPLUS_NO_OBJECT_DESCS OGLPLUS_NO_OBJECT_DESCS
+#ifdef OGLPLUS_NO_OBJECT_DESC
+#define OALPLUS_NO_OBJECT_DESC OGLPLUS_NO_OBJECT_DESC
 #endif
 
 #define OALPLUS_FAKE_USE(EXPR) (void)EXPR

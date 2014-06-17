@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_SHAPES_DRAW_1107121519_HPP
 #define OGLPLUS_SHAPES_DRAW_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/primitive_type.hpp>
 #include <oglplus/data_type.hpp>
 

@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_MATRIX_1107121519_HPP
 #define OGLPLUS_MATRIX_1107121519_HPP
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/math/vector.hpp>
 #include <oglplus/math/angle.hpp>
 #include <oglplus/math/quaternion.hpp>

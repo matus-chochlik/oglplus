@@ -13,8 +13,8 @@
 #ifndef OGLPLUS_EXT_KHR_DEBUG_1308270710_HPP
 #define OGLPLUS_EXT_KHR_DEBUG_1308270710_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
 #include <oglplus/glfunc.hpp>

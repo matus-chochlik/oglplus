@@ -2,8 +2,6 @@
  *  @example standalone/007_glm_boxes.cpp
  *  @brief Shows interoperability with GLM matrix and vector classes
  *
- *  TODO: Update this once the GLM support is re-added.
- *
  *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -13,6 +11,7 @@
 #include <oglplus/all.hpp>
 #include <oglplus/shapes/cube.hpp>
 
+#define GLM_FORCE_RADIANS
 #include <oglplus/interop/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -31,12 +30,15 @@ private:
 	oglplus::FragmentShader fs;
 	oglplus::Program prog;
 
+	oglplus::Lazy<oglplus::Uniform<float>> frame_time;
+
 	oglplus::VertexArray cube;
 	oglplus::Buffer positions, normals;
 public:
 	GLMBoxesExample(int, const char**)
 	 : cube_instr(make_cube.Instructions())
 	 , cube_indices(make_cube.Indices())
+	 , frame_time(prog, "Time")
 	{
 		// Set the vertex shader source
 		vs.Source(
@@ -145,11 +147,11 @@ public:
 		gl.ClearDepth(1.0f);
 		gl.Enable(oglplus::Capability::DepthTest);
 
-		oglplus::Uniform<oglplus::Vec3f>(prog, "LightPos").Set(
+		oglplus::Typechecked<oglplus::Uniform<glm::vec3>>(prog, "LightPos").Set(
 			glm::vec3(7.0, 3.0, -1.0)
 		);
 
-		oglplus::Uniform<oglplus::Mat4f>(prog, "ScaleMatrix").Set(
+		oglplus::Typechecked<oglplus::Uniform<glm::mat4x4>>(prog, "ScaleMatrix").Set(
 			glm::scale(glm::mat4(1.0), glm::vec3(1.0, 0.3, 1.7))
 		);
 	}
@@ -159,7 +161,7 @@ public:
 		gl.Viewport(Width(), Height());
 
 		auto camera = glm::perspective(
-			53.0f,
+			53.0f*3.1415f/180.f,
 			GLfloat(Aspect()),
 			1.0f, 100.0f
 		) * glm::lookAt(
@@ -167,14 +169,14 @@ public:
 			glm::vec3( 0.0f, 0.0f, 0.0f),
 			glm::vec3( 0.0f, 1.0f, 0.0f)
 		);
-		oglplus::Uniform<oglplus::Mat4f>(prog, "CameraMatrix").Set(camera);
+		oglplus::Uniform<glm::mat4x4>(prog, "CameraMatrix").Set(camera);
 	}
 
 	void Render(void)
 	{
 		gl.Clear().ColorBuffer().DepthBuffer();
 		//
-		oglplus::Uniform<GLfloat>(prog, "Time") = FrameTime();
+		frame_time.Set(FrameTime());
 
 		// draw 36 instances of the cube
 		// the vertex shader will take care of their placement

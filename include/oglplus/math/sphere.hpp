@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_MATH_SPHERE_1310040710_HPP
 #define OGLPLUS_MATH_SPHERE_1310040710_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/math/vector.hpp>
 
 #include <cassert>

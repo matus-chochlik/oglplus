@@ -17,8 +17,14 @@
 
 namespace oglplus {
 
-#define OALPLUS_ALFUNC(ALLIB, FUNCNAME) \
-	::ALLIB##FUNCNAME
+#define OALPLUS_ALFUNC(FUNCNAME) \
+	::al##FUNCNAME
+
+#define OALPLUS_ALCFUNC(FUNCNAME) \
+	::alc##FUNCNAME
+
+#define OALPLUS_ALUTFUNC(FUNCNAME) \
+	::alut##FUNCNAME
 
 } // namespace oglplus
 

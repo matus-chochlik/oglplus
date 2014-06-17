@@ -13,7 +13,8 @@
 #ifndef OGLPLUS_GLFUNC_1201020903_HPP
 #define OGLPLUS_GLFUNC_1201020903_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/compiler.hpp>
+#include <oglplus/config/gl.hpp>
 
 #if !OGLPLUS_NO_GLFUNC_CHECKS
 #include <oglplus/error/basic.hpp>

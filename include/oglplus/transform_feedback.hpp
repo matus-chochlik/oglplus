@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_TRANSFORM_FEEDBACK_1107121519_HPP
 #define OGLPLUS_TRANSFORM_FEEDBACK_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/object.hpp>

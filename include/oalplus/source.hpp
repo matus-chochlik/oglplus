@@ -44,22 +44,22 @@ protected:
 	static void Gen(ALsizei count, ALuint* names)
 	{
 		assert(names != nullptr);
-		OALPLUS_ALFUNC(al,GenSources)(count, names);
-		OALPLUS_CHECK_SIMPLE(al,GenSources);
+		OALPLUS_ALFUNC(GenSources)(count, names);
+		OALPLUS_CHECK_SIMPLE(GenSources);
 	}
 
 	static void Delete(ALsizei count, ALuint* names)
 	{
 		assert(names != nullptr);
-		OALPLUS_ALFUNC(al,DeleteSources)(count, names);
-		OALPLUS_VERIFY_SIMPLE(al,DeleteSources);
+		OALPLUS_ALFUNC(DeleteSources)(count, names);
+		OALPLUS_VERIFY_SIMPLE(DeleteSources);
 	}
 
 	static ALboolean IsA(ALuint name)
 	{
 		assert(name != 0);
-		ALboolean result = OALPLUS_ALFUNC(al,IsSource)(name);
-		OALPLUS_VERIFY_SIMPLE(al,IsSource);
+		ALboolean result = OALPLUS_ALFUNC(IsSource)(name);
+		OALPLUS_VERIFY_SIMPLE(IsSource);
 		return result;
 	}
 };
@@ -84,9 +84,9 @@ public:
 	 */
 	void Play(void)
 	{
-		OALPLUS_ALFUNC(al,SourcePlay)(_name);
+		OALPLUS_ALFUNC(SourcePlay)(_name);
 		OALPLUS_VERIFY(
-			al,SourcePlay,
+			SourcePlay,
 			ObjectError,
 			Object(*this)
 		);
@@ -99,9 +99,9 @@ public:
 	 */
 	void Pause(void)
 	{
-		OALPLUS_ALFUNC(al,SourcePause)(_name);
+		OALPLUS_ALFUNC(SourcePause)(_name);
 		OALPLUS_VERIFY(
-			al,SourcePause,
+			SourcePause,
 			ObjectError,
 			Object(*this)
 		);
@@ -114,9 +114,9 @@ public:
 	 */
 	void Stop(void)
 	{
-		OALPLUS_ALFUNC(al,SourceStop)(_name);
+		OALPLUS_ALFUNC(SourceStop)(_name);
 		OALPLUS_VERIFY(
-			al,SourceStop,
+			SourceStop,
 			ObjectError,
 			Object(*this)
 		);
@@ -129,9 +129,9 @@ public:
 	 */
 	void Rewind(void)
 	{
-		OALPLUS_ALFUNC(al,SourceRewind)(_name);
+		OALPLUS_ALFUNC(SourceRewind)(_name);
 		OALPLUS_VERIFY(
-			al,SourceRewind,
+			SourceRewind,
 			ObjectError,
 			Object(*this)
 		);
@@ -146,13 +146,13 @@ public:
 	SourceState State(void) const
 	{
 		ALint result = 0;
-		OALPLUS_ALFUNC(al,GetSourceiv)(
+		OALPLUS_ALFUNC(GetSourceiv)(
 			_name,
 			AL_SOURCE_STATE,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourceiv,
+			GetSourceiv,
 			ObjectError,
 			Object(*this)
 		);
@@ -167,13 +167,13 @@ public:
 	 */
 	void Relative(bool value)
 	{
-		OALPLUS_ALFUNC(al,Sourcei)(
+		OALPLUS_ALFUNC(Sourcei)(
 			_name,
 			AL_SOURCE_RELATIVE,
 			value?AL_TRUE:AL_FALSE
 		);
 		OALPLUS_VERIFY(
-			al,Sourcei,
+			Sourcei,
 			ObjectError,
 			Object(*this)
 		);
@@ -188,13 +188,13 @@ public:
 	bool Relative(void) const
 	{
 		ALint result;
-		OALPLUS_ALFUNC(al,GetSourceiv)(
+		OALPLUS_ALFUNC(GetSourceiv)(
 			_name,
 			AL_SOURCE_RELATIVE,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourceiv,
+			GetSourceiv,
 			ObjectError,
 			Object(*this)
 		);
@@ -209,13 +209,13 @@ public:
 	 */
 	void Type(SourceType type)
 	{
-		OALPLUS_ALFUNC(al,Sourcei)(
+		OALPLUS_ALFUNC(Sourcei)(
 			_name,
 			AL_SOURCE_TYPE,
 			ALenum(type)
 		);
 		OALPLUS_VERIFY(
-			al,Sourcei,
+			Sourcei,
 			ObjectError,
 			Object(*this)
 		);
@@ -230,13 +230,13 @@ public:
 	SourceType Type(void) const
 	{
 		ALint result;
-		OALPLUS_ALFUNC(al,GetSourceiv)(
+		OALPLUS_ALFUNC(GetSourceiv)(
 			_name,
 			AL_SOURCE_TYPE,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourceiv,
+			GetSourceiv,
 			ObjectError,
 			Object(*this)
 		);
@@ -251,13 +251,13 @@ public:
 	 */
 	void Looping(bool value)
 	{
-		OALPLUS_ALFUNC(al,Sourcei)(
+		OALPLUS_ALFUNC(Sourcei)(
 			_name,
 			AL_LOOPING,
 			value?AL_TRUE:AL_FALSE
 		);
 		OALPLUS_VERIFY(
-			al,Sourcei,
+			Sourcei,
 			ObjectError,
 			Object(*this)
 		);
@@ -272,13 +272,13 @@ public:
 	bool Looping(void) const
 	{
 		ALint result;
-		OALPLUS_ALFUNC(al,GetSourceiv)(
+		OALPLUS_ALFUNC(GetSourceiv)(
 			_name,
 			AL_LOOPING,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourceiv,
+			GetSourceiv,
 			ObjectError,
 			Object(*this)
 		);
@@ -291,15 +291,15 @@ public:
 	 *  @alfunref{Sourcei}
 	 *  @aldefref{BUFFER}
 	 */
-	void Buffer(const BufferOps& buffer)
+	void Buffer(const BufferName& buffer)
 	{
-		OALPLUS_ALFUNC(al,Sourcei)(
+		OALPLUS_ALFUNC(Sourcei)(
 			_name,
 			AL_BUFFER,
 			GetALName(buffer)
 		);
 		OALPLUS_VERIFY(
-			al,Sourcei,
+			Sourcei,
 			ObjectError,
 			Object(*this)
 		);
@@ -313,13 +313,13 @@ public:
 	 */
 	void DetachBuffers(void)
 	{
-		OALPLUS_ALFUNC(al,Sourcei)(
+		OALPLUS_ALFUNC(Sourcei)(
 			_name,
 			AL_BUFFER,
 			0
 		);
 		OALPLUS_VERIFY(
-			al,Sourcei,
+			Sourcei,
 			ObjectError,
 			Object(*this)
 		);
@@ -332,13 +332,13 @@ public:
 	 */
 	void QueueBuffers(const Sequence<BufferName>& buffers)
 	{
-		OALPLUS_ALFUNC(al,SourceQueueBuffers)(
+		OALPLUS_ALFUNC(SourceQueueBuffers)(
 			_name,
 			buffers.size(),
 			const_cast<ALuint*>(GetALNames(buffers))
 		);
 		OALPLUS_VERIFY(
-			al,SourceQueueBuffers,
+			SourceQueueBuffers,
 			ObjectError,
 			Object(*this)
 		);
@@ -351,13 +351,13 @@ public:
 	 */
 	void UnqueueBuffers(const Sequence<BufferName>& buffers)
 	{
-		OALPLUS_ALFUNC(al,SourceUnqueueBuffers)(
+		OALPLUS_ALFUNC(SourceUnqueueBuffers)(
 			_name,
 			buffers.size(),
 			const_cast<ALuint*>(GetALNames(buffers))
 		);
 		OALPLUS_VERIFY(
-			al,SourceUnqueueBuffers,
+			SourceUnqueueBuffers,
 			ObjectError,
 			Object(*this)
 		);
@@ -371,13 +371,13 @@ public:
 	 */
 	void Gain(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_GAIN,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -392,13 +392,13 @@ public:
 	ALfloat Gain(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_GAIN,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -413,13 +413,13 @@ public:
 	 */
 	void MinGain(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_MIN_GAIN,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -434,13 +434,13 @@ public:
 	ALfloat MinGain(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_MIN_GAIN,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -455,13 +455,13 @@ public:
 	 */
 	void MaxGain(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_MAX_GAIN,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -476,13 +476,13 @@ public:
 	ALfloat MaxGain(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_MAX_GAIN,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -497,13 +497,13 @@ public:
 	 */
 	void ReferenceDistance(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_REFERENCE_DISTANCE,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -518,13 +518,13 @@ public:
 	ALfloat ReferenceDistance(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_REFERENCE_DISTANCE,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -539,13 +539,13 @@ public:
 	 */
 	void RolloffFactor(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_ROLLOFF_FACTOR,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -560,13 +560,13 @@ public:
 	ALfloat RolloffFactor(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_ROLLOFF_FACTOR,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -581,13 +581,13 @@ public:
 	 */
 	void MaxDistance(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_MAX_DISTANCE,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -602,13 +602,13 @@ public:
 	ALfloat MaxDistance(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_MAX_DISTANCE,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -623,13 +623,13 @@ public:
 	 */
 	void Pitch(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_PITCH,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -644,13 +644,13 @@ public:
 	ALfloat Pitch(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_PITCH,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -665,13 +665,13 @@ public:
 	 */
 	void Position(const Vec3f& dir)
 	{
-		OALPLUS_ALFUNC(al,Sourcefv)(
+		OALPLUS_ALFUNC(Sourcefv)(
 			_name,
 			AL_POSITION,
 			dir.Data()
 		);
 		OALPLUS_CHECK(
-			al,Sourcefv,
+			Sourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -685,13 +685,13 @@ public:
 	 */
 	void Position(ALfloat x, ALfloat y, ALfloat z)
 	{
-		OALPLUS_ALFUNC(al,Source3f)(
+		OALPLUS_ALFUNC(Source3f)(
 			_name,
 			AL_POSITION,
 			x, y, z
 		);
 		OALPLUS_CHECK(
-			al,Source3f,
+			Source3f,
 			ObjectError,
 			Object(*this)
 		);
@@ -706,13 +706,13 @@ public:
 	Vec3f Position(void) const
 	{
 		ALfloat result[3];
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_POSITION,
 			result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -727,13 +727,13 @@ public:
 	 */
 	void Velocity(const Vec3f& dir)
 	{
-		OALPLUS_ALFUNC(al,Sourcefv)(
+		OALPLUS_ALFUNC(Sourcefv)(
 			_name,
 			AL_VELOCITY,
 			dir.Data()
 		);
 		OALPLUS_CHECK(
-			al,Sourcefv,
+			Sourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -747,13 +747,13 @@ public:
 	 */
 	void Velocity(ALfloat x, ALfloat y, ALfloat z)
 	{
-		OALPLUS_ALFUNC(al,Source3f)(
+		OALPLUS_ALFUNC(Source3f)(
 			_name,
 			AL_VELOCITY,
 			x, y, z
 		);
 		OALPLUS_CHECK(
-			al,Source3f,
+			Source3f,
 			ObjectError,
 			Object(*this)
 		);
@@ -768,13 +768,13 @@ public:
 	Vec3f Velocity(void) const
 	{
 		ALfloat result[3];
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_VELOCITY,
 			result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -789,13 +789,13 @@ public:
 	 */
 	void Direction(const Vec3f& dir)
 	{
-		OALPLUS_ALFUNC(al,Sourcefv)(
+		OALPLUS_ALFUNC(Sourcefv)(
 			_name,
 			AL_DIRECTION,
 			dir.Data()
 		);
 		OALPLUS_CHECK(
-			al,Sourcefv,
+			Sourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -809,13 +809,13 @@ public:
 	 */
 	void Direction(ALfloat x, ALfloat y, ALfloat z)
 	{
-		OALPLUS_ALFUNC(al,Source3f)(
+		OALPLUS_ALFUNC(Source3f)(
 			_name,
 			AL_DIRECTION,
 			x, y, z
 		);
 		OALPLUS_CHECK(
-			al,Source3f,
+			Source3f,
 			ObjectError,
 			Object(*this)
 		);
@@ -830,13 +830,13 @@ public:
 	Vec3f Direction(void) const
 	{
 		ALfloat result[3];
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_DIRECTION,
 			result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -851,13 +851,13 @@ public:
 	 */
 	void ConeInnerAngle(Anglef angle)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_CONE_INNER_ANGLE,
 			angle.ValueInDegrees()
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -872,13 +872,13 @@ public:
 	Anglef ConeInnerAngle(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_CONE_INNER_ANGLE,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -893,13 +893,13 @@ public:
 	 */
 	void ConeOuterAngle(Anglef angle)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_CONE_OUTER_ANGLE,
 			angle.ValueInDegrees()
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -914,13 +914,13 @@ public:
 	Anglef ConeOuterAngle(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_CONE_OUTER_ANGLE,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -935,13 +935,13 @@ public:
 	 */
 	void ConeOuterGain(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_CONE_OUTER_GAIN,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -956,13 +956,13 @@ public:
 	ALfloat ConeOuterGain(void) const
 	{
 		ALfloat result;
-		OALPLUS_ALFUNC(al,GetSourcefv)(
+		OALPLUS_ALFUNC(GetSourcefv)(
 			_name,
 			AL_CONE_OUTER_GAIN,
 			&result
 		);
 		OALPLUS_VERIFY(
-			al,GetSourcefv,
+			GetSourcefv,
 			ObjectError,
 			Object(*this)
 		);
@@ -977,13 +977,13 @@ public:
 	 */
 	void SecOffset(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_SEC_OFFSET,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -997,13 +997,13 @@ public:
 	 */
 	void SampleOffset(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_SAMPLE_OFFSET,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -1017,13 +1017,13 @@ public:
 	 */
 	void ByteOffset(ALfloat value)
 	{
-		OALPLUS_ALFUNC(al,Sourcef)(
+		OALPLUS_ALFUNC(Sourcef)(
 			_name,
 			AL_BYTE_OFFSET,
 			value
 		);
 		OALPLUS_CHECK(
-			al,Sourcef,
+			Sourcef,
 			ObjectError,
 			Object(*this)
 		);
@@ -1031,7 +1031,23 @@ public:
 
 };
 
-typedef ObjectOps<tag::DirectState, tag::Source> SourceOps;
+} // namespace oalplus
+namespace oglplus {
+
+template <>
+class ObjGenDelOps<oalplus::tag::Source>
+ : public oalplus::ObjGenDelOps<oalplus::tag::Source>
+{ };
+
+template <typename OpsTag>
+class ObjectOps<OpsTag, oalplus::tag::Source>
+ : public oalplus::ObjectOps<OpsTag, oalplus::tag::Source>
+{ };
+
+} // namespace oglplus
+namespace oalplus {
+
+typedef oglplus::ObjectOps<tag::DirectState, tag::Source> SourceOps;
 
 /// An @ref oalplus_object encapsulating the OpenAL source functionality
 /**

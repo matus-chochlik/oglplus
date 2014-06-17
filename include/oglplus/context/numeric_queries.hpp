@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_NUMERIC_QUERIES_1202210920_HPP
 #define OGLPLUS_CONTEXT_NUMERIC_QUERIES_1202210920_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 
 #include <oglplus/context_profile_bit.hpp>

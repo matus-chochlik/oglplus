@@ -14,7 +14,7 @@
 #define OGLPLUS_DETAIL_TYPECHECKED_1405052234_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <utility>
 
 namespace oglplus {

@@ -31,22 +31,7 @@ class ObjectOps<tag::DirectState, tag::Buffer>
 protected:
 	ObjectOps(void){ }
 public:
-	GLint GetIntParam(GLenum query) const
-	{
-		GLint value = 0;
-		OGLPLUS_GLFUNC(GetNamedBufferParameterivEXT)(
-			_name,
-			query,
-			&value
-		);
-		OGLPLUS_VERIFY(
-			GetNamedBufferParameterivEXT,
-			ObjectError,
-			Object(BufferName(_name)).
-			EnumParam(query)
-		);
-		return value;
-	}
+	GLint GetIntParam(GLenum query) const;
 
 	/// Types related to Buffer
 	struct Property
@@ -631,5 +616,9 @@ typedef Object<DSABufferOps> DSABuffer;
 #endif // GL_EXT_direct_state_access
 
 } // namespace oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/dsa/buffer.ipp>
+#endif // OGLPLUS_LINK_LIBRARY
 
 #endif // include guard

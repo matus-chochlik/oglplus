@@ -13,8 +13,6 @@
 #ifndef OGLPLUS_BUFFER_1107121519_HPP
 #define OGLPLUS_BUFFER_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/object/wrapper.hpp>
@@ -412,22 +410,7 @@ class ObjectOps<tag::ExplicitSel, tag::Buffer>
 protected:
 	ObjectOps(void) { }
 public:
-	static GLint GetIntParam(Target target, GLenum query)
-	{
-		GLint value = 0;
-		OGLPLUS_GLFUNC(GetBufferParameteriv)(
-			GLenum(target),
-			query,
-			&value
-		);
-		OGLPLUS_VERIFY(
-			GetBufferParameteriv,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(query)
-		);
-		return value;
-	}
+	static GLint GetIntParam(Target target, GLenum query);
 
 	/// Types related to Buffer
 	struct Property

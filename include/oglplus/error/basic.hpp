@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_ERROR_BASIC_1107121317_HPP
 #define OGLPLUS_ERROR_BASIC_1107121317_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/error.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/ref.hpp>
@@ -45,16 +45,16 @@ class Error
 {
 private:
 	GLenum _code;
-#if !OGLPLUS_ERROR_INFO_NO_FILE
+#if !OGLPLUS_ERROR_NO_FILE
 	const char* _file;
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_FUNC
+#if !OGLPLUS_ERROR_NO_FUNC
 	const char* _func;
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_LINE
+#if !OGLPLUS_ERROR_NO_LINE
 	unsigned _line;
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	const char* _glfunc_name;
 	const char* _enumpar_name;
 	GLenum _enumpar;
@@ -81,7 +81,7 @@ public:
 
 	Error& SourceFile(const char* file)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_FILE
+#if !OGLPLUS_ERROR_NO_FILE
 		_file = file;
 #endif
 		(void)file;
@@ -91,7 +91,7 @@ public:
 	/// Returns the name of the source file where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #OGLPLUS_ERROR_INFO_NO_FILE preprocessor configuration option.
+	 *  #OGLPLUS_ERROR_NO_FILE preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -99,7 +99,7 @@ public:
 
 	Error& SourceFunc(const char* func)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_FUNC
+#if !OGLPLUS_ERROR_NO_FUNC
 		_func = func;
 #endif
 		(void)func;
@@ -109,7 +109,7 @@ public:
 	/// Returns the name of the function where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #OGLPLUS_ERROR_INFO_NO_FUNC preprocessor configuration option.
+	 *  #OGLPLUS_ERROR_NO_FUNC preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -117,7 +117,7 @@ public:
 
 	Error& SourceLine(unsigned line)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_LINE
+#if !OGLPLUS_ERROR_NO_LINE
 		_line = line;
 #endif
 		(void)line;
@@ -127,7 +127,7 @@ public:
 	/// Returns the line of the source file where the error occured
 	/**
 	 *  The result of this function is also influenced by the
-	 *  #OGLPLUS_ERROR_INFO_NO_LINE preprocessor configuration option.
+	 *  #OGLPLUS_ERROR_NO_LINE preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
@@ -135,7 +135,7 @@ public:
 
 	Error& GLFuncName(const char* func_name)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_glfunc_name = func_name;
 #endif
 		(void)func_name;
@@ -147,7 +147,7 @@ public:
 	 *  (without the @c gl prefix) which is related to the error.
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -156,7 +156,7 @@ public:
 	template <typename Enum_>
 	Error& EnumParam(Enum_ param)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = GLenum(param);
 		_enumpar_name = EnumValueName(param).c_str();
 #endif
@@ -166,7 +166,7 @@ public:
 
 	Error& EnumParam(GLenum param, const char* param_name)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_enumpar = param;
 		_enumpar_name = param_name;
 #endif
@@ -180,7 +180,7 @@ public:
 	 *  parameter passed to the failed OpenGL function
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns zero.
 	 */
@@ -191,7 +191,7 @@ public:
 	 *  parameter passed to the failed OpenGL function
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
@@ -199,7 +199,7 @@ public:
 
 	Error& Index(GLuint index)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 		_index = GLint(index);
 #endif
 		(void)index;
@@ -213,11 +213,17 @@ public:
 	 *  integer.
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OGLPLUS_ERROR_INFO_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns a negative integer.
 	 */
 	GLint Index(void) const;
+
+	/// Returns the value parameter related to the error
+	virtual GLfloat Value(void) const { return GLfloat(0); }
+
+	/// Returns the limit value related to the error
+	virtual GLfloat Limit(void) const { return GLfloat(0); }
 
 	/// Returns the bind target
 	virtual GLenum BindTarget(void) const { return GLenum(0); }
@@ -338,7 +344,7 @@ inline void HandleError(ErrorType& error)
 	throw error;
 }
 
-#define OGLPLUS_ERROR_INFO_CONTEXT(GLFUNC, CLASS) \
+#define OGLPLUS_ERROR_CONTEXT(GLFUNC, CLASS) \
 	static const char* _errinf_glfn(void) \
 	{ \
 		return #GLFUNC; \
@@ -348,7 +354,7 @@ inline void HandleError(ErrorType& error)
 		return #CLASS; \
 	}
 
-#define OGLPLUS_ERROR_INFO_REUSE_CONTEXT(SOURCE) \
+#define OGLPLUS_ERROR_REUSE_CONTEXT(SOURCE) \
 	using SOURCE::_errinf_glfn; \
 	using SOURCE::_errinf_cls;
 

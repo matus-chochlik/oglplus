@@ -21,7 +21,9 @@ namespace tag {
 #define OGLPLUS_DEFINE_OBJECT_TAG(ID, OBJECT) \
 struct OBJECT \
  : std::integral_constant<int, ID> \
-{ };
+{ \
+	typedef GLuint NameType; \
+};
 
 OGLPLUS_DEFINE_OBJECT_TAG( 1, Texture)
 OGLPLUS_DEFINE_OBJECT_TAG( 2, Buffer)

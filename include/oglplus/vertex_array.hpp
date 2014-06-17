@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_VERTEX_ARRAY_1107121519_HPP
 #define OGLPLUS_VERTEX_ARRAY_1107121519_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/error/object.hpp>

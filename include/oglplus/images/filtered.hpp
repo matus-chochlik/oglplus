@@ -15,6 +15,7 @@
 
 #include <oglplus/images/image.hpp>
 #include <oglplus/math/vector.hpp>
+#include <oglplus/math/matrix.hpp>
 
 #include <cassert>
 #include <cmath>

@@ -1,6 +1,6 @@
 /**
- *  @file oalplus/object/seq_tpl.hpp
- *  @brief Implementation of Sequence of Object names
+ *  @file oalplus/object/group.hpp
+ *  @brief Static and dynamic groups of Objects
  *
  *  @author Matus Chochlik
  *
@@ -10,18 +10,17 @@
  */
 
 #pragma once
-#ifndef OALPLUS_OBJECT_SEQ_TPL_1405011014_HPP
-#define OALPLUS_OBJECT_SEQ_TPL_1405011014_HPP
+#ifndef OALPLUS_OBJECT_GROUP_1405011014_HPP
+#define OALPLUS_OBJECT_GROUP_1405011014_HPP
 
-#include <oglplus/object/seq_tpl.hpp>
+#include <oglplus/object/group.hpp>
 
 namespace oalplus {
-namespace aux {
 
-using oglplus::aux::SeqIterTpl;
-using oglplus::aux::SeqTpl;
+using oglplus::Group;
+using oglplus::StaticGroup;
+using oglplus::MakeGroup;
 
-} // namespace aux
 } // namespace oalplus
 
 #endif // include guard

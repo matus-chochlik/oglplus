@@ -13,8 +13,7 @@
 #ifndef OGLPLUS_CONTEXT_BINDING_1404142131_HPP
 #define OGLPLUS_CONTEXT_BINDING_1404142131_HPP
 
-#include <oglplus/config_compiler.hpp>
-#include <oglplus/object/name.hpp>
+#include <oglplus/object/wrapper.hpp>
 
 namespace oglplus {
 namespace context {
@@ -91,7 +90,7 @@ public:
 	{
 		typedef typename Classify<Object>::ObjTag ObjTag;
 
-		return Reference<ObjectOps<tag::CurrentBound, ObjTag>>();
+		return Reference<ObjectOps<tag::CurrentBound, ObjTag >>();
 	}
 
 	/// Returns a managed reference to the object currently bound to target

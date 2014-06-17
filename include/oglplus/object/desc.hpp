@@ -13,11 +13,11 @@
 #ifndef OGLPLUS_OBJECT_DESC_1107121519_HPP
 #define OGLPLUS_OBJECT_DESC_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
+#include <oglplus/config/object.hpp>
 #include <oglplus/string/empty.hpp>
+#include <oglplus/object/name_tpl.hpp>
 
-#if OGLPLUS_NO_OBJECT_DESCS == 0
+#if !OGLPLUS_NO_OBJECT_DESC
 #include <cassert>
 #include <map>
 #endif
@@ -27,14 +27,14 @@ namespace oglplus {
 class ObjectDesc
 {
 private:
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 	std::string _str;
 #endif
 public:
 	ObjectDesc(void) { }
 
 	ObjectDesc(std::string&& str)
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 	 : _str(std::forward<std::string>(str))
 #endif
 	{
@@ -42,7 +42,7 @@ public:
 	}
 
 	ObjectDesc(ObjectDesc&& tmp)
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 	 : _str(std::move(tmp._str))
 #endif
 	{
@@ -51,14 +51,14 @@ public:
 
 	const std::string& Str(void)
 	{
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 		return _str;
 #else
 		return EmptyStdString();
 #endif
 	}
 
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 	std::string&& Release(void)
 	{
 		return std::move(_str);
@@ -68,11 +68,11 @@ public:
 
 namespace aux {
 
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 ::std::map<unsigned, std::string>& ObjectDescRegistryStorage(int id);
 #endif
 
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 class ObjectDescRegistryBase
 {
 private:
@@ -94,15 +94,15 @@ protected:
 		unsigned name
 	);
 };
-#endif // !OGLPLUS_NO_OBJECT_DESCS
+#endif // !OGLPLUS_NO_OBJECT_DESC
 
 class ObjectDescRegistry
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
  : public ObjectDescRegistryBase
 #endif
 {
 private:
-#if !OGLPLUS_NO_OBJECT_DESCS
+#if !OGLPLUS_NO_OBJECT_DESC
 	typedef ObjectDescRegistryBase _base;
 	typedef ::std::map<unsigned, std::string> _desc_map;
 
@@ -114,7 +114,7 @@ private:
 public:
 	// internal implementation detail. do not use directly
 	static void _register_desc(int id, unsigned name, ObjectDesc&& desc)
-#if OGLPLUS_NO_OBJECT_DESCS
+#if OGLPLUS_NO_OBJECT_DESC
 	OGLPLUS_NOEXCEPT(true) { (void)id; (void)name; (void)desc; }
 #else
 	{
@@ -128,7 +128,7 @@ public:
 
 	// internal implementation detail. do not use directly
 	static void _unregister_desc(int id, unsigned name)
-#if OGLPLUS_NO_OBJECT_DESCS
+#if OGLPLUS_NO_OBJECT_DESC
 	OGLPLUS_NOEXCEPT(true) { (void)id; (void)name; }
 #else
 	{
@@ -137,7 +137,7 @@ public:
 #endif
 
 	// internal implementation detail. do not use directly
-#if OGLPLUS_NO_OBJECT_DESCS
+#if OGLPLUS_NO_OBJECT_DESC
 	static const std::string& _get_desc(int, unsigned)
 	OGLPLUS_NOEXCEPT(true)
 	{
@@ -158,7 +158,7 @@ inline const std::string& DescriptionOf(ObjectName<ObjTag> object)
 {
 	return aux::ObjectDescRegistry::_get_desc(
 		ObjTag::value,
-		GetGLName(object)
+		GetName(object)
 	);
 }
 

@@ -14,6 +14,7 @@
 #define OGLPLUS_OBJECT_TYPE_1405022040_HPP
 
 #include <oglplus/enumerations.hpp>
+#include <oglplus/object/tags.hpp>
 
 namespace oglplus {
 
@@ -32,6 +33,61 @@ OGLPLUS_ENUM_CLASS_END(ObjectType)
 #if !OGLPLUS_ENUM_VALUE_RANGES
 #include <oglplus/enums/object_type_range.ipp>
 #endif
+
+template <typename ObjTag>
+struct ObjTypeOps
+{
+	static oglplus::ObjectType ObjectType(void)
+	{
+		return oglplus::ObjectType(GL_NONE);
+	}
+};
+
+#define OGLPLUS_SPEC_OBJ_TYPE_OPS(TYPE) \
+template <> \
+struct ObjTypeOps<tag::TYPE> \
+{ \
+	static oglplus::ObjectType ObjectType(void) \
+	{ \
+		return oglplus::ObjectType::TYPE; \
+	} \
+};
+
+#ifdef GL_BUFFER
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Buffer)
+#endif
+#ifdef GL_FRAMEBUFFER
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Framebuffer)
+#endif
+#ifdef GL_PROGRAM_PIPELINE
+OGLPLUS_SPEC_OBJ_TYPE_OPS(ProgramPipeline)
+#endif
+#ifdef GL_PROGRAM
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Program)
+#endif
+#ifdef GL_QUERY
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Query)
+#endif
+#ifdef GL_RENDERBUFFER
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Renderbuffer)
+#endif
+#ifdef GL_SAMPLER
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Sampler)
+#endif
+#ifdef GL_SHADER
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Shader)
+#endif
+#ifdef GL_TEXTURE
+OGLPLUS_SPEC_OBJ_TYPE_OPS(Texture)
+#endif
+#ifdef GL_TRANSFORM_FEEDBACK
+OGLPLUS_SPEC_OBJ_TYPE_OPS(TransformFeedback)
+#endif
+#ifdef GL_VERTEX_ARRAY
+OGLPLUS_SPEC_OBJ_TYPE_OPS(VertexArray)
+#endif
+
+#undef OGLPLUS_SPEC_OBJ_TYPE_OPS
 
 } // namespace oglplus
 
