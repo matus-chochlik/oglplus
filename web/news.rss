@@ -6,8 +6,18 @@
 	<link>http://oglplus.org/</link>
 	<language>en-us</language>
 	<ttl>1440</ttl>
-	<lastBuildDate>Thu, 29 May 2014 15:25:03 GMT</lastBuildDate>
+	<lastBuildDate>Tue, 17 Jun 2014 19:36:32 GMT</lastBuildDate>
 
+	<item>
+		<title>OGLplus 0.47.0 released.</title>
+		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.47.x/</link>
+		<description>
+			New release packages are available for download from SourceForge.
+		</description>
+		<guid>http://oglplus.org/news.rss#item-2014-06-17-19:36:32</guid>
+		<pubDate>Tue, 17 Jun 2014 19:36:32 GMT</pubDate>
+		<source url="http://oglplus.org/news.rss">OGLplus news</source>
+	</item>
 	<item>
 		<title>OGLplus 0.46.0 released.</title>
 		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.46.x/</link>
@@ -96,16 +106,6 @@
 		</description>
 		<guid>http://oglplus.org/news.rss#item-2013-10-15-22:27:47</guid>
 		<pubDate>Tue, 15 Oct 2013 22:27:47 GMT</pubDate>
-		<source url="http://oglplus.org/news.rss">OGLplus news</source>
-	</item>
-	<item>
-		<title>OGLplus 0.37.0 released.</title>
-		<link>http://sourceforge.net/projects/oglplus/files/oglplus-0.37.x/</link>
-		<description>
-			New release packages are available for download from SourceForge.
-		</description>
-		<guid>http://oglplus.org/news.rss#item-2013-10-05-06:04:39</guid>
-		<pubDate>Sat, Oct 5 06:04:39 2013 GMT</pubDate>
 		<source url="http://oglplus.org/news.rss">OGLplus news</source>
 	</item>
 </channel>

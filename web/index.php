@@ -27,16 +27,6 @@
 })();
 </script>
 <link href="https://plus.google.com/111370363075881134099/" rel="publisher" />
-<script type="text/javascript">
-/* <![CDATA[ */
-(function() {
-	var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-	s.type = 'text/javascript';
-	s.async = true;
-	s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-	t.parentNode.insertBefore(s, t);
-})();
-/* ]]> */</script>
 </head>
 <body>
 <div id="main-title">
@@ -69,10 +59,6 @@
 
 				for recent news and more info.
 				<hr class="top-div"/>
-				<!-- Flattr box -->
-				<div id="flattr-box">
-					<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://oglplus.org/"></a>
-				</div>
 				<!-- AddThis Button BEGIN -->
 				<div id="addthis-box" class="addthis_toolbox addthis_default_style ">
 				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -181,18 +167,18 @@
 				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 				<script src="galleria/galleria-1.2.5.min.js"></script>
 				<div id="gallery">
-					<img src="oglplus/html/020_octree.png"/>
+					<img src="oglplus/html/007_voronoi.png"/>
 					<img src="oglplus/html/021_translucent_arrow.png"/>
 					<img src="oglplus/html/022_blender_mesh.png"/>
-					<img src="oglplus/html/022_vase.png"/>
 					<img src="oglplus/html/022_parallax_map.png"/>
 					<img src="oglplus/html/023_sky.png"/>
 					<img src="oglplus/html/026_furry_torus.png"/>
-					<img src="oglplus/html/026_shape_halo.png"/>
+					<img src="oglplus/html/026_ssao.png"/>
 					<img src="oglplus/html/026_stencil_shadow.png"/>
 					<img src="oglplus/html/027_brain_scan_vis.png"/>
 					<img src="oglplus/html/028_depth_map_sss.png"/>
 					<img src="oglplus/html/028_ripples.png"/>
+					<img src="oglplus/html/029_gpu_sort_tfb.png"/>
 					<img src="oglplus/html/029_fire_hydrant.png"/>
 					<img src="oglplus/html/030_light_rays.png"/>
 					<img src="oglplus/html/030_pin_display.png"/>
