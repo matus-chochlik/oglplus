@@ -23,7 +23,7 @@ template <>
 class ProgVarSetters<tag::DirectState, tag::Uniform, tag::NativeTypes>
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniform, ProgramUniform)
+	OGLPLUS_ERROR_CONTEXT(ProgramUniform, ProgramUniform)
 
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	OGLPLUS_AUX_VARPARA_FNS(ProgramUniform, ui, t, GLuint)
@@ -58,7 +58,7 @@ template <>
 class ProgVarSetters<tag::DirectState, tag::Uniform, tag::MatrixTypes>
 {
 protected:
-	OGLPLUS_ERROR_INFO_CONTEXT(ProgramUniformMatrix, ProgramUniform)
+	OGLPLUS_ERROR_CONTEXT(ProgramUniformMatrix, ProgramUniform)
 
 #if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
 	OGLPLUS_AUX_VARPARA_MAT_FNS(ProgramUniformMatrix, fv, v, GLfloat)

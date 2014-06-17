@@ -1,10 +1,10 @@
 /**
- *  @file oglplus/config_basic.hpp
+ *  @file oglplus/config/basic.hpp
  *  @brief Basic compile-time configuration options
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -12,6 +12,28 @@
 #pragma once
 #ifndef OGLPLUS_CONFIG_BASIC_1107121519_HPP
 #define OGLPLUS_CONFIG_BASIC_1107121519_HPP
+
+#ifndef OGLPLUS_NO_SITE_CONFIG
+#include <oglplus/site_config.hpp>
+#endif
+
+/** @defgroup compile_time_config Compile-time configuration
+ *
+ *  @section oglplus_configuration_options Configuration options
+ *
+ *  This section describes compile-time preprocessor symbols that
+ *  can be used to configure several aspects of @OGLplus.
+ *
+ *  Most of the options are set either to a zero or a non-zero
+ *  integer value to disable or enable the behavior controlled
+ *  by the option.
+ *
+ *  All options have a default value which can be overriden by
+ *  setting the option before @c oglplus/config.hpp is processed
+ *  either by editing the @c oglplus/site_config.hpp file or by
+ *  using the @c -D compiler option (or its equivalent for defining
+ *  preprocessor symbols on the command-line).
+ */
 
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time option enabling the low-profile mode

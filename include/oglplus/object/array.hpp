@@ -13,16 +13,20 @@
 #ifndef OGLPLUS_OBJECT_ARRAY_1107121519_HPP
 #define OGLPLUS_OBJECT_ARRAY_1107121519_HPP
 
-#include <oglplus/fwd.hpp>
-#include <oglplus/config.hpp>
-#include <oglplus/object/tags.hpp>
-#include <oglplus/object/name.hpp>
-#include <oglplus/object/sequence.hpp>
+#include <oglplus/object/reference.hpp>
+#include <oglplus/object/seq_tpl.hpp>
+#include <oglplus/detail/nothing.hpp>
 
 #include <vector>
 #include <cassert>
 
 namespace oglplus {
+
+template <typename ObjTag>
+struct ObjectSubtype;
+
+template <typename ObjTag>
+class ObjGenDelOps;
 
 /// Allows to allocate and manage several instances of Object at the same time
 /**
@@ -41,7 +45,8 @@ private:
 	/// Array is not copyable
 	Array(const Array&);
 protected:
-	std::vector<GLuint> _names;
+	typedef typename ObjTag::NameType NameT;
+	std::vector<NameT> _names;
 
 	void _init(Nothing)
 	{
@@ -51,7 +56,7 @@ protected:
 	template <typename ObjectSubtype>
 	void _init(ObjectSubtype type)
 	{
-		this->_type = GLenum(type);
+		this->_type = decltype(this->_type)(type);
 		_init(Nothing());
 	}
 public:
@@ -67,9 +72,9 @@ public:
 		_init(Nothing());
 	}
 
-	/// Constructs an an array of @p count instances of Object with @p type
-	Array(std::size_t count, typename ObjectSubtype<ObjTag>::Type type)
-	 : _names(count, 0u)
+	/// Constructs an an array of @p n instances of Object with @p type
+	Array(std::size_t n, typename ObjectSubtype<ObjTag>::Type type)
+	 : _names(n, 0u)
 	{
 		_init(type);
 	}
@@ -110,7 +115,7 @@ public:
 	}
 
 	/// Returns a const reference to the i-th instance in the array
-	const_reference at(GLuint index) const
+	const_reference at(NameT index) const
 	{
 		return const_reference(ObjectName<ObjTag>(_names.at(index)));
 	}

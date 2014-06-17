@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_TEXT_BITMAP_GLYPH_FONT_ESSENCE_HPP
 #define OGLPLUS_TEXT_BITMAP_GLYPH_FONT_ESSENCE_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/text/bitmap_glyph/fwd.hpp>
 #include <oglplus/text/bitmap_glyph/page_storage.hpp>
 #include <oglplus/text/bitmap_glyph/pager.hpp>

@@ -1,6 +1,6 @@
 /**
  *  .file lib/oglplus/debug_output.cpp
- *  .brief ARB_debug_output and KHR_debug functions
+ *  .brief ARB_debug_output functions
  *
  *  @author Matus Chochlik
  *
@@ -14,13 +14,8 @@
 #include <oglplus/ext/ARB_debug_output/severity.hpp>
 #include <oglplus/ext/ARB_debug_output/source.hpp>
 #include <oglplus/ext/ARB_debug_output/type.hpp>
-#include <oglplus/ext/KHR_debug/severity.hpp>
-#include <oglplus/ext/KHR_debug/source.hpp>
-#include <oglplus/ext/KHR_debug/type.hpp>
 
 #include "implement.ipp"
 
 #include <oglplus/ext/ARB_debug_output.hpp>
-//TODO: this causes problems with certain versions of GLEW
-//#include <oglplus/ext/KHR_debug.hpp>
 #include "epilogue.ipp"

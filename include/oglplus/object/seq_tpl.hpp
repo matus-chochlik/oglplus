@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/object/seq_tpl.hpp
- *  @brief Implementation of Sequence of Object names
+ *  @file oglplus/object/sequence.hpp
+ *  @brief Sequence of Object names
  *
  *  @author Matus Chochlik
  *
@@ -13,41 +13,39 @@
 #ifndef OGLPLUS_OBJECT_SEQ_TPL_1405011014_HPP
 #define OGLPLUS_OBJECT_SEQ_TPL_1405011014_HPP
 
+#include <oglplus/object/name_tpl.hpp>
 #include <cstddef>
 #include <cassert>
 
 namespace oglplus {
-namespace aux {
 
 /// Object sequence iterator template
-template <
-	typename ObjectT,
-	typename NameT,
-	typename ObjTag,
-	template <class> class NameTpl
-> class SeqIterTpl
+template <typename ObjectT>
+class SeqIterator
 {
 private:
+	typedef typename Classify<ObjectT>::ObjTag ObjTag;
+	typedef typename ObjTag::NameType NameT;
 	const NameT* _pos;
 public:
-	SeqIterTpl(const NameT* pos)
+	SeqIterator(const NameT* pos)
 	 : _pos(pos)
 	{ }
 
 	/// Equality comparison
-	friend bool operator == (SeqIterTpl a, SeqIterTpl b)
+	friend bool operator == (SeqIterator a, SeqIterator b)
 	{
 		return a._pos == b._pos;
 	}
 
 	/// Inequality comparison
-	friend bool operator != (SeqIterTpl a, SeqIterTpl b)
+	friend bool operator != (SeqIterator a, SeqIterator b)
 	{
 		return a._pos != b._pos;
 	}
 
 	/// Ordering
-	friend bool operator <  (SeqIterTpl a, SeqIterTpl b)
+	friend bool operator <  (SeqIterator a, SeqIterator b)
 	{
 		return a._pos <  b._pos;
 	}
@@ -59,7 +57,7 @@ public:
 	typedef std::ptrdiff_t difference_type;
 
 	/// Distance
-	friend difference_type operator - (SeqIterTpl a, SeqIterTpl b)
+	friend difference_type operator - (SeqIterator a, SeqIterator b)
 	{
 		return a._pos - b._pos;
 	}
@@ -79,72 +77,81 @@ public:
 	}
 
 	/// Preincrement
-	SeqIterTpl& operator ++ (void)
+	SeqIterator& operator ++ (void)
 	{
 		++_pos;
 		return *this;
 	}
 
 	/// Postincrement
-	SeqIterTpl operator ++ (int)
+	SeqIterator operator ++ (int)
 	{
-		return SeqIterTpl(_pos++);
+		return SeqIterator(_pos++);
 	}
 
 	/// Predecrement
-	SeqIterTpl& operator -- (void)
+	SeqIterator& operator -- (void)
 	{
 		--_pos;
 		return *this;
 	}
 
 	/// Postdecrement
-	SeqIterTpl operator -- (int)
+	SeqIterator operator -- (int)
 	{
-		return SeqIterTpl(_pos--);
+		return SeqIterator(_pos--);
 	}
 
 	/// Positive offset
-	friend SeqIterTpl operator + (SeqIterTpl a, difference_type d)
+	friend SeqIterator operator + (SeqIterator a, difference_type d)
 	{
-		return SeqIterTpl(a._pos+d);
+		return SeqIterator(a._pos+d);
 	}
 
 	/// Positive offset
-	SeqIterTpl& operator += (difference_type d)
+	SeqIterator& operator += (difference_type d)
 	{
 		_pos += d;
 		return *this;
 	}
 
 	/// Negative offset
-	friend SeqIterTpl operator - (SeqIterTpl a, difference_type d)
+	friend SeqIterator operator - (SeqIterator a, difference_type d)
 	{
-		return SeqIterTpl(a._pos-d);
+		return SeqIterator(a._pos-d);
 	}
 
 	/// Negative offset
-	SeqIterTpl& operator -= (difference_type d)
+	SeqIterator& operator -= (difference_type d)
 	{
 		_pos -= d;
 		return *this;
 	}
 };
 
+template <typename ObjectT>
+const typename Classify<ObjectT>::ObjTag::NameType*
+GetNames(const Sequence<ObjectT>&);
+
 /// Common base class for Object name sequences
-template <typename NameT, typename ObjTag, template <class> class NameTpl>
-class SeqTpl
+template <typename ObjectT>
+class Sequence
 {
-protected:
+private:
+	typedef typename Classify<ObjectT>::ObjTag ObjTag;
+	typedef typename ObjTag::NameType NameT;
+
+	friend const NameT* GetNames<ObjectT>(const Sequence&);
+
 	const NameT* _names;
 	std::size_t _size;
 public:
-	SeqTpl(void)
+	Sequence(void)
 	 : _names(nullptr)
 	 , _size(0)
 	{ }
 
-	SeqTpl(const NameT* names, std::size_t count)
+	Sequence(const NameT* names, std::size_t count)
 	 : _names(names)
 	 , _size(count)
 	{ }
@@ -162,38 +169,36 @@ public:
 	}
 
 	/// Returns the object name at the specified @p index
-	NameTpl<ObjTag> at(std::size_t index) const
+	ObjectT at(std::size_t index) const
 	{
 		assert(index < _size);
-		return NameTpl<ObjTag>(_names[index]);
+		return ObjectT(_names[index]);
 	}
 
 	/// Returns the object name at the specified @p index
-	NameTpl<ObjTag> operator[](std::size_t index) const
+	ObjectT operator[](std::size_t index) const
 	{
 		return at(index);
 	}
 
 	/// Returns a subsequence starting at @p start
-	SeqTpl slice(std::size_t start) const
+	Sequence slice(std::size_t start) const
 	{
 		assert(start <= _size);
-		return SeqTpl(_names+start, _size-start);
+		return Sequence(_names+start, _size-start);
 	}
 
 	/// Returns a subsequence with the specified @p count starting at @p start
-	SeqTpl slice(std::size_t start, std::size_t count) const
+	Sequence slice(std::size_t start, std::size_t count) const
 	{
 		assert(start + count <= _size);
-		return SeqTpl(_names+start, count);
+		return Sequence(_names+start, count);
 	}
 
-	typedef SeqIterTpl<
-		NameTpl<ObjTag>,
-		NameT,
-		ObjTag,
-		NameTpl
-	> const_iterator;
+	/// Iterator type
+	typedef SeqIterator<ObjectT> iterator;
+	/// Const iterator type
+	typedef SeqIterator<ObjectT> const_iterator;
 
 	/// Position at the beginning of the sequence
 	const_iterator begin(void) const
@@ -208,7 +213,14 @@ public:
 	}
 };
 
-} // namespace aux
+/// Returns a pointer to array of names stored in a @p sequence
+template <typename ObjectT>
+inline const typename Classify<ObjectT>::ObjTag::NameType*
+GetNames(const Sequence<ObjectT>& sequence)
+{
+	return sequence._names;
+}
+
 } // namespace oglplus
 
 #endif // include guard

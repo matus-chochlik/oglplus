@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_CLEAR_BUFFERS_1201040722_HPP
 #define OGLPLUS_CONTEXT_CLEAR_BUFFERS_1201040722_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/buffer_select_bit.hpp>
 #include <oglplus/color_buffer.hpp>

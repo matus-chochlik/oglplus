@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_OBJECT_AUTO_REBIND_1107121519_HPP
 #define OGLPLUS_OBJECT_AUTO_REBIND_1107121519_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/object/wrapper.hpp>
 
 namespace oglplus {

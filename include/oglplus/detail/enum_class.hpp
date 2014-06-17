@@ -13,6 +13,8 @@
 #ifndef OGLPLUS_AUX_ENUM_CLASS_1207191556_HPP
 #define OGLPLUS_AUX_ENUM_CLASS_1207191556_HPP
 
+#include <oglplus/config/compiler.hpp>
+
 namespace oglplus {
 
 // if we have native strongly typed enums

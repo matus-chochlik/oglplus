@@ -35,7 +35,7 @@ private:
 	typedef ProgVarSetters<OpsTag, VarTag, tag::NativeTypes> Setters;
 	typedef ProgVarCallers<OpsTag, T> Callers;
 
-	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
+	OGLPLUS_ERROR_REUSE_CONTEXT(Setters)
 
 	typedef std::false_type _set_done;
 	typedef std::true_type  _set_cont;
@@ -317,7 +317,7 @@ private:
 	typedef ProgVarSetters<OpsTag, VarTag, tag::MatrixTypes> Setters;
 	typedef ProgVarCallers<OpsTag, T> Callers;
 
-	OGLPLUS_ERROR_INFO_REUSE_CONTEXT(Setters)
+	OGLPLUS_ERROR_REUSE_CONTEXT(Setters)
 protected:
 	template <std::size_t Cols, std::size_t Rows, typename V>
 	static void _do_set_mat(

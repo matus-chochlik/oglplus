@@ -1,8 +1,11 @@
-/_build
-/_prebuilt
+/_*
+/doc/quickbook/bin
+/doc/quickbook/html
 /fonts
 /models
 /textures
+/example/???plus/000_*
+/example/???plus/dependencies/000_*
 .*.swp
 *.sdf
 *.user

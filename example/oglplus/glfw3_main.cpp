@@ -14,8 +14,6 @@
 
 #include <oglplus/os/steady_clock.hpp>
 
-#include <oglplus/config.hpp>
-
 #include <vector>
 #include <fstream>
 #include <stdexcept>

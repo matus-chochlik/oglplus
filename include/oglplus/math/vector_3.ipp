@@ -147,6 +147,12 @@ public:
 		return *this;
 	}
 
+	Vector& operator *= (const Vector& v)
+	{
+		this->MultiplyBy(v);
+		return *this;
+	}
+
 	friend Vector Divided(const Vector& a, T v)
 	{
 		return Vector(a[0]/v, a[1]/v, a[2]/v);

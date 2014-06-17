@@ -30,22 +30,7 @@ class ObjectOps<tag::DirectState, tag::Renderbuffer>
 protected:
 	ObjectOps(void){ }
 public:
-	GLint GetIntParam(GLenum query) const
-	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetNamedRenderbufferParameterivEXT)(
-			_name,
-			query,
-			&result
-		);
-		OGLPLUS_VERIFY(
-			GetRenderbufferParameteriv,
-			ObjectError,
-			Object(*this).
-			EnumParam(query)
-		);
-		return result;
-	}
+	GLint GetIntParam(GLenum query) const;
 
 	/// Set the renderbuffer storage parameters
 	/**

@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_TEXT_BITMAP_GLYPH_FONT_HPP
 #define OGLPLUS_TEXT_BITMAP_GLYPH_FONT_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/texture_unit.hpp>
 #include <oglplus/text/common.hpp>
 #include <oglplus/text/bitmap_glyph/fwd.hpp>

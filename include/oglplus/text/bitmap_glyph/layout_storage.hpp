@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_TEXT_BITMAP_GLYPH_LAYOUT_STORAGE_HPP
 #define OGLPLUS_TEXT_BITMAP_GLYPH_LAYOUT_STORAGE_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/vertex_array.hpp>
 #include <oglplus/vertex_attrib.hpp>

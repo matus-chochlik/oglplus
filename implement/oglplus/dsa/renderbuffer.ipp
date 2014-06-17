@@ -16,6 +16,24 @@
 namespace oglplus {
 
 #if GL_EXT_direct_state_access
+OGLPLUS_LIB_FUNC
+GLint ObjectOps<tag::DirectState, tag::Renderbuffer>::
+GetIntParam(GLenum query) const
+{
+	GLint result = 0;
+	OGLPLUS_GLFUNC(GetNamedRenderbufferParameterivEXT)(
+		_name,
+		query,
+		&result
+	);
+	OGLPLUS_VERIFY(
+		GetRenderbufferParameteriv,
+		ObjectError,
+		Object(*this).
+		EnumParam(query)
+	);
+	return result;
+}
 
 OGLPLUS_LIB_FUNC
 void ObjectOps<tag::DirectState, tag::Renderbuffer>::

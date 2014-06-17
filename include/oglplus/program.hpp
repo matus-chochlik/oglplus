@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_PROGRAM_1107121519_HPP
 #define OGLPLUS_PROGRAM_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/object/wrapper.hpp>
 #include <oglplus/object/sequence.hpp>
 #include <oglplus/error/program.hpp>
@@ -955,234 +955,65 @@ public:
 };
 #endif
 
-/// A Program that allows to attach shaders and links itself during construction
-/** This specialization of Program allows to build a whole shading language
- *  program (i.e. to attach its shaders, optionally make the program separable,
- *  link and use it during construction.
- *
- *  @see Program
+/// A class that allows to build programs in the constructor
+/** This class allows to supply a list of shaders and other parameters
+ *  to the constructor. The shaders are attached to the Program
+ *  and it is linked and made active. Optionally the program can also
+ *  be made separable.
  */
 class QuickProgram
  : public Program
 {
-private:
-	void _do_make_separable(std::true_type)
+public:
+	/// Attaches @p shaders, links and uses the program
+	QuickProgram(const Sequence<ShaderName>& shaders)
 	{
-#if GL_VERSION_4_1 || GL_ARB_separate_shader_objects
-		MakeSeparable();
-#endif
-	}
-
-	static void _do_make_separable(std::false_type) { }
-
-	template <bool Separable>
-	void _do_initialize(std::integral_constant<bool, Separable> separable)
-	{
-		_do_make_separable(separable);
+		AttachShaders(shaders);
 		Link();
 		Use();
 	}
 
-	template <typename Tuple, size_t N>
-	void _attach_tuple(
-		const Tuple& /*tuple*/,
-		std::integral_constant<size_t, N>,
-		std::integral_constant<size_t, N>
-	){ }
-
-	template <typename Tuple, size_t I, size_t N>
-	void _attach_tuple(
-		const Tuple& tuple,
-		std::integral_constant<size_t, I>,
-		std::integral_constant<size_t, N>
-	)
+	/// Attaches @p shaders, links, uses and describes the program
+	QuickProgram(
+		ObjectDesc&& object_desc,
+		const Sequence<ShaderName>& shaders
+	): Program(std::move(object_desc))
 	{
-		this->AttachShader(std::get<I>(tuple));
-		_attach_tuple(
-			tuple,
-			std::integral_constant<size_t, I+1>(),
-			std::integral_constant<size_t, N>()
-		);
+		AttachShaders(shaders);
+		Link();
+		Use();
 	}
 
-	template <bool Separable, typename Tuple>
-	void _initialize_tuple(
-		std::integral_constant<bool, Separable> separable,
-		const Tuple& tuple
-	)
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_1 || GL_ARB_separate_shader_objects
+	/// Attaches @p shaders, makes separable, links and uses the program
+	/**
+	 *  @glvoereq{4,1,ARB,separate_shader_objects}
+	 */
+	QuickProgram(bool separable, const Sequence<ShaderName>& shaders)
 	{
-		std::integral_constant<size_t, 0> i;
-		std::integral_constant<size_t, std::tuple_size<Tuple>::value> n;
-		_attach_tuple(tuple, i, n);
-		_do_initialize(separable);
+		AttachShaders(shaders);
+		if(separable) MakeSeparable();
+		Link();
+		Use();
 	}
 
-#if !OGLPLUS_NO_VARIADIC_TEMPLATES
-	void _attach(ShaderName shader)
+	/// Attaches @p shaders, makes separable, links and uses the program
+	/**
+	 *  @glvoereq{4,1,ARB,separate_shader_objects}
+	 */
+	QuickProgram(
+		ObjectDesc&& object_desc,
+		bool separable,
+		const Sequence<ShaderName>& shaders
+	): Program(std::move(object_desc))
 	{
-		this->AttachShader(shader);
-	}
-
-	template <typename ... Tags>
-	void _attach(ShaderName shader, ObjectName<Tags> ... shaders)
-	{
-		this->AttachShader(shader);
-		_attach(shaders...);
-	}
-
-	template <bool Separable, typename ... Tags>
-	void _initialize(
-		std::integral_constant<bool, Separable> separable,
-		ObjectName<Tags> ... shaders
-	)
-	{
-		_attach(shaders...);
-		_do_initialize(separable);
+		AttachShaders(shaders);
+		if(separable) MakeSeparable();
+		Link();
+		Use();
 	}
 #endif
-
-public:
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
-	/// Build a optionally separable program using the specified @c shaders
-	template <bool Separable, typename ... Tags>
-	QuickProgram(
-		std::integral_constant<bool, Separable> separable,
-		ShaderName shader,
-		ObjectName<Tags>& ... shaders
-	): Program()
-	{
-		_initialize(separable, shader, shaders...);
-	}
-
-	/// Build a program with @c description using the specified @c shaders
-	template <bool Separable, typename ... Tags>
-	QuickProgram(
-		ObjectDesc&& description,
-		std::integral_constant<bool, Separable> separable,
-		ShaderName shader,
-		ObjectName<Tags> ... shaders
-	): Program(std::move(description))
-	{
-		_initialize(separable, shader, shaders...);
-	}
-
-	/// Build a optionally separable program using the specified @c shaders
-	template <bool Separable, typename ... Shaders>
-	QuickProgram(
-		std::integral_constant<bool, Separable> separable,
-		const std::tuple<Shaders...>& shaders
-	): Program()
-	{
-		_initialize_tuple(separable, shaders);
-	}
-
-	/// Build a program with @c description using the specified @c shaders
-	template <bool Separable, typename ... Shaders>
-	QuickProgram(
-		ObjectDesc&& description,
-		std::integral_constant<bool, Separable> separable,
-		const std::tuple<Shaders...>& shaders
-	): Program(std::move(description))
-	{
-		_initialize_tuple(separable, shaders);
-	}
-#else
-	template <bool Separable, typename StdTuple>
-	QuickProgram(
-		ObjectDesc&& description,
-		std::integral_constant<bool, Separable> separable,
-		const StdTuple& shaders
-	): Program(std::move(description))
-	{
-		_initialize_tuple(separable, shaders);
-	}
-
-	template <bool Separable>
-	QuickProgram(
-		std::integral_constant<bool, Separable> separable,
-		ShaderName s0
-	): Program()
-	{
-		this->AttachShader(s0);
-		_do_initialize(separable);
-	}
-
-	template <bool Separable>
-	QuickProgram(
-		std::integral_constant<bool, Separable> separable,
-		ShaderName s0,
-		ShaderName s1
-	): Program()
-	{
-		this->AttachShader(s0);
-		this->AttachShader(s1);
-		_do_initialize(separable);
-	}
-
-	template <bool Separable>
-	QuickProgram(
-		std::integral_constant<bool, Separable> separable,
-		ShaderName s0,
-		ShaderName s1,
-		ShaderName s2
-	): Program()
-	{
-		this->AttachShader(s0);
-		this->AttachShader(s1);
-		this->AttachShader(s2);
-		_do_initialize(separable);
-	}
-#endif // NO_VARIADIC_TEMPLATES
 };
-
-#if OGLPLUS_DOCUMENTATION_ONLY || !OGLPLUS_NO_VARIADIC_TEMPLATES
-/// A Program that has its shaders statically hardcoded
-template <class ... Shaders>
-class HardwiredProgram
- : protected Shaders ...
- , public QuickProgram
-{
-private:
-	template <class SingleShader>
-	ShaderName _single_shader(SingleShader*) const
-	{
-		return *((SingleShader*)this);
-	}
-public:
-	/// Create an instance of the hardwired program
-	HardwiredProgram(void)
-	 : QuickProgram(std::false_type(), _single_shader((Shaders*)0)...)
-	{ }
-
-	/// Create an instance of the hardwired program with a @c description
-	HardwiredProgram(ObjectDesc&& description)
-	 : QuickProgram(
-		std::move(description),
-		std::false_type(),
-		_single_shader((Shaders*)0)...
-	)
-	{ }
-
-	/// Create an instance of the hardwired program, possibly @c separable
-	template <bool Separable>
-	HardwiredProgram(std::integral_constant<bool, Separable> separable)
-	 : QuickProgram(separable, _single_shader((Shaders*)0)...)
-	{ }
-
-	/// Create an instance of the hardwired program with a @c description
-	template <bool Separable>
-	HardwiredProgram(
-		ObjectDesc&& description,
-		std::integral_constant<bool, Separable> separable
-	): QuickProgram(
-		std::move(description),
-		separable,
-		_single_shader((Shaders*)0)...
-	)
-	{ }
-};
-
-#endif // NO_VARIADIC_TEMPLATES
 
 } // namespace oglplus
 

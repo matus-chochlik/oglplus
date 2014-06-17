@@ -264,7 +264,8 @@ Binary(const std::vector<GLubyte>& binary, GLenum format)
 #endif
 
 OGLPLUS_LIB_FUNC
-ObjectOps<tag::DirectState, tag::Program>::ShaderIterationContext::ShaderIterationContext(
+ObjectOps<tag::DirectState, tag::Program>::
+ShaderIterationContext::ShaderIterationContext(
 	GLuint name,
 	GLuint count
 ): _shader_names(count)
@@ -285,7 +286,8 @@ ObjectOps<tag::DirectState, tag::Program>::ShaderIterationContext::ShaderIterati
 #if GL_VERSION_4_3
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
-ObjectOps<tag::DirectState, tag::Program>::ActiveResourceContext(ProgramInterface intf) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveResourceContext(ProgramInterface intf) const
 {
 	// get the maximum string length of the longest identifier
 	GLint length = 0;
@@ -305,7 +307,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveResourceContext(ProgramInterfac
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::ActiveResourceRange
-ObjectOps<tag::DirectState, tag::Program>::ActiveResources(ProgramInterface intf) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveResources(ProgramInterface intf) const
 {
 	// get the count of active attributes
 	GLint count = 0;
@@ -327,7 +330,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveResources(ProgramInterface intf
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
-ObjectOps<tag::DirectState, tag::Program>::ActiveAttribContext(void) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveAttribContext(void) const
 {
 	return InterfaceContext(
 		_name,
@@ -337,7 +341,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveAttribContext(void) const
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::ActiveAttribRange
-ObjectOps<tag::DirectState, tag::Program>::ActiveAttribs(void) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveAttribs(void) const
 {
 	return ActiveAttribRange(
 		ActiveAttribContext(),
@@ -347,7 +352,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveAttribs(void) const
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
-ObjectOps<tag::DirectState, tag::Program>::ActiveUniformContext(void) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveUniformContext(void) const
 {
 	return InterfaceContext(
 		_name,
@@ -357,7 +363,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveUniformContext(void) const
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::ActiveUniformRange
-ObjectOps<tag::DirectState, tag::Program>::ActiveUniforms(void) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveUniforms(void) const
 {
 	return ActiveUniformRange(
 		ActiveUniformContext(),
@@ -368,7 +375,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveUniforms(void) const
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0 || GL_ARB_shader_subroutine
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
-ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineContext(ShaderType stage) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveSubroutineContext(ShaderType stage) const
 {
 	return InterfaceContext(
 		_name,
@@ -382,7 +390,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineContext(ShaderType st
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineRange
-ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutines(ShaderType stage) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveSubroutines(ShaderType stage) const
 {
 	return ActiveSubroutineRange(
 		ActiveSubroutineContext(stage),
@@ -395,7 +404,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutines(ShaderType stage) c
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
-ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineUniformContext(ShaderType stage) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveSubroutineUniformContext(ShaderType stage) const
 {
 	return InterfaceContext(
 		_name,
@@ -409,7 +419,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineUniformContext(Shader
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineUniformRange
-ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineUniforms(ShaderType stage) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveSubroutineUniforms(ShaderType stage) const
 {
 	return ActiveSubroutineUniformRange(
 		ActiveSubroutineUniformContext(stage),
@@ -423,7 +434,8 @@ ObjectOps<tag::DirectState, tag::Program>::ActiveSubroutineUniforms(ShaderType s
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::InterfaceContext
-ObjectOps<tag::DirectState, tag::Program>::TransformFeedbackVaryingContext(void) const
+ObjectOps<tag::DirectState, tag::Program>::
+TransformFeedbackVaryingContext(void) const
 {
 	return InterfaceContext(
 		_name,
@@ -433,7 +445,8 @@ ObjectOps<tag::DirectState, tag::Program>::TransformFeedbackVaryingContext(void)
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::TransformFeedbackVaryingRange
-ObjectOps<tag::DirectState, tag::Program>::TransformFeedbackVaryings(void) const
+ObjectOps<tag::DirectState, tag::Program>::
+TransformFeedbackVaryings(void) const
 {
 	return TransformFeedbackVaryingRange(
 		TransformFeedbackVaryingContext(),
@@ -443,7 +456,8 @@ ObjectOps<tag::DirectState, tag::Program>::TransformFeedbackVaryings(void) const
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::ShaderRange
-ObjectOps<tag::DirectState, tag::Program>::AttachedShaders(void) const
+ObjectOps<tag::DirectState, tag::Program>::
+AttachedShaders(void) const
 {
 	GLint count = GetIntParam(GL_ATTACHED_SHADERS);
 	return ShaderRange(
@@ -454,7 +468,8 @@ ObjectOps<tag::DirectState, tag::Program>::AttachedShaders(void) const
 
 OGLPLUS_LIB_FUNC
 ObjectOps<tag::DirectState, tag::Program>::ActiveUniformBlockRange
-ObjectOps<tag::DirectState, tag::Program>::ActiveUniformBlocks(void) const
+ObjectOps<tag::DirectState, tag::Program>::
+ActiveUniformBlocks(void) const
 {
 	// get the count of active uniform blocks
 	GLint count = GetIntParam(GL_ACTIVE_UNIFORM_BLOCKS);

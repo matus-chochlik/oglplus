@@ -103,81 +103,11 @@ public:
 		BindMulti(index, target);
 	}
 
-	GLint GetIntParam(GLenum query) const
-	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetTextureParameterivEXT)(
-			_name,
-			GLenum(target),
-			query,
-			&result
-		);
-		OGLPLUS_CHECK(
-			GetTextureParameterivEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(query)
-		);
-		return result;
-	}
+	GLint GetIntParam(GLenum query) const;
+	GLfloat GetFloatParam(GLenum query) const;
 
-	GLfloat GetFloatParam(GLenum query) const
-	{
-		GLfloat result = 0;
-		OGLPLUS_GLFUNC(GetTextureParameterfvEXT)(
-			_name,
-			GLenum(target),
-			query,
-			&result
-		);
-		OGLPLUS_CHECK(
-			GetTextureParameterfvEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(query)
-		);
-		return result;
-	}
-
-	GLint GetIntParam(GLint level, GLenum query) const
-	{
-		GLint result = 0;
-		OGLPLUS_GLFUNC(GetTextureLevelParameterivEXT)(
-			_name,
-			GLenum(target),
-			level,
-			query,
-			&result
-		);
-		OGLPLUS_CHECK(
-			GetTextureLevelParameterivEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(query).
-			Index(level)
-		);
-		return result;
-	}
-
-	GLfloat GetFloatParam(GLint level, GLenum query) const
-	{
-		GLfloat result = 0;
-		OGLPLUS_GLFUNC(GetTextureLevelParameterfvEXT)(
-			_name,
-			GLenum(target),
-			level,
-			query,
-			&result
-		);
-		OGLPLUS_CHECK(
-			GetTextureLevelParameterfvEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(query).
-			Index(level)
-		);
-		return result;
-	}
+	GLint GetIntParam(GLint level, GLenum query) const;
+	GLfloat GetFloatParam(GLint level, GLenum query) const;
 
 	/// Returns the width of the texture as it was specified by *Image*D
 	/**

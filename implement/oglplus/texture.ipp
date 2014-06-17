@@ -108,7 +108,86 @@ _binding(Target target)
 	return name;
 }
 
+OGLPLUS_LIB_FUNC
+GLint ObjZeroOps<tag::ExplicitSel, tag::Texture>::
+GetIntParam(Target target, GLenum query)
+{
+	GLint result = 0;
+	OGLPLUS_GLFUNC(GetTexParameteriv)(
+		GLenum(target),
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetTexParameteriv,
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(query)
+	);
+	return result;
+}
+
+OGLPLUS_LIB_FUNC
+GLfloat ObjZeroOps<tag::ExplicitSel, tag::Texture>::
+GetFloatParam(Target target, GLenum query)
+{
+	GLfloat result = 0;
+	OGLPLUS_GLFUNC(GetTexParameterfv)(
+		GLenum(target),
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetTexParameterfv,
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(query)
+	);
+	return result;
+}
+
 #if GL_VERSION_3_0
+OGLPLUS_LIB_FUNC
+GLint ObjZeroOps<tag::ExplicitSel, tag::Texture>::
+GetIntParam(Target target, GLint level, GLenum query)
+{
+	GLint result = 0;
+	OGLPLUS_GLFUNC(GetTexLevelParameteriv)(
+		GLenum(target),
+		level,
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetTexLevelParameteriv,
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(query).
+		Index(level)
+	);
+	return result;
+}
+
+OGLPLUS_LIB_FUNC
+GLfloat ObjZeroOps<tag::ExplicitSel, tag::Texture>::
+GetFloatParam(Target target, GLint level, GLenum query)
+{
+	GLfloat result = 0;
+	OGLPLUS_GLFUNC(GetTexLevelParameterfv)(
+		GLenum(target),
+		level,
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetTexLevelParameterfv,
+		ObjectError,
+		ObjectBinding(target).
+		EnumParam(query).
+		Index(level)
+	);
+	return result;
+}
 
 OGLPLUS_LIB_FUNC
 void ObjZeroOps<tag::ExplicitSel, tag::Texture>::

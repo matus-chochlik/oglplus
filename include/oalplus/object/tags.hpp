@@ -21,7 +21,9 @@ namespace tag {
 #define OALPLUS_DEFINE_OBJECT_TAG(ID, OBJECT) \
 struct OBJECT \
  : std::integral_constant<int, ID> \
-{ };
+{ \
+	typedef ALuint NameType; \
+};
 
 OALPLUS_DEFINE_OBJECT_TAG( 101, Source)
 OALPLUS_DEFINE_OBJECT_TAG( 102, Buffer)

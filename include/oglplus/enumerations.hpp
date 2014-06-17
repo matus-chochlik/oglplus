@@ -13,7 +13,8 @@
 #ifndef OGLPLUS_ENUMERATIONS_1107121519_HPP
 #define OGLPLUS_ENUMERATIONS_1107121519_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/compiler.hpp>
+#include <oglplus/config/enums.hpp>
 #include <oglplus/string/def.hpp>
 #include <oglplus/string/literal.hpp>
 #include <oglplus/detail/enum_class.hpp>

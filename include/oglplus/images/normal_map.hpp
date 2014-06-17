@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -25,39 +25,6 @@ namespace images {
 class NormalMap
  : public FilteredImage<GLfloat, 4>
 {
-private:
-	struct _filter
-	{
-		template <typename Extractor, typename Sampler>
-		Vector<GLfloat, 4> operator()(
-			const Extractor& extractor,
-			const Sampler& sampler,
-			GLfloat one
-		) const
-		{
-			typedef GLdouble number;
-			number s = 0.05;
-
-			number sc  = extractor(sampler( 0, 0, 0));
-			number spx = extractor(sampler(+1, 0, 0));
-			number spy = extractor(sampler( 0,+1, 0));
-			number snx = extractor(sampler(-1, 0, 0));
-			number sny = extractor(sampler( 0,-1, 0));
-			Vector<number, 3> vpx(+s, 0, (spx-sc));
-			Vector<number, 3> vpy(0, +s, (spy-sc));
-			Vector<number, 3> vnx(-s, 0, (snx-sc));
-			Vector<number, 3> vny(0, -s, (sny-sc));
-			return Vector<number, 4>(
-				Normalized(
-					Cross(vpx, vpy) +
-					Cross(vpy, vnx) +
-					Cross(vnx, vny) +
-					Cross(vny, vpx)
-				),
-				sc
-			) * one;
-		}
-	};
 public:
 	typedef FilteredImage<GLfloat, 4> Filtered;
 
@@ -69,30 +36,19 @@ public:
 	 *    default the RED component of the image is used as the height-map
 	 *    value used in normal-map calculation).
 	 */
-	template <typename Extractor = typename Filtered::FromRed>
+	template <typename Extractor>
 	NormalMap(const Image& input, Extractor extractor = Extractor());
 #endif
-
-#if !OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
-	template <typename Extractor = typename Filtered::FromRed>
-	NormalMap(const Image& input, Extractor extractor = Extractor())
-#else
-	template <typename Extractor>
-	NormalMap(const Image& input, Extractor extractor)
-#endif
-	 : Filtered(
-		input,
-		_filter(),
-		Filtered::DefaultSampler(),
-		extractor
-	)
-	{
-		this->_format = PixelDataFormat::RGBA;
-		this->_internal = PixelDataInternalFormat::RGBA16F;
-	}
+	NormalMap(const Image& input);
+	NormalMap(const Image& input, Filtered::FromRed);
+	NormalMap(const Image& input, Filtered::FromAlpha);
 };
 
 } // images
 } // oglplus
+
+#if !OGLPLUS_LINK_LIBRARY || defined(OGLPLUS_IMPLEMENTING_LIBRARY)
+#include <oglplus/images/normal_map.ipp>
+#endif
 
 #endif // include guard

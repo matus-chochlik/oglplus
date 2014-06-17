@@ -25,7 +25,7 @@ class ObjectError
  : public Error
 {
 private:
-#if !OALPLUS_ERROR_INFO_NO_OBJECT_TYPE
+#if !OALPLUS_ERROR_NO_OBJECT_TYPE
 	ALenum _obj_type;
 #endif
 	int _obj_typeid;

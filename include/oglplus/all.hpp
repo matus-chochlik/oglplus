@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_ALL_1107121519_HPP
 #define OGLPLUS_ALL_1107121519_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/fwd.hpp>
 
 #include <oglplus/math/angle.hpp>

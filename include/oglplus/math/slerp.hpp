@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_MATH_SLERP_1310291021_HPP
 #define OGLPLUS_MATH_SLERP_1310291021_HPP
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <oglplus/math/angle.hpp>
 
 namespace oglplus {

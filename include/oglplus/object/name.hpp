@@ -14,109 +14,30 @@
 #define OGLPLUS_OBJECT_NAME_1107121519_HPP
 
 #include <oglplus/fwd.hpp>
-#include <oglplus/config.hpp>
-
-#include <type_traits>
-#include <utility>
-#include <cassert>
+#include <oglplus/object/name_tpl.hpp>
+#include <oglplus/object/tags.hpp>
 
 namespace oglplus {
 
-template <typename ObjTag>
-GLuint GetGLName(ObjectName<ObjTag>);
-
-/// A common template for "named" OpenGL objects like textures, buffers, etc.
-/** This is a common template for all OpenGL object wrappers which are
- *  identified by a (GLuint typed) name, i.e. object like Textures, Buffer, VAOs,
- *  Queries, etc. but also Shaders, Programs, and so on.
- *  @c ObjectName adds static object type information and allows to distinguish
- *  between objects of different type with the same name value.
- *
- *  @note Do not use this class directly, it is used by the OpenGL object wrappers
- *  for basic initialization, error checking and access restriction.
- */
-template <typename ObjTag>
-class ObjectName
-{
-protected:
-	friend GLuint GetGLName<ObjTag>(ObjectName);
-	GLuint _name;
-
-	void _copy(const ObjectName& that)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_name = that._name;
-	}
-
-	void _adopt(ObjectName&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_name = temp._name;
-		temp._name = 0;
-	}
-public:
-	/// Constructs wrapper for name 0 (zero).
-	ObjectName(void)
-	OGLPLUS_NOEXCEPT(true)
-	 : _name(GLuint(0))
-	{ }
-
-	/// Constructs wrapper for the specified @p name.
-	explicit ObjectName(GLuint name)
-	OGLPLUS_NOEXCEPT(true)
-	 : _name(name)
-	{ }
-
-	ObjectName(const ObjectName& that)
-	OGLPLUS_NOEXCEPT(true)
-	 : _name(that._name)
-	{ }
-
-	ObjectName(ObjectName&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	 : _name(temp._name)
-	{
-		temp._name = 0;
-	}
-
-	ObjectName& operator = (const ObjectName& that)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_copy(that);
-		return *this;
-	}
-
-	ObjectName& operator = (ObjectName&& temp)
-	OGLPLUS_NOEXCEPT(true)
-	{
-		_adopt(std::move(temp));
-		return *this;
-	}
-
-	/// Equality comparison
-	friend bool operator == (ObjectName a, ObjectName b)
-	{
-		return a._name == b._name;
-	}
-
-	/// Inequality comparison
-	friend bool operator != (ObjectName a, ObjectName b)
-	{
-		return a._name != b._name;
-	}
-
-	/// Ordering
-	friend bool operator <  (ObjectName a, ObjectName b)
-	{
-		return a._name < b._name;
-	}
-};
+typedef ObjectName<tag::Renderbuffer> RenderbufferName;
+typedef ObjectName<tag::Framebuffer> FramebufferName;
+typedef ObjectName<tag::Texture> TextureName;
+typedef ObjectName<tag::Buffer> BufferName;
+typedef ObjectName<tag::Query> QueryName;
+typedef ObjectName<tag::ProgramPipeline> ProgramPipelineName;
+typedef ObjectName<tag::Program> ProgramName;
+typedef ObjectName<tag::TransformFeedback> TransformFeedbackName;
+typedef ObjectName<tag::Sampler> SamplerName;
+typedef ObjectName<tag::VertexArray> VertexArrayName;
+typedef ObjectName<tag::Shader> ShaderName;
+typedef ObjectName<tag::PerfMonitorAMD> PerfMonitorAMDName;
+typedef ObjectName<tag::PathNV> PathNVName;
 
 /// Returns the GLuint OpenGL name assigned to @p named object
 template <typename ObjTag>
 inline GLuint GetGLName(ObjectName<ObjTag> named)
 {
-	return named._name;
+	return GetName(named);
 }
 
 } // namespace oglplus

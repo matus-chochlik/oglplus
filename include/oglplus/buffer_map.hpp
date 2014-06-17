@@ -13,8 +13,6 @@
 #ifndef OGLPLUS_BUFFER_MAP_1107121519_HPP
 #define OGLPLUS_BUFFER_MAP_1107121519_HPP
 
-#include <oglplus/config.hpp>
-#include <oglplus/fwd.hpp>
 #include <oglplus/glfunc.hpp>
 #include <oglplus/error/object.hpp>
 #include <oglplus/buffer_map_access.hpp>

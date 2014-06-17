@@ -249,17 +249,9 @@ public:
 };
 
 class VertexProgram
- : public Program
+ : public QuickProgram
 {
 private:
-	static Program make(void)
-	{
-		Program prog(ObjectDesc("Vertex"));
-		prog.AttachShader(CommonVertShader());
-		prog.MakeSeparable().Link().Use();
-		return prog;
-	}
-
 	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> model_matrix;
@@ -267,7 +259,7 @@ public:
 	ProgramUniform<Vec3f> camera_position, light_position;
 
 	VertexProgram(void)
-	 : Program(make())
+	 : QuickProgram(ObjectDesc("Vertex"), true, CommonVertShader())
 	 , model_matrix(self(), "ModelMatrix")
 	 , texture_matrix(self(), "TextureMatrix")
 	 , camera_position(self(), "CameraPosition")
@@ -276,23 +268,15 @@ public:
 };
 
 class GeometryProgram
- : public Program
+ : public QuickProgram
 {
 private:
-	static Program make(const Shader& shader)
-	{
-		Program prog(ObjectDesc("Geometry"));
-		prog.AttachShader(shader);
-		prog.MakeSeparable().Link().Use();
-		return prog;
-	}
-
 	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> projection_matrix, camera_matrix;
 
 	GeometryProgram(const GeometryShader& shader)
-	 : Program(make(shader))
+	 : QuickProgram(ObjectDesc("Geometry"), true, shader)
 	 , projection_matrix(self(), "ProjectionMatrix")
 	 , camera_matrix(self(), "CameraMatrix")
 	{ }
@@ -362,17 +346,9 @@ public:
 };
 
 class ClothProgram
- : public Program
+ : public QuickProgram
 {
 private:
-	static Program make(void)
-	{
-		Program prog(ObjectDesc("Cloth"));
-		prog.AttachShader(ClothFragmentShader());
-		prog.MakeSeparable().Link().Use();
-		return prog;
-	}
-
 	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Vec3f> color_1, color_2;
@@ -380,7 +356,7 @@ public:
 	ProgramUniformSampler light_map;
 
 	ClothProgram(void)
-	 : Program(make())
+	 : QuickProgram(ObjectDesc("Cloth"), true, ClothFragmentShader())
 	 , color_1(self(), "Color1")
 	 , color_2(self(), "Color2")
 	 , cloth_tex(self(), "ClothTex")
@@ -456,17 +432,9 @@ public:
 };
 
 class BallProgram
- : public Program
+ : public QuickProgram
 {
 private:
-	static Program make(void)
-	{
-		Program prog(ObjectDesc("Ball"));
-		prog.AttachShader(BallFragmentShader());
-		prog.MakeSeparable().Link().Use();
-		return prog;
-	}
-
 	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Vec3f> color_1, color_2;
@@ -474,7 +442,7 @@ public:
 	ProgramUniform<GLint> ball_idx;
 
 	BallProgram(void)
-	 : Program(make())
+	 : QuickProgram(ObjectDesc("Ball"), true, BallFragmentShader())
 	 , color_1(self(), "Color1")
 	 , color_2(self(), "Color2")
 	 , number_tex(self(), "NumberTex")
@@ -539,18 +507,9 @@ public:
 };
 
 class LightmapProgram
- : public Program
+ : public QuickProgram
 {
 private:
-	static Program make(void)
-	{
-		Program prog(ObjectDesc("Lightmap"));
-		prog.AttachShader(LightmapVertShader());
-		prog.AttachShader(LightmapFragShader());
-		prog.Link().Use();
-		return prog;
-	}
-
 	const Program& self(void) const { return *this; }
 public:
 	ProgramUniform<Mat4f> transform_matrix;
@@ -558,7 +517,7 @@ public:
 	ProgramUniform<Vec3f> ball_positions;
 
 	LightmapProgram(void)
-	 : Program(make())
+	 : QuickProgram(ObjectDesc("Lightmap"), (LightmapVertShader(), LightmapFragShader()))
 	 , transform_matrix(self(), "TransformMatrix")
 	 , light_position(self(), "LightPosition")
 	 , ball_positions(self(), "BallPositions")

@@ -25,13 +25,13 @@ class ObjectError
  : public Error
 {
 private:
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+#if !OGLPLUS_ERROR_NO_OBJECT_TYPE
 	GLenum _obj_type;
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+#if !OGLPLUS_ERROR_NO_BIND_TARGET
 	GLenum _bind_tgt;
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_TARGET_NAME
+#if !OGLPLUS_ERROR_NO_TARGET_NAME
 	const char* _tgt_name;
 #endif
 	int _obj_typeid;
@@ -41,7 +41,7 @@ public:
 
 	ObjectError& ObjectType(oglplus::ObjectType obj_type)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+#if !OGLPLUS_ERROR_NO_OBJECT_TYPE
 		_obj_type = GLenum(obj_type);
 #endif
 		(void)obj_type;
@@ -57,10 +57,10 @@ public:
 	template <typename BindTarget_>
 	ObjectError& BindTarget(BindTarget_ bind_tgt)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_BIND_TARGET
+#if !OGLPLUS_ERROR_NO_BIND_TARGET
 		_bind_tgt = GLenum(bind_tgt);
 #endif
-#if !OGLPLUS_ERROR_INFO_NO_TARGET_NAME
+#if !OGLPLUS_ERROR_NO_TARGET_NAME
 		_tgt_name = EnumValueName(bind_tgt).c_str();
 #endif
 		(void)bind_tgt;
@@ -76,6 +76,9 @@ public:
 	template <typename ObjTag>
 	ObjectError& Object(oglplus::ObjectName<ObjTag> object)
 	{
+#if !OGLPLUS_ERROR_NO_OBJECT_TYPE
+		_obj_type = GLenum(ObjTypeOps<ObjTag>::ObjectType());
+#endif
 		_obj_typeid = ObjTag::value;
 		_obj_name = GetGLName(object);
 		return *this;
@@ -108,7 +111,7 @@ class ObjectPairError
  : public ObjectError
 {
 private:
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+#if !OGLPLUS_ERROR_NO_OBJECT_TYPE
 	GLenum _sub_type;
 #endif
 	int _sub_typeid;
@@ -118,7 +121,7 @@ public:
 
 	ObjectPairError& SubjectType(oglplus::ObjectType sub_type)
 	{
-#if !OGLPLUS_ERROR_INFO_NO_OBJECT_TYPE
+#if !OGLPLUS_ERROR_NO_OBJECT_TYPE
 		_sub_type = GLenum(sub_type);
 #endif
 		(void)sub_type;

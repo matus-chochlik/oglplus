@@ -15,7 +15,6 @@
 #ifndef OGLPLUS_EXT_AMD_PERFORMANCE_MONITOR_1203031902_HPP
 #define OGLPLUS_EXT_AMD_PERFORMANCE_MONITOR_1203031902_HPP
 
-#include <oglplus/config.hpp>
 #include <oglplus/extension.hpp>
 #include <oglplus/enumerations.hpp>
 #include <oglplus/object/wrapper.hpp>

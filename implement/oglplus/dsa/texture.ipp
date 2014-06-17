@@ -17,6 +17,89 @@
 namespace oglplus {
 
 #if GL_EXT_direct_state_access
+OGLPLUS_LIB_FUNC
+GLint ObjZeroOps<tag::DirectState, tag::Texture>::
+GetIntParam(GLenum query) const
+{
+	GLint result = 0;
+	OGLPLUS_GLFUNC(GetTextureParameterivEXT)(
+		_name,
+		GLenum(target),
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetTextureParameterivEXT,
+		ObjectError,
+		Object(*this).
+		EnumParam(query)
+	);
+	return result;
+}
+
+OGLPLUS_LIB_FUNC
+GLfloat ObjZeroOps<tag::DirectState, tag::Texture>::
+GetFloatParam(GLenum query) const
+{
+	GLfloat result = 0;
+	OGLPLUS_GLFUNC(GetTextureParameterfvEXT)(
+		_name,
+		GLenum(target),
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetTextureParameterfvEXT,
+		ObjectError,
+		Object(*this).
+		EnumParam(query)
+	);
+	return result;
+}
+
+OGLPLUS_LIB_FUNC
+GLint ObjZeroOps<tag::DirectState, tag::Texture>::
+GetIntParam(GLint level, GLenum query) const
+{
+	GLint result = 0;
+	OGLPLUS_GLFUNC(GetTextureLevelParameterivEXT)(
+		_name,
+		GLenum(target),
+		level,
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetTextureLevelParameterivEXT,
+		ObjectError,
+		Object(*this).
+		EnumParam(query).
+		Index(level)
+	);
+	return result;
+}
+
+OGLPLUS_LIB_FUNC
+GLfloat ObjZeroOps<tag::DirectState, tag::Texture>::
+GetFloatParam(GLint level, GLenum query) const
+{
+	GLfloat result = 0;
+	OGLPLUS_GLFUNC(GetTextureLevelParameterfvEXT)(
+		_name,
+		GLenum(target),
+		level,
+		query,
+		&result
+	);
+	OGLPLUS_CHECK(
+		GetTextureLevelParameterfvEXT,
+		ObjectError,
+		Object(*this).
+		EnumParam(query).
+		Index(level)
+	);
+	return result;
+}
 
 OGLPLUS_LIB_FUNC
 void ObjZeroOps<tag::DirectState, tag::Texture>::

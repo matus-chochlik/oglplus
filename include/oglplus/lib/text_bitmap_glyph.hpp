@@ -19,7 +19,6 @@
 #define OGLPLUS_IMPLEMENTING_LIBRARY 1
 #endif
 
-#include <oglplus/config.hpp>
 #include <oglplus/text/bitmap_glyph.hpp>
 
 #undef OGLPLUS_IMPLEMENTING_LIBRARY

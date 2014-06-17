@@ -13,18 +13,11 @@
 #ifndef OGLPLUS_FWD_1107121519_HPP
 #define OGLPLUS_FWD_1107121519_HPP
 
-#include <oglplus/config_compiler.hpp>
+#include <oglplus/config/compiler.hpp>
 #include <type_traits>
 #include <cstddef>
 
 namespace oglplus {
-
-// Nothing
-struct Nothing
-{
-	typedef Nothing Type;
-	typedef int _value_type;
-};
 
 // Angle
 template <typename T>
@@ -87,6 +80,8 @@ T At(const Matrix<T, R, C>& matrix, std::size_t i, std::size_t j);
 // Tags
 namespace tag {
 
+struct OGLplus;
+
 struct ObjectName;
 struct ObjectOps;
 struct Object;
@@ -131,34 +126,9 @@ struct CurrentBound;
 template <typename X>
 struct Classify;
 
-template <typename T>
-struct AllowedSpecialization;
-
 // Object
 template <typename ObjTag>
 class ObjectName;
-
-template <typename ObjTg>
-struct Classify<ObjectName<ObjTg>>
-{
-	typedef ObjectName<ObjTg> Base;
-	typedef tag::ObjectName Tag;
-	typedef ObjTg ObjTag;
-};
-
-typedef ObjectName<tag::Renderbuffer> RenderbufferName;
-typedef ObjectName<tag::Framebuffer> FramebufferName;
-typedef ObjectName<tag::Texture> TextureName;
-typedef ObjectName<tag::Buffer> BufferName;
-typedef ObjectName<tag::Query> QueryName;
-typedef ObjectName<tag::ProgramPipeline> ProgramPipelineName;
-typedef ObjectName<tag::Program> ProgramName;
-typedef ObjectName<tag::TransformFeedback> TransformFeedbackName;
-typedef ObjectName<tag::Sampler> SamplerName;
-typedef ObjectName<tag::VertexArray> VertexArrayName;
-typedef ObjectName<tag::Shader> ShaderName;
-typedef ObjectName<tag::PerfMonitorAMD> PerfMonitorAMDName;
-typedef ObjectName<tag::PathNV> PathNVName;
 
 template <typename ObjName>
 class Sequence;
@@ -178,33 +148,13 @@ class BoundObjOps;
 template <typename OpsTag, typename ObjTag>
 class ObjZeroOps;
 
-template <typename OpsTag, typename ObjTag>
-class ObjectOps;
-
-template <typename OpsTg, typename ObjTg>
-struct Classify<ObjectOps<OpsTg, ObjTg>>
-{
-	typedef ObjectOps<OpsTg, ObjTg> Base;
-	typedef tag::ObjectOps Tag;
-	typedef OpsTg OpsTag;
-	typedef ObjTg ObjTag;
-};
-
 template <typename CommonOps>
 class ObjectZero;
 
 template <typename ObjectOps>
 class Object;
 
-template <typename OpsTg, typename ObjTg>
-struct Classify<Object<ObjectOps<OpsTg, ObjTg>>>
- : Classify<ObjectOps<OpsTg, ObjTg>>
-{
-	typedef Object<ObjectOps<OpsTg, ObjTg>> Base;
-	typedef tag::Object Tag;
-};
-
-template <typename Object>
+template <typename ObjTag>
 struct ObjectSubtype;
 
 template <typename Target>

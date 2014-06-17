@@ -13,7 +13,7 @@
 #ifndef OGLPLUS_TEXT_PANGO_CAIRO_RENDERER_HPP
 #define OGLPLUS_TEXT_PANGO_CAIRO_RENDERER_HPP
 
-#include <oglplus/config.hpp>
+#include <oglplus/config/basic.hpp>
 #include <oglplus/text/common.hpp>
 #include <oglplus/text/pango_cairo/fwd.hpp>
 #include <oglplus/text/pango_cairo/layout.hpp>

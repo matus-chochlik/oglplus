@@ -13,7 +13,6 @@
 #ifndef OGLPLUS_CONTEXT_OBJECT_DSA_1404232057_HPP
 #define OGLPLUS_CONTEXT_OBJECT_DSA_1404232057_HPP
 
-#include <oglplus/config_compiler.hpp>
 #include <oglplus/fwd.hpp>
 
 namespace oglplus {
