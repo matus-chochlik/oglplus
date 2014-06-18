@@ -18,6 +18,8 @@
 #include <oalplus/alfunc.hpp>
 #include <oalplus/error/alc.hpp>
 
+#include <oalplus/detail/sep_str_range.hpp>
+
 #include <cstring>
 #include <cassert>
 
@@ -82,6 +84,59 @@ protected:
 		assert(_device);
 	}
 public:
+	/// Returns the device specifier string
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{GetString}
+	 *  @alcdefref{DEVICE_SPECIFIER}
+	 */
+	const ALchar* Specifier(void) const
+	{
+		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
+			_device,
+			ALC_DEVICE_SPECIFIER
+		);
+		OALPLUS_CHECK_SIMPLE_ALC(_device, GetString);
+		return str;
+	}
+
+	/// Returns the capture device specifier string
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{GetString}
+	 *  @alcdefref{CAPTURE_DEVICE_SPECIFIER}
+	 */
+	const ALchar* CaptureSpecifier(void) const
+	{
+		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
+			_device,
+			ALC_CAPTURE_DEVICE_SPECIFIER
+		);
+		OALPLUS_CHECK_SIMPLE_ALC(_device, GetString);
+		return str;
+	}
+
+#if OALPLUS_DOCUMENTATION_ONLY
+	/// Returns a range of ALC extension strings
+	/**
+	 *  @alsymbols
+	 *  @alfunref{GetString}
+	 *  @aldefref{EXTENSIONS}
+	 */
+	static Range<String> Extensions(void);
+#else
+	static aux::SepStrRange Extensions(void)
+	{
+		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
+			nullptr,
+			ALC_EXTENSIONS
+		);
+		OALPLUS_CHECK_SIMPLE_ALC(nullptr, GetString);
+
+		return aux::SepStrRange((const char*)str);
+	}
+#endif
+
 	/// Returns a range of specifier strings for available audio devices
 	/**
 	 *  @alsymbols
@@ -94,6 +149,7 @@ public:
 			nullptr,
 			ALC_DEVICE_SPECIFIER
 		);
+		OALPLUS_CHECK_SIMPLE_ALC(nullptr, GetString);
 		return DeviceSpecRange(ptr);
 	}
 
@@ -109,6 +165,7 @@ public:
 			nullptr,
 			ALC_CAPTURE_DEVICE_SPECIFIER
 		);
+		OALPLUS_CHECK_SIMPLE_ALC(nullptr, GetString);
 		return DeviceSpecRange(ptr);
 	}
 };

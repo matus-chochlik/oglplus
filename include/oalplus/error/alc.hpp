@@ -20,6 +20,8 @@ namespace oalplus {
 class ErrorALC
  : public Error
 {
+private:
+	const ::ALCdevice* _device;
 public:
 	static const char* Message(::ALCdevice* device, ALenum error_code)
 	{
@@ -28,13 +30,20 @@ public:
 
 	ErrorALC(const char* message)
 	 : Error(message)
+	 , _device(nullptr)
 	{ }
 
 	~ErrorALC(void) throw() { }
 
-	ErrorALC Device(const ::ALCdevice*) // TODO
+	ErrorALC& Device(const ::ALCdevice* device)
 	{
+		_device = device;
 		return *this;
+	}
+
+	const ::ALCdevice* Device(void) const
+	{
+		return _device;
 	}
 };
 
@@ -45,6 +54,7 @@ public:
 		ERROR::Message(DEVICE, error_code),\
 		ERROR,\
 		ERROR_INFO.\
+		Device(DEVICE).\
 		ALLibName("alc").\
 		ALFuncName(#ALFUNC)\
 	)
