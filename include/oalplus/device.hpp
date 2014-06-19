@@ -17,6 +17,7 @@
 #include <oalplus/fwd.hpp>
 #include <oalplus/alfunc.hpp>
 #include <oalplus/error/alc.hpp>
+#include <oalplus/data_format.hpp>
 
 #include <oalplus/detail/sep_str_range.hpp>
 
@@ -29,14 +30,12 @@ namespace oalplus {
 class DeviceSpecRange
 {
 private:
-	friend class oalplus::DeviceOps;
-
 	const ALchar* _ptr;
-
+public:
 	DeviceSpecRange(const ALchar* ptr)
 	 : _ptr(ptr)
 	{ }
-public:
+
 	typedef const ALchar* ValueType;
 
 	/// Returns true when the range is empty (at the end of traversal)
@@ -66,11 +65,7 @@ public:
 	}
 };
 
-/// Class implementing audio device-specific operations
-/**
- *  @note Do not use this class directly, use Device instead.
- */
-class DeviceOps
+class DevCommonOps
 {
 protected:
 	friend class ContextOps;
@@ -78,42 +73,17 @@ protected:
 
 	::ALCdevice* _device;
 
-	DeviceOps(::ALCdevice* device)
+	DevCommonOps(::ALCdevice* device)
 	 : _device(device)
 	{
 		assert(_device);
 	}
 public:
-	/// Returns the device specifier string
-	/**
-	 *  @alsymbols
-	 *  @alcfunref{GetString}
-	 *  @alcdefref{DEVICE_SPECIFIER}
-	 */
-	const ALchar* Specifier(void) const
+	/// Device is movable
+	DevCommonOps(DevCommonOps&& tmp)
+	 : _device(tmp._device)
 	{
-		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
-			_device,
-			ALC_DEVICE_SPECIFIER
-		);
-		OALPLUS_CHECK_SIMPLE_ALC(_device, GetString);
-		return str;
-	}
-
-	/// Returns the capture device specifier string
-	/**
-	 *  @alsymbols
-	 *  @alcfunref{GetString}
-	 *  @alcdefref{CAPTURE_DEVICE_SPECIFIER}
-	 */
-	const ALchar* CaptureSpecifier(void) const
-	{
-		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
-			_device,
-			ALC_CAPTURE_DEVICE_SPECIFIER
-		);
-		OALPLUS_CHECK_SIMPLE_ALC(_device, GetString);
-		return str;
+		tmp._device = nullptr;
 	}
 
 #if OALPLUS_DOCUMENTATION_ONLY
@@ -136,6 +106,38 @@ public:
 		return aux::SepStrRange((const char*)str);
 	}
 #endif
+};
+
+/// Class implementing audio playback device-specific operations
+/**
+ *  @note Do not use this class directly, use Device instead.
+ */
+template <>
+class DeviceOps<tag::Playback>
+ : public DevCommonOps
+{
+protected:
+	friend class ContextOps;
+
+	DeviceOps(::ALCdevice* device)
+	 : DevCommonOps(device)
+	{ }
+public:
+	/// Returns the device specifier string
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{GetString}
+	 *  @alcdefref{DEVICE_SPECIFIER}
+	 */
+	const ALchar* Specifier(void) const
+	{
+		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
+			_device,
+			ALC_DEVICE_SPECIFIER
+		);
+		OALPLUS_CHECK_SIMPLE_ALC(_device, GetString);
+		return str;
+	}
 
 	/// Returns a range of specifier strings for available audio devices
 	/**
@@ -152,6 +154,36 @@ public:
 		OALPLUS_CHECK_SIMPLE_ALC(nullptr, GetString);
 		return DeviceSpecRange(ptr);
 	}
+};
+
+/// Class implementing audio capture device-specific operations
+/**
+ *  @note Do not use this class directly, use Device instead.
+ */
+template <>
+class DeviceOps<tag::Capture>
+ : public DevCommonOps
+{
+protected:
+	DeviceOps(::ALCdevice* device)
+	 : DevCommonOps(device)
+	{ }
+public:
+	/// Returns the capture device specifier string
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{GetString}
+	 *  @alcdefref{CAPTURE_DEVICE_SPECIFIER}
+	 */
+	const ALchar* Specifier(void) const
+	{
+		const ALchar* str = OALPLUS_ALCFUNC(GetString)(
+			_device,
+			ALC_CAPTURE_DEVICE_SPECIFIER
+		);
+		OALPLUS_CHECK_SIMPLE_ALC(_device, GetString);
+		return str;
+	}
 
 	/// Returns a range of specifier strings for available capture devices
 	/**
@@ -159,7 +191,7 @@ public:
 	 *  @alcfunref{GetString}
 	 *  @alcdefref{CAPTURE_DEVICE_SPECIFIER}
 	 */
-	static DeviceSpecRange CaptureSpecifiers(void)
+	static DeviceSpecRange Specifiers(void)
 	{
 		const ALchar* ptr = OALPLUS_ALCFUNC(GetString)(
 			nullptr,
@@ -170,12 +202,12 @@ public:
 	}
 };
 
-/// A wrapper for audio device-related operations
+/// Audio playback device
 class Device
- : public DeviceOps
+ : public DeviceOps<tag::Playback>
 {
 private:
-	Device(const Device&);
+	typedef DeviceOps<tag::Playback> Base;
 public:
 	/// Constructs an object referencing the default audio device
 	/**
@@ -183,7 +215,7 @@ public:
 	 *  @alcfunref{OpenDevice}
 	 */
 	Device(void)
-	 : DeviceOps(OALPLUS_ALCFUNC(OpenDevice)(nullptr))
+	 : Base(OALPLUS_ALCFUNC(OpenDevice)(nullptr))
 	{
 		OALPLUS_CHECK_SIMPLE_ALC(_device,OpenDevice);
 	}
@@ -194,16 +226,9 @@ public:
 	 *  @alcfunref{OpenDevice}
 	 */
 	Device(const ALchar* dev_spec)
-	 : DeviceOps(OALPLUS_ALCFUNC(OpenDevice)(dev_spec))
+	 : Base(OALPLUS_ALCFUNC(OpenDevice)(dev_spec))
 	{
 		OALPLUS_CHECK_SIMPLE_ALC(_device,OpenDevice);
-	}
-
-	/// Device is movable
-	Device(Device&& tmp)
-	 : DeviceOps(tmp._device)
-	{
-		tmp._device = nullptr;
 	}
 
 	/// Closes this device
@@ -216,6 +241,63 @@ public:
 		if(_device)
 		{
 			OALPLUS_ALCFUNC(CloseDevice)(_device);
+		}
+	}
+};
+
+/// Audio capture device
+class CaptureDevice
+ : public DeviceOps<tag::Capture>
+{
+private:
+	typedef DeviceOps<tag::Capture> Base;
+public:
+	/// Constructs an object referencing the default audio device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{OpenDevice}
+	 */
+	CaptureDevice(ALCuint frequency, DataFormat format, ALCsizei bufsize)
+	 : Base(OALPLUS_ALCFUNC(CaptureOpenDevice)(
+		nullptr,
+		frequency,
+		ALCenum(format),
+		bufsize
+	))
+	{
+		OALPLUS_CHECK_SIMPLE_ALC(_device,CaptureOpenDevice);
+	}
+
+	/// Constructs an object referencing the specified audio device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{OpenDevice}
+	 */
+	CaptureDevice(
+		const ALchar* dev_spec,
+		ALCuint frequency,
+		DataFormat format,
+		ALCsizei bufsize
+	): Base(OALPLUS_ALCFUNC(CaptureOpenDevice)(
+		dev_spec,
+		frequency,
+		ALCenum(format),
+		bufsize
+	))
+	{
+		OALPLUS_CHECK_SIMPLE_ALC(_device,CaptureOpenDevice);
+	}
+
+	/// Closes this device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CloseDevice}
+	 */
+	~CaptureDevice(void)
+	{
+		if(_device)
+		{
+			OALPLUS_ALCFUNC(CaptureCloseDevice)(_device);
 		}
 	}
 };

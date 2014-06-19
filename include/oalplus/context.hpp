@@ -139,9 +139,9 @@ public:
 
 
 	/// Returns the device of this context
-	DeviceOps ContextsDevice(void) const
+	DeviceOps<tag::Playback> ContextsDevice(void) const
 	{
-		return DeviceOps(_device);
+		return DeviceOps<tag::Playback>(_device);
 	}
 
 	/// Makes this context current
@@ -275,7 +275,7 @@ public:
 	 *  @alsymbols
 	 *  @alcfunref{CreateContext}
 	 */
-	Context(const DeviceOps& device)
+	Context(const Device& device)
 	 : ContextOps(
 		device._device,
 		OALPLUS_ALCFUNC(CreateContext)(device._device, nullptr)
@@ -290,7 +290,7 @@ public:
 	 *  @alcfunref{CreateContext}
 	 */
 	Context(
-		const DeviceOps& device,
+		const Device& device,
 		const FinishedContextAttribs& attribs
 	): ContextOps(
 		device._device,
@@ -337,7 +337,7 @@ public:
 	 *  @alcfunref{CreateContext}
 	 *  @alcfunref{MakeContextCurrent}
 	 */
-	CurrentContext(const DeviceOps& device)
+	CurrentContext(const Device& device)
 	 : Context(device)
 	{
 		MakeCurrent();
@@ -350,7 +350,7 @@ public:
 	 *  @alcfunref{MakeContextCurrent}
 	 */
 	CurrentContext(
-		const DeviceOps& device,
+		const Device& device,
 		const FinishedContextAttribs& attribs
 	): Context(device, attribs)
 	{

@@ -24,10 +24,13 @@ struct Buffer;
 
 struct DirectState;
 
+struct Playback;
+struct Capture;
+
 } // namespace tag
 
+template <typename DevTag>
 class DeviceOps;
-class Device;
 class ContextOps;
 class Context;
 
