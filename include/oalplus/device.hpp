@@ -200,6 +200,57 @@ public:
 		OALPLUS_CHECK_SIMPLE_ALC(nullptr, GetString);
 		return DeviceSpecRange(ptr);
 	}
+
+	/// Starts audio capture on this device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CaptureStart}
+	 */
+	void Start(void)
+	{
+		OALPLUS_ALCFUNC(CaptureStart)(_device);
+		OALPLUS_CHECK_SIMPLE_ALC(_device, CaptureStart);
+	}
+
+	/// Stop audio capture on this device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CaptureStop}
+	 */
+	void Stop(void)
+	{
+		OALPLUS_ALCFUNC(CaptureStop)(_device);
+		OALPLUS_CHECK_SIMPLE_ALC(_device, CaptureStop);
+	}
+
+	/// Gets the number of samples captured on this device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{GetInteger}
+	 *  @alcdefref{CAPTURE_SAMPLES}
+	 */
+	ALCsizei Samples(void) const
+	{
+		ALCint result = 0;
+		OALPLUS_ALCFUNC(GetIntegerv)(
+			_device,
+			ALC_CAPTURE_SAMPLES,
+			1, &result
+		);
+		OALPLUS_CHECK_SIMPLE_ALC(_device, GetIntegerv);
+		return ALCsizei(result);
+	}
+
+	/// Gets the samples captured on this device
+	/**
+	 *  @alsymbols
+	 *  @alcfunref{CaptureSamples}
+	 */
+	void Samples(ALCvoid* buffer, ALCsizei samples) const
+	{
+		OALPLUS_ALCFUNC(CaptureSamples)(_device, buffer, samples);
+		OALPLUS_CHECK_SIMPLE_ALC(_device, CaptureSamples);
+	}
 };
 
 /// Audio playback device
