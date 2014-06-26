@@ -41,6 +41,7 @@ class BezierCurves
 {
 private:
 	::std::vector<Type> _points;
+	bool _connected;
 public:
 	static bool Connected(const ::std::vector<Type>& points)
 	{
@@ -50,7 +51,7 @@ public:
 	/// Returns true if the individual curves are connected
 	bool Connected(void) const
 	{
-		return Connected(_points);
+		return _connected;
 	}
 
 	static bool Separated(const ::std::vector<Type>& points)
@@ -61,7 +62,7 @@ public:
 	/// Returns true if the individual curves are connected
 	bool Separated(void) const
 	{
-		return Separated(_points);
+		return !_connected;
 	}
 
 	/// Checks if the sequence of control points is OK for this curve type
@@ -74,35 +75,77 @@ public:
 	/// Creates the bezier curves from the control @c points
 	/** The number of points must be ((C * Order) + 1) or (C * (Order + 1))
 	 *  where @em C is the number of curves (segments) in the sequence.
+	 *  If both of the above are true then the curves are considered
+	 *  to be connected.
 	 */
 	BezierCurves(::std::vector<Type>&& points)
 	 : _points(std::move(points))
+	 , _connected(Connected(_points))
 	{
 		assert(PointsOk(_points));
 	}
 
 	/// Creates the bezier curves from the control @c points
+	/** The number of points must be ((C * Order) + 1) and connected
+	 *  or (C * (Order + 1)) and not(connected),
+	 *  where @em C is the number of curves (segments) in the sequence.
+	 */
+	BezierCurves(::std::vector<Type>&& points, bool connected)
+	 : _points(std::move(points))
+	 , _connected(connected)
+	{
+		assert(PointsOk(_points));
+		assert(Connected(_points) == _connected);
+	}
+
+	/// Creates the bezier curves from the control @c points
 	/** The number of points must be (C * Order + 1) where
 	 *  @em C is the number of curves (segments) in the sequence.
+	 *  If both of the above are true then the curves are considered
+	 *  to be connected.
 	 */
 	BezierCurves(const ::std::vector<Type>& points)
 	 : _points(points)
+	 , _connected(Connected(_points))
 	{
 		assert(PointsOk(_points));
+	}
+
+	/// Creates the bezier curves from the control @c points
+	/** The number of points must be ((C * Order) + 1) and connected
+	 *  or (C * (Order + 1)) and not(connected),
+	 *  where @em C is the number of curves (segments) in the sequence.
+	 */
+	BezierCurves(const ::std::vector<Type>& points, bool connected)
+	 : _points(points)
+	 , _connected(connected)
+	{
+		assert(PointsOk(_points));
+		assert(Connected(_points) == _connected);
 	}
 
 	template <std::size_t N>
 	BezierCurves(const ::std::array<Type, N>& points)
 	 : _points(points.begin(), points.end())
+	 , _connected(Connected(_points))
 	{
 		assert(PointsOk(_points));
+	}
+
+	template <std::size_t N>
+	BezierCurves(const ::std::array<Type, N>& points, bool connected)
+	 : _points(points.begin(), points.end())
+	 , _connected(connected)
+	{
+		assert(PointsOk(_points));
+		assert(Connected(_points) == _connected);
 	}
 
 	unsigned SegmentStep(void) const
 	{
 		assert(PointsOk(_points));
 
-		if(Connected(_points)) return Order;
+		if(_connected) return Order;
 		else return Order+1;
 	}
 
@@ -111,7 +154,7 @@ public:
 	{
 		assert(PointsOk(_points));
 
-		if(Connected(_points)) return (_points.size() - 1) / Order;
+		if(_connected) return (_points.size() - 1) / Order;
 		else return _points.size() / (Order+1);
 	}
 
@@ -222,7 +265,10 @@ public:
 		}
 		assert(p == new_points.end());
 
-		return std::move(new_points);
+		return BezierCurves<Type, Parameter, Order-1>(
+			std::move(new_points),
+			false
+		);
 	}
 };
 
