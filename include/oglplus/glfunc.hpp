@@ -50,16 +50,22 @@ inline auto _checked_glfunc(
 
 #ifndef OGLPLUS_GLFUNC
 #define OGLPLUS_GLFUNC(FUNCNAME) \
-	::oglplus::_checked_glfunc( \
-		&::gl##FUNCNAME, \
-		#FUNCNAME \
-	)
+	::oglplus::_checked_glfunc(&::gl##FUNCNAME, #FUNCNAME)
 #endif
+#ifndef OGLPLUS_GLXFUNC
+#define OGLPLUS_GLXFUNC(FUNCNAME) \
+	::oglplus::_checked_glfunc(&::glX##FUNCNAME, #FUNCNAME)
+#endif
+
 #else
+
 #ifndef OGLPLUS_GLFUNC
-#define OGLPLUS_GLFUNC(FUNCNAME) \
-	::gl##FUNCNAME
+#define OGLPLUS_GLFUNC(FUNCNAME) ::gl##FUNCNAME
 #endif
+#ifndef OGLPLUS_GLXFUNC
+#define OGLPLUS_GLXFUNC(FUNCNAME) ::glX##FUNCNAME
+#endif
+
 #endif
 
 

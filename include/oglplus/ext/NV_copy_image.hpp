@@ -1,6 +1,6 @@
 /**
- *  @file oglplus/ext/ARB_copy_image.hpp
- *  @brief Wrapper for the ARB_copy_image extension
+ *  @file oglplus/ext/NV_copy_image.hpp
+ *  @brief Wrapper for the NV_copy_image extension
  *
  *  @author Matus Chochlik
  *
@@ -10,10 +10,10 @@
  */
 
 #pragma once
-#ifndef OGLPLUS_EXT_ARB_COPY_IMAGE_1406270722_HPP
-#define OGLPLUS_EXT_ARB_COPY_IMAGE_1406270722_HPP
+#ifndef OGLPLUS_EXT_NV_COPY_IMAGE_1406270722_HPP
+#define OGLPLUS_EXT_NV_COPY_IMAGE_1406270722_HPP
 
-#if OGLPLUS_DOCUMENTATION_ONLY || GL_ARB_copy_image
+#if OGLPLUS_DOCUMENTATION_ONLY || GL_NV_copy_image
 
 #include <oglplus/object/name.hpp>
 #include <oglplus/error/object.hpp>
@@ -21,14 +21,14 @@
 
 namespace oglplus {
 
-/// Wrapper for the ARB_copy_image extension
+/// Wrapper for the NV_copy_image extension
 /**
  *  @glsymbols
- *  @glextref{ARB,copy_image}
+ *  @glextref{NV,copy_image}
  *
  *  @ingroup gl_extensions
  */
-class ARB_copy_image
+class NV_copy_image
 {
 private:
 	template <typename SrcObjTag, typename DstObjTag>
@@ -46,7 +46,7 @@ private:
 		);
 	}
 public:
-	OGLPLUS_EXTENSION_CLASS(ARB, copy_image)
+	OGLPLUS_EXTENSION_CLASS(NV, copy_image)
 
 	template <typename SrcObjTag, typename DstObjTag>
 	static void CopyImageSubData(
@@ -62,7 +62,7 @@ public:
 	)
 	{
 		_chk_params<SrcObjTag, DstObjTag>();
-		OGLPLUS_GLFUNC(CopyImageSubData)(
+		OGLPLUS_GLFUNC(CopyImageSubDataNV)(
 			GetGLName(src_name),
 			GLenum(src_target),
 			src_level,
@@ -74,7 +74,7 @@ public:
 			width, height, depth
 		);
 		OGLPLUS_CHECK(
-			CopyImageSubData,
+			CopyImageSubDataNV,
 			ObjectPairError,
 			Subject(dst_name).
 			SubjectBinding(dst_target).
@@ -82,10 +82,57 @@ public:
 			ObjectBinding(src_target)
 		);
 	}
+
+#if OGLPLUS_NATIVE_GLX
+	template <typename SrcObjTag, typename DstObjTag>
+	static void CopyImageSubData(
+		const native::ContextGLX& src_context,
+		ObjectName<SrcObjTag> src_name,
+		typename ObjBindingOps<SrcObjTag>::Target src_target,
+		GLint src_level,
+		GLint src_x, GLint src_y, GLint src_z,
+		const native::ContextGLX& dst_context,
+		ObjectName<DstObjTag> dst_name,
+		typename ObjBindingOps<DstObjTag>::Target dst_target,
+		GLint dst_level,
+		GLint dst_x, GLint dst_y, GLint dst_z,
+		GLsizei width, GLsizei height, GLsizei depth
+	)
+	{
+		_chk_params<SrcObjTag, DstObjTag>();
+		OGLPLUS_GLXFUNC(CopyImageSubDataNV)(
+			GetGLXDisplay(src_context),
+			GetGLXContext(src_context),
+			GetGLName(src_name),
+			GLenum(src_target),
+			src_level,
+			src_x, src_y, src_z,
+			GetGLXContext(dst_context),
+			GetGLName(dst_name),
+			GLenum(dst_target),
+			dst_level,
+			dst_x, dst_y, dst_z,
+			width, height, depth
+		);
+		OGLPLUS_HANDLE_ERROR_IF(
+			error_code != GL_NO_ERROR,
+			OGLPLUS_GLFUNC(GetError)(),
+			ObjectPairError::Message(error_code),
+			ObjectPairError,
+			Subject(dst_name).
+			SubjectBinding(dst_target).
+			Object(src_name).
+			ObjectBinding(src_target).
+			GLFuncName("CopyImageSubData")
+		);
+	}
+#endif // OGLPLUS_NATIVE_GLX
+
+	// TODO wgl
 };
 
 } // namespace oglplus
 
-#endif // ARB_copy_image
+#endif // NV_copy_image
 
 #endif // include guard
