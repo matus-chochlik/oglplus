@@ -26,6 +26,8 @@ class ContextWGL
 private:
 	::HGLRC _context;
 
+	friend ::HGLRC GetHGLRC(const ContextWGL&);
+
 	struct Current_ { };
 
 	ContextWGL(Current_)
@@ -57,6 +59,11 @@ public:
 		::wglMakeCurrent(::HDC(0), ::HGLRC(0));
 	}
 };
+
+inline ::HGLRC GetHGLRC(const ContextWGL& cwgl)
+{
+	return cwgl._context;
+}
 
 typedef ContextWGL Context;
 

@@ -99,6 +99,8 @@ public:
 		GLsizei width, GLsizei height, GLsizei depth
 	)
 	{
+		using native::GetGLXContext;
+
 		_chk_params<SrcObjTag, DstObjTag>();
 		OGLPLUS_GLXFUNC(CopyImageSubDataNV)(
 			GetGLXDisplay(src_context),
@@ -128,7 +130,51 @@ public:
 	}
 #endif // OGLPLUS_NATIVE_GLX
 
-	// TODO wgl
+#if OGLPLUS_NATIVE_WGL
+	template <typename SrcObjTag, typename DstObjTag>
+	static void CopyImageSubData(
+		const native::ContextWGL& src_context,
+		ObjectName<SrcObjTag> src_name,
+		typename ObjBindingOps<SrcObjTag>::Target src_target,
+		GLint src_level,
+		GLint src_x, GLint src_y, GLint src_z,
+		const native::ContextWGL& dst_context,
+		ObjectName<DstObjTag> dst_name,
+		typename ObjBindingOps<DstObjTag>::Target dst_target,
+		GLint dst_level,
+		GLint dst_x, GLint dst_y, GLint dst_z,
+		GLsizei width, GLsizei height, GLsizei depth
+	)
+	{
+		using native::GetHGLRC;
+
+		_chk_params<SrcObjTag, DstObjTag>();
+		OGLPLUS_WGLFUNC(CopyImageSubDataNV)(
+			GetHGLRC(src_context),
+			GetGLName(src_name),
+			GLenum(src_target),
+			src_level,
+			src_x, src_y, src_z,
+			GetHGLRC(dst_context),
+			GetGLName(dst_name),
+			GLenum(dst_target),
+			dst_level,
+			dst_x, dst_y, dst_z,
+			width, height, depth
+		);
+		OGLPLUS_HANDLE_ERROR_IF(
+			error_code != GL_NO_ERROR,
+			OGLPLUS_GLFUNC(GetError)(),
+			ObjectPairError::Message(error_code),
+			ObjectPairError,
+			Subject(dst_name).
+			SubjectBinding(dst_target).
+			Object(src_name).
+			ObjectBinding(src_target).
+			GLFuncName("CopyImageSubData")
+		);
+	}
+#endif // OGLPLUS_NATIVE_WGL
 };
 
 } // namespace oglplus
