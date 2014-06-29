@@ -155,7 +155,6 @@
 					<ul>
 						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
 						<li id="sourceforge"><a href="http://sourceforge.net/projects/oglplus/">Sourceforge</a></li>
-						<li id="freecode"><a href="http://freecode.com/projects/oglplus">Freecode</a></li>
 						<li id="g-plus"><a href="https://plus.google.com/111370363075881134099/?prsrc=3">Google+ news page</a></li>
 						<li id="linkedin"><a href="http://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 						<li id="ohloh"><a href="http://www.ohloh.net/p/oglplus">Ohloh</a></li>
