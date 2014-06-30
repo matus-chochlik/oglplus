@@ -26,7 +26,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 </script>
-<link href="https://plus.google.com/111370363075881134099/" rel="publisher" />
+<link href="https://plus.google.com/+OglplusOrg/" rel="publisher" />
 </head>
 <body>
 <div id="main-title">
@@ -36,7 +36,7 @@
 	<div id="head">
 		<div id="top">
 				Visit the <em>OGLplus</em> pages on
-				<a href="https://plus.google.com/111370363075881134099/?prsrc=3" style="text-decoration: none;">
+				<a href="https://plus.google.com/+OglplusOrg/?prsrc=3" style="text-decoration: none;">
 					<img src="https://ssl.gstatic.com/images/icons/gplus-32.png"
 						width="32" height="32"
 						style="border: 0;"
@@ -149,13 +149,13 @@
 					<h3>Media</h3>
 					<ul>
 						<li id="screenshots"><a href="oglplus/html/oglplus_screenshot_gallery.html">Screenshots</a></li>
-						<li id="videos"><a href="https://plus.google.com/u/0/111370363075881134099/videos">Videos</a></li>
+						<li id="videos"><a href="https://plus.google.com/u/0/+OglplusOrg/videos">Videos</a></li>
 					</ul>
 					<h3>Follow OGLplus</h3>
 					<ul>
 						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
 						<li id="sourceforge"><a href="http://sourceforge.net/projects/oglplus/">Sourceforge</a></li>
-						<li id="g-plus"><a href="https://plus.google.com/111370363075881134099/?prsrc=3">Google+ news page</a></li>
+						<li id="g-plus"><a href="https://plus.google.com/+OglplusOrg/?prsrc=3">Google+ news page</a></li>
 						<li id="linkedin"><a href="http://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 						<li id="ohloh"><a href="http://www.ohloh.net/p/oglplus">Ohloh</a></li>
 					</ul>
