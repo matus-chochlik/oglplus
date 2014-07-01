@@ -2,12 +2,10 @@
 [/ Software License, Version 1.0. (See accompanying file            ]
 [/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
-[part OGLplus
+[chapter Quick reference
 	[quickbook 1.6]
-	[id oglplus]
+	[id oglplus.quickref]
 ]
 
-[def __OpenGL__ ['OpenGL]]
+[include quickref/object.qbk]
 
-[include oglplus/intro.qbk]
-[include oglplus/quickref.qbk]
