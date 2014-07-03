@@ -12,13 +12,13 @@ class ObjectName
 {
 public:
 	ObjectName(void) noexcept; /*<
-		Constructs a wrapper for object
-		with name [^0] (zero).
+	Constructs a wrapper for object
+	with name [^0] (zero).
 	>*/
 
 	explicit ObjectName(GLuint name) noexcept; /*<
-		Constructs a wrapper for an object
-		with the specified [^name].
+	Constructs a wrapper for an object
+	with the specified [^name].
 	>*/
 
 	ObjectName(const ObjectName&) noexcept;
