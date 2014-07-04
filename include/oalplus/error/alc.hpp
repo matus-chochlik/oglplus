@@ -55,8 +55,8 @@ public:
 		ERROR,\
 		ERROR_INFO.\
 		Device(DEVICE).\
-		ALLibName("alc").\
-		ALFuncName(#ALFUNC)\
+		ALLib("alc").\
+		ALFunc(#ALFUNC)\
 	)
 
 #define OALPLUS_CHECK_SIMPLE_ALC(DEVICE, ALFUNC) \

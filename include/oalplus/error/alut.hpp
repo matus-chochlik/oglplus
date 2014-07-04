@@ -37,8 +37,8 @@ public:
 		ERROR::Message(error_code),\
 		ERROR,\
 		ERROR_INFO.\
-		ALLibName("alut").\
-		ALFuncName(#ALFUNC)\
+		ALLib("alut").\
+		ALFunc(#ALFUNC)\
 	)
 
 #define OALPLUS_CHECK_SIMPLE_ALUT(ALFUNC) \

@@ -62,10 +62,10 @@ inline void print_error_common(
 			<< std::endl;
 	}
 	print_std_error_common(error, errstr);
-	if(error.GLFuncName())
+	if(error.GLFunc())
 	{
 		errstr	<< "GL function: '"
-			<< error.GLFuncName()
+			<< error.GLFunc()
 			<< "'"
 			<< std::endl;
 	}

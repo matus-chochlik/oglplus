@@ -54,8 +54,16 @@ private:
 #if !OGLPLUS_ERROR_NO_LINE
 	unsigned _line;
 #endif
-#if !OGLPLUS_ERROR_NO_GL_SYMBOL
+
+#if !OGLPLUS_ERROR_NO_GL_LIB
+	const char* _gllib_name;
+#endif
+
+#if !OGLPLUS_ERROR_NO_GL_FUNC
 	const char* _glfunc_name;
+#endif
+
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
 	const char* _enumpar_name;
 	GLenum _enumpar;
 	GLint _index;
@@ -133,9 +141,20 @@ public:
 	 */
 	unsigned SourceLine(void) const;
 
-	Error& GLFuncName(const char* func_name)
+	Error& GLLib(const char* lib_name)
 	{
-#if !OGLPLUS_ERROR_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_LIB
+		_gllib_name = lib_name;
+#endif
+		(void)lib_name;
+		return *this;
+	}
+
+	const char* GLLib(void) const;
+
+	Error& GLFunc(const char* func_name)
+	{
+#if !OGLPLUS_ERROR_NO_GL_FUNC
 		_glfunc_name = func_name;
 #endif
 		(void)func_name;
@@ -147,11 +166,11 @@ public:
 	 *  (without the @c gl prefix) which is related to the error.
 	 *
 	 *  The result of this function is also influenced by the
-	 *  #OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
+	 *  #OGLPLUS_ERROR_NO_GL_FUNC preprocessor configuration option.
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
-	const char* GLFuncName(void) const;
+	const char* GLFunc(void) const;
 
 	template <typename Enum_>
 	Error& EnumParam(Enum_ param)
@@ -387,7 +406,7 @@ inline void HandleError(ErrorType& error)
 		glGetError(),\
 		ERROR::Message(error_code),\
 		ERROR,\
-		ERROR_INFO.GLFuncName(FUNC_NAME)\
+		ERROR_INFO.GLFunc(FUNC_NAME)\
 	)
 
 #define OGLPLUS_CHECK(GLFUNC, ERROR, ERROR_INFO) \

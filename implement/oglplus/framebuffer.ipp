@@ -48,7 +48,7 @@ HandleIncompleteError(Target target, FramebufferStatus status)
 		IncompleteFramebuffer,
 		Status(status).
 		ObjectBinding(target).
-		GLFuncName("CheckFramebufferStatus")
+		GLFunc("CheckFramebufferStatus")
 	);
 }
 

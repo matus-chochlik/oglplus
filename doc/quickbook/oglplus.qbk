@@ -7,7 +7,19 @@
 	[id oglplus]
 ]
 
+[/------]
+[/Macros]
+[/------]
+
 [def __OpenGL__ ['OpenGL]]
+
+[/Quick reference links]
+
+[def __Error [link oglplus.quickref.errors.basic [^Error]]]
+
+[/--------]
+[/Chapters]
+[/--------]
 
 [include oglplus/intro.qbk]
 [include oglplus/quickref.qbk]

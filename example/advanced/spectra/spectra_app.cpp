@@ -30,7 +30,7 @@ wxString SpectraApp::MakeCommonErrorMessage(oglplus::Error& err)
 	message.Append(newline);
 	message.Append(wxString::Format(
 		wxGetTranslation(wxT("GL function: '%s'"), wxT("Error")),
-		wxString(err.GLFuncName(), wxConvUTF8).c_str()
+		wxString(err.GLFunc(), wxConvUTF8).c_str()
 	));
 	message.Append(newline);
 	message.Append(wxString::Format(

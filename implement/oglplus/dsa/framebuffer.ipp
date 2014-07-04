@@ -24,7 +24,7 @@ HandleIncompleteError(FramebufferStatus status) const
 		IncompleteFramebuffer,
 		Status(status).
 		Object(*this).
-		GLFuncName("CheckNamedFramebufferStatusEXT")
+		GLFunc("CheckNamedFramebufferStatusEXT")
 	);
 }
 

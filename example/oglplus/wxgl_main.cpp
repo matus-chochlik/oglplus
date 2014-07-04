@@ -102,11 +102,11 @@ inline wxString MakeCommonErrorMessage(oglplus::Error& error)
 			wxString(error.SourceFunc(), wxConvLocal).c_str()
 		));
 	}
-	if(error.GLFuncName())
+	if(error.GLFunc())
 	{
 		message.Append(wxString::Format(
 			wxT("GL function: '%s'\r\n"),
-			wxString(error.GLFuncName(), wxConvLocal).c_str()
+			wxString(error.GLFunc(), wxConvLocal).c_str()
 		));
 	}
 

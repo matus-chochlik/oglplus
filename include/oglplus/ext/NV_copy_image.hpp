@@ -125,7 +125,8 @@ public:
 			SubjectBinding(dst_target).
 			Object(src_name).
 			ObjectBinding(src_target).
-			GLFuncName("CopyImageSubData")
+			GLLib_glX().
+			GLFunc("CopyImageSubData")
 		);
 	}
 #endif // OGLPLUS_NATIVE_GLX
@@ -171,7 +172,8 @@ public:
 			SubjectBinding(dst_target).
 			Object(src_name).
 			ObjectBinding(src_target).
-			GLFuncName("CopyImageSubData")
+			GLLib_wgl().
+			GLFunc("CopyImageSubData")
 		);
 	}
 #endif // OGLPLUS_NATIVE_WGL

@@ -43,7 +43,7 @@ inline auto _checked_glfunc(
 		GL_INVALID_OPERATION,
 		MissingFunction::Message(),
 		MissingFunction,
-		GLFuncName(func_name)
+		GLFunc(func_name)
 	);
 	return *ppfn;
 }

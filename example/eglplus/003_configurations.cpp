@@ -121,7 +121,7 @@ int main(void)
 			<< "Error '"
 			<< error.what()
 			<< "' in "
-			<< error.EGLFuncName()
+			<< error.EGLFunc()
 			<< ". File: '"
 			<< error.SourceFile()
 			<< "', Line: "

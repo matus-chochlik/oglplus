@@ -16,7 +16,17 @@
 	]
 ]
 
+[/------]
+[/Macros]
+[/------]
+
 [def OGLplus [@http://oglplus.org OGLplus]]
+
+[def nullptr [^nullptr]]
+
+[/--------]
+[/Chapters]
+[/--------]
 
 [include oglplus.qbk]
 [include oalplus.qbk]
