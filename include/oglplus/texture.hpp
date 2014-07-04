@@ -291,7 +291,9 @@ public:
 	}
 
 	using ObjBindingOps<tag::Texture>::Bind;
+#if OGLPLUS_DOCUMENTATION_ONLY ||GL_VERSION_4_2 ||GL_ARB_shader_image_load_store
 	using ObjBindingOps<tag::Texture>::BindImage;
+#endif
 
 	/// Binds this texture to the specified @p target
 	/**
