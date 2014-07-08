@@ -19,30 +19,24 @@ public:
 	Constructs a new instance of [^Error] with the specified
 	error [^message].
 	>*/
-
 	~Error(void) throw() { }
 
 	const char* SourceFile(void) const; /*<
 	Returns the name of the source file where the error occured.
-
 	The result of this function is also influenced by the
 	OGLPLUS_ERROR_NO_FILE preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns a nullptr.
 	>*/
-
 	const char* SourceFunc(void) const; /*<
 	Returns the name of the function where the error occured.
-
 	The result of this function is also influenced by the
 	OGLPLUS_ERROR_NO_FUNC preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns a nullptr.
 	>*/
-
 	unsigned SourceLine(void) const; /*<
 	Returns the line of the source file where the error occured.
-
 	The result of this function is also influenced by the
 	OGLPLUS_ERROR_NO_LINE preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
@@ -52,17 +46,14 @@ public:
 	const char* GLLib(void) const; /*<
 	This function returns the name of the GL library (gl, wgl, glX)
 	where the error occured.
-
 	The result of this function is also influenced by the
 	OGLPLUS_ERROR_NO_GL_LIB preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns nullptr.
 	>*/
-
 	const char* GLFunc(void) const; /*<
 	This function returns the name of the failed OpenGL function
 	(without the [^gl] prefix) which is related to the error.
-
 	The result of this function is also influenced by the
 	OGLPLUS_ERROR_NO_GL_FUNC preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
@@ -72,18 +63,15 @@ public:
 	GLenum EnumParam(void) const; /*<
 	Returns the value of the enumeration parameter related to the error.
 	If no enum parameter is available, this function returns zero.
-
 	The result of this function is also influenced by the
 	OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns zero.
 	>*/
-
 	const char* EnumParamName(void) const; /*<
 	Returns the name of the enumeration parameter related to the error.
 	If the enum parameter name is not available, this function returns
 	zero.
-
 	The result of this function is also influenced by the
 	OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
@@ -95,7 +83,6 @@ public:
 	function if applicable.
 	If no index value is available then this function return a negative
 	integer.
-
 	The result of this function is also influenced by the
 	OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
@@ -106,7 +93,6 @@ public:
 	Returns a value parameter related to the error, if applicable,
 	returns zero otherwise.
 	>*/
-
 	virtual GLfloat Limit(void) const; /*<
 	Returns a limit value related to the error, if applicable,
 	returns zero otherwise.
@@ -115,7 +101,6 @@ public:
 	virtual GLenum BindTarget(void) const; /*<
 	Returns the object bind target, if applicable, returns zero otherwise.
 	>*/
-
 	virtual const char* TargetName(void) const; /*<
 	Returns the object bind target name, if applicable, return nullptr
 	otherwise.
@@ -125,19 +110,16 @@ public:
 	If the error is related to a GL object, then an object
 	type enumeration value is returned. Otherwise the result is zero.
 	>*/
-
 	virtual const char* ObjectTypeName(void) const; /*<
 	If the error is related to a GL object, then a C string
 	storing object type name is returned. Otherwise the result
 	is nullptr.
 	>*/
-
 	virtual GLint ObjectName(void) const; /*<
 	If the error is related to a GL object, then the numeric
 	GL name of the object is returned. Otherwise the result
 	is a negative integer.
 	>*/
-
 	virtual const std::string& ObjectDesc(void) const; /*<
 	If the error is related to a GL object, then a std::string
 	storing object description is returned. Otherwise the result
@@ -149,19 +131,16 @@ public:
 	an object type enumeration value is returned. Otherwise
 	the result is zero.
 	>*/
-
 	virtual const char* SubjectTypeName(void) const; /*<
 	If the error is related a pair of GL objects, then a C string
 	storing secondary object type name is returned. Otherwise the result
 	is nullptr.
 	>*/
-
 	virtual GLint SubjectName(void) const; /*<
 	If the error is related to a pair of GL objects, then
 	the numeric GL name of the secondary object is returned.
 	Otherwise the result is a negative integer.
 	>*/
-
 	virtual const std::string& SubjectDesc(void) const; /*<
 	If the error is related to a pair of GL objects, then a std::string
 	storing the secondary object description is returned. Otherwise
