@@ -24,7 +24,12 @@ preprocessor symbols on the command-line or in an IDE).
 [section:basic General configuration]
 [/----------------------------------]
 
-TODO
+[header oglplus/config/basic.hpp]
+
+This section lists general compile-time configuration options of OGLplus.
+
+[import config/basic.hpp]
+[oglplus_config_basic]
 
 [endsect]
 
