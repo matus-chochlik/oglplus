@@ -20,7 +20,10 @@
 [/Macros]
 [/------]
 
-[def OGLplus [@http://oglplus.org OGLplus]]
+[template header [path] [*[^#include]] [^<[path]>]]
+
+
+[def __OGLplus__ [@ http://oglplus.org/ OGLplus]]
 
 [def nullptr [^nullptr]]
 

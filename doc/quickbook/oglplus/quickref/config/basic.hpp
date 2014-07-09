@@ -43,6 +43,13 @@ By default this option is set to 0 - everything is inlined.
 >*/
 #endif
 
+#ifndef OGLPLUS_NO_SITE_CONFIG /*<
+Disables the usage of the automatically-generated
+[link oglplus.quickref.config.site site configuration header].
+>*/
+#include <oglplus/config/site.hpp>
+#endif
+
 } // namespace oglplus
 //]
 

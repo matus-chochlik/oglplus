@@ -11,7 +11,8 @@
 [/--------------------------]
 
 [import error/basic.hpp]
-[oglplus_error]
+[oglplus_error_1]
+[oglplus_error_2]
 
 [endsect]
 

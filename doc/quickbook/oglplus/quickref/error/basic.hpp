@@ -4,7 +4,7 @@
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
-//[oglplus_error
+//[oglplus_error_1
 namespace oglplus {
 
 class Error
@@ -24,21 +24,21 @@ public:
 	const char* SourceFile(void) const; /*<
 	Returns the name of the source file where the error occured.
 	The result of this function is also influenced by the
-	OGLPLUS_ERROR_NO_FILE preprocessor configuration option.
+	__OGLPLUS_ERROR_NO_FILE preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns a nullptr.
 	>*/
 	const char* SourceFunc(void) const; /*<
 	Returns the name of the function where the error occured.
 	The result of this function is also influenced by the
-	OGLPLUS_ERROR_NO_FUNC preprocessor configuration option.
+	__OGLPLUS_ERROR_NO_FUNC preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns a nullptr.
 	>*/
 	unsigned SourceLine(void) const; /*<
 	Returns the line of the source file where the error occured.
 	The result of this function is also influenced by the
-	OGLPLUS_ERROR_NO_LINE preprocessor configuration option.
+	__OGLPLUS_ERROR_NO_LINE preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns zero.
 	>*/
@@ -47,7 +47,7 @@ public:
 	This function returns the name of the GL library (gl, wgl, glX)
 	where the error occured.
 	The result of this function is also influenced by the
-	OGLPLUS_ERROR_NO_GL_LIB preprocessor configuration option.
+	__OGLPLUS_ERROR_NO_GL_LIB preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns nullptr.
 	>*/
@@ -55,7 +55,7 @@ public:
 	This function returns the name of the failed OpenGL function
 	(without the [^gl] prefix) which is related to the error.
 	The result of this function is also influenced by the
-	OGLPLUS_ERROR_NO_GL_FUNC preprocessor configuration option.
+	__OGLPLUS_ERROR_NO_GL_FUNC preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns nullptr.
 	>*/
@@ -64,7 +64,7 @@ public:
 	Returns the value of the enumeration parameter related to the error.
 	If no enum parameter is available, this function returns zero.
 	The result of this function is also influenced by the
-	OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
+	__OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns zero.
 	>*/
@@ -73,7 +73,7 @@ public:
 	If the enum parameter name is not available, this function returns
 	zero.
 	The result of this function is also influenced by the
-	OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
+	__OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns nullptr.
 	>*/
@@ -84,11 +84,12 @@ public:
 	If no index value is available then this function return a negative
 	integer.
 	The result of this function is also influenced by the
-	OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
+	__OGLPLUS_ERROR_NO_GL_SYMBOL preprocessor configuration option.
 	If set to zero this function behaves as described above, otherwise it
 	returns a negative integer.
 	>*/
-
+//]
+//[oglplus_error_2
 	virtual GLfloat Value(void) const; /*<
 	Returns a value parameter related to the error, if applicable,
 	returns zero otherwise.

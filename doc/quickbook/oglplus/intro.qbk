@@ -7,7 +7,7 @@
 	[id oglplus.intro]
 ]
 
-OGLplus is a header-only library which implements
+__OGLplus__ is a header-only library which implements
 a thin object-oriented facade over the modern
 [@ http://www.opengl.org/ OpenGL]®
 (version 3 and higher) C-language API.

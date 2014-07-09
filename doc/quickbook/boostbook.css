@@ -85,6 +85,12 @@ pre.programlisting
 	background-color: #F8F8F0;
 }
 
+
+.programlisting .preprocessor
+{
+	font-weight: 600;
+	color: #303090;
+}
 .programlisting .keyword
 {
 	font-weight: 500;

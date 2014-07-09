@@ -17,6 +17,18 @@
 
 [def __Error [link oglplus.quickref.errors.basic [^Error]]]
 
+[def __OGLPLUS_NO_SITE_CONFIG [link oglplus.quickref.config.compiler [^OGLPLUS_NO_SITE_CONFIG]]]
+
+[def __OGLPLUS_LOW_PROFILE [link oglplus.quickref.config.basic [^OGLPLUS_LOW_PROFILE]]]
+[def __OGLPLUS_LINK_LIBRARY [link oglplus.quickref.config.basic [^OGLPLUS_LINK_LIBRARY]]]
+
+[def __OGLPLUS_ERROR_NO_FILE [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_FILE]]]
+[def __OGLPLUS_ERROR_NO_LINE [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_LINE]]]
+[def __OGLPLUS_ERROR_NO_FUNC [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_FUNC]]]
+[def __OGLPLUS_ERROR_NO_GL_LIB [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_LIB]]]
+[def __OGLPLUS_ERROR_NO_GL_FUNC [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_FUNC]]]
+[def __OGLPLUS_ERROR_NO_GL_SYMBOL [link oglplus.quickref.config.error [^OGLPLUS_ERROR_NO_GL_SYMBOL]]]
+
 [/--------]
 [/Chapters]
 [/--------]
