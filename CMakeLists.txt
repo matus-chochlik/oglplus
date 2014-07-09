@@ -155,13 +155,13 @@ endif()
 
 # now create the site-configuration header
 configure_file(
-	${PROJECT_SOURCE_DIR}/config/oglplus/site_config.hpp.in
-	${PROJECT_BINARY_DIR}/include/oglplus/site_config.hpp
+	${PROJECT_SOURCE_DIR}/config/oglplus/config/site.hpp.in
+	${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
 )
 
 install(
-	FILES ${PROJECT_BINARY_DIR}/include/oglplus/site_config.hpp
-	DESTINATION include/oglplus
+	FILES ${PROJECT_BINARY_DIR}/include/oglplus/config/site.hpp
+	DESTINATION include/oglplus/config
 )
 
 # include the oglplus headers

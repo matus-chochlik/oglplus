@@ -33,6 +33,21 @@ This section lists general compile-time configuration options of OGLplus.
 
 [endsect]
 
+[/------------------------------]
+[section:site Site-configuration]
+[/------------------------------]
+
+
+The [^cmake]-based build system can detect the compiler-capabilities, installed
+third-party libraries and supported GL version and extensions and generates two
+site configuration files [^oglplus/config/site.hpp] and
+[^oglplus/config/fix_gl_version.hpp] (located in the [^$(BUILD_DIR)/include] subdirectory).
+User applications can reuse these files if the same compiler, GL API library and external
+libraries are used or can disable their use by defining the OGLPLUS_NO_SITE_CONFIG
+preprocessor symbol.
+
+[endsect]
+
 [/--------------------------]
 [section:error Error-related]
 [/--------------------------]
@@ -59,14 +74,6 @@ CPU overhead.
 
 [import config/error.hpp]
 [oglplus_config_error]
-
-[endsect]
-
-[/------------------------------]
-[section:site Site-configuration]
-[/------------------------------]
-
-TODO
 
 [endsect]
 

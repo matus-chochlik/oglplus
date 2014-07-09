@@ -14,7 +14,7 @@
 #define OALPLUS_CONFIG_1303201545_HPP
 
 #ifndef OGLPLUS_NO_SITE_CONFIG
-#include <oglplus/site_config.hpp>
+#include <oglplus/config/site.hpp>
 #endif
 
 

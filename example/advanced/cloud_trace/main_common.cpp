@@ -12,7 +12,7 @@
 #include "app_data.hpp"
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/error/basic.hpp>
 
 #include <stdexcept>

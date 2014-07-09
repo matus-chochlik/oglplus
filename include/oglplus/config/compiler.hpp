@@ -14,7 +14,7 @@
 #define OGLPLUS_CONFIG_COMPILER_1107121519_HPP
 
 #ifndef OGLPLUS_NO_SITE_CONFIG
-#include <oglplus/site_config.hpp>
+#include <oglplus/config/site.hpp>
 #endif
 
 #ifndef OGLPLUS_USE_BOOST_CONFIG
