@@ -6,14 +6,6 @@
 [section:errors Error handling]
 [/============================]
 
-[/--------------------------]
-[section:basic General error]
-[/--------------------------]
-
-[import error/basic.hpp]
-[oglplus_error_1]
-[oglplus_error_2]
-
-[endsect]
+[include error/basic.qbk]
 
 [endsect]

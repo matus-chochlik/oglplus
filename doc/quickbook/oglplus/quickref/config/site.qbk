@@ -1,0 +1,32 @@
+[/ Copyright 2014 Matus Chochlik. Distributed under the Boost       ]
+[/ Software License, Version 1.0. (See accompanying file            ]
+[/ LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
+
+[/------------------------------]
+[section:site Site-configuration]
+[/------------------------------]
+
+[header oglplus/config/site.hpp]
+
+The [^cmake]-based build system detects the compiler-capabilities, installed
+third-party libraries and supported GL version and extensions and generates two
+site configuration files [^oglplus/config/site.hpp] and
+[^oglplus/config/fix_gl_version.hpp] (located in the [^$(BUILD_DIR)/include] subdirectory).
+User applications can reuse these files if the same compiler, GL API library and external
+libraries are used or can disable their use by defining the __OGLPLUS_NO_SITE_CONFIG
+preprocessor symbol.
+
+Alternatively the user can define their own [^oglplus/config/site.hpp] file
+(either as a system-wide or application-specific configuration) and set
+the options described below to values (either zero or non-zero integer) appropriate
+to their system setup and used compiler.
+
+[import site.hpp]
+
+The first set of options concerns the availability of third-party libraries used
+by some parts of the code.
+
+[oglplus_config_site_1]
+
+[endsect]
+

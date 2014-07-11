@@ -11,8 +11,6 @@
 [/Macros]
 [/------]
 
-[def __OpenGL__ ['OpenGL]]
-
 [/Quick reference links]
 
 [def __Error [link oglplus.quickref.errors.basic [^Error]]]

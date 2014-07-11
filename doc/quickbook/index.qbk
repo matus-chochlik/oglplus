@@ -24,6 +24,11 @@
 
 
 [def __OGLplus__ [@ http://oglplus.org/ OGLplus]]
+[def __OpenGL__ [@ http://www.opengl.org/ OpenGL]]
+[def __OpenAL__ ['OpenAL]]
+[def __LibPNG__ ['LibPNG]]
+[def __Pango_Cairo__ ['Pango/Cairo]]
+
 
 [def nullptr [^nullptr]]
 

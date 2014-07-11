@@ -20,76 +20,9 @@ either by editing the [link oglplus.quickref.config.site [^oglplus/site_config.h
 file or by using the [^-D] compiler option (or its equivalent for defining
 preprocessor symbols on the command-line or in an IDE).
 
-[/------------------------------]
-[section:site Site-configuration]
-[/------------------------------]
-
-[header oglplus/config/site.hpp]
-
-The [^cmake]-based build system detects the compiler-capabilities, installed
-third-party libraries and supported GL version and extensions and generates two
-site configuration files [^oglplus/config/site.hpp] and
-[^oglplus/config/fix_gl_version.hpp] (located in the [^$(BUILD_DIR)/include] subdirectory).
-User applications can reuse these files if the same compiler, GL API library and external
-libraries are used or can disable their use by defining the __OGLPLUS_NO_SITE_CONFIG
-preprocessor symbol.
-
-[import config/site.hpp]
-[oglplus_config_site]
-
-[endsect]
-
-[/-------------------------------------]
-[section:compiler Compiler capabilities]
-[/-------------------------------------]
-
-[header oglplus/config/compiler.hpp]
-
-[import config/compiler.hpp]
-[oglplus_config_compiler]
-
-[endsect]
-
-[/----------------------------------]
-[section:basic General configuration]
-[/----------------------------------]
-
-[header oglplus/config/basic.hpp]
-
-This section lists general compile-time configuration options of OGLplus.
-
-[import config/basic.hpp]
-[oglplus_config_basic]
-
-[endsect]
-
-[/--------------------------]
-[section:error Error-related]
-[/--------------------------]
-
-[header oglplus/config/error.hpp]
-
-The following options ['disable] some of the attributes of OGLplus'
-[link oglplus.quickref.errors exception classes]. By ['disabling]
-we mean, that various member functions of __Error or its descendants,
-(like SourceFunc, SourceLine, etc.) return a default value
-(nullptr, zero, empty string, etc.) instead of the real value related
-to a raised error.
-
-When fully enabled, __Error provides quite a lot of information about an
-error that occured during the execution of OGLplus code. While this
-information may be useful during debugging, it also requires additional
-memory to store and program instructions to initialize in an instance
-of __Error.
-
-Disabling certain attributes may be useful in release builds when most
-bugs have been fixed and such a detailed diagnostic is not required.
-Doing so will most probably lead to both a decrease in code size and
-CPU overhead.
-
-[import config/error.hpp]
-[oglplus_config_error]
-
-[endsect]
+[include config/site.qbk]
+[include config/compiler.qbk]
+[include config/basic.qbk]
+[include config/error.qbk]
 
 [endsect]
