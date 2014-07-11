@@ -8,6 +8,10 @@ if(PNG_FOUND)
 	do_use_single_dependency(PNG)
 endif()
 
+if(PANGO_CAIRO_FOUND)
+	do_use_single_dependency(PANGO_CAIRO)
+endif()
+
 set(OGLPLUS_LIB_SOURCES
 	native.cpp
 	string.cpp
@@ -36,6 +40,10 @@ add_library(oglplus EXCLUDE_FROM_ALL ${OGLPLUS_LIB_SOURCES})
 
 if(PNG_FOUND)
 	target_link_libraries(oglplus ${PNG_LIBRARIES})
+endif()
+
+if(PANGO_CAIRO_FOUND)
+	target_link_libraries(oglplus ${PANGO_CAIRO_LIBRARIES})
 endif()
 
 
