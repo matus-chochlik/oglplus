@@ -28,5 +28,13 @@ by some parts of the code.
 
 [oglplus_config_site_1]
 
+The following options select which GL API library ([^GL/glcorearb.h],
+[^GL3/gl3.h], [^GL/glew.h], etc.) is used when the OGLplus'
+[^oglplus/gl.hpp] header is included. The first one defined
+as a non-zero integer value in the order as listed here,
+is used. At least one of the options listed here must be non-zero.
+
+[oglplus_config_site_2]
+
 [endsect]
 
