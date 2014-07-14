@@ -56,6 +56,122 @@ Indicates that __GL3W__ should be used.
 #define OGLPLUS_USE_BOOST_CONFIG <UNSPECIFIED>
 #endif
 
+//]
+//[oglplus_config_site_4
+#if !OGLPLUS_USE_BOOST_CONFIG
+
+#ifndef OGLPLUS_NO_SCOPED_ENUMS /*<
+Indicates that C++11 strongly typed enumerations are not supported.
+>*/
+#define OGLPLUS_NO_SCOPED_ENUMS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_VARIADIC_MACROS /*<
+Indicates that preprocessor variadic macros are not supported.
+>*/
+#define OGLPLUS_NO_VARIADIC_MACROS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_VARIADIC_TEMPLATES /*<
+Indicates that C++11 variadic templates are not properly supported.
+>*/
+#define OGLPLUS_NO_VARIADIC_TEMPLATES <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX /*<
+Indicates that C++11 unified initialization syntax is not implemented.
+>*/
+#define OGLPLUS_NO_UNIFIED_INITIALIZATION_SYNTAX <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_INITIALIZER_LISTS /*<
+Indicates that C++11 initializer lists are not supported.
+>*/
+#define OGLPLUS_NO_INITIALIZER_LISTS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_DEFAULTED_FUNCTIONS /*<
+Indicates that C++11 [^default]ed functions are not supported.
+>*/
+#define OGLPLUS_NO_DEFAULTED_FUNCTIONS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_DELETED_FUNCTIONS /*<
+Indicates that C++11 [^delete]d functions are not supported.
+>*/
+#define OGLPLUS_NO_DELETED_FUNCTIONS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS /*<
+Indicates that C++11 explicit conversion operators are not supported.
+>*/
+#define OGLPLUS_NO_EXPLICIT_CONVERSION_OPERATORS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS /*<
+Indicates that C++11 default template arguments cannot be used.
+>*/
+#define OGLPLUS_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_UNICODE_LITERALS /*<
+Indicates that C++11 unicode string literals are not supported.
+>*/
+#define OGLPLUS_NO_UNICODE_LITERALS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_USER_DEFINED_LITERALS /*<
+Indicates that C++11 user-defined literals are not supported.
+>*/
+#define OGLPLUS_NO_USER_DEFINED_LITERALS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_TEMPLATE_ALIASES /*<
+Indicates that C++11 template aliases are not supported.
+>*/
+#define OGLPLUS_NO_TEMPLATE_ALIASES <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_CONSTEXPR /*<
+Indicates that C++11 generalized constant expressions are not supported.
+>*/
+#define OGLPLUS_NO_CONSTEXPR <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_NOEXCEPT /*<
+Indicates that C++11 [^noexcept] specifier is not supported.
+>*/
+#define OGLPLUS_NO_NOEXCEPT <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_LAMBDAS /*<
+Indicates that C++11 lambdas are not supported.
+>*/
+#define OGLPLUS_NO_LAMBDAS <UNSPECIFIED>
+#endif
+
+#endif //!OGLPLUS_USE_BOOST_CONFIG
+//]
+//[oglplus_config_site_5
+
+#ifndef OGLPLUS_NO_INHERITED_CONSTRUCTORS /*<
+Indicates that C++11 inherited constructors are not supported.
+>*/
+#define OGLPLUS_NO_INHERITED_CONSTRUCTORS <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_CHRONO /*<
+Indicates that the standard [^chrono] header is not available.
+>*/
+#define OGLPLUS_NO_CHRONO <UNSPECIFIED>
+#endif
+
+#ifndef OGLPLUS_NO_THREADS /*<
+Indicates that the C++11 threads implementation is not available.
+>*/
+#define OGLPLUS_NO_THREADS <UNSPECIFIED>
+#endif
+
 } // namespace oglplus
 //]
 

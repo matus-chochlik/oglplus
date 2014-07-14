@@ -26,9 +26,6 @@ namespace enums { \
 enum class NAME : TYPE; \
 } using enums::NAME;
 
-#define OGLPLUS_ENUM_CLASS_FWD_EVT(NAME, TYPE) \
-	OGLPLUS_ENUM_CLASS_FWD(NAME, TYPE)
-
 #define OGLPLUS_ENUM_CLASS_BEGIN(NAME, TYPE) \
 namespace enums { \
 enum class NAME : TYPE {
