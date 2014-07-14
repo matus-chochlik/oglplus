@@ -1,3 +1,32 @@
+Version 0.48.0
+
+- Wrapper for the ARB_copy_image extension was added.
+- Wrapper for NV_copy_image and GLX_NV_copy image was added.
+- The BezierCurves class was updated
+  - Support for non-connected sequences of curves was added.
+  - The Derivative function was added.
+  - New constructors were added.
+- The capture functions of oalplus::Device class were split into
+  a separate class - CaptureDevice.
+- The Specifier, CaptureSpecifier and Extensions functions were added
+  to oalplus::Device.
+- The oalplus::ALCError::Device function was added.
+- One of the older examples was removed.
+- Several bugs were fixed.
+  - A missing #ifdef guard was added to texture.
+  - A problem with Pango/Cairo text rendering was fixed.
+- The compile-time configuration options were changes.
+- The oglplus::Error::GLLib function was added.
+- The oglplus::Error::GLFuncName function was renamed to GLFunc.
+- The oalplus::Error::ALLibName and ALFuncName functions were renamed
+  to ALLib and ALFunc.
+- The eglplus::Error::EGLFuncName function was renamed to EGLFunc.
+- The generated config headers oglplus/fix_gl_version.hpp and
+  oglplus/site_config.hpp were moved to oglplus/config/fix_gl_version.hpp
+  and oglplus/config/site.hpp.
+- The Boost.Quickbook-based documentation has been started.
+
+
 Version 0.47.0
 
 - The Group<> template class was added.
