@@ -21,25 +21,11 @@
 namespace eglplus {
 namespace enums {
 
-#if !OGLPLUS_NO_SCOPED_ENUMS
 template <typename Enum>
 struct EnumBaseType
 {
 	typedef EGLenum Type;
 };
-#else
-// No scoped enums -> no enum value names/ranges
-#ifdef EGLPLUS_NO_ENUM_VALUE_NAMES
-#undef EGLPLUS_NO_ENUM_VALUE_NAMES
-#endif
-#define EGLPLUS_NO_ENUM_VALUE_NAMES  1
-
-#ifdef EGLPLUS_NO_ENUM_VALUE_RANGES
-#undef EGLPLUS_NO_ENUM_VALUE_RANGES
-#endif
-#define EGLPLUS_NO_ENUM_VALUE_RANGES 1
-using oglplus::EnumBaseType;
-#endif
 
 template <typename EnumType>
 inline StrLit EnumValueName(EnumType enum_value)

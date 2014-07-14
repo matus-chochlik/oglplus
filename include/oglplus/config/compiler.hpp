@@ -183,16 +183,6 @@
 #endif
 #endif
 
-#ifndef OGLPLUS_NO_NULLPTR
-#if	defined(BOOST_NO_CXX11_NULLPTR) ||\
-	defined(BOOST_NO_NULLPTR)
-#define OGLPLUS_NO_NULLPTR 1
-#else
-#define OGLPLUS_NO_NULLPTR 0
-#endif
-#endif
-
-
 #ifndef OGLPLUS_NO_CHRONO
 #if	defined(BOOST_NO_CXX11_HDR_CHRONO) ||\
 	defined(BOOST_NO_HDR_CHRONO)

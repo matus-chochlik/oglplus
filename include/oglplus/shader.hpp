@@ -487,8 +487,7 @@ public:
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex)>
-	VertexShader;
+typedef SpecShader<ShaderType::Vertex> VertexShader;
 
 /// Geometry shader wrapper
 /**
@@ -496,8 +495,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Vertex)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry)>
-	GeometryShader;
+typedef SpecShader<ShaderType::Geometry> GeometryShader;
 
 /// Fragment shader wrapper
 /**
@@ -505,8 +503,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Geometry)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment)>
-	FragmentShader;
+typedef SpecShader<ShaderType::Fragment> FragmentShader;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_TESS_CONTROL_SHADER
 /// Tesselation control shader wrapper
@@ -515,8 +512,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Fragment)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl)>
-	TessControlShader;
+typedef SpecShader<ShaderType::TessControl> TessControlShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_TESS_EVALUATION_SHADER
@@ -526,8 +522,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessControl)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation)>
-	TessEvaluationShader;
+typedef SpecShader<ShaderType::TessEvaluation> TessEvaluationShader;
 #endif
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_COMPUTE_SHADER
@@ -537,8 +532,7 @@ typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::TessEvaluation)>
  *  @see Program
  *  @ingroup oglplus_objects
  */
-typedef SpecShader<OGLPLUS_CONST_ENUM_VALUE(ShaderType::Compute)>
-	ComputeShader;
+typedef SpecShader<ShaderType::Compute> ComputeShader;
 #endif
 
 } // namespace oglplus

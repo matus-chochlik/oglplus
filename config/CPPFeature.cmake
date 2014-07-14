@@ -58,7 +58,6 @@ cpp_feature_detection(TEMPLATE_ALIASES)
 cpp_feature_detection(CONSTEXPR)
 cpp_feature_detection(NOEXCEPT)
 cpp_feature_detection(LAMBDAS)
-cpp_feature_detection(NULLPTR)
 cpp_feature_detection(CHRONO)
 cpp_feature_detection(THREADS)
 

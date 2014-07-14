@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+# Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
 # Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
@@ -567,12 +567,12 @@ OutputPath="${RootDir}/implement/${OutputFile}"
 		echo "# pragma push_macro(\"${OXLPLUS_DEF}\")"
 		echo "# undef ${OXLPLUS_DEF}"
 		echo "template <> struct GLSL2Cpp<"
-		echo "	${LibNameUC}_CONST_ENUM_VALUE(SLDataType::${OXLPLUS_DEF})"
+		echo "	SLDataType::${OXLPLUS_DEF}"
 		echo "> { typedef ${TYPE} Type; };"
 		echo "# pragma pop_macro(\"${OXLPLUS_DEF}\")"
 		echo "# else"
 		echo "template <> struct GLSL2Cpp<"
-		echo "	${LibNameUC}_CONST_ENUM_VALUE(SLDataType::${OXLPLUS_DEF})"
+		echo "	SLDataType::${OXLPLUS_DEF}"
 		echo "> { typedef ${TYPE} Type; };"
 		echo "# endif"
 		echo "#endif // ${XL_DEF}"
