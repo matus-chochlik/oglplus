@@ -1,5 +1,5 @@
 ================================
-Release notes for version 0.47.0
+Release notes for version 0.48.0
 ================================
 
 .. _OGLplus: http://oglplus.org/
@@ -7,55 +7,65 @@ Release notes for version 0.47.0
 Overview
 ========
 
-This version of `OGLplus`_ finishes the overhaul from the previous release,
-but also brings some new features and examples. Similar changes that were
-made to OGLplus were now made to OALplus and EGLplus.
+This release of `OGLplus`_ brings some changes to oglplus, oalplus and
+eglplus exception classes, updates in the BezierCurves class, new wrappers
+for GL extensions, refactored oalplus::Device class, updated docs, etc.
+Several bugs were fixed and one of the older examples was removed.
 
 Changes
 =======
 
-* The ``ObjectName``, ``Sequence``, ``Array``, ``Reference`` and ``Object``
-  classes and related functionality were further refactored and reused in OpenAL.
+ - Changes to ``oglplus::Error``
 
-* The ``Group`` class and related functionality was added.
+   * ``Error::GLLib`` function was added.
+   * ``Error::GLFuncName`` function was renamed to ``GLFunc``.
 
-* The OALplus AL function wrapper macros were reimplemented.
+ - Changes to ``oalplus::Error``
 
-* The ``HardwiredProgram`` template class that was deprecated in the previous
-  release was removed.
+   * ``Error::ALLibName`` function was renamed to ``ALLib``.
+   * ``Error::ALFuncName`` function was renamed to ``ALFunc``.
 
-* The ``QuickProgram`` template class was reimplemented and its interface
-  changed slightly.
+ - Changes to ``oalplus::ALCError``
 
-* Support for GLM vector and matrix uniforms was re-added, typechecking
-  of GLM uniforms was added.
+   * ``ALCError::Device`` function was added.
 
-* Changes to exceptions:
-  * The Value and Limit virtual member functions were added to oglplus::Error.
-  * The common error handling in the oglplus examples was updated.
+ - Changes to ``eglplus::Error``
 
-* The implementation of some functions was moved to the ``implement/`` directory.
+   * ``Error::EGLFuncName`` function was renamed to ``EGLFunc``.
 
-* Changes to OGLplus examples:
-  * Two new examples were added, one showing simple SSAO implementation
-    and the other a voronoi cell shader.
-  * One of the older examples was removed.
-  * The example showing GLM interoperability was re-added.
+ - Changes to ``oalplus::Device``
 
-* The Voronoi/Worley cell image generators were added.
+   * The capture functionality was refactored into the separate ``CaptureDevice`` class.
+   * The ``Specifier``, ``CaptureSpecifier`` and ``Extensions`` functions were added.
 
-* Changes to the build system and compile-time configuration:
-  * Detection for the ``KHR_debug`` OpenGL extension was added
-    to the build system.
-  * The compile-time configuration-related headers were split into several
-    separate files.
-  * The ``BOOST_NO_CXX11_*`` macros were added to the now deprecated
-    ``BOOST_NO_*`` macros.
+ - Changes to ``oglplus::BezierCurves``
+
+   * New constructors were added.
+   * Support for non-connected sequences of bezier curve segments was added.
+   * The ``Derivative`` function was added.
+
+ - New wrappers for GL extensions
+
+   * ``GL_ARB_copy_image``
+   * ``GLX_NV_copy_image``
+   * ``GL_NV_copy_image``
+
+ - Fixed bugs
+
+   * Fixed problems with support of Pango/Cairo in build system and sources.
+   * Added an ``#ifdef`` to Texture fixing problems with older versions of GL API headers.
+
+ - Moved the auto-generated configuration files:
+
+   * ``oglplus/fix_gl_version.hpp`` to ``oglplus/config/fix_gl_version.hpp``
+   * ``oglplus/site_config.hpp`` to ``oglplus/config/site.hpp``
+
+ - Quickbook-based documentation was started.
 
 Known issues
 ============
 
-* As with the previous release still no support for MSVC 2010.
+* Only partial support for MSVC 2010. Support for this compiler will be dropped in the next release.
 * The doxygen documentation is incomplete.
 
 
