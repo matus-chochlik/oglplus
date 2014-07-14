@@ -43,23 +43,36 @@ inline auto _checked_glfunc(
 		GL_INVALID_OPERATION,
 		MissingFunction::Message(),
 		MissingFunction,
-		GLFuncName(func_name)
+		GLFunc(func_name)
 	);
 	return *ppfn;
 }
 
 #ifndef OGLPLUS_GLFUNC
 #define OGLPLUS_GLFUNC(FUNCNAME) \
-	::oglplus::_checked_glfunc( \
-		&::gl##FUNCNAME, \
-		#FUNCNAME \
-	)
+	::oglplus::_checked_glfunc(&::gl##FUNCNAME, #FUNCNAME)
 #endif
+#ifndef OGLPLUS_GLXFUNC
+#define OGLPLUS_GLXFUNC(FUNCNAME) \
+	::oglplus::_checked_glfunc(&::glX##FUNCNAME, #FUNCNAME)
+#endif
+#ifndef OGLPLUS_WGLFUNC
+#define OGLPLUS_WGLFUNC(FUNCNAME) \
+	::oglplus::_checked_glfunc(&::wgl##FUNCNAME, #FUNCNAME)
+#endif
+
 #else
+
 #ifndef OGLPLUS_GLFUNC
-#define OGLPLUS_GLFUNC(FUNCNAME) \
-	::gl##FUNCNAME
+#define OGLPLUS_GLFUNC(FUNCNAME) ::gl##FUNCNAME
 #endif
+#ifndef OGLPLUS_GLXFUNC
+#define OGLPLUS_GLXFUNC(FUNCNAME) ::glX##FUNCNAME
+#endif
+#ifndef OGLPLUS_WGLFUNC
+#define OGLPLUS_WGLFUNC(FUNCNAME) ::wgl##FUNCNAME
+#endif
+
 #endif
 
 

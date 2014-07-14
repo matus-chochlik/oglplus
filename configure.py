@@ -177,7 +177,7 @@ def get_argument_parser():
 			Enables or disables the low profile mode (see the documentation
 			for the OGLPLUS_LOW_PROFILE compile-time switch).
 			If this option is used, then the specified value is written to
-			the oglplus/site_config.hpp file, otherwise it is set to the default
+			the oglplus/config/site.hpp file, otherwise it is set to the default
 			value in oglplus/config.hpp and may be overriden in sources by
 			defining this preprocessor symbol or by using the appropriate
 			compiler command-line switch or build environment setting.

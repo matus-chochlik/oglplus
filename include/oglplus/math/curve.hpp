@@ -23,11 +23,11 @@
 
 namespace oglplus {
 
-/// A sequence of Bezier curves, connected at end points
+/// A sequence of Bezier curves, possibly connected at end points
 /** This class stores the data for a sequence of connected Bezier curves
- *  of a given @c Order. The begin of the i-th curve (segment) is connected
- *  with the end of the (i-1)-th curve and the end of the i-th curve is
- *  connected with the begin of the (i+1)-th curve. Between the begin and
+ *  of a given @c Order. The begin of the i-th curve (segment) is equal
+ *  to the end of the (i-1)-th curve and the end of the i-th curve is
+ *  equal to the begin of the (i+1)-th curve. Between the begin and
  *  end (control) points there is a fixed number (Order - 1) of curve control
  *  points. The curves pass through the begin and end and are influenced
  *  by the other control points.
@@ -41,46 +41,121 @@ class BezierCurves
 {
 private:
 	::std::vector<Type> _points;
+	bool _connected;
 public:
+	static bool Connected(const ::std::vector<Type>& points)
+	{
+		return ((points.size() - 1) % Order) == 0;
+	}
+
+	/// Returns true if the individual curves are connected
+	bool Connected(void) const
+	{
+		return _connected;
+	}
+
+	static bool Separated(const ::std::vector<Type>& points)
+	{
+		return (points.size() % (Order+1)) == 0;
+	}
+
+	/// Returns true if the individual curves are connected
+	bool Separated(void) const
+	{
+		return !_connected;
+	}
+
 	/// Checks if the sequence of control points is OK for this curve type
 	static bool PointsOk(const ::std::vector<Type>& points)
 	{
 		if(points.empty()) return false;
-		if((points.size() - 1) % Order != 0) return false;
-		return true;
+		return (Connected(points) || Separated(points));
 	}
 
 	/// Creates the bezier curves from the control @c points
-	/** The number of points must be (C * Order + 1) where
-	 *  @em C is the number of curves (segments) in the sequence.
+	/** The number of points must be ((C * Order) + 1) or (C * (Order + 1))
+	 *  where @em C is the number of curves (segments) in the sequence.
+	 *  If both of the above are true then the curves are considered
+	 *  to be connected.
 	 */
 	BezierCurves(::std::vector<Type>&& points)
 	 : _points(std::move(points))
+	 , _connected(Connected(_points))
 	{
 		assert(PointsOk(_points));
 	}
 
 	/// Creates the bezier curves from the control @c points
+	/** The number of points must be ((C * Order) + 1) and connected
+	 *  or (C * (Order + 1)) and not(connected),
+	 *  where @em C is the number of curves (segments) in the sequence.
+	 */
+	BezierCurves(::std::vector<Type>&& points, bool connected)
+	 : _points(std::move(points))
+	 , _connected(connected)
+	{
+		assert(PointsOk(_points));
+		assert(Connected(_points) == _connected);
+	}
+
+	/// Creates the bezier curves from the control @c points
 	/** The number of points must be (C * Order + 1) where
 	 *  @em C is the number of curves (segments) in the sequence.
+	 *  If both of the above are true then the curves are considered
+	 *  to be connected.
 	 */
 	BezierCurves(const ::std::vector<Type>& points)
 	 : _points(points)
+	 , _connected(Connected(_points))
 	{
 		assert(PointsOk(_points));
+	}
+
+	/// Creates the bezier curves from the control @c points
+	/** The number of points must be ((C * Order) + 1) and connected
+	 *  or (C * (Order + 1)) and not(connected),
+	 *  where @em C is the number of curves (segments) in the sequence.
+	 */
+	BezierCurves(const ::std::vector<Type>& points, bool connected)
+	 : _points(points)
+	 , _connected(connected)
+	{
+		assert(PointsOk(_points));
+		assert(Connected(_points) == _connected);
 	}
 
 	template <std::size_t N>
 	BezierCurves(const ::std::array<Type, N>& points)
 	 : _points(points.begin(), points.end())
+	 , _connected(Connected(_points))
 	{
 		assert(PointsOk(_points));
+	}
+
+	template <std::size_t N>
+	BezierCurves(const ::std::array<Type, N>& points, bool connected)
+	 : _points(points.begin(), points.end())
+	 , _connected(connected)
+	{
+		assert(PointsOk(_points));
+		assert(Connected(_points) == _connected);
+	}
+
+	unsigned SegmentStep(void) const
+	{
+		assert(PointsOk(_points));
+
+		if(_connected) return Order;
+		else return Order+1;
 	}
 
 	/// Returns the count of individual curves in the sequence
 	unsigned SegmentCount(void) const
 	{
-		return (_points.size() - 1) / Order;
+		assert(PointsOk(_points));
+
+		if(_connected) return (_points.size() - 1) / Order;
+		else return _points.size() / (Order+1);
 	}
 
 	/// Returns the contol points of the curve
@@ -110,7 +185,9 @@ public:
 		assert(t >= zero && t < one);
 
 		Parameter toffs = t*SegmentCount();
-		unsigned poffs = unsigned(toffs) * Order;
+
+		unsigned poffs = unsigned(toffs) * SegmentStep();
+
 		assert(poffs < _points.size() - Order);
 		Parameter t_sub = toffs - ::std::floor(toffs);
 		return math::Bezier<Type, Parameter, Order>::Position(
@@ -129,30 +206,34 @@ public:
 	/// Makes a sequence of points on the curve (n points per segment)
 	void Approximate(std::vector<Type>& dest, unsigned n) const
 	{
+		unsigned sstep = SegmentStep();
 		unsigned s = SegmentCount();
+
 		dest.resize(s*n+1);
-		auto p = dest.begin(), e = dest.end();
+
+		auto p = dest.begin();
 		const Parameter t_step = Parameter(1)/n;
-		typedef math::Bezier<Type, Parameter, Order> b;
+
 		for(unsigned i=0; i!=s; ++i)
 		{
-			unsigned poffs = i*Order;
+			unsigned poffs = i*sstep;
 			Parameter t_sub = Parameter(0);
 			const Type* data = _points.data() + poffs;
 			unsigned size = _points.size() - poffs;
 			for(unsigned j=0; j!=n; ++j)
 			{
-				assert(p != e);
+				typedef math::Bezier<Type, Parameter, Order> b;
+				assert(p != dest.end());
 				*p = Type(b::Position(data, size, t_sub));
 				++p;
+
 				t_sub += t_step;
 			}
 		}
-		assert(p != e);
+		assert(p != dest.end());
 		*p = _points.back();
 		++p;
-		OGLPLUS_FAKE_USE(e);
-		assert(p == e);
+		assert(p == dest.end());
 	}
 
 	/// Returns a sequence of points on the curve (n points per segment)
@@ -161,6 +242,33 @@ public:
 		::std::vector<Type> result;
 		Approximate(result, n);
 		return result;
+	}
+
+	/// Returns a derivative of this curve
+	BezierCurves<Type, Parameter, Order-1> Derivative(void) const
+	{
+		unsigned sstep = SegmentStep();
+		unsigned s = SegmentCount();
+
+		::std::vector<Type> new_points(s * Order);
+		auto p = new_points.begin();
+
+		for(unsigned i=0; i!=s; ++i)
+		{
+			for(unsigned j=0; j!=Order; ++j)
+			{
+				unsigned k = i*sstep+j;
+				assert(p != new_points.end());
+				*p = (_points[k+1] - _points[k]) * Order;
+				++p;
+			}
+		}
+		assert(p == new_points.end());
+
+		return BezierCurves<Type, Parameter, Order-1>(
+			std::move(new_points),
+			false
+		);
 	}
 };
 

@@ -27,6 +27,9 @@ private:
 	::Display* _display;
 	::GLXContext _context;
 
+	friend ::Display* GetGLXDisplay(const ContextGLX&);
+	friend ::GLXContext GetGLXContext(const ContextGLX&);
+
 	struct Current_ { };
 
 	ContextGLX(Current_)
@@ -68,6 +71,16 @@ public:
 		);
 	}
 };
+
+inline ::Display* GetGLXDisplay(const ContextGLX& cglx)
+{
+	return cglx._display;
+}
+
+inline ::GLXContext GetGLXContext(const ContextGLX& cglx)
+{
+	return cglx._context;
+}
 
 typedef ContextGLX Context;
 

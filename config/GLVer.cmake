@@ -26,11 +26,11 @@ endif()
 
 set(
 	OGLPLUS_FIX_GL_VERSION_HPP
-	${PROJECT_BINARY_DIR}/include/oglplus/fix_gl_version.hpp
+	${PROJECT_BINARY_DIR}/include/oglplus/config/fix_gl_version.hpp
 )
 
 configure_file(
-	${PROJECT_SOURCE_DIR}/config/oglplus/fix_gl_version.hpp.in
+	${PROJECT_SOURCE_DIR}/config/oglplus/config/fix_gl_version.hpp.in
 	${OGLPLUS_FIX_GL_VERSION_HPP}
 )
 configure_file(

@@ -2,7 +2,7 @@
  *  @example oalplus/001_devices.cpp
  *  @brief Shows the basic usage of OALplus by printing names of audio devices
  *
- *  Copyright 2008-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2008-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
@@ -20,7 +20,7 @@ int main(void)
 	std::cout << '\t' << r.Front() << std::endl;
 	//
 	std::cout << "Capture devices:" << std::endl;
-	for(auto r=oalplus::Device::CaptureSpecifiers(); !r.Empty(); r.Next())
+	for(auto r=oalplus::CaptureDevice::Specifiers(); !r.Empty(); r.Next())
 	std::cout << '\t' << r.Front() << std::endl;
 	//
 	return 0;

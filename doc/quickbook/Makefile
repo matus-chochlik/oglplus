@@ -22,14 +22,18 @@ html/images/%.png: images/%.png | html/images
 
 .PHONY: html_images
 
-html_images:
+html_images: \
+	html/images/home.png \
+	html/images/next.png \
+	html/images/prev.png \
+	html/images/up.png
 
 html/%.css: %.css
 	cp $< $@
 
 .PHONY: html_css
 
-html_css:
+html_css: html/boostbook.css
 
 html/index.html: html_images html_css
 	bjam

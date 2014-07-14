@@ -1,5 +1,5 @@
 /**
- *  @file oglplus/site_config.hpp
+ *  @file oglplus/config/site.hpp
  *  @brief System configuration options
  *
  *  @author Matus Chochlik

@@ -226,7 +226,7 @@ public:
 		{
 		std::cerr
 			<< "Error (in "
-			<< err.GLFuncName()
+			<< err.GLFunc()
 			<< "'): "
 			<< err.what()
 			<< " ["

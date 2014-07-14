@@ -52,9 +52,13 @@ private:
 #if !OALPLUS_ERROR_NO_LINE
 	unsigned _line;
 #endif
-#if !OALPLUS_ERROR_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_LIB
 	const char* _allib_name;
+#endif
+#if !OALPLUS_ERROR_NO_AL_FUNC
 	const char* _alfunc_name;
+#endif
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
 	const char* _enumpar_name;
 	ALenum _enumpar;
 	ALint _index;
@@ -135,9 +139,9 @@ public:
 	 */
 	unsigned SourceLine(void) const;
 
-	Error& ALLibName(const char* lib_name)
+	Error& ALLib(const char* lib_name)
 	{
-#if !OALPLUS_ERROR_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_LIB
 		_allib_name = lib_name;
 #endif
 		(void)lib_name;
@@ -153,11 +157,11 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
-	const char* ALLibName(void) const;
+	const char* ALLib(void) const;
 
-	Error& ALFuncName(const char* func_name)
+	Error& ALFunc(const char* func_name)
 	{
-#if !OALPLUS_ERROR_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_FUNC
 		_alfunc_name = func_name;
 #endif
 		(void)func_name;
@@ -173,7 +177,7 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
-	const char* ALFuncName(void) const;
+	const char* ALFunc(void) const;
 
 	template <typename Enum_>
 	Error& EnumParam(Enum_ param)
@@ -280,8 +284,7 @@ inline void HandleError(ErrorType& error)
 		ERROR::Message(error_code),\
 		ERROR,\
 		ERROR_INFO.\
-		ALLibName("al").\
-		ALFuncName(FUNC_NAME)\
+		ALFunc(FUNC_NAME)\
 	)
 
 #define OALPLUS_CHECK(ALFUNC, ERROR, ERROR_INFO) \

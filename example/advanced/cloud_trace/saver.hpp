@@ -14,7 +14,7 @@
 #include "app_data.hpp"
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 
 #include <oglplus/context.hpp>
 #include <oglplus/framebuffer.hpp>

@@ -9,7 +9,7 @@
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 #include <eglplus/egl.hpp>
 
 #define EGL_CONTEXT_MAJOR_VERSION       0x3098

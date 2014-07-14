@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -19,9 +19,9 @@ PangoCairoRenderer::PangoCairoRenderer(
 	const Sequence<ShaderName>& shaders
 ): _parent(parent)
  , _program()
- , _bitmap(_program, "oglpBitmap")
- , _log_coords(_program, "oglpLogCoords")
- , _tex_coords(_program, "oglpTexCoords")
+ , _bitmap(_program)
+ , _log_coords(_program)
+ , _tex_coords(_program)
 {
 	VertexShader vs(ObjectDesc("PangoCairoRenderer - Vertex"));
 	vs.Source(StrLit(
@@ -136,6 +136,11 @@ PangoCairoRenderer::PangoCairoRenderer(
 	_program.AttachShaders(shaders);
 	_program.Link();
 	_program.Use();
+
+	_bitmap.BindTo("oglpBitmap");
+	_log_coords.BindTo("oglpLogCoords");
+	_tex_coords.BindTo("oglpTexCoords");
+
 	Uniform<GLfloat>(_program, "oglpAlignCoef").Set(0.5f);
 }
 

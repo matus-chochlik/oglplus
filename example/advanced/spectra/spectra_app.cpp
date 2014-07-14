@@ -4,13 +4,13 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2012-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2012-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/opt/application.hpp>
 #include <oglplus/lib/oglplus.hpp>
 
@@ -30,7 +30,7 @@ wxString SpectraApp::MakeCommonErrorMessage(oglplus::Error& err)
 	message.Append(newline);
 	message.Append(wxString::Format(
 		wxGetTranslation(wxT("GL function: '%s'"), wxT("Error")),
-		wxString(err.GLFuncName(), wxConvUTF8).c_str()
+		wxString(err.GLFunc(), wxConvUTF8).c_str()
 	));
 	message.Append(newline);
 	message.Append(wxString::Format(

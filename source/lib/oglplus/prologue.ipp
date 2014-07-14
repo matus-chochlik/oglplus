@@ -18,5 +18,5 @@
 #define OGLPLUS_LINK_LIBRARY 1
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/config/basic.hpp>

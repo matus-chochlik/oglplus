@@ -370,7 +370,7 @@ int GlutGlewMain(const char* title, int argc, char* argv[])
 	{
 		std::cerr
 			<< "Program build error (in "
-			<< pbe.GLFuncName()
+			<< pbe.GLFunc()
 			<< ", "
 			<< pbe.ObjectTypeName()
 			<< ": ("
@@ -403,7 +403,7 @@ int GlutGlewMain(const char* title, int argc, char* argv[])
 	{
 		std::cerr
 			<< "Object error (in "
-			<< obe.GLFuncName()
+			<< obe.GLFunc()
 			<< ", "
 			<< obe.ObjectTypeName()
 			<< ": ("
@@ -422,7 +422,7 @@ int GlutGlewMain(const char* title, int argc, char* argv[])
 	{
 		std::cerr
 			<< "Error (in "
-			<< err.GLFuncName()
+			<< err.GLFunc()
 			<< "') ["
 			<< err.SourceFile()
 			<< ":"

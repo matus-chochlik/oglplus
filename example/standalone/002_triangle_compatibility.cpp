@@ -140,7 +140,7 @@ int main(int argc, char* argv[])
 	{
 		std::cerr
 			<< "Error (in "
-			<< err.GLFuncName()
+			<< err.GLFunc()
 			<< "'): "
 			<< err.what()
 			<< " ["

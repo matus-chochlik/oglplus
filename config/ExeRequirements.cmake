@@ -21,11 +21,17 @@ macro(do_use_single_dependency DEPENDENCY)
 				COMPILE_DEFINITIONS ${${DEPENDENCY}_DEFINITIONS}
 			)
 		endif()
+		if(${DEPENDENCY}_CFLAGS)
+			string(REPLACE ";" " " TEMP "${${DEPENDENCY}_CFLAGS}")
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TEMP}")
+		endif()
+		if(${DEPENDENCY}_CFLAGS_OTHER)
+			string(REPLACE ";" " " TEMP "${${DEPENDENCY}_CFLAGS_OTHER}")
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TEMP}")
+		endif()
 		if(${DEPENDENCY}_CXX_FLAGS)
-			set(
-				CMAKE_CXX_FLAGS
-				"${CMAKE_CXX_FLAGS} ${${DEPENDENCY}_CXX_FLAGS}"
-			)
+			string(REPLACE ";" " " TEMP "${${DEPENDENCY}_CXXFLAGS}")
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TEMP}")
 		endif()
 	else()
 		message(FATAL_ERROR "'${DEPENDENCY}' not found!")

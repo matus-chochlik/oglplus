@@ -14,7 +14,7 @@
 #define OGLPLUS_CONFIG_BASIC_1107121519_HPP
 
 #ifndef OGLPLUS_NO_SITE_CONFIG
-#include <oglplus/site_config.hpp>
+#include <oglplus/config/site.hpp>
 #endif
 
 /** @defgroup compile_time_config Compile-time configuration
@@ -30,7 +30,7 @@
  *
  *  All options have a default value which can be overriden by
  *  setting the option before @c oglplus/config.hpp is processed
- *  either by editing the @c oglplus/site_config.hpp file or by
+ *  either by editing the @c oglplus/config/site.hpp file or by
  *  using the @c -D compiler option (or its equivalent for defining
  *  preprocessor symbols on the command-line).
  */

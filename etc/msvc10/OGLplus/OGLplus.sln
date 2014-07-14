@@ -29,8 +29,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "013_striped_cubes", "013_st
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "014_multi_cube_gs", "014_multi_cube_gs\014_multi_cube_gs.vcxproj", "{3D5B796C-7A8D-4058-8F38-7DD5E0CE9AFE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "015_graph", "015_graph\015_graph.vcxproj", "{39BA0A3E-4C88-49C0-A820-DD7B86880DD4}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "016_cartoon_torus", "016_cartoon_torus\016_cartoon_torus.vcxproj", "{45505321-9878-48CE-A612-BAF38F85672E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "016_metallic_torus", "016_metallic_torus\016_metallic_torus.vcxproj", "{A7CFE9D6-FE74-40BC-B20D-B85BF09DC797}"

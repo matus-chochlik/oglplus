@@ -53,8 +53,13 @@ Error::Error(const char* message)
 #if !OGLPLUS_ERROR_NO_LINE
  , _line(0)
 #endif
-#if !OGLPLUS_ERROR_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_LIB
+ , _gllib_name("gl")
+#endif
+#if !OGLPLUS_ERROR_NO_GL_FUNC
  , _glfunc_name(nullptr)
+#endif
+#if !OGLPLUS_ERROR_NO_GL_SYMBOL
  , _enumpar_name(nullptr)
  , _enumpar(0)
  , _index(-1)
@@ -92,9 +97,19 @@ unsigned Error::SourceLine(void) const
 }
 
 OGLPLUS_LIB_FUNC
-const char* Error::GLFuncName(void) const
+const char* Error::GLLib(void) const
 {
-#if !OGLPLUS_ERROR_NO_GL_SYMBOL
+#if !OGLPLUS_ERROR_NO_GL_LIB
+	return _gllib_name;
+#else
+	return nullptr;
+#endif
+}
+
+OGLPLUS_LIB_FUNC
+const char* Error::GLFunc(void) const
+{
+#if !OGLPLUS_ERROR_NO_GL_FUNC
 	return _glfunc_name;
 #else
 	return nullptr;
