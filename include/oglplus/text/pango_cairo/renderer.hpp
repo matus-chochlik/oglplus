@@ -19,6 +19,7 @@
 #include <oglplus/text/pango_cairo/layout.hpp>
 #include <oglplus/context.hpp>
 #include <oglplus/vertex_array.hpp>
+#include <oglplus/uniform.hpp>
 
 
 namespace oglplus {
@@ -33,8 +34,8 @@ private:
 
 	Program _program;
 
-	LazyUniformSampler _bitmap;
-	LazyUniform<Vec4f> _log_coords, _tex_coords;
+	UniformSampler _bitmap;
+	Uniform<Vec4f> _log_coords, _tex_coords;
 protected:
 	const Program& _get_program(void) const
 	{
@@ -49,7 +50,7 @@ public:
 	void Use(void)
 	{
 		_program.Use();
-		VertexArray::Unbind();
+		NoVertexArray().Bind();
 	}
 
 	void Render(const PangoCairoLayout& layout)

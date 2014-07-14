@@ -68,8 +68,10 @@ Error::Error(const char* message)
 #if !EGLPLUS_ERROR_NO_LINE
  , _line(0)
 #endif
-#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_FUNC
  , _eglfunc_name(nullptr)
+#endif
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
  , _enumpar_name(nullptr)
  , _enumpar(0)
 #endif
@@ -106,9 +108,9 @@ unsigned Error::SourceLine(void) const
 }
 
 EGLPLUS_LIB_FUNC
-const char* Error::EGLFuncName(void) const
+const char* Error::EGLFunc(void) const
 {
-#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_FUNC
 	return _eglfunc_name;
 #else
 	return nullptr;

@@ -7,7 +7,7 @@
 	[lang en]
 	[id index]
 	[authors [Chochlík, Matúš]]
-	[copyright 2014 Matúš Chochlík]
+	[copyright 2008-2014 Matúš Chochlík]
 	[source-mode c++]
 	[license
 		Distributed under the Boost Software License, Version 1.0.
@@ -16,7 +16,27 @@
 	]
 ]
 
-[def OGLplus [@http://oglplus.org OGLplus]]
+[/------]
+[/Macros]
+[/------]
+
+[template header [path] [*[^#include]] [^<[path]>]]
+
+
+[def __OGLplus__ [@ http://oglplus.org/ OGLplus]]
+[def __OpenGL__ [@ http://www.opengl.org/ OpenGL]]
+[def __OpenAL__ ['OpenAL]]
+[def __GLEW__ ['GLEW]]
+[def __GL3W__ ['GL3W]]
+[def __LibPNG__ ['LibPNG]]
+[def __Pango_Cairo__ ['Pango/Cairo]]
+
+
+[def nullptr [^nullptr]]
+
+[/--------]
+[/Chapters]
+[/--------]
 
 [include oglplus.qbk]
 [include oalplus.qbk]

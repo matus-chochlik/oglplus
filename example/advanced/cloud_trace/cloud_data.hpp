@@ -15,7 +15,7 @@
 #include "resources.hpp"
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/buffer.hpp>
 #include <oglplus/math/matrix.hpp>
 

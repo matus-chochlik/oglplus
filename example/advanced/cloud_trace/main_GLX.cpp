@@ -17,7 +17,7 @@
 #include "threads.hpp"
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 
 #include <oglplus/glx/context.hpp>
 #include <oglplus/glx/fb_configs.hpp>

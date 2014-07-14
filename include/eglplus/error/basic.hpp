@@ -53,8 +53,10 @@ private:
 #if !EGLPLUS_ERROR_NO_LINE
 	unsigned _line;
 #endif
-#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_FUNC
 	const char* _eglfunc_name;
+#endif
+#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
 	const char* _enumpar_name;
 	EGLenum _enumpar;
 #endif
@@ -131,9 +133,9 @@ public:
 	 */
 	unsigned SourceLine(void) const;
 
-	Error& EGLFuncName(const char* func_name)
+	Error& EGLFunc(const char* func_name)
 	{
-#if !EGLPLUS_ERROR_NO_EGL_SYMBOL
+#if !EGLPLUS_ERROR_NO_EGL_FUNC
 		_eglfunc_name = func_name;
 #endif
 		(void)func_name;
@@ -149,7 +151,7 @@ public:
 	 *  If set to zero this function behaves as described above, otherwise it
 	 *  returns nullptr.
 	 */
-	const char* EGLFuncName(void) const;
+	const char* EGLFunc(void) const;
 
 	template <typename Enum_>
 	Error& EnumParam(Enum_ param)
@@ -232,7 +234,7 @@ inline void HandleError(ErrorType& error)
 		eglGetError(),\
 		ERROR::Message(error_code),\
 		ERROR,\
-		ERROR_INFO.EGLFuncName(FUNC_NAME)\
+		ERROR_INFO.EGLFunc(FUNC_NAME)\
 	)
 
 #define EGLPLUS_CHECK(EGLFUNC, ERROR, ERROR_INFO) \

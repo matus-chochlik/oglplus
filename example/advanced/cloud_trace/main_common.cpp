@@ -12,7 +12,7 @@
 #include "app_data.hpp"
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 #include <oglplus/error/basic.hpp>
 
 #include <stdexcept>
@@ -62,10 +62,10 @@ inline void print_error_common(
 			<< std::endl;
 	}
 	print_std_error_common(error, errstr);
-	if(error.GLFuncName())
+	if(error.GLFunc())
 	{
 		errstr	<< "GL function: '"
-			<< error.GLFuncName()
+			<< error.GLFunc()
 			<< "'"
 			<< std::endl;
 	}

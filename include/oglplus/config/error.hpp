@@ -15,12 +15,20 @@
 
 #include <oglplus/config/object.hpp>
 
+#ifndef OGLPLUS_ERROR_NO_GL_LIB
+# define OGLPLUS_ERROR_NO_GL_LIB 0
+#endif
+
+#ifndef OGLPLUS_ERROR_NO_GL_FUNC
+# define OGLPLUS_ERROR_NO_GL_FUNC 0
+#endif
+
 #if OGLPLUS_DOCUMENTATION_ONLY
 /// Compile-time switch disabling the ErrorGLSymbol attribute of ErrorInfo
 /**
- *  @see Error::GLFuncName()
+ *  @see Error::GLFunc()
  *
- *  By default this option is set to 0, i.e. Error::GLFuncName is enabled.
+ *  By default this option is set to 0, i.e. Error::GLFunc is enabled.
  *
  *  @ingroup compile_time_config
  */

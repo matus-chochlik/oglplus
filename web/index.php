@@ -26,17 +26,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 </script>
-<link href="https://plus.google.com/111370363075881134099/" rel="publisher" />
-<script type="text/javascript">
-/* <![CDATA[ */
-(function() {
-	var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-	s.type = 'text/javascript';
-	s.async = true;
-	s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-	t.parentNode.insertBefore(s, t);
-})();
-/* ]]> */</script>
+<link href="https://plus.google.com/+OglplusOrg/" rel="publisher" />
 </head>
 <body>
 <div id="main-title">
@@ -46,7 +36,7 @@
 	<div id="head">
 		<div id="top">
 				Visit the <em>OGLplus</em> pages on
-				<a href="https://plus.google.com/111370363075881134099/?prsrc=3" style="text-decoration: none;">
+				<a href="https://plus.google.com/+OglplusOrg/?prsrc=3" style="text-decoration: none;">
 					<img src="https://ssl.gstatic.com/images/icons/gplus-32.png"
 						width="32" height="32"
 						style="border: 0;"
@@ -69,10 +59,6 @@
 
 				for recent news and more info.
 				<hr class="top-div"/>
-				<!-- Flattr box -->
-				<div id="flattr-box">
-					<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://oglplus.org/"></a>
-				</div>
 				<!-- AddThis Button BEGIN -->
 				<div id="addthis-box" class="addthis_toolbox addthis_default_style ">
 				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -163,14 +149,13 @@
 					<h3>Media</h3>
 					<ul>
 						<li id="screenshots"><a href="oglplus/html/oglplus_screenshot_gallery.html">Screenshots</a></li>
-						<li id="videos"><a href="https://plus.google.com/u/0/111370363075881134099/videos">Videos</a></li>
+						<li id="videos"><a href="https://plus.google.com/u/0/+OglplusOrg/videos">Videos</a></li>
 					</ul>
 					<h3>Follow OGLplus</h3>
 					<ul>
 						<li id="github"><a href="https://github.com/matus-chochlik/oglplus">GitHub</a></li>
 						<li id="sourceforge"><a href="http://sourceforge.net/projects/oglplus/">Sourceforge</a></li>
-						<li id="freecode"><a href="http://freecode.com/projects/oglplus">Freecode</a></li>
-						<li id="g-plus"><a href="https://plus.google.com/111370363075881134099/?prsrc=3">Google+ news page</a></li>
+						<li id="g-plus"><a href="https://plus.google.com/+OglplusOrg/?prsrc=3">Google+ news page</a></li>
 						<li id="linkedin"><a href="http://www.linkedin.com/groups/OGLplus-4592626">LinkedIn group</a></li>
 						<li id="ohloh"><a href="http://www.ohloh.net/p/oglplus">Ohloh</a></li>
 					</ul>
@@ -181,18 +166,18 @@
 				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 				<script src="galleria/galleria-1.2.5.min.js"></script>
 				<div id="gallery">
-					<img src="oglplus/html/020_octree.png"/>
+					<img src="oglplus/html/007_voronoi.png"/>
 					<img src="oglplus/html/021_translucent_arrow.png"/>
 					<img src="oglplus/html/022_blender_mesh.png"/>
-					<img src="oglplus/html/022_vase.png"/>
 					<img src="oglplus/html/022_parallax_map.png"/>
 					<img src="oglplus/html/023_sky.png"/>
 					<img src="oglplus/html/026_furry_torus.png"/>
-					<img src="oglplus/html/026_shape_halo.png"/>
+					<img src="oglplus/html/026_ssao.png"/>
 					<img src="oglplus/html/026_stencil_shadow.png"/>
 					<img src="oglplus/html/027_brain_scan_vis.png"/>
 					<img src="oglplus/html/028_depth_map_sss.png"/>
 					<img src="oglplus/html/028_ripples.png"/>
+					<img src="oglplus/html/029_gpu_sort_tfb.png"/>
 					<img src="oglplus/html/029_fire_hydrant.png"/>
 					<img src="oglplus/html/030_light_rays.png"/>
 					<img src="oglplus/html/030_pin_display.png"/>

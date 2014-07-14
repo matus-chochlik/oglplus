@@ -8,9 +8,9 @@
  */
 
 #include <oglplus/gl.hpp>
-#include <oglplus/fix_gl_version.hpp>
+#include <oglplus/config/fix_gl_version.hpp>
 
-#include <oglplus/site_config.hpp>
+#include <oglplus/config/site.hpp>
 
 #include <wx/wx.h>
 #include <wx/sizer.h>
@@ -102,11 +102,11 @@ inline wxString MakeCommonErrorMessage(oglplus::Error& error)
 			wxString(error.SourceFunc(), wxConvLocal).c_str()
 		));
 	}
-	if(error.GLFuncName())
+	if(error.GLFunc())
 	{
 		message.Append(wxString::Format(
 			wxT("GL function: '%s'\r\n"),
-			wxString(error.GLFuncName(), wxConvLocal).c_str()
+			wxString(error.GLFunc(), wxConvLocal).c_str()
 		));
 	}
 

@@ -21,9 +21,13 @@ Error::Error(const char* message)
 #if !OALPLUS_ERROR_NO_LINE
  , _line(0)
 #endif
-#if !OALPLUS_ERROR_NO_AL_SYMBOL
- , _allib_name(nullptr)
+#if !OALPLUS_ERROR_NO_AL_LIB
+ , _allib_name("al")
+#endif
+#if !OALPLUS_ERROR_NO_AL_FUNC
  , _alfunc_name(nullptr)
+#endif
+#if !OALPLUS_ERROR_NO_AL_SYMBOL
  , _enumpar_name(nullptr)
  , _enumpar(0)
  , _index(-1)
@@ -61,9 +65,9 @@ unsigned Error::SourceLine(void) const
 }
 
 OALPLUS_LIB_FUNC
-const char* Error::ALLibName(void) const
+const char* Error::ALLib(void) const
 {
-#if !OALPLUS_ERROR_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_LIB
 	return _allib_name;
 #else
 	return nullptr;
@@ -71,9 +75,9 @@ const char* Error::ALLibName(void) const
 }
 
 OALPLUS_LIB_FUNC
-const char* Error::ALFuncName(void) const
+const char* Error::ALFunc(void) const
 {
-#if !OALPLUS_ERROR_NO_AL_SYMBOL
+#if !OALPLUS_ERROR_NO_AL_FUNC
 	return _alfunc_name;
 #else
 	return nullptr;
