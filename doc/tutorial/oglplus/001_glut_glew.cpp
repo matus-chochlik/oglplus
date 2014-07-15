@@ -29,22 +29,22 @@
  *  to use C assertions and C++ input/output streams.
  *  @until #include <iostream>
  *
- *  Next we'll include the main header of the GLEW library which declares the
+ *  Include the main header of the GLEW library, which declares the
  *  OpenGL 3 function prototypes, typedefs, enumerations, etc.
  *  @until #include <GL/glew.h>
  *
- *  Then we include the main header of the GLUT library. GLUT defines functions
+ *  Include the main header of the GLUT library. GLUT defines functions
  *  for GL initialization, window creation, user input and event handling, etc.
  *  @until #include <GL/glut.h>
  *
- *  Finally let's include the @OGLplus's main header file. Note that before this
+ *  Include the @OGLplus's main header file. Before this
  *  file is included the OpenGL 3 function prototypes and other symbols must
  *  already be declared. As said above, we use the GLEW library to achieve
  *  it in this tutorial, there are however also other ways of doing it.
  *  @until #include <oglplus/all.hpp>
  *
- *  The @OGLplus -related code which does the actual rendering is encapsulated
- *  in the @c Example class. It contains objects which store the shading
+ *  The @OGLplus -related code that does the actual rendering is encapsulated
+ *  in the @c Example class. It contains objects that store the shading
  *  program and its individual shaders, objects storing and managing the
  *  vertex data and a wrapper around the current OpenGL context.
  *  @until {
@@ -53,11 +53,11 @@
  *  @until private:
  *
  *  The @c Context class encapsulates the current context functionality.
- *  It mainly wraps functions which are not related to other OpenGL objects
+ *  It mainly wraps functions that are not related to other OpenGL objects
  *  like shaders, programs, buffers, textures, queries and so on.
  *  @until oglplus::Context gl;
  *
- *  Next there is a vertex shader object that usually handles vertex
+ *  There is a vertex shader object that usually handles vertex
  *  attribute transformations and may pass or emit other per-vertex data
  *  to the following stages of the OpenGL's pipeline.
  *  The shader will be invoked once per every vertex in the rendered primitives.
@@ -81,16 +81,16 @@
  *  Many of these tasks are driven by the program's shaders.
  *  @until oglplus::Program prog;
  *
- *  Next line declares a vertex array object (VAO) for the triangle that
+ *  Declare a vertex array object (VAO) for the triangle that
  *  will be rendered. A VAO encapsulates the state related to the definition
  *  of data that will be used by the vertex processor to draw a sequence of
- *  primitives which usually form a more complex geometric shape.
+ *  primitives that usually form a more complex geometric shape.
  *  @until oglplus::VertexArray triangle;
  *
  *  The actual vertex data is stored in (vertex) buffer objects (VBOs).
  *  This example uses only the positions of the vertices, thus there
  *  is only a single buffer. In cases where a single vertex has multiple
- *  attributes (position, colors, texture coordinates, normal, tangenial,
+ *  attributes (position, colors, texture coordinates, normal, tangential,
  *  and binormal vectors, etc.) there would be multiple buffers and these
  *  buffers would be collected in a VAO. The buffer objects represent data
  *  stored in the server's memory.
@@ -101,7 +101,7 @@
  *  @until public:
  *
  *  The constructor does not take any arguments and it is responsible for
- *  initializing the private members already described above.
+ *  initializing the private members described above.
  *  @until {
  *
  *  The constructor uses several functions and types from the @c oglplus
@@ -111,14 +111,14 @@
  *  of name clashes with symbols from other libraries.
  *  @until using namespace oglplus;
  *
- *  First we'll set the source code for out vertex shader.
+ *  Set the source code for out vertex shader.
  *  @skipline vs.Source("
  *
- *  The first line says which version of the OpenGL Shading language (GLSL)
+ *  Specify which version of the OpenGL Shading language (GLSL)
  *  we are using;
  *  @until #version
  *
- *  Next line specifies the @c Position input variable of the vertex shader.
+ *  Specify the @c Position input variable of the vertex shader.
  *  Since the vertex shader is the first stage of the rendering pipeline,
  *  the values of the input variables of vertex shaders are consumed from the
  *  vertex attribute values which can be stored in vertex buffer objects (VBOs).
@@ -173,24 +173,24 @@
  *  @skipline prog.AttachShader(vs);
  *  @until    prog.AttachShader(fs);
  *
- *  Now we try to link and use the program. If the linking process fails
+ *  Try to link and use the program. If the linking process fails
  *  it throws an exception with output from the shading program linker
  *  with information about the cause of the error.
  *  @skipline prog.Link();
  *  @until    prog.Use();
  *
- *  Now we can input the vertex data for the rendered triangle. We start by
+ *  Input the vertex data for the rendered triangle. We start by
  *  @em binding the VAO. This will cause that the following operations
  *  related to vertex data specification will affect the @c triangle object.
  *  @skipline triangle.Bind();
  *
- *  Next we define an array of float values for vertex positions.
+ *  Define an array of float values for vertex positions.
  *  There are 3 values per each vertex (the x, y and z coodrinate) and since
  *  we are rendering a triangle there are three vertices, lying on the z-plane
  *  with the following x and y coordinates [0, 0], [1, 0] and [0, 1]:
  *  @until };
  *
- *  Now we @em bind the VBO that will hold the vertex data in server memory
+ *  @em Bind the VBO that will hold the vertex data in server memory
  *  to the @c ARRAY_BUFFER @em target (or binding point). Since we've currently
  *  bound the @c triangle VAO, this will attach the @c verts buffer object
  *  to the @c triangle vertex array object.
@@ -212,13 +212,13 @@
  *  @c Position in the shading program @c prog. Since @c verts is the currently
  *  bound VBO to the @c ARRAY_BUFFER target, the operations on the @c vert_attr
  *  vertex attribute array object will also operate on this buffer.
- *  @skipline VertexAttribArray vert_attr(prog, "Position");
+ *  @skipline VertexArrayAttrib vert_attr(prog, "Position");
  *
- *  First we need to say that there are three values per-vertex (3 coordinates)
+ *  Specify that there are three values per-vertex (3 coordinates)
  *  and that the data is of @c GLfloat type.
- *  @until vert_attr.Setup(3, DataType::Float);
+ *  @until vert_attr.Setup<GLfloat>(3);
  *
- *  Now we enable this vertex attribute array,
+ *  Enable this vertex attribute array,
  *  @until vert_attr.Enable();
  *  and we are done specifying the vertex data.
  *
@@ -262,9 +262,9 @@
  *  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
  *  @endcode
  *
- *  Now we use the @c DrawArrays command to draw some @c Triangles from the
+ *  Use the @c DrawArrays command to draw some @c Triangles from the
  *  vertex data managed by the currently bound VAO (which is still @c triangle
- *  since we did not bind any other VAO). More preciselly we want to draw
+ *  since we did not bind any other VAO). More precisely we want to draw
  *  3 vertices starting at index 0 from the data stored in the buffers attached
  *  to this VAO.
  *  @skipline gl.DrawArrays
@@ -272,8 +272,8 @@
  *  With this is we finish the @c Display function and the @c Example class.
  *  @until };
  *
- *  The next class manages a single instance if the @c Example class, defined
- *  above and it is necessary because the GLUT library is a little weird and
+ *  A class that manages a single instance of the @c Example class, defined
+ *  above. It is necessary because the GLUT library is a little weird and
  *  does not allow to specify contextual data for its individual callbacks
  *  (functions handling various events like user input, window redraw, etc.)
  *  directly.
@@ -285,11 +285,11 @@
  *  to the single instance of @c Example that does the rendering.
  *  @until }
  *
- *  We continue by disabling of the copy-construction for this class, which
- *  would only mess things up very badly.
+ *  Disable the copy-construction for this class, which
+ *  would only mess things up.
  *  @until SingleExample
  *
- *  Next we define a constructor that instantiates a single @c Example and
+ *  Define a constructor that instantiates a single @c Example and
  *  stores the address of the new instace in the pointer managed by
  *  @c SingleInstance. Note that only one instance of @c SingleExample
  *  can exist at a time.
@@ -311,23 +311,23 @@
  *  This finishes the declaration of the @c SingleExample helper class
  *  @until };
  *
- *  The main function of this example application starts by initalizing the
+ *  The main function of this example application starts by initializing the
  *  GLUT library:
  *  @skipline int main
  *  @until glutInit
  *
- *  Then we let it initialize the default framebuffer, we want double buffering,
+ *  Let it initialize the default framebuffer. We want double buffering,
  *  RGBA color buffer and a depth buffer.
  *  @skipline glutInitDisplayMode
  *
- *  We set the dimensions and the position and we let GLUT create the main
+ *  Set the dimensions and the position and we let GLUT create the main
  *  window for this application.
  *  @until glutCreateWindow
  *
- *  We try to initialize the GLEW library. Note that a real-life application
+ *  Try to initialize the GLEW library. Note that a real-life application
  *  using GLEW needs to check if the desired functions are available. Otherwise
  *  it may crash with a segmentation fault or result in undefined behavior. Here
- *  the checks are ommited for the sake of simplicity.
+ *  the checks are omitted for the sake of simplicity.
  *  @skipline glewInit
  *  @until {
  *
@@ -337,22 +337,22 @@
  *  above).
  *  @skipline SingleExample example
  *
- *  Then we tell GLUT to use @c SingleExample 's @c Display function as the
+ *  Tell GLUT to use @c SingleExample 's @c Display function as the
  *  display callback function and we start the main loop, which will start
  *  event processing and redrawing of the window, which in turn will result
  *  in calling of the @c Example 's @c Display function.
  *  If everything goes OK we exit the program with code 0.
  *  @until return 0;
  *
- *  If during the initialization or rendering an exception was thrown
- *  by @c oglplus, it will be caught here and some diagnostic info
+ *  If an exception was thrown
+ *  by @c oglplus during the initialization or rendering, it will be caught here, some diagnostic info
  *  will be printed to error output and the application will
  *  exit with code 1.
  *  We end up here also if the initialization of the GLEW library failed
  *  for some reason.
  *  @until return 1;
  *
- *  This concludes the @c main function and our example's souce code:
+ *  This concludes the @c main function and our example's souce code.
  *  @until }
  */
 

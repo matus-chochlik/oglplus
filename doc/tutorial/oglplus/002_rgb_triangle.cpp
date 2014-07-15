@@ -28,11 +28,11 @@
  *  functions, constants, etc.
  *  @skipline #include <oglplus/gl.hpp>
  *
- *  The next line includes everything from @OGLplus, except the image loaders
+ *  Include everything from @OGLplus, except the image loaders
  *  and generators and geometric shape data generators.
  *  @skipline #include <oglplus/all.hpp>
  *
- *  Now we include the header declaring the base class for @OGLplus examples.
+ *  The header declaring the base class for @OGLplus examples.
  *  @skipline #include "example.hpp"
  *
  *  Since this is an example that comes with the library it is implemented
@@ -42,7 +42,7 @@
  *  @code
  *  using namespace oglplus;
  *  @endcode
- *  Doing this however on the global scope may cause name clashes with other
+ *  Doing this on the global scope may cause name clashes with other
  *  libraries especially in larger applications, so it may be a better idea
  *  to use fully qualified names or apply the @c using directive only in local
  *  scopes.
@@ -75,7 +75,7 @@
  *  directive.
  *  @until #version
  *
- *  Then we declare the input variables of the vertex shader; @c Position
+ *  Declare the input variables of the vertex shader; @c Position
  *  for vertex positions and @c Color for vertex colors.
  *  @until in vec3 Color
  *
@@ -128,21 +128,21 @@
  *  by using the @c Buffer 's @c Data static function.
  *  @skipline Buffer::Data(
  *
- *  Then we use a oglplus::VertexAttribArray object referencing the @c Position
+ *  Then we use a oglplus::VertexArrayAttrib object referencing the @c Position
  *  input variable in the @c prog program, to tell OpenGL about the structure
  *  of the data in the currently bound VBO and to enable this vertex attribute.
- *  @skipline VertexAttribArray(prog
+ *  @skipline VertexArrayAttrib(prog
  *
  *  Now we repeat the steps above, for the second vertex attribute, specifying
  *  the colors of the individual vertices:
  *  @skipline GLfloat triangle_colors
- *  @until VertexAttribArray(prog
+ *  @until VertexArrayAttrib(prog
  *
  *  That's it for the vertex data specification. As the last step of initialization
  *  we specify the clear value for the color buffer and disable the depth test.
  *  @until }
  *
- *  The @c Reshape function get called when the window is created and everytime
+ *  The @c Reshape function gets called when the window is created and everytime
  *  the window's size changes. Here we tell the GL that the rendering viewport
  *  has changed.
  *  @skipline void Reshape
@@ -152,7 +152,7 @@
  *  tutorial; we clear the color buffer and we tell the GL to draw
  *  triangle from the vertex data stored in the buffer objects tied to the currently
  *  bound VAO, which is still @c triangle, because we didn't bind any other VAO since
- *  initialization. More preciselly we draw the triangle composed from 3 vertices
+ *  initialization. More precisely we draw the triangle composed from 3 vertices
  *  starting at index 0 in the buffers.
  *  @skipline void Render
  *  @until }
@@ -161,7 +161,7 @@
  *  @until };
  *
  *  The last thing in this example's source is the @c makeExample function.
- *  This function is called by shared internal piece of code (that comes together
+ *  This function is called by shared internal piece of code (that comes with
  *  with the examples) which does the initialization and event processing
  *  common to all the examples. @c makeExample creates an instance of our
  *  @c TriangleExample class. The common code then calls the event handler functions
