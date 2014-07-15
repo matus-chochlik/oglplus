@@ -142,14 +142,14 @@ Requirements
    The library to be used can be explicitly specified with the ``--use-gl-header-lib``
    option or with one of the ``--use-*`` options of the ``configure`` script.
 
- - A library initializing the default rendering context (required) -- Currently 
+ - A library initializing the default rendering context (required) -- Currently
    the examples can be built if at least one of the following libraries is
    installed on the system: X11+GLX, `FreeGLUT`_, `GLFW`_, `SDL`_, `wxGL`_ or `Qt`_.
    The build system detects the presence of these libraries and configures
    compilation and linking of the examples accordingly.
    The library to be used can be explicitly specified with the ``--use-gl-header-lib``
    option or with one of the ``--use-*`` options of the ``configure`` script (see below).
-   
+
 
  - `libPNG`_ (optional) -- Some examples and some classes provided by OGLplus use libPNG to load
    PNG files. These are however not required for the general use of OGLplus,
@@ -169,7 +169,7 @@ For the configuration using GLFW+GLEW you would need the following:
 
 ::
 
- sudo apt-get install doxygen cmake g++ libglew-dev glfw-dev libpng12-dev
+ sudo apt-get install doxygen cmake g++ libglew-dev libglfw-dev libpng12-dev
 
 These two configs mentioned above are usually the ones that work on most systems.
 Of course other combinations of the 'GL-API' and 'GL-Context' libraries
@@ -221,20 +221,20 @@ Some of the more important command-line options are described below:
                     the value of the CMAKE_INSTALL_PREFIX variable).
                     If this option is not specified, cmake's default prefix is used.
 
---include-dir PATH    This option allows to specify additional directiories
+--include-dir PATH    Specify additional directiories
                       to search when looking for header files. It may be used multiple
-                      times to specify multiple directories. Headers are then searched
+                      times to specify multiple directories. Headers are searched
                       in the directories specified with this option in the same order
                       in which they appear on the command-line and the default system
                       header locations are searched only afterwards. The first header
                       found is used, in case there are multiple versions of the searched
                       header file.
-                   
 
---library-dir PATH    This option allows to specify additional directiories
+
+--library-dir PATH    Specify additional directiories
                       to search when looking for compiled libraries. It may be used
                       multiple times to specify multiple directories. Libraries are
-                      then searched in the directories specified with this option
+                      searched in the directories specified with this option
                       in the same order in which they appear on the command-line
                       and the default system library locations are searched afterwards.
                       The first library found is used, in case there are multiple
