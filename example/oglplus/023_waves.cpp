@@ -162,10 +162,10 @@ public:
 
 			"	vec3 Pos = Position;"
 			"	vec3 Nml = Up;"
-			"	for(int w=0; w!=WaveCount; ++w)"
+			"	for(int wave=0; wave!=WaveCount; ++wave)"
 			"	{"
-			"		vec3 Dir = WaveDirections[w];"
-			"		vec3 Dim = WaveDimensions[w];"
+			"		vec3 Dir = WaveDirections[wave];"
+			"		vec3 Dim = WaveDimensions[wave];"
 			"		float Dist = dot(Position, Dir);"
 
 			"		float u = Dim.y*sin(Dist/Dim.x + Time*Dim.z);"
