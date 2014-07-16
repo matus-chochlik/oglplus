@@ -101,9 +101,6 @@ Requirements
    * ``clang++`` (at least version 3.0) - possibly with some limitations
      due to the lack of support for some C++11 features
 
-   * ``MSVC 2010`` - with some limitations due to the lack of support for
-     some C++11 features
-
    * ``MSVC 2012`` - with some limitations due to the lack of support for
      some C++11 features
 
@@ -252,14 +249,13 @@ line arguments for the ``configure-oglplus`` configuration script that invokes
 Other build environments
 ========================
 
-Microsoft Visual Studio 2010 and 2012
-----------------------------------------------
+Microsoft Visual Studio 2012
+----------------------------
 
-OGLplus contains two solution files and a set of project files for building
-some of the examples in MSVC 2010 and 2012.
-The solutions are located at the following paths:
+OGLplus contains a solution file and a set of project files for building
+some of the examples in MSVC 2012.
+The solution is located at the following path:
 
-- ``$(OGLplusRoot)/etc/msvc10/OGLplus/OGLplus.sln``
 - ``$(OGLplusRoot)/etc/msvc11/OGLplus/OGLplus.sln``
 
 To build properly, it requires GLEW (1.9 or higher) and FreeGLUT libraries
