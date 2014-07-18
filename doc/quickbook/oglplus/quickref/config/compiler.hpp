@@ -29,7 +29,7 @@ of Boost.Config is disabled by default.
 #endif
 
 // The default values for the preprocessor symbols indicating
-// compiler capabilities is defined here.
+// compiler capabilities are also defined here.
 
 } // namespace oglplus
 //]

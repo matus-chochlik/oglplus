@@ -251,8 +251,8 @@ unsigned SpectraDefaultGPUMatrixTransf::BeginTransform(
 
 	input_buf.Bind(Buffer::Target::Texture);
 	Buffer::SubData(
-		Buffer::Target::Texture,
-		current_transform*in_size,
+		BufferTarget::Texture,
+		BufferSize::Of<float>(current_transform*in_size),
 		in_size,
 		input
 	);

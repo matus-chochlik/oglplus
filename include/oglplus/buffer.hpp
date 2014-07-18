@@ -22,6 +22,7 @@
 #include <oglplus/buffer_storage_bit.hpp>
 #include <oglplus/buffer_target.hpp>
 #include <oglplus/buffer_map.hpp>
+#include <oglplus/buffer_size.hpp>
 #include <oglplus/buffer_gpu_addr.hpp>
 #include <oglplus/access_specifier.hpp>
 #include <oglplus/math/vector.hpp>
@@ -158,16 +159,16 @@ public:
 		IndexedTarget target,
 		GLuint index,
 		BufferName buffer,
-		GLintptr offset,
-		GLsizeiptr size
+		BufferSize offset,
+		BufferSize size
 	)
 	{
 		OGLPLUS_GLFUNC(BindBufferRange)(
 			GLenum(target),
 			index,
 			GetGLName(buffer),
-			offset,
-			size
+			GLintptr(offset.Get()),
+			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_VERIFY(
 			BindBufferRange,
@@ -347,8 +348,8 @@ public:
 	void BindRange(
 		IndexedTarget target,
 		GLuint index,
-		GLintptr offset,
-		GLsizeiptr size
+		BufferSize offset,
+		BufferSize size
 	) const
 	{
 		BindRange(target, index, *this, offset, size);
@@ -384,12 +385,12 @@ public:
 	 *
 	 *  @glvoereq{4,3,ARB,invalidate_subdata}
 	 */
-	void InvalidateSubData(GLintptr offset, GLsizeiptr size)
+	void InvalidateSubData(GLintptr offset, BufferSize size)
 	{
 		OGLPLUS_GLFUNC(InvalidateBufferSubData)(
 			_name,
 			offset,
-			size
+			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
 			InvalidateBufferSubData,
@@ -439,6 +440,36 @@ public:
 		return GetIntParam(target, GL_BUFFER_MAPPED) == GL_TRUE;
 	}
 #endif // GL_VERSION_3_0
+
+	/// Allocates buffer storage to the specified size without any data
+	/** This member function allows to (re-)allocate the buffer storage
+	 *  to the specifies @p size, without uploading any data.
+	 *
+	 *  @glsymbols
+	 *  @glfunref{BufferData}
+	 *
+	 *  @see SubData
+	 *  @throws Error
+	 */
+	static void Resize(
+		Target target,
+		BufferSize size,
+		BufferUsage usage = BufferUsage::StaticDraw
+	)
+	{
+		OGLPLUS_GLFUNC(BufferData)(
+			GLenum(target),
+			size.Get(),
+			nullptr,
+			GLenum(usage)
+		);
+		OGLPLUS_CHECK(
+			BufferData,
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(usage)
+		);
+	}
 
 	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
@@ -559,14 +590,14 @@ public:
 	template <typename GLtype>
 	static void SubData(
 		Target target,
-		GLintptr offset,
+		BufferSize offset,
 		GLsizei count,
 		const GLtype* data
 	)
 	{
 		OGLPLUS_GLFUNC(BufferSubData)(
 			GLenum(target),
-			offset * sizeof(GLtype),
+			GLintptr(offset.Get()),
 			count * sizeof(GLtype),
 			data
 		);
@@ -580,13 +611,13 @@ public:
 	template <typename GLtype, std::size_t Count>
 	static void SubData(
 		Target target,
-		GLintptr offset,
+		BufferSize offset,
 		const GLtype (&data)[Count]
 	)
 	{
 		OGLPLUS_GLFUNC(BufferSubData)(
 			GLenum(target),
-			offset * sizeof(GLtype),
+			GLintptr(offset.Get()),
 			Count * sizeof(GLtype),
 			data
 		);
@@ -606,13 +637,13 @@ public:
 	template <typename GLtype>
 	static void SubData(
 		Target target,
-		GLintptr offset,
+		BufferSize offset,
 		const std::vector<GLtype>& data
 	)
 	{
 		OGLPLUS_GLFUNC(BufferSubData)(
 			GLenum(target),
-			offset * sizeof(GLtype),
+			GLintptr(offset.Get()),
 			data.size() * sizeof(GLtype),
 			data.data()
 		);
@@ -635,17 +666,17 @@ public:
 	static inline void CopySubData(
 		BufferTarget readtarget,
 		BufferTarget writetarget,
-		GLintptr readoffset,
-		GLintptr writeoffset,
-		GLsizeiptr size
+		BufferSize readoffset,
+		BufferSize writeoffset,
+		BufferSize size
 	)
 	{
 		OGLPLUS_GLFUNC(CopyBufferSubData)(
 			GLenum(readtarget),
 			GLenum(writetarget),
-			readoffset,
-			writeoffset,
-			size
+			GLintptr(readoffset.Get()),
+			GLintptr(writeoffset.Get()),
+			GLsizeiptr(size.Get())
 		);
 		OGLPLUS_CHECK(
 			CopyBufferSubData,
@@ -705,8 +736,8 @@ public:
 	static void ClearSubData(
 		Target target,
 		PixelDataInternalFormat internal_format,
-		GLintptr offset,
-		GLsizeiptr size,
+		BufferSize offset,
+		BufferSize size,
 		PixelDataFormat format,
 		const GLtype* data
 	)
@@ -714,8 +745,8 @@ public:
 		OGLPLUS_GLFUNC(ClearBufferSubData)(
 			GLenum(target),
 			GLenum(internal_format),
-			offset,
-			size,
+			GLintptr(offset.Get()),
+			GLsizeiptr(size.Get()),
 			GLenum(format),
 			GLenum(GetDataType<GLtype>()),
 			data
@@ -744,14 +775,14 @@ public:
 	 */
 	static void Storage(
 		Target target,
-		GLsizeiptr size,
+		BufferSize size,
 		const void* data,
 		Bitfield<BufferStorageBit> flags
 	)
 	{
 		OGLPLUS_GLFUNC(BufferStorage)(
 			GLenum(target),
-			size,
+			GLsizeiptr(size.Get()),
 			data,
 			GLbitfield(flags)
 		);

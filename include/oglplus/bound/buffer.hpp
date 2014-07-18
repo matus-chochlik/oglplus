@@ -73,6 +73,23 @@ public:
 	}
 
 
+	/** Wrapper for Buffer::Resize()
+	 *  @see Buffer::Resize()
+	 */
+	const BoundObjOps& Resize(
+		BufferSize size,
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		ExplicitOps::Resize(
+			this->target,
+			size,
+			usage
+		);
+		return *this;
+	}
+
+
 	/** Wrapper for Buffer::Data()
 	 *  @see Buffer::Data()
 	 */
@@ -152,7 +169,7 @@ public:
 	 */
 	template <typename GLtype>
 	const BoundObjOps& SubData(
-		GLintptr offset,
+		BufferSize offset,
 		GLsizei count,
 		const GLtype * data
 	) const
@@ -172,7 +189,7 @@ public:
 	 */
 	template <typename GLtype, std::size_t Count>
 	const BoundObjOps& SubData(
-		GLintptr offset,
+		BufferSize offset,
 		const GLtype (&data)[Count]
 	) const
 	{
@@ -190,7 +207,7 @@ public:
 	 */
 	template <typename GLtype>
 	const BoundObjOps& SubData(
-		GLintptr offset,
+		BufferSize offset,
 		const std::vector< GLtype > & data
 	) const
 	{
@@ -232,8 +249,8 @@ public:
 	template <typename GLtype>
 	const BoundObjOps& ClearSubData(
 		PixelDataInternalFormat internal_format,
-		GLintptr offset,
-		GLsizeiptr size,
+		BufferSize offset,
+		BufferSize size,
 		PixelDataFormat format,
 		const GLtype * data
 	) const
@@ -256,7 +273,7 @@ public:
 	 *  @see Buffer::Storage()
 	 */
 	const BoundObjOps& Storage(
-		GLsizeiptr size,
+		BufferSize size,
 		const void * data,
 		Bitfield< BufferStorageBit > flags
 	) const
