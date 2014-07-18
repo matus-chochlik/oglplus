@@ -89,6 +89,35 @@ public:
 	}
 
 	/// Uploads (sets) the buffer data
+	/** This member function uploads @p size bytes
+	 *  from the location pointed to by @p data to this buffer
+	 *  using the @p usage as hint.
+	 *
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	void RawData(
+		BufferSize size,
+		const GLvoid* data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	) const
+	{
+		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
+			_name,
+			GLsizei(size.Get()),
+			data,
+			GLenum(usage)
+		);
+		OGLPLUS_CHECK(
+			NamedBufferDataEXT,
+			ObjectError,
+			Object(*this).
+			EnumParam(usage)
+		);
+	}
+
+	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
 	 *  from the location pointed to by @p data to this buffer
 	 *  using the @p usage as hint.
@@ -100,7 +129,7 @@ public:
 	template <typename GLtype>
 	void Data(
 		GLsizei count,
-		GLtype* data,
+		const GLtype* data,
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{
@@ -120,7 +149,7 @@ public:
 
 	template <typename GLtype, std::size_t Count>
 	void Data(
-		GLtype (&data)[Count],
+		const GLtype (&data)[Count],
 		BufferUsage usage = BufferUsage::StaticDraw
 	) const
 	{

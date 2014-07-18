@@ -472,6 +472,36 @@ public:
 	}
 
 	/// Uploads (sets) the buffer data
+	/** This member function uploads @p size bytes
+	 *  from the location pointed to by @p data to the buffer bound
+	 *  to the specified @p target using the @p usage as hint.
+	 *
+	 *  @see SubData
+	 *  @see CopySubData
+	 *  @throws Error
+	 */
+	static void RawData(
+		Target target,
+		BufferSize size,
+		const GLvoid* data,
+		BufferUsage usage = BufferUsage::StaticDraw
+	)
+	{
+		OGLPLUS_GLFUNC(BufferData)(
+			GLenum(target),
+			GLsizei(size.Get()),
+			data,
+			GLenum(usage)
+		);
+		OGLPLUS_CHECK(
+			BufferData,
+			ObjectError,
+			ObjectBinding(target).
+			EnumParam(usage)
+		);
+	}
+
+	/// Uploads (sets) the buffer data
 	/** This member function uploads @p count units of @c sizeof(GLtype)
 	 *  from the location pointed to by @p data to the buffer bound
 	 *  to the specified @p target using the @p usage as hint.
