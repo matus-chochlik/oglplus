@@ -22,7 +22,7 @@ namespace oglplus {
 class BufferSize
 {
 private:
-	GLsizei _size;
+	GLsizeiptr _size;
 public:
 	/// Construction of zero size
 	BufferSize(void)
@@ -30,7 +30,7 @@ public:
 	{ }
 
 	/// Construction of the specified size in bytes
-	BufferSize(GLsizei size)
+	BufferSize(GLsizeiptr size)
 	 : _size(size)
 	{ }
 
@@ -40,7 +40,7 @@ public:
 	{ }
 
 	template <typename T, std::size_t N>
-	BufferSize(const T (&data)[N])
+	BufferSize(const T (&)[N])
 	 : _size(sizeof(T)*N)
 	{ }
 
@@ -55,7 +55,7 @@ public:
 	{ }
 
 	/// Gets the size in bytes
-	GLsizei Get(void) const
+	GLsizeiptr Get(void) const
 	{
 		return _size;
 	}
