@@ -13,6 +13,9 @@
 #ifndef OGLPLUS_BUFFER_SIZE_1310102147_HPP
 #define OGLPLUS_BUFFER_SIZE_1310102147_HPP
 
+#include <vector>
+#include <array>
+
 namespace oglplus {
 
 /// This class represents the size of a GPU buffer in bytes
@@ -26,9 +29,24 @@ public:
 	 : _size(0)
 	{ }
 
-	/// Construction of the specified size
+	/// Construction of the specified size in bytes
 	BufferSize(GLsizei size)
 	 : _size(size)
+	{ }
+
+	template <typename T>
+	BufferSize(unsigned count, const T*)
+	 : _size(sizeof(T)*count)
+	{ }
+
+	template <typename T, std::size_t N>
+	BufferSize(const T (&data)[N])
+	 : _size(sizeof(T)*N)
+	{ }
+
+	template <typename T, std::size_t N>
+	BufferSize(const std::array<T, N>& a)
+	 : _size(sizeof(T)*a.size())
 	{ }
 
 	template <typename T>
@@ -44,9 +62,9 @@ public:
 
 	/// Makes the size of count instances of T
 	template <typename T>
-	static BufferSize Of(unsigned count, const T* = nullptr)
+	static BufferSize Of(unsigned count, const T* data = nullptr)
 	{
-		return BufferSize(sizeof(T)*count);
+		return BufferSize(count, data);
 	}
 
 	/// Add the size of count instances of T
@@ -56,10 +74,9 @@ public:
 		return BufferSize(_size+sizeof(T)*count);
 	}
 
-	template <typename T>
-	BufferSize Add(const std::vector<T>& v)
+	BufferSize Add(const BufferSize& bs)
 	{
-		return BufferSize(_size+sizeof(T)*v.size());
+		return BufferSize(_size+bs._size);
 	}
 };
 
