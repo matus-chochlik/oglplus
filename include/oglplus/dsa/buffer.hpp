@@ -152,33 +152,6 @@ public:
 		Data(BufferData(count, data), usage);
 	}
 
-	/// Uploads (sets) the buffer data
-	/**
-	 *  @see SubData
-	 *  @see CopySubData
-	 *  @throws Error
-	 */
-	template <typename GLtype, std::size_t N>
-	void Data(
-		const std::vector<Vector<GLtype, N> >& data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	) const
-	{
-		//TODO: is this a good idea ?
-		OGLPLUS_GLFUNC(NamedBufferDataEXT)(
-			_name,
-			data.size() * sizeof(GLtype) * N,
-			reinterpret_cast<const GLtype*>(data.data()),
-			GLenum(usage)
-		);
-		OGLPLUS_CHECK(
-			NamedBufferDataEXT,
-			ObjectError,
-			Object(*this).
-			EnumParam(usage)
-		);
-	}
-
 	/// Uploads (sets) a subrange of the buffer data
 	/**
 	 *  @see Data

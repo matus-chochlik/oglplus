@@ -25,7 +25,6 @@
 #include <oglplus/buffer_data.hpp>
 #include <oglplus/buffer_gpu_addr.hpp>
 #include <oglplus/access_specifier.hpp>
-#include <oglplus/math/vector.hpp>
 #include <oglplus/data_type.hpp>
 #include <oglplus/pixel_data.hpp>
 
@@ -536,34 +535,6 @@ public:
 	)
 	{
 		Data(target, BufferData(count, data), usage);
-	}
-
-	/// Uploads (sets) the buffer data
-	/**
-	 *  @see SubData
-	 *  @see CopySubData
-	 *  @throws Error
-	 */
-	template <typename GLtype, std::size_t N>
-	static void Data(
-		Target target,
-		const std::vector<Vector<GLtype, N> >& data,
-		BufferUsage usage = BufferUsage::StaticDraw
-	)
-	{
-		//TODO: is this a good idea ?
-		OGLPLUS_GLFUNC(BufferData)(
-			GLenum(target),
-			data.size() * sizeof(GLtype) * N,
-			reinterpret_cast<const GLtype*>(data.data()),
-			GLenum(usage)
-		);
-		OGLPLUS_CHECK(
-			BufferData,
-			ObjectError,
-			ObjectBinding(target).
-			EnumParam(usage)
-		);
 	}
 
 	static void SubData(
