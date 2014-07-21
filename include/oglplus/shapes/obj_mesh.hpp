@@ -132,12 +132,14 @@ private:
 
 	bool _load_index(
 		GLuint& value,
+		GLuint count,
 		std::string::const_iterator& i,
 		std::string::const_iterator& e
 	);
 
 	bool _load_indices(
 		_vert_indices& indices,
+		const _vert_indices& counts,
 		std::string::const_iterator& i,
 		std::string::const_iterator& e
 	);
