@@ -70,7 +70,7 @@ bool ObjMesh::_load_indices(
 		{
 			++i;
 			if(i == e) return false;
-			if((*i >= '0') && (*i <= '9'))
+			if(*i != '/')
 			{
 				if(!_load_index(indices._tex,counts._tex, i, e))
 				{
