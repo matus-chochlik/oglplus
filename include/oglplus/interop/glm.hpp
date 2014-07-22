@@ -16,7 +16,7 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wshadow"
 
-#if (95 > GLM_VERSION)
+#if (95 < GLM_VERSION)
 #  include <glm/vec2.hpp>
 #  include <glm/vec3.hpp>
 #  include <glm/vec4.hpp>
