@@ -158,26 +158,25 @@ public:
 	 *  @glfunref{ShaderSource}
 	 */
 	ObjectOps& Source(
+		const GLsizei count,
 		const GLchar** srcs,
-		const GLint* lens,
-		int count
+		const GLint* lens
 	)
 	{
 		assert(_name != 0);
 		OGLPLUS_GLFUNC(ShaderSource)(_name, count, srcs, lens);
+		OGLPLUS_VERIFY(
+			ShaderSource,
+			ObjectError,
+			Object(*this)
+		);
 		return *this;
 	}
 
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const String& source)
+	template <typename Src>
+	ObjectOps& SourceTpl(const Src& src)
 	{
-		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[1] = {GLint(source.size())};
-		return Source(srcs, lens, 1);
+		return Source(src.Count(), src.Parts(), src.Lengths());
 	}
 
 	/// Set the source code of the shader
@@ -185,11 +184,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const StrLit& source)
+	ObjectOps& Source(const GLSLString& source)
 	{
-		const GLchar* srcs[1] = {source.c_str()};
-		GLint lens[1] = {GLint(source.size())};
-		return Source(srcs, lens, 1);
+		return SourceTpl(source);
 	}
 
 	/// Set the source code of the shader
@@ -197,50 +194,9 @@ public:
 	 *  @glsymbols
 	 *  @glfunref{ShaderSource}
 	 */
-	ObjectOps& Source(const GLchar* source)
+	ObjectOps& Source(const GLSLStrings& source)
 	{
-		return Source(&source, nullptr, 1);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const GLchar** srcs, int count)
-	{
-		return Source(srcs, nullptr, count);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	ObjectOps& Source(const std::vector<const GLchar*>& srcs)
-	{
-		return Source(
-			const_cast<const GLchar**>(srcs.data()),
-			nullptr,
-			srcs.size()
-		);
-	}
-
-	/// Set the source code of the shader
-	/**
-	 *  @glsymbols
-	 *  @glfunref{ShaderSource}
-	 */
-	template <std::size_t N>
-	ObjectOps& Source(
-		const std::array<const GLchar*, N>& srcs
-	)
-	{
-		return Source(
-			const_cast<const GLchar**>(srcs.data()),
-			nullptr,
-			srcs.size()
-		);
+		return SourceTpl(source);
 	}
 
 	/// Set the source code of the shader
@@ -250,11 +206,7 @@ public:
 	 */
 	ObjectOps& Source(const GLSLSource& glsl_source)
 	{
-		return Source(
-			glsl_source.Parts(),
-			glsl_source.Lengths(),
-			glsl_source.Count()
-		);
+		return SourceTpl(glsl_source);
 	}
 
 	/// Returns true if the shader is already compiled, returns false otherwise

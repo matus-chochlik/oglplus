@@ -906,6 +906,12 @@ private:
 		const GLchar** strings
 	);
 
+	template <typename Src>
+	static GLuint _make(ShaderType shader_type, const Src& source)
+	{
+		return _make(shader_type, source.Count(), source.Parts());
+	}
+
 	void _check(void);
 public:
 	/// Creates a program with a single shader with specified type and source
@@ -914,8 +920,8 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLchar* source
-	): Program(_make(shader_type, 1, &source))
+		const GLSLString& source
+	): Program(_make(shader_type, source))
 	{ _check(); }
 
 	/// Creates a program with a single shader with specified type and source
@@ -924,9 +930,30 @@ public:
 	 */
 	ShaderProgram(
 		ShaderType shader_type,
-		const GLchar* source,
+		const GLSLString& source,
 		ObjectDesc&& object_desc
-	): Program(_make(shader_type, 1, &source), std::move(object_desc))
+	): Program(_make(shader_type, source), std::move(object_desc))
+	{ _check(); }
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		const GLSLStrings& source
+	): Program(_make(shader_type, source))
+	{ _check(); }
+
+	/// Creates a program with a single shader with specified type and source
+	/**
+	 *  @throws ValidationError
+	 */
+	ShaderProgram(
+		ShaderType shader_type,
+		const GLSLStrings& source,
+		ObjectDesc&& object_desc
+	): Program(_make(shader_type, source), std::move(object_desc))
 	{ _check(); }
 
 	/// Creates a program with a single shader with specified type and source
