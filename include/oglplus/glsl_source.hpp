@@ -19,6 +19,8 @@
 #include <oglplus/detail/glsl_source.hpp>
 
 #include <utility>
+#include <vector>
+#include <array>
 #include <cassert>
 
 namespace oglplus {
