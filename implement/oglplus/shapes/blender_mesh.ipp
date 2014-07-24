@@ -677,7 +677,8 @@ Spheref BlenderMesh::GetBoundingSphere(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions BlenderMesh::Instructions(void) const
+DrawingInstructions
+BlenderMesh::Instructions(BlenderMesh::Default) const
 {
 	assert(_mesh_offsets.size() == _mesh_n_elems.size());
 

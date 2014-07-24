@@ -355,8 +355,8 @@ protected:
 public:
 	Grid(const Program& prog, float quality)
 	 : make_grid(1.0, 8 + quality*quality*8)
-	 , grid_instr(make_grid.InstructionsWithAdjacency())
-	 , grid_indices(make_grid.IndicesWithAdjacency())
+	 , grid_instr(make_grid.Instructions(shapes::DrawMode::WithAdjacency()))
+	 , grid_indices(make_grid.Indices(shapes::DrawMode::WithAdjacency()))
 	{
 		// bind the VAO for the shape
 		vao.Bind();

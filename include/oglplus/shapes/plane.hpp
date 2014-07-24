@@ -30,6 +30,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for rendering of a Plane
 class Plane
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	Vec3f _point;
@@ -295,30 +296,30 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const;
+	IndexArray Indices(Default = Default()) const;
 
 	/// Returns the instructions for rendering
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(Default = Default()) const;
 
 #if OGLPLUS_DOCUMENTATION_ONLY || GL_VERSION_4_0
 	/// Returns element indices that are used with the drawing instructions
 	/**
 	 *  glverreq{4,0}
 	 */
-	IndexArray PatchIndices(void) const;
+	IndexArray Indices(Patches) const;
 
 	/// Returns the instructions for rendering
 	/**
 	 *  glverreq{4,0}
 	 */
-	DrawingInstructions PatchInstructions(void) const;
+	DrawingInstructions Instructions(Patches) const;
 #endif
 
 	/// Returns edge element indices that are used with the drawing instructions
-	IndexArray EdgeIndices(void) const;
+	IndexArray Indices(Edges) const;
 
 	/// Returns the instructions for rendering
-	DrawingInstructions EdgeInstructions(void) const;
+	DrawingInstructions Instructions(Edges) const;
 };
 
 } // shapes

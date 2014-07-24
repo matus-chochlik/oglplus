@@ -4,7 +4,7 @@
  *
  *  @author Matus Chochlik
  *
- *  Copyright 2010-2013 Matus Chochlik. Distributed under the Boost
+ *  Copyright 2010-2014 Matus Chochlik. Distributed under the Boost
  *  Software License, Version 1.0. (See accompanying file
  *  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  */
@@ -13,7 +13,8 @@ namespace oglplus {
 namespace shapes {
 
 OGLPLUS_LIB_FUNC
-Grid::IndexArray Grid::Indices(void) const
+Grid::IndexArray
+Grid::Indices(Grid::Default) const
 {
 	unsigned k = 0;
 
@@ -45,7 +46,8 @@ Grid::IndexArray Grid::Indices(void) const
 }
 
 OGLPLUS_LIB_FUNC
-DrawingInstructions Grid::Instructions(void) const
+DrawingInstructions
+Grid::Instructions(Grid::Default) const
 {
 	auto instructions = this->MakeInstructions();
 

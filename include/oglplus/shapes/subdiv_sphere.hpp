@@ -36,6 +36,7 @@ OGLPLUS_ENUM_CLASS_END(SubdivSphereInitialShape)
 /// Class providing vertex attributes and instructions for drawing of a sphere
 class SimpleSubdivSphere
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	GLuint _subdivs;
@@ -110,7 +111,7 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		return IndexArray(_indices.begin(), _indices.end());
 	}
@@ -118,7 +119,7 @@ public:
 	DrawingInstructions Instructions(PrimitiveType mode) const;
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		return Instructions(PrimitiveType::Triangles);
 	}

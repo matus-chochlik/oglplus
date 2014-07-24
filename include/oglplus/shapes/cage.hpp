@@ -26,6 +26,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for rendering of a cage
 class Cage
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	Vector<GLdouble, 3> _size;
@@ -216,10 +217,10 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const;
+	IndexArray Indices(Default = Default()) const;
 
 	/// Returns the instructions for rendering of faces
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(Default = Default()) const;
 };
 
 } // shapes

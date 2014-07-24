@@ -27,6 +27,7 @@ namespace shapes {
 /// Class providing vertex attributes and instructions for rendering of a Sphere
 class Sphere
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	double _radius;
@@ -269,10 +270,10 @@ public:
 	typedef std::vector<GLushort> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const;
+	IndexArray Indices(Default = Default()) const;
 
 	/// Returns the instructions for rendering
-	DrawingInstructions Instructions(void) const;
+	DrawingInstructions Instructions(Default = Default()) const;
 };
 
 } // shapes

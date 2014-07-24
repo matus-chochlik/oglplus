@@ -423,6 +423,16 @@ protected:
 	}
 };
 
+struct DrawMode
+{
+	struct Default { };
+	struct WithAdjacency { };
+	struct Quads { };
+	struct Patches { };
+	struct Edges { };
+};
+
+
 } // shapes
 } // oglplus
 

@@ -31,6 +31,7 @@ namespace shapes {
 template <typename Type>
 class RevolveY
  : public DrawingInstructionWriter
+ , public DrawMode
 {
 private:
 	const std::vector<Type> _sections, _section_factors;
@@ -139,6 +140,8 @@ private:
 		}
 	}
 public:
+	using DrawMode::Default;
+
 	/// Creates a shape by revolving curve approximation around the y-axis
 	RevolveY(
 		unsigned sections,
@@ -361,7 +364,7 @@ public:
 	typedef std::vector<GLuint> IndexArray;
 
 	/// Returns element indices that are used with the drawing instructions
-	IndexArray Indices(void) const
+	IndexArray Indices(Default = Default()) const
 	{
 		const unsigned sn = _sections.size() - 1;
 		const unsigned n = sn * (2 * _rings + 1);
@@ -388,7 +391,7 @@ public:
 	}
 
 	/// Returns the instructions for rendering
-	DrawingInstructions Instructions(void) const
+	DrawingInstructions Instructions(Default = Default()) const
 	{
 		auto instructions = this->MakeInstructions();
 		const unsigned sn = _sections.size() - 1;
