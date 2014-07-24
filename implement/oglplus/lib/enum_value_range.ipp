@@ -112,6 +112,9 @@ OGLPLUS_ENUM_CLASS_FWD(LimitQuery, GLenum)
 OGLPLUS_ENUM_CLASS_FWD(MemoryBarrierBit, GLbitfield)
 #include <oglplus/enums/memory_barrier_bit_range.ipp>
 
+OGLPLUS_ENUM_CLASS_FWD(NamedStringType, GLenum)
+#include <oglplus/enums/named_string_type_range.ipp>
+
 OGLPLUS_ENUM_CLASS_FWD(ObjectType, GLenum)
 #include <oglplus/enums/object_type_range.ipp>
 

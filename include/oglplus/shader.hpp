@@ -253,6 +253,55 @@ public:
 	 */
 	ObjectOps& Compile(void);
 
+
+#if OGLPLUS_DOCUMENTATION_ONLY || \
+	GL_ARB_shading_language_include
+
+	/// Compiles the shader using the specified include paths
+	/**
+	 *  @post IsCompiled()
+	 *  @throws Error CompileError
+	 *  @see IsCompiled
+	 *
+	 *  @glverreq{ARB,shading_language_include}
+	 *  @glsymbols
+	 *  @glfunref{CompileShaderIncludeARB}
+	 */
+	ObjectOps& CompileInclude(
+		GLsizei count,
+		const GLchar *const *paths,
+		const GLint *lengths
+	);
+
+	/// Compiles the shader using the specified include paths
+	/**
+	 *  @post IsCompiled()
+	 *  @throws Error CompileError
+	 *  @see IsCompiled
+	 *
+	 *  @glverreq{ARB,shading_language_include}
+	 *  @glsymbols
+	 *  @glfunref{CompileShaderIncludeARB}
+	 */
+	ObjectOps& CompileInclude(const GLSLString& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+
+	ObjectOps& CompileInclude(const GLSLStrings& incl)
+	{
+		return CompileInclude(
+			incl.Count(),
+			incl.Parts(),
+			incl.Lengths()
+		);
+	}
+#endif
+
 #if OGLPLUS_DOCUMENTATION_ONLY || \
 	GL_ES_VERSION_3_0 || \
 	GL_VERSION_4_1 || \
