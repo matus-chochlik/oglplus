@@ -10,6 +10,7 @@
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_3}
  *  @oglplus_example_uses_gl{GL_ARB_separate_shader_objects;GL_EXT_direct_state_access}
+ *  @oglplus_example_uses_gl{GL_ARB_shading_language_include}
  *  @oglplus_example_uses_cpp_feat{SCOPED_ENUMS}
  */
 #include <oglplus/gl.hpp>
@@ -103,13 +104,16 @@ public:
 	 , plane(make_plane.size())
 	 , plane_positions(make_plane.size())
 	{
-		std::stringstream plane_count_def;
-		plane_count_def << "#define PlaneCount " << plane.size() << '\n';
-		std::string plane_count_def_str = plane_count_def.str();
+		std::stringstream config;
+		config << "#define PlaneCount " << plane.size() << '\n';
 
-		const GLchar* torus_vs_source[3] = {
-			"#version 330\n",
-			plane_count_def_str.c_str(),
+		ShaderInclude config_glsl("/config.glsl", config.str());
+
+		torus_vs.Source(
+			"#version 330\n"
+			"#extension GL_ARB_shading_language_include : enable\n"
+			"#include <config.glsl>\n"
+
 			"uniform mat4 ProjectionMatrix, ModelMatrix, CameraMatrix;"
 			"uniform float ClipSign[PlaneCount];"
 			"uniform vec4 ClipPlane[PlaneCount];"
@@ -133,9 +137,7 @@ public:
 			"		CameraMatrix *"
 			"		gl_Position;"
 			"}"
-		};
-		torus_vs.Source(3, torus_vs_source, nullptr);
-		torus_vs.Compile();
+		).CompileInclude("/");
 
 		torus_fs.Source(
 			"#version 330\n"
@@ -149,8 +151,7 @@ public:
 			"	) % 2;"
 			"	fragColor = vec4(1-i/2, 1-i/2, 1-i/2, 1.0);"
 			"}"
-		);
-		torus_fs.Compile();
+		).Compile();
 
 		torus_prog.AttachShader(torus_vs);
 		torus_prog.AttachShader(torus_fs);
@@ -186,9 +187,11 @@ public:
 			attr.Enable();
 		}
 
-		const GLchar* plane_vs_source[3] = {
-			"#version 330\n",
-			plane_count_def_str.c_str(),
+		plane_vs.Source(
+			"#version 330\n"
+			"#extension GL_ARB_shading_language_include : enable\n"
+			"#include <config.glsl>\n"
+
 			"uniform mat4 ProjectionMatrix, CameraMatrix;"
 			"uniform float ClipSign[PlaneCount];"
 			"uniform vec4 ClipPlane[PlaneCount];"
@@ -213,9 +216,7 @@ public:
 			"		0.4*Position.xyz"
 			"	);"
 			"}"
-		};
-		plane_vs.Source(3, plane_vs_source, nullptr);
-		plane_vs.Compile();
+		).CompileInclude("/");
 
 		plane_fs.Source(
 			"#version 330\n"
@@ -225,8 +226,7 @@ public:
 			"{"
 			"	fragColor = vec4(vertColor, 0.7);"
 			"}"
-		);
-		plane_fs.Compile();
+		).Compile();
 
 		plane_prog.AttachShader(plane_vs);
 		plane_prog.AttachShader(plane_fs);
